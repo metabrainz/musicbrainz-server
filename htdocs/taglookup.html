@@ -261,7 +261,7 @@ if (scalar(@coll_list) > 1)
 }
 
 if ($artist eq '' && $artistid eq '' && $album eq '' && $albumid eq '' && 
-    $track eq '' && $trackid eq '')
+    $track eq '' && $trackid eq '' && $filename eq '' && $filename eq '')
 {
     </%perl>
 
@@ -278,7 +278,7 @@ if ($artist eq '' && $artistid eq '' && $album eq '' && $albumid eq '' &&
     return undef;
 }
 
-if ($artist eq '' && $artistid eq '' && 
+if ($artist eq '' && $artistid eq '' && $filename eq '' && $filename eq '' &&
     ($album ne '' || $albumid ne '' || $track ne '' || $trackid ne ''))
 {
     </%perl>
@@ -540,6 +540,11 @@ else
                            album=>$album, albumobj=>$ts->{album}, data=>\%data &>
    <%perl>
 }
+
+$orig_data{artist} = $data{artist} if ($orig_data{artist} eq '');
+$orig_data{album} = $data{album} if ($orig_data{album} eq '');
+$orig_data{track} = $data{track} if ($orig_data{track} eq '');
+$orig_data{tracknum} = $data{tracknum} if ($orig_data{tracknum} == 0);
 </%perl>
 
 <br>
