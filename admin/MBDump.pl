@@ -101,7 +101,7 @@ if (DumpAllTables($dir))
     system("date > /tmp/mbdump/timestamp");
     OutputLicense("/tmp/mbdump/COPYING");
     print "Creating tar archive...\n";
-    (!(system("tar -C /tmp -cIf $outfile mbdump") >> 8))
+    (!(system("tar -C /tmp -c mbdump | bzip2 -c > $outfile") >> 8))
        or die("Cannot write outputfile.\n");
 }
 
