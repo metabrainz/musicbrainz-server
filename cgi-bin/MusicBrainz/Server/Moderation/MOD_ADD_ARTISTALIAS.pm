@@ -56,9 +56,7 @@ sub ApprovedAction
 	my $al = Alias->new($self->{DBH});
 	$al->SetTable("ArtistAlias");
 	
-	my $result = $al->Insert($self->GetRowId, $self->GetNew);
-	defined($result)
-		or return &ModDefs::STATUS_ERROR;
+	$al->Insert($self->GetRowId, $self->GetNew);
 
 	&ModDefs::STATUS_APPLIED;
 }
