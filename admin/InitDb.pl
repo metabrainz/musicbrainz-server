@@ -62,8 +62,19 @@ sub RunSQLScript
 
 sub Create 
 {
-	system "createuser $opts -U postgres $dbuser"
-		unless $dbuser eq "postgres";
+	unless ($dbuser eq "postgres")
+	{
+		my $use = `
+			echo "select 'EXISTS' from pg_shadow where usename = '$dbuser'" \\
+			| $psql $opts -U postgres -t template1 \\
+			| grep EXISTS
+		`;
+		unless ($? == 0)
+		{
+			print localtime() . " : Creating user '$dbuser'\n";
+			system "createuser $opts -U postgres $dbuser";
+		}
+	}
 
 	system "createdb $opts -U postgres -E UNICODE --owner=$dbuser $dbname";
 	system "createlang $opts -U postgres -d $dbname plpgsql";
