@@ -35,6 +35,16 @@ $artist->LoadFromId()
 		1, 1,
 	);
 
+if (@trackname == 0)
+{
+	for (my $i = 1; ; ++$i)
+	{
+		defined(my $n = $ARGS{"trackname$i"})
+			or last;
+		push @trackname, $n;
+	}
+}
+
 my @names = grep /\S/, @trackname;
 $numtracks = @names if $numtracks < @names;
 
@@ -100,6 +110,8 @@ for (@names[0..$numtracks-1])
 
 <& /comp/stylemenu &>
 
+<script type="text/javascript" src="scripts/guess.js"></script>
+
 <form method="post" action="/addnonalbumtracks.html"
 	name="AddAlbumTracks"
 	enctype="application/x-www-form-urlencoded"
@@ -111,7 +123,7 @@ for (@names[0..$numtracks-1])
 				Artist:
 			</td>
 			<td>
-				<% $artist->GetName() %>
+				<a href="/showartist.html?artistid=<% $artistid %>"><% $artist->GetName() %></a>
 			</td>
 		</tr>
 % for (1 .. $numtracks) {
@@ -120,12 +132,20 @@ for (@names[0..$numtracks-1])
 				Track Name:
 			</td>
 			<td>
-				<input type="text" name="trackname" size="40" value="<% $names[$_-1] %>" style="width: 100%">
+				<input type="text" name="trackname<% $_ %>" size="40" value="<% $names[$_-1] %>" style="width: 100%">
+				<script type="text/javascript"><!--
+				document.write(
+					"<\/td><td>"
+					+ "<input type='button' value='Guess Case' " +
+					"onclick='this.form.trackname<% $_ %>.value = GuessCase(this.form.trackname<% $_ %>.value)'>"
+				);
+				document.write(" &nbsp; ");
+				//--></script>
 			</td>
 		</tr>
 % }
 		<tr>
-			<td colspan="2">
+			<td colspan="3">
 				<p style="margin: 1em 0">
 					Enter moderation note (optional):
 				<br>
@@ -144,5 +164,5 @@ for (@names[0..$numtracks-1])
 
 </form>
 
-<& /comp/movefocus, "AddAlbumTracks", "trackname", ($numtracks>1 ? 0 : undef) &>
+<& /comp/movefocus, "AddAlbumTracks", "trackname1" &>
 <& /comp/footer &>
