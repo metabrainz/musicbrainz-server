@@ -68,14 +68,15 @@
 <p>
 <li> It is currently not possible to store all
   information about releases that people might be
-  interested in. Rather than clutter release titles
-  with too much information, the following details
-  should be left out:
+  interested in. Rather than clutter release/track
+  titles with too much information, the following
+  details should be left out:
    <p>
    <ul>
    <li> Disc numbers of CD singles
    <li> Country of origin/import status
    <li> Record label
+   <li> Designation as a "bonus track".
    </ul>
 <p>
 <li> Mix names and other track attributes should be
@@ -110,5 +111,17 @@
    <blockquote>
    <b>This Is the Modern World/All Mod Cons</b>
    </blockquote>
+
+<li>  If the letters <b>EP</b> are part of an EP's
+  title, they should not be removed. Eg. <b>The
+  Sunrise EP</b> by Cause and Effect.
+<p>
+<li> A soundtrack should be given the same title as
+  the film (or other production) it is from.
+<p>
+<li> Tracks or releases without an artist should
+  be filed under <b>[no artist]</b>. This would be
+  appropriate for silence on a VA release, bird
+  song etc.
 
 </ol>
