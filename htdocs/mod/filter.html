@@ -55,6 +55,9 @@ $filter->{"automod"} = ""
 $filter->{"orderby"} = "asc"
 	unless defined $filter->{"orderby"};
 
+$filter->{"voter_type"} = 0
+	unless defined $filter->{"voter_type"};
+
 if (%ARGS)
 {
 	my $sub = sub {
@@ -280,8 +283,35 @@ $session{"moderation_filter"} = $filter; # write
 		<input type="radio" name="orderby" value="asc" <% ($o eq "asc") ? "checked" : "" %>> Oldest first<br>
 		<input type="radio" name="orderby" value="desc" <% ($o eq "desc") ? "checked" : "" %>> Newest first<br>
 	</p>
+
 			</td>
 		</tr>
+
+% my $object_type = $filter->{"object_type"};
+% my $object_id = $filter->{"object_id"};
+% if ($object_type and $object_id) {
+		<tr>
+			<td colspan="2">
+				<h2>Specific Object</h2>
+				<p>
+					Currently set to match only
+					<%perl>
+					if ($object_type eq "album") {
+						$m->out("<a href='/showalbum.html?albumid=$object_id'>this album</a>");
+					} elsif ($object_type eq "track") {
+						$m->out("<a href='/showtrack.html?trackid=$object_id'>this track</a>");
+					} else {
+						$m->out("$object_type #$object_id");
+					}
+					</%perl>.&nbsp;
+					To remove this filter, you must
+					<a href="/mod/filter.html?reset=1&amp;edit=1">clear this form</a>
+					(or use one of the "preset" searches).
+				</p>
+			</td>
+		</tr>
+% }
+
 		<tr>
 			<td colspan="2">
 				<h2>Limit by Moderation ID</h2>
