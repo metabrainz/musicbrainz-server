@@ -7,14 +7,28 @@ $tracks
 
 <%perl>
 
-my ($mb, $di); 
+my ($mb, $di, $sql); 
 
 mc_comp("/comp/sidebar", title=>'Found CD');
 
 $mb = mc_comp("/comp/dblogin");
+$sql = Sql->new($mb->{DBH});
 $di = Discid->new($mb->{DBH});
-$di->Insert($id, $album, $toc);
+
+eval
+{
+   $sql->Begin();
+   $di->Insert($id, $album, $toc);
+   $sql->Commit();
+};
+if ($@)
+{
+   mc_out("A database error occurred: $@");
+   $mb->Logout;
+   return undef;
+}
 $mb->Logout;
+
 </%perl>
  
 Thank you for your submission.
