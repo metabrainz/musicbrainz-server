@@ -1,11 +1,5 @@
-<& /comp/sidebar, title=>"MusicBrainz Client Library HOWTO", 
+<& /comp/sidebar, title=>"MusicBrainz Client Library HOWTO (MM 2.1)", 
                   expand=>'documentation' &>
-
-<center>
-Note: This is the first draft of the client library docs.<br>
-If you have trouble making sense of this, please let<br>
-<a href="mailto:rob@eorbit.net"> me know</a>, and I'll improve the docs.
-</center>
 
 <& /comp/section, title=>'Introduction' &>
 
@@ -39,6 +33,7 @@ programs:
 <li><a href="/docs/mb_client/examples.html#gettrack">gettrack.c</a>   
 <li><a href="/docs/mb_client/examples.html#gettrm">gettrm.c</a>
 <li><a href="/docs/mb_client/examples.html#submittrm">submittrm.c</a>
+<li><a href="/docs/mb_client/examples.html#tagger">tagger.c</a>
 </ul>
 
 <p>
@@ -60,8 +55,8 @@ please refer to the following pages:
 
 <ul>
 <li><a href="/docs/mb_client/index.html">Online Reference</a>
-<li><a href="/docs/mb_client/queries_8h.html">Query Reference</a>
-<li><a href="/docs/mb_client/mb__c_8h.html">Function Reference</a>
+<li><a href="/docs/mb_client/queries_h.html">Query Reference</a>
+<li><a href="/docs/mb_client/mb_c_h.html">Function Reference</a>
 </ul>
 
 <& /comp/section, title=>'Overview' &>
@@ -312,7 +307,7 @@ examples in the examples directory of the MusicBrainz client distribution.
 
 <& /comp/section, title=>'Query Depth' &>
 
-One last thing that needs explaining is the depth of a query. In the
+One more thing that needs explaining is the depth of a query. In the
 graph above, there is a column that shows depth. The depth of the query
 determines the amount of data returned by the server. If you set the 
 depth to 1, the server will only return the list of IDs to artists,
@@ -330,9 +325,73 @@ All of the MBE_GetXXXXId functions will return web URLs that can be
 used to retrieve the RDF that describes the object in question. In order
 to extract the ID from the URL, use the mb_GetIDFromURL function.
 
+<& /comp/section, title=>'Writing a metadata tagger that uses MusicBrainz' &>
 
-<& /comp/section, title=>'Topics to be covered in the future' &>
+If you are interested in writing a metadata tagger (an application that edits
+the metadata in music files using MusicBrainz), you should use the
+<a href="/docs/mb_client/queries_h.html#a72">MBQ_TrackInfoFromTRMId</a> and
+<a href="/docs/mb_client/queries_h.html#a84">MBQ_FileInfoLookup</a>
+functions.
 
-- Creating TRM ids
+<p>
+Your tagging application should carry out the following steps:
+<ol>
+<li>Generate a TRM Id for the file you are looking up. (see below)
+<li>Read the metadata from the file (e.g. ID3 or Vorbiscomment)
+<li>Use <a href="/docs/mb_client/queries_h.html#a72">MBQ_TrackInfoFromTRMId</a> to
+    see if that TRM id is known to MusicBrainz. If so, all the relevant metadata
+    will be returned by the server and that metadata can be written to the file
+    in question. Note: This function may return more than one track, and the tagger
+    application must let the user choose which is the correct track.
+<li>If the track is not known to MusicBrainz, the tagger must use the 
+    <a href="/docs/mb_client/queries_h.html#a84">MBQ_FileInfoLookup</a> function
+    to attempt to match the file with its appropriate metadata in the server.
+<li>Once the tagger has made a match between a TRM id and a track on the server,
+    the tagger should keep a list of TRM Id, Track Id pairs for submission to
+    the server with <a href="http://musicbrainz.eorbit.net/docs/mb_client/queries_h.html#a83">MBQ_SubmitTrackTRMId</a>. These pairs should be batched for a one-time submission to
+    the server in order keep down the number of requests made to the server.
+</ol>
+
+
+The <a href="/docs/mb_client/queries_h.html#a84">MBQ_FileInfoLookup</a> function
+should be explained in a bit more detail. In order to use this function, you need
+to provide the server with all the relevant metadata for the given track. This
+includes TRM Id, artist name, album name, track name, track number, duration 
+(in milliseconds), file name, artist id, album id, and track id.
+
+<p>
+The idea is to have the server match as much information as possible from the
+provded artist, album and track names. The server will do its best to match an
+artist. If more than one matching artist is found, a list of artists is returned.
+The tagger must then present the list of artists to the user and have the user
+choose an artist. The artist id for the chosen artist should then be passed 
+to the server in the artist id field. If an artist id is provided, the artist name is 
+no longer used and can be ommitted.
+
+<p>
+The same process applies to an album. However, if an artist was matched and a album
+name and track name was provided, the server will attempt to find the right track in
+the database, based on album name, track name, track number and duration. Possible
+matches will be returned to the tagger. The tagger must then provide these choices
+to the user and have the user choose the correct track. 
+
+<p>
+Thats it! Once the user has chosen the correct track, the tagger should have everything
+it needs to write the metadata to the file in question.
+
+<p><b>Note:</b> Before you get starting writing a tagger, take a look at the
+client library (2.0.0-pre4 and later) tagger.c example. This example does a 
+large chunk of the tagger work for you. You should be able to grab large chunks of 
+that code and use it in our application (provided your app is LGPL/GPL compatible).
+
+
+<& /comp/section, title=>'Generating TRM Ids' &>
+
+To create a TRM id, you should use the <a href="/download.html">TRM application/library</a>. Why write new code if you can use a library?
+
+<p>
+
+
+And if for some reason you do not want to use the library, go read the code to figure out how to create TRM ids. :-)
 
 <& /comp/footer &>
