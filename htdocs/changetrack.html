@@ -84,6 +84,7 @@ if ($search =~ /\S/ and $trackname =~ /\S/)
 	use HTML::Mason::Tools qw( url_escape );
 	my $url = "/changetrackartist.html?album=$album&tindex=$tindex&modid=$modid";
 	$url .= "&search=" . url_escape($search);
+	$url .= "&solo=1" if $ARGS{solo};
 	$url .= "&firsttime=1"
 		unless $trackname eq $track->GetName;
 
@@ -273,6 +274,7 @@ function UseSplit()
 	<input type="hidden" name="album" value="<% $album %>">
 	<input type="hidden" name="tindex" value="<% $tindex %>">
 	<input type="hidden" name="modid" value="<% $modid %>">
+	<input type="hidden" name="solo" value="<% $ARGS{solo} ? 1 : 0 %>">
 	<input type="hidden" name="orig_artname" value="<% $tar->GetName %>">
 	<input type="hidden" name="orig_track" value="<% $track->GetName %>">
 % if ($did_split) {
