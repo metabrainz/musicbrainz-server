@@ -1,13 +1,14 @@
 <& /comp/sidebar,  title=>'Database license white paper', expand=>'documentation' &>
 
-This document examines the issues involved in applying the
-ideas of Free Software and Open Souce to the realm of relational
-databases. The focus is on the requirements of a copyleft database
-license, called GPL Data License (GDL). Readers are assumed to
-be familiar with topics such as <a href="http://www.fsf.org">Free
-software</a>, <a href="http://www.opensource.org">Open Source</a>, <a
-href="http://www.gnu.org/licenses/licenses.html#WhatIsCopyleft">CopyLeft</a>,
-and <a href="http://www.gnu.org/licenses/licenses.html#TOCGPL">GPL</a>.
+This document examines the issues involved in applying the ideas of
+Free Software and Open Souce to the realm of relational databases. The
+focus is on the requirements of a copyleft database license, called
+GPL Data License (GDL). Readers are assumed to be familiar with
+topics such as <a href="http://www.fsf.org">Free software</a>, 
+<a href="http://www.gnu.org/licenses/licenses.html#WhatIsCopyleft">CopyLeft</a>,
+<a href="http://www.gnu.org/licenses/licenses.html#TOCGPL">GPL</a>,
+and the difference with 
+<a href="http://www.opensource.org">Open Source</a> in general.
 
 <a name="1.">
 <& /comp/section, title=>'1. Do we need a new license?' &>  
@@ -60,15 +61,55 @@ and re-publish the information if you do not give full access. The freedom
 of the users must be preserved. It is not allowed to take the Free Data,
 extend it, and charge users money for this extended version.
 
+The user may do anything within the privacy of his own computer with
+the Free Data. For example, Free Data may be used to check for-profit
+databases for errors or missing information. Only with re-publication
+the copyleft kicks in.
+
 <a name="3.">
-<& /comp/section, title=>'3. Companies and Free Data' &>  
+<& /comp/section, title=>'3. PD, LGPL, and GPL' &>  
+</a>
+
+There is currently no general license for Free Data. For-profit databases
+are protected with custom contracts or copyright law. Databases
+licensed under a Public Domain (PD) license have no restrictions on
+re-publication or derived works. For a Free Data license such as the
+LGPL for databases there are restrictions on re-publication of derived
+works. Re-publishing derived works from an LGPL database is permitted
+as long as the whole new database is made available to the public.
+The LGPL license for software is often used for libraries to increase
+the popularity with users or usage by companies. Using the LGPL license
+for Free Data instead of the GPL could be motivated by similair reasons.
+The GPL database license places further rules on using Open Data. The GPL
+license has strongest focus on freedom, it requires that the Free Data is
+not mixed with a for-profit database when re-published. This additional
+restriction of GPL Free Data results in a strict division of the Free
+world and the for-profit world. In the long term this could result in a
+deminished role of for-profit databases in areas where users can create
+and maintain the Free Data themselves. For example, a Free music database
+with artists and their albums has a large user interest, a Free database
+of ocean water levels and temperatures will not appeal sufficiently large
+and active user group to be viable.  The size, commitment, and computer
+skills of a user group are the important properties that determine if
+a Free database is viable.
+
+A PD database license gives no guarantee and coherense to the
+database. Derived works do not have to be made available to the
+public. Some licenses for software have a rule that derived works
+explicitly carry the name of the creator/author/contributors. For
+databases we feel that this rule to pay credit is not needed to preserve
+Freedom and leave it up to, for example, a web page to mention the
+credits.
+
+<a name="4.">
+<& /comp/section, title=>'4. Companies and Free Data' &>  
 </a>
 
 When companies use Free Data it always implies that the data will be used
 to support their process for generating revenues. This can have both a
 possitive, negative, or neutral impact on the freedom of users. Revenues
 may be obtained from consultancy work that is required to enhance a
-web site with Free Data. Companies may get paid to add a non existing
+web site with Free Data. Companies may get paid to add a non-existing
 feature to Free Data. Companies with an overlapping for-profit database
 may use Free Data to detect faulty or missing records.<p>
 
@@ -89,18 +130,23 @@ profit
 pd
 lgpl
 gpl
+<& /comp/tablebegin, title=>'Company Types', attrs=>'' &>  
+    <table><tr><th>No. milliseconds</th><th>Text</th></tr>
+%   while( scalar(@syncevents) > 2) {
+      <tr>
+%                              shift(@syncevents);
+        <& /comp/tdcell, text=>shift(@syncevents) &>
+        <& /comp/tdcell, text=>shift(@syncevents) &>
+      </tr>
+%   }
+    </table>
+<& /comp/tdcell, text=>'goed' &>  
+<& /comp/tableend, attrs=>'' &>  
 
 not use
 would switch
 stays
 
-<a name="4.">
-<& /comp/section, title=>'4. GPL and LGPL' &>  
-</a>
-
-The different of a GPL license for Data and a LGPL license for Data is the terms for re-publication.
-
-The LGPL is a relaxation of the license to accelarate the usage of the Free Data.
 
 The middleman has stripped it away.
 
