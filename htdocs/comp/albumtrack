@@ -30,7 +30,7 @@ $tr_bgcolor = ($track->GetAlbumJoinModPending()) ? 'bgcolor="#FFFFCC"' : '';
     <td width="75%" <% $bgcolor |n %>>
 % }
 % if ($mbtagger && !$nomod) {
-    <a href="tag:<% $track->GetMBId() %>"><img src="/images/mblookup-tag.gif" 
+    <a href="tag:<% $track->GetMBId() %>:<% $album->GetMBId() %>"><img src="/images/mblookup-tag.gif" 
        alt="Tag" title="Tag the current track" height="13" width="28"
        align="center" border="0"></a>
 % }
