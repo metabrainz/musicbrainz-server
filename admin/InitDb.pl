@@ -73,7 +73,7 @@ sub Create
 		unless ($? == 0)
 		{
 			print localtime() . " : Creating user '$dbuser'\n";
-			system "createuser $opts -U $postgres $dbuser";
+			system "createuser $opts -U $postgres --no-adduser --no-createdb $dbuser";
 		}
 	}
 
