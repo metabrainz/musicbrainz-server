@@ -70,9 +70,15 @@ sub Statement
     my ($sid, $pid, $oid) = map {
 		my $uri = $_->getLabel;
 		my $id = $expat->{__mburi__}{$uri};
-		$id
-			or
-		($expat->{__mburi__}{$uri} = ++$expat->{_next_uri_id_});
+
+		unless ($id)
+		{
+			$id = ++$expat->{_next_uri_id_};
+			$expat->{__mburi__}{$uri} = $id;
+			$expat->{__mburi2__}[$id] = $uri;
+		}
+
+		$id;
 	} ($st->subject, $st->predicate, $st->object);
 
 	push @{$expat->{__mbtriples__}{$pid}}, [ $sid, $oid ]; 
@@ -81,6 +87,9 @@ sub Statement
 sub Extract
 {
     my ($this, $currentURI, $ordinal, $query) = @_;
+
+	my $currentURIid = $this->{uri}{$currentURI}
+		or return undef;
 
 QUERY:
     for my $pred (split /\s/, $query)
@@ -98,56 +107,37 @@ QUERY:
 
 		for my $triple (@$refs)
 		{
-			$this->{uri}->{$$triple[0]} eq $currentURI
+			$this->{uri}->{$$triple[0]} == $currentURIid
 				or next;
 
-			$currentURI = $this->{uri}->{$$triple[1]};
+			$currentURIid = $this->{uri}->{$$triple[1]};
 			next QUERY;
 		}
 
 		return undef;
     }
 
-    return $currentURI;
+    $this->{url2}[$currentURIid];
 }
 
 sub FindNodeByType
 {
-   my ($this, $type, $ordinal) = @_;
-   my ($ref, $refs, $count, $pid);
+ 	my ($this, $type, $ordinal) = @_;
 
-   my $triples = $this->{triples};
+	my $pid = $this->{uri}{$type}
+		or return undef;
 
-   $ordinal = 1 if not defined $ordinal;
-   $count = 0;
+	$ordinal = 1 if not defined $ordinal;
 
-   $pid = crc32($type);
-   foreach $ref (@$triples)
-   {
-       $refs = $this->{index}->{$pid};
-       return undef if (!defined $refs);
-
-       foreach $ref (@{$refs})
-       {
-           $triple = $$triples[$ref]; 
-           #print "$this->{uri}->{$$triple[0]}\n";
-           #print "$this->{uri}->{$$triple[1]}\n";
-           #print "$this->{uri}->{$$triple[2]}\n";
-           if ($this->{uri}->{$$triple[1]} eq $type)
-           {
-              $count++;
-              print "Match!\n\n";
-              return $this->{uri}->{$$ref[0]} if $count == $ordinal;
-           }
-       }
-   }
-   return undef;
+	my $r = $this->{triples}{$pid}
+		or return;
+	$r->[$ordinal-1];
 }
 
 sub Parse
 {
    my ($this, $rdf) = @_;
-   my (%data, %uri, @triples, $ref, %baseuri);
+   my (%data, %uri, @uri, @triples, $ref, %baseuri);
 
    $baseuri{uri} = "";
    my $parser=new RDFStore::Parser::SiRPAC( 
@@ -157,6 +147,7 @@ sub Parse
    {
 		$parser->{_next_uri_id_} = 0;
        $parser->{__mburi__} = \%uri;
+       $parser->{__mburi2__} = \@uri;
        $parser->{__mbtriples__} = \@triples;
        $parser->{__baseuri__} = \%baseuri;
        $parser->parse($rdf);
@@ -172,6 +163,7 @@ sub Parse
    #print STDERR "Parsed ". scalar(@triples) . " triples.\n";
 
    $this->{uri} = \%uri;
+   $this->{uri2} = \@uri;
    $this->{triples} = \@triples;
    $this->{baseuri} = $baseuri{uri};
 
