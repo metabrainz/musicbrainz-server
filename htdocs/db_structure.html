@@ -18,9 +18,8 @@ administration and identification.  All tables have a Id field as a
 technical key that is a locally unique number incremented each time a new
 record is inserted into the table.  
 
-<a name="MusicBrainz I database structure">
+<a name="MusicBrainz I database structure"></a>
 <& /comp/section, title=>'MusicBrainz I database structure' &>  
-</a>
 
 The main tables in the database are
 (with the important fields):
@@ -67,9 +66,8 @@ Additional info:
 </pre>
 
 
-<a name="MusicBrainz II database structure">
+<a name="MusicBrainz II database structure"></a>
 <& /comp/section, title=>'MusicBrainz II database structure' &>  
-</a>
 
 We want to expand MusicBrainz with more information and store more then Artist/Album/Track information. For this we need the help of a serious number of people that are willing to add the information to the thousands of records in our database. If creating the biography of an artist takes a whole day, imagine the total time needed to write 50,000 of them. We need to call upon a large number of people to help us fill this extended database. In the true spirit of MusicBrainz we give all content back to the users. By automatically collecting the information from ID3 tags inside MP3 audio files the MusicBrainz I database was filled with less effort. For MusicBainz II we need to build a large community to add more information to the thousands of existing records.
 
@@ -95,11 +93,10 @@ We want to expand MusicBrainz with more information and store more then Artist/A
 
 <p>The CDDB.com and <a href="http://www.freedb.org">FreeDB.org</a> databases also contain information about tracks/albums/artists however, these databases contain a high number of errros and spelling-mistakes. The aim for MusicBrainz is to build the cleanest possible database. With the new database structure the amount of information is increased by an order of magnitude. This is why it makes sense to implement the database extensions in small increments were the database extension will be used before more extensions are made. 
 
-<a name="MusicBrainz II primairy tables">
-<& /comp/section, title=>'MusicBrainz II primairy tables' &>  
-</a>
+<a name="MusicBrainz II primary tables"></a>
+<& /comp/section, title=>'MusicBrainz II primary tables' &>  
 
-The primairy tables in the MusicBrainz II database are listed here, together with the important fields. The tables are shown with a number of example records to clearly explain the structure. 
+The primary tables in the MusicBrainz II database are listed here, together with the important fields. The tables are shown with a number of example records to clearly explain the structure. 
 
 <pre>
 -Person     Id field as key, RealName, SortName, and a Global ID (GID)
@@ -154,11 +151,10 @@ The primairy tables in the MusicBrainz II database are listed here, together wit
             5         2         7             5
 </pre>
 
-<a name="MusicBrainz II secondairy tables">
-<& /comp/section, title=>'MusicBrainz II secondairy tables' &>  
-</a>
+<a name="MusicBrainz II secondary tables"></a>
+<& /comp/section, title=>'MusicBrainz II secondary tables' &>  
 
-The secondairy tables contain Pop charts, biographies, URL references, pictures, discussions, guitar tabs, etc. The primairy tables only contain info on persons, bands, tracks, and albums.
+The secondary tables contain Pop charts, biographies, URL references, pictures, discussions, guitar tabs, etc. The primary tables only contain info on persons, bands, tracks, and albums.
 
 Fingerprinting, an acoustic identification hash (relatable.com value a.k.a. TRMId)
 <pre>
@@ -231,11 +227,10 @@ URL lists
 
 </pre>
 
-<a name="MusicBrainz II extended tables">
+<a name="MusicBrainz II extended tables"></a>
 <& /comp/section, title=>'MusicBrainz II extended tables' &>  
-</a>
 
-Paul Shape from the UK based Miraclefish cooperation developed a very extensive database design that replaces the above primairy tables with more and elaborate tables. Below the database tables are shown from Paul's Access example database. This database contains over 50 tables including tables with city and instrument information tied to tables: recording, release, track, and song.
+Paul Shape from the UK based Miraclefish cooperation developed a very extensive database design that replaces the above primary tables with more and elaborate tables. Below the database tables are shown from Paul's Access example database. This database contains over 50 tables including tables with city and instrument information tied to tables: recording, release, track, and song.
 <p ALIGN=CENTER>
 <IMG SRC = "images/mbrainz_db_small.jpg" ALT="[Database layout]" width="320" height="240">
 </p>
