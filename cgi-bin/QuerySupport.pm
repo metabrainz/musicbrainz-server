@@ -886,18 +886,18 @@ sub SubmitTrackTRMId
    #lookup the IDs2 associated with the $trmid
    @ids2 = $gu->GetTrackIdsFromGUID($trmid);
    #print "looked up TRMIds @ids2.\n";
-   if (scalar(@ids) > 0 && defined($ids2[0]))
-   {
-      #There already is a track associated with the $trmid
-      if ($ids2[0] != $ids[0]) 
-      {
-         untie %session unless !defined $session_id;
-         return $rdf->ErrorRDF("The TRMId is already associated with" .
-                               " a different track.") 
-      }
-      untie %session unless !defined $session_id;
-      return $rdf->CreateStatus(0);
-   }
+#   if (scalar(@ids) > 0 && defined($ids2[0]))
+#   {
+#      #There already is a track associated with the $trmid
+#      if ($ids2[0] != $ids[0]) 
+#      {
+#         untie %session unless !defined $session_id;
+#         return $rdf->ErrorRDF("The TRMId is already associated with" .
+#                               " a different track.") 
+#      }
+#      untie %session unless !defined $session_id;
+#      return $rdf->CreateStatus(0);
+#   }
    $gu->Insert($trmid,$ids[0]);
 
    if (defined $session_id)

@@ -115,11 +115,42 @@ sub Remove
     my ($this) = @_;
     my ($sql);
 
-    return if (!defined $this->GetId());
+    return undef if (!defined $this->GetId());
   
     $sql = Sql->new($this->{DBH});
     $sql->Do("delete from GUID where id = " . $this->GetId());
     $sql->Do("delete from GUIDJoin where guid = " . $this->GetId());
+
+    return 1;
+}
+
+# Remove all the GUID/GUIDJoins from the database for a given track id. 
+sub RemoveByTrackId
+{
+    my ($this, $trackid) = @_;
+    my ($sql, $sql2, $refcount, @row);
+
+    return undef if (!defined $trackid);
+ 
+    $sql = Sql->new($this->{DBH});
+    if ($sql->Select(qq|select GUIDJoin.id, GUIDJoin.guid from GUIDJoin
+                         where GUIDJoin.track = $trackid|))
+    {
+         $sql2 = Sql->new($this->{DBH});
+         while(@row = $sql->NextRow)
+         {
+             $sql->Do("delete from GUIDJoin where id = $row[0]");
+             ($refcount) = $sql2->GetSingleRow("GUIDJoin", ["count(*)"],
+                                              [ "GUIDJoin.guid", $row[1]]);
+             if ($refcount == 0)
+             {
+                $sql->Do("delete from GUID where id=$row[1]");
+             }
+         }
+         $sql->Finish;
+    }
+
+    return 1;
 }
 
 sub AssociateGUID

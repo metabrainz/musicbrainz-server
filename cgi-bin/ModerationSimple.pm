@@ -592,27 +592,30 @@ sub ApprovedAction
    {
         my $album;
 
-        @row = $sql->NextRow;
-        $trackid = $row[0];
-        $album = $row[1];
-        $album =~ s/^.*?\n//s;
-        $sql->Do(qq/delete from AlbumJoin where Album = $album and
-                         track = $row[0]/);
-
-        $sql->Finish;
-        if ($sql->Select(qq/select count(*) from AlbumJoin
-                                     where track = $trackid/)) 
+        if (@row = $sql->NextRow)
         {
-            @row = $sql->NextRow;
-
-            if ($row[0] == 0)
+            $trackid = $row[0];
+            $album = $row[1];
+            $album =~ s/^.*?\n//s;
+    
+            # Remove the album join for this track
+            $sql->Do(qq/delete from AlbumJoin where Album = $album and
+                             track = $row[0]/);
+    
+            # Now remove the track. The track will only be removed
+            # if there are not more references to it.
+            my $tr = Track->new($this->{DBH});
+            $tr->SetId($trackid);
+            if ($tr->Remove())
             {
-                $sql->Do(qq/delete from Track where id = $trackid/);
+                $status = ModDefs::STATUS_APPLIED;
             }
-            $sql->Finish;
+            else
+            {
+                $status = ModDefs::STATUS_FAILEDDEP;
+            }
         }
-
-        $status = ModDefs::STATUS_APPLIED;
+        $sql->Finish;
    }
 
    return $status;
@@ -653,13 +656,86 @@ sub ApprovedAction
    {
         my $album;
 
-        @row = $sql->NextRow;
-        $album = $row[0];
+        if (@row = $sql->NextRow)
+        {
+            $album = $row[0];
+    
+            my $al = Album->new($this->{DBH});
+            $al->SetId($album);
+            if ($al->Remove())
+            {
+                $status = ModDefs::STATUS_APPLIED;
+            }
+            else
+            {
+                $status = ModDefs::STATUS_FAILEDDEP;
+            }
+        }
+        $sql->Finish;
+   }
 
-        my $al = Album->new($this->{DBH});
-        $al->SetId($album);
-        $al->Remove();
-        $status = ModDefs::STATUS_APPLIED;
+   return $status;
+}
+
+package RemoveArtistModeration;
+use vars qw(@ISA);
+@ISA = 'Moderation';
+
+sub ShowPreviousValue
+{
+   my ($this) = @_;
+
+   my ($name, $id) = split /\n/, $this->{prev};
+
+   if ($this->GetStatus() == ModDefs::STATUS_APPLIED)
+   {
+       return "Old: " . $this->{prev};
+   }
+   else
+   {
+       return "Old: <a href=\"/showartist.html?artistid=$this->{rowid}\">$this->{prev}</a>";
+   }   
+}
+
+sub ShowNewValue
+{
+   my ($this) = @_;
+
+   return qq\New: <span class="bold">$this->{new}</span>\;
+}
+
+sub DeniedAction
+{
+}
+
+sub ApprovedAction
+{
+   my ($this, $rowid) = @_;
+   my ($sql, @row, $trackid);
+   my ($status);
+
+   $status = ModDefs::STATUS_ERROR;
+   $sql = Sql->new($this->{DBH});
+   if ($sql->Select(qq/select rowid from Changes where id = $rowid/))
+   {
+        my $album;
+
+        if (@row = $sql->NextRow)
+        {
+            # Now remove the Artist. The Artist will only be removed
+            # if there are not more references to it.
+            my $ar = Artist->new($this->{DBH});
+            $ar->SetId($row[0]);
+            if ($ar->Remove())
+            {
+                $status = ModDefs::STATUS_APPLIED;
+            }
+            else
+            {
+                $status = ModDefs::STATUS_FAILEDDEP;
+            }
+        }
+        $sql->Finish;
    }
 
    return $status;
@@ -698,14 +774,21 @@ sub ApprovedAction
    $sql = Sql->new($this->{DBH});
    if ($sql->Select(qq/select rowid from Changes where id = $rowid/))
    {
-        @row = $sql->NextRow;
-        $sql->Finish;
+        if (@row = $sql->NextRow)
+        {
+            $sql->Finish;
 
-        $al = Alias->new($this->{DBH});
-        $al->SetTable("ArtistAlias");
-        $al->Remove($row[0]);
-        
-        $status = ModDefs::STATUS_APPLIED;
+            $al = Alias->new($this->{DBH});
+            $al->SetTable("ArtistAlias");
+            if ($al->Remove($row[0]))
+            {
+                $status = ModDefs::STATUS_APPLIED;
+            }
+            else
+            {
+                $status = ModDefs::STATUS_FAILEDDEP;
+            }
+        }
    }
 
    return $status;

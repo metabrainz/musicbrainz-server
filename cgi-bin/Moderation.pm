@@ -59,6 +59,7 @@ my %ModNames = (
     "16" => "Add Album",
     "17" => "Add Artist",
     "18" => "Add Track",
+    "19" => "Remove Artist",
 );
 
 my %ChangeNames = (
@@ -378,6 +379,10 @@ sub CreateModerationObject
    elsif ($type == ModDefs::MOD_ADD_ARTIST)
    {
        return AddArtistModeration->new($this->{DBH});
+   }
+   elsif ($type == ModDefs::MOD_REMOVE_ARTIST)
+   {
+       return RemoveArtistModeration->new($this->{DBH});
    }
 
    return undef;

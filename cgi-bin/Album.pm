@@ -33,6 +33,7 @@ use strict;
 use DBI;
 use DBDefs;
 use Artist;
+use Track;
 
 sub new
 {
@@ -95,28 +96,17 @@ sub Remove
     if ($sql->Select(qq|select AlbumJoin.track from AlbumJoin 
                          where AlbumJoin.album = $album|))
     {
-         $sql2 = Sql->new($this->{DBH});
+         my $tr = Track->new($this->{DBH});
          while(@row = $sql->NextRow)
          {
-             if ($sql2->Select(qq|select count(*) from AlbumJoin 
-                                   where AlbumJoin.album != $album and 
-                                         AlbumJoin.track = $row[0]|))
-             {
-                 if (@row2 = $sql2->NextRow())
-                 {
-                     if ($row2[0] == 0)
-                     {
-                         $sql->Do("delete from Track where id=$row[0]");
-                         $sql->Do("delete from AlbumJoin where track=$row[0]");
-                         # TODO gotta delete trms
-                     }
-                 }
-
-                 $sql2->Finish;
-             }
+             $sql->Do("delete from AlbumJoin where track=$row[0]");
+             $tr->SetId($row[0]);
+             $tr->Remove();
          }
          $sql->Finish;
     }
+
+    return 1;
 }
 
 # Given an album, query the number of tracks present in this album

@@ -71,7 +71,7 @@ use constant VERSION => "1.0.0-pre8";
 # modification are evaluated
 #use constant MOD_PERIOD => 604800;   # 1 week
 #use constant MOD_PERIOD => 172800;   # 2 days
-use constant MOD_PERIOD => 30;   
+use constant MOD_PERIOD => 1;   
 
 # Defines the number of unanimous votes required to pass a mod early
 use constant NUM_UNANIMOUS_VOTES => 5;

@@ -104,12 +104,25 @@ sub Insert
 sub Remove
 {
     my ($this) = @_;
-    my ($sql);
+    my ($sql, $refcount);
 
     return if (!defined $this->GetId());
-  
+
     $sql = Sql->new($this->{DBH});
+
+    # See if there are any tracks that needs this artist
+    ($refcount) = $sql->GetSingleRow("Track", ["count(*)"],
+                                   [ "Track.artist", $this->GetId()]);
+    return undef if ($refcount > 0);
+  
+    # See if there are any albums that needs this artist
+    ($refcount) = $sql->GetSingleRow("Album", ["count(*)"],
+                                   [ "Album.artist", $this->GetId()]);
+    return undef if ($refcount > 0);
+  
     $sql->Do("delete from Artist where id = " . $this->GetId());
+
+    return 1;
 }
 
 # Load an artist record given a name. The name must match exactly.

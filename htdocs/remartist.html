@@ -1,13 +1,11 @@
-<& /comp/sidebar, title=>'Remove Track', expand=>'moderate' &>
+<& /comp/sidebar, title=>'Remove Artist', expand=>'moderate' &>
 
 <%perl>
 
-my ($mb, $id, $trackname, $referer, $tr, $al);
-my ($seq_id, $tracknum, $album, $artist); 
+my ($mb, $artistname, $referer, $ar);
+my ($artist); 
 
-if (!exists $ARGS{album} || $ARGS{album} eq '' ||
-    !exists $ARGS{artist} || $ARGS{artist} eq '' ||
-    !exists $ARGS{id} || $ARGS{id} eq '')
+if (!exists $ARGS{artist} || $ARGS{artist} eq '')
 {
     mc_comp("/comp/badargs");
     return;
@@ -16,18 +14,12 @@ if (!exists $ARGS{album} || $ARGS{album} eq '' ||
 $referer = $r->headers_in->{'Referer'};
 $mb = new MusicBrainz;
 $mb->Login();
-$tr = Track->new($mb->{DBH});
+$ar = Artist->new($mb->{DBH});
 
-$id = $ARGS{id};
-$album = $ARGS{album};
 $artist = $ARGS{artist};
-
-$tr->SetId($id);
-$tr->SetAlbum($album);
-$tr->LoadFromId();
-$trackname = $tr->GetName();
-$tracknum = $tr->GetSequence();
-$seq_id = $tr->GetSequenceId();
+$ar->SetId($artist);
+$ar->LoadFromId();
+$artistname = $ar->GetName();
 
 </%perl>
 
@@ -39,16 +31,16 @@ $seq_id = $tr->GetSequenceId();
 % } else {
 
     <& /comp/tablebegin, gattrs=>"width=\"100%\"",
-       title=>'Remove Track' &>
+       title=>'Remove Artist' &>
 
-    <FORM METHOD="POST" ACTION="/bare/enter_mod.html" NAME="RemoveTrackForm"
+    <FORM METHOD="POST" ACTION="/bare/enter_mod.html" NAME="RemoveArtistForm"
           ENCTYPE="application/x-www-form-urlencoded">  
 
     <table width="100%">
       <tr>
         <td colspan="2">
-        Are you sure you want to remove track 
-        <span class="bold"><% $trackname %></span>?
+        Are you sure you want to remove artist
+        <span class="bold"><% $artistname %></span>?
         </td>
       </tr>
       <tr>
@@ -75,12 +67,12 @@ $seq_id = $tr->GetSequenceId();
     </table>
     <input type="hidden" name="artist0" value="<% $artist %>">
     <input type="hidden" name="type0"
-           value="<% ModDefs::MOD_REMOVE_TRACK %>">
-    <input type="hidden" name="prev0" value="<% $trackname . "\n" %><% $album %>">
+           value="<% ModDefs::MOD_REMOVE_ARTIST %>">
+    <input type="hidden" name="prev0" value="<% $artistname %>">
     <input type="hidden" name="new0" value="DELETE">
-    <input type="hidden" name="table0" value="Track">
+    <input type="hidden" name="table0" value="Artist">
     <input type="hidden" name="column0" value="Name">
-    <input type="hidden" name="id0" value="<% $id %>">
+    <input type="hidden" name="id0" value="<% $artist %>">
     <input type="hidden" name="referer" value="<% $referer %>">
     </form>
       

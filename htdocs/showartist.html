@@ -70,11 +70,21 @@ else
     {
         mc_comp("/comp/modnotice");
         @albums = $artist->GetAlbums();
-        for(;;)
+        if (scalar(@albums) == 0)
         {
-            $album = shift @albums;
-            last if (!defined $album);
-            mc_comp("/comp/album", album=>$album, artist=>$artist, showid=>1);
+            mc_out("<center>This artist has no albums.<br>");
+            mc_out("[ <a href=\"remartist.html?artist=$ARGS{artistid}\">");
+            mc_out("Remove this artist</a> ]</center><br>");
+        }
+        else
+        {
+            for(;;)
+            {
+                $album = shift @albums;
+                last if (!defined $album);
+                mc_comp("/comp/album", album=>$album, artist=>$artist, 
+                                       showid=>1);
+            }
         }
     }
 }

@@ -135,6 +135,8 @@ sub Remove
 
    $sql = Sql->new($this->{DBH});
    $sql->Do("delete from $this->{table} where id = " . $id);
+
+   return 1;
 }
 
 sub GetList

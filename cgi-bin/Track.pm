@@ -346,14 +346,21 @@ sub Insert
 sub Remove
 {
     my ($this) = @_;
-    my ($sql);
+    my ($sql, @row, $refcount, $gu);
 
-    return if (!defined $this->GetId());
+    return undef if (!defined $this->GetId());
   
     $sql = Sql->new($this->{DBH});
+    ($refcount) = $sql->GetSingleRow("AlbumJoin", ["count(*)"],
+                                     [ "AlbumJoin.track", $this->GetId()]);
+    return undef if ($refcount > 0);
+
+    $gu = GUID->new($this->{DBH});
+    $gu->RemoveByTrackId($this->GetId());
+
     $sql->Do("delete from Track where id = " . $this->GetId());
-    $sql->Do("delete from AlbumJoin where track = " . $this->GetId());
-    $sql->Do("delete from GUIDJoin where track = " . $this->GetId());
+
+    return 1;
 }
 
 sub GetAlbumInfo
