@@ -1,3 +1,15 @@
-<span class="bold">The arguments supplied to this page are invalid.</span>
-<br>Please check the arguments and then try loading this page again.
-<p>
+%# vi: set ts=4 sw=4 ft=mason :
+<%perl>
+my ($fHeader, $fFooter) = @_;
+
+$m->comp("/comp/sidebar", title => "Bad Arguments")
+	if $fHeader;
+</%perl>
+
+<p class="bold">The arguments supplied to this page are invalid.</p>
+<p>Please check the arguments and then try loading this page again.</p>
+
+<%perl>
+$m->comp("/comp/footer")
+	if $fFooter;
+</%perl>
