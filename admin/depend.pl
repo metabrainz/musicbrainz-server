@@ -26,15 +26,12 @@
 # This script can either be invoked as "./admin/depend.pl" (main Perl
 # program), or it can be "require"d by the mod_perl server.
 
-BEGIN
+unless (caller)
 {
-	unless (caller)
-	{
-		require FindBin;
-		require lib;
-		no warnings 'once';
-		lib->import("$FindBin::Bin/../cgi-bin");
-	}
+	require FindBin;
+	require lib;
+	no warnings 'once';
+	lib->import("$FindBin::Bin/../cgi-bin");
 }
 
 # Check for various dependencies.
@@ -43,8 +40,14 @@ BEGIN
 # Check that this locale is available.
 # (We check this here because, unlike most other dependencies, this one can go
 # unnoticed for quite a while during the operation of a server).
+require LocaleSaver;
 eval { require POSIX; new LocaleSaver(&POSIX::LC_CTYPE, "en_US.UTF-8"); 1 }
-	or die "setlocale() failed.  Is the en_US.UTF-8 locale installed?";
+	or die "setlocale() failed ($@).  Is the en_US.UTF-8 locale installed?";
+
+use Text::Unaccent;
+unac_string("UTF-8", "test");
+unac_string("UTF-8", undef) eq ""
+	or die "Text::Unaccent can't handle 'undef'";
 
 1;
 # eof depend.pl
