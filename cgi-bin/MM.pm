@@ -63,122 +63,122 @@ sub SetOutputFile
 
 sub ErrorRDF
 {
-   my ($this, @text) = @_;
-   my ($rdf);
+    my ($this, @text) = @_;
+    my ($rdf);
 
-   $rdf = $this->BeginRDFObject;
-   $rdf .= $this->BeginDesc("mq:Result");
-   $rdf .= $this->Element("mq:error", "@text");
-   $rdf .= $this->EndDesc("mq:Result");
-   $rdf .= $this->EndRDFObject;
+    $rdf = $this->BeginRDFObject;
+    $rdf .= $this->BeginDesc("mq:Result");
+    $rdf .= $this->Element("mq:error", "@text");
+    $rdf .= $this->EndDesc("mq:Result");
+    $rdf .= $this->EndRDFObject;
 
-   return $rdf;
+    return $rdf;
 }
 
 sub CreateStatus
 {
-   my ($this, $count) = @_;
-   my $rdf;
+    my ($this, $count) = @_;
+    my $rdf;
 
-   $rdf = $this->BeginRDFObject();
-   $rdf .= $this->BeginDesc("mq:Result");
-   $rdf .= $this->Element("mq:status", "OK");
-   $rdf .= $this->EndDesc("mq:Result");
-   $rdf .= $this->EndRDFObject;
+    $rdf = $this->BeginRDFObject();
+    $rdf .= $this->BeginDesc("mq:Result");
+    $rdf .= $this->Element("mq:status", "OK");
+    $rdf .= $this->EndDesc("mq:Result");
+    $rdf .= $this->EndRDFObject;
 
-   return $rdf;
+    return $rdf;
 }
 
 sub CreateArtistList
 {
-   my ($this, $doc, @ids) = @_;
+    my ($this, $doc, @ids) = @_;
 
-   $this->{status} = "OK";
-   return $this->CreateOutputRDF('artist', @ids);
+    $this->{status} = "OK";
+    return $this->CreateOutputRDF('artist', @ids);
 }
 
 sub CreateAlbum
 {
-   my ($this, $fuzzy, $id) = @_;
+    my ($this, $fuzzy, $id) = @_;
 
-   $this->{status} = $fuzzy ? "Fuzzy" : "OK";
-   return $this->CreateOutputRDF('album', $id);
+    $this->{status} = $fuzzy ? "Fuzzy" : "OK";
+    return $this->CreateOutputRDF('album', $id);
 }
 
 sub CreateAlbumList
 {
-   my ($this, @ids) = @_;
+    my ($this, @ids) = @_;
 
-   $this->{status} = "OK";
-   return $this->CreateOutputRDF('album', @ids);
+    $this->{status} = "OK";
+    return $this->CreateOutputRDF('album', @ids);
 }
 
 sub CreateTrackList
 {
-   my ($this, @ids) = @_;
+    my ($this, @ids) = @_;
 
-   $this->{status} = "OK";
-   return $this->CreateOutputRDF('track', @ids);
+    $this->{status} = "OK";
+    return $this->CreateOutputRDF('track', @ids);
 }
 
 sub CreateDenseTrackList
 {
-   my ($this, $fuzzy, $gids) = @_;
+    my ($this, $fuzzy, $gids) = @_;
 
-   $this->{status} = "OK";
+    $this->{status} = "OK";
 
-   my $out;
-   $out  = $this->BeginRDFObject();
-   $out .= $this->BeginDesc("mq:Result");
-   $out .= $this->Element("mq:status", $fuzzy  ? "Fuzzy" : "OK");
-   $out .= $this->OutputList('track', $gids);
-   $out .= $this->EndDesc("mq:Result") . "\n";
+    my $out;
+    $out  = $this->BeginRDFObject();
+    $out .= $this->BeginDesc("mq:Result");
+    $out .= $this->Element("mq:status", $fuzzy  ? "Fuzzy" : "OK");
+    $out .= $this->OutputList('track', $gids);
+    $out .= $this->EndDesc("mq:Result") . "\n";
 
-   $this->{cache} = [];
-   for my $id (@{$gids})
-   {
-	require Track;
-       my $tr = Track->new($this->{DBH});
-       $tr->SetMBId($id);
-       $tr->LoadFromId();
+    $this->{cache} = [];
+    for my $id (@{$gids})
+    {
+    	require Track;
+     	my $tr = Track->new($this->{DBH});
+      	$tr->SetMBId($id);
+       	$tr->LoadFromId();
 
-       require Artist;
-       my $ar = Artist->new($this->{DBH});
-       $ar->SetId($tr->GetArtist());
-       # TODO This is complaining about the ID being undef
-       $ar->LoadFromId();
+	require Artist;
+	my $ar = Artist->new($this->{DBH});
+	$ar->SetId($tr->GetArtist());
+	# TODO This is complaining about the ID being undef
+	$ar->LoadFromId();
 
-       require Album;
-       my $al = Album->new($this->{DBH});
-       my @ids = $al->GetAlbumIdsFromTrackId($tr->GetId());
-       $al->SetId($ids[0]);
-       $al->LoadFromId();
-       my $tracknum = $al->GetTrackSequence($tr->GetId());
-   
-       $this->AddToCache(0, 'artist', $ar);
+	require Album;
+	my $al = Album->new($this->{DBH});
+	my @ids = $al->GetAlbumIdsFromTrackId($tr->GetId());
+	$al->SetId($ids[0]);
+	$al->LoadFromId();
+	my $tracknum = $al->GetTrackSequence($tr->GetId());
 
-       $out .= $this->OutputTrackRDF({ obj=>$tr }, $al) . "\n";
-       $out .= $this->OutputArtistRDF({ obj=>$ar }) . "\n";
-       $out .= $this->OutputAlbumRDF({ obj=>$al, _track=> [ $tr->GetMBId(), $tracknum ] });
-   }
+	$this->AddToCache(0, 'artist', $ar);
 
-   $out .= $this->EndRDFObject;
+	$out .= $this->OutputTrackRDF({ obj=>$tr }, $al) . "\n";
+	$out .= $this->OutputArtistRDF({ obj=>$ar }) . "\n";
+	$out .= $this->OutputAlbumRDF({ obj=>$al, _track=> [ $tr->GetMBId(), $tracknum ] });
+    }
 
-   if (exists $this->{file})
-   {
-       print {$this->{file}} $out;
-       $out = "";
-   }
+    $out .= $this->EndRDFObject;
 
-   return $out;
+    if (exists $this->{file})
+    {
+      	print {$this->{file}} $out;
+       	$out = "";
+    }
+
+    return $out;
 }
 
 sub CreateTRMList
 {
-   my ($this, @ids) = @_;
+    my ($this, @ids) = @_;
 
-   $this->{status} = "OK";
-   return $this->CreateOutputRDF('trmid', @ids);
+    $this->{status} = "OK";
+    return $this->CreateOutputRDF('trmid', @ids);
 }
 
 # Check for duplicates, then add if not already in cache
@@ -228,7 +228,7 @@ sub GetFromCache
         if (($id && $i->{id} && $i->{id} == $id) ||
             ($mbid && $i->{mbid} && $i->{mbid} eq $mbid))
         {
-            return $i->{obj} 
+            return $i->{obj}
         }
     }
     return undef;
@@ -236,132 +236,132 @@ sub GetFromCache
 
 sub FindReferences
 {
-   my ($this, $curdepth, @ids) = @_;
+    my ($this, $curdepth, @ids) = @_;
 
-   #print STDERR "\n" if ($curdepth > $this->{depth});
-   return if ($curdepth > $this->{depth});
+    #print STDERR "\n" if ($curdepth > $this->{depth});
+    return if ($curdepth > $this->{depth});
 
-   #print STDERR "Find references: $curdepth max: $this->{depth}\n";
-    
-   $curdepth+=2;
+    #print STDERR "Find references: $curdepth max: $this->{depth}\n";
 
-   # Load all of the referenced objects
-   my @newrefs;
-   foreach my $ref (@ids)
-   {
-      #print STDERR "  Object: $ref->{type} ";
-      #print STDERR "$ref->{id} " if defined $ref->{id};
-      #print STDERR "($ref->{mbid}) " if defined $ref->{mbid};
-      #print STDERR "--> ";
-      my $obj = $this->GetFromCache($ref->{type}, $ref->{id}, $ref->{mbid});
-      if (!defined $obj)
-      {
-          $obj = $this->LoadObject($ref->{id}, $ref->{mbid}, $ref->{type});
-      }
-      next if (!defined $obj);
+    $curdepth+=2;
 
-      my $cacheref = $this->AddToCache($curdepth, $ref->{type}, $obj);
-      if (defined $cacheref)
-      {
-           push @newrefs, $this->GetReferences($cacheref, $curdepth);
-      }
-   }
+    # Load all of the referenced objects
+    my @newrefs;
+    foreach my $ref (@ids)
+    {
+	#print STDERR "  Object: $ref->{type} ";
+	#print STDERR "$ref->{id} " if defined $ref->{id};
+	#print STDERR "($ref->{mbid}) " if defined $ref->{mbid};
+	#print STDERR "--> ";
+	my $obj = $this->GetFromCache($ref->{type}, $ref->{id}, $ref->{mbid});
+	if (!defined $obj)
+	{
+	    $obj = $this->LoadObject($ref->{id}, $ref->{mbid}, $ref->{type});
+	}
+	next if (!defined $obj);
 
-   $this->FindReferences($curdepth, @newrefs);
+	my $cacheref = $this->AddToCache($curdepth, $ref->{type}, $obj);
+	if (defined $cacheref)
+	{
+	    push @newrefs, $this->GetReferences($cacheref, $curdepth);
+	}
+    }
+
+    $this->FindReferences($curdepth, @newrefs);
 }
 
 sub CreateOutputRDF
 {
-   my ($this, $type, @ids) = @_;
+    my ($this, $type, @ids) = @_;
 
-   die if (not defined $this->GetBaseURI() || $this->GetBaseURI() eq '');
-   return $this->CreateStatus() if (!defined $ids[0]);
+    die if (not defined $this->GetBaseURI() || $this->GetBaseURI() eq '');
+    return $this->CreateStatus() if (!defined $ids[0]);
 
-   my $depth = $this->GetDepth();
-   return $this->ErrorRDF("Invalid search depth specified.") if ($depth < 1);
+    my $depth = $this->GetDepth();
+    return $this->ErrorRDF("Invalid search depth specified.") if ($depth < 1);
 
-   $this->{cache} = \(my @cache);
+    $this->{cache} = \(my @cache);
 
-   # Create a cache of objects and add the passed object ids without
-   # loading the actual objects
-   my @newrefs;
-   for my $id (@ids)
-   {
-      push @newrefs, +{ id => $id, type => $type };
-   }
+    # Create a cache of objects and add the passed object ids without
+    # loading the actual objects
+    my @newrefs;
+    for my $id (@ids)
+    {
+	push @newrefs, +{ id => $id, type => $type };
+    }
 
-   # Call find references to recursively load and find referenced objects
-   $this->FindReferences(0, @newrefs);
+    # Call find references to recursively load and find referenced objects
+    $this->FindReferences(0, @newrefs);
 
-   # Now that we've compiled a list of objects, output the list and 
-   # the actual objects themselves
+    # Now that we've compiled a list of objects, output the list and
+    # the actual objects themselves
 
-   # Output the actual list of objects, making sure to only
-   # include the first few objects in the cache, not all of them.
-   my $total = scalar(@ids);
-   my @gids;
-   for (my $i = 0; $i < $total; $i++)
-   {
-      if (!defined $cache[$i]->{obj})
-      {
-          if (defined $cache[$i]->{id})
-          {
-              push @gids, $cache[$i]->{id};
-          }
-      }
-      else
-      {
-          push @gids, $cache[$i]->{obj}->GetMBId();
-      }
-   }
+    # Output the actual list of objects, making sure to only
+    # include the first few objects in the cache, not all of them.
+    my $total = scalar(@ids);
+    my @gids;
+    for (my $i = 0; $i < $total; $i++)
+    {
+	if (!defined $cache[$i]->{obj})
+	{
+	    if (defined $cache[$i]->{id})
+	    {
+	       	push @gids, $cache[$i]->{id};
+	    }
+	}
+	else
+	{
+	    push @gids, $cache[$i]->{obj}->GetMBId();
+	}
+    }
 
-   my $out;
-   $out  = $this->BeginRDFObject(exists $this->{file});
-   $out .= $this->BeginDesc("mq:Result");
-   $out .= $this->OutputList($type, \@gids);
-   $out .= $this->EndDesc("mq:Result");
+    my $out;
+    $out  = $this->BeginRDFObject(exists $this->{file});
+    $out .= $this->BeginDesc("mq:Result");
+    $out .= $this->OutputList($type, \@gids);
+    $out .= $this->EndDesc("mq:Result");
 
-   if (exists $this->{file})
-   {
-       print {$this->{file}} $out;
-       $out = "";
-   }
-  
-   # Output all of the referenced objects. Make sure to only output
-   # the objects in the cache that have been loaded. The objects that
-   # have not been loaded will not be output, even though they are
-   # in the cache. (They would've been output if depth was one greater)
-   $total = scalar(@cache);
-   for (my $i = 0; $i < $total; $i++)
-   {
-      next if (!defined $cache[$i]->{depth} || $cache[$i]->{depth} > $depth);
+    if (exists $this->{file})
+    {
+	print {$this->{file}} $out;
+	$out = "";
+    }
 
-      $out .= $this->OutputRDF(\@cache, $cache[$i]);
-      $out .= "\n";
-      if (exists $this->{file})
-      {
-          print {$this->{file}} $out;
-          $out = "";
-      }
-   }
+    # Output all of the referenced objects. Make sure to only output
+    # the objects in the cache that have been loaded. The objects that
+    # have not been loaded will not be output, even though they are
+    # in the cache. (They would've been output if depth was one greater)
+    $total = scalar(@cache);
+    for (my $i = 0; $i < $total; $i++)
+    {
+	next if (!defined $cache[$i]->{depth} || $cache[$i]->{depth} > $depth);
 
-   $out .= $this->EndRDFObject;
-   if (exists $this->{file})
-   {
-       print {$this->{file}} $out;
-       $out = "";
-   }
+	$out .= $this->OutputRDF(\@cache, $cache[$i]);
+	$out .= "\n";
+	if (exists $this->{file})
+	{
+	    print {$this->{file}} $out;
+	    $out = "";
+	}
+    }
 
-   return $out;
+    $out .= $this->EndRDFObject;
+    if (exists $this->{file})
+    {
+	print {$this->{file}} $out;
+	$out = "";
+    }
+
+    return $out;
 }
 
 sub LoadObject
 {
-   my ($this, $id, $mbid, $type) = @_;
-   my $obj;
+    my ($this, $id, $mbid, $type) = @_;
+    my $obj;
 
-   if ($type eq "trmid")
-   {
+    if ($type eq "trmid")
+    {
 	require TRM;
 	$obj = TRM->new($this->{DBH});
 	$obj->SetTRM($id);
@@ -372,213 +372,214 @@ sub LoadObject
 	# other objects.
 	$obj->SetMBId($id);
 	return $obj;
-   }
+    }
 
-   if ($type eq 'artist')
-   {
-      require Artist;
-      $obj = Artist->new($this->{DBH});
-   }
-   elsif ($type eq 'album')
-   {
-      require Album;
-      $obj = Album->new($this->{DBH});
-   }
-   elsif ($type eq 'track')
-   {
-      require Track;
-      $obj = Track->new($this->{DBH});
-   }
-   elsif ($type eq 'trmid')
-   {
-      # In this case, we already have the TRMID, so there is no need to
-      # load an object.
-      $obj = undef;
-   }
+    if ($type eq 'artist')
+    {
+       	require Artist;
+	$obj = Artist->new($this->{DBH});
+    }
+    elsif ($type eq 'album')
+    {
+       	require Album;
+	$obj = Album->new($this->{DBH});
+    }
+    elsif ($type eq 'track')
+    {
+       	require Track;
+	$obj = Track->new($this->{DBH});
+    }
+    elsif ($type eq 'trmid')
+    {
+       	# In this case, we already have the TRMID, so there is no need to
+	# load an object.
+	$obj = undef;
+    }
 
-   return undef if (not defined $obj);
+    return undef if (not defined $obj);
 
-   if (defined $mbid)
-   {
-       $obj->SetMBId($mbid);
-   }
-   else
-   {
-       $obj->SetId($id);
-   }
-   if (!defined $obj->LoadFromId(1))
-   {
-       return undef;
-   }
+    if (defined $mbid)
+    {
+      	$obj->SetMBId($mbid);
+    }
+    else
+    {
+      	$obj->SetId($id);
+    }
 
-   if ($type eq 'album')
-   {
-       my ($di, $index, @albumrefs, $aref);
+    if (!defined $obj->LoadFromId(1))
+    {
+      	return undef;
+    }
 
-       require Discid;
-       $di = Discid->new($this->{DBH});
-       $index = 0;
-       @albumrefs = $di->GetDiscidFromAlbum($obj->GetId());
-       foreach $aref (@albumrefs)
-       {
-          $obj->{"_cdindexid$index"} = $aref->{discid};
-          $index++;
-       }
-   }
+    if ($type eq 'album')
+    {
+      	my ($di, $index, @albumrefs, $aref);
 
-   return $obj;
+       	require Discid;
+	$di = Discid->new($this->{DBH});
+	$index = 0;
+	@albumrefs = $di->GetDiscidFromAlbum($obj->GetId());
+	foreach $aref (@albumrefs)
+	{
+	    $obj->{"_cdindexid$index"} = $aref->{discid};
+	    $index++;
+	}
+    }
+
+    return $obj;
 }
 
 sub OutputList
 {
-   my ($this, $type, $list) = @_;
+    my ($this, $type, $list) = @_;
 
-   my $rdf;
-   $rdf =    $this->Element("mq:status", $this->{status});
-   $rdf .=     $this->BeginDesc("mm:" . $type . "List");
-   $rdf .=       $this->BeginBag();
-   for my $item (@$list)
-   {
-      next if (!defined $item);
-      $rdf .=      $this->Li($this->{baseuri}. "/$type/$item");
-   }
-   $rdf .=       $this->EndBag();
-   $rdf .=     $this->EndDesc("mm:" . $type . "List");
-   $rdf .= "\n";
+    my $rdf;
+    $rdf =    $this->Element("mq:status", $this->{status});
+    $rdf .=     $this->BeginDesc("mm:" . $type . "List");
+    $rdf .=       $this->BeginBag();
+    for my $item (@$list)
+    {
+	next if (!defined $item);
+	$rdf .=      $this->Li($this->{baseuri}. "/$type/$item");
+    }
+    $rdf .=       $this->EndBag();
+    $rdf .=     $this->EndDesc("mm:" . $type . "List");
+    $rdf .= "\n";
 
-   return $rdf;
+    return $rdf;
 }
 
 sub GetReferences
 {
-   my ($this, $ref, $depth) = @_;
+    my ($this, $ref, $depth) = @_;
 
-   return () if not defined $ref;
+    return () if not defined $ref;
 
-   # Artists and TRMIDs do not have any references, so they are not listed here
-   return $this->GetArtistReferences($ref, $ref->{obj}, $depth) 
-       if ($ref->{type} eq 'artist');
-   return $this->GetAlbumReferences($ref, $ref->{obj}, $depth) 
-       if ($ref->{type} eq 'album');
-   return $this->GetTrackReferences($ref, $ref->{obj}, $depth) 
-       if ($ref->{type} eq 'track');
+    # Artists and TRMIDs do not have any references, so they are not listed here
+    return $this->GetArtistReferences($ref, $ref->{obj}, $depth)
+	if ($ref->{type} eq 'artist');
+    return $this->GetAlbumReferences($ref, $ref->{obj}, $depth)
+	if ($ref->{type} eq 'album');
+    return $this->GetTrackReferences($ref, $ref->{obj}, $depth)
+	if ($ref->{type} eq 'track');
 
-   # If this type is not supported return an empty list
-   return ();
+    # If this type is not supported return an empty list
+    return ();
 }
 
 # For an Artist, add a ref for each album
 sub GetArtistReferences
 {
-   my ($this, $ref, $artist, $depth) = @_;
-   my (@albums, @albumids, $album, %info, @ret);
+    my ($this, $ref, $artist, $depth) = @_;
+    my (@albums, @albumids, $album, %info, @ret);
 
-   if ($artist->GetId() == &ModDefs::VARTIST_ID ||
-       $depth >= $this->{depth})
-   {
-       return ();
-   }
+    if ($artist->GetId() == &ModDefs::VARTIST_ID ||
+    $depth >= $this->{depth})
+    {
+	return ();
+    }
 
-   @albums = $artist->GetAlbums();
-   foreach $album (@albums)
-   {
-      next if not defined $album;
-      $info{type} = 'album';
-      $info{id} = $album->GetId();
-      $info{obj} = undef;
-      push @ret, {%info};
-      push @albumids, $album->GetMBId();
-   }
-   $ref->{_artist} = \@albumids;
+    @albums = $artist->GetAlbums();
+    foreach $album (@albums)
+    {
+	next if not defined $album;
+	$info{type} = 'album';
+	$info{id} = $album->GetId();
+	$info{obj} = undef;
+	push @ret, {%info};
+	push @albumids, $album->GetMBId();
+    }
+    $ref->{_artist} = \@albumids;
 
-   return @ret;
+    return @ret;
 }
 
 # And for an album, add the artist ref and a ref for each track
 sub GetAlbumReferences
 {
-   my ($this, $ref, $album, $depth) = @_;
-   # TODO get rid of %info
-   my (@ret, %info);
-   my @ret;
+    my ($this, $ref, $album, $depth) = @_;
+    # TODO get rid of %info
+    my (@ret, %info);
+    my @ret;
 
-   my $albumartist = $album->GetArtist();
-   $info{type} = 'artist';
-   $info{id} = $album->GetArtist();
-   $info{obj} = undef;
-   push @ret, {%info};
+    my $albumartist = $album->GetArtist();
+    $info{type} = 'artist';
+    $info{id} = $album->GetArtist();
+    $info{obj} = undef;
+    push @ret, {%info};
 
-   if ($depth < $this->{depth})
-   {
-      my @tracks = $album->LoadTracks();
-      my @trackids;
-      for my $track (@tracks)
-      {
-         next if not defined $track;
-         if ($albumartist == VARTIST_ID)
-         {
-             $info{type} = 'artist';
-             $info{id} = $track->GetArtist();
-             $info{obj} = undef;
-             push @ret, {%info};
-         }
-   
-         $info{type} = 'track';
-         $info{obj} = $track;
-         $info{id} = $track->GetId();
-         push @ret, {%info};
-   
-         push @trackids, { id=>$track->GetMBId(), 
-                           tracknum=>$track->GetSequence() };
-      }
-      $ref->{_album} = \@trackids;
-   }
+    if ($depth < $this->{depth})
+    {
+	my @tracks = $album->LoadTracks();
+	my @trackids;
+	for my $track (@tracks)
+	{
+	    next if not defined $track;
+	    if ($albumartist == VARTIST_ID)
+	    {
+		$info{type} = 'artist';
+		$info{id} = $track->GetArtist();
+		$info{obj} = undef;
+		push @ret, {%info};
+	    }
 
-   return @ret;
+	    $info{type} = 'track';
+	    $info{obj} = $track;
+	    $info{id} = $track->GetId();
+	    push @ret, {%info};
+
+	    push @trackids, { id=>$track->GetMBId(),
+     		tracknum=>$track->GetSequence() };
+	}
+	$ref->{_album} = \@trackids;
+    }
+
+    return @ret;
 }
 
 # An for a track, add the artist and album refs
 sub GetTrackReferences
 {
-   my ($this, $ref, $track, $depth) = @_;
-   my (@ret, %info);
+    my ($this, $ref, $track, $depth) = @_;
+    my (@ret, %info);
 
-   # TODO: Should the TRM output also be a seperate depth?
-   $info{type} = 'artist';
-   $info{id} = $track->GetArtist();
-   $info{tracknum} = $track->GetSequence();
-   $info{obj} = undef;
-   push @ret, {%info};
+    # TODO: Should the TRM output also be a seperate depth?
+    $info{type} = 'artist';
+    $info{id} = $track->GetArtist();
+    $info{tracknum} = $track->GetSequence();
+    $info{obj} = undef;
+    push @ret, {%info};
 
-   #$info{type} = 'album';
-   #$info{obj} = undef;
-   #push @ret, {%info};
+    #$info{type} = 'album';
+    #$info{obj} = undef;
+    #push @ret, {%info};
 
-   return @ret;
+    return @ret;
 }
 
 sub OutputRDF
 {
-   my ($this, $cache, $ref) = @_;
+    my ($this, $cache, $ref) = @_;
 
-   if ($ref->{type} eq 'artist')
-   {
-      return $this->OutputArtistRDF($ref);
-   }
-   elsif ($ref->{type} eq 'album')
-   {
-      return $this->OutputAlbumRDF($ref);
-   }
-   elsif ($ref->{type} eq 'track')
-   {
-      return $this->OutputTrackRDF($ref);
-   }
-   elsif ($ref->{type} eq 'trmid')
-   {
-      return "";
-   }
+    if ($ref->{type} eq 'artist')
+    {
+	return $this->OutputArtistRDF($ref);
+    }
+    elsif ($ref->{type} eq 'album')
+    {
+	return $this->OutputAlbumRDF($ref);
+    }
+    elsif ($ref->{type} eq 'track')
+    {
+    	return $this->OutputTrackRDF($ref);
+    }
+    elsif ($ref->{type} eq 'trmid')
+    {
+	return "";
+    }
 
-   return "";
+    return "";
 }
 
 1;
