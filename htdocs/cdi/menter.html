@@ -34,8 +34,7 @@ if ($freedb)
 
 </%perl>
 
-<& /comp/cdi/entervalidate, formname=>"EnterCD", ismac=>1, 
-                            tracks=>$tracks &>
+<& /comp/cdi/entervalidate &>
 
 % if (defined $lookup) {
      Found CD <font class="bold"><% $lookup->{album} %></font>
@@ -120,7 +119,9 @@ if ($freedb)
 % }
 
 <form method="POST" action="/cdi/done.html" Name="EnterCD"
-      enctype="application/x-www-form-urlencoded" class="formstyle">
+      enctype="application/x-www-form-urlencoded" class="formstyle"
+      onsubmit="return validate(this);">
+      
 
 <table>
 <tr>
@@ -200,6 +201,5 @@ for($i = 0; $i < $tracks; $i++)
 <input type="hidden" name="id" value="<% $id %>">
 <input type="hidden" name="toc" value="<% $toc %>">
 <input type="hidden" name="tracks" value="<% $tracks %>">
-<input type="submit" value="Next>>" name="Next"
-       onClick="return validate(form);">
+<input type="submit" value="Next>>" name="Next">
 </form>

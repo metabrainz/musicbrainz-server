@@ -132,8 +132,7 @@ else
 
 </%perl>
 
-<& /comp/cdi/entervalidate, formname=>"EnterCD", ismac=>0, 
-                            tracks=>$tracks &>
+<& /comp/cdi/entervalidate &>
 
 Retrieved CD <font class="bold"><% $lookup->{album} %></font> 
 by <font class="bold"><% $lookup->{artist} %></font> at
@@ -202,7 +201,8 @@ my ($artistname, $sortname, $trackname, $temp);
 </%perl>
 
 <form method="POST" action="/cdi/done.html" Name="EnterCD"
-      enctype="application/x-www-form-urlencoded" class="formstyle">
+      enctype="application/x-www-form-urlencoded" class="formstyle"
+      onsubmit="return validate(this);">
 <table>
 
 %   if (!$mac) {
@@ -302,8 +302,7 @@ my ($artistname, $sortname, $trackname, $temp);
 % }
 <input type="hidden" name="freedbid" value="<% $id %>">
 <input type="hidden" name="tracks" value="<% $tracks %>">
-<input type="submit" value="Next>>" name="Next"
-       onClick="return validate();">
+<input type="submit" value="Next>>" name="Next">
 </form>
 
 <& /comp/footer &>
