@@ -12,7 +12,6 @@
 <!ELEMENT Name              (#PCDATA)>
 <!ELEMENT Offset            (#PCDATA)>
 <!ELEMENT NumTracks         (#PCDATA)>
-<!ATTLIST ID Fuzzy          NMTOKEN #IMPLIED>
 <!ATTLIST Offset Num        NMTOKEN #REQUIRED>
 <!ATTLIST Track Num         NMTOKEN #REQUIRED
                 Duration    NMTOKEN #IMPLIED>
