@@ -35,6 +35,9 @@ my $psql = "psql";
 use Getopt::Long;
 use strict;
 
+chdir $FindBin::Bin or die "cd $FindBin::Bin: $!";
+-d "sql" or die "Couldn't find SQL script directory";
+
 sub Create 
 {
 	system "createdb -U postgres -E UNICODE $dbname";
@@ -57,8 +60,6 @@ sub Create
 
 sub Import
 {
-    my $file;
-
     print "Creating tables ...\n";
     system("$psql -U $dbuser -f sql/CreateTables.sql $dbname");
     die "\nFailed to create tables.\n" if ($? >> 8);
@@ -74,11 +75,6 @@ sub Import
     }
 
     system "echo 'select fill_moderator();' | $psql -U $dbuser $dbname";
-
-    system("$psql -U $dbuser -f sql/tables/currentstat.sql $dbname");
-    die "\nFailed to create tables.\n" if ($? >> 8);
-    system("$psql -U $dbuser -f sql/tables/historicalstat.sql $dbname");
-    die "\nFailed to create tables.\n" if ($? >> 8);
 
     print "Setting initial sequence values ...\n";
     system($^X, "$FindBin::Bin/SetSequences.pl");
@@ -107,11 +103,6 @@ sub Clean
     my $ret;
     
     system("$psql -U $dbuser -f sql/CreateTables.sql $dbname");
-    die "\nFailed to create tables.\n" if ($? >> 8);
-
-    system("$psql -U $dbuser -f sql/tables/currentstat.sql $dbname");
-    die "\nFailed to create tables.\n" if ($? >> 8);
-    system("$psql -U $dbuser -f sql/tables/historicalstat.sql $dbname");
     die "\nFailed to create tables.\n" if ($? >> 8);
 
     system("$psql -U $dbuser -f sql/CreateIndexes.sql $dbname");

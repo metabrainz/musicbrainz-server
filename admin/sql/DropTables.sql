@@ -29,6 +29,9 @@ drop table AlbumWords;
 drop table TrackWords;
 drop table Stats;
 
+DROP TABLE currentstat;
+DROP TABLE historicalstat;
+
 drop sequence album_id_seq;
 drop sequence albumjoin_id_seq;
 drop sequence artist_id_seq;

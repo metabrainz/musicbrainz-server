@@ -93,11 +93,13 @@ sub ImportAllTables
     ImportTable("albumwords", $dir);
     ImportTable("trackwords", $dir);
     ImportTable("stats", $dir);
+    ImportTable("currentstat", $dir);
+    ImportTable("historicalstat", $dir);
 
     return 1;
 }
 
-my ($fHelp, $dir);
+my ($fHelp, $tmpdir);
 
 GetOptions(
 	"help|h"       => \$fHelp,
@@ -106,24 +108,32 @@ GetOptions(
 if (not @ARGV or $fHelp)
 {
     print "Usage: MBImport.pl dumpfile [dumpfile ...]\n\n";
+    print "or:    MBImport.pl dir [dir ...]\n\n";
     print "Make sure to have plenty of diskspace on /tmp!\n";
     exit(0);
 }
 
-$dir = "/tmp/mbdump";
-
-for my $infile (@ARGV)
-{
-	print "Unpacking $infile ...\n";
-	(!(system("tar -C /tmp -vxjf $infile") >> 8))
-		or die("Cannot untar/unzip the database dump.\n");
-}
- 
 my $mb = MusicBrainz->new;
 $mb->Login;
 $sql = Sql->new($mb->{DBH});
 
-ImportAllTables($dir);
+$tmpdir = "/tmp/mbdump";
+
+for my $arg (@ARGV)
+{
+	if (-d $arg)
+	{
+		ImportAllTables($arg);
+	} else {
+		print "Unpacking $arg ...\n";
+		(!(system("tar -C /tmp -vxjf $arg") >> 8))
+			or die("Cannot untar/unzip the database dump.\n");
+		ImportAllTables($tmpdir);
+	}
+}
+ 
 printf "%s: import finished\n", scalar localtime;
 
-system("rm -rf $dir");
+system("rm -rf $tmpdir") if -d $tmpdir;
+
+# vi: set ts=4 sw=4 :

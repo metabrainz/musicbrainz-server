@@ -13,7 +13,7 @@ create table ArtistAlias (
    Id serial primary key,
    Ref int not null references Artist, 
    Name varchar(255) not null, 
-   LastUsed_notz datetime not null default now();,
+   LastUsed_notz datetime not null default now(),
    TimesUsed int default 0,
    ModPending int default 0,
    lastused timestamp with time zone
@@ -170,5 +170,19 @@ create table Stats (
    votes int not null, 
    moderators int not null, 
    timestamp date not null);
+
+CREATE TABLE currentstat
+(
+	name		VARCHAR(100) PRIMARY KEY,
+	value		INTEGER NOT NULL,
+	lastupdated	TIMESTAMP
+);
+
+CREATE TABLE historicalstat
+(
+	name		VARCHAR(100) NOT NULL,
+	value		INTEGER NOT NULL,
+	snapshotdate	DATE NOT NULL
+);
 
 commit;

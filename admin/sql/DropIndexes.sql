@@ -57,3 +57,7 @@ drop index ModerationNote_ModIndex;
 drop index Stats_TimestampIndex;
 
 drop index ClientVersion_Version;
+
+DROP INDEX historicalstat_date;
+DROP UNIQUE INDEX historicalstat_namedate;
+
