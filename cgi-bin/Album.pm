@@ -44,6 +44,8 @@ use LocaleSaver;
 use POSIX qw(:locale_h);
 use Encode qw( decode );
 
+use constant NONALBUMTRACKS_NAME => "[non-album tracks]";
+
 use constant ALBUM_ATTR_NONALBUMTRACKS => 0;
 
 use constant ALBUM_ATTR_ALBUM          => 1;
@@ -68,7 +70,7 @@ use constant ALBUM_ATTR_SECTION_STATUS_START => ALBUM_ATTR_OFFICIAL;
 use constant ALBUM_ATTR_SECTION_STATUS_END   => ALBUM_ATTR_BOOTLEG;
 
 my %AlbumAttributeNames = (
-    0 => [ "Non Album Track", "Non Album Tracks", "(Special case)"],
+    0 => [ "Non-Album Track", "Non-Album Tracks", "(Special case)"],
     1 => [ "Album", "Albums", "An album release primarily consists of previously unreleased material."],
     2 => [ "Single", "Singles", "A single typically has one main song and possibly a handful of additional tracks or remixes of the main track. A single is usually named after its main song."],
     3 => [ "EP", "EPs", "An EP is an Extended Play release and often contains the letters EP in the title."],
@@ -152,32 +154,105 @@ sub IsNonAlbumTracks
    return (scalar(@attrs) == 2 && $attrs[1] == 0);
 }
 
-sub GetOrInsertNonAlbum
+sub FindNonAlbum
 {
 	my ($this, $artist) = @_;
 	$artist ||= $this->GetArtist;
 
 	my $sql = Sql->new($this->{DBH});
-	(my $id) = $sql->SelectSingleValue(
+	my $ids = $sql->SelectSingleColumnArray(
 		"SELECT id FROM album WHERE artist = ?
 		AND attributes[2] = " . &ALBUM_ATTR_NONALBUMTRACKS,
 		$artist,
 	);
 
-	if ($id)
-	{
-		$this->SetId($id);
-		$this->LoadFromId
+	map {
+		my $id = $_;
+		my $o = $this->new($this->{DBH});
+		$o->SetId($id);
+		$o->LoadFromId
 			or die;
-		return $this;
+		$o;
+	} @$ids;
+}
+
+sub CombineNonAlbums
+{
+	my ($class, @albums) = @_;
+
+	$_->{_tracks} = [ $_->LoadTracks ]
+		for @albums;
+
+	# The obvious algorithm is to keep the one with the most tracks.
+	@albums = sort {
+		@{$b->{_tracks}} <=> @{$a->{_tracks}}
+	} @albums;
+
+	my @tracks = map { @{ $_->{_tracks} } } @albums;
+
+	for (@tracks)
+	{
+		my $temp = unac_string('UTF-8', $_->GetName);
+		$temp = lc decode("utf-8", $temp);
+		$_->{_name} = $temp;
+	}
+
+	# Sort tracks alphabetically
+	@tracks = sort {
+		$a->{_name} cmp $b->{_name}
+			or
+		$a->GetId <=> $b->GetId
+	} @tracks;
+
+	$tracks[$_-1]{_new_sequence} = $_
+		for 1..@tracks;
+
+	# Move all the tracks onto the first album
+	my $album = shift @albums;
+	my $sql = Sql->new($album->{DBH});
+
+	for my $t (@tracks)
+	{
+		$sql->Do(
+			"UPDATE albumjoin SET album = ?, sequence = ?
+				WHERE track = ? AND album = ?",
+			$album->GetId,
+			$t->{_new_sequence},
+			$t->GetId,
+			$t->GetAlbum,
+		) or die;
+	}
+
+	# Delete the other albums
+	for my $del (@albums)
+	{
+		$del->LoadTracks == 0 or die;
+		$del->Remove;
+	}
+
+	$album;
+}
+
+sub GetOrInsertNonAlbum
+{
+	my ($this, $artist) = @_;
+	$artist ||= $this->GetArtist;
+
+	my @albums = $this->FindNonAlbum($artist);
+
+	if (@albums)
+	{
+		@albums = (ref $this)->CombineNonAlbums(@albums)
+			if @albums > 1;
+		return $albums[0];
 	}
 
 	# There doesn't seem to be a non-album for this artist, so we'll
 	# insert one.
 	$this->SetArtist($artist);
-	$this->SetName("Non-album tracks");
+	$this->SetName(&NONALBUMTRACKS_NAME);
 	$this->SetAttributes(&ALBUM_ATTR_NONALBUMTRACKS);
-	$id = $this->Insert;
+	my $id = $this->Insert;
 
 	$this->LoadFromId
 		or die;
@@ -214,8 +289,11 @@ sub Insert
     # Add search engine tokens.
     # TODO This should be in a trigger if we ever get a real DB.
 
-    my $engine = SearchEngine->new($this->{DBH}, { Table => 'Album' } );
-    $engine->AddWordRefs($album,$this->{name});
+	unless ($this->IsNonAlbumTracks)
+	{
+		my $engine = SearchEngine->new($this->{DBH}, { Table => 'Album' } );
+		$engine->AddWordRefs($album, $this->GetName);
+	}
 
     return $album;
 }
@@ -224,7 +302,7 @@ sub Insert
 sub Remove
 {
     my ($this) = @_;
-    my ($sql, $sql2, $album, @row, @row2);
+    my ($sql, $album, @row);
 
     $album = $this->GetId();
     return if (!defined $album);
@@ -334,27 +412,6 @@ sub GetAlbumIdsFromTrackId
 	@$r;
 }
 
-# This function takes a track id and returns an array of album ids
-# on which this track appears. The array is empty on error.
-sub GetAlbumIdsFromAlbumJoinId
-{
-   my ($this, $joinid) = @_;
-   my (@albums, $sql, @row);
-
-   $sql = Sql->new($this->{DBH});
-   if ($sql->Select("select distinct album from AlbumJoin where 
-                       id=?", $joinid))
-   {
-        while(@row = $sql->NextRow)
-        {
-            push @albums, $row[0];
-        }
-        $sql->Finish;
-   }
-
-   return @albums;
-}
-
 # Load an album record. Set the album id via the SetId accessor
 # returns 1 on success, undef otherwise. Access the artist info via the
 # accessor functions.
@@ -444,10 +501,19 @@ sub GetAlbumListFromName
 # The array is empty if there are no tracks or on error
 sub LoadTracks
 {
-   my ($this, $full) = @_;
-   my (@info, $query, $query2, $sql, $sql2, @row, @row2, $track, $trm);
+	my ($this, $full) = @_;
+	my $sql = Sql->new($this->{DBH});
+   
+	if (not wantarray)
+	{
+		return $sql->SelectSingleValue(
+			"SELECT COUNT(*) FROM albumjoin WHERE album = ?",
+			$this->GetId,
+		);
+	}
 
-   $sql = Sql->new($this->{DBH});
+   my (@info, $query, $query2, @row, $track, $trm);
+
    $trm = TRM->new($this->{DBH});
    $query = qq|select Track.id, Track.name, Track.artist,
                       AlbumJoin.sequence, Track.length,
@@ -464,6 +530,7 @@ sub LoadTracks
            $track = Track->new($this->{DBH});
            $track->SetId($row[0]);
            $track->SetName($row[1]);
+           $track->SetAlbum($this->{id});
            $track->SetArtist($row[2]);
            $track->SetSequence($row[3]);
            $track->SetLength($row[4]);
@@ -489,7 +556,7 @@ sub LoadTracks
    return @info;
 }
 
-# Load tracks for the given artist. Returns a reference to an array of references to
+# Load albums for the given artist. Returns a reference to an array of references to
 # album objects, or undef if no albums or error
 sub LoadFull
 {
@@ -586,8 +653,9 @@ sub LoadTracksFromMultipleArtistAlbum
    return @info;
 }
 
-# Load trmid counts for current album. Returns an array of Track references
-# The array is empty if there are no tracks or on error
+# Fetch TRM counts for each track of the current album.
+# Returns a reference to a hash, where the keys are track IDs and the values
+# are the TRM counts.  Tracks with no TRMs may or may not be in the hash.
 sub LoadTRMCount
 {
  	my $this = shift;
@@ -716,7 +784,7 @@ sub GetVariousDisplayList
        for(;@row = $sql->NextRow;)
        {
            my $temp = unac_string('UTF-8', $row[1]);
-	   $temp = lc decode("utf-8", $temp);
+			$temp = lc decode("utf-8", $temp);
 
            # Remove all non alpha characters to sort cleaner
            $temp =~ tr/A-Za-z0-9 //cd;
@@ -911,3 +979,4 @@ sub _GetTrackNumbersHash
 }
 
 1;
+# eof Album.pm
