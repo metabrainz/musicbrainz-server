@@ -116,6 +116,7 @@ sub NormalizeDiscNumbers
 
     # TODO use [0-9] instead of \d?
     # TODO undef warnings come from here
+    no warnings;
     if ($name =~ /^(.*)(\(|\[)\s*(disk|disc|cd)\s*(\d+|one|two|three|four)(\)|\])$/i)
     {
         $new = $1;
@@ -126,6 +127,7 @@ sub NormalizeDiscNumbers
         $new = $1;
         $disc = $3;
     }
+    use warnings;
 
     if (defined $new && defined $disc)
     {
