@@ -15,10 +15,37 @@ if ( defined $table && defined $search)
     $engine->AllWords($all_words);
     $engine->Limit($limit) if $limit;
     $engine->Search($search);
+    if ($engine->Rows == 1) 
+    {
+        my ($row, $url);
+        
+        $row = $engine->NextRow;
+        if ($engine->Table eq 'Album') 
+        {
+           $url = "/showalbum.html?albumid=" . $row->[0];
+        }
+        elsif ($engine->Table eq 'Artist') 
+        {
+           $url = "/showartist.html?artistid=" . $row->[0];
+        }
+        elsif ($engine->Table eq 'Track') 
+        {
+           $url = "/showtrack.html?trackid=" . $row->[0];
+        }
+        if (defined $url)
+        {
+           $r->method('GET');
+           $r->headers_in->unset('Content-length');
+           $r->content_type('text/html');
+           $r->header_out(Location=>$url);
+           $r->status(302);
+           return undef;
+        }
+    }
 </%perl>
+
 <& /comp/sidebar, title=>$table . ' Search Results: '.$search &>
     <& /comp/tablebegin, title=>"Found" &>
-
     <table border="0" cellspacing="0" cellpadding="4">
         <tr>
 %    if ($table eq 'Album') {
@@ -62,3 +89,4 @@ if ( defined $table && defined $search)
     <br>
     &nbsp;
   <& /comp/tableend &>
+<& /comp/footer &>
