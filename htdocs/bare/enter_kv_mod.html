@@ -34,9 +34,12 @@ if (!exists $ARGS{confirm0} || $ARGS{confirm0} eq 'yes')
    {
        for($i = 0;; $i++)
        {
+           my $value;
            last if (!exists $ARGS{"key$i"} || !exists $ARGS{"value$i"});
 
-           $new .= $ARGS{"key$i"} . "=" . $ARGS{"value$i"} . "\n";
+           $value = $ARGS{"value$i"};
+           $value =~ /^\s*(.*?)\s*$/$1/;
+           $new .= $ARGS{"key$i"} . "=$value\n";
        }
 
        #print STDERR "$new\n\n";

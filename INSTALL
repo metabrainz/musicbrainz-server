@@ -144,6 +144,10 @@ Installation:
 
        ./MBImport.pl mbdump.tar.bz2
 
+   Then, to reset the Postgres sequence counters, run:
+
+       ./SetSequences.pl
+
    Then, build the keyword indexes for the text searching:
 
        ./build_words.pl
@@ -156,8 +160,6 @@ Installation:
        psql musicbrainz < sql/DropTextIndexes.pl
        psql musicbrainz < sql/CreateTextIndexes.pl
        ./build_words.pl
-
-
 
    This should be it and now you have your very own MusicBrainz server.
 

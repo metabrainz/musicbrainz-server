@@ -51,12 +51,17 @@ for($i = 0;; $i++)
     }
 
     $new = $ARGS{'new' . $i}; 
+    $new =~ s/^\s*(.*?)\s*$/$1/;
     for($j = 0; ; $j++)
     {
         if (defined($ARGS{"extra$i-$j"}) && 
             $ARGS{"extra$i-$j"} ne '')
         {
-            $new .= "\n" . $ARGS{"extra$i-$j"};
+            my $temp;
+
+            $temp = $ARGS{"extra$i-$j"};
+            $temp =~ s/^\s*(.*?)\s*$/$1/;
+            $new .= "\n" . $temp;
         }
         else
         {
