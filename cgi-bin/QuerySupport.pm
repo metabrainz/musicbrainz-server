@@ -35,7 +35,6 @@ use Discid;
 use TableBase;
 use Artist;
 use Track;
-use UserStuff;
 use Moderation;
 use TRM;  
 use FreeDB;  
@@ -653,10 +652,12 @@ sub AuthenticateQuery
    tie %session, 'Apache::Session::File', undef, {
                  Directory => DBDefs::SESSION_DIR,
                  LockDirectory   => DBDefs::LOCK_DIR};
+
    $session{session_key} = $digest;
    $session{uid} = $uid;
    $session{moderator} = $username;
-   $session{expire} = time + 3600;
+   $session{expire} = time + &DBDefs::RDF_SESSION_SECONDS_TO_LIVE;
+
    $session_id = $session{_session_id};
    untie %session;
    print STDERR "Start session: $username $session_id\n";
