@@ -43,14 +43,6 @@ use constant  CD_MSF_OFFSET => 150;
 use constant  CD_FRAMES     =>  75;
 use constant  CD_SECS       =>  60;
 
-sub new
-{
-   my ($type, $dbh) = @_;
-
-   my $this = TableBase->new($dbh);
-   return bless $this, $type;
-}
-
 # private sub
 
 sub _lba_to_msf

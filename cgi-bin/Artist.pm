@@ -41,14 +41,6 @@ use LocaleSaver;
 use POSIX qw(:locale_h);
 use Encode qw( decode encode );
 
-sub new
-{
-   my ($type, $dbh) = @_;
-
-   my $this = TableBase->new($dbh);
-   return bless $this, $type;
-}
-
 # Artist specific accessor function. Others are inherted from TableBase 
 sub GetSortName
 {

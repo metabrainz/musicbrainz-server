@@ -44,14 +44,6 @@ use MIME::QuotedPrint qw( encode_qp );
 use constant AUTOMOD_FLAG => 1;
 use constant BOT_FLAG => 2;
 
-sub new
-{
-	my ($type, $dbh) = @_;
-
-	my $this = TableBase->new($dbh);
-	return bless $this, $type;
-}
-
 sub GetPassword			{ $_[0]{password} }
 sub SetPassword			{ $_[0]{password} = $_[1] }
 sub GetPrivs			{ $_[0]{privs} }

@@ -32,14 +32,6 @@ use strict;
 use DBI;
 use DBDefs;
 
-sub new
-{
-   my ($type, $dbh) = @_;
-
-   my $this = TableBase->new($dbh);
-   return bless $this, $type;
-}
-
 # Accessor functions
 sub GetAlbum
 {

@@ -35,17 +35,6 @@ use RDFStore::NodeFactory;
 
 use integer;
 
-sub new
-{
-    my ($type) = @_;
-    my $this = {};
-
-    $this->{type} = $type;
-
-    bless $this;
-    return $this;
-}
-
 sub GetBaseURI
 {
     my ($this) = @_;

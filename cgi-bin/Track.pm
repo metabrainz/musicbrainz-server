@@ -38,14 +38,6 @@ use Album;
 use Alias;
 use ModDefs;
 
-sub new
-{
-   my ($type, $dbh) = @_;
-
-   my $this = TableBase->new($dbh);
-   return bless $this, $type;
-}
-
 # Accessor functions to set/get the artist id of this album
 sub GetArtist
 {

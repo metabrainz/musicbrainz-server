@@ -35,14 +35,6 @@ use vars qw(@ISA @EXPORT);
 @ISA    = @ISA    = qw(TableBase RDF2);
 @EXPORT = @EXPORT = '';
 
-sub new
-{
-    my ($type, $dbh) = @_;
-
-    my $this = TableBase->new($dbh);
-    return bless $this, $type;
-}
-
 sub SetBaseURI
 {
     my ($this, $uri) = @_;

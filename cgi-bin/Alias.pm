@@ -35,12 +35,10 @@ use SearchEngine;
 
 sub new
 {
-   my ($type, $dbh, $table) = @_;
-
-   my $this = TableBase->new($dbh);
-   $this->{table} = lc $table;
-
-   return bless $this, $type;
+    my ($class, $dbh, $table) = @_;
+    my $self = $class->SUPER::new($dbh);
+    $self->{table} = lc $table;
+    $self;
 }
 
 # Artist specific accessor function. Others are inherted from TableBase

@@ -48,14 +48,6 @@ use constant ALBUMTRACKLIST         => 128;
 use constant FUZZY                  => 256;
 use constant TRACKLIST              => 512;
 
-sub new
-{
-   my ($type, $dbh) = @_;
-
-   my $this = TableBase->new($dbh);
-   return bless $this, $type;
-}
-
 # Used by MQ_2_1.pm
 sub FileInfoLookup
 {

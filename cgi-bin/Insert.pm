@@ -40,19 +40,6 @@ use Moderation;
 use ModDefs;
 use Sql;
 
-sub new
-{
-    my ($type, $dbh) = @_;
-    my $this = {};
-
-    # Use the db handle from the musicbrainz object
-    $this->{DBH} = $dbh;
-    $this->{type} = $type;
-
-    bless $this;
-    return $this;
-}  
-
 sub GetError
 {
     my ($this) = @_;

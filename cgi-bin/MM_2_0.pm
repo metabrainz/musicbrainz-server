@@ -36,15 +36,6 @@ use vars qw(@ISA @EXPORT);
 @ISA    = @ISA    = qw(MM RDF2);
 @EXPORT = @EXPORT = '';
 
-
-sub new
-{
-    my ($type, $dbh) = @_;
-
-    my $this = MM->new($dbh);
-    return bless $this, $type;
-}
-
 sub GetMQNamespace
 {
     my ($this) = @_;
