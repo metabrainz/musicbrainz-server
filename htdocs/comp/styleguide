@@ -2,7 +2,7 @@
 
 <p>
 <ol>
-<li> Use a colon <b>:</b> to separate parts of a title. Take an example
+<li> Use a colon (<b>:</b>) to separate parts of a title. Take an example
      from Etta James:
 
    <blockquote>
@@ -16,9 +16,28 @@
    <b>The Wall (disc 1)</b>
    </blockquote>
 
+  If each CD has a name as well, the disc name should be
+  included as follows:
+
+   <blockquote>
+   <b>Mellon Collie and the Infinite Sadness
+     (disc 2: Twilight to Starlight)</b>
+   </blockquote>
+
+<li> If some copies of a release are accompanied by a
+  "bonus" disc, the bonus disc's name should follow
+  one of the following examples:
+   <p>
+   <b>
+   <ul>
+   <li>Mother Nature Calls (bonus disc)
+   <li>Greatest Hits (bonus disc: Acoustic Hits)
+   </ul>
+   </b>
+
 <li> For CD Box sets that contain more than one
   multiple CD volume, indicate the name of
-  the box set in the title of the album 
+  the box set in the title of the release 
   as follows:
 
    <blockquote>
@@ -33,9 +52,9 @@
    </blockquote>
 
 <li> When two artists collaborate on a track or
-  album, file the track/album under the primary
+  release, file the track/release under the primary
   artist, and then append the name of the
-  secondary artist to the name of the track/album
+  secondary artist to the name of the track/release
   as follows:
 
    <blockquote>
@@ -46,8 +65,8 @@
   choose either artist.
 <p>
 <li> When work from two artists are remixed in the 
-  popular <b>vs.</b> fashion, file the album/track
-  under the mix artist and title the album/track
+  popular <b>vs.</b> fashion, file the release/track
+  under the mix artist and title the release/track
   as follows:
    
    <blockquote>
@@ -56,6 +75,9 @@
 
 <li> Some audio CDs contain extra data tracks. Enter
   <b>[data track]</b> as the name for these tracks.
+  Note, however, that if the data track comes last
+  on the CD and isn't visible in an audio CD player,
+  the track shouldn't be entered into MusicBrainz.
 <p>
 <li> Some CDs contain silent tracks. Enter
   <b>[silence]</b> as the name for these tracks.
@@ -63,7 +85,7 @@
 <li> Some CDs contain unnamed tracks. Enter
   <b>[untitled]</b> as the name for these tracks.
 <p>
-<li> Tracks or CDs whose artist is unknown should be
+<li> Tracks or releases whose artist is unknown should be
   filed under the <b>[unknown]</b> artist.
 <p>
 <li> It is currently not possible to store all
@@ -73,10 +95,11 @@
   details should be left out:
    <p>
    <ul>
-   <li> Disc numbers of CD singles
-   <li> Country of origin/import status
-   <li> Record label
+   <li> Disc numbers of CD singles.
+   <li> Country of release or designation as an import.
+   <li> Record label.
    <li> Designation as a "bonus track".
+   <li> Any other information not discussed in this guide.
    </ul>
 <p>
 <li> Mix names and other track attributes should be
@@ -104,12 +127,12 @@
    </ul>
    </b>
 
-<li> If two albums are re-released on one CD, or if
+<li> If two releases are re-released on one CD, or if
   two songs share the same track, the title should be
   split as follows:
 
    <blockquote>
-   <b>This Is the Modern World/All Mod Cons</b>
+   <b>This Is the Modern World / All Mod Cons</b>
    </blockquote>
 
 <li>  If the letters <b>EP</b> are part of an EP's
