@@ -1,5 +1,15 @@
 <& /comp/sidebar, title=>'Welcome to MusicBrainz!' &>  
 
+% if (DBDefs::DB_STAGING_SERVER) {
+   <center>
+   <font size="+2" color="red">You are using the MusicBrainz staging server!</font>
+   </center>
+   <p>
+   Unless you want to be testing the latest and greatest MusicBrainz features
+   you probably want to <a href="http://www.musicbrainz.org">go here</a>.
+   <p>
+   <hr>
+% }
 
 <p>
    MusicBrainz is the second generation incarnation of the 
@@ -41,7 +51,7 @@
 <& /comp/tablebegin, title=>"Recent News Items" &>
 <table border="0" cellpadding="3">
 <tr>
-   <td valign="top">
+   <td valign="top" nowrap>
    2002-03-13
    </td>
    <td valign="top">
@@ -50,7 +60,7 @@
    </td>
 </tr>
 <tr>
-   <td valign="top">
+   <td valign="top" nowrap>
    2001-03-05
    </td>
    <td valign="top">
@@ -60,7 +70,7 @@
    </td>
 </tr>
 <tr>
-   <td valign="top">
+   <td valign="top" nowrap>
    2002-02-22
    </td>
    <td valign="top">
@@ -72,7 +82,7 @@
    </td>
 </tr>
 <tr>
-   <td valign="top">
+   <td valign="top" nowrap>
    2002-01-18
    </td>
    <td valign="top">
@@ -81,7 +91,7 @@
    </td>
 </tr>
 <tr>
-   <td valign="top">
+   <td valign="top" nowrap>
    2002-01-14
    </td>
    <td valign="top">
@@ -93,7 +103,7 @@
    </td>
 </tr>
 <tr>
-   <td valign="top">
+   <td valign="top" nowrap>
    2001-12-21
    </td>
    <td valign="top">
@@ -103,7 +113,7 @@
    </td>
 </tr>
 <tr>
-   <td valign="top">
+   <td valign="top" nowrap>
    2001-12-20
    </td>
    <td valign="top">
@@ -112,7 +122,7 @@
    </td>
 </tr>
 <tr>
-   <td valign="top">
+   <td valign="top" nowrap>
    2001-12-16
    </td>
    <td valign="top">
