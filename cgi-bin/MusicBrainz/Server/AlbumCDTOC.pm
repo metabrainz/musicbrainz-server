@@ -28,6 +28,7 @@ use strict;
 package MusicBrainz::Server::AlbumCDTOC;
 
 use constant DEBUG_GENERATE_FROM_DISCID => 1;
+use constant AUTO_FREEDB_IMPORTS => 0;
 
 use TableBase;
 { our @ISA = qw( TableBase ) }
@@ -328,23 +329,26 @@ sub GenerateAlbumFromDiscid
 		return $rdf->CreateStatus(0);
 	}
 
-	# Let's pull the records from FreeDB and insert it into the db if we find it
-	require FreeDB;
-	my $fd = FreeDB->new($self->{DBH});
-	my $ref = $fd->Lookup($discid, $toc);
-
-	if (defined $ref)
+	if (AUTO_FREEDB_IMPORTS)
 	{
-		my ($artistid, $albumid, $mods) = $fd->InsertForModeration($ref);
+		# Let's pull the records from FreeDB and insert it into the db if we find it
+		require FreeDB;
+		my $fd = FreeDB->new($self->{DBH});
+		my $ref = $fd->Lookup($discid, $toc);
 
-		printf STDERR "%s [%d] : GenerateAlbumFromDiscid success: FreeDB lookup succeeded (%s insert)\n",
-			scalar localtime, $$,
-			($albumid ? "with" : "without"),
-			if DEBUG_GENERATE_FROM_DISCID;
+		if (defined $ref)
+		{
+			my ($artistid, $albumid, $mods) = $fd->InsertForModeration($ref);
 
-		# If $albumid is true (indicating a FreeDB insert just happened),
-		# maybe we could return $rdf->CreateDenseAlbum(0, [ $mbid-of-$albumid ]) ?
-		return $rdf->CreateFreeDBLookup($ref);
+			printf STDERR "%s [%d] : GenerateAlbumFromDiscid success: FreeDB lookup succeeded (%s insert)\n",
+				scalar localtime, $$,
+				($albumid ? "with" : "without"),
+				if DEBUG_GENERATE_FROM_DISCID;
+
+			# If $albumid is true (indicating a FreeDB insert just happened),
+			# maybe we could return $rdf->CreateDenseAlbum(0, [ $mbid-of-$albumid ]) ?
+			return $rdf->CreateFreeDBLookup($ref);
+		}
 	}
 
 	# This CD can't be found
