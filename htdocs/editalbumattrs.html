@@ -48,7 +48,7 @@ $attrlist = $al->GetAttributeList();
 % } 
 
     <p>
-    Select or deselect the appropriate album attributes below and then 
+    Select the appropriate album attributes below and then 
     click on Submit.<p>
 
     Album <b><% $al->GetName() %></b>:<br>
@@ -60,33 +60,41 @@ $attrlist = $al->GetAttributeList();
       <tr>
         <td>
         <blockquote>
+        <table width="75%">
+        <tr><td colspan=\"3\"><b>Release type:</b></td></tr>
+
         <%perl>
         for(Album::ALBUM_ATTR_SECTION_TYPE_START..Album::ALBUM_ATTR_SECTION_TYPE_END)
         {
+            mc_out("<tr><td valign=\"top\" NOWRAP>");
             mc_out("<input type=\"radio\" name=\"value1\" value=\"$_\"");
             if (scalar(@attrs) > 0 && $attrs[0] == $_)
             {
                 mc_out(" CHECKED");
                 shift @attrs;
             }
-            mc_out("> $attrlist->{$_}<br>");
+            mc_out("></td><td valign=\"top\">$attrlist->{$_}->[0]</td>");
+            mc_out("<td valign=\"top\">$attrlist->{$_}->[1]</td></tr>");
         }
         mc_out("<input type=\"hidden\" name=\"key1\"");
         mc_out(" value=\"AttrType\">");
-        mc_out("<p>");
+        mc_out("<tr><td colspan=\"3\"><br><b>Release status:</b></td></tr>");
         for(Album::ALBUM_ATTR_SECTION_STATUS_START..Album::ALBUM_ATTR_SECTION_STATUS_END)
         {
+            mc_out("<tr><td valign=\"top\" NOWRAP>");
             mc_out("<input type=\"radio\" name=\"value2\" value=\"$_\"");
             if (scalar(@attrs) > 0 && $attrs[0] == $_)
             {
                 mc_out(" CHECKED");
                 shift @attrs;
             }
-            mc_out("> $attrlist->{$_}<br>");
+            mc_out("></td><td valign=\"top\">$attrlist->{$_}->[0]</td>");
+            mc_out("<td valign=\"top\">$attrlist->{$_}->[1]</td></tr>");
         }
         mc_out("<input type=\"hidden\" name=\"key2\"");
         mc_out(" value=\"AttrStatus\">");
         </%perl>
+        </table> 
         </blockquote>
         <p>
         </td>

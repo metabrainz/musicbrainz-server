@@ -63,22 +63,22 @@ use constant ALBUM_ATTR_SECTION_STATUS_START => ALBUM_ATTR_OFFICIAL;
 use constant ALBUM_ATTR_SECTION_STATUS_END   => ALBUM_ATTR_BOOTLEG;
 
 my %AlbumAttributeNames = (
-    0 => "Non Album Tracks",
-    1 => "Album",
-    2 => "Single",
-    3 => "EP",
-    4 => "Compilation",
-    5 => "Soundtrack",
-    6 => "Spokenword",
-    7 => "Interview",
-    8 => "Audiobook",
-    9 => "Live",
-    10 => "Remix",
-    11 => "Other",
+    0 => [ "Non Album Tracks", "Special caseas"],
+    1 => [ "Album", "An album"],
+    2 => [ "Single", "singles, what else"],
+    3 => [ "EP", "Extended play"],
+    4 => [ "Compilation", "more than one artist"],
+    5 => [ "Soundtrack", "for a movie"],
+    6 => [ "Spokenword", "yappin"],
+    7 => [ "Interview", "more yapping"],
+    8 => [ "Audiobook", "tons of yappin"],
+    9 => [ "Live", "live, eh!"],
+    10 => [ "Remix", "Remixedmixed"],
+    11 => [ "Other", "Whatever!"],
 
-    100 => "Official",
-    101 => "Promotion",
-    102 => "Bootleg"
+    100 => [ "Official", "The big cheez puts it out"],
+    101 => [ "Promotion", "And early cheez release"],
+    102 => [ "Bootleg", "Ripping off the artist/cheez"]
 );
 
 sub new
@@ -103,7 +103,12 @@ sub SetArtist
 
 sub GetAttributeName
 {
-   return $AlbumAttributeNames{$_[1]};
+   return $AlbumAttributeNames{$_[1]}->[0];
+}
+
+sub GetAttributeDescription
+{
+   return $AlbumAttributeNames{$_[1]}->[1];
 }
 
 sub GetAttributes
