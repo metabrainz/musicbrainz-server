@@ -1,5 +1,7 @@
 <%args>
 $type=>1
+$artistid=>0
+$albumid=>0
 </%args>
 
 % if (!defined $session{user} || $session{user} eq '') {
@@ -18,6 +20,23 @@ $type=>1
     <& /comp/tableend &>
     </td></tr></table>
     </center>
-% } else {
-    <& /comp/moderatepage, offset=>$ARGS{offset}, type=>$type &>
-% }
+<%perl>
+} 
+else 
+{
+    if ($artistid > 0)
+    {
+        mc_comp("/comp/moderatepage", offset=>$ARGS{offset}, 
+                type=>ModDefs::TYPE_ARTIST, artistid=>$artistid);
+    }
+    elsif ($albumid > 0)
+    {
+        mc_comp("/comp/moderatepage", offset=>$ARGS{offset}, 
+                type=>ModDefs::TYPE_ARTIST, artistid=>$albumid);
+    }
+    else
+    {
+        mc_comp("/comp/moderatepage", offset=>$ARGS{offset}, type=>$type);
+    }
+}
+</%perl>

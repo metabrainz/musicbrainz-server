@@ -30,9 +30,12 @@ use strict;
 use constant ANON_MODERATOR              => 1;
 use constant FREEDB_MODERATOR            => 9999;
 
+# These define the different types of moderation pages that can be shown
 use constant TYPE_NEW                    => 1;
 use constant TYPE_VOTED                  => 2;
 use constant TYPE_MINE                   => 3;
+use constant TYPE_ARTIST                 => 4;
+use constant TYPE_ALBUM                  => 5;
 
 use constant MOD_EDIT_ARTISTNAME         => 1;
 use constant MOD_EDIT_ARTISTSORTNAME     => 2;
@@ -64,5 +67,11 @@ use constant STATUS_ERROR                => 5;
 use constant STATUS_FAILEDPREREQ         => 6;
 use constant STATUS_EVALNOCHANGE         => 7;
 use constant STATUS_DELETED              => 8;
+
+use constant VOTE_NO       => 0;
+use constant VOTE_YES      => 1;
+use constant VOTE_ABS      => -1;
+use constant VOTE_NOTVOTED => -2;
+use constant VOTE_UNKNOWN  => -3;
 
 1;

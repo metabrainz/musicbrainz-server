@@ -75,9 +75,11 @@ my %ChangeNames = (
 );
 
 my %VoteText = (
-    "-1" => "Abstain",
-    "1" => "Yes",
-    "0" => "No"
+    "-3" => "Your vote: Unknown",
+    "-2" => "Not voted",
+    "-1" => "Your vote: Abstain",
+    "1" => "Your vote: Yes",
+    "0" => "Your vote: No"
 );
 
 sub new
@@ -218,14 +220,14 @@ sub SetNew
    $_[0]->{new} = $_[1];
 }
 
-sub GetVoteId
+sub GetVote
 {
-   return $_[0]->{voteid};
+   return $_[0]->{vote};
 }
 
-sub SetVoteId
+sub SetVote
 {
-   $_[0]->{voteid} = $_[1];
+   $_[0]->{vote} = $_[1];
 }
 
 # These accessor function are used as shortcuts to avoid having 
@@ -265,7 +267,7 @@ sub IsNumber
 
 sub GetModificationName
 {
-   return $ModNames{$_[0]};
+   return $ModNames{$_[1]};
 }
 
 sub GetChangeName
@@ -275,7 +277,7 @@ sub GetChangeName
 
 sub GetVoteText
 {
-   return $VoteText{$_[0]};
+   return $VoteText{$_[1]};
 }
 
 # This function will load a change from the database and return
@@ -315,7 +317,7 @@ sub CreateFromId
            $mod->SetNoVotes($row[11]);
            $mod->SetArtistName($row[12]);
            $mod->SetStatus($row[13]);
-           $mod->SetVoteId($row[14]);
+           $mod->SetVote(ModDefs::VOTE_UNKNOWN);
            $mod->SetDepMod($row[15]);
            $mod->SetModerator($row[16]);
        }
@@ -461,9 +463,12 @@ sub CheckSpecialCases
 # This function is designed to return the list of moderations to
 # be shown on one moderation page. This function returns an array
 # of references to Moderation objects.
+# Rowid will not be defined for TYPE_NEW, TYPE_MINE or TYPE_VOTED. 
+# rowid is used only for TYPE_ARTIST and TYPE_ALBUM , and it specifies 
+# the rowid of the artist/album for which to return moderations. 
 sub GetModerationList
 {
-   my ($this, $index, $num, $uid, $type) = @_;
+   my ($this, $index, $num, $uid, $type, $rowid) = @_;
    my ($sql, @data, @row, $num_rows, $total_rows);
    my ($mod, $query);
 
@@ -473,7 +478,8 @@ sub GetModerationList
        $query = qq/select Changes.id, tab, col, Changes.rowid, 
             Changes.artist, type, prevvalue, newvalue, 
             UNIX_TIMESTAMP(TimeSubmitted), ModeratorInfo.name, yesvotes, 
-            novotes, Artist.name, status, 0, count(Votes.id) as num_votes from 
+            novotes, Artist.name, status, / . ModDefs::VOTE_NOTVOTED .
+            qq/, ModeratorInfo.id, count(Votes.id) as num_votes from 
             Artist, ModeratorInfo, Changes left join Votes on Votes.uid = $uid 
             and Votes.rowid=Changes.id where Changes.Artist = Artist.id and 
             ModeratorInfo.id = moderator and moderator != $uid and status = /
@@ -485,23 +491,38 @@ sub GetModerationList
        $query = qq/select Changes.id, tab, col, Changes.rowid, 
             Changes.artist, type, prevvalue, newvalue, 
             UNIX_TIMESTAMP(TimeSubmitted), ModeratorInfo.name, yesvotes, 
-            novotes, Artist.name, status, 0 from Changes, ModeratorInfo, Artist 
+            novotes, Artist.name, status, / . ModDefs::VOTE_NOTVOTED .
+            qq/, ModeratorInfo.id from Changes, ModeratorInfo, Artist 
             where ModeratorInfo.id = moderator and Changes.artist = 
             Artist.id and moderator = $uid order by TimeSubmitted desc limit 
             $index, -1/;
    }
-   else
+   elsif ($type == ModDefs::TYPE_VOTED)
    {
        $query = qq/select Changes.id, tab, col, Changes.rowid, 
             Changes.artist, type, prevvalue, newvalue, 
             UNIX_TIMESTAMP(TimeSubmitted), ModeratorInfo.name, yesvotes, 
-            novotes, Artist.name, status, Votes.vote from Changes, 
-            ModeratorInfo, Artist,
+            novotes, Artist.name, status, Votes.vote, ModeratorInfo.id
+            from Changes, ModeratorInfo, Artist,
             Votes where ModeratorInfo.id = moderator and Changes.artist = 
             Artist.id and Votes.rowid = Changes.id and Votes.uid = $uid 
             order by TimeSubmitted desc limit $index, -1/;
    }
-
+   elsif ($type == ModDefs::TYPE_ARTIST)
+   {
+       $query = qq/select Changes.id, tab, col, Changes.rowid, 
+            Changes.artist, type, prevvalue, newvalue, 
+            UNIX_TIMESTAMP(TimeSubmitted), ModeratorInfo.name, yesvotes, 
+            novotes, Artist.name, status, Votes.vote, ModeratorInfo.id
+            from Changes, ModeratorInfo, Artist,
+            Votes where ModeratorInfo.id = moderator and Changes.artist = 
+            Artist.id and Changes.artist = $rowid and Votes.rowid = Changes.id
+            order by TimeSubmitted desc limit $index, -1/;
+   }
+   else
+   {
+       return undef;
+   }
 
    $sql = Sql->new($this->{DBH});
    if ($sql->Select($query))
@@ -527,12 +548,13 @@ sub GetModerationList
                 $mod->SetNoVotes($row[11]);
                 $mod->SetArtistName($row[12]);
                 $mod->SetStatus($row[13]);
-                $mod->SetVoteId($row[14]);
+                $mod->SetVote($row[14]);
+                $mod->SetModerator($row[15]);
                 push @data, $mod;
             }
             else
             {
-                print STDERR "Could not create ModerationObject ($row[5])\n";
+                print STDERR "Could not create Moderation list ($row[5])\n";
             }
         }
         $sql->Finish;
@@ -549,8 +571,8 @@ sub ShowModType
    my ($out, $type);
 
    $type = $this->GetType();
-   $out = 'Type: <span class="bold">' . GetModificationName($type) . "</span> ";
-   $out .= qq\<br>Artist: <a href="/showartist.html?artistid=$this->{artist}">$this->{artistname}</a>\;
+   $out = 'Type: <span class="bold">' . $this->GetModificationName($type) . 
+          qq\<span> <br>Artist: <a href="/showartist.html?artistid=$this->{artist}">$this->{artistname}</a>\;
    
    return $out;
 }

@@ -1,15 +1,14 @@
 <%args>
 $mod
-$mode
 $notes
 </%args>
 
 <%perl>
 
 my ($ref, $obj, $bold);
-my $voted = $mod->GetVoteId();
+my $voted = $mod->GetVote();
 my $text = "(Your change)";
-if ($voted)
+if ($voted != ModDefs::VOTE_UNKNOWN && $voted != ModDefs::VOTE_NOTVOTED)
 {
    $text = "(Already voted)";
 }
@@ -44,25 +43,30 @@ my $time = sprintf "%d-%02d-%02d %02d:%02d",
    </td>
 </tr>
 <tr>
+
    <td width=37% valign=top bgcolor="#ffecd6" class="body">
      <% $mod->ShowPreviousValue() |n %> 
    </td>
+
    <td width=37% valign=top bgcolor="#f0efff" class="body">
      <% $mod->ShowNewValue() |n %> 
    </td>
+
    <td width=30% align=center valign=top bgcolor=white class="body">
-% if ($mode == ModDefs::TYPE_MINE) {
+
+% if ($session{uid} == $mod->GetModerator()) {
      <% $mod->GetChangeName() |n %>
-% } elsif ($mode == ModDefs::TYPE_VOTED) {
-     <% $mod->GetVoteText($voted) |n %>
-     (<% $mod->GetChangeName() |n %>)
-% } elsif (($session{user} ne $mod->GetModerator() && !$voted) || 
-%          DBDefs::ALLOW_SELF_VOTE) {
+% } elsif ($voted == ModDefs::VOTE_YES || $voted == ModDefs::VOTE_NO ||
+%          $voted == ModDefs::VOTE_ABS) {
+     <% $mod->GetVoteText($voted) |n %> -- <% $mod->GetChangeName() |n %>
+% } elsif ($session{uid} != $mod->GetModerator() && 
+%          $voted == ModDefs::VOTE_NOTVOTED) {
      Yes&nbsp;<input type="radio" name="rowid<% $mod->GetId() %>" value="yes">&nbsp;No&nbsp;<input type="radio" name="rowid<% $mod->GetId() %>" value="no">&nbsp;Abst&nbsp;<input type="radio" name="rowid<% $mod->GetId() %>" value="abs" CHECKED>
 % } else {
      <% $text %> 
 % }
    </td>
+
 </tr>
 
 % if (exists $notes->{ $mod->GetId() }) {

@@ -1,5 +1,6 @@
 <%args>
 $type
+$artistid=>0
 </%args>
 
 <%perl>
@@ -46,7 +47,7 @@ elsif ($type == ModDefs::TYPE_VOTED)
     $option1 = '<a href="moderate.html?type=1">New Mods</a>';
     $option2 = '<a href="moderate.html?type=3">My Mods</a>';
 }
-else
+elsif ($type == ModDefs::TYPE_MINE)
 {
     ($num_mods, $total_mods, @info) = 
            $mod->GetModerationList($offset, ($max_items * 2)+1, 
@@ -55,6 +56,20 @@ else
             expand=>"moderate"); 
     $option1 = '<a href="moderate.html?type=1">New Mods</a>';
     $option2 = '<a href="moderate.html?type=2">Old Mods</a>';
+}
+elsif ($type == ModDefs::TYPE_ARTIST)
+{
+    ($num_mods, $total_mods, @info) = 
+           $mod->GetModerationList($offset, ($max_items * 2)+1, 
+                                   $session{uid}, $type, $artistid);
+    mc_comp("/comp/sidebar", title=>'Moderations by Artist',
+            expand=>"moderate"); 
+    $option1 = '<a href="moderate.html?type=1">New Mods</a>';
+    $option2 = '<a href="moderate.html?type=2">Old Mods</a>';
+}
+else
+{
+    return undef;
 }
 
 if ($num_mods > 0)
@@ -100,11 +115,15 @@ if ($num_mods > 0)
    <center>
    <br><br>
 %  if ($type == ModDefs::TYPE_NEW) {
-   There are no new modifications pending.
+   There are no new moderations pending.
 %  } elsif ($type == ModDefs::TYPE_VOTED) {
-   There are no old (voted on) modifications.
+   There are no old (voted on) moderations.
+%  } elsif ($type == ModDefs::TYPE_ARTIST) {
+   There are no moderations for this artist.
+%  } elsif ($type == ModDefs::TYPE_ALBUM) {
+   There are no moderations for this album.
 %  } else {
-   You have not made any modifications.
+   You have not entered any moderations.
 %  }
    </center>
 %}
@@ -132,7 +151,7 @@ for($i = 0; $i < $max_items; $i++)
    $obj = $info[$i];
    last if (!defined $obj);
 
-   mc_comp("/comp/showmod", mod=>$obj, mode=>$type, notes=>$notes);
+   mc_comp("/comp/showmod", mod=>$obj, notes=>$notes);
 }
 $mb->Logout();
 </%perl>
