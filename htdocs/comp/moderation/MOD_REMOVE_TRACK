@@ -3,14 +3,21 @@
 
 <%method ShowPreviousValue>
 % my $this = shift;
+<%perl>
 
-	Old:
-	
-% if ($this->GetStatus == &ModDefs::STATUS_APPLIED) {
-	<% $this->{'prev.name'} %>
+my $al = Album->new($this->{DBH});
+$al->SetId($this->{'prev.albumid'});
+$al->LoadFromId;
+
+</%perl>
+
+% if (not defined $al->GetName) {
+	Track: <% $this->{'prev.name'} %>
 % } else {
-	<a href="/showalbum.html?albumid=<% $this->{'prev.albumid'} %>"
-		><% $this->{'prev.name'} %></a>
+	Track: <a href="/showtrack.html?trackid=<% $this->GetRowId %>"
+		><% $this->{'prev.name'} %></a><br>
+	Album: <a href="/showalbum.html?albumid=<% $this->{'prev.albumid'} %>"
+		><% $al->GetName %></a>
 % }
 
 </%method>
