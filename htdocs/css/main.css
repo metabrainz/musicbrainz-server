@@ -167,11 +167,38 @@ kbd.KbdBlock
 	list-style-image: url(/images/download.gif);
 }
 
+/* [ A | list | of | links ] */
+
 .LinksRow
 {
 	text-align: center;
 	margin-top: 0.7em;
 	margin-bottom: 0.7em;
 }
+
+/* Search Results */
+#SearchResults td,
+#SearchResults th
+{
+	padding-left: 0.8em;
+	padding-right: 0.8em;
+}
+
+/* Album meta, whereever it is shown */
+td.trk, td.did, td.trm { padding: 0.3em 1em; text-align: right }
+td.trk *, td.did *, td.trm * { vertical-align: middle }
+
+/* "Compact" showartist page */
+
+#CompactReleaseList td.rst { padding: 0 1.5em; text-align: center } /* release status */
+#CompactReleaseList td.rtag { padding: 0 1em; text-align: center } /* tag box */
+#CompactReleaseList td.rname { padding: 0 1em } /* release name */
+
+#CompactReleaseList tr.ev { background-color: #eee } /* 'even' rows */
+
+#CompactReleaseList th h2 { margin: 1em 0 0.5em }
+
+/* Mod Pending */
+.mp { background: #ffc }
 
 /* eof */

@@ -96,30 +96,13 @@ my $SortAlbums = sub
 my @albums = $artist->GetAlbums(0, 1);
 
 my $fCompact = $ARGS{compact};
-	$fCompact = (@albums >= UserPreference::get('releases_show_compact'))
+$fCompact = (@albums >= UserPreference::get('releases_show_compact'))
 	if not defined $fCompact;
 
 $m->comp(
 	"/comp/sidebar",
 	pagetitle => "Artist: " . $artist->GetName(),
 	title => '',
-	head => $fCompact ? <<EOF : undef,
-<style type="text/css">
-
-td.trk, td.did, td.trm { padding: 0.3em 1em; text-align: right }
-td.trk *, td.did *, td.trm * { vertical-align: middle }
-td.rst { padding: 0 1.5em; text-align: center }
-td.rtag { padding: 0 1em; text-align: center }
-td.rname { padding: 0 1em }
-
-tr.ev { background-color: #eee }
-
-th h2 { margin: 1em 0 0.5em }
-
-.mp { background: #ffc }
-
-</style>
-EOF
 );
 
     $m->comp("/comp/artisttitle", artist=>$artist);
@@ -332,7 +315,7 @@ EOF
 			if ($fCompact)
 			{
 				</%perl>
-				<table>
+				<table id="CompactReleaseList">
 					<col style="width: 3em; text-align: right">
 					<col style="width: 3em; text-align: right">
 					<col style="width: 5em; text-align: right">

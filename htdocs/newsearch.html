@@ -53,15 +53,7 @@ if ( defined $table && defined $search)
     }
 </%perl>
 
-<& /comp/sidebar, title=>$table . ' Search Results: '.$search, head => '
-<style type="text/css">
-
-#SearchResults td, #SearchResults th { padding-left: 0.8em; padding-right: 0.8em }
-td.trk, td.did, td.trm { padding: 0.3em 1em; text-align: right }
-td.trk *, td.did *, td.trm * { vertical-align: middle }
-
-</style>
-' &>
+<& /comp/sidebar, title=>$table . ' Search Results: '.$search &>
 
     <& /comp/tablebegin, title=>"Found" &>
     <table border="0" cellspacing="0" cellpadding="4" id="SearchResults">
