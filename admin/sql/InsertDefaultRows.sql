@@ -2,7 +2,7 @@ Begin;
 
 insert into Artist (Name, SortName, GID, ModPending, Page) 
       values ('Various Artists', 'Various Artists', 
-              'e06d2236-5806-409f-ac9f-9245844ce5d9', 0, 0); 
+              '89ad4ac3-39f7-470e-963a-56509c546377', 0, 0); 
 
 insert into Artist (Name, SortName, GID, ModPending, Page) 
       values ('Deleted Artist', 'Deleted Artist', 
