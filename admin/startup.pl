@@ -32,6 +32,7 @@ BEGIN
 	$HTML::Mason::Config{default_cache_tie_class} = "MLDBM";
 	$HTML::Mason::Config{mldbm_serializer} = "Storable";
 	$HTML::Mason::Config{mldbm_use_db} = "DB_File";
+	$HTML::Mason::Config{use_time_hires} = 1;
 }
 
 # Alphabetical order, for ease of maintenance
