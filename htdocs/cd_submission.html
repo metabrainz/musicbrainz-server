@@ -25,9 +25,9 @@ broken into sectors, where each sector represents 1/75th of a second of sound.
 So, 75 sectors on a CD equate to 1 second of sound.
 
 <p>
-The CD Index Id is calculated from the table of contents, and nothing else.
+The CD Index ID is calculated from the table of contents, and nothing else.
 So, if one CD differs from another CD by as little as one single track being 
-longer/shorter by one sector, the CD Index Id will be completely different.
+longer/shorter by one sector, the CD Index ID will be completely different.
 This ensures that each type of CD has a unique identifier, which is important
 for looking up metadata for CDs.
 
@@ -41,15 +41,15 @@ for the album 'The Dark Side of the Moon' by Pink Floyd, for instance.
 
 <p>
 If the CDs from the new batch are off by one sector (as mentioned above)
-they will have a different unique CD Index id. Let's assume that a CD from
+they will have a different unique CD Index ID. Let's assume that a CD from
 a new batch has one track that is shorter by one sector (as compared to
-the previous batch). This yields a different CD Index is, but to the human
+the previous batch). This yields a different CD Index ID, but to the human
 ear the CD will be identical, since humans cannot tell that one track 
 is shorter by 1/75th of a second.
 
 <& /comp/section, title=>'Inserting Audio CD-ROMs into MusicBrainz' &>
 
-Now to explain the MusicBrainz CD insertion process. Lets say you use one of
+Now to explain the MusicBrainz CD insertion process. Let's say you use one of
 the <a href="/download.html">CD Submission tools</a> to submit a CD and you
 find that MusicBrainz doesn't know about the CD. You then proceed to
 select the artist and then MusicBrainz shows you a list of CDs and your CD
@@ -58,25 +58,26 @@ is right there is in the list. What's wrong?
 <p>
 There may be a few things going on:
 <ul>
-<li>MusicBrainz may not have any CD Index Ids for this album.
-<li>MusicBrainz may have a different CD Index Id than you have, thus
+<li>MusicBrainz may not have any CD Index IDs for this album.
+<li>MusicBrainz may have a different CD Index ID than you have, thus
     MusicBrainz already knows about a different pressing of the CD.
 </ul>
 
 <p>
 In either case, you should select the matching CD and let MusicBrainz create
 another <b>association</b> for you. This means that MusicBrainz will now know 
-about the new CD Index Id that you just reported. The next time you 
+about the new CD Index ID that you just reported. The next time you 
 want to look up this CD, MusicBrainz will gladly deliver the data to you.
 
 <p>
 However, that's not all. Let's say that the CD you're looking for is not found.
 In that case, you should select 'CD not found' and then proceed to enter the
 data for that CD, so it can be included in the MusicBrainz database. And, there
-may be yet another case, where MusicBrainz knows about your CD, but it has a different number of tracks than your CD.
+may be yet another case, where MusicBrainz knows about your CD, but it has a
+different number of tracks than your CD.
 
 <p>
-This happens when two different pressings of CD have a different number of 
+This happens when two different pressings of a CD have a different number of 
 tracks. Let's say that a band in the UK releases a CD that contains 10 tracks
 and one bonus track for a total of 11 tracks. Once the CD is released in
 the US, the US record company may decide for some reason to yank the bonus
