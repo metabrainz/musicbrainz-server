@@ -163,6 +163,29 @@ sub Cleanup
 
     # --------------------------------------------------------------------
     
+    print "Invalid albumjoins:\n";
+    $count = 0;
+    $sth = $dbh->prepare(qq|select AlbumJoin.id, AlbumJoin.track 
+                              from AlbumJoin left join Track 
+                                on AlbumJoin.track = Track.id 
+                             where Track.id IS NULL|);
+    if ($sth->execute() && $sth->rows())
+    {
+        my @row;
+
+        while(@row = $sth->fetchrow_array())
+        {
+            print "  AlbumJoin $row[0] references non-existing track $row[1].\n";
+            $count++;
+
+            $dbh->do("delete from AlbumJoin where id = $row[0]") if ($fix);
+        }
+    }
+    $sth->finish;
+    print "Found $count invalid albumjoins.\n\n";
+
+    # --------------------------------------------------------------------
+    
     print "Orphaned trmids:\n";
     $count = 0;
     $sth = $dbh->prepare(qq|select GUIDJoin.id, GUIDJoin.guid, GUIDJoin.track
