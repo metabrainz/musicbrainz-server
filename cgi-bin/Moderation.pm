@@ -641,11 +641,14 @@ sub CheckModifications
                 {
                     # If the prereq. change failed, close this modification
                     $mod = $this->CreateFromId($rowid);
-                    $mod->DeniedAction();
-                    $this->CreditModerator($row[5], 0);
-                    $this->CloseModification($rowid, $row[3], 
-                                             $row[4], 
-                                             ModDefs::STATUS_FAILEDPREREQ);
+                    if (defined $mod)
+                    {
+                        $mod->DeniedAction();
+                        $this->CreditModerator($row[5], 0);
+                        $this->CloseModification($rowid, $row[3], 
+                                                 $row[4], 
+                                                 ModDefs::STATUS_FAILEDPREREQ);
+                    }
                     $sql->Finish;
                     next;
                 }
@@ -658,19 +661,25 @@ sub CheckModifications
                 if ($row[0] > $row[1])
                 {
                     $mod = $this->CreateFromId($rowid);
-                    $status = $mod->ApprovedAction($rowid);
-                    $this->CreditModerator($row[5], 1);
-                    $this->CloseModification($rowid, $row[3], 
-                                             $row[4], $status);
+                    if (defined $mod)
+                    {
+                        $status = $mod->ApprovedAction($rowid);
+                        $this->CreditModerator($row[5], 1);
+                        $this->CloseModification($rowid, $row[3], 
+                                                 $row[4], $status);
+                    }
                 }
                 else
                 {
                     $mod = $this->CreateFromId($rowid);
-                    $mod->DeniedAction();
-                    $this->CreditModerator($row[5], 0);
-                    $this->CloseModification($rowid, $row[3], 
-                                             $row[4], 
-                                             ModDefs::STATUS_FAILEDVOTE);
+                    if (defined $mod)
+                    {
+                        $mod->DeniedAction();
+                        $this->CreditModerator($row[5], 0);
+                        $this->CloseModification($rowid, $row[3], 
+                                                 $row[4], 
+                                                 ModDefs::STATUS_FAILEDVOTE);
+                    }
                 }
             }
             # Are the number of required unanimous votes present?
@@ -679,19 +688,25 @@ sub CheckModifications
                 # A unanimous yes. Apply and the remove from db
 
                 $mod = $this->CreateFromId($rowid);
-                $status = $mod->ApprovedAction($rowid);
-                $this->CreditModerator($row[5], 1);
-                $this->CloseModification($rowid, $row[3], 
-                                         $row[4], $status);
+                if (defined $mod)
+                {
+                    $status = $mod->ApprovedAction($rowid);
+                    $this->CreditModerator($row[5], 1);
+                    $this->CloseModification($rowid, $row[3], 
+                                             $row[4], $status);
+                }
             }
             elsif ($row[1] == DBDefs::NUM_UNANIMOUS_VOTES && $row[0] == 0)
             {
                 # A unanimous no. Remove from db
                 $mod = $this->CreateFromId($rowid);
-                $mod->DeniedAction();
-                $this->CreditModerator($row[5], 0);
-                $this->CloseModification($rowid, $row[3], 
-                                         $row[4], ModDefs::STATUS_FAILEDVOTE);
+                if (defined $mod)
+                {
+                    $mod->DeniedAction();
+                    $this->CreditModerator($row[5], 0);
+                    $this->CloseModification($rowid, $row[3], 
+                                             $row[4], ModDefs::STATUS_FAILEDVOTE);
+                }
             }
             $sql->Finish;
        }
