@@ -179,6 +179,7 @@ supports get / set / add / replace / delete.
 package MusicBrainz::Server::CacheTimer;
 
 use Time::HiRes qw( gettimeofday tv_interval );
+use MusicBrainz::Server::LogFile qw( lprint lprintf );
 
 sub new
 {
@@ -203,7 +204,7 @@ sub DESTROY
 		join(" ", @args),
 		$c0->[1], $c0->[2];
 
-	print STDERR $msg;
+	lprint "cache", $msg;
 }
 
 1;
