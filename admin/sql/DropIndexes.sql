@@ -57,24 +57,17 @@ drop index ArtistAlias_RefIndex;
 
 drop index WordList_WordIndex;
 
-drop index AlbumWords_WordidIndex;
 drop index AlbumWords_AlbumidIndex;
-drop index AlbumWords_AlbumWordIndex;
 
-drop index ArtistWords_WordidIndex;
 drop index ArtistWords_ArtistidIndex;
-drop index ArtistWords_ArtistWordIndex ;
 
-drop index TrackWords_WordidIndex;
 drop index TrackWords_TrackidIndex;
-drop index TrackWords_TrackWordIndex;
 
 drop index Stats_TimestampIndex;
 
 drop index ClientVersion_Version;
 
 DROP INDEX historicalstat_date;
-DROP INDEX historicalstat_namedate;
 
 drop index artist_relation_artist;
 drop index artist_relation_ref;

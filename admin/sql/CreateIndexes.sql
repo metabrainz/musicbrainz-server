@@ -14,7 +14,6 @@ CREATE UNIQUE INDEX albumjoin_albumtrack ON albumjoin (album, track);
 CREATE INDEX albumjoin_trackindex ON albumjoin (track);
 
 CREATE INDEX albumwords_albumidindex ON albumwords (albumid);
-CREATE UNIQUE INDEX albumwords_albumwordindex ON albumwords (wordid,albumid);
 
 CREATE UNIQUE INDEX artist_gidindex ON artist (gid);
 CREATE UNIQUE INDEX artist_nameindex ON artist (name);
@@ -28,7 +27,6 @@ CREATE UNIQUE INDEX artistalias_nameindex ON artistalias (name);
 CREATE INDEX artistalias_refindex ON artistalias (ref);
 
 CREATE INDEX artistwords_artistidindex ON artistwords (artistid);
-CREATE UNIQUE INDEX artistwords_artistwordindex ON artistwords (wordid,artistid);
 
 CREATE UNIQUE INDEX clientversion_version ON clientversion (version);
 
@@ -38,7 +36,6 @@ CREATE UNIQUE INDEX country_name ON country (name);
 CREATE INDEX discid_albumindex ON discid (album);
 CREATE UNIQUE INDEX discid_disc_key ON discid (disc);
 
-CREATE UNIQUE INDEX historicalstat_namedate ON historicalstat (name, snapshotdate);
 CREATE INDEX historicalstat_date ON historicalstat (snapshotdate);
 
 CREATE INDEX moderation_closed_idx_artist ON moderation_closed (artist);
@@ -75,7 +72,6 @@ CREATE UNIQUE INDEX track_gidindex ON track (gid);
 CREATE INDEX track_nameindex ON track (name);
 
 CREATE INDEX trackwords_trackidindex ON trackwords (trackid);
-CREATE UNIQUE INDEX trackwords_trackwordindex ON trackwords (wordid,trackid);
 
 CREATE UNIQUE INDEX trm_trmindex ON trm (trm);
 
