@@ -310,6 +310,12 @@ if ($artist eq '' && $artistid eq '' && $filename eq '' && $filename eq '' &&
 #mc_out "Fuzzy " if ($flags & TaggerSupport::FUZZY);
 #mc_out "]<br>";
 
+# Copy over some results of the filename parse
+$orig_data{artist} = $data{artist} if ($orig_data{artist} eq '');
+$orig_data{album} = $data{album} if ($orig_data{album} eq '');
+$orig_data{track} = $data{track} if ($orig_data{track} eq '');
+$orig_data{tracknum} = $data{tracknum} if ($orig_data{tracknum} == 0);
+
 if ($flags & TaggerSupport::ARTISTLIST)
 {
    OutputArtist($ts, $result);
@@ -541,10 +547,6 @@ else
    <%perl>
 }
 
-$orig_data{artist} = $data{artist} if ($orig_data{artist} eq '');
-$orig_data{album} = $data{album} if ($orig_data{album} eq '');
-$orig_data{track} = $data{track} if ($orig_data{track} eq '');
-$orig_data{tracknum} = $data{tracknum} if ($orig_data{tracknum} == 0);
 </%perl>
 
 <br>

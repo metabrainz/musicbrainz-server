@@ -13,6 +13,9 @@ my ($search, $display);
 $artist = $artistobj->GetName() if (defined $artistobj && $artistobj->GetName() ne '');
 $album = $albumobj->GetName() if (defined $albumobj && $albumobj->GetName() ne '');
 
+$artist = $data->{artist} if (defined $data && $artist eq '');
+$album = $data->{album} if (defined $data && $album eq '');
+
 $search = "$artist $album";
 if ($artist ne '' && $album ne '')
 {
