@@ -219,7 +219,7 @@ sub Retrieve
     #
     # Send the hello string
     #
-    $line = "cddb hello obs obs.freeamp.org RipCd.pl 1.0\r\n";
+    $line = "cddb hello obs www.musicbrainz.org FreeDBGateway 1.0\r\n";
     send SOCK, $line, 0;
 
     $line = <SOCK>;
@@ -243,7 +243,7 @@ sub Retrieve
     @response = split ' ', $line;
     if ($response[0] == 202)
     {
-        print STDERR "Server $remote cannot find this cd.\n";
+        print STDERR "Server $remote cannot find this cd.\n  ($query)\n";
         return undef;
     }
     if ($response[0] < 200 || $response[0] > 299)
@@ -330,7 +330,7 @@ sub Retrieve
         }
      }
 
-     if ($title eq "")
+     if (!defined $title || $title eq "")
      {
          $title = $aritst;
      }
@@ -346,6 +346,8 @@ sub Retrieve
      $info{tracks} = \@tracks;
  
      close SOCK;
+
+     print STDERR "FreeDB found: $disc_id\n";
 
      return \%info;
 }
