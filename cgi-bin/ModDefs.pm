@@ -1,3 +1,5 @@
+#!/usr/bin/perl -w
+# vi: set ts=8 sw=8 :
 #____________________________________________________________________________
 #
 #   MusicBrainz -- the open internet music database
@@ -22,6 +24,31 @@
 #____________________________________________________________________________
 
 package ModDefs;
+
+my $stash = \%ModDefs::;
+my @subs = grep {
+    my $glob = $stash->{$_};
+    defined *{$glob}{CODE};
+} sort keys %$stash;
+
+my $get = sub {
+    my $re = shift;
+    [ grep { $_ =~ $re } @subs ];
+};
+
+use Exporter;
+@ISA = qw( Exporter );
+
+%EXPORT_TAGS = (
+	artistid	=> &$get(qr/^[VD]ARTIST_(MB)?ID$/),
+	userid		=> &$get(qr/^(?!TYPE)\w+_MODERATOR$/),
+	modviewtype	=> &$get(qr/^TYPE_/),
+	modtype		=> &$get(qr/^MOD_/),
+	modstatus	=> &$get(qr/^STATUS_/),
+	vote		=> &$get(qr/^VOTE_/),
+);
+
+@EXPORT_OK = @subs;
 
 use strict;
 
@@ -127,3 +154,4 @@ use constant VOTE_NOTVOTED => -2;
 use constant VOTE_UNKNOWN  => -3;
 
 1;
+# eof ModDefs.pm
