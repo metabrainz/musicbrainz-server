@@ -42,13 +42,11 @@ use constant NUM_BITS_PAGE_INDEX => 5;
 
 sub new
 {
-    my ($type, $dbh) = @_;
-    $type = ref($type) || $type;
+    my ($class, $dbh) = @_;
 
     bless {
 	DBH => $dbh,
-	type => $type,
-    }, $type;
+    }, ref($class) || $class;
 }
 
 sub _new_from_row

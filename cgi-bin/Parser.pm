@@ -46,8 +46,7 @@ sub new
 {
 	my $class = shift;
 	$class = ref($class) || $class;
-	# I bet "type" isn't used ...
-	bless { type => $class }, $class;
+	bless { }, $class;
 }
 
 sub GetBaseURI
