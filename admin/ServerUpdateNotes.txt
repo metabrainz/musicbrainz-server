@@ -6,3 +6,5 @@ I Server update tasks
 - admin/sql/WordTables20030321.sql
 - admin/build_words.pl
 
+- add admin/cron/weekly.sh to a crontab (doesn't necessarily need to be root)
+
