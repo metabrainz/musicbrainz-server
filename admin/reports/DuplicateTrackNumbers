@@ -23,113 +23,55 @@
 #   $Id$
 #____________________________________________________________________________
 
-use 5.008;
-use strict;
-
 use FindBin;
 use lib "$FindBin::Bin/../../cgi-bin";
 
-use Text::Unaccent;
-use Encode qw( decode );
-use HTML::Mason::Tools qw( html_escape );
+use strict;
+use warnings;
 
-use DBI;
-use DBDefs;
-use MusicBrainz;
-use Sql;
+package DuplicateTrackNumbers;
+use base qw( MusicBrainz::Server::ReportScript );
 
-my $mb = MusicBrainz->new;
-$mb->Login;
-my $sql = Sql->new($mb->{DBH});
+use Album;
 
-print <<EOF;
-<& /comp/sidebar, title => 'Albums with Duplicate Track Numbers' &>
-
-<p>Generated <% \$m->comp('/comp/datetime', ${\ time() }) %></p>
-
-<p>
-    This report identifies albums where at least one track number appears more
-    than once (e.g. there are two "track 4"s).
-</p>
-
-EOF
-
-print <<'EOF';
-
-<%perl>
-my $mb = $m->comp("/comp/dblogin");
-my $ar = Artist->new($mb->{DBH});
-my $al = Album->new($mb->{DBH});
-</%perl>
-
-EOF
-
-$sql->Begin;
-
-$sql->Do("
-	SELECT DISTINCT album
-	INTO TEMPORARY TABLE t_badalbums
-	FROM (
-		SELECT album, sequence, COUNT(*)
-		FROM albumjoin
-		GROUP BY album, sequence
-		HAVING COUNT(*) > 1
-	) AS t
-");
-
-# I'm not sure if this is necessary, but it can't really hurt
-$sql->Do("ALTER TABLE t_badalbums ALTER COLUMN album SET NOT NULL");
-$sql->Do("ALTER TABLE t_badalbums ADD PRIMARY KEY (album)");
-
-require Album;
-$sql->Select("
-	SELECT	ar.id, ar.sortname, al.id, al.name
-	FROM	artist ar, album al, t_badalbums t
-	WHERE	al.id = t.album
-	AND		ar.id = al.artist
-	AND		al.attributes[2] != ".&Album::ALBUM_ATTR_NONALBUMTRACKS."
-	ORDER BY ar.sortname, al.name
-");
-
-my $n = 0;
-my $lastartist = 0;
-
-while (my @row = $sql->NextRow)
+sub GatherData
 {
-	my ($artist, undef, $album, undef) = @row;
+	my $self = shift;
 
-	if ($artist != $lastartist)
-	{
-		print <<EOF;
-% \$ar->SetId($artist);
-% if (\$ar->LoadFromId) {
-<& /comp/artisttitle, artist => \$ar, link => 1 &>
-% }
-EOF
-		$lastartist = $artist;
-	}
+	my $sql = $self->SqlObj;
+	$sql->Begin;
 
-		print <<EOF;
-% \$al->SetId($album);
-% if (\$al->LoadFromId) {
-	<& /comp/album, album => \$al, artist => \$ar,
-		showalbumdetail => 1,
-		showids => 1,
-		&>
-% }
+	$sql->Do(<<'EOF');
+		SELECT DISTINCT album
+		INTO TEMPORARY TABLE t_badalbums
+		FROM (
+			SELECT album, sequence, COUNT(*)
+			FROM albumjoin
+			GROUP BY album, sequence
+			HAVING COUNT(*) > 1
+		) AS t
 EOF
 
-	++$n;
+	# I'm not sure if this is necessary, but it can't really hurt
+	$sql->Do("ALTER TABLE t_badalbums ALTER COLUMN album SET NOT NULL");
+	$sql->Do("ALTER TABLE t_badalbums ADD PRIMARY KEY (album)");
+
+	$sql->Commit;
+
+	$self->GatherDataFromQuery(
+		<<'EOF',
+		SELECT	ar.id AS artist_id, ar.name AS artist_name,
+				al.id AS album_id, al.name AS album_name
+		FROM	artist ar, album al, t_badalbums t
+		WHERE	al.id = t.album
+		AND		ar.id = al.artist
+		AND		al.attributes[2] != ?
+		ORDER BY ar.sortname, al.name
+EOF
+		[ &Album::ALBUM_ATTR_NONALBUMTRACKS ],
+	);
 }
 
-$sql->Finish;
-$sql->Commit;
-
-print "<p>No albums to report - good!</p>\n\n" if not $n;
-
-print "<p>End of report; found one album.</p>\n\n" if $n == 1;
-print "<p>End of report; found $n albums.</p>\n\n" if $n > 1;
-
-print "<& /comp/footer &>\n";
+__PACKAGE__->new->RunReport;
 
 # eof DuplicateTrackNumbers

@@ -23,127 +23,88 @@
 #   $Id$
 #____________________________________________________________________________
 
-use 5.008;
-use strict;
-
 use FindBin;
 use lib "$FindBin::Bin/../../cgi-bin";
 
-use Text::Unaccent;
-use Encode qw( decode );
-use HTML::Mason::Tools qw( html_escape );
+use strict;
+use warnings;
 
-use DBI;
-use DBDefs;
-use MusicBrainz;
-use Sql;
+package TracksNamedWithSequence;
+use base qw( MusicBrainz::Server::ReportScript );
+
+use Text::Unaccent qw( unac_string );
+use Encode qw( decode );
 use Album;
 use Artist;
 
-my $mb = MusicBrainz->new;
-$mb->Login;
-my $sql = Sql->new($mb->{DBH});
-
-print <<EOF;
-<& /comp/sidebar, title => 'Tracks named with their own track number' &>
-
-<p>Generated <% \$m->comp('/comp/datetime', ${\ time() }) %></p>
-
-<p>
-    This report aims to identify tracks whose names include their own
-    sequence number, e.g. "1) Some Name" (instead of just "Some Name").
-</p>
-
-EOF
-
-my $data = $sql->SelectListOfLists("
-	SELECT a.artist, j.album, t.id, j.sequence, t.name
-	FROM track t, albumjoin j, album a
-	WHERE j.track = t.id
-	AND a.id = j.album
-	AND t.name ~ '^[0-9]'
-	AND t.name ~ ('^0*' || j.sequence || '[^0-9]')
-	ORDER BY a.artist, j.album, j.sequence
-");
-
-# Index the tracks by album-artist, album:
-
-my $artists = {};
-
-for (@$data)
+sub GatherData
 {
-	push @{ $artists->{ $_->[0] }{ALBUMS}{ $_->[1] }{TRACKS} }, $_;
-}
+	my $self = shift;
 
-my $al = Album->new($mb->{DBH});
-my $ar = Artist->new($mb->{DBH});
+	$self->Log("Querying database");
+	my $sql = $self->SqlObj;
 
-for my $artistid (keys %$artists)
-{
-	my $albums = $artists->{$artistid}{ALBUMS};
+	my $data = $sql->SelectListOfLists("
+		SELECT a.artist, j.album, t.id, j.sequence, t.name
+		FROM track t, albumjoin j, album a
+		WHERE j.track = t.id
+		AND a.id = j.album
+		AND t.name ~ '^[0-9]'
+		AND t.name ~ ('^0*' || j.sequence || '[^0-9]')
+		ORDER BY a.artist, j.album, j.sequence
+	");
 
-	# Remove albums with two or fewer tracks like this
-	for my $albumid (keys %$albums)
+	# Index the tracks by album-artist, album:
+
+	my $artists = {};
+
+	for (@$data)
 	{
-		delete $albums->{$albumid}, next
-			if @{ $albums->{$albumid}{TRACKS} } <= 2;
-
-		$al->SetId($albumid);
-		$al->LoadFromId;
-
-		$albums->{$albumid}{ID} = $albumid;
-		$albums->{$albumid}{NAME} = $al->GetName;
-		$albums->{$albumid}{_sort_} = lc decode("utf-8", unac_string('UTF-8', $al->GetName));
+		push @{ $artists->{ $_->[0] }{ALBUMS}{ $_->[1] }{TRACKS} }, $_;
 	}
 
-	# Remove the artists if we've removed all their albums
-	delete $artists->{$artistid}, next
-		unless keys %$albums;
+	my $al = Album->new($self->{DBH});
+	my $ar = Artist->new($self->{DBH});
 
-	$ar->SetId($artistid);
-	$ar->LoadFromId;
-
-	$artists->{$artistid}{ID} = $artistid;
-	$artists->{$artistid}{NAME} = $ar->GetName;
-	$artists->{$artistid}{_sort_} = lc decode("utf-8", unac_string('UTF-8', $ar->GetSortName));
-}
-
-my ($nartists, $nalbums, $ntracks) = (0, 0, 0);
-
-for my $artist (sort { $a->{_sort_} cmp $b->{_sort_} } values %$artists)
-{
-	print "<h2><a href='/showartist.html?artistid=$artist->{ID}'>"
-		. html_escape($artist->{NAME}) . "</a></h2>\n";
-	++$nartists;
-
-	my $albums = $artist->{ALBUMS};
-
-	for my $album (sort { $a->{_sort_} cmp $b->{_sort_} } values %$albums)
+	for my $artistid (keys %$artists)
 	{
-		print "<h3><a href='/showalbum.html?albumid=$album->{ID}'>"
-			. html_escape($album->{NAME}) . "</a></h3>\n";
-		++$nalbums;
+		my $albums = $artists->{$artistid}{ALBUMS};
 
-		print "<ul style='list-style: none'>\n";
-
-		my $tracks = $album->{TRACKS};
-
-		for my $t (@$tracks)
+		# Remove albums with two or fewer tracks like this
+		for my $albumid (keys %$albums)
 		{
-			print "  <li><a href='/showtrack.html?trackid=$t->[2]'>"
-				. html_escape($t->[4]) . "</a></li>\n";
-			++$ntracks;
+			delete $albums->{$albumid}, next
+				if @{ $albums->{$albumid}{TRACKS} } <= 2;
+
+			$al->SetId($albumid);
+			$al->LoadFromId;
+
+			$albums->{$albumid}{ID} = $albumid;
+			$albums->{$albumid}{NAME} = $al->GetName;
+			$albums->{$albumid}{_sort_} = MusicBrainz::NormaliseSortText($al->GetName);
 		}
 
-		print "</ul>\n";
+		# Remove the artists if we've removed all their albums
+		delete $artists->{$artistid}, next
+			unless keys %$albums;
+
+		$ar->SetId($artistid);
+		$ar->LoadFromId;
+
+		$artists->{$artistid}{ID} = $artistid;
+		$artists->{$artistid}{NAME} = $ar->GetName;
+		$artists->{$artistid}{_sort_} = MusicBrainz::NormaliseSortText($ar->GetSortName);
+	}
+
+	$self->Log("Saving results");
+	my $report = $self->PagedReport;
+
+	for my $artist (sort { $a->{_sort_} cmp $b->{_sort_} } values %$artists)
+	{
+		$report->Print($artist);
 	}
 }
 
-print <<EOF;
-
-<p>End of report; found $ntracks tracks, $nalbums albums, $nartists artists.</p>
-
-<& /comp/footer &>
-EOF
+__PACKAGE__->new->RunReport;
 
 # eof TracksNamedWithSequence.pl

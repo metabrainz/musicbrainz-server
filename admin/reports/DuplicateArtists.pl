@@ -23,67 +23,21 @@
 #   $Id$
 #____________________________________________________________________________
 
-use 5.008;
-use strict;
-
 use FindBin;
 use lib "$FindBin::Bin/../../cgi-bin";
 
-use Text::Unaccent;
+use strict;
+use warnings;
+
+package DuplicateArtists;
+use base qw( MusicBrainz::Server::ReportScript );
+
+use Text::Unaccent qw( unac_string );
 use Encode qw( decode );
-use HTML::Mason::Tools qw( html_escape );
-
-use DBI;
-use DBDefs;
-use MusicBrainz;
-use Sql;
-
-my $mb = MusicBrainz->new;
-$mb->Login;
-my $sql = Sql->new($mb->{DBH});
-
-print <<EOF;
-<& /comp/sidebar, title => 'Possibly duplicate artists' &>
-
-<p>Generated <% \$m->comp('/comp/datetime', ${\ time() }) %></p>
-
-<p>
-    This report aims to identify artists with very similar names,
-    which might indicate that the artists need to be merged.
-</p>
-
-EOF
-
-$sql->Select("SELECT id, name, sortname, modpending FROM artist")
-    or die "sql error";
-
-while (my @row = $sql->NextRow)
-{
-	addartist(\@row, $row[0], $row[1], $row[3]);
-	addartist(\@row, $row[0], $row[2], $row[3]);
-}
-
-$sql->Finish;
-
-$sql->Select("
-	SELECT l.ref, l.name, '[alias for ' || r.name || ']', l.modpending
-	FROM artistalias l, artist r
-	WHERE r.id = l.ref
-	")
-    or die "sql error";
-
-while (my @row = $sql->NextRow)
-{
-	addartist(\@row, $row[0], $row[1], $row[2]);
-}
-
-$sql->Finish;
-
-my %a;
 
 sub addartist
 {
-	my ($row, $id, $name, $modpending) = @_;
+	my ($artists, $row, $id, $name, $modpending) = @_;
 
     my $n = unac_string('UTF-8', $name);
     $n = uc decode("utf-8", $n);
@@ -93,58 +47,66 @@ sub addartist
     my @words = sort $n =~ /(\w+)/g;
     my $key = "@words";
 
-    $a{$key}{$id} ||= $row;
+    $artists->{$key}{$id} ||= $row;
 }
 
-my $dupes = my $dupes2 = 0;
-
-print <<EOF;
-<table>
-	<tr>
-		<th>Artist Name</th>
-		<th>Artist Sortname</th>
-		<th style="text-align: right">Albums</th>
-		<th style="text-align: right">Tracks</th>
-	</tr>
-EOF
-
-while (my ($k, $v) = each %a)
+sub GatherData
 {
-    next unless keys(%$v) >= 2;
+	my $self = shift;
+	my %artists;
 
-	for (values %$v)
+	$self->Log("Querying database");
+	my $sql = $self->SqlObj;
+
+	$sql->Select("SELECT id, name, sortname, modpending FROM artist");
+
+	while (my @row = $sql->NextRow)
 	{
-		my $na = $sql->SelectSingleValue("SELECT COUNT(*) FROM album WHERE artist = ?", $_->[0]);
-		my $nt = $sql->SelectSingleValue("SELECT COUNT(*) FROM track WHERE artist = ?", $_->[0]);
-
-		my $style = "";
-		$style = 'style="background: #FFC"' if $_->[-1];
-		
-		print <<EOF;
-	<tr>
-		<td $style>
-			<a href='/showartist.html?artistid=$_->[0]'
-				>${\ html_escape($_->[1]) }</a>
-		</td>
-		<td>
-			${\ html_escape($_->[2]) }
-		</td>
-		<td style="text-align: right">$na</td>
-		<td style="text-align: right">$nt</td>
-	</tr>
-EOF
+		addartist(\%artists, \@row, $row[0], $row[1], $row[3]);
+		addartist(\%artists, \@row, $row[0], $row[2], $row[3]);
 	}
-		
-    print "<tr><td>&nbsp;</td></tr>\n";
 
-    ++$dupes;
-    $dupes2 += keys %$v;
+	$sql->Finish;
+
+	$sql->Select("
+		SELECT l.ref, l.name, '[alias for ' || r.name || ']', l.modpending
+		FROM artistalias l, artist r
+		WHERE r.id = l.ref
+		");
+
+	while (my @row = $sql->NextRow)
+	{
+		addartist(\%artists, \@row, $row[0], $row[1], $row[2]);
+	}
+
+	$sql->Finish;
+
+	$self->Log("Saving results");
+	my $report = $self->PagedReport;
+
+	while (my ($k, $v) = each %artists)
+	{
+		next unless keys(%$v) >= 2;
+
+		my $dupelist;
+		for (values %$v)
+		{
+			my $na = $sql->SelectSingleValue("SELECT COUNT(*) FROM album WHERE artist = ?", $_->[0]);
+			my $nt = $sql->SelectSingleValue("SELECT COUNT(*) FROM track WHERE artist = ?", $_->[0]);
+
+			push @$dupelist, {
+						artist_id		=> $_->[0],
+						artist_name		=> $_->[1],
+						artist_sortname	=> $_->[2],
+						num_albums		=> $na,
+						num_tracks		=> $nt,
+			};
+		}
+
+		$report->Print($dupelist);
+	}
 }
 
-print "</table>\n\n";
-
-print "<p>End of report; found $dupes2 artists in $dupes combinations.</p>\n\n";
-
-print "<& /comp/footer &>\n";
+__PACKAGE__->new->RunReport;
 
 # eof DuplicateArtists.pl

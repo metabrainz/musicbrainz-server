@@ -7,8 +7,10 @@ $pagesize => undef
 <%perl>
 
 use MusicBrainz::Server::PagedReport;
+use File::Basename qw( dirname );
+
 my $rep = MusicBrainz::Server::PagedReport->Load(
-	&DBDefs::HTDOCS_ROOT . "/reports/TRMsWithManyTracks"
+	dirname($m->current_comp->source_file) . "/report"
 );
 
 $pagesize = 10
@@ -28,15 +30,7 @@ $rep->Seek($offset);
 
 </%perl>
 
-<& /comp/sidebar, title => "TRMs with at least 5 tracks",
-	head => '
-<style type="text/css">
-	tr.odd { background-color: #eee; }
-	td.link { text-align: center; white-space: nowrap; }
-</style>
-' &>
-
-<p>Generated <% $m->comp('/comp/datetime', $rep->Time) %></p>
+<& /comp/sidebar, title => "TRMs with at least 5 tracks" &>
 
 <p>
     This report lists TRMs which resolve to at least 5 tracks.
@@ -61,14 +55,13 @@ $rep->Seek($offset);
 
 % if ($rep->Position < $rep->Records) {
 
-<table class="SpacedRows SpacedColumns TopAlignCells">
-	<caption>TRMs with at least 5 tracks</caption>
+<table id="Report" class="SpacedRows SpacedColumns TopAlignCells">
 	<thead>
 		<tr>
 			<th>TRM</th>
+			<th>Artist</th>
 			<th>Track</th>
 			<th>Length</th>
-			<th>Artist</th>
 		</tr>
 	</thead>
 	<%perl>
@@ -78,23 +71,26 @@ $rep->Seek($offset);
 		my $tracks = $row->{tracks};
 
 		my $first = 1;
+		my $n = 1;
 
 		for my $track (@{ $row->{'tracks'} })
 		{
 			</%perl>
-			<tr>
 % if ($first) {
-				<td rowspan="<% scalar @$tracks %>">
+			<tr>
+				<td colspan="4" class="head">
 					<a href="/showtrm.html?trm=<% $row->{'trm'} %>"><% $row->{'trm'} %></a>
-					<br>
-					<br><% $row->{'lookupcount'} %> lookups
-					<br><% scalar @$tracks %> tracks
+					(<% $row->{'lookupcount'} %> lookups, <% scalar @$tracks %> tracks)
 				</td>
+			</tr>
+% $n = 1;
 % }
 
+			<tr <% (++$n%2) ? 'class="shade"' : '' |n %>>
+				<td></td>
+				<td><a href="/showartist.html?artistid=<% $track->{'artist_id'} %>"><% $track->{'artist_name'} %></a></td>
 				<td><a href="/showtrack.html?trackid=<% $track->{'track_id'} %>"><% $track->{'track_name'} %></a></td>
 				<td><% Track::FormatTrackLength($track->{'length'}) %></td>
-				<td><a href="/showartist.html?artistid=<% $track->{'artist_id'} %>"><% $track->{'artist_name'} %></a></td>
 			</tr>
 
 			<%perl>
@@ -107,5 +103,7 @@ $rep->Seek($offset);
 </table>
 
 % }
+
+<p>Generated <% $m->comp('/comp/datetime', $rep->Time) %></p>
 
 <& /comp/footer &>

@@ -35,14 +35,18 @@ $| = 1;
 
 @ARGV = "^" if not @ARGV;
 
-my $outputdir = &DBDefs::MB_SERVER_ROOT . "/htdocs/reports";
+my $outputdir = &DBDefs::MB_SERVER_ROOT . "/htdocs/reports/generated";
+
+mkdir $outputdir
+	or $!{'EEXIST'}
+	or die "mkdir: $!\n";
 
 my @all = qw(
-	admin/BadEntries.pl
-	admin/Caps2.pl
-	admin/Caps.pl
 	admin/reports/AlbumsToConvert.pl
+	admin/reports/SuspectTrackCharacters
 	admin/reports/BrokenDiscIDs
+	admin/reports/NoUpperCase
+	admin/reports/TooManyCapitals
 	admin/reports/DuplicateArtists.pl
 	admin/reports/DuplicateTrackNumbers
  	admin/reports/FeaturingArtists
@@ -50,8 +54,8 @@ my @all = qw(
 	admin/reports/TracksNamedWithSequence.pl
 	admin/reports/TracksWithManyTRMs.pl
 	admin/reports/TRMsWithManyTracks.pl
-	admin/Unknown.pl
-	admin/WrongCharset.pl
+	admin/reports/TracksCalledUnknown
+	admin/reports/WrongCharset
 );
 
 # The primary purpose of this script is to be able to run the reports, saving
@@ -86,7 +90,7 @@ for my $script (@all)
 
 	$script = &DBDefs::MB_SERVER_ROOT . "/" . $script;
 	
-	print localtime() . " : Running $scriptname\n";
+	print localtime() . " : Running $scriptname (in $tempdir)\n";
 	my $t0 = time;
 	system "$script --output-dir=$tempdir";
 	my $t = time() - $t0;
@@ -113,11 +117,16 @@ for my $script (@all)
 #		next;
 #	}
 
-	rmtree($output) or die "TODO";
+	if (-d $output and not rmtree($output))
+	{
+		warn "Failed to remove existing directory $output: $!\n";
+		++$errors;
+		next;
+	}
 
 	unless (rename $tempdir, $output)
 	{
-		warn "rename $tempdir: $!\n";
+		warn "Failed to rename $tempdir to $output: $!\n";
 		++$errors;
 		rmtree($tempdir);
 		next;
@@ -127,6 +136,8 @@ for my $script (@all)
 	print localtime() . " : $scriptname successfully swapped in\n";
 }
 
+print localtime() . " : Completed with 1 error\n" if $errors == 1;
+print localtime() . " : Completed with $errors errors\n" if $errors != 1;
 exit($errors ? 1 : 0);
 
 # eof RunReports

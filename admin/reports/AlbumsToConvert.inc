@@ -7,8 +7,9 @@ $pagesize => undef
 <%perl>
 
 use MusicBrainz::Server::PagedReport;
+use File::Basename qw( dirname );
 my $rep = MusicBrainz::Server::PagedReport->Load(
-	&DBDefs::HTDOCS_ROOT . "/reports/AlbumsToConvert"
+	dirname($m->current_comp->source_file) . "/report"
 );
 
 $pagesize = 10

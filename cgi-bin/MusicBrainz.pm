@@ -36,6 +36,8 @@ use strict;
 use DBI;
 use DBDefs;
 use Carp qw( carp );
+use Encode qw( decode );
+use Text::Unaccent qw( unac_string );
 
 sub new
 {
@@ -124,6 +126,12 @@ sub TrimInPlace
 		s/\s+\z//;
 	}
 }
+
+sub NormaliseSortText
+{
+	lc decode('utf-8', unac_string('UTF-8', shift));
+}
+*NormalizeSortText = \&NormaliseSortText;
 
 1;
 # eof MusicBrainz.pm

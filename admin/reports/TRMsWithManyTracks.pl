@@ -23,72 +23,60 @@
 #   $Id$
 #____________________________________________________________________________
 
-use 5.008;
-use strict;
-
 use FindBin;
 use lib "$FindBin::Bin/../../cgi-bin";
 
-use Text::Unaccent;
-use Encode qw( decode );
-use HTML::Mason::Tools qw( html_escape );
+use strict;
+use warnings;
 
-use DBI;
-use DBDefs;
-use MusicBrainz;
-use Sql;
-use Album;
-use Artist;
+package TRMsWithManyTracks;
+use base qw( MusicBrainz::Server::ReportScript );
 
-my $mb = MusicBrainz->new;
-$mb->Login;
-my $sql = Sql->new($mb->{DBH});
+sub GatherData
+{
+	my $self = shift;
 
-use MusicBrainz::Server::PagedReport;
-my $report = MusicBrainz::Server::PagedReport->Save(
-	"$FindBin::Bin/../../htdocs/reports/TRMsWithManyTracks"
-);
+	$self->Log("Querying database");
+	my $sql = $self->SqlObj;
 
-print STDERR localtime() . " : Finding most-collided TRMs\n";
-$sql->AutoCommit;
-$sql->Do(<<EOF);
-SELECT	trm, COUNT(*) AS freq
-INTO TEMPORARY TABLE tmp_trm_collisions
-FROM	trmjoin
-GROUP BY trm
-HAVING COUNT(*) >= 10
+	$sql->AutoCommit;
+	$sql->Do(<<'EOF');
+		SELECT	trm, COUNT(*) AS freq
+		INTO TEMPORARY TABLE tmp_trm_collisions
+		FROM	trmjoin
+		GROUP BY trm
+		HAVING COUNT(*) >= 10
 EOF
 
-print STDERR localtime() . " : Sorting and retrieving\n";
-my $rows = $sql->SelectListOfHashes("
-	SELECT	trm.trm, lookupcount, id, freq
-	FROM	trm, tmp_trm_collisions t
-	WHERE	t.trm = trm.id
-	ORDER BY freq desc, lookupcount desc, trm.trm
-");
+	my $rows = $sql->SelectListOfHashes(<<'EOF');
+		SELECT	trm.trm, lookupcount, id, freq
+		FROM	trm, tmp_trm_collisions t
+		WHERE	t.trm = trm.id
+		ORDER BY freq desc, lookupcount desc, trm.trm
+EOF
 
-print STDERR localtime() . " : Finding tracks, and saving\n";
-for my $row (@$rows)
-{
-	$row->{'tracks'} = $sql->SelectListOfHashes("
-		SELECT	t.id AS track_id, t.name AS track_name,
-				a.id AS artist_id, a.name AS artist_name, a.sortname AS artist_sortname,
-				t.length
-		FROM	trmjoin j
-			INNER JOIN track t ON t.id = j.track
-			INNER JOIN artist a ON a.id = t.artist
-		WHERE	j.trm = ?
-		ORDER BY a.sortname, t.name
-		",
-		$row->{'id'},
-	);
+	$self->Log("Saving results");
+	my $report = $self->PagedReport;
 
-	$report->Print($row);
+	for my $row (@$rows)
+	{
+		$row->{'tracks'} = $sql->SelectListOfHashes("
+			SELECT	t.id AS track_id, t.name AS track_name,
+					a.id AS artist_id, a.name AS artist_name,
+					a.sortname AS artist_sortname, t.length
+			FROM	trmjoin j
+				INNER JOIN track t ON t.id = j.track
+				INNER JOIN artist a ON a.id = t.artist
+			WHERE	j.trm = ?
+			ORDER BY a.sortname, t.name
+			",
+			$row->{'id'},
+		);
+
+		$report->Print($row);
+	}
 }
 
-$report->End;
-
-print STDERR localtime() . " : Done\n";
-system("cat $FindBin::Bin/TRMsWithManyTracks.inc");
+__PACKAGE__->new->RunReport;
 
 # eof TRMsWithManyTracks.pl

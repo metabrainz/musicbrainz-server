@@ -23,31 +23,16 @@
 #   $Id$
 #____________________________________________________________________________
 
-use 5.008;
-use strict;
-
 use FindBin;
 use lib "$FindBin::Bin/../../cgi-bin";
 
-use DBI;
-use DBDefs;
-use ModDefs;
-use MusicBrainz;
-use Sql;
+use strict;
+use warnings;
 
-use Getopt::Long;
-my $verbose = -t;
-my $dir;
-GetOptions(
-	"output-dir=s"	=> \$dir,
-	"verbose!"		=> \$verbose,
-) or exit 2;
-die "Bad options\n" if @ARGV;
-die "Bad options\n" if not defined $dir;
+package FeaturingArtists;
+use base qw( MusicBrainz::Server::ReportScript );
 
-$verbose
-	? open(LOG, ">&STDOUT")
-	: open(LOG, ">/dev/null");
+use ModDefs qw( :modstatus :modtype );
 
 #
 # Try to fix the track name. Returns the track name that was passed in if
@@ -133,66 +118,45 @@ sub rewrite_name($)
 	return $newname;
 }
 
-#
-# MAIN
-#
 
-my $mb = MusicBrainz->new;
-$mb->Login;
-my $sql = Sql->new($mb->{DBH});
-
-print LOG localtime() . " : Opening report file\n";
-use MusicBrainz::Server::PagedReport;
-my $report = MusicBrainz::Server::PagedReport->Save(
-	"$dir/report"
-);
-
-print LOG localtime() . " : Querying database\n";
-$sql->Select(<<EOF, &ModDefs::STATUS_OPEN, &ModDefs::MOD_EDIT_TRACKNAME) or die;
-        SELECT t.id, t.name, aj.album, ar.id, ar.name
-	FROM track t, artist ar, albumjoin aj
-        WHERE t.artist = ar.id AND aj.track = t.id AND NOT EXISTS (
-                SELECT id FROM moderation m
-                WHERE m.rowid = t.id AND m.status = ? AND m.type = ?
-        )
-          AND ( t.name ~* '[[(]feat[^.]' OR t.name ~* ' feat'
-			OR t.name ~* '[[( ]ft' OR t.name ~* '[[(]with ' )
-	ORDER BY ar.sortname, t.name
-EOF
-
-print LOG localtime() . " : Saving results\n";
-while (my @row = $sql->NextRow)
+sub GatherData
 {
-	my ($track_id, $track_name, $album_id, $artist_id, $artist_name) = @row;
+	my $self = shift;
 
-	# Remove false positives.
-	#
-	next if $track_name !~ m/\b(ft|feat|featuring|with)\b/i;
-
-	my $newname = rewrite_name $track_name;
-	$newname = undef if $newname eq $track_name;
-
-	$report->Print(
-		+{
-			artist_id	=> $artist_id,
-			artist_name	=> $artist_name,
-			album_id	=> $album_id,
-			track_id	=> $track_id,
-			track_name	=> $track_name,
-			new_name	=> $newname,
-		},
+	$self->GatherDataFromQuery(
+		<<'EOF',
+		SELECT t.id AS track_id, t.name AS track_name, aj.album AS album_id,
+				ar.id AS artist_id, ar.name AS artist_name
+		FROM track t, artist ar, albumjoin aj
+		WHERE t.artist = ar.id AND aj.track = t.id AND NOT EXISTS (
+				SELECT id FROM moderation m
+				WHERE m.rowid = t.id AND m.status = ? AND m.type = ?
+		)
+		  AND ( t.name ~* '[[(]feat[^.]' OR t.name ~* ' feat'
+				OR t.name ~* '[[( ]ft' OR t.name ~* '[[(]with ' )
+		ORDER BY ar.sortname, t.name
+EOF
+		[ STATUS_OPEN, MOD_EDIT_TRACKNAME ],
+		\&filter,
 	);
 }
 
-print LOG localtime() . " : Finishing\n";
-$sql->Finish;
-$report->End;
+sub filter
+{
+	my $row = shift;
+	my $track_name = $row->{track_name};
 
-print LOG localtime() . " : Copying Mason file\n";
-use File::Copy qw( copy );
-copy("$FindBin::Bin/FeaturingArtists.inc", "$dir/index.html")
-	or die $!;
+	# Remove false positives.
+	#
+	return undef if $track_name !~ m/\b(ft|feat|featuring|with)\b/i;
 
-print LOG localtime() . " : Done\n";
+	my $newname = rewrite_name $track_name;
+	$newname = undef if $newname eq $track_name;
+	$row->{new_name} = $newname;
+
+	$row;
+}
+
+__PACKAGE__->new->RunReport;
 
 # eof FeaturingArtists

@@ -23,165 +23,122 @@
 #   $Id$
 #____________________________________________________________________________
 
-use 5.008;
-use strict;
-
 use FindBin;
 use lib "$FindBin::Bin/../../cgi-bin";
 
-use Text::Unaccent;
-use Encode qw( decode );
-use HTML::Mason::Tools qw( html_escape );
+use strict;
+use warnings;
 
-use DBI;
-use DBDefs;
-use MusicBrainz;
-use Sql;
+package AlbumsToConvert;
+use base qw( MusicBrainz::Server::ReportScript );
+
 use Album;
 use Artist;
 
-my $mb = MusicBrainz->new;
-$mb->Login;
-my $sql = Sql->new($mb->{DBH});
-
-print <<EOF;
-<& /comp/sidebar, title => 'Albums to convert to Multiple Artists' &>
-
-<p>Generated <% \$m->comp('/comp/datetime', ${\ time() }) %></p>
-
-<p>
-    This report aims to identify albums which need converting to
-    "multiple artists".&nbsp;
-    Currently it does this by looking for albums where every track
-    contains "/" or "-".
-</p>
-
-EOF
-
-my $albums = $sql->SelectListOfLists("
-	SELECT m.id, m.tracks, COUNT(*)
-	FROM albummeta m, albumjoin j, track t
-	WHERE j.album = m.id
-	AND j.track = t.id
-	AND t.name LIKE '%-%'
-	GROUP BY m.id, m.tracks
-	HAVING COUNT(*) = m.tracks
-	");
-my $albums2 = $sql->SelectListOfLists("
-	SELECT m.id, m.tracks, COUNT(*)
-	FROM albummeta m, albumjoin j, track t
-	WHERE j.album = m.id
-	AND j.track = t.id
-	AND t.name LIKE '%/%'
-	GROUP BY m.id, m.tracks
-	HAVING COUNT(*) = m.tracks
-	");
-
-my @album_ids = do {
-	my %t;
-	@t{ map { $_->[0] } @$albums } = ();
-	@t{ map { $_->[0] } @$albums2 } = ();
-	keys %t;
-};
-
-my %artists;
-my $count = 0;
-
-for my $album (@album_ids)
+sub GatherData
 {
-	my $al = Album->new($mb->{DBH});
-	$al->SetId($album);
-	$al->LoadFromId or next;
+	my $self = shift;
 
-	my $ar = $artists{ $al->GetArtist };
+	$self->Log("Querying database");
 
-	unless ($ar)
+	my $albums = $self->SqlObj->SelectListOfLists("
+		SELECT m.id, m.tracks, COUNT(*)
+		FROM albummeta m, albumjoin j, track t
+		WHERE j.album = m.id
+		AND j.track = t.id
+		AND t.name LIKE '%-%'
+		GROUP BY m.id, m.tracks
+		HAVING COUNT(*) = m.tracks
+		");
+	my $albums2 = $self->SqlObj->SelectListOfLists("
+		SELECT m.id, m.tracks, COUNT(*)
+		FROM albummeta m, albumjoin j, track t
+		WHERE j.album = m.id
+		AND j.track = t.id
+		AND t.name LIKE '%/%'
+		GROUP BY m.id, m.tracks
+		HAVING COUNT(*) = m.tracks
+		");
+
+	my @album_ids = do {
+		my %t;
+		@t{ map { $_->[0] } @$albums } = ();
+		@t{ map { $_->[0] } @$albums2 } = ();
+		keys %t;
+	};
+
+	my %artists;
+	my $count = 0;
+
+	for my $album (@album_ids)
 	{
-		$ar = Artist->new($mb->{DBH});
-		$ar->SetId($al->GetArtist);
-		$ar->LoadFromId or next;
+		my $al = Album->new($self->{DBH});
+		$al->SetId($album);
+		$al->LoadFromId or next;
 
-		$ar->{_sort_} = $ar->GetSortName;
+		my $ar = $artists{ $al->GetArtist };
 
-		$artists{ $al->GetArtist } = $ar;
-	}
-
-	$al->{_sort_} = $al->GetName;
-	#print STDERR "$al->{_sort_} by $ar->{_sort_}\n" if -t;
-
-	my @t = $al->LoadTracksFromMultipleArtistAlbum;
-	my $aid = $al->GetArtist;
-	next if grep { $_->GetArtist != $aid } @t;
-	$al->{tracks} = \@t;
-
-	push @{ $ar->{_albums_} }, $al;
-	++$count;
-}
-
-use MusicBrainz::Server::PagedReport;
-my $report = MusicBrainz::Server::PagedReport->Save(
-	"$FindBin::Bin/../../htdocs/reports/AlbumsToConvert"
-);
-
-for my $artist (sort { $a->{_sort_} cmp $b->{_sort_} } values %artists)
-{
-	my @a = @{ $artist->{_albums_} }
-		or next;
-
-	my $albums = $artist->{_albums_};
-	@$albums = sort { $a->{_sort_} cmp $b->{_sort_} } @$albums;
-
-	for my $al (sort { $a->{_sort_} cmp $b->{_sort_} } @$albums)
-	{
-		$report->Print(
-			{
-				artist_id			=> $artist->GetId,
-				artist_name			=> $artist->GetName,
-				artist_sortname		=> $artist->GetSortName,
-				artist_modpending	=> $artist->GetModPending,
-				album_id			=> $al->GetId,
-				album_name			=> $al->GetName,
-				album_modpending	=> $al->GetModPending,
-				tracks				=> [
-					map {
-						+{
-							track_id	=> $_->GetId,
-							track_seq	=> $_->GetSequence,
-							track_name	=> $_->GetName,
-						}
-					} @{ $al->{tracks} }
-				],
-			},
-		);
-	}
-
-	next;
-
-	my $id = $artist->GetId;
-	my $n = html_escape($artist->GetName);
-	print "<h3><a href='/showartist.html?artistid=$id'>$n</a></h3>\n\n";
-
-	for my $album (sort { $a->{_sort_} cmp $b->{_sort_} } @a)
-	{
-		$id = $album->GetId;
-		$n = html_escape($album->GetName);
-		print "<p><a href='/showalbum.html?albumid=$id'>$n</a></p>\n";
-
-		for (@{ $album->{tracks} })
+		unless ($ar)
 		{
-			printf " %d) %s<br>\n", $_->GetSequence, html_escape($_->GetName);
+			$ar = Artist->new($self->DBH);
+			$ar->SetId($al->GetArtist);
+			$ar->LoadFromId or next;
+
+			$ar->{_sort_} = MusicBrainz::NormaliseSortText($ar->GetSortName);
+
+			$artists{ $al->GetArtist } = $ar;
 		}
 
-		print "\n";
+		$al->{_sort_} = MusicBrainz::NormaliseSortText($al->GetName);
+		#print STDERR "$al->{_sort_} by $ar->{_sort_}\n" if -t;
+
+		my @t = $al->LoadTracksFromMultipleArtistAlbum;
+		my $aid = $al->GetArtist;
+		next if grep { $_->GetArtist != $aid } @t;
+		$al->{tracks} = \@t;
+
+		push @{ $ar->{_albums_} }, $al;
+		++$count;
 	}
+
+	$self->Log("Saving results");
+	my $report = $self->PagedReport;
+
+	for my $artist (sort { $a->{_sort_} cmp $b->{_sort_} } values %artists)
+	{
+		my @a = @{ $artist->{_albums_} }
+			or next;
+
+		my $albums = $artist->{_albums_};
+		@$albums = sort { $a->{_sort_} cmp $b->{_sort_} } @$albums;
+
+		for my $al (sort { $a->{_sort_} cmp $b->{_sort_} } @$albums)
+		{
+			$report->Print(
+				{
+					artist_id			=> $artist->GetId,
+					artist_name			=> $artist->GetName,
+					artist_sortname		=> $artist->GetSortName,
+					artist_modpending	=> $artist->GetModPending,
+					album_id			=> $al->GetId,
+					album_name			=> $al->GetName,
+					album_modpending	=> $al->GetModPending,
+					tracks				=> [
+						map {
+							+{
+								track_id	=> $_->GetId,
+								track_seq	=> $_->GetSequence,
+								track_name	=> $_->GetName,
+							}
+						} @{ $al->{tracks} }
+					],
+				},
+			);
+		}
+	}
+
 }
 
-my $artists = keys %artists;
-print <<EOF;
-
-<p>End of report; found $count albums by $artists artists.</p>
-
-<& /comp/footer &>
-EOF
+__PACKAGE__->new->RunReport;
 
 # eof AlbumsToConvert.pl

@@ -23,81 +23,34 @@
 #   $Id$
 #____________________________________________________________________________
 
-use 5.008;
-use strict;
-
 use FindBin;
 use lib "$FindBin::Bin/../../cgi-bin";
 
-use Text::Unaccent;
-use Encode qw( decode );
-use HTML::Mason::Tools qw( html_escape );
+use strict;
+use warnings;
 
-use DBI;
-use DBDefs;
-use MusicBrainz;
-use Sql;
-use Album;
-use Artist;
+package TracksWithManyTRMs;
+use base qw( MusicBrainz::Server::ReportScript );
 
-my $mb = MusicBrainz->new;
-$mb->Login;
-my $sql = Sql->new($mb->{DBH});
-
-print <<EOF;
-<& /comp/sidebar, title => 'Tracks with many TRMs' &>
-
-<p>Generated <% \$m->comp('/comp/datetime', ${\ time() }) %></p>
-
-<p>
-    This report lists tracks with at least 10 TRMs.
-</p>
-
-<table>
-	<caption>Tracks with at least 10 TRMs</caption>
-	<thead>
-		<tr>
-			<th>Track</th>
-			<th>Artist</th>
-			<th>TRMs</th>
-		</tr>
-	</thead>
-	<tbody>
-EOF
-
-my $rows = $sql->SelectListOfLists("
-	SELECT t.id, t.name, a.id, a.name, trmcount
-	FROM (
-		SELECT track, COUNT(*) AS trmcount
-		FROM trmjoin
-		GROUP BY track
-		HAVING COUNT(*) >= 10
-	) tmp
-	INNER JOIN track t ON t.id = tmp.track
-	INNER JOIN artist a ON a.id = t.artist
-	ORDER BY trmcount DESC
-");
-
-for my $row (@$rows)
+sub GatherData
 {
-	my $t = html_escape($row->[1]);
-	my $a = html_escape($row->[3]);
-	print <<EOF;
-		<tr>
-			<td><a href="/showtrack.html?trackid=$row->[0]">$t</a></td>
-			<td><a href="/showartist.html?artistid=$row->[2]">$a</a></td>
-			<td>$row->[4]</td>
-		</tr>
+	my $self = shift;
+
+	$self->GatherDataFromQuery(<<EOF);
+		SELECT t.id AS track_id, t.name AS track_name, a.id AS artist_id,
+				a.name AS artist_name, trmcount
+		FROM (
+			SELECT track, COUNT(*) AS trmcount
+			FROM trmjoin
+			GROUP BY track
+			HAVING COUNT(*) >= 10
+		) tmp
+		INNER JOIN track t ON t.id = tmp.track
+		INNER JOIN artist a ON a.id = t.artist
+		ORDER BY trmcount DESC
 EOF
 }
 
-print <<EOF;
-	</tbody>
-</table>
-
-<p>End of report; found ${\ scalar @$rows } tracks.</p>
-
-<& /comp/footer &>
-EOF
+__PACKAGE__->new->RunReport;
 
 # eof TracksWithManyTRMs.pl

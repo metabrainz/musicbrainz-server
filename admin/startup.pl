@@ -58,6 +58,7 @@ use MusicBrainz::Server::DeferredUpdate;
 use MusicBrainz::Server::Handlers;
 use MusicBrainz::Server::Mail;
 use MusicBrainz::Server::ModerationNote;
+use MusicBrainz::Server::PagedReport;
 use MusicBrainz::Server::Release;
 use MusicBrainz::Server::Vote;
 # Don't load MusicBrainz::Server::Moderation::* - Moderation.pm does that
