@@ -70,7 +70,7 @@ if ($newartistname =~ /\S/ and $newartistsortname =~ /\S/
 		or return $m->comp("/comp/badargs", 1, 1);
 	
 	$al->CanAddTrack($tracknum)
-		or return $m->comp("/comp/error", $@, 1, 1);
+		or return $m->comp("/comp/error", "$@", 1, 1); # take safe copy of $@
 
 	$m->comp(
 		"/comp/entermods",
