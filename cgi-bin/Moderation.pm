@@ -658,21 +658,29 @@ sub GetModerationList
 {
    my ($this, $index, $num, $uid, $type, $rowid) = @_;
    my ($sql, @data, @row, $num_rows, $total_rows);
-   my ($mod, $query);
+   my ($mod, $query, @args) = ();
 
    $num_rows = $total_rows = 0;
    if ($type == ModDefs::TYPE_NEW)
    {
-       $query = qq|select open_moderations.* 
-                     from open_moderations left join votes 
-                          on Votes.uid = $uid and Votes.rowid=moderation_id 
-                    where moderator_id != $uid 
-                 group by moderation_id, moderator_id, moderator_name, tab, 
-                          col, open_moderations.rowid, open_moderations.artist,
-                          type, prevvalue, newvalue, expiretime, yesvotes, 
-                          novotes, status, automod, artist_name, votes.id, 
-                          votes.uid, votes.rowid, votes.vote 
-                   having count(Votes.id) < 1|;
+       $query = qq|
+	SELECT  m.id, m.tab, m.col, m.rowid,
+		m.artist, m.type, m.prevvalue, m.newvalue,
+		m.expiretime, m.yesvotes, m.novotes, m.status,
+		m.automod,
+		u.id, u.name,
+		a.name
+	FROM	moderation m
+		LEFT JOIN votes v ON v.rowid = m.id AND v.uid = ?
+		INNER JOIN moderator u ON u.id = m.moderator
+		INNER JOIN artist a ON a.id = m.artist
+	WHERE	m.moderator NOT IN (2,?)
+	AND	m.status = 1
+	AND	v.vote IS NULL
+	ORDER BY 1
+	LIMIT $num
+       |;
+       @args = ($uid, $uid);
    }
    elsif ($type == ModDefs::TYPE_MINE)
    {
@@ -744,7 +752,7 @@ sub GetModerationList
    }
 
    $sql = Sql->new($this->{DBH});
-   if ($sql->Select($query))
+   if ($sql->Select($query, @args))
    {
         $total_rows = $sql->Rows();
         for($num_rows = 0; $num_rows < $num; $num_rows++)
