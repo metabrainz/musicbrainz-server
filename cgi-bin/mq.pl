@@ -63,6 +63,9 @@ my %Queries =
         'http://musicbrainz.org/mm/mm-2.0#bitRate',
         'http://musicbrainz.org/mm/mm-2.0#channels',
         'http://musicbrainz.org/mm/mm-2.0#vbr'],
+   LookupMetadata =>
+      [\&QuerySupport::LookupMetadata, 
+        'http://musicbrainz.org/mm/mm-2.0#trmid'],
    SubmitTrack =>
       [\&QuerySupport::SubmitTrack, 
         'http://musicbrainz.org/mm/mq-1.0#artistName',
@@ -192,6 +195,7 @@ $queryname =~ s/^.*#//;
 if (!exists $Queries{$queryname})
 {
     $out = $rdf->ErrorRDF("Query '$queryname' is not supported.");
+    print STDERR "$out\n\n";
     Output($r, \$out);
     exit(0);
 }

@@ -258,9 +258,10 @@ sub GetMetadataFromIdAndAlbum
          }
          else
          {
+             
              while(@row = $sql->NextRow)
              {
-                if ($row[0] =~ /^$albumname$/i)
+                if (not defined $albumname || $row[0] =~ /^$albumname$/i)
                 {
                    $seq = $row[1];
                    $album = $row[0];

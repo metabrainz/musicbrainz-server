@@ -524,6 +524,33 @@ sub GetAlbumsByArtistGlobalId
    return $rdf->CreateAlbumList(@ids);
 }
 
+sub LookupMetadata
+{
+   my ($dbh, $doc, $rdf, $id) = @_;
+   my (@ids, $gu, $tr);
+
+   #PrintData("Lookup:", $id);
+
+   $gu = GUID->new($dbh);
+   $tr = Track->new($dbh);
+
+   # has this data been accepted into the database?
+   @ids = $gu->GetTrackIdsFromGUID($id);
+   if (scalar(@ids) > 0)
+   {
+      my (@data, $i);
+
+      # @data will contain 5 items, in the same order as shown above
+      @data = $tr->GetMetadataFromIdAndAlbum($ids[0]);
+      if (scalar(@data) > 0)
+      {
+          #PrintData("Matched database (outgoing):", @data);
+          return $rdf->CreateMetadataExchange(@data);
+      }
+   }
+   return $rdf->CreateStatus(0);
+}
+
 sub PrintData
 {
      my ($note, @data) = @_;
