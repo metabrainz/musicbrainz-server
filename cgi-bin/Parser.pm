@@ -123,16 +123,16 @@ sub GetBaseURI
 
 sub Extract
 {
-	my ($this, $currentURI, $ordinal, $query) = @_;
+	my ($this, $currentURI, $query) = @_;
 
 	my $currentURIid = $this->{uri_to_id}{$currentURI}
 		or return undef;
 
 	for my $pred (split /\s/, $query)
 	{
-		if ($pred eq "[]")
+		if ($pred =~ /^\[(\d+)\]$/)
 		{
-			$pred = "http://www.w3.org/1999/02/22-rdf-syntax-ns#_$ordinal";
+			$pred = "http://www.w3.org/1999/02/22-rdf-syntax-ns#_$1";
 		}
 
 		my $pid = $this->{uri_to_id}{$pred}

@@ -40,10 +40,6 @@ use vars qw(@ISA @EXPORT);
 @ISA    = @ISA    = '';
 @EXPORT = @EXPORT = '';
 
-use constant EXTRACT_TOC_QUERY => "!mm!toc [] !mm!sectorOffset";
-use constant EXTRACT_NUMTRACKS_QUERY => "!mm!lastTrack";
-use constant EXTRACT_CLIENT_VERSION => "!mq!clientVersion";
-
 use constant DEBUG_TRM_LOOKUP => 0;
 
 sub GetCDInfoMM2
@@ -54,15 +50,13 @@ sub GetCDInfoMM2
    return $rdf->ErrorRDF("No Discid given.") if (!defined $id);
 
    my $ns = $rdf->GetMMNamespace();
-   my $query = EXTRACT_TOC_QUERY;
-   $query =~ s/!mm!/$ns/g;
    if (defined $numtracks)
    {
       $toc = "1 $numtracks ";
       $currentURI = $parser->GetBaseURI();
       for($i = 1; $i <= $numtracks + 1; $i++)
       {
-          $toc .= $parser->Extract($currentURI, $i, $query) . " ";
+          $toc .= $parser->Extract($currentURI, "${ns}toc [$i] ${ns}sectorOffset") . " ";
       }
    }
 
@@ -81,17 +75,13 @@ sub AssociateCDMM2
    return $rdf->ErrorRDF("No Discid given.") if (!defined $Discid);
 
    my $ns = $rdf->GetMMNamespace();
-   my $toc_query = EXTRACT_TOC_QUERY;
-   $toc_query =~ s/!mm!/$ns/g;
-   my $num_query = EXTRACT_NUMTRACKS_QUERY;
-   $num_query =~ s/!mm!/$ns/g;
 
    $currentURI = $parser->GetBaseURI();
-   $numtracks = $parser->Extract($currentURI, $i, $num_query);
+   $numtracks = $parser->Extract($currentURI, "${ns}lastTrack");
    $toc = "1 $numtracks ";
    for($i = 1; $i <= $numtracks + 1; $i++)
    {
-       $toc .= $parser->Extract($currentURI, $i, $toc_query) . " ";
+       $toc .= $parser->Extract($currentURI, "${ns}toc [$i] ${ns}sectorOffset") . " ";
    }
 
    # Check to see if the album is in the main database
@@ -477,11 +467,9 @@ sub SubmitTRMList
     my $sql = Sql->new($dbh);
 
     my $ns = $rdf->GetMQNamespace();
-    my $query = EXTRACT_CLIENT_VERSION;
-    $query =~ s/!mq!/$ns/g;
 
     my $uri = $parser->GetBaseURI();
-    my $clientVer = $parser->Extract($uri, 0, $query);
+    my $clientVer = $parser->Extract($uri, "${ns}clientVersion");
     if (not defined $clientVer)
     {
      	return $rdf->ErrorRDF("Your MusicBrainz client must provide its version " .

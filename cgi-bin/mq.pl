@@ -280,7 +280,7 @@ $currentURI = $parser->GetBaseURI();
 
 # Check to see if the client specified a depth for this query. If not,
 # use a depth of 2 by default.
-$depth = $parser->Extract($currentURI, -1,
+$depth = $parser->Extract($currentURI,
                  "http://musicbrainz.org/mm/mq-1.0#depth");
 if (not defined $depth)
 {
@@ -294,13 +294,13 @@ if ($depth > 6)
 }
 $rdf->SetDepth($depth);
 
-$session_id = $parser->Extract($currentURI, -1,
+$session_id = $parser->Extract($currentURI,
                 'http://musicbrainz.org/mm/mq-1.0#sessionId');
 if (defined $session_id)
 {
     my $error;
 
-    $session_key = $parser->Extract($currentURI, -1, 
+    $session_key = $parser->Extract($currentURI,
                    'http://musicbrainz.org/mm/mq-1.0#sessionKey');
 
     $error = Authenticate(\%session, $session_id, $session_key);
@@ -313,7 +313,7 @@ if (defined $session_id)
 }
 
 # Extract the name of the qyery
-$queryname = $parser->Extract($currentURI, -1, 
+$queryname = $parser->Extract($currentURI,
                  "http://www.w3.org/1999/02/22-rdf-syntax-ns#type");
 if (!defined $queryname)
 {
@@ -352,7 +352,7 @@ for(;;)
     last if (!defined $rdfquery);
 
     #print STDERR "$rdfquery: ";
-    $data = $parser->Extract($currentURI, -1, $rdfquery);
+    $data = $parser->Extract($currentURI, $rdfquery);
     $data = undef if (defined $data && $data eq '');
     $data = "" if (defined $data && $data eq "__NULL__");
     #print STDERR "'$rdfquery' ->\n'$data'\n\n" if defined $data;

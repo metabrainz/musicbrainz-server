@@ -296,18 +296,13 @@ sub CreateAuthenticateResponse
 sub GetTRMTrackIdPair
 {
    my ($this, $parser, $uri, $i) = @_;
-
    my $ns = $this->GetMMNamespace(); 
-   my $query = "!mm!trmList [] !mm!trackid";
-   $query =~ s/!mm!/$ns/g;
-   my $trackid = $parser->Extract($uri, $i, $query);
 
-   $query =~ s/!mm!/$ns/g;
-   $query = "!mm!trmList [] !mm!trmid";
-   $query =~ s/!mm!/$ns/g;
-   my $trmid = $parser->Extract($uri, $i, $query);
+   my $trackid = $parser->Extract($uri, "${ns}trmList [$i] ${ns}trackid");
+   my $trmid = $parser->Extract($uri, "${ns}trmList [$i] ${ns}trmid");
 
    return ($trackid, $trmid);
 }
 
 1;
+# eof MM_2_0.pm
