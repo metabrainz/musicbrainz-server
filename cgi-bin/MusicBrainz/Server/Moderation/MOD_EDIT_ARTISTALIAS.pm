@@ -72,29 +72,40 @@ sub IsAutoMod
 	$old eq $new;
 }
 
-sub ApprovedAction
+sub CheckPrerequisites
 {
 	my $self = shift;
-	my $sql = Sql->new($self->{DBH});
 
-	my $rowid = $self->GetRowId;
+	my $alias = Alias->new($self->{DBH}, "artistalias");
+	$alias->SetId($self->GetRowId);
 
-	my $current = $sql->SelectSingleValue(
-		"SELECT name FROM artistalias WHERE id = ?",
-		$rowid,
-	);
-
-	unless (defined $current)
+	unless ($alias->LoadFromId)
 	{
 		$self->InsertNote(MODBOT_MODERATOR, "This alias has been deleted");
 		return STATUS_FAILEDPREREQ;
 	}
 	
-	unless ($current eq $self->GetPrev)
+	unless ($alias->GetName eq $self->GetPrev)
 	{
 		$self->InsertNote(MODBOT_MODERATOR, "This alias has already been changed");
 		return STATUS_FAILEDDEP;
 	}
+
+	# Save for ApprovedAction
+	$self->{_alias} = $alias;
+
+	undef;
+}
+
+sub ApprovedAction
+{
+	my $self = shift;
+
+	my $status = $self->CheckPrerequisites;
+	return $status if $status;
+
+	my $alias = $self->{_alias}
+		or die;
 
 	# There's currently a unique index on artistalias.name
 	# Try to detect likely violations of that index, and gracefully
@@ -120,17 +131,8 @@ sub ApprovedAction
 		}
 	}
 
-	$sql->Do(
-		"UPDATE artistalias SET name = ? WHERE id = ?",
-		$self->GetNew,
-		$rowid,
-	);
-
-	# Update the search engine
-	my $artist = Artist->new($self->{DBH});
-	$artist->SetId($self->GetArtist);
-	$artist->LoadFromId;
-	$artist->RebuildWordList;
+	$alias->SetName($self->GetNew);
+	$alias->UpdateName;
 
 	STATUS_APPLIED;
 }

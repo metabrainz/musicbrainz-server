@@ -22,15 +22,14 @@
 #____________________________________________________________________________
 
 package Alias;
-use TableBase;
 
-use vars qw(@ISA @EXPORT);
-@ISA    = @ISA    = 'TableBase';
-@EXPORT = @EXPORT = '';
+use TableBase;
+{ our @ISA = qw( TableBase ) }
 
 use strict;
 use DBI;
 use DBDefs;
+use Carp qw( croak );
 
 sub new
 {
@@ -124,6 +123,39 @@ sub Insert
        my $engine = SearchEngine->new($this->{DBH}, { Table => 'Artist' } );
        $engine->AddWordRefs($id,$name);
    }
+}
+
+sub UpdateName
+{
+    my $self = shift;
+
+    $self->{table}
+		or croak "Missing alias ID in UpdateName";
+	my $id = $self->GetId
+		or croak "Missing alias ID in UpdateName";
+	my $name = $self->GetName;
+	defined($name) && $name ne ""
+		or croak "Missing alias name in UpdateName";
+	my $rowid = $self->GetRowId
+		or croak "Missing row ID in UpdateName";
+
+    MusicBrainz::TrimInPlace($name);
+
+	my $sql = Sql->new($self->{DBH});
+	$sql->Do(
+		"UPDATE $self->{table} SET name = ? WHERE id = ?",
+		$name,
+		$id,
+	);
+
+    if (lc($self->{table}) eq "artistalias")
+    {
+        # Update the search engine
+        my $artist = Artist->new($self->{DBH});
+        $artist->SetId($rowid);
+        $artist->LoadFromId;
+        $artist->RebuildWordList;
+    }
 }
 
 sub Resolve
