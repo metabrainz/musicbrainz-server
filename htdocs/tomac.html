@@ -1,6 +1,7 @@
 %# vi: set ts=2 sw=2 ft=mason :
 <%args>
 $album => undef
+$notetext => ""
 </%args>
 <%perl>
 
@@ -51,6 +52,10 @@ if ($ARGS{confirm})
 				album => $al,
 				artist => $ar,
 			);
+
+			$mods[0]->InsertNote($session{'uid'}, $notetext)
+				if $mods[0]
+				and $notetext =~ /\S/;
 		},
 		success_url => $url,
 	) or return;
@@ -94,6 +99,15 @@ if ($ARGS{confirm})
 		<input type="checkbox" name="movetracks" value="1" checked>
 		Move tracks to new artists
 	</div>
+
+	<p>
+		If YES, enter moderation note (optional):
+	</p>
+
+	<p>
+		<textarea name="notetext" rows="3" cols="60"></textarea>
+	</p>
+
 </form>
 
 <& /comp/movefocus, "ModFormNo", 0 &>
