@@ -1,0 +1,39 @@
+# Status: Working
+# Mozilla/Netscape 6+ plugin file for musicbrainz.com by Kim Plowright (www.mildlydiverting.com or kim dot plowright at gmail dot com)
+#
+# Created:  December 2, 2004
+# Last updated: December 2, 2004
+#
+# Known issues:
+#  
+# 1. Well, it's my first plugin, and really basic, but I've tested it and it seems to work...
+# 2. Not tested with searcg sidebar, as using firefox which doesn't support it.
+#
+# If you like this, do consider getting involved with MusicBrainz - they're a fab organisation who are trying to put right all the damage to open source philosophies made by the Gracenote CDDB debacle...
+#
+<search
+ version="7.1"
+ name="Musicbrainz: Artist"
+ description="Musicbrainz - Search Musicbrainz music metadatabase for an artist" 
+ action="http://www.musicbrainz.org/newsearch.html"
+ searchForm="http://www.musicbrainz.org/search.html"
+ method="GET" >
+
+<input name="sourceid" value="Mozilla-search">
+<input name="table" value="artist">
+<input name="limit" value="0">
+<input name="search" user="">
+
+<interpret 
+ resultListStart="<table border="0" cellspacing="0" cellpadding="4" id="SearchResults">"
+ resultListEnd="</table>"
+ resultItemStart="<td>"
+ resultItemEnd="</td>"
+>
+</search>
+
+<browser
+ update="http://musicbrainz.org/search/plugins/musicbrainzartist.src" 
+ updateIcon="http://musicbrainz.org/search/plugins/musicbrainzartist.gif"
+ updateCheckDays="14"
+>

@@ -180,7 +180,7 @@ sub handler
 
     my $tied = undef;
 
-    if (my $c = $cookies{'AF_SID'})
+    if (my $c = $cookies{ &DBDefs::SESSION_COOKIE })
     {
         $tied = eval
 		{

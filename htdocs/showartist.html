@@ -359,8 +359,14 @@ $m->comp(
 						  </form>
 						</td>
 % }
-						<td class="rname"><%
-								$nmp ? "<span class='mp'>" : "" |n
+						<td class="rname">
+%            if ($session{tport}) {
+						<a href="http://127.0.0.1:<% $session{tport} %>/openalbum?id=<% $album->GetMBId %>&amp;t=<% time %>"
+							style="margin-right: 1ex"
+							target="hiddeniframe" title="Open in Tagger" border="0"><img 
+								src="/images/mblookup-tagger.png" border="0" alt="Open in tagger"></a>
+%            }
+						<% $nmp ? "<span class='mp'>" : "" |n
 							%><a href="/album/<% $album->GetMBId %>.html"><% $album->GetName %></a><%
 								$nmp ? "</span>" : "" |n
 						%></td>

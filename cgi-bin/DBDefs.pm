@@ -76,7 +76,7 @@ MusicBrainz::Server::Database->register_all(
 
 # The schema sequence number.  Must match the value in
 # replication_control.current_schema_sequence.
-sub DB_SCHEMA_SEQUENCE { 3 }
+sub DB_SCHEMA_SEQUENCE { 4 }
 
 # Replication slaves should prevent users from making any changes to the
 # database.  Note that this setting is closely tied to the "READONLY" key,
@@ -188,6 +188,8 @@ sub DEFERRED_UPDATE_LOG { "/tmp/musicbrainz-deferred-update.log" }
 sub WEB_SESSION_SECONDS_TO_LIVE { 3600 * 3 }
 sub RDF_SESSION_SECONDS_TO_LIVE { 3600 * 1 }
 
+# The cookie name to use
+sub SESSION_COOKIE { "AF_SID" }
 # The domain into which the session cookie is written
 sub SESSION_DOMAIN { undef }
 
@@ -196,12 +198,12 @@ sub ANNOTATION_LOCK_TIME { 60*15 }
 
 # Amazon associate and developer ids
 my %amazon_store_associate_ids = (
-    'amazon.ca'		=> 'musicbrainz0a-20',
+    'amazon.ca'		=> 'musicbrainz01-20',
     'amazon.co.jp'	=> 'musicbrainz-22',
-    'amazon.co.uk'	=> 'musicbrainz-21',
-    'amazon.com'	=> 'musicbrainz-20',
-    'amazon.de'		=> 'musicbrainz02-21',
-    'amazon.fr'		=> 'musicbrainz01-21',
+    'amazon.co.uk'	=> 'musicbrainz0c-21',
+    'amazon.com'	=> 'musicbrainz0d-20',
+    'amazon.de'		=> 'musicbrainz00-21',
+    'amazon.fr'		=> 'musicbrainz0e-21',
 );
 
 sub AWS_ASSOCIATE_ID 

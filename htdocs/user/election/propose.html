@@ -1,6 +1,7 @@
 %# vi: set ts=4 sw=4 ft=mason :
 <%args>
 $modname => undef
+$confirm => 0
 </%args>
 <%perl>
 
@@ -18,6 +19,9 @@ my $mb = $m->comp("/comp/dblogin");
 my $sql = Sql->new($mb->{DBH});
 my $el = MusicBrainz::Server::AutomodElection->new($mb->{DBH});
 # $el->DoCloseElections;
+
+return $m->comp("propose-confirm.inc", modname => $modname)
+	if not $confirm;
 
 my $error = undef;
 my $new_election = undef;

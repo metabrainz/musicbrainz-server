@@ -1044,7 +1044,7 @@ sub EnsureSessionOpen
 	};
 
 	my $cookie = new CGI::Cookie(
-		-name	=> 'AF_SID',
+		-name	=> &DBDefs::SESSION_COOKIE,
 		-value	=> $session->{_session_id},
 		-path	=> '/',
 		-domain	=> &DBDefs::SESSION_DOMAIN,
@@ -1071,7 +1071,7 @@ sub EnsureSessionClosed
 sub ClearSessionCookie
 {
 	my $cookie = new CGI::Cookie(
-		-name	=> 'AF_SID',
+		-name	=> &DBDefs::SESSION_COOKIE,
 		-value	=> "",
 		-path	=> '/',
 		-domain	=> &DBDefs::SESSION_DOMAIN,

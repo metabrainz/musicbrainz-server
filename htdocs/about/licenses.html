@@ -1,0 +1,88 @@
+%# vi: set ts=2 sw=2 ft=mason :
+<& /comp/sidebar, title => 'MusicBrainz Data Licenses' &>
+
+<p>
+The data collected by the MusicBrainz project falls into two categories explained below.
+Any user that contributes to MusicBrainz should be aware that their contributions will
+be made available to the public under the following licenses:
+</p>
+
+<h2>Public Domain Data</h2>
+
+<img style="float: right; margin: 2em;" 
+    src="http://creativecommons.org/images/public/norights.gif"
+		alt="No rights reserved: Public Domain"
+		style="float: right; margin: 10px;">
+
+<p>
+The core data of the MusicBrainz dataset is placed into the <a 
+href="http://creativecommons.org/licenses/publicdomain/">Public Domain</a>, 
+which means that anyone can download and use the core data in any 
+way they see fit. No restictions, no worries!
+</p>
+
+<p>
+The core data consists of the following pieces of data. The SQL tablenames are shown in parenthesis
+after the description of the data:
+</p>
+
+<ul>
+<li>Artist names and artist alias information (artist, artistalias)</li>
+<li>Album names (album, albumjoin)</li>
+<li>Track names (track)</li>
+<li>CD Identifcation information (album_cdtoc and cdtoc)</li>
+<li>TRM Identifiers and related data (trm, trmjoin, clientversion)</li>
+<li>Release dates (release, country)</li>
+</ul>
+
+<p>
+The live data-feed that we offer to replicate the MusicBrainz data is a slight exception
+to the rules above, since both Public Domain data and Creative Commons data (see below)
+are intermingled in the data update packets. Given that the highest common
+license denominator needs to be applied to these data packets, the Creative Commons license
+governs the live update data feeds.
+</p>
+
+<p>
+To get the freely available Public Domain data, please download a data snapshot from
+the <a href="/products/server/download.html">download</a> page.
+</p>
+
+
+<h2>Creative Commons Licensed Data</h2>
+
+<img style="float: right; margin: 2em;" 
+	  img src="http://creativecommons.org/images/public/somerights.gif"
+		alt="Some rights reserved: Creative Commons"
+		style="float: right; margin: 10px;">
+
+<p>
+The remaining portions of the MusicBrainz data are released under the Creative Commons <a
+href="http://creativecommons.org/licenses/by-nc-sa/1.0/">Attribution-NonCommercial-ShareAlike 1.0</a>
+license. This allows non commercial use of the MusicBrainz data as long as MusicBrainz is given credit
+and that derivative works (works based on MusicBrainz CC licensed data) are also made available
+under the same license. For more information on the Creative Commons and their licenses, please
+refer to the <a href="http://creativecommons.org">Creative Commons</a> home page.
+</p>
+
+<p>
+The Creative Commons licensed data portions are: (The SQL tablenames are shown in parenthesis
+after the description of the data)
+</p>
+
+<ul>
+<li>Album metadata tables (album_amazon_asin, albummeta)</li>
+<li>Search indexes (wordlist, artistwords, albumwords, trackwords)</li>
+<li>Annotations (annotation)</li>
+<li>Statistics (currentstat, historicalstat, stats, trmjoin_stat, trm_stat)</li>
+<li>Moderations (automod_election, moderation_note_open, moderation_open, moderator, vote_open)</li>
+<li>Closed moderations (moderation_closed, moderation_note_closed, vote_closed)</li>
+<li>Live data-feed -- see notes above</li>
+</ul>
+
+<p>
+To get the Creative Commons licensed data, please download a data snapshot from
+the <a href="/products/server/download.html">download</a> page.
+</p>
+
+<& /comp/footer &>

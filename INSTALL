@@ -25,7 +25,7 @@ The MusicBrainz server requires the following items. Please note the
 inline notes about which type of server you are setting up -- if there are no
 specific notes about a server type, the instructions apply to all server types.
 
-1) PostgreSQL 7.3 or later
+1) PostgreSQL 7.4 or later
 
    Postgres must have multi-byte support enabled.  In older versions
    this was doing with "./configure --enable-multibyte=UNICODE" , but

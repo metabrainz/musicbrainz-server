@@ -1,0 +1,39 @@
+%# vi: set ts=2 sw=2 ft=mason :
+<& /comp/sidebar, title => 'November 14th, 2004: Server Updates' &>
+
+<h2>Changes mainly of interest to MusicBrainz Users</h2>
+
+<h3>"Add Disc ID" Moderations</h3>
+
+<p>
+	Whenever a disc ID is added to an existing album, it is now tracked
+	via an "Add Disc ID" moderation.&nbsp; This applies both to disc IDs added
+	via the "CD lookup" interface (in which case the moderation is credited to
+	whoever performed the lookup), and also to those added as a result of a
+	FreeDB lookup (which fall under the "FreeDB" moderator).&nbsp;
+	"Add Disc ID" moderations are <em>not</em> used in the case where
+	an album and a disc ID are added at the same time.
+</p>
+
+<h3>Annotations</h3>
+
+<p>
+	Annotations allow you to add notes to artists and albums.&nbsp;
+	See <a href="http://wiki.musicbrainz.org/wiki.pl?HowAnnotationsWork">How Annotations Work</a>
+	and the <a href="http://wiki.musicbrainz.org/wiki.pl?AnnotationFAQ">Annotations FAQ</a>.&nbsp;
+	Thanks to Matthias Friedrich for building the foundations of this feature.
+</p>
+
+<h2>Bugs and RFEs Closed</h2>
+
+<%perl> $m->comp("buglist.inc", <<'EOF' =~ m/(.+)/mg);
+
+1051189	 New moderation type: Add DiscID
+1063630  Google search has no Wiki sub-selection
+
+EOF
+</%perl>
+
+<p style="margin-top: 3em"><a href="/support/contact.html">Dave Evans</a></p>
+
+<& /comp/footer &>

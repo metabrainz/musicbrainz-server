@@ -323,6 +323,7 @@ for(;;)
 if ($r)
 {
 	my $uri = "/mm-2.1/$queryname";
+	$uri .= "?$queryargs[0]" if $queryname eq "TrackInfoFromTRMId";
 	$r->the_request($r->method . " $uri " . $r->protocol);
 }
 

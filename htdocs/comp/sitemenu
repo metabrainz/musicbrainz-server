@@ -31,7 +31,7 @@ use Scalar::Util qw( reftype weaken );
 			{ name => "Finances",				url => "/finances.html" },
 			{ name => "Contribute",				url => "/contribute.html"},
 		],
-		{ name => "Licenses",               url => "/news/licenses.html" },
+		{ name => "Licenses",               url => "/about/licenses.html" },
 		{ name => "Contract",				url => "/contract.html" },
 		{ name => "Related Projects",		url => "/about/relatedprojects.html" },
 		{ name => "Help Wanted",		url => "/about/helpwanted.html" },
@@ -55,6 +55,9 @@ use Scalar::Util qw( reftype weaken );
 		],
 		{ name => "Server Updates",			url => "/news/server.html" },
 		[
+			{ name => "2005-01-25",				url => "/news/20050125-1.html" },
+			{ name => "2004-12-22",				url => "/news/20041222-1.html" },
+			{ name => "2004-11-14",				url => "/news/20041110-1.html" },
 			{ name => "2004-11-04",				url => "/news/20041104-1.html" },
 			{ name => "2004-10-10",				url => "/news/20040915-1.html" },
 			{ name => "2004-08-09",				url => "/news/20040809-1.html" },
@@ -325,6 +328,7 @@ use Scalar::Util qw( reftype weaken );
 	],
 	{ name => "Wiki",					url => "http://wiki.musicbrainz.org/" },
 	{ name => "Blog",					url => "http://blog.musicbrainz.org/" },
+	{ name => "Store",					url => "http://cafepress.com/musicbrainz" },
 );
 
 %urlmap = ();

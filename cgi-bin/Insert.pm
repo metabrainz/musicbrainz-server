@@ -513,6 +513,7 @@ sub InsertAlbumModeration
        $sql->Begin;
 
 		require Moderation;
+		# FIXME "artist" is undef.  Does this matter?
 		my @mods = Moderation->InsertModeration(
 			DBH	=> $this->{DBH},
 			uid	=> $moderator || ANON_MODERATOR,

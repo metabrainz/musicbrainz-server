@@ -186,6 +186,18 @@ sub handler
 	$r->send_http_header(RESP_CONTENT_TYPE);
 	$r->print($bytes);
 
+	if ($r->dir_config("LogTrmAnswers"))
+	{
+		my $answer = eval {
+			return "-" unless length($bytes) == 64;
+			$bytes =~ s/...(.)/$1/g;
+			$bytes = unpack "H*", $bytes;
+			$bytes =~ s/(........)(....)(....)(....)(............)/$1-$2-$3-$4-$5/;
+			return $bytes;
+		};
+		$r->subprocess_env("EXTRA_LOG", " trm=".($answer || "?"));
+	}
+
 	OK;
 }
 

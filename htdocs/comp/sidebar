@@ -54,6 +54,9 @@ unless ($nosidebar)
       <table cellpadding="15" cellspacing="0" border="0" width="100%" >
       <tr>
          <td align="left" valign="top" class="body" width="100%">
+% if ($session{tport}) {
+<iframe name="hiddeniframe" height="0" width="0" frameborder="0"></iframe>
+% }
 	 <a id="maincontent"></a>
 
 %if($title ne '' and not $noh1) {

@@ -60,34 +60,98 @@ sub LoadFiles
 
 	for my $file (@ARGV)
 	{
-		print localtime() . " : Loading $file\n";
+		$class->LoadFile($sql, $file);
+	}
+}
 
-		open(my $fh, "<", $file)
-			or warn("open $file: $!\n"), next;
+sub LoadFile
+{
+	my ($class, $sql, $file) = @_;
 
-		$sql->Begin;
+	open(my $fh, "+<", $file)
+		or do {
+			warn  "open $file: $!\n" unless $!{ENOENT};
+			next;
+		};
+	print localtime() . " : Loading $file\n";
 
-		if (eval { $class->_LoadFromFilehandle($fh, $mb->{DBH}); 1 })
+	require IO::Handle;
+	$fh->autoflush;
+
+	for (;;)
+	{
+		my $seek = $class->_GetSeekFromFH($fh);
+
+		if ($seek >= -s($fh))
 		{
-			$sql->Commit;
 			print localtime() . " : Successfully loaded $file\n";
+			unlink $file or warn $!;
 			close $fh;
-			unlink $file
-				or warn("Loaded $file but couldn't remove it: $!\n");
+			last;
+		}
+
+		my $newseek;
+
+		print localtime() . " : Trying $file from ".(0+$seek)."\n";
+
+		eval {
+			$sql->Begin;
+			$class->_LoadFromFilehandle($fh, $sql->{DBH}, $seek, \$newseek);
+			$sql->Commit;
+		};
+
+		if ($@ eq "")
+		{
+			$class->_SetSeekInFH($newseek, $fh);
 		} else {
 			my $err = $@;
-			$sql->Rollback;
-			print STDERR localtime() . " : Failed to load $file ($err)\n";
-			close $fh;
-			rename $file, "$file.failed-".time()
-				or warn("Loaded $file but couldn't rename it: $!\n");
+			eval { $sql->Rollback };
+
+			if ($err =~ /\b deadlock \b/xi)
+			{
+				print localtime() . " : Deadlock detected - sleeping...\n";
+				sleep 10;
+			} else {
+				chomp $err;
+				print localtime() . " : Error: $err\n";
+				print localtime() . " : Ignoring the rest of this file\n";
+				return if $err =~ /SIGINT/;
+				last;
+			}
 		}
 	}
 }
 
+use POSIX qw( SEEK_SET );
+
+sub _GetSeekFromFH
+{
+	my ($class, $fh) = @_;
+
+	seek($fh, 0, SEEK_SET) or die $!;
+	my $line = <$fh>;
+	return $1 if defined($line) and $line =~ /^SEEK=(\d+)$/;
+	return 0;
+}
+
+sub _SetSeekInFH
+{
+	my ($class, $seek, $fh) = @_;
+	seek($fh, 0, SEEK_SET) or die $!;
+	print $fh "SEEK=".(0+$seek)."\n";
+}
+
 sub _LoadFromFilehandle
 {
-	my ($class, $fh, $dbh) = @_;
+	my ($class, $fh, $dbh, $seek, $newseekref) = @_;
+
+	seek($fh, $seek, SEEK_SET) or die $!;
+	printf "%s : Starting at seek=%s (%d%%)\n",
+		scalar localtime,
+		$seek,
+		100 * $seek / -s($fh);
+
+	my $lines = 0;
 
 	my %type;
 
@@ -123,7 +187,16 @@ sub _LoadFromFilehandle
 		{
 			warn "Don't understand update type '$type' (@args)";
 		}
+
+		++$lines;
+		last if $lines >= 100;
 	}
+
+	$$newseekref = tell($fh);
+	print localtime() . " : Stopping at seek=$$newseekref (after $lines lines)\n";
+
+	my $sql = Sql->new($dbh);
+	$sql->Do("LOCK TABLE trm, trm_stat, trmjoin_stat IN EXCLUSIVE MODE");
 
 	# ------------------------------------------------------
 	printf "%s : Applying updates - %d TRM lookups\n",
@@ -150,7 +223,8 @@ sub _LoadFromFilehandle
 	while (my ($trm, $usecount) = each %trm)
 	{
 		$trmobj->UpdateLookupCount($trm, $usecount);
-		++$i % 100 or $p->(), print "\r"
+		++$i;
+		$i % 100 or $p->(), print "\r"
 			if -t STDOUT;
 	}
 
@@ -180,7 +254,8 @@ sub _LoadFromFilehandle
 	{
 		my ($trm, $trackid) = split /,/, $args;
 		$trmobj->UpdateUsageCount($trm, $trackid, $usecount);
-		++$i % 100 or $p->(), print "\r"
+		++$i;
+		$i % 100 or $p->(), print "\r"
 			if -t STDOUT;
 	}
 
@@ -205,7 +280,8 @@ sub _LoadFromFilehandle
 		$gmt[5]+=1900;
 		my $timestr = sprintf('%04d-%02d-%02d %02d:%02d:%02d', @gmt[5,4,3,2,1,0]);
 		$aliasobj->UpdateLastUsedDate($aliasid, $timestr, $t->{USECOUNT});
-		++$i % 100 or $p->(), print "\r"
+		++$i;
+		$i % 100 or $p->(), print "\r"
 			if -t STDOUT;
 	}
 

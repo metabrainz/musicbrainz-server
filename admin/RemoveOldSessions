@@ -106,12 +106,15 @@ else
 
 printf "Removed:%d  Failed:%d\n", $removed, $failed if -t STDOUT;
 
+remove_orphaned_locks();
+
 exit;
 
 sub process_file
 {
 	my $file = shift;
 	my $sess = basename($file);
+	my @stat = stat $file;
 
 	my %session;
 	my $has_expired = 0;
@@ -126,20 +129,28 @@ sub process_file
 		};
 	} or warn("tie $file: $@"), next;
 
+	my %info = (
+		file => $file,
+		stat => \@stat,
+		session => \%session,
+	);
+
 	use Data::Dumper;
 	print Data::Dumper->Dump([
-		\%session,
-		#tied(%session),
+		\%info,
 	],[
-		"*session-$sess",
-		#"tied-$sess",
+		"*session",
 	]) if $dump_all;
 
 	my $expiretime = $session{'expire'};
 
 	if ($expiretime and time() >= $expiretime)
 	{
-		print "Session $sess has expired\n"
+		print "Session $sess has expired (expiretime)\n"
+			if $show_expired_sessions;
+		$has_expired = 1;
+	} elsif (time() - $stat[9] >= &DBDefs::WEB_SESSION_SECONDS_TO_LIVE) {
+		print "Session $sess has expired (stat)\n"
 			if $show_expired_sessions;
 		$has_expired = 1;
 	} else {
@@ -155,9 +166,47 @@ sub process_file
 		};
 		print "Failed to remove session $sess ($@)\n" if not $ok;
 		$ok ? ++$removed : ++$failed;
+		unlink "$lockdir/Apache-Session-$sess.lock" or $!{ENOENT}
+			or warn "Failed to remove $sess lock file: $!\n";
 	}
 
 	untie %session;
+}
+
+sub remove_orphaned_locks
+{
+	chdir $lockdir or die $!;
+	my ($inuse, $removed, $failed) = (0, 0, 0);
+
+	for my $file (<Apache-Session-*.lock>)
+	{
+		(my $sess) = $file =~ /^Apache-Session-(\w+)\.lock$/
+			or next;
+		++$inuse, next if -f "$sessdir/$sess";
+		push @remove, $file;
+	}
+
+	if (@remove and not $inuse)
+	{
+		warn "All locks are to be removed - maybe we're looking for the wrong filenames?\n";
+		return;
+	}
+
+	for my $file (@remove)
+	{
+		if (unlink $file)
+		{
+			++$removed;
+			next;
+		}
+
+		next if $!{ENOENT};
+
+		warn "unlink $file: $!\n";
+		++$failed;
+	}
+
+	printf "Removed:%d  Failed:%d\n", $removed, $failed if -t STDOUT;
 }
 
 # eof RemoveOldSessions

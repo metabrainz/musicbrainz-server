@@ -26,6 +26,9 @@
 package QuerySupport;
 
 use strict;
+use constant TRM_ID_SILENCE              => "7d154f52-b536-4fae-b58b-0666826c2bac";
+use constant TRM_TOO_SHORT               => "f9809ab1-2b0f-4d78-8862-fb425ade8ab9";
+use constant TRM_SIGSERVER_BUSY          => "c457a4a8-b342-4ec9-8f13-b6bd26c0e400";
 
 use Album; # for constants
 use DBDefs;
@@ -666,6 +669,9 @@ sub TrackInfoFromTRMId
        $tracknum, $duration, $filename)=@_;
    my ($sql, @ids, $query);
 
+    my $ip = eval { Apache->request->connection->remote_ip } || "?";
+    lprint "trmlookup", "begin trm=$id ip=$ip";
+
    return $rdf->ErrorRDF("No trm id given.")
       if (!defined $id || $id eq '');
    return undef if (!defined $dbh);
@@ -678,6 +684,10 @@ sub TrackInfoFromTRMId
    return $rdf->ErrorRDF("This is a special TRM Id associated to files that are too short for a full TRM.")
        if ($id eq &ModDefs::TRM_TOO_SHORT);
 
+   lprintf("trmlookup", "TRM lookup, TRM_ID_SILENCE"),
+   return $rdf->ErrorRDF("This TRM represents silence.  Sorry, you cannot look up this TRM.")
+       if ($id eq &ModDefs::TRM_ID_SILENCE);
+
     use Time::HiRes qw( gettimeofday tv_interval );
     my $t0 = [ gettimeofday ];
 
@@ -687,10 +697,16 @@ sub TrackInfoFromTRMId
                  from TRM, TRMJoin, track
                 where TRM.TRM = ? and
                       TRMJoin.TRM = TRM.id and
-                      TRMJoin.track = track.id|;
+                      TRMJoin.track = track.id
+		limit 101|;
    if ($sql->Select($query, $id))
    {
        my @row;
+
+       if ($sql->Rows > 100)
+       {
+	    lprint "trmlookup", "TRM $id matches many tracks - results truncated";
+       }
 
        # If this TRM generated any hits, update the lookup count
        if ($sql->Rows >= 1)
@@ -706,9 +722,10 @@ sub TrackInfoFromTRMId
 
 	my $t1 = [ gettimeofday ];
 	my $out = $rdf->CreateDenseTrackList(0, \@ids);
-	lprintf "trmlookup", "TRM lookup, select=%.3f, HIT, RDF=%.3f",
+	lprintf "trmlookup", "TRM lookup, select=%.3f, HIT, RDF=%.3f, tracks=%d",
 		tv_interval($t0, $t1),
 		tv_interval($t1),
+		scalar @ids,
 		if DEBUG_TRM_LOOKUP;
 	return $out;
    }

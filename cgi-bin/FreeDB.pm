@@ -143,7 +143,7 @@ sub _Retrieve_no_cache
     my ($line, @response);
 
     $line = <$sock>;
-    #print $line;
+    lprint "freedb", "<< $line";
 
     @response = split ' ', $line;
     if (!MusicBrainz::IsNonNegInteger($response[0]) || $response[0] < 200 || $response[0] > 299)
@@ -154,9 +154,12 @@ sub _Retrieve_no_cache
     }
 
     # Send the hello string
-    print $sock "cddb hello obs www.musicbrainz.org FreeDBGateway 1.0", $CRLF;
+    $line = "cddb hello obs www.musicbrainz.org FreeDBGateway 1.0";
+    lprint "freedb", ">> $line";
+    print $sock $line, $CRLF;
+
     $line = <$sock>;
-    #print $line;
+    lprint "freedb", "<< $line";
 
     @response = split ' ', $line;
     if ($response[0] < 200 || $response[0] > 299)
@@ -166,8 +169,13 @@ sub _Retrieve_no_cache
     }
 
     # Select the required protocol
-    printf $sock "proto %d$CRLF", FREEDB_PROTOCOL;
+    $line = "proto " . FREEDB_PROTOCOL;
+    lprint "freedb", ">> $line";
+    print $sock $line, $CRLF;
+
     $line = <$sock>;
+    lprint "freedb", "<< $line";
+
     # Expect 201 (OK, changed) or 502 (already using that protocol)
     unless ($line =~ /^(201|502) /)
     {
@@ -178,9 +186,11 @@ sub _Retrieve_no_cache
     goto READQUERY if $query =~ /^cddb read /;
 
     # Send the query 
+    lprint "freedb", ">> $query";
     print $sock $query, $CRLF;
+
     $line = <$sock>;
-    #print $line;
+    lprint "freedb", "<< $line";
 
     @response = split ' ', $line;
     if ($response[0] == 202)
@@ -205,15 +215,16 @@ sub _Retrieve_no_cache
         $disc_id = $response[2];
     }
     #
-    # Do we have more than one match? 
+    # Do we have more than one match?  Just use the first match.
     #
-    elsif ($response[0] == 211)
+    elsif ($response[0] == 210 or $response[0] == 211)
     {
         my (@categories, @disc_ids);
 
         for (my $i = 1; ; $i++)
         {
             $line = <$sock>;
+	    lprint "freedb", "<< $line";
 
             @response = split ' ', $line;
             if ($response[0] eq '.')
@@ -231,6 +242,7 @@ sub _Retrieve_no_cache
         $disc_id = $disc_ids[1];
     }
 
+    # FIXME lots of undef warnings coming from here
     $query = "cddb read $category $disc_id";
    
 READQUERY:
@@ -254,6 +266,7 @@ READQUERY:
 
     while(defined($line = <$sock>))
     {
+	lprint "freedb", "<< $line";
 	push @$response, $line;
 
     	my @chars = split(//, $line, 2);
@@ -328,6 +341,7 @@ READQUERY:
             next;
         }
     } 
+    lprint "freedb", "<< (EOF)";
 
     $artist =~ s/^\s*(.*?)\s*$/$1/ if defined $artist;
     $title =~ s/^\s*(.*?)\s*$/$1/ if defined $title;

@@ -40,7 +40,19 @@ for my $rel (@$releases)
 	{
 		if ($mon and $d)
 		{
-			# TODO check $y,$m,$d is a valid date
+			require Date::Calc;
+			unless (Date::Calc::check_date($y, $mon, $d))
+			{
+				$m->comp("/comp/sidebar", title => "Date Error");
+				</%perl>
+				<p>
+					Sorry, <% "$y-$mon-$d" %> is not a valid date.&nbsp;
+					<a href="javascript:history.back()">Go back and try again</a>.
+				</p>
+				<%perl>
+				$m->comp("/comp/footer");
+				return;
+			}
 			@$rel{qw( year month day )} = ($y, $mon, $d);
 		} elsif ($mon and $mon >= 1 and $mon <= 12) {
 			@$rel{qw( year month day )} = ($y, $mon, "");

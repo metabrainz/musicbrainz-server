@@ -79,7 +79,11 @@ if ($showreleases and not $album->IsNonAlbumTracks)
 	++$span if $album->GetArtist == &ModDefs::VARTIST_ID;
 	++$span if $showmodlinks;
 
-	$m->out("<tr bgcolor='#ffffff'><td colspan=$span><table>");
+	$m->out("<tr bgcolor='#ffffff'><td colspan=$span>");
+	$m->out("<p style='float: right; padding: 2px'>"
+		. "<a href='/mod/edit-releases/index.html?album=" . $album->GetId . "'>"
+		. "Edit releases</a></p>");
+	$m->out("<table>");
 
 	for my $rel (@releases)
 	{

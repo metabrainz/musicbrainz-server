@@ -38,6 +38,7 @@ MusicBrainz::TrimInPlace(
    {
        $ts->{artist} = Artist->new($ts->{DBH});
        $ts->{artist}->SetMBId($data->{artistid});
+	   # FIXME undef artistid
        $ts->{artist}->LoadFromId();
    }
 
@@ -200,7 +201,6 @@ MusicBrainz::TrimInPlace(
      </tr>
    </table>
    </form>
-   <& /comp/movefocus, "TagLookupForm", "artist" &>
 </%def>
 
 %###############################################################################
