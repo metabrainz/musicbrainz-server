@@ -107,7 +107,7 @@ for my $album (@album_ids)
 	}
 
 	$al->{_sort_} = $al->GetName;
-	print STDERR "$al->{_sort_} by $ar->{_sort_}\n" if -t;
+	#print STDERR "$al->{_sort_} by $ar->{_sort_}\n" if -t;
 
 	my @t = $al->LoadTracksFromMultipleArtistAlbum;
 	my $aid = $al->GetArtist;
