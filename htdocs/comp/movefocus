@@ -1,0 +1,21 @@
+<%perl>
+# vi: set ts=4 sw=4 ft=mason :
+
+my $JSMoveFocus = $session{"JSMoveFocus"};
+return if defined $JSMoveFocus and not $JSMoveFocus;
+
+my ($form, $field, $index) = @_;
+
+# TODO ideally we should JS-encode $form and $field here
+
+$index = 'null' unless defined $index;
+
+# TODO find a way to just do nothing (produce no output) if we've already been
+# called for this page.
+
+</%perl>
+
+<script type="text/javascript" src="/scripts/movefocus.js"></script>
+<script type="text/javascript">
+MoveFocus('<% $form %>', '<% $field %>', <% $index %>);
+</script>
