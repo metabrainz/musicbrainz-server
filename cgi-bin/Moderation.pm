@@ -1017,6 +1017,8 @@ sub IsAutoMod { 0 }
 # either +1 (add one pending mod) or -1 (subtract one).
 # Arguments: $adjust (guaranteed to be either +1 or -1)
 # Called in void context
+# TODO remove this implementation; leave each handler to implement it
+# themselves.
 sub AdjustModPending
 {
 	my ($this, $adjust) = @_;
