@@ -1,4 +1,17 @@
+%# vi: set ts=4 sw=4 ft=mason :
+<%args>
+$reltype => undef
+$relstatus => undef
+</%args>
 <%perl>
+
+MusicBrainz::IsNonNegInteger($reltype) or $reltype = 0;
+$reltype >= Album::ALBUM_ATTR_SECTION_TYPE_START or $reltype = 0;
+$reltype <= Album::ALBUM_ATTR_SECTION_TYPE_END or $reltype = 0;
+
+MusicBrainz::IsNonNegInteger($relstatus) or $relstatus = 0;
+$relstatus >= Album::ALBUM_ATTR_SECTION_STATUS_START or $relstatus = 0;
+$relstatus <= Album::ALBUM_ATTR_SECTION_STATUS_END or $relstatus = 0;
 
 my ($mb, @info, $row, $ind, $i, $offset, $page, $num_albums, $al, $rows);
 my $max_items = 50;
@@ -7,10 +20,6 @@ $m->comp("/comp/sidebar", title=>'Browse Various Artist Albums');
 $m->out("<p>[ <a href=\"/addalbum.html?artistid=1\">Add New Album</a> ]<p>");
 
 $ind = $ARGS{index};
-if (!defined $ind || $ind eq '')
-{
-    $m->out(qq/Pick a letter to start browsing:<p>/);
-}
 $offset = $ARGS{offset};
 $page = $ARGS{page};
 $offset = ($page-1) * $max_items if not defined $offset and defined $page;
@@ -18,20 +27,36 @@ $offset = 0 if not defined $offset;
 $offset = 0 if $offset < 0;
 
 $m->comp("/comp/framedboxbegin", width=>"100%");
-$m->comp("/comp/browsebox", ind=>$ind, page=>"/browsevarious.html");
+$m->comp("/comp/browsebox", ind=>$ind, page=>"/browsevarious.html?reltype=$reltype&relstatus=$relstatus");
 $m->comp("/comp/framedboxend");
-$m->out("<p>");
 
-if (!defined $ind || $ind eq '')
+$m->out("<p style='text-align: center'>");
+for my $rt (0, Album::ALBUM_ATTR_SECTION_TYPE_START ..  Album::ALBUM_ATTR_SECTION_TYPE_END)
 {
-    exit(0);
+	my $name = ($rt ? Album->GetAttributeName($rt) : "All");
+	$m->out(" | ") if $rt;
+	$m->out("<b>") if $rt == $reltype;
+	$m->out("<a href='/browsevarious.html?reltype=$rt&amp;relstatus=$relstatus&amp;index=$ind'>$name</a>");
+	$m->out("</b>") if $rt == $reltype;
 }
+$m->out("</p>");
+
+$m->out("<p style='text-align: center'>");
+for my $rt (0, Album::ALBUM_ATTR_SECTION_STATUS_START ..  Album::ALBUM_ATTR_SECTION_STATUS_END)
+{
+	my $name = ($rt ? Album->GetAttributeName($rt) : "All");
+	$m->out(" | ") if $rt;
+	$m->out("<b>") if $rt == $relstatus;
+	$m->out("<a href='/browsevarious.html?reltype=$reltype&amp;relstatus=$rt&amp;index=$ind'>$name</a>");
+	$m->out("</b>") if $rt == $relstatus;
+}
+$m->out("</p>");
 
 $mb = $m->comp("/comp/dblogin");
 $al = Album->new($mb->{DBH});
 $al->SetId(ModDefs::VARTIST_ID);
 
-($num_albums, @info) = $al->GetVariousDisplayList($ind, $offset);
+($num_albums, @info) = $al->GetVariousDisplayList($ind, $offset, $reltype, $relstatus);
 
 $m->comp("/comp/framedboxbegin", width=>"100%");
 if ($num_albums > 0)
@@ -42,7 +67,7 @@ if ($num_albums > 0)
                            snaptoend=>2,
                            offset=>$offset,
                            pagesize=>$max_items,
-                           url=>"/browsevarious.html?index=$ind" &>
+						   url=>"/browsevarious.html?index=$ind&reltype=$reltype&relstatus=$relstatus" &>
     <& /comp/modnotice &>
 
 %   $rows = $max_items / 2;

@@ -673,10 +673,8 @@ sub MergeAlbums
 # of albumid, sortname, modpending. The array is empty on error.
 sub GetVariousDisplayList
 {
-   my ($this, $ind, $offset) = @_;
+   my ($this, $ind, $offset, $reltype, $relstatus) = @_;
    my ($query, $num_albums, @info, @row, $sql, $page, $page_max, $ind_max, $un); 
-
-   return if length($ind) <= 0;
 
    $sql = Sql->new($this->{DBH});
 
@@ -690,6 +688,9 @@ sub GetVariousDisplayList
                     from Album 
                    where page >= $page and page <= $page_max and
                          album.artist = | . ModDefs::VARTIST_ID;
+	$query .= " AND attributes[2] = $reltype" if $reltype;
+	$query .= " AND attributes[3] = $relstatus" if $relstatus;
+
    if ($sql->Select($query))
    {
        $num_albums = $sql->Rows();

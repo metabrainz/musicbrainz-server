@@ -5,6 +5,8 @@ $showspecial=>1
 </%args>
 <%perl>
 
+(my $pageq = $page) .= ($page =~ /\?/ ? "&" : "?");
+
 my ($i, $p, $t);
 
 $m->out('<table width="100%" border=0><tr>');
@@ -42,7 +44,7 @@ if (length($ind) > 0)
 {
     </%perl>
     <td align="center" NOWRAP>
-      <a href="<% $page %>?index=<% $t %>">Back</a><br>
+      <a href="<% $pageq %>index=<% $t %>">Back</a><br>
       <a href="<% $page %>">Start&nbsp;over</a>
     </td>
     <td width="3" align="center">
@@ -59,22 +61,22 @@ if (length($ind) > 0)
 %   for($i = 0; $i < 13; $i++) {
 %      if ($i == 0 && $showspecial && $showspecial ne "below") {
           <td align="center">
-             <a href="<% $page %>?index=<% $ind %>_">symbol</a>&nbsp;<br>
-             <a href="<% $page %>?index=<% $ind %>+">space</a>&nbsp;
+             <a href="<% $pageq %>index=<% $ind %>_">symbol</a>&nbsp;<br>
+             <a href="<% $pageq %>index=<% $ind %>+">space</a>&nbsp;
           </td>
 %      }
        <td align="center">
-          <a href="<% $page %>?index=<% $ind . chr($i + 65) %>"><% chr($i + 65) %></a><br>
-          <a href="<% $page %>?index=<% $ind . chr($i + 78) %>"><% chr($i + 78) %></a>
+          <a href="<% $pageq %>index=<% $ind . chr($i + 65) %>"><% chr($i + 65) %></a><br>
+          <a href="<% $pageq %>index=<% $ind . chr($i + 78) %>"><% chr($i + 78) %></a>
        </td>
 %   }
     </tr>
 % if (defined $showspecial and $showspecial eq "below") {
     <tr>
        <td align="center" colspan="13">
-             <a href="<% $page %>?index=<% $ind %>_">symbol</a>
+             <a href="<% $pageq %>index=<% $ind %>_">symbol</a>
 	     <span style="margin: 0 2.5em"></span>
-             <a href="<% $page %>?index=<% $ind %>+">space</a>
+             <a href="<% $pageq %>index=<% $ind %>+">space</a>
        </td>
     </tr>
 % }
