@@ -1,3 +1,5 @@
+#!/usr/bin/perl -w
+# vi: set ts=4 sw=4 :
 #____________________________________________________________________________
 #
 #   MusicBrainz -- the open internet music database
@@ -109,4 +111,18 @@ sub IsGUID
 	1;
 }
 
+sub TrimInPlace
+{
+	carp "Uninitialized value passed to TrimInPlace"
+		if grep { not defined } @_;
+	for (@_)
+	{
+		$_ = "" if not defined;
+		# TODO decode, trim, encode?
+		s/\A\s+//;
+		s/\s+\z//;
+	}
+}
+
 1;
+# eof MusicBrainz.pm
