@@ -1,0 +1,151 @@
+#!/usr/bin/perl -w
+# vi: set ts=4 sw=4 :
+#____________________________________________________________________________
+#
+#   MusicBrainz -- the open internet music database
+#
+#   Copyright (C) 1998 Robert Kaye
+#
+#   This program is free software; you can redistribute it and/or modify
+#   it under the terms of the GNU General Public License as published by
+#   the Free Software Foundation; either version 2 of the License, or
+#   (at your option) any later version.
+#
+#   This program is distributed in the hope that it will be useful,
+#   but WITHOUT ANY WARRANTY; without even the implied warranty of
+#   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+#   GNU General Public License for more details.
+#
+#   You should have received a copy of the GNU General Public License
+#   along with this program; if not, write to the Free Software
+#   Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
+#
+#   $Id$
+#____________________________________________________________________________
+
+use 5.008;
+use strict;
+
+use FindBin;
+use lib "$FindBin::Bin/../../cgi-bin";
+
+use Text::Unaccent;
+use Encode qw( decode );
+use HTML::Mason::Tools qw( html_escape );
+
+use DBI;
+use DBDefs;
+use MusicBrainz;
+use Sql;
+
+my $mb = MusicBrainz->new;
+$mb->Login;
+my $sql = Sql->new($mb->{DBH});
+
+print <<EOF;
+<& /comp/sidebar, title => 'Albums with "broken" Disc IDs' &>
+
+<p>Generated <% \$m->comp('/comp/datetime', ${\ time() }) %></p>
+
+<p>
+    This report identifies albums with Disc IDs, where the tracks
+	on the album don't agree with the disc id.
+</p>
+
+<p>
+	For example, if the disc ID says that there are four tracks, then
+	this report checks that the album has four tracks, and that the
+	first track is track 1, and the last track is track 4.&nbsp; Note that
+	it <i>doesn't</i> check all the intervening track numbers; for example,
+	if the tracks on the album were numbered 1, 2, 2, 4, then this
+	report would <i>not</i> detect that.&nbsp; However by using both
+	this report and the
+	<a href="DuplicateTrackNumbers.html">duplicate track report</a>
+	it should be possible to identify and fix all track / discid problems.
+</p>
+
+EOF
+
+print <<'EOF';
+
+<%perl>
+my $mb = $m->comp("/comp/dblogin");
+my $ar = Artist->new($mb->{DBH});
+my $al = Album->new($mb->{DBH});
+</%perl>
+
+EOF
+
+$sql->Begin;
+
+$sql->Do("
+	SELECT	t.id, t.album, t.tracks,
+			COUNT(j.track) AS actualtracks,
+			MIN(j.sequence) AS firsttrack,
+			MAX(j.sequence) AS lasttrack
+	INTO TEMPORARY TABLE t_toc
+	FROM	toc t, albumjoin j
+	WHERE	j.album = t.album
+	GROUP BY t.id, t.album, t.tracks
+");
+
+# I'm not sure if this is necessary, but it can't really hurt
+$sql->Do("ALTER TABLE t_toc ALTER COLUMN album SET NOT NULL");
+$sql->Do("CREATE INDEX t_toc_album ON t_toc (album)");
+
+require Album;
+$sql->Select("
+	SELECT	ar.id, ar.sortname, al.id, al.name, t.*
+	FROM	artist ar, album al, t_toc t
+	WHERE	t.album = al.id
+	AND		al.artist = ar.id
+	AND	(
+			t.tracks != t.actualtracks
+		OR	firsttrack != 1
+		OR	lasttrack != tracks
+	)
+	ORDER BY ar.sortname, al.name
+");
+
+my $n = 0;
+my $lastartist = 0;
+
+while (my @row = $sql->NextRow)
+{
+	my ($artist, undef, $album, $name) = @row;
+
+	if ($artist != $lastartist)
+	{
+		print "</ul>\n" if $lastartist;
+
+		print <<EOF;
+% \$ar->SetId($artist);
+% if (\$ar->LoadFromId) {
+<& /comp/artisttitle, artist => \$ar, link => 1 &>
+% }
+
+<ul>
+EOF
+		$lastartist = $artist;
+	}
+
+	print <<EOF;
+<li><a href="/showalbum.html?albumid=$album">${\ html_escape($name) }</a></li>
+EOF
+
+	++$n;
+}
+
+print "</ul>\n" if $lastartist;
+
+$sql->Finish;
+$sql->Commit;
+
+print "<p>No broken disc IDs to report - good!</p>\n\n" if not $n;
+
+print "<p>End of report; found one broken disc ID.</p>\n\n" if $n == 1;
+print "<p>End of report; found $n broken disc IDs.</p>\n\n" if $n > 1;
+
+print "<& /comp/footer &>\n";
+
+# eof BrokenDiscIDs

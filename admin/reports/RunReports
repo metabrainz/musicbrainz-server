@@ -39,6 +39,7 @@ my @all = (
 	[ "admin/Caps2.pl"							=> "caps2.html"					],
 	[ "admin/Caps.pl"							=> "caps.html"					],
 	[ "admin/reports/AlbumsToConvert.pl"		=> "AlbumsToConvert.html"		],
+	[ "admin/reports/BrokenDiscIDs"				=> "BrokenDiscIDs.html"			],
 	[ "admin/reports/DuplicateArtists.pl"		=> "DuplicateArtists.html"		],
 	[ "admin/reports/DuplicateTrackNumbers"		=> "DuplicateTrackNumbers.html"	],
 	[ "admin/reports/TracksNamedWithSequence.pl"=> "TracksNamedWithSequence.html" ],
