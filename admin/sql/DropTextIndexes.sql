@@ -9,4 +9,9 @@ drop index  trackwords_trackidindex;
 drop index  trackwords_trackwordindex;
 drop index  trackwords_wordidindex;
 drop index  wordlist_wordindex;
-commit
+delete from albumwords;
+delete from artistwords;
+delete from trackwords;
+delete from wordlist;
+commit;
+vacuum analyze;
