@@ -38,7 +38,7 @@ sub DumpTable
     return !$ret;
 }
 
-sub DumpAllTables
+sub DumpPublicTables
 {
     return 0 if not DumpTable("artist");
     return 0 if not DumpTable("artistalias");
@@ -50,15 +50,32 @@ sub DumpAllTables
     return 0 if not DumpTable("trm");
     return 0 if not DumpTable("trmjoin");
 
-    #return 0 if not DumpTable("votes");
-    #return 0 if not DumpTable("moderator");
-    #return 0 if not DumpTable("moderation");
-    #return 0 if not DumpTable("moderationnote");
+    return 1;
+}
+
+sub DumpPrivateTables
+{
+
+    return 0 if not DumpTable("votes");
+    return 0 if not DumpTable("moderation");
+    return 0 if not DumpTable("moderationnote");
+    return 0 if not DumpTable("moderator");
+
+    return 1;
+}
+
+sub DumpAllTables
+{
+    return 0 if not DumpPublicTables();
+    return 0 if not DumpPrivateTables();
 
     return 1;
 }
 
 my ($outfile, $dir, @tinfo, $timestring);
+my ($all, $priv, $ret);
+
+$all = $priv = 0;
 
 @tinfo = localtime;
 $timestring = "mbdump-" . (1900 + $tinfo[5]) . "-".($tinfo[4]+1)."-$tinfo[3]";
@@ -66,10 +83,25 @@ $timestring = "mbdump-" . (1900 + $tinfo[5]) . "-".($tinfo[4]+1)."-$tinfo[3]";
 $outfile = shift;
 if (defined $outfile && ($outfile eq "-h" || $outfile eq "--help"))
 {
-    print "Usage: MBDump.pl <dumpfile>\n\n";
+    print "Usage: MBDump.pl [-a|-r] <dumpfile>\n\n";
+    print "Options\n";
+    print "  -a -- dump all tables\n";
+    print "  -p -- dump private tables\n\n";
     print "Make sure to have plenty of diskspace on /tmp!\n";
     exit(0);
 }
+
+if (defined $outfile && $outfile eq '-a')
+{
+   $all = 1;
+   $outfile = shift;
+}
+if (defined $outfile && $outfile eq '-p')
+{
+   $priv = 1;
+   $outfile = shift;
+}
+
 $outfile = "$timestring.tar.bz2" if (!defined $outfile);
 
 @tinfo = localtime;
@@ -82,7 +114,20 @@ mkdir($dir, 0700)
 
 chmod 0777, $dir;
 
-if (DumpAllTables($dir))
+if ($all)
+{
+   $ret = DumpAllTables($dir);
+}
+elsif ($priv)
+{
+   $ret = DumpPrivateTables($dir);
+}
+else 
+{
+   $ret = DumpPublicTables($dir);
+}
+
+if ($ret)
 {
     system("date > /tmp/mbdump/timestamp");
     OutputLicense("/tmp/mbdump/COPYING");

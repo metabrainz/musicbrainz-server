@@ -4,6 +4,9 @@
 ftpdir=/var/ftp/pub/musicbrainz/data
 reportdir=/var/website/musicbrainz/prod/htdocs/reports
 imagedir=/var/website/musicbrainz/prod/htdocs/images
+backupdir=/home/backup
+backupuser=backup
+backupgroup=users
 
 export PATH=/bin:/usr/bin:/usr/local/pgsql/bin
 
@@ -23,6 +26,9 @@ echo "VACUUM ANALYZE;" | psql musicbrainz
 # Dump the data
 nice ./MBDump.pl /tmp/mbdump.tar.bz2
 mv /tmp/mbdump.tar.bz2 $ftpdir
+nice ./MBDump.pl -p /tmp/mbdump-private.tar.bz2
+chown $backupuser:$backupgroup /tmp/mbdump-private.tar.bz2
+mv /tmp/mbdump-private.tar.bz2 $backupdir
 
 # Dump the RDF data
 nice ./RDFDump.pl /tmp/mbdump.rdf.bz2
