@@ -112,6 +112,7 @@ my $is_me = ($uid == $my_uid);
     <a href="/moderate.html?type=<% &ModDefs::TYPE_VOTED %>&amp;moderator=<% $uid %>">List Votes</a> |
     <a href="/moderate.html?type=<% &ModDefs::TYPE_MODERATOR %>&amp;moderator=<% $uid %>">List Moderations</a> |
 	<a href="/moderate.html?type=<% &ModDefs::TYPE_MODERATOR_FAILED %>&amp;moderator=<% $uid %>">List Failed Moderations</a>
+	| <a href="/mod/filter.html?moderator_id=<% $uid %>&amp;moderator_name=<% url_escape($user->GetName) %>&amp;edit=1">Set Mod Filter</a>
 	]
 </p>
 
