@@ -18,6 +18,8 @@ if (!defined($result))
                                   where Moderation.Moderator = Moderator.id 
                                         and Moderator.id != | .
                                         ModDefs::FREEDB_MODERATOR . qq|
+                                        and Moderator.id != | .
+                                        ModDefs::MODBOT_MODERATOR . qq|
                                         and opentime > now() - interval '1 week' 
                                group by Moderator.ModsAccepted, Moderator.name 
                                order by num desc limit 10|,
@@ -32,6 +34,8 @@ if (!defined($result))
                                    from Moderator
                                         where Moderator.id != | .
                                         ModDefs::FREEDB_MODERATOR . qq|
+                                        and Moderator.id != | .
+                                        ModDefs::MODBOT_MODERATOR . qq|
                                order by modsaccepted desc limit 10|,
                        title=>"Most active moderators overall:<br>".
                               "(Accepted moderations only)",
