@@ -128,6 +128,13 @@ sub NextRowRef
 	return $this->{STH}->fetch;
 }
 
+sub NextRowHashRef
+{
+	my ($this) = @_;
+
+	return $this->{STH}->fetchrow_hashref;
+}
+
 sub GetError
 {
 	my ($this) = @_;
