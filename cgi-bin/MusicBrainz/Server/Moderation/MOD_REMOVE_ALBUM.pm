@@ -27,7 +27,7 @@ use strict;
 
 package MusicBrainz::Server::Moderation::MOD_REMOVE_ALBUM;
 
-use ModDefs;
+use ModDefs qw( :modstatus MODBOT_MODERATOR );
 use base 'Moderation';
 
 sub Name { "Remove Album" }
@@ -53,10 +53,14 @@ sub ApprovedAction
 	my $al = Album->new($this->{DBH});
 	$al->SetId($this->GetRowId);
 	
-	$al->Remove
-		or return &ModDefs::STATUS_FAILEDDEP;
+	unless ($al->Remove)
+	{
+		$this->InsertNote(MODBOT_MODERATOR, "This album could not be removed");
+		# TODO should this be "STATUS_ERROR"?  Why would the Remove call fail?
+		return STATUS_FAILEDDEP;
+	}
    
-	&ModDefs::STATUS_APPLIED;
+	STATUS_APPLIED;
 }
 
 1;

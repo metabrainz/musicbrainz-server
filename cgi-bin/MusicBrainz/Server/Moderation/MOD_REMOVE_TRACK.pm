@@ -27,7 +27,7 @@ use strict;
 
 package MusicBrainz::Server::Moderation::MOD_REMOVE_TRACK;
 
-use ModDefs;
+use ModDefs qw( :modstatus MODBOT_MODERATOR );
 use base 'Moderation';
 
 sub Name { "Remove Track" }
@@ -71,8 +71,12 @@ sub ApprovedAction
   	my $tr = Track->new($this->{DBH});
  	$tr->SetId($this->GetRowId);
 
-	$tr->Remove
-		or return &ModDefs::STATUS_FAILEDDEP;
+	unless ($tr->Remove)
+	{
+		$this->InsertNote(MODBOT_MODERATOR, "This track could not be removed");
+		# TODO should this be "STATUS_ERROR"?  Why would the Remove call fail?
+		return STATUS_FAILEDDEP;
+	}
 
 	# Try to remove the album if it's a "non-album" album
 	my $al = Album->new($this->{DBH});
@@ -84,7 +88,7 @@ sub ApprovedAction
 			and $al->LoadTracks == 0;
 	}
 
-	&ModDefs::STATUS_APPLIED;
+	STATUS_APPLIED;
 }
 
 1;

@@ -27,7 +27,7 @@ use strict;
 
 package MusicBrainz::Server::Moderation::MOD_REMOVE_ARTIST;
 
-use ModDefs;
+use ModDefs qw( :modstatus :artistid MODBOT_MODERATOR );
 use base 'Moderation';
 
 sub Name { "Remove Artist" }
@@ -38,8 +38,8 @@ sub PreInsert
 	my ($self, %opts) = @_;
 
 	my $ar = $opts{'artist'} or die;
-	die if $ar->GetId == &ModDefs::VARTIST_ID;
-	die if $ar->GetId == &ModDefs::DARTIST_ID;
+	die if $ar->GetId == VARTIST_ID;
+	die if $ar->GetId == DARTIST_ID;
 
 	$self->SetArtist($ar->GetId);
 	$self->SetPrev($ar->GetName);
@@ -56,9 +56,11 @@ sub ApprovedAction
 
 	my $rowid = $this->GetRowId;
 
-	return &ModDefs::STATUS_ERROR
-		if $rowid == &ModDefs::VARTIST_ID
-		or $rowid == &ModDefs::DARTIST_ID;
+	if ($rowid == VARTIST_ID or $rowid == DARTIST_ID)
+	{
+		$this->InsertNote(MODBOT_MODERATOR, "This artist cannot be deleted");
+		return STATUS_ERROR;
+	}
    
 	# Now remove the Artist. The Artist will only be removed
 	# if there are not more references to it.
@@ -69,10 +71,13 @@ sub ApprovedAction
 	my $subs = UserSubscription->new($this->{DBH});
 	$subs->ArtistBeingDeleted($ar, $this);
 
-	defined($ar->Remove)
-		or return &ModDefs::STATUS_FAILEDDEP;
+	unless (defined $ar->Remove)
+	{
+		$this->InsertNote(MODBOT_MODERATOR, "This artist could not be removed");
+		return STATUS_FAILEDDEP;
+	}
 
-	&ModDefs::STATUS_APPLIED;
+	STATUS_APPLIED;
 }
 
 1;

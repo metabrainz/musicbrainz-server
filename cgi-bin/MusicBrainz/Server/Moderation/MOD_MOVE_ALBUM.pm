@@ -27,7 +27,7 @@ use strict;
 
 package MusicBrainz::Server::Moderation::MOD_MOVE_ALBUM;
 
-use ModDefs;
+use ModDefs qw( :modstatus MODBOT_MODERATOR );
 use base 'Moderation';
 
 sub Name { "Move Album" }
@@ -73,7 +73,10 @@ sub ApprovedAction
 		"SELECT 1 FROM album WHERE id = ? AND artist = ?",
 		$this->GetRowId,
 		$this->GetArtist,
-	) or return &ModDefs::STATUS_FAILEDPREREQ;
+	) or do {
+		$this->InsertNote(MODBOT_MODERATOR, "This album has already been deleted or moved");
+		return STATUS_FAILEDPREREQ;
+	};
 
 	# Find the ID of the named artist
 	my $name = $this->{'new.name'};
@@ -119,7 +122,7 @@ sub ApprovedAction
 		$this->GetRowId,
 	);
 
-	&ModDefs::STATUS_APPLIED;
+	STATUS_APPLIED;
 }
 
 1;

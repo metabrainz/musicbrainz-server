@@ -27,7 +27,7 @@ use strict;
 
 package MusicBrainz::Server::Moderation::MOD_REMOVE_DISCID;
 
-use ModDefs;
+use ModDefs qw( :modstatus MODBOT_MODERATOR );
 use base 'Moderation';
 
 sub Name { "Remove Disc ID" }
@@ -53,10 +53,15 @@ sub ApprovedAction
 	my $this = shift;
 
 	my $di = Discid->new($this->{DBH});
-	$di->Remove($this->GetPrev)
-		or return &ModDefs::STATUS_FAILEDDEP;
 
-	&ModDefs::STATUS_APPLIED;
+	unless ($di->Remove($this->GetPrev))
+	{
+		$this->InsertNote(MODBOT_MODERATOR, "This disc ID could not be removed");
+		# TODO should this be "STATUS_ERROR"?  Why would the Remove call fail?
+		return STATUS_FAILEDDEP;
+	}
+
+	STATUS_APPLIED;
 }
 
 1;

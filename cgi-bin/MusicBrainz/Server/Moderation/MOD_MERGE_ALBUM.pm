@@ -29,7 +29,7 @@ package MusicBrainz::Server::Moderation::MOD_MERGE_ALBUM;
 
 # NOTE!  This module also handles MOD_MERGE_ALBUM_MAC
 
-use ModDefs;
+use ModDefs qw( :modstatus MODBOT_MODERATOR MOD_MERGE_ALBUM_MAC );
 use base 'Moderation';
 
 sub Name { "Merge Albums" }
@@ -132,15 +132,19 @@ sub ApprovedAction
 
 	my $al = Album->new($self->{DBH});
 	$al->SetId($self->{'new_into'}{'id'});
-	$al->LoadFromId
-		or return &ModDefs::STATUS_FAILEDPREREQ;
+
+	unless ($al->LoadFromId)
+	{
+		$self->InsertNote(MODBOT_MODERATOR, "This album has been deleted");
+		return STATUS_FAILEDPREREQ;
+	}
 	
 	$al->MergeAlbums(
-		$self->GetType() == &ModDefs::MOD_MERGE_ALBUM_MAC,
+		($self->GetType == MOD_MERGE_ALBUM_MAC),
 		map { $_->{'id'} } @{ $self->{'new_albums'} },
 	);
 					
-	&ModDefs::STATUS_APPLIED;
+	STATUS_APPLIED;
 }
 
 1;

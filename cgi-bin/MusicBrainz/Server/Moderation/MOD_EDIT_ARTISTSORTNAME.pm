@@ -27,7 +27,7 @@ use strict;
 
 package MusicBrainz::Server::Moderation::MOD_EDIT_ARTISTSORTNAME;
 
-use ModDefs;
+use ModDefs qw( :modstatus :artistid MODBOT_MODERATOR );
 use base 'Moderation';
 
 sub Name { "Edit Artist Sortname" }
@@ -41,8 +41,8 @@ sub PreInsert
 	my $newname = $opts{'newname'};
 	$newname =~ /\S/ or die;
 
-	die if $ar->GetId == &ModDefs::VARTIST_ID;
-	die if $ar->GetId == &ModDefs::DARTIST_ID;
+	die if $ar->GetId == VARTIST_ID;
+	die if $ar->GetId == DARTIST_ID;
 
 	$self->SetArtist($ar->GetId);
 	$self->SetPrev($ar->GetSortName);
@@ -66,20 +66,28 @@ sub ApprovedAction
 
 	my $rowid = $this->GetRowId;
 
-	return &ModDefs::STATUS_ERROR
-		if $rowid == &ModDefs::VARTIST_ID
-		or $rowid == &ModDefs::DARTIST_ID;
+	if ($rowid == VARTIST_ID or $rowid == DARTIST_ID)
+	{
+		$this->InsertNote(MODBOT_MODERATOR, "This artist cannot be edited");
+		return STATUS_ERROR;
+	}
 
 	my $current = $sql->SelectSingleValue(
 		"SELECT sortname FROM artist WHERE id = ?",
 		$rowid,
 	);
 
-	defined($current)
-		or return &ModDefs::STATUS_ERROR;
+	unless (defined $current)
+	{
+		$this->InsertNote(MODBOT_MODERATOR, "This artist has been deleted");
+		return STATUS_ERROR;
+	}
 	
-	$current eq $this->GetPrev
-		or return &ModDefs::STATUS_FAILEDDEP;
+	unless ($current eq $this->GetPrev)
+	{
+		$this->InsertNote(MODBOT_MODERATOR, "This artist's sortname has already been changed");
+		return STATUS_FAILEDDEP;
+	}
 
 	my $al = Artist->new($this->{DBH});
 	my $page = $al->CalculatePageIndex($this->GetNew);
@@ -97,7 +105,7 @@ sub ApprovedAction
 	$artist->LoadFromId;
 	$artist->RebuildWordList;
 
-	&ModDefs::STATUS_APPLIED;
+	STATUS_APPLIED;
 }
 
 1;

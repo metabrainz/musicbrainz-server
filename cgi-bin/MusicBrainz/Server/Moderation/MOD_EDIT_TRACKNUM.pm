@@ -27,7 +27,7 @@ use strict;
 
 package MusicBrainz::Server::Moderation::MOD_EDIT_TRACKNUM;
 
-use ModDefs;
+use ModDefs qw( :modstatus MODBOT_MODERATOR );
 use base 'Moderation';
 
 sub Name { "Edit Track Number" }
@@ -58,11 +58,17 @@ sub ApprovedAction
 		$this->GetRowId,
 	);
 
-	defined($current)
-		or return &ModDefs::STATUS_ERROR;
+	unless (defined $current)
+	{
+		$this->InsertNote(MODBOT_MODERATOR, "This track has been deleted");
+		return STATUS_ERROR;
+	}
 	
-	$current == $this->GetPrev
-		or return &ModDefs::STATUS_FAILEDDEP;
+	unless ($current == $this->GetPrev)
+	{
+		$this->InsertNote(MODBOT_MODERATOR, "This track has already been renumbered");
+		return STATUS_FAILEDDEP;
+	}
 
 	# TODO check no other track exists with the new sequence?
 	# (but if you do that, it makes it very hard to swap/rotate
@@ -74,7 +80,7 @@ sub ApprovedAction
 		$this->GetRowId,
 	);
 
-	&ModDefs::STATUS_APPLIED;
+	STATUS_APPLIED;
 }
 
 1;

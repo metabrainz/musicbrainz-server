@@ -27,7 +27,7 @@ use strict;
 
 package MusicBrainz::Server::Moderation::MOD_REMOVE_ARTISTALIAS;
 
-use ModDefs;
+use ModDefs qw( :modstatus MODBOT_MODERATOR );
 use base 'Moderation';
 
 sub Name { "Remove Artist Alias" }
@@ -54,13 +54,21 @@ sub ApprovedAction
 	my $al = Alias->new($this->{DBH});
 	$al->SetTable("ArtistAlias");
 	$al->SetId($this->GetRowId);
-  	$al->LoadFromId
-		or return &ModDefs::STATUS_FAILEDDEP;
-	
-	$al->Remove
-		or return &ModDefs::STATUS_FAILEDDEP;
 
-    &ModDefs::STATUS_APPLIED;
+  	unless ($al->LoadFromId)
+	{
+		$this->InsertNote(MODBOT_MODERATOR, "This artist alias has been deleted");
+		return STATUS_FAILEDDEP;
+	}
+	
+	unless ($al->Remove)
+	{
+		$this->InsertNote(MODBOT_MODERATOR, "This alias could not be removed");
+		# TODO should this be "STATUS_ERROR"?  Why would the Remove call fail?
+		return STATUS_FAILEDDEP;
+	}
+
+    STATUS_APPLIED;
 }
 
 1;

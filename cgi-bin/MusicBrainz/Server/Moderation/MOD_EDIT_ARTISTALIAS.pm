@@ -27,7 +27,7 @@ use strict;
 
 package MusicBrainz::Server::Moderation::MOD_EDIT_ARTISTALIAS;
 
-use ModDefs;
+use ModDefs qw( :modstatus MODBOT_MODERATOR );
 use base 'Moderation';
 
 sub Name { "Edit Artist Alias" }
@@ -84,11 +84,17 @@ sub ApprovedAction
 		$rowid,
 	);
 
-	defined($current)
-		or return &ModDefs::STATUS_ERROR;
+	unless (defined $current)
+	{
+		$self->InsertNote(MODBOT_MODERATOR, "This alias has been deleted");
+		return STATUS_ERROR;
+	}
 	
-	$current eq $self->GetPrev
-		or return &ModDefs::STATUS_FAILEDDEP;
+	unless ($current eq $self->GetPrev)
+	{
+		$self->InsertNote(MODBOT_MODERATOR, "This alias has already been changed");
+		return STATUS_FAILEDDEP;
+	}
 
 	# There's currently a unique index on artistalias.name
 	# Try to detect likely violations of that index, and gracefully
@@ -105,12 +111,12 @@ sub ApprovedAction
 				. "/showaliases.html?artistid=" . $id;
 
 		 	$self->InsertNote(
-				&ModDefs::MODBOT_MODERATOR,
+				MODBOT_MODERATOR,
 				"There is already an alias called '$newname' (see $url)"
 				. " - duplicate aliases are not allowed (yet)"
 			);
 
-			return &ModDefs::STATUS_ERROR;
+			return STATUS_ERROR;
 		}
 	}
 
@@ -126,7 +132,7 @@ sub ApprovedAction
 	$artist->LoadFromId;
 	$artist->RebuildWordList;
 
-	&ModDefs::STATUS_APPLIED;
+	STATUS_APPLIED;
 }
 
 1;
