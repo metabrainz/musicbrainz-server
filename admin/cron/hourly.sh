@@ -6,7 +6,6 @@ eval `$mb_server/admin/ShowDBDefs`
 cd "$MB_SERVER_ROOT"
 
 . ./admin/functions.sh
-make_temp_dir
 
 OUTPUT=`
 	./admin/CheckVotes.pl --verbose --summary 2>&1
@@ -18,6 +17,8 @@ OUTPUT=`
 	./admin/ResetSigserverCount --threshold=3 2>&1
 ` || echo "$OUTPUT"
 
-./admin/RunExport
+OUTPUT=`
+	./admin/RunExport
+` || echo "$OUTPUT"
 
 # eof
