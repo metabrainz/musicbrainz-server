@@ -42,7 +42,6 @@ use Exporter;
 %EXPORT_TAGS = (
 	artistid	=> &$get(qr/^[VD]ARTIST_(MB)?ID$/),
 	userid		=> &$get(qr/^(?!TYPE)\w+_MODERATOR$/),
-	modviewtype	=> &$get(qr/^TYPE_/),
 	modtype		=> &$get(qr/^MOD_/),
 	modstatus	=> &$get(qr/^STATUS_/),
 	vote		=> &$get(qr/^VOTE_/),
@@ -64,17 +63,6 @@ use constant DARTIST_ID                  => 2;
 use constant ANON_MODERATOR              => 1;
 use constant FREEDB_MODERATOR            => 2;
 use constant MODBOT_MODERATOR            => 4;
-
-# These define the different types of moderation pages that can be shown
-use constant TYPE_NEW                    => 1;
-use constant TYPE_VOTED                  => 2;
-use constant TYPE_MODERATOR              => 3;
-use constant TYPE_ARTIST                 => 4;
-use constant TYPE_FREEDB                 => 5;
-use constant TYPE_ALBUM                  => 6;
-use constant TYPE_MODERATOR_FAILED       => 7;
-use constant TYPE_SEARCH                 => 8;
-use constant TYPE_MAX                    => 8; # end marker
 
 # The various moderations, enumerated
 use constant MOD_EDIT_ARTISTNAME         => 1;
