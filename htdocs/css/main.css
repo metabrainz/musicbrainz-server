@@ -201,4 +201,10 @@ td.trk *, td.did *, td.trm * { vertical-align: middle }
 /* Mod Pending */
 .mp { background: #ffc }
 
+/* Tag Lookup */
+
+#TagLookupTrackResults td.tlen.good { color: green; font-weight: bold }
+#TagLookupTrackResults td.tlen.ok { color: blue }
+#TagLookupTrackResults td.tlen.bad { color: red }
+
 /* eof */
