@@ -1,0 +1,90 @@
+<& /comp/sidebar, title=>'Edit Album Attributes', expand=>'moderate' &>
+
+<%perl>
+
+my ($mb, $id, $modpending, $al, $artist, $attr, $attrlist, @attrs, $prev); 
+
+if (!exists $ARGS{id} || $ARGS{id} eq '' ||
+    !exists $ARGS{artist} || $ARGS{artist} eq '')
+{
+    mc_comp("/comp/badargs");
+    return undef;
+}
+
+$mb = mc_comp("/comp/dblogin");
+$id = $ARGS{id};
+$artist = $ARGS{artist};
+
+$al = Album->new($mb->{DBH});
+$al->SetId($id);
+$al->LoadFromId();
+
+@attrs = ();
+$prev = "";
+if (defined $al->LoadAttrs())
+{
+    @attrs = sort { $a <=> $b} @{$al->GetAttributes()};
+    $prev = join ',', @attrs;
+}
+
+$modpending = $al->GetModPending();
+
+$attrlist = $al->GetAttributeList();
+
+</%perl>
+
+% if (!defined $session{user} || $session{user} eq '') {
+    You must be logged in to edit the database.<p>
+    <& /comp/tablebegin, title=>'Login' &>
+    <& /comp/loginbox &>
+    <& /comp/tableend &>
+% } else {
+
+    Select or deselect the appropriate album attributes below and then 
+    click on Submit.<p>
+
+    Album <b><% $al->GetName() %></b>:<br>
+
+    <FORM METHOD="POST" ACTION="/bare/enter_mod.html" NAME="EditAlbumAttrsForm"
+          ENCTYPE="application/x-www-form-urlencoded">  
+    <table width="100%">
+      <tr>
+        <td>
+        <blockquote>
+        <%perl>
+        foreach $attr (sort { $a <=> $b } keys %$attrlist)
+        {
+            next if ($attr == Album::ALBUM_ATTR_NONALBUMTRACKS);
+            mc_out("<input type=\"checkbox\" name=\"a$attr\"");
+            if (scalar(@attrs) > 0 && $attrs[0] == $attr)
+            {
+                mc_out(" CHECKED");
+                shift @attrs;
+            }
+            mc_out("> $attrlist->{$attr}<br>");
+        }
+        </%perl>
+        </blockquote>
+        <p>
+        </td>
+      </tr>
+      <tr>
+        <td>
+        <INPUT TYPE="submit" NAME="Submit" VALUE="Submit">    
+        </td>
+      </tr>
+    </table>
+    <input type="hidden" name="artist" value="<% $artist %>">
+    <input type="hidden" name="type" 
+           value="<% ModDefs::MOD_EDIT_ALBUMATTRS %>">
+    <input type="hidden" name="prev" value="<% $prev  %>">
+    <input type="hidden" name="table" value="Album">
+    <input type="hidden" name="column" value="Name">
+    <input type="hidden" name="id" value="<% $id %>">
+    <input type="hidden" 
+           name="url" value="/showalbum.html?albumid=<% $id %>">
+    </form>
+      
+% }
+% $mb->Logout();
+<& /comp/footer &>
