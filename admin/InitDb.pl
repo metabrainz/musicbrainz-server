@@ -30,6 +30,7 @@ use DBDefs;
 
 my $dbname = DBDefs::DB_NAME;
 my $dbuser = DBDefs::DB_USER;
+my $opts = DBDefs::DB_PGOPTS;
 my $psql = "psql";
 
 use Getopt::Long;
@@ -38,27 +39,31 @@ use strict;
 my $sqldir = "$FindBin::Bin/sql";
 -d $sqldir or die "Couldn't find SQL script directory";
 
+sub RunSQLScript
+{
+	my ($file, $startmessage) = @_;
+	$startmessage ||= "Running sql/$file";
+	print localtime() . " : $startmessage\n";
+	system("$psql $opts -U $dbuser -f $sqldir/$file $dbname");
+	die "Error during sql/$file" if ($? >> 8);
+}
+
 sub Create 
 {
-	system "createuser -U postgres $dbuser"
+	system "createuser $opts -U postgres $dbuser"
 		unless $dbuser eq "postgres";
 
-	system "createdb -U postgres -E UNICODE --owner=$dbuser $dbname";
-	system "createlang -U postgres -d $dbname plpgsql";
+	system "createdb $opts -U postgres -E UNICODE --owner=$dbuser $dbname";
+	system "createlang $opts -U postgres -d $dbname plpgsql";
 }
 
 sub Import
 {
-    print localtime() . " : Creating tables ...\n";
-    system("$psql -U $dbuser -f $sqldir/CreateTables.sql $dbname");
-    die "\nFailed to create tables.\n" if ($? >> 8);
-
-    print localtime() . " : Creating functions ...\n";
-    system("$psql -U $dbuser -f $sqldir/CreateFunctions.sql $dbname");
-    die "\nFailed to create functions.\n" if ($? >> 8);
+	RunSQLScript("CreateTables.sql", "Creating tables ...");
+	RunSQLScript("CreateFunctions.sql", "Creating functions ...");
 
     {
-	local $" = " ";
+		local $" = " ";
         system($^X, "$FindBin::Bin/MBImport.pl", "--ignore-errors", @_);
         die "\nFailed to import dataset.\n" if ($? >> 8);
     }
@@ -67,24 +72,13 @@ sub Import
     system($^X, "$FindBin::Bin/SetSequences.pl");
     die "\nFailed to set sequences.\n" if ($? >> 8);
 
-    print localtime() . " : Adding foreign key constraints ...\n";
-    system("$psql -U $dbuser -f $sqldir/CreateFKConstraints.sql $dbname");
-    die "\nFailed to add foreign key constraints.\n" if ($? >> 8);
-
-    print localtime() . " : Creating indexes ...\n";
-    system("$psql -U $dbuser -f $sqldir/CreateIndexes.sql $dbname");
-    die "\nFailed to create indexes.\n" if ($? >> 8);
-
-    print localtime() . " : Creating views ...\n";
-    system("$psql -U $dbuser -f $sqldir/CreateViews.sql $dbname");
-    die "\nFailed to create views.\n" if ($? >> 8);
-
-    print localtime() . " : Creating triggers ...\n";
-    system("$psql -U $dbuser -f $sqldir/CreateTriggers.sql $dbname");
-    die "\nFailed to create triggers.\n" if ($? >> 8);
+	RunSQLScript("CreateFKConstraints.sql", "Adding foreign key constraints ...");
+	RunSQLScript("CreateIndexes.sql", "Creating indexes ...");
+	RunSQLScript("CreateViews.sql", "Creating views ...");
+	RunSQLScript("CreateTriggers.sql", "Creating triggers ...");
 
     print localtime() . " : Optimizing database ...\n";
-    system("echo \"vacuum analyze\" | $psql -U $dbuser $dbname");
+    system("echo \"vacuum analyze\" | $psql $opts -U $dbuser $dbname");
 
     print localtime() . " : \nInitialized and imported data into the database.\n\n";
 }
@@ -93,26 +87,15 @@ sub Clean
 {
     my $ret;
     
-    system("$psql -U $dbuser -f $sqldir/CreateTables.sql $dbname");
-    die "\nFailed to create tables.\n" if ($? >> 8);
+	RunSQLScript("CreateTables.sql", "Creating tables ...");
+	RunSQLScript("CreateFunctions.sql", "Creating functions ...");
 
-    system("$psql -U $dbuser -f $sqldir/CreateFKConstraints.sql $dbname");
-    die "\nFailed to add foreign key constraints.\n" if ($? >> 8);
+	RunSQLScript("CreateFKConstraints.sql", "Adding foreign key constraints ...");
+	RunSQLScript("CreateIndexes.sql", "Creating indexes ...");
+	RunSQLScript("CreateViews.sql", "Creating views ...");
+	RunSQLScript("CreateTriggers.sql", "Creating triggers ...");
 
-    system("$psql -U $dbuser -f $sqldir/CreateIndexes.sql $dbname");
-    die "\nFailed to create indexes.\n" if ($? >> 8);
-
-    system("$psql -U $dbuser -f $sqldir/CreateViews.sql $dbname");
-    die "\nFailed to create views.\n" if ($? >> 8);
-
-    system("$psql -U $dbuser -f $sqldir/CreateFunctions.sql $dbname");
-    die "\nFailed to create functions.\n" if ($? >> 8);
-
-    system("$psql -U $dbuser -f $sqldir/CreateTriggers.sql $dbname");
-    die "\nFailed to create triggers.\n" if ($? >> 8);
-
-    system("$psql -U $dbuser -f $sqldir/InsertDefaultRows.sql $dbname");
-    die "\nFailed to insert default rows tables.\n" if ($? >> 8);
+	RunSQLScript("InsertDefaultRows.sql", "Adding default rows ...");
 
     print "\nCreated a clean and empty database.\n\n";
 }
@@ -178,3 +161,5 @@ Import(@ARGV) if ($fImport);
 Clean() if ($fClean);
 BuildText() if ($fBuildText || $fBuildAll);
 BuildOpt() if ($fBuildOpt || $fBuildAll);
+
+# vi: set ts=4 sw=4 :
