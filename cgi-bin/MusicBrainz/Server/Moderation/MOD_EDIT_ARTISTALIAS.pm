@@ -87,7 +87,7 @@ sub ApprovedAction
 	unless (defined $current)
 	{
 		$self->InsertNote(MODBOT_MODERATOR, "This alias has been deleted");
-		return STATUS_ERROR;
+		return STATUS_FAILEDPREREQ;
 	}
 	
 	unless ($current eq $self->GetPrev)

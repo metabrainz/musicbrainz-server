@@ -15,6 +15,43 @@ $voted = &ModDefs::VOTE_NOTVOTED
 my $is_open = ($mod->GetStatus == &ModDefs::STATUS_OPEN);
 my $is_mine = ($mod->GetModerator == $session{uid});
 
+# The operation of the "Send e-mail" link is fairly complex, and depends on
+# whether this is "inline", whether we know our referrer, and whether
+# Javascript is available.
+my ($send_email_url, $send_email_popupurl, $send_email_target);
+
+{
+	$send_email_url = "/user/mod_email.html"
+		. "?uid=" . $mod->GetModerator
+		. "&modid=" . $mod->GetId
+		;
+	$send_email_target = "";
+
+	# If Javascript is available, we always open a new popup window
+	# ?popup=1, no return address.
+	$send_email_popupurl = $send_email_url . "&url=";
+
+	# Now, what to do for the non-javascript version?
+
+	if (not $inline)
+	{
+		# This window, this URL as the return address.
+		my $my_url = $r->uri . "?" . $r->args;
+		$send_email_url .= "&url=" . uri_escape($my_url);
+	} else {
+		if (my $referrer = $r->headers_in->{'Referer'})
+		{
+			# Load into "_parent" frame, using our referrer as the return address.
+			$send_email_url .= "&url=" . uri_escape($referrer);
+			$send_email_target = " target='_parent'";
+		} else {
+			# Load into "_blank" frame with no return address.
+			$send_email_url .= "&url=";
+			$send_email_target = " target='_blank'";
+		}
+	}
+}
+
 my $time = ($is_open ? $mod->GetExpireTime : $mod->GetCloseTime);
 $time = $m->comp("/comp/datetime", $time);
 
@@ -60,7 +97,10 @@ $time = $m->comp("/comp/datetime", $time);
 %    }
      <br>[ <a href="/mod/addnote.html?modid=<% $mod->GetId %>" onclick="MyWindow=window.open('/mod/addnote.html?modid=<% $mod->GetId %>','AddNote','toolbar=no,location=no,directories=no,status=no,menubar=no,scrollbars=yes,resizable=yes,width=400,height=150'); return false;">Add note</a>
 % if (not $is_mine) {
-			| <a href="/user/mod_email.html?uid=<% $mod->GetModerator %>&amp;modid=<% $mod->GetId %>&amp;url=<% uri_escape($r->uri . "?" . $r->args) %>">Send email</a>
+			| <a <& /comp/auto-popup-link,
+					url => $send_email_url,
+					popupurl => $send_email_popupurl,
+					&><% $send_email_target |n %>>Send email</a>
 % }
 % if ($is_mine and $is_open) {
 			| <a href="/removemod.html?modid=<% $mod->GetId %>">Delete mod</a>

@@ -82,6 +82,35 @@ sub get_handler
 	# top-bit-set characters alone.
 	$handler->interp->set_escape( h => \&MusicBrainz::encode_entities );
 
+	my $u = Apache->server->uid;
+	my $g = Apache->server->gid;
+
+	if (($> != $u or $) != $g) and ($>==0 or $<==0))
+	{
+		# Running as root?  "chown" MASON_DIR to the Apache user and group
+		# we're going to be serving requests under.
+		# Mason claims to do this itself, but it doesn't seem to work :-(
+
+		my @chown;
+		use File::Find qw( find );
+		find(
+			{
+				no_chdir => 1,
+				follow => 0,
+				wanted => sub {
+					my @s = stat $_;
+					push @chown, $_
+						unless $s[4]==$u and $s[5]==$g;
+				},
+			},
+			&DBDefs::MASON_DIR,
+		);
+
+		my $changed = chown $u, $g, @chown;
+		warn "chown (".@chown." files): only changed $changed files ($!)\n"
+			if $changed != @chown;
+	}
+
 	$handler;
 }
 

@@ -61,7 +61,7 @@ sub ApprovedAction
 	unless (defined $current)
 	{
 		$this->InsertNote(MODBOT_MODERATOR, "This track has been deleted");
-		return STATUS_ERROR;
+		return STATUS_FAILEDPREREQ;
 	}
 	
 	unless ($current == $this->GetPrev)

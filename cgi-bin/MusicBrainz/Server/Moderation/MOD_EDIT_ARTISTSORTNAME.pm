@@ -80,7 +80,7 @@ sub ApprovedAction
 	unless (defined $current)
 	{
 		$this->InsertNote(MODBOT_MODERATOR, "This artist has been deleted");
-		return STATUS_ERROR;
+		return STATUS_FAILEDPREREQ;
 	}
 	
 	unless ($current eq $this->GetPrev)

@@ -103,13 +103,13 @@ if ($link)
 %          }
            <a href="/album/<% $mbid %>.html"><% $name %></a>
         </td>
-% if ($session{uid} and $showmodlinks) {
-%       if (!$nonalbum && $showtag) {
+%       if ($session{uid} && !$nonalbum && $showtag) {
             <td width="1%" bgcolor="#FFBA58" align=center valign=top nowrap>
               <input type="checkbox" name="AlbumId<% $albumid %>"
                  <% $tagchecked ? " CHECKED" : "" %>>
             </td>
 %       }
+% if ($session{uid} and $showmodlinks) {
         <td width="15%" bgcolor="#FFBA58" nowrap
 					class="CenterChildren" style="text-align: center"
 					>

@@ -135,7 +135,7 @@ sub CheckPrerequisites
 	unless ($oldar->LoadFromId)
 	{
 		$self->InsertNote(MODBOT_MODERATOR, "This artist has been deleted");
-		return STATUS_ERROR;
+		return STATUS_FAILEDPREREQ;
 	}
 
 	# Check to see that the old value is still what we think it is

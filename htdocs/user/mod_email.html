@@ -137,10 +137,15 @@ else
 
 			<p style="margin: 0.5em">
 				Message Text:<br>
-				<TEXTAREA NAME="text" COLS="60" ROWS="20"></TEXTAREA>
+				<TEXTAREA NAME="text" COLS="60" ROWS="20"
+% if ($pnotes{'ispopup'}) {
+					style="width: 100%"
+% }
+					></TEXTAREA>
 				<INPUT TYPE="hidden" NAME="uid" VALUE="<% $uid %>">
 				<INPUT TYPE="hidden" NAME="url" VALUE="<% $url %>">
 				<INPUT TYPE="hidden" NAME="modid" VALUE="<% $modid %>">
+				<input type="hidden" name="ispopup" value="<% $pnotes{'ispopup'} %>">
 			</p>
 
 			<p style="text-align: center">

@@ -1,10 +1,9 @@
 -- Abstract: Splitting the moderation data into "open" and "closed" tables.
 -- Abstract: Part 3: create indexes, foreign keys, triggers, views etc.
 
--- TODO update the non-update sql scripts
--- TODO createtables-mysql.sql
-
 \set ON_ERROR_STOP 1
+
+SET sort_mem=512000;
 
 BEGIN;
 
@@ -25,6 +24,13 @@ ALTER TABLE old_moderation DROP CONSTRAINT moderation_fk_artist;
 SELECT SETVAL('moderation_open_id_seq', NEXTVAL('moderation_id_seq'));
 SELECT SETVAL('moderation_note_open_id_seq', NEXTVAL('moderationnote_id_seq'));
 SELECT SETVAL('vote_open_id_seq', NEXTVAL('votes_id_seq'));
+
+ALTER TABLE moderation_open ADD CONSTRAINT moderation_open_pkey PRIMARY KEY (id);
+ALTER TABLE moderation_note_open ADD CONSTRAINT moderation_note_open_pkey PRIMARY KEY (id);
+ALTER TABLE vote_open ADD CONSTRAINT vote_open_pkey PRIMARY KEY (id);
+ALTER TABLE moderation_closed ADD CONSTRAINT moderation_closed_pkey PRIMARY KEY (id);
+ALTER TABLE moderation_note_closed ADD CONSTRAINT moderation_note_closed_pkey PRIMARY KEY (id);
+ALTER TABLE vote_closed ADD CONSTRAINT vote_closed_pkey PRIMARY KEY (id);
 
 CREATE INDEX moderation_open_idx_moderator ON moderation_open (moderator);
 CREATE INDEX moderation_open_idx_expiretime ON moderation_open (expiretime);

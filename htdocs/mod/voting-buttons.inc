@@ -5,7 +5,7 @@ $inline=>0
 </%args>
 <%perl>
 
-my $show_novote = !$inline and UserPreference::get("vote_show_novote");
+my $show_novote = (!$inline and UserPreference::get("vote_show_novote"));
 my $default = (UserPreference::get("vote_abs_default") ? "abs" : "novote");
 
 if (defined $vote)

@@ -23,33 +23,4 @@
 <h2>%pnotes</h2>
 <pre><% Data::Dumper->Dump([ \%pnotes ],[ '*pnotes' ]) %></pre>
 
-<pre>
-<%perl>
-my $stash = \%ModDefs::;
-while (my ($name, $glob) = each %$stash)
-{
-	*{$glob}{CODE} or next;
-	$m->out("ModDefs::$name is ");
-	$m->out(" not defined<br>") unless defined &$glob;
-	$m->out(" defined<br>") if defined &$glob;
-}
-
-for my $re (qr/^MOD_/, qr/^STATUS_/, qr/^VOTE_/)
-{
-	my %h;
-
-	for my $name (grep /$re/, keys %$stash)
-	{
-		my $glob = $stash->{$name};
-		defined &$glob or next;
-		$h{$name} = eval { &$glob; };
-		$h{$name} = "error: $@" if $@;
-	}
-
- 	$m->out( Data::Dumper->Dump([ "$re", \%h ],[ 're', '*h' ]) );
-}
-
-</%perl>
-</pre>
-
 <& /comp/footer &>

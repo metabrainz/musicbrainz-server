@@ -11,11 +11,13 @@ unless (MusicBrainz::IsGUID($trm))
 }
 else
 {
+	$trm = lc $trm;
+
 	</%perl>
-	<h2><b>TRM Id: <% $ARGS{trm} %></b></h2>
+	<h2><b>TRM Id: <% $trm %></b></h2>
 	<%perl>
 
-   if ($ARGS{trm} eq &ModDefs::TRM_ID_SILENCE)
+   if ($trm eq &ModDefs::TRM_ID_SILENCE)
    {
        $m->out("<p><br>This TRM Id represents silence.<p>");
    }
@@ -26,33 +28,82 @@ else
        my $album = Album->new($mb->{DBH});
        my $gu = TRM->new($mb->{DBH});
     
-       my @ids = $gu->GetTrackIdsFromTRM($ARGS{trm});
+       my @ids = $gu->GetTrackIdsFromTRM($trm);
        if (scalar(@ids) == 0)
        {
            $m->out("<p>This TRM Id was not found in the database.<p>");
        }
        else
        {
-           for my $trackid (@ids)
-           {
-              my @albums = $album->GetAlbumIdsFromTrackId($trackid);
-              for my $albumid (@albums)
-              {
-                 $album->SetId($albumid);
-                 if ($album->LoadFromId())
-                 {
-                    $artist->SetId($album->GetArtist());
-                    if ($artist->LoadFromId())
-                    {
-						$m->comp("/comp/artisttitle", artist => $artist);
-                        $m->comp("comp/album", 
-                                album=>$album, 
-                                artist=>$artist,
-                                hilitetrack=>$trackid);
-                    }
-                 }
-              }
-           }
+			my %artists;
+			my %albums;
+
+			for my $trackid (@ids)
+			{
+				my @albums = $album->GetAlbumIdsFromTrackId($trackid);
+				for my $albumid (@albums)
+				{
+					$albums{$albumid} ||= do {
+						my $al = Album->new($mb->{DBH});
+						$al->SetId($albumid);
+						$al->LoadFromId
+							or $al = "0 but true"; # load failed
+						$al;
+					};
+					ref(my $al = $albums{$albumid})
+						or next;
+
+					$artists{$al->GetArtist} ||= do {
+						my $ar = Artist->new($mb->{DBH});
+						$ar->SetId($al->GetArtist);
+						$ar->LoadFromId
+							or $ar = "0 but true"; # load failed
+						$ar;
+					};
+					ref(my $ar = $artists{$al->GetArtist})
+						or next;
+
+					$ar->{_my_albums_}{$albumid} ||= $al;
+					$al->{_my_tracks_}{$trackid} = 1;
+				}
+			}
+
+			# For each artist in sortname order...
+			my @ar = values %artists;
+			@ar = map {
+					$_->[0]
+				} sort {
+					$a->[1] cmp $b->[1]
+				} map {
+					my $n = MusicBrainz::NormaliseSortText($_->GetSortName);
+					[ $_, $n ];
+				} @ar;
+
+			for my $ar (@ar)
+			{
+				$m->comp("/comp/artisttitle", artist => $ar);
+
+				# For albums in name order...
+				my @al = values %{ $ar->{_my_albums_} };
+				@al = map {
+						$_->[0]
+					} sort {
+						$a->[1] cmp $b->[1]
+					} map {
+						my $n = MusicBrainz::NormaliseSortText($_->GetName);
+						[ $_, $n ];
+					} @al;
+
+				for my $al (@al)
+				{
+					$m->comp(
+						"/comp/album", 
+						album		=> $al, 
+						artist		=> $ar,
+						hilitetrack	=> $al->{_my_tracks_},
+					);
+				}
+			}
        }
 
        $mb->Logout;

@@ -12,7 +12,9 @@ $mbtagger=>$session{'mbt'}
 <%perl>
 
 my $bgcolor = ($track->GetModPending ? 'bgcolor="#FFFFCC"' : 'bgcolor="#FFFFFF"');
-$bgcolor = ($hilitetrack == $track->GetId ? 'bgcolor="#FFCCFF"' : $bgcolor);
+$bgcolor = 'bgcolor="#FFCCFF"'
+	if (ref($hilitetrack) and $hilitetrack->{$track->GetId})
+	or (not ref($hilitetrack) and $hilitetrack == $track->GetId);
 my $tr_bgcolor = ($track->GetAlbumJoinModPending ? 'bgcolor="#FFFFCC"' : 'bgcolor="#FFFFFF"');
 
 my $nonalbum = $album->IsNonAlbumTracks;

@@ -72,7 +72,7 @@ use constant ALBUM_ATTR_SECTION_STATUS_END   => ALBUM_ATTR_BOOTLEG;
 
 my %AlbumAttributeNames = (
     0 => [ "Non-Album Track", "Non-Album Tracks", "(Special case)"],
-    1 => [ "Album", "Albums", "An album release primarily consists of previously unreleased material."],
+    1 => [ "Album", "Albums", "An album release primarily consists of previously unreleased material. This includes album re-issues, with or without bonus tracks."],
     2 => [ "Single", "Singles", "A single typically has one main song and possibly a handful of additional tracks or remixes of the main track. A single is usually named after its main song."],
     3 => [ "EP", "EPs", "An EP is an Extended Play release and often contains the letters EP in the title."],
     4 => [ "Compilation", "Compilations", "A compilation is a collection of previously released tracks by one or more artists."],

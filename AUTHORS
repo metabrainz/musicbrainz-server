@@ -54,6 +54,7 @@ The following people have contributed to the MusicBrainz server:
   - Submitted a patch for saving preferences (which became the UserPreference
     module)
   - Did the initial coding for artist subscriptions
+  - Submitted a patch for migrating beyond Mason 1.05
 
   Matthias Friedrich <http://www.mafr.de/>
   - Created the "Superfluous Data Tracks" report

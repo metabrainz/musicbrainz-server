@@ -148,9 +148,8 @@ my $oldartist = (sort { $trackartists{$a} <=> $trackartists{$b} } keys %trackart
 my ($oldtrackname, $oldartistname) = ($track->GetName, $tar->GetName);
 
 # Do a split on the track name
-my ($splittrackname, $splitartistname) = split($split, $oldtrackname, 2);
-($splittrackname, $splitartistname) = split(/\s+[\/-]\s+/, $oldtrackname, 2)
-	unless defined $splitartistname;
+my ($splittrackname, $splitartistname) = split($split, $oldtrackname, 2)
+	if defined $split;
 my $did_split = defined $splitartistname;
 ($splittrackname, $splitartistname) = ($splitartistname, $splittrackname)
 	if $session{'changetrack_splitorder'};

@@ -113,6 +113,10 @@ then build with:
 	make test
 	make install
 
+8) Other dependencies
+
+Run ./admin/depend.pl to check for other requirements.
+
 Installation:
 =============
 

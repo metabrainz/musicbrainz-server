@@ -1,12 +1,13 @@
 %# vi: set ts=4 sw=4 ft=mason :
 <%args>
 $url
+$popupurl => $url
 $name => ""
 $attrs => undef
 </%args>
 <%perl>
 
-my $popup = $url;
+my $popup = $popupurl;
 $popup .= (($url =~ /\?/) ? "&ispopup=1" : "?ispopup=1");
 
 $attrs ||= {

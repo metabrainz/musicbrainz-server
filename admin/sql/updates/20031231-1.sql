@@ -16,7 +16,7 @@ BEGIN;
 -- * votes.uid is now called "moderator"
 
 create table moderation_open (
-   id serial primary key,
+   id serial,
    artist int not null, -- references Artist
    moderator int not null, -- references Moderator
    tab varchar(32) not null,
@@ -36,13 +36,13 @@ create table moderation_open (
    );
 
 create table moderation_note_open (
-   id serial primary key,
+   id serial,
    moderation int not null, 
    moderator int not null, 
    text TEXT not null);
 
 create table vote_open (
-   id serial primary key,
+   id serial,
    moderator int not null, -- references Moderator
    moderation int not null, -- references Moderation
    vote smallint not null,
@@ -51,7 +51,7 @@ create table vote_open (
    );
 
 create table moderation_closed (
-   id int primary key,
+   id int not null,
    artist int not null, -- references Artist
    moderator int not null, -- references Moderator
    tab varchar(32) not null,
@@ -71,13 +71,13 @@ create table moderation_closed (
    );
 
 create table moderation_note_closed (
-   id int primary key,
+   id int not null,
    moderation int not null, 
    moderator int not null, 
    text TEXT not null);
 
 create table vote_closed (
-   id int primary key,
+   id int not null,
    moderator int not null, -- references Moderator
    moderation int not null, -- references Moderation
    vote smallint not null,

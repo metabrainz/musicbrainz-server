@@ -58,6 +58,8 @@ use UserPreference;
 use UserStuff;
 use UserSubscription;
 
+require &DBDefs::MB_SERVER_ROOT . "/admin/depend.pl";
+
 # Loading the Mason handler preloads the pages, so the other MusicBrainz
 # modules must be ready by this point.
 use MusicBrainz::Server::Mason;

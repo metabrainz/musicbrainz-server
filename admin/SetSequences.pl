@@ -69,24 +69,33 @@ print "Connected to database.\n";
 
 SetSequence($sql, "album");
 SetSequence($sql, "albumjoin");
+# albummeta - not a serial column
+# albumwords - no unique integer column
 SetSequence($sql, "artist");
-# artist_relation
+SetSequence($sql, "artist_relation");
 SetSequence($sql, "artistalias");
+# artistwords - no unique column
 SetSequence($sql, "clientversion");
+SetSequence($sql, "country");
+# currentstat - no unique integer column
 SetSequence($sql, "discid");
-SetSequence($sql, "moderation_closed");
-SetSequence($sql, "moderation_note_closed");
+# historicalstat - no unique integer column
+# moderation_closed - not a serial column
+# moderation_note_closed - not a serial column
 SetSequence($sql, "moderation_note_open");
 SetSequence($sql, "moderation_open");
 SetSequence($sql, "moderator");
+SetSequence($sql, "moderator_preference");
+SetSequence($sql, "moderator_subscribe_artist");
+SetSequence($sql, "release");
 SetSequence($sql, "stats");
 SetSequence($sql, "toc");
 SetSequence($sql, "track");
+# trackwords - no unique column
 SetSequence($sql, "trm");
 SetSequence($sql, "trmjoin");
-SetSequence($sql, "vote_closed");
+# vote_closed - not a serial column
 SetSequence($sql, "vote_open");
 SetSequence($sql, "wordlist");
 
-# Disconnect
-$mb->Logout;
+# eof SetSequences.pl

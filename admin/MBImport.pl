@@ -73,6 +73,7 @@ processing of this table ends.  Otherwise, the file is loaded into the table.
 "moderator" table).
 
 EOF
+	exit;
 }
 
 $fHelp and usage();

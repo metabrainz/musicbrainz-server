@@ -36,7 +36,7 @@ if (defined $mb)
 		</%perl>
 		<tr>
 			<td class="SideBarStatsBoxName"
-				<% ($name eq $nametrunc) ? "" : 'title="'.html_escape($name).'"' |n %>
+				<% ($name eq $nametrunc) ? "" : 'title="'.encode_entities($name).'"' |n %>
 				><a href="/user/view.html?uid=<% $id %>"><% $nametrunc %></a></td>
 			<td class="SideBarStatsBoxCount"><% $count %></td>
 		</tr>
