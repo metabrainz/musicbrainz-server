@@ -1,0 +1,23 @@
+%# vi: set ts=4 sw=4 ft=mason :
+% use Data::Dumper;
+% local $Data::Dumper::Sortkeys = 1;
+<& /comp/sidebar, title => "Debugger" &>
+
+<h2>$r->args</h2>
+% { local $Data::Dumper::Terse = 1;
+<pre>scalar: <% Data::Dumper->Dump([ scalar($r->args) ],[ '' ]) %></pre>
+<pre>list: <% Data::Dumper->Dump([ [$r->args] ],[ '' ]) %></pre>
+% my %h; { no warnings; %h = $r->args };
+<pre>hash: <% Data::Dumper->Dump([ \%h ],[ '' ]) %></pre>
+% }
+
+<h2>%ARGS</h2>
+<pre><% Data::Dumper->Dump([ \%ARGS ],[ '*ARGS' ]) %></pre>
+
+<h2>@_</h2>
+<pre><% Data::Dumper->Dump([ \@_ ],[ '*_' ]) %></pre>
+
+<h2>%session</h2>
+<pre><% Data::Dumper->Dump([ \%session ],[ '*session' ]) %></pre>
+
+<& /comp/footer &>
