@@ -622,7 +622,6 @@ sub SelectListOfHashes
 
 package Sql::Timer;
 
-use Carp qw(cluck croak carp);
 use Time::HiRes qw( gettimeofday tv_interval );
 
 sub new
@@ -660,11 +659,14 @@ sub DESTROY
 		join(", ", @{ $self->{ARGS} }),
 		;
 
-	# Uncomment your preferred logging method
-	# warn "$msg\n";
-	local $Carp::CarpInternal{'Sql'} = 1;
-	local $Carp::CarpInternal{'Sql::Timer'} = 1;
-	carp $msg;
+	# Is there a way of doing this using Carp?
+	my $i = 1;
+	{
+		my @c = caller($i)
+			or return warn $msg;
+		++$i, redo if $c[0] =~ /^Sql($|::Timer$)/;
+		return warn "$msg at $c[1] line $c[2]\n";
+	}
 }
 
 1;
