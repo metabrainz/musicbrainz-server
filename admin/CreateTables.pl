@@ -35,12 +35,12 @@ sub CreateTables
     $dbh->do("create table Artist (" .
              "   Id int auto_increment primary key," .
              "   Name varchar(255) NOT NULL," . 
-             "   SortName varchar(100) NOT NULL," . 
              "   GID varchar(64) NOT NULL," . 
              "   WebPage blob," . 
              "   AuxPage blob," .
              "   ModPending int," .
-             "   LastChanged datetime) ") 
+             "   LastChanged datetime," .
+             "   SortName varchar(100) NOT NULL)" ) 
           or die("Cannot create Artist table");
 
     print "Created Artist table.\n";
@@ -52,51 +52,51 @@ sub CreateTables
              "   Artist int NOT NULL," .
              "   WebPage blob," .
              "   AuxPage blob," .
-             "   ModPending int," .
-             "   LastChanged datetime) ")
+             "   LastChanged datetime," .
+             "   ModPending int)" )
           or die("Cannot create Album table");
 
     print "Created Album table.\n";
 
     $dbh->do("create table Track (" .
-             "   Id int auto_increment primary key," .
+             "   Id int(11) auto_increment primary key," .
              "   Name varchar(255) not null ," .
              "   GID varchar(64) NOT NULL," . 
-             "   Artist int not null," .
-             "   Length int," .
-             "   Year int," .
-             "   Genre int," .
+             "   Artist int(11) not null," .
+             "   Length int(11)," .
+             "   Year int(11)," .
+             "   Genre int(11)," .
              "   Filename varchar(255)," .
              "   Comment text," .
              "   WebPage blob," .
              "   AuxPage blob," .
-             "   ModPending int," .
-             "   LastChanged datetime) ")
+             "   LastChanged datetime,".
+             "   ModPending int(11)" )
           or die("Cannot create Track table");
 
     print "Created Track table.\n";
 
     $dbh->do("create table GUID (" .
-             "   Id int auto_increment primary key," .
-             "   GUID char(36) NOT NULL)")
+             "   Id int(11) DEFAULT '0' NOT NULL auto_increment primary key," .
+             "   GUID char(36) DEFAULT '' NOT NULL)")
           or die("Cannot create GUID table");
 
     print "Created GUID table.\n";
 
     $dbh->do("create table AlbumJoin (" .
              "   Id int auto_increment primary key," .
-             "   Album int NOT NULL," .
-             "   Track int NOT NULL," .
-             "   Sequence int NOT NULL," .
+             "   Album int(11) NOT NULL," .
+             "   Track int(11) NOT NULL," .
+             "   Sequence int(11) NOT NULL," .
              "   ModPending int)")
           or die("Cannot create AlbumJoin table");
 
     print "Created AlbumJoin table.\n";
 
     $dbh->do("create table GUIDJoin (" .
-             "   Id int auto_increment primary key," .
-             "   GUID int NOT NULL," . 
-             "   Track int NOT NULL)")
+             "   Id int(11) auto_increment primary key," .
+             "   GUID int(11) NOT NULL," . 
+             "   Track int(11) NOT NULL)")
           or die("Cannot create GUIDJoin table");
 
     print "Created GUIDJoin table.\n";
@@ -104,8 +104,8 @@ sub CreateTables
     $dbh->do("create table Genre (" .
              "   Id int auto_increment primary key," .
              "   Name varchar(64) not null," .
-             "   ModPending int," .
-             "   Description varchar(255))")
+             "   Description varchar(255)," .
+             "   ModPending int)")
           or die("Cannot create Genre table");
 
     print "Created Genre table.\n";

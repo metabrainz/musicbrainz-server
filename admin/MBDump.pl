@@ -26,55 +26,19 @@ use lib "../cgi-bin";
 use DBI;
 use DBDefs;
 
-sub DumpTable
-{
-    my ($name, $dir) = @_;
-    my ($cmd, $dsn, $ret);
-
-    print "Dumping table $name..\n";
-
-    $cmd = "mysqldump musicbrainz $name > $dir/$name"; 
-    $ret = system($cmd) >>8;
-
-    return !$ret;
-}
-
 sub DumpAllTables
 {
-    my ($dir) = @_;
 
-    DumpTable("Artist", $dir) or return 0;
-    DumpTable("Album", $dir) or return 0;
-    DumpTable("Track", $dir) or return 0;
-    DumpTable("GUID", $dir) or return 0;
-    DumpTable("AlbumJoin", $dir) or return 0;
-    DumpTable("GUIDJoin", $dir) or return 0;
-    DumpTable("Genre", $dir) or return 0;
-    DumpTable("Diskid", $dir) or return 0;
-    DumpTable("TOC", $dir) or return 0;
-    
-    #DumpTable("Pending", $dir) or return 0;
-    #DumpTable("ModeratorInfo", $dir) or return 0;
-    #DumpTable("Changes", $dir) or return 0;
-    #DumpTable("Votes", $dir) or return 0;
-
-    if (DBDefs->USE_LYRICS)
-    {
-       DumpTable("Lyrics", $dir) or return 0;
-       DumpTable("SyncText", $dir) or return 0;
-       DumpTable(SyncEvent, $dir) or return 0;
-    }
-    else
-    {
-       print "Skipping dumping of lyrics tables.\n";
-    }
+    $cmd = "mysql -u root musicbrainz < mbdump.sql";
+    $ret = system($cmd) >>8;
 
     print "\nDumped tables successfully.\n";
 
     return 1;
 }
 
-my ($outfile, $dir, @tinfo, $timestring);
+    my ($outfile, $dir, @tinfo, $timestring);
+
 
 @tinfo = localtime;
 $timestring = "mbdump-" . (1900 + $tinfo[5]) . "-".($tinfo[4]+1)."-$tinfo[3]";
@@ -95,6 +59,7 @@ system("rm -rf $dir");
 
 mkdir($dir, 0700)
   or die("Cannot create tmp directory $dir.\n");
+
 
 if (DumpAllTables($dir))
 {

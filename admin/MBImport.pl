@@ -33,7 +33,7 @@ sub ImportTable
 
     print "Importing table $name..\n";
 
-    $cmd = "mysql musicbrainz < $dir/$name"; 
+    $cmd = "mysqlimport -u root musicbrainz $dir/$name"; 
     $ret = system($cmd) >> 8;
 
     return !$ret;
