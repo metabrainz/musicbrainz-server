@@ -1,0 +1,295 @@
+<& /comp/sidebar, title=>"MusicBrainz Client Library HOWTO", 
+                  expand=>'documentation' &>
+
+<& /comp/section, title=>'Introduction' &>
+
+<p>
+The MusicBrainz client library serves as a tool to allow developers to 
+integrate MusicBrainz searches and metadata exchange functionality into
+their applications. 
+
+<p>
+The client library includes the following features:
+
+<ul>
+<li>Lookup Audio CD metadata using CD Index diskids
+<li>Calculate <a href="http://www.relatable.com">Relatable TRM</a> acoustic 
+    fingerprints
+<li>Search for artist/album/track titles
+<li>Lookup metadata by name, TRM ids or MusicBrainz Ids
+</ul>
+
+<p>
+The client library is released under the 
+<a href="http://www.gnu.org/copyleft/lesser.html">LGPL</a>, 
+which means that even 
+developers of closed source applications can use the client library, 
+without having to open source their own code.
+
+<p>
+If you prefer to read code than documentation in order to learn this
+client library, please check out the code in the examples directory.
+
+<& /comp/section, title=>'Overview' &>
+
+<p>
+MusicBrainz provides a powerful web service API that uses 
+<a href="http://www.w3.org/RDF">RDF</a> for
+expressing queries and query responses. RDF is the Resource Description
+Framework as specified by World Wide Web Consortium, and it can be used
+for formally expressing metadata using an XML syntax.
+
+<p>
+RDF is powerful, but also complex, and thus the client library attempts
+to shield the end user from having to understand RDF. But in order to
+understand the Query/Select/Get interface that client library has, a
+brief overview of the data query process is in order.
+
+<p>
+To query the MusicBrainz server, the user must pass an RDF query to the
+server. You may decide to create your own queries if you are comfortable
+with RDF, or you can use the predefined queries in the client library.
+The predefined queries will require a number of arguments that will get
+substituted into the query before the query is sent to the server.
+
+<p>
+The mb_Query (MusicBrainz::Query in C++) function takes a query string
+and a number of other arguments that get substituted into the query.
+The queries are defined in queries.h, and you do not need to really
+know what the actual query strings mean -- all you need to do is to
+select the right query for your purpose and then provide the query
+function with the right arguments and the client library will do the rest.
+
+<p>
+Once the query function returns it will have retrieved the RDF response
+from the server. The returned RDF will get parsed and then the user
+can use the Select/Get/Data functions to extract information from the
+query result.
+
+<p>
+The RDF response will typically return a whole bunch of information, and
+you may only be interested in some of that information. In order to make
+the data extraction process reasonably easy, the user will need to Select
+a context (think of it as a subset) of the RDF response. You can then
+extract pieces of data from that context.
+
+<p>
+For example, if you look up a CD using the client library, you will get
+back a list of albums. Each MusicBrainz query will return a list of
+one kind or another, even if it only contains one item. So, you will need
+to select an album from the list, and in this case it will be the first
+album in the list. You'll do that with a call to Select. After calling
+Select, you can call the GetResultData or GetResultInt functions to extract
+string or integer values from the returned data. A code fragment to
+do this in C would look like:
+
+<& /comp/examplebegin &>
+    // Check to see how many items were returned from the server
+    if (mb_GetResultInt(o, MBE_GetNumAlbums) < 1)
+    {
+        printf("This CD was not found.\n");
+        return 0;
+    }
+
+    // Select the first album
+    mb_Select1(o, MBS_SelectAlbum, 1);
+
+    // Get the number of tracks
+    numTracks = mb_GetResultInt(o, MBE_AlbumGetNumTracks);
+    printf(" NumTracks: %d\n", numTracks);
+<& /comp/exampleend &>
+
+<p>
+Finally, a couple of other tidbits for the overview: The client library 
+uses standard HTTP GET and POST queries to accomplish the communication 
+with the server. Thus, the client library has support for using proxies to 
+get across firewalls, and no special firewall arrangements have to be made.
+
+<p>
+The data that is extracted from the RDF response can either be in standard
+ISO-8859-1 format (the character encoding that Western European and US 
+computers use) or in the UTF-8 format. However, at this point in time,
+the MusicBrainz server does not actually support UTF-8 data (we need to
+find an opensource database that _completely_ supports UTF-8 first). The
+server only supports ISO 8859-1 right now.  
+
+<p>
+The MusicBrainz client library can also be used to create Relatable TRM 
+acoustic fingerprints for audio files. In order to generate a TRM id, you
+will need to feed the client library the first 30 seconds worth of PCM
+data from your audio stream. Once you've fed it the 30 seconds of data,
+the client library will send the acousting fingerprint information to the
+Relatable server and the server will assign and return a TRM ID to the given
+song. You can then use the TRM id to look up metadata for the song,
+and fill out the ID3 tags (or equivalent) automatically! 
+
+<& /comp/section, title=>'Function & Query Reference' &>
+
+<p>
+For details on the individual functions and queries mentioned in this HOWTO,
+please refer to the following pages:
+
+<ul>
+<li><a href="/docs/mb_client/index.html">Online Reference</a>
+<li><a href="/docs/mb_client/queries_h.html">Query Reference</a>
+<li><a href="/docs/mb_client/mb_c_h.html">Function Reference</a>
+</ul>
+
+<& /comp/section, title=>'Select & Get Documentation' &>
+
+<p>
+The most non-obvious issues in dealing with the client library is having
+to extract data from the result that was returned by the server. If you
+are RDF savvy and would like deal with the result RDF itself, then call
+the mb_GetResultRDF function. Most people won't be interested in doing
+that so, here is a detailed explanation for what you need to do.
+
+<p>
+The server will return an artist list, album list, track list a trmid
+list or a lyrics list. Let's examine the artist list first, since it ends
+up as a good example for the rest of the select/get stuff. This piece of
+ASCII art shows the different objects returned as part of an artist list
+query:
+
+<& /comp/examplebegin &>
+            Graphical representation of an Artistlist query:
+                                                                Depth:
+                                           +-------------+      
+  [top level]                              | Artist List |        [0]
+                                           +-------------+
+                                              |       |
+                                      +--------+     +--------+
+  MBS_SelectArtist 1 ---------------> | Artist |     | Artist |   [1]
+                                      +--------+     +--------+
+                                       |      |            
+                                +-------+    +-------+
+  MBS_SelectAlbum 1  ---------> | Album |    | Album |            [2]
+                                +-------+    +-------+
+                                 |     |
+                          +-------+   +-------+
+  MBS_SelectTrack 1  ---> | Track |   | Track |                   [3]
+                          +-------+   +-------+
+<& /comp/exampleend &>
+
+<p>
+If your artistlist query is successful then you can call do the following 
+to find out the number of artists returned by the query:
+
+<& /comp/examplebegin &>
+  numArtists = mb_GetResultInt(o, MBE_GetNumArtists);
+<& /comp/exampleend &>
+
+<p>
+Please note that the MBE_GetNumArtists is a MusicBrainzExtract (MBE_) query,
+which queries the result set, not the MusicBrainz server. All server queries
+that can be passed to mb_Query are MusicBrainzQueries that start with MBQ_.
+Then you also have MusicBrainz Select queries (MBS_) which are used to 
+select a subset of a result from a the server. 
+
+<p>
+Any of the mb_GetResult functions work on the current extract query context.
+Right after you call mb_Query the current context will be set to the
+top level query context, where you can get the number of items returned
+(as shown above) or select one of the returned items as a new context.
+
+<p>
+So, in our example, after you've determined the number of artists that were
+returned, you can select one of the artists using a the mb_Selection function.
+To select the first artist returned do this:
+
+<& /comp/examplebegin &>
+  mb_Select1(o, MBS_SelectArtist, 1);
+<& /comp/exampleend &>
+
+<p>
+The third argument to the mb_Select1 function is an ordinal argument, that
+indicates which artist you'd like to select. Ordinals are 1 based, so to
+select the first artist, use 1, not 0. Select queries that select something
+out of a list require an ordinal argument, as shown above. Some select queries
+do not require ordinals, in which case you can call mb_Select (as opposed to
+mb_Select1). 
+
+<p>
+Select queries can be arbitrarily complex, and sometimes you may need to
+pass a list of ordinals to make selections out of multiple lists at the 
+same time. In that case call mb_SelectWithArgs and specify a list of
+ordinal arguments.
+
+<p>
+Let's go back to the example. After you select the context of the first
+artist, you can then use the MBE_ArtistXXXXX functions to extract information
+from the currently selected artist. To get the name of the artist, do this:
+
+<& /comp/examplebegin &>
+  mb_GetResultData(o, MBE_ArtistGetArtistName, data, 256);
+<& /comp/exampleend &>
+
+<p>
+Which will extract the artist name and save it into data. The last argumemnt
+specifies the number of bytes allocated in data. Check the query reference
+for the queries that you can do on a given artist.
+
+<p>
+A query that returns an artist list will also return the list of albums for
+that that given artist. So, from the Artist context you can find out how
+many albums have been returned for that artist:
+
+<& /comp/examplebegin &>
+  numAlbums = mb_GetResultInt(o, MBE_GetNumAlbums);
+<& /comp/exampleend &>
+
+<p>
+To select the first album do this:
+
+<& /comp/examplebegin &>
+  mb_Select1(o, MBS_SelectAlbum, 1);
+<& /comp/exampleend &>
+
+<p>
+Now you can use the MBE_AlbumXXXX functions to retrieve information about
+the selected album. Now, lets assume that you've extracted the needed
+information from the first album and you want to select the second album.
+It would make sense to just be able to repeat the above call with 2
+as the ordinal. However, that won't work!!! In order to select an album
+you need to be in the artist context, which contains the list of albums
+for the given artist. The proper way to select the second album is to do:
+
+<& /comp/examplebegin &>
+  mb_Select(o, MBS_Back);
+  mb_Select1(o, MBS_SelectAlbum, 2);
+<& /comp/exampleend &>
+
+<p>
+The first select will back up the context to the previous context (which
+is the artist context) and then the second call selects the second
+album. You can now query information for the second album. There is one
+more special query:
+
+<& /comp/examplebegin &>
+  mb_Select(o, MBS_Rewind);
+<& /comp/exampleend &>
+
+<p>
+This will rewind the context to the top level context, just as it was
+right after the mb_Query function. This should give you a good idea
+on how to extract data from an artist list. 
+
+<p>
+[explain how to use other queries]
+
+<p>
+One last thing that needs explaining is the depth of a query. In the
+graph above, there is a column that shows depth. The depth of the query
+determines the amount of data returned by the server. If you set the 
+depth to 0, the server will only return the list of IDs to artists,
+but not the artists themselves. A depth of 1 will return the list,
+and all of the artists, but not the albums that may be referenced in the
+artist. When you write code to access the server you should carefully
+select the depth of your query to make sure that you only retrieve as much
+information as you really need.
+
+
+<& /comp/section, title=>'Topics to be covered in the future' &>
+
+- MBIDs and get id function<br>
+- Creating TRM ids

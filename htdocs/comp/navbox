@@ -12,6 +12,7 @@ my @documentation = (
   {url=>'/todo.html',                      name=>'To&nbsp;Do&nbsp;List'},
   {url=>'/rob_todo.html',                  name=>'Rob\'s&nbsp;To&nbsp;Do'},
   {url=>'/mod_intro.html',                 name=>'Moderation&nbsp;Intro'},
+  {url=>'/client_howto.html',              name=>'Client&nbsp;HOWTO'},
   {url=>'/bio.html',                       name=>'The People'}
 );
 
