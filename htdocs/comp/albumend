@@ -99,7 +99,7 @@ if (scalar(@ids) > 0)
 %        if (!defined $id_numtracks || $id_numtracks > $numtracks) {
              <a href="/addtrack.html?album=<% $album->GetId() %>">Add track</a> | 
 %        }
-           <a href="/movealbum.html?album=<% $album->GetId() %>&amp;artist=<% $album->GetArtist() %>">Move</a> 
+           <a href="/movealbum.html?album=<% $album->GetId() %>">Move</a> 
 %            if ($album->GetArtist() != ModDefs::VARTIST_ID) {
               | <a href="/tomac.html?album=<% $album->GetId() %>">Convert to multiple artists</a>
 %            } else {

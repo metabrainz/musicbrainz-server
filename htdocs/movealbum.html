@@ -1,7 +1,6 @@
 %# vi: set ts=2 sw=2 ft=mason :
 <%args>
 $album => ""
-$artist => ""
 </%args>
 <& /comp/sidebar, title=>'Move Album' &>
 <%perl>
@@ -9,86 +8,93 @@ $artist => ""
 $m->comp("/comp/checkloggedin", 0, 1)
 	or return;
 
-($album || "") =~ /\A(\d{1,20})\z/
+MusicBrainz::IsNonNegInteger($album) && $album
 	or return $m->comp("/comp/badargs", 0, 1);
 
-($artist || "") =~ /\A(\d{1,20})\z/
-	or return $m->comp("/comp/badargs", 0, 1);
-
-$artist == ModDefs::DARTIST_ID
-	and return $m->comp("/comp/badargs", 0, 1);
-
-my $mb = mc_comp("/comp/dblogin");
+my $mb = $m->comp("/comp/dblogin");
 
 my $al = Album->new($mb->{DBH});
 $al->SetId($album);
-$al->LoadFromId($album)
-	or return $m->comp("/comp/badargs", 0, 1);
+$al->LoadFromId
+	or return $m->comp(
+		"/comp/error",
+		"Album #$album not found",
+		0, 1,
+	);
+
+# TODO reject if artist == VARTIST_ID ?
+#$al->GetArtist == ModDefs::VARTIST_ID
+#	and return $m->comp(
+#		"/comp/error",
+#		"You can't move this album.",
+#		0, 1,
+#	);
 
 my $ar = Artist->new($mb->{DBH});
-$ar->SetId($artist);
-$ar->LoadFromId()
-	or return $m->comp("/comp/badargs", 0, 1);
-
-my $albumname = $al->GetName();
-my $modpending = $al->GetModPending();
-my $artistname = $ar->GetName();
-my $sortname = $ar->GetSortName();
+$ar->SetId($al->GetArtist);
+$ar->LoadFromId
+	or return $m->comp(
+		"/comp/error",
+		"Artist not found",
+		0, 1,
+	);
 
 </%perl>
 
-    <& /comp/stylemenu &>
+<& /comp/stylemenu &>
 
-    <& /comp/tablebegin, gattrs=>"width=\"100%\"",
-       title=>"Move Album '$albumname'" &>
+<h2>Move Album '<% $al->GetName %>'</h2>
 
-% if ($modpending) {
+% if ($al->GetModPending) {
     <& /comp/modpending &>
-% } 
+% }
 
-    Enter the artist <span class="bold">sortname</span> to 
-    whom you'd like to move album '<% $albumname %>':
+<p>
+    Enter the artist <span class="bold">sortname</span> to
+		whom you'd like to move album
+		<a href="/showalbum.html?albumid=<% $al->GetId %>"
+			><% $al->GetName %></a>:
+</p>
 
-    <FORM METHOD="POST" ACTION="/artistfilter.html" NAME="MoveArtistForm"
-          ENCTYPE="application/x-www-form-urlencoded">  
+<form method="post" action="/artistfilter.html" name="MoveArtistForm"
+	enctype="application/x-www-form-urlencoded">
+
     <table>
       <tr>
         <td>
-        Current Artist Sortname:
+					Current Artist Sortname:
         </td>
         <td>
-        <% $sortname  %>
+					<a href="/showartist.html?artistid=<% $ar->GetId %>"
+						><% $ar->GetSortName  %></a>
         </td>
       </tr>
       <tr>
         <td>
-        New Artist Sortname:
+					New Artist Sortname:
         </td>
         <td>
-        <INPUT TYPE="text" NAME="new0" SIZE=25 value="<% $sortname %>"> 
+					<input type="text" name="new0" size="40" value="<% $ar->GetSortName %>">
         </td>
       </tr>
       <tr>
         <td colspan=2>
-        <INPUT TYPE="submit" NAME="Submit" VALUE="Submit">    
+					<input type="submit" value="Next &gt;&gt;">
         </td>
       </tr>
     </table>
+
     <input type="hidden" name="mode" value="move">
-    <input type="hidden" name="album" value="<% $albumname %>">
-    <input type="hidden" name="artist0" value="<% $artist %>">
+		<input type="hidden" name="album" value="<% $al->GetName %>">
+		<input type="hidden" name="artist0" value="<% $ar->GetId %>">
     <input type="hidden" name="type0" value="<% ModDefs::MOD_MOVE_ALBUM %>">
-    <input type="hidden" name="prev0" value="<% $artistname  %>">
+		<input type="hidden" name="prev0" value="<% $ar->GetName %>">
     <input type="hidden" name="table0" value="Album">
     <input type="hidden" name="column0" value="Artist">
-    <input type="hidden" name="id0" value="<% $album %>">
-    <input type="hidden" name="url" value="/showalbum.html?albumid=<% $album %>">
-    <input type="hidden" name="artistfilter_dontshow" value="<% $artist %>">
-    </form>
-      
-    <& /comp/tableend &>
-
-% $mb->Logout();
+		<input type="hidden" name="id0" value="<% $al->GetId %>">
+		<input type="hidden" name="url" value="/showalbum.html?albumid=<% $al->GetId %>">
+		<input type="hidden" name="artistfilter_dontshow" value="<% $ar->GetId %>">
+</form>
 
 <& /comp/movefocus, "MoveArtistForm", "new0" &>
 <& /comp/footer &>
