@@ -58,16 +58,16 @@ my $expire_verb = ($mod->GetExpired ? "Expired" : "Expires");
 	<tr><td colspan="2"><hr></td></tr>
 
 	<tr>
-		<td>Type:</td>
-		<td><% do { $mod->ShowModType($m); "" } %></td>
+		<td valign="top">Type:</td>
+		<td valign="top"><% do { $mod->ShowModType($m); "" } %></td>
 	</tr>
 	<tr>
-		<td>Old Value:</td>
-		<td><% do { $mod->ShowPreviousValue($m); "" } %></td>
+		<td valign="top">Old Value:</td>
+		<td valign="top"><% do { $mod->ShowPreviousValue($m); "" } %></td>
 	</tr>
 	<tr>
-		<td>New Value:</td>
-		<td><% do { $mod->ShowNewValue($m); "" } %></td>
+		<td valign="top">New Value:</td>
+		<td valign="top"><% do { $mod->ShowNewValue($m); "" } %></td>
 	</tr>
 
 % if (not $my_mod) {
