@@ -1,0 +1,167 @@
+<html>
+<head>
+  <title>MusicBrainz Metadata Examples</title></head>
+</head>
+
+<body>
+
+<TABLE ALIGN="CENTER" BORDER="0" WIDTH="86%" CELLSPACING="0" CELLPADDING="0">
+<tr><td>
+
+<TABLE BORDER="0" WIDTH="100%" CELLSPACING="0" CELLPADDING="0">
+<TR><TD WIDTH="2%" BGCOLOR="#FFFFCC">&nbsp;</TD>
+<TD WIDTH="96%" VALIGN="TOP" BGCOLOR="#FFFFCC"><BR>
+
+<font size=+2 color=990000>MusicBrainz Metadata Examples</font><p>   
+
+[<a href="index.html">Back to MusicBrainz Metadata Proposal</a>]
+<p>
+
+<h2>Simple audio track example</h2><p>
+
+<pre>
+&lt;?xml version="1.0"?&gt;
+&lt;rdf:RDF xmlns = "http://w3.org/TR/1999/PR-rdf-syntax-19990105#"
+         xmlns:DC = "http://purl.org/DC#" 
+         xmlns:MM = "http://cdindex.org/MM#" &gt;
+
+  &lt;rdf:Description 
+       about = "http://www.cdindex.org/cgi-bin/cdi/xget.pl?albumid=3"&gt;
+    &lt;DC:Title&gt;Strangers&lt;/DC:Title&gt;
+    &lt;DC:Creator&gt;Portishead&lt;/DC:Creator&gt;
+    &lt;MM:Album&gt;Dummy&lt;/MM:Album&gt;
+    &lt;DC:Relation track="3"/&gt;
+    &lt;DC:Format duration="195000"/&gt;
+    &lt;DC:Description remixInfo="Airbus Reconstruction"
+                    recordedAt="Performed live at CCH 3, Hamburg"/&gt;
+    &lt;DC:Contributor role="Performer" 
+                    roleDetail="Lead Vocals"&gt;Beth Gibbons&lt;/DC:Contributor&gt;
+  &lt;/rdf:Description&gt;
+&lt;/rdf:RDF&gt;
+</pre>
+
+<h2>Audio track with sync lyrics example</h2><p>
+
+<pre>
+&lt;?xml version="1.0"?&gt;
+&lt;rdf:RDF xmlns = "http://w3.org/TR/1999/PR-rdf-syntax-19990105#"
+         xmlns:DC = "http://purl.org/DC#" 
+         xmlns:MM = "http://cdindex.org/MM#" &gt;
+
+  &lt;rdf:Description about = 
+       "http://www.cdindex.org/cgi-bin/cdi/xget.pl?albumid=512"&gt;
+    &lt;DC:Title&gt;Big Time&lt;/DC:Title&gt;
+    &lt;DC:Creator&gt;Peter Gabriel&lt;/DC:Creator&gt;
+    &lt;MM:Album&gt;So&lt;/MM:Album&gt;
+    &lt;DC:Relation track="7"/&gt;
+    &lt;MM:SyncEvents&gt;
+       &lt;rdf:Seq&gt;
+          &lt;rdf:li&gt;
+             &lt;rdf:Description&gt;
+                &lt;MM:SyncText ts="1400"&gt;Hi There!&lt;/MM:SyncText&gt;
+             &lt;/rdf:Description&gt;
+          &lt;/rdf:li&gt;
+          &lt;rdf:li&gt;
+             &lt;rdf:Description&gt;
+                &lt;MM:SyncText ts="2100"&gt;I'm on my way&lt;/MM:SyncText&gt;
+             &lt;/rdf:Description&gt;
+          &lt;/rdf:li&gt;
+          &lt;rdf:li&gt;
+             &lt;rdf:Description&gt;
+                &lt;MM:SyncText ts="2870"&gt;I'm making it&lt;/MM:SyncText&gt;
+             &lt;/rdf:Description&gt;
+          &lt;/rdf:li&gt;
+       &lt;/rdf:Bag&gt;
+    &lt;/MM:SyncEvents&gt;
+  &lt;/rdf:Description&gt;
+&lt;/rdf:RDF&gt;
+</pre>
+
+<h2>Classical audio track example</h2><p>
+
+<pre>
+&lt;?xml version="1.0"?&gt;
+&lt;rdf:RDF xmlns = "http://w3.org/TR/1999/PR-rdf-syntax-19990105#"
+         xmlns:DC = "http://purl.org/DC#" 
+         xmlns:MM = "http://cdindex.org/MM#" &gt;
+
+  &lt;rdf:Description about=
+       "http://www.cdindex.org/cgi-bin/cdi/xget.pl?albumid=7664"&gt;
+    &lt;DC:Title&gt;Tristan Und Isolde&lt;/DC:Title&gt;
+    &lt;DC:Description primaryKey="B Major" 
+           recordedAt="Recorded at Theatre Royal, Glasgow, Scotland"
+           memberOfSubpart="Act II"/&gt;
+    &lt;MM:Contributors&gt;
+       &lt;rdf:Bag&gt;
+          &lt;rdf:li&gt;
+             &lt;rdf:Description&gt;
+                &lt;DC:Contributor role="Composer"&gt;Richard Wagner&lt;/DC:Contributor&gt;
+             &lt;/rdf:Description&gt;
+          &lt;/rdf:li&gt;
+          &lt;rdf:li&gt;
+             &lt;rdf:Description&gt;
+                &lt;DC:Contributor role="Conductor"&gt;Richard Armstrong&lt;/DC:Contributor&gt;
+             &lt;/rdf:Description&gt;
+          &lt;/rdf:li&gt;
+          &lt;rdf:li&gt;
+             &lt;rdf:Description&gt;
+                &lt;DC:Contributor role="Orchestra" &gt;Scottish Opera&lt;/DC:Contributor&gt;
+             &lt;/rdf:Description&gt;
+          &lt;/rdf:li&gt;
+          &lt;rdf:li&gt;
+             &lt;rdf:Description&gt;
+                &lt;DC:Contributor role="Performer" 
+                     roleDetail="Tenor"&gt;John Murray&lt;/DC:Contributor&gt;
+             &lt;/rdf:Description&gt;
+          &lt;/rdf:li&gt;
+       &lt;/rdf:Bag&gt;
+    &lt;/MM:Contributors&gt;
+    &lt;DC:Relation partsInSet="5" isPartOf="2"/&gt;
+  &lt;/rdf:Description&gt;
+&lt;/rdf:RDF&gt;
+</pre>
+
+
+<h2>Video track example</h2><p>
+
+<pre>
+&lt;?xml version="1.0"?&gt;
+&lt;rdf:RDF xmlns = "http://w3.org/TR/1999/PR-rdf-syntax-19990105#"
+         xmlns:DC = "http://purl.org/DC#" 
+         xmlns:MM = "http://cdindex.org/MM#" &gt;
+
+  &lt;rdf:Description about = "http://us.imdb.com/Title?0169547" &gt;
+    &lt;DC:Title&gt;American Beauty&lt;/DC:Title&gt;
+    &lt;DC:Description director="Sam Mendes"/&gt;
+    &lt;DC:Date issued="1999-06-08"/&gt;
+    &lt;MM:Contributors&gt;
+       &lt;rdf:Bag&gt;
+          &lt;rdf:li&gt;
+             &lt;rdf:Description&gt;
+                &lt;DC:Contributor role="Writer"&gt;Kevin Ball&lt;/DC:Contributor&gt;
+             &lt;/rdf:Description&gt;
+          &lt;/rdf:li&gt;
+          &lt;rdf:li&gt;
+             &lt;rdf:Description&gt;
+                &lt;DC:Contributor role="Actor" 
+                                roleDetail="Lester Burnham"&gt;Kevin Spacey&lt;/DC:Contributor&gt;
+             &lt;/rdf:Description&gt;
+          &lt;/rdf:li&gt;
+          &lt;rdf:li&gt;
+             &lt;rdf:Description&gt;
+                &lt;DC:Contributor role="Actor" roleDetail="Angela Hayes"&gt;Mena Suvari&lt;/DC:Contributor&gt;
+             &lt;/rdf:Description&gt;
+          &lt;/rdf:li&gt;
+       &lt;/rdf:Bag&gt;
+    &lt;/MM:Contributors&gt;
+  &lt;/rdf:Description&gt;
+&lt;/rdf:RDF&gt;
+</pre>
+
+</TD><TD WIDTH="2%" BGCOLOR="#FFFFCC">&nbsp;</TD>
+</TR></TABLE>
+
+</td></tr></table>
+
+</body>
+</html> 
