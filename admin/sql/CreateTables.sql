@@ -13,14 +13,6 @@ create table ArtistAlias (
    Id serial primary key,
    Ref int not null, -- references Artist, 
    Name varchar(255) not null, 
-<<<<<<< CreateTables.sql
-<<<<<<< CreateTables.sql
-   LastUsed_notz timestamp not null default now(),
-=======
-   LastUsed_notz timestamp without time zone,
->>>>>>> 1.8
-=======
->>>>>>> 1.10
    TimesUsed int default 0,
    ModPending int default 0,
    lastused timestamp with time zone
@@ -109,14 +101,6 @@ create table Moderator (
    ModsRejected int default 0, 
    EMail varchar(64) default null, 
    WebUrl varchar(255) default null, 
-<<<<<<< CreateTables.sql
-<<<<<<< CreateTables.sql
-   MemberSince_notz timestamp default now(),
-=======
-   MemberSince_notz timestamp without time zone default now(),
->>>>>>> 1.8
-=======
->>>>>>> 1.10
    Bio text default null,
    membersince timestamp with time zone default now(),
    emailconfirmdate timestamp with time zone
@@ -139,7 +123,7 @@ create table Moderation (
    Automod smallint default 0,
    opentime timestamp with time zone default now(),
    closetime timestamp with time zone,
-   ExpireTime timestamp not null
+   ExpireTime timestamp with time zone not null
    );
 
 create table ModerationNote (
@@ -192,7 +176,7 @@ CREATE TABLE currentstat
 (
 	name		VARCHAR(100) PRIMARY KEY,
 	value		INTEGER NOT NULL,
-	lastupdated	TIMESTAMP WITHOUT TIME ZONE -- TODO
+	lastupdated	TIMESTAMP WITH TIME ZONE
 );
 
 CREATE TABLE historicalstat
