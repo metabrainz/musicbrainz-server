@@ -1,3 +1,5 @@
+#!/usr/bin/perl -w
+# vi: set ts=8 sw=4 :
 #____________________________________________________________________________
 #
 #   MusicBrainz -- the internet music database
@@ -122,10 +124,10 @@ sub CreateTrackList
 sub CreateDenseTrackList
 {
    my ($this, $fuzzy, $gids) = @_;
-   my ($out, $ar, $al, $tr, $id, @ids);
 
    $this->{status} = "OK";
 
+   my $out;
    $out  = $this->BeginRDFObject();
    $out .= $this->BeginDesc("mq:Result");
    $out .= $this->Element("mq:status", $fuzzy  ? "Fuzzy" : "OK");
@@ -133,22 +135,22 @@ sub CreateDenseTrackList
    $out .= $this->EndDesc("mq:Result") . "\n";
 
    $this->{cache} = [];
-   foreach $id (@{$gids})
+   for my $id (@{$gids})
    {
 	require Track;
-       $tr = Track->new($this->{DBH});
+       my $tr = Track->new($this->{DBH});
        $tr->SetMBId($id);
        $tr->LoadFromId();
 
        require Artist;
-       $ar = Artist->new($this->{DBH});
+       my $ar = Artist->new($this->{DBH});
        $ar->SetId($tr->GetArtist());
        # TODO This is complaining about the ID being undef
        $ar->LoadFromId();
 
        require Album;
-       $al = Album->new($this->{DBH});
-       @ids = $al->GetAlbumIdsFromTrackId($tr->GetId());
+       my $al = Album->new($this->{DBH});
+       my @ids = $al->GetAlbumIdsFromTrackId($tr->GetId());
        $al->SetId($ids[0]);
        $al->LoadFromId();
        my $tracknum = $al->GetTrackSequence($tr->GetId());
@@ -183,14 +185,13 @@ sub CreateTRMList
 sub AddToCache
 {
     my ($this, $curdepth, $type, $obj) = @_;
-    my (%item, $i, $cache, $ret);
 
     return undef if (!defined $curdepth || !defined $type || !defined $obj);
 
     # TODO: Probably best to use a hash for this, rather than scanning the
     # list each time.
-    $cache = $this->{cache};
-    foreach $i (@$cache)
+    my $cache = $this->{cache};
+    for my $i (@$cache)
     {
         next if ($i->{type} ne $type);
         if (($i->{id} && $i->{id} == $obj->GetId()) ||
@@ -200,15 +201,15 @@ sub AddToCache
         }
     }
 
+    my %item;
     $item{type} = $type;
     $item{id} = $obj->GetId();
     $item{mbid} = $obj->GetMBId();
     $item{obj} = $obj;
     $item{depth} = $curdepth;
-    $ret = \%item;
-    push @$cache, $ret;
 
-    return $ret;
+    push @$cache, \%item;
+    return \%item;
 }
 
 # Get an object from the cache, given its id
@@ -236,8 +237,6 @@ sub GetFromCache
 sub FindReferences
 {
    my ($this, $curdepth, @ids) = @_;
-   my ($id, $obj, @newrefs, $ref, $cacheref);
-
 
    #print STDERR "\n" if ($curdepth > $this->{depth});
    return if ($curdepth > $this->{depth});
@@ -247,20 +246,21 @@ sub FindReferences
    $curdepth+=2;
 
    # Load all of the referenced objects
-   foreach $ref (@ids)
+   my @newrefs;
+   foreach my $ref (@ids)
    {
       #print STDERR "  Object: $ref->{type} ";
       #print STDERR "$ref->{id} " if defined $ref->{id};
       #print STDERR "($ref->{mbid}) " if defined $ref->{mbid};
       #print STDERR "--> ";
-      $obj = $this->GetFromCache($ref->{type}, $ref->{id}, $ref->{mbid});
+      my $obj = $this->GetFromCache($ref->{type}, $ref->{id}, $ref->{mbid});
       if (!defined $obj)
       {
           $obj = $this->LoadObject($ref->{id}, $ref->{mbid}, $ref->{type});
       }
       next if (!defined $obj);
 
-      $cacheref = $this->AddToCache($curdepth, $ref->{type}, $obj);
+      my $cacheref = $this->AddToCache($curdepth, $ref->{type}, $obj);
       if (defined $cacheref)
       {
            push @newrefs, $this->GetReferences($cacheref, $curdepth);
@@ -273,23 +273,21 @@ sub FindReferences
 sub CreateOutputRDF
 {
    my ($this, $type, @ids) = @_;
-   my (@cache, %obj, $id, $ref, @newrefs, $i, $total, @gids, $out, $depth); 
 
    die if (not defined $this->GetBaseURI() || $this->GetBaseURI() eq '');
    return $this->CreateStatus() if (!defined $ids[0]);
 
-   $depth = $this->GetDepth();
+   my $depth = $this->GetDepth();
    return $this->ErrorRDF("Invalid search depth specified.") if ($depth < 1);
 
-   $this->{cache} = \@cache;
+   $this->{cache} = \(my @cache);
 
    # Create a cache of objects and add the passed object ids without
    # loading the actual objects
-   foreach $id (@ids)
+   my @newrefs;
+   for my $id (@ids)
    {
-      $obj{id} = $id;
-      $obj{type} = $type;
-      push @newrefs, {%obj};
+      push @newrefs, +{ id => $id, type => $type };
    }
 
    # Call find references to recursively load and find referenced objects
@@ -299,9 +297,10 @@ sub CreateOutputRDF
    # the actual objects themselves
 
    # Output the actual list of objects, making sure to only
-   # include the first few objects in the cachce, not all of them.
-   $total = scalar(@ids);
-   for($i = 0; $i < $total; $i++)
+   # include the first few objects in the cache, not all of them.
+   my $total = scalar(@ids);
+   my @gids;
+   for (my $i = 0; $i < $total; $i++)
    {
       if (!defined $cache[$i]->{obj})
       {
@@ -315,6 +314,8 @@ sub CreateOutputRDF
           push @gids, $cache[$i]->{obj}->GetMBId();
       }
    }
+
+   my $out;
    $out  = $this->BeginRDFObject(exists $this->{file});
    $out .= $this->BeginDesc("mq:Result");
    $out .= $this->OutputList($type, \@gids);
@@ -331,7 +332,7 @@ sub CreateOutputRDF
    # have not been loaded will not be output, even though they are
    # in the cache. (They would've been output if depth was one greater)
    $total = scalar(@cache);
-   for($i = 0; $i < $total; $i++)
+   for (my $i = 0; $i < $total; $i++)
    {
       next if (!defined $cache[$i]->{depth} || $cache[$i]->{depth} > $depth);
 
@@ -431,12 +432,12 @@ sub LoadObject
 sub OutputList
 {
    my ($this, $type, $list) = @_;
-   my ($item, $rdf);
 
+   my $rdf;
    $rdf =    $this->Element("mq:status", $this->{status});
    $rdf .=     $this->BeginDesc("mm:" . $type . "List");
    $rdf .=       $this->BeginBag();
-   foreach $item (@$list)
+   for my $item (@$list)
    {
       next if (!defined $item);
       $rdf .=      $this->Li($this->{baseuri}. "/$type/$item");
@@ -497,9 +498,11 @@ sub GetArtistReferences
 sub GetAlbumReferences
 {
    my ($this, $ref, $album, $depth) = @_;
-   my (@tracks, $track, @ret, %info, @trackids, $albumartist);
+   # TODO get rid of %info
+   my (@ret, %info);
+   my @ret;
 
-   $albumartist = $album->GetArtist();
+   my $albumartist = $album->GetArtist();
    $info{type} = 'artist';
    $info{id} = $album->GetArtist();
    $info{obj} = undef;
@@ -507,11 +510,12 @@ sub GetAlbumReferences
 
    if ($depth < $this->{depth})
    {
-      @tracks = $album->LoadTracks();
-      foreach $track (@tracks)
+      my @tracks = $album->LoadTracks();
+      my @trackids;
+      for my $track (@tracks)
       {
          next if not defined $track;
-         if ($albumartist == 1)
+         if ($albumartist == VARTIST_ID)
          {
              $info{type} = 'artist';
              $info{id} = $track->GetArtist();
@@ -578,3 +582,4 @@ sub OutputRDF
 }
 
 1;
+# eof MM.pm
