@@ -528,7 +528,7 @@ elsif ($flags & TaggerSupport::ALBUMTRACKLIST)
        </%perl>
 	   <p><b>Found matching albums/tracks</b>:</p>
        <& /comp/framedboxbegin &>
-       <table cellspacing="0" width="100%">
+       <table cellspacing="0" width="100%" id="TagLookupTrackResults">
           <tr>
              <td align="center" NOWRAP><b>Album</b></td>
              <td align="center" colspan="3" NOWRAP><b>Album Info</b></td>
@@ -538,6 +538,18 @@ elsif ($flags & TaggerSupport::ALBUMTRACKLIST)
              <td align="center" NOWRAP>&nbsp;</td>
           </tr>
 %      foreach my $id (@$list) {
+<%perl>
+my $tracklenclass = "";
+if ($duration and $id->{tracklen})
+{
+	my $diff = abs($duration - $id->{tracklen});
+	$tracklenclass = (
+		($diff < 5000) ? "good"
+		: ($diff < 15000) ? "ok"
+		: "bad"
+	);
+}
+</%perl>
           <tr bgcolor="<% $bgcolor = ( $bgcolor eq '#ffffff' ? '#ffe1b7' : '#ffffff' ) %>">
              <td valign="top" width="40%" rowspan="2"
                  style="padding-right: 1em"
@@ -563,7 +575,7 @@ elsif ($flags & TaggerSupport::ALBUMTRACKLIST)
                   title="This album has <% $id->{album_trmids} %> TRM Ids">&nbsp;
              </td>
              <td valign="top" width="40%" rowspan="2"><a href="/showtrack.html?trackid=<% $id->{id} %>"><% $id->{name} %></a></td>
-             <td valign="top" align="center" rowspan="2"><% Track::FormatTrackLength($id->{tracklen}) %></td>
+             <td valign="top" align="center" rowspan="2" class="tlen <% $tracklenclass %>"><% Track::FormatTrackLength($id->{tracklen}) %></td>
              <td valign="top" align="center" rowspan="2"><% int($id->{sim} * 100) %>%</td>
              <td valign="top" align="right" rowspan="2">
 %               $copy{trackid} = $id->{mbid};
