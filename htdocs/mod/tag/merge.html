@@ -142,10 +142,10 @@ my ($i, $al, @tracks, $tr, @ids, $di);
            $ar->SetId($al->GetArtist());
            if (not defined $ar->LoadFromId())
            {
-              mc_out("Could not load artist " . $ar->GetId() . ".");
+              $m->out("Could not load artist " . $ar->GetId() . ".");
               next;
            }
-           mc_comp("/comp/artisttitle", artist=>$ar, nomod=>1);
+           $m->comp("/comp/artisttitle", artist=>$ar, nomod=>1);
        }
 
        </%perl>

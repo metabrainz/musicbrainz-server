@@ -9,27 +9,27 @@ my @colors = ( "#FFFFFF", "#FFFdFC", "#FFFaE4", "#FFF6DE", "#FFF2D7",
 
 if (!exists $ARGS{artistid} || $ARGS{artistid} eq '')
 {
-    mc_comp("/comp/badargs");
+    $m->comp("/comp/badargs");
     return undef;
 }
 
-my $mb = mc_comp("/comp/dblogin");
+my $mb = $m->comp("/comp/dblogin");
 my $artist = Artist->new($mb->{DBH});
 $artist->SetId($artistid);
 
 if (! $artist->LoadFromId())
 {
-    mc_comp("/comp/sidebar", title=>"Error");
-    mc_out("This artist (id=$artistid) was not found in the database.");
+    $m->comp("/comp/sidebar", title=>"Error");
+    $m->out("This artist (id=$artistid) was not found in the database.");
 }
 else
 {
-    mc_comp("/comp/sidebar", title=>($artist->GetName . " Related Artists"));
+    $m->comp("/comp/sidebar", title=>($artist->GetName . " Related Artists"));
 
-    mc_out("[ <a href=\"/showartist.html?artistid=");
-    mc_out($artist->GetId());
-    mc_out("\">View albums</a>");
-    mc_out(" ]<p>");
+    $m->out("[ <a href=\"/showartist.html?artistid=");
+    $m->out($artist->GetId());
+    $m->out("\">View albums</a>");
+    $m->out(" ]<p>");
 
     </%perl>
     <p>This data has been provided by <a href="http://agentarts.com">Agent Arts</a>.</p>
@@ -69,7 +69,7 @@ else
 		</table>
 
 		<%perl>
-		mc_comp("/comp/tableend"); 
+		$m->comp("/comp/tableend"); 
 
 	} else {
 		</%perl>

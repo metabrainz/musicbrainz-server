@@ -18,7 +18,7 @@ $noncd=>0
 
 my ($error, $i, $artistid, $albumid, $new, $mb, $di);
 
-mc_comp("/comp/sidebar", title=>'New CD Submission');
+$m->comp("/comp/sidebar", title=>'New CD Submission');
 
 use DebugLog;
 if (my $d = DebugLog->open)
@@ -47,7 +47,7 @@ for($i = 0; $i < $tracks && !$error; $i++)
     }
 }
 
-$mb = mc_comp("/comp/dblogin");
+$mb = $m->comp("/comp/dblogin");
 $di = Discid->new($mb->{DBH});
 if ($id ne '' && defined $di->GetAlbumFromDiscid($id))
 {
@@ -134,7 +134,7 @@ else
                                                     $session{privs}, $artist);
     if (defined $artistid && defined $albumid)
     {
-        mc_out("Thank you for your submission!<p><br>");
+        $m->out("Thank you for your submission!<p><br>");
 
         my ($al, $ar);
 
@@ -147,8 +147,8 @@ else
             $al->SetId($albumid);
             if ($al->LoadFromId())
             {
-                mc_out("<hr>Here is the album you inserted:<p><br>");
-                mc_comp("/comp/artisttitle", artist=>$ar, link=>1);
+                $m->out("<hr>Here is the album you inserted:<p><br>");
+                $m->comp("/comp/artisttitle", artist=>$ar, link=>1);
 
 				$m->comp(
 					"/comp/album",
@@ -162,8 +162,8 @@ else
     }
     else
     {
-        mc_out("An error occurred during the data insertion:<br>");
-        mc_out("<pre>" . $in->GetError() . "</pre>");
+        $m->out("An error occurred during the data insertion:<br>");
+        $m->out("<pre>" . $in->GetError() . "</pre>");
     }
 }
 $mb->Logout;

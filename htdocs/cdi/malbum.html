@@ -9,11 +9,11 @@ $tracks
 
 my ($mb, $ar, $al, $album, @albums, $num); 
 
-mc_comp('/comp/sidebar', title=>'Submit CD: Select Album');
+$m->comp('/comp/sidebar', title=>'Submit CD: Select Album');
 
 if (!defined $search || $search eq '')
 {
-    mc_out("Please enter the CD name. Click on the " .
+    $m->out("Please enter the CD name. Click on the " .
            "Back button in your browser and try again.");
     return undef;
 }
@@ -22,7 +22,7 @@ if (!exists $ARGS{toc} || $ARGS{toc} eq '' ||
     !exists $ARGS{id} || $ARGS{id} eq '' ||
     !exists $ARGS{tracks} || $ARGS{tracks} eq '')
 {
-    mc_comp("/comp/badargs");
+    $m->comp("/comp/badargs");
     return undef;
 }
 
@@ -32,7 +32,7 @@ my (%unused, $first, $found);
 $first = 1;
 $found = 0;
 
-$mb = mc_comp("/comp/dblogin");
+$mb = $m->comp("/comp/dblogin");
 
 $ar = Artist->new($mb->{DBH});
 $ar->SetId(ModDefs::VARTIST_ID);
@@ -67,7 +67,7 @@ if ($eng->Rows > 0)
             {
                $first = 0;
                $found = 1;
-               mc_out(qq|Please examine the CDs listed below. If one of 
+               $m->out(qq|Please examine the CDs listed below. If one of 
                          the track listings matches the CD that you are 
                          submitting, click on <font class="bold">Select 
                          CD</font> next to 

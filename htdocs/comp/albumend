@@ -22,14 +22,14 @@ if (scalar(@ids) > 0)
     $rows = 0;
     foreach $id (@ids)
     {
-       mc_out("<tr>");
+       $m->out("<tr>");
        if ($album->GetArtist() == ModDefs::VARTIST_ID) 
        {
-          mc_out('<td colspan="3" ');
+          $m->out('<td colspan="3" ');
        }
        else
        {
-          mc_out('<td colspan="2" ');
+          $m->out('<td colspan="2" ');
        }
        if ($id->{toc} =~ /^\d* (\d*)/)
        {
@@ -50,38 +50,38 @@ if (scalar(@ids) > 0)
            $duration = undef;
        }
 
-       mc_out($id->{modpending} ? ' bgcolor="#FFFFCC"' : ' bgcolor="#ffecd6"');
-       mc_out('>');
-       mc_out("CD Index Id: ");
+       $m->out($id->{modpending} ? ' bgcolor="#FFFFCC"' : ' bgcolor="#ffecd6"');
+       $m->out('>');
+       $m->out("CD Index Id: ");
 
        if (defined $id_numtracks && $id_numtracks != $numtracks)
        {
-           mc_out('<font color="red">');
+           $m->out('<font color="red">');
        }
-       mc_out($id->{discid});
+       $m->out($id->{discid});
        if (defined $id_numtracks && $id_numtracks != $numtracks)
        {
-           mc_out("</font><br>This id belongs to an album that " .
+           $m->out("</font><br>This id belongs to an album that " .
                   "has $id_numtracks tracks.");
        }
 
-       mc_out('</td><td bgcolor="#ffecd6">');
+       $m->out('</td><td bgcolor="#ffecd6">');
        if ($duration)
        {
-           mc_out("$duration");
+           $m->out("$duration");
        }
 
-       mc_out("</td>");
+       $m->out("</td>");
        if (exists $session{user} && !$nomod) 
        {
-           mc_out("<td nowrap align=\"center\" bgcolor=\"#ffecd6\">");
-           mc_out("<a href=\"/movediscid.html?discid=$id->{discid}&amp;albumid=");
-           mc_out($album->GetId() . "\">Move</a> | ");
-           mc_out("<a href=\"/remdiscid.html?discid=$id->{discid}&amp;albumid=");
-           mc_out($album->GetId() . "\">Del</a>");
-           mc_out("</td>");
+           $m->out("<td nowrap align=\"center\" bgcolor=\"#ffecd6\">");
+           $m->out("<a href=\"/movediscid.html?discid=$id->{discid}&amp;albumid=");
+           $m->out($album->GetId() . "\">Move</a> | ");
+           $m->out("<a href=\"/remdiscid.html?discid=$id->{discid}&amp;albumid=");
+           $m->out($album->GetId() . "\">Del</a>");
+           $m->out("</td>");
        }
-       mc_out("</tr>");
+       $m->out("</tr>");
 
        $rows++;
     }

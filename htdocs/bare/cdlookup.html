@@ -14,19 +14,19 @@ $valid =~ tr/_.\-A-Za-z0-9//d;
 
 if (!defined $id || $id eq '')
 {
-    mc_comp("/comp/sidebar", title=>"Lookup Error");
-    mc_out("This page needs the id argument.");
-    mc_comp("/comp/footer");
+    $m->comp("/comp/sidebar", title=>"Lookup Error");
+    $m->out("This page needs the id argument.");
+    $m->comp("/comp/footer");
 }
 elsif (length($id) != 28 || substr($id, -1, 1) ne "-" || $valid ne "")
 {
-    mc_comp("/comp/sidebar", title=>"Lookup Error");
-    mc_out("The disk id you are trying to lookup ($id) is invalid.");
-    mc_comp("/comp/footer");
+    $m->comp("/comp/sidebar", title=>"Lookup Error");
+    $m->out("The disk id you are trying to lookup ($id) is invalid.");
+    $m->comp("/comp/footer");
 }
 else
 {
-    $mb = mc_comp("/comp/dblogin");
+    $mb = $m->comp("/comp/dblogin");
     $di = Discid->new($mb->{DBH});
     $album = $di->GetAlbumFromDiscid($id);
     if (defined $album)
@@ -37,12 +37,12 @@ else
     {
         if ($tracks eq '' || $toc eq '')
         {
-            mc_comp("/comp/sidebar", title=>"CD Not Found");
-            mc_out("This CD was not found.<p>");
-            mc_out(qq|NOTE: If you pass the toc and tracks argument 
+            $m->comp("/comp/sidebar", title=>"CD Not Found");
+            $m->out("This CD was not found.<p>");
+            $m->out(qq|NOTE: If you pass the toc and tracks argument 
                       to this page, you will be automatically redirected
                       to the proper submit page)|);
-            mc_comp("/comp/footer");
+            $m->comp("/comp/footer");
 
             $url = "";
         }

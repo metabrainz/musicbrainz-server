@@ -51,7 +51,7 @@ if ($url eq '')
 
        <%perl> 
        my ($ui, $mb, $info);
-       $mb = mc_comp("/comp/dblogin");
+       $mb = $m->comp("/comp/dblogin");
        my $user = UserStuff->new($mb->{DBH});
 
        if (!$user->CheckEMailAddress($email))
@@ -69,8 +69,8 @@ if ($url eq '')
        $info = $user->GetUserInfo($session{uid});
        if (!defined $info)
        {
-           mc_out("User $session{uid} was not found.");
-           mc_comp("/comp/footer");
+           $m->out("User $session{uid} was not found.");
+           $m->comp("/comp/footer");
            $mb->Logout();
            return undef;
        }

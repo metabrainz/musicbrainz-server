@@ -6,11 +6,11 @@ my $result = $m->cache(action=>'retrieve');
 
 if (!defined($result)) 
 {
-    my $mb = mc_comp("/comp/dblogin");
+    my $mb = $m->comp("/comp/dblogin");
 
     $result = "";
 
-    $result .= mc_comp("/comp/tablestat", 
+    $result .= $m->comp("/comp/tablestat", 
                        mb=>$mb,
                        query=>qq|select Moderator.name, 
                                         count(Moderator.id) as num 
@@ -28,7 +28,7 @@ if (!defined($result))
                        numcols=>2,
                        coltitles=>["User", "Moderations"]);
 
-    $result .= mc_comp("/comp/tablestat", 
+    $result .= $m->comp("/comp/tablestat", 
                        mb=>$mb,
                        query=>qq|select name, modsaccepted 
                                    from Moderator
@@ -42,7 +42,7 @@ if (!defined($result))
                        numcols=>2,
                        coltitles=>["User", "Moderations"]);
 
-    $result .= mc_comp("/comp/tablestat", 
+    $result .= $m->comp("/comp/tablestat", 
                        mb=>$mb,
                        query=>qq|select Moderator.name, count(Votes.id) 
                                         as num 

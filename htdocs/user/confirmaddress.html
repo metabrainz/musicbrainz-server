@@ -43,7 +43,7 @@ $ui->GetVerifyChecksum($email, $uid, $time) eq $chk
 
 if ($time + DBDefs::EMAIL_VERIFICATION_TIMEOUT() < time()) 
 {
-    mc_comp("/comp/sidebar", title => 'Verify EMail Address');
+    $m->comp("/comp/sidebar", title => 'Verify EMail Address');
     </%perl>
     This email address change verification expired. Please 
     <a href="/login.html">Log in</a> and request the 
@@ -56,7 +56,7 @@ if ($time + DBDefs::EMAIL_VERIFICATION_TIMEOUT() < time())
 my $info = $ui->GetUserInfo($uid);
 if (not defined $info)
 {
-    mc_comp("/comp/sidebar", title => 'Verify EMail Address');
+    $m->comp("/comp/sidebar", title => 'Verify EMail Address');
     </%perl>
     Cannot find user with user id <% $uid %>.
     <& /comp/footer &>
@@ -67,7 +67,7 @@ if (not defined $info)
 if ($ui->SetUserInfo($uid, $email))
 {
     $ui->SetSession(\%session, $info->{name}, $info->{privs}, $info->{uid}, 0);
-    mc_comp("/comp/sidebar", title => 'Verify EMail Address');
+    $m->comp("/comp/sidebar", title => 'Verify EMail Address');
     </%perl>
     Your new email address has been saved. Thank you!<p>
     [ <a href="/moderator.html?uid=<% $uid %>">View Profile</a> ]
@@ -75,7 +75,7 @@ if ($ui->SetUserInfo($uid, $email))
 }
 else
 {
-    mc_comp("/comp/sidebar", title => 'Verify EMail Address');
+    $m->comp("/comp/sidebar", title => 'Verify EMail Address');
     </%perl>
     Failed to update user information.
     <%perl>

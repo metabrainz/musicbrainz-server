@@ -4,9 +4,9 @@
 my ($mb, $cookie);
 my ($err, $user, $privs, $uid, $email, $ui);
 
-mc_comp('/comp/sidebar');
+$m->comp('/comp/sidebar');
 
-$mb = mc_comp("/comp/dblogin");
+$mb = $m->comp("/comp/dblogin");
 $ui = UserStuff->new($mb->{DBH});
 $email = $ARGS{EMail};
 
@@ -14,9 +14,9 @@ $email = $ARGS{EMail};
                                         $ARGS{RetypePassword});
 if ($err ne "")
 {
-    mc_out("<b>$err</b><p>");
+    $m->out("<b>$err</b><p>");
     #this html displays the sidebar, the new_login should not do it again
-    mc_comp('/newlogin.html', sidebar=>'0', url=>$ARGS{url});
+    $m->comp('/newlogin.html', sidebar=>'0', url=>$ARGS{url});
 }
 else
 {
@@ -74,11 +74,11 @@ else
         $url = $ARGS{url};
         $url =~ s/\@Q\@/\?/g;
         $url =~ s/\@A\@/\&/g;
-        mc_out("Click <a href=\"$url\">here</a> to continue.");
+        $m->out("Click <a href=\"$url\">here</a> to continue.");
     }
     else
     {
-        mc_comp('/comp/searchinternal');
+        $m->comp('/comp/searchinternal');
     }
 }
 $mb->Logout();

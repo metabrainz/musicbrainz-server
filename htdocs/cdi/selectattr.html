@@ -11,8 +11,8 @@ $m->comp("check-macsac", %ARGS) or return
 
 my ($key, $value, $mb, @attr);
 
-$mb = mc_comp("/comp/dblogin");
-mc_comp("/comp/sidebar", title=>'Select Album Attributes');
+$mb = $m->comp("/comp/dblogin");
+$m->comp("/comp/sidebar", title=>'Select Album Attributes');
 
 if ($ARGS{artist} == ModDefs::VARTIST_ID)
 {

@@ -8,16 +8,16 @@ $artist=>''
 
 my ($num_tracks, $i, $mb, $ar, $al, $modpending); 
 
-mc_comp('/comp/sidebar', title=>'Submit CD: Select Album');
+$m->comp('/comp/sidebar', title=>'Submit CD: Select Album');
 
 if (!defined $artist || $artist eq '')
 {
-    mc_out("Please select an artist name. Click on the " . 
+    $m->out("Please select an artist name. Click on the " . 
           "Back button in your browser and try again.");
 }
 else
 {
-    $mb = mc_comp("/comp/dblogin");
+    $mb = $m->comp("/comp/dblogin");
     $ar = Artist->new($mb->{DBH});
 
     my (%unused, $first, $found, $artistname, @ids_tracks_seqs, @albumlist);
@@ -27,7 +27,7 @@ else
    
     $ar->SetId($artist);
     $ar->LoadFromId();
-    mc_comp("/comp/artisttitle", artistname=>($ar->GetName()), 
+    $m->comp("/comp/artisttitle", artistname=>($ar->GetName()), 
             artist=>$ar, modpending=>0, nomod=>1);
 
     @albumlist = sort { $a->{name} cmp $b->{name} } $ar->GetAlbums(0, 1);

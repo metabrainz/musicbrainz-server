@@ -40,35 +40,35 @@ $nonalbum = $album->IsNonAlbumTracks();
 <%perl>
 if (!$nonalbum)
 {
-    mc_out("</td><td NOWRAP>[</td>");
+    $m->out("</td><td NOWRAP>[</td>");
     if ($modpend)
     {
-        mc_out("<td bgcolor=\"#FFFFCC\" NOWRAP>") 
+        $m->out("<td bgcolor=\"#FFFFCC\" NOWRAP>") 
     }
     else
     {
-        mc_out("<td NOWRAP>") 
+        $m->out("<td NOWRAP>") 
     }
-    mc_out("&nbsp;<a href=\"#\" onClick=\"MyWindow=window.open('/popup/attrguide.html','AlbumAttributeGuide','toolbar=no,location=no,directories=no,status=no,menubar=no,scrollbars=yes,resizable=yes,width=400,height=275'); return false;\">");
+    $m->out("&nbsp;<a href=\"#\" onClick=\"MyWindow=window.open('/popup/attrguide.html','AlbumAttributeGuide','toolbar=no,location=no,directories=no,status=no,menubar=no,scrollbars=yes,resizable=yes,width=400,height=275'); return false;\">");
     if (scalar(@attrs) > 0) 
     {
         foreach $attr (@attrs) 
         {
-            mc_out(", ") if ($count > 0);
-            mc_out($album->GetAttributeName($attr));
+            $m->out(", ") if ($count > 0);
+            $m->out($album->GetAttributeName($attr));
             $count++;
         }
     }
     else
     {
-        mc_out("None");
+        $m->out("None");
     }
-    mc_out("</a></td><td NOWRAP>&nbsp;] ");
+    $m->out("</a></td><td NOWRAP>&nbsp;] ");
 
     if (exists $session{user} && !$nomod) 
     {
-        mc_out("<a href=\"/editalbumattrs.html?id=" . $album->GetId());
-        mc_out("\">Edit</a>");
+        $m->out("<a href=\"/editalbumattrs.html?id=" . $album->GetId());
+        $m->out("\">Edit</a>");
     }
 }
 </%perl>

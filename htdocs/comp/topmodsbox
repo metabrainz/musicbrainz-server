@@ -4,7 +4,7 @@ my $result = $m->cache(action=>'retrieve');
 if (!defined($result)) 
 {
     my ($sth, @row);
-    my $mb = mc_comp("/comp/dblogin", quiet=>1);
+    my $mb = $m->comp("/comp/dblogin", quiet=>1);
     if (defined $mb)
     {
         $sth = $mb->{DBH}->prepare(qq|select Moderator.name, count(Moderator.id) as num

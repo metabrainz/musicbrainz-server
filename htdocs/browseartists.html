@@ -3,14 +3,14 @@
 my ($mb, @info, $row, $ind, $i, $offset, $page, $ar, $rows, $num_artists);
 my $max_items = 50;
 
-mc_comp("/comp/sidebar", title=>'Browse Artists');
+$m->comp("/comp/sidebar", title=>'Browse Artists');
 
-mc_out("<p>[ <a href=\"/addartist.html\">Add New Artist</a> ]<p>");
+$m->out("<p>[ <a href=\"/addartist.html\">Add New Artist</a> ]<p>");
 
 $ind = $ARGS{index};
 if (!defined $ind || $ind eq '')
 {
-    mc_out(qq/Pick a letter to start browsing:<p>/);
+    $m->out(qq/Pick a letter to start browsing:<p>/);
 }
 $offset = $ARGS{offset};
 $page = $ARGS{page};
@@ -18,22 +18,22 @@ $offset = ($page-1) * $max_items if not defined $offset and defined $page;
 $offset = 0 if not defined $offset;
 $offset = 0 if $offset < 0;
 
-mc_comp("/comp/framedboxbegin", width=>"100%");
-mc_comp("/comp/browsebox", ind=>$ind);
-mc_comp("/comp/framedboxend");
-mc_out("<p>");
+$m->comp("/comp/framedboxbegin", width=>"100%");
+$m->comp("/comp/browsebox", ind=>$ind);
+$m->comp("/comp/framedboxend");
+$m->out("<p>");
 
 if (!defined $ind || $ind eq '')
 {
     exit(0);
 }
 
-$mb = mc_comp("/comp/dblogin");
+$mb = $m->comp("/comp/dblogin");
 $ar = Artist->new($mb->{DBH});
 
 ($num_artists, @info) = $ar->GetArtistDisplayList($ind, $offset);
 
-mc_comp("/comp/framedboxbegin", width=>"100%");
+$m->comp("/comp/framedboxbegin", width=>"100%");
 
 if ($num_artists > 0)
 {

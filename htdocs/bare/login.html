@@ -13,7 +13,7 @@ if (DBDefs::DB_READ_ONLY)
 elsif (defined $ARGS{User} && $ARGS{User} ne '' &&
        defined $ARGS{Password} && $ARGS{Password} ne '')
 {
-    $mb = mc_comp("/comp/dblogin");
+    $mb = $m->comp("/comp/dblogin");
     $ui = UserStuff->new($mb->{DBH});
     
     ($ok, $user, $privs, $uid, $email, $confirm) = $ui->Login($ARGS{User}, 

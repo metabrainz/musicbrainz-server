@@ -38,8 +38,8 @@ sub OutputArtist
        $ts->{artist}->SetMBId($data->{artistid});
        $ts->{artist}->LoadFromId()
    }
-   mc_out("<a href=\"/showartist.html?artistid=" . $ts->{artist}->GetId());
-   mc_out("\"><font size=\"+2\">" . $ts->{artist}->GetName . "</font></a><p>");
+   $m->out("<a href=\"/showartist.html?artistid=" . $ts->{artist}->GetId());
+   $m->out("\"><font size=\"+2\">" . $ts->{artist}->GetName . "</font></a><p>");
 }
 
 sub OutputAlbum
@@ -58,7 +58,7 @@ sub OutputAlbum
        $ts->{album}->SetMBId($data->{albumid});
        $ts->{album}->LoadFromId()
    }
-   mc_comp("/comp/album", artist=>$ts->{artist}, album=>$ts->{album},
+   $m->comp("/comp/album", artist=>$ts->{artist}, album=>$ts->{album},
            showalbumdetail=>1, mbtagger=>$data->{mbt}, showids=>1);
 }
 
@@ -108,7 +108,7 @@ sub OutputTrack
            $al->SetId($id);
            $al->LoadFromId();
        }
-       mc_comp("/comp/album", artist=>$ts->{artist}, album=>$al,
+       $m->comp("/comp/album", artist=>$ts->{artist}, album=>$al,
                showalbumdetail=>1, mbtagger=>$data->{mbt}, showids=>1, 
                hilitetrack=>$ts->{track}->GetId());
    }
@@ -202,7 +202,7 @@ sub format_tracklen
 my ($mb, $ts, $result, $flags, $list, $error, $id, %data, %orig_data); 
 my $bgcolor= '#ffffff';
 
-$mb = mc_comp("/comp/dblogin");
+$mb = $m->comp("/comp/dblogin");
 $ts = TaggerSupport->new($mb->{DBH});
 
 $data{artist} = $artist;
@@ -346,16 +346,16 @@ if ($artist eq '' && $artistid eq '' && $filename eq '' && $filename eq '' &&
 }
 
 ($error, $result, $flags, $list) = $ts->Lookup(\%data, 25);
-#mc_out "Debug: [ ";
-#mc_out "ArtistId " if ($flags & TaggerSupport::ARTISTID);
-#mc_out "ArtistList " if ($flags & TaggerSupport::ARTISTLIST);
-#mc_out "AlbumId " if ($flags & TaggerSupport::ALBUMID);
-#mc_out "AlbumList " if ($flags & TaggerSupport::ALBUMLIST);
-#mc_out "TrackId " if ($flags & TaggerSupport::TRACKID);
-#mc_out "AlbumTrackId " if ($flags & TaggerSupport::ALBUMTRACKID);
-#mc_out "AlbumTrackList " if ($flags & TaggerSupport::ALBUMTRACKLIST);
-#mc_out "Fuzzy " if ($flags & TaggerSupport::FUZZY);
-#mc_out "]<br>";
+#$m->out "Debug: [ ";
+#$m->out "ArtistId " if ($flags & TaggerSupport::ARTISTID);
+#$m->out "ArtistList " if ($flags & TaggerSupport::ARTISTLIST);
+#$m->out "AlbumId " if ($flags & TaggerSupport::ALBUMID);
+#$m->out "AlbumList " if ($flags & TaggerSupport::ALBUMLIST);
+#$m->out "TrackId " if ($flags & TaggerSupport::TRACKID);
+#$m->out "AlbumTrackId " if ($flags & TaggerSupport::ALBUMTRACKID);
+#$m->out "AlbumTrackList " if ($flags & TaggerSupport::ALBUMTRACKLIST);
+#$m->out "Fuzzy " if ($flags & TaggerSupport::FUZZY);
+#$m->out "]<br>";
 
 # Copy over some results of the filename parse
 $orig_data{artist} = $data{artist} if ($orig_data{artist} eq '');
@@ -405,7 +405,7 @@ if ($flags & TaggerSupport::ARTISTLIST)
        <%perl>
    }
 
-   mc_comp("/comp/lookupoptions", artist=>$artist, artistobj=>$ts->{artist}, 
+   $m->comp("/comp/lookupoptions", artist=>$artist, artistobj=>$ts->{artist}, 
                                   album=>$album, albumobj=>$ts->{album}, data=>\%data);
 }
 elsif ($flags & TaggerSupport::ALBUMLIST)
@@ -473,7 +473,7 @@ elsif ($flags & TaggerSupport::ALBUMLIST)
        <%perl>
    }
 
-   mc_comp("/comp/lookupoptions", artist=>$artist, artistobj=>$ts->{artist}, 
+   $m->comp("/comp/lookupoptions", artist=>$artist, artistobj=>$ts->{artist}, 
                                   album=>$album, albumobj=>$ts->{album}, data=>\%data);
 }
 elsif ($flags & TaggerSupport::ALBUMTRACKLIST)

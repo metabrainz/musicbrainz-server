@@ -7,7 +7,7 @@ $showspecial=>1
 
 my ($i, $p, $t);
 
-mc_out('<table width="100%" border=0><tr>');
+$m->out('<table width="100%" border=0><tr>');
 if (length($ind) > 0)
 {
     $t = $ind;

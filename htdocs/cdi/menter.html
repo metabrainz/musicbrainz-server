@@ -17,9 +17,9 @@ my ($i, $modpending, $ar);
 my ($dbh, $sth, $rv);
 
 $mb = new MusicBrainz;
-mc_comp("/comp/sidebar", title=>'Enter Information');
+$m->comp("/comp/sidebar", title=>'Enter Information');
 
-mc_comp("/comp/stylemenu");
+$m->comp("/comp/stylemenu");
 
 $sep = '/' unless $sep ne '';
 

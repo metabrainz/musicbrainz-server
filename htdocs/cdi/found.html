@@ -10,9 +10,9 @@ $tracks
 
 my ($mb, $di, $sql); 
 
-mc_comp("/comp/sidebar", title=>'Found CD');
+$m->comp("/comp/sidebar", title=>'Found CD');
 
-$mb = mc_comp("/comp/dblogin");
+$mb = $m->comp("/comp/dblogin");
 $sql = Sql->new($mb->{DBH});
 $di = Discid->new($mb->{DBH});
 
@@ -24,7 +24,7 @@ eval
 };
 if ($@)
 {
-   mc_out("A database error occurred: $@");
+   $m->out("A database error occurred: $@");
    $mb->Logout;
    return undef;
 }
@@ -52,8 +52,8 @@ if ($@)
 	$ar->LoadFromId
 		or last;
 
-	mc_comp("/comp/artisttitle", artist=>$ar, link=>1);
-	mc_comp("/comp/album", album=>$al, artist=>$ar);
+	$m->comp("/comp/artisttitle", artist=>$ar, link=>1);
+	$m->comp("/comp/album", album=>$al, artist=>$ar);
 }
 
 $mb->Logout;

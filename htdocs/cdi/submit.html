@@ -23,7 +23,7 @@ sub CheckTOC
 my ($o, $mb, $di, $num_tracks, $notfound);
 my ($i, $sth, $album, $valid, $id, $tracks, $toc); 
 
-mc_comp("/comp/sidebar", title=>"Lookup/Submit a CD");
+$m->comp("/comp/sidebar", title=>"Lookup/Submit a CD");
 
 $id = $ARGS{'id'};
 $tracks = $ARGS{'tracks'};
@@ -37,27 +37,27 @@ if (!defined $id || $id eq '' ||
     !defined $tracks || $tracks eq '' ||
     !defined $toc || $toc eq '')
 {
-    mc_out("The Disc id, TOC and the number of tracks need to be passed in ");
-    mc_out("as part of the page URL. Without this information you ");
-    mc_out("cannot use these pages to submit a CD. Please use ");
-    mc_out("<a href=\"/addalbum.html?artistid=0\">this page</a> ");
-    mc_out("instead.");
+    $m->out("The Disc id, TOC and the number of tracks need to be passed in ");
+    $m->out("as part of the page URL. Without this information you ");
+    $m->out("cannot use these pages to submit a CD. Please use ");
+    $m->out("<a href=\"/addalbum.html?artistid=0\">this page</a> ");
+    $m->out("instead.");
 }
 elsif (length($id) == 32 || !defined $toc || $toc eq '')
 {
-    mc_out('Please <a href="/download.html">download</a> the latest client software.');
+    $m->out('Please <a href="/download.html">download</a> the latest client software.');
 }
 elsif (length($id) != 28 || substr($id, -1, 1) ne "-" || $valid ne "")
 {
-    mc_out("The disk id you are trying to submit ($id) is invalid.");
+    $m->out("The disk id you are trying to submit ($id) is invalid.");
 }
 elsif (!CheckTOC($toc))
 {
-    mc_out("The TOC (table of contents) you are trying to submit ($toc) is invalid.");
+    $m->out("The TOC (table of contents) you are trying to submit ($toc) is invalid.");
 }
 else
 {
-    $mb = mc_comp("/comp/dblogin");
+    $mb = $m->comp("/comp/dblogin");
     $di = Discid->new($mb->{DBH});
     $album = $di->GetAlbumFromDiscid($id);
     if (defined $album)
@@ -72,18 +72,18 @@ else
             $ar->SetId($al->GetArtist());
             if ($ar->LoadFromId())
             {
-                mc_out("Found album:<p>");
-                mc_comp("/comp/artisttitle", artist=>$ar);
-                mc_comp("/comp/album", album=>$al, artist=>$ar);
+                $m->out("Found album:<p>");
+                $m->comp("/comp/artisttitle", artist=>$ar);
+                $m->comp("/comp/album", album=>$al, artist=>$ar);
             }
             else
             {
-                mc_out("Could not load artist for the album.");
+                $m->out("Could not load artist for the album.");
             }
         }
         else
         {
-            mc_out("Could not load album.");
+            $m->out("Could not load album.");
         }
     } 
     else 

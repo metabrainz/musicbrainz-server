@@ -28,7 +28,7 @@ if ($text =~ /href\s*?=\s*?"(.*?)"/)
 
 my ($mb, $mod, $sql);
 
-$mb = mc_comp("/comp/dblogin");
+$mb = $m->comp("/comp/dblogin");
 $mod = Moderation->new($mb->{DBH});
 $sql = Sql->new($mb->{DBH});
 
@@ -43,9 +43,9 @@ if ($@)
     my $err = $@;
     $sql->Rollback;
 
-    mc_comp("/comp/header_small");
-    mc_out("<b>A database error occurred.</b><pre>($err)</pre>");
-    mc_comp("/comp/footer_small");
+    $m->comp("/comp/header_small");
+    $m->out("<b>A database error occurred.</b><pre>($err)</pre>");
+    $m->comp("/comp/footer_small");
     return undef;
 }
 

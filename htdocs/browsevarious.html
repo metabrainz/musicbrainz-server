@@ -3,13 +3,13 @@
 my ($mb, @info, $row, $ind, $i, $offset, $page, $num_albums, $al, $rows);
 my $max_items = 50;
 
-mc_comp("/comp/sidebar", title=>'Browse Various Artist Albums');
-mc_out("<p>[ <a href=\"/addalbum.html?artistid=1\">Add New Album</a> ]<p>");
+$m->comp("/comp/sidebar", title=>'Browse Various Artist Albums');
+$m->out("<p>[ <a href=\"/addalbum.html?artistid=1\">Add New Album</a> ]<p>");
 
 $ind = $ARGS{index};
 if (!defined $ind || $ind eq '')
 {
-    mc_out(qq/Pick a letter to start browsing:<p>/);
+    $m->out(qq/Pick a letter to start browsing:<p>/);
 }
 $offset = $ARGS{offset};
 $page = $ARGS{page};
@@ -17,23 +17,23 @@ $offset = ($page-1) * $max_items if not defined $offset and defined $page;
 $offset = 0 if not defined $offset;
 $offset = 0 if $offset < 0;
 
-mc_comp("/comp/framedboxbegin", width=>"100%");
-mc_comp("/comp/browsebox", ind=>$ind, page=>"/browsevarious.html");
-mc_comp("/comp/framedboxend");
-mc_out("<p>");
+$m->comp("/comp/framedboxbegin", width=>"100%");
+$m->comp("/comp/browsebox", ind=>$ind, page=>"/browsevarious.html");
+$m->comp("/comp/framedboxend");
+$m->out("<p>");
 
 if (!defined $ind || $ind eq '')
 {
     exit(0);
 }
 
-$mb = mc_comp("/comp/dblogin");
+$mb = $m->comp("/comp/dblogin");
 $al = Album->new($mb->{DBH});
 $al->SetId(ModDefs::VARTIST_ID);
 
 ($num_albums, @info) = $al->GetVariousDisplayList($ind, $offset);
 
-mc_comp("/comp/framedboxbegin", width=>"100%");
+$m->comp("/comp/framedboxbegin", width=>"100%");
 if ($num_albums > 0)
 {
     </%perl>

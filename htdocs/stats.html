@@ -3,7 +3,7 @@
 my $sMagicWord = "CacheMe!";
 my $fCallingSelf = ($_[0] and $_[0] eq $sMagicWord);
 
-my $mb = mc_comp("/comp/dblogin", quiet=>1);
+my $mb = $m->comp("/comp/dblogin", quiet=>1);
 my $stat = Statistic->new($mb->{DBH});
 
 if ($fCallingSelf)
@@ -304,7 +304,7 @@ for my $n (qw(
 	count.moderation
 	count.vote
 )) {
-	mc_out(qq{
+	$m->out(qq{
 		<div style="border: 0; width: 80%; border-top: 3px double #999;
 			margin: 1em"></div>
 		<div>
@@ -338,7 +338,7 @@ else
 		$m->cache(action=>'store', expire_in=>'1hour', value=>$result);
 	}
 
-	mc_out($result);
+	$m->out($result);
 
 	$m->comp("/comp/footer");
 }

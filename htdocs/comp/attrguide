@@ -1,7 +1,7 @@
 <%perl>
 my ($al, $attrlist, $mb);
 
-$mb = mc_comp("/comp/dblogin");
+$mb = $m->comp("/comp/dblogin");
 $al = Album->new($mb->{DBH});
 $attrlist = $al->GetAttributeList();
 

@@ -22,7 +22,7 @@ $offset = ($page-1) * $max_items if not defined $offset and defined $page;
 $offset = 0 if not defined $offset;
 $offset = 0 if $offset < 0;  
 
-$mb = mc_comp("/comp/dblogin");
+$mb = $m->comp("/comp/dblogin");
 $mod = Moderation->new($mb->{DBH});
 
 my $show_button = 0;
@@ -30,7 +30,7 @@ if ($type == ModDefs::TYPE_NEW)
 {
     ($num_mods, $total_mods, @info) = 
            $mod->GetModerationList($offset, $max_items, $session{uid}, $type);
-    mc_comp("/comp/sidebar", title=>'Review Pending Moderations',
+    $m->comp("/comp/sidebar", title=>'Review Pending Moderations',
             expand=>"moderate"); 
 }
 elsif ($type == ModDefs::TYPE_VOTED)
@@ -38,7 +38,7 @@ elsif ($type == ModDefs::TYPE_VOTED)
     ($num_mods, $total_mods, @info) = 
            $mod->GetModerationList($offset, $max_items,
                                    $session{uid}, $type);
-    mc_comp("/comp/sidebar", title=>'Review Old (Voted) Mods',
+    $m->comp("/comp/sidebar", title=>'Review Old (Voted) Mods',
             expand=>"moderate"); 
 }
 elsif ($type == ModDefs::TYPE_MODERATOR)
@@ -48,7 +48,7 @@ elsif ($type == ModDefs::TYPE_MODERATOR)
     ($num_mods, $total_mods, @info) = 
            $mod->GetModerationList($offset, $max_items,
                                    $session{uid}, $type, $moderator);
-    mc_comp("/comp/sidebar", title=>'Review Moderation By Moderator',
+    $m->comp("/comp/sidebar", title=>'Review Moderation By Moderator',
             expand=>"moderate"); 
 }
 elsif ($type == ModDefs::TYPE_ARTIST)
@@ -56,20 +56,20 @@ elsif ($type == ModDefs::TYPE_ARTIST)
     ($num_mods, $total_mods, @info) = 
            $mod->GetModerationList($offset, $max_items,
                                    $session{uid}, $type, $artistid);
-    mc_comp("/comp/sidebar", title=>'Moderations by Artist',
+    $m->comp("/comp/sidebar", title=>'Moderations by Artist',
             expand=>"moderate"); 
 }
 elsif ($type == ModDefs::TYPE_FREEDB)
 {
     ($num_mods, $total_mods, @info) = 
            $mod->GetModerationList($offset, $max_items, $session{uid}, $type);
-    mc_comp("/comp/sidebar", title=>'Moderations from FreeDB',
+    $m->comp("/comp/sidebar", title=>'Moderations from FreeDB',
             expand=>"moderate"); 
 }
 else
 {
-    mc_comp("/comp/sidebar", title=>'Error', expand=>"moderate"); 
-    mc_comp("/comp/badargs");
+    $m->comp("/comp/sidebar", title=>'Error', expand=>"moderate"); 
+    $m->comp("/comp/badargs");
     $mb->Logout();
     return undef;
 }
@@ -154,7 +154,7 @@ if ($num_mods > 0)
 <%perl>
 for my $obj (@info)
 {
-   mc_comp("/comp/showmod", mod=>$obj, notes=>$notes);
+   $m->comp("/comp/showmod", mod=>$obj, notes=>$notes);
 }
 </%perl>
 

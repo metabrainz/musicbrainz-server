@@ -11,12 +11,12 @@ $url=>""
 
 if ($modid == 0)
 {
-    mc_comp("/comp/badargs");
+    $m->comp("/comp/badargs");
     return undef;
 }
 
 
-my $mb = mc_comp("/comp/dblogin");
+my $mb = $m->comp("/comp/dblogin");
 my $mod = Moderation->new($mb->{DBH});
 $mod = $mod->CreateFromId($modid);
 
@@ -108,7 +108,7 @@ my $arg;
 
 for $arg (keys %ARGS)
 {
-    mc_out("<input type=\"hidden\" name=\"$arg\" value=\"$ARGS{$arg}\">\n");
+    $m->out("<input type=\"hidden\" name=\"$arg\" value=\"$ARGS{$arg}\">\n");
 }
 </%perl>
 

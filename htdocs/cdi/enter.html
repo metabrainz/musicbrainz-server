@@ -13,11 +13,11 @@ my ($mb);
 my ($i, $artistname, $modpending, $ar);
 my ($dbh, $sth, $rv);
 
-mc_comp("/comp/sidebar", title=>'Enter CD Information');
+$m->comp("/comp/sidebar", title=>'Enter CD Information');
 
 if ($artist > 0)
 {
-   $mb = mc_comp("/comp/dblogin");
+   $mb = $m->comp("/comp/dblogin");
    $ar = Artist->new($mb->{DBH});
    $ar->SetId($artist);
    $ar->LoadFromId();
@@ -29,7 +29,7 @@ if ($artist > 0)
    $mb->Logout;
 }
 
-mc_comp("/comp/stylemenu");
+$m->comp("/comp/stylemenu");
 
 my $lookup;
 if ($freedb)

@@ -16,8 +16,8 @@ my ($cat, $id);
 
 if ($catid eq '') 
 {
-    mc_comp("/comp/sidebar", title=>'FreeDB Import', expand=>"moderation");
-    mc_comp("/comp/badargs");
+    $m->comp("/comp/sidebar", title=>'FreeDB Import', expand=>"moderation");
+    $m->comp("/comp/badargs");
     return undef;
 }
 </%perl>
@@ -49,18 +49,18 @@ my ($mb);
 my ($i, $arraytistname, $modpending, $array, $ar, $al, $match, @albums);
 my ($lookup, $tracks, $durations, $artist, $ret);
 
-mc_comp("/comp/sidebar", title=>'FreeDB Import: Verify/Correct CD Information');
-mc_comp("/comp/stylemenu");
+$m->comp("/comp/sidebar", title=>'FreeDB Import: Verify/Correct CD Information');
+$m->comp("/comp/stylemenu");
 
-$mb = mc_comp("/comp/dblogin");
+$mb = $m->comp("/comp/dblogin");
 
 my $fdb = FreeDB->new($mb->{DBH});
 $lookup = $fdb->LookupByFreeDBId($id, $cat);
 if (!$lookup)
 {
-   mc_out("The selected CD could could not be loaded from freedb.org. ");
-   mc_out("Please try another one.");
-   mc_comp("/comp/footer");
+   $m->out("The selected CD could could not be loaded from freedb.org. ");
+   $m->out("Please try another one.");
+   $m->comp("/comp/footer");
    return undef;
 }
 
@@ -106,25 +106,25 @@ if (defined $ret)
                 {
                     if (!$banner)
                     {
-                         mc_out("<b>MusicBrainz already contains the following 
+                         $m->out("<b>MusicBrainz already contains the following 
                                    albums that have the same or a similar title
                                    to the CD that you'd like to import:</b><p>");
                          $banner++;
                     }
 
-                    mc_out("<a href=\"/showalbum.html?albumid=" . $al->GetId() .
+                    $m->out("<a href=\"/showalbum.html?albumid=" . $al->GetId() .
                            "\">" . $al->GetName() . "</a>");  
-                    mc_out(" with $tracks tracks is ");
-                    mc_out($match->{match} == 1.0 ? 
+                    $m->out(" with $tracks tracks is ");
+                    $m->out($match->{match} == 1.0 ? 
                            "an exact match" : "a close match");
-                    mc_out(".<br>");
+                    $m->out(".<br>");
                 }
             }
         }
 
         if ($banner)
         {
-            mc_out("<p><font color='red'>Please do not import albums that are
+            $m->out("<p><font color='red'>Please do not import albums that are
                       already present in the database!</font><p>However, if
                       you feel that this album still needs to be added for some
                       reason, please follow the instructions below:<p>");

@@ -12,7 +12,7 @@ sub StatLine
 my $result = $m->cache(action=>'retrieve');
 if (!defined($result)) 
 {
-    my $mb = mc_comp("/comp/dblogin", quiet=>1);
+    my $mb = $m->comp("/comp/dblogin", quiet=>1);
 
     if (defined $mb)
     {

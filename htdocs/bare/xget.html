@@ -127,9 +127,9 @@ sub MakeCDInfo
 }
 
 
-my $mb = mc_comp("/comp/dblogin");
+my $mb = $m->comp("/comp/dblogin");
 
-mc_out(MakeCDInfo($mb, $id));
+$m->out(MakeCDInfo($mb, $id));
 
 $mb->Logout();
 
