@@ -12,8 +12,11 @@ if ($voted)
    $text = "(Already voted)";
 }
 my @entered = gmtime($mod->GetExpireTime());
-my $time = sprintf "%d-%d %02d:%02d", $entered[4]+1, $entered[3], 
-                                      $entered[2], $entered[1];
+my $time = sprintf "%d-%02d-%02d %02d:%02d", 
+              $entered[5] + 1900,
+              $entered[4]+1, 
+              $entered[3], 
+              $entered[2], $entered[1];
 
 </%perl>
 
@@ -22,8 +25,10 @@ my $time = sprintf "%d-%d %02d:%02d", $entered[4]+1, $entered[3],
 </tr>
 <tr>
    <td width=37% valign=top bgcolor=white class="body">
-     By: <% $mod->GetModeratorName() |n %> 
-         (<% $time |n %> id: <% $mod->GetId() %>)
+     By: <span class="bold"><% $mod->GetModeratorName() |n %></span>
+     &nbsp;&nbsp;&nbsp;
+     Id: <% $mod->GetId() %><br> 
+     Expires: <% $time |n %>
    </td>
    <td width=37% valign=top bgcolor=white class="body">
      <% $mod->ShowModType() |n %> 

@@ -541,7 +541,7 @@ sub ShowModType
    my ($out, $type);
 
    $type = $this->GetType();
-   $out = GetModificationName($type) . " ";
+   $out = '<span class="bold">' . GetModificationName($type) . "</span> ";
    if ($type == ModDefs::MOD_MOVE_ALBUM) 
    {
       my ($al, $album);
@@ -556,11 +556,11 @@ sub ShowModType
       {
           $album = "[deleted]";
       }
-      $out .= qq\(<a href="/showalbum.html?albumid=$this->{rowid}">$album</a>)\;
+      $out .= qq\<br>Artist: <a href="/showalbum.html?albumid=$this->{rowid}">$album</a>\;
    } 
    else 
    {
-      $out .= qq\(<a href="/showartist.html?artistid=$this->{artist}">$this->{artistname}</a>)\;
+      $out .= qq\<br>Artist: <a href="/showartist.html?artistid=$this->{artist}">$this->{artistname}</a>\;
    }
    
    return $out;
