@@ -60,14 +60,9 @@ sub GetTrackIdsFromTRM
 
 sub GetIdFromTRM
 {
-   my ($this, $TRM) = @_;
-   my ($sql, $id);
-
-   $TRM =~ tr/A-Z/a-z/;
-   $sql = Sql->new($this->{DBH});
-   ($id) = $sql->GetSingleRow("TRM", ["id"], ["TRM", $sql->Quote($TRM)]);
-
-   return $id;
+	my ($this, $TRM) = @_;
+	my $sql = Sql->new($this->{DBH});
+	$sql->SelectSingleValue("SELECT id FROM trm WHERE trm = ?", lc $TRM);
 }
 
 sub GetTRMFromTrackId
