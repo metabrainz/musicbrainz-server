@@ -31,7 +31,7 @@ use Album;
 my $dbh = DBDefs->Connect || die "Cannot connect to database";
 
 # select all albums
-my $sth = $dbh->prepare('SELECT DISTINCT(Album.Id) FROM Album, TOC WHERE Album.Id = TOC.Album and Album.id = 33564');
+my $sth = $dbh->prepare('SELECT DISTINCT(Album.Id) FROM Album, TOC WHERE Album.Id = TOC.Album');
 $sth->execute();
 
 # for each album 
