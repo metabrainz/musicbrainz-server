@@ -1,14 +1,15 @@
 /* To update the time values in this file (and thus force all clients
 ** to re-fetch the style sheets), run admin/UpdateStyleSheetLinks */
 
-@import url(css/main.css?t=3F4FB0F3);
-@import url(css/framework.css?t=3F4FD05F);
-@import url(css/sitemenu.css?t=3E401A49);
-@import url(css/sidebarsearch.css?t=3EF0B982);
-@import url(css/articlepanel.css?t=3E458AC4);
-@import url(css/boxes.css?t=3ED8D208);
-@import url(css/brainz.css?t=3F362B01);
-/* @import url(css/print.css?t=3F362B01) print; */
+@import url(css/main.css);
+@import url(css/framework.css);
+@import url(css/sitemenu.css);
+@import url(css/sidebarsearch.css);
+@import url(css/articlepanel.css);
+@import url(css/boxes.css);
+@import url(css/album.css);
+@import url(css/brainz.css);
+/* @import url(css/print.css) print; */
 
 /* handy Vim command to strip the timestamps before committing to CVS:
 %s/?t=\w\+//
