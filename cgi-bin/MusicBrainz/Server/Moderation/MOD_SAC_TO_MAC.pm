@@ -86,11 +86,11 @@ sub CheckPrerequisites
 sub ApprovedAction
 {
  	my $self = shift;
-	my $sql = Sql->new($self->{DBH});
 
 	my $status = $self->CheckPrerequisites;
 	return $status if $status;
 
+	my $sql = Sql->new($self->{DBH});
  	$sql->Do(
 		"UPDATE album SET artist = ? WHERE id = ? AND artist = ?",
 		&ModDefs::VARTIST_ID,
