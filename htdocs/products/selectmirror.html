@@ -24,6 +24,16 @@ my @mirrors = (
 		NAME => "Primary server (HTTP)",
 	},
 	{
+		KEYS => [qw( nl )],
+		URL => "ftp://ftp.nl.musicbrainz.org/",
+		NAME => "Netherlands (FTP)",
+		MUNGE => sub {
+			my $t = $_[0];
+			$t =~ s[^pub/musicbrainz/][];
+			$t;
+		},
+	},
+	{
 		KEYS => [qw( au )],
 		URL => "ftp://ftp.au.musicbrainz.org/",
 		NAME => "Australia (FTP)",
@@ -63,7 +73,9 @@ my $dontask = 0;
 
 if ($path and $selected_mirror and ($ARGS{'go'} or $dontask))
 {
-	unless ($c and $c->value and $mirrors_by_key{$c->value})
+	unless ($c and $c->value and $mirrors_by_key{$c->value}
+		and $mirrors_by_key{$c->value}{URL} eq $selected_mirror->{URL}
+	)
 	{
 		my $cookie = new CGI::Cookie (
 			-name			=> $pref_cookie_name,
@@ -74,6 +86,9 @@ if ($path and $selected_mirror and ($ARGS{'go'} or $dontask))
 		);
 		$r->headers_out->add('Set-Cookie' => $cookie); 
 	}
+
+	$path = $selected_mirror->{MUNGE}->($path)
+		if $selected_mirror->{MUNGE};
 
 	my $url = $selected_mirror->{URL} . $path;
 
