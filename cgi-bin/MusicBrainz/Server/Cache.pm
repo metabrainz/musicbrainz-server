@@ -31,28 +31,17 @@ use Carp qw( carp );
 
 our $cache;
 
-# Preload if possible
-$cache = _new();
-
-if ($cache and &DBDefs::CACHE_DEBUG)
-{
-	my @keys = $cache->get_keys;
-	printf STDERR "Starting cache with %d entries\n", 0+@keys
-		unless $^C;
-}
-
-# XXX has global effect!
-umask 002;
+# Cache::Memcached can't handle spaces in keys, so we URI-encode them
+require URI::Escape;
+*_encode_key = \&URI::Escape::uri_escape;
 
 sub _new
 {
 	return $cache if $cache;
 
 	eval {
-		require Cache::SizeAwareFileCache;
-		require Storable;
-		Storable->import(qw( freeze thaw ));
-		$cache = Cache::SizeAwareFileCache->new(&DBDefs::CACHE_OPTIONS);
+		require Cache::Memcached;
+		$cache = Cache::Memcached->new(&DBDefs::CACHE_OPTIONS);
 	} or do {
 		warn "Failed to create cache: $@"
 			if $@ ne "";
@@ -64,18 +53,25 @@ sub _new
 sub get
 {
 	my ($class, $key, @args) = @_;
+	my $r = eval { $class->_get($key, @args) };
+	warn "Warning: Cache GET $key failed: $@\n" if $@;
+	$r;
+}
+
+sub _get
+{
+	my ($class, $key, @args) = @_;
 
 	my $cache = $class->_new
 		or return undef;
 
-	my $data = $cache->get($key, @args);
+	my $data = $cache->get(_encode_key($key), @args);
 	if (not $data)
 	{
 		carp "Cache MISS on $key" if &DBDefs::CACHE_DEBUG;
 		return undef;
 	}
 
-	$data = thaw($data);
 	if (&DBDefs::CACHE_DEBUG)
 	{
 		#use Data::Dumper;
@@ -94,10 +90,19 @@ sub get
 			carp "Cache HIT ($data) on $key";
 		}
 	}
+
 	$data;
 }
 
 sub set
+{
+	my ($class, $key, @args) = @_;
+	my $r = eval { $class->_set($key, @args) };
+	warn "Warning: Cache SET $key failed: $@\n" if $@;
+	$r;
+}
+
+sub _set
 {
 	my ($class, $key, $data, @opts) = @_;
 	my $cache = $class->_new
@@ -122,8 +127,9 @@ sub set
 		}
 	}
 
-	$data = freeze($data);
-	$cache->set($key, $data, @opts);
+	$opts[0] = &DBDefs::CACHE_DEFAULT_EXPIRES
+		if not defined $opts[0];
+	$cache->set(_encode_key($key), $data, @opts);
 }
 
 sub remove
@@ -132,23 +138,15 @@ sub remove
 	my $cache = $class->_new
 		or return undef;
 	carp "Cache REMOVE $key" if &DBDefs::CACHE_DEBUG;
-	$cache->remove($key);
-}
-
-# Only for debugging
-sub get_keys
-{
-	my $class = shift;
-	my $cache = $class->_new
-		or return;
-	$cache->get_keys(@_);
+	eval { $cache->set(_encode_key($key), "", time) };
+	warn "Cache remove $key failed: $@\n" if $@;
 }
 
 =pod
 
 This module implements a Cache::Cache layer for MusicBrainz.  The layer implementing
 the cache (e.g. File, MemCached, etc) is not known to the caller.  This layer only
-supports get / set / remove / get_keys so far.
+supports get / set / remove so far.
 
 =cut
 

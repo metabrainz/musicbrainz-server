@@ -44,9 +44,6 @@ sub SESSION_DIR		{ "/home/httpd/musicbrainz/sessions" }
 # Mason's data_dir
 sub MASON_DIR		{ "/home/httpd/musicbrainz/mason" }
 
-# Our cache directory - see MusicBrainz::Server::Cache and CACHE_OPTIONS
-sub CACHE_DIR		{ "/home/httpd/musicbrainz/cache" }
-
 
 
 ################################################################################
@@ -97,17 +94,16 @@ sub EMAIL_VERIFICATION_TIMEOUT { 604800 } # one week
 # Cache Settings
 ################################################################################
 
-sub CACHE_DEBUG { 0 }
+# Show MISS, HIT, SET etc
+sub CACHE_DEBUG { 1 }
 
+# Default expiry time in seconds.  Use 0 for "never".
+sub CACHE_DEFAULT_EXPIRES { 3600 }
+
+# Cache::Memcached options
 our %CACHE_OPTIONS = (
-	# standard options
-	auto_purge_interval	=> '10 min',
-	default_expires		=> '1 hour',
-	# file options
-	cache_root		=> &DBDefs::CACHE_DIR,
-	directory_umask		=> 0007,
-	# sizeaware options
-	max_size		=> 10_000_000,
+	servers => [ '127.0.0.1:11211' ],
+	debug => 0,
 );
 sub CACHE_OPTIONS { \%CACHE_OPTIONS }
 
