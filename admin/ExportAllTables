@@ -116,6 +116,7 @@ my @tables = qw(
 	moderation
 	moderationnote
 	moderator
+	moderator_preference
 	moderator_sanitised
 	stats
 	toc
@@ -176,7 +177,7 @@ for my $table (@tables)
 
 	# This has to be at least as large as the longest line given
 	# by "copy table to stdout".
-	# Currently the largest value I can see is a row in the moderator
+	# Currently the largest value I can see is a row in the moderation
 	# table which is approx 215,000 bytes.
 	my $max = 250_000; my $maxline = __LINE__;
 
@@ -259,7 +260,7 @@ if ($fCompress)
 	make_tar("mbdump-derived.tar.bz2", "COPYING", @derived);
 	make_tar("mbdump-moderation.tar.bz2",  "COPYING", @moderation);
 	make_tar("mbdump-artistrelation.tar.bz2", "COPYING", qw( artist_relation ));
-	make_tar("mbdump-moderator.tar.bz2", "COPYING", qw( moderator ));
+	make_tar("mbdump-moderator.tar.bz2", "COPYING", qw( moderator moderator_preference ));
 }
 
 if ($fKeepFiles)
