@@ -26,8 +26,6 @@ use lib "../cgi-bin";
 use DBI;
 use DBDefs;
 use MusicBrainz;
-use Artist;
-use ModDefs;
 use Sql;
 
 sub SetSequence
