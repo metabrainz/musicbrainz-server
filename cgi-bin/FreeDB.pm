@@ -347,8 +347,7 @@ sub Retrieve
             # parse the track offsets and the total time 
             if ($line =~ /Disc length:/)
             {
-                $line =~ s/^# Disc length: //;
-                $line =~ s/ seconds(\s*)$//;
+                $line =~ s/^# Disc length:\s*(\d*).*$/$1/i;
                 $info{durations} .= ($line * 1000) - int(($last_track_offset*1000) / 75);
                 $in_offsets = 0;
                 next;
