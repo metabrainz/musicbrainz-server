@@ -1,5 +1,6 @@
 %# vi: set ts=2 sw=2 ft=mason :
 <%args>
+$dbh => undef
 # These ones are multi-select, so declare them as lists so we don't
 # have to do: ref($foo) ? @$foo : $foo
 @mod_status => ()
@@ -80,7 +81,7 @@ $orderby => "asc"
 </%def>
 <%perl>
 
-my $mb = $m->comp("/comp/dblogin");
+$dbh ||= $m->comp("/comp/dblogin")->{DBH};
 
 ################################################################################
 # Parse and validate %ARGS.  Return the constructed query string, the current
@@ -157,7 +158,7 @@ $voter_type = 0
 if (MusicBrainz::IsNonNegInteger($voter_id) and $voter_id)
 {
 	# Validate id and get name
-	my $user = UserStuff->new($mb->{DBH});
+	my $user = UserStuff->new($dbh);
 	$user = $user->newFromId($voter_id);
 
 	if ($user)
@@ -259,7 +260,7 @@ $moderator_type = 0
 if (MusicBrainz::IsNonNegInteger($moderator_id) and $moderator_id)
 {
 	# Validate id and get name
-	my $user = UserStuff->new($mb->{DBH});
+	my $user = UserStuff->new($dbh);
 	$user = $user->newFromId($moderator_id);
 
 	if ($user)
@@ -303,7 +304,7 @@ $artist_type = 0
 if (MusicBrainz::IsNonNegInteger($artist_id) and $artist_id)
 {
 	# Validate id and get name
-	my $ar = Artist->new($mb->{DBH});
+	my $ar = Artist->new($dbh);
 	$ar->SetId($artist_id);
 
 	if ($ar->LoadFromId)
@@ -413,7 +414,7 @@ $query .= " ORDER BY m.id ".uc($orderby);
 # If so, refuse to run - you've got to filter on /something/.
 unless ($ARGS{DEFAULT_TEST})
 {
-	my ($defquery) = $m->comp("setquery.inc", DEFAULT_TEST=>1);
+	my ($defquery) = $m->comp("setquery.inc", DEFAULT_TEST=>1, dbh => $dbh);
 	$query = undef if $query eq $defquery;
 }
 
