@@ -83,6 +83,7 @@ else
         return undef;
     }
 
+
     mc_comp("/comp/artisttitle", artist=>$artist);
     
     mc_out("[ ");
@@ -106,9 +107,14 @@ else
     mc_out($artist->GetId());
     mc_out("\">Aliases</a> ");
 
-    #mc_out("| <a href=\"/artistrel.html?artistid=");
-    #mc_out($artist->GetId());
-    #mc_out("\">Related artists</a> ");
+    # TODO: Remove this if for release
+    if ($r->connection->remote_ip =~ /^10\./ ||
+        $r->connection->remote_ip =~ /^192\.168/)
+    {
+        mc_out("| <a href=\"/artistrel.html?artistid=");
+        mc_out($artist->GetId());
+        mc_out("\">Related artists</a> ");
+    }
 
     if ($artist->GetName() ne "Unknown" && 
         $artist->GetId() != ModDefs::VARTIST_ID && 
@@ -129,6 +135,29 @@ else
     }
     mc_out("]<br>");
 
+    if ($r->connection->remote_ip =~ /^10\./ ||
+        $r->connection->remote_ip =~ /^192\.168/)
+    {
+        my ($count, $rel);
+
+        my $relations = $artist->GetRelations();
+        if (scalar(@{$relations}) > 0)
+        {
+            mc_out("<p>");
+            mc_comp("/comp/framedboxbegin", width=>"100%");
+            $count = 0;
+            mc_out("&nbsp;<font color=\"red\">New!</font> Related artists: ");
+            for(0..2)
+            {
+                $rel = $$relations[$_];
+                last if (!defined $rel);
+                mc_out("<a href=\"/showartist.html?artistid=$rel->{id}\">");
+                mc_out($rel->{name} . "</a>"); 
+                mc_out(", ") if ($_ < 2);
+            }
+            mc_comp("/comp/framedboxend");
+        }
+    }
     if ($ARGS{artistid} == ModDefs::VARTIST_ID)
     {
         </%perl>
