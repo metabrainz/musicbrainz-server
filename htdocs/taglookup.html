@@ -277,13 +277,37 @@ elsif ($flags & TaggerSupport::ALBUMLIST)
        <& /comp/framedboxbegin, width=>"420" &>
        <table cellspacing="0" width="100%">
           <tr>
-             <td align="center"><b>Album</b></td>
-             <td align="center"><b>Relevance</b></td>
+             <td align="center" NOWRAP><b>Album</b></td>
+             <td align="center" NOWRAP>&nbsp;</td>
+             <td align="center" colspan="3" NOWRAP><b>Album Info</b></td>
+             <td align="center" NOWRAP><b>Relevance</b></td>
+             <td align="center" NOWRAP>&nbsp;</td>
           </tr>
 %      foreach $id (@$list) {
           <tr bgcolor="<% $bgcolor = ( $bgcolor eq '#ffffff' ? '#ffe1b7' : '#ffffff' ) %>">
-             <td valign="top"><a href="/showalbum.html?albumid=<% $id->{id} %>"
-                 ><% $id->{name} %></a></td>
+             <td valign="top" width="50%">
+             <a href="/showalbum.html?albumid=<% $id->{id} %>" ><% $id->{name} %></a></td>
+             <td width="10">&nbsp;</td>
+             <td valign="top" NOWRAP>
+             <% $id->{album_tracks} %>
+             <img src="/images/notes.gif" align="middle" alt="Tracks" 
+                  width="13" height="13"
+                  title="This album has <% $id->{album_tracks} %> Tracks">
+             </td>
+             <td valign="top" NOWRAP>
+             &nbsp;
+             <% $id->{album_discids} %>
+             <img src="/images/cd.png" align="middle" alt="CD" 
+                  width="13" height="13"
+                  title="This album has <% $id->{album_discids} %> CD Index Ids">
+             </td>
+             <td valign="top" NOWRAP>
+             &nbsp;
+             <% $id->{album_trmids} %>
+             <img src="/images/trm.gif" align="middle" alt="TRM" 
+                  width="30" height="11"
+                  title="This album has <% $id->{album_trmids} %> TRM Ids">&nbsp;
+             </td>
              <td valign="top" align="center"><% int($id->{sim} * 100) %>%</td>
              <td valign="top" align="right">
 %               $copy{albumid} = $id->{mbid};
@@ -319,19 +343,40 @@ elsif ($flags & TaggerSupport::ALBUMTRACKLIST)
 
        </%perl>
        <b>Found matching albums/tracks</b>:<p>
-       <& /comp/framedboxbegin, width=>"420" &>
+       <& /comp/framedboxbegin &>
        <table cellspacing="0" width="100%">
           <tr>
-             <td align="center"><b>Album</td>
-             <td align="center">&nbsp;</b></td>
-             <td align="center"><b>Track</b></td>
-             <td align="center"><b>Relevance</b></td>
-             <td align="center">&nbsp;</td>
+             <td align="center" NOWRAP><b>Album</b></td>
+             <td align="center" NOWRAP>&nbsp;</b></td>
+             <td align="center" colspan="3"NOWRAP><b>Album Info</b></td>
+             <td align="center" NOWRAP><b>Track</b></td>
+             <td align="center" NOWRAP><b>Relevance</b></td>
+             <td align="center" NOWRAP>&nbsp;</td>
           </tr>
 %      foreach $id (@$list) {
           <tr bgcolor="<% $bgcolor = ( $bgcolor eq '#ffffff' ? '#ffe1b7' : '#ffffff' ) %>">
-             <td valign="top">&nbsp;<a href="/showalbum.html?albumid=<% $id->{albumid} %>"><% $id->{album} %></a></td>
+             <td valign="top" width="50%">&nbsp;<a href="/showalbum.html?albumid=<% $id->{albumid} %>"><% $id->{album} %></a></td>
              <td width="10">&nbsp;</td>
+             <td valign="top" NOWRAP>
+             <% $id->{album_tracks} %>
+             <img src="/images/notes.gif" align="middle" alt="Tracks" 
+                  width="13" height="13"
+                  title="This album has <% $id->{album_tracks} %> Tracks">
+             </td>
+             <td valign="top" NOWRAP>
+             &nbsp;
+             <% $id->{album_discids} %>
+             <img src="/images/cd.png" align="middle" alt="CD" 
+                  width="13" height="13"
+                  title="This album has <% $id->{album_discids} %> CD Index Ids">
+             </td>
+             <td valign="top" NOWRAP>
+             &nbsp;
+             <% $id->{album_trmids} %>
+             <img src="/images/trm.gif" align="middle" alt="TRM" 
+                  width="30" height="11"
+                  title="This album has <% $id->{album_trmids} %> TRM Ids">&nbsp;
+             </td>
              <td valign="top"><a href="/showtrack.html?trackid=<% $id->{id} %>"><% $id->{name} %></a></td>
              <td valign="top" align="center"><% int($id->{sim} * 100) %>%</td>
              <td valign="top" align="right">

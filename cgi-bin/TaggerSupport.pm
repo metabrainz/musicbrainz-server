@@ -387,7 +387,7 @@ sub AlbumSearch
        return (ALBUMLIST, \@aids);
    }
 
-   my @albums = $ar->GetAlbums();
+   my @albums = $ar->GetAlbums(0, 1);
    if (scalar(@albums) == 0)
    {
        return (undef, []);
@@ -401,6 +401,9 @@ sub AlbumSearch
            push @ids, $this->SetSim({ id=>$al->GetId(),
                         name=>$al->GetName(),
                         mbid=>$al->GetMBId(),
+                        album_tracks=>$al->GetTrackCount(),
+                        album_discids=>$al->GetDiscidCount(),
+                        album_trmids=>$al->GetTrmidCount(),
                         sim_album=>1 });
        }
    }
@@ -425,6 +428,9 @@ sub AlbumSearch
            push @ids, $this->SetSim({ id=>$al->GetId(),
                         name=>$al->GetName(),
                         mbid=>$al->GetMBId(),
+                        album_tracks=>$al->GetTrackCount(),
+                        album_discids=>$al->GetDiscidCount(),
+                        album_trmids=>$al->GetTrmidCount(),
                         sim_album=>$sim});
            $this->{fuzzy} = 1;
        }
@@ -513,9 +519,12 @@ sub TrackSearch
 
    @ids = (sort { $b->{sim} <=> $a->{sim} } @ids);
    @ids = splice @ids, 0, 10;
-   $query = qq|select album.id, album.name, album.gid, albumjoin.sequence, track 
-                 from Album, AlbumJoin
-                where albumjoin.album = album.id and albumjoin.track in (|;
+   $query = qq|select album.id, album.name, album.gid, albumjoin.sequence, track,
+                      albummeta.tracks, albummeta.discids, albummeta.trmids 
+                 from Album, AlbumJoin, albummeta
+                where albumjoin.album = album.id and 
+                      album.id = albummeta.id and
+                      albumjoin.track in (|;
    foreach $id (@ids)
    {
       next if (!defined $id);
@@ -554,6 +563,11 @@ sub TrackSearch
            $id->{tracknum} = $row[3];
            $id->{album} = $row[1];
            $id->{albummbid} = $row[2];
+           $id->{albumid} = $row[0];
+           $id->{album_tracks} = $row[5];
+           $id->{album_discids} = $row[6];
+           $id->{album_trmids} = $row[7];
+           $id->{albumid} = $row[0];
            $id->{albumid} = $row[0];
            $id->{artist} = $ar->GetName();
            $id->{artistmbid} = $ar->GetMBId();
