@@ -12,14 +12,14 @@ li { margin-top: 0.5em; margin-bottom: 0.5em }
 
 <p>
 The count of tracks, disc ids and TRMs held for each album (the "albummeta"
-data) were often inaccurate.&nbsp; Additionally, some albums didn't have an
+data) was often inaccurate.&nbsp; Additionally, some albums didn't have an
 "albummeta" row, which actually caused them to disappear entirely from their
 respective artists' pages!&nbsp; These bugs have now been fixed.
 </p>
 <p>
 The "compact" display mode of the "show artist" page displays these counts; if
 one of the counts is zero it now just leaves a blank space, instead of showing
-a zero next to the relevant icon.&nbsp; This makes it easier to spot which albums
+a zero and the relevant icon.&nbsp; This makes it easier to spot which albums
 have no disc ids or no TRMs.
 </p>
 <p>
@@ -46,7 +46,7 @@ albums are merged together, keeping all the tracks.
 </p>
 <p>
 Previously if the track numbers of non-album tracks for an artist were not
-continuous (if there were gaps " e.g. 1, 2, 4, 5) then adding a N.A.T. would
+continuous (if there were "gaps", e.g. 1, 2, 4, 5) then adding a N.A.T. would
 fail.&nbsp; This is now fixed.
 </p>
 <p>
@@ -60,6 +60,11 @@ for non-album tracks.
 <h3>The Tagger</h3>
 
 <p>
+The %-relevance values shown in the lookup page now use the same more detailed
+algorithm (weighted similarity calculation) that the Tagger itself
+uses.&nbsp; This should make the overall matching process more accurate.
+</p>
+<p>
 When showing a list of matching tracks, the track length is highlighted
 according to how well it matches the length of the track you're trying to
 tag.&nbsp; Green indicates a good match, red represents a very bad match, and
@@ -72,9 +77,7 @@ don't need to click through to the next page in order to tag.
 </p>
 <p>
 The main lookup page (/taglookup.html) now moves the input focus into the form
-when the page loads. Also, the % relevance values shown in the lookup page now
-use the same more detailed algorithm (weighted similarity calculation) the tagger 
-uses. This should make the overall matching process more accurate.
+when the page loads.
 </p>
 <p>
 The sidebar search panel now works when used within the Tagger.
@@ -95,7 +98,7 @@ and time at which each vote was cast.&nbsp; If someone votes more than once (and
 changes their mind), then the old, ignored votes are shown in grey.
 </p>
 <p>
-It's now also possible to have a "No Vote" button " go to your preferences
+It's now also possible to have a "No Vote" button" - go to your preferences
 page to enable it.&nbsp; This makes it much easier to vote on a whole page of
 moderations, but not vote on some of them (in which case, those moderations
 will keep on showing up in your list of things to vote on).&nbsp; This is
@@ -118,7 +121,7 @@ guide) now works without Javascript too.
 </p>
 <p>
 "Remove Track" mods now show both the track name (with link) and the album
-name (with link).
+name (with link) - as long as the track still exists, anyway.
 </p>
 <p>
 In the "batch operation" page (where you select what you want to do to the
@@ -163,7 +166,7 @@ You must be logged in to send a message to another moderator.
 <p>
 Some TRMs were associated with some tracks more than once.&nbsp; This caused some
 RDF queries to return duplicate results.&nbsp; These duplicates have now been
-fixed, and the "insert" code has been modified to prevent them from
+removed, and the "insert" code has been modified to prevent them from
 reappearing.
 </p>
 <p>
@@ -185,8 +188,8 @@ Unique database indices have been added to trmjoin (trm, track) and albumjoin
 moderator_preference and moderator_subscribe_artist.
 </p>
 <p>
-Tagger sessions are now automatically recognised by the web server, and a
-"mbt=1" is written into their session data (even before the user has logged
+Tagger sessions are now automatically recognised by the web server, and an
+"mbt=1" is written into the session data (even before the user has logged
 in).&nbsp; This is done by detecting the request to "/tagger/intro.html?mbt=1",
 which is the first page loaded by the Tagger, and which nothing else would
 normally use.&nbsp; This makes it possible to more reliably detect when the web
