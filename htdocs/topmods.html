@@ -4,7 +4,7 @@
 
 my $result = $m->cache(action=>'retrieve');
 
-if (!defined($result)) 
+if (1) #!defined($result)) 
 {
     my $mb = $m->comp("/comp/dblogin");
 
@@ -42,13 +42,29 @@ if (!defined($result))
 
     $result .= $m->comp("/comp/tablestat", 
                        mb=>$mb,
+                       query=>qq|select Moderator.name, count(v.id) as num
+                                   from vote_all v, Moderator
+                                  where v.moderator = Moderator.id and 
+                                        (v.vote = 0 or v.vote = 1) and
+                                        votetime > now() - interval '1 week' 
+                               group by Moderator.id, Moderator.name
+                               order by num desc limit 25|,
+                       title=>"Most active voters in the last week:<br>" .
+                              "(Yes and No votes only)",
+                       numcols=>2,
+											 coltitles=>["User", "Votes"]);
+
+    $result .= $m->comp("/comp/tablestat", 
+                       mb=>$mb,
                        query=>qq|select Moderator.name, count(v.id) 
                                         as num 
                                    from vote_all v, Moderator 
-                                  where v.moderator = Moderator.id 
+                                  where v.moderator = Moderator.id and
+                                        (v.vote = 0 or v.vote = 1)
                                group by Moderator.id, Moderator.name 
                                order by num desc limit 25|,
-                       title=>"Most active voters overall:",
+                       title=>"Most active voters overall:<br>" .
+                              "(Yes and No votes only)",
                        numcols=>2,
 											 coltitles=>["User", "Votes"]);
 
