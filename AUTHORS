@@ -58,6 +58,7 @@ The following people have contributed to the MusicBrainz server:
 
   Matthias Friedrich <http://www.mafr.de/>
   - Created the "Superfluous Data Tracks" report
+  - many other changes
 
   Andy Grundman <andy@hybridized.org>
   - Fixed a Javascript-related error on the Amazon "buy" link
