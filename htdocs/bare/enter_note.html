@@ -1,3 +1,4 @@
+%# vi: set ts=4 sw=4 ft=mason :
 <%args>
 $uid
 $modid
@@ -14,8 +15,8 @@ if ($text =~ /href\s*?=\s*?"(.*?)"/)
 
     if ($addr =~ /(^http:|^[^\/]|@)/)
     {
-              my $url = "/mod/addnote.html?modid=$modid&uid=$uid&text=" .
-                    uri_escape($text);
+   		my $url = "/mod/addnote.html?modid=$modid&uid=$uid&text=" .
+			uri_escape($text);
          $r->method('GET');
          $r->headers_in->unset('Content-length');
          $r->content_type('text/html; charset=UTF-8');
@@ -42,10 +43,20 @@ if ($@)
 {
     my $err = $@;
     $sql->Rollback;
+	</%perl>
 
-    $m->comp("/comp/header_small");
-    $m->out("<b>A database error occurred.</b><pre>($err)</pre>");
-    $m->comp("/comp/footer_small");
+	<& /comp/header_small, title => "Error adding moderation note" &>
+
+	<p class="notice">
+		An error occurred whilst saving your moderation note.&nbsp;
+		Sorry.
+	</p>
+
+	<!-- <% $err %> -->
+
+	<& /comp/footer_small &>
+
+	<%perl>
     return undef;
 }
 
