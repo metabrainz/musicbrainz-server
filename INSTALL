@@ -26,7 +26,32 @@ The MusicBrainz server requires the following items:
 2) A database dedicated to MusicBrainz.  Of course, the scripts can help you
    create this.
 
-3) Apache with mod_perl and Mason installed. See the following sites for more
+3) Perl 5.8 or later
+
+   The MusicBrainz server now uses Perl 5.8, required for its Unicode
+   capabilities and the "Encode" module.  Strange encoding problems were
+   observed with Perl 5.6.1.
+
+   If you're planning to install Perl somewhere other than your usual system
+   location (e.g. not /usr/bin/perl), take care to ensure that when you
+   perform the various Perl-related steps below (building mod_perl, adding
+   modules from CPAN) you use the correct copy of Perl.  For example,
+   "/path/to/my/perl Makefile.PL".
+
+   The default location for mb_server is "/home/httpd/musicbrainz/mb_server"
+   (see MB_SERVER_ROOT in cgi-bin/DBDefs.pm).  MusicBrainz expects to find
+   Perl at "/home/httpd/musicbrainz/mb_server/cgi-bin/perl".  If you're using
+   the default MB_SERVER_ROOT, then just add a symbolic link to "perl" into
+   the cgi-bin directory.
+   
+   If you're using a different server root, you'll need to adjust the "#!"
+   line of each script to tell it where to find Perl instead.  For example,
+   if you're using a base path of /usr/local/mb_server, this command should
+   make the required adjustments for you:
+
+   perl -i -pwe 's[^#!/home/httpd/musicbrainz/mb_server/cgi-bin/perl][#!/usr/local/mb_server/cgi-bin/perl]' `grep -rl '^#!/home/httpd/musicbrainz/mb_server/cgi-bin/perl' .`
+
+4) Apache with mod_perl and Mason installed. See the following sites for more
    details on each of these packages:
 
       Apache:   http://www.apache.org
@@ -51,47 +76,39 @@ The MusicBrainz server requires the following items:
               startup.
 
 
-4) Expat XML Parser library: http://sourceforge.net/projects/expat
-
-5) Perl 5.8.0
-
-   The MusicBrainz server now uses Perl 5.8.0, required for its Unicode
-   capabilities and the "Encode" module.  Strange encoding problems were
-   observed with Perl 5.6.1.
+5) Expat XML Parser library: http://sourceforge.net/projects/expat
 
 6) Required perl modules:
 
    CPAN Name
    ---------
-   Bundle::Apache
    Apache::Session
    Apache::Session::File
-   Storable
-   DBI
+   Bundle::Apache
+   Cache::SizeAwareFileCache
    DBD::Pg
-   HTML::Mason (MB works only with version 1.05:
-                http://www.masonhq.com/code/download/HTML-Mason-1.05.tar.gz)
-   String::CRC32
-   String::Unicode::Similiarity (see notes below)
-   Unicode::String
-   RDFStore
+   DBI
    Digest::SHA1
-   UUID (requires e2fsprogs)
-   Text::Unaccent (at least version 1.05:
-         http://www.senga.org/download/unac/Text-Unaccent-1.05.tar.gz)
+   HTML::Mason
+   HTTP::Negotiate
    MIME-Base64
    MIME::Lite
-   HTTP::Negotiate
-   Cache::SizeAwareFileCache
+   RDFStore
+   Storable
+   String::CRC32
+   String::Unicode::Similiarity (see notes below)
+   Text::Unaccent (at least version 1.05: http://www.senga.org/download/unac/Text-Unaccent-1.05.tar.gz)
+   UUID (requires e2fsprogs)
+   Unicode::String
 
    These probably come standard with Perl:
-   IO::Socket
-   URI::Escape
    Carp
+   IO::Socket
    Net::SMTP
+   String::ShellQuote
    Tie::STDERR
    Time::HiRes
-   String::ShellQuote
+   URI::Escape
 
 7) String::Unicode::Similarity
 
