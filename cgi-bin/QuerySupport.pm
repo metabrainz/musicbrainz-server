@@ -52,29 +52,6 @@ use constant EXTRACT_TOC_QUERY => "!mm!toc [] !mm!sectorOffset";
 use constant EXTRACT_NUMTRACKS_QUERY => "!mm!lastTrack";
 use constant EXTRACT_CLIENT_VERSION => "!mq!clientVersion";
 
-sub IsValidUUID
-{
-    my ($uuid) = @_;
-
-    return 0 if ($uuid eq '00000000-0000-0000-0000-000000000000');
-    return 0 if (length($uuid) != 36);
-    return 0 if (!($uuid =~ /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/));
-
-    return 1;
-}
-
-sub GenerateCDInfoObjectFromDiscid
-{
-   my ($dbh, $parser, $rdf, $id, $numtracks, $toc) = @_;
-   my ($di);
-
-   return $rdf->ErrorRDF("No Discid given.") if (!defined $id);
-
-   # Check to see if the album is in the main database
-   $di = Discid->new($dbh);
-   return $di->GenerateAlbumFromDiscid($rdf, $id, $numtracks, $toc);
-}
-
 sub AssociateCDFromAlbumId
 {
    my ($dbh, $doc, $rdf, $Discid, $toc, $albumid) = @_;
@@ -547,7 +524,7 @@ sub SubmitTRMList
             last if ($i > 1);
             return $rdf->ErrorRDF("Incomplete trackid and trmid submitted.") 
        } 
-       if (!IsValidUUID($trmid) || !IsValidUUID($trackid))
+       if (!MusicBrainz::IsGUID($trmid) || !MusicBrainz::IsGUID($trackid))
        {
            print STDERR "Invalid track/trm combination:\n";
            print STDERR "trackid: $trackid\n";
