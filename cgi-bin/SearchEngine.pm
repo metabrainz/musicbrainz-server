@@ -671,14 +671,21 @@ sub RebuildAllIndices
     my %words;
     my $nextwordid = 0;
 
+    $| = 1 if -t;
+
     my $sub = sub {
 	my ($query, $table, $fh_tablewords, $useindex) = @_;
 
-	print localtime() . " : Processing query: $query\n";
+	my $rows = $sql->SelectSingleValue(
+	    "SELECT COUNT(*) FROM $table",
+	);
+
+	print localtime() . " : Processing query: $query (est. $rows rows)\n";
 	$sql->Select($query) or die;
 
 	my $lastid = 0;
 	my @tokens;
+	my $i = 0;
 
 	my $flush = sub {
 	    # @tokens is a list of hash references (tokenized names)
@@ -704,6 +711,14 @@ sub RebuildAllIndices
 
 		print $fh_tablewords "$wordentry->[0]\t$lastid\n";
 	    }
+
+	    ++$i;
+	    return if $i % 100;
+
+	    printf "%s : %12d  %3d%%\r",
+	    	scalar(localtime),
+		$i, 100*$i/($rows||1),
+		if -t;
 	};
 
 	while (my $row = $sql->NextRowRef)
@@ -725,7 +740,7 @@ sub RebuildAllIndices
 	$flush->() if @tokens;
 	$sql->Finish;
 
-	print localtime() . " : Query completed.\n";
+	print localtime() . " : Query completed, $i rows.\n";
     };
 
     $sub->(
@@ -769,6 +784,7 @@ sub RebuildAllIndices
 	my ($fh, $table) = @_;
 
 	seek($fh, 0, 0) or die;
+	my $size = -s $fh;
 
 	print localtime() . " : Loading into table $table\n";
 
@@ -777,14 +793,24 @@ sub RebuildAllIndices
 	$sql->AutoCommit;
 	$sql->Do("COPY $table FROM stdin");
 
+	my $i = 0;
+
 	while (<$fh>)
 	{
 	    $dbh->func($_, "putline")
 		or die "putline '$_' failed";
+	    ++$i;
+	    next if $i % 100;
+	    printf "%s : %12d  %3d%%\r",
+	    	scalar(localtime),
+		$i, 100*tell($fh)/($size||1),
+		if -t;
 	}
 
 	$dbh->func("\\.\n", "putline") or die;
 	$dbh->func("endcopy") or die;
+
+	print localtime() . " : loaded $i rows.\n";
 
 	print localtime() . " : vacuuming...\n";
 	$sql->AutoCommit;
