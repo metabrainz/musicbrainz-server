@@ -20,7 +20,6 @@ my %filter = (
 		) : (
 			moderator_type	=> 3, # only this person ...
 			moderator_id		=> $moderator,
-			moderator_name	=> "?",
 		)
 	),
 	orderby					=> "asc",
@@ -29,6 +28,7 @@ my %filter = (
 $m->comp(
 	"/comp/redirect",
 	"/mod/search/results.html?" . $m->comp("/comp/args-to-querystring.inc", %filter)
+	#"/user/debug.html?" . $m->comp("/comp/args-to-querystring.inc", %filter)
 );
 
 </%perl>
