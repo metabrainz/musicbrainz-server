@@ -1127,23 +1127,39 @@ sub SubmitTrack
        $len, $year, $genre, $comment, $sync_url, $sync_contrib,
        $sync_type, $sync_date) = @_;
    my ($rdf, $r, $i, $ts, $text, $artistid, $albumid, $trackid, $type, $id);
-   my ($al, $ar, $tr, $ly);
+   my ($al, $ar, $tr, $ly, $gu, @albumids);
 
    $ar = Artist->new($mb);
    $al = Album->new($mb);
    $tr = Track->new($mb);
    $ly = Lyrics->new($mb);
+   $gu = GUID->new($mb);
    $artistid = $ar->Insert($artist, $artist);
    return EmitErrorRDF("Cannot insert artist into database.") 
       if ($artistid < 0);
-   $albumid = $al->Insert($album, $artistid, -1);
+
+   @albumids = $al->FindFromNameAndArtistId($album, $artistid);
+   if (defined @albumids)
+   {
+      $albumid = $albumids[0];
+   }
+   else
+   {
+      $albumid = $al->Insert($album, $artistid, -1);
+   }
+   
    return EmitErrorRDF("Cannot insert album into database.") 
       if ($albumid < 0);
 
-   $trackid = $tr->Insert($name, $artistid, $albumid, $seq, $guid, 
+   $trackid = $tr->Insert($name, $artistid, $albumid, $seq, 
                           $len, $year, $genre, $comment);
    return EmitErrorRDF("Cannot insert track into database.") 
       if ($trackid < 0);
+
+   if (defined $trackid)
+   {
+       $gu->Insert($guid, $trackid);
+   }
 
    if (defined $sync_url || defined $sync_contrib || 
        defined $sync_type || defined $sync_date)

@@ -56,7 +56,6 @@ sub GetIdFromName
 
         @row = $sth->fetchrow_array;
         $rv = $row[0];
-
    }
    else
    {
