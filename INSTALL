@@ -16,6 +16,12 @@ The MusicBrainz server requires the following items:
     
       - Configure the server with: configure --enable-multibyte=UNICODE
         to enable UTF-8 support. THIS IS IMPORTANT!!
+      - if you've installed postgres via a package and have "pg_config"
+        you can run:
+            pg_config --configure
+        to see what the source was compiles with to be sure it complies.
+        If it doesn't return "--enable-multibyte" at all, you'll have to
+        recompile it from source
 
 2) A database dedicated to MusicBrainz. These scripts use
    the database name 'musicbrainz' and user name 'postgres'.
@@ -82,7 +88,7 @@ The MusicBrainz server requires the following items:
    URI::Escape
    Carp;
    Tie::STDERR
-   Timer::Benchmark
+   Benchmark::Timer
 
 Installation:
 =============
