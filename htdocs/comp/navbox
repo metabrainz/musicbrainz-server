@@ -51,7 +51,8 @@ my @main = (
 %     foreach my $link (@main) {
         <a href="<% %{$link}->{'url'} |n %>"><% %{$link}->{'name'} |n %></a><br>
 %#      also display any possible sub items that must be expanded
-%       if ($expand ne '' && $expand eq %{$link}->{'expand'}) {
+%       if (defined $expand && $expand ne '' && 
+%           $expand eq %{$link}->{'expand'}) {
           <span class="sidemenusmall"> 
 %         foreach my $expand_link (@{%{$link}->{'array'}}) {
             &nbsp;&nbsp;&nbsp;<a href="<% %{$expand_link}->{'url'} |n %>"><% %{$expand_link}->{'name'} |n %></a><br>

@@ -609,6 +609,9 @@ sub ExchangeMetadata
        $pe = Pending->new($dbh);
        $tr = Track->new($dbh);
 
+       # Save this submission into the Bitzi archive
+       $pe->InsertIntoBitziArchive(@data);
+
        # has this data been accepted into the database?
        @ids = $gu->GetTrackIdsFromGUID($data[4]);
        if (scalar(@ids) == 0)
@@ -629,10 +632,6 @@ sub ExchangeMetadata
                                            $data[1], $data[2]))
                    {
                       $pe->Insert(@data);
-                   }
-                   else
-                   {
-                      $pe->InsertIntoBitziArchive(@data);
                    }
                }
            }
