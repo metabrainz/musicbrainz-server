@@ -1,4 +1,4 @@
-<td width="10%" align=right>
+<td width="20%" align=right>
 
 % if ($ARGS{offset} + $ARGS{num} < $ARGS{rows}) {
     <a href="/<% $ARGS{url} %>?offset=<% $ARGS{offset} + $ARGS{num} %>">

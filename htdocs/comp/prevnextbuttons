@@ -18,7 +18,7 @@ $totalitems
    offset=>$offset,
    text=>"<< Prev",
    num=>($itemsperpage * 2) &>
-<td width=\"40%\">&nbsp;</td>
+<td width=\"20%\">&nbsp;</td>
 <& /comp/nextbutton,
    url=>$url,
    offset=>$offset,
