@@ -42,28 +42,28 @@ sub Cleanup
    my ($dbh, $fix) = @_;
    my ($sth, @row);
 
-   print("update Artist set modpending = 0\n") if (!$quiet);
-   $dbh->do("update Artist set modpending = 0") if ($fix);
+   print("update Artist set modpending = 0 where modpending != 0\n") if (!$quiet);
+   $dbh->do("update Artist set modpending = 0 where modpending != 0") if ($fix);
 
-   print("update Album set modpending = 0\n") if (!$quiet);
-   $dbh->do("update Album set modpending = 0") if ($fix);
-   print("update Album set attributes[1] = 0\n") if ($quiet);
-   $dbh->do("update Album set attributes[1] = 0") if ($fix);
+   print("update Album set modpending = 0 where modpending != 0\n") if (!$quiet);
+   $dbh->do("update Album set modpending = 0 where modpending != 0") if ($fix);
+   print("update Album set attributes[1] = 0 where modpending != 0\n") if ($quiet);
+   $dbh->do("update Album set attributes[1] = 0 where modpending != 0") if ($fix);
 
-   print("update Discid set modpending = 0\n") if (!$quiet);
-   $dbh->do("update Discid set modpending = 0") if ($fix);
+   print("update Discid set modpending = 0 where modpending != 0\n") if (!$quiet);
+   $dbh->do("update Discid set modpending = 0 where modpending != 0") if ($fix);
 
-   print("update AlbumJoin set modpending = 0\n") if (!$quiet);
-   $dbh->do("update AlbumJoin set modpending = 0") if ($fix);
+   print("update AlbumJoin set modpending = 0 where modpending != 0\n") if (!$quiet);
+   $dbh->do("update AlbumJoin set modpending = 0 where modpending != 0") if ($fix);
 
-   print("update Track set modpending = 0\n") if (!$quiet);
-   $dbh->do("update Track set modpending = 0") if ($fix);
+   print("update Track set modpending = 0 where modpending != 0\n") if (!$quiet);
+   $dbh->do("update Track set modpending = 0 where modpending != 0") if ($fix);
 
-   print("update AlbumJoin set modpending = 0\n") if (!$quiet);
-   $dbh->do("update AlbumJoin set modpending = 0") if ($fix);
+   print("update AlbumJoin set modpending = 0 where modpending != 0\n") if (!$quiet);
+   $dbh->do("update AlbumJoin set modpending = 0 where modpending != 0") if ($fix);
 
-   print("update ArtistAlias set modpending = 0\n") if (!$quiet);
-   $dbh->do("update ArtistAlias set modpending = 0") if ($fix);
+   print("update ArtistAlias set modpending = 0 where modpending != 0\n") if (!$quiet);
+   $dbh->do("update ArtistAlias set modpending = 0 where modpending != 0") if ($fix);
 
    $sth = $dbh->prepare(qq|select rowid, tab, col from moderation 
                            where status = | .  ModDefs::STATUS_OPEN);
@@ -71,6 +71,7 @@ sub Cleanup
    {
        while(@row = $sth->fetchrow_array)
        {
+          next if ($row[1] eq 'TRMJoin');
           print("update $row[1] set modpending = modpending + 1 where " .
                 "id = $row[0]\n") if (!$quiet);
 
