@@ -76,8 +76,11 @@ if (!defined $list[0])
 			<td><% $time %></td>
 % if (exists $session{user}) {
 			<td>
-				[ <a href="/remartistalias.html?alias=<% $item->[0] %>"
-					>Delete</a> ]
+				[
+				<a href="/editartistalias.html?id=<% $item->[0] %>">Edit</a>
+				|
+				<a href="/remartistalias.html?alias=<% $item->[0] %>">Del</a>
+				]
 			</td>
 % }
 		</tr>

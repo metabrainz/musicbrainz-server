@@ -1,0 +1,117 @@
+%# vi: set ts=2 sw=2 ft=mason :
+<%args>
+$id => ""
+$newname => ""
+</%args>
+<%perl>
+
+$m->comp("/comp/checkloggedin", 1, 1)
+	or return;
+
+MusicBrainz::IsNonNegInteger($id) && $id
+	or return $m->comp("/comp/badargs", 1, 1);
+
+my $mb = $m->comp("/comp/dblogin");
+
+my $al = Alias->new($mb->{DBH}, 'artistalias');
+$al->SetId($id);
+$al->LoadFromId
+	or return $m->comp(
+		"/comp/error",
+		"Alias not found in the database.",
+		1, 1,
+	);
+
+my $ar = $al->Parent;
+my $url = "/showaliases.html?artistid=" . $ar->GetId;
+
+if (MusicBrainz::IsSingleLineString($newname)
+	and $newname =~ /\S/)
+{
+	$m->comp(
+		"/comp/entermods",
+		DBH => $mb->{DBH},
+		sub => sub {
+			my @mods = Moderation->InsertModeration(
+				DBH	=> $mb->{DBH},
+				uid	=> $session{uid},
+				privs => $session{privs},
+				type => &ModDefs::MOD_EDIT_ARTISTALIAS,
+				# --
+				alias => $al,
+				newname => $newname,
+			) if $newname ne $al->GetName;
+		},
+		success_url => $url,
+	) or return;
+
+	die "Shouldn't get here";
+}
+
+</%perl>
+
+<& /comp/sidebar, title => 'Edit Artist Alias' &>
+
+<& /comp/stylemenu &>
+
+<h2>Edit Artist Alias</h2>
+
+% if ($al->GetModPending) {
+    <& /comp/modpending &>
+% }
+
+<p>
+    Please enter the corrected alias for this artist.&nbsp; Please note that
+		duplicate aliases are currently not allowed.&nbsp;
+<p>
+
+<script type="text/javascript" src="scripts/guess.js"></script>
+
+<form method="post" action="/editartistalias.html"
+	name="EditArtistAliasForm"
+	enctype="application/x-www-form-urlencoded"
+	>
+
+    <table width="100%">
+		<tr>
+			<td>
+				Artist Name:
+			</td>
+			<td>
+				<% $ar->GetName  %>
+			</td>
+		</tr>
+		<tr>
+			<td>
+				Current Alias:
+			</td>
+			<td>
+				<% $al->GetName  %>
+			</td>
+		</tr>
+		<tr>
+			<td>
+				New Alias:
+			</td>
+			<td>
+				<input type="text" name="newname" size="40" value="<% $al->GetName %>"> 
+				<script type="text/javascript"><!--
+        document.write(
+          "&nbsp; <input type='button' value='Guess Case' " +
+          "onclick='this.form.newname.value = GuessCase(this.form.newname.value)'>"
+        )
+				//--></script>
+			</td>
+		</tr>
+		<tr>
+			<td></td>
+			<td>
+				<input type="hidden" name="id" value="<% $id %>">
+				<input type="submit" value="Submit">
+			</td>
+	</table>
+
+</form>
+
+<& /comp/movefocus, "EditArtistAliasForm", "newname" &>
+<& /comp/footer &>

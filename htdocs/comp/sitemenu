@@ -189,6 +189,7 @@ use Scalar::Util qw( reftype weaken );
         { url => "/editalbumattrs.html" },
         { url => "/editalbum.html" },
         { url => "/editartist.html" },
+        { url => "/editartistalias.html" },
         { url => "/edittrack.html" },
 
         { url => "/mergeartist.html" },
