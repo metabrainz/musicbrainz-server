@@ -1,9 +1,10 @@
 #!/usr/bin/perl -w
 #____________________________________________________________________________
 #
-#   CD Index - The Internet CD Index
+#   MusicBrainz -- The community music metadata project.
 #
 #   Copyright (C) 1998 Robert Kaye
+#   Copyright (C) 2001 Luke Harless
 #
 #   This program is free software; you can redistribute it and/or modify
 #   it under the terms of the GNU General Public License as published by
@@ -26,8 +27,6 @@ use lib "../../cgi-bin";
 use DBI;
 use DBDefs;
 use MusicBrainz;
-use GUID;
-use Pending;
 require "Main.pl";
 
 sub Arguments
@@ -35,42 +34,48 @@ sub Arguments
     return "";
 }
 
+# This function gets invoked to carry out a cleanup task. 
+# Args: $dbh   - the database handle to do database work
+#       $fix   - if this is non-zero, make changes to the DB. IF THIS IS
+#                ZERO, THEN DO NO MAKE CHANGES TO THE DB!
+#       $quiet - if non-zero then execute quietly (produce no output)
+#       ...    - the arguments that the user passed on the command line
 sub Cleanup
 {
     my ($dbh, $fix, $quiet) = @_;
-    my ($sth, $al, $ar, $tr, $gu, @tracks, $track, $count, $pe);
-
-    $gu = GUID->new($dbh);
-    $pe = Pending->new($dbh);
-   
-    if (! $fix)
-    {
-        print "Sorry this script cannot do preview.\n";
-        return;
-    }
+    my ($new, $count);
 
     $count = 0;
-    $sth = $dbh->prepare(qq\select * from Pending 
-                            order by artist, album\);
-    if ($sth->execute() && $sth->rows)
+
+    # Here is a basic select loop for you to work with.
+    $sth = $dbh->prepare(qq\select id, name from Track\);
+    if ($sth->execute() && $sth->rows())
     {
         my @row;
 
         while(@row = $sth->fetchrow_array())
         {
-            if ($gu->AssociateGUID($row[5], $row[1], $row[2], $row[3]))
+            # Do something with the returned row. Make sure to
+            # keep the user informed as to what the script is doing.
+
+            if ($row[1] =~ /\.mp3$/i)
             {
-                $dbh->do("delete from Pending where id = $row[0]");
-                print "$row[2] -- $row[3] -- $row[1]\n" if (! $quiet);
-                shift @row;
-                $pe->InsertIntoBitziArchive(@row);
+                $new = $row[1];
+                $new =~ s/\.mp3$//i;
+
+                print "$row[1] --> $new\n" if (! $quiet);
+
+                $new = $dbh->quote($new);
+                $dbh->do(qq\update Track set name = $new 
+                            where id = $row[0]\) if ($fix);
                 $count++;
             }
         }
     }
     $sth->finish;
 
-    print "Found $count matching tracks.\n";
+    print "\n$count tracks converted.\n" if ($fix);
+    print "\n$count tracks apply.\n" if (! $fix);
 }
 
 Main(0);

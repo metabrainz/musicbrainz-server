@@ -79,4 +79,5 @@ sub Cleanup
     print "\n < action completed output goes here >\n" if ($fix);
 }
 
+# Call main with the number of arguments that you are expecting
 Main();
