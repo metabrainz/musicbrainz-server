@@ -21,7 +21,7 @@
 <ol>
 	<li>
 		Firstly make sure you've installed all the prerequisite software
-		for a MusicBrainz server (in particular Perl, PostgreSQL, and DBI and
+		for a MusicBrainz server (in particular Perl 5.8, PostgreSQL 7.3, and DBI and
 		DBD::Pg Perl modules).&nbsp; You'll need Apache, mod_perl and Mason
 		for a fully-working server (plus a whole load of other Perl modules),
 		but if all you want is a populated database, you can probably skip those
@@ -39,21 +39,23 @@
 			>mb_server/cgi-bin/DBDefs.pm</a>
 		and set DSN, DB_NAME, DB_USER and DB_PASSWD to the appropriate values
 		(i.e. choose a database name and database owner, and set those values
-		accordingly).
+		accordingly).&nbsp;
+		(You can omit this step if you're happy with the defaults, which are
+		usually reasonable).
 	</li>
 	<li>
 		<a href="/products/server/download.html">Download</a> the dump files
-		(*.tar.bz2 - currently there are three files to download).
+		(*.tar.bz2 - currently there are four files to download).
 	</li>
 	<li>
-		Run <kbd>mb_server/admin/MBImport.pl --create --import mb*.tar.bz2</kbd>
+		Run <kbd>mb_server/admin/InitDb.pl --createdb --import mb*.tar.bz2</kbd>
 		(you'll need enough space in <code>/tmp</code> for the script to unpack
 		all the archives at once).
 	</li>
 </ol>
 
 <p>
-	That should be it!&nbsp; The MBImport script should then create
+	That should be it!&nbsp; The InitDb.pl script should then create
 	the database user, the database, the tables, import the data, and set up all
 	the required indexes, views and so forth.
 </p>
