@@ -49,7 +49,7 @@ read-only mode for database maintainance./;
 # Please note that this is likely to get you into legal trouble if you
 # insert copyrighted lyrics in the database. Please be aware of the 
 # local laws if you intend to run a lyrics server.
-use constant USE_LYRICS => 1;
+use constant USE_LYRICS => 0;
 
 # if the USE_LYRICS is set to 0, then trying to access the showlyrics.html 
 # script will cause an error message. The user will see the following URL

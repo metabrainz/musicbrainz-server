@@ -147,38 +147,37 @@ sub CreateGUIDList
 
 sub CreateMetadataExchange
 {
-   my ($this, $name, $guid, $artist, $album, $seq, $len , $year,
-       $genre, $comment) = @_;
+   my ($this, @data) = @_;
    my ($rdf);
 
    $rdf = $this->BeginRDFObject();
    $rdf .= $this->BeginDesc;
-   $rdf .= $this->Element("DC:Title", $name)
-       unless !defined $name || $name eq '';
-   $rdf .= $this->Element("DC:Identifier", "", guid=>$guid)
-       unless !defined $guid || $guid eq '';
-   $rdf .= $this->Element("DC:Creator", $artist)
-       unless !defined $artist || $artist eq '';
+   $rdf .= $this->Element("DC:Title", $data[0])
+       unless !defined $data[0] || $data[0] eq '';
+   $rdf .= $this->Element("DC:Identifier", "", guid=>$data[4])
+       unless !defined $data[4] || $data[4] eq '';
+   $rdf .= $this->Element("DC:Creator", $data[1])
+       unless !defined $data[1] || $data[1] eq '';
 
-   if (defined $album && $album ne '')
+   if (defined $data[2] && $data[2] ne '')
    {
        $rdf .= $this->BeginElement("DC:Relation", 'type'=>'album');
        $rdf .=    $this->BeginDesc;
-       $rdf .=       $this->Element("DC:Title", escape($album));
+       $rdf .=       $this->Element("DC:Title", escape($data[2]));
        $rdf .=    $this->EndDesc();
        $rdf .= $this->EndElement("DC:Relation");
    }
 
-   $rdf .= $this->Element("MM:TrackNum", $seq)
-       unless !defined $seq || $seq == 0;
-   $rdf .= $this->Element("DC:Format", "", duration=>$len)
-       unless !defined $len || $len == 0;
-   $rdf .= $this->Element("DC:Date", "", issued=>$year)
-       unless !defined $year || $year == 0;
-   $rdf .= $this->Element("MM:Genre", $genre)
-       unless !defined $genre || $genre eq '';
-   $rdf .= $this->Element("DC:Description", $comment)
-       unless !defined $comment || $comment eq '';
+   $rdf .= $this->Element("MM:TrackNum", $data[3])
+       unless !defined $data[3] || $data[3] == 0;
+   $rdf .= $this->Element("DC:Format", "", duration=>$data[13])
+       unless !defined $data[13] || $data[13] == 0;
+   $rdf .= $this->Element("DC:Date", "", issued=>$data[6])
+       unless !defined $data[6] || $data[6] == 0;
+   $rdf .= $this->Element("MM:Genre", $data[7])
+       unless !defined $data[7] || $data[7] eq '';
+   $rdf .= $this->Element("DC:Description", $data[8])
+       unless !defined $data[8] || $data[8] eq '';
    $rdf .= $this->Element("MQ:Status", "OK", items=>1);
    $rdf .= $this->EndDesc();
    $rdf .= $this->EndRDFObject();

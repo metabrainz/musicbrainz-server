@@ -452,40 +452,56 @@ sub GetAlbumsByArtistGlobalId
    return $rdf->CreateAlbumList(@ids);
 }
 
-sub SaveBitprint
+sub PrintData
 {
-   my ($this, $doc, $pending_id, $filename) = @_;
-   my ($bitprint, $first20, $length, $audio_sha1, $duration, $samplerate,
-       $bitrate, $stereo, $vbr);
-   
-   $bitprint  = SolveXQL($doc, 
-                  '/rdf:RDF/rdf:Description/DC:Identifier@bitprint');
-   $first20  = SolveXQL($doc, 
-                  '/rdf:RDF/rdf:Description/DC:Identifier@first20');
-   $length  = SolveXQL($doc, 
-                  '/rdf:RDF/rdf:Description/DC:Identifier@length');
-   $audio_sha1  = SolveXQL($doc, 
-                  '/rdf:RDF/rdf:Description/DC:Identifier@audioSha1');
-   $duration  = SolveXQL($doc, 
-                  '/rdf:RDF/rdf:Description/DC:Identifier@duration');
-   $samplerate  = SolveXQL($doc, 
-                  '/rdf:RDF/rdf:Description/DC:Identifier@sampleRate');
-   $bitrate  = SolveXQL($doc, 
-                  '/rdf:RDF/rdf:Description/DC:Identifier@bitRate');
-   $stereo  = SolveXQL($doc, 
-                  '/rdf:RDF/rdf:Description/DC:Identifier@stereo');
-   $vbr  = SolveXQL($doc, 
-                  '/rdf:RDF/rdf:Description/DC:Identifier@vbr');
+     my ($note, @data) = @_;
 
-   print STDERR "Save:\n$bitprint\n$first20\n$length\n$audio_sha1\n$duration\n";
-   print STDERR "$samplerate\n$bitrate\n$stereo\n$vbr\n\n";
+     print STDERR "$note\n";
+     print STDERR "    Name: $data[0]\n";
+     print STDERR "  Artist: $data[1]\n";
+     print STDERR "   Album: $data[2]\n";
+     print STDERR "     Seq: $data[3]\n";
+     print STDERR "    GUID: $data[4]\n";
+     print STDERR "Filename: $data[5]\n";
+     print STDERR "    Year: $data[6]\n";
+     print STDERR "   Genre: $data[7]\n";
+     print STDERR " Comment: $data[8]\n";
+     print STDERR "Bitprint: $data[9]\n";
+     print STDERR " First20: $data[10]\n";
+     print STDERR "  Length: $data[11]\n";
+     print STDERR "AudioSHA: $data[12]\n";
+     print STDERR "Duration: $data[13]\n";
+     print STDERR "SampRate: $data[14]\n";
+     print STDERR " BitRate: $data[15]\n";
+     print STDERR "  Stereo: $data[16]\n";
+     print STDERR "     VBR: $data[17]\n\n";
 }
 
+# Data array cross reference
+#  0  Name
+#  1  Artist
+#  2  Album
+#  3  Sequence
+#  4  GUID
+#  5  Filename
+#  6  Year
+#  7  Genre
+#  8  Comment
+#  9  Bitprint
+#  10 First20
+#  11 Length (bytes)
+#  12 AudioSha1
+#  13 Duration (ms)
+#  14 SampleRate
+#  15 BitRate
+#  16 Stereo
+#  17 VBR
 sub ExchangeMetadata
 {
-   my ($dbh, $doc, $rdf, $name, $guid, $artist, $album, $seq,
-       $len, $year, $genre, $filename, $comment) = @_;
+   my ($dbh, $doc, $rdf, @data) = @_;
    my (@ids, $id, $gu, $pe, $tr, $rv, $ar);
+
+   PrintData("Incoming:", @data);
 
    if (!DBDefs::DB_READ_ONLY)
    {
@@ -493,137 +509,114 @@ sub ExchangeMetadata
        $gu = GUID->new($dbh);
        $pe = Pending->new($dbh);
        $tr = Track->new($dbh);
+
        # has this data been accepted into the database?
-       $id = $gu->GetTrackIdFromGUID($guid);
+       $id = $gu->GetTrackIdFromGUID($data[4]);
        if (!defined $id || $id < 0)
        {
            # No it has not.
-           @ids = $pe->GetIdsFromGUID($guid);
+           @ids = $pe->GetIdsFromGUID($data[4]);
            if (!defined $ids[0])
            {
-               if (defined $name && $name ne '' &&
-                   defined $guid && $guid ne '' &&
-                   defined $artist && $artist ne '' &&
-                   defined $album && $album ne '')
+               if (defined $data[0] && $data[0] ne '' &&
+                   defined $data[4] && $data[4] ne '' &&
+                   defined $data[1] && $data[1] ne '' &&
+                   defined $data[2] && $data[2] ne '')
                {
-                   my $pending_id;
-
-                   $pending_id = $pe->Insert($name, $guid, $artist, $album, 
-                                             $seq, $len, $year, $genre, 
-                                             $filename, $comment);
-                   $this->SaveBitprint($doc, $pending_id, $filename);
+                   $pe->Insert(@data);
                }
            }
            else
            {
                 # Do the metadata glom
-                CheckMetadata($dbh, $rdf, $pe, $name, $guid, $artist, 
-                              $album, $seq, $len, $year, $genre, $filename, 
-                              $comment, @ids);
+                CheckMetadata($dbh, $rdf, $pe, \@data, \@ids); 
            }
        }
        else
        {
-           my ($db_name, $db_guid, $db_artist, $db_album, $db_seq,
-               $db_len, $db_year, $db_genre, $db_filename, $db_comment);
-    
-           # Yes, it has. Retrieve the data and return it
-           # Fill in, don't override...
-           ($db_name, $db_guid, $db_artist, $db_album, $db_seq, $db_len, 
-            $db_year, $db_genre, $db_filename, $db_comment) = 
-                $tr->GetMetadataFromIdAndAlbum($id, $album);
-    
-           $name = $db_name 
-               if (!defined $name || $name eq "") && defined $db_name;
-           $artist = $db_artist 
-               if (!defined $artist || $artist eq "") && defined $db_artist;
-           $album = $db_album 
-               if (!defined $album || $album eq "") && defined $db_album;
-           $seq = $db_seq 
-               if (!defined $seq || $seq == 0) && defined $db_seq;
-           $len = $db_len 
-               if (!defined $len || $len == 0) && defined $db_len;
-           $year = $db_year 
-               if (!defined $year || $year == 0) && defined $db_year;
-           $genre = $db_genre 
-               if (!defined $genre || $genre eq "") && defined $db_genre;
+           my (@db_data, $i);
+
+           # @db_data will contain 5 items, in the same order as shown above
+           @db_data = $tr->GetMetadataFromIdAndAlbum($id, $data[2]);
+           for($i = 0; $i < 5;  $i++)
+           {
+              if ((!defined $data[$i] || $data[$i] eq "") && 
+                  defined $db_data[$i])
+              {
+                  $data[$i] = $db_data[$i] 
+              }
+           }
+           PrintData("Matched database (outgoing):", @data);
        }
    }
 
-   return $rdf->CreateMetadataExchange($name, $guid, $artist, $album, 
-                                       $seq, $len , $year, $genre, $comment);
+   return $rdf->CreateMetadataExchange(@data);
 }
 
 sub CheckMetadata
 {
-   my ($id, $dbh, $rdf, $pe, $artistid, $albumid);
-   my ($name, $guid, $artist, $album, $seq,
-       $len, $year, $genre, $filename, $comment);
-   my ($db_name, $db_guid, $db_artist, $db_album, $db_seq,
-       $db_len, $db_year, $db_genre, $db_filename, $db_comment);
-   my ($ar, $al, $tr, $gu, $trackid);
+   my ($dbh, $rdf, $pe, $data, $ids) = @_;
+   my ($artistid, $albumid, @db_data);
+   my ($ar, $al, $tr, $gu, $trackid, $id);
 
-   $dbh = shift; $rdf = shift; $pe = shift; $name = shift; $guid = shift; 
-   $artist = shift; $album = shift; $seq = shift; $len = shift; $year = shift;
-   $genre = shift; $filename = shift; $comment = shift;
-
+   print STDERR "GLOM: checking ------------\n";
    $ar = Artist->new($dbh);
    $al = Album->new($dbh);
    $tr = Track->new($dbh);
    $gu = GUID->new($dbh);
    for(;;)
    {
-       $id = shift;
+       $id = shift @$ids;
        return if !defined $id;
-      
-       ($db_name, $db_guid, $db_artist, $db_album, $db_seq,
-        $db_len, $db_year, $db_genre, $db_filename, $db_comment) =
-         $pe->GetData($id);
-
-       if (defined $db_name && defined $name && $name eq $db_name && 
-           defined $db_artist && defined $artist && $artist eq $db_artist &&
-           defined $db_album && defined $album && $album eq $db_album)
+     
+       # Is the data in the pending row we have the same as the data
+       # that was just passed in?
+       @db_data = $pe->GetData($id);
+       print STDERR "'$$data[0]' == '$db_data[0]'\n";
+       print STDERR "'$$data[1]' == '$db_data[1]'\n";
+       print STDERR "'$$data[2]' == '$db_data[2]'\n";
+       print STDERR "'$$data[3]' == '$db_data[3]'\n";
+       print STDERR "'$$data[12]' == '$db_data[12]'\n";
+       if (defined $db_data[0] && defined $$data[0] && 
+           $$data[0] eq $db_data[0] && 
+           defined $db_data[1] && defined $$data[1] && 
+           $$data[1] eq $db_data[1] &&
+           defined $db_data[2] && defined $$data[2] && 
+           $$data[2] eq $db_data[2] &&
+           defined $db_data[3] && defined $$data[3] && 
+           $$data[3] eq $db_data[3] &&
+           defined $db_data[9] && defined $$data[9] && 
+           $$data[9] ne $db_data[9])
        { 
            my @albumids;
 
-           $ar->SetName($artist);
-           $ar->SetSortName($artist);
+           print STDERR "GLOM: data matches, accepting into DB.------------\n";
+           $ar->SetName($$data[1]);
+           $ar->SetSortName($$data[1]);
            $artistid = $ar->Insert();
            $al->SetArtist($artistid);
 
-           @albumids = $ar->GetAlbumsByName($album);
+           @albumids = $ar->GetAlbumsByName($$data[2]);
            if (defined $albumids[0])
            {
                $albumid = $albumids[0]->GetId();
            }
            else
            {
-               $al->SetName($album);
+               $al->SetName($$data[2]);
                $albumid = $al->Insert();
            }
            $al->SetId($albumid);
 
-           $seq = 0 unless 
-               defined $seq && defined $db_seq && $seq == $db_seq;
-           $len = 0 unless 
-               defined $len && defined $db_len && $len == $db_len;
-           $year = 0 unless 
-               defined $year && defined $db_year && $year == $db_year;
-           $genre = undef unless 
-               defined $genre && defined $db_genre && $genre eq $db_genre;
-           $comment = undef unless 
-               defined $comment && defined $db_comment && 
-               $comment eq $db_comment;
-
-           $tr->SetName($name);
-           $tr->SetSequence($seq);
-           $tr->SetLength($len);
+           $tr->SetName($$data[0]);
+           $tr->SetSequence($$data[3]);
+           $tr->SetLength($$data[11]);
            $trackid = $tr->Insert($al, $ar);
            if (defined $trackid)
            {
-               $gu->Insert($guid, $trackid);
+               $gu->Insert($$data[4], $trackid);
            }
-           $pe->DeleteByGUID($guid);
+           $pe->DeleteByGUID($$data[4]);
            return;
        }
    }

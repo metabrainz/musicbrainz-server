@@ -56,9 +56,9 @@ sub GetData
     my ($sql, @row);
 
     $sql = Sql->new($this->{DBH});
-    return $sql->GetSingleRow("Pending", [qw(name guid artist album sequence 
-                           length  year  genre  filename  comment)],
-                           ["id", $id]);
+    return $sql->GetSingleRow("Pending", [qw(Name Artist Album Sequence GUID 
+         Filename Year Genre Comment Bitprint First20 Length AudioSha1 
+         Duration Samplerate Bitrate Stereo VBR)], ["id", $id]);
 }
 
 sub DeleteByGUID
@@ -71,25 +71,30 @@ sub DeleteByGUID
 
 sub Insert
 {
-    my ($this, $name, $guid, $artist, $album, $seq, $length, $year,
-        $genre, $filename, $comment) = @_;
-    my (@ids, $id, $sql);
+    my ($this, @data) = @_;
+    my (@ids, $id, $sql, $query);
 
     $sql = Sql->new($this->{DBH});
-    @ids = GetIdsFromGUID($this, $guid);
+    @ids = GetIdsFromGUID($this, $data[4]);
     if (!defined $ids[0])
     {
-         $name = $sql->Quote($name);
-         $guid = $sql->Quote($guid);
-         $artist = $sql->Quote($artist);
-         $album = $sql->Quote($album);
-         $genre = $sql->Quote($genre);
-         $filename = $sql->Quote($filename);
-         $comment = $sql->Quote($comment);
          $sql = Sql->new($this->{DBH});
-         $sql->Do("insert into Pending (name, GUID, Artist, Album, Sequence, Length, Year, Genre, Filename, Comment) values ($name, $guid, $artist, $album, $seq, $length, $year, $genre, $filename, $comment)");
-         $sql->Do("insert into PendingArchive (name, GUID, Artist, Album, Sequence, Length, Year, Genre, Filename, Comment) values ($name, $guid, $artist, $album, $seq, $length, $year, $genre, $filename, $comment)");
+         $data[0] = $sql->Quote($data[0]);
+         $data[1] = $sql->Quote($data[1]);
+         $data[2] = $sql->Quote($data[2]);
+         $data[4] = $sql->Quote($data[4]);
+         $data[5] = $sql->Quote($data[5]);
+         $data[6] = $sql->Quote($data[6]);
+         $data[7] = $sql->Quote($data[7]);
+         $data[8] = $sql->Quote($data[8]);
+         $data[9] = $sql->Quote($data[9]);
+         $data[10] = $sql->Quote($data[10]);
+         $data[12] = $sql->Quote($data[12]);
 
+         $query = "insert into Pending (Name, Artist, Album, Sequence, GUID, Filename, Year, Genre, Comment, Bitprint, First20, Length, AudioSha1, Duration, Samplerate, Bitrate, Stereo, VBR) values (";
+         $query .= join ", ", @data;
+         $query .= ")";
+         $sql->Do($query);
          $id = $sql->GetLastInsertId;
     } 
     return $id;

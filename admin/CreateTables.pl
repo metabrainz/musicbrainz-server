@@ -115,34 +115,26 @@ sub CreateTables
     $dbh->do("create table Pending (" .
              "   Id int auto_increment primary key," .
              "   Name varchar(255)," .
-             "   GUID varchar(64) not null," . 
              "   Artist varchar(100)," .
              "   Album varchar(100)," .
              "   Sequence int," .
-             "   Length int," .
+             "   GUID varchar(64) not null," . 
+             "   Filename varchar(255)," .
              "   Year int," .
              "   Genre varchar(64)," .
-             "   Filename varchar(255)," .
-             "   Comment text) ")
+             "   Comment text," .
+             "   Bitprint char(88) not null," . 
+             "   First20 char(40) not null," . 
+             "   Length int," .
+             "   AudioSha1 char(40) not null," . 
+             "   Duration int," .
+             "   Samplerate int," .
+             "   Bitrate smallint," .
+             "   Stereo tinyint," .
+             "   VBR tinyint)")
           or die("Cannot create Pending table");
 
     print "Created Pending table.\n";
-
-    $dbh->do("create table PendingArchive (" .
-             "   Id int auto_increment primary key," .
-             "   Name varchar(255)," .
-             "   GUID varchar(64) not null," . 
-             "   Artist varchar(100)," .
-             "   Album varchar(100)," .
-             "   Sequence int," .
-             "   Length int," .
-             "   Year int," .
-             "   Genre varchar(64)," .
-             "   Filename varchar(255)," .
-             "   Comment text) ")
-          or die("Cannot create Pending table");
-
-    print "Created PendingArchive table.\n";
 
     $dbh->do("create table Diskid (" .
              "   Id int auto_increment primary key," .
@@ -336,10 +328,6 @@ sub CreateIndices
     $dbh->do(qq/alter table Pending add index GUIDIndex (GUID)/)
           or die("Could not add indices to Pending table");
     print "Added indices to Pending table.\n";
-
-    $dbh->do(qq/alter table PendingArchive add index GUIDIndex (GUID)/)
-          or die("Could not add indices to PendingArchive table");
-    print "Added indices to PendingArchive table.\n";
 
     $dbh->do(qq/alter table Diskid add index AlbumIndex (Album), 
                                    add index DiskIndex (Disk)/)
