@@ -449,12 +449,14 @@ sub SendEMail
 	$smtp->datasend("Please do not respond to this email.\n");
     if ($from_uid)
     {
-          $smtp->datasend(encode_qp("If you would like to send mail to moderator $from,"));
-          $smtp->datasend(" please use the link below:\n");
+          my $footer;
+
+          $footer = "If you would like to send mail to moderator $from,";
+          $footer .= " please use the link below:\n";
 	
-          $url = "http://" . &DBDefs::WEB_SERVER . 
-                 "/user/mod_email.html?uid=$from_uid";
-          $smtp->datasend("$url\n\n");
+          $footer .= "http://" . &DBDefs::WEB_SERVER .  
+                     "/user/mod_email.html?uid=$from_uid\n\n";
+          $smtp->datasend(encode_qp($footer));
     }
 
 	$ret = $smtp->dataend() ? undef : "Failed to send mail. Please try again later.";
