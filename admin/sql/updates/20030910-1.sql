@@ -1,3 +1,5 @@
+-- Abstract: add moderator_preference.id and moderator_subscribe_artist.id
+
 \set ON_ERROR_STOP 1
 
 BEGIN;
