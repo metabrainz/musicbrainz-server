@@ -1,7 +1,7 @@
 <%perl>
 
 my ($mb); 
-my ($track, $artist, $album, $trackid, @info); 
+my ($track, $artist, $album, $trackid, @info, $gu, @guid, $id); 
 
 if (!exists $ARGS{trackid} || $ARGS{trackid} eq '')
 {
@@ -23,6 +23,9 @@ if (! $track->LoadFromId())
 }
 else
 {
+    $gu = GUID->new($mb->{DBH});
+    @guid = $gu->GetGUIDFromTrackId($track->GetId());
+
     $artist = Artist->new($mb->{DBH});
     $artist->SetId($track->GetArtist());
     if (!defined $artist->LoadFromId())
@@ -49,6 +52,11 @@ else
 % if (exists $session{user}) {
     <td valign="top" align="right">Track RowId:</td>
     <td valign="top"><% $track->GetId() %></td>
+    </tr><tr>
+% }
+% foreach $id (@guid) {
+    <td valign="top" align="right">Track TRM Id:</td>
+    <td valign="top"><% $id %></td>
     </tr><tr>
 % }
     </table>
@@ -90,7 +98,7 @@ else
             <table>
             <tr>
             <td valign="top" align="right">Title:</td>
-            <td valign="top"><% $$album[1] %></td>
+            <td valign="top"><a href="/showalbum.html?albumid=<% $$album[0] %>"><% $$album[1] %></a></td>
             </tr><tr>
             <td valign="top" align="right">Album MB Id:</td>
             <td valign="top"><% $$album[3] %></td>

@@ -29,7 +29,7 @@ $tr_bgcolor = ($track->GetAlbumJoinModPending()) ? 'bgcolor="#FFFFCC"' : '';
 % if ($lyricspresent == 1) {
        <a href="/showlyrics.html?id=<% $track->GetId() %>"><% $track->GetName() %></a>
 % } else {
-       <% $track->GetName() %>
+       <a href="/showtrack.html?trackid=<% $track->GetId() %>"><% $track->GetName() %></a>
 % }
     </td>
 % if ($album->GetArtist() == Artist::VARTIST_ID) {

@@ -3,6 +3,36 @@ $artist
 $album
 </%args>
 
+<%perl>
+
+my (@ids, $di, $id);
+
+$di = Diskid->new($album->{DBH});
+@ids = $di->GetDiskIdFromAlbum($album->GetId());
+
+print STDERR scalar(@ids);
+
+if (exists $session{user} && scalar(@ids) > 0) 
+{
+    if ($album->GetArtist() == Artist::VARTIST_ID) 
+    {
+       mc_out('<td colspan="4"');
+    }
+    else
+    {
+       mc_out('<td colspan="3"');
+    }
+    mc_out('align="center">');
+
+    foreach $id (@ids)
+    {
+       mc_out("CD Index Id: $id<br>");
+    }
+
+    mc_out("</td></tr>");
+}
+
+</%perl>
   </table>
 </td></tr>
 </table> 
