@@ -35,6 +35,10 @@ return if $m->comp("/comp/dbreadonly", 0, 0);
 		<a href="/newlogin.html?url=<% url_escape($url) %>">Create a new account</a>
 	</p>
 
+	<p style="text-align: center">
+		<a href="/user/forgot-password.html">Forgot your password?</a>
+	</p>
+
 	<input type="hidden" name="url" value="<% $url %>">
 
 </form>
