@@ -71,6 +71,8 @@ $time = time();
 <p class="LinksRow">
 	[
 	<a href="/user/view.html">Profile &amp; Statistics</a>
+	| <a href="/user/edit.html">Edit</a>
+	| <a href="/user/change-password.html">Change Password</a>
 	| <a href="/user/subscriptions.html">Subscriptions</a>
 	]
 </p>
@@ -81,7 +83,7 @@ $time = time();
 </p>
 % }
 
-<form method="post" action="/prefs.html" name="Preferences">
+<form method="post" action="/prefs.html" id="PreferencesForm">
 	<input type="hidden" name="SavePrefs" value="1">
 
 	<h2>Moderation Pages</h2>
@@ -233,5 +235,5 @@ $time = time();
 
 </form>
 
-<& /comp/movefocus, "Preferences", "mod_add_album_inline" &>
+<& /comp/movefocus, "PreferencesForm", "mod_add_album_inline" &>
 <& /comp/footer &>
