@@ -1,3 +1,7 @@
+<%args>
+$search=>""
+</%args>
+
 % if (!defined $session{user} || $session{user} eq '') {
     <& /comp/sidebar, title=>"Freedb Disc Import", expand=>"moderate" &>
     You must be logged in to edit the database.<p>
@@ -11,7 +15,11 @@
 <frameset rows="15%,*" frameborder="1">
 
  <frame name="mb" src="top.html">
- <frame name="freedb" src="http://www.freedb.org/freedb_search.php">
+% if ($search eq '') {
+    <frame name="freedb" src="http://www.freedb.org/freedb_search.php">
+% } else {
+    <frame name="freedb" src="http://www.freedb.org/freedb_search.php?words=<% $search |u %>&allfields=NO&fields=artist&fields=title&allcats=YES&grouping=none">
+% }
 
  </frameset>
 

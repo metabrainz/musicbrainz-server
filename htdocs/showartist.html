@@ -48,7 +48,10 @@ else
     
     mc_out("[ <a href=\"/addalbum.html?artistid=");
     mc_out($artist->GetId());
-    mc_out("\">Add album</a> ");
+    mc_out("\">Add album</a> | ");
+    </%perl>
+    <a href="/freedb/freedb.html?search=<% $artist->GetName() |u %>">Import album</a>
+    <%perl>
 
     if ($artist->GetName() ne "Unknown" && 
         $artist->GetId() != Artist::VARTIST_ID && 
