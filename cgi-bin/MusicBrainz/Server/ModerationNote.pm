@@ -79,8 +79,10 @@ sub mark_up_text_as_html
 			)
 		)
 		/six, $text, -1;
-		
-		#"# Vim catch-up
+
+	my $server = &DBDefs::WEB_SERVER;
+	$html =~ s[\b(?:mod(?:eration)? #?|edit #|change #)(\d+)\b]
+		[<a href="http://$server/showmod.html?modid=$1">edit #$1</a>]g;
 
 	$html;
 }
