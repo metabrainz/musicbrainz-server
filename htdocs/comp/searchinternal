@@ -5,7 +5,7 @@
 </td>
 <td width="48%" valign="top">
   <& /comp/tablebegin, title=>'Search', attrs=>"align=left",
-     gattrs=>"width=100%" &>
+     gattrs=>"width='100%'" &>
     <br>
 
     <& /comp/textsearch, default=>'Artist' &>
@@ -31,7 +31,7 @@
   <& /comp/tableend &>
 
   <& /comp/tablebegin, title=>'Site Search', attrs=>"align=left",
-     gattrs=>"width=100%" &>
+     gattrs=>"width='100%'" &>
 
     <center>
     <FORM method=GET action=http://www.google.com/custom>
@@ -58,21 +58,21 @@
 </td>
 <td width="48%" valign="top">
   <& /comp/tablebegin, title=>'Browse Artists', attrs=>"align=center", 
-     gattrs=>"width=100%" &>
+     gattrs=>"width='100%'" &>
     <br>
-    <& /comp/browsebox, page=>'/browseartists.html', showspecial=>0 &>
+    <& /comp/browsebox, page=>'/browseartists.html', showspecial=>"below" &>
     <br>
   <& /comp/tableend &>
     
   <& /comp/tablebegin, title=>'Browse Various Artist Albums', attrs=>"align=center", 
-     gattrs=>"width=100%" &>
+     gattrs=>"width='100%'" &>
     <br>
-    <& /comp/browsebox, page=>'/browsevarious.html', showspecial=>0  &>
+    <& /comp/browsebox, page=>'/browsevarious.html', showspecial=>"below"  &>
     <br>
   <& /comp/tableend &>
 
   <& /comp/tablebegin, title=>'Contribute', attrs=>"align=center", 
-     gattrs=>"width=100%" &>
+     gattrs=>"width='100%'" &>
     <br>
     <a href="/addartist.html">Add artist</a> | 
     <a href="/addalbum.html?artistid=0">Add  album</a><br>
@@ -84,7 +84,7 @@
 
 % if ($session{user} ne "") {
   <& /comp/tablebegin, title=>'Login', attrs=>"align=center",
-     gattrs=>"width=100%" &>
+     gattrs=>"width='100%'" &>
     <br>
     You are logged in as <b><% $session{user} %></b>.<br>
     View/update your <a href="/moderator.html?uid=<% $session{uid} %>">profile</a><br>
@@ -95,7 +95,7 @@
   <& /comp/tableend &>
 
   <& /comp/tablebegin, title=>'Moderate', attrs=>"align=center",
-     gattrs=>"width=100% cellpadding=50 " &>
+     gattrs=>"width='100%' cellpadding=50 " &>
     <br>
     <a href="/moderate.html">Vote/Moderate</a> MusicBrainz.
     <br>
@@ -103,7 +103,7 @@
   <& /comp/tableend &>
 % } else {
   <& /comp/tablebegin, title=>'Login', attrs=>"align=center", 
-     gattrs=>"width=100%" &>
+     gattrs=>"width='100%'" &>
     <br>
     <& /comp/loginbox &>
     <br>
