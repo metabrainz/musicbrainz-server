@@ -1,3 +1,7 @@
+%# vi: set ts=8 sw=4 ft=mason :
+<%args>
+@artistfilter_dontshow => ()
+</%args>
 <%perl>
 
 # This script is designed as a pass-through script. All the data passed
@@ -15,7 +19,7 @@ my ($artist, @names);
 if (!exists $ARGS{new0} || $ARGS{new0} eq '' ||
     !exists $ARGS{mode} || $ARGS{mode} eq '')
 {
-    mc_comp("/comp/badargs");
+    mc_comp("/comp/badargs", 1, 1);
     return undef;
 }
 $mode = $ARGS{mode};
@@ -40,18 +44,21 @@ $arg = $ARGS{$argname};
 
 $mb = mc_comp("/comp/dblogin");
 
+my %dontshow = map { $_=>1 } @artistfilter_dontshow;
+
 $ar = Artist->new($mb->{DBH});
 # try to load the artist. If that artist is not found, then try a search
 if ($ar->LoadFromName($arg))
 {
     $artist = { name=>$ar->GetName(), 
                 sortname=>$ar->GetSortName(), 
-                id=>$ar->GetId() };
-}
-else
-{
-    $artist = undef;
+		id=>$ar->GetId() };
 
+    $artist = undef
+	if $dontshow{ $artist->{id} };
+}
+
+{
     $eng = SearchEngine->new($mb->{DBH});
     $eng->Table("Artist");
     $eng->AllWords(1);
@@ -59,9 +66,12 @@ else
     
     while (my $row = $eng->NextRow)
     {
+	next if $dontshow{ $row->[0] };
+	next if $artist and $row->[0] eq $artist->{id};
         push @names, { name=>$row->[1], sortname=>$row->[2], id=>$row->[0] };
     }
 }
+
 </%perl>
 
 <p>
@@ -120,8 +130,9 @@ move track <span class="bold"><% $ARGS{prev0} %></span> to the selected artist:
 %   if (defined $artist) {
        <tr><td>
        <input type="radio" name="<% $argname %>" value="<% $artist->{name} |h %>"
-       CHECKED>&nbsp;<% $artist->{sortname} %></td><td><% $artist->{name} %>
-       </td></tr>
+       CHECKED>&nbsp;<% $artist->{sortname} %></td>
+       <td><a href="showartist.html?artistid=<% $artist->{id} %>"><% $artist->{name} %></a></td>
+       </tr>
 %   }
 %   $i = 0;
 %   foreach $name (@names) {
@@ -130,7 +141,9 @@ move track <span class="bold"><% $ARGS{prev0} %></span> to the selected artist:
 %       if ($i == 0 && !defined $artist) {
            CHECKED
 %       }
-        >&nbsp;<% $name->{sortname} %></td><td><% $name->{name} %></td></tr>
+	>&nbsp;<% $name->{sortname} %></td>
+	<td><a href="showartist.html?artistid=<% $name->{id} %>"><% $name->{name} %></a></td>
+	</tr>
 %       $i++;
 %   }
     </table>
@@ -139,8 +152,8 @@ move track <span class="bold"><% $ARGS{prev0} %></span> to the selected artist:
 }
 
 # If were doing anything but merging, give the user the option to create
-# a new artist, if we didn't find an exact match
-if (!defined $artist && $mode ne 'merge') 
+# a new artist
+if ($mode ne 'merge') 
 {
    </%perl>
    <& /comp/tablebegin, title=>'New Artist', gattrs=>'width="100%"' &>
@@ -158,6 +171,7 @@ if (!defined $artist && $mode ne 'merge')
    Enter artist name if different from sort name:<br>
    <input type="text" name="<% $dest_argname %>"
 	style="width: 100%"
+	value="<% $ARGS{$dest_argname} || '' %>"
 	> 
    </td></tr></table>
    <& /comp/tableend &>
@@ -178,4 +192,5 @@ $mb->Logout();
 <input type="submit" value="Finish &gt;&gt;" name="Finish">
 </form>
 
+<& /comp/movefocus, "ArtistFilter", $argname, 0 &>
 <& /comp/footer &>
