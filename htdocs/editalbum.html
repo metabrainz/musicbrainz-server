@@ -1,82 +1,82 @@
-<& /comp/sidebar, title=>'Edit Album Name', expand=>'moderate' &>
+%# vi: set ts=2 sw=2 ft=mason :
+<%args>
+$album => undef
+</%args>
+
+<& /comp/sidebar, title => 'Edit Album Name' &>
 
 <%perl>
 
-my ($mb, $id, $albumname, $modpending, $al, $artist); 
+$m->comp("/comp/checkloggedin", 0, 1)
+	or return;
 
-if (!exists $ARGS{id} || $ARGS{id} eq '' ||
-    !exists $ARGS{artist} || $ARGS{artist} eq '')
-{
-    mc_comp("/comp/badargs");
-    return undef;
-}
+MusicBrainz::IsNonNegInteger($album) && $album
+	or return $m->comp("/comp/badargs", 0, 1);
 
-$mb = mc_comp("/comp/dblogin");
-$id = $ARGS{id};
-$artist = $ARGS{artist};
+my $mb = $m->comp("/comp/dblogin");
 
-$al = Album->new($mb->{DBH});
-$al->SetId($id);
-$al->LoadFromId();
+my $al = Album->new($mb->{DBH});
+$al->SetId($album);
+$al->LoadFromId
+	or return $m->comp(
+		"/comp/error",
+		"Album #$album does not exist",
+		0, 1,
+	);
 
-$albumname = $al->GetName();
-$modpending = $al->GetModPending();
+my $ar = Artist->new($mb->{DBH});
+$ar->SetId($al->GetArtist);
+$ar->LoadFromId
+	or return $m->comp(
+		"/comp/error",
+		"Artist does not exist",
+		0, 1,
+	);
 
 </%perl>
 
-% if (!defined $session{user} || $session{user} eq '') {
-    You must be logged in to edit the database.<p>
-    <& /comp/tablebegin, title=>'Login' &>
-    <& /comp/loginbox &>
-    <& /comp/tableend &>
-% } else {
+<& /comp/stylemenu &>
 
-    <& /comp/stylemenu &>
+<h2>Edit Album Name</h2>
 
-    <& /comp/tablebegin, gattrs=>"width=\"100%\"",
-       title=>'Edit Album Name' &>
-
-% if ($modpending) {
-    <& /comp/modpending &>
-% } 
-
-    <FORM METHOD="POST" ACTION="/bare/enter_mod.html" NAME="EditAlbumForm"
-          ENCTYPE="application/x-www-form-urlencoded">  
-    <table width="100%">
-      <tr>
-        <td align="right">
-        Current Name:
-        </td>
-        <td width="75%">
-        <% $albumname  %>
-        </td>
-      </tr>
-      <tr>
-        <td align="right">
-        New Name:
-        </td>
-        <td width="75%">
-        <INPUT TYPE="text" NAME="new0" SIZE=25 value="<% $albumname %>"> 
-        </td>
-      </tr>
-      <tr>
-        <td colspan=2>
-        <INPUT TYPE="submit" NAME="Submit" VALUE="Submit">    
-        </td>
-      </tr>
-    </table>
-    <input type="hidden" name="artist0" value="<% $artist  %>">
-    <input type="hidden" name="type0" 
-           value="<% ModDefs::MOD_EDIT_ALBUMNAME %>">
-    <input type="hidden" name="prev0" value="<% $albumname  %>">
-    <input type="hidden" name="table0" value="Album">
-    <input type="hidden" name="column0" value="Name">
-    <input type="hidden" name="id0" value="<% $id %>">
-    <input type="hidden" 
-           name="url" value="/showalbum.html?albumid=<% $id %>">
-    </form>
-      
-    <& /comp/tableend &>
+% if ($al->GetModPending) {
+	<& /comp/modpending &>
 % }
-% $mb->Logout();
+
+<form method="post" action="/bare/enter_mod.html" name="EditAlbumForm"
+	enctype="application/x-www-form-urlencoded">
+
+	<table width="100%">
+		<tr>
+			<td align="right">
+				Current Name:
+			</td>
+			<td width="75%">
+				<% $al->GetName %>
+			</td>
+		</tr>
+		<tr>
+			<td align="right">
+				New Name:
+			</td>
+			<td width="75%">
+				<input type="text" name="new0" size="50" value="<% $al->GetName %>">
+			</td>
+		</tr>
+	</table>
+
+	<p>
+		<input type="submit" value="Submit">
+	</p>
+
+	<input type="hidden" name="artist0" value="<% $ar->GetId  %>">
+	<input type="hidden" name="type0" value="<% ModDefs::MOD_EDIT_ALBUMNAME %>">
+	<input type="hidden" name="prev0" value="<% $al->GetName %>">
+	<input type="hidden" name="table0" value="Album">
+	<input type="hidden" name="column0" value="Name">
+	<input type="hidden" name="id0" value="<% $al->GetId %>">
+	<input type="hidden" name="url" value="/showalbum.html?albumid=<% $al->GetId %>">
+</form>
+
+<& /comp/movefocus, "EditAlbumForm", "new0" &>
 <& /comp/footer &>

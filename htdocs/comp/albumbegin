@@ -70,7 +70,7 @@ if ($link ne '')
 
         <td width="1%" bgcolor="#FFBA58" align=center valign=top nowrap>
 %         if (!$nonalbum) {
-              <a href="/editalbum.html?id=<% $albumid %>&amp;artist=<% $artist->GetId() %>">Edit</a> | 
+              <a href="/editalbum.html?album=<% $albumid %>">Edit</a> | 
 %         }
           <a href="/remalbum.html?album=<% $albumid %>&amp;artist=<% $artist->GetId() %>">Del</a>
         </td>
