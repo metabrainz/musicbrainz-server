@@ -49,10 +49,12 @@ my $sqlWrite = Sql->new($mb2->{DBH});
 
 my $use_auto_mod = 1;
 my $moderator = &ModDefs::MODBOT_MODERATOR;
-my $do_artist = 1;
-my $do_artistalias = 1;
-my $do_album = 1;
-my $do_track = 1;
+my %do = (
+	artist => 1,
+	artistalias => 1,
+	album => 1,
+	track => 1,
+);
 my $help = 0;
 my $fixfile = undef;
 my $debug = 0;
@@ -66,10 +68,10 @@ GetOptions(
 		$uid or die "No such moderator '$user'";
 		$moderator = $uid;
 	},
-	"artist!"		=> \$do_artist,
-	"artistalias!"	=> \$do_artistalias,
-	"album!"		=> \$do_album,
-	"track!"		=> \$do_track,
+	"artist!"		=> \$do{'artist'},
+	"artistalias!"	=> \$do{'artistalias'},
+	"album!"		=> \$do{'album'},
+	"track!"		=> \$do{'track'},
 	"fixfile=s"		=> \$fixfile,
 	"debug!"		=> \$debug,
 	"help"			=> \$help,
@@ -128,15 +130,16 @@ $privs |= UserStuff::AUTOMOD_FLAG if $use_auto_mod;
 for (
 	[ &ModDefs::MOD_EDIT_ARTISTNAME, "artist.name.id" ],
 	[ &ModDefs::MOD_EDIT_ARTISTSORTNAME, "artist.sortname.id" ],
-	[ undef, "artistalias.name.ref" ],
+	[ &ModDefs::MOD_EDIT_ARTISTALIAS, "artistalias.name.ref" ],
 	[ &ModDefs::MOD_EDIT_ALBUMNAME, "album.name.artist" ],
 	[ &ModDefs::MOD_EDIT_TRACKNAME, "track.name.artist" ],
 ) {
 	my $modtype = $_->[0];
 	my ($table, $column, $artistcol) = split /\./, $_->[1];
 
-	{ no strict 'refs'; ${"do_$table"} or next; }
+	$do{$table} or next;
 
+	print "Reading $table table\n" if $debug;
 	$sql->Select(
 		"SELECT id, $column, $artistcol FROM $table WHERE $column ~ ? OR $column ~ ?",
 		$smartquote_enc,
@@ -171,13 +174,17 @@ for (
 
 			my @mods;
 				
-			unless ($table eq "artistalias")
-			{
+			eval {
 				my $thingtype;
 				my $thing;
 				
 				if ($table eq "artist")
 				{
+					# TODO If the new name already exists, we'll get merge
+					# instead; however, the merge won't be auto-modded.
+					# Hence, we need to check for name clashes, then check for
+					# open "merge" mods, and not add the mod if it's already
+					# there.
 					require Artist;
 					my $ar = Artist->new($sqlWrite->{DBH});
 					$ar->SetId($id);
@@ -185,11 +192,21 @@ for (
 					$ar->SetSortName(encode "utf-8", $oname);
 					($thingtype, $thing) = (artist => $ar);
 				}
+				elsif ($table eq "artistalias")
+				{
+					require Alias;
+					my $al = Alias->new($sqlWrite->{DBH}, 'artistalias');
+					$al->SetId($id);
+					$al->SetRowId($artistid);
+					$al->SetName(encode "utf-8", $oname);
+					($thingtype, $thing) = (alias => $al);
+				}
 				elsif ($table eq "album")
 				{
 					require Album;
 					my $al = Album->new($sqlWrite->{DBH});
 					$al->SetId($id);
+					$al->SetArtist($artistid);
 					$al->SetName(encode "utf-8", $oname);
 					($thingtype, $thing) = (album => $al);
 				}
@@ -198,6 +215,7 @@ for (
 					require Track;
 					my $tr = Track->new($sqlWrite->{DBH});
 					$tr->SetId($id);
+					$tr->SetArtist($artistid);
 					$tr->SetName(encode "utf-8", $oname);
 					($thingtype, $thing) = (track => $tr);
 				}
@@ -214,55 +232,31 @@ for (
 					$thingtype => $thing,
 					newname => encode("utf-8", $name),
 				);
-			}
-			else
+
+				if (@mods == 1 and $mods[0]->Type == &ModDefs::MOD_MERGE_ARTIST)
+				{
+					# Check to see if there's already an open mod that's the
+					# same as this one.
+
+					# TODO check...
+
+					if (1)
+					{
+						warn "Rolling back Merge Artist mod\n";
+						eval { $sqlWrite->Rollback };
+						next; # "Exiting eval via next"
+					}
+				}
+			};
+
+			if ($@)
 			{
-				# TODO we really need a MOD_EDIT_ARTISTALIAS here... :-(
-
-				# Since MOD_REMOVE_ARTISTALIAS is never auto-moderated,
-				# it's possible that one or both of these moderations already
-				# exists for this artist.
-				# Check that these mods aren't already present
-				# before adding them.
-
-				next if $sqlWrite->SelectSingleValue(
-					"SELECT COUNT(*)
-					FROM moderation
-					WHERE artist = ?
-					AND type IN (" . &ModDefs::MOD_REMOVE_ARTISTALIAS . ", " . &ModDefs::MOD_ADD_ARTISTALIAS . ")
-					AND status = " . &ModDefs::STATUS_OPEN,
-					$artistid,
-				);
-
-				require Artist;
-				my $ar = Artist->new($sqlWrite->{DBH});
-				$ar->SetId($id);
-
-				require Alias;
-				my $al = Alias->new($sqlWrite->{DBH}, "ArtistAlias");
-				$al->SetId($id);
-				$al->SetName(encode "utf-8", $oname);
-				
-				push @mods, Moderation->InsertModeration(
-					DBH	=> $sqlWrite->{DBH},
-					uid	=> $moderator,
-					privs => $privs,
-					type => $modtype,
-					# --
-					artist => $ar,
-					alias => $al,
-				);
-
-				push @mods, Moderation->InsertModeration(
-					DBH	=> $sqlWrite->{DBH},
-					uid	=> $moderator,
-					privs => $privs,
-					type => $modtype,
-					# --
-					artist => $ar,
-					newalias => encode("utf-8", $name),
-				);
-
+				my $err = $@;
+				$err = eval { $err->GetError } || $err
+					if ref $err;
+				eval { $sqlWrite->Rollback };
+				print STDERR "Error inserting moderation for $table #$id: $err\n";
+				next;
 			}
 
 			$sqlWrite->Commit;
@@ -281,8 +275,11 @@ for (
 if (%types)
 {
 	print "Entered the following moderations:\n";
-	printf "  Type %2d : %d\n", $_, $types{$_}
-		for sort { $a <=> $b } keys %types;
+	for my $type (sort { $a <=> $b } keys %types)
+	{
+		my $name = Moderation->ClassFromType($type)->Name;
+		printf "  Type %2d (%s) : %d\n", $type, $name, $types{$type};
+	}
 }
 
 if (not defined $fixfile)
