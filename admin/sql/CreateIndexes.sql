@@ -59,3 +59,7 @@ create index ModerationNote_ModIndex on ModerationNote (Modid);
 create unique index Stats_TimestampIndex on Stats (timestamp);
 
 create unique index ClientVersion_Version on ClientVersion (version);
+
+CREATE INDEX historicalstat_date on historicalstat (snapshotdate);
+CREATE UNIQUE INDEX historicalstat_namedate on historicalstat (name, snapshotdate);
+
