@@ -1,173 +1,31 @@
 The MusicBrainz server README
 
-README contents:
-================
+This file lists a number of web pages which will hopefully answer your
+questions.  I've taken this approach because this file was and is mostly
+only poorly maintained, but the web pages are much more likely to contain
+up-to-date information.
 
-This file contains > 200 lines of text about the project, the software details,
-a description for each of the 17 database tables, the insert process, acoustic 
-audio fingerprinting, description of each Perl program file, and the web pages.
+* Where to find us
+  http://www.musicbrainz.org/
 
-Other information:
-==================
+* About the MusicBrainz Project
+  http://www.musicbrainz.org/introduction.html
 
-On http://www.musicbrainz.org it is possible to read more general info about 
-musicbrainz such as the past, future goals, todo list, FAQ, etc.
+* Acousting fingerprints and TRMs
+  http://www.musicbrainz.org/docs/20031108-2.html
 
-The project:
-============
+* Licenses for the software and the data
+  http://www.musicbrainz.org/news/licenses.html
 
-MusicBrainz is a network of web sites that form an open music encyclopedia. 
-Like a normal encyclopedia the MusicBrainz encyclopedia contains numerous 
-facts, specifically about artists, their albums, and tracks.
+* Server architecture overview
+  http://www.musicbrainz.org/products/server/index.html
 
-One of the key features of MusicBrainz is that it is completely open and free.
-You can download the complete music encyclopedia, without any cost. 
-Consumers and music companies have free access to all information.
-Another key feature is that contributions are also open. Users can
-submit new information to MusicBrainz or correct errors in the information.
-The final key feature is that MusicBrainz is a network of web sites without a 
-central server. All MusicBrainz web sites are equal, this means nobody owns 
-the content. This is a deliberate decision to keep everything as open as 
-possible.
+* Database structure
+  http://www.musicbrainz.org/products/server/docs/20030820-1/index.html
 
-The software:
-==============
+* An overview of the mb_server codebase
+  http://www.musicbrainz.org/products/server/docs/20040215-1.html
 
-The GPLed server software you obtained contains the following directories:
--admin:    scripts for creation of tables, cleanup, voting, backup dumps, etc.
--cgi-bin:  program files for database lookup, inserts, and RDF handling
--htdocs:   html files with added mason perl code for active content generation
+* Help!
+  http://www.musicbrainz.org/support/contact.html
 
-The database:
-=============
-
-See http://musicbrainz.org/products/server/docs/index.html 
-(or the file ./htdocs/products/server/docs/index.html)
-
-RDF support:
-============
-
-The MusicBrainz server uses the Resource Description Framework (RDF) 
-extensively for communication between the client and the server.
-HTML is the standard web language, XML is a extended version of this. 
-RDF uses the XML language to describe resource in a very structured, 
-machine readable manner.  Queries are given in the RDF format and 
-response with lists of tracks, albums, and artists are also in RDF. The 
-server uses the RDFStore::Parser::SiRPAC
-
-Acoustic fingerprints:
-======================
-
-The MusicBrainz server uses the Relatable TRM acoustic fingerprints for audio 
-file identification. The server database contains for each TRM Id audio file 
-fingerprint the artist/album/track info. The fingerprint is a 36 character 
-field containing only letters, digits, and the '-' seperation char. In order 
-to generate a TRM id, you will need to feed the MusicBrainz client library the 
-first 30 seconds worth of PCM data from an audio stream.  Once you've fed it 
-the 30 seconds of data, the client library will send the acousting fingerprint 
-information to the Relatable server and the server will assign and return 
-a TRM ID to the given song. You can then use the TRM id to look up metadata 
-for the song, and fill out the ID3 tags (or equivalent) automatically.  The 
-file cgi-bin/QuerySupport.pm contains the LookupMetadata function that 
-implements this lookup process.
-
-Insert process:
-===============
-
-The information within the MusicBrainz database is automatically collected 
-with the FreeAmp MP3 player. People using this player are asked if they want 
-to participate with the data collection process. Songs of the user are 
-searched on the hard disk, acoustic fingerprints are made, SHA1 hash is 
-calculated and the ID3 fields are read if present.
-
-This data is sent to the server. In the early stages of MusicBrainz this data 
-was directly fed into the database, however this resulted into a significant 
-amount of garbage.  Music files with incorrect ID3 fields were inserted 
-without a problem. When such incorrectly labeled files are shared on Napster 
-they get resubmitted even after correction of typo's.  The insert process is 
-extended with the Pending table. If a new music file is encountered it
-is inserted with all info into the Pending table. If this artist/album/track 
-information is found again in the ID3 fields of a file it is inserted into 
-the main database.  When this second match is found the actual music file must 
-be different, this is checked with the SHA1 hash. The automatic insert process 
-thus inserts only tracks if there are two different MP3 files out there with 
-exactly the same info.  On the web site there is now also a web based 
-interface for adding the name of a track to a listed artist && album.
-
-cgi-bin Perl files:
-===================
-
-The functionality of the server is mostly implemented in the cgi-bin perl .pm 
-files.  For each table within the database there is a corresponding Perl file 
-to handle the insert, query, and display of the content. All the software is 
-implemented in a object oriented manner. The file cgi-bin/Track.pm for 
-example implements functions such as:
-
-   new, Insert, Remove, GetArtist, SetAlbum, LoadFromId, and SearchByName.
-
-Main/general files:
-MusicBrainz.pm        database login/logout functions, main package
-DBDefs.pm             database name, access user/passwd, server settings
-FreeDB.pm             access to the FreeDB CD database for Audio CD's
-Insert.pm             houses the large Insert function of new info
-Sql.pm                every project has a DBI-wrapper layer.  This is ours.
-TableBase.pm          helper functions for building table access queries
-
-Database table control files:
-Track.pm              Track  access and manipulation functions
-Album.pm              Album  access and manipulation functions
-Artist.pm             Artist access and ...
-Alias.pm              Alias ...
-Diskid.pm             ...
-GUID.pm
-Genre.pm
-Lyrics.pm
-Pending.pm
-
-moderation proces files:
-ModDefs.pm            definition of voting constants for type of voting, 
-                      result, etc.
-Moderation.pm         main manipulation of the ModeratorInfo, Votes, and Changes
-ModerationKeyValue.pm moderation helper functions with PreVote, 
-                      Dependancy checks
-ModerationSimple.pm   display values for voting and old/new values
-UserStuff.pm          creation of login name for moderation and login of a 
-                      moderator
-
-client communication files:
-rquery.pl             main Perl file, lists handling function and RDF fields
-QuerySupport.pm       all handling functions for each query
-RDF.pm                helper functions for creation of elementairy RDF texts 
-RDF2.pm               helper functions, version 2 syntax
-RDFOutput.pm          creation of RDF lists of artist, albums, etc.
-RDFOutput2.pm         RDF lists, version 2 syntax
-mq.pl                 Perl file defining handling functions, version 2 syntax
-rdf.pl                Perl info access script using artist/album/track Id
-
-htdocs mason files:
-===================
-
-The htdocs directory is files implement the web pages of the MusicBrainz 
-server.  All pages are created on run-time from the .html mason files that 
-mix perl code with html.
-
-The htdocs/autohandler file is always displayed and ensures that the 
-htdocs/header and htdocs/footer is displayed on every page. The autohandler 
-displays the standard logo, navigation bar and web links.
-
-The web based moderation process is implemented in the cgi-bin code and 
-the .html files for layout of the raw data. The subdirectory htdocs/comp 
-houses several modules that implement the web page layouts. htdocs/comp 
-modules include start/end html tables with standard colors,
-the navigation sidebar of the site, track/album/artist display, etc.
-Using the modules the copying of html code is prevented and changes to the 
-web layout/color is made easier.
-
-The end:
-========
-
-If you have any questions on MusicBrainz, feel free to ask me, or Rob.
-mailto: j@mp3.nl  or  rob@eorbit.net
-
-I hope you like our work,
-Johan Pouwelse
