@@ -145,6 +145,9 @@ sub Lookup
     my ($m, $s, $f, @cd_data, $ret);
     my ($id, $query, $trackoffsets, $offset, $sum, $total_seconds);
 
+$diskid = "6FtlNouSR8xl6EKF_JOrUteDGD0-";
+$toc = "1 10 158875 182 15667 35850 45910 57615 78420 91675 107545 120370 137745";
+
     my @toc = split / /, $toc;
     $first = shift @toc;
     $last = shift @toc;
@@ -390,19 +393,37 @@ sub InsertForModeration
     return if (!$st->UpperLowercaseCheck($info->{artist}));
     return if (!$st->UpperLowercaseCheck($info->{album}));
 
+    $info->{sortname} = $st->MakeDefaultSortname($info->{artist});
+
+    print STDERR "* Check artist '$info->{artist}'\n";
     $ar = Artist->new($this->{DBH});
-    if ($ar->LoadFromName($info->{artist}))
+    if ($ar->LoadFromName($info->{artist}) || 
+        $ar->LoadFromSortname($info->{artist}))
     {
         my (@albums, $al);
 
+        if ($ar->GetSortName() eq $info->{artist})
+        {
+            $info->{sortname} = $ar->GetSortName();
+            $info->{artist} = $ar->GetName();
+        }
+
+        print STDERR "* Loaded artist '$info->{artist}'\n";
         @albums = $ar->GetAlbums();
         foreach $al (@albums)
         {
+            print STDERR "* Check album '$info->{album}' - '$al->{name}'\n";
             if (lc($al->GetName()) eq lc($info->{album}))
             {
+                print STDERR "* Check track count " .
+                             $al->GetTrackCount() . " " .
+                             scalar(@$ref) . "\n";
+                             
                 if ($al->GetTrackCount() == scalar(@$ref))
                 {
                     my ($di);
+
+                    print STDERR "* Associate id $info->{cdindexid}\n";
 
                     $di = Diskid->new($this->{DBH});
                     $di->Insert($info->{cdindexid}, $al->GetId(), $info->{toc});
@@ -412,9 +433,10 @@ sub InsertForModeration
             }
         }
     }
+    print STDERR "* Insert new for $info->{artist} $info->{album}\n\n";
 
     $new = "Artist=$info->{artist}\n";
-    $new .= "Sortname=" . $st->MakeDefaultSortname($info->{artist}) . "\n";
+    $new .= "Sortname=$info->{sortname}\n";
     $new .= "AlbumName=$info->{album}\n";
     $new .= "NumTracks=" . scalar(@$ref) . "\n";
     $new .= "CDIndexId=$info->{cdindexid}\n";

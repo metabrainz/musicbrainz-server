@@ -173,6 +173,29 @@ sub LoadFromName
    return undef;
 }
 
+# Load an artist record given a sortname. The name must match exactly.
+# returns 1 on success, undef otherwise. Access the artist info via the
+# accessor functions.
+sub LoadFromSortname
+{
+   my ($this, $sortname) = @_;
+   my ($sql, @row);
+
+   $sql = Sql->new($this->{DBH});
+   @row = $sql->GetSingleRow("Artist", [qw(id name GID modpending sortname)],
+                             ["sortname", $sql->Quote($sortname)]);
+   if (defined $row[0])
+   {
+        $this->{id} = $row[0];
+        $this->{name} = $row[1];
+        $this->{mbid} = $row[2];
+        $this->{modpending} = $row[3];
+        $this->{sortname} = $row[4];
+        return 1;
+   }
+   return undef;
+}
+
 # Load an artist record given an artist id.
 # returns 1 on success, undef otherwise. Access the artist info via the
 # accessor functions.
