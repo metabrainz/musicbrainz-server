@@ -64,7 +64,8 @@ if ($do_update) {
 my $sth = $sqlWrite->{DBH}->prepare(
 	"UPDATE wordlist
 	SET artistusecount = ?, albumusecount = ?, trackusecount = ?
-	WHERE id = ?",
+	WHERE id = ?
+	AND (artistusecount != ? OR albumusecount != ? OR trackusecount != ?)",
 ) or die;
 
 $| = 1;
@@ -106,7 +107,7 @@ my $flush = sub {
 
 	for my $row (@updates)
 	{
-		$sth->execute(@$row[1,2,3,0]);
+		$sth->execute(@$row[1,2,3,0,1,2,3]);
 	}
 
 	$sqlWrite->Commit;
