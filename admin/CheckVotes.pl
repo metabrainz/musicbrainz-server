@@ -28,6 +28,7 @@ use lib "$FindBin::Bin/../cgi-bin";
 use DBI;
 use MusicBrainz;
 use Moderation;
+use Apache;
 use Tie::STDERR \&handle_output;
 
 # Should submit this as a patch, or make it a required patch for MusicBrainz
