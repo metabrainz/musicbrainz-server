@@ -35,15 +35,15 @@ my $time = sprintf "%d-%d %02d:%02d", $entered[4]+1, $entered[3],
 </tr>
 <tr>
    <td width=40% valign=top bgcolor=white class="body">
-     <% $mod->ShowModPrev() |n %> 
+     <% $mod->ShowPreviousValue() |n %> 
    </td>
    <td width=40% valign=top bgcolor=white class="body">
-     <% $mod->ShowModNew() |n %> 
+     <% $mod->ShowNewValue() |n %> 
    </td>
    <td width=20% align=center valign=top bgcolor=white class="body">
-% if ($mode == Moderation::TYPE_MINE) {
+% if ($mode == ModDefs::TYPE_MINE) {
      <% $mod->GetChangeName() |n %>
-% } elsif ($mode == Moderation::TYPE_VOTED) {
+% } elsif ($mode == ModDefs::TYPE_VOTED) {
      <% $mod->GetVoteText($voted) |n %>
      (<% $mod->GetChangeName() |n %>)
 % } elsif (($session{user} ne $mod->GetModerator() && !$voted) || 

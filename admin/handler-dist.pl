@@ -19,7 +19,9 @@ use Pending;
 use Track;
 use Lyrics;
 use UserStuff;
+use ModDefs;
 use Moderation;
+use ModerationSimple;
 use GUID;
 use Sql;
 

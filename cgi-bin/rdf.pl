@@ -5,8 +5,9 @@ use QuerySupport;
 use DBI;
 use DBDefs;
 use RDFOutput2;
+#use Data::Dumper;
 
-my ($rdf, $mb, $query, $id, $out, $r);
+my ($rdf, $mb, $query, $id, $out, $r, $depth);
 my %Queries =
 (
    artist => \&QuerySupport::GetArtistByGlobalId,
@@ -16,18 +17,22 @@ my %Queries =
    synctext => \&QuerySupport::GetSyncTextByTrackGlobalId,
 );
 
+$depth = 2;
 $rdf = RDFOutput2->new(0);
-$rdf->SetDepth(2);
+
 $rdf->SetBaseURI("http://" . $ENV{SERVER_NAME});
 
 if (exists $ENV{"MOD_PERL"})
 {
    my $apr;
 
+   #print STDERR Dumper(%ENV);
+
    $r = Apache->request();
    $apr = Apache::Request->new($r);
    $id = $apr->param('id');
    $query = $apr->param('query');
+   $depth = $apr->param('depth') if (defined $apr->param('depth'));
 }
 else
 {
@@ -35,10 +40,13 @@ else
    {
       $query = $1;
       $id = $2;
+      $depth = $3 if (defined $3);
    }
 }
 
-print STDERR "$query $id\n";
+$rdf->SetDepth($depth);
+
+#print STDERR "$query $id\n";
 
 if (!defined $query || $query eq '' || !defined $id || $id eq '')
 {

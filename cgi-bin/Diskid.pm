@@ -60,22 +60,22 @@ sub GenerateAlbumFromDiskId
    }
    else
    {
-        # Ok, its not in the main db. Do we have a freedb entry that
-        # matches, but has no DiskId?
-        $album = $di->FindFreeDBEntry($numtracks, $toc, $id);
-        if (defined $album)
+        my (@albums, $album, $disk);
+
+        # Ok, no freedb entries were found. Can we find a fuzzy match?
+        @albums = $di->FindFuzzy($numtracks, $toc);
+        if (scalar(@albums) > 0)
         {
-            return $rdf->CreateAlbum(0, $album);
+            return $rdf->CreateAlbum(1, @albums);
         }
         else
         {
-            my (@albums, $album, $disk);
-
-            # Ok, no freedb entries were found. Can we find a fuzzy match?
-            @albums = $di->FindFuzzy($numtracks, $toc);
-            if (scalar(@albums) > 0)
+            # Ok, its not in the main db. Do we have a freedb entry that
+            # matches, but has no DiskId?
+            $album = $di->FindFreeDBEntry($numtracks, $toc, $id);
+            if (defined $album)
             {
-                return $rdf->CreateAlbum(1, @albums);
+                return $rdf->CreateAlbum(0, $album);
             }
             else
             {

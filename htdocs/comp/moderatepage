@@ -17,7 +17,7 @@ $offset = 0 if $offset < 0;
 $mb->Login();
 $mod = Moderation->new($mb->{DBH});
 
-if ($type == Moderation::TYPE_NEW)
+if ($type == ModDefs::TYPE_NEW)
 {
     ($num_mods, @info) = $mod->GetModerationList($offset, $max_items, 
                                                  $session{uid}, $type);
@@ -26,7 +26,7 @@ if ($type == Moderation::TYPE_NEW)
     $option1 = '<a href="moderate.html?type=2">Old Moderations</a>';
     $option2 = '<a href="moderate.html?type=3">My Moderations</a>';
 }
-elsif ($type == Moderation::TYPE_VOTED)
+elsif ($type == ModDefs::TYPE_VOTED)
 {
     ($num_mods, @info) = $mod->GetModerationList($offset, ($max_items * 2)+1, 
                                                  $session{uid}, $type);
@@ -66,9 +66,9 @@ else
 % if ($num_mods == 0) {
    <center>
    <br><br>
-%  if ($type == Moderation::TYPE_NEW) {
+%  if ($type == ModDefs::TYPE_NEW) {
    There are no new modifications pending.
-%  } elsif ($type == Moderation::TYPE_VOTED) {
+%  } elsif ($type == ModDefs::TYPE_VOTED) {
    There are no old (voted on) modifications.
 %  } else {
    You do not have any modifications.
@@ -120,7 +120,7 @@ $mb->Logout();
 </td></tr></table>
 % }
 
-% if ($num_mods > 0 && $type == Moderation::TYPE_NEW) {
+% if ($num_mods > 0 && $type == ModDefs::TYPE_NEW) {
 <table width=100%>
 <tr>
   <td width=20%>

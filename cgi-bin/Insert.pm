@@ -61,7 +61,6 @@ sub GetError
 # %info hash needs to have the following keys defined
 #  (artist (name) and sortname) or artistid                [required]
 #  album name or albumid                                   [required]
-#  skipmod (defaults to no)                                [optional]
 #  forcenewalbum (defaults to no)                          [optional]
 #  cdindexid and toc                                       [optional]
 #  tracks -> array of hash refs:                           [required]
@@ -84,6 +83,9 @@ sub Insert
     my ($artist, $album, $sortname, $artistid, $albumid, $trackid);
     my ($forcenewalbum, @albumtracks, $albumtrack, $track, $found);
     my ($track_artistid);
+
+    delete $info->{artist_insertid};
+    delete $info->{album_insertid};
 
     # Sanity check all the insert values
     if (!exists $info->{artist} && !exists $info->{artistid})
@@ -204,6 +206,7 @@ sub Insert
             $this->{error} = "Insert failed: Cannot insert artist.\n";
             return undef;
         }
+        $info->{artist_insertid} = $artistid;
     }
 
     # If we were given an albumid, make sure that the artist from
@@ -233,6 +236,7 @@ sub Insert
                $this->{error} = "Insert failed: cannot insert new album.\n";
                return undef;
            }
+           $info->{album_insertid} = $albumid;
         }
         else
         {
@@ -246,6 +250,7 @@ sub Insert
                    $this->{error} = "Insert failed: cannot insert new album.\n";
                    return undef;
                }
+               $info->{album_insertid} = $albumid;
            }
            else
            {
@@ -263,6 +268,7 @@ sub Insert
     # At this point $ar contains a valid loaded artist and $al contains
     # a valid loaded album
 
+    $info->{album_complete} = 1;
     @albumtracks = $al->LoadTracks();
 
     my $ref = $info->{tracks};
@@ -308,6 +314,7 @@ sub Insert
             # the insertion.
             if ($albumtrack->GetSequence() == $track->{tracknum})
             {
+                $info->{album_complete} = 0;
                 $found = 1;
                 last;
             }
@@ -382,6 +389,7 @@ sub Insert
             $this->{error} = "Insert failed: Cannot insert track.\n";
             last;
         }
+        $track->{track_insertid} = $trackid;
 
         # The track has been inserted. Now insert the GUID if there is one
         if (exists $track->{trmid} && $track->{trmid} ne '')

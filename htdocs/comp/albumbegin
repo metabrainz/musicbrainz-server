@@ -29,7 +29,7 @@ my $albumid = $album->GetId();
   <tr>
 % if ($album->GetModPending()) {
         <td width=85% bgcolor="#FFFFCC" valign="center">
-           <a href="/showalbum?albumid=<% $album->GetId() %>"><% $album->GetName() %></a>
+           <a href="/showalbum.html?albumid=<% $album->GetId() %>"><% $album->GetName() %></a>
 % } else {
         <td width=85% bgcolor="#FFBA58" valign="center">
            <a href="/showalbum.html?albumid=<% $album->GetId() %>"><% $album->GetName() %></a>

@@ -26,6 +26,7 @@ use lib "../../cgi-bin";
 use DBI;
 use DBDefs;
 use MusicBrainz;
+use ModDefs;
 use Moderation;
 require "Main.pl";
 
@@ -63,7 +64,7 @@ sub Cleanup
    $dbh->do("update ArtistAlias set modpending = 0") if ($fix);
 
    $sth = $dbh->prepare("select rowid, tab from Changes where status = " .
-                        Moderation::STATUS_OPEN);
+                        ModDefs::STATUS_OPEN);
    if ($sth->execute && $sth->rows > 0)
    {
        while(@row = $sth->fetchrow_array)
