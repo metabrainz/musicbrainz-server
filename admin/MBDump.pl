@@ -1,4 +1,6 @@
 #!/usr/bin/perl -w
+# vi: set ts=4 sw=4 :
+
 #____________________________________________________________________________
 #
 #   MusicBrainz -- the open internet music database
@@ -26,117 +28,182 @@ use lib "../cgi-bin";
 use DBI;
 use DBDefs;
 
-sub DumpTable
+use Getopt::Long;
+my ($fAll, $fSanitised, $fCore, $fDerived, $fModeration);
+my $outfile = my $sDefaultOutputFile = "mbdump.tar.bz2";
+my $tmpdir = my $sDefaultTmpDir = "/tmp";
+my $fHelp;
+my $fDebug;
+
+GetOptions(
+	"all|a"			=> \$fAll,
+	"sanitised|s!"	=> \$fSanitised,
+	"core|c"		=> \$fCore,
+	"derived|d"		=> \$fDerived,
+	"moderation|m"	=> \$fModeration,
+	"outfile|o=s"	=> \$outfile,
+	"tmpdir|t=s"	=> \$tmpdir,
+	"help|h"		=> \$fHelp,
+	"debug"			=> \$fDebug,
+);
+
+die <<EOF if $fHelp;
+Usage: MBDump.pl [options] [tables]
+
+Options are:
+  -c, --core          Dump the core tables (album, track, etc)
+  -d, --derived       Dump the derived tables (words, stats)
+  -m, --moderation    Dump the moderation tables (moderator, votes, ...)
+  -a, --all           Implies --core --derived --moderation
+  -s, --[no]sanitised [Don't] sanitise the "moderator" table.
+                      If you're dumping the moderator table you *must* specify
+                      either --sanitised or --nosanitised
+  -o, --outfile       Output filename (default: $sDefaultOutputFile)
+  -t, --tmpdir        Temporary directory to use (default: $sDefaultTmpDir)
+  -h, --help          This help
+      --debug         If there's a problem, don't remove the temporary files
+                      on exit
+
+After the options, you may specify individual table names.  Using the table
+selection options (--core etc) simply adds to that list of tables.
+
+EOF
+
+require MusicBrainz;
+my $mb = MusicBrainz->new;
+$mb->Login or die;
+
+require Sql;
+my $sql = Sql->new($mb->{DBH});
+
+my @core = qw(
+	album
+	albumjoin
+	artist
+	artistalias
+	discid
+	toc
+	track
+	trm
+	trmjoin
+	);
+
+my @derived = qw(
+	albumwords
+	artistwords
+	stats
+	trackwords
+	wordlist
+	);
+
+my @moderation = qw(
+	moderation
+	moderationnote
+	moderator
+	votes
+	);
+
+push @ARGV, @core if $fCore or $fAll;
+push @ARGV, @derived if $fDerived or $fAll;
+push @ARGV, @moderation if $fModeration or $fAll;
+
+@ARGV or die "No tables selected!\n";
+
+my %tables = map { lc($_) => 1 } @ARGV;
+my @tables = sort keys %tables;
+
+if ($tables{"moderator"})
 {
-    my $table = shift;
+	defined($fSanitised) or die <<EOF;
+When dumping the moderator table, you must specify either
+--sanitised or --nosanitised
+EOF
 
-    $cmd = "pg_dump -Fc -t $table musicbrainz > /tmp/mbdump/$table";
-    $ret = system($cmd) >>8;
+	if ($fSanitised)
+	{
+		# Sanitise the moderator table.
+		# This is somewhat suboptimal, since the dump that's generated
+		# then contains a table called "moderator_sanitised", not "moderator".
+		# That's just the way pg_dump works I suppose.  I would have preferred
+		# to have ended up with a table still called "moderator", just with
+		# certain data missing.  So properly importing the sanitised dump file
+		# is left as an exercise for the reader.
+		# Dave Evans, 2002-11-10
 
-    print "Dumped table $table.\n";
+		delete $tables{"moderator"};
+		++$tables{"moderator_sanitised"};
+		
+		$sql->AutoCommit;
+		eval { $sql->Do("DROP TABLE moderator_sanitised") };
+		
+		$sql->AutoCommit;
+		$sql->Do("SELECT * INTO moderator_sanitised FROM moderator");
 
-    return !$ret;
+		$sql->AutoCommit;
+		$sql->Do("UPDATE moderator_sanitised SET password = '', privs = 0, email = ''");
+	}
 }
 
-sub DumpPublicTables
-{
-    return 0 if not DumpTable("artist");
-    return 0 if not DumpTable("artistalias");
-    return 0 if not DumpTable("album");
-    return 0 if not DumpTable("track");
-    return 0 if not DumpTable("albumjoin");
-    return 0 if not DumpTable("discid");
-    return 0 if not DumpTable("toc");
-    return 0 if not DumpTable("trm");
-    return 0 if not DumpTable("trmjoin");
+# Refresh the array in case we changed the %tables hash above
+@tables = sort keys %tables;
 
-    return 1;
-}
+print "Dumping tables: @tables\n";
 
-sub DumpPrivateTables
-{
+# Here we go!
 
-    return 0 if not DumpTable("votes");
-    return 0 if not DumpTable("moderation");
-    return 0 if not DumpTable("moderationnote");
-    return 0 if not DumpTable("moderator");
+my $dir = "$tmpdir/mbdump";
 
-    return 1;
-}
-
-sub DumpAllTables
-{
-    return 0 if not DumpPublicTables();
-    return 0 if not DumpPrivateTables();
-
-    return 1;
-}
-
-my ($outfile, $dir, @tinfo, $timestring);
-my ($all, $priv, $ret);
-
-$all = $priv = 0;
-
-@tinfo = localtime;
-$timestring = "mbdump-" . (1900 + $tinfo[5]) . "-".($tinfo[4]+1)."-$tinfo[3]";
-
-$outfile = shift;
-if (defined $outfile && ($outfile eq "-h" || $outfile eq "--help"))
-{
-    print "Usage: MBDump.pl [-a|-r] <dumpfile>\n\n";
-    print "Options\n";
-    print "  -a -- dump all tables\n";
-    print "  -p -- dump private tables\n\n";
-    print "Make sure to have plenty of diskspace on /tmp!\n";
-    exit(0);
-}
-
-if (defined $outfile && $outfile eq '-a')
-{
-   $all = 1;
-   $outfile = shift;
-}
-if (defined $outfile && $outfile eq '-p')
-{
-   $priv = 1;
-   $outfile = shift;
-}
-
-$outfile = "$timestring.tar.bz2" if (!defined $outfile);
-
-@tinfo = localtime;
-$dir = "/tmp/mbdump";
-
-system("rm -rf $dir");
+system("/bin/rm", "-rf", $dir);
 
 mkdir($dir, 0700)
   or die("Cannot create tmp directory $dir.\n");
 
 chmod 0777, $dir;
 
-if ($all)
+# Dump the tables
+
+for (@tables)
 {
-   $ret = DumpAllTables($dir);
-}
-elsif ($priv)
-{
-   $ret = DumpPrivateTables($dir);
-}
-else 
-{
-   $ret = DumpPublicTables($dir);
+	DumpTable($_) or exit 1;
 }
 
-if ($ret)
+# Add the misc files
+
+system("date > $dir/timestamp");
+OutputLicense("$dir/COPYING");
+
+# Tar it all up
+
+print "Creating tar archive...\n";
+system("tar -C $tmpdir -c mbdump | bzip2 -c > $outfile");
+exit $? if $?;
+
+system("/bin/rm", "-rf", $dir);
+
+exit;
+
+END
 {
-    system("date > /tmp/mbdump/timestamp");
-    OutputLicense("/tmp/mbdump/COPYING");
-    print "Creating tar archive...\n";
-    (!(system("tar -C /tmp -c mbdump | bzip2 -c > $outfile") >> 8))
-       or die("Cannot write outputfile.\n");
+	$sql->AutoCommit;
+	eval { $sql->Do("DROP TABLE moderator_sanitised") };
+	undef $sql;
+	$mb->Logout;
+	system("/bin/rm", "-rf", $dir) unless $fDebug;
 }
 
-system("rm -rf $dir");
+
+
+sub DumpTable
+{
+    my $table = shift;
+
+    $cmd = "pg_dump -Fc -t $table musicbrainz > $dir/$table";
+    $ret = system($cmd) >>8;
+
+    print "Dumped table $table.\n";
+
+    return !$ret;
+}
 
 sub OutputLicense
 {
