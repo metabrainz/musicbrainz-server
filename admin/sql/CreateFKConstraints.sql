@@ -30,6 +30,12 @@ ALTER TABLE trm
     FOREIGN KEY (version)
     REFERENCES clientversion(id);
 
+ALTER TABLE trm_stat
+    ADD CONSTRAINT trm_stat_fk_trm
+    FOREIGN KEY (trm_id)
+    REFERENCES trm(id)
+    ON DELETE CASCADE;
+
 ALTER TABLE trmjoin
     ADD CONSTRAINT trmjoin_fk_trm
     FOREIGN KEY (trm)
@@ -39,6 +45,12 @@ ALTER TABLE trmjoin
     ADD CONSTRAINT trmjoin_fk_track
     FOREIGN KEY (track)
     REFERENCES track(id);
+
+ALTER TABLE trmjoin_stat
+    ADD CONSTRAINT trmjoin_stat_fk_trmjoin
+    FOREIGN KEY (trmjoin_id)
+    REFERENCES trmjoin(id)
+    ON DELETE CASCADE;
 
 ALTER TABLE album_cdtoc
     ADD CONSTRAINT album_cdtoc_fk_album

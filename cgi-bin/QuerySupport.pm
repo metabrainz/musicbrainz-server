@@ -548,6 +548,65 @@ sub SubmitTRMList
    return $rdf->ErrorRDF("No valid TRM ids were submitted.")
 }
 
+sub SubmitTRMFeedback
+{
+    my ($dbh, $parser, $rdf, $session) = @_;
+
+    return undef if (!defined $dbh);
+
+    if (&DBDefs::DB_READ_ONLY)
+    {
+      	return $rdf->ErrorRDF(&DBDefs::DB_READ_ONLY_MESSAGE)
+    }
+    if (&DBDefs::DB_IS_REPLICATED)
+    {
+      	return $rdf->ErrorRDF("You cannot submit TRM feedback to a mirror server. Please submit them" .
+		              " to the main server at http://musicbrainz.org")
+    }
+
+    my $sql = Sql->new($dbh);
+
+    my $ns = $rdf->GetMQNamespace();
+
+    my $uri = $parser->GetBaseURI();
+    for (my $i = 1; ; $i++)
+    {
+       my ($trackid, $trmid) = $rdf->GetTRMTrackIdPair($parser, $uri, $i);
+       if (!defined $trackid || $trackid eq '' ||
+           !defined $trmid || $trmid eq '')
+       {
+            last if ($i > 1);
+            return $rdf->ErrorRDF("Incomplete trackid and trmid feedback submitted.")
+       }
+       # Check to see if these trms represent silence or too short TRMs. If so, skip them.
+       if ($trmid eq &ModDefs::TRM_TOO_SHORT || $trmid eq &ModDefs::TRM_SIGSERVER_BUSY)
+       {
+	   next;
+       }
+       if (!MusicBrainz::IsGUID($trmid) || !MusicBrainz::IsGUID($trackid))
+       {
+           # print STDERR "Invalid track/trm combination:\n";
+           # print STDERR "trackid: $trackid\n";
+           # print STDERR "trmid: $trmid\n\n";
+           return $rdf->ErrorRDF("Invalid trackid or trmid submitted.")
+       }
+
+	#lookup the IDs associated with the $trackGID
+	require Track;
+	my $trackobj = Track->new($sql->{DBH});
+	$trackobj->SetMBId($trackid);
+	unless ($trackobj->LoadFromId)
+	{
+	    # print STDERR "Unknown MB Track Id: $trackid\n";
+	} else {
+	    require TRM;
+	    my $trmobj = TRM->new($sql->{DBH});
+	    $trmobj->IncrementUsageCount($trmid, $trackobj->GetId);
+	}
+   }
+
+   return $rdf->CreateStatus(0);
+}
 
 sub AuthenticateQuery
 {

@@ -58,6 +58,8 @@ my %Queries =
         'http://musicbrainz.org/mm/mm-2.1#link'],
    SubmitTRMList =>
       [\&QuerySupport::SubmitTRMList, 1],
+   SubmitTRMFeedback=>
+      [\&QuerySupport::SubmitTRMFeedback, 1],
    AuthenticateQuery =>
       [\&QuerySupport::AuthenticateQuery, 0, 
         'http://musicbrainz.org/mm/mq-1.1#username'],

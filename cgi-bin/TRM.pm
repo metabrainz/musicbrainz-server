@@ -75,13 +75,14 @@ sub GetTRMFromTrackId
 	}
 
 	my $sql = Sql->new($this->{DBH});
+
 	my $data = $sql->SelectListOfLists(
-		"SELECT TRM.TRM, TRMJoin.id, TRM.lookupcount
-		FROM	TRMJoin, TRM
-		WHERE	TRMJoin.track = ?
-		AND		TRMJoin.TRM = TRM.id
-		ORDER BY TRM.lookupcount DESC",
-		$id,
+		"SELECT	t.trm, j.id, t.lookupcount, j.usecount
+           FROM trm t, trmjoin j
+          WHERE j.track = ?
+		    AND j.trm = t.id
+       ORDER BY t.lookupcount desc, j.usecount",
+	   $id,
 	);
 
 	map {
@@ -89,6 +90,7 @@ sub GetTRMFromTrackId
 			TRM			=> $_->[0],
 			TRMjoinid	=> $_->[1],
 			lookupcount	=> $_->[2],
+			usecount	=> $_->[3],
 		}
 	} @$data;
 }
@@ -241,10 +243,120 @@ sub UpdateLookupCount
 	$timesused ||= 1;
     my $sql = Sql->new($self->{DBH});
 
+	my $trmid = $sql->SelectSingleValue(
+		"SELECT id FROM trm WHERE trm = ?", $trm,
+	) or return;
+
+	my @gmtime = gmtime; 
+	my $month_id = 12*$gmtime[5] + $gmtime[4];
+
 	$sql->Do(
-		"UPDATE trm SET lookupcount = lookupcount + ? WHERE trm = ?",
-		$timesused, $trm,
+		"UPDATE trm_stat SET lookupcount = lookupcount + ? WHERE trm_id = ? AND month_id = ?",
+		$timesused, $trmid, $month_id,
+	) or
+	$sql->Do(
+		"INSERT INTO trm_stat (trm_id, month_id, lookupcount) values (?, ?, ?)",
+		$trmid, $month_id, $timesused,
 	);
+}
+
+sub IncrementUsageCount
+{
+	my ($class, $trm, $trackid) = @_;
+	
+	use MusicBrainz::Server::DeferredUpdate;
+	MusicBrainz::Server::DeferredUpdate->Write(
+		"TRM::IncrementUsageCount",
+		$trm, $trackid,
+	);
+}
+
+sub UpdateUsageCount
+{
+	my ($self, $trm, $trackid, $timesused) = @_;
+	$timesused ||= 1;
+    my $sql = Sql->new($self->{DBH});
+
+	my $joinid = $sql->SelectSingleValue(
+		"select trmjoin.id 
+		   from trm, trmjoin
+		  where trmjoin.track = ?
+		    and trm.trm = ? 
+			and trmjoin.trm = trm.id", $trackid, $trm,
+	) or return;
+
+	my @gmtime = gmtime; 
+	my $month_id = 12*$gmtime[5] + $gmtime[4];
+
+	$sql->Do(
+		"UPDATE trmjoin_stat SET usecount = usecount + ? WHERE trmjoin_id = ? AND month_id = ?",
+		$timesused, $joinid, $month_id,
+	) or
+	$sql->Do(
+		"INSERT INTO trmjoin_stat (trmjoin_id, month_id, usecount) values (?, ?, ?)",
+		$joinid, $month_id, $timesused,
+	);
+}
+
+sub MergeTracks
+{
+	my ($self, $fromtrack, $totrack) = @_;
+    my $sql = Sql->new($self->{DBH});
+
+	my $trmjoins = $sql->SelectListOfHashes(
+		"SELECT * FROM trmjoin WHERE track = ?",
+		$fromtrack,
+	);
+
+	for my $oldjoin (@$trmjoins)
+	{
+		# Does this trm exist for the destination track?
+		my $existing_id = $sql->SelectSingleValue(
+			"SELECT id FROM trmjoin WHERE trm = ? AND track = ?",
+			$oldjoin->{trm}, $totrack,
+		);
+
+		if ($existing_id)
+		{
+			# No need to link the trm to the destination.  But we do need to
+			# move the trmjoin stats across to the new join row.
+			$sql->Do(
+				"UPDATE trmjoin_stat SET trmjoin_id = ? WHERE trmjoin_id = ?",
+				$existing_id, $oldjoin->{id},
+			);
+			$sql->Do(
+				"DELETE FROM trmjoin WHERE id = ?",
+				$oldjoin->{id},
+			);
+		} else {
+			# Normally we'd just update trmjoin.track and use ON UPDATE
+			# CASCADE.  However, to date we haven't found a way of skipping
+			# replication for updates to some columns, hence we don't
+			# replicate updates to trmjoin at all, hence we can't update
+			# trmjoin here.
+
+			# Let usecount default to zero ...
+			my $newjoinid = $sql->InsertRow(
+				"trmjoin",
+				{
+					trm => $oldjoin->{trm},
+					track => $totrack,
+				},
+			);
+			# ... and now the triggers will fix it, and in doing so will
+			# zero the counts on the old row ...
+			$sql->Do(
+				"UPDATE trmjoin_stat SET trmjoin_id = ? WHERE trmjoin_id = ?",
+				$newjoinid,
+				$oldjoin->{id},
+			),
+			# ... which we now delete.
+			$sql->Do(
+				"DELETE FROM trmjoin WHERE id = ?",
+				$oldjoin->{id},
+			);
+		}
+	}
 }
 
 1;

@@ -94,11 +94,11 @@ AFTER INSERT OR DELETE OR UPDATE ON "trackwords"
 FOR EACH ROW EXECUTE PROCEDURE "recordchange" ();
 
 CREATE TRIGGER "reptg_trm" 
-AFTER INSERT OR DELETE OR UPDATE ON "trm"
+AFTER INSERT OR DELETE ON "trm"
 FOR EACH ROW EXECUTE PROCEDURE "recordchange" ();
 
 CREATE TRIGGER "reptg_trmjoin" 
-AFTER INSERT OR DELETE OR UPDATE ON "trmjoin"
+AFTER INSERT OR DELETE ON "trmjoin"
 FOR EACH ROW EXECUTE PROCEDURE "recordchange" ();
 
 -- Not replicated: vote_closed, vote_open

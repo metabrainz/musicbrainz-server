@@ -49,6 +49,7 @@ my %descstatus = (
 use base qw( TableBase );
 use Carp;
 use ModDefs ':vote';
+use UserStuff;
 
 # GetId - see TableBase
 sub GetCandidate	{ $_[0]{candidate} }

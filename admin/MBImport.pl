@@ -306,6 +306,8 @@ sub ImportAllTables
 		trackwords
 		trm
 		trmjoin
+		trmjoin_stat
+		trm_stat
 		vote_closed
 		vote_open
 		wordlist

@@ -17,11 +17,17 @@ ALTER TABLE albumjoin
 ALTER TABLE trm
     DROP CONSTRAINT trm_fk_clientversion;
 
+ALTER TABLE trm_stat
+    DROP CONSTRAINT trm_stat_fk_trm;
+
 ALTER TABLE trmjoin
     DROP CONSTRAINT trmjoin_fk_trm;
 
 ALTER TABLE trmjoin
     DROP CONSTRAINT trmjoin_fk_track;
+
+ALTER TABLE trmjoin_stat
+    DROP CONSTRAINT trmjoin_stat_fk_trmjoin;
 
 ALTER TABLE album_cdtoc
     DROP CONSTRAINT album_cdtoc_fk_album;

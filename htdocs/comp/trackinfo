@@ -55,6 +55,7 @@ $track
 		 		<tr>
 		 			<td><img src="/images/trm.gif" alt="" align="middle"></td>
           <td>Lookup count:</td>
+          <td>Use count:</td>
           <td>&nbsp;</td>
 			 	</tr>
 
@@ -62,6 +63,7 @@ $track
           <tr>
 					 	<td valign="top"><a href="/showtrm.html?trm=<% $id->{TRM} %>"><% $id->{TRM} %></a></td>
 						<td valign="top" align="center"><% $id->{lookupcount} %></td>
+						<td valign="top" align="center"><% $id->{usecount} %></td>
 						<td valign="top">
 %							if (exists $session{user}) {
 				 				[ <a href="/remtrm.html?TRMjoin=<% $id->{TRMjoinid} %>&amp;trackid=<% $track->GetId %>&amp;trmid=<% $id->{TRM} %>">Delete</a> ]

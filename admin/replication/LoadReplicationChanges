@@ -319,6 +319,8 @@ sub non_replicated_tables
 		moderator
 		moderator_preference
 		moderator_subscribe_artist
+		trmjoin_stat
+		trm_stat
 		vote_closed
 		vote_open
 	)

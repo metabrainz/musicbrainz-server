@@ -13,10 +13,12 @@ drop index Track_GIDIndex;
 drop index Track_ArtistIndex;
 
 drop index TRM_TRMIndex;
+drop index trm_stat_trm_idindex;
 
-drop index TRMJoin_TRMIndex;
 drop index TRMJoin_TrackIndex;
 DROP INDEX trmjoin_trmtrack;
+
+drop index trmjoin_stat_trmjoin_idindex;
 
 drop index AlbumJoin_AlbumIndex;
 drop index AlbumJoin_TrackIndex;

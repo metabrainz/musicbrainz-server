@@ -70,6 +70,7 @@ sub _LoadFromFilehandle
 	my %type;
 
 	my %trm;
+	my %trmusage;
 	my %artistalias;
 
 	while (<$fh>)
@@ -82,6 +83,10 @@ sub _LoadFromFilehandle
 		if ($type eq "TRM::IncrementLookupCount")
 		{
 			++$trm{$args[0]};
+		}
+		elsif ($type eq "TRM::IncrementUsageCount")
+		{
+			++$trmusage{"$args[0],$args[1]"};
 		}
 		elsif ($type eq "Alias::UpdateLookupCount")
 		{
@@ -98,6 +103,7 @@ sub _LoadFromFilehandle
 		}
 	}
 
+	# ------------------------------------------------------
 	printf "%s : Applying updates - %d TRM lookups\n",
 		scalar(localtime),
 		scalar(keys %trm);
@@ -128,6 +134,37 @@ sub _LoadFromFilehandle
 
 	$p->(); print "\n";
 
+	# ------------------------------------------------------
+	printf "%s : Applying updates - %d TRM usage\n",
+		scalar(localtime),
+		scalar(keys %trmusage);
+
+	use Time::HiRes qw( gettimeofday tv_interval );
+
+	$p = sub {
+		my $t = tv_interval($t0);
+		printf "%s : %6d rows ; %3d%% ; %d rows/sec",
+			scalar(localtime),
+			$i, int(100 * $i / ($n||1)), $i/$t,
+			;
+	};
+
+	$n = keys %trmusage;
+	$i = 0;
+	$t0 = [ gettimeofday ];
+	$trmobj = TRM->new($dbh);
+
+	while (my ($args, $usecount) = each %trmusage)
+	{
+		my ($trm, $trackid) = split /,/, $args;
+		$trmobj->UpdateUsageCount($trm, $trackid, $usecount);
+		++$i % 100 or $p->(), print "\r"
+			if -t STDOUT;
+	}
+
+	$p->(); print "\n";
+
+	# ------------------------------------------------------
 	printf "%s : Applying updates - %d artist alias uses\n",
 		scalar(localtime),
 		scalar(keys %artistalias);

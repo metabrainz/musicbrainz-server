@@ -132,6 +132,8 @@ my @tables = qw(
 	trackwords
 	trm
 	trmjoin
+	trmjoin_stat
+	trm_stat
 	vote_closed
 	vote_open
 	wordlist
@@ -396,6 +398,8 @@ my @group_stats = qw(
 	currentstat
 	historicalstat
 	stats
+	trmjoin_stat
+	trm_stat
 );
 
 my @group_moderation = qw(

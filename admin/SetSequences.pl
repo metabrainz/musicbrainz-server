@@ -97,6 +97,8 @@ SetSequence($sql, "track");
 # trackwords - no unique column
 SetSequence($sql, "trm");
 SetSequence($sql, "trmjoin");
+SetSequence($sql, "trmjoin_stat");
+SetSequence($sql, "trm_stat");
 # vote_closed - not a serial column
 SetSequence($sql, "vote_open");
 SetSequence($sql, "wordlist");

@@ -764,18 +764,9 @@ sub MergeAlbums
 				my $old = $tr->GetId;
 				my $new = $merged{$tr->GetSequence()}->GetId;
 
-				$sql->Do(
-					"DELETE FROM trmjoin WHERE track = ?
-						AND trm IN (SELECT trm FROM trmjoin WHERE track = ?)",
-					$old,
-					$new,
-				);
-
-                $sql->Do(
-					"UPDATE trmjoin SET track = ? WHERE track = ?",
-					$new,
-					$old,
-				);
+				require TRM;
+				my $trm = TRM->new($this->{DBH});
+				$trm->MergeTracks($old, $new);
            }
            else
            {
