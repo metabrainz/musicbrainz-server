@@ -72,4 +72,22 @@ sub DESTROY
     shift()->Logout;
 }
 
+sub IsNonNegInteger
+{
+	my $t = shift;
+	defined($t) and $t =~ /\A(\d{1,20})\z/;
+}
+
+sub IsSingleLineString
+{
+	my $t = shift;
+	defined($t) or return undef;
+
+	use Encode qw( decode FB_CROAK );
+	my $s = eval { decode("utf-8", $t, FB_CROAK) };
+	return undef if $@;
+
+	$t =~ /\A([^\x00-\x1F]*)\z/;
+}
+
 1;
