@@ -122,12 +122,12 @@ $m->comp(
 			$mods[0]->InsertNote(
 				&ModDefs::MODBOT_MODERATOR,
 				"The first of a set of $num moderations",
-				1, # nosend
+				nosend => 1,
 			);
 			$mods[-1]->InsertNote(
 				&ModDefs::MODBOT_MODERATOR,
 				"The last of a set of $num moderations",
-				1, # nosend
+				nosend => 1,
 			);
 		}
 
