@@ -47,5 +47,6 @@ The following people have contributed to the MusicBrainz server:
 
   Dave Evans <musicbrainz-devel@rudolf.org.uk>
   - Submitted a CSS patch and support for cached queries in Sql.pm
+  - Tons and tons of changes -- too many to list here. 
 
 (please send change requests to rob@musicbrainz.org or maintainer)
