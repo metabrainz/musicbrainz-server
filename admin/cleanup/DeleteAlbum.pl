@@ -111,6 +111,10 @@ sub DeleteAlbum
     print(qq/DELETE FROM Album WHERE ID=$thenum\n/) if (!$quiet);
     $dbh->do(qq\DELETE FROM Album WHERE ID=$thenum\) if ($fix);
 
+    # RAK: Need to delete album from album table too!
+    print(qq/DELETE FROM Diskid WHERE Album=$thenum\n/) if (!$quiet);
+    $dbh->do(qq\DELETE FROM Diskid WHERE Album=$thenum\) if ($fix);
+
     # RAK: It would be nice if the artist was deleted after the
     #      last album was deleted.
 

@@ -192,12 +192,15 @@ sub FindReferences
    foreach $ref (@ids)
    {
       $obj = $this->LoadObject($ref->{id}, $ref->{type});
+      next if (!defined $obj);
+
       #print STDERR "Add to cache: $ref->{type}, $ref->{id} dep: $curdepth\n";
       $cacheref = AddToCache($this, $curdepth, $ref->{type}, $ref->{id}, $obj);
 
       push @newrefs, $this->GetReferences($cacheref)
          if (defined $cacheref);
    }
+   print STDERR "New refs: " . join(", ", @newrefs) . "\n";
    $this->FindReferences($curdepth + 1, @newrefs);
 }
 
@@ -236,7 +239,10 @@ sub CreateOutputRDF
    {
       if (!defined $cache[$i]->{obj})
       {
-          push @gids, $cache[$i]->{id};
+          if (defined $cache[$i]->{id})
+          {
+              push @gids, $cache[$i]->{id};
+          }
       }
       else
       {
@@ -254,7 +260,7 @@ sub CreateOutputRDF
    for($i = 0; $i < $total; $i++)
    {
       #print STDERR "Cache: $cache[$i]->{type} $cache[$i]->{id} dep: $cache[$i]->{depth}\n";
-      next if $cache[$i]->{depth} > $depth;
+      next if (!defined $cache[$i]->{depth} || $cache[$i]->{depth} > $depth);
 
       $out .= $this->OutputRDF(\@cache, $cache[$i]);
       $out .= "\n";
@@ -291,7 +297,10 @@ sub LoadObject
    return undef if (not defined $obj);
 
    $obj->SetId($id);
-   $obj->LoadFromId();
+   if (!defined $obj->LoadFromId())
+   {
+       return undef;
+   }
 
    return $obj;
 }
@@ -307,6 +316,7 @@ sub OutputList
    $rdf .=       $this->BeginSeq();
    foreach $item (@$list)
    {
+      next if (!defined $item);
       $rdf .=      $this->Li($this->{baseuri}. "/$type/$item");
    }
    $rdf .=       $this->EndSeq();
@@ -480,6 +490,8 @@ sub OutputAlbumRDF
     $album = $ref->{obj};
     
     $artist = GetFromCache($this, 'artist', $album->GetArtist()); 
+    return "" if (!defined $artist);
+
     $out  = $this->BeginDesc("mm:Album", $this->GetBaseURI() .
                             "/album/" . $album->GetMBId());
     $out .=   $this->Element("dc:title", $album->GetName());
@@ -512,6 +524,7 @@ sub OutputTrackRDF
     @guid = $gu->GetGUIDFromTrackId($track->GetId());
 
     $artist = GetFromCache($this, 'artist', $track->GetArtist()); 
+    return "" if (!defined $artist);
 
     $out  = $this->BeginDesc("mm:Track", $this->GetBaseURI() .
                             "/track/" . $track->GetMBId());

@@ -70,27 +70,137 @@ sub PreVoteAction
 
    $info{artistid} = $this->{artist}; 
    $info{album} = $nw->{AlbumName};
+   $info{cdindexid} = "borOdvYNUkc2SF8GrzPepad0H3M-";
+   $info{toc} = "1 2 157005 150 77950";
 
+   #TODO: Support multiple artists!
    for($i = 1;; $i++)
    {
       last if (!exists $nw->{"Track$i"});
-      push @tracks, { track=> $nw->{"Track$i"}, tracknum => $i };
+      push @tracks, { track=> $nw->{"Track$i"}, tracknum => $i, 
+                      trmid=>"feb4b180-c5f0-4465-9926-fc5704444c83" };
    }
    $info{tracks} = \@tracks;
 
+   print STDERR "Before insert:\n$this->{new}\n";
    # TODO: Support for inserting partial albums
    $in = Insert->new($this->{DBH});
    if (defined $in->Insert(\%info))
    {
-       $nw->{AlbumId} = $info{album_insertid};
+       if (exists $info{album_insertid})
+       {
+           $nw->{AlbumId} = $info{album_insertid};
+       }
+       if (exists $info{artist_insertid})
+       {
+           $nw->{ArtistId} = $info{artist_insertid};
+       }
+       if (exists $info{cdindexid_insertid})
+       {
+           $nw->{DiskId} = $info{cdindexid_insertid};
+       }
        foreach $track (@tracks)
        {
-           next if (!exists $track->{track_insertid});
            $key = "Track" . $track->{tracknum} . "Id";
-           $nw->{$key} = $track->{track_insertid};
+           if (exists $track->{track_insertid})
+           {
+               $nw->{$key} = $track->{track_insertid};
+           }
+
+           $key = "Trm" . $track->{tracknum} . "Id";
+           if (exists $track->{trm_insertid})
+           {
+               print STDERR "kv: got trm id\n";
+               $nw->{$key} = $track->{trm_insertid};
+           }
+           else
+           {
+               print STDERR "kv: got no trm id\n";
+           }
+           $key = "Artist" . $track->{tracknum} . "Id";
+           if (exists $track->{artist_insertid})
+           {
+               $nw->{$key} = $track->{artist_insertid};
+           }
        }
 
        $this->{new} = $this->ConvertHashToNew($nw);
-       print STDERR "After insert: $this->{new}\n";
+       print STDERR "After insert:\n$this->{new}\n";
+   }
+}
+
+#returns STATUS_XXXX
+sub ApprovedAction
+{
+   return ModDefs::STATUS_APPLIED;
+}
+
+#returns nothing
+sub DeniedAction
+{
+   my ($this) = @_;
+   my ($newval, $i, $done);
+
+   $newval = $this->ConvertNewToHash($this->{new});
+
+   # Remove all the tracks, trm ids and track/artists inserted
+   # for this album.
+   for($i = 1;; $i++)
+   {
+      $done = 1;
+      if (exists $newval->{"Track".$i."Id"})
+      {
+          my $tr;
+
+          $tr = Track->new($this->{DBH});
+          $tr->SetId($newval->{"Track".$i."Id"});
+          $tr->Remove();
+
+          $done = 0;
+      }
+      if (exists $newval->{"Trm".$i."Id"})
+      {
+          my $gu;
+
+          $gu = GUID->new($this->{DBH});
+          $gu->SetId($newval->{"Trm".$i."Id"});
+          $gu->Remove();
+
+          $done = 0;
+      }
+      if (exists $newval->{"Artist".$i."Id"})
+      {
+          my $ar;
+
+          $ar = Artist->new($this->{DBH});
+          $ar->SetId($newval->{"Artist".$i."Id"});
+          $ar->Remove();
+
+          $done = 0;
+      }
+      last if ($done);
+   }
+   if (exists $newval->{"AlbumId"})
+   {
+      my ($al, $di);
+
+      $al = Album->new($this->{DBH});
+      $al->SetId($newval->{"AlbumId"});
+      $al->Remove();
+   }
+   if (exists $newval->{"DiskId"})
+   {
+      my $di;
+
+      $di = Diskid->new($this->{DBH});
+      $di->Remove($newval->{"DiskId"});
+   }
+   if (exists $newval->{"ArtistId"})
+   {
+      my $ar;
+
+      $ar = Artist->new($this->{DBH});
+      $ar->SetId($newval->{"ArtistId"});
+      $ar->Remove();
    }
 }

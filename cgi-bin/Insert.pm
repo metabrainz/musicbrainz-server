@@ -86,6 +86,7 @@ sub Insert
 
     delete $info->{artist_insertid};
     delete $info->{album_insertid};
+    delete $info->{cdindexid_insertid};
 
     # Sanity check all the insert values
     if (!exists $info->{artist} && !exists $info->{artistid})
@@ -206,7 +207,7 @@ sub Insert
             $this->{error} = "Insert failed: Cannot insert artist.\n";
             return undef;
         }
-        $info->{artist_insertid} = $artistid;
+        $info->{artist_insertid} = $artistid if ($ar->GetNewInsert());
     }
 
     # If we were given an albumid, make sure that the artist from
@@ -236,7 +237,7 @@ sub Insert
                $this->{error} = "Insert failed: cannot insert new album.\n";
                return undef;
            }
-           $info->{album_insertid} = $albumid;
+           $info->{album_insertid} = $albumid if ($al->GetNewInsert());
         }
         else
         {
@@ -250,7 +251,7 @@ sub Insert
                    $this->{error} = "Insert failed: cannot insert new album.\n";
                    return undef;
                }
-               $info->{album_insertid} = $albumid;
+               $info->{album_insertid} = $albumid if ($al->GetNewInsert());
            }
            else
            {
@@ -263,6 +264,7 @@ sub Insert
     if (exists $info->{cdindexid} && exists $info->{toc})
     {
         $di->Insert($info->{cdindexid}, $albumid, $info->{toc});
+        $info->{cdindexid_insertid} = $info->{cdindexid};
     }
 
     # At this point $ar contains a valid loaded artist and $al contains
@@ -289,6 +291,10 @@ sub Insert
             $this->{error} = "Skipped Insert: Invalid trmid\n";
             delete $track->{trmid};
         }
+        delete $info->{track_insertid};
+        delete $info->{trm_insertid};
+        delete $info->{artist_insertid};
+
         #print STDERR "$track->{track}\n";
         #print STDERR "$track->{tracknum}\n";
         #print STDERR "$track->{trmid}\n" if (exists $track->{trmid});
@@ -303,7 +309,14 @@ sub Insert
                 $albumtrack->GetName() eq $track->{track} &&
                 exists $track->{trmid} && $track->{trmid} ne '')
             {
-                $gu->Insert($track->{trmid}, $albumtrack->GetId());
+                my $newtrm;
+                
+                $newtrm = $gu->Insert($track->{trmid}, $albumtrack->GetId());
+                if (defined $newtrm)
+                {
+                    print STDERR "inserted trmid: $newtrm\n";
+                    $track->{trm_insertid} = $newtrm if ($gu->GetNewInsert());
+                }
                 
                 #$print STDERR "Insert GUID.\n";
 
@@ -334,7 +347,7 @@ sub Insert
         }
         if (exists $track->{duration} && $track->{duration} != 0)
         {
-            $tr->SetDuration($track->{duration});
+            $tr->SetLength($track->{duration});
         }
 
         # Check to see if this track has an artist that needs to get
@@ -361,6 +374,8 @@ sub Insert
                 $this->{error} = "Track Insert failed: Cannot insert artist.\n";
                 return undef;
             }
+            $track->{artist_insertid} = $track_artistid 
+                 if ($ar->GetNewInsert());
         }
         if (exists $track->{artistid} && $artistid == Artist::VARTIST_ID)
         {
@@ -383,6 +398,7 @@ sub Insert
         {
             $mar->SetId($track_artistid);
             $trackid = $tr->Insert($al, $mar);
+            $track->{track_insertid} = $trackid if ($tr->GetNewInsert());
         }
         if (!defined $trackid)
         {
@@ -394,7 +410,11 @@ sub Insert
         # The track has been inserted. Now insert the GUID if there is one
         if (exists $track->{trmid} && $track->{trmid} ne '')
         {
-            $gu->Insert($track->{trmid}, $trackid);
+            my $newtrm = $gu->Insert($track->{trmid}, $trackid);
+            if (defined $newtrm)
+            {
+                $track->{trm_insertid} = $newtrm if ($gu->GetNewInsert());
+            }
         }
 
         #print STDERR "Inserted track $track->{tracknum} $track->{track}.\n\n";

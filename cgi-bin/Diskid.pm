@@ -123,24 +123,32 @@ sub GetDiskIdFromAlbum
 sub Insert
 {
     my ($this, $id, $album, $toc) = @_;
-    my ($diskidalbum, $sql);
+    my ($diskidalbum, $sql, $temp, $rowid);
+
+    return if (!defined $id || !defined $album || !defined $toc);
 
     $diskidalbum = $this->GetAlbumFromDiskId($id);
     if (!defined $diskidalbum)
     {
         $sql = Sql->new($this->{DBH});
-        $id = $sql->Quote($id);
+        $temp = $sql->Quote($id);
         $sql->Do("insert into Diskid (disk,album,toc,timecreated) " .
-                 "values ($id, $album, '$toc', now())"); 
+                 "values ($temp, $album, '$toc', now())"); 
+
+        $rowid = $sql->GetLastInsertId;
     }
 
     $this->InsertTOC($id, $album, $toc);
+
+    return $rowid;
 }
  
 sub InsertTOC
 {
     my ($this, $diskid, $album, $toc) = @_;
     my (@offsets, $query, $i, $sql);
+
+    return if (!defined $diskid || !defined $album || !defined $toc);
 
     @offsets = split / /, $toc;
 
@@ -165,6 +173,19 @@ sub InsertTOC
     $query .= ")";
 
     $sql->Do($query);
+}
+
+# Remove an diskid from the database. Set the id via the accessor function.
+sub Remove
+{
+    my ($this, $id) = @_;
+    my ($sql);
+
+    return if (!defined $id);
+  
+    $sql = Sql->new($this->{DBH});
+    $sql->Do("delete from Diskid where disk = '$id'");
+    $sql->Do("delete from TOC where diskid = '$id'");
 }
 
 sub FindFreeDBEntry

@@ -136,7 +136,7 @@ sub Cleanup
         }
     }
     $sth->finish;
-    print "Found $count missing artists.\n\n";
+    print "Found $count orphaned diskids.\n\n";
 }
 
 # Call main with the number of arguments that you are expecting

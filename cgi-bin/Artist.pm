@@ -31,6 +31,7 @@ use vars qw(@ISA @EXPORT);
 @EXPORT = @EXPORT = '';
 
 use strict;
+use Carp qw(cluck);
 use DBI;
 use DBDefs;
 use Alias;
@@ -65,6 +66,8 @@ sub Insert
     my ($this) = @_;
     my ($artist, $mbid, $sql, $alias);
 
+    $this->{new_insert} = 0;
+
     return undef if (!defined $this->{name});
     $this->{sortname} = $this->{name} if (!defined $this->{sortname});
   
@@ -87,10 +90,23 @@ sub Insert
                      ", " . $sql->Quote($this->{sortname}) . ", $mbid, 0)"))
          {
              $artist = $sql->GetLastInsertId;
+             $this->{new_insert} = 1;
          }
     } 
     $this->{id} = $artist;
     return $artist;
+}
+
+# Remove an artist from the database. Set the id via the accessor function.
+sub Remove
+{
+    my ($this) = @_;
+    my ($sql);
+
+    return if (!defined $this->GetId());
+  
+    $sql = Sql->new($this->{DBH});
+    $sql->Do("delete from Artist where id = " . $this->GetId());
 }
 
 # Load an artist record given a name. The name must match exactly.
@@ -123,6 +139,12 @@ sub LoadFromId
 {
    my ($this) = @_;
    my ($sql, @row);
+
+   if (!defined $this->GetId())
+   {
+        cluck "Artist::LoadFromId is called with undef Id\n"; 
+        return undef;
+   }
 
    $sql = Sql->new($this->{DBH});
    @row = $sql->GetSingleRow("Artist", [qw(id name GID modpending sortname)],

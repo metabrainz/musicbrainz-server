@@ -61,6 +61,7 @@ sub Insert
     my ($this) = @_;
     my ($album, $id, $sql, $name);
 
+    $this->{new_insert} = 0;
     return undef if (!exists $this->{artist} || $this->{artist} eq '');
     return undef if (!exists $this->{name} || $this->{name} eq '');
 
@@ -71,10 +72,24 @@ sub Insert
                 values ($name,$this->{artist}, $id, 0)/))
     {
         $album = $sql->GetLastInsertId;
+        $this->{new_insert} = 1;
     }
 
     $this->{id} = $album;
     return $album;
+}
+
+# Remove an album from the database. Set the id via the accessor function.
+sub Remove
+{
+    my ($this) = @_;
+    my ($sql);
+
+    return if (!defined $this->GetId());
+  
+    $sql = Sql->new($this->{DBH});
+    $sql->Do("delete from Album where id = " . $this->GetId());
+    $sql->Do("delete from Diskid where album = " . $this->GetId());
 }
 
 # Given an album, query the number of tracks present in this album

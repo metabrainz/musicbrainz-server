@@ -98,6 +98,10 @@ sub SetModPending
    $_[0]->{modpending} = $_[1];
 }
 
+sub GetNewInsert
+{
+   return $_[0]->{new_insert};
+}
 
 sub AppendWhereClause
 {

@@ -272,14 +272,48 @@ sub GetVoteText
    return $VoteText{$_[0]};
 }
 
-# The following two functions act as stub function for the
-# derived moderation classes.
-sub PreVoteAction
+# This function will load a change from the database and return
+# a new ModerationXXXXXX object. Pass the rowid to load as the first arg
+sub CreateFromId
 {
-}
+   my ($this, $id) = @_;
+   my ($mod, $query, $sql, @row);
 
-sub PostVoteAction
-{
+   $query = qq/select Changes.id, tab, col, Changes.rowid, 
+                      Changes.artist, type, prevvalue, newvalue, 
+                      UNIX_TIMESTAMP(TimeSubmitted), ModeratorInfo.name, 
+                      yesvotes, novotes, Artist.name, status, 0 
+               from   Changes, ModeratorInfo, Artist 
+               where  ModeratorInfo.id = moderator and Changes.artist = 
+                      Artist.id and Changes.id = $id/;
+
+   $sql = Sql->new($this->{DBH});
+   if ($sql->Select($query))
+   {
+        @row = $sql->NextRow();
+        $mod = $this->CreateModerationObject($row[5]);
+        if (defined $mod)
+        {
+           $mod->SetId($row[0]);
+           $mod->SetTable($row[1]);
+           $mod->SetColumn($row[2]);
+           $mod->SetRowId($row[3]);
+           $mod->SetArtist($row[4]);
+           $mod->SetType($row[5]);
+           $mod->SetPrev($row[6]);
+           $mod->SetNew($row[7]);
+           $mod->SetExpireTime($row[8] + DBDefs::MOD_PERIOD);
+           $mod->SetModeratorName($row[9]);
+           $mod->SetYesVotes($row[10]);
+           $mod->SetNoVotes($row[11]);
+           $mod->SetArtistName($row[12]);
+           $mod->SetStatus($row[13]);
+           $mod->SetVoteId($row[14]);
+       }
+       $sql->Finish();
+   }
+
+   return $mod;
 }
 
 # Use this function to create a new moderation object of the specified type
@@ -564,7 +598,7 @@ sub CheckModificationsForExpiredItems
 sub CheckModifications
 {
    my ($this, @ids) = @_;
-   my ($sql, $query, $rowid, @row, $status, $dep_status); 
+   my ($sql, $query, $rowid, @row, $status, $dep_status, $mod); 
 
    $sql = Sql->new($this->{DBH});
    while(defined($rowid = shift @ids))
@@ -588,40 +622,50 @@ sub CheckModifications
                     $sql->Finish;
                     next;
                 }
-                if ($dep_status != ModDefs::STATUS_OPEN && $dep_status != ModDefs::STATUS_APPLIED)
+                if ($dep_status != ModDefs::STATUS_OPEN && 
+                    $dep_status != ModDefs::STATUS_APPLIED)
                 {
                     # If the prereq. change failed, close this modification
+                    $mod = $this->CreateFromId($rowid);
+                    $mod->DeniedAction();
                     $this->CreditModerator($row[5], 0);
                     $this->CloseModification($rowid, $row[3], 
-                                             $row[4], ModDefs::STATUS_FAILEDPREREQ);
+                                             $row[4], 
+                                             ModDefs::STATUS_FAILEDPREREQ);
                     $sql->Finish;
                     next;
                 }
             }
             # Has the vote period expired?
             if ($row[2] >= DBDefs::MOD_PERIOD && 
-                ($row[0] > 0 || $row[1] > 0))
+               ($row[0] > 0 || $row[1] > 0))
             {
                 # Are there more yes votes than no votes?
                 if ($row[0] > $row[1])
                 {
-                    $status = $this->PostVoteAction($rowid);
+                    $mod = $this->CreateFromId($rowid);
+                    $status = $mod->ApprovedAction($rowid);
                     $this->CreditModerator($row[5], 1);
                     $this->CloseModification($rowid, $row[3], 
                                              $row[4], $status);
                 }
                 else
                 {
+                    $mod = $this->CreateFromId($rowid);
+                    $mod->DeniedAction();
                     $this->CreditModerator($row[5], 0);
                     $this->CloseModification($rowid, $row[3], 
-                                             $row[4], ModDefs::STATUS_FAILEDVOTE);
+                                             $row[4], 
+                                             ModDefs::STATUS_FAILEDVOTE);
                 }
             }
             # Are the number of required unanimous votes present?
             elsif ($row[0] == DBDefs::NUM_UNANIMOUS_VOTES && $row[1] == 0)
             {
                 # A unanimous yes. Apply and the remove from db
-                $status = $this->PostVoteAction($rowid);
+
+                $mod = $this->CreateFromId($rowid);
+                $status = $mod->ApprovedAction($rowid);
                 $this->CreditModerator($row[5], 1);
                 $this->CloseModification($rowid, $row[3], 
                                          $row[4], $status);
@@ -629,6 +673,8 @@ sub CheckModifications
             elsif ($row[1] == DBDefs::NUM_UNANIMOUS_VOTES && $row[0] == 0)
             {
                 # A unanimous no. Remove from db
+                $mod = $this->CreateFromId($rowid);
+                $mod->DeniedAction();
                 $this->CreditModerator($row[5], 0);
                 $this->CloseModification($rowid, $row[3], 
                                          $row[4], ModDefs::STATUS_FAILEDVOTE);
@@ -649,7 +695,6 @@ sub GetModerationStatus
 
    return $ret;
 }
-
 
 sub CreditModerator
 {

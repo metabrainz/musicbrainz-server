@@ -281,7 +281,8 @@ sub Insert
 {   
     my ($this, $al, $ar) = @_;
     my ($track, $id, $query, $values, $sql, $artist, $album, $name);
-   
+  
+    $this->{new_insert} = 0;
     $album = $al->GetId();
     $artist = ($al->GetArtist() == Artist::VARTIST_ID) ? 
                 $ar->GetId() : $al->GetArtist();
@@ -328,6 +329,7 @@ sub Insert
         if ($sql->Do("$query) $values)"))
         {
             $track = $sql->GetLastInsertId();
+            $this->{new_insert} = $track;
             $sql->Do(qq/insert into AlbumJoin (album, track, sequence,
                      modpending) values ($album, $track, 
                      $this->{sequence}, 0)/);
@@ -336,6 +338,19 @@ sub Insert
 
     $this->{id} = $track;
     return $track;
+}
+
+# Remove a track from the database. Set the id via the accessor function.
+sub Remove
+{
+    my ($this) = @_;
+    my ($sql);
+
+    return if (!defined $this->GetId());
+  
+    $sql = Sql->new($this->{DBH});
+    $sql->Do("delete from Track where id = " . $this->GetId());
+    $sql->Do("delete from AlbumJoin where track = " . $this->GetId());
 }
 
 sub GetAlbumInfo

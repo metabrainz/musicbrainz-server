@@ -33,10 +33,10 @@ if (CheckArg(\%ARGS, 'column') &&
         $new .= $ARGS{"key$i"} . "=" . $ARGS{"value$i"} . "\n";
     }
 
-    print STDERR join(" - ", $ARGS{'table'}, 
-       $ARGS{'column'}, $ARGS{'artist'}, 
-       $ARGS{'type'}, $ARGS{'id'},
-       $ARGS{'prev'}, $new, $session{uid}) . "\nNew:\n$new\n";
+    #print STDERR join(" - ", $ARGS{'table'}, 
+    #   $ARGS{'column'}, $ARGS{'artist'}, 
+    #   $ARGS{'type'}, $ARGS{'id'},
+    #   $ARGS{'prev'}, $new, $session{uid}) . "\nNew:\n$new\n";
 
     $mod = Moderation->new($mb->{DBH});
     $mod = $mod->CreateModerationObject($ARGS{'type'});

@@ -79,6 +79,7 @@ sub Insert
     my ($this, $guid, $trackid) = @_;
     my ($id, $sql);
 
+    $this->{new_insert} = 0;
     $sql = Sql->new($this->{DBH});
 
     $id = $this->GetIdFromGUID($guid);
@@ -88,6 +89,7 @@ sub Insert
         if ($sql->Do(qq/insert into GUID (guid) values ($guid)/))
         {
             $id = $sql->GetLastInsertId;
+            $this->{new_insert} = 1;
         }
     }
 
@@ -105,6 +107,19 @@ sub Insert
         }
     }
     return $id;
+}
+
+# Remove a GUID from the database. Set the id via the accessor function.
+sub Remove
+{
+    my ($this) = @_;
+    my ($sql);
+
+    return if (!defined $this->GetId());
+  
+    $sql = Sql->new($this->{DBH});
+    $sql->Do("delete from GUID where id = " . $this->GetId());
+    $sql->Do("delete from GUIDJoin where guid = " . $this->GetId());
 }
 
 sub AssociateGUID

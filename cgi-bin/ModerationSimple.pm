@@ -62,7 +62,15 @@ sub ShowNewValue
    return $out;
 }
 
-sub PostVoteAction
+sub DeniedAction
+{
+}
+
+# The approved action functions in this module, all load the 
+# data from the DB again, even though the data is already loaded
+# into the current object. The following ApprovedAction functions
+# ought to be improved at a later point in time to avoid this.
+sub ApprovedAction
 {
    my ($this, $id) = @_;
    my (@data, $in, $tid, $status, $sql, @row, %info);
@@ -151,12 +159,17 @@ sub ShowNewValue
    }
    else
    {
-      $out = qq\Artist: <span class="bold">$new</span>\;
+      $out = qq\Artist: <a href="/showartist.html?artistid=\ .
+             $this->GetArtist() . qq\"><span class="bold">$new</span></a>\;
    }
    return $out;
 }
 
-sub PostVoteAction
+sub DeniedAction
+{
+}
+
+sub ApprovedAction
 {
    my ($this, $id) = @_;
    my (@row, $prevval, $rowid, $status, $newid);
@@ -210,6 +223,7 @@ sub PostVoteAction
    {
        $sql->Do(qq/update Album set artist = $newid where artist = $rowid/);
        $sql->Do(qq/update Track set artist = $newid where artist = $rowid/);
+       print STDERR ("delete from Artist where id = $rowid\n");
        $sql->Do("delete from Artist where id = $rowid");
        $sql->Do("update Changes set artist = $newid where artist = $rowid");
 
@@ -257,7 +271,11 @@ sub ShowNewValue
    return qq\New: <span class="bold">$this->{new}</span>\;
 }
 
-sub PostVoteAction
+sub DeniedAction
+{
+}
+
+sub ApprovedAction
 {
    my ($this, $rowid) = @_;
    my ($sql, @row, $prevval, $newval);
@@ -342,7 +360,11 @@ sub ShowNewValue
    return $out;
 }
 
-sub PostVoteAction
+sub DeniedAction
+{
+}
+
+sub ApprovedAction
 {
    my ($this, $id) = @_;
    my ($sql, @row, $rowid, $status, $ar, $newid);
@@ -418,7 +440,11 @@ sub ShowNewValue
    return qq\New: <span class="bold">$this->{new}</span>\;
 }
 
-sub PostVoteAction
+sub DeniedAction
+{
+}
+
+sub ApprovedAction
 {
    my ($this, $id) = @_;
    my ($status, $sql, @row);
@@ -472,7 +498,11 @@ sub ShowNewValue
    return $out;
 }
 
-sub PostVoteAction
+sub DeniedAction
+{
+}
+
+sub ApprovedAction
 {
    my ($this, $id) = @_;
    my ($sql, @row, $rowid, $status, $ar, $newid);
@@ -545,7 +575,11 @@ sub ShowNewValue
    return qq\New: <span class="bold">$this->{new}</span>\;
 }
 
-sub PostVoteAction
+sub DeniedAction
+{
+}
+
+sub ApprovedAction
 {
    my ($this, $rowid) = @_;
    my ($sql, @row, $trackid);
@@ -603,7 +637,11 @@ sub ShowNewValue
    return qq\New: <span class="bold">$this->{new}</span>\;
 }
 
-sub PostVoteAction
+sub DeniedAction
+{
+}
+
+sub ApprovedAction
 {
    my ($this, $rowid) = @_;
    my ($sql, @row, $trackid);
@@ -661,7 +699,11 @@ sub ShowNewValue
    return qq\New: <span class="bold">$this->{new}</span>\;
 }
 
-sub PostVoteAction
+sub DeniedAction
+{
+}
+
+sub ApprovedAction
 {
    my ($this, $rowid) = @_;
    my ($sql, @row, $al);
@@ -703,7 +745,11 @@ sub ShowNewValue
    return qq\New: <span class="bold">$this->{new}</span>\;
 }
 
-sub PostVoteAction
+sub DeniedAction
+{
+}
+
+sub ApprovedAction
 {
    my ($this, $rowid) = @_;
    my ($sql, @row, $al);
