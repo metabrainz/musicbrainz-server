@@ -1,0 +1,272 @@
+%# vi: set ts=4 sw=4 ft=mason :
+<%args>
+$uid => ($session{uid} || undef)
+$modname => undef
+</%args>
+<%def .JumpForm>
+
+<form method="get" action="/user/view.html" name="ModeratorForm">
+	<p>
+		Look up a moderator by name:
+		<input type="text" name="modname" size="20">
+		<input type="submit" value="Go">
+	</p>
+</form>
+
+<& /comp/movefocus, "ModeratorForm", "modname" &>
+
+</%def>
+<%perl>
+
+# /moderator.html used to do about three different things:
+# - view a user
+# - show a user-edit form
+# - process that form and show responses
+# This page now just does the "view" bit.
+
+if (not defined $uid and not defined $modname)
+{
+	</%perl>
+
+	<& /comp/sidebar, title => 'Enter name of moderator to view' &>
+	<& .JumpForm &>
+	<& /comp/footer &>
+
+	<%perl>
+	return;
+}
+
+my $mb = $m->comp("/comp/dblogin");
+my $ui = UserStuff->new($mb->{DBH});
+my $user;
+
+if (MusicBrainz::IsSingleLineString($modname) and $modname ne "") {
+	$user = $ui->newFromName($modname);
+
+	unless ($user)
+	{
+		</%perl>
+
+		<& /comp/sidebar, title => 'Enter name of moderator to view' &>
+
+		<p class="notice">
+			Moderator '<% $modname %>' not found
+		</p>
+
+		<& .JumpForm &>
+		<& /comp/footer &>
+
+		<%perl>
+		return;
+	}
+} elsif (MusicBrainz::IsNonNegInteger($uid) and $uid) {
+	$user = $ui->newFromId($uid);
+
+	unless ($user)
+	{
+		</%perl>
+
+		<& /comp/sidebar, title => 'Enter name of moderator to view' &>
+
+		<p class="notice">
+			Moderator #<% $uid %> not found
+		</p>
+
+		<& .JumpForm &>
+		<& /comp/footer &>
+
+		<%perl>
+		return;
+	}
+}
+
+my $membersince;
+
+if ($user->GetId == &ModDefs::ANON_MODERATOR
+	or $user->GetId == &ModDefs::FREEDB_MODERATOR
+	or $user->GetId == &ModDefs::MODBOT_MODERATOR)
+{
+    $membersince = 'n/a';
+} elsif ($user->GetMemberSince =~ /^1970-01-01 /) {
+    $membersince = '<font class="bold">Charter Member</font>';
+} elsif ($user->GetName eq "rob") {
+    $membersince = '<font class="bold">the dawn of this project</font>';
+} else {
+	$membersince = $m->comp("/comp/datetime", $user->GetMemberSince);
+}
+	
+$uid = $user->GetId;
+
+my $my_uid = $session{uid} || 0;
+my $is_me = ($uid == $my_uid);
+
+</%perl>
+
+<& /comp/sidebar, title => 'Moderator "' . $user->GetName . '"' &>
+
+<p class="LinksRow">
+	[
+% unless ($is_me) {
+	<a href="/user/mod_email.html?uid=<% $uid %>&url=<% url_escape("/user/view.html?uid=$uid") %>">Send email</a> | 
+% }
+    <a href="/moderate.html?type=<% &ModDefs::TYPE_VOTED %>&amp;moderator=<% $uid %>">List Votes</a> |
+    <a href="/moderate.html?type=<% &ModDefs::TYPE_MODERATOR %>&amp;moderator=<% $uid %>">List Moderations</a> |
+	<a href="/moderate.html?type=<% &ModDefs::TYPE_MODERATOR_FAILED %>&amp;moderator=<% $uid %>">List Failed Moderations</a>
+	]
+</p>
+
+% if ($is_me) {
+<p class="LinksRow">
+	[
+	<a href="/user/edit.html">Edit</a>
+	| <a href="/prefs.html">Preferences</a>
+	| <a href="/user/subscriptions.html">Subscriptions</a>
+	]
+</p>
+% }
+
+<table>
+	<tr>
+		<td colspan="2"><b>General information:</b></td>
+	</tr>
+	<tr>
+		<td width="15%" valign="top" align="right">Name:</td>
+		<td><% $user->GetName %></td>
+	</tr>
+	<tr>
+		<td width="15%" valign="top" align="right">User type:</td>
+		<td><% $user->GetUserType %></td>
+	</tr>
+	<tr>
+		<td valign="top" align="right">EMail:</td>
+% if ($is_me) {
+		<td><% $user->GetEmail || "[none]" %></td>
+% } else {
+		<td><% $user->GetEmail ne '' ? "[email address stored, but not shown]" : "[none]" %></td>
+% }
+	</tr>
+
+	<tr>
+		<td valign="top" align="right">Homepage:</td>
+%   if ($user->GetWebURL ne "") {    
+			<td><a href="<% $user->GetWebURL %>"><% $user->GetWebURL %></a></td>
+%   } else {
+			<td>[none]</td>
+%   }
+	</tr>
+
+	<tr>
+		<td valign="top" align="right">Bio:</td>
+		<td><%perl>
+			my $bio = $user->GetBio;
+
+			if ($bio)
+			{
+				$bio =~ s/<p>/\n/g;
+				$bio = html_escape($bio);
+				$bio = join "",
+					map { "<p>$_</p>" }
+					split /\n/, $bio;
+			} else {
+				$bio = "[none]";
+			}
+
+			$m->out($bio);
+		</%perl></td>
+	</tr>
+
+	<tr>
+		<td colspan="2">&nbsp;</td>
+	</tr>
+	<tr>
+		<td colspan="2"><b>User statistics:</b></td>
+	</tr>
+	<tr>
+		<td valign="top" align="right">Member Since:</td>
+		<td valign="top"><% $membersince |n %></td>
+	</tr>
+	<tr>
+		<td valign="top" align="right">Mods Accepted:</td>
+		<td valign="top"><% $user->GetModsAccepted %></td>
+	</tr>
+	<tr>
+		<td valign="top" align="right">Mods Rejected:</td>
+		<td valign="top"><% $user->GetModsRejected %></td>
+	</tr>
+
+	<tr>
+		<td colspan="2">&nbsp;</td>
+	</tr>
+
+<%perl>
+
+# Retrieve vote statistics
+my $sql = Sql->new($mb->{DBH});
+
+my $allvotes = $sql->SelectListOfLists(
+	"SELECT vote, COUNT(*) FROM votes WHERE uid = ? GROUP BY vote",
+	$uid,
+);
+
+my $recentvotes = $sql->SelectListOfLists(
+	"SELECT vote, COUNT(*) FROM votes WHERE uid = ?
+	AND votetime >= NOW() - INTERVAL '28 days'
+	GROUP BY vote",
+	$uid,
+);
+
+for ($allvotes, $recentvotes)
+{
+	$_ = +{
+		map { @$_ } @$_
+	};
+
+	my $t = 0;
+	$t += $_ for values %$_;
+	$_->{"TOTAL"} = $t;
+}
+
+</%perl>
+
+	<tr>
+		<td valign="top"><b>Votes:</b></td>
+		<td valign="top">
+			<table>
+				<tr>
+					<td></td>
+					<td style="font-weight: bold; text-align: right" colspan="2">Last 28 days</td>
+					<td style="font-weight: bold; text-align: right" colspan="2">All time</td>
+				</tr>
+				<%perl>
+				for (
+					[ "Yes", &ModDefs::VOTE_YES ],
+					[ "No", &ModDefs::VOTE_NO ],
+					[ "Abstain", &ModDefs::VOTE_ABS ],
+					[ "Total", "TOTAL" ],
+				) {
+					my ($name, $vote) = @$_;
+
+					$m->out("<tr><td>$name</td>");
+
+					for my $h ($recentvotes, $allvotes)
+					{
+						my $c = $h->{$vote} || 0;
+						my $pc = 100 * $c / ($h->{"TOTAL"}||1);
+						$pc = int($pc + 0.5);
+						$m->out("<td>&nbsp; $c</td><td>&nbsp; ($pc\%)</td>");
+					}
+
+					$m->out("</tr>");
+				}
+
+				</%perl>
+			</table>
+		</td>
+	</tr>
+
+</table>
+
+<h2>Find Moderator by Name</h2>
+<& .JumpForm &>
+
+<& /comp/footer &>
