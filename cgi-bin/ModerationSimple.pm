@@ -206,6 +206,8 @@ sub ApprovedAction
 
    if ($status == ModDefs::STATUS_APPLIED)
    {
+       $sql->Do(qq/update artist_relation set artist = $newid where artist = $rowid/);
+       $sql->Do(qq/update artist_relation set ref = $newid where ref = $rowid/);
        $sql->Do(qq/update Album set artist = $newid where artist = $rowid/);
        $sql->Do(qq/update Track set artist = $newid where artist = $rowid/);
        $sql->Do("update Moderation set artist = $newid where artist = $rowid");

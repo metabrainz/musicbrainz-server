@@ -138,6 +138,8 @@ sub Remove
     }
 
     $sql->Do("delete from ArtistAlias where ref = " . $this->GetId());
+    $sql->Do("delete from Artist_Relation where artist = " . $this->GetId() . 
+             " or ref = ". $this->GetId());
     $sql->Do("update Moderation set Artist = " . ModDefs::DARTIST_ID . 
              " where artist = " . $this->GetId());
 

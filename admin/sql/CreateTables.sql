@@ -13,7 +13,7 @@ create table ArtistAlias (
    Id serial primary key,
    Ref int not null references Artist, 
    Name varchar(255) not null, 
-   LastUsed_notz datetime not null,
+   LastUsed_notz datetime not null default now();,
    TimesUsed int default 0,
    ModPending int default 0,
    lastused timestamp with time zone
