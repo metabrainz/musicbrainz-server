@@ -32,6 +32,7 @@ use Artist;
 use Track;
 use String::Unicode::Similarity;
 use Encode qw( encode decode );
+use Data::Dumper;
 
 use vars qw(@ISA @EXPORT);
 @ISA    = @ISA    = 'TableBase';
@@ -48,6 +49,7 @@ use constant TRACKID                => 16;
 use constant ALBUMTRACKID           => 64;
 use constant ALBUMTRACKLIST         => 128;
 use constant FUZZY                  => 256;
+use constant TRACKLIST              => 512;
 
 sub new
 {
@@ -146,12 +148,21 @@ sub Lookup
        }
    }   
 
-   if ($data->{albumid} eq '' && $data->{trackid} eq '' && $data->{track} ne '')
+   if ($data->{albumid} ne '' && $data->{trackid} eq '' && $data->{track} ne '')
    {
        my ($list, $flags);
        ($flags, $list) = $this->TrackSearch($data->{artistid}, $data->{track}, 
-                                            $data->{album}, $data->{tracknum}, 
+                                            $data->{albumid}, $data->{tracknum}, 
                                             $data->{duration});
+       return ("", $data, $flags, $list);
+   }   
+
+   if ($data->{albumid} eq '' && $data->{trackid} eq '' && $data->{track} ne '')
+   {
+       my ($list, $flags);
+       ($flags, $list) = $this->AlbumTrackSearch($data->{artistid}, $data->{track}, 
+                                                 $data->{album}, $data->{tracknum}, 
+                                                 $data->{duration});
        return ("", $data, $flags, $list);
    }   
 
@@ -321,7 +332,7 @@ sub ArtistSearch
        {
            $this->{artist} = $ar;     
            $this->{fuzzy} = 1;
-	   my $thisname = lc(decode "utf-8", $ar->GetName);
+           my $thisname = lc(decode "utf-8", $ar->GetName);
            return (ARTISTID | FUZZY, 
                              [ 
                               $this->SetSim({ 
@@ -340,7 +351,7 @@ sub ArtistSearch
        
        while($row = $engine->NextRow)
        {
-	   my $thisname = lc(decode "utf-8", $row->[1]);
+           my $thisname = lc(decode "utf-8", $row->[1]);
 
            push @ids, $this->SetSim({ id=>$row->[0],
                         name=>$row->[1],
@@ -350,6 +361,7 @@ sub ArtistSearch
        }
 
        @ids = sort { $b->{sim} <=> $a->{sim} } @ids;
+       @ids = splice @ids, 0, $this->{maxitems};
 
        return (ARTISTLIST, \@ids);
    }
@@ -374,7 +386,7 @@ sub AlbumSearch
        $ar->SetMBId($artistId);
        if (!defined $ar->LoadFromId())
        {
-           return (undef, []);
+           return (0, []);
        }
        $this->{artist} = $ar;     
    }
@@ -390,7 +402,7 @@ sub AlbumSearch
    my @albums = $ar->GetAlbums(0, 1);
    if (scalar(@albums) == 0)
    {
-       return (undef, []);
+       return (0, []);
    }
 
    $name = lc(decode "utf-8", $name);
@@ -409,6 +421,7 @@ sub AlbumSearch
                         album_discids=>$al->GetDiscidCount(),
                         album_trmids=>$al->GetTrmidCount(),
                         sim_album=>1 });
+           $this->{album} = $al;
        }
    }
 
@@ -419,7 +432,7 @@ sub AlbumSearch
 
        foreach $al (@albums)
        {
-	   my $thisname = lc(decode "utf-8", $al->GetName);
+           my $thisname = lc(decode "utf-8", $al->GetName);
 
            $sim = similarity($thisname, $name);
 
@@ -446,6 +459,7 @@ sub AlbumSearch
    if (scalar(@ids) > 0)
    {
        @ids = sort { $b->{sim} <=> $a->{sim} } @ids;
+       @ids = splice @ids, 0, $this->{maxitems};
        return (ALBUMLIST, \@ids);
    }
   
@@ -454,7 +468,7 @@ sub AlbumSearch
 
 # Internal.
 
-sub TrackSearch
+sub AlbumTrackSearch
 {
    my ($this, $artistId, $trackName, $albumName, $trackNum, $duration) = @_;
    my ($ar, $al, $tr, @ids, $last, $id, %result);
@@ -471,7 +485,7 @@ sub TrackSearch
        $ar->SetMBId($artistId);
        if (!defined $ar->LoadFromId())
        {
-           return (undef, []);
+           return (0, []);
        }
        $this->{artist} = $ar;     
    }
@@ -493,7 +507,7 @@ sub TrackSearch
        $flags |= FUZZY;
        while(@row = $sql->NextRow)
        {
-	   my $thisname = lc(decode "utf-8", $row[2]);
+           my $thisname = lc(decode "utf-8", $row[2]);
 
            $lensim = 0.0;
            $namesim = similarity($thisname, $trackName);
@@ -531,7 +545,7 @@ sub TrackSearch
    return (0, []) if (scalar(@ids) == 0);
 
    @ids = (sort { $b->{sim} <=> $a->{sim} } @ids);
-   @ids = splice @ids, 0, 10;
+   @ids = splice @ids, 0, $this->{maxitems};
    $query = qq|select album.id, album.name, album.gid, albumjoin.sequence, track,
                       albummeta.tracks, albummeta.discids, albummeta.trmids 
                  from Album, AlbumJoin, albummeta
@@ -597,4 +611,102 @@ sub TrackSearch
    return (ALBUMTRACKLIST | $flags, \@ids);
 }
 
+sub TrackSearch
+{
+   my ($this, $artistId, $trackName, $albumId, $trackNum, $duration) = @_;
+   my ($ar, $al, $tr, @ids, $last, $id, %result);
+   my ($sql, $tracks, $count, $query, $flags, $altname);
+
+   $flags = 0;
+   if (exists $this->{artist})
+   {
+       $ar = $this->{artist};
+   }
+   else
+   {
+       $ar = Artist->new($this->{DBH});
+       $ar->SetMBId($artistId);
+       if (!defined $ar->LoadFromId())
+       {
+           return (0, []);
+       }
+       $this->{artist} = $ar;     
+   }
+
+   if (exists $this->{album})
+   {
+       $al = $this->{album};
+   }
+   else
+   {
+       $al = Album->new($this->{DBH});
+       $al->SetMBId($albumId);
+       if (!defined $al->LoadFromId())
+       {
+           return (0, []);
+       }
+       $this->{album} = $al;     
+   }
+
+   $trackName = lc(decode "utf-8", $trackName);
+
+   if ($trackName =~ /^(.*?)\s*\(.*\)\s*$/)
+   {
+       $altname = $1;
+   }
+
+   $sql = Sql->new($this->{DBH});
+   if ($sql->Select(qq|select track.id, track.gid, track.name, track.length
+                         from Track, AlbumJoin 
+                        where albumjoin.album = | . $al->GetId() . qq| and
+                              albumjoin.track = track.id|))
+   {
+       my (@row, $namesim, $lensim, $sim);
+
+       $flags |= FUZZY;
+       while(@row = $sql->NextRow)
+       {
+           my $thisname = lc(decode "utf-8", $row[2]);
+
+           $lensim = 0.0;
+           $namesim = similarity($thisname, $trackName);
+           if ($thisname =~ /^(.*?)\s*\(.*\)\s*$/)
+           {
+               my $temp = lc $1;
+               my $chopsim = similarity($temp, $trackName);
+               $namesim = ($chopsim > $namesim) ? $chopsim : $namesim;
+           }
+           if (defined $altname)
+           {
+               my $altsim = similarity($thisname, $altname);
+               $namesim = ($altsim > $namesim) ? $altsim : $namesim;
+           }
+
+           next if ($namesim < .35);
+
+           if ($duration > 0 && $row[3] > 0)
+           {
+               $lensim = 1 - (int(abs($duration - $row[3]) / 2000) * .25);
+               $lensim = ($lensim < 0) ? 0 : $lensim;
+           }
+
+           push @ids, $this->SetSim({ id=>$row[0],
+                        albumid=>$al->GetId(),
+                        name=>$row[2], 
+                        mbid=>$row[1],
+                        tracklen=>$row[3],
+                        sim_track=>$namesim,
+                        sim_tracklen=>$lensim,
+                      });
+       }
+       $sql->Finish;
+   }
+
+   return (0, []) if (scalar(@ids) == 0);
+
+   @ids = (sort { $b->{sim} <=> $a->{sim} } @ids);
+   @ids = splice @ids, 0, $this->{maxitems};
+
+   return (TRACKLIST | $flags, \@ids);
+}
 1;

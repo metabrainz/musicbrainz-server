@@ -341,6 +341,23 @@ sub GetObject
    return $obj;
 }
 
+sub CreateTrackList
+{
+   my ($this, $album) = @_;
+   my (@trackids, @tracks, $track);
+
+   @tracks = $album->LoadTracks();
+   foreach $track (@tracks)
+   {
+       next if not defined $track;
+
+       push @trackids, { id=>$track->GetMBId(),
+           tracknum=>$track->GetSequence() };
+   }
+
+   return \@trackids;
+}
+
 sub CreateFileLookup
 {
    my ($this, $tagger, $error, $data, $flags, $list) = @_;
@@ -418,16 +435,20 @@ sub CreateFileLookup
 
        foreach $id (@$list)
        {
+           my $trackids;
            $al = $this->GetFromCache('album', $id->{id});
+           $trackids = $this->CreateTrackList($al);
            if (defined $al)
            {
-               $out .= $this->OutputAlbumRDF({ obj=>$al });
+               $out .= $this->OutputAlbumRDF({ obj=>$al, _album=> $trackids });
            }
        }
    }
-   # TODO: Output album metadata
-   elsif ($flags & TaggerSupport::ALBUMTRACKLIST)
+   elsif ($flags & TaggerSupport::ALBUMTRACKLIST || 
+          $flags & TaggerSupport::TRACKLIST)
    {
+       my %albums;
+
        $out .= $this->BeginDesc("mq:Result");
        $out .= $this->Element("mq:status", ($flags & TaggerSupport::FUZZY) != 0  ? "Fuzzy" : "OK");
        
@@ -439,6 +460,7 @@ sub CreateFileLookup
            $out .= $this->BeginDesc("rdf:li");
            $out .= $this->BeginDesc("mq:AlbumTrackResult");
 
+           $albums{$id->{albumid}}++;
            $al = $this->GetObject($tagger, 'album', $id->{albumid});
            $tr = $this->GetObject($tagger, 'track', $id->{id});
 
@@ -459,14 +481,18 @@ sub CreateFileLookup
        $ar = $this->GetObject($tagger, 'artist', $id->{artistid});
        $out .= $this->OutputArtistRDF({ obj=>$ar });
 
+       foreach $id (keys %albums)
+       {
+           my $trackids;
+           $al = $this->GetFromCache('album', $id);
+           $trackids = $this->CreateTrackList($al);
+           $out .= $this->OutputAlbumRDF({ obj=>$al, _album=> $trackids });
+       }
        foreach $id (@$list)
        {
-           $ar = $this->GetFromCache('album', $id->{albumid});
            $tr = $this->GetFromCache('track', $id->{id});
-           if (defined $tr && defined $ar)
+           if (defined $tr)
            {
-               my $tracknum = $ar->GetTrackSequence($tr->GetId());
-               $out .= $this->OutputAlbumRDF({ obj=>$al, _track=> [ $tr->GetMBId(), $tracknum ] });
                $out .= $this->OutputTrackRDF({ obj=>$tr });
            }
        }
@@ -534,7 +560,7 @@ sub CreateFileLookup
    }
    else
    {
-       return $this->ErrorRDF("No artists matched.");
+       return $this->ErrorRDF("No items matched.");
    }
    $out .= $this->EndRDFObject;
 
