@@ -114,6 +114,7 @@ if ($newartistname =~ /\S/ and $newartistsortname =~ /\S/)
 
 <& /comp/artistfilter,
 	search => $ARGS{'search'},
+	dontshow => [$al->GetArtist],
 	allowcreate => 1,
 	url => "/movealbum.html",
 	arglist => { album => $album },
