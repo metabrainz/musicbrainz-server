@@ -89,7 +89,7 @@ if ($num_mods > 0)
 
 <table width="100%">
 <tr>
-<td width="20%" align="center">
+<td width="20%" align="center" nowrap>
 <% $total_mods + $offset %> mods 
 <% $type == ModDefs::TYPE_NEW ? 'pending' : 'total' %>
 </td>
