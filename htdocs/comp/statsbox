@@ -29,8 +29,8 @@ if (!defined($result))
              $result = StatLine("Artists", $row[0]);
              $result .= StatLine("Albums", $row[1]);
              $result .= StatLine("Tracks", $row[2]);
-             $result .= StatLine("TRM Ids", $row[3]);
-             $result .= StatLine("Discids", $row[4]);
+             $result .= StatLine("Discids", $row[3]);
+             $result .= StatLine("TRM Ids", $row[4]);
              $result .= StatLine("Mods", $row[5]);
              $result .= StatLine("Users", $row[6]);
              $m->cache(action=>'store', expire_next=>'day', value=>$result);
