@@ -4,23 +4,40 @@ These are the tasks that I am currently working on. The first task the
 the most important and the last task is the least important. <p>
 
 <& /comp/todoentry, 
-   task=>'Run clean-up scripts', 
-   skills=>'Perl/HTML', 
-   desc=>qq\Run a number of scripts to clean up the database:<br>
-            <ul>
-            <li>Automatically set the sortname of artists that start with The.
-            <li>Kicking out duplicate tracks where one of the tracks has
-                a zero tracknumber.
-            <li>Automatically converting EMusic collection albums to MACs.
-            <li>Merge split MACs.
-            </ul>\
+   task=>'Database improvements', 
+   skills=>'Perl/Database', 
+   desc=>qq\Add support for committ/rollback, upgrade to the new MySQL,
+            create a central data insertion class with artist alias support, 
+            convert MB Ids to UUIDS, and moderate new submissions.\
+&>
+
+<& /comp/todoentry, 
+   task=>'Database Replication', 
+   skills=>'Perl/Database', 
+   desc=>qq\Accept Paul Sharpe's patch, change general server functions
+            to allow a read-only mirror to work. All read-write functions
+            need to get redirected to the main server.\
+&>
+
+<& /comp/todoentry, 
+   task=>'Finish the MM2 Specification', 
+   skills=>'RDF/HTML', 
+   desc=>qq\Finish the new MM version 2 specification.\
 &>
 
 <& /comp/todoentry, 
    task=>'Add support for merging albums', 
    skills=>'Perl/HTML', 
    desc=>qq\Finish the support for tagged moderations and implement a merge
-            album feature.\
+            album feature. (Curt Siffert has expressed interest in taking
+            this on.\
+&>
+
+<& /comp/todoentry, 
+   task=>'Support for showing and moderating DiskIDs/GUIDs', 
+   skills=>'HTML/Perl', 
+   desc=>qq\MusicBrainz needs to be able to let moderators manage DiskIds
+            and GUIDs that are associated with CDs and tracks.\
 &>
 
 <& /comp/todoentry, 
@@ -28,14 +45,8 @@ the most important and the last task is the least important. <p>
    skills=>'Perl/HTML', 
    desc=>qq\The captitalization guidelines need to be updated and improved.
             Perhaps a nice little pop-up window with a quick reference
-            guide for capitaliztion would be nice.\
-&>
-
-<& /comp/todoentry, 
-   task=>'Support for moderating DiskIDs/GUIDs', 
-   skills=>'HTML/Perl', 
-   desc=>qq\MusicBrainz needs to be able to let moderators manage DiskIds
-            and GUIDs that are associated with CDs and tracks.\
+            guide for capitaliztion would be nice. Has anyone compiled
+            a new set of guidelines from the previous discussion?\
 &>
 
 <& /comp/todoentry, 

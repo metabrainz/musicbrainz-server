@@ -255,7 +255,7 @@ HOST:
   my $code = $self->response();
   if ($code != 2) {
     warn "bad cddb response: " . $self->message();
-    return $self->code();
+    return $code;
   }
   else {
     $self->command( 'cddb hello',

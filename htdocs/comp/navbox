@@ -5,14 +5,15 @@ $expand=>''
 
 #define the expanded sidebox items of the Introduction pages
 my @documentation = (
-  {url=>'/how.html',                       name=>'How?'},
+  {url=>'/status.html',                    name=>'Project Status'},
+  {url=>'/mod_intro.html',                 name=>'Moderation&nbsp;Intro'},
   {url=>'/faq.html',                       name=>'FAQ'},
-  {url=>'/history.html',                   name=>'History/Roots'},
-  {url=>'/future.html',                    name=>'Future/Goals'},
   {url=>'/todo.html',                      name=>'To&nbsp;Do&nbsp;List'},
   {url=>'/rob_todo.html',                  name=>'Rob\'s&nbsp;To&nbsp;Do'},
-  {url=>'/mod_intro.html',                 name=>'Moderation&nbsp;Intro'},
+  {url=>'/how.html',                       name=>'How?'},
   {url=>'/client_howto.html',              name=>'Client&nbsp;HOWTO'},
+  {url=>'/history.html',                   name=>'History/Roots'},
+  {url=>'/future.html',                    name=>'Future/Goals'},
   {url=>'/bio.html',                       name=>'The People'}
 );
 
@@ -32,12 +33,12 @@ my @moderate = (
 my @main = (
   {url=>'/index.html',                     name=>'Home'},
   {url=>'/introduction.html',              name=>'Introduction'},
-  {url=>'/documentation.html',             name=>'Documentation',        expand=>'documentation', array=>\@documentation },
+  {url=>'/documentation.html',             name=>'Info/Docs',        expand=>'documentation', array=>\@documentation },
   {url=>'/search.html',                    name=>'Search/Browse'},
   {url=>'/engine.html',                    name=>'Search&nbsp;Engine'},
   {url=>'/moderate.html',                  name=>'Vote/Moderate',        expand=>'moderate', array=>\@moderate },
   {url=>'/list.html',                      name=>'Mailing&nbsp;List'},
-  {url=>'/MM/',                            name=>'Metadata&nbsp;Initiative'},
+  {url=>'/MM/',                            name=>'Metadata&nbsp;Init.'},
   {url=>'http://www.freeamp.org/bugzilla', name=>'Report&nbsp;a&nbsp;Bug'},
   {url=>'http://www.freeamp.org',          name=>'FreeAmp'}
 );

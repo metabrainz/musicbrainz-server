@@ -1,0 +1,63 @@
+<& /comp/sidebar, title=>'Project Status', expand=>'documentation' &>
+
+<p>
+This page should give you a good overview of there the various portions of
+this project stand.
+<p>
+
+<& /comp/section, title=>'MusicBrainz Server' &>
+<p>
+<font class="bold">Complete/Working Features</font>
+<p>
+<ul>
+<li>Support for storing and moderating the basic metadata (artist, album,
+    title, track number)
+<li>Searching/browsing the database
+<li>Daily data dumps made available to the public.
+<li>Support for adding CDs via a the web interface
+<li>RDF web services API to search/retrieve data from MusicBrainz.
+</ul>
+
+<font class="bold">Needed Features before a 1.0 Release</font>
+<p>
+<ul>
+<li>Database commit/rollback support
+<li>Database replication using MySQL
+<li>Support for Merging Albums
+<li>Display DiskIds and MusicBrainz IDs when logged in as moderator.
+<li>A track detail page that shows trmids and other track details.
+<li>Support for artist aliases
+<li>Support for a centralized data insertion class (right now several
+    classes insert data into the database)
+<li>Add support for submitting tracks/CDs via the RDF interface. These
+    submissions must then be passed through the moderation system.
+<li>Convert current MB Ids to UUIDs
+</ul>
+
+<& /comp/section, title=>'MusicBrainz Client Library' &>
+<p>
+
+<font class="bold">Complete/Working Features</font>
+<p>
+<ul>
+<li>Complete/working reference implementation.
+<li>Support for looking up Audio CDs.
+<li>Support for looking up/searching metadata.
+<li>Support for generating TRM Ids from audio data.
+</ul>
+
+<& /comp/section, title=>'MusicBrainz Metadata Initiative' &>
+<p>
+
+<font class="bold">Complete/Working Features</font>
+<p>
+<ul>
+<li>Complete and working client/server implementation
+<li>Very rough draft specification
+</ul>
+
+<font class="bold">Needed Features before a 1.0 Release</font>
+<p>
+<ul>
+<li>Complete the MusicBrainz Metadata Initiative 2.0 specification.
+</ul>
