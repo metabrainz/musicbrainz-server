@@ -1,0 +1,38 @@
+<%args>
+$mb
+$query
+$title
+$numcols
+$coltitles
+</%args>
+
+<%perl>
+
+my ($sth, $result, $i);
+
+$sth = $mb->{DBH}->prepare($query);
+if ($sth->execute)
+{
+   my @row;
+ 
+   $result = '<tr><TD valign=top>' . $title . '</td><td>';;
+   $result .= '<table><tr>';
+   for($i = 0; $i < $numcols; $i++)
+   {
+       $result .= '<th valign=top>' . $$coltitles[$i]. '</th>';
+   }
+   $result .= '</tr>';
+   while(@row = $sth->fetchrow_array)
+   {
+       $result .= '<tr>';
+       for($i = 0; $i < $numcols; $i++)
+       {
+           $result .= '<TD valign=top>' . $row[$i]. '</td>';
+       }
+       $result .= '</tr>';
+   }
+   $result .= '</tr></table></td></tr>';
+}
+$sth->finish;
+return $result;
+</%perl>

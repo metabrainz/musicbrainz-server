@@ -6,20 +6,24 @@ my $max_items = 50;
 $mb = new MusicBrainz;
 mc_comp("/comp/sidebar", title=>'Browse Artists');
 
-mc_out("<center>");
 
 $ind = $ARGS{index};
 if (!defined $ind || $ind eq '')
 {
-    mc_out(qq/Select a letter to see the Artists that 
-              begin with that letter:<br>/);
+    mc_out(qq/Pick a letter to start browsing:<p>/);
 }
 $offset = $ARGS{offset};
 $offset = 0 if not defined $offset;
 $offset = 0 if $offset < 0;
 
-mc_comp("/comp/artistbrowsebox");
-mc_out("</center>");
+mc_comp("/comp/artistbrowsebox", ind=>$ind);
+
+if (!defined $ind || $ind eq '')
+{
+    mc_out(qq/&nbsp;<p>Use the ? as a wildcard character to match non /);
+    mc_out("alpha characters.<p>");
+}
+
 mc_out("<p>[ <a href=\"/addartist.html\">Add New Artist</a> ]<p>");
 
 if (!defined $ind || $ind eq '')

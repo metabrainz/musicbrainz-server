@@ -217,27 +217,32 @@ sub SearchByName
 sub GetArtistDisplayList
 {
    my ($this, $ind, $offset, $max_items) = @_;
-   my ($query, $num_artists, @info, @row, $sql); 
+   my ($query, $num_artists, @info, @row, $sql, $ind_len); 
+
+   $ind_len = length($ind);
+   return undef if ($ind_len <= 0);
 
    $sql = Sql->new($this->{DBH});
    ($num_artists) =  $sql->GetSingleRow("Artist", ["count(*)"], 
-                                        ["left(sortname, 1)", 
+                                        ["left(sortname, $ind_len)", 
                                          $sql->Quote($ind)]);
    return undef if (!defined $num_artists);
    
-   if ($ind == '1')
+   if ($ind =~ m/_/)
    {
+      $ind =~ s/_/[^A-Za-z]/g;
+      $ind = "^$ind";
+      print STDERR "$ind\n";
       $query = qq/select id, sortname, modpending 
                   from   Artist 
-                  where  left(sortname, 1) < 'A' or
-                         left(sortname, 1) > 'Z' 
+                  where  sortname regexp "$ind"
                   order  by sortname 
                   limit  $offset, $max_items/;
    }
    else
    {
       $query = qq/select id, sortname, modpending from 
-               Artist where left(sortname, 1) = '$ind' order by sortname 
+               Artist where left(sortname, $ind_len) = '$ind' order by sortname 
                limit $offset, $max_items/;
    }
    if ($sql->Select($query))

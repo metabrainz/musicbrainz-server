@@ -6,6 +6,7 @@ $expand=>''
 #define the expanded sidebox items of the Introduction pages
 my @documentation = (
   {url=>'/status.html',                    name=>'Project Status'},
+  {url=>'/stats.html',                     name=>'Database Stats'},
   {url=>'/mod_intro.html',                 name=>'Moderation&nbsp;Intro'},
   {url=>'/faq.html',                       name=>'FAQ'},
   {url=>'/db_structure.html',              name=>'Database'},

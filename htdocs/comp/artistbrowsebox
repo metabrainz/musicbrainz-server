@@ -1,18 +1,61 @@
+<%args>
+$ind=>""
+</%args>
 <%perl>
 
-   my ($i, $p);
+my ($i, $p, $t);
 
-   $p = '<a href="/browseartists.html?index=1">#</a> ';
-   for($i = 0; $i < 26; $i++)
-   {
-       $p .= '<a href="/browseartists.html?index=' . chr($i + 65) . '">' .
-              chr($i + 65) . "</a> ";
-       if (($i + 1) % 13 == 0)
-       {
-           $p .= "<br>\n";
-       }
-   }
+mc_out("<table><tr><td>");
+# TODO: Add support for spaces
+if (length($ind) > 0)
+{
+    $t = $ind;
+    $t =~ s/_/?/g;
+    </%perl>
+    <table cellpadding="0" cellspacing="0" border="0" bgcolor="#000000">
+     <tr><td bgcolor="#000000">
+      <table width="100%" cellpadding="2" cellspacing="1" border="0">
+      <tr>
+        <td bgcolor="#FFBA58" align="left" valign="middle" 
+            width="100%" class="mbtable">
+        <img src="/images/pixel.gif" width="3" height="1" alt="" 
+             border="0" align="absmiddle">
+        <font size="+2" color="black"><% $t %></font> 
+        <img src="/images/pixel.gif" width="3" height="1" alt="" 
+             border="0" align="absmiddle">
+        </td>
+       </tr>
+       </table>
+       </td></tr>
+    </table>
+    <%perl>
 
-   mc_out($p);
+    mc_out("</td><td>");
+    $t = $ind;
+    chop($t);
+}
+mc_out("</td><td>");
+mc_out("&nbsp;&nbsp;</td><td>");
+
+if (length($ind) > 0)
+{
+    mc_out("<a href=\"/browseartists.html?index=$t\">Back</a><br>");
+    mc_out("<a href=\"/browseartists.html\">Top</a>");
+}
+mc_out("</td><td>");
+mc_out("&nbsp;&nbsp;</td><td>");
+
+mc_out('<a href="/browseartists.html?index='.$ind.'_">?</a> ');
+for($i = 0; $i < 26; $i++)
+{
+    $p .= '<a href="/browseartists.html?index='. $ind . chr($i + 65) . '">' .
+           chr($i + 65) . "</a> ";
+    if (($i + 1) % 13 == 0)
+    {
+        $p .= "<br>\n";
+    }
+}
+mc_out($p);
+mc_out("</td></tr></table>");
 
 </%perl>

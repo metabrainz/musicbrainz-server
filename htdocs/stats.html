@@ -1,0 +1,117 @@
+<& /comp/sidebar, title=>'Database Stats', expand=>'documentation' &>
+
+<%perl>
+my $result = $m->cache(action=>'retrieve');
+$result = undef;
+if (!defined($result)) 
+{
+    my $mb = MusicBrainz->new();  
+    $mb->Login();
+
+    my $t = `date -u`;
+   
+    $result = "<tr><td>Generated on: $t</td></tr>";
+
+    $result .= '<tr><td>&nbsp;<br><font class="bold">';
+    $result .= 'Basic Metadata Statistics</font></td></tr>';
+
+    $result .= mc_comp("/comp/simplestat", 
+                       mb=>$mb,
+                       query=>"select count(*) from Artist", 
+                       title=>"Artists:");
+    $result .= mc_comp("/comp/simplestat", 
+                       mb=>$mb,
+                       query=>"select count(*) from Album", 
+                       title=>"Albums:");
+    $result .= mc_comp("/comp/simplestat", 
+                       mb=>$mb,
+                       query=>"select count(*) from Track", 
+                       title=>"Tracks:");
+
+    $result .= '<tr><td>&nbsp;<br><font class="bold">';
+    $result .= 'Metadata Identifier Statistics</font></td></tr>';
+
+    $result .= mc_comp("/comp/simplestat", 
+                       mb=>$mb,
+                       query=>"select count(*) from GUID", 
+                       title=>"TRM Ids:");
+    $result .= mc_comp("/comp/simplestat", 
+                       mb=>$mb,
+                       query=>"select count(*) from Diskid", 
+                       title=>"DiskIds:");
+
+    $result .= '<tr><td>&nbsp;<br><font class="bold">';
+    $result .= 'User Statistics</font></td></tr>';
+
+    $result .= mc_comp("/comp/simplestat", 
+                       mb=>$mb,
+                       query=>"select count(*) from ModeratorInfo", 
+                       title=>"Users:");
+    $result .= mc_comp("/comp/tablestat", 
+                       mb=>$mb,
+                       query=>qq|select ModeratorInfo.name, count(ModeratorInfo.id) as num from Changes,ModeratorInfo where Changes.Moderator = ModeratorInfo.id and UNIX_TIMESTAMP(now()) - UNIX_TIMESTAMP(TimeSubmitted) < 604800 group by ModeratorInfo.ModsAccepted order by num desc limit 10|,
+                       title=>"Most active moderators in the last week:",
+                       numcols=>2,
+                       coltitles=>["User", "Moderations"]);
+
+    $result .= mc_comp("/comp/tablestat", 
+                       mb=>$mb,
+                       query=>qq|select name, modsaccepted from ModeratorInfo
+                                 order by modsaccepted desc limit 10|,
+                       title=>"Most active moderators overall:",
+                       numcols=>2,
+                       coltitles=>["User", "Moderations"]);
+
+
+    $result .= '<tr><td>&nbsp;<br><font class="bold">';
+    $result .= 'Moderation Statistics</font></td></tr>';
+
+    $result .= mc_comp("/comp/simplestat", 
+                       mb=>$mb,
+                       query=>"select count(*) from Changes", 
+                       title=>"Mods:");
+    $result .= mc_comp("/comp/simplestat", 
+                       mb=>$mb,
+                       query=>"select count(*) from Changes where status = " .
+                               ModDefs::STATUS_OPEN, 
+                       title=>"&nbsp;&nbsp;&nbsp;Open Mods:");
+    $result .= mc_comp("/comp/simplestat", 
+                       mb=>$mb,
+                       query=>"select count(*) from Changes where status != " .
+                               ModDefs::STATUS_OPEN ." and YesVotes >= NoVotes", 
+                       title=>"&nbsp;&nbsp;&nbsp;Accepted Mods:");
+    $result .= mc_comp("/comp/simplestat", 
+                       mb=>$mb,
+                       query=>"select count(*) from Changes where status != " .
+                               ModDefs::STATUS_OPEN ." and NoVotes > YesVotes", 
+                       title=>"&nbsp;&nbsp;&nbsp;Rejected Mods:");
+    $result .= mc_comp("/comp/simplestat", 
+                       mb=>$mb,
+                       query=>"select count(*) from Votes", 
+                       title=>"Votes:");
+    $result .= mc_comp("/comp/simplestat", 
+                       mb=>$mb,
+                       query=>"select count(*) from Votes where vote = 1", 
+                       title=>"&nbsp;&nbsp;&nbsp;Yes Votes:");
+    $result .= mc_comp("/comp/simplestat", 
+                       mb=>$mb,
+                       query=>"select count(*) from Votes where vote = 0", 
+                       title=>"&nbsp;&nbsp;&nbsp;No Votes:");
+    $result .= mc_comp("/comp/simplestat", 
+                       mb=>$mb,
+                       query=>"select count(*) from Votes where vote = 2", 
+                       title=>"&nbsp;&nbsp;&nbsp;Abstain Votes:");
+    $mb->Logout();
+    $m->cache(action=>'store', expire_next=>'hour', value=>$result);
+}
+</%perl>
+
+<table cellpadding="10" cellspacing="0" border="0">
+<tr>
+   <td>
+      <table width=100%>
+      <% $result |n %>
+      </table>
+   </td>
+</tr>
+</table>  
