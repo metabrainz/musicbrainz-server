@@ -75,7 +75,7 @@ elsif ($ms > 0)
     </td>
 % if (exists $session{user} && !$nomod) {
     <td width="15%" align=center bgcolor="white" nowrap>
-       <a href="/edittrack.html?id=<% $track->GetId() %>&amp;album=<% $album->GetId() %>&amp;artist=<% $artist->GetId() %>&amp;nonalbum=<% $nonalbum %>">Edit</a>
+       <a href="/edittrack.html?track=<% $track->GetId() %>&amp;album=<% $album->GetId() %>">Edit</a>
        | <a href="/remtrack.html?id=<% $track->GetId() %>&amp;album=<% $album->GetId() %>&amp;artist=<% $artist->GetId() %>">Del</a>
     </td>
 % }

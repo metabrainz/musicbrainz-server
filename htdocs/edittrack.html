@@ -1,117 +1,125 @@
-<& /comp/sidebar, title=>'Edit Track Name', expand=>'moderate' &>
+%# vi: set ts=2 sw=2 ft=mason :
+<%args>
+$album => undef
+$track => undef
+</%args>
+
+<& /comp/sidebar, title => 'Edit Track Name' &>
 
 <%perl>
 
-my ($mb, $id, $trackname, $tr);
-my ($seq_id, $tracknum, $album, $artist, $nonalbum); 
+$m->comp("/comp/checkloggedin", 0, 1)
+	or return;
 
-if (!exists $ARGS{album} || $ARGS{album} eq '' ||
-    !exists $ARGS{artist} || $ARGS{artist} eq '' ||
-    !exists $ARGS{id} || $ARGS{id} eq '' ||
-    !exists $ARGS{nonalbum} || $ARGS{nonalbum} eq '')
-{
-    mc_comp("/comp/badargs");
-    return undef;
-}
+MusicBrainz::IsNonNegInteger($album) && $album
+	or return $m->comp("/comp/badargs", 0, 1);
 
-$mb = mc_comp("/comp/dblogin");
-$tr = Track->new($mb->{DBH});
+MusicBrainz::IsNonNegInteger($track) && $track
+	or return $m->comp("/comp/badargs", 0, 1);
 
-$id = $ARGS{id};
-$album = $ARGS{album};
-$artist = $ARGS{artist};
-$nonalbum = $ARGS{nonalbum};
+my $mb = $m->comp("/comp/dblogin");
 
-$tr->SetId($id);
+my $al = Album->new($mb->{DBH});
+$al->SetId($album);
+$al->LoadFromId
+	or return $m->comp(
+		"/comp/error",
+		"Album #$album does not exist",
+		0, 1,
+	);
+
+my $tr = Track->new($mb->{DBH});
+$tr->SetId($track);
 $tr->SetAlbum($album);
-$tr->LoadFromId();
+$tr->LoadFromId
+	or return $m->comp(
+		"/comp/error",
+		"Track #$track on album #$album does not exist",
+		0, 1,
+	);
 
-$trackname = $tr->GetName();
-$tracknum = $tr->GetSequence();
-$seq_id = $tr->GetSequenceId();
+my $ar = Artist->new($mb->{DBH});
+$ar->SetId($al->GetArtist);
+$ar->LoadFromId
+	or return $m->comp(
+		"/comp/error",
+		"Artist does not exist",
+		0, 1,
+	);
 
 </%perl>
 
-% if (!defined $session{user} || $session{user} eq '') {
-    You must be logged in to edit the database.<p>
-    <& /comp/tablebegin, title=>'Login' &>
-    <& /comp/loginbox &>
-    <& /comp/tableend &>
+<& /comp/stylemenu &>
+
+<h2>Edit Track Name</h2>
+
+<form method="post" action="/bare/enter_mod.html" name="EditTrackForm"
+	enctype="application/x-www-form-urlencoded">
+
+	<table width="100%">
+		<tr>
+			<td>
+				Current Name:
+			</td>
+			<td>
+				<% $tr->GetName  %>
+			</td>
+		</tr>
+		<tr>
+			<td>
+				New Name:
+			</td>
+			<td>
+				<input type="text" name="new0" size="50" value="<% $tr->GetName %>">
+			</td>
+		</tr>
+
+% unless ($al->IsNonAlbumTracks) {
+		<tr>
+			<td>
+				Current Track Number:
+			</td>
+			<td>
+				<% $tr->GetSequence %>
+			</td>
+		</tr>
+		<tr>
+			<td>
+				New Track Number:
+			</td>
+			<td>
+				<input type="text" name="new1" size="50" value="<% $tr->GetSequence %>">
+			</td>
+		</tr>
 % } else {
-
-    <& /comp/stylemenu &>
-
-    <& /comp/tablebegin, gattrs=>"width=\"100%\"",
-       title=>'Edit Track Name' &>
-
-    <FORM METHOD="POST" ACTION="/bare/enter_mod.html" NAME="EditTrackForm"
-          ENCTYPE="application/x-www-form-urlencoded">  
-    <table width="100%">
-      <tr>
-        <td>
-        Current Name:
-        </td>
-        <td>
-        <% $trackname  %>
-        </td>
-      </tr>
-      <tr>
-        <td>
-        New Name:
-        </td>
-        <td>
-        <INPUT TYPE="text" NAME="new0" SIZE=25 value="<% $trackname %>"> 
-        </td>
-      </tr>
-% if (!$nonalbum) {
-      <tr>
-        <td>
-        Current Track Number:
-        </td>
-        <td>
-        <% $tracknum %>
-        </td>
-      </tr>
-      <tr>
-        <td>
-        New Track Number:
-        </td>
-        <td>
-        <INPUT TYPE="text" NAME="new1" SIZE=25 value="<% $tracknum %>"> 
-        </td>
-      </tr>
-% } else {
-      <tr>
-        <td colspan="2">
-        <INPUT TYPE="hidden" NAME="new1" value="<% $tracknum %>"> 
-        </td>
-      </tr>
+		<tr>
+			<td colspan="2">
+				<input type="hidden" name="new1" value="<% $tr->GetSequence %>">
+			</td>
+		</tr>
 % }
-      <tr>
-        <td colspan=2>
-        <INPUT TYPE="submit" NAME="Submit" VALUE="Submit">    
-        </td>
-      </tr>
-    </table>
-    <input type="hidden" name="artist0" value="<% $artist %>">
-    <input type="hidden" name="artist1" value="<% $artist %>">
-    <input type="hidden" name="type0"
-           value="<% ModDefs::MOD_EDIT_TRACKNAME %>">
-    <input type="hidden" name="type1"
-           value="<% ModDefs::MOD_EDIT_TRACKNUM %>">
-    <input type="hidden" name="prev0" value="<% $trackname %>">
-    <input type="hidden" name="prev1" value="<% $tracknum %>">
-    <input type="hidden" name="table0" value="Track">
-    <input type="hidden" name="table1" value="AlbumJoin">
-    <input type="hidden" name="column0" value="Name">
-    <input type="hidden" name="column1" value="Sequence">
-    <input type="hidden" name="id0" value="<% $id %>">
-    <input type="hidden" name="id1" value="<% $seq_id %>">
-    <input type="hidden" 
-           name="url" value="/showalbum.html?albumid=<% $album %>">
-    </form>
-      
-    <& /comp/tableend &>
-% }
-% $mb->Logout();
+
+		<tr>
+			<td colspan="2">
+				<input type="submit" value="Submit">
+			</td>
+		</tr>
+	</table>
+
+	<input type="hidden" name="artist0" value="<% $tr->GetArtist %>">
+	<input type="hidden" name="artist1" value="<% $tr->GetArtist %>">
+	<input type="hidden" name="type0" value="<% ModDefs::MOD_EDIT_TRACKNAME %>">
+	<input type="hidden" name="type1" value="<% ModDefs::MOD_EDIT_TRACKNUM %>">
+	<input type="hidden" name="prev0" value="<% $tr->GetName %>">
+	<input type="hidden" name="prev1" value="<% $tr->GetSequence %>">
+	<input type="hidden" name="table0" value="Track">
+	<input type="hidden" name="table1" value="AlbumJoin">
+	<input type="hidden" name="column0" value="Name">
+	<input type="hidden" name="column1" value="Sequence">
+	<input type="hidden" name="id0" value="<% $tr->GetId %>">
+	<input type="hidden" name="id1" value="<% $tr->GetSequenceId %>">
+	<input type="hidden" name="url" value="/showalbum.html?albumid=<% $album %>">
+</form>
+
+<& /comp/movefocus, "EditTrackForm", "new0" &>
 <& /comp/footer &>
