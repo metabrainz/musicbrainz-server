@@ -147,7 +147,7 @@ sub MatchArtist
 {
     my ($dbh, $artist, $artistid) = @_;
     my ($album, $count, %matched);
-	my ($ar, @albums, $search, %album_asins, %potential_matches);
+	my ($ar, @albums, $search, %album_data, %potential_matches);
 
     print localtime() . " : Matching $artist ($artistid): "
 		if $verbose;
@@ -197,7 +197,7 @@ sub MatchArtist
     	$url =~ s/^http:\/\/images.amazon.com//;
     	
     	# upc, release_date are for future use
-    	$album_asins{$prop->album()} = {
+    	$album_data{$prop->album()} = {
     		album => $prop->album(),
     		asin => $prop->Asin(),
     		url => $url,
@@ -223,11 +223,11 @@ sub MatchArtist
             
             $best = 0;
             $bestalbum = 0;
-            foreach my $amAlbum (keys %album_asins)
+            foreach my $amAlbum (keys %album_data)
             {
             	if ($chop == 2)
             	{
-            		$sim = CompareTrackNames($search, $album_asins{$amAlbum}->{tracks}, $album->GetTracks());
+            		$sim = CompareTrackNames($search, $album_data{$amAlbum}->{tracks}, $album->GetTracks());
             	}
             	else
             	{
@@ -243,14 +243,14 @@ sub MatchArtist
                 # choose the match with an image if we get more than 1 match.
 				if ($sim > .8)
 				{
-					$album_asins{$amAlbum}->{sim} = $sim;
-					push @{$potential_matches{$album}}, $album_asins{$amAlbum};
+					$album_data{$amAlbum}->{sim} = $sim;
+					push @{$potential_matches{$album}}, $album_data{$amAlbum};
 				}
             }
             if ($best > .8)
             {
             	# if the best match doesn't have an image, check through the other possible matches
-            	unless ($album_asins{$bestalbum}->{url} ne '')
+            	unless ($album_data{$bestalbum}->{url} ne '')
             	{
             		my $oldBest = $best;
             		$best = 0;
@@ -268,9 +268,9 @@ sub MatchArtist
             		$best = $oldBest unless ($best);
             	}
             	
-                $matched{$album} = [ $bestalbum, $best, $album_asins{$bestalbum}->{asin},
-                                     $album_asins{$bestalbum}->{url} ];
-                $album_asins{$bestalbum}->{matched}++; 
+                $matched{$album} = [ $bestalbum, $best, $album_data{$bestalbum}->{asin},
+                                     $album_data{$bestalbum}->{url} ];
+                $album_data{$bestalbum}->{matched}++;
             }
         }
 
@@ -304,7 +304,7 @@ sub MatchArtist
             $count++ 
         }
     }
-    if (scalar(keys %album_asins) == 0)
+    if (scalar(keys %album_data) == 0)
     {
         print "Zero albums returned\n"
 			if $verbose;
@@ -318,21 +318,21 @@ sub MatchArtist
  
 	# print "Amazon albums not matched:\n";
     $count = 0;
-    foreach $album (keys %album_asins)
+    foreach $album (keys %album_data)
     {
-        if ($album_asins{$album}->{matched})
+        if ($album_data{$album}->{matched})
         {
            $count++ 
         }
         else
         {
-			# printf "  %s %s\n", $album_asins{$album}->{asin}, $album;
+			# printf "  %s %s\n", $album_data{$album}->{asin}, $album;
         }
     }
-    if (scalar(keys %album_asins) != 0)
+    if (scalar(keys %album_data) != 0)
     {
         printf " AM: %d of %d (%.2f%%)\n",
-            $count, scalar(keys %album_asins), $count * 100 / scalar(keys %album_asins),
+            $count, scalar(keys %album_data), $count * 100 / scalar(keys %album_data),
 			if $verbose;
     }
 
