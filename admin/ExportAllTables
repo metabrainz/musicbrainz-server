@@ -515,15 +515,14 @@ sub dumplucene
 		unlink $xmlfile;
 		print localtime() . " : Lucene XML output failed!\n";
 		exit 1;
+	} else {
+		printf "%s : Lucene XML dump completed (%d bytes output)\n",
+			scalar localtime,
+			-s $xmlfile,
+			;
+		# Set "rowcounts" to ensure this file gets included in the archives
+		$rowcounts{"lucene_dump.xml"} = 1;
 	}
-
-	printf "%s : Lucene XML dump completed (%d bytes output)\n",
-		scalar localtime,
-		-s $xmlfile,
-		;
-
-	# Set "rowcounts" to ensure this file gets included in the archives
-	$rowcounts{"lucene_dump.xml"} = 1;
 }
 
 # eof ExportAllTables
