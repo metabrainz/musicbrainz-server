@@ -30,7 +30,13 @@ use lib "$FindBin::Bin/../cgi-bin";
 use DBI;
 use DBDefs;
 
+my $dbname = DBDefs::DB_NAME;
+my $dbuser = DBDefs::DB_USER;
+
 use Getopt::Long;
+
+my $sDefaultOutputFile = "mbdump.tar.bz2";
+my $sDefaultTmpDir = "/tmp";
 
 sub Usage
 {
@@ -58,8 +64,8 @@ EOF
 }
 
 my ($fAll, $fSanitised, $fCore, $fDerived, $fModeration);
-my $outfile = my $sDefaultOutputFile = "mbdump.tar.bz2";
-my $tmpdir = my $sDefaultTmpDir = "/tmp";
+my $outfile = $sDefaultOutputFile;
+my $tmpdir = $sDefaultTmpDir;
 my $fHelp;
 my $fDebug;
 
@@ -96,12 +102,16 @@ my @core = qw(
 	trmjoin
     clientversion
     stats
+	currentstat
+	historicalstat
 	);
 
 my @derived = qw(
 	albumwords
 	artistwords
 	stats
+	currentstat
+	historicalstat
 	trackwords
 	wordlist
 	albummeta
@@ -202,7 +212,8 @@ END
     if (defined $sql)
     {
         $sql->AutoCommit;
-        eval { $sql->Do("DROP TABLE moderator_sanitised") };
+        eval { $sql->Do("DROP TABLE moderator_sanitised") }
+			if $tables{"moderator_sanitised"};
     	undef $sql;
      	$mb->Logout;
     }
@@ -215,7 +226,7 @@ sub DumpTable
 {
     my $table = shift;
 
-    $cmd = "pg_dump -Fc -t $table musicbrainz > $dir/$table";
+    $cmd = "pg_dump -U $dbuser -Fc -t $table $dbname > $dir/$table";
     $ret = system($cmd) >>8;
 
     print "Dumped table $table.\n";
