@@ -8,13 +8,11 @@ $tracks
 
 <%perl>
 
-my ($mb, $di, $sql); 
-
 $m->comp("/comp/sidebar", title=>'Found CD');
 
-$mb = $m->comp("/comp/dblogin");
-$sql = Sql->new($mb->{DBH});
-$di = Discid->new($mb->{DBH});
+my $mb = $m->comp("/comp/dblogin");
+my $sql = Sql->new($mb->{DBH});
+my $di = Discid->new($mb->{DBH});
 
 eval
 {

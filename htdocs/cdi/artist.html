@@ -6,8 +6,6 @@ $tracks
 $search
 </%args>
 <%perl>
-my ($mb, $ar, $eng, $num_tracks, $i, $sth, $sql); 
-my (@row, $artist, @artists);
 
 $m->comp("/comp/sidebar", title=>'Submit CD: Artist Search Results');
   
@@ -18,10 +16,10 @@ if ($search eq '')
 }
 else
 {
-	$mb = $m->comp("/comp/dblogin");
-    $ar = Artist->new($mb->{DBH});
+	my $mb = $m->comp("/comp/dblogin");
+    my $ar = Artist->new($mb->{DBH});
 
-    $eng = SearchEngine->new($mb->{DBH});
+    my $eng = SearchEngine->new($mb->{DBH});
     $eng->Table("Artist");
 
 	$eng->Search(
