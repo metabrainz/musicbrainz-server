@@ -43,11 +43,12 @@ use constant DB_PASSWD 	=>	'';
 use constant USE_LYRICS => 1;
 
 # This defines the version of the server
-use constant VERSION => "1.0.0-pre2";
+use constant VERSION => "1.0.0-pre3";
 
 # Defines the number of seconds before the votes on a 
 # modification are evaluated
-use constant MOD_PERIOD => 604800;   # 1 week
+#use constant MOD_PERIOD => 604800;   # 1 week
+use constant MOD_PERIOD => 172800;   # 1 week
 
 # Defines the number of unanimous votes required to pass a mod early
-use constant NUM_UNANIMOUS_VOTES => 2;
+use constant NUM_UNANIMOUS_VOTES => 5;
