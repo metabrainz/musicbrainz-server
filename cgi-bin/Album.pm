@@ -110,13 +110,13 @@ sub SetArtist
 
 sub GetCoverartURL
 {
-   return "/images/no_coverart.png" if ($_[0]->{coverarturl} eq '');
+   return "/images/no_coverart.png" unless $_[0]->{coverarturl};
    return "http://images.amazon.com" . $_[0]->{coverarturl};
 }
 
 sub GetAsin
 {
-   return $_[0]{asin} =~ /(\S+)/ ? $1 : ""
+   return ($_[0]{asin}||"") =~ /(\S+)/ ? $1 : ""
 }
 
 sub GetAttributeName

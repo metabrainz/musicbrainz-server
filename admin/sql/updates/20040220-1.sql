@@ -27,7 +27,8 @@ DELETE FROM album_amazon_asin WHERE NOT EXISTS (
 ALTER TABLE album_amazon_asin
     ADD CONSTRAINT album_amazon_asin_fk_album
     FOREIGN KEY (album)
-    REFERENCES album(id);
+    REFERENCES album(id)
+    ON DELETE CASCADE;
 
 -- Update the structure and data of the albummeta table
 

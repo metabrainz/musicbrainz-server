@@ -91,6 +91,8 @@ my $dbh = $mb->{DBH};
 
 my @tables = qw(
 	album
+	album_amazon_asin
+	album_amazon_asin_sanitised
 	albumjoin
 	albummeta
 	albumwords
@@ -138,6 +140,9 @@ my $now = $sql->SelectSingleValue("SELECT NOW()");
 open(TIMESTAMP, ">$dir/mbdump/TIMESTAMP") or die $!;
 print TIMESTAMP "This snapshot was taken at $now UTC\n";
 close TIMESTAMP;
+
+$sql->Do("SELECT * INTO TEMPORARY TABLE album_amazon_asin_sanitised FROM album_amazon_asin");
+$sql->Do("UPDATE album_amazon_asin_sanitised SET coverarturl = ''");
 
 $sql->Do("SELECT * INTO TEMPORARY TABLE moderator_sanitised FROM moderator");
 $sql->Do("UPDATE moderator_sanitised SET password = 'mb', privs = 0, email = ''");
@@ -214,7 +219,7 @@ printf "Dumped %d tables (%d rows) in %d seconds\n",
 	$tables, $totalrows, $dumptime;
 
 # Now we have all the files; disconnect from the database.
-# This also drops the moderator_sanitised temporary table.
+# This also drops the _sanitised temporary tables.
 undef $sql;
 undef $mb;
 
@@ -234,6 +239,7 @@ my @group_core = qw(
 	);
 
 my @group_derived = qw(
+	album_amazon_asin_sanitised
 	albummeta
 	albumwords
 	artistwords
@@ -262,6 +268,7 @@ my @group_artistrelation = qw(
 );
 
 my @group_modprivate = qw(
+	album_amazon_asin
 	moderator
 	moderator_preference
 	moderator_subscribe_artist

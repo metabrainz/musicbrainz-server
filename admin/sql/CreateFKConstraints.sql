@@ -150,6 +150,7 @@ ALTER TABLE release
 ALTER TABLE album_amazon_asin
     ADD CONSTRAINT album_amazon_asin_fk_album
     FOREIGN KEY (album)
-    REFERENCES album(id);
+    REFERENCES album(id)
+    ON DELETE CASCADE;
 
 -- vi: set ts=4 sw=4 et :

@@ -634,7 +634,6 @@ sub GetModerationList
 	my $ok = eval {
 		local $sql->{Quiet} = 1;
 		$query .= " OFFSET " . ($index||0);
-		print STDERR "Executing mod SQL: $query\n";
 		$sql->Select($query);
 		1;
 	};

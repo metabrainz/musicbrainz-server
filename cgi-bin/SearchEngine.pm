@@ -410,7 +410,7 @@ sub Search
 
     unless ($results)
     {
-	if ($sqlerr =~ /Query was cancelled/i)
+	if ($sqlerr =~ /(?:Query was cancelled|canceling query)/i)
 	{
 	    $self->{RESULTTYPE} = SEARCHRESULT_TIMEOUT;
 	    return;

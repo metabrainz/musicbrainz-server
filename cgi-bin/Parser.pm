@@ -163,7 +163,8 @@ sub Parse
    if ($@)
    {
        $this->{error} = $@;
-       print STDERR "Parse failed: $@\n";
+		# (my $err = $@) =~ s/\s+/ /g;
+		# print STDERR "Parse failed: $err\n";
        return 0;
    }
 

@@ -1,4 +1,5 @@
-#!/usr/bin/perl -w
+#!/home/httpd/musicbrainz/mb_server/cgi-bin/perl -w
+# vi: set ts=4 sw=4 :
 #____________________________________________________________________________
 #
 #   MusicBrainz -- the open internet music database
@@ -45,6 +46,21 @@ use constant MAX_PAGES_PER_ARTIST => 100;
 use constant MODE_FIND       => 1;
 use constant MODE_UPDATE     => 2;
 use constant MODE_DAILY      => 3;
+use constant MODE_SINGLE     => 4;
+
+my $verbose = -t;
+my $summary = -t;
+
+# What dataset to process
+my $mode = MODE_FIND;
+# How much of that set to process
+my $percent = undef;
+my $limit = undef;
+
+# Summary fields
+my $start_time = time;
+my $artists_processed = 0;
+my $queries_sent = 0;
 
 sub IsValidImage
 {
@@ -63,10 +79,6 @@ sub IsValidImage
             return 0 if (length($response->content) < 1024);
             return 1;
         }
-#        $url =~ s-^(.*)/(.+?)$-$2-;
-#        open FUSS, ">$url" or die;
-#        print FUSS $response->content;
-#        close FUSS;
     } 
 
     return 0;
@@ -117,13 +129,14 @@ sub HandleEnd
                 };
             }
         }
-#       else
-#       {
-#           printf("Skipping album %s by %s (%d artists)\n", 
-#                   $expat->{__mbdata}->{album},
-#                   $expat->{__mbdata}->{artist},
-#                   $expat->{__mbdata}->{artistCount});
-#       }
+        else
+        {
+            printf("Skipping album %s by %s (%d artists)\n", 
+                    $expat->{__mbdata}->{album},
+                    $expat->{__mbdata}->{artist},
+                    $expat->{__mbdata}->{artistCount})
+				if 0;
+        }
 
         $expat->{__mbdata}->{asin} = '';
         $expat->{__mbdata}->{album} = '';
@@ -177,6 +190,8 @@ sub ParseXML
     my ($artist, $album_asins, $album_urls, $xml) = @_;
     my ($expat, %data);
 
+	# TODO handle ErrorMsg in the response: /ProductInfo/ErrorMsg/(text)
+
     $expat = new XML::Parser(Handlers => {Start => \&HandleStart,
                                           End   => \&HandleEnd,
                                           Char  => \&HandleChar});
@@ -229,9 +244,27 @@ sub MatchArtist
     my ($pages, %album_asins, %album_urls, $album, $xml);
     my ($error, $i, %matched, $count);
 
-    print "Matching $artist ($artistid): ";
+    print localtime() . " : Matching $artist ($artistid): "
+		if $verbose;
+	++$artists_processed;
 
-#print "\n";
+    my ($ar, @albums, $aalbum, $search);
+
+    $search = SearchEngine->new($dbh);
+    $ar = Artist->new($dbh);
+    $ar->SetId($artistid);
+
+    @albums = $ar->GetAlbums(1);
+
+	# If invoked via --single we need to check that the artist has at least
+	# one album
+	if (not @albums)
+	{
+		print "artist has no albums - skipping\n"
+			if $verbose;
+		return (0, "");
+	}
+
     $count = 0;
     for($pages = 1, $i = 0; $i < $pages; $i++)
     {
@@ -247,20 +280,24 @@ sub MatchArtist
         $ua->timeout(10);
 
         my $t0 = [gettimeofday];
-        print ".";
+        print "." if $verbose and -t STDOUT;
+
+		print DEBUG "GET $url\n";
         my $response = $ua->get($url);
+		++$queries_sent;
+		print DEBUG $response->as_string, "\n";
+
         if ($response->is_success)
         {
-#           open FUSS,">xml-$i.xml" or die;
-#           print FUSS $response->content;
-#           close FUSS;
-
             ($pages, $error) = ParseXML($artist, \%album_asins, \%album_urls, $response->content);
             if ($error)
             {
                 return (0, $error);
             }
-        }
+        } else {
+			warn "Failed to retrieve $url\n";
+			print STDERR $response->as_string;
+		}
 
         my $t1 = [gettimeofday];
         my $dur = (1.0 -  tv_interval($t0, $t1)) * 1000000;
@@ -272,18 +309,10 @@ sub MatchArtist
             last;
         }
     }
-    for($i = 0; $i < $pages; $i++)
-    {
-        print "\b";
-    }
 
-    my ($ar, @albums, $aalbum, $search);
+	# Erase the dots we printed just now
+	print "\b" x $pages if $verbose and -t STDOUT;
 
-    $search = SearchEngine->new($dbh);
-    $ar = Artist->new($dbh);
-    $ar->SetId($artistid);
-
-    @albums = $ar->GetAlbums(1);
     for(my $chop = 0; $chop < 2; $chop++)
     {
         foreach $album (@albums)
@@ -327,13 +356,13 @@ sub MatchArtist
 #       print "\n";
     }
 
-#   print "MB albums not matched:\n";
+	# print "MB albums not matched:\n";
     $count = 0;
     foreach $album (@albums)
     {
         if (!exists $matched{$album})
         {
-#            printf "  %s (%d)\n", $album->GetName(), $album->GetId();
+			# printf "  %s (%d)\n", $album->GetName(), $album->GetId();
             # Add an empty record to note that we've looked at this album and found nothing.
             $matched{$album} = [ '', 0, '', '' ];
         }
@@ -344,14 +373,17 @@ sub MatchArtist
     }
     if (scalar(keys %album_asins) == 0)
     {
-        print "Zero albums returned\n";
+        print "Zero albums returned\n"
+			if $verbose;
     }
     else
     {
-        printf "MB: %d of %d (%.2f%%)  ", $count, scalar(@albums), $count * 100 / scalar(@albums);
+        printf "MB: %d of %d (%.2f%%)",
+			$count, scalar(@albums), $count * 100 / scalar(@albums),
+			if $verbose;
     }
  
-#    print "Amazon albums not matched:\n";
+	# print "Amazon albums not matched:\n";
     $count = 0;
     foreach $album (keys %album_asins)
     {
@@ -361,13 +393,14 @@ sub MatchArtist
         }
         else
         {
-#           printf "  %s %s\n", $album_asins{$album}->{asin}, $album;
+			# printf "  %s %s\n", $album_asins{$album}->{asin}, $album;
         }
     }
     if (scalar(keys %album_asins) != 0)
     {
-        printf "AM: %d of %d (%.2f%%)\n", 
-            $count, scalar(keys %album_asins), $count * 100 / scalar(keys %album_asins);
+        printf " AM: %d of %d (%.2f%%)\n",
+            $count, scalar(keys %album_asins), $count * 100 / scalar(keys %album_asins),
+			if $verbose;
     }
 
     my ($sql);
@@ -381,6 +414,12 @@ sub MatchArtist
         {
             if (exists $matched{$album})
             {
+				printf "DB UPDATE: album=%d asin=%s url=%s\n",
+					$album->GetId,
+					$matched{$album}->[2],
+					$matched{$album}->[3],
+					if 0;
+
                  $sql->Do("UPDATE album_amazon_asin SET asin = ?, coverarturl = ?, lastupdate = now() WHERE album = ?", 
                          $matched{$album}->[2], $matched{$album}->[3], $album->GetId())
                  or
@@ -391,7 +430,8 @@ sub MatchArtist
     };
     if ($@)
     { 
-        print "$@\n";
+        print localtime() . " : Returning error: $@\n",
+			if $verbose;
         $sql->Rollback();
         return (0, $@);
     }
@@ -405,8 +445,9 @@ sub MatchArtist
 
 sub MatchAlbums
 {
-    my ($dbh, $mode) = @_;
-    my ($ret, $error, $sth, $max);
+    my ($dbh, $mode, $percent, $limit) = @_;
+
+	my $sth;
 
     if ($mode == MODE_FIND)
     {
@@ -422,12 +463,12 @@ sub MatchAlbums
                                   from (
                                            select ar.id, ar.name, 0 as with_asin, count(ar.id) as without_asin 
                                              from artist ar, album al, album_amazon_asin aaa 
-                                            where aaa.asin = '          ' and aaa.album = al.id and al.artist = ar.id 
+                                            where aaa.asin = '' and aaa.album = al.id and al.artist = ar.id 
                                             group by ar.id, ar.name 
                                         union 
                                             select ar.id, ar.name, count(ar.id) as with_asin, 0 as without_asin 
                                               from artist ar, album al, album_amazon_asin aaa 
-                                             where aaa.asin != '          ' and aaa.album = al.id and al.artist = ar.id 
+                                             where aaa.asin != '' and aaa.album = al.id and al.artist = ar.id 
                                              group by ar.id, ar.name
                                        ) as ac 
                                  group by ac.id, ac.name order by ac.id|);
@@ -444,24 +485,25 @@ sub MatchAlbums
         die "Invalid Mode.\n";
     }
 
-#   $sth = $dbh->prepare(qq|select artist.id, artist.name from artist where id = 2908|);
-#   $sth = $dbh->prepare(qq|select 200, 'Sinead OConnor'|);
     $sth->execute();
 
     if ($sth->rows)
     {
         my @row;
 
-        if ($mode == MODE_DAILY)
-        {
-            $max = $sth->rows / 30;
-        }
+		my $max = undef;
+		$max = $limit if defined $limit;
+		$max = $sth->rows * $percent / 100 if defined $percent;
+		printf "%s : Will stop after %d artist%s\n",
+			scalar(localtime), $max, ($max==1 ? "" : "s"),
+			if defined $max;
 
         while(@row = $sth->fetchrow_array())
         {
             next if ($row[0] == &ModDefs::VARTIST_ID);
             next if ($mode == MODE_UPDATE && $row[2] > 0);
 
+			my ($ret, $error);
             for(;;)
             {
                 ($ret, $error) = MatchArtist($dbh, $row[1], $row[0]);
@@ -473,16 +515,42 @@ sub MatchAlbums
             }
             if ($error)
             {
-                print "Error: $error\n";
+                print localtime() . " : Error: $error\n"
+					if $verbose;
             }
-            if ($mode == MODE_DAILY)
+            if (defined $max)
             {
-                $max--;
-                last if ($max < 0);
+                --$max;
+                last if $max <= 0;
             }
         }
     }
     $sth->finish;
+}
+
+sub ProcessSingleArtists
+{
+	my ($dbh, $artists) = @_;
+
+	warn "Warning: no artists specified\n" if not @$artists;
+
+	for my $artist (@$artists)
+	{
+		my $ar = Artist->new($dbh);
+
+		if ($artist =~ /^(\d+)$/)
+		{
+			$ar->SetId($1);
+			$ar->LoadFromId
+				or warn("No artist #$1 found\n"), next;
+		} else {
+			$ar->LoadFromName($artist)
+				or warn("No artist '$artist' found\n"), next;
+		}
+
+		my ($ret, $error) = MatchArtist($dbh, $ar->GetName, $ar->GetId);
+		print "ret=$ret error=$error\n";
+	}
 }
 
 sub Usage
@@ -490,34 +558,95 @@ sub Usage
    die <<EOF;
 Usage: Match.pl [options]
 
-Match MusicBrainz albums with Amazon albums and store ASINS and cover art URLs in the datanase.
+Match MusicBrainz albums with Amazon albums and store ASINS and cover art URLs
+in the database.
 
 Options are:
-  -u --update         Match only artists who have no Amazon matches at all.
-  -d --daily          Match 1/30th of the artists that have the oldest asin pairings
-  -h --help           This help page
+      --[no]verbose    [Don't] describe each artist processed (default: true
+                       if at a terminal)
+      --[no]summary    [Don't] show a summary on exit (default: true if at a
+                       terminal)
+      --debugfd=N      Log extra debugging info to file description N
+  -h, --help           This help page
+
+Select which artists to process:
+  -f, --find           Match artists who have at least one "unknown" album
+  -u, --update         Match only artists who have no Amazon matches at all
+  -d, --daily          Match 1/30th of the artists that have the oldest asin
+                       pairings
+  -s, --single         Match only the artist(s) given by "--artist"
+      --artist=ARTIST  Specify artist IDs or names for --single to process
+
+Select how many of those artists to process:
+      --percentage=N   Match this percentage of applicable artists
+      --limit=N        Stop after processing this many artists
+
+Default is to process the whole selected dataset, or 3.3% if in "--daily" mode.
 
 EOF
 }
 
-my ($arg, $mb, $fUpdateUnmatched, $fUpdateDaily);
-my $mode = MODE_FIND;
+my $debugfd;
+my @artist;
 
 GetOptions(
-        "update|u"      => \$fUpdateUnmatched,
-        "daily|d"       => \$fUpdateDaily,
-        "help|h"        => \&Usage,
-        ) or exit 2;
+	"verbose!"		=> \$verbose,
+	"summary!"		=> \$summary,
+	"find|f"		=> sub { $mode = MODE_FIND },
+	"update|u"		=> sub { $mode = MODE_UPDATE },
+	"daily|d"		=> sub { $mode = MODE_DAILY },
+	"single|s"		=> sub { $mode = MODE_SINGLE },
+	"artist=s"		=> \@artist,
+	"debugfd=i"		=> \$debugfd,
+	"percentage=f"	=> sub {
+		die "--percentage out of range (must be >0, <=100)\n"
+			if $_[1] <= 0 or $_[1] > 100;
+		$percent = $_[1];
+		$limit = undef;
+	},
+	"limit=i"		=> sub {
+		$percent = undef;
+		$limit = $_[1];
+	},
+	"help|h"		=> \&Usage,
+) or exit 2;
+Usage() if @ARGV;
 
-$mode = MODE_UPDATE if ($fUpdateUnmatched);
-$mode = MODE_DAILY if ($fUpdateDaily);
+$percent = 3.3 if $mode == MODE_DAILY
+	and not defined $percent and not defined $limit;
+
+warn "Warning: --artist ignored in this mode\n"
+	if @artist and $mode != MODE_SINGLE;
+
+# To debug requests and responses: e.g. --debug=3 3>debug.log
+open(DEBUG, ">/dev/fd/$debugfd") if $debugfd;
+open(DEBUG, ">/dev/null") unless $debugfd;
 
 $| = 1;
-$mb = MusicBrainz->new;
+my $mb = MusicBrainz->new;
 $mb->Login;
 
+print localtime() . " : Amazon match script starting\n";
+eval 'END { print localtime() . " : Amazon match script ended\n" }';
 
-MatchAlbums($mb->{DBH}, $mode); 
+# For debugging: specify "--single --artist='Foo Fighters' --artist=510 ..."
 
-# Disconnect
-$mb->Logout;
+if ($mode == MODE_SINGLE)
+{
+	ProcessSingleArtists($mb->{DBH}, \@artist);
+} else {
+	MatchAlbums($mb->{DBH}, $mode, $percent, $limit); 
+}
+
+if ($summary)
+{
+	my $end_time = time;
+	printf "%s : Artists processed: %d; queries sent: %d; time taken: %d sec\n",
+		scalar(localtime),
+		$artists_processed,
+		$queries_sent,
+		$end_time - $start_time,
+		;
+}
+
+# eof Match.pl

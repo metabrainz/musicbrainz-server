@@ -1,3 +1,5 @@
+#!/usr/bin/perl -w
+# vi: set ts=8 sw=4 :
 #____________________________________________________________________________
 #
 #   MusicBrainz -- the open internet music database
@@ -95,7 +97,7 @@ sub EMAIL_VERIFICATION_TIMEOUT { 604800 } # one week
 # Cache Settings
 ################################################################################
 
-sub CACHE_DEBUG { 1 }
+sub CACHE_DEBUG { 0 }
 
 our %CACHE_OPTIONS = (
 	# standard options
@@ -103,7 +105,7 @@ our %CACHE_OPTIONS = (
 	default_expires		=> '1 hour',
 	# file options
 	cache_root		=> &DBDefs::CACHE_DIR,
-	directory_umask		=> 0077,
+	directory_umask		=> 0007,
 	# sizeaware options
 	max_size		=> 10_000_000,
 );
@@ -168,29 +170,25 @@ sub APACHE_USER  { "nobody" }
 sub APACHE_GROUP { "nobody" }
 
 # Amazon associate and developer ids
-# #my %amazon_store_associate_ids = (
-# #    'amazon.ca' => 'musicbrainz0a-20',
-# #    'amazon.co.jp' => 'musicbrainz-22',
-# #    'amazon.co.uk' => 'musicbrainz-21',
-# #    'amazon.com' => 'musicbrainz-20',
-# #    'amazon.de' => 'musicbrainz02-21',
-# #    'amazon.fr' => 'musicbrainz01-21'
-# #);
-
-# Neutered until we have a non-profit company
 my %amazon_store_associate_ids = (
-        'amazon.ca' => '',
-        'amazon.co.jp' => '',
-        'amazon.co.uk' => '',
-        'amazon.com' => '',
-        'amazon.de' => '',
-        'amazon.fr' => ''
-        );
+    'amazon.ca'		=> 'musicbrainz0a-20',
+    'amazon.co.jp'	=> 'musicbrainz-22',
+    'amazon.co.uk'	=> 'musicbrainz-21',
+    'amazon.com'	=> 'musicbrainz-20',
+    'amazon.de'		=> 'musicbrainz02-21',
+    'amazon.fr'		=> 'musicbrainz01-21',
+);
 
 sub AWS_ASSOCIATE_ID 
-{ 
-    return (defined $_[0]) ? $amazon_store_associate_ids{$_[0]} : (keys %amazon_store_associate_ids);
+{
+    return keys %amazon_store_associate_ids if not @_;
+    return $amazon_store_associate_ids{$_[0]};
 }
+
 sub AWS_DEVELOPER_ID { "D1TBI5FHXK38IE" }
 
+# Neutered until we have a non-profit company
+sub AWS_USE_ASSOCIATE_IDS { 0 }
+
 1;
+# eof DBDefs.pm

@@ -16,6 +16,19 @@ $modname => undef
 <& /comp/movefocus, "ModeratorForm", "modname" &>
 
 </%def>
+<%def .ShowError>
+% my $error = shift;
+
+		<& /comp/sidebar, title => 'Enter name of moderator to view' &>
+
+% if ($error) {
+		<p class="notice"><% $error %></p>
+% }
+
+		<& .JumpForm &>
+		<& /comp/footer &>
+
+</%def>
 <%perl>
 
 # /moderator.html used to do about three different things:
@@ -24,61 +37,26 @@ $modname => undef
 # - process that form and show responses
 # This page now just does the "view" bit.
 
-if (not defined $uid and not defined $modname)
-{
-	</%perl>
-
-	<& /comp/sidebar, title => 'Enter name of moderator to view' &>
-	<& .JumpForm &>
-	<& /comp/footer &>
-
-	<%perl>
-	return;
-}
-
-my $mb = $m->comp("/comp/dblogin");
-my $ui = UserStuff->new($mb->{DBH});
 my $user;
 
-if (MusicBrainz::IsSingleLineString($modname) and $modname ne "") {
-	$user = $ui->newFromName($modname);
+if (MusicBrainz::IsSingleLineString($modname) and $modname ne "")
+{
+	my $mb = $m->comp("/comp/dblogin");
+	my $ui = UserStuff->new($mb->{DBH});
 
-	unless ($user)
-	{
-		</%perl>
-
-		<& /comp/sidebar, title => 'Enter name of moderator to view' &>
-
-		<p class="notice">
-			Moderator '<% $modname %>' not found
-		</p>
-
-		<& .JumpForm &>
-		<& /comp/footer &>
-
-		<%perl>
-		return;
-	}
-} elsif (MusicBrainz::IsNonNegInteger($uid) and $uid) {
-	$user = $ui->newFromId($uid);
-
-	unless ($user)
-	{
-		</%perl>
-
-		<& /comp/sidebar, title => 'Enter name of moderator to view' &>
-
-		<p class="notice">
-			Moderator #<% $uid %> not found
-		</p>
-
-		<& .JumpForm &>
-		<& /comp/footer &>
-
-		<%perl>
-		return;
-	}
+	$user = $ui->newFromName($modname)
+		or return $m->comp(".ShowError", "Moderator '$modname' not found");
 }
+elsif (MusicBrainz::IsNonNegInteger($uid) and $uid)
+{
+	my $mb = $m->comp("/comp/dblogin");
+	my $ui = UserStuff->new($mb->{DBH});
+
+	$user = $ui->newFromId($uid)
+		or return $m->comp(".ShowError", "Moderator #$uid not found");
+}
+
+$user or return $m->comp(".ShowError", undef);
 
 my $membersince;
 
@@ -210,7 +188,7 @@ my $is_me = ($uid == $my_uid);
 <%perl>
 
 # Retrieve vote statistics
-my $votes = MusicBrainz::Server::Vote->new($mb->{DBH});
+my $votes = MusicBrainz::Server::Vote->new($user->{DBH});
 
 my $allvotes = $votes->AllVotesForUser_as_hashref($uid);
 my $recentvotes = $votes->RecentVotesForUser_as_hashref($uid);

@@ -1,7 +1,35 @@
 %# vi: set ts=2 sw=2 ft=mason :
-<& /comp/sidebar, title => 'February 20th, 2004: Server Updates' &>
+<& /comp/sidebar, title => 'February 24th, 2004: Server Updates' &>
 
 <h2>Changes mainly of interest to MusicBrainz Users</h2>
+
+<h3>Amazon Cover Art</h3>
+
+<p>
+	MusicBrainz now matches its database against the Amazon.com catalog.&nbsp;
+	For each match found we display the album cover art in the album detail
+	page.&nbsp; We've also added links for more information on the albums at
+	Amazon, and a "buy" link that lets you purchase the album from your
+	preferred Amazon store.
+</p>
+
+<p>
+	Associated with this are two new preferences: one lets you choose your
+	preferred Amazon store (e.g. the one closest to you); the other one
+	turns off both the cover art and the links to Amazon.&nbsp; One of the
+	conditions under which this content is licensed from Amazon is that we
+	must display the "buy" link whenever we display the cover art &mdash;
+	so don't ask us to show cover art without the "buy" links, because we can't
+	do that.&nbsp; It's both, or neither.
+</p>
+
+<p>
+	Once we have a non-profit corporation for MusicBrainz, we will be able
+	start using our associate IDs and start earning a small percentage on albums
+	sold via MusicBrainz.&nbsp; In the process of adding the Amazon cover art,
+	we've also reworked the way that artist, album and moderation links are
+	shown to make the album page less cluttered.
+</p>
 
 <h3>FreeDB</h3>
 
@@ -101,6 +129,11 @@
 </p>
 
 <p>
+	You can now choose your preferred Google domain (e.g. www.google.de).&nbsp;
+	The MusicBrainz logo on the Google results pages is much nicer too :-)
+</p>
+
+<p>
 	Some dates were being incorrectly displayed as being Jan 1st, 1970 (or
 	maybe Dec 31st, 1969, depending on your time zone).&nbsp; These dates
 	are now correctly displayed as "never".
@@ -127,6 +160,13 @@
 <p>
 	Added release number / CVS Tag information to the
 	<a href="/development/cvs-modules.html">CVS modules</a> page.
+</p>
+
+<h2>Changes mainly of interest to MusicBrainz Programmers</h2>
+
+<p>
+	The <a href="http://ftp.musicbrainz.org/pub/musicbrainz/data/">database dumps</a>
+	will now be performed every other day, instead of every day.
 </p>
 
 <h2>Changes mainly of interest to MusicBrainz Server Programmers</h2>
@@ -205,8 +245,8 @@
 
 <ul>
 	<li>
-		<tt>XML::DOM</tt> and <tt>XML::Parser</tt> are not required,
-		so they have been removed from the dependency list in the
+		<tt>XML::DOM</tt> is not required,
+		so it has been removed from the dependency list in the
 		<& cvslink.inc, "mb_server/INSTALL" &> file.
 	</li>
 	<li>
@@ -238,6 +278,6 @@
 	'893529 	Email addresses shown on forgotten password screen',
 	&>
 
-Dave Evans
+<p style="margin-top: 3em"><a href="/support/contact.html">Dave Evans</a></p>
 
 <& /comp/footer &>

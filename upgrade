@@ -1,0 +1,19 @@
+#!/bin/sh
+
+mb_server=`dirname $0`
+cd $mb_server
+eval `./admin/ShowDBDefs`
+
+SQL=admin/sql/updates/20040220-1.sql
+
+if grep -q jpg $SQL
+then
+	true
+else
+	echo "Please paste the latest album_amazon_asin dump into $SQL and try again" >&2
+	exit 1
+fi
+
+psql $DB_PGOPTS -U $DB_USER $DB_NAME < $SQL
+
+# eof

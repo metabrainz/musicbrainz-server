@@ -36,13 +36,14 @@
   <& /comp/tablebegin, title=>'Site Search', attrs=>"align=left",
      gattrs=>"width='100%'" &>
 
+% my $google = UserPreference::get("google_domain");
     <center>
-    <FORM method=GET action="http://www.google.com/custom"
+    <form method="get" action="http://<% $google %>/custom"
     	>
 
     <div>
-    <A HREF="http://www.google.com/search"
-	><IMG SRC="http://www.google.com/logos/Logo_40wht.gif" border=0 ALT=Google align=middle></A>
+    <a href="http://<% $google %>/search"
+	><img src="http://<% $google %>/logos/Logo_40wht.gif" border="0" alt="Google" align="middle"></a>
     </div>
 
     <div style="margin-top: 0.5em; text-align: center">
@@ -59,10 +60,13 @@
 		> Search only musicbrainz.org
     </div>
 
-    <INPUT type=hidden name=cof VALUE="GIMP:#b78242;T:#000000;LW:614;ALC:#00FFFF;L:http://www.musicbrainz.org/images/header_logo_a.gif;GFNT:#CCCCC;LC:#736DAB;LH:67;BGC:#FFFFFF;AH:center;VLC:#734D8B;GALT:#b78242;AWFID:f7ac0473f1a88aef;">
+%   # See http://www.google.com/services/free.html
+    <INPUT type=hidden name=cof VALUE="GIMP:#b78242;T:#000000;LW:604;ALC:#00FFFF;L:http://www.musicbrainz.org/images/google.png;GFNT:#CCCCC;LC:#736DAB;LH:89;BGC:#FFFFFF;AH:center;VLC:#734D8B;GALT:#b78242;AWFID:f7ac0473f1a88aef;">
     <input type=hidden name=domains value="musicbrainz.org">
+    <input type="hidden" name="ie" value="utf-8">
+    <input type="hidden" name="oe" value="utf-8">
 
-    </FORM>
+    </form>
     </center>
    <& /comp/tableend &>
 
@@ -99,22 +103,19 @@
 % if ($session{user} ne "") {
   <& /comp/tablebegin, title=>'Login', attrs=>"align=center",
      gattrs=>"width='100%'" &>
-    <br>
+     <div style="padding: 1em 0">
     You are logged in as <b><% $session{user} %></b>.<br>
     <a href="/user/edit.html">View/update your profile</a><br>
     or your <a href="/prefs.html">preferences</a>.<br>
     <a href="/logout.html">Logout</a> from MusicBrainz.
-    <br>
-    &nbsp;
-  </center>
+    </div>
   <& /comp/tableend &>
 
   <& /comp/tablebegin, title=>'Moderate', attrs=>"align=center",
-     gattrs=>"width='100%' cellpadding=50 " &>
-    <br>
+     gattrs=>"width='100%'" &>
+     <div style="padding: 1em 0">
     <a href="/mod/search/pre/new.html">Vote/Moderate</a> MusicBrainz.
-    <br>
-    &nbsp;
+    </div>
   <& /comp/tableend &>
 % } else {
   <& /comp/tablebegin, title=>'Login', attrs=>"align=center", 

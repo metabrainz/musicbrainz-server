@@ -54,20 +54,24 @@ echo `date`" : Optimizing the database"
 echo "VACUUM ANALYZE;" | psql $DB_PGOPTS -U $DB_USER $DB_NAME
 
 # Dump all the data
-echo `date`" : Making database snapshot"
-./ExportAllTables --output-dir /tmp
+# Only do this every other day
+if perl -e'exit(int(time()/86400) % 2)'
+then
+	echo `date`" : Making database snapshot"
+	./ExportAllTables --output-dir /tmp
 
-# The unsanitised moderator data goes only to the backup dir.
-# The other files go to both the backup and the FTP dirs.
-mv /tmp/mbdump-moderator.tar.bz2 $backupdir
-cp /tmp/mbdump*.tar.bz2 $ftpdir
-mv /tmp/mbdump*.tar.bz2 $backupdir
-chown $backupuser:$backupgroup $backupdir/mbdump*.tar.bz2
+	# The unsanitised moderator data goes only to the backup dir.
+	# The other files go to both the backup and the FTP dirs.
+	mv /tmp/mbdump-moderator.tar.bz2 $backupdir
+	cp /tmp/mbdump*.tar.bz2 $ftpdir
+	mv /tmp/mbdump*.tar.bz2 $backupdir
+	chown $backupuser:$backupgroup $backupdir/mbdump*.tar.bz2
 
-# Dump the RDF data
-echo `date`" : Making RDF export"
-nice ./RDFDump.pl /tmp/mbdump.rdf.bz2
-mv /tmp/mbdump.rdf.bz2 $ftpdir
+	# Dump the RDF data
+	echo `date`" : Making RDF export"
+	nice ./RDFDump.pl /tmp/mbdump.rdf.bz2
+	mv /tmp/mbdump.rdf.bz2 $ftpdir
+fi
 
 # Create the reports
 echo `date`" : Running reports"
@@ -79,7 +83,7 @@ echo `date`" : Processing subscriptions"
 
 # Lookup amazon pairings
 echo `date`" : Processing amazon matches"
-aws/Match.pl -u
+./aws/Match.pl --daily --noverbose --summary
 
 echo `date`" : Nightly jobs complete!"
 cd -

@@ -239,7 +239,7 @@ $m->comp(
     	    <td align="center">
 
             <form method="post" action="/mod/tag/donetag.html"
-                  name="BatchOp"
+                  id="BatchOp"
                   enctype="application/x-www-form-urlencoded">
 %            for my $album (@albums) {
                  <input type="hidden" name="AlbumId<% $album->GetId() %>" value="">
@@ -338,7 +338,18 @@ $m->comp(
 %							$m->comp('/comp/releasedate', $album->GetFirstReleaseDateYMD);
 						</td>
 % if ($session{uid}) {
-						<td class="rtag"><input type="checkbox" name="AlbumId<% $album->GetId %>"></td>
+						<td class="rtag">
+						  <form method="post" action="/mod/tag/donetag.html" 
+								enctype="application/x-www-form-urlencoded">
+							  <script type="text/javascript">
+								  document.writeln('<\input type="checkbox" name="check" onchange="document.forms.BatchOp.AlbumId<% $album->GetId %>.value = this.form.check.checked ? \'on\' : \'\';">');
+							  </script>
+							  <noscript>
+								  <input type="hidden" name="AlbumId<% $album->GetId %>" value="1">
+								  <input type="submit" name="submit" value="Select">
+							  </noscript>
+						  </form>
+						</td>
 % }
 						<td class="rname"><%
 								$nmp ? "<span class='mp'>" : "" |n

@@ -270,9 +270,13 @@ sub CreateLogin
 	{
 		$sql->Begin;
 
-		if ($sql->Select("SELECT id FROM moderator WHERE name ILIKE ?", $user))
+		my $id = $sql->SelectSingleValue(
+			"SELECT MIN(id) FROM moderator WHERE LOWER(name) = LOWER(?)",
+			$user,
+		);
+
+		if ($id)
 		{
-			$sql->Finish;
 			$sql->Rollback;
 			return ("That login already exists. Please choose another login name.");
 		}

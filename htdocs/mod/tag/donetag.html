@@ -168,7 +168,7 @@ $more_albums_url = "/showartist.html?artistid=$artist_id" if $artist_id;
       Change your mind and deselect all albums.<br>
       </td>
       <td valign="top" align="center" bgcolor="#f0efff">
-      <form method="POST" action="/mod/tag/canceltag.html" name="AddArtist"
+      <form method="POST" action="/mod/tag/canceltag.html" id="AddArtist"
             enctype="application/x-www-form-urlencoded">
       <input type="submit" NAME="Submit" VALUE="Select">
       <input type="hidden" NAME="url" VALUE="<% $referer %>">
@@ -240,7 +240,7 @@ $more_albums_url = "/showartist.html?artistid=$artist_id" if $artist_id;
 
 	</%perl>
 	
-<form method="post" action="/mod/tag/donetag.html" name="BatchOp"
+<form method="post" action="/mod/tag/donetag.html" id="BatchOp"
       enctype="application/x-www-form-urlencoded">
 
     <center>

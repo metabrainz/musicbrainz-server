@@ -16,12 +16,51 @@ The MusicBrainz server requires the following items:
 
       - Configure the server with: configure --enable-multibyte=UNICODE
         to enable UTF-8 support. THIS IS IMPORTANT!!
-      - if you've installed postgres via a package and have "pg_config"
+
+      - If you've installed postgres via a package and have "pg_config"
         you can run:
             pg_config --configure
         to see what the source was compiles with to be sure it complies.
         If it doesn't return "--enable-multibyte" at all, you'll have to
         recompile it from source
+
+   PostgreSQL authentication and Security
+   
+   (Read the Postgres documentation ("Client Authentication") for details).
+
+   For normal operation, MusicBrainz only needs to connect from one or two OS
+   users (whoever your web server / crontabs run as), to one database (the
+   MusicBrainz database, given by &DBDefs::DB_NAME), as one Postgres user
+   (&DBDefs::DB_USER).  For example, if you run your web server and crontabs
+   as "www-user", the following configuration recipe may prove useful:
+	
+	# in pg_hba.conf:
+	local musicbrainz_db musicbrainz_user ident mb_map
+
+	# in pg_ident.conf:
+	mb_map www-user musicbrainz_user
+
+   The only time any other connection is required is if the "InitDB.pl"
+   installation script is invoked with "--createdb".  In this case it needs to
+   connect as the "postgres" user, so something else will need to be done to
+   allow that.  You could:
+	
+	a) configure Postgres to allow your MusicBrainz OS user to connect
+	   as both "postgres" and "musicbrainz_user"; you can then run everything
+	   from one user account, e.g.
+	   
+	   ./admin/InitDB.pl --createdb --import mbdump*.tar.bz2
+	
+   or
+   
+        b) Run the "--createdb" step separately, from someone who can
+	   connect as "postgres" (e.g. the "postgres" OS user):
+
+	   # as "postgres":
+	   ./admin/InitDB.pl --createdb
+
+	   # as your MusicBrainz OS user:
+	   ./admin/InitDB.pl --import mbdump*.tar.bz2
 
 2) A database dedicated to MusicBrainz.  Of course, the scripts can help you
    create this.
@@ -100,6 +139,7 @@ The MusicBrainz server requires the following items:
    Text::Unaccent (at least version 1.05: http://www.senga.org/download/unac/Text-Unaccent-1.05.tar.gz)
    UUID (requires e2fsprogs)
    Unicode::String
+   XML::Parser
 
    These probably come standard with Perl:
    Carp
@@ -206,6 +246,8 @@ Installation:
    it the names of the "dump" files you just downloaded:
 
 	./admin/InitDb.pl --createdb --echo --import mbdump*.tar.bz2
+
+   (but see the above notes about Postgres authentication and security).
 
    When run in this way, the script should do everything, including creating
    the database for you.  As a rough guide, on my Athlon 2500+ box it takes

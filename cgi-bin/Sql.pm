@@ -613,7 +613,8 @@ sub SelectListOfHashes
 
 	my $err = $@;
 	$this->{ERR} = $this->{DBH}->errstr;
-	cluck("Failed query:\n	'$query'\n	(@params)\n$err\n");
+	cluck("Failed query:\n	'$query'\n	(@params)\n$err\n")
+		unless ($this->{Quiet});
 	die $err;
 }
 

@@ -39,7 +39,8 @@ if ($asin)
 {
     $coverart_url = $album->GetCoverartURL();
     $store = UserPreference::get('use_amazon_store');
-    $ass_id = &DBDefs::AWS_ASSOCIATE_ID($store);
+    $ass_id = &DBDefs::AWS_ASSOCIATE_ID($store)
+				if &DBDefs::AWS_USE_ASSOCIATE_IDS;
 }
 
 </%perl>
@@ -62,7 +63,7 @@ if ($asin)
               <form method="post" action="/mod/tag/donetag.html" 
                     enctype="application/x-www-form-urlencoded">
               <script type="text/javascript">
-              document.writeln('<\input type="checkbox" name="check" onchange="document.BatchOp.AlbumId<% $albumid %>.value = this.form.check.checked ? \'on\' : \'\';" <% $tagchecked ? " CHECKED" : "" %>\>');
+              document.writeln('<\input type="checkbox" name="check" onchange="document.forms.BatchOp.AlbumId<% $albumid %>.value = this.form.check.checked ? \'on\' : \'\';" <% $tagchecked ? " CHECKED" : "" %>\>');
               </script>
               <noscript>
               <input type="hidden" name="AlbumId<% $albumid %>" value="<% $tagchecked ? 'off' : 'on' %>">
@@ -82,10 +83,10 @@ if ($asin)
      <table width="100%" bgcolor="white" border="0" cellspacing="0" cellpadding="5">
      <tr><td bgcolor="#dddddd">
 
-<a href="http://<% $store %>/exec/obidos/ASIN/<% $asin %>/<% $ass_id %>?v=glance&s=music" border="0"><img 
+<a href="http://<% $store %>/exec/obidos/ASIN/<% $asin %>/<% $ass_id %>?v=glance&amp;s=music"><img 
    src="<% $coverart_url %>" height="130" width="130" 
    style="float: right; border: 1px solid black; padding: 1px;" 
-   border="0"></a>
+   border="0" alt="[cover art]"></a>
 <div class="AlbumInfo">
 % }
 
@@ -149,8 +150,7 @@ if ($asin)
 % }
 
 % if ($coverart_url && $showlinks && UserPreference::get('show_amazon_coverart')) {
-    <form method="POST" action="http://<% $store %>/exec/obidos/dt/assoc/handle-buy-box=<% $asin %>"
-          id="AddToCartForm">
+    <form method="POST" action="http://<% $store %>/exec/obidos/dt/assoc/handle-buy-box=<% $asin %>">
     <div class="AlbumTitleAmazon">
     Amazon: [
     <input type="hidden" name="asin.<% $asin %>" value="1">
@@ -159,12 +159,13 @@ if ($asin)
     <input type="hidden" name="dev-tag-value" value="<% &DBDefs::AWS_DEVELOPER_ID %>">
     <input type="submit" name="submit.add-to-cart" value="Buy">
     <script type="text/javascript">
-      var t = document.forms.AddToCartForm;
+      var t = document.forms;
+			if (t && t.length) t = t[t.length-1];
       if (t) t = t["submit.add-to-cart"];
       if (t) t.style.display = "none";
       document.writeln('<\a href="#" onclick="document.forms.AddToCartForm.submit(); return false">Buy<\/a>');
     </script>
-    | <a href="http://<% $store %>/exec/obidos/ASIN/<% $asin %>/<% $ass_id %>?v=glance&s=music">Info</a>
+    | <a href="http://<% $store %>/exec/obidos/ASIN/<% $asin %>/<% $ass_id %>?v=glance&amp;s=music">Info</a>
     ]
     </div>
     </form>

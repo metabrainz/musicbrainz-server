@@ -37,8 +37,12 @@ $cache = _new();
 if ($cache and &DBDefs::CACHE_DEBUG)
 {
 	my @keys = $cache->get_keys;
-	printf STDERR "Starting cache with %d entries\n", 0+@keys;
+	printf STDERR "Starting cache with %d entries\n", 0+@keys
+		unless $^C;
 }
+
+# XXX has global effect!
+umask 002;
 
 sub _new
 {

@@ -119,6 +119,110 @@ sub allowed_timezones { @allowed_timezones }
 
 sub allowed_amazon_stores { &DBDefs::AWS_ASSOCIATE_ID() }
 
+{
+	# From http://www.google.com/language_tools?hl=en , and google.com added
+	# since it didn't seem to be in that list.
+	our @allowed_google_domains = qw(
+www.google.ae
+www.google.as
+www.google.at
+www.google.az
+www.google.be
+www.google.bi
+www.google.ca
+www.google.cd
+www.google.cg
+www.google.ch
+www.google.ci
+www.google.cl
+www.google.co.cr
+www.google.co.hu
+www.google.co.il
+www.google.co.in
+www.google.co.je
+www.google.co.jp
+www.google.co.kr
+www.google.co.ls
+www.google.co.nz
+www.google.co.th
+www.google.co.uk
+www.google.co.ve
+www.google.com
+www.google.com.ag
+www.google.com.ar
+www.google.com.au
+www.google.com.br
+www.google.com.co
+www.google.com.cu
+www.google.com.do
+www.google.com.ec
+www.google.com.fj
+www.google.com.gi
+www.google.com.gr
+www.google.com.hk
+www.google.com.ly
+www.google.com.mt
+www.google.com.mx
+www.google.com.my
+www.google.com.na
+www.google.com.nf
+www.google.com.ni
+www.google.com.np
+www.google.com.pa
+www.google.com.pe
+www.google.com.ph
+www.google.com.pk
+www.google.com.pr
+www.google.com.py
+www.google.com.ru
+www.google.com.sg
+www.google.com.sv
+www.google.com.tr
+www.google.com.tw
+www.google.com.ua
+www.google.com.uy
+www.google.com.vc
+www.google.com.vn
+www.google.de
+www.google.dj
+www.google.dk
+www.google.es
+www.google.fi
+www.google.fm
+www.google.fr
+www.google.gg
+www.google.gl
+www.google.gm
+www.google.hn
+www.google.ie
+www.google.it
+www.google.kz
+www.google.li
+www.google.lt
+www.google.lu
+www.google.lv
+www.google.ms
+www.google.mu
+www.google.mw
+www.google.nl
+www.google.off.ai
+www.google.pl
+www.google.pn
+www.google.pt
+www.google.ro
+www.google.rw
+www.google.se
+www.google.sh
+www.google.sk
+www.google.sm
+www.google.td
+www.google.tt
+www.google.uz
+www.google.vg
+	);
+	sub allowed_google_domains { @allowed_google_domains }
+}
+
 ################################################################################
 # Set up the list of valid preferences
 ################################################################################
@@ -128,6 +232,7 @@ our %prefs = ();
 # Alphabetical order please
 addpref('datetimeformat', $allowed_datetime_formats[0], \&check_datetimeformat);
 addpref('default_country', 0, sub { check_int(0,undef,@_) });
+addpref('google_domain', "www.google.com", \&check_google_domain);
 addpref('JSMoveFocus', '1', \&check_bool);
 addpref('mod_add_album_inline', 0, \&check_bool);
 addpref('mod_add_album_link', 0, \&check_bool);
@@ -212,6 +317,15 @@ sub check_amazon_store
 
 	$_ eq $value and return $value
 		for allowed_amazon_stores();
+	undef;
+}
+
+sub check_google_domain
+{
+	my $value = shift;
+
+	$_ eq $value and return $value
+		for allowed_google_domains();
 	undef;
 }
 

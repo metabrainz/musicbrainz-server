@@ -221,6 +221,8 @@ sub ImportAllTables
 {
 	for my $table (qw(
 		album
+		album_amazon_asin
+		album_amazon_asin_sanitised
 		albumjoin
 		albummeta
 		albumwords
@@ -255,16 +257,18 @@ sub ImportAllTables
 		my $file = find_file($table);
 		$file or print("No data file found for '$table', skipping\n"), next;
 
-		if ($table eq "moderator_sanitised")
+		if ($table =~ /^(.*)_sanitised$/)
 		{
-			if (not empty("moderator"))
+			my $basetable = $1;
+
+			if (not empty($basetable))
 			{
-				warn "moderator table already contains data; skipping moderator_sanitised\n";
+				warn "$basetable table already contains data; skipping $table\n";
 				next;
 			}
 
-			print localtime() . " : loading $file into moderator\n";
-			ImportTable("moderator", $file) or next;
+			print localtime() . " : loading $file into $basetable\n";
+			ImportTable($basetable, $file) or next;
 
 		} else {
 			if (not empty($table))

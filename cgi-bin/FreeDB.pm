@@ -53,9 +53,9 @@ sub Lookup
 
     require Discid;
     my %info = Discid->ParseTOC($toc)
-    	or die;
+    	or warn("Failed to parse toc '$toc'"), return undef;
     $info{discid} eq $Discid
-    	or die;
+    	or warn("Parsed toc '$toc' and got '$info{discid}', not '$Discid'"), return undef;
 
     my $ret = $this->_Retrieve(
 	FREEDB_SERVER, FREEDB_PORT,
@@ -311,24 +311,13 @@ READQUERY:
         }
     } 
 
-    if (!defined $title || $title eq "")
-    {
-        $title = $artist;
-    }
-
-    $artist =~ s/^\s*(.*?)\s*$/$1/;
-    $title =~ s/^\s*(.*?)\s*$/$1/;
+    $artist =~ s/^\s*(.*?)\s*$/$1/ if defined $artist;
+    $title =~ s/^\s*(.*?)\s*$/$1/ if defined $title;
 
     if (!defined $title || $title eq "")
     {
         $title = $artist;
     }
-
-    $artist =~ s/^\s*(.*?)\s*$/$1/;
-    $title =~ s/^\s*(.*?)\s*$/$1/;
-
-    require Style;
-    $title = Style->new->NormalizeDiscNumbers($title);
 
     # Convert from iso-8859-1 to UTF-8
 
@@ -337,6 +326,9 @@ READQUERY:
 
     from_to($title, "iso-8859-1", "utf-8");
     $info{album} = $title;
+
+    require Style;
+    $title = Style->new->NormalizeDiscNumbers($title);
 
     my @tracks;
 
