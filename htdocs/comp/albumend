@@ -24,11 +24,11 @@ if (scalar(@ids) > 0)
        mc_out("<tr>");
        if ($album->GetArtist() == Artist::VARTIST_ID) 
        {
-          mc_out('<td colspan="3" ');
+          mc_out('<td colspan="4" ');
        }
        else
        {
-          mc_out('<td colspan="2" ');
+          mc_out('<td colspan="3" ');
        }
        if ($id->{toc} =~ /^\d* (\d*)/)
        {

@@ -37,14 +37,6 @@ $al = Album->new($mb->{DBH});
 $al->SetId($albumid);
 $al->LoadFromId();
 
-@tracks = $al->LoadTracks();
-$numtracks = scalar(@tracks);
-if ($numtracks == 0)
-{
-    mc_out("Cannot load album $albumid\n");
-    return undef;
-}
-
 $ar->SetId($artistid);
 @albums = $ar->GetAlbums();
 if (scalar(@albums) == 0)
@@ -66,6 +58,10 @@ foreach $ref (@diskid_refs)
     if ($ref->{diskid} eq $diskid)
     {
         $id = $ref->{id};
+        if ($ref->{toc} =~ /^\d+ (\d+)/)
+        {
+           $numtracks = $1;
+        }
         last;
     }
 }

@@ -109,7 +109,9 @@ if ($num_mods > 0)
    <center>
    <br><br>
 %  if ($type == ModDefs::TYPE_NEW) {
-   There are no new moderations pending.
+   There are no new moderations pending. <br>Please
+   consider moderating the <a href="/moderate.html?type=5">FreeDB 
+   moderations</a>.
 %  } elsif ($type == ModDefs::TYPE_VOTED) {
    There are no old (voted on) moderations.
 %  } elsif ($type == ModDefs::TYPE_ARTIST) {
