@@ -111,6 +111,15 @@ sub GetAlbumFromDiskId
     return $rv;
 }
 
+sub GetDiskIdFromAlbum
+{
+    my ($this, $album) = @_;
+    my ($rv, $sql);
+ 
+    $sql = Sql->new($this->{DBH});
+    return $sql->GetSingleColumn("Diskid", "disk", ["album", $album]);
+}
+
 sub Insert
 {
     my ($this, $id, $album, $toc) = @_;

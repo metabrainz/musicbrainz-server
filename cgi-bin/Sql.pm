@@ -205,3 +205,24 @@ sub GetSingleColumn
     return ();
 }
 
+sub Begin
+{
+   my $this = $_[0];
+
+   return $this->{DBH}->begin;
+}
+
+sub Commit
+{
+   my $this = $_[0];
+
+   return $this->{DBH}->commit;
+}
+
+sub Rollback
+{
+   my $this = $_[0];
+
+   return $this->{DBH}->rollback;
+}
+

@@ -1,5 +1,6 @@
 <%perl>
-my ($o, $mb, $di, $num_tracks, $i, $sth, $album, $valid, $id, $tracks, $toc); 
+my ($o, $mb, $di, $num_tracks, $notfound);
+my ($i, $sth, $album, $valid, $id, $tracks, $toc); 
 
 $mb = new MusicBrainz;
 mc_comp("/comp/sidebar", title=>"Submit a New CD");
@@ -7,6 +8,7 @@ mc_comp("/comp/sidebar", title=>"Submit a New CD");
 $id = $ARGS{'id'};
 $tracks = $ARGS{'tracks'};
 $toc = $ARGS{'toc'};
+$notfound = $ARGS{'notfound'};
 
 $valid = $id;
 $valid =~ tr/_.\-A-Za-z0-9//d;
@@ -39,6 +41,12 @@ else
         send</a> me some mail.
         </TD></TR></TABLE>
 %   } else {
+%       if ($notfound) {
+            The CD you tried to look up was not found. Please use the
+            form below to submit this CD to MusicBrainz.
+            <hr>
+%       }
+ 
         Please follow the instructions below:
         <p>
         <center>

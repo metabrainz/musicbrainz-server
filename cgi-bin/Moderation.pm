@@ -444,11 +444,11 @@ sub ShowModPrev
    elsif ($type == Moderation::MOD_EDIT_TRACKNAME ||
           $type == Moderation::MOD_CHANGE_TRACK_ARTIST)
    {
-       return "Old: <a href=\"/bare/showtrack.html?trackid=$this->{rowid}\">$prev</a>";
+       return "Old: <a href=\"/showtrack.html?trackid=$this->{rowid}\">$prev</a>";
    }
    elsif ($type == Moderation::MOD_EDIT_TRACKNUM)
    {
-       return "Old: <a href=\"/bare/showtrack.html?albumjoinid=$this->{rowid}\">$prev</a>";
+       return "Old: <a href=\"/showtrack.html?albumjoinid=$this->{rowid}\">$prev</a>";
    }
    elsif ($type == Moderation::MOD_REMOVE_TRACK)
    {
@@ -460,7 +460,7 @@ sub ShowModPrev
        }
        else
        {
-           return "Old: <a href=\"/bare/showtrack.html?trackid=$this->{rowid}\">$name</a>";
+           return "Old: <a href=\"/showtrack.html?trackid=$this->{rowid}\">$name</a>";
        }
    }
    elsif ($type == Moderation::MOD_MOVE_ALBUM)

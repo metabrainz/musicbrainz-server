@@ -10,8 +10,6 @@ my (@ids, $di, $id);
 $di = Diskid->new($album->{DBH});
 @ids = $di->GetDiskIdFromAlbum($album->GetId());
 
-print STDERR scalar(@ids);
-
 if (exists $session{user} && scalar(@ids) > 0) 
 {
     if ($album->GetArtist() == Artist::VARTIST_ID) 

@@ -70,13 +70,13 @@ sub FindDuplicates
                 if ($num == 0)
                 {
                    print "&nbsp;&nbsp;&nbsp;";
-                   print "$num: <a href=\"/bare/showtrack.html?trackid=$id\">";
+                   print "$num: <a href=\"/showtrack.html?trackid=$id\">";
                    print "$name</a><br>\n";
                 }
                 else
                 {
                    print "&nbsp;&nbsp;&nbsp;";
-                   print "$last_num: <a href=\"/bare/showtrack.html?trackid=$last_id\">";
+                   print "$last_num: <a href=\"/showtrack.html?trackid=$last_id\">";
                    print "$last_name</a><br>\n";
                 }
                 $last_artist = $artist;

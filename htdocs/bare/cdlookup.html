@@ -1,0 +1,70 @@
+<%args>
+$id
+$tracks=>""
+$toc=>""
+</%args>
+<%perl>
+
+my ($mb, $al, $url, $album, $valid, $di);
+
+$mb = new MusicBrainz;
+$mb->Login();
+
+$valid = $id;
+$valid =~ tr/_.\-A-Za-z0-9//d;
+
+if (!defined $id || $id eq '')
+{
+    mc_comp("/comp/sidebar", title=>"Lookup Error");
+    mc_out("This page needs the id argument.");
+    mc_comp("/comp/footer");
+}
+elsif (length($id) != 28 || substr($id, -1, 1) ne "-" || $valid ne "")
+{
+    mc_comp("/comp/sidebar", title=>"Lookup Error");
+    mc_out("The disk id you are trying to lookup ($id) is invalid.");
+    mc_comp("/comp/footer");
+}
+else
+{
+    $mb->Login();
+    $di = Diskid->new($mb->{DBH});
+    $album = $di->GetAlbumFromDiskId($id);
+    if (defined $album)
+    {
+        $url = "/showalbum.html?albumid=$album";
+    }
+    else
+    {
+        if ($tracks eq '' || $toc eq '')
+        {
+            mc_comp("/comp/sidebar", title=>"CD Not Found");
+            mc_out("This CD was not found.<p>");
+            mc_out(qq|NOTE: If you pass the toc and tracks argument 
+                      to this page, you will be automatically redirected
+                      to the proper submit page)|);
+            mc_comp("/comp/footer");
+
+            $url = "";
+        }
+        else
+        {
+            # redirect to submit
+            $url = "/cdi/submit.html?id=$id&tracks=$tracks&toc=$toc&notfound=1";
+        }
+    }
+
+    if ($url ne "")
+    {
+        $r->method('GET');
+        $r->headers_in->unset('Content-length');
+        
+        $r->content_type('text/html');
+        $r->header_out(Location=>$url);
+        $r->status(302);
+    }
+}
+
+$mb->Logout();
+
+</%perl>

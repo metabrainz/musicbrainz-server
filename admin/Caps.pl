@@ -64,7 +64,7 @@ sub FindDuplicates
                 }
 
                 print "&nbsp;&nbsp;&nbsp;";
-                print "$num: <a href=\"/bare/showtrack.html?trackid=$id\">";
+                print "$num: <a href=\"/showtrack.html?trackid=$id\">";
                 print "$name</a><br>\n";
 
                 $last_artist = $artist;

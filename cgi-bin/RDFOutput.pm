@@ -400,7 +400,7 @@ sub CreateAlbum
 sub CreateTrackRDFSnippet
 {
    my ($this);
-   my ($sql, $rdf, @row, $id, $r, $guid, $gu, $emit_details);
+   my ($sql, $rdf, @row, $id, $r, @guid, $gu, $emit_details);
 
    $this = shift @_; 
    $emit_details = shift @_; 
@@ -425,8 +425,8 @@ sub CreateTrackRDFSnippet
 
                 $ids{'trackId'} = escape($row[1]),
 
-                $guid = $gu->GetGUIDFromTrackId($id);
-                $ids{'trackGUID'} = escape($guid) if (defined $guid);
+                @guid = $gu->GetGUIDFromTrackId($id);
+                $ids{'trackGUID'} = escape($guid[0]) if (scalar(@guid) > 0);
 
                 if ($emit_details)
                 {

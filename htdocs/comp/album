@@ -14,12 +14,10 @@ $ly = Lyrics->new($artist->GetDBH());
 
 if ($album->GetArtist() == Artist::VARTIST_ID)
 {
-    print STDERR "multiple album!\n";
     @info = $album->LoadTracksFromMultipleArtistAlbum();
 }
 else
 {
-    print STDERR "single album!\n";
     @info = $album->LoadTracks();
 }
 

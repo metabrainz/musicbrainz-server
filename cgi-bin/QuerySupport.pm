@@ -154,7 +154,7 @@ sub AssociateCDFromAlbumId
    my ($dbh, $doc, $rdf, $diskid, $toc, $albumid) = @_;
 
    my $di = Diskid->new($dbh);
-   $di->InsertDiskId($diskid, $albumid, $toc);
+   $di->Insert($diskid, $albumid, $toc);
 }
 
 sub GetCDInfoMM2
@@ -192,7 +192,7 @@ sub AssociateCDMM2
 
    # Check to see if the album is in the main database
    $di = Diskid->new($dbh);
-   $di->InsertDiskId($diskid, $albumid, $toc);
+   $di->Insert($diskid, $albumid, $toc);
 }
 
 # returns artistList

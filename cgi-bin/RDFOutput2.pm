@@ -494,11 +494,11 @@ sub OutputAlbumRDF
 sub OutputTrackRDF
 {
     my ($this, $cache, $ref) = @_;
-    my ($out, $artist, $guid, $gu, $track);
+    my ($out, $artist, @guid, $gu, $track);
 
     $track = $ref->{obj};
     $gu = GUID->new($this->{DBH});
-    $guid = $gu->GetGUIDFromTrackId($track->GetId());
+    @guid = $gu->GetGUIDFromTrackId($track->GetId());
 
     $artist = GetFromCache($this, 'artist', $track->GetArtist()); 
 
@@ -508,7 +508,7 @@ sub OutputTrackRDF
     $out .=   $this->Element("mm:trackNum", $track->GetSequence());
     $out .=   $this->Element("dc:creator", "", "rdf:resource",
               $this->{baseuri}. "/artist/" . $artist->GetMBId());
-    $out .=   $this->Element("mm:trmid", $guid) if defined $guid;
+    $out .=   $this->Element("mm:trmid", $guid[0]) if scalar(@guid);
     $out .= $this->EndDesc("mm:Track");
 
     return $out;

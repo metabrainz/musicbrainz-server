@@ -216,12 +216,11 @@ sub SearchByName
 sub GetMetadataFromIdAndAlbum
 {
     my ($this, $id, $albumname) = @_;
-    my (@row, $sql, $artist, $album, $seq, $guid);
+    my (@row, $sql, $artist, $album, $seq, @guid);
     my ($ar, $gu);
 
     $artist = "Unknown";
     $album = "Unknown";
-    $guid = "";
     $seq = 0;
 
     $this->SetId($id);
@@ -238,8 +237,8 @@ sub GetMetadataFromIdAndAlbum
     }
 
     $gu = GUID->new($this->{DBH});
-    $guid = $gu->GetGUIDFromTrackId($id);
-    if (!defined $guid)
+    @guid = $gu->GetGUIDFromTrackId($id);
+    if (scalar(@guid) == 0)
     {
          return ();
     }
@@ -272,7 +271,7 @@ sub GetMetadataFromIdAndAlbum
          $sql->Finish;
     }
 
-    return ($this->GetName(), $ar->GetName(), $album, $seq, $guid); 
+    return ($this->GetName(), $ar->GetName(), $album, $seq, $guid[0]); 
 }
 
 # This function inserts a new track. A properly initialized/loaded album
@@ -337,4 +336,24 @@ sub Insert
 
     $this->{id} = $track;
     return $track;
+}
+
+sub GetAlbumInfo
+{
+   my ($this) = @_;
+   my ($sql, @row, @info);
+
+   $sql = Sql->new($this->{DBH});
+   if ($sql->Select(qq|select album, name, sequence, GID from AlbumJoin, Album 
+                       where AlbumJoin.album = Album.id and track = | . 
+                       $this->GetId()))
+   {
+       for(;@row = $sql->NextRow();)
+       {
+           push @info, [@row];
+       }
+       $sql->Finish;
+   }
+
+   return @info;
 }

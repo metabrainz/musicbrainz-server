@@ -66,13 +66,12 @@ sub GetIdFromGUID
 sub GetGUIDFromTrackId
 {
    my ($this, $id) = @_;
-   my ($sql, $guid);
+   my ($sql);
 
    $sql = Sql->new($this->{DBH});
-   ($guid) = $sql->GetSingleRow("GUIDJoin, GUID", ["GUID.guid"], 
+   return $sql->GetSingleColumn("GUIDJoin, GUID", "GUID.guid", 
                                 ["GUIDJoin.track", $id,
                                  "GUIDJoin.guid", "GUID.id"]);
-   return $guid;
 }
 
 sub Insert
