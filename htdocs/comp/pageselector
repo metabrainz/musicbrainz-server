@@ -1,44 +1,93 @@
 <%perl>
 
+sub PageNumbers
+{
+    my ($start, $num, $url, $index, $pagesize) = @_;
+    my ($i, $max, $out);
+
+    $max = $start + $num;
+    for($i = $start; $i < $max; $i++) 
+    {
+        if ($i != $index)
+        {
+            $out .= "<a href=\"$url&offset=" . ($i * $pagesize) .  "\">" . ($i + 1) .
+                    "</a>&nbsp;";
+        }
+        else
+        {
+            $out .= "<b>" . ($i + 1) . "</b>&nbsp;";
+        }
+    }
+
+    return $out;
+}
+
 # I used to have an %args block here but Mason kept crashing on it
+my $offset = $ARGS{offset};
 my $pagesize = $ARGS{pagesize};
 my $url = $ARGS{url};
 my $numitems = $ARGS{numitems};
 my $numlinks = $ARGS{numlinks};
 
-print STDERR "$numitems\n";
+my ($front, $back, $center);
+my ($frontnum, $backnum, $centernum);
 
-my ($frontpages, $backpages);
+my $index = int($offset / $pagesize);
+my $total = int($numitems / $pagesize);
+$total++ unless (($numitems % $pagesize) == 0);
+return undef if ($total < 1);
 
-my $totalpages = $numitems / $pagesize;
-return undef if ($totalpages < 1);
+$front = $back = $center = 0;
+$frontnum = $backnum = $centernum = 0;
 
-if ($totalpages < $numlinks)
+if ($total < $numlinks)
 {
-   $frontpages = $totalpages;
-   $backpages = 0;
+   $frontnum = $total;
 }
 else
 {
-   $frontpages = $numlinks / 2;
-   $backpages = $numlinks / 2;
+   $frontnum = $backnum = int($numlinks / 2);
+   $back = $total - int($numlinks / 2);
+
+   if ($index >= $frontnum && $index < $back)
+   {
+       $frontnum = $backnum = $centernum = int($numlinks / 3);
+       $back = $total - int($numlinks / 3);
+       $center = $index - int($centernum / 2);
+       $centernum++;
+   }
 }
 
 </%perl>
 
 <table width="100%"><tr><td align="center">
-% my ($i);
-if (
+% if ($index > 1) {
+    <a href="<% $url %>&offset=<% ($index - 1) * $pagesize %>">&lt;&lt;</a>&nbsp;
+% } else {
+    &lt;&lt;
+% }
+
   &nbsp;
-% for($i = 0; $i < $frontpages; $i++) {
-    <a href="<% $url %>&offset=<% $i * $pagesize %>"><% $i + 1 %></a>&nbsp;
-% }
-% if ($backpages > 0) {
+
+  <% PageNumbers($front, $frontnum, $url, $index, $pagesize) |n %>
+
+% if ($centernum > 0) {
       ... &nbsp;
-%     for($i = int($totalpages - $backpages); $i < $totalpages; $i++) {
-         <a href="<% $url %>&offset=<% $i * $pagesize %>"><% $i + 1 %></a>&nbsp;
-%     }
+      <% PageNumbers($center, $centernum, $url, $index, $pagesize) |n %> 
 % }
-  ]
+
+% if ($backnum > 0) {
+      ... &nbsp;
+      <% PageNumbers($back, $backnum, $url, $index, $pagesize) |n %>
+% }
+
+  &nbsp;
+
+% if ($index < $total - 1) {
+    <a href="<% $url %>&offset=<% ($index + 1) * $pagesize %>">&gt;&gt;</a>&nbsp;
+% } else {
+    &gt;&gt;
+% }
+
 </td></tr></table>
 
