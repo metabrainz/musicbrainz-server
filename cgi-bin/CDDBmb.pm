@@ -390,6 +390,7 @@ sub get_discs {
                                         # attempt to query over and over
 ATTEMPT:
   while ('true') {
+    print STDERR "Query: $id $track_count $offsets_string $total_seconds\n";
     $self->command( 'cddb query', $id, $track_count,
                     $offsets_string, $total_seconds
                   );
@@ -469,6 +470,7 @@ sub get_disc_details {
   my %details = ( offsets => [ ] );
   my $state = 'beginning';
   foreach my $line (@track_file) {
+    #print STDERR "line: $line\n";
     if ($state eq 'beginning') {
       if ($line =~ /track\s*frame\s*off/i) {
         $state = 'offsets';

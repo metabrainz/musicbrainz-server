@@ -53,7 +53,6 @@ sub _lba_to_msf
     my ($lba) = @_;
     my ($m, $s, $f);
 
-    $lba += CD_MSF_OFFSET;
     $lba &= 0xffffff;   # negative lbas use only 24 bits 
     $m = int($lba / (CD_SECS * CD_FRAMES));
     $lba %= (CD_SECS * CD_FRAMES);
@@ -143,13 +142,15 @@ sub Lookup
     push @cddb_toc, "999 $m $s $f"; 
 
     @cd_data = $cddb->calculate_id(@cddb_toc);
-    my @discs = $cddb->get_discs($cd_data[1],$cd_data[3], $cd_data[4]);
+    my @discs = $cddb->get_discs($cd_data[0], $cd_data[3], $cd_data[4]);
     foreach my $disc (@discs) 
     {
         ($genre, $cddb_id, $title) = @$disc;
+        print STDERR "$cd_data[0]: $genre $cddb_id $title\n";
         last;
     }
 
+    print STDERR "Disk $cd_data[0] not found\n" if (!defined $genre);
     return if (!defined $genre);
     $details = $cddb->get_disc_details($genre, $cddb_id);
     return if (!defined $details);
@@ -160,10 +161,11 @@ sub Lookup
        $title = $2;
     }
 
-    return $this->EnterRecord($last, 
-                              $title,
-                              $artist,
-                              $diskid,
-                              $toc,
-                              @{$details->{ttitles}});
+    return 0;
+    #return $this->EnterRecord($last, 
+    #                          $title,
+    #                          $artist,
+    #                          $diskid,
+    #                          $toc,
+    #                          @{$details->{ttitles}});
 }
