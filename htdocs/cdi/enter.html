@@ -115,8 +115,15 @@ function validate()
 %    if (!defined $lookup) {
          <input type="text" name="sortname" size="30">
 %    } else {
+%       my $sortname;
+%       if ($lookup->{artist} =~ /^the (.*)$/i)
+%       {
+%           $sortname = "$1, The";
+%       } else {
+%           $sortname = $lookup->{artist};
+%       }
          <input type="text" name="sortname" size="30"
-                value="<% $lookup->{artist} %>"></td>
+                value="<% $sortname %>"></td>
 %    }
 % } else {
     <span class="bold"><% $artistname %></span>

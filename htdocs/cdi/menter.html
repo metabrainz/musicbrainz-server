@@ -20,6 +20,8 @@ mc_comp("/comp/sidebar", title=>'Enter CD Information');
 mc_comp("/comp/stylenotes");
 mc_comp("/comp/artiststylenotes");
 
+$sep = '/' unless $sep ne '';
+
 my $lookup;
 if ($freedb)
 {
@@ -87,6 +89,14 @@ function validate()
      select a character that is used to seperate the artist from the 
      track names in this album.<p>
 
+     Current settings: <span class="bold">
+%    if ($parse_artist_track ne "") {
+        Artist/Track</span>, seperated by 
+%    } else {
+        Track/Artist</span>, seperated by 
+%    }
+     <span class="bold"><% $sep %></span><p>
+
      </tr>
      <tr><td align="center">
      <form method="POST" action="/cdi/menter.html" Name="FreeDBLookup"
@@ -142,9 +152,8 @@ function validate()
 </tr>
 
 <%perl>
-my ($artistname, $trackname, $temp, $array);
+my ($artistname, $sortname, $trackname, $temp, $array);
 
-$sep = '/' unless $sep ne '';
 if ($sep eq ')' || $sep eq '(' || $sep eq '*' || 
     $sep eq '?' || $sep eq '+' || $sep eq '.' ||
     $sep eq '[' || $sep eq ']' || $sep eq '.')
@@ -172,6 +181,12 @@ for($i = 0; $i < $tracks; $i++)
               $trackname = ($parse_artist_track ne '') ? $2 : $1;
            }
        }
+
+       $sortname = $artistname; 
+       if ($artistname =~ /^the (.*)$/i)
+       {
+           $sortname = "$1, The";
+       }
    }
    
 </%perl>
@@ -193,7 +208,7 @@ for($i = 0; $i < $tracks; $i++)
     <tr>
       <td colspan="2" align="right" valign="top">Sort Name:</td>
       <td><input type="text" name="sortname<% $i %>" size="30"
-                value="<% $artistname %>"><p></td>
+                value="<% $sortname %>"><p></td>
     </tr>
 % }
 </table>
