@@ -70,8 +70,7 @@ sub GetTextAsHTML
 
 sub Insert
 {
-	@_ == 4 or croak;
-	my ($self, $moderation, $noteuid, $text) = @_;
+	my ($self, $moderation, $noteuid, $text, $nosend) = @_;
    	my $sql = Sql->new($self->{DBH});
 
 	my $modid = $moderation->GetId;
@@ -84,6 +83,7 @@ sub Insert
 	);
 
 	# Should we e-mail the added note to the original moderator?
+	return if $nosend;
 	# Not if it's them that just added the note.
 	return if $noteuid == $moderation->GetModerator;
 
@@ -102,21 +102,21 @@ sub Insert
 *newFromModerationId = \&newFromModerationIds;
 sub newFromModerationIds
 {
-	my ($self, $minmodid, $maxmodid) = @_;
+	my ($self, @ids) = @_;
+	@ids or return;
    	my $sql = Sql->new($self->{DBH});
 
-	$maxmodid = $minmodid
-		unless defined $maxmodid;
-	($minmodid, $maxmodid) = ($maxmodid, $minmodid)
-		if $maxmodid < $minmodid;
-
+	# NOTE: must allow at least however many we show on moderatepage
+	# (see limit of mods_per_page preference, currently 25).
+	splice(@ids, 0, 50) if @ids > 50;
+	
+	my $list = join ",", @ids;
 	my $data = $sql->SelectListOfHashes(
 		"SELECT	n.id, n.modid, n.uid, n.text, u.name AS user
 		FROM	moderationnote n, moderator u
 		WHERE	n.uid = u.id
-		AND		n.modid BETWEEN ? AND ?
+		AND		n.modid IN ($list)
 		ORDER BY n.id",
-		$minmodid, $maxmodid,
 	);
 
 	map { $self->_new_from_row($_) } @$data;
