@@ -216,20 +216,22 @@ CREATE TABLE historicalstat
 DROP TABLE IF EXISTS moderator_preference;
 CREATE TABLE moderator_preference
 (
+	id		BIGINT AUTO_INCREMENT PRIMARY KEY,
 	moderator	INTEGER NOT NULL, -- references moderator
 	name		VARCHAR(50) NOT NULL,
 	value		VARCHAR(100) NOT NULL,
-	PRIMARY KEY (moderator, name)
+	UNIQUE (moderator, name)
 );
 
 DROP TABLE IF EXISTS moderator_subscribe_artist;
 CREATE TABLE moderator_subscribe_artist
 (
+	id		BIGINT AUTO_INCREMENT PRIMARY KEY,
 	moderator	INTEGER NOT NULL, -- references moderator
 	artist 		INTEGER NOT NULL, -- weakly references artist
 	lastmodsent	INTEGER NOT NULL, -- weakly references moderation
 	deletedbymod	INTEGER NOT NULL DEFAULT 0, -- weakly references moderation
 	mergedbymod	INTEGER NOT NULL DEFAULT 0, -- weakly references moderation
-	PRIMARY KEY (moderator, artist)
+	UNIQUE (moderator, artist)
 );
 

@@ -181,34 +181,38 @@ create table artist_relation (
 
 CREATE TABLE currentstat
 (
-	name		VARCHAR(100) PRIMARY KEY,
-	value		INTEGER NOT NULL,
-	lastupdated	TIMESTAMP WITH TIME ZONE
+        name            VARCHAR(100) PRIMARY KEY,
+        value           INTEGER NOT NULL,
+        lastupdated     TIMESTAMP WITH TIME ZONE
 );
 
 CREATE TABLE historicalstat
 (
-	name		VARCHAR(100) NOT NULL,
-	value		INTEGER NOT NULL,
-	snapshotdate	DATE NOT NULL
+        name            VARCHAR(100) NOT NULL,
+        value           INTEGER NOT NULL,
+        snapshotdate    DATE NOT NULL
 );
 
 CREATE TABLE moderator_preference
 (
-	moderator	INTEGER NOT NULL, -- references moderator
-	name		VARCHAR(50) NOT NULL,
-	value		VARCHAR(100) NOT NULL,
-	PRIMARY KEY (moderator, name)
+        id              SERIAL PRIMARY KEY,
+        moderator       INTEGER NOT NULL, -- references moderator
+        name            VARCHAR(50) NOT NULL,
+        value           VARCHAR(100) NOT NULL,
+        UNIQUE (moderator, name)
 );
 
 CREATE TABLE moderator_subscribe_artist
 (
-	moderator	INTEGER NOT NULL, -- references moderator
-	artist 		INTEGER NOT NULL, -- weakly references artist
-	lastmodsent	INTEGER NOT NULL DEFAULT NEXTVAL('moderation_id_seq'), -- weakly references moderation
-	deletedbymod	INTEGER NOT NULL DEFAULT 0, -- weakly references moderation
-	mergedbymod	INTEGER NOT NULL DEFAULT 0, -- weakly references moderation
-	PRIMARY KEY (moderator, artist)
+        id              SERIAL PRIMARY KEY,
+        moderator       INTEGER NOT NULL, -- references moderator
+        artist          INTEGER NOT NULL, -- weakly references artist
+        lastmodsent     INTEGER NOT NULL DEFAULT NEXTVAL('moderation_id_seq'), -- weakly references moderation
+        deletedbymod    INTEGER NOT NULL DEFAULT 0, -- weakly references moderation
+        mergedbymod     INTEGER NOT NULL DEFAULT 0, -- weakly references moderation
+        UNIQUE (moderator, artist)
 );
 
 commit;
+
+-- vi: set ts=8 sw=4 et :
