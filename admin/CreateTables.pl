@@ -349,7 +349,8 @@ sub CreateIndices
           or die("Could not add indices to Changes table");
     print "Added indices to Changes table.\n";
 
-    $dbh->do(qq/alter table Votes add index UidIndex (Uid)/)
+    $dbh->do(qq/alter table Votes add index UidIndex (Uid),
+                                  add index RowidIndex (Rowid)/)
           or die("Could not add indices to Votes table");
     print "Added indices to Votes table.\n";
 
