@@ -114,6 +114,13 @@ sub CreateTables
 
         print "Created AlbumJoin table.\n";
 
+        $sql->Do(qq|create table ClientVersion (
+                          Id serial primary key,
+                          Version varchar(64) not null)|)
+              or die("Cannot create ClientVersion table");
+        
+        print "Created ClientVersion table.\n";
+
         $sql->Do(qq|create table TRM (
                        Id serial primary key,
                        TRM char(36) not null,
@@ -256,12 +263,6 @@ sub CreateTables
         
         print "Created Stats table.\n";
   
-        $sql->Do(qq|create table ClientVersion (
-                          Id serial primary key,
-                          Version varchar(64) not null)|)
-              or die("Cannot create ClientVersion table");
-        
-        print "Created ClientVersion table.\n";
 
         $sql->Commit;
     };
