@@ -421,7 +421,7 @@ sub CreateTrackRDFSnippet
 
        if ($sql->Select(qq/select Track.name, Track.gid, 
                 AlbumJoin.sequence, Artist.name, Artist.gid, Album.name, 
-                Album.gid from Track, Artist,Album, AlbumJoin where 
+                Album.gid, Track.Length from Track, Artist,Album, AlbumJoin where 
                 Track.id = $id and Track.artist = Artist.id and 
                 AlbumJoin.album = Album.id and AlbumJoin.track = 
                 Track.id order by AlbumJoin.sequence/))
@@ -443,6 +443,7 @@ sub CreateTrackRDFSnippet
 
                 $rdf .= $this->Element("DC:Identifier", "", %ids);
                 $rdf .= $this->Element("MM:TrackNum", $row[2]);
+                $rdf .= $this->Element("MM:Duration", $row[7]);
                 $rdf .= $this->Element("DC:Title", escape($row[0]));
 
                 if ($emit_details)

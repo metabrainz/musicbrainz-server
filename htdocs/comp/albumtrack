@@ -13,10 +13,11 @@ $mbtagger=>0
 
 <%perl>
 
-my ($bgcolor, $tr_bgcolor);
+my ($bgcolor, $tr_bgcolor, $length_in_secs);
 $bgcolor = ($track->GetModPending()) ? 'bgcolor="#FFFFCC"' : '';
 $bgcolor = ($hilitetrack == $track->GetId()) ? 'bgcolor="#FFCCFF"' : $bgcolor;
 $tr_bgcolor = ($track->GetAlbumJoinModPending()) ? 'bgcolor="#FFFFCC"' : '';
+$length_in_secs = int($track->GetLength() / 1000);
 
 </%perl>
 
@@ -52,6 +53,11 @@ $tr_bgcolor = ($track->GetAlbumJoinModPending()) ? 'bgcolor="#FFFFCC"' : '';
 % }
     </td>
 % }
+    <td width="10%" align="right" <% $tr_bgcolor |n %>>
+% if ($length_in_secs != 0) {
+    <% int($length_in_secs / 60) %>:<% sprintf("%02d",($length_in_secs % 60)) %>
+% }
+    </td>
 % if (exists $session{user} && !$nomod) {
     <td width="15%" align=center>
        <a href="/edittrack.html?id=<% $track->GetId() %>&album=<% $album->GetId() %>&artist=<% $artist->GetId() %>">Edit</a>
