@@ -4,7 +4,7 @@
 my ($data, $selected) = @_;
 
 my %selected;
-$selected{@$selected} = () if ref $selected;
+@selected{@$selected} = () if ref $selected;
 $selected{$selected} = 1 if defined $selected and not ref $selected;
 
 for my $t (@$data)
