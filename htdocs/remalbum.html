@@ -1,89 +1,91 @@
-<& /comp/sidebar, title=>'Remove Album', expand=>'moderate' &>
+%# vi: set ts=2 sw=2 ft=mason :
+<%args>
+$album => undef
+</%args>
+
+<& /comp/sidebar, title => 'Remove Album' &>
 
 <%perl>
 
-my ($mb, $albumname, $al);
-my ($album, $artist); 
+# TODO isn't the artist ID superfluous here?  It should be derived from
+# $album once it has been retrieved, I think.  Apart from being "faked"
+# by URL-editing, there are two possible legitimate values: for a VA
+# album, $artist could be VARTIST_ID, or the artist of one of the tracks.
+# But since it gets entered into the mod's 'artist' column, they can't both be
+# right, surely?
 
-if (!exists $ARGS{album} || $ARGS{album} eq '' ||
-    !exists $ARGS{artist} || $ARGS{artist} eq '')
-{
-    mc_comp("/comp/badargs");
-    return undef;
-}
+$m->comp("/comp/checkloggedin", 0, 1)
+	or return;
 
-$mb = mc_comp("/comp/dblogin");
-$al = Album->new($mb->{DBH});
+MusicBrainz::IsNonNegInteger($album) && $album
+	or return $m->comp("/comp/badargs", 0, 1);
 
-$album = $ARGS{album};
-$artist = $ARGS{artist};
+my $mb = $m->comp("/comp/dblogin");
+
+my $al = Album->new($mb->{DBH});
 $al->SetId($album);
-$al->LoadFromId();
-$albumname = $al->GetName();
+$al->LoadFromId
+	or return $m->comp(
+		"/comp/error",
+		"Album #$album does not exist",
+		0, 1,
+	);
 
 </%perl>
 
-% if (!defined $session{user} || $session{user} eq '') {
-    You must be logged in to edit the database.<p>
-    <& /comp/tablebegin, title=>'Login' &>
-    <& /comp/loginbox &>
-    <& /comp/tableend &>
-% } else {
+<& /comp/tablebegin, gattrs => "width='100%'",
+	title => 'Remove Album' &>
 
-    <& /comp/tablebegin, gattrs=>"width=\"100%\"",
-       title=>'Remove Album' &>
-
-    <FORM METHOD="POST" ACTION="/bare/enter_mod.html" NAME="RemoveAlbumForm"
-          ENCTYPE="application/x-www-form-urlencoded">  
+	<form method="post" action="/bare/enter_mod.html" name="RemoveAlbumForm"
+		enctype="application/x-www-form-urlencoded">  
 
     <table width="100%">
       <tr>
         <td colspan="2">
-        Are you sure you want to remove album
-        <span class="bold"><% $albumname %></span>?
+					Are you sure you want to remove album
+					<b><% $al->GetName %></b>?
         </td>
       </tr>
       <tr>
         <td>
-        &nbsp;
+					&nbsp;
         </td>
         <td>
-        <INPUT TYPE="radio" NAME="confirm0" SIZE=25 value="yes"
+					<input type="radio" name="confirm0" value="yes"
             ondblclick="this.form.submit()"
             > Yes
         </td>
       </tr>
       <tr>
         <td>
-        &nbsp;
+					&nbsp;
         </td>
         <td>
-        <INPUT TYPE="radio" NAME="confirm0" SIZE=25 value="no" CHECKED
+					<input type="radio" name="confirm0" value="no" checked
             ondblclick="this.form.submit()"
             > No
         </td>
       </tr>
       <tr>
         <td colspan=2>
-        <INPUT TYPE="submit" NAME="Submit" VALUE="Submit">    
+					<input type="submit" value="Submit">    
         </td>
       </tr>
-    </table>
-    <input type="hidden" name="artist0" value="<% $artist %>">
-    <input type="hidden" name="type0"
-           value="<% ModDefs::MOD_REMOVE_ALBUM %>">
-    <input type="hidden" name="prev0" value="<% $albumname %>">
+		</table>
+		
+		<input type="hidden" name="artist0" value="<% $al->GetArtist %>">
+    <input type="hidden" name="type0" value="<% ModDefs::MOD_REMOVE_ALBUM %>">
+		<input type="hidden" name="prev0" value="<% $al->GetName %>">
     <input type="hidden" name="new0" value="DELETE">
     <input type="hidden" name="table0" value="Album">
     <input type="hidden" name="column0" value="Name">
-    <input type="hidden" name="id0" value="<% $album %>">
-    <input type="hidden" name="url" 
-           value="/showalbum.html?albumid=<% $album %>">
-    </form>
+		<input type="hidden" name="id0" value="<% $al->GetId %>">
+		<input type="hidden" name="url" value="/showalbum.html?albumid=<% $al->GetId %>">
+	</form>
       
-    <& /comp/tableend &>
-% }
-% $mb->Logout();
+<& /comp/tableend &>
+
+% $mb->Logout;
 
 <& /comp/movefocus, "RemoveAlbumForm", "confirm0", 0 &>
 <& /comp/footer &>

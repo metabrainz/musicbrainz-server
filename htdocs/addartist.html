@@ -1,70 +1,62 @@
-<& /comp/sidebar, title=>'Add Artist', expand=>'moderate' &>
+%# vi: set ts=2 sw=2 ft=mason :
+<& /comp/sidebar, title => 'Add Artist' &>
 
 <%perl>
 
-my ($mb, $id, $ar, $artist); 
-
-$mb = mc_comp("/comp/dblogin");
+$m->comp("/comp/checkloggedin", 0, 1)
+	or return;
 
 </%perl>
 
-% if (!defined $session{user} || $session{user} eq '') {
-    You must be logged in to edit the database.<p>
-    <& /comp/tablebegin, title=>'Login' &>
-    <& /comp/loginbox &>
-    <& /comp/tableend &>
-% } else {
+<& /comp/stylemenu &>
 
-    <& /comp/stylemenu &>
+<& /comp/tablebegin, gattrs => "width='100%'",
+	title => 'Add Artist' &>
 
-    <& /comp/tablebegin, gattrs=>"width=\"100%\"",
-       title=>'Add Artist' &>
+	You are about to add an artist to MusicBrainz.&nbsp;
+	Please read the style guidelines,
+	then enter the new Artist name and Sort name below:
 
-    You are about to add an artist to MusicBrainz. 
-    Please be read the style notes at the bottom of this
-    page, and enter the new Artist name and Sort name below:
-
-    <FORM METHOD="POST" ACTION="/bare/enter_kv_mod.html" NAME="AddArtist"
-          ENCTYPE="application/x-www-form-urlencoded">  
+	<form method="post" action="/bare/enter_kv_mod.html" name="AddArtist"
+		enctype="application/x-www-form-urlencoded">
+		
     <table>
       <tr>
         <td align="right">
-        Artist Name:<br>
+					Artist Name:<br>
         </td>
         <td>
-        <INPUT TYPE="text" NAME="value0" SIZE=25>
-        <br>(Please read the style notes!)
+					<INPUT TYPE="text" NAME="value0" SIZE=25>
+					<br>(Please read the style notes!)
         </td>
       </tr>
       <tr>
         <td align="right">
-        Sort name:
+					Sort name:
         </td>
         <td>
-        <INPUT TYPE="text" NAME="value1" SIZE=25 value="">
+					<input type="text" name="value1" size=25 value="">
         </td>
       </tr>
       <tr>
         <td colspan=2>
-        <INPUT TYPE="submit" NAME="Submit" VALUE="Next &gt;&gt;">    
+	 				<input type="submit" value="Next &gt;&gt;">    
         </td>
       </tr>
     </table>
 
     <input type="hidden" name="key0" value="ArtistName">
     <input type="hidden" name="key1" value="SortName">
-
     <input type="hidden" name="artist" value="1">
-    <input type="hidden" name="type" 
-           value="<% ModDefs::MOD_ADD_ARTIST %>">
+    <input type="hidden" name="type" value="<% ModDefs::MOD_ADD_ARTIST %>">
     <input type="hidden" name="prev" value="">
     <input type="hidden" name="table" value="Artist">
     <input type="hidden" name="column" value="Name">
     <input type="hidden" name="id" value="<% ModDefs::DARTIST_ID %>">
     <input type="hidden" name="url" value="/search.html">
-    </form>
+	</form>
       
-    <& /comp/tableend &>
-% }
-% $mb->Logout();
+<& /comp/tableend &>
+
+<& /comp/movefocus, "AddArtist", "value0" &>
 <& /comp/footer &>

@@ -1,92 +1,96 @@
-<& /comp/sidebar, title=>'Add Artist Alias', expand=>'moderate' &>
+%# vi: set ts=2 sw=2 ft=mason :
+<%args>
+$id => ""
+</%args>
+
+<& /comp/sidebar, title => 'Add Artist Alias' &>
 
 <%perl>
 
-my ($mb, $id, $ar); 
-my ($artistname, $modpending, $sortname); 
+$m->comp("/comp/checkloggedin", 0, 1)
+	or return;
 
-if (!exists $ARGS{id} || $ARGS{id} eq '') 
-{
-    mc_comp("/comp/badargs");
-    return undef;
-}
+MusicBrainz::IsNonNegInteger($id) && $id
+	or return $m->comp("/comp/badargs", 0, 1);
 
-$id = $ARGS{id};
-if ($id == ModDefs::VARTIST_ID)
-{
-    mc_out("You add an alias to this artist.\n");
-    return undef;
-}
+$id != ModDefs::VARTIST_ID && $id != ModDefs::DARTIST_ID
+	or return $m->comp(
+		"/comp/error",
+		"You cannot add an alias to this artist.",
+		0, 1,
+	);
 
-$mb = mc_comp("/comp/dblogin");
+my $mb = $m->comp("/comp/dblogin");
 
-$ar = Artist->new($mb->{DBH});
+my $ar = Artist->new($mb->{DBH});
 $ar->SetId($id);
-$ar->LoadFromId();
-$artistname = $ar->GetName();
-$sortname = $ar->GetSortName();
-$modpending = $ar->GetModPending();
+$ar->LoadFromId
+	or return $m->comp(
+		"/comp/error",
+		"Artist #$id does not exist",
+		0, 1,
+	);
+
+my $artistname = $ar->GetName();
+my $sortname = $ar->GetSortName();
+my $modpending = $ar->GetModPending();
 
 </%perl>
 
-% if (!defined $session{user} || $session{user} eq '') {
-    You must be logged in to edit the database.<p>
-    <& /comp/tablebegin, title=>'Login' &>
-    <& /comp/loginbox &>
-    <& /comp/tableend &>
-% } else {
+<& /comp/stylemenu &>
 
-    <& /comp/stylemenu &>
-
-    <& /comp/tablebegin, gattrs=>"width=\"100%\"",
-       title=>'Add Artist Alias' &>
+<& /comp/tablebegin, gattrs => "width='100%'",
+	title => 'Add Artist Alias' &>
 
 % if ($modpending) {
-    <& /comp/modpending &>
+	<& /comp/modpending &>
 % }
 
-    Enter a new artist alias below:
+	Enter a new artist alias below:
 
-    <FORM METHOD="POST" ACTION="/bare/enter_mod.html" NAME="AddAliasForm"
-          ENCTYPE="application/x-www-form-urlencoded">  
+	<form method="post" action="/bare/enter_mod.html" name="AddAliasForm"
+		enctype="application/x-www-form-urlencoded">
+
     <table>
       <tr>
         <td>
-        Artist Name:
+					Artist Name:
         </td>
         <td>
-        <% $artistname  %>
-        </td>
-      </tr>
-      <tr>
-        <td>
-        New Artist Alias:
-        </td>
-        <td>
-        <INPUT TYPE="text" NAME="new0" SIZE=25 value="<% $artistname %>"> 
+					<% $artistname  %>
         </td>
       </tr>
       <tr>
         <td>
-        <INPUT TYPE="submit" NAME="Submit" VALUE="Submit">
+					New Artist Alias:
         </td>
         <td>
-        &nbsp;
+					<input type="text" name="new0" size=25 value="<% $artistname %>"> 
+        </td>
+      </tr>
+      <tr>
+        <td>
+					<input type="submit" value="Submit">
+        </td>
+        <td>
+					&nbsp;
         </td>
       </tr>
     </table>
+
     <input type="hidden" name="artist0" value="<% $id  %>">
-    <input type="hidden" name="type0" 
-           value="<% ModDefs::MOD_ADD_ARTISTALIAS  %>">
+    <input type="hidden" name="type0" value="<% ModDefs::MOD_ADD_ARTISTALIAS  %>">
     <input type="hidden" name="prev0" value="<% $artistname %>">
     <input type="hidden" name="table0" value="Artist">
     <input type="hidden" name="column0" value="Name">
     <input type="hidden" name="id0" value="<% $id %>">
-    <input type="hidden" 
-           name="url" value="/showaliases.html?artistid=<% $id %>">
-    </form>
-    <& /comp/tableend &>
+    <input type="hidden" name="url" value="/showaliases.html?artistid=<% $id %>">
 
-% }
-% $mb->Logout();
+	</form>
+
+<& /comp/tableend &>
+
+% $mb->Logout;
+
+<& /comp/movefocus, "AddAliasForm", "new0" &>
 <& /comp/footer &>
