@@ -79,6 +79,11 @@ else
 {
     $ar->SetId(ModDefs::VARTIST_ID);
     $ret = $ar->LoadFromName($lookup->{artist});
+
+    if ($ar->GetId() == ModDefs::VARTIST_ID)
+    {
+        $mac = 1;
+    }
 }
 
 if (defined $ret)
