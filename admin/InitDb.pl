@@ -78,7 +78,7 @@ sub Create
 			| $psql $opts -t -U $postgres -t template1
 		`;
 		$locale =~ /(\S+)/;
-		unless ($1 eq "C"")
+		unless ($1 eq "C")
 		{
 			die <<EOF;
 It looks like your Postgres database cluster was created with locale '$1'.
