@@ -1,3 +1,4 @@
+%# vi: set ts=4 sw=4 ft=mason :
 <%perl>
 
 my ($mb); 
@@ -51,11 +52,14 @@ else
         $item = shift @list;
         last if (!defined $item);
 
+		my $time = $m->comp("/comp/datetime", $item->[3]);
+
+		# FIXME html encoding needed
         mc_out("<tr><td");
         mc_out(' bgcolor="#FFFFCC"') if ($$item[4]);
         mc_out(">$$item[1]</td>");
         mc_out("<td>$$item[2]</td>");
-        mc_out("<td>$$item[3]</td>");
+		mc_out("<td>$time</td>");
         if (exists $session{user}) 
         {
             mc_out("<td>[<a href=\"/remartistalias.html?alias=" . $$item[0]);
