@@ -194,9 +194,19 @@ else
             </td>
 
 %           if (exists $session{user}) {
+                <script language="JavaScript" type="text/javascript">
+                <!--
+                function submitit ( )
+                {
+                    document.EditAlbumAttrsForm.submit() ;
+                }
+                -->
+                </script>
                 <td align="center"><input name="submit" type="image" border="0" alt="Batch Operation" 
                        title="Moderate a batch of selected albums"
-                       src="/images/batch.gif" height="13" width="13"> Batch Operation</td>
+                       src="/images/batch.gif" height="13" width="13">
+                   <a href="javascript:submitit()">Batch Operation</a>
+                </td>
 %           }
 
             </tr></table>

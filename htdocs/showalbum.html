@@ -94,13 +94,21 @@ else
         </td>
 %       if (exists $session{user}) {
             <td align="center">
-            <FORM METHOD="POST" ACTION="/mod/tag/donetag.html" 
-            NAME="EditAlbumAttrsForm"
+            <script language="JavaScript" type="text/javascript">
+            <!--
+            function submitit ( )
+            {
+                document.EditAlbumAttrsForm.submit() ;
+            }
+            -->
+            </script>
+            <FORM METHOD="POST" ACTION="/mod/tag/donetag.html" NAME="EditAlbumAttrsForm"
             ENCTYPE="application/x-www-form-urlencoded"> 
 
             <input name="submit" type="image" border="0" alt="Batch Operation" 
-            title="Moderate a batch of selected albums"
-            src="/images/batch.gif" height="13" width="13"> Batch Operation
+                   title="Moderate a batch of selected albums"
+                   src="/images/batch.gif" height="13" width="13">
+            <a href="javascript:submitit()">Batch Operation</a>
             </td>
 %       }
         </tr></table>

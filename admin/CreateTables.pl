@@ -32,7 +32,8 @@ use Sql;
 
 # alter table album add column Attributes int[];
 # alter table album alter column Attributes set default '{0}';
-# update album set attributes = '{0}';
+# update album set attributes = '{0,100}';
+# update album set attributes = '{0,4,100}' where artist = 1;
 # alter table TRM add column LookupCount int;
 # alter table TRM alter column LookupCount set default 0;
 # update TRM set lookupcount = 0;

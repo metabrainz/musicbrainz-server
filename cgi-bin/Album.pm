@@ -65,7 +65,7 @@ use constant ALBUM_ATTR_SECTION_STATUS_END   => ALBUM_ATTR_BOOTLEG;
 my %AlbumAttributeNames = (
     0 => [ "Non Album Track", "Non Album Tracks", "(Special case)"],
     1 => [ "Album", "Albums", "An album release primarily consists of previously unreleased material."],
-    2 => [ "Single", "Singles", "A single release consists of a single track and possibly a number of remixes of that track."],
+    2 => [ "Single", "Singles", "A single typically has one main song and possibly a handful of additional tracks or remixes of the main track. A single is usually named after its main song."],
     3 => [ "EP", "EPs", "An EP is an Extended Play release which should contain the letters EP in the title. EP releases have become rare."],
     4 => [ "Compilation", "Compilations", "A compilation is a release that contains tracks by more than one artist. In MusicBrainz its also known as a Various Artist album."],
     5 => [ "Soundtrack", "Soundtracks", "A soundtrack is the musical score to a movie."],
@@ -77,7 +77,7 @@ my %AlbumAttributeNames = (
     11 => [ "Other", "Other Releases", "Any release that does not fit any of the categories above."],
 
     100 => [ "Official", "Official", "Any release officially sanctioned by the artist and/or their record company. (Most releases will fit into this category.)"],
-    101 => [ "Promotion", "Promotions", "A promotional release intended to promote an upcoming official release."],
+    101 => [ "Promotion", "Promotions", "A giveaway release or a release intended to promote an upcoming official release. (e.g. prerelease albums or releases included with a magazine)"],
     102 => [ "Bootleg", "Bootlegs", "An unofficial/underground release that was not sanctioned by the artist and/or the record company."]
 );
 
