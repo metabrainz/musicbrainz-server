@@ -99,24 +99,6 @@ sub DetermineDependencies
        }
    }
 
-   if ($sql->Select(qq|select newvalue, id from Moderation where type = | .
-                       ModDefs::MOD_ADD_ALBUM . " and status = " .
-                       ModDefs::STATUS_OPEN))
-   {
-       while(@row = $sql->NextRow())
-       {
-          if ($row[0] =~ /ArtistId=(\d+)/m)
-          {
-              if ($this->GetArtist() == $1)
-              {
-                 $nw->{"Dep$numdeps"} = $row[1];
-                 $numdeps++;
-              }
-          }
-       }
-       $sql->Finish();
-   }
-
    $this->{new} = $this->ConvertHashToNew($nw);
 }
 
