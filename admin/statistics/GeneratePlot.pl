@@ -30,26 +30,63 @@ use Artist;
 use ModDefs;
 use Sql;
 
+sub OutputPlotFile
+{
+    my ($datfile, $plotfile, $outfile, $from_date, $to_date) = @_;
+
+    open PLOT, ">$plotfile" or die "Cannot open plotfile.\n";
+
+print PLOT <<END;
+set terminal gif
+set xdata time
+set timefmt "%d %m %Y"
+set xlabel "Time"
+set xrange ["$from_date" : "$to_date"]
+set format x "%m/%Y"
+set key left
+set ylabel "Number of entries in MusicBrainz"
+
+set output "$outfile"
+
+plot "$datfile" using 1:(\$5) title "Albums" with linespoints, \\
+     "$datfile" using 1:(\$6) title "Artists" with linespoints, \\
+     "$datfile" using 1:(\$7) title "Moderations" with linespoints, \\
+     "$datfile" using 1:(\$4) title "Discids" with linespoints, \\
+     "$datfile" using 1:(\$8) title "TRM Ids" with linespoints
+END
+
+    close PLOT;
+}
+
 sub DumpStats
 {
-    my ($sql) = @_;
+    my ($sql, $outfile) = @_;
+    my ($plotfile, $datfile, $count, $start, $end);
 
-    if ($sql->Select("select * from Stats order by timestamp desc"))
+    $plotfile = "/tmp/plotfile.$$";
+    $datfile = "/tmp/datfile.$$";
+    if ($sql->Select("select * from Stats order by timestamp asc"))
     {
         my @row;
 
-        open STATS, ">mb.dat" or die "Cannot create temp file.\n";
+        open STATS, ">$datfile" or die "Cannot create temp file.\n";
+        $count = 0;
         while(@row = $sql->NextRow())
         {
             if ($row[9] =~ /(\d\d\d\d)-(\d\d)-(\d\d)/)
             {
-                print STATS "$2 $3 $1 $row[3] $row[2] $row[1] $row[6] $row[5]\n";
+                $start = "$2 $3 $1" if ($count == 0);
+                $end = "$2 $3 $1";
+                print STATS "$2 $3 $1 $row[4] $row[2] $row[1] $row[6] $row[5]\n";
+                $count++;
             }
         }
         close STATS;
 
-        system("gnuplot mb_plot_last_30_days");
-        unlink "mb.dat";
+        OutputPlotFile($datfile, $plotfile, $outfile, $start, $end);
+        system("gnuplot $plotfile");
+        unlink $datfile;
+        unlink $plotfile;
 
         $sql->Finish();
     }
@@ -57,11 +94,18 @@ sub DumpStats
     return 1;
 }
 
+my $giffile = shift;
+if (not defined $giffile)
+{
+    print "Usage: GeneratePlot.pl <output .gif file>\n";
+    return;
+}
+
 $mb = MusicBrainz->new;
 $mb->Login;
 $sql = Sql->new($mb->{DBH});
 
-DumpStats($sql);
+DumpStats($sql, $giffile);
 
 # Disconnect
 $mb->Logout;

@@ -3,6 +3,7 @@
 # TODO: If you are installing a main server, you need to update the paths below
 ftpdir=/var/ftp/pub/musicbrainz/data
 reportdir=/var/website/musicbrainz/prod/htdocs/reports
+imagedir=/var/website/musicbrainz/prod/htdocs/images
 
 export PATH=/bin:/usr/bin:/usr/local/pgsql/bin
 
@@ -11,6 +12,10 @@ cd ..
 
 # Collect stats
 ./CollectStats.pl
+cd statistics
+./GeneratePlot.pl $imagedir/stats_30_days.gif
+chmod a+r $imagedir/stats_30_days.gif
+cd ..
 
 # Vacuum and analyze the database for peak performance
 echo "VACUUM ANALYZE;" | psql musicbrainz
