@@ -93,6 +93,7 @@ my @core = qw(
 	trm
 	trmjoin
     clientversion
+    stats
 	);
 
 my @derived = qw(

@@ -10,13 +10,14 @@ I Server update tasks
 
 2. For the albummeta optimization changes:
 
-    Execute this cwinfor the shell 
+    Execute this in the shell 
 
        createlang plpgsql musicbrainz
 
     Execute the SQL statements in admin/sql/CreateTriggers.sql by:
 
        psql musicbrainz < CreateTriggers.sql
+       psql musicbrainz < CreateFunctions.sql
 
     Then execute the fill_album_meta function:
 

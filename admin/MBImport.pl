@@ -34,8 +34,11 @@ sub ImportTable
 
     if (-e "$dir/$name")
     {
+        my ($table_name) = $name;
+
+        $table_name = "moderator" if ($name eq 'moderator_sanitised');
         print "Importing table $name..\n";
-        $cmd = "pg_restore -a -t $name -d musicbrainz $dir/$name"; 
+        $cmd = "pg_restore -a -t $table_name -d musicbrainz $dir/$name"; 
         print "$cmd\n";
         $ret = system($cmd) >> 8;
 
@@ -61,26 +64,22 @@ sub ImportAllTables
     ImportTable("trmjoin", $dir) or return 0;
     ImportTable("discid", $dir) or return 0;
     ImportTable("toc", $dir) or return 0;
+    ImportTable("clientversion", $dir) or return 0;
 
     ImportTable("moderator", $dir) or return 0;
+    ImportTable("moderator_sanitised", $dir) or return 0;
     ImportTable("moderation", $dir) or return 0;
     ImportTable("moderationnote", $dir) or return 0;
     ImportTable("votes", $dir) or return 0;
 
-    if (DBDefs->USE_LYRICS)
-    {
-       ImportTable("Lyrics", $dir) or return 0;
-       ImportTable("SyncText", $dir) or return 0;
-       ImportTable("SyncEvent", $dir) or return 0;
-    }
-    else
-    {
-       print "Skipping importing of lyrics tables.\n";
-    }
+    ImportTable("wordlist", $dir) or return 0;
+    ImportTable("artistwords", $dir) or return 0;
+    ImportTable("albumwords", $dir) or return 0;
+    ImportTable("trackwords", $dir) or return 0;
 
     print "\nImported tables successfully.\n";
     print "\nNow you will need to run build_words.pl to build the\n";
-    print "text search indexes.\n";
+    print "text search indexes or import mbdump-derived.\n";
 
     return 1;
 }
@@ -102,4 +101,4 @@ $dir = "/tmp/mbdump";
  
 ImportAllTables($dir);
 
-#system("rm -rf $dir");
+system("rm -rf $dir");
