@@ -22,18 +22,6 @@ $duration=>0
 %   return undef;
 % }
 
-<b>Input:</b>
-<table>
-<tr><td>Artist:</td><td><% $artist %></td></tr>
-<tr><td>Album:</td><td><% $album %></td></tr>
-<tr><td>Track:</td><td><% $track %></td></tr>
-<tr><td>ArtistId:</td><td><% $artistid %></td></tr>
-<tr><td>AlbumId:</td><td><% $albumid %></td></tr>
-<tr><td>TrackId:</td><td><% $trackid %></td></tr>
-<tr><td>TrackNum:</td><td><% $tracknum %></td></tr>
-<tr><td>File Name:</td><td><% $filename %></td></tr>
-</table>
-<p><br>
 
 <%perl>
 
@@ -161,9 +149,15 @@ if ($flags & TaggerSupport::ARTISTLIST)
        </%perl>
        <b>Found matching artists</b>:<p>
        <table>
+          <tr>
+             <th>Artist</th>
+             <th>Relevance</th>
+          </tr>
 %      foreach $id (@$list) {
           <tr>
-             <td valign="top"><% $id->{sortname} %></td>
+             <td valign="top"><a href="/showartist.html?artistid=<% $id->{id} %>"
+                 ><% $id->{name} %></a></td>
+             <td valign="top" align="center"><% int($id->{sim} * 100) %>%</td>
              <td valign="top">
 %               $copy{artistid} = $id->{mbid};
 %               $copy{artist} = $id->{name};
@@ -193,9 +187,15 @@ elsif ($flags & TaggerSupport::ALBUMLIST)
        </%perl>
        <b>Found matching albums</b>:<p>
        <table>
+          <tr>
+             <th>Album</th>
+             <th>Relevance</th>
+          </tr>
 %      foreach $id (@$list) {
           <tr>
-             <td valign="top"><% $id->{name} %></td>
+             <td valign="top"><a href="/showalbum.html?albumid=<% $id->{id} %>"
+                 ><% $id->{name} %></a></td>
+             <td valign="top" align="center"><% int($id->{sim} * 100) %>%</td>
              <td valign="top">
 %               $copy{albumid} = $id->{mbid};
 %               $copy{album} = $id->{name};
@@ -220,9 +220,15 @@ elsif ($flags & TaggerSupport::TRACKLIST)
        </%perl>
        <b>Found matching tracks</b>:<p>
        <table>
+          <tr>
+             <th>Track</th>
+             <th>Relevance</th>
+          </tr>
 %      foreach $id (@$list) {
           <tr>
-             <td valign="top"><% $id->{name} %></td>
+             <td valign="top"><a href="/showtrack.html?trackid=<% $id->{id} %>"
+                 ><% $id->{name} %></a></td>
+             <td valign="top" align="center"><% int($id->{sim} * 100) %>%</td>
              <td valign="top">
 %               $copy{trackid} = $id->{mbid};
 %               $copy{track} = $id->{name};
@@ -246,10 +252,18 @@ elsif ($flags & TaggerSupport::ALBUMTRACKLIST)
        </%perl>
        <b>Found matching albums/tracks</b>:<p>
        <table>
+          <tr>
+             <th>Album</th>
+             <th>Track</th>
+             <th>Relevance</th>
+          </tr>
 %      foreach $id (@$list) {
           <tr>
-             <td valign="top"><% $id->{name} %></td>
-             <td valign="top"><% $id->{album} %></td>
+             <td valign="top"><a href="/showalbum.html?albumid=<% $id->{albumid} %>"
+                 ><% $id->{album} %></a></td>
+             <td valign="top"><a href="/showtrack.html?trackid=<% $id->{id} %>"
+                 ><% $id->{name} %></a></td>
+             <td valign="top" align="center"><% int($id->{sim} * 100) %>%</td>
              <td valign="top">
 %               $copy{trackid} = $id->{mbid};
 %               $copy{albumid} = $id->{albummbid};
@@ -294,6 +308,21 @@ else
    <%perl>
 }
 </%perl>
+
+<p>
+<b>Input:</a> (for debugging)
+<table>
+<tr><td>Artist:</td><td><% $artist %></td></tr>
+<tr><td>Album:</td><td><% $album %></td></tr>
+<tr><td>Track:</td><td><% $track %></td></tr>
+<tr><td>ArtistId:</td><td><% $artistid %></td></tr>
+<tr><td>AlbumId:</td><td><% $albumid %></td></tr>
+<tr><td>TrackId:</td><td><% $trackid %></td></tr>
+<tr><td>TrackNum:</td><td><% $tracknum %></td></tr>
+<tr><td>File Name:</td><td><% $filename %></td></tr>
+<tr><td>Duration:</td><td><% $duration %></td></tr>
+</table>
+<p><br>
     
 % $mb->Logout();
 <& /comp/footer &>

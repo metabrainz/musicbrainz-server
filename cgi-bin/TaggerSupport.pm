@@ -121,11 +121,11 @@ sub Lookup
    }
 
    # TODO: Re-add this. Its not useful for testing
-#  if ($data->{artist} eq '' || $data->{album} eq '' || $data->{track} eq '' || 
-#       $data->{tracknum} < 0 || $data->{tracknum} > 99)
-#   {
-#       $this->ParseFileName($data->{filename}, $data);
-#   }
+   if ($data->{artist} eq '' || $data->{album} eq '' || $data->{track} eq '' || 
+       $data->{tracknum} < 0 || $data->{tracknum} > 99)
+   {
+       $this->ParseFileName($data->{filename}, $data);
+   }
 
    if ($data->{artistid} eq '')
    {
@@ -146,13 +146,12 @@ sub Lookup
        print STDERR "FIL artistId: $data->{artistid}\n";
    }   
 
-   if ($data->{albumid} eq '' && $data->{trackid} eq '' &&
-       $data->{album} ne '' && $data->{track} ne '')
+   if ($data->{albumid} eq '' && $data->{trackid} eq '' && $data->{track} ne '')
    {
        my ($list, $flags);
-       ($flags, $list) = $this->AlbumTrackSearch($data->{artistid}, $data->{track}, 
-                                                 $data->{album}, $data->{tracknum}, 
-                                                 $data->{duration});
+       ($flags, $list) = $this->TrackSearch($data->{artistid}, $data->{track}, 
+                                            $data->{album}, $data->{tracknum}, 
+                                            $data->{duration});
        return ("", $data, $flags, $list);
    }   
 
@@ -170,27 +169,6 @@ sub Lookup
            return ("", $data, $flags, $list);
        }
        print STDERR "FIL albumId: $data->{albumid}\n";
-   }   
-
-   if ($data->{trackid} eq '' && $data->{track} ne '' && $data->{artistid} ne '')
-   {
-       my ($list, $flags);
-
-       ($flags, $list) = $this->TrackSearch($data->{track}, 
-                                            $data->{artistid}, 
-                                            $data->{albumid}, 
-                                            $data->{tracknum}, 
-                                            $data->{duration});
-       if (scalar(@$list) == 1 && ($flags & TRACKID))
-       {
-           $data->{albumid} = $list->[0]->{mbid};
-       }
-       else
-       {
-           return ("", $data, $flags, $list);
-       }
-
-       print STDERR "FIL trackId: $data->{trackid}\n";
    }   
 
    my $flags = 0;
@@ -272,10 +250,12 @@ sub ArtistSearch
 
        $this->{artist} = $ar;     
        return (ARTISTID, [ 
-                           { 
+                           {
+                             id=>$ar->GetId(),
                              mbid=>$ar->GetMBId(), 
                              name=>$ar->GetName(),
-                             sortname=>$ar->GetSortName()
+                             sortname=>$ar->GetSortName(),
+                             sim=>1
                            }
                          ]);
    }
@@ -298,9 +278,11 @@ sub ArtistSearch
            return (ARTISTID | FUZZY, 
                              [ 
                                { 
+                                 id=>$ar->GetId(),
                                  mbid=>$ar->GetMBId(), 
                                  name=>$ar->GetName(),
-                                 sortname=>$ar->GetSortName()
+                                 sortname=>$ar->GetSortName(),
+                                 sim=>similarity($ar->GetName(), $name)
                                }
                              ]);
        }
@@ -312,11 +294,14 @@ sub ArtistSearch
        print STDERR "Artist: search on '$name'\n";
        while($row = $engine->NextRow)
        {
-           print STDERR "  $row->[1]\n";
-           push @ids, { name=>$row->[1],
+           push @ids, { id=>$row->[0],
+                        name=>$row->[1],
                         sortname=>$row->[2],
-                        mbid=>$row->[3] };
+                        mbid=>$row->[3], 
+                        sim=>similarity($row->[1], $name) };
        }
+
+       @ids = sort { $b->{sim} <=> $a->{sim} } @ids;
 
        return (ARTISTLIST, \@ids);
    }
@@ -367,8 +352,10 @@ sub AlbumSearch
        if (lc($al->GetName()) eq lc($name))
        {
            print STDERR "Album: exact match '$al->{name}'\n";
-           push @ids, { name=>$al->GetName(),
-                        mbid=>$al->GetMBId() };
+           push @ids, { id=>$al->GetId(),
+                        name=>$al->GetName(),
+                        mbid=>$al->GetMBId(),
+                        sim=>1 };
        }
    }
 
@@ -380,9 +367,10 @@ sub AlbumSearch
        print STDERR "Albums: fuzzy match\n"; 
        foreach $al (@albums)
        {
-           $sim = int(similarity($al->GetName(), $name) * 100);
+           $sim = similarity($al->GetName(), $name);
            print STDERR "Album: fuzzy match '$al->{name}'\n";
-           push @ids, { name=>$al->GetName(),
+           push @ids, { id=>$al->GetId(),
+                        name=>$al->GetName(),
                         mbid=>$al->GetMBId(),
                         sim=>$sim};
            $this->{fuzzy} = 1;
@@ -392,159 +380,15 @@ sub AlbumSearch
    if (scalar(@ids) > 0)
    {
        print STDERR "Album: return " . scalar(@ids) . "\n";
+       @ids = sort { $b->{sim} <=> $a->{sim} } @ids;
        return (ALBUMLIST, \@ids);
    }
   
    return (0, []);
 }
 
-sub TrackSearch
-{
-   my ($this, $name, $artistId, $albumId, $trackNum, $duration) = @_;
-   my ($ar, $al, $tr, @ids, $last, $flags);
-
-   $flags = 0;
-   if (exists $this->{artist})
-   {
-       $ar = $this->{artist};
-   }
-   else
-   {
-       $ar = Artist->new($this->{DBH});
-       $ar->SetMBId($artistId);
-       if (!defined $ar->LoadFromId())
-       {
-           print STDERR "Album: failed to load artist\n";
-           return (undef, []);
-       }
-       $this->{artist} = $ar;     
-   }
-
-   # If no album is given, try to find the track given the track name, num or duration
-   if ($albumId eq '')
-   {
-       my ($sql, $tracks, $s);
-
-       # Try the track name search
-       $sql = Sql->new($this->{DBH});
-       if ($sql->Select(qq|select track.id, track.gid, track.name, track.length 
-                             from Track 
-                            where track.artist = | . $ar->GetId()))
-       {
-           my (@row, @ids, $sim, $s);
-
-           $flags |= FUZZY;
-           while(@row = $sql->NextRow)
-           {
-               $sim = similarity($row[2], $name) / 2;
-               if ($duration > 0 && $row[3] > 0)
-               {
-                   $s = 1 - (int(abs($duration - $row[3]) / 2) * .25);
-                   $s = ($s < 0) ? 0 : $s;
-                   $sim += $s;
-               }
-
-               next if ($sim < .25);
-
-               push @ids, { name=>$row[2], 
-                            mbid=>$row[1],
-                            sim=>$sim };
-           }
-           $sql->Finish;
-
-           if (scalar(@ids) > 0)
-           {
-               print STDERR "Track: return no album matchn";
-               return (TRACKLIST, \@ids);
-           }
-       }
-
-       print STDERR "Track: no album, no shorts, no service!\n";
-       return (undef, []);
-   }
-
-   if (exists $this->{album})
-   {
-       $al = $this->{album};
-   }
-   else
-   {
-       $al = Album->new($this->{DBH});
-       $al->SetMBId($albumId);
-       if (!defined $al->LoadFromId())
-       {
-           print STDERR "Track: failed to load album\n";
-           return (undef, []);
-       }
-       $this->{album} = $al;     
-   }
-
-   my @tracks = $al->LoadTracks();
-   if (scalar(@tracks) == 0)
-   {
-       return (undef, []);
-   }
-
-   # TODO: Document this shortcut
-   if ($name ne '')
-   {
-       print STDERR "Track: exact match\n"; 
-       # do an exact match
-       foreach $tr (@tracks)
-       {
-           if (lc($tr->GetName()) eq lc($name))
-           {
-               print STDERR "Track: exact match '$tr->{name}'\n";
-               push @ids, { mbid=>$tr->GetMBId(),
-                            name=>$tr->GetName() }; 
-               $last = $tr;
-           }
-       }
-
-       # do fuzzy matches if need be
-       if (scalar(@ids) == 0)
-       {
-           print STDERR "Track: fuzzy match\n"; 
-           foreach $tr (@tracks)
-           {
-               if (similarity($tr->GetName(), $name) >= FUZZY_THRESHOLD_TRACK)
-               {
-                   print STDERR "Track: fuzzy match '$al->{name}'\n";
-                   push @ids, { mbid=>$tr->GetMBId(),
-                                name=>$tr->GetName() }; 
-                   $last = $tr;
-                   $flags |= FUZZY;
-               }
-           }
-       }
-
-       if (scalar(@ids) > 0)
-       {
-           print STDERR "Track: return " . scalar(@ids) . "\n";
-           return (TRACKLIST | $flags, \@ids);
-       }
-   }
-
-   print STDERR "Track: no matches. return all tracks\n";
-
-   # TODO: use track number/length to rank tracks
-   my $trackNumMatch = "";
-   foreach $tr (@tracks)
-   {
-       if ($trackNum != 0 && $tr->GetSequence() == $trackNum)
-       {
-           $trackNumMatch = $tr->GetMBId(); 
-       }
-       push @ids, { mbid=>$tr->GetMBId(),
-                    name=>$tr->GetName() }; 
-   }
-
-   print STDERR "Track: return " . scalar(@ids) . "\n";
-   return (TRACKLIST | $flags, \@ids);
-}
-
 # TODO: Finish ranking & fuzzy attrs
-sub AlbumTrackSearch
+sub TrackSearch
 {
    my ($this, $artistId, $trackName, $albumName, $trackNum, $duration) = @_;
    my ($ar, $al, $tr, @ids, $last, $id, %result);
@@ -578,15 +422,16 @@ sub AlbumTrackSearch
        while(@row = $sql->NextRow)
        {
            $lensim = 0.0;
-           $namesim = similarity($row[2], $trackName) / 2;
+           $namesim = similarity($row[2], $trackName);
            if ($duration > 0 && $row[3] > 0)
            {
-               $lensim = 1 - (int(abs($duration - $row[3]) / 2) * .25);
+               $lensim = 1 - (int(abs($duration - $row[3]) / 2000) * .25);
                $lensim = ($lensim < 0) ? 0 : $lensim;
            }
 
            $sim = ($namesim * .5) + ($lensim * .5);
-           push @ids, { name=>$row[2], 
+           push @ids, { id=>$row[0],
+                        name=>$row[2], 
                         mbid=>$row[1],
                         id=>$row[0],
                         namesim=>$namesim,
@@ -619,15 +464,19 @@ sub AlbumTrackSearch
        while(@row = $sql->NextRow)
        {
            $numsim = 0.0;
-           $namesim = similarity($row[1], $trackName) / 2;
-           if ($trackNum > 0 && $row[3] > 0 && $trackNum == $row[2])
+           $namesim = 0.0;
+
+           if ($albumName ne '')
+           {
+               $namesim = similarity($row[1], $albumName);
+           }
+           if ($trackNum > 0 && $row[3] > 0 && $trackNum == $row[3])
            {
                $numsim = 1.0;
            }
 
            $id = $result{$row[4]};
            next if not defined $id;
-
 
            # Update the entry with the info for the album
            $id->{sim} = ($namesim * .3) + ($numsim * .1) + 
@@ -636,15 +485,12 @@ sub AlbumTrackSearch
            $id->{numsim} = $numsim;
            $id->{album} = $row[1];
            $id->{albummbid} = $row[2];
+           $id->{albumid} = $row[0];
        }
        $sql->Finish;
    }
 
    @ids = sort { $b->{sim} <=> $a->{sim} } @ids;
-   foreach $id (@ids)
-   {
-      print STDERR "Matching tracks: $id->{album}, $id->{name} -> $id->{sim}\n";   
-   }
 
    return (ALBUMTRACKLIST | $flags, \@ids);
 }
