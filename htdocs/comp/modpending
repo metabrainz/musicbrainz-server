@@ -1,5 +1,3 @@
-<table width="100%">
-<tr><td bgcolor="#FFFFCC">
-There are already pending changes for this field/item.
-</td></tr>
-</table>
+<p style="background: #FFFFCC; padding: 0.2em">
+	There are already pending changes for this field/item.
+</p>
