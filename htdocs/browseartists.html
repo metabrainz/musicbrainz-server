@@ -5,6 +5,7 @@ my $max_items = 50;
 
 mc_comp("/comp/sidebar", title=>'Browse Artists');
 
+mc_out("<p>[ <a href=\"/addartist.html\">Add New Artist</a> ]<p>");
 
 $ind = $ARGS{index};
 if (!defined $ind || $ind eq '')
@@ -15,6 +16,7 @@ $offset = $ARGS{offset};
 $offset = 0 if not defined $offset;
 $offset = 0 if $offset < 0;
 
+
 mc_comp("/comp/browsebox", ind=>$ind);
 
 if (!defined $ind || $ind eq '')
@@ -23,7 +25,6 @@ if (!defined $ind || $ind eq '')
     mc_out("alpha characters.<p>");
 }
 
-mc_out("<p>[ <a href=\"/addartist.html\">Add New Artist</a> ]<p>");
 
 if (!defined $ind || $ind eq '')
 {
@@ -34,6 +35,8 @@ $mb = mc_comp("/comp/dblogin");
 $ar = Artist->new($mb->{DBH});
 
 ($num_artists, @info) = $ar->GetArtistDisplayList($ind, $offset, $max_items);
+
+mc_comp("/comp/framedboxbegin", width=>"100%");
 
 mc_out('<table width="100%"><tr>');
 mc_comp("/comp/listprevbutton", offset=>$offset, ind=>$ind, 
@@ -52,12 +55,12 @@ mc_out('</tr></table>');
 <& /comp/modnotice &>
 
 % $rows = $max_items / 2;
-<p><table align="center" width="100%">
+<p><table align="center" width="100%" bgcolor="#f0efff">
 % for($i = 0; $i < $rows; $i++) {
 %  $row = $info[$i];  
 %  last if (!defined $row);
    <tr>
-      <td valign=top>
+      <td width="1%" valign="top">
          <% ($i + 1 + $offset) %>.
       </td>
 % if ($$row[2]) {
@@ -68,7 +71,7 @@ mc_out('</tr></table>');
         <a href="/showartist.html?artistid=<% $$row[0] %>">
         <% $$row[1]  %>
       </td>
-      <td valign=top>
+      <td width="1%" valign="top">
 %     $row = $info[$i + $rows];  
 %     if (defined $row) {
             <% ($i + 1 + $rows + $offset) %>.
@@ -87,6 +90,7 @@ mc_out('</tr></table>');
   </tr>
 %}
 </table>
+<& /comp/framedboxend &>
 
 % $mb->Logout;
 <& /comp/footer &>

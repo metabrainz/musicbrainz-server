@@ -33,6 +33,13 @@ use DBI;
 use DBDefs;
 use Sql;
 use UUID;
+use Text::Unaccent;
+use locale;
+use POSIX qw(locale_h);
+use utf8;
+
+use constant MAX_PAGE_INDEX_LEVELS => 6;
+use constant NUM_BITS_PAGE_INDEX => 5;
 
 sub new
 {
@@ -146,6 +153,36 @@ sub CreateNewGlobalId
 
     return $id;
 }  
+
+sub CalculatePageIndex 
+{
+    my ($this, $string) = @_;
+    my ($path, $ch, $base, @chars, $o, $wild);
+
+    my $old_locale = setlocale(LC_CTYPE);
+    setlocale( LC_CTYPE, "en_US.UTF-8" )
+        or die "Couldn't change locale.";
+
+    $path = 0;
+    $base = ord('A');
+    $string = unac_string('UTF-8',$string);
+    $string =~ tr/A-Za-z /_/c;
+    @chars = split //, uc($string);
+
+    for(0..MAX_PAGE_INDEX_LEVELS-1)
+    {
+        $ch = $chars[$_];
+        $ch = '_' unless defined $ch;
+        $o = ($ch eq '_') ? 0 : ($ch eq ' ') ? 1 : ord($ch) - $base + 2;
+        #print "$ch -> $o\n";
+        $path |= $o << (NUM_BITS_PAGE_INDEX * (MAX_PAGE_INDEX_LEVELS - $_ - 1));
+    }
+
+    #switch it back, just to be polite
+    setlocale( LC_CTYPE, $old_locale );
+
+    return $path;
+}
 
 sub Escape 
 {

@@ -37,6 +37,9 @@ use Sql;
 # alter table TRM add column LookupCount int;
 # alter table TRM alter column LookupCount set default 0;
 # update TRM set lookupcount = 0;
+# alter table artist add column page bigint;
+# UPDATE pg_attribute SET attnotnull = TRUE WHERE attname = 'page' AND attrelid = ( SELECT oid FROM pg_class WHERE relname = 'artist');
+# create index Artist_PageIndex on Artist (Page)
 
 sub CreateTables
 {
@@ -50,7 +53,8 @@ sub CreateTables
                        Name varchar(255) not null,
                        GID char(36) not null,
                        ModPending int default 0,
-                       SortName varchar(255) not null)|)
+                       SortName varchar(255) not null,
+                       Page bigint not null)|)
               or die("Cannot create Artist table");
         print "Created Artist table.\n";
     
@@ -309,6 +313,8 @@ sub CreateIndices
         $sql->Do(qq|create index Artist_SortNameIndex on Artist (SortName)|)
             or die("Could not add indices to Artist table");
         $sql->Do(qq|create unique index Artist_GIDIndex on Artist (GID)|)
+            or die("Could not add indices to Artist table");
+        $sql->Do(qq|create index Artist_PageIndex on Artist (Page)|)
             or die("Could not add indices to Artist table");
         print "Added indices to Artist table.\n";
 

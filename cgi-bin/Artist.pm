@@ -290,52 +290,44 @@ sub LoadFull
 sub GetArtistDisplayList
 {
    my ($this, $ind, $offset, $max_items) = @_;
-   my ($query, $num_artists, @info, @row, $sql, $ind_len); 
+   my ($query, $num_artists, @info, @row, $sql, $page, $page_max, $ind_max); 
 
-   $ind_len = length($ind);
-   return undef if ($ind_len <= 0);
+   return if length($ind) <= 0;
 
    $sql = Sql->new($this->{DBH});
-   
-   if ($ind =~ m/_/)
+  
+   $ind_max = $ind;
+   if ($ind_max =~ /^(.{1})/)
    {
-      $ind =~ s/_/.{1}/g;
-      $ind = "^$ind";
-      $ind = $sql->Quote($ind);
-
-      if ($sql->Select("select count(*) from Artist where sortname ~* $ind"))
-      {
-          @row = $sql->NextRow();
-          $sql->Finish();
-          $num_artists = $row[0];
-      }
-      return undef if (!defined $num_artists);
-
-      $query = qq/select id, sortname, modpending 
-                    from Artist 
-                   where sortname ~* $ind
-                order by lower(sortname), sortname 
-                   limit $max_items offset $offset/;
+      my $t = $1;
+      $t++;
+      $ind_max =~ s/^(.{1})/$t/e;
    }
-   else
-   {
-      $ind = $sql->Quote($ind);
-      ($num_artists) =  $sql->GetSingleRowLike("Artist", ["count(*)"], 
-                               ["substring(sortname from 1 for $ind_len)", 
-                                $ind]);
-      return undef if (!defined $num_artists);
 
-      $query = qq/select id, sortname, modpending 
+   $page = $this->CalculatePageIndex($ind);
+   $page_max = $this->CalculatePageIndex($ind_max);
+   print STDERR "($page, $ind) to ($page_max, $ind_max\n";
+   $query = qq/select id, sortname, modpending 
                     from Artist 
-                   where substring(sortname from 1 for $ind_len) ilike $ind
+                   where page >= $page and page <= $page_max
                 order by lower(sortname), sortname 
-                   limit $max_items offset $offset/;
-   }
+                  offset $offset/;
+   # TODO: Make sure locale is proper/unaccent, 
+   #       wildcards filtered properly
+   #       return only number of items wanted
+   #       test wildcards
+   #       add support for spaces
+   #       fix html
+   #       add support in browsevarious
+   #       ensure that on update/insert the page index is updated as well
    if ($sql->Select($query))
    {
        for(;@row = $sql->NextRow;)
        {
-           push @info, [$row[0], $row[1], $row[2]];
+           if ($row[1] =~ /^$ind/i)
+           {
+               push @info, [$row[0], $row[1], $row[2]];
+           }
        }
        $sql->Finish;   
    }

@@ -6,14 +6,15 @@ $page=>"/browseartists.html"
 
 my ($i, $p, $t);
 
-mc_out("<table><tr>");
+mc_comp("/comp/framedboxbegin", width=>"100%");
+mc_out('<table width="100%"><tr>');
 # TODO: Add support for spaces
 if (length($ind) > 0)
 {
     $t = $ind;
     $t =~ s/_/?/g;
     </%perl>
-    <td>
+    <td width="30%" align="center">
     <table cellpadding="0" cellspacing="0" border="0" bgcolor="#000000">
      <tr><td bgcolor="#000000">
       <table width="100%" cellpadding="2" cellspacing="1" border="0">
@@ -31,21 +32,25 @@ if (length($ind) > 0)
        </td></tr>
     </table>
     </td>
-    <td>&nbsp;&nbsp;</td>
     <%perl>
 
     $t = $ind;
     chop($t);
 }
 
+mc_out('<td width="10%" align="center">');
 if (length($ind) > 0)
 {
-    mc_out("<td><a href=\"$page?index=$t\">Back</a><br>");
-    mc_out("<a href=\"$page\">Top</a></td>");
-    mc_out("<td>&nbsp;&nbsp;</td>");
+    mc_out("<a href=\"$page?index=$t\">Back</a><br>");
+    mc_out("<a href=\"$page\">Top</a>");
 }
+else
+{
+    mc_out("&nbsp;");
+}
+mc_out("</td>");
 
-mc_out('<td><a href="' . $page . '?index='.$ind.'_">?</a> ');
+mc_out('<td width="50%" align="center"><a href="' . $page . '?index='.$ind.'_">?</a> ');
 for($i = 0; $i < 26; $i++)
 {
     $p .= '<a href="' . $page . '?index='. $ind . chr($i + 65) . '">' .
@@ -56,6 +61,8 @@ for($i = 0; $i < 26; $i++)
     }
 }
 mc_out($p);
-mc_out("</td></tr></table><br>");
+mc_out("</td></tr></table>");
+mc_comp("/comp/framedboxend");
+mc_out("<br>");
 
 </%perl>

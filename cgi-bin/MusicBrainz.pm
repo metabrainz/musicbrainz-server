@@ -58,28 +58,29 @@ sub Logout
    $this->{DBH}->disconnect() if ($this->{DBH});
 }
 
-sub CheckArgs
-{
-   my ($this, $args);
-   my ($i, $j, $err);
-
-   $this = shift @_;
-   for($i = 0; $i < scalar(@_); $i++)
-   {
-       if (!defined $args->{$_[$i]})
-       {
-           $err = "The page requires the following arguments: <b>";
-           for($j = 0; $j < scalar(@_); $j++)
-           {
-               $err .= "$_[$j] ";
-           }
-           $err .= "</b>";
-           PrintError($this, $err);
-           Logout($this);
-           Footer($this);
-           exit(0);
-       }
-   }
-}
+# If nothing complains, lets get rid of this
+#sub CheckArgs
+#{
+#   my ($this, $args);
+#   my ($i, $j, $err);
+#
+#   $this = shift @_;
+#   for($i = 0; $i < scalar(@_); $i++)
+#   {
+#       if (!defined $args->{$_[$i]})
+#       {
+#           $err = "The page requires the following arguments: <b>";
+#           for($j = 0; $j < scalar(@_); $j++)
+#           {
+#               $err .= "$_[$j] ";
+#           }
+#           $err .= "</b>";
+#           PrintError($this, $err);
+#           Logout($this);
+#           Footer($this);
+#           exit(0);
+#       }
+#   }
+#}
 
 1;
