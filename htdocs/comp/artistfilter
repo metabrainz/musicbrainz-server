@@ -6,26 +6,10 @@ $allowcreate => 0
 $url
 %arglist => ()
 </%args>
-<%def drawargs>
-<%perl>
-	my $args = shift;
-
-	while (my ($name, $value) = each %$args)
-	{
-		my @v = (ref($value) eq "ARRAY") ? @$value : $value;
-
-		for my $v (@v)
-		{
-			</%perl><input type="hidden" name="<% $name %>" value="<% $v %>"><%perl>
-		}
-	}
-</%perl>
-</%def>
 <%perl>
 
 my $mb = $m->comp("/comp/dblogin");
 
-use SearchEngine ':constants';
 my $engine = SearchEngine->new($mb->{DBH});
 $engine->Table("Artist");
 
@@ -34,7 +18,7 @@ $engine->Search(
     limit => 0,
 );
 
-if ($engine->Result == SEARCHRESULT_NOQUERY)
+if ($engine->Result == &SearchEngine::SEARCHRESULT_NOQUERY)
 {
 	</%perl>
 
@@ -47,7 +31,7 @@ if ($engine->Result == SEARCHRESULT_NOQUERY)
 		>
 
 		<p>
-			<& drawargs, \%arglist &>
+			<& /comp/args-to-hidden-fields.inc, %arglist &>
 			Search for artist:
 			<input type="text" name="search" value="<% $search %>">
 			<input type="submit" value="Search">
@@ -113,7 +97,7 @@ my @r = do {
 		</table>
 
 		<p>
-			<& drawargs, \%arglist &>
+			<& /comp/args-to-hidden-fields.inc, %arglist &>
 			<input type="submit" value="Select &gt;&gt;">
 		</p>
 
@@ -143,7 +127,7 @@ my @r = do {
 	>
 
 	<p>
-		<& drawargs, \%arglist &>
+		<& /comp/args-to-hidden-fields.inc, %arglist &>
 		Search for artist:
 		<input type="text" name="search" size="40" value="<% $search %>">
 		<input type="submit" value="Search Again">
@@ -214,7 +198,7 @@ my @r = do {
 		<tr>
 			<td></td>
 			<td>
-				<& drawargs, \%arglist &>
+				<& /comp/args-to-hidden-fields.inc, %arglist &>
 				<input type="submit" value="Add Artist &gt;&gt;">
 			</td>
 	  	</tr>
