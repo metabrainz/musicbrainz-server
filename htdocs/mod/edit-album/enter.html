@@ -120,12 +120,14 @@ $m->comp(
 		{
 			my $num = @mods;
 			$mods[0]->InsertNote(
-				$session{'uid'},
-				"(Auto-note: the first of a set of $num moderations)",
+				&ModDefs::MODBOT_MODERATOR,
+				"The first of a set of $num moderations",
+				1, # nosend
 			);
 			$mods[-1]->InsertNote(
-				$session{'uid'},
-				"(Auto-note: the last of a set of $num moderations)",
+				&ModDefs::MODBOT_MODERATOR,
+				"The last of a set of $num moderations",
+				1, # nosend
 			);
 		}
 
