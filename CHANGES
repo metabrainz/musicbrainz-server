@@ -1,3 +1,18 @@
+Changes for Version 1.0.0pre6
+-----------------------------
+
+- Added new remove track feature. If this track appears on one album only,
+  the track and album reference is removed. If this track appears elsewhere,
+  only the album reference is removed.
+- Added new remove album features. The remove album link only shows up 
+  when an album has no tracks associated with it. When a remove album
+  moderation ends in a failed dependecy, this means that the album was 
+  not empty when the moderation was applied. (This could happen if someone
+  adds a tracks to an album during the album removal phase)
+- The TOC table no longer gets duplicate diskid records.
+- Multiple artist albums are now marked with Artist id 1 (Artist::VARTIST_ID).
+  By default, artist table will have an entry of various artists, with id = 1.
+
 Changes for Version 1.0.0pre3
 -----------------------------
 
