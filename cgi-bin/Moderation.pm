@@ -54,6 +54,7 @@ require MusicBrainz::Server::Moderation::MOD_EDIT_ALBUMNAME;
 require MusicBrainz::Server::Moderation::MOD_EDIT_ARTISTALIAS;
 require MusicBrainz::Server::Moderation::MOD_EDIT_ARTISTNAME;
 require MusicBrainz::Server::Moderation::MOD_EDIT_ARTISTSORTNAME;
+require MusicBrainz::Server::Moderation::MOD_EDIT_RELEASES;
 require MusicBrainz::Server::Moderation::MOD_EDIT_TRACKNAME;
 require MusicBrainz::Server::Moderation::MOD_EDIT_TRACKNUM;
 require MusicBrainz::Server::Moderation::MOD_MAC_TO_SAC;
@@ -528,18 +529,19 @@ sub InsertModeration
 
     my $insertid = $sql->GetLastInsertId("moderation");
 	#print STDERR "Inserted as moderation #$insertid\n";
+	$this->SetId($insertid);
 
     # Check to see if this moderation should get automod approval
-    my $automod = $this->IsAutoMod;
-
 	my $ui = UserStuff->new($this->{DBH});
+	my $user_is_automod = $ui->IsAutoMod($privs);
+
+    my $automod = $this->IsAutoMod($user_is_automod);
 	$automod = 0 if $ui->IsUntrusted($privs)
 		and $this->GetType != &ModDefs::MOD_ADD_TRMS;
-
-	$automod ||= do {
-		$ui->IsAutoMod($privs)
+	$automod = 1
+		if not $automod
+		and $user_is_automod
 		and $this->IsAutoModType($this->GetType);
-    };
 
     # If it is automod, then approve the mod and credit the moderator
     if ($automod)
@@ -560,7 +562,6 @@ sub InsertModeration
 		$this->AdjustModPending(+1);
     }
 
-	$this->SetId($insertid);
 	push @inserted_moderations, $this;
 
 SUPPRESS_INSERT:
@@ -988,7 +989,7 @@ sub PostLoad { }
 
 # Should this moderation be automatically applied?  (Based on moderation type
 # and data, not the moderator).
-# Arguments: none
+# Arguments: $user_is_automod (boolean)
 # Called in boolean context; return true to automod this moderation
 sub IsAutoMod { 0 }
 

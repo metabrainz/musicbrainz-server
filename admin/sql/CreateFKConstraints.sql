@@ -98,3 +98,14 @@ ALTER TABLE moderator_subscribe_artist
 -- albummeta ?
 -- moderationnote ?
 
+ALTER TABLE release
+    ADD CONSTRAINT release_fk_album
+    FOREIGN KEY (album)
+    REFERENCES album(id);
+
+ALTER TABLE release
+    ADD CONSTRAINT release_fk_country
+    FOREIGN KEY (country)
+    REFERENCES country(id);
+
+-- vi: set ts=4 sw=4 et :

@@ -10,6 +10,7 @@ $ex=>""
 $mbtagger=>$session{'mbt'}
 $showids=>0
 $showtag=>0
+$showreleases=>0
 $tagchecked=>0
 $tracks => undef
 </%args>
@@ -92,5 +93,7 @@ $m->out('<tr bgcolor="white"><td bgcolor="#f0efff" colspan="' . $colspan . '">')
 $m->comp("/comp/albumsummary", album=>$album, artist=>$artist, nomod=>$nomod);
 $m->out('</td></tr>');
 $m->comp("/comp/albumend", album=>$album, artist=>$artist, 
-                          nomod=>$nomod, showids=>$showids);
+                          nomod=>$nomod, showids=>$showids,
+			  showreleases=>$showreleases);
+
 </%perl>

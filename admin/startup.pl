@@ -53,10 +53,12 @@ use LocaleSaver;
 # use MM_2_1;
 use Moderation;
 use MusicBrainz;
+use MusicBrainz::Server::Country;
 use MusicBrainz::Server::DeferredUpdate;
 use MusicBrainz::Server::Handlers;
 use MusicBrainz::Server::Mail;
 use MusicBrainz::Server::ModerationNote;
+use MusicBrainz::Server::Release;
 use MusicBrainz::Server::Vote;
 # Don't load MusicBrainz::Server::Moderation::* - Moderation.pm does that
 use Parser;

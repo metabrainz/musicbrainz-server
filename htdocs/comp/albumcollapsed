@@ -3,6 +3,7 @@ $album
 $artist
 $ex=>""
 $showtag=>0
+$showreleases=>0
 </%args>
 
 <%perl>
@@ -26,4 +27,10 @@ $m->comp("/comp/albumbegin",
 <tr bgcolor="#f0efff"><td bgcolor="#f0efff">
 <& /comp/albumsummary, album=>$album, artist=>$artist &>
 </td></tr>
-<& /comp/albumend, showids=>0, album=>$album, artist=>$artist, nomod=>1 &>
+<& /comp/albumend,
+	showids		=> 0,
+	album		=> $album,
+	artist		=> $artist,
+	nomod		=> 1,
+	showreleases	=> $showreleases,
+	&>

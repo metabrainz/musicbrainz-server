@@ -59,3 +59,10 @@ ALTER TABLE moderator_subscribe_artist
 -- albummeta ?
 -- moderationnote ?
 
+ALTER TABLE release
+    DROP CONSTRAINT release_fk_album;
+
+ALTER TABLE release
+    DROP CONSTRAINT release_fk_country;
+
+-- vi: set ts=4 sw=4 et :

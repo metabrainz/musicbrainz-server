@@ -31,7 +31,8 @@ create table AlbumMeta (
    Id int primary key,
    tracks int default 0,
    discids int default 0,
-   trmids int default 0);
+   trmids int default 0,
+   firstreleasedate char(10));
 
 create table Track (
    Id serial primary key,
@@ -214,6 +215,22 @@ CREATE TABLE moderator_subscribe_artist
         deletedbymod    INTEGER NOT NULL DEFAULT 0, -- weakly references moderation
         mergedbymod     INTEGER NOT NULL DEFAULT 0, -- weakly references moderation
         UNIQUE (moderator, artist)
+);
+
+CREATE TABLE country
+(
+        id              SERIAL PRIMARY KEY,
+        isocode         VARCHAR(2) NOT NULL,
+        name            VARCHAR(100) NOT NULL
+);
+
+CREATE TABLE release
+(
+        id              SERIAL PRIMARY KEY,
+        album           INTEGER NOT NULL, -- references album
+        country         INTEGER NOT NULL, -- references country
+        releasedate     CHAR(10) NOT NULL,
+        modpending      INTEGER DEFAULT 0
 );
 
 commit;

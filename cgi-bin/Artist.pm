@@ -465,7 +465,7 @@ sub GetAlbums
    $sql = Sql->new($this->{DBH});
    if (defined $loadmeta && $loadmeta)
    {
-       $query = qq/select album.id, name, modpending, GID, attributes, tracks, discids, trmids 
+       $query = qq/select album.id, name, modpending, GID, attributes, tracks, discids, trmids, firstreleasedate
                      from Album, Albummeta 
                     where artist=$this->{id} and albummeta.id = album.id/;
    }
@@ -493,6 +493,7 @@ sub GetAlbums
                 $album->{trackcount} = $row[5];
                 $album->{discidcount} = $row[6];
                 $album->{trmidcount} = $row[7];
+                $album->{firstreleasedate} = $row[8]||"";
             }
 
             push @albums, $album;
@@ -506,7 +507,7 @@ sub GetAlbums
    # then, pull in the multiple artist albums
    if (defined $loadmeta && $loadmeta)
    {
-       $query = qq/select album.id, name, modpending, GID, attributes, tracks, discids, trmids 
+       $query = qq/select album.id, name, modpending, GID, attributes, tracks, discids, trmids, firstreleasedate
                          from album, albummeta 
                         where album.artist = / . &ModDefs::VARTIST_ID .qq/ and 
                               albummeta.id = album.id and
@@ -544,6 +545,7 @@ sub GetAlbums
                 $album->{trackcount} = $row[5];
                 $album->{discidcount} = $row[6];
                 $album->{trmidcount} = $row[7];
+                $album->{firstreleasedate} = $row[8]||"";
             }
 
             push @albums, $album;

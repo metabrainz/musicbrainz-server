@@ -94,6 +94,7 @@ our %prefs = ();
 
 # Alphabetical order please
 addpref('datetimeformat', $allowed_datetime_formats[0], \&check_datetimeformat);
+addpref('default_country', 0, sub { check_int(0,undef,@_) });
 addpref('JSMoveFocus', '1', \&check_bool);
 addpref('mod_add_album_inline', 0, \&check_bool);
 addpref('mod_add_album_link', 0, \&check_bool);

@@ -386,9 +386,10 @@ sub LoadAlbumMetadata
 		$this->{trackcount} = $row->{tracks};
 		$this->{discidcount} = $row->{discids};
 		$this->{trmidcount} = $row->{trmids};
+		$this->{firstreleasedate} = $row->{firstreleasedate} || "";
 	} else {
 		warn "No albummeta row for album #".$this->GetId."\n";
-		delete @$this{qw( trackcount discidcount trmidcount )};
+		delete @$this{qw( trackcount discidcount trmidcount firstreleasedate )};
 	}
 }
 
@@ -438,6 +439,27 @@ sub GetTrmidCount
    return $this->{trmidcount};
 }
 
+# Returns the first release date for this album or undef on error
+# If there is no first release date (i.e. there are no releases), then the
+# empty string is returned.
+sub GetFirstReleaseDate
+{
+	my ($this) = @_;
+	$this->{id} or return undef;
+
+	$this->LoadAlbumMetadata
+		unless defined $this->{firstreleasedate};
+
+ 	$this->{firstreleasedate};
+}
+
+# Fetches the first release date as a triple of integers.  Missing parts are
+# zero.
+sub GetFirstReleaseDateYMD
+{
+	map { 0+$_ } split '-', ($_[0]->GetFirstReleaseDate || "0-0-0");
+}
+
 # This function takes a track id and returns an array of album ids
 # on which this track appears. The array is empty on error.
 sub GetAlbumIdsFromTrackId
@@ -484,7 +506,7 @@ sub LoadFromId
 	my $sql = Sql->new($this->{DBH});
 	my $row = $sql->SelectSingleRowArray(
 		"SELECT	a.id, name, gid, modpending, artist, attributes"
-		. ($loadmeta ? ", tracks, discids, trmids" : "")
+		. ($loadmeta ? ", tracks, discids, trmids, firstreleasedate" : "")
 		. " FROM album a"
 		. ($loadmeta ? " INNER JOIN albummeta m ON m.id = a.id" : "")
 		. " WHERE	a.$idcol = ?",
@@ -498,7 +520,7 @@ sub LoadFromId
 	$this->{artist}		= $row->[4]; 
 	$this->{attrs}		= [ $row->[5] =~ /(\d+)/g ];
 
-	delete @$this{qw( trackcount discidcount trmidcount )};
+	delete @$this{qw( trackcount discidcount trmidcount firstreleasedate )};
 	delete @$this{qw( _discids _tracks )};
 
 	if ($loadmeta)
@@ -506,6 +528,7 @@ sub LoadFromId
 		$this->{trackcount}		= $row->[6];
 		$this->{discidcount}	= $row->[7];
 		$this->{trmidcount}		= $row->[8];
+		$this->{firstreleasedate}=$row->[9] || "";
 	}
 
 	1;
@@ -594,6 +617,14 @@ sub LoadTracks
    $sql->Finish;
 
    return @info;
+}
+
+# Find all releases for this album.  Returns a list of M::S::Release objects.
+sub Releases
+{
+	my $self = shift;
+	my $rel = MusicBrainz::Server::Release->new($self->{DBH});
+	$rel->newFromAlbum($self->GetId);
 }
 
 # Load albums for the given artist. Returns a reference to an array of references to

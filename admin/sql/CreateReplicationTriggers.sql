@@ -39,8 +39,16 @@ CREATE TRIGGER "a_idu_clientversion"
 AFTER INSERT OR DELETE OR UPDATE ON "clientversion"
 FOR EACH ROW EXECUTE PROCEDURE "recordchange" ();
 
+CREATE TRIGGER "a_idu_country" 
+AFTER INSERT OR DELETE OR UPDATE ON "country"
+FOR EACH ROW EXECUTE PROCEDURE "recordchange" ();
+
 CREATE TRIGGER "a_idu_discid" 
 AFTER INSERT OR DELETE OR UPDATE ON "discid"
+FOR EACH ROW EXECUTE PROCEDURE "recordchange" ();
+
+CREATE TRIGGER "a_idu_release" 
+AFTER INSERT OR DELETE OR UPDATE ON "release"
 FOR EACH ROW EXECUTE PROCEDURE "recordchange" ();
 
 CREATE TRIGGER "a_idu_toc" 
@@ -67,3 +75,4 @@ CREATE TRIGGER "a_idu_wordlist"
 AFTER INSERT OR DELETE OR UPDATE ON "wordlist"
 FOR EACH ROW EXECUTE PROCEDURE "recordchange" ();
 
+-- vi: set ts=4 sw=4 et :

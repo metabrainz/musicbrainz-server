@@ -2,6 +2,7 @@
 $artist
 $album
 $showids=>1
+$showreleases=>0
 $nomod
 </%args>
 
@@ -88,6 +89,44 @@ if (scalar(@ids) > 0)
 
 }
 
+if ($showreleases and not $album->IsNonAlbumTracks)
+{
+	my @releases;
+	@releases = $album->Releases;
+	my %country_names;
+	my $country_obj = MusicBrainz::Server::Country->new($album->{DBH})
+		if @releases;
+
+	my $span = 3;
+	++$span if $album->GetArtist == &ModDefs::VARTIST_ID;
+	++$span unless $nomod;
+
+	$m->out("<tr bgcolor='#ffffff'><td colspan=$span><table>");
+
+	for my $rel (@releases)
+	{
+		# Country
+		my $cid = $rel->GetCountry;
+		my $name = (
+			$country_names{$cid} ||= do {
+				my $c = $country_obj->newFromId($cid);
+				$c ? $c->GetName : "?";
+			}
+		);
+
+		# Date
+		my $date = $m->scomp("/comp/releasedate", $rel);
+
+		my $mp = ($rel->GetModPending ? " class='mp'" : "");
+		$m->out("<tr$mp><td>$date</td><td>-</td><td>".html_escape($name)."</td></tr>");
+	}
+
+	$m->out("<tr><td colspan=2>No release information available</td></tr>")
+		unless @releases;
+
+	$m->out("</table></td></tr>");
+}
+
 </%perl>
   </table>
 </td></tr>
@@ -105,6 +144,7 @@ if (scalar(@ids) > 0)
 %            } else {
               | <a href="/tosac.html?album=<% $album->GetId() %>">Convert to single artist</a>
 %            }
+	 | <a href="/mod/edit-releases/index.html?album=<% $album->GetId %>">Edit releases</a>
          ]
 %    } else {
          [ <a href="/addnonalbumtracks.html?artistid=<% $album->GetArtist %>">Add a non-album track</a> ]

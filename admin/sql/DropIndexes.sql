@@ -68,3 +68,9 @@ DROP INDEX historicalstat_namedate;
 drop index artist_relation_artist;
 drop index artist_relation_ref;
 
+DROP INDEX country_isocode;
+DROP INDEX country_name;
+
+DROP INDEX release_album;
+
+-- vi: set ts=4 sw=4 et :

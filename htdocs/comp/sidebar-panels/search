@@ -1,4 +1,6 @@
 <table class="SidebarSearch">
+	<col style="width: 3em">
+	<col>
 % for my $table (qw( Artist Album Track )) {
 	<tr>
 		<th><% $table %></th>

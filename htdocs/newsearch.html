@@ -59,7 +59,7 @@ if ( defined $table && defined $search)
     <table border="0" cellspacing="0" cellpadding="4" id="SearchResults">
         <tr>
 %    if ($table eq 'Album') {
-		<th colspan="3">Summary</th>
+		<th colspan="4">Summary</th>
 		<th>Album Title</th>
 		<th>Artist</th>
 %    } elsif ($table eq 'Artist') {
@@ -116,6 +116,11 @@ if ( defined $table && defined $search)
 % }
 % if ($row->{trmids}) {
 			<td class="trm"><% $row->{trmids} %>&nbsp;<img src="/images/trm.gif" alt="TRM ids"></td>
+% } else {
+			<td></td>
+% }
+% if ($row->{firstreleasedate}) {
+			<td class="rdate"><& /comp/releasedate, $row->{firstreleasedate} &></td>
 % } else {
 			<td></td>
 % }

@@ -32,6 +32,8 @@ DROP TABLE currentstat;
 DROP TABLE historicalstat;
 DROP TABLE moderator_preference;
 DROP TABLE moderator_subscribe_artist;
+DROP TABLE country;
+DROP TABLE release;
 
 drop sequence album_id_seq;
 drop sequence albumjoin_id_seq;
@@ -49,3 +51,7 @@ drop sequence trm_id_seq;
 drop sequence trmjoin_id_seq;
 drop sequence votes_id_seq;
 drop sequence wordlist_id_seq;
+drop sequence country_id_seq;
+drop sequence release_id_seq;
+
+-- vi: set ts=4 sw=4 et :

@@ -10,5 +10,9 @@ DROP TRIGGER a_del_trmjoin ON trmjoin;
 DROP TRIGGER a_upd_trmjoin ON trmjoin;
 DROP TRIGGER a_ins_trmjoin ON trmjoin;
 DROP TRIGGER b_upd_moderation ON moderation;
+DROP TRIGGER b_iu_release ON release;
+DROP TRIGGER a_ins_release ON release;
+DROP TRIGGER a_upd_release ON release;
+DROP TRIGGER a_del_release ON release;
 
 -- vi: set ts=4 sw=4 et :

@@ -23,16 +23,13 @@ CREATE AGGREGATE join(BASETYPE = VARCHAR, SFUNC=join_append, STYPE=VARCHAR);
 
 --'-----------------------------------------------------------------
 -- Populate the albummeta table, one-to-one join with album.
--- All columns are non-null integers.
+-- All columns are non-null integers, except firstreleasedate
+-- which is CHAR(10) WITH NULL
 --'-----------------------------------------------------------------
 
 create or replace function fill_album_meta () returns integer as '
 declare
 
-   data        record;
-   num_trms    integer;
-   num_tracks  integer;
-   num_discids integer;
    table_count integer;
 
 begin
@@ -56,28 +53,38 @@ begin
                 from album, albumjoin left join trmjoin on albumjoin.track = trmjoin.track 
                 where album.id = albumjoin.album group by album.id;
 
+    raise notice ''Finding first release dates'';
+    CREATE TEMPORARY TABLE albummeta_firstreleasedate AS
+        SELECT  album AS id, MIN(releasedate)::CHAR(10) AS firstreleasedate
+        FROM    release
+        GROUP BY album;
+
    raise notice ''Creating albummeta table'';
    create table albummeta as
    select a.id,
             COALESCE(t.count, 0) AS tracks,
             COALESCE(d.count, 0) AS discids,
-            COALESCE(m.count, 0) AS trmids
+            COALESCE(m.count, 0) AS trmids,
+            r.firstreleasedate
     FROM    album a
             LEFT JOIN albummeta_tracks t ON t.id = a.id
             LEFT JOIN albummeta_discids d ON d.id = a.id
             LEFT JOIN albummeta_trmids m ON m.id = a.id
+            LEFT JOIN albummeta_firstreleasedate r ON r.id = a.id
             ;
 
     ALTER TABLE albummeta ALTER COLUMN id SET NOT NULL;
     ALTER TABLE albummeta ALTER COLUMN tracks SET NOT NULL;
     ALTER TABLE albummeta ALTER COLUMN discids SET NOT NULL;
     ALTER TABLE albummeta ALTER COLUMN trmids SET NOT NULL;
+    -- firstreleasedate stays "WITH NULL"
 
    create unique index albummeta_id on albummeta(id);
 
    drop table albummeta_tracks;
    drop table albummeta_discids;
    drop table albummeta_trmids;
+   drop table albummeta_firstreleasedate;
 
    return 1;
 
@@ -252,5 +259,84 @@ begin
 
 end;
 ' language 'plpgsql';
+
+--'-----------------------------------------------------------------
+-- Ensure release.releasedate is always valid
+--'-----------------------------------------------------------------
+
+CREATE OR REPLACE FUNCTION before_insertupdate_release () RETURNS TRIGGER AS '
+DECLARE
+    y CHAR(4);
+    m CHAR(2);
+    d CHAR(2);
+    teststr VARCHAR(10);
+    testdate DATE;
+BEGIN
+    -- Check that the releasedate looks like this: yyyy-mm-dd
+    IF (NOT(NEW.releasedate ~ ''^[0-9][0-9][0-9][0-9]-[0-9][0-9]-[0-9][0-9]$''))
+    THEN
+        RAISE EXCEPTION ''Invalid release date specification'';
+    END IF;
+
+    y := SUBSTR(NEW.releasedate, 1, 4);
+    m := SUBSTR(NEW.releasedate, 6, 2);
+    d := SUBSTR(NEW.releasedate, 9, 2);
+
+    -- Disallow yyyy-00-dd
+    IF (m = ''00'' AND d != ''00'')
+    THEN
+        RAISE EXCEPTION ''Invalid release date specification'';
+    END IF;
+
+    -- Check that the y/m/d combination is valid (e.g. disallow 2003-02-31)
+    IF (m = ''00'') THEN m:= ''01''; END IF;
+    IF (d = ''00'') THEN d:= ''01''; END IF;
+    teststr := ( y || ''-'' || m || ''-'' || d );
+    -- TO_DATE allows 2003-08-32 etc (it becomes 2003-09-01)
+    -- So we will use the ::date cast, which catches this error
+    testdate := teststr;
+
+    RETURN NEW;
+END;
+' LANGUAGE 'plpgsql';
+
+--'-----------------------------------------------------------------
+-- Maintain albummeta.firstreleasedate
+--'-----------------------------------------------------------------
+
+CREATE OR REPLACE FUNCTION set_album_firstreleasedate(INTEGER)
+RETURNS VOID AS '
+BEGIN
+    UPDATE albummeta SET firstreleasedate = (
+        SELECT MIN(releasedate) FROM release WHERE album = $1
+    ) WHERE id = $1;
+    RETURN;
+END;
+' LANGUAGE 'plpgsql';
+
+CREATE OR REPLACE FUNCTION a_ins_release () RETURNS TRIGGER AS '
+BEGIN
+    EXECUTE set_album_firstreleasedate(NEW.album);
+    RETURN NEW;
+END;
+' LANGUAGE 'plpgsql';
+
+CREATE OR REPLACE FUNCTION a_upd_release () RETURNS TRIGGER AS '
+BEGIN
+    EXECUTE set_album_firstreleasedate(NEW.album);
+    IF (OLD.album != NEW.album)
+    THEN
+        EXECUTE set_album_firstreleasedate(OLD.album);
+    END IF;
+    RETURN NEW;
+END;
+' LANGUAGE 'plpgsql';
+
+CREATE OR REPLACE FUNCTION a_del_release () RETURNS TRIGGER AS '
+BEGIN
+    EXECUTE set_album_firstreleasedate(OLD.album);
+    RETURN OLD;
+END;
+' LANGUAGE 'plpgsql';
 
 --'-- vi: set ts=4 sw=4 et :

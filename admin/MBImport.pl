@@ -227,6 +227,7 @@ sub ImportAllTables
 		artistalias
 		artistwords
 		clientversion
+		country
 		currentstat
 		discid
 		historicalstat
@@ -235,6 +236,7 @@ sub ImportAllTables
 		moderator
 		moderator_subscribe_artist
 		moderator_sanitised
+		release
 		stats
 		toc
 		track

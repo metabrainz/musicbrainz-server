@@ -8,6 +8,9 @@ $m->comp("/comp/checkloggedin", 1, 1,
 
 my $saved = 0;
 
+my $countries_menu = $m->comp("/mod/edit-releases/countries-menu.inc");
+my $countries_menu_2 = [ [ 0, "[none]" ], @$countries_menu ];
+
 if ($ARGS{"SavePrefs"})
 {
 	# Insert zeroes for checkboxes which weren't submitted
@@ -140,6 +143,16 @@ $time = time();
 			>
 		releases or more.&nbsp;
 		(allowed range: 1-100)
+	</p>
+
+	<h2>Country</h2>
+
+	<p>
+		When adding a new release, pick this country by default:
+			<select name="default_country"
+				><& /comp/options, $countries_menu_2,
+					UserPreference::get('default_country'),
+					&></select>
 	</p>
 
 	<h2>Date/Time Display</h2>

@@ -30,4 +30,13 @@ CREATE TRIGGER a_del_trmjoin AFTER DELETE ON trmjoin
 create trigger b_upd_moderation before update on moderation 
                for each row execute procedure before_update_moderation();
 
+CREATE TRIGGER b_iu_release BEFORE INSERT OR UPDATE ON release
+    FOR EACH ROW EXECUTE PROCEDURE before_insertupdate_release();
+CREATE TRIGGER a_ins_release AFTER INSERT ON release
+    FOR EACH ROW EXECUTE PROCEDURE a_ins_release();
+CREATE TRIGGER a_upd_release AFTER UPDATE ON release
+    FOR EACH ROW EXECUTE PROCEDURE a_upd_release();
+CREATE TRIGGER a_del_release AFTER DELETE ON release
+    FOR EACH ROW EXECUTE PROCEDURE a_del_release();
+
 -- vi: set ts=4 sw=4 et :

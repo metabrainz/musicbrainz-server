@@ -67,3 +67,9 @@ CREATE UNIQUE INDEX historicalstat_namedate on historicalstat (name, snapshotdat
 create index artist_relation_artist  on artist_relation (artist);
 create index artist_relation_ref  on artist_relation (ref);
 
+CREATE UNIQUE INDEX country_isocode ON country (isocode);
+CREATE UNIQUE INDEX country_name ON country (name);
+
+CREATE INDEX release_album ON release (album);
+
+-- vi: set ts=4 sw=4 et :

@@ -14,5 +14,10 @@ DROP FUNCTION a_ins_trmjoin();
 DROP FUNCTION a_upd_trmjoin();
 DROP FUNCTION a_del_trmjoin();
 DROP FUNCTION before_update_moderation();
+DROP FUNCTION before_insertupdate_release();
+DROP FUNCTION set_album_firstreleasedate(INTEGER);
+DROP FUNCTION a_ins_release();
+DROP FUNCTION a_upd_release();
+DROP FUNCTION a_del_release();
 
 -- vi: set ts=4 sw=4 et :

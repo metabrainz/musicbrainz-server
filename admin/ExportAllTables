@@ -98,6 +98,7 @@ my @tables = qw(
 	artistalias
 	artistwords
 	clientversion
+	country
 	currentstat
 	discid
 	historicalstat
@@ -107,6 +108,7 @@ my @tables = qw(
 	moderator_preference
 	moderator_subscribe_artist
 	moderator_sanitised
+	release
 	stats
 	toc
 	track
@@ -218,7 +220,9 @@ my @group_core = qw(
 	artist
 	artistalias
     clientversion
+	country
 	discid
+	release
 	toc
 	track
 	trm

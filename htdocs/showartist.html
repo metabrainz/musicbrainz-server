@@ -62,6 +62,7 @@ my $CheckAttributes = sub
 # 'Various' (non-VA, VA);
 # 'NonAlbum' (NonAlbum, Album)
 # 'Type' (album type)
+# 'ReleaseDate' (earliest release date first, no release date last)
 # 'Name' (lowercase)
 # 'Status' (release status)
 # track count
@@ -77,6 +78,8 @@ my $SortAlbums = sub
 	($b->{_is_nonalbum_} <=> $a->{_is_nonalbum_})
 	or
 	($a->{_attr_type} <=> $b->{_attr_type})
+	or
+	($a->{_firstreleasedate_} cmp $b->{_firstreleasedate_})
 	or
 	($a->{_name_sort_} cmp $b->{_name_sort_})
 	or
@@ -244,8 +247,11 @@ $m->comp(
 					$album->{_disc_no_} = $1;
 					$album->{_disc_max_} = $2 || 0;
 				}
-            }
 
+				# Sort albums with no release last
+				$album->{_firstreleasedate_} = ($album->GetFirstReleaseDate || "9999-99-99");
+            }
+			
             @albums = sort $SortAlbums @albums;
 
             </%perl>
@@ -344,7 +350,7 @@ $m->comp(
 
 					if ($fCompact)
 					{
-						my $s = 5;
+						my $s = 6;
 						++$s if $session{'uid'};
 						</%perl>
 						<tr><th colspan='<% $s %>' align="left"><h2><% $desc %></h2></th></tr>
@@ -388,6 +394,9 @@ $m->comp(
 							} %><%
 								$amp ? "</span>" : "" |n
 						%></td>
+						<td class="rdate">
+%							$m->comp('/comp/releasedate', $album->GetFirstReleaseDateYMD);
+						</td>
 % if ($session{uid}) {
 						<td class="rtag"><input type="checkbox" name="AlbumId<% $album->GetId %>"></td>
 % }

@@ -32,7 +32,8 @@ create table albummeta (
    Id int primary key,
    tracks int default 0,
    discids int default 0,
-   trmids int default 0);
+   trmids int default 0,
+   firstreleasedate char(10));
 
 drop table if exists track;
 create table track (
@@ -237,3 +238,22 @@ CREATE TABLE moderator_subscribe_artist
 	UNIQUE (moderator, artist)
 );
 
+DROP TABLE IF EXISTS country;
+CREATE TABLE country
+(
+	    id      		BIGINT AUTO_INCREMENT PRIMARY KEY,
+        isocode         VARCHAR(2) NOT NULL,
+        name            VARCHAR(100) NOT NULL
+);
+
+DROP TABLE IF EXISTS release;
+CREATE TABLE release
+(
+    	id		        BIGINT AUTO_INCREMENT PRIMARY KEY,
+        album           INTEGER NOT NULL, -- references album
+        country         INTEGER NOT NULL, -- references country
+        releasedate     CHAR(10) NOT NULL,
+        modpending      INTEGER DEFAULT 0
+);
+
+-- vi: set ts=4 sw=4 et :
