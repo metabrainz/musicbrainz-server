@@ -37,6 +37,8 @@ use constant DB_NAME 	=>	'musicbrainz';
 use constant DB_USER 	=>	'postgres';
 # Insert the password of the user from above
 use constant DB_PASSWD 	=>	'';
+# Insert other options to pass to Postgres programs here, e.g. "-h otherhost"
+use constant DB_PGOPTS	=>	'';
 
 # Set this value if you want to have a read-only server.
 use constant DB_READ_ONLY => 0;
