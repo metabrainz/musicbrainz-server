@@ -1,134 +1,137 @@
+%# vi: set ts=4 sw=4 ft=mason :
 <%args>
+$albumid => ""
+$discid => ""
+$mbid => ""
 $mbt=>0
 </%args>
 
 <%perl>
 
-my ($mb); 
-my ($artist, $album, $albumid); 
-
-$mb = mc_comp("/comp/dblogin");
-
-if (exists $ARGS{discid} && $ARGS{discid} ne '')
+if ($mbid ne "")
 {
-    my ($di, $disc);
-
-    $disc = $ARGS{discid};
-    $disc =~ s/^\s*(.*?)\s*$/$1/;;
-    $di = Discid->new($mb->{DBH});
-    $albumid = $di->GetAlbumFromDiscid($disc);
-    if (!defined $albumid)
-    {
-        mc_comp("/comp/sidebar", title=>"Error");
-        mc_out("Discid $ARGS{discid} was not found in the database.");
-        $mb->Logout();
-        return undef;
-    }
+	MusicBrainz::IsGUID($mbid)
+		or return $m->comp("/comp/badargs", 1, 1);
+} elsif ($discid ne "") {
+	MusicBrainz::IsSingleLineString($discid)
+		or return $m->comp("/comp/badargs", 1, 1);
+} else {
+	MusicBrainz::IsNonNegInteger($albumid) && $albumid
+		or return $m->comp("/comp/badargs", 1, 1);
 }
 
-if (!defined $albumid && (!exists $ARGS{albumid} || $ARGS{albumid} eq ''))
+my $mb = $m->comp("/comp/dblogin");
+
+my $album = Album->new($mb->{DBH});
+
+if ($mbid ne "")
 {
-    mc_comp("/comp/sidebar", title=>"Error");
-    mc_comp("/comp/badargs");
-    $mb->Logout();
-    return undef;
+	$album->SetMBId($mbid);
+} elsif ($discid ne "") {
+    my $di = Discid->new($mb->{DBH});
+    $albumid = $di->GetAlbumFromDiscid($discid)
+		or return $m->comp(
+			"/comp/error",
+			"Discid $discid was not found in the database.",
+			1, 1,
+		);
+	$album->SetId($albumid);
+} else {
+	$album->SetId($albumid);
 }
 
-$albumid = $ARGS{albumid} if (!defined $albumid);
+$album->LoadFromId
+	or return $m->comp(
+		"/comp/error",
+		"Album not found in the database.",
+		1, 1,
+	);
 
-$album = Album->new($mb->{DBH});
-$album->SetId($albumid);
-
-if (! $album->LoadFromId(1))
-{
-    mc_comp("/comp/sidebar", title=>"Error");
-    mc_out("This Album (ID=$albumid) was not found<br>");
-    $mb->Logout();
-    return undef;
-}
-else
-{
-    $artist = Artist->new($mb->{DBH});
-    $artist->SetId($album->GetArtist());
-    if (!defined $artist->LoadFromId())
-    {
-        mc_comp("/comp/sidebar", title=>"Error");
-        mc_out("Could not load album.");
-    }
-    else
-    {
-        mc_comp("/comp/sidebar", title=>'',
-                pagetitle=>"Album: " . $album->GetName());
-        mc_comp("/comp/artisttitle", artist=>$artist);
-
-        mc_out("[ ");
-        if (not exists $session{uid})
-        {
-            </%perl>
-            <a href="/moderate.html">Edit data</a> | 
-            <%perl>
-        }
-        mc_out(" <a href=\"/showartist.html?artistid=");
-        mc_out($artist->GetId());
-        mc_out("\">View albums</a> | ");
-
-        if ($artist->GetId() != ModDefs::VARTIST_ID)
-        {
-            mc_out("<a href=\"/moderate.html?type=4&amp;artistid=" .
-                   $artist->GetId()."\">");
-            mc_out("View mods</a> | ");
-        }
-
-
-        mc_out("<a href=\"/addalbum.html?artistid=");
-        mc_out($artist->GetId());
-        mc_out("\">Add album</a> | ");
-
-        </%perl>
-        <a href="/freedb/freedb.html?search=<% $artist->GetName() |u %>">Import album</a> ]<p>
-
-%       if (exists $session{user}) {
-        <FORM METHOD="POST" ACTION="/mod/tag/donetag.html" id="EditAlbumAttrsForm"
-	    ENCTYPE="application/x-www-form-urlencoded"
-	    >
-%	}
-
-        <& /comp/framedboxbegin, width=>"100%" &>
-        <table width="100%"><tr>
-        <td>
-        <& /comp/modnotice &>
-        </td>
-%       if (exists $session{user}) {
-            <td align="center">
-
-            <input name="submit" type="image" border="0" alt="Batch Operation" 
-                   title="Moderate a batch of selected albums"
-                   src="/images/batch.gif" height="13" width="13">
-
-	    <script type="text/javascript">
-	    document.writeln('<\a href="#" onclick="document.forms.EditAlbumAttrsForm.submit(); return false">Batch Operation<\/a>');
-	    </script>
-	    <noscript>
-	    <input type="submit" value="Batch Operation">
-	    </noscript>
-
-            </td>
-%       }
-        </tr></table>
-
-        <& /comp/framedboxend &>
-        <br>
-        <%perl>
-        mc_comp("/comp/album", album=>$album, artist=>$artist, showalbumdetail=>1, 
-                               mbtagger=>$mbt, showids=>1, showtag=>1);
-
-	if (exists $session{user}) {
-	mc_out("</form>");
-	}
-    }
-}
-$mb->Logout();
+my $artist = Artist->new($mb->{DBH});
+$artist->SetId($album->GetArtist);
+$artist->LoadFromId
+	or return $m->comp(
+		"/comp/error",
+		"Artist not found in the database.",
+		1, 1,
+	);
 
 </%perl>
+
+<& /comp/sidebar, title => "", pagetitle => "Album: " . $album->GetName &>
+
+<& /comp/artisttitle, artist => $artist &>
+
+<p>
+	[
+
+% if (not $session{uid}) {
+	<a href="/login.html">Edit data</a>
+	|
+% }
+
+% if ($artist->GetId() != ModDefs::VARTIST_ID) {
+	<a href="/showartist.html?artistid=<% $artist->GetId %>"
+		>View albums</a>
+	|
+	<a href="/moderate.html?type=4&amp;artistid=<% $artist->GetId %>"
+		>View mods</a>
+	|
+% }
+
+	<a href="/addalbum.html?artistid=<% $artist->GetId %>"
+		>Add album</a>
+	|
+	<a href="/freedb/freedb.html?search=<% $artist->GetName() |u %>"
+		>Import album</a>
+	]
+</p>
+
+% if ($session{uid}) {
+<form method="post" action="/mod/tag/donetag.html" id="EditAlbumAttrsForm"
+	enctype="application/x-www-form-urlencoded"
+   	>
+% }
+
+	<& /comp/framedboxbegin, width=>"100%" &>
+
+		<table width="100%">
+			<tr>
+				<td>
+					<& /comp/modnotice &>
+				</td>
+%		       if ($session{uid}) {
+					<td align="center">
+
+					<input name="submit" type="image" border="0" alt="Batch Operation"
+						   title="Moderate a batch of selected albums"
+						   src="/images/batch.gif" height="13" width="13">
+
+					<script type="text/javascript">
+					document.writeln('<\a href="#" onclick="document.forms.EditAlbumAttrsForm.submit(); return false">Batch Operation<\/a>');
+					</script>
+					<noscript>
+					<input type="submit" value="Batch Operation">
+					</noscript>
+
+				</td>
+%		       }
+			</tr>
+		</table>
+
+	<& /comp/framedboxend &>
+
+	<br>
+
+	<& /comp/album, album => $album, artist => $artist,
+		showalbumdetail => 1,
+		mbtagger => $mbt,
+		showids => 1,
+		showtag => 1,
+		&>
+
+% if ($session{uid}) {
+</form>
+% }
 
 <& /comp/footer &>
