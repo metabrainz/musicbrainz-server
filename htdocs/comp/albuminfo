@@ -30,7 +30,7 @@ $track => undef
 
 	</table>
 
-% if ($track) {
+% if ($track and not($album->IsNonAlbumTracks)) {
 	<center>
 		This track appears as track number <% $track %> on this album.
 	</center>
