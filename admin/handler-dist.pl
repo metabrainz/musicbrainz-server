@@ -31,6 +31,8 @@ use Style;
 use QuerySupport;
 use TaggerSupport;
 use DebugLog;
+use Statistic;
+use MusicBrainz::Server::Handlers;
 
 {  
    package HTML::Mason::Commands;
