@@ -4,11 +4,11 @@ no warnings qw( portable );
 use strict;
 use QuerySupport;
 use TaggerSupport;
+use Parser;
 use DBI;
 use DBDefs;
 use MM_2_0;
 use Apache;
-use Parser;
 
 my ($i, $line, $r, $rdf, $out);
 my ($queryname, $querydata, $data, $rdfinput);
@@ -223,6 +223,9 @@ sub Authenticate
            print STDERR "Authenticated session $session_id\n";
 	   $session->{expire} = time() + &DBDefs::RDF_SESSION_SECONDS_TO_LIVE;
 
+	   $r->connection->user($session->{moderator})
+	   	if $r;
+
            return "";
        }
    }
@@ -235,16 +238,15 @@ sub Authenticate
 }
 
 $rdf = MM_2_0->new(0);
+$rdf->SetBaseURI("http://" . $ENV{SERVER_NAME});
 if (exists $ENV{"MOD_PERL"})
 {
    $r = Apache->request();
-   $rdf->SetBaseURI("http://" . $r->hostname);
    my $size = $r->header_in("Content-length");
    $r->read($rdfinput, $size);
 }
 else
 {
-   $rdf->SetBaseURI("http://" . $ENV{SERVER_NAME});
    while(defined($line = <>))
    {
       $rdfinput .= $line;
@@ -276,7 +278,8 @@ $currentURI = $parser->GetBaseURI();
 
 # Check to see if the client specified a depth for this query. If not,
 # use a depth of 2 by default.
-$depth = $parser->Extract($currentURI, -1, "http://musicbrainz.org/mm/mq-1.0#depth");
+$depth = $parser->Extract($currentURI, -1,
+                 "http://musicbrainz.org/mm/mq-1.0#depth");
 if (not defined $depth)
 {
    $depth = 2;
@@ -289,7 +292,8 @@ if ($depth > 6)
 }
 $rdf->SetDepth($depth);
 
-$session_id = $parser->Extract($currentURI, -1, 'http://musicbrainz.org/mm/mq-1.0#sessionId');
+$session_id = $parser->Extract($currentURI, -1,
+                'http://musicbrainz.org/mm/mq-1.0#sessionId');
 if (defined $session_id)
 {
     my $error;
@@ -354,6 +358,12 @@ for(;;)
     $rdfquery = undef;
 }
 
+if ($r)
+{
+	my $uri = "/mm-2.0/$queryname";
+	$r->the_request($r->method . " $uri " . $r->protocol);
+}
+
 $mb = new MusicBrainz(1);
 if (!$mb->Login(1))
 {
@@ -370,7 +380,7 @@ $mb->Logout;
 
 if (!defined $out)
 {
-    $out = $rdf->ErrorRDF("Query failed. (no output)");
+    $out = $rdf->ErrorRDF("Query failed (no output)");
 }
 
 untie %session unless !defined $session_id;

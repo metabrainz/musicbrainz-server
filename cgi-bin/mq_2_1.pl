@@ -201,7 +201,7 @@ if (!$parser->Parse($rdfinput))
 {
     $parser->{error} =~ tr/\n\r/  /;
     $parser->{error} =~ s/at \/.*$//;
-    $out = $rdf->ErrorRDF("Cannot parse query: ", $parser->{error});
+    $out = $rdf->ErrorRDF("Cannot parse query: $parser->{error}");
     Output($r, \$out);
     exit(0);
 }
@@ -212,7 +212,7 @@ $currentURI = $parser->GetBaseURI();
 
 # Check to see if the client specified a depth for this query. If not,
 # use a depth of 2 by default.
-$depth = $parser->Extract($currentURI, -1, 
+$depth = $parser->Extract($currentURI, -1,
                  "http://musicbrainz.org/mm/mq-1.1#depth");
 if (not defined $depth)
 {
@@ -226,7 +226,7 @@ if ($depth > 6)
 }
 $rdf->SetDepth($depth);
 
-$session_id = $parser->Extract($currentURI, -1, 
+$session_id = $parser->Extract($currentURI, -1,
                 'http://musicbrainz.org/mm/mq-1.1#sessionId');
 if (defined $session_id)
 {
@@ -314,7 +314,7 @@ $mb->Logout;
 
 if (!defined $out)
 {
-    $out = $rdf->ErrorRDF("Query failed (no output).");
+    $out = $rdf->ErrorRDF("Query failed (no output)");
 }
 
 untie %session unless !defined $session_id;
