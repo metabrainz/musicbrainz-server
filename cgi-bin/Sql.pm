@@ -100,7 +100,7 @@ sub Finish
 {
     my ($this) = @_;
 
-    $this->{STH}->finish;
+    $this->{STH}->finish if $this->{STH};
 }
 
 sub Rows
