@@ -1,188 +1,136 @@
-<& /comp/sidebar, title=>'Edit Artist Name', expand=>'moderate' &>
-
-<script type="text/javascript"><!--
-
-function GuessSortname(name)
-{
-   var first_space
-
-   name=name.replace(/\s+/g," ");
-   first_space=name.indexOf(" ");
-   if(first_space!=-1)
-      name=name.substring(first_space+1,name.length).
-         concat(", ",name.substring(0,first_space));
-   return name;
-}
-
-function GuessCase(string)
-{
-   var words,i
-
-   string=string.replace(/\s+/g," ").toLowerCase();
-   words=string.split(" ");
-
-   for(i=0;i<words.length;i++)
-   {
-      words[i]=words[i].substring(0,1).toUpperCase().
-         concat(words[i].substring(1,words[i].length));
-   }
-
-   string=words.join(" ");
-
-   string=string.
-      replace(/\sa\s/gi," a ").
-      replace(/\san\s/gi," an ").
-      replace(/\sthe\s/gi," the ").
-      replace(/\sand\s/gi," and ").
-      replace(/\sbut\s/gi," but ").
-      replace(/\sor\s/gi," or ").
-      replace(/\snor\s/gi," nor ").
-      replace(/\sas\s/gi," as ").
-      replace(/\sat\s/gi," at ").
-      replace(/\sby\s/gi," by ").
-      replace(/\sfor\s/gi," for ").
-      replace(/\sin\s/gi," in ").
-      replace(/\sof\s/gi," of ").
-      replace(/\son\s/gi," on ").
-      replace(/\sto\s/gi," to ").
-      replace(/\so'\s/gi," o' ").
-      replace(/\s'n'\s/gi," 'n' ").
-      replace(/\sn'\s/gi," n' ");
-
-   return string;
-}
-
-//-->
-</script>
+%# vi: set ts=2 sw=2 ft=mason :
+<%args>
+$id => ""
+</%args>
+<& /comp/sidebar, title => 'Edit Artist Name' &>
 
 <%perl>
 
-my ($mb, $id, $ar); 
-my ($artistname, $modpending, $sortname); 
+$m->comp("/comp/checkloggedin", 0, 1)
+	or return;
 
-if (!exists $ARGS{id} || $ARGS{id} eq '') 
-{
-    mc_comp("/comp/badargs");
-    return undef;
-}
+MusicBrainz::IsNonNegInteger($id) && $id
+	or return $m->comp("/comp/badargs", 0, 1);
 
-$id = $ARGS{id};
-if ($id == ModDefs::VARTIST_ID)
-{
-    mc_out("You cannot edit this artist.\n");
-    return undef;
-}
+$id == ModDefs::DARTIST_ID
+	and return $m->comp("/comp/badargs", 0, 1);
 
-$mb = mc_comp("/comp/dblogin");
+$id == ModDefs::VARTIST_ID
+	and return $m->comp(
+		"/comp/error",
+    	"You cannot edit this artist.",
+		0, 1,
+	);
 
-$ar = Artist->new($mb->{DBH});
+my $mb = $m->comp("/comp/dblogin");
+
+my $ar = Artist->new($mb->{DBH});
 $ar->SetId($id);
-$ar->LoadFromId();
-$artistname = $ar->GetName();
-$sortname = $ar->GetSortName();
-$modpending = $ar->GetModPending();
+$ar->LoadFromId
+	or return $m->comp(
+		"/comp/error",
+		"Artist not found in the database.",
+		0, 1,
+	);
 
 </%perl>
 
-% if (!defined $session{user} || $session{user} eq '') {
-    You must be logged in to edit the database.<p>
-    <& /comp/tablebegin, title=>'Login' &>
-    <& /comp/loginbox &>
-    <& /comp/tableend &>
-% } else {
+<& /comp/stylemenu &>
 
-    <& /comp/stylemenu &>
+<h2>Edit Artist Name</h2>
 
-    <& /comp/tablebegin, gattrs=>"width=\"100%\"",
-       title=>'Edit Artist Name' &>
-
-
-% if ($modpending) {
+% if ($ar->GetModPending) {
     <& /comp/modpending &>
 % }
 
+<p>
     Use the fields below to enter a corrected name and/or sort name for
-    this artist. If the the new artist name already exists in the database
-    the Edit Artist Name modification will result in the Albums from the
-    old artist name to get merged in with the Albums for the new artist
-    name.<p>
+    this artist.&nbsp; If the the new artist name already exists in the database,
+    the 'Edit Artist Name' modification will result in the albums from the
+    old artist name being merged in with the albums for the new artist.
+<p>
 
-    <FORM METHOD="POST" ACTION="/bare/enter_mod.html" NAME="EditArtistForm"
-          ENCTYPE="application/x-www-form-urlencoded">  
+<script type="text/javascript" src="scripts/guess.js"></script>
+
+<form method="post" action="/bare/enter_mod.html" name="EditArtistForm"
+	enctype="application/x-www-form-urlencoded">
+
     <table width="100%">
-      <tr>
-        <td>
-        Current Name:
-        </td>
-        <td>
-        <% $artistname  %>
-        </td>
-      </tr>
-      <tr>
-        <td>
-        New Name:
-        </td>
-        <td>
-        <INPUT TYPE="text" NAME="new0" SIZE=25 value="<% $artistname %>"> 
-        <script type="text/javascript"><!--
+		<tr>
+			<td>
+				Current Name:
+			</td>
+			<td>
+				<% $ar->GetName  %>
+			</td>
+		</tr>
+		<tr>
+			<td>
+				New Name:
+			</td>
+			<td>
+				<input type="text" name="new0" size="40" value="<% $ar->GetName %>"> 
+				<script type="text/javascript"><!--
         document.write(
-          "&nbsp; <input type=\"button\" value=\"Guess Case\" " +
-          "onclick=\"form.new0.value=GuessCase(form.new0.value)\">"
+          "&nbsp; <input type='button' value='Guess Case' " +
+          "onclick='this.form.new0.value = GuessCase(this.form.new0.value)'>"
         )
-        //--></script>
-        </td>
-      </tr>
-      <tr>
-        <td>
-        Current Sort Name:
-        </td>
-        <td>
-        <% $sortname  %>
-        </td>
-      </tr>
-      <tr>
-        <td>
-        New Sort Name:
-        </td>
-        <td>
-        <INPUT TYPE="text" NAME="new1" SIZE=25 value="<% $sortname %>"> 
-        <script type="text/javascript"><!--
+				//--></script>
+			</td>
+		</tr>
+		<tr>
+			<td>
+				Current Sort Name:
+			</td>
+			<td>
+				<% $ar->GetSortName  %>
+			</td>
+		</tr>
+		<tr>
+			<td>
+				New Sort Name:
+			</td>
+			<td>
+				<input type="text" name="new1" size="40" value="<% $ar->GetSortName %>"> 
+				<script type="text/javascript">
         document.write(
-          "&nbsp; <input type=\"button\" value=\"Guess\" " +
-          "onclick=\"form.new1.value=GuessSortname(form.new0.value)\">"
+          "&nbsp; <input type='button' value='Guess' " +
+          "onclick='this.form.new1.value = GuessSortname(this.form.new0.value)'>"
         )
-        //--></script>
-        </td>
-      </tr>
-      <tr>
-        <td>
-        <INPUT TYPE="submit" NAME="Submit" VALUE="Submit">    
-        </td>
-        <td>
-        <b>Note</b>: Please view the Sortname help guide for more information
-                    on the artist sortname.
-        </td>
-      </tr>
-    </table>
-    <input type="hidden" name="artist0" value="<% $id  %>">
-    <input type="hidden" name="artist1" value="<% $id  %>">
-    <input type="hidden" name="type0" 
-           value="<% ModDefs::MOD_EDIT_ARTISTNAME  %>">
-    <input type="hidden" name="type1" 
-           value="<% ModDefs::MOD_EDIT_ARTISTSORTNAME  %>">
-    <input type="hidden" name="prev0" value="<% $artistname  %>">
-    <input type="hidden" name="prev1" value="<% $sortname  %>">
-    <input type="hidden" name="table0" value="Artist">
-    <input type="hidden" name="table1" value="Artist">
-    <input type="hidden" name="column0" value="Name">
-    <input type="hidden" name="column1" value="SortName">
-    <input type="hidden" name="id0" value="<% $id %>">
-    <input type="hidden" name="id1" value="<% $id %>">
-    <input type="hidden" 
-           name="url" value="/showartist.html?artistid=<% $id %>">
-    </form>
-    <& /comp/tableend &>
+				</script>
+			</td>
+		</tr>
+		<tr>
+			<td></td>
+			<td>
+				<b>Note</b>: Please view the Sortname help guide
+				for more information on the artist sortname.
+			</td>
+		</tr>
+		<tr>
+			<td></td>
+			<td>
+				<input type="submit" value="Submit">    
+			</td>
+	</table>
+	
+	<input type="hidden" name="artist0" value="<% $id  %>">
+	<input type="hidden" name="artist1" value="<% $id  %>">
+	<input type="hidden" name="type0" value="<% ModDefs::MOD_EDIT_ARTISTNAME  %>">
+	<input type="hidden" name="type1" value="<% ModDefs::MOD_EDIT_ARTISTSORTNAME  %>">
+	<input type="hidden" name="prev0" value="<% $ar->GetName  %>">
+	<input type="hidden" name="prev1" value="<% $ar->GetSortName  %>">
+	<input type="hidden" name="table0" value="Artist">
+	<input type="hidden" name="table1" value="Artist">
+	<input type="hidden" name="column0" value="Name">
+	<input type="hidden" name="column1" value="SortName">
+	<input type="hidden" name="id0" value="<% $id %>">
+	<input type="hidden" name="id1" value="<% $id %>">
+	<input type="hidden" name="url" value="/showartist.html?artistid=<% $id %>">
 
-% }
-% $mb->Logout();
+</form>
+
+<& /comp/tableend &>
+
+<& /comp/movefocus, "EditArtistForm", "new0" &>
 <& /comp/footer &>
