@@ -55,8 +55,8 @@ Usage: RemoveOldSessions [OPTIONS] [FILE]...
 Allowable options are:
 
     --[no]dump-all  [don't] dump the contents of every session
-                    (default is true)
-    --[no]expire    [don't] delete expired sessions (default is false)
+                    (default is false)
+    --[no]expire    [don't] delete expired sessions (default is true)
     --[no]show-expired-sessions
                     [don't] describe sessions which are being expired
                     (default is true at a terminal, false otherwise)
