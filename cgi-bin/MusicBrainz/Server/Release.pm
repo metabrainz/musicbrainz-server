@@ -133,6 +133,23 @@ sub Update
 	);
 }
 
+sub UpdateModPending
+{
+	my ($self, $adjust) = @_;
+
+	my $id = $self->GetId
+		or croak "Missing album ID in UpdateModPending";
+	defined($adjust)
+		or croak "Missing adjustment in UpdateModPending";
+
+	my $sql = Sql->new($self->{DBH});
+	$sql->Do(
+		"UPDATE release SET modpending = NUMERIC_LARGER(modpending+?, 0) WHERE id = ?",
+		$adjust,
+		$id,
+	);
+}
+
 sub RemoveById
 {
 	my ($self, $id) = @_;

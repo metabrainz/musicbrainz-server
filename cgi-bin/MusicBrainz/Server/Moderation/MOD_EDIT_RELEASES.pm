@@ -152,17 +152,14 @@ sub IsAutoMod
 sub AdjustModPending
 {
 	my ($self, $adjust) = @_;
-	my $sql = Sql->new($self->{DBH});
+	my $rel = MusicBrainz::Server::Release->new($self->{DBH});
 
 	for my $list (qw( adds edits removes ))
 	{
 		for my $t (@{ $self->{$list} })
 		{
-			$sql->Do(
-				"UPDATE release SET modpending = modpending + ? WHERE id = ?",
-				$adjust,
-				$t->{"id"},
-			);
+			$rel->SetId($t->{"id"});
+			$rel->UpdateModPending($adjust);
 		}
 	}
 }
