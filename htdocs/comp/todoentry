@@ -5,6 +5,6 @@ $desc
 </%args>
 
 <& /comp/tablebegin, title=>$task, gattrs=>'width=100%' &>
-<span class="bold">Skills needed:</class> <% $skills |n %><p>
+<span class="bold">Skills needed:</span> <% $skills |n %><p>
 <% $desc |n %>
 <& /comp/tableend &>
