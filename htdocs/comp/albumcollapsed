@@ -20,6 +20,7 @@ $m->comp("/comp/albumbegin",
             album=>$album, artist=>$artist, nomod=>0,
             linktype=>'expand', 
             link=>$link,
+            nomod=>1,
             showtag=>$showtag);
 
 </%perl>

@@ -16,6 +16,14 @@ $track
     <td valign="top"><% $track->GetMBId() %></td>
 	</tr>
 	<tr>
+		<td valign="top" align="right">Fancy Link:</td>
+ 		<td valign="top"><a href="/perm_links.html?name=<% $track->GetName() |u %>&id=<% $track->GetMBId() %>&type=track">Click here for a fancy link to this track</a></td>
+	</tr>
+	<tr>
+		<td valign="top" align="right">Perm. Link:</td>
+ 		<td valign="top"><a href="http://musicbrainz.org/track/<% $track->GetMBId() %>.html">http://musicbrainz.org/track/<% $track->GetMBId() %>.html</a></td>
+		</tr>
+	<tr>
 		<td valign="top" align="right"><a href="/MM/index.html">MM/RDF</a></td>
 		<td valign="top"><a href="<% $track->RDF_URL %>"><% $track->RDF_URL %></a></td>
 	</tr>

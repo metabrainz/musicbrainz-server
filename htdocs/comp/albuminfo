@@ -4,6 +4,7 @@ $album
 $track => undef
 </%args>
 
+
 <& /comp/tablebegin, title => "Album Information",
 	gattrs=>'width="100%"' &>
 
@@ -15,6 +16,15 @@ $track => undef
 		<tr>
 			<td valign="top" align="right">Album MB Id:</td>
 			<td valign="top"><% $album->GetMBId %></td>
+		</tr>
+		<tr>
+			<td valign="top" align="right">Fancy Link:</td>
+ 			<td valign="top"><a href="/perm_links.html?name=<% $album->GetName() |u %>&id=<% $album->GetMBId() %>&type=album">Click here for a fancy link to this album</a></td>
+		</tr>
+		<tr>
+			<td valign="top" align="right">Perm. Link:</td>
+ 			<td valign="top"><a href="http://musicbrainz.org/album/<% $album->GetMBId() %>.html">http://musicbrainz.org/album/<% $album->GetMBId() %>.html</a>
+      </td>
 		</tr>
 		<tr>
 			<td valign="top" align="right"><a href="/MM/index.html">MM/RDF</a></td>

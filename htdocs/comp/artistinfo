@@ -14,6 +14,15 @@ $artist
 			<td valign="top"><% $artist->GetMBId() %></td>
     </tr>
 		<tr>
+			<td valign="top" align="right">Fancy Link:</td>
+ 			<td valign="top"><a href="/perm_links.html?name=<% $artist->GetName() |u %>&id=<% $artist->GetMBId() %>&type=artist">Click here for a fancy link to this artist</a></td>
+		</tr>
+		<tr>
+			<td valign="top" align="right">Perm. Link:</td>
+ 			<td valign="top"><a href="http://musicbrainz.org/artist/<% $artist->GetMBId() %>.html">http://musicbrainz.org/artist/<% $artist->GetMBId() %>.html</a>
+      </td>
+		</tr>
+		<tr>
 			<td valign="top" align="right"><a href="/MM/index.html">MM/RDF</a></td>
 			<td valign="top"><a href="<% $artist->RDF_URL %>"><% $artist->RDF_URL %></a></td>
     </tr>

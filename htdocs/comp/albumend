@@ -131,25 +131,4 @@ if ($showreleases and not $album->IsNonAlbumTracks)
   </table>
 </td></tr>
 </table> 
-% if (exists $session{user} && !$nomod) {
-  <table width="100%"><tr><td align="center">
-%    if (!$album->IsNonAlbumTracks()) {
-         [
-%        if ($album->CanAddTrack) {
-             <a href="/addtrack.html?album=<% $album->GetId() %>">Add track</a> | 
-%        }
-           <a href="/movealbum.html?album=<% $album->GetId() %>">Move</a> 
-%            if ($album->GetArtist() != &ModDefs::VARTIST_ID) {
-              | <a href="/tomac.html?album=<% $album->GetId() %>">Convert to multiple artists</a>
-%            } else {
-              | <a href="/tosac.html?album=<% $album->GetId() %>">Convert to single artist</a>
-%            }
-	 | <a href="/mod/edit-releases/index.html?album=<% $album->GetId %>">Edit releases</a>
-         ]
-%    } else {
-         [ <a href="/addnonalbumtracks.html?artistid=<% $album->GetArtist %>">Add a non-album track</a> ]
-%    }
-</td></tr>
-</table> 
-% }
 <p>

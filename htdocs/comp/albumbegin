@@ -13,7 +13,8 @@ $tagchecked=>0
 
 my $check_box = "";
 my $albumid = $album->GetId();
-my $script = $albumdetail ? "albumdetail" : "showalbum";
+my $mbid = $album->GetMBId();
+my $page = $albumdetail ? "/albumdetail.html?mbid=$mbid" : "/album/$mbid.html";
 my ($image, $alt, $title);
 my $name = $album->GetName;
 my $nonalbum = $album->IsNonAlbumTracks;
@@ -36,6 +37,30 @@ if ($link ne '')
 
 </%perl>
 <a name="al<% $album->GetId() %>"></a>
+% if (exists $session{user} && !$nomod) {
+  <table width="100%"><tr><td align="center">
+     [ 
+%    if (!$album->IsNonAlbumTracks()) {
+         <a href="http://musicbrainz.org/album/<% $album->GetMBId() %>.html">Album link</a> |
+         <a href="/perm_links.html?name=<% $album->GetName() |u %>&id=<% $album->GetMBId() %>&type=album">Fancy link</a> |
+	      <a href="/mod/edit-releases/index.html?album=<% $album->GetId %>">Edit releases</a> |
+%        if ($album->CanAddTrack) {
+             <a href="/addtrack.html?album=<% $album->GetId() %>">Add track</a> | 
+%        }
+           <a href="/movealbum.html?album=<% $album->GetId() %>">Move</a> |
+%            if ($album->GetArtist() != &ModDefs::VARTIST_ID) {
+              <a href="/tomac.html?album=<% $album->GetId() %>">Convert to multiple artists</a>
+%            } else {
+              <a href="/tosac.html?album=<% $album->GetId() %>">Convert to single artist</a>
+%            }
+         ]
+%    } else {
+         <a href="/addnonalbumtracks.html?artistid=<% $album->GetArtist %>">Add a non-album track</a> ]
+%    }
+</td></tr>
+</table> 
+% }
+
 <table border="0" cellpadding="0" cellspacing="0" bgcolor="#000000" width="100%">
 <tr><td bgcolor="#000000">
   <table width="100%" border="0" cellspacing="1" cellpadding="2">
@@ -47,14 +72,14 @@ if ($link ne '')
                   alt="<% $alt %>"
                   src="<% $image %>" align="middle" border="0"></a>
 %          }
-           <a href="/<% $script %>.html?albumid=<% $album->GetId %>"><% $name %></a>
+           <a href="<% $page %>"><% $name %></a>
 % } else {
         <td width="85%" bgcolor="#FFBA58" valign="middle">
 %          if ($image ne '') {
                <a href="<% $link %>"><img alt="<% $alt %>" title="<% $title %>"
                   src="<% $image %>" align="middle" border="0"></a>
 %          }
-           <a href="/<% $script %>.html?albumid=<% $album->GetId %>"><% $name %></a>
+           <a href="<% $page %>"><% $name %></a>
 % }
         </td>
 % if (exists $session{user} && !$nomod) {

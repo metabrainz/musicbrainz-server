@@ -36,7 +36,7 @@ my $colspan = ($nonalbum ? 'colspan="2"' : '');
        align="middle" border="0"></a>
 % }
 % if ($track->GetId) {
-       <a href="/showtrack.html?trackid=<% $track->GetId %>"><% $track->GetName %></a>
+       <a href="/track/<% $track->GetMBId %>.html"><% $track->GetName %></a>
 % } else {
        <% $track->GetName %>
 % }

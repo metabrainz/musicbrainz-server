@@ -12,30 +12,33 @@ $name = $artist->GetName();
 $sortname = $artist->GetSortName();
 
 </%perl>
-
+<div style="border-style: solid; border-width: thin; padding: 5px; background-color: #f0efff" width="100%">
 <table>
   <tr>
     <td <% $bgcolor |n %> valign="top">
       <span style="title"><font size="+2"><% $name %></font></span>
 %     if ($name ne $sortname) {
-          <br>(<% $sortname %>)
+          &nbsp;&nbsp;(<% $sortname %>)
 %     }
     </td>
+  </tr>
+  <tr>
     <td>
+      [ <a href="http://musicbrainz.org/artist/<% $artist->GetMBId() %>.html">Artist link</a> |
+      <a href="/perm_links.html?name=<% $artist->GetName() |u %>&id=<% $artist->GetMBId() %>&type=artist">Fancy link</a> 
 % if (exists $session{user} && !$nomod && 
 %     $artist->GetId() != &ModDefs::VARTIST_ID &&
 %     $name ne 'Unknown' && $name ne 'Various') {
-      [
+      |
 % if ($link) {
       <a href="/showartist.html?artistid=<% $artist->GetId() %>">View albums</a> |
 % }
-      <a href="/editartist.html?id=<% $artist->GetId() %>">Edit</a> |
+      <a href="/editartist.html?id=<% $artist->GetId() %>">Edit Name</a> |
       <a href="/mergeartist.html?id=<% $artist->GetId() %>">Merge</a>
-      ]
-% } else {
-      &nbsp;
 % }
-    </td>
+      ]
+      </td>
   </tr>
 </table>
+</div>
 <p>

@@ -1,0 +1,48 @@
+%# vi: set ts=4 sw=4 ft=mason :
+<& /comp/sidebar, title=>'MusicBrainz Permanent Links' &>
+
+<%args>
+$id
+$name
+$type
+</%args>
+<%perl>
+
+my $icon;
+
+$icon = "aicon.png" if ($type eq 'artist');
+$icon = "licon.png" if ($type eq 'album');
+$icon = "ticon.png" if ($type eq 'track');
+
+</%perl>
+
+<p>
+If you wish to add a permanent link to <% $type %> <% $name %> from
+your website or weblog, choose one of the link styles below. Then
+highlight the HTML in the textbox and copy and paste it into 
+your webpage or weblog.
+</p>
+
+<p>
+For a simple link (<a href="http://musicbrainz.org/<% $type %>/<% $id %>.html"><% $name %></a>) 
+copy-and-paste the text below:
+</p>
+
+<textarea cols="60" rows="5">
+&lt;a href="http://musicbrainz.org/<% $type %>/<% $id %>.html"&gt;<% $name %>&lt;/a&gt;
+</textarea>
+
+
+<p>
+For a fancy link with an ugly icon (<a href="http://musicbrainz.org/<% $type %>/<% $id %>.html"><img src="/images/<% $icon %>" style="vertical-align:bottom;border:0;margin-right:2px;"><b><% $name %></b></a>) copy-and-paste the text below:
+</p>
+
+<textarea cols="60" rows="8">
+&lt;a href="http://musicbrainz.org/<% $type %>/<% $id %>.html"&gt;&lt;img src="http://musicbrainz.org/images/<% $icon %>" style="vertical-align:bottom;border:0;margin-right:2px;"&gt;&lt;b&gt;<% $name %>&lt;/b&gt;&lt;/a&gt;
+</textarea>
+
+<p>
+Return to <a href="http://musicbrainz.org/<% $type %>/<% $id %>.html"><img src="/images/<% $icon %>" style="vertical-align:bottom;border:0;margin-right:2px;"><b><% $name %></b></a> ... 
+</p>
+
+<& /comp/footer &>

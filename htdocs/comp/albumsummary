@@ -22,19 +22,19 @@ $nonalbum = $album->IsNonAlbumTracks();
 <tr><td width="90%">
 <% $trackcount %> 
 <img src="/images/notes.gif" align="middle" alt="Tracks" 
-         width="13" height="13"
+         width="13" height="13" style="vertical-align:bottom;border:0;"
          title="This album has <% $trackcount %> Tracks">
 
 % if ($discids > 0) {
     &nbsp; &nbsp; &nbsp;<% $discids %>
     <img src="/images/cd.gif" align="middle" alt="CD" 
-               width="13" height="13"
+               width="13" height="13" style="vertical-align:bottom;border:0;"
                title="This album has <% $discids %> CD Index Ids">
 % }
 % if ($trmids > 0) {
     &nbsp; &nbsp; &nbsp;<% $trmids %>
     <img src="/images/trm.gif" align="middle" alt="TRM" 
-               width="30" height="11"
+               width="30" height="11" style="vertical-align:bottom;border:0;"
                title="This album has <% $trmids %> TRM Ids">&nbsp;
 % }
 <%perl>

@@ -1,16 +1,28 @@
 %# vi: set ts=4 sw=4 ft=mason :
 <%args>
 $albumid => ""
+$mbid => ""
 </%args>
 <%perl>
 
-MusicBrainz::IsNonNegInteger($albumid) && $albumid
-	or return $m->comp("/comp/badargs", 1, 1);
+if ($mbid ne "")
+{
+	MusicBrainz::IsGUID($mbid)
+		or return $m->comp("/comp/badargs", 1, 1);
+} else {
+	MusicBrainz::IsNonNegInteger($albumid) && $albumid
+		or return $m->comp("/comp/badargs", 1, 1);
+}
 
 my $mb = $m->comp("/comp/dblogin");
 
 my $al = Album->new($mb->{DBH});
-$al->SetId($albumid);
+if ($mbid ne "")
+{
+	$al->SetMBId($mbid);
+} else {
+	$al->SetId($albumid);
+}
 $al->LoadFromId
 	or return $m->comp(
 		"/comp/error",
