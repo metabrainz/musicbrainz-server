@@ -1,0 +1,24 @@
+.SidebarSearch
+{
+	width: 115px;
+}
+
+.SidebarSearch th
+{
+	margin: 0.2em 0 0.1em;
+	text-decoration: none;
+	font-weight: normal;
+	text-align: left;
+	font-size: 10pt;
+	width: 1em;
+}
+
+.SidebarSearch input
+{
+	width: 100%;
+	background-color: #eee;
+	border: 1px inset;
+	font-size: 10pt;
+	padding: 1pt;
+}
+
