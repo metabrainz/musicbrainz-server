@@ -44,10 +44,11 @@ for my $t (@$tracks)
 	my $seq = $ARGS{"trackseq".$t->{id}};
 	if (MusicBrainz::IsNonNegInteger($seq))
 	{
-		$t->{"seq"} = $seq;
+		$t->{"seq"} = $seq
+			if $edit->{"can_add_remove"};
 	}
 
-	if (%ARGS)
+	if (%ARGS and $edit->{"can_add_remove"})
 	{
 		$ARGS{"trackdel".$t->{id}}
 			? $t->{"delete"} = 1
@@ -59,7 +60,7 @@ for my $t (@$tracks)
 	not $_->{'new'} or not $_->{"delete"}
 } @$tracks;
 
-if ($ARGS{"AddATrack"})
+if ($ARGS{"AddATrack"} and $edit->{"can_add_remove"})
 {
 	my $new_id = 0;
 	my $new_seq = 1;
@@ -119,6 +120,10 @@ $ar->SetSortName($edit->{"artist"}{"sortname"});
 	possible that some, but not all, of your changes will get voted in.
 </p>
 
+% if (not $edit->{"can_add_remove"}) {
+<p><b>Adding, removing and renumbering tracks disabled because of valid Disc ID(s)</b></p>
+% }
+
 <script type="text/javascript" src="/scripts/guess.js"></script>
 
 <form method="post" action="/mod/edit-album/sac-edittracks.html">
@@ -152,6 +157,7 @@ $ar->SetSortName($edit->{"artist"}{"sortname"});
 				Track
 % }
 				<input type="text" name="trackseq<% $t->{"id"} %>"
+				<% $edit->{can_add_remove} ? "" : "readonly" %>
 				value="<% $t->{seq} %>" size="2" maxlength="2"
 				style="text-align: center"></td>
 			<td><input type="text" name="track<% $t->{"id"} %>" style="width: 100%"
@@ -159,6 +165,7 @@ $ar->SetSortName($edit->{"artist"}{"sortname"});
 				value="<% $t->{"name"} %>"></td>
 			<td align="center"><input type="checkbox" name="trackdel<% $t->{"id"} %>"
 				value="1" <% $t->{'delete'} ? "checked" : "" %>
+				<% $edit->{can_add_remove} ? "" : "disabled" %>
 				title="Remove this track?"></td>
 			<td align="center"><input type="button" value="Guess Case"
 				onclick="this.form['track<% $t->{'id'} %>'].value = GuessCase(this.form['track<% $t->{'id'} %>'].value)"
@@ -168,7 +175,8 @@ $ar->SetSortName($edit->{"artist"}{"sortname"});
 		<tr>
 			<td></td>
 			<td>
-				<input type="checkbox" name="AddATrack" value="1">
+				<input type="checkbox" name="AddATrack" value="1"
+					<% $edit->{can_add_remove} ? "" : "disabled" %>>
 				Add a track ...
 			</td>
 			<td align="center"><img src="/images/remove.gif"

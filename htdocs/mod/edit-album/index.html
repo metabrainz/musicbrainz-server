@@ -72,6 +72,7 @@ my %edit = (
 		sortname	=> $ar->GetName,
 	},
 	tracks		=> \@t,
+	can_add_remove => ($al->CanAddTrack or $al->CanRemoveTrack),
 );
 
 $session{editalbum} = \%edit;
