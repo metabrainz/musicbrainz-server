@@ -1,0 +1,30 @@
+<%args>
+$formname=>""
+$tracks=>0
+$ismac=>0
+</%args>
+
+% my $i;
+<script LANGUAGE="JavaScript">
+function validate()
+{ 
+    if (
+%       for($i = 0; $i < $tracks; $i++) {
+            document.<% $formname %>.track<% $i %>.value == "" ||
+%           if ($ismac) {
+                document.<% $formname %>.artistname<% $i %>.value == "" ||
+                document.<% $formname %>.sortname<% $i %>.value == "" ||
+%           }
+%       }
+%       if (!$ismac) {
+            document.<% $formname %>.artistname.value == "" ||
+            document.<% $formname %>.sortname.value == "" ||
+%       }
+        document.<% $formname %>.title.value == "")
+    {
+        alert("Please enter all the information for this CD.");
+        return false;
+    }
+    return true;
+};
+</script>
