@@ -250,17 +250,17 @@ sub GetUserInfo
 	return undef;
 }
 
+# Used by (login|moderator|confirmaddress).html
 sub SetUserInfo
 {
 	my ($this, $uid, $email, $password, $weburl, $bio) = @_;
-	my ($sql, $query);
 
-	$sql = Sql->new($this->{DBH});
+	my $sql = Sql->new($this->{DBH});
 	return undef if (!defined $uid || $uid == 0);
 
-	$query = "update Moderator set";
+	my $query = "UPDATE moderator SET";
 
-	$query .= " email = " . $sql->Quote($email) . ", emailconfirmdate = now(),"
+	$query .= " email = " . $sql->Quote($email) . ", emailconfirmdate = NOW(),"
 		if (defined $email && $email ne '');
 
 	$query .= " password = " . $sql->Quote($password) . ","
@@ -282,25 +282,20 @@ sub SetUserInfo
 		return;
 	}
 
-	$query .= " where id = $uid";
+	$query .= " WHERE id = $uid";
 
-	eval
-	{
-		$sql->Begin;
-		$sql->Do($query);
-		$sql->Commit;
+	eval {
+		$sql->AutoTransaction(
+			sub { $sql->Do($query); 1 },
+		);
 	};
-	if ($@)
-	{
-		return 0;
-	}
-
-	return 1;
 } 
 
 sub GetUserType
 {
 	my ($this, $privs) = @_;
+	$privs = $this->GetPrivs if not defined $privs;
+
 	my $type = "";
 
 	$type = "Automatic Moderator "
@@ -329,15 +324,51 @@ sub IsBot
 	return ($privs & BOT_FLAG) > 0;
 }
 
+################################################################################
+# E-mail
+################################################################################
+
 sub CheckEMailAddress
 {
 	my ($this, $email) = @_;
+	$email = $this->GetEmail
+		if not defined $email;
 
 	return 0 if ($email =~ /\@localhost$/);
 	return 0 if ($email =~ /\@127.0.0.1$/);
 
 	return ($email =~ /^\S+@\S+$/);
 } 
+
+sub GetForwardingAddress
+{
+	my ($self, $name) = @_;
+	$name = $self->GetName unless defined $name;
+
+	require MusicBrainz::Server::Mail;
+	MusicBrainz::Server::Mail->_quoted_string($name)
+		. '@users.musicbrainz.org';
+}
+
+sub GetForwardingAddressHeader
+{
+	my $self = shift;
+	require MusicBrainz::Server::Mail;
+	MusicBrainz::Server::Mail->format_address_line(
+		$self->GetName,
+		$self->GetForwardingAddress,
+	);
+}
+
+sub GetRealAddressHeader
+{
+	my $self = shift;
+	require MusicBrainz::Server::Mail;
+	MusicBrainz::Server::Mail->format_address_line(
+		$self->GetName,
+		$self->GetEmail,
+	);
+}
 
 # Sanity check
 die "SMTP_SECRET_CHECKSUM not set"
@@ -346,131 +377,169 @@ die "SMTP_SECRET_CHECKSUM not set"
 sub GetVerifyChecksum
 {
 	my ($this, $email, $uid, $time) = @_;
-
-	return sha1_base64("$email $uid $time " . &DBDefs::SMTP_SECRET_CHECKSUM);
+	sha1_base64("$email $uid $time " . &DBDefs::SMTP_SECRET_CHECKSUM);
 }
+
+sub GetEmailActivationLink
+{
+	my ($self, $email) = @_;
+
+	my $t = time;
+	my $chk = $self->GetVerifyChecksum($email, $self->GetId, $t);
+
+	"http://" . &DBDefs::WEB_SERVER . "/user/confirmaddress.html"
+		. "?uid=" . $self->GetId
+		. "&email=" . uri_escape($email)
+		. "&time=$t"
+		. "&chk=" . uri_escape($chk)
+		;
+}
+
+# Send an address verification e-mail for a user to the specified address.
+# Used by htdocs/(createlogin|login|moderator).html
 
 sub SendVerificationEmail
 {
-	my ($this, $info, $email) = @_;
-	my ($url, $t, $ret, $safe_from, $text);
+	my ($self, $email) = @_;
 
-	$t = time();
+	my $url = $self->GetEmailActivationLink($email);
 
-	my $smtp = Net::SMTP->new(&DBDefs::SMTP_SERVER);
-	return "Could not send mail. Please try again later." unless $smtp;
+	require MusicBrainz::Server::Mail;
+	my $to_line = MusicBrainz::Server::Mail->format_address_line(
+		$self->GetName,
+		$email,
+	);
 
-    $safe_from = $info->{name};
-    $safe_from =~ s/\W/?/g;
+	my $mailer = MusicBrainz::Server::Mail->open(
+		'noreply@musicbrainz.org',
+		$email,
+	) or return "Could not send mail. Please try again later.";
 
-	$smtp->mail("noreply\@musicbrainz.org");
-	$smtp->to($email);
+	print $mailer
+		<<EOF,
+Sender: Webserver <webserver\@musicbrainz.org>
+From: MusicBrainz <noreply\@musicbrainz.org>
+To: $to_line
+Subject: email address verification
+MIME-Version: 1.0
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
 
-	$smtp->data();
+EOF
+		encode_qp(<<EOF),
+This is the email confirmation for your MusicBrainz account.
+Please click on the link below to verify your email address:
 
-	$smtp->datasend("From: MusicBrainz <noreply\@users.musicbrainz.org>\n");
-	$smtp->datasend("To: $safe_from <$email>\n");
-	$smtp->datasend("Sender: Webserver <webserver\@musicbrainz.org>\n");
-	$smtp->datasend("Subject: email address verification\n");
-    $smtp->datasend("Content-Type: text/plain; charset=utf-8\n");
-    $smtp->datasend("Content-Transfer-Encoding: quoted-printable\n");
-    $smtp->datasend("Mime-Version: 1.0\n");
-	$smtp->datasend("\n");
-	$text = "This is the email confirmation for your MusicBrainz account.\n";
-	$text .= "Please click on the link below to verify your email address:\n\n";
-	
-	$url = "http://" . &DBDefs::WEB_SERVER . "/user/confirmaddress.html?" .
-			"uid=$info->{uid}&email=" . uri_escape($email) .
-			"&time=$t&chk=" . uri_escape($this->GetVerifyChecksum($email,
-			$info->{uid}, $t));
-	$text .= "  $url\n\n";
-	$text .= "If clicking on the link does not work, you may need to cut and paste\n";
-	$text .= "the link into your web browser manually.\n\n";
-	$text .= "Thanks for using MusicBrainz!\n\n";
-	$text .= "-- The MusicBrainz Team\n\n";
+$url
 
-    $text = encode_qp($text);
-	$smtp->datasend($text);
+If clicking on the link does not work, you may need to cut and paste
+the link into your web browser manually.
 
-	$ret = $smtp->dataend() ? undef : "Failed to send mail. Please try again later.";
-	$smtp->quit();
+Thanks for using MusicBrainz!
 
-	return $ret;
+-- The MusicBrainz Team
+EOF
+		;
+
+	close($mailer) ? undef : "Failed to send mail. Please try again later.";
 }
 
-sub SendEMail
+sub SendMessageToUser
 {
-	my ($this, $from, $from_uid, $to_info, $subject, $text) = @_;
-	my ($url, $t, $ret, $safe_from);
-
-	return "No email address available for moderator $to_info->{name}."
-		unless $to_info->{email};
-
-    $safe_from = $from;
-    $safe_from =~ s/\W/?/g;
-
-    $text = encode_qp($text);
-
-	my $smtp = Net::SMTP->new(&DBDefs::SMTP_SERVER);
-	return "Could not send mail. Please try again later." unless $smtp;
-
-	$smtp->mail("noreply\@musicbrainz.org");
-	$smtp->to($to_info->{email});
-
-	$smtp->data();
-
-	$smtp->datasend("From: $safe_from <$safe_from\@users.musicbrainz.org>\n");
-	$smtp->datasend("To: $to_info->{name} <$to_info->{email}>\n");
-	$smtp->datasend("Sender: Webserver <webserver\@musicbrainz.org>\n");
-	$smtp->datasend("Reply-To: $safe_from <noreply\@musicbrainz.org>\n");
-	$smtp->datasend("Subject: $subject\n");
-    $smtp->datasend("Content-Type: text/plain; charset=utf-8\n");
-    $smtp->datasend("Content-Transfer-Encoding: quoted-printable\n");
-    $smtp->datasend("Mime-Version: 1.0\n");
-	$smtp->datasend("\n");
-	$smtp->datasend("$text\n\n");
-	$smtp->datasend("------------------------------------------------------------------------\n");
-	$smtp->datasend("Please do not respond to this email.\n");
-    if ($from_uid)
-    {
-          my $footer;
-
-          $footer = "If you would like to send mail to moderator $from,";
-          $footer .= " please use the link below:\n";
+	my ($self, $subject, $message, $otheruser) = @_;
 	
-          $footer .= "http://" . &DBDefs::WEB_SERVER .  
-                     "/user/mod_email.html?uid=$from_uid\n\n";
-          $smtp->datasend(encode_qp($footer));
-    }
+	my $fromname = $self->GetName;
+	my $fromline = $self->GetForwardingAddressHeader;
 
-	$ret = $smtp->dataend() ? undef : "Failed to send mail. Please try again later.";
-	$smtp->quit();
+	# Collapse onto a single line
+	$subject =~ s/\s+/ /g;
 
-	return $ret;
+	$otheruser->SendFormattedEmail(
+		<<EOF
+Sender: Webserver <webserver\@musicbrainz.org>
+From: $fromline
+Subject: $subject
+MIME-Version: 1.0
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+
+EOF
+		. encode_qp(<<EOF)
+$message
+
+------------------------------------------------------------------------
+Please do not respond to this email.
+
+If you would like to send mail to moderator '$fromname',
+please use this link:
+http://${\ DBDefs::WEB_SERVER() }/user/mod_email.html?uid=${\ $self->GetId }
+EOF
+	);
 }
+
+sub SendModNoteToUser
+{
+	my ($self, $mod, $notetext, $otheruser) = @_;
+
+	my $modid = $mod->GetId;
+	my $fromname = $self->GetName;
+	my $fromline = $self->GetForwardingAddressHeader;
+
+	$otheruser->SendFormattedEmail(
+		<<EOF
+Sender: Webserver <webserver\@musicbrainz.org>
+From: $fromline
+Subject: Note added to moderation #$modid
+MIME-Version: 1.0
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+
+EOF
+		. encode_qp(<<EOF)
+Moderator '$fromname' has attached a note to your moderation #$modid:
+
+$notetext
+
+Moderation link: http://${\ DBDefs::WEB_SERVER() }/showmod.html?modid=$modid
+
+------------------------------------------------------------------------
+Please do not respond to this email.
+
+If you would like to send mail to moderator '$fromname',
+please use this link:
+http://${\ DBDefs::WEB_SERVER() }/user/mod_email.html?uid=${\ $self->GetId }
+EOF
+	);
+}
+
+# Send a complete formatted message ($messagetext) to a user ($self).
+# The envelope sender may be specified.  The "To" header will be written
+# for you, so should not be included in $messagetext.
 
 sub SendFormattedEmail
 {
 	my ($self, $messagetext, $envelope_from) = @_;
 	$envelope_from ||= 'noreply@musicbrainz.org';
 
-	my $smtp = Net::SMTP->new(&DBDefs::SMTP_SERVER);
-	return "Could not send mail. Please try again later." unless $smtp;
+	my $email = $self->GetEmail
+		or return "No email address available for moderator " . $self->GetName;
 
-	$smtp->mail($envelope_from);
-	$smtp->to($self->GetEmail);
-	$smtp->data;
+	require MusicBrainz::Server::Mail;
+	my $mailer = MusicBrainz::Server::Mail->open(
+		$envelope_from,
+		$email,
+	) or return "Could not send mail. Please try again later.";
 
-	for (split /\n/, $messagetext, -1)
-	{
-		$smtp->datasend($_."\n");
-	}
+	print $mailer "To: " . $self->GetRealAddressHeader . "\n";
+	print $mailer $messagetext;
 
-	my $ok = $smtp->dataend;
-	$smtp->quit;
-
+	my $ok = close $mailer;
 	$ok ? undef : "Failed to send mail. Please try again later.";
 }
+
+################################################################################
+# Logging in
+################################################################################
 
 sub SetSession
 {
