@@ -1,34 +1,31 @@
+%# vi: set ts=2 sw=2 ft=mason :
 <& /comp/sidebar, title=>'Merge Artist' &>
-
+<%args>
+$id => ""
+</%args>
 <%perl>
 
-my ($mb, $id, $ar); 
-my ($artistname, $url, $modpending, $sortname); 
+$m->comp("/comp/checkloggedin", 0, 1)
+	or return;
 
-if (!exists $ARGS{id} || $ARGS{id} eq '')
-{
-    mc_comp("/comp/badargs");
-    return undef;
-}
+($id || "") =~ /\A(\d{1,20})\z/
+	or return $m->comp("/comp/badargs", 0, 1);
 
-$mb = mc_comp("/comp/dblogin");
-$id = $ARGS{id};
+$id == ModDefs::DARTIST_ID
+	and return $m->comp("/comp/badargs", 0, 1);
 
-$ar = Artist->new($mb->{DBH});
+my $mb = mc_comp("/comp/dblogin");
+
+my $ar = Artist->new($mb->{DBH});
 $ar->SetId($id);
-$ar->LoadFromId();
-$artistname = $ar->GetName();
-$sortname = $ar->GetSortName();
-$modpending = $ar->GetModPending();
+$ar->LoadFromId()
+	or return $m->comp("/comp/badargs", 0, 1);
+
+my $artistname = $ar->GetName();
+my $sortname = $ar->GetSortName();
+my $modpending = $ar->GetModPending();
 
 </%perl>
-
-% if (!defined $session{user} || $session{user} eq '') {
-    You must be logged in to edit the database.<p>
-    <& /comp/tablebegin, title=>'Login' &>
-    <& /comp/loginbox &>
-    <& /comp/tableend &>
-% } else {
 
     <& /comp/stylemenu &>
 
@@ -77,10 +74,12 @@ $modpending = $ar->GetModPending();
     <input type="hidden" name="table0" value="Artist">
     <input type="hidden" name="column0" value="Name">
     <input type="hidden" name="id0" value="<% $id %>">
-    <input type="hidden" 
-           name="url" value="/showartist.html?artistid=<% $id %>">
+    <input type="hidden" name="url" value="/showartist.html?artistid=<% $id %>">
+    <input type="hidden" name="artistfilter_dontshow" value="<% $id %>">
     </form>
     <& /comp/tableend &>
-% }
+
 % $mb->Logout();
+
+<& /comp/movefocus, "MergeArtistForm", "new0" &>
 <& /comp/footer &>

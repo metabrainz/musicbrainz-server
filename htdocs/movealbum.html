@@ -1,55 +1,53 @@
+%# vi: set ts=2 sw=2 ft=mason :
+<%args>
+$album => ""
+$artist => ""
+</%args>
 <& /comp/sidebar, title=>'Move Album' &>
-
 <%perl>
 
-my ($mb, $id, $albumname, $modpending, $sortname);
-my ($artistname, $al, $artist, $ar); 
+$m->comp("/comp/checkloggedin", 0, 1)
+	or return;
 
-$mb = mc_comp("/comp/dblogin");
+($album || "") =~ /\A(\d{1,20})\z/
+	or return $m->comp("/comp/badargs", 0, 1);
 
-if (!exists $ARGS{album} || $ARGS{album} eq '' ||
-    !exists $ARGS{artist} || $ARGS{artist} eq '')
-{
-    mc_comp("/comp/badargs");
-    return undef;
-}
+($artist || "") =~ /\A(\d{1,20})\z/
+	or return $m->comp("/comp/badargs", 0, 1);
 
-$id = $ARGS{album};
-$artist = $ARGS{artist};
+$artist == ModDefs::DARTIST_ID
+	and return $m->comp("/comp/badargs", 0, 1);
 
-$al = Album->new($mb->{DBH});
-$al->SetId($id);
-$al->LoadFromId($id);
+my $mb = mc_comp("/comp/dblogin");
 
-$ar = Artist->new($mb->{DBH});
+my $al = Album->new($mb->{DBH});
+$al->SetId($album);
+$al->LoadFromId($album)
+	or return $m->comp("/comp/badargs", 0, 1);
+
+my $ar = Artist->new($mb->{DBH});
 $ar->SetId($artist);
-$ar->LoadFromId();
+$ar->LoadFromId()
+	or return $m->comp("/comp/badargs", 0, 1);
 
-$albumname = $al->GetName();
-$modpending = $al->GetModPending();
-$artistname = $ar->GetName();
-$sortname = $ar->GetSortName();
+my $albumname = $al->GetName();
+my $modpending = $al->GetModPending();
+my $artistname = $ar->GetName();
+my $sortname = $ar->GetSortName();
 
 </%perl>
-
-% if (!defined $session{user} || $session{user} eq '') {
-    You must be logged in to edit the database.<p>
-    <& /comp/tablebegin, title=>'Login' &>
-    <& /comp/loginbox &>
-    <& /comp/tableend &>
-% } else {
 
     <& /comp/stylemenu &>
 
     <& /comp/tablebegin, gattrs=>"width=\"100%\"",
-       title=>"Move Album $albumname" &>
+       title=>"Move Album '$albumname'" &>
 
 % if ($modpending) {
     <& /comp/modpending &>
 % } 
 
     Enter the artist <span class="bold">sortname</span> to 
-    whom you'd like to move album <% $albumname %>:
+    whom you'd like to move album '<% $albumname %>':
 
     <FORM METHOD="POST" ACTION="/artistfilter.html" NAME="MoveArtistForm"
           ENCTYPE="application/x-www-form-urlencoded">  
@@ -79,17 +77,18 @@ $sortname = $ar->GetSortName();
     <input type="hidden" name="mode" value="move">
     <input type="hidden" name="album" value="<% $albumname %>">
     <input type="hidden" name="artist0" value="<% $artist %>">
-    <input type="hidden" name="type0" 
-           value="<% ModDefs::MOD_MOVE_ALBUM %>">
+    <input type="hidden" name="type0" value="<% ModDefs::MOD_MOVE_ALBUM %>">
     <input type="hidden" name="prev0" value="<% $artistname  %>">
     <input type="hidden" name="table0" value="Album">
     <input type="hidden" name="column0" value="Artist">
-    <input type="hidden" name="id0" value="<% $id %>">
-    <input type="hidden" 
-           name="url" value="/showalbum.html?albumid=<% $id %>">
+    <input type="hidden" name="id0" value="<% $album %>">
+    <input type="hidden" name="url" value="/showalbum.html?albumid=<% $album %>">
+    <input type="hidden" name="artistfilter_dontshow" value="<% $artist %>">
     </form>
       
     <& /comp/tableend &>
-% }
+
 % $mb->Logout();
+
+<& /comp/movefocus, "MoveArtistForm", "new0" &>
 <& /comp/footer &>
