@@ -2,7 +2,7 @@
 <%args>
 $table => undef
 $search => undef
-$limit => undef
+$limit => 25
 </%args>
 
 <%perl>
@@ -53,12 +53,23 @@ if ( defined $table && defined $search)
     }
 </%perl>
 
-<& /comp/sidebar, title=>$table . ' Search Results: '.$search &>
+<& /comp/sidebar, title=>$table . ' Search Results: '.$search, head => '
+<style type="text/css">
+
+#SearchResults td, #SearchResults th { padding-left: 0.8em; padding-right: 0.8em }
+td.trk, td.did, td.trm { padding: 0.3em 1em; text-align: right }
+td.trk *, td.did *, td.trm * { vertical-align: middle }
+
+</style>
+' &>
+
     <& /comp/tablebegin, title=>"Found" &>
-    <table border="0" cellspacing="0" cellpadding="4">
+    <table border="0" cellspacing="0" cellpadding="4" id="SearchResults">
         <tr>
 %    if ($table eq 'Album') {
-        <th>Album Title</th> <th>Artist</th>
+		<th colspan="3">Summary</th>
+		<th>Album Title</th>
+		<th>Artist</th>
 %    } elsif ($table eq 'Artist') {
         <th>Artist Name</th>
 %    } elsif ($table eq 'Track') {
@@ -101,6 +112,9 @@ if ( defined $table && defined $search)
 %   while ( my $row = $engine->NextRow ) {
         <tr bgcolor="<% $bgcolor = ( $bgcolor eq '#ffffff' ? '#ffe1b7' : '#ffffff' ) %>">
 %       if ($engine->Table eq 'Album') {
+			<td class="trk"><% $row->{tracks} %>&nbsp;<img src="/images/notes.gif" alt="Tracks"></td>
+			<td class="did"><% $row->{discids} %>&nbsp;<img src="/images/cd.gif" alt="disc ids"></td>
+			<td class="trm"><% $row->{trmids} %>&nbsp;<img src="/images/trm.gif" alt="TRM ids"></td>
             <td><a href="/showalbum.html?albumid=<% $row->{'albumid'} %>"><% $row->{'albumname'} %></a></td> 
             <td><a href="/showartist.html?artistid=<% $row->{'artistid'} %>"><% $row->{'artistname'} %></a></td> 
 %       } elsif ($engine->Table eq 'Artist') {
