@@ -1,0 +1,137 @@
+<%args>
+$id=>""
+</%args>
+% $r->content_type("text/xml");
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<!DOCTYPE CDInfo SYSTEM "http://www.musicbrainz.org/dtd/CDInfo.dtd">
+
+<!-- This data is covered by the OpenContent license. -->
+<!-- Please see http://opencontent.org/opl.shtml for details. -->
+
+<%perl>
+
+sub MakeCDInfo
+{
+    my ($mb, $id) = @_;
+    my ($ar, $al, $di);
+    my ($out, $artist, $album, @ids, $ref, @tracks);
+
+    $ar = Artist->new($mb->{DBH});
+    $al = Album->new($mb->{DBH});
+    $di = Diskid->new($mb->{DBH});
+
+    $album = $di->GetAlbumFromDiskId($id);
+    if (!defined $album)
+    {
+        return "<CDInfo/>";
+    }
+
+    $al->SetId($album);
+    if (!defined $al->LoadFromId())
+    {
+        print STDERR "Cannot load album $album\n";
+        return "<CDInfo/>";
+    }
+
+
+    $artist = $al->GetArtist();
+    $ar->SetId($artist);
+    if (!defined $ar->LoadFromId())
+    {
+        print STDERR "Cannot load artist $artist\n";
+        return "<CDInfo/>";
+    }
+
+    $out .= "<CDInfo>\n  <Title>" . $al->GetName();
+    $out .= "</Title>\n  <NumTracks>" . $al->GetTrackCount();
+    $out .= "</NumTracks>\n";
+    
+    $out .= "  <IdInfo>\n";
+    @ids = $di->GetDiskIdFromAlbum($album);
+    foreach $ref (@ids)
+    {
+        $out .= "    <DiskId>\n";
+        $out .= "      <Id>" . $ref->{diskid} . "</Id>\n";
+        if ($ref->{toc} ne '')
+        {
+            my ($sec, $i, @toc);
+
+            $i = 0;
+            @toc = split / /, $ref->{toc};
+            $out .= "      <TOC First=\"" . (shift @toc) . "\" Last=\"";
+            $out .= (shift @toc) . "\">\n";
+            foreach $sec (@toc)
+            {
+                $out .= "        <Offset Num=\"" . $i . "\">" . 
+                        $sec . "</Offset>\n";
+                $i++;
+            }
+            $out .= "      </TOC>\n";
+        }
+        $out .= "    </DiskId>\n";
+    }
+    $out .= "  </IdInfo>\n";
+
+    if ($artist != Artist::VARTIST_ID)
+    {
+        my $num = 1;
+
+        @tracks = $al->LoadTracks();
+        if (scalar(@tracks) == 0)
+        {
+            print STDERR "Cannot load tracks for album $album\n";
+            return "<CDInfo/>";
+        }
+
+        $out .= "  <SingleArtistCD>\n";
+        $out .= "    <Artist>" . $ar->GetName() . "</Artist>\n";
+
+        foreach $ref (@tracks)
+        {
+            $out .= "    <Track Num=\"$num\">\n";
+            $out .= "      <Name>" . $ref->GetName() . "</Name>\n";
+            $out .= "    </Track>\n";
+            $num++;
+        }
+
+        $out .= "  </SingleArtistCD>\n";
+    }
+    else
+    {
+        my $num = 1;
+
+        @tracks = $al->LoadTracksFromMultipleArtistAlbum();
+        if (scalar(@tracks) == 0)
+        {
+            print STDERR "Cannot load tracks for album $album\n";
+            return "<CDInfo/>";
+        }
+
+        $out .= "  <MultipleArtistCD>\n";
+
+        foreach $ref (@tracks)
+        {
+            $out .= "    <Track Num=\"$num\">\n";
+            $out .= "      <Name>" . $ref->GetName() . "</Name>\n";
+            $out .= "      <Artist>" . $ref->GetArtistName() . "</Artist>\n";
+            $out .= "    </Track>\n";
+            $num++;
+        }
+
+        $out .= "  </MultipleArtistCD>\n";
+    }
+    
+    $out .= "</CDInfo>";
+
+    return $out;
+}
+
+
+my $mb = MusicBrainz->new();
+$mb->Login();
+
+mc_out(MakeCDInfo($mb, $id));
+
+$mb->Logout();
+
+</%perl>
