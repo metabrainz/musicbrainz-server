@@ -30,8 +30,15 @@ use DBI;
 use DBDefs;
 use MM_2_1;
 use Apache;
-use RDFStore::Parser::SiRPAC;
-use RDFStore::NodeFactory;
+
+# Normally these modules generate warnings as they compile.  We suppress those
+# warnings.
+BEGIN 
+{
+	local $^W = 0;
+	require RDFStore::Parser::SiRPAC;
+	require RDFStore::NodeFactory;
+}
 
 use integer;
 
