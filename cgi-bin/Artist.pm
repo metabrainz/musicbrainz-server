@@ -200,6 +200,46 @@ sub MergeInto
     $al->Insert($n, $old->GetName);
 }
 
+sub UpdateName
+{
+    my ($this, $name) = @_;
+
+    my $sql = Sql->new($this->{DBH});
+
+    $sql->Do(
+	"UPDATE artist SET name = ? WHERE id = ?",
+	$name,
+	$this->GetId,
+    ) or return 0;
+
+    # Update the search engine
+    $this->RebuildWordList;
+
+    $this->SetName($name);
+    1;
+}
+
+sub UpdateSortName
+{
+    my ($this, $name) = @_;
+
+    my $page = $this->CalculatePageIndex($name);
+    my $sql = Sql->new($this->{DBH});
+
+    $sql->Do(
+	"UPDATE artist SET sortname = ?, page = ? WHERE id = ?",
+	$name,
+	$page,
+	$this->GetId,
+    ) or return 0;
+
+    # Update the search engine
+    $this->RebuildWordList;
+
+    $this->SetSortName($name);
+    1;
+}
+
 # The artist name has changed, or an alias has been removed
 # (or possibly, in the future, been changed).  Rebuild the words for this
 # artist.

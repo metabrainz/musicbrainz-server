@@ -89,21 +89,13 @@ sub ApprovedAction
 		return STATUS_FAILEDDEP;
 	}
 
-	my $al = Artist->new($this->{DBH});
-	my $page = $al->CalculatePageIndex($this->GetNew);
-
-	$sql->Do(
-		"UPDATE artist SET sortname = ?, page = ? WHERE id = ?",
-		$this->GetNew,
-		$page,
-		$rowid,
-	);
-
-	# Update the search engine
 	my $artist = Artist->new($this->{DBH});
 	$artist->SetId($rowid);
-	$artist->LoadFromId;
-	$artist->RebuildWordList;
+	$artist->LoadFromId
+		or die; # should be handled by the above checks
+		
+	$artist->UpdateSortName($this->GetNew)
+		or die "Failed to update artist in MOD_EDIT_ARTISTSORTNAME";
 
 	STATUS_APPLIED;
 }

@@ -140,28 +140,8 @@ sub ApprovedAction
 	return $status if $status;
 
 	my $artist = $this->{_artist};
-	my $page = $artist->CalculatePageIndex($this->GetNew);
-
-	$sql->Do(
-		"UPDATE artist SET name = ?, page = ? WHERE id = ?",
-		$this->GetNew,
-		$page,
-		$this->GetRowId,
-	) or die "Failed to update artist in MOD_EDIT_ARTISTNAME";
-
-	# Update the search engine
-	$artist->RebuildWordList;
-
-	# This code was in the old mod system, but personally I think it's quite
-	# possibly a bad idea.
-	# ruaok says: "That feature was put in place to prevent the automatic
-	# duplication of artists where we were doing automatic data collection."
-	# Ideally I'd like to have the option (at the time the mod is inserted)
-	# as to whether this should happen.
-	
-	#	my $al = Alias->new($this->{DBH});
-	#	$al->SetTable("ArtistAlias");
-	#	$al->Insert($this->GetRowId, $this->GetPrev);
+	$artist->UpdateName($this->GetNew)
+		or die "Failed to update artist in MOD_EDIT_ARTISTNAME";
 
 	STATUS_APPLIED;
 }
