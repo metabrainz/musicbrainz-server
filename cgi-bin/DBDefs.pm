@@ -31,6 +31,8 @@ package DBDefs;
 sub MB_SERVER_ROOT	{ "/home/httpd/musicbrainz/mb_server" }
 # The htdocs directory
 sub HTDOCS_ROOT		{ MB_SERVER_ROOT() . "/htdocs" }
+# The data import directory (used by some reports)
+sub DATA_IMPORT_DIR	{ "/home/httpd/musicbrainz/data-import" }
 
 # These two settings specify where to create the Apache::Session files
 # that are needed for HTTP session persistence
