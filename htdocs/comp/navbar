@@ -1,0 +1,23 @@
+<table width="100%">
+<tr>
+  <td>
+    <a href="/search.html">Search/Browse</a>
+  </td>
+  <td>
+    <a href="/moderate.html">Vote/Moderate</a>
+  </td>
+  <td>
+    <a href="/download.html">Download</a>
+  </td>
+  <td>
+    <a href="/faq.html">FAQ</a>
+  </td>
+  <td>
+    <a href="/how.html">How does it work?</a>
+  </td>
+  <td>
+    <a href="/todo.html">To Do list</a>
+  </td>
+</tr>
+</table>
+<p>

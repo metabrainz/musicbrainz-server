@@ -1,8 +1,12 @@
 % if (!defined $session{user} || $session{user} eq '') {
-    You must be logged in to edit the database.<p>
+    <center>
+    You must be logged in to edit/moderate the database.<p>
+    <table width=50%><tr><td>
     <& /comp/tablebegin, title=>'Login' &>
     <& /comp/loginbox &>
     <& /comp/tableend &>
+    </td></tr></table>
+    </center>
 % } else {
     <& /comp/moderatepage, offset=>$ARGS{offset} &>
 % }

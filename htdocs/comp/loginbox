@@ -4,13 +4,13 @@
 <tr>
    <td>
    User Name:<br>
-   <INPUT TYPE="text" NAME="User" SIZE=15>
+   <INPUT TYPE="text" NAME="User" SIZE=20>
    </td>
 </tr>
 <tr>
    <td>
    Password:<br>
-   <INPUT TYPE="password" NAME="Password" SIZE=15>
+   <INPUT TYPE="password" NAME="Password" SIZE=20>
    </td>
 </tr>
 <tr>

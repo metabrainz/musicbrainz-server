@@ -98,7 +98,7 @@ sub SideBar
 </table>
 
 <a href="/index.html">
-<font color=white>MusicBrainz<br>Home</font></a><br>
+<font color=white>Home</font></a><br>
 
 <br><a href="/what.html">
 <font color=white>What is<br>MusicBrainz?</font></a><br>
@@ -106,14 +106,8 @@ sub SideBar
 <br><a href="/search.html">
 <font color=white>Search/Browse<br>MusicBrainz</font></a><br>
 
-<br><a href="/faq.html">
-<font color=white>Frequently<br>asked Questions</font></a><br>
-
-<br><a href="/how.html">
-<font color=white>How does<br>it work?</font></a><br>
-
-<br><a href="/download.html">
-<font color=white>Download</font></a><br>
+<br><a href="/moderate.html">
+<font color=white>Vote/Moderate</font></a><br>
 
 <br><a href="http://www.freeamp.org/bugzilla">
 <font color=white>Report a bug</font></a><br>
@@ -122,13 +116,13 @@ sub SideBar
 <font color=white>Server Stats</font></a><br>
 
 <br><a href="http://www.freeamp.org">
-<font color=white>FreeAmp<br>Home Page</font></a><br>
+<font color=white>FreeAmp</font></a><br>
 
 <br><a href="http://www.emusic.com">
-<font color=white>EMusic<br>Home Page</font></a><br>
+<font color=white>EMusic</font></a><br>
 
 <br><a href="http://www.relatable.com">
-<font color=white>Relatable<br>Home Page</font></a>
+<font color=white>Relatable</font></a>
 </td>
 
 END
@@ -1200,7 +1194,9 @@ sub GetModerationList
    }
    $sth->finish;   
 
-   $sth = $this->{DBH}->prepare(qq/select * from Changes limit $index, $num/);
+   $sth = $this->{DBH}->prepare(qq/select id, tab, col, rowid, prevvalue, 
+               newvalue, UNIX_TIMESTAMP(TimeSubmitted), moderator, yesvotes, 
+               novotes from Changes limit $index, $num/);
    $sth->execute;
    if ($sth->rows)
    {
@@ -1215,6 +1211,7 @@ sub GetModerationList
                    last;
                }
             }
+            $row[6] += DBDefs::MOD_PERIOD;
             push @data, [@row, $voted];
         }
    }
@@ -1283,7 +1280,7 @@ sub CheckModificationsForExpiredItems
    my ($sth, @ids, @row); 
 
    $sth = $this->{DBH}->prepare(qq/select id from Changes where 
-              TIME_TO_SEC(now()) - TIME_TO_SEC(TimeSubmitted) > / 
+              UNIX_TIMESTAMP(now()) - UNIX_TIMESTAMP(TimeSubmitted) > / 
               . DBDefs::MOD_PERIOD);
    $sth->execute;
    if ($sth->rows)
@@ -1306,7 +1303,7 @@ sub CheckModifications
    while(defined($rowid = shift @ids))
    {
        $sth = $this->{DBH}->prepare(qq/select yesvotes, novotes,
-              TIME_TO_SEC(now()) - TIME_TO_SEC(TimeSubmitted),
+              UNIX_TIMESTAMP(now()) - UNIX_TIMESTAMP(TimeSubmitted),
               tab, rowid from Changes where id = $rowid/);
        $sth->execute;
        if ($sth->rows)

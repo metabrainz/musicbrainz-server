@@ -1,0 +1,10 @@
+<%args>
+$task
+$skills
+$desc
+</%args>
+
+<& /comp/tablebegin, title=>$task &>
+<b>Skills needed:</b> <% $skills |n %><p>
+<% $desc |n %>
+<& /comp/tableend &>

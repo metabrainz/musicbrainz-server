@@ -1,0 +1,73 @@
+<& /comp/title, title=>'To Do List' &>
+
+If you are interested in helping out with MusicBrainz, this list should
+serve as a good starting point to get you started. If you would like to 
+help out with a particular task, please 
+<a href="http://www.freeamp.org/mailman/listinfo/musicbrainz">
+subscribe</a> to the MusicBrainz mailing list and then post about any
+questions that you might have.<p>
+
+<& /comp/todoentry, 
+   task=>'Testing MusicBrainz', 
+   skills=>'General web skills', 
+   desc=>qq\Excerise the MusicBrainz site to find the bugs that are lurking 
+            somewhere in the code. All features need to get tested: Searching,
+            browsing, editing, voting. Any time an error occurs and 
+            MusicBrainz does not work properly, please 
+            <a href="http://www.freeamp.org/bugzilla">report a bug</a>.\
+&>
+
+<& /comp/todoentry, 
+   task=>'Test & Port the MusicBrainz Client Library', 
+   skills=>'UNIX & C/C++', 
+   desc=>qq\Download the mb_client project from CVS and compile it on any
+            of the supported platorms. The client library has not been
+            tested under Solaris, *BSD, IRIX, OS/2, Cygwin (win32). If
+            you have access to one of these platforms, please download
+            the client and see compiles and runs. If not, I would appreciate
+            any patches that fix problems in the client library.\
+&>
+
+<& /comp/todoentry, 
+   task=>'Create a Mirror System', 
+   skills=>'perl programming', 
+   desc=>qq\The MusicBrainz data should be mirrored far and wide to ensure
+            that the data is not lost and that people have access to the
+            data. Initially a one-way replication system with one central
+            server would be ok, but in the future a full bi-directional
+            mirror system that allows editing the database on multiple
+            servers will be needed.\
+&>
+
+<& /comp/todoentry, 
+   task=>'Add more Data Fields', 
+   skills=>'perl/database programming', 
+   desc=>qq\MusicBrainz should keep track of a lot more data than it currently
+            does. It should keep track of web pages that relate to Artists
+            and Albums, remix info, cover info and whatever else we see
+            fit to track in MusicBrainz.\
+&>
+
+<& /comp/todoentry, 
+   task=>'Classical Music Capabilities', 
+   skills=>'perl/database programming', 
+   desc=>qq\MusicBrainz should also keep track of composers, conductors,
+            opus numbers, major keys and information that mainly pertains
+            to classical music.\
+&>
+
+<& /comp/todoentry, 
+   task=>'Advanced Moderation System', 
+   skills=>'perl/database programming', 
+   desc=>qq\The current moderation system allows user to edit the data
+            in MusicBrainz. However, moderators should also be able to
+            delete data, move tracks to other albums, and move albums to
+            other artists.\
+&>
+
+<& /comp/todoentry, 
+   task=>'Add MusicBrainz support to MP3/Vorbis/Audio CD Players', 
+   skills=>'General programming', 
+   desc=>qq\Take the MusicBrainz client library and integrate it into
+            your favorite digital audio player.\
+&>

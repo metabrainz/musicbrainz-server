@@ -12,5 +12,5 @@
 <tr>
 <& /comp/sidebar &>
 <td width="100%" valign="top">
-<br>
+<& /comp/navbar &>
 
