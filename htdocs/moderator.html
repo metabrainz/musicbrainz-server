@@ -1,6 +1,11 @@
 <%args>
 $uid=>0
 $update=>0
+$password1=>""
+$password2=>""
+$bio=>""
+$email=>""
+$weburl=>""
 </%args>
 
 <& /comp/sidebar, title=>'Moderator Profile' &>
@@ -15,8 +20,8 @@ if ($uid == 0)
 
 if ($update && $session{uid} != $uid)
 {
-     mc_out("You can't update someone else's configuration, smartass!");
-     return undef;
+    mc_out("You can't update someone else's configuration, smartass!");
+    return undef;
 }
 
 my ($ui, $info);
@@ -26,19 +31,30 @@ $mb->Login();
 $ui = UserStuff->new($mb->{DBH});
 
 if ($update > 1)
-{
-     
+{ 
+    $bio =~ s/<.*?>//g;
+    $bio =~ s/\r//g;
+    $bio =~ s/\n/<p>/g;
+    if ($password1 ne $password2)
+    {
+        </%perl>
+        The given passwords do not match. Please go back and re-enter
+        the passwords.
+        <& /comp/footer &>
+        <%perl>
+        return undef;
+    }
+    $ui->SetUserInfo($uid, $email, $password1, $weburl, $bio);
 
-
-
-
-
+    mc_out("Your information was updated.<p>");
+    $update = 0;
 }
 
 $info = $ui->GetUserInfo($uid);
 if (!defined $info)
 {
      mc_out("User $uid was not found.");
+     mc_comp("/comp/footer");
      return undef;
 }
 
@@ -57,74 +73,99 @@ if ($info->{name} eq "rob")
       ENCTYPE="application/x-www-form-urlencoded">
 <table>
 <tr>
-    <td valign="top" align="right">Name:</td>
+    <td colspan="2"><b>General information:</b></td>
+</tr>
+<tr>
+    <td width="15%" valign="top" align="right">Name:</td>
     <td><% $info->{name} %></td>
+</tr>
+<tr>
+    <td width="15%" valign="top" align="right">User type:</td>
+    <td><% $ui->GetUserType($info->{privs}) %></td>
 </tr>
 % if ($session{uid} == $uid && $update) {
 <tr>
     <td valign="top" align="right">Password:</td>
-    <td><input type="password" name="passwd" size="30"></td>
+    <td><input type="password" name="password1" size="40"></td>
 </tr>
 <tr>
     <td valign="top" align="right">Verify password:</td>
-    <td><input type="password" name="passwd" size="30"></td>
+    <td><input type="password" name="password2" size="40"><br>
+        (Leave the two fields above blank to not change your password)</td>
+</tr>
+<tr>
+    <td colspan="2">&nbsp;</td>
 </tr>
 % }
 % if ($session{uid} == $uid) {
 <tr>
     <td valign="top" align="right">EMail:</td>
 % if ($update) {
-    <td><input type="text" name="email" size="30" 
+    <td><input type="text" name="email" size="40" 
                value="<% $info->{email} %>">
     </td>
 % } else {
-    <td><% $info->{email} |n %></td>
+    <td><% $info->{email} ne '' ? $info->{email} : "[none specified]" |n %></td>
 % }
-</tr>
-% }
-% if (!$update) {
-<tr>
-    <td valign="top" align="right">Member Since:</td>
-    <td><% $info->{membersince} |n %></td>
-</tr>
-<tr>
-    <td valign="top" align="right">Mods Accepted:</td>
-    <td><% $info->{modsaccepted} %></td>
-</tr>
-<tr>
-    <td valign="top" align="right">Mods Rejected:</td>
-    <td><% $info->{modsrejected} %></td>
 </tr>
 % }
 <tr>
     <td valign="top" align="right">Homepage:</td>
 % if ($update) {
-    <td><input type="text" name="weburl" size="30" 
+    <td><input type="text" name="weburl" size="40" 
                value="<% $info->{weburl} %>">
     </td>
 % } else {
-    <td><a href="<% $info->{weburl} |n %>"><% $info->{weburl} |n %></a>
+%   if ($info->{weburl} ne "") {    
+       <td><a href="<% $info->{weburl} |n %>"><% $info->{weburl} |n %></a>
+%   } else {
+       <td>[none specified]</a>
+%   }
 % }
 </tr>
 <tr>
     <td valign="top" align="right">Bio:</td>
 % if ($update) {
-    <td><input type="textarea" name="bio" size="30"  height="10"
-               value="<% $info->{bio} %>">
+%   $info->{bio} =~ s/<p>/\n/g;
+    <td><textarea name="bio" cols=40 rows=10><% $info->{bio} %></textarea><br>
+    (No HTML tags, please!)
     </td>
 % } else {
-    <td><% $info->{bio} |n %></td>
+    <td><% $info->{bio} ne '' ? $info->{bio} : "[none specified]" |n %></td>
+% }
+% if (!$update) {
+<tr>
+    <td colspan="2">&nbsp;</td>
+</tr>
+<tr>
+    <td colspan="2"><b>User statistics:</b></td>
+</tr>
+<tr>
+    <td valign="top" align="right">Member Since:</td>
+    <td valign="top"><% $info->{membersince} |n %></td>
+</tr>
+<tr>
+    <td valign="top" align="right">Mods Accepted:</td>
+    <td valign="top"><% $info->{modsaccepted} %></td>
+</tr>
+<tr>
+    <td valign="top" align="right">Mods Rejected:</td>
+    <td valign="top"><% $info->{modsrejected} %></td>
+</tr>
 % }
 % if ($session{uid} == $uid) {
+<tr>
+    <td colspan="2">&nbsp;</td>
+</tr>
 <tr>
     <td>&nbsp;</td>
     <td>
         <INPUT TYPE="hidden" NAME="uid" VALUE="<% $uid %>">
-% if ($update) {
-        <INPUT TYPE="hidden" NAME="update" VALUE="1">
+% if ($update == 1) {
+        <INPUT TYPE="hidden" NAME="update" VALUE="2">
         <INPUT TYPE="submit" NAME="Submit" VALUE="Save Changes">
 % } else {
-        <INPUT TYPE="hidden" NAME="update" VALUE="2">
+        <INPUT TYPE="hidden" NAME="update" VALUE="1">
         <INPUT TYPE="submit" NAME="Submit" VALUE="Update Profile">
 % }
     </td>

@@ -34,6 +34,9 @@ use DBI;
 use DBDefs;
 use MusicBrainz;
 
+use constant AUTOMOD_FLAG => 1;
+use constant BOT_FLAG => 2;
+
 sub new
 {
    my ($type, $dbh) = @_;
@@ -97,7 +100,7 @@ sub CreateLogin
 
    $sql->Do(qq/
             insert into ModeratorInfo (Name, Password, Privs, ModsAccepted, 
-            ModsRejected) values ($dbuser, $pwd, 0, 0, 0)
+            ModsRejected, MemberSince) values ($dbuser, $pwd, 0, 0, 0, now())
             /);
 
    $uid = $sql->GetLastInsertId();
@@ -152,3 +155,73 @@ sub GetUserInfo
    }
    return undef;
 } 
+
+sub SetUserInfo
+{
+   my ($this, $uid, $email, $password, $weburl, $bio) = @_;
+   my ($sql, $query);
+
+   $sql = Sql->new($this->{DBH});
+   return undef if (!defined $uid || $uid == 0);
+
+   $query = "update ModeratorInfo set";
+
+   $query .= " email = " . $sql->Quote($email) . ","
+       if (defined $email && $email ne '');
+
+   $query .= " password = " . $sql->Quote($password) . ","
+       if (defined $password && $password ne '');
+
+   $query .= " weburl = " . $sql->Quote($weburl) . ","
+       if (defined $weburl && $weburl ne '');
+
+   $query .= " bio = " . $sql->Quote($bio) . ","
+       if (defined $bio && $bio ne '');
+
+   if ($query =~ m/,$/)
+   {
+      chop($query);
+   }
+   else
+   {
+      # No valid args were specified, so bail
+      return;
+   }
+
+   $query .= " where id = $uid";
+
+   $sql->Do($query);
+
+   return 1;
+} 
+
+sub GetUserType
+{
+   my ($this, $privs) = @_;
+   my $type = "";
+
+   $type = "Automatic Moderator "
+      if ($this->IsAutoMod($privs));
+
+   $type = "Internal/Bot User "
+      if ($this->IsBot($privs));
+
+   $type = "Normal User"
+      if ($type eq "");
+
+   return $type;
+}
+
+sub IsAutoMod
+{
+   my ($this, $privs) = @_;
+
+   return ($privs & AUTOMOD_FLAG) > 0;
+}
+
+sub IsBot
+{
+   my ($this, $privs) = @_;
+
+   return ($privs & BOT_FLAG) > 0;
+}

@@ -34,8 +34,17 @@ else
     $session{privs} = $privs;
     $session{uid} = $uid;  
     
-    mc_out(qq|<center>A new account has been created and you are 
-              now logged into MusicBrainz!</center><p><br><br>|);
+    </%perl>
+    
+    <center>
+       A new account has been created and you are 
+       now logged into MusicBrainz!<p><br>
+       
+       Please update your <a href="/moderator.html?uid=<% $uid %>">profile</a>
+       to let the other users know a little bit about you.
+    </center>
+    <br><br>
+    <%perl>
 
     if (exists $ARGS{url})
     {

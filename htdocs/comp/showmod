@@ -25,7 +25,7 @@ my $time = sprintf "%d-%02d-%02d %02d:%02d",
 </tr>
 <tr>
    <td width=37% valign=top bgcolor=white class="body">
-     By: <span class="bold"><% $mod->GetModeratorName() |n %></span>
+     By: <a href="/moderator.html?uid=<% $mod->GetModerator() %>"><span class="bold"><% $mod->GetModeratorName() |n %></span></a>
      &nbsp;&nbsp;&nbsp;
      <a href="/showmod.html?modid=<% $mod->GetId() %>"
         title="View moderation detail">Id: <% $mod->GetId() %></a><br> 
@@ -78,7 +78,7 @@ my $time = sprintf "%d-%02d-%02d %02d:%02d",
 
 % if (exists $notes->{ $mod->GetId() }) {
 <tr>
-   <td colspan="3" valign=top bgcolor=white class="body">
+   <td colspan="3" valign=top bgcolor=white class="body" nowrap>
 %    $ref = $notes->{ $mod->GetId() };
      Notes:<br>
 %    foreach $obj (@$ref) {
