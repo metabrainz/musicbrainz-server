@@ -36,8 +36,8 @@ my @documentation = (
 
 #define the expanded sidebox items of the moderation pages
 my @moderate = (
-  {url=>'mod_intro.html',                  name=>'Moderation Intro'},
-  {url=>'mod_faq.html',                    name=>'Moderation FAQ'},
+  {url=>'/mod_intro.html',                  name=>'Moderation Intro'},
+  {url=>'/mod_faq.html',                    name=>'Moderation FAQ'},
 # It really should use ModDefs::TYPE_VOTED, but you need to include a lot of stuff before that.
 # now it is just hard coded...
   {url=>'/moderate.html?type=1',           name=>'New Moderation'},
@@ -48,7 +48,7 @@ my @moderate = (
   {url=>'/style.html',                     name=>'Style Guidelines'},
   {url=>'/jumpmod.html',                   name=>'Jump to Mod'},
   {url=>'/tagger/intro.html',              name=>'MB Tagger Intro'},
-  {url=>'logout.html',                     name=>'Logout'}
+  {url=>'/logout.html',                     name=>'Logout'}
 );
 
 #this is the struct of the main sidebox.
