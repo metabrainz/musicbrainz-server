@@ -143,9 +143,6 @@ sub Lookup
     my ($m, $s, $f, @cd_data, $ret);
     my ($id, $query, $trackoffsets, $offset, $sum, $total_seconds);
 
-$diskid = "XJgBHo4imv0fqcAhaNsc.81oV2k-";
-$toc = "1 11 214835 150 21562 42777 63812 81192 103622 123145 142450 161685 179340 195122";
-
     my @toc = split / /, $toc;
     $first = shift @toc;
     $last = shift @toc;
