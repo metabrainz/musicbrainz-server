@@ -1,6 +1,18 @@
 %# vi: set ts=2 sw=2 ft=mason :
 <& /comp/sidebar, title=>'Welcome to MusicBrainz!', noh1 => 1 &>  
 
+<%perl>
+my $show_text = eval {
+  my $ip = $r->connection->remote_ip;
+  return 1 if $ip =~ /^10\./;
+  return 1 if $ip =~ /^127\./;
+  return 1 if $ip =~ /^172\.(\d+)\./
+    and $1>=16 and $1<32;
+  return 1 if $ip =~ /^192\.168\./;
+  0;
+};
+</%perl>
+
 <div class="SideArticlePanel">
 
 % if (DBDefs::DB_STAGING_SERVER) {
@@ -8,7 +20,7 @@
 		<h1>You are using the MusicBrainz staging server!</h1>
 		<p>
 			Unless you want to be testing the latest and greatest MusicBrainz features
-			you probably want to <a href="http://www.musicbrainz.org">go here</a>.
+			you probably want to <a href="http://musicbrainz.org">go here</a>.
 		</p>
 	</div>
 % }
@@ -26,40 +38,50 @@
 		</p>
 		<a href="mailto:sponsors@musicbrainz.org"
 			class="NewsLink"
-			>Sponsorship enquiries &gt;&gt;</a>
+			>Sponsorship inquiries &gt;&gt;</a>
 	</div>
 
 	<div class="SideArticle">
 		<h2>Latest News</h2>
 
+% if ($show_text) {
 		<div class="SideNewsArticle">
 			<h3>MusicBrainz launches</h3>
 			<p>
-				<b>Fremont, CA, Feb 11 2003</b>:
-				TODO
-				blah blah blah
-				blah blah blah
-				blah blah blah
-				blah blah blah
-				blah blah blah
+				<b>San Luis Obispo, CA, Feb 11 2003</b>:
+        MusicBrainz announced the official launch
+        of its music identification service and its
+        cooperation with <a href="http://agentarts.com">Agent Arts</a>
+        to provide a new <a href="/artistrel.html?artistid=197">related artists</a> feature.
 			</p>
 			<a href="/news/pressreleases/20030211-1.html"
 				class="PressReleaseLink"
 				>Read the whole article &gt;&gt;</a>
 		</div>
-
+% }
 		<div class="SideNewsArticle">
-			<h3>Some White Paper</h3>
+			<h3>Non-Profit White Paper</h3>
 			<p>
-				TODO
-				Read more about the white paper
-				etc etc etc etc etc etc
-				etc etc etc etc etc etc
-				etc etc etc etc etc etc
+      This white paper covers the current status, plans for the future, 
+      our views on working with commercial companies and plans for 
+      creating a non-profit corporation.
 			</p>
 			<a href="/papers/mb_nonprofit.html"
 				class="WhitePaperLink"
 				>Read the whole paper &gt;&gt;</a>
+		</div>
+
+		<div class="SideNewsArticle">
+			<h3>MusicBrainz Switches Data License</h3>
+			<p>
+        MusicBrainz now makes the core data
+        available in the Public Domain and the
+        remaining data under a <a href="http://creativecommons.org/licenses/by-nc-sa/1.0">Creative Commons 
+        license</a>.
+			</p>
+			<a href="/papers/mb_nonprofit.html#licenses"
+				class="WhitePaperLink"
+				>Read the whole article &gt;&gt;</a>
 		</div>
 
 	</div>
@@ -74,28 +96,18 @@
 
 	<p>
 		MusicBrainz is a community music metadatabase
-		that attempts to create a comprehensive music encyclopedia.&nbsp;
+		that attempts to create a comprehensive music information site.&nbsp;
 		You can use the MusicBrainz data either by browsing this web site,
 		or you can access the data from a client program - for example,
 		a CD player program can use MusicBrainz to identify CDs and provide
 		information about the CD, about the artist or about related
 		information.&nbsp; You can also use the MusicBrainz Tagger
 		to automatically identify and clean up the metadata tags
-		in your music collections.
-	</p>
+		in your MP3 collections. Find out more in the 
+    <a href="/introduction.html">introduction</a>.
 
-	<h2>Read more about MusicBrainz</h2>
-	
-	<p>
-		To learn more about what MusicBrainz is and how it works, read on:
-	</p>
 
-	<ul class="SpacedList">
-		<li>Read <a href="/introduction.html">an introduction to MusicBrainz</a></li>
-		<li>Find out about <a href="/history.html">the history of MusicBrainz</a></li>
-		<li>Check out the <a href="/faq.html">MusicBrainz FAQ</a></li>
-		<li>Read the MusicBrainz <a href="/documentation.html">documentation</a></li>
-	</ul>
+	</p>
 
 	<h2>Use MusicBrainz</h2>
 
@@ -133,6 +145,7 @@
 		submitting new data.
 	</p>
 
+
 	<h2>Be a part of MusicBrainz</h2>
 
 	<p>
@@ -165,10 +178,21 @@
 		</li>
 	</ul>
 		
-	<h2>Find out more</h2>
+	<h2>Read more about MusicBrainz</h2>
+	
+	<p>
+		To learn more about what MusicBrainz is and how it works, read on:
+	</p>
+
+	<ul class="SpacedList">
+		<li>Read <a href="/introduction.html">an introduction to MusicBrainz</a></li>
+		<li>Find out about <a href="/history.html">the history of MusicBrainz</a></li>
+		<li>Check out the <a href="/faq.html">MusicBrainz FAQ</a></li>
+		<li>Read the MusicBrainz <a href="/documentation.html">documentation</a></li>
+	</ul>
 
 	<p>
-		To find out more about MusicBrainz, read the
+		You may also be interested in the 
 		<a href="/introduction.html">About</a>,
 		<a href="/news/index.html">News</a>,
 		<a href="/information.html">Support</a>

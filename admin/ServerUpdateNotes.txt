@@ -1,6 +1,7 @@
 I Server update tasks
 ---------------------
 
+- Update database for moderation timestamps
 
 II Optimization tasks
 ---------------------
