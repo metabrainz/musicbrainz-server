@@ -11,6 +11,7 @@ my $brainz_css = &DBDefs::HTDOCS_ROOT . "/brainz.css";
 my $mtime = (stat $brainz_css)[9] || 0;
 my $mtime_print = (stat(&DBDefs::HTDOCS_ROOT . "/css/print.css"))[9] || 0;
 </%perl>
+% $m->clear_buffer;
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
 <html>
 <head>
