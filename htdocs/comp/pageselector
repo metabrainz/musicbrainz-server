@@ -27,6 +27,10 @@ my $qsargs = $m->comp(
 	page => undef,
 );
 
+my $urlqs = $url . "?";
+$urlqs .= $qsargs . "&"
+	unless $qsargs eq "";
+
 </%perl>
 
 <table width="100%" style="margin: 0.2em 0"><tr>
@@ -48,10 +52,10 @@ my $qsargs = $m->comp(
 </td>
 <td align="center" valign="middle">
 % if ($index > 0) {
-    <a href="<% $url.'?'.$qsargs %>&amp;offset=0"
+    <a href="<% $urlqs %>offset=0"
     	title="first page"
     	>&lt;&lt;</a>&nbsp;
-    <a href="<% $url.'?'.$qsargs %>&amp;offset=<% ($index - 1) * $pagesize %>"
+    <a href="<% $urlqs %>offset=<% ($index - 1) * $pagesize %>"
     	title="previous page"
     	>&lt;</a>&nbsp;
 % } else {
@@ -70,8 +74,8 @@ for my $i ($start .. $end)
 	if ($i != $index)
 	{
 		$m->out("<a href='"
-			. html_escape($url.'?'.$qsargs)
-			. "&amp;offset=" . ($i * $pagesize)
+			. html_escape($urlqs)
+			. "offset=" . ($i * $pagesize)
 			. "'>" . ($i + 1) . "</a>&nbsp;");
 	}
 	else
@@ -85,10 +89,10 @@ $m->out("...") if $end < $pagecount - 1;
 </%perl>
 
 % if ($index < $pagecount - 1) {
-    <a href="<% $url.'?'.$qsargs %>&amp;offset=<% ($index + 1) * $pagesize %>"
+    <a href="<% $urlqs %>offset=<% ($index + 1) * $pagesize %>"
     	title="next page"
     	>&gt;</a>&nbsp;
-    <a href="<% $url.'?'.$qsargs %>&amp;offset=<% ($pagecount - 1) * $pagesize %>"
+    <a href="<% $urlqs %>offset=<% ($pagecount - 1) * $pagesize %>"
     	title="last page"
     	>&gt;&gt;</a>&nbsp;
 % } else {
