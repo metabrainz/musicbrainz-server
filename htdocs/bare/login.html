@@ -1,11 +1,10 @@
 %# vi: set ts=4 sw=4 ft=mason :
 <%perl>
 
-use URI::Escape;
+my $ok = 0;
+my $confirm = 0;
+my $email = "";
 
-my ($mb, $user, $ok, $privs, $uid, $url, $confirm, $email, $ui);
-
-$ok = undef;
 if (&DBDefs::DB_READ_ONLY)
 {
     $ok = 0;
@@ -13,45 +12,43 @@ if (&DBDefs::DB_READ_ONLY)
 elsif (defined $ARGS{User} && $ARGS{User} ne '' &&
        defined $ARGS{Password} && $ARGS{Password} ne '')
 {
-    $mb = $m->comp("/comp/dblogin");
-    $ui = UserStuff->new($mb->{DBH});
+    my $mb = $m->comp("/comp/dblogin");
+    my $ui = UserStuff->new($mb->{DBH});
     
-    ($ok, $user, $privs, $uid, $email, $confirm) = $ui->Login($ARGS{User}, 
-                                                             $ARGS{Password});
+	my ($uid, $privs, $user);
+	($ok, $user, $privs, $uid, $email, $confirm) = $ui->Login(
+		$ARGS{User}, 
+		$ARGS{Password},
+	);
+
     if ($ok)
     {
         $ui->SetSession(\%session, $user, $privs, $uid, !$email || $confirm);
     }
-    $mb->Logout();
 }    
 
-if (exists $ARGS{url})
-{
-    $url = $ARGS{url};
-}
-else
-{
-    $url = "/search.html";
-}
+my $url = $ARGS{url};
+$url = "/search.html"
+	unless defined $url;
+
+# Prevent confusing redirect loops
+$url = "/search.html"
+	if $url =~ m[/(login|logout)\.html];
 
 if (!$ok)
 {
-    $url =~ s/\?/\@Q\@/g; 
-    $url =~ s/\&/\@A\@/g; 
-    $url = "/login.html?badlogin=1&url=$url";
+	$url = "/login.html?badlogin=1"
+		. "&url=" . url_escape($url)
+		;
 }
 else
 {
-    $url =~ s/\@Q\@/\?/g; 
-    $url =~ s/\@A\@/\&/g; 
-    $email = uri_escape($email);
-    $url = "/login.html?confirm=1&email=$email&url=$url" if ($confirm);
+	$url = "/login.html?confirm=1"
+		. "&email=" . url_escape($email)
+		. "&url=" . url_escape($url)
+		if $confirm;
 }
 
-$r->method('GET');
-$r->headers_in->unset('Content-length');
-$r->content_type('text/html; charset=UTF-8');
-$r->header_out(Location=>$url);
-$r->status(302);
+return $m->comp("/comp/redirect", $url);
 
 </%perl>
