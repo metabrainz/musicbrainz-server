@@ -38,7 +38,7 @@ use constant DB_USER 	=>	'musicbrainz';
 use constant DB_PASSWD 	=>	'';
 
 # Set this value if you want to have a read-only server.
-use constant DB_READ_ONLY => 1;
+use constant DB_READ_ONLY => 0;
 
 # Set this value to a message that you'd like to display to users when
 # they attempt to log or otherwise modify the database.

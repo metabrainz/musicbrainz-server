@@ -404,7 +404,10 @@ sub ApplyMergeArtistModification
        $this->{DBH}->do(qq/update Track set artist = $newid where 
                            artist = $rowid/);
        $this->{DBH}->do("delete from Artist where id = $rowid");
+       $this->{DBH}->do("update Changes set artist = $newid where id = $id");
    }
+
+   return $status;
 }
 
 sub ApplyEditModification

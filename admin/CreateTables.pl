@@ -342,7 +342,8 @@ sub CreateIndices
     print "Added indices to ModeratorInfo table.\n";
 
     $dbh->do(qq/alter table Changes add index ModeratorIndex (Moderator), 
-                           add index TimeSubmittedIndex (TimeSubmitted)/)
+                            add index TimeSubmittedIndex (TimeSubmitted),
+                            add index StatusIndex (Status)/)
           or die("Could not add indices to Changes table");
     print "Added indices to Changes table.\n";
 
