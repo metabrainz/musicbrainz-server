@@ -40,6 +40,7 @@ sub GetVote			{ $_[0]{vote} }
 sub SetVote			{ $_[0]{vote} = $_[1] }
 sub GetUserName		{ $_[0]{user} }
 sub GetVoteTime		{ $_[0]{votetime} }
+sub GetSuperseded	{ $_[0]{superseded} }
 
 # This function enters a number of votes into the Votes table.
 # The caller must a hash of votes, where the keys are the moderation IDs,
