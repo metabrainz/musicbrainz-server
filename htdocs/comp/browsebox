@@ -1,7 +1,7 @@
 <%args>
 $ind=>""
-$showspecial=>1
 $page=>"/browseartists.html"
+$showspecial=>1
 </%args>
 <%perl>
 
@@ -57,7 +57,7 @@ if (length($ind) > 0)
     <table>
     <tr>
 %   for($i = 0; $i < 13; $i++) {
-%      if ($i == 0 && $showspecial && $i == 0) {
+%      if ($i == 0 && $showspecial) {
           <td align="center">
              <a href="<% $page %>?index=<% $ind %>_">symbol&nbsp;</a><br>
              <a href="<% $page %>?index=<% $ind %>+">space&nbsp;</a> 

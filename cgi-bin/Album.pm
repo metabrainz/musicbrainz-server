@@ -651,65 +651,6 @@ sub GetVariousDisplayList
    return ($num_albums, @info);
 }
 
-sub old_shit
-{
-   my ($this, $ind, $offset, $max_items) = @_;
-   my ($query, $num_albums, @info, @row, $sql, $ind_len); 
-
-   $ind_len = length($ind);
-   return undef if ($ind_len <= 0);
-
-   $sql = Sql->new($this->{DBH});
-   
-   if ($ind =~ m/_/)
-   {
-      $ind =~ s/_/.{1}/g;
-      $ind = "^$ind";
-      $ind = $sql->Quote($ind);
-      $num_albums = 0;
-
-      if ($sql->Select(qq|select count(*) from Album where name ~* $ind and
-                          Album.artist = | . ModDefs::VARTIST_ID))
-      {
-          @row = $sql->NextRow();
-          $sql->Finish();
-          $num_albums = $row[0];
-      }
-      return undef if (!defined $num_albums);
-
-      $query = qq/select id, name, modpending 
-                  from   Album 
-                  where  name ~* $ind and
-                         Album.artist = / . ModDefs::VARTIST_ID . qq/
-                  order  by name 
-                  limit  $max_items offset $offset/;
-   }
-   else
-   {
-      $ind = $sql->Quote($ind);
-      ($num_albums) =  $sql->GetSingleRowLike("Album", ["count(*)"], 
-                                        ["substring(name from 1 for $ind_len)", 
-                                         $ind,
-                                         "Album.artist", ModDefs::VARTIST_ID]);
-      return undef if (!defined $num_albums);
-      $query = qq/select id, name, modpending from Album 
-                   where substring(name from 1 for $ind_len) ilike $ind and
-                         Album.artist = / . ModDefs::VARTIST_ID . qq/
-                order by lower(name), name 
-                   limit $max_items offset $offset/;
-   }
-   if ($sql->Select($query))
-   {
-       for(;@row = $sql->NextRow;)
-       {
-           push @info, [$row[0], $row[1], $row[2]];
-       }
-       $sql->Finish;   
-   }
-
-   return ($num_albums, @info);
-}
-
 sub UpdateAttributes
 {
    my ($this) = @_;

@@ -52,7 +52,7 @@ open RDF, "| bzip2 -c > $outfile"
 
 print "Writing dump to $outfile.\n";
 
-print RDF "<?xml version=\"1.0\" encoding=\"ISO-8859-1\"?>\n";
+print RDF "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n";
 print RDF (GetLicense());
 
 $mb = MusicBrainz->new;
@@ -65,11 +65,11 @@ print RDF "\n";
 
 $| = 1;
 print "\nDumping artists.\n";
-DumpArtists($sql, $rdf, \*RDF, "http://mm.musicbrainz.org");
+#DumpArtists($sql, $rdf, \*RDF, "http://mm.musicbrainz.org");
 print "\nDumping albums.\n";
 DumpAlbums($sql, $rdf, \*RDF, "http://mm.musicbrainz.org");
 print "\nDumping tracks.\n";
-DumpTracks($sql, $rdf, \*RDF, "http://mm.musicbrainz.org");
+#DumpTracks($sql, $rdf, \*RDF, "http://mm.musicbrainz.org");
 
 print RDF $rdf->EndRDFObject();
 
@@ -144,14 +144,14 @@ sub DumpAlbums
     my ($sql, $rdf, $file, $baseuri) = @_;
 
     my (@row, $out, $last_id);
-    my ($sql2, @row2);
-    my ($start, $nw, $count, $mx, $spr, $left, $mins, $hours, $secs);
+    my ($sql2, @row2, $album);
+    my ($start, $nw, $count, $mx, $spr, $left, $mins, $hours, $secs, @attrs, $attr);
 
     if ($sql->Select(qq|select Album.gid, Artist.gid, Album.name, Track.gid,
-                               Album.id, AlbumJoin.sequence
+                               Album.id, AlbumJoin.sequence, Album.attributes
                           from Artist, Album, AlbumJoin, Track 
                         where  Artist.id = Album.artist and Album.id = 
-                               AlbumJoin.album and AlbumJoin.track = Track.id 
+                               AlbumJoin.album and AlbumJoin.track = Track.id and Album.id = 28463
                       order by Album.id|))
     {
         my $cur_diskid_album = -1;
@@ -159,6 +159,7 @@ sub DumpAlbums
         $start = time;
         $mx = $sql->Rows();
 
+        $album = Album->new($sql->{DBH});
         $sql2 = Sql->new($sql->{DBH});
         if (!$sql2->Select(qq|select album, disc from Discid order by album|))
         {
@@ -197,6 +198,26 @@ sub DumpAlbums
                     }
                     $cur_diskid_album = $row2[0];
                 }
+
+                $row[6] =~ s/^\{(.*)\}$/$1/;
+                my @attrs = split /,/, $row[6];
+                shift @attrs; 
+                foreach $attr (@attrs)
+                {
+                    if ($attr >= Album::ALBUM_ATTR_SECTION_TYPE_START &&
+                        $attr <= Album::ALBUM_ATTR_SECTION_TYPE_END)
+                    {
+                        $out .= $rdf->Element("rdf:type", "", "rdf:resource", 
+                                $rdf->GetMMNamespace() . $album->GetAttributeName($attr));
+                    }
+                    elsif ($attr >= Album::ALBUM_ATTR_SECTION_STATUS_START &&
+                            $attr <= Album::ALBUM_ATTR_SECTION_STATUS_END)
+                    {
+                        $out .= $rdf->Element("mm:release", "", "rdf:resource", 
+                                $rdf->GetMMNamespace() . $album->GetAttributeName($attr));
+                    }
+                }
+
                 $out .=   $rdf->BeginDesc("mm:trackList");
                 $out .=   $rdf->BeginSeq();
             }

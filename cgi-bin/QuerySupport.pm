@@ -345,7 +345,7 @@ sub GetArtistByGlobalId
    
    $sql = Sql->new($dbh);
    $id = $sql->Quote($id);
-   ($artist) = $sql->GetSingleRow("Artist", ["id"], ["gid", $id]);
+   ($artist) = $sql->GetSingleRow("Artist", ["id"], ["gid", lc($id)]);
 
    return $rdf->CreateArtistList($doc, $artist);
 }
@@ -362,7 +362,7 @@ sub GetAlbumByGlobalId
 
    $sql = Sql->new($dbh);
    $id = $sql->Quote($id);
-   ($album) = $sql->GetSingleRowLike("Album", ["id"], ["gid", $id]);
+   ($album) = $sql->GetSingleRow("Album", ["id"], ["gid", lc($id)]);
 
    return $rdf->CreateAlbum(0, $album);
 }
@@ -379,11 +379,11 @@ sub GetTrackByGlobalId
 
    $sql = Sql->new($dbh);
    $id = $sql->Quote($id);
-   @ids = $sql->GetSingleRowLike("Album, Track, AlbumJoin", 
-                                 ["Track.id"], 
-                                 ["Track.gid", $id,
-                                  "AlbumJoin.track", "Track.id",
-                                  "AlbumJoin.album", "Album.id"]);
+   @ids = $sql->GetSingleRow("Album, Track, AlbumJoin", 
+                             ["Track.id"], 
+                             ["Track.gid", lc($id),
+                              "AlbumJoin.track", "Track.id",
+                              "AlbumJoin.album", "Album.id"]);
 
    return $rdf->CreateTrackList(@ids);
 }
@@ -400,10 +400,10 @@ sub GetTrackByTRM
 
    $sql = Sql->new($dbh);
    $id = $sql->Quote($id);
-   @ids = $sql->GetSingleRowLike("TRM, TRMJoin",
-                                 ["Track"], 
-                                 ["TRM.TRM", $id,
-                                 "TRMJoin.TRM", "TRM.id"]);
+   @ids = $sql->GetSingleRow("TRM, TRMJoin",
+                             ["Track"], 
+                             ["TRM.TRM", lc($id),
+                             "TRMJoin.TRM", "TRM.id"]);
 
    return $rdf->CreateTrackList(@ids);
 }
@@ -420,9 +420,9 @@ sub GetAlbumsByArtistGlobalId
 
    $sql = Sql->new($dbh);
    $id = $sql->Quote($id);
-   @ids = $sql->GetSingleColumnLike("Album, Artist", "Album.id", 
-                                    ["Artist.gid", $id,
-                                     "Album.artist", "Artist.id"]);
+   @ids = $sql->GetSingleColumn("Album, Artist", "Album.id", 
+                                ["Artist.gid", lc($id),
+                                "Album.artist", "Artist.id"]);
 
    return $rdf->CreateAlbumList(@ids);
 }
@@ -1093,13 +1093,13 @@ sub QuickTrackInfoFromTrackId
    $sql = Sql->new($dbh);
    $tid = $sql->Quote($tid);
    $aid = $sql->Quote($aid);
-   @data = $sql->GetSingleRowLike(
+   @data = $sql->GetSingleRow(
       "Track, AlbumJoin, Album, Artist", 
       ["Track.name", "Artist.name", "Album.name", 
        "AlbumJoin.sequence", "Track.Length"],
-      ["Track.gid", $tid,
+      ["Track.gid", lc($tid),
        "AlbumJoin.album", "Album.id",
-       "Album.gid", $aid,
+       "Album.gid", lc($aid),
        "Track.id", "AlbumJoin.track",
        "Album.id", "AlbumJoin.album",
        "Track.Artist", "Artist.id"]);

@@ -47,10 +47,24 @@ sub escape
    return $_[0];
 }
 
+sub GetMQNamespace
+{
+    my ($this) = @_;
+
+    return "http://musicbrainz.org/mm/mq-1.0#";
+}
+
+sub GetMMNamespace
+{
+    my ($this) = @_;
+
+    return "http://musicbrainz.org/mm/mm-2.0#";
+}
+
 sub BeginRDFObject 
 {
     my ($this, $skipxmldecl) = @_;
-    my $out;
+    my ($out, $mm, $mq);
 
     $this->{level} = 1;
 
@@ -58,11 +72,13 @@ sub BeginRDFObject
     {
        $out = "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n";
     }
-
+   
+    $mq = $this->GetMQNamespace();
+    $mm = $this->GetMMNamespace();
     $out .=  "<rdf:RDF xmlns:rdf = \"http://www.w3.org/1999/02/22-rdf-syntax-ns#\"\n".
       "         xmlns:dc  = \"http://purl.org/dc/elements/1.1/\"\n".
-      "         xmlns:mq  = \"http://musicbrainz.org/mm/mq-1.0#\"\n".
-      "         xmlns:mm  = \"http://musicbrainz.org/mm/mm-2.0#\">\n";
+      "         xmlns:mq  = \"$mq\"\n".
+      "         xmlns:mm  = \"$mm\">\n";
 
     return $out;
 }

@@ -95,7 +95,11 @@ else
     };
     </script>
 
+% if ($ARGS{nonalbum}) {
     <form method="POST" action="/bare/enter_kv_mod.html" NAME="AddAlbumTracks"
+% } else {
+    <form method="POST" action="addalbumselattr.html" NAME="AddAlbumTracks"
+% }
           enctype="application/x-www-form-urlencoded" class="formstyle">
     <table>
 % if (defined $found_id) {
@@ -107,7 +111,7 @@ else
           which contains <font class="bold"><% $found_tracks %></font> tracks.
           <p>
           If you are certain that you need to add another album with the
-          same name, then fill out the form below and click Finish &gt;&gt;.
+          same name, then fill out the form below and click Submit.
           Otherwise, check out album 
           <a href="/showalbum.html?albumid=<% $found_id %>"><% $ARGS{value0} %></a>.<p><br>
         </td>
@@ -158,7 +162,7 @@ else
         &nbsp;
         </td>
         <td>
-        <input type="submit" value="Finish >>" name="Finish"
+        <input type="submit" value="Submit" name="Submit"
             onClick="return validate(form);">
         </td>
       </tr>

@@ -759,7 +759,7 @@ sub OutputArtistRDF
 sub OutputAlbumRDF
 {
     my ($this, $cache, $ref) = @_;
-    my ($out, $album, $track, $artist, $ids, $i);
+    my ($out, $album, $track, $artist, $ids, $i, $attr);
 
     return "" if (!defined $this->GetBaseURI());
 
@@ -783,6 +783,21 @@ sub OutputAlbumRDF
         else
         {
             last;
+        }
+    }
+
+    my @attrs = $album->GetAttributes();
+    foreach $attr (@attrs)
+    {
+        if ($attr >= Album::ALBUM_ATTR_SECTION_TYPE_START && 
+            $attr <= Album::ALBUM_ATTR_SECTION_TYPE_END)
+        {
+           $out .= $this->Element("rdf:type", "", "rdf:resource", $this->GetMMNamespace() . $album->GetAttributeName($attr));
+        }
+        elsif ($attr >= Album::ALBUM_ATTR_SECTION_STATUS_START && 
+               $attr <= Album::ALBUM_ATTR_SECTION_STATUS_END)
+        {
+           $out .= $this->Element("mm:release", "", "rdf:resource", $this->GetMMNamespace() . $album->GetAttributeName($attr));
         }
     }
 
