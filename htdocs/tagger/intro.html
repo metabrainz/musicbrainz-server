@@ -1,19 +1,25 @@
 %# vi: set ts=2 sw=2 ft=mason :
 %# This is the page loaded by default into the tagger's browser pane
+<%args>
+$mbt=>0
+</%args>
 <& /comp/sidebar, title=>'Welcome to the MB Tagger!', expand=>'moderate' &>
 
-<p>
-<center>
+<h2>MusicBrainz Tagger Home Page</h2>
 
-<table width="400">
-<tr>
-   <td valign="middle" colspan="2">
-   To tag files, start by <a href="#mbt_load">loading music files</a> or
-   <a href="#mbt_dirload">whole directories</a> of music files.
-   <p>
-   <hr>
-   </td>
-</tr>
+<p>
+
+<table width="420">
+% if ($mbt) {
+  <tr>
+     <td valign="middle" colspan="2">
+     To tag files, start by <a href="#mbt_load">loading music files</a> or
+     <a href="#mbt_dirload">whole directories</a> of music files.
+     <p>
+     <hr>
+     </td>
+  </tr>
+% }
 <tr>
   <td valign="top" colspan="2">
     Please use the following links to get more information about
@@ -43,12 +49,67 @@
 </tr>
 <tr>
   <td valign="top" colspan="2">
-     Thanks for trying out the tagger, and please 
+     Thanks for using the tagger, and please 
      <a href="http://sourceforge.net/tracker/?func=add&amp;group_id=19506&amp;atid=119506">report</a> any bugs you may find.
   </td>
 </tr>
      
 </table>
-</center>
+
+
+<table width="420"><tr><td>
+
+<h2>MusicBrainz Quick Start Guide</h2>
+
+<p>
+To start using the tagger, follow these four steps:
+</p>
+
+<p>
+<b>1. Select files or directories of files</b>
+</p>
+
+<p>
+Use the <em>select files</em> or <em>select directories</em> buttons to load MP3, 
+Ogg/Vorbis or WAV files into the tagger. The tagger will list the new files in
+the <em>Pending</em> tab and start calculating acoustic fingerprints. Files identified
+by the tagger will be added to the <em>Identified</em> tab, and files that were
+not identified will be added tothe <em>Unidentified</em>.
+</p>
+
+<p>
+<b>2. Tag unidentified files</b>
+</p>
+<p>
+Use the embedded web browser to match up files in the <em>Unidentified</em> tab. Select
+a file from the tab and then click on <em>Lookup</em>. Follow the instructions on the web 
+page to find the right track and then click on the 
+<img align="center" src="/images/mblookup-tag.gif"> icon in front of the track to
+match up the your file with the one shown on the web page.
+</p>
+
+<p>
+<b>3. Review identified files</b>
+</p>
+<p>
+Once you have tagged your unidentified files, click on the identified tab. Tracks in
+the identified tab are color coded according to their similiarity to the metadata 
+found in the track. Tracks with a red background are more likely to be mismatches,
+and tracks with a white/grey background are likely to be good matches. Review all
+the tracks to ensure that all the tracks have been properly identified and matched.
+If a track has been misidentified/mismatched, select the track and click on 
+<em>Misidentified</em> and then match the track from the <em>Unidentified</em> tab.
+</p>
+
+<p>
+<b>4. Submit TRM ids and write new ID3/Vorbis comment tags</b>
+</p>
+<p>
+After you're certain that all the tracks have been properly matched, click on the
+<em>submit</em> button to submit your TRM ids to the server. Then, click on the
+<em>save</em> button to write new tags to your files and rename then.
+</p>
+
+</td></tr></table>
 
 <& /comp/footer &>
