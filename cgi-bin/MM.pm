@@ -179,60 +179,6 @@ sub CreateTRMList
    return $this->CreateOutputRDF('trmid', @ids);
 }
 
-# TODO delete me!
-sub CreateDumpRDF
-{
-   my ($this, $artistid) = @_;
-   my ($ar, $al, %ref, @albumids, $rdf, @albums, @tracks, $tr);
-
-   $this->{cache} = [];
-
-   require Artist;
-   $ar = Artist->new($this->{DBH});
-   $ar->SetId($artistid);
-   if (not defined $ar->LoadFromId())
-   {
-       return $this->ErrorRDF("Invalid artist specified.");
-   }
-
-   @albums = $ar->GetAlbums(1);
-   @albums = sort { $a->GetMBId() cmp $b->GetMBId() } @albums;
-   foreach $al (@albums)
-   {
-       push @albumids, $al->GetMBId();
-   }
-
-   $ref{obj} = $ar;
-   $ref{_artist} = \@albumids;
-
-   $rdf = $this->BeginRDFObject();
-   $rdf .= $this->OutputArtistRDF(\%ref) . "\n";
-
-   $this->AddToCache(1, 'artist', $ar);
-
-   foreach $al (@albums)
-   {
-       $ref{obj} = $al;
-       #$ref{_artist} = \@albumids;
-
-       $rdf .= $this->OutputAlbumRDF(\%ref) . "\n";;
-       push @tracks, $al->LoadTracks();
-   }
-
-   @tracks = sort { $a->GetMBId() cmp $b->GetMBId() } @tracks;
-   foreach $tr (@tracks)
-   {
-       $ref{obj} = $tr;
-       #$ref{_artist} = \@albumids;
-
-       $rdf .= $this->OutputTrackRDF(\%ref) . "\n";;
-   }
-
-   $rdf .= $this->EndRDFObject;
-
-   return $rdf;
-}
-
 # Check for duplicates, then add if not already in cache
 sub AddToCache
 {
