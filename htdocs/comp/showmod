@@ -24,7 +24,7 @@ $time = $m->comp("/comp/datetime", $time);
 </tr>
 <tr>
    <td width="37%" valign=top bgcolor=white class="body" nowrap>
-     By: <a href="/moderator.html?uid=<% $mod->GetModerator %>"><span class="bold"><% $mod->GetModeratorName %></span></a>
+     By: <a href="/user/view.html?uid=<% $mod->GetModerator %>"><span class="bold"><% $mod->GetModeratorName %></span></a>
      &nbsp;&nbsp;&nbsp;
      <a href="/showmod.html?modid=<% $mod->GetId() %>"
         title="View moderation detail">Id: <% $mod->GetId() %></a><br> 
@@ -95,7 +95,7 @@ $time = $m->comp("/comp/datetime", $time);
 %    for my $note (@$notes) {
         &nbsp;&nbsp;&nbsp;&nbsp;
 %       $bold = ($note->GetUserId == $mod->GetModerator) ? 'bold' : 'body';
-        <a href="/moderator.html?uid=<% $note->GetUserId %>"
+        <a href="/user/view.html?uid=<% $note->GetUserId %>"
 	    ><font class="<% $bold %>"><% $note->GetUserName %></font></a>:
         <% $note->GetTextAsHTML |n %><br> 
 %    }

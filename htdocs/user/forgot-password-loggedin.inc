@@ -4,7 +4,7 @@
 <p>
 	You're already logged in!&nbsp;
 	To change your password, just go to
-	<a href="/moderator.html?uid=<% $session{uid} %>">your profile page</a>
+	<a href="/user/edit.html">your profile page</a>
 	and update your details.
 </p>
 

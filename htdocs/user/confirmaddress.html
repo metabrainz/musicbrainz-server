@@ -70,7 +70,7 @@ if ($ui->SetUserInfo($uid, $email))
     $m->comp("/comp/sidebar", title => 'Verify EMail Address');
     </%perl>
     Your new email address has been saved. Thank you!<p>
-    [ <a href="/moderator.html?uid=<% $uid %>">View Profile</a> ]
+    [ <a href="/user/view.html">View Profile</a> ]
     <%perl>
 }
 else

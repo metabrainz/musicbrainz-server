@@ -12,7 +12,7 @@
 % if (!defined $session{user} || $session{user} eq '') {
          <a href="/login.html">Login</a> |
 % } else {
-         <a href="/moderator.html?uid=<% $session{uid} %>">Profile</a> |
+         <a href="/user/view.html">Profile</a> |
          <a href="/logout.html">Logout</a> |
 % }
          <a href="/prefs.html">Prefs</a> |

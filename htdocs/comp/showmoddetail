@@ -30,7 +30,7 @@ my $expire_verb = ($mod->GetExpired ? "Expired" : "Expires");
 <table>
 	<tr>
 		<td>Moderator:</td>
-		<td><a href="/moderator.html?uid=<% $mod->GetModerator %>"
+		<td><a href="/user/view.html?uid=<% $mod->GetModerator %>"
 			style="font-weight: bold"
 			><% $mod->GetModeratorName %></a></td>
 	</tr>
@@ -130,7 +130,7 @@ my $expire_verb = ($mod->GetExpired ? "Expired" : "Expires");
 			<table>
 % for my $v (@votes) {
 				<tr>
-					<td><a href="/moderator.html?uid=<% $v->GetUserId %>"
+					<td><a href="/user/view.html?uid=<% $v->GetUserId %>"
 						><% $v->GetUserName %></a></td>
 					<td style="text-align: right"><% $v->GetVoteName %></td>
 				</tr>
@@ -161,7 +161,7 @@ my $expire_verb = ($mod->GetExpired ? "Expired" : "Expires");
         <td colspan="2">
 %         foreach my $note (@notes) {
              &nbsp;&nbsp;&nbsp;&nbsp;
-			 <a href="/moderator.html?uid=<% $note->GetUserId %>"
+			 <a href="/user/view.html?uid=<% $note->GetUserId %>"
 % if ($note->GetUserId == $mod->GetModerator) {
 				style="font-weight: bold"
 % }

@@ -99,7 +99,7 @@
      gattrs=>"width='100%'" &>
     <br>
     You are logged in as <b><% $session{user} %></b>.<br>
-    View/update your <a href="/moderator.html?uid=<% $session{uid} %>">profile</a><br>
+    <a href="/user/edit.html">View/update your profile</a><br>
     or your <a href="/prefs.html">preferences</a>.<br>
     <a href="/logout.html">Logout</a> from MusicBrainz.
     <br>
