@@ -62,7 +62,7 @@ sub handler
 	}
 
     return DECLINED if (!defined $r->content_type);
-    return DECLINED if $r->content_type && $r->content_type !~ m|^text/html|io;
+    return DECLINED if $r->content_type && $r->content_type !~ m[^text/html\b]io;
 
     package HTML::Mason::Commands;
 
