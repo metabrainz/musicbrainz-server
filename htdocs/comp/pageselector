@@ -1,25 +1,5 @@
+%# vi: set ts=2 sw=2 ft=mason :
 <%perl>
-
-sub PageNumbers
-{
-    my ($start, $end, $url, $index, $pagesize) = @_;
-    my $out = "";
-
-    for my $i ($start .. $end)
-    {
-        if ($i != $index)
-        {
-            $out .= "<a href=\"$url&amp;offset=" . ($i * $pagesize) .  "\">" . ($i + 1) .
-                    "</a>&nbsp;";
-        }
-        else
-        {
-            $out .= "<b>" . ($i + 1) . "</b>&nbsp;";
-        }
-    }
-
-    return $out;
-}
 
 # I used to have an %args block here but Mason kept crashing on it
 my $offset = $ARGS{offset};
@@ -72,15 +52,26 @@ if ($end > $pagecount-1-$snaptoend) { $end = $pagecount-1 }
 
   &nbsp;
 
-% if ($start > 0) {
-	...
-% }
+<%perl>
 
-  <% PageNumbers($start, $end, $url, $index, $pagesize) |n %>
+$m->out("...&nbsp;") if $start > 0;
 
-% if ($end < $pagecount-1) {
-	...
-% }
+for my $i ($start .. $end)
+{
+	if ($i != $index)
+	{
+		$m->out("<a href='$url&amp;offset=" . ($i * $pagesize)
+			. "'>" . ($i + 1) . "</a>&nbsp;");
+	}
+	else
+	{
+		$m->out("<b>" . ($i + 1) . "</b>&nbsp;");
+	}
+}
+
+$m->out("...") if $end < $pagecount - 1;
+
+</%perl>
 
 % if ($index < $pagecount - 1) {
     <a href="<% $url %>&amp;offset=<% ($index + 1) * $pagesize %>"
