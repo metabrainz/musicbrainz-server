@@ -385,6 +385,7 @@ sub Retrieve
             {
                 $temp = $parts[1];
             }
+            $temp = "" if not defined $temp;
             $temp =~ s/^[\n\r]*(.*?)[\r\n]*$/$1/;
             $title .= $temp;
             next;

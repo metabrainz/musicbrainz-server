@@ -295,21 +295,48 @@ sub Begin
 {
    my $this = $_[0];
 
-   $this->{DBH}->{AutoCommit} = 0;
-   return 1;
+   return eval
+   {
+       return ($this->{DBH}->{AutoCommit} = 0);
+   };
+   if ($@)
+   {
+       my $err = $@;
+       cluck($err);
+       die $err;
+   }
 }
 
 sub Commit
 {
    my $this = $_[0];
 
-   return $this->{DBH}->commit;
+   return eval
+   {
+       return $this->{DBH}->commit;
+   };
+   if ($@)
+   {
+       my $err = $@;
+       cluck($err);
+       die $err;
+   }
+   return 1;
 }
 
 sub Rollback
 {
    my $this = $_[0];
 
-   return $this->{DBH}->rollback;
+   return eval
+   {
+       return $this->{DBH}->rollback;
+   };
+   if ($@)
+   {
+       my $err = $@;
+       cluck($err);
+       die $err;
+   }
 }
 
