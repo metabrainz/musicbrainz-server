@@ -31,7 +31,6 @@ use vars qw(@ISA @EXPORT);
 @EXPORT = @EXPORT = '';
 
 use strict;
-use CGI;
 use DBI;
 use DBDefs;
 use Track;

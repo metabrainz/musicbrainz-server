@@ -6,7 +6,7 @@ use strict;
 use HTML::Mason;    # brings in subpackages: Parser, Interp, etc.
 
 # TODO: Check to make sure this path points to where the cgi-bin stuff is
-use lib "/home/robert/musicbrainz/mb_server/cgi-bin";
+use lib "/home/httpd/musicbrainz/cgi-bin";
 use MusicBrainz;  
 use UserStuff;  
 use Album;
@@ -32,10 +32,10 @@ use Sql;
 my $parser = new HTML::Mason::Parser(default_escape_flags=>'h');
 my $interp = new HTML::Mason::Interp (parser=>$parser,
             # TODO: This needs to point to the installed htdocs
-            comp_root=>'/home/robert/musicbrainz/mb_server/htdocs',
+            comp_root=>'/home/httpd/musicbrainz/htdocs',
             # TODO: This directory needs to be created for mason's internal 
             # use. Its best to create a mason dir in the main apache dir.
-            data_dir=>'/usr/apache/mason',
+            data_dir=>'/home/httpd/musicbrainz/mason',
             allow_recursive_autohandlers=>undef);
 my $ah = new HTML::Mason::ApacheHandler (interp=>$interp);
 chown ( [getpwnam('nobody')]->[2], [getgrnam('nobody')]->[2],
@@ -55,8 +55,9 @@ sub handler
               'Apache::Session::File',
               $cookies{'AF_SID'}->value(),
               {
-                 Directory => '/tmp/sessions',
-                 LockDirectory   => '/tmp/locks',
+                 # TODO: Create these directories for the session management
+                 Directory => '/home/httpd/musicbrainz/sessions',
+                 LockDirectory   => '/home/httpd/musicbrainz/locks',
               }; 
         };
 

@@ -30,7 +30,6 @@ use vars qw(@ISA @EXPORT);
 @EXPORT = '';
 
 use strict;
-use CGI;
 use DBI;
 use DBDefs;
 

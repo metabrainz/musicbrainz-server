@@ -5,17 +5,13 @@
    
   # for things in the "/perl" URL
   use Apache::Registry;          
+  use Apache::Session;          
    
   #load perl modules of your choice here
   #this code is interpreted *once* when the server starts
-  use LWP::UserAgent ();
-  use DBI ();
+  use DBI;
+  use DBD::mysql;
   
-  # Load CGI.pm and call its compile() method to precompile 
-  # (but not to import) its autoloaded methods. 
-  use CGI ();
-  CGI->compile(':all');
-
   sub UNIVERSAL::AUTOLOAD
   { 
       my $class = shift;

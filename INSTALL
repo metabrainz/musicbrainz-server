@@ -20,21 +20,21 @@ The MusicBrainz server requires the following items:
 
 4) Perl 5.003 or higher and the required perl modules: 
   
-   CPAN Name         Actual Perl module distributions
-   --------------------------------------------------
-   DBI             http://www.perl.com/CPAN/authors/id/TIMB/DBI-1.14.tar.gz
-   DBD::mysql      http://www.perl.com/CPAN/authors/id/JWIED/Msql-Mysql-modules-1.2215.tar.gz
-   CGI             http://www.perl.com/CPAN/authors/id/LDS/CGI.pm-2.73.tar.gz
-   HTML::Mason     http://www.perl.com/CPAN/authors/id/J/JS/JSWARTZ/HTML-Mason-0.88.tar.gz
-   LWP             http://www.perl.com/CPAN/authors/id/GAAS/libwww-perl-5.48.tar.gz
-   Apache::Session http://www.perl.com/CPAN/authors/id/JBAKER/Apache-Session-1.53.tar.gz
-   MLDBM           http://www.perl.com/CPAN/authors/id/GSAR/MLDBM-2.00.tar.gz
-   Digest::MD5     http://www.perl.com/CPAN/authors/id/GAAS/Digest-MD5-2.12.tar.gz
-   HTML::Parser    http://www.perl.com/CPAN/authors/id/GAAS/HTML-Parser-3.13.tar.gz
-   MIME::Base64    http://www.perl.com/CPAN/authors/id/GAAS/MIME-Base64-2.11.tar.gz
-   XML::Parser     http://www.perl.com/CPAN/authors/id/C/CO/COOPERCL/XML-Parser-2.29.tar.gz
-   XML::DOM        http://www.perl.com/CPAN/authors/id/E/EN/ENNO/XML-DOM-1.25.tar.gz
-   XML::XQL        http://www.perl.com/CPAN/authors/id/E/EN/ENNO/XML-XQL-0.61.tar.gz
+   CPAN Name
+   ---------
+   Bundle::Apache (Apache::Registry and Apache::Session)
+   DBI          
+   DBD::mysql  
+   HTML::Mason
+   Unicode::String;
+   XML::DOM   
+   XML::Parser 
+   XML::XQL  
+   XML::XQL::DOM;
+
+   These probably come standard with Perl:
+   IO::Socket     
+   Carp;
 
 Installation:
 =============
@@ -45,7 +45,23 @@ Installation:
 
    For the HTML::Mason install, there is a handler.pl script already
    included in the admin directory. You will probably need to review
-   it and make sure that all the paths point to the right place.
+   it and make sure that all the paths point to the right place. Check
+   the file for TODO sections which point out things that might need to
+   change. However, if you place all musicbrainz related things into
+   /home/httpd/musicbrainz/{htdocs|cgi-bin|mason|locks|sessions} you
+   shouldn't have to make any changes.
+
+   TODO sections mentioned:
+     1) Set the lib path to point to the cgi-bin dir in this dist.
+     2) Set the Mason comp_root (point it to the htdocs dir in this dist)
+     3) Set the Mason data_dir (point it to an empty Mason dir where httpd
+        has write access. To keep things in one place, choose 
+        /home/httpd/musicbrainz/mason. httpd will place cache objects and 
+        such in this dir)
+     4) Set the session and lock directories where Apache can store the
+        user session files. It defauls to /home/httpd/musicbrainz/sessions
+        and /home/httpd/musicbrainz/locks. Make sure the selected
+        directories exist before you start the server.
 
 2) Create a database called 'musicbrainz'. 
    (mysql: 'mysqladmin create musicbrainz')
@@ -72,10 +88,9 @@ Installation:
    from cgi-bin into /home/httpd/musicbrainz/cgi-bin you shouldn't have
    to modify handler.pl and you should only have to import vh_httpd.conf
    into your virtualhosts section of your httpd.conf file. In the admin
-   directory you'll also find startup.pl with is the mod_perl startup
+   directory you'll also find startup.pl which is the mod_perl startup
    file. Place both startup.pl and handler.pl into the conf directory
-   of your apache install. These scripts assume that apache got installed
-   into /usr/apache. Its probably wise to review each of these scripts
+   of your apache install. Its probably wise to review each of these scripts
    and look for TODO comments. Each of the TODO comments indicates a
    path or setting that needs to be set for your configuration. 
 
@@ -84,7 +99,17 @@ Installation:
    from the cgi-bin dir into the ScriptAlias directory specified in httpd.conf
 
 8) Now start mysql (if its not already running), and then start apache and
-   you should be set and ready to roll.
+   you should be set and ready to roll. Go the the selected URL and you
+   should see a MusicBrainz site without any data.
+
+9) Finally, import some data into the system. Download the data dump from
+       ftp://ftp.musicbrainz.org/pub/musicbrainz/mbdump.tar.bz2
+   and then run the data import script in the admin dir:
+
+       ./MBImport.pl mbdump.tar.bz2
+
+   This should import the data and now you have your very own MusicBrainz
+   server.
 
 Good luck!
 
