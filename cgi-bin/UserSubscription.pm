@@ -69,6 +69,7 @@ sub SubscribeArtists
 	my $sql = Sql->new($self->{DBH});
 
 	$sql->AutoTransaction(sub {
+		my $mod = Moderation->new($self->{DBH});
 		my $modid = 0;
 
 		for my $artistid (@artistids)
@@ -80,9 +81,7 @@ sub SubscribeArtists
 				$artistid,
 			) and next;
 
-			$modid ||= $sql->SelectSingleValue(
-				"SELECT NEXTVAL('moderation_id_seq')"
-			);
+			$modid ||= $mod->GetMaxModID;
 
 			$sql->Do(
 				"INSERT INTO moderator_subscribe_artist
