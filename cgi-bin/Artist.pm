@@ -39,7 +39,7 @@ use String::Unicode::Similarity;
 use Text::Unaccent;
 use LocaleSaver;
 use POSIX qw(:locale_h);
-use Encode qw( decode );
+use Encode qw( decode encode );
 
 sub new
 {
@@ -182,6 +182,32 @@ sub LoadFromName
 
    # First try to find the artist by name
    $sql = Sql->new($this->{DBH});
+
+    # Search using 'ilike' is expensive, so try the usual capitalisations
+    # first using the index.
+    # TODO a much better long-term solution would be to have a "searchname"
+    # column on the table which is effectively "lc unac artist.name", then
+    # search on that.
+    {
+	my $lc = lc decode "utf-8", $artistname;
+	my $uc = uc $lc;
+	(my $tc = $lc) =~ s/\b(\w)/uc $1/eg;
+	(my $fwu = $lc) =~ s/\A(\S+)/uc $1/e;
+
+	my $row = $sql->SelectSingleRowArray(
+	    "SELECT id, name, gid, modpending, sortname
+	    FROM artist WHERE name IN (?, ?, ?, ?)
+	    LIMIT 1",
+	    encode("utf-8", $uc),
+	    encode("utf-8", $lc),
+	    encode("utf-8", $tc),
+	    encode("utf-8", $fwu),
+	);
+
+	@row = @$row if $row;
+    }
+
+   not(@row) and
    @row = $sql->GetSingleRowLike("Artist", 
                                  [qw(id name GID modpending sortname)],
                                  ["name", $sql->Quote($artistname)]);
