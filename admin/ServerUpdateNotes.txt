@@ -23,6 +23,9 @@ I Server update tasks
 
        echo "select fill_album_meta();" | psql musicbrainz
 
+3. Run admin/cleanup/RemoveBadTOCs.pl and admin/FixLengths.pl to
+   clean gunk out of the TOC table and to update the trackslengths
+   on albums that have zero length tracks.
 
 II Optimization tasks
 ---------------------
