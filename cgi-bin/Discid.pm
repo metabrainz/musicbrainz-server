@@ -249,8 +249,8 @@ sub Remove
     return if (!defined $id);
   
     $sql = Sql->new($this->{DBH});
-    $sql->Do("delete from Discid where disc = '$id'");
     $sql->Do("delete from TOC where Discid = '$id'");
+    $sql->Do("delete from Discid where disc = '$id'");
 }
 
 sub FindFreeDBEntry
