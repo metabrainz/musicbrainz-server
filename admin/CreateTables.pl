@@ -133,8 +133,8 @@ sub CreateTables
 
     $query = "create table TOC (" .
              "   Id int auto_increment primary key," .
-             "   Diskid varchar(32),".
-             "   Album int,".
+             "   Diskid varchar(32) not null,".
+             "   Album int not null,".
              "   Tracks int,".
              "   Leadout int";
 
@@ -169,7 +169,7 @@ sub CreateTables
 
     $dbh->do("create table ModeratorInfo (" .
              "   Id int auto_increment primary key," .
-             "   Name varchar(64)," .
+             "   Name varchar(64) not null," .
              "   Password varchar(64), ".
              "   Privs int, ".
              "   ModsAccepted int, ".
@@ -186,7 +186,7 @@ sub CreateTables
              "   PrevValue varchar(255), ".
              "   NewValue varchar(255), ".
              "   TimeSubmitted datetime not null, ".
-             "   Moderator int, ".
+             "   Moderator int not null, ".
              "   YesVotes int, ".
              "   NoVotes int)")
           or die("Cannot create Changes table");
@@ -197,8 +197,7 @@ sub CreateTables
              "   Id int auto_increment primary key," .
              "   Uid int not null, ".
              "   Rowid int not null, ".
-             "   vote tinyint not null, ".
-             "   index UidIndex (Uid))")
+             "   vote tinyint not null)")
           or die("Cannot create Votes table");
     
     print "Created Votes table.\n";    
@@ -255,13 +254,13 @@ sub CreateIndices
     print "Added indices to Artist table.\n";
 
     $dbh->do(qq/alter table Album add index NameIndex (Name), 
-                                  add unique index GIDIndex (GID)")
-          or die("Could not add indices to Album table/);
+                                  add unique index GIDIndex (GID)/)
+          or die("Could not add indices to Album table");
     print "Added indices to Album table.\n";
 
     $dbh->do(qq/alter table Track add index NameIndex (Name), 
                                   add unique index GIDIndex (GID), 
-                                  add index GUIDIndex (GUID), 
+#                                  add index GUIDIndex (GUID), 
                                   add index ArtistIndex (Artist), 
                                   add index AlbumIndex (Album)/)
           or die("Could not add indices to Track table");
@@ -271,19 +270,11 @@ sub CreateIndices
           or die("Could not add indices to Genre table");
     print "Added indices to Genre table.\n";
 
-    $dbh->do(qq/alter table Pending add index NameIndex (Name), 
-                                    add index GUIDIndex (GUID), 
-                                    add index ArtistIndex (Artist), 
-                                    add index AlbumIndex (Album), 
-                                    add index GenreIndex (Genre)/)
+    $dbh->do(qq/alter table Pending add index GUIDIndex (GUID)/)
           or die("Could not add indices to Pending table");
     print "Added indices to Pending table.\n";
 
-    $dbh->do(qq/alter table PendingArchive add index NameIndex (Name), 
-                                           add index GUIDIndex (GUID), 
-                                           add index ArtistIndex (Artist), 
-                                           add index AlbumIndex (Album), 
-                                           add index GenreIndex (Genre)/)
+    $dbh->do(qq/alter table PendingArchive add index GUIDIndex (GUID)/)
           or die("Could not add indices to PendingArchive table");
     print "Added indices to PendingArchive table.\n";
 
@@ -297,8 +288,8 @@ sub CreateIndices
           or die("Could not add indices to TOC table");
     print "Added indices to TOC table.\n";
 
-    $dbh->do(qq/alter table ModeratorInfo add index NameIndex (Name)")
-          or die("Could not add indices to ModeratorInfo table/);
+    $dbh->do(qq/alter table ModeratorInfo add index NameIndex (Name)/)
+          or die("Could not add indices to ModeratorInfo table");
     print "Added indices to ModeratorInfo table.\n";
 
     $dbh->do(qq/alter table Changes add index ModeratorIndex (Moderator), 
@@ -317,8 +308,8 @@ sub CreateIndices
              or die("Could not add indices to SyncText table");
        print "Added indices to SyncText table.\n";
 
-       $dbh->do(qq/alter table SyncEvent add index SyncTextIndex (SyncText) ")
-             or die("Could not add indices to SyncEvent table/);
+       $dbh->do(qq/alter table SyncEvent add index SyncTextIndex (SyncText)/)
+             or die("Could not add indices to SyncEvent table");
        print "Added indices to SyncEvent table.\n";
     }
     else
