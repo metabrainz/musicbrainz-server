@@ -908,6 +908,7 @@ sub UpdateName
 	defined($name) && $name ne ""
 		or croak "Missing album name in RemoveFromAlbum";
 
+	MusicBrainz::TrimInPlace($name);
 	my $page = $self->CalculatePageIndex($name);
 
 	my $sql = Sql->new($self->{DBH});
@@ -917,6 +918,12 @@ sub UpdateName
 		$page,
 		$id,
 	);
+
+	# Now remove the old name from the word index, and then
+	# add the new name to the index
+	my $engine = SearchEngine->new($self->{DBH}, { Table => 'album' });
+	$engine->RemoveObjectRefs($id);
+	$engine->AddWordRefs($id, $name);
 }
 
 sub UpdateAttributes

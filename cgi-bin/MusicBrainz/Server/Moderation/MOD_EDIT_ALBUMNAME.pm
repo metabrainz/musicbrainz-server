@@ -94,14 +94,7 @@ sub ApprovedAction
 
 	my $al = $this->{_album};
 	$al->SetName($this->GetNew);
-	$al->UpdateName
-		or die "Failed to update album in MOD_EDIT_ALBUMNAME";
-
-	# Now remove the old name from the word index, and then
-	# add the new name to the index
-	my $engine = SearchEngine->new($this->{DBH}, { Table => 'Album' });
-	$engine->RemoveObjectRefs($this->GetRowId);
-	$engine->AddWordRefs($this->GetRowId, $this->GetNew);
+	$al->UpdateName;
 
 	STATUS_APPLIED;
 }
