@@ -45,7 +45,7 @@ if ($ARGS{confirm})
 				DBH	=> $mb->{DBH},
 				uid	=> $session{uid},
 				privs => $session{privs},
-				type => ModDefs::MOD_REMOVE_ARTISTALIAS,
+				type => &ModDefs::MOD_REMOVE_ARTISTALIAS,
 				# --
 				artist => $ar,
 				alias => $al,

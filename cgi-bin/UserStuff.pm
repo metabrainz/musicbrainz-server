@@ -293,7 +293,7 @@ sub SendVerificationEmail
 
 	$t = time();
 
-	my $smtp = Net::SMTP->new(DBDefs::SMTP_SERVER());
+	my $smtp = Net::SMTP->new(&DBDefs::SMTP_SERVER);
 	return "Could not send mail. Please try again later." unless $smtp;
 
     $safe_from = $info->{name};
@@ -311,7 +311,7 @@ sub SendVerificationEmail
 	$smtp->datasend("This is the email confirmation for your MusicBrainz account.\n");
 	$smtp->datasend("Please click on the link below to verify your email address:\n\n");
 	
-	$url = "http://" . DBDefs::WEB_SERVER . "/user/confirmaddress.html?" .
+	$url = "http://" . &DBDefs::WEB_SERVER . "/user/confirmaddress.html?" .
 			"uid=$info->{uid}&email=" . uri_escape($email) .
 			"&time=$t&chk=" . uri_escape($this->GetVerifyChecksum($email,
 			$info->{uid}, $t));
@@ -338,7 +338,7 @@ sub SendEMail
     $safe_from = $from;
     $safe_from =~ s/\W/?/;
 
-	my $smtp = Net::SMTP->new(DBDefs::SMTP_SERVER());
+	my $smtp = Net::SMTP->new(&DBDefs::SMTP_SERVER);
 	return "Could not send mail. Please try again later." unless $smtp;
 
 	$smtp->mail("noreply\@musicbrainz.org");
@@ -359,7 +359,7 @@ sub SendEMail
           $smtp->datasend("If you would like to send mail to moderator $from,");
           $smtp->datasend(" please use the link below:\n");
 	
-          $url = "http://" . DBDefs::WEB_SERVER . 
+          $url = "http://" . &DBDefs::WEB_SERVER . 
                  "/user/mod_email.html?uid=$from_uid";
           $smtp->datasend("$url\n\n");
     }
@@ -379,8 +379,8 @@ sub SetSession
 	tie %HTML::Mason::Commands::session,
 	'Apache::Session::File', undef,
 	{
-		Directory => DBDefs::SESSION_DIR,
-		LockDirectory => DBDefs::LOCK_DIR,
+		Directory => &DBDefs::SESSION_DIR,
+		LockDirectory => &DBDefs::LOCK_DIR,
 	};
 	my $cookie = new CGI::Cookie(
 		-name=>'AF_SID',

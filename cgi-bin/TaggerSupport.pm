@@ -117,7 +117,7 @@ sub Lookup
 
    if ($data->{artist} eq "Various Artists")
    {
-       $data->{artistid} = ModDefs::VARTIST_MBID;
+       $data->{artistid} = &ModDefs::VARTIST_MBID;
    }
 
    if ($data->{artist} eq '' || $data->{album} eq '' || $data->{track} eq '' || 
@@ -145,7 +145,7 @@ sub Lookup
            ($flags, $list) = $this->VariousArtistSearch($data->{album});
            if (scalar(@$list) == 1 && ($flags & ALBUMID))
            {
-               $data->{artistid} = ModDefs::VARTIST_MBID;
+               $data->{artistid} = &ModDefs::VARTIST_MBID;
                $data->{albumid} = $list->[0]->{mbid};
            }
            else
@@ -751,7 +751,7 @@ sub VariousArtistSearch
    my ($al, @ids, $ar);
 
    $ar = Artist->new($this->{DBH});
-   $ar->SetId(ModDefs::VARTIST_ID);
+   $ar->SetId(&ModDefs::VARTIST_ID);
    $ar->LoadFromId();
    $this->{artist} = $ar;     
 
@@ -775,7 +775,7 @@ sub VariousArtistSearch
        $al->SetId($row->{'albumid'});
        if (defined $al->LoadFromId())
        {
-           $this->{artistid} = ModDefs::VARTIST_MBID;
+           $this->{artistid} = &ModDefs::VARTIST_MBID;
            $this->{album} = $al;     
            $this->{fuzzy} = 1;
            my $thisname = lc(decode "utf-8", $al->GetName);

@@ -70,7 +70,7 @@ $artist->LoadFromId
 	|
 % }
 
-% if ($artist->GetId() != ModDefs::VARTIST_ID) {
+% if ($artist->GetId() != &ModDefs::VARTIST_ID) {
 	<a href="/showartist.html?artistid=<% $artist->GetId %>"
 		>View albums</a>
 	|

@@ -96,7 +96,7 @@ if ($search =~ /\S/ and $trackname =~ /\S/)
 				DBH	=> $mb->{DBH},
 				uid	=> $session{uid},
 				privs => $session{privs},
-				type => ModDefs::MOD_EDIT_TRACKNAME,
+				type => &ModDefs::MOD_EDIT_TRACKNAME,
 				# --
 				track => $track,
 				newname => $trackname,

@@ -58,7 +58,7 @@ if ($ARGS{confirm})
 				DBH	=> $mb->{DBH},
 				uid	=> $session{uid},
 				privs => $session{privs},
-				type => ModDefs::MOD_EDIT_ALBUMATTRS,
+				type => &ModDefs::MOD_EDIT_ALBUMATTRS,
 				# --
 				albums => \@objs,
 				attrs => [ $attr_type, $attr_status ],

@@ -76,7 +76,7 @@ if ($newartistname =~ /\S/ and $newartistsortname =~ /\S/
 				DBH	=> $mb->{DBH},
 				uid	=> $session{uid},
 				privs => $session{privs},
-				type => ModDefs::MOD_ADD_TRACK_KV,
+				type => &ModDefs::MOD_ADD_TRACK_KV,
 				# --
 				album => $al,
 				trackname => $trackname,
@@ -123,7 +123,7 @@ if ($newartistname =~ /\S/ and $newartistsortname =~ /\S/
         </td>
       </tr>
 
-% if ($ar->GetId == ModDefs::VARTIST_ID) {
+% if ($ar->GetId == &ModDefs::VARTIST_ID) {
       <tr>
         <td>
 					Search for Track Artist:

@@ -497,7 +497,7 @@ elsif ($flags & TaggerSupport::ALBUMTRACKLIST)
 			$_ <= Album::ALBUM_ATTR_SECTION_STATUS_END
 		} @attrs;
 		
-		my $is_va = ($_->{album_artist} == ModDefs::VARTIST_ID);
+		my $is_va = ($_->{album_artist} == &ModDefs::VARTIST_ID);
 		
 		my $va = $is_va ? "Various Artist" : "";
 		my $name = Album->GetAttributeName($type);

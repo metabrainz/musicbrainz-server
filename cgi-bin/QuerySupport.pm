@@ -439,7 +439,7 @@ sub ExchangeMetadata
 
    #PrintData("Incoming:", @data);
 
-   if (!DBDefs::DB_READ_ONLY)
+   if (!&DBDefs::DB_READ_ONLY)
    {
        $ar = Artist->new($dbh);
        $gu = TRM->new($dbh);
@@ -486,9 +486,9 @@ sub SubmitTrack
        return $rdf->ErrorRDF("Incomplete track information submitted.") 
    }
 
-   if (DBDefs::DB_READ_ONLY)
+   if (&DBDefs::DB_READ_ONLY)
    {
-       return $rdf->ErrorRDF(DBDefs::DB_READ_ONLY_MESSAGE) 
+       return $rdf->ErrorRDF(&DBDefs::DB_READ_ONLY_MESSAGE) 
    }
 
    $in = Insert->new($dbh);
@@ -521,9 +521,9 @@ sub SubmitTRMList
 
    return undef if (!defined $dbh);
 
-   if (DBDefs::DB_READ_ONLY)
+   if (&DBDefs::DB_READ_ONLY)
    {
-       return $rdf->ErrorRDF(DBDefs::DB_READ_ONLY_MESSAGE) 
+       return $rdf->ErrorRDF(&DBDefs::DB_READ_ONLY_MESSAGE) 
    }
 
    $sql = Sql->new($dbh);
@@ -621,9 +621,9 @@ sub AuthenticateQuery
        return $rdf->ErrorRDF("Invalid/missing user name.") 
    }
 
-   if (DBDefs::DB_READ_ONLY)
+   if (&DBDefs::DB_READ_ONLY)
    {
-       return $rdf->ErrorRDF(DBDefs::DB_READ_ONLY_MESSAGE) 
+       return $rdf->ErrorRDF(&DBDefs::DB_READ_ONLY_MESSAGE) 
    }
 
    $us = UserStuff->new($dbh);
@@ -645,8 +645,8 @@ sub AuthenticateQuery
 
    my %session;
    tie %session, 'Apache::Session::File', undef, {
-                 Directory => DBDefs::SESSION_DIR,
-                 LockDirectory   => DBDefs::LOCK_DIR};
+                 Directory => &DBDefs::SESSION_DIR,
+                 LockDirectory   => &DBDefs::LOCK_DIR};
 
    $session{session_key} = $digest;
    $session{uid} = $uid;
@@ -863,9 +863,9 @@ sub QuickTrackInfoFromTrackId
    # This is a total hack, RDF wise speaking. This is to bridge the gap
    # for the MB Tagger 0.10.0 series. Once the new cross platform tagger
    # is out, this function will go away.
-   if ($data[5] == ModDefs::VARTIST_ID) 
+   if ($data[5] == &ModDefs::VARTIST_ID) 
    {
-        $out .= $rdf->Element("mm:albumArtist", ModDefs::VARTIST_MBID);
+        $out .= $rdf->Element("mm:albumArtist", &ModDefs::VARTIST_MBID);
    }
    $out .= $rdf->EndDesc("mq:Result");
    $out .= $rdf->EndRDFObject;

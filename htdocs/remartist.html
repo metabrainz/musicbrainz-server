@@ -10,7 +10,7 @@ $m->comp("/comp/checkloggedin", 1, 1)
 MusicBrainz::IsNonNegInteger($artist) && $artist
 	or return $m->comp("/comp/badargs", 1, 1);
 
-$artist != ModDefs::VARTIST_ID && $artist != ModDefs::DARTIST_ID
+$artist != &ModDefs::VARTIST_ID && $artist != &ModDefs::DARTIST_ID
 	or return $m->comp(
 		"/comp/error",
 		"This artist cannot be deleted.",
@@ -40,7 +40,7 @@ if ($ARGS{confirm})
 				DBH	=> $mb->{DBH},
 				uid	=> $session{uid},
 				privs => $session{privs},
-				type => ModDefs::MOD_REMOVE_ARTIST,
+				type => &ModDefs::MOD_REMOVE_ARTIST,
 				# --
 				artist => $ar,
 			);

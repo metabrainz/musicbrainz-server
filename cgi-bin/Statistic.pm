@@ -189,7 +189,7 @@ my %stats = (
 
 	"count.album.various" => {
 		DESC => "Count of all 'Various Artists' albums",
-		SQL => "SELECT COUNT(*) FROM album WHERE artist = " . ModDefs::VARTIST_ID,
+		SQL => "SELECT COUNT(*) FROM album WHERE artist = " . &ModDefs::VARTIST_ID,
 	},
 	"count.album.nonvarious" => {
 		DESC => "Count of all 'Various Artists' albums",

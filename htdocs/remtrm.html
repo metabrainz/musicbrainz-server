@@ -42,7 +42,7 @@ if ($ARGS{confirm})
 				DBH	=> $mb->{DBH},
 				uid	=> $session{uid},
 				privs => $session{privs},
-				type => ModDefs::MOD_REMOVE_TRMID,
+				type => &ModDefs::MOD_REMOVE_TRMID,
 				# --
 				track => $tr,
 				trm => $trmid,

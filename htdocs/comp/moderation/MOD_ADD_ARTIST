@@ -18,7 +18,7 @@ my $s = $this->GetStatus;
 </%perl>
 
 	Artist:
-% if ($s == ModDefs::STATUS_FAILEDVOTE or $s == ModDefs::STATUS_FAILEDPREREQ) {
+% if ($s == &ModDefs::STATUS_FAILEDVOTE or $s == &ModDefs::STATUS_FAILEDPREREQ) {
    	<span class="bold"><% $name %></span>
 % } else {
 	<a href="/showartist.html?artistid=<% $id %>"

@@ -78,7 +78,7 @@ elsif (defined($voted = $mod->GetUserVote($session{uid})))
 }
 else
 {
-   if ($mod->GetStatus() == ModDefs::STATUS_OPEN)
+   if ($mod->GetStatus() == &ModDefs::STATUS_OPEN)
    {
       $text = "You haven't voted.";
 	  # TODO provide the means to vote here
@@ -87,7 +87,7 @@ else
    {
       $text = "You didn't vote.";
    }
-   $voted = ModDefs::VOTE_NOTVOTED;
+   $voted = &ModDefs::VOTE_NOTVOTED;
 }
 
 my $opentime = $mod->GetOpenTime();
@@ -160,8 +160,8 @@ use HTML::Mason::Tools qw( html_escape );
                        text=>$text,
                        bold=>0 &>
 %    if ($session{uid} == $mod->GetModerator() ||
-%        $mod->GetStatus() != ModDefs::STATUS_OPEN ||
-%        $voted != ModDefs::VOTE_NOTVOTED) {
+%        $mod->GetStatus() != &ModDefs::STATUS_OPEN ||
+%        $voted != &ModDefs::VOTE_NOTVOTED) {
        <& /comp/tableline, name=>"Yes Votes:", 
                            text=>$mod->GetYesVotes(),
                            bold=>0 &>

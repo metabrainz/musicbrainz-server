@@ -687,7 +687,7 @@ sub GetVariousDisplayList
    $query = qq|select id, name, modpending 
                     from Album 
                    where page >= $page and page <= $page_max and
-                         album.artist = | . ModDefs::VARTIST_ID;
+                         album.artist = | . &ModDefs::VARTIST_ID;
 	$query .= " AND attributes[2] = $reltype" if $reltype;
 	$query .= " AND attributes[3] = $relstatus" if $relstatus;
 

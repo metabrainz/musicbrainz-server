@@ -47,7 +47,7 @@ if ($ARGS{confirm})
 				DBH	=> $mb->{DBH},
 				uid	=> $session{uid},
 				privs => $session{privs},
-				type => ModDefs::MOD_REMOVE_TRACK,
+				type => &ModDefs::MOD_REMOVE_TRACK,
 				# --
 				track => $tr,
 				album => $al,

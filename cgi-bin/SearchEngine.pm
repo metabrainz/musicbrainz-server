@@ -558,7 +558,7 @@ sub _GetQuery
     } 1 .. $numwords;
 
     # Check to see if the query should be restricted to Various artists only
-    $where .= " AND t.artist = " . ModDefs::VARTIST_ID . " " 
+    $where .= " AND t.artist = " . &ModDefs::VARTIST_ID . " " 
        if ($self->{vartist} && $table eq 'album');
 
     my $from = "$wtable w1";

@@ -11,7 +11,7 @@ $m->comp("/comp/checkloggedin", 1, 1)
 MusicBrainz::IsNonNegInteger($id) && $id
 	or return $m->comp("/comp/badargs", 1, 1);
 
-$id != ModDefs::VARTIST_ID && $id != ModDefs::DARTIST_ID
+$id != &ModDefs::VARTIST_ID && $id != &ModDefs::DARTIST_ID
 	or return $m->comp(
 		"/comp/error",
 		"You cannot add an alias to this artist.",
@@ -45,7 +45,7 @@ if ($newalias =~ /\S/ and MusicBrainz::IsSingleLineString($newalias))
 				DBH	=> $mb->{DBH},
 				uid	=> $session{uid},
 				privs => $session{privs},
-				type => ModDefs::MOD_ADD_ARTISTALIAS,
+				type => &ModDefs::MOD_ADD_ARTISTALIAS,
 				# --
 				artist => $ar,
 				newalias => $newalias,

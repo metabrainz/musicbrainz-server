@@ -29,7 +29,7 @@ $artist->LoadFromId()
 		1, 1,
 	);
 
-$artist->GetId == ModDefs::DARTIST_ID
+$artist->GetId == &ModDefs::DARTIST_ID
 	and return $m->comp("/comp/badargs", 1, 1);
 
 
@@ -104,7 +104,7 @@ sub SortAlbums
 	$m->out("\">Related artists</a> ");
 
     if ($artist->GetName() ne "Unknown" &&
-        $artist->GetId() != ModDefs::VARTIST_ID &&
+        $artist->GetId() != &ModDefs::VARTIST_ID &&
         $artist->GetName() ne "Data CD")
     {
         if ($session{uid})
@@ -149,7 +149,7 @@ sub SortAlbums
 		<%perl>
 	}
 
-    if ($artistid == ModDefs::VARTIST_ID)
+    if ($artistid == &ModDefs::VARTIST_ID)
     {
         </%perl>
 
@@ -188,7 +188,7 @@ sub SortAlbums
                 $hasnonalbum += $album->IsNonAlbumTracks();
                 CheckAttributes($album);
 
-				$album->{_is_va_} = ($album->GetArtist == ModDefs::VARTIST_ID);
+				$album->{_is_va_} = ($album->GetArtist == &ModDefs::VARTIST_ID);
 				$album->{_is_nonalbum_} = ($album->{_attr_type} == Album::ALBUM_ATTR_NONALBUMTRACKS);
 
 				$album->{_section_key_} = (

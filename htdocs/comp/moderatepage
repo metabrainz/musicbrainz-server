@@ -13,8 +13,8 @@ my ($num_mods, $total_mods, $notes);
 my $max_items = $num;
 
 my $allow_skip = 1;
-$allow_skip = 0 if $type == ModDefs::TYPE_NEW;
-$allow_skip = 0 if $type == ModDefs::TYPE_FREEDB;
+$allow_skip = 0 if $type == &ModDefs::TYPE_NEW;
+$allow_skip = 0 if $type == &ModDefs::TYPE_FREEDB;
 
 $offset = $ARGS{offset};
 $offset = 0 if not $allow_skip;
@@ -27,14 +27,14 @@ $mb = $m->comp("/comp/dblogin");
 $mod = Moderation->new($mb->{DBH});
 
 my $show_button = 0;
-if ($type == ModDefs::TYPE_NEW)
+if ($type == &ModDefs::TYPE_NEW)
 {
     ($num_mods, $total_mods, @info) = 
            $mod->GetModerationList($offset, $max_items, $session{uid}, $type);
     $m->comp("/comp/sidebar", title=>'Review Pending Moderations',
             expand=>"moderate"); 
 }
-elsif ($type == ModDefs::TYPE_VOTED)
+elsif ($type == &ModDefs::TYPE_VOTED)
 {
     ($num_mods, $total_mods, @info) = 
            $mod->GetModerationList($offset, $max_items,
@@ -42,7 +42,7 @@ elsif ($type == ModDefs::TYPE_VOTED)
     $m->comp("/comp/sidebar", title=>'Review Old (Voted) Mods',
             expand=>"moderate"); 
 }
-elsif ($type == ModDefs::TYPE_MODERATOR)
+elsif ($type == &ModDefs::TYPE_MODERATOR)
 {
 	my $moderator = $ARGS{"moderator"} || $session{uid};
 	$moderator = 0 + $moderator;
@@ -52,7 +52,7 @@ elsif ($type == ModDefs::TYPE_MODERATOR)
     $m->comp("/comp/sidebar", title=>'Review Moderation By Moderator',
             expand=>"moderate"); 
 }
-elsif ($type == ModDefs::TYPE_ARTIST)
+elsif ($type == &ModDefs::TYPE_ARTIST)
 {
     ($num_mods, $total_mods, @info) = 
            $mod->GetModerationList($offset, $max_items,
@@ -60,14 +60,14 @@ elsif ($type == ModDefs::TYPE_ARTIST)
     $m->comp("/comp/sidebar", title=>'Moderations by Artist',
             expand=>"moderate"); 
 }
-elsif ($type == ModDefs::TYPE_FREEDB)
+elsif ($type == &ModDefs::TYPE_FREEDB)
 {
     ($num_mods, $total_mods, @info) = 
            $mod->GetModerationList($offset, $max_items, $session{uid}, $type);
     $m->comp("/comp/sidebar", title=>'Moderations from FreeDB',
             expand=>"moderate"); 
 }
-elsif ($type == ModDefs::TYPE_ALBUM)
+elsif ($type == &ModDefs::TYPE_ALBUM)
 {
     ($num_mods, $total_mods, @info) = 
            $mod->GetModerationList($offset, $max_items,
@@ -96,8 +96,8 @@ else
 foreach $obj (@info)
 {
     if ($obj->GetModerator() != $session{uid} &&
-        $obj->GetVote() == ModDefs::VOTE_NOTVOTED &&
-        $obj->GetStatus() == ModDefs::STATUS_OPEN)
+        $obj->GetVote() == &ModDefs::VOTE_NOTVOTED &&
+        $obj->GetStatus() == &ModDefs::STATUS_OPEN)
     {
        $show_button = 1;
        last;
@@ -115,7 +115,7 @@ if ($num_mods > 0)
 <tr>
 <td width="20%" align="center" nowrap>
 <% $total_mods + $offset %> mods 
-<% $type == ModDefs::TYPE_NEW ? 'pending' : 'total' %>
+<% $type == &ModDefs::TYPE_NEW ? 'pending' : 'total' %>
 </td>
 <td width="80%" align="center" NOWRAP>
 [ <a href="moderate.html?type=1">New Mods</a> |
@@ -132,19 +132,19 @@ if ($num_mods > 0)
 % if ($num_mods == 0) {
    <center>
    <br><br>
-%  if ($type == ModDefs::TYPE_NEW) {
+%  if ($type == &ModDefs::TYPE_NEW) {
    There are no new moderations pending. <br>Please
    consider moderating the <a href="/moderate.html?type=5">FreeDB 
    moderations</a>.
-%  } elsif ($type == ModDefs::TYPE_VOTED) {
+%  } elsif ($type == &ModDefs::TYPE_VOTED) {
    There are no old (voted on) moderations.
-%  } elsif ($type == ModDefs::TYPE_ARTIST) {
+%  } elsif ($type == &ModDefs::TYPE_ARTIST) {
    There are no moderations for this artist.
-%  } elsif ($type == ModDefs::TYPE_FREEDB) {
+%  } elsif ($type == &ModDefs::TYPE_FREEDB) {
    There are no freedb moderations pending.
-%  } elsif ($type == ModDefs::TYPE_ARTIST) {
+%  } elsif ($type == &ModDefs::TYPE_ARTIST) {
    There are no moderations for this album.
-%  } elsif ($type == ModDefs::TYPE_MODERATOR_FAILED) {
+%  } elsif ($type == &ModDefs::TYPE_MODERATOR_FAILED) {
    There are no failed moderations.
 %  } else {
    You have not entered any moderations.

@@ -73,15 +73,15 @@ $ar = Artist->new($mb->{DBH});
 
 if ($mac)
 {
-    $ar->SetId(ModDefs::VARTIST_ID);
+    $ar->SetId(&ModDefs::VARTIST_ID);
     $ret = $ar->LoadFromId();
 }
 else
 {
-    $ar->SetId(ModDefs::VARTIST_ID);
+    $ar->SetId(&ModDefs::VARTIST_ID);
     $ret = $ar->LoadFromName($lookup->{artist});
 
-    if (defined $ret && $ar->GetId() == ModDefs::VARTIST_ID)
+    if (defined $ret && $ar->GetId() == &ModDefs::VARTIST_ID)
     {
         $mac = 1;
     }

@@ -312,23 +312,23 @@ sub IsAutoModType
 {
     my ($this, $type) = @_;
 
-    if ($type == ModDefs::MOD_EDIT_ARTISTNAME ||
-        $type == ModDefs::MOD_EDIT_ARTISTSORTNAME ||
-        $type == ModDefs::MOD_EDIT_ALBUMNAME ||
-        $type == ModDefs::MOD_EDIT_TRACKNAME ||
-        $type == ModDefs::MOD_EDIT_TRACKNUM ||
-        $type == ModDefs::MOD_ADD_TRACK ||
-        $type == ModDefs::MOD_MOVE_ALBUM ||
-        $type == ModDefs::MOD_SAC_TO_MAC ||
-        $type == ModDefs::MOD_CHANGE_TRACK_ARTIST ||
-        $type == ModDefs::MOD_MAC_TO_SAC ||
-        $type == ModDefs::MOD_ADD_ARTISTALIAS ||
-        $type == ModDefs::MOD_ADD_ALBUM ||
-        $type == ModDefs::MOD_ADD_ARTIST ||
-        $type == ModDefs::MOD_ADD_TRACK_KV ||
-        $type == ModDefs::MOD_MOVE_DISCID ||
-        $type == ModDefs::MOD_REMOVE_TRMID ||
-        $type == ModDefs::MOD_EDIT_ALBUMATTRS)
+    if ($type == &ModDefs::MOD_EDIT_ARTISTNAME ||
+        $type == &ModDefs::MOD_EDIT_ARTISTSORTNAME ||
+        $type == &ModDefs::MOD_EDIT_ALBUMNAME ||
+        $type == &ModDefs::MOD_EDIT_TRACKNAME ||
+        $type == &ModDefs::MOD_EDIT_TRACKNUM ||
+        $type == &ModDefs::MOD_ADD_TRACK ||
+        $type == &ModDefs::MOD_MOVE_ALBUM ||
+        $type == &ModDefs::MOD_SAC_TO_MAC ||
+        $type == &ModDefs::MOD_CHANGE_TRACK_ARTIST ||
+        $type == &ModDefs::MOD_MAC_TO_SAC ||
+        $type == &ModDefs::MOD_ADD_ARTISTALIAS ||
+        $type == &ModDefs::MOD_ADD_ALBUM ||
+        $type == &ModDefs::MOD_ADD_ARTIST ||
+        $type == &ModDefs::MOD_ADD_TRACK_KV ||
+        $type == &ModDefs::MOD_MOVE_DISCID ||
+        $type == &ModDefs::MOD_REMOVE_TRMID ||
+        $type == &ModDefs::MOD_EDIT_ALBUMATTRS)
     {
         return 1;
     }
@@ -350,7 +350,7 @@ sub GetAutomoderationList
    my ($this) = @_;
    my ($type, %temp, @list);
 
-   foreach $type (1..ModDefs::MOD_LAST)
+   foreach $type (1..&ModDefs::MOD_LAST)
    {
        if ($this->IsAutoModType($type))
        {
@@ -412,7 +412,7 @@ sub CreateFromId
            $mod->SetNoVotes($row[11]);
            $mod->SetArtistName($row[12]);
            $mod->SetStatus($row[13]);
-           $mod->SetVote(ModDefs::VOTE_UNKNOWN);
+           $mod->SetVote(&ModDefs::VOTE_UNKNOWN);
            $mod->SetDepMod($row[15]);
            $mod->SetModerator($row[16]);
            $mod->SetAutomod($row[17]);
@@ -534,7 +534,7 @@ sub InsertModeration
 		$this->GetPrev, $this->GetNew,
 		$this->GetModerator, $this->GetArtist, $this->GetType,
 		$this->GetDepMod,
-		ModDefs::STATUS_OPEN, DBDefs::MOD_PERIOD,
+		&ModDefs::STATUS_OPEN, &DBDefs::MOD_PERIOD,
 	);
 
     my $insertid = $sql->GetLastInsertId("moderation");
@@ -649,7 +649,7 @@ sub GetModerationList
    my ($mod, $query, @args) = ();
 
    $num_rows = $total_rows = 0;
-   if ($type == ModDefs::TYPE_NEW)
+   if ($type == &ModDefs::TYPE_NEW)
    {
        $query = qq|
         SELECT  m.id, m.tab, m.col, m.rowid,
@@ -670,7 +670,7 @@ sub GetModerationList
        |;
        @args = ($uid, $uid, $this->GetMinOpenModID);
    }
-   elsif ($type == ModDefs::TYPE_MODERATOR)
+   elsif ($type == &ModDefs::TYPE_MODERATOR)
    {
        $query = qq|
         SELECT  m.id, m.tab, m.col, m.rowid,
@@ -690,7 +690,7 @@ sub GetModerationList
        |;
        @args = ($uid, $rowid, $index);
    }
-   elsif ($type == ModDefs::TYPE_VOTED)
+   elsif ($type == &ModDefs::TYPE_VOTED)
    {
        $query = qq|select Moderation.id as moderation_id, tab, col, 
                           Moderation.rowid, Moderation.artist, type, 
@@ -708,7 +708,7 @@ sub GetModerationList
                           offset ?|;
 	@args = ($uid, $index);
    }
-   elsif ($type == ModDefs::TYPE_ARTIST)
+   elsif ($type == &ModDefs::TYPE_ARTIST)
    {
        $query = qq|select Moderation.id as moderation_id, tab, col, 
                           Moderation.rowid, Moderation.artist, type, 
@@ -726,7 +726,7 @@ sub GetModerationList
                           offset ?|;
 	@args = ($uid, $rowid, $index);
    }
-   elsif ($type == ModDefs::TYPE_FREEDB)
+   elsif ($type == &ModDefs::TYPE_FREEDB)
    {
        $query = qq|
         SELECT  m.id, m.tab, m.col, m.rowid,
@@ -745,9 +745,9 @@ sub GetModerationList
         AND     v.vote IS NULL
         ORDER BY 1
        |;
-       @args = ($uid, ModDefs::FREEDB_MODERATOR, $this->GetMinOpenModID);
+       @args = ($uid, &ModDefs::FREEDB_MODERATOR, $this->GetMinOpenModID);
    }
-   elsif ($type == ModDefs::TYPE_ALBUM)
+   elsif ($type == &ModDefs::TYPE_ALBUM)
    {
        $query = qq|select Moderation.id as moderation_id, tab, col, 
                           Moderation.rowid, Moderation.artist, type, 
@@ -765,7 +765,7 @@ sub GetModerationList
                           offset ?|;
 	@args = ($uid, $rowid, $index);
    }
-   elsif ($type == ModDefs::TYPE_MODERATOR_FAILED)
+   elsif ($type == &ModDefs::TYPE_MODERATOR_FAILED)
    {
        $query = qq|
         SELECT  m.id, m.tab, m.col, m.rowid,
@@ -829,7 +829,7 @@ sub GetModerationList
                 }
                 else
                 {
-                    $mod->SetVote(ModDefs::VOTE_NOTVOTED);
+                    $mod->SetVote(&ModDefs::VOTE_NOTVOTED);
                 }
 				$mod->PostLoad;
                 push @data, $mod;
@@ -914,8 +914,8 @@ sub CheckModerations
 
    $sql = Sql->new($this->{DBH});
    $query = qq|select id from Moderation where status = | . 
-               ModDefs::STATUS_OPEN . qq| or status = | .
-               ModDefs::STATUS_TOBEDELETED . qq| order by Moderation.id|;
+               &ModDefs::STATUS_OPEN . qq| or status = | .
+               &ModDefs::STATUS_TOBEDELETED . qq| order by Moderation.id|;
    return if (!$sql->Select($query));
 
    $now = time();
@@ -936,11 +936,11 @@ sub CheckModerations
        print STDERR "\nEvaluate Mod: " . $mod->GetId() . "\n";
 
        # See if this mod has been marked for deletion
-       if ($mod->GetStatus() == ModDefs::STATUS_TOBEDELETED)
+       if ($mod->GetStatus() == &ModDefs::STATUS_TOBEDELETED)
        {
            # Change the status to deleted. 
            print STDERR "EvalChange: $mod->{id} to be deleted\n";
-           $mod->{__eval__} = ModDefs::STATUS_DELETED;
+           $mod->{__eval__} = &ModDefs::STATUS_DELETED;
            next;
        }
 
@@ -949,7 +949,7 @@ sub CheckModerations
        {
            print STDERR "EvalChange: kv dep failed\n";
            # If the prereq. change failed, close this modification
-           $mod->{__eval__} = ModDefs::STATUS_FAILEDPREREQ;
+           $mod->{__eval__} = &ModDefs::STATUS_FAILEDPREREQ;
            next;
        }
 
@@ -967,19 +967,19 @@ sub CheckModerations
            {
               print STDERR "DepMod status: " . $depmod->{__eval__} . "\n";
               # We have the dependant change in memory
-              if ($depmod->{__eval__} == ModDefs::STATUS_OPEN ||
-                  $depmod->{__eval__} == ModDefs::STATUS_EVALNOCHANGE)
+              if ($depmod->{__eval__} == &ModDefs::STATUS_OPEN ||
+                  $depmod->{__eval__} == &ModDefs::STATUS_EVALNOCHANGE)
               {
                   print STDERR "EvalChange: Memory dep still open\n";
 
                   # If the prereq. change is still open, skip this change 
-                  $mod->{__eval__} = ModDefs::STATUS_EVALNOCHANGE;
+                  $mod->{__eval__} = &ModDefs::STATUS_EVALNOCHANGE;
                   next;
               }
-              elsif ($depmod->{__eval__} != ModDefs::STATUS_APPLIED)
+              elsif ($depmod->{__eval__} != &ModDefs::STATUS_APPLIED)
               {
                   print STDERR "EvalChange: Memory dep failed\n";
-                  $mod->{__eval__} = ModDefs::STATUS_FAILEDPREREQ;
+                  $mod->{__eval__} = &ModDefs::STATUS_FAILEDPREREQ;
                   next;
               }
            }
@@ -987,11 +987,11 @@ sub CheckModerations
            {
               # If we can't find it, we need to load the status by hand.
               $dep_status = $this->GetModerationStatus($mod->GetDepMod());
-              if ($dep_status != ModDefs::STATUS_APPLIED)
+              if ($dep_status != &ModDefs::STATUS_APPLIED)
               {
                   print STDERR "EvalChange: Disk dep failed\n";
                   # The depedent moderation had failed. Fail this one.
-                  $mod->{__eval__} = ModDefs::STATUS_FAILEDPREREQ;
+                  $mod->{__eval__} = &ModDefs::STATUS_FAILEDPREREQ;
                   next;
               }
            }
@@ -1005,36 +1005,36 @@ sub CheckModerations
            if ($mod->GetYesVotes() <= $mod->GetNoVotes())
            {
                #print STDERR "EvalChange: expire and voted down\n";
-               $mod->{__eval__} = ModDefs::STATUS_FAILEDVOTE;
+               $mod->{__eval__} = &ModDefs::STATUS_FAILEDVOTE;
                next;
            }
            print STDERR "EvalChange: expire and approved\n";
-           $mod->{__eval__} = ModDefs::STATUS_APPLIED;
+           $mod->{__eval__} = &ModDefs::STATUS_APPLIED;
            next;
        }
 
        # Are the number of required unanimous votes present?
-       if ($mod->GetYesVotes() >= DBDefs::NUM_UNANIMOUS_VOTES && 
+       if ($mod->GetYesVotes() >= &DBDefs::NUM_UNANIMOUS_VOTES && 
            $mod->GetNoVotes() == 0)
        {
            print STDERR "EvalChange: unanimous yes\n";
            # A unanimous yes. 
-           $mod->{__eval__} = ModDefs::STATUS_APPLIED;
+           $mod->{__eval__} = &ModDefs::STATUS_APPLIED;
            next;
        }
 
-       if ($mod->GetNoVotes() >= DBDefs::NUM_UNANIMOUS_VOTES && 
+       if ($mod->GetNoVotes() >= &DBDefs::NUM_UNANIMOUS_VOTES && 
            $mod->GetYesVotes() == 0)
        {
            print STDERR "EvalChange: unanimous no\n";
            # A unanimous no. R
-           $mod->{__eval__} = ModDefs::STATUS_FAILEDVOTE;
+           $mod->{__eval__} = &ModDefs::STATUS_FAILEDVOTE;
            next;
        }
        print STDERR "EvalChange: no change\n";
 
        # No condition for this moderation triggered. Leave it alone
-       $mod->{__eval__} = ModDefs::STATUS_EVALNOCHANGE;
+       $mod->{__eval__} = &ModDefs::STATUS_EVALNOCHANGE;
    }
    $sql->Finish;
 
@@ -1042,9 +1042,9 @@ sub CheckModerations
    {
        print STDERR "Check mod: $key\n";
        $mod = $mods{$key};
-       next if ($mod->{__eval__} == ModDefs::STATUS_EVALNOCHANGE);
+       next if ($mod->{__eval__} == &ModDefs::STATUS_EVALNOCHANGE);
 
-       if ($mod->{__eval__} == ModDefs::STATUS_APPLIED)
+       if ($mod->{__eval__} == &ModDefs::STATUS_APPLIED)
        {
            print STDERR "Mod " . $mod->GetId() . " applied\n";
            eval
@@ -1069,14 +1069,14 @@ sub CheckModerations
                             $mod->GetId . " will remain open.\n($err)\n";
            }
        }
-       elsif ($mod->{__eval__} == ModDefs::STATUS_DELETED)
+       elsif ($mod->{__eval__} == &ModDefs::STATUS_DELETED)
        {
            print STDERR "Mod " . $mod->GetId() . " deleted\n";
            eval
            {
                $sql->Begin;
 
-               $mod->SetStatus(ModDefs::STATUS_DELETED);
+               $mod->SetStatus(&ModDefs::STATUS_DELETED);
                $mod->DeniedAction;
                $mod->CloseModeration($mod->{__eval__});
 
@@ -1139,9 +1139,9 @@ sub CheckModificationForFailedDependencies
               ($status) = $sql->GetSingleRow("Moderation", ["status"], ["id", $1]);
            }
            if (!defined $status || 
-               $status == ModDefs::STATUS_FAILEDVOTE ||
-               $status == ModDefs::STATUS_FAILEDDEP ||
-               $status == ModDefs::STATUS_DELETED)
+               $status == &ModDefs::STATUS_FAILEDVOTE ||
+               $status == &ModDefs::STATUS_FAILEDDEP ||
+               $status == &ModDefs::STATUS_DELETED)
            {
               return 0;
            }
@@ -1205,7 +1205,7 @@ sub RemoveModeration
 {
    my ($this, $uid) = @_;
   
-   if ($this->GetStatus() == ModDefs::STATUS_OPEN)
+   if ($this->GetStatus() == &ModDefs::STATUS_OPEN)
    {
 		# Set the status to be deleted.  The ModBot will clean it up
 		# on its next pass.
@@ -1213,10 +1213,10 @@ sub RemoveModeration
 		$sql->Do(
 			"UPDATE moderation SET status = ?
 			WHERE id = ? AND moderator = ? AND status = ?",
-	   		ModDefs::STATUS_TOBEDELETED,
+	   		&ModDefs::STATUS_TOBEDELETED,
 			$this->GetId,
 			$uid,
-	   		ModDefs::STATUS_OPEN,
+	   		&ModDefs::STATUS_OPEN,
 		);
    }
 }
@@ -1250,7 +1250,7 @@ sub InsertModerationNote
 
             $body = "Moderator $mod_info->{name} has attached a note to your moderation " .
                     "#$modid:\n\n" . $text . "\n\nModeration link: http://" . 
-                    DBDefs::WEB_SERVER .  "/showmod.html?modid=$modid\n";
+                    &DBDefs::WEB_SERVER .  "/showmod.html?modid=$modid\n";
             $ui->SendEMail("MusicBrainz ModBot", undef, $info, 
                            "Note for moderation #$modid", $body);
         }
@@ -1485,10 +1485,10 @@ sub AdjustModPending
 
 # The moderation has been approved - either immediately (automod), or voted
 # in.  Either throw an exception (in which case the transaction will be rolled
-# back), or do whatever work is necessary and return ModDefs::STATUS_* (in
+# back), or do whatever work is necessary and return &ModDefs::STATUS_* (in
 # which case the transaction will probably be committed).
 # Arguments: none
-# Called in scalar context; returns ModDefs::STATUS_*
+# Called in scalar context; returns &ModDefs::STATUS_*
 sub ApprovedAction { () }
 
 # The moderation is to be undone (voted down, failed a test, or was deleted)

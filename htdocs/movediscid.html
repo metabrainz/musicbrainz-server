@@ -77,7 +77,7 @@ if ($newalbumid ne "")
 				DBH	=> $mb->{DBH},
 				uid	=> $session{uid},
 				privs => $session{privs},
-				type => ModDefs::MOD_MOVE_DISCID,
+				type => &ModDefs::MOD_MOVE_DISCID,
 				# --
 				oldalbum => $al,
 				newalbum => $newal,

@@ -19,7 +19,7 @@ my ($i, $track, @info, $trmcounts, $tcount);
 
 #$nomod = 1 if (exists $session{tagged_albums});
 
-if ($album->GetArtist() == ModDefs::VARTIST_ID)
+if ($album->GetArtist() == &ModDefs::VARTIST_ID)
 {
     @info = $album->LoadTracksFromMultipleArtistAlbum();
 }
@@ -80,7 +80,7 @@ for($i = 0;; $i++)
 
 my $colspan = 3;
 $colspan++ if (exists $session{user}  && !$nomod);
-$colspan++ if ($album->GetArtist() == ModDefs::VARTIST_ID);
+$colspan++ if ($album->GetArtist() == &ModDefs::VARTIST_ID);
 
 $m->out('<tr bgcolor="white"><td bgcolor="#f0efff" colspan="' . $colspan . '">');
 $m->comp("/comp/albumsummary", album=>$album, artist=>$artist, nomod=>$nomod);

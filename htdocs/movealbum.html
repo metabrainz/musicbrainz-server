@@ -27,7 +27,7 @@ $al->LoadFromId
 	);
 
 # TODO reject if artist == VARTIST_ID ?
-#$al->GetArtist == ModDefs::VARTIST_ID
+#$al->GetArtist == &ModDefs::VARTIST_ID
 #	and return $m->comp(
 #		"/comp/error",
 #		"You can't move this album.",
@@ -73,7 +73,7 @@ if ($newartistname =~ /\S/ and $newartistsortname =~ /\S/)
 				DBH	=> $mb->{DBH},
 				uid	=> $session{uid},
 				privs => $session{privs},
-				type => ModDefs::MOD_MOVE_ALBUM,
+				type => &ModDefs::MOD_MOVE_ALBUM,
 				# --
 				album => $al,
 				oldartist => $ar,

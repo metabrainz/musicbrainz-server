@@ -40,7 +40,7 @@ $m->comp("/comp/checkloggedin", 0, 1)
 MusicBrainz::IsNonNegInteger($artistid) && $artistid
 	or return $m->comp("/comp/badargs", 0, 1);
 
-$artistid != ModDefs::DARTIST_ID
+$artistid != &ModDefs::DARTIST_ID
 	or return $m->comp(
 		"/comp/error",
 		"You cannot add an alias to this artist.",
@@ -75,7 +75,7 @@ $ar->LoadFromId
 </p>
 
 		<form method="post" name="AddAlbumForm"
-%   if ($artistid == ModDefs::VARTIST_ID) {
+%   if ($artistid == &ModDefs::VARTIST_ID) {
 			action="/cdi/menter.html"
 %   } else {
 			action="/cdi/enter.html"

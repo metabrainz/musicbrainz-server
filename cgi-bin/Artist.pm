@@ -140,7 +140,7 @@ sub Remove
     $sql->Do("delete from ArtistAlias where ref = " . $this->GetId());
     $sql->Do("delete from Artist_Relation where artist = " . $this->GetId() . 
              " or ref = ". $this->GetId());
-    $sql->Do("update Moderation set Artist = " . ModDefs::DARTIST_ID . 
+    $sql->Do("update Moderation set Artist = " . &ModDefs::DARTIST_ID . 
              " where artist = " . $this->GetId());
 
     # Remove references from artist words table
@@ -328,8 +328,8 @@ sub LoadFull
        return undef;
    }
 
-   if ($this->GetId() == ModDefs::VARTIST_ID ||
-       $this->GetId() == ModDefs::DARTIST_ID)
+   if ($this->GetId() == &ModDefs::VARTIST_ID ||
+       $this->GetId() == &ModDefs::DARTIST_ID)
    {
        cluck "Artist::LoadFull cannot be used to load this artist.\n"; 
        return undef;
@@ -467,7 +467,7 @@ sub GetAlbums
    {
        $query = qq/select album.id, name, modpending, GID, attributes, tracks, discids, trmids 
                          from album, albummeta 
-                        where album.artist = / . ModDefs::VARTIST_ID .qq/ and 
+                        where album.artist = / . &ModDefs::VARTIST_ID .qq/ and 
                               albummeta.id = album.id and
                               album.id in (select distinct albumjoin.album 
                                        from albumjoin, track 
@@ -478,7 +478,7 @@ sub GetAlbums
    {
        $query = qq/select album.id, name, modpending, GID, attributes
                          from album
-                        where album.artist = / . ModDefs::VARTIST_ID .qq/ and 
+                        where album.artist = / . &ModDefs::VARTIST_ID .qq/ and 
                               album.id in (select distinct albumjoin.album 
                                        from albumjoin, track 
                                       where track.artist = $this->{id} and 
@@ -493,7 +493,7 @@ sub GetAlbums
             $album->SetId($row[0]);
             $album->SetName($row[1]);
             $album->SetModPending($row[2]);
-            $album->SetArtist(ModDefs::VARTIST_ID);
+            $album->SetArtist(&ModDefs::VARTIST_ID);
             $album->SetMBId($row[3]);
             $row[4] =~ s/^\{(.*)\}$/$1/;
             $album->{attrs} = [ split /,/, $row[4] ];
@@ -581,13 +581,13 @@ sub HasAlbum
    }
 
    # then, pull in the multiple artist albums
-   if ($this->{id} != ModDefs::VARTIST_ID &&
+   if ($this->{id} != &ModDefs::VARTIST_ID &&
        $sql->Select(qq/select distinct AlbumJoin.album, Album.name, lower(Album.name) 
                          from Track, Album, AlbumJoin
                         where Track.Artist = $this->{id} and 
                               AlbumJoin.track = Track.id and 
                               AlbumJoin.album = Album.id and 
-                              Album.artist = / . ModDefs::VARTIST_ID .
+                              Album.artist = / . &ModDefs::VARTIST_ID .
                    " order by lower(Album.name), Album.name"))
    {
         while(@row = $sql->NextRow)

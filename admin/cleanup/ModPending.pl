@@ -66,7 +66,7 @@ sub Cleanup
    $dbh->do("update ArtistAlias set modpending = 0 where modpending != 0") if ($fix);
 
    $sth = $dbh->prepare(qq|select rowid, tab, col from moderation 
-                           where status = | .  ModDefs::STATUS_OPEN);
+                           where status = | .  &ModDefs::STATUS_OPEN);
    if ($sth->execute && $sth->rows > 0)
    {
        while(@row = $sth->fetchrow_array)

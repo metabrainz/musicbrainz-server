@@ -28,9 +28,9 @@ use lib "$FindBin::Bin/../cgi-bin";
 use MusicBrainz;
 use DBDefs;
 
-my $dbname = DBDefs::DB_NAME;
-my $dbuser = DBDefs::DB_USER;
-my $opts = DBDefs::DB_PGOPTS;
+my $dbname = &DBDefs::DB_NAME;
+my $dbuser = &DBDefs::DB_USER;
+my $opts = &DBDefs::DB_PGOPTS;
 my $psql = "psql";
 
 use Getopt::Long;

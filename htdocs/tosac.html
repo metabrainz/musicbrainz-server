@@ -65,7 +65,7 @@ if ($newartistname =~ /\S/ and $newartistsortname =~ /\S/)
 				DBH	=> $mb->{DBH},
 				uid	=> $session{uid},
 				privs => $session{privs},
-				type => ModDefs::MOD_MAC_TO_SAC,
+				type => &ModDefs::MOD_MAC_TO_SAC,
 				# --
 				album => $al,
 				artistname => $newartistname,

@@ -23,7 +23,7 @@ if (scalar(@ids) > 0)
     foreach $id (@ids)
     {
        $m->out("<tr>");
-       if ($album->GetArtist() == ModDefs::VARTIST_ID) 
+       if ($album->GetArtist() == &ModDefs::VARTIST_ID) 
        {
           $m->out('<td colspan="3" ');
        }
@@ -100,7 +100,7 @@ if (scalar(@ids) > 0)
              <a href="/addtrack.html?album=<% $album->GetId() %>">Add track</a> | 
 %        }
            <a href="/movealbum.html?album=<% $album->GetId() %>">Move</a> 
-%            if ($album->GetArtist() != ModDefs::VARTIST_ID) {
+%            if ($album->GetArtist() != &ModDefs::VARTIST_ID) {
               | <a href="/tomac.html?album=<% $album->GetId() %>">Convert to multiple artists</a>
 %            } else {
               | <a href="/tosac.html?album=<% $album->GetId() %>">Convert to single artist</a>

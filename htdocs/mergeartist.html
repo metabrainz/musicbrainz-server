@@ -12,7 +12,7 @@ $m->comp("/comp/checkloggedin", 1, 1)
 MusicBrainz::IsNonNegInteger($id) && $id
 	or return $m->comp("/comp/badargs", 1, 1);
 
-$id == ModDefs::VARTIST_ID || $id == ModDefs::DARTIST_ID
+$id == &ModDefs::VARTIST_ID || $id == &ModDefs::DARTIST_ID
 	and return $m->comp("/comp/badargs", 1, 1);
 
 my $mb = $m->comp("/comp/dblogin");
@@ -50,7 +50,7 @@ if ($selectedartist ne "")
 				DBH	=> $mb->{DBH},
 				uid	=> $session{uid},
 				privs => $session{privs},
-				type => ModDefs::MOD_MERGE_ARTIST,
+				type => &ModDefs::MOD_MERGE_ARTIST,
 				# --
 				source => $ar,
 				target => $target,

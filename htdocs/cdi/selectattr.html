@@ -14,7 +14,7 @@ my ($key, $value, $mb, @attr);
 $mb = $m->comp("/comp/dblogin");
 $m->comp("/comp/sidebar", title=>'Select Album Attributes');
 
-if ($ARGS{artist} == ModDefs::VARTIST_ID)
+if ($ARGS{artist} == &ModDefs::VARTIST_ID)
 {
     @attr = (Album::ALBUM_ATTR_COMPILATION, Album::ALBUM_ATTR_OFFICIAL);
 }

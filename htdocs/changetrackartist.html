@@ -80,7 +80,7 @@ if ($newartistname =~ /\S/ and $newartistsortname =~ /\S/)
 				DBH	=> $mb->{DBH},
 				uid	=> $session{uid},
 				privs => $session{privs},
-				type => ModDefs::MOD_CHANGE_TRACK_ARTIST,
+				type => &ModDefs::MOD_CHANGE_TRACK_ARTIST,
 				# --
 				track => $track,
 				oldartist => $ar,

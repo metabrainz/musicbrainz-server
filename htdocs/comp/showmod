@@ -9,7 +9,7 @@ my ($ref, $obj, $bold);
 my $voted = $mod->GetVote();
 if (!defined $voted)
 {
-   $voted = ModDefs::VOTE_NOTVOTED;
+   $voted = &ModDefs::VOTE_NOTVOTED;
 }
 
 my $expired = ($mod->GetExpired() ? "d" : "s");
@@ -35,8 +35,8 @@ $time = $m->comp("/comp/datetime", $time);
    </td>
    <td width="30%" align=center valign=top valign=top bgcolor=white class="body" NOWRAP>
 %    if ($session{uid} == $mod->GetModerator() || 
-%        $mod->GetStatus() != ModDefs::STATUS_OPEN ||
-%        $voted != ModDefs::VOTE_NOTVOTED) {
+%        $mod->GetStatus() != &ModDefs::STATUS_OPEN ||
+%        $voted != &ModDefs::VOTE_NOTVOTED) {
            <% $mod->GetYesVotes() |n %> yes,
            <% $mod->GetNoVotes() |n %> no
            &nbsp;&nbsp; 
@@ -44,7 +44,7 @@ $time = $m->comp("/comp/datetime", $time);
      <br>[ <a href="#" onClick="MyWindow=window.open('mod/addnote.html?modid=<% $mod->GetId() %>&amp;uid=<% $session{uid} %>','AddNote','toolbar=no,location=no,directories=no,status=no,menubar=no,scrollbars=yes,resizable=yes,width=400,height=150'); return false;">Add note</a> |
      <a href="/user/mod_email.html?uid=<% $mod->GetModerator() %>&modid=<% $mod->GetId() %>&url=<% $r->uri() . "?" . $r->args() %>">Send email</a> ]
 % if ($session{uid} == $mod->GetModerator() &&
-%     $mod->GetStatus() == ModDefs::STATUS_OPEN) {
+%     $mod->GetStatus() == &ModDefs::STATUS_OPEN) {
      <a href="/removemod.html?modid=<% $mod->GetId() %>"><img 
         src="/images/remove.gif" alt="remove" title="Remove this moderation"
         border="0" height="16" width="16" align="center"></a>
@@ -70,14 +70,14 @@ $time = $m->comp("/comp/datetime", $time);
 
 % if ($session{uid} == $mod->GetModerator()) {
      <% $mod->GetChangeName() |n %>
-% } elsif ($voted == ModDefs::VOTE_YES || $voted == ModDefs::VOTE_NO ||
-%          $voted == ModDefs::VOTE_ABS) {
+% } elsif ($voted == &ModDefs::VOTE_YES || $voted == &ModDefs::VOTE_NO ||
+%          $voted == &ModDefs::VOTE_ABS) {
      Your vote: <% $mod->GetVoteText($voted) |n %><br>
 
      <% $mod->GetChangeName() |n %>
 % } elsif ($session{uid} != $mod->GetModerator() && 
-%          $mod->GetStatus() == ModDefs::STATUS_OPEN &&
-%          $voted == ModDefs::VOTE_NOTVOTED) {
+%          $mod->GetStatus() == &ModDefs::STATUS_OPEN &&
+%          $voted == &ModDefs::VOTE_NOTVOTED) {
      <label for="rowid<% $mod->GetId() %>-yes">Yes</label>&nbsp;<input type="radio" name="rowid<% $mod->GetId() %>" id="rowid<% $mod->GetId() %>-yes" value="yes">&nbsp;
      <label for="rowid<% $mod->GetId() %>-no">No</label>&nbsp;<input type="radio" name="rowid<% $mod->GetId() %>"  id="rowid<% $mod->GetId() %>-no" value="no">&nbsp;
      <label for="rowid<% $mod->GetId() %>-abst">Abst</label>&nbsp;<input type="radio" name="rowid<% $mod->GetId() %>" id="rowid<% $mod->GetId() %>-abst" value="abs" CHECKED>

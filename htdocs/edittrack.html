@@ -60,7 +60,7 @@ if (MusicBrainz::IsSingleLineString($newname)
 				DBH	=> $mb->{DBH},
 				uid	=> $session{uid},
 				privs => $session{privs},
-				type => ModDefs::MOD_EDIT_TRACKNAME,
+				type => &ModDefs::MOD_EDIT_TRACKNAME,
 				# --
 				track => $tr,
 				newname => $newname,
@@ -70,7 +70,7 @@ if (MusicBrainz::IsSingleLineString($newname)
 				DBH	=> $mb->{DBH},
 				uid	=> $session{uid},
 				privs => $session{privs},
-				type => ModDefs::MOD_EDIT_TRACKNUM,
+				type => &ModDefs::MOD_EDIT_TRACKNUM,
 				# --
 				track => $tr,
 				newseq => $newseq,

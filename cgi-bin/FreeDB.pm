@@ -501,7 +501,7 @@ sub InsertForModeration
 
 
     $in = Insert->new($this->{DBH});
-    $in->InsertAlbumModeration($new, ModDefs::FREEDB_MODERATOR, 0);
+    $in->InsertAlbumModeration($new, &ModDefs::FREEDB_MODERATOR, 0);
 }
 
 1;

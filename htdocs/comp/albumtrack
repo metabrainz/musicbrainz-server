@@ -41,7 +41,7 @@ elsif ($ms > 0)
 %   $colspan="colspan=\"2\"";
 %   $nonalbum = 1;
 % }
-% if ($album->GetArtist() == ModDefs::VARTIST_ID) {
+% if ($album->GetArtist() == &ModDefs::VARTIST_ID) {
     <td width="45%" <% $bgcolor |n %> <% $colspan %>>
 % } else {
     <td width="75%" <% $bgcolor |n %> <% $colspan %>>
@@ -57,7 +57,7 @@ elsif ($ms > 0)
                   height="11" title="<% $trmcount %> TRM Ids">&nbsp;
 % }
     </td>
-% if ($album->GetArtist() == ModDefs::VARTIST_ID) {
+% if ($album->GetArtist() == &ModDefs::VARTIST_ID) {
     <td width="30%" bgcolor="white">
        <a href="/showartist.html?artistid=<% $track->GetArtist() %>"><% $track->GetArtistName() |h  %></a>
 % if (exists $session{user} and not $nomod) {

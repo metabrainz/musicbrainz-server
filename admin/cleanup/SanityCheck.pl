@@ -130,15 +130,15 @@ sub Cleanup
 
         while(@row = $sth->fetchrow_array())
         {
-            next if ($row[0] == ModDefs::DARTIST_ID); 
-            next if ($row[0] == ModDefs::VARTIST_ID); 
+            next if ($row[0] == &ModDefs::DARTIST_ID); 
+            next if ($row[0] == &ModDefs::VARTIST_ID); 
             print "  Artist $row[0] has no tracks.\n";
             $count++;
 
             if ($fix)
             {
                 $dbh->do("delete from Artist where id = $row[0]"); 
-                $dbh->do("update Moderations set Artist = " . ModDefs::DARTIST_ID .
+                $dbh->do("update Moderations set Artist = " . &ModDefs::DARTIST_ID .
                          " where artist = $row[0]");
             }
         }

@@ -6,7 +6,7 @@ use URI::Escape;
 my ($mb, $user, $ok, $privs, $uid, $url, $confirm, $email, $ui);
 
 $ok = undef;
-if (DBDefs::DB_READ_ONLY)
+if (&DBDefs::DB_READ_ONLY)
 {
     $ok = 0;
 }

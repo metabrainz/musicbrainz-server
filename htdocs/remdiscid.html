@@ -53,7 +53,7 @@ if ($ARGS{confirm})
 				DBH	=> $mb->{DBH},
 				uid	=> $session{uid},
 				privs => $session{privs},
-				type => ModDefs::MOD_REMOVE_DISCID,
+				type => &ModDefs::MOD_REMOVE_DISCID,
 				# --
 				album => $al,
 				discid => $di,

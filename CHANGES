@@ -46,7 +46,7 @@ Changes for Version 1.0.0pre6
   not empty when the moderation was applied. (This could happen if someone
   adds a tracks to an album during the album removal phase)
 - The TOC table no longer gets duplicate diskid records.
-- Multiple artist albums are now marked with Artist id 1 (ModDefs::VARTIST_ID).
+- Multiple artist albums are now marked with Artist id 1 (&ModDefs::VARTIST_ID).
   By default, artist table will have an entry of various artists, with id = 1.
 
 Changes for Version 1.0.0pre3

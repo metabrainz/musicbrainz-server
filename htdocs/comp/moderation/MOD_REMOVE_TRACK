@@ -6,7 +6,7 @@
 
 	Old:
 	
-% if ($this->GetStatus == ModDefs::STATUS_APPLIED) {
+% if ($this->GetStatus == &ModDefs::STATUS_APPLIED) {
 	<% $this->{'prev.name'} %>
 % } else {
 	<a href="/showtrack.html?trackid=<% $this->GetRowId %>"

@@ -517,7 +517,7 @@ sub GetArtistReferences
    my ($this, $ref, $artist, $depth) = @_;
    my (@albums, @albumids, $album, %info, @ret);
 
-   if ($artist->GetId() == ModDefs::VARTIST_ID ||
+   if ($artist->GetId() == &ModDefs::VARTIST_ID ||
        $depth >= $this->{depth})
    {
        return ();

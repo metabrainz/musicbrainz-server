@@ -220,8 +220,8 @@ $mb->Logout();
 	<td></td>
 	<td valign="top">[ 
     <a href="/user/mod_email.html?uid=<% $uid %>&url=<% "/moderator.html?uid=$uid" %>">Send email</a> | 
-    <a href="/moderate.html?type=<% ModDefs::TYPE_MODERATOR %>&amp;moderator=<% $uid %>">List Moderations</a> |
-	<a href="/moderate.html?type=<% ModDefs::TYPE_MODERATOR_FAILED %>&amp;moderator=<% $uid %>">List Failed Moderations</a>
+    <a href="/moderate.html?type=<% &ModDefs::TYPE_MODERATOR %>&amp;moderator=<% $uid %>">List Moderations</a> |
+	<a href="/moderate.html?type=<% &ModDefs::TYPE_MODERATOR_FAILED %>&amp;moderator=<% $uid %>">List Failed Moderations</a>
 	]</td>
 </tr>
 % }

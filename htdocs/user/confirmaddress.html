@@ -7,7 +7,7 @@ $chk=>""
 </%args>
 <%perl>
 
-if (DBDefs::DB_READ_ONLY) {
+if (&DBDefs::DB_READ_ONLY) {
   </%perl>
   <table>
   <tr>
@@ -15,7 +15,7 @@ if (DBDefs::DB_READ_ONLY) {
        &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; 
     </td>
     <td>
-       <% DBDefs::DB_READ_ONLY_MESSAGE %>
+       <% &DBDefs::DB_READ_ONLY_MESSAGE %>
     </td>
     <td>
     &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
@@ -41,7 +41,7 @@ my $ui = UserStuff->new($mb->{DBH});
 $ui->GetVerifyChecksum($email, $uid, $time) eq $chk 
     or return $m->comp("/comp/badargs", 1, 1);
 
-if ($time + DBDefs::EMAIL_VERIFICATION_TIMEOUT() < time()) 
+if ($time + &DBDefs::EMAIL_VERIFICATION_TIMEOUT() < time()) 
 {
     $m->comp("/comp/sidebar", title => 'Verify EMail Address');
     </%perl>

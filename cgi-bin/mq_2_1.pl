@@ -130,8 +130,8 @@ sub Authenticate
    {
        eval {
           tie %$session, 'Apache::Session::File', $session_id, {
-                     Directory => DBDefs::SESSION_DIR,
-                     LockDirectory   => DBDefs::LOCK_DIR};
+                     Directory => &DBDefs::SESSION_DIR,
+                     LockDirectory   => &DBDefs::LOCK_DIR};
        };
        if ($@)
        {

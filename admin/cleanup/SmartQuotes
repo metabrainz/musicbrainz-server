@@ -48,7 +48,7 @@ $mb2->Login;
 my $sqlWrite = Sql->new($mb2->{DBH});
 
 my $use_auto_mod = 1;
-my $moderator = ModDefs::MODBOT_MODERATOR;
+my $moderator = &ModDefs::MODBOT_MODERATOR;
 my $do_artist = 1;
 my $do_artistalias = 1;
 my $do_album = 1;
@@ -126,11 +126,11 @@ my $privs = UserStuff::BOT_FLAG;
 $privs |= UserStuff::AUTOMOD_FLAG if $use_auto_mod;
 
 for (
-	[ ModDefs::MOD_EDIT_ARTISTNAME, "artist.name.id" ],
-	[ ModDefs::MOD_EDIT_ARTISTSORTNAME, "artist.sortname.id" ],
+	[ &ModDefs::MOD_EDIT_ARTISTNAME, "artist.name.id" ],
+	[ &ModDefs::MOD_EDIT_ARTISTSORTNAME, "artist.sortname.id" ],
 	[ undef, "artistalias.name.ref" ],
-	[ ModDefs::MOD_EDIT_ALBUMNAME, "album.name.artist" ],
-	[ ModDefs::MOD_EDIT_TRACKNAME, "track.name.artist" ],
+	[ &ModDefs::MOD_EDIT_ALBUMNAME, "album.name.artist" ],
+	[ &ModDefs::MOD_EDIT_TRACKNAME, "track.name.artist" ],
 ) {
 	my $modtype = $_->[0];
 	my ($table, $column, $artistcol) = split /\./, $_->[1];

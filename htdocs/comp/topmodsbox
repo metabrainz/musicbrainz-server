@@ -11,9 +11,9 @@ if (!defined($result))
                                         from Moderation,Moderator
                                        where Moderation.Moderator = Moderator.id
                                              and Moderator.id != | .
-                                             ModDefs::FREEDB_MODERATOR . qq|
+                                             &ModDefs::FREEDB_MODERATOR . qq|
                                              and Moderator.id != | .
-                                             ModDefs::MODBOT_MODERATOR . qq|
+                                             &ModDefs::MODBOT_MODERATOR . qq|
                                              and opentime > now() - interval '1 week' 
                                     group by Moderator.ModsAccepted, Moderator.name
                                     order by num desc limit 5|);

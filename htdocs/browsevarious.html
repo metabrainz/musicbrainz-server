@@ -54,7 +54,7 @@ $m->out("</p>");
 
 $mb = $m->comp("/comp/dblogin");
 $al = Album->new($mb->{DBH});
-$al->SetId(ModDefs::VARTIST_ID);
+$al->SetId(&ModDefs::VARTIST_ID);
 
 ($num_albums, @info) = $al->GetVariousDisplayList($ind, $offset, $reltype, $relstatus);
 

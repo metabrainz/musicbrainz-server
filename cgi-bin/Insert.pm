@@ -411,7 +411,7 @@ sub Insert
         # Check to see if this track has an artist that needs to get
         # looked up/inserted.
         undef $track_artistid;
-        if (exists $track->{artist} && $artistid == ModDefs::VARTIST_ID)
+        if (exists $track->{artist} && $artistid == &ModDefs::VARTIST_ID)
         {
             if ($track->{artist} eq '')
             {
@@ -436,7 +436,7 @@ sub Insert
                 $track->{artist_insertid} = $track_artistid 
             }
         }
-        if (exists $track->{artistid} && $artistid == ModDefs::VARTIST_ID)
+        if (exists $track->{artistid} && $artistid == &ModDefs::VARTIST_ID)
         {
             $ar->SetId($track->{artistid});
             if (!defined $ar->LoadFromId())
@@ -447,7 +447,7 @@ sub Insert
         }
 
         # Now insert the track. Make sure to check what kind of track it is...
-        if ($artistid != ModDefs::VARTIST_ID)
+        if ($artistid != &ModDefs::VARTIST_ID)
         {
             $trackid = $tr->Insert($al, $ar);
         }

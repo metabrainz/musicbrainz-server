@@ -120,7 +120,7 @@ else
         {
            $new .= "TrackDur" . ($i + 1) . "=" . $durations[$i] . "\n";
         }
-        if ($artist == ModDefs::VARTIST_ID)
+        if ($artist == &ModDefs::VARTIST_ID)
         {
             $ARGS{"artistname$i"} =~ s/^\s*(.*?)\s*$/$1/;
             $ARGS{"sortname$i"} =~ s/^\s*(.*?)\s*$/$1/;

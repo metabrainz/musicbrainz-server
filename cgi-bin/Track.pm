@@ -319,7 +319,7 @@ sub Insert
   
     $this->{new_insert} = 0;
     $album = $al->GetId();
-    $artist = ($al->GetArtist() == ModDefs::VARTIST_ID) ? 
+    $artist = ($al->GetArtist() == &ModDefs::VARTIST_ID) ? 
                 $ar->GetId() : $al->GetArtist();
 
     return undef if (!defined $artist);

@@ -45,7 +45,7 @@ if (MusicBrainz::IsSingleLineString($newname)
 				DBH	=> $mb->{DBH},
 				uid	=> $session{uid},
 				privs => $session{privs},
-				type => ModDefs::MOD_EDIT_ALBUMNAME,
+				type => &ModDefs::MOD_EDIT_ALBUMNAME,
 				# --
 				album => $al,
 				newname => $newname,

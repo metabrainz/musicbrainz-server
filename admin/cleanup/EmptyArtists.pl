@@ -155,7 +155,7 @@ while (my ($id, $name, $sortname) = $sql->NextRow)
 			DBH	=> $sqlWrite->{DBH},
 			uid	=> $moderator,
 			privs => $privs,
-			type => ModDefs::MOD_REMOVE_ARTIST,
+			type => &ModDefs::MOD_REMOVE_ARTIST,
 			# --
 			artist => $ar,
 		);

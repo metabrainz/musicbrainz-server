@@ -5,7 +5,7 @@
 
 	Old:
 
-% if ($this->GetStatus == ModDefs::STATUS_APPLIED) {
+% if ($this->GetStatus == &ModDefs::STATUS_APPLIED) {
 	<% $this->GetPrev %>
 % } else {
 	<a href="/showartist.html?artistid=<% $this->GetArtist %>"

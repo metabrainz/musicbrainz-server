@@ -18,7 +18,7 @@
 	Track:
 	<span class="bold"><% $this->{'new.tracknum'} %></span>
 	
-% if ($this->GetArtist == ModDefs::VARTIST_ID) {
+% if ($this->GetArtist == &ModDefs::VARTIST_ID) {
 
 	<br>
 	Artist:

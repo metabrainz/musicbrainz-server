@@ -23,7 +23,7 @@ $sortname = $artist->GetSortName();
     </td>
     <td>
 % if (exists $session{user} && !$nomod && 
-%     $artist->GetId() != ModDefs::VARTIST_ID &&
+%     $artist->GetId() != &ModDefs::VARTIST_ID &&
 %     $name ne 'Unknown' && $name ne 'Various') {
       [
 % if ($link) {
