@@ -354,13 +354,13 @@ sub CreateIndices
           or die("Could not add indices to BitziArchive table");
     print "Added indices to BitziArchive table.\n";
 
-    $dbh->do(qq/alter table Diskid add index AlbumIndex (Album), 
-                                   add unique index DiskIndex (Disk)/)
+    $dbh->do(qq/alter table Diskid add unique index DiskIndex (Disk),
+                                   add index AlbumIndex (Album)/) 
           or die("Could not add indices to Diskid table");
     print "Added indices to Diskid table.\n";
 
-    $dbh->do(qq/alter table TOC add index DiskIndex (Diskid), 
-                                add unique index AlbumIndex (Album) /)
+    $dbh->do(qq/alter table TOC add unique index DiskIndex (Diskid), 
+                                add index AlbumIndex (Album) /)
           or die("Could not add indices to TOC table");
     print "Added indices to TOC table.\n";
 

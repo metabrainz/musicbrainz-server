@@ -89,9 +89,12 @@ Installation:
    in the module.
 
 5) In the admin directory, run the script CreateTables.pl. This will log
-   into the DB server and create all the necessary tables. Give it the
-   -t and the -i option to create the tables and indices needed to run
-   MusicBrainz.
+   into the DB server and create all the necessary tables. If want to
+   create a blank database for testing, run CreateTables.pl without any
+   options. However, if you plan to import the data from the MB website,
+   then give CreateTables.pl the -nd option for skipping the insertion
+   of the default rows. The default rows are included in the data dump
+   and would cause problems when trying to import the data dump.
 
 6) Configure apache to use mason. In the admin directory you will find
    a prefab handler.pl to use with the mason setup and the vh_httpd.conf
