@@ -1,0 +1,16 @@
+<FORM METHOD="get" ACTION="http://lyrics.astraweb.com/search.cgi"
+      ENCTYPE="application/x-www-form-urlencoded">
+<table>
+<tr>
+   <td>
+   <a href="http://lyrics.astraweb.com">lyrics.astraweb.com</a>
+   </td>
+   <td>
+   <INPUT TYPE="text" NAME="word" SIZE=20 maxlength=255>
+   </td>
+   <td>
+   <INPUT TYPE="submit" VALUE="Search">
+   </td>
+</tr>
+</table>
+</form>

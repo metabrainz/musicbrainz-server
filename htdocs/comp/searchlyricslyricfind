@@ -1,0 +1,18 @@
+<FORM METHOD="get" ACTION="http://www.lyricfind.com/search.php3"
+      ENCTYPE="application/x-www-form-urlencoded">
+<table>
+<tr>
+   <td>
+   <a href="http://www.lyricfind.com">www.lyricfind.com</a>
+   </td>
+   <td>
+   <INPUT TYPE="text" NAME="search" SIZE=20 maxlength=255><br>
+   </td>
+   <td>
+   <INPUT TYPE="hidden" NAME="ssongtitle" VALUE="1">
+   <INPUT TYPE="hidden" NAME="sartist" VALUE="1">
+   <INPUT TYPE="submit" VALUE="Search">
+   </td>
+</tr>
+</table>
+</form>

@@ -1,0 +1,33 @@
+<%perl>
+
+if (DBDefs::USE_LYRICS) {
+my ($mb, $ly, $ar, $tr); 
+my (@trackdata, $lyrics, $writer, @synctext);
+
+$mb = new MusicBrainz;
+$mb->Login();
+
+$ar = Artist->new($mb);
+$tr = Track->new($mb);
+$ly = Lyrics->new($mb);
+
+$tr->LoadFromId($ARGS{id});
+$ar->LoadFromId($tr->Value(2));
+($lyrics,$writer) = $ly->GetLyricsFromTrackId($ARGS{id});
+@synctext         = $ly->GetSyncTextList($ARGS{id});
+if (defined($lyrics) || (scalar(@synctext) > 0)) {
+</%perl>
+    <& /comp/texts, trackname=>$tr->Value(1),
+                    artistname=>$ar->Value(1),
+                    writer=>$writer,
+                    synctextids=>\@synctext,
+                    lyrics=>$lyrics,
+                    trackid=>$ARGS{id},
+                    ly=>$ly &>
+%} else {
+    There were no items found.<p>
+%}
+% $mb->Logout();
+%} else {
+    <& /comp/nolyrics &>
+%}

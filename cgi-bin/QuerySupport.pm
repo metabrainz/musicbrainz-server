@@ -1160,11 +1160,11 @@ sub SubmitTrack
        {
            $type = $LyricTypes{$sync_type};
        }
-
-       $id = $ly->GetLyricId($trackid);
+       #only accept entry if it is not already present with same type for same person
+       $id = $ly->GetSyncTextId($trackid, $type, $sync_contrib);
        if ($id < 0)
        {
-           $id = $ly->InsertLyrics($trackid, $type, $sync_url, $sync_contrib);
+           $id = $ly->InsertSyncText($trackid, $type, $sync_url, $sync_contrib);
            for($i = 0;; $i++)
            {
                $ts = SolveXQL($doc, "/rdf:RDF/rdf:Description/MM:SyncEvents/rdf:Description/rdf:Seq/rdf:li[$i]" . '/rdf:Description/MM:SyncText/@ts');
@@ -1195,6 +1195,7 @@ sub SubmitTrack
 }
 
 # returns lyrics
+#TODO: use the methods defined by Lyrics.pm to access the data.
 sub GetLyricsByGlobalId
 {
    my ($mb, $doc, $id) = @_;
@@ -1223,11 +1224,13 @@ sub GetLyricsByGlobalId
         $trackid = $row[0];
         $sth->finish;
 
-        $sth = $mb->{DBH}->prepare("select type, url, submittor, submitted, id from SyncLyrics where id = $trackid");
+        #JOHAN: bugfix, do not use id but Track in the where clause.
+        $sth = $mb->{DBH}->prepare("select type, url, submittor, submitted, id from SyncText where Track = $trackid");
         if ($sth->execute())
         {
             @row = $sth->fetchrow_array;
-            $trackid = $row[0];
+            # JOHAN: Rob, why is trackid assigned here with $row[0]?
+            # $trackid = $row[0];       #row[0] is not the ID field!
             $sth->finish;
     
             $rdf .= CreateTrackRDFSnippet($mb, $r, $trackid);

@@ -59,7 +59,36 @@
     &nbsp;
   <& /comp/tableend &>
 % }
-
 </td>
 </tr>
 </table>
+% if (DBDefs::SEARCH_LYRICS_OFFSITE) {
+<table width="100%">
+<tr>
+  <td width="2%" valign="top">
+  &nbsp;
+  </td>
+<td width="48%" valign="top">
+  <& /comp/tablebegin, title=>'Lyrics Sites' &>
+  <table width=100%>
+    <tr><td align=right>
+    <& /comp/searchlyricslyrichound  &>
+    <& /comp/searchlyricslyricspost  &>
+    <& /comp/searchlyricslyricfind   &>
+    <& /comp/searchlyricslyricsworld &>
+    <& /comp/searchlyricsastraweb    &>
+    </td></tr>
+  </table>
+  <& /comp/tableend &>
+</td>
+  <td width="2%" valign="top">
+  &nbsp;
+  </td>
+<td width="48%" valign="top">
+  <& /comp/tablebegin, title=>'Other Sites' &>
+    <& /comp/searchlyricsastraweb    &>
+  <& /comp/tableend &>
+  </td>
+</tr>
+</table>
+% }

@@ -225,7 +225,19 @@ sub CreateTables
 
     if (DBDefs->USE_LYRICS)
     {
-       # create theSyncText table.
+       # create the Lyrics table.
+       #The Lyrics table contains the text of the track indicated with the 
+       #Track int value.
+       #With this structure 1 track could have 0,1, or more Lyrics records.
+       #Currently the Insert scripts only allow 0 or 1 Lyrics record.
+       $dbh->do("create table Lyrics (" .
+                "   Id        int      auto_increment primary key," .
+                "   Track     int      not null," .
+                "   Text      text     not null," .
+                "   Writer    varchar(64)) ")
+             or die("Cannot create Lyrics table");
+       print "Created Lyrics table.\n";
+ 
        #this table contains the index of SyncEvents. 1 set of SyncEvents has
        #1 entry in this table. For each entry the track is registered for which the 
        #SyncEvents are valid. The type indicates if these are humorous remarks,
@@ -243,7 +255,7 @@ sub CreateTables
                 "   Submitted datetime not null)")
              or die("Cannot create SyncText table");
        print "Created SyncText table.\n";
- 
+
        #The SyncEvent table contains a set of timestamps and text for a given 
        #SyncText. The SyncText field points back to the SyncText table, which 
        #must be present. Depending on the Type of the SyncText the SyncEvent 
@@ -337,6 +349,10 @@ sub CreateIndices
 
     if (DBDefs->USE_LYRICS)
     {
+       $dbh->do(qq/alter table Lyrics add index TrackIndex (Track)/)
+             or die("Could not add indices to Lyrics table");
+       print "Added indices to Lyrics table.\n";
+
        $dbh->do(qq/alter table SyncText add index TrackIndex (Track), 
                                         add index TypeIndex (Type) /)
              or die("Could not add indices to SyncText table");

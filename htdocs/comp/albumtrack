@@ -6,6 +6,7 @@ $artistname
 $modpending
 $hilitetrack
 $hilitecolor
+$lyricspresent
 </%args>
 
 <%perl>
@@ -25,7 +26,11 @@ $bgcolor = ($hilitetrack == $id) ? 'bgcolor="#FFCCFF"' : $bgcolor;
 % } else {
     <td width="80%" <% $bgcolor |n %>>
 % }
-       <% $name  %>
+% if ($lyricspresent == 1) {
+       <a href="/showlyrics.html?id=<% $id %>"><% $name %></a>
+% } else {
+       <% $name %> 
+% }
     </td>
 % if ($artistname ne '') {
     <td width="30%">

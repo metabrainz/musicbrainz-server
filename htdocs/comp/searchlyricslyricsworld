@@ -1,0 +1,17 @@
+<FORM METHOD="POST" ACTION="http://www.lyricsworld.com/cgi-bin/search/"
+      ENCTYPE="application/x-www-form-urlencoded">
+<table>
+<tr>
+   <td>
+   <a href="http://www.lyricsworld.com">www.lyricsworld.com</a>
+   </td>
+   <td>
+   <INPUT TYPE="text" NAME="words" SIZE=20 maxlength=255>
+   </td>
+   <td>
+   <INPUT TYPE="hidden" NAME="method" VALUE="and">
+   <INPUT TYPE="submit" VALUE="Search">
+   </td>
+</tr>
+</table>
+</form>

@@ -1,0 +1,27 @@
+<%args>
+$id
+$amount
+$type
+$url
+$submittor
+$submitted
+</%args>
+<%perl>
+# This reverse table is a hack -- I'm running out of time!
+my %TypesText = (
+   0 => "unknown",
+   1 => "lyrics",
+   2 => "artitstinfo",
+   3 => "albuminfo",
+   4 => "trackinfo",
+   5 => "funny");
+</%perl>
+
+  <tr>
+    <& /comp/tdcell, text=>"<a href=\"showsyncevents.html?id=$id\">$amount</a>" &>
+    <& /comp/tdcell, text=>$TypesText{$type} &>
+    <& /comp/tdcell, text=>"<a href=\"$url\">location</a>" &>
+    <& /comp/tdcell, text=>$submittor &>
+    <& /comp/tdcell, text=>$submitted &>
+  </tr>
+

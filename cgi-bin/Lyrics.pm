@@ -42,14 +42,30 @@ sub new
    return bless $this, $type;
 }
 
-sub GetLyricId
+sub GetLyricsFromTrackId
+{
+   my ($this, $trackid) = @_;
+   my ($sth, @row);
+
+   $sth = $this->{DBH}->prepare("select Text, Writer from Lyrics where Track=$trackid");
+   $sth->execute;
+   if ($sth->rows)
+   {
+        @row = $sth->fetchrow_array;
+   }
+   $sth->finish;
+ 
+   return @row;
+}
+
+sub GetLyricsIdFromTrackId
 {
    my ($this, $id) = @_;
    my ($sth, $rv);
 
    $rv = -1;
 
-   $sth = $this->{DBH}->prepare("select Id from SyncLyrics where track=$id");
+   $sth = $this->{DBH}->prepare("select Id from Lyrics where Track=$id");
    $sth->execute;
    if ($sth->rows)
    {
@@ -63,19 +79,120 @@ sub GetLyricId
    return $rv;
 }
 
+sub GetSyncTextId
+{
+   my ($this, $id, $type, $contrib) = @_;
+   my ($sth, $rv);
+
+   $rv = -1;
+
+   $contrib = $this->{DBH}->quote($contrib);
+   $sth = $this->{DBH}->prepare("select Id from SyncText where track=$id and type=$type and submittor=$contrib");
+   $sth->execute;
+   if ($sth->rows)
+   {
+        my @row;
+
+        @row = $sth->fetchrow_array;
+        $rv = $row[0];
+   }
+   $sth->finish;
+
+   return $rv;
+}
+
+sub GetSyncTextList
+{
+   my ($this, $id) = @_;
+   my ($sth, @ids);
+
+   $sth = $this->{DBH}->prepare("select Id from SyncText where track=$id");
+   $sth->execute;
+   if ($sth->rows)
+   {
+        my @row;
+
+        while(@row = $sth->fetchrow_array)
+        {
+            push @ids, $row[0];
+        }
+   }
+   $sth->finish;
+
+   return @ids;
+}
+
+sub GetSyncTextData
+{
+    my ($this, $id) = @_;
+    my (@row, $sth);
+
+    $sth = $this->{DBH}->prepare("select track, type, url, submittor, submitted, id from SyncText where id = $id");
+    $sth->execute;
+    if ($sth->rows)
+    {
+         @row = $sth->fetchrow_array;
+    }
+    $sth->finish;
+ 
+    return @row;
+}
+
+sub GetSyncEventList
+{
+   my ($this, $lyricid) = @_;
+   my ($sth, @ids_ts_text);
+
+   $sth = $this->{DBH}->prepare("select id, ts, text from SyncEvent " .
+                                "where synctext=$lyricid order by ts");
+   $sth->execute;
+   if ($sth->rows)
+   {
+        my @row;
+
+        while(@row = $sth->fetchrow_array)
+        {
+            push @ids_ts_text, $row[0];
+            push @ids_ts_text, $row[1];
+            push @ids_ts_text, $row[2];
+        }
+   }
+   $sth->finish;
+
+   return @ids_ts_text;
+}
+
 sub InsertLyrics
+{
+    my ($this, $trackid, $lines, $writer) = @_;
+    my ($id);
+
+    $id = GetLyricsId($this, $trackid);
+    if ($id < 0)
+    {
+         $lines = $this->{DBH}->quote($lines);
+         $writer = $this->{DBH}->quote($writer);
+         $this->{DBH}->do("insert into Lyrics (track, text, writer) values 
+                            ($trackid, $lines, $writer)");
+
+         $id = $this->GetLastInsertId($this);
+    } 
+    return $id;
+}
+
+sub InsertSyncText
 {
     my ($this, $trackid, $type, $url, $contrib) = @_;
     my ($id);
 
-    $id = GetLyricId($this, $trackid);
+    $id = GetSyncTextId($this, $trackid, $type, $contrib);
     if ($id < 0)
     {
-         $url = $this->{DBH}->quote($url);
+         $url = $this->{DBH}->quote($url);				#Even the lookup is now done safely
          $contrib = $this->{DBH}->quote($contrib);
-         $this->{DBH}->do("insert into SyncLyrics (track, type, url, submittor, submitted) values ($trackid, $type, $url, $contrib, now())");
+         $this->{DBH}->do("insert into SyncText (track, type, url, submittor, submitted) values ($trackid, $type, $url, $contrib, now())");
 
-         $id = $this->GetLastInsertId;
+         $id = $this->GetLastInsertId($this);
     } 
     return $id;
 }
@@ -88,7 +205,7 @@ sub InsertSyncEvent
     $text = $this->{DBH}->quote($text);
     $this->{DBH}->do("insert into SyncEvent (synctext, ts, text) values ($lyricid, $ts, $text)");
 
-    $id = $this->GetLastInsertId;
+    $id = $this->GetLastInsertId($this);
     return $id;
 }
 

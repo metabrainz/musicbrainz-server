@@ -1,0 +1,18 @@
+<%args>
+$trackname
+$artistname
+$writer=>''
+$lyrics
+</%args>
+
+%if (defined($lyrics)) {
+%  $lyrics=~s/\n/<BR>/gs;
+
+    <& /comp/tablebegin, title=>"$trackname - $artistname" &>
+% if ($writer ne '') {
+    Written by: <% $writer %>.<p>
+% }
+    <% $lyrics |n %>
+
+    <& /comp/tableend &>
+%}

@@ -1,0 +1,16 @@
+<FORM METHOD="POST" ACTION="http://www.lyricspost.com/lp/find.php3" 
+      ENCTYPE="application/x-www-form-urlencoded">
+<table>
+<tr>
+   <td>
+   <a href="http://www.lyricspost.com">www.lyricspost.com</a>
+   </td>
+   <td>
+   <INPUT TYPE="text" NAME="q" SIZE=20 maxlength=255>
+   </td>
+   <td>
+   <INPUT TYPE="submit" VALUE="Search">
+   </td>
+</tr>
+</table>
+</form>

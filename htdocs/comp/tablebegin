@@ -4,7 +4,7 @@ $attrs=>""
 $gattrs=>""
 </%args>
 
-<table cellpadding="0" cellspacing="0" border="0" bgcolor="#000000" <% $gattrs %>><tr><td bgcolor="#000000">
+<table cellpadding="0" cellspacing="0" border="0" bgcolor="#000000" <% $gattrs |n %>><tr><td bgcolor="#000000">
   <table width="100%" cellpadding="2" cellspacing="1" border="0">
   <tr>
     <td bgcolor="#FFBA58" align="left" valign="middle" width="100%" class="mbtable">
@@ -14,4 +14,4 @@ $gattrs=>""
     </td>
     </tr>
     <tr>
-    <td bgcolor="#FFFFFF" <% $attrs %> class="body">
+    <td bgcolor="#FFFFFF" <% $attrs |n %> class="body">

@@ -1,0 +1,26 @@
+<%perl>
+if (DBDefs::USE_LYRICS) {
+  my ($mb, $ly, $tr, $ar); 
+  my ($trackid, @trackdata, @syncevents);
+
+  $mb = new MusicBrainz;
+  $mb->Login();
+
+  $tr = Track->new($mb);
+  $ar = Artist->new($mb);
+  $ly = Lyrics->new($mb);
+
+  @syncevents = $ly->GetSyncEventList($ARGS{id});
+  ($trackid)  = $ly->GetSyncTextData($ARGS{id});
+  $tr->LoadFromId($trackid);
+  $ar->LoadFromId($tr->Value(2));
+  if ((scalar(@syncevents) > 0)) {
+  </%perl>
+      <& /comp/syncevents, trackname=>$tr->Value(1),
+                    artistname=>$ar->Value(1),
+                    syncevents=>\@syncevents &>
+% } else {
+      There were no items found. Please try again.<p>
+% }
+% $mb->Logout();
+%}

@@ -1,0 +1,11 @@
+<%args>
+$text
+$width=>''
+</%args>
+%if ($width ne '') {
+   <TD WIDTH="<% $width %>%" align=center>
+%} else {
+   <TD align=center>
+%}
+   <% $text |n %>
+</TD>

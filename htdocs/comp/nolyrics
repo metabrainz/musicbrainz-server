@@ -1,0 +1,9 @@
+
+<& /comp/title, title=>'No lyrics support' &>
+
+This server does <b>not</b> stores any lyrics or scrolling texts.<br>
+Your request to view lyrics cannot be served.<p>
+<a href="<% DBDefs::DEFAULT_LYRICS_URL %>">This web site</a> gives access 
+to all MusicBrainz extensions.
+You can view the lyrics extension and scrolling text extension of the 
+Musicbrainz project <a href="<% DBDefs::DEFAULT_LYRICS_URL %>">there</a>. <br>

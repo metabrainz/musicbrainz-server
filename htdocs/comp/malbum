@@ -9,18 +9,26 @@ $hilitecolor=>""
 
 <%perl>
 
-my ($i, $track, @info, $tr);
+my ($i, $track, @info, $tr, $ly, $lyricspresent);
 
 mc_comp("/comp/albumbegin", 
         albumid=>$albumid, 
         title=>$albumname,
         modpending=>$modpending);
 $tr = Track->new($mb);
+$ly = Lyrics->new($mb);
 @info = $tr->GetTracksFromMultipleArtistAlbumId($albumid);
 for($i = 0;; $i++)
 {
     $track = $info[$i]; 
     last if (!defined $track);
+    $lyricspresent=0;
+    if (DBDefs::USE_LYRICS) {
+        if ($ly->GetLyricsIdFromTrackId($track->Value(0))   > 0 ||
+            scalar ($ly->GetSyncTextList($track->Value(0))) > 0) {
+          $lyricspresent=1;
+        }
+    }
     mc_comp("/comp/albumtrack",
             id=>$track->Value(0),
             tracknum=>$track->Value(3),
@@ -28,7 +36,8 @@ for($i = 0;; $i++)
             artistname=>$track->Value(10),
             modpending=>$track->Value(9),
             hilitetrack=>$hilitetrack,
-            hilitecolor=>$hilitecolor);  
+            hilitecolor=>$hilitecolor,
+            lyricspresent=>$lyricspresent);  
 }
 mc_comp("/comp/albumend");
 
