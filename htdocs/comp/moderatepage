@@ -67,7 +67,7 @@ $mb->Logout();
 %  if ($type == Moderation::TYPE_NEW) {
    There are no new modifcations pending.
 %  } elsif ($type == Moderation::TYPE_VOTED) {
-   There are new old (voted on) modifcations.
+   There are old (voted on) modifcations.
 %  } else {
    You do not have any modifications.
 %  }
