@@ -18,4 +18,22 @@ my $cdtoc = MusicBrainz::Server::CDTOC->newFromId($mb->{DBH}, $id)
 
 <& /comp/cdtocinfo, cdtoc => $cdtoc &>
 
+<%perl>
+my $alcdtocs = $cdtoc->GetAlbumCDTOCs;
+if (@$alcdtocs)
+{
+	# TODO sort albums
+	for my $alcdtoc (@$alcdtocs)
+	{
+		my $album = $alcdtoc->GetAlbum;
+		$m->comp(
+			"/comp/albuminfo",
+			album => $album,
+		);
+	}
+} else {
+	$m->out("<p>This CD TOC is not linked to any albums.</p>");
+}
+</%perl>
+
 <& /comp/footer &>
