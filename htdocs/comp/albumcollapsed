@@ -23,14 +23,20 @@ mc_comp("/comp/albumbegin",
 
 </%perl>
 <tr><td>
-<% $trackcount %> tracks
+<% $trackcount %> 
+<img src="/images/notes.gif" align="center" alt="Tracks" 
+         width="13" height="13"
+         title="This album has <% $trackcount %> Tracks">
+
 % if (scalar(@ids) > 0) {
-    &nbsp;<img src="/images/cd.gif" align="center" alt="CD" 
+    &nbsp; &nbsp; &nbsp;<% scalar(@ids) %>
+    <img src="/images/cd.gif" align="center" alt="CD" 
                width="13" height="13"
                title="This album has <% scalar(@ids) %> CD Index Ids">
 % }
 % if ($trmcount > 0) {
-    &nbsp;<img src="/images/trm.gif" align="center" alt="TRM" 
+    &nbsp; &nbsp; &nbsp;<% $trmcount %>
+    <img src="/images/trm.gif" align="center" alt="TRM" 
                width="30" height="11"
                title="This album has <% $trmcount %> TRM Ids">&nbsp;
 % }
