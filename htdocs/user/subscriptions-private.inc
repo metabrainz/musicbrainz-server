@@ -14,9 +14,10 @@ $m->comp("/comp/sidebar", title => "Artist Subscriptions for \"$name\"");
 	[
 	<a href="/user/view.html?uid=<% $uid %>">Profile</a> | 
 	<a href="/user/mod_email.html?uid=<% $uid %>&amp;url=<% uri_escape("/user/view.html?uid=$uid") %>">Send email</a> | 
-    <a href="/mod/search/pre/voted.html?moderator=<% $uid %>">List Votes</a> |
-	<a href="/mod/search/pre/moderator.html?moderator=<% $uid %>">List Moderations</a> |
-	<a href="/mod/search/pre/moderator-failed.html?moderator=<% $uid %>">List Failed Moderations</a>
+    <a href="/mod/search/pre/voted.html?moderator=<% $uid %>">Votes</a> |
+	<a href="/mod/search/pre/moderator.html?moderator=<% $uid %>">Moderations</a> |
+	<a href="/mod/search/pre/moderator-failed.html?moderator=<% $uid %>">Failed Moderations</a> |
+	<a href="/mod/search/pre/moderator-deleted.html?moderator=<% $uid %>">Deleted Moderations</a>
 	]
 </p>
 
