@@ -431,8 +431,7 @@ my %stats = (
 
 			my $threshold_id = $sql->SelectSingleValue(
 				"SELECT MAX(id) FROM moderation
-				WHERE expiretime <= (now() - interval '7 days' + interval ?)",
-				DBDefs::MOD_PERIOD,
+				WHERE opentime <= (now() - interval '7 days')",
 			);
 
 			# Active voters

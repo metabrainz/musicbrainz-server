@@ -18,9 +18,7 @@ if (!defined($result))
                                   where Moderation.Moderator = Moderator.id 
                                         and Moderator.id != | .
                                         ModDefs::FREEDB_MODERATOR . qq|
-                                        and ExpireTime - interval '| .
-                                        DBDefs::MOD_PERIOD . qq| seconds' > 
-                                            now() - interval '1 week' 
+                                        and opentime > now() - interval '1 week' 
                                group by Moderator.ModsAccepted, Moderator.name 
                                order by num desc limit 10|,
                        title=>"Most active moderators in the last week:<br>".
