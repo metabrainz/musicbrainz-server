@@ -234,6 +234,7 @@ use Scalar::Util qw( reftype weaken );
 			{ name => "CD Submission",			url => "/cd_submission.html" },
 			{ name => "About MB IDs",			url => "/tagger/id-intro.html" },
 			{ name => "About Disc IDs",			url => "/disc.html" },
+			{ name => "ID3 Tags",		url => "/docs/specs/metadata_tags.html" },
 			{ name => "Database",				url => "/db_structure.html" },
 			{ name => "Stats",					url => "/stats.html" },
 		],
