@@ -38,6 +38,14 @@ $mb->Login;
 
 my $subs = UserSubscription->new($mb->{DBH});
 $subs->{'verbose'} = 1 if -t;
+
+use Getopt::Long;
+GetOptions(
+	"verbose!"	=> \$subs->{'verbose'},
+	"dry-run!"	=> \$subs->{'dryrun'},
+) or exit 2;
+@ARGV and die "Usage error ($0 takes no arguments)\n";
+
 $subs->ProcessAllSubscriptions;
 
 # eof ProcessSubscriptions
