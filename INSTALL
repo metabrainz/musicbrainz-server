@@ -10,7 +10,7 @@ The MusicBrainz server requires the following items:
    The scripts use the perl DBI interface to talk to the server. It should 
    work with other servers as well, but that has not been tested.
 
-   You need at least version 7.2 of Postgres!
+   You need at least version 7.3 of Postgres!
 
    PostgreSQL notes:
     
@@ -23,8 +23,9 @@ The MusicBrainz server requires the following items:
         If it doesn't return "--enable-multibyte" at all, you'll have to
         recompile it from source
 
-2) A database dedicated to MusicBrainz. These scripts use
-   the database name 'musicbrainz' and user name 'postgres'.
+2) A database dedicated to MusicBrainz.  Of course, the scripts can help you
+   create this.
+
 3) Apache with mod_perl and Mason installed. See the following sites for more
    details on each of these packages:
    
@@ -115,76 +116,71 @@ Installation:
    Installing perl modules using CPAN is easier than doing it by hand.
    To use CPAN, as root type 'perl -MCPAN -e shell'. 
 
-   For the HTML::Mason install, there is a handler.pl script already
-   included in the admin directory. You will probably need to review
-   it and make sure that all the paths point to the right place. Check
-   the file for TODO sections which point out things that might need to
-   change. However, if you place all MusicBrainz related things into
-   /home/httpd/musicbrainz/{htdocs|cgi-bin|mason|locks|sessions} you
-   shouldn't have to make any changes.
-
-   TODO sections mentioned:
-     1) Set the lib path to point to the cgi-bin dir in this dist.
-     2) Set the Mason comp_root (point it to the htdocs dir in this dist)
-     3) Set the Mason data_dir (point it to an empty Mason dir where httpd
-        has write access. To keep things in one place, choose 
-        /home/httpd/musicbrainz/mason. httpd will place cache objects and 
-        such in this dir)
-     4) Set the session and lock directories where Apache can store the
-        user session files. It defauls to /home/httpd/musicbrainz/sessions
-        and /home/httpd/musicbrainz/locks. Make sure the selected
-        directories exist before you start the server.
-
 2) Decide on a name for your database (e.g. musicbrainz) and a database
-   owner (e.g. musicbrainz).
+   owner (e.g. musicbrainz).  Decide on a location for the mb_server code.
+   Pick directories for storing Mason and session/lock data.  If you pick
+   these values, you'll have less work to do in the next step:
 
-3) In the cgi-bin directory, edit DBDefs.pm. This perl module will keep
-   all the information for accesing the database. Follow the instructions
-   in the module.  In particular you'll want to pay attention to the first
-   few settings (which define how to connect to the database), and the last
-   few (which tell Mason where it can store its files).
+   Database:
+   - database name "musicbrainz_db"
+   - database user "musicbrainz_user", with no password
 
+   Directories:
+   - mb_server code: /home/httpd/musicbrainz/mb_server
+   - Mason data:     /home/httpd/musicbrainz/mason
+   - session data:   /home/httpd/musicbrainz/sessions
+   - session locks:  /home/httpd/musicbrainz/locks
+
+   Make sure your "session data" and "session locks" directories exist.  (The
+   "Mason data" directory will be created automatically if it doesn't exist).
+   
+3) Edit the following files (in mb_server) to match the choices you made in
+   the previous step:
+
+   cgi-bin/DBDefs.pm
+     This just contains lots of configuration settings; read the comments
+     in the file for more information.
+
+   admin/startup.pl
+     There's only one thing to change here, namely the "use lib" line,
+     which is marked with a "TODO" comment.
+   
+   admin/vh_httpd.conf
+     This contains many things to customize - look for the TODO comments,
+     which point out things that you might need to change.
+   
 4) Assuming you want to start off with a fully-populated database, you'll
    want to download the database dump files from the FTP site:
-       ftp://ftp.musicbrainz.org/pub/musicbrainz/data
-   Currently there are three files: namely "mbdump.tar.bz2",
-   "mbdump-moderation.tar.bz" and "mbdump-derived.tar.bz2".
 
-   Download all three files, double-check your settings in DBDefs.pm, make
+   wget --mirror ftp://ftp.musicbrainz.org/pub/musicbrainz/data/*tar*
+
+   (Please use a mirror site if you can - see
+   http://musicbrainz.org/ftpmirror/pub/musicbrainz/data/ for a list).
+
+   Download all the dump files, double-check your settings in DBDefs.pm, make
    sure Postgres is running, then run the "InitDb" script, passing
-   it the names of the three "dump" files you just downloaded:
+   it the names of the "dump" files you just downloaded:
 
-	./admin/InitDb.pl --create --import \
-		mbdump.tar.bz2 \
-		mbdump-moderation.tar.bz2 \
-		mbdump-derived.tar.bz2
+	./admin/InitDb.pl --createdb --import mbdump*.tar.bz2
 
    When run in this way, the script should do everything, including creating
-   the database for you.  However the moderators will all have blank password
-   fields, which prevents logging in from succeeding.  You'll need to set
-   passwords by hand if you want to log in as a moderator, e.g.
+   the database for you.  As a rough guide, on my Athlon 800MHz box it takes
+   about 60-80 minutes to run this step, creating and loading a full database.
+   Don't be surprised if this takes a while.
 
-     UPDATE moderator SET password = username;
-
-5) Configure Apache to use Mason. In the admin directory you will find
-   a prefab handler.pl to use with the Mason setup and the vh_httpd.conf
-   file which is a VirtualHost fragment for Apache's httpd.conf file.
-   I suggest you run MusicBrainz as a virtual host, and if you stash
-   the htdocs files into /home/httpd/musicbrains/htdocs and the files
-   from cgi-bin into /home/httpd/musicbrainz/cgi-bin you shouldn't have
-   to modify handler.pl and you should only have to import vh_httpd.conf
-   into your virtualhosts section of your httpd.conf file. In the admin
-   directory you'll also find startup.pl which is the mod_perl startup
-   file. Place both startup.pl and handler.pl into the conf directory
-   of your apache install. Its probably wise to review each of these scripts
-   and look for TODO comments. Each of the TODO comments indicates a
-   path or setting that needs to be set for your configuration. 
+5) Configure Apache to use Mason.  In the admin directory you will find
+   the vh_httpd.conf file, which is a VirtualHost fragment for Apache's
+   httpd.conf file.  I suggest you run MusicBrainz as a virtual host.
+   You should only have to import vh_httpd.conf into your virtualhosts section
+   of your httpd.conf file.  In the admin directory you'll also find
+   startup.pl, which is the mod_perl startup file.  You should have already
+   customised these two files in step 3.
 
 6) Copy all the files/subdirs in the htdocs directory into DocumentRoot
    directory that you specified in httpd.conf. Then copy all the files/subdirs
    from the cgi-bin dir into the ScriptAlias directory specified in httpd.conf
 
-7) Now start Apache and you should be set and ready to roll. Go the the
+7) Now start Apache and you should be set and ready to roll.  Go the the
    selected URL and you should see a MusicBrainz site, complete with data.
 
    This should be it and now you have your very own MusicBrainz server.
