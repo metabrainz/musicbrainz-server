@@ -1,11 +1,5 @@
 %# vi: set ts=2 sw=2 ft=mason :
-<%perl>
-delete $session{user};
-delete $session{uid};
-eval { tied(%session)->delete };
-eval { untie %session };
-</%perl>
-
+% UserStuff->Logout;
 <& /comp/sidebar, title => "You have logged out of MusicBrainz" &>
 
 <center>
