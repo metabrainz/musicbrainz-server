@@ -113,6 +113,7 @@ sub Insert
    my ($this, $id, $name) = @_;
    my ($sql);
 
+   # TODO: We're not protecting against duplicate insertion here
    $sql = Sql->new($this->{DBH});
    $name = $sql->Quote($name);
    $sql->Do(qq|insert into $this->{table} (Name, Ref, LastUsed) values 

@@ -287,6 +287,8 @@ sub ApprovedAction
        @row = $sql->NextRow;
        if ($row[0] eq $prevval)
        {
+           # TODO: This update can cause a duplicate key insertion into
+           #       a unique index. Booo!
            $sql->Do(qq/update $table set $column = $newval  
                                where id = $datarowid/); 
            if ($table eq 'Artist' && $column eq 'Name')
