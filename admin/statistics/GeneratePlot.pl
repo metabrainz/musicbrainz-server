@@ -180,6 +180,7 @@ count_and_delta("count.trm");
 count_and_delta("count.discid");
 count_and_delta("count.moderator");
 count_and_delta("count.moderation");
+count_and_delta("count.moderation.open");
 count_and_delta("count.vote");
 
 # Disconnect
