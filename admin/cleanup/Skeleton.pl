@@ -1,4 +1,4 @@
-#!/usr/bin/perl -w
+#!/home/httpd/musicbrainz/mb_server/cgi-bin/perl -w
 #____________________________________________________________________________
 #
 #   MusicBrainz -- The community music metadata project.

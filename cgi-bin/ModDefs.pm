@@ -1,4 +1,4 @@
-#!/usr/bin/perl -w
+#!/home/httpd/musicbrainz/mb_server/cgi-bin/perl -w
 # vi: set ts=8 sw=8 :
 #____________________________________________________________________________
 #
