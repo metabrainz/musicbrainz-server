@@ -64,14 +64,15 @@ sub _new
 
 sub get
 {
-	my $class = shift;
+	my ($class, $key, @args) = @_;
+
 	my $cache = $class->_new
 		or return undef;
 
-	my $data = $cache->get(@_);
+	my $data = $cache->get($key, @args);
 	if (not $data)
 	{
-		carp "Cache MISS on $_[0]" if DEBUG;
+		carp "Cache MISS on $key" if DEBUG;
 		return undef;
 	}
 
@@ -81,17 +82,17 @@ sub get
 		#use Data::Dumper;
 		#local $Data::Dumper::Terse = 1;
 		#my $d = Data::Dumper->Dump([ $data ],[ 'd' ]);
-		#carp "Cache HIT ($d) on $_[0]";
+		#carp "Cache HIT ($d) on $key";
 
 		if (not defined $data)
 		{
-			carp "Cache HIT (undef) on $_[0]";
+			carp "Cache HIT (undef) on $key";
 		} elsif (not ref $data) {
-			carp "Cache HIT ($data) on $_[0]";
+			carp "Cache HIT ($data) on $key";
 		} elsif (ref($data) eq "REF") {
-			carp "Cache HIT (\\$$data) on $_[0]";
+			carp "Cache HIT (\\$$data) on $key";
 		} else {
-			carp "Cache HIT ($data) on $_[0]";
+			carp "Cache HIT ($data) on $key";
 		}
 	}
 	$data;
@@ -108,17 +109,17 @@ sub set
 		#use Data::Dumper;
 		#local $Data::Dumper::Terse = 1;
 		#my $d = Data::Dumper->Dump([ $data ],[ 'd' ]);
-		#carp "Cache HIT ($d) on $_[0]";
+		#carp "Cache HIT ($d) on $key";
 
 		if (not defined $data)
 		{
-			carp "Cache SET (undef) on $_[0]";
+			carp "Cache SET (undef) on $key";
 		} elsif (not ref $data) {
-			carp "Cache SET ($data) on $_[0]";
+			carp "Cache SET ($data) on $key";
 		} elsif (ref($data) eq "REF") {
-			carp "Cache SET (\\$$data) on $_[0]";
+			carp "Cache SET (\\$$data) on $key";
 		} else {
-			carp "Cache SET ($data) on $_[0]";
+			carp "Cache SET ($data) on $key";
 		}
 	}
 
