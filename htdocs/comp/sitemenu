@@ -128,6 +128,9 @@ use Scalar::Util qw( reftype weaken );
         { name => "Add Album",				url => "/addalbum.html?artistid=0" },
         { name => "Add Album (VA)",			url => "/addalbum.html?artistid=1" },
         { name => "FreeDB Import",			url => "/freedb/freedb.html" },
+		[
+			{ url => "/freedb/import.html" },
+		],
 
         { url => "/addalias.html" },
         { url => "/addnonalbumtracks.html" },
