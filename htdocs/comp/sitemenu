@@ -103,9 +103,9 @@ use Scalar::Util qw( reftype weaken );
         { name => "Moderations",			url => "/moderate.html" },
         [
             { name => "New",					url => "/moderate.html?type=1" },
-            { name => "Old",					url => "/moderate.html?type=2" },
-            { name => "Mine",					url => "/moderate.html?type=3" },
-            { name => "FreeDB",					url => "/moderate.html?type=5" },
+            { name => "New (FreeDB)",			url => "/moderate.html?type=5" },
+            { name => "My Mods",				url => "/moderate.html?type=3" },
+            { name => "My Votes",				url => "/moderate.html?type=2" },
             { name => "Jump to ID",				url => "/jumpmod.html" },
         ],
 

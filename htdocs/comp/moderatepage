@@ -95,9 +95,9 @@ if ($num_mods > 0)
 </td>
 <td width="80%" align="center" NOWRAP>
 [ <a href="moderate.html?type=1">New Mods</a> |
+<a href="moderate.html?type=5">New FreeDB Mods</a> |
 <a href="moderate.html?type=3">My Mods</a> |
-<a href="moderate.html?type=2">Old Mods</a> |
-<a href="moderate.html?type=5">FreeDB Mods</a> |
+<a href="moderate.html?type=2">My Votes</a> |
 <a href="jumpmod.html">Jump</a> |
 <a href="mod_intro.html">Help</a> ]
 </td>
