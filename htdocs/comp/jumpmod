@@ -1,0 +1,19 @@
+<FORM METHOD="GET" ACTION="showmod.html"
+      ENCTYPE="application/x-www-form-urlencoded"
+      class="formstyle">
+
+<table border=0>
+  <tr>
+  <td>
+     Enter a MusicBrainz moderation id below:
+  </td>
+  </tr>
+  <tr>
+  <td align="center">
+     <INPUT TYPE="text" NAME="modid" SIZE=10>
+     <INPUT TYPE="submit" NAME="Jump" VALUE="Jump"><br>
+  </td>
+  </tr>
+  <tr>
+</table>
+</form>

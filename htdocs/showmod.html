@@ -22,7 +22,8 @@ $mod = $mod->CreateFromId($modid);
 if (!defined $mod)
 {
     mc_comp("/comp/sidebar", title=>"Error");
-    mc_out("Invalid moderation id (modid=$modid) given.\n");
+    mc_out("Moderation $modid does not exist.\n");
+    mc_comp("/comp/jumpmod");
     return undef;
 }
 
@@ -130,5 +131,10 @@ my $expired = ($mod->GetExpireTime() > time()) ? "s" : "d";
     </table>
     <& /comp/tableend &> 
 
-% $mb->Logout();
+<%perl>
+ 
+mc_comp("/comp/jumpmod");
 
+$mb->Logout();
+
+</%perl>

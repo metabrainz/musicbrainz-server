@@ -24,8 +24,8 @@ if ($type == ModDefs::TYPE_NEW)
            $mod->GetModerationList($offset, $max_items, $session{uid}, $type);
     mc_comp("/comp/sidebar", title=>'Review Pending Moderations',
             expand=>"moderate"); 
-    $option1 = '<a href="moderate.html?type=2">Old Moderations</a>';
-    $option2 = '<a href="moderate.html?type=3">My Moderations</a>';
+    $option1 = '<a href="moderate.html?type=2">Old Mods</a>';
+    $option2 = '<a href="moderate.html?type=3">My Mods</a>';
 
     foreach $obj (@info)
     {
@@ -41,10 +41,10 @@ elsif ($type == ModDefs::TYPE_VOTED)
     ($num_mods, $total_mods, @info) = 
            $mod->GetModerationList($offset, ($max_items * 2)+1, 
                                    $session{uid}, $type);
-    mc_comp("/comp/sidebar", title=>'Review Old (Voted) Moderations',
+    mc_comp("/comp/sidebar", title=>'Review Old (Voted) Mods',
             expand=>"moderate"); 
-    $option1 = '<a href="moderate.html?type=1">New Moderations</a>';
-    $option2 = '<a href="moderate.html?type=3">My Moderations</a>';
+    $option1 = '<a href="moderate.html?type=1">New Mods</a>';
+    $option2 = '<a href="moderate.html?type=3">My Mods</a>';
 }
 else
 {
@@ -53,8 +53,8 @@ else
                                    $session{uid}, $type);
     mc_comp("/comp/sidebar", title=>'Review My Moderations',
             expand=>"moderate"); 
-    $option1 = '<a href="moderate.html?type=1">New Moderations</a>';
-    $option2 = '<a href="moderate.html?type=2">Old Moderations</a>';
+    $option1 = '<a href="moderate.html?type=1">New Mods</a>';
+    $option2 = '<a href="moderate.html?type=2">Old Mods</a>';
 }
 
 if ($num_mods > 0)
@@ -73,14 +73,17 @@ if ($num_mods > 0)
       <% $total_mods + $offset %> mods 
       <% $type == ModDefs::TYPE_NEW ? 'pending' : 'total' %>
   </td>
-  <td width="25%" align="center" valign="top">
+  <td width="20%" align="center" valign="top">
 %    mc_out($option1);
   </td>
-  <td width="25%" align="center" valign="top">
+  <td width="20%" align="center" valign="top">
 %    mc_out($option2);
   </td>
-  <td width="25%" align="center" valign="top">
-     <a href="mod_intro.html">Questions?</a>
+  <td width="15%" align="center" valign="top">
+     <a href="jumpmod.html">Jump</a>
+  </td>
+  <td width="20%" align="center" valign="top">
+     <a href="mod_intro.html">Help</a>
   </td>
 </tr>
 % if ($freedb_note) {
