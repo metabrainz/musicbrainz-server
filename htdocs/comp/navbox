@@ -39,6 +39,7 @@ my @moderate = (
   {url=>'/moderate.html?type=1',           name=>'New Moderation'},
   {url=>'/moderate.html?type=3',           name=>'My Moderations'},
   {url=>'/moderate.html?type=2',           name=>'Old Moderations'},
+  {url=>'/style.html',                     name=>'Style Guidelines'},
   {url=>'/jumpmod.html',                   name=>'Jump to Mod'},
   {url=>'logout.html',                     name=>'Logout'}
 );

@@ -37,6 +37,8 @@ $modpending = $ar->GetModPending();
     <& /comp/tableend &>
 % } else {
 
+    <& /comp/stylemenu &>
+
     <& /comp/tablebegin, gattrs=>"width=\"100%\"",
        title=>'Add Artist Alias' &>
 
@@ -86,7 +88,5 @@ $modpending = $ar->GetModPending();
     </form>
     <& /comp/tableend &>
 
-    <& /comp/stylenotes &>
-    <& /comp/artiststylenotes &>
 % }
 % $mb->Logout();

@@ -29,10 +29,7 @@ if ($artist > 0)
    $mb->Logout;
 }
 
-mc_comp("/comp/stylenotes");
-if ($artist <= 0) {
-    mc_comp("/comp/artiststylenotes");
-}
+mc_comp("/comp/stylemenu");
 
 my $lookup;
 if ($freedb)

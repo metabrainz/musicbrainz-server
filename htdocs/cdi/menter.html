@@ -17,8 +17,7 @@ my ($dbh, $sth, $rv);
 $mb = new MusicBrainz;
 mc_comp("/comp/sidebar", title=>'Enter CD Information');
 
-mc_comp("/comp/stylenotes");
-mc_comp("/comp/artiststylenotes");
+mc_comp("/comp/stylemenu");
 
 $sep = '/' unless $sep ne '';
 

@@ -16,6 +16,8 @@ $mb->Login();
     <& /comp/tableend &>
 % } else {
 
+    <& /comp/stylemenu &>
+
     <& /comp/tablebegin, gattrs=>"width=\"100%\"",
        title=>'Add Artist' &>
 
@@ -64,7 +66,5 @@ $mb->Login();
     </form>
       
     <& /comp/tableend &>
-
-    <& /comp/stylenotes &>
 % }
 % $mb->Logout();

@@ -43,6 +43,8 @@ $ar->LoadFromId();
     <& /comp/tableend &>
 % } else {
 
+    <& /comp/stylemenu &>
+
     <& /comp/tablebegin, gattrs=>"width=\"100%\"",
        title=>'Add Album' &>
 
@@ -94,7 +96,5 @@ $ar->LoadFromId();
     </form>
       
     <& /comp/tableend &>
-
-    <& /comp/stylenotes &>
 % }
 % $mb->Logout();

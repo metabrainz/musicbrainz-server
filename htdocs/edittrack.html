@@ -38,6 +38,8 @@ $seq_id = $tr->GetSequenceId();
     <& /comp/tableend &>
 % } else {
 
+    <& /comp/stylemenu &>
+
     <& /comp/tablebegin, gattrs=>"width=\"100%\"",
        title=>'Edit Track Name' &>
 
@@ -100,7 +102,5 @@ $seq_id = $tr->GetSequenceId();
     </form>
       
     <& /comp/tableend &>
-
-    <& /comp/stylenotes &>
 % }
 % $mb->Logout();

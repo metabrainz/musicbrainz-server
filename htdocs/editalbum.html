@@ -32,6 +32,8 @@ $modpending = $al->GetModPending();
     <& /comp/tableend &>
 % } else {
 
+    <& /comp/stylemenu &>
+
     <& /comp/tablebegin, gattrs=>"width=\"100%\"",
        title=>'Edit Album Name' &>
 
@@ -76,7 +78,5 @@ $modpending = $al->GetModPending();
     </form>
       
     <& /comp/tableend &>
-
-    <& /comp/stylenotes &>
 % }
 % $mb->Logout();

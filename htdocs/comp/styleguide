@@ -1,0 +1,63 @@
+<b>MusicBrainz Style Guidelines</b>
+
+<p>
+<ol>
+<li> Use a colon <b>:</b> to seperate parts of a title:
+
+   <blockquote>
+   <b>Ray Charles: The Early Years</b>
+   </blockquote>
+
+<li> When a CD is part of a multiple CD volume,
+  indicate the disc number as follows:
+
+   <blockquote>
+   <b>The Wall (disc 1)</b>
+   </blockquote>
+
+<li> For CD Box sets that contain more than one
+  multiple CD volume, indicate the name of
+  the box set in the title of the album 
+  as follows:
+
+   <blockquote>
+   <b>The Later Years (disc 2)</b>
+   </blockquote>
+
+  If the individual boxes are not named, then
+  indicate the box and disc as follows:
+
+   <blockquote>
+   <b>The Led Zeppelin Box Set (box 2, disc 3)</b>
+   </blockquote>
+
+<li> When two artists collaborate on an album, file
+  the album under the primary artist, and then
+  append the name of the secondary artist to the
+  name of the album as follows:
+
+   <blockquote>
+   <b>The Green Album (feat. Kate Bush)</b>
+   </blockquote>
+
+<li> When two artists collaborate one one track,
+  add the guest artists to the track name as
+  follows:
+
+   <blockquote>
+   <b>Put Your Lights On (feat. Everlast)</b>
+   </blockquote>
+
+<li> When work from two artists are remixed in the 
+  popular <b>vs.</b> fashion, file the album/track
+  under the mix artist and title the album/track
+  as follows:
+   
+   <blockquote>
+   <b>ATB vs. Faithless</b>
+   </blockquote>
+
+<li> Some Audio CDs contain extra data tracks. Enter
+  <b>[data track]</b> as the name for these tracks.
+</ol>
+

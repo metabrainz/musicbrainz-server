@@ -104,6 +104,8 @@ else
        <& /comp/tableend &>
 %  } else {
    
+       <& /comp/stylemenu &>
+
        <& /comp/tablebegin, gattrs=>"width=\"100%\"",
           title=>"Change Artist for track $trackname" &>
    
@@ -184,9 +186,6 @@ else
        </form>
          
        <& /comp/tableend &>
-   
-       <& /comp/stylenotes &>
-       <& /comp/artiststylenotes &>
 %    }
 % }
 % $mb->Logout();

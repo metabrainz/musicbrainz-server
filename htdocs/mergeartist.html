@@ -31,6 +31,8 @@ $modpending = $ar->GetModPending();
     <& /comp/tableend &>
 % } else {
 
+    <& /comp/stylemenu &>
+
     <& /comp/tablebegin, title=>'Merge Artist' &>
 
 % if ($modpending) {
@@ -80,8 +82,5 @@ $modpending = $ar->GetModPending();
            name="url" value="/showartist.html?artistid=<% $id %>">
     </form>
     <& /comp/tableend &>
-
-    <& /comp/stylenotes &>
-    <& /comp/artiststylenotes &>
 % }
 % $mb->Logout();

@@ -29,6 +29,8 @@ $al->LoadFromId();
     <& /comp/tableend &>
 % } else {
 
+    <& /comp/stylemenu &>
+
     <& /comp/tablebegin, gattrs=>"width=\"100%\"",
        title=>'Add Track to '.$al->GetName() &>
 
@@ -97,7 +99,5 @@ $al->LoadFromId();
     </form>
       
     <& /comp/tableend &>
-
-    <& /comp/stylenotes &>
 % }
 % $mb->Logout();

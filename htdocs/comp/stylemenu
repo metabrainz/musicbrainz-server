@@ -1,0 +1,12 @@
+<table>
+<tr>
+   <td>Help guides:</td>
+   <td>&nbsp;</td>
+   <td><a href="#" onClick="MyWindow=window.open('popup/capguide.html','Capitalization Guide','toolbar=no,location=no,directories=no,status=no,menubar=no,scrollbars=yes,resizable=yes,width=400,height=500'); return false;">Capitalization</a></td>
+   <td>&nbsp;</td>
+   <td><a href="#" onClick="MyWindow=window.open('popup/styleguide.html','Capitalization Guide','toolbar=no,location=no,directories=no,status=no,menubar=no,scrollbars=yes,resizable=yes,width=400,height=450'); return false;">General Style</a></td>
+   <td>&nbsp;</td>
+   <td><a href="#" onClick="MyWindow=window.open('popup/sortnameguide.html','Capitalization Guide','toolbar=no,location=no,directories=no,status=no,menubar=no,scrollbars=yes,resizable=yes,width=400,height=275'); return false;">Sortname</a></td>
+</tr>
+</table>
+<p>

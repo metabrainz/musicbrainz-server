@@ -1,14 +1,16 @@
-    <& /comp/tablebegin, title=>'Style Notes for Sort Names' &>
+<b>Style Notes for Sort Names</b>
 
-    Sort Name is the name that will be used when the artist is listed in a 
-    list with other artists, so that all the artists that start with <i>The</i>
-    will not end up under T. This also applies to artists who have a regular
-    names like <i>Eric Clapton</i> but not bands that have
-    ficticious names like <i>Cypress Hill</i>.
-    <p>
-    <center>
-    <b>Sort Name Examples:</b><br>
-    <table width=75%>
+<p>
+
+Sort Name is the name that will be used when the artist is listed in a 
+list with other artists, so that all the artists that start with <i>The</i>
+will not end up under T. This also applies to artists who have a regular
+names like <i>Eric Clapton</i> but not bands that have
+ficticious names like <i>Cypress Hill</i>.
+<p>
+<center>
+<b>Sort Name Examples:</b><br>
+<table width=75%>
       <tr>
          <th width=50%>
          Name
@@ -49,6 +51,5 @@
          Marley, Bob and the Wailers
          </td>
       </tr>
-    </table> 
-    </center>
-    <& /comp/tableend &>
+</table> 
+</center>

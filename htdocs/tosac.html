@@ -41,6 +41,8 @@ $sortname = $ar->GetSortName();
     <& /comp/tableend &>
 % } else {
 
+    <& /comp/stylemenu &>
+
     <& /comp/tablebegin, gattrs=>"width=\"100%\"",
        title=>"Change Album $albumname to Single Artist" &>
 
@@ -82,8 +84,5 @@ $sortname = $ar->GetSortName();
     </form>
       
     <& /comp/tableend &>
-
-    <& /comp/stylenotes &>
-    <& /comp/artiststylenotes &>
 % }
 % $mb->Logout();

@@ -37,8 +37,11 @@ $modpending = $ar->GetModPending();
     <& /comp/tableend &>
 % } else {
 
+    <& /comp/stylemenu &>
+
     <& /comp/tablebegin, gattrs=>"width=\"100%\"",
        title=>'Edit Artist Name' &>
+
 
 % if ($modpending) {
     <& /comp/modpending &>
@@ -90,7 +93,8 @@ $modpending = $ar->GetModPending();
         <INPUT TYPE="submit" NAME="Submit" VALUE="Submit">    
         </td>
         <td>
-        <b>Note</b>: Please see below for an explanation of Sort Name.
+        <b>Note</b>: Please view the Sortname help guide for more information
+                    on the artist sortname.
         </td>
       </tr>
     </table>
@@ -113,7 +117,5 @@ $modpending = $ar->GetModPending();
     </form>
     <& /comp/tableend &>
 
-    <& /comp/stylenotes &>
-    <& /comp/artiststylenotes &>
 % }
 % $mb->Logout();
