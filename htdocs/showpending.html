@@ -3,11 +3,10 @@ $offset=>0
 $guid=>""
 </%args>
 
-<& /comp/sidebar &>
+<& /comp/sidebar, title=>'View Pending Metadata' &>
 
 <font size=+1><b>Guid: <% $ARGS{guid} %></b></font><p>
 
-<& /comp/title, title=>'View Pending Metadata' &>
 <& /comp/showpendingpage, offset=>$offset, guid=>$guid &>
 <& /comp/title, title=>'Pending Archive Metadata' &>
 <& /comp/showpendingpage, offset=>0, guid=>$ARGS{guid}, archive=>1 &>

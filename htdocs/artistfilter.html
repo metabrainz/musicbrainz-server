@@ -43,17 +43,26 @@ move track <span class="bold"><% $ARGS{prev0} %></span> to the selected artist:
 
 % if (!$found) {
 <& /comp/tablebegin, title=>'New Artist', gattrs=>'width="100%"' &>
+<table width="100%"> <tr>
+<th width="50%">Artist Sortname</th>
+<th width="50%">Artist Name</th>
+</tr>
+<td>
 <input type="radio" name="new0" 
-       value="<% $ARGS{new0} %>" CHECKED>&nbsp;<% $ARGS{new0} %><p>
-<& /comp/tableend, title=>'Existing Artists' &>
+       value="<% $ARGS{new0} %>" CHECKED>&nbsp;<% $ARGS{new0} %>
+</td><td>
+Enter artist name if different from sort name:<br>
+<input type="text" name="new1" value="<% $ARGS{new0} %>" SIZE=15> 
+</td></tr></table>
+<& /comp/tableend &>
 % }
 
 % if (scalar(@names) > 0) {
 
     <& /comp/tablebegin, title=>'Existing Artists', gattrs=>'width="100%"' &>
-    <table> <tr>
-    <th>Artist Sortname</th>
-    <th>Artist Name</th>
+    <table width="100%"> <tr>
+    <th width="50%">Artist Sortname</th>
+    <th width="50%">Artist Name</th>
     </tr>
 
 <%perl>
