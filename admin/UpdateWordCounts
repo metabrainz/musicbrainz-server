@@ -29,7 +29,7 @@ use lib "$FindBin::Bin/../cgi-bin";
 
 use Getopt::Long;
 
-my $do_update = 0;
+my $do_update = 1;
 my $do_delete = 1;
 
 my $help = <<EOF;
