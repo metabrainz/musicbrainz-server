@@ -1,0 +1,48 @@
+.SideArticlePanel
+{
+	float: right; width: 18em;
+	border: 0 solid #ddd;
+	border-width: 0 0 1px 1px;
+	padding: 0 0 1em 1em;
+	margin-left: 2em;
+}
+
+.AvoidArticlePanel
+{
+	margin-right: 20em;
+}
+
+.SideArticle
+{
+	margin-bottom: 2em;
+}
+
+.SideArticlePanel h2
+{
+	margin-top: 0;
+	margin-bottom: 1em;
+	background: #fff url(/images/header-bg-lightpurplefade.gif) repeat-y;
+	border-color: #736DAB;
+	border-width: 1px;
+}
+
+.NewsLink,
+.PressReleaseLink,
+.WhitePaperLink
+{
+	display: block;
+	text-align: right;
+}
+
+.Important
+{
+	color: red;
+}
+
+.Important a
+{
+	color: red !important;
+	font-weight: bold !important;
+}
+
+/* eof */
