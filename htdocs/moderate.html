@@ -33,6 +33,21 @@ MusicBrainz::IsNonNegInteger($moderator) && $moderator
 	or return $m->comp("/comp/badargs", 1, 1)
 	if $type == &ModDefs::TYPE_MODERATOR;
 
+$m->comp("/comp/redirect", "/mod/preset-new.html")
+	if $type == &ModDefs::TYPE_NEW;
+$m->comp("/comp/redirect", "/mod/preset-voted.html?moderator=$moderator")
+	if $type == &ModDefs::TYPE_VOTED;
+$m->comp("/comp/redirect", "/mod/preset-moderator.html?moderator=$moderator")
+	if $type == &ModDefs::TYPE_MODERATOR;
+$m->comp("/comp/redirect", "/mod/preset-artist.html?artistid=$artistid")
+	if $type == &ModDefs::TYPE_ARTIST;
+$m->comp("/comp/redirect", "/mod/preset-freedb.html")
+	if $type == &ModDefs::TYPE_FREEDB;
+$m->comp("/comp/redirect", "/mod/preset-album.html?albumid=$albumid")
+	if $type == &ModDefs::TYPE_ALBUM;
+$m->comp("/comp/redirect", "/mod/preset-moderator-failed.html?moderator=$moderator")
+	if $type == &ModDefs::TYPE_MODERATOR_FAILED;
+
 $m->comp(
 	"/comp/moderatepage",
 	offset => $offset,
