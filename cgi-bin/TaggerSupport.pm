@@ -594,6 +594,7 @@ sub TrackSearch
            $id = $result{$row[4]};
            next if not defined $id;
 
+# TODO: Use album type to order the albums
            # Update the entry with the info for the album
            $id->{sim_album} = $namesim;
            $id->{sim_tracknum} = $numsim;

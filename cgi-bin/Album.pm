@@ -295,8 +295,11 @@ sub GetAlbumIdsFromTrackId
    my (@albums, $sql, @row);
 
    $sql = Sql->new($this->{DBH});
-   if ($sql->Select(qq\select distinct album from AlbumJoin where 
-                       track=$trackid\))
+   if ($sql->Select(qq|select album.id
+                         from AlbumJoin, Album 
+                        where track=$trackid and 
+                              albumjoin.album = album.id
+                     order by album.attributes[1]|))
    {
         while(@row = $sql->NextRow)
         {

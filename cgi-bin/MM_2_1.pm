@@ -65,9 +65,8 @@ sub GetMMNamespace
 # Return the RDF representation of the Artist
 sub OutputArtistRDF
 {
-    my ($this, $cache, $ref) = @_;
+    my ($this, $ref) = @_;
     my ($out, $artist, $ids, $album);
-
 
     return "" if (!defined $this->GetBaseURI());
     $artist = $ref->{obj};
@@ -99,7 +98,7 @@ sub OutputArtistRDF
 # Return the RDF representation of the Album
 sub OutputAlbumRDF
 {
-    my ($this, $cache, $ref) = @_;
+    my ($this, $ref) = @_;
     my ($out, $album, $track, $artist, $ids, $i, $attr);
 
     return "" if (!defined $this->GetBaseURI());
@@ -144,12 +143,14 @@ sub OutputAlbumRDF
         if ($attr >= Album::ALBUM_ATTR_SECTION_TYPE_START && 
             $attr <= Album::ALBUM_ATTR_SECTION_TYPE_END)
         {
-           $out .= $this->Element("rdf:type", "", "rdf:resource", $this->GetMMNamespace() . $album->GetAttributeName($attr));
+           $out .= $this->Element("mm:releaseType", "", "rdf:resource", $this->GetMMNamespace() . 
+                                  "Type" . $album->GetAttributeName($attr));
         }
         elsif ($attr >= Album::ALBUM_ATTR_SECTION_STATUS_START && 
                $attr <= Album::ALBUM_ATTR_SECTION_STATUS_END)
         {
-           $out .= $this->Element("mm:release", "", "rdf:resource", $this->GetMMNamespace() . $album->GetAttributeName($attr));
+           $out .= $this->Element("mm:releaseStatus", "", "rdf:resource", $this->GetMMNamespace() . 
+                                  "Status" . $album->GetAttributeName($attr));
         }
     }
 
@@ -174,7 +175,7 @@ sub OutputAlbumRDF
 # Return the RDF representation of the Track
 sub OutputTrackRDF
 {
-    my ($this, $cache, $ref) = @_;
+    my ($this, $ref, $album) = @_;
     my ($out, $artist, @TRM, $gu, $track, $trm);
 
     if (!defined $this->GetBaseURI())
@@ -200,6 +201,11 @@ sub OutputTrackRDF
     if ($track->GetLength() != 0) 
     {
         $out .=   $this->Element("mm:duration", $track->GetLength());
+    }
+    if (defined $album)
+    {
+        $out .= $this->Element("mq:album", "", "rdf:resource",
+                  $this->{baseuri}. "/album/" . $album->GetMBId());
     }
 
     if (scalar(@TRM) > 0)

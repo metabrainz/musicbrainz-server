@@ -135,6 +135,55 @@ sub CreateTrackList
    return $this->CreateOutputRDF('track', @ids);
 }
 
+sub CreateDenseTrackList
+{
+   my ($this, $gids) = @_;
+   my ($out, $ar, $al, $tr, $id, @ids);
+
+   $this->{status} = "OK";
+
+   $out  = $this->BeginRDFObject();
+   $out .= $this->BeginDesc("mq:Result");
+   $out .= $this->OutputList('track', $gids);
+   $out .= $this->EndDesc("mq:Result") . "\n";
+
+   $this->{cache} = [];
+   foreach $id (@{$gids})
+   {
+       $tr = Track->new($this->{DBH});
+       $tr->SetMBId($id);
+       $tr->LoadFromId();
+
+       $ar = Artist->new($this->{DBH});
+       $ar->SetId($tr->GetArtist());
+       $ar->LoadFromId();
+
+       $al = Album->new($this->{DBH});
+       @ids = $al->GetAlbumIdsFromTrackId($tr->GetId());
+       $al->SetId($ids[0]);
+       $al->LoadFromId();
+   
+       $this->AddToCache(1, 'artist', 
+                         $ar->GetId(), 
+                         $ar->GetMBId(), 
+                         $ar);
+
+       $out .= $this->OutputTrackRDF({ obj=>$tr }, $al) . "\n";
+       $out .= $this->OutputArtistRDF({ obj=>$ar }) . "\n";
+       $out .= $this->OutputAlbumRDF({ obj=>$al }) . "\n";
+   }
+
+   $out .= $this->EndRDFObject;
+
+   if (exists $this->{file})
+   {
+       print {$this->{file}} $out;
+       $out = "";
+   }
+
+   return $out;
+}
+
 sub CreateTRMList
 {
    my ($this, @ids) = @_;
@@ -142,6 +191,7 @@ sub CreateTRMList
    $this->{status} = "OK";
    return $this->CreateOutputRDF('trmid', @ids);
 }
+
 
 sub CreateDumpRDF
 {
@@ -168,7 +218,7 @@ sub CreateDumpRDF
    $ref{_artist} = \@albumids;
 
    $rdf = $this->BeginRDFObject();
-   $rdf .= $this->OutputArtistRDF(undef, \%ref) . "\n";
+   $rdf .= $this->OutputArtistRDF(\%ref) . "\n";
 
    $this->AddToCache(0, 'artist', 
                      $ar->GetId(), 
@@ -180,7 +230,7 @@ sub CreateDumpRDF
        $ref{obj} = $al;
        #$ref{_artist} = \@albumids;
 
-       $rdf .= $this->OutputAlbumRDF(undef, \%ref) . "\n";;
+       $rdf .= $this->OutputAlbumRDF(\%ref) . "\n";;
        push @tracks, $al->LoadTracks();
    }
 
@@ -190,7 +240,7 @@ sub CreateDumpRDF
        $ref{obj} = $tr;
        #$ref{_artist} = \@albumids;
 
-       $rdf .= $this->OutputTrackRDF(undef, \%ref) . "\n";;
+       $rdf .= $this->OutputTrackRDF(\%ref) . "\n";;
    }
 
    $rdf .= $this->EndRDFObject;
@@ -564,15 +614,15 @@ sub OutputRDF
 
    if ($ref->{type} eq 'artist')
    {
-      return $this->OutputArtistRDF($cache, $ref);
+      return $this->OutputArtistRDF($ref);
    }
    elsif ($ref->{type} eq 'album')
    {
-      return $this->OutputAlbumRDF($cache, $ref);
+      return $this->OutputAlbumRDF($ref);
    }
    elsif ($ref->{type} eq 'track')
    {
-      return $this->OutputTrackRDF($cache, $ref);
+      return $this->OutputTrackRDF($ref);
    }
    elsif ($ref->{type} eq 'trmid')
    {

@@ -499,7 +499,7 @@ sub SubmitTrack
        $len, $year, $genre, $comment) = @_;
    my (@albumids, %info, $in, $ret);
 
-   return $rdf->ErrorRDF("This feature is currently not enabled.") 
+   return $rdf->ErrorRDF("This feature is currently not enabled.");
 
    if (!defined $name || $name eq '' ||
        !defined $album || $album eq '' ||
@@ -695,7 +695,7 @@ sub TrackInfoFromTRMId
 {
    my ($dbh, $doc, $rdf, $id, $artist, $album, $track, 
        $tracknum, $duration, $filename)=@_;
-   my ($sql, @data, $out, $qid);
+   my ($sql, @ids, $qid, $query);
 
    return $rdf->ErrorRDF("No trm id given.") 
       if (!defined $id || $id eq '');
@@ -704,33 +704,40 @@ sub TrackInfoFromTRMId
    $sql = Sql->new($dbh);
    $id =~ tr/A-Z/a-z/;
    $qid = $sql->Quote($id);
-   @data = $sql->GetSingleRow(
-      "TRM, TRMJoin, Track, AlbumJoin, Album, Artist", 
-      ["Track.name", "Artist.name", "Album.name", 
-       "AlbumJoin.sequence", "Track.GID", "Track.Length"],
-      ["TRM.TRM", $qid,
-       "TRMJoin.TRM", "TRM.id",
-       "TRMJoin.track", "Track.id",
-       "Track.id", "AlbumJoin.track",
-       "Album.id", "AlbumJoin.album",
-       "Track.Artist", "Artist.id"]);
-
-   if (defined $data[0])
+   $query = qq|select track.gid
+                 from TRM, TRMJoin, track
+                where TRM.TRM = | . $qid . qq| and
+                      TRMJoin.TRM = TRM.id and
+                      TRMJoin.track = track.id|;
+   if ($sql->Select($query))
    {
-       my ($trm, $sql);
-       
-       $sql = Sql->new($dbh);
-       $trm = TRM->new($dbh);
-       eval
+       my @row;
+
+       # If this TRM generated any hits, update the lookup count
+       if ($sql->Rows >= 1)
        {
-          $sql->Begin();
-          $trm->IncrementLookupCount($id);
-          $sql->Commit();
-       };
-       if ($@)
-       {
-          $sql->Rollback();
+           my ($trm, $sql2);
+
+           $sql2 = Sql->new($dbh);
+           $trm = TRM->new($dbh);
+           eval
+           {
+               $sql2->Begin();
+               $trm->IncrementLookupCount($id);
+               $sql2->Commit();
+           };
+           if ($@)
+           {
+               $sql2->Rollback();
+           }
        }
+       while(@row = $sql->NextRow())
+       {
+           push @ids, $row[0];
+       }
+       $sql->Finish;
+
+       return $rdf->CreateDenseTrackList(\@ids);
    }
    else
    {
@@ -758,35 +765,12 @@ sub TrackInfoFromTRMId
 
                if ($sim >= .9)
                {
-                   $data[0] = $id->{name};
-                   $data[1] = $id->{artist};
-                   $data[2] = $id->{album};
-                   $data[3] = $id->{tracknum};
-                   $data[4] = $id->{mbid};
-                   $data[5] = $id->{tracklen};;
-                   last;
+                   return $rdf->CreateDenseTrackList([$id->{trackid}]);
                }
-
            }
        }
+       return $rdf->CreateStatus(0);
    }
-
-   $out = $rdf->BeginRDFObject;
-   $out .= $rdf->BeginDesc("mq:Result");
-   $out .= $rdf->Element("mq:status", "OK");
-   $out .= $rdf->Element("mq:artistName", $data[1]);
-   $out .= $rdf->Element("mq:albumName", $data[2]);
-   $out .= $rdf->Element("mq:trackName", $data[0]);
-   $out .= $rdf->Element("mm:trackNum", $data[3]);
-   $out .= $rdf->Element("mm:trackid", $data[4]);
-   if (defined $data[5] && $data[5] != 0)
-   {
-       $out .= $rdf->Element("mm:duration", $data[5]);
-   }
-   $out .= $rdf->EndDesc("mq:Result");
-   $out .= $rdf->EndRDFObject;
-
-   return $out;
 }
 
 sub QuickTrackInfoFromTRMId
@@ -802,33 +786,41 @@ sub QuickTrackInfoFromTRMId
    $sql = Sql->new($dbh);
    $id =~ tr/A-Z/a-z/;
    $qid = $sql->Quote($id);
-   @data = $sql->GetSingleRow(
-      "TRM, TRMJoin, Track, AlbumJoin, Album, Artist", 
-      ["Track.name", "Artist.name", "Album.name", 
-       "AlbumJoin.sequence", "Track.GID", "Track.Length"],
-      ["TRM.TRM", $qid,
-       "TRMJoin.TRM", "TRM.id",
-       "TRMJoin.track", "Track.id",
-       "Track.id", "AlbumJoin.track",
-       "Album.id", "AlbumJoin.album",
-       "Track.Artist", "Artist.id"]);
 
-   if (defined $data[0])
+   my $query = qq|select Track.name, Artist.name, Album.name, 
+                         AlbumJoin.sequence, Track.GID, Track.Length
+                    from TRM, TRMJoin, Track, AlbumJoin, Album, Artist
+                   where TRM.TRM = | . $qid . qq| and
+                         TRMJoin.TRM = TRM.id and
+                         TRMJoin.track = Track.id and
+                         Track.id = AlbumJoin.track and
+                         Album.id = AlbumJoin.album and
+                         Track.Artist = Artist.id|;
+   if ($sql->Select($query))
    {
-       my ($trm, $sql);
-       
-       $sql = Sql->new($dbh);
-       $trm = TRM->new($dbh);
-       eval
+       if ($sql->Rows == 1)
        {
-          $sql->Begin();
-          $trm->IncrementLookupCount($id);
-          $sql->Commit();
-       };
-       if ($@)
-       {
-          $sql->Rollback();
+           my ($trm, $sql2);
+
+           @data = $sql->NextRow();
+           $sql2 = Sql->new($dbh);
+           $trm = TRM->new($dbh);
+           eval
+           {
+               $sql2->Begin();
+               $trm->IncrementLookupCount($id);
+               $sql2->Commit();
+           };
+           if ($@)
+           {
+               $sql2->Rollback();
+           }
        }
+       else
+       {
+           print STDERR "TRM collision on: $id\n";
+       }
+       $sql->Finish;
    }
    else
    {

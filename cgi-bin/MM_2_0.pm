@@ -64,7 +64,7 @@ sub GetMMNamespace
 # Return the RDF representation of the Artist
 sub OutputArtistRDF
 {
-    my ($this, $cache, $ref) = @_;
+    my ($this, $ref) = @_;
     my ($out, $artist, $ids, $album);
 
 
@@ -98,7 +98,7 @@ sub OutputArtistRDF
 # Return the RDF representation of the Album
 sub OutputAlbumRDF
 {
-    my ($this, $cache, $ref) = @_;
+    my ($this, $ref) = @_;
     my ($out, $album, $track, $artist, $ids, $i, $attr);
 
     return "" if (!defined $this->GetBaseURI());
@@ -163,7 +163,7 @@ sub OutputAlbumRDF
 # Return the RDF representation of the Track
 sub OutputTrackRDF
 {
-    my ($this, $cache, $ref) = @_;
+    my ($this, $ref) = @_;
     my ($out, $artist, @TRM, $gu, $track, $trm);
 
     if (!defined $this->GetBaseURI())
