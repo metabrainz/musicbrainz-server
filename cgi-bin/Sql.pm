@@ -30,6 +30,8 @@ use DBDefs;
 use Carp qw(cluck croak carp);
 use utf8 ();
 
+use constant SQL_DEBUG => 0;
+
 sub new
 {
 	my ($type, $dbh) = @_;
@@ -76,7 +78,7 @@ sub Select
 
 	$ret = eval
 	{
-		my $tt = Sql::Timer->new($query, \@params);
+		my $tt = Sql::Timer->new($query, \@params) if SQL_DEBUG;
 		$this->{STH} = $this->{DBH}->$prepare($query);
 		$ret = $this->{STH}->execute(@params);
 
@@ -158,7 +160,7 @@ sub Do
 
 	$ret = eval
 	{
-		my $tt = Sql::Timer->new($query, \@params);
+		my $tt = Sql::Timer->new($query, \@params) if SQL_DEBUG;
 		utf8::downgrade($query);
 		my $sth = $this->{DBH}->$prepare($query);
 		utf8::downgrade($_) for @params;
@@ -333,7 +335,7 @@ sub SelectSingleRowHash
 
 	my $row = eval
 	{
-		my $tt = Sql::Timer->new($query, \@params);
+		my $tt = Sql::Timer->new($query, \@params) if SQL_DEBUG;
 		my $sth = $this->{DBH}->prepare_cached($query);
 		my $rv = $sth->execute(@params)
 			or die;
@@ -366,7 +368,7 @@ sub SelectSingleRowArray
 
 	my $row = eval
 	{
-		my $tt = Sql::Timer->new($query, \@params);
+		my $tt = Sql::Timer->new($query, \@params) if SQL_DEBUG;
 		my $sth = $this->{DBH}->prepare_cached($query);
 		my $rv = $sth->execute(@params)
 			or die;
@@ -398,7 +400,7 @@ sub SelectSingleColumnArray
 
 	my $col = eval
 	{
-		my $tt = Sql::Timer->new($query, \@params);
+		my $tt = Sql::Timer->new($query, \@params) if SQL_DEBUG;
 		my $sth = $this->{DBH}->prepare_cached($query);
 		my $rv = $sth->execute(@params)
 			or die;
@@ -452,7 +454,7 @@ sub SelectListOfLists
 
 	my $data = eval
 	{
-		my $tt = Sql::Timer->new($query, \@params);
+		my $tt = Sql::Timer->new($query, \@params) if SQL_DEBUG;
 		my $sth = $this->{DBH}->prepare_cached($query);
 		my $rv = $sth->execute(@params)
 			or die;
@@ -489,7 +491,7 @@ sub SelectListOfHashes
 
 	my $data = eval
 	{
-		my $tt = Sql::Timer->new($query, \@params);
+		my $tt = Sql::Timer->new($query, \@params) if SQL_DEBUG;
 		my $sth = $this->{DBH}->prepare_cached($query);
 		my $rv = $sth->execute(@params)
 			or die;
@@ -517,17 +519,50 @@ sub SelectListOfHashes
 	die $err;
 }
 
+# Return the min/max values (in scalar context, the max only)
+# of a column in one or more tables.
+
+sub GetColumnRange
+{
+	my ($self, $tables, $column, $cmpfunc) = @_;
+	$tables = [ $tables ] if not ref $tables;
+	$column = "id" if not defined $column;
+	$cmpfunc ||= sub { $_[0] <=> $_[1] };
+
+	# Postgres is poor at optimising SELECT MIN(id) FROM table
+	# (or MAX).  It uses a table scan, instead of an index scan.
+	# However for the following queries it gets it right:
+
+	my ($min, $max) = (undef, undef);
+	for my $table (@$tables)
+	{
+		my $thismin = $self->SelectSingleValue(
+			"SELECT $column FROM $table ORDER BY 1 ASC LIMIT 1",
+		);
+		$min = $thismin
+			if defined($thismin)
+			and (not defined($min) or &$cmpfunc($thismin, $min)<0);
+
+		my $thismax = $self->SelectSingleValue(
+			"SELECT $column FROM $table ORDER BY 1 DESC LIMIT 1",
+		);
+		$max = $thismax
+			if defined($thismax)
+			and (not defined($max) or &$cmpfunc($thismax, $max)>0);
+	}
+
+	return ($min, $max);
+}
+
 ################################################################################
 
 package Sql::Timer;
 
 use Time::HiRes qw( gettimeofday tv_interval );
+use MusicBrainz::Server::LogFile qw( lprint lprintf );
 
 sub new
 {
-	# Comment this out if you actually want to log all/slow queries
-	return;
-
 	my ($class, $sql, $args) = @_;
 
 	#printf STDERR "Starting SQL: \"%s\" (%s)\n",
@@ -564,7 +599,7 @@ sub DESTROY
 		my @c = caller($i)
 			or return warn $msg;
 		++$i, redo if $c[0] =~ /^Sql($|::Timer$)/;
-		return warn "$msg at $c[1] line $c[2]\n";
+		return lprintf "sql", "$msg at $c[1] line $c[2]\n";
 	}
 }
 
