@@ -166,6 +166,12 @@ sub MergeInto
     $sql->Do("UPDATE artistalias     SET ref    = ? WHERE ref    = ?", $n, $o);
     $sql->Do("DELETE FROM artist     WHERE id   = ?", $o);
 
+    # Merge any non-album tracks albums together
+    my $alb = Album->new($old->{DBH});
+    my @non = $alb->FindNonAlbum($n);
+    $alb->CombineNonAlbums(@non)
+	if @non > 1;
+
     # Insert the old name as an alias for the new one
     # TODO this is often a bad idea - remove this code?
     my $al = Alias->new($old->{DBH});
