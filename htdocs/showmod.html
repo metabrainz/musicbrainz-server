@@ -26,7 +26,7 @@ if (!defined $session{user} || $session{user} eq '' ||
     If you are new to the MusicBrainz moderation<br> 
     system, you may want to check out the check out<br>
     the <a href="mod_intro.html">Moderation Introduction</a>.<p>
-    <table width=50%><tr><td>
+    <table width="50%"><tr><td>
     <& /comp/tablebegin, title=>'Login' &>
     <& /comp/loginbox &>
     <& /comp/tableend &>
@@ -157,7 +157,7 @@ $votelist .= "</table>";
           Notes:
         </td>
         <td valign=top bgcolor=white class="body">
-           <a href="#" onClick="MyWindow=window.open('mod/addnote.html?modid=<% $mod->GetId() %>&uid=<% $session{uid} %>','AddNote','toolbar=no,location=no,directories=no,status=no,menubar=no,scrollbars=yes,resizable=yes,width=400,height=150'); return false;">Add note</a>
+           <a href="#" onClick="MyWindow=window.open('mod/addnote.html?modid=<% $mod->GetId() %>&amp;uid=<% $session{uid} %>','AddNote','toolbar=no,location=no,directories=no,status=no,menubar=no,scrollbars=yes,resizable=yes,width=400,height=150'); return false;">Add note</a>
         </td>
      </tr>
      <tr>
