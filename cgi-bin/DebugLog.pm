@@ -56,7 +56,7 @@ sub stamp
 
 	use Time::HiRes qw( gettimeofday );
 	my @t = gettimeofday;
-	my @c = ((@_ > 1) ? @_ : caller(1));
+	my @c = ((@_ > 1) ? @_ : ((caller 0)[0,1,2], (caller 1)[3]));
 
 	use POSIX ();
 
