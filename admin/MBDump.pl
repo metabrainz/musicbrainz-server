@@ -27,6 +27,7 @@
 use FindBin;
 use lib "$FindBin::Bin/../cgi-bin";
 
+use strict;
 use DBI;
 use DBDefs;
 
@@ -45,9 +46,9 @@ Usage: MBDump.pl [options] [tables]
 
 Options are:
   -c, --core          Dump the core tables (album, track, etc)
-  -d, --derived       Dump the derived tables (words, stats)
-  -m, --moderation    Dump the moderation tables (moderator, votes, ...)
-  -a, --all           Implies --core --derived --moderation
+  -d, --derived       Dump the derived tables (words, artistwords, ... )
+  -m, --moderation    Dump the other tables (moderator, votes, stats, ...)
+                      except for "artist_relation"
   -s, --[no]sanitised [Don't] sanitise the "moderator" table.
                       If you're dumping the moderator table you *must* specify
                       either --sanitised or --nosanitised
@@ -60,17 +61,25 @@ Options are:
 After the options, you may specify individual table names.  Using the table
 selection options (--core etc) simply adds to that list of tables.
 
+The data in --core is placed in the public domain.  All other data
+is licensed under a Creative Commons license:
+    http://creativecommons.org/licenses/by-nc-sa/1.0
+
+The --derived data is, by definition, solely derivable from the --core data.
+All other data is under --moderation, except for the "artist_relation" table.
+
+You must not mix PD-licensed and CC-licensed tables in a single dump.
+
 EOF
 }
 
-my ($fAll, $fSanitised, $fCore, $fDerived, $fModeration);
+my ($fSanitised, $fCore, $fDerived, $fModeration);
 my $outfile = $sDefaultOutputFile;
 my $tmpdir = $sDefaultTmpDir;
 my $fHelp;
 my $fDebug;
 
 GetOptions(
-	"all|a"			=> \$fAll,
 	"sanitised|sanitized|s!"	=> \$fSanitised,
 	"core|c"		=> \$fCore,
 	"derived|d"		=> \$fDerived,
@@ -100,38 +109,58 @@ my @core = qw(
 	track
 	trm
 	trmjoin
-    clientversion
-    stats
-	currentstat
-	historicalstat
 	);
 
 my @derived = qw(
+	albummeta
 	albumwords
 	artistwords
-	stats
-	currentstat
-	historicalstat
 	trackwords
 	wordlist
-	albummeta
 	);
 
 my @moderation = qw(
+    clientversion
+	currentstat
+	historicalstat
 	moderation
 	moderationnote
 	moderator
+	stats
 	votes
 	);
 
-push @ARGV, @core if $fCore or $fAll;
-push @ARGV, @derived if $fDerived or $fAll;
-push @ARGV, @moderation if $fModeration or $fAll;
+# NOTE: Not in any of those groups: artist_relation
+
+push @ARGV, @core if $fCore;
+push @ARGV, @derived if $fDerived;
+push @ARGV, @moderation if $fModeration;
 
 @ARGV or Usage();
 
 my %tables = map { lc($_) => 1 } @ARGV;
 my @tables = sort keys %tables;
+
+
+
+# Work out what license to use for this data.  Don't allow a mixture.
+
+my $sLicense;
+
+for my $t (@tables)
+{
+	my $fUsePD = grep { $t eq $_ } @core;
+	my $sThisLicense = $fUsePD ? "PD" : "CC";
+	die "Error: cannot dump data using a mixture of licenses.\n"
+		if defined $sLicense and $sLicense ne $sThisLicense;
+	$sLicense = $sThisLicense;
+}
+
+$sLicense or die "Huh?  Can't work out what license we're using";
+
+
+
+# Moderator table: check and obey the "--sanitised" argument.
 
 if ($tables{"moderator"})
 {
@@ -196,14 +225,8 @@ for (@tables)
 
 system("date > $dir/timestamp");
 
-if (fCore)
-{
-    OutputPublicDomainDedication("$dir/COPYING");
-}
-else
-{
-    OutputLicense("$dir/COPYING");
-}
+OutputPublicDomainDedication("$dir/COPYING") if $sLicense eq "PD";
+OutputLicense("$dir/COPYING") if $sLicense eq "CC";
 
 # Tar it all up
 
@@ -234,8 +257,8 @@ sub DumpTable
 {
     my $table = shift;
 
-    $cmd = "pg_dump -U $dbuser -Fc -t $table $dbname > $dir/$table";
-    $ret = system($cmd) >>8;
+    my $cmd = "pg_dump -U $dbuser -Fc -t $table $dbname > $dir/$table";
+    my $ret = system($cmd) >>8;
 
     print "Dumped table $table.\n";
 
@@ -246,7 +269,7 @@ sub OutputLicense
 {
     my ($file) = @_;
 
-    $text = <<END;
+    my $text = <<'END';
 -----------------------------------------------------------------------------
 
     This work is licensed under the Creative Commons Attribution-NonCommercial-
@@ -483,7 +506,7 @@ sub OutputPublicDomainDedication
 {
     my ($file) = @_;
 
-    $text = <<END;
+    my $text = <<'END';
 -----------------------------------------------------------------------------
 
 This work is hereby released into the Public Domain. To view a copy of 
