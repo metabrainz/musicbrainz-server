@@ -803,38 +803,49 @@ sub QuickTrackInfoFromTRMId
 sub QuickTrackInfoFromTrackId
 {
    my ($dbh, $parser, $rdf, $tid, $aid) = @_;
-   my ($sql, @data, $out, $album);
 
    return $rdf->ErrorRDF("No track id given.")
       if (!defined $tid || $tid eq '' || !defined $aid || $aid eq '');
    return undef if (!defined $dbh);
 
-   $album = Album->new($dbh);
-   $album->SetMBId($aid);
-   $sql = Sql->new($dbh);
-   $tid = $sql->Quote($tid);
-   $aid = $sql->Quote($aid);
-   @data = $sql->GetSingleRow(
-       "Track, AlbumJoin, Album, Artist",
-      ["Track.name", "Artist.name", "Album.name",
-       "AlbumJoin.sequence", "Track.Length", "Album.artist",
-       "Artist.gid", "Artist.sortname", "Album.attributes"],
-      ["Track.gid", $tid,
-       "AlbumJoin.album", "Album.id",
-       "Album.gid", $aid,
-       "Track.id", "AlbumJoin.track",
-       "Album.id", "AlbumJoin.album",
-       "Track.Artist", "Artist.id"]);
+    my $album = Album->new($dbh);
+    $album->SetMBId($aid);
+    unless ($album->LoadFromId)
+    {
+        return $rdf->ErrorRDF("Cannot load given album.");
+    }
 
-   if (!defined $data[0] || $data[0] eq '' || !$album->LoadFromId())
-   {
-        return $rdf->ErrorRDF("Cannot load given album.")
-   }
+    my $sql = Sql->new($dbh);
+    my $data = $sql->SelectSingleRowArray(
+	"SELECT track.name,
+	       	artist.name,
+		album.name,
+		albumjoin.sequence,
+		track.length,
+		album.artist,
+		artist.gid,
+		artist.sortname,
+		album.attributes
+	FROM	track, albumjoin, album, artist
+	WHERE	track.gid = ?
+	AND	album.gid = ?
+	AND	albumjoin.album = album.id
+	AND	albumjoin.track = track.id
+	AND	artist.id = track.artist",
+	$tid,
+	$aid,
+    );
 
+    unless ($data)
+    {
+     	return $rdf->ErrorRDF("Cannot load given album.");
+    }
+
+    my @data = @$data;
    my @attrs = ( $data[8] =~ /(\d+)/g );
    shift @attrs;
 
-   $out = $rdf->BeginRDFObject;
+   my $out = $rdf->BeginRDFObject;
    $out .= $rdf->BeginDesc("mq:Result");
    $out .= $rdf->Element("mq:status", "OK");
    $out .= $rdf->Element("mq:artistName", $data[1]);
