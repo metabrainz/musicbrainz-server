@@ -39,15 +39,17 @@ use Getopt::Long;
 
 my $fHelp;
 my $OutputDir = ".";
-my $dir = "/tmp/mbexport";
+my $dir = "/tmp";
 my $fCompress = 1;
 my $fKeepFiles = 0;
+my @tablelist;
 
 GetOptions(
 	"output-dir|d=s"	=> \$OutputDir,
 	"tmp-dir|t=s"		=> \$dir,
 	"compress|c!"		=> \$fCompress,
 	"keep-files|k!"		=> \$fKeepFiles,
+	"table=s"			=> \@tablelist,
 	"help"				=> \$fHelp,
 );
 
@@ -61,12 +63,19 @@ Usage: ExportAllTables [options]
     -t, --tmp-dir DIR     use DIR for temporary storage (default: /tmp)
     -c, --[no]compress    [don't] create .tar.bz2 archives after exporting
     -k, --keep-files      don't delete the exported files from the tmp directory
+        --table TABLE     process only these tables
+
+Specifying --nocompress and omitting --keep-files would discard the
+files just exported straight away, so don't do that.  If you specify --table
+TABLE, you won't get a complete consistent snapshot of the database, of
+course.
 
 EOF
 }
 
 usage(), exit if $fHelp;
 usage(), exit 1 if @ARGV;
+usage(), exit 1 if not $fCompress and not $fKeepFiles;
 
 for (my $i=0; ; ++$i)
 {
@@ -81,7 +90,7 @@ for (my $i=0; ; ++$i)
 	use Errno 'EEXIST';
 	next if $! == EEXIST;
 
-	die "Error creating temporary directory ($!)";
+	die "Error creating temporary directory $try ($!)";
 }
 
 mkdir "$dir/mbdump" or die $!;
@@ -120,6 +129,8 @@ my @tables = qw(
 	votes
 	wordlist
 );
+
+@tables = @tablelist if @tablelist;
 
 use Time::HiRes qw( gettimeofday tv_interval );
 my $t0 = [gettimeofday];
@@ -166,8 +177,17 @@ for my $table (@tables)
 
 	$p->("", "");
 
-	while ($dbh->func($buffer, 10000, "getline"))
+	# This has to be at least as large as the longest line given
+	# by "copy table to stdout".
+	# Currently the largest value I can see is a row in the moderator
+	# table which is approx 215,000 bytes.
+	my $max = 250_000; my $maxline = __LINE__;
+
+	while ($dbh->func($buffer, $max, "getline"))
 	{
+		die "\nProbable data truncation!  See $0 line $maxline"
+			if length($buffer) >= $max-1;
+
 		print DUMP $buffer, "\n"
 			or die $!;
 
