@@ -1,3 +1,4 @@
+%# vi: set ts=4 sw=4 ft=mason :
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
 <html>
 <head>
@@ -12,11 +13,12 @@
 <table width="100%" cellpadding="0" cellspacing="0" border="0">
 <tr>
    <td class="LogoBarCell"
-	><img src="/images/header_logo_a<% DBDefs::DB_STAGING_SERVER ? "_ss" : "" %>.gif"
+	><a href="/"
+	><img src="/images/header_logo_a<% &DBDefs::DB_STAGING_SERVER ? "_ss" : "" %>.gif"
 		width="614" height="67"
 		alt=""
 		border="0"
-		></td>
+		></a></td>
 </tr>
 </table>
 
@@ -26,12 +28,15 @@
 
 <& /comp/navbar &>
 
+% unless ($nosidebar) {
 <table cellpadding="0" cellspacing="0" border="0">
 <tr>
    <td width="141" class="SideBarCell" valign="top">
+% }
 
 <%args>
 $title
+$nosidebar => 0
 </%args>
 <%perl>
 $r->content_type('text/html; charset=UTF-8');
