@@ -3,7 +3,11 @@
 my ($mb, $user, $ok, $cookie, $privs, $uid);
 
 $ok = undef;
-if (defined $ARGS{User} && $ARGS{User} ne '' &&
+if (DBDefs::DB_READ_ONLY)
+{
+    $ok = 0;
+}
+elsif (defined $ARGS{User} && $ARGS{User} ne '' &&
     defined $ARGS{Password} && $ARGS{Password} ne '')
 {
     $mb = MusicBrainz->new();

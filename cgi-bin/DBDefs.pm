@@ -37,6 +37,14 @@ use constant DB_USER 	=>	'musicbrainz';
 # Insert the password of the user from above
 use constant DB_PASSWD 	=>	'';
 
+# Set this value if you want to have a read-only server.
+use constant DB_READ_ONLY => 1;
+
+# Set this value to a message that you'd like to display to users when
+# they attempt to log or otherwise modify the database.
+use constant DB_READ_ONLY_MESSAGE => qq/This server is temporarily in 
+read-only mode for database maintainance./;
+
 # Set this to 1 if you would like this server to handle lyrics.
 # Please note that this is likely to get you into legal trouble if you
 # insert copyrighted lyrics in the database. Please be aware of the 

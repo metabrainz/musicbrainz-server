@@ -1,3 +1,21 @@
+% if (DBDefs::DB_READ_ONLY) {
+
+<table>
+<tr>
+   <td>
+      &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
+   </td>
+   <td>
+      <% DBDefs::DB_READ_ONLY_MESSAGE %>
+   </td>
+   <td>
+      &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
+   </td>
+</tr>
+</table>
+
+% } else {
+
 <FORM METHOD="POST" ACTION="/login.html" 
       ENCTYPE="application/x-www-form-urlencoded" class="formstyle">
 <table>
@@ -22,3 +40,5 @@
 </tr>
 </table>
 </form>
+
+% }

@@ -1041,74 +1041,74 @@ sub ExchangeMetadata
 
    $r = RDF::new;
 
-   #print STDERR "\nArtist: '$artist' Album: '$album' Track: '$name'\n";
-   #print STDERR "GUID: '$guid' Seq: '$seq'\n";
-
-   $ar = Artist->new($mb);
-   $gu = GUID->new($mb);
-   $pe = Pending->new($mb);
-   $tr = Track->new($mb);
-   # has this data been accepted into the database?
-   $id = $gu->GetTrackIdFromGUID($guid);
-   if ($id < 0)
+   if (!DBDefs::DB_READ_ONLY)
    {
-       # No it has not.
-       @ids = $pe->GetIdsFromGUID($guid);
-       if (scalar(@ids) == 0)
+       $ar = Artist->new($mb);
+       $gu = GUID->new($mb);
+       $pe = Pending->new($mb);
+       $tr = Track->new($mb);
+       # has this data been accepted into the database?
+       $id = $gu->GetTrackIdFromGUID($guid);
+       if ($id < 0)
        {
-            # Call ParseFilename() in an attempt to parse out the filename and
-            # try to find an artist and title within the filename.
-            #$rv = ParseFilename::Parse($mb, $ar, $pe, $guid, $filename, 'N');
-            $rv = -1;
-            if ($rv == -1)
-            {
-               # ParseFilename could not find title and artist in filename, 
-               # so insert into Pending table.
-
-               if (defined $name && $name ne '' &&
-                   defined $guid && $guid ne '' &&
-                   defined $artist && $artist ne '' &&
-                   defined $album && $album ne '')
-               {
-                   $pe->Insert($name, $guid, $artist, $album, $seq,
-                               $len, $year, $genre, $filename, $comment);
-               }
-            }
+           # No it has not.
+           @ids = $pe->GetIdsFromGUID($guid);
+           if (scalar(@ids) == 0)
+           {
+                # Call ParseFilename() in an attempt to parse out the filename and
+                # try to find an artist and title within the filename.
+                #$rv = ParseFilename::Parse($mb, $ar, $pe, $guid, $filename, 'N');
+                $rv = -1;
+                if ($rv == -1)
+                {
+                   # ParseFilename could not find title and artist in filename, 
+                   # so insert into Pending table.
+    
+                   if (defined $name && $name ne '' &&
+                       defined $guid && $guid ne '' &&
+                       defined $artist && $artist ne '' &&
+                       defined $album && $album ne '')
+                   {
+                       $pe->Insert($name, $guid, $artist, $album, $seq,
+                                   $len, $year, $genre, $filename, $comment);
+                   }
+                }
+           }
+           else
+           {
+                # Do the metadata glom
+                CheckMetadata($mb, $pe, $name, $guid, $artist, $album, $seq,
+                          $len, $year, $genre, $filename, $comment, @ids);
+           }
        }
        else
        {
-            # Do the metadata glom
-            CheckMetadata($mb, $pe, $name, $guid, $artist, $album, $seq,
-                          $len, $year, $genre, $filename, $comment, @ids);
+           my ($db_name, $db_guid, $db_artist, $db_album, $db_seq,
+               $db_len, $db_year, $db_genre, $db_filename, $db_comment);
+    
+           # Yes, it has. Retrieve the data and return it
+           # Fill in, don't override...
+           ($db_name, $db_guid, $db_artist, $db_album, $db_seq, $db_len, $db_year, 
+            $db_genre, $db_filename, $db_comment) = $tr->GetFromIdAndAlbum($id, 
+                                                                          $album);
+           #print STDERR "DBArtist: '$db_artist' DBAlbum: '$db_album' DBTrack: '$db_name'\n";
+           #print STDERR "DBGUID: '$db_guid' DBSeq: '$db_seq'\n";
+    
+           $name = $db_name 
+               if (!defined $name || $name eq "") && defined $db_name;
+           $artist = $db_artist 
+               if (!defined $artist || $artist eq "") && defined $db_artist;
+           $album = $db_album 
+               if (!defined $album || $album eq "") && defined $db_album;
+           $seq = $db_seq 
+               if (!defined $seq || $seq == 0) && defined $db_seq;
+           $len = $db_len 
+               if (!defined $len || $len == 0) && defined $db_len;
+           $year = $db_year 
+               if (!defined $year || $year == 0) && defined $db_year;
+           $genre = $db_genre 
+               if (!defined $genre || $genre eq "") && defined $db_genre;
        }
-   }
-   else
-   {
-       my ($db_name, $db_guid, $db_artist, $db_album, $db_seq,
-           $db_len, $db_year, $db_genre, $db_filename, $db_comment);
-
-       # Yes, it has. Retrieve the data and return it
-       # Fill in, don't override...
-       ($db_name, $db_guid, $db_artist, $db_album, $db_seq, $db_len, $db_year, 
-        $db_genre, $db_filename, $db_comment) = $tr->GetFromIdAndAlbum($id, 
-                                                                      $album);
-       #print STDERR "DBArtist: '$db_artist' DBAlbum: '$db_album' DBTrack: '$db_name'\n";
-       #print STDERR "DBGUID: '$db_guid' DBSeq: '$db_seq'\n";
-
-       $name = $db_name 
-           if (!defined $name || $name eq "") && defined $db_name;
-       $artist = $db_artist 
-           if (!defined $artist || $artist eq "") && defined $db_artist;
-       $album = $db_album 
-           if (!defined $album || $album eq "") && defined $db_album;
-       $seq = $db_seq 
-           if (!defined $seq || $seq == 0) && defined $db_seq;
-       $len = $db_len 
-           if (!defined $len || $len == 0) && defined $db_len;
-       $year = $db_year 
-           if (!defined $year || $year == 0) && defined $db_year;
-       $genre = $db_genre 
-           if (!defined $genre || $genre eq "") && defined $db_genre;
    }
 
    $rdf = $r->BeginRDFObject();
@@ -1235,6 +1235,11 @@ sub SubmitTrack
        return EmitErrorRDF("Incomplete track information submitted.") 
    }
 
+   if (DBDefs::DB_READ_ONLY)
+   {
+       return EmitErrorRDF(DBDefs::DB_READ_ONLY_MESSAGE) 
+   }
+
    #print STDERR "T: '$name' a: '$artist' l: '$album'\n";
    $ar = Artist->new($mb);
    $al = Album->new($mb);
@@ -1298,6 +1303,12 @@ sub SubmitSyncText
    if (! DBDefs->USE_LYRICS) {  
        return EmitRDFError("This server does not accept lyrics.");
    }
+
+   if (DBDefs::DB_READ_ONLY)
+   {
+       return EmitErrorRDF(DBDefs::DB_READ_ONLY_MESSAGE) 
+   }
+
    $tr = Track->new($mb);
    $ly = Lyrics->new($mb);
 
