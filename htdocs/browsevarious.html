@@ -39,14 +39,14 @@ $al->SetId(Artist::VARTIST_ID);
 
 mc_out('<table width="100%"><tr>');
 mc_comp("/comp/listprevbutton", offset=>$offset, ind=>$ind, 
-        text=>"< Prev", num=>$max_items);
+        text=>"< Prev", num=>$max_items, page=>"browsevarious.html");
 mc_comp("/comp/listprevbutton", offset=>$offset, ind=>$ind, 
-        text=>"<< Prev", num=>($max_items * 2));
+        text=>"<< Prev", num=>($max_items * 2), page=>"browsevarious.html");
 mc_out("<td width=\"40%\">&nbsp;</td>");
 mc_comp("/comp/listnextbutton", offset=>$offset, ind=>$ind, 
-        text=>"Next >>", num=>($max_items * 2), rows=>$num_albums);
+        text=>"Next >>", num=>($max_items * 2), rows=>$num_albums, page=>"browsevarious.html");
 mc_comp("/comp/listnextbutton", offset=>$offset, ind=>$ind, 
-        text=>"Next >", num=>$max_items, rows=>$num_albums);
+        text=>"Next >", num=>$max_items, rows=>$num_albums, page=>"browsevarious.html");
 mc_out('</tr></table>');
 
 </%perl>
