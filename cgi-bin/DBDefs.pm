@@ -135,6 +135,9 @@ sub DEFERRED_UPDATE_LOG { "/tmp/musicbrainz-deferred-update.log" }
 sub WEB_SESSION_SECONDS_TO_LIVE { 3600 * 3 }
 sub RDF_SESSION_SECONDS_TO_LIVE { 3600 * 1 }
 
+# The domain into which the session cookie is written
+sub SESSION_DOMAIN { undef }
+
 # The user/group which Apache runs as after starting up
 sub APACHE_USER  { "nobody" }
 sub APACHE_GROUP { "nobody" }
