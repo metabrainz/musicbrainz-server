@@ -92,7 +92,7 @@ use Scalar::Util qw( reftype weaken );
 		#{ name => "Album",					url => "/search.html#album" },
 		#{ name => "Track",					url => "/search.html#track" },
 		{ name => "Browse Artists",			url => "/browseartists.html" },
-		{ name => "Browse Albums",			url => "/browsevarious.html" },
+		{ name => "Browse Releases",		url => "/browsevarious.html" },
 		#{ name => "Site Search",			url => "/search.html#google" },
 		#{ name => "Advanced",				url => "/search.html#advanced" },
 		#[
