@@ -376,6 +376,15 @@ sub InsertForModeration
     return if ($info->{artist} =~ /^various$/i ||
                $info->{artist} =~ /^various artists$/i); 
 
+    # or anything which looks like it might be a VA album
+    {
+	my @names = map { $_->{track} } @{ $info->{tracks} };
+	return if (grep m/ - /, @names) >= @names * 0.7;
+	return if (grep m/ \/ /, @names) >= @names * 0.7;
+	return if (grep m/-/, @names) >= @names * 0.85;
+	return if (grep m/\//, @names) >= @names * 0.85;
+    }
+
     require Style;
     $st = Style->new;
     return if (!$st->UpperLowercaseCheck($info->{artist}));
