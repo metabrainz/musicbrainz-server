@@ -31,6 +31,8 @@ require Exporter;
 { our @ISA = qw( Exporter TableBase ); our @EXPORT_OK = qw( mark_up_text_as_html ) }
 use Carp;
 
+use ModDefs qw( VOTE_ABS );
+
 # GetId / SetId - see TableBase
 sub GetModerationId	{ $_[0]{moderation} }
 sub SetModerationId	{ $_[0]{moderation} = $_[1] }
@@ -157,6 +159,39 @@ sub Insert
 
 		require UserPreference;
 		UserPreference::get_for_user("mail_notes_if_i_noted", $other_user)
+			or next;
+
+		$note_user->SendModNoteToFellowNoter(
+			mod			=> $moderation,
+			mod_user	=> $mod_user,
+			other_user	=> $other_user,
+			note_text	=> $text,
+			revealaddress=> $opts{'revealaddress'},
+		);
+	}
+
+	# Do any voters want to receive this note?
+	require MusicBrainz::Server::Vote;
+	my $v = MusicBrainz::Server::Vote->new($self->{DBH});
+	my @votes = $v->newFromModerationId($moderation->GetId);
+
+	for my $vote (@votes)
+	{
+		# Only if the user's most recent vote was not "abstain"
+		next if $vote->GetSuperseded or $vote->GetVote == VOTE_ABS;
+
+		my $uid = $vote->GetUserId;
+		next if $done{$uid};
+		$done{$uid} = 1;
+
+		# Has this user got the "mail_notes_if_i_voted" preference enabled?
+		my $other_user = $ui->newFromId($uid)
+			or die;
+
+		next unless $other_user->GetEmail and $other_user->GetEmailConfirmDate;
+
+		require UserPreference;
+		UserPreference::get_for_user("mail_notes_if_i_voted", $other_user)
 			or next;
 
 		$note_user->SendModNoteToFellowNoter(
