@@ -119,15 +119,17 @@ sub Insert
 sub Remove
 {
     my ($this) = @_;
-    my ($sql, $refcount);
 
     return if (!defined $this->GetId());
 
-    $sql = Sql->new($this->{DBH});
+    my $sql = Sql->new($this->{DBH});
+    my $refcount;
 
     # See if there are any tracks that needs this artist
-    ($refcount) = $sql->GetSingleRow("Track", ["count(*)"],
-                                     [ "Track.artist", $this->GetId()]);
+    $refcount = $sql->SelectSingleValue(
+	"SELECT COUNT(*) FROM track WHERE artist = ?",
+	$this->GetId,
+    );
     if ($refcount > 0)
     {
         print STDERR "Cannot remove artist ". $this->GetId() .
@@ -136,8 +138,10 @@ sub Remove
     }
 
     # See if there are any albums that needs this artist
-    ($refcount) = $sql->GetSingleRow("Album", ["count(*)"],
-                                     [ "Album.artist", $this->GetId()]);
+    $refcount = $sql->SelectSingleValue(
+	"SELECT COUNT(*) FROM album WHERE artist = ?",
+	$this->GetId,
+    );
     if ($refcount > 0)
     {
         print STDERR "Cannot remove artist ". $this->GetId() .

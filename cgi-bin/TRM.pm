@@ -177,27 +177,27 @@ sub Remove
 sub RemoveByTrackId
 {
     my ($this, $trackid) = @_;
-    my ($sql, $sql2, $refcount, @row);
-
     return undef if (!defined $trackid);
- 
-    $sql = Sql->new($this->{DBH});
-    if ($sql->Select(qq|select TRMJoin.id, TRMJoin.TRM from TRMJoin
-                         where TRMJoin.track = $trackid|))
-    {
-         $sql2 = Sql->new($this->{DBH});
-         while(@row = $sql->NextRow)
-         {
-             $sql->Do("DELETE FROM trmjoin WHERE id = ?", $row[0]);
-             ($refcount) = $sql2->GetSingleRow("TRMJoin", ["count(*)"],
-                                              [ "TRMJoin.TRM", $row[1]]);
-             if ($refcount == 0)
-             {
-                $sql->Do("DELETE FROM trm WHERE id = ?", $row[1]);
-             }
-         }
-         $sql->Finish;
-    }
+    my $sql = Sql->new($this->{DBH});
+
+	my $rows = $sql->SelectListOfLists(
+		"SELECT id, trm FROM trmjoin WHERE track = ?", $trackid,
+	);
+
+	for (@$rows)
+	{
+		my ($joinid, $trmid) = @$_;
+
+   		$sql->Do("DELETE FROM trmjoin WHERE id = ?", $joinid);
+
+		my $refcount = $sql->SelectSingleValue(
+			"SELECT COUNT(*) FROM trmjoin WHERE trm = ?", $trmid,
+		);
+		if ($refcount == 0)
+		{
+			$sql->Do("DELETE FROM trm WHERE id = ?", $trmid);
+		}
+	}
 
     return 1;
 }
@@ -206,27 +206,23 @@ sub RemoveByTrackId
 sub RemoveTRMByTRMJoin
 {
     my ($this, $joinid) = @_;
-    my ($sql, $sql2, $refcount, @row);
-
     return undef if (!defined $joinid);
- 
-    $sql = Sql->new($this->{DBH});
-    if ($sql->Select(qq|select TRMJoin.id, TRMJoin.TRM from TRMJoin
-                         where TRMJoin.id = $joinid|))
-    {
-         $sql2 = Sql->new($this->{DBH});
-         while(@row = $sql->NextRow)
-         {
-             $sql->Do("DELETE FROM trmjoin WHERE id = ?", $row[0]);
-             ($refcount) = $sql2->GetSingleRow("TRMJoin", ["count(*)"],
-                                              [ "TRMJoin.TRM", $row[1]]);
-             if ($refcount == 0)
-             {
-                $sql->Do("DELETE FROM trm WHERE id = ?", $row[1]);
-             }
-         }
-         $sql->Finish;
-    }
+	my $sql = Sql->new($this->{DBH});
+
+	my $oldtrmid = $sql->SelectSingleValue(
+		"SELECT trm FROM trmjoin WHERE id = ?", $joinid,
+	) or return undef;
+
+	$sql->Do("DELETE FROM trmjoin WHERE id = ?", $joinid);
+
+	my $refcount = $sql->SelectSingleValue(
+		"SELECT COUNT(*) FROM trmjoin WHERE trm = ?", $oldtrmid,
+	);
+
+	if ($refcount == 0)
+	{
+		$sql->Do("DELETE FROM trm WHERE id = ?", $oldtrmid);
+	}
 
     return 1;
 }

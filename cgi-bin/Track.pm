@@ -438,13 +438,15 @@ sub RemoveFromAlbum
 sub Remove
 {
     my ($this) = @_;
-    my ($sql, @row, $refcount);
 
     return undef if (!defined $this->GetId());
 
-    $sql = Sql->new($this->{DBH});
-    ($refcount) = $sql->GetSingleRow("AlbumJoin", ["count(*)"],
-                                     [ "AlbumJoin.track", $this->GetId()]);
+    my $sql = Sql->new($this->{DBH});
+
+    my $refcount = $sql->SelectSingleValue(
+		"SELECT COUNT(*) FROM albumjoin WHERE track = ?",
+		$this->GetId,
+    );
     if ($refcount > 0)
     {
         print STDERR "DELETE: refcount = $refcount on track delete " .
