@@ -75,7 +75,7 @@ my $time = sprintf "%d-%02d-%02d %02d:%02d",
         &nbsp;&nbsp;&nbsp;&nbsp;
 %       $bold = ($obj->{user} eq $mod->GetModeratorName()) ? 'bold' : 'body';
         <font class="<% $bold %>"><% $obj->{user} %></font>:
-        <% $obj->{text} %><br> 
+        <% $obj->{text} |n %><br> 
 %    }
    </td>
 </tr>
