@@ -127,7 +127,7 @@ sub SearchByName
    my (@info, $sth, $sql);
 
    $sql = $this->AppendWhereClause($search, qq/select id, name, sortname 
-               from Artist where /, "name") . " order by name";
+               from Artist where /, "name") . " order by sortname";
 
    $sth = $this->{DBH}->prepare($sql);
    $sth->execute();

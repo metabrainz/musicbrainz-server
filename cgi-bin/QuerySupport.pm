@@ -915,7 +915,7 @@ sub CreateAlbum
 {
    my ($mb, $fuzzy);
    my ($sth, $rdf, $sth2, @row, @row2);
-   my ($artist, $id, $count, $trdf, $numtracks, $first);
+   my ($artist, $artist_gid, $id, $count, $trdf, $numtracks, $first);
 
    $mb = shift @_; 
    $fuzzy = shift @_; 
@@ -927,15 +927,16 @@ sub CreateAlbum
    $rdf .= $r->BeginDesc; 
 
    $artist = "";
+   $artist_gid = "";
    $first = 1;
-   $sth = $mb->{DBH}->prepare("select Album.name, Album.gid, Album.id " .
-                              "from Album where Album.id = $id");
+   $sth = $mb->{DBH}->prepare(qq/select Album.name, Album.gid, Album.id, 
+            Album.artist from Album where Album.id = $id/);
    if ($sth->execute() && $sth->rows)
    {
         while(@row = $sth->fetchrow_array)
         {
             $trdf = "";
-            $sth2 = $mb->{DBH}->prepare("select Track.id, Artist.id, Artist.name from Track, Artist, AlbumJoin where AlbumJoin.track = Track.id and AlbumJoin.album = $row[2] and Track.artist = Artist.id order by AlbumJoin.sequence");
+            $sth2 = $mb->{DBH}->prepare("select Track.id, Artist.id, Artist.name, Artist.gid from Track, Artist, AlbumJoin where AlbumJoin.track = Track.id and AlbumJoin.album = $row[2] and Track.artist = Artist.id order by AlbumJoin.sequence");
             if ($sth2->execute() && $sth2->rows)
             {
                 $numtracks = $sth2->rows;
@@ -944,10 +945,12 @@ sub CreateAlbum
                 while(@row2 = $sth2->fetchrow_array)
                 {
                      $trdf .= $r->BeginLi();
-                     $trdf .=   CreateTrackRDFSnippet($mb, $r, 0, $row2[0]);
+                     $trdf .=   CreateTrackRDFSnippet($mb, $r, !($row[3]), 
+                                                      $row2[0]);
                      $trdf .= $r->EndLi();
                 
                      $artist = $row2[2] if ($row2[1] != 0);
+                     $artist_gid = $row2[3] if ($row2[1] != 0);
                 }
                 $r->EndLi();
                 $r->EndSeq();
@@ -963,9 +966,11 @@ sub CreateAlbum
                                 'albumId'=>escape($row[1]));
             $rdf .= $r->Element("DC:Title", escape($row[0]));
 
-            if ($artist ne "")
+            if ($row[3] != 0)
             {
                 $rdf .= $r->Element("DC:Creator", $artist);
+                $rdf .= $r->Element("DC:Identifier", "",
+                                    'artistId'=>escape($artist_gid));
             }
 
             $rdf .= $r->BeginSeq();

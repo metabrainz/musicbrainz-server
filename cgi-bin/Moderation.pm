@@ -86,6 +86,18 @@ sub new
    return bless $this, $type;
 }
 
+sub IsNumber
+{
+    if ($_[0] =~ m/^-?[\d]*\.?[\d]*$/)
+    {
+        return 1;
+    }
+    else 
+    {
+        return 0;
+    }
+}
+
 sub GetModificationName
 {
    return $ModNames{$_[0]};
@@ -478,6 +490,7 @@ sub ApplyEditModification
             }
             else
             {
+                print STDERR "Failed dep! ('$row[0]' vs '$prevval')\n";
                 $status = STATUS_FAILEDDEP;
             }
         }

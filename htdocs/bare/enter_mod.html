@@ -13,6 +13,8 @@ for($i = 0;; $i++)
     last if (!defined($ARGS{('prev' . $i)}));
     last if (!defined($ARGS{('artist' . $i)}));
     last if (!defined($ARGS{('type' . $i)}));
+    last if (!defined($ARGS{('table' . $i)}));
+    last if (!defined($ARGS{('id' . $i)}));
     next if ($ARGS{('new' . $i)} eq '');
     next if ($ARGS{('new' . $i)} eq $ARGS{('prev' . $i)});
 
@@ -29,11 +31,11 @@ for($i = 0;; $i++)
         }
     }
 
-    $mod->InsertModification($ARGS{table}, 
+    $mod->InsertModification($ARGS{('table' . $i)}, 
                              $ARGS{('column' . $i)}, 
                              $ARGS{('artist' . $i)}, 
                              $ARGS{('type' . $i)}, 
-                             $ARGS{id},
+                             $ARGS{('id' . $i)},
                              $ARGS{('prev' . $i)}, 
                              $new, 
                              $session{uid});

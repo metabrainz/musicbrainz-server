@@ -104,6 +104,26 @@ sub GetIdFromTrackId
    return $rv;
 }
 
+sub GetIdFromAlbumJoinId
+{
+   my ($this, $id) = @_;
+   my ($sth, $rv);
+
+   $id = $this->{DBH}->quote($id);
+   $sth = $this->{DBH}->prepare("select album from AlbumJoin where id=$id");
+   $sth->execute;
+   if ($sth->rows)
+   {
+        my @row;
+
+        @row = $sth->fetchrow_array;
+        $rv = $row[0];
+   }
+   $sth->finish;
+
+   return $rv;
+}
+
 sub LoadFromId
 {
    my ($this, $albumid) = @_;

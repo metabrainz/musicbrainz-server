@@ -18,4 +18,8 @@ elsif ($table eq 'Track')
 {
     mc_out("<a href=\"/bare/showtrack.html?trackid=$id\">$prev</a>");
 }
+elsif ($table eq 'AlbumJoin')
+{
+    mc_out("<a href=\"/bare/showtrack.html?albumjoinid=$id\">$prev</a>");
+}
 </%perl>

@@ -6,6 +6,7 @@ $artistname
 $artistid
 $album
 $modpending
+$tr_modpending
 $hilitetrack
 $hilitecolor
 $lyricspresent
@@ -13,14 +14,15 @@ $lyricspresent
 
 <%perl>
 
-my $bgcolor;
+my ($bgcolor, $tr_bgcolor);
 $bgcolor = ($modpending) ? 'bgcolor="#FFFFCC"' : '';
 $bgcolor = ($hilitetrack == $id) ? 'bgcolor="#FFCCFF"' : $bgcolor;
+$tr_bgcolor = ($tr_modpending) ? 'bgcolor="#FFFFCC"' : '';
 
 </%perl>
 
 <tr>
-    <td width="10%" align=center <% $bgcolor |n %>>
+    <td width="10%" align=center <% $tr_bgcolor |n %>>
        <% $tracknum %>
     </td>
 % if ($artistname ne '') {

@@ -89,10 +89,12 @@ $modpending = $ar->Value(3);
            value="<% Moderation::MOD_EDIT_ARTISTSORTNAME  %>">
     <input type="hidden" name="prev0" value="<% $artistname  %>">
     <input type="hidden" name="prev1" value="<% $sortname  %>">
-    <input type="hidden" name="table" value="Artist">
+    <input type="hidden" name="table0" value="Artist">
+    <input type="hidden" name="table1" value="Artist">
     <input type="hidden" name="column0" value="Name">
     <input type="hidden" name="column1" value="SortName">
-    <input type="hidden" name="id" value="<% $id %>">
+    <input type="hidden" name="id0" value="<% $id %>">
+    <input type="hidden" name="id1" value="<% $id %>">
     <input type="hidden" name="referer" value="<% $referer %>">
     </form>
     <& /comp/tableend &>

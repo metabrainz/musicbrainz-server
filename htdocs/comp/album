@@ -42,6 +42,7 @@ for($i = 0;; $i++)
             artistid=>$artist,
             album=>$albumid,
             modpending=>$track->Value(9),
+            tr_modpending=>$track->Value(11),
             hilitetrack=>$hilitetrack,
             hilitecolor=>$hilitecolor,
             lyricspresent=>$lyricspresent);

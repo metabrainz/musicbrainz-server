@@ -44,7 +44,8 @@ sub new
 my $load_columns =  qq/Track.id, Track.name, Track.artist, 
                        AlbumJoin.sequence, Track.length, 
                        Track.year, Track.genre, Track.filename, 
-                       Track.comment, Track.modpending/;
+                       Track.comment, Track.modpending, AlbumJoin.id,
+                       AlbumJoin.modpending/;
 
 sub GetIdFromNameAlbumAndSeq
 {
@@ -140,8 +141,8 @@ sub LoadFromId
    {
        $sth = $this->{DBH}->prepare(qq/select Track.id, Track.name, 
               Track.artist, 0, Track.length, Track.year, Track.genre, 
-              Track.filename, Track.comment, Track.modpending from 
-              Track where Track.id=$trackid/);
+              Track.filename, Track.comment, Track.modpending, 0, 0 
+              from Track where Track.id=$trackid/);
    }
    $sth->execute;
    if ($sth->rows)

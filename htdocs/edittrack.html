@@ -2,7 +2,8 @@
 
 <%perl>
 
-my ($mb, $id, $trackname, $referer, $tr, $tracknum, $album, $artist); 
+my ($mb, $id, $trackname, $referer, $tr);
+my ($seq_id, $tracknum, $album, $artist); 
 
 $referer = $r->headers_in->{'Referer'};
 $mb = new MusicBrainz;
@@ -15,6 +16,7 @@ $artist = $ARGS{artist};
 $tr->LoadFromId($id, $album);
 $trackname = $tr->Value(1);
 $tracknum = $tr->Value(3);
+$seq_id = $tr->Value(10);
 
 </%perl>
 
@@ -75,10 +77,12 @@ $tracknum = $tr->Value(3);
            value="<% Moderation::MOD_EDIT_TRACKNUM %>">
     <input type="hidden" name="prev0" value="<% $trackname %>">
     <input type="hidden" name="prev1" value="<% $tracknum %>">
-    <input type="hidden" name="table" value="Track">
+    <input type="hidden" name="table0" value="Track">
+    <input type="hidden" name="table1" value="AlbumJoin">
     <input type="hidden" name="column0" value="Name">
     <input type="hidden" name="column1" value="Sequence">
-    <input type="hidden" name="id" value="<% $id %>">
+    <input type="hidden" name="id0" value="<% $id %>">
+    <input type="hidden" name="id1" value="<% $seq_id %>">
     <input type="hidden" name="referer" value="<% $referer %>">
     </form>
       

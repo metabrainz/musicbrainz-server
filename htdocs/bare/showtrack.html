@@ -5,7 +5,14 @@ my ($mb, $al, $album);
 $mb = new MusicBrainz;
 $mb->Login();
 $al = Album->new($mb);
-$album = $al->GetIdFromTrackId($ARGS{trackid});
+if (exists $ARGS{trackid})
+{
+   $album = $al->GetIdFromTrackId($ARGS{trackid});
+}
+else
+{
+   $album = $al->GetIdFromAlbumJoinId($ARGS{albumjoinid});
+}
 $mb->Logout();
 
 $r->method('GET');
