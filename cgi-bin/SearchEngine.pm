@@ -299,7 +299,8 @@ sub RebuildIndex
                     #print STDERR "Adding words for $self->{Table} $row->[0]: $row->[1]\n";
                     $self->AddWordRefs(@$row);
 
-                    if ($written > 0 && ($written % 100) == 0)
+                    if ($written > 0 && time() > $start_time &&
+                       ($written % 100) == 0)
                     {
                          print STDERR $self->{Table} . " index added " . 
                               ($written + $count) . " of $total_rows. (".
