@@ -1,0 +1,28 @@
+%# vi: set ts=4 sw=4 ft=mason :
+
+<%method ShowPreviousValue>
+% my $this = shift;
+</%method>
+
+<%method ShowNewValue>
+% my $this = shift;
+
+<%perl>
+my $new = $this->{'new_unpacked'};
+(my $name) = grep { defined } ($new->{'AlbumName'}, "[error]");
+(my $id) = grep { defined } (@$new{'AlbumId', '_albumid'}, 0);
+</%perl>
+
+	Album:
+
+% if ($this->GetStatus == ModDefs::STATUS_OPEN
+%	or $this->GetStatus == ModDefs::STATUS_APPLIED) {
+	<a href="/showalbum.html?albumid=<% $id %>"
+		><% $name %></a>
+% } else {
+		<% $name %>
+% }
+
+</%method>
+
+%# eof

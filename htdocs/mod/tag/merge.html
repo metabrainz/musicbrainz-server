@@ -1,54 +1,107 @@
+%# vi: set ts=4 sw=4 ft=mason :
 <%args>
-$type
+$mac
+@album => ()
+$confirm => 0
 </%args>
+<%perl>
 
-% if ($type == ModDefs::MOD_MERGE_ALBUM) {
+$m->comp("/comp/checkloggedin", 1, 1)
+	or return;
+
+my $mb = $m->comp("/comp/dblogin");
+
+if (@album < 2)
+{
+	return $m->comp(
+		"/comp/error",
+		"You have not selected any albums. Please go back"
+		. " to the artist page and select some albums by clicking"
+		. " on the checkbox on the right hand side in the album title.",
+		1, 1,
+	);
+}
+
+my %artists;
+my @objs = map {
+	my $albumid = $_;
+	my $al = Album->new($mb->{DBH});
+ 	$al->SetId($albumid);
+
+	$al->LoadFromId
+		or return $m->comp(
+			"/comp/error",
+			"Album #$albumid not found.",
+			1, 1,
+		);
+
+	++$artists{$al->GetArtist};
+	$al;
+} @album;
+
+my $url =
+	(keys(%artists) == 1 and not $artists{&ModDefs::VARTIST_ID})
+		? "/showartist.html?artistid=".$objs[0]->GetArtist
+		: "/search.html";
+
+if ($confirm)
+{
+	delete $session{tagged_albums};
+	my $into = shift @objs;
+
+	$m->comp(
+		"/comp/entermods",
+		DBH => $mb->{DBH},
+		sub => sub {
+			my @mods = Moderation->InsertModeration(
+				DBH	=> $mb->{DBH},
+				uid	=> $session{uid},
+				privs => $session{privs},
+				type => (
+					$mac
+					? &ModDefs::MOD_MERGE_ALBUM_MAC
+					: &ModDefs::MOD_MERGE_ALBUM
+				),
+				# --
+				albums => \@objs,
+				into => $into,
+			);
+		},
+		success_url => $url,
+	) or return;
+
+	die "Shouldn't get here";
+}
+
+</%perl>
+
+% if (not $mac) {
     <& /comp/sidebar, title=>'Confirm Merging Albums', expand=>'moderate' &>
 % } else {
     <& /comp/sidebar, title=>'Confirm Merging Albums into Various Artist Album', expand=>'moderate' &>
 % }
 
+<%def drawform>
 <%perl>
-
-sub SwapItems
-{
-    my ($ref, $i, $j) = @_;
-    my (@list, $temp);
-
-    @list = @{$ref};
-    $temp = $list[$i];
-    $list[$i] = $list[$j];
-    $list[$j] = $temp;
-
-    return \@list;
-}
-
-my ($mb, $id, $ar, $artist); 
-my (%merged, @id_numtracks);
-
-$mb = mc_comp("/comp/dblogin");
-
-if (!defined $session{user} || $session{user} eq '') {
+	my ($mac, $objs, $text, $thisalbum) = @_;
+	</%perl>
+	<form method="post" action="/mod/tag/merge.html#albumrow<% $thisalbum->GetId %>"
+		style="margin-bottom: 1em">
+% for (@$objs) {
+		<input type="hidden" name="album" value="<% $_->GetId %>">
+% }
+		<input type="hidden" name="mac" value="<% $mac %>">
+		<input type="submit" value="<% $text %>">
+	</form>
+	<%perl>
 </%perl>
-    You must be logged in to edit the database.<p>
-    <& /comp/tablebegin, title=>'Login' &>
-    <& /comp/loginbox &>
-    <& /comp/tableend &>
-<%perl>
-} 
-else 
-{
-    my ($i, $key, $al, @tracks, $tr, @objs, @ids, $di);
+</%def>
 
-    foreach $key (keys %ARGS)
-    {
-       if ($ARGS{$key} =~ /^AlbumId/ && $key =~ m/^key(\d+)/)
-       {
-           $al = Album->new($mb->{DBH});
-           $al->SetId($ARGS{"value$1"});
-           push @objs, $al if (defined $al->LoadFromId())
-       }
-    }
+<%perl>
+
+my ($id, $ar, $artist); 
+my (%merged, @id_numtracks);
+my ($i, $al, @tracks, $tr, @ids, $di);
 
     $ar = Artist->new($mb->{DBH});
     $di = Discid->new($mb->{DBH});
@@ -97,22 +150,41 @@ else
 
        </%perl>
        <table>
-       <tr>
-         <td width="420"><& /comp/album, album=>$al, artist=>$ar, nomod=>1 &></td>
-         <td valign="top" align="center">
-%            if ($i > 0) {
-                 <& comp/mergeform, type=>$type,
-                                    link=>"/mod/tag/merge.html",
-                                    objs=>SwapItems(\@objs, $i, $i -1),
-                                    text=>"Move Up" &>
-                 <br>
-%            }
-%            if ($i < scalar(@objs) - 1) {
-             <& comp/mergeform, type=>$type,
-                                link=>"/mod/tag/merge.html",
-                                objs=>SwapItems(\@objs, $i, $i + 1),
-                                text=>"Move Down" &>
-%            }
+		<tr id="albumrow<% $al->GetId %>">
+		<td width="420" style="padding-bottom: 2em">
+			<& /comp/album, album=>$al, artist=>$ar, nomod=>1 &>
+		</td>
+         <td valign="top" align="left" style="padding-left: 1em">
+			<%perl>
+			$m->comp(
+				"drawform",
+				$mac,
+				[ @objs[$i, 0..$i-1, $i+1..$#objs ] ],
+				"Move to Top",
+				$al,
+			) if $i > 0;
+			$m->comp(
+				"drawform",
+				$mac,
+				[ @objs[0..$i-2, $i, $i-1, $i+1..$#objs ] ],
+				"Move Up",
+				$al,
+			) if $i > 0;
+			$m->comp(
+				"drawform",
+				$mac,
+				[ @objs[0..$i-1, $i+1, $i, $i+2..$#objs ] ],
+				"Move Down",
+				$al,
+			) if $i < $#objs;
+			$m->comp(
+				"drawform",
+				$mac,
+				[ @objs[0..$i-1, $i+1..$#objs, $i ] ],
+				"Move to Bottom",
+				$al,
+			) if $i < $#objs;
+			</%perl>
           </td>
        </tr>
        </table>
@@ -120,7 +192,6 @@ else
 
        $i++;
     }
-}
 
 my $final = scalar(keys %merged);
 my $merge_ok = 1;
@@ -146,66 +217,24 @@ foreach (@id_numtracks)
 %     return undef;
 % }
 
+<h2>Confirm Merge</h2>
 
-<blockquote>
+<p>
+	To complete the merge of the above albums into one
+	<% $mac ? "'Various Artists'" : "" %>
+	album, press this button:
+</p>
 
-% if ($type == ModDefs::MOD_MERGE_ALBUM) {
-    <& /comp/tablebegin, title=>'Confirm Merging Albums' &>
-% } else {
-    <& /comp/tablebegin, title=>'Confirm Merging Albums into Various Artist Album' &>
+<form method="post" action="/mod/tag/merge.html" name="MergeConfirm">
+	<p>
+		<input type="submit" value="Merge!">
+% for (@objs) {
+		<input type="hidden" name="album" value="<% $_->GetId %>">
 % }
-
-<FORM METHOD="POST" ACTION="/bare/enter_kv_mod.html" NAME="MergeConfirm"
-      ENCTYPE="application/x-www-form-urlencoded">  
-
-<table width="100%">
-  <tr>
-    <td colspan="2">
-% if ($type == ModDefs::MOD_MERGE_ALBUM) {
-    Are you sure you want to merge the albums above?
-% } else {
-    Are you sure you want to merge the albums above into one 
-    Various Artist album?
-% }
-    </td>
-  </tr>
-  <tr>
-    <td>
-    &nbsp;
-    </td>
-    <td>
-    <INPUT TYPE="radio" NAME="confirm0" SIZE=25 value="yes"
-        ondblclick="this.form.submit()"
-        > Yes
-    </td>
-  </tr>
-  <tr>
-    <td>
-    &nbsp;
-    </td>
-    <td>
-    <INPUT TYPE="radio" NAME="confirm0" SIZE=25 value="no" CHECKED
-        ondblclick="this.form.submit()"
-        > No
-    </td>
-  </tr>
-  <tr>
-    <td colspan=2>
-    <INPUT TYPE="submit" NAME="Submit" VALUE="Submit">    
-    </td>
-  </tr>
-</table>
-
-% my $key;
-% foreach $key (keys %ARGS) {
-    <input type="hidden" name="<% $key %>" value="<% $ARGS{$key} %>">
-% }
-
+		<input type="hidden" name="mac" value="<% $mac %>">
+		<input type="hidden" name="confirm" value="1">
+	</p>
 </form>
-<& /comp/tableend &>
-</blockquote>
 
-% $mb->Logout();
-
-<& /comp/movefocus, "MergeConfirm", "confirm0", 0 &>
+<& /comp/movefocus, "MergeConfirm", 0 &>
 <& /comp/footer &>

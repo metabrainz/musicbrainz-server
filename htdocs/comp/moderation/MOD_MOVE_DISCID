@@ -1,0 +1,28 @@
+%# vi: set ts=4 sw=4 ft=mason :
+
+<%method ShowPreviousValue>
+% my $this = shift;
+% my $new = $this->{'new_unpacked'};
+
+% (my $albumname) = grep { defined } ($new->{'OldAlbumName'}, "[unknown]");
+% (my $discid) = grep { defined } ($new->{'DiscId'}, "[unknown]");
+
+	Old:
+	<a href="/showalbum.html?albumid=<% $this->GetPrev %>"
+		><% $albumname %></a>
+	<br>
+	<% $discid %>
+
+</%method>
+
+<%method ShowNewValue>
+% my $this = shift;
+% my $new = $this->{'new_unpacked'};
+
+	New:
+	<a href="/showalbum.html?albumid=<% $new->{'NewAlbumId'} %>"
+		><% $new->{'NewAlbumName'} %></a>
+
+</%method>
+
+%# eof

@@ -1,3 +1,5 @@
+#!/usr/bin/perl -w
+# vi: set ts=4 sw=4 :
 #____________________________________________________________________________
 #
 #   MusicBrainz -- the open internet music database
@@ -149,16 +151,17 @@ sub SetAlbumJoinModPending
 # Given an albumjoin id, determine the track id and load it
 sub LoadFromAlbumJoin
 {
-   my ($this, $albumjoinid) = @_;
-   my ($sql, $trackid);
+	my ($this, $albumjoinid) = @_;
+	my $sql = Sql->new($this->{DBH});
+	
+	my $t = $sql->SelectSingleRowArray(
+		"SELECT track, album FROM albumjoin WHERE id = ?",
+		$albumjoinid,
+	) or return undef;
 
-   $sql = Sql->new($this->{DBH});
-   ($trackid) = $sql->GetSingleRow("AlbumJoin", ["Track"], 
-                                   ["AlbumJoin.id", $albumjoinid]);
-   return undef if (!defined $trackid);
-
-   $this->SetId($trackid);
-   return $this->LoadFromId();
+	$this->SetId($t->[0]);
+	$this->SetAlbum($t->[1]);
+	return $this->LoadFromId();
 }
 
 # Load a track. Set the track id and the album id via the SetId and SetAlbum
@@ -362,11 +365,12 @@ sub Insert
 
         $sql->Do("$query) $values)");
 
-	$track = $sql->GetLastInsertId("Track");
-	$this->{new_insert} = $track;
-	$sql->Do(qq/insert into AlbumJoin (album, track, sequence,
-		modpending) values ($album, $track, 
-		$this->{sequence}, 0)/);
+		$track = $sql->GetLastInsertId("Track");
+		$this->{new_insert} = $track;
+		$sql->Do(qq/insert into AlbumJoin (album, track, sequence,
+			modpending) values ($album, $track, 
+			$this->{sequence}, 0)/
+		);
     }
 
     $this->{id} = $track;
@@ -456,3 +460,4 @@ sub FormatTrackLength
 }
 
 1;
+# eof Track.pm

@@ -1,0 +1,25 @@
+%# vi: set ts=4 sw=4 ft=mason :
+
+<%method ShowPreviousValue>
+% my $this = shift;
+
+	Old:
+
+% if ($this->GetStatus != ModDefs::STATUS_APPLIED) {
+ 	<a href="/showalbum.html?discid=<% $this->GetPrev %>"
+		><% $this->GetPrev %></a>
+% } else {
+	<% $this->GetPrev %>
+% }
+
+</%method>
+
+<%method ShowNewValue>
+% my $this = shift;
+
+	New:
+	<span class="bold"><% $this->GetNew %></span>
+
+</%method>
+
+%# eof

@@ -1,12 +1,10 @@
 %# vi: set ts=2 sw=2 ft=mason :
 <%args>
 $artistid => undef
-$nonalbum => undef
 </%args>
 <%perl>
 
-my $title = $nonalbum ? "Add non-album tracks" : "Add Album";
-$m->comp("/comp/sidebar", title => $title);
+$m->comp("/comp/sidebar", title => "Add Album");
 
 unless ($artistid)
 {
@@ -64,59 +62,7 @@ $ar->LoadFromId
 
 <& /comp/stylemenu &>
 
-<h2><% $title %></h2>
-
-% if ($nonalbum) {
-
-<p>
-	You are about to add some non-album tracks to artist
-	<b><% $ar->GetName %></b>.
-</p>
-
-<p>
-	Please enter the number of non-album tracks you would like to add,
-	and then click 'Next'.
-</p>
-
-	<form method="post" action="/addnonalbumtracks.html" name="AddAlbumForm"
-		enctype="application/x-www-form-urlencoded">
-
-    <table>
-      <tr>
-        <td colspan="2">
-					<input type="hidden" name="value0" value="Non-album tracks">
-        </td>
-      </tr>
-      <tr>
-        <td align="right">
-					Number of non album tracks to add:
-        </td>
-        <td>
-					<input type="text" name="value1" size="3" value=""> (1 - 99)
-        </td>
-      </tr>
-      <tr>
-        <td colspan=2>
-					<input type="submit" value="Next &gt;&gt;">
-        </td>
-      </tr>
-    </table>
-
-    <input type="hidden" name="key0" value="AlbumName">
-    <input type="hidden" name="key1" value="NumTracks">
-    <input type="hidden" name="artist" value="<% $artistid %>">
-    <input type="hidden" name="type" value="<% ModDefs::MOD_ADD_ALBUM %>">
-    <input type="hidden" name="prev" value="">
-    <input type="hidden" name="table" value="Album">
-    <input type="hidden" name="column" value="Name">
-    <input type="hidden" name="id" value="0">
-    <input type="hidden" name="url" value="/search.html">
-    <input type="hidden" name="nonalbum" value="<% $nonalbum %>">
-	</form>
-
-	<& /comp/movefocus, "AddAlbumForm", "value1" &>
-
-%   } else {
+<h2>Add Album</h2>
 
 <p>
 	You are about to add an album to the artist
@@ -158,7 +104,5 @@ $ar->LoadFromId
     <input type="hidden" name="artist" value="<% $artistid %>">
 	</form>
 
-	<& /comp/movefocus, "AddAlbumForm", "tracks" &>
-% }
-
+<& /comp/movefocus, "AddAlbumForm", "tracks" &>
 <& /comp/footer &>

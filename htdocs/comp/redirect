@@ -1,0 +1,11 @@
+%# vi: set ts=4 sw=4 ft=mason :
+<%perl>
+
+my ($url) = @_;
+
+$url = "http://" . &DBDefs::WEB_SERVER . $url
+	unless $url =~ /^\w+:/;
+$r->header_out(Location => $url);
+$m->abort(303);
+
+</%perl>

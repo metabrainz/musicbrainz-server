@@ -33,7 +33,6 @@ use Apache;
 use RDFStore::Parser::SiRPAC;
 use RDFStore::NodeFactory;
 
-use Data::Dumper;
 use integer;
 
 sub new

@@ -2,23 +2,13 @@
 <%args>
 $album => undef
 </%args>
-
-<& /comp/sidebar, title => 'Remove Album' &>
-
 <%perl>
 
-# TODO isn't the artist ID superfluous here?  It should be derived from
-# $album once it has been retrieved, I think.  Apart from being "faked"
-# by URL-editing, there are two possible legitimate values: for a VA
-# album, $artist could be VARTIST_ID, or the artist of one of the tracks.
-# But since it gets entered into the mod's 'artist' column, they can't both be
-# right, surely?
-
-$m->comp("/comp/checkloggedin", 0, 1)
+$m->comp("/comp/checkloggedin", 1, 1)
 	or return;
 
 MusicBrainz::IsNonNegInteger($album) && $album
-	or return $m->comp("/comp/badargs", 0, 1);
+	or return $m->comp("/comp/badargs", 1, 1);
 
 my $mb = $m->comp("/comp/dblogin");
 
@@ -28,64 +18,63 @@ $al->LoadFromId
 	or return $m->comp(
 		"/comp/error",
 		"Album #$album does not exist",
-		0, 1,
+		1, 1,
 	);
+
+my $url = "/showalbum.html?albumid=$album";
+
+if ($ARGS{confirm})
+{
+	$m->comp(
+		"/comp/entermods",
+		DBH => $mb->{DBH},
+		sub => sub {
+			my @mods = Moderation->InsertModeration(
+				DBH	=> $mb->{DBH},
+				uid	=> $session{uid},
+				privs => $session{privs},
+				type => ModDefs::MOD_REMOVE_ALBUM,
+				# --
+				album => $al,
+			);
+		},
+		success_url => $url,
+	) or return;
+
+	die "Shouldn't get here";
+}
 
 </%perl>
 
-<& /comp/tablebegin, gattrs => "width='100%'",
-	title => 'Remove Album' &>
+<& /comp/sidebar, title => 'Remove Album' &>
 
-	<form method="post" action="/bare/enter_mod.html" name="RemoveAlbumForm"
-		enctype="application/x-www-form-urlencoded">  
+<h2>Remove Album</h2>
 
-    <table width="100%">
-      <tr>
-        <td colspan="2">
-					Are you sure you want to remove album
-					<b><% $al->GetName %></b>?
-        </td>
-      </tr>
-      <tr>
-        <td>
-					&nbsp;
-        </td>
-        <td>
-					<input type="radio" name="confirm0" value="yes"
-            ondblclick="this.form.submit()"
-            > Yes
-        </td>
-      </tr>
-      <tr>
-        <td>
-					&nbsp;
-        </td>
-        <td>
-					<input type="radio" name="confirm0" value="no" checked
-            ondblclick="this.form.submit()"
-            > No
-        </td>
-      </tr>
-      <tr>
-        <td colspan=2>
-					<input type="submit" value="Submit">    
-        </td>
-      </tr>
-		</table>
-		
-		<input type="hidden" name="artist0" value="<% $al->GetArtist %>">
-    <input type="hidden" name="type0" value="<% ModDefs::MOD_REMOVE_ALBUM %>">
-		<input type="hidden" name="prev0" value="<% $al->GetName %>">
-    <input type="hidden" name="new0" value="DELETE">
-    <input type="hidden" name="table0" value="Album">
-    <input type="hidden" name="column0" value="Name">
-		<input type="hidden" name="id0" value="<% $al->GetId %>">
-		<input type="hidden" name="url" value="/showalbum.html?albumid=<% $al->GetId %>">
-	</form>
-      
-<& /comp/tableend &>
+<p>
+	Are you sure you want to remove album
+	<a href="<% $url %>"><% $al->GetName %></a>?
+</p>
 
-% $mb->Logout;
+<form method="get" action="<% $url %>"
+	name="ModFormNo"
+	onsubmit="history.go(-1); return false"
+	style="float: left; margin-right: 2em; margin-top: 0"
+	>
+	<div>
+		<input type="submit" value="&lt;&lt; NO">
+	</div>
+</form>
 
-<& /comp/movefocus, "RemoveAlbumForm", "confirm0", 0 &>
+<form method="post" action="/remalbum.html"
+	name="ModFormYes"
+	style="margin: 0"
+	>
+	<div>
+		<input type="hidden" name="album" value="<% $album %>">
+		<input type="hidden" name="confirm" value="1">
+		<input type="submit" value="YES &gt;&gt;">
+	</div>
+</form>
+
+<& /comp/movefocus, "ModFormNo", 0 &>
 <& /comp/footer &>

@@ -1,0 +1,29 @@
+%# vi: set ts=4 sw=4 ft=mason :
+
+<%method ShowPreviousValue>
+% my $this = shift;
+% my $albums = $this->{'new_albums'};
+
+%  	for my $t (@$albums) {
+
+		<a href="/showalbum.html?albumid=<% $t->{'id'} %>"
+			><% $t->{'name'} %></a>
+%			my $value = $this->ConvertToText(split /,/, $t->{'prev'});
+			(<% $value || "None" %>)
+		<br>
+%		}
+
+</%method>
+
+<%method ShowNewValue>
+% my $this = shift;
+% my $new = $this->{'new_unpacked'};
+
+% my $value = $this->ConvertToText(split /,/, $new->{Attributes});
+
+	New:
+	<% $value || 'None' %>
+
+</%method>
+
+%# eof

@@ -32,7 +32,6 @@ use Artist;
 use Track;
 use String::Unicode::Similarity;
 use Encode qw( encode decode );
-use Data::Dumper;
 
 use vars qw(@ISA @EXPORT);
 @ISA    = @ISA    = 'TableBase';

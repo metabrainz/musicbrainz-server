@@ -1,35 +1,31 @@
+%# vi: set ts=4 sw=4 ft=mason :
 <%args>
 $url=>""
 </%args>
+% delete $session{tagged_albums};
 
-<& /comp/sidebar, title=>'Deselected Tagged Albums', expand=>'moderate' &>
+<& /comp/sidebar, title => 'Deselected Tagged Albums' &>
 
-<%perl>
-
-my ($mb, $id, $ar, $artist); 
-
-$mb = mc_comp("/comp/dblogin");
-
-delete $session{tagged_albums};
-
-</%perl>
 <center>
-<p>
-<p>
-<p>
-<b>All of your selected albums have been deselected.</b><p><br>
-
+	<p class="notice">
+		All of your selected albums have been deselected.
+	</p>
+%# TODO feeding any old URL back into the page is a security risk
 %   if ($url ne '') {
-     <a href="<% $url %>">Return to last page</a><br><p>
+	<p>
+		<a href="<% $url %>">Return to last page</a>
+	</p>
 %   }
+
+	<br>
+
+	<& /comp/tablebegin, title=>'Search', attrs=>"align=left" &>
+	<br>
+	<& /comp/textsearch, default=>'Artist' &>
+	<br>
+	<& /comp/tableend &>
+
 </center>
 
-<br><p>
-
-% $mb->Logout();
-
-<& /comp/tablebegin, title=>'Search', attrs=>"align=left" &>
-<br>
-<& /comp/textsearch, default=>'Artist' &>
-<br>
-<& /comp/tableend &>
+<& /comp/movefocus, "TextSearchForm", "search" &>
+<& /comp/footer &>

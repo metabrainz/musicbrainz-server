@@ -1,0 +1,7 @@
+%# vi: set ts=4 sw=4 ft=mason :
+
+<%flags>
+inherit => 'MOD_MERGE_ALBUM'
+</%flags>
+
+%# eof

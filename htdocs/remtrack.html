@@ -1,95 +1,99 @@
-<& /comp/sidebar, title=>'Remove Track', expand=>'moderate' &>
-
+%# vi: set ts=4 sw=4 ft=mason :
+<%args>
+$id => ""
+$album => ""
+</%args>
 <%perl>
 
-my ($mb, $id, $trackname, $tr, $al);
-my ($seq_id, $tracknum, $album, $artist); 
+MusicBrainz::IsNonNegInteger($id) && $id
+	or return $m->comp("/comp/badargs", 1, 1);
 
-if (!exists $ARGS{album} || $ARGS{album} eq '' ||
-    !exists $ARGS{artist} || $ARGS{artist} eq '' ||
-    !exists $ARGS{id} || $ARGS{id} eq '')
-{
-    mc_comp("/comp/badargs");
-    return undef;
-}
+MusicBrainz::IsNonNegInteger($album) && $album
+	or return $m->comp("/comp/badargs", 1, 1);
 
-$mb = mc_comp("/comp/dblogin");
-$tr = Track->new($mb->{DBH});
+$m->comp("/comp/checkloggedin", 1, 1)
+	or return;
 
-$id = $ARGS{id};
-$album = $ARGS{album};
-$artist = $ARGS{artist};
+my $mb = $m->comp("/comp/dblogin");
+my $tr = Track->new($mb->{DBH});
+my $al = Album->new($mb->{DBH});
 
 $tr->SetId($id);
 $tr->SetAlbum($album);
-$tr->LoadFromId();
-$trackname = $tr->GetName();
-$tracknum = $tr->GetSequence();
-$seq_id = $tr->GetSequenceId();
+$tr->LoadFromId
+	or return $m->comp(
+		"/comp/error",
+		"Track #$id not found",
+		1, 1,
+	);
+
+$al->SetId($album);
+$al->LoadFromId
+	or return $m->comp(
+		"/comp/error",
+		"Album #$album not found",
+		1, 1,
+	);
+
+my $url = "/showalbum.html?albumid=$album";
+
+if ($ARGS{confirm})
+{
+	$m->comp(
+		"/comp/entermods",
+		DBH => $mb->{DBH},
+		sub => sub {
+			my @mods = Moderation->InsertModeration(
+				DBH	=> $mb->{DBH},
+				uid	=> $session{uid},
+				privs => $session{privs},
+				type => ModDefs::MOD_REMOVE_TRACK,
+				# --
+				track => $tr,
+				album => $al,
+			);
+		},
+		success_url => $url,
+	) or return;
+
+	die "Shouldn't get here";
+}
 
 </%perl>
 
-% if (!defined $session{user} || $session{user} eq '') {
-    You must be logged in to edit the database.<p>
-    <& /comp/tablebegin, title=>'Login' &>
-    <& /comp/loginbox &>
-    <& /comp/tableend &>
-% } else {
+<& /comp/sidebar, title => 'Remove Track' &>
 
-    <& /comp/tablebegin, gattrs=>"width=\"100%\"",
-       title=>'Remove Track' &>
+<h2>Remove Track</h2>
 
-    <FORM METHOD="POST" ACTION="/bare/enter_mod.html" NAME="RemoveTrackForm"
-          ENCTYPE="application/x-www-form-urlencoded">  
+<p>
+	Are you sure you want to remove track
+	#<% $tr->GetSequence %>
+	<span class="bold"><% $tr->GetName %></span>
+	from album
+	<a href="<% $url %>"><% $al->GetName %></a>?
+</p>
 
-    <table width="100%">
-      <tr>
-        <td colspan="2">
-        Are you sure you want to remove track 
-        <span class="bold"><% $trackname %></span>?
-        </td>
-      </tr>
-      <tr>
-        <td>
-        &nbsp;
-        </td>
-        <td>
-        <INPUT TYPE="radio" NAME="confirm0" SIZE=25 value="yes"
-            ondblclick="this.form.submit()"
-            > Yes
-        </td>
-      </tr>
-      <tr>
-        <td>
-        &nbsp;
-        </td>
-        <td>
-        <INPUT TYPE="radio" NAME="confirm0" SIZE=25 value="no" CHECKED
-            ondblclick="this.form.submit()"
-            > No
-        </td>
-      </tr>
-      <tr>
-        <td colspan=2>
-        <INPUT TYPE="submit" NAME="Submit" VALUE="Submit">    
-        </td>
-      </tr>
-    </table>
-    <input type="hidden" name="artist0" value="<% $artist %>">
-    <input type="hidden" name="type0"
-           value="<% ModDefs::MOD_REMOVE_TRACK %>">
-    <input type="hidden" name="prev0" value="<% $trackname . "\n" %><% $album %>">
-    <input type="hidden" name="new0" value="DELETE">
-    <input type="hidden" name="table0" value="Track">
-    <input type="hidden" name="column0" value="Name">
-    <input type="hidden" name="id0" value="<% $id %>">
-    <input type="hidden" 
-           name="url" value="/showalbum.html?albumid=<% $album %>">
-    </form>
-      
-    <& /comp/tableend &>
-% }
-% $mb->Logout();
+<form method="get" action="<% $url %>"
+	name="ModFormNo"
+	onsubmit="history.go(-1); return false"
+	style="float: left; margin-right: 2em; margin-top: 0"
+	>
+	<div>
+		<input type="submit" value="&lt;&lt; NO">
+	</div>
+</form>
 
-<& /comp/movefocus, "RemoveTrackForm", "confirm0", 0 &>
+<form method="post" action="/remtrack.html"
+	name="ModFormYes"
+	style="margin: 0"
+	>
+	<div>
+		<input type="hidden" name="id" value="<% $id %>">
+		<input type="hidden" name="album" value="<% $album %>">
+		<input type="hidden" name="confirm" value="1">
+		<input type="submit" value="YES &gt;&gt;">
+	</div>
+</form>
+
+<& /comp/movefocus, "ModFormNo", 0 &>
 <& /comp/footer &>

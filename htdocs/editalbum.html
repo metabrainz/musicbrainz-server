@@ -1,17 +1,15 @@
 %# vi: set ts=2 sw=2 ft=mason :
 <%args>
 $album => undef
+$newname => ""
 </%args>
-
-<& /comp/sidebar, title => 'Edit Album Name' &>
-
 <%perl>
 
-$m->comp("/comp/checkloggedin", 0, 1)
+$m->comp("/comp/checkloggedin", 1, 1)
 	or return;
 
 MusicBrainz::IsNonNegInteger($album) && $album
-	or return $m->comp("/comp/badargs", 0, 1);
+	or return $m->comp("/comp/badargs", 1, 1);
 
 my $mb = $m->comp("/comp/dblogin");
 
@@ -21,7 +19,7 @@ $al->LoadFromId
 	or return $m->comp(
 		"/comp/error",
 		"Album #$album does not exist",
-		0, 1,
+		1, 1,
 	);
 
 my $ar = Artist->new($mb->{DBH});
@@ -30,10 +28,38 @@ $ar->LoadFromId
 	or return $m->comp(
 		"/comp/error",
 		"Artist does not exist",
-		0, 1,
+		1, 1,
 	);
 
+my $url = "/showalbum.html?albumid=$album";
+
+if (MusicBrainz::IsSingleLineString($newname)
+	and $newname =~ /\S/
+	and $newname ne $al->GetName)
+{
+	$m->comp(
+		"/comp/entermods",
+		DBH => $mb->{DBH},
+		sub => sub {
+			my @mods = Moderation->InsertModeration(
+				DBH	=> $mb->{DBH},
+				uid	=> $session{uid},
+				privs => $session{privs},
+				type => ModDefs::MOD_EDIT_ALBUMNAME,
+				# --
+				album => $al,
+				newname => $newname,
+			);
+		},
+		success_url => $url,
+	) or return;
+
+	die "Shouldn't get here";
+}
+
 </%perl>
+
+<& /comp/sidebar, title => 'Edit Album Name' &>
 
 <& /comp/stylemenu &>
 
@@ -45,8 +71,10 @@ $ar->LoadFromId
 
 <script type="text/javascript" src="scripts/guess.js"></script>
 
-<form method="post" action="/bare/enter_mod.html" name="EditAlbumForm"
-	enctype="application/x-www-form-urlencoded">
+<form method="post" action="/editalbum.html"
+	name="EditAlbumForm"
+	enctype="application/x-www-form-urlencoded"
+	>
 
 	<table width="100%">
 		<tr>
@@ -62,7 +90,7 @@ $ar->LoadFromId
 				New Name:
 			</td>
 			<td width="75%">
-				<input type="text" name="new0" size="50" value="<% $al->GetName %>">
+				<input type="text" name="newname" size="50" value="<% $al->GetName %>">
 			</td>
 		</tr>
 	</table>
@@ -71,21 +99,15 @@ $ar->LoadFromId
 		<script type="text/javascript"><!--
 		document.write(
 			"<input type='button' value='Guess Case' " +
-			"onclick='this.form.new0.value = GuessCase(this.form.new0.value)'>"
+			"onclick='this.form.newname.value = GuessCase(this.form.newname.value)'>"
 		);
 		document.write(" &nbsp; ");
 		//--></script>
+		<input type="hidden" name="album" value="<% $al->GetId %>">
 		<input type="submit" value="Submit">
 	</p>
 
-	<input type="hidden" name="artist0" value="<% $ar->GetId  %>">
-	<input type="hidden" name="type0" value="<% ModDefs::MOD_EDIT_ALBUMNAME %>">
-	<input type="hidden" name="prev0" value="<% $al->GetName %>">
-	<input type="hidden" name="table0" value="Album">
-	<input type="hidden" name="column0" value="Name">
-	<input type="hidden" name="id0" value="<% $al->GetId %>">
-	<input type="hidden" name="url" value="/showalbum.html?albumid=<% $al->GetId %>">
 </form>
 
-<& /comp/movefocus, "EditAlbumForm", "new0" &>
+<& /comp/movefocus, "EditAlbumForm", "newname" &>
 <& /comp/footer &>

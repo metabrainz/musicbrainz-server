@@ -172,6 +172,10 @@ $mb->Logout();
     <td valign="top" align="right">Mods Rejected:</td>
     <td valign="top"><% $info->{modsrejected} %></td>
 </tr>
+<tr>
+	<td></td>
+	<td valign="top"><a href="/moderate.html?type=<% ModDefs::TYPE_MODERATOR %>&amp;moderator=<% $uid %>">List Moderations</a></td>
+</tr>
 % }
 % if ($session{uid} == $uid) {
 <tr>
@@ -197,9 +201,12 @@ $mb->Logout();
 
 <hr>
 <form METHOD="POST" ACTION="/moderator.html"
+	name="ModeratorForm"
       ENCTYPE="application/x-www-form-urlencoded">
    Lookup a moderator by name:<br>
    <input type="text" name="user" size="20">
    <INPUT TYPE="submit" NAME="Submit" VALUE="Lookup">
 </form>
+
+<& /comp/movefocus, "ModeratorForm", "user" &>
 <& /comp/footer &>

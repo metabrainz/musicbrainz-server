@@ -161,9 +161,8 @@ use Scalar::Util qw( reftype weaken );
         { url => "/addnonalbumtracks.html" },
         { url => "/addtrack.html" },
 
-        { url => "/artistfilter.html" },
-        { url => "/artistfilterkv.html" },
         { url => "/changetrack.html" },
+        { url => "/changetrackartist.html" },
 
         { url => "/editalbumattrs.html" },
         { url => "/editalbum.html" },

@@ -1,0 +1,24 @@
+%# vi: set ts=4 sw=4 ft=mason :
+
+<%method ShowPreviousValue>
+% my $this = shift;
+
+	Old:
+	<a href="/showartist.html?artistid=<% $this->GetRowId %>"
+		><% $this->GetPrev %></a>
+
+</%method>
+
+<%method ShowNewValue>
+% my $this = shift;
+
+	Artist:
+	<span class="bold"><% $this->{'new.name'} %></span>
+% if ($this->{'new.name'} ne $this->{'new.sortname'}) {
+	<br>
+	(<span class="bold"><% $this->{'new.sortname'} %></span>)
+% }
+
+</%method>
+
+%# eof

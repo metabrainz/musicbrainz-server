@@ -1,0 +1,34 @@
+%# vi: set ts=4 sw=4 ft=mason :
+
+<%method ShowPreviousValue>
+% my $this = shift;
+
+% my $al = Album->new($this->{DBH});
+% $al->SetId($this->GetRowId);
+
+% if (defined($al->LoadFromId)) {
+
+	Album:
+	<a href="/showalbum.html?albumid=<% $al->GetId %>"
+		><% $al->GetName %></a>
+		
+% } else {
+	[album has been deleted]
+% }
+
+</%method>
+
+<%method ShowNewValue>
+% my $this = shift;
+
+	New:
+% if (defined $this->{'new.name'}) {
+	<span class="bold"><% $this->{'new.name'} %></span>
+	(<span class="bold"><% $this->{'new.sortname'} %></span>)
+% } else {
+	<span class="bold"><% $this->{'new.sortname'} %></span>
+% }
+
+</%method>
+
+%# eof

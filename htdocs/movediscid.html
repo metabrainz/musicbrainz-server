@@ -2,11 +2,9 @@
 <%args>
 $discid => ""
 $albumid => ""
+$newalbumid => ""
 $confirm => 0
 </%args>
-
-<& /comp/sidebar, title => 'Move Discid' &>
-
 <%perl>
 
 $m->comp("/comp/checkloggedin", 0, 1)
@@ -18,14 +16,6 @@ MusicBrainz::IsSingleLineString($discid) && length($discid)
 MusicBrainz::IsNonNegInteger($albumid) && $albumid
 	or return $m->comp("/comp/badargs", 0, 1);
 
-if ($confirm)
-{
-    $m->comp("/comp/confirmmod", 
-            title=>"Confirm Move Discid",
-            args=>{ %ARGS });
-    return undef;
-}
-
 my $mb = $m->comp("/comp/dblogin");
 
 my $al = Album->new($mb->{DBH});
@@ -36,6 +26,8 @@ $al->LoadFromId
 		"Album not found in the database.",
 		0, 1,
 	);
+
+# Get the ID/toc of the row that joins this discid to this album
 
 my $di = Discid->new($mb->{DBH});
 my @discid_refs = $di->GetDiscidFromAlbum($al->GetId)
@@ -58,8 +50,52 @@ $numtracks = $1
 	if $d->{toc}
 	and $d->{toc} =~ /^\d+ (\d+)/;
 
+if ($newalbumid ne "")
+{
+	MusicBrainz::IsNonNegInteger($newalbumid) && $newalbumid
+		or return $m->comp("/comp/badargs", 0, 1);
+	
+	my $newal = Album->new($mb->{DBH});
+	$newal->SetId($newalbumid);
+	$newal->LoadFromId
+		or return $m->comp(
+			"/comp/error",
+			"Album not found in the database.",
+			0, 1,
+		);
+
+	# TODO verify same artist
+	# TODO verify same number of tracks
+
+	my $url = "/showalbum.html?albumid=$albumid";
+
+	$m->comp(
+		"/comp/entermods",
+		DBH => $mb->{DBH},
+		sub => sub {
+			my @mods = Moderation->InsertModeration(
+				DBH	=> $mb->{DBH},
+				uid	=> $session{uid},
+				privs => $session{privs},
+				type => ModDefs::MOD_MOVE_DISCID,
+				# --
+				oldalbum => $al,
+				newalbum => $newal,
+				discid => $discid,
+				rowid => $id,
+			);
+		},
+		success_url => $url,
+	) or return;
+
+	die "Shouldn't get here";
+}
+
+# Build a list of possible target albums
+
 my $ar = Artist->new($mb->{DBH});
 $ar->SetId($al->GetArtist);
+
 my @albums = $ar->GetAlbums
 	or return $m->comp(
 		"/comp/error",
@@ -67,75 +103,91 @@ my @albums = $ar->GetAlbums
 		0, 1,
 	);
 
+@albums = grep {
+	my $t = $_;
+
+	$t->GetId != $al->GetId
+	and $t->GetArtist != &ModDefs::VARTIST_ID
+	and do {
+		# TODO is this really a good way of checking the number of tracks?
+		# Shouldn't we test the album's TOC, not the number of defined tracks?
+		my @tracks = $t->LoadTracks;
+		scalar @tracks;
+	} == $numtracks
+} @albums;
+
+# Sort albums by name
+@albums = map { $_->[0] }
+	sort { $a->[1] cmp $b->[1] }
+	map {
+		my $t = $_;
+		use Encode qw( decode );
+		use Text::Unaccent qw( unac_string );
+		my $n = lc decode "utf-8", unac_string('UTF-8', $t->GetName);
+		[ $t, $n ];
+	} @albums;
+
+# Prepare a string to describe "n tracks"
+my $trackdesc = (
+	$numtracks == 1
+		? "1 track"
+		: "$numtracks tracks"
+);
+
 </%perl>
 
-%     my $count = 0;
+<& /comp/sidebar, title => 'Move Discid' &>
+
+% if (@albums) {
+
+<p>
+	Select a new album for CD Index Id 
+	<span class="bold"><% $discid %></span>
+	(NOTE: Only albums with <% $trackdesc %> have been shown).
+<p>
+
+<table>
+
 %     for my $ref (@albums) {
-%        next if ($ref->GetId() == $al->GetId);
-%        next if ($ref->GetArtist() == ModDefs::VARTIST_ID);
-%        my @tracks = $ref->LoadTracks();
-%        next if ($numtracks != scalar(@tracks));
-%        if ($count == 0) {
-            Select a new album for CD Index Id 
-            <span class="bold"><% $discid %></span>:<p>
-%        }
-%        $count++;
-            <form method="POST" action="/movediscid.html"
-				style="margin: 1em 0"
-                  enctype="application/x-www-form-urlencoded" class="formstyle">
-              <table width="100%">
-              <tr>
-                <td width="100%">
-                   <& /comp/album, artist=>$ar, album=>$ref, nomod=>1 &>
-                </td>
-                <td align="right" valign="top">
-					<input type="submit" value="Select &gt;&gt;"
-                          name="Select">
-                   <input type="hidden" name="confirm_message" 
-                          value="Are you sure you want to move CD Index id <% '<font class="bold">' . $discid . '</font>' |h %> to album <% '<font class="bold">' . $ref->GetName() .'</font>' |h %>?">
+	<tr>
+		<td>
+			<& /comp/album, artist=>$ar, album=>$ref, nomod=>1 &>
+		</td>
+		<td>
+            <form method="post" action="/movediscid.html"
+				style="margin: 1em"
+				enctype="application/x-www-form-urlencoded"
+				class="formstyle"
+				>
+				<p>
+					<input type="hidden" name="discid" value="<% $discid %>">
+					<input type="hidden" name="albumid" value="<% $albumid %>">
+					<input type="hidden" name="newalbumid" value="<% $ref->GetId %>">
+					<input type="submit" value="Select &gt;&gt;">
+				</p>
+			</form>
+		</td>
+	</tr>
 
-                   <input type="hidden" name="key0" value="NewAlbumId">
-                   <input type="hidden" name="value0" value="<% $ref->GetId() %>">
-                   <input type="hidden" name="key1" value="OldAlbumName">
-                   <input type="hidden" name="value1" value="<% $al->GetName() %>">
-                   <input type="hidden" name="key2" value="NewAlbumName">
-                   <input type="hidden" name="value2" value="<% $ref->GetName() %>">
-                   <input type="hidden" name="key3" value="DiscId">
-                   <input type="hidden" name="value3" value="<% $discid %>">
-                   <input type="hidden" name="confirm" value="1">
-				   <input type="hidden" name="artist" value="<% $ar->GetId %>">
-				   <input type="hidden" name="type" value="<% ModDefs::MOD_MOVE_DISCID %>">
-				   <input type="hidden" name="prev" value="<% $al->GetId %>">
-                   <input type="hidden" name="table" value="Discid">
-                   <input type="hidden" name="column" value="Disc">
-                   <input type="hidden" name="id" value="<% $id %>">
-				   <input type="hidden" name="url" value="/showalbum.html?albumid=<% $al->GetId %>">
+	<tr><td>&nbsp;</td></tr>
 
-                   <input type="hidden" name="discid" value="<% $discid %>">
-				   <input type="hidden" name="albumid" value="<% $al->GetId %>">
-                </td>
-              </tr>
-              </table>
-            </form>
-%     }
+% }
+</table>
 
-% my $trackdesc = "$numtracks tracks";
-% chop $trackdesc if $numtracks == 1;
+% } else {
 
-% if ($count == 0) {
 	<p>
-		This artist does not have any other albums with <% $trackdesc %>,
-		and therefore the disc id <% $discid %> cannot be moved.
+		Disc IDs can only be moved to albums with the same number
+		of tracks.&nbsp;
+		Since this artist does not have any other albums with <% $trackdesc %>,
+		disc id <% $discid %> cannot be moved.
 	</p>
-	<p>	
+	<p>
 		<a href="/showalbum.html?albumid=<% $al->GetId %>">Back</a>
 		to album
 		'<% $al->GetName() %>'.
 	</p>
-% } else {
-	<p>	
-		NOTE: Only albums with <% $trackdesc %> have been shown.
-	</p>
+
 % }
 
 <& /comp/footer &>

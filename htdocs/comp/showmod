@@ -31,7 +31,7 @@ $time = $m->comp("/comp/datetime", $time);
      Expire<% $expired %>: <% $time %>
    </td>
    <td width="37%" valign=top bgcolor=white class="body">
-     <% $mod->ShowModType() |n %> 
+     <% $mod->ShowModType($m), "" %> 
    </td>
    <td width="30%" align=center valign=top valign=top bgcolor=white class="body" NOWRAP>
 %    if ($session{uid} == $mod->GetModerator() || 
@@ -58,11 +58,11 @@ $time = $m->comp("/comp/datetime", $time);
 <tr>
 
    <td width="37%" valign=top bgcolor="#ffecd6" class="body">
-     <% $mod->ShowPreviousValue() |n %> 
+     <% $mod->ShowPreviousValue($m), "" %> 
    </td>
 
    <td width="37%" valign=top bgcolor="#f0efff" class="body">
-     <% $mod->ShowNewValue() |n %> 
+     <% $mod->ShowNewValue($m), "" %> 
    </td>
 
    <td width="30%" align=center valign=top bgcolor=white class="body" nowrap>
@@ -95,7 +95,8 @@ $time = $m->comp("/comp/datetime", $time);
 %    foreach $obj (@$ref) {
         &nbsp;&nbsp;&nbsp;&nbsp;
 %       $bold = ($obj->{user} eq $mod->GetModeratorName()) ? 'bold' : 'body';
-        <font class="<% $bold %>"><% $obj->{user} %></font>:
+        <a href="/moderator.html?uid=<% $obj->{uid} %>"
+	    ><font class="<% $bold %>"><% $obj->{user} %></font></a>:
         <% $obj->{text} |n %><br> 
 %    }
    </td>

@@ -1,0 +1,23 @@
+%# vi: set ts=4 sw=4 ft=mason :
+
+<%method ShowPreviousValue>
+% my $this = shift;
+</%method>
+
+<%method ShowNewValue>
+% my $this = shift;
+% my $list = $this->{'new_list'};
+% my $i = 0;
+  
+% for my $t (@$list) {
+%	$m->out("<br>") if $i++;
+	<a href="/showtrack.html?trackid=<% $t->{'trackid'} %>"
+ 		><% $t->{"trmid"} %></a>
+% }
+
+	<br>
+	Client "<% $this->{'new_unpacked'}{'ClientVersion'} %>"
+
+</%method>
+
+%# eof

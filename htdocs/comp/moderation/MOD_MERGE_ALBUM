@@ -1,0 +1,34 @@
+%# vi: set ts=4 sw=4 ft=mason :
+%# NOTE this file is also for MOD_MERGE_ALBUM_MAC
+
+<%method ShowPreviousValue>
+% my $this = shift;
+% my $s = $this->GetStatus;
+% my $i = 0;
+
+	Old:
+% for my $t (@{ $this->{'new_albums'} }) {
+%	$m->out("<br>") if $i++;
+
+% if ($s == ModDefs::STATUS_OPEN) {
+	<a href="/showalbum.html?albumid=<% $t->{'id'} %>"
+		><% $t->{'name'} %></a>
+% } else {
+	<% $t->{'name'} %>
+% }
+
+% }
+
+</%method>
+
+<%method ShowNewValue>
+% my $this = shift;
+% my $into = $this->{'new_into'};
+
+	Merged into:
+	<a href="/showalbum.html?albumid=<% $into->{'id'} %>"
+		><% $into->{'name'} %></a>
+
+</%method>
+
+%# eof

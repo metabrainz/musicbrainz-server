@@ -107,7 +107,7 @@ if (scalar(@ids) > 0)
 %            }
          ]
 %    } else {
-         [ <a href="/addtrack.html?album=<% $album->GetId() %>&amp;nontrack=<% $numtracks+1 %>">Add a non-album track</a> ]
+         [ <a href="/addnonalbumtracks.html?artistid=<% $album->GetArtist %>">Add a non-album track</a> ]
 %    }
 </td></tr>
 </table> 

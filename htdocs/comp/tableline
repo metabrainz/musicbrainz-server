@@ -7,12 +7,8 @@ $bold=>0
 <tr>
    <td valign=top bgcolor=white class="body"><% $name %></td>
    <td valign=top bgcolor=white class="body">
-%    if ($bold) {
-        <span class="bold">
-        <% $text |n %>
-        </span>
-% } else {
-        <% $text |n %>
-% }
+% $m->out('<span class="bold">') if $bold;
+% (ref($text) eq "CODE") ? $text->() : $m->out($text);
+% $m->out('</span>') if $bold;
    </td>
 </tr>

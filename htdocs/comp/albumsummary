@@ -68,7 +68,7 @@ if (!$nonalbum)
     if (exists $session{user} && !$nomod) 
     {
         mc_out("<a href=\"/editalbumattrs.html?id=" . $album->GetId());
-        mc_out("&amp;artist=" . $artist->GetId() . "\">Edit</a>");
+        mc_out("\">Edit</a>");
     }
 }
 </%perl>

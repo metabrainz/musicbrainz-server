@@ -30,7 +30,6 @@ use TRM;
 use DBDefs;
 use Discid;
 use Artist;
-use Data::Dumper;
 
 use vars qw(@ISA @EXPORT);
 @ISA    = @ISA    = qw(TableBase RDF2);

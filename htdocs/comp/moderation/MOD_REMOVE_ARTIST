@@ -1,0 +1,21 @@
+%# vi: set ts=4 sw=4 ft=mason :
+
+<%method ShowPreviousValue>
+% my $this = shift;
+
+	Old:
+
+% if ($this->GetStatus == ModDefs::STATUS_APPLIED) {
+	<% $this->GetPrev %>
+% } else {
+	<a href="/showartist.html?artistid=<% $this->GetArtist %>"
+		><% $this->GetPrev %></a>
+% }
+
+</%method>
+
+<%method ShowNewValue>
+% my $this = shift;
+</%method>
+
+%# eof

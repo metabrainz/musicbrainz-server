@@ -31,7 +31,6 @@ use DBDefs;
 use Discid;
 use Artist;
 use MM;
-use Data::Dumper;
 
 use vars qw(@ISA @EXPORT);
 @ISA    = @ISA    = qw(MM RDF2);

@@ -30,7 +30,7 @@ a:active
 /* This is equivalent to /comp/title, i.e. class "title" in brainz.css */
 h1
 {
-	font-size: 120%;
+	font-size: 150%;
 	font-weight: bold;
 	text-align: center;
 }
@@ -54,6 +54,16 @@ h3
 	font-size: 100%;
 	text-decoration: underline;
 	margin-top: 1.5em;
+}
+
+.notice
+{
+	border: 3px outset #f0efff;
+	margin: 1em;
+	font-weight: bold;
+	padding: 1em;
+	background-color: #f0efff;
+	color: #000;
 }
 
 ul, ol

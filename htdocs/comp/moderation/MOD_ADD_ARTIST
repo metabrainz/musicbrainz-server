@@ -1,0 +1,36 @@
+%# vi: set ts=4 sw=4 ft=mason :
+
+<%method ShowPreviousValue>
+% my $this = shift;
+</%method>
+
+<%method ShowNewValue>
+% my $this = shift;
+
+<%perl>
+my $new = $this->{'new_unpacked'};
+
+(my $name) = grep { defined } ($new->{'ArtistName'}, "[error]");
+(my $sortname) = grep { defined } ($new->{'SortName'}, "[error]");
+(my $id) = grep { defined } ($new->{'ArtistId'}, 0);
+
+my $s = $this->GetStatus;
+</%perl>
+
+	Artist:
+% if ($s == ModDefs::STATUS_FAILEDVOTE or $s == ModDefs::STATUS_FAILEDPREREQ) {
+   	<span class="bold"><% $name %></span>
+% } else {
+	<a href="/showartist.html?artistid=<% $id %>"
+		><span class="bold"><% $name %></span></a>
+% }
+
+% if ($sortname ne $name) {
+	<br>
+	Sortname:
+   	<span class="bold"><% $sortname %></span>
+% }
+
+</%method>
+
+%# eof

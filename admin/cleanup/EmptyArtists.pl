@@ -112,6 +112,7 @@ $sql->Select(<<EOF) or die;
         ON a.id = t2.artist
 	WHERE	t1.albums IS NULL
 	AND		t2.tracks IS NULL
+	AND		a.modpending = 0
 	ORDER BY sortname
 
 EOF
@@ -141,21 +142,27 @@ while (my ($id, $name, $sortname) = $sql->NextRow)
 	
 	eval
 	{
+		use Artist;
+		my $ar = Artist->new($sqlWrite->{DBH});
+
+		# No need to load the whole record, hopefully...
+		$ar->SetId($id);
+		$ar->SetName($name);
+		$ar->SetSortName($sortname);
+
 		use Moderation;
-		my $m = Moderation->new($sqlWrite->{DBH});
-
-		$m->SetType(&ModDefs::MOD_REMOVE_ARTIST);
-		$m->SetArtist($id);
-		$m->SetTable("Artist");
-		$m->SetColumn("Name");
-		$m->SetRowId($id);
-		$m->SetPrev($name);
-		$m->SetNew("DELETE");
-		$m->SetModerator($moderator);
-		$m->SetDepMod(0);
-
-		my $modid = $m->InsertModeration($privs);
+		my @mods = Moderation->InsertModeration(
+			DBH	=> $sqlWrite->{DBH},
+			uid	=> $moderator,
+			privs => $privs,
+			type => ModDefs::MOD_REMOVE_ARTIST,
+			# --
+			artist => $ar,
+		);
 		$sqlWrite->Commit;
+
+		my $modid = 0;
+		$modid = $mods[0]->GetId if @mods;
 		
 		printf "%s : Inserted mod %6d for %6d %-30.30s (%s)\n",
 			scalar localtime,

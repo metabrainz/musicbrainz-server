@@ -1,126 +1,115 @@
 %# vi: set ts=4 sw=4 ft=mason :
-<& /comp/sidebar, title=>'Edit Album Attributes', expand=>'moderate' &>
-
+<%args>
+@id => ()
+$untag => 0
+$attr_type => &Album::ALBUM_ATTR_ALBUM
+$attr_status => &Album::ALBUM_ATTR_OFFICIAL
+</%args>
 <%perl>
 
-$m->comp("/comp/checkloggedin", 0, 1)
+$m->comp("/comp/checkloggedin", 1, 1)
 	or return;
 
-my ($mb, $id, $modpending, $al, $artist, $attr, 
-    @attrs, $prev, $index, $url, $s); 
-
-if (!exists $session{tagged_albums} &&
-    !exists $ARGS{id} || $ARGS{id} eq '' ||
-    !exists $ARGS{artist} || $ARGS{artist} eq '')
+for my $album (@id)
 {
-    mc_comp("/comp/badargs");
-    return undef;
+	MusicBrainz::IsNonNegInteger($album) && $album
+		or return $m->comp("/comp/badargs", 1, 1);
 }
 
-$mb = mc_comp("/comp/dblogin");
-$al = Album->new($mb->{DBH});
-$artist = $ARGS{artist};
+my $mb = $m->comp("/comp/dblogin");
 
-if (exists $ARGS{"key0"})
+my @objs;
+my %artists;
+
+for my $album (@id)
 {
-    $prev = "";
-    $modpending = 0;
-    $s = 's';
-}
-else
-{
-    $s = '';
-    $id = $ARGS{id};
-    $url = $r->headers_in->{'Referer'};
-    $url = "/showalbum.html?albumid=$id" if (not defined $url || $url eq '');
+	my $al = Album->new($mb->{DBH});
+	$al->SetId($album);
 
-    $al->SetId($id);
-    $al->LoadFromId();
+	$al->LoadFromId
+		or return $m->comp(
+			"/comp/error",
+			"Album #$album does not exist",
+			1, 1,
+		);
 
-    $prev = "";
-    @attrs = sort { $a <=> $b} $al->GetAttributes();
-    $prev = join ',', @attrs;
-
-    $modpending = $al->GetAttributeModPending();
+	push @objs, $al;
+	++$artists{$al->GetArtist};
 }
 
-if (scalar(@attrs) == 0)
-{
-    @attrs = (Album::ALBUM_ATTR_ALBUM, Album::ALBUM_ATTR_OFFICIAL);
-}
+my $modpending = grep { $_->GetAttributeModPending } @objs;
 
 my $selected_index = 0;
 
+my $url =
+	@id == 1
+		? "/showalbum.html?albumid=$id[0]"
+		: keys(%artists) == 1
+			? "/showartist.html?artistid=".$objs[0]->GetArtist
+			: "/search.html";
+
+if ($ARGS{confirm})
+{
+	$m->comp(
+		"/comp/entermods",
+		DBH => $mb->{DBH},
+		sub => sub {
+			my @mods = Moderation->InsertModeration(
+				DBH	=> $mb->{DBH},
+				uid	=> $session{uid},
+				privs => $session{privs},
+				type => ModDefs::MOD_EDIT_ALBUMATTRS,
+				# --
+				albums => \@objs,
+				attrs => [ $attr_type, $attr_status ],
+			);
+
+			delete $session{'tagged_albums'}
+				if $untag;
+		},
+		success_url => $url,
+	) or return;
+
+	die "Shouldn't get here";
+}
+
+my %attrs;
+
+for my $al (@objs)
+{
+	++$attrs{$_}
+		for $al->GetAttributes;
+}
+
+my @attrs = sort { $a<=>$b } keys %attrs;
+
 </%perl>
+
+<& /comp/sidebar, title => 'Edit Album Attributes' &>
 
 % if ($modpending) {
     <& /comp/modpending &>
 % } 
 
-    <FORM METHOD="POST" ACTION="/bare/enter_kv_mod.html" 
-          id="EditAlbumAttrsForm"
-          ENCTYPE="application/x-www-form-urlencoded">  
-    <input type="hidden" name="key0" value="AttrType">
-    <input type="hidden" name="key1" value="AttrStatus">
+<form method="post" action="/editalbumattrs.html"
+	name="EditAlbumAttrsForm"
+	>
 
-% if (exists $ARGS{"key0"}) {
+	<& /comp/albumattrform,
+		mb			=> $mb,
+		albumname	=> (@objs > 1 ? "" : $objs[0]->GetName),
+		attrs		=> \@attrs,
+		field1		=> "attr_type",
+		field2		=> "attr_status",
+		selindex	=> \$selected_index,
+	&>
 
-    <& /comp/albumattrform, mb=>$mb, albumname=>"", attrs=>\@attrs, 
-                            field1=>"value0", field2=>"value1",
-							selindex => \$selected_index &>
-
-    <%perl>
-    my ($i, $urlid);
-    for($i = 0;; $i++)
-    {
-       if (exists $ARGS{"key$i"})
-       {
-           $urlid = $ARGS{"value$i"} if ($ARGS{"key$i"} eq "AlbumId0");
-           </%perl>
-           <input type="hidden" name="key<% $i + 2 %>" 
-                  value="<% $ARGS{"key$i"} %>">
-           <input type="hidden" name="value<% $i + 2 %>" 
-                  value="<% $ARGS{"value$i"} %>">
-           <%perl>
-       }
-       else
-       {
-           last;
-       }
-    }
-    if ($artist == ModDefs::VARTIST_ID)
-    {
-        $url = "/showalbum.html?albumid=$urlid";
-    }
-    else
-    {
-        $url = "/showartist.html?artistid=$artist";
-    }
-    </%perl>
-
-    <input type="hidden" name="id" value="0">
-    <input type="hidden" name="prev" value="">
-% } else {
-    <& /comp/albumattrform, mb=>$mb, albumname=>$al->GetName(), attrs=>\@attrs, 
-                            field1=>"value0", field2=>"value1",
-							selindex => \$selected_index &>
-    <input type="hidden" name="key2" value="AlbumId0">
-    <input type="hidden" name="value2" value="<% $id %>">
-    <input type="hidden" name="key3" value="AlbumName0">
-    <input type="hidden" name="value3" value="<% $al->GetName() %>">
-    <input type="hidden" name="id" value="<% $id %>">
-    <input type="hidden" name="prev" value="<% $prev %>">
+% for (@id) {
+	<input type="hidden" name="id" value="<% $_ %>">
 % }
-    <input type="hidden" name="artist" value="<% $artist %>">
-    <input type="hidden" name="type" 
-           value="<% ModDefs::MOD_EDIT_ALBUMATTRS %>">
-    <input type="hidden" name="table" value="Album">
-    <input type="hidden" name="column" value="Attributes">
-    <input type="hidden" name="url" value="<% $url %>">
-    </form>
-      
-
-% $mb->Logout();
+	<input type="hidden" name="untag" value="<% $untag %>">
+	<input type="hidden" name="confirm" value="1">
+</form>
 
 <& /comp/movefocus, "EditAlbumAttrsForm", "value0", $selected_index &>
 <& /comp/footer &>

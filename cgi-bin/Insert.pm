@@ -1,3 +1,5 @@
+#!/usr/bin/perl -w
+# vi: set ts=4 sw=4 :
 #____________________________________________________________________________
 #
 #   MusicBrainz -- the open internet music database
@@ -38,8 +40,6 @@ use Moderation;
 use ModDefs;
 use Sql;
 
-use Data::Dumper;
-
 sub new
 {
     my ($type, $dbh) = @_;
@@ -59,6 +59,52 @@ sub GetError
 
     return $this->{error};
 }
+
+# Called by (with argument patterns):
+#	admin/freedb.pl
+#	QuerySupport->SubmitTrack
+#		artist => ?
+#		sortname => same as artist
+#		album => ?
+#		tracks => [
+#			{
+#				track => $name,
+#				tracknum => $seq,
+#				duration => $len, 
+#				trmid => $TRM
+#			}
+#		] (always exactly one track)
+#	MOD_ADD_ALBUM PreInsert
+#		EITHER artist+sortname OR artistid
+#		album => name
+#		OPTIONAL cdindexid => ..., toc => ...
+#		forcenewalbum => 1
+#		attrs => [ possibly empty list of attrs ]
+#		tracks [
+#			{
+#				OPTIONAL artist (iff artistid == 1)
+#				OPTIONAL duration =>
+#				track => name
+#				tracknum => seq
+#			}
+#		]
+#	MOD_ADD_ARTIST PreInsert
+#		artist => ArtistName
+#		sortname => SortName
+#		artist_only => same as sortname
+#	MOD_ADD_TRACK_KV PreInsert
+#		artistid => some id
+#		albumid => some id
+#		tracks => [
+#			{
+#				track => track name
+#				tracknum => track number
+#				artist => artist name
+#				sortname => artist sortname
+#				(artist + sortname are both filled in if "artistid" ==
+#					VARTIST_ID; both are missing otherwise)
+#			}
+#		] (always exactly one track)
 
 # %info hash needs to have the following keys defined
 #  (artist (name) and sortname) or artistid                [required]
@@ -87,9 +133,6 @@ sub Insert
     my ($artist, $album, $sortname, $artistid, $albumid, $trackid);
     my ($forcenewalbum, @albumtracks, $albumtrack, $track, $found);
     my ($track_artistid);
-
-    #print STDERR "Data at Insert!\n";
-    #print STDERR Dumper($info);
 
     delete $info->{artist_insertid};
     delete $info->{album_insertid};
@@ -434,80 +477,56 @@ sub Insert
     return 1;
 }
 
+# Called by FreeDB->InsertForModeration and cdi/done.html
+# This inserts a mod of type MOD_ADD_ALBUM, which in turn calls
+# $insert->Insert (above).
+
 sub InsertAlbumModeration
 {
     my ($this, $new, $moderator, $privs, $artist) = @_;
-    my ($mod, $albumid, $artistid, $sql);
+    my $sql = Sql->new($this->{DBH});
 
-    $mod = Moderation->new($this->{DBH});
-    $mod = $mod->CreateModerationObject(ModDefs::MOD_ADD_ALBUM);
-    return (undef, undef) if (!defined $mod);
+	# TODO: for now, the $new passed in is still the packed string
+	# (key=value\nkey=value\n etc).  Here we parse that back into hash form
+	# and pass it into the MOD_ADD_ALBUM handler.  Eventually we'll invent a
+	# new named-arguments convention and pass a hash like that, instead of
+	# passing packed strings.
+	my %opts = (
+		map { split /=/, $_, 2 } grep /\S/, split /\n/, $new
+	);
 
-    $mod->SetTable('Album');
-    $mod->SetColumn('Name');
-    $mod->SetPrev("");
-    $mod->SetNew($new);
-    $mod->SetType(ModDefs::MOD_ADD_ALBUM);
-
-    if (!defined $moderator)
-    {
-        $mod->SetModerator(ModDefs::ANON_MODERATOR);
-    }
-    else
-    {
-        $mod->SetModerator($moderator);
-    }
-    $mod->SetDepMod(0);
-
-    # if we already have an artist id, set it here
-    $mod->SetArtist($artist) if (defined $artist);
-
-    $sql = Sql->new($this->{DBH});
-    ($artistid, $albumid) = eval
+    my ($artistid, $albumid) = eval
     {
        $sql->Begin;
 
-       # Do the data insertion, and resolve all the ids
-       if ($mod->PreVoteAction())
-       {
-          if ($mod->GetNew() =~ /^_albumid=(.*)$/m)
-          {
-             $albumid = $1;
-             $mod->SetRowId($albumid);
-          }
-          if ($mod->GetNew() =~ /^_artistid=(.*)$/m)
-          {
-             $artistid = $1;
-             $mod->SetArtist($artistid);
-          }
-      
-          if (defined $artistid && defined $albumid)
-          {
-              # Now use the new ids to determine any dependecies
-              $mod->DetermineDependencies();
-              $mod->InsertModeration($privs);
-       
-              $sql->Commit;
-          
-              return ($artistid, $albumid);
-          }
-          else
-          {
-              die "Cannot insert album moderation. Artist and album " .  
-                  "are not fully defined.\n";
-          }
-       }
+		my @mods = Moderation->InsertModeration(
+			DBH	=> $this->{DBH},
+			uid	=> $moderator || &ModDefs::ANON_MODERATOR,
+			privs => $privs,
+			type => &ModDefs::MOD_ADD_ALBUM,
+			#
+			%opts,
+			artist => $artist,
+		);
 
-       # We should never get here
-       die "Database insertion faileda\n.";
+		(my $mod) = grep { $_->Type == &ModDefs::MOD_ADD_ALBUM } @mods
+			or die;
+          
+		$sql->Commit;
+
+        ($mod->GetArtist, $mod->GetRowId);
     };
+
     if ($@)
     {
-       $this->{error} = $@;
-       $sql->Rollback;
-       return (undef, undef);
+		my $err = $@;
+		$err = eval { $err->GetError } if ref $err;
+		$this->{error} = $err;
+		$sql->Rollback;
+		return;
     }
-    return ($artistid, $albumid);
+
+    ($artistid, $albumid);
 }
 
 1;

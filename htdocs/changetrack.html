@@ -3,6 +3,8 @@
 $album => ""
 $tindex => 0
 $modid => 0
+$trackname => ""
+$search => ""
 </%args>
 <%perl>
 
@@ -63,59 +65,120 @@ if ($tindex >= scalar(@tracks))
 
 my $track = $tracks[$tindex];
 
-my ($newtrackname, $newartistname, $tar);
+my $tar = Artist->new($mb->{DBH});
+$tar->SetId($track->GetArtist);
+$tar->LoadFromId
+	or return $m->comp(
+		"/comp/error",
+		"Artist not found in the database.",
+		1, 1,
+	);
 
-if ($track->GetArtist == $al->GetArtist)
+# If the user had to click "swap", flip our "split order" flag
+$session{'changetrack_splitorder'} = not $session{'changetrack_splitorder'}
+	if $ARGS{'swapped'};
+
+# Enter the mod and move on to the artist filter if the form is submitted OK
+if ($search =~ /\S/ and $trackname =~ /\S/)
 {
-	$tar = $ar;
-	$newartistname = $newtrackname = $track->GetName;
+	use HTML::Mason::Tools qw( url_escape );
+	my $url = "/changetrackartist.html?album=$album&tindex=$tindex&modid=$modid";
+	$url .= "&search=" . url_escape($search);
+	$url .= "&firsttime=1"
+		unless $trackname eq $track->GetName;
 
-	if ($newtrackname =~ /^(.*?)\s*[\/-]\s*(.*?)$/)
+	$m->comp(
+		"/comp/entermods",
+		DBH => $mb->{DBH},
+		sub => sub {
+			my @mods = Moderation->InsertModeration(
+				DBH	=> $mb->{DBH},
+				uid	=> $session{uid},
+				privs => $session{privs},
+				type => ModDefs::MOD_EDIT_TRACKNAME,
+				# --
+				track => $track,
+				newname => $trackname,
+				# TODO depmod on $modid ?
+			) unless $trackname eq $track->GetName;
+		},
+		success_url => $url,
+	) or return;
+
+	die "Shouldn't get here";
+}
+
+# Scan through the track names and artists, and work out what the likely
+# "split" sequence is, and what the most common track artist is.
+my %trackartists;
+my %split = map { $_ => 0 } (" - ", "-", " / ", "/", ": ", ":");
+
+for my $t (@tracks)
+{
+	for my $split (keys %split)
 	{
-		$newartistname = $1;
-		$newtrackname = $2;
+		++$split{$split} if index($t->GetName, $split) >= 0;
+		++$trackartists{$t->GetArtist};
 	}
-} else {
-	$tar = Artist->new($mb->{DBH});
-	$tar->SetId($track->GetArtist);
-	$tar->LoadFromId
-		or return $m->comp(
-			"/comp/error",
-			"Artist not found in the database.",
-			1, 1,
-		);
+}
 
-	$newtrackname = $track->GetName;
-	$newartistname = $tar->GetSortName;
+my $mostcommonkey = sub {
+	my $t = shift;
+	my @k = sort { $t->{$a} <=> $t->{$b} } keys %$t;
+	$k[-1];
+};
+
+my $split = $mostcommonkey->(\%split);
+my $oldartist = $mostcommonkey->(\%trackartists);
+
+# These are the existing values
+my ($oldtrackname, $oldartistname) = ($track->GetName, $tar->GetName);
+
+# Do a split on the track name
+my ($splittrackname, $splitartistname) = split($split, $oldtrackname, 2);
+($splittrackname, $splitartistname) = split(/\s+[\/-]\s+/, $oldtrackname, 2)
+	unless defined $splitartistname;
+my $did_split = defined $splitartistname;
+($splittrackname, $splitartistname) = ($splitartistname, $splittrackname)
+	if $session{'changetrack_splitorder'};
+
+# Now work out what we think is the more likely - use the split values,
+# or use the current values.
+my ($newtrackname, $newartistname) = ($oldtrackname, $oldartistname);
+
+if ($did_split
+	and (
+		$track->GetName eq $ar->GetName
+		or $track->GetName eq $tar->GetName
+		or $track->GetArtist == $al->GetArtist
+		or $track->GetArtist == $oldartist
+	))
+{
+	$newtrackname = $splittrackname;
+	$newartistname = $splitartistname;
 }
 
 </%perl>
 
-<& /comp/sidebar, title=>'Change Track Artist', expand=>'moderate' &>
+<& /comp/sidebar, title => 'Change Track Name and Artist' &>
 
-<script type="text/javascript">
-<!--
-
-//-->
-</script>
-   
 <& /comp/stylemenu &>
 
-<h2>Change Artist for track '<% $track->GetName %>'</h2>
+<h2>Change Name and Artist for track '<% $track->GetName %>'</h2>
    
 %  if ($track->GetModPending) {
 <& /comp/modpending &>
 %  } 
   
 <p>
-	Enter the name of the artist to
+	Enter the new name of the track, and search for the
+	artist to
 	whom you'd like to move track
 	'<% $track->GetName %>':
 </p>
 
-<form method="post" action="/artistfilter.html"
+<form method="post" action="/changetrack.html"
 	name="ChangeTrackForm"
-	enctype="application/x-www-form-urlencoded"
 	>
 	
 	<table>
@@ -124,7 +187,7 @@ if ($track->GetArtist == $al->GetArtist)
 		 		Current Track Name:
 		  	</td>
 		   	<td>
-				<% $track->GetName %>
+				<% $oldtrackname %>
 			</td>
 		</tr>
 		<tr>
@@ -132,8 +195,8 @@ if ($track->GetArtist == $al->GetArtist)
 				Current Artist Name:
 			</td>
 			<td>
-				<% $tar->GetName  %>
-% if ($tar->GetSortName ne $tar->GetName) {
+				<% $oldartistname %>
+% if ($tar->GetSortName ne $oldartistname) {
 				(<% $tar->GetSortName %>)
 % }
 			</td>
@@ -144,7 +207,7 @@ if ($track->GetArtist == $al->GetArtist)
 				New Track Name:
 			</td>
 			<td>
-				<input type="text" name="new1" size="40" value="<% $newtrackname %>">
+				<input type="text" name="trackname" size="40" value="<% $newtrackname %>">
 			</td>
 		</tr>
 		<tr>
@@ -155,69 +218,69 @@ if ($track->GetArtist == $al->GetArtist)
 function SwapFields() 
 {
 	var f = document.forms.ChangeTrackForm;
-	var tmp = f.new1.value;
-	f.new1.value = f.new0.value;
-	f.new0.value = tmp;
+	var tmp = f.trackname.value;
+	f.trackname.value = f.search.value;
+	f.search.value = tmp;
+	f.swapped.value = 1 - f.swapped.value;
 }
 
 function UseCurrent() 
 {
 	var f = document.forms.ChangeTrackForm;
-	f.new0.value = f.orig_artname.value;
-	f.new1.value= f.orig_track.value;
+	f.search.value = f.orig_artname.value;
+	f.trackname.value= f.orig_track.value;
 }
 
+% if ($did_split) {
+function UseSplit() 
+{
+	var f = document.forms.ChangeTrackForm;
+	f.search.value = f.split_artname.value;
+	f.trackname.value= f.split_track.value;
+}
+% }
+
 	document.writeln('<input type="button" value="Swap" onclick="return SwapFields(this)">');
-	document.writeln(' ');				
+	document.writeln(' ');
 	document.writeln('<input type="button" value="Use Current" onclick="return UseCurrent(this)">');
+% if ($did_split) {
+	document.writeln(' ');
+	document.writeln('<input type="button" value="Use Split" onclick="return UseSplit(this)">');
+% }
 				</script>
-				<input type="reset" value="Use Guessed"
-					>
+				<noscript>
+				<input type="reset" value="Use Guessed">
+				</noscript>
 			</td>
 		</tr>
 		<tr>
 			<td>
-				New Artist Sortname:
+				Search for New Artist:
 			</td>
 			<td>
-				<input type="text" name="new0" size="40" value="<% $newartistname %>"> 
+				<input type="text" name="search" size="40" value="<% $newartistname %>"> 
 			</td>
 		</tr>
 		<tr>
 			<td></td>
 			<td>
+				<input type="hidden" name="swapped" value="0">    
 				<input type="submit" name="Submit" value="Submit">    
 			</td>
 		</tr>
 	</table>
 	
- 	<input type="hidden" name="mode" value="track">
-	<input type="hidden" name="depmod0" value="<% $modid %>">
-	<input type="hidden" name="depmod1" value="<% $modid %>">
-	<input type="hidden" name="artist0" value="<% $ar->GetId %>">
-	<input type="hidden" name="artist1" value="<% $ar->GetId %>">
-	<input type="hidden" name="type0" value="<% ModDefs::MOD_CHANGE_TRACK_ARTIST %>">
-	<input type="hidden" name="type1" value="<% ModDefs::MOD_EDIT_TRACKNAME %>">
-%						   # TODO should this be $ar->GetName ?
-	<input type="hidden" name="prev0" value="<% $tar->GetName %>">
-	<input type="hidden" name="prev1" value="<% $track->GetName %>">
-	<input type="hidden" name="table0" value="Track">
-	<input type="hidden" name="table1" value="Track">
-	<input type="hidden" name="column0" value="Artist">
-	<input type="hidden" name="column1" value="Name">
-	<input type="hidden" name="id0" value="<% $track->GetId %>">
-	<input type="hidden" name="id1" value="<% $track->GetId %>">
+	<input type="hidden" name="album" value="<% $album %>">
+	<input type="hidden" name="tindex" value="<% $tindex %>">
+	<input type="hidden" name="modid" value="<% $modid %>">
 	<input type="hidden" name="orig_artname" value="<% $tar->GetName %>">
 	<input type="hidden" name="orig_track" value="<% $track->GetName %>">
-	<input type="hidden" name="url"
-% if (exists $ARGS{solo}) {
-		value="/showalbum.html?albumid=<% $album %>"
-% } else {
-		value="/changetrack.html?album=<% $al->GetId %>&amp;tindex=<% $tindex + 1 %>&amp;modid=<% $modid %>"
+% if ($did_split) {
+	<input type="hidden" name="split_artname" value="<% $splitartistname %>">
+	<input type="hidden" name="split_track" value="<% $splittrackname %>">
 % }
-		>
 
 </form>
          
-<& /comp/movefocus, "ChangeTrackForm", "new1" &>
+<& /comp/movefocus, "ChangeTrackForm", "trackname" &>
 <& /comp/footer &>

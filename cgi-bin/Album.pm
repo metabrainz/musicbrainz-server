@@ -151,7 +151,37 @@ sub IsNonAlbumTracks
    return (scalar(@attrs) == 2 && $attrs[1] == 0);
 }
 
-use Data::Dumper;
+sub GetOrInsertNonAlbum
+{
+	my ($this, $artist) = @_;
+	$artist ||= $this->GetArtist;
+
+	my $sql = Sql->new($this->{DBH});
+	(my $id) = $sql->SelectSingleValue(
+		"SELECT id FROM album WHERE artist = ?
+		AND attributes[2] = " . &ALBUM_ATTR_NONALBUMTRACKS,
+		$artist,
+	);
+
+	if ($id)
+	{
+		$this->SetId($id);
+		$this->LoadFromId
+			or die;
+		return $this;
+	}
+
+	# There doesn't seem to be a non-album for this artist, so we'll
+	# insert one.
+	$this->SetArtist($artist);
+	$this->SetName("Non-album tracks");
+	$this->SetAttributes(&ALBUM_ATTR_NONALBUMTRACKS);
+	$id = $this->Insert;
+
+	$this->LoadFromId
+		or die;
+	return $this;
+}
 
 # Insert an album that belongs to this artist. The Artist object should've
 # been loaded with a LoadFromXXXX call, or the id of this artist must be

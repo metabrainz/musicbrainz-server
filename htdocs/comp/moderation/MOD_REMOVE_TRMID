@@ -1,0 +1,21 @@
+%# vi: set ts=4 sw=4 ft=mason :
+
+<%method ShowPreviousValue>
+% my $this = shift;
+% my $new = $this->{'new_unpacked'};
+
+% if ($new->{'TrackId'}) {
+	Old:
+	<a href="/showtrack.html?trackid=<% $new->{'TrackId'} %>"
+		><% $this->GetPrev %></a>
+% } else {
+	[error]
+% }
+
+</%method>
+
+<%method ShowNewValue>
+% my $this = shift;
+</%method>
+
+%# eof

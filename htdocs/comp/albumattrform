@@ -113,7 +113,7 @@ click on Submit:
   </tr>
   <tr>
     <td>
-		<input type="submit" name="Submit" value="Submit">    
+		<input type="submit" value="Submit">    
     </td>
   </tr>
 </table>

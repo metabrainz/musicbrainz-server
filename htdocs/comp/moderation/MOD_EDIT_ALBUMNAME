@@ -1,0 +1,20 @@
+%# vi: set ts=4 sw=4 ft=mason :
+
+<%method ShowPreviousValue>
+% my $this = shift;
+
+	Old:
+	<a href="/showalbum.html?albumid=<% $this->GetRowId %>"
+		><% $this->GetPrev %></a>
+
+</%method>
+
+<%method ShowNewValue>
+% my $this = shift;
+
+	New:
+	<span class="bold"><% $this->GetNew %></span>
+   
+</%method>
+
+%# eof

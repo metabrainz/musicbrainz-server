@@ -16,14 +16,6 @@ use Apache::Session;
 use DBI;
 use DBD::Pg;
 
-sub UNIVERSAL::AUTOLOAD
-{
-	my $class = shift;
-
-	warn "$class can't $UNIVERSAL::AUTOLOAD\n"
-		unless $UNIVERSAL::AUTOLOAD =~ /DESTROY$/;
-}
-
 BEGIN
 {
 	require HTML::Mason::Config;
@@ -59,12 +51,11 @@ use LocaleSaver;
 # use MM_2_0;
 # use MM_2_1;
 use Moderation;
-use ModerationKeyValue;
-use ModerationSimple;
 use MusicBrainz;
 use MusicBrainz::Server::DeferredUpdate;
 use MusicBrainz::Server::Handlers;
 use MusicBrainz::Server::Mason;
+# Don't load MusicBrainz::Server::Moderation::* - Moderation.pm does that
 use Parser;
 use QuerySupport;
 # use RDF2;

@@ -1,24 +1,68 @@
 %# vi: set ts=2 sw=2 ft=mason :
-<& /comp/sidebar, title => 'Add Artist' &>
-
+<%args>
+$name => ""
+$sortname => ""
+</%args>
 <%perl>
+
+MusicBrainz::IsSingleLineString($name)
+	or return $m->comp("/comp/badargs", 1, 1);
+
+MusicBrainz::IsSingleLineString($sortname)
+	or return $m->comp("/comp/badargs", 1, 1);
 
 $m->comp("/comp/checkloggedin", 0, 1)
 	or return;
 
+my $mb = $m->comp("/comp/dblogin");
+
+if ($name =~ /\S/)
+{
+	my $ret = $m->comp(
+		"/comp/entermods",
+		DBH => $mb->{DBH},
+		sub => sub {
+			my @mods = Moderation->InsertModeration(
+				DBH	=> $mb->{DBH},
+				uid	=> $session{uid},
+				privs => $session{privs},
+				type => &ModDefs::MOD_ADD_ARTIST,
+				# --
+				name => $name,
+				sortname => $sortname,
+			);
+			@mods;
+		},
+	) or return;
+
+	my $url = "/search.html";
+	(my $addmod) = grep { $_->Type eq &ModDefs::MOD_ADD_ARTIST } @$ret;
+	$url = "/showartist.html?artistid=" . $addmod->GetRowId
+		if $addmod;
+	$m->comp("/comp/redirect", $url);
+
+	die "Shouldn't get here";
+}
+
 </%perl>
+
+<& /comp/sidebar, title => 'Add Artist' &>
 
 <& /comp/stylemenu &>
 
-<& /comp/tablebegin, gattrs => "width='100%'",
-	title => 'Add Artist' &>
+<h2>Add Artist</h2>
 
+<p>
 	You are about to add an artist to MusicBrainz.&nbsp;
 	Please read the style guidelines,
 	then enter the new Artist name and Sort name below:
+</p>
 
-	<form method="post" action="/bare/enter_kv_mod.html" name="AddArtist"
-		enctype="application/x-www-form-urlencoded">
+<script type="text/javascript" src="scripts/guess.js"></script>
+
+	<form method="post" action="/addartist.html"
+		name="AddArtist"
+		>
 
     <table>
       <tr>
@@ -26,8 +70,19 @@ $m->comp("/comp/checkloggedin", 0, 1)
 					Artist Name:<br>
         </td>
         <td>
-					<input type="text" name="value0" SIZE="40">
-					<br>(Please read the style notes!)
+					<input type="text" name="name" SIZE="40">
+					<script type="text/javascript"><!--
+					document.write(
+						"&nbsp; <input type='button' value='Guess Case' " +
+						"onclick='this.form.name.value = GuessCase(this.form.name.value)'>"
+					)
+					//--></script>
+				</td>
+			</tr>
+			<tr>
+				<td></td>
+				<td>
+					(Please read the style notes!)
         </td>
       </tr>
       <tr>
@@ -35,28 +90,24 @@ $m->comp("/comp/checkloggedin", 0, 1)
 					Sort name:
         </td>
         <td>
-					<input type="text" name="value1" size="40" value="">
+					<input type="text" name="sortname" size="40" value="">
+					<script type="text/javascript">
+					document.write(
+						"&nbsp; <input type='button' value='Guess' " +
+						"onclick='this.form.sortname.value = GuessSortname(this.form.name.value)'>"
+					)
+					</script>
         </td>
       </tr>
       <tr>
-        <td colspan=2>
+				<td></td>
+				<td>
 	 				<input type="submit" value="Next &gt;&gt;">
         </td>
       </tr>
     </table>
 
-    <input type="hidden" name="key0" value="ArtistName">
-    <input type="hidden" name="key1" value="SortName">
-    <input type="hidden" name="artist" value="1">
-    <input type="hidden" name="type" value="<% ModDefs::MOD_ADD_ARTIST %>">
-    <input type="hidden" name="prev" value="">
-    <input type="hidden" name="table" value="Artist">
-    <input type="hidden" name="column" value="Name">
-    <input type="hidden" name="id" value="<% ModDefs::DARTIST_ID %>">
-    <input type="hidden" name="url" value="/search.html">
 	</form>
 
-<& /comp/tableend &>
-
-<& /comp/movefocus, "AddArtist", "value0" &>
+<& /comp/movefocus, "AddArtist", "name" &>
 <& /comp/footer &>

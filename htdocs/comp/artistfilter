@@ -1,0 +1,234 @@
+%# vi: set ts=4 sw=4 ft=mason :
+<%args>
+$search => ""
+@dontshow => ()
+$allowcreate => 0
+$url
+%arglist => ()
+</%args>
+<%def drawargs>
+<%perl>
+	my $args = shift;
+
+	while (my ($name, $value) = each %$args)
+	{
+		my @v = (ref($value) eq "ARRAY") ? @$value : $value;
+
+		for my $v (@v)
+		{
+			</%perl><input type="hidden" name="<% $name %>" value="<% $v %>"><%perl>
+		}
+	}
+</%perl>
+</%def>
+<%perl>
+
+my $mb = $m->comp("/comp/dblogin");
+
+use SearchEngine ':constants';
+my $engine = SearchEngine->new($mb->{DBH});
+$engine->Table("Artist");
+
+$engine->Search(
+    query => $search,
+    limit => 0,
+);
+
+if ($engine->Result == SEARCHRESULT_NOQUERY)
+{
+	</%perl>
+
+	<div class="h2section">
+
+	<h2>Search</h2>
+
+	<form method="post" action="<% $url %>"
+		name="ArtistFilterSearch"
+		>
+
+		<p>
+			<& drawargs, \%arglist &>
+			Search for artist:
+			<input type="text" name="search" value="<% $search %>">
+			<input type="submit" value="Search">
+		</p>
+
+	</form>
+
+	</div>
+
+	<& /comp/movefocus, "ArtistFilterSearch", "search" &>
+	<& /comp/footer &>
+
+	<%perl>
+
+	return;
+}
+
+# Retrieve all the results and weed out the "don't show" artists
+my @r = do {
+	my %dontshow = map { $_=>1 } @dontshow;
+
+	my @r;
+
+	while (my $r = $engine->NextRow)
+	{
+		next if $dontshow{ $r->{'artistid'} };
+		push @r, $r;
+	}
+
+	@r;
+};
+
+</%perl>
+
+<div class="h2section">
+
+<h2>Search Results</h2>
+
+% if (@r) {
+
+	<p>
+		The following artists matched your search query.&nbsp;
+		Please select the artist you require or
+		<a href="#ArtistFilterSearch">search again</a>.
+	</p>
+
+	<form method="post" action="<% $url %>"
+		name="ArtistFilterSelect"
+		>
+
+		<table>
+%			my $checked = "checked";
+%			for my $r (@r) {
+				<tr>
+					<td style="vertical-align: baseline"><input type="radio" name="selectedartist" value="<% $r->{artistid} %>" <% $checked %>
+						ondblclick="this.form.submit()"
+						></td>
+					<td>
+						<a href="/showartist.html?artistid=<% $r->{artistid} %>"><% $r->{'artistname'} %></a>
+					</td>
+				</tr>
+%				$checked = "";
+%			}
+		</table>
+
+		<p>
+			<& drawargs, \%arglist &>
+			<input type="submit" value="Select &gt;&gt;">
+		</p>
+
+	</form>
+
+% } else {
+
+	<p>
+		No artists found matching '<% $search %>'.
+	</p>
+
+% }
+
+</div>
+
+<div class="h2section">
+
+<h2>Search Again</h2>
+
+<p>
+	If you didn't find the artist you were looking for,
+	try another search:
+</p>
+
+<form method="post" action="<% $url %>"
+	id="ArtistFilterSearch"
+	>
+
+	<p>
+		<& drawargs, \%arglist &>
+		Search for artist:
+		<input type="text" name="search" size="40" value="<% $search %>">
+		<input type="submit" value="Search Again">
+	</p>
+
+</form>
+
+</div>
+
+% if ($allowcreate) {
+
+<div class="h2section">
+
+<h2>Create New Artist</h2>
+ 
+<p>
+	If you're sure the artist you need isn't already in MusicBrainz,
+	enter the artist name and sortname here:
+</p>
+
+<& /comp/stylemenu &>
+
+<script type="text/javascript" src="scripts/guess.js"></script>
+
+<form method="post" action="<% $url %>"
+	name="ArtistFilterAdd"
+	>
+
+	<table>
+	  	<tr>
+		  	<td align="right">
+				Artist Name:<br>
+			</td>
+			<td>
+				<input type="text" name="newartistname" size="40" value="<% $search %>">
+				<script type="text/javascript">
+					document.write(
+						"&nbsp; <input type='button' value='Guess Case' " +
+						"onclick='this.form.newartistname.value = GuessCase(this.form.newartistname.value)'>"
+					);
+				</script>
+			</td>
+		</tr>
+		<tr>
+			<td></td>
+			<td>
+				(Please read the style notes!)
+			</td>
+	  	</tr>
+		<tr>
+			<td align="right">
+				Sort name:
+			</td>
+			<td>
+				<input type="text" name="newartistsortname" size="40" value="<% $search %>">
+				<script type="text/javascript">
+					document.write(
+						"&nbsp; <input type='button' value='Guess' " +
+						"onclick='this.form.newartistsortname.value = GuessSortname(this.form.newartistname.value)'>"
+					);
+					document.write(
+						"&nbsp; <input type='button' value='Copy' " +
+						"onclick='this.form.newartistsortname.value = this.form.newartistname.value'>"
+					);
+				</script>
+			</td>
+		</tr>
+		<tr>
+			<td></td>
+			<td>
+				<& drawargs, \%arglist &>
+				<input type="submit" value="Add Artist &gt;&gt;">
+			</td>
+	  	</tr>
+    </table>
+
+</form>
+
+% }
+
+</div>
+
+% if (@r) {
+<& /comp/movefocus, "ArtistFilterSelect", "selectedartist", 0 &>
+% } else {
+<& /comp/movefocus, "ArtistFilterSearch", "search" &>
+% }

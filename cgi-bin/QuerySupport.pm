@@ -1,3 +1,6 @@
+#!/usr/bin/perl -w
+# vi: set ts=8 sw=4 :
+
 #____________________________________________________________________________
 #
 #   MusicBrainz -- the internet music database
@@ -514,7 +517,7 @@ sub SubmitTRMList
 {
    my ($dbh, $parser, $rdf, $session) = @_;
    my (@ids, @ids2, $sql, $gu, $tr);
-   my ($i, $trmid, $trackid, $uri, $clientVer, $new, $index);
+   my ($i, $trmid, $trackid, $uri, $clientVer);
 
    return undef if (!defined $dbh);
 
@@ -538,8 +541,8 @@ sub SubmitTRMList
                              "id string when submitting data to MusicBrainz.") 
    }
 
-   $index = 0;
-   $new = "ClientVersion=$clientVer\n";
+   my @links;
+
    for($i = 1; ; $i++)
    {
        ($trackid, $trmid) = $rdf->GetTRMTrackIdPair($parser, $uri, $i);
@@ -572,34 +575,26 @@ sub SubmitTRMList
        }
        else
        {
-           $new .= "TRMId$index=$trmid\nTrackId$index=$ids[0]\n";
-           $index++;
+	   push @links, { trmid => $trmid, trackid => $ids[0] };
        }
    }
-   print STDERR "\n";
 
-   if ($index > 0)
+   if (@links)
    {
-       my ($mod);
-
-       $mod = Moderation->new($dbh);
-       $mod = $mod->CreateModerationObject(ModDefs::MOD_ADD_TRMS);
-       return $rdf->ErrorRDF("Cannot create moderation.") if (!defined $mod);
-
-       $mod->SetTable('TRM');
-       $mod->SetColumn('trm');
-       $mod->SetPrev("");
-       $mod->SetNew($new);
-       $mod->SetType(ModDefs::MOD_ADD_TRMS);
-       $mod->SetRowId(0);
-       $mod->SetArtist(ModDefs::VARTIST_ID);
-       $mod->SetModerator($session->{uid});
-       $mod->SetDepMod(0);
-
        eval
        {
            $sql->Begin;
-           $mod->InsertModeration();
+
+	    my @mods = Moderation->InsertModeration(
+		DBH => $dbh,
+		uid => $session->{'uid'},
+		privs => 0, # TODO
+		type => &ModDefs::MOD_ADD_TRMS,
+		# --
+		client => $clientVer,
+		links => \@links,
+	    );
+
            $sql->Commit;
        };
        if ($@)
@@ -868,3 +863,4 @@ sub QuickTrackInfoFromTrackId
 }
 
 1;
+# eof QuerySupport.pm

@@ -2,6 +2,7 @@
 @import url(css/framework.css);
 @import url(css/sitemenu.css);
 @import url(css/articlepanel.css);
+@import url(css/boxes.css);
 
 body, p, td         {font : normal 10pt Verdana, Geneva, Arial, Helvetica, sans-serif; color : #000000; text-decoration : none;}
 

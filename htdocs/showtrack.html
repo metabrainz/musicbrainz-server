@@ -1,22 +1,36 @@
 %# vi: set ts=4 sw=4 ft=mason :
 <%args>
 $trackid => ""
+$albumjoinid => ""
 </%args>
 <%perl>
 
+# comp/moderation/MOD_EDIT_TRACKNUM passes albumjoinid, not trackid
 MusicBrainz::IsNonNegInteger($trackid) && $trackid
+	or MusicBrainz::IsNonNegInteger($albumjoinid) && $albumjoinid
 	or return $m->comp("/comp/badargs", 1, 1);
 
 my $mb = $m->comp("/comp/dblogin");
 
 my $track = Track->new($mb->{DBH});
-$track->SetId($trackid);
-$track->LoadFromId
-	or return $m->comp(
-		"/comp/error",
-		"Track #$trackid not found in the database.",
-		1, 1,
-	);
+
+if (MusicBrainz::IsNonNegInteger($trackid) && $trackid)
+{
+	$track->SetId($trackid);
+	$track->LoadFromId
+		or return $m->comp(
+			"/comp/error",
+			"Track #$trackid not found in the database.",
+			1, 1,
+		);
+} else {
+	$track->LoadFromAlbumJoin($albumjoinid)
+		or return $m->comp(
+			"/comp/error",
+			"Track #$albumjoinid not found in the database.",
+			1, 1,
+		);
+}
 
 my @TRM = TRM->new($mb->{DBH})->GetTRMFromTrackId($track->GetId);
 

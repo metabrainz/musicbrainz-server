@@ -2,16 +2,13 @@
 <%args>
 $album => undef
 </%args>
-
-<& /comp/sidebar, title => 'Convert Album to Multiple Artists' &>
-
 <%perl>
 
-$m->comp("/comp/checkloggedin", 0, 1)
+$m->comp("/comp/checkloggedin", 1, 1)
 	or return;
 
 MusicBrainz::IsNonNegInteger($album) && $album
-	or return $m->comp("/comp/badargs", 0, 1);
+	or return $m->comp("/comp/badargs", 1, 1);
 
 my $mb = $m->comp("/comp/dblogin");
 
@@ -21,7 +18,7 @@ $al->LoadFromId
 	or return $m->comp(
 		"/comp/error",
 		"Album #$album does not exist",
-		0, 1,
+		1, 1,
 	);
 
 my $ar = Artist->new($mb->{DBH});
@@ -30,52 +27,74 @@ $ar->LoadFromId
 	or return $m->comp(
 		"/comp/error",
 		"Artist does not exist",
-		0, 1,
+		1, 1,
 	);
 
+my $url = (
+	$ARGS{'movetracks'}
+		? "/changetrack.html?album=" . $al->GetId
+		: "/showalbum.html?albumid=" . $al->GetId
+);
+
+if ($ARGS{confirm})
+{
+	$m->comp(
+		"/comp/entermods",
+		DBH => $mb->{DBH},
+		sub => sub {
+			my @mods = Moderation->InsertModeration(
+				DBH	=> $mb->{DBH},
+				uid	=> $session{uid},
+				privs => $session{privs},
+				type => &ModDefs::MOD_SAC_TO_MAC,
+				# --
+				album => $al,
+				artist => $ar,
+			);
+		},
+		success_url => $url,
+	) or return;
+
+	die "Shouldn't get here";
+}
+
 </%perl>
+
+<& /comp/sidebar, title => 'Convert Album to Multiple Artists' &>
 
 <h2>Convert Album '<% $al->GetName %>' to Multiple Artists</h2>
 
 <p>
- 	A single artist to multiple artist moderation will be entered
-	into the database for album
-	<a href="/showalbum.html?albumid=<% $al->GetId %>"><% $al->GetName %></a>.
+	Are you sure you want to convert the album
+	'<a href="/showalbum.html?albumid=<% $al->GetId %>"><% $al->GetName %></a>',
+	currently by
+	'<a href="/showartist.html?artistid=<% $ar->GetId %>"><% $ar->GetName %></a>',
+	to multiple artists?
 </p>
 
-<p>
-	Would you like to move all of the tracks to new artists?
-</p>
-
-<form method="post" action="/bare/enter_mod.html" name="ToMacForm"
-	enctype="application/x-www-form-urlencoded">
-
-	<p>
-		<input type="radio" name="choice" value="yes" checked
-			ondblclick="this.form.submit()"
-			>
-		Yes, move tracks now.
-		<br>
-		<input type="radio" name="choice" value="no"
-			ondblclick="this.form.submit()"
-			>
-		No, leave it for later.
-	</p>
-
-	<p>
-		<input type="submit" value="Submit">
-	</p>
-
-	<input type="hidden" name="artist0" value="<% $ar->GetId %>">
-	<input type="hidden" name="type0" value="<% ModDefs::MOD_SAC_TO_MAC %>">
-	<input type="hidden" name="new0" value="Various Artists">
-	<input type="hidden" name="prev0" value="<% $ar->GetName() %>">
-	<input type="hidden" name="table0" value="Album">
-	<input type="hidden" name="column0" value="Artist">
-	<input type="hidden" name="id0" value="<% $al->GetId %>">
-	<input type="hidden" name="url" value="/changetrack.html?album=<% $al->GetId %>">
-	<input type="hidden" name="alturl" value="/showalbum.html?albumid=<% $al->GetId %>">
+<form method="get" action="<% $url %>"
+	name="ModFormNo"
+	onsubmit="history.go(-1); return false"
+	style="float: left; margin-right: 2em; margin-top: 0"
+	>
+	<div>
+		<input type="submit" value="&lt;&lt; NO">
+	</div>
 </form>
 
-<& /comp/movefocus, "ToMacForm", "choice", 0 &>
+<form method="post" action="/tomac.html"
+	name="ModFormYes"
+	style="margin: 0"
+	>
+	<div>
+		<input type="hidden" name="album" value="<% $al->GetId %>">
+		<input type="hidden" name="confirm" value="1">
+		<input type="submit" value="YES &gt;&gt;">
+		&nbsp;
+		<input type="checkbox" name="movetracks" value="1" checked>
+		Move tracks to new artists
+	</div>
+</form>
+
+<& /comp/movefocus, "ModFormNo", 0 &>
 <& /comp/footer &>

@@ -1,219 +1,133 @@
+%# vi: set ts=2 sw=2 ft=mason :
+<%args>
+$artistid => undef
+$numtracks => 1
+@trackname => ()
+$confirm => 0
+</%args>
 <%perl>
 
-# This script is designed as a pass-through script. All the data passed
-# in gets passed along unmodified, with the exception of the artistfield.
-# Which field/var to use, depends on the mode -- normally argument
-# new0 should be used, except for the add track to MAC case.
-# $argname specifies the name of the argument to perform the artist search on
-# $dest_argname is the name of the argument where the sortname of a new
-#               artist should be stored.
+$m->comp("/comp/checkloggedin")
+	or return;
 
-my ($mb, $ar, $key, @albums, $found_album, $found_tracks, $found_id, $num, 
-    $num_tracks, $val, $title, $trackname);
+MusicBrainz::IsNonNegInteger($numtracks)
+	&& $numtracks >= 1
+	&& $numtracks <= 100
+	or return $m->comp("/comp/badargs", 1, 1);
 
-$title = $ARGS{nonalbum} ? "Add non-album tracks" : "Add Album";
-mc_comp("/comp/sidebar", title=>$title);
+MusicBrainz::IsNonNegInteger($artistid) && $artistid
+	or return $m->comp("/comp/badargs", 1, 1);
 
-if (!exists $ARGS{key0} || $ARGS{key0} eq '' ||
-    !exists $ARGS{value0} || $ARGS{value0} eq '' ||
-    !exists $ARGS{key1} || $ARGS{key1} eq '' ||
-    !exists $ARGS{value1} || $ARGS{value1} eq '')
+$artistid == ModDefs::VARTIST_ID
+	and return $m->comp("/comp/badargs", 1, 1);
+$artistid == ModDefs::DARTIST_ID
+	and return $m->comp("/comp/badargs", 1, 1);
+
+my $mb = $m->comp("/comp/dblogin");
+
+my $artist = Artist->new($mb->{DBH});
+$artist->SetId($artistid);
+$artist->LoadFromId()
+	or return $m->comp(
+		"/comp/error",
+		"Artist not found in the database.",
+		1, 1,
+	);
+
+my @names = grep /\S/, @trackname;
+$numtracks = @names if $numtracks < @names;
+
+if (@names and $confirm)
 {
-    mc_comp("/comp/badargs");
-    return undef;
+	my $ret = $m->comp(
+		"/comp/entermods",
+		DBH => $mb->{DBH},
+		sub => sub {
+			for my $name (@names)
+			{
+				Moderation->InsertModeration(
+					DBH	=> $mb->{DBH},
+					uid	=> $session{uid},
+					privs => $session{privs},
+					type => &ModDefs::MOD_ADD_TRACK_KV,
+					# --
+					artist => $artist,
+					trackname => $name,
+				);
+			}
+		},
+	) or return;
+
+	my $al = Album->new($mb->{DBH});
+	$al->GetOrInsertNonAlbum($artistid);
+	my $url = "/showalbum.html?albumid=" . $al->GetId;
+	$m->comp("/comp/redirect", $url);
+
+	die "Shouldn't get here";
 }
 
-if (exists $ARGS{key2} && exists $ARGS{value2})
+for (@names[0..$numtracks-1])
 {
-    $trackname = $ARGS{value2};
-    delete $ARGS{key2};
-    delete $ARGS{value2};
-}
-else
-{
-    $trackname = "";
+	$_ = "" unless defined;
 }
 
-$num_tracks = $ARGS{value1};
-if (!Moderation::IsNumber($num_tracks) || $num_tracks < 1 || $num_tracks > 99)
-{
-    mc_out(qq|You've entered an invalid number of tracks (| . $num_tracks . qq|). Please
-              go back and try again.|);
-    mc_comp("/comp/footer");
-    return undef;
-}
-
-$mb = mc_comp("/comp/dblogin");
-
-$ar = Artist->new($mb->{DBH});
-$ar->SetId($ARGS{artist});
-if (!defined $ar->LoadFromId())
-{
-    mc_comp("/comp/badargs");
-    return undef;
-}
-
-@albums = $ar->GetAlbums(0, 1) if ($ARGS{artist} != ModDefs::VARTIST_ID);
-if (scalar @albums > 0)
-{
-    my $album;
-
-    foreach $album (@albums)
-    {
-       if ($ARGS{value0} eq $album->GetName())
-       {
-          $found_tracks = $album->GetTrackCount();
-          $found_id = $album->GetId();
-          $found_album = $album;
-          last;
-       }
-    }
-}
-
-my $num_vals;
-
-if ($ARGS{artist} == ModDefs::VARTIST_ID) 
-{
-   $num_vals = ($num_tracks * 2) + 2;
-}
-else
-{
-   $num_vals = $num_tracks + 2;
-}
 </%perl>
 
-% if (!defined $session{user} || $session{user} eq '') {
-    You must be logged in to edit the database.<p>
-    <& /comp/tablebegin, title=>'Login' &>
-    <& /comp/loginbox &>
-    <& /comp/tableend &>
-% } else {
+<& /comp/sidebar, title => "Add Non-Album Tracks" &>
 
-    <& /comp/stylemenu &>
+<p>
+	Please enter the name(s) of the track(s) you wish to
+	add as non-album tracks of
+	<b><% $artist->GetName %></b>.&nbsp;
+	Just leave a track name blank if you don't want to
+	add it.
+</p>
 
-    <table width="420"><tr><td> 
-    
-    <script type="text/javascript">
-    function validate(form)
-    {   
-        if (
-% for($val = 2; $val <= $num_vals; $val++) {
-            document.AddAlbumTracks.value<% $val %>.value == "" ||
+% my $nextnum = 5 * int( ($numtracks + 5) / 5);
+<p>
+	<a href="/addnonalbumtracks.html?artistid=<% $artistid %>&amp;numtracks=<% $nextnum %>"
+		>(Want to add more tracks than this?)</a>
+</p>
+
+<& /comp/stylemenu &>
+
+<form method="post" action="/addnonalbumtracks.html"
+	name="AddAlbumTracks"
+	enctype="application/x-www-form-urlencoded"
+	class="formstyle">
+
+	<table>
+		<tr>
+			<td align="right">
+				Artist:
+			</td>
+			<td>
+				<% $artist->GetName() %>
+			</td>
+		</tr>
+% for (1 .. $numtracks) {
+		<tr>
+			<td align="right">
+				Track Name:
+			</td>
+			<td>
+				<input type="text" name="trackname" size="40" value="<% $names[$_-1] %>">
+			</td>
+		</tr>
 % }
-           false)
-        {
-           alert("Please enter all the track/artist names for this album.");
-           return false;
-        }
-        return true;
-    };
-    </script>
+		<tr>
+			<td>
+				&nbsp;
+			</td>
+			<td>
+				<input type="hidden" name="artistid" value="<% $artistid %>">
+				<input type="hidden" name="confirm" value="1">
+				<input type="submit" value="Submit">
+			</td>
+		</tr>
+	</table>
 
-% if ($ARGS{nonalbum}) {
-    <form method="POST" action="/bare/enter_kv_mod.html" NAME="AddAlbumTracks"
-% } else {
-    <form method="POST" action="addalbumselattr.html" NAME="AddAlbumTracks"
-% }
-          enctype="application/x-www-form-urlencoded" class="formstyle">
-    <table>
+</form>
 
-% if (defined $found_id) {
-      <tr>
-        <td colspan="2">
-%         if ($ARGS{nonalbum}) {
-              The artist <font class="bold"><% $ar->GetName() %></font> already
-              has <font class="bold"><% $found_tracks %></font> non-album tracks.
-%         } else {
-              The artist <font class="bold"><% $ar->GetName() %></font> already
-              has an album called <font class="bold"><% $ARGS{value0} %></font>
-              which contains <font class="bold"><% $found_tracks %></font> tracks.
-%         }
-
-%         if (defined $found_album && defined $ar) {
-             <p>
-             <& /comp/album, album=>$found_album, artist=>$ar, 
-                             showalbumdetail=>1, showids=>1, nomod=>0 &>
-%         }
-
-%         if (!$ARGS{nonalbum}) {
-              <p>
-              If you are certain that you need to add another album with the
-              same name, then fill out the form below and click Submit.
-              <p><br>
-%         } else {
-              Please use the link above to add a new track.
-              </td></tr></table>
-              </td></tr></table>
-%             $mb->Logout();
-              <& /comp/footer &>
-%             return undef;
-%         }
-        </td>
-      </tr>
-% }
-      <tr>
-        <td align="right" valign="top">
-        Artist:
-        </td>
-        <td>
-        <% $ar->GetName() %>
-        </td>
-      </tr>
-      <tr>
-        <td align="right" valign="top">
-        Album:
-        </td>
-        <td>
-        <% $ARGS{value0} %>
-        </td>
-      </tr>
-% for($num = 1, $val = 2; $num <= $num_tracks; $num++) {
-      <tr>
-        <td align="right" valign="top">
-        Track <% $num %>:
-        </td>
-        <td>
-        <INPUT TYPE="text" NAME="value<% $val %>" VALUE="<% $trackname %>" SIZE=25>
-        <INPUT TYPE="hidden" NAME="key<% $val++ %>" 
-               value="Track<% $num %>" SIZE=25>
-
-% if ($ARGS{artist} == ModDefs::VARTIST_ID) {
-        </tr>
-        <tr>
-        <td align="right" valign="top">
-        Artist <% $num %>:
-        </td>
-        <td>
-        <INPUT TYPE="text" NAME="value<% $val %>" SIZE=25>
-        <INPUT TYPE="hidden" NAME="key<% $val++ %>" 
-               value="Artist<% $num %>" SIZE=25>
-% }
-        </td>
-      </tr>
-% }
-      <tr>
-        <td>
-        &nbsp;
-        </td>
-        <td>
-        <input type="submit" value="Submit" name="Submit"
-            onClick="return validate(form);">
-        </td>
-      </tr>
-    </table>
-
-%   foreach $key (keys %ARGS) {
-        <input type="hidden" name="<% $key %>" value="<% $ARGS{$key} |h %>">
-%   }
-    <input type="hidden" name="key<% $val %>" value="NonAlbum">
-    <input type="hidden" name="value<% $val %>" value="<% $ARGS{nonalbum} %>">
-    </form>
-
-    </td></tr></table>
-
-    <%perl>
-}
-
-$mb->Logout();
-</%perl>
+<& /comp/movefocus, "AddAlbumTracks", "trackname", ($numtracks>1 ? 0 : undef) &>
 <& /comp/footer &>

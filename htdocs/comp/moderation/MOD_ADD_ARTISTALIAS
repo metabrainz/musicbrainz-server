@@ -1,0 +1,15 @@
+%# vi: set ts=4 sw=4 ft=mason :
+
+<%method ShowPreviousValue>
+% my $this = shift;
+</%method>
+
+<%method ShowNewValue>
+% my $this = shift;
+
+	New:
+	<span class="bold"><% $this->GetNew %></span>
+
+</%method>
+
+%# eof

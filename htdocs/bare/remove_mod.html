@@ -19,7 +19,7 @@ if ($modid > 0 && $confirm eq 'yes')
         eval
         {
             $sql->Begin;
-            $mod->RemoveModeration();
+	    $mod->RemoveModeration($session{uid});
             $sql->Commit;
         };
         if ($@)

@@ -28,8 +28,6 @@ if (exists $ENV{"MOD_PERL"})
 {
    my $apr;
 
-   #print STDERR Dumper(%ENV);
-
    $r = Apache->request();
    $apr = Apache::Request->new($r);
    $id = $apr->param('id');

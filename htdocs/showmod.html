@@ -27,6 +27,44 @@ if (!defined $mod)
     return undef;
 }
 
+if (&DBDefs::DB_STAGING_SERVER)
+{
+	if ($ARGS{'ACCEPT'} or $ARGS{'REJECT'})
+	{
+		my $sql = Sql->new($mb->{DBH});
+
+		eval {
+			$sql->Begin;
+
+			if ($ARGS{'ACCEPT'})
+			{
+				my $status = $mod->ApprovedAction;
+				$mod->SetStatus($status);
+				$mod->CreditModerator($mod->GetModerator, 1, 0);
+				$mod->CloseModeration($status);
+			} else {
+				$mod->DeniedAction;
+				$mod->CreditModerator($mod->GetModerator, 0, 1);
+				$mod->CloseModeration(&ModDefs::STATUS_FAILEDVOTE);
+			}
+
+			$sql->Commit;
+		} or do {
+			my $err = $@;
+			$sql->Rollback;
+			</%perl>
+			<div style="color: red">
+				<p>Error applying moderation:</p>
+				<pre><% $err %></pre>
+			</div>
+			<%perl>
+		};
+
+		$mod = Moderation->new($mb->{DBH});
+		$mod = $mod->CreateFromId($modid);
+	}
+}
+
 my ($ref, $obj, $bold, $text, $voted);
 my (@votes, $votelist);
 
@@ -43,6 +81,7 @@ else
    if ($mod->GetStatus() == ModDefs::STATUS_OPEN)
    {
       $text = "You haven't voted.";
+	  # TODO provide the means to vote here
    }
    else
    {
@@ -72,6 +111,8 @@ foreach $ref (@votes)
 }
 $votelist .= "</table>";
 
+use HTML::Mason::Tools qw( html_escape );
+
 </%perl>
 
 <& /comp/tablebegin, title=>'Moderation Information' &> 
@@ -80,7 +121,10 @@ $votelist .= "</table>";
 
 <tr>
    <& /comp/tableline, name=>"Moderator:", 
-                       text=>($mod->GetModeratorName()),
+                       text=>
+		"<a href='/moderator.html?uid=" . $mod->GetModerator . "'>"
+		. html_escape($mod->GetModeratorName)
+		. "</a>",
                        bold=>1 &>
    <& /comp/tableline, name=>"MB Id:", 
                        text=>$mod->GetId(),
@@ -101,15 +145,13 @@ $votelist .= "</table>";
    <tr><td colspan="2"><hr></td></tr>
 
    <& /comp/tableline, name=>"Type:", 
-                       text=>$mod->ShowModType(),
+					   text=>sub { $mod->ShowModType($m) },
                        bold=>0 &>
-
    <& /comp/tableline, name=>"Previous Value:", 
-                       text=>$mod->ShowPreviousValue(),
+					   text=>sub { $mod->ShowPreviousValue($m) },
                        bold=>0 &>
-
    <& /comp/tableline, name=>"New Value:", 
-                       text=>$mod->ShowNewValue(),
+					   text=>sub { $mod->ShowNewValue($m) },
                        bold=>0 &>
 
    <tr><td colspan="2"><hr></td></tr>
@@ -138,7 +180,7 @@ $votelist .= "</table>";
 
    <tr><td colspan="2"><hr></td></tr>
 
-%  my $notes = $mod->LoadModerationNotes($modid, $modid);
+%  my $notes = $mod->LoadModerationNotes($modid);
      <tr>
         <td valign=top bgcolor=white class="body">
           Notes:
@@ -149,11 +191,11 @@ $votelist .= "</table>";
      </tr>
      <tr>
         <td colspan="2" valign=top bgcolor=white class="body">
-%  if (exists $notes->{ $mod->GetId() }) {
-%         $ref = $notes->{ $mod->GetId() };
+%  if (exists $notes->{ $mod->GetId }) {
+%         $ref = $notes->{ $mod->GetId };
 %         foreach $obj (@$ref) {
              &nbsp;&nbsp;&nbsp;&nbsp;
-%            $bold = ($obj->{user} eq $mod->GetModeratorName()) ?  'bold' : 'body';
+%            $bold = ($obj->{user} eq $mod->GetModeratorName) ? 'bold' : 'body';
              <font class="<% $bold %>"><% $obj->{user} %></font>:
              <% $obj->{text} |n %><br> 
 %         }
@@ -167,6 +209,19 @@ $votelist .= "</table>";
     <& /comp/tableend &> 
 
     <& /comp/jumpmod &> 
+
+% if (&DBDefs::DB_STAGING_SERVER and $mod->GetStatus == &ModDefs::STATUS_OPEN) {
+	<hr>
+	<h2>Manually Accept / Reject This Moderation</h2>
+	<form action="/showmod.html" method="post">
+		<p>
+			<input type="hidden" name="modid" value="<% $modid %>">
+			<input type="submit" name="ACCEPT" value="ACCEPT">
+			&nbsp;
+			<input type="submit" name="REJECT" value="REJECT">
+		</p>
+	</form>
+% }
 
 <& /comp/movefocus, "JumpMod", "modid" &>
 <& /comp/footer &>

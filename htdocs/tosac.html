@@ -1,17 +1,19 @@
 %# vi: set ts=2 sw=2 ft=mason :
+%# Please note the VERY strong similarity between movealbum.html and tosac.html
 <%args>
-$album => undef
+$album => ""
+$selectedartist => ""
+$newartistname => ""
+$newartistsortname => ""
+$search => ""
 </%args>
-
-<& /comp/sidebar, title => 'Change Album to Single Artist' &>
-
 <%perl>
 
-$m->comp("/comp/checkloggedin", 0, 1)
+$m->comp("/comp/checkloggedin", 1, 1)
 	or return;
 
 MusicBrainz::IsNonNegInteger($album) && $album
-	or return $m->comp("/comp/badargs", 0, 1);
+	or return $m->comp("/comp/badargs", 1, 1);
 
 my $mb = $m->comp("/comp/dblogin");
 
@@ -21,7 +23,7 @@ $al->LoadFromId
 	or return $m->comp(
 		"/comp/error",
 		"Album #$album does not exist",
-		0, 1,
+		1, 1,
 	);
 
 my $ar = Artist->new($mb->{DBH});
@@ -30,47 +32,71 @@ $ar->LoadFromId
 	or return $m->comp(
 		"/comp/error",
 		"Artist does not exist",
-		0, 1,
+		1, 1,
 	);
 
+my $url = "/showalbum.html?albumid=$album";
+
+if ($selectedartist ne "")
+{
+	MusicBrainz::IsNonNegInteger($selectedartist) && $selectedartist
+		or return $m->comp("/comp/badargs", 1, 1);
+	
+	my $target = Artist->new($mb->{DBH});
+	$target->SetId($selectedartist);
+	$target->LoadFromId
+		or return $m->comp(
+			"/comp/error",
+			"Artist #$selectedartist not found.",
+			1, 1,
+		);
+
+	$newartistname = $target->GetName;
+	$newartistsortname = $target->GetSortName;
+}
+
+if ($newartistname =~ /\S/ and $newartistsortname =~ /\S/)
+{
+	$m->comp(
+		"/comp/entermods",
+		DBH => $mb->{DBH},
+		sub => sub {
+			my @mods = Moderation->InsertModeration(
+				DBH	=> $mb->{DBH},
+				uid	=> $session{uid},
+				privs => $session{privs},
+				type => ModDefs::MOD_MAC_TO_SAC,
+				# --
+				album => $al,
+				artistname => $newartistname,
+				artistsortname => $newartistsortname,
+			);
+		},
+		success_url => $url,
+	) or return;
+
+	die "Shouldn't get here";
+}
+	
 </%perl>
 
-<& /comp/stylemenu &>
-
-<h2>Change Album '<% $al->GetName %>' to Single Artist</h2>
+<& /comp/sidebar, title => "Change Album '${\ $al->GetName }' to Single Artist" &>
 
 % if ($al->GetModPending) {
     <& /comp/modpending &>
 % }
 
 <p>
-	Enter the artist <span class="bold">sortname</span> to
-	whom you'd like to change the album
-	<a href="/showalbum.html?albumid=<% $al->GetId %>"><% $al->GetName %></a>:
+	Please search for the artist to which
+	you want to move the album
+	<a href="/showalbum.html?albumid=<% $album %>"><% $al->GetName %></a>.
 </p>
 
-<form method="post" action="/artistfilter.html" name="ToSacForm"
-	enctype="application/x-www-form-urlencoded">
+<& /comp/artistfilter,
+	search => $ARGS{'search'},
+	allowcreate => 1,
+	url => "/tosac.html",
+	arglist => { album => $album },
+	&>
 
-	<p>
-		New Artist Sortname:
-		<input type="text" name="new0" size="25" value="<% $ar->GetSortName %>">
-	</p>
-
-	<p>
-		<input type="submit" value="Submit">
-	</p>
-
-	<input type="hidden" name="mode" value="tosac">
-	<input type="hidden" name="album" value="<% $al->GetName %>">
-	<input type="hidden" name="artist0" value="<% $ar->GetId %>">
-	<input type="hidden" name="type0" value="<% ModDefs::MOD_MAC_TO_SAC %>">
-	<input type="hidden" name="prev0" value="Various Artists">
-	<input type="hidden" name="table0" value="Album">
-	<input type="hidden" name="column0" value="Artist">
-	<input type="hidden" name="id0" value="<% $al->GetId %>">
-	<input type="hidden" name="url" value="/showalbum.html?albumid=<% $al->GetId %>">
-</form>
-
-<& /comp/movefocus, "ToSacForm", "new0" &>
 <& /comp/footer &>

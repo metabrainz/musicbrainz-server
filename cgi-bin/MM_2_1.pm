@@ -32,7 +32,6 @@ use Discid;
 use Artist;
 use MM;
 use TaggerSupport;
-use Data::Dumper;
 use Carp qw(cluck);
 
 use vars qw(@ISA @EXPORT);
@@ -115,6 +114,12 @@ sub OutputAlbumRDF
         $out .=   $this->Element("dc:creator", "", "rdf:resource",
                                  $this->GetBaseURI() . "/artist/" . 
                                  $artist->GetMBId());
+    }
+    elsif ($album->GetArtist() == ModDefs::VARTIST_ID)
+    {
+        $out .=   $this->Element("dc:creator", "", "rdf:resource",
+                                 $this->GetBaseURI() . "/artist/" . 
+                                 ModDefs::VARTIST_MBID);
     }
 
     if (exists $album->{"_cdindexid0"} && $album->{"_cdindexid0"} ne '')

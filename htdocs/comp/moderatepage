@@ -7,12 +7,16 @@ $num=>10
 
 <%perl>
 
-my ($mb, @info, $mod, $offset, $page, $i, $comp, $obj);
+my ($mb, @info, $mod, $offset, $page, $comp, $obj);
 my ($num_mods, $total_mods, $notes);
 my $max_items = $num;
 
+my $allow_skip = 1;
+$allow_skip = 0 if $type == ModDefs::TYPE_NEW;
+$allow_skip = 0 if $type == ModDefs::TYPE_FREEDB;
 
 $offset = $ARGS{offset};
+$offset = 0 if not $allow_skip;
 $page = $ARGS{page};
 $offset = ($page-1) * $max_items if not defined $offset and defined $page;
 $offset = 0 if not defined $offset;
@@ -32,23 +36,25 @@ if ($type == ModDefs::TYPE_NEW)
 elsif ($type == ModDefs::TYPE_VOTED)
 {
     ($num_mods, $total_mods, @info) = 
-           $mod->GetModerationList($offset, ($max_items * 2)+1, 
+           $mod->GetModerationList($offset, $max_items,
                                    $session{uid}, $type);
     mc_comp("/comp/sidebar", title=>'Review Old (Voted) Mods',
             expand=>"moderate"); 
 }
-elsif ($type == ModDefs::TYPE_MINE)
+elsif ($type == ModDefs::TYPE_MODERATOR)
 {
+	my $moderator = $ARGS{"moderator"} || $session{uid};
+	$moderator = 0 + $moderator;
     ($num_mods, $total_mods, @info) = 
-           $mod->GetModerationList($offset, ($max_items * 2)+1, 
-                                   $session{uid}, $type);
-    mc_comp("/comp/sidebar", title=>'Review My Moderations',
+           $mod->GetModerationList($offset, $max_items,
+                                   $session{uid}, $type, $moderator);
+    mc_comp("/comp/sidebar", title=>'Review Moderation By Moderator',
             expand=>"moderate"); 
 }
 elsif ($type == ModDefs::TYPE_ARTIST)
 {
     ($num_mods, $total_mods, @info) = 
-           $mod->GetModerationList($offset, ($max_items * 2)+1, 
+           $mod->GetModerationList($offset, $max_items,
                                    $session{uid}, $type, $artistid);
     mc_comp("/comp/sidebar", title=>'Moderations by Artist',
             expand=>"moderate"); 
@@ -68,7 +74,6 @@ else
     return undef;
 }
 
-$i = 0;
 foreach $obj (@info)
 {
     if ($obj->GetModerator() != $session{uid} &&
@@ -76,8 +81,8 @@ foreach $obj (@info)
         $obj->GetStatus() == ModDefs::STATUS_OPEN)
     {
        $show_button = 1;
+       last;
     }
-    last if ($i >= $max_items || $show_button);
 }
 
 if ($num_mods > 0)
@@ -125,11 +130,12 @@ if ($num_mods > 0)
 %  return undef;
 %}
 
-% if ($num_mods > $max_items || $offset > 0) {
+% if ($allow_skip and ($total_mods > $max_items || $offset > 0)) {
 <& /comp/framedboxbegin, width=>"100%" &>
 <& /comp/pageselector, 
-   url=>"moderate.html?type=$type" . 
-        (($artistid > 0) ?  "&artistid=$artistid" : ""),
+   url=>"moderate.html?type=$type"
+   	. ($ARGS{moderator} ? "&moderator=$ARGS{moderator}" : "")
+	. (($artistid > 0) ? "&artistid=$artistid" : ""),
    offset=>$offset,
    pagesize=>$max_items,
    numitems=>$total_mods+$offset,
@@ -146,14 +152,10 @@ if ($num_mods > 0)
 <TABLE WIDTH="100%" BORDER="0" CELLSPACING="1" CELLPADDING="3">
 
 <%perl>
-for($i = 0; $i < $max_items; $i++) 
+for my $obj (@info)
 {
-   $obj = $info[$i];
-   last if (!defined $obj);
-
    mc_comp("/comp/showmod", mod=>$obj, notes=>$notes);
 }
-$mb->Logout();
 </%perl>
 
 </table>

@@ -1,3 +1,4 @@
+%# vi: set ts=2 sw=2 ft=mason :
 <%args>
 $modid=>0
 $confirm=>0
@@ -26,7 +27,7 @@ $mb->Logout();
 <& /comp/tablebegin, gattrs=>"width=\"100%\"", title=>"Remove moderation" &>
 
     <FORM METHOD="POST" ACTION="/bare/remove_mod.html"
-	  NAME="RemoveModForm"
+			NAME="RemoveModForm"
           ENCTYPE="application/x-www-form-urlencoded">  
 
     <table width="100%">
@@ -41,7 +42,9 @@ $mb->Logout();
         &nbsp;
         </td>
         <td>
-        <% $mod->ShowModType() |n %>
+					<%perl>
+					$mod->ShowModType($m);
+					</%perl>
         </td>
       </tr>
         
@@ -50,7 +53,9 @@ $mb->Logout();
         &nbsp;
         </td>
         <td>
-        <% $mod->ShowPreviousValue() |n %>
+					<%perl>
+					$mod->ShowPreviousValue($m);
+					</%perl>
         </td>
       </tr>
         
@@ -59,7 +64,9 @@ $mb->Logout();
         &nbsp;
         </td>
         <td>
-        <% $mod->ShowNewValue() |n %>
+					<%perl>
+					$mod->ShowNewValue($m);
+					</%perl>
         </td>
       </tr>
         

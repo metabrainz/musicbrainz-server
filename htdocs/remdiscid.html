@@ -1,117 +1,109 @@
-<& /comp/sidebar, title=>'Remove Discid', expand=>'moderate' &>
-
+%# vi: set ts=4 sw=4 ft=mason :
+<%args>
+$albumid => ""
+$discid => ""
+</%args>
 <%perl>
 
-my ($mb, $albumname, $al, $di);
-my ($albumid, $artistid, $discid, $id, @discid_refs, $ref); 
+MusicBrainz::IsSingleLineString($discid)
+	or return $m->comp("/comp/badargs", 1, 1);
 
-if (!exists $ARGS{discid} || $ARGS{discid} eq '' ||
-    !exists $ARGS{albumid} || $ARGS{albumid} eq '')
+MusicBrainz::IsNonNegInteger($albumid) && $albumid
+	or return $m->comp("/comp/badargs", 1, 1);
+
+$m->comp("/comp/checkloggedin", 1, 1)
+	or return;
+
+my $mb = $m->comp("/comp/dblogin");
+my $al = Album->new($mb->{DBH});
+my $di = Discid->new($mb->{DBH});
+
+my @discid_refs = $di->GetDiscidFromAlbum($albumid);
+
+my $id = -1;
+for my $ref (@discid_refs)
 {
-    mc_comp("/comp/badargs");
-    return undef;
+	next unless $ref->{discid} eq $discid;
+
+	$id = $ref->{id};
+	$di->SetId($id);
+	$di->SetDiscid($ref->{discid});
+
+	last;
 }
 
-$mb = mc_comp("/comp/dblogin");
-$al = Album->new($mb->{DBH});
-$di = Discid->new($mb->{DBH});
-
-$discid = $ARGS{discid};
-$albumid = $ARGS{albumid};
-@discid_refs = $di->GetDiscidFromAlbum($albumid);
-if (scalar(@discid_refs) == 0)
-{
-    mc_out("Invalid discid and album passed.\n");
-    return undef;
-}
-
-$id = -1;
-foreach $ref (@discid_refs)
-{
-    if ($ref->{discid} eq $discid)
-    {
-        $id = $ref->{id};
-        last;
-    }
-}
-
-if ($id < 0)
-{
-    mc_out("Invalid discid and album passed.\n");
-    return undef;
-}
+return $m->comp(
+	"/comp/error",
+	"Invalid discid and album passed.",
+	1, 1,
+) if $id < 0;
 
 $al->SetId($albumid);
 $al->LoadFromId();
-$albumname = $al->GetName();
-$artistid = $al->GetArtist();
+
+my $url = "/showalbum.html?albumid=$albumid";
+
+if ($ARGS{confirm})
+{
+	$m->comp(
+		"/comp/entermods",
+		DBH => $mb->{DBH},
+		sub => sub {
+			my @mods = Moderation->InsertModeration(
+				DBH	=> $mb->{DBH},
+				uid	=> $session{uid},
+				privs => $session{privs},
+				type => ModDefs::MOD_REMOVE_DISCID,
+				# --
+				album => $al,
+				discid => $di,
+			);
+		},
+		success_url => $url,
+	) or return;
+
+	die "Shouldn't get here";
+}
 
 </%perl>
 
-% if (!defined $session{user} || $session{user} eq '') {
-    You must be logged in to edit the database.<p>
-    <& /comp/tablebegin, title=>'Login' &>
-    <& /comp/loginbox &>
-    <& /comp/tableend &>
-% } else {
+<& /comp/sidebar, title =>' Remove Discid' &>
 
-    <& /comp/tablebegin, gattrs=>"width=\"100%\"",
-       title=>'Remove Discid' &>
+<h2>Remove Disc ID</h2>
 
-    <FORM METHOD="POST" ACTION="/bare/enter_mod.html" NAME="RemoveDiscidForm"
-          ENCTYPE="application/x-www-form-urlencoded">  
+<p>
+	Are you sure you want to remove CD Index Id <% $discid %>
+	from album <span class="bold"><% $al->GetName %></span>?
+</p>
 
-    <table width="100%">
-      <tr>
-        <td colspan="2">
-        Are you sure you want to remove CD Index Id <% $discid %> from album
-        <span class="bold"><% $albumname %></span>? <p>Please be sure you
-        are certain that this CD Index Id is an error, since an Album
-        can have multiple valid CD Index Ids. For more info, please see our
-        <a href="/cd_submission.html">CD Submission</a> document.<p>
-        </td>
-      </tr>
-      <tr>
-        <td>
-        &nbsp;
-        </td>
-        <td>
-        <INPUT TYPE="radio" NAME="confirm0" SIZE=25 value="yes"
-            ondblclick="this.form.submit()"
-            > Yes
-        </td>
-      </tr>
-      <tr>
-        <td>
-        &nbsp;
-        </td>
-        <td>
-        <INPUT TYPE="radio" NAME="confirm0" SIZE=25 value="no" CHECKED
-            ondblclick="this.form.submit()"
-            > No
-        </td>
-      </tr>
-      <tr>
-        <td colspan=2>
-        <INPUT TYPE="submit" NAME="Submit" VALUE="Submit">    
-        </td>
-      </tr>
-    </table>
-    <input type="hidden" name="artist0" value="<% $artistid %>">
-    <input type="hidden" name="type0"
-           value="<% ModDefs::MOD_REMOVE_DISCID %>">
-    <input type="hidden" name="prev0" value="<% $discid %>">
-    <input type="hidden" name="new0" value="DELETE">
-    <input type="hidden" name="table0" value="Discid">
-    <input type="hidden" name="column0" value="Disc">
-    <input type="hidden" name="id0" value="<% $id %>">
-    <input type="hidden" 
-           name="url" value="/showalbum.html?albumid=<% $albumid %>">
-    </form>
-      
-    <& /comp/tableend &>
-% }
-% $mb->Logout();
+<p>
+	Please be sure you are certain that this CD Index Id is an error,
+	since an album can have multiple valid CD Index Ids.&nbsp;
+	For more info, please see our
+	<a href="/cd_submission.html">CD Submission</a> document.
+</p>
 
-<& /comp/movefocus, "RemoveDiscidForm", "confirm0", 0 &>
+<form method="get" action="<% $url %>"
+	name="ModFormNo"
+	onsubmit="history.go(-1); return false"
+	style="float: left; margin-right: 2em; margin-top: 0"
+	>
+	<div>
+		<input type="submit" value="&lt;&lt; NO">
+	</div>
+</form>
+
+<form method="post" action="/remdiscid.html"
+	name="ModFormYes"
+	style="margin: 0"
+	>
+	<div>
+		<input type="hidden" name="discid" value="<% $discid %>">
+		<input type="hidden" name="albumid" value="<% $albumid %>">
+		<input type="hidden" name="confirm" value="1">
+		<input type="submit" value="YES &gt;&gt;">
+	</div>
+</form>
+
+<& /comp/movefocus, "ModFormNo", 0 &>
 <& /comp/footer &>

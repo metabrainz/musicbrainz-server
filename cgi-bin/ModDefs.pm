@@ -27,7 +27,7 @@ use strict;
 
 # Use the following id for the multiple/various artist albums
 use constant VARTIST_ID                  => 1;
-use constant VARITST_MBID                => "89ad4ac3-39f7-470e-963a-56509c546377";
+use constant VARTIST_MBID                => "89ad4ac3-39f7-470e-963a-56509c546377";
 
 # Use the following id to reference artist that have been deleted.
 # This will be used only by the moderation system
@@ -40,7 +40,7 @@ use constant MODBOT_MODERATOR            => 4;
 # These define the different types of moderation pages that can be shown
 use constant TYPE_NEW                    => 1;
 use constant TYPE_VOTED                  => 2;
-use constant TYPE_MINE                   => 3;
+use constant TYPE_MODERATOR              => 3;
 use constant TYPE_ARTIST                 => 4;
 use constant TYPE_FREEDB                 => 5;
 
@@ -102,7 +102,7 @@ use constant STATUS_EVALNOCHANGE         => 7;
 # When a moderator wants to delete their own mod, the web interface Moderation 
 # its status to 'to be deleted' so that the ModerationBot can clean it and
 # its possible depedents up. Once the ModBot spots this record it cleans up
-# any dependants adn then marks the record as 'deleted'.
+# any dependants and then marks the record as 'deleted'.
 use constant STATUS_TOBEDELETED          => 8;
 use constant STATUS_DELETED              => 9;
 

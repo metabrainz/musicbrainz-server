@@ -1,0 +1,35 @@
+%# vi: set ts=4 sw=4 ft=mason :
+
+<%method ShowPreviousValue>
+% my $this = shift;
+
+	Album:
+	<a href="/showalbum.html?albumid=<% $this->GetRowId %>"
+		><% $this->GetPrev %></a>
+
+</%method>
+
+<%method ShowNewValue>
+% my $this = shift;
+
+	Name:
+	<span class="bold"><% $this->{'new.trackname'} %></span>
+	<br>
+	Track:
+	<span class="bold"><% $this->{'new.tracknum'} %></span>
+	
+% if ($this->GetArtist == ModDefs::VARTIST_ID) {
+
+	<br>
+	Artist:
+	<span class="bold"><% $this->{'new.artistname'} %></span>
+	
+% if (defined $this->{'new.artistsortname'}) {
+		(<span class="bold"><% $this->{'new.artistsortname'} %></span>)
+% }
+
+% }
+
+</%method>
+
+%# eof

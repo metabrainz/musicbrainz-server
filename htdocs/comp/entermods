@@ -1,0 +1,62 @@
+%# vi: set ts=4 sw=4 ft=mason :
+<%args>
+$DBH
+$sub
+$success_url => undef
+$show_failure_message => 1
+</%args>
+<%perl>
+
+ref($DBH) or die;
+ref($sub) eq "CODE" or die;
+
+my $sql = Sql->new($DBH);
+$sql->Begin;
+
+my @ret;
+
+my $ok = eval {
+	@ret = &$sub;
+	$sql->Commit;
+	1;
+};
+
+unless ($ok)
+{
+	my $err = $@;
+	$sql->Rollback;
+
+	$show_failure_message
+		or return 0;
+
+	if (ref $err)
+	{
+		$err = eval { $err->GetError };
+		$m->comp("/comp/sidebar", title => "Moderation Error");
+		</%perl>
+		<p>
+			Error entering moderations:
+		</p>
+		<p class="notice"><% $err || "(Unknown error)" %></p>
+		<%perl>
+		$m->comp("/comp/footer");
+	} else {
+		$m->comp("/comp/sidebar", title => "Server Error");
+		</%perl>
+		<p>
+			Error entering moderations:
+		</p>
+		<pre><% $err %></pre>
+		<%perl>
+		$m->comp("/comp/footer");
+	}
+
+	return 0;
+}
+
+$m->comp("/comp/redirect", $success_url)
+	if defined $success_url;
+
+return \@ret;
+
+</%perl>

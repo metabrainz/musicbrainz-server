@@ -1,100 +1,97 @@
-<& /comp/sidebar, title=>'Remove Artist Alias', expand=>'moderate' &>
-
+%# vi: set ts=4 sw=4 ft=mason :
+<%args>
+$alias => ""
+</%args>
 <%perl>
 
-my ($mb, $al, $alias, $ar);
+$m->comp("/comp/checkloggedin", 1, 1)
+	or return;
 
-if (!exists $ARGS{alias} || $ARGS{alias} eq '')
-{
-    mc_comp("/comp/badargs");
-    return undef;
-}
+MusicBrainz::IsNonNegInteger($alias) && $alias
+	or return $m->comp("/comp/badargs", 1, 1);
 
-$mb = mc_comp("/comp/dblogin");
+my $mb = $m->comp("/comp/dblogin");
 
-$alias = $ARGS{alias};
-
-$al = Alias->new($mb->{DBH});
-$al->SetId($alias);
+my $al = Alias->new($mb->{DBH});
 $al->SetTable("ArtistAlias");
-if (!defined $al->LoadFromId())
-{
-   mc_out("Internal error. Cannot load artist alias.");
-   return undef;
-}
+$al->SetId($alias);
 
-$ar = Artist->new($mb->{DBH});
-$ar->SetId($al->GetRowId());
-if (!defined $ar->LoadFromId())
+defined($al->LoadFromId)
+	or return $m->comp(
+		"/comp/error",
+		"Alias #$alias does not exist",
+		1, 1,
+	);
+
+my $ar = Artist->new($mb->{DBH});
+$ar->SetId($al->GetRowId);
+
+defined($ar->LoadFromId)
+	or return $m->comp(
+		"/comp/error",
+		"Artist does not exist",
+		1, 1,
+	);
+
+my $url = "/showaliases.html?artistid=" . $ar->GetId;
+
+if ($ARGS{confirm})
 {
-   mc_out("Internal error. Cannot load artist.");
-   return undef;
+	$m->comp(
+		"/comp/entermods",
+		DBH => $mb->{DBH},
+		sub => sub {
+			my @mods = Moderation->InsertModeration(
+				DBH	=> $mb->{DBH},
+				uid	=> $session{uid},
+				privs => $session{privs},
+				type => ModDefs::MOD_REMOVE_ARTISTALIAS,
+				# --
+				artist => $ar,
+				alias => $al,
+			);
+		},
+		success_url => $url,
+	) or return;
+
+	die "Shouldn't get here";
 }
 
 </%perl>
 
-% if (!defined $session{user} || $session{user} eq '') {
-    You must be logged in to edit the database.<p>
-    <& /comp/tablebegin, title=>'Login' &>
-    <& /comp/loginbox &>
-    <& /comp/tableend &>
-% } else {
+<& /comp/sidebar, title => 'Remove Artist Alias' &>
 
-    <& /comp/tablebegin, gattrs=>"width=\"100%\"",
-       title=>'Remove Artist Alias' &>
+<h2>Remove Artist Alias</h2>
 
-    <FORM METHOD="POST" ACTION="/bare/enter_mod.html" NAME="RemoveAliasForm"
-          ENCTYPE="application/x-www-form-urlencoded">  
+<p>
+	<input type="hidden" name="alias" value="<% $alias %>">
+	<input type="hidden" name="confirm" value="1">
+	Are you sure you want to remove the alias 
+	<span class="bold"><% $al->GetName %></span>
+	which points to artist
+	<span class="bold"><% $ar->GetName %></span>?
+</p>
 
-    <table width="100%">
-      <tr>
-        <td colspan="2">
-        Are you sure you want to remove the alias 
-        <span class="bold"><% $al->GetName %></span> which points to artist 
-        <span class="bold"><% $ar->GetName %></span>?
-        </td>
-      </tr>
-      <tr>
-        <td>
-        &nbsp;
-        </td>
-        <td>
-        <INPUT TYPE="radio" NAME="confirm0" SIZE=25 value="yes"
-            ondblclick="this.form.submit()"
-            > Yes
-        </td>
-      </tr>
-      <tr>
-        <td>
-        &nbsp;
-        </td>
-        <td>
-        <INPUT TYPE="radio" NAME="confirm0" SIZE=25 value="no" CHECKED
-            ondblclick="this.form.submit()"
-            > No
-        </td>
-      </tr>
-      <tr>
-        <td colspan=2>
-        <INPUT TYPE="submit" NAME="Submit" VALUE="Submit">    
-        </td>
-      </tr>
-    </table>
-    <input type="hidden" name="artist0" value="<% $ar->GetId() %>">
-    <input type="hidden" name="type0"
-           value="<% ModDefs::MOD_REMOVE_ARTISTALIAS %>">
-    <input type="hidden" name="prev0" value="<% $al->GetName() %>">
-    <input type="hidden" name="new0" value="DELETE">
-    <input type="hidden" name="table0" value="ArtistAlias">
-    <input type="hidden" name="column0" value="Name">
-    <input type="hidden" name="id0" value="<% $alias %>">
-    <input type="hidden" name="url" 
-           value="/showaliases.html?artistid=<% $ar->GetId() %>">
-    </form>
-      
-    <& /comp/tableend &>
-% }
-% $mb->Logout();
+<form method="get" action="<% $url %>"
+	name="ModFormNo"
+	onsubmit="history.go(-1); return false"
+	style="float: left; margin-right: 2em; margin-top: 0"
+	>
+	<div>
+		<input type="submit" value="&lt;&lt; NO">
+	</div>
+</form>
 
-<& /comp/movefocus, "RemoveAliasForm", "confirm0", 0 &>
+<form method="post" action="/remartistalias.html"
+	name="ModFormYes"
+	style="margin: 0"
+	>
+	<div>
+		<input type="hidden" name="alias" value="<% $alias %>">
+		<input type="hidden" name="confirm" value="1">
+		<input type="submit" value="YES &gt;&gt;">
+	</div>
+</form>
+
+<& /comp/movefocus, "ModFormNo", 0 &>
 <& /comp/footer &>

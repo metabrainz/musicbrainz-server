@@ -168,28 +168,57 @@ for (
 		if ($oname ne $name)
 		{
 			$sqlWrite->Begin;
-			
+
+			my @mods;
+				
 			unless ($table eq "artistalias")
 			{
+				my $thingtype;
+				my $thing;
+				
+				if ($table eq "artist")
+				{
+					require Artist;
+					my $ar = Artist->new($sqlWrite->{DBH});
+					$ar->SetId($id);
+					$ar->SetName(encode "utf-8", $oname);
+					$ar->SetSortName(encode "utf-8", $oname);
+					($thingtype, $thing) = (artist => $ar);
+				}
+				elsif ($table eq "album")
+				{
+					require Album;
+					my $al = Album->new($sqlWrite->{DBH});
+					$al->SetId($id);
+					$al->SetName(encode "utf-8", $oname);
+					($thingtype, $thing) = (album => $al);
+				}
+				elsif ($table eq "track")
+				{
+					require Track;
+					my $tr = Track->new($sqlWrite->{DBH});
+					$tr->SetId($id);
+					$tr->SetName(encode "utf-8", $oname);
+					($thingtype, $thing) = (track => $tr);
+				}
+
+				$thing or die;
+
 				use Moderation;
-				my $m = Moderation->new($sqlWrite->{DBH});
-
-				$m->SetType($modtype);
-				$m->SetArtist($artistid);
-				$m->SetTable(ucfirst $table);
-				$m->SetColumn(ucfirst $column);
-				$m->SetRowId($id);
-				$m->SetPrev(encode "utf-8", $oname);
-				$m->SetNew(encode "utf-8", $name);
-				$m->SetModerator($moderator);
-				$m->SetDepMod(0);
-
-				my $modid = $m->InsertModeration($privs);
-				print "Inserted mod #$modid ($oname => $name)\n";
-				++$types{$modtype};
+				push @mods, Moderation->InsertModeration(
+					DBH	=> $sqlWrite->{DBH},
+					uid	=> $moderator,
+					privs => $privs,
+					type => $modtype,
+					# --
+					$thingtype => $thing,
+					newname => encode("utf-8", $name),
+				);
 			}
 			else
 			{
+				# TODO we really need a MOD_EDIT_ARTISTALIAS here... :-(
+
 				# Since MOD_REMOVE_ARTISTALIAS is never auto-moderated,
 				# it's possible that one or both of these moderations already
 				# exists for this artist.
@@ -200,46 +229,49 @@ for (
 					"SELECT COUNT(*)
 					FROM moderation
 					WHERE artist = ?
-					AND type IN (?,?)
-					AND status = ?",
+					AND type IN (" . &ModDefs::MOD_REMOVE_ARTISTALIAS . ", " . &ModDefs::MOD_ADD_ARTISTALIAS . ")
+					AND status = " . &ModDefs::STATUS_OPEN,
 					$artistid,
-					ModDefs::MOD_REMOVE_ARTISTALIAS,
-					ModDefs::MOD_ADD_ARTISTALIAS,
-					ModDefs::STATUS_OPEN,
 				);
 
-				my $m1 = Moderation->new($sqlWrite->{DBH});
-				my $m2 = Moderation->new($sqlWrite->{DBH});
+				require Artist;
+				my $ar = Artist->new($sqlWrite->{DBH});
+				$ar->SetId($id);
 
-				$m1->SetType(ModDefs::MOD_REMOVE_ARTISTALIAS);
-				$m1->SetArtist($artistid);
-				$m1->SetTable(ucfirst $table);
-				$m1->SetColumn(ucfirst $column);
-				$m1->SetRowId($id);
-				$m1->SetPrev(encode "utf-8", $oname);
-				$m1->SetNew("");
-				$m1->SetModerator($moderator);
-				$m1->SetDepMod(0);
-				my $modid1 = $m1->InsertModeration($privs);
-				++$types{ModDefs::MOD_REMOVE_ARTISTALIAS};
+				require Alias;
+				my $al = Alias->new($sqlWrite->{DBH}, "ArtistAlias");
+				$al->SetId($id);
+				$al->SetName(encode "utf-8", $oname);
+				
+				push @mods, Moderation->InsertModeration(
+					DBH	=> $sqlWrite->{DBH},
+					uid	=> $moderator,
+					privs => $privs,
+					type => $modtype,
+					# --
+					artist => $ar,
+					alias => $al,
+				);
 
-				$m2->SetType(ModDefs::MOD_ADD_ARTISTALIAS);
-				$m2->SetArtist($artistid);
-				$m2->SetTable(ucfirst $table);
-				$m2->SetColumn(ucfirst $column);
-				$m2->SetRowId($artistid);
-				$m2->SetPrev("");
-				$m2->SetNew(encode "utf-8", $name);
-				$m2->SetModerator($moderator);
-				$m2->SetDepMod($modid1);
+				push @mods, Moderation->InsertModeration(
+					DBH	=> $sqlWrite->{DBH},
+					uid	=> $moderator,
+					privs => $privs,
+					type => $modtype,
+					# --
+					artist => $ar,
+					newalias => encode("utf-8", $name),
+				);
 
-				my $modid2 = $m2->InsertModeration($privs);
-				++$types{ModDefs::MOD_ADD_ARTISTALIAS};
-
-				print "Inserted mods #$modid1 and #$modid2 ($oname => $name)\n";
 			}
 
 			$sqlWrite->Commit;
+
+			++$types{$_->Type}
+				for @mods;
+
+			printf "Inserted mod %s ($oname => $name)\n",
+				join(",", map { $_->GetId } @mods);
 		}
 	}
 

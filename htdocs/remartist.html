@@ -2,22 +2,19 @@
 <%args>
 $artist => ""
 </%args>
-
-<& /comp/sidebar, title => 'Remove Artist' &>
-
 <%perl>
 
-$m->comp("/comp/checkloggedin", 0, 1)
+$m->comp("/comp/checkloggedin", 1, 1)
 	or return;
 
 MusicBrainz::IsNonNegInteger($artist) && $artist
-	or return $m->comp("/comp/badargs", 0, 1);
+	or return $m->comp("/comp/badargs", 1, 1);
 
 $artist != ModDefs::VARTIST_ID && $artist != ModDefs::DARTIST_ID
 	or return $m->comp(
 		"/comp/error",
 		"This artist cannot be deleted.",
-		0, 1,
+		1, 1,
 	);
 
 my $mb = $m->comp("/comp/dblogin");
@@ -28,44 +25,63 @@ $ar->LoadFromId
 	or return $m->comp(
 		"/comp/error",
 		"Artist #$artist does not exist",
-		0, 1,
+		1, 1,
 	);
+
+my $url = "/search.html";
+
+if ($ARGS{confirm})
+{
+	$m->comp(
+		"/comp/entermods",
+		DBH => $mb->{DBH},
+		sub => sub {
+			my @mods = Moderation->InsertModeration(
+				DBH	=> $mb->{DBH},
+				uid	=> $session{uid},
+				privs => $session{privs},
+				type => ModDefs::MOD_REMOVE_ARTIST,
+				# --
+				artist => $ar,
+			);
+		},
+		success_url => $url,
+	) or return;
+
+	die "Shouldn't get here";
+}
 
 </%perl>
 
+<& /comp/sidebar, title => 'Remove Artist' &>
+
 <h2>Confirm Artist Removal</h2>
 
-<form method="post" action="/bare/enter_mod.html" name="RemoveArtistForm"
-	enctype="application/x-www-form-urlencoded">
+<p>
+	Are you sure you want to remove artist
+	<span class="bold"><% $ar->GetName %></span>?
+</p>
 
-	<p>
-        Are you sure you want to remove artist
-		<b><% $ar->GetName %></b>?
-	</p>
-
-	<p style="margin-left: 2em">
-        <input type="radio" name="confirm0" value="yes"
-            ondblclick="this.form.submit()"
-            > Yes
-		<br>
-        <input type="radio" name="confirm0" value="no" checked
-            ondblclick="this.form.submit()"
-            > No
-	</p>
-
-	<p>
-        <input type="submit" value="Submit">
-	</p>
-
-	<input type="hidden" name="artist0" value="<% $ar->GetId %>">
-    <input type="hidden" name="type0" value="<% ModDefs::MOD_REMOVE_ARTIST %>">
-	<input type="hidden" name="prev0" value="<% $ar->GetName %>">
-    <input type="hidden" name="new0" value="DELETE">
-    <input type="hidden" name="table0" value="Artist">
-    <input type="hidden" name="column0" value="Name">
-	<input type="hidden" name="id0" value="<% $ar->GetId %>">
-	<input type="hidden" name="url" value="/showartist.html?artistid=<% $ar->GetId %>">
+<form method="get" action="<% $url %>"
+	name="ModFormNo"
+	onsubmit="history.go(-1); return false"
+	style="float: left; margin-right: 2em; margin-top: 0"
+	>
+	<div>
+		<input type="submit" value="&lt;&lt; NO">
+	</div>
 </form>
 
-<& /comp/movefocus, "RemoveArtistForm", "confirm0", 0 &>
+<form method="post" action="/remartist.html"
+	name="ModFormYes"
+	style="margin: 0"
+	>
+	<div>
+		<input type="hidden" name="artist" value="<% $artist %>">
+		<input type="hidden" name="confirm" value="1">
+		<input type="submit" value="YES &gt;&gt;">
+	</div>
+</form>
+
+<& /comp/movefocus, "ModFormNo", 0 &>
 <& /comp/footer &>
