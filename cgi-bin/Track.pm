@@ -304,6 +304,8 @@ sub Insert
     $artist = ($al->GetArtist() == Artist::VARTIST_ID) ? 
                 $ar->GetId() : $al->GetArtist();
 
+    return undef if (!defined $artist);
+
     $sql = Sql->new($this->{DBH});
     $name = $sql->Quote($this->{name});
     ($track) = $sql->GetSingleRow("Track, AlbumJoin", ["Track.id"],
