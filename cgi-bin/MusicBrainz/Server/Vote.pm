@@ -39,6 +39,7 @@ sub SetUserId		{ $_[0]{uid} = $_[1] }
 sub GetVote			{ $_[0]{vote} }
 sub SetVote			{ $_[0]{vote} = $_[1] }
 sub GetUserName		{ $_[0]{user} }
+sub GetVoteTime		{ $_[0]{votetime} }
 
 # This function enters a number of votes into the Votes table.
 # The caller must a hash of votes, where the keys are the moderation IDs,
@@ -67,31 +68,39 @@ sub _InsertVote
 	$status == STATUS_OPEN
 		or return;
 
+	# Find the user's previous (most recent) vote for this mod
 	my $prevvote = $sql->SelectSingleValue(
-		"SELECT vote FROM votes WHERE uid = ? AND rowid = ?",
+		"SELECT vote FROM votes WHERE uid = ? AND rowid = ?
+			ORDER BY id DESC LIMIT 1",
 		$uid, $id,
 	);
 
-	if (defined $prevvote)
-	{
-		# TODO at some point I think it would make sense to be able to change
-		# your vote.  In which case logic would be needed here to adjust
-		# yesvotes / novotes etc according to both your old vote /and/ the new
-		# one.
-		# But for now the old behaviour remains: if you've already voted, then
-		# this vote is discarded.
-		return;
-	}
+	# Nothing to do if your vote is the same as last time
+	return if defined $prevvote
+		and $vote == $prevvote;
+
+	my $yesdelta = 0;
+	my $nodelta = 0;
+
+	--$yesdelta if defined $prevvote and $prevvote == VOTE_YES;
+	--$nodelta if defined $prevvote and $prevvote == VOTE_NO;
+	++$yesdelta if $vote == VOTE_YES;
+	++$nodelta if $vote == VOTE_NO;
 
 	$sql->Do(
 		"INSERT INTO votes (uid, rowid, vote) VALUES (?, ?, ?)",
 		$uid, $id, $vote,
 	);
 
-	$sql->Do("UPDATE moderation SET yesvotes = yesvotes + 1 WHERE id = ?", $id)
-		if $vote == VOTE_YES;
-	$sql->Do("UPDATE moderation SET novotes = novotes + 1 WHERE id = ?", $id)
-		if $vote == VOTE_NO;
+	$sql->Do(
+		"UPDATE moderation
+		SET		yesvotes = yesvotes + ?,
+				novotes = novotes + ?
+		WHERE id = ?",
+		$yesdelta,
+		$nodelta,
+		$id,
+	);
 }
 
 sub newFromModerationId
