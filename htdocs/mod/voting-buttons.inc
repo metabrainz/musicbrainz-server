@@ -1,3 +1,4 @@
+%# vi: set ts=2 sw=2 ft=mason :
 <%args>
 $mod
 $vote => undef
@@ -25,20 +26,31 @@ if (defined $vote)
 
 my $modid = $mod->GetId;
 
+if (!$inline)
+{
+	my $n = ($show_novote ? 4 : 3);
+	$m->out(qq[<table class="votechoice votechoice$n">]);
+}
+
 for ("Yes=yes", "No=no", "Abst=abs", "No&nbsp;Vote=novote")
 {
 	my ($display, $key) = split /=/;
 	next if $key eq "novote" and not $show_novote;
 
-   if (!$inline)
-   {
-       my $checked = (($key eq $default) ? " checked" : "");
-       $m->out(qq[<label for="rowid$modid-$key">$display</label>&nbsp;<input type="radio" name="rowid$modid" id="rowid$modid-$key" value="$key"$checked>&nbsp;]);
-   }
-   else
-   {
-       $m->out(qq[<input type="submit" name="rowid$modid" value="$key">&nbsp;]);
-   }
+	if (!$inline)
+	{
+		my $checked = (($key eq $default) ? " checked" : "");
+		$m->out(qq[<td><label for="rowid$modid-$key"><input type="radio" name="rowid$modid" id="rowid$modid-$key" value="$key"$checked><br>$display</label></td>]);
+	}
+	else
+	{
+		$m->out(qq[<input type="submit" name="rowid$modid" value="$key">&nbsp;]);
+	}
+}
+
+if (!$inline)
+{
+	$m->out(qq[</table>]);
 }
 
 </%perl>
