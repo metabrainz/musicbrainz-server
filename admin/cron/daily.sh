@@ -64,7 +64,9 @@ fi
 
 # Create the reports
 echo `date`" : Running reports"
-nice ./admin/reports/RunReports
+OUTPUT=`
+	nice ./admin/reports/RunReports 2>&1
+` || echo "$OUTPUT"
 
 # Process subscriptions
 echo `date`" : Processing subscriptions"
