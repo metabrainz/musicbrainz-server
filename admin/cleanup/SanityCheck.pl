@@ -26,6 +26,7 @@
 use lib "../../cgi-bin";
 use DBI;
 use DBDefs;
+use Artist;
 use MusicBrainz;
 require "Main.pl";
 
@@ -73,7 +74,12 @@ sub Cleanup
             print "  Artist $row[0] has no tracks.\n";
             $count++;
 
-            $dbh->do("delete from Artist where id = $row[0]") if ($fix);
+            if ($fix)
+            {
+                $dbh->do("delete from Artist where id = $row[0]"); 
+                $dbh->do("update Changes set Artist = " . Artist::DARTIST_ID .
+                         " where artist = $row[0]");
+            }
         }
     }
     $sth->finish;

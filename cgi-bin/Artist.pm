@@ -138,6 +138,8 @@ sub Remove
     }
   
     $sql->Do("delete from Artist where id = " . $this->GetId());
+    $sql->Do("update Changes set Artist = " . Artist::DARTIST_ID . 
+             "where artist = " . $this->GetId());
 
     # Remove references from artist words table
     my $engine = SearchEngine->new( { Table => 'Artist' } );

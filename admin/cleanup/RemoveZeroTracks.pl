@@ -67,12 +67,12 @@ sub Cleanup
             if ($fix)
             {
                 $dbh->do("delete from AlbumJoin where track = $row[0]");
-                $dbh->do("delete from Track where id = $row[0]");
-                #$tr->SetId($row[0]);
-                #if (not defined $tr->Remove())
-                #{
-                #    print "Remove failed.\n";
-                #}
+                #$dbh->do("delete from Track where id = $row[0]");
+                $tr->SetId($row[0]);
+                if (not defined $tr->Remove())
+                {
+                    print "Remove failed.\n";
+                }
             }
             $count++;
         }
