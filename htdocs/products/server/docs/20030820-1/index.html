@@ -102,7 +102,36 @@
 <img class="diagram" src="part-album.png">
 
 <p>
-	TODO discid &amp; toc
+	For each stored disc ID,
+	we store the information in three forms:
+</p>
+
+<ul>
+	<li>
+		the track count, track offsets (track 1 to track 99),
+		and leadout figures (where each of them is just an integer)
+	</li>
+	<li>
+		the CD <abbr title='Table of Contents'>TOC</abbr>, which is
+		essentially all of the above numbers listed listed together in one long
+		string (joined by spaces)
+	</li>
+	<li>
+		the <a href="/disc.html">MusicBrainz Disc ID</a>
+		(a 28-character string)
+	</li>
+</ul>
+
+<p>
+	The track count, offsets and leadout are stored in the "toc" table; the TOC
+	is stored in the "discid" table; and the 28-character disc ID is stored in
+	both the "discid" and "toc" tables.&nbsp;
+	When a client is requesting album information based on a given disc ID,
+	then the matching record is found in the "discid" table
+	(the "toc" table could have been used instead, but using the "discid" table
+	is more efficient, because it's smaller).&nbsp;
+	When we try to find an album using a "fuzzy" TOC
+	match, then we look up the data in the "toc" table.
 </p>
 
 <h2 id="DBPartTracks">Tracks</h2>
