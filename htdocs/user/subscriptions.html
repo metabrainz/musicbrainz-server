@@ -17,13 +17,20 @@ $m->comp("/comp/sidebar", title => 'Artist Subscriptions');
 
 </%perl>
 
+<p class="LinksRow">
+	[
+	<a href="/user/view.html">Profile &amp; Statistics</a>
+	| <a href="/prefs.html">Preferences</a>
+	]
+</p>
+
 % if ($session{email_nag}) {
 	<p class="notice">
 		<span style="color: red">You have not provided an email address!</span>
 		<br>
 		To receive notice of when moderations are added to your
 		subscribed artists, please
-		<a href="/moderator.html?uid=<% $session{uid} %>">edit your profile</a>
+		<a href="/user/edit.html">edit your profile</a>
 		and provide an email address.
    </p>
 % }
