@@ -151,7 +151,7 @@ sub CreateFileLookup
 
    $depth = $this->GetDepth();
    return $this->ErrorRDF("Invalid search depth specified.") if ($depth < 1);
-   print STDERR "Depth: $depth\n";
+   #print STDERR "Depth: $depth\n";
 
    $this->{cache} = \@cache;
 
@@ -346,26 +346,26 @@ sub FindReferences
    #print STDERR "\n" if ($curdepth > $this->{depth});
    return if ($curdepth > $this->{depth});
 
-   print STDERR "Find references: $curdepth max: $this->{depth}\n";
+   #print STDERR "Find references: $curdepth max: $this->{depth}\n";
     
    $curdepth+=2;
 
    # Load all of the referenced objects
    foreach $ref (@ids)
    {
-      print STDERR "  Object: $ref->{type} ";
-      print STDERR "$ref->{id} " if defined $ref->{id};
-      print STDERR "($ref->{mbid}) " if defined $ref->{mbid};
-      print STDERR "--> ";
+      #print STDERR "  Object: $ref->{type} ";
+      #print STDERR "$ref->{id} " if defined $ref->{id};
+      #print STDERR "($ref->{mbid}) " if defined $ref->{mbid};
+      #print STDERR "--> ";
       $obj = $this->GetFromCache($ref->{type}, $ref->{id}, $ref->{mbid});
       if (!defined $obj)
       {
-          print STDERR "load\n";
+          #print STDERR "load\n";
           $obj = $this->LoadObject($ref->{id}, $ref->{mbid}, $ref->{type});
       }
       else
       {
-          print STDERR "cached\n";
+          #print STDERR "cached\n";
       }
       next if (!defined $obj);
 

@@ -285,8 +285,8 @@ sub FindFreeDBEntry
           $query = "update TOC set Leadout = $list[2], Discid = '$id' " . 
                    "where id = $row[0]";
           $sql->Do($query);
-          $query = "update Discid set Disc = '$id', Toc = '$toc', " .
-                   "LastChanged = now() where id = $row[0]";
+          $query = "update Discid set Disc = '$id', Toc = '$toc' " .
+                   "where id = $row[0]";
           $sql->Do($query);
 
           $sql->Commit;
