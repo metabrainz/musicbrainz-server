@@ -32,7 +32,7 @@ use Artist;
 use Album;
 use Track;
 
-my ($outfile, $sql, @tinfo, $timestring, $mb, @row, $rdfout, @ids);
+my ($outfile, $sql, @tinfo, $timestring, $mb, @row, $rdf, @ids);
 
 @tinfo = localtime;
 $timestring = "rdfdump-" . (1900 + $tinfo[5]) . "-".($tinfo[4]+1)."-$tinfo[3]";
@@ -50,56 +50,72 @@ $outfile = "$timestring.rdf.bz2" if (!defined $outfile);
 open RDF, "| bzip2 -c > $outfile"
   or die "Cannot open a pipe to bzip2 for output.\n";
 
+print "Writing dump to $outfile.\n";
+
 print RDF "<?xml version=\"1.0\" encoding=\"ISO-8859-1\"?>\n";
 print RDF (GetLicense());
 
 $mb = MusicBrainz->new;
 $mb->Login;
 
-$rdfout = RDFOutput2->new($mb->{DBH});
-$rdfout->SetBaseURI("http://mm.musicbrainz.org");
-$rdfout->SetDepth(1);
-$rdfout->SetOutputFile(\*RDF);
-
 $sql = Sql->new($mb->{DBH});
-
-$rdfout->DumpBegin();
+$rdf = RDF2->new();
+print RDF $rdf->BeginRDFObject(1);
+print RDF "\n";
 
 $| = 1;
 print "\nDumping artists.\n";
-Dump($sql, $rdfout, 'Artist');
+DumpArtists($sql, $rdf, \*RDF, "http://mm.musicbrainz.org");
 print "\nDumping albums.\n";
-Dump($sql, $rdfout, 'Album');
+DumpAlbums($sql, $rdf, \*RDF, "http://mm.musicbrainz.org");
 print "\nDumping tracks.\n";
-Dump($sql, $rdfout, 'Track');
+DumpTracks($sql, $rdf, \*RDF, "http://mm.musicbrainz.org");
+
+print RDF $rdf->EndRDFObject();
 
 print "\nDump finished.\n";
-
-$rdfout->DumpEnd();
 
 close RDF;
 
 $mb->Logout;
 
-sub Dump
+sub DumpArtists
 {
-    my ($sql, $rdfout, $type) = @_;
+    my ($sql, $rdf, $file, $baseuri) = @_;
 
-    my @row;
-    my $lctype = $type;
-    $lctype =~ tr/A-Z/a-z/;
-
-    my $sname = ($type eq 'Artist') ? "sortname" : "name";
-
+    my (@row, $out, $last_id);
     my ($start, $nw, $count, $mx, $spr, $left, $mins, $hours, $secs);
-    if ($sql->Select("select id from $type order by $sname"))
+    if ($sql->Select(qq|select Artist.gid, Artist.name, Artist.sortname, 
+                        Album.gid from Artist, Album where Artist.id = 
+                        Album.artist order by Artist.sortname|))
     {
         $start = time;
         $mx = $sql->Rows();
+
+        $last_id = "";
         for($count = 1;@row = $sql->NextRow; $count++)
         {
-            $rdfout->DumpItem($lctype, $row[0]);
-    
+            $out = "";
+            if ($row[0] ne $last_id)
+            {
+                if ($count != 1)
+                {
+                    $out .=   $rdf->EndSeq();
+                    $out .=   $rdf->EndDesc("mm:albumList");
+                    $out .= $rdf->EndDesc("mm:Artist"); 
+                    $out .= "\n";
+                }
+                $out .= $rdf->BeginDesc("mm:Artist", "$baseuri/artist/$row[0]");
+                $out .=   $rdf->Element("dc:title", $row[1]);
+                $out .=   $rdf->Element("mm:sortName", $row[2]);
+                $out .=   $rdf->BeginDesc("mm:albumList");
+                $out .=   $rdf->BeginSeq();
+            }
+            $out .=      $rdf->Li("$baseuri/album/$row[3]");
+            print {$file} $out;
+
+            $last_id = $row[0];
+
             $nw = time;
             $spr = ($nw - $start) / $count;
             $left = ($mx - $count) * $spr;
@@ -108,9 +124,191 @@ sub Dump
             $mins = int($left / 60);
             $left %= 60;
 
-            print "  $count of $mx -- Time left: " . 
+            print "  $count of $mx artist albums -- Time left: " . 
                   sprintf("%02d:%02d:%02d   \r", $hours, $mins, $left, $spr);
         }
+
+        $out =   $rdf->EndSeq();
+        $out .=   $rdf->EndDesc("mm:albumList");
+        $out .= $rdf->EndDesc("mm:Artist"); 
+        $out .= "\n";
+        print {$file} $out;
+
+    }
+    $sql->Finish;
+}
+
+sub DumpAlbums
+{
+    my ($sql, $rdf, $file, $baseuri) = @_;
+
+    my (@row, $out, $last_id);
+    my ($sql2, @row2);
+    my ($start, $nw, $count, $mx, $spr, $left, $mins, $hours, $secs);
+
+    if ($sql->Select(qq|select Album.gid, Artist.gid, Album.name, Track.gid,
+                               Album.id, AlbumJoin.sequence
+                          from Artist, Album, AlbumJoin, Track 
+                        where  Artist.id = Album.artist and Album.id = 
+                               AlbumJoin.album and AlbumJoin.track = Track.id 
+                      order by Album.id|))
+    {
+        my $cur_diskid_album = -1;
+
+        $start = time;
+        $mx = $sql->Rows();
+
+        $sql2 = Sql->new($sql->{DBH});
+        if (!$sql2->Select(qq|select album, disk from Diskid order by album|))
+        {
+            die "Cannot start nested disk id query.\n";
+        }
+
+        $last_id = "";
+        for($count = 1;@row = $sql->NextRow; $count++)
+        {
+            $out = "";
+            if ($row[0] ne $last_id)
+            {
+                if ($count != 1)
+                {
+                    $out .=   $rdf->EndSeq();
+                    $out .=   $rdf->EndDesc("mm:trackList");
+                    $out .= $rdf->EndDesc("mm:Album"); 
+                    $out .= "\n";
+                }
+                $out .= $rdf->BeginDesc("mm:Album", "$baseuri/album/$row[0]");
+                $out .=   $rdf->Element("dc:title", $row[2]);
+                $out .=   $rdf->Element("dc:creator", "", "rdf:resource",
+                                        "$baseuri/artist/$row[1]");
+
+                while($cur_diskid_album <= $row[4])
+                {
+                    if ($cur_diskid_album == $row[4])
+                    {
+                        $out .= $rdf->Element("mm:cdindexId", $row2[1]);
+                    }
+
+                    if (!(@row2 = $sql2->NextRow))
+                    {
+                        $cur_diskid_album = 9999999999;
+                        last;
+                    }
+                    $cur_diskid_album = $row2[0];
+                }
+                $out .=   $rdf->BeginDesc("mm:trackList");
+                $out .=   $rdf->BeginSeq();
+            }
+            $out .=      $rdf->Element("rdf:li", "", 
+                                       "rdf:resource","$baseuri/track/$row[3]",
+                                       "mm:trackNum", $row[5]);
+            print {$file} $out;
+
+            $last_id = $row[0];
+
+            $nw = time;
+            $spr = ($nw - $start) / $count;
+            $left = ($mx - $count) * $spr;
+            $hours = int($left / 3600);
+            $left %= 3600;
+            $mins = int($left / 60);
+            $left %= 60;
+
+            print "  $count of $mx album tracks -- Time left: " . 
+                  sprintf("%02d:%02d:%02d   \r", $hours, $mins, $left, $spr);
+        }
+        $sql2->Finish;
+
+        $out =   $rdf->EndSeq();
+        $out .=   $rdf->EndDesc("mm:trackList");
+        $out .= $rdf->EndDesc("mm:Album"); 
+        $out .= "\n";
+        print {$file} $out;
+
+    }
+    $sql->Finish;
+}
+
+sub DumpTracks
+{
+    my ($sql, $rdf, $file, $baseuri) = @_;
+
+    my (@row, $out, $last_id);
+    my ($sql2, @row2);
+    my ($start, $nw, $count, $mx, $spr, $left, $mins, $hours, $secs);
+
+    if ($sql->Select(qq|select Track.gid, Artist.gid, Track.name, Track.id
+                          from Artist, Track 
+                         where Artist.id = Track.artist 
+                      order by Track.id|))
+    {
+        my $cur_trm_track = -1;
+
+        $start = time;
+        $mx = $sql->Rows();
+
+        $sql2 = Sql->new($sql->{DBH});
+        if (!$sql2->Select(qq|select GUIDJoin.track, GUID.guid
+                                from GUIDJoin, GUID
+                               where GUIDJoin.guid = GUID.id
+                            order by GUIDJoin.track|))
+        {
+            die "Cannot start trm id query.\n";
+        }
+
+        $last_id = "";
+        for($count = 1;@row = $sql->NextRow; $count++)
+        {
+            $out = "";
+            if ($row[0] ne $last_id)
+            {
+                if ($count != 1)
+                {
+                    $out .= $rdf->EndDesc("mm:Track"); 
+                    $out .= "\n";
+                }
+                $out .= $rdf->BeginDesc("mm:Track", "$baseuri/track/$row[0]");
+                $out .=   $rdf->Element("dc:title", $row[2]);
+                $out .=   $rdf->Element("dc:creator", "", "rdf:resource",
+                                        "$baseuri/artist/$row[1]");
+
+                while($cur_trm_track <= $row[3])
+                {
+                    if ($cur_trm_track == $row[3])
+                    {
+                        $out .= $rdf->Element("mm:trmid", $row2[1]);
+                    }
+
+                    if (!(@row2 = $sql2->NextRow))
+                    {
+                        $cur_trm_track = 999999999;
+                        last;
+                    }
+                    $cur_trm_track = $row2[0];
+                }
+            }
+            #$out .= $rdf->Element("mm:trmid", "$baseuri/track/$row2[1]");
+            print {$file} $out;
+
+            $last_id = $row[0];
+
+            $nw = time;
+            $spr = ($nw - $start) / $count;
+            $left = ($mx - $count) * $spr;
+            $hours = int($left / 3600);
+            $left %= 3600;
+            $mins = int($left / 60);
+            $left %= 60;
+
+            print "  $count of $mx tracks -- Time left: " . 
+                  sprintf("%02d:%02d:%02d   \r", $hours, $mins, $left, $spr);
+        }
+        $sql2->Finish;
+
+        $out .= $rdf->EndDesc("mm:Track"); 
+        $out .= "\n";
+        print {$file} $out;
+
     }
     $sql->Finish;
 }
