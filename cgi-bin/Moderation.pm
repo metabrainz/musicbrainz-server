@@ -529,7 +529,7 @@ sub InsertModeration
         my ($mod, $status);
 
         $mod = $this->CreateFromId($insertid);
-        $status = $mod->ApprovedAction();
+        $status = $mod->ApprovedAction($mod->GetRowId());
         $sql->Do(qq|update Moderation set status = $status, automod = 1 
                     where id = $insertid|);
         $this->CreditModerator($this->{moderator}, 1);

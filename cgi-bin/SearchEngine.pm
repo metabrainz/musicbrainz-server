@@ -30,6 +30,7 @@ use vars qw(@ISA @EXPORT);
 use strict;
 use DBDefs;
 use DBI;
+use MusicBrainz;
 use Text::Unaccent;
 use locale;
 use POSIX qw(locale_h);
@@ -40,7 +41,10 @@ sub new
     my $class = shift;
     my $self = shift || {};
     bless $self, $class;
-    $self->{DBH}          = DBDefs->Connect || die "Cannot connect to database";
+
+    $self->{MB} = new MusicBrainz;
+    $self->{MB}->Login() || die "Cannot connect to database";
+    $self->{DBH}          = $self->{MB}->{DBH};
     $self->{STH}          = undef;
     $self->{ValidTables}  = ['Album','Artist','Track'];
     $self->{Table}      ||= 'Artist';
@@ -48,6 +52,12 @@ sub new
     $self->{Limit}      ||= 0;
     $self->{BGColor}    ||= "#ffffff";
     return $self;
+}
+
+sub Close
+{
+    my ($self) = @_;
+    $self->{MB}->Logout();
 }
 
 sub Table

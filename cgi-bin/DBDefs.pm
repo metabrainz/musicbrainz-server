@@ -89,22 +89,3 @@ use constant ALLOW_SELF_VOTE => 0;
 use constant LOCK_DIR => "/home/httpd/musicbrainz/locks";
 use constant SESSION_DIR => "/home/httpd/musicbrainz/sessions";
 
-sub Connect
-{
-    if ( defined $DBDefs::connection)
-    {
-        eval { $DBDefs::connection->ping };
-        if (!$@ )
-        {
-            return $DBDefs::connection;
-        }
-    }
-
-    $DBDefs::connection = DBI->connect(DBDefs->DSN,DBDefs->DB_USER,DBDefs->DB_PASSWD, {
-        PrintError => 0,
-        RaiseError => 1,
-        AutoCommit => 1
-    }) or die $DBI::errstr;
-    
-    return $DBDefs::connection;
-}

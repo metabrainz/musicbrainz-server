@@ -39,6 +39,7 @@ if ( defined $table && defined $search)
            $r->content_type('text/html');
            $r->header_out(Location=>$url);
            $r->status(302);
+           $engine->Close();
            return undef;
         }
     }
@@ -79,6 +80,7 @@ if ( defined $table && defined $search)
     </table>
     <& /comp/tableend &>
     <& /comp/tablebegin, title=>'Search Again', attrs=>"align=left", gattrs=>"width=100%" &>
+%   $engine->Close();
 % } else {
 <& /comp/sidebar, title=>'Search' &>
     <& /comp/tablebegin, title=>'Search', attrs=>"align=left", 

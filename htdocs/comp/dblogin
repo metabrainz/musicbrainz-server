@@ -4,6 +4,8 @@ $quiet=>0
 
 <%perl>
 
+use Carp qw(cluck);
+
 my ($mb);
 
 $mb = new MusicBrainz;
