@@ -5,7 +5,7 @@
 # and ArtistName fields.
 
 my ($mb, $i, $j, $mod, $new, @names, $ar, $name, $key, $sortnamevalue);
-my ($sortname, $found, $mode, $num_found, $id, $artistnamevalue);
+my ($sortname, $artist, $mode, $id, $artistnamevalue, $eng);
 
 # Find which key value pairs contain the artist and sort names
 foreach $key (keys %ARGS)
@@ -38,20 +38,28 @@ mc_comp("/comp/sidebar", title=>$ARGS{title});
 $mb = new MusicBrainz;
 $mb->Login();
 
-# Now go find all the artists that match that given sortname
 $ar = Artist->new($mb->{DBH});
-@names = $ar->FindArtist($name);
-
-$found = 0;
-foreach $key (@names)
+# try to load the artist. If that artist is not found, then try a search
+if ($ar->LoadFromName($name))
 {
-    if (lc($key->{name}) eq lc($name))
+    $artist = { name=>$ar->GetName(),
+                sortname=>$ar->GetSortName(),
+                id=>$ar->GetId() };
+}
+else
+{
+    $artist = undef;
+
+    $eng = SearchEngine->new();
+    $eng->Table("Artist");
+    $eng->AllWords(1);
+    $eng->Search($name);
+
+    while (my $row = $eng->NextRow)
     {
-       $found = 1;
-       last;
+        push @names, { name=>$row->[1], sortname=>$row->[2], id=>$row->[0] };
     }
 }
-$num_found = scalar(@names);
 
 # Present the found results to the user
 </%perl>
@@ -65,7 +73,37 @@ Please choose one of the artists below, and then click Finish>>.
 <form method="POST" action="/bare/enter_kv_mod.html" NAME="ArtistFilter"
       enctype="application/x-www-form-urlencoded" class="formstyle">
 
-% if (!$found) {
+% if (defined $artist || scalar(@names) > 0) {
+
+    <& /comp/tablebegin, title=>'Existing Artists', gattrs=>'width="100%"' &>
+    <table width="100%"> <tr>
+    <th width="50%">Artist Sortname</th>
+    <th width="50%">Artist Name</th>
+    </tr>
+
+%   if (defined $artist) {
+       <tr><td>
+       <input type="radio" name="<% $artistnamevalue %>" value="<% $artist->{name} |h %>"
+       CHECKED>&nbsp;<% $artist->{sortname} %></td><td><% $artist->{name} %>
+       </td></tr>
+%   }
+
+<%perl>
+    $i = 0;
+    foreach $key (@names)
+    {
+        mc_out("<tr><td>");
+        mc_out(qq\<input type="radio" name="$artistnamevalue"
+                  value="$key->{name}"\);
+        mc_out(" CHECKED") if ($i == 0 && !defined $artist);
+        mc_out(">&nbsp;$key->{name}</td><td>$key->{sortname}</td></tr>");
+    }
+    mc_out("</table>");
+    mc_comp("/comp/tableend");
+}
+
+if (!defined $artist) {
+   </%perl>
    <& /comp/tablebegin, title=>'New Artist', gattrs=>'width="100%"' &>
    <table width="100%"> <tr>
    <th width="50%">Artist Sortname</th>
@@ -79,28 +117,7 @@ Please choose one of the artists below, and then click Finish>>.
    <input type="text" name="<% $sortnamevalue %>" SIZE=15> 
    </td></tr></table>
    <& /comp/tableend &>
-%}
-
-% if ($num_found > 0) {
-
-    <& /comp/tablebegin, title=>'Existing Artists', gattrs=>'width="100%"' &>
-    <table width="100%"> <tr>
-    <th width="50%">Artist Sortname</th>
-    <th width="50%">Artist Name</th>
-    </tr>
-
-<%perl>
-    $i = 0;
-    foreach $key (@names)
-    {
-        mc_out("<tr><td>");
-        mc_out(qq\<input type="radio" name="$artistnamevalue"
-                  value="$key->{name}"\);
-        mc_out(" CHECKED") if ($i == 0 && $found);
-        mc_out(">&nbsp;$key->{name}</td><td>$key->{sortname}</td></tr>");
-    }
-    mc_out("</table>");
-    mc_comp("/comp/tableend");
+   <%perl>
 }
 
 foreach $key (keys %ARGS)

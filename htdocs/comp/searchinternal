@@ -69,7 +69,7 @@
     <a href="/addartist.html">Add artist</a> | 
     <a href="/addalbum.html?artistid=0">Add  album</a> |<br>
     <a href="/addalbum.html?artistid=1">Add various artist album</a> |<br>
-    <a href="/mod/tag/starttag.html">Tag Albums</a> |
+%#    <a href="/mod/tag/starttag.html">Tag Albums</a> |
     <a href="/freedb/freedb.html">Freedb Import</a> 
     <br>
     &nbsp;
