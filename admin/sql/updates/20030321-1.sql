@@ -1,3 +1,7 @@
+-- Abstract: remove unnecessary indexes on /foo/words tables. Add
+-- Abstract: /foo/usecount columns to wordlist.  Truncate the word tables.
+-- Formerly called admin/sql/WordTables20030321.sql
+
 \set ON_ERROR_STOP 1
 BEGIN;
 
