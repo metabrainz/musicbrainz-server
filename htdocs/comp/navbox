@@ -11,6 +11,8 @@ my @documentation = (
   {url=>'/todo.html',                      name=>'To&nbsp;Do&nbsp;List'},
   {url=>'/rob_todo.html',                  name=>'Rob\'s&nbsp;To&nbsp;Do'},
   {url=>'/how.html',                       name=>'How?'},
+  {url=>'/contribute.html',                name=>'Contribute'},
+  {url=>'/finances.html',                  name=>'Finances'},
   {url=>'/client_howto.html',              name=>'Client&nbsp;HOWTO'},
   {url=>'/history.html',                   name=>'History/Roots'},
   {url=>'/future.html',                    name=>'Future/Goals'},
