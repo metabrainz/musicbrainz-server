@@ -1,0 +1,102 @@
+%# vi: set ts=2 sw=2 ft=mason :
+<& /comp/sidebar, title=>'MusicBrainz Development' &>
+
+<p>
+	The following diagram briefly illustrates the relationships
+	between the various MusicBrainz components:
+</p>
+	
+<center>
+	<img src="/images/MBComponents.png"
+		alt="[diagram of the various MusicBrainz components]"
+		title="How the MusicBrainz components are related to each other"
+		>
+</center>
+
+<p>
+	Starting with probably the most familiar part, MusicBrainz has a web
+	site.&nbsp; You're reading one of its pages right now, of course.&nbsp;
+	Using the MB web site, you can search, browse and edit the MusicBrainz
+	database: your web browser (top left) sends HTTP requests to the
+	<a href="/products/server/index.html">MB server</a>
+	(right) which then accesses the database as appropriate,
+	and returns a response (usually a web page showing the requested
+	information) to your browser.
+</p>
+
+<p>
+	As well as human-readable web pages, the MusicBrainz server also
+	provides a (machine-readable) RDF interface.&nbsp; 
+	<abbr title="Resource Description Framework">RDF</abbr>
+	is an
+	<abbr title="eXtensible Markup Language">XML</abbr>-based
+	language.&nbsp;
+	By sending RDF queries to the MB server, a client can query
+	and add to the database.&nbsp;
+	The client constructs an RDF message, and sends it to the server;
+	the server parses and processes the message,
+	accesses the database as necessary, and returns a response to the
+	client.&nbsp;
+</p>
+
+<p>
+	Although any client <i>can</i> send RDF queries to the MusicBrainz server,
+	the easiest and most reliable way to do so is by using the
+	<a href="/products/mb_client/index.html">MusicBrainz client</a>.&nbsp;
+	A program makes the appropriate calls to the client library;
+	then the MB client then constructs the correct RDF query, sends it to
+	the server, receives the server's response, and finally returns
+	the appropriate data to the calling program.&nbsp;
+	Thus the program doesn't have to know anything about RDF or about
+	how to contact the MusicBrainz server.
+</p>
+
+<p>
+	Whilst most client applications (e.g. media players) will probably use
+	only the RDF interface (via the MB client library), sometimes it is
+	useful to also use the web interface at the same time.&nbsp;
+	This is the approach taken by both the
+	<a href="/tagger/index.html">tagger</a>
+	and the
+	<a href="/products/cdlookup/download.html">CD lookup tool</a>.&nbsp;
+	For example the tagger will read a digital audio file,
+	generate a TRM signature (using the client library),
+	look up that TRM on the server (using the client library)
+	and show the results to the user.&nbsp; Then, when the user
+	chooses to identify the file, the tagger points its embedded
+	web browser component to the MusicBrainz web site, where the user
+	can perform various searches.&nbsp; Finally when the user selects
+	the correct track, the tagger associates the TRM with the
+	selected track (using the client library again).
+</p>
+
+<h2>CVS Modules</h2>
+
+<dl>
+	<dt>mb_server</dt>
+	<dd>
+			The MusicBrainz server software.&nbsp; To make a working MusicBrainz
+			server you'll also need various other pieces of software
+			(such as
+			<a href="http://httpd.apache.org/">Apache</a>
+			and
+			<a href="http://www.perl.com/">Perl</a>)
+			and a copy of the
+			<a href="/products/server/download.html">MusicBrainz database</a>
+			(which isn't stored in CVS).
+	</dd>
+
+	<dt>mb_client</dt>
+	<dd>
+		The MusicBrainz client library.&nbsp; This also includes
+		the CD lookup tool.
+	</dd>
+
+	<dt>mb_tagger</dt>
+	<dd>
+		The MusicBrainz Tagger.&nbsp; You'll also need the client to
+		make this work.
+	</dd>
+</dl>
+
+<& /comp/footer &>
