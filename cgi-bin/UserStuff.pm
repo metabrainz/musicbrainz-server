@@ -103,7 +103,7 @@ sub Current
 	# To do so manually use:
 	# $user = $user->newFromId($user->GetId) if $user;
 
-	my $s = \%HTML::Mason::Commands::session;
+	my $s = $this->GetSession;
 	$s->{uid} or return undef;
 
 	my %u = (
@@ -608,24 +608,38 @@ sub SendFormattedEmail
 # Logging in
 ################################################################################
 
-sub SetSession
-{
-	my ($this, $session, $user, $privs, $uid, $email_nag) = @_;
+sub GetSession { \%HTML::Mason::Commands::session }
 
-	tie %HTML::Mason::Commands::session,
-	'Apache::Session::File', undef,
+sub EnsureSessionOpen
+{
+	my $class = shift;
+
+	my $session = GetSession();
+	return if tied %$session;
+
+	tie %$session, 'Apache::Session::File', undef,
 	{
-		Directory => &DBDefs::SESSION_DIR,
-		LockDirectory => &DBDefs::LOCK_DIR,
+		Directory		=> &DBDefs::SESSION_DIR,
+		LockDirectory	=> &DBDefs::LOCK_DIR,
 	};
+
 	my $cookie = new CGI::Cookie(
-		-name=>'AF_SID',
-		-value=>$HTML::Mason::Commands::session{_session_id},
-		-path => '/',
+		-name	=> 'AF_SID',
+		-value	=> $session->{_session_id},
+		-path	=> '/',
+		-domain	=> &DBDefs::SESSION_DOMAIN,
 	);
 
 	my $r = Apache->request;
-	$r->headers_out->add('Set-cookie' => $cookie);
+	$r->headers_out->add('Set-Cookie' => $cookie);
+}
+
+sub SetSession
+{
+	my ($this, $user, $privs, $uid, $email_nag) = @_;
+	my $session = GetSession();
+
+	$this->EnsureSessionOpen;
 
 	$session->{user} = $user;
 	$session->{privs} = $privs;
