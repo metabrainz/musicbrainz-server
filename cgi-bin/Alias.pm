@@ -31,7 +31,6 @@ use vars qw(@ISA @EXPORT);
 use strict;
 use DBI;
 use DBDefs;
-use SearchEngine;
 
 sub new
 {
@@ -121,6 +120,7 @@ sub Insert
 
    if (lc($this->{table}) eq 'artistalias')
    {
+       require SearchEngine;
        my $engine = SearchEngine->new($this->{DBH}, { Table => 'Artist' } );
        $engine->AddWordRefs($id,$name);
    }
@@ -161,6 +161,27 @@ sub Remove
     $parent->RebuildWordList;
 
     1;
+}
+
+sub UpdateLastUsedDate
+{
+    my ($self, $id, $timestr, $timesused) = @_;
+    $timesused ||= 1;
+    my $sql = Sql->new($self->{DBH});
+
+    $sql->Do("
+        UPDATE $self->{table}
+        SET timesused = timesused + ?,
+            lastused = CASE
+                WHEN ? > lastused THEN ?
+                ELSE lastused
+            END
+        WHERE id = ?
+        ",
+        $timesused,
+        $timestr, $timestr,
+        $id,
+    );
 }
 
 sub GetList
