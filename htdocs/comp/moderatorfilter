@@ -1,0 +1,135 @@
+%# vi: set ts=4 sw=4 ft=mason :
+<%args>
+$search => ""
+@dontshow => ()
+$url
+%arglist => ()
+</%args>
+<%perl>
+
+my $mb = $m->comp("/comp/dblogin");
+
+my $users = UserStuff->new($mb->{DBH});
+
+my ($result, $userlist) = $users->search(
+    query => $search,
+    limit => 0,
+);
+
+if ($result == &UserStuff::SEARCHRESULT_NOQUERY)
+{
+	</%perl>
+
+	<div class="h2section">
+
+	<h2>Search</h2>
+
+	<form method="post" action="<% $url %>"
+		name="ModeratorFilterSearch"
+		>
+
+		<p>
+			<& /comp/args-to-hidden-fields.inc, %arglist &>
+			Search for moderator:
+			<input type="text" name="search" value="<% $search %>">
+			<input type="submit" value="Search">
+		</p>
+
+	</form>
+
+	</div>
+
+	<& /comp/movefocus, "ModeratorFilterSearch", "search" &>
+
+	<%perl>
+
+	return;
+}
+
+# Retrieve all the results and weed out the "don't show" moderators
+my @r = @$userlist;
+my %dontshow = map { $_=>1 } @dontshow;
+@r = grep { not exists $dontshow{$_->GetId} } @r
+	if %dontshow;
+
+</%perl>
+
+<div class="h2section">
+
+<h2>Search Results</h2>
+
+% if (@r) {
+
+	<p>
+		The following moderators matched your search query.&nbsp;
+		Please select the moderator you require or
+		<a href="#ModeratorFilterSearch">search again</a>.
+	</p>
+
+	<form method="post" action="<% $url %>"
+		name="ModeratorFilterSelect"
+		>
+
+		<table>
+%			my $checked = "checked";
+%			for my $r (@r) {
+				<tr>
+					<td style="vertical-align: baseline"><input type="radio" name="selectedmoderator" value="<% $r->GetId %>" <% $checked %>
+						ondblclick="this.form.submit()"
+						></td>
+					<td>
+						<a href="/user/view.html?uid=<% $r->GetId %>"><% $r->GetName %></a>
+					</td>
+				</tr>
+%				$checked = "";
+%			}
+		</table>
+
+		<p>
+			<& /comp/args-to-hidden-fields.inc, %arglist &>
+			<input type="submit" value="Select &gt;&gt;">
+		</p>
+
+	</form>
+
+% } else {
+
+	<p>
+		No moderators found matching '<% $search %>'.
+	</p>
+
+% }
+
+</div>
+
+<div class="h2section">
+
+<h2>Search Again</h2>
+
+<p>
+	If you didn't find the moderator you were looking for,
+	try another search:
+</p>
+
+<form method="post" action="<% $url %>"
+	id="ModeratorFilterSearch"
+	>
+
+	<p>
+		<& /comp/args-to-hidden-fields.inc, %arglist &>
+		Search for moderator:
+		<input type="text" name="search" size="40" value="<% $search %>">
+		<input type="submit" value="Search Again">
+	</p>
+
+</form>
+
+</div>
+
+</div>
+
+% if (@r) {
+<& /comp/movefocus, "ModeratorFilterSelect", "selectedmoderator", 0 &>
+% } else {
+<& /comp/movefocus, "ModeratorFilterSearch", "search" &>
+% }
