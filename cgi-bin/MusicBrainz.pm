@@ -35,6 +35,7 @@ use vars qw(@ISA @EXPORT);
 use strict;
 use DBI;
 use DBDefs;
+use Carp qw( carp );
 
 sub new
 {
