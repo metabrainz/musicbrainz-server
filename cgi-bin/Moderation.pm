@@ -564,7 +564,8 @@ sub InsertModeration
 			$insertid,
 		);
 
-        $this->CreditModerator($this->{moderator}, $status, $automod);
+		my $user = UserStuff->new($this->{DBH});
+        $user->CreditModerator($this->{moderator}, $status, $automod);
     }
     else
     {
@@ -734,26 +735,6 @@ sub GetModerationList
 }
 
 ################################################################################
-
-# TODO Move to UserStuff.pm (which generally handles the "moderator" table)
-sub CreditModerator
-{
-  	my ($this, $uid, $status, $isautomod) = @_;
-
-	my $column = (
-		($status == STATUS_FAILEDVOTE)
-			? "modsrejected"
-			: ($status == STATUS_APPLIED)
-				? ($isautomod ? "automodsaccepted" : "modsaccepted")
-				: "modsfailed"
-	);
-
- 	my $sql = Sql->new($this->{DBH});
-	$sql->Do(
-		"UPDATE moderator SET $column = $column + 1 WHERE id = ?",
-		$uid,
-	);
-}
 
 sub CloseModeration
 {

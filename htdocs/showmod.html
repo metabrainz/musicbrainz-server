@@ -28,16 +28,17 @@ if (&DBDefs::DB_STAGING_SERVER and $mod)
 
 		eval {
 			$sql->Begin;
+			my $user = UserStuff->new($mb->{DBH});
 
 			if ($ARGS{'ACCEPT'})
 			{
 				my $status = $mod->ApprovedAction;
 				$mod->SetStatus($status);
-				$mod->CreditModerator($mod->GetModerator, $status);
+				$user->CreditModerator($mod->GetModerator, $status);
 				$mod->CloseModeration($status);
 			} else {
 				$mod->DeniedAction;
-				$mod->CreditModerator($mod->GetModerator, &ModDefs::STATUS_FAILEDVOTE);
+				$user->CreditModerator($mod->GetModerator, &ModDefs::STATUS_FAILEDVOTE);
 				$mod->CloseModeration(&ModDefs::STATUS_FAILEDVOTE);
 			}
 

@@ -264,6 +264,7 @@ sub CheckModerations
 
    # Now run through each mod and do whatever's necessary; namely, nothing,
    # approve, deny, or delete.
+	my $user = UserStuff->new($this->{DBH});
 
    foreach my $key (reverse sort { $a <=> $b} keys %mods)
    {
@@ -287,7 +288,7 @@ sub CheckModerations
 
                $status = $mod->ApprovedAction;
                $mod->SetStatus($status);
-               $mod->CreditModerator($mod->GetModerator, $status);
+               $user->CreditModerator($mod->GetModerator, $status);
                $mod->CloseModeration($status);
 
                $sql->Commit;
@@ -330,7 +331,7 @@ sub CheckModerations
                $sql->Begin;
 
                $mod->DeniedAction;
-               $mod->CreditModerator($mod->GetModerator, $newstate);
+               $user->CreditModerator($mod->GetModerator, $newstate);
                $mod->CloseModeration($newstate);
 
                $sql->Commit;
