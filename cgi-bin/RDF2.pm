@@ -49,15 +49,22 @@ sub escape
 
 sub BeginRDFObject 
 {
-    my ($this) = @_;
+    my ($this, $skipxmldecl) = @_;
+    my $out;
 
     $this->{level} = 1;
 
-    return "<?xml version=\"1.0\" encoding=\"ISO-8859-1\"?>\n" . 
-      "<rdf:RDF xmlns:rdf = \"http://www.w3.org/1999/02/22-rdf-syntax-ns#\"\n".
+    if (!defined $skipxmldecl || $skipxmldecl != 1)
+    {
+       $out = "<?xml version=\"1.0\" encoding=\"ISO-8859-1\"?>\n";
+    }
+
+    $out .=  "<rdf:RDF xmlns:rdf = \"http://www.w3.org/1999/02/22-rdf-syntax-ns#\"\n".
       "         xmlns:dc  = \"http://purl.org/dc/elements/1.1/\"\n".
       "         xmlns:mq  = \"http://musicbrainz.org/mm/mq-1.0#\"\n".
       "         xmlns:mm  = \"http://musicbrainz.org/mm/mm-2.0#\">\n";
+
+    return $out;
 }
 
 sub EndRDFObject

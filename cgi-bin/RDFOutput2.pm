@@ -66,6 +66,11 @@ sub GetDepth
     return $_[0]->{depth};
 }
 
+sub SetOutputFile
+{
+    $_[0]->{file} = $_[1];
+}
+
 sub ErrorRDF
 {
    my ($this, $text) = @_;
@@ -249,8 +254,14 @@ sub CreateOutputRDF
           push @gids, $cache[$i]->{obj}->GetMBId();
       }
    }
-   $out  = $this->BeginRDFObject();
+   $out  = $this->BeginRDFObject(exists $this->{file});
    $out .= $this->OutputList($type, \@gids);
+
+   if (exists $this->{file})
+   {
+       print {$this->{file}} $out;
+       $out = "";
+   }
   
    # Output all of the referenced objects. Make sure to only output
    # the objects in the cache that have been loaded. The objects that
@@ -264,8 +275,19 @@ sub CreateOutputRDF
 
       $out .= $this->OutputRDF(\@cache, $cache[$i]);
       $out .= "\n";
+      if (exists $this->{file})
+      {
+          print {$this->{file}} $out;
+          $out = "";
+      }
    }
+
    $out .= $this->EndRDFObject;
+   if (exists $this->{file})
+   {
+       print {$this->{file}} $out;
+       $out = "";
+   }
 
    return $out;
 }
