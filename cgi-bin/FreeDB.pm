@@ -497,11 +497,21 @@ sub InsertForModeration
             {
                 if ($al->GetTrackCount() == scalar(@$ref))
                 {
-                    my ($di);
+                    my ($di, $sql);
 
                     $di = Discid->new($this->{DBH});
-                    $di->Insert($info->{cdindexid}, $al->GetId(), $info->{toc});
-
+                    $sql = Sql->new($this->{DBH});
+                    eval
+                    {
+                        $sql->Begin();
+                        $di->Insert($info->{cdindexid}, $al->GetId(), $info->{toc});
+                        $sql->Commit();
+                    };
+                    if ($@)
+                    {
+                        # if it didn't insert properly... oh well.
+                        $sql->Rollback();
+                    }
                     return;
                 }
             }
