@@ -996,7 +996,7 @@ sub AuthenticateQuery
 sub QuickTrackInfoFromTRMId
 {
    my ($dbh, $doc, $rdf, $id) = @_;
-   my ($sql, @data, $out);
+   my ($sql, @data, $out, $qid);
 
    return $rdf->ErrorRDF("No trm id given.") 
       if (!defined $id || $id eq '');
@@ -1004,12 +1004,12 @@ sub QuickTrackInfoFromTRMId
 
    $sql = Sql->new($dbh);
    $id =~ tr/A-Z/a-z/;
-   $id = $sql->Quote($id);
+   $qid = $sql->Quote($id);
    @data = $sql->GetSingleRow(
       "TRM, TRMJoin, Track, AlbumJoin, Album, Artist", 
       ["Track.name", "Artist.name", "Album.name", 
        "AlbumJoin.sequence", "Track.GID", "Track.Length"],
-      ["TRM.TRM", $id,
+      ["TRM.TRM", $qid,
        "TRMJoin.TRM", "TRM.id",
        "TRMJoin.track", "Track.id",
        "Track.id", "AlbumJoin.track",
