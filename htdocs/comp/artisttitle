@@ -1,0 +1,17 @@
+<%args>
+$artistname
+$artistid
+</%args>
+
+<table width=100%>
+  <tr>
+    <td width=90%>
+      <font size=+2><% $artistname %></font>
+% if (exists $session{user}) {
+      (<a href="/editartist.html?id=<% $ARGS{artistid} %>">Edit</a>)
+% }
+      <p>
+    </td>
+  </tr>
+</table>
+<p>
