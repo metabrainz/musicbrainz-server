@@ -489,9 +489,9 @@ sub SubmitTRMList
        }
        if (!MusicBrainz::IsGUID($trmid) || !MusicBrainz::IsGUID($trackid))
        {
-           print STDERR "Invalid track/trm combination:\n";
-           print STDERR "trackid: $trackid\n";
-           print STDERR "trmid: $trmid\n\n";
+           # print STDERR "Invalid track/trm combination:\n";
+           # print STDERR "trackid: $trackid\n";
+           # print STDERR "trmid: $trmid\n\n";
            return $rdf->ErrorRDF("Invalid trackid or trmid submitted.")
        }
 
@@ -501,7 +501,7 @@ sub SubmitTRMList
 	$trackobj->SetMBId($trackid);
 	unless ($trackobj->LoadFromId)
 	{
-	    print STDERR "Unknown MB Track Id: $trackid\n";
+	    # print STDERR "Unknown MB Track Id: $trackid\n";
 	} else {
 	    push @links, { trmid => $trmid, trackid => $trackobj->GetId };
 	}
@@ -585,7 +585,7 @@ sub AuthenticateQuery
 
    $session_id = $session{_session_id};
    untie %session;
-   print STDERR "Start session: $username $session_id\n";
+   # print STDERR "Start session: $username $session_id\n";
 
    return $rdf->CreateAuthenticateResponse($session_id, $challenge);
 }
