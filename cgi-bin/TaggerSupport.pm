@@ -94,6 +94,7 @@ sub RDFLookup
    return $rdf->CreateFileLookup($this, $status);
 }
 
+       use Data::Dumper;
 # fix users of lensim and namesim for track matches
 sub SetSim
 {
@@ -108,7 +109,7 @@ sub SetSim
                      ($ref->{sim_track} * .3) + 
                      ($ref->{sim_tracklen} * .3) +
                      ($ref->{sim_tracknum} * .1);
-      return $ref;
+       return $ref;
    }
 
    if (exists $ref->{sim_track} &&

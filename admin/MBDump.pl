@@ -37,7 +37,7 @@ my $fDebug;
 
 GetOptions(
 	"all|a"			=> \$fAll,
-	"sanitised|s!"	=> \$fSanitised,
+	"sanitised|sanitized|s!"	=> \$fSanitised,
 	"core|c"		=> \$fCore,
 	"derived|d"		=> \$fDerived,
 	"moderation|m"	=> \$fModeration,
@@ -47,7 +47,7 @@ GetOptions(
 	"debug"			=> \$fDebug,
 );
 
-die <<EOF if $fHelp;
+die <<EOF if ($fHelp || !(@ARGV));
 Usage: MBDump.pl [options] [tables]
 
 Options are:
@@ -107,7 +107,7 @@ push @ARGV, @core if $fCore or $fAll;
 push @ARGV, @derived if $fDerived or $fAll;
 push @ARGV, @moderation if $fModeration or $fAll;
 
-@ARGV or die "No tables selected!\n";
+@ARGV or die;
 
 my %tables = map { lc($_) => 1 } @ARGV;
 my @tables = sort keys %tables;
@@ -132,9 +132,13 @@ EOF
 
 		delete $tables{"moderator"};
 		++$tables{"moderator_sanitised"};
-		
+
+        # Most of the time, this table shouldn't exist, so lets suppress
+        # the warning message so it won't bug the users
+        #$sql->Quiet(1);
 		$sql->AutoCommit;
 		eval { $sql->Do("DROP TABLE moderator_sanitised") };
+        #$sql->Quiet(0);
 		
 		$sql->AutoCommit;
 		$sql->Do("SELECT * INTO moderator_sanitised FROM moderator");
@@ -184,11 +188,14 @@ exit;
 
 END
 {
-	$sql->AutoCommit;
-	eval { $sql->Do("DROP TABLE moderator_sanitised") };
-	undef $sql;
-	$mb->Logout;
-	system("/bin/rm", "-rf", $dir) unless $fDebug;
+    if (defined $sql)
+    {
+        $sql->AutoCommit;
+        eval { $sql->Do("DROP TABLE moderator_sanitised") };
+    	undef $sql;
+     	$mb->Logout;
+    }
+	system("/bin/rm", "-rf", $dir) unless ($fDebug || not defined $dir);
 }
 
 
