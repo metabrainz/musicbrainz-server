@@ -12,7 +12,7 @@ if (!defined $voted)
    $voted = ModDefs::VOTE_NOTVOTED;
 }
 my $time = $mod->GetExpireTime();
-$time =~ s/:\d\d\..*$//;
+$time = $m->comp("/comp/datetime", $time);
 
 </%perl>
 
