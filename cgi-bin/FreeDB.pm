@@ -110,6 +110,10 @@ sub EnterRecord
             return 0;
         }
     }
+    else
+    {
+        $albumid = $al->GetId();
+    }
     for($i = 0; $i < $tracks; $i++)
     {
         $title = shift @_;

@@ -43,7 +43,7 @@ sub new
 
 sub GenerateAlbumFromDiskId
 {
-   my ($this, $doc, $rdf, $id, $numtracks, $toc) = @_;
+   my ($this, $rdf, $id, $numtracks, $toc) = @_;
    my ($sql, @row, $album, $di);
 
    return $rdf->EmitErrorRDF("No DiskId given.") if (!defined $id);

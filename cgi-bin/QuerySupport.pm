@@ -45,11 +45,15 @@ use UserStuff;
 use Moderation;
 use GUID;  
 use FreeDB;  
+use RDFStore::Parser::SiRPAC;  
 
 BEGIN { require 5.003 }
 use vars qw(@ISA @EXPORT);
 @ISA    = @ISA    = '';
 @EXPORT = @EXPORT = '';
+
+use constant EXTRACT_TOC_QUERY => "http://musicbrainz.org/mm/mm-2.0#toc [] http://musicbrainz.org/mm/mm-2.0#sectorOffset";
+use constant EXTRACT_NUMTRACKS_QUERY => "http://musicbrainz.org/mm/mm-2.0#lastTrack";
 
 my %LyricTypes =
 (
@@ -104,16 +108,45 @@ sub SolveXQL
     return $data;
 }
 
+sub Extract
+{
+   my ($triples, $currentURI, $ordinal, $queryarg) = @_;
+   my ($triple, $found, @querylist, $query);
+
+   @querylist = split /\s/, $queryarg;
+   foreach $query (@querylist)
+   {
+       $found = 0;
+       #print "Query: $query\n";
+       foreach $triple (@$triples)
+       {
+           #print "  ",$triple->subject->getLabel, " == $currentURI\n";
+           if ($triple->subject->getLabel eq $currentURI &&
+               ($triple->predicate->getLabel eq $query ||
+               (exists $triple->{ordinal} && $triple->{ordinal} == $ordinal)))
+           {
+               $currentURI = $triple->object->getLabel;
+               $found = 1;
+               last;
+           }
+       }
+       #print "Not found\n" if (!$found);
+       return undef if (!$found);
+   }
+   #print "found: '$currentURI'\n";
+   return $currentURI;
+}
+
 sub GenerateCDInfoObjectFromDiskId
 {
    my ($dbh, $doc, $rdf, $id, $numtracks, $toc) = @_;
-   my ($sql, @row, $album, $di);
+   my ($di);
 
    return $rdf->EmitErrorRDF("No DiskId given.") if (!defined $id);
 
    # Check to see if the album is in the main database
    $di = Diskid->new($dbh);
-   return $di->GenerateAlbumFromDiskId($doc, $rdf, $id, $numtracks, $toc);
+   return $di->GenerateAlbumFromDiskId($rdf, $id, $numtracks, $toc);
 }
 
 sub AssociateCDFromAlbumId
@@ -121,6 +154,47 @@ sub AssociateCDFromAlbumId
    my ($dbh, $doc, $rdf, $diskid, $toc, $albumid) = @_;
 
    my $di = Diskid->new($dbh);
+   $di->InsertDiskId($diskid, $albumid, $toc);
+}
+
+sub GetCDInfoMM2
+{
+   my ($dbh, $triples, $rdf, $id, $numtracks) = @_;
+   my ($sql, @row, $album, $di, $toc, $i, $currentURI);
+
+   return $rdf->EmitErrorRDF("No DiskId given.") if (!defined $id);
+   
+   $toc = "1 $numtracks ";
+   $currentURI = $$triples[0]->subject->getLabel;
+   for($i = 1; $i <= $numtracks + 1; $i++)
+   {
+       $toc .= Extract($triples, $currentURI, $i, EXTRACT_TOC_QUERY) . " ";
+   }
+   print "$toc\n";
+
+   # Check to see if the album is in the main database
+   $di = Diskid->new($dbh);
+   return $di->GenerateAlbumFromDiskId($rdf, $id, $numtracks, $toc);
+}
+
+sub AssociateCDMM2
+{
+   my ($dbh, $triples, $rdf, $diskid, $albumid) = @_;
+   my ($numtracks, $di, $toc, $i, $currentURI);
+
+   return $rdf->EmitErrorRDF("No DiskId given.") if (!defined $diskid);
+   
+   $currentURI = $$triples[0]->subject->getLabel;
+   $numtracks = Extract($triples, $currentURI, $i, EXTRACT_NUMTRACKS_QUERY);
+   $toc = "1 $numtracks ";
+   for($i = 1; $i <= $numtracks + 1; $i++)
+   {
+       $toc .= Extract($triples, $currentURI, $i, EXTRACT_TOC_QUERY) . " ";
+   }
+   print "$toc\n";
+
+   # Check to see if the album is in the main database
+   $di = Diskid->new($dbh);
    $di->InsertDiskId($diskid, $albumid, $toc);
 }
 
