@@ -1,0 +1,105 @@
+<& /comp/sidebar,  title=>'The database structure of MusicBrainz', expand=>'documentation' &>
+
+
+The relational database is the heart of MusicBrainz.
+The content is placed under the OpenContent license.
+Currently the content of MusicBrainz is still limited to artist names, 
+albums, and the tracks.  But we are working very hard to include more 
+information.  The number of entries in our database is increasing rapidly,
+we expect to have the names of 1.000.000 tracks in MusicBrainz within a few 
+months.  With MusicBrainz it is possible to uniquely identify artists, 
+albums/CDs and tracks, and therefore allow the MusicBrainz users to refer to 
+music without any ambiguities. This capability will also allow users
+to exchange playlists that are based on unique track identifiers.
+
+<p>The artist/album/track names are augmented with several databases for
+administration and identification.  All tables have a Id field as a
+technical key that is a locally unique number incremented each time a new
+record is inserted into the table.  
+
+<a name="MusicBrainz I database structure">
+<& /comp/section, title=>'MusicBrainz I database structure' &>  
+</a>
+
+The main tables in the database are
+(with the important fields):
+
+<pre>
+-Artist     Id field as key, Name, SortName, and a Global ID (GID)
+-Album      Id field as key, Name, artist Id reference, and a Global ID (GID)
+-Track      Id field as key, Name, artist Id reference, a Global ID (GID),
+            length, year, and genre Id
+-GUID       Id field as key and a GUID field that contains a acoustic 
+            identification hash (relatable.com value a.k.a. TRMId)
+</pre>
+
+The above tables contain the core information. Several additional tables exist 
+for the moderation process , insert process and combining the information of 
+the above core tables. For example the AlbumJoin table connects the Tracks 
+with the Albums. 
+
+Connecting the core info:
+<pre>
+-AlbumJoin  Id field, Album Id, Track Id, and sequence number
+-GUIDJoin   Id field, GUID Id, and Track Id
+</pre>
+
+Insert process info:
+<pre>
+-Pending    Id field, Name, Artist name, Album name, Sequence number, 
+            GUID, Filename, Year, Genre name, Sha1 hash, and Duration
+</pre>
+
+Moderation proces:
+<pre>
+-ModeratorInfo Id field, Name, Password (simple cleartext), Privs, Accepted 
+            moderations, and rejected moderations
+-Changes    Id field, Table, Colom, Artist, Type of moderation, Status, 
+            RowId, Previous value, New value, Moderator Id, Yes votes, 
+            No votes, and Dependant Change Id
+-Votes      Id field, User Id , Row Id, vote (without a capital)
+</pre>
+
+Additional info:
+<pre>
+-Diskid     Id field, Disk hash, Album Id, and disk table of content
+-TOC        Id field, Disk number, Album Id, Amount of tracks, Leadout, 
+            and 99 track lengths
+-Genre      Id field, Name, and Description
+-ArtistAlias Id field, Name, Ref
+-Lyrics     Id field, Track Id, Text, and Writer name
+-Synctext   Id field, Track Id, Type, URL, and Submittor name
+-SyncEvent  Id field, Synctext Id, TimeStamp, Text
+</pre>
+
+
+<a name="MusicBrainz II database structure">
+<& /comp/section, title=>'MusicBrainz II database structure' &>  
+</a>
+
+We want to expand MusicBrainz with more information and store more then Artist/Album/Track information. For this we need the help of a serious number of people that are willing to add the information to the thousands of records in our database. If creating the biography of an artist takes a whole day, imagine the total time needed to write 50,000 of them. We need to call upon a large number of people to help us fill this extended database. In the true spirit of MusicBrainz we give all content back to the users. 
+
+<p>This database structure is still in the planning process. Any sugestions/additions/etc should be send to the mailing list or myself (j@mp3.nl)
+
+The main tables in the MusicBrainz II database are
+(with the important fields):
+<pre>
+-Person     Id field as key, RealName, SortName, and a Global ID (GID)
+-Group      Id field as key, GroupName, a Global ID (GID)
+-Track      Id field as key, Name, group Id reference, a Global ID (GID),
+            length, year, and genre Id
+-EventType  Id field as key, EventName, Name of table
+-Event      Id field as key, Event Type identifier, ID field identifier within table EventTypeTable, 
+            Event Start timestamp, Event End timestamp, Event Description. 
+-RoleType   Id field as key, RoleName, Role Description
+-Role       Id field, Person ID identifier, Group ID identifier, Role Type identifier
+-GUID       Id field as key and a GUID field that contains a acoustic 
+            identification hash (relatable.com value a.k.a. TRMId)
+-Album      Id field as key, Name, artist Id reference, and a Global ID (GID)
+-AlbumJoin  Id field, Album Id, Track Id, and sequence number
+-GUIDJoin   Id field, GUID Id, and Track Id
+</pre>
+
+Other tables for Pop charts, biographies, URL references, guitar tabs, etc:
+<p>In progress...<p>
+Johan.

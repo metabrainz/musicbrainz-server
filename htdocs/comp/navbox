@@ -8,6 +8,7 @@ my @documentation = (
   {url=>'/status.html',                    name=>'Project Status'},
   {url=>'/mod_intro.html',                 name=>'Moderation&nbsp;Intro'},
   {url=>'/faq.html',                       name=>'FAQ'},
+  {url=>'/db_structure.html',              name=>'Database'},
   {url=>'/todo.html',                      name=>'To&nbsp;Do&nbsp;List'},
   {url=>'/rob_todo.html',                  name=>'Rob\'s&nbsp;To&nbsp;Do'},
   {url=>'/how.html',                       name=>'How?'},
