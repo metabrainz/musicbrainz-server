@@ -20,7 +20,7 @@
          <a href="/logout.html">Logout</a> |
 % }
          <a href="/prefs.html">Prefs</a> |
-         <a href="/moderate.html">Moderate</a> |
+         <a href="/mod/select-filter.html">Moderate</a> |
          <a href="/download.html">Download</a> |
          <a href="/faq.html">FAQ</a> |
          <a href="http://wiki.musicbrainz.org/">Wiki</a>
