@@ -130,14 +130,19 @@ for my $t (@tracks)
 	}
 }
 
-my $mostcommonkey = sub {
-	my $t = shift;
-	my @k = sort { $t->{$a} <=> $t->{$b} } keys %$t;
+# Prefer longer split sequences (e.g. " - " over "-")
+# then sort by frequency.  e.g. one " - " beats three "-".
+my $split = do {
+	my @k = sort {
+		length($a) <=> length($b)
+		or
+		$split{$a} <=> $split{$b}
+	} grep {
+		$split{$_}
+	} keys %split;
 	$k[-1];
 };
-
-my $split = $mostcommonkey->(\%split);
-my $oldartist = $mostcommonkey->(\%trackartists);
+my $oldartist = (sort { $trackartists{$a} <=> $trackartists{$b} } keys %trackartists)[-1];
 
 # These are the existing values
 my ($oldtrackname, $oldartistname) = ($track->GetName, $tar->GetName);
