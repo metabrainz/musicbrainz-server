@@ -93,14 +93,9 @@ sub ApprovedAction
 	return $status if $status;
 
 	my $al = $this->{_album};
-	my $page = $al->CalculatePageIndex($this->GetNew);
-
-	$sql->Do(
-		"UPDATE album SET name = ?, page = ? WHERE id = ?",
-		$this->GetNew,
-		$page,
-		$this->GetRowId,
-	) or die "Failed to update album in MOD_EDIT_ALBUMNAME";
+	$al->SetName($this->GetNew);
+	$al->UpdateName
+		or die "Failed to update album in MOD_EDIT_ALBUMNAME";
 
 	# Now remove the old name from the word index, and then
 	# add the new name to the index

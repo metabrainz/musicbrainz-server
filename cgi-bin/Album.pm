@@ -31,7 +31,7 @@ use vars qw(@ISA @EXPORT);
 @EXPORT = '';
 
 use strict;
-use Carp qw( cluck );
+use Carp qw( cluck croak );
 use DBI;
 use DBDefs;
 use Artist;
@@ -896,6 +896,27 @@ sub GetVariousDisplayList
    $sql->Finish;   
 
    return ($num_albums, @info);
+}
+
+sub UpdateName
+{
+	my $self = shift;
+
+	my $id = $self->GetId
+		or croak "Missing album ID in RemoveFromAlbum";
+	my $name = $self->GetName;
+	defined($name) && $name ne ""
+		or croak "Missing album name in RemoveFromAlbum";
+
+	my $page = $self->CalculatePageIndex($name);
+
+	my $sql = Sql->new($self->{DBH});
+	$sql->Do(
+		"UPDATE album SET name = ?, page = ? WHERE id = ?",
+		$name,
+		$page,
+		$id,
+	);
 }
 
 sub UpdateAttributes
