@@ -64,7 +64,7 @@ sub Select
 
     #$td = timediff($t1, $t0);
     #print STDERR (timestr($td, 'nop') . ": $query\n");
-    print STDERR "$query\n";
+    #print STDERR "$query\n";
     if ($ret)
     {
         return $this->{STH}->rows;

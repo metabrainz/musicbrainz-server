@@ -162,17 +162,9 @@ sub new {
   my %param = @_;
   my ($hostname, $login);
 
-  if (exists $ENV{"MOD_PERL"})
-  {
-      $hostname = $ENV{SERVER_NAME};
-      $login = $param{Login};
-  }
-  else
-  {
-      $hostname = hostname();
-      $login = $param{Login} || $ENV{LOGNAME} || $ENV{USER} ||
-                getpwuid($<) || croak "can't get login: $!";
-  }
+  $hostname = "www.musicbrainz.org";
+  $login = "mb";
+
   my $debug = $param{Debug} || 0;
   my $host  = $param{Host} || '';
   my $port  = $param{Port} || 0;
