@@ -337,6 +337,7 @@ sub GetArtistReferences
    @albums = $artist->GetAlbums();
    foreach $album (@albums)
    {
+      next if not defined $album;
       $info{type} = 'album';
       $info{id} = $album->GetId();
       $info{obj} = undef;
@@ -366,6 +367,7 @@ sub GetAlbumReferences
    @tracks = $album->LoadTracks();
    foreach $track (@tracks)
    {
+      next if not defined $track;
       if ($albumartist == 1)
       {
           $info{type} = 'artist';
@@ -449,6 +451,7 @@ sub OutputArtistRDF
     $ids = $ref->{_artist};
     foreach $album (@$ids)
     {
+       next if not defined $album;
        $out .=      $this->Li($this->{baseuri}. "/album/$album");
     }
     $out .=   $this->EndSeq();
