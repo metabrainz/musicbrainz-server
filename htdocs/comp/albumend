@@ -80,7 +80,6 @@ if (scalar(@ids) > 0)
   <table width="100%"><tr><td align="center">
 %    if (!$album->IsNonAlbumTracks()) {
          [
-% print STDERR "$id_numtracks -- $numtracks\n";
 %        if (!defined $id_numtracks || $id_numtracks > $numtracks) {
              <a href="/addtrack.html?album=<% $album->GetId() %>&artist=<% $album->GetArtist() %>">Add track</a> | 
 %        }

@@ -852,14 +852,38 @@ sub DetermineDependencies
 
 sub PreVoteAction
 {
-    return 1;
+   my ($this) = @_;
+   my ($nw, $key, $i, $al, $sql);
+
+   $nw = $this->ConvertNewToHash($this->{new});
+   return 1 if (!defined $nw);
+
+   $al = Album->new($this->{DBH});
+   $sql = Sql->new($this->{DBH});
+   for($i = 0;; $i++)
+   {
+       $key = "AlbumId$i";
+       if (exists $nw->{$key} && $nw->{$key} != 0)
+       {
+           next if ($nw->{$key} == $this->GetRowId());
+
+           $sql->Do(qq/update album set modpending = modpending + 1 
+                       where id = / . $nw->{$key});
+       }
+       else
+       {
+           last;
+       }
+   }
+
+   return 1;
 }
 
 #returns STATUS_XXXX
 sub ApprovedAction
 {
    my ($this) = @_;
-   my ($nw, $key, $i, $al, @list);
+   my ($nw, $key, $i, $al);
 
    $nw = $this->ConvertNewToHash($this->{new});
    return "Error!" if (!defined $nw);
@@ -885,6 +909,29 @@ sub ApprovedAction
 #returns nothing
 sub DeniedAction
 {
+   my ($this) = @_;
+   my ($nw, $key, $i, $al, $sql);
+
+   $nw = $this->ConvertNewToHash($this->{new});
+   return if (!defined $nw);
+
+   $al = Album->new($this->{DBH});
+   $sql = Sql->new($this->{DBH});
+   for($i = 0;; $i++)
+   {
+       $key = "AlbumId$i";
+       if (exists $nw->{$key} && $nw->{$key} != 0)
+       {
+           next if ($nw->{$key} == $this->GetRowId());
+
+           $sql->Do(qq/update album set modpending = modpending - 1 
+                       where id = / . $nw->{$key});
+       }
+       else
+       {
+           last;
+       }
+   }
 }
 
 package EditAlbumAttributesModeration;
