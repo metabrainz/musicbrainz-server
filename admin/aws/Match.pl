@@ -31,15 +31,14 @@ use DBDefs;
 use Getopt::Long;
 use String::Unicode::Similarity;
 use Time::HiRes qw( usleep gettimeofday tv_interval );
-use URI::Escape;
 use LWP::UserAgent;
-use XML::Parser;
 use MusicBrainz;
 use Artist;
 use Album;
 use SearchEngine;
 use Text::Unaccent;
 use Image::Info qw( image_info );
+use Net::Amazon;
 
 # This is a fairly important value, set it too low and you won't match all albums when an artist
 # has 10 * pages albums.  Set it too high and it can take a long time to go through all the pages 
@@ -67,6 +66,12 @@ my $start_time = time;
 my $artists_processed = 0;
 my $queries_sent = 0;
 
+# Amazon query object
+my $am = Net::Amazon->new( 
+	token => &DBDefs::AWS_DEVELOPER_ID,
+	max_pages => MAX_PAGES_PER_ARTIST,
+);
+
 sub IsValidImage
 {
     my ($url) = @_;
@@ -87,134 +92,6 @@ sub IsValidImage
     } 
 
     return 0;
-}
-
-sub HandleStart
-{
-    my ($expat, $element, @attrs) = @_;
-
-    $expat->{__mbnode} .= "/$element";
-
-    if ($expat->{__mbnode} eq '/ProductInfo/Details/Artists')
-    {
-        $expat->{__mbdata}->{artistCount} = 0;
-        return;
-    }
-    if ($expat->{__mbnode} eq '/ProductInfo/Details/Artists/Artist')
-    {
-        $expat->{__mbdata}->{artistCount}++;
-        return;
-    }
-}
-
-sub HandleEnd
-{
-    my ($expat) = @_;
-
-    if ($expat->{__mbnode} eq '/ProductInfo/Details')
-    {
-        if ($expat->{__mbdata}->{artistCount} == 1 &&
-            similarity($expat->{__mbdata}->{artist}, $expat->{__mbartist}) > .5)
-        {
-            if (!IsValidImage("http://images.amazon.com" . $expat->{__mbdata}->{url}))
-            { 
-                $expat->{__mbdata}->{url} = '';
-            }
-
-            if (!exists $expat->{__mbalbums}->{$expat->{__mbdata}->{album}} || 
-                (defined $expat->{__mbalbums}->{$expat->{__mbdata}->{url}} &&
-                $expat->{__mbalbums}->{$expat->{__mbdata}->{url}} eq ''))
-            {
-                $expat->{__mbalbums}->{$expat->{__mbdata}->{album}} = 
-                {
-                     asin    => $expat->{__mbdata}->{asin},
-                     album   => $expat->{__mbdata}->{album},
-                     url     => $expat->{__mbdata}->{url},
-                     matched => 0
-                };
-            }
-        }
-        else
-        {
-            printf("Skipping album %s by %s (%d artists)\n", 
-                    $expat->{__mbdata}->{album},
-                    $expat->{__mbdata}->{artist},
-                    $expat->{__mbdata}->{artistCount})
-				if 0;
-        }
-
-        $expat->{__mbdata}->{asin} = '';
-        $expat->{__mbdata}->{album} = '';
-        $expat->{__mbdata}->{url} = '';
-        $expat->{__mbdata}->{artist} = '';
-        $expat->{__mbdata}->{artistCount} = 0;
-        $expat->{__mbdata}->{pages} = 0;
-    }
-
-    $expat->{__mbnode} =~ s-/\w+$--;
-}
-
-sub HandleChar
-{
-    my ($expat, $char) = @_;
-
-    if ($expat->{__mbnode} eq '/ProductInfo/TotalPages')
-    {
-        $expat->{__mbdata}->{pages} = $char;
-        return;
-    }
-
-    if ($expat->{__mbnode} eq '/ProductInfo/Details/Asin')
-    {
-        $expat->{__mbdata}->{asin} = $char;
-        return;
-    }
-
-    if ($expat->{__mbnode} eq '/ProductInfo/Details/ProductName')
-    {
-        $expat->{__mbdata}->{album} .= $char;
-        return;
-    }
-
-    if ($expat->{__mbnode} eq '/ProductInfo/Details/ImageUrlMedium')
-    {
-        $char =~ s/^http:\/\/images.amazon.com//;
-        $expat->{__mbdata}->{url} .= $char;
-        return;
-    }
-
-    if ($expat->{__mbnode} eq '/ProductInfo/Details/Artists/Artist')
-    {
-        $expat->{__mbdata}->{artist} .= $char;
-        return;
-    }
-}
-
-sub ParseXML
-{
-    my ($artist, $album_asins, $album_urls, $xml) = @_;
-    my ($expat, %data);
-
-	# TODO handle ErrorMsg in the response: /ProductInfo/ErrorMsg/(text)
-
-    $expat = new XML::Parser(Handlers => {Start => \&HandleStart,
-                                          End   => \&HandleEnd,
-                                          Char  => \&HandleChar});
-    $data{artistCount} = 0;
-    $expat->{__mbnode} = '';
-    $expat->{__mbdata} = \%data;
-    $expat->{__mbalbums} = $album_asins;
-    $expat->{__mburls} = $album_urls;
-    $expat->{__mbartist} = $artist;
-    eval
-    {
-        $expat->parse($xml);
-    };
-    if ($@)
-    {
-        return (0, $@);
-    }
-    return ($data{pages}, "");
 }
 
 sub CompareName
@@ -243,17 +120,38 @@ sub CompareAlbumName
     return CompareName($search, $amazon, $mb);
 }
 
+sub CompareTrackNames
+{
+	my ($search, $amTracks, $mbTracks) = @_;
+	my ($allAm, $allMb, $tokb, $toka);
+	
+	# Sometimes we get no track results
+	# Net::Amazon sometimes puts an undef value in an array (bug?) so check every item
+	foreach (@{$amTracks})
+	{
+		return 0 unless defined;
+	}
+	
+	# We assume that if the number of tracks doesn't match, it's not a match
+	return 0 unless (scalar @{$amTracks} == scalar @{$mbTracks});
+	
+	foreach my $track (@{$mbTracks}) {
+		$allMb .= $track->GetName();		# TODO: VA albums will require artist + name
+	}
+	$allAm = join '', @{$amTracks} if (scalar @{$amTracks});
+
+	return CompareName($search, $allAm, $allMb);	
+}
+
 sub MatchArtist
 {
     my ($dbh, $artist, $artistid) = @_;
-    my ($pages, %album_asins, %album_urls, $album, $xml);
-    my ($error, $i, %matched, $count);
+    my ($album, $count, %matched);
+	my ($ar, @albums, $search, %album_asins, %potential_matches);
 
     print localtime() . " : Matching $artist ($artistid): "
 		if $verbose;
 	++$artists_processed;
-
-    my ($ar, @albums, $aalbum, $search);
 
     $search = SearchEngine->new($dbh);
     $ar = Artist->new($dbh);
@@ -271,75 +169,105 @@ sub MatchArtist
 	}
 
     $count = 0;
-    for($pages = 1, $i = 0; $i < $pages; $i++)
+    
+    ++$queries_sent;
+    my $response = $am->search( 
+    	artist => unac_string('UTF-8', $artist),
+    );
+    
+    # TODO: Various Artists albums can be found by searching for the title as a keyword:
+    # $am->search( keyword => 'Narada Collection 5', mode => 'music' )
+    # for VA we must double-check number of tracks and/or track names because you can get a lot of close hits
+    
+    if (!$response->is_success())
     {
-        last if ($i >= MAX_PAGES_PER_ARTIST);
-
-        my $url = qq|http://xml.amazon.com/onca/xml3?t=| . &DBDefs::AWS_ASSOCIATE_ID('amazon.com') .
-                  qq|&dev-t=| . &DBDefs::AWS_DEVELOPER_ID . 
-                  qq|&ArtistSearch=| . uri_escape(unac_string('UTF-8', $artist)) .
-                  qq|&mode=music&type=lite&page=| . ($i+1) . 
-                  qq|&f=xml|;    
-
-        my $ua = LWP::UserAgent->new;
-        $ua->timeout(10);
-
-        my $t0 = [gettimeofday];
-        print "." if $verbose and -t STDOUT;
-
-		print DEBUG "GET $url\n";
-        my $response = $ua->get($url);
-		++$queries_sent;
-		print DEBUG $response->as_string, "\n";
-
-        if ($response->is_success)
-        {
-            ($pages, $error) = ParseXML($artist, \%album_asins, \%album_urls, $response->content);
-            if ($error)
-            {
-                return (0, $error);
-            }
-        } else {
-			warn "Failed to retrieve $url\n";
-			print STDERR $response->as_string;
-		}
-
-        my $t1 = [gettimeofday];
-        my $dur = (1.0 -  tv_interval($t0, $t1)) * 1000000;
-        usleep($dur) unless $dur < 0;
-
-        if (!defined $pages || $pages < 1)
-        {
-            $pages = 1;
-            last;
-        }
+		print "Error: " . $response->message() . "\n";
+		return (0, "");
+    }
+    
+    # Convert returned Amazon data into a hash data format we can use
+    foreach my $prop ($response->properties())
+    {
+    	
+    	# Sometimes Amazon will return book results even though we are searching in music, so let's skip them
+    	# This happens for example on Jeffrey Foucault
+    	next unless ($prop->Catalog() =~ /Music|Classical/);
+    	
+    	my $url = (IsValidImage($prop->ImageUrlMedium())) ? $prop->ImageUrlMedium() : "";
+    	$url =~ s/^http:\/\/images.amazon.com//;
+    	
+    	# upc, release_date are for future use
+    	$album_asins{$prop->album()} = {
+    		album => $prop->album(),
+    		asin => $prop->Asin(),
+    		url => $url,
+    		upc => $prop->upc(),
+    		release_date => $prop->ReleaseDate(),
+			tracks => [ $prop->tracks() ],
+    		matched => 0,
+    	};
     }
 
-	# Erase the dots we printed just now
-	print "\b" x $pages if $verbose and -t STDOUT;
-
-    for(my $chop = 0; $chop < 2; $chop++)
+    for(my $chop = 0; $chop < 3; $chop++)
     {
         foreach $album (@albums)
         {
             my ($best, $sim, $bestalbum, $tokam, $tokmb);
 
             # If this album had already been matched, skip it
-            next if (exists $matched{$album});
+            # The exception to this rule is if we got a match without an image.  In this case
+            # we want to run a deeper match to see if there are multiple copies of an album and
+            # one has an image.  Ex: Tangerine Dream - Miracle Mile has 2 listings in Amazon, 
+            # the better match has no image, and the other one does have an image.
+            next if (exists $matched{$album} && $matched{$album}->[3] ne '');
             
             $best = 0;
             $bestalbum = 0;
-            foreach $aalbum (keys %album_asins)
+            foreach my $amAlbum (keys %album_asins)
             {
-                $sim = CompareAlbumName($search, $aalbum, $album->GetName(), $chop);
+            	if ($chop == 2)
+            	{
+            		$sim = CompareTrackNames($search, $album_asins{$amAlbum}->{tracks}, $album->GetTracks());
+            	}
+            	else
+            	{
+					$sim = CompareAlbumName($search, $amAlbum, $album->GetName(), $chop);
+				}
                 if ($sim >= $best)
                 {
                     $best = $sim;
-                    $bestalbum = $aalbum;
+                    $bestalbum = $amAlbum;
                 }
+				
+				# Store all possible >80% Amazon matches for an MB album.  This will let us
+                # choose the match with an image if we get more than 1 match.
+				if ($sim > .8)
+				{
+					$album_asins{$amAlbum}->{sim} = $sim;
+					push @{$potential_matches{$album}}, $album_asins{$amAlbum};
+				}
             }
             if ($best > .8)
             {
+            	# if the best match doesn't have an image, check through the other possible matches
+            	unless ($album_asins{$bestalbum}->{url} ne '')
+            	{
+            		my $oldBest = $best;
+            		$best = 0;
+					foreach my $possible (@{$potential_matches{$album}})
+					{
+	            		if ($possible->{url} ne '') {
+	            			if ($possible->{sim} >= $best)
+	            			{
+            					$bestalbum = $possible->{album};
+            					$best = $possible->{sim};
+            				}
+            			}
+            		}
+            		# if we didn't find anything, reset the best value
+            		$best = $oldBest unless ($best);
+            	}
+            	
                 $matched{$album} = [ $bestalbum, $best, $album_asins{$bestalbum}->{asin},
                                      $album_asins{$bestalbum}->{url} ];
                 $album_asins{$bestalbum}->{matched}++; 
@@ -515,7 +443,15 @@ sub MatchAlbums
 			my ($ret, $error);
             for(;;)
             {
+            	my $t0 = [gettimeofday];
+            	
                 ($ret, $error) = MatchArtist($dbh, $row[1], $row[0]);
+                
+                # This is to prevent sending more than 1 query per second to Amazon, as per their TOS
+                my $t1 = [gettimeofday];
+                my $dur = (1.0 -  tv_interval($t0, $t1)) * 1000000;
+                usleep($dur) unless $dur < 0;
+                
                 if ($ret == 0 && $error eq '')
                 {
                     next if ($row[1] =~ s/\sand\s/ & /i);
