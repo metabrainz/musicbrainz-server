@@ -103,10 +103,10 @@ sub Remove
     return if (!defined $album);
   
     $sql = Sql->new($this->{DBH});
-    print STDERR "DELETE: Removed Discid where album was " . $album . "\n";
-    $sql->Do("delete from Discid where album = $album");
     print STDERR "DELETE: Removed TOC where album was " . $album . "\n";
     $sql->Do("delete from TOC where album = $album");
+    print STDERR "DELETE: Removed Discid where album was " . $album . "\n";
+    $sql->Do("delete from Discid where album = $album");
 
     if ($sql->Select(qq|select AlbumJoin.track from AlbumJoin 
                          where AlbumJoin.album = $album|))
