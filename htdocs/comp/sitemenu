@@ -257,6 +257,7 @@ use Scalar::Util qw( reftype weaken );
 			{ name => "Introduction",			url => "/development/index.html" },
 			{ name => "Project Status",			url => "/status.html" },
 			{ name => "CVS Access",		        url => "/development/cvs.html" },
+			{ name => "CVS Viewer",		        url => "http://cvs.musicbrainz.org/" },
 			{ name => "TODO",					url => "/todo.html" },
 			[
 				{ name => "TODO",					url => "/todo.html" },
