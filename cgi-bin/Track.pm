@@ -351,6 +351,7 @@ sub Remove
     $sql = Sql->new($this->{DBH});
     $sql->Do("delete from Track where id = " . $this->GetId());
     $sql->Do("delete from AlbumJoin where track = " . $this->GetId());
+    $sql->Do("delete from GUIDJoin where track = " . $this->GetId());
 }
 
 sub GetAlbumInfo

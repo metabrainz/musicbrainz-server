@@ -54,15 +54,28 @@ my %Queries =
         'http://musicbrainz.org/mm/mm-2.0#issued',
         'http://musicbrainz.org/mm/mm-2.0#genre',
         'http://purl.org/dc/elements/1.1/description',
+        'http://musicbrainz.org/mm/mm-2.0#duration',
         'http://musicbrainz.org/mm/mm-2.0#bitprint',
         'http://musicbrainz.org/mm/mm-2.0#first20',
         'http://musicbrainz.org/mm/mm-2.0#fileSize',
         'http://musicbrainz.org/mm/mm-2.0#audioSha1',
-        'http://musicbrainz.org/mm/mm-2.0#duration',
         'http://musicbrainz.org/mm/mm-2.0#sampleRate',
         'http://musicbrainz.org/mm/mm-2.0#bitRate',
         'http://musicbrainz.org/mm/mm-2.0#channels',
         'http://musicbrainz.org/mm/mm-2.0#vbr'],
+   ExchangeMetadataLite =>
+      [\&QuerySupport::ExchangeMetadata, 
+        'http://musicbrainz.org/mm/mq-1.0#artistName',
+        'http://musicbrainz.org/mm/mq-1.0#albumName',
+        'http://musicbrainz.org/mm/mq-1.0#trackName',
+        'http://musicbrainz.org/mm/mm-2.0#trackNum',
+        'http://musicbrainz.org/mm/mm-2.0#trmid',
+        'http://musicbrainz.org/mm/mm-2.0#fileName',
+        'http://musicbrainz.org/mm/mm-2.0#issued',
+        'http://musicbrainz.org/mm/mm-2.0#genre',
+        'http://purl.org/dc/elements/1.1/description',
+        'http://musicbrainz.org/mm/mm-2.0#duration',
+        'http://musicbrainz.org/mm/mm-2.0#sha1'],
    LookupMetadata =>
       [\&QuerySupport::LookupMetadata, 
         'http://musicbrainz.org/mm/mm-2.0#trmid'],
@@ -207,9 +220,10 @@ for(;;)
     $rdfquery = shift @$querydata;
     last if (!defined $rdfquery);
 
+    #print STDERR "$rdfquery: ";
     $data = QuerySupport::Extract(\@triples, $currentURI, -1, $rdfquery);
     $data = undef if (defined $data && $data eq '');
-    $data = "" if ($data eq "__NULL__");
+    $data = "" if (defined $data && $data eq "__NULL__");
     #print STDERR "query args: '$data'\n" if defined $data;
     push @queryargs, $data;
     $rdfquery = undef;

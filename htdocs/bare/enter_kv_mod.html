@@ -53,6 +53,15 @@ if (CheckArg(\%ARGS, 'column') &&
         $mod->SetDepMod(0);
 
         $mod->PreVoteAction();
+
+        # Go to the album that we just inserted...
+        if ($mod->GetType() == ModDefs::MOD_ADD_ALBUM)
+        {
+            if ($mod->GetNew() =~ /^AlbumId=(.*)$/m)
+            {
+               $ARGS{referer} = "/showalbum.html?albumid=$1";
+            }
+        }
         $modid = $mod->InsertModeration();
     }
 }
@@ -72,8 +81,10 @@ else
     $url = $ARGS{referer};
 }
 
-$url =~ s/&modid=\d*//g;
-$url .= "&modid=$modid" if (defined $modid);
+if ($url =~ s/&modid=\d*//g)
+{
+   $url .= "&modid=$modid" if (defined $modid);
+}
 $r->header_out(Location=>$url);
 $r->status(302);
 

@@ -64,6 +64,16 @@
     &nbsp;
   <& /comp/tableend &>
 
+  <& /comp/tablebegin, title=>'Contribute', attrs=>"align=center", 
+     gattrs=>"width=100%" &>
+    <br>
+    <a href="/addartist.html">Add artist</a> | 
+    <a href="/addalbum.html?artistid=0">Add  album</a> |
+    <a href="/addalbum.html?artistid=1">Add various artist album</a> 
+    <br>
+    &nbsp;
+  <& /comp/tableend &>
+
 % if ($session{user} ne "") {
   <& /comp/tablebegin, title=>'Login', attrs=>"align=center",
      gattrs=>"width=100%" &>

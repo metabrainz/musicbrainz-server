@@ -17,6 +17,7 @@ $offset = 0 if $offset < 0;
 $mb->Login();
 $mod = Moderation->new($mb->{DBH});
 
+print STDERR "before load\n";
 if ($type == ModDefs::TYPE_NEW)
 {
     ($num_mods, @info) = $mod->GetModerationList($offset, $max_items, 
@@ -44,6 +45,7 @@ else
     $option1 = '<a href="moderate.html?type=1">New Moderations</a>';
     $option2 = '<a href="moderate.html?type=2">Old Moderations</a>';
 }
+print STDERR "after load\n";
 </%perl>
 
 <form method="POST" action="/bare/vote.html"

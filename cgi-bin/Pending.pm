@@ -60,8 +60,7 @@ sub GetData
 
     $sql = Sql->new($this->{DBH});
     return $sql->GetSingleRow("Pending", [qw(Name Artist Album Sequence GUID 
-         Filename Year Genre Comment Bitprint First20 Length AudioSha1 
-         Duration Samplerate Bitrate Stereo VBR)], ["id", $id]);
+         Filename Year Genre Comment Duration Sha1)], ["id", $id]);
 }
 
 sub DeleteByGUID
@@ -90,12 +89,11 @@ sub Insert
          $data[6] = $sql->Quote($data[6]);
          $data[7] = $sql->Quote($data[7]);
          $data[8] = $sql->Quote($data[8]);
-         $data[9] = $sql->Quote($data[9]);
          $data[10] = $sql->Quote($data[10]);
-         $data[12] = $sql->Quote($data[12]);
 
-         $query = "insert into Pending (Name, Artist, Album, Sequence, GUID, Filename, Year, Genre, Comment, Bitprint, First20, Length, AudioSha1, Duration, Samplerate, Bitrate, Stereo, VBR) values (";
-         $query .= join ", ", @data;
+         $query = qq|insert into Pending (Name, Artist, Album, Sequence, GUID, 
+                     Filename, Year, Genre, Comment, Duration, Sha1) values (|;
+         $query .= join ", ", @data[0..10];
          $query .= ")";
          $sql->Do($query);
          $id = $sql->GetLastInsertId;
@@ -127,11 +125,11 @@ sub InsertIntoBitziArchive
     $data[6] = $sql->Quote($data[6]);
     $data[7] = $sql->Quote($data[7]);
     $data[8] = $sql->Quote($data[8]);
-    $data[9] = $sql->Quote($data[9]);
     $data[10] = $sql->Quote($data[10]);
-    $data[12] = $sql->Quote($data[12]);
+    $data[11] = $sql->Quote($data[11]);
+    $data[13] = $sql->Quote($data[13]);
 
-    $query = "insert into BitziArchive (Name, Artist, Album, Sequence, GUID, Filename, Year, Genre, Comment, Bitprint, First20, Length, AudioSha1, Duration, Samplerate, Bitrate, Stereo, VBR) values (";
+    $query = "insert into BitziArchive (Name, Artist, Album, Sequence, GUID, Filename, Year, Genre, Comment, Duration, Bitprint, First20, Length, AudioSha1, Samplerate, Bitrate, Stereo, VBR) values (";
     $query .= join ", ", @data;
     $query .= ")";
     $sql->Do($query);

@@ -1,0 +1,127 @@
+<%perl>
+
+# This script is designed as a pass-through script. All the data passed
+# in gets passed along unmodified, with the exception of the SortName
+# and ArtistName fields.
+
+my ($mb, $i, $j, $mod, $new, @names, $ar, $name, $key, $sortnamevalue);
+my ($sortname, $found, $mode, $num_found, $id, $artistnamevalue);
+
+# Find which key value pairs contain the artist and sort names
+foreach $key (keys %ARGS)
+{
+    if ($ARGS{$key} eq 'SortName')
+    {
+       $key =~ m/key(\d?)/;
+       $sortnamevalue = "value$1"; 
+       $name = $ARGS{"value$1"};
+    }
+    if ($ARGS{$key} eq 'ArtistName')
+    {
+       $key =~ m/key(\d?)/;
+       $artistnamevalue = "value$1"; 
+    }
+    last if (defined $sortnamevalue && defined $artistnamevalue);
+}
+
+print STDERR "$name, $artistnamevalue, $sortnamevalue\n";
+
+# Check to make sure we found the name
+if (!defined $name || !defined $artistnamevalue || !defined $sortnamevalue)
+{
+    mc_comp("/comp/sidebar", title=>'Error');
+    mc_comp("/comp/badargs");
+    return;
+}
+
+# Do some housekeeping
+mc_comp("/comp/sidebar", title=>$ARGS{title});
+
+$mb = new MusicBrainz;
+$mb->Login();
+
+# Now go find all the artists that match that given sortname
+$ar = Artist->new($mb->{DBH});
+@names = $ar->FindArtist($name);
+
+$found = 0;
+foreach $key (@names)
+{
+    if (lc($key) eq lc($name))
+    {
+       $found = 1;
+       last;
+    }
+}
+$num_found = scalar(@names);
+
+# Present the found results to the user
+</%perl>
+
+A search on <font class="bold"><% $name %></font>
+has turned up the following matching artists that are similar to the 
+artist name that you just entered. 
+
+Please choose one of the artists below, and then click Finish>>.
+
+<form method="POST" action="/bare/enter_kv_mod.html" NAME="ArtistFilter"
+      enctype="application/x-www-form-urlencoded" class="formstyle">
+
+% if (!$found) {
+   <& /comp/tablebegin, title=>'New Artist', gattrs=>'width="100%"' &>
+   <table width="100%"> <tr>
+   <th width="50%">Artist Sortname</th>
+   <th width="50%">Artist Name</th>
+   </tr>
+   <td>
+   <input type="radio" name="<% $artistnamevalue %>" 
+          value="<% $name %>" CHECKED>&nbsp;<% $name %>
+   </td><td>
+   Enter artist name if different from sort name:<br>
+   <input type="text" name="<% $sortnamevalue %>" SIZE=15> 
+   </td></tr></table>
+   <& /comp/tableend &>
+%}
+
+% if ($num_found > 0) {
+
+    <& /comp/tablebegin, title=>'Existing Artists', gattrs=>'width="100%"' &>
+    <table width="100%"> <tr>
+    <th width="50%">Artist Sortname</th>
+    <th width="50%">Artist Name</th>
+    </tr>
+
+<%perl>
+    for($i = 0;; $i++)
+    {
+        $id = shift @names;
+        last if not defined $id;
+        $name = shift @names;
+        last if not defined $name;
+        $sortname = shift @names;
+        last if not defined $sortname;
+        mc_out("<tr><td>");
+        mc_out(qq\<input type="radio" name="$artistnamevalue" value="$name"\);
+        mc_out(" CHECKED") if ($i == 0 && $found);
+        mc_out(">&nbsp;$name</td><td>$sortname</td></tr>");
+    }
+    mc_out("</table>");
+    mc_comp("/comp/tableend");
+}
+
+foreach $key (keys %ARGS)
+{
+    next if ($key eq "title");
+    next if ($key eq $sortnamevalue);
+    next if ($key eq $artistnamevalue);
+
+</%perl>
+    <input type="hidden" name="<% $key %>" value="<% $ARGS{$key} %>">
+<%perl>
+}
+$mb->Logout();
+</%perl>
+
+<input type="submit" value="Finish>>" name="Finish">
+</form>
+

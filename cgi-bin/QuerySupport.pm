@@ -165,12 +165,16 @@ sub GetCDInfoMM2
 
    return $rdf->EmitErrorRDF("No DiskId given.") if (!defined $id);
 
-   $toc = "1 $numtracks ";
-   $currentURI = $$triples[0]->subject->getLabel;
-   for($i = 1; $i <= $numtracks + 1; $i++)
+   if (defined $numtracks)
    {
-       $toc .= QuerySupport::Extract($triples, $currentURI, $i, EXTRACT_TOC_QUERY) . " ";
+      $toc = "1 $numtracks ";
+      $currentURI = $$triples[0]->subject->getLabel;
+      for($i = 1; $i <= $numtracks + 1; $i++)
+      {
+          $toc .= QuerySupport::Extract($triples, $currentURI, $i, EXTRACT_TOC_QUERY) . " ";
+      }
    }
+
    # Check to see if the album is in the main database
    $di = Diskid->new($dbh);
    return $di->GenerateAlbumFromDiskId($rdf, $id, $numtracks, $toc);
@@ -566,15 +570,15 @@ sub PrintData
      print STDERR "    Year: $data[6]\n";
      print STDERR "   Genre: $data[7]\n";
      print STDERR " Comment: $data[8]\n";
-     print STDERR "Bitprint: $data[9]\n";
-     print STDERR " First20: $data[10]\n";
-     print STDERR "  Length: $data[11]\n";
-     print STDERR "AudioSHA: $data[12]\n";
-     print STDERR "Duration: $data[13]\n";
-     print STDERR "SampRate: $data[14]\n";
-     print STDERR " BitRate: $data[15]\n";
-     print STDERR "  Stereo: $data[16]\n";
-     print STDERR "     VBR: $data[17]\n\n";
+     print STDERR "Duration: $data[9]\n";
+     print STDERR "Bitprint: $data[10]\n";
+     print STDERR " First20: $data[11]\n" if (defined $data[11]);
+     print STDERR "  Length: $data[12]\n" if (defined $data[12]);
+     print STDERR "AudioSHA: $data[13]\n" if (defined $data[13]);
+     print STDERR "SampRate: $data[14]\n" if (defined $data[14]);
+     print STDERR " BitRate: $data[15]\n" if (defined $data[15]);
+     print STDERR "  Stereo: $data[16]\n" if (defined $data[16]);
+     print STDERR "     VBR: $data[17]\n\n" if (defined $data[17]);
 }
 
 # Data array cross reference
@@ -587,11 +591,12 @@ sub PrintData
 #  6  Year
 #  7  Genre
 #  8  Comment
-#  9  Bitprint
-#  10 First20
-#  11 Length (bytes)
-#  12 AudioSha1
-#  13 Duration (ms)
+#  9  Duration (ms)
+#  10 Bitprint/Sha1
+#  Bitzi data items (not available on MetadataExchangeLite)
+#  11 First20
+#  12 Length (bytes)
+#  13 AudioSha1
 #  14 SampleRate
 #  15 BitRate
 #  16 Stereo
@@ -601,7 +606,7 @@ sub ExchangeMetadata
    my ($dbh, $doc, $rdf, @data) = @_;
    my (@ids, $id, $gu, $pe, $tr, $rv, $ar);
 
-   #PrintData("Incoming:", @data);
+   PrintData("Incoming:", @data);
 
    if (!DBDefs::DB_READ_ONLY)
    {
@@ -610,17 +615,34 @@ sub ExchangeMetadata
        $pe = Pending->new($dbh);
        $tr = Track->new($dbh);
 
-       # Save this submission into the Bitzi archive
-       $pe->InsertIntoBitziArchive(@data);
+       # Is a bitprint or a sha1 being passed in for $data[10]?
+       if (length($data[10]) == 88)
+       {
+           my $i;
+
+           # If its a bitprint, save this submission into the Bitzi archive
+           $pe->InsertIntoBitziArchive(@data);
+
+           # And convert the bitprint to a sha1 by lopping off 
+           # the last 48 bytes
+           $data[10] =~ s/.{48}$//;
+
+           for($i = 0; $i < 7; $i++)
+           {
+               pop @data;
+           }
+       }
 
        # has this data been accepted into the database?
        @ids = $gu->GetTrackIdsFromGUID($data[4]);
        if (scalar(@ids) == 0)
        {
+           print STDERR "Not in database\n";
            # No it has not.
            @ids = $pe->GetIdsFromGUID($data[4]);
            if (scalar(@ids) == 0)
            {
+               print STDERR "Not in pending\n";
                if (defined $data[0] && $data[0] ne '' &&
                    defined $data[4] && $data[4] ne '' &&
                    defined $data[1] && $data[1] ne '' &&
@@ -632,12 +654,18 @@ sub ExchangeMetadata
                    if (!$gu->AssociateGUID($data[4], $data[0], 
                                            $data[1], $data[2]))
                    {
+                      print STDERR "Insert into pending\n";
                       $pe->Insert(@data);
+                   }
+                   else
+                   {
+                      print STDERR "Associated trmid\n";
                    }
                }
            }
            else
            {
+                print STDERR "Found in pending.\n";
                 # Do the metadata glom
                 CheckMetadata($dbh, $rdf, $pe, \@data, \@ids); 
            }
@@ -645,6 +673,8 @@ sub ExchangeMetadata
        else
        {
            my (@db_data, $i);
+
+           print STDERR "Found in database\n";
 
            # @db_data will contain 5 items, in the same order as shown above
            @db_data = $tr->GetMetadataFromIdAndAlbum($ids[0], $data[2]);
@@ -659,7 +689,7 @@ sub ExchangeMetadata
                  }
               }
            }
-           #PrintData("Matched database (outgoing):", @data);
+           PrintData("Matched database (outgoing):", @data);
        }
    }
 
@@ -685,7 +715,6 @@ sub CheckMetadata
        #print STDERR "'$$data[1]' == '$db_data[1]'\n";
        #print STDERR "'$$data[2]' == '$db_data[2]'\n";
        #print STDERR "'$$data[3]' == '$db_data[3]'\n";
-       #print STDERR "'$$data[12]' == '$db_data[12]'\n";
        if (defined $db_data[0] && defined $$data[0] && 
            $$data[0] eq $db_data[0] && 
            defined $db_data[1] && defined $$data[1] && 
@@ -694,8 +723,8 @@ sub CheckMetadata
            $$data[2] eq $db_data[2] &&
            defined $db_data[3] && defined $$data[3] && 
            $$data[3] eq $db_data[3] &&
-           defined $db_data[9] && defined $$data[9] && 
-           $$data[9] ne $db_data[9])
+           defined $db_data[10] && defined $$data[10] && 
+           $$data[10] ne $db_data[10])
        { 
            my (@albumids, %info);
 
@@ -707,7 +736,7 @@ sub CheckMetadata
                {
                   track => $$data[0],
                   tracknum => $$data[3],
-                  duration => $$data[11],
+                  duration => $$data[9],
                   trmid => $$data[4]
                }
              ];

@@ -57,7 +57,15 @@ sub ShowNewValue
        $id = $1;
    }
 
-   return "Album: <a href=\"/showalbum.html?albumid=$id\">$name</a>";
+   if ($this->{status} == ModDefs::STATUS_FAILEDVOTE ||
+       $this->{status} == ModDefs::STATUS_FAILEDPREREQ)
+   {
+       return "Album: $name";
+   }
+   else
+   {
+       return "Album: <a href=\"/showalbum.html?albumid=$id\">$name</a>";
+   }
 }
 
 sub PreVoteAction
@@ -68,17 +76,37 @@ sub PreVoteAction
    $nw = $this->ConvertNewToHash($this->{new});
    return undef if (!defined $nw);
 
-   $info{artistid} = $this->{artist}; 
+   if (defined $this->{artist})
+   {
+      $info{artistid} = $this->{artist}; 
+   }
+   else
+   {
+      $info{artist} = $nw->{"Artist"}; 
+      $info{sortname} = $nw->{"Sortname"}; 
+   }
    $info{album} = $nw->{AlbumName};
-   $info{cdindexid} = "borOdvYNUkc2SF8GrzPepad0H3M-";
-   $info{toc} = "1 2 157005 150 77950";
+   if (exists $nw->{CDIndexId})
+   {
+       $info{cdindexid} = $nw->{CDIndexId};
+       $info{toc} = $nw->{TOC};
+   }
 
    #TODO: Support multiple artists!
    for($i = 1;; $i++)
    {
       last if (!exists $nw->{"Track$i"});
-      push @tracks, { track=> $nw->{"Track$i"}, tracknum => $i, 
-                      trmid=>"feb4b180-c5f0-4465-9926-fc5704444c83" };
+      if ($this->{artist} == Artist::VARTIST_ID)
+      {
+          push @tracks, { track=> $nw->{"Track$i"}, 
+                          tracknum => $i, 
+                          artist=> $nw->{"Artist$i"} };
+      }
+      else
+      {
+          push @tracks, { track=> $nw->{"Track$i"}, 
+                          tracknum => $i };
+      }
    }
    $info{tracks} = \@tracks;
 
@@ -87,6 +115,7 @@ sub PreVoteAction
    $in = Insert->new($this->{DBH});
    if (defined $in->Insert(\%info))
    {
+       print STDERR "Error: $in->{error}\n";
        if (exists $info{album_insertid})
        {
            $nw->{AlbumId} = $info{album_insertid};
@@ -110,13 +139,9 @@ sub PreVoteAction
            $key = "Trm" . $track->{tracknum} . "Id";
            if (exists $track->{trm_insertid})
            {
-               print STDERR "kv: got trm id\n";
                $nw->{$key} = $track->{trm_insertid};
            }
-           else
-           {
-               print STDERR "kv: got no trm id\n";
-           }
+
            $key = "Artist" . $track->{tracknum} . "Id";
            if (exists $track->{artist_insertid})
            {
@@ -124,8 +149,17 @@ sub PreVoteAction
            }
        }
 
+       $nw->{_artistid} = $info{_artistid};
+       $nw->{_albumid} = $info{_albumid};
        $this->{new} = $this->ConvertHashToNew($nw);
        print STDERR "After insert:\n$this->{new}\n";
+
+       return 1;
+   }
+   else
+   {
+       $this->{error} = $in->GetError();
+       return 0;
    }
 }
 
@@ -204,3 +238,236 @@ sub DeniedAction
       $ar->Remove();
    }
 }
+
+package AddArtistModeration;
+use vars qw(@ISA);
+@ISA = 'Moderation';
+
+sub ShowPreviousValue
+{
+   my ($this) = @_;
+
+   return "Old: N/A";
+}
+
+sub ShowNewValue
+{
+   my ($this) = @_;
+   my ($new, $artist, $sortname, $id);
+   
+   $new = $this->{new};
+   if ($new =~ /^ArtistName=(.*)$/m)
+   {
+       $artist = $1;
+   }
+   if ($new =~ /^Sortname=(.*)$/m)
+   {
+       $sortname = $1;
+   }
+   if ($new =~ /^ArtistId=(.*)$/m)
+   {
+       $id = $1;
+   }
+
+   if ($this->{status} == ModDefs::STATUS_FAILEDVOTE ||
+       $this->{status} == ModDefs::STATUS_FAILEDPREREQ)
+   {
+       return "Artist: <font style=\"bold\">$artist</font>";
+   }
+   else
+   {
+       return "Artist: <a href=\"/showartist.html?artistid=$id\"><font style=\"bold\">$artist</font></a>";
+   }
+}
+
+sub PreVoteAction
+{
+   my ($this) = @_;
+   my ($nw, %info, @tracks, $track, $i, $in, $key);
+
+   $nw = $this->ConvertNewToHash($this->{new});
+   return undef if (!defined $nw);
+
+   $info{artist} = $nw->{"ArtistName"}; 
+   $info{sortname} = $nw->{"Sortname"}; 
+   $info{artist_only} = $nw->{"Sortname"}; 
+
+   print STDERR "Before insert:\n$this->{new}\n";
+   # TODO: Support for inserting partial albums
+   $in = Insert->new($this->{DBH});
+   if (defined $in->Insert(\%info))
+   {
+       if (exists $info{artist_insertid})
+       {
+           $nw->{ArtistId} = $info{artist_insertid};
+       }
+       $this->{new} = $this->ConvertHashToNew($nw);
+       print STDERR "After insert:\n$this->{new}\n";
+
+       return 1;
+   }
+   else
+   {
+       print STDERR "Error: $in->{error}\n";
+       $this->{error} = $in->GetError();
+       return 0;
+   }
+}
+
+#returns STATUS_XXXX
+sub ApprovedAction
+{
+   return ModDefs::STATUS_APPLIED;
+}
+
+#returns nothing
+sub DeniedAction
+{
+   my ($this) = @_;
+   my ($newval, $i, $done);
+
+   $newval = $this->ConvertNewToHash($this->{new});
+   if (exists $newval->{"ArtistId"})
+   {
+      my $ar;
+
+      $ar = Artist->new($this->{DBH});
+      $ar->SetId($newval->{"ArtistId"});
+      $ar->Remove();
+   }
+}
+
+package AddTrackModerationKV;
+use vars qw(@ISA);
+@ISA = 'Moderation';
+
+sub ShowPreviousValue
+{
+   my ($this) = @_;
+   my ($id, $name, $nw);
+
+   $nw = $this->{new};
+   if ($nw =~ /^AlbumId=(.*)$/m)
+   {
+       $id = $1;
+   }
+
+   if (defined $id)
+   {
+       return "Album: <a href=\"/showalbum.html?albumid=$id\">" .
+              $this->GetPrev() . "</a>";
+   }
+   else
+   {
+       return "N/A";
+   }
+}
+
+sub ShowNewValue
+{
+   my ($this) = @_;
+   my ($nw, $out);
+   
+   $nw = $this->ConvertNewToHash($this->{new});
+
+   $out = qq\Track: <span class="bold">$nw->{TrackName}</span>\;
+   $out .= qq\<br>TrackNum: <span class="bold">$nw->{TrackNum}</span>\;
+   if ($this->GetArtist() == Artist::VARTIST_ID)
+   {
+       $out .= qq\<br>Artist: <span class="bold">$nw->{ArtistName}</span>\;
+       $out .= qq\<br>Sortname: <span class="bold">$nw->{SortName}</span>\
+           if (exists $nw->{SortName});
+   }
+   return $out;
+}
+
+sub PreVoteAction
+{
+   my ($this) = @_;
+   my ($nw, %info, @tracks, $track, $i, $in, $key);
+
+   $nw = $this->ConvertNewToHash($this->{new});
+   return undef if (!defined $nw);
+
+   $info{artistid} = $this->{artist}; 
+   $info{albumid} = $nw->{AlbumId}; 
+
+   if ($this->{artist} == Artist::VARTIST_ID)
+   {
+      if (!exists $nw->{SortName} || $nw->{SortName} eq "")
+      {
+         $nw->{SortName} = $nw->{ArtistName};
+      }
+      push @tracks, { track=> $nw->{"TrackName"}, 
+                      tracknum => $nw->{"TrackNum"}, 
+                      artist=> $nw->{"ArtistName"},
+                      sortname=> $nw->{"SortName"} };
+   }
+   else
+   {
+      push @tracks, { track=> $nw->{"TrackName"}, 
+                      tracknum => $nw->{"TrackNum"} };
+   }
+   $info{tracks} = \@tracks;
+
+   print STDERR "Before insert:\n$this->{new}\n";
+
+   $in = Insert->new($this->{DBH});
+   if (defined $in->Insert(\%info))
+   {
+       print STDERR "Error: $in->{error}\n";
+
+       foreach $track (@tracks)
+       {
+           if (exists $track->{track_insertid})
+           {
+               $nw->{"TrackId"} = $track->{track_insertid};
+           }
+
+           if (exists $track->{artist_insertid})
+           {
+               $nw->{"ArtistId"} = $track->{artist_insertid};
+           }
+       }
+
+       $this->{new} = $this->ConvertHashToNew($nw);
+       print STDERR "After insert:\n$this->{new}\n";
+
+       return 1;
+   }
+   else
+   {
+       $this->{error} = $in->GetError();
+       return 0;
+   }
+}
+
+sub ApprovedAction
+{
+   return ModDefs::STATUS_APPLIED;
+}
+
+sub DeniedAction
+{
+   my ($this) = @_;
+   my ($newval, $i, $done);
+
+   $newval = $this->ConvertNewToHash($this->{new});
+   if (exists $newval->{"TrackId"})
+   {
+      my $tr;
+
+      $tr = Track->new($this->{DBH});
+      $tr->SetId($newval->{"TrackId"});
+      $tr->Remove();
+   }
+   if (exists $newval->{"ArtistId"})
+   {
+      my $ar;
+
+      $ar = Artist->new($this->{DBH});
+      $ar->SetId($newval->{"ArtistId"});
+      $ar->Remove();
+   }
+}
+

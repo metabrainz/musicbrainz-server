@@ -726,7 +726,7 @@ sub ApprovedAction
    return $status;
 }
 
-package ApplyAddArtistAliasModeration;
+package AddArtistAliasModeration;
 use vars qw(@ISA);
 @ISA = 'Moderation';
 

@@ -62,6 +62,11 @@ sub GenerateAlbumFromDiskId
    {
         my (@albums, $album, $disk);
 
+        if (!defined $toc || !defined $numtracks)
+        {
+            return $rdf->CreateStatus(0);
+        }
+
         # Ok, no freedb entries were found. Can we find a fuzzy match?
         @albums = $di->FindFuzzy($numtracks, $toc);
         if (scalar(@albums) > 0)

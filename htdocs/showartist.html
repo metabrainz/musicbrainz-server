@@ -23,39 +23,47 @@ if (! $artist->LoadFromId())
     mc_comp("/comp/sidebar", title=>"Error");
     mc_out("This artist (id=$ARGS{artistid}) was not found in the database.");
 }
-elsif ($ARGS{artistid} == Artist::VARTIST_ID)
-{
-    mc_comp("/comp/sidebar", title=>"Error");
-    mc_out("You cannot view all Various Artist albums using this page. Sorry.");
-}
 else
 {
-    @albums = $artist->GetAlbums();
-    
     mc_comp("/comp/sidebar", title=>'',
             pagetitle=>"Artist: " . $artist->GetName());
     mc_comp("/comp/artisttitle", artist=>$artist);
+
+    mc_out("[ <a href=\"/addalbum.html?artistid=");
+    mc_out($artist->GetId());
+    mc_out("\">Add album</a> ");
+
     if ($artist->GetName() ne "Unknown" && 
         $artist->GetId() != Artist::VARTIST_ID && 
         $artist->GetName() ne "Data CD")
     {
-        mc_out("[ <a href=\"/showaliases.html?artistid=");
+         
+        mc_out("| <a href=\"/showaliases.html?artistid=");
         mc_out($artist->GetId());
         mc_out("\">View aliases</a> | ");
-        mc_out("<a href=\"/addalbum.html?artistid=");
-        mc_out($artist->GetId());
-        mc_out("\">Add album</a> | ");
         mc_comp("/comp/googlelink", search=>($artist->GetName()), 
             text=>"Search Google"); 
-        mc_out("]<p>");
     }
-    mc_comp("/comp/modnotice");
-    
-    for(;;)
+    mc_out("]<p>");
+
+    if ($ARGS{artistid} == Artist::VARTIST_ID)
     {
-        $album = shift @albums;
-        last if (!defined $album);
-        mc_comp("/comp/album", album=>$album, artist=>$artist, showid=>1);
+        mc_out("<table width=\"100%\"><tr><td align=\"center\">");
+        mc_out("<font size=\"+1\">There are too many albums to list.</font>");
+        mc_out("<br>Please use the <a href=\"search.html\">Search Page</a>");
+        mc_out("to look for a specific album.");
+        mc_out("</td></tr></table>");
+    }
+    else
+    {
+        mc_comp("/comp/modnotice");
+        @albums = $artist->GetAlbums();
+        for(;;)
+        {
+            $album = shift @albums;
+            last if (!defined $album);
+            mc_comp("/comp/album", album=>$album, artist=>$artist, showid=>1);
+        }
     }
 }
 

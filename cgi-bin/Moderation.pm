@@ -56,7 +56,9 @@ my %ModNames = (
     "13" => "Convert to Single Artist",
     "14" => "Remove Artist Alias",
     "15" => "Add Artist Alias",
-    "16" => "Add Album"
+    "16" => "Add Album",
+    "17" => "Add Artist",
+    "18" => "Add Track",
 );
 
 my %ChangeNames = (
@@ -337,6 +339,10 @@ sub CreateModerationObject
    {
        return AddTrackModeration->new($this->{DBH});
    }
+   elsif ($type == ModDefs::MOD_ADD_TRACK_KV)
+   {
+       return AddTrackModerationKV->new($this->{DBH});
+   }
    elsif ($type == ModDefs::MOD_ADD_ARTISTALIAS)
    {
        return AddArtistAliasModeration->new($this->{DBH});
@@ -368,6 +374,10 @@ sub CreateModerationObject
    elsif ($type == ModDefs::MOD_ADD_ALBUM)
    {
        return AddAlbumModeration->new($this->{DBH});
+   }
+   elsif ($type == ModDefs::MOD_ADD_ARTIST)
+   {
+       return AddArtistModeration->new($this->{DBH});
    }
 
    return undef;

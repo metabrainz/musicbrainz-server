@@ -8,7 +8,7 @@
 # $dest_argname is the name of the argument where the sortname of a new
 #               artist should be stored.
 
-my ($mb, $ar, $key, @albums, $found_tracks, $found_id, $num, $num_tracks);
+my ($mb, $ar, $key, @albums, $found_tracks, $found_id, $num, $num_tracks, $val);
 
 mc_comp("/comp/sidebar", title=>'Add Album');
 
@@ -40,7 +40,7 @@ if (!defined $ar->LoadFromId())
     return;
 }
 
-@albums = $ar->GetAlbums();
+@albums = $ar->GetAlbums() if ($ARGS{artist} != Artist::VARTIST_ID);
 if (scalar @albums > 0)
 {
     my ($album);
@@ -64,7 +64,7 @@ if (scalar @albums > 0)
     <& /comp/tableend &>
 % } else {
 
-    <& /comp/tablebegin, gattrs=>"width=\"100%\"", title=>'Add Tracks' &>
+    <& /comp/tablebegin, gattrs=>"width=\"100%\"", title=>'Enter Tracks' &>
 
     <form method="POST" action="/bare/enter_kv_mod.html" NAME="AddAlbumTracks"
           enctype="application/x-www-form-urlencoded" class="formstyle">
@@ -102,15 +102,27 @@ if (scalar @albums > 0)
         <% $ARGS{value0} %>
         </td>
       </tr>
-% for($num = 1; $num <= $num_tracks; $num++) {
+% for($num = 1, $val = 2; $num <= $num_tracks; $num++) {
       <tr>
         <td align="right" valign="top">
         Track <% $num %>:
         </td>
         <td>
-        <INPUT TYPE="text" NAME="value<% ($num + 1) %>" SIZE=25>
-        <INPUT TYPE="hidden" NAME="key<% ($num + 1) %>" 
+        <INPUT TYPE="text" NAME="value<% $val %>" SIZE=25>
+        <INPUT TYPE="hidden" NAME="key<% $val++ %>" 
                value="Track<% $num %>" SIZE=25>
+
+% if ($ARGS{artist} == Artist::VARTIST_ID) {
+        </tr>
+        <tr>
+        <td align="right" valign="top">
+        Artist <% $num %>:
+        </td>
+        <td>
+        <INPUT TYPE="text" NAME="value<% $val %>" SIZE=25>
+        <INPUT TYPE="hidden" NAME="key<% $val++ %>" 
+               value="Artist<% $num %>" SIZE=25>
+% }
         </td>
       </tr>
 % }

@@ -34,9 +34,9 @@ $al->LoadFromId();
        title=>'Add Track to '.$al->GetName() &>
 
 % if ($artist == Artist::VARTIST_ID) {
-    <FORM METHOD="POST" ACTION="/artistfilter.html"
+    <FORM METHOD="POST" ACTION="/artistfilterkv.html"
 % } else {
-    <FORM METHOD="POST" ACTION="/bare/enter_mod.html"
+    <FORM METHOD="POST" ACTION="/bare/enter_kv_mod.html"
 % }
           ENCTYPE="application/x-www-form-urlencoded" NAME="AddTrackForm">  
     <table>
@@ -45,7 +45,7 @@ $al->LoadFromId();
         Track Name:
         </td>
         <td>
-        <INPUT TYPE="text" NAME="new0" SIZE=25> 
+        <INPUT TYPE="text" NAME="value1" SIZE=25> 
         </td>
       </tr>
       <tr>
@@ -53,7 +53,7 @@ $al->LoadFromId();
         Track Number:
         </td>
         <td>
-        <INPUT TYPE="text" NAME="extra0-0" SIZE=25> 
+        <INPUT TYPE="text" NAME="value2" SIZE=25> 
         </td>
       </tr>
 % if ($artist == Artist::VARTIST_ID) {
@@ -62,7 +62,10 @@ $al->LoadFromId();
         Artist Sortname:
         </td>
         <td>
-        <INPUT TYPE="text" NAME="extra0-2" SIZE=25> 
+        <INPUT TYPE="text" NAME="value4" SIZE=25> 
+        <input type="hidden" name="key4" value="SortName">
+        <input type="hidden" name="value3" value="">
+        <input type="hidden" name="key3" value="ArtistName">
         </td>
       </tr>
 % }
@@ -72,16 +75,23 @@ $al->LoadFromId();
         </td>
       </tr>
     </table>
-    <input type="hidden" name="extra0-1" value="<% $album %>">
-    <input type="hidden" name="artist0" value="<% $artist %>">
-    <input type="hidden" name="type0"
-           value="<% ModDefs::MOD_ADD_TRACK %>">
-    <input type="hidden" name="id0" value="<% $album %>">
-    <input type="hidden" name="prev0" value="<% $al->GetName() %>">
-    <input type="hidden" name="table0" value="Album">
-    <input type="hidden" name="column0" value="Name">
+
+
+    <input type="hidden" name="value0" value="<% $al->GetId() %>">
+    <input type="hidden" name="key0" value="AlbumId">
+    <input type="hidden" name="key1" value="TrackName">
+    <input type="hidden" name="key2" value="TrackNum">
+
+    <input type="hidden" name="artist" value="<% $artist %>">
+    <input type="hidden" name="type"
+           value="<% ModDefs::MOD_ADD_TRACK_KV %>">
+    <input type="hidden" name="prev" value="<% $al->GetName() %>">
+    <input type="hidden" name="table" value="Album">
+    <input type="hidden" name="id" value="<% $al->GetId() %>">
+    <input type="hidden" name="column" value="Name">
     <input type="hidden" name="referer" value="<% $referer %>">
 % if ($artist == Artist::VARTIST_ID) {
+    <input type="hidden" name="title" value="Select Artist for Track Addition">
     <input type="hidden" name="mode" value="addtrack">
 % }
     </form>

@@ -2,7 +2,7 @@
 $id
 $toc
 $tracks
-$artist
+$artist=>''
 </%args>
 <%perl>
 
@@ -14,8 +14,8 @@ mc_comp('/comp/sidebar', title=>'Submit CD: Select Album');
 
 if (!defined $artist || $artist eq '')
 {
-    mc_comp("Please select an artist name. Click on the " . 
-            "Back button in your browser and try again.");
+    mc_out("Please select an artist name. Click on the " . 
+          "Back button in your browser and try again.");
 }
 else
 {

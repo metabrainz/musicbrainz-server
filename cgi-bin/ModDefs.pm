@@ -47,6 +47,8 @@ use constant MOD_MAC_TO_SAC              => 13;
 use constant MOD_REMOVE_ARTISTALIAS      => 14;
 use constant MOD_ADD_ARTISTALIAS         => 15;
 use constant MOD_ADD_ALBUM               => 16;
+use constant MOD_ADD_ARTIST              => 17;
+use constant MOD_ADD_TRACK_KV            => 18;
 
 use constant STATUS_OPEN                 => 1;
 use constant STATUS_APPLIED              => 2;

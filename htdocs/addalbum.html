@@ -21,6 +21,22 @@ $ar->LoadFromId();
 
 </%perl>
 
+%if ($ARGS{artistid} == 0)
+%{
+    <table width="100%"><tr><td align="center">
+    To add an album, please go to that artist's main page,
+    and click on the <font style="bold">Add Album</font> link. <p>
+
+    <& /comp/tablebegin, title=>"Artist Search" &>
+    <& /comp/artistsearchbox &>
+    <& /comp/tableend &>
+
+    </td></tr></table>
+
+%   return;
+%}
+
+
 % if (!defined $session{user} || $session{user} eq '') {
     You must be logged in to edit the database.<p>
     <& /comp/tablebegin, title=>'Login' &>

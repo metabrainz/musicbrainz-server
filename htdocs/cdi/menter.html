@@ -18,7 +18,7 @@ mc_comp("/comp/artiststylenotes");
 
 </%perl>
 
-<form method="POST" action="/cdi/mdone.html"
+<form method="POST" action="/cdi/done.html"
       enctype="application/x-www-form-urlencoded" class="formstyle">
 
 Please enter the CD information below:<p>
@@ -52,6 +52,7 @@ Please enter the CD information below:<p>
 % }
 </table>
 
+<input type="hidden" name="artist" value="<% Artist::VARTIST_ID %>">
 <input type="hidden" name="id" value="<% $id %>">
 <input type="hidden" name="toc" value="<% $toc %>">
 <input type="hidden" name="tracks" value="<% $tracks %>">

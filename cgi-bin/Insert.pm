@@ -71,6 +71,7 @@ sub GetError
 #    trmid                                                 [optional]
 #    duration                                              [optional]
 #    year                                                  [optional]
+#  artist_only                                             [optional]
 #
 # Notes: If more than one album by the same artist and same album name 
 #        exists, this function will attempt to fill in any missing information
@@ -84,6 +85,9 @@ sub Insert
     my ($forcenewalbum, @albumtracks, $albumtrack, $track, $found);
     my ($track_artistid);
 
+    #print STDERR "Data at Insert!\n";
+    #print STDERR Dumper($info);
+
     delete $info->{artist_insertid};
     delete $info->{album_insertid};
     delete $info->{cdindexid_insertid};
@@ -94,12 +98,15 @@ sub Insert
         $this->{error} = "Insert failed: no artist or artistid given.\n";
         return undef;
     }
-    if (!exists $info->{album} && !exists $info->{albumid})
+    if (!exists $info->{album} && 
+        !exists $info->{albumid} &&
+        !exists $info->{artist_only})
     {
         $this->{error} = "Insert failed: no album or albumid given.\n";
         return undef;
     }
-    if (!exists $info->{tracks})
+    if (!exists $info->{tracks} &&
+        !exists $info->{artist_only})
     {
         $this->{error} = "Insert failed: no tracks given.\n";
         return undef;
@@ -165,29 +172,34 @@ sub Insert
         $sortname = $info->{sortname};
     }
 
-    # Try and resolve/check the album name
-    if (exists $info->{albumid})
+    if (!exists $info->{artist_only})
     {
-        # If we're given an album id, load the album and get the name
-        $al->SetId($info->{albumid});
-        if (!defined $al->LoadFromId())
-        {
-            $this->{error} = "Insert failed: Could not load given albumid.\n";
-            return undef;
-        }
 
-        $album = $al->GetName();
-        $albumid = $al->GetId();
-    }
-    else
-    {
-        if ($info->{album} eq '')
+        # Try and resolve/check the album name
+        if (exists $info->{albumid})
         {
-            $this->{error} = "Insert failed: No album name given.\n";
-            return undef;
+            # If we're given an album id, load the album and get the name
+            $al->SetId($info->{albumid});
+            if (!defined $al->LoadFromId())
+            {
+                $this->{error} = "Insert failed: Could not load given " .
+                                 "albumid.\n";
+                return undef;
+            }
+    
+            $album = $al->GetName();
+            $albumid = $al->GetId();
         }
-
-        $album = $info->{album};
+        else
+        {
+            if ($info->{album} eq '')
+            {
+                $this->{error} = "Insert failed: No album name given.\n";
+                return undef;
+            }
+    
+            $album = $info->{album};
+        }
     }
 
     #print STDERR = "  Artist: '$artist'\n";
@@ -208,6 +220,14 @@ sub Insert
             return undef;
         }
         $info->{artist_insertid} = $artistid if ($ar->GetNewInsert());
+    }
+    $info->{_artistid} = $artistid;
+
+    # If we're only inserting an artist, bail now
+    if (exists $info->{artist_only})
+    {
+        # TODO: Commit transaction here
+        return 1;
     }
 
     # If we were given an albumid, make sure that the artist from
@@ -259,6 +279,7 @@ sub Insert
            }
         }
     }
+    $info->{_albumid} = $albumid;
 
     # If a valid cdindexid and toc was supplied, then insert that now
     if (exists $info->{cdindexid} && exists $info->{toc})
@@ -295,9 +316,10 @@ sub Insert
         delete $info->{trm_insertid};
         delete $info->{artist_insertid};
 
-        #print STDERR "$track->{track}\n";
-        #print STDERR "$track->{tracknum}\n";
-        #print STDERR "$track->{trmid}\n" if (exists $track->{trmid});
+        #print STDERR "name: $track->{track}\n";
+        #print STDERR "num: $track->{tracknum}\n";
+        #print STDERR "trm: $track->{trmid}\n" if (exists $track->{trmid});
+        #print STDERR "artist: $track->{artist}\n" if (exists $track->{artist});
 
         $found = 0;
         foreach $albumtrack (@albumtracks)
@@ -314,7 +336,6 @@ sub Insert
                 $newtrm = $gu->Insert($track->{trmid}, $albumtrack->GetId());
                 if (defined $newtrm)
                 {
-                    print STDERR "inserted trmid: $newtrm\n";
                     $track->{trm_insertid} = $newtrm if ($gu->GetNewInsert());
                 }
                 

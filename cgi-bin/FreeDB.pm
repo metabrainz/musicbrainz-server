@@ -178,6 +178,18 @@ sub Strip
     return $_;
 }
 
+sub IsNumber
+{
+    if ($_[0] =~ m/^-?[\d]*\.?[\d]*$/)
+    {
+        return 1;
+    }
+    else
+    {
+        return 0;
+    }
+}
+
 sub Retrieve
 {
     my ($this, $remote, $port, $query, $last_track) = @_;
@@ -209,7 +221,7 @@ sub Retrieve
     #print $line;
 
     @response = split ' ', $line;
-    if ($response[0] < 200 || $response[0] > 299)
+    if (!IsNumber($response[0]) || $response[0] < 200 || $response[0] > 299)
     {
         print STDERR "Server $remote does not want to talk to us.\n($line)\n";
         close SOCK;
