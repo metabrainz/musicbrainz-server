@@ -179,8 +179,9 @@ use Scalar::Util qw( reftype weaken );
 	{ name => "Help Us",				url => "/contribute.html" },
 	[
 		{ name => "Contribute",				url => "/contribute.html" },
-		{ name => "Development",			url => "/status.html" },
+		{ name => "Development",			url => "/development/index.html" },
 		[
+			{ name => "Introduction",			url => "/development/index.html" },
 			{ name => "Project Status",			url => "/status.html" },
 			{ name => "CVS Access",		        url => "/development/cvs.html" },
 			{ name => "TODO",					url => "/todo.html" },
