@@ -62,8 +62,10 @@ sub AutoCommit
 sub Quote
 {
     my ($this, $data) = @_;
-
-    return $this->{DBH}->quote($data);
+    my $r = $this->{DBH}->quote($data);
+    use utf8;
+    utf8::downgrade($r);
+    $r;
 }
 
 sub Select
