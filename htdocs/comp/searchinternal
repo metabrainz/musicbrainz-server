@@ -67,7 +67,7 @@
      gattrs=>"width=100%" &>
     <br>
     <a href="/addartist.html">Add artist</a> | 
-    <a href="/addalbum.html?artistid=0">Add  album</a> |
+    <a href="/addalbum.html?artistid=0">Add  album</a> |<br>
     <a href="/addalbum.html?artistid=1">Add various artist album</a> 
     <br>
     &nbsp;

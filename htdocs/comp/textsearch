@@ -5,7 +5,7 @@ $text=>''
 
 <FORM METHOD="GET" ACTION="/newsearch.html" ENCTYPE="application/x-www-form-urlencoded" class="formstyle">
 <center>
-<table border=0 width="250">
+<table width="250">
   <tr>
   <td colspan="2">
   <b>Artist/Album/Track Search</b>
@@ -44,7 +44,7 @@ $text=>''
   </td>
   </tr>
   <tr>
-  <td colspan="2">
+  <td colspan="2" align="center">
     <INPUT TYPE="text" NAME="search" VALUE="<% $text %>" SIZE=30>
     <INPUT TYPE="submit" NAME="Search" VALUE="Search"><br>
   </td>
