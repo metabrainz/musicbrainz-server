@@ -66,7 +66,7 @@ sub _get
 		or return undef;
 
 	my $data = $cache->get(_encode_key($key), @args);
-	if (not $data)
+	if (not defined $data)
 	{
 		carp "Cache MISS on $key" if &DBDefs::CACHE_DEBUG;
 		return undef;

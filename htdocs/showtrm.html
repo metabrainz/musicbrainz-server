@@ -21,6 +21,14 @@ else
    {
        $m->out("<p><br>This TRM Id represents silence.<p>");
    }
+   elsif ($trm eq &ModDefs::TRM_TOO_SHORT)
+   {
+       $m->out("<p><br>This TRM Id indicates that the source file is too short.<p>");
+   }
+   elsif ($trm eq &ModDefs::TRM_SIGSERVER_BUSY)
+   {
+       $m->out("<p><br>This TRM Id gets returned when the TRM signature server is too busy to process the TRM calculation request.<p>");
+   }
    else
    {
        my $mb = $m->comp("/comp/dblogin");

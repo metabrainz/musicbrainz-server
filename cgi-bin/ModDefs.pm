@@ -62,6 +62,8 @@ use constant DARTIST_ID                  => 2;
 
 # Special TRMs
 use constant TRM_ID_SILENCE              => "7d154f52-b536-4fae-b58b-0666826c2bac";
+use constant TRM_TOO_SHORT               => "f9809ab1-2b0f-4d78-8862-fb425ade8ab9";
+use constant TRM_SIGSERVER_BUSY          => "c457a4a8-b342-4ec9-8f13-b6bd26c0e400";
 
 use constant ANON_MODERATOR              => 1;
 use constant FREEDB_MODERATOR            => 2;

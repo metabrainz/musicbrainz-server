@@ -388,13 +388,13 @@ sub SetUserInfo
 	$query .= " WHERE id = ?";
 	push @args, $uid;
 
-	$sql->AutoTransaction(
+	my $ok = $sql->AutoTransaction(
 		sub { $sql->Do($query, @args); 1 },
 	);
 
 	MusicBrainz::Server::Cache->delete($self->_GetCacheKey($uid));
 
-	1;
+	$ok;
 }
 
 sub CreditModerator

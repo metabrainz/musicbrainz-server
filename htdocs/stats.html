@@ -394,7 +394,15 @@ else
 
 	my $time = $m->comp("/comp/datetime", $stat->LastRefreshed);
 	</%perl>
-	<p>These statistics were last refreshed <% $time %></p>
+
+	<p>
+		These statistics represent provide aggregate data on various things in the
+	 	MusicBrainz database.&nbsp; They were last refreshed <% $time %>.
+	</p>
+	<p>
+		See also our <a href="/usage/">Web Stats</a> pages, and our
+		<a href="/mrtg/">system monitoring</a> pages.
+	</p>
 	<%perl>
 
 	my $result = $m->cache->get("anyoldkey");

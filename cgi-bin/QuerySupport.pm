@@ -44,6 +44,8 @@ use constant EXTRACT_TOC_QUERY => "!mm!toc [] !mm!sectorOffset";
 use constant EXTRACT_NUMTRACKS_QUERY => "!mm!lastTrack";
 use constant EXTRACT_CLIENT_VERSION => "!mq!clientVersion";
 
+use constant DEBUG_TRM_LOOKUP => 0;
+
 sub AssociateCDFromAlbumId
 {
    my ($dbh, $doc, $rdf, $Discid, $toc, $albumid) = @_;
@@ -650,7 +652,7 @@ sub TrackInfoFromTRMId
 	printf STDERR "TRM lookup, select=%.3f, HIT, RDF=%.3f\n",
 		tv_interval($t0, $t1),
 		tv_interval($t1),
-		;
+		if DEBUG_TRM_LOOKUP;
 	return $out;
    }
    else
@@ -685,7 +687,7 @@ sub TrackInfoFromTRMId
 			    tv_interval($t0, $t1),
 			    tv_interval($t1, $t2),
 			    tv_interval($t2),
-			    ;
+			    if DEBUG_TRM_LOOKUP;
 		    return $out;
                }
            }
@@ -694,7 +696,7 @@ sub TrackInfoFromTRMId
 	printf STDERR "TRM lookup, select=%.3f, MISS, TSLookup=%.3f, MISS\n",
 		tv_interval($t0, $t1),
 		tv_interval($t1, $t2),
-		;
+		if DEBUG_TRM_LOOKUP;
        return $rdf->CreateStatus(0);
    }
 }

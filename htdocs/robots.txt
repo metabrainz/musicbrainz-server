@@ -69,6 +69,7 @@ Disallow: /moderator.html
 #Allow: /mod_intro.html
 Disallow: /movealbum.html
 Disallow: /movediscid.html
+Disallow: /mrtg/
 Disallow: /newlogin.html
 #Allow: /news/
 Disallow: /newsearch.html

@@ -49,6 +49,8 @@ use MusicBrainz::Server::Mail;
 use MusicBrainz::Server::ModerationNote;
 use MusicBrainz::Server::PagedReport;
 use MusicBrainz::Server::Release;
+use MusicBrainz::Server::TRMGateway;
+use MusicBrainz::Server::TRMGatewayHandler;
 use MusicBrainz::Server::Vote;
 # Don't load MusicBrainz::Server::Moderation::* - Moderation.pm does that
 use Parser;
