@@ -77,18 +77,19 @@ use Scalar::Util qw( reftype weaken );
 	],
 	{ name => "Search/Browse",			url => "/search.html" },
 	[
-		{ name => "Artist",					url => "/search.html#artist" },
-		{ name => "Album",					url => "/search.html#album" },
-		{ name => "Track",					url => "/search.html#track" },
+		{ name => "Search",					url => "/search.html" },
+		#{ name => "Artist",					url => "/search.html#artist" },
+		#{ name => "Album",					url => "/search.html#album" },
+		#{ name => "Track",					url => "/search.html#track" },
 		{ name => "Browse Artists",			url => "/browseartists.html" },
 		{ name => "Browse Albums",			url => "/browsevarious.html" },
-		{ name => "Site Search",			url => "/search.html#google" },
-		{ name => "Advanced",				url => "/search.html#advanced" },
-		[
-			{ name => "Lookup by ID",			url => "/search.html#id" },
+		#{ name => "Site Search",			url => "/search.html#google" },
+		#{ name => "Advanced",				url => "/search.html#advanced" },
+		#[
+			#{ name => "Lookup by ID",			url => "/search.html#id" },
 			{ name => "Search Links",			url => "/engine.html" },
-			{ name => "TRM",					url => "/search.html#trm" },
-		],
+			#{ name => "TRM",					url => "/search.html#trm" },
+		#],
 		{ url => "/newsearch.html" },
 	],
 	{ name => "Tag",					url => "/tagger/index.html" },
@@ -98,6 +99,7 @@ use Scalar::Util qw( reftype weaken );
     { name => "Edit the Data",			url => "/mod_intro.html" },
     [
         { name => "About",					url => "/mod_intro.html" },
+		# TODO move this to its own page
         { name => "Suggestions",			url => "/mod_intro.html#suggestions" },
         [
             { name => "Odd Characters",			url => "/reports/bad_entries.html" },
