@@ -99,4 +99,4 @@ $dir = "/tmp/mbdump";
  
 ImportAllTables($dir);
 
-#system("rm -rf $dir");
+system("rm -rf $dir");
