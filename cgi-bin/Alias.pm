@@ -38,7 +38,7 @@ sub new
    my ($type, $dbh, $table) = @_;
 
    my $this = TableBase->new($dbh);
-   $this->{table} = $table;
+   $this->{table} = lc $table;
 
    return bless $this, $type;
 }
@@ -119,7 +119,7 @@ sub Insert
    $sql->Do(qq|insert into $this->{table} (Name, Ref, LastUsed) values 
                ($name, $id, '1970-01-01 00:00')|);
 
-   if ($this->{table} eq 'ArtistAlias')
+   if (lc($this->{table}) eq 'artistalias')
    {
        my $engine = SearchEngine->new($this->{DBH}, { Table => 'Artist' } );
        $engine->AddWordRefs($id,$name);
@@ -204,7 +204,7 @@ sub LoadFull
        for(;@row = $sql->NextRow();)
        {
            $alias = Alias->new($this->{DBH});
-           $alias->{table} = "ArtistAlias";
+           $alias->{table} = "artistalias";
            $alias->SetId($row[0]);
            $alias->SetName($row[1]);
            $alias->SetRowId($row[2]);
@@ -223,7 +223,7 @@ sub LoadFull
 sub ParentClass
 {
     my $this = shift;
-    return "Artist" if $this->{table} eq "ArtistAlias";
+    return "Artist" if lc($this->{table}) eq "artistalias";
     die "Don't understand Alias where table = $this->{table}";
 }
 
