@@ -29,7 +29,7 @@ use strict;
 use DBDefs;
 use Sql;
 use MusicBrainz;
-use RDFOutput2;
+use MM_2_0;
 use Artist;
 use Album;
 use Track;
