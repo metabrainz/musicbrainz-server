@@ -101,7 +101,7 @@ $m->comp(
 );
 
     # show any related moderations so people can vote on them
-    $m->comp("/comp/relmods", artistid=>$artistid);
+	$m->comp("/comp/relmods", artistid=>$artist->GetId);
 
     $m->comp("/comp/artisttitle", artist=>$artist);
 
