@@ -159,7 +159,11 @@ Installation:
 		mbdump-derived.tar.bz2
 
    When run in this way, the script should do everything, including creating
-   the database for you.
+   the database for you.  However the moderators will all have blank password
+   fields, which prevents logging in from succeeding.  You'll need to set
+   passwords by hand if you want to log in as a moderator, e.g.
+
+     UPDATE moderator SET password = username;
 
 5) Configure Apache to use Mason. In the admin directory you will find
    a prefab handler.pl to use with the Mason setup and the vh_httpd.conf
