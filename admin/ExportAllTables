@@ -91,7 +91,7 @@ use File::Temp qw( tempdir );
 $SIG{'INT'} = sub { exit 3 };
 $dir = tempdir("mbexport-XXXXXX", DIR => $dir, CLEANUP => not $fKeepFiles);
 mkdir "$dir/mbdump" or die $!;
-print "Exporting to $dir\n" if $fKeepFiles;
+print localtime() . " : Exporting to $dir\n" if $fKeepFiles;
 
 use MusicBrainz;
 my $mb = new MusicBrainz;
@@ -282,12 +282,30 @@ if ($fDoReplication)
 			if $sql->SelectSingleValue("SELECT COUNT(*) FROM \"$table\"") > 0;
 	}
 
-	if ($fAnyReplicationData)
+	if ($fAnyReplicationData or not $iReplicationSequence)
 	{
-		# Increment the replication sequence number.  This should (I think) be
+		# Are we starting replication for the first time?
+		if (not defined $iReplicationSequence)
+		{
+			# If we're currently not at a replication point, then let's turn this
+			# one into sequence #0.
+			$iReplicationSequence = 0;
+
+			# In this case we may as well ditch any pending
+			# replication data; no-one can ever load and apply packet #0, so it
+			# will effectively just be there for cosmetic reasons.
+
+			# TODO check the efficiency of using ON DELETE CASCADE
+			$sql->Do("DELETE FROM \"$_\"") for @replication_tables;
+		} else {
+			# Otherwise, we're moving on to the next replication sequence
+			# number.
+			++$iReplicationSequence;
+		}
+
+		# Set the replication sequence number.  This should (I think) be
 		# the final transaction included in each packet.
 		$iReplicationSequence ||= 0;
-		++$iReplicationSequence,
 
 		$sql->Do(
 			"UPDATE replication_control SET current_replication_sequence = ?",
@@ -301,10 +319,7 @@ if ($fDoReplication)
 
 		# Remove the rows we just dumped
 		# TODO check the efficiency of using ON DELETE CASCADE
-		for my $table (@replication_tables)
-		{
-			$sql->Do("DELETE FROM \"$table\"");
-		}
+		$sql->Do("DELETE FROM \"$_\"") for @replication_tables;
 
 		writefile("REPLICATION_SEQUENCE", "$iReplicationSequence\n");
 	} else {
@@ -315,9 +330,13 @@ if ($fDoReplication)
 	writefile("REPLICATION_SEQUENCE", "");
 }
 
+# Dump this /after/ we've possibly updated the current_replication_sequence
+dumptable("replication_control");
+
 $sql->Commit;
 my $dumptime = tv_interval($t0);
-printf "Dumped %d tables (%d rows) in %d seconds\n",
+printf "%s : Dumped %d tables (%d rows) in %d seconds\n",
+	scalar localtime,
 	$tables, $totalrows, $dumptime;
 
 # Now we have all the files; disconnect from the database.
@@ -334,6 +353,7 @@ my @group_core = qw(
 	country
 	discid
 	release
+	replication_control
 	toc
 	track
 	trm
@@ -349,13 +369,16 @@ my @group_derived = qw(
 	wordlist
 	);
 
-my @group_moderation = qw(
+my @group_stats = qw(
 	currentstat
 	historicalstat
+	stats
+);
+
+my @group_moderation = qw(
 	moderation_note_open
 	moderation_open
 	moderator_sanitised
-	stats
 	vote_open
 	);
 
@@ -386,14 +409,15 @@ if ($fCompress and $fDoFullExport)
 	copy("$FindBin::Bin/COPYING-CCShareAlike", "$dir/COPYING") or die $!;
 	make_tar("mbdump-derived.tar.bz2", @group_derived);
 	make_tar("mbdump-moderation.tar.bz2",  @group_moderation);
+	make_tar("mbdump-stats.tar.bz2",  @group_stats);
 	make_tar("mbdump-closedmoderation.tar.bz2",  @group_closedmoderation);
 	make_tar("mbdump-artistrelation.tar.bz2", @group_artistrelation);
-	make_tar("mbdump-moderator.tar.bz2", @group_modprivate);
+	make_tar("mbdump-private.tar.bz2", @group_modprivate);
 }
 
 if ($fCompress and $fDoReplication)
 {
-	my $tarfile = "mbdump-replication-$iReplicationSequence.tar.bz2";
+	my $tarfile = "replication-$iReplicationSequence.tar.bz2";
 
 	if (grep { $rowcounts{$_} } @replication_tables)
 	{
@@ -407,7 +431,7 @@ sub make_tar
 {
 	my ($tarfile, @files) = @_;
 
-	@files = map { "mbdump/$_" } @files;
+	@files = map { "mbdump/$_" } grep { defined $rowcounts{$_} } @files;
 	unshift @files, qw(
 		TIMESTAMP
 		COPYING
@@ -416,7 +440,7 @@ sub make_tar
 	);
 
 	my $t0 = [gettimeofday];
-	print "Creating $tarfile\n";
+	print localtime() . " : Creating $tarfile\n";
 	system { "/bin/tar" } "tar",
 		"-C", $dir,
 		"--bzip2",
@@ -427,7 +451,7 @@ sub make_tar
 		@files,
 		;
 	$? == 0 or warn "Tar returned $?";
-	printf "Tar completed in %d seconds\n", tv_interval($t0);
+	printf "%s : Tar completed in %d seconds\n", scalar localtime, tv_interval($t0);
 }
 
 sub writefile
