@@ -45,7 +45,7 @@ nice ./MBDump.pl --moderation --sanitised -o /tmp/mbdump-moderation.tar.bz2
 mv /tmp/mbdump-moderation.tar.bz2 $ftpdir
 
 # Dump the unsanitized moderation data for backup
-nice ./MBDump.pl --moderation --unsanitised -o /tmp/mbdump-moderation.tar.bz2
+nice ./MBDump.pl --moderation --nosanitised -o /tmp/mbdump-moderation.tar.bz2
 mv /tmp/mbdump-moderation.tar.bz2 $backupdir
 chown $backupuser:$backupgroup $backupdir/mbdump.tar.bz2
 

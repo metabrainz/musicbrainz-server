@@ -29,25 +29,10 @@ use DBI;
 use DBDefs;
 
 use Getopt::Long;
-my ($fAll, $fSanitised, $fCore, $fDerived, $fModeration);
-my $outfile = my $sDefaultOutputFile = "mbdump.tar.bz2";
-my $tmpdir = my $sDefaultTmpDir = "/tmp";
-my $fHelp;
-my $fDebug;
 
-GetOptions(
-	"all|a"			=> \$fAll,
-	"sanitised|sanitized|s!"	=> \$fSanitised,
-	"core|c"		=> \$fCore,
-	"derived|d"		=> \$fDerived,
-	"moderation|m"	=> \$fModeration,
-	"outfile|o=s"	=> \$outfile,
-	"tmpdir|t=s"	=> \$tmpdir,
-	"help|h"		=> \$fHelp,
-	"debug"			=> \$fDebug,
-);
-
-die <<EOF if ($fHelp || !(@ARGV));
+sub Usage
+{
+   die <<EOF;
 Usage: MBDump.pl [options] [tables]
 
 Options are:
@@ -68,6 +53,27 @@ After the options, you may specify individual table names.  Using the table
 selection options (--core etc) simply adds to that list of tables.
 
 EOF
+}
+
+my ($fAll, $fSanitised, $fCore, $fDerived, $fModeration);
+my $outfile = my $sDefaultOutputFile = "mbdump.tar.bz2";
+my $tmpdir = my $sDefaultTmpDir = "/tmp";
+my $fHelp;
+my $fDebug;
+
+GetOptions(
+	"all|a"			=> \$fAll,
+	"sanitised|sanitized|s!"	=> \$fSanitised,
+	"core|c"		=> \$fCore,
+	"derived|d"		=> \$fDerived,
+	"moderation|m"	=> \$fModeration,
+	"outfile|o=s"	=> \$outfile,
+	"tmpdir|t=s"	=> \$tmpdir,
+	"help|h"		=> \$fHelp,
+	"debug"			=> \$fDebug,
+);
+
+Usage() if ($fHelp);
 
 require MusicBrainz;
 my $mb = MusicBrainz->new;
@@ -107,7 +113,7 @@ push @ARGV, @core if $fCore or $fAll;
 push @ARGV, @derived if $fDerived or $fAll;
 push @ARGV, @moderation if $fModeration or $fAll;
 
-@ARGV or die;
+@ARGV or Usage();
 
 my %tables = map { lc($_) => 1 } @ARGV;
 my @tables = sort keys %tables;
