@@ -154,5 +154,25 @@ use constant VOTE_NOTVOTED => -2;
 # vote outcome from the moderation specifically.
 use constant VOTE_UNKNOWN  => -3;
 
+{ my $c; sub type_as_hashref   { $c ||= _hash(qr/^MOD_/   ) } }
+{ my $c; sub status_as_hashref { $c ||= _hash(qr/^STATUS_/) } }
+{ my $c; sub vote_as_hashref   { $c ||= _hash(qr/^VOTE_/  ) } }
+
+sub _hash
+{
+	my $re = shift;
+
+	my $stash = do { no strict 'refs'; \%{ __PACKAGE__ . "::" } };
+	my %h;
+
+	for my $name (grep /$re/, keys %$stash)
+	{
+		my $glob = $stash->{$name};
+		$h{$name} = &{ *$glob{CODE} };
+	}
+
+	\%h;
+}
+
 1;
 # eof ModDefs.pm
