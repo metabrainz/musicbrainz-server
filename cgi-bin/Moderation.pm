@@ -628,8 +628,7 @@ sub GetModerationList
                 m.expiretime, m.yesvotes, m.novotes, m.status,
                 m.automod,
                 u.id, u.name,
-                a.name,
-				m.expiretime < NOW()
+                a.name, m.expiretime < NOW()
         FROM    moderation m
                 LEFT JOIN votes v ON v.rowid = m.id AND v.uid = ?
                 INNER JOIN moderator u ON u.id = m.moderator
@@ -650,8 +649,8 @@ sub GetModerationList
                 m.expiretime, m.yesvotes, m.novotes, m.status,
                 m.automod,
                 u.id, u.name,
-                a.name,
-				m.expiretime < NOW()
+                a.name, m.expiretime < NOW(),
+				v.vote
         FROM    moderation m
                 INNER JOIN moderator u ON u.id = m.moderator
                 INNER JOIN artist a ON a.id = m.artist
@@ -669,8 +668,7 @@ sub GetModerationList
                           prevvalue, newvalue, ExpireTime, yesvotes, novotes, 
                           status, automod, Moderator.id as moderator_id, 
                           Moderator.name as moderator_name, 
-                          Artist.name as artist_name, 
-						  moderation.expiretime < NOW(),
+                          Artist.name as artist_name, moderation.expiretime < NOW(),
                           Votes.vote
                      from Moderation, Moderator, Artist, Votes 
                     where Moderator.id = moderation.moderator and 
@@ -688,8 +686,7 @@ sub GetModerationList
                           prevvalue, newvalue, ExpireTime, yesvotes, novotes, 
                           status, automod, Moderator.id as moderator_id, 
                           Moderator.name as moderator_name, 
-                          Artist.name as artist_name, 
-						  moderation.expiretime < NOW(),
+                          Artist.name as artist_name, moderation.expiretime < NOW(),
                           Votes.vote
                      from Moderator, Artist, Moderation left join Votes 
                           on Votes.uid = ? and Votes.rowid=moderation.id 
@@ -708,8 +705,7 @@ sub GetModerationList
                 m.expiretime, m.yesvotes, m.novotes, m.status,
                 m.automod,
                 u.id, u.name,
-                a.name,
-				m.expiretime < NOW()
+                a.name, m.expiretime < NOW()
         FROM    moderation m
                 LEFT JOIN votes v ON v.rowid = m.id AND v.uid = ?
                 INNER JOIN moderator u ON u.id = m.moderator
@@ -729,8 +725,7 @@ sub GetModerationList
                           prevvalue, newvalue, ExpireTime, yesvotes, novotes, 
                           status, automod, Moderator.id as moderator_id, 
                           Moderator.name as moderator_name, 
-                          Artist.name as artist_name, 
-						  moderation.expiretime < NOW(),
+                          Artist.name as artist_name, moderation.expiretime < NOW(),
                           Votes.vote
                      from Moderator, Artist, Moderation left join Votes 
                           on Votes.uid = ? and Votes.rowid=moderation.id 
@@ -740,6 +735,32 @@ sub GetModerationList
 						  LOWER(Moderation.tab) = 'album'
                           offset ?|;
 	@args = ($uid, $rowid, $index);
+   }
+   elsif ($type == ModDefs::TYPE_MODERATOR_FAILED)
+   {
+       $query = qq|
+        SELECT  m.id, m.tab, m.col, m.rowid,
+                m.artist, m.type, m.prevvalue, m.newvalue,
+                m.expiretime, m.yesvotes, m.novotes, m.status,
+                m.automod,
+                u.id, u.name,
+                a.name, m.expiretime < NOW(),
+				v.vote
+        FROM    moderation m
+                INNER JOIN moderator u ON u.id = m.moderator
+                INNER JOIN artist a ON a.id = m.artist
+                LEFT JOIN votes v ON v.rowid = m.id AND v.uid = ?
+        WHERE   m.moderator = ?
+              AND   m.status IN (|
+		. join(",",
+			&ModDefs::STATUS_FAILEDVOTE,
+			&ModDefs::STATUS_FAILEDDEP,
+			&ModDefs::STATUS_FAILEDPREREQ,
+		) . qq|)
+        ORDER BY 1 DESC
+		OFFSET ?
+        |;
+       @args = ($uid, $rowid, $index);
    }
    else
    {

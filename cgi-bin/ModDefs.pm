@@ -44,7 +44,8 @@ use constant TYPE_MODERATOR              => 3;
 use constant TYPE_ARTIST                 => 4;
 use constant TYPE_FREEDB                 => 5;
 use constant TYPE_ALBUM                  => 6;
-use constant TYPE_MAX                    => 6; # end marker
+use constant TYPE_MODERATOR_FAILED       => 7;
+use constant TYPE_MAX                    => 7; # end marker
 
 # The various moderations, enumerated
 use constant MOD_EDIT_ARTISTNAME         => 1;
