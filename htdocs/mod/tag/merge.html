@@ -24,6 +24,7 @@ sub SwapItems
 }
 
 my ($mb, $id, $ar, $artist); 
+my (%merged, @id_numtracks);
 
 $mb = mc_comp("/comp/dblogin");
 
@@ -37,7 +38,7 @@ if (!defined $session{user} || $session{user} eq '') {
 } 
 else 
 {
-    my ($i, $key, $al, @objs);
+    my ($i, $key, $al, @tracks, $tr, @objs, @ids, $di);
 
     foreach $key (keys %ARGS)
     {
@@ -50,9 +51,25 @@ else
     }
 
     $ar = Artist->new($mb->{DBH});
+    $di = Discid->new($mb->{DBH});
     $i = 0;
     foreach $al (@objs)
     {
+       @tracks = $al->LoadTracks();
+       foreach $tr (@tracks)
+       {
+           $merged{$tr->GetSequence()}++;
+       }
+
+       @ids = $di->GetDiscidFromAlbum($al->GetId());
+       foreach $id (@ids)
+       {
+           if ($id->{toc} =~ /^\d* (\d*)/)
+           {
+               push @id_numtracks, $1;
+           }
+       }
+       
        if ($i == 0)
        {
            </%perl>
@@ -104,10 +121,33 @@ else
        $i++;
     }
 }
+
+my $final = scalar(keys %merged);
+my $merge_ok = 1;
+
+print STDERR "@id_numtracks\n";
+foreach (@id_numtracks)
+{
+   if ($_ != $final)
+   {   
+      $merge_ok = 0;
+      last;
+   }
+}
 </%perl>
 
 <br>
 <p>
+% if (!$merge_ok) {
+      <font size="+1" color="red">Error:</font> these albums cannot be merged together, 
+      since they have CD Index ids that belong to albums that have more or fewer than
+      the <% $final %> tracks that the merged album would have.
+%     $mb->Logout();
+      <& /comp/footer &>
+%     return undef;
+% }
+
+
 <blockquote>
 
 % if ($type == ModDefs::MOD_MERGE_ALBUM) {
