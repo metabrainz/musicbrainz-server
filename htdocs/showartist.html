@@ -35,26 +35,26 @@ sub CheckAttributes
     $a->{_attr_status} = Album::ALBUM_ATTR_SECTION_STATUS_END + 1 if (not defined $a->{_attr_status});
 }
 
+# Sort by:
+# 'Various' (non-VA, VA);
+# 'NonAlbum' (NonAlbum, Album)
+# 'Type' (album type)
+# 'Name' (lowercase)
+# 'Status' (release status)
+
 sub SortAlbums
 {
-    return 1 if ($a->{_attr_type} == Album::ALBUM_ATTR_NONALBUMTRACKS);
-    return -1 if ($b->{_attr_type} == Album::ALBUM_ATTR_NONALBUMTRACKS);
-
-    if ($a->{_attr_type} == $b->{_attr_type})
-    {
-        if (lc($a->GetName()) eq lc($b->GetName()))
-        {
-            return $a->{_attr_status} <=> $b->{_attr_status};
-        }
-        else
-        {
-            return $a->GetName() cmp $b->GetName();
-        }
-    }
-    else
-    {
-        return $a->{_attr_type} <=> $b->{_attr_type};
-    }
+	# Note: false ("") sorts before true (1)
+	($a->{_is_va_} <=> $b->{_is_va_})
+	or
+	# Note: false ("") sorts before true (1)
+	($b->{_is_nonalbum_} <=> $a->{_is_nonalbum_})
+	or
+	($a->{_attr_type} <=> $b->{_attr_type})
+	or
+	($a->{_name_sort_} cmp $b->{_name_sort_})
+	or
+	($a->{_attr_status} <=> $b->{_attr_status})
 }
 
 my ($mb); 
@@ -66,9 +66,6 @@ if (!exists $ARGS{artistid} || $ARGS{artistid} eq '')
     mc_comp("/comp/badargs");
     return undef;
 }
-
-my ($ret, $t0, $t1, $td);
-my ($secs, $section);
 
 $mb = mc_comp("/comp/dblogin");
 $artist = Artist->new($mb->{DBH});
@@ -206,7 +203,19 @@ else
 
                 $hasnonalbum += $album->IsNonAlbumTracks();
                 CheckAttributes($album);
+
+				$album->{_is_va_} = ($album->GetArtist == ModDefs::VARTIST_ID);
+				$album->{_is_nonalbum_} = ($album->{_attr_type} == Album::ALBUM_ATTR_NONALBUMTRACKS);
+
+				$album->{_section_key_} = (
+					$album->{_is_va_} . " " . $album->{_attr_type}
+				);
+
+				# Munge name for sorting
+				use Encode qw( decode );
+				$album->{_name_sort_} = lc decode "utf-8", $album->GetName;
             }
+
             @albums = sort SortAlbums @albums;
 
             </%perl>
@@ -258,14 +267,19 @@ else
             <br>
 
             <%perl>
-            $section = -1;
+            my $last = "";
             foreach $album (@albums)
             {
-                if ($section != $album->{_attr_type})
+                if ($last ne $album->{_section_key_})
                 {
-                    mc_comp("/comp/albumtype", 
-                            text=>$album->GetAttributeNamePlural($album->{_attr_type}));
-                    $section = $album->{_attr_type};
+					my $va = $album->{_is_va_} ? "Various Artist" : "";
+					my $name = $album->GetAttributeNamePlural($album->{_attr_type});
+					$name = "Uncategorized Releases" if $name eq "";
+
+					my $desc = ($name ? "$va $name" : $va ? $va."s" : "None");
+                    mc_comp("/comp/albumtype", text => $desc);
+
+                    $last = $album->{_section_key_};
                 }
 
                 $id = $album->GetId();
