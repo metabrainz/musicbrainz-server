@@ -1018,10 +1018,19 @@ sub QuickTrackInfoFromTRMId
 
    if (defined $data[0])
    {
-       my $trm;
-
-       $trm = TRM->new($dbh);
-       $trm->IncrementLookupCount($id);
+       my ($trm, $sql);
+       
+       $sql = Sql->new($dbh);
+       eval
+       {
+          $sql->Begin();
+          $trm->IncrementLookupCount(shift);
+          $sql->Commit();
+       };
+       if ($@)
+       {
+          $sql->Rollback();
+       }
    }
 
    $out = $rdf->BeginRDFObject;
