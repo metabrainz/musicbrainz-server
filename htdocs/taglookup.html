@@ -688,7 +688,7 @@ else
    </%perl>
    <p><b>No matching artists found.</b></p>
    <& /comp/lookupoptions, artist=>$artist, artistobj=>$ts->{artist}, 
-                           album=>$album, albumobj=>$ts->{album}, data=>\%data &>
+                           album=>$album, albumobj=>$ts->{album}, data=>\%orig_data &>
    <%perl>
 }
 
