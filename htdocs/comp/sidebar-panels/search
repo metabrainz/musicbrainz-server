@@ -5,7 +5,15 @@
 		<td>
 	<form method="get" action="/newsearch.html">
 		<div>
-			<input type="text" name="search" value="">
+			<input type="text" name="search" value=""
+%# What is the official position on forms with no submit button?
+%# Normally they're OK, and you can press "return" and the form is submitted.
+%# Can we rely on this, always?
+%# Anyway within the Tagger this fails, so we detect "return" ourselves.
+% if ($session{mbt}) {
+					onkeydown="if (event.keyCode==13) this.form.submit()"
+% }
+				>
 			<input type="hidden" name="table" value="<% $table %>">
 		</div>
 	</form>
