@@ -31,7 +31,7 @@ if ($album > 0)
 
 $r->method('GET');
 $r->headers_in->unset('Content-length');
-$r->content_type('text/html');
+$r->content_type('text/html; charset=UTF-8');
 $r->header_out(Location=>$url);
 $r->status(302);
 

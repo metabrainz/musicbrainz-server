@@ -107,7 +107,7 @@ $mb->Logout();
 $r->method('GET');
 $r->headers_in->unset('Content-length');
 
-$r->content_type('text/html');
+$r->content_type('text/html; charset=UTF-8');
 
 if (exists $ARGS{choice} && lc($ARGS{choice}) eq 'no')
 {
