@@ -163,7 +163,7 @@ sub GetModerationList
             UNIX_TIMESTAMP(TimeSubmitted), ModeratorInfo.name, yesvotes, 
             novotes, Artist.name, status, 0 from Changes, ModeratorInfo, Artist 
             where ModeratorInfo.id = moderator and Changes.artist = 
-            Artist.id and moderator = $uid order by id limit 
+            Artist.id and moderator = $uid order by TimeSubmitted limit 
             $index, $num/;
    }
    else
@@ -175,7 +175,7 @@ sub GetModerationList
             ModeratorInfo, Artist,
             Votes where ModeratorInfo.id = moderator and Changes.artist = 
             Artist.id and Votes.rowid = Changes.id and Votes.uid = $uid 
-            order by artist, type limit $index, $num/;
+            order by TimeSubmitted limit $index, $num/;
    }
 
    $sth = $this->{DBH}->prepare($sql);
@@ -449,78 +449,6 @@ sub ApplyEditModification
    $sth->finish;
 
    return $status;
-}
-
-sub GetNewModerationList_saved_remove_me_soon
-{
-   my ($this, $index, $num, $uid, $type) = @_;
-   my ($sth, @data, $num_mods, @row, @votes, $vote, $voted);
-
-   $sth = $this->{DBH}->prepare(qq/select count(*) from Changes/);
-   $sth->execute();
-   $num_mods = ($sth->fetchrow_array)[0];
-   $sth->finish;   
-
-   $sth = $this->{DBH}->prepare(qq/select rowid from Votes where uid = $uid
-                                order by rowid/);
-   $sth->execute;
-   if ($sth->rows)
-   {
-        while(@row = $sth->fetchrow_array)
-        {
-            push @votes, $row[0];
-        }
-   }
-   $sth->finish;   
-
-   if ($type == TYPE_MINE)
-   {
-       $sth = $this->{DBH}->prepare(qq/select Changes.id, tab, col, rowid, 
-            Changes.artist, type, prevvalue, newvalue, 
-            UNIX_TIMESTAMP(TimeSubmitted), ModeratorInfo.name, yesvotes, 
-            novotes, Artist.name, status from Changes, ModeratorInfo, Artist 
-            where ModeratorInfo.id = moderator and Changes.artist = 
-            Artist.id and moderator = $uid order by artist, type limit 
-            $index, $num/);
-   }
-   else
-   {
-       $sth = $this->{DBH}->prepare(qq/select Changes.id, tab, col, rowid, 
-            Changes.artist, type, prevvalue, newvalue, 
-            UNIX_TIMESTAMP(TimeSubmitted), ModeratorInfo.name, yesvotes, 
-            novotes, Artist.name, status from Changes, ModeratorInfo, Artist 
-            where ModeratorInfo.id = moderator and Changes.artist = 
-            Artist.id order by artist, type limit $index, $num/);
-   }
-   $sth->execute;
-   print STDERR "$index, $num--> " . $sth->rows."\n";
-   if ($sth->rows)
-   {
-        while(@row = $sth->fetchrow_array)
-        {
-            $voted = 0;
-            foreach $vote (@votes)
-            {
-               if ($vote == $row[0])
-               {
-                   $voted = 1;
-                   last;
-               }
-            }
-            print STDERR "$type $row[13] $voted\n";
-            if (($type == TYPE_NEW && $row[13] == STATUS_OPEN && $voted == 0)||
-                ($type == TYPE_VOTED && $row[13] == STATUS_OPEN && $voted) || 
-                 $type == TYPE_MINE)
-            {
-                print STDERR "Add: $row[1], $row[2]\n";
-                $row[8] += DBDefs::MOD_PERIOD;
-                push @data, [@row, $voted];
-            }
-        }
-   }
-   $sth->finish;
-
-   return ($num_mods, @data);
 }
 
 1;
