@@ -12,7 +12,7 @@ $title
 
 <table width="100%" cellpadding="0" cellspacing="0" border="0">
 <tr>
-   <td bgcolor="#736DAB" background="/images/header_BG.gif"><img src="/images/header_logo_a.gif" width="614" height="67" alt="" border="0"></td>
+   <td bgcolor="#736DAB" background="/images/header_BG.gif"><img src="/images/header_logo_a<% DBDefs::DB_STAGING_SERVER ? "_ss" : "" %>.gif" width="614" height="67" alt="" border="0"></td>
 </tr>
 </table>
 

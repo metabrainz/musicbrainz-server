@@ -45,6 +45,9 @@ use constant DB_READ_ONLY => 0;
 use constant DB_READ_ONLY_MESSAGE => qq/This server is temporarily in 
 read-only mode for database maintainance./;
 
+# Set this value if this is a staging server
+use constant DB_STAGING_SERVER => 1;
+
 # Set this to 1 if you would like this server to handle lyrics and SyncText.
 # Please note that this is likely to get you into legal trouble if you
 # insert copyrighted lyrics in the database. Please be aware of the 
@@ -65,7 +68,7 @@ use constant DEFAULT_LYRICS_URL => 'http://www.mp3.nl';
 use constant SEARCH_LYRICS_OFFSITE => 1;
 
 # This defines the version of the server
-use constant VERSION => "1.0.0-pre8";
+use constant VERSION => "1.0.0-preX";
 
 # Defines the number of seconds before the votes on a 
 # modification are evaluated
