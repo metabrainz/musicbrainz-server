@@ -15,7 +15,7 @@ $link = "/showartist.html?artistid=" . $artist->GetId() . "&ex=";
 
 $ex .= "," . $album->GetId();
 $ex =~ s/^,//g;
-$link .= $ex;
+$link .= $ex . "#al" . $album->GetId();
 mc_comp("/comp/albumbegin", 
             album=>$album, artist=>$artist, nomod=>1,
             linktype=>'expand', 
