@@ -26,6 +26,15 @@ function GuessCase2(string, inbrackets)
 
 		if (string.match(/^[\(\[]?\s*silen(t|ce)(\s+track)?\s*[\)\]]?$/i))
 			return "[silence]";
+
+		if (string.match(/^[\(\[]?\s*untitled(\s+track)?\s*[\)\]]?$/i))
+			return "[untitled]";
+
+		if (string.match(/^[\(\[]?\s*unknown|bonus(\s+track)?\s*[\)\]]?$/i))
+			return "[unknown]";
+
+		if (string.match(/^[\(\[]?\s*no\s+artist\s*[\)\]]?$/i))
+			return "[no artist]";
 	}
 
 	// foo (...
