@@ -34,6 +34,3 @@ body, p, td         {font : normal 10pt Verdana, Geneva, Arial, Helvetica, sans-
 
 .bold               {font : Bold 10pt Verdana, Geneva, Arial, Helvetica, sans-serif; color : #000000; text-decoration : none;}
 
-.body               {font : normal 10pt Verdana, Geneva, Arial, Helvetica, sans-serif; color : #000000; text-decoration : none;}
-.body a             {font : normal 10pt Verdana, Geneva, Arial, Helvetica, sans-serif; color : #534D8B; text-decoration : none;}
-.body a:hover       {font : normal 10pt Verdana, Geneva, Arial, Helvetica, sans-serif; color : #736DAB; text-decoration : underline;}

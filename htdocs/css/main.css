@@ -11,6 +11,22 @@ body
 a img { border: 0 }
 form { margin: 0 }
 
+a,
+a:link,
+a:visited
+{
+	color: #534D8B;
+	text-decoration: none;
+}
+
+a:hover,
+a:focus,
+a:active
+{
+	color: #736DAB;
+	text-decoration: underline;
+}
+
 /* This is equivalent to /comp/title, i.e. class "title" in brainz.css */
 h1
 {
