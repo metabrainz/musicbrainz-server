@@ -35,6 +35,8 @@ use Track;
 use Alias;
 use GUID;
 use Diskid;
+use Moderation;
+use ModDefs;
 
 use Data::Dumper;
 
@@ -449,3 +451,62 @@ sub Insert
     return 1;
 }
 
+sub InsertAlbumModeration
+{
+    my ($this, $new, $moderator, $artist) = @_;
+    my ($mod, $albumid, $artistid);
+
+    $mod = Moderation->new($this->{DBH});
+    $mod = $mod->CreateModerationObject(ModDefs::MOD_ADD_ALBUM);
+    return (undef, undef) if (!defined $mod);
+
+    $mod->SetTable('Album');
+    $mod->SetColumn('Name');
+    $mod->SetPrev("");
+    $mod->SetNew($new);
+    $mod->SetType(ModDefs::MOD_ADD_ALBUM);
+
+    if (!defined $moderator)
+    {
+        $mod->SetModerator(ModDefs::ANON_MODERATOR);
+    }
+    else
+    {
+        $mod->SetModerator($moderator);
+    }
+    $mod->SetDepMod(0);
+
+    # if we already have an artist id, set it here
+    $mod->SetArtist($artist) if (defined $artist);
+
+    # Do the data insertion, and resolve all the ids
+    $mod->PreVoteAction();
+
+    if ($mod->GetNew() =~ /^_albumid=(.*)$/m)
+    {
+       $albumid = $1;
+       $mod->SetRowId($albumid);
+    }
+    if ($mod->GetNew() =~ /^_artistid=(.*)$/m)
+    {
+       $artistid = $1;
+       $mod->SetArtist($artistid);
+    }
+
+    if (defined $artistid && defined $albumid)
+    {
+        # Now use the new ids to determine any dependecies
+        $mod->DetermineDependencies();
+        $mod->InsertModeration();
+    
+        return ($artistid, $albumid);
+    }
+    else
+    {
+        print STDERR "Cannot insert album moderation. Artist and album " .
+                     "are not fully defined.\n";
+        $mod->DeniedAction();
+    }
+
+    return (undef, undef);
+}

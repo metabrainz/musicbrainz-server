@@ -60,74 +60,33 @@ else
         } 
     }
 
-    $mod = Moderation->new($mb->{DBH});
-    $mod = $mod->CreateModerationObject(ModDefs::MOD_ADD_ALBUM);
-    if (defined $mod)
+    $in = Insert->new($mb->{DBH});
+    ($artistid, $albumid) = $in->InsertAlbumModeration($new,
+                                    $session{user}, $artist);
+    if (defined $artistid && defined $albumid)
     {
-        $mod->SetTable('Album');
-        $mod->SetColumn('Name');
-        $mod->SetPrev("");
-        $mod->SetNew($new);
-        $mod->SetType(ModDefs::MOD_ADD_ALBUM);
-       
-        if (!exists $session{uid})
+        mc_out("Thank you for your submission!<p><br>");
+
+        my ($al, $ar);
+
+        $ar = Artist->new($mb->{DBH});
+        $ar->SetId($artistid);
+        if ($ar->LoadFromId())
         {
-            $mod->SetModerator(ModDefs::ANON_MODERATOR);
-        }
-        else
-        {
-            $mod->SetModerator($session{uid});
-        }
-        $mod->SetDepMod(0);
-
-        # if we already have an artist id, set it here
-        $mod->SetArtist($artist) if (defined $artist);
-
-        # Do the data insertion, and resolve all the ids
-        $mod->PreVoteAction();
-
-        if ($mod->GetNew() =~ /^_albumid=(.*)$/m)
-        {
-           $albumid = $1;
-           $mod->SetRowId($albumid);
-        }
-        if ($mod->GetNew() =~ /^_artistid=(.*)$/m)
-        {
-           $artistid = $1;
-           $mod->SetArtist($artistid);
-        }
-
-        if (defined $artistid && defined $albumid)
-        {
-            # Now use the new ids to determine any dependecies
-            $mod->DetermineDependencies();
-
-            $mod->InsertModeration(); 
-
-            mc_out("Thank you for your submission!<p><br>");
-
-            my ($al, $ar);
-
-            $ar = Artist->new($mb->{DBH});
-            $ar->SetId($artistid);
-            if ($ar->LoadFromId())
+            $al = Album->new($mb->{DBH});
+            $al->SetArtist($artistid);
+            $al->SetId($albumid);
+            if ($al->LoadFromId())
             {
-                $al = Album->new($mb->{DBH});
-                $al->SetArtist($artistid);
-                $al->SetId($albumid);
-                if ($al->LoadFromId())
-                {
-                    mc_out("<hr>Here is the album you inserted:<p><br>");
-                    mc_comp("/comp/artisttitle", artist=>$ar);
-                    mc_comp("/comp/album", album=>$al, artist=>$ar);
-                }
+                mc_out("<hr>Here is the album you inserted:<p><br>");
+                mc_comp("/comp/artisttitle", artist=>$ar);
+                mc_comp("/comp/album", album=>$al, artist=>$ar);
             }
         }
-        else
-        {
-            mc_out("An error occurred during the data insertion: ");
-            mc_out("$mod->{error}\n<p>");
-        }
+    }
+    else
+    {
+        mc_out("An error occurred during the data insertion.");
     }
     $mb->Logout;
 }

@@ -59,5 +59,6 @@ use constant STATUS_FAILEDVOTE           => 3;
 use constant STATUS_FAILEDDEP            => 4;
 use constant STATUS_ERROR                => 5;
 use constant STATUS_FAILEDPREREQ         => 6;
+use constant STATUS_EVALNOCHANGE         => 7;
 
 1;

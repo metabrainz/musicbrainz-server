@@ -285,7 +285,8 @@ sub CreateFromId
    $query = qq/select Changes.id, tab, col, Changes.rowid, 
                       Changes.artist, type, prevvalue, newvalue, 
                       UNIX_TIMESTAMP(TimeSubmitted), ModeratorInfo.name, 
-                      yesvotes, novotes, Artist.name, status, 0 
+                      yesvotes, novotes, Artist.name, status, 0, depmod,
+                      ModeratorInfo.id
                from   Changes, ModeratorInfo, Artist 
                where  ModeratorInfo.id = moderator and Changes.artist = 
                       Artist.id and Changes.id = $id/;
@@ -312,6 +313,8 @@ sub CreateFromId
            $mod->SetArtistName($row[12]);
            $mod->SetStatus($row[13]);
            $mod->SetVoteId($row[14]);
+           $mod->SetDepMod($row[15]);
+           $mod->SetModerator($row[16]);
        }
        $sql->Finish();
    }
@@ -585,181 +588,167 @@ sub InsertVotes
       $sql->Do(qq/insert into Votes (uid, rowid, vote) values
                            ($uid, $val, -1)/); 
    }
-
-   $this->CheckModifications((@{$yeslist}, @{$nolist}))
 }
 
-# Go through the Changes table and find Moderations that have expired.
-# Then evaluate the expired mods...
-sub CheckModificationsForExpiredItems
-{
-   my ($this) = @_;
-   my ($sql, @ids, @row, $query); 
-
-   $sql = Sql->new($this->{DBH});
-   $query = qq/select id from Changes where 
-              status = / . ModDefs::STATUS_OPEN . qq/ and
-              UNIX_TIMESTAMP(now()) - UNIX_TIMESTAMP(TimeSubmitted) > / 
-              . DBDefs::MOD_PERIOD . " order by TimeSubmitted, Depmod";
-   if ($sql->Select($query))
-   {
-       while(@row = $sql->NextRow())
-       {
-          push @ids, $row[0];
-       }
-       $sql->Finish;
-   }
-
-   $this->CheckModifications(@ids);
-   $this->CheckModificationsForFailedDependencies();
-}
-
+# Go through the Changes table and evaluate open Moderations
 sub CheckModifications
 {
-   my ($this, @ids) = @_;
-   my ($sql, $query, $rowid, @row, $status, $dep_status, $mod); 
-
-   $sql = Sql->new($this->{DBH});
-   while(defined($rowid = shift @ids))
-   {
-       $query = qq/select yesvotes, novotes,
-              UNIX_TIMESTAMP(now()) - UNIX_TIMESTAMP(TimeSubmitted),
-              tab, rowid, moderator, type, depmod from Changes 
-              where id = $rowid/;
-       if ($sql->Select($query))
-       {
-            @row = $sql->NextRow();
-
-            # Check to see if this change has another change that it depends on
-            if ($row[7] > 0)
-            {
-                # Get the status of the dependent change
-                $dep_status = $this->GetModerationStatus($row[7]);
-                if ($dep_status == ModDefs::STATUS_OPEN)
-                {
-                    # If the prereq. change is still open, skip this change 
-                    $sql->Finish;
-                    next;
-                }
-                if ($dep_status != ModDefs::STATUS_OPEN && 
-                    $dep_status != ModDefs::STATUS_APPLIED)
-                {
-                    # If the prereq. change failed, close this modification
-                    $mod = $this->CreateFromId($rowid);
-                    if (defined $mod)
-                    {
-                        $mod->DeniedAction();
-                        $this->CreditModerator($row[5], 0);
-                        $this->CloseModification($rowid, $row[3], 
-                                                 $row[4], 
-                                                 ModDefs::STATUS_FAILEDPREREQ);
-                    }
-                    $sql->Finish;
-                    next;
-                }
-            }
-            # Has the vote period expired?
-            if ($row[2] >= DBDefs::MOD_PERIOD && 
-               ($row[0] > 0 || $row[1] > 0))
-            {
-                # Are there more yes votes than no votes?
-                if ($row[0] > $row[1])
-                {
-                    $mod = $this->CreateFromId($rowid);
-                    if (defined $mod)
-                    {
-                        $status = $mod->ApprovedAction($rowid);
-                        $this->CreditModerator($row[5], 1);
-                        $this->CloseModification($rowid, $row[3], 
-                                                 $row[4], $status);
-                    }
-                }
-                else
-                {
-                    $mod = $this->CreateFromId($rowid);
-                    if (defined $mod)
-                    {
-                        $mod->DeniedAction();
-                        $this->CreditModerator($row[5], 0);
-                        $this->CloseModification($rowid, $row[3], 
-                                                 $row[4], 
-                                                 ModDefs::STATUS_FAILEDVOTE);
-                    }
-                }
-            }
-            # Are the number of required unanimous votes present?
-            elsif ($row[0] == DBDefs::NUM_UNANIMOUS_VOTES && $row[1] == 0)
-            {
-                # A unanimous yes. Apply and the remove from db
-
-                $mod = $this->CreateFromId($rowid);
-                if (defined $mod)
-                {
-                    $status = $mod->ApprovedAction($rowid);
-                    $this->CreditModerator($row[5], 1);
-                    $this->CloseModification($rowid, $row[3], 
-                                             $row[4], $status);
-                }
-            }
-            elsif ($row[1] == DBDefs::NUM_UNANIMOUS_VOTES && $row[0] == 0)
-            {
-                # A unanimous no. Remove from db
-                $mod = $this->CreateFromId($rowid);
-                if (defined $mod)
-                {
-                    $mod->DeniedAction();
-                    $this->CreditModerator($row[5], 0);
-                    $this->CloseModification($rowid, $row[3], 
-                                             $row[4], ModDefs::STATUS_FAILEDVOTE);
-                }
-            }
-            $sql->Finish;
-       }
-   }
-}
-
-# Go through the Changes table and find Moderations that have dependencies
-# that have failed. Close all moderations that have failed dependencies
-sub CheckModificationsForFailedDependencies
-{
    my ($this) = @_;
-   my ($sql, $sql2, @row, $query, $i, $dep, $status); 
+   my ($sql, $query, $rowid, @row, $status, $dep_status, $mod); 
+   my (%mods, $now, $key);
 
    $sql = Sql->new($this->{DBH});
-   $sql2 = Sql->new($this->{DBH});
-   $query = qq|select id, newvalue, moderator, rowid, tab from Changes 
-               where status = | . ModDefs::STATUS_OPEN;
-   if ($sql->Select($query))
+   $query = qq|select id from Changes where status = | . 
+               ModDefs::STATUS_OPEN . qq| order by Changes.id|;
+   return if (!$sql->Select($query));
+
+   $now = time();
+   while(@row = $sql->NextRow())
    {
-       while(@row = $sql->NextRow())
+       $mod = $this->CreateFromId($row[0]);
+       if (!defined $mod)
        {
-           for($i = 0;; $i++)
+           print STDERR "Cannot create moderation $rowid. This " .
+                        "moderation will remain open.\n";
+           next;
+       }
+
+       # Save the loaded modules for later
+       $mod->{__eval__} = $mod->GetStatus();
+       $mods{$row[0]} = $mod;
+
+       # See if a KeyValue mod is pending for this.
+       if ($this->CheckModificationForFailedDependencies($mod, \%mods) == 0)
+       {
+       print STDERR "depmod failed\n";
+           # If the prereq. change failed, close this modification
+           $mod->{__eval__} = ModDefs::STATUS_FAILEDPREREQ;
+           next;
+       }
+
+       # Check to see if this change has another change that it depends on
+       if (defined $mod->GetDepMod() && $mod->GetDepMod() > 0)
+       {
+           my $depmod;
+
+           # Get the status of the dependent change. Since all open mods
+           # have been loaded (or in this case, all preceding mods have
+           # already been loaded) check to see if the dep mod around.
+           # If not, its been closed. If so, check its status directly.
+           $depmod = $mods{$mod->GetDepMod()};
+           if (defined $depmod && 
+               $depmod->{__eval__} == ModDefs::STATUS_OPEN &&
+               $depmod->{__eval__} == ModDefs::STATUS_EVALNOCHANGE)
            {
-               if ($row[1] =~ m/Dep$i=(.*)/m)
-               {
-                   ($status) = $sql2->GetSingleRow("Changes", ["status"],
-                                                  ["id", $1]);
-                   if (!defined $status || 
-                       $status == ModDefs::STATUS_FAILEDVOTE ||
-                       $status == ModDefs::STATUS_FAILEDDEP)
-                   {
-                       my $mod = $this->CreateFromId($row[0]);
-                       $mod->DeniedAction();
-                       $this->CreditModerator($row[2], 0);
-                       $this->CloseModification($row[0], $row[4], $row[3],
-                                                ModDefs::STATUS_FAILEDDEP);
-                   }
-               }
-               else
-               {
-                   last; 
-               }
+               # If the prereq. change is still open, skip this change 
+               $mod->{__eval__} = ModDefs::STATUS_EVALNOCHANGE;
+               next;
+           }
+
+           # If we can't find it, we need to load the status by hand.
+           $dep_status = $this->GetModerationStatus($mod->GetDepMod());
+           if ($dep_status != ModDefs::STATUS_APPLIED)
+           {
+               # The depedent moderation had failed. Fail this one.
+               $mod->{__eval__} = ModDefs::STATUS_FAILEDPREREQ;
+               next;
            }
        }
-       $sql->Finish;
+
+       # Has the vote period expired and there have been votes?
+       if ($mod->GetExpireTime() < $now && 
+          ($mod->GetYesVotes() > 0 || $mod->GetNoVotes() > 0))
+       {
+           # Are there more yes votes than no votes?
+           if ($mod->GetYesVotes() <= $mod->GetNoVotes())
+           {
+               $mod->{__eval__} = ModDefs::STATUS_FAILEDVOTE;
+               next;
+           }
+           $mod->{__eval__} = ModDefs::STATUS_APPLIED;
+           next;
+       }
+
+       # Are the number of required unanimous votes present?
+       if ($mod->GetYesVotes() == DBDefs::NUM_UNANIMOUS_VOTES && 
+           $mod->GetNoVotes() == 0)
+       {
+           # A unanimous yes. 
+           $mod->{__eval__} = ModDefs::STATUS_APPLIED;
+           next;
+       }
+
+       if ($mod->GetNoVotes() == DBDefs::NUM_UNANIMOUS_VOTES && 
+           $mod->GetYesVotes() == 0)
+       {
+           # A unanimous no. R
+           $mod->{__eval__} = ModDefs::STATUS_FAILEDVOTE;
+           next;
+       }
+
+       # No condition for this moderation triggered. Leave it alone
+       $mod->{__eval__} = ModDefs::STATUS_EVALNOCHANGE;
+   }
+   $sql->Finish;
+
+   foreach $key (reverse sort keys %mods)
+   {
+       $mod = $mods{$key};
+       next if ($mod->{__eval__} == ModDefs::STATUS_EVALNOCHANGE);
+
+       if ($mod->{__eval__} == ModDefs::STATUS_APPLIED)
+       {
+           print STDERR "Mod " . $mod->GetId() . " applied\n";
+           $mod->SetStatus($mod->ApprovedAction($rowid));
+           $this->CreditModerator($mod->GetModerator(), 1);
+       }
+       else
+       {
+           print STDERR "Mod " . $mod->GetId() . " denied\n";
+           $mod->DeniedAction();
+           $this->CreditModerator($mod->GetModerator(), 0);
+       }
+       $this->CloseModification($mod->GetId(), $mod->GetTable(), 
+                                $mod->GetRowId(), $mod->{__eval__});
    }
 }
 
+# Check a given moderation for any dependecies that may have not been met
+sub CheckModificationForFailedDependencies
+{
+   my ($this, $mod, $modhash) = @_;
+   my ($sql, $status, $i, $depmod); 
+
+   $sql = Sql->new($this->{DBH});
+   for($i = 0;; $i++)
+   {
+       if ($mod->GetNew() =~ m/Dep$i=(.*)/m)
+       {
+           print STDERR "Mod: " . $mod->GetId() . " depmod: $1\n";
+           $depmod = $modhash->{$1};
+           if (defined $depmod)
+           {
+              $status = $depmod->{__eval__};
+           }
+           else
+           {
+              ($status) = $sql->GetSingleRow("Changes", ["status"], ["id", $1]);
+           }
+           if (!defined $status || 
+               $status == ModDefs::STATUS_FAILEDVOTE ||
+               $status == ModDefs::STATUS_FAILEDDEP)
+           {
+              return 0;
+           }
+       }
+       else
+       {
+           last;
+       }
+   }
+    
+   return 1;
+}
 
 sub GetModerationStatus
 {

@@ -3,11 +3,12 @@ $tracks
 $id
 $toc
 $artist=>0
+$freedb=>0
 </%args>
 <%perl>
 
 my ($mb); 
-my ($i, $artistname, $modpending, $ar);
+my ($i, $modpending, $ar);
 my ($dbh, $sth, $rv);
 
 $mb = new MusicBrainz;
@@ -15,6 +16,17 @@ mc_comp("/comp/sidebar", title=>'Enter CD Information');
 
 mc_comp("/comp/stylenotes");
 mc_comp("/comp/artiststylenotes");
+
+my $lookup;
+if ($freedb)
+{
+   my $fdb = FreeDB->new($mb->{DBH});
+   $lookup = $fdb->Lookup($id, $toc);
+   if (!$lookup)
+   {
+       $lookup = undef;
+   }
+}
 
 </%perl>
 
@@ -36,36 +48,90 @@ function validate()
 };
 </script>
 
+% if (defined $lookup) {
+     Found CD <font class="bold"><% $lookup->{album} %></font>
+     by <font class="bold"><% $lookup->{artist} %></font> at
+     <a href="http://www.freedb.org">FreeDB.org</a>.<p>
+     Please check the information below for accuracy and correct any
+     mistakes you may find:<p>
+% } else {
+%    if ($freedb) {
+         This CD was not found at FreeDB.<p>
+%    } else {
+         Please enter the CD information below, or
+         click on FreeDB lookup to attempt to load the data for
+         this CD from FreeDB:<p>
+%        if (!$freedb) {
+           <form method="POST" action="/cdi/menter.html" Name="FreeDBLookup"
+                 enctype="application/x-www-form-urlencoded" class="formstyle">
+           <input type="hidden" name="id" value="<% $id %>">
+           <input type="hidden" name="toc" value="<% $toc %>">
+           <input type="hidden" name="tracks" value="<% $tracks %>">
+           <input type="hidden" name="freedb" value="1">
+%        if ($artist > 0) {
+           <input type="hidden" name="artist" value="<% $artist %>">
+%        }
+           <input type="submit" value="FreeDB Lookup" name="Next">
+           </form>
+%        }
+
+%    }
+% }
+
 <form method="POST" action="/cdi/done.html" Name="EnterCD"
       enctype="application/x-www-form-urlencoded" class="formstyle">
-
-Please enter the CD information below:<p>
 
 <table>
 <tr>
    <td colspan="2" align="right" valign="top">CD Title:</td>
    <td>
-     <input type="text" name="title" size="30"><p>
+%    if (!defined $lookup) {
+          <input type="text" name="title" size="30"><p>
+%    } else {
+          <input type="text" name="title" size="30"
+                value="<% $lookup->{album} %>"><p>
+%    }
    </td>
 </tr>
 
-% for($i = 0; $i < $tracks; $i++) {
+<%perl>
+my ($artistname, $trackname, $temp, $array);
+for($i = 0; $i < $tracks; $i++) 
+{
+   $artistname = $trackname = "";
+   if (defined $lookup)
+   {
+       $array = $lookup->{tracks};
+       $temp = $$array[$i]->{track};
+       $artistname = $trackname = $temp;
+
+       if ($temp =~ m|(.*)\s*/\s*(.*)|)
+       {
+           $artistname = $1;
+           $trackname = $2;
+       }
+   }
+   
+</%perl>
     <tr>
        <td valign="top"><font class="bold">Track <% $i + 1 %>:</font></td>
       <td align="right" valign="top">Track Name:</td>
       <td>
-         <input type="text" name="track<% $i %>" size="30">
+         <input type="text" name="track<% $i %>" size="30"
+                value="<% $trackname %>">
       </td>
     </tr>
 
     <tr>
       <td colspan="2" align="right" valign="top">Artist Name:</td>
-      <td><input type="text" name="artistname<% $i %>" size="30"></td>
+      <td><input type="text" name="artistname<% $i %>" size="30"
+                value="<% $artistname %>"></td>
     </tr>
 
     <tr>
       <td colspan="2" align="right" valign="top">Sort Name:</td>
-      <td><input type="text" name="sortname<% $i %>" size="30"><p></td>
+      <td><input type="text" name="sortname<% $i %>" size="30"
+                value="<% $artistname %>"><p></td>
     </tr>
 % }
 </table>

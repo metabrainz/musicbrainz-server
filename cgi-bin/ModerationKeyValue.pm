@@ -103,15 +103,12 @@ sub DetermineDependencies
    {
        while(@row = $sql->NextRow())
        {
-          print STDERR "Check out: $row[0]\n";
           if ($row[0] =~ /ArtistId=(\d+)/m)
           {
-              print STDERR "change $row[1] depends on this artist $1\n";
               if ($this->GetArtist() == $1)
               {
-                 $nw->{"Dep$numdeps"} = $1;
+                 $nw->{"Dep$numdeps"} = $row[1];
                  $numdeps++;
-                 print STDERR "That's me!\n";
               }
           }
        }
@@ -284,6 +281,7 @@ sub DeniedAction
 
       $ar = Artist->new($this->{DBH});
       $ar->SetId($newval->{"ArtistId"});
+      print STDERR "Remove artist " . $newval->{"ArtistId"} . "\n";
       $ar->Remove();
    }
 }

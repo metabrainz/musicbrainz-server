@@ -32,5 +32,5 @@ my $mod;
 
 $mb->Login();
 $mod = Moderation->new($mb->{DBH});
-$mod->CheckModificationsForExpiredItems();
+$mod->CheckModifications();
 $mb->Logout();
