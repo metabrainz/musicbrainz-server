@@ -8,6 +8,11 @@ $url=>""
 </%args>
 <%perl>
 
+$m->comp(
+	"/comp/checkloggedin", 1, 1,
+	"You must be logged in to send a message to another moderator.",
+) or return;
+
 return if $m->comp("/comp/dbreadonly", 1, 1);
 
 MusicBrainz::IsNonNegInteger($uid) && $uid
@@ -61,7 +66,7 @@ if (not $you->CheckEMailAddress)
 		return undef;
 }
 
-if ($text)
+if ($subject and $text)
 {
 	if ($modid)
 	{
@@ -93,6 +98,7 @@ if ($text)
 }
 else
 {
+	$subject ||= "About moderation #$modid" if $modid;
 		</%perl>
 
 		<form METHOD="POST" ACTION="/user/mod_email.html" ID="EMailForm"
@@ -107,11 +113,7 @@ else
 
 			<p style="margin: 0.5em">
 				Subject:<br>
-%           if ($modid > 0) {
-						<INPUT TYPE="text" NAME="subject" SIZE="40" VALUE="About moderation #<% $modid %>">
-%           } else {
-						<INPUT TYPE="text" NAME="subject" SIZE="40">
-%           }
+				<INPUT TYPE="text" NAME="subject" SIZE="40" VALUE="<% $subject %>">
 			</p>
 
 			<p style="margin: 0.5em">
@@ -128,7 +130,7 @@ else
 			
 		</form>
 
-		<& /comp/movefocus, "EMailForm", "Subject" &>
+		<& /comp/movefocus, "EMailForm", $subject ? "text" : "subject" &>
 		<%perl>
 }
 
