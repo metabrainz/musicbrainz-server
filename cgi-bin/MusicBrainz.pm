@@ -30,7 +30,6 @@ use vars qw(@ISA @EXPORT);
 
 use strict;
 use DBI;
-use Apache::Registry;
 use DBDefs;
 
 sub new

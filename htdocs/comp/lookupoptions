@@ -1,7 +1,28 @@
 <%args>
 $artist=>""
 $album=>""
+$artistobj=>undef
+$albumobj=>undef
 </%args>
+
+<%perl>
+
+my ($search, $display);
+
+$artist = $artistobj->GetName() if (defined $artistobj && $artistobj->GetName() ne '');
+$album = $albumobj->GetName() if (defined $albumobj && $albumobj->GetName() ne '');
+
+$search = "$artist $album";
+if ($artist ne '' && $album ne '')
+{
+    $display = "$album by $artist";
+}
+else
+{
+    $display = "$album $artist";
+}
+
+</%perl>
 
 <br>
 <p>
@@ -13,8 +34,9 @@ If the artist/album/track you are looking for was not found,
 you can do the following things: 
 
 <ul>
-  <li>Import album <a href="/freedb/freedb.html?search=<% "$artist $album" |u %>"><% $album  %>
-      <% (($artist eq '') ? "" : " by $artist") %></a> from FreeDB and then tag your track against the new album.
+  <li>Import <a href="/freedb/freedb.html?search=<% "$search" |u %>"><% $display %></a> 
+      from FreeDB and then tag your track against the new album.
+
 % if ($artist ne '') {
      <li>Add a non-album track to artist <% $artist %>.
 % }

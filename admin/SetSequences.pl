@@ -82,6 +82,7 @@ SetSequence($sql, "moderation");
 SetSequence($sql, "moderationnote");
 SetSequence($sql, "votes");
 SetSequence($sql, "stats");
+SetSequence($sql, "clientversion");
 
 # Disconnect
 $mb->Logout;

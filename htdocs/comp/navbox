@@ -29,7 +29,8 @@ my @documentation = (
   {url=>'/client_howto.html',              name=>'Client&nbsp;HOWTO'},
   {url=>'/cd_submission.html',             name=>'CD&nbsp;Submission'},
   {url=>'/disc.html',                      name=>'CD&nbsp;Index&nbsp;Ids'},
-  {url=>'/db_structure.html',              name=>'Database&nbsp;Struct.'}
+  {url=>'/db_structure.html',              name=>'Database&nbsp;Struct.'},
+  {url=>'http://musicbrainz.org/cgi-bin/viewcvs/viewcvs.cgi', name=>'Browse&nbsp;CVS'}
 );
 
 #define the expanded sidebox items of the moderation pages

@@ -30,20 +30,14 @@ use Artist;
 use ModDefs;
 use Sql;
 
-# alter table album add column Attributes int[];
-# alter table album alter column Attributes set default '{0}';
-# update album set attributes = '{0,100}';
-# update album set attributes = '{0,4,100}' where artist = 1;
-# alter table TRM add column LookupCount int;
-# alter table TRM alter column LookupCount set default 0;
-# update TRM set lookupcount = 0;
-# alter table artist add column page int;
-# UPDATE pg_attribute SET attnotnull = TRUE WHERE attname = 'page' AND attrelid = ( SELECT oid FROM pg_class WHERE relname = 'artist');
-# create index Artist_PageIndex on Artist (Page)
-# alter table album add column page int;
-# UPDATE pg_attribute SET attnotnull = TRUE WHERE attname = 'page' AND attrelid = ( SELECT oid FROM pg_class WHERE relname = 'album');
-# create index Album_PageIndex on Album (Page)
-# update track set length = 0 where length < 0;
+# Server update:
+# create table ClientVersion (Id serial primary key, Version varchar(64) not null);
+# create unique index ClientVersion_Version on ClientVersion (version);
+# insert into ClientVersion values (1, 'unknown');
+# alter table TRM add column Version int;
+# update TRM set version = 1;
+# UPDATE pg_attribute SET attnotnull = TRUE WHERE attname = 'version' AND attrelid = ( SELECT oid FROM pg_class WHERE relname = 'trm');
+# alter table TRM add constraint version_fk foreign key (version) references clientversion match full;
 
 sub CreateTables
 {
@@ -110,7 +104,8 @@ sub CreateTables
         $sql->Do(qq|create table TRM (
                        Id serial primary key,
                        TRM char(36) not null,
-                       LookupCount int default 0)|)
+                       LookupCount int default 0,
+                       Version int not null references ClientVersion)|)
               or die("Cannot create TRM table");
 
         print "Created TRM table.\n";
@@ -248,6 +243,13 @@ sub CreateTables
         
         print "Created Stats table.\n";
   
+        $sql->Do(qq|create table ClientVersion (
+                          Id serial primary key,
+                          Version varchar(64) not null)|)
+              or die("Cannot create ClientVersion table");
+        
+        print "Created ClientVersion table.\n";
+
         $sql->Commit;
     };
     if ($@)
@@ -293,6 +295,9 @@ sub InsertDefaultRows
                     ModsAccepted, ModsRejected, MemberSince) 
                     values ('ModBot', '', 0, 0, 0, now())|);
   
+        $sql->Do(qq|insert into ClientVersion (Id, Version) 
+                    values (1, 'unknown')|);
+
         $sql->Commit;
     };
     if ($@)
@@ -434,6 +439,11 @@ sub CreateIndices
         $sql->Do(qq|create unique index Stats_TimestampIndex on Stats (timestamp)|)
               or die("Could not add indices to Stats table");
         print "Added indices to Stats table.\n";
+
+        $sql->Do(qq|create unique index ClientVersion_Version on ClientVersion (version)|)
+              or die("Could not add indices to Version table");
+        print "Added indices to Stats table.\n";
+
         $sql->Commit;
     };
     if ($@)

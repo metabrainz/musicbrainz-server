@@ -484,7 +484,8 @@ sub HasAlbum
    }
 
    # then, pull in the multiple artist albums
-   if ($sql->Select(qq/select distinct AlbumJoin.album, Album.name, lower(Album.name) 
+   if ($this->{id} != ModDefs::VARTIST_ID &&
+       $sql->Select(qq/select distinct AlbumJoin.album, Album.name, lower(Album.name) 
                          from Track, Album, AlbumJoin
                         where Track.Artist = $this->{id} and 
                               AlbumJoin.track = Track.id and 

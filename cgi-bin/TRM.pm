@@ -102,7 +102,7 @@ sub GetTRMFromTrackId
 
 sub Insert
 {
-    my ($this, $TRM, $trackid) = @_;
+    my ($this, $TRM, $trackid, $clientver) = @_;
     my ($id, $sql);
 
     $this->{new_insert} = 0;
@@ -110,9 +110,22 @@ sub Insert
 
     $id = $this->GetIdFromTRM($TRM);
     $TRM = $sql->Quote($TRM);
+    $clientver = $sql->Quote($clientver);
+
     if (!defined $id)
     {
-        if ($sql->Do(qq/insert into TRM (TRM) values ($TRM)/))
+        my $verid;
+        
+        ($verid) = $sql->GetSingleRow("ClientVersion", ["id"], ["version", $clientver]);
+        if (not defined $verid)
+        {
+            if ($sql->Do(qq/insert into ClientVersion (version) values ($clientver)/))
+            {
+                $verid = $sql->GetLastInsertId("ClientVersion");
+            }
+        }
+
+        if ($sql->Do(qq/insert into TRM (TRM, version) values ($TRM, $verid)/))
         {
             $id = $sql->GetLastInsertId("TRM");
             $this->{new_insert} = 1;

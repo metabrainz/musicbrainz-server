@@ -278,7 +278,8 @@ if ($flags & TaggerSupport::ARTISTLIST)
        <%perl>
    }
 
-   mc_comp("/comp/lookupoptions", artist=>$ts->{artist}->GetName(), album=>$album);
+   mc_comp("/comp/lookupoptions", artist=>$artist, artistobj=>$ts->{artist}, 
+                                  album=>$album, albumobj=>$ts->{album});
 }
 elsif ($flags & TaggerSupport::ALBUMLIST)
 {
@@ -321,7 +322,8 @@ elsif ($flags & TaggerSupport::ALBUMLIST)
        <%perl>
    }
 
-   mc_comp("/comp/lookupoptions", artist=>$ts->{artist}->GetName(), album=>$album);
+   mc_comp("/comp/lookupoptions", artist=>$artist, artistobj=>$ts->{artist}, 
+                                  album=>$album, albumobj=>$ts->{album});
 }
 elsif ($flags & TaggerSupport::ALBUMTRACKLIST)
 {
@@ -360,7 +362,7 @@ elsif ($flags & TaggerSupport::ALBUMTRACKLIST)
        </table>
        <& /comp/framedboxend &>
       
-       <& /comp/lookupoptions, artist=>$ts->{artist}->GetName(), album=>$album &>
+       <& /comp/lookupoptions, artist=>$artist, artistobj=>$ts->{artist}, album=>$album, albumobj=>$ts->{album} &>
    
        <%perl>
 
@@ -396,15 +398,15 @@ elsif ($flags & TaggerSupport::ARTISTID)
 {
    </%perl>
    <b>Found matching artist:</b><p>
+   <& /comp/lookupoptions, artist=>$artist, artistobj=>$ts->{artist}, album=>$album, albumobj=>$ts->{album} &>
    <%perl>
    OutputArtist($ts, $result);
-   mc_comp("/comp/lookupoptions", artist=>$artist, album=>$album);
 }
 else
 {
    </%perl>
    <b>No matching artists found.</b><p>
-   <& /comp/lookupoptions, artist=>$ts->{artist}->GetName(), album=>$album &>
+   <& /comp/lookupoptions, artist=>$artist, artistobj=>$ts->{artist}, album=>$album, albumobj=>$ts->{album} &>
    <%perl>
 }
 </%perl>
