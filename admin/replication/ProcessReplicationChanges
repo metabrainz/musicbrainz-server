@@ -1,0 +1,398 @@
+#!/home/httpd/musicbrainz/mb_server/cgi-bin/perl -w
+# vi: set ts=4 sw=4 :
+#############################################################################
+#
+# Portions (C) 2003 Robert Kaye
+#
+# Formerly DBMirror.pl
+# Contains the Database mirroring script.
+# This script queries the pending table off the database specified
+# (along with the associated schema) for updates that are pending on a
+# specific host.  The database on that host is then updated with the changes.
+#
+#
+#	 Written by Steven Singer (ssinger@navtechinc.com)
+#	 (c) 2001-2002 Navtech Systems Support Inc.
+# ALL RIGHTS RESERVED;
+#
+# Permission to use, copy, modify, and distribute this software and its
+# documentation for any purpose, without fee, and without a written agreement
+# is hereby granted, provided that the above copyright notice and this
+# paragraph and the following two paragraphs appear in all copies.
+#
+# IN NO EVENT SHALL THE AUTHOR OR DISTRIBUTORS BE LIABLE TO ANY PARTY FOR
+# DIRECT, INDIRECT, SPECIAL, INCIDENTAL, OR CONSEQUENTIAL DAMAGES, INCLUDING
+# LOST PROFITS, ARISING OUT OF THE USE OF THIS SOFTWARE AND ITS
+# DOCUMENTATION, EVEN IF THE AUTHOR OR DISTRIBUTORS HAVE BEEN ADVISED OF THE
+# POSSIBILITY OF SUCH DAMAGE.
+#
+# THE AUTHOR AND DISTRIBUTORS SPECIFICALLY DISCLAIMS ANY WARRANTIES,
+# INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY
+# AND FITNESS FOR A PARTICULAR PURPOSE.  THE SOFTWARE PROVIDED HEREUNDER IS
+# ON AN "AS IS" BASIS, AND THE AUTHOR AND DISTRIBUTORS HAS NO OBLIGATIONS TO
+# PROVIDE MAINTENANCE, SUPPORT, UPDATES, ENHANCEMENTS, OR MODIFICATIONS.
+#
+##############################################################################
+# $Id$
+#
+##############################################################################
+
+use strict;
+
+use FindBin;
+use lib "$FindBin::Bin/../../cgi-bin";
+
+use Getopt::Long;
+use DBI;
+use MusicBrainz;
+use DBDefs;
+use Sql;
+
+$| = 1;
+print localtime() . " : Processing replication changes\n";
+
+$SIG{'INT'} = sub { die "SIGINT\n" };
+my ($ins, $del, $upd) = (0, 0, 0);
+my %bytable;
+
+my $mb = MusicBrainz->new;
+
+$mb->Login;
+my $sql = Sql->new($mb->{DBH});
+my $sql2 = Sql->new($mb->{DBH});
+my $slave = Sql->new($mb->{DBH});
+
+$sql->AutoCommit;
+$sql->Do("SET search_path = public");
+
+$sql->AutoCommit;
+$sql->Do("SET TRANSACTION ISOLATION LEVEL SERIALIZABLE");
+$sql->AutoCommit;
+$sql->Do("SET CONSTRAINTS ALL DEFERRED");
+
+#Obtain a list of pending transactions using ordering by our approximation
+#to the commit time.  The commit time approximation is taken to be the
+#SeqId of the last row edit in the transaction.
+my $query = 'SELECT pd."XID",MAX("SeqId") FROM "Pending" pd GROUP BY pd."XID" ORDER BY MAX(pd."SeqId")';
+
+# This loop loops through each pending transaction in the proper order.
+# The Pending row edits for that transaction will be queried from the
+# master and sent + committed to the slaves.
+if (my $totalrows = $sql->Select($query))
+{
+	my @row;
+
+	use Time::HiRes qw( gettimeofday tv_interval );
+	my $t1 = [gettimeofday];
+	my $interval;
+	my $rows = 0;
+
+	printf "%9s %4s %9s\n", "XIDs", "est%", "XIDs/sec";
+
+	my $p = sub {
+		my ($pre, $post) = @_;
+		no integer;
+		printf $pre."%9d %3d%% %9d".$post,
+			$rows, int(100 * $rows / $totalrows),
+			$rows / ($interval||1);
+	};
+
+		$p->("", "");
+
+	while(@row = $sql->NextRow)
+	{
+		my $XID = $row[0];
+		my $maxSeqId = $row[1];
+		my $seqId;
+
+		my $query = qq|
+			SELECT	pnd."SeqId", pnd."TableName", pnd."Op", pnddata."IsKey", pnddata."Data" AS "Data"
+			FROM	"Pending" pnd, "PendingData" pnddata
+			WHERE	pnd."SeqId" = pnddata."SeqId"
+			AND		pnd."XID" = ?
+			ORDER BY "SeqId", "IsKey" DESC
+		|;
+
+		if ($sql2->Select($query, $XID))
+		{
+			my (@row2, $curTuple);
+
+			$slave->Begin;
+			while(@row2 = $sql2->NextRow)
+			{
+				# TODO: Figure out how to handle errors here
+				if (!mirrorCommand($row2[2], $sql2, $slave, \@row2, $XID))
+				{
+					die "Mirror command failed.\n";
+				}
+
+			}
+			$slave->Commit;
+		}
+
+		$sql2->Finish;
+
+		++$rows;
+		unless ($rows & 0x1F)
+		{
+			$interval = tv_interval($t1);
+			$p->("\r", "");
+		}
+	}
+
+	$interval = tv_interval($t1);
+	$p->("\r", sprintf(" %.2f sec\n", $interval));
+
+}
+	$sql->Finish;
+
+print localtime() . " : Summary of changes applied:\n";
+print "Inserts  Updates  Deletes  Table\n";
+for my $t (sort keys %bytable)
+{
+	printf "%7d  %7d  %7d  %s\n", @{ $bytable{$t} }, $t;
+}
+printf "%7d  %7d  %7d  %s\n", $ins, $upd, $del, "(total)";
+
+print localtime() . " : Replication changes applied\n";
+
+sub mirrorCommand
+{
+	my ($op, $result, $slave, $row, $transId)  = @_;
+
+	my $table = $row->[1];
+	my $t = ($bytable{$table} ||= [0,0,0]);
+
+	if($op eq 'i')
+	{
+		++$ins;
+		++$t->[0];
+		return mirrorInsert($result, $slave, $row, $transId);
+	}
+	elsif($op eq 'd')
+	{
+		++$del;
+		++$t->[2];
+		return mirrorDelete($result, $slave, $row, $transId);
+	}
+	elsif($op eq 'u')
+	{
+		++$upd;
+		++$t->[1];
+		return mirrorUpdate($result, $slave, $row, $transId);
+	}
+	return 0;
+}
+
+sub mirrorInsert
+{
+	my ($result, $slave, $row, $transId)  = @_;
+	my $seqId = $row->[0];
+	my $tableName = $row->[1];
+	my $counter;
+	my $column;
+
+	my $firstIteration=1;
+	my %recordValues = extractData($row);
+
+	#Now build the insert query.
+	my $insertQuery = "INSERT INTO $tableName (";
+	my $valuesQuery = ") VALUES (";
+	foreach $column (keys (%recordValues)) {
+		if($firstIteration==0) {
+			$insertQuery .= " ,";
+			$valuesQuery .= " ,";
+		}
+		$insertQuery .= "\"$column\"";
+		if(defined $recordValues{$column}) {
+			my $quotedValue = $recordValues{$column};
+			$quotedValue =~ s/\\/\\\\/g;
+			$quotedValue =~ s/'/\\'/g;
+			$valuesQuery .= "'$quotedValue'";
+		} else {
+			$valuesQuery .= "null";
+		}
+		$firstIteration=0;
+	}
+	$valuesQuery .= ")";
+	$slave->Do($insertQuery . $valuesQuery);
+
+	return 1;
+}
+
+sub mirrorDelete
+{
+	my ($result, $slave, $row, $transId) = @_;
+	my $seqId = $row->[0];
+	my $tableName = $row->[1];
+	my %dataHash;
+	my $currentField;
+	my $firstField=1;
+
+	%dataHash = extractData($row);
+	my $counter=0;
+	my $deleteQuery = "DELETE FROM $tableName WHERE ";
+	foreach $currentField (keys %dataHash)
+	{
+		if($firstField==0) {
+			$deleteQuery .= " AND ";
+		}
+		my $currentValue = $dataHash{$currentField};
+		$deleteQuery .= "\"";
+		$deleteQuery .= $currentField;
+		if(defined $currentValue) {
+			$deleteQuery .= "\"='";
+			$deleteQuery .= $currentValue;
+			$deleteQuery .= "'";
+		} else {
+			$deleteQuery .= " is null ";
+		}
+		$counter++;
+		$firstField=0;
+	}
+
+	$slave->Do($deleteQuery);
+
+	return 1;
+}
+
+sub mirrorUpdate
+{
+	my ($result, $slave, $row, $transId) = @_;
+	my $seqId = $row->[0];
+	my $tableName = $row->[1];
+
+	my $counter;
+	my $quotedValue;
+	my $updateQuery = "UPDATE $tableName SET ";
+	my $currentField;
+
+	my %keyValueHash;
+	my %dataValueHash;
+	my $firstIteration=1;
+
+	#Extract the Key values. This row contains the values of the
+	# key fields before the update occours(the WHERE clause)
+	%keyValueHash = extractData($row);
+
+	my @row2 = $result->NextRow;
+
+	#Extract the data values.  This is a SET clause that contains
+	#values for the entire row AFTER the update.
+	%dataValueHash = extractData(\@row2);
+
+	$firstIteration=1;
+	foreach $currentField (keys (%dataValueHash))
+	{
+	  if($firstIteration==0) {
+	$updateQuery .= ", ";
+	  }
+	  $updateQuery .= " \"$currentField\"=";
+	  my $currentValue = $dataValueHash{$currentField};
+	  if(defined $currentValue ) {
+	$quotedValue = $currentValue;
+	$quotedValue =~ s/\\/\\\\/g;
+	$quotedValue =~ s/'/\\'/g;
+	$updateQuery .= "'$quotedValue'";
+	}
+	  else {
+	$updateQuery .= "null ";
+	  }
+	  $firstIteration=0;
+	}
+
+	$updateQuery .= " WHERE ";
+	$firstIteration=1;
+	foreach $currentField (keys (%keyValueHash)) {
+	  my $currentValue;
+	  if($firstIteration==0) {
+	$updateQuery .= " AND ";
+	  }
+	  $updateQuery .= "\"$currentField\"=";
+	  $currentValue = $keyValueHash{$currentField};
+	  if(defined $currentValue) {
+	$quotedValue = $currentValue;
+	$quotedValue =~ s/\\/\\\\/g;
+		$quotedValue =~ s/'/\\'/g;
+	$updateQuery .= "'$quotedValue'";
+	  }
+	  else {
+	$updateQuery .= " null ";
+	  }
+	  $firstIteration=0;
+	}
+
+	$slave->Do($updateQuery);
+
+	return 1;
+}
+
+sub extractData
+{
+  my ($row) = @_;
+  my $fnumber;
+  my %valuesHash;
+  my $dataField = $row->[4];
+
+  while(length($dataField)>0)
+  {
+	# Extract the field name that is surronded by double quotes
+	$dataField =~ m/(\".*?\")/s;
+	my $fieldName = $1;
+	$dataField = substr $dataField ,length($fieldName);
+	$fieldName =~ s/\"//g; #Remove the surronding " signs.
+
+	if($dataField =~ m/(^= )/s)
+	{
+	  #Matched null
+	$dataField = substr $dataField , length($1);
+	  $valuesHash{$fieldName}=undef;
+	}
+	elsif ($dataField =~ m/(^=\')/s)
+	{
+	  #Has data.
+	  my $value;
+	  $dataField = substr $dataField ,2; #Skip the ='
+
+	  LOOP:
+	  {  #This is to allow us to use last from a do loop.
+		 #Recommended in perlsyn manpage.
+		  do
+		  {
+			  my $matchString;
+
+			  #Find the substring ending with the first ' or first \
+			  $dataField =~ m/(.*?[\'\\])?/s;
+			  $matchString = $1;
+			  $value .= substr $matchString,0,length($matchString)-1;
+
+			  if($matchString =~ m/(\'$)/s)
+			  {
+				   # $1 runs to the end of the field value.
+				  $dataField = substr $dataField,length($matchString)+1;
+				  last;
+			  }
+			  else
+			  {
+				  #deal with the escape character.
+				  #It The character following the escape gets appended.
+				  $dataField = substr $dataField,length($matchString);
+				  $dataField =~ s/(^.)//s;
+				  $value .=  $1;
+			  }
+		  } until(length($dataField)==0);
+	  }
+	  $valuesHash{$fieldName} = $value;
+	}
+	else
+	{
+	  print STDERR "Error in PendingData Sequence Id " . $row->[0];
+	  die;
+	}
+  }
+
+  return %valuesHash;
+}
+
+1;
+# eof ProcessReplicationChanges

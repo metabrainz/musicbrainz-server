@@ -25,10 +25,9 @@
 use strict;
 
 use FindBin;
-use lib "$FindBin::Bin/../cgi-bin";
+use lib "$FindBin::Bin/../../cgi-bin";
 
 use Getopt::Long;
-use DBI;
 use MusicBrainz;
 use DBDefs;
 use Sql;
@@ -54,7 +53,7 @@ Usage: ImportReplicationChanges [options] FILE ...
 FILE can be any of: a regular file in Postgres "copy" format (as produced
 by ExportReplicationChanges --nocompress); a gzip'd or bzip2'd tar file of Postgres
 "copy" files (as produced by ExportReplicationChanges); a directory containing
-Postgres "copy" files; or a directory containing an "mbreplicate" directory
+Postgres "copy" files; or a directory containing an "mbdump" directory
 containing Postgres "copy" files.
 
 If any "tar" files are named, they are firstly all
@@ -66,6 +65,8 @@ EOF
 
 $fHelp and usage();
 @ARGV or usage();
+
+$SIG{'INT'} = sub { die "SIGINT\n" };
 
 my $mb = MusicBrainz->new;
 $mb->Login;
@@ -138,7 +139,7 @@ sub ImportTable
 		open(LOAD, "<", $file) or die "open $file: $!";
 
 		$sql->Begin;
-		$sql->Do("COPY $table FROM stdin");
+		$sql->Do("COPY \"$table\" FROM stdin");
 		my $dbh = $sql->{DBH};
 
 		$p->("", "");
@@ -188,7 +189,7 @@ sub empty
 	my $table = shift;
 
 	my $oid = $sql->SelectSingleValue(
-		"SELECT oid FROM $table LIMIT 1",
+		"SELECT oid FROM \"$table\" LIMIT 1",
 	);
 
 	not defined $oid;
@@ -196,7 +197,14 @@ sub empty
 
 sub ImportReplicationTables
 {
-	for my $table (qw( "Pending" "PendingData")) 
+	$sql->AutoCommit;
+	eval { $sql->Do('ALTER TABLE "PendingData" DROP CONSTRAINT "$1"') };
+	$sql->AutoCommit;
+	eval { $sql->Do('ALTER TABLE "Pending" DROP CONSTRAINT "Pending_pkey"') };
+	$sql->AutoCommit;
+	eval { $sql->Do('ALTER TABLE "PendingData" DROP CONSTRAINT "PendingData_pkey"') };
+
+	for my $table (qw( Pending PendingData )) 
     {
 		my $file = find_file($table);
 		$file or print("No data file found for '$table', skipping\n"), die;
@@ -210,6 +218,12 @@ sub ImportReplicationTables
         ImportTable($table, $file);
 	}
 
+	$sql->Begin;
+	$sql->Do('ALTER TABLE "Pending" ADD CONSTRAINT "Pending_pkey" PRIMARY KEY ("SeqId")');
+	$sql->Do('ALTER TABLE "PendingData" ADD CONSTRAINT "PendingData_pkey" PRIMARY KEY ("SeqId", "IsKey")');
+	$sql->Do('ALTER TABLE "PendingData" ADD CONSTRAINT "$1" FOREIGN KEY ("SeqId") REFERENCES "Pending" ("SeqId") ON UPDATE CASCADE ON DELETE CASCADE');
+	$sql->Commit;
+
     return 1;
 }
 
@@ -222,7 +236,7 @@ sub find_file
 		use File::Basename;
 		return $arg if -f $arg and basename($arg) eq $table;
 		return "$arg/$table" if -f "$arg/$table";
-		return "$arg/mbreplicate/$table" if -f "$arg/mbreplicate/$table";
+		return "$arg/mbdump/$table" if -f "$arg/mbdump/$table";
 	}
 
 	undef;
@@ -241,7 +255,7 @@ sub find_file
 	{
 		for (my $i = 0; ; ++$i)
 		{
-			my $dir = "$tmpdir/mbreplicate-$$-$i";
+			my $dir = "$tmpdir/ImportRepl-$$-$i";
 
 			if (mkdir $dir)
 			{
