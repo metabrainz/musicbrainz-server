@@ -83,14 +83,23 @@ sub Insert
     $sql = Sql->new($this->{DBH});
 
     $id = $this->GetIdFromGUID($guid);
+    $guid = $sql->Quote($guid);
     if (!defined $id)
     {
-        $guid = $sql->Quote($guid);
         if ($sql->Do(qq/insert into GUID (guid) values ($guid)/))
         {
             $id = $sql->GetLastInsertId;
         }
-        if (defined $id && defined $trackid)
+    }
+
+    if (defined $id && defined $trackid)
+    {
+        my ($temp) = $sql->GetSingleRow("GUIDJoin, GUID", 
+                                         ["GUIDJoin.id"], 
+                                         ["GUIDJoin.track", $trackid,
+                                          "GUIDJoin.guid", "GUID.id",
+                                          "GUID.guid", $guid]);
+        if (!defined $temp)
         {
             $sql->Do(qq/insert into GUIDJoin (guid, track) values 
                        ($id, $trackid)/);
