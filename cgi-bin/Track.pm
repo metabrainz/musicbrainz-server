@@ -340,9 +340,12 @@ sub Insert
 
 		$track = $sql->GetLastInsertId("Track");
 		$this->{new_insert} = $track;
-		$sql->Do(qq/insert into AlbumJoin (album, track, sequence,
-			modpending) values ($album, $track, 
-			$this->{sequence}, 0)/
+		$sql->Do(
+			"INSERT INTO albumjoin (album, track, sequence, modpending)
+				values (?, ?, ?, 0)",
+			$album,
+			$track,
+			$this->{sequence},
 		);
     }
 
@@ -379,7 +382,7 @@ sub Remove
     $trm->RemoveByTrackId($this->GetId());
 
     print STDERR "DELETE: Remove track " . $this->GetId() . "\n";
-    $sql->Do("delete from Track where id = " . $this->GetId());
+    $sql->Do("DELETE FROM track WHERE id = ?", $this->GetId);
 
     # Remove references from track words table
     my $engine = SearchEngine->new($this->{DBH},  { Table => 'Track' } );

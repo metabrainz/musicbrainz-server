@@ -170,8 +170,8 @@ sub Remove
     return undef if (!defined $this->GetId());
   
     $sql = Sql->new($this->{DBH});
-    $sql->Do("delete from TRMJoin where TRM = " . $this->GetId());
-    $sql->Do("delete from TRM where id = " . $this->GetId());
+    $sql->Do("DELETE FROM trmjoin WHERE trm = ?", $this->GetId);
+    $sql->Do("DELETE FROM trm WHERE id = ?", $this->GetId);
 
     return 1;
 }
@@ -191,12 +191,12 @@ sub RemoveByTrackId
          $sql2 = Sql->new($this->{DBH});
          while(@row = $sql->NextRow)
          {
-             $sql->Do("delete from TRMJoin where id = $row[0]");
+             $sql->Do("DELETE FROM trmjoin WHERE id = ", $row[0]);
              ($refcount) = $sql2->GetSingleRow("TRMJoin", ["count(*)"],
                                               [ "TRMJoin.TRM", $row[1]]);
              if ($refcount == 0)
              {
-                $sql->Do("delete from TRM where id=$row[1]");
+                $sql->Do("DELETE FROM trm WHERE id = ?", $row[1]);
              }
          }
          $sql->Finish;
@@ -220,12 +220,12 @@ sub RemoveTRMByTRMJoin
          $sql2 = Sql->new($this->{DBH});
          while(@row = $sql->NextRow)
          {
-             $sql->Do("delete from TRMJoin where id = $row[0]");
+             $sql->Do("DELETE FROM trmjoin WHERE id = ?", $row[0]);
              ($refcount) = $sql2->GetSingleRow("TRMJoin", ["count(*)"],
                                               [ "TRMJoin.TRM", $row[1]]);
              if ($refcount == 0)
              {
-                $sql->Do("delete from TRM where id=$row[1]");
+                $sql->Do("DELETE FROM trm WHERE id = ?", $row[1]);
              }
          }
          $sql->Finish;

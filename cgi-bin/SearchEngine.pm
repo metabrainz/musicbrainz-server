@@ -136,8 +136,8 @@ sub AddWord
     );
     return $id if $id;
 
-    $self->{SQL}->Do("INSERT INTO WordList (Word) VALUES (?)", $word);
-    return $self->{SQL}->GetLastInsertId('WordList');
+    $self->{SQL}->Do("INSERT INTO wordlist (word) VALUES (?)", $word);
+    return $self->{SQL}->GetLastInsertId('wordlist');
 }
 
 sub AddWordRefs
@@ -152,7 +152,7 @@ sub AddWordRefs
         next if not defined $word_id;
 
 	$self->{SQL}->SelectSingleValue(
-	    "SELECT 1 FROM $self->{Table}Words
+	    "SELECT 1 FROM $self->{Table}words
     	    WHERE $self->{Table}id = ?
 	    AND WordId = ?",
 	    $object_id,
@@ -160,9 +160,9 @@ sub AddWordRefs
 	) and next;
 
 	$self->{SQL}->Do(
-	    "INSERT INTO $self->{Table}Words
-    		($self->{Table}id, Wordid)
-     		VALUES (?,?)",
+	    "INSERT INTO $self->{Table}words
+    		($self->{Table}id, wordid)
+     		VALUES (?, ?)",
 	    $object_id,
 	    $word_id,
 	);
@@ -174,7 +174,7 @@ sub RemoveObjectRefs
     my ($self, $object_id) = @_;
 
     $self->{SQL}->Do(
-	"DELETE FROM $self->{Table}Words WHERE $self->{Table}id = ?",
+	"DELETE FROM $self->{Table}words WHERE $self->{Table}id = ?",
 	$object_id,
     );
 }
@@ -185,12 +185,12 @@ sub RebuildIndex
     my ($count, $written, $query, $total_rows, $start_time);
 
     $self->{SQL}->Begin();
-    $self->{SQL}->Do("DELETE FROM " . $self->{Table} . "Words");
+    $self->{SQL}->Do("DELETE FROM " . $self->{Table} . "words");
     $self->{SQL}->Commit();
 
     # Make postgres analyze its foo to speed up the insertion
     $self->{SQL}->AutoCommit();
-    $self->{SQL}->Do("VACUUM ANALYZE " . $self->{Table} . "Words");
+    $self->{SQL}->Do("VACUUM ANALYZE " . $self->{Table} . "words");
 
     $total_rows = $self->{SQL}->SelectSingleValue("SELECT COUNT(*) FROM $self->{Table}");
 
@@ -256,11 +256,11 @@ sub RebuildIndex
         # Make postgres analyze its foo to speed up the insertion
         print STDERR "Postgres: vacuum analyze WordList\n";
         $self->{SQL}->AutoCommit();
-        $self->{SQL}->Do("VACUUM ANALYZE WordList");
+        $self->{SQL}->Do("VACUUM ANALYZE wordlist");
 
-        print STDERR "Postgres: vacuum analyze " . $self->{Table} . "Words\n";
+        print STDERR "Postgres: vacuum analyze " . $self->{Table} . "words\n";
         $self->{SQL}->AutoCommit();
-        $self->{SQL}->Do("VACUUM ANALYZE " . $self->{Table} . "Words");
+        $self->{SQL}->Do("VACUUM ANALYZE " . $self->{Table} . "words");
 
         if ($written < $block_size)
         {

@@ -310,23 +310,28 @@ sub GetNextFreeTrackId
 sub Insert
 {
     my ($this) = @_;
-    my ($album, $id, $sql, $name, $attrs, $page);
 
     $this->{new_insert} = 0;
     return undef if (!exists $this->{artist} || $this->{artist} eq '');
     return undef if (!exists $this->{name} || $this->{name} eq '');
 
-    $sql = Sql->new($this->{DBH});
-    $name = $sql->Quote($this->{name});
-    $id = $sql->Quote($this->CreateNewGlobalId());
-    $attrs = "'{" . join(',', @{ $this->{attrs} }) . "}'";
-    $page = $this->CalculatePageIndex($this->{name});
+    my $sql = Sql->new($this->{DBH});
+    my $id = $this->CreateNewGlobalId();
+    my $attrs = "{" . join(',', @{ $this->{attrs} }) . "}";
+    my $page = $this->CalculatePageIndex($this->{name});
 
     # No need to check for an insert clash here since album name is not unique
-    $sql->Do(qq/insert into Album (name,artist,gid,modpending,attributes,page)
-                values ($name,$this->{artist}, $id, 0, $attrs, $page)/);
+    $sql->Do(
+		"INSERT INTO album (name, artist, gid, modpending, attributes, page)
+			VALUES (?, ?, ?, 0, ?, ?)",
+		$this->{name},
+		$this->{artist},
+		$id,
+		$attrs,
+		$page,
+	);
 
-    $album = $sql->GetLastInsertId('Album');
+    my $album = $sql->GetLastInsertId('Album');
     $this->{new_insert} = 1;
 
     $this->{id} = $album;
@@ -354,12 +359,12 @@ sub Remove
   
     $sql = Sql->new($this->{DBH});
     print STDERR "DELETE: Removed TOC where album was " . $album . "\n";
-    $sql->Do("delete from TOC where album = $album");
+    $sql->Do("DELETE FROM toc WHERE album = ?", $album);
     print STDERR "DELETE: Removed Discid where album was " . $album . "\n";
-    $sql->Do("delete from Discid where album = $album");
+    $sql->Do("DELETE FROM discid WHERE album = ?", $album);
 	# TODO move to Release.pm
     print STDERR "DELETE: Removed release where album was " . $album . "\n";
-    $sql->Do("DELETE FROM release WHERE ALBUM = ?", $album);
+    $sql->Do("DELETE FROM release WHERE album = ?", $album);
 
     if ($sql->Select(qq|select AlbumJoin.track from AlbumJoin 
                          where AlbumJoin.album = $album|))
@@ -368,7 +373,7 @@ sub Remove
          while(@row = $sql->NextRow)
          {
              print STDERR "DELETE: Removed albumjoin " . $row[0] . "\n";
-             $sql->Do("delete from AlbumJoin where track=$row[0]");
+             $sql->Do("DELETE FROM albumjoin WHERE track = ?", $row[0]);
              $tr->SetId($row[0]);
              $tr->Remove();
          }
@@ -380,7 +385,7 @@ sub Remove
     $engine->RemoveObjectRefs($this->GetId());
 
     print STDERR "DELETE: Removed Album " . $album . "\n";
-    $sql->Do("delete from Album where id = $album");
+    $sql->Do("DELETE FROM album WHERE id = ?", $album);
 
     return 1;
 }

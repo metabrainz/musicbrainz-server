@@ -106,16 +106,18 @@ sub LoadFromId
 sub Insert
 {
    my ($this, $id, $name) = @_;
-   my ($sql, $lookup);
 
-   # Check to make sure we don't already have this in the database
-   $lookup = $this->Resolve($name);
-   return $lookup if (defined $lookup);
+    # Check to make sure we don't already have this in the database
+    my $lookup = $this->Resolve($name);
+    return $lookup if (defined $lookup);
 
-   $sql = Sql->new($this->{DBH});
-   $name = $sql->Quote($name);
-   $sql->Do(qq|insert into $this->{table} (Name, Ref, LastUsed) values 
-               ($name, $id, '1970-01-01 00:00')|);
+    my $sql = Sql->new($this->{DBH});
+    $sql->Do(
+        "INSERT INTO $this->{table} (name, ref, lastused)
+            VALUES (?, ?, '1970-01-01 00:00')",
+        $name,
+        $id,
+    );
 
    if (lc($this->{table}) eq 'artistalias')
    {

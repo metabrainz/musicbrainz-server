@@ -527,7 +527,7 @@ sub InsertModeration
 			?, ?,
 			?, ?, ?,
 			?,
-			?, now() + interval ?, 0, 0, 0
+			?, NOW() + INTERVAL ?, 0, 0, 0
 		)",
 		$this->GetTable, $this->GetColumn, $this->GetRowId,
 		$this->GetPrev, $this->GetNew,

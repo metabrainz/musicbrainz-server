@@ -145,9 +145,11 @@ sub Remove
         return undef;
     }
 
-    $sql->Do("delete from ArtistAlias where ref = " . $this->GetId());
-    $sql->Do("delete from Artist_Relation where artist = " . $this->GetId() . 
-             " or ref = ". $this->GetId());
+    $sql->Do("DELETE FROM artistalias WHERE ref = ?", $this->GetId);
+    $sql->Do(
+	"DELETE FROM artist_relation WHERE artist = ? OR ref = ?",
+	$this->GetId, $this->GetId,
+    );
     $sql->Do(
 	"UPDATE moderation_closed SET artist = ? WHERE artist = ?",
 	&ModDefs::DARTIST_ID, $this->GetId,
@@ -161,7 +163,7 @@ sub Remove
     my $engine = SearchEngine->new($this->{DBH}, { Table => 'Artist' } );
     $engine->RemoveObjectRefs($this->GetId());
 
-    $sql->Do("delete from Artist where id = " . $this->GetId());
+    $sql->Do("DELETE FROM artist WHERE id = ?", $this->GetId);
 
     return 1;
 }
