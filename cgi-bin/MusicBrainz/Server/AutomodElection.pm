@@ -30,6 +30,22 @@ package MusicBrainz::Server::AutomodElection;
 use constant PROPOSAL_TIMEOUT => "1 week";
 use constant VOTING_TIMEOUT => "1 week";
 
+our $STATUS_AWAITING_SECONDER_1	= 1;
+our $STATUS_AWAITING_SECONDER_2	= 2;
+our $STATUS_VOTING_OPEN			= 3;
+our $STATUS_ACCEPTED			= 4;
+our $STATUS_REJECTED			= 5;
+our $STATUS_CANCELLED			= 6;
+
+my %descstatus = (
+	$STATUS_AWAITING_SECONDER_1	=> "awaiting 1st seconder",
+	$STATUS_AWAITING_SECONDER_2	=> "awaiting 2nd seconder",
+	$STATUS_VOTING_OPEN			=> "voting open",
+	$STATUS_ACCEPTED			=> "accepted",
+	$STATUS_REJECTED			=> "rejected",
+	$STATUS_CANCELLED			=> "cancelled",
+);
+
 use base qw( TableBase );
 use Carp;
 use ModDefs ':vote';
@@ -88,15 +104,6 @@ sub _Refresh
 	$self;
 }
 
-my %descstatus = (
-	1 => "awaiting 1st seconder",
-	2 => "awaiting 2nd seconder",
-	3 => "voting open",
-	4 => "accepted",
-	5 => "rejected",
-	6 => "cancelled",
-);
-
 sub GetStatusName
 {
 	my ($self, $status) = @_;
@@ -125,7 +132,7 @@ sub DoCloseElections
 			$sql->Do("LOCK TABLE automod_election IN EXCLUSIVE MODE");
 			
 			my $to_timeout = $sql->SelectListOfHashes(
-				"SELECT * FROM automod_election WHERE status IN (1,2)
+				"SELECT * FROM automod_election WHERE status IN ($STATUS_AWAITING_SECONDER_1,$STATUS_AWAITING_SECONDER_2)
 					AND NOW() - proposetime > INTERVAL ?",
 				PROPOSAL_TIMEOUT,
 			);
@@ -138,7 +145,7 @@ sub DoCloseElections
 			}
 
 			my $to_close = $sql->SelectListOfHashes(
-				"SELECT * FROM automod_election WHERE status = 3
+				"SELECT * FROM automod_election WHERE status = $STATUS_VOTING_OPEN
 					AND NOW() - opentime > INTERVAL ?",
 				VOTING_TIMEOUT,
 			);
@@ -159,11 +166,11 @@ sub _Timeout
 	my $sql = Sql->new($self->{DBH});
 
 	$sql->Do(
-		"UPDATE automod_election SET status = 5, closetime = NOW() WHERE id = ?",
+		"UPDATE automod_election SET status = $STATUS_REJECTED, closetime = NOW() WHERE id = ?",
 		$self->GetId,
 	);
 
-	$self->{status} = 5;
+	$self->{status} = $STATUS_REJECTED;
 	# NOTE closetime not set
 
 	$self->SendTimeoutEmail;
@@ -174,7 +181,7 @@ sub _Close
 	my $self = shift;
 	my $sql = Sql->new($self->{DBH});
 
-	$self->{status} = (($self->GetYesVotes > $self->GetNoVotes) ? 4 : 5);
+	$self->{status} = (($self->GetYesVotes > $self->GetNoVotes) ? $STATUS_ACCEPTED : $STATUS_REJECTED);
 	# NOTE closetime not set
 
 	$sql->Do(
@@ -183,7 +190,7 @@ sub _Close
 		$self->GetId,
 	);
 
-	if ($self->{status} == 4)
+	if ($self->{status} == $STATUS_ACCEPTED)
 	{
 		$self->SendAcceptedEmail;
 	} else {
@@ -207,7 +214,7 @@ sub Propose
 
 	my $id = $sql->SelectSingleValue(
 		"SELECT id FROM automod_election WHERE candidate = ?
-			AND status IN (1,2,3)",
+			AND status IN ($STATUS_AWAITING_SECONDER_1,$STATUS_AWAITING_SECONDER_2,$STATUS_VOTING_OPEN)",
 		$candidate->GetId,
 	);
 	$@ = "EXISTING_ELECTION $id", return
@@ -235,10 +242,10 @@ sub Second
 		or $@ = "NO_SUCH_ELECTION", return;
 
 	$@ = "ELECTION_CLOSED", return
-		if $self->{status} =~ /[456]/;
+		if $self->{status} =~ /^($STATUS_ACCEPTED|$STATUS_REJECTED|$STATUS_CANCELLED)$/o;
 
 	$@ = "ALREADY_SECONDED", return
-		if $self->{status} eq "3";
+		if $self->{status} == $STATUS_VOTING_OPEN;
 
 	my $propsec = grep { ($self->{$_}||0) == $seconder }
 		qw( proposer seconder_1 seconder_2 );
@@ -247,25 +254,25 @@ sub Second
 
 	$sql->Do(
 		"UPDATE automod_election
-			SET seconder_1 = ?, status = '2'
-			WHERE id = ? AND status = '1'",
+			SET seconder_1 = ?, status = $STATUS_AWAITING_SECONDER_2
+			WHERE id = ? AND status = $STATUS_AWAITING_SECONDER_1",
 		$seconder,
 		$self->GetId,
 	) and do {
 		$self->{seconder_1} = $seconder;
-		$self->{status} = 2;
+		$self->{status} = $STATUS_AWAITING_SECONDER_2;
 		return $self;
 	};
 
 	$sql->Do(
 		"UPDATE automod_election
-			SET seconder_2 = ?, status = '3', opentime = NOW()
-			WHERE id = ? AND status = '2'",
+			SET seconder_2 = ?, status = $STATUS_VOTING_OPEN, opentime = NOW()
+			WHERE id = ? AND status = $STATUS_AWAITING_SECONDER_2",
 		$seconder,
 		$self->GetId,
 	) and do {
 		$self->{seconder_2} = $seconder;
-		$self->{status} = 3;
+		$self->{status} = $STATUS_VOTING_OPEN;
 		$self->SendVotingOpenEmail;
 		return $self;
 	};
@@ -283,9 +290,9 @@ sub CastVote
 		or $@ = "NO_SUCH_ELECTION", return;
 
 	$@ = "VOTING_CLOSED", return
-		if $self->{status} =~ /[456]/;
+		if $self->{status} =~ /^($STATUS_ACCEPTED|$STATUS_REJECTED|$STATUS_CANCELLED)$/o;
 	$@ = "VOTING_NOT_YET_OPEN", return
-		if $self->{status} =~ /[12]/;
+		if $self->{status} =~ /^($STATUS_AWAITING_SECONDER_1|$STATUS_AWAITING_SECONDER_2)$/o;
 
 	my $propsec = grep { ($self->{$_}||0) == $voter }
 		qw( proposer seconder_1 seconder_2 );
@@ -349,16 +356,16 @@ sub Cancel
 		unless $self->GetProposer == $canceller;
 
 	$@ = "VOTING_CLOSED", return
-		if $self->GetStatus =~ /[456]/;
+		if $self->GetStatus =~ /^($STATUS_ACCEPTED|$STATUS_REJECTED|$STATUS_CANCELLED)$/o;
 
 	$sql->Do(
 		"UPDATE automod_election
-			SET status = 6, closetime = NOW()
-			WHERE id = ? AND status IN (1,2,3)",
+			SET status = $STATUS_CANCELLED, closetime = NOW()
+			WHERE id = ? AND status IN ($STATUS_AWAITING_SECONDER_1,$STATUS_AWAITING_SECONDER_2,$STATUS_VOTING_OPEN)",
 		$self->GetId,
 	) or die;
 
-	$self->{status} = 6;
+	$self->{status} = $STATUS_CANCELLED;
 	# NOTE closetime is not set
 	$self->SendCancelEmail;
 
@@ -538,7 +545,7 @@ sub _SendMail
 
 	$opts{Subject} ||= $self->{subject};
 	$opts{Sender} ||= 'Webserver <webserver@musicbrainz.org>';
-	$opts{From} = 'The Returning Officer <noreply@musicbrainz.org>';
+	$opts{From} = 'The Returning Officer <returning-officer@musicbrainz.org>';
 	$opts{To} = 'mb-automods Mailing List <musicbrainz-automods@lists.musicbrainz.org>';
 	$opts{Type} ||= "text/plain";
 	$opts{Encoding} ||= "quoted-printable";
@@ -556,7 +563,7 @@ sub _SendMail
     $entity->attr("content-type.charset" => "utf-8");
 
 	$entity->send(
-		'webserver@musicbrainz.org',
+		'returning-officer@musicbrainz.org',
 		'musicbrainz-automods@lists.musicbrainz.org',
 	);
 }
@@ -569,7 +576,7 @@ package MusicBrainz::Server::AutomodElection::Vote;
 
 use base qw( TableBase );
 use Carp;
-use ModDefs ':vote', 'STATUS_OPEN';
+use ModDefs ':vote';
 
 # GetId / SetId - see TableBase
 sub GetElection		{ $_[0]{automod_election} }
