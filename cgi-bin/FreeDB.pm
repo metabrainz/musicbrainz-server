@@ -469,6 +469,8 @@ sub InsertForModeration
 
     require Insert;
     $in = Insert->new($this->{DBH});
+
+    # returns ($artistid, $albumid, $mods);
     $in->InsertAlbumModeration($new, FREEDB_MODERATOR, 0);
 }
 
