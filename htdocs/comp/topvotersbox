@@ -21,7 +21,7 @@ if (defined $mb)
 
 	for my $row (@$data)
 	{
-		my ($id, $name, $nametrunc, $count) = @$row;
+		my ($id, $name, $nametrunc, $count) = @$row{qw( id name nametrunc num )};
 		</%perl>
 		<tr>
 			<td class="SideBarStatsBoxName"
