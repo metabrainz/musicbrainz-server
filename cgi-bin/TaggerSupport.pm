@@ -294,6 +294,7 @@ sub ArtistSearch
        print STDERR "Artist: search on '$name'\n";
        while($row = $engine->NextRow)
        {
+           print STDERR "  $row->[1]\n";
            push @ids, { id=>$row->[0],
                         name=>$row->[1],
                         sortname=>$row->[2],
@@ -423,6 +424,11 @@ sub TrackSearch
        {
            $lensim = 0.0;
            $namesim = similarity($row[2], $trackName);
+           if ($row[2] =~ /^(.*)\s*\(.*\)\s*$/)
+           {
+               my $chopsim = similarity($1, $trackName);
+               $namesim = ($chopsim > $namesim) ? $chopsim : $namesim;
+           }
            if ($duration > 0 && $row[3] > 0)
            {
                $lensim = 1 - (int(abs($duration - $row[3]) / 2000) * .25);

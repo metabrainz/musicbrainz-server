@@ -2,6 +2,7 @@
 $title
 $attrs=>""
 $gattrs=>""
+$bgcolor=>"#FFFFFF"
 </%args>
 
 <table cellpadding="0" cellspacing="0" border="0" bgcolor="#000000" <% $gattrs |n %>><tr><td bgcolor="#000000">
@@ -14,4 +15,4 @@ $gattrs=>""
     </td>
     </tr>
     <tr>
-    <td bgcolor="#FFFFFF" <% $attrs |n %> class="body">
+    <td bgcolor="<% $bgcolor %>" <% $attrs |n %> class="body">

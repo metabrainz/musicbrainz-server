@@ -13,21 +13,19 @@ $trmid=>""
 $duration=>0
 </%args>
 
-% if (!defined $session{user} || $session{user} eq '') {
-    You must be logged in to edit the database.<p>
-    <& /comp/tablebegin, title=>'Login' &>
-    <& /comp/loginbox &>
-    <& /comp/tableend &>
-    <& /comp/footer &>
-%   return undef;
-% }
-
-
 <%perl>
+#% if (!defined $session{user} || $session{user} eq '') {
+#    You must be logged in to edit the database.<p>
+#    <& /comp/tablebegin, title=>'Login' &>
+#    <& /comp/loginbox &>
+#    <& /comp/tableend &>
+#    <& /comp/footer &>
+#%   return undef;
+#% }
 
 use Data::Dumper;
 
-# TODO: Add nicer error handleing
+# TODO: Add nicer error handling
 sub OutputArtist
 {
    my ($ts, $data) = @_;
@@ -111,6 +109,93 @@ sub OutputForm
    return $ret;
 }
 
+sub OutputEditForm
+{
+   my ($data) = @_;
+
+   my $ret = qq|<FORM METHOD="POST" ACTION="/taglookup.html"
+         ENCTYPE="application/x-www-form-urlencoded" class="formstyle">
+     <table>
+     <tr>
+      <td align="right" valign="top" NOWRAP>
+        Artist:
+      </td>
+      <td>
+        <INPUT TYPE="text" NAME="artist" SIZE="30" VALUE="$data->{artist}">
+      </td>
+     </tr>
+     <tr>
+      <td align="right" valign="top" NOWRAP>
+        Album:
+      </td>
+      <td>
+        <INPUT TYPE="text" NAME="album" SIZE="30" VALUE="$data->{album}">
+      </td>
+     </tr>
+     <tr>
+      <td align="right" valign="top" NOWRAP>
+        Track:
+      </td>
+      <td>
+        <INPUT TYPE="text" NAME="track" SIZE="30" VALUE="$data->{track}">
+      </td>
+     </tr>
+     <tr>
+      <td align="right" valign="top" NOWRAP>
+        Track Num:
+      </td>
+      <td>
+        <INPUT TYPE="text" NAME="tracknum" SIZE="2" VALUE="$data->{tracknum}">
+      </td>
+     </tr>
+     <tr>
+      <td colspan="2" align="right" valign="top" NOWRAP>
+        <INPUT TYPE="submit" NAME="submit" SIZE="30" VALUE="Lookup &gt;&gt;">
+      </td>
+     </tr>
+     <tr>
+      <td colspan="2">
+        <b>Debug info:</b>
+      </td>
+     </tr>
+     <tr>
+      <td align="right" valign="top" NOWRAP>
+        Artist Id:
+      </td>
+      <td>
+        $data->{artistid}
+      </td>
+     </tr>
+     <tr>
+      <td align="right" valign="top" NOWRAP>
+        Album Id:
+      </td>
+      <td>
+        $data->{albumid}
+      </td>
+     </tr>
+     <tr>
+      <td align="right" valign="top" NOWRAP>
+        Track Id:
+      </td>
+      <td>
+        $data->{trackid}
+      </td>
+     </tr>
+     <tr>
+      <td align="right" valign="top" NOWRAP>
+        Duration:
+      </td>
+      <td>
+        $data->{duration}
+      </td>
+     </tr>
+   </table>
+   </form>|;
+
+   return $ret;
+}
+
 my ($mb, $ts, $result, $flags, $list, $error, $id, %data); 
 
 $mb = mc_comp("/comp/dblogin");
@@ -142,7 +227,7 @@ if ($flags & TaggerSupport::ARTISTLIST)
 {
    OutputArtist($ts, $result);
 
-   if (scalar($list) > 0)
+   if (scalar(@$list) > 0)
    {
        my %copy = %data;
 
@@ -172,7 +257,8 @@ if ($flags & TaggerSupport::ARTISTLIST)
    else
    {
        </%perl>
-       <b>Error:</b> Nothing is known about artist <b><% $artist %></b>. 
+       <font size="+1"><b>Error:</b>There were no matches for the  
+       artist <b><% $artist %></b>.</font> 
        <%perl>
    }
 }
@@ -207,7 +293,13 @@ elsif ($flags & TaggerSupport::ALBUMLIST)
 
        <%perl>
    }
-
+   else
+   {
+       </%perl>
+       <font size="+1"><b>Error:</b>There were no matches for the  
+       album <b><% $album %></b>.</font> 
+       <%perl>
+   }
 }
 elsif ($flags & TaggerSupport::TRACKLIST)
 {
@@ -238,6 +330,13 @@ elsif ($flags & TaggerSupport::TRACKLIST)
 %      }
        </table>
 
+       <%perl>
+   }
+   else
+   {
+       </%perl>
+       <font size="+1"><b>Error:</b>There were no matches for the  
+       track <b><% $track %></b>.</font> 
        <%perl>
    }
 }
@@ -276,6 +375,13 @@ elsif ($flags & TaggerSupport::ALBUMTRACKLIST)
 
        <%perl>
    }
+   else
+   {
+       </%perl>
+       <font size="+1"><b>Error:</b>There were no matches for the  
+       album <b><% $album %></b> and track <b><% $track %></b>.</font> 
+       <%perl>
+   }
 }
 elsif (($flags & TaggerSupport::ARTISTID) && 
        ($flags & TaggerSupport::ALBUMID) && 
@@ -309,20 +415,14 @@ else
 }
 </%perl>
 
+<br>
+<br>
 <p>
-<b>Input:</a> (for debugging)
-<table>
-<tr><td>Artist:</td><td><% $artist %></td></tr>
-<tr><td>Album:</td><td><% $album %></td></tr>
-<tr><td>Track:</td><td><% $track %></td></tr>
-<tr><td>ArtistId:</td><td><% $artistid %></td></tr>
-<tr><td>AlbumId:</td><td><% $albumid %></td></tr>
-<tr><td>TrackId:</td><td><% $trackid %></td></tr>
-<tr><td>TrackNum:</td><td><% $tracknum %></td></tr>
-<tr><td>File Name:</td><td><% $filename %></td></tr>
-<tr><td>Duration:</td><td><% $duration %></td></tr>
-</table>
-<p><br>
-    
+<center>
+<& /comp/tablebegin, title=>'New Lookup', bgcolor=>"#f0efff" &>
+<% OutputEditForm($result) |n %>
+<& /comp/tableend &>
+</center>
+
 % $mb->Logout();
 <& /comp/footer &>

@@ -57,10 +57,11 @@ sub GetTrackIdsFromTRM
    my ($this, $TRM) = @_;
    my ($sql);
 
+   $TRM =~ tr/A-Z/a-z/;
    $sql = Sql->new($this->{DBH});
-   return $sql->GetSingleColumnLike("TRMJoin, TRM", "track",
-                                    ["TRM.TRM", $sql->Quote($TRM), 
-                                     "TRM.id", "TRMJoin.TRM"]);
+   return $sql->GetSingleColumn("TRMJoin, TRM", "track",
+                                ["TRM.TRM", $sql->Quote($TRM), 
+                                 "TRM.id", "TRMJoin.TRM"]);
 }
 
 sub GetIdFromTRM
@@ -68,8 +69,9 @@ sub GetIdFromTRM
    my ($this, $TRM) = @_;
    my ($sql, $id);
 
+   $TRM =~ tr/A-Z/a-z/;
    $sql = Sql->new($this->{DBH});
-   ($id) = $sql->GetSingleRowLike("TRM", ["id"], ["TRM", $sql->Quote($TRM)]);
+   ($id) = $sql->GetSingleRow("TRM", ["id"], ["TRM", $sql->Quote($TRM)]);
 
    return $id;
 }
