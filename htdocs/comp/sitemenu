@@ -79,10 +79,12 @@ use Scalar::Util qw( reftype weaken );
 		[
 			{ name => "Intro",					url => "/products/server/index.html" },
 			{ name => "Download",				url => "/products/server/download.html" },
-			#{ name => "FAQ",					url => "/products/server/faq.html" },
-			{ name => "DB Structure",			url => "/db_structure.html" },
-			{ name => "Import HOWTO",			url => "/products/server/import_howto.html" },
-			#{ name => "Setup HOWTO",			url => "/products/server/setup_howto.html" },
+			{ name => "Docs",					url => "/products/server/docs/index.html", preferred => 1 },
+			[
+				{ url => "/db_structure.html" },
+				{ url => "/products/server/import_howto.html" },
+				{ url => "/products/server/docs/20030820-1/index.html" },
+			],
 		],
 	],
 	{ name => "Search/Browse",			url => "/search.html" },
@@ -260,11 +262,11 @@ use Scalar::Util qw( reftype weaken );
 			{ name => "How",					url => "/how.html" },
 			{ name => "Client HOWTO",			url => "/client_howto.html" },
 			{ name => "Client Docs",			url => "/docs/mb_client/" },
+			{ name => "Server Docs",			url => "/products/server/docs/index.html" },
 			{ name => "CD Submission",			url => "/cd_submission.html" },
 			{ name => "About MB IDs",			url => "/tagger/id-intro.html" },
 			{ name => "About Disc IDs",			url => "/disc.html" },
 			{ name => "ID3 Tags",		url => "/docs/specs/metadata_tags.html" },
-			{ name => "Database",				url => "/db_structure.html" },
 			{ name => "Stats",					url => "/stats.html" },
 		],
 		{ name => "Contact Us",				url => "/support/contact.html" },
@@ -370,7 +372,7 @@ sub drawmenu
 	$m->out("</div>\n"); # level
 }
 
-sub identify_selected
+my $identify_selected = sub
 {
 	my ($uri, $args) = @_;
 	my @sel;
@@ -386,9 +388,9 @@ sub identify_selected
 	}
 
 	\@sel;
-}
+};
 
-sub disable_selected
+my $disable_selected = sub
 {
 	my $rarhSel = shift;
 	
@@ -396,7 +398,7 @@ sub disable_selected
 	{
 		$_->{expand} = 0;
 	}
-}
+};
 
 </%perl>
 
@@ -406,9 +408,9 @@ sub disable_selected
 		<script type="text/javascript" src="/scripts/sitemenu.js"></script>
 		<div id="sitemenu">
 		<%perl>
-		my $t = identify_selected($uri ,$args);
+		my $t = &$identify_selected($uri ,$args);
 		drawmenu(\@main, 0);
-		disable_selected($t);
+		&$disable_selected($t);
 		</%perl>
 		</div>
     </td>
