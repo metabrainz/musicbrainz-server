@@ -495,7 +495,7 @@ sub InsertAlbumModeration
 		map { split /=/, $_, 2 } grep /\S/, split /\n/, $new
 	);
 
-    my ($artistid, $albumid) = eval
+    my ($artistid, $albumid, $mods) = eval
     {
        $sql->Begin;
 
@@ -514,7 +514,7 @@ sub InsertAlbumModeration
           
 		$sql->Commit;
 
-        ($mod->GetArtist, $mod->GetRowId);
+        ($mod->GetArtist, $mod->GetRowId, \@mods);
     };
 
     if ($@)
@@ -526,7 +526,7 @@ sub InsertAlbumModeration
 		return;
     }
 
-    ($artistid, $albumid);
+    ($artistid, $albumid, $mods);
 }
 
 1;
