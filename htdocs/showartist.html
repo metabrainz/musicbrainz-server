@@ -23,9 +23,9 @@ for(;;)
     $albumname = shift @idsalbums;
 
     mc_comp("/comp/album", 
+            mb=>$mb,
             albumid=>$albumid, 
-            albumname=>$albumname, 
-            mb=>$mb);
+            albumname=>$albumname);
 }
 
 $mb->Logout();

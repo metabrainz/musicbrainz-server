@@ -1,10 +1,10 @@
 <table width="100%">
 <tr>
   <td>
-    <a href="/search.html">Search/Browse</a>
+    <a href="/search.html">Search</a>
   </td>
   <td>
-    <a href="/moderate.html">Vote/Moderate</a>
+    <a href="/moderate.html">Moderate</a>
   </td>
   <td>
     <a href="/download.html">Download</a>
@@ -13,13 +13,13 @@
     <a href="/faq.html">FAQ</a>
   </td>
   <td>
-    <a href="/how.html">How does it work?</a>
+    <a href="/how.html">How?</a>
   </td>
   <td>
-    <a href="/todo.html">To Do list</a>
+    <a href="/todo.html">To Do</a>
   </td>
   <td>
-    <a href="/list.html">Mailing List</a>
+    <a href="/list.html">Mail List</a>
   </td>
 </tr>
 </table>

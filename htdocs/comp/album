@@ -1,12 +1,21 @@
+<%args>
+$mb
+$albumid
+$albumname
+$modpending=>0
+$hilitetrack=>-1
+$hilitecolor=>""
+</%args>
+
 <%perl>
 
 my ($i, $trackinfo, @info);
 
 mc_comp("/comp/albumbegin", 
-        albumid=>$ARGS{albumid}, 
-        title=>$ARGS{albumname},
-        modpending=>$ARGS{modpending});
-@info = $ARGS{mb}->GetAlbumInfo($ARGS{albumid});
+        albumid=>$albumid, 
+        title=>$albumname,
+        modpending=>$modpending);
+@info = $mb->GetAlbumInfo($albumid);
 for($i = 0;; $i++)
 {
     $trackinfo = $info[$i]; 
@@ -16,7 +25,9 @@ for($i = 0;; $i++)
             tracknum=>($$trackinfo[1] + 1), 
             name=>$$trackinfo[2],
             artistname=>'',
-            modpending=>$$trackinfo[3]);
+            modpending=>$$trackinfo[3],
+            hilitetrack=>$hilitetrack,
+            hilitecolor=>$hilitecolor);
 }
 mc_comp("/comp/albumend");
 

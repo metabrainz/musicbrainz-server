@@ -4,12 +4,15 @@ $tracknum
 $name
 $artistname
 $modpending
+$hilitetrack
+$hilitecolor
 </%args>
 
 <%perl>
 
 my $bgcolor;
-$bgcolor = $modpending ? 'bgcolor="#FFFFCC"' : '';
+$bgcolor = ($modpending) ? 'bgcolor="#FFFFCC"' : '';
+$bgcolor = ($hilitetrack == $id) ? 'bgcolor="#FFCCFF"' : $bgcolor;
 
 </%perl>
 
