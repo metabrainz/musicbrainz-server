@@ -73,6 +73,7 @@ sub GetTRMFromTrackId
     my (@row, $sql, @ret);
 
     $sql = Sql->new($this->{DBH});
+	# TODO Fix SQL interpolation bug (sometimes $id eq "")
     if ($sql->Select(qq|select TRM.TRM, TRMJoin.id, TRM.lookupcount 
                           from TRMJoin, TRM
                          where TRMJoin.track = $id and

@@ -516,6 +516,7 @@ sub CreateFileLookup
        $out .= $this->BeginDesc("mq:Result");
        $out .=    $this->Element("mq:status", ($flags & TaggerSupport::FUZZY) != 0  ? "Fuzzy" : "OK");
        $out .=    $this->Element("mq:artist", "", "rdf:resource", $this->{baseuri}. "/artist/" . $ar->GetMBId());
+       # FIXME Can't call method "GetMBId" on an undefined value ($al)
        $out .=    $this->Element("mq:album", "", "rdf:resource", $this->{baseuri}. "/album/" . $al->GetMBId());
        $out .=    $this->Element("mq:track", "", "rdf:resource", $this->{baseuri}. "/track/" . $tr->GetMBId());
        $out .= $this->EndDesc("mq:Result");
