@@ -2,10 +2,15 @@
 
 <%perl>
 
-my ($mb, $id, $ar, $artist); 
+my ($mb, $id, $ar, $artist, $referer); 
 
 $mb = new MusicBrainz;
 $mb->Login();
+if (defined $r->headers_in->{'Referer'} &&
+    $r->headers_in->{'Referer'} ne '')
+{    
+    $referer = $r->headers_in->{'Referer'};
+}
 
 delete $session{tagged_albums};
 
@@ -20,6 +25,9 @@ delete $session{tagged_albums};
 
      <font size="+1">You have left tag album mode!</font><br><p>
 
+%   if (defined $referer) {
+     <a href="<% $referer %>">Return to last page</a><br><p>
+%   }
      <br><p>
 % }
 % $mb->Logout();

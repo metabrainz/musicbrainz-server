@@ -2,10 +2,15 @@
 
 <%perl>
 
-my ($mb, $id, $ar, $artist); 
+my ($mb, $id, $ar, $artist, $referer); 
 
 $mb = new MusicBrainz;
 $mb->Login();
+if (defined $r->headers_in->{'Referer'} &&
+    $r->headers_in->{'Referer'} ne '')
+{    
+    $referer = $r->headers_in->{'Referer'};
+}
 
 # Create the tag list in the user's session to enter tag mode.
 $session{tagged_albums} = "";
@@ -20,7 +25,11 @@ $session{tagged_albums} = "";
 % } else {
 
      <font size="+1">You are now in tag album mode!</font>
-     (<a href="/mod/tag/canceltag.html">cancel</a>)<br><p>
+     (<a href="/mod/tag/canceltag.html">cancel</a>)
+% if (defined $referer) {
+     (<a href="<% $referer %>">return to the last page</a>)
+% }
+     <br><p>
 
      What does that mean? <p>
 
@@ -47,9 +56,12 @@ $session{tagged_albums} = "";
 
      <p>
      If you want to stop tagging albums, click on the 
-     <a href="/mod/tag/canceltag.html">Cancel Tagging</a> link.
+     <a href="/mod/tag/canceltag.html">Cancel Tagging</a> link. <br><p>
+
  
-     <br><p>
+% if (defined $referer) {
+     <a href="<% $referer %>">Return to last page</a><br><p>
+% }
 
      <& /comp/tablebegin, title=>'Search', attrs=>"align=left" &>
      <br>
