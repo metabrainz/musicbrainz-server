@@ -123,6 +123,10 @@ function MiscTransform(string)
 	return string
 		. replace(/ (versus|vs\.|vs) /gi, " vs. ")
 		. replace(/\bfeat(\.|\b|uring\b)/i, "feat.")
+		. replace(/\bdj\b/gi, "DJ")
+		. replace(/\bmc\b/gi, "MC")
+		. replace(/\btv\b/gi, "TV")
+		. replace(/\bmtv\b/gi, "MTV")
 		;
 }
 
