@@ -1,3 +1,4 @@
+%# vi: set ts=2 sw=2 ft=mason :
 <%args>
 $id
 $toc
@@ -27,11 +28,34 @@ if ($@)
    $mb->Logout;
    return undef;
 }
-$mb->Logout;
 
 </%perl>
  
-Thank you for your submission.
-A new association has been entered into the database. You will
-now be able to request the information for this CD.
+<p>
+	Thank you for your submission.&nbsp;
+	A new association has been entered into the database.
+</p>
+<p>
+	You will now be able to request the information for this CD.
+</p>
 
+<%perl>
+
+{
+	my $al = Album->new($mb->{DBH});
+	$al->SetId($album);
+	$al->LoadFromId
+		or last;
+
+	my $ar = Artist->new($mb->{DBH});
+	$ar->SetId($al->GetArtist);
+	$ar->LoadFromId
+		or last;
+
+	mc_comp("/comp/artisttitle", artist=>$ar, link=>1);
+	mc_comp("/comp/album", album=>$al, artist=>$ar);
+}
+
+$mb->Logout;
+
+</%perl>
