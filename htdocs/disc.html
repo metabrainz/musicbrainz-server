@@ -1,7 +1,6 @@
 <& /comp/sidebar, 
    title=>'How does the MusicBrainz calculate CD Index Disc Ids?',
    expand=>'documentation' &>
-</head>
 
 <p>
 Let us first have some words about how data is organized on a CD,
@@ -78,6 +77,7 @@ track     start  duration   block  length   type
   170  72:25.07         -  325732       -      -
 </pre>
 </td>
+</tr>
 </table>
 </center>
 
@@ -120,6 +120,7 @@ Before the data is fed through the SHA-1 hash, it is converted to ASCII using
 <td>
 <tt>printf("%02X", value);</tt>
 </td>
+</tr>
 </table>
 </center>
 
@@ -135,6 +136,7 @@ for byte values and
 <td>
 <tt>printf("%08X", value);</tt>
 </td>
+</tr>
 </table>
 </center>
 
@@ -172,6 +174,7 @@ for (i = 0; i&lt;100; i++) {
 sha_final(digest, &amp;sha);
 </pre>
 </td>
+</tr>
 </table>
 </center>
 
@@ -270,9 +273,5 @@ public domain SHA-1.
      <a href="http://www.hp.com/isgsupport/cdr/devkit/techover.htm">these</a>
      technical bits for you.-->
 </ul>
-
-</td>
-</tr>
-</table>
 
 <& /comp/footer &>
