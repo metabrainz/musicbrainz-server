@@ -1,5 +1,6 @@
 #!/usr/bin/perl -w
 
+no warnings qw( portable );
 use strict;
 use QuerySupport;
 use DBI;

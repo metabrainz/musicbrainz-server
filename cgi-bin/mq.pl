@@ -1,8 +1,6 @@
 #!/usr/bin/perl -w
 
-use warnings;
-no warnings 'portable';
-
+no warnings qw( portable );
 use strict;
 use QuerySupport;
 use TaggerSupport;

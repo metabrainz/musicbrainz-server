@@ -21,8 +21,6 @@
 #   $Id$
 #____________________________________________________________________________
 
-use 5.6.1;
-
 package MM_2_1;
 
 use TableBase;
@@ -156,14 +154,20 @@ sub OutputAlbumRDF
 
     if (exists $ref->{_album})
     {
+        my $complete;
+
         $out .=   $this->BeginDesc("mm:trackList");
         $out .=   $this->BeginSeq();
         $ids = $ref->{_album};
+
+        $complete = $$ids[scalar(@$ids) - 1]->{tracknum} != (scalar(@$ids) + 1);
         foreach $track (@$ids)
         {
-           $out .= $this->Element("rdf:li", "", "rdf:resource", 
-                                  $this->{baseuri} . "/track/" . $track->{id});
+            my $li = $complete ? "rdf:li" : ("rdf:_" . $track->{tracknum});
+            $out .= $this->Element($li, "", "rdf:resource", 
+                                   $this->{baseuri} . "/track/" . $track->{id});
         }
+
         $out .=   $this->EndSeq();
         $out .=   $this->EndDesc("mm:trackList");
     }
@@ -197,7 +201,6 @@ sub OutputTrackRDF
     $out .=   $this->Element("dc:creator", "", "rdf:resource",
               $this->{baseuri}. "/artist/" . $artist->GetMBId());
 
-    $out .=   $this->Element("mm:trackNum", $track->GetSequence());
     if ($track->GetLength() != 0) 
     {
         $out .=   $this->Element("mm:duration", $track->GetLength());
@@ -271,7 +274,6 @@ sub CreateFreeDBLookup
    {
        $rdf .=   $this->BeginDesc("mm:Track", "freedb:genid$i");
        $rdf .=      $this->Element("dc:title", $track->{track});
-       $rdf .=      $this->Element("mm:trackNum", $track->{tracknum});
        $rdf .=      $this->Element("dc:creator", "", 
                                    "rdf:resource", "freedb:genid2");  
        $rdf .=   $this->EndDesc("mm:Track");
