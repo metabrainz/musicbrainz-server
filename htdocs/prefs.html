@@ -88,6 +88,18 @@ $time = time();
 		mods per page (max: 25)
 	</p>
 
+	<h2>Artist Page (List of Releases)</h2>
+
+	<p>
+		Default to a "compact" listing when there are
+		<input type="text" name="releases_show_compact"
+			size=3
+			value="<% UserPreference::get('releases_show_compact') %>"
+			>
+		releases or more.&nbsp;
+		(allowed range: 1-100)
+	</p>
+
 	<h2>Date/Time Display</h2>
 
 	<p>

@@ -99,6 +99,7 @@ addpref('mod_add_album_inline', 0, \&check_bool);
 addpref('mods_per_page', 10, sub { check_int(1,25,@_) });
 addpref('nosidebar', 0, \&check_bool);
 addpref('no_sidebar_panels', 0, \&check_bool);
+addpref('releases_show_compact', 50, sub { check_int(1,100,@_) });
 addpref('sidebar_panel_search', 1, \&check_bool);
 addpref('sidebar_panel_stats', 1, \&check_bool);
 addpref('sidebar_panel_topmods', 1, \&check_bool);
