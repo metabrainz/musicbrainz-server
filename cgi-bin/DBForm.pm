@@ -26,7 +26,6 @@ package DBForm;
 use DBI;
 use DBDefs;
 use strict;
-use CGI::Pretty qw/:standard/;
 
 BEGIN { require 5.003 }
 use vars qw(@ISA @EXPORT);

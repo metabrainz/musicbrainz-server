@@ -22,7 +22,7 @@
 #   $Id$
 #____________________________________________________________________________
 
-use CGI::Pretty qw/:standard/;
+use CGI;
 use DBI;
 use DBDefs;
 use strict;
