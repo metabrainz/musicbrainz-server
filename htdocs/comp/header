@@ -15,6 +15,10 @@
 </tr>
 </table>
 
+<p style="display: none">
+	<a href="#maincontent">Skip to main content &gt;&gt;</a>
+</p>
+
 <& /comp/navbar &>
 
 <table cellpadding="0" cellspacing="0" border="0">
