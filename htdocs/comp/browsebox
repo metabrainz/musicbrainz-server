@@ -1,20 +1,20 @@
 <%args>
 $ind=>""
-$page=>"/browseartists.html"
 $showspecial=>1
+$page=>"/browseartists.html"
 </%args>
 <%perl>
 
 my ($i, $p, $t);
 
-mc_out('<table width="100%"><tr>');
+mc_out('<table width="100%" border=0><tr>');
 if (length($ind) > 0)
 {
     $t = $ind;
     $t =~ s/_/?/g;
     $t =~ s/ /_/g;
     </%perl>
-    <td width="25%" align="center">
+    <td align="center">
     <table cellpadding="0" cellspacing="0" border="0" bgcolor="#000000">
      <tr><td bgcolor="#000000">
       <table width="100%" cellpadding="2" cellspacing="1" border="0">
@@ -41,7 +41,7 @@ if (length($ind) > 0)
 if (length($ind) > 0)
 {
     </%perl>
-    <td width="15%" align="center">
+    <td align="center" NOWRAP>
       <a href="<% $page %>?index=<% $t %>">Back</a><br>
       <a href="<% $page %>">Start&nbsp;over</a>
     </td>
@@ -51,30 +51,23 @@ if (length($ind) > 0)
     <%perl>
 }
 
-for($i = 0; $i < 26; $i++)
-{
-    $p .= '<a href="' . $page . '?index='. $ind . chr($i + 65) . '">' .
-           chr($i + 65) . "</a> ";
-    if (($i + 1) % 13 == 0)
-    {
-        $p .= "<br>\n";
-    }
-}
 </%perl>
 
 <td width="60%" align="center">
     <table>
     <tr>
-%   if ($showspecial) {
-        <td align="center">
-           <a href="<% $page %>?index=<% $ind %>_">wildcard</a><br>
-           <a href="<% $page %>?index=<% $ind %>+">space</a> 
-        </td>
-        <td>&nbsp;</td>
+%   for($i = 0; $i < 13; $i++) {
+%      if ($i == 0 && $showspecial && $i == 0) {
+          <td align="center">
+             <a href="<% $page %>?index=<% $ind %>_">symbol&nbsp;</a><br>
+             <a href="<% $page %>?index=<% $ind %>+">space&nbsp;</a> 
+          </td>
+%      }
+       <td align="center">
+          <a href="<% $page %>?index=<% $ind . chr($i + 65) %>"><% chr($i + 65) %></a><br>
+          <a href="<% $page %>?index=<% $ind . chr($i + 78) %>"><% chr($i + 78) %></a>
+       </td>
 %   }
-    <td align="center">
-       <% $p |n %>
-    </td>
     </tr>
     </table>
 </td>
