@@ -92,14 +92,6 @@ sub GenerateAlbumFromDiscid
 		return $rdf->CreateAlbum(1, @albums);
 	}
 
-	# Ok, its not in the main db. Do we have a freedb entry that
-	# matches, but has no Discid?
-	my $album = $di->_FindFreeDBEntry($numtracks, $toc, $id);
-	if (defined $album)
-	{
-		return $rdf->CreateAlbum(0, $album);
-	}
-
 	# No fuzzy matches either. Let's pull the records
 	# from freedb.org and insert it into the db if we find it.
 	require FreeDB;
@@ -215,53 +207,6 @@ sub Remove
     $sql = Sql->new($this->{DBH});
     $sql->Do("delete from TOC where Discid = '$id'");
     $sql->Do("delete from Discid where disc = '$id'");
-}
-
-sub _FindFreeDBEntry
-{
-   my ($this, $tracks, $toc, $id) = @_;
-   my ($i, $query, @list, $album, @row, $sql);
-
-   return $album if ($tracks == 1);
-
-   @list = split / /, $toc;
-
-   $query = "select id, album from TOC where tracks = $tracks and ";
-   for($i = 3; $i < scalar(@list); $i++)
-   {
-       $query .= "Track" . ($i-2) . " = $list[$i] and ";
-   }
-   chop($query); chop($query); chop($query); chop($query); chop($query);
-
-   $sql = Sql->new($this->{DBH});
-   if ($sql->Select($query))
-   {
-      @row = $sql->NextRow();
-      $sql->Finish;
-      $album = $row[1];
-
-      eval
-      {
-          $sql->Begin;
-
-          # Once we've found a record that matches exactly, update
-          # the missing data (leadout) and the Discid for future use.
-          $query = "update TOC set Leadout = $list[2], Discid = '$id' " . 
-                   "where id = $row[0]";
-          $sql->Do($query);
-          $query = "update Discid set Disc = '$id', Toc = '$toc' " .
-                   "where id = $row[0]";
-          $sql->Do($query);
-
-          $sql->Commit;
-      };
-      if ($@)
-      {
-          $sql->Rollback;
-      }
-   }
-
-   return $album;
 }
 
 sub _FindFuzzy
