@@ -29,7 +29,7 @@ use strict;
 use DBDefs;
 use Sql;
 use MusicBrainz;
-use MM_2_0;
+use MM_2_1;
 use Artist;
 use Album;
 use Track;
@@ -61,17 +61,17 @@ $mb = MusicBrainz->new;
 $mb->Login;
 
 $sql = Sql->new($mb->{DBH});
-$rdf = RDF2->new();
+$rdf = MM_2_1->new();
 print RDF $rdf->BeginRDFObject(1);
 print RDF "\n";
 
 $| = 1;
 print "\nDumping artists.\n";
-DumpArtists($sql, $rdf, \*RDF, "http://mm.musicbrainz.org");
+DumpArtists($sql, $rdf, \*RDF, "http://musicbrainz.org");
 print "\nDumping albums.\n";
-DumpAlbums($sql, $rdf, \*RDF, "http://mm.musicbrainz.org");
+DumpAlbums($sql, $rdf, \*RDF, "http://musicbrainz.org");
 print "\nDumping tracks.\n";
-DumpTracks($sql, $rdf, \*RDF, "http://mm.musicbrainz.org");
+DumpTracks($sql, $rdf, \*RDF, "http://musicbrainz.org");
 
 print RDF $rdf->EndRDFObject();
 
@@ -146,7 +146,7 @@ sub DumpAlbums
     my ($sql, $rdf, $file, $baseuri) = @_;
 
     my (@row, $out, $last_id);
-    my ($sql2, @row2, $album);
+    my ($sql2, @row2, $album, $out_disc);
     my ($start, $nw, $count, $mx, $spr, $left, $mins, $hours, $secs, @attrs, $attr);
 
     if ($sql->Select(qq|select Album.gid, Artist.gid, Album.name, Track.gid,
@@ -186,11 +186,13 @@ sub DumpAlbums
                 $out .=   $rdf->Element("dc:creator", "", "rdf:resource",
                                         "$baseuri/artist/$row[1]");
 
+                $out_disc = "";
                 while($cur_diskid_album <= $row[4])
                 {
                     if ($cur_diskid_album == $row[4])
                     {
-                        $out .= $rdf->Element("mm:cdindexId", $row2[1]);
+                        $out_disc .= $rdf->Element("rdf:li", "", "rdf:resource",
+                                                   $baseuri . "/cdindex/" . $row2[1]);
                     }
 
                     if (!(@row2 = $sql2->NextRow))
@@ -199,6 +201,15 @@ sub DumpAlbums
                         last;
                     }
                     $cur_diskid_album = $row2[0];
+                }
+
+                if (length($out_disc))
+                {
+                    $out .= $rdf->BeginDesc("mm:cdindexidList");
+                    $out .= $rdf->BeginBag();
+                    $out .= $out_disc;
+                    $out .= $rdf->EndBag();
+                    $out .= $rdf->EndDesc("mm:cdindexidList");
                 }
 
                 $row[6] =~ s/^\{(.*)\}$/$1/;
@@ -210,22 +221,24 @@ sub DumpAlbums
                         $attr <= Album::ALBUM_ATTR_SECTION_TYPE_END)
                     {
                         $out .= $rdf->Element("rdf:type", "", "rdf:resource", 
-                                $rdf->GetMMNamespace() . $album->GetAttributeName($attr));
+                                $rdf->GetMMNamespace() . "Type" . 
+                                $album->GetAttributeName($attr));
                     }
                     elsif ($attr >= Album::ALBUM_ATTR_SECTION_STATUS_START &&
                             $attr <= Album::ALBUM_ATTR_SECTION_STATUS_END)
                     {
                         $out .= $rdf->Element("mm:release", "", "rdf:resource", 
-                                $rdf->GetMMNamespace() . $album->GetAttributeName($attr));
+                                $rdf->GetMMNamespace() . "Status" .
+                                $album->GetAttributeName($attr));
                     }
                 }
 
                 $out .=   $rdf->BeginDesc("mm:trackList");
                 $out .=   $rdf->BeginSeq();
             }
-            $out .=      $rdf->Element("rdf:li", "", 
-                                       "rdf:resource","$baseuri/track/$row[3]",
-                                       "mm:trackNum", $row[5]);
+            $out .= $rdf->Element("rdf:li", "", "rdf:resource","$baseuri/track/$row[3]",
+                                  "mm:trackNum", $row[5]);
+
             print {$file} $out;
 
             $last_id = $row[0];
@@ -258,10 +271,10 @@ sub DumpTracks
     my ($sql, $rdf, $file, $baseuri) = @_;
 
     my (@row, $out, $last_id);
-    my ($sql2, @row2);
+    my ($sql2, @row2, $out_trm);
     my ($start, $nw, $count, $mx, $spr, $left, $mins, $hours, $secs);
 
-    if ($sql->Select(qq|select Track.gid, Artist.gid, Track.name, Track.id
+    if ($sql->Select(qq|select Track.gid, Artist.gid, Track.name, Track.id, Track.length
                           from Artist, Track 
                          where Artist.id = Track.artist 
                       order by Track.id|))
@@ -292,15 +305,21 @@ sub DumpTracks
                     $out .= "\n";
                 }
                 $out .= $rdf->BeginDesc("mm:Track", "$baseuri/track/$row[0]");
-                $out .=   $rdf->Element("dc:title", $row[2]);
-                $out .=   $rdf->Element("dc:creator", "", "rdf:resource",
-                                        "$baseuri/artist/$row[1]");
+                $out .= $rdf->Element("dc:title", $row[2]);
+                $out .= $rdf->Element("dc:creator", "", "rdf:resource",
+                                      "$baseuri/artist/$row[1]");
+                if ($row[4] != 0) 
+                {
+                    $out .= $rdf->Element("mm:duration", $row[4]);
+                }
 
+                $out_trm = "";
                 while($cur_trm_track <= $row[3])
                 {
                     if ($cur_trm_track == $row[3])
                     {
-                        $out .= $rdf->Element("mm:trmid", $row2[1]);
+                        $out_trm .= "    " .$rdf->Element("rdf:li", "", "rdf:resource",
+                                                  $baseuri . "/trmid/" . $row2[1]);
                     }
 
                     if (!(@row2 = $sql2->NextRow))
@@ -311,7 +330,14 @@ sub DumpTracks
                     $cur_trm_track = $row2[0];
                 }
             }
-            #$out .= $rdf->Element("mm:trmid", "$baseuri/track/$row2[1]");
+            if (length($out_trm))
+            {
+                $out .= $rdf->BeginDesc("mm:trmidList");
+                $out .= $rdf->BeginBag();
+                $out .= $out_trm;
+                $out .= $rdf->EndBag();
+                $out .= $rdf->EndDesc("mm:trmidList");
+            }
             print {$file} $out;
 
             $last_id = $row[0];
