@@ -104,8 +104,7 @@ sub ApprovedAction
 			my $url = "http://" . &DBDefs::WEB_SERVER
 				. "/showaliases.html?artistid=" . $id;
 
-		 	$self->InsertModerationNote(
-				$self->GetId,
+		 	$self->InsertNote(
 				&ModDefs::MODBOT_MODERATOR,
 				"There is already an alias called '$newname' (see $url)"
 				. " - duplicate aliases are not allowed (yet)"

@@ -117,8 +117,7 @@ sub ApprovedAction
 			my $url = "http://" . &DBDefs::WEB_SERVER
 				. "/showartist.html?artistid=" . $ar->GetId;
 
-		 	$this->InsertModerationNote(
-				$this->GetId,
+		 	$this->InsertNote(
 				&ModDefs::MODBOT_MODERATOR,
 			 	"This edit moderation clashes with the existing artist"
 				. "'" . $ar->GetName . "': "
