@@ -1,6 +1,4 @@
 %# vi: set ts=4 sw=4 ft=mason :
-<& /comp/sidebar, title=>'Track Lookup', expand=>'moderate' &>
-
 <%args>
 $artist=>""
 $artistid=>""
@@ -15,57 +13,50 @@ $duration=>0
 $mbt=>0
 </%args>
 
+%###############################################################################
+%# Subcomponents for displaying matches & forms
+%###############################################################################
+
+<%def .OutputArtist>
 <%perl>
-#% if (!defined $session{user} || $session{user} eq '') {
-#    You must be logged in to edit the database.<p>
-#    <& /comp/tablebegin, title=>'Login' &>
-#    <& /comp/loginbox &>
-#    <& /comp/tableend &>
-#    <& /comp/footer &>
-#%   return undef;
-#% }
-
-use Data::Dumper;
-use URI::Escape;
-
-sub OutputArtist
-{
    my ($ts, $data) = @_;
 
    if (not exists $ts->{artist})
    {
        $ts->{artist} = Artist->new($ts->{DBH});
        $ts->{artist}->SetMBId($data->{artistid});
-       $ts->{artist}->LoadFromId()
+       $ts->{artist}->LoadFromId();
    }
-   $m->out("<a href=\"/showartist.html?artistid=" . $ts->{artist}->GetId());
-   $m->out("\"><font size=\"+2\">" . $ts->{artist}->GetName . "</font></a><p>");
-}
+	</%perl>
+	<a href="/showartist.html?artistid=<% $ts->{artist}->GetId %>"
+		><font size="+2"><% $ts->{artist}->GetName %></font></a><p>
+</%def>
 
-sub OutputAlbum
-{
+<%def .OutputAlbum>
+<%perl>
    my ($ts, $data) = @_;
 
    if (not exists $ts->{artist})
    {
        $ts->{artist} = Artist->new($ts->{DBH});
        $ts->{artist}->SetMBId($data->{artistid});
-       $ts->{artist}->LoadFromId()
+       $ts->{artist}->LoadFromId();
    }
    if (not exists $ts->{album})
    {
        $ts->{album} = Album->new($ts->{DBH});
        $ts->{album}->SetMBId($data->{albumid});
-       $ts->{album}->LoadFromId()
+       $ts->{album}->LoadFromId();
    }
    $m->comp("/comp/album", artist=>$ts->{artist}, album=>$ts->{album},
            showalbumdetail=>1, mbtagger=>$data->{mbt}, showids=>1);
-}
+</%perl>
+</%def>
 
-sub OutputTrack
-{
+<%def .OutputTrack>
+<%perl>
    my ($ts, $data) = @_;
-   my ($tr, @albums, $al, $id, $saved);
+   my (@albums, $saved);
 
    if (not exists $ts->{artist})
    {
@@ -96,8 +87,9 @@ sub OutputTrack
        @albums = $ts->{album}->GetAlbumIdsFromTrackId($ts->{track}->GetId());
    }
 
-   foreach $id (@albums)
+   foreach my $id (@albums)
    {
+		my $al;
        if (defined $saved && $id == $saved->GetId())
        {
            $al = $saved;
@@ -112,47 +104,40 @@ sub OutputTrack
                showalbumdetail=>1, mbtagger=>$data->{mbt}, showids=>1, 
                hilitetrack=>$ts->{track}->GetId());
    }
-}
+</%perl>
+</%def>
 
-sub OutputForm
-{
-   my ($data, $submit) = @_;
+<%def .OutputForm>
+%	my ($data, $submit) = @_;
+%	$submit = "Select" unless defined $submit;
+	<form method="post" action="/taglookup.html"
+         enctype="application/x-www-form-urlencoded" class="formstyle">
+     <input type="hidden" name="artist" value="<% $data->{artist} %>">
+     <input type="hidden" name="artistid" value="<% $data->{artistid} %>">
+     <input type="hidden" name="album" value="<% $data->{album} %>">
+     <input type="hidden" name="albumid" value="<% $data->{albumid} %>">
+     <input type="hidden" name="track" value="<% $data->{track} %>">
+     <input type="hidden" name="trackid" value="<% $data->{trackid} %>">
+     <input type="hidden" name="tracknum" value="<% $data->{tracknum} %>">
+     <input type="hidden" name="filename" value="<% $data->{filename} %>">
+     <input type="hidden" name="trmid" value="<% $data->{trmid} %>">
+     <input type="hidden" name="duration" value="<% $data->{duration} %>">
+     <input type="hidden" name="mbt" value="<% $data->{mbt} %>">
+     <input type="submit" name="submit" value="<% $submit %>">
+	</form>
+</%def>
 
-   $submit = "Select" unless defined $submit;
-
-   my $ret = qq|<FORM METHOD="POST" ACTION="/taglookup.html"
-         ENCTYPE="application/x-www-form-urlencoded" class="formstyle">
-     <INPUT TYPE="hidden" NAME="artist" VALUE="$data->{artist}">
-     <INPUT TYPE="hidden" NAME="artistid" VALUE="$data->{artistid}">
-     <INPUT TYPE="hidden" NAME="album" VALUE="$data->{album}">
-     <INPUT TYPE="hidden" NAME="albumid" VALUE="$data->{albumid}">
-     <INPUT TYPE="hidden" NAME="track" VALUE="$data->{track}">
-     <INPUT TYPE="hidden" NAME="trackid" VALUE="$data->{trackid}">
-     <INPUT TYPE="hidden" NAME="tracknum" VALUE="$data->{tracknum}">
-     <INPUT TYPE="hidden" NAME="filename" VALUE="$data->{filename}">
-     <INPUT TYPE="hidden" NAME="trmid" VALUE="$data->{trmid}">
-     <INPUT TYPE="hidden" NAME="duration" VALUE="$data->{duration}">
-     <INPUT TYPE="hidden" NAME="mbt" VALUE="$data->{mbt}">
-     <INPUT TYPE="submit" NAME="submit" VALUE="$submit">
-   </form>|;
-
-   return $ret;
-}
-
-sub OutputEditForm
-{
-   my ($data) = @_;
-
-   # TODO html-encoding ($m->out the content, don't return it)
-   my $ret = qq|<FORM METHOD="POST" ACTION="/taglookup.html"
-         ENCTYPE="application/x-www-form-urlencoded" class="formstyle">
+<%def .OutputEditForm>
+%	my ($data) = @_;
+   <form method="post" action="/taglookup.html"
+         enctype="application/x-www-form-urlencoded" class="formstyle">
      <table>
      <tr>
       <td align="right" valign="top" NOWRAP>
         Artist:
       </td>
       <td>
-        <INPUT TYPE="text" NAME="artist" SIZE="30" VALUE="$data->{artist}">
+        <INPUT TYPE="text" NAME="artist" SIZE="30" VALUE="<% $data->{artist} %>">
       </td>
      </tr>
      <tr>
@@ -160,7 +145,7 @@ sub OutputEditForm
         Album:
       </td>
       <td>
-        <INPUT TYPE="text" NAME="album" SIZE="30" VALUE="$data->{album}">
+        <INPUT TYPE="text" NAME="album" SIZE="30" VALUE="<% $data->{album} %>">
       </td>
      </tr>
      <tr>
@@ -168,7 +153,7 @@ sub OutputEditForm
         Track:
       </td>
       <td>
-        <INPUT TYPE="text" NAME="track" SIZE="30" VALUE="$data->{track}">
+        <INPUT TYPE="text" NAME="track" SIZE="30" VALUE="<% $data->{track} %>">
       </td>
      </tr>
      <tr>
@@ -176,35 +161,40 @@ sub OutputEditForm
         Track Num:
       </td>
       <td>
-        <INPUT TYPE="text" NAME="tracknum" SIZE="2" VALUE="$data->{tracknum}">
+        <INPUT TYPE="text" NAME="tracknum" SIZE="2" VALUE="<% $data->{tracknum} %>">
       </td>
      </tr>
      <tr>
       <td colspan="2" align="right" valign="top" NOWRAP>
         <INPUT TYPE="submit" NAME="submit" SIZE="30" VALUE="Lookup">
-        <INPUT TYPE="hidden" NAME="mbt" SIZE="2" VALUE="$data->{mbt}">
+        <INPUT TYPE="hidden" NAME="mbt" SIZE="2" VALUE="<% $data->{mbt} %>">
       </td>
      </tr>
    </table>
-   </form>|;
-   return $ret;
-}
+   </form>
+</%def>
 
-sub format_tracklen
+%###############################################################################
+%# Start of main component code
+%###############################################################################
+
+<%perl>
+
+my $format_tracklen = sub
 {
 	my $ms = shift()
 		or return "?:??";
 	return "$ms ms" if $ms < 1000;
 	my $s = $ms / 1000;
 	sprintf "%d:%02d", int($s / 60), ($s % 60);
-}
+};
 
-my ($mb, $ts, $result, $flags, $list, $error, $id, %data, %orig_data); 
 my $bgcolor= '#ffffff';
 
-$mb = $m->comp("/comp/dblogin");
-$ts = TaggerSupport->new($mb->{DBH});
+my $mb = $m->comp("/comp/dblogin");
+my $ts = TaggerSupport->new($mb->{DBH});
 
+my %data;
 $data{artist} = $artist;
 $data{artistid} = $artistid;
 $data{album} = $album;
@@ -218,13 +208,20 @@ $data{filename} = $filename;
 $data{mbt} = $mbt;
 
 # Save the original data for use in the lookup dialog later
-%orig_data = %data;
+my %orig_data = %data;
 
-my (@coll_list) = $ts->LookupTRMCollisions($trmid); 
+$m->comp("/comp/sidebar", title=>'Track Lookup', expand=>'moderate');
+
+################################################################################
+# If a TRM is specified, and if it resolves to multiple tracks, show the
+# matching tracks, and also a "search anyway" form.
+################################################################################
+
+my @coll_list;
+@coll_list = $ts->LookupTRMCollisions($trmid) if $trmid;
+
 if (scalar(@coll_list) > 1)
 {
-    my ($ar, $al, $ref, %data_copy);
-
     </%perl>
     TRM Id: <b><% $data{trmid} %></b><p> 
     <table width="420"><tr><td>
@@ -238,13 +235,13 @@ if (scalar(@coll_list) > 1)
 
 	# Retrieve artist info, then sort on artist
 
-    foreach $ref (@coll_list)
+    foreach my $ref (@coll_list)
     {
-        $al = Album->new($ts->{DBH});
+        my $al = Album->new($ts->{DBH});
         $al->SetId($ref->{album});
         if ($al->LoadFromId())
         {
-            $ar = Artist->new($ts->{DBH});
+            my $ar = Artist->new($ts->{DBH});
             $ar->SetId($al->GetArtist());
             if ($ar->LoadFromId())
             {
@@ -270,7 +267,7 @@ if (scalar(@coll_list) > 1)
 
 	my $last_artist = 0;
 
-	for $ref (@coll_list)
+	for my $ref (@coll_list)
 	{
 		my $artist_id = $ref->{ar}->GetId;
 
@@ -289,7 +286,7 @@ if (scalar(@coll_list) > 1)
 		);
 	}
 
-    %data_copy = %data;
+    my %data_copy = %data;
     $data_copy{trmid} = "";
 
     </%perl>
@@ -297,15 +294,18 @@ if (scalar(@coll_list) > 1)
     If none of the albums above apply, click on lookup to ignore
     these albums and continue with your lookup:<p>
     <center>
-    <% OutputForm(\%data_copy, "Lookup") |n %>
+    <& .OutputForm, \%data_copy, "Lookup" &>
     </center>
     </td></tr></table>
     <& /comp/footer &>
     <%perl>
 
-    $mb->Logout();
     return undef;
 }
+
+################################################################################
+# Default page: show a blank form
+################################################################################
 
 if ($artist eq '' && $artistid eq '' && $album eq '' && $albumid eq '' && 
     $track eq '' && $trackid eq '' && $filename eq '' && $filename eq '')
@@ -316,14 +316,18 @@ if ($artist eq '' && $artistid eq '' && $album eq '' && $albumid eq '' &&
     Fill out as much as you know about the track in the box below:<p>
 
     <& /comp/tablebegin, title=>'Tag Lookup', bgcolor=>"#f0efff" &>
-    <% OutputEditForm(\%orig_data) |n %>
+    <& .OutputEditForm, \%orig_data &>
     <& /comp/tableend &>
     </td></tr></table>
     <& /comp/footer &>
+
     <%perl>
-    $mb->Logout();
     return undef;
 }
+
+################################################################################
+# No artist information, but album/track search specified.  Error!
+################################################################################
 
 if ($artist eq '' && $artistid eq '' && $filename eq '' && $filename eq '' &&
     ($album ne '' || $albumid ne '' || $track ne '' || $trackid ne ''))
@@ -336,16 +340,26 @@ if ($artist eq '' && $artistid eq '' && $filename eq '' && $filename eq '' &&
     try the lookup again: <p>
 
     <& /comp/tablebegin, title=>'Modify Lookup', bgcolor=>"#f0efff" &>
-    <% OutputEditForm(\%orig_data) |n %>
+    <& .OutputEditForm, \%orig_data &>
     <& /comp/tableend &>
     </td></tr></table>
     <& /comp/footer &>
+
     <%perl>
-    $mb->Logout();
     return undef;
 }
 
-($error, $result, $flags, $list) = $ts->Lookup(\%data, 25);
+################################################################################
+# Perform the requested search using the TaggerSupport module
+################################################################################
+
+#use Data::Dumper;
+#$m->out("<pre>");
+#$m->out( Data::Dumper->Dump([ \%data ],[ '*data' ]) );
+my ($error, $result, $flags, $list) = $ts->Lookup(\%data, 25);
+#$m->out( Data::Dumper->Dump([ $error, $result, $flags, $list ],[ 'error', 'result', 'flags', 'list' ]) );
+#$m->out("</pre><br>");
+
 #$m->out "Debug: [ ";
 #$m->out "ArtistId " if ($flags & TaggerSupport::ARTISTID);
 #$m->out "ArtistList " if ($flags & TaggerSupport::ARTISTLIST);
@@ -363,9 +377,14 @@ $orig_data{album} = $data{album} if ($orig_data{album} eq '');
 $orig_data{track} = $data{track} if ($orig_data{track} eq '');
 $orig_data{tracknum} = $data{tracknum} if ($orig_data{tracknum} == 0);
 
+################################################################################
+# Display one of several mututally exclusive types of results:
+################################################################################
+
+# List of matching artists
 if ($flags & TaggerSupport::ARTISTLIST)
 {
-   OutputArtist($ts, $result);
+	$m->comp(".OutputArtist", $ts, $result);
 
    if (scalar(@$list) > 0)
    {
@@ -379,7 +398,7 @@ if ($flags & TaggerSupport::ARTISTLIST)
              <td align="center"><b>Artist</b></td>
              <td align="center"><b>Relevance</b></td>
           </tr>
-%      foreach $id (@$list) {
+%      foreach my $id (@$list) {
           <tr bgcolor="<% $bgcolor = ( $bgcolor eq '#ffffff' ? '#ffe1b7' : '#ffffff' ) %>">
              <td valign="top">&nbsp;<a href="/showartist.html?artistid=<% $id->{id} %>"
                  ><% $id->{name} %></a></td>
@@ -387,7 +406,7 @@ if ($flags & TaggerSupport::ARTISTLIST)
              <td valign="top" align="right">
 %               $copy{artistid} = $id->{mbid};
 %               $copy{artist} = $id->{name};
-                <% OutputForm(\%copy) |n %>         
+				<& .OutputForm, \%copy, "" &>
              </td>
           </tr>
 %      }
@@ -408,9 +427,11 @@ if ($flags & TaggerSupport::ARTISTLIST)
    $m->comp("/comp/lookupoptions", artist=>$artist, artistobj=>$ts->{artist}, 
                                   album=>$album, albumobj=>$ts->{album}, data=>\%data);
 }
+
+# List of matching albums
 elsif ($flags & TaggerSupport::ALBUMLIST)
 {
-   OutputArtist($ts, $result);
+	$m->comp(".OutputArtist", $ts, $result);
 
    if (scalar(@$list) > 0)
    {
@@ -427,7 +448,7 @@ elsif ($flags & TaggerSupport::ALBUMLIST)
              <td align="center" NOWRAP><b>Relevance</b></td>
              <td align="center" NOWRAP>&nbsp;</td>
           </tr>
-%      foreach $id (@$list) {
+%      foreach my $id (@$list) {
           <tr bgcolor="<% $bgcolor = ( $bgcolor eq '#ffffff' ? '#ffe1b7' : '#ffffff' ) %>">
              <td valign="top" width="50%">
              <a href="/showalbum.html?albumid=<% $id->{id} %>" ><% $id->{name} %></a></td>
@@ -456,7 +477,7 @@ elsif ($flags & TaggerSupport::ALBUMLIST)
              <td valign="top" align="right">
 %               $copy{albumid} = $id->{mbid};
 %               $copy{album} = $id->{name};
-                <% OutputForm(\%copy) |n %>         
+				<& .OutputForm, \%copy, "" &>
              </td>
           </tr>
 %      }
@@ -476,10 +497,11 @@ elsif ($flags & TaggerSupport::ALBUMLIST)
    $m->comp("/comp/lookupoptions", artist=>$artist, artistobj=>$ts->{artist}, 
                                   album=>$album, albumobj=>$ts->{album}, data=>\%data);
 }
+
+# List of matching tracks
 elsif ($flags & TaggerSupport::ALBUMTRACKLIST)
 {
-
-   OutputArtist($ts, $result);
+	$m->comp(".OutputArtist", $ts, $result);
 
 	for (@$list)
 	{
@@ -527,7 +549,7 @@ elsif ($flags & TaggerSupport::ALBUMTRACKLIST)
              <td align="center" NOWRAP><b>Relevance</b></td>
              <td align="center" NOWRAP>&nbsp;</td>
           </tr>
-%      foreach $id (@$list) {
+%      foreach my $id (@$list) {
           <tr bgcolor="<% $bgcolor = ( $bgcolor eq '#ffffff' ? '#ffe1b7' : '#ffffff' ) %>">
              <td valign="top" width="40%" rowspan="2"
                  style="padding-right: 1em"
@@ -553,13 +575,13 @@ elsif ($flags & TaggerSupport::ALBUMTRACKLIST)
                   title="This album has <% $id->{album_trmids} %> TRM Ids">&nbsp;
              </td>
              <td valign="top" width="40%" rowspan="2"><a href="/showtrack.html?trackid=<% $id->{id} %>"><% $id->{name} %></a></td>
-             <td valign="top" align="center" rowspan="2"><% format_tracklen($id->{tracklen}) %></td>
+             <td valign="top" align="center" rowspan="2"><% &$format_tracklen($id->{tracklen}) %></td>
              <td valign="top" align="center" rowspan="2"><% int($id->{sim} * 100) %>%</td>
              <td valign="top" align="right" rowspan="2">
 %               $copy{trackid} = $id->{mbid};
 %               $copy{albumid} = $id->{albummbid};
 %               $copy{track} = $id->{name};
-                <% OutputForm(\%copy) |n %>         
+				<& .OutputForm, \%copy, "" &>
              </td>
           </tr>
           <tr bgcolor="<% $bgcolor %>">
@@ -583,51 +605,63 @@ elsif ($flags & TaggerSupport::ALBUMTRACKLIST)
        <%perl>
    }
 }
+
+# Exactly one matching track
 elsif (($flags & TaggerSupport::ARTISTID) && 
        ($flags & TaggerSupport::TRACKID))
 {
    </%perl>
    <b>Found matching track:</b><p>
+   <& .OutputArtist, $ts, $result &>
+   <& .OutputTrack, $ts, $result &>
    <%perl>
-   OutputArtist($ts, $result);
-   OutputTrack($ts, $result);
 }
+
+# Exactly one matching track (err, not used - caught by the case above)
 elsif (($flags & TaggerSupport::ARTISTID) && 
        ($flags & TaggerSupport::ALBUMID) && 
        ($flags & TaggerSupport::TRACKID))
 {
    </%perl>
    <b>Found matching track:</b><p>
+   <& .OutputArtist, $ts, $result &>
+   <& .OutputTrack, $ts, $result &>
    <%perl>
-   OutputArtist($ts, $result);
-   OutputTrack($ts, $result);
 }
+
+# Exactly one matching track (huh? again?)
 elsif ($flags & TaggerSupport::TRACKID)
 {
    </%perl>
    <b>Found matching track:</b><p>
+   <& .OutputArtist, $ts, $result &>
+   <& .OutputTrack, $ts, $result &>
    <%perl>
-   OutputArtist($ts, $result);
-   OutputTrack($ts, $result);
 }
+
+# Exactly one matching album
 elsif (($flags & TaggerSupport::ARTISTID) && 
        ($flags & TaggerSupport::ALBUMID))
 {
    </%perl>
    <b>Found matching album:</b><p>
+   <& .OutputArtist, $ts, $result &>
    <%perl>
-   OutputArtist($ts, $result);
-   OutputAlbum($ts, $result);
+	$m->comp(".OutputAlbum", $ts, $result);
 }
+
+# Exactly one matching artist
 elsif ($flags & TaggerSupport::ARTISTID)
 {
    </%perl>
    <b>Found matching artist:</b><p>
-%  OutputArtist($ts, $result);
+   <& .OutputArtist, $ts, $result &>
    <& /comp/lookupoptions, artist=>$artist, artistobj=>$ts->{artist}, 
                            album=>$album, albumobj=>$ts->{album}, data=>\%data &>
    <%perl>
 }
+
+# None of the above.
 else
 {
    </%perl>
@@ -643,9 +677,8 @@ else
 <p>
 <center>
 <& /comp/tablebegin, title=>'Modify Lookup', bgcolor=>"#f0efff" &>
-<% OutputEditForm(\%orig_data) |n %>
+<& .OutputEditForm, \%orig_data &>
 <& /comp/tableend &>
 </center>
 
-% $mb->Logout();
 <& /comp/footer &>
