@@ -2,7 +2,7 @@
 <& /comp/sidebar, title=>'Mailing Lists' &>
 
 <p style="border: 3px dotted pink; padding: 1em; margin: 2em">
-	Please note that we've recently moved
+	Please note that we've moved
 	our mailing lists (away from sourceforge, onto MusicBrainz
 	itself).&nbsp; Posting to the old addresses (@lists.sourceforge.net)
 	will no longer work, so please update your address book entries
@@ -15,7 +15,13 @@
 	all sorts of things either via the web or via e-mail.
 </p>
 
-<h2>Announcements</h2>
+<center>
+	<& /comp/tablebegin, title=>'Search the Lists', attrs=>"align=left", gattrs=>"width='420'" &>
+		<& /comp/google-site-search, site => "lists.musicbrainz.org" &>
+	<& /comp/tableend &>
+</center>
+
+<h2 id="musicbrainz-announce">Announcements</h2>
 
 <p>
 	To hear about new MusicBrainz software, services, and other
@@ -29,9 +35,7 @@
 		>View the musicbrainz-announce archives</a></li>
 </ul>
 
-<p>(This is a brand new list, so as of the time of writing there are no archives as yet.)</p>
-
-<h2>General Discussion</h2>
+<h2 id="musicbrainz-users">General Discussion</h2>
 
 <p>
 	If you are interested in keeping in touch or getting involved with the 
@@ -47,7 +51,7 @@
 		>View the musicbrainz-users archives</a></li>
 </ul>
 
-<h2>Development</h2>
+<h2 id="musicbrainz-devel">Development</h2>
 
 <p>
 	If you are interested in helping with or keeping track of MusicBrainz 
@@ -61,7 +65,7 @@
 		>View the musicbrainz-devel archives</a></li>
 </ul>
 
-<h2>CVS Commits</h2>
+<h2 id="musicbrainz-commits">CVS Commits</h2>
 
 <p>
 	The <b>musicbrainz-commits</b> 
@@ -77,16 +81,5 @@
 		>View the musicbrainz-commits archives</a></li>
 </ul>
 
-<!--
-<p>
-If you would like to see the old musicbrainz mailing list archives for June 2002 and
-earlier, check out these links:
-
-<ul>
-<li><a href="http://www.musicbrainz.org/pipermail/musicbrainz">musicbrainz&#x0040;musicbrainz.org archive</a>
-<li><a href="http://www.musicbrainz.org/pipermail/mb-commits">mb-commits&#x0040;musicbrainz.org archive</a>
-<li><a href="http://www.musicbrainz.org/pipermail/mm">mm&#x0040;musicbrainz.org archive</a>
-</ul>
--->
-
+<& /comp/movefocus, "GoogleSearchForm", "q" &>
 <& /comp/footer &>
