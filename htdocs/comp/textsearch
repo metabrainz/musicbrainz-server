@@ -46,7 +46,7 @@ $text=>''
   <tr>
   <td colspan="2" align="center">
     <INPUT TYPE="text" NAME="search" VALUE="<% $text %>" SIZE=30>
-    <INPUT TYPE="submit" NAME="go" VALUE="Search"><br>
+    <INPUT TYPE="submit" VALUE="Search"><br>
   </td>
   </tr>
 </table>

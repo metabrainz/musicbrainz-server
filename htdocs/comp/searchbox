@@ -23,7 +23,7 @@ $method=>'POST'
   <tr>
   <td align="center">
      <INPUT TYPE="text" NAME="<% $searchfield %>" SIZE=30>
-     <INPUT TYPE="submit" NAME="go" VALUE="Search"><br>
+     <INPUT TYPE="submit" VALUE="Search"><br>
   </td>
   </tr>
   <tr>
