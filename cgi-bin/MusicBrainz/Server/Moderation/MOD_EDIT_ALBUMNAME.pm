@@ -27,7 +27,7 @@ use strict;
 
 package MusicBrainz::Server::Moderation::MOD_EDIT_ALBUMNAME;
 
-use ModDefs;
+use ModDefs qw( :modstatus MODBOT_MODERATOR );
 use base 'Moderation';
 
 sub Name { "Edit Album Name" }
@@ -56,23 +56,43 @@ sub IsAutoMod
 	$old eq $new;
 }
 
+sub CheckPrerequisites
+{
+	my $self = shift;
+
+	my $rowid = $self->GetRowId;
+
+	# Load the album by ID
+	my $al = Album->new($self->{DBH});
+	$al->SetId($rowid);
+	unless ($al->LoadFromId)
+	{
+		$self->InsertNote(MODBOT_MODERATOR, "This album has been deleted");
+		return STATUS_FAILEDDEP;
+	}
+
+	# Check that its name has not changed
+	if ($al->GetName ne $self->GetPrev)
+	{
+		$self->InsertNote(MODBOT_MODERATOR, "This album has already been renamed");
+		return STATUS_FAILEDPREREQ;
+	}
+
+	# Save for ApprovedAction
+	$self->{_album} = $al;
+
+	undef;
+}
+
 sub ApprovedAction
 {
 	my $this = shift;
 	my $sql = Sql->new($this->{DBH});
 
-	my $current = $sql->SelectSingleValue(
-		"SELECT name FROM album WHERE id = ?",
-		$this->GetRowId,
-	);
+	my $status = $this->CheckPrerequisites;
+	return $status if $status;
 
-	defined($current)
-		or return &ModDefs::STATUS_ERROR;
-	
-	$current eq $this->GetPrev
-		or return &ModDefs::STATUS_FAILEDDEP;
-	
-	my $al = Artist->new($this->{DBH});
+	my $al = $this->{_album};
 	my $page = $al->CalculatePageIndex($this->GetNew);
 
 	$sql->Do(
@@ -80,7 +100,7 @@ sub ApprovedAction
 		$this->GetNew,
 		$page,
 		$this->GetRowId,
-	);
+	) or die "Failed to update album in MOD_EDIT_ALBUMNAME";
 
 	# Now remove the old name from the word index, and then
 	# add the new name to the index
@@ -88,7 +108,7 @@ sub ApprovedAction
 	$engine->RemoveObjectRefs($this->GetRowId);
 	$engine->AddWordRefs($this->GetRowId, $this->GetNew);
 
-	&ModDefs::STATUS_APPLIED;
+	STATUS_APPLIED;
 }
 
 1;

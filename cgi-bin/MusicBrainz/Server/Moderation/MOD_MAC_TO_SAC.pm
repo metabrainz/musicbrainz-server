@@ -27,7 +27,7 @@ use strict;
 
 package MusicBrainz::Server::Moderation::MOD_MAC_TO_SAC;
 
-use ModDefs;
+use ModDefs qw( :modstatus MODBOT_MODERATOR VARTIST_ID );
 use base 'Moderation';
 
 sub Name { "Convert Album to Single Artist" }
@@ -61,17 +61,38 @@ sub PostLoad
   	@$this{qw( new.sortname new.name )} = split /\n/, $this->GetNew;
 }
 
+sub CheckPrerequisites
+{
+	my $self = shift;
+
+	my $rowid = $self->GetRowId;
+
+	# Load the album by ID
+	my $al = Album->new($self->{DBH});
+	$al->SetId($rowid);
+	unless ($al->LoadFromId)
+	{
+		$self->InsertNote(MODBOT_MODERATOR, "This album has been deleted");
+		return STATUS_FAILEDDEP;
+	}
+
+	# Check that its artist has not changed
+	if ($al->GetArtist != VARTIST_ID)
+	{
+		$self->InsertNote(MODBOT_MODERATOR, "This album has already been converted to a single artist");
+		return STATUS_FAILEDPREREQ;
+	}
+
+	undef;
+}
+
 sub ApprovedAction
 {
 	my $this = shift;
 	my $sql = Sql->new($this->{DBH});
 
-	# Check album is still where it used to be
-	$sql->SelectSingleValue(
-		"SELECT 1 FROM album WHERE id = ? AND artist = ?",
-		$this->GetRowId,
-		&ModDefs::VARTIST_ID,
-	) or return &ModDefs::STATUS_FAILEDPREREQ;
+	my $status = $this->CheckPrerequisites;
+	return $status if $status;
 
 	# Find the ID of the named artist
 	my $name = $this->{'new.name'};
@@ -103,7 +124,7 @@ sub ApprovedAction
 				"UPDATE track SET artist = ? WHERE id = ?",
 				$newid,
 				$row[0],
-			);
+			) or die "Failed to update track #$row[0] in MOD_MAC_TO_SAC";
 		}
 
 		$sql->Finish;
@@ -115,9 +136,9 @@ sub ApprovedAction
 		"UPDATE album SET artist = ? WHERE id = ?",
 		$newid,
 		$this->GetRowId,
-	);
+	) or die "Failed to update artist in MOD_MAC_TO_SAC";
 
-	&ModDefs::STATUS_APPLIED;
+	STATUS_APPLIED;
 }
 
 1;

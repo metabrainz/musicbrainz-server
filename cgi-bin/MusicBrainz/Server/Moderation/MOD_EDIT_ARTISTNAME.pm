@@ -27,7 +27,7 @@ use strict;
 
 package MusicBrainz::Server::Moderation::MOD_EDIT_ARTISTNAME;
 
-use ModDefs;
+use ModDefs qw( :modstatus :artistid MODBOT_MODERATOR MOD_MERGE_ARTIST );
 use base 'Moderation';
 
 sub Name { "Edit Artist Name" }
@@ -41,8 +41,8 @@ sub PreInsert
 	my $newname = $opts{'newname'};
 	$newname =~ /\S/ or die;
 
-	die if $ar->GetId == &ModDefs::VARTIST_ID;
-	die if $ar->GetId == &ModDefs::DARTIST_ID;
+	die if $ar->GetId == VARTIST_ID;
+	die if $ar->GetId == DARTIST_ID;
 
 	$self->SetArtist($ar->GetId);
 	$self->SetPrev($ar->GetName);
@@ -60,7 +60,7 @@ sub PreInsert
 		if ($newar->GetId != $ar->GetId)
 		{
 			$self->InsertModeration(
-				type	=> &ModDefs::MOD_MERGE_ARTIST,
+				type	=> MOD_MERGE_ARTIST,
 				source	=> $ar,
 				target	=> $newar,
 			);
@@ -82,66 +82,80 @@ sub IsAutoMod
 	$old eq $new;
 }
 
+sub CheckPrerequisites
+{
+	my $self = shift;
+
+	my $rowid = $self->GetRowId;
+
+	if ($rowid == VARTIST_ID or $rowid == DARTIST_ID)
+	{
+		$self->InsertNote(MODBOT_MODERATOR, "You can't rename this artist!");
+		return STATUS_ERROR;
+	}
+
+	# Load the artist by ID
+	my $ar = Artist->new($self->{DBH});
+	$ar->SetId($rowid);
+	unless ($ar->LoadFromId)
+	{
+		$self->InsertNote(MODBOT_MODERATOR, "This artist has been deleted");
+		return STATUS_FAILEDDEP;
+	}
+
+	# Check that its name has not changed
+	if ($ar->GetName ne $self->GetPrev)
+	{
+		$self->InsertNote(MODBOT_MODERATOR, "This artist has already been renamed");
+		return STATUS_FAILEDPREREQ;
+	}
+
+	# Avert duplicate index entries: check for this name already existing
+	my $dupar = Artist->new($self->{DBH});
+	if ($dupar->LoadFromName($self->GetNew))
+	{
+	 	# Check to see if they are exact, including case
+	  	if ($self->GetNew eq $dupar->GetName)
+		{
+			my $url = "http://" . &DBDefs::WEB_SERVER
+				. "/showartist.html?artistid=" . $dupar->GetId;
+
+		 	$self->InsertNote(
+				MODBOT_MODERATOR,
+			 	"This edit moderation clashes with the existing artist"
+				. " '" . $dupar->GetName . "': "
+				. $url
+			);
+
+			return STATUS_ERROR;
+		}
+	}
+	
+	# Save for ApprovedAction
+	$self->{_artist} = $ar;
+
+	undef;
+}
+
 sub ApprovedAction
 {
 	my $this = shift;
 	my $sql = Sql->new($this->{DBH});
 
-	my $rowid = $this->GetRowId;
+	my $status = $this->CheckPrerequisites;
+	return $status if $status;
 
-	return &ModDefs::STATUS_ERROR
-		if $rowid == &ModDefs::VARTIST_ID
-		or $rowid == &ModDefs::DARTIST_ID;
-
-	my $current = $sql->SelectSingleValue(
-		"SELECT name FROM artist WHERE id = ?",
-		$rowid,
-	);
-
-	defined($current)
-		or return &ModDefs::STATUS_ERROR;
-	
-	$current eq $this->GetPrev
-		or return &ModDefs::STATUS_FAILEDDEP;
-
-	# Special case: If this edit is an artist edit, make sure that we
-	# don't attempt to insert a duplicate artist. So, search for the artist
-	# and use its it, if found. Otherwise edit the artist.
-
-	my $ar = Artist->new($this->{DBH});
-	if (defined $ar->LoadFromName($this->GetNew()))
-	{
-	 	# Check to see if the are exact, including case
-	  	if ($this->GetNew() eq $ar->GetName())
-	   	{
-			my $url = "http://" . &DBDefs::WEB_SERVER
-				. "/showartist.html?artistid=" . $ar->GetId;
-
-		 	$this->InsertNote(
-				&ModDefs::MODBOT_MODERATOR,
-			 	"This edit moderation clashes with the existing artist"
-				. "'" . $ar->GetName . "': "
-				. $url
-			);
-
-			return &ModDefs::STATUS_ERROR;
-	   }
-   }
-	
-	my $al = Artist->new($this->{DBH});
-	my $page = $al->CalculatePageIndex($this->GetNew);
+	my $artist = $this->{_artist};
+	my $page = $artist->CalculatePageIndex($this->GetNew);
 
 	$sql->Do(
 		"UPDATE artist SET name = ?, page = ? WHERE id = ?",
 		$this->GetNew,
 		$page,
-		$rowid,
-	);
+		$this->GetRowId,
+	) or die "Failed to update artist in MOD_EDIT_ARTISTNAME";
 
 	# Update the search engine
-	my $artist = Artist->new($this->{DBH});
-	$artist->SetId($this->GetRowId);
-	$artist->LoadFromId;
 	$artist->RebuildWordList;
 
 	# This code was in the old mod system, but personally I think it's quite
@@ -155,7 +169,7 @@ sub ApprovedAction
 	#	$al->SetTable("ArtistAlias");
 	#	$al->Insert($this->GetRowId, $this->GetPrev);
 
-	&ModDefs::STATUS_APPLIED;
+	STATUS_APPLIED;
 }
 
 1;
