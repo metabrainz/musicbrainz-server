@@ -30,28 +30,6 @@ use Artist;
 use ModDefs;
 use Sql;
 
-# Server update:
-# create table ClientVersion (Id serial primary key, Version varchar(64) not null);
-# create unique index ClientVersion_Version on ClientVersion (version);
-# insert into ClientVersion values (1, 'unknown');
-# alter table TRM add column Version int;
-# update TRM set version = 1;
-# UPDATE pg_attribute SET attnotnull = TRUE WHERE attname = 'version' AND attrelid = ( SELECT oid FROM pg_class WHERE relname = 'trm');
-# alter table TRM add constraint version_fk foreign key (version) references clientversion match full;
-
-# Optimize:
-#         SELECT Track.id, Track.name, Artist.id, Artist.name, AlbumJoin.album, 
-#               Track.gid, count(WordList.Id), lower(Track.name)
-#          FROM Track, TrackWords, WordList, Artist, AlbumJoin
-#          WHERE WordList.Word IN ( 'up','it','roll')
-#                and TrackWords.Wordid = WordList.Id
-#                and TrackWords.Trackid = Track.Id
-#                and Track.Artist = Artist.id
-#               and AlbumJoin.Track = Track.Id
-#          GROUP BY Track.Id, Track.name, Artist.id, Artist.name, AlbumJoin.album, Track.gid
-#          HAVING count(WordList.Id) = 3
-#          ORDER BY count(WordList.Id) desc, lower(Track.name), Track.name LIMIT 25
-# Insert non album tracks                                                                           
 sub CreateTables
 {
     my ($sql) = @_;
@@ -91,6 +69,15 @@ sub CreateTables
               or die("Cannot create Album table");
             
         print "Created Album table.\n";
+
+        $sql->Do(qq|create table AlbumMeta (
+                       Id int primary key,
+                       tracks int default 0,
+                       discids int default 0,
+                       trmids int default 0)|)
+              or die("Cannot create AlbumMeta table");
+            
+        print "Created AlbumMeta table.\n";
 
         $sql->Do(qq|create table Track (
                        Id serial primary key,
