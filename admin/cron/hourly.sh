@@ -2,8 +2,8 @@
 
 mb_server=`dirname $0`/../..
 eval `$mb_server/admin/ShowDBDefs`
-. $mb_server/admin/config.sh
-cd $mb_server
+. "$MB_SERVER_ROOT"/admin/config.sh
+cd "$MB_SERVER_ROOT"
 
 . ./admin/functions.sh
 make_temp_dir
