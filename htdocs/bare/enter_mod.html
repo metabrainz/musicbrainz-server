@@ -13,6 +13,6 @@ $r->headers_in->unset('Content-length');
 
 $r->content_type('text/html');
 $r->header_out(Location=>$ARGS{referer});
-$m->abort(302);
+$r->status(302);
 
 </%perl>

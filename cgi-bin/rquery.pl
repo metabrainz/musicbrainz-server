@@ -152,7 +152,7 @@ for(;;)
     $xqlquery = undef;
 }
 
-$cd = new MusicBrainz;
+$cd = new MusicBrainz(1);
 if (!$cd->Login(1))
 {
     print QuerySupport::EmitErrorRDF("Database Error: ".$DBI::errstr.")");
