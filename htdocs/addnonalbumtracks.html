@@ -7,7 +7,7 @@ $confirm => 0
 </%args>
 <%perl>
 
-$m->comp("/comp/checkloggedin")
+$m->comp("/comp/checkloggedin", 1, 1)
 	or return;
 
 MusicBrainz::IsNonNegInteger($numtracks)
