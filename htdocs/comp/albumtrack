@@ -61,7 +61,7 @@ elsif ($ms > 0)
     <td width="30%" bgcolor="white">
        <a href="/showartist.html?artistid=<% $track->GetArtist() %>"><% $track->GetArtistName() |h  %></a>
 % if (exists $session{user}) {
-          (<a href="/changetrack.html?album=<% $album->GetId() %>&amp;artist=<% $track->GetArtist() %>&amp;tindex=<% $tindex %>&amp;solo=1">Change</a>)
+          (<a href="/changetrack.html?album=<% $album->GetId() %>&amp;tindex=<% $tindex %>&amp;solo=1">Change</a>)
 % }
     </td>
 % }
@@ -69,7 +69,9 @@ elsif ($ms > 0)
        <% $secs %>
     </td>
 % if (exists $session{user} && !$nomod) {
-    <td width="15%" align=center bgcolor="white" nowrap>
+    <td width="15%" bgcolor="white" nowrap
+    	class="CenterChildren" style="text-align: center"
+	>
        <a href="/edittrack.html?track=<% $track->GetId() %>&amp;album=<% $album->GetId() %>">Edit</a>
        | <a href="/remtrack.html?id=<% $track->GetId() %>&amp;album=<% $album->GetId() %>&amp;artist=<% $artist->GetId() %>">Del</a>
     </td>
