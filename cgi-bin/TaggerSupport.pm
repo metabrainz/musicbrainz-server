@@ -119,7 +119,7 @@ sub Lookup
 
    if ($data->{artist} eq "Various Artists")
    {
-       $data->{artistid} = "e06d2236-5806-409f-ac9f-9245844ce5d9";
+       $data->{artistid} = "89ad4ac3-39f7-470e-963a-56509c546377";
    }
 
    if ($data->{artist} eq '' || $data->{album} eq '' || $data->{track} eq '' || 
