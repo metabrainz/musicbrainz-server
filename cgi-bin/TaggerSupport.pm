@@ -361,9 +361,13 @@ sub AlbumSearch
            $sim = similarity(lc($al->GetName()), $name);
            if ($al->GetName() =~ /^(.*?)\s*\(.*\)\s*$/)
            {
-               my $chopsim = similarity(lc($1), $name);
+               my $temp = $1;
+               my $chopsim = similarity(lc($temp), $name);
                $sim = ($chopsim > $sim) ? $chopsim : $sim;
            }
+
+           next if ($sim < .5);
+
            push @ids, { id=>$al->GetId(),
                         name=>$al->GetName(),
                         mbid=>$al->GetMBId(),
@@ -423,7 +427,8 @@ sub TrackSearch
            $namesim = similarity(lc($row[2]), $trackName);
            if ($row[2] =~ /^(.*?)\s*\(.*\)\s*$/)
            {
-               my $chopsim = similarity(lc($1), $trackName);
+               my $temp = $1;
+               my $chopsim = similarity(lc($temp), $trackName);
                $namesim = ($chopsim > $namesim) ? $chopsim : $namesim;
            }
            if (defined $altname)
@@ -431,6 +436,9 @@ sub TrackSearch
                my $altsim = similarity(lc($row[2]), $altname);
                $namesim = ($altsim > $namesim) ? $altsim : $namesim;
            }
+
+           next if ($namesim < .5);
+
            if ($duration > 0 && $row[3] > 0)
            {
                $lensim = 1 - (int(abs($duration - $row[3]) / 2000) * .25);
@@ -438,8 +446,6 @@ sub TrackSearch
            }
 
            $sim = ($namesim * .5) + ($lensim * .5);
-
-           #print STDERR "$row[2] <-> $trackName == $sim\n";
 
            push @ids, { id=>$row[0],
                         name=>$row[2], 
@@ -454,7 +460,8 @@ sub TrackSearch
 
    return (0, []) if (scalar(@ids) == 0);
 
-   @ids = (sort { $b->{sim} <=> $a->{sim} } @ids)[0..9];
+   @ids = (sort { $b->{sim} <=> $a->{sim} } @ids);
+   @ids = splice @ids, 0, 10;
    $query = qq|select album.id, album.name, album.gid, albumjoin.sequence, track 
                  from Album, AlbumJoin
                 where albumjoin.album = album.id and albumjoin.track in (|;

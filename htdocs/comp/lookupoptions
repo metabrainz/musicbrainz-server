@@ -1,0 +1,23 @@
+<%args>
+$artist=>""
+$album=>""
+</%args>
+
+<br>
+<p>
+<table width="420"><tr><td>
+<b>Artist/album/track not found?</b>
+<p>
+
+If the artist/album/track you are looking for was not found,
+you can do the following things: 
+
+<ul>
+  <li>Import album <a href="/freedb/freedb.html?search=<% "$artist $album" |u %>"><% $album  %>
+      <% (($artist eq '') ? "" : " by $artist") %></a> from FreeDB and then tag your track against the new album.
+% if ($artist ne '') {
+     <li>Add a non-album track to artist <% $artist %>.
+% }
+  <li>Use the box below to modify your lookup criteria and try again:
+</ul>
+</td></tr></table>

@@ -25,6 +25,7 @@ $mbt=>0
 #% }
 
 use Data::Dumper;
+use URI::Escape;
 
 # TODO: Add nicer error handling
 sub OutputArtist
@@ -245,17 +246,18 @@ if ($flags & TaggerSupport::ARTISTLIST)
 
        </%perl>
        <b>Found matching artists</b>:<p>
-       <table cellspacing="0">
+       <& /comp/framedboxbegin, width=>"420" &>
+       <table cellspacing="0" width="100%">
           <tr>
-             <th>Artist</th>
-             <th>Relevance</th>
+             <td align="center"><b>Artist</b></td>
+             <td align="center"><b>Relevance</b></td>
           </tr>
 %      foreach $id (@$list) {
           <tr bgcolor="<% $bgcolor = ( $bgcolor eq '#ffffff' ? '#ffe1b7' : '#ffffff' ) %>">
-             <td valign="top"><a href="/showartist.html?artistid=<% $id->{id} %>"
+             <td valign="top">&nbsp;<a href="/showartist.html?artistid=<% $id->{id} %>"
                  ><% $id->{name} %></a></td>
              <td valign="top" align="center"><% int($id->{sim} * 100) %>%</td>
-             <td valign="top">
+             <td valign="top" align="right">
 %               $copy{artistid} = $id->{mbid};
 %               $copy{artist} = $id->{name};
                 <% OutputForm(\%copy) |n %>         
@@ -263,16 +265,20 @@ if ($flags & TaggerSupport::ARTISTLIST)
           </tr>
 %      }
        </table>
+       <& /comp/framedboxend &>
+      
 
        <%perl>
    }
    else
    {
        </%perl>
-       <font size="+1"><b>Error:</b>There were no matches for the  
-       artist <b><% $artist %></b>.</font> 
+       <br>
+       <b>Found no matching artists.</b><p>
        <%perl>
    }
+
+   mc_comp("/comp/lookupoptions", artist=>$ts->{artist}->GetName(), album=>$album);
 }
 elsif ($flags & TaggerSupport::ALBUMLIST)
 {
@@ -284,17 +290,18 @@ elsif ($flags & TaggerSupport::ALBUMLIST)
 
        </%perl>
        <b>Found matching albums</b>:<p>
-       <table cellspacing="0">
+       <& /comp/framedboxbegin, width=>"420" &>
+       <table cellspacing="0" width="100%">
           <tr>
-             <th>Album</th>
-             <th>Relevance</th>
+             <td align="center"><b>Album</b></td>
+             <td align="center"><b>Relevance</b></td>
           </tr>
 %      foreach $id (@$list) {
           <tr bgcolor="<% $bgcolor = ( $bgcolor eq '#ffffff' ? '#ffe1b7' : '#ffffff' ) %>">
              <td valign="top"><a href="/showalbum.html?albumid=<% $id->{id} %>"
                  ><% $id->{name} %></a></td>
              <td valign="top" align="center"><% int($id->{sim} * 100) %>%</td>
-             <td valign="top">
+             <td valign="top" align="right">
 %               $copy{albumid} = $id->{mbid};
 %               $copy{album} = $id->{name};
                 <% OutputForm(\%copy) |n %>         
@@ -302,16 +309,19 @@ elsif ($flags & TaggerSupport::ALBUMLIST)
           </tr>
 %      }
        </table>
+       <& /comp/framedboxend &>
 
        <%perl>
    }
    else
    {
        </%perl>
-       <font size="+1"><b>Error:</b>There were no matches for the  
-       album <b><% $album %></b>.</font> 
+       <br>
+       <b>Found no matching albums.</b><p>
        <%perl>
    }
+
+   mc_comp("/comp/lookupoptions", artist=>$ts->{artist}->GetName(), album=>$album);
 }
 elsif ($flags & TaggerSupport::ALBUMTRACKLIST)
 {
@@ -324,21 +334,22 @@ elsif ($flags & TaggerSupport::ALBUMTRACKLIST)
 
        </%perl>
        <b>Found matching albums/tracks</b>:<p>
-       <table cellspacing="0">
+       <& /comp/framedboxbegin, width=>"420" &>
+       <table cellspacing="0" width="100%">
           <tr>
-             <th>Album</th>
-             <th>&nbsp;</th>
-             <th>Track</th>
-             <th>Relevance</th>
-             <th>&nbsp;</th>
+             <td align="center"><b>Album</td>
+             <td align="center">&nbsp;</b></td>
+             <td align="center"><b>Track</b></td>
+             <td align="center"><b>Relevance</b></td>
+             <td align="center">&nbsp;</td>
           </tr>
 %      foreach $id (@$list) {
           <tr bgcolor="<% $bgcolor = ( $bgcolor eq '#ffffff' ? '#ffe1b7' : '#ffffff' ) %>">
-             <td valign="top"><a href="/showalbum.html?albumid=<% $id->{albumid} %>"><% $id->{album} %></a></td>
+             <td valign="top">&nbsp;<a href="/showalbum.html?albumid=<% $id->{albumid} %>"><% $id->{album} %></a></td>
              <td width="10">&nbsp;</td>
              <td valign="top"><a href="/showtrack.html?trackid=<% $id->{id} %>"><% $id->{name} %></a></td>
              <td valign="top" align="center"><% int($id->{sim} * 100) %>%</td>
-             <td valign="top">
+             <td valign="top" align="right">
 %               $copy{trackid} = $id->{mbid};
 %               $copy{albumid} = $id->{albummbid};
 %               $copy{track} = $id->{name};
@@ -347,14 +358,18 @@ elsif ($flags & TaggerSupport::ALBUMTRACKLIST)
           </tr>
 %      }
        </table>
-
+       <& /comp/framedboxend &>
+      
+       <& /comp/lookupoptions, artist=>$ts->{artist}->GetName(), album=>$album &>
+   
        <%perl>
+
    }
    else
    {
        </%perl>
-       <font size="+1"><b>Error:</b>There were no matches for the  
-       album <b><% $album %></b> and track <b><% $track %></b>.</font> 
+       <br>
+       <b>Found no matching albums or tracks.</b><p>
        <%perl>
    }
 }
@@ -362,26 +377,42 @@ elsif (($flags & TaggerSupport::ARTISTID) &&
        ($flags & TaggerSupport::ALBUMID) && 
        ($flags & TaggerSupport::TRACKID))
 {
+   </%perl>
+   <b>Found matching track:</b><p>
+   <%perl>
    OutputArtist($ts, $result);
    OutputTrack($ts, $result);
 }
 elsif (($flags & TaggerSupport::ARTISTID) && 
        ($flags & TaggerSupport::ALBUMID))
 {
+   </%perl>
+   <b>Found matching album:</b><p>
+   <%perl>
    OutputArtist($ts, $result);
    OutputAlbum($ts, $result);
 }
 elsif ($flags & TaggerSupport::ARTISTID)
 {
+   </%perl>
+   <b>Found matching artist:</b><p>
+   <%perl>
    OutputArtist($ts, $result);
+   mc_comp("/comp/lookupoptions", artist=>$artist, album=>$album);
+}
+else
+{
+   </%perl>
+   <b>No matching artists found.</b><p>
+   <& /comp/lookupoptions, artist=>$ts->{artist}->GetName(), album=>$album &>
+   <%perl>
 }
 </%perl>
 
 <br>
-<br>
 <p>
 <center>
-<& /comp/tablebegin, title=>'New Lookup', bgcolor=>"#f0efff" &>
+<& /comp/tablebegin, title=>'Modify Lookup', bgcolor=>"#f0efff" &>
 <% OutputEditForm($result) |n %>
 <& /comp/tableend &>
 </center>
