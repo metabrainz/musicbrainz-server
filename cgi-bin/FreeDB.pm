@@ -385,10 +385,11 @@ sub Retrieve
             {
                 $temp = $parts[1];
             }
-            $temp =~ s/^\s*(.*?)\s*$/$1/;
-            $title .= ($title eq '') ? $temp : " $temp";
+            $temp =~ s/^[\n\r]*(.*?)[\r\n]*$/$1/;
+            $title .= $temp;
             next;
         }
+
         @subparts = split '([0-9]+)', $parts[0];
         if ($subparts[0] eq "TTITLE")
         {
