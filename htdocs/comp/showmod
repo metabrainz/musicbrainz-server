@@ -68,7 +68,7 @@ $time =~ s/:\d\d\..*$//;
      <% $mod->GetChangeName() |n %>
 % } elsif ($voted == ModDefs::VOTE_YES || $voted == ModDefs::VOTE_NO ||
 %          $voted == ModDefs::VOTE_ABS) {
-     <% $mod->GetVoteText($voted) |n %><br>
+     Your vote: <% $mod->GetVoteText($voted) |n %><br>
 
      <% $mod->GetChangeName() |n %>
 % } elsif ($session{uid} != $mod->GetModerator() && 

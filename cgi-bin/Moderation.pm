@@ -86,11 +86,11 @@ my %ChangeNames = (
 );
 
 my %VoteText = (
-    "-3" => "Your vote: Unknown",
+    "-3" => "Unknown",
     "-2" => "Not voted",
-    "-1" => "Your vote: Abstain",
-    "1" => "Your vote: Yes",
-    "0" => "Your vote: No"
+    "-1" => "Abstain",
+    "1" => "Yes",
+    "0" => "No"
 );
 
 sub new
@@ -1235,4 +1235,26 @@ sub GetUserVote
                                 ["uid", $uid, "rowid", $this->GetId()]);
 
    return $vote;
+}
+
+sub GetVoterList
+{
+    my ($this) = @_;
+    my (@info, $sql, @row);
+
+    $sql = Sql->new($this->{DBH});
+    if ($sql->Select(qq|select votes.vote, moderator.id, moderator.name
+                          from votes, moderator
+                         where votes.rowid = | . $this->GetId() . qq| and
+                               votes.uid = moderator.id
+                      order by votes.id|))
+    {
+        while(@row = $sql->NextRow())
+        {
+            push @info, { vote=>$row[0], modid=>$row[1], moderator=>$row[2] };
+        }
+        $sql->Finish;
+    }
+
+    return @info;
 }

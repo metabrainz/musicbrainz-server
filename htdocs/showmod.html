@@ -50,6 +50,7 @@ if (!defined $mod)
 }
 
 my ($ref, $obj, $bold, $text, $voted);
+my (@votes, $votelist);
 
 if ($session{user} eq $mod->GetModeratorName()) 
 {
@@ -58,11 +59,17 @@ if ($session{user} eq $mod->GetModeratorName())
 elsif (defined($voted = $mod->GetUserVote($session{uid})))
 {
    $text = $mod->GetVoteText($voted);
-   $text =~ s/^Your vote: //;
 }
 else
 {
-   $text = "You didn't vote.";
+   if ($mod->GetStatus() == ModDefs::STATUS_OPEN)
+   {
+      $text = "You haven't voted.";
+   }
+   else
+   {
+      $text = "You didn't vote.";
+   }
    $voted = ModDefs::VOTE_NOTVOTED;
 }
 
@@ -72,6 +79,17 @@ $time =~ s/:\d\d\..*$//;
 mc_comp("/comp/sidebar", title=>"Moderation $modid");
 
 my $expired = ($mod->GetExpireTime() > time()) ? "s" : "d";
+
+
+@votes = $mod->GetVoterList();
+$votelist = "<table>";
+foreach $ref (@votes)
+{
+    $votelist .= "<tr><td><a href=\"/moderator.html?uid=" . $ref->{modid} . "\"> " .
+                 $ref->{moderator} . "</a></td><td>" . 
+                 Moderation::GetVoteText(undef, $ref->{vote}) . "<td></tr>";
+}
+$votelist .= "</table>";
 
 </%perl>
 
@@ -123,6 +141,14 @@ my $expired = ($mod->GetExpireTime() > time()) ? "s" : "d";
                            text=>$mod->GetNoVotes(),
                            bold=>0 &>
 %  }
+
+%  if (scalar(@votes) > 0) {
+       <tr><td colspan="2"><hr></td></tr>
+       <& /comp/tableline, name=>"Vote history:", 
+                           text=>$votelist,
+                           bold=>0 &>
+%  }
+
    <tr><td colspan="2"><hr></td></tr>
 
 %  my $notes = $mod->LoadModerationNotes($modid, $modid);
