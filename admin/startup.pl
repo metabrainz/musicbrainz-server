@@ -16,6 +16,11 @@ use Apache::Session;
 use DBI;
 use DBD::Pg;
 
+# Some of the MB modules defer loading ("require" instead of "use") for some
+# modules.  If we know we're likely to want some module eventually, load it
+# now.
+use IO::Socket::INET; # FreeDB
+
 # Alphabetical order, for ease of maintenance
 # (apart from DBDefs and ModDefs, which we'll load first, just to make sure)
 use DBDefs;
@@ -34,6 +39,7 @@ use LocaleSaver;
 # use MM_2_1;
 use Moderation;
 use MusicBrainz;
+use MusicBrainz::Server::Cache;
 use MusicBrainz::Server::Country;
 use MusicBrainz::Server::DeferredUpdate;
 use MusicBrainz::Server::Handlers;
