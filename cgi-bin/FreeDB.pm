@@ -441,15 +441,6 @@ sub Retrieve
 
     close SOCK;
 
-    for($i = 0; $i < scalar(@track_titles); $i++)
-    {
-        #print("[$i]: $track_titles[$i]\n"); 
-        push @tracks, { track=>$track_titles[$i], tracknum => ($i+1) };
-    }
-    $info{tracks} = \@tracks;
-
-    close SOCK;
-
     return \%info;
 }
 

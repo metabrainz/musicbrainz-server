@@ -1,3 +1,28 @@
+Changes for Version 1.0.0pre22
+-----------------------------
+
+- Now using Postgres! Along with this we have an improved database schema
+  that uses foreign keys, views and transactions. The database should be
+  a lot more sane now.
+- The ModeratorInfo table is now Moderator, and the Changes table is now
+  the Moderations table.
+- Full UTF-8 support! 
+- Removed the automatic metadata collection stuff -- it wasn't working and
+  so I took it out. Plus it didn't fit with the evolving model of having
+  humans verify the data in the system.
+- Cleaned up some naming issues. GUIDs are now TRMs as they should be.
+- Created a ModBot moderator, who enters notes into moderations if they 
+  fail.
+- The server now keeps track of daily stats. We just need to create a 
+  pretty graph that is updated daily.
+- MusicBrainz relative links are now allowed in the moderation notes
+- The RDF interface now has a more granular depth setting that allows 
+  the client to control how much data gets returned from the server.
+
+
+[ Severe case of Amnesia here ]
+
+
 Changes for Version 1.0.0pre6
 -----------------------------
 
