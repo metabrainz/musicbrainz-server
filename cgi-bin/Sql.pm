@@ -44,18 +44,6 @@ sub new
     bless $this, ref($type) || $type;
 }  
 
-sub DESTROY
-{
-    my $self = shift;
-    my $dbh = $self->{DBH};
-
-    unless ($self->{DBH}{AutoCommit})
-    {
-        warn "Sql DESTROY invoking rollback!\n";
-        eval { $self->{DBH}->rollback };
-    }
-}
-
 sub Quiet
 {
     my ($this, $q) = @_;
