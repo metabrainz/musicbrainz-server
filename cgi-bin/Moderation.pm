@@ -109,6 +109,16 @@ sub SetExpired
    $_[0]->{isexpired} = $_[1];
 }
 
+sub GetGracePeriodExpired
+{
+   return $_[0]->{isgraceexpired};
+}
+
+sub SetGracePeriodExpired
+{
+   $_[0]->{isgraceexpired} = $_[1];
+}
+
 sub GetOpenTime
 {
    return $_[0]->{opentime};
@@ -379,13 +389,13 @@ sub CreateFromId
                       yesvotes, novotes, Artist.name, status, 0, depmod,
                       Moderator.id, m.automod,
                       opentime, closetime,
-                      ExpireTime < now()
+                      ExpireTime < now(), ExpireTime + INTERVAL ? < now()
                from   moderation_all m, Moderator, Artist 
                where  Moderator.id = moderator and m.artist = 
                       Artist.id and m.id = ?/;
 
    $sql = Sql->new($this->{DBH});
-   if ($sql->Select($query, $id))
+   if ($sql->Select($query, &DBDefs::MOD_PERIOD_GRACE, $id))
    {
         @row = $sql->NextRow();
         $mod = $this->CreateModerationObject($row[5]);
@@ -412,6 +422,7 @@ sub CreateFromId
            $mod->SetOpenTime($row[18]);
            $mod->SetCloseTime($row[19]);
            $mod->SetExpired($row[20]);
+           $mod->SetGracePeriodExpired($row[21]);
 			$mod->PostLoad;
        }
    }
