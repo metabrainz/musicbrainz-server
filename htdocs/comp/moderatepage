@@ -75,10 +75,12 @@ if (@$mods)
 	]</div>
 
 	<div class="LinksRow">[
-<a href="/mod/search/pre/new.html">New Mods</a> |
-<a href="/mod/search/pre/subscriptions.html">Subscribed Mods</a> |
-<a href="/mod/search/pre/freedb.html">FreeDB Mods</a> |
+<a href="/mod/search/pre/new.html">New</a> |
+<a href="/mod/search/pre/subscriptions.html">Subscribed</a> |
+<a href="/mod/search/pre/freedb.html">FreeDB</a>
+] &nbsp; [
 <a href="/mod/search/pre/moderator.html">My Mods</a> |
+<a href="/mod/search/pre/since-login.html">Since Login</a> |
 <a href="/mod/search/pre/moderator-failed.html">My Failed Mods</a> |
 <a href="/mod/search/pre/voted.html">My Votes</a>
 	]</div>

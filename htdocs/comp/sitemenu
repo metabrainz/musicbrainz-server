@@ -140,6 +140,7 @@ use Scalar::Util qw( reftype weaken );
             { name => "New (Subscribed)",		url => "/mod/search/pre/subscriptions.html" },
             { name => "New (FreeDB)",			url => "/mod/search/pre/freedb.html" },
             { name => "My Mods",				url => "/mod/search/pre/moderator.html" },
+            { name => "Since Login",			url => "/mod/search/pre/since-login.html" },
             { name => "Failed Mods",			url => "/mod/search/pre/moderator-failed.html" },
             { name => "My Votes",				url => "/mod/search/pre/voted.html" },
             { name => "Advanced",				url => "/mod/search/index.html" },
