@@ -52,11 +52,10 @@ sub ImportTable
 
     if (-e "$dir/$name")
     {
-        $cmd = "pg_restore -U $dbuser -S postgres -a -t $name -d $dbname $dir/$name"; 
+        $cmd = "pg_restore -U $dbuser -S postgres -O -a -t $name -d $dbname $dir/$name"; 
 
 	printf "%s: %s\n", scalar(localtime), $cmd;
         my $ret = system($cmd) >> 8;
-	printf "%s: finished\n", scalar localtime;
 
         return !$ret;
     }
@@ -125,5 +124,6 @@ $mb->Login;
 $sql = Sql->new($mb->{DBH});
 
 ImportAllTables($dir);
+printf "%s: import finished\n", scalar localtime;
 
 system("rm -rf $dir");
