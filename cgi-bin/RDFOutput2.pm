@@ -29,6 +29,7 @@ use RDF2;
 use GUID;
 use DBDefs;
 use Diskid;
+use Artist;
 
 BEGIN { require 5.003 }
 use vars qw(@ISA @EXPORT);
@@ -374,6 +375,8 @@ sub GetArtistReferences
    my ($this, $ref, $artist) = @_;
    my (@albums, @albumids, $album, %info, @ret);
 
+   return () if ($artist->GetId() == Artist::VARTIST_ID);
+
    @albums = $artist->GetAlbums();
    foreach $album (@albums)
    {
@@ -423,7 +426,8 @@ sub GetAlbumReferences
       $info{id} = $track->GetId();
       push @ret, {%info};
 
-      push @trackids, $track->GetMBId();
+      push @trackids, { id=>$track->GetMBId(), 
+                        tracknum=>$track->GetSequence() };
    }
    $ref->{_album} = \@trackids;
 
@@ -536,7 +540,9 @@ sub OutputAlbumRDF
     $ids = $ref->{_album};
     foreach $track (@$ids)
     {
-       $out .=      $this->Li($this->{baseuri}. "/track/$track");
+       $out .= $this->Element("rdf:li", "", "rdf:resource", 
+                              $this->{baseuri} . "/track/" . $track->{id},
+                              "mm:trackNum", $track->{tracknum});
     }
     $out .=   $this->EndSeq();
     $out .=   $this->EndDesc("mm:trackList");
@@ -562,7 +568,6 @@ sub OutputTrackRDF
     $out  = $this->BeginDesc("mm:Track", $this->GetBaseURI() .
                             "/track/" . $track->GetMBId());
     $out .=   $this->Element("dc:title", $track->GetName());
-    $out .=   $this->Element("mm:trackNum", $track->GetSequence());
     $out .=   $this->Element("dc:creator", "", "rdf:resource",
               $this->{baseuri}. "/artist/" . $artist->GetMBId());
     $out .=   $this->Element("mm:trmid", $guid[0]) if scalar(@guid);
