@@ -172,12 +172,11 @@ sub Insert
     $page = $this->CalculatePageIndex($this->{name});
 
     # No need to check for an insert clash here since album name is not unique
-    if ($sql->Do(qq/insert into Album (name,artist,gid,modpending,attributes,page)
-                values ($name,$this->{artist}, $id, 0, $attrs, $page)/))
-    {
-        $album = $sql->GetLastInsertId('Album');
-        $this->{new_insert} = 1;
-    }
+    $sql->Do(qq/insert into Album (name,artist,gid,modpending,attributes,page)
+                values ($name,$this->{artist}, $id, 0, $attrs, $page)/);
+
+    $album = $sql->GetLastInsertId('Album');
+    $this->{new_insert} = 1;
 
     $this->{id} = $album;
 
