@@ -45,7 +45,7 @@ sub LoadFiles
 
 		$sql->Begin;
 
-		if (eval { $class->_LoadFromFilehandle($fh, $sql); 1 })
+		if (eval { $class->_LoadFromFilehandle($fh, $mb->{DBH}); 1 })
 		{
 			$sql->Commit;
 			print localtime() . " : Successfully loaded $file\n";
@@ -65,7 +65,7 @@ sub LoadFiles
 
 sub _LoadFromFilehandle
 {
-	my ($class, $fh, $sql) = @_;
+	my ($class, $fh, $dbh) = @_;
 
 	my %type;
 
@@ -116,14 +116,12 @@ sub _LoadFromFilehandle
 	$n = keys %trm;
 	$i = 0;
 	$t0 = [ gettimeofday ];
+	require TRM;
+	my $trmobj = TRM->new($dbh);
 
 	while (my ($trm, $usecount) = each %trm)
 	{
-		$sql->Do(
-			"UPDATE trm SET lookupcount = lookupcount + ? WHERE trm = ?",
-			$usecount, $trm,
-		);
-
+		$trmobj->UpdateLookupCount($trm, $usecount);
 		++$i % 100 or $p->(), print "\r"
 			if -t STDOUT;
 	}
@@ -138,26 +136,16 @@ sub _LoadFromFilehandle
 	$i = 0;
 	$t0 = [ gettimeofday ];
 
+	require Alias;
+	my $aliasobj = Alias->new($dbh, "artistalias");
+
 	while (my ($aliasid, $t) = each %artistalias)
 	{
 		my @gmt = gmtime $t->{LASTTIME};
 		$gmt[4]++;
 		$gmt[5]+=1900;
 		my $timestr = sprintf('%04d-%02d-%02d %02d:%02d:%02d', @gmt[5,4,3,2,1,0]);
-
-		$sql->Do("
-			UPDATE artistalias SET timesused = timesused + ?,
-				lastused = CASE
-					WHEN ? > lastused THEN ?
-					ELSE lastused
-				END
-			WHERE id = ?
-			",
-			$t->{USECOUNT},
-			$timestr, $timestr,
-			$aliasid,
-		);
-
+		$aliasobj->UpdateLastUsedDate($aliasid, $timestr, $t->{USECOUNT});
 		++$i % 100 or $p->(), print "\r"
 			if -t STDOUT;
 	}
