@@ -3,13 +3,14 @@
 my $sMagicWord = "CacheMe!";
 my $fCallingSelf = ($_[0] and $_[0] eq $sMagicWord);
 
+my $mb = mc_comp("/comp/dblogin", quiet=>1);
+my $stat = Statistic->new($mb->{DBH});
+
 if ($fCallingSelf)
 {
 
 ################################################################################
 
-my $mb = mc_comp("/comp/dblogin", quiet=>1);
-my $stat = Statistic->new($mb->{DBH});
 my %stats = %{ $stat->FetchAllAsHashRef };
 
 sub pc
@@ -20,9 +21,8 @@ sub pc
 	sprintf "%.1f%%", $pc;
 }
 
-</%perl>
 
-<p>These statistics were last refreshed <% (split /\./, $stat->LastRefreshed)[0] %> UTC</p>
+</%perl>
 
 % my $gattrs = q[ width="100%" ];
 
@@ -324,6 +324,11 @@ $mb->Logout();
 else
 {
 	$m->comp("/comp/sidebar", title=>'Database Stats', expand=>'information');
+
+	my $time = $m->comp("/comp/datetime", $stat->LastRefreshed);
+	</%perl>
+	<p>These statistics were last refreshed <% $time %></p>
+	<%perl>
 
 	my $result = $m->cache(action=>'retrieve');
 
