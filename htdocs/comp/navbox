@@ -3,23 +3,31 @@ $expand=>''
 </%args>
 <%perl>
 
-#define the expanded sidebox items of the Introduction pages
-my @documentation = (
-  {url=>'/status.html',                    name=>'Project Status'},
-  {url=>'/stats.html',                     name=>'Database Stats'},
-  {url=>'/mod_intro.html',                 name=>'Moderation&nbsp;Intro'},
+#define the expanded sidebox items of the information pages
+my @information = (
   {url=>'/faq.html',                       name=>'FAQ'},
-  {url=>'/db_structure.html',              name=>'Database'},
+  {url=>'/stats.html',                     name=>'Database Stats'},
+  {url=>'/status.html',                    name=>'Project Status'},
+  {url=>'/contract.html',                  name=>'Social Contract'},
+  {url=>'/mod_intro.html',                 name=>'Moderation&nbsp;Intro'},
+  {url=>'/press.html',                     name=>'Press Coverage'},
   {url=>'/todo.html',                      name=>'To&nbsp;Do&nbsp;List'},
   {url=>'/rob_todo.html',                  name=>'Rob\'s&nbsp;To&nbsp;Do'},
-  {url=>'/how.html',                       name=>'How?'},
   {url=>'/contribute.html',                name=>'Contribute'},
   {url=>'/finances.html',                  name=>'Finances'},
   {url=>'/sponsors.html',                  name=>'Sponsors'},
-  {url=>'/client_howto.html',              name=>'Client&nbsp;HOWTO'},
+  {url=>'/bio.html',                       name=>'The People'},
   {url=>'/history.html',                   name=>'History/Roots'},
-  {url=>'/future.html',                    name=>'Future/Goals'},
-  {url=>'/bio.html',                       name=>'The People'}
+  {url=>'/future.html',                    name=>'Future/Goals'}
+);
+
+#define the expanded sidebox items of the documentation pages
+my @documentation = (
+  {url=>'/how.html',                       name=>'How?'},
+  {url=>'/client_howto.html',              name=>'Client&nbsp;HOWTO'},
+  {url=>'/cd_submission.html',             name=>'CD&nbsp;Submission'},
+  {url=>'/disc.html',                      name=>'CD&nbsp;Index&nbsp;Ids'},
+  {url=>'/db_structure.html',              name=>'Database&nbsp;Struct.'}
 );
 
 #define the expanded sidebox items of the moderation pages
@@ -39,10 +47,14 @@ my @main = (
   {url=>'/index.html',                     name=>'Home'},
   {url=>'/download.html',                  name=>'Download'},
   {url=>'/introduction.html',              name=>'Introduction'},
-  {url=>'/documentation.html',             name=>'Info/Docs',        expand=>'documentation', array=>\@documentation },
+  {url=>'/information.html',               name=>'Information',        
+   expand=>'information',                  array=>\@information },
+  {url=>'/documentation.html',             name=>'Documentation',        
+   expand=>'documentation',                array=>\@documentation },
   {url=>'/search.html',                    name=>'Search/Browse'},
   {url=>'/engine.html',                    name=>'Search&nbsp;Engine'},
-  {url=>'/moderate.html',                  name=>'Vote/Moderate',        expand=>'moderate', array=>\@moderate },
+  {url=>'/moderate.html',                  name=>'Vote/Moderate',        
+   expand=>'moderate',                     array=>\@moderate },
   {url=>'/list.html',                      name=>'Mailing&nbsp;List'},
   {url=>'/MM/',                            name=>'Metadata&nbsp;Init.'},
   {url=>'http://www.freeamp.org/bugzilla', name=>'Report&nbsp;a&nbsp;Bug'},

@@ -208,7 +208,7 @@ $parser=new RDFStore::Parser::SiRPAC(
 $parser->{__mbtriples} = \@triples;
 eval
 {
-    print STDERR "$rdfinput\n";
+    #print STDERR "$rdfinput\n";
     $parser->parse($rdfinput);
 };
 if ($@)

@@ -608,7 +608,7 @@ sub ExchangeMetadata
    my ($dbh, $doc, $rdf, @data) = @_;
    my (@ids, $id, $gu, $pe, $tr, $rv, $ar);
 
-   #PrintData("Incoming:", @data);
+   PrintData("Incoming:", @data);
 
    if (!DBDefs::DB_READ_ONLY)
    {

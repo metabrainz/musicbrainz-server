@@ -1,4 +1,4 @@
-<& /comp/sidebar, title=>'Frequently Asked Questions', expand=>'documentation' &>
+<& /comp/sidebar, title=>'Frequently Asked Questions', expand=>'information' &>
 
 Please check to see if your questions are covered in this FAQ. If not, then
 please feel free to <a href="mailto:rob@eorbit.net">mail me</a>.
@@ -38,9 +38,30 @@ please feel free to <a href="mailto:rob@eorbit.net">mail me</a>.
 &>
 
 <& /comp/faqentry,
+   question=>'Why does MusicBrainz not support genre information?',
+   answer=>'Because doing genres <i>right</i> is very hard. We have thought about how to implement genres, and you can read about our current thoughts on the mater <a href="http://www.freeamp.org/pipermail/musicbrainz/2001-December/001376.html">here</a>. I feel strongly about genres and I will turn my attention to them soon.',
+   name=>'genres'
+&>
+
+<& /comp/faqentry,
+   question=>'Why does MusicBrainz not have more metadata, like release year?',
+   answer=>'We\'re currently focusing on making the basic metadata (artist, album, tracks and various ids) system work, before we go and try to implement more things. However, we have thought what data we want to carry next -- you may want to check out this <a href="/db_structure.html">page</a> for details. If you know how to program in C/C++ or perl, please jump in and help us out to get more features implemented.',
+   name=>'data'
+&>
+
+<& /comp/faqentry,
    question=>'Who are the people responsible for creating MusicBrainz?',
    answer=>'Check out our <a href="/bio.html">biography</a> page for the answer.',
    name=>'bio'
+&>
+
+<& /comp/faqfooter &>
+<& /comp/faqheader, title=>'CD Submission Questions' &>
+
+<& /comp/faqentry,
+   question=>'I\'m confused by the CD submission process. Why do some CDs have more than one CD Index id? Some of my CDs are already in the system, but they have a different number of tracks than my CD. What\'s up?',
+   answer=>'The identification of CDs is a tricky matter. Please check out our Audio CD document that explains these issues.',
+   name=>'cds'
 &>
 
 <& /comp/faqfooter &>
