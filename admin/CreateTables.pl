@@ -212,6 +212,15 @@ sub CreateTables
           or die("Cannot create Changes table");
           
     print "Created Changes table.\n";
+
+    $dbh->do("create table Votes (" .
+             "   Id int auto_increment primary key," .
+             "   Uid int not null, ".
+             "   Rowid int not null, ".
+             "   vote tinyint not null)")
+          or die("Cannot create Votes table");
+    
+    print "Created Votes table.\n";    
     
     $dbh->do("create table ArtistAlias (" .
              "   Id int auto_increment primary key," .
