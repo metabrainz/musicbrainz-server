@@ -38,7 +38,10 @@ $artist
 % }
     <tr>
 			<td valign="top" align="right">Subscribers:</td>
-			<td valign="top"><% scalar $artist->GetSubscribers %></td>
+			<td valign="top">
+				<% scalar $artist->GetSubscribers %>
+				[ <a href="/artist/subscriptions.html?artist=<% $artist->GetId %>">List</a> ]
+			</td>
     </tr>
 	</table>
 
