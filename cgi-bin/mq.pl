@@ -370,7 +370,7 @@ $mb->Logout;
 
 if (!defined $out)
 {
-    $out = $rdf->ErrorRDF("Query failed.");
+    $out = $rdf->ErrorRDF("Query failed. (no output)");
 }
 
 untie %session unless !defined $session_id;

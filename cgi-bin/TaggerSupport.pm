@@ -75,7 +75,6 @@ sub FileInfoLookup
    $data{filename} = $fileName;
 
    my $ts = TaggerSupport->new($dbh);
-
    return $rdf->CreateFileLookup($ts, $ts->Lookup(\%data, $maxItems));
 }
 
@@ -118,7 +117,7 @@ sub Lookup
 
    if ($data->{artist} eq "Various Artists")
    {
-       $data->{artistid} = "89ad4ac3-39f7-470e-963a-56509c546377";
+       $data->{artistid} = ModDefs::VARTIST_MBID;
    }
 
    if ($data->{artist} eq '' || $data->{album} eq '' || $data->{track} eq '' || 
@@ -141,13 +140,25 @@ sub Lookup
        }
        else
        {
-           return ("", $data, $flags, $list);
+           return ("", $data, $flags, $list) if ($data->{album} eq '');
+
+           ($flags, $list) = $this->VariousArtistSearch($data->{album});
+           if (scalar(@$list) == 1 && ($flags & ALBUMID))
+           {
+               $data->{artistid} = ModDefs::VARTIST_MBID;
+               $data->{albumid} = $list->[0]->{mbid};
+           }
+           else
+           {
+               return ("", $data, $flags, $list);
+           }
        }
    }   
 
    if ($data->{albumid} ne '' && $data->{trackid} eq '' && $data->{track} ne '')
    {
        my ($list, $flags);
+
        ($flags, $list) = $this->TrackSearch($data->{artistid}, $data->{track}, 
                                             $data->{albumid}, $data->{tracknum}, 
                                             $data->{duration});
@@ -632,7 +643,7 @@ sub AlbumTrackSearch
 
    @ids = sort { $b->{sim} <=> $a->{sim} } @ids;
 
-   return (ALBUMTRACKLIST | $flags, \@ids);
+   return (TRACKLIST | $flags, \@ids);
 }
 
 sub TrackSearch
@@ -731,6 +742,74 @@ sub TrackSearch
    @ids = (sort { $b->{sim} <=> $a->{sim} } @ids);
    @ids = splice @ids, 0, $this->{maxitems};
 
-   return (TRACKLIST | $flags, \@ids);
+   return (ALBUMTRACKLIST | $flags, \@ids);
+}
+
+sub VariousArtistSearch
+{
+   my ($this, $name) = @_;
+   my ($al, @ids, $ar);
+
+   $ar = Artist->new($this->{DBH});
+   $ar->SetId(ModDefs::VARTIST_ID);
+   $ar->LoadFromId();
+   $this->{artist} = $ar;     
+
+   $al = Album->new($this->{DBH});
+
+   my $engine = SearchEngine->new($this->{DBH});
+   $engine->Table('Album');
+
+   $engine->Search(
+	query => $name,
+	limit => $this->{maxitems},
+   vartist => 1,
+   );
+
+   $name = lc(decode "utf-8", $name);
+
+   if ($engine->Rows == 1)
+   {
+       my $row = $engine->NextRow;
+
+       $al->SetId($row->{'albumid'});
+       if (defined $al->LoadFromId())
+       {
+           $this->{artistid} = ModDefs::VARTIST_MBID;
+           $this->{album} = $al;     
+           $this->{fuzzy} = 1;
+           my $thisname = lc(decode "utf-8", $al->GetName);
+           return (ALBUMID, 
+                             [ 
+                              $this->SetSim({ 
+                                 id=>$al->GetId(),
+                                 mbid=>$al->GetMBId(), 
+                                 name=>$al->GetName(),
+                                 sim_album=>similarity($thisname, $name)
+                               })
+                             ]);
+       }
+   }
+   else
+   {
+       my $row;
+       
+       while($row = $engine->NextRow)
+       {
+           my $thisname = lc(decode "utf-8", $row->{'albumname'});
+
+           push @ids, $this->SetSim({ id=>$row->{'albumid'},
+                        name=>$row->{'albumname'},
+                        mbid=>$row->{'albumgid'}, 
+                        sim_album=>similarity($thisname, $name) });
+       }
+
+       @ids = sort { $b->{sim} <=> $a->{sim} } @ids;
+       @ids = splice @ids, 0, $this->{maxitems};
+
+       return (ALBUMLIST, \@ids);
+   }
+
+   return (0, []);
 }
 1;

@@ -53,6 +53,7 @@ use DBDefs;
 use DBI;
 use MusicBrainz;
 use Sql;
+use ModDefs;
 use Text::Unaccent;
 use Encode qw( encode decode );
 use Carp qw( croak );
@@ -293,6 +294,7 @@ sub Search
     my $search = coalesce($opts{'query'}, "");
     $self->{'limit'} = coalesce($opts{'limit'}, DEFAULT_SEARCH_LIMIT, 0);
     $self->{'timeout'} = coalesce($opts{'timeout'}, DEFAULT_SEARCH_TIMEOUT, 0);
+    $self->{'vartist'} = coalesce($opts{'vartist'}, 0);
 
     $self->{RESULTTYPE} = undef;
     $self->{RESULTS} = [];
@@ -554,6 +556,10 @@ sub _GetQuery
     my $where = join " AND ", map {
 	"w$_.wordid = ?"
     } 1 .. $numwords;
+
+    # Check to see if the query should be restricted to Various artists only
+    $where .= " AND t.artist = " . ModDefs::VARTIST_ID . " " 
+       if ($self->{vartist} && $table eq 'album');
 
     my $from = "$wtable w1";
     $from .= "\n INNER JOIN $wtable w$_ ON w$_.$idcol = w${\($_-1)}.$idcol"
