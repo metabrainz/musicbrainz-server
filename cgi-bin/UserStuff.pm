@@ -388,7 +388,7 @@ sub SetUserInfo
 		sub { $sql->Do($query); 1 },
 	);
 
-	MusicBrainz::Server::Cache->remove($this->_GetCacheKey($uid));
+	MusicBrainz::Server::Cache->delete($this->_GetCacheKey($uid));
 }
 
 sub CreditModerator
@@ -410,7 +410,7 @@ sub CreditModerator
 		"UPDATE moderator SET $column = $column + 1 WHERE id = ?",
 		$uid,
 	);
-	MusicBrainz::Server::Cache->remove($this->_GetCacheKey($uid));
+	MusicBrainz::Server::Cache->delete($this->_GetCacheKey($uid));
 }
 
 # Change a user's password.  The old password must be given.
@@ -458,7 +458,7 @@ sub ChangePassword
 		},
 	);
 
-	MusicBrainz::Server::Cache->remove($self->_GetCacheKey($self->GetId));
+	MusicBrainz::Server::Cache->delete($self->_GetCacheKey($self->GetId));
 
 	unless ($ok)
 	{
