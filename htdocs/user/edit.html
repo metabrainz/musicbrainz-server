@@ -1,8 +1,6 @@
 %# vi: set ts=4 sw=4 ft=mason :
 <%args>
 $update=>0
-$password1=>""
-$password2=>""
 $bio=>""
 $email=>""
 $weburl=>""
@@ -25,21 +23,6 @@ $m->comp(
 
 if ($update)
 { 
-    if ($password1 ne $password2)
-    {
-        </%perl>
-
-		<p class="error">
-			The given passwords do not match.&nbsp;
-			Please go back and re-enter the passwords.
-		</p>
-
-        <& /comp/footer &>
-
-        <%perl>
-        return undef;
-    }
-
     if ($email =~ /\S/ and !$ui->CheckEMailAddress($email))
     {
 		</%perl>
@@ -98,7 +81,8 @@ if ($update)
 			<%perl>
 		}
     }
-    $ui->SetUserInfo($uid, $email, $password1, $weburl, $bio);
+
+    $ui->SetUserInfo($uid, $email, $weburl, $bio);
 
 	</%perl>
 
@@ -133,48 +117,46 @@ if ($info->GetName eq "rob")
 <p class="LinksRow">
 	[
 	<a href="/user/view.html">Profile &amp; Statistics</a>
+	| <a href="/user/change-password.html">Change Password</a>
 	| <a href="/prefs.html">Preferences</a>
 	| <a href="/user/subscriptions.html">Subscriptions</a>
 	]
 </p>
 
-<form method="post" action="/user/edit.html"
-	name="EditUser">
+<form method="post" action="/user/edit.html" id="EditUser">
 
 <table>
 <tr>
-    <td width="15%" valign="top" align="right">Name:</td>
+    <td width="15%" align="right">Name:</td>
     <td><% $info->GetName %></td>
 </tr>
 <tr>
-    <td width="15%" valign="top" align="right">User type:</td>
+    <td width="15%" align="right">User type:</td>
     <td><% $info->GetUserType %></td>
 </tr>
 
-<tr>
-    <td valign="top" align="right">Password:</td>
-    <td><input type="password" name="password1" size="40"></td>
-</tr>
-<tr>
-    <td valign="top" align="right">Verify password:</td>
-    <td><input type="password" name="password2" size="40"><br>
-        (Leave the two fields above blank to not change your password)</td>
-</tr>
 <tr>
     <td colspan="2">&nbsp;</td>
 </tr>
 
 <tr>
-    <td valign="top" align="right">EMail:</td>
-        <td><input type="text" name="email" size="40" 
-                   value="<% $info->GetEmail %>"><br>
-            (If you enter a new email address, you will be required to
-            verify the new email address)
-        </td>
+    <td align="right">EMail:</td>
+	<td><input type="text" name="email" size="40" value="<% $info->GetEmail %>"></td>
+</tr>
+<tr>
+	<td></td>
+	<td>
+		(If you enter a new email address, you will be required to
+		verify the new email address)
+	</td>
 </tr>
 
 <tr>
-    <td valign="top" align="right">Homepage:</td>
+    <td colspan="2">&nbsp;</td>
+</tr>
+
+<tr>
+    <td align="right">Homepage:</td>
     <td><input type="text" name="weburl" size="40" 
                value="<% $info->GetWebURL %>">
     </td>
@@ -197,5 +179,5 @@ if ($info->GetName eq "rob")
 </table>
 </form>
 
-<& /comp/movefocus, "EditUser", "password1" &>
+<& /comp/movefocus, "EditUser", "email" &>
 <& /comp/footer &>
