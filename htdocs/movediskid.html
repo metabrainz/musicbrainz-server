@@ -9,7 +9,7 @@ $confirm=>0
 
 <%perl>
 
-my ($mb, $ar, @albums, $albumname, $referer, $al, $di);
+my ($mb, $ar, @albums, $albumname, $al, $di);
 my ($id, @diskid_refs, $ref); 
 
 if ($confirm)
@@ -26,7 +26,6 @@ if ($diskid eq '' || $albumid == 0 || $artistid == 0)
     return undef;
 }
 
-$referer = $r->headers_in->{'Referer'};
 $mb = new MusicBrainz;
 $mb->Login();
 
@@ -118,7 +117,9 @@ if ($id < 0)
                    <input type="hidden" name="table" value="Diskid">
                    <input type="hidden" name="column" value="Disk">
                    <input type="hidden" name="id" value="<% $id %>">
-                   <input type="hidden" name="referer" value="<% $referer %>">
+                   <input type="hidden" 
+                          name="url" 
+                          value="/showalbum.html?albumid=<% $albumid %>">
                 </td>
               </tr>
               </table>

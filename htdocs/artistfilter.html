@@ -127,7 +127,7 @@ if ($num_found == 0 && $mode eq 'merge')
 </%perl>
     <& /comp/tablebegin, title=>'No Artists Found', gattrs=>'width="100%"' &>
     <br>&nbsp;&nbsp;<span class="bold">No artists found.</span>
-    Please <a href="<% $ARGS{referer} %>">try again</a>.<p><br>
+    Please <a href="<% $ARGS{url} %>">try again</a>.<p><br>
     <& /comp/tableend &>
 <%perl>
 }

@@ -63,14 +63,14 @@ if (CheckArg(\%ARGS, 'column') &&
         {
             if ($mod->GetNew() =~ /^AlbumId=(.*)$/m)
             {
-               $ARGS{referer} = "/showalbum.html?albumid=$1";
+               $ARGS{url} = "/showalbum.html?albumid=$1";
             }
         }
         if ($mod->GetType() == ModDefs::MOD_ADD_ARTIST)
         {
             if ($mod->GetNew() =~ /^ArtistId=(.*)$/m)
             {
-               $ARGS{referer} = "/showartist.html?artistid=$1";
+               $ARGS{url} = "/showartist.html?artistid=$1";
             }
         }
         $modid = $mod->InsertModeration();
@@ -85,11 +85,11 @@ $r->content_type('text/html');
 
 if (exists $ARGS{choice} && lc($ARGS{choice}) eq 'no')
 {
-    $url = $ARGS{altreferer};
+    $url = $ARGS{alturl};
 }
 else
 {
-    $url = $ARGS{referer};
+    $url = $ARGS{url};
 }
 
 if ($url =~ s/&modid=\d*//g)
@@ -97,7 +97,7 @@ if ($url =~ s/&modid=\d*//g)
    $url .= "&modid=$modid" if (defined $modid);
 }
 
-# For some reason, sometimes the referer gets lost. I dunno why.
+# And if we have nothing, go to search...
 if ($url eq '')
 {
     $url = "/search.html";

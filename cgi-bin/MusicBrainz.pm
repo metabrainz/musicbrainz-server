@@ -23,7 +23,7 @@
                                                                                
 package MusicBrainz;
 
-BEGIN { require 5.003 }
+BEGIN { require 5.6.1 }
 use vars qw(@ISA @EXPORT);
 @ISA    = @ISA    = '';
 @EXPORT = @EXPORT = '';

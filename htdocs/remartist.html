@@ -2,7 +2,7 @@
 
 <%perl>
 
-my ($mb, $artistname, $referer, $ar);
+my ($mb, $artistname, $ar);
 my ($artist); 
 
 if (!exists $ARGS{artist} || $ARGS{artist} eq '')
@@ -18,7 +18,6 @@ if ($artist <= 2)
     return undef;
 }
 
-$referer = $r->headers_in->{'Referer'};
 $mb = new MusicBrainz;
 $mb->Login();
 $ar = Artist->new($mb->{DBH});
@@ -79,7 +78,8 @@ $artistname = $ar->GetName();
     <input type="hidden" name="table0" value="Artist">
     <input type="hidden" name="column0" value="Name">
     <input type="hidden" name="id0" value="<% $artist %>">
-    <input type="hidden" name="referer" value="<% $referer %>">
+    <input type="hidden" 
+           name="url" value="/showartist.html?artistid=<% $artist %>">
     </form>
       
     <& /comp/tableend &>

@@ -29,7 +29,7 @@ use strict;
 use RDF;
 use DBDefs;
 
-BEGIN { require 5.003 }
+BEGIN { require 5.6.1 }
 use vars qw(@ISA @EXPORT);
 @ISA    = @ISA    = qw(TableBase RDF);
 @EXPORT = @EXPORT = '';

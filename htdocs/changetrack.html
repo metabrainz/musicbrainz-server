@@ -2,7 +2,7 @@
 
 <%perl>
 
-my ($mb, $id, $albumname, $referer, $modpending);
+my ($mb, $id, $albumname, $modpending);
 my ($artistname, $al, $artist, $ar, $newtrackname, $newartistname, $sortname);
 my ($track, @tracks, $tr, $trackname, $tindex, $depmod, $trackid); 
 
@@ -14,7 +14,6 @@ if (!exists $ARGS{album} || $ARGS{album} eq '' ||
     return undef;
 }
 
-$referer = $r->headers_in->{'Referer'};
 $mb = new MusicBrainz;
 $mb->Login();
 $id = $ARGS{album};
@@ -158,9 +157,10 @@ else
        <input type="hidden" name="id0" value="<% $trackid %>">
        <input type="hidden" name="id1" value="<% $trackid %>">
 % if (exists $ARGS{solo}) {
-       <input type="hidden" name="referer" value="<% $referer %>">
+       <input type="hidden" 
+              name="url" value="/showalbum.html?albumid=<% $id %>">
 % } else {
-       <input type="hidden" name="referer" value="/changetrack.html?album=<% $id %>&artist=<% $artist %>&tindex=<% $tindex + 1 %>&modid=<% $depmod %>">
+       <input type="hidden" name="url" value="/changetrack.html?album=<% $id %>&artist=<% $artist %>&tindex=<% $tindex + 1 %>&modid=<% $depmod %>">
 % }
        </form>
          

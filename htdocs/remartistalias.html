@@ -2,7 +2,7 @@
 
 <%perl>
 
-my ($mb, $referer, $al, $alias, $ar);
+my ($mb, $al, $alias, $ar);
 
 if (!exists $ARGS{alias} || $ARGS{alias} eq '')
 {
@@ -10,7 +10,6 @@ if (!exists $ARGS{alias} || $ARGS{alias} eq '')
     return undef;
 }
 
-$referer = $r->headers_in->{'Referer'};
 $mb = new MusicBrainz;
 $mb->Login();
 
@@ -86,7 +85,8 @@ if (!defined $ar->LoadFromId())
     <input type="hidden" name="table0" value="ArtistAlias">
     <input type="hidden" name="column0" value="Name">
     <input type="hidden" name="id0" value="<% $alias %>">
-    <input type="hidden" name="referer" value="<% $referer %>">
+    <input type="hidden" name="url" 
+           value="/showaliases.html?artistid=<% $ar->GetId() %>">
     </form>
       
     <& /comp/tableend &>

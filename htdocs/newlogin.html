@@ -1,6 +1,6 @@
 <%args>
 $sidebar=>'1'
-$referer=>""
+$url=>""
 </%args>
 
 %if ($sidebar == 1) {
@@ -42,14 +42,14 @@ Please fill out the form below to create a new MusicBrainz account:
 </table>
 <%perl>
 
-if ($referer eq '')
+if ($url eq '')
 {
-   $referer = $r->headers_in->{'Referer'};
+   $url = $r->headers_in->{'Referer'};
 }
-if ($referer ne "") {
-   $referer =~ s/\?/\@Q\@/g; 
-   $referer =~ s/\&/\@A\@/g; 
-   mc_out("<INPUT TYPE=\"hidden\" NAME=\"referer\" VALUE=\"$referer\">");
+if ($url ne "") {
+   $url =~ s/\?/\@Q\@/g; 
+   $url =~ s/\&/\@A\@/g; 
+   mc_out("<INPUT TYPE=\"hidden\" NAME=\"url\" VALUE=\"$url\">");
 }
 </%perl>
 </form>

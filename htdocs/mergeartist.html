@@ -3,7 +3,7 @@
 <%perl>
 
 my ($mb, $id, $ar); 
-my ($artistname, $referer, $modpending, $sortname); 
+my ($artistname, $url, $modpending, $sortname); 
 
 if (!exists $ARGS{id} || $ARGS{id} eq '')
 {
@@ -11,7 +11,6 @@ if (!exists $ARGS{id} || $ARGS{id} eq '')
     return undef;
 }
 
-$referer = $r->headers_in->{'Referer'};
 $mb = new MusicBrainz;
 $mb->Login();
 $id = $ARGS{id};
@@ -77,7 +76,8 @@ $modpending = $ar->GetModPending();
     <input type="hidden" name="table0" value="Artist">
     <input type="hidden" name="column0" value="Name">
     <input type="hidden" name="id0" value="<% $id %>">
-    <input type="hidden" name="referer" value="<% $referer %>">
+    <input type="hidden" 
+           name="url" value="/showartist.html?artistid=<% $id %>">
     </form>
     <& /comp/tableend &>
 

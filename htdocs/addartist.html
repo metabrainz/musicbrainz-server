@@ -2,9 +2,8 @@
 
 <%perl>
 
-my ($mb, $id, $referer, $ar, $artist); 
+my ($mb, $id, $ar, $artist); 
 
-$referer = $r->headers_in->{'Referer'};
 $mb = new MusicBrainz;
 $mb->Login();
 
@@ -61,7 +60,7 @@ $mb->Login();
     <input type="hidden" name="table" value="Artist">
     <input type="hidden" name="column" value="Name">
     <input type="hidden" name="id" value="<% Artist::DARTIST_ID %>">
-    <input type="hidden" name="referer" value="<% $referer %>">
+    <input type="hidden" name="url" value="/search.html">
     </form>
       
     <& /comp/tableend &>

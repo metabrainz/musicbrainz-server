@@ -2,9 +2,8 @@
 
 <%perl>
 
-my ($mb, $id, $trackname, $referer, $al, $tracknum, $album, $artist); 
+my ($mb, $id, $trackname, $al, $tracknum, $album, $artist); 
 
-$referer = $r->headers_in->{'Referer'};
 $mb = new MusicBrainz;
 $mb->Login();
 $al = Album->new($mb->{DBH});
@@ -89,7 +88,8 @@ $al->LoadFromId();
     <input type="hidden" name="table" value="Track">
     <input type="hidden" name="id" value="<% $al->GetId() %>">
     <input type="hidden" name="column" value="Name">
-    <input type="hidden" name="referer" value="<% $referer %>">
+    <input type="hidden"
+           name="url" value="/showalbum.html?albumid=<% $al->GetId() %>">
 % if ($artist == Artist::VARTIST_ID) {
     <input type="hidden" name="title" value="Select Artist for Track Addition">
     <input type="hidden" name="mode" value="addtrack">

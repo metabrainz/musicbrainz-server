@@ -24,7 +24,7 @@
 package FreeDB;
 use TableBase;
 
-BEGIN { require 5.003 }
+BEGIN { require 5.6.1 }
 use vars qw(@ISA @EXPORT);
 @ISA    = @ISA    = 'TableBase';
 @EXPORT = @EXPORT = '';

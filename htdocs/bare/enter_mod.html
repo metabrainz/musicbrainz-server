@@ -84,11 +84,11 @@ $r->content_type('text/html');
 
 if (exists $ARGS{choice} && lc($ARGS{choice}) eq 'no')
 {
-    $url = $ARGS{altreferer};
+    $url = $ARGS{alturl};
 }
 else
 {
-    $url = $ARGS{referer};
+    $url = $ARGS{url};
 }
 
 if ($url =~ s/&modid=\d*//g)
@@ -96,7 +96,7 @@ if ($url =~ s/&modid=\d*//g)
     $url .= "&modid=$modid" if (defined $modid);
 }
 
-# For some reason, sometimes the referer gets lost. I dunno why.
+# And if we still don't have a valid place to go, go to the search page.
 if ($url eq '')
 {
     $url = "/search.html";

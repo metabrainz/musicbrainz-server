@@ -2,7 +2,7 @@
 
 <%perl>
 
-my ($mb, $id, $trackname, $referer, $tr, $al);
+my ($mb, $id, $trackname, $tr, $al);
 my ($seq_id, $tracknum, $album, $artist); 
 
 if (!exists $ARGS{album} || $ARGS{album} eq '' ||
@@ -13,7 +13,6 @@ if (!exists $ARGS{album} || $ARGS{album} eq '' ||
     return undef;
 }
 
-$referer = $r->headers_in->{'Referer'};
 $mb = new MusicBrainz;
 $mb->Login();
 $tr = Track->new($mb->{DBH});
@@ -81,7 +80,8 @@ $seq_id = $tr->GetSequenceId();
     <input type="hidden" name="table0" value="Track">
     <input type="hidden" name="column0" value="Name">
     <input type="hidden" name="id0" value="<% $id %>">
-    <input type="hidden" name="referer" value="<% $referer %>">
+    <input type="hidden" 
+           name="url" value="/showalbum.html?albumid=<% $album %>">
     </form>
       
     <& /comp/tableend &>

@@ -1,7 +1,7 @@
 <%perl>
 
 my ($mb, $mod, $key, @yeslist, @nolist, @abslist);
-my $referer = $r->headers_in->{'Referer'};
+my $url = $r->headers_in->{'url'};
 
 foreach $key (keys %ARGS)
 {
@@ -23,7 +23,7 @@ $r->method('GET');
 $r->headers_in->unset('Content-length');
 
 $r->content_type('text/html');
-$r->header_out(Location=>$referer);
+$r->header_out(Location=>$url);
 $r->status(302);
 
 </%perl>

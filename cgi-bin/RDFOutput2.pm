@@ -31,7 +31,7 @@ use DBDefs;
 use Diskid;
 use Artist;
 
-BEGIN { require 5.003 }
+BEGIN { require 5.6.1 }
 use vars qw(@ISA @EXPORT);
 @ISA    = @ISA    = qw(TableBase RDF2);
 @EXPORT = @EXPORT = '';

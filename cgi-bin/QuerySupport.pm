@@ -50,7 +50,7 @@ use RDFStore::Parser::SiRPAC;
 use Digest::SHA1 qw(sha1_hex);
 use Apache::Session::File;
 
-BEGIN { require 5.003 }
+BEGIN { require 5.6.1 }
 use vars qw(@ISA @EXPORT);
 @ISA    = @ISA    = '';
 @EXPORT = @EXPORT = '';

@@ -77,7 +77,8 @@ $sortname = $ar->GetSortName();
     <input type="hidden" name="table0" value="Album">
     <input type="hidden" name="column0" value="Artist">
     <input type="hidden" name="id0" value="<% $id %>">
-    <input type="hidden" name="referer" value="<% $referer %>">
+    <input type="hidden" 
+           name="url" value="/showalbum.html?albumid=<% $id %>">
     </form>
       
     <& /comp/tableend &>
