@@ -1,13 +1,14 @@
 <%perl>
 
 my ($mb, $user);
+my ($err, $user, $privs, $uid);
 
 $mb = MusicBrainz::new();
 $mb->Login();
 $user = UserStuff->new($mb);
 
-my $err = $user->CreateLogin($ARGS{User}, $ARGS{Password}, 
-                             $ARGS{RetypePassword}, \%session);
+($err, $user, $privs, $uid) = $user->CreateLogin($ARGS{User}, $ARGS{Password}, 
+                                        $ARGS{RetypePassword});
 if ($err ne "")
 {
     mc_out($err);
@@ -15,6 +16,21 @@ if ($err ne "")
 }
 else
 {
+    tie %HTML::Mason::Commands::session, 
+       'Apache::Session::File', undef, 
+       {
+          Directory => '/tmp/sessions',
+          LockDirectory   => '/tmp/locks',
+       };
+    $cookie = new CGI::Cookie (-name=>'AF_SID',
+            -value=>$HTML::Mason::Commands::session{_session_id},
+            -path => '/',); 
+    $r->headers_out->add('Set-cookie' => $cookie); 
+
+    $session{user} = $user;
+    $session{privs} = $privs;
+    $session{uid} = $uid;  
+    
     mc_out(qq/A new account has been created and you are 
               now logged into MusicBrainz!/);
     mc_comp('/comp/searchinternal');

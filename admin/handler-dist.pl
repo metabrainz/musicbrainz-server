@@ -47,33 +47,30 @@ sub handler
     return -1 if $r->content_type && $r->content_type !~ m|^text/|io;
 
     my %cookies = parse CGI::Cookie($r->header_in('Cookie'));
-
-    eval { 
-      tie %HTML::Mason::Commands::session, 'Apache::Session::File',
-        ( $cookies{'AF_SID'} ? $cookies{'AF_SID'}->value() : undef );
-    };
-
-    if ( $@ ) {
-      # If the session is invalid, create a new session.
-      if ( $@ =~ m#^Object does not exist in the data store# ) {
-        tie %HTML::Mason::Commands::session, 'Apache::Session::File', undef;
-        undef $cookies{'AF_SID'};
-      }
-    }
-       
-    if ( !$cookies{'AF_SID'} ) 
+    if (exists $cookies{'AF_SID'})
     {
-      my $cookie = new CGI::Cookie(-name=>'AF_SID', 
-           -value=>$HTML::Mason::Commands::session{_session_id}, 
-           -path => '/',);
-      $r->header_out('Set-Cookie', => $cookie);
+        eval { 
+           tie %HTML::Mason::Commands::session, 
+              'Apache::Session::File',
+              $cookies{'AF_SID'}->value(),
+              {
+                 Directory => '/tmp/sessions',
+                 LockDirectory   => '/tmp/locks',
+              }; 
+        };
+
+        my $err = $@;
+        $ah->handle_request($r);
+        if (! $err) 
+        {   
+             # only untie if you've managed to create a tie in the first place
+             untie %HTML::Mason::Commands::session;
+        }
     }
-
-    my $stat = $ah->handle_request($r);
-
-    untie %HTML::Mason::Commands::session;
-
-    return $stat;
+    else
+    {
+        $ah->handle_request($r);
+    }
 }
 
 1;

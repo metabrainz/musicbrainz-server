@@ -44,8 +44,9 @@ sub new
 
 sub Login
 {
-   my ($this, $user, $pwd, $sess) = @_;
+   my ($this, $user, $pwd) = @_;
    my ($ok, $sth);
+   my @row;
 
    $ok = 0;
 
@@ -54,26 +55,22 @@ sub Login
           select name,password,privs,id from ModeratorInfo where name = $user/);
    if ($sth->execute && $sth->rows)
    {
-       my @row;
    
        @row = $sth->fetchrow_array;
        if ($pwd eq $row[1])
        {
           $ok = 1;
-          $sess->{user} = $user;
-          $sess->{privs} = $row[2];
-          $sess->{uid} = $row[3];
        }
    }
    $sth->finish;   
 
-   return $ok;
+   return ($ok, $user, $row[2], $row[3]);
 }
 
 sub CreateLogin
 {
-   my ($this, $user, $pwd, $pwd2, $sess) = @_;
-   my ($sth);
+   my ($this, $user, $pwd, $pwd2) = @_;
+   my ($sth, $uid);
 
    if ($pwd ne $pwd2)
    {
@@ -105,10 +102,8 @@ sub CreateLogin
             ModsRejected) values ($user, $pwd, 0, 0, 0)
             /);
 
-   $sess->{user} = $user;
-   $sess->{privs} = 0;
-   $sess->{uid} = $this->GetLastInsertId();
+   $uid = $this->GetLastInsertId();
    $sth->finish;
 
-   return "";
+   return ("", $user, 0, $uid);
 } 

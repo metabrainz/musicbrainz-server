@@ -13,5 +13,9 @@ You have now logged out. Thank you for moderating MusicBrainz!
 
 <%init>
 $session{user} = "";
-tied(%session)->delete;
+eval
+{
+   tied(%session)->delete;
+};
+
 </%init>
