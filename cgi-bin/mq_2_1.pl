@@ -21,11 +21,11 @@ my %Queries =
 (
    GetCDInfo => 
       [ \&QuerySupport::GetCDInfoMM2, 0, 
-        'http://musicbrainz.org/mm/mm-2.1#cdindexId',
+        'http://musicbrainz.org/mm/mm-2.1#cdindexid',
         'http://musicbrainz.org/mm/mm-2.1#lastTrack'],
    AssociateCDFromAlbumId =>
       [ \&QuerySupport::AssociateCDMM2, 0, 
-        'http://musicbrainz.org/mm/mm-2.1#cdindexId',
+        'http://musicbrainz.org/mm/mm-2.1#cdindexid',
         'http://musicbrainz.org/mm/mq-1.1#albumId'],
    FindArtist =>
       [\&QuerySupport::FindArtistByName, 0, 

@@ -558,16 +558,17 @@ sub SubmitTRMList
                              "id string when submitting data to MusicBrainz.") 
    }
 
+   # TODO: Move the MM dependent code into MM___.pl
    $index = 0;
    $new = "ClientVersion=$clientVer\n";
    for($i = 1; ; $i++)
    {
        $trackid = Extract($triples, $uri, $i, 
-          "http://musicbrainz.org/mm/mm-2.0#trmList [] " . 
-          "http://musicbrainz.org/mm/mm-2.0#trackid");
+          "http://musicbrainz.org/mm/mm-2.1#trmidList [] " . 
+          "http://musicbrainz.org/mm/mm-2.1#trackid");
        $trmid = Extract($triples, $uri, $i, 
-          "http://musicbrainz.org/mm/mm-2.0#trmList [] " .
-          "http://musicbrainz.org/mm/mm-2.0#trmid");
+          "http://musicbrainz.org/mm/mm-2.1#trmidList [] " .
+          "http://musicbrainz.org/mm/mm-2.1#trmid");
        if (!defined $trackid || $trackid eq '' ||
            !defined $trmid || $trmid eq '')
        {
