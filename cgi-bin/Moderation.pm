@@ -440,39 +440,26 @@ sub iiMinMaxID
 {
 	my $self = shift;
 	$self = $self->new(shift) if not ref $self;
+	my %opts = @_;
+
+	my $open = $opts{"open"};
 
 	require MusicBrainz::Server::Cache;
-	my $key = "Moderation-id-range";
+	my $key = "Moderation" . ($open ? "-open" : defined($open) ? "-closed" : "") . "-id-range";
 	if (my $t = MusicBrainz::Server::Cache->get($key)) { return @$t }
 
 	my $sql = Sql->new($self->{DBH});
+	my ($min, $max) = $sql->GetColumnRange(
+		($open ? "moderation_open"
+		: defined($open) ? "moderation_closed"
+		: [qw( moderation_open moderation_closed )])
+	);
 
-	# Postgres is poor at optimising SELECT MIN(id) FROM table
-	# (or MAX).  It uses a table scan, instead of an index scan.
-	# However for the following queries it gets it right:
-
-	my ($min, $max) = (undef, undef);
-	for my $table (qw(
-		moderation_open
-		moderation_closed
-	)) {
-		my $thismin = $sql->SelectSingleValue(
-			"SELECT id FROM $table ORDER BY id ASC LIMIT 1",
-		);
-		$min = $thismin
-			if defined($thismin)
-			and (not defined($min) or $thismin < $min);
-
-		my $thismax = $sql->SelectSingleValue(
-			"SELECT id FROM $table ORDER BY id DESC LIMIT 1",
-		);
-		$max = $thismax
-			if defined($thismax)
-			and (not defined($max) or $thismax > $max);
-	}
+	$min ||= 0;
+	$max ||= 0;
 
 	my @range = ($min, $max);
-	MusicBrainz::Server::Cache->set($key, \@range, 120);
+	MusicBrainz::Server::Cache->set($key, \@range);
 	return @range;
 }
 
@@ -482,6 +469,9 @@ sub iFindByTime
 	my $self = shift;
 	$self = $self->new(shift) if not ref $self;
 	my $sTime = shift;
+	my %opts = @_;
+
+	my $open = $opts{"open"};
 
 	if ($sTime =~ /\A\d+\z/)
 	{
@@ -489,7 +479,7 @@ sub iFindByTime
 		$sTime = POSIX::strftime("%Y-%m-%d %H:%M:%S", gmtime $sTime);
 	}
 
-	my ($iMin, $iMax) = $self->iiMinMaxID;
+	my ($iMin, $iMax) = $self->iiMinMaxID('open' => $opts{'open'});
 	my $sql = Sql->new($self->{DBH});
 
 	my $gettime = sub {
@@ -654,6 +644,8 @@ sub InsertModeration
 	);
 
     my $insertid = $sql->GetLastInsertId("moderation_open");
+	MusicBrainz::Server::Cache->delete("Moderation-id-range");
+	MusicBrainz::Server::Cache->delete("Moderation-open-id-range");
 	#print STDERR "Inserted as moderation #$insertid\n";
 	$this->SetId($insertid);
 
@@ -681,6 +673,8 @@ sub InsertModeration
 			$status,
 			$insertid,
 		);
+		MusicBrainz::Server::Cache->delete("Moderation-open-id-range");
+		MusicBrainz::Server::Cache->delete("Moderation-closed-id-range");
 
 		require UserStuff;
 		my $user = UserStuff->new($this->{DBH});
@@ -717,7 +711,7 @@ SUPPRESS_INSERT:
 sub GetMaxModID
 {
 	my $self = shift;
-	($self->iiMinMaxID)[1];
+	($self->iiMinMaxID(@_))[1];
 }
 
 sub OpenModsByType_as_hashref
@@ -870,6 +864,9 @@ sub CloseModeration
 		$status,
 		$this->GetId,
 	);
+
+	MusicBrainz::Server::Cache->delete("Moderation-open-id-range");
+	MusicBrainz::Server::Cache->delete("Moderation-closed-id-range");
 }
 
 sub RemoveModeration
