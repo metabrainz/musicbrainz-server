@@ -36,7 +36,7 @@ sub Arguments
 {
     # Return the argument list that the Cleanup function should
     # expect after the dbh, fix and quiet aguments.
-    # Eample:   <album id> [album id] ...
+    # Example:   <album id> [album id] ...
     return "";
 }
 
