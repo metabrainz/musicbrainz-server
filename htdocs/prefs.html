@@ -43,6 +43,15 @@ if ($ARGS{"SavePrefs"})
 
 	$saved = eval { UserPreference::SaveForUser($ui->Current) };
 
+	# Volatile debugging preferences
+	if (&DBDefs::DB_STAGING_SERVER) {
+		for (qw(
+			no_inline_mods
+		)) {
+			$session{$_} = $ARGS{$_} ? 1 : 0;
+		}
+	}
+
 	if (not $saved)
 	{
 		my $err = $@;
@@ -136,6 +145,15 @@ $time = time();
 			>
 		Show the "No Vote" option
 	</p>
+
+% if (&DBDefs::DB_STAGING_SERVER) {
+	<p>
+		<input type="checkbox" name="no_inline_mods"
+			<% $session{no_inline_mods} ? "checked" : "" %>
+			>
+		Don't show 'inline' moderations
+	</p>
+% }
 
 	<h2>E-Mailing Other Moderators</h2>
 
