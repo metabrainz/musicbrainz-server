@@ -29,12 +29,16 @@ package MusicBrainz::Server::Cache;
 
 use Carp qw( carp );
 
-use constant DEBUG => 0;
-
 our $cache;
 
 # Preload if possible
 $cache = _new();
+
+if ($cache and &DBDefs::CACHE_DEBUG)
+{
+	my @keys = $cache->get_keys;
+	printf STDERR "Starting cache with %d entries\n", 0+@keys;
+}
 
 sub _new
 {
@@ -44,16 +48,7 @@ sub _new
 		require Cache::SizeAwareFileCache;
 		require Storable;
 		Storable->import(qw( freeze thaw ));
-		$cache = Cache::SizeAwareFileCache->new({
-			# standard options
-			auto_purge_interval	=> '10 min',
-			default_expires		=> '1 hour',
-			# file options
-			cache_root			=> &DBDefs::CACHE_DIR,
-			directory_umask		=> 0077,
-			# sizeaware options
-			max_size			=> 100_000,
-		});
+		$cache = Cache::SizeAwareFileCache->new(&DBDefs::CACHE_OPTIONS);
 	} or do {
 		warn "Failed to create cache: $@"
 			if $@ ne "";
@@ -72,12 +67,12 @@ sub get
 	my $data = $cache->get($key, @args);
 	if (not $data)
 	{
-		carp "Cache MISS on $key" if DEBUG;
+		carp "Cache MISS on $key" if &DBDefs::CACHE_DEBUG;
 		return undef;
 	}
 
 	$data = thaw($data);
-	if (DEBUG)
+	if (&DBDefs::CACHE_DEBUG)
 	{
 		#use Data::Dumper;
 		#local $Data::Dumper::Terse = 1;
@@ -104,7 +99,7 @@ sub set
 	my $cache = $class->_new
 		or return undef;
 
-	if (DEBUG)
+	if (&DBDefs::CACHE_DEBUG)
 	{
 		#use Data::Dumper;
 		#local $Data::Dumper::Terse = 1;
@@ -132,7 +127,7 @@ sub remove
 	my ($class, $key) = @_;
 	my $cache = $class->_new
 		or return undef;
-	carp "Cache REMOVE $key" if DEBUG;
+	carp "Cache REMOVE $key" if &DBDefs::CACHE_DEBUG;
 	$cache->remove($key);
 }
 
