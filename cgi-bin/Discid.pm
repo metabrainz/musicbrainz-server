@@ -133,23 +133,12 @@ sub GenerateAlbumFromDiscid
 sub GetAlbumFromDiscid
 {
     my ($this, $id) = @_;
-    my ($rv, $sql);
- 
-    $sql = Sql->new($this->{DBH});
-    $id = $sql->Quote($id);
-    ($rv) = $sql->GetSingleRow("Discid", ["album"], ["disc", $id]);
- 
-    return $rv;
-}
+    my $sql = Sql->new($this->{DBH});
 
-sub GetAlbumAndIdFromDiscid
-{
-    my ($this, $id) = @_;
-    my ($sql);
- 
-    $sql = Sql->new($this->{DBH});
-    $id = $sql->Quote($id);
-    return $sql->GetSingleRow("Discid", ["album", "id"], ["disc", $id]);
+	$sql->SelectSingleValue(
+		"SELECT album FROM discid WHERE disc = ?",
+		$id,
+	);
 }
 
 sub GetDiscidFromAlbum
