@@ -391,6 +391,7 @@ sub SendVerificationEmail
 	$smtp->datasend("Subject: email address verification\n");
     $smtp->datasend("Content-Type: text/plain; charset=utf-8\n");
     $smtp->datasend("Content-Transfer-Encoding: quoted-printable\n");
+    $smtp->datasend("Mime-Version: 1.0\n");
 	$smtp->datasend("\n");
 	$text = "This is the email confirmation for your MusicBrainz account.\n";
 	$text .= "Please click on the link below to verify your email address:\n\n";
@@ -405,7 +406,7 @@ sub SendVerificationEmail
 	$text .= "Thanks for using MusicBrainz!\n\n";
 	$text .= "-- The MusicBrainz Team\n\n";
 
-    $text = encode_qp(encode("utf-8", $text));
+    $text = encode_qp($text);
 	$smtp->datasend($text);
 
 	$ret = $smtp->dataend() ? undef : "Failed to send mail. Please try again later.";
@@ -425,7 +426,7 @@ sub SendEMail
     $safe_from = $from;
     $safe_from =~ s/\W/?/;
 
-    $text = encode_qp(encode("utf-8", $text));
+    $text = encode_qp($text);
 
 	my $smtp = Net::SMTP->new(&DBDefs::SMTP_SERVER);
 	return "Could not send mail. Please try again later." unless $smtp;
@@ -442,13 +443,14 @@ sub SendEMail
 	$smtp->datasend("Subject: $subject\n");
     $smtp->datasend("Content-Type: text/plain; charset=utf-8\n");
     $smtp->datasend("Content-Transfer-Encoding: quoted-printable\n");
+    $smtp->datasend("Mime-Version: 1.0\n");
 	$smtp->datasend("\n");
 	$smtp->datasend("$text\n\n");
 	$smtp->datasend("------------------------------------------------------------------------\n");
 	$smtp->datasend("Please do not respond to this email.\n");
     if ($from_uid)
     {
-          $smtp->datasend("If you would like to send mail to moderator $from,");
+          $smtp->datasend(encode_qp("If you would like to send mail to moderator $from,"));
           $smtp->datasend(" please use the link below:\n");
 	
           $url = "http://" . &DBDefs::WEB_SERVER . 
