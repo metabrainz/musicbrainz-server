@@ -33,7 +33,7 @@ use vars qw(@ISA @EXPORT);
 use constant DSN 	=>	'dbi:mysql:musicbrainz';
 
 # Insert the user name that has access to the database listed above
-use constant DB_USER 	=>	'cdindex';
+use constant DB_USER 	=>	'musicbrainz';
 # Insert the password of the user from above
 use constant DB_PASSWD 	=>	'';
 
