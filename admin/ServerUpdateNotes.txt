@@ -1,28 +1,6 @@
-I Server update tasks
----------------------
+Server Update Tasks
+-------------------
 
-Update the moderator table with the following query:
-
-alter table moderator add column emailconfirmdate timestamp with time zone;
-alter table moderator add column lastlogindate timestamp with time zone;
-
-Add triggers to handle MOD_MOVE_DISCID like so:
-
-create trigger a_upd_discid_1 after update on discid 
-               for each row execute procedure decrement_discid_count();
-
-create trigger a_upd_discid_2 after update on discid 
-               for each row execute procedure increment_discid_count();
-
-(Ideally albummeta should be re-calculated)
-
-Old notes:
-----------
-
-- admin/sql/MoreTimezones20030401.sql (not very important, and quite slow.
-  optional)
-- admin/sql/WordTables20030321.sql
-- admin/build_words.pl
-
-- add admin/cron/weekly.sh to a crontab (doesn't necessarily need to be root)
+Create the moderator_preference table: see CreateTables.sql and
+CreateFKConstraints.sql
 
