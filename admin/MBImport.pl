@@ -33,7 +33,7 @@ sub ImportTable
 
     print "Importing table $name..\n";
 
-    $cmd = "mysqlimport musicbrainz $dir/$name"; 
+    $cmd = "mysql musicbrainz < $dir/$name"; 
     $ret = system($cmd) >> 8;
 
     return !$ret;
