@@ -131,6 +131,10 @@ if (!defined($result))
                        mb=>$mb,
                        query=>"select count(*) from Votes where vote = -1", 
                        title=>"&nbsp;&nbsp;&nbsp;Abstain Votes:");
+    $result .= '<tr><td>&nbsp;<br><font class="bold">';
+    $result .= 'Last 30 Days Graph</font></td></tr>';
+    $result .= '<tr><td><br><img src="/images/stats_30_days.png"></td></tr>';
+
     $mb->Logout();
     $m->cache(action=>'store', expire_next=>'hour', value=>$result);
 }
