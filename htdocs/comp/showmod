@@ -30,11 +30,11 @@ $time =~ s/:\d\d\..*$//;
    <td width=37% valign=top bgcolor=white class="body">
      <% $mod->ShowModType() |n %> 
    </td>
-   <td width=30% align=center valign=top valign=top bgcolor=white class="body">
+   <td width=30% align=center valign=top valign=top bgcolor=white class="body" NOWRAP>
      <% $mod->GetYesVotes() |n %> yes,
      <% $mod->GetNoVotes() |n %> no
      &nbsp;&nbsp; 
-     <a href="#" onClick="MyWindow=window.open('mod/addnote.html?modid=<% $mod->GetId() %>&uid=<% $session{uid} %>','AddNote','toolbar=no,location=no,directories=no,status=no,menubar=no,scrollbars=yes,resizable=yes,width=400,height=150'); return false;"><img align="center" src="/images/note.gif" border="0" alt="Add a note"></a>
+     [ <a href="#" onClick="MyWindow=window.open('mod/addnote.html?modid=<% $mod->GetId() %>&uid=<% $session{uid} %>','AddNote','toolbar=no,location=no,directories=no,status=no,menubar=no,scrollbars=yes,resizable=yes,width=400,height=150'); return false;">Add note</a> ]
 % if ($session{uid} == $mod->GetModerator() &&
 %     $mod->GetStatus() == ModDefs::STATUS_OPEN) {
      <a href="/removemod.html?modid=<% $mod->GetId() %>"><img 

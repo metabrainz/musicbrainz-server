@@ -79,7 +79,11 @@ if (scalar(@ids) > 0)
 % if (exists $session{user} && !$nomod) {
   <table width="100%"><tr><td align="center">
 %    if (!$album->IsNonAlbumTracks()) {
-         [ <a href="/addtrack.html?album=<% $album->GetId() %>&artist=<% $album->GetArtist() %>">Add a missing track</a> | 
+         [
+% print STDERR "$id_numtracks -- $numtracks\n";
+%        if (!defined $id_numtracks || $id_numtracks > $numtracks) {
+             <a href="/addtrack.html?album=<% $album->GetId() %>&artist=<% $album->GetArtist() %>">Add track</a> | 
+%        }
            <a href="/movealbum.html?album=<% $album->GetId() %>&artist=<% $album->GetArtist() %>">Move</a> 
 %            if ($album->GetArtist() != ModDefs::VARTIST_ID) {
               | <a href="/tomac.html?album=<% $album->GetId() %>&artist=<% $album->GetArtist() %>&track=1">Convert to multiple artists</a>
