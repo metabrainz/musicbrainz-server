@@ -10,16 +10,17 @@ my $voted = $mod->GetVote;
 $voted = &ModDefs::VOTE_NOTVOTED
 	unless defined $voted;
 
-my $expired = ($mod->GetExpired ? "d" : "s");
+my $is_open = ($mod->GetStatus == &ModDefs::STATUS_OPEN);
+my $is_mine = ($mod->GetModerator == $session{uid});
 
-my $time = $mod->GetExpireTime;
+my $time = ($is_open ? $mod->GetExpireTime : $mod->GetCloseTime);
 $time = $m->comp("/comp/datetime", $time);
 
 # Rough sketch of the layout of a moderation row:
 
 # ======orange===bar================================================================+
-# By: modname   ID: #####    | Type: mod type...     |                              |
-# Expire[sd]: yyyymmdd.....  | Artist: name...       | [ Add note | Send email ] AX |
+# By: modname   ID: #####    | Type: mod type...     |        1 yes, 1 no           |
+# Expire[sd]: yyyymmdd.....  | Artist: name...       | [ Add note | Send email | Delete mod ] A |
 # ---------------------------+-----------------------+------------------------------+
 # previous value shown here  | New value shown here  |  [X] Yes [X] No [X] Abstain  |
 # ======orange===bar================================================================+
@@ -39,28 +40,28 @@ $time = $m->comp("/comp/datetime", $time);
      &nbsp;&nbsp;&nbsp;
      ID: <a href="/showmod.html?modid=<% $mod->GetId %>"
         title="View moderation detail"><% $mod->GetId %></a><br> 
-     Expire<% $expired %>: <% $time %>
+% if ($is_open) {
+     <% $mod->GetExpired ? "Expired" : "Expires" %>: <% $time %>
+% } else {
+     Closed: <% $time %>
+% }
    </td>
    <td width="37%" valign=top bgcolor=white class="body">
 %			# This shows the moderation type and artist
 %			$mod->ShowModType($m);
    </td>
    <td width="30%" align=center valign=top valign=top bgcolor=white class="body" NOWRAP>
-%    if ($session{uid} == $mod->GetModerator || 
-%        $mod->GetStatus != &ModDefs::STATUS_OPEN
-%    ) {
-           <% $mod->GetYesVotes %> yes,
-           <% $mod->GetNoVotes %> no
-           &nbsp;&nbsp; 
+%    if ($is_mine or not $is_open) {
+           <% $mod->GetYesVotes %> yes, <% $mod->GetNoVotes %> no
 %    }
-     <br>[ <a href="/mod/addnote.html?modid=<% $mod->GetId %>" onclick="MyWindow=window.open('/mod/addnote.html?modid=<% $mod->GetId %>','AddNote','toolbar=no,location=no,directories=no,status=no,menubar=no,scrollbars=yes,resizable=yes,width=400,height=150'); return false;">Add note</a> |
-     <a href="/user/mod_email.html?uid=<% $mod->GetModerator %>&amp;modid=<% $mod->GetId %>&amp;url=<% $r->uri . "?" . $r->args %>">Send email</a> ]
-% if ($session{uid} == $mod->GetModerator &&
-%     $mod->GetStatus == &ModDefs::STATUS_OPEN) {
-     <a href="/removemod.html?modid=<% $mod->GetId %>"><img 
-        src="/images/remove.gif" alt="remove" title="Remove this moderation"
-        border="0" height="16" width="16" align="center"></a>
+     <br>[ <a href="/mod/addnote.html?modid=<% $mod->GetId %>" onclick="MyWindow=window.open('/mod/addnote.html?modid=<% $mod->GetId %>','AddNote','toolbar=no,location=no,directories=no,status=no,menubar=no,scrollbars=yes,resizable=yes,width=400,height=150'); return false;">Add note</a>
+% if (not $is_mine) {
+			| <a href="/user/mod_email.html?uid=<% $mod->GetModerator %>&amp;modid=<% $mod->GetId %>&amp;url=<% url_escape($r->uri . "?" . $r->args) %>">Send email</a>
 % }
+% if ($is_mine and $is_open) {
+			| <a href="/removemod.html?modid=<% $mod->GetId %>">Delete mod</a>
+% }
+			]
 % if ($mod->GetAutomod) {
      <img src="/images/automod.png" alt="automod" 
           title="This is an automod moderation" border="0" height="16" 
@@ -85,7 +86,7 @@ $time = $m->comp("/comp/datetime", $time);
 			<% MusicBrainz::Server::Vote->GetVoteName($voted) %><br>
 % }
 
-% if ($session{uid} != $mod->GetModerator and $mod->GetStatus == &ModDefs::STATUS_OPEN) {
+% if (not $is_mine and $is_open) {
      <& /mod/voting-buttons.inc, mod => $mod &>
 % } else {
      <% $mod->GetChangeName %>
