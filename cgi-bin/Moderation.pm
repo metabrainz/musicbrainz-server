@@ -53,6 +53,7 @@ use constant MOD_MOVE_ALBUM              => 8;
 use constant MOD_SAC_TO_MAC              => 9;
 use constant MOD_CHANGE_TRACK_ARTIST     => 10;
 use constant MOD_REMOVE_TRACK            => 11;
+use constant MOD_REMOVE_ALBUM            => 12;
 
 use constant STATUS_OPEN                 => 1;
 use constant STATUS_APPLIED              => 2;
@@ -72,7 +73,8 @@ my %ModNames = (
     "8" => "Move Album",
     "9" => "Convert to Multiple Artists",
     "10" => "Change Track Artist",
-    "11" => "Remove Track"
+    "11" => "Remove Track",
+    "12" => "Remove Album"
 );
 
 my %ChangeNames = (
@@ -436,6 +438,10 @@ sub ApplyModification
    {
        return ApplyRemoveTrackModification($this, $rowid);
    }
+   elsif ($type == MOD_REMOVE_ALBUM)
+   {
+       return ApplyRemoveAlbumModification($this, $rowid);
+   }
 
    return STATUS_ERROR;
 }
@@ -782,6 +788,47 @@ sub ApplyRemoveTrackModification
         }
 
         $status = STATUS_APPLIED;
+   }
+   $sth->finish;
+
+   return $status;
+}
+
+sub ApplyRemoveAlbumModification
+{
+   my ($this, $rowid) = @_;
+   my ($sth, @row, $trackid);
+   my ($status);
+
+   $status = STATUS_ERROR;
+   $sth = $this->{DBH}->prepare(qq/select rowid from Changes 
+                                   where id = $rowid/);
+   if ($sth->execute && $sth->rows)
+   {
+        my $album;
+
+        @row = $sth->fetchrow_array;
+        $album = $row[0];
+
+        # Check to see if there are any tracks in this album. If so,
+        # don't delete the album -- set it to failed dependency
+        $sth->finish;
+        $sth = $this->{DBH}->prepare(qq/select count(*) from AlbumJoin
+                                     where album = $album/); 
+        if ($sth->execute && $sth->rows)
+        {
+            @row = $sth->fetchrow_array;
+
+            if ($row[0] > 0)
+            {
+                $status = STATUS_FAILEDDEP;
+            }
+            else
+            {
+                $this->{DBH}->do(qq/delete from Album where id = $album/);
+                $status = STATUS_APPLIED;
+            }
+        }
    }
    $sth->finish;
 

@@ -18,7 +18,8 @@ elsif ($type == Moderation::MOD_ADD_TRACK)
     mc_out("Album: <a href=\"/showalbum.html?albumid=$id\">$prev</a>");
 }
 elsif ($type == Moderation::MOD_EDIT_ALBUMNAME ||
-       $type == Moderation::MOD_SAC_TO_MAC)
+       $type == Moderation::MOD_SAC_TO_MAC ||
+       $type == Moderation::MOD_REMOVE_ALBUM)
 {
     mc_out("Old: <a href=\"/showalbum.html?albumid=$id\">$prev</a>");
 }
@@ -32,9 +33,8 @@ elsif ($type == Moderation::MOD_EDIT_TRACKNUM)
 }
 elsif ($type == Moderation::MOD_REMOVE_TRACK)
 {
-    my $temp = $prev;
-    $temp =~ s/\n.*$//s;
-    mc_out("Old: <a href=\"/bare/showtrack.html?albumjoinid=$id\">$temp</a>");
+    my ($name, $id) = split /\n/, $prev;
+    mc_out("Old: <a href=\"/showalbum.html?albumid=$id\">$name</a>");
 }
 elsif ($type == Moderation::MOD_MOVE_ALBUM ||
        $type == Moderation::MOD_CHANGE_TRACK_ARTIST)

@@ -11,14 +11,17 @@ $hilitecolor=>""
 
 my ($i, $track, @info, $tr, $ly, $lyricspresent);
 
+$tr = Track->new($mb);
+$ly = Lyrics->new($mb);
+@info = $tr->GetTracksFromMultipleArtistAlbumId($albumid);
+
 mc_comp("/comp/albumbegin", 
         albumid=>$albumid, 
         title=>$albumname,
         artist=>0,
-        modpending=>$modpending);
-$tr = Track->new($mb);
-$ly = Lyrics->new($mb);
-@info = $tr->GetTracksFromMultipleArtistAlbumId($albumid);
+        modpending=>$modpending,
+        showdel=>(scalar(@info) == 0));
+
 for($i = 0;; $i++)
 {
     $track = $info[$i]; 

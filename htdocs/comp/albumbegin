@@ -3,6 +3,7 @@ $albumid
 $title
 $artist
 $modpending
+$showdel
 </%args>
 
 <table border="0" cellpadding="0" cellspacing="0"
@@ -20,8 +21,10 @@ $modpending
         </td>
 % if (exists $session{user}) {
         <td width=15% bgcolor="#FFBA58" align=center>
-          <a href="/editalbum.html?id=<% $albumid %>&artist=<% $artist %>">
-          <B><FONT color=black>Edit</FONT></B></a>
+          <a href="/editalbum.html?id=<% $albumid %>&artist=<% $artist %>">Edit</a>
+%       if ($showdel) {
+           | <a href="/remalbum.html?album=<% $albumid %>&artist=<% $artist %>">Del</a>
+%       }
         </td>
 % }
   </tr>
