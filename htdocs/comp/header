@@ -51,7 +51,7 @@ my $mtime_print = (stat(&DBDefs::HTDOCS_ROOT . "/css/print.css"))[9] || 0;
 % }
 
 % unless ($nosidebar) {
-<table cellpadding="0" cellspacing="0" border="0">
+<table cellpadding="0" cellspacing="0" border="0" width="100%">
 <tr>
    <td width="141" class="SideBarCell" valign="top">
 % }
