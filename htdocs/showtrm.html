@@ -35,7 +35,7 @@ else
               @albums = $album->GetAlbumIdsFromTrackId($trackid);
               foreach $albumid (@albums)
               {
-                 $album->SetId($albumid->{id});
+                 $album->SetId($albumid);
                  if ($album->LoadFromId())
                  {
                     $artist->SetId($album->GetArtist());
