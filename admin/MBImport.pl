@@ -54,7 +54,7 @@ sub ImportTable
     {
         $cmd = "pg_restore -U $dbuser -S postgres -O -a -t $name -d $dbname $dir/$name"; 
 
-	printf "%s: %s\n", scalar(localtime), $cmd;
+		printf "%s: %s\n", scalar(localtime), $cmd;
         my $ret = system($cmd) >> 8;
 
         return !$ret;
@@ -75,11 +75,11 @@ sub ImportAllTables
     ImportTable("album", $dir);
     ImportTable("track", $dir);
     ImportTable("albumjoin", $dir);
+    ImportTable("clientversion", $dir);
     ImportTable("trm", $dir);
     ImportTable("trmjoin", $dir);
     ImportTable("discid", $dir);
     ImportTable("toc", $dir);
-    ImportTable("clientversion", $dir);
     ImportTable("albummeta", $dir);
 
     ImportTable("moderator", $dir);
