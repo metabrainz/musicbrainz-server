@@ -697,10 +697,10 @@ sub GetModerationList
 		$mod->SetNew($r->{newvalue});
 		$mod->SetYesVotes($r->{yesvotes});
 		$mod->SetNoVotes($r->{novotes});
-		# depmod
+		$mod->SetDepMod($r->{depmod});
 		$mod->SetAutomod($r->{automod});
-		# opentime
-		# closetime
+		$mod->SetOpenTime($r->{opentime});
+		$mod->SetCloseTime($r->{closetime});
 		$mod->SetExpireTime($r->{expiretime});
 
 		$mod->SetExpired($r->{expired});
