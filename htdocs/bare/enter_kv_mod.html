@@ -64,7 +64,7 @@ if (!exists $ARGS{confirm0} || $ARGS{confirm0} eq 'yes')
                $mod->SetModerator($session{uid});
                $mod->SetDepMod(0);
 
-               eval
+               my $ret = eval
                {
                    $sql->Begin;
            
@@ -85,7 +85,7 @@ if (!exists $ARGS{confirm0} || $ARGS{confirm0} eq 'yes')
                            mc_out("Unknown error.\n");
                        }
                        mc_comp("/comp/footer");
-                       return undef;
+                       return 0;
                    }
            
                    # And now determine if there are any dependencies
@@ -109,6 +109,8 @@ if (!exists $ARGS{confirm0} || $ARGS{confirm0} eq 'yes')
                    $modid = $mod->InsertModeration($session{privs});
            
                    $sql->Commit;
+
+                   return 1;
                };
                if ($@)
                {
@@ -121,6 +123,7 @@ if (!exists $ARGS{confirm0} || $ARGS{confirm0} eq 'yes')
                    mc_comp("/comp/footer");
                    return undef;
                }
+               return undef if ($ret == 0);
            }
        }
        else

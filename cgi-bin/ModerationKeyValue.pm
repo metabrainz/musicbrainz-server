@@ -455,7 +455,7 @@ sub DetermineDependencies
 sub PreVoteAction
 {
    my ($this) = @_;
-   my ($nw, %info, @tracks, $track, $i, $in, $key);
+   my ($nw, %info, @tracks, $track, $i, $in, $key, $notinserted, $inserted);
 
    $nw = $this->ConvertNewToHash($this->{new});
    return undef if (!defined $nw);
@@ -481,6 +481,7 @@ sub PreVoteAction
    }
    $info{tracks} = \@tracks;
 
+   $inserted = $notinserted = 0;
    $in = Insert->new($this->{DBH});
    if (defined $in->Insert(\%info))
    {
@@ -490,6 +491,11 @@ sub PreVoteAction
            {
                $nw->{"TrackId"} = $track->{track_insertid};
                $this->{rowid} = $track->{track_insertid};
+               $inserted++;
+           }
+           else
+           {
+               $notinserted++;
            }
 
            if (exists $track->{artist_insertid})
@@ -500,6 +506,11 @@ sub PreVoteAction
 
        $this->{new} = $this->ConvertHashToNew($nw);
 
+       if ($inserted == 0 || $notinserted > 0)
+       {
+           $this->{error} = "One or more tracks were not inserted -- possible duplicate track.";
+           return 0;
+       }
        return 1;
    }
    else
