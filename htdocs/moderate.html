@@ -1,8 +1,8 @@
 %# vi: set ts=4 sw=4 ft=mason :
 <%args>
 $type => &ModDefs::TYPE_NEW
-$offset => 0
-$page => 0
+$offset => undef
+$page => undef
 $artistid => 0
 $albumid => 0
 $moderator => $session{uid}
@@ -14,9 +14,11 @@ $m->comp("/comp/checkloggedin", 1, 1)
 
 MusicBrainz::IsNonNegInteger($type) && $type && $type <= &ModDefs::TYPE_MAX
 	or return $m->comp("/comp/badargs", 1, 1);
-MusicBrainz::IsNonNegInteger($offset)
+not defined $offset
+	or MusicBrainz::IsNonNegInteger($offset)
 	or return $m->comp("/comp/badargs", 1, 1);
-MusicBrainz::IsNonNegInteger($page)
+not defined $page
+	or MusicBrainz::IsNonNegInteger($page)
 	or return $m->comp("/comp/badargs", 1, 1);
 
 MusicBrainz::IsNonNegInteger($artistid) && $artistid
