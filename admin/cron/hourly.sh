@@ -1,12 +1,19 @@
 #!/bin/sh
 
-cd ..
+mb_server=`dirname $0`/../..
+eval `$mb_server/admin/ShowDBDefs`
+. $mb_server/admin/config.sh
+cd $mb_server
 
-# Hmmm, ugly.  Alternatively, just add a crontab entry like so:
-# 0 * * * * MAILTO="rob@eorbit.net,djce@musicbrainz.org" ./CheckVotes.pl
-ADMINS="rob@eorbit.net djce@musicbrainz.org"
+. ./admin/functions.sh
+make_temp_dir
+
 OUTPUT=`
-	./CheckVotes.pl --verbose --summary 2>&1
-` || ( echo "$OUTPUT" | mail -s "ModBot output" $ADMINS )
+	./admin/CheckVotes.pl --verbose --summary 2>&1
+` || ( echo "$OUTPUT" | mail -s "ModBot output" $ADMIN_EMAILS )
 
-./RemoveOldSessions > /dev/null
+./admin/RemoveOldSessions > /dev/null
+
+./admin/RunExport
+
+# eof
