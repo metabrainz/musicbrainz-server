@@ -541,7 +541,7 @@ sub ShowModType
    my ($out, $type);
 
    $type = $this->GetType();
-   $out = '<span class="bold">' . GetModificationName($type) . "</span> ";
+   $out = 'Type: <span class="bold">' . GetModificationName($type) . "</span> ";
    if ($type == ModDefs::MOD_MOVE_ALBUM) 
    {
       my ($al, $album);

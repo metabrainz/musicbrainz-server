@@ -71,6 +71,8 @@ sub ImportAllTables
     }
 
     print "\nImported tables successfully.\n";
+    print "\nNow you will need to run build_words.pl to build the\n";
+    print "text search indexes.\n";
 
     return 1;
 }

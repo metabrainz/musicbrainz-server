@@ -11,12 +11,18 @@ if (!exists $ARGS{artist} || $ARGS{artist} eq '')
     return;
 }
 
+$artist = $ARGS{artist};
+if ($artist <= 2)
+{
+    mc_out("This artist cannot be deleted.");
+    return;
+}
+
 $referer = $r->headers_in->{'Referer'};
 $mb = new MusicBrainz;
 $mb->Login();
 $ar = Artist->new($mb->{DBH});
 
-$artist = $ARGS{artist};
 $ar->SetId($artist);
 $ar->LoadFromId();
 $artistname = $ar->GetName();
