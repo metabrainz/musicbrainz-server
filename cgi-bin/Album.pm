@@ -372,6 +372,9 @@ sub LoadFromId
         $this->{artist} = $row[4]; 
         $row[5] =~ s/^\{(.*)\}$/$1/;
         $this->{attrs} = [ split /,/, $row[5] ];
+
+	delete @$this{qw( trackcount discidcount trmidcount )};
+
         if (defined $loadmeta && $loadmeta)
         {
             $this->{trackcount} = $row[6];
