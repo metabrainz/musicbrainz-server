@@ -49,8 +49,7 @@ sub SetSequence
     eval
     {
         $sql->Begin;
-        $sql->Do("drop sequence $seq");
-        $sql->Do("create sequence $seq start $max");
+        $sql->SelectSingleValue("SELECT SETVAL(?, ?)", $seq, $max);
         $sql->Commit;
     
         print "Set sequence $seq to $max.\n";
