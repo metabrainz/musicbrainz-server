@@ -74,8 +74,6 @@ The MusicBrainz server requires the following items:
    String::CRC32
    String::Unicode::Similiarity (see notes below)
    Unicode::String
-   XML::Parser
-   XML::DOM
    RDFStore
    Digest::SHA1
    UUID (requires e2fsprogs)
