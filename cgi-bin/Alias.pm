@@ -86,23 +86,21 @@ sub SetTimesUsed
 
 sub LoadFromId
 {
-   my ($this) = @_;
-   my ($sql, @row);
+    my ($this) = @_;
+    my $sql = Sql->new($this->{DBH});
+   
+    my $row = $sql->SelectSingleRowArray(
+        "SELECT id, name, ref, lastused, timesused
+        FROM artistalias
+        WHERE id = ?",
+        $this->GetId,
+    ) or return undef;
 
-   $sql = Sql->new($this->{DBH});
-   @row = $sql->GetSingleRow($this->{table}, [qw(id name ref 
-                                                 lastused timesused)],
-                             ["id", $this->GetId()]);
-   if (defined $row[0])
-   {
-        $this->{id} = $row[0];
-        $this->{name} = $row[1];
-        $this->{rowid} = $row[2];
-        $this->{lastused} = $row[3];
-        $this->{timesused} = $row[4];
-        return 1;
-   }
-   return undef;
+    @$this{qw(
+        id name rowid lastused timesused
+    )} = @$row;
+
+    return 1;
 }
 
 # To insert a new alias, this function needs to be passed the alias id
