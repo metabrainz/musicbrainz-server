@@ -82,6 +82,7 @@ sub Statement
 	} ($st->subject, $st->predicate, $st->object);
 
 	push @{$expat->{__mbtriples__}{$pid}}, [ $sid, $oid ]; 
+	push @{$expat->{__mbtriples1__}{$oid}{$pid}}, $sid; 
 }
 
 sub Extract
@@ -122,22 +123,26 @@ QUERY:
 
 sub FindNodeByType
 {
- 	my ($this, $type, $ordinal) = @_;
-
-	my $pid = $this->{uri}{$type}
-		or return undef;
-
+ 	my ($this, $object, $ordinal) = @_;
 	$ordinal = 1 if not defined $ordinal;
 
-	my $r = $this->{triples}{$pid}
+	my $oid = $this->{uri}{$object}
+		or return undef;
+	my $pid = $this->{uri}{'http://www.w3.org/1999/02/22-rdf-syntax-ns#type'}
+		or return undef;
+
+	my $r = $this->{triples1}{$oid}{$pid}
 		or return;
-	$r->[$ordinal-1];
+	my $sid = $r->[$ordinal-1]
+		or return undef;
+
+	$this->{url2}[$sid];
 }
 
 sub Parse
 {
    my ($this, $rdf) = @_;
-   my (%data, %uri, @uri, @triples, $ref, %baseuri);
+   my (%data, %uri, @uri, @triples, @triples1, $ref, %baseuri);
 
    $baseuri{uri} = "";
    my $parser=new RDFStore::Parser::SiRPAC( 
@@ -149,6 +154,7 @@ sub Parse
        $parser->{__mburi__} = \%uri;
        $parser->{__mburi2__} = \@uri;
        $parser->{__mbtriples__} = \@triples;
+       $parser->{__mbtriples1__} = \@triples1;
        $parser->{__baseuri__} = \%baseuri;
        $parser->parse($rdf);
    };
@@ -165,6 +171,7 @@ sub Parse
    $this->{uri} = \%uri;
    $this->{uri2} = \@uri;
    $this->{triples} = \@triples;
+   $this->{triples1} = \@triples1;
    $this->{baseuri} = $baseuri{uri};
 
    return 1;
