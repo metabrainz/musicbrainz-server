@@ -75,7 +75,6 @@ sub GenerateAlbumFromDiskId
             @albums = $di->FindFuzzy($numtracks, $toc);
             if (scalar(@albums) > 0)
             {
-                print STDERR "Found fuzzy\n";
                 return $rdf->CreateAlbum(1, @albums);
             }
             else
@@ -88,12 +87,10 @@ sub GenerateAlbumFromDiskId
                 $album = $fd->Lookup($id, $toc);
                 if (defined $album && $album > 0)
                 {
-                    print STDERR "Found at freedb.org\n";
                     return $rdf->CreateAlbum(0, $album);
                 }
                 else
                 {
-                    print STDERR "no go!\n";
                     # No Dice. This CD cannot be found!
                     return $rdf->CreateStatus(0);
                 }

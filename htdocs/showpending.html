@@ -18,4 +18,4 @@ if (!exists $ARGS{guid} || $ARGS{guid} eq '')
 
 <& /comp/showpendingpage, offset=>$offset, guid=>$guid &>
 <& /comp/title, title=>'Pending Archive Metadata' &>
-<& /comp/showpendingpage, offset=>0, guid=>$ARGS{guid}, archive=>1 &>
+<& /comp/showpendingpage, offset=>0, guid=>$ARGS{guid} &>

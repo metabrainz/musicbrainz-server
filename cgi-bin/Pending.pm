@@ -102,16 +102,15 @@ sub Insert
 
 sub GetPendingList
 {
-   my ($this, $offset, $max_items, $guid, $archive) = @_;
+   my ($this, $offset, $max_items, $guid) = @_;
    my ($sth, $num_pending, @info, $sql, $query); 
 
    $sql = Sql->new($this->{DBH});
    $guid = $sql->Quote($guid);
 
-   $archive = (defined $archive && $archive) ? "Archive" : "";
    if (!defined $guid || $guid eq '')
    {
-       ($num_pending) = $sql->GetSingleRow("Pending$archive", 
+       ($num_pending) = $sql->GetSingleRow("Pending", 
                                            ["count(*)"], []);
                     
        $query = qq/select guid, artist, album, name,
@@ -120,7 +119,7 @@ sub GetPendingList
    }
    else
    {
-       ($num_pending) = $sql->GetSingleRow("Pending$archive", 
+       ($num_pending) = $sql->GetSingleRow("Pending", 
                                            ["count(*)"], 
                                            ["guid", $guid]);
 

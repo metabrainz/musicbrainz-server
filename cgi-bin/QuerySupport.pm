@@ -501,7 +501,7 @@ sub ExchangeMetadata
    my ($dbh, $doc, $rdf, @data) = @_;
    my (@ids, $id, $gu, $pe, $tr, $rv, $ar);
 
-   PrintData("Incoming:", @data);
+   #PrintData("Incoming:", @data);
 
    if (!DBDefs::DB_READ_ONLY)
    {
@@ -546,7 +546,7 @@ sub ExchangeMetadata
                   $data[$i] = $db_data[$i] 
               }
            }
-           PrintData("Matched database (outgoing):", @data);
+           #PrintData("Matched database (outgoing):", @data);
        }
    }
 
@@ -559,7 +559,6 @@ sub CheckMetadata
    my ($artistid, $albumid, @db_data);
    my ($ar, $al, $tr, $gu, $trackid, $id);
 
-   print STDERR "GLOM: checking ------------\n";
    $ar = Artist->new($dbh);
    $al = Album->new($dbh);
    $tr = Track->new($dbh);
@@ -572,11 +571,11 @@ sub CheckMetadata
        # Is the data in the pending row we have the same as the data
        # that was just passed in?
        @db_data = $pe->GetData($id);
-       print STDERR "'$$data[0]' == '$db_data[0]'\n";
-       print STDERR "'$$data[1]' == '$db_data[1]'\n";
-       print STDERR "'$$data[2]' == '$db_data[2]'\n";
-       print STDERR "'$$data[3]' == '$db_data[3]'\n";
-       print STDERR "'$$data[12]' == '$db_data[12]'\n";
+       #print STDERR "'$$data[0]' == '$db_data[0]'\n";
+       #print STDERR "'$$data[1]' == '$db_data[1]'\n";
+       #print STDERR "'$$data[2]' == '$db_data[2]'\n";
+       #print STDERR "'$$data[3]' == '$db_data[3]'\n";
+       #print STDERR "'$$data[12]' == '$db_data[12]'\n";
        if (defined $db_data[0] && defined $$data[0] && 
            $$data[0] eq $db_data[0] && 
            defined $db_data[1] && defined $$data[1] && 
@@ -590,7 +589,6 @@ sub CheckMetadata
        { 
            my @albumids;
 
-           print STDERR "GLOM: data matches, accepting into DB.------------\n";
            $ar->SetName($$data[1]);
            $ar->SetSortName($$data[1]);
            $artistid = $ar->Insert();

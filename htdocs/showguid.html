@@ -53,8 +53,7 @@ else
        mc_comp("/comp/title", title=>'Pending Metadata');
        mc_comp("/comp/showpendingpage", offset=>0, guid=>$ARGS{guid});
        mc_comp("/comp/title", title=>'Pending Archive Metadata');
-       mc_comp("/comp/showpendingpage", offset=>0, 
-               guid=>$ARGS{guid}, archive=>1);
+       mc_comp("/comp/showpendingpage", offset=>0, guid=>$ARGS{guid});
 
        $mb->Logout;
    }

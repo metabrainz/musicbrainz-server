@@ -1,7 +1,6 @@
 <%args>
 $offset=>0
 $guid=>""
-$archive=>0
 </%args>
 
 <%perl>
@@ -17,7 +16,7 @@ $offset = 0 if $offset < 0;
 
 $mb->Login();
 $pe = Pending->new($mb->{DBH});
-($num_mods, @info) = $pe->GetPendingList($offset, $max_items, $guid, $archive);
+($num_mods, @info) = $pe->GetPendingList($offset, $max_items, $guid);
 $mb->Logout();
 
 </%perl>
