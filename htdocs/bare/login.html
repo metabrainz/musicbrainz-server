@@ -24,6 +24,8 @@ elsif (defined $ARGS{User} && $ARGS{User} ne '' &&
     if ($ok)
     {
         $ui->SetSession($user, $privs, $uid, !$email || $confirm);
+		$ui->SetPermanentCookie($ARGS{User}, $ARGS{Password})
+			if $ARGS{PermanentCookie};
     }
 }    
 
