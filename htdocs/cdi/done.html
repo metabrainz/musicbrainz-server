@@ -4,6 +4,7 @@ $id=>""
 $tracks=>0
 $toc=>""
 $freedbid=>""
+$freedbcat=>""
 $artist=>undef
 $artistname=>""
 $sortname=>""
@@ -112,6 +113,7 @@ else
     $new .= "CDIndexId=$id\n" if ($id ne '');
     $new .= "TOC=$toc\n" if ($toc ne '');
     $new .= "FreedbId=$freedbid\n" if ($freedbid ne '');
+    $new .= "FreedbCat=$freedbcat\n" if ($freedbcat ne '');
 
     for (my $i = 0; $i < $tracks; $i++)
     {

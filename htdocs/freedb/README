@@ -37,6 +37,7 @@ POST to /cdi/selectattr.html
 	MAC: artistname0 + sortname0
 
 	freedbid (\w{8})
+	freedbcat (\w+)
 	tracks
 	durations
 

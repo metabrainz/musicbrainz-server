@@ -87,6 +87,7 @@ sub LookupByFreeDBId
     ) or return undef;
 
     $ret->{freedbid} = $id;
+    $ret->{freedbcat} = $cat;
 
     return $ret;
 }

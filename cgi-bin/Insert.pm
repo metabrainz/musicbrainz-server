@@ -27,7 +27,7 @@ use strict;
 
 package Insert;
 
-use ModDefs qw( VARTIST_ID ANON_MODERATOR MOD_ADD_ALBUM );
+use ModDefs qw( VARTIST_ID ANON_MODERATOR MODBOT_MODERATOR MOD_ADD_ALBUM );
 
 sub new
 {
@@ -526,7 +526,13 @@ sub InsertAlbumModeration
 
 		(my $mod) = grep { $_->Type == MOD_ADD_ALBUM } @mods
 			or die;
-          
+
+		$mod->InsertNote(
+			MODBOT_MODERATOR,
+			"Imported from http://www.freedb.org/freedb_search_fmt.php?cat=$opts{FreedbCat}&id=$opts{FreedbId}",
+		)	if defined $opts{"FreedbId"}
+			and defined $opts{"FreedbCat"};
+
 		$sql->Commit;
 
         ($mod->GetArtist, $mod->GetRowId, \@mods);
