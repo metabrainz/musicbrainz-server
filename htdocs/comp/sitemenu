@@ -35,7 +35,7 @@ use Scalar::Util qw( reftype weaken );
 			{ name => "Licensing",				url => "/papers/mb_license.html" },
 		],
 	],
-	{ name => "Products",				url => "/products/index.html" },
+	{ name => "Products",				url => "/download.html" },
 	[
 		{ name => "Download",				url => "/download.html" },
 		[

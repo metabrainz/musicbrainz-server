@@ -1,4 +1,10 @@
 %# vi: set ts=2 sw=2 ft=mason :
+
+%# One day we can put a real page here, but for now let's just to a
+%# pseudo-redirect to the download page.
+<& "/download.html" &>
+% return;
+
 <& /comp/sidebar, title=>'MusicBrainz Products' &>
 
 <p>
@@ -11,8 +17,5 @@
 	the <a href="/products/trmgen/index.html">TRM generator</a>,
 	and how they relate to each other.
 </p>
-
-%# TODO check the licenses for each product - GPL, LGPL etc.
-%# TODO cite the correct CVS module on each download page, e.g. "you want mb_client"
 
 <& /comp/footer &>
