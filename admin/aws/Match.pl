@@ -41,7 +41,11 @@ use SearchEngine;
 use Text::Unaccent;
 use Image::Info qw( image_info );
 
-use constant MAX_PAGES_PER_ARTIST => 100;
+# This is a fairly important value, set it too low and you won't match all albums when an artist
+# has 10 * pages albums.  Set it too high and it can take a long time to go through all the pages 
+# for an artist with lots of matches, i.e. Artist = "W"
+# I'm picking 25 because of artists like Tangerine Dream who have a ton of albums (205 results)
+use constant MAX_PAGES_PER_ARTIST => 25;
 
 use constant MODE_FIND       => 1;
 use constant MODE_UPDATE     => 2;
