@@ -244,40 +244,6 @@ sub GetSingleRow
 	return undef;
 }
 
-# This function is just like GetSingleRow, but the first pair or
-# where clause items is compared with ILIKE, and not a simple =
-sub GetSingleRowLike
-{
-	my ($this, $tab, $cols, $where) = @_;
-	my (@row, $query, $count);
-
-	$query = "select " . join(", ", @$cols) . " from $tab";
-	if (scalar(@$where) > 0)
-	{
-		for($count = 0; scalar(@$where) > 1; $count++)
-		{
-			if ($count == 0)
-			{
-				$query .= " where " . (shift @$where) . " ilike " .
-					(shift @$where);
-			}
-			else
-			{
-				$query .= " and " . (shift @$where) . " = " .
-					(shift @$where);
-			}
-		}
-	}
-	if ($this->Select($query))
-	{
-		@row = $this->NextRow;
-		$this->Finish;
-
-		return @row;
-	}
-	return undef;
-}
-
 sub GetLastInsertId
 {
 	my ($this, $table) = @_;
