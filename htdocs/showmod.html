@@ -3,50 +3,27 @@
 $modid=>0
 </%args>
 
+<& /comp/sidebar, title=> "Moderation #$modid" &>
+
 <%perl>
 
-my ($mb); 
-my ($mod); 
+$m->comp("/comp/checkloggedin", 0, 1)
+	or return;
 
-if ($modid == 0) 
-{
-    mc_comp("/comp/sidebar", title=>"Error");
-    mc_comp("/comp/badargs");
-    return undef;
-}
+MusicBrainz::IsNonNegInteger($modid) && $modid
+	or return $m->comp("/comp/badargs", 0, 1);
 
-if (!defined $session{user} || $session{user} eq '' || 
-    !defined $session{uid} || $session{uid} == 0) {
-    </%perl>
-    <& /comp/sidebar, title=>'Login Required', expand=>'moderate' &>
-    <center>
-    <span class="bold">
-       You must be logged in to edit/moderate the database.
-    </span>
-    <p>
-    If you are new to the MusicBrainz moderation<br> 
-    system, you may want to check out the check out<br>
-    the <a href="mod_intro.html">Moderation Introduction</a>.<p>
-    <table width="50%"><tr><td>
-    <& /comp/tablebegin, title=>'Login' &>
-    <& /comp/loginbox &>
-    <& /comp/tableend &>
-    </td></tr></table>
-    </center>
-    <%perl>
-    return undef;
-} 
+my $mb = $m->comp("/comp/dblogin");
 
-
-$mb = mc_comp("/comp/dblogin");
-
-$mod = Moderation->new($mb->{DBH});
+my $mod = Moderation->new($mb->{DBH});
 $mod = $mod->CreateFromId($modid);
+
 if (!defined $mod)
 {
-    mc_comp("/comp/sidebar", title=>"Error");
-    mc_out("Moderation $modid does not exist.\n");
-    mc_comp("/comp/jumpmod");
+	$m->out("<p>Moderation $modid does not exist.</p>");
+	$m->comp("/comp/jumpmod");
+	$m->comp("/comp/movefocus", "JumpMod", "modid");
+	$m->comp("/comp/footer");
     return undef;
 }
 
@@ -83,8 +60,6 @@ $closetime = $closetime ? $m->comp("/comp/datetime", $closetime) : "-";
 my $time = $mod->GetExpireTime();
 $time = $m->comp("/comp/datetime", $time);
 
-mc_comp("/comp/sidebar", title=>"Moderation $modid");
-
 my $expired = ($mod->GetExpired() ? "d" : "s");
 
 @votes = $mod->GetVoterList();
@@ -99,8 +74,8 @@ $votelist .= "</table>";
 
 </%perl>
 
-
 <& /comp/tablebegin, title=>'Moderation Information' &> 
+
 <table>
 
 <tr>
@@ -191,11 +166,7 @@ $votelist .= "</table>";
     </table>
     <& /comp/tableend &> 
 
-<%perl>
- 
-mc_comp("/comp/jumpmod");
+    <& /comp/jumpmod &> 
 
-$mb->Logout();
-
-</%perl>
+<& /comp/movefocus, "JumpMod", "modid" &>
 <& /comp/footer &>

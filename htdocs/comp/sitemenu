@@ -108,6 +108,9 @@ use Scalar::Util qw( reftype weaken );
             { name => "My Mods",				url => "/moderate.html?type=3" },
             { name => "My Votes",				url => "/moderate.html?type=2" },
             { name => "Jump to ID",				url => "/jumpmod.html" },
+			[
+				{ url => "/showmod.html" },
+			],
         ],
 
 		# XXX Should this be here?  Currently this means that even logged-in
@@ -176,7 +179,6 @@ use Scalar::Util qw( reftype weaken );
         { url => "/showalbum.html" },
         { url => "/showartist.html" },
         { url => "/showlyrics.html" },
-        { url => "/showmod.html" },
         { url => "/showsyncevents.html" },
         { url => "/showtrack.html" },
         { url => "/showtrm.html" },

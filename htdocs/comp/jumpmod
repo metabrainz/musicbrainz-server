@@ -1,18 +1,15 @@
-<FORM METHOD="GET" ACTION="showmod.html"
-      ENCTYPE="application/x-www-form-urlencoded"
-      class="formstyle">
+%# vi: set ts=2 sw=2 ft=mason :
 
-<table border=0>
-  <tr>
-  <td>
-     Enter a MusicBrainz moderation id below:
-  </td>
-  </tr>
-  <tr>
-  <td align="center">
-     <INPUT TYPE="text" NAME="modid" SIZE=10>
-     <INPUT TYPE="submit" NAME="Jump" VALUE="Jump"><br>
-  </td>
-  </tr>
-</table>
+<form method="get" action="/showmod.html"
+	name="JumpMod"
+	enctype="application/x-www-form-urlencoded"
+	class="formstyle"
+	>
+
+	<p>
+		Jump to moderation
+		#<input type="text" name="modid" size="10">
+		<input type="submit" value="Jump">
+	</p>
+
 </form>
