@@ -83,22 +83,33 @@ sub DeniedAction
 	my $self = shift;
 	my $nw = $self->{'new_unpacked'};
 
-	if (my $trackid = $nw->{'TrackId'})
-	{
-	  	my $t = TRM->new($self->{DBH});
-	   	my $id = $t->Insert($self->GetPrev, $trackid, $nw->{'ClientVersion'});
+	my $trackid = $nw->{'TrackId'}
+		or return;
 
-		# The above Insert can fail, usually if the row in the "trm" table
-		# needed to be re-inserted but we neglected to save the clientversion
-		# before it was deleted (i.e. mods inserted before this bug was
-		# fixed).
-		if (not $id)
-		{
-		 	$self->InsertNote(
-				&ModDefs::MODBOT_MODERATOR,
-				"Unable to re-insert TRM",
-			);
-		}
+	my $tr = Track->new($self->{DBH});
+	$tr->SetId($trackid);
+	unless ($tr->LoadFromId)
+	{
+		$self->InsertNote(
+			&ModDefs::MODBOT_MODERATOR,
+			"This track has been deleted",
+		);
+		return;
+	}
+
+	my $t = TRM->new($self->{DBH});
+	my $id = $t->Insert($self->GetPrev, $trackid, $nw->{'ClientVersion'});
+
+	# The above Insert can fail, usually if the row in the "trm" table
+	# needed to be re-inserted but we neglected to save the clientversion
+	# before it was deleted (i.e. mods inserted before this bug was
+	# fixed).
+	if (not $id)
+	{
+		$self->InsertNote(
+			&ModDefs::MODBOT_MODERATOR,
+			"Unable to re-insert TRM",
+		);
 	}
 }
 
