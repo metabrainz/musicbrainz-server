@@ -51,6 +51,7 @@ sub count_and_delta
 	my $name = Statistic->GetStatDescription($statname);
 	plot($data, $name, "plot_$statname.png");
 
+	# Weekly deltas.
 	$data = $sql->SelectListOfLists(
 		"SELECT b.snapshotdate, b.value - a.value
 		FROM historicalstat a, historicalstat b
@@ -60,17 +61,63 @@ sub count_and_delta
 		$statname,
 	);
 
+	# Certain stats are known to suffer from spikes due to culls.
+
+	my @range = (undef, undef);
+	goto PLOT unless $statname =~ /
+		^count\.(artist|album|track|trm)$
+		/ix;
+
+	# To avoid plotting spikes that result from culls,
+	# fetch info about *daily* deltas.  Thus we identify the normal range.
+	my ($avg, $stddev) = @{
+		$sql->SelectSingleRowArray(
+		"SELECT AVG(b.value - a.value), STDDEV(b.value - a.value)
+		FROM historicalstat a, historicalstat b
+		WHERE a.name = ? AND b.name = a.name
+		AND b.snapshotdate - a.snapshotdate = 1",
+		$statname,
+		)
+	};
+
+	# 5 * the standard deviation should cover it.
+	my $min = $avg - 5*$stddev;
+	my $max = $avg + 5*$stddev;
+
+	my $minabovemin = $max;
+	my $maxbelowmax = $min;
+
+	# Find the range of data within 5*stddev of the daily deltas.
+	for (@$data)
+	{
+		my $v = $_->[1];
+		next if $v < $min or $v > $max;
+		$minabovemin = $v if $v < $minabovemin;
+		$maxbelowmax = $v if $v > $maxbelowmax;
+	}
+
+	# Extend up and down a little so the plot doesn't quite hit the
+	# edges.
+	my $size = $maxbelowmax - $minabovemin;
+	$minabovemin -= $size/20;
+	$maxbelowmax += $size/20;
+	@range = ($minabovemin, $maxbelowmax);
+
+	PLOT:
 	$name = Statistic->GetStatDescription($statname);
-	plot($data, $name . " (7 day delta)", "plot_${statname}_delta.png");
+	plot($data, $name . " (7 day delta)", "plot_${statname}_delta.png",
+		@range,
+	);
 }
 
 sub plot
 {
-	my ($data, $title, $file) = @_;
+	my ($data, $title, $file, $min, $max) = @_;
 
-	printf "%s => %s (%d)\n",
+	printf "%s => %s (%d) (%s)\n",
 		$title, $file,
 		scalar(@$data),
+		(defined($max) ? "$min-$max" : "auto"),
 		if -t STDOUT;
 
 	my $tmpfile = "/tmp/plot-$$";
@@ -90,7 +137,11 @@ set terminal png small color
 set xdata time
 set timefmt "%Y-%m-%d"
 set xlabel "Date"
-#set yrange [0:*]
+EOF
+
+	print GNUPLOT "set yrange [$min:$max]\n" if defined($max);
+
+	print GNUPLOT <<EOF;
 set format x "%m/%Y"
 set key left
 set ylabel "$title"
