@@ -79,7 +79,10 @@ if ($newalias =~ /\S/ and MusicBrainz::IsSingleLineString($newalias))
 	>
 
 	<p>
-		Enter new artist alias:
+		Enter new artist alias for
+		<a href="/artist/<% $ar->GetMBId %>.html"><% $ar->GetName %></a>:
+	</p>
+	<p>
 		<input type="text" name="newalias" size="40" value="<% $artistname %>">
 		&nbsp;
 		<input type="submit" value="Submit">

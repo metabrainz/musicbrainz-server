@@ -86,7 +86,7 @@ if (MusicBrainz::IsSingleLineString($newname)
 				Artist Name:
 			</td>
 			<td>
-				<% $ar->GetName  %>
+				<a href="/artist/<% $ar->GetMBId %>.html"><% $ar->GetName %></a>
 			</td>
 		</tr>
 		<tr>
