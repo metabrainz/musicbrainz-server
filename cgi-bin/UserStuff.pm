@@ -65,6 +65,18 @@ sub SetEmailConfirmDate	{ $_[0]{emailconfirmdate} = $_[1] }
 sub GetLastLoginDate	{ $_[0]{lastlogindate} }
 sub SetLastLoginDate	{ $_[0]{lastlogindate} = $_[1] }
 
+sub GetWebURLComplete
+{
+	local $_ = $_[0]{weburl}
+		or return undef;
+	/\./ or return undef;
+	return undef if / /;
+	return $_ if m[^(\w+)://];
+	return "mailto:$_" if /\@/;
+	$_ = "http://$_";
+	$_;
+}
+
 sub newFromId
 {
 	my ($this, $uid) = @_;

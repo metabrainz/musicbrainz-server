@@ -148,8 +148,8 @@ my $is_me = ($uid == $my_uid);
 
 	<tr>
 		<td valign="top" align="right">Homepage:</td>
-%   if ($user->GetWebURL ne "") {    
-			<td><a href="<% $user->GetWebURL %>"><% $user->GetWebURL %></a></td>
+%   if (my $url = $user->GetWebURLComplete) {
+			<td><a href="<% $url %>"><% $url %></a></td>
 %   } else {
 			<td>[none]</td>
 %   }
