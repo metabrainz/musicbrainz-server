@@ -41,9 +41,13 @@ sub count_and_delta
 {
 	my $statname = shift;
 
+	my $startdate = '2003-01-10';
+
 	my $data = $sql->SelectListOfLists(
 		"SELECT snapshotdate, value FROM historicalstat
-		WHERE name = ? ORDER BY 1",
+		WHERE name = ?
+		AND snapshotdate >= '$startdate'
+		ORDER BY 1",
 		$statname,
 	);
 
@@ -57,6 +61,7 @@ sub count_and_delta
 		FROM historicalstat a, historicalstat b
 		WHERE a.name = ? AND b.name = a.name
 		AND b.snapshotdate - a.snapshotdate = 7
+		AND b.snapshotdate >= '$startdate'
 		ORDER BY 1",
 		$statname,
 	);
@@ -64,6 +69,11 @@ sub count_and_delta
 	# Certain stats are known to suffer from spikes due to culls.
 
 	my @range = (undef, undef);
+
+	# The 'startdate' above is chosen to be just after the latest cull.
+	# Hence, no need to suppress spikes.
+	goto PLOT;
+
 	goto PLOT unless $statname =~ /
 		^count\.(artist|album|track|trm)$
 		/ix;
@@ -114,6 +124,9 @@ sub plot
 {
 	my ($data, $title, $file, $min, $max) = @_;
 
+	# Hard-wire all y-axes to start at zero.
+	$min = 0;
+
 	printf "%s => %s (%d) (%s)\n",
 		$title, $file,
 		scalar(@$data),
@@ -139,10 +152,13 @@ set timefmt "%Y-%m-%d"
 set xlabel "Date"
 EOF
 
-	print GNUPLOT "set yrange [$min:$max]\n" if defined($max);
+	defined() or $_ = "*"
+		for ($min, $max);
+
+	print GNUPLOT "set yrange [$min:$max]\n";
 
 	print GNUPLOT <<EOF;
-set format x "%m/%Y"
+set format x "%d-%b"
 set key left
 set ylabel "$title"
 
