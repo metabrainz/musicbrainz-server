@@ -712,6 +712,14 @@ sub CheckMetadata
                }
              ];
 
+           if (!defined $in->Insert(\%info))
+           {
+               print STDERR "Insert failed: " . $in->GetError() . "\n";
+           }
+           else
+           {
+               print STDERR "Inserted $$data[0] by $$data[1] on $$data[2]\n";
+           }
            $pe->DeleteByGUID($$data[4]);
            return;
        }
