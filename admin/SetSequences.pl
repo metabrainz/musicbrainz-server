@@ -45,11 +45,11 @@ sub SetSequence
         return;
     }
     $max++;
-    $sql->Do("drop sequence $seq");
 
     eval
     {
         $sql->Begin;
+        $sql->Do("drop sequence $seq");
         $sql->Do("create sequence $seq start $max");
         $sql->Commit;
     
