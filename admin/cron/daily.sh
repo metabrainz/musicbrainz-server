@@ -1,5 +1,8 @@
 #!/bin/sh
 
+mb_server=`dirname $0`/../..
+eval `$mb_server/admin/ShowDBDefs`
+
 # TODO: If you are installing a main server, you need to update the paths below
 ftpdir=/var/ftp/pub/musicbrainz/data
 reportdir=/var/website/musicbrainz/prod/mb_server/htdocs/reports
@@ -27,8 +30,7 @@ chown $backupuser:$backupgroup /tmp/cvs-backup.tar.bz2
 mv /tmp/cvs-backup.tar.bz2 $backupdir
 
 # Vacuum and analyze the database for peak performance
-# FIXME use DB_USER, DB_NAME
-echo "VACUUM ANALYZE;" | psql musicbrainz
+echo "VACUUM ANALYZE;" | psql $DB_PGOPTS -U $DB_USER $DB_NAME
 
 # Dump all the data
 ./ExportAllTables --output-dir /tmp
