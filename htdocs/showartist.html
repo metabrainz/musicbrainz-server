@@ -9,46 +9,52 @@ $mb->Login();
 $ar = Artist->new($mb);
 $al = Album->new($mb);
 
-$ar->LoadFromId($ARGS{artistid});
-$artistname = $ar->Value(1);
-$modpending = $ar->Value(3);
-
-@idsalbums = $ar->GetAlbumList($ARGS{artistid});
-
-mc_comp("/comp/artisttitle", 
-        artistname=>$artistname, 
-        artistid=>$ARGS{artistid},
-        modpending=>$modpending);
-mc_comp("/comp/modnotice");
-
-for(;;)
+if (! $ar->LoadFromId($ARGS{artistid}))
 {
-    $albumid = shift @idsalbums;
-    last if (! defined $albumid);
-    $albumname = shift @idsalbums;
-    $modpending = shift @idsalbums;
-
-    mc_comp("/comp/album", 
-            mb=>$mb,
-            albumid=>$albumid, 
-            artist=>$ARGS{artistid},
-            albumname=>$albumname,
-            modpending=>$modpending);
+    mc_out("This artist (id=$ARGS{artistid}) was not found in the database.");
 }
-
-@idsalbums = $ar->GetMultipleArtistAlbumList($ARGS{artistid});
-for(;;)
+else
 {
-    $albumid = shift @idsalbums;
-    last if (! defined $albumid);
-    $albumname = shift @idsalbums;
-    $modpending = shift @idsalbums;
-
-    mc_comp("/comp/malbum", 
-            mb=>$mb,
-            albumid=>$albumid, 
-            albumname=>$albumname,
+    $artistname = $ar->Value(1);
+    $modpending = $ar->Value(3);
+    
+    @idsalbums = $ar->GetAlbumList($ARGS{artistid});
+    
+    mc_comp("/comp/artisttitle", 
+            artistname=>$artistname, 
+            artistid=>$ARGS{artistid},
             modpending=>$modpending);
+    mc_comp("/comp/modnotice");
+    
+    for(;;)
+    {
+        $albumid = shift @idsalbums;
+        last if (! defined $albumid);
+        $albumname = shift @idsalbums;
+        $modpending = shift @idsalbums;
+    
+        mc_comp("/comp/album", 
+                mb=>$mb,
+                albumid=>$albumid, 
+                artist=>$ARGS{artistid},
+                albumname=>$albumname,
+                modpending=>$modpending);
+    }
+    
+    @idsalbums = $ar->GetMultipleArtistAlbumList($ARGS{artistid});
+    for(;;)
+    {
+        $albumid = shift @idsalbums;
+        last if (! defined $albumid);
+        $albumname = shift @idsalbums;
+        $modpending = shift @idsalbums;
+    
+        mc_comp("/comp/malbum", 
+                mb=>$mb,
+                albumid=>$albumid, 
+                albumname=>$albumname,
+                modpending=>$modpending);
+    }
 }
 
 $mb->Logout();

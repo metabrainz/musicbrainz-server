@@ -3,23 +3,31 @@ $prev
 $table
 $id
 $type
+$artist
 </%args>
 
 <%perl>
-if ($table eq 'Artist')
+if ($type == Moderation::MOD_EDIT_ARTISTNAME || 
+    $type == Moderation::MOD_EDIT_ARTISTSORTNAME ||
+    $type == Moderation::MOD_ADD_TRACK ||
+    $type == Moderation::MOD_MERGE_ARTIST)
 {
     mc_out("<a href=\"/showartist.html?artistid=$id\">$prev</a>");
 }
-elsif ($table eq 'Album')
+elsif ($type == Moderation::MOD_EDIT_ALBUMNAME)
 {
     mc_out("<a href=\"/showalbum.html?albumid=$id\">$prev</a>");
 }
-elsif ($table eq 'Track')
+elsif ($type == Moderation::MOD_EDIT_TRACKNAME)
 {
     mc_out("<a href=\"/bare/showtrack.html?trackid=$id\">$prev</a>");
 }
-elsif ($table eq 'AlbumJoin')
+elsif ($type == Moderation::MOD_EDIT_TRACKNUM)
 {
     mc_out("<a href=\"/bare/showtrack.html?albumjoinid=$id\">$prev</a>");
+}
+if ($type == Moderation::MOD_MOVE_ALBUM)
+{
+    mc_out("<a href=\"/showartist.html?artistid=$artist\">$prev</a>");
 }
 </%perl>

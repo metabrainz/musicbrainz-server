@@ -14,6 +14,7 @@ $voted
 $artistname
 $status
 $mode
+$mb
 </%args>
 
 <%perl>
@@ -23,8 +24,7 @@ if ($voted)
 {
    $text = "(Already voted)";
 }
-my $modtype = Moderation::GetModificationName($type);
-my @entered = localtime($time);
+my @entered = gmtime($time);
 $time = sprintf "%d-%d %02d:%02d", $entered[4]+1, $entered[3], 
                                    $entered[2], $entered[1];
 
@@ -38,8 +38,8 @@ $time = sprintf "%d-%d %02d:%02d", $entered[4]+1, $entered[3],
      Moderator: <% $moderator %> (exp: <% $time %>)
    </td>
    <td width=38% valign=top bgcolor=white class="body">
-     <% $modtype %>
-     (<a href="/showartist.html?artistid=<% $artist %>"><% $artistname %></a>)
+     <& /comp/showmodtype, id=>$rowid, type=>$type, prev=>$prev, mb=>$mb,
+                           artist=>$artist, artistname=>$artistname &>
    </td>
    <td width=24% align=center valign=top valign=top bgcolor=white class="body">
      <% $yesvotes %> yes,
@@ -48,17 +48,12 @@ $time = sprintf "%d-%d %02d:%02d", $entered[4]+1, $entered[3],
 </tr>
 <tr>
    <td width=40% valign=top bgcolor=white class="body">
-     Old: <& /comp/showmodprev, prev=>$prev, 
-             table=>$table, id=>$rowid, type=>$type &>
+     Old: <& /comp/showmodprev, prev=>$prev, table=>$table, id=>$rowid, 
+             type=>$type, artist=>$artist &>
    </td>
    <td width=40% valign=top bgcolor=white class="body">
-% if ($type == Moderation::MOD_ADD_TRACK) {
-%    my (@data) = split(/\n/, $new);
-     Name: <span class="bold"><% $data[0] %></span> 
-     Track: <span class="bold"><% $data[1] %></span>
-% } else {   
-     New: <span class="bold"><% $new %></span> 
-% }
+     <& /comp/showmodnew, new=>$new, 
+        table=>$table, id=>$rowid, type=>$type &>
    </td>
    <td width=20% align=center valign=top bgcolor=white class="body">
 % if ($mode == Moderation::TYPE_MINE) {

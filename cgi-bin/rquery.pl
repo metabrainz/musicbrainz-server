@@ -134,8 +134,8 @@ if ($@)
 {
     $@ =~ tr/\n\r/  /;
     print QuerySupport::EmitErrorRDF("Cannot parse query: $@", 1);
-    print STDERR QuerySupport::EmitErrorRDF("Cannot parse query: $@");
-    print STDERR "$xml\n";
+    #print STDERR QuerySupport::EmitErrorRDF("Cannot parse query: $@");
+    #print STDERR "$xml\n";
     exit(0);
 }
 

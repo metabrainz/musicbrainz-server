@@ -1,7 +1,7 @@
 <%perl>
 
-my ($mb, $i, $j, $mod, $new, @idslabels, $ar);
-my ($artistid, $artistname, $key, $found);
+my ($mb, $i, $j, $mod, $new, @names, $ar);
+my ($sortname, $name, $key, $found);
 
 mc_comp("/comp/title", title=>'Select Artist');
 
@@ -9,10 +9,10 @@ $mb = new MusicBrainz;
 $mb->Login();
 
 $ar = Artist->new($mb);
-@idslabels = $ar->FindTextInColumn("Artist", "SortName", $ARGS{new0});
+@names = $ar->FindArtist($ARGS{new0});
 
 $found = 0;
-foreach $key (@idslabels)
+foreach $key (@names)
 {
     if (lc($key) eq lc($ARGS{new0}))
     {
@@ -37,20 +37,35 @@ merge artist <% $ARGS{prev0} %> with the selected artist:
 <form method="POST" action="/bare/enter_mod.html"
       enctype="application/x-www-form-urlencoded" class="formstyle">
 
+
 % if (!$found) {
+<& /comp/tablebegin, title=>'New Artist', gattrs=>'width="100%"' &>
 <input type="radio" name="new0" 
-       value="<% $ARGS{new0} %>">&nbsp;<% $ARGS{new0} %><br>
+       value="<% $ARGS{new0} %>">&nbsp;<% $ARGS{new0} %><p>
+<& /comp/tableend, title=>'Existing Artists' &>
 % }
 
+% if (scalar(@names) > 0) {
+
+    <& /comp/tablebegin, title=>'Existing Artists', gattrs=>'width="100%"' &>
+    <table> <tr>
+    <th>Artist Sortname</th>
+    <th>Artist Name</th>
+    </tr>
+
 <%perl>
-for(;;)
-{
-    $artistid = shift @idslabels;
-    last if not defined $artistid;
-    $artistname = shift @idslabels;
-    last if not defined $artistname;
-    mc_out(qq\<input type="radio" name="new0" 
-           value="$artistname">&nbsp;$artistname<br>\);
+    for(;;)
+    {
+        $name = shift @names;
+        last if not defined $name;
+        $sortname = shift @names;
+        last if not defined $sortname;
+        mc_out("<tr><td>");
+        mc_out(qq\<input type="radio" name="new0" 
+               value="$name">&nbsp;$sortname</td><td>$name</td></tr>\);
+    }
+    mc_out("</table>");
+    mc_comp("/comp/tableend", title=>'Existing Artists');
 }
 
 foreach $key (keys %ARGS)

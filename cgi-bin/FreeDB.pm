@@ -145,11 +145,11 @@ sub Lookup
     foreach my $disc (@discs) 
     {
         ($genre, $cddb_id, $title) = @$disc;
-        print STDERR "$cd_data[0]: $genre $cddb_id $title\n";
+        #print STDERR "$cd_data[0]: $genre $cddb_id $title\n";
         last;
     }
 
-    print STDERR "Disk $cd_data[0] not found\n" if (!defined $genre);
+    #print STDERR "Disk $cd_data[0] not found\n" if (!defined $genre);
     return if (!defined $genre);
     $details = $cddb->get_disc_details($genre, $cddb_id);
     return if (!defined $details);

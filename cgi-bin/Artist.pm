@@ -246,4 +246,30 @@ sub GetMultipleArtistAlbumList
    return @idsalbums;
 } 
 
+sub FindArtist
+{
+   my ($this, $search) = @_;
+   my (@names, $sth, $sql);
+
+   $sql = $this->AppendWhereClause($search, qq/select name, sortname 
+               from Artist where /, "name") . " order by sortname";
+
+   $sth = $this->{DBH}->prepare($sql);
+   $sth->execute();
+   if ($sth->rows > 0) 
+   {
+       my @row;
+       my $i;
+
+       for(;@row = $sth->fetchrow_array;)
+       {  
+           push @names, $row[0];
+           push @names, $row[1];
+       }
+   }
+   $sth->finish;
+
+   return @names;
+};
+
 1;

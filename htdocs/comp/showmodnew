@@ -1,0 +1,14 @@
+<%args>
+$new
+$table
+$id
+$type
+</%args>
+
+% if ($type == Moderation::MOD_ADD_TRACK) {
+%    my (@data) = split(/\n/, $new);
+     Name: <span class="bold"><% $data[0] %></span> 
+     Track: <span class="bold"><% $data[1] %></span>
+% } else {   
+     New: <span class="bold"><% $new %></span> 
+% }

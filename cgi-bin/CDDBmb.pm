@@ -390,7 +390,7 @@ sub get_discs {
                                         # attempt to query over and over
 ATTEMPT:
   while ('true') {
-    print STDERR "Query: $id $track_count $offsets_string $total_seconds\n";
+    #print STDERR "Query: $id $track_count $offsets_string $total_seconds\n";
     $self->command( 'cddb query', $id, $track_count,
                     $offsets_string, $total_seconds
                   );

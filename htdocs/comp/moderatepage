@@ -113,7 +113,8 @@ for($i = 0; $i < $max_items; $i++)
            artistname=>($$row[12]),
            status=>($$row[13]),
            voted=>($$row[14]),
-           mode=>$type);
+           mode=>$type,
+           mb=>$mb);
 }
 </%perl>
 
