@@ -100,6 +100,9 @@ sub CACHE_DEBUG { 1 }
 # Default expiry time in seconds.  Use 0 for "never".
 sub CACHE_DEFAULT_EXPIRES { 3600 }
 
+# Default delete time in seconds.  Use 0 means allow re-insert straight away.
+sub CACHE_DEFAULT_DELETE { 4 }
+
 # Cache::Memcached options
 our %CACHE_OPTIONS = (
 	servers => [ '127.0.0.1:11211' ],
