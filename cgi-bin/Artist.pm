@@ -209,6 +209,7 @@ sub MergeInto
 sub UpdateName
 {
     my ($this, $name) = @_;
+    MusicBrainz::TrimInPlace($name);
 
     my $sql = Sql->new($this->{DBH});
 
@@ -228,6 +229,7 @@ sub UpdateName
 sub UpdateSortName
 {
     my ($this, $name) = @_;
+    MusicBrainz::TrimInPlace($name);
 
     my $page = $this->CalculatePageIndex($name);
     my $sql = Sql->new($this->{DBH});
