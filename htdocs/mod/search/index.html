@@ -7,7 +7,6 @@ $m->comp("/comp/checkloggedin", 1, 1)
 my (undef, undef, $filter) = $m->comp("setquery.inc", %ARGS);
 
 my %all_status = reverse %{ ModDefs->status_as_hashref };
-delete $all_status{&ModDefs::STATUS_EVALNOCHANGE};
 
 my %all_votes = reverse %{ ModDefs->vote_as_hashref };
 delete $all_votes{&ModDefs::VOTE_UNKNOWN};

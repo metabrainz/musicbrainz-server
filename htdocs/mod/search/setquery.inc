@@ -41,6 +41,8 @@ my $sortuniq = sub {
 ################################################################################
 
 my %allowed_status = reverse %{ &ModDefs::status_as_hashref };
+# TODO no need to delete STATUS_EVALNOCHANGE - added this comment to force a
+# conflict resolution later.
 @mod_status = grep { exists $allowed_status{$_} } @mod_status;
 @mod_status = &$sortuniq(@mod_status);
 $filter{"mod_status"} = \@mod_status;

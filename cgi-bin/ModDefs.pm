@@ -120,10 +120,6 @@ use constant STATUS_ERROR                => 5;
 # does not match up with the data currently in the rol/col.
 use constant STATUS_FAILEDPREREQ         => 6;
 
-# This is a placeholder that the Moderation Bot will use to evaluate mods.
-# The user should never see this state.
-use constant STATUS_EVALNOCHANGE         => 7;
-
 # When a moderator wants to delete their own mod, the web interface Moderation 
 # its status to 'to be deleted' so that the ModerationBot can clean it and
 # its possible depedents up. Once the ModBot spots this record it cleans up

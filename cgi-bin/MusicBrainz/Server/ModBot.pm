@@ -30,6 +30,10 @@ package MusicBrainz::Server::ModBot;
 
 use ModDefs qw( :modstatus );
 
+# This is a placeholder that the Moderation Bot will use to evaluate mods.
+# The user should never see this state.
+use constant STATUS_EVALNOCHANGE         => -1;
+
 # Originally this was part of "Moderation.pm", but I feel it's large and
 # complex enough to move into a file of its own.
 

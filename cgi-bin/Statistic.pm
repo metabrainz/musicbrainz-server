@@ -345,7 +345,7 @@ my %stats = (
 				"count.moderation.faileddep"	=> $dist{&ModDefs::STATUS_FAILEDDEP}	|| 0,
 				"count.moderation.error"		=> $dist{&ModDefs::STATUS_ERROR}		|| 0,
 				"count.moderation.failedprereq"	=> $dist{&ModDefs::STATUS_FAILEDPREREQ}	|| 0,
-				"count.moderation.evalnochange"	=> $dist{&ModDefs::STATUS_EVALNOCHANGE}	|| 0,
+				"count.moderation.evalnochange"	=> 0,
 				"count.moderation.tobedeleted"	=> $dist{&ModDefs::STATUS_TOBEDELETED}	|| 0,
 				"count.moderation.deleted"		=> $dist{&ModDefs::STATUS_DELETED}		|| 0,
 			};
