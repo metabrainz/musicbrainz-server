@@ -211,6 +211,15 @@ sub output_xml
 
 ################################################################################
 
+my %copy_esc;
+BEGIN {
+	%copy_esc = (
+		't'		=> "\t",
+		'n'		=> "\n",
+		'\\'	=> "\\",
+	);
+}
+
 # Decode a line of text in Postgres "COPY" format into a hash reference
 sub decode_row
 {
@@ -219,7 +228,7 @@ sub decode_row
 
 	my %h;
 	@h{@columns} = map {
-		$_ eq '\N' ? undef : do { s/\\\\/\\/g; $_ }
+		$_ eq '\N' ? undef : do { s/\\(.)/$copy_esc{$1}/g; $_ }
 	} split /\t/, $line, -1;
 
 	\%h;
