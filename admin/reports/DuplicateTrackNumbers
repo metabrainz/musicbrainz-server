@@ -1,0 +1,135 @@
+#!/usr/bin/perl -w
+# vi: set ts=4 sw=4 :
+#____________________________________________________________________________
+#
+#   MusicBrainz -- the open internet music database
+#
+#   Copyright (C) 1998 Robert Kaye
+#
+#   This program is free software; you can redistribute it and/or modify
+#   it under the terms of the GNU General Public License as published by
+#   the Free Software Foundation; either version 2 of the License, or
+#   (at your option) any later version.
+#
+#   This program is distributed in the hope that it will be useful,
+#   but WITHOUT ANY WARRANTY; without even the implied warranty of
+#   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+#   GNU General Public License for more details.
+#
+#   You should have received a copy of the GNU General Public License
+#   along with this program; if not, write to the Free Software
+#   Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
+#
+#   $Id$
+#____________________________________________________________________________
+
+use 5.008;
+use strict;
+
+use FindBin;
+use lib "$FindBin::Bin/../../cgi-bin";
+
+use Text::Unaccent;
+use Encode qw( decode );
+use HTML::Mason::Tools qw( html_escape );
+
+use DBI;
+use DBDefs;
+use MusicBrainz;
+use Sql;
+
+my $mb = MusicBrainz->new;
+$mb->Login;
+my $sql = Sql->new($mb->{DBH});
+
+print <<EOF;
+<& /comp/sidebar, title => 'Albums with Duplicate Track Numbers' &>
+
+<p>Generated <% \$m->comp('/comp/datetime', ${\ time() }) %></p>
+
+<p>
+    This report identifies albums where at least one track number appears more
+    than once (e.g. there are two "track 4"s).
+</p>
+
+EOF
+
+print <<'EOF';
+
+<%perl>
+my $mb = $m->comp("/comp/dblogin");
+my $ar = Artist->new($mb->{DBH});
+my $al = Album->new($mb->{DBH});
+</%perl>
+
+EOF
+
+$sql->Begin;
+
+$sql->Do("
+	SELECT DISTINCT album
+	INTO TEMPORARY TABLE t_badalbums
+	FROM (
+		SELECT album, sequence, COUNT(*)
+		FROM albumjoin
+		GROUP BY album, sequence
+		HAVING COUNT(*) > 1
+	) AS t
+");
+
+# I'm not sure if this is necessary, but it can't really hurt
+$sql->Do("ALTER TABLE t_badalbums ALTER COLUMN album SET NOT NULL");
+$sql->Do("ALTER TABLE t_badalbums ADD PRIMARY KEY (album)");
+
+require Album;
+$sql->Select("
+	SELECT	ar.id, ar.sortname, al.id, al.name
+	FROM	artist ar, album al, t_badalbums t
+	WHERE	al.id = t.album
+	AND		ar.id = al.artist
+	AND		al.attributes[2] != ".&Album::ALBUM_ATTR_NONALBUMTRACKS."
+	ORDER BY ar.sortname, al.name
+");
+
+my $n = 0;
+my $lastartist = 0;
+
+while (my @row = $sql->NextRow)
+{
+	my ($artist, undef, $album, undef) = @row;
+
+	if ($artist != $lastartist)
+	{
+		print <<EOF;
+% \$ar->SetId($artist);
+% if (\$ar->LoadFromId) {
+<& /comp/artisttitle, artist => \$ar, link => 1 &>
+% }
+EOF
+		$lastartist = $artist;
+	}
+
+		print <<EOF;
+% \$al->SetId($album);
+% if (\$al->LoadFromId) {
+	<& /comp/album, album => \$al, artist => \$ar,
+		showalbumdetail => 1,
+		showids => 1,
+		&>
+% }
+EOF
+
+	++$n;
+}
+
+$sql->Finish;
+$sql->Commit;
+
+print "<p>No albums to report - good!</p>\n\n" if not $n;
+
+print "<p>End of report; found one album.</p>\n\n" if $n == 1;
+print "<p>End of report; found $n albums.</p>\n\n" if $n > 1;
+
+print "<& /comp/footer &>\n";
+
+# eof DuplicateTrackNumbers
