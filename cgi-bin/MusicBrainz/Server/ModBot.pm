@@ -286,7 +286,7 @@ sub CheckModerations
 
                $status = $mod->ApprovedAction;
                $mod->SetStatus($status);
-               $mod->CreditModerator($mod->GetModerator(), 1, 0);
+               $mod->CreditModerator($mod->GetModerator, $status);
                $mod->CloseModeration($status);
 
                $sql->Commit;
@@ -329,7 +329,7 @@ sub CheckModerations
                $sql->Begin;
 
                $mod->DeniedAction;
-               $mod->CreditModerator($mod->GetModerator, 0, 1);
+               $mod->CreditModerator($mod->GetModerator, $newstate);
                $mod->CloseModeration($newstate);
 
                $sql->Commit;
