@@ -23,6 +23,7 @@ use Scalar::Util qw( reftype weaken );
 			{ name => "Contribute",				url => "/contribute.html"},
 		],
 		{ name => "Licenses",               url => "/news/licenses.html" },
+		{ name => "Contract",				url => "/contract.html" },
 
 		{ url => "/freeamp/index.html" },
 	],
@@ -198,10 +199,8 @@ use Scalar::Util qw( reftype weaken );
 			{ name => "Metadata 2.1",			url => "/MM/index.html" },
 			[
 				{ name => "Introduction",			url => "/MM/index.html" },
-				{ name => "Examples",				url => "/MM/examples.html" },
 				{ name => "mm",						url => "/MM/mm_examples.html" },
 				{ name => "mq",						url => "/MM/mq_examples.html" },
-				{ name => "mm2",					url => "/MM/mm2_examples.html" },
 			],
 		],
 	],
@@ -230,7 +229,6 @@ use Scalar::Util qw( reftype weaken );
 			{ name => "About Disc IDs",			url => "/disc.html" },
 			{ name => "Database",				url => "/db_structure.html" },
 			{ name => "Stats",					url => "/stats.html" },
-			{ name => "Contract",				url => "/contract.html" },
 		],
 		{ name => "Contact Us",				url => "/support/contact.html" },
 		{ name => "Mailing Lists",			url => "/list.html" },

@@ -52,7 +52,7 @@ mv /tmp/mbdump-moderation.tar.bz2 $backupdir
 chown $backupuser:$backupgroup $backupdir/mbdump.tar.bz2
 
 # Dump the agent arts provided data
-nice ./MBDump.pl --relation -o /tmp/mbdump-artistrelation.tar.bz2
+nice ./MBDump.pl -o /tmp/mbdump-artistrelation.tar.bz2 artist_relation
 cp /tmp/mbdump-artistrelation.tar.bz2 $ftpdir
 mv /tmp/mbdump-artistrelation.tar.bz2 $backupdir
 

@@ -22,9 +22,6 @@
 <li><a href="#album">Album Query Response Example</a>
 <li><a href="#track">Track Query Response Example</a>
 <li><a href="#trm">TRM ID Query Response Example</a>
-<li><a href="#submit">SubmitTrack Query Example</a>
-<li><a href="#lookup">LookupMetadata Query Example</a>
-<li><a href="#exchange">ExchangeMetadata Query Example</a>
 <li><a href="#finddistinct">FindDisctinctTrmId Query Example</a>
 <li><a href="#findartist">FindArtist Query Example</a>
 <li><a href="#findalbum">FindAlbum Query Example</a>
@@ -39,8 +36,8 @@
 <pre>
 &lt;rdf:RDF xmlns:rdf = "http://www.w3.org/1999/02/22-rdf-syntax-ns#"
          xmlns:dc  = "http://purl.org/dc/elements/1.1/"
-         xmlns:mq  = "http://musicbrainz.org/mm/mq-1.0#"
-         xmlns:mm  = "http://musicbrainz.org/mm/mm-2.0#"&gt;
+         xmlns:mq  = "http://musicbrainz.org/mm/mq-1.1#"
+         xmlns:mm  = "http://musicbrainz.org/mm/mm-2.1#"&gt;
   &lt;mq:Result&gt;
     &lt;mq:status&gt;OK&lt;/mq:status&gt;
     &lt;mm:artistList&gt;
@@ -262,8 +259,8 @@
 <pre>
 &lt;rdf:RDF xmlns:rdf = "http://www.w3.org/1999/02/22-rdf-syntax-ns#"
          xmlns:dc  = "http://purl.org/dc/elements/1.1/"
-         xmlns:mq  = "http://musicbrainz.org/mm/mq-1.0#"
-         xmlns:mm  = "http://musicbrainz.org/mm/mm-2.0#"&gt;
+         xmlns:mq  = "http://musicbrainz.org/mm/mq-1.1#"
+         xmlns:mm  = "http://musicbrainz.org/mm/mm-2.1#"&gt;
   &lt;mq:Result&gt;
     &lt;mq:status&gt;OK&lt;/mq:status&gt;
     &lt;mm:albumList&gt;
@@ -409,8 +406,8 @@
 <pre>
 &lt;rdf:RDF xmlns:rdf = "http://www.w3.org/1999/02/22-rdf-syntax-ns#"
          xmlns:dc  = "http://purl.org/dc/elements/1.1/"
-         xmlns:mq  = "http://musicbrainz.org/mm/mq-1.0#"
-         xmlns:mm  = "http://musicbrainz.org/mm/mm-2.0#"&gt;
+         xmlns:mq  = "http://musicbrainz.org/mm/mq-1.1#"
+         xmlns:mm  = "http://musicbrainz.org/mm/mm-2.1#"&gt;
   &lt;mq:Result&gt;
     &lt;mq:status&gt;OK&lt;/mq:status&gt;
     &lt;mm:trackList&gt;
@@ -456,8 +453,8 @@
 <pre>
 &lt;rdf:RDF xmlns:rdf = "http://www.w3.org/1999/02/22-rdf-syntax-ns#"
          xmlns:dc  = "http://purl.org/dc/elements/1.1/"
-         xmlns:mq  = "http://musicbrainz.org/mm/mq-1.0#"
-         xmlns:mm  = "http://musicbrainz.org/mm/mm-2.0#"&gt;
+         xmlns:mq  = "http://musicbrainz.org/mm/mq-1.1#"
+         xmlns:mm  = "http://musicbrainz.org/mm/mm-2.1#"&gt;
   &lt;mq:Result&gt;
     &lt;mq:status&gt;OK&lt;/mq:status&gt;
     &lt;mm:trackList&gt;
@@ -495,59 +492,6 @@
   &lt;/mm:Artist&gt;
 
 &lt;/rdf:RDF&gt;
-</pre>
-
-<p><a name="submit"></a>
-<font size="+2" color=990000>SubmitTrack Query Example</font><p>
-
-<pre>
-&lt;mq:SubmitTrack&gt;
-   &lt;mq:artistName&gt;Cypress Hill&lt;/mq:artistName&gt;
-   &lt;mq:albumName&gt;IV&lt;/mq:albumName&gt;
-   &lt;mq:trackName&gt;Dr. Greenthumb&lt;/mq:trackName&gt;
-   &lt;mm:trmid&gt;62c01f3c-9e96-4283-bec3-179c8325f2b3&lt;/mm:trmid&gt;
-   &lt;mm:trackNum&gt;13&lt;/mm:trackNum&gt;
-   &lt;mm:duration&gt;264600&lt;/mm:duration&gt;
-   &lt;mm:issued&gt;1999&lt;/mm:issued&gt;
-   &lt;mm:genre&gt;Hip Hop&lt;/mm:genre&gt;
-   &lt;dc:description&gt;Whacky, off beat track from 'da Hill.&lt;/dc:description&gt;
-   &lt;mm:link&gt;http://www.cypresshill.com&lt;/mm:link&gt;
-&lt;/mq:SubmitTrack&gt;
-</pre>
-
-<p><a name="lookup"></a>
-<font size="+2" color=990000>LookupMetadata Query Example</font><p>
-
-<pre>
-&lt;mq:LookupMetadata&gt;
-   &lt;mm:trmid&gt;62c01f3c-9e96-4283-bec3-179c8325f2b3&lt;/mm:trmid&gt;
-&lt;/mq:LookupMetadata&gt;
-</pre>
-
-<p><a name="exchange"></a>
-<font size="+2" color=990000>ExchangeMetadata Query Example</font><p>
-
-<pre>
-&lt;mq:ExchangeMetadata&gt;
-   &lt;mq:artistName&gt;Portishead&lt;/mq:artistName&gt;
-   &lt;mq:albumName&gt;Dummy&lt;/mq:albumName&gt;
-   &lt;mq:trackName&gt;Strangers&lt;/mq:trackName&gt;
-   &lt;mm:trackNum&gt;3&lt;/mm:trackNum&gt;
-   &lt;mm:trmid&gt;35ab891c-f588-4165-8f76-b6447bfb3c4d&lt;/mm:trmid&gt;
-   &lt;mm:fileName&gt;Portishead - Dummy - 03 - Strangers.mp3&lt;/mm:fileName&gt;
-   &lt;mm:issued&gt;1995&lt;/mm:issued&gt;
-   &lt;mm:genre&gt;Trip Hop&lt;/mm:genre&gt;
-   &lt;dc:description&gt;Awesome, definitive Portishead track.&lt;/dc:description&gt;
-   &lt;mm:bitprint&gt;TVYYZGQ6FJCHXTAT9RQFVNXBKEMFZMJ6Q3AXXGU9QRKI6GP6VT9MEIHBBC6V68W62H5BU3S&lt;/mm:bitprint&gt;
-   &lt;mm:first20&gt;FFFB807400000000000000000002000000000000&lt;/mm:first20&gt;
-   &lt;mm:fileSize&gt;3331053&lt;/mm:fileSize&gt;
-   &lt;mm:audioSha1&gt;CI47YG6AMZ43SKPIZKM4PDQ43Q3UNP3T&lt;/mm:audioSha1&gt;
-   &lt;mm:duration&gt;238464&lt;/mm:duration&gt;
-   &lt;mm:sampleRate&gt;44100&lt;/mm:sampleRate&gt;
-   &lt;mm:bitRate&gt;112&lt;/mm:bitRate&gt;
-   &lt;mm:channels&gt;2&lt;/mm:channels&gt;
-   &lt;mm:vbr&gt;0&lt;/mm:vbr&gt;
-&lt;/mq:ExchangeMetadata&gt;
 </pre>
 
 <p><a name="finddistinct"></a>
