@@ -1,0 +1,226 @@
+%# vi: set ts=2 sw=2 ft=mason :
+<%args>
+$albumid => undef
+$annotationid => undef
+$annotationtext => undef
+$changelog => ""
+$preview => undef
+$cancel => undef
+</%args>
+<%perl>
+
+my $sid = $session{_session_id};
+
+$m->comp("/comp/checkloggedin", 1, 1)
+	or return;
+
+MusicBrainz::IsNonNegInteger($albumid) && $albumid
+	or return $m->comp("/comp/badargs", 1, 1);
+
+MusicBrainz::IsSingleLineString($changelog)
+	or return $m->comp("/comp/badargs", 1, 1);
+
+my $mb = $m->comp("/comp/dblogin");
+
+my $al = Album->new($mb->{DBH});
+$al->SetId($albumid);
+$al->LoadFromId
+	or return $m->comp(
+		"/comp/error",
+		"Album #$albumid does not exist",
+		1, 1,
+	);
+
+# Set an advisory lock to indicate that this page is currently being edited.
+# The lock times out after the given period of time and is only used to
+# inform the user. It cannot be relied on.
+# Memcached provides semaphores but we need the timeout mechanism of set()
+# here.
+
+my $locked = MusicBrainz::Server::Annotation->LockedBy(
+	&MusicBrainz::Server::Annotation::ALBUM_ANNOTATION,
+	$al->GetId,
+	$sid,
+);
+
+MusicBrainz::Server::Annotation->GetLock(
+	&MusicBrainz::Server::Annotation::ALBUM_ANNOTATION,
+	$al->GetId,
+	$sid,
+);
+
+my $defaulttext = $annotationtext;
+my $not_most_recent = 0;
+my $origtext;
+
+if (MusicBrainz::IsNonNegInteger($annotationid))
+{
+	my $old = MusicBrainz::Server::Annotation->new($mb->{DBH});
+	$old->SetId($annotationid);
+	$old->LoadFromId()
+		or return $m->comp("/comp/badargs", 1, 1);
+	$defaulttext = $old->GetText()
+		unless defined $defaulttext;
+	$origtext = $old->GetText();
+
+	# Is this the most recent version?
+	my $all_ids = MusicBrainz::Server::Annotation->GetAnnotationIDsForAlbum($al);
+	$not_most_recent = 1
+		if $all_ids->[0] != $annotationid;
+}
+
+$defaulttext = "" if not defined $defaulttext;
+
+for ($defaulttext, $annotationtext, $origtext)
+{
+	defined() or next;
+	$_ = MusicBrainz::Server::Markup->normalise($_);
+}
+
+my $url = "/showalbum.html?albumid=$albumid";
+
+if ($cancel)
+{
+	MusicBrainz::Server::Annotation->ReleaseLock(
+		&MusicBrainz::Server::Annotation::ALBUM_ANNOTATION,
+		$al->GetId,
+		$sid,
+	);
+	return $m->comp("/comp/redirect", $url);
+}
+
+my $no_change = (
+	defined($origtext)
+	? $origtext eq $annotationtext
+	: not $annotationtext =~ /\S/
+);
+
+# Insert the annotation.
+
+if ( defined $annotationtext and not $preview )
+{
+	# Indicate that editing is done.
+	# Other users might still be editing this page.
+	MusicBrainz::Server::Annotation->ReleaseLock(
+		&MusicBrainz::Server::Annotation::ALBUM_ANNOTATION,
+		$al->GetId,
+		$sid,
+	);
+
+	return $m->comp("/comp/redirect", $url)
+		if $no_change;
+
+	$m->comp(
+		"/comp/entermods",
+		DBH => $mb->{DBH},
+		sub => sub {
+			my @mods = Moderation->InsertModeration(
+				DBH	=> $mb->{DBH},
+				uid	=> $session{uid},
+				privs => $session{privs},
+				type => &ModDefs::MOD_ADD_ALBUM_ANNOTATION,
+				# --
+				artistid => $al->GetArtist(),
+				albumid => $al->GetId(),
+				text => $annotationtext,
+				changelog => $changelog
+			);
+
+			#$mods[0]->InsertNote($session{'uid'}, $changelog)
+				#if $mods[0]
+				#and $changelog =~ /\S/;
+		},
+		success_url => $url,
+	) or return;
+
+	die "Shouldn't get here";
+}
+
+</%perl>
+
+<& /comp/sidebar, title => 'Edit Annotation' &>
+
+<h2>Edit Annotation</h2>
+
+<& /comp/licensenotice &>
+
+% if ($locked and $locked ne $sid) {
+<p style="background: #FFFFCC; padding: 0.2em">
+	Warning: Someone else is currently editing this annotation.&nbsp; Please try
+	again later.
+</p>
+% }
+
+% if ($not_most_recent) {
+<p style="background: #FFFFCC; padding: 0.2em">
+	Warning: this is not the most recent annotation for this album.
+</p>
+% }
+
+<form method="post" action="/mod/annotation/album_edit.html"
+  name="EditAnnotationForm"
+	enctype="application/x-www-form-urlencoded">
+
+	<textarea name="annotationtext" rows="10" cols="60"
+		style="width: 100%"
+		><% $defaulttext %></textarea>
+
+	<p>Enter a description of your changes (optional):</p>
+
+	<p><input name="changelog" type="text" size="60" maxlength="255"
+		style="width: 100%"
+		value="<% $changelog %>"></p>
+
+	<p>
+		<input type="hidden" name="annotationid" value="<% $annotationid %>">
+		<input type="hidden" name="albumid" value="<% $albumid %>">
+		<input type="submit" name="preview" value="Preview">
+		&nbsp;
+		<input type="submit" value="Submit">
+		&nbsp;
+		<input type="submit" name="cancel" value="Cancel">
+	</p>
+
+</form>
+
+% if ($preview) {
+
+% if ($no_change) {
+<p style="background: #FFFFCC; padding: 0.2em">
+	Warning: you have not made any changes to this annotation
+</p>
+% }
+
+% my $tmp = MusicBrainz::Server::Annotation->newPreview($defaulttext);
+<h2>Preview</h2>
+<table class="Annotation">
+	<tr class="AnnotationText">
+		<td><% $tmp->GetTextAsHTML |n %></td>
+	</tr>
+</table>
+
+<h2>Summary Preview</h2>
+<table class="Annotation">
+	<tr class="AnnotationText">
+		<td>
+			<% $tmp->GetShortTextAsHTML(qq[(<a href="#">Read&nbsp;more&hellip;</a>)]) |n %>
+		</td>
+	</tr>
+</table>
+
+% if (defined $origtext) {
+<h2>Differences</h2>
+<& diff-legend &>
+<table class="Annotation">
+	<tr class="AnnotationText">
+		<td>
+			<% MusicBrainz::Server::Markup->diff_as_html($origtext, $defaulttext) |n %>
+		</td>
+	</tr>
+</table>
+% }
+
+% }
+
+<& /comp/movefocus, "EditAnnotationForm", "annotationtext" &>
+<& /comp/footer &>

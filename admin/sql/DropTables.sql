@@ -7,6 +7,7 @@ DROP TABLE album_cdtoc;
 DROP TABLE albumjoin;
 DROP TABLE albummeta;
 DROP TABLE albumwords;
+DROP TABLE annotation;
 DROP TABLE artist;
 DROP TABLE artistalias;
 DROP TABLE artistwords;

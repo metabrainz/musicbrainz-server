@@ -36,6 +36,8 @@ use utf8;
 
 # Load all the moderation handlers
 require MusicBrainz::Server::Moderation::MOD_ADD_ALBUM;
+require MusicBrainz::Server::Moderation::MOD_ADD_ALBUM_ANNOTATION;
+require MusicBrainz::Server::Moderation::MOD_ADD_ARTIST_ANNOTATION;
 require MusicBrainz::Server::Moderation::MOD_ADD_ARTIST;
 require MusicBrainz::Server::Moderation::MOD_ADD_ARTISTALIAS;
 require MusicBrainz::Server::Moderation::MOD_ADD_DISCID;
@@ -334,6 +336,8 @@ sub IsAutoModType
         $type == &ModDefs::MOD_ADD_TRACK_KV ||
         $type == &ModDefs::MOD_MOVE_DISCID ||
         $type == &ModDefs::MOD_REMOVE_TRMID ||
+        $type == &ModDefs::MOD_ADD_ARTIST_ANNOTATION ||
+        $type == &ModDefs::MOD_ADD_ALBUM_ANNOTATION ||
         $type == &ModDefs::MOD_EDIT_ALBUMATTRS)
     {
         return 1;
@@ -1099,11 +1103,11 @@ sub ConvertNewToHash
 	my ($this, $nw) = @_;
 	my %kv;
 
-	for (;;)
+	for (split /\n/, $nw)
 	{
-	   	$nw =~ s/^(.*?)=(.*)$//m
-			or last;
-		$kv{$1} = $2;
+	   	my ($k, $v) = split /=/, $_, 2;
+		return undef unless defined $v;
+		$kv{$k} = $this->_decode_value($v);
 	}
 
 	\%kv;
@@ -1117,9 +1121,26 @@ sub ConvertHashToNew
 	carp "Uninitialized value(s) @undef_keys passed to ConvertHashToNew"
 		if @undef_keys;
 
-	join "", map {
-		"$_=$kv->{$_}\n"
+	join "\n", map {
+		my $k = $_;
+		$k . '=' . $this->_encode_value($kv->{$k});
 	} sort keys %$kv;
+}
+
+use URI::Escape qw( uri_escape uri_unescape );
+
+sub _encode_value
+{
+	return $_[1] unless $_[1] =~ /[\x00-\x1F\x7F]/;
+	"\x1BURI;" . uri_escape($_[1], '\x00-\x1F\x7F');
+}
+
+sub _decode_value
+{
+	my ($scheme, $data) = $_[1] =~ /\A\x1B(\w+);(.*)\z/s
+		or return $_[1];
+	return uri_unescape($data) if $scheme eq "URI";
+	die "Unknown encoding scheme '$scheme'";
 }
 
 sub _normalise_strings

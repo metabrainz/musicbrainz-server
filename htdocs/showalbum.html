@@ -92,6 +92,9 @@ $artist->LoadFromId
 
 	<br>
 
+	<& /mod/annotation/latest, album => $album, explain => 1 &>
+	<br>
+
 	<& /comp/album, album => $album, artist => $artist,
 		mbtagger => $mbt,
 		showids => 1,

@@ -164,6 +164,9 @@ sub Remove
     my $engine = SearchEngine->new($this->{DBH}, 'artist');
     $engine->RemoveObjectRefs($this->GetId());
 
+    require MusicBrainz::Server::Annotation;
+    MusicBrainz::Server::Annotation->DeleteArtist($this->{DBH}, $this->GetId);
+
     $sql->Do("DELETE FROM artist WHERE id = ?", $this->GetId);
 
     return 1;
@@ -180,6 +183,9 @@ sub MergeInto
 
     my $o = $old->GetId;
     my $n = $new->GetId;
+
+    require MusicBrainz::Server::Annotation;
+    MusicBrainz::Server::Annotation->MergeArtists($old->{DBH}, $o, $n);
 
     $sql->Do("UPDATE artist_relation SET artist = ? WHERE artist = ?", $n, $o);
     $sql->Do("UPDATE artist_relation SET ref    = ? WHERE ref    = ?", $n, $o);

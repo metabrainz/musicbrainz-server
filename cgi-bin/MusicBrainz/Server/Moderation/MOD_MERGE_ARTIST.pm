@@ -71,7 +71,9 @@ sub PostLoad
 	# "$sortname\n$name"
 	# or hash structure (containing at least two \n characters).
 
-	if (($self->GetNew =~ tr/\n//) < 2)
+	my $unpacked = $self->ConvertNewToHash($self->GetNew);
+
+	unless ($unpacked)
 	{
 		# Name can be missing
 		@$self{qw( new.sortname new.name )} = split /\n/, $self->GetNew;
@@ -80,7 +82,6 @@ sub PostLoad
 			unless defined $self->{'new.name'}
 			and $self->{'new.name'} =~ /\S/;
 	} else {
-		my $unpacked = $self->ConvertNewToHash($self->GetNew);
 		$self->{"new.name"} = $unpacked->{"ArtistName"};
 		$self->{"new.id"} = $unpacked->{"ArtistId"};
 	}

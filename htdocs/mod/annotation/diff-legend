@@ -1,0 +1,9 @@
+%# vi: set ts=2 sw=2 ft=mason :
+<p class="MarkupDiff">
+	Legend: <em>
+	<span class="DiffNoChange">No Change</span>;
+	<span class="DiffDel">Removed</span>;
+	<span class="DiffAdd">Added</span>;
+	<span class="DiffChangeDel">Changed</span><span class="DiffChangeAdd">Text</span>
+	</em>
+</p>

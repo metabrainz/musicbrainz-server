@@ -45,7 +45,6 @@ my %descstatus = (
 	$STATUS_REJECTED			=> "rejected",
 	$STATUS_CANCELLED			=> "cancelled",
 );
-
 use base qw( TableBase );
 use Carp;
 use ModDefs ':vote';

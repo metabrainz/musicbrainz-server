@@ -376,6 +376,9 @@ sub Remove
     my $engine = SearchEngine->new($this->{DBH}, 'album');
     $engine->RemoveObjectRefs($this->GetId());
 
+    require MusicBrainz::Server::Annotation;
+    MusicBrainz::Server::Annotation->DeleteAlbum($this->{DBH}, $album);
+
     print STDERR "DELETE: Removed Album " . $album . "\n";
     $sql->Do("DELETE FROM album WHERE id = ?", $album);
 
@@ -798,6 +801,10 @@ sub MergeAlbums
 		require MusicBrainz::Server::Release;
 		my $rel = MusicBrainz::Server::Release->new($sql->{DBH});
 		$rel->MoveFromAlbumToAlbum($id, $this->GetId);
+
+		# And the annotations
+		require MusicBrainz::Server::Annotation;
+		MusicBrainz::Server::Annotation->MergeAlbums($this->{DBH}, $id, $this->GetId, artistid => $this->GetArtist);
 
        # Then, finally remove what is left of the old album
        $al->Remove();

@@ -8,6 +8,7 @@ DROP TRIGGER "reptg_album_cdtoc" ON "album_cdtoc";
 DROP TRIGGER "reptg_albumjoin" ON "albumjoin";
 DROP TRIGGER "reptg_albummeta" ON "albummeta";
 DROP TRIGGER "reptg_albumwords" ON "albumwords";
+DROP TRIGGER "reptg_annotation" ON "annotation";
 DROP TRIGGER "reptg_artist" ON "artist";
 DROP TRIGGER "reptg_artist_relation" ON "artist_relation";
 DROP TRIGGER "reptg_artistalias" ON "artistalias";

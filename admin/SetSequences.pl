@@ -72,6 +72,7 @@ SetSequence($sql, "albumjoin");
 SetSequence($sql, "album_cdtoc");
 # albummeta - not a serial column
 # albumwords - no unique integer column
+SetSequence($sql, "annotation");
 SetSequence($sql, "artist");
 SetSequence($sql, "artist_relation");
 SetSequence($sql, "artistalias");

@@ -17,6 +17,9 @@ CREATE INDEX albumjoin_trackindex ON albumjoin (track);
 
 CREATE INDEX albumwords_albumidindex ON albumwords (albumid);
 
+CREATE INDEX annotation_rowidindex ON annotation (rowid);
+CREATE UNIQUE INDEX annotation_moderationindex ON annotation (moderation);
+
 CREATE UNIQUE INDEX artist_gidindex ON artist (gid);
 CREATE UNIQUE INDEX artist_nameindex ON artist (name);
 CREATE INDEX artist_pageindex ON artist (page);

@@ -1,0 +1,26 @@
+%# vi: set ts=4 sw=4 ft=mason :
+
+<%method ShowPreviousValue>
+% my $this = shift;
+</%method>
+
+<%method ShowNewValue>
+% my $this = shift;
+% my $an = MusicBrainz::Server::Annotation->new($this->{DBH});
+% $an->SetModeration($this->GetId());
+% my $success = $an->LoadFromId();
+
+% my $log = $an->GetChangeLog;
+% $log = "(no change log)" unless $log =~ /\S/;
+
+% if ( $success ) {
+	New:
+	<span class="bold"><a href="/mod/annotation/show.html?annotationid=<%
+		$an->GetId() %>"><% $log %></a></span>
+	(<a href="/mod/annotation/diff-to-previous.html?id=<% $an->GetId %>"
+		>Diff</a>)
+% }
+
+</%method>
+
+%# eof

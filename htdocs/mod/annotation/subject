@@ -1,0 +1,20 @@
+<%args>
+$artist
+$album => undef
+</%args>
+
+% if ( defined $album ) {
+<& /comp/copyable-link,
+	id => $album->GetMBId,
+	name => $album->GetName,
+	type => "album",
+	local => 1,
+	&>
+	by
+% }
+<& /comp/copyable-link,
+	id => $artist->GetMBId,
+	name => $artist->GetName,
+	type => "artist",
+	local => 1,
+	&>

@@ -4,6 +4,7 @@ ALTER TABLE albummeta ADD CONSTRAINT albummeta_pkey PRIMARY KEY (id);
 ALTER TABLE album_amazon_asin ADD CONSTRAINT album_amazon_asin_pkey PRIMARY KEY (album);
 ALTER TABLE album_cdtoc ADD CONSTRAINT album_cdtoc_pkey PRIMARY KEY (id);
 ALTER TABLE albumwords ADD CONSTRAINT albumwords_pkey PRIMARY KEY (wordid, albumid);
+ALTER TABLE annotation ADD CONSTRAINT annotation_pkey PRIMARY KEY (id);
 ALTER TABLE artist ADD CONSTRAINT artist_pkey PRIMARY KEY (id);
 ALTER TABLE artistalias ADD CONSTRAINT artistalias_pkey PRIMARY KEY (id);
 ALTER TABLE artist_relation ADD CONSTRAINT artist_relation_pkey PRIMARY KEY (id);

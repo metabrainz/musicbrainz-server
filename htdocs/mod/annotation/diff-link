@@ -1,0 +1,5 @@
+<%args>
+$new
+$old
+</%args>
+<a href="/mod/annotation/diff.html?old=<% $old %>&amp;new=<% $new %>">Diff</a> |

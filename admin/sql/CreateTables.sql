@@ -69,6 +69,19 @@ CREATE TABLE albumwords
     albumid             INTEGER NOT NULL
 );
 
+CREATE TABLE annotation
+(
+    id                  SERIAL,
+    moderator           INTEGER NOT NULL, -- references moderator
+    type                SMALLINT NOT NULL,
+    rowid               INTEGER NOT NULL, -- conditional reference
+    text                TEXT,
+    changelog           VARCHAR(255),
+    created             TIMESTAMP WITH TIME ZONE DEFAULT NOW(),
+    moderation          INTEGER NOT NULL DEFAULT 0,
+    modpending          INTEGER NOT NULL DEFAULT 0
+);
+
 CREATE TABLE artist
 (
     id                  SERIAL,

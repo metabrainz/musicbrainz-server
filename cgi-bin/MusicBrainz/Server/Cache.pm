@@ -97,19 +97,37 @@ sub _get
 sub set
 {
 	my ($class, $key, @args) = @_;
-	my $r = eval { $class->_set($key, @args) };
+	my $r = eval { $class->_set("set", $key, @args) };
 	warn "Warning: Cache SET $key failed: $@\n" if $@;
+	$r;
+}
+
+sub add
+{
+	my ($class, $key, @args) = @_;
+	my $r = eval { $class->_set("add", $key, @args) };
+	warn "Warning: Cache ADD $key failed: $@\n" if $@;
+	$r;
+}
+
+sub replace
+{
+	my ($class, $key, @args) = @_;
+	my $r = eval { $class->_set("replace", $key, @args) };
+	warn "Warning: Cache REPLACE $key failed: $@\n" if $@;
 	$r;
 }
 
 sub _set
 {
-	my ($class, $key, $data, @opts) = @_;
+	my ($class, $method, $key, $data, @opts) = @_;
 	my $cache = $class->_new
 		or return undef;
 
 	if (&DBDefs::CACHE_DEBUG)
 	{
+		my $METHOD = uc $method;
+
 		#use Data::Dumper;
 		#local $Data::Dumper::Terse = 1;
 		#my $d = Data::Dumper->Dump([ $data ],[ 'd' ]);
@@ -117,19 +135,19 @@ sub _set
 
 		if (not defined $data)
 		{
-			carp "Cache SET (undef) on $key";
+			carp "Cache $METHOD (undef) on $key";
 		} elsif (not ref $data) {
-			carp "Cache SET ($data) on $key";
+			carp "Cache $METHOD ($data) on $key";
 		} elsif (ref($data) eq "REF") {
-			carp "Cache SET (\\$$data) on $key";
+			carp "Cache $METHOD (\\$$data) on $key";
 		} else {
-			carp "Cache SET ($data) on $key";
+			carp "Cache $METHOD ($data) on $key";
 		}
 	}
 
 	$opts[0] = &DBDefs::CACHE_DEFAULT_EXPIRES
 		if not defined $opts[0];
-	$cache->set(_encode_key($key), $data, @opts);
+	$cache->$method(_encode_key($key), $data, @opts);
 }
 
 sub delete
@@ -146,8 +164,8 @@ sub delete
 =pod
 
 This module implements a Cache::Cache layer for MusicBrainz.  The layer implementing
-the cache (e.g. File, MemCached, etc) is not known to the caller.  This layer only
-supports get / set / remove so far.
+the cache (e.g. File, MemCached, etc) is not known to the caller.  This layer
+supports get / set / add / replace / delete.
 
 =cut
 

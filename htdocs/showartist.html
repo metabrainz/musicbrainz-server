@@ -108,6 +108,13 @@ $m->comp(
 
     $m->comp("/comp/artisttitle", artist=>$artist);
 
+	$m->comp(
+		"/mod/annotation/latest",
+		artist => $artist,
+		explain => 1,
+	), $m->out("<br>")
+		unless $artist->GetId == &ModDefs::VARTIST_ID;
+
 	my $relations = $artist->GetRelations();
 
 	if (@$relations)
@@ -115,8 +122,7 @@ $m->comp(
 		splice(@$relations, 3) if @$relations > 3;
 		</%perl>
 
-		<& /comp/framedboxbegin, width=>"100%", style=>"margin: 1em 0" &>
-		<div style="padding: 0.2em; position: relative">
+		<div class="RelatedArtists">
 			Related artists:
 
 %			for my $rel (@$relations) {
@@ -126,7 +132,6 @@ $m->comp(
 
 			<a href="/artistrel.html?artistid=<% $artist->GetId %>">more...</a>
 		</div>
-		<& /comp/framedboxend &>
 
 		<%perl>
 	}
@@ -393,4 +398,5 @@ $m->comp(
     }
 
 </%perl>
+
 <& /comp/footer &>

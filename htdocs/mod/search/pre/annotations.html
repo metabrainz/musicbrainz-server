@@ -1,0 +1,23 @@
+%# vi: set ts=2 sw=2 ft=mason :
+<%args>
+</%args>
+<%perl>
+
+$m->comp("/comp/checkloggedin", 1, 1)
+	or return;
+
+my %filter = (
+	mod_type				=> [
+		&ModDefs::MOD_ADD_ARTIST_ANNOTATION,
+		&ModDefs::MOD_ADD_ALBUM_ANNOTATION,
+	],
+	moderator_type	=> 5, # not me
+	orderby					=> "desc",
+);
+
+$m->comp(
+	"/comp/redirect",
+	"/mod/search/results.html?" . $m->comp("/comp/args-to-querystring.inc", %filter)
+);
+
+</%perl>

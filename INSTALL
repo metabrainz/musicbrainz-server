@@ -168,6 +168,7 @@ specific notes about a server type, the instructions apply to all server types.
 
    CPAN Name
    ---------
+   Algorithm::Diff
    Apache::Session
    Apache::Session::File
    Bundle::Apache

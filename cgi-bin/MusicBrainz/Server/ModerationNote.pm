@@ -52,6 +52,8 @@ sub mark_up_text_as_html
 	my $text = shift;
 	use MusicBrainz qw( encode_entities );
 
+	$text =~ s/(\015\012|\012\015|\012|\015)\1+/\n\n/g;
+
 	my $is_url = 1;
 
 	my $html = join "", map {

@@ -1,0 +1,12 @@
+<%args>
+$annotation
+</%args>
+
+% my $type = $annotation->GetType();
+% if ( $type == &MusicBrainz::Server::Annotation::ARTIST_ANNOTATION ) {
+	<a href="/mod/annotation/artist_history.html?artistid=<%
+		$annotation->GetArtist() %>&amp;expand_all=1">Show history</a> |
+% } elsif ( $type == &MusicBrainz::Server::Annotation::ALBUM_ANNOTATION ) {
+	<a href="/mod/annotation/album_history.html?albumid=<%
+		$annotation->GetAlbum() %>&amp;expand_all=1">Show history</a> |
+% }

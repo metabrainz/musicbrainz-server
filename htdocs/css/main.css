@@ -66,6 +66,17 @@ h3
 	color: #000;
 }
 
+.LicenseNotice
+{
+	border: 3px outset #f0efff;
+	margin-top: 1em;
+	margin-bottom: 1em;
+	font-weight: bold;
+	padding: 1em;
+	background-color: #f0efff;
+	color: #000;
+}
+
 .error
 {
 	border: 3px outset red;
@@ -361,5 +372,57 @@ table.cdtocinfo td { text-align: right; padding: 0 1em }
 table.cdtocinfo tr.ev { background-color: #eee } /* 'even' rows */
 
 td.discidlength { background-color: #ffecd6; text-align: right }
+
+/* Annotations */
+
+.Annotation
+{
+	background: #f0efff;
+	border: 1px solid black;
+	border-collapse: collapse;
+	width: 100%;
+}
+
+.Annotation td
+{
+	padding: 0.2em 0.5em;
+}
+
+.AnnotationText td
+{
+	background: #fff;
+}
+
+.AnnotationInfo
+{
+	background: #f0efff;
+	text-align: right;
+}
+
+.AnnotationInfoText
+{
+	float: left;
+}
+
+.AnnotationInfoLinks
+{
+}
+
+.AnnotationLog
+{
+   background-color: #ffecd6;
+}
+
+/* Related Artists */
+
+.RelatedArtists
+{
+	background: #f0efff;
+	border: 1px solid black;
+	margin-top: 1em;
+	margin-bottom: 1em;
+	padding: 0.2em;
+	position: relative;
+}
 
 /* eof */

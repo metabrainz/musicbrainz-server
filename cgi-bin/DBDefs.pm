@@ -191,6 +191,9 @@ sub RDF_SESSION_SECONDS_TO_LIVE { 3600 * 1 }
 # The domain into which the session cookie is written
 sub SESSION_DOMAIN { undef }
 
+# How long an annotation is considered as being locked.
+sub ANNOTATION_LOCK_TIME { 60*15 }
+
 # Amazon associate and developer ids
 my %amazon_store_associate_ids = (
     'amazon.ca'		=> 'musicbrainz0a-20',

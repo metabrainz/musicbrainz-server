@@ -107,6 +107,7 @@ my @tables = qw(
 	albumjoin
 	albummeta
 	albumwords
+	annotation
 	artist
 	artist_relation
 	artistalias
@@ -389,6 +390,7 @@ my @group_derived = qw(
 	album_amazon_asin
 	albummeta
 	albumwords
+	annotation
 	artistwords
 	trackwords
 	wordlist

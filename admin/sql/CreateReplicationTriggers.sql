@@ -29,6 +29,10 @@ CREATE TRIGGER "reptg_albumwords"
 AFTER INSERT OR DELETE OR UPDATE ON "albumwords"
 FOR EACH ROW EXECUTE PROCEDURE "recordchange" ();
 
+CREATE TRIGGER "reptg_annotation" 
+AFTER INSERT OR DELETE OR UPDATE ON "annotation"
+FOR EACH ROW EXECUTE PROCEDURE "recordchange" ();
+
 CREATE TRIGGER "reptg_artist" 
 AFTER INSERT OR DELETE OR UPDATE ON "artist"
 FOR EACH ROW EXECUTE PROCEDURE "recordchange" ();

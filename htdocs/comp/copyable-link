@@ -4,6 +4,7 @@ $id
 $name
 $type
 $style => "icon"
+$local => 0
 </%args>
 <%perl>
 
@@ -12,15 +13,24 @@ $icon = "aicon.png" if ($type eq 'artist');
 $icon = "licon.png" if ($type eq 'album');
 $icon = "ticon.png" if ($type eq 'track');
 
-my $url = "http://musicbrainz.org/$type/$id.html";
+my $url = "/$type/$id.html";
+$url = "http://musicbrainz.org$url" unless $local;
+
+my $title = (
+	$local
+	? "Go to this $type"
+	: "Find this $type at MusicBrainz"
+);
+
+my $imghost = ($local ? "" : "http://musicbrainz.org");
 
 if ($style eq "text")
 {
-	</%perl><a href="<% $url %>" title="Find this <% $type %> at MusicBrainz"><% $name %></a><%perl>
+	</%perl><a href="<% $url %>" title="<% $title %>"><% $name %></a><%perl>
 }
 elsif ($style eq "icon")
 {
-	</%perl><nobr><a href="<% $url %>" title="Find this <% $type %> at MusicBrainz"><img src="http://musicbrainz.org/images/<% $icon %>" alt="" style="vertical-align:bottom;border:0;margin-right:2px;"><b><% $name %></b></a></nobr><%perl>
+	</%perl><nobr><a href="<% $url %>" title="<% $title %>"><img src="<% $imghost %>/images/<% $icon %>" alt="" style="vertical-align:bottom;border:0;margin-right:2px;"><b><% $name %></b></a></nobr><%perl>
 }
 elsif ($style eq "linkedurl")
 {

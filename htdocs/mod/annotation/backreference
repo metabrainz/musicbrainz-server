@@ -1,0 +1,39 @@
+%# vi: set ts=2 sw=2 ft=mason :
+<%args>
+$annotation
+</%args>
+<%perl>
+
+my $mb = $m->comp("/comp/dblogin");
+
+my $al;
+my $artistid;
+my $type = $annotation->GetType();
+
+if ( $type == &MusicBrainz::Server::Annotation::ALBUM_ANNOTATION ) {
+	$al = Album->new($mb->{DBH});
+	$al->SetId($annotation->GetAlbum());
+	$al->LoadFromId
+		or return $m->comp(
+			"/comp/error",
+			"Album #" . $annotation->GetAlbum() . " does not exist",
+			1, 1,
+		);
+	$artistid = $al->GetArtist();
+}
+elsif ( $type == &MusicBrainz::Server::Annotation::ARTIST_ANNOTATION ) {
+	$artistid = $annotation->GetArtist();
+}
+
+
+my $ar = Artist->new($mb->{DBH});
+$ar->SetId($artistid);
+$ar->LoadFromId
+	or return $m->comp(
+		"/comp/error",
+		"artist #$artistid does not exist",
+		1, 1,
+	);
+
+return { artist => $ar, album => $al };
+</%perl>

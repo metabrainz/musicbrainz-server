@@ -4,6 +4,7 @@ ALTER TABLE albummeta DROP CONSTRAINT albummeta_pkey;
 ALTER TABLE album_amazon_asin DROP CONSTRAINT album_amazon_asin_pkey;
 ALTER TABLE album_cdtoc DROP CONSTRAINT album_cdtoc_pkey;
 ALTER TABLE albumwords DROP CONSTRAINT albumwords_pkey;
+ALTER TABLE annotation DROP CONSTRAINT annotation_pkey;
 ALTER TABLE artist DROP CONSTRAINT artist_pkey;
 ALTER TABLE artistalias DROP CONSTRAINT artistalias_pkey;
 ALTER TABLE artist_relation DROP CONSTRAINT artist_relation_pkey;

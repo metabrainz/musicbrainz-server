@@ -1,0 +1,25 @@
+.MarkupDiff
+{
+}
+
+.DiffAdd
+{
+	background: #cfc;
+}
+
+.DiffDel
+{
+	background: #fcc;
+}
+
+.DiffChangeAdd
+{
+	background: #cfc;
+	color: blue;
+}
+
+.DiffChangeDel
+{
+	background: #fcc;
+	color: blue;
+}

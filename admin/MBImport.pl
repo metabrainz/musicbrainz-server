@@ -280,6 +280,7 @@ sub ImportAllTables
 		albumjoin
 		albummeta
 		albumwords
+		annotation
 		artist
 		artist_relation
 		artistalias

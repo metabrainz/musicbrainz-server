@@ -49,11 +49,21 @@ sub vRefreshImportedStyleSheets
 	close $in;
 
 	#print "Write to $file:\n$all";
-	use IO::AtomicFile;
-	my $out = IO::AtomicFile->new or die $!;
-	$out->open($file, "w") or die $!;
-	print $out $all;
-	$out->close or die $!;
+	use File::Temp qw( tempfile );
+	use File::Basename qw( dirname );
+	my ($fh, $name) = tempfile(
+		"tmpcss-XXXXXXXX",
+		DIR => dirname($file),
+		CLEANUP => 1,
+	) or die $!;
+	eval 'END { unlink $name if defined $name }';
+
+	print $fh $all;
+	close $fh or die $!;
+	chmod 0644, $name or warn $!;
+	rename $name => $file or warn $!;
+	$name = undef;
+
 	print "Updated $file\n";
 
 	1;

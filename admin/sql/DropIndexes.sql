@@ -8,6 +8,9 @@ drop index Album_GIDIndex;
 drop index Album_ArtistIndex;
 drop index Album_PageIndex;
 
+drop index annotation_rowidindex;
+drop index annotation_moderationindex;
+
 drop index Track_NameIndex;
 drop index Track_GIDIndex;
 drop index Track_ArtistIndex;
