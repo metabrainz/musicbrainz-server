@@ -162,12 +162,13 @@ writefile("TIMESTAMP", "$now\n");
 
 # Get the replication control data
 
-my ($iSchemaSequence, $iReplicationSequence) = do {
+my ($iSchemaSequence, $iReplicationSequence, $dtReplicationDate) = do {
 	my $row = $sql->SelectSingleRowHash("SELECT * FROM replication_control");
 	$row ||= {};
 	@$row{qw(
 		current_schema_sequence
 		current_replication_sequence
+		last_replication_date
 	)};
 };
 
@@ -271,17 +272,16 @@ sub dumptable
 	$rows;
 }
 
-my $iReplicationRows = 0;
+# Is there any replication data to dump?
+my $fAnyReplicationData = 0;
+for my $table (@replication_tables)
+{
+	$fAnyReplicationData = 1
+		if $sql->SelectSingleValue("SELECT COUNT(*) FROM \"$table\"") > 0;
+}
+
 if ($fDoReplication)
 {
-	# Is there any replication data to dump?
-	my $fAnyReplicationData = 0;
-	for my $table (@replication_tables)
-	{
-		$fAnyReplicationData = 1
-			if $sql->SelectSingleValue("SELECT COUNT(*) FROM \"$table\"") > 0;
-	}
-
 	if ($fAnyReplicationData or not $iReplicationSequence)
 	{
 		# Are we starting replication for the first time?
@@ -308,7 +308,9 @@ if ($fDoReplication)
 		$iReplicationSequence ||= 0;
 
 		$sql->Do(
-			"UPDATE replication_control SET current_replication_sequence = ?",
+			"UPDATE replication_control
+			SET current_replication_sequence = ?,
+			last_replication_date = NOW()",
 			$iReplicationSequence,
 		);
 
@@ -322,10 +324,16 @@ if ($fDoReplication)
 		$sql->Do("DELETE FROM \"$_\"") for @replication_tables;
 
 		writefile("REPLICATION_SEQUENCE", "$iReplicationSequence\n");
+	} elsif (defined $iReplicationSequence and not $fAnyReplicationData) {
+		print localtime() . " : No changes since the last replication point (#$iReplicationSequence)\n";
+		writefile("REPLICATION_SEQUENCE", "$iReplicationSequence\n");
 	} else {
 		print localtime() . " : No replication data dumped - not producing a replication packet\n";
 		writefile("REPLICATION_SEQUENCE", "");
 	}
+} elsif (defined $iReplicationSequence and not $fAnyReplicationData) {
+	print localtime() . " : No changes since the last replication point (#$iReplicationSequence)\n";
+	writefile("REPLICATION_SEQUENCE", "$iReplicationSequence\n");
 } else {
 	writefile("REPLICATION_SEQUENCE", "");
 }

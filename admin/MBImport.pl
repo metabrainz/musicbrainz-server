@@ -162,8 +162,11 @@ printf "Loaded %d tables (%d rows) in %d seconds\n",
 # The current_schema_sequence /is/ valid, however.
 $sql->AutoCommit;
 $sql->Do(
-	"UPDATE replication_control SET current_replication_sequence = ?",
+	"UPDATE replication_control
+	SET current_replication_sequence = ?,
+	last_replication_date = ?",
 	($iReplicationSequence eq "" ? undef : $iReplicationSequence),
+	($iReplicationSequence eq "" ? undef : $timestamp),
 );
 
 exit($errors ? 1 : 0);
