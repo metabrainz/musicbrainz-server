@@ -613,7 +613,7 @@ sub CheckModifications
        $mod = $this->CreateFromId($row[0]);
        if (!defined $mod)
        {
-           print STDERR "Cannot create moderation $rowid. This " .
+           print STDERR "Cannot create moderation $row[0]. This " .
                         "moderation will remain open.\n";
            next;
        }
@@ -622,9 +622,12 @@ sub CheckModifications
        $mod->{__eval__} = $mod->GetStatus();
        $mods{$row[0]} = $mod;
 
+       print STDERR "\nEvaluate Mod: " . $mod->GetId() . "\n";
+
        # See if a KeyValue mod is pending for this.
        if ($this->CheckModificationForFailedDependencies($mod, \%mods) == 0)
        {
+           print STDERR "EvalChange: kv dep failed\n";
            # If the prereq. change failed, close this modification
            $mod->{__eval__} = ModDefs::STATUS_FAILEDPREREQ;
            next;
@@ -640,25 +643,40 @@ sub CheckModifications
            # already been loaded) check to see if the dep mod around.
            # If not, its been closed. If so, check its status directly.
            $depmod = $mods{$mod->GetDepMod()};
-           if (defined $depmod && 
-               $depmod->{__eval__} == ModDefs::STATUS_OPEN &&
-               $depmod->{__eval__} == ModDefs::STATUS_EVALNOCHANGE)
+           if (defined $depmod)
            {
-               # If the prereq. change is still open, skip this change 
-               $mod->{__eval__} = ModDefs::STATUS_EVALNOCHANGE;
-               next;
-           }
+              print STDERR "DepMod status: " . $depmod->{__eval__} . "\n";
+              # We have the dependant change in memory
+              if ($depmod->{__eval__} == ModDefs::STATUS_OPEN ||
+                  $depmod->{__eval__} == ModDefs::STATUS_EVALNOCHANGE)
+              {
+                  print STDERR "EvalChange: Memory dep still open\n";
 
-           # If we can't find it, we need to load the status by hand.
-           $dep_status = $this->GetModerationStatus($mod->GetDepMod());
-           if ($dep_status != ModDefs::STATUS_APPLIED)
+                  # If the prereq. change is still open, skip this change 
+                  $mod->{__eval__} = ModDefs::STATUS_EVALNOCHANGE;
+                  next;
+              }
+              elsif ($depmod->{__eval__} != ModDefs::STATUS_APPLIED)
+              {
+                  print STDERR "EvalChange: Memory dep failed\n";
+                  $mod->{__eval__} = ModDefs::STATUS_FAILEDPREREQ;
+                  next;
+              }
+           }
+           else
            {
-               # The depedent moderation had failed. Fail this one.
-               $mod->{__eval__} = ModDefs::STATUS_FAILEDPREREQ;
-               next;
+              # If we can't find it, we need to load the status by hand.
+              $dep_status = $this->GetModerationStatus($mod->GetDepMod());
+              if ($dep_status != ModDefs::STATUS_APPLIED)
+              {
+                  print STDERR "EvalChange: Disk dep failed\n";
+                  # The depedent moderation had failed. Fail this one.
+                  $mod->{__eval__} = ModDefs::STATUS_FAILEDPREREQ;
+                  next;
+              }
            }
        }
-
+    
        # Has the vote period expired and there have been votes?
        if ($mod->GetExpireTime() < $now && 
           ($mod->GetYesVotes() > 0 || $mod->GetNoVotes() > 0))
@@ -666,9 +684,11 @@ sub CheckModifications
            # Are there more yes votes than no votes?
            if ($mod->GetYesVotes() <= $mod->GetNoVotes())
            {
+               print STDERR "EvalChange: expire and voted down\n";
                $mod->{__eval__} = ModDefs::STATUS_FAILEDVOTE;
                next;
            }
+           print STDERR "EvalChange: expire and approved\n";
            $mod->{__eval__} = ModDefs::STATUS_APPLIED;
            next;
        }
@@ -677,6 +697,7 @@ sub CheckModifications
        if ($mod->GetYesVotes() == DBDefs::NUM_UNANIMOUS_VOTES && 
            $mod->GetNoVotes() == 0)
        {
+           print STDERR "EvalChange: unanimous yes\n";
            # A unanimous yes. 
            $mod->{__eval__} = ModDefs::STATUS_APPLIED;
            next;
@@ -685,25 +706,28 @@ sub CheckModifications
        if ($mod->GetNoVotes() == DBDefs::NUM_UNANIMOUS_VOTES && 
            $mod->GetYesVotes() == 0)
        {
+           print STDERR "EvalChange: unanimous no\n";
            # A unanimous no. R
            $mod->{__eval__} = ModDefs::STATUS_FAILEDVOTE;
            next;
        }
+       print STDERR "EvalChange: no change\n";
 
        # No condition for this moderation triggered. Leave it alone
        $mod->{__eval__} = ModDefs::STATUS_EVALNOCHANGE;
    }
    $sql->Finish;
 
-   foreach $key (reverse sort keys %mods)
+   foreach $key (reverse sort { $a <=> $b} keys %mods)
    {
+       print STDERR "Check mod: $key\n";
        $mod = $mods{$key};
        next if ($mod->{__eval__} == ModDefs::STATUS_EVALNOCHANGE);
 
        if ($mod->{__eval__} == ModDefs::STATUS_APPLIED)
        {
            print STDERR "Mod " . $mod->GetId() . " applied\n";
-           $mod->SetStatus($mod->ApprovedAction($rowid));
+           $mod->SetStatus($mod->ApprovedAction($mod->GetRowId()));
            $this->CreditModerator($mod->GetModerator(), 1);
        }
        else

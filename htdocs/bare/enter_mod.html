@@ -73,6 +73,7 @@ for($i = 0;; $i++)
     $mod->SetModerator($session{uid});
     $mod->SetDepMod($depmod);
     $modid = $mod->InsertModeration();
+    $modid = ($depmod == 0) ? $modid : $depmod;
 }
 $mb->Logout();
 
@@ -90,8 +91,10 @@ else
     $url = $ARGS{referer};
 }
 
-$url =~ s/&modid=\d*//g;
-$url .= "&modid=$modid" if (defined $modid);
+if ($url =~ s/&modid=\d*//g)
+{
+    $url .= "&modid=$modid" if (defined $modid);
+}
 $r->header_out(Location=>$url);
 $r->status(302);
 

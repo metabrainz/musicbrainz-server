@@ -161,7 +161,7 @@ else
 % if (exists $ARGS{solo}) {
        <input type="hidden" name="referer" value="<% $referer %>">
 % } else {
-       <input type="hidden" name="referer" value="/changetrack.html?album=<% $id %>&artist=<% $artist %>&tindex=<% $tindex + 1 %>">
+       <input type="hidden" name="referer" value="/changetrack.html?album=<% $id %>&artist=<% $artist %>&tindex=<% $tindex + 1 %>&modid=<% $depmod %>">
 % }
        </form>
          

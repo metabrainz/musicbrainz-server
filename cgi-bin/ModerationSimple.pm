@@ -511,39 +511,35 @@ sub ApprovedAction
    $status = ModDefs::STATUS_ERROR;
    $sql = Sql->new($this->{DBH});
 
-   # Pull back all the pertinent info for this mod
-   if ($sql->Select(qq/select newvalue, rowid from Changes where id = $id/))
-   {
-        @row = $sql->NextRow;
-        $name = $row[0];
-        if ($name =~ /\n/)
-        {
-           ($sortname, $name) = split /\n/, $name;
-        }
-        else
-        {
-           $sortname = $name;
-        }
-        $qname = $sql->Quote($name);
-        $rowid = $row[1];
+   $name = $this->GetNew();
+   $rowid = $this->GetRowId();
 
-        $sql->Finish;
-        if ($sql->Select(qq/select id from Artist where name = $qname/))
-        {
-            @row = $sql->NextRow;
-            $newid = $row[0];
-            $sql->Finish;
-        }
-        else
-        {
-            $ar = Artist->new($this->{DBH});
-            $ar->SetName($name);
-            $ar->SetSortName($sortname);
-            $newid = $ar->Insert();
-        }
-        $sql->Do("update Track set Artist = $newid where id = $rowid");
-        $status = ModDefs::STATUS_APPLIED 
+   if ($name =~ /\n/)
+   {
+      ($sortname, $name) = split /\n/, $name;
    }
+   else
+   {
+      $sortname = $name;
+   }
+   $qname = $sql->Quote($name);
+
+   if ($sql->Select(qq/select id from Artist where name = $qname/))
+   {
+       @row = $sql->NextRow;
+       $newid = $row[0];
+       $sql->Finish;
+   }
+   else
+   {
+       $ar = Artist->new($this->{DBH});
+       $ar->SetName($name);
+       $ar->SetSortName($sortname);
+       $newid = $ar->Insert();
+   }
+
+   $sql->Do("update Track set Artist = $newid where id = $rowid");
+   $status = ModDefs::STATUS_APPLIED;
 
    return $status;
 }
