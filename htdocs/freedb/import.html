@@ -1,3 +1,4 @@
+%# vi: set ts=4 sw=4 ft=mason :
 <%args>
 $catid=>""
 $mac=>""
@@ -29,7 +30,7 @@ if ($catid eq '')
     <& /comp/sidebar, title=>'FreeDB Import', expand=>"moderation" &>
     Invalid category and id pasted: <b><% $catid %></b><p>
     Please cut and paste a category (rock, blues, etc.) and a freedb id
-    (e.g. 940d8b0c) seperated by <b>/</b> , as shown below:
+    (e.g. 940d8b0c) separated by <b>/</b> , as shown below:
 
     <blockquote>
        <b>rock / 7b0dae0a<br>
@@ -67,7 +68,7 @@ $array = $lookup->{tracks};
 $tracks = scalar(@$array);
 $durations = $lookup->{durations};
 
-$lookup->{artist} =~ tr/ / /s;
+$lookup->{artist} =~ tr[ ][ ]s;
 $ar = Artist->new($mb->{DBH});
 
 if ($mac)
@@ -105,9 +106,9 @@ if (defined $ret)
                 {
                     if (!$banner)
                     {
-                         mc_out(qq|<b>MusicBrainz already contains the following 
+                         mc_out("<b>MusicBrainz already contains the following 
                                    albums that have the same or a similar title
-                                   to the CD that you'd like to import:</b><p>|);
+                                   to the CD that you'd like to import:</b><p>");
                          $banner++;
                     }
 
@@ -123,10 +124,10 @@ if (defined $ret)
 
         if ($banner)
         {
-            mc_out(qq|<p><font color=\"red\">Please do not import albums that are
+            mc_out("<p><font color='red'>Please do not import albums that are
                       already present in the database!</font><p>However, if
                       you feel that this album still needs to be added for some
-                      reason, please follow the instructions below:<p>|);
+                      reason, please follow the instructions below:<p>");
         }
     }
 }
@@ -153,14 +154,14 @@ mistakes you may find.<p>
      buttons below to reload this page.<p>
 
      Choose which way to display the artist and track names, and also
-     select a character that is used to seperate the artist from the
+     select a character that is used to separate the artist from the
      track names in this album.<p>
 
      Current settings: <span class="bold">
 %    if ($parse_artist_track ne "") {
-        Artist/Track</span>, seperated by
+        Artist/Track</span>, separated by
 %    } else {
-        Track/Artist</span>, seperated by
+        Track/Artist</span>, separated by
 %    }
      <span class="bold"><% $sep %></span><p>
 
@@ -173,7 +174,7 @@ mistakes you may find.<p>
         <input type="hidden" name="mac" value="<% $mac ? 'on' : '' %>">
         <input type="submit" value="Artist / Track" name="parse_artist_track">
      </td><td align="center">
-        use seperator:<br><br>
+        use separator:<br><br>
         <input type="text" name="sep" size="3">
      </form>
      </td><td align="center">
@@ -186,7 +187,7 @@ mistakes you may find.<p>
         <input type="hidden" name="mac" value="<% $mac ? 'on' : '' %>">
         <input type="submit" value="Track / Artist" name="parse_track_artist">
      </td><td align="center">
-        use seperator:<br><br>
+        use separator:<br><br>
         <input type="text" name="sep" size="3">
       </form>
      </td></tr>
