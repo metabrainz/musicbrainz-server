@@ -406,3 +406,67 @@ sub SearchByName
 
    return @info;
 };
+
+# Given a list of albums, this function will merge the list of albums into
+# the current album. All DiskIds and TRM Ids are preserved in the process
+sub MergeAlbums
+{
+   my ($this, @list) = @_;
+   my ($al, $ar, $tr, @tracks, %merged, $id, $sql);
+   
+   return undef if (scalar(@list) < 1);
+
+   @tracks = $this->LoadTracks();
+   return undef if (scalar(@tracks) == 0);
+
+   # Create a hash that contains the original album
+   foreach $tr (@tracks)
+   {
+      $merged{$tr->GetSequence()} = $tr;
+   }
+
+   $al = Album->new($this->{DBH});
+   $sql = Sql->new($this->{DBH});
+   foreach $id (@list)
+   {
+       $al->SetId($id);
+       next if (!defined $al->LoadFromId());
+
+       @tracks = $al->LoadTracks();
+       foreach $tr (@tracks)
+       {
+           if (exists $merged{$tr->GetSequence()})
+           {
+                # We already have that track. Move any existing TRMs
+                # to the existing track
+                $sql->Do("update GUIDJoin set track = " .
+                         $merged{$tr->GetSequence()}->GetId() . 
+                         " where track = " . $tr->GetId());
+           }
+           else
+           {
+                # We don't already have that track
+                $sql->Do("update AlbumJoin set Album = " . 
+                         $this->GetId() . " where track = " . $tr->GetId());
+                $merged{$tr->GetSequence()} = $tr;
+           }
+
+           # Move that the track to the target album's artist
+           $sql->Do("update Track set artist = " . $this->GetArtist() .
+                    " where id = " . $tr->GetId());
+                    
+       }
+
+       # Also merge the Diskids
+       $sql->Do("update Diskid set Album = " . $this->GetId() . 
+                " where Album = $id");
+       $sql->Do("update TOC set Album = " . $this->GetId() . 
+                " where Album = $id");
+
+       # Then, finally remove what is left of the old album
+       $al->Remove();
+   }
+
+   return 1;
+}
+

@@ -695,3 +695,120 @@ sub DeniedAction
        $gu->Insert($this->GetPrev(), $nw->{TrackId});
    }
 }
+
+package MergeAlbumModeration;
+use vars qw(@ISA);
+@ISA = 'Moderation';
+
+sub ShowPreviousValue
+{
+   my ($this) = @_;
+   my ($nw, $key, $i, $al, $out);
+
+   $out = "Error!";
+   $nw = $this->ConvertNewToHash($this->{new});
+   return $out if (!defined $nw);
+
+   $out = "Old: ";
+   $al = Album->new($this->{DBH});
+   for($i = 1;; $i++)
+   {
+       $key = "AlbumId$i";
+       if (exists $nw->{$key} && $nw->{$key} != 0)
+       {
+           $al->SetId($nw->{$key});
+           if (defined $al->LoadFromId())
+           {
+              $out .= "<br>" if ($i > 1);
+              $out .= "<a href=\"/showalbum.html?albumid=" . 
+                      $nw->{$key} . "\">" . $al->GetName() . "</a>";
+           }
+       }
+       else
+       {
+           last;
+       }
+   }
+
+   return $out;
+}
+
+sub ShowNewValue
+{
+   my ($this) = @_;
+   my ($nw, $key, $i, $al, $out);
+
+   $out = "Error!";
+   $nw = $this->ConvertNewToHash($this->{new});
+   return $out if (!defined $nw);
+
+   $out = "Merged into: ";
+   $al = Album->new($this->{DBH});
+
+   $key = "AlbumId0";
+   if (exists $nw->{$key} && $nw->{$key} != 0)
+   {
+      $al->SetId($nw->{$key});
+      if (defined $al->LoadFromId())
+      {
+         $out .= "<a href=\"/showalbum.html?albumid=" . 
+                 $nw->{$key} . "\">" . $al->GetName() . "</a>";
+      }
+   }
+   else
+   {
+      return "Error!";
+   }
+
+   return $out;
+}
+
+# I don't think removing a trmid warrants any dependencies
+sub DetermineDependencies
+{
+}
+
+sub PreVoteAction
+{
+    return 1;
+}
+
+#returns STATUS_XXXX
+sub ApprovedAction
+{
+   my ($this) = @_;
+   my ($nw, $key, $i, $al, @list);
+
+   $nw = $this->ConvertNewToHash($this->{new});
+   return "Error!" if (!defined $nw);
+
+   $al = Album->new($this->{DBH});
+   for($i = 0;; $i++)
+   {
+       $key = "AlbumId$i";
+       if (exists $nw->{$key} && $nw->{$key} != 0)
+       {
+           push @list, $nw->{$key};
+       }
+       else
+       {
+           last;
+       }
+   }
+
+   $al->SetId(shift @list);
+   if (defined $al->LoadFromId())
+   {
+       $al->MergeAlbums(@list);
+       return ModDefs::STATUS_APPLIED;
+   }
+   else
+   {
+       return ModDefs::STATUS_FAILEDPREREQ;
+   }
+}
+
+#returns nothing
+sub DeniedAction
+{
+}

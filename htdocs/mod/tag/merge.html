@@ -1,0 +1,113 @@
+<& /comp/sidebar, title=>'Confirm Merging Albums', expand=>'moderate' &>
+
+<%perl>
+
+my ($mb, $id, $ar, $artist); 
+
+$mb = new MusicBrainz;
+$mb->Login();
+
+if (!defined $session{user} || $session{user} eq '') {
+</%perl>
+    You must be logged in to edit the database.<p>
+    <& /comp/tablebegin, title=>'Login' &>
+    <& /comp/loginbox &>
+    <& /comp/tableend &>
+<%perl>
+} 
+else 
+{
+    my ($i, $al, @objs);
+
+    for($i = 0;; $i++)
+    {
+       if (exists $ARGS{"value$i"})
+       {
+           $al = Album->new($mb->{DBH});
+           $al->SetId($ARGS{"value$i"});
+           push @objs, $al if (defined $al->LoadFromId())
+       }
+       else
+       {
+           last;
+       }
+    }
+
+    $ar = Artist->new($mb->{DBH});
+    $i = 0;
+    foreach $al (@objs)
+    {
+       if ($i == 0)
+       {
+           </%perl>
+           Please review the proposed album merge moderation and then
+           confirm this moderation at the bottom of this page.<p>
+           All of the albums below this one will be merged into this album:<p>
+           <%perl>
+       }
+       if ($i == 1)
+       {
+           </%perl>
+           All of the albums below will be merged into the above album:<p>
+           <%perl>
+       }
+       if ($ar->GetId() != $al->GetArtist())
+       {
+           $ar->SetId($al->GetArtist());
+           if (not defined $ar->LoadFromId())
+           {
+              mc_out("Could not load artist " . $ar->GetId() . ".");
+              next;
+           }
+           #mc_comp("/comp/artisttitle", artist=>$ar, nomod=>1);
+       }
+       mc_comp("/comp/album", album=>$al, artist=>$ar, nomod=>1);
+       $i++;
+    }
+}
+</%perl>
+
+<& /comp/tablebegin, title=>"Confirm Merge" &>
+
+<FORM METHOD="POST" ACTION="/bare/enter_kv_mod.html" NAME="MergeConfirm"
+      ENCTYPE="application/x-www-form-urlencoded">  
+
+<table width="100%">
+  <tr>
+    <td colspan="2">
+    Are you sure you want to merge the albums above?
+    </td>
+  </tr>
+  <tr>
+    <td>
+    &nbsp;
+    </td>
+    <td>
+    <INPUT TYPE="radio" NAME="confirm0" SIZE=25 value="yes"> Yes
+    </td>
+  </tr>
+  <tr>
+    <td>
+    &nbsp;
+    </td>
+    <td>
+    <INPUT TYPE="radio" NAME="confirm0" SIZE=25 value="no" CHECKED> No
+    </td>
+  </tr>
+  <tr>
+    <td colspan=2>
+    <INPUT TYPE="submit" NAME="Submit" VALUE="Submit">    
+    </td>
+  </tr>
+</table>
+
+% my $key;
+% foreach $key (keys %ARGS) {
+    <input type="hidden" name="<% $key %>" value="<% $ARGS{$key} %>">
+% }
+
+</form>
+<& /comp/tableend &>
+
+% $mb->Logout();
+

@@ -43,15 +43,10 @@ else
        }
     }
 
-    # Sort by artist so that all the artists are sequential
-    @objs = sort { $a->GetArtist() <=> $b->GetArtist()} @objs;
-
 
 </%perl>
 
     Now that you've selected the albums below, you can:
-    <form method="POST" action="/bare/enter_kv_mod.html" name="AddArtist"
-          enctype="application/x-www-form-urlencoded">
     <table>
 % if ($vartist > 0 && $vartist !=  scalar(@objs)) {
     <tr>
@@ -75,7 +70,26 @@ else
 % } else {
     <tr>
       <td>
+      <form method="POST" action="/mod/tag/merge.html" name="Merge"
+            enctype="application/x-www-form-urlencoded">
       <input type="submit" NAME="Submit" VALUE="Merge Albums">
+%     my $ind = 0;
+%     foreach $al (@objs) {
+          <input type="hidden" name="key<% $ind %>" value="AlbumId<% $ind %>">
+          <input type="hidden" name="value<% $ind++ %>" 
+                 value="<% $al->GetId() %>">
+%     }
+      <input type="hidden" name="type"
+             value="<% ModDefs::MOD_MERGE_ALBUM %>">
+      <input type="hidden" name="artist" value="<% $objs[0]->GetArtist() %>">
+      <input type="hidden" name="prev" value="N/A">
+      <input type="hidden" name="table" value="Album">
+      <input type="hidden" name="column" value="id">
+      <input type="hidden" name="id" value="<% $objs[0]->GetId() %>">
+      <input type="hidden" 
+             name="url" value="/showalbum.html?albumid=<% $objs[0]->GetId() %>">
+      </form>
+
       </td>
       <td>
       Merge all the tagged albums into one album, preserving all
@@ -85,17 +99,15 @@ else
 % }
      <tr>
       <td>
+      <form method="POST" action="/bare/enter_kv_mod.html" name="AddArtist"
+            enctype="application/x-www-form-urlencoded">
       <input type="submit" NAME="Submit" VALUE="Delete Albums">
+      </form>
       </td>
       <td>
       Delete all the tagged albums.
       </td>
     </tr>
-
-
-
-
-
 
     </form>
     </table>
@@ -106,6 +118,9 @@ else
     <p>
 
 <%perl>
+
+    # Sort by artist so that all the artists are sequential
+    @objs = sort { $a->GetArtist() <=> $b->GetArtist()} @objs;
 
     $ar = Artist->new($mb->{DBH});
     foreach $al (@objs)

@@ -63,7 +63,8 @@ my %ModNames = (
     "19" => "Remove Artist",
     "20" => "Remove Diskid",
     "21" => "Move Diskid",
-    "22" => "Remove TRM id"
+    "22" => "Remove TRM id",
+    "23" => "Merge Albums"
 );
 
 my %ChangeNames = (
@@ -409,6 +410,10 @@ sub CreateModerationObject
    elsif ($type == ModDefs::MOD_REMOVE_TRMID)
    {
        return RemoveTRMIdModeration->new($this->{DBH});
+   }
+   elsif ($type == ModDefs::MOD_MERGE_ALBUM)
+   {
+       return MergeAlbumModeration->new($this->{DBH});
    }
 
    print STDERR "Undefined moderation type $type.\n";
