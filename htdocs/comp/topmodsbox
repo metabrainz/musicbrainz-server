@@ -8,7 +8,8 @@ if (!defined($result))
     $mb->Login();
 
     $sth = $mb->{DBH}->prepare(qq/select name, modsaccepted from ModeratorInfo
-                                  order by modsaccepted desc limit 5/); 
+                                  where id != / . ModDefs::FREEDB_MODERATOR . 
+                               qq/ order by modsaccepted desc limit 5/); 
     if ($sth->execute)
     {
        my @row;
