@@ -104,7 +104,11 @@ else
 
     mc_out("<a href=\"/showaliases.html?artistid=");
     mc_out($artist->GetId());
-    mc_out("\">View aliases</a> ");
+    mc_out("\">Aliases</a> ");
+
+    #mc_out("| <a href=\"/artistrel.html?artistid=");
+    #mc_out($artist->GetId());
+    #mc_out("\">Related artists</a> ");
 
     if ($artist->GetName() ne "Unknown" && 
         $artist->GetId() != ModDefs::VARTIST_ID && 

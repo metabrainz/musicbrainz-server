@@ -39,7 +39,6 @@ use Discid;
 use TableBase;
 use Artist;
 use Track;
-use Lyrics;
 use UserStuff;
 use Moderation;
 use TRM;  
@@ -55,29 +54,8 @@ use vars qw(@ISA @EXPORT);
 @ISA    = @ISA    = '';
 @EXPORT = @EXPORT = '';
 
-use constant EXTRACT_TOC_QUERY => "http://musicbrainz.org/mm/mm-2.0#toc [] http://musicbrainz.org/mm/mm-2.0#sectorOffset";
-use constant EXTRACT_NUMTRACKS_QUERY => "http://musicbrainz.org/mm/mm-2.0#lastTrack";
-
-my %LyricTypes =
-(
-   unknown        => 0,
-   lyrics         => 1,
-   artistinfo     => 2,
-   albuminfo      => 3,
-   trackinfo      => 4,
-   funny          => 5
-);
-
-# This reverse table is a hack -- I'm running out of time!
-my %TypesLyric =
-(
-   0 => "unknown",
-   1 => "lyrics",
-   2 => "artistinfo",
-   3 => "albuminfo",
-   4 => "trackinfo",
-   5 => "funny"
-);
+use constant EXTRACT_TOC_QUERY => "!mm!toc [] !mm!sectorOffset";
+use constant EXTRACT_NUMTRACKS_QUERY => "!mm!lastTrack";
 
 sub IsValidUUID
 {
@@ -146,13 +124,16 @@ sub GetCDInfoMM2
 
    return $rdf->ErrorRDF("No Discid given.") if (!defined $id);
 
+   my $ns = $rdf->GetMMNamespace(); 
+   my $query = EXTRACT_TOC_QUERY;
+   $query =~ s/!mm!/$ns/g;
    if (defined $numtracks)
    {
       $toc = "1 $numtracks ";
       $currentURI = $$triples[0]->subject->getLabel;
       for($i = 1; $i <= $numtracks + 1; $i++)
       {
-          $toc .= QuerySupport::Extract($triples, $currentURI, $i, EXTRACT_TOC_QUERY) . " ";
+          $toc .= QuerySupport::Extract($triples, $currentURI, $i, $query) . " ";
       }
    }
 
@@ -169,12 +150,18 @@ sub AssociateCDMM2
 
    return $rdf->ErrorRDF("No Discid given.") if (!defined $Discid);
    
+   my $ns = $rdf->GetMMNamespace(); 
+   my $toc_query = EXTRACT_TOC_QUERY;
+   $toc_query =~ s/!mm!/$ns/g;
+   my $num_query = EXTRACT_NUMTRACKS_QUERY;
+   $num_query =~ s/!mm!/$ns/g;
+
    $currentURI = $$triples[0]->subject->getLabel;
-   $numtracks = QuerySupport::Extract($triples, $currentURI, $i, EXTRACT_NUMTRACKS_QUERY);
+   $numtracks = QuerySupport::Extract($triples, $currentURI, $i, $num_query);
    $toc = "1 $numtracks ";
    for($i = 1; $i <= $numtracks + 1; $i++)
    {
-       $toc .= QuerySupport::Extract($triples, $currentURI, $i, EXTRACT_TOC_QUERY) . " ";
+       $toc .= QuerySupport::Extract($triples, $currentURI, $i, $toc_query) . " ";
    }
 
    # Check to see if the album is in the main database
@@ -512,6 +499,8 @@ sub SubmitTrack
        $len, $year, $genre, $comment) = @_;
    my (@albumids, %info, $in, $ret);
 
+   return $rdf->ErrorRDF("This feature is currently not enabled.") 
+
    if (!defined $name || $name eq '' ||
        !defined $album || $album eq '' ||
        !defined $seq || $seq eq '' ||
@@ -653,146 +642,6 @@ sub SubmitTRMList
    return $rdf->ErrorRDF("No valid TRM ids were submitted.") 
 }
 
-# returns synctext
-sub GetSyncTextByTrackGlobalId
-{
-   my ($dbh, $doc, $r, $id) = @_;
-   my ($rdf, $sql, @row, $count, $trackid);
-
-   $count = 0;
-
-   if (! DBDefs->USE_LYRICS)
-   {  
-       return $r->EmitRDFError("This server does not support synctext.");
-   }
-
-   return $r->ErrorRDF("No track id given.") 
-      if (!defined $id);
-   return undef if (!defined $dbh);
-
-   $sql = Sql->new($dbh);
-   $id = $sql->Quote($id);
-   ($trackid) = $sql->GetSingleRow("Track", ["id"], ["gid", $id]);
-   if (!defined($trackid)) {
-       return $r->ErrorRDF("Unknown track id.") 
-   }
-
-   my $ly= Lyrics->new($dbh);
-   $rdf  = $r->BeginRDFObject;
-   $rdf .= $r->BeginDesc;
-   $rdf .= $r->CreateTrackRDFSnippet(1, $trackid);
-   $rdf .= $r->BeginElement("MM:SyncEvents");
-   $rdf .= $r->BeginSeq;
-
-   #get all synctext ID entries for this track
-   my @id=$ly->GetSyncTextList($trackid);
-
-   foreach $id (@id) 
-   {
-      last if (!defined $id);
-
-      #read the table SyncText for this id
-      (my $type, my $url, my $contributor, my $date) =
-         ($ly->GetSyncTextData($id))[1..4];
-
-      if ($contributor eq '' ||			#invalid record
-          $url         eq '' ||
-          $date        eq '' ) { next }		#TODO: log error
-     
-
-      $rdf .= $r->BeginLi($url);
-      $rdf .= $r->Element("DC:Contributor", $contributor); 
-      $rdf .= $r->Element("DC:Type", "", type=>($TypesLyric{$type}));
-      $rdf .= $r->Element("DC:Date", $date);
-      $rdf .= $r->BeginSeq;
-    
-      my @events=$ly->GetSyncEventList($id);	#get text & timestamps
-     
-      while(scalar(@events) > 2) {
-         shift @events;				#read away the ID
-         my $ts=shift(@events);
-         my $text=shift(@events);
-         $rdf .= $r->BeginLi;
-         $rdf .= $r->Element("MM:SyncText", $text, ts=>$ts);
-         $rdf .= $r->EndLi;
-      }
-      $rdf .= $r->EndSeq;
-      $rdf .= $r->EndLi;
-      $count++;
-   }
-   $rdf .= $r->EndSeq;
-   $rdf .= $r->EndElement("MM:SyncEvents");
-   $rdf .= $r->Element("MQ:Status", "OK", items=>$count);
-   $rdf .= $r->EndDesc;
-   $rdf .= $r->EndRDFObject;
-
-   return $rdf;
-}
-
-# returns lyrics
-#TODO: use the methods defined by Lyrics.pm to access the data.
-sub GetLyricsByGlobalId
-{
-   my ($dbh, $doc, $r, $id) = @_;
-   my ($sql, $rdf, @row, $count, $trackid);
-
-   $count = 0;
-   if (! DBDefs->USE_LYRICS)
-   {  
-       return $r->EmitRDFError("This server does not support lyrics.");
-   }
-
-   return $r->ErrorRDF("No track id given.") 
-      if (!defined $id);
-   return undef if (!defined $dbh);
-
-   $rdf = $r->BeginRDFObject;
-   $rdf .= $r->BeginDesc;
-
-   $sql = Sql->new($dbh);
-   $id = $sql->Quote($id);
-   ($trackid) = $sql->GetSingleRow("Track", ["id"], ["gid", $id]);
-   if (defined $trackid)
-   {
-        #JOHAN: bugfix, do not use id but Track in the where clause.
-        if ($sql->Select(qq\select type, url, submittor, submitted, id 
-                            from SyncText where Track = $trackid\))
-        {
-            @row = $sql->NextRow();
-            $sql->Finish;
-    
-            $rdf .= $r->CreateTrackRDFSnippet(1, $trackid);
-            $rdf .= $r->BeginElement("MM:SyncEvents");
-            $rdf .= $r->BeginDesc($row[1]);
-            $rdf .= $r->Element("DC:Contributor", $row[2]); 
-            $rdf .= $r->Element("DC:Type", "", type=>($TypesLyric{$row[0]}));
-            $rdf .= $r->Element("DC:Date", $row[3]);
-            $rdf .= $r->BeginSeq;
-    
-            if ($sql->Select(qq\select ts, text from SyncEvent where 
-                                SyncText = $row[4]\))
-            {
-                while(@row = $sql->NextRow())
-                {
-                   $rdf .= $r->BeginLi;
-                   $rdf .= $r->Element("MM:SyncText", $row[1], ts=>$row[0]);
-                   $rdf .= $r->EndLi;
-                }
-                $sql->Finish();
-            }
-            $rdf .= $r->EndSeq;
-            $rdf .= $r->EndDesc;
-            $rdf .= $r->EndElement("MM:SyncEvents");
-            $count++;
-        }
-   }
-
-   $rdf .= $r->Element("MQ:Status", "OK", items=>$count);
-   $rdf .= $r->EndDesc;
-   $rdf .= $r->EndRDFObject;
-
-   return $rdf;
-}
 
 sub AuthenticateQuery
 {
@@ -840,6 +689,104 @@ sub AuthenticateQuery
    print STDERR "Start session: $username $session_id\n";
 
    return $rdf->CreateAuthenticateResponse($session_id, $challenge);
+}
+
+sub TrackInfoFromTRMId
+{
+   my ($dbh, $doc, $rdf, $id, $artist, $album, $track, 
+       $tracknum, $duration, $filename)=@_;
+   my ($sql, @data, $out, $qid);
+
+   return $rdf->ErrorRDF("No trm id given.") 
+      if (!defined $id || $id eq '');
+   return undef if (!defined $dbh);
+
+   $sql = Sql->new($dbh);
+   $id =~ tr/A-Z/a-z/;
+   $qid = $sql->Quote($id);
+   @data = $sql->GetSingleRow(
+      "TRM, TRMJoin, Track, AlbumJoin, Album, Artist", 
+      ["Track.name", "Artist.name", "Album.name", 
+       "AlbumJoin.sequence", "Track.GID", "Track.Length"],
+      ["TRM.TRM", $qid,
+       "TRMJoin.TRM", "TRM.id",
+       "TRMJoin.track", "Track.id",
+       "Track.id", "AlbumJoin.track",
+       "Album.id", "AlbumJoin.album",
+       "Track.Artist", "Artist.id"]);
+
+   if (defined $data[0])
+   {
+       my ($trm, $sql);
+       
+       $sql = Sql->new($dbh);
+       $trm = TRM->new($dbh);
+       eval
+       {
+          $sql->Begin();
+          $trm->IncrementLookupCount($id);
+          $sql->Commit();
+       };
+       if ($@)
+       {
+          $sql->Rollback();
+       }
+   }
+   else
+   {
+       my (%lookup, $ts);
+
+       $lookup{artist} = $artist; 
+       $lookup{album} = $album; 
+       $lookup{track} = $track; 
+       $lookup{tracknum} = $tracknum; 
+       $lookup{filename} = $filename; 
+       $lookup{duration} = $duration; 
+
+       $ts = TaggerSupport->new($dbh);
+       my ($error, $result, $flags, $list) = $ts->Lookup(\%lookup, 3);
+       if ($flags & TaggerSupport::ALBUMTRACKLIST)
+       {
+           my ($id);
+
+           foreach $id (@$list)
+           {
+               my $sim;
+
+               $sim = ($id->{sim_track} * .5) +
+                      ($id->{sim_album} * .5);
+
+               if ($sim >= .9)
+               {
+                   $data[0] = $id->{name};
+                   $data[1] = $id->{artist};
+                   $data[2] = $id->{album};
+                   $data[3] = $id->{tracknum};
+                   $data[4] = $id->{mbid};
+                   $data[5] = $id->{tracklen};;
+                   last;
+               }
+
+           }
+       }
+   }
+
+   $out = $rdf->BeginRDFObject;
+   $out .= $rdf->BeginDesc("mq:Result");
+   $out .= $rdf->Element("mq:status", "OK");
+   $out .= $rdf->Element("mq:artistName", $data[1]);
+   $out .= $rdf->Element("mq:albumName", $data[2]);
+   $out .= $rdf->Element("mq:trackName", $data[0]);
+   $out .= $rdf->Element("mm:trackNum", $data[3]);
+   $out .= $rdf->Element("mm:trackid", $data[4]);
+   if (defined $data[5] && $data[5] != 0)
+   {
+       $out .= $rdf->Element("mm:duration", $data[5]);
+   }
+   $out .= $rdf->EndDesc("mq:Result");
+   $out .= $rdf->EndRDFObject;
+
+   return $out;
 }
 
 sub QuickTrackInfoFromTRMId

@@ -34,7 +34,7 @@ $mb->Login;
 my $dbh = $mb->{DBH};
 
 # select all albums
-$my $sth = $dbh->prepare('SELECT DISTINCT(Album.Id) FROM Album, AlbumJoin, Track, TOC WHERE album.id = albumjoin.album and albumjoin.track = track.id and track.length <= 0 and Album.Id = TOC.Album');
+my $sth = $dbh->prepare('SELECT DISTINCT(Album.Id) FROM Album, AlbumJoin, Track, TOC WHERE album.id = albumjoin.album and albumjoin.track = track.id and track.length <= 0 and Album.Id = TOC.Album');
 $sth->execute();
 
 # for each album 

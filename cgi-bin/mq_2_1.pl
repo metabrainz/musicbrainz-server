@@ -8,7 +8,7 @@ use QuerySupport;
 use TaggerSupport;
 use DBI;
 use DBDefs;
-use MM_2_0;
+use MM_2_1;
 use Apache;
 use RDFStore::Parser::SiRPAC;
 use RDFStore::NodeFactory;
@@ -131,8 +131,8 @@ my %Queries =
    AuthenticateQuery =>
       [\&QuerySupport::AuthenticateQuery, 0, 
         'http://musicbrainz.org/mm/mq-1.0#username'],
-   QuickTrackInfoFromTRMId =>
-      [\&QuerySupport::QuickTrackInfoFromTRMId, 0, 
+   TrackInfoFromTRMId =>
+      [\&QuerySupport::TrackInfoFromTRMId, 0, 
         'http://musicbrainz.org/mm/mm-2.0#trmid',
         'http://musicbrainz.org/mm/mq-1.0#artistName',
         'http://musicbrainz.org/mm/mq-1.0#albumName',
@@ -248,7 +248,7 @@ sub Authenticate
    }
 }
 
-$rdf = MM_2_0->new(0);
+$rdf = MM_2_1->new(0);
 if (exists $ENV{"MOD_PERL"})
 {
    $r = Apache->request();

@@ -48,20 +48,6 @@ sub escape
    return $_[0];
 }
 
-sub GetMQNamespace
-{
-    my ($this) = @_;
-
-    return "http://musicbrainz.org/mm/mq-1.0#";
-}
-
-sub GetMMNamespace
-{
-    my ($this) = @_;
-
-    return "http://musicbrainz.org/mm/mm-2.0#";
-}
-
 sub BeginRDFObject 
 {
     my ($this, $skipxmldecl) = @_;

@@ -4,7 +4,9 @@ use strict;
 use QuerySupport;
 use DBI;
 use DBDefs;
-use MM_2_0;
+use Apache;
+use Apache::Request;
+use MM_2_1;
 
 my ($rdf, $mb, $query, $id, $out, $r, $depth);
 my %Queries =
@@ -13,19 +15,16 @@ my %Queries =
    album => \&QuerySupport::GetAlbumByGlobalId,
    track => \&QuerySupport::GetTrackByGlobalId,
    trmid => \&QuerySupport::GetTrackByTRM,
-   synctext => \&QuerySupport::GetSyncTextByTrackGlobalId,
+   trm => \&QuerySupport::GetTrackByTRM
 );
 
 $depth = 2;
-$rdf = MM_2_0->new(0);
-
+$rdf = MM_2_1->new(0);
 $rdf->SetBaseURI("http://" . $ENV{SERVER_NAME});
 
 if (exists $ENV{"MOD_PERL"})
 {
    my $apr;
-
-   #print STDERR Dumper(%ENV);
 
    $r = Apache->request();
    $apr = Apache::Request->new($r);
