@@ -7,7 +7,7 @@ my $my_uid = $session{uid}
 	or return;
 
 my $my_mod = ($mod->GetModerator == $my_uid);
-my $my_vote = $mod->GetUserVote($my_uid);
+my $my_vote = $mod->VoteFromUser($my_uid);
 my $is_open = ($mod->GetStatus == &ModDefs::STATUS_OPEN);
 
 my $see_votes = ($my_mod or not $is_open or defined $my_vote);
@@ -77,7 +77,7 @@ my $expire_verb = ($mod->GetExpired ? "Expired" : "Expires");
 % if (defined $my_vote) {
 	<tr>
 		<td>Your Vote:</td>
-		<td><% $mod->GetVoteText($my_vote) %></td>
+		<td><% $my_vote->GetVoteName %></td>
 	</tr>
 % } elsif ($is_open) {
 	<tr>
@@ -119,16 +119,16 @@ my $expire_verb = ($mod->GetExpired ? "Expired" : "Expires");
 		<td>No Votes:</td>
 		<td><% $mod->GetNoVotes %></td>
 	</tr>
-% if (my @votes = $mod->GetVoterList) {
+% if (my @votes = $mod->Votes) {
 	<tr>
 		<td valign="top">Votes:</td>
 		<td valign="top">
 			<table>
 % for my $v (@votes) {
 				<tr>
-					<td><a href="/moderator.html?uid=<% $v->{modid} %>"
-						><% $v->{moderator} %></a></td>
-					<td style="text-align: right"><% $mod->GetVoteText($v->{vote}) %></td>
+					<td><a href="/moderator.html?uid=<% $v->GetUserId %>"
+						><% $v->GetUserName %></a></td>
+					<td style="text-align: right"><% $v->GetVoteName %></td>
 				</tr>
 % } # each vote
 			</table>

@@ -26,13 +26,13 @@ while (my ($key, $vote) = each %ARGS)
 %votes or return $m->comp("/comp/redirect", $url);
 
 my $mb = $m->comp("/comp/dblogin");
-my $mod = Moderation->new($mb->{DBH});
+my $v = MusicBrainz::Server::Vote->new($mb->{DBH});
 my $sql = Sql->new($mb->{DBH});
 
 eval
 {
     $sql->Begin;
-    $mod->InsertVotes($session{uid}, \%votes);
+	$v->InsertVotes(\%votes, $session{uid});
     $sql->Commit;
 };
 
