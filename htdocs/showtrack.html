@@ -81,7 +81,8 @@ if (@info)
 		$album->SetId($_->[0]);
 		$album->SetName($_->[1]);
 		$album->SetMBId($_->[3]);
-		$album->SetAttributes($_->[4]);
+		# FIXME need API in Album.pm
+		$album->{attrs} = [ $_->[4] =~ /(\d+)/g ];
 
 		$m->comp(
 			"/comp/albuminfo",
