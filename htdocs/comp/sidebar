@@ -28,9 +28,9 @@ unless ($nosidebar)
 % }
 
 % if (UserPreference::get('sidebar_panel_topmods')) {
-<& /comp/sidebarsection, title=>'Top Moderators' &>
+<& /comp/sidebarsection, title=>'Top Voters' &>
 <& /comp/sidebarareabegin &>
-<& /comp/topmodsbox &>
+<& /comp/topvotersbox &>
 <& /comp/sidebarareaend &>
 % }
 
