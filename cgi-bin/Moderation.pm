@@ -944,12 +944,15 @@ sub CheckModerations
            print STDERR "Mod " . $mod->GetId() . " applied\n";
            eval
            {
+               my $status;
+
                $sql->Begin;
 
-               $mod->SetStatus($mod->ApprovedAction($mod->GetRowId()));
+               $status = $mod->ApprovedAction($mod->GetRowId());
+               $mod->SetStatus($status);
                $mod->CreditModerator($mod->GetModerator(), 1);
                $mod->CloseModeration($mod->GetId(), $mod->GetTable(), 
-                                      $mod->GetRowId(), $mod->{__eval__});
+                                     $mod->GetRowId(), $status);
 
                $sql->Commit;
            };

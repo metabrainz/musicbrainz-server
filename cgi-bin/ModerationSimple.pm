@@ -748,7 +748,7 @@ sub ApprovedAction
    # if there are not more references to it.
    my $ar = Artist->new($this->{DBH});
    $ar->SetId($this->GetRowId());
-   if ($ar->Remove())
+   if (defined $ar->Remove())
    {
        $status = ModDefs::STATUS_APPLIED;
    }

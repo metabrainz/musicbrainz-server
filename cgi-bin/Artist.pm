@@ -119,6 +119,25 @@ sub Remove
 
     $sql = Sql->new($this->{DBH});
 
+    # See if there are any tracks that needs this artist
+    ($refcount) = $sql->GetSingleRow("Track", ["count(*)"],
+                                     [ "Track.artist", $this->GetId()]);
+    if ($refcount > 0)
+    {
+        print STDERR "Cannot remove artist ". $this->GetId() .
+            ". $refcount tracks still depend on it.\n";
+        return undef;
+    }
+
+    # See if there are any albums that needs this artist
+    ($refcount) = $sql->GetSingleRow("Album", ["count(*)"],
+                                     [ "Album.artist", $this->GetId()]);
+    if ($refcount > 0)
+    {
+        print STDERR "Cannot remove artist ". $this->GetId() .
+            ". $refcount albums still depend on it.\n";
+        return undef;
+    }
 
     $sql->Do("delete from ArtistAlias where ref = " . $this->GetId());
     $sql->Do("update Moderation set Artist = " . ModDefs::DARTIST_ID . 
