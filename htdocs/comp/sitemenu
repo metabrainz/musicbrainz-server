@@ -288,7 +288,7 @@ my $uri = shift() || $r->uri;
 my $args = shift() || $r->args;
 
 use vars qw( $render_all );
-$render_all = $session{'sitemenu_heavy'};
+$render_all = UserPreference::get('sitemenu_heavy');
 
 sub drawmenu
 {
@@ -315,19 +315,19 @@ sub drawmenu
 
 		if ($rarhChildren and ($render_all or $fSel))
 		{
-			$m->out("<a class='menucontrol$state'
-				id='${id}control'
-				href='$rhItem->{url}'
-				onclick='return smt(\"$rhItem->{id}\")'
-				>&nbsp;</a>");
+			$m->out("<a class='menucontrol$state'"
+				. " id='${id}control'"
+				. " href='$rhItem->{url}'"
+				. " onclick='return smt(\"$rhItem->{id}\")'"
+				. ">&nbsp;</a>");
 		} elsif ($rarhChildren) {
-			$m->out("<span class='menucontrol$state'
-				id='${id}control'
-				>&nbsp;</span>");
+			$m->out("<span class='menucontrol$state'"
+				. " id='${id}control'"
+				. ">&nbsp;</span>");
 		} else {
-			$m->out("<a class='menunocontrol$state'
-				id='${id}control'
-				>&nbsp;</a>");
+			$m->out("<a class='menunocontrol$state'"
+				. " id='${id}control'"
+				. ">&nbsp;</a>");
 		}
 		
 		$m->out("<a class='menulink' href='$rhItem->{url}'>$rhItem->{name}</a>");
@@ -380,11 +380,13 @@ sub disable_selected
   <tr>
     <td>
 		<script type="text/javascript" src="/scripts/sitemenu.js"></script>
+		<div id="sitemenu">
 		<%perl>
 		my $t = identify_selected($uri ,$args);
 		drawmenu(\@main, 0);
 		disable_selected($t);
 		</%perl>
+		</div>
     </td>
   </tr>
 </table>
