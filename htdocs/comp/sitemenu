@@ -68,10 +68,10 @@ use Scalar::Util qw( reftype weaken );
 		[
 			{ name => "Intro",					url => "/products/server/index.html" },
 			{ name => "Download",				url => "/products/server/download.html" },
-			{ name => "FAQ",					url => "/products/server/faq.html" },
+			#{ name => "FAQ",					url => "/products/server/faq.html" },
 			{ name => "DB Structure",			url => "/db_structure.html" },
 			{ name => "Import HOWTO",			url => "/products/server/import_howto.html" },
-			{ name => "Setup HOWTO",			url => "/products/server/setup_howto.html" },
+			#{ name => "Setup HOWTO",			url => "/products/server/setup_howto.html" },
 		],
 	],
 	{ name => "Search/Browse",			url => "/search.html" },
