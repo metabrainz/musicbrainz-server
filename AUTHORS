@@ -69,4 +69,7 @@ The following people have contributed to the MusicBrainz server:
   Eli Miller
   - Contributed various user interface improvement patches
 
+  Matthew Exon
+  - fixed bug #1066072
+
 (please send change requests to rob@musicbrainz.org or maintainer)
