@@ -78,9 +78,7 @@ $time = $m->comp("/comp/datetime", $time);
 % } elsif ($session{uid} != $mod->GetModerator() && 
 %          $mod->GetStatus() == &ModDefs::STATUS_OPEN &&
 %          $voted == &ModDefs::VOTE_NOTVOTED) {
-     <label for="rowid<% $mod->GetId() %>-yes">Yes</label>&nbsp;<input type="radio" name="rowid<% $mod->GetId() %>" id="rowid<% $mod->GetId() %>-yes" value="yes">&nbsp;
-     <label for="rowid<% $mod->GetId() %>-no">No</label>&nbsp;<input type="radio" name="rowid<% $mod->GetId() %>"  id="rowid<% $mod->GetId() %>-no" value="no">&nbsp;
-     <label for="rowid<% $mod->GetId() %>-abst">Abst</label>&nbsp;<input type="radio" name="rowid<% $mod->GetId() %>" id="rowid<% $mod->GetId() %>-abst" value="abs" CHECKED>
+     <& /mod/voting-buttons.inc, mod => $mod &>
 % } else {
      <% $mod->GetChangeName %>
 % }

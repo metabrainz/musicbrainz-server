@@ -90,9 +90,7 @@ my $expire_verb = ($mod->GetExpired ? "Expired" : "Expires");
 		<td colspan="2">
 			<form method="post" action="/bare/vote.html">
 				<p style="text-align: center">
-					<label for="rowid<% $mod->GetId %>-yes">Yes</label>&nbsp;<input type="radio" name="rowid<% $mod->GetId %>" id="rowid<% $mod->GetId %>-yes" value="yes">&nbsp;
-					<label for="rowid<% $mod->GetId %>-no">No</label>&nbsp;<input type="radio" name="rowid<% $mod->GetId %>"  id="rowid<% $mod->GetId %>-no" value="no">&nbsp;
-					<label for="rowid<% $mod->GetId %>-abst">Abst</label>&nbsp;<input type="radio" name="rowid<% $mod->GetId %>" id="rowid<% $mod->GetId %>-abst" value="abs">
+					<& /mod/voting-buttons.inc, mod => $mod &>
 				</p>
 				<p style="text-align: center">
 					<input type="hidden" name="url" value="/showmod.html?modid=<% $mod->GetId %>">
