@@ -19,7 +19,7 @@ use Scalar::Util qw( reftype weaken );
 		{ name => "Finance",				url => "/sponsors.html" },
 		[
 			{ name => "Sponsors",				url => "/sponsors.html" },
-			{ name => "Contribute",				url => "/contribute.html" },
+			{ name => "Contribute",				url => "/contribute.html", preferred => 1 },
 			{ name => "Finances",				url => "/finances.html" },
 		],
 
@@ -51,7 +51,6 @@ use Scalar::Util qw( reftype weaken );
 			{ name => "Download",				url => "/tagger/download.html" },
 			{ name => "Tutorial",				url => "/tagger/tutorial.html" },
 			{ name => "FAQ",					url => "/tagger/faq.html" },
-			{ name => "About MB IDs",			url => "/tagger/id-intro.html" },
 
 			{ url => "/taglookup.html" },
 			{ url => "/tagger/login.html" },
@@ -99,8 +98,7 @@ use Scalar::Util qw( reftype weaken );
     { name => "Edit the Data",			url => "/mod_intro.html" },
     [
         { name => "About",					url => "/mod_intro.html" },
-		# TODO move this to its own page
-        { name => "Suggestions",			url => "/mod_intro.html#suggestions" },
+        { name => "Suggestions",			url => "/moderation/suggestions.html" },
         [
             { name => "Odd Characters",			url => "/reports/bad_entries.html" },
             { name => "Uppercase",				url => "/reports/caps.html" },
@@ -119,6 +117,8 @@ use Scalar::Util qw( reftype weaken );
             { name => "Jump to ID",				url => "/jumpmod.html" },
         ],
 
+		# XXX Should this be here?  Currently this means that even logged-in
+		# users get a "log in" link.
         { name => "Log In",					url => "/login.html" },
         [
             { name => "Existing User",			url => "/login.html" },
@@ -223,12 +223,13 @@ use Scalar::Util qw( reftype weaken );
 				{ url => "/cdi/selectattr.html" },
 				{ url => "/cdi/submit.html" },
 			],
+			{ name => "About MB IDs",			url => "/tagger/id-intro.html" },
 			{ name => "About Disc IDs",			url => "/disc.html" },
 			{ name => "Database",				url => "/db_structure.html" },
 			{ name => "Stats",					url => "/stats.html" },
 			{ name => "Contract",				url => "/contract.html" },
 		],
-		{ name => "Contact Us",				url => "/contactus.html" },
+		{ name => "Contact Us",				url => "/support/contact.html" },
 		{ name => "Mailing Lists",			url => "/list.html" },
 		{ name => "Report a Bug",			url => "http://sourceforge.net/tracker/?func=add&amp;group_id=19506&amp;atid=119506" },
 	],
