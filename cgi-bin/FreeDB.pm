@@ -402,7 +402,7 @@ sub CheckTOC
     return 1;
 }
 
-# Public
+# Public.  Called by Discid->GenerateAlbumFromDiscid
 
 sub InsertForModeration
 {
@@ -493,10 +493,15 @@ sub InsertForModeration
     $new .= "CDIndexId=$info->{cdindexid}\n";
     $new .= "TOC=$info->{toc}\n";
 
+    my @durations = split ' ', $info->{durations};
+
     foreach $track (@$ref)
     {
         return if (!$st->UpperLowercaseCheck($track->{track}));
         $new .= "Track" . $track->{tracknum} . "=" . $track->{track} . "\n";
+	my $dur = $durations[ $track->{tracknum}-1 ];
+	$new .= "TrackDur" . $track->{tracknum} . "=$dur\n"
+		if defined $dur;
     }
 
 
