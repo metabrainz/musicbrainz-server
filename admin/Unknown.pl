@@ -35,13 +35,13 @@ sub FindDuplicates
     my ($id, $name, $album, $num);
     my ($last_artist);
 
-    print "<& /comp/sidebar, title=>'Tracks with too many capital letters' &>\n";
+    print "<& /comp/sidebar, title=>'Tracks which contain the word 'unknown'' &>\n";
 
     my $time = time;
     print "Generated on: <% \$m->comp('/comp/datetime', $time) %><br><br>";
 
-    print 'All tracks which contain at least four sequential capital ';
-    print "characters are listed below:<p><br>\n";
+    print 'All tracks which contain the word "unknown" ';
+    print "are listed below:<p><br>\n";
 
     $sth = $dbh->prepare(qq\select track.id, track.name, sequence, 
                                    track.artist, artist.name 
