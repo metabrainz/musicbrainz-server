@@ -31,8 +31,21 @@ use XML::XQL;
 use XMLParse;
 use RDF;
 use DBDefs;
-use TableBase;
 use Unicode::String;
+use TableBase;
+use MusicBrainz;
+use UserStuff;
+use Album;
+use Diskid;
+use TableBase;
+use Artist;
+use Genre;
+use Pending;
+use Track;
+use Lyrics;
+use UserStuff;
+use Moderation;
+use GUID;  
 
 BEGIN { require 5.003 }
 use vars qw(@ISA @EXPORT);
