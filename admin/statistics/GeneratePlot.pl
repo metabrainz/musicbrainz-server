@@ -22,118 +22,98 @@
 #   $Id$
 #____________________________________________________________________________
 
-use lib "../../cgi-bin";
+use FindBin;
+use lib "$FindBin::Bin/../../cgi-bin";
+
 use DBI;
 use DBDefs;
 use MusicBrainz;
-use Artist;
-use ModDefs;
 use Sql;
-
-sub OutputBasicPlotFile
-{
-    my ($datfile, $plotfile, $outfile, $from_date, $to_date) = @_;
-
-    open PLOT, ">$plotfile" or die "Cannot open plotfile.\n";
-
-print PLOT <<END;
-set terminal png small color
-set xdata time
-set timefmt "%d %m %Y"
-set xlabel "Date"
-set xrange ["$from_date" : "$to_date"]
-set yrange [20000:70000]
-set format x "%m/%d"
-set key left
-set ylabel "Number of entries in MusicBrainz"
-
-set output "$outfile"
-
-plot "$datfile" using 1:(\$5) title "Albums" with linespoints, \\
-     "$datfile" using 1:(\$6) title "Artists" with linespoints, \\
-     "$datfile" using 1:(\$4) title "Discids" with linespoints
-END
-
-    close PLOT;
-}
-
-sub OutputModPlotFile
-{
-    my ($datfile, $plotfile, $outfile, $from_date, $to_date) = @_;
-
-    open PLOT, ">$plotfile" or die "Cannot open plotfile.\n";
-
-print PLOT <<END;
-set terminal png small color
-set xdata time
-set timefmt "%d %m %Y"
-set xlabel "Date"
-set xrange ["$from_date" : "$to_date"]
-set yrange [75000:400000]
-set format x "%m/%d"
-set key left
-set ylabel "Moderations/Votes in MusicBrainz"
-
-set output "$outfile"
-
-plot "$datfile" using 1:(\$7) title "Moderations" with linespoints, \\
-     "$datfile" using 1:(\$8) title "Votes" with linespoints
-END
-
-    close PLOT;
-}
-
-sub DumpStats
-{
-    my ($sql, $basic_outfile, $mod_outfile) = @_;
-    my ($plotfile, $datfile, $count, $start, $end);
-
-    $plotfile = "/tmp/plotfile.$$";
-    $datfile = "/tmp/datfile.$$";
-    if ($sql->Select("select * from Stats order by timestamp asc"))
-    {
-        my @row;
-
-        open STATS, ">$datfile" or die "Cannot create temp file.\n";
-        $count = 0;
-        while(@row = $sql->NextRow())
-        {
-            if ($row[9] =~ /(\d\d\d\d)-(\d\d)-(\d\d)/)
-            {
-                $start = "$3 $2 $1" if ($count == 0);
-                $end = "$3 $2 $1";
-                print STATS "$3 $2 $1 $row[4] $row[2] $row[1] $row[6] $row[7]\n";
-                $count++;
-            }
-        }
-        close STATS;
-
-        OutputBasicPlotFile($datfile, $plotfile, $basic_outfile, $start, $end);
-        system("gnuplot $plotfile");
-        OutputModPlotFile($datfile, $plotfile, $mod_outfile, $start, $end);
-        system("gnuplot $plotfile");
-        unlink $datfile;
-        unlink $plotfile;
-
-        $sql->Finish();
-    }
-
-    return 1;
-}
-
-my $basic_giffile = shift;
-my $mod_giffile = shift;
-if (not defined $basic_giffile || not defined $mod_giffile)
-{
-    print "Usage: GeneratePlot.pl <basic .png file> <mod .png file>\n";
-    return;
-}
 
 $mb = MusicBrainz->new;
 $mb->Login;
 $sql = Sql->new($mb->{DBH});
 
-DumpStats($sql, $basic_giffile, $mod_giffile);
+my $ImageDir = shift;
+-d $ImageDir or die "Usage: GeneratePlot.pl <imagedir>";
+
+sub count_and_delta
+{
+	my $statname = shift;
+
+	my $data = $sql->SelectListOfLists(
+		"SELECT snapshotdate, value FROM historicalstat
+		WHERE name = ? ORDER BY 1",
+		$statname,
+	);
+
+	require Statistic;
+	my $name = Statistic->GetStatDescription($statname);
+	plot($data, $name, "plot_$statname.png");
+
+	$data = $sql->SelectListOfLists(
+		"SELECT b.snapshotdate, b.value - a.value
+		FROM historicalstat a, historicalstat b
+		WHERE a.name = ? AND b.name = a.name
+		AND b.snapshotdate - a.snapshotdate = 7
+		ORDER BY 1",
+		$statname,
+	);
+
+	$name = Statistic->GetStatDescription($statname);
+	plot($data, $name . " (7 day delta)", "plot_${statname}_delta.png");
+}
+
+sub plot
+{
+	my ($data, $title, $file) = @_;
+
+	printf "%s => %s (%d)\n",
+		$title, $file,
+		scalar(@$data),
+		if -t STDOUT;
+
+	my $tmpfile = "/tmp/plot-$$";
+
+	open(DAT, ">$tmpfile") or die $!;
+
+	for (@$data)
+	{
+		print DAT "$_->[0] $_->[1]\n";
+	}
+	close DAT;
+
+	open(GNUPLOT, "| gnuplot") or die $!;
+	print GNUPLOT <<EOF;
+
+set terminal png small color
+set xdata time
+set timefmt "%Y-%m-%d"
+set xlabel "Date"
+#set yrange [0:*]
+set format x "%m/%Y"
+set key left
+set ylabel "$title"
+
+set output "$ImageDir/$file"
+
+plot	"$tmpfile" using 1:(\$2) title "$title" with linespoints
+
+EOF
+	close GNUPLOT;
+
+	unlink $tmpfile or warn "unlink $tmpfile: $!"
+		if -f $tmpfile;
+}
+
+count_and_delta("count.artist");
+count_and_delta("count.album");
+count_and_delta("count.track");
+count_and_delta("count.trm");
+count_and_delta("count.discid");
+count_and_delta("count.moderator");
+count_and_delta("count.moderation");
+count_and_delta("count.vote");
 
 # Disconnect
 $mb->Logout;
