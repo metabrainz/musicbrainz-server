@@ -1223,76 +1223,22 @@ sub RemoveModeration
    }
 }
 
-# TODO move to moderationnote class
+# Links to the ModerationNote class
 
-sub InsertModerationNote
+sub Notes
 {
-  	my ($this, $modid, $uid, $text) = @_;
- 	my $sql = Sql->new($this->{DBH});
-
-	$sql->Do(
-		"INSERT INTO moderationnote (modid, uid, text) VALUES (?, ?, ?)",
-		$modid,
-		$uid,
-		$text,
-	);
-
-    my $mod = $this->CreateFromId($modid);
-    if ($mod and $mod->GetModerator != $uid)
-    {
-        my ($ui, $info, $mod_info);
-
-        $ui = UserStuff->new($this->{DBH});
-        $info = $ui->GetUserInfo($mod->GetModerator());
-        if ($info && $info->{email} && $info->{emailconfirmdate})
-        {
-            my $body;
-
-            $mod_info = $ui->GetUserInfo($uid);
-
-            $body = "Moderator $mod_info->{name} has attached a note to your moderation " .
-                    "#$modid:\n\n" . $text . "\n\nModeration link: http://" . 
-                    &DBDefs::WEB_SERVER .  "/showmod.html?modid=$modid\n";
-            $ui->SendEMail("MusicBrainz ModBot", undef, $info, 
-                           "Note for moderation #$modid", $body);
-        }
-    }
+	my $self = shift;
+	require MusicBrainz::Server::ModerationNote;
+	my $notes = MusicBrainz::Server::ModerationNote->new($self->{DBH});
+	$notes->newFromModerationID($self->GetId);
 }
 
-sub LoadModerationNotes
+sub InsertNote
 {
-	my ($this, $minmodid, $maxmodid) = @_;
-   	my $sql = Sql->new($this->{DBH});
-
-	$maxmodid = $minmodid
-		unless defined $maxmodid;
-	($minmodid, $maxmodid) = ($maxmodid, $minmodid)
-		if $maxmodid < $minmodid;
-
-	$sql->Select(
-		"SELECT	n.modid, n.uid, n.text, u.name
-		FROM	moderationnote n, moderator u
-		WHERE	n.uid = u.id
-		and		n.modid BETWEEN ? AND ?
-		ORDER BY n.id",
-		$minmodid, $maxmodid,
-	);
-
-	my %ret;
-	
-	while (my @row = $sql->NextRow)
-	{
-		push @{ $ret{ $row[0] } }, +{
-			modid	=> $row[0],
-			uid		=> $row[1],
-			text	=> $row[2],
-			user	=> $row[3],
-		};
-	}
-
-	$sql->Finish();
-
-	\%ret;
+	my $self = shift;
+	require MusicBrainz::Server::ModerationNote;
+	my $notes = MusicBrainz::Server::ModerationNote->new($self->{DBH});
+	$notes->Insert($self, @_);
 }
 
 # TODO Move to vote class
