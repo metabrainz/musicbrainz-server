@@ -148,6 +148,11 @@ sub PreVoteAction
    # Prevent name clashes with existing albums
    $info{forcenewalbum} = 1;
 
+   if (exists $nw->{NonAlbum} && $nw->{NonAlbum})
+   {
+       $info{attrs} = [ 0 ];
+   }
+
    for($i = 1;; $i++)
    {
       my $tmp = {};

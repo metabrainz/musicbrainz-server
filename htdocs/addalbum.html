@@ -1,25 +1,30 @@
-<& /comp/sidebar, title=>'Add Album', expand=>'moderate' &>
-
+<%args>
+$artistid=>undef
+$nonalbum=>0
+</%args>
 <%perl>
 
-my ($mb, $id, $ar, $artist); 
+my ($mb, $id, $ar, $title); 
 
-if (!exists $ARGS{artistid} || $ARGS{artistid} eq '')
+if (not defined $artistid)
 {
+    mc_comp("/comp/sidebar", title=>'Add Album', expand=>'moderate');
     mc_comp("/comp/badargs");
     return undef;
 }
 
 $mb = mc_comp("/comp/dblogin");
-$artist = $ARGS{artistid};
 
 $ar = Artist->new($mb->{DBH});
-$ar->SetId($artist);
+$ar->SetId($artistid);
 $ar->LoadFromId();
+
+$title = $nonalbum ? "Add non-album tracks" : "Add Album";
+mc_comp("/comp/sidebar", title=>$title, expand=>'moderate');
 
 </%perl>
 
-%if ($ARGS{artistid} == 0)
+%if ($artistid == 0)
 %{
     <table width="100%"><tr><td align="center">
     To add an album, please go to that artist's main page,
@@ -45,18 +50,25 @@ $ar->LoadFromId();
     <& /comp/stylemenu &>
 
     <& /comp/tablebegin, gattrs=>"width=\"100%\"",
-       title=>'Add Album' &>
+       title=>$title &>
 
+% if ($nonalbum) {
+    You are about to add some non-album tracks to artist
+    <span class="bold"><% $ar->GetName %></span>.<br>
+    Please enter the number of non-album tracks you would like to add and then
+    click next.
+% } else {
     You are about to add an album to the artist 
-    <span class="bold"><% $ar->GetName %></span>.
+    <span class="bold"><% $ar->GetName %></span>.<br>
     Please read the style notes (see links above) 
     and enter the Album name and the number of tracks on this
     Album below:
-
+% } 
 
     <FORM METHOD="POST" ACTION="/addalbumtracks.html" NAME="AddAlbumForm"
           ENCTYPE="application/x-www-form-urlencoded">  
     <table>
+% if (!$nonalbum) {
       <tr>
         <td align="right">
         Album Name:<br>
@@ -66,9 +78,20 @@ $ar->LoadFromId();
         <br>(Please read the style notes!)
         </td>
       </tr>
+% } else {
+      <tr>
+        <td colspan="2">
+        <INPUT TYPE="hidden" NAME="value0" value="Non-album tracks">
+        </td>
+      </tr>
+% } 
       <tr>
         <td align="right">
+% if (!$nonalbum) {
         Number of tracks on this album:
+% } else {
+        Number of non album tracks to add:
+% } 
         </td>
         <td>
         <INPUT TYPE="text" NAME="value1" SIZE=25 value=""> (1 - 99)
@@ -84,7 +107,7 @@ $ar->LoadFromId();
     <input type="hidden" name="key0" value="AlbumName">
     <input type="hidden" name="key1" value="NumTracks">
 
-    <input type="hidden" name="artist" value="<% $artist %>">
+    <input type="hidden" name="artist" value="<% $artistid %>">
     <input type="hidden" name="type" 
            value="<% ModDefs::MOD_ADD_ALBUM %>">
     <input type="hidden" name="prev" value="">
@@ -92,6 +115,7 @@ $ar->LoadFromId();
     <input type="hidden" name="column" value="Name">
     <input type="hidden" name="id" value="0">
     <input type="hidden" name="url" value="/search.html">
+    <input type="hidden" name="nonalbum" value="<% $nonalbum %>">
     </form>
       
     <& /comp/tableend &>

@@ -3,11 +3,12 @@
 <%perl>
 
 my ($mb, $id, $trackname, $tr);
-my ($seq_id, $tracknum, $album, $artist); 
+my ($seq_id, $tracknum, $album, $artist, $nonalbum); 
 
 if (!exists $ARGS{album} || $ARGS{album} eq '' ||
     !exists $ARGS{artist} || $ARGS{artist} eq '' ||
-    !exists $ARGS{id} || $ARGS{id} eq '')
+    !exists $ARGS{id} || $ARGS{id} eq '' ||
+    !exists $ARGS{nonalbum} || $ARGS{nonalbum} eq '')
 {
     mc_comp("/comp/badargs");
     return undef;
@@ -19,6 +20,7 @@ $tr = Track->new($mb->{DBH});
 $id = $ARGS{id};
 $album = $ARGS{album};
 $artist = $ARGS{artist};
+$nonalbum = $ARGS{nonalbum};
 
 $tr->SetId($id);
 $tr->SetAlbum($album);
@@ -61,6 +63,7 @@ $seq_id = $tr->GetSequenceId();
         <INPUT TYPE="text" NAME="new0" SIZE=25 value="<% $trackname %>"> 
         </td>
       </tr>
+% if (!$nonalbum) {
       <tr>
         <td>
         Current Track Number:
@@ -76,6 +79,14 @@ $seq_id = $tr->GetSequenceId();
         <td>
         <INPUT TYPE="text" NAME="new1" SIZE=25 value="<% $tracknum %>"> 
         </td>
+      </tr>
+% } else {
+      <tr>
+        <td colspan="2">
+        <INPUT TYPE="hidden" NAME="new1" value="<% $tracknum %>"> 
+        </td>
+      </tr>
+% }
       <tr>
         <td colspan=2>
         <INPUT TYPE="submit" NAME="Submit" VALUE="Submit">    

@@ -111,15 +111,18 @@ else
         }
         else
         {
-            my ($count, $exall, $id);
+            my ($count, $exall, $id, $hasnonalbum);
 
             $count = 0;
+            $hasnonalbum = 0;
             foreach $album (@albums)
             {
                 $id = $album->GetId();
                 $exall .= "," if ($count > 0);
                 $exall .= $id;
                 $count++;
+
+                $hasnonalbum += $album->IsNonAlbumTracks();
             }
 
             if (not exists $session{tagged_albums})
@@ -169,6 +172,15 @@ else
                              ex=>$ex,
                              showids=>0);
                 }
+            }
+
+            if (!$hasnonalbum)
+            {
+                </%perl>
+                <table width="100%"><tr><td align="center">[ 
+                <a href="/addalbum.html?artistid=<% $artist->GetId() %>&nonalbum=1">Add non-album 
+                tracks</a> ]</td></tr></table>
+                <%perl>
             }
         }
 

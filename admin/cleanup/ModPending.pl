@@ -47,7 +47,7 @@ sub Cleanup
 
    print("update Album set modpending = 0\n") if (!$quiet);
    $dbh->do("update Album set modpending = 0") if ($fix);
-   print("update Album set attributes[1] = 0\n") if ($fix);
+   print("update Album set attributes[1] = 0\n") if ($quiet);
    $dbh->do("update Album set attributes[1] = 0") if ($fix);
 
    print("update Discid set modpending = 0\n") if (!$quiet);
@@ -65,16 +65,25 @@ sub Cleanup
    print("update ArtistAlias set modpending = 0\n") if (!$quiet);
    $dbh->do("update ArtistAlias set modpending = 0") if ($fix);
 
-   $sth = $dbh->prepare("select rowid, tab from moderation where status = " .
-                        ModDefs::STATUS_OPEN);
+   $sth = $dbh->prepare(qq|select rowid, tab, col from moderation 
+                           where status = | .  ModDefs::STATUS_OPEN);
    if ($sth->execute && $sth->rows > 0)
    {
        while(@row = $sth->fetchrow_array)
        {
           print("update $row[1] set modpending = modpending + 1 where " .
                 "id = $row[0]\n") if (!$quiet);
-          $dbh->do(qq\update $row[1] set modpending = modpending + 1 where 
+
+          if ($row[1] eq 'Album' && $row[2] eq 'Attributes')
+          {
+               $dbh->do(qq\update Album set attributes[1] = attributes[1] + 1 
+                           where id = $row[0]\) if ($fix);
+          }
+          else
+          {
+               $dbh->do(qq\update $row[1] set modpending = modpending + 1 where 
                       id = $row[0]\) if ($fix);
+          }
           $count++;
        }
    }

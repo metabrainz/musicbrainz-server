@@ -64,6 +64,7 @@ sub GetError
 # %info hash needs to have the following keys defined
 #  (artist (name) and sortname) or artistid                [required]
 #  album name or albumid                                   [required]
+#  attributes -> ref to array                              [optional]
 #  forcenewalbum (defaults to no)                          [optional]
 #  cdindexid and toc                                       [optional]
 #  tracks -> array of hash refs:                           [required]
@@ -238,6 +239,10 @@ sub Insert
         {
            $al->SetName($album);
            $al->SetArtist($artistid);
+           if (exists $info->{attrs})
+           {
+               $al->SetAttributes(@{ $info->{attrs} });
+           }
            $albumid = $al->Insert;
            if (!defined $albumid)
            {
@@ -253,6 +258,10 @@ sub Insert
            (@ids) = $al->GetAlbumListFromName($album);
            if (scalar(@ids) == 0)
            {
+               if (exists $info->{attrs})
+               {
+                   $al->SetAttributes(@{ $info->{attrs} });
+               }
                $albumid = $al->Insert;
                if (!defined $albumid)
                {

@@ -8,9 +8,10 @@
 # $dest_argname is the name of the argument where the sortname of a new
 #               artist should be stored.
 
-my ($mb, $ar, $key, @albums, $found_tracks, $found_id, $num, $num_tracks, $val);
+my ($mb, $ar, $key, @albums, $found_tracks, $found_id, $num, $num_tracks, $val, $title);
 
-mc_comp("/comp/sidebar", title=>'Add Album');
+$title = $ARGS{nonalbum} ? "Add non-album tracks" : "Add Album";
+mc_comp("/comp/sidebar", title=>$title);
 
 if (!exists $ARGS{key0} || $ARGS{key0} eq '' ||
     !exists $ARGS{value0} || $ARGS{value0} eq '' ||
@@ -164,15 +165,14 @@ else
     </table>
 
     <& /comp/tableend &>
-    <%perl>
 
-    foreach $key (keys %ARGS)
-    {
-    </%perl>
+%   foreach $key (keys %ARGS) {
         <input type="hidden" name="<% $key %>" value="<% $ARGS{$key} |h %>">
+%   }
+    <input type="hidden" name="key<% $val %>" value="NonAlbum">
+    <input type="hidden" name="value<% $val %>" value="<% $ARGS{nonalbum} %>">
+    </form>
     <%perl>
-    }
-    mc_out("</form>");
 }
 
 $mb->Logout();

@@ -126,13 +126,15 @@ sub IsNonAlbumTracks
    return (scalar(@attrs) == 2 && $attrs[1] == 0);
 }
 
+use Data::Dumper;
+
 # Insert an album that belongs to this artist. The Artist object should've
 # been loaded with a LoadFromXXXX call, or the id of this artist must be
 # set before this function is called.
 sub Insert
 {
     my ($this) = @_;
-    my ($album, $id, $sql, $name);
+    my ($album, $id, $sql, $name, $attrs);
 
     $this->{new_insert} = 0;
     return undef if (!exists $this->{artist} || $this->{artist} eq '');
@@ -141,10 +143,11 @@ sub Insert
     $sql = Sql->new($this->{DBH});
     $name = $sql->Quote($this->{name});
     $id = $sql->Quote($this->CreateNewGlobalId());
+    $attrs = "'{" . join(',', @{ $this->{attrs} }) . "}'";
 
     # No need to check for an insert clash here since album name is not unique
-    if ($sql->Do(qq/insert into Album (name,artist,gid,modpending)
-                values ($name,$this->{artist}, $id, 0)/))
+    if ($sql->Do(qq/insert into Album (name,artist,gid,modpending,attributes)
+                values ($name,$this->{artist}, $id, 0, $attrs)/))
     {
         $album = $sql->GetLastInsertId('Album');
         $this->{new_insert} = 1;
