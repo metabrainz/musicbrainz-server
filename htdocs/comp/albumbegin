@@ -68,7 +68,9 @@ if ($link ne '')
             </td>
 %       }
 
-        <td width="1%" bgcolor="#FFBA58" align=center valign=top nowrap>
+        <td width="15%" bgcolor="#FFBA58" nowrap
+		class="CenterChildren" style="text-align: center"
+		>
 %         if (!$nonalbum) {
               <a href="/editalbum.html?album=<% $albumid %>">Edit</a> | 
 %         }
