@@ -139,7 +139,7 @@ The MusicBrainz server requires the following items:
    Storable
    String::CRC32
    String::Unicode::Similiarity (see notes below)
-   Text::Unaccent (at least version 1.05: http://www.senga.org/download/unac/Text-Unaccent-1.05.tar.gz)
+   Text::Unaccent (see notes below)
    UUID (requires e2fsprogs)
    Unicode::String
    XML::Parser
@@ -172,7 +172,24 @@ then build with:
 	make test
 	make install
 
-9) Other dependencies
+Since this patch was created, String-Similarity-1 has now been released
+(http://search.cpan.org/~mlehmann/String-Similarity-1/).  This takes care of
+comparing Unicode strings, which is what the patch was originally for.
+However the "SearchEngine.pm" file uses the patched version of the module in
+an "unofficial" way, which String-Similiarity-1 doesn't support - so for now,
+we have to stick with the patched version of 0.02.
+
+9) Text::Unaccent
+
+The latest version of Text::Unaccent on CPAN is, at the time of writing, 1.01.
+However, we need at least 1.05, which you can get from http://www.senga.org/
+(http://www.senga.org/download/unac/).
+   
+Additionally, we also require that the "unac_string" routine it provides be
+able to handle non-string values, like "undef".  There's a patch to achieve
+this at http://www.musicbrainz.org/~dave/Text-Unaccent-1.07-svrok.patch/
+
+10) Other dependencies
 
 Run ./admin/depend.pl to check for other requirements.
 
