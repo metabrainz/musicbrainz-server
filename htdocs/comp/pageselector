@@ -29,8 +29,6 @@ my $numitems = $ARGS{numitems};
 my $numlinks = $ARGS{numlinks};
 my $snaptoend = $ARGS{snaptoend};
 
-print STDERR "$numlinks\n";
-
 my $index = int($offset / $pagesize);
 my $pagecount = int(($numitems+$pagesize-1) / $pagesize);
 return undef if ($pagecount <= 1);
