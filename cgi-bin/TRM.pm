@@ -235,34 +235,6 @@ sub RemoveTRMByTRMJoin
 
     return 1;
 }
-sub AssociateTRM
-{
-    my ($this, $TRM, $name, $artist, $album) = @_;
-    my ($id, $sql, @row);
-
-    $sql = Sql->new($this->{DBH});
-    $artist = $sql->Quote($artist);
-    $album = $sql->Quote($album);
-    $name = $sql->Quote($name);
-    if ($sql->Select(qq\select Track.id 
-                          from Artist, Album, Track, AlbumJoin
-                         where Artist.name ilike $artist and 
-                               Album.name ilike $album and
-                               Track.name ilike $name and 
-                               Track.artist = Artist.id and
-                               Track.id = AlbumJoin.track and 
-                               AlbumJoin.album = Album.id\))
-    {
-       while(@row = $sql->NextRow())
-       {
-           $this->Insert($TRM, $row[0]);
-       }
-       $sql->Finish();
-       
-       return 1;
-    }
-    return 0;
-}
 
 # Load all the trms for a given track and return an array of references to trms
 # objects. Returns undef if error occurs
