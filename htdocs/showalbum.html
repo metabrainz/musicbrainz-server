@@ -5,8 +5,10 @@ $discid => ""
 $mbid => ""
 $mbt=>0
 </%args>
-
 <%perl>
+
+UserStuff::EnsureSessionOpen(), $session{mbt} = 1
+	if $mbt;
 
 if ($mbid ne "")
 {

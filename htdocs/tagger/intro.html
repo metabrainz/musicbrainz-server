@@ -3,6 +3,12 @@
 <%args>
 $mbt=>0
 </%args>
+<%perl>
+
+UserStuff::EnsureSessionOpen(), $session{mbt} = 1
+	if $mbt;
+
+</%perl>
 <& /comp/sidebar, title=>'Welcome to the MB Tagger!', expand=>'moderate' &>
 
 <p style="width: 420px">
