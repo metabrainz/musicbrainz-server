@@ -39,7 +39,7 @@ if (!defined($result))
         }
 
 				$sth->finish;
-				$result ||= "no-one!";
+				$result ||= "<tr><td>no-one!</td></tr>";
 				
         $mb->Logout();
     }
