@@ -10,6 +10,19 @@ $type
 
 <%perl>
 
+sub SwapItems
+{
+    my ($ref, $i, $j) = @_;
+    my (@list, $temp);
+
+    @list = @{$ref};
+    $temp = $list[$i];
+    $list[$i] = $list[$j];
+    $list[$j] = $temp;
+
+    return \@list;
+}
+
 my ($mb, $id, $ar, $artist); 
 
 $mb = mc_comp("/comp/dblogin");
@@ -24,19 +37,15 @@ if (!defined $session{user} || $session{user} eq '') {
 } 
 else 
 {
-    my ($i, $al, @objs);
+    my ($i, $key, $al, @objs);
 
-    for($i = 0;; $i++)
+    foreach $key (keys %ARGS)
     {
-       if (exists $ARGS{"key$i"} && $ARGS{"key$i"} =~ m/^AlbumId/)
+       if ($ARGS{$key} =~ /^AlbumId/ && $key =~ m/^key(\d+)/)
        {
            $al = Album->new($mb->{DBH});
-           $al->SetId($ARGS{"value$i"});
+           $al->SetId($ARGS{"value$1"});
            push @objs, $al if (defined $al->LoadFromId())
-       }
-       else
-       {
-           last;
        }
     }
 
@@ -66,13 +75,40 @@ else
               mc_out("Could not load artist " . $ar->GetId() . ".");
               next;
            }
-           #mc_comp("/comp/artisttitle", artist=>$ar, nomod=>1);
+           mc_comp("/comp/artisttitle", artist=>$ar, nomod=>1);
        }
-       mc_comp("/comp/album", album=>$al, artist=>$ar, nomod=>1);
+
+       </%perl>
+       <table>
+       <tr>
+         <td width="420"><& /comp/album, album=>$al, artist=>$ar, nomod=>1 &></td>
+         <td valign="top" align="center">
+%            if ($i > 0) {
+                 <& comp/mergeform, type=>$type,
+                                    link=>"/mod/tag/merge.html",
+                                    objs=>SwapItems(\@objs, $i, $i -1),
+                                    text=>"Move Up" &>
+                 <br>
+%            }
+%            if ($i < scalar(@objs) - 1) {
+             <& comp/mergeform, type=>$type,
+                                link=>"/mod/tag/merge.html",
+                                objs=>SwapItems(\@objs, $i, $i + 1),
+                                text=>"Move Down" &>
+%            }
+          </td>
+       </tr>
+       </table>
+       <%perl>
+
        $i++;
     }
 }
 </%perl>
+
+<br>
+<p>
+<blockquote>
 
 % if ($type == ModDefs::MOD_MERGE_ALBUM) {
     <& /comp/tablebegin, title=>'Confirm Merging Albums' &>
@@ -124,6 +160,7 @@ else
 
 </form>
 <& /comp/tableend &>
+</blockquote>
 
 % $mb->Logout();
 

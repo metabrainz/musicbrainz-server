@@ -1,10 +1,15 @@
-<& /comp/sidebar, title=>'Done Tagging Albums', expand=>'moderate' &>
+<& /comp/sidebar, title=>'Batch Operation on Albums', expand=>'moderate' &>
 
 <%perl>
 
-my ($mb, $id, $ar, $artist); 
+my ($mb, $id, $ar, $artist, $referer);
 
 $mb = mc_comp("/comp/dblogin");
+
+if (defined $r->headers_in->{'Referer'} && $r->headers_in->{'Referer'} ne '')
+{
+    $referer = $r->headers_in->{'Referer'};
+}
 
 if (!defined $session{user} || $session{user} eq '') {
 </%perl>
@@ -16,13 +21,26 @@ if (!defined $session{user} || $session{user} eq '') {
 } 
 else 
 {
-    my (@albums, @objs, $albumid, $al, $ar);
+    my (@albums, @objs, $albumid, $al, $ar, $arg);
 
+    # Grab the tagged albums from the cookie
     @albums = split / /, $session{tagged_albums};
+
+    for $arg (keys %ARGS)
+    {
+       if ($arg =~ /AlbumId(\d+)/)
+       {
+          push @albums, $1;
+       }
+    }
+
+    my %temp = ();
+    @albums = grep ++$temp{$_} < 2, @albums;
+    $session{tagged_albums} = join " ", @albums;
 
     if (scalar(@albums) == 0)
     {
-        mc_out("You have not tagged any albums.");
+        mc_out("You have not selected any albums. Please go back to the artist page and select some albums by clicking on the checkbox on the right hand side in the album title.");
         return undef;
     }
 
@@ -42,81 +60,96 @@ else
 
 </%perl>
 
-    Now that you've selected the albums below, you can:<p>
-    <table>
+    You've selected the albums shown below, and now you can:<p>
+    <table width="420" bgcolor="black" cellpadding="5" cellspacing="1">
 % if (scalar(@objs) == 1) {
     <tr>
-      <td valign="top">
-      <font color="red">Merge Album<br>Not available</font>
-      </td>
-      <td valign="top">
+      <td valign="top" bgcolor="#f0efff">
       Merge albums is not available -- you must select multiple albums to
       merge.<br>
+      </td>
+      <td valign="top" bgcolor="#f0efff">
+      <font color="red">Merge Album<br>Not available</font>
       </td>
     </tr>
 % } else {
     <tr>
-      <td valign="top">
+      <td valign="top" bgcolor="#f0efff">
+      Merge all the selected albums into one album, preserving all
+      TRM ids and CD Index ids.<br>
+      </td>
+      <td valign="top" bgcolor="#f0efff">
       <& comp/mergeform, type=>ModDefs::MOD_MERGE_ALBUM, 
                          link=>"/mod/tag/merge.html", 
                          objs=>\@objs &>
       </td>
-      <td valign="top">
-      Merge all the tagged albums into one album, preserving all
-      TRM ids and CD Index ids.<br>
-      </td>
     </tr>
      <tr>
-      <td valign="top">
+      <td valign="top" bgcolor="#f0efff">
+      Merge all the selected albums into one <b>various artist</b> album, 
+      preserving all TRM ids and CD Index ids.<br>
+      </td>
+      <td valign="top" bgcolor="#f0efff">
       <& comp/mergeform, type=>ModDefs::MOD_MERGE_ALBUM_MAC, 
                          link=>"/mod/tag/merge.html", 
                          objs=>\@objs &>
       </td>
-      <td valign="top">
-      Merge all the tagged albums into one <b>various artist</b> album, 
-      preserving all TRM ids and CD Index ids.<br>
-      </td>
     </tr>
 % }
      <tr>
-      <td valign="top">
+      <td valign="top" bgcolor="#f0efff">
+      Remove all the selected albums.<br>
+      </td>
+      <td valign="top" bgcolor="#f0efff">
       <& comp/mergeform, type=>ModDefs::MOD_REMOVE_ALBUMS, 
                          link=>"/mod/tag/remove.html", 
                          objs=>\@objs &>
       </td>
-      <td valign="top">
-      Remove all the tagged albums.<br>
-      </td>
     </tr>
      <tr>
-      <td valign="top">
+      <td valign="top" bgcolor="#f0efff">
+      Apply album attributes to all selected albums.<br>
+      </td>
+      <td valign="top" bgcolor="#f0efff">
       <& comp/mergeform, type=>ModDefs::MOD_EDIT_ALBUMATTRS, 
                          link=>"/editalbumattrs.html", 
                          objs=>\@objs,
                          attrprev=>1 &>
       </td>
-      <td valign="top">
-      Apply album attributes to all tagged albums.<br>
-      </td>
     </tr>
     <tr>
-      <td valign="top" align="center">
+      <td valign="top" bgcolor="#f0efff">
+      Change your mind and deselect all albums.<br>
+      </td>
+      <td valign="top" align="center" bgcolor="#f0efff">
       <form method="POST" action="/mod/tag/canceltag.html" name="AddArtist"
             enctype="application/x-www-form-urlencoded">
-      <input type="submit" NAME="Submit" VALUE="Cancel">
+      <input type="submit" NAME="Submit" VALUE="Select">
+      <input type="hidden" NAME="url" VALUE="<% $referer %>">
+
       </form>
-      </td>
-      <td valign="top">
-      Change your mind and stop tagging.<br>
       </td>
     </tr>
 
     </form>
     </table>
-
+    <p>
+    <table width="420">
+    <tr><td>
+       <p>
+       Alternatively, you don't have to do anything yet. You can
+       go and tag more albums and then return here to perform
+       one of the operations above on all the selected albums.
+       <p>
+    </td></tr>
+    <tr><td align="center">
+      [ <a href="<% $referer %>">Go back</a> |
+        <a href="/search.html">Search</a> ]
+    <p>
+    </td></tr>
+    </table>
     <hr>
-    You tagged the following albums (shown in the order in which they
-    were tagged):
+    You selected the following albums:
     <p>
 
 <%perl>
@@ -137,7 +170,7 @@ else
            }
            mc_comp("/comp/artisttitle", artist=>$ar, nomod=>1);
        }
-       mc_comp("/comp/album", album=>$al, artist=>$ar, nomod=>1);
+       mc_comp("/comp/album", album=>$al, artist=>$ar, nomod=>1, showtag=>1);
     }
 </%perl>
 

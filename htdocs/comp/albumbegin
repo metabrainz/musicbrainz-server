@@ -5,6 +5,7 @@ $nomod
 $albumdetail=>0
 $link=>""
 $linktype=>""
+$showtag=>0
 </%args>
 
 <%perl>
@@ -16,12 +17,6 @@ my ($name) = $album->GetName();
 
 $nonalbum = $album->IsNonAlbumTracks();
 $name = "Non-album tracks" if ($nonalbum);
-
-# Check to see if we're in tagging mode, if so, pass off control
-if (exists $session{tagged_albums})
-{
-    return mc_comp("/comp/tagalbumbegin", %ARGS);
-}
 
 if ($link ne '')
 {
@@ -63,7 +58,14 @@ if ($link ne '')
 % }
         </td>
 % if (exists $session{user} && !$nomod) {
-        <td width=15% bgcolor="#FFBA58" align=center nowrap>
+
+%       if (!$nonalbum && $showtag) {
+            <td width=1% bgcolor="#FFBA58" align=center valign=top nowrap>
+              <input type="checkbox" name="AlbumId<% $album->GetId() %>">
+            </td>
+%       }
+
+        <td width=1% bgcolor="#FFBA58" align=center valign=top nowrap>
 %         if (!$nonalbum) {
               <a href="/editalbum.html?id=<% $albumid %>&artist=<% $artist->GetId() %>">Edit</a> | 
 %         }

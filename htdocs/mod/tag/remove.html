@@ -16,19 +16,15 @@ if (!defined $session{user} || $session{user} eq '') {
 } 
 else 
 {
-    my ($i, $al, @objs);
+    my ($i, $key, $al, @objs);
 
-    for($i = 0;; $i++)
+    foreach $key (keys %ARGS)
     {
-       if (exists $ARGS{"key$i"} && $ARGS{"key$i"} =~ m/^AlbumId/)
+       if ($ARGS{$key} =~ /^AlbumId/ && $key =~ m/^key(\d+)/)
        {
            $al = Album->new($mb->{DBH});
-           $al->SetId($ARGS{"value$i"});
+           $al->SetId($ARGS{"value$1"});
            push @objs, $al if (defined $al->LoadFromId())
-       }
-       else
-       {
-           last;
        }
     }
 

@@ -86,11 +86,30 @@ else
 
         </%perl>
         <a href="/freedb/freedb.html?search=<% $artist->GetName() |u %>">Import album</a> ]<p>
-        <%perl>
 
-        mc_comp("/comp/modnotice");
-        mc_comp("/comp/album", album=>$album, artist=>$artist, 
-                               showalbumdetail=>1, mbtagger=>$mbt, showids=>1);
+        <& /comp/framedboxbegin, width=>"100%" &>
+        <table width="100%"><tr>
+        <td>
+        <& /comp/modnotice &>
+        </td>
+%       if (exists $session{user}) {
+            <td align="center">
+            <FORM METHOD="POST" ACTION="/mod/tag/donetag.html" 
+            NAME="EditAlbumAttrsForm"
+            ENCTYPE="application/x-www-form-urlencoded"> 
+
+            <input name="submit" type="image" border="0" alt="Batch Operation" 
+            title="Moderate a batch of selected albums"
+            src="/images/batch.gif" height="13" width="13"> Batch Operation
+            </td>
+%       }
+        </tr></table>
+
+        <& /comp/framedboxend &>
+        <br>
+        <%perl>
+        mc_comp("/comp/album", album=>$album, artist=>$artist, showalbumdetail=>1, 
+                               mbtagger=>$mbt, showids=>1, showtag=>1);
     }
 }
 $mb->Logout();

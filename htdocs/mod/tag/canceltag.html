@@ -1,34 +1,31 @@
-<& /comp/sidebar, title=>'Cancel Tagged Albums', expand=>'moderate' &>
+<%args>
+$url=>""
+</%args>
+
+<& /comp/sidebar, title=>'Deselected Tagged Albums', expand=>'moderate' &>
 
 <%perl>
 
-my ($mb, $id, $ar, $artist, $referer); 
+my ($mb, $id, $ar, $artist); 
 
 $mb = mc_comp("/comp/dblogin");
-if (defined $r->headers_in->{'Referer'} &&
-    $r->headers_in->{'Referer'} ne '')
-{    
-    $referer = $r->headers_in->{'Referer'};
-}
 
 delete $session{tagged_albums};
 
 </%perl>
+<center>
+<p>
+<p>
+<p>
+<b>All of your selected albums have been deselected.</b><p><br>
 
-% if (!defined $session{user} || $session{user} eq '') {
-    You must be logged in to edit the database.<p>
-    <& /comp/tablebegin, title=>'Login' &>
-    <& /comp/loginbox &>
-    <& /comp/tableend &>
-% } else {
-
-     <font size="+1">You have left tag album mode!</font><br><p>
-
-%   if (defined $referer) {
-     <a href="<% $referer %>">Return to last page</a><br><p>
+%   if ($url ne '') {
+     <a href="<% $url %>">Return to last page</a><br><p>
 %   }
-     <br><p>
-% }
+</center>
+
+<br><p>
+
 % $mb->Logout();
 
 <& /comp/tablebegin, title=>'Search', attrs=>"align=left" &>

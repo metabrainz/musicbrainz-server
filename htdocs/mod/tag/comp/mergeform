@@ -3,6 +3,7 @@ $type
 $link
 $objs
 $attrprev=>0
+$text=>"Select"
 </%args>
 <%perl>
 
@@ -16,7 +17,7 @@ $num = scalar(@obj);
 
 <form method="POST" action="<% $link %>" name="Merge"
       enctype="application/x-www-form-urlencoded">
-<input type="submit" NAME="Submit" VALUE="Select &gt;&gt;" size="25">
+<input type="submit" NAME="Submit" VALUE="<% $text %>" size="20">
 
 %foreach $al (@obj) {
 %   $arid = $al->GetArtist() if ($ind == 0);

@@ -167,31 +167,43 @@ else
             }
             @albums = sort SortAlbums @albums;
 
-            if (not exists $session{tagged_albums})
-            {
-                </%perl>
-                <& /comp/framedboxbegin, width=>"100%" &>
-                <center>
-                <& /comp/modnotice &>
-                <table width="100%"><tr><td align="center">
-                <a href="/showartist.html?artistid=<% $artist->GetId() %>&ex=<% $exall %>">
-                <img src="/images/plus.gif" align="center"
-                     alt="Expand" title="Expand All Albums"
-                     height="13" width="13" border="0"> Expand All</a>
-    
-                </td><td align="center">
-    
-                <a href="/showartist.html?artistid=<% $artist->GetId() %>">
-                <img src="/images/minus.gif" align="center""
-                     alt="Collapse" title="Collapse All Albums"
-                     height="13" width="13" border="0"> Collapse All</a>
-                </tr></td></table> 
-                </center>
-                <& /comp/framedboxend &>
-                <br>
-                <%perl>
-            }
+            </%perl>
+            <& /comp/framedboxbegin, width=>"100%" &>
+            <& /comp/modnotice &>
 
+            <FORM METHOD="POST" ACTION="/mod/tag/donetag.html" 
+                  NAME="EditAlbumAttrsForm"
+                  ENCTYPE="application/x-www-form-urlencoded"> 
+
+            <table width="100%">
+            <tr>
+            <td align="center">
+
+            <a href="/showartist.html?artistid=<% $artist->GetId() %>&ex=<% $exall %>">
+            <img src="/images/plus.gif" align="center"
+                 alt="Expand" title="Expand All Albums"
+                 height="13" width="13" border="0"> Expand All</a>
+    
+            </td>
+            
+            <td align="center">
+            <a href="/showartist.html?artistid=<% $artist->GetId() %>">
+            <img src="/images/minus.gif" align="center""
+                 alt="Collapse" title="Collapse All Albums"
+                 height="13" width="13" border="0"> Collapse All</a>
+            </td>
+
+%           if (exists $session{user}) {
+                <td align="center"><input name="submit" type="image" border="0" alt="Batch Operation" 
+                       title="Moderate a batch of selected albums"
+                       src="/images/batch.gif" height="13" width="13"> Batch Operation</td>
+%           }
+
+            </tr></table>
+            <& /comp/framedboxend &>
+            <br>
+
+            <%perl>
             $section = -1;
             foreach $album (@albums)
             {
@@ -206,8 +218,7 @@ else
                 $exall .= "," if ($count > 0);
                 $exall .= $id;
 
-                if (($ex =~ /(^|\D)$id(\D|$)/) || 
-                    (exists $session{tagged_albums}))
+                if ($ex =~ /(^|\D)$id(\D|$)/) 
                 {
                      mc_comp("/comp/album", 
                              album=>$album, 
@@ -215,7 +226,8 @@ else
                              ex=>$ex,
                              showcollapsed=>1,
                              showids=>0,
-                             mbtagger=>$mbt);
+                             mbtagger=>$mbt,
+                             showtag=>1);
                 }
                 else
                 {
@@ -223,10 +235,13 @@ else
                              album=>$album, 
                              artist=>$artist, 
                              ex=>$ex,
-                             showids=>0);
+                             showids=>0,
+                             showtag=>1);
                 }
             }
-
+            </%perl>
+            </form>
+            <%perl>
             if (!$hasnonalbum)
             {
                 </%perl>

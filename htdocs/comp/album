@@ -9,6 +9,7 @@ $showcollapsed=>0
 $ex=>""
 $mbtagger=>0
 $showids=>0
+$showtag=>0
 </%args>
 
 <%perl>
@@ -45,7 +46,8 @@ if ($showcollapsed)
             nomod=>$nomod,
             albumdetail=>$showalbumdetail,
             linktype=>"collapse",
-            link=>$link);
+            link=>$link,
+            showtag=>$showtag);
 }
 else
 {
@@ -53,7 +55,8 @@ else
             artist=>$artist, 
             album=>$album, 
             nomod=>$nomod,
-            albumdetail=>$showalbumdetail);
+            albumdetail=>$showalbumdetail,
+            showtag=>$showtag);
 }
 for($i = 0;; $i++)
 {
