@@ -1,6 +1,10 @@
+%# vi: set ts=4 sw=4 ft=mason :
 <& /comp/sidebar, title=>'Edit Album Attributes', expand=>'moderate' &>
 
 <%perl>
+
+$m->comp("/comp/checkloggedin", 0, 1)
+	or return;
 
 my ($mb, $id, $modpending, $al, $artist, $attr, 
     @attrs, $prev, $index, $url, $s); 
@@ -45,14 +49,9 @@ if (scalar(@attrs) == 0)
     @attrs = (Album::ALBUM_ATTR_ALBUM, Album::ALBUM_ATTR_OFFICIAL);
 }
 
-</%perl>
+my $selected_index = 0;
 
-% if (!defined $session{user} || $session{user} eq '') {
-    You must be logged in to edit the database.<p>
-    <& /comp/tablebegin, title=>'Login' &>
-    <& /comp/loginbox &>
-    <& /comp/tableend &>
-% } else {
+</%perl>
 
 % if ($modpending) {
     <& /comp/modpending &>
@@ -67,7 +66,8 @@ if (scalar(@attrs) == 0)
 % if (exists $ARGS{"key0"}) {
 
     <& /comp/albumattrform, mb=>$mb, albumname=>"", attrs=>\@attrs, 
-                            field1=>"value0", field2=>"value1" &>
+                            field1=>"value0", field2=>"value1",
+							selindex => \$selected_index &>
 
     <%perl>
     my ($i, $urlid);
@@ -102,7 +102,8 @@ if (scalar(@attrs) == 0)
     <input type="hidden" name="prev" value="">
 % } else {
     <& /comp/albumattrform, mb=>$mb, albumname=>$al->GetName(), attrs=>\@attrs, 
-                            field1=>"value0", field2=>"value1" &>
+                            field1=>"value0", field2=>"value1",
+							selindex => \$selected_index &>
     <input type="hidden" name="key2" value="AlbumId0">
     <input type="hidden" name="value2" value="<% $id %>">
     <input type="hidden" name="key3" value="AlbumName0">
@@ -118,6 +119,8 @@ if (scalar(@attrs) == 0)
     <input type="hidden" name="url" value="<% $url %>">
     </form>
       
-% }
+
 % $mb->Logout();
+
+<& /comp/movefocus, "EditAlbumAttrsForm", "value0", $selected_index &>
 <& /comp/footer &>

@@ -1,9 +1,11 @@
+%# vi: set ts=4 sw=4 ft=mason :
 <%args>
 $mb
 $albumname=>""
 $attrs
 $field1=>""
 $field2=>""
+$selindex=>undef
 </%args>
 
 <%perl>
@@ -60,33 +62,50 @@ click on Submit:
     <td>
     <blockquote>
     <table width="75%">
-    <tr><td colspan=\"3\"><b>Release type:</b></td></tr>
+		<tr><td colspan="3"><b>Release type:</b></td></tr>
 
-    <%perl>
-    for(Album::ALBUM_ATTR_SECTION_TYPE_START..Album::ALBUM_ATTR_SECTION_TYPE_END)
-    {
-        mc_out("<tr><td valign=\"top\" NOWRAP>");
-        mc_out("<input type=\"radio\" name=\"$field1\" value=\"$_\"");
-        if ($_ == $type)
-        {
-            mc_out(" CHECKED");
-        }
-        mc_out("></td><td valign=\"top\">$attrlist->{$_}->[0]</td>");
-        mc_out("<td valign=\"top\">$attrlist->{$_}->[2]</td></tr>\n");
-    }
-    mc_out("<tr><td colspan=\"3\"><br><b>Release status:</b></td></tr>");
-    for(Album::ALBUM_ATTR_SECTION_STATUS_START..Album::ALBUM_ATTR_SECTION_STATUS_END)
-    {
-        mc_out("<tr><td valign=\"top\" NOWRAP>");
-        mc_out("<input type=\"radio\" name=\"$field2\" value=\"$_\"");
-        if ($_ == $status)
-        {
-            mc_out(" CHECKED");
-        }
-        mc_out("></td><td valign=\"top\">$attrlist->{$_}->[0]</td>");
-        mc_out("<td valign=\"top\">$attrlist->{$_}->[2]</td></tr>");
-    }
-    </%perl>
+%		my $i = 0;
+
+%		for (Album::ALBUM_ATTR_SECTION_TYPE_START .. Album::ALBUM_ATTR_SECTION_TYPE_END)
+%		{
+        <tr>
+			<td valign="top" NOWRAP>
+				<input type="radio"
+					name="<% $field1 %>"
+					value="<% $_ %>"
+%					if ($_ == $type) {
+					checked
+%					$$selindex = $i if $selindex;
+%					}
+					ondblclick="this.form.submit()"
+				>
+			</td>
+			<td valign="top"><% $attrlist->{$_}->[0] %></td>
+			<td valign="top"><% $attrlist->{$_}->[2] %></td>
+		</tr>
+%		++$i;
+%		}
+
+	    <tr><td colspan="3"><br><b>Release status:</b></td></tr>
+
+%		for (Album::ALBUM_ATTR_SECTION_STATUS_START .. Album::ALBUM_ATTR_SECTION_STATUS_END)
+%		{
+        <tr>
+			<td valign="top" NOWRAP>
+				<input type="radio"
+					name="<% $field2 %>"
+					value="<% $_ %>"
+%					if ($_ == $status) {
+					checked
+%					}
+					ondblclick="this.form.submit()"
+				>
+			</td>
+			<td valign="top"><% $attrlist->{$_}->[0] %></td>
+			<td valign="top"><% $attrlist->{$_}->[2] %></td>
+		</tr>
+%		}
+
     </table> 
     </blockquote>
     <p>
@@ -94,7 +113,7 @@ click on Submit:
   </tr>
   <tr>
     <td>
-    <INPUT TYPE="submit" NAME="Submit" VALUE="Submit">    
+		<input type="submit" name="Submit" value="Submit">    
     </td>
   </tr>
 </table>
