@@ -11,6 +11,8 @@ body
 a img { border: 0 }
 form { margin: 0 }
 
+label { cursor: pointer; }
+
 a,
 a:link,
 a:visited
@@ -192,7 +194,7 @@ kbd.KbdBlock
 .ArtistTitle
 {
 	border-width: 1px;
-   border-style: solid;
+	border-style: solid;
 	padding: 5px;
 	margin-top: 1em;
 	background-color: #f0efff;
@@ -232,9 +234,9 @@ kbd.KbdBlock
 .ArtistTitleMod
 {
 	padding: 5px;
-   background-color: #ffecd6;
+	background-color: #ffecd6;
 	border-width: 0 1px 1px 1px;
-   border-style: solid;
+	border-style: solid;
 	margin-bottom: 1em;
 	width: 100%;
 }
@@ -246,12 +248,12 @@ kbd.KbdBlock
 	padding: 5px;
 	background-color: #f0efff;
 	border-width: 1px;
-   border-style: solid;
+	border-style: solid;
 }
 
 .AlbumInfo
 {
-   margin-right: 140;
+	margin-right: 140;
 	background-color: #dddddd;
 }
 
@@ -264,17 +266,17 @@ kbd.KbdBlock
 .AlbumTitleMod
 {
 	padding: 5px;
-   background-color: #ffecd6;
+	background-color: #ffecd6;
 	border-width: 0 1px 1px 1px;
-   border-style: solid;
+	border-style: solid;
 }
 
 .AlbumTitleAmazon
 {
-   padding: 5px;
-   background-color: #eeeecc;
+	padding: 5px;
+	background-color: #eeeecc;
 	border-width: 0 1px 1px 1px;
-   border-style: solid;
+	border-style: solid;
 }
 
 /* /comp/albumtype */
@@ -340,7 +342,7 @@ td.trk *, td.did *, td.trm *, td.rdate * { vertical-align: middle }
 
 #Report tr.shade { background-color: #eee; }
 #Report td.head { background-color: #eee; font-weight: bold;
-                  padding-top: 0.5em; padding-bottom: 0.5em; }
+		padding-top: 0.5em; padding-bottom: 0.5em; }
 #Report td.link { text-align: center; white-space: nowrap; }
 
 /* topmods.html */
@@ -410,7 +412,7 @@ td.discidlength { background-color: #ffecd6; text-align: right }
 
 .AnnotationLog
 {
-   background-color: #ffecd6;
+	background-color: #ffecd6;
 }
 
 /* Related Artists */
@@ -441,6 +443,42 @@ td.discidlength { background-color: #ffecd6; text-align: right }
 	font: bold 10pt Verdana, Geneva, Arial, Helvetica, sans-serif;
 	color: #997035;
 	text-decoration: none;
+}
+
+/* Voting buttons */
+
+table.votechoice
+{
+	border: 0px;
+	width: 100%;
+	cellpadding: 0px;
+	cellspacing: 0px;
+}
+
+table.votechoice3 td
+{
+	width: 33%;
+	text-align: center;
+}
+
+table.votechoice4 td
+{
+	width: 25%;
+	text-align: center;
+}
+
+table.votechoice label
+{
+	text-align: center;
+	display: block;
+	text-weight: bold;
+	padding: 3px;
+	border: 1px transparent;
+}
+
+table.votechoice label:hover
+{
+	border: 1px #999 dotted;
 }
 
 /* eof */
