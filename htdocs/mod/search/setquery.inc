@@ -429,6 +429,18 @@ for my $t (
 	}
 
 	my $modid = Moderation->iFindByTime($dbh, $time, 'open' => $open_opt);
+
+	if (not defined $modid)
+	{
+		# Specified time is later than latest mod
+		if ($ref == \$minid)
+		{
+			push @where, "1=0";
+		}
+
+		$modid = "";
+	}
+
 	$filter{$key} = $$ref;
 	$$ref = $modid;
 }
