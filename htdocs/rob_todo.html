@@ -4,15 +4,11 @@ These are the tasks that I am currently working on. The first task the
 the most important and the last task is the least important. <p>
 
 <& /comp/todoentry, 
-   task=>'Finish the MB Tagger', 
-   skills=>'Win32 C++', 
-   desc=>qq\Finish the MusicBrainz Tagger, fixing the last outstanding bugs.\
-&>
-
-<& /comp/todoentry, 
-   task=>'Transaction Support', 
+   task=>'Album Type Support', 
    skills=>'Perl/Database', 
-   desc=>qq\Add support for complete referential integrity in MB.\
+   desc=>qq\Albums should have an album type (album, EP, singles, etc) that gives
+            more information about an album and allows us to have pseudo album
+            of tracks that were never released on an album.\ 
 &>
 
 <& /comp/todoentry, 
@@ -28,6 +24,25 @@ the most important and the last task is the least important. <p>
    desc=>qq\Accept Paul Sharpe's patch, change general server functions
             to allow a read-only mirror to work. All read-write functions
             need to get redirected to the main server.\
+&>
+
+<& /comp/todoentry, 
+   task=>'Finish the MB Tagger', 
+   skills=>'Win32 C++', 
+   desc=>qq\Finish the MusicBrainz Tagger, fixing the last outstanding bugs.\
+&>
+
+<& /comp/todoentry, 
+   task=>'Install and Test TRM B#er', 
+   skills=>'Sysadmin/perl/c++', 
+   desc=>qq\When the TRM B#er test server becomes available, install, test and deploy 
+            the server.\
+&>
+
+<& /comp/todoentry, 
+   task=>'Client Version Tracking', 
+   skills=>'C++/Perl/Database', 
+   desc=>qq\Track the client id for TRM/CD Index Id submissions.\
 &>
 
 <& /comp/footer &>

@@ -30,7 +30,7 @@ use Artist;
 use ModDefs;
 use Sql;
 
-sub OutputPlotFile
+sub OutputBasicPlotFile
 {
     my ($datfile, $plotfile, $outfile, $from_date, $to_date) = @_;
 
@@ -42,7 +42,7 @@ set xdata time
 set timefmt "%d %m %Y"
 set xlabel "Date"
 set xrange ["$from_date" : "$to_date"]
-set yrange [20000:100000]
+set yrange [20000:70000]
 set format x "%m/%d"
 set key left
 set ylabel "Number of entries in MusicBrainz"
@@ -51,8 +51,34 @@ set output "$outfile"
 
 plot "$datfile" using 1:(\$5) title "Albums" with linespoints, \\
      "$datfile" using 1:(\$6) title "Artists" with linespoints, \\
-     "$datfile" using 1:(\$7) title "Moderations" with linespoints, \\
      "$datfile" using 1:(\$4) title "Discids" with linespoints
+END
+
+    close PLOT;
+}
+
+sub OutputModPlotFile
+{
+    my ($datfile, $plotfile, $outfile, $from_date, $to_date) = @_;
+
+    open PLOT, ">$plotfile" or die "Cannot open plotfile.\n";
+
+print PLOT <<END;
+set terminal png small color
+set xdata time
+set timefmt "%d %m %Y"
+set xlabel "Date"
+set xrange ["$from_date" : "$to_date"]
+set yrange [80000:600000]
+set format x "%m/%d"
+set key left
+set ylabel "Number of entries in MusicBrainz"
+
+set output "$outfile"
+
+plot "$datfile" using 1:(\$7) title "Moderations" with linespoints, \\
+     "$datfile" using 1:(\$8) title "Tracks" with linespoints, \\
+     "$datfile" using 1:(\$6) title "TRM Ids" with linespoints
 END
 
     close PLOT;
@@ -60,7 +86,7 @@ END
 
 sub DumpStats
 {
-    my ($sql, $outfile) = @_;
+    my ($sql, $basic_outfile, $mod_outfile) = @_;
     my ($plotfile, $datfile, $count, $start, $end);
 
     $plotfile = "/tmp/plotfile.$$";
@@ -77,16 +103,18 @@ sub DumpStats
             {
                 $start = "$3 $2 $1" if ($count == 0);
                 $end = "$3 $2 $1";
-                print STATS "$3 $2 $1 $row[4] $row[2] $row[1] $row[6] $row[5]\n";
+                print STATS "$3 $2 $1 $row[4] $row[2] $row[1] $row[6] $row[5] $row[3]\n";
                 $count++;
             }
         }
         close STATS;
 
-        OutputPlotFile($datfile, $plotfile, $outfile, $start, $end);
+        OutputBasicPlotFile($datfile, $plotfile, $basic_outfile, $start, $end);
         system("gnuplot $plotfile");
-        #unlink $datfile;
-        #unlink $plotfile;
+        OutputModPlotFile($datfile, $plotfile, $mod_outfile, $start, $end);
+        system("gnuplot $plotfile");
+        unlink $datfile;
+        unlink $plotfile;
 
         $sql->Finish();
     }
@@ -94,10 +122,11 @@ sub DumpStats
     return 1;
 }
 
-my $giffile = shift;
-if (not defined $giffile)
+my $basic_giffile = shift;
+my $mod_giffile = shift;
+if (not defined $basic_giffile || not defined $mod_giffile)
 {
-    print "Usage: GeneratePlot.pl <output .gif file>\n";
+    print "Usage: GeneratePlot.pl <basic .png file> <mod .png file>\n";
     return;
 }
 
@@ -105,7 +134,7 @@ $mb = MusicBrainz->new;
 $mb->Login;
 $sql = Sql->new($mb->{DBH});
 
-DumpStats($sql, $giffile);
+DumpStats($sql, $basic_giffile, $mod_giffile);
 
 # Disconnect
 $mb->Logout;
