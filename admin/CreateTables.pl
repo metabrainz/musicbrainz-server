@@ -126,7 +126,7 @@ sub CreateTables
              "   Bitprint char(88) not null," . 
              "   First20 char(40) not null," . 
              "   Length int," .
-             "   AudioSha1 char(40) not null," . 
+             "   AudioSha1 char(40)," . 
              "   Duration int," .
              "   Samplerate int," .
              "   Bitrate smallint," .
