@@ -1,379 +1,399 @@
+#!/usr/bin/perl -w
+# vi: set ts=4 sw=4 :
 #____________________________________________________________________________
 #
-#   MusicBrainz -- the open music metadata database
+#	MusicBrainz -- the open music metadata database
 #
-#   Copyright (C) 2001 Robert Kaye
+#	Copyright (C) 2001 Robert Kaye
 #
-#   This program is free software; you can redistribute it and/or modify
-#   it under the terms of the GNU General Public License as published by
-#   the Free Software Foundation; either version 2 of the License, or
-#   (at your option) any later version.
+#	This program is free software; you can redistribute it and/or modify
+#	it under the terms of the GNU General Public License as published by
+#	the Free Software Foundation; either version 2 of the License, or
+#	(at your option) any later version.
 #
-#   This program is distributed in the hope that it will be useful,
-#   but WITHOUT ANY WARRANTY; without even the implied warranty of
-#   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-#   GNU General Public License for more details.
+#	This program is distributed in the hope that it will be useful,
+#	but WITHOUT ANY WARRANTY; without even the implied warranty of
+#	MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+#	GNU General Public License for more details.
 #
-#   You should have received a copy of the GNU General Public License
-#   along with this program; if not, write to the Free Software
-#   Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
+#	You should have received a copy of the GNU General Public License
+#	along with this program; if not, write to the Free Software
+#	Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
 #
-#   $Id$
+#	$Id$
 #____________________________________________________________________________
 
 package Sql;
 
 use vars qw(@ISA @EXPORT);
-@ISA    = @ISA    = '';
+@ISA	= @ISA	  = '';
 @EXPORT = @EXPORT = '';
 
 use strict;
 use DBI;
 use DBDefs;
-use Carp qw(cluck);
+use Carp qw(cluck croak carp);
 use utf8 ();
 
 sub new
 {
-    my ($type, $dbh) = @_;
-    my $this = {};
+	my ($type, $dbh) = @_;
+	my $this = {};
 
-    $this->{DBH} = $dbh;
-    $this->{Quiet} = 0;
+	$this->{DBH} = $dbh;
+	$this->{Quiet} = 0;
 
-    bless $this, ref($type) || $type;
-}  
+	bless $this, ref($type) || $type;
+}
 
 sub Quiet
 {
-    my ($this, $q) = @_;
-  
-    $this->{Quiet} = $q;
+	my ($this, $q) = @_;
+
+	$this->{Quiet} = $q;
 }
 
 # Allow one auto commit transaction!
 sub AutoCommit
 {
-    my ($this) = @_;
-  
-    $this->{AutoCommit} = 1;
+	my ($this) = @_;
+	return carp('$sql->AutoCommit called inside a transaction')
+		if not $this->{DBH}{AutoCommit};
+    cluck('$sql->AutoCommit called twice')
+        if $this->{auto_commit_next_statement};
+	$this->{auto_commit_next_statement} = 1;
 }
 
 sub Quote
 {
-    my ($this, $data) = @_;
-    my $r = $this->{DBH}->quote($data);
-    utf8::downgrade($r);
-    $r;
+	my ($this, $data) = @_;
+	my $r = $this->{DBH}->quote($data);
+	utf8::downgrade($r);
+	$r;
 }
 
 sub Select
 {
-    my ($this, $query, @params) = @_;
-    my ($ret, $t);
+	my ($this, $query, @params) = @_;
+	my ($ret, $t);
 
-    my $prepare = (@params ? "prepare_cached" : "prepare");
+	my $prepare = (@params ? "prepare_cached" : "prepare");
 
-    $ret = eval
-    {
-        my $tt = Sql::Timer->new($query, \@params);
-        $this->{STH} = $this->{DBH}->$prepare($query);
-        $ret = $this->{STH}->execute(@params);
+	$ret = eval
+	{
+		my $tt = Sql::Timer->new($query, \@params);
+		$this->{STH} = $this->{DBH}->$prepare($query);
+		$ret = $this->{STH}->execute(@params);
 
-        return $this->{STH}->rows;
-    };
-    if ($@)
-    {
-        my $err = $@;
+		return $this->{STH}->rows;
+	};
+	if ($@)
+	{
+		my $err = $@;
 
-        $this->{STH}->finish;
-        $this->{ERR} = $this->{DBH}->errstr;
-        cluck("Failed query:\n  '$query'\n  (@params)\n$err\n") 
-            unless ($this->{Quiet});
-        die $err;
-    }
-    return $ret;
+		$this->{STH}->finish;
+		$this->{ERR} = $this->{DBH}->errstr;
+		cluck("Failed query:\n	'$query'\n	(@params)\n$err\n")
+			unless ($this->{Quiet});
+		die $err;
+	}
+	return $ret;
 }
 
 sub Finish
 {
-    my ($this) = @_;
+	my ($this) = @_;
 
-    $this->{STH}->finish if $this->{STH};
+	$this->{STH}->finish if $this->{STH};
 }
 
 sub Rows
 {
-    my ($this) = @_;
+	my ($this) = @_;
 
-    $this->{STH}->rows;
+	$this->{STH}->rows;
 }
 
 sub NextRow
 {
-    my ($this) = @_;
+	my ($this) = @_;
 
-    return $this->{STH}->fetchrow_array;
+	return $this->{STH}->fetchrow_array;
 }
 
 sub NextRowRef
 {
-    my ($this) = @_;
+	my ($this) = @_;
 
-    return $this->{STH}->fetch;
+	return $this->{STH}->fetch;
 }
 
 sub GetError
 {
-    my ($this) = @_;
+	my ($this) = @_;
 
-    return $this->{ERR};
+	return $this->{ERR};
 }
 
 sub Do
 {
-    my ($this, $query, @params) = @_;
-    my $ret;
+	my ($this, $query, @params) = @_;
+	my $ret;
 
-    if (exists $this->{AutoCommit} && $this->{AutoCommit} == 1)
-    {
-        $this->{AutoCommit} = 0;
-        $this->{DBH}->{AutoCommit} = 1;
-    }
-    elsif ($this->{DBH}->{AutoCommit} == 1)
-    {
-        cluck("AutoCommit is turned on!") unless ($this->{Quiet});
-        die "AutoCommit on!"
-    }
-#    die "No transaction started in Do." if ($this->{DBH}->{AutoCommit} == 0);
-    
-    my $prepare = (@params ? "prepare_cached" : "prepare");
+	if ($this->{DBH}{AutoCommit})
+	{
+		# We're not in a transaction.  ->AutoCommit should be true.
+		# (Side-effect: clear ->AutoCommit).
+		delete $this->{auto_commit_next_statement}
+			or croak '$sql->Do called with neither $sql->Begin nor $sql->AutoCommit';
+	} else {
+		# We are in a transaction.	Check that ->AutoCommit is false.
+		not $this->{auto_commit_next_statement}
+			or croak '$sql->Do called with both $sql->Begin and $sql->AutoCommit';
+	}
 
-    $ret = eval
-    {
-        my $tt = Sql::Timer->new($query, \@params);
-        utf8::downgrade($query);
-        my $sth = $this->{DBH}->$prepare($query);
-        utf8::downgrade($_) for @params;
-        $sth->execute(@params);
-    };
-    if ($@)
-    {
-        my $err = $@;
+	my $prepare = (@params ? "prepare_cached" : "prepare");
 
-        $this->{ERR} = $this->{DBH}->errstr;
-        cluck("Failed query:\n  '$query'\n  (@params)\n$err\n")
-            unless ($this->{Quiet});
-        die $err;
-    }
-    return 0+$ret;
+	$ret = eval
+	{
+		my $tt = Sql::Timer->new($query, \@params);
+		utf8::downgrade($query);
+		my $sth = $this->{DBH}->$prepare($query);
+		utf8::downgrade($_) for @params;
+		$sth->execute(@params);
+	};
+	if ($@)
+	{
+		my $err = $@;
+
+		$this->{ERR} = $this->{DBH}->errstr;
+		cluck("Failed query:\n	'$query'\n	(@params)\n$err\n")
+			unless ($this->{Quiet});
+		die $err;
+	}
+	return 0+$ret;
 }
 
 sub GetSingleRow
 {
-    my ($this, $tab, $cols, $where) = @_;
-    my (@row, $query, $count);
+	my ($this, $tab, $cols, $where) = @_;
+	my (@row, $query, $count);
 
-    $query = "select " . join(", ", @$cols) . " from $tab";
-    if (scalar(@$where) > 0)
-    {
-       for($count = 0; scalar(@$where) > 1; $count++)
-       {
-           if ($count == 0)
-           {
-               $query .= " where ";
-           }
-           else
-           {
-               $query .= " and ";
-           }
-           $query .= (shift @$where) . " = " .  (shift @$where);
-       }
-    }
-    if ($this->Select($query))
-    {
-        @row = $this->NextRow;
-        $this->Finish;
+	$query = "select " . join(", ", @$cols) . " from $tab";
+	if (scalar(@$where) > 0)
+	{
+		for($count = 0; scalar(@$where) > 1; $count++)
+		{
+			if ($count == 0)
+			{
+				$query .= " where ";
+			}
+			else
+			{
+				$query .= " and ";
+			}
+			$query .= (shift @$where) . " = " .	(shift @$where);
+		}
+	}
+	if ($this->Select($query))
+	{
+		@row = $this->NextRow;
+		$this->Finish;
 
-        return @row;
-    }
-    return undef;
+		return @row;
+	}
+	return undef;
 }
 
 # This function is just like GetSingleRow, but the first pair or
 # where clause items is compared with ILIKE, and not a simple =
 sub GetSingleRowLike
 {
-    my ($this, $tab, $cols, $where) = @_;
-    my (@row, $query, $count);
+	my ($this, $tab, $cols, $where) = @_;
+	my (@row, $query, $count);
 
-    $query = "select " . join(", ", @$cols) . " from $tab";
-    if (scalar(@$where) > 0)
-    {
-       for($count = 0; scalar(@$where) > 1; $count++)
-       {
-           if ($count == 0)
-           {
-               $query .= " where " . (shift @$where) . " ilike " .  
-                         (shift @$where);
-           }
-           else
-           {
-               $query .= " and " . (shift @$where) . " = " .  
-                         (shift @$where);
-           }
-       }
-    }
-    if ($this->Select($query))
-    {
-        @row = $this->NextRow;
-        $this->Finish;
+	$query = "select " . join(", ", @$cols) . " from $tab";
+	if (scalar(@$where) > 0)
+	{
+		for($count = 0; scalar(@$where) > 1; $count++)
+		{
+			if ($count == 0)
+			{
+				$query .= " where " . (shift @$where) . " ilike " .
+					(shift @$where);
+			}
+			else
+			{
+				$query .= " and " . (shift @$where) . " = " .
+					(shift @$where);
+			}
+		}
+	}
+	if ($this->Select($query))
+	{
+		@row = $this->NextRow;
+		$this->Finish;
 
-        return @row;
-    }
-    return undef;
+		return @row;
+	}
+	return undef;
 }
 
 sub GetLastInsertId
 {
-   my ($this, $table) = @_;
-   $this->SelectSingleValue("SELECT CURRVAL(?)", $table . "_id_seq");
+	my ($this, $table) = @_;
+	$this->SelectSingleValue("SELECT CURRVAL(?)", $table . "_id_seq");
 }
 
 sub GetSingleColumn
 {
-    my ($this, $tab, $col, $where) = @_;
-    my (@row, $query, $count, @col);
+	my ($this, $tab, $col, $where) = @_;
+	my (@row, $query, $count, @col);
 
-    $query = "select $col from $tab";
-    if (scalar(@$where) > 0)
-    {
-       for($count = 0; scalar(@$where) > 1; $count++)
-       {
-           if ($count == 0)
-           {
-               $query .= " where ";
-           }
-           else
-           {
-               $query .= " and ";
-           }
-           $query .= (shift @$where) . " = " .  (shift @$where);
-       }
-    }
-    if ($this->Select($query))
-    {
-        while(@row = $this->NextRow)
-        {
-            push @col, $row[0];
-        }
-        $this->Finish;
+	$query = "select $col from $tab";
+	if (scalar(@$where) > 0)
+	{
+		for($count = 0; scalar(@$where) > 1; $count++)
+		{
+			if ($count == 0)
+			{
+				$query .= " where ";
+			}
+			else
+			{
+				$query .= " and ";
+			}
+			$query .= (shift @$where) . " = " .	(shift @$where);
+		}
+	}
+	if ($this->Select($query))
+	{
+		while(@row = $this->NextRow)
+		{
+			push @col, $row[0];
+		}
+		$this->Finish;
 
-        return @col;
-    }
-    return ();
+		return @col;
+	}
+	return ();
 }
 
 sub GetSingleColumnLike
 {
-    my ($this, $tab, $col, $where) = @_;
-    my (@row, $query, $count, @col);
+	my ($this, $tab, $col, $where) = @_;
+	my (@row, $query, $count, @col);
 
-    $query = "select $col from $tab";
-    if (scalar(@$where) > 0)
-    {
-       for($count = 0; scalar(@$where) > 1; $count++)
-       {
-           if ($count == 0)
-           {
-               $query .= " where " . (shift @$where) . " ilike " .  
-                         (shift @$where);
-           }
-           else
-           {
-               $query .= " and " . (shift @$where) . " = " .  
-                         (shift @$where);
-           }
-       }
-    }
-    if ($this->Select($query))
-    {
-        while(@row = $this->NextRow)
-        {
-            push @col, $row[0];
-        }
-        $this->Finish;
+	$query = "select $col from $tab";
+	if (scalar(@$where) > 0)
+	{
+		for($count = 0; scalar(@$where) > 1; $count++)
+		{
+			if ($count == 0)
+			{
+				$query .= " where " . (shift @$where) . " ilike " .
+					(shift @$where);
+			}
+			else
+			{
+				$query .= " and " . (shift @$where) . " = " .
+					(shift @$where);
+			}
+		}
+	}
+	if ($this->Select($query))
+	{
+		while(@row = $this->NextRow)
+		{
+			push @col, $row[0];
+		}
+		$this->Finish;
 
-        return @col;
-    }
-    return ();
+		return @col;
+	}
+	return ();
 }
 
 sub Begin
 {
-   my $this = $_[0];
-   $this->{DBH}->{AutoCommit} = 0;
+	my $this = $_[0];
+	carp '$sql->Begin called while $sql->AutoCommit still active'
+		if delete $this->{auto_commit_next_statement};
+	croak '$sql->Begin called while already in a transaction'
+        if not $this->{DBH}{AutoCommit};
+	$this->{DBH}->{AutoCommit} = 0;
 }
 
 sub Commit
 {
-   my $this = $_[0];
+	my $this = $_[0];
 
-   my $ret = eval
-   {
-       my $rv = $this->{DBH}->commit;
-       cluck("Commit failed") if ($rv eq '' && !$this->{Quiet});
-       return $rv;
-   };
+	croak '$sql->Commit called without $sql->Begin'
+		if $this->{DBH}->{AutoCommit};
 
-   if ($@)
-   {
-       my $err = $@;
-       cluck($err) unless ($this->{Quiet});
-       eval { $this->Rollback };
-       die $err;
-   }
+	my $ret = eval
+	{
+		my $rv = $this->{DBH}->commit;
+		cluck("Commit failed") if ($rv eq '' && !$this->{Quiet});
+		return $rv;
+	};
 
-   $this->{DBH}{AutoCommit} = 1;
-   return $ret;
+	if ($@)
+	{
+		my $err = $@;
+		cluck($err) unless ($this->{Quiet});
+		eval { $this->Rollback };
+		$this->{DBH}{AutoCommit} = 1;
+		die $err;
+	}
+
+	$this->{DBH}{AutoCommit} = 1;
+	return $ret;
 }
 
 sub Rollback
 {
-   my $this = $_[0];
+	my $this = $_[0];
 
-   my $ret = eval
-   {
-       my $rv = $this->{DBH}->rollback;
-       cluck("Rollback failed") if ($rv eq '' && !$this->{Quiet});
-       return $rv;
-   };
+	croak '$sql->Rollback called without $sql->Begin'
+		if $this->{DBH}->{AutoCommit};
 
-   if ($@)
-   {
-       my $err = $@;
-       cluck($err) unless ($this->{Quiet});
-       die $err;
-   }
+	my $ret = eval
+	{
+		my $rv = $this->{DBH}->rollback;
+		cluck("Rollback failed") if ($rv eq '' && !$this->{Quiet});
+		return $rv;
+	};
 
-   $this->{DBH}{AutoCommit} = 1;
-   return $ret;
+    $this->{DBH}{AutoCommit} = 1;
+
+	if ($@)
+	{
+		my $err = $@;
+		cluck($err) unless ($this->{Quiet});
+		die $err;
+	}
+
+	return $ret;
 }
 
 # AutoTransaction: call back the given code reference,
 # automatically applying a Begin/Commit/Rollback around it
 # if required (i.e. if we are not already in a transaction).
-# Calling context is preserved.  Exceptions may be thrown.
+# Calling context is preserved.	 Exceptions may be thrown.
 
 sub AutoTransaction
 {
-        my ($self, $sub) = @_;
-        return &$sub unless $self->{DBH}{AutoCommit};
+	my ($self, $sub) = @_;
+	# If we're already in a transaction, just run the code.
+	return &$sub if not $self->{DBH}{AutoCommit};
 
-        my ($r, @r);
-        my $w = wantarray;
+	# Otherwise, Begin, run the code, and Commit.  Rollback if anything
+	# false.  Always leave the transaction closed.
+	my ($r, @r);
+	my $w = wantarray;
 
-        local $@;
+	local $@;
 	eval {
 		$self->Begin;
 
@@ -385,11 +405,11 @@ sub AutoTransaction
 		1;
 	} or do {
 		my $e = $@;
-		$self->Rollback;
+		eval { $self->Rollback };
 		die $e;
 	};
 
-        ($w ? @r : $r);
+	($w ? @r : $r);
 }
 
 # The "Select*" methods.  All these methods accept ($query, @args) parameters,
@@ -403,30 +423,30 @@ sub AutoTransaction
 
 sub SelectSingleRowHash
 {
-    my ($this, $query, @params) = @_;
+	my ($this, $query, @params) = @_;
 
-    my $row = eval
-    {
-        my $tt = Sql::Timer->new($query, \@params);
-        my $sth = $this->{DBH}->prepare_cached($query);
-        my $rv = $sth->execute(@params)
-            or die;
-        my $firstRow = $sth->fetchrow_hashref;
-        my $nextRow = $sth->fetchrow_hashref
-            if $firstRow;
-        $sth->finish;
-        die "Query in SelectSingleRowHash returned more than one row"
-            if $nextRow;
-        $firstRow;
-    };
+	my $row = eval
+	{
+		my $tt = Sql::Timer->new($query, \@params);
+		my $sth = $this->{DBH}->prepare_cached($query);
+		my $rv = $sth->execute(@params)
+			or die;
+		my $firstRow = $sth->fetchrow_hashref;
+		my $nextRow = $sth->fetchrow_hashref
+			if $firstRow;
+		$sth->finish;
+		die "Query in SelectSingleRowHash returned more than one row"
+			if $nextRow;
+		$firstRow;
+	};
 
-    return $row unless $@;
+	return $row unless $@;
 
-    my $err = $@;
-    $this->{ERR} = $this->{DBH}->errstr;
-    cluck("Failed query:\n  '$query'\n  (@params)\n$err\n") 
-       unless ($this->{Quiet});
-    die $err;
+	my $err = $@;
+	$this->{ERR} = $this->{DBH}->errstr;
+	cluck("Failed query:\n	'$query'\n	(@params)\n$err\n")
+		unless ($this->{Quiet});
+	die $err;
 }
 
 # Run a SELECT query.  Depending on the number of resulting rows:
@@ -436,30 +456,30 @@ sub SelectSingleRowHash
 
 sub SelectSingleRowArray
 {
-    my ($this, $query, @params) = @_;
+	my ($this, $query, @params) = @_;
 
-    my $row = eval
-    {
-        my $tt = Sql::Timer->new($query, \@params);
-        my $sth = $this->{DBH}->prepare_cached($query);
-        my $rv = $sth->execute(@params)
-            or die;
-        my $firstRow = $sth->fetchrow_arrayref;
-        my $nextRow = $sth->fetchrow_arrayref
-            if $firstRow;
-        $sth->finish;
-        die "Query in SelectSingleRowArray returned more than one row"
-            if $nextRow;
-        $firstRow;
-    };
+	my $row = eval
+	{
+		my $tt = Sql::Timer->new($query, \@params);
+		my $sth = $this->{DBH}->prepare_cached($query);
+		my $rv = $sth->execute(@params)
+			or die;
+		my $firstRow = $sth->fetchrow_arrayref;
+		my $nextRow = $sth->fetchrow_arrayref
+			if $firstRow;
+		$sth->finish;
+		die "Query in SelectSingleRowArray returned more than one row"
+			if $nextRow;
+		$firstRow;
+	};
 
-    return $row unless $@;
+	return $row unless $@;
 
-    my $err = $@;
-    $this->{ERR} = $this->{DBH}->errstr;
-    cluck("Failed query:\n  '$query'\n  (@params)\n$err\n")
-       unless ($this->{Quiet});
-    die $err;
+	my $err = $@;
+	$this->{ERR} = $this->{DBH}->errstr;
+	cluck("Failed query:\n	'$query'\n	(@params)\n$err\n")
+		unless ($this->{Quiet});
+	die $err;
 }
 
 # Run a SELECT query.  Depending on the number of resulting columns:
@@ -468,37 +488,37 @@ sub SelectSingleRowArray
 
 sub SelectSingleColumnArray
 {
-    my ($this, $query, @params) = @_;
+	my ($this, $query, @params) = @_;
 
-    my $col = eval
-    {
-        my $tt = Sql::Timer->new($query, \@params);
-        my $sth = $this->{DBH}->prepare_cached($query);
-        my $rv = $sth->execute(@params)
-            or die;
+	my $col = eval
+	{
+		my $tt = Sql::Timer->new($query, \@params);
+		my $sth = $this->{DBH}->prepare_cached($query);
+		my $rv = $sth->execute(@params)
+			or die;
 
-        my @vals;
+		my @vals;
 
-        for (;;)
-        {
-            my @row  = $sth->fetchrow_array
-                or last;
-            die unless @row == 1;
-            push @vals, $row[0];
-        }
+		for (;;)
+		{
+			my @row	 = $sth->fetchrow_array
+				or last;
+			die unless @row == 1;
+			push @vals, $row[0];
+		}
 
-        $sth->finish;
+		$sth->finish;
 
-        \@vals;
-    };
+		\@vals;
+	};
 
-    return $col unless $@;
+	return $col unless $@;
 
-    my $err = $@;
-    $this->{ERR} = $this->{DBH}->errstr;
-    cluck("Failed query:\n  '$query'\n  (@params)\n$err\n")
-       unless ($this->{Quiet});
-    die $err;
+	my $err = $@;
+	$this->{ERR} = $this->{DBH}->errstr;
+	cluck("Failed query:\n	'$query'\n	(@params)\n$err\n")
+		unless ($this->{Quiet});
+	die $err;
 }
 
 # Run a SELECT query.  Must return either no data (return "undef"), or exactly
@@ -506,15 +526,15 @@ sub SelectSingleColumnArray
 
 sub SelectSingleValue
 {
-    my ($this, $query, @params) = @_;
-    my $row = $this->SelectSingleRowArray($query, @params);
-    $row or return undef;
+	my ($this, $query, @params) = @_;
+	my $row = $this->SelectSingleRowArray($query, @params);
+	$row or return undef;
 
-    return $row->[0] unless @$row != 1;
+	return $row->[0] unless @$row != 1;
 
-    cluck("Failed query:\n  '$query'\n  (@params)\nmore than one column\n")
-       unless ($this->{Quiet});
-    die "Query in SelectSingleValue returned more than one column";
+	cluck("Failed query:\n	'$query'\n	(@params)\nmore than one column\n")
+		unless ($this->{Quiet});
+	die "Query in SelectSingleValue returned more than one column";
 }
 
 # Run a SELECT query.  Return a reference to an array of rows, where each row
@@ -522,36 +542,36 @@ sub SelectSingleValue
 
 sub SelectListOfLists
 {
-    my ($this, $query, @params) = @_;
+	my ($this, $query, @params) = @_;
 
-    my $data = eval
-    {
-        my $tt = Sql::Timer->new($query, \@params);
-        my $sth = $this->{DBH}->prepare_cached($query);
-        my $rv = $sth->execute(@params)
-            or die;
+	my $data = eval
+	{
+		my $tt = Sql::Timer->new($query, \@params);
+		my $sth = $this->{DBH}->prepare_cached($query);
+		my $rv = $sth->execute(@params)
+			or die;
 
-        my @vals;
+		my @vals;
 
-        for (;;)
-        {
-            my @row  = $sth->fetchrow_array
-                or last;
-            push @vals, \@row;
-        }
+		for (;;)
+		{
+			my @row	 = $sth->fetchrow_array
+				or last;
+			push @vals, \@row;
+		}
 
-        $sth->finish;
+		$sth->finish;
 
-        \@vals;
-    };
+		\@vals;
+	};
 
-    return $data unless $@;
+	return $data unless $@;
 
-    my $err = $@;
-    $this->{ERR} = $this->{DBH}->errstr;
-    cluck("Failed query:\n  '$query'\n  (@params)\n$err\n")
-       unless ($this->{Quiet});
-    die $err;
+	my $err = $@;
+	$this->{ERR} = $this->{DBH}->errstr;
+	cluck("Failed query:\n	'$query'\n	(@params)\n$err\n")
+		unless ($this->{Quiet});
+	die $err;
 }
 
 # Run a SELECT query.  Return a reference to an array of rows, where each row
@@ -559,35 +579,35 @@ sub SelectListOfLists
 
 sub SelectListOfHashes
 {
-    my ($this, $query, @params) = @_;
+	my ($this, $query, @params) = @_;
 
-    my $data = eval
-    {
-        my $tt = Sql::Timer->new($query, \@params);
-        my $sth = $this->{DBH}->prepare_cached($query);
-        my $rv = $sth->execute(@params)
-            or die;
+	my $data = eval
+	{
+		my $tt = Sql::Timer->new($query, \@params);
+		my $sth = $this->{DBH}->prepare_cached($query);
+		my $rv = $sth->execute(@params)
+			or die;
 
-        my @vals;
+		my @vals;
 
-        for (;;)
-        {
-            my $row = $sth->fetchrow_hashref
-                or last;
-            push @vals, $row;
-        }
+		for (;;)
+		{
+			my $row = $sth->fetchrow_hashref
+				or last;
+			push @vals, $row;
+		}
 
-        $sth->finish;
+		$sth->finish;
 
-        \@vals;
-    };
+		\@vals;
+	};
 
-    return $data unless $@;
+	return $data unless $@;
 
-    my $err = $@;
-    $this->{ERR} = $this->{DBH}->errstr;
-    cluck("Failed query:\n  '$query'\n  (@params)\n$err\n");
-    die $err;
+	my $err = $@;
+	$this->{ERR} = $this->{DBH}->errstr;
+	cluck("Failed query:\n	'$query'\n	(@params)\n$err\n");
+	die $err;
 }
 
 ################################################################################
@@ -598,39 +618,39 @@ use Time::HiRes qw( gettimeofday tv_interval );
 
 sub new
 {
-    # Comment this out if you actually want to log all/slow queries
-    return;
+	# Comment this out if you actually want to log all/slow queries
+	return;
 
-    my ($class, $sql, $args) = @_;
+	my ($class, $sql, $args) = @_;
 
-    #printf STDERR "Starting SQL: \"%s\" (%s)\n",
-    #    $sql, join(", ", @$args);
-    
-    bless {
-        SQL => $sql,
-        ARGS => $args,
-        CALLER => [ caller(1) ],
-        T0 => [ gettimeofday ],
-    }, ref($class) || $class;
+	#printf STDERR "Starting SQL: \"%s\" (%s)\n",
+	#	 $sql, join(", ", @$args);
+
+	bless {
+		SQL => $sql,
+		ARGS => $args,
+		CALLER => [ caller(1) ],
+		T0 => [ gettimeofday ],
+	}, ref($class) || $class;
 }
 
 sub DESTROY
 {
-    my $self = shift;
-    my $t = tv_interval($self->{T0});
-    $self->{SQL} =~ s/\s+/ /sg;
+	my $self = shift;
+	my $t = tv_interval($self->{T0});
+	$self->{SQL} =~ s/\s+/ /sg;
 
-    # Uncomment this if you're only interested in queries which take longer
-    # than $somelimit
-    #return if $t < 0.1;
+	# Uncomment this if you're only interested in queries which take longer
+	# than $somelimit
+	#return if $t < 0.1;
 
-    local $" = ", ";
-    printf STDERR "SQL: %6.2fs \"%s\" (%s)\n",
-        $t,
-        $self->{SQL},
-        join(", ", @{ $self->{ARGS} }),
-        ;
+	local $" = ", ";
+	printf STDERR "SQL: %6.2fs \"%s\" (%s)\n",
+		$t,
+		$self->{SQL},
+		join(", ", @{ $self->{ARGS} }),
+		;
 }
 
 1;
-# vi: set ts=8 sw=4 et :
+# eof Sql.pm
