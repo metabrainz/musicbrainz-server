@@ -259,6 +259,25 @@ sub GetOrInsertNonAlbum
 	return $this;
 }
 
+sub GetNextFreeTrackId
+{
+	my $self = shift;
+	$self->IsNonAlbumTracks or die;
+
+	my $sql = Sql->new($self->{DBH});
+	my $used = $sql->SelectSingleColumnArray(
+		"SELECT sequence FROM albumjoin WHERE album = ?",
+		$self->GetId,
+	);
+	my %used = map { $_=>1 } @$used;
+
+	# This is probably adequate for a while to come.
+	for (my $seq = 1; ; ++$seq)
+	{
+		return $seq unless $used{$seq};
+	}
+}
+
 # Insert an album that belongs to this artist. The Artist object should've
 # been loaded with a LoadFromXXXX call, or the id of this artist must be
 # set before this function is called.
