@@ -102,23 +102,8 @@ table. The expiration times show on the moderation page are in GMT.
 
 <%perl>
 
-use URI::Escape;
-
 my $mb = $m->comp("/comp/dblogin");
 my $mod = Moderation->new($mb->{DBH});
-my $moderator_list;
-
-my $list = $mod->GetAutomoderatorList();
-foreach my $user (@{$list})
-{
-    $moderator_list .= "<a href=\"/moderator.html?user=" . uri_escape($user) . 
-                       "\">$user</a>, ";
-}
-chop($moderator_list);
-chop($moderator_list);
-
-$list = $mod->GetAutomoderationList();
-my $moderation_list = join(", ", @{$list});
 
 </%perl>
 
@@ -130,13 +115,17 @@ are automoderations:
 </p>
 
 <blockquote>
-<% $moderation_list %>
+	<% join ", ", @{ $mod->GetAutomoderationList } %>
 </blockquote>
 
 The following moderators are automoderators:
 
 <blockquote>
-<% $moderator_list |n %>
+% my @users = @{ $mod->GetAutomoderatorList };
+% $m->out("No-one!") if not @users;
+% while (defined(my $user = shift @users)) {
+	<a href="/moderator.html?user=<% url_escape($user) %>"><% $user %></a><% (@users ? ", " : "") %>
+% }
 </blockquote>
 
 <p>
