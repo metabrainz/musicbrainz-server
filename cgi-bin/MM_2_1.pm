@@ -566,4 +566,22 @@ sub CreateFileLookup
 
    return $out;
 }
+
+sub GetTRMTrackIdPair
+{
+   my ($this, $triples, $uri, $i) = @_;
+
+   my $ns = $this->GetMMNamespace(); 
+   my $query = "!mm!trmidList [] !mm!trackid";
+   $query =~ s/!mm!/$ns/g;
+   my $trackid = QuerySupport::Extract($triples, $uri, $i, $query);
+
+   $query =~ s/!mm!/$ns/g;
+   $query = "!mm!trmidList [] !mm!trmid";
+   $query =~ s/!mm!/$ns/g;
+   my $trmid = QuerySupport::Extract($triples, $uri, $i, $query);
+
+   return ($trackid, $trmid);
+}
+
 1;

@@ -231,7 +231,7 @@ $currentURI = $triples[0]->subject->getLabel;
 # Check to see if the client specified a depth for this query. If not,
 # use a depth of 2 by default.
 $depth = QuerySupport::Extract(\@triples, $currentURI, -1, 
-                 "http://musicbrainz.org/mm/mq-1.0#depth");
+                 "http://musicbrainz.org/mm/mq-1.1#depth");
 if (not defined $depth)
 {
    $depth = 2;
@@ -245,13 +245,13 @@ if ($depth > 6)
 $rdf->SetDepth($depth);
 
 $session_id = QuerySupport::Extract(\@triples, $currentURI, -1, 
-                'http://musicbrainz.org/mm/mq-1.0#sessionId');
+                'http://musicbrainz.org/mm/mq-1.1#sessionId');
 if (defined $session_id)
 {
     my $error;
 
     $session_key = QuerySupport::Extract(\@triples, $currentURI, -1, 
-                   'http://musicbrainz.org/mm/mq-1.0#sessionKey');
+                   'http://musicbrainz.org/mm/mq-1.1#sessionKey');
 
     $error = Authenticate(\%session, $session_id, $session_key);
     if ($error ne "")

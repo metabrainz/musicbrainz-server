@@ -53,6 +53,7 @@ use vars qw(@ISA @EXPORT);
 
 use constant EXTRACT_TOC_QUERY => "!mm!toc [] !mm!sectorOffset";
 use constant EXTRACT_NUMTRACKS_QUERY => "!mm!lastTrack";
+use constant EXTRACT_CLIENT_VERSION => "!mq!clientVersion";
 
 sub IsValidUUID
 {
@@ -549,26 +550,23 @@ sub SubmitTRMList
    $sql = Sql->new($dbh);
    $gu = TRM->new($dbh);
 
+   my $ns = $rdf->GetMQNamespace(); 
+   my $query = EXTRACT_CLIENT_VERSION;
+   $query =~ s/!mq!/$ns/g;
+
    $uri = (@$triples)[0]->subject->getLabel;
-   $clientVer = Extract($triples, $uri, 0, 
-                        "http://musicbrainz.org/mm/mq-1.0#clientVersion");
+   $clientVer = Extract($triples, $uri, 0, $query);
    if (not defined $clientVer)
    {
        return $rdf->ErrorRDF("Your MusicBrainz client must provide its version " .
                              "id string when submitting data to MusicBrainz.") 
    }
 
-   # TODO: Move the MM dependent code into MM___.pl
    $index = 0;
    $new = "ClientVersion=$clientVer\n";
    for($i = 1; ; $i++)
    {
-       $trackid = Extract($triples, $uri, $i, 
-          "http://musicbrainz.org/mm/mm-2.1#trmidList [] " . 
-          "http://musicbrainz.org/mm/mm-2.1#trackid");
-       $trmid = Extract($triples, $uri, $i, 
-          "http://musicbrainz.org/mm/mm-2.1#trmidList [] " .
-          "http://musicbrainz.org/mm/mm-2.1#trmid");
+       ($trackid, $trmid) = $rdf->GetTRMTrackIdPair($triples, $uri, $i);
        if (!defined $trackid || $trackid eq '' ||
            !defined $trmid || $trmid eq '')
        {

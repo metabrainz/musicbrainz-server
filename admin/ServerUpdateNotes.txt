@@ -1,31 +1,6 @@
 I Server update tasks
 ---------------------
 
-1. Rebuild text indexes after David fixed alias remove problem.
-
-	./admin/RebuildArtistWords
-	(Takes about twenty minutes on my machine; apart from the fact
-	that this script will keep the server quite busy, there's no
-	reason to stop the server for this script).
-
-2. For the albummeta optimization changes:
-
-    Execute this in the shell 
-
-       createlang plpgsql musicbrainz
-
-    Execute the SQL statements in admin/sql/CreateTriggers.sql by:
-
-       psql musicbrainz < CreateTriggers.sql
-       psql musicbrainz < CreateFunctions.sql
-
-    Then execute the fill_album_meta function:
-
-       echo "select fill_album_meta();" | psql musicbrainz
-
-3. Run admin/cleanup/RemoveBadTOCs.pl and admin/FixLengths.pl to
-   clean gunk out of the TOC table and to update the trackslengths
-   on albums that have zero length tracks.
 
 II Optimization tasks
 ---------------------

@@ -160,12 +160,13 @@ sub CreateDenseTrackList
        @ids = $al->GetAlbumIdsFromTrackId($tr->GetId());
        $al->SetId($ids[0]);
        $al->LoadFromId();
+       my $tracknum = $al->GetTrackSequence($tr->GetId());
    
        $this->AddToCache(0, 'artist', $ar);
 
        $out .= $this->OutputTrackRDF({ obj=>$tr }, $al) . "\n";
        $out .= $this->OutputArtistRDF({ obj=>$ar }) . "\n";
-       $out .= $this->OutputAlbumRDF({ obj=>$al }) . "\n";
+       $out .= $this->OutputAlbumRDF({ obj=>$al, _track=> [ $tr->GetMBId(), $tracknum ] });
    }
 
    $out .= $this->EndRDFObject;

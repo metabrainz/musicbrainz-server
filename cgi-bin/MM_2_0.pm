@@ -37,6 +37,7 @@ use vars qw(@ISA @EXPORT);
 @ISA    = @ISA    = qw(MM RDF2);
 @EXPORT = @EXPORT = '';
 
+
 sub new
 {
     my ($type, $dbh) = @_;
@@ -299,6 +300,23 @@ sub CreateAuthenticateResponse
    $rdf .= $this->EndRDFObject();
 
    return $rdf;
+}
+
+sub GetTRMTrackIdPair
+{
+   my ($this, $triples, $uri, $i) = @_;
+
+   my $ns = $this->GetMMNamespace(); 
+   my $query = "!mm!trmList [] !mm!trackid";
+   $query =~ s/!mm!/$ns/g;
+   my $trackid = QuerySupport::Extract($triples, $uri, $i, $query);
+
+   $query =~ s/!mm!/$ns/g;
+   $query = "!mm!trmList [] !mm!trmid";
+   $query =~ s/!mm!/$ns/g;
+   my $trmid = QuerySupport::Extract($triples, $uri, $i, $query);
+
+   return ($trackid, $trmid);
 }
 
 1;
