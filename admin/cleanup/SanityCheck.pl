@@ -104,6 +104,7 @@ sub Cleanup
 
         while(@row = $sth->fetchrow_array())
         {
+            next if ($row[0] == Artist::DARTIST_ID); 
             print "  Artist $row[0] has no tracks.\n";
             $count++;
 
