@@ -172,7 +172,7 @@ for my $table (@tables)
 			$rows / ($interval||1);
 	};
 
-	$p->("", "");
+	$p->("", "") if -t;
 
 	# This has to be at least as large as the longest line given
 	# by "copy table to stdout".
@@ -192,7 +192,7 @@ for my $table (@tables)
 		unless ($rows & 0xFFF)
 		{
 			$interval = tv_interval($t1);
-			$p->("\r", "");
+			$p->("\r", "") if -t;
 		}
 	}
 

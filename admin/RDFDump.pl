@@ -34,6 +34,8 @@ use Artist;
 use Album;
 use Track;
 
+my $verbose = -t;
+
 my ($outfile, $sql, @tinfo, $timestring, $mb, @row, $rdf, @ids);
 
 @tinfo = localtime;
@@ -128,7 +130,8 @@ sub DumpArtists
             $left %= 60;
 
             print "  $count of $mx artist albums -- Time left: " . 
-                  sprintf("%02d:%02d:%02d   \r", $hours, $mins, $left, $spr);
+                  sprintf("%02d:%02d:%02d   \r", $hours, $mins, $left, $spr)
+		if $verbose;
         }
 
         $out =   $rdf->EndSeq();
@@ -252,7 +255,8 @@ sub DumpAlbums
             $left %= 60;
 
             print "  $count of $mx album tracks -- Time left: " . 
-                  sprintf("%02d:%02d:%02d   \r", $hours, $mins, $left, $spr);
+                  sprintf("%02d:%02d:%02d   \r", $hours, $mins, $left, $spr)
+		if $verbose;
         }
         $sql2->Finish;
 
@@ -351,7 +355,8 @@ sub DumpTracks
             $left %= 60;
 
             print "  $count of $mx tracks -- Time left: " . 
-                  sprintf("%02d:%02d:%02d   \r", $hours, $mins, $left, $spr);
+                  sprintf("%02d:%02d:%02d   \r", $hours, $mins, $left, $spr)
+		if $verbose;
         }
         $sql2->Finish;
 
