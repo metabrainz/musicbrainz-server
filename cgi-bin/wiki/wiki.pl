@@ -55,7 +55,7 @@ use vars qw(%Page %Section %Text %InterSite %SaveUrl %SaveNumUrl
   $q $Now $UserID $TimeZoneOffset $ScriptName $BrowseCode $OtherCode);
 
 # == Configuration =====================================================
-$DataDir     = "/var/lib/mbwiki"; # Main wiki directory
+$DataDir     = "/var/mbwiki"; # Main wiki directory
 $UseConfig   = 0;       # 1 = use config file,    0 = do not look for config
 
 # Default configuration (used if UseConfig is 0)

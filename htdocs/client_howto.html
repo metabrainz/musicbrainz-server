@@ -165,7 +165,7 @@ The most non-obvious issues in dealing with the client library is having
 to extract data from the result that was returned by the server. If you
 are RDF savvy and would like deal with the result RDF itself, then call
 the mb_GetResultRDF function. Most people won't be interested in doing
-that so, here is a detailed explanation for what you need to do.
+that, so here is a detailed explanation for what you need to do.
 
 <p>
 The server will return an artist list, album list, track list a trmid
@@ -178,19 +178,25 @@ query:
             Graphical representation of an Artistlist query:
                                                                 Depth:
                                            +-------------+      
-  [top level]                              | Artist List |        [0]
+  [top level]                              | Artist List |        [1]
                                            +-------------+
                                               |       |
+  References to the Artists                   |       |           [2]
+                                              |       |
                                       +--------+     +--------+
-  MBS_SelectArtist 1 ---------------> | Artist |     | Artist |   [1]
+  MBS_SelectArtist 1 ---------------> | Artist |     | Artist |   [3]
                                       +--------+     +--------+
                                        |      |            
+  References to the Albums             |      |                   [4]          
+                                       |      |            
                                 +-------+    +-------+
-  MBS_SelectAlbum 1  ---------> | Album |    | Album |            [2]
+  MBS_SelectAlbum 1  ---------> | Album |    | Album |            [5]
                                 +-------+    +-------+
                                  |     |
+  References to the Tracks       |     |                          [6]
+                                 |     |
                           +-------+   +-------+
-  MBS_SelectTrack 1  ---> | Track |   | Track |                   [3]
+  MBS_SelectTrack 1  ---> | Track |   | Track |                   [7]
                           +-------+   +-------+
 <& /comp/exampleend &>
 
@@ -309,12 +315,13 @@ examples in the examples directory of the MusicBrainz client distribution.
 One last thing that needs explaining is the depth of a query. In the
 graph above, there is a column that shows depth. The depth of the query
 determines the amount of data returned by the server. If you set the 
-depth to 0, the server will only return the list of IDs to artists,
-but not the artists themselves. A depth of 1 will return the list,
-and all of the artists, but not the albums that may be referenced in the
-artist. When you write code to access the server you should carefully
-select the depth of your query to make sure that you only retrieve as much
-information as you really need.
+depth to 1, the server will only return the list of IDs to artists,
+but not the artists themselves. A depth of 2 will return the list,
+and all of the artists, but not the list of ids to the next albums.
+A depth of 3 will return all of the above and the albums that may be 
+referenced in the artist. When you write code to access the server you should 
+carefully select the depth of your query to make sure that you only retrieve 
+as much information as you really need.
 
 
 <& /comp/section, title=>'MBIDs and mb_GetIDFromURL function' &>
