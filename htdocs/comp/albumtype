@@ -11,5 +11,5 @@ $text=>""
   <td><font color="white"><b><% $text %></b></font></td>
 </tr>
 </table>
-</tr></td></table>
+</td></tr></table>
 <p>
