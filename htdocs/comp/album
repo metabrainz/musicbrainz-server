@@ -44,6 +44,7 @@ if ($showcollapsed)
     $ex =~ s/,,/,/g;
     $ex =~ s/(,$)|(^,)//g;
     $link .= "&ex=$ex" if ($ex ne '');
+    $link .= "&compact=0";
     $m->comp("/comp/albumbegin", 
             artist=>$artist, 
             album=>$album, 

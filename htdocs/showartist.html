@@ -262,7 +262,7 @@ $m->comp(
 % unless ($fCompact) {
             <td align="center">
 
-            <a href="/showartist.html?artistid=<% $artist->GetId() %>&amp;ex=<% $exall %>">
+            <a href="/showartist.html?artistid=<% $artist->GetId() %>&amp;ex=<% $exall %>&amp;compact=0">
             <img src="/images/plus.gif" align="middle"
                  alt="Expand" title="Expand All Albums"
                  height="13" width="13" border="0"> Expand All</a>
@@ -270,7 +270,7 @@ $m->comp(
             </td>
 
             <td align="center">
-            <a href="/showartist.html?artistid=<% $artist->GetId() %>">
+            <a href="/showartist.html?artistid=<% $artist->GetId() %>&amp;compact=0">
             <img src="/images/minus.gif" align="middle"
                  alt="Collapse" title="Collapse All Albums"
                  height="13" width="13" border="0"> Collapse All</a>

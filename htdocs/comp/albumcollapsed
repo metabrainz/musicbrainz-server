@@ -14,7 +14,7 @@ $link = "/showartist.html?artistid=" . $artist->GetId() . "&ex=";
 
 $ex .= "," . $album->GetId();
 $ex =~ s/^,//g;
-$link .= $ex . "#al" . $album->GetId();
+$link .= $ex . "&compact=0#al" . $album->GetId();
 $m->comp("/comp/albumbegin", 
             album=>$album, artist=>$artist, nomod=>0,
             linktype=>'expand', 
