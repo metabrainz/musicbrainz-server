@@ -221,15 +221,17 @@ sub Insert
     return $track;
 }
 
-sub GetFromId
+sub GetFromIdAndAlbum
 {
-    my ($this, $id) = @_;
-    my (@row, $sth, $artist, $album);
+    my ($this, $id, $albumname) = @_;
+    my (@row, @row2, $sth, $artist, $album, $seq, $guid);
 
     $artist = "Unknown";
     $album = "Unknown";
+    $guid = "";
+    $seq = 0;
 
-    $sth = $this->{DBH}->prepare("select name, guid, artist, album, length, year, genre, filename, comment from Track where id=$id");
+    $sth = $this->{DBH}->prepare("select name, artist, length, year, genre, filename, comment from Track where id=$id");
     $sth->execute;
     if ($sth->rows)
     {
@@ -237,7 +239,7 @@ sub GetFromId
     }
     $sth->finish;
 
-    $sth = $this->{DBH}->prepare("select name from Artist where id=$row[2]");
+    $sth = $this->{DBH}->prepare("select name from Artist where id=$row[1]");
     $sth->execute;
     if ($sth->rows)
     {
@@ -245,17 +247,45 @@ sub GetFromId
     }
     $sth->finish;
 
-    $sth = $this->{DBH}->prepare("select name from Album where id=$row[3]");
+    $sth = $this->{DBH}->prepare(qq/select GUID.guid from GUID, GUIDJoin 
+                       where GUIDJoin.track=$id and GUID.id = GUIDJoin.guid/);
     $sth->execute;
     if ($sth->rows)
     {
-         $album = ($sth->fetchrow_array)[0];
+         $guid = ($sth->fetchrow_array)[0];
     }
     $sth->finish;
 
-    my $seq;
-    return ($row[0], $row[1], $artist, $album, $seq, $row[4],
-            $row[5], $row[6], $row[7]);
+    $sth = $this->{DBH}->prepare(qq/select name, sequence from Album, 
+              AlbumJoin where AlbumJoin.track = $id and Album.id = 
+              AlbumJoin.album/);
+    $sth->execute;
+    if ($sth->rows)
+    {
+         # if this track appears on one album only, return that one
+         if ($sth->rows == 1)
+         {
+             @row2 = $sth->fetchrow_array;
+             $seq = $row2[1];
+             $album = $row2[0];
+         }
+         else
+         {
+             while(@row2 = $sth->fetchrow_array)
+             {
+                if ($row2[0] =~ /^$albumname$/i)
+                {
+                   $seq = $row2[1];
+                   $album = $row2[0];
+                   last;
+                }
+             }
+         }
+    }
+    $sth->finish;
+
+    return ($row[0], $guid, $artist, $album, $seq, $row[2],
+            $row[3], $row[4], $row[5], $row[6]);
 }
 
 1;

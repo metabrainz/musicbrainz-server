@@ -20,7 +20,7 @@
 #
 #   $Id$
 #____________________________________________________________________________
-package ParseFileName;
+package ParseFilename;
 
 BEGIN { require 5.003 }
 use vars qw(@ISA @EXPORT);
@@ -58,9 +58,9 @@ my ($rv, $token);
 my ($ArtistFound, $TrackFound, $ArtistTrackFound, $CntArtistTrackFound);
 my ($Artist, $ArtistId, $Track, $GUID);
 
-sub ParseFilename
+sub Parse
 {
-   my($mb, $guid, $filename, $InPendingFlag) = @_;
+   my($mb, $ar, $pe, $guid, $filename, $InPendingFlag) = @_;
 
    #print "Inside ParseFilename\n";
    #print "filename: $filename\n";
@@ -166,7 +166,7 @@ sub ParseFilename
    {
       #print "final item: $final_item\n";
 
-      $rv = MusicBrainz::GetArtistId($mb, $final_item);
+      $rv = $ar->GetIdFromName($final_item);
       if ($rv != -1)
       {
          #print "Found artist in prod table.  Try looking up title.\n";
@@ -199,9 +199,10 @@ sub ParseFilename
       foreach $final_item (@FinalItems)
       {
          $final_item = $mb->{DBH}->quote($final_item);
-         $sth = $mb->{DBH}->prepare(qq/select t.Name, t.GUID, ar.ID, ar.Name 
-                   from Track t, Artist ar where t.Artist=ar.Id and 
-                   ar.Id=$ArtistId and t.Name=$final_item/);
+         $sth = $mb->{DBH}->prepare(qq/select Track.Name, GUIDJoin.GUID, 
+                   Artist.ID, Artist.Name from Track, Artist, GUID, GUIDJoin 
+                   where GUIDJoin.track = Track.id and Track.Artist=Artist.Id 
+                   and Artist.Id=$ArtistId and Track.Name=$final_item/);
          $sth->execute;
          if ($sth->rows)
          {
@@ -214,6 +215,7 @@ sub ParseFilename
                $Artist = $row[3];
             }
          }
+         $sth->finish;
       }
    }
    else
@@ -248,7 +250,7 @@ sub ParseFilename
          #print "Track: $Track\n";
          #print "guid: $guid\n";
          # Record already exists in production table so delete from Pending.
-         MusicBrainz::DeletePendingData($mb, $guid);
+         $pe->DeletePendingData($guid);
       }
       elsif ($InPendingFlag eq 'N')
       {
@@ -270,7 +272,6 @@ sub ParseFilename
       $rv = -1;
    }
 
-   $sth->finish;
    
    return $rv;
 

@@ -994,12 +994,16 @@ sub ExchangeMetadata
 {
    my ($mb, $doc, $name, $guid, $artist, $album, $seq,
        $len, $year, $genre, $filename, $comment) = @_;
-   my (@ids, $id, $rdf, $r, $gu, $pe, $tr, $rv);
+   my (@ids, $id, $rdf, $r, $gu, $pe, $tr, $rv, $ar);
 
    $guid = ConvertGUID($guid);
 
    $r = RDF::new;
 
+   #print STDERR "\nArtist: '$artist' Album: '$album' Track: '$name'\n";
+   #print STDERR "GUID: '$guid' Seq: '$seq'\n";
+
+   $ar = Artist->new($mb);
    $gu = GUID->new($mb);
    $pe = Pending->new($mb);
    $tr = Track->new($mb);
@@ -1013,7 +1017,7 @@ sub ExchangeMetadata
        {
             # Call ParseFilename() in an attempt to parse out the filename and
             # try to find an artist and title within the filename.
-            $rv = ParseFilename($mb, $guid, $filename, 'N');
+            $rv = ParseFilename::Parse($mb, $ar, $pe, $guid, $filename, 'N');
             if ($rv == -1)
             {
                # ParseFilename could not find title and artist in filename, 
@@ -1021,6 +1025,7 @@ sub ExchangeMetadata
                $pe->Insert($name, $guid, $artist, $album, $seq,
                            $len, $year, $genre, $filename, $comment);
             }
+            # Logical structure problem!!!
        }
        else
        {
@@ -1034,10 +1039,14 @@ sub ExchangeMetadata
        my ($db_name, $db_guid, $db_artist, $db_album, $db_seq,
            $db_len, $db_year, $db_genre, $db_filename, $db_comment);
 
+       print STDERR "Found in database.\n";
        # Yes, it has. Retrieve the data and return it
        # Fill in, don't override...
        ($db_name, $db_guid, $db_artist, $db_album, $db_seq, $db_len, $db_year, 
-        $db_genre, $db_filename, $db_comment) = $tr->GetFromId($id);
+        $db_genre, $db_filename, $db_comment) = $tr->GetFromIdAndAlbum($id, 
+                                                                      $album);
+       #print STDERR "DBArtist: '$db_artist' DBAlbum: '$db_album' DBTrack: '$db_name'\n";
+       #print STDERR "DBGUID: '$db_guid' DBSeq: '$db_seq'\n";
 
        $name = $db_name 
            if (!defined $name || $name eq "") && defined $db_name;
@@ -1151,7 +1160,7 @@ sub CheckMetadata
        else
        {
            # Call ParseFilename in an attempt to match title and artist.
-           ParseFilename($mb, $guid, $filename, 'Y');
+           ParseFileName::Parse($mb, $ar, $pe, $guid, $filename, 'Y');
        }
    }
 }
@@ -1293,8 +1302,6 @@ sub GetLyricsByGlobalId
         if ($sth->execute())
         {
             @row = $sth->fetchrow_array;
-            # JOHAN: Rob, why is trackid assigned here with $row[0]?
-            # $trackid = $row[0];       #row[0] is not the ID field!
             $sth->finish;
     
             $rdf .= CreateTrackRDFSnippet($mb, $r, $trackid);
