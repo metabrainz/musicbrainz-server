@@ -39,6 +39,8 @@ use Net::SMTP;
 use URI::Escape;
 use CGI::Cookie;
 use Digest::SHA1 qw(sha1_base64);
+use MIME::QuotedPrint qw( encode_qp );
+use Encode qw( encode );
 
 use constant AUTOMOD_FLAG => 1;
 use constant BOT_FLAG => 2;
@@ -368,7 +370,7 @@ sub GetVerifyChecksum
 sub SendVerificationEmail
 {
 	my ($this, $info, $email) = @_;
-	my ($url, $t, $ret, $safe_from);
+	my ($url, $t, $ret, $safe_from, $text);
 
 	$t = time();
 
@@ -383,22 +385,28 @@ sub SendVerificationEmail
 
 	$smtp->data();
 
-	$smtp->datasend("To: $safe_from <$email>\n");
 	$smtp->datasend("From: MusicBrainz <noreply\@users.musicbrainz.org>\n");
+	$smtp->datasend("To: $safe_from <$email>\n");
+	$smtp->datasend("Sender: Webserver <webserver\@musicbrainz.org>\n");
 	$smtp->datasend("Subject: email address verification\n");
+    $smtp->datasend("Content-Type: text/plain; charset=utf-8\n");
+    $smtp->datasend("Content-Transfer-Encoding: quoted-printable\n");
 	$smtp->datasend("\n");
-	$smtp->datasend("This is the email confirmation for your MusicBrainz account.\n");
-	$smtp->datasend("Please click on the link below to verify your email address:\n\n");
+	$text = "This is the email confirmation for your MusicBrainz account.\n";
+	$text .= "Please click on the link below to verify your email address:\n\n";
 	
 	$url = "http://" . &DBDefs::WEB_SERVER . "/user/confirmaddress.html?" .
 			"uid=$info->{uid}&email=" . uri_escape($email) .
 			"&time=$t&chk=" . uri_escape($this->GetVerifyChecksum($email,
 			$info->{uid}, $t));
-	$smtp->datasend("  $url\n\n");
-	$smtp->datasend("If clicking on the link does not work, you may need to cut and paste\n");
-	$smtp->datasend("the link into your web browser manually.\n\n");
-	$smtp->datasend("Thanks for using MusicBrainz!\n\n");
-	$smtp->datasend("-- The MusicBrainz Team\n\n");
+	$text .= "  $url\n\n";
+	$text .= "If clicking on the link does not work, you may need to cut and paste\n";
+	$text .= "the link into your web browser manually.\n\n";
+	$text .= "Thanks for using MusicBrainz!\n\n";
+	$text .= "-- The MusicBrainz Team\n\n";
+
+    $text = encode_qp(encode("utf-8", $text));
+	$smtp->datasend($text);
 
 	$ret = $smtp->dataend() ? undef : "Failed to send mail. Please try again later.";
 	$smtp->quit();
@@ -417,6 +425,8 @@ sub SendEMail
     $safe_from = $from;
     $safe_from =~ s/\W/?/;
 
+    $text = encode_qp(encode("utf-8", $text));
+
 	my $smtp = Net::SMTP->new(&DBDefs::SMTP_SERVER);
 	return "Could not send mail. Please try again later." unless $smtp;
 
@@ -425,10 +435,13 @@ sub SendEMail
 
 	$smtp->data();
 
-	$smtp->datasend("To: $to_info->{name} <$to_info->{email}>\n");
 	$smtp->datasend("From: $safe_from <$safe_from\@users.musicbrainz.org>\n");
+	$smtp->datasend("To: $to_info->{name} <$to_info->{email}>\n");
+	$smtp->datasend("Sender: Webserver <webserver\@musicbrainz.org>\n");
 	$smtp->datasend("Reply-To: $safe_from <noreply\@musicbrainz.org>\n");
 	$smtp->datasend("Subject: $subject\n");
+    $smtp->datasend("Content-Type: text/plain; charset=utf-8\n");
+    $smtp->datasend("Content-Transfer-Encoding: quoted-printable\n");
 	$smtp->datasend("\n");
 	$smtp->datasend("$text\n\n");
 	$smtp->datasend("------------------------------------------------------------------------\n");
@@ -452,8 +465,6 @@ sub SendEMail
 sub SetSession
 {
 	my ($this, $session, $user, $privs, $uid, $email_nag) = @_;
-
-	print STDERR "$user, $privs, $uid, $email_nag\n";
 
 	tie %HTML::Mason::Commands::session,
 	'Apache::Session::File', undef,
