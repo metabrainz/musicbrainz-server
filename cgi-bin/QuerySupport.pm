@@ -45,6 +45,7 @@ use RDFStore::Parser::SiRPAC;
 use Digest::SHA1 qw(sha1_hex);
 use Apache::Session::File;
 use TaggerSupport;
+use Parser;
 
 use vars qw(@ISA @EXPORT);
 @ISA    = @ISA    = '';
@@ -65,38 +66,9 @@ sub IsValidUUID
     return 1;
 }
 
-sub Extract
-{
-   my ($triples, $currentURI, $ordinal, $queryarg) = @_;
-   my ($triple, $found, @querylist, $query);
-
-   @querylist = split /\s/, $queryarg;
-   foreach $query (@querylist)
-   {
-       $found = 0;
-       #print STDERR "Query: $query\n";
-       foreach $triple (@$triples)
-       {
-           #print STDERR "  ",$triple->subject->getLabel, " == $currentURI\n";
-           if ($triple->subject->getLabel eq $currentURI &&
-               ($triple->predicate->getLabel eq $query ||
-               (exists $triple->{ordinal} && $triple->{ordinal} == $ordinal)))
-           {
-               $currentURI = $triple->object->getLabel;
-               $found = 1;
-               last;
-           }
-       }
-       #print STDERR "Not found\n" if (!$found);
-       return undef if (!$found);
-   }
-   #print STDERR "found: '$currentURI'\n";
-   return $currentURI;
-}
-
 sub GenerateCDInfoObjectFromDiscid
 {
-   my ($dbh, $doc, $rdf, $id, $numtracks, $toc) = @_;
+   my ($dbh, $parser, $rdf, $id, $numtracks, $toc) = @_;
    my ($di);
 
    return $rdf->ErrorRDF("No Discid given.") if (!defined $id);
@@ -116,7 +88,7 @@ sub AssociateCDFromAlbumId
 
 sub GetCDInfoMM2
 {
-   my ($dbh, $triples, $rdf, $id, $numtracks) = @_;
+   my ($dbh, $parser, $rdf, $id, $numtracks) = @_;
    my ($sql, @row, $album, $di, $toc, $i, $currentURI);
 
    return $rdf->ErrorRDF("No Discid given.") if (!defined $id);
@@ -127,10 +99,10 @@ sub GetCDInfoMM2
    if (defined $numtracks)
    {
       $toc = "1 $numtracks ";
-      $currentURI = $$triples[0]->subject->getLabel;
+      $currentURI = $parser->GetBaseURI();
       for($i = 1; $i <= $numtracks + 1; $i++)
       {
-          $toc .= QuerySupport::Extract($triples, $currentURI, $i, $query) . " ";
+          $toc .= $parser->Extract($currentURI, $i, $query) . " ";
       }
    }
 
@@ -142,7 +114,7 @@ sub GetCDInfoMM2
 
 sub AssociateCDMM2
 {
-   my ($dbh, $triples, $rdf, $Discid, $albumid) = @_;
+   my ($dbh, $parser, $rdf, $Discid, $albumid) = @_;
    my ($numtracks, $di, $toc, $i, $currentURI);
 
    return $rdf->ErrorRDF("No Discid given.") if (!defined $Discid);
@@ -153,12 +125,12 @@ sub AssociateCDMM2
    my $num_query = EXTRACT_NUMTRACKS_QUERY;
    $num_query =~ s/!mm!/$ns/g;
 
-   $currentURI = $$triples[0]->subject->getLabel;
-   $numtracks = QuerySupport::Extract($triples, $currentURI, $i, $num_query);
+   $currentURI = $parser->GetBaseURI();
+   $numtracks = $parser->Extract($currentURI, $i, $num_query);
    $toc = "1 $numtracks ";
    for($i = 1; $i <= $numtracks + 1; $i++)
    {
-       $toc .= QuerySupport::Extract($triples, $currentURI, $i, $toc_query) . " ";
+       $toc .= $parser->Extract($currentURI, $i, $toc_query) . " ";
    }
 
    # Check to see if the album is in the main database
@@ -169,7 +141,7 @@ sub AssociateCDMM2
 # returns artistList
 sub FindArtistByName
 {
-   my ($dbh, $doc, $rdf, $search, $limit) = @_;
+   my ($dbh, $parser, $rdf, $search, $limit) = @_;
    my ($sql, @ids);
 
    return $rdf->ErrorRDF("No artist search criteria given.") 
@@ -189,13 +161,13 @@ sub FindArtistByName
        push @ids, $row->[0];
    }
 
-   return $rdf->CreateArtistList($doc, @ids);
+   return $rdf->CreateArtistList($parser, @ids);
 }
 
 # returns albumList
 sub FindAlbumByName
 {
-   my ($dbh, $doc, $rdf, $search, $limit) = @_;
+   my ($dbh, $parser, $rdf, $search, $limit) = @_;
    my ($sql, @ids);
 
    return $rdf->ErrorRDF("No album search criteria given.") 
@@ -221,7 +193,7 @@ sub FindAlbumByName
 # returns trackList
 sub FindTrackByName
 {
-   my ($dbh, $doc, $rdf, $search, $limit) = @_;
+   my ($dbh, $parser, $rdf, $search, $limit) = @_;
    my ($sql, @ids);
 
    return $rdf->ErrorRDF("No track search criteria given.") 
@@ -247,7 +219,7 @@ sub FindTrackByName
 # returns TRMList
 sub FindDistinctTRM
 {
-   my ($dbh, $doc, $rdf, $name, $artist) = @_;
+   my ($dbh, $parser, $rdf, $name, $artist) = @_;
    my ($sql, $query, @ids, @row);
 
    return $rdf->ErrorRDF("No name or artist search criteria given.")
@@ -289,7 +261,7 @@ sub FindDistinctTRM
 # returns artistList
 sub GetArtistByGlobalId
 {
-   my ($dbh, $doc, $rdf, $id) = @_;
+   my ($dbh, $parser, $rdf, $id) = @_;
    my ($sql, $artist);
 
    return $rdf->ErrorRDF("No artist id given.") 
@@ -300,13 +272,13 @@ sub GetArtistByGlobalId
    $id = $sql->Quote($id);
    ($artist) = $sql->GetSingleRow("Artist", ["id"], ["gid", lc($id)]);
 
-   return $rdf->CreateArtistList($doc, $artist);
+   return $rdf->CreateArtistList($parser, $artist);
 }
 
 # returns album
 sub GetAlbumByGlobalId
 {
-   my ($dbh, $doc, $rdf, $id) = @_;
+   my ($dbh, $parser, $rdf, $id) = @_;
    my ($sql, @row, $album);
 
    return $rdf->ErrorRDF("No album id given.") 
@@ -323,7 +295,7 @@ sub GetAlbumByGlobalId
 # returns trackList
 sub GetTrackByGlobalId
 {
-   my ($dbh, $doc, $rdf, $id) = @_;
+   my ($dbh, $parser, $rdf, $id) = @_;
    my ($sql, $query, @row, @ids);
 
    return $rdf->ErrorRDF("No track id given.") 
@@ -344,7 +316,7 @@ sub GetTrackByGlobalId
 # returns trackList
 sub GetTrackByTRM
 {
-   my ($dbh, $doc, $rdf, $id) = @_;
+   my ($dbh, $parser, $rdf, $id) = @_;
    my ($sql, @ids);
 
    return $rdf->ErrorRDF("No track id given.") 
@@ -364,7 +336,7 @@ sub GetTrackByTRM
 # returns albumList
 sub GetAlbumsByArtistGlobalId
 {
-   my ($dbh, $doc, $rdf, $id) = @_;
+   my ($dbh, $parser, $rdf, $id) = @_;
    my ($sql, @row, @ids);
 
    return $rdf->ErrorRDF("No album id given.") 
@@ -382,7 +354,7 @@ sub GetAlbumsByArtistGlobalId
 
 sub LookupMetadata
 {
-   my ($dbh, $doc, $rdf, $id) = @_;
+   my ($dbh, $parser, $rdf, $id) = @_;
    my (@ids, $gu, $tr);
 
    #PrintData("Lookup:", $id);
@@ -454,7 +426,7 @@ sub PrintData
 #  17 VBR
 sub ExchangeMetadata
 {
-   my ($dbh, $doc, $rdf, @data) = @_;
+   my ($dbh, $parser, $rdf, @data) = @_;
    my (@ids, $id, $gu, $pe, $tr, $rv, $ar);
 
    #PrintData("Incoming:", @data);
@@ -492,7 +464,7 @@ sub ExchangeMetadata
 
 sub SubmitTrack
 {
-   my ($dbh, $doc, $rdf, $name, $TRM, $artist, $album, $seq,
+   my ($dbh, $parser, $rdf, $name, $TRM, $artist, $album, $seq,
        $len, $year, $genre, $comment) = @_;
    my (@albumids, %info, $in, $ret);
 
@@ -535,7 +507,7 @@ sub SubmitTrack
 
 sub SubmitTRMList
 {
-   my ($dbh, $triples, $rdf, $session) = @_;
+   my ($dbh, $parser, $rdf, $session) = @_;
    my (@ids, @ids2, $sql, $gu, $tr);
    my ($i, $trmid, $trackid, $uri, $clientVer, $new, $index);
 
@@ -553,8 +525,8 @@ sub SubmitTRMList
    my $query = EXTRACT_CLIENT_VERSION;
    $query =~ s/!mq!/$ns/g;
 
-   $uri = (@$triples)[0]->subject->getLabel;
-   $clientVer = Extract($triples, $uri, 0, $query);
+   $uri = $parser->GetBaseURI();
+   $clientVer = $parser->Extract($uri, 0, $query);
    if (not defined $clientVer)
    {
        return $rdf->ErrorRDF("Your MusicBrainz client must provide its version " .
@@ -565,7 +537,7 @@ sub SubmitTRMList
    $new = "ClientVersion=$clientVer\n";
    for($i = 1; ; $i++)
    {
-       ($trackid, $trmid) = $rdf->GetTRMTrackIdPair($triples, $uri, $i);
+       ($trackid, $trmid) = $rdf->GetTRMTrackIdPair($parser, $uri, $i);
        if (!defined $trackid || $trackid eq '' ||
            !defined $trmid || $trmid eq '')
        {
@@ -640,7 +612,7 @@ sub SubmitTRMList
 
 sub AuthenticateQuery
 {
-   my ($dbh, $doc, $rdf, $username) = @_;
+   my ($dbh, $parser, $rdf, $username) = @_;
    my ($session_id, $challenge, $us, $data);
    my ($uid, $digest, $chal_size, $i, $pass);
 
@@ -688,7 +660,7 @@ sub AuthenticateQuery
 
 sub TrackInfoFromTRMId
 {
-   my ($dbh, $doc, $rdf, $id, $artist, $album, $track, 
+   my ($dbh, $parser, $rdf, $id, $artist, $album, $track, 
        $tracknum, $duration, $filename)=@_;
    my ($sql, @ids, $qid, $query);
 
@@ -770,7 +742,7 @@ sub TrackInfoFromTRMId
 
 sub QuickTrackInfoFromTRMId
 {
-   my ($dbh, $doc, $rdf, $id, $artist, $album, $track, 
+   my ($dbh, $parser, $rdf, $id, $artist, $album, $track, 
        $tracknum, $duration, $filename)=@_;
    my ($sql, @data, $out, $qid);
 
@@ -876,7 +848,7 @@ sub QuickTrackInfoFromTRMId
 
 sub QuickTrackInfoFromTrackId
 {
-   my ($dbh, $doc, $rdf, $tid, $aid) = @_;
+   my ($dbh, $parser, $rdf, $tid, $aid) = @_;
    my ($sql, @data, $out);
 
    return $rdf->ErrorRDF("No track id given.") 
