@@ -1,0 +1,22 @@
+<& /comp/sidebar, title=>'Insertion Stats', expand=>'information' &>
+
+<%perl>
+my $mb = MusicBrainz->new();  
+$mb->Login();
+
+my ($pe, $obj, @ref);
+
+$pe = Pending->new($mb->{DBH});
+@ref = $pe->LoadInsertHistory(50);
+
+mc_out("<table>");
+foreach $obj (@ref)
+{
+    mc_out("<tr><td>" . $obj->{name} . "</td>");
+    mc_out("<td>" . $obj->{artist_name} . "</td>");
+    mc_out("<td>" . $obj->{inserted} . "</td></tr>");
+}
+mc_out("</table>");
+
+$mb->Logout();
+</%perl>

@@ -180,3 +180,35 @@ sub GetPendingList
 
    return ($num_pending, @info);
 }
+
+sub InsertIntoInsertHistory
+{
+   my ($this, $trackid) = @_;
+
+   my $sql = Sql->new($this->{DBH});
+   $sql->Do(qq|insert into InsertHistory (track, inserted) 
+                                 values ($trackid, now())|);
+}
+
+sub LoadInsertHistory
+{
+    my ($this, $num) = @_;
+    my (@row, $sql, @ret);
+
+    $sql = Sql->new($this->{DBH});
+    if ($sql->Select(qq|select Track.name, Artist.name, InsertHistory.Inserted 
+                          from Track, Artist, InsertHistory
+                         where Track.artist = Artist.id and
+                               InsertHistory.track = Track.id
+                      order by InsertHistory.id desc limit $num|))
+    {
+        while(@row = $sql->NextRow())
+        {
+            push @ret, { name=>$row[0],
+                         artist_name=>$row[1],
+                         inserted=>$row[2] };
+        }
+        $sql->Finish();
+    }
+    return @ret;
+}

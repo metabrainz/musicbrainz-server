@@ -29,6 +29,8 @@ use MusicBrainz;
 use Artist;
 
 # insert into ModeratorInfo values (9999, "FreeDB", NULL, 0, 0, 0);
+# create table InsertHistory (Id int auto_increment primary key, Track int NOT NULL, Inserted datetime NOT NULL);
+# alter table InsertHistory add unique index TrackIndex (Track);
 # run modpending cleanup
 
 sub CreateTables
@@ -266,6 +268,14 @@ sub CreateTables
 
     print "Created TrackWords table.\n";    
 
+    $dbh->do(qq| create table InsertHistory (
+                   Id int auto_increment primary key,
+                   Track int NOT NULL,
+                   Inserted datetime NOT NULL) |)
+          or die("Cannot create InsertHistory table");
+
+    print "Created InsertHistory table.\n";    
+
     if (DBDefs->USE_LYRICS)
     {
        # create the Lyrics table.
@@ -437,6 +447,10 @@ sub CreateIndices
                                         add unique index TrackWordIndex (Wordid,Trackid)/)
           or die("Could not add indices to TrackWords table");
     print "Added indices to TrackWords table.\n";
+
+    $dbh->do(qq/alter table InsertHistory add unique index TrackIndex (Track)/)
+          or die("Could not add indices to InsertHistory table");
+    print "Added indices to InsertHistory table.\n";
 
 
     if (DBDefs->USE_LYRICS)
