@@ -1,3 +1,5 @@
+#!/usr/bin/perl -w
+# vi: set ts=8 sw=4 :
 #____________________________________________________________________________
 #
 #   MusicBrainz -- the open internet music database
@@ -30,7 +32,9 @@ use vars qw(@ISA @EXPORT);
 @EXPORT = @EXPORT = '';
 
 use strict;
-use Socket;
+use Carp;
+use Socket qw( $CRLF );
+use IO::Socket::INET;
 use Track;
 use Album;
 use Artist;
@@ -89,7 +93,7 @@ sub Lookup
     $id = sprintf("%08x", (($sum % 255) << 24) | ($total_seconds << 8) | $last);
     ($m, $s, $f) = _lba_to_msf($leadout);
     $total_seconds = $m * 60 + $s;
-    $query = "cddb query $id $last $trackoffsets $total_seconds\n";
+    $query = "cddb query $id $last $trackoffsets $total_seconds";
 
     $ret = $this->Retrieve("www.freedb.org", 888, $query);
     if (defined $ret)
@@ -107,7 +111,7 @@ sub LookupByFreeDBId
     my ($this, $id, $cat) = @_;
     my ($ret, $query);
 
-    $query = "cddb read $cat $id\n";
+    $query = "cddb read $cat $id";
     $ret = $this->Retrieve("www.freedb.org", 888, $query);
     if (defined $ret)
     {
@@ -135,88 +139,73 @@ sub IsNumber
 sub Retrieve
 {
     my ($this, $remote, $port, $query) = @_;
-    my ($iaddr, $paddr, $proto, $line);
-    my (@response, $category, $i, $temp);
-    my (@selection, @chars, @parts, @subparts);
-    my ($artist, $title, %info, @track_titles, @tracks, @query);
-    my ($disc_id, $first_track); 
-    my (@track_times);
 
     if ($remote eq '' || $port == 0)
     {
-        print STDERR "A part and server address/name must be given.\n";
+        croak "A port and server address/name must be given.";
         return undef;
     }
 
-    # TODO for the sake of readability, this chunk would be better done using
-    # IO::Socket.
+    my $sock = IO::Socket::INET->new(
+	PeerAddr => $remote,
+	PeerPort => $port,
+	Proto => 'tcp',
+    );
 
-    if ($port =~ /\D/)
+    if (not $sock)
     {
-        $port = getsrvbyname($port, 'tcp');
+	print STDERR "FreeDB $remote:$port connect failed: $!\n";
+	return undef;
     }
 
-    $iaddr = inet_aton($remote) or 
-       return undef;
-    $paddr = sockaddr_in($port, $iaddr);
-    $proto = getprotobyname('tcp');
+    $sock->autoflush(1);
 
-    socket(SOCK, PF_INET, SOCK_STREAM, $proto) or return undef;
-    if (!connect(SOCK, $paddr))
-    {
-        print STDERR "Cannot connect to FreeDB server.\n";
-        return undef;
-    }
+    my ($line, @response);
 
-    $line = <SOCK>;
+    $line = <$sock>;
     #print $line;
 
     @response = split ' ', $line;
     if (!IsNumber($response[0]) || $response[0] < 200 || $response[0] > 299)
     {
-        print STDERR "Server $remote does not want to talk to us.\n($line)\n";
-        close SOCK;
+        print STDERR "FreeDB $remote:$port does not want to talk to us: $line\n";
+        close $sock;
         return undef;
     }
 
-    #
     # Send the hello string
-    #
-    $line = "cddb hello obs www.musicbrainz.org FreeDBGateway 1.0\r\n";
-    send SOCK, $line, 0;
-
-    $line = <SOCK>;
+    print $sock "cddb hello obs www.musicbrainz.org FreeDBGateway 1.0", $CRLF;
+    $line = <$sock>;
     #print $line;
 
     @response = split ' ', $line;
     if ($response[0] < 200 || $response[0] > 299)
     {
-        print STDERR "Server $remote does not like our hello.\n($line)\n";
+        print STDERR "FreeDB $remote:$port does not like our hello: $line\n";
         return undef;
     }
 
-    #
     # Send the query 
-    #
-    send SOCK, $query, 0;
-
-    $line = <SOCK>;
+    print $sock $query, $CRLF;
+    $line = <$sock>;
     #print $line;
 
     @response = split ' ', $line;
     if ($response[0] == 202)
     {
-        #print STDERR "Server $remote cannot find this cd.\n  ($query)\n";
+        #print STDERR "FreeDB $remote:$port cannot find this CD ($query)\n";
         return undef;
     }
     if ($response[0] < 200 || $response[0] > 299)
     {
-        print STDERR "Server $remote encountered an error.\n($line)\n";
+        print STDERR "FreeDB $remote:$port encountered an error: $line\n";
         return undef;
     }
 
     #
     # Parse the query 
+
+    my ($category, $disc_id);
     #
     if ($response[0] == 200)
     {
@@ -230,9 +219,9 @@ sub Retrieve
     {
         my (@categories, @disc_ids);
 
-        for($i = 1; ; $i++)
+        for (my $i = 1; ; $i++)
         {
-            $line = <SOCK>;
+            $line = <$sock>;
 
             @response = split ' ', $line;
             if ($response[0] eq '.')
@@ -250,19 +239,21 @@ sub Retrieve
         $disc_id = $disc_ids[1];
     }
    
-    $query = "cddb read $category $disc_id\n";    
-    send SOCK, $query, 0;
+    print $sock "cddb read $category $disc_id", $CRLF;
 
-    $artist = "";
-    $title = "";
+    my $artist = "";
+    my $title = "";
 
     my $in_offsets = 0;
     my $last_track_offset = 0;
+    my %info;
     $info{durations} = '';
 
-    while(defined($line = <SOCK>))
+    my @track_titles;
+
+    while(defined($line = <$sock>))
     {
-    	@chars = split(//, $line, 2);
+    	my @chars = split(//, $line, 2);
         if ($chars[0] eq '#')
         {
             if ($line =~ /Track frame offsets/)
@@ -302,9 +293,10 @@ sub Retrieve
         }
 
         #print $line;
-        @parts = split '=', $line;
+        my @parts = split '=', $line;
         if ($parts[0] eq "DTITLE")
         {
+	    my $temp;
             if ($artist eq "")
             {
                 ($artist, $temp) = split '\/', $parts[1];
@@ -319,7 +311,7 @@ sub Retrieve
             next;
         }
 
-        @subparts = split '([0-9]+)', $parts[0];
+        my @subparts = split '([0-9]+)', $parts[0];
         if ($subparts[0] eq "TTITLE")
         {
             chomp $parts[1];
@@ -356,7 +348,9 @@ sub Retrieve
     from_to($title, "iso-8859-1", "utf-8");
     $info{album} = $title;
 
-    for($i = 0; $i < scalar(@track_titles); $i++)
+    my @tracks;
+
+    for (my $i = 0; $i < scalar(@track_titles); $i++)
     {
         #print("[$i]: $track_titles[$i]\n"); 
 
@@ -365,9 +359,10 @@ sub Retrieve
 
         push @tracks, { track=>$t, tracknum => ($i+1) };
     }
+
     $info{tracks} = \@tracks;
 
-    close SOCK;
+    close $sock;
 
     return \%info;
 }
