@@ -16,11 +16,11 @@
 <& /comp/framedboxend &>
 % if ($session{email_nag}) {
 
-   <p style="color: red">You have not provided an email address!</p>
-   <p>
+	<p class="notice">
+		<span style="color: red">You have not provided an email address!</span>
    If you're going to edit the database, please 
    <a href="/user/edit.html">edit your profile</a> and
    provide an email address.
-   </p>
+	</p>
 % }
 <p>
