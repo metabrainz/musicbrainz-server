@@ -165,7 +165,18 @@ use Scalar::Util qw( reftype weaken );
 		],
         { name => "FreeDB Import",			url => "/freedb/freedb.html" },
 		[
+			{ url => "/freedb/final.html" },
 			{ url => "/freedb/import.html" },
+			{ url => "/freedb/mac-check-similar.html" },
+			{ url => "/freedb/mac-confirm.html" },
+			{ url => "/freedb/mac-edittrack.html" },
+			{ url => "/freedb/mac-edittracks.html" },
+			{ url => "/freedb/mac-selecttrackartist.html" },
+			{ url => "/freedb/sac-check-similar.html" },
+			{ url => "/freedb/sac-confirm.html" },
+			{ url => "/freedb/sac-edittracks.html" },
+			{ url => "/freedb/select-artist.html" },
+			{ url => "/freedb/select-macsac.html" },
 		],
 
         { url => "/addalias.html" },
