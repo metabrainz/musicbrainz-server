@@ -11,6 +11,8 @@ backupdir=/home/backup
 backupuser=backup
 backupgroup=users
 cvspath=/var/cvs
+wikipath=/var/mbwiki
+apacheconfigdirs="/usr/local/perl58/apache/conf /usr/local/perl58/apache2/conf"
 
 export PATH=/bin:/usr/bin:/usr/local/pgsql/bin
 
@@ -28,6 +30,16 @@ cd ..
 tar -cjvf /tmp/cvs-backup.tar.bz2 $cvspath
 chown $backupuser:$backupgroup /tmp/cvs-backup.tar.bz2
 mv /tmp/cvs-backup.tar.bz2 $backupdir
+
+# Backup the Wiki
+tar -cjvf /tmp/wiki-backup.tar.bz2 $wikipath
+chown $backupuser:$backupgroup /tmp/wiki-backup.tar.bz2
+mv /tmp/wiki-backup.tar.bz2 $backupdir
+
+# Backup the Apache config files
+tar -cjvf /tmp/apacheconf-backup.tar.bz2 $apacheconfigdirs
+chown $backupuser:$backupgroup /tmp/apacheconf-backup.tar.bz2
+mv /tmp/apacheconf-backup.tar.bz2 $backupdir
 
 # Vacuum and analyze the database for peak performance
 echo "VACUUM ANALYZE;" | psql $DB_PGOPTS -U $DB_USER $DB_NAME
