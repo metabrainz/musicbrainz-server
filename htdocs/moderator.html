@@ -1,3 +1,4 @@
+%# vi: set ts=4 sw=4 ft=mason :
 <%args>
 $uid=>0
 $user=>""
@@ -76,13 +77,15 @@ if (!defined $info)
      return undef;
 }
 
+my $membersince = $m->comp("/comp/datetime", $info->{membersince});
+
 if ($info->{membersince} eq "1970-01-01 00:00:00")
 {
-    $info->{membersince} = '<font class="bold">Charter Member</font>';
+    $membersince = '<font class="bold">Charter Member</font>';
 } 
 if ($info->{name} eq "rob")
 {
-    $info->{membersince} = '<font class="bold">the dawn of this project</font>';
+    $membersince = '<font class="bold">the dawn of this project</font>';
 } 
 $mb->Logout();
 
@@ -161,7 +164,7 @@ $mb->Logout();
 </tr>
 <tr>
     <td valign="top" align="right">Member Since:</td>
-    <td valign="top"><% $info->{membersince} |n %></td>
+    <td valign="top"><% $membersince |n %></td>
 </tr>
 <tr>
     <td valign="top" align="right">Mods Accepted:</td>
