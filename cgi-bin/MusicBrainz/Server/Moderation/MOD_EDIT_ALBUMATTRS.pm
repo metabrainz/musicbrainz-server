@@ -59,26 +59,18 @@ sub PreInsert
 	my ($self, %opts) = @_;
 
 	my $albums = $opts{'albums'} or die;
-	my $attrs = $opts{'attrs'} or die;
+	my $type = $opts{'attr_type'} || &Album::ALBUM_ATTR_ALBUM;
+	my $status = $opts{'attr_status'} || &Album::ALBUM_ATTR_OFFICIAL;
 
-	if (not defined $attrs)
-	{
-		my $type = $opts{'attr_type'};
-		my $status = $opts{'attr_status'};
-
-		$type = &Album::ALBUM_ATTR_ALBUM
-			unless defined $type;
-		$status = &Album::ALBUM_ATTR_OFFICIAL
-			unless defined $status;
-
-		$attrs = [ $type, $status ];
-	}
+	my $attrs = [ $type, $status ];
 
 	my %new;
 	my %artists;
 
 	$new{"Attributes"} = join ",", @$attrs;
-	
+
+	my $fCanAutoMod = 1;
+
 	my $seq = 0;
 	for my $al (@$albums)
 	{
@@ -91,9 +83,17 @@ sub PreInsert
 		$new{"AlbumName$seq"} = $al->GetName;
 		$new{"Prev$seq"} = $prev;
 
+		my ($t, $s) = $al->GetReleaseTypeAndStatus;
+		$fCanAutoMod = 0
+			if defined($t) and $t != $type;
+		$fCanAutoMod = 0
+			if defined($s) and $s != $status;
+
 		++$artists{$al->GetArtist};
 		++$seq;
 	}
+
+	$new{can_automod} = $fCanAutoMod;
 
 	unless ($seq)
 	{
@@ -116,6 +116,12 @@ sub PreInsert
 	  	$al->SetAttributes(@$attrs);
   		$al->UpdateAttributes;
 	}
+}
+
+sub IsAutoMod
+{
+	my ($self, $user_is_automod) = @_;
+	$self->{"new_unpacked"}{"can_automod"} or $user_is_automod;
 }
 
 sub PostLoad
