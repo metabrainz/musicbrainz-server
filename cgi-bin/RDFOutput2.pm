@@ -28,6 +28,7 @@ use strict;
 use RDF2;
 use GUID;
 use DBDefs;
+use Diskid;
 
 BEGIN { require 5.003 }
 use vars qw(@ISA @EXPORT);
@@ -394,7 +395,8 @@ sub GetArtistReferences
 sub GetAlbumReferences
 {
    my ($this, $ref, $album) = @_;
-   my (@tracks, $track, @ret, %info, @trackids, $albumartist);
+   my (@tracks, $track, @ret, %info, @trackids, $albumartist, $di);
+   my $cdindexid;
 
    $albumartist = $album->GetArtist();
    $info{type} = 'artist';
@@ -424,6 +426,11 @@ sub GetAlbumReferences
       push @trackids, $track->GetMBId();
    }
    $ref->{_album} = \@trackids;
+
+   $di = Diskid->new($this->{DBH});
+   
+   ($cdindexid) = $di->GetDiskIdFromAlbum($album->GetId());
+   $ref->{_cdindexid} = $cdindexid if (defined $cdindexid);
 
    return @ret;
 }
@@ -520,6 +527,10 @@ sub OutputAlbumRDF
     $out .=   $this->Element("dc:creator", "", "rdf:resource",
                              $this->GetBaseURI() . "/artist/" . 
                              $artist->GetMBId());
+    if (exists $ref->{_cdindexid} && $ref->{_cdindexid} ne '')
+    {
+        $out .=   $this->Element("mm:cdindexId", $ref->{_cdindexid});
+    }
     $out .=   $this->BeginDesc("mm:trackList");
     $out .=   $this->BeginSeq();
     $ids = $ref->{_album};
