@@ -49,6 +49,12 @@ sub Login
    $this->{DBH} = DBI->connect($dsn,DBDefs->DB_USER,DBDefs->DB_PASSWD,
                                { RaiseError => 1, PrintError => 0, AutoCommit => 1 });
    return 0 if (!$this->{DBH});
+
+   require Sql;
+   my $sql = Sql->new($this->{DBH});
+   $sql->AutoCommit(1);
+   $sql->Do("SET TIME ZONE 'UTC'");
+
    return 1;
 }
 
