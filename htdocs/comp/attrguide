@@ -15,6 +15,12 @@ $attrlist = $al->GetAttributeList();
 <p><b>Album Attribute Definitions</b></p>
 
 <p>
+	<blockquote style="text-align: right; font-size:smaller">
+		More details can be found on the <a href="http://wiki.musicbrainz.org/wiki.pl?AlbumAttribute">AlbumAttribute</a> wiki page.
+	</blockquote>
+</p>
+
+<p>
 	<& .StyleGuideLink, "general" &>
 	Album attributes define the type and status of an audio 
 	release and provide information about the contents of the release.

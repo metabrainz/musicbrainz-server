@@ -6,6 +6,12 @@
 <p><b>Style Notes for Sort Names</b></p>
 
 <p>
+	<blockquote style="text-align: right; font-size:smaller">
+		More details can be found on the <a href="http://wiki.musicbrainz.org/wiki.pl?SortName">SortName</a> wiki page.
+	</blockquote>
+</p>
+
+<p>
 	<& .StyleGuideLink, "general" &>
 	The "sort name" is the name that will be used when the artist is listed in a 
 	list with other artists, so that all the artists that start with <i>The</i>
@@ -63,15 +69,15 @@ should be treated like the english aritcle <i>The</i>.
       </tr>
       <tr>
          <td valign=top>Bob Marley and the Wailers</td>
-         <td valign=top>Marley, Bob and the Wailers</td>
+         <td valign=top>Marley, Bob and Wailers, The</td>
       </tr>
       <tr>
          <td valign=top>Geoff Allman and Beth Joiner</td>
          <td valign=top>Allman, Goeff and Joiner, Beth</td>
       </tr>
       <tr>
-         <td valign=top>DJ Tiesto</td>
-         <td valign=top>Tiesto, DJ</td>
+         <td valign=top>DJ Tiësto</td>
+         <td valign=top>Tiësto, DJ</td>
       </tr>
       <tr>
          <td valign=top>Los Lobos</td>

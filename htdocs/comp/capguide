@@ -8,8 +8,11 @@
 <p>
 	<& .StyleGuideLink, "general" &>
 	Use the following standard guidelines for capitalizing titles (albums,
-	songs) in the English language (other rules may apply to other
-	languages).&nbsp;
+	songs) in the English language. <b>A more detailed description of these
+	rules and guidelines for other languages can be found on the 
+	<a href="http://wiki.musicbrainz.org/wiki.pl?CapitalizationStandard">CapitalizationStandard</a> wiki page.</b>
+</p>
+<p>
 	All titles should be in standard mixed case (initial caps and following
 	lower case), as noted below:
 </p>

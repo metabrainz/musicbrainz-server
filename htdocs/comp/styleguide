@@ -14,6 +14,9 @@
 		<blockquote class="StyleExample">
 		 	<b>Tell Mama: The Complete Muscle Shoals Sessions</b>
 		</blockquote>
+		<blockquote style="text-align: right; font-size:smaller">
+			<a href="http://wiki.musicbrainz.org/wiki.pl?SeparateTitleStyle">More details...</a>
+		</blockquote>
 	</li>
 
 	<li>
@@ -24,6 +27,9 @@
 		<blockquote class="StyleExample">
 			<b>The Wall (disc 1)</b>
 		</blockquote>
+		<blockquote style="text-align: right; font-size:smaller">
+			<a href="http://wiki.musicbrainz.org/wiki.pl?DiscNumberStyle">More details...</a>
+		</blockquote>
 
 		<& .StyleGuideLink, "disc-n-with-name" &>
 		If each CD has a name as well, the disc name should be
@@ -31,6 +37,9 @@
 
 		<blockquote class="StyleExample">
 			<b>Mellon Collie and the Infinite Sadness (disc 2: Twilight to Starlight)</b>
+		</blockquote>
+		<blockquote style="text-align: right; font-size:smaller">
+			<a href="http://wiki.musicbrainz.org/wiki.pl?DiscNumberWithNameStyle">More details...</a>
 		</blockquote>
 	</li>
 
@@ -44,6 +53,9 @@
 			<li>Mother Nature Calls (bonus disc)</li>
 			<li>Greatest Hits (bonus disc: Acoustic Hits)</li>
 		</ul>
+		<blockquote style="text-align: right; font-size:smaller">
+			<a href="http://wiki.musicbrainz.org/wiki.pl?BonusDiscStyle">More details...</a>
+		</blockquote>
 	</li>
 
 	<li>
@@ -64,6 +76,9 @@
 		<blockquote class="StyleExample">
 			<b>The Led Zeppelin Box Set (box 2, disc 3)</b>
 		</blockquote>
+		<blockquote style="text-align: right; font-size:smaller">
+			<a href="http://wiki.musicbrainz.org/wiki.pl?BoxSetNameStyle">More details...</a>
+		</blockquote>
 	</li>
 
 	<li>
@@ -80,6 +95,9 @@
 
 		If neither artist can be considered secondary,
 		choose either artist.
+		<blockquote style="text-align: right; font-size:smaller">
+			<a href="http://wiki.musicbrainz.org/wiki.pl?FeaturingArtistStyle">More details...</a>
+		</blockquote>
 	</li>
 
 	<li>
@@ -92,6 +110,11 @@
 		<blockquote class="StyleExample">
 			<b>ATB vs. Faithless</b>
 		</blockquote>
+
+		Note: this is NOT a general guideline for "mash-ups".
+		<blockquote style="text-align: right; font-size:smaller">
+			<a href="http://wiki.musicbrainz.org/wiki.pl?VersusStyle">More details...</a>
+		</blockquote>
 	</li>
 
 	<li>
@@ -101,24 +124,36 @@
 		Note, however, that if the data track comes last
 		on the CD and isn't visible in an audio CD player,
 		the track shouldn't be entered into MusicBrainz.
+		<blockquote style="text-align: right; font-size:smaller">
+			<a href="http://wiki.musicbrainz.org/wiki.pl?DataTrackStyle">More details...</a>
+		</blockquote>
 	</li>
 
 	<li>
 		<& .StyleGuideLink, "silence-track" &>
 		Some CDs contain silent tracks. Enter
 		<b>[silence]</b> as the name for these tracks.
+		<blockquote style="text-align: right; font-size:smaller">
+			<a href="http://wiki.musicbrainz.org/wiki.pl?SilenceTrackStyle">More details...</a>
+		</blockquote>
 	</li>
 
 	<li>
 		<& .StyleGuideLink, "untitled-track" &>
 		Some CDs contain unnamed tracks. Enter
 		<b>[untitled]</b> as the name for these tracks.
+		<blockquote style="text-align: right; font-size:smaller">
+			<a href="http://wiki.musicbrainz.org/wiki.pl?UntitledTrackStyle">More details...</a>
+		</blockquote>
 	</li>
 
 	<li>
 		<& .StyleGuideLink, "unknown-artist" &>
 		Tracks or releases whose artist is unknown should be
 		filed under the <b>[unknown]</b> artist.
+		<blockquote style="text-align: right; font-size:smaller">
+			<a href="http://wiki.musicbrainz.org/wiki.pl?UnknownArtistStyle">More details...</a>
+		</blockquote>
 	</li>
 	
 	<li>
@@ -136,6 +171,9 @@
 			<li>Designation as a "bonus track"</li>
 			<li>Any other information not discussed in this guide.</li>
 		</ul>
+		<blockquote style="text-align: right; font-size:smaller">
+			<a href="http://wiki.musicbrainz.org/wiki.pl?ThingsToLeaveOutStyle">More details...</a>
+		</blockquote>
 	</li>
 
 	<li>
@@ -151,6 +189,9 @@
 			<li>Bear Witness (Automator's 2 Turntables and a Razor Blade re-edit)</li>
 			<li>Disciple (demo)</li>
 		</ul>
+		<blockquote style="text-align: right; font-size:smaller">
+			<a href="http://wiki.musicbrainz.org/wiki.pl?RemixStyle">More details...</a>
+		</blockquote>
 	</li>
 
 	<li>
@@ -163,6 +204,9 @@
 			<li>2000-06-01: Dublin, Ireland (disc 2)</li>
 			<li>Milan, Italy (disc 1)</li>
 		</ul>
+		<blockquote style="text-align: right; font-size:smaller">
+			<a href="http://wiki.musicbrainz.org/wiki.pl?UnnamedBootlegsStyle">More details...</a>
+		</blockquote>
 	</li>
 
 	<li>
@@ -174,18 +218,28 @@
 		<blockquote class="StyleExample">
 			<b>This Is the Modern World / All Mod Cons</b>
 		</blockquote>
+		<blockquote style="text-align: right; font-size:smaller">
+			<a href="http://wiki.musicbrainz.org/wiki.pl?MultipleAlbumsTitleStyle">More details...</a>
+		</blockquote>
+	</li>
 
 	<li>
 		<& .StyleGuideLink, "keep-EP" &>
 		If the letters <b>EP</b> are part of an EP's
 		title, they should not be removed. Eg.
 		<b>The Sunrise EP</b> by Cause and Effect.
+		<blockquote style="text-align: right; font-size:smaller">
+			<a href="http://wiki.musicbrainz.org/wiki.pl?EPStyle">More details...</a>
+		</blockquote>
 	</li>
 
 	<li>
 		<& .StyleGuideLink, "soundtrack-name" &>
 		A soundtrack should be given the same title as
 		the film (or other production) it is from.
+		<blockquote style="text-align: right; font-size:smaller">
+			<a href="http://wiki.musicbrainz.org/wiki.pl?SoundtrackTitleStyle">More details...</a>
+		</blockquote>
 	</li>
 	
 	<li>
@@ -194,6 +248,9 @@
 		be filed under <b>[no&nbsp;artist]</b>. This would be
 		appropriate for silence on a VA release, bird
 		song etc.
+		<blockquote style="text-align: right; font-size:smaller">
+			<a href="http://wiki.musicbrainz.org/wiki.pl?NoArtistStyle">More details...</a>
+		</blockquote>
 	</li>
 
 </ol>
