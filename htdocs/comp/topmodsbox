@@ -18,7 +18,7 @@ if (!defined($result))
            {
               $result .=qq\<tr>
                              <td align=right valign=top width="50%" class="statsb">
-                                 $row[0]:
+                                 $row[0]
                              </td>
                              <td align=left valign=top width="50%" class="stats">
                                  $row[1]
@@ -33,7 +33,7 @@ if (!defined($result))
 }
 </%perl>
 
-<table cellpadding="2" cellspacing="0" border="0" class="statsb" style="width: 100%">
+<table cellpadding="2" cellspacing="0" border="0" class="statsb" width="110px">
         <% $result |n %>
 </table>
 
