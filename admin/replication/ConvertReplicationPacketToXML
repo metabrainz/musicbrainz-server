@@ -166,7 +166,7 @@ sub handle_delete
 	$table =~ s/^"public"\."(\w+)"$/$1/ or die "Bad table name '$table'";
 
 	# All our tables have a single-column numeric primary key called "id"
-	my $xml = qq[  <delete relation="$table" xid="$XID" id="$keys->{id}">\n];
+	my $xml = qq#  <delete relation="$table" xid="$XID" id="$keys->{id}" />\n#;
 
 	write_xml_fragment($XID, $xml);
 }
@@ -200,7 +200,6 @@ sub output_xml
 	my $first_xid = $xml_frags[0][0];
 
 	print '<?xml version="1.0" encoding="UTF-8"?>' . 
-		"\n<!DOCTYPE changes SYSTEM \"changes.dtd\">" .
 		"\n<changes xid_start=\"$first_xid\">\n";
 
 	seek($xmlfh, 0, 0);
