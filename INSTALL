@@ -82,6 +82,7 @@ The MusicBrainz server requires the following items:
    MIME-Base64
    MIME::Lite
    HTTP::Negotiate
+   Cache::SizeAwareFileCache
 
    These probably come standard with Perl:
    IO::Socket

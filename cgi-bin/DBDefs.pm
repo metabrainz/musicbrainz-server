@@ -39,9 +39,11 @@ sub DATA_IMPORT_DIR	{ "/home/httpd/musicbrainz/data-import" }
 sub LOCK_DIR		{ "/home/httpd/musicbrainz/locks" }
 sub SESSION_DIR		{ "/home/httpd/musicbrainz/sessions" }
 
-# Mason's data_dir and its cache directory
+# Mason's data_dir
 sub MASON_DIR		{ "/home/httpd/musicbrainz/mason" }
-sub CACHE_DIR		{ MASON_DIR() . "/cache" }
+
+# Our cache directory - see MusicBrainz::Server::Cache
+sub CACHE_DIR		{ "/home/httpd/musicbrainz/cache" }
 
 
 
