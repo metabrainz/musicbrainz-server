@@ -7,39 +7,23 @@ $hilitetrack
 $hilitecolor
 $nomod
 $trmcount=>0
-$mbtagger=>0
+$mbtagger=>$session{'mbt'}
 </%args>
-
 <%perl>
 
-my ($bgcolor, $tr_bgcolor, $colspan, $nonalbum);
-$bgcolor = ($track->GetModPending()) ? 'bgcolor="#FFFFCC"' : 'bgcolor="#FFFFFF"';
-$bgcolor = ($hilitetrack == $track->GetId()) ? 'bgcolor="#FFCCFF"' : $bgcolor;
-$tr_bgcolor = ($track->GetAlbumJoinModPending()) ? 'bgcolor="#FFFFCC"' : 'bgcolor="#FFFFFF"';
-my $ms = int((defined $track->GetLength()) ?  $track->GetLength() : -1);
+my $bgcolor = ($track->GetModPending ? 'bgcolor="#FFFFCC"' : 'bgcolor="#FFFFFF"');
+$bgcolor = ($hilitetrack == $track->GetId ? 'bgcolor="#FFCCFF"' : $bgcolor);
+my $tr_bgcolor = ($track->GetAlbumJoinModPending ? 'bgcolor="#FFFFCC"' : 'bgcolor="#FFFFFF"');
 
-my $secs = "?:??";
-if ($ms > 0 && $ms < 1000) 
-{
-    $secs = "$ms ms"; 
-}
-elsif ($ms > 0)
-{
-    my $length_in_secs = $ms / 1000;
-    $secs = int($length_in_secs / 60) . ":" . 
-            sprintf("%02d",($length_in_secs % 60));
-}
+my $nonalbum = $album->IsNonAlbumTracks;
+my $colspan = ($nonalbum ? 'colspan="2"' : '');
+
 </%perl>
-
 <tr>
-% if (!$album->IsNonAlbumTracks()) {
-%   $colspan=""; $nonalbum = 0;
+% unless ($nonalbum) {
     <td width="10%" align=center <% $tr_bgcolor |n %>>
        <% $track->GetSequence() %>
     </td>
-% } else {
-%   $colspan="colspan=\"2\"";
-%   $nonalbum = 1;
 % }
 % if ($album->GetArtist() == &ModDefs::VARTIST_ID) {
     <td width="45%" <% $bgcolor |n %> <% $colspan %>>
@@ -66,7 +50,7 @@ elsif ($ms > 0)
     </td>
 % }
     <td width="10%" align="right" <% $tr_bgcolor |n %> nowrap>
-       <% $secs %>
+       <% Track::FormatTrackLength($track->GetLength) %>
     </td>
 % if (exists $session{user} && !$nomod) {
     <td width="15%" bgcolor="white" nowrap
