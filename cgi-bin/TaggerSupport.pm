@@ -248,7 +248,7 @@ sub SetSim
       return $ref;
    }
 
-   # Ooops, something wen't wrong
+   # Ooops, something went wrong
    $ref->{sim} = -1;
 
    return $ref;
