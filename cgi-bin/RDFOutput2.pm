@@ -140,6 +140,9 @@ sub AddToCache
    my ($this, $curdepth, $type, $id, $obj) = @_;
    my (%item, $i, $cache, $ret);
 
+   return undef if (!defined $curdepth || !defined $type || 
+                    !defined $id || !defined $obj);
+
    # check to make sure this object does not already exist in the list
    $cache = $this->{cache};
    foreach $i (@$cache)
@@ -162,6 +165,8 @@ sub GetFromCache
 {
    my ($this, $type, $id) = @_;
    my ($i, $cache);
+
+   return undef if (!defined $type || !defined $id);
 
    # check to make sure this object does not already exist in the list
    $cache = $this->{cache};
@@ -189,7 +194,9 @@ sub FindReferences
       $obj = $this->LoadObject($ref->{id}, $ref->{type});
       #print STDERR "Add to cache: $ref->{type}, $ref->{id} dep: $curdepth\n";
       $cacheref = AddToCache($this, $curdepth, $ref->{type}, $ref->{id}, $obj);
-      push @newrefs, $this->GetReferences($cacheref);
+
+      push @newrefs, $this->GetReferences($cacheref)
+         if (defined $cacheref);
    }
    $this->FindReferences($curdepth + 1, @newrefs);
 }
@@ -440,6 +447,7 @@ sub OutputArtistRDF
     my ($this, $cache, $ref) = @_;
     my ($out, $artist, $ids, $album);
 
+    return "" if (!defined $this->GetBaseURI());
     $artist = $ref->{obj};
 
     $out  = $this->BeginDesc("mm:Artist", $this->GetBaseURI() .
@@ -466,6 +474,8 @@ sub OutputAlbumRDF
 {
     my ($this, $cache, $ref) = @_;
     my ($out, $album, $track, $artist, $ids);
+
+    return "" if (!defined $this->GetBaseURI());
 
     $album = $ref->{obj};
     
@@ -496,6 +506,7 @@ sub OutputTrackRDF
     my ($this, $cache, $ref) = @_;
     my ($out, $artist, @guid, $gu, $track);
 
+    return "" if (!defined $this->GetBaseURI());
     $track = $ref->{obj};
     $gu = GUID->new($this->{DBH});
     @guid = $gu->GetGUIDFromTrackId($track->GetId());
