@@ -5,6 +5,7 @@ Disallow: /addartist.html
 Disallow: /addnonalbumtracks.html
 Disallow: /addtrack.html
 Disallow: /albumdetail.html
+Disallow: /archives/
 Disallow: /artistinfo.html
 Disallow: /artistrel.html
 Disallow: /bare/
