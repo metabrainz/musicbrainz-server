@@ -150,14 +150,17 @@ create table WordList(
 );
 
 create table ArtistWords(
+   Id serial primary key,
    Wordid int not null,
    Artistid int not null);
 
 create table AlbumWords(
+   Id serial primary key,
    Wordid int not null,
    Albumid int not null);
 
 create table TrackWords (
+   Id serial primary key,
    Wordid int not null,
    Trackid int not null);
 
