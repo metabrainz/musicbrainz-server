@@ -144,7 +144,7 @@ $m->comp(
         if ($session{uid})
         {
             </%perl>
-            | <a href="/moderate.html?type=4&amp;artistid=<% $artist->GetId() %>"
+            | <a href="/mod/search/pre/artist.html?artistid=<% $artist->GetId %>"
                >View mods</a>
             <%perl>
         }
@@ -152,7 +152,7 @@ $m->comp(
 		</%perl>
 		|
 		<a href="/artistinfo.html?artistid=<% $artist->GetId %>"
-			>View Info</a>
+			>View info</a>
 		|
 		<& /comp/googlelink, search => $artist->GetName, text => "Search Google" &>
 

@@ -76,7 +76,7 @@ $artist->LoadFromId
 	<a href="/showartist.html?artistid=<% $artist->GetId %>"
 		>View albums</a>
 	|
-	<a href="/moderate.html?type=4&amp;artistid=<% $artist->GetId %>"
+	<a href="/mod/search/pre/artist.html?artistid=<% $artist->GetId %>"
 		>View artist mods</a>
 	|
 % }
@@ -90,7 +90,7 @@ $artist->LoadFromId
 </p>
 
 <p style="text-align: center">
-	[ <a href="/albumdetail.html?albumid=<% $album->GetId %>">View Info</a>
+	[ <a href="/albumdetail.html?albumid=<% $album->GetId %>">View info</a>
 	| <& /comp/googlelink, search => [ $artist->GetName, $album->GetName ], text => "Search Google" &>
 % if ($session{uid}) {
 	| <a href="/mod/search/pre/album.html?albumid=<% $album->GetId %>">View album mods</a>

@@ -110,7 +110,7 @@
   <& /comp/tablebegin, title=>'Moderate', attrs=>"align=center",
      gattrs=>"width='100%' cellpadding=50 " &>
     <br>
-    <a href="/moderate.html">Vote/Moderate</a> MusicBrainz.
+    <a href="/mod/search/pre/new.html">Vote/Moderate</a> MusicBrainz.
     <br>
     &nbsp;
   <& /comp/tableend &>
