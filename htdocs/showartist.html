@@ -1,9 +1,21 @@
+%# vi: set ts=4 sw=4 ft=mason :
 <%args>
 $ex=>""
 $mbt=>0
 </%args>
 
 <%perl>
+
+# TODO: Remove this if for release
+my $show_related = eval {
+	my $ip = $r->connection->remote_ip;
+	return 1 if $ip =~ /^10\./;
+	return 1 if $ip =~ /^127\./;
+	return 1 if $ip =~ /^172\.(\d+)\./
+		and $1>=16 and $1<32;
+	return 1 if $ip =~ /^192\.168\./;
+	0;
+};
 
 sub CheckAttributes
 {
@@ -107,13 +119,11 @@ else
     mc_out($artist->GetId());
     mc_out("\">Aliases</a> ");
 
-    # TODO: Remove this if for release
-    if ($r->connection->remote_ip =~ /^10\./ ||
-        $r->connection->remote_ip =~ /^192\.168/)
+    if ($show_related)
     {
-        mc_out("| <a href=\"/artistrel.html?artistid=");
-        mc_out($artist->GetId());
-        mc_out("\">Related artists</a> ");
+	mc_out("| <a href=\"/artistrel.html?artistid=");
+	mc_out($artist->GetId());
+	mc_out("\">Related artists</a> ");
     }
 
     if ($artist->GetName() ne "Unknown" && 
@@ -135,29 +145,30 @@ else
     }
     mc_out("]<br>");
 
-    if ($r->connection->remote_ip =~ /^10\./ ||
-        $r->connection->remote_ip =~ /^192\.168/)
-    {
-        my ($count, $rel);
+	my $relations = $artist->GetRelations();
 
-        my $relations = $artist->GetRelations();
-        if (scalar(@{$relations}) > 0)
-        {
-            mc_out("<p>");
-            mc_comp("/comp/framedboxbegin", width=>"100%");
-            $count = 0;
-            mc_out("&nbsp;<font color=\"red\">New!</font> Related artists: ");
-            for(0..2)
-            {
-                $rel = $$relations[$_];
-                last if (!defined $rel);
-                mc_out("<a href=\"/showartist.html?artistid=$rel->{id}\">");
-                mc_out($rel->{name} . "</a>"); 
-                mc_out(", ") if ($_ < 2);
-            }
-            mc_comp("/comp/framedboxend");
-        }
-    }
+	if (@$relations and $show_related)
+	{
+		splice(@$relations, 3) if @$relations > 3;
+		</%perl>
+
+		<p>
+		<& /comp/framedboxbegin, width=>"100%" &>
+		<div style="padding: 0.2em; position: relative">
+			<font color="red">New!</font>&nbsp;
+			Related artists:
+
+%			for my $rel (@$relations) {
+			<a href="/showartist.html?artistid=<% $rel->{id} %>"
+				><% $rel->{name} %></a>,
+%			}
+
+		<a href="/artistrel.html?artistid=<% $artist->GetId %>">more...</a>
+		<& /comp/framedboxend &>
+
+		<%perl>
+	}
+
     if ($ARGS{artistid} == ModDefs::VARTIST_ID)
     {
         </%perl>
