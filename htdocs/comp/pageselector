@@ -1,16 +1,17 @@
-<%args>
-$pagesize=>50
-$numitems=>0
-$link=>""
-$numlinks=>5
-</%args>
-
 <%perl>
+
+# I used to have an %args block here but Mason kept crashing on it
+my $pagesize = $ARGS{pagesize};
+my $url = $ARGS{url};
+my $numitems = $ARGS{numitems};
+my $numlinks = $ARGS{numlinks};
+
+print STDERR "$numitems\n";
 
 my ($frontpages, $backpages);
 
 my $totalpages = $numitems / $pagesize;
-return if ($totalpages < 2);
+return undef if ($totalpages < 1);
 
 if ($totalpages < $numlinks)
 {
@@ -29,13 +30,14 @@ else
 % my ($i);
   [&nbsp;
 % for($i = 0; $i < $frontpages; $i++) {
-    <a href="<% $link %>&offset=<% $i * $pagesize %>"><% $i + 1 %></a>&nbsp;
+    <a href="<% $url %>&offset=<% $i * $pagesize %>"><% $i + 1 %></a>&nbsp;
 % }
 % if ($backpages > 0) {
       ... &nbsp;
 %     for($i = int($totalpages - $backpages); $i < $totalpages; $i++) {
-         <a href="<% $link %>&offset=<% $i * $pagesize %>"><% $i + 1 %></a>&nbsp;
+         <a href="<% $url %>&offset=<% $i * $pagesize %>"><% $i + 1 %></a>&nbsp;
 %     }
 % }
   ]
 </td></tr></table>
+
