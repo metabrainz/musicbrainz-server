@@ -5,7 +5,7 @@ $type
 <%perl>
 
 my ($mb, @info, $mod, $offset, $i, $comp, $obj);
-my ($option1, $option2, $num_mods, $total_mods);
+my ($option1, $option2, $num_mods, $total_mods, $notes);
 my $max_items = 10;
 
 $mb = new MusicBrainz;  
@@ -55,6 +55,12 @@ else
             expand=>"moderate"); 
     $option1 = '<a href="moderate.html?type=1">New Moderations</a>';
     $option2 = '<a href="moderate.html?type=2">Old Moderations</a>';
+}
+
+if ($num_mods > 0)
+{
+   $notes = $mod->LoadModerationNotes($info[0]->GetId(), 
+                                   $info[$num_mods-1]->GetId());
 }
 </%perl>
 
@@ -122,7 +128,7 @@ for($i = 0; $i < $max_items; $i++)
    $obj = $info[$i];
    last if (!defined $obj);
 
-   mc_comp("/comp/showmod", mod=>$obj, mode=>$type);
+   mc_comp("/comp/showmod", mod=>$obj, mode=>$type, notes=>$notes);
 }
 $mb->Logout();
 </%perl>

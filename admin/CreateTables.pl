@@ -31,6 +31,8 @@ use Artist;
 # insert into ModeratorInfo values (9999, "FreeDB", NULL, 0, 0, 0);
 # create table InsertHistory (Id int auto_increment primary key, Track int NOT NULL, Inserted datetime NOT NULL);
 # alter table InsertHistory add unique index TrackIndex (Track);
+# create table ModeratorNote (Id int auto_increment primary key, ModId int not null, Uid int not null, Text varchar(255) not null);
+# alter table ModeratorNote add index ModIndex (Modid);
 # run modpending cleanup
 
 sub CreateTables
@@ -276,6 +278,15 @@ sub CreateTables
 
     print "Created InsertHistory table.\n";    
 
+    $dbh->do("create table ModeratorNote (" .
+             "   Id int auto_increment primary key," .
+             "   ModId int not null, ".
+             "   Uid int not null, ".
+             "   Text varchar(255) not null)")
+          or die("Cannot create ModeratorNote table");
+    
+    print "Created ModeratorNote table.\n";
+    
     if (DBDefs->USE_LYRICS)
     {
        # create the Lyrics table.
@@ -452,6 +463,9 @@ sub CreateIndices
           or die("Could not add indices to InsertHistory table");
     print "Added indices to InsertHistory table.\n";
 
+    $dbh->do(qq/alter table ModeratorNote add index ModIndex (Modid)/)
+          or die("Could not add indices to ModeratorNot table");
+    print "Added indices to ModeratorNote table.\n";
 
     if (DBDefs->USE_LYRICS)
     {

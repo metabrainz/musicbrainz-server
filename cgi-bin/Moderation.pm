@@ -856,3 +856,60 @@ sub ConvertHashToNew
 
    return $new;
 }
+
+sub InsertModerationNote
+{
+   my ($this, $modid, $uid, $text) = @_;
+
+   my $sql = Sql->new($this->{DBH});
+   $text = $sql->Quote($text);
+   $sql->Do(qq/insert into ModeratorNote (modid, uid, text) values
+                      ($modid, $uid, $text)/);
+}
+
+sub LoadModerationNotes
+{
+   my ($this, $minmodid, $maxmodid) = @_;
+   my (%ret, @notes, $lastmodid, @row);
+
+   if ($minmodid > $maxmodid)
+   {
+      my $temp;
+
+      $temp = $minmodid;
+      $minmodid = $maxmodid;
+      $maxmodid = $temp;
+   }
+
+   my $sql = Sql->new($this->{DBH});
+   if ($sql->Select(qq|select modid, uid, text, ModeratorInfo.name
+                         from ModeratorNote, ModeratorInfo
+                        where ModeratorNote.uid = ModeratorInfo.id and
+                              ModeratorNote.modid >= $minmodid and
+                              ModeratorNote.modid <= $maxmodid
+                     order by ModeratorNote.uid|))
+   {
+        $lastmodid = -1;
+        while(@row = $sql->NextRow())
+        {
+            $lastmodid = $row[0] if $lastmodid == -1;
+
+            if ($row[0] != $lastmodid)
+            {
+                $ret{$lastmodid} = [ @notes ];
+                @notes = ();
+            }
+            push @notes, { uid=>$row[1], modid=>$row[0], 
+                           text=>$row[2], user=>$row[3] };
+            $lastmodid = $row[0];
+        }
+        if (scalar(@notes) > 0)
+        {
+            $ret{$lastmodid} = [ @notes ];
+            @notes = ();
+        }
+        $sql->Finish();
+   }
+
+   return \%ret;
+}

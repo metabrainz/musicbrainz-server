@@ -1,0 +1,24 @@
+<%args>
+$uid
+$modid
+$text
+</%args>
+
+<%perl>
+
+my ($mb, $mod);
+
+$mb = new MusicBrainz;
+$mb->Login();
+$mod = Moderation->new($mb->{DBH});
+$mod->InsertModerationNote($modid, $uid, $text);
+
+</%perl>
+
+<html>
+<body>
+<script language="JavaScript"><!--
+window.close();
+//--></script>
+</body>
+</html>
