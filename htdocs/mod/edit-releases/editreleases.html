@@ -74,7 +74,7 @@ for my $rel (@$releases)
 
 my $focusfield;
 
-if ($ARGS{"AddARelease"})
+if ($ARGS{"AddARelease"} or @$releases == 0)
 {
 	my $new_id = 0;
 	for (@$releases)

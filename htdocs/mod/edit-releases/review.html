@@ -28,7 +28,9 @@ $ar->LoadFromId
 </%perl>
 <& /comp/sidebar, title => "Releases Editor - Review Changes" &>
 
-<h2>Changes</h2>
+<& /comp/artisttitle, artist => $ar &>
+
+<h2>Changes to album <em><% $al->GetName %></em></h2>
 
 <table class="SpacedColumns TopAlignCells">
 	<tr>
