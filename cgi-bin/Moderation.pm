@@ -338,6 +338,7 @@ sub IsAutoModType
         $type == ModDefs::MOD_MOVE_DISCID ||
         $type == ModDefs::MOD_REMOVE_TRMID ||
         $type == ModDefs::MOD_EDIT_ALBUMATTRS ||
+        $type == ModDefs::MOD_REMOVE_ARTIST ||
         $type == ModDefs::MOD_ADD_TRMS)
     {
         return 1;
@@ -585,7 +586,8 @@ sub InsertModeration
             my $new = uc decode("utf-8", unac_string("utf-8", $this->GetNew));
             $automod = 1 if $old eq $new;
         }
-        elsif ($this->GetType() == ModDefs::MOD_ADD_TRMS)
+        elsif ($this->GetType() == ModDefs::MOD_ADD_TRMS
+			or $this->GetType() == ModDefs::MOD_REMOVE_ARTIST)
         {
             $automod = 1;
         }
