@@ -14,6 +14,7 @@ my @information = (
   {url=>'/press.html',                     name=>'Press Coverage'},
   {url=>'/todo.html',                      name=>'To&nbsp;Do&nbsp;List'},
   {url=>'/rob_todo.html',                  name=>'Rob\'s&nbsp;To&nbsp;Do'},
+  {url=>'/johan_todo.html',                name=>'Johan\'s&nbsp;To&nbsp;Do'},
   {url=>'/contribute.html',                name=>'Contribute'},
   {url=>'/finances.html',                  name=>'Finances'},
   {url=>'/sponsors.html',                  name=>'Sponsors'},
