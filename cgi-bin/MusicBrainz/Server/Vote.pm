@@ -60,6 +60,9 @@ sub _InsertVote
 	my ($self, $uid, $modid, $vote) = @_;
 	my $sql = Sql->new($self->{DBH});
 
+	# Lock the table so that the select-old / insert-new are atomic
+	$sql->Do("LOCK TABLE vote_open IN EXCLUSIVE MODE");
+
 	my $status = $sql->SelectSingleValue(
 		"SELECT status FROM moderation_open WHERE id = ?",
 		$modid,
