@@ -490,7 +490,6 @@ sub ApplyEditModification
             }
             else
             {
-                print STDERR "Failed dep! ('$row[0]' vs '$prevval')\n";
                 $status = STATUS_FAILEDDEP;
             }
         }
