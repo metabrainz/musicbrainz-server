@@ -1,10 +1,17 @@
 <& /comp/sidebar, title=>"MusicBrainz Client Library HOWTO", 
                   expand=>'documentation' &>
 
+<center>
+Note: This is the first draft of the client library docs.<br>
+If you have trouble making sense of this, please let<br>
+<a href="mailto:rob@eorbit.net"> me know</a>, and I'll improve the docs.
+</center>
+
 <& /comp/section, title=>'Introduction' &>
 
 <p>
-The MusicBrainz client library serves as a tool to allow developers to 
+The <a href="/download.html">MusicBrainz client library</a>
+serves as a tool to allow developers to 
 integrate MusicBrainz searches and metadata exchange functionality into
 their applications. 
 
@@ -275,9 +282,14 @@ right after the mb_Query function. This should give you a good idea
 on how to extract data from an artist list. 
 
 <p>
-[explain how to use other queries]
+Using the other queries albumlist, tracklist and trmidlist, works
+much in the same way that the artistlist works. For the other queries
+an album will still contain a tracklist, and tracks will point to artists.
+For some more in-depth examples, check out the findartist.c and gettrack.c
+examples in the examples directory of the MusicBrainz client distribution.
 
-<p>
+<& /comp/section, title=>'Query Depth' &>
+
 One last thing that needs explaining is the depth of a query. In the
 graph above, there is a column that shows depth. The depth of the query
 determines the amount of data returned by the server. If you set the 
@@ -289,7 +301,13 @@ select the depth of your query to make sure that you only retrieve as much
 information as you really need.
 
 
+<& /comp/section, title=>'MBIDs and mb_GetIDFromURL function' &>
+
+All of the MBE_GetXXXXId functions will return web URLs that can be 
+used to retrieve the RDF that describes the object in question. In order
+to extract the ID from the URL, use the mb_GetIDFromURL function.
+
+
 <& /comp/section, title=>'Topics to be covered in the future' &>
 
-- MBIDs and get id function<br>
 - Creating TRM ids
