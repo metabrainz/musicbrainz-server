@@ -34,6 +34,7 @@ for($i = 0;; $i++)
             tracknum=>$track->Value(3),
             name=>$track->Value(1),
             artistname=>$track->Value(10),
+            album=>$albumid,
             modpending=>$track->Value(9),
             hilitetrack=>$hilitetrack,
             hilitecolor=>$hilitecolor,

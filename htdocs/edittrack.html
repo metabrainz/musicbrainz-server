@@ -2,7 +2,7 @@
 
 <%perl>
 
-my ($mb, $id, $trackname, $referer, $tr, $tracknum); 
+my ($mb, $id, $trackname, $referer, $tr, $tracknum, $album); 
 
 $referer = $r->headers_in->{'Referer'};
 $mb = new MusicBrainz;
@@ -10,7 +10,8 @@ $mb->Login();
 $tr = Track->new($mb);
 
 $id = $ARGS{id};
-$tr->LoadFromId($id);
+$album = $ARGS{album};
+$tr->LoadFromId($id, $album);
 $trackname = $tr->Value(1);
 $tracknum = $tr->Value(3);
 

@@ -126,12 +126,23 @@ sub GetTracksFromMultipleArtistAlbumId
 
 sub LoadFromId
 {
-   my ($this, $trackid) = @_;
+   my ($this, $trackid, $albumid) = @_;
    my ($sth, $ok);
 
    $ok = 0;
-   $sth = $this->{DBH}->prepare(qq/select $load_columns from Track 
-                                   where id=$trackid/);
+   if (defined $albumid)
+   {
+       $sth = $this->{DBH}->prepare(qq/select $load_columns from
+              Track, AlbumJoin where Track.id=$trackid and AlbumJoin.track = 
+              Track.id/);
+   }
+   else
+   {
+       $sth = $this->{DBH}->prepare(qq/select Track.id, Track.name, 
+              Track.artist, 0, Track.length, Track.year, Track.genre, 
+              Track.filename, Track.comment, Track.modpending from 
+              Track where Track.id=$trackid/);
+   }
    $sth->execute;
    if ($sth->rows)
    {
