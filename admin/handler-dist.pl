@@ -15,8 +15,6 @@ use Discid;
 use TableBase;
 use Artist;
 use Alias;
-use Genre;
-use Pending;
 use Track;
 use Lyrics;
 use UserStuff;

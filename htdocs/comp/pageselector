@@ -28,7 +28,8 @@ else
 
 <table width="100%"><tr><td align="center">
 % my ($i);
-  [&nbsp;
+if (
+  &nbsp;
 % for($i = 0; $i < $frontpages; $i++) {
     <a href="<% $url %>&offset=<% $i * $pagesize %>"><% $i + 1 %></a>&nbsp;
 % }

@@ -10,6 +10,8 @@ The MusicBrainz server requires the following items:
    The scripts use the perl DBI interface to talk to the server. It should 
    work with other servers as well, but that has not been tested.
 
+   You need at least version 7.2 of Postgres!
+
    PostgreSQL notes:
     
       - Configure the server with: configure --enable-multibyte=UNICODE
@@ -80,6 +82,7 @@ The MusicBrainz server requires the following items:
    URI::Escape
    Carp;
    Tie::STDERR
+   Timer::Benchmark
 
 Installation:
 =============
