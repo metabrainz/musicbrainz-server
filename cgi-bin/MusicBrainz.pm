@@ -90,4 +90,24 @@ sub IsSingleLineString
 	$t =~ /\A([^\x00-\x1F]*)\z/;
 }
 
+sub IsGUID
+{
+	my $t = $_[0];
+	defined($t) or return undef;
+	length($t) eq 36 or return undef;
+
+	$t =~ /[^0-]/ or return undef;
+
+	$t = lc $t;
+	$t =~ /\A(
+		[0-9a-f]{8}
+		- [0-9a-f]{4}
+		- [0-9a-f]{4}
+		- [0-9a-f]{4}
+		- [0-9a-f]{12}
+		)\z/x or return undef;
+	$_[0] = $1;
+	1;
+}
+
 1;
