@@ -90,7 +90,7 @@ $time = $m->comp("/comp/datetime", $time);
 
 % if (exists $notes->{ $mod->GetId() }) {
 <tr>
-   <td colspan="3" valign=top bgcolor=white class="body" nowrap>
+   <td colspan="3" valign=top bgcolor=white class="body">
 %    $ref = $notes->{ $mod->GetId() };
      Notes:<br>
 %    foreach $obj (@$ref) {
