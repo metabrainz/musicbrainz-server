@@ -1,0 +1,92 @@
+<%perl>
+
+my ($mb); 
+my ($track, $artist, $album, $albumid, @info, $gu, @guid, $id); 
+
+if (!exists $ARGS{albumid} || $ARGS{albumid} eq '')
+{
+    mc_comp("/comp/badargs");
+    return;
+}
+
+$albumid = $ARGS{albumid};
+$mb = new MusicBrainz;
+$mb->Login();
+
+$album = Album->new($mb->{DBH});
+$album->SetId($albumid);
+
+if (! $album->LoadFromId())
+{
+    mc_comp("/comp/sidebar", title=>"Error");
+    mc_out("This track (ID=$albumid) was not found<br>");
+}
+else
+{
+    $artist = Artist->new($mb->{DBH});
+    $artist->SetId($album->GetArtist());
+    if (!defined $artist->LoadFromId())
+    {
+        mc_comp("/comp/sidebar", title=>"Error");
+        mc_out("Could not load artist.");
+    }
+    else
+    {
+        mc_comp("/comp/sidebar", title=>"Album Details: " . $album->GetName());
+    }
+</%perl>
+
+    <& /comp/tablebegin, title=>'Album Information' &> 
+    <table>
+    <tr>
+    <td valign="top" align="right">Album:</td>
+    <td valign="top"><a href="/showalbum.html?albumid=<% $album->GetId() %>"><% $album->GetName() %></a></td>
+    </tr><tr>
+    <td valign="top" align="right">Album MB Id:</td>
+    <td valign="top"><% $album->GetMBId() %></a></td>
+    </tr><tr>
+    <td valign="top" align="right"><a href="/MM/index.html">MM/RDF</a></td>
+    <td valign="top"><a 
+       href="http://mm.musicbrainz.org/album/<% $album->GetMBId() %>">
+       http://mm.musicbrainz.org/album/<% $album->GetMBId() %></a></td>
+    </tr><tr>
+% if (exists $session{user}) {
+    <td valign="top" align="right">Album RowId:</td>
+    <td valign="top"><% $album->GetId() %></a></td>
+    </tr><tr>
+% }
+
+    </tr>
+    </table>
+    <& /comp/tableend &> 
+
+    <& /comp/tablebegin, title=>'Artist Information' &> 
+    <table>
+    <tr>
+    <td valign="top" align="right">Artist:</td>
+    <td valign="top"><a href="/showartist.html?artistid=<% $artist->GetId() %>"><% $artist->GetName() %></a></td>
+    </tr><tr>
+    <td valign="top" align="right">Artist MB Id:</td>
+    <td valign="top"><% $artist->GetMBId() %></a></td>
+    </tr><tr>
+    <td valign="top" align="right"><a href="/MM/index.html">MM/RDF</a></td>
+    <td valign="top"><a 
+       href="http://mm.musicbrainz.org/artist/<% $artist->GetMBId() %>">
+       http://mm.musicbrainz.org/artist/<% $artist->GetMBId() %></a></td>
+    </tr><tr>
+% if (exists $session{user}) {
+    <td valign="top" align="right">Artist RowId:</td>
+    <td valign="top"><% $artist->GetId() %></a></td>
+    </tr><tr>
+% }
+
+    </tr>
+    </table>
+    <& /comp/tableend &> 
+
+<%perl>
+    # TODO: SHOW LYRICS!
+}
+$mb->Logout();
+
+</%perl>

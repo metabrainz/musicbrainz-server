@@ -49,6 +49,11 @@ else
     <td valign="top" align="right">Track MB Id:</td>
     <td valign="top"><% $track->GetMBId() %></td>
     </tr><tr>
+    <td valign="top" align="right"><a href="/MM/index.html">MM/RDF</a></td>
+    <td valign="top"><a 
+       href="http://mm.musicbrainz.org/track/<% $track->GetMBId() %>">
+       http://mm.musicbrainz.org/track/<% $track->GetMBId() %></a></td>
+    </tr><tr>
 % if (exists $session{user}) {
     <td valign="top" align="right">Track RowId:</td>
     <td valign="top"><% $track->GetId() %></td>
@@ -69,6 +74,11 @@ else
     </tr><tr>
     <td valign="top" align="right">Artist MB Id:</td>
     <td valign="top"><% $artist->GetMBId() %></a></td>
+    </tr><tr>
+    <td valign="top" align="right"><a href="/MM/index.html">MM/RDF</a></td>
+    <td valign="top"><a 
+       href="http://mm.musicbrainz.org/artist/<% $artist->GetMBId() %>">
+       http://mm.musicbrainz.org/artist/<% $artist->GetMBId() %></a></td>
     </tr><tr>
 % if (exists $session{user}) {
     <td valign="top" align="right">Artist RowId:</td>
@@ -102,6 +112,13 @@ else
             </tr><tr>
             <td valign="top" align="right">Album MB Id:</td>
             <td valign="top"><% $$album[3] %></td>
+            </tr><tr>
+
+            <td valign="top" align="right"><a 
+                href="/MM/index.html">MM/RDF</a></td>
+            <td valign="top"><a 
+              href="http://mm.musicbrainz.org/album/<% $$album[3] %>">
+              http://mm.musicbrainz.org/album/<% $$album[3] %></a></td>
 
 % if (exists $session{user}) {
             </tr><tr>

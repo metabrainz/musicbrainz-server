@@ -4,6 +4,7 @@ $artist
 $hilitetrack=>-1
 $hilitecolor=>""
 $nomod=>0
+$showalbumdetail=>0
 </%args>
 
 <%perl>
@@ -25,7 +26,8 @@ else
 mc_comp("/comp/albumbegin", 
         artist=>$artist, 
         album=>$album, 
-        nomod=>$nomod);
+        nomod=>$nomod,
+        albumdetail=>$showalbumdetail);
 for($i = 0;; $i++)
 {
     $track = $info[$i]; 

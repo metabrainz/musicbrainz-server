@@ -2,11 +2,13 @@
 $artist
 $album
 $nomod
+$albumdetail=>0
 </%args>
 
 <%perl>
 my $check_box = "";
 my $albumid = $album->GetId();
+my $script = $albumdetail ? "albumdetail" : "showalbum";
 
 #if (exists $session{user} && !$nomod) 
 #{
@@ -28,10 +30,10 @@ my $albumid = $album->GetId();
   <tr>
 % if ($album->GetModPending()) {
         <td width=85% bgcolor="#FFFFCC" valign="center">
-           <a href="/showalbum.html?albumid=<% $album->GetId() %>"><% $album->GetName() %></a>
+           <a href="/<% $script %>.html?albumid=<% $album->GetId() %>"><% $album->GetName() %></a>
 % } else {
         <td width=85% bgcolor="#FFBA58" valign="center">
-           <a href="/showalbum.html?albumid=<% $album->GetId() %>"><% $album->GetName() %></a>
+           <a href="/<% $script %>.html?albumid=<% $album->GetId() %>"><% $album->GetName() %></a>
 % }
         </td>
 %#        <td width="10" bgcolor="#FFBA58" valign="center" align="center">
