@@ -55,15 +55,17 @@ $m->comp("/comp/sidebar", title => 'Artist Subscriptions');
 		<center>
 		<table class="SpacedColumns" style="width: 30em">
 			<caption>Subscribed Artists</caption>
-			<tr>
-				<th style="width: 1em"></th>
-				<th>Artist</th>
-			</tr>
+			<col style="width: 1em">
+			<col>
+			<col style="width: 4em">
 % for my $artist (@$info) {
 			<tr style="background-color: <% $colours[++$row % @colours] %>">
 				<td style="text-align: center"><input type="checkbox" name="artistid" value="<% $artist->{artist} %>"></td>
 				<td style="padding-right: 2em"><a href="/showartist.html?artistid=<% $artist->{artist} %>"
 					><% $artist->{name} %></a></td>
+				<td style="text-align: center">[
+					<a href="/moderate.html?type=<% &ModDefs::TYPE_ARTIST %>&amp;artistid=<% $artist->{artist} %>">Mods</a>
+				]</td>
 			</tr>
 % }
 		</table>
