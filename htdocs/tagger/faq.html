@@ -48,8 +48,54 @@
    name=>'ie'
 &>
 
+<& /comp/faqentry,
+   question=>'I have a mp3/ogg/vorbs/wav file that crashes the tagger. Is that useful to you guys?',
+   answer=>'Yes. Please <a href="/support/contact.html">contact us</a> about getting the file to us.',
+   name=>''
+&>
+
+<& /comp/faqentry,
+   question=>'My files keep getting <em>Cannot connect to signature server errors</em>. What can I do to fix this?',
+   answer=>'This usually happens to users who are using an automatic proxy setup with Internet Explorer. Go to the options dialog in the Tagger and open the <em>Web Proxy</em> tab. Uncheck the <em>Use Internet Explorer settings for proxy support</em> and then enter your proxy server and proxy port below.',
+   name=>''
+&>
+
 <& /comp/faqfooter &>
 
+
+<& /comp/faqheader, title=>'TRM Questions' &>
+
+<& /comp/faqentry,
+   question=>'Why does the Tagger need to use the Internet to create TRM ids?',
+   answer=>'Calculating a TRM Id for a file happens in two steps: 1. the acoustic fingerprint (about 500 bytes) is calculated locally and then sent to the TRM signature server. 2. The signature server then looks at all the previously known TRMs ids and attempts to match the submitted acoustic fingerprint with an existing TRM. If it is not found, a new TRM id is assigned to this fingerprint.',
+   name=>''
+&>
+
+<& /comp/faqentry,
+   question=>'Do you have a version of TRM that does not require using the Internet?',
+   answer=>'No. Talking to the signature server is an integral part of calculating a TRM Id.',
+   name=>''
+&>
+
+<& /comp/faqentry,
+   question=>'Can I calculate the acoustic fingerpritns and defer the Internet lookup until later?',
+   answer=>'No, we do not have support for that yet.',
+   name=>''
+&>
+
+<& /comp/faqentry,
+   question=>'Where can I download the source to the TRM signature server?',
+   answer=>'You can\'t. It is closed source proprietary software that has been provided by <a href="http://relatable.com">Relatable</a>. We have a contract with Relatable that gives us the priviledge to use a binary only version of the signature server.',
+   name=>''
+&>
+
+<& /comp/faqentry,
+   question=>'You ought to do this and that to the signature server. Can you do that?',
+   answer=>'Thank you for making suggestions, but since we do not have access to the source code of the TRM signature server, we cannot make any changes.',
+   name=>''
+&>
+
+<& /comp/faqfooter &>
 
 
 <& /comp/footer &>
