@@ -264,6 +264,7 @@ sub CheckModerations
 
    # Now run through each mod and do whatever's necessary; namely, nothing,
    # approve, deny, or delete.
+	require UserStuff;
 	my $user = UserStuff->new($this->{DBH});
 
    foreach my $key (reverse sort { $a <=> $b} keys %mods)
