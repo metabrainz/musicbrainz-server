@@ -24,17 +24,17 @@ my %Queries =
       [ \&QuerySupport::AssociateCDMM2, 
         'http://musicbrainz.org/mm/mm-2.0#cdindexId',
         'http://musicbrainz.org/mm/mq-1.0#albumId'],
-   FindArtistByName =>
+   FindArtist =>
       [\&QuerySupport::FindArtistByName, 
         'http://musicbrainz.org/mm/mq-1.0#artistName'],
-   FindAlbumByName =>
+   FindAlbum =>
       [\&QuerySupport::FindAlbumByName, 
         'http://musicbrainz.org/mm/mq-1.0#albumName',
         'http://musicbrainz.org/mm/mq-1.0#artistName'],
    FindAlbumsByArtistName =>
       [\&QuerySupport::FindAlbumsByArtistName, 
         'http://musicbrainz.org/mm/mq-1.0#artistName'],
-   FindTrackByName => 
+   FindTrack => 
       [\&QuerySupport::FindTrackByName, 
         'http://musicbrainz.org/mm/mq-1.0#trackName',
         'http://musicbrainz.org/mm/mq-1.0#albumName',
@@ -133,6 +133,8 @@ if (!defined $rdf)
     Output($r, \$out);
     exit(0);
 }
+$rdf->SetDepth(2);
+$rdf->SetBaseURI("http://www.musicbrainz.org");
 
 $parser=new RDFStore::Parser::SiRPAC( 
                 NodeFactory => new RDFStore::NodeFactory(),
@@ -181,6 +183,7 @@ for(;;)
 
     $data = QuerySupport::Extract(\@triples, $currentURI, -1, $rdfquery);
     $data = undef if (defined $data && $data eq '');
+    print "query args: '$data'\n" if defined $data;
     push @queryargs, $data;
     $rdfquery = undef;
 }

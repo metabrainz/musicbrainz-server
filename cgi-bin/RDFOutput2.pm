@@ -3,7 +3,6 @@
 #   MusicBrainz -- the internet music database
 #
 #   Copyright (C) 2000 Robert Kaye
-#   Portions  (C) 2000 Benjamin Holzman
 #
 #   This program is free software; you can redistribute it and/or modify
 #   it under the terms of the GNU General Public License as published by
@@ -23,15 +22,16 @@
 #____________________________________________________________________________
                                                                                
 package RDFOutput2;
-use TableBase;
 
+use TableBase;
 use strict;
-use RDF;
+use RDF2;
+use GUID;
 use DBDefs;
 
 BEGIN { require 5.003 }
 use vars qw(@ISA @EXPORT);
-@ISA    = @ISA    = qw(TableBase RDF);
+@ISA    = @ISA    = qw(TableBase RDF2);
 @EXPORT = @EXPORT = '';
 
 sub new
@@ -42,28 +42,42 @@ sub new
     return bless $this, $type;
 }
 
-# This function was taken from XML::Generator and is 
-# Copyright (C) 2000 Benjamin Holzman
-sub escape 
+sub SetBaseURI
 {
-    $_[0] =~ s/&/&amp;/g;  # & first of course
-    $_[0] =~ s/</&lt;/g;
-    $_[0] =~ s/>/&gt;/g;
-    return $_[0];
+    my ($this, $uri) = @_;
+
+    $this->{baseuri} = $uri;
+}
+
+sub GetBaseURI
+{
+    return $_[0]->{baseuri};
+}
+
+sub SetDepth
+{
+    my ($this, $depth) = @_;
+
+    $this->{depth} = $depth;
+}
+
+sub GetDepth
+{
+    return $_[0]->{depth};
 }
 
 sub ErrorRDF
 {
-    my ($this, $text) = @_;
-    my ($rdf);
+   my ($this, $text) = @_;
+   my ($rdf);
 
-    $rdf = $this->BeginRDFObject;
-    $rdf .= $this->BeginDesc;
-    $rdf .= $this->Element("MQ:Error", $text);
-    $rdf .= $this->EndDesc;
-    $rdf .= $this->EndRDFObject;
+   $rdf = $this->BeginRDFObject;
+   $rdf .= $this->BeginDesc("mq:Result");
+   $rdf .= $this->Element("mq:error", $text);
+   $rdf .= $this->EndDesc("mq:Result");
+   $rdf .= $this->EndRDFObject;
 
-    return $rdf;
+   return $rdf;
 }
 
 sub CreateStatus
@@ -72,383 +86,344 @@ sub CreateStatus
    my $rdf;
 
    $rdf = $this->BeginRDFObject();
-   $rdf .= $this->BeginDesc;
-   $rdf .= $this->Element("MQ:Status", "OK", items=>$count);
-   $rdf .= $this->EndDesc;
+   $rdf .= $this->BeginDesc("mq:Result");
+   $rdf .= $this->Element("mq:status", "OK");
+   $rdf .= $this->EndDesc("mq:Result");
    $rdf .= $this->EndRDFObject;
 
    return $rdf;
+}
+
+sub CreateArtistList
+{
+   my ($this, $doc, @ids) = @_;
+
+   return $this->CreateOutputRDF('artist', @ids);
+}
+
+sub CreateAlbumList
+{
+   my ($this, @ids) = @_;
+
+   return $this->CreateOutputRDF('album', @ids);
 }
 
 sub CreateTrackList
 {
    my ($this, @ids) = @_;
-   my ($rdf, $id, $count);
 
-   $rdf = $this->BeginRDFObject;
-   $rdf .= $this->BeginDesc;
-   $rdf .= $this->BeginElement("MM:Collection", 'type'=>'trackList');
-   $rdf .= $this->BeginBag();
-
-   for($count = 0;; $count++)
-   {
-      $id = shift @ids;
-      last if not defined $id;
-
-      $rdf .= $this->BeginLi;
-      $rdf .= $this->CreateTrackRDFSnippet(1, $id);
-      $rdf .= $this->EndLi;
-   }
-
-   $rdf .= $this->EndBag();
-   $rdf .= $this->EndElement("MM:Collection");
-   $rdf .= $this->Element("MQ:Status", "OK", items=>$count);
-   $rdf .= $this->EndDesc;
-   $rdf .= $this->EndRDFObject;
-
-   return $rdf;
+   return $this->CreateOutputRDF('track', @ids);
 }
 
 sub CreateGUIDList
 {
    my ($this, @ids) = @_;
-   my ($rdf, $id, $count);
 
-   $rdf = $this->BeginRDFObject;
-   $rdf .= $this->BeginDesc;
-   $rdf .= $this->BeginElement("MM:Collection", 'type'=>'guidList');
-   $rdf .= $this->BeginBag();
-
-   for($count = 0;; $count++)
-   {
-      $id = shift @ids;
-      last if not defined $id;
-
-      $rdf .= $this->BeginLi;
-      $rdf .= $this->Element("DC:Identifier", "", guid=>($id));
-      $rdf .= $this->EndLi;
-   }
-
-   $rdf .= $this->EndBag();
-   $rdf .= $this->EndElement("MM:Collection");
-   $rdf .= $this->Element("MQ:Status", "OK", items=>$count);
-   $rdf .= $this->EndDesc;
-   $rdf .= $this->EndRDFObject;
-
-   return $rdf;
+   return $this->CreateOutputRDF('trmid', @ids);
 }
 
-sub CreateMetadataExchange
+# Check for duplicates, then add if not already in cache
+sub AddToCache
 {
-   my ($this, @data) = @_;
-   my ($rdf);
+   my ($cache, $type, $id, $obj) = @_;
+   my (%item, $i);
 
-   $rdf = $this->BeginRDFObject();
-   $rdf .= $this->BeginDesc;
-   $rdf .= $this->Element("DC:Title", $data[0])
-       unless !defined $data[0] || $data[0] eq '';
-   $rdf .= $this->Element("DC:Identifier", "", guid=>$data[4])
-       unless !defined $data[4] || $data[4] eq '';
-   $rdf .= $this->Element("DC:Creator", $data[1])
-       unless !defined $data[1] || $data[1] eq '';
-
-   if (defined $data[2] && $data[2] ne '')
+   # check to make sure this object does not already exist in the list
+   foreach $i (@$cache)
    {
-       $rdf .= $this->BeginElement("DC:Relation", 'type'=>'album');
-       $rdf .=    $this->BeginDesc;
-       $rdf .=       $this->Element("DC:Title", escape($data[2]));
-       $rdf .=    $this->EndDesc();
-       $rdf .= $this->EndElement("DC:Relation");
+      return if ($i->{id} == $id && $i->{type} eq $type);
    }
 
-   $rdf .= $this->Element("MM:TrackNum", $data[3])
-       unless !defined $data[3] || $data[3] == 0;
-   $rdf .= $this->Element("DC:Format", "", duration=>$data[13])
-       unless !defined $data[13] || $data[13] == 0;
-   $rdf .= $this->Element("DC:Date", "", issued=>$data[6])
-       unless !defined $data[6] || $data[6] == 0;
-   $rdf .= $this->Element("MM:Genre", $data[7])
-       unless !defined $data[7] || $data[7] eq '';
-   $rdf .= $this->Element("DC:Description", $data[8])
-       unless !defined $data[8] || $data[8] eq '';
-   $rdf .= $this->Element("MQ:Status", "OK", items=>1);
-   $rdf .= $this->EndDesc();
-   $rdf .= $this->EndRDFObject();
-
-   return $rdf;
+   $item{type} = $type;
+   $item{loaded} = defined $obj;
+   $item{id} = $id;
+   $item{obj} = $obj;
+   push @$cache, \%item;
 }
 
-# returns an artistList
-sub CreateArtistList
+# Get an object from the cache, given its id
+sub GetFromCache
 {
-   my ($this, $doc);
-   my ($rdf, $sql, @row, $id, $r, $count);
+   my ($cache, $type, $id) = @_;
+   my ($i);
 
-   $this = shift @_; 
-   $doc = shift @_;
-   $count = 0;
-
-   $sql = Sql->new($this->{DBH});
-
-   $rdf = $this->BeginRDFObject();
-   $rdf .= $this->BeginDesc; 
-   $rdf .= $this->BeginElement("MM:Collection", 'type'=>'artistList'); 
-   $rdf .= $this->BeginBag();
-   for(;;)
+   # check to make sure this object does not already exist in the list
+   foreach $i (@$cache)
    {
-       $id = shift @_;
-       last if !defined $id;
-
-       if ($sql->Select("select name, gid from Artist where id = $id"))
-       {
-            for(; @row = $sql->NextRow(); $count++)
-            {
-                $rdf .= $this->BeginLi();
-                $rdf .=   $this->Element("DC:Identifier", "", 
-                                         'artistId'=>$row[1]);
-                $rdf .=   $this->Element("DC:Creator", escape($row[0]));
-                $rdf .= $this->EndLi();
-            }
-            $sql->Finish;
-       }
+      return $i->{obj} if ($i->{id} == $id && $i->{type} eq $type);
    }
-   $rdf .= $this->EndBag();
-   $rdf .= $this->EndElement("MM:Collection"); 
-   $rdf .= $this->Element("MQ:Status", "OK", items=>$count);
-   $rdf .= $this->EndDesc();
-   $rdf .= $this->EndRDFObject();  
-
-   return $rdf;
+   return undef;
 }
 
-# returns an albumList
-sub CreateAlbumList
+sub CreateOutputRDF
 {
-   my ($this);
-   my ($rdf, $sql, @row, $id, $r, $count);
+   my ($this, $type, @ids) = @_;
+   my (@cache, %obj, $id, $ref, @newrefs, $i, $total, @gids, $out, $depth); 
 
-   $this = shift @_; 
+   return $this->CreateStatus() if (scalar(@ids) == 0);
 
-   $count = 0;
+   $depth = $this->GetDepth();
+   return $this->ErrorRDF("Invalid search depth specified.") if ($depth < 1);
 
-   $sql = Sql->new($this->{DBH});
-
-   $rdf = $this->BeginRDFObject();
-   $rdf .= $this->BeginDesc; 
-   $rdf .= $this->BeginElement("MM:Collection", 'type'=>'albumList'); 
-   $rdf .= $this->BeginBag();
-   for(;;)
+   # Create a cache of objects and add the passed object ids without
+   # loading the actual objects
+   foreach $id (@ids)
    {
-       $id = shift @_;
-       last if !defined $id;
-
-       if ($sql->Select(qq\select Album.name, Album.gid, Artist.name, 
-                           Artist.gid from Album, Artist where Album.artist = 
-                           Artist.id and Album.id = $id\))
-       {
-            for(;@row = $sql->NextRow(); $count++)
-            {
-                $rdf .= $this->BeginLi();
-                $rdf .=   $this->Element("DC:Identifier", "", 
-                              'artistId'=>$row[3]);
-                $rdf .=   $this->Element("DC:Creator", escape($row[2]));
-                $rdf .=   $this->BeginElement("DC:Relation", 'type'=>'album');
-                $rdf .=      $this->BeginDesc();
-                $rdf .=         $this->Element("DC:Title", escape($row[0]));
-                $rdf .=         $this->Element("DC:Identifier", "", 
-                                            'albumId'=>$row[1]);
-                $rdf .=      $this->EndDesc();
-                $rdf .=   $this->EndElement("DC:Relation");
-                $rdf .= $this->EndLi();
-            }
-            $sql->Finish;
-       }
-       else
-       {
-            if ($sql->Select(qq\select Album.name, Album.gid from Album  
-                                where Album.id = $id\))
-            {
-                 for(;@row = $sql->NextRow(); $count++)
-                 {
-                     $rdf .= $this->BeginLi();
-                     $rdf .=   $this->Element("DC:Identifier", "", 
-                                   'albumId'=>$row[1]);
-                     $rdf .=   $this->Element("DC:Creator", "[Multiple Artists]");
-                     $rdf .=   $this->BeginElement("DC:Relation", "", 
-                                                'type'=>'album');
-                     $rdf .=      $this->BeginDesc();
-                     $rdf .=         $this->Element("DC:Title", escape($row[0]));
-                     $rdf .=         $this->Element("DC:Identifier", "", 
-                                                 'albumId'=>$row[1]);
-                     $rdf .=      $this->EndDesc();
-                     $rdf .=   $this->EndElement("DC:Relation");
-                     $rdf .= $this->EndLi();
-                 }
-                 $sql->Finish;
-            }
-       }
+      AddToCache(\@cache, $type, $id);
    }
-   $rdf .= $this->EndBag();
-   $rdf .= $this->EndElement("MM:Collection"); 
-   $rdf .= $this->Element("MQ:Status", "OK", items=>$count);
-   $rdf .= $this->EndDesc();
-   $rdf .= $this->EndRDFObject();  
 
-   return $rdf;
+   # For each depth
+   for($i = 0; $i < $depth; $i++)
+   {
+      # Go through the object cache. If the object is loaded, skip it.
+      # If not, load it and determine the references the object
+      @newrefs = ();
+      foreach $ref (@cache)
+      {
+         next if $ref->{loaded};
+   
+         $ref->{obj} = $this->LoadObject($ref);
+         if (defined $ref->{obj})
+         {
+            print "Loaded object $ref->{obj}\n";
+            $ref->{loaded} = 1;
+            push @newrefs, $this->GetReferences($ref);
+         } 
+      }
+      foreach $ref (@newrefs)
+      {
+         AddToCache(\@cache, $ref->{type}, $ref->{id}, $ref->{obj});
+      }
+   }
+
+   # Now that we've compiled a list of objects, output the list and 
+   # the actual objects themselves
+
+   # Output the actual list of objects, making sure to only
+   # include the first few objects in the cachce, not all of them.
+   $total = scalar(@ids);
+   for($i = 0; $i < $total; $i++)
+   {
+      push @gids, $cache[$i]->{obj}->GetMBId();
+   }
+   $out  = $this->BeginRDFObject();
+   $out .= $this->OutputList($type, \@gids);
+  
+   # Output all of the referenced objects. Make sure to only output
+   # the objects in the cache that have been loaded. The objects that
+   # have not been loaded will not be output, even though they are
+   # in the cache. (They would've been output if depth was one greater)
+   $total = scalar(@cache);
+   for($i = 0; $i < $total; $i++)
+   {
+      last if not $cache[$i]->{loaded};
+
+      $out .= $this->OutputRDF(\@cache, $cache[$i]);
+      $out .= "\n";
+   }
+   $out .= $this->EndRDFObject;
+
+   return $out;
 }
 
-# returns album
-sub CreateAlbum
+sub LoadObject
 {
-   my ($this, $fuzzy);
-   my ($sql, $sql2, $rdf, @row, @row2);
-   my ($artist, $artist_gid, $id, $count, $trdf, $numtracks, $first);
+   my ($this, $ref) = @_;
+   my $obj;
 
-   $this = shift @_; 
-   $fuzzy = shift @_; 
-   $id = shift @_;
-   $count = 0;
-
-   $sql = Sql->new($this->{DBH});
-   $sql2 = Sql->new($this->{DBH});
-
-   $rdf = $this->BeginRDFObject();
-   $rdf .= $this->BeginDesc; 
-
-   $artist = "";
-   $artist_gid = "";
-   $first = 1;
-   if ($sql->Select(qq\select Album.name, Album.gid, Album.id, 
-                     Album.artist from Album where Album.id = $id\))
+   if ($ref->{type} eq 'artist')
    {
-        while(@row = $sql->NextRow())
-        {
-            $trdf = "";
-            if ($sql2->Select(qq\select Track.id, Artist.id, Artist.name, 
-                Artist.gid from Track, Artist, AlbumJoin where AlbumJoin.track 
-                = Track.id and AlbumJoin.album = $row[2] and Track.artist = 
-                Artist.id order by AlbumJoin.sequence\))
-            {
-                $numtracks = $sql2->Rows;
-                $this->BeginSeq();
-                $this->BeginLi();
-                while(@row2 = $sql2->NextRow())
-                {
-                     $trdf .= $this->BeginLi();
-                     $trdf .= $this->CreateTrackRDFSnippet(!($row[3]), 
-                                                           $row2[0]);
-                     $trdf .= $this->EndLi();
-                
-                     $artist = $row2[2] if ($row2[1] != 0);
-                     $artist_gid = $row2[3] if ($row2[1] != 0);
-                }
-                $this->EndLi();
-                $this->EndSeq();
-                $sql2->Finish;
-            }
-
-            $rdf .= $this->BeginElement("MM:Collection", 
-                                     'type'=>'album',
-                                     'numParts'=>$numtracks); 
-
-            $rdf .= $this->BeginDesc();
-            $rdf .= $this->Element("DC:Identifier", "",
-                                'albumId'=>escape($row[1]));
-            $rdf .= $this->Element("DC:Title", escape($row[0]));
-
-            if ($row[3] != 0)
-            {
-                $rdf .= $this->Element("DC:Creator", $artist);
-                $rdf .= $this->Element("DC:Identifier", "",
-                                    'artistId'=>escape($artist_gid));
-            }
-
-            $rdf .= $this->BeginSeq();
-            $rdf .= $trdf;
-            $rdf .= $this->EndSeq();
-        
-            $rdf .= $this->EndDesc();
-            $rdf .= $this->EndElement("MM:Collection"); 
-
-            $count++;
-        }
-        $sql->Finish;
+      $obj = Artist->new($this->{DBH});
+      $obj->SetId($ref->{id});
+      return (defined $obj->LoadFromId()) ? $obj : undef;
    }
-
-   if ($fuzzy)
+   elsif ($ref->{type} eq 'album')
    {
-      $rdf .= $this->Element("MQ:Status", "Fuzzy", items=>$count);
+      $obj = Album->new($this->{DBH});
+      $obj->SetId($ref->{id});
+      return (defined $obj->LoadFromId()) ? $obj : undef;
    }
-   else
+   elsif ($ref->{type} eq 'track')
    {
-      $rdf .= $this->Element("MQ:Status", "OK", items=>$count);
+      $obj = Track->new($this->{DBH});
+      $obj->SetId($ref->{id});
+      return (defined $obj->LoadFromId()) ? $obj : undef;
    }
-   $rdf .= $this->EndDesc();
-   $rdf .= $this->EndRDFObject();  
-
-   return $rdf;
+   return undef;
 }
 
-# returns single track description
-sub CreateTrackRDFSnippet
+sub OutputList
 {
-   my ($this);
-   my ($sql, $rdf, @row, $id, $r, $guid, $gu, $emit_details);
+   my ($this, $type, $list) = @_;
+   my ($item, $rdf);
 
-   $this = shift @_; 
-   $emit_details = shift @_; 
-   $gu = GUID->new($this->{DBH});
-   $sql = Sql->new($this->{DBH});
-
-   for(;;)
+   $rdf  =   $this->BeginDesc("mq:Result");
+   $rdf .=     $this->Element("mq:status", "OK");
+   $rdf .=     $this->BeginDesc("mm:" . $type . "List");
+   $rdf .=       $this->BeginSeq();
+   foreach $item (@$list)
    {
-       $id = shift @_;
-       last if !defined $id;
-
-       if ($sql->Select(qq/select Track.name, Track.gid, 
-                AlbumJoin.sequence, Artist.name, Artist.gid, Album.name, 
-                Album.gid from Track, Artist,Album, AlbumJoin where 
-                Track.id = $id and Track.artist = Artist.id and 
-                AlbumJoin.album = Album.id and AlbumJoin.track = 
-                Track.id order by AlbumJoin.sequence/))
-       {
-            while(@row = $sql->NextRow())
-            {
-                my %ids;
-
-                $ids{'trackId'} = escape($row[1]),
-
-                $guid = $gu->GetGUIDFromTrackId($id);
-                $ids{'trackGUID'} = escape($guid) if (defined $guid);
-
-                if ($emit_details)
-                {
-                    $ids{'artistId'} = escape($row[4]),
-                    $ids{'trackId'} = escape($row[1]);
-                }
-
-                $rdf .= $this->Element("DC:Identifier", "", %ids);
-                $rdf .= $this->Element("MM:TrackNum", $row[2]);
-                $rdf .= $this->Element("DC:Title", escape($row[0]));
-
-                if ($emit_details)
-                {
-                    $rdf .= $this->Element("DC:Creator", escape($row[3]));
-                    $rdf .= $this->BeginElement("DC:Relation", "type"=>"album");
-                    $rdf .=   $this->BeginDesc();
-                    $rdf .=     $this->Element("DC:Title", 
-                                            escape($row[5]));
-                    $rdf .=     $this->Element("DC:Identifier", "",
-                                  'albumId'=>escape($row[6]));
-                    $rdf .=   $this->EndDesc();
-                    $rdf .= $this->EndElement("DC:Relation");
-                }
-            }     
-            $sql->Finish;
-       }
+      $rdf .=      $this->Li($this->{baseuri}. "/$type/$item");
    }
+   $rdf .=       $this->EndSeq();
+   $rdf .=     $this->EndDesc("mm:" . $type . "List");
+   $rdf .=   $this->EndDesc("mq:Result");
+   $rdf .= "\n";
 
    return $rdf;
 }
 
+sub GetReferences
+{
+   my ($this, $ref) = @_;
 
+   return $this->GetArtistReferences($ref, $ref->{obj}) 
+       if ($ref->{type} eq 'artist');
+   return $this->GetAlbumReferences($ref, $ref->{obj}) 
+       if ($ref->{type} eq 'album');
+   return $this->GetTrackReferences($ref, $ref->{obj}) 
+       if ($ref->{type} eq 'track');
+
+   # If this type is not supported return an empty list
+   return ();
+}
+
+# Return the references that this object makes. 
+# An artist makes no references, so return an empty hash
+sub GetArtistReferences
+{
+   return ();
+}
+
+# An for an album, add the artist ref and a ref for each track
+sub GetAlbumReferences
+{
+   my ($this, $ref, $album) = @_;
+   my (@tracks, $track, @ret, %info, @trackids);
+
+   @tracks = $album->LoadTracks();
+   foreach $track (@tracks)
+   {
+      $info{type} = 'artist';
+      $info{id} = $track->GetArtist();
+      $info{obj} = undef;
+      push @ret, {%info};
+
+      $info{type} = 'track';
+      $info{obj} = $track;
+      $info{id} = $track->GetId();
+      push @ret, {%info};
+
+      push @trackids, $track->GetMBId();
+   }
+   $ref->{_album} = \@trackids;
+
+   return @ret;
+}
+
+# An for a track, add the artist and album refs
+sub GetTrackReferences
+{
+   my ($this, $ref, $track) = @_;
+   my (@ret, %info);
+
+   $info{type} = 'artist';
+   $info{id} = $track->GetArtist();
+   $info{obj} = undef;
+   push @ret, {%info};
+
+   $info{type} = 'album';
+   $info{id} = $track->GetAlbum();
+   $info{obj} = undef;
+   push @ret, {%info};
+
+   return @ret;
+}
+
+sub OutputRDF
+{
+   my ($this, $cache, $ref) = @_;
+
+   if ($ref->{type} eq 'artist')
+   {
+      return $this->OutputArtistRDF($cache, $ref);
+   }
+   elsif ($ref->{type} eq 'album')
+   {
+      return $this->OutputAlbumRDF($cache, $ref);
+   }
+   elsif ($ref->{type} eq 'track')
+   {
+      return $this->OutputTrackRDF($cache, $ref);
+   }
+   return undef;
+}
+
+# Return the RDF representation of the Artist
+sub OutputArtistRDF
+{
+    my ($this, $cache, $ref) = @_;
+    my ($out, $artist);
+
+    $artist = $ref->{obj};
+
+    $out  = $this->BeginDesc("mm:Artist", $this->GetBaseURI() .
+                            "/artist/" . $artist->GetMBId());
+    $out .=   $this->Element("dc:title", $artist->GetName());
+    $out .=   $this->Element("mm:sortName", $artist->GetSortName());
+    $out .= $this->EndDesc("mm:Artist");
+
+    return $out;
+}
+
+# Return the RDF representation of the Album
+sub OutputAlbumRDF
+{
+    my ($this, $cache, $ref) = @_;
+    my ($out, $album, $track, $artist, $ids);
+
+    $album = $ref->{obj};
+    $artist = GetFromCache($cache, 'artist', $album->GetArtist()); 
+    $out  = $this->BeginDesc("mm:Album", $this->GetBaseURI() .
+                            "/album/" . $album->GetMBId());
+    $out .=   $this->Element("dc:title", $album->GetName());
+    $out .=   $this->Element("dc:creator", "", "rdf:resource",
+                             $this->GetBaseURI() . "/artist/" . 
+                             $artist->GetMBId());
+    $out .=   $this->BeginDesc("mm:trackList");
+    $out .=   $this->BeginSeq();
+    $ids = $ref->{_album};
+    foreach $track (@$ids)
+    {
+       $out .=      $this->Li($this->{baseuri}. "/track/$track");
+    }
+    $out .=   $this->EndSeq();
+    $out .=   $this->EndDesc("mm:trackList");
+    $out .= $this->EndDesc("mm:Album");
+
+    return $out;
+}
+
+# Return the RDF representation of the Track
+sub OutputTrackRDF
+{
+    my ($this, $cache, $ref) = @_;
+    my ($out, $artist, $guid, $gu, $track);
+
+    $track = $ref->{obj};
+    $gu = GUID->new($this->{DBH});
+    $guid = $gu->GetGUIDFromTrackId($track->GetId());
+
+    $artist = GetFromCache($cache, 'artist', $track->GetArtist()); 
+
+    $out  = $this->BeginDesc("mm:Track", $this->GetBaseURI() .
+                            "/track/" . $track->GetMBId());
+    $out .=   $this->Element("dc:title", $track->GetName());
+    $out .=   $this->Element("mm:trackNum", $track->GetSequence());
+    $out .=   $this->Element("dc:creator", "", "rdf:resource",
+              $this->{baseuri}. "/artist/" . $artist->GetMBId());
+    $out .=   $this->Element("mm:trmid", $guid) if defined $guid;
+    $out .= $this->EndDesc("mm:Track");
+
+    return $out;
+}

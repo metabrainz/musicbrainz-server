@@ -327,6 +327,7 @@ sub FindTrackByName
    return undef if (!defined $dbh);
 
    my $tb = TableBase->new($dbh);
+   $sql = Sql->new($dbh);
    if (defined $search)
    {
        if (!defined $album && !defined $artist)
@@ -377,7 +378,6 @@ sub FindTrackByName
        }
    }
 
-   $sql = Sql->new($dbh);
    if ($sql->Select($query))
    {
         while(@row = $sql->NextRow())

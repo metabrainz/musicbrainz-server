@@ -193,7 +193,7 @@ sub LoadTracks
    $sql = Sql->new($this->{DBH});
    $query = qq/select Track.id, Track.name, Track.artist,
                AlbumJoin.sequence, Track.length,
-               Track.modpending, AlbumJoin.modpending from
+               Track.modpending, AlbumJoin.modpending, Track.GID from
                Track, AlbumJoin where AlbumJoin.track = Track.id
                and AlbumJoin.album = $this->{id} order by
                AlbumJoin.sequence/;
@@ -209,6 +209,7 @@ sub LoadTracks
            $track->SetLength($row[4]);
            $track->SetModPending($row[5]);
            $track->SetAlbumJoinModPending($row[6]);
+           $track->SetMBId($row[7]);
            push @info, $track;
        }
        $sql->Finish;

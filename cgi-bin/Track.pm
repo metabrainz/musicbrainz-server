@@ -153,7 +153,6 @@ sub LoadFromId
    $sql = Sql->new($this->{DBH});
    if (exists $this->{album})
    {
-       print STDERR "Using album\n";
        @row = $sql->GetSingleRow("Track, AlbumJoin", 
                              [qw(Track.id Track.name GID sequence length 
                                  Track.artist Track.modpending 
