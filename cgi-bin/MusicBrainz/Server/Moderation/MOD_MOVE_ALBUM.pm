@@ -94,7 +94,7 @@ sub ApprovedAction
 		my $ar = Artist->new($this->{DBH});
 		$ar->SetName($name);
 		$ar->SetSortName($this->{'new.sortname'});
-		$newid = $ar->Insert;
+		$newid = $ar->Insert(no_alias => 1);
 	}
 
 	# Move each track on the album
