@@ -70,6 +70,7 @@ sub EnterRecord
     my $tracks = shift @_;
     my $title = shift @_;
     my $artistname = shift @_;
+    my $diskid = shift @_;
     my $toc = shift @_;
     my $artist;
     my ($sql, $sql2);
@@ -85,7 +86,6 @@ sub EnterRecord
     $artist = $a->Insert($artistname);
     if ($artist < 0)
     {
-        print "Cannot insert artist.\n";
         return 0;
     }
 
@@ -101,7 +101,6 @@ sub EnterRecord
         $album = $al->Insert($title, $artist, $tracks);
         if ($album < 0)
         {
-            print "Cannot insert album.\n";
             return 0;
         }
     }
@@ -113,7 +112,7 @@ sub EnterRecord
         $t = Track->new($this->{MB});
         $t->Insert($title, $artist, $album, $i + 1);
         $d = Diskid->new($this->{MB});
-        $d->Insert("", $album, $toc);
+        $d->Insert($diskid, $album, $toc);
     }
 
     return 1;
@@ -121,7 +120,7 @@ sub EnterRecord
 
 sub Lookup
 {
-    my ($this, $toc) = @_;
+    my ($this, $diskid, $toc) = @_;
     my ($i, $first, $last, $leadout, @cddb_toc);
     my ($m, $s, $f, $cddb, @cd_data);
     my ($genre, $cddb_id, $title, $details, $artist);
@@ -149,7 +148,6 @@ sub Lookup
     foreach my $disc (@discs) 
     {
         ($genre, $cddb_id, $title) = @$disc;
-        print "$genre, $cddb_id, $title\n";
         last;
     }
 
@@ -166,6 +164,7 @@ sub Lookup
     return $this->EnterRecord($last, 
                               $title,
                               $artist,
+                              $diskid,
                               $toc,
                               @{$details->{ttitles}});
 }
