@@ -545,3 +545,58 @@ sub CreateMetadataExchange
 
    return $rdf;
 }
+
+sub OutputFreeDBLookup
+{
+   my ($this, $info) = @_;
+   my ($item, $rdf, $tracks, $track, $i);
+
+   $rdf  = $this->BeginRDFObject;
+   $rdf .=   $this->BeginDesc("mq:Result");
+   $rdf .=   $this->Element("mq:status", $this->{status});
+   $rdf .=     $this->BeginDesc("mm:albumList");
+   $rdf .=       $this->BeginSeq();
+   $rdf .=         $this->Li("freedb:genid1");
+   $rdf .=       $this->EndSeq();
+   $rdf .=     $this->EndDesc("mm:albumList");
+   $rdf .=   $this->EndDesc("mq:Result");
+
+   $rdf .=   $this->BeginDesc("mm:Artist", "freedb:genid2");
+   $rdf .=   $this->Element("dc:title", $info->{artist});
+   $rdf .=   $this->Element("mm:sortName", $info->{sortname});
+   $rdf .=   $this->EndDesc("mm:Artist");
+
+   $rdf .=   $this->BeginDesc("mm:Album", "freedb:genid1");
+   $rdf .=     $this->Element("dc:title", $info->{album});
+   $rdf .=     $this->Element("dc:creator", "", 
+                              "rdf:resource", "freedb:genid2");  
+   $rdf .=     $this->BeginDesc("mm:trackList");
+   $rdf .=       $this->BeginSeq();
+
+   $tracks = $info->{tracks};
+   $i = 3;
+   foreach $track (@$tracks)
+   {
+       $rdf .=      $this->Li("freedb:genid$i");
+       $i++;
+   }
+   $rdf .=       $this->EndSeq();
+   $rdf .=   $this->EndDesc("mm:trackList");
+   $rdf .=   $this->EndDesc("mm:Album");
+
+   $i = 3;
+   foreach $track (@$tracks)
+   {
+       $rdf .=   $this->BeginDesc("mm:Track", "freedb:genid$i");
+       $rdf .=      $this->Element("dc:title", $track->{track});
+       $rdf .=      $this->Element("mm:trackNum", $track->{tracknum});
+       $rdf .=      $this->Element("dc:creator", "", 
+                                   "rdf:resource", "freedb:genid2");  
+       $rdf .=   $this->EndDesc("mm:Track");
+       $i++;
+   }
+
+   $rdf .= $this->EndRDFObject;
+
+   return $rdf;
+}

@@ -30,7 +30,7 @@ use vars qw(@ISA @EXPORT);
 @EXPORT = @EXPORT = '';
 
 use strict;
-use CDDBmb;
+use Socket;
 use Track;
 use Album;
 use Artist;
@@ -133,17 +133,13 @@ sub EnterRecord
     return $albumid;
 }
 
+
 sub Lookup
 {
     my ($this, $diskid, $toc) = @_;
     my ($i, $first, $last, $leadout, @cddb_toc);
     my ($m, $s, $f, $cddb, @cd_data);
-    my ($genre, $cddb_id, $title, $details, $artist);
-
-    $cddb = CDDBmb->new(Host  => 'www.freedb.org',
-                      Port  => 888,
-                      Login => "mrstinky")
-      or return 0;
+    my ($id, $query, $trackoffsets, $offset, @id_data);
 
     my @toc = split / /, $toc;
     $first = shift @toc;
@@ -152,36 +148,372 @@ sub Lookup
 
     for($i = $first; $i <= $last; $i++)
     {
-        ($m, $s, $f) = _lba_to_msf(shift @toc);
+        $offset = shift @toc;
+        $trackoffsets .= "$offset ";
+        ($m, $s, $f) = _lba_to_msf($offset);
         push @cddb_toc, "$i $m $s $f"; 
     }
     ($m, $s, $f) = _lba_to_msf($leadout);
     push @cddb_toc, "999 $m $s $f"; 
 
-    @cd_data = $cddb->calculate_id(@cddb_toc);
-    my @discs = $cddb->get_discs($cd_data[0], $cd_data[3], $cd_data[4]);
-    foreach my $disc (@discs) 
-    {
-        ($genre, $cddb_id, $title) = @$disc;
-        #print STDERR "$cd_data[0]: $genre $cddb_id $title\n";
-        last;
-    }
-
-    #print STDERR "Disk $cd_data[0] not found\n" if (!defined $genre);
-    return if (!defined $genre);
-    $details = $cddb->get_disc_details($genre, $cddb_id);
-    return if (!defined $details);
-
-    if ($title =~ /^(.*) \/ (.*)$/)
-    {
-       $artist = $1;
-       $title = $2;
-    }
-
-    return $this->EnterRecord($last, 
-                              $title,
-                              $artist,
-                              $diskid,
-                              $toc,
-                              @{$details->{ttitles}});
+    @id_data = $cddb->calculate_id(@cddb_toc);
+    $query = "cddb query $id_data[0] $last $trackoffsets $id_data[4]\n";
+ 
+    return $this->Retrieve("www.freedb.org", 888, $query, $last);
 }
+
+sub CalculateId 
+{
+  my $this = shift;
+  my @toc = @_;
+ 
+  my ($seconds_previous, $seconds_first, $seconds_last, $cddb_sum,
+      @track_numbers, @track_lengths, @track_offsets,
+     );
+ 
+  foreach my $line (@toc) {
+    my ($track, $mm_begin, $ss_begin, $ff_begin) = split(/\s+/, $line, 4);
+    my $seconds_begin = ($mm_begin * 60) + $ss_begin;
+ 
+    if (defined $seconds_previous) {
+      my $elapsed = $seconds_begin - $seconds_previous;
+      push( @track_lengths,
+            sprintf("%02d:%02d", int($elapsed / 60), $elapsed % 60)
+          );
+    }
+    else {
+      $seconds_first = $seconds_begin;
+    }
+                                        # virtual track: lead-out information
+    if ($track == 999) {
+      $seconds_last = $seconds_begin;
+      last;
+    }
+                                        # virtual track: get-toc error code
+    if ($track == 1000) {
+      print STDERR "error in TOC: $ff_begin";
+      return undef;
+    }
+ 
+    map { $cddb_sum += $_; } split(//, $seconds_begin);
+    push @track_offsets, ($mm_begin * 60 + $ss_begin) * 75 + $ff_begin;
+    push @track_numbers, sprintf("%03d", $track);
+    $seconds_previous = $seconds_begin;
+  }
+ 
+  my $total_seconds = $seconds_last - $seconds_first;
+  my $id = sprintf
+    ( "%08x",
+      (($cddb_sum % 255) << 24)
+      | ($total_seconds << 8)
+      | scalar(@track_offsets)
+    );
+                                        # return things cddb needs
+  if (wantarray()) {
+    ($id, \@track_numbers, \@track_lengths, \@track_offsets, $total_seconds);
+  }
+  else {
+    $id;
+  }
+}
+
+sub Strip
+{
+    $_ = $_[0];
+
+    tr/\'//d;
+    s/\A[ \n\t\r]\b//;
+    while(s/[ \n\t\r]$//) { } ;
+
+    return $_;
+}
+
+sub Retrieve
+{
+    my ($remote, $port, $query, $last_track) = @_;
+    my ($iaddr, $paddr, $proto, $line);
+    my (@response, $category, $query, $i);
+    my (@selection, @chars, @parts, @subparts);
+    my ($aritst, $title, %info, @track_titles, @tracks, @query);
+    my ($disc_id, $first_track, $last_track, @track_offsets, $seconds_in_cd); 
+
+    if ($remote eq '' || $port == 0)
+    {
+        print STDERR "A part and server address/name must be given.\n";
+        return undef;
+    }
+
+    if ($port =~ /\D/)
+    {
+        $port = getsrvbyname($port, 'tcp');
+    }
+
+    $iaddr = inet_aton($remote) or die "no host: $remote";
+    $paddr = sockaddr_in($port, $iaddr);
+    $proto = getprotobyname('tcp');
+
+    socket(SOCK, PF_INET, SOCK_STREAM, $proto) or die "socket: $!";
+    connect(SOCK, $paddr)                      or die "connect: $!";
+
+    $line = <SOCK>;
+    #print $line;
+
+    @response = split ' ', $line;
+    if ($response[0] < 200 || $response[0] > 299)
+    {
+        print STDERR "Server $remote does not want to talk to us.\n($line)\n";
+        close SOCK;
+        return undef;
+    }
+
+    #
+    # Send the hello string
+    #
+    $line = "cddb hello obs obs.freeamp.org RipCd.pl 1.0\r\n";
+    send SOCK, $line, 0;
+
+    $line = <SOCK>;
+    #print $line;
+
+    @response = split ' ', $line;
+    if ($response[0] < 200 || $response[0] > 299)
+    {
+        print STDERR "Server $remote does not like our hello.\n($line)\n";
+        return undef;
+    }
+
+    #
+    # Send the query 
+    #
+    send SOCK, $query, 0;
+
+    $line = <SOCK>;
+    #print $line;
+
+    @response = split ' ', $line;
+    if ($response[0] == 202)
+    {
+        print STDERR "Server $remote cannot find this cd.\n";
+        return undef;
+    }
+    if ($response[0] < 200 || $response[0] > 299)
+    {
+        print STDERR "Server $remote encountered an error.\n($line)\n";
+        return undef;
+    }
+
+    #
+    # Parse the query 
+    #
+    if ($response[0] == 200)
+    {
+        $category = $response[1];
+        $disc_id = $response[2];
+    }
+    #
+    # Do we have more than one match? 
+    #
+    elsif ($response[0] == 211)
+    {
+        my (@categories, @disc_ids);
+
+        for($i = 1; ; $i++)
+        {
+            $line = <SOCK>;
+
+            @response = split ' ', $line;
+            if ($response[0] eq '.')
+            {
+               last;
+            }
+
+            #print "[$i]: $line";
+
+            $categories[$i] = $response[0];
+            $disc_ids[$i] = $response[1];
+        }
+
+        $category = $categories[1];
+        $disc_id = $disc_ids[1];
+    }
+   
+    $query = "cddb read $category $disc_id\n";    
+    send SOCK, $query, 0;
+
+    $aritst = "";
+    $title = "";
+    while(defined($line = <SOCK>))
+    {
+        @chars = split(//, $line, 2);
+        if ($chars[0] eq '#')
+        {
+            next;
+        }
+
+        @response = split ' ', $line;
+        if ($response[0] eq '.')
+        {
+            last;
+        }
+
+        #print $line;
+        @parts = split '=', $line;
+        if ($parts[0] eq "DTITLE")
+        {
+            if ($aritst eq "")
+            {
+                ($aritst, $title) = split '\/', $parts[1];
+            }
+            else
+            {
+                $title = $parts[1];
+            }
+            next;
+        }
+        @subparts = split '([0-9]+)', $parts[0];
+        if ($subparts[0] eq "TTITLE")
+        {
+            chomp $parts[1];
+            chop $parts[1];
+            $track_titles[$subparts[1]] .= $parts[1];
+            next;
+        }
+     }
+
+     if ($title eq "")
+     {
+         $title = $aritst;
+     }
+     $info{artist} = Strip($aritst);
+     $info{sortname} = Strip($aritst);
+     $info{album} = Strip($title);
+ 
+     for($i = 0; $i < $last_track; $i++)
+     {
+         #print("[$i]: $track_titles[$i]\n"); 
+         push @tracks, { track=>$track_titles[$i], tracknum => ($i+1) };
+     }
+     $info{tracks} = \@tracks;
+ 
+     close SOCK;
+
+     return \%info;
+}
+
+sub CreateCDDBQuery
+{
+    my ($device, $i, $query);
+    my ($disc_id, $first_track, $last_track, $seconds_in_cd, @track_offsets); 
+
+    $device = $_[0];
+
+    open(CDINFO, "cdinfo $device |") or die "Cant run cdinfo.";
+
+    chop($first_track = <CDINFO>);
+    if ($first_track =~ /Cannot/)
+    {
+        return undef;
+    }
+
+    chop($last_track = <CDINFO>);
+    chop($disc_id = <CDINFO>);
+
+    for($i = $first_track; $i <= $last_track; $i++)
+    {
+        chop($track_offsets[$i] = <CDINFO>);
+    }
+
+    chop($seconds_in_cd = <CDINFO>);
+
+    close(CDINFO);
+
+    $query = "cddb query $disc_id $last_track ";
+    for($i = $first_track; $i <= $last_track; $i++)
+    {
+        $query .= "$track_offsets[$i] ";
+    }
+
+    $query .= "$seconds_in_cd\n";
+
+    return $query, $last_track;
+}
+
+sub OutputFreeDBLookup
+{
+   my ($this, $info) = @_;
+   my ($item, $rdf, $tracks, $track, $i);
+
+$this = RDF2->new();
+$this->{baseuri} = "http://www.musicbrainz.org";
+$this->{status} = "OK";
+$this->{discid} = "3724572";
+ 
+   $rdf  = $this->BeginRDFObject;
+   $rdf .=   $this->BeginDesc("mq:Result");
+   $rdf .=   $this->Element("mq:status", $this->{status});
+   $rdf .=     $this->BeginDesc("mm:albumList");
+   $rdf .=       $this->BeginSeq();
+   $rdf .=         $this->Li("freedb:genid1");
+   $rdf .=       $this->EndSeq();
+   $rdf .=     $this->EndDesc("mm:albumList");
+   $rdf .=   $this->EndDesc("mq:Result");
+
+   $rdf .=   $this->BeginDesc("mm:Artist", "freedb:genid2");
+   $rdf .=   $this->Element("dc:title", $info->{artist});
+   $rdf .=   $this->Element("mm:sortName", $info->{sortname});
+   $rdf .=   $this->EndDesc("mm:Artist");
+
+   $rdf .=   $this->BeginDesc("mm:Album", "freedb:genid1");
+   $rdf .=     $this->Element("dc:title", $info->{album});
+   $rdf .=     $this->Element("dc:creator", "", 
+                              "rdf:resource", "freedb:genid2");  
+   $rdf .=     $this->BeginDesc("mm:trackList");
+   $rdf .=       $this->BeginSeq();
+
+   $tracks = $info->{tracks};
+   $i = 3;
+   foreach $track (@$tracks)
+   {
+       $rdf .=      $this->Li("freedb:genid$i");
+       $i++;
+   }
+   $rdf .=       $this->EndSeq();
+   $rdf .=   $this->EndDesc("mm:trackList");
+   $rdf .=   $this->EndDesc("mm:Album");
+
+   $i = 3;
+   foreach $track (@$tracks)
+   {
+       $rdf .=   $this->BeginDesc("mm:Track", "freedb:genid$i");
+       $rdf .=      $this->Element("dc:title", $track->{track});
+       $rdf .=      $this->Element("mm:trackNum", $track->{tracknum});
+       $rdf .=      $this->Element("dc:creator", "", 
+                                   "rdf:resource", "freedb:genid2");  
+       $rdf .=   $this->EndDesc("mm:Track");
+       $i++;
+   }
+
+   $rdf .= $this->EndRDFObject;
+
+   print $rdf;
+}
+
+my ($r, $track, $i);
+my $ref = GetCddbInfo("www.freedb.org", 888);
+if (!defined $ref)
+{
+    print "CD lookup failed.\n";
+    exit(0);
+}
+
+print "Aritst: $ref->{artist}\n";
+print "Title: $ref->{album}\n";
+
+$r = $ref->{tracks};
+foreach $track (@$r)
+{
+    $i++;
+    print "$track->{tracknum}: $track->{track}\n"; 
+}
+
+OutputFreeDBLookup(0, $ref);
