@@ -1,24 +1,10 @@
 %# vi: set ts=4 sw=4 ft=mason :
-
-% if (!defined $session{user} || $session{user} eq '' || 
-%     !defined $session{uid} || $session{uid} == 0) {
-	<& /comp/sidebar, title=>'Login Required' &>
-    <center>
-    <span class="bold">
-       You must be logged in to set your preferences.
-    </span>
-    <p>
-    <& /comp/tablebegin, title=>'Login' &>
-    <& /comp/loginbox &>
-    <& /comp/tableend &>
-    </center>
-	<& /comp/footer &>
-% return;
-% } 
-
-<& /comp/sidebar, title=>'Preferences' &>
-
 <%perl>
+
+$m->comp("/comp/checkloggedin", 1, 1,
+	"You must log in to change your preferences.",
+	)
+	or return;
 
 my @allowed_formats = (
 '%Y-%m-%d %H:%M:%S %Z',
@@ -84,6 +70,7 @@ if ($ARGS{"SavePrefs"})
 	$session{"sitemenu_light"} = ($ARGS{"sitemenu_light"} ? 1 : 0);
 
 	$session{"no_sidebar_panels"} = ($ARGS{"no_sidebar_panels"} ? 1 : 0);
+	$session{"nosidebar"} = ($ARGS{"nosidebar"} ? 1 : 0);
 
 	$session{"mod_add_album_inline"} = ($ARGS{"mod_add_album_inline"} ? 1 : 0);
 
@@ -112,6 +99,8 @@ $session{mod_add_album_inline} ||= 0;
 $session{mods_per_page} ||= 10;
 
 </%perl>
+
+<& /comp/sidebar, title=>'Preferences' &>
 
 <h2>Notice</h2>
 
@@ -188,6 +177,14 @@ $session{mods_per_page} ||= 10;
 			<% $session{no_sidebar_panels} ? "checked" : "" %>
 			>
 		Don't show sidebar panels (faster page loads)
+	</p>
+
+	<p>
+		<input type="checkbox" name="nosidebar"
+			<% $session{nosidebar} ? "checked" : "" %>
+			>
+		Don't show the sidebar at all (even faster, but it makes it
+		rather hard to navigate the site)
 	</p>
 
 	<p>
