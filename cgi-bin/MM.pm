@@ -25,6 +25,8 @@
 
 package MM;
 
+use ModDefs qw( VARTIST_ID );
+
 use TableBase;
 use RDF2;
 { our @ISA = qw( TableBase RDF2 ) }
@@ -477,7 +479,7 @@ sub _GetArtistReferences
     my ($this, $ref, $artist, $depth) = @_;
     my (@albums, @albumids, $album, %info, @ret);
 
-    if ($artist->GetId() == &ModDefs::VARTIST_ID ||
+    if ($artist->GetId() == VARTIST_ID ||
     $depth >= $this->{depth})
     {
 	return ();
@@ -504,7 +506,6 @@ sub _GetAlbumReferences
     my ($this, $ref, $album, $depth) = @_;
     # TODO get rid of %info
     my (@ret, %info);
-    my @ret;
 
     my $albumartist = $album->GetArtist();
     $info{type} = 'artist';
