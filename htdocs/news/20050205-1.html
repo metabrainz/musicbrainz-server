@@ -1,0 +1,267 @@
+%# vi: set ts=2 sw=2 ft=mason :
+<& /comp/sidebar, title => 'February 13th, 2005: Server Updates' &>
+
+<p>
+	(This change log includes all changes made to the server since the date
+	of the last release.&nbsp; Some of these changes are new as of the
+	above date; some were introduced between the previous release and this one).
+</p>
+
+<h2>Changes mainly of interest to MusicBrainz Users</h2>
+
+<h3>Artist Subscriptions Made Public</h3>
+
+<p>
+	So far your list of subscribed artists has always been completely
+	private - no-one could see which artists you're subscribed to, and
+	no-one could see who is subscribed to any given artist.&nbsp;
+	This is now changing.
+</p>
+
+<p>
+	A new preference has been added, called
+		"Allow other users to see <a href="/user/subscriptions.html"
+			>my subscribed artists</a>".&nbsp;
+	The default setting of this new preference is <strong>ON</strong>, the opposite of
+	the previous behaviour, meaning that <strong>your artist subscription list
+	will become public</strong>.&nbsp; If you don't want your subscription list to
+	become public, you have 30 days from the date of this release
+	to log in and change this preference to "off".&nbsp; (You can change the
+	setting at any time, but if you want to be sure that no-one ever sees
+	your subscription list, you'll have to change it to "off" within the first
+	30 days).
+</p>
+
+<p>
+	From the date of this release, you can
+	see how many users are subscribed to any given artist, including
+	users who have are "privately" subscribed.&nbsp; However you won't
+	immediately be able to see a list of users subscribed to an artist, or
+	vice versa.&nbsp;
+	<span id="subscription-30day-rule">From 30 days after this release</span>,
+	you'll be able to see other users' subscription lists (if their preferences
+	let you), and you can see what users are subscribed to any given
+	artist (but only those users whose lists are "public").&nbsp;
+	During the first 30 days those pages will simply show an error message.
+</p>
+
+<p>
+	Please <a href="/docs/20050108-1.html">read these notes</a> about this
+	feature if you are concerned about the privacy implications.
+</p>
+
+<h3>New Preference: "When I Vote, Mail Me Notes"</h3>
+
+<p>
+	A new preference has been added: "When I vote on a moderation,
+	mail me all future notes for that moderation".&nbsp; Hopefully
+	the meaning of this is quite clear.&nbsp; The setting is checked
+	as each note is added, so you can globally turn this
+	behaviour on or off for all moderations (i.e. you can't have this
+	option "on" for some moderations and "off" for others).
+</p>
+
+<h3>If you are an "Automatic Moderator"</h3>
+
+<p>
+	The search page will
+	now notify you whenever there are any elections in which you may
+	participate (but have not yet done so).
+</p>
+
+<p>
+	There is a new preference, "Enable auto-moderator privileges".&nbsp;
+	If you turn this setting off, you can temporarily revoke your automod
+	privilege from yourself, allowing you to put some moderation to the vote
+	where it would otherwise have been automatically applied.&nbsp; To
+	regain your automod privilege, simply
+	return to <a href="/prefs.html">your preferences page</a> and re-enable
+	the option.&nbsp; This setting is not saved to the database; if you log
+	out and in again, the option will always be reset to "on".
+</p>
+
+<p>
+	When nominating another user for auto-moderator status, there is now a
+	"confirm" page, so it's harder to accidentally nominate someone.
+</p>
+
+<h3>Miscellaneous</h3>
+
+<p>
+	When editing a track, the allowed track number range is
+	shown and checked against.
+</p>
+
+<p>
+	The <a href="/reports/generated/SuperfluousDataTracks/">Albums with superfluous data tracks</a>
+	report now only shows tracks if they are the last track on the album
+	in question.
+</p>
+
+<p>
+	The "login" page is now never shown to logged-in users.&nbsp; This happened
+	from time to time, and was always very confusing when it did.&nbsp; The HTML
+	for the login box has also been tidied up.&nbsp; One side-effect of this is
+	that the odd "jumping" behaviour seen by some Mozilla / Firefox users seems
+	to have been fixed.
+</p>
+
+<p>
+	If you use the <a href="/products/picard/">"Picard" Tagger</a>, then the
+	artist "album list" page now includes "tagger" links on all the
+	albums.&nbsp; Also, the problem whereby sometimes you would see the "Nothing
+	to see here, move along" page has been fixed.
+</p>
+
+<p>
+	If you use the "Use Javascript to move the input focus when the page loads"
+	preference (which is on by default), then the tagger "lookup" page now
+	<em>doesn't</em> move the focus, but the "submit a new CD" page
+	<em>does</em>.
+</p>
+
+<p>
+	Each album now includes an "Edit releases" link at the bottom, next to where
+	the releases are shown.
+</p>
+
+<p>
+	<a href="http://wiki.musicbrainz.org/wiki.pl?MildlyDiverting">Kim
+		Plowright</a> has contributed <a href="/search/plugins/firefox/install.html">search
+		plugins for Firefox</a>.
+</p>
+	
+<p>
+	The "Reveal my e-mail address" option has been removed from the moderation
+	note window.
+</p>
+
+<p>
+	The album "release editor" now checks for valid dates.
+</p>
+
+<p>
+	You can now search for moderations by date / time:
+	<a href="/mod/search/index.html?minid=15+minutes+ago">example one</a>,
+	<a href="/mod/search/index.html?minid=25+dec+2004&amp;maxid=2004/12/25+8pm+PST&amp;mod_type=4">example two</a>.&nbsp;
+	Searching for moderations (when your search includes both open and closed
+	moderations) is faster now, after
+	<a href="http://lists.musicbrainz.org/pipermail/musicbrainz-devel/2005-January/000965.html">this
+		work by Yary Hluchan</a>.&nbsp; Thanks Yary!
+</p>
+
+<p>
+	From a moderator's "profile" page, you can now search for their
+	Deleted Moderations.
+</p>
+
+<p>
+	When <a href="/user/edit.html">editing your own profile</a>, you can
+	re-send yourself a "confirm my e-mail address" message at any time,
+	without having to change your e-mail address to something else and
+	back again.&nbsp;
+	<abbr title="Postscript">P.S.</abbr>: all user accounts which have a
+	stored e-mail address have now had that address validated at least once.
+</p>
+
+<p>
+	Various things in moderation notes are now automatically turned into
+	hyperlinks to moderations: e.g. "moderation #123",
+	auto hyperlinks in mod notes to other mods: e.g. "moderation #123",
+	"mod 245725" or "edit #36483" would all become links to their respective
+	pages.
+</p>
+
+<h2>New and Changed Documentation</h2>
+
+<ul>
+	<li><a href="/about/licenses.html">MusicBrainz Data Licenses</a></li>
+	<li><a href="/docs/20050108-1.html">Privacy notes about artist subscriptions</a></li>
+	<li>The <a href="/user/edit.html">user profile edit page</a> now
+		provides help on what to do if you don't want your account any more</li>
+</ul>
+
+<p>
+	The <a href="/disc.html">page about disc IDs</a> contained a link to what
+	is now some rubbishy "link farm" web site; that link has therefore been
+	removed.&nbsp;
+	<a href="/bio.html">ruaok's bio</a> has been updated.&nbsp;
+	The <a href="/">home page</a> contained some invalid HTML, which has now
+	been fixed.&nbsp;
+</p>
+
+<h2>Changes mainly of interest to MusicBrainz Server Programmers</h2>
+
+<p>
+	The INSTALL file has been updated; PostgreSQL 7.4 or later is required,
+	and the list of dependencies from CPAN has been updated.&nbsp;
+	Also a link to the <a href="http://wiki.musicbrainz.org/wiki.pl?DebianServerSetup">DebianServerSetup
+		wiki page</a> has been added.
+</p>
+
+<p>
+	<tt>admin/RemoveOldSessions</tt> now also removes orphaned lock files.
+</p>
+
+<p>
+	<tt>admin/SetSequences.pl</tt> now correctly sets the next sequence values
+	on the three "*_open" tables.&nbsp; (This bug would manifest itself as
+	duplicate key errors whenever the moderation was closed).
+</p>
+
+<p>
+	The URL rewriting (e.g. of /artist/<em>GUID</em> etc) is now implemented
+	via MusicBrainz::Server::Handlers, not mod_rewrite.&nbsp; In doing so
+	it's now possible to use the "/artist/..." URL space for other things, e.g.
+	<a href="/artist/subscriptions.html?artist=3798b104-01cb-484c-a3b0-56adc6399b80"
+		>HTML pages</a> (note: this page currently <a href="#subscription-30day-rule">gives an error</a>).
+</p>
+
+<p>
+	The SQL scripts have been tidied up (sorted, layout standardised etc).&nbsp;
+	<tt>DropViews.sql</tt> now drops the views, not creates them :-)
+</p>
+
+<p>
+	Artists, users and countries are now cached using <em>memcached</em>.&nbsp;
+	The country list is no longer stored in each user's <tt>%session</tt>.
+</p>
+
+<p>
+	The <tt>MusicBrainz::Server::DateTime</tt> module has been added.&nbsp;
+	The <tt>MusicBrainz::Server::DeferredUpdate</tt> module has been rewritten
+	somewhat, including the ability to handle deadlocks.&nbsp;
+</p>
+
+<p>
+	You can now customise the cookie name used (the default is
+	<tt>AF_SID</tt>).&nbsp;
+	We now check for, trap, and work around <tt>HTML::Mason</tt>'s unhelpful
+	behaviour of turning repeated arguments into an array reference.
+</p>
+
+<p>
+	Extra logging has been added TRM requests and to the
+	<tt>TrackInfoFromTRMId</tt> query.&nbsp; In the latter query,
+	results are limited to 100 tracks, and looking up the "silence" TRM is now
+	disallowed.
+</p>
+
+<h2>Bugs and RFEs Closed</h2>
+
+<%perl> $m->comp("buglist.inc", <<'EOF' =~ m/(.+)/mg);
+
+1045980	Deleted edits
+1082659	Create hyperlinks for mod ids listed in moderation notes
+1074902	Remove the Reveal My Email Address tickbox from the mod note
+1098133	email mod notes to voters
+1038665	Display the number of subscribers
+919885	Automoderation : flag mod for voting
+1025640	Move the "edit releases" link to the bottom
+
+EOF
+</%perl>
+
+<p style="margin-top: 3em"><a href="/support/contact.html">Dave Evans</a></p>
+
+<& /comp/footer &>
