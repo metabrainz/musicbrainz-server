@@ -24,20 +24,14 @@
 #____________________________________________________________________________
 
 package Track;
-use TableBase;
 
-use vars qw(@ISA @EXPORT);
-@ISA    = @ISA    = 'TableBase';
-@EXPORT = @EXPORT = '';
+use TableBase;
+{ our @ISA = qw( TableBase ) }
 
 use strict;
 
 use Carp qw( carp croak );
-use DBI;
 use DBDefs;
-use Artist;
-use Album;
-use Alias;
 use ModDefs;
 
 # Accessor functions to set/get the artist id of this album
@@ -241,6 +235,7 @@ sub GetMetadataFromIdAndAlbum
          return ();
     }
 
+	require Artist;
     my $ar = Artist->new($this->{DBH});
     $ar->SetId($this->GetArtist());
     if (!defined $ar->LoadFromId())
@@ -248,6 +243,7 @@ sub GetMetadataFromIdAndAlbum
          return ();
     }
 
+	require TRM;
     my $trm = TRM->new($this->{DBH});
     @TRM = $trm->GetTRMFromTrackId($id);
     if (scalar(@TRM) == 0)
@@ -361,8 +357,7 @@ sub Insert
 	);
 
     # Add search engine tokens.
-    my $engine = SearchEngine->new($this->{DBH},  { Table => 'Track' } );
-    $engine->AddWordRefs($track,$this->{name});
+	$this->RebuildWordList;
 
     return $track;
 }
@@ -388,9 +383,22 @@ sub UpdateName
 
 	# Now remove the old name from the word index, and then
 	# add the new name to the index
-	my $engine = SearchEngine->new($self->{DBH}, { Table => 'Track' });
-	$engine->RemoveObjectRefs($id);
-	$engine->AddWordRefs($id, $name);
+	$self->RebuildWordList;
+}
+
+# The track name has changed.  Rebuild the words for this track.
+
+sub RebuildWordList
+{
+    my ($this) = @_;
+
+    require SearchEngine;
+    my $engine = SearchEngine->new($this->{DBH}, 'track');
+    $engine->AddWordRefs(
+		$this->GetId,
+		$this->GetName,
+		1, # remove other words
+    );
 }
 
 sub UpdateArtist
@@ -454,6 +462,7 @@ sub Remove
         return undef
     }
 
+	require TRM;
     my $trm = TRM->new($this->{DBH});
     $trm->RemoveByTrackId($this->GetId());
 
@@ -461,7 +470,8 @@ sub Remove
     $sql->Do("DELETE FROM track WHERE id = ?", $this->GetId);
 
     # Remove references from track words table
-    my $engine = SearchEngine->new($this->{DBH},  { Table => 'Track' } );
+	require SearchEngine;
+    my $engine = SearchEngine->new($this->{DBH}, 'track');
     $engine->RemoveObjectRefs($this->GetId());
 
     return 1;

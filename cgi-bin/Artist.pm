@@ -24,19 +24,13 @@
 #____________________________________________________________________________
 
 package Artist;
-use TableBase;
 
-use vars qw(@ISA @EXPORT);
-@ISA    = @ISA    = 'TableBase';
-@EXPORT = @EXPORT = '';
+use TableBase;
+{ our @ISA = qw( TableBase ) }
 
 use strict;
 use Carp qw( carp cluck croak );
-use DBI;
 use DBDefs;
-use Alias;
-use Album;
-use Track;
 use String::Unicode::Similarity;
 use Text::Unaccent;
 use LocaleSaver;
@@ -84,6 +78,7 @@ sub Insert
     unless ($opts{no_alias})
     {
 	# Check to see if the artist has an alias.
+	require Alias;
 	my $alias = Alias->new($this->{DBH});
 	$alias->{table} = "ArtistAlias";
 	$artist = $alias->Resolve($name);
@@ -109,7 +104,8 @@ sub Insert
     # Add search engine tokens.
     # TODO This should be in a trigger if we ever get a real DB.
 
-    my $engine = SearchEngine->new($this->{DBH}, { Table => 'Artist' } );
+    require SearchEngine;
+    my $engine = SearchEngine->new($this->{DBH}, 'artist');
     $engine->AddWordRefs($artist,$this->{name});
 
     return $artist;
@@ -164,7 +160,8 @@ sub Remove
     );
 
     # Remove references from artist words table
-    my $engine = SearchEngine->new($this->{DBH}, { Table => 'Artist' } );
+    require SearchEngine;
+    my $engine = SearchEngine->new($this->{DBH}, 'artist');
     $engine->RemoveObjectRefs($this->GetId());
 
     $sql->Do("DELETE FROM artist WHERE id = ?", $this->GetId);
@@ -194,6 +191,7 @@ sub MergeInto
     $sql->Do("DELETE FROM artist     WHERE id   = ?", $o);
 
     # Merge any non-album tracks albums together
+    require Album;
     my $alb = Album->new($old->{DBH});
     my @non = $alb->FindNonAlbum($n);
     $alb->CombineNonAlbums(@non)
@@ -201,6 +199,7 @@ sub MergeInto
 
     # Insert the old name as an alias for the new one
     # TODO this is often a bad idea - remove this code?
+    require Alias;
     my $al = Alias->new($old->{DBH});
     $al->SetTable("ArtistAlias");
     $al->Insert($n, $old->GetName);
@@ -273,15 +272,19 @@ sub RebuildWordList
 {
     my ($this) = @_;
 
+    require Alias;
     my $al = Alias->new($this->{DBH});
     $al->SetTable("ArtistAlias");
     my @aliases = $al->GetList($this->GetId);
     @aliases = map { $_->[1] } @aliases;
 
-    my $engine = SearchEngine->new($this->{DBH}, { Table => 'Artist' } );
-    $engine->RemoveObjectRefs($this->GetId);
-    $engine->AddWordRefs($this->GetId, $_)
-    	for ($this->{name}, @aliases);
+    require SearchEngine;
+    my $engine = SearchEngine->new($this->{DBH}, 'artist');
+    $engine->AddWordRefs(
+	$this->GetId,
+	[ $this->{name}, @aliases ],
+	1, # remove other words
+    );
 }
 
 # Load an artist record given a name. The name must match exactly.
@@ -345,6 +348,7 @@ sub LoadFromName
 		and return 1;
 
         # If that failed too, then try the artist aliases
+	require Alias;
         my $alias = Alias->new($this->{DBH}, "artistalias");
 
         if (my $artist = $alias->Resolve($artistname))
@@ -524,6 +528,7 @@ sub GetAlbums
    {
         while(@row = $sql->NextRow)
         {
+	    require Album;
             $album = Album->new($this->{DBH});
             $album->SetId($row[0]);
             $album->SetName($row[1]);
@@ -578,6 +583,7 @@ sub GetAlbums
    {
         while(@row = $sql->NextRow)
         {
+	    require Album;
             $album = Album->new($this->{DBH});
             $album->SetId($row[0]);
             $album->SetName($row[1]);

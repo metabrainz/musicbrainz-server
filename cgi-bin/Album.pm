@@ -24,21 +24,13 @@
 #____________________________________________________________________________
 
 package Album;
-use TableBase;
 
-use vars qw(@ISA @EXPORT);
-@ISA    = (TableBase);
-@EXPORT = '';
+use TableBase;
+{ our @ISA = qw( TableBase ) }
 
 use strict;
 use Carp qw( cluck croak );
-use DBI;
 use DBDefs;
-use Artist;
-use Track;
-use Discid;
-use TRM;
-use SearchEngine;
 use ModDefs qw( VARTIST_ID );
 use Text::Unaccent;
 use LocaleSaver;
@@ -341,8 +333,7 @@ sub Insert
 
 	unless ($this->IsNonAlbumTracks)
 	{
-		my $engine = SearchEngine->new($this->{DBH}, { Table => 'Album' } );
-		$engine->AddWordRefs($album, $this->GetName);
+		$this->RebuildWordList;
 	}
 
     return $album;
@@ -364,12 +355,14 @@ sub Remove
     $sql->Do("DELETE FROM discid WHERE album = ?", $album);
 
     print STDERR "DELETE: Removed release where album was " . $album . "\n";
+	require MusicBrainz::Server::Release;
 	my $rel = MusicBrainz::Server::Release->new($sql->{DBH});
 	$rel->RemoveByAlbum($album);
 
     if ($sql->Select(qq|select AlbumJoin.track from AlbumJoin 
                          where AlbumJoin.album = $album|))
     {
+		require Track;
          my $tr = Track->new($this->{DBH});
          while(@row = $sql->NextRow)
          {
@@ -382,7 +375,8 @@ sub Remove
 	$sql->Finish;
 
     # Remove references from album words table
-    my $engine = SearchEngine->new($this->{DBH},  { Table => 'Album' } );
+	require SearchEngine;
+    my $engine = SearchEngine->new($this->{DBH}, 'album');
     $engine->RemoveObjectRefs($this->GetId());
 
     print STDERR "DELETE: Removed Album " . $album . "\n";
@@ -599,6 +593,7 @@ sub LoadTracks
 
    my (@info, $query, $query2, @row, $track, $trm);
 
+   require TRM;
    $trm = TRM->new($this->{DBH});
    $query = qq|select Track.id, Track.name, Track.artist,
                       AlbumJoin.sequence, Track.length,
@@ -612,6 +607,7 @@ sub LoadTracks
    {
        for(;@row = $sql->NextRow();)
        {
+		   require Track;
            $track = Track->new($this->{DBH});
            $track->SetId($row[0]);
            $track->SetName($row[1]);
@@ -645,6 +641,7 @@ sub LoadTracks
 sub Releases
 {
 	my $self = shift;
+	require MusicBrainz::Server::Release;
 	my $rel = MusicBrainz::Server::Release->new($self->{DBH});
 	$rel->newFromAlbum($self->GetId);
 }
@@ -655,6 +652,7 @@ sub GetDiscIDs
 
 	unless (defined $self->{"_discids"})
 	{
+		require Discid;
 		my $di = Discid->new($self->{DBH});
 		my $ret = $di->LoadFull($self->GetId);
 		$self->{"_discids"} = ($ret || 0);
@@ -694,6 +692,7 @@ sub LoadTracksFromMultipleArtistAlbum
    {
        for(;@row = $sql->NextRow();)
        {
+		   require Track;
            $track = Track->new($this->{DBH});
            $track->SetId($row[0]);
            $track->SetName($row[1]);
@@ -765,6 +764,7 @@ sub MergeAlbums
 		);
    }
 
+   require Album;
    $al = Album->new($this->{DBH});
    foreach $id (@list)
    {
@@ -829,6 +829,7 @@ sub MergeAlbums
 		);
 
 		# And the releases
+		require MusicBrainz::Server::Release;
 		my $rel = MusicBrainz::Server::Release->new($sql->{DBH});
 		$rel->MoveFromAlbumToAlbum($id, $this->GetId);
 
@@ -902,6 +903,7 @@ sub GetVariousDisplayList
 	my @albums = map {
 		my $row = $_;
 
+		require Album;
 		my $al = Album->new($this->{DBH});
 
 		$al->{_debug_sortname} = shift @$row;
@@ -949,9 +951,22 @@ sub UpdateName
 
 	# Now remove the old name from the word index, and then
 	# add the new name to the index
-	my $engine = SearchEngine->new($self->{DBH}, { Table => 'album' });
-	$engine->RemoveObjectRefs($id);
-	$engine->AddWordRefs($id, $name);
+	$self->RebuildWordList;
+}
+
+# The album name has changed.  Rebuild the words for this album.
+
+sub RebuildWordList
+{
+    my ($this) = @_;
+
+    require SearchEngine;
+    my $engine = SearchEngine->new($this->{DBH}, 'album');
+    $engine->AddWordRefs(
+		$this->GetId,
+		$this->GetName,
+		1, # remove other words
+    );
 }
 
 sub UpdateAttributes
