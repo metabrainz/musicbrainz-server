@@ -1,3 +1,4 @@
+%# vi: set ts=4 sw=4 ft=mason :
 <%args>
 $tracks
 $id
@@ -43,8 +44,6 @@ if ($freedb)
 
 </%perl>
 
-<& /comp/cdi/entervalidate &>
-
 % if (defined $lookup) {
      Found CD <font class="bold"><% $lookup->{album} %></font> 
      by <font class="bold"><% $lookup->{artist} %></font> at
@@ -79,6 +78,8 @@ if ($freedb)
 
 %    }
 % }
+
+<script type="text/javascript" src="/scripts/entervalidate.js"></script>
 
 <form method="POST" action="/cdi/selectattr.html" Name="EnterCD"
       enctype="application/x-www-form-urlencoded" class="formstyle"

@@ -1,3 +1,4 @@
+%# vi: set ts=4 sw=4 ft=mason :
 <%args>
 $tracks
 $id
@@ -35,7 +36,7 @@ if ($freedb)
 
 </%perl>
 
-<& /comp/cdi/entervalidate &>
+<script type="text/javascript" src="/scripts/entervalidate.js"></script>
 
 % if (defined $lookup) {
      Found CD <font class="bold"><% $lookup->{album} %></font>

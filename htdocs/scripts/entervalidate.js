@@ -1,7 +1,7 @@
-<script LANGUAGE="JavaScript1.1">
+
 function validate(f)
 { 
-    for(var i = 0; i < f.length; i++)
+    for (var i = 0; i < f.length; i++)
     {
         var e = f.elements[i];
         if (e.type != "text")
@@ -13,6 +13,7 @@ function validate(f)
             return false;
         }
     }
+
     return true;
-};
-</script>
+}
+

@@ -138,8 +138,6 @@ else
 
 </%perl>
 
-<& /comp/cdi/entervalidate &>
-
 Retrieved CD <font class="bold"><% $lookup->{album} %></font> 
 by <font class="bold"><% $lookup->{artist} %></font> at
 <a href="http://www.freedb.org">freedb.org</a>.<p>
@@ -205,6 +203,8 @@ mistakes you may find.<p>
 my ($artistname, $sortname, $trackname, $temp);
 
 </%perl>
+
+<script type="text/javascript" src="/scripts/entervalidate.js"></script>
 
 <form method="POST" action="/cdi/selectattr.html" Name="EnterCD"
       enctype="application/x-www-form-urlencoded" class="formstyle"
