@@ -472,37 +472,34 @@ sub SubmitTrack
 
 sub SubmitTRMList
 {
-   my ($dbh, $parser, $rdf, $session) = @_;
-   my (@ids, @ids2, $sql, $gu, $tr);
-   my ($i, $trmid, $trackid, $uri, $clientVer);
+    my ($dbh, $parser, $rdf, $session) = @_;
 
-   return undef if (!defined $dbh);
+    return undef if (!defined $dbh);
 
-   if (&DBDefs::DB_READ_ONLY)
-   {
-       return $rdf->ErrorRDF(&DBDefs::DB_READ_ONLY_MESSAGE)
-   }
+    if (&DBDefs::DB_READ_ONLY)
+    {
+      	return $rdf->ErrorRDF(&DBDefs::DB_READ_ONLY_MESSAGE)
+    }
 
-   $sql = Sql->new($dbh);
-   $gu = TRM->new($dbh);
+    my $sql = Sql->new($dbh);
 
-   my $ns = $rdf->GetMQNamespace();
-   my $query = EXTRACT_CLIENT_VERSION;
-   $query =~ s/!mq!/$ns/g;
+    my $ns = $rdf->GetMQNamespace();
+    my $query = EXTRACT_CLIENT_VERSION;
+    $query =~ s/!mq!/$ns/g;
 
-   $uri = $parser->GetBaseURI();
-   $clientVer = $parser->Extract($uri, 0, $query);
-   if (not defined $clientVer)
-   {
-       return $rdf->ErrorRDF("Your MusicBrainz client must provide its version " .
+    my $uri = $parser->GetBaseURI();
+    my $clientVer = $parser->Extract($uri, 0, $query);
+    if (not defined $clientVer)
+    {
+     	return $rdf->ErrorRDF("Your MusicBrainz client must provide its version " .
                              "id string when submitting data to MusicBrainz.")
-   }
+    }
 
-   my @links;
+    my @links;
 
-   for($i = 1; ; $i++)
-   {
-       ($trackid, $trmid) = $rdf->GetTRMTrackIdPair($parser, $uri, $i);
+    for (my $i = 1; ; $i++)
+    {
+       my ($trackid, $trmid) = $rdf->GetTRMTrackIdPair($parser, $uri, $i);
        if (!defined $trackid || $trackid eq '' ||
            !defined $trmid || $trmid eq '')
        {
@@ -517,23 +514,15 @@ sub SubmitTRMList
            return $rdf->ErrorRDF("Invalid trackid or trmid submitted.")
        }
 
-       $trackid =~ tr/A-Z/a-z/;
-       $trackid = $sql->Quote($trackid);
-
-       #lookup the IDs associated with the $trackGID
-       @ids = $sql->GetSingleRow("Album, Track, AlbumJoin",
-                                 ["Track.id"],
-                                 ["Track.gid", $trackid,
-                                  "AlbumJoin.track", "Track.id",
-                                  "AlbumJoin.album", "Album.id"]);
-       if (scalar(@ids) == 0 || !defined($ids[0]))
-       {
-           print STDERR "Unknown MB Track Id: $trackid\n";
-       }
-       else
-       {
-	   push @links, { trmid => $trmid, trackid => $ids[0] };
-       }
+	#lookup the IDs associated with the $trackGID
+	my $trackobj = Track->new($sql->{DBH});
+	$trackobj->SetMBId($trackid);
+	unless ($trackobj->LoadFromId)
+	{
+	    print STDERR "Unknown MB Track Id: $trackid\n";
+	} else {
+	    push @links, { trmid => $trmid, trackid => $trackobj->GetId };
+	}
    }
 
    if (@links)
