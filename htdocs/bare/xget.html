@@ -112,8 +112,8 @@ sub MakeCDInfo
         foreach $ref (@tracks)
         {
             $out .= "    <Track Num=\"$num\">\n";
-            $out .= "      <Name>" . $ref->GetName() . "</Name>\n";
             $out .= "      <Artist>" . $ref->GetArtistName() . "</Artist>\n";
+            $out .= "      <Name>" . $ref->GetName() . "</Name>\n";
             $out .= "    </Track>\n";
             $num++;
         }
