@@ -360,14 +360,13 @@ sub Insert
             $values .= ", " . $sql->Quote($this->{comment});
         }
 
-        if ($sql->Do("$query) $values)"))
-        {
-            $track = $sql->GetLastInsertId("Track");
-            $this->{new_insert} = $track;
-            $sql->Do(qq/insert into AlbumJoin (album, track, sequence,
-                     modpending) values ($album, $track, 
-                     $this->{sequence}, 0)/);
-        }
+        $sql->Do("$query) $values)");
+
+	$track = $sql->GetLastInsertId("Track");
+	$this->{new_insert} = $track;
+	$sql->Do(qq/insert into AlbumJoin (album, track, sequence,
+		modpending) values ($album, $track, 
+		$this->{sequence}, 0)/);
     }
 
     $this->{id} = $track;
