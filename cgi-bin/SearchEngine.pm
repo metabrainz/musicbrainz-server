@@ -201,7 +201,7 @@ sub GetQuery
     elsif ($self->{Table} eq 'Artist')
     {
         $query = "
-        SELECT Artist.id, Artist.name, count(WordList.Id) as num_matches
+        SELECT Artist.id, Artist.name, Artist.sortname, count(WordList.Id) as num_matches
         FROM Artist, ArtistWords, WordList
         WHERE $where_clause
         and ArtistWords.Wordid = WordList.Id

@@ -526,7 +526,7 @@ sub GetModerationList
             Artist.id and Changes.artist = $rowid
             order by TimeSubmitted desc limit $index, -1/;
    }
-   if ($type == ModDefs::TYPE_FREEDB)
+   elsif ($type == ModDefs::TYPE_FREEDB)
    {
        $query = qq/select Changes.id, tab, col, Changes.rowid, 
             Changes.artist, type, prevvalue, newvalue, 

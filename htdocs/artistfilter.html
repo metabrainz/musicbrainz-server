@@ -8,8 +8,9 @@
 # $dest_argname is the name of the argument where the sortname of a new
 #               artist should be stored.
 
-my ($mb, $i, $j, $mod, $new, @names, $ar, $arg, $argname, $dest_argname);
-my ($sortname, $name, $key, $found, $mode, $num_found, $id);
+my ($mb, $i, $j, $mod, $new, $arg, $argname, $dest_argname, $key);
+my ($sortname, $name, $mode, $id, $eng, $ar);
+my ($artist, @names);
 
 if (!exists $ARGS{new0} || $ARGS{new0} eq '' ||
     !exists $ARGS{mode} || $ARGS{mode} eq '')
@@ -25,7 +26,7 @@ mc_comp("/comp/sidebar", title=>'Select Artist for Album Move')
     if ($mode eq 'move');
 mc_comp("/comp/sidebar", title=>'Select Artist for Change to Single Artist')
     if ($mode eq 'tosac');
-mc_comp("/comp/sidebar", title=>'Select Artist for Album Merge') 
+mc_comp("/comp/sidebar", title=>'Select Artist for Artist Merge') 
     if ($mode eq 'merge');
 mc_comp("/comp/sidebar", title=>'Select Artist for Track Change') 
     if ($mode eq 'track');
@@ -41,34 +42,48 @@ $mb = new MusicBrainz;
 $mb->Login();
 
 $ar = Artist->new($mb->{DBH});
-@names = $ar->FindArtist($arg);
-
-$found = 0;
-my $index = 0;
-my $found_self = 0;
-foreach $key (@names)
+# try to load the artist. If that artist is not found, then try a search
+if ($ar->LoadFromName($arg))
 {
-    print STDERR "$key->{id} == $ARGS{artist0}\n";
-    if ($key->{id} == $ARGS{artist0})
-    {
-        print STDERR "deleted\n";
-        $found_self = 1;
-        delete $names[$index]; 
-        next; 
-    }
-    if (lc($key->{name}) eq lc($arg))
-    {
-        $found = 1;
-    }
-    $index++;
+    $artist = { name=>$ar->GetName(), 
+                sortname=>$ar->GetSortName(), 
+                id=>$ar->GetId() };
 }
-$num_found = scalar(@names);
+else
+{
+    $artist = undef;
+
+    $eng = SearchEngine->new();
+    $eng->Table("Artist");
+    $eng->AllWords(1);
+    $eng->Search($arg);
+    
+    while (my $row = $eng->NextRow)
+    {
+        push @names, { name=>$row->[1], sortname=>$row->[2], id=>$row->[0] };
+    }
+}
 </%perl>
 
 A search on <font class="bold"><% $arg %></font>
 has turned up the following matching artists that are similar to the 
 artist name that you just entered. 
 
+<%perl>
+# If we're merging an album, and we didn't find any matches, complain.
+if (!defined $artist && scalar(@names) == 0 && 
+   ($mode eq 'merge' || $mode eq 'move')) 
+{
+    </%perl>
+    <& /comp/tablebegin, title=>'No Artists Found', gattrs=>'width="100%"' &>
+    <br>&nbsp;&nbsp;<span class="bold">No artists found.</span>
+    Please <a href="<% $ARGS{url} %>">try again</a>.<p><br>
+    <& /comp/tableend &>
+%   return undef;
+    <%perl>
+}
+
+</%perl>
 % if ($mode eq 'move') {
 Please choose one of the artists below, and click Finish>> to
 move album <span class="bold"><% $ARGS{album} %></span> to the selected artist:
@@ -89,21 +104,41 @@ move track <span class="bold"><% $ARGS{prev0} %></span> to the selected artist:
 <form method="POST" action="/bare/enter_mod.html" NAME="ArtistFilter"
       enctype="application/x-www-form-urlencoded" class="formstyle">
 
-% if ($num_found == 0 && $found_self) {
-   <& /comp/tablebegin, title=>'No Artists Found', gattrs=>'width="100%"' &>
+% if (defined $artist || scalar(@names) > 0) {
+    </%perl>
+    <& /comp/tablebegin, title=>'Matching Artists', gattrs=>'width="100%"' &>
+    <table width="100%"> <tr>
+    <th width="50%">Artist Sortname</th>
+    <th width="50%">Artist Name</th>
+    </tr>
 
-    <br>&nbsp;&nbsp;<span class="bold">No applicable artists found.</span>
-    Only the originating artist was found. 
-    Please <a href="<% $ARGS{url} %>">try again</a>.<p><br>
+%   if (defined $artist) {
+       <tr><td>
+       <input type="radio" name="<% $argname %>" value="<% $artist->{name} |h %>"
+       CHECKED>&nbsp;<% $artist->{sortname} %></td><td><% $artist->{name} %>
+       </td></tr>
+%   }
+%   $i = 0;
+%   foreach $name (@names) {
+%       next if (!defined $name);
+        <tr><td>
+        <input type="radio" name="<% $argname %>" value="<% $name->{name} |h %>"
+%       if ($i == 0 && !defined $artist) {
+           CHECKED
+%       }
+        >&nbsp;<% $name->{sortname} %></td><td><% $name->{name} %></td></tr>
+%       $i++;
+%   }
+    </table>
+    <& /comp/tableend &>
+    <%perl>
+}
 
-   <& /comp/tableend &>
-
-   </form>
-
-%  return undef;
-%}
-
-% if (!$found && $mode ne 'merge') {
+# If were doing anything but merging, give the user the option to create
+# a new artist, if we didn't find an exact match
+if (!defined $artist && $mode ne 'merge') 
+{
+   </%perl>
    <& /comp/tablebegin, title=>'New Artist', gattrs=>'width="100%"' &>
    <table width="100%"> <tr>
    <th width="50%">Artist Sortname</th>
@@ -111,46 +146,13 @@ move track <span class="bold"><% $ARGS{prev0} %></span> to the selected artist:
    </tr>
    <td>
    <input type="radio" name="<% $argname %>" 
-          value="<% $arg |h %>" CHECKED>&nbsp;<% $arg %>
+          value="<% $arg |h %>">&nbsp;<% $arg %>
    </td><td>
    Enter artist name if different from sort name:<br>
    <input type="text" name="<% $dest_argname %>" SIZE=15> 
    </td></tr></table>
    <& /comp/tableend &>
-%}
-
-% if ($num_found > 0) {
-
-    <& /comp/tablebegin, title=>'Existing Artists', gattrs=>'width="100%"' &>
-    <table width="100%"> <tr>
-    <th width="50%">Artist Sortname</th>
-    <th width="50%">Artist Name</th>
-    </tr>
-
-%   $i = 0;
-%   foreach $name (@names) {
-%       next if (!defined $name);
-        <tr><td>
-        <input type="radio" name="<% $argname %>" value="<% $name->{name} |h %>"
-%       if ($i == 0 && $found) {
-           CHECKED
-%       }
-        >&nbsp;<% $name->{sortname} %></td><td><% $name->{name} %></td></tr>
-%       $i++;
-%   }
-<%perl>
-    mc_out("</table>");
-    mc_comp("/comp/tableend");
-}
-
-if ($num_found == 0 && $mode eq 'merge') 
-{
-</%perl>
-    <& /comp/tablebegin, title=>'No Artists Found', gattrs=>'width="100%"' &>
-    <br>&nbsp;&nbsp;<span class="bold">No artists found.</span>
-    Please <a href="<% $ARGS{url} %>">try again</a>.<p><br>
-    <& /comp/tableend &>
-<%perl>
+   <%perl>
 }
 
 foreach $key (keys %ARGS)
