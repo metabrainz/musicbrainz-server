@@ -30,6 +30,9 @@ package MusicBrainz::Server::ModerationNote;
 use base qw( TableBase );
 use Carp;
 
+require Exporter;
+{ our @ISA = qw( Exporter ); our @EXPORT_OK = qw( mark_up_text_as_html ) }
+
 # GetId / SetId - see TableBase
 sub GetModerationId	{ $_[0]{moderation} }
 sub SetModerationId	{ $_[0]{moderation} = $_[1] }
@@ -43,6 +46,12 @@ sub GetUserName		{ $_[0]{user} }
 sub GetTextAsHTML
 {
 	my $self = shift;
+	mark_up_text_as_html($self->GetText);
+}
+
+sub mark_up_text_as_html
+{
+	my $text = shift;
 	use MusicBrainz qw( encode_entities );
 
 	my $is_url = 1;
@@ -67,7 +76,7 @@ sub GetTextAsHTML
 				| [\x29"'>] # any of these characters
 			)
 		)
-		/six, $self->GetText, -1;
+		/six, $text, -1;
 		
 		#"# Vim catch-up
 
