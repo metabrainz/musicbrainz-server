@@ -62,5 +62,6 @@ use constant STATUS_FAILEDDEP            => 4;
 use constant STATUS_ERROR                => 5;
 use constant STATUS_FAILEDPREREQ         => 6;
 use constant STATUS_EVALNOCHANGE         => 7;
+use constant STATUS_DELETED              => 8;
 
 1;
