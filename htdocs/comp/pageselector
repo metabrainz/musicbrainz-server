@@ -5,6 +5,7 @@
 my $offset = $ARGS{offset};
 my $pagesize = $ARGS{pagesize};
 my $url = $ARGS{url};
+my $args = $ARGS{args};
 my $numitems = $ARGS{numitems};
 my $numlinks = $ARGS{numlinks} || 6;
 my $snaptoend = $ARGS{snaptoend} || 2;
@@ -19,11 +20,19 @@ if ($start < $snaptoend) { $start = 0 }
 my $end = $index + $numlinks;
 if ($end > $pagecount-1-$snaptoend) { $end = $pagecount-1 }
 
+my $qsargs = $m->comp(
+	"/comp/args-to-querystring.inc",
+	%$args,
+	offset => undef,
+	page => undef,
+);
+
 </%perl>
 
 <table width="100%" style="margin: 0.2em 0"><tr>
 <td align="center" valign="middle" NOWRAP>
-<form method="post" action="<% $url %>">
+<form method="get" action="<% $url %>">
+	<& /comp/args-to-hidden-fields.inc, %$args &>
 	[ Page
 	<input type="text" name="page" value="<% $index+1 %>"
 		style="
@@ -39,10 +48,10 @@ if ($end > $pagecount-1-$snaptoend) { $end = $pagecount-1 }
 </td>
 <td align="center" valign="middle">
 % if ($index > 0) {
-    <a href="<% $url %>&amp;offset=0"
+    <a href="<% $url.'?'.$qsargs %>&amp;offset=0"
     	title="first page"
     	>&lt;&lt;</a>&nbsp;
-    <a href="<% $url %>&amp;offset=<% ($index - 1) * $pagesize %>"
+    <a href="<% $url.'?'.$qsargs %>&amp;offset=<% ($index - 1) * $pagesize %>"
     	title="previous page"
     	>&lt;</a>&nbsp;
 % } else {
@@ -60,7 +69,9 @@ for my $i ($start .. $end)
 {
 	if ($i != $index)
 	{
-		$m->out("<a href='$url&amp;offset=" . ($i * $pagesize)
+		$m->out("<a href='"
+			. html_escape($url.'?'.$qsargs)
+			. "&amp;offset=" . ($i * $pagesize)
 			. "'>" . ($i + 1) . "</a>&nbsp;");
 	}
 	else
@@ -74,10 +85,10 @@ $m->out("...") if $end < $pagecount - 1;
 </%perl>
 
 % if ($index < $pagecount - 1) {
-    <a href="<% $url %>&amp;offset=<% ($index + 1) * $pagesize %>"
+    <a href="<% $url.'?'.$qsargs %>&amp;offset=<% ($index + 1) * $pagesize %>"
     	title="next page"
     	>&gt;</a>&nbsp;
-    <a href="<% $url %>&amp;offset=<% ($pagecount - 1) * $pagesize %>"
+    <a href="<% $url.'?'.$qsargs %>&amp;offset=<% ($pagecount - 1) * $pagesize %>"
     	title="last page"
     	>&gt;&gt;</a>&nbsp;
 % } else {
