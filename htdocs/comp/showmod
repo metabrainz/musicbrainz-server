@@ -11,6 +11,9 @@ if (!defined $voted)
 {
    $voted = ModDefs::VOTE_NOTVOTED;
 }
+
+my $expired = ($mod->GetExpired() ? "d" : "s");
+
 my $time = $mod->GetExpireTime();
 $time = $m->comp("/comp/datetime", $time);
 
@@ -20,12 +23,12 @@ $time = $m->comp("/comp/datetime", $time);
 <td bgcolor="#FFBA58" colspan=3><img src="/images/pixel.gif" width="1" height="1" alt="" border=""></td>
 </tr>
 <tr>
-   <td width="37%" valign=top bgcolor=white class="body">
+   <td width="37%" valign=top bgcolor=white class="body" nowrap>
      By: <a href="/moderator.html?uid=<% $mod->GetModerator() %>"><span class="bold"><% $mod->GetModeratorName() |n %></span></a>
      &nbsp;&nbsp;&nbsp;
      <a href="/showmod.html?modid=<% $mod->GetId() %>"
         title="View moderation detail">Id: <% $mod->GetId() %></a><br> 
-     Expires: <% $time |n %>
+     Expire<% $expired %>: <% $time %>
    </td>
    <td width="37%" valign=top bgcolor=white class="body">
      <% $mod->ShowModType() |n %> 

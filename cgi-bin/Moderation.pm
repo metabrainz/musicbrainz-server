@@ -705,7 +705,8 @@ sub GetModerationList
                 m.expiretime, m.yesvotes, m.novotes, m.status,
                 m.automod,
                 u.id, u.name,
-                a.name
+                a.name,
+				m.expiretime < NOW()
         FROM    moderation m
                 LEFT JOIN votes v ON v.rowid = m.id AND v.uid = ?
                 INNER JOIN moderator u ON u.id = m.moderator
@@ -726,7 +727,8 @@ sub GetModerationList
                 m.expiretime, m.yesvotes, m.novotes, m.status,
                 m.automod,
                 u.id, u.name,
-                a.name
+                a.name,
+				m.expiretime < NOW()
         FROM    moderation m
                 INNER JOIN moderator u ON u.id = m.moderator
                 INNER JOIN artist a ON a.id = m.artist
@@ -744,6 +746,7 @@ sub GetModerationList
                           status, automod, Moderator.id as moderator_id, 
                           Moderator.name as moderator_name, 
                           Artist.name as artist_name, 
+						  moderation.expiretime < NOW(),
                           Votes.vote
                      from Moderation, Moderator, Artist, Votes 
                     where Moderator.id = moderation.moderator and 
@@ -762,6 +765,7 @@ sub GetModerationList
                           status, automod, Moderator.id as moderator_id, 
                           Moderator.name as moderator_name, 
                           Artist.name as artist_name, 
+						  moderation.expiretime < NOW(),
                           Votes.vote
                      from Moderator, Artist, Moderation left join Votes 
                           on Votes.uid = ? and Votes.rowid=moderation.id 
@@ -780,7 +784,8 @@ sub GetModerationList
                 m.expiretime, m.yesvotes, m.novotes, m.status,
                 m.automod,
                 u.id, u.name,
-                a.name
+                a.name,
+				m.expiretime < NOW()
         FROM    moderation m
                 LEFT JOIN votes v ON v.rowid = m.id AND v.uid = ?
                 INNER JOIN moderator u ON u.id = m.moderator
@@ -824,9 +829,10 @@ sub GetModerationList
                 $mod->SetModerator($row[13]);
                 $mod->SetModeratorName($row[14]);
                 $mod->SetArtistName($row[15]);
-                if (defined $row[16])
+			    $mod->SetExpired($row[16]);
+                if (defined $row[17])
                 {
-                    $mod->SetVote($row[16]);
+                    $mod->SetVote($row[17]);
                 }
                 else
                 {
