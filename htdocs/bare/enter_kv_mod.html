@@ -37,6 +37,7 @@ if (CheckKVArg(\%ARGS, 'column') &&
         $new .= $ARGS{"key$i"} . "=" . $ARGS{"value$i"} . "\n";
     }
 
+#    print STDERR "$new\n\n";
 #    print STDERR join(" - ", $ARGS{'table'}, 
 #       $ARGS{'column'}, $ARGS{'artist'}, 
 #       $ARGS{'type'}, $ARGS{'id'},

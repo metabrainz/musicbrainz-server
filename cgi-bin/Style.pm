@@ -93,3 +93,38 @@ sub MakeDefaultSortname
     }
     return $name;
 }
+
+sub NormalizeDiscNumbers
+{
+    my ($this, $name) = @_;
+    my ($new, $disc);
+
+    if ($name =~ /^(.*)(\(|\[)\s*(disk|disc|cd)\s*(\d+|one|two|three|four)(\)|\])$/i)
+    {
+        $new = $1;
+        $disc = $4;
+    }
+    elsif ($name =~ /^(.*)(disk|disc|cd)\s*(\d+|one|two|three|four)$/i)
+    {
+        $new = $1;
+        $disc = $3;
+    }
+
+    if (defined $new && defined $disc)
+    {
+        $disc = 1 if ($disc =~ /one/i);
+        $disc = 2 if ($disc =~ /two/i);
+        $disc = 3 if ($disc =~ /three/i);
+        $disc = 4 if ($disc =~ /four/i);
+        if ($disc > 0 && $disc < 100)
+        {
+            $disc =~ s/^0+//g;
+            $new =~ s/\s*[(\/|:,-]*\s*$//;
+            $new .= " (disc $disc)";
+    
+            return $new;
+        }
+    }
+
+    return $name;
+}

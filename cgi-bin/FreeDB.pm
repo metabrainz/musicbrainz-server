@@ -23,6 +23,7 @@
                                                                                
 package FreeDB;
 use TableBase;
+use Style;
 
 BEGIN { require 5.6.1 }
 use vars qw(@ISA @EXPORT);
@@ -369,7 +370,9 @@ sub Retrieve
 
      $info{artist} = $artist;
      $info{sortname} = $artist;
-     $info{album} = $title;
+
+     my $sty = Style->new;
+     $info{album} = $sty->NormalizeDiscNumbers($title);
  
      for($i = 0; $i < scalar(@track_titles); $i++)
      {

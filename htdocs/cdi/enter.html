@@ -83,21 +83,21 @@ if ($freedb)
     <tr><td>Artist:</td><td>
 % if ($artist <= 0) {
 %    if (!defined $lookup) {
-        <input type="text" name="artistname" size="30"></td>
+        <input type="text" name="artistname" size="50" maxlength="255"></td>
 %    } else {
-        <input type="text" name="artistname" size="30"
+        <input type="text" name="artistname" size="50" maxlength="255"
                 value="<% $lookup->{artist} %>"></td>
 %    }
 
     </tr>
     <tr><td>SortName:</td><td>
 %    if (!defined $lookup) {
-         <input type="text" name="sortname" size="30">
+         <input type="text" name="sortname" size="50" maxlength="255">
 %    } else {
 %        my ($sortname, $st);
 %        $st = Style->new;
 %        $sortname = $st->MakeDefaultSortname($lookup->{artist});
-         <input type="text" name="sortname" size="30"
+         <input type="text" name="sortname" size="50" maxlength="255"
                 value="<% $sortname %>"></td>
 %    }
 % } else {
@@ -108,9 +108,9 @@ if ($freedb)
 
 <tr><td>CD Title:</td><td>
 % if (!defined $lookup) {
-    <input type="text" name="title" size="30">
+    <input type="text" name="title" size="50" maxlength="255">
 % } else {
-    <input type="text" name="title" size="30"
+    <input type="text" name="title" size="50" maxlength="255"
            value="<% $lookup->{album} %>">
 % }
 </td></tr>
@@ -119,10 +119,10 @@ if ($freedb)
     <tr><td>Track <% $i + 1 %>:</td><td>
 
 %     if (!defined $lookup) {
-         <input type="text" name="track<% $i %>" size="30">
+         <input type="text" name="track<% $i %>" size="50" maxlength="255">
 %     } else {
 %        my $ar = $lookup->{tracks};
-         <input type="text" name="track<% $i %>" size="30"
+         <input type="text" name="track<% $i %>" size="50" maxlength="255"
            value="<% $$ar[$i]->{track} %>">
 %     }
     

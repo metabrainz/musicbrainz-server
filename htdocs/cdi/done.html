@@ -66,6 +66,7 @@ else
         } 
     }
 
+    print STDERR "$new\n\n";
     $in = Insert->new($mb->{DBH});
     ($artistid, $albumid) = $in->InsertAlbumModeration($new,
                                     $session{uid}, $artist);

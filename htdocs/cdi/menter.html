@@ -127,9 +127,9 @@ if ($freedb)
    <td colspan="2" align="right" valign="top">CD Title:</td>
    <td>
 %    if (!defined $lookup) {
-          <input type="text" name="title" size="30"><p>
+          <input type="text" name="title" size="50" maxlength="255"><p>
 %    } else {
-          <input type="text" name="title" size="30"
+          <input type="text" name="title" size="50" maxlength="255"
                 value="<% $lookup->{album} %>"><p>
 %    }
    </td>
@@ -174,20 +174,20 @@ for($i = 0; $i < $tracks; $i++)
        <td valign="top"><font class="bold">Track <% $i + 1 %>:</font></td>
       <td align="right" valign="top">Track Name:</td>
       <td>
-         <input type="text" name="track<% $i %>" size="30"
+         <input type="text" name="track<% $i %>" size="50" maxlength="255"
                 value="<% $trackname %>">
       </td>
     </tr>
 
     <tr>
       <td colspan="2" align="right" valign="top">Artist Name:</td>
-      <td><input type="text" name="artistname<% $i %>" size="30"
+      <td><input type="text" name="artistname<% $i %>" size="50" maxlength="255"
                 value="<% $artistname %>"></td>
     </tr>
 
     <tr>
       <td colspan="2" align="right" valign="top">Sort Name:</td>
-      <td><input type="text" name="sortname<% $i %>" size="30"
+      <td><input type="text" name="sortname<% $i %>" size="50" maxlength="255"
                 value="<% $sortname %>"><p></td>
     </tr>
 % }

@@ -209,14 +209,14 @@ my ($artistname, $sortname, $trackname, $temp);
 
 %      if (!defined $artist) {
             <tr><td>Artist:</td><td>
-            <input type="text" name="artistname" size="30"
+            <input type="text" name="artistname" size="50" maxlength="255"
                    value="<% $lookup->{artist} %>"></td>
             </tr>
             <tr><td>SortName:</td><td>
 %           my ($sortname, $st);
 %           $st = Style->new;
 %           $sortname = $st->MakeDefaultSortname($lookup->{artist});
-            <input type="text" name="sortname" size="30"
+            <input type="text" name="sortname" size="50" maxlength="255"
                    value="<% $sortname %>"></td>
             </td></tr>
 %      } else {
@@ -225,7 +225,7 @@ my ($artistname, $sortname, $trackname, $temp);
             </tr>
 %      }
        <tr><td>CD Title:</td><td>
-         <input type="text" name="title" size="30"
+         <input type="text" name="title" size="50" maxlength="255"
                 value="<% $lookup->{album} %>">
        </td></tr>
 %   } else {
@@ -233,7 +233,7 @@ my ($artistname, $sortname, $trackname, $temp);
        <tr>
            <td colspan="2" align="right" valign="top">CD Title:</td>
            <td>
-              <input type="text" name="title" size="30"
+              <input type="text" name="title" size="50" maxlength="255"
                     value="<% $lookup->{album} %>">
            </td>
        </tr>
@@ -269,27 +269,27 @@ my ($artistname, $sortname, $trackname, $temp);
                <td valign="top"><font class="bold">Track <% $i + 1 %>:</font></td>
                <td align="right" valign="top">Track Name:</td>
                <td>
-                  <input type="text" name="track<% $i %>" size="30"
+                  <input type="text" name="track<% $i %>" size="50" maxlength="255"
                          value="<% $trackname %>">
            </td>
                 </tr>
         
             <tr>
                <td colspan="2" align="right" valign="top">Artist Name:</td>
-           <td><input type="text" name="artistname<% $i %>" size="30"
-                          value="<% $artistname %>"></td>
+           <td><input type="text" name="artistname<% $i %>" size="50" 
+                      maxlength="255" value="<% $artistname %>"></td>
             </tr>
         
             <tr>
                <td colspan="2" align="right" valign="top">Sort Name:</td>
-               <td><input type="text" name="sortname<% $i %>" size="30"
-                      value="<% $sortname %>"><p></td>
+               <td><input type="text" name="sortname<% $i %>" size="50" 
+                          maxlength="255" value="<% $sortname %>"><p></td>
             </tr>
 %        } else {
 
             <tr><td>Track <% $i + 1 %>:</td><td>
         
-             <input type="text" name="track<% $i %>" size="30"
+             <input type="text" name="track<% $i %>" size="50" maxlength="255"
                     value="<% $$array[$i]->{track} %>">
             
             </td></tr>

@@ -28,6 +28,14 @@ use DBDefs;
 use MusicBrainz;
 use Artist;
 
+# Changes needed to bring the database up to 255 chars for artist/album/track
+# titles
+alter table Artist change Name Name varchar(255) NOT NULL;
+alter table Artist change Sortname Sortname varchar(255) NOT NULL;
+alter table Album change Name Name varchar(255) NOT NULL;
+alter table Track change Name Name varchar(255) NOT NULL;
+
+# Changes needed for the user config stuff
 # alter table ModeratorInfo add column (EMail varchar(64));
 # alter table ModeratorInfo add column (WebUrl varchar(255));
 # alter table ModeratorInfo add column (MemberSince datetime not null);

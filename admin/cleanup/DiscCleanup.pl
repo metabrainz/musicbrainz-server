@@ -27,6 +27,7 @@ use lib "../../cgi-bin";
 use DBI;
 use DBDefs;
 use MusicBrainz;
+use Style;
 require "Main.pl";
 
 sub Arguments
@@ -40,7 +41,9 @@ sub Arguments
 sub Cleanup
 {
     my ($dbh, $fix, $quiet) = @_;
-    my ($sth2, @row2, @skipped_list, $count, $skipped, $found);
+    my ($sth2, @row2, @skipped_list, $count, $skipped, $found, $sty);
+
+    $sty = Style->new;
 
     $count = $found = $skipped = 0;
     # Check to make sure all the albums are present.
@@ -52,35 +55,7 @@ sub Cleanup
         $count = $sth->rows;
         while(@row = $sth->fetchrow_array())
         {            
-            undef $new;
-            if ($row[1] =~ /^(.*)(\(|\[)\s*(disk|disc|cd)\s*(\d+|one|two|three|four)(\)|\])$/i)
-            {
-                $new = $1;
-                $disc = $4;
-            }
-            elsif ($row[1] =~ /^(.*)(disk|disc|cd)\s*(\d+|one|two|three|four)$/i)
-            {
-                $new = $1;
-                $disc = $3;
-            }
-
-            if (defined $new && defined $disc)
-            {
-                $disc = 1 if ($disc =~ /one/i);
-                $disc = 2 if ($disc =~ /two/i);
-                $disc = 3 if ($disc =~ /three/i);
-                $disc = 4 if ($disc =~ /four/i);
-                next if ($disc < 1 || $disc > 99);
-
-                $disc =~ s/^0+//g;
-                $new =~ s/\s*[(\/|:,-]*\s*$//;
-                $new .= " (disc $disc)";
-            }
-            else
-            {
-                next;
-            }
-
+            $new = $sty->NormalizeDiscNumbers($row[1]); 
             if ($new ne $row[1])
             {
                 $found++;
