@@ -88,16 +88,6 @@ then
 	> "$FTP_DATA_DIR"/fullexport/latest-is-"$EXPORT_STAMP"
 	chmod "$FTP_FILE_MODE" "$FTP_DATA_DIR"/fullexport/latest-is-"$EXPORT_STAMP"
 	chown "$FTP_USER:$FTP_GROUP" "$FTP_DATA_DIR"/fullexport/latest-is-"$EXPORT_STAMP"
-
-	# Dump the RDF data
-	echo `date`" : Making RDF export"
-
-	nice ./admin/RDFDump.pl "$TEMP_DIR"/mbdump.rdf.bz2 || exit $?
-
-	# Move it to the FTP directory (and not to the backup directory)
-	chown "$FTP_USER:$FTP_GROUP" "$TEMP_DIR"/mbdump.rdf.bz2
-	chmod "$FTP_FILE_MODE" "$TEMP_DIR"/mbdump.rdf.bz2
-	mv "$TEMP_DIR"/mbdump.rdf.bz2 "$FTP_DATA_DIR"/fullexport/"$EXPORT_STAMP"/
 fi
 
 # eof
