@@ -37,6 +37,8 @@ use constant DARTIST_ID                  => 2;
 
 use constant ANON_MODERATOR              => 1;
 use constant FREEDB_MODERATOR            => 2;
+use constant RUAOK_MODERATOR             => 3;
+use constant MODBOT_MODERATOR            => 4;
 
 # These define the different types of moderation pages that can be shown
 use constant TYPE_NEW                    => 1;

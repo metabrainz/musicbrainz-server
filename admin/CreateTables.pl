@@ -267,6 +267,12 @@ sub InsertDefaultRows
         $sql->Do(qq|insert into Moderator (Name, Password, Privs, 
                     ModsAccepted, ModsRejected, MemberSince) 
                     values ('FreeDB', '', 0, 0, 0, now())|);
+        $sql->Do(qq|insert into Moderator (Name, Password, Privs, 
+                    ModsAccepted, ModsRejected, MemberSince) 
+                    values ('rob', '', 1, 0, 0, now())|);
+        $sql->Do(qq|insert into Moderator (Name, Password, Privs, 
+                    ModsAccepted, ModsRejected, MemberSince) 
+                    values ('ModBot', '', 0, 0, 0, now())|);
   
         $sql->Commit;
     };

@@ -111,9 +111,12 @@ sub LoadFromId
 sub Insert
 {
    my ($this, $id, $name) = @_;
-   my ($sql);
+   my ($sql, $lookup);
 
-   # TODO: We're not protecting against duplicate insertion here
+   # Check to make sure we don't already have this in the database
+   $lookup = $this->Resolve($name);
+   return $lookup if (defined $lookup);
+
    $sql = Sql->new($this->{DBH});
    $name = $sql->Quote($name);
    $sql->Do(qq|insert into $this->{table} (Name, Ref, LastUsed) values 

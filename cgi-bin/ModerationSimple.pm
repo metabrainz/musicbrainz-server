@@ -287,27 +287,40 @@ sub ApprovedAction
        @row = $sql->NextRow;
        if ($row[0] eq $prevval)
        {
-           # TODO: This update can cause a duplicate key insertion into
-           #       a unique index. Booo!
-           $sql->Do(qq/update $table set $column = $newval  
-                               where id = $datarowid/); 
-           if ($table eq 'Artist' && $column eq 'Name')
+           # Check to make sure that applying this edit won't cause an error!
+           my $sql2 = Sql->new($this->{DBH});
+           if ($sql2->Select(qq/select id from $table where $column = $newval/) &&
+               $sql2->Rows > 0)
            {
-               my $al = Alias->new($this->{DBH});
-               $al->SetTable("ArtistAlias");
-               $al->Insert($datarowid, $prevval);
-           }
+               $sql->Finish;
+               $status = ModDefs::STATUS_ERROR;
 
-           if ($column eq 'Name' && ($table eq 'Artist' ||
-               $table eq 'Album' || $table eq 'Track'))
-           {
-               # Now remove the old name from the word index, and then
-               # add the new name to the index
-               my $engine = SearchEngine->new( { Table => $table } );
-               $engine->RemoveObjectRefs($datarowid);
-               $engine->AddWordRefs($datarowid, $this->GetNew());
+               $this->InsertModerationNote($this->GetId(), ModDefs::MODBOT_MODERATOR, 
+                         "This edit moderation clashes with an existing item in " .
+                         "the database.");
            }
-           $status = ModDefs::STATUS_APPLIED;
+           else
+           {
+               $sql->Do(qq/update $table set $column = $newval  
+                                   where id = $datarowid/); 
+               if ($table eq 'Artist' && $column eq 'Name')
+               {
+                   my $al = Alias->new($this->{DBH});
+                   $al->SetTable("ArtistAlias");
+                   $al->Insert($datarowid, $prevval);
+               }
+    
+               if ($column eq 'Name' && ($table eq 'Artist' ||
+                   $table eq 'Album' || $table eq 'Track'))
+               {
+                   # Now remove the old name from the word index, and then
+                   # add the new name to the index
+                   my $engine = SearchEngine->new( { Table => $table } );
+                   $engine->RemoveObjectRefs($datarowid);
+                   $engine->AddWordRefs($datarowid, $this->GetNew());
+               }
+               $status = ModDefs::STATUS_APPLIED;
+           }
        }
        else
        {
