@@ -696,7 +696,7 @@ sub TrackInfoFromTRMId
    }
 }
 
-# This method will soon be depricated
+# This method is now depricated
 sub QuickTrackInfoFromTRMId
 {
    my ($dbh, $parser, $rdf, $id, $artist, $album, $track, 
@@ -795,12 +795,14 @@ sub QuickTrackInfoFromTRMId
 sub QuickTrackInfoFromTrackId
 {
    my ($dbh, $parser, $rdf, $tid, $aid) = @_;
-   my ($sql, @data, $out);
+   my ($sql, @data, $out, $album);
 
    return $rdf->ErrorRDF("No track id given.") 
       if (!defined $tid || $tid eq '' || !defined $aid || $aid eq '');
    return undef if (!defined $dbh);
 
+   $album = Album->new($dbh);
+   $album->SetMBId($aid);
    $sql = Sql->new($dbh);
    $tid = $sql->Quote($tid);
    $aid = $sql->Quote($aid);
@@ -808,13 +810,21 @@ sub QuickTrackInfoFromTrackId
        "Track, AlbumJoin, Album, Artist", 
       ["Track.name", "Artist.name", "Album.name", 
        "AlbumJoin.sequence", "Track.Length", "Album.artist",
-       "Artist.gid", "Artist.sortname"],
+       "Artist.gid", "Artist.sortname", "Album.attributes"],
       ["Track.gid", $tid,
        "AlbumJoin.album", "Album.id",
        "Album.gid", $aid,
        "Track.id", "AlbumJoin.track",
        "Album.id", "AlbumJoin.album",
        "Track.Artist", "Artist.id"]);
+
+   if (!defined $data[0] || $data[0] eq '' || !$album->LoadFromId())
+   {
+        return $rdf->ErrorRDF("Cannot load given album.") 
+   }
+
+   my @attrs = ( $data[8] =~ /(\d+)/g );
+   shift @attrs;
 
    $out = $rdf->BeginRDFObject;
    $out .= $rdf->BeginDesc("mq:Result");
@@ -837,6 +847,51 @@ sub QuickTrackInfoFromTrackId
    {
         $out .= $rdf->Element("mm:albumArtist", &ModDefs::VARTIST_MBID);
    }
+
+   foreach my $attr (@attrs)
+   {
+       if ($attr >= Album::ALBUM_ATTR_SECTION_TYPE_START && 
+           $attr <= Album::ALBUM_ATTR_SECTION_TYPE_END)
+       {
+          $out .= $rdf->Element("mm:releaseType", "", "rdf:resource", $rdf->GetMMNamespace() . 
+                                 "Type" . $album->GetAttributeName($attr));
+       }
+       elsif ($attr >= Album::ALBUM_ATTR_SECTION_STATUS_START &&
+              $attr <= Album::ALBUM_ATTR_SECTION_STATUS_END)
+       {
+          $out .= $rdf->Element("mm:releaseStatus", "", "rdf:resource", $rdf->GetMMNamespace() . 
+                                 "Status" . $album->GetAttributeName($attr));
+       }
+   }
+
+   my (@releases, $releasedate);
+   @releases = $album->Releases;
+   if (@releases)
+   {
+       my $country_obj = MusicBrainz::Server::Country->new($album->{DBH});
+
+       $out .= $rdf->BeginDesc("mm:releaseDateList");
+       $out .= $rdf->BeginSeq();
+       for my $rel (@releases)
+       {
+            my $cid = $rel->GetCountry;
+            my $c = $country_obj->newFromId($cid);
+            my ($year, $month, $day) = $rel->GetYMD();
+      
+            $releasedate = $year;
+            $releasedate .= sprintf "-%02d", $month if ($month != 0);
+            $releasedate .= sprintf "-%02d", $day if ($day != 0);
+            $out .= $rdf->BeginElement("rdf:li");
+            $out .= $rdf->BeginElement("mm:ReleaseDate");
+            $out .= $rdf->Element("dc:date", $releasedate);
+            $out .= $rdf->Element("mm:country", $c ? $c->GetISOCode : "?");
+            $out .= $rdf->EndElement("mm:ReleaseDate");
+            $out .= $rdf->EndElement("rdf:li");
+        }
+        $out .= $rdf->EndSeq();
+        $out .= $rdf->EndDesc("mm:releaseDateList");
+   }
+
    $out .= $rdf->EndDesc("mq:Result");
    $out .= $rdf->EndRDFObject;
 
