@@ -4,6 +4,31 @@ These are the tasks that I am currently working on. The first task the
 the most important and the last task is the least important. <p>
 
 <& /comp/todoentry, 
+   task=>'Support for deleting items from the database', 
+   skills=>'HTML/Perl', 
+   desc=>qq\Right now there is no way for anyone to delete extra tracks from 
+            the database.\
+&>
+
+<& /comp/todoentry, 
+   task=>'Support for moderating DiskIDs/GUIDs', 
+   skills=>'HTML/Perl', 
+   desc=>qq\MusicBrainz needs to be able to let moderators manage DiskIds
+            and GUIDs that are associated with CDs and tracks.\
+&>
+
+<& /comp/todoentry, 
+   task=>'Moderation Improvements', 
+   skills=>'HTML/Perl', 
+   desc=>qq\This is a mixed bag of small issues:
+            <ul>
+            <li>Allow users to add a comment why they are voting NO.
+            <li>Allow moderators to add a comment as to why their change
+                does not follow the style guidelines.
+            </ul>\
+&>
+
+<& /comp/todoentry, 
    task=>'Improve pending submisson process (complete)', 
    skills=>'perl/database programming', 
    desc=>qq\NOTE: This task is complete, but has not been made active on 
@@ -19,33 +44,5 @@ the most important and the last task is the least important. <p>
             to remove old submissions. Last, do not accept items into the
             pending table if they do not have complete artist album and
             track information.\
-&>
-
-<& /comp/todoentry, 
-   task=>'Moderation Improvements', 
-   skills=>'HTML/Perl', 
-   desc=>qq\This is a mixed bag of small issues:
-            <ul>
-            <li>Allow users to add a comment why they are voting NO.
-            <li>Allow moderators to add a comment as to why their change
-                does not follow the style guidelines.
-            </ul>\
-&>
-
-<& /comp/todoentry, 
-   task=>'Database cleanup scripts', 
-   skills=>'perl programming', 
-   desc=>qq\<ul>
-            <li>Create/run a script that will identify and removed duplicate 
-                tracks in albums where one track has a 0 track number.
-            <li>Create pages that show potential problem database entries.
-            </ul>\
-&>
-
-<& /comp/todoentry, 
-   task=>'Hanging mysql/rquery.pl processes', 
-   skills=>'perl programming', 
-   desc=>qq\Some queries never return and cause the rquery.pl process to 
-            consume all processor power. Eeek.\
 &>
 
