@@ -130,7 +130,13 @@ my %Queries =
         'http://musicbrainz.org/mm/mq-1.0#username'],
    QuickTrackInfoFromTRMId =>
       [\&QuerySupport::QuickTrackInfoFromTRMId, 0, 
-        'http://musicbrainz.org/mm/mm-2.0#trmid'],
+        'http://musicbrainz.org/mm/mm-2.0#trmid',
+        'http://musicbrainz.org/mm/mq-1.0#artistName',
+        'http://musicbrainz.org/mm/mq-1.0#albumName',
+        'http://musicbrainz.org/mm/mq-1.0#trackName',
+        'http://musicbrainz.org/mm/mm-2.0#trackNum',
+        'http://musicbrainz.org/mm/mm-2.0#duration',
+        'http://musicbrainz.org/mm/mq-1.0#fileName'],
    QuickTrackInfoFromTrackId =>
       [\&QuerySupport::QuickTrackInfoFromTrackId, 0, 
         'http://musicbrainz.org/mm/mm-2.0#trackid',

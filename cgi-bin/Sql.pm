@@ -40,10 +40,18 @@ sub new
     my $this = {};
 
     $this->{DBH} = $dbh;
+    $this->{Quiet} = 0;
 
     bless $this;
     return $this;
 }  
+
+sub Quiet
+{
+    my ($this, $q) = @_;
+  
+    $this->{Quiet} = $q;
+}
 
 # Allow one auto commit transaction!
 sub AutoCommit
@@ -92,7 +100,8 @@ sub Select
 
         $this->{STH}->finish;
         $this->{ERR} = $this->{DBH}->errstr;
-        cluck("Failed query:\n  '$query'\n  (@params)\n$err\n");
+        cluck("Failed query:\n  '$query'\n  (@params)\n$err\n") 
+            unless ($this->{Quiet});
         die $err;
     }
     return $ret;
@@ -145,7 +154,7 @@ sub Do
     }
     elsif ($this->{DBH}->{AutoCommit} == 1)
     {
-        cluck("AutoCommit is turned on!");
+        cluck("AutoCommit is turned on!") unless ($this->{Quiet});
         die "AutoCommit on!"
     }
 #    die "No transaction started in Do." if ($this->{DBH}->{AutoCommit} == 0);
@@ -176,7 +185,8 @@ sub Do
         my $err = $@;
 
         $this->{ERR} = $this->{DBH}->errstr;
-        cluck("Failed query:\n  '$query'\n  (@params)\n$err\n");
+        cluck("Failed query:\n  '$query'\n  (@params)\n$err\n")
+            unless ($this->{Quiet});
         die $err;
     }
     return $ret;
@@ -336,13 +346,13 @@ sub Commit
    my $ret = eval
    {
        my $rv = $this->{DBH}->commit;
-       cluck("Commit failed") if ($rv eq '');
+       cluck("Commit failed") if ($rv eq '' && !$this->{Quiet});
        return $rv;
    };
    if ($@)
    {
        my $err = $@;
-       cluck($err);
+       cluck($err) unless ($this->{Quiet});
        die $err;
    }
    return $ret;
@@ -355,13 +365,13 @@ sub Rollback
    my $ret = eval
    {
        my $rv = $this->{DBH}->rollback;
-       cluck("Rollback failed") if ($rv eq '');
+       cluck("Rollback failed") if ($rv eq '' && !$this->{Quiet});
        return $rv;
    };
    if ($@)
    {
        my $err = $@;
-       cluck($err);
+       cluck($err) unless ($this->{Quiet});
        die $err;
    }
    return $ret;
@@ -398,7 +408,8 @@ sub SelectSingleRowHash
 
     my $err = $@;
     $this->{ERR} = $this->{DBH}->errstr;
-    cluck("Failed query:\n  '$query'\n  (@params)\n$err\n");
+    cluck("Failed query:\n  '$query'\n  (@params)\n$err\n") 
+       unless ($this->{Quiet});
     die $err;
 }
 
@@ -429,7 +440,8 @@ sub SelectSingleRowArray
 
     my $err = $@;
     $this->{ERR} = $this->{DBH}->errstr;
-    cluck("Failed query:\n  '$query'\n  (@params)\n$err\n");
+    cluck("Failed query:\n  '$query'\n  (@params)\n$err\n")
+       unless ($this->{Quiet});
     die $err;
 }
 
@@ -466,7 +478,8 @@ sub SelectSingleColumnArray
 
     my $err = $@;
     $this->{ERR} = $this->{DBH}->errstr;
-    cluck("Failed query:\n  '$query'\n  (@params)\n$err\n");
+    cluck("Failed query:\n  '$query'\n  (@params)\n$err\n")
+       unless ($this->{Quiet});
     die $err;
 }
 
@@ -481,7 +494,8 @@ sub SelectSingleValue
 
     return $row->[0] unless @$row != 1;
 
-    cluck("Failed query:\n  '$query'\n  (@params)\nmore than one column\n");
+    cluck("Failed query:\n  '$query'\n  (@params)\nmore than one column\n")
+       unless ($this->{Quiet});
     die "Query in SelectSingleValue returned more than one column";
 }
 
@@ -516,7 +530,8 @@ sub SelectListOfLists
 
     my $err = $@;
     $this->{ERR} = $this->{DBH}->errstr;
-    cluck("Failed query:\n  '$query'\n  (@params)\n$err\n");
+    cluck("Failed query:\n  '$query'\n  (@params)\n$err\n")
+       unless ($this->{Quiet});
     die $err;
 }
 

@@ -1022,7 +1022,8 @@ sub AuthenticateQuery
 
 sub QuickTrackInfoFromTRMId
 {
-   my ($dbh, $doc, $rdf, $id) = @_;
+   my ($dbh, $doc, $rdf, $id, $artist, $album, $track, 
+       $tracknum, $duration, $filename)=@_;
    my ($sql, @data, $out, $qid);
 
    return $rdf->ErrorRDF("No trm id given.") 
@@ -1060,6 +1061,44 @@ sub QuickTrackInfoFromTRMId
           $sql->Rollback();
        }
    }
+   else
+   {
+       my (%lookup, $ts);
+
+       $lookup{artist} = $artist; 
+       $lookup{album} = $album; 
+       $lookup{track} = $track; 
+       $lookup{tracknum} = $tracknum; 
+       $lookup{filename} = $filename; 
+       $lookup{duration} = $duration; 
+
+       $ts = TaggerSupport->new($dbh);
+       my ($error, $result, $flags, $list) = $ts->Lookup(\%lookup, 3);
+       if ($flags & TaggerSupport::ALBUMTRACKLIST)
+       {
+           my ($id);
+
+           foreach $id (@$list)
+           {
+               my $sim;
+
+               $sim = ($id->{sim_track} * .5) +
+                      ($id->{sim_album} * .5);
+
+               if ($sim >= .9)
+               {
+                   $data[0] = $id->{name};
+                   $data[1] = $id->{artist};
+                   $data[2] = $id->{album};
+                   $data[3] = $id->{tracknum};
+                   $data[4] = $id->{mbid};
+                   $data[5] = $id->{tracklen};;
+                   last;
+               }
+
+           }
+       }
+   }
 
    $out = $rdf->BeginRDFObject;
    $out .= $rdf->BeginDesc("mq:Result");
@@ -1075,8 +1114,6 @@ sub QuickTrackInfoFromTRMId
    }
    $out .= $rdf->EndDesc("mq:Result");
    $out .= $rdf->EndRDFObject;
-
-   #print STDERR "$out";
 
    return $out;
 }

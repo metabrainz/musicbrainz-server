@@ -94,6 +94,49 @@ sub RDFLookup
    return $rdf->CreateFileLookup($this, $status);
 }
 
+# fix users of lensim and namesim for track matches
+sub SetSim
+{
+   my ($this, $ref) = @_;
+
+   if (exists $ref->{sim_album} &&
+       exists $ref->{sim_track} &&
+       exists $ref->{sim_tracklen} &&
+       exists $ref->{sim_tracknum})
+   {
+       $ref->{sim} = ($ref->{sim_album} * .3) + 
+                     ($ref->{sim_track} * .3) + 
+                     ($ref->{sim_tracklen} * .3) +
+                     ($ref->{sim_tracknum} * .1);
+      return $ref;
+   }
+
+   if (exists $ref->{sim_track} &&
+       exists $ref->{sim_tracklen})
+   {
+       $ref->{sim} = ($ref->{sim_track} * .5) + 
+                     ($ref->{sim_tracklen} * .5);
+      return $ref;
+   }
+
+   if (exists $ref->{sim_artist})
+   {
+      $ref->{sim} = $ref->{sim_artist};
+      return $ref;
+   }
+
+   if (exists $ref->{sim_album})
+   {
+      $ref->{sim} = $ref->{sim_album};
+      return $ref;
+   }
+
+   # Ooops, something wen't wrong
+   $ref->{sim} = -1;
+
+   return $ref;
+}
+
 # returns ($error, $dataref, $flags, $listref);
 sub Lookup
 {
@@ -107,8 +150,18 @@ sub Lookup
    $data->{artistid} ||= '';
    $data->{albumid} ||= '';
    $data->{trackid} ||= '';
+   $data->{filename} ||= '';
+   $data->{duration} ||= 0;
    $data->{tracknum} = 0 if (!defined $data->{tracknum} || 
                              !($data->{tracknum} =~ /^\d+$/));
+
+   # Make sure to clean out any old similarity ratings
+   delete $data->{sim};
+   delete $data->{sim_artist};
+   delete $data->{sim_album};
+   delete $data->{sim_track};
+   delete $data->{sim_tracknum};
+   delete $data->{sim_duration};
 
    foreach (keys %$data)
    {
@@ -248,13 +301,13 @@ sub ArtistSearch
    {
        $this->{artist} = $ar;     
        return (ARTISTID, [ 
-                           {
+                           $this->SetSim({
                              id=>$ar->GetId(),
                              mbid=>$ar->GetMBId(), 
                              name=>$ar->GetName(),
                              sortname=>$ar->GetSortName(),
-                             sim=>1
-                           }
+                             sim_artist=>1
+                           })
                          ]);
    }
 
@@ -274,13 +327,13 @@ sub ArtistSearch
            $this->{fuzzy} = 1;
            return (ARTISTID | FUZZY, 
                              [ 
-                               { 
+                              $this->SetSim({ 
                                  id=>$ar->GetId(),
                                  mbid=>$ar->GetMBId(), 
                                  name=>$ar->GetName(),
                                  sortname=>$ar->GetSortName(),
-                                 sim=>similarity(lc($ar->GetName()), $name)
-                               }
+                                 sim_artist=>similarity(lc($ar->GetName()), $name)
+                               })
                              ]);
        }
    }
@@ -290,11 +343,11 @@ sub ArtistSearch
        
        while($row = $engine->NextRow)
        {
-           push @ids, { id=>$row->[0],
+           push @ids, $this->SetSim({ id=>$row->[0],
                         name=>$row->[1],
                         sortname=>$row->[2],
                         mbid=>$row->[3], 
-                        sim=>similarity(lc($row->[1]), $name) };
+                        sim_artist=>similarity(lc($row->[1]), $name) });
        }
 
        @ids = sort { $b->{sim} <=> $a->{sim} } @ids;
@@ -344,10 +397,10 @@ sub AlbumSearch
    {
        if (lc($al->GetName()) eq lc($name))
        {
-           push @ids, { id=>$al->GetId(),
+           push @ids, $this->SetSim({ id=>$al->GetId(),
                         name=>$al->GetName(),
                         mbid=>$al->GetMBId(),
-                        sim=>1 };
+                        sim_album=>1 });
        }
    }
 
@@ -368,10 +421,10 @@ sub AlbumSearch
 
            next if ($sim < .5);
 
-           push @ids, { id=>$al->GetId(),
+           push @ids, $this->SetSim({ id=>$al->GetId(),
                         name=>$al->GetName(),
                         mbid=>$al->GetMBId(),
-                        sim=>$sim};
+                        sim_album=>$sim});
            $this->{fuzzy} = 1;
        }
    }
@@ -385,7 +438,6 @@ sub AlbumSearch
    return (0, []);
 }
 
-# TODO: Finish ranking & fuzzy attrs
 sub TrackSearch
 {
    my ($this, $artistId, $trackName, $albumName, $trackNum, $duration) = @_;
@@ -445,15 +497,13 @@ sub TrackSearch
                $lensim = ($lensim < 0) ? 0 : $lensim;
            }
 
-           $sim = ($namesim * .5) + ($lensim * .5);
-
-           push @ids, { id=>$row[0],
+           push @ids, $this->SetSim({ id=>$row[0],
                         name=>$row[2], 
                         mbid=>$row[1],
-                        namesim=>$namesim,
-                        lensim=>$lensim,
-                        sim=>$sim
-                      };
+                        tracklen=>$row[3],
+                        sim_track=>$namesim,
+                        sim_tracklen=>$lensim,
+                      });
        }
        $sql->Finish;
    }
@@ -498,13 +548,15 @@ sub TrackSearch
            next if not defined $id;
 
            # Update the entry with the info for the album
-           $id->{sim} = ($namesim * .3) + ($numsim * .1) + 
-                        ($id->{namesim} * .3) + ($id->{lensim} * .3);
-           $id->{albumsim} = $namesim;
-           $id->{numsim} = $numsim;
+           $id->{sim_album} = $namesim;
+           $id->{sim_tracknum} = $numsim;
+           $id->{tracknum} = $row[3];
            $id->{album} = $row[1];
            $id->{albummbid} = $row[2];
            $id->{albumid} = $row[0];
+           $id->{artist} = $ar->GetName();
+           $id->{artistmbid} = $ar->GetMBId();
+           $this->SetSim($id);
        }
        $sql->Finish;
    }
