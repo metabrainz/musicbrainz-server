@@ -323,7 +323,7 @@ sub LoadFull
    $query = qq|select id, name, artist, gid 
                  from Album 
                 where artist = $artist 
-                order by name|;
+                order by lower(name), name|;
    if ($sql->Select($query) && $sql->Rows)
    {
        for(;@row = $sql->NextRow();)
@@ -536,7 +536,7 @@ sub GetVariousDisplayList
       $query = qq/select id, name, modpending from Album 
                    where substring(name from 1 for $ind_len) ilike '$ind' and
                          Album.artist = / . ModDefs::VARTIST_ID . qq/
-                order by name 
+                order by lower(name), name 
                    limit $max_items offset $offset/;
    }
    if ($sql->Select($query))

@@ -235,33 +235,6 @@ sub LoadFromId
    return undef;
 }
 
-# Search for tracks by name. Given a search argument, it will return
-# a array of references to arrays of track id, Track name, album id,
-# album name, artist id and artist name.
-#sub SearchByName
-#{
-#   my ($this, $search) = @_;
-#   my (@info, $query, $sql, @row);
-#
-#   $query = $this->AppendWhereClause($search, qq/select Track.id, Track.Name, 
-#                  Album.id, Album.name, Artist.id, Artist.name from Track, 
-#                  AlbumJoin, Album, Artist where Track.artist = Artist.id and 
-#                  AlbumJoin.track = Track.id and AlbumJoin.album = Album.id 
-#                  and /, "Track.Name") .  " order by Track.name";
-#
-#   $sql = Sql->new($this->{DBH});
-#   if ($sql->Select($query))
-#   {
-#       for(;@row = $sql->NextRow();)
-#       {
-#           push @info, [$row[0], $row[1], $row[2], $row[3], $row[4], $row[5]];
-#       }
-#       $sql->Finish;
-#   }
-#
-#   return @info;
-#};
-
 sub GetMetadataFromIdAndAlbum
 {
     my ($this, $id, $albumname) = @_;

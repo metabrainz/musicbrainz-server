@@ -205,7 +205,7 @@ sub LoadFull
    $query = qq|select id, name, ref, lastused, timesused 
                  from $this->{table}
                 where ref = $artist
-             order by name|;
+             order by lower(name), name|;
 
    if ($sql->Select($query) && $sql->Rows)
    {

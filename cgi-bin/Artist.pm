@@ -283,29 +283,6 @@ sub LoadFull
    return undef;
 }
 
-# Search for an artist by name. The name my be a substring match.
-# returns an array of references to an array of artist id, name, sortname,
-# The array is empty if there are no matches.
-#sub SearchByName
-#{
-#   my ($this, $search) = @_;
-#   my (@info, $query, $sql, $i, @row);
-#
-#   $sql = Sql->new($this->{DBH});
-#   $query = $this->AppendWhereClause($search, qq/select id, name, sortname 
-#                    from Artist where /, "name") . " order by sortname";
-#   if ($sql->Select($query))
-#   {
-#       for(;@row = $sql->NextRow;)
-#       {  
-#           push @info, [$row[0], $row[1], $row[2]];
-#       }
-#   }
-#   $sql->Finish;
-#
-#   return @info;
-#};
-
 # Pull back a section of artist names for the browse artist display.
 # Given an index character ($ind), a page offset ($offset) and a page length
 # ($max_items) it will return an array of references to an array
@@ -334,10 +311,10 @@ sub GetArtistDisplayList
       return undef if (!defined $num_artists);
 
       $query = qq/select id, sortname, modpending 
-                  from   Artist 
-                  where  sortname ~ '$ind'
-                  order  by sortname 
-                  limit  $max_items offset $offset/;
+                    from Artist 
+                   where sortname ~ '$ind'
+                order by lower(sortname), sortname 
+                   limit $max_items offset $offset/;
    }
    else
    {
@@ -349,7 +326,7 @@ sub GetArtistDisplayList
       $query = qq/select id, sortname, modpending 
                     from Artist 
                    where substring(sortname from 1 for $ind_len) ilike '$ind' 
-                order by sortname 
+                order by lower(sortname), sortname 
                    limit $max_items offset $offset/;
    }
    if ($sql->Select($query))
@@ -376,7 +353,7 @@ sub GetAlbums
    # First, pull in the single artist albums
    $sql = Sql->new($this->{DBH});
    if ($sql->Select(qq/select id, name, modpending, GID from 
-                       Album where artist=$this->{id} order by name/))
+                       Album where artist=$this->{id} order by upper(name), name/))
    {
         while(@row = $sql->NextRow)
         {
@@ -394,11 +371,11 @@ sub GetAlbums
 
    # then, pull in the multiple artist albums
    if ($sql->Select(qq/select distinct AlbumJoin.album, Album.name, 
-       Album.modpending, Album.gid from Track, Album, AlbumJoin 
+       Album.modpending, Album.gid, upper(Album.name) from Track, Album, AlbumJoin 
        where Track.Artist = 
        $this->{id} and AlbumJoin.track = Track.id and AlbumJoin.album = 
        Album.id and Album.artist = / . ModDefs::VARTIST_ID ." order by 
-       Album.name"))
+       upper(Album.name), Album.name"))
    {
         while(@row = $sql->NextRow)
         {
@@ -459,7 +436,7 @@ sub HasAlbum
    # First, pull in the single artist albums
    $sql = Sql->new($this->{DBH});
    if ($sql->Select(qq/select id, name from 
-                       Album where artist=$this->{id} order by name/))
+                       Album where artist=$this->{id} order by lower(name), name/))
    {
         while(@row = $sql->NextRow)
         {
@@ -481,12 +458,12 @@ sub HasAlbum
 
    # then, pull in the multiple artist albums
    if ($sql->Select(qq/select distinct AlbumJoin.album, Album.name
-                         from Track, Album, AlbumJoin 
+                         from Track, Album, AlbumJoin, lower(Album.name) 
                         where Track.Artist = $this->{id} and 
                               AlbumJoin.track = Track.id and 
                               AlbumJoin.album = Album.id and 
                               Album.artist = / . ModDefs::VARTIST_ID .
-                   " order by Album.name"))
+                   " order by lower(Album.name), Album.name"))
    {
         while(@row = $sql->NextRow)
         {

@@ -188,7 +188,8 @@ sub GetQuery
     if ($self->{Table} eq 'Album')
     {
         $query = "
-        SELECT Album.id, Album.name, Artist.id, Artist.name, Album.gid, count(WordList.Id)
+        SELECT Album.id, Album.name, Artist.id, Artist.name, Album.gid, 
+               count(WordList.Id), lower(Album.name)
         FROM Album, AlbumWords, WordList, Artist
         WHERE $where_clause
         and AlbumWords.Wordid = WordList.Id
@@ -196,25 +197,26 @@ sub GetQuery
         and Artist.Id = Album.Artist
         GROUP BY Album.Id, Album.name, Artist.id, Artist.name, Album.gid
         $conditions
-        ORDER BY count(WordList.Id) desc, Album.name";
+        ORDER BY count(WordList.Id) desc, lower(Album.name), Album.name";
     }
     elsif ($self->{Table} eq 'Artist')
     {
         $query = "
-        SELECT Artist.id, Artist.name, Artist.sortname, Artist.gid, count(WordList.Id) 
+        SELECT Artist.id, Artist.name, Artist.sortname, Artist.gid, 
+               count(WordList.Id), lower(Artist.sortname)
         FROM Artist, ArtistWords, WordList
         WHERE $where_clause
         and ArtistWords.Wordid = WordList.Id
         and ArtistWords.Artistid = Artist.Id
         GROUP BY Artist.id, Artist.name, Artist.sortname, Artist.gid
         $conditions
-        ORDER BY count(WordList.Id) desc, Artist.sortname";
+        ORDER BY count(WordList.Id) desc, lower(Artist.sortname), Artist.sortname";
     }
     elsif ($self->{Table} eq 'Track')
     {
         $query = "
         SELECT Track.id, Track.name, Artist.id, Artist.name, AlbumJoin.album, 
-               Track.gid, count(WordList.Id)
+               Track.gid, count(WordList.Id), lower(Track.name)
         FROM Track, TrackWords, WordList, Artist, AlbumJoin
         WHERE $where_clause
         and TrackWords.Wordid = WordList.Id
@@ -223,7 +225,7 @@ sub GetQuery
         and AlbumJoin.Track = Track.Id
         GROUP BY Track.Id, Track.name, Artist.id, Artist.name, AlbumJoin.album, Track.gid
         $conditions
-        ORDER BY count(WordList.Id) desc, Track.name";
+        ORDER BY count(WordList.Id) desc, lower(Track.name), Track.name";
     }
     $query .= (" LIMIT " . $self->Limit) if  $self->Limit;
     return $query;
