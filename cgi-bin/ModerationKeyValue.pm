@@ -871,25 +871,43 @@ use vars qw(@ISA);
 sub ShowPreviousValue
 {
    my ($this) = @_;
-   my ($nw, $text, $value);
-   
+   my ($nw, $text, $value, $key);
+  
+   if ($this->{prev} ne '')
+   {
+       $value = $this->ConvertToText(split /,/, $this->{prev});
+       $value = "None" if ($value eq '');
+       $text = "Old: $value<br>";
+   }
+
    $nw = $this->ConvertNewToHash($this->{new});
-   $text = "<b>Album:</b> <a href=\"/showalbum.html?albumid=" . $this->{rowid} .
-           "\">" . $nw->{AlbumName} .  "</a><br>Old: ";
-   $value = $this->ConvertToText(split /,/, $this->{prev});
-   $value = "None" if ($value eq '');
-   return $text . $value;
+   foreach $key (keys %{$nw})
+   {
+       if ($key =~ /^AlbumId(\d+)/)
+       {
+           $text .= "<b>Album:</b> <a href=\"/showalbum.html?albumid=" . 
+                    $nw->{$key} . "\">" . $nw->{"AlbumName$1"} . "</a>";
+           if (exists $nw->{"Prev$1"})
+           {
+               $value = $this->ConvertToText(split /,/, $nw->{"Prev$1"});
+               $value = "None" if ($value eq '');
+               $text .= " ($value)";
+           }
+           $text .= "<br>";
+       }
+   }
+   return $text;
 }
 
 sub ShowNewValue
 {
    my ($this) = @_;
-   my ($nw, $key, $text, $value);
-   
+   my ($nw, $value);
+  
    $nw = $this->ConvertNewToHash($this->{new});
    $value = $this->ConvertToText(split /,/, $nw->{Attributes});
    $value = "None" if ($value eq '');
-   return "New: " . $value
+   return "New: $value";
 }
 
 sub ConvertToText
@@ -912,6 +930,7 @@ sub DetermineDependencies
 {
 }
 
+
 sub PreVoteAction
 {
    my ($this) = @_;
@@ -921,14 +940,22 @@ sub PreVoteAction
 
    $text = $nw->{AttrType} . "," . $nw->{AttrStatus};
    @attrs = split /,/, $text;
-   $text = "Attributes=$text\nAlbumName=$nw->{AlbumName}\n";
-   $this->{new} = $text;
+   $nw->{Attributes} = $text;
+   delete $nw->{AttrType};
+   delete $nw->{AttrStatus};
 
    $al = Album->new($this->{DBH});
-   $al->SetId($this->{rowid});
-   $al->LoadFromId();
-   $al->SetAttributes(@attrs);
-   $al->UpdateAttributes();
+   foreach $key (keys %{$nw})
+   {
+       if ($key =~ /^AlbumId/)
+       {
+           $al->SetId($nw->{$key});
+           $al->LoadFromId();
+           $al->SetAttributes(@attrs);
+           $al->UpdateAttributes();
+       }
+   }
+   $this->{new} = $this->ConvertHashToNew($nw);
 
    return 1;
 }
@@ -943,15 +970,33 @@ sub ApprovedAction
 sub DeniedAction
 {
    my ($this) = @_;
-   my (@attrs, $al);
-
-   @attrs = split /,/, $this->{prev};
+   my (@attrs, $al, $nw, $key);
 
    $al = Album->new($this->{DBH});
-   $al->SetId($this->{rowid});
-   $al->LoadFromId();
-   $al->SetAttributes(@attrs);
-   $al->UpdateAttributes();
+   if (defined $this->{prev} && $this->{prev} ne '')
+   {
+       @attrs = split /,/, $this->{prev};
+
+       $al->SetId($this->{rowid});
+       $al->LoadFromId();
+       $al->SetAttributes(@attrs);
+       $al->UpdateAttributes();
+   }
+   else
+   {
+       $nw = $this->ConvertNewToHash($this->{new});
+       foreach $key (keys %{$nw})
+       {
+           if ($key =~ /^AlbumId(\d+)/)
+           {
+               @attrs = split /,/, $nw->{"Prev$1"};
+               $al->SetId($nw->{$key});
+               $al->LoadFromId();
+               $al->SetAttributes(@attrs);
+               $al->UpdateAttributes();
+           }
+       }
+   }
 }
 
 package AddTRMIdModeration;

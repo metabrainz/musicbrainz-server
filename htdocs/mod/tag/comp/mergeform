@@ -2,11 +2,13 @@
 $type
 $link
 $objs
+$attrprev=>0
 </%args>
 <%perl>
 
-my ($al, $ind, $num, $out, @obj);
+my ($al, $ind, $num, $out, @obj, $arid, $key);
 $ind = 0;
+$key = 0;
 @obj = @$objs;
 $num = scalar(@obj);
 
@@ -17,15 +19,20 @@ $num = scalar(@obj);
 <input type="submit" NAME="Submit" VALUE="Select &gt;&gt;" size="25">
 
 %foreach $al (@obj) {
-    <input type="hidden" name="key<% $ind %>" value="AlbumId<% $ind %>">
-    <input type="hidden" name="value<% $ind %>" value="<% $al->GetId() %>">
-    <input type="hidden" name="key<% $ind + $num %>" value="AlbumName<%$ind%>">
-    <input type="hidden" name="value<% ($ind++) + $num %>"
-           value="<% $al->GetName() |h %>">
+%   $arid = $al->GetArtist() if ($ind == 0);
+%   $arid = ($arid == $al->GetArtist()) ? $arid : ModDefs::VARTIST_ID; 
+    <input type="hidden" name="key<% $key %>" value="AlbumId<% $ind %>">
+    <input type="hidden" name="value<% $key++ %>" value="<% $al->GetId() %>">
+    <input type="hidden" name="key<% $key %>" value="AlbumName<%$ind%>">
+    <input type="hidden" name="value<% $key++ %>" value="<% $al->GetName() |h %>">
+%   if ($attrprev) {
+       <input type="hidden" name="key<% $key %>" value="Prev<%$ind%>">
+       <input type="hidden" name="value<% $key++ %>" value="<% join ',', $al->GetAttributes() |h %>">
+%   } $ind++;
 %}
 
 <input type="hidden" name="type" value="<% $type %>">
-<input type="hidden" name="artist" value="<% $obj[0]->GetArtist() %>">
+<input type="hidden" name="artist" value="<% $arid %>">
 <input type="hidden" name="prev" value="N/A">
 <input type="hidden" name="table" value="Album">
 <input type="hidden" name="column" value="id">

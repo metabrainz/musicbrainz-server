@@ -3,9 +3,10 @@
 <%perl>
 
 my ($mb, $id, $modpending, $al, $artist, $attr, 
-    $attrlist, @attrs, $prev, $index, $url); 
+    $attrlist, @attrs, $prev, $index, $url, $s); 
 
-if (!exists $ARGS{id} || $ARGS{id} eq '' ||
+if (!exists $session{tagged_albums} &&
+    !exists $ARGS{id} || $ARGS{id} eq '' ||
     !exists $ARGS{artist} || $ARGS{artist} eq '')
 {
     mc_comp("/comp/badargs");
@@ -13,25 +14,37 @@ if (!exists $ARGS{id} || $ARGS{id} eq '' ||
 }
 
 $mb = mc_comp("/comp/dblogin");
-$id = $ARGS{id};
-$artist = $ARGS{artist};
-$url = $r->headers_in->{'Referer'};
-$url = "/showalbum.html?albumid=$id" if (not defined $url || $url eq '');
-
 $al = Album->new($mb->{DBH});
-$al->SetId($id);
-$al->LoadFromId();
+$artist = $ARGS{artist};
 
-$prev = "";
-@attrs = sort { $a <=> $b} $al->GetAttributes();
-$prev = join ',', @attrs;
+if (exists $ARGS{"key0"})
+{
+    $prev = "";
+    $modpending = 0;
+    $s = 's';
+}
+else
+{
+    $s = '';
+    $id = $ARGS{id};
+    $url = $r->headers_in->{'Referer'};
+    $url = "/showalbum.html?albumid=$id" if (not defined $url || $url eq '');
+
+    $al->SetId($id);
+    $al->LoadFromId();
+
+    $prev = "";
+    @attrs = sort { $a <=> $b} $al->GetAttributes();
+    $prev = join ',', @attrs;
+
+    $modpending = $al->GetAttributeModPending();
+}
 
 if (scalar(@attrs) == 0)
 {
-   @attrs = (Album::ALBUM_ATTR_ALBUM, Album::ALBUM_ATTR_OFFICIAL);
+    @attrs = (Album::ALBUM_ATTR_ALBUM, Album::ALBUM_ATTR_OFFICIAL);
 }
 
-$modpending = $al->GetAttributeModPending();
 $attrlist = $al->GetAttributeList();
 
 </%perl>
@@ -48,9 +61,10 @@ $attrlist = $al->GetAttributeList();
 % } 
 
     <p>
-    Album attributes should apply to <b>most</b> of the tracks on the album. 
-    Its OK to have a couple of tracks that do not fit the
-    album attribute, as long as the attribute applies to the album overall.
+    Album attributes should apply to <b>most</b> of the tracks on the 
+    album<% $s %>. Its OK to have a couple of tracks that do not fit the
+    album attribute, as long as the attribute applies to the album<% $s %> 
+    overall.
 
     <p>
     Select the appropriate album attributes below and then 
@@ -58,7 +72,11 @@ $attrlist = $al->GetAttributeList();
     
     <p>
 
+% if (exists $ARGS{"key0"}) {
+    All tagged albums:
+% } else {
     Album <b><% $al->GetName() %></b>:<br>
+% }
 
     <FORM METHOD="POST" ACTION="/bare/enter_kv_mod.html" 
           NAME="EditAlbumAttrsForm"
@@ -74,6 +92,21 @@ $attrlist = $al->GetAttributeList();
         for(Album::ALBUM_ATTR_SECTION_TYPE_START..Album::ALBUM_ATTR_SECTION_TYPE_END)
         {
             mc_out("<tr><td valign=\"top\" NOWRAP>");
+            mc_out("<input type=\"radio\" name=\"value0\" value=\"$_\"");
+            if (scalar(@attrs) > 0 && $attrs[0] == $_)
+            {
+                mc_out(" CHECKED");
+                shift @attrs;
+            }
+            mc_out("></td><td valign=\"top\">$attrlist->{$_}->[0]</td>");
+            mc_out("<td valign=\"top\">$attrlist->{$_}->[1]</td></tr>\n");
+        }
+        mc_out("<input type=\"hidden\" name=\"key0\"");
+        mc_out(" value=\"AttrType\">");
+        mc_out("<tr><td colspan=\"3\"><br><b>Release status:</b></td></tr>");
+        for(Album::ALBUM_ATTR_SECTION_STATUS_START..Album::ALBUM_ATTR_SECTION_STATUS_END)
+        {
+            mc_out("<tr><td valign=\"top\" NOWRAP>");
             mc_out("<input type=\"radio\" name=\"value1\" value=\"$_\"");
             if (scalar(@attrs) > 0 && $attrs[0] == $_)
             {
@@ -84,21 +117,6 @@ $attrlist = $al->GetAttributeList();
             mc_out("<td valign=\"top\">$attrlist->{$_}->[1]</td></tr>");
         }
         mc_out("<input type=\"hidden\" name=\"key1\"");
-        mc_out(" value=\"AttrType\">");
-        mc_out("<tr><td colspan=\"3\"><br><b>Release status:</b></td></tr>");
-        for(Album::ALBUM_ATTR_SECTION_STATUS_START..Album::ALBUM_ATTR_SECTION_STATUS_END)
-        {
-            mc_out("<tr><td valign=\"top\" NOWRAP>");
-            mc_out("<input type=\"radio\" name=\"value2\" value=\"$_\"");
-            if (scalar(@attrs) > 0 && $attrs[0] == $_)
-            {
-                mc_out(" CHECKED");
-                shift @attrs;
-            }
-            mc_out("></td><td valign=\"top\">$attrlist->{$_}->[0]</td>");
-            mc_out("<td valign=\"top\">$attrlist->{$_}->[1]</td></tr>");
-        }
-        mc_out("<input type=\"hidden\" name=\"key2\"");
         mc_out(" value=\"AttrStatus\">");
         </%perl>
         </table> 
@@ -112,15 +130,51 @@ $attrlist = $al->GetAttributeList();
         </td>
       </tr>
     </table>
-    <input type="hidden" name="key0" value="AlbumName">
-    <input type="hidden" name="value0" value="<% $al->GetName() %>">
+% if (exists $ARGS{"key0"}) {
+    <%perl>
+    my ($i, $urlid);
+    for($i = 0;; $i++)
+    {
+       if (exists $ARGS{"key$i"})
+       {
+           $urlid = $ARGS{"value$i"} if ($ARGS{"key$i"} eq "AlbumId0");
+           </%perl>
+           <input type="hidden" name="key<% $i + 2 %>" 
+                  value="<% $ARGS{"key$i"} %>">
+           <input type="hidden" name="value<% $i + 2 %>" 
+                  value="<% $ARGS{"value$i"} %>">
+           <%perl>
+       }
+       else
+       {
+           last;
+       }
+    }
+    if ($artist == ModDefs::VARTIST_ID)
+    {
+        $url = "/showalbum.html?albumid=$urlid";
+    }
+    else
+    {
+        $url = "/showartist.html?artistid=$artist";
+    }
+    </%perl>
+
+    <input type="hidden" name="id" value="0">
+    <input type="hidden" name="prev" value="">
+% } else {
+    <input type="hidden" name="key2" value="AlbumId0">
+    <input type="hidden" name="value2" value="<% $id %>">
+    <input type="hidden" name="key3" value="AlbumName0">
+    <input type="hidden" name="value3" value="<% $al->GetName() %>">
+    <input type="hidden" name="id" value="<% $id %>">
+    <input type="hidden" name="prev" value="<% $prev %>">
+% }
     <input type="hidden" name="artist" value="<% $artist %>">
     <input type="hidden" name="type" 
            value="<% ModDefs::MOD_EDIT_ALBUMATTRS %>">
-    <input type="hidden" name="prev" value="<% $prev  %>">
     <input type="hidden" name="table" value="Album">
     <input type="hidden" name="column" value="Attributes">
-    <input type="hidden" name="id" value="<% $id %>">
     <input type="hidden" name="url" value="<% $url %>">
     </form>
       

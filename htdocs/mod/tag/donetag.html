@@ -36,7 +36,7 @@ else
        }
        else
        {
-           mc_out("Count not load album " . $al->GetId() . ".");
+           mc_out("Could not load album " . $al->GetId() . ".");
        }
     }
 
@@ -86,6 +86,17 @@ else
       </td>
       <td valign="top">
       Remove all the tagged albums.<br>
+      </td>
+    </tr>
+     <tr>
+      <td valign="top">
+      <& comp/mergeform, type=>ModDefs::MOD_EDIT_ALBUMATTRS, 
+                         link=>"/editalbumattrs.html", 
+                         objs=>\@objs,
+                         attrprev=>1 &>
+      </td>
+      <td valign="top">
+      Apply album attributes to all tagged albums.<br>
       </td>
     </tr>
     <tr>

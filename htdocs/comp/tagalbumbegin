@@ -51,5 +51,5 @@ if (exists $session{user})
         </td>
   </tr>
   </table>
-  <TABLE WIDTH="100%" bgcolor=white BORDER="0" CELLSPACING="1" CELLPADDING="3">
+  <TABLE WIDTH="100%" bgcolor=black BORDER="0" CELLSPACING="1" CELLPADDING="3">
 
