@@ -97,24 +97,60 @@ sub Insert
 
 	# Should we e-mail the added note to the original moderator?
 	return if $opts{'nosend'};
-	# Not if it's them that just added the note.
-	return if $noteuid == $moderation->GetModerator;
+
+	# People we might send this note to.
+	my %done;
+	$done{$noteuid} = 1;
 
 	my $ui = UserStuff->new($self->{DBH});
 	my $mod_user = $ui->newFromId($moderation->GetModerator)
 		or die;
-	# Also not unless they've got a confirmed e-mail address
-	return unless $mod_user->GetEmail and $mod_user->GetEmailConfirmDate;
-
 	my $note_user = $ui->newFromId($noteuid)
 		or die;
 
-	$note_user->SendModNoteToUser(
-		mod			=> $moderation,
-		noteuser	=> $mod_user,
-		notetext	=> $text,
-		revealaddress=> $opts{'revealaddress'},
-	);
+	{
+		# Not if it's them that just added the note.
+		next if $noteuid == $moderation->GetModerator;
+
+		# Also not unless they've got a confirmed e-mail address
+		next unless $mod_user->GetEmail and $mod_user->GetEmailConfirmDate;
+
+		$note_user->SendModNoteToUser(
+			mod			=> $moderation,
+			mod_user	=> $mod_user,
+			note_text	=> $text,
+			revealaddress=> $opts{'revealaddress'},
+		);
+
+		$done{$moderation->GetModerator} = 1;
+	}
+
+	# Who else wants to receive this note via email?
+	my @notes = $self->newFromModerationId($moderation->GetId);
+
+	for my $note (@notes)
+	{
+		my $uid = $note->GetUserId;
+		next if $done{$uid};
+		$done{$uid} = 1;
+
+		# Has this user got the "mail_notes_if_i_noted" preference enabled?
+		my $other_user = $ui->newFromId($uid)
+			or die;
+
+		next unless $other_user->GetEmail and $other_user->GetEmailConfirmDate;
+
+		UserPreference::get_for_user("mail_notes_if_i_noted", $other_user)
+			or next;
+
+		$note_user->SendModNoteToFellowNoter(
+			mod			=> $moderation,
+			mod_user	=> $mod_user,
+			other_user	=> $other_user,
+			note_text	=> $text,
+			revealaddress=> $opts{'revealaddress'},
+		);
+	}
 }
 
 *newFromModerationId = \&newFromModerationIds;

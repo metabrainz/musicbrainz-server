@@ -704,10 +704,12 @@ EOF
 	$self->SendFormattedEmail(entity => $mail, to => $email);
 }
 
+# User $self wants to send an ad-hoc message to $other_user.
+
 sub SendMessageToUser
 {
 	my ($self, %opts) = @_;
-	my $otheruser = $opts{'to'};
+	my $other_user = $opts{'to'};
 	my $revealaddress = $opts{'revealaddress'};
 	my $subject = $opts{'subject'};
 	my $message = $opts{'body'};
@@ -754,7 +756,7 @@ EOF
 	my $mail = MusicBrainz::Server::Mail->new(
 		Sender		=> 'Webserver <webserver@musicbrainz.org>',
 		From		=> $self->GetForwardingAddressHeader,
-		# To: $otheruser (automatic)
+		# To: $other_user (automatic)
 		"Reply-To"	=> 'Nobody <noreply@musicbrainz.org>',
 		Subject		=> MusicBrainz::Server::Mail->_quoted_header($subject),
 		Type		=> "text/plain",
@@ -769,15 +771,17 @@ EOF
 		$mail->delete("Reply-To");
 	}
 
-	$otheruser->SendFormattedEmail(entity => $mail);
+	$other_user->SendFormattedEmail(entity => $mail);
 }
+
+# User $self has added a note to $mod.  $mod_user was the original moderator.
 
 sub SendModNoteToUser
 {
 	my ($self, %opts) = @_;
 	my $mod = $opts{'mod'};
-	my $otheruser = $opts{'noteuser'};
-	my $notetext = $opts{'notetext'};
+	my $mod_user = $opts{'mod_user'};
+	my $note_text = $opts{'note_text'};
 
 	my $modid = $mod->GetId;
 	my $fromname = $self->GetName;
@@ -785,7 +789,7 @@ sub SendModNoteToUser
 	my $body = <<EOF;
 Moderator '$fromname' has attached a note to your moderation #$modid:
 
-$notetext
+$note_text
 
 Moderation link: http://${\ DBDefs::WEB_SERVER() }/showmod.html?modid=$modid
 
@@ -822,7 +826,7 @@ EOF
 	my $mail = MusicBrainz::Server::Mail->new(
 		Sender		=> 'Webserver <webserver@musicbrainz.org>',
 		From		=> $self->GetForwardingAddressHeader,
-		# To: $otheruser (automatic)
+		# To: $mod_user (automatic)
 		"Reply-To"	=> 'Nobody <noreply@musicbrainz.org>',
 		Subject		=> "Note added to moderation #$modid",
 		Type		=> "text/plain",
@@ -837,7 +841,80 @@ EOF
 		$mail->delete("Reply-To");
 	}
 
-	$otheruser->SendFormattedEmail(entity => $mail);
+	$mod_user->SendFormattedEmail(entity => $mail);
+}
+
+# User $self has added a note to $mod.  $mod_user was the original moderator.
+# $other_user is a third user, who has already added a note to $mod.
+
+sub SendModNoteToFellowNoter
+{
+	my ($self, %opts) = @_;
+	my $mod = $opts{'mod'};
+	my $mod_user = $opts{'mod_user'};
+	my $other_user = $opts{'other_user'};
+	my $note_text = $opts{'note_text'};
+
+	my $modid = $mod->GetId;
+	my $fromname = $self->GetName;
+
+	my $body = <<EOF;
+Moderator '$fromname' has attached a note moderation #$modid:
+
+$note_text
+
+Moderation link: http://${\ DBDefs::WEB_SERVER() }/showmod.html?modid=$modid
+The original moderator was '${\ $mod_user->GetName }'
+
+------------------------------------------------------------------------
+EOF
+
+	$opts{'revealaddress'} = 0 unless $self->GetEmail;
+
+	if ($opts{'revealaddress'})
+	{
+		$body .= <<EOF;
+If you would like to send mail to moderator '$fromname',
+either reply to this e-mail, or use this link:
+http://${\ DBDefs::WEB_SERVER() }/user/mod_email.html?uid=${\ $self->GetId }
+EOF
+	} elsif ($self->GetEmail) {
+		$body .= <<EOF;
+Please do not respond to this email.
+
+If you would like to send mail to moderator '$fromname',
+please use this link:
+http://${\ DBDefs::WEB_SERVER() }/user/mod_email.html?uid=${\ $self->GetId }
+EOF
+	} elsif ($self->GetId != &ModDefs::MODBOT_MODERATOR) {
+		$body .= <<EOF;
+Please do not respond to this email.
+
+Unfortunately moderator '$fromname' has not supplied their e-mail address,
+so you can't reply to them.
+EOF
+	}
+
+	require MusicBrainz::Server::Mail;
+	my $mail = MusicBrainz::Server::Mail->new(
+		Sender		=> 'Webserver <webserver@musicbrainz.org>',
+		From		=> $self->GetForwardingAddressHeader,
+		# To: $other_user (automatic)
+		"Reply-To"	=> 'Nobody <noreply@musicbrainz.org>',
+		Subject		=> "Note added to moderation #$modid",
+		Type		=> "text/plain",
+		Encoding	=> "quoted-printable",
+		Data		=> $body,
+	);
+    $mail->attr("content-type.charset" => "utf-8");
+
+	if ($opts{'revealaddress'})
+	{
+		$mail->replace("From" => $self->GetRealAddressHeader);
+		$mail->delete("Reply-To");
+	}
+
+	$other_user->SendFormattedEmail(entity => $mail);
 }
 
 # Send a complete formatted message ($messagetext) to a user ($self).
