@@ -286,7 +286,7 @@ sub CreateIndices
     my ($dbh) = @_;
 
     $dbh->do(qq/alter table Artist add unique index NameIndex (Name), 
-                                   add unique index SortNameIndex (SortName), 
+                                   add index SortNameIndex (SortName), 
                                    add unique index GIDIndex (GID)/)
           or die("Could not add indices to Artist table");
     print "Added indices to Artist table.\n";
