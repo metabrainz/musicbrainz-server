@@ -147,7 +147,7 @@ The MusicBrainz client library can also be used to create Relatable TRM
 acoustic fingerprints for audio files. In order to generate a TRM id, you
 will need to feed the client library the first 30 seconds worth of PCM
 data from your audio stream. Once you've fed it the 30 seconds of data,
-the client library will send the acousting fingerprint information to the
+the client library will send the acoustic fingerprint information to the
 Relatable server and the server will assign and return a TRM ID to the given
 song. You can then use the TRM id to look up metadata for the song,
 and fill out the ID3 tags (or equivalent) automatically! 
@@ -249,7 +249,7 @@ from the currently selected artist. To get the name of the artist, do this:
 <& /comp/exampleend &>
 
 <p>
-Which will extract the artist name and save it into data. The last argumemnt
+Which will extract the artist name and save it into data. The last argument
 specifies the number of bytes allocated in data. Check the query reference
 for the queries that you can do on a given artist.
 
@@ -361,12 +361,12 @@ includes TRM Id, artist name, album name, track name, track number, duration
 
 <p>
 The idea is to have the server match as much information as possible from the
-provded artist, album and track names. The server will do its best to match an
+provided artist, album and track names. The server will do its best to match an
 artist. If more than one matching artist is found, a list of artists is returned.
 The tagger must then present the list of artists to the user and have the user
 choose an artist. The artist id for the chosen artist should then be passed 
 to the server in the artist id field. If an artist id is provided, the artist name is 
-no longer used and can be ommitted.
+no longer used and can be omitted.
 
 <p>
 The same process applies to an album. However, if an artist was matched and a album

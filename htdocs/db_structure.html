@@ -44,7 +44,7 @@ Connecting the core info:
 -TRMJoin   Id field, TRM Id, and Track Id
 </pre>
 
-Moderation proces:
+Moderation process:
 <pre>
 -Moderator  Id field, Name, Password (simple cleartext), Privs, Accepted 
             moderations, and rejected moderations
@@ -61,7 +61,7 @@ Additional info:
             and 99 track lengths
 -ArtistAlias Id field, Name, Ref
 -Lyrics     Id field, Track Id, Text, and Writer name
--Synctext   Id field, Track Id, Type, URL, and Submittor name
+-Synctext   Id field, Track Id, Type, URL, and Submitter name
 -SyncEvent  Id field, Synctext Id, TimeStamp, Text
 </pre>
 
@@ -69,12 +69,12 @@ Additional info:
 <a name="MusicBrainz II database structure"></a>
 <& /comp/section, title=>'MusicBrainz II database structure' &>  
 
-We want to expand MusicBrainz with more information and store more then Artist/Album/Track information. For this we need the help of a serious number of people that are willing to add the information to the thousands of records in our database. If creating the biography of an artist takes a whole day, imagine the total time needed to write 50,000 of them. We need to call upon a large number of people to help us fill this extended database. In the true spirit of MusicBrainz we give all content back to the users. By automatically collecting the information from ID3 tags inside MP3 audio files the MusicBrainz I database was filled with less effort. For MusicBainz II we need to build a large community to add more information to the thousands of existing records.
+We want to expand MusicBrainz with more information and store more then Artist/Album/Track information. For this we need the help of a serious number of people that are willing to add the information to the thousands of records in our database. If creating the biography of an artist takes a whole day, imagine the total time needed to write 50,000 of them. We need to call upon a large number of people to help us fill this extended database. In the true spirit of MusicBrainz we give all content back to the users. By automatically collecting the information from ID3 tags inside MP3 audio files the MusicBrainz I database was filled with less effort. For MusicBrainz II we need to build a large community to add more information to the thousands of existing records.
 
-<p>On the mailinglist the following list of requirements for the content was discussed and generally accepted:
+<p>On the mailing list the following list of requirements for the content was discussed and generally accepted:
 <UL>
 <li>Model all the roles of contributors and events: songwriters, artist band breakups, album releases, album cover creator, etc.</LI>
-<li>Strict seperation of facts and subjective data into seperate tables for the copyright issue.</LI>
+<li>Strict separation of facts and subjective data into separate tables for the copyright issue.</LI>
 <li>Contain pop charts, biographies, birth day's, URL's of fan pages</LI>
 <li>Support for classical CDs, opera's, etc.</LI>
 <li>Tackle the genre system, a good workable system is probably layered with two levels of genre where the top is < 15. Each track can have a number of genre's.
@@ -82,16 +82,16 @@ We want to expand MusicBrainz with more information and store more then Artist/A
     topgenre(rock, classic, jazz, blues, country)
     genre   (piano, symphonic, heavy metal, punk, acoustic, etc.)
 </pre>
- Is a voting system for subjective genere data realistic? We need a lot of votes to
+ Is a voting system for subjective genre data realistic? We need a lot of votes to
  get the genre for 500.000 tracks. </LI>
-<li>Picture gallery. storage of (artist/concert/etc.) pictures, not in Postgres, but refered to with URL. (http://musicbrainz.org/pictures/mugshots/beatles_342.jpg</LI>
+<li>Picture gallery. storage of (artist/concert/etc.) pictures, not in Postgres, but referred to with URL. (http://musicbrainz.org/pictures/mugshots/beatles_342.jpg</LI>
 <li>guitar tabs, use a structured schema for music notation</LI>
-<li>User discussion groups. User comments should be connected to an genre/artist/album/track/etc and displayed while browsing MB. Discussions are vital to building a true on-line community that goes beyond the dry encylopedia stuff. With our reputation system we can fight spamm better then alt.music.* and our license allows more openness than the popular "Yahoo music message boards"
+<li>User discussion groups. User comments should be connected to an genre/artist/album/track/etc and displayed while browsing MB. Discussions are vital to building a true on-line community that goes beyond the dry encyclopedia stuff. With our reputation system we can fight spam better then alt.music.* and our license allows more openness than the popular "Yahoo music message boards"
 </LI></UL>
 
-<p>This database structure is still in the planning process. Any sugestions/additions/etc should be send to the mailing list or myself (j@mp3.nl)
+<p>This database structure is still in the planning process. Any suggestions/additions/etc should be send to the mailing list or myself (j@mp3.nl)
 
-<p>The CDDB.com and <a href="http://www.freedb.org">FreeDB.org</a> databases also contain information about tracks/albums/artists however, these databases contain a high number of errros and spelling-mistakes. The aim for MusicBrainz is to build the cleanest possible database. With the new database structure the amount of information is increased by an order of magnitude. This is why it makes sense to implement the database extensions in small increments were the database extension will be used before more extensions are made. 
+<p>The CDDB.com and <a href="http://www.freedb.org">FreeDB.org</a> databases also contain information about tracks/albums/artists however, these databases contain a high number of erros and spelling-mistakes. The aim for MusicBrainz is to build the cleanest possible database. With the new database structure the amount of information is increased by an order of magnitude. This is why it makes sense to implement the database extensions in small increments were the database extension will be used before more extensions are made. 
 
 <a name="MusicBrainz II primary tables"></a>
 <& /comp/section, title=>'MusicBrainz II primary tables' &>  
@@ -175,17 +175,17 @@ Event tables
 -EventType  Id field as key, EventName, Name of table
             1     band formation      Group
             2     band split          Group
-            3     person mariage      Person
-            4     person divorse      Person
+            3     person marriage     Person
+            4     person divorce      Person
             5     person suicide      Person
             6     birth of baby       Person
             7     person deceased     Person
 -Event      Id field as key, Event Type identifier, ID field identifier within table 
             EventTypeTable, Event Start timestamp, Event End timestamp, Event Description. 
-            1       3      34   10-oct-1997 10-oct-1997  Devorsed from Sean Penn
+            1       3      34   10-oct-1997 10-oct-1997  Divorced from Sean Penn
             2       5      4    05-apr-1994 05-apr-1994  The sad garage incident
 	    3       2      35          1996        1996  At the press conference the Spice Girls
-                                                           said to persue solo careers...
+                                                           said to pursue solo careers...
 
 Pop charts
 -Chart      Id field, Name
@@ -214,11 +214,11 @@ Biographies
             3         12            7502     11c11 with MTV in the picture ...
 
 URL lists
--URL        Id field, URL type ID, ID within refering table, URL
+-URL        Id field, URL type ID, ID within referring table, URL
             1         4             3                http://eelstheband.com
             2         2             3                http://www.geocities.com/TimesSquare/Realm/9341/Eels.htm         
             3         6             4                http://kurt-cobain.com/Images/DeathCert.jpg
--URL Types  Id field, refering table, Name
+-URL Types  Id field, referring table, Name
             1         Person          fanpage of person
             2         Group           fanpage of group
             3         Person          interview
