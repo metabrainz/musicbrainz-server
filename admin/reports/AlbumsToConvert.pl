@@ -85,6 +85,7 @@ sub GatherData
 			$ar->LoadFromId or next;
 
 			$ar->{_sort_} = MusicBrainz::NormaliseSortText($ar->GetSortName);
+			$ar->{_albums_} = [];
 
 			$artists{ $al->GetArtist } = $ar;
 		}

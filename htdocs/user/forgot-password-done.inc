@@ -5,7 +5,7 @@
 <center>
 
 	<p class="notice">
-		Password sent to <b><% $user->GetEmail %></b>
+		Password sent to the e-mail address registered for this account.
 	</p>
 
 	<& /comp/tablebegin, title=>'Moderator Login' &>
