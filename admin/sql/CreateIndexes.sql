@@ -33,6 +33,7 @@ create index Moderator_NameIndex on Moderator (Name);
 create index Moderation_ModeratorIndex on Moderation (Moderator);
 create index Moderation_ExpireTimeIndex on Moderation (ExpireTime);
 create index Moderation_StatusIndex on Moderation (Status);
+CREATE INDEX moderation_artistindex ON moderation (artist);
 
 create index Votes_UidIndex on Votes (Uid);
 create index Votes_RowidIndex on Votes (Rowid);
