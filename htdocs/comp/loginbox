@@ -27,6 +27,18 @@ return if $m->comp("/comp/dbreadonly", 0, 0);
 		<INPUT TYPE="password" NAME="Password" SIZE=20>
 	</p>
 
+	<div style="margin: 0.5em">
+		<div>
+			<input type="checkbox" name="PermanentCookie">
+			Log in permanently
+		</div>
+		<div style="text-align: center">
+			[ <a <& /comp/auto-popup-link,
+				url => "/products/server/docs/20031210-1.html",
+				&>>help</a> ]
+		</div>
+	</p>
+
 	<p style="text-align: center">
 		<INPUT TYPE="submit" NAME="Login" VALUE="Log In">
 	</p>
