@@ -1,4 +1,5 @@
 %# vi: set ts=2 sw=2 ft=mason :
+% my $modid = shift || "";
 
 <form method="get" action="/showmod.html"
 	name="JumpMod"
@@ -8,7 +9,7 @@
 
 	<p>
 		Jump to moderation
-		#<input type="text" name="modid" size="10">
+		#<input type="text" name="modid" size="10" value="<% $modid %>">
 		<input type="submit" value="Jump">
 	</p>
 
