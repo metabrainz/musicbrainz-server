@@ -10,7 +10,7 @@ my $my_mod = ($mod->GetModerator == $my_uid);
 my $my_vote = $mod->VoteFromUser($my_uid);
 my $is_open = ($mod->GetStatus == &ModDefs::STATUS_OPEN);
 
-my $see_votes = ($my_mod or not $is_open or defined $my_vote);
+my $see_votes = ($my_mod or not $is_open);
 
 my $opentime = $mod->GetOpenTime;
 $opentime = $opentime ? $m->comp("/comp/datetime", $opentime) : "?";
@@ -76,33 +76,31 @@ my $expire_verb = ($mod->GetExpired ? "Expired" : "Expires");
 
 	<tr><td colspan="2"><hr></td></tr>
 
-% if (defined $my_vote) {
 	<tr>
 		<td>Your Vote:</td>
-		<td><% $my_vote->GetVoteName %></td>
+		<td><%
+			$my_vote ? $my_vote->GetVoteName
+			: $is_open
+				? "You haven't yet voted. Vote now!"
+				: "You didn't vote"
+		%></td>
 	</tr>
-% } elsif ($is_open) {
-	<tr>
-		<td>Your Vote:</td>
-		<td>You haven't yet voted.&nbsp; Vote now!</td>
-	</tr>
+
+% if ($is_open) {
 	<tr>
 		<td colspan="2">
 			<form method="post" action="/bare/vote.html">
 				<p style="text-align: center">
-					<& /mod/voting-buttons.inc, mod => $mod &>
+					<& /mod/voting-buttons.inc, mod => $mod,
+						vote => ($my_vote ? $my_vote->GetVote : undef),
+					&>
 				</p>
 				<p style="text-align: center">
 					<input type="hidden" name="url" value="/showmod.html?modid=<% $mod->GetId %>">
-					<input type="submit" value="Vote">
+					<input type="submit" value="<% $my_vote ? 'Change your vote' : 'Vote' %>">
 				</p>
 			</form>
 		</td>
-	</tr>
-% } else {
-	<tr>
-		<td>Your Vote:</td>
-		<td>You didn't vote</td>
 	</tr>
 % }
 
@@ -122,15 +120,24 @@ my $expire_verb = ($mod->GetExpired ? "Expired" : "Expires");
 		<td><% $mod->GetNoVotes %></td>
 	</tr>
 % if (my @votes = $mod->Votes) {
+<%perl>
+# Find the most recent vote by each voter.
+# Mark the others as superseded.
+my %mostrecent;
+$mostrecent{ $_->GetUserId } = $_->GetId
+	for @votes;
+</%perl>
 	<tr>
 		<td valign="top">Votes:</td>
 		<td valign="top">
-			<table>
+			<table class="SpacedColumns">
 % for my $v (@votes) {
-				<tr>
+% my $is_latest = ($v->GetId == $mostrecent{ $v->GetUserId });
+				<tr class="<% $is_latest ? '' : 'SupersededVote' %>">
 					<td><a href="/user/view.html?uid=<% $v->GetUserId %>"
 						><% $v->GetUserName %></a></td>
-					<td style="text-align: right"><% $v->GetVoteName %></td>
+					<td style="text-align: center"><% $v->GetVoteName %></td>
+					<td><% $m->comp("/comp/datetime", $v->GetVoteTime) %></td>
 				</tr>
 % } # each vote
 			</table>
