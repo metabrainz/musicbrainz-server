@@ -1,0 +1,60 @@
+<& /comp/sidebar, title => 'June 30th, 2003: Server Updates' &>
+
+<pre>
+Change Log for mb_server
+========================
+
+Import from FreeDB
+------------------
+
+The process of importing a release from FreeDB has been rewritten.
+The improvements include:
+
+* Previously it was easy to miss the "CD has multiple artists" tick box,
+  and hence get the import wrong.  Now the user is quite obviously asked
+  to make a clear choice (with no default) as to whether a single artist
+  or multiple artists are involved.
+
+* All artists can be searched for, using the same technique as is used for
+  entering a "change track artist" moderation.
+
+* All fields have a "Guess Case" button; also, for single artist releases,
+  there is a "Guess All" button.  "Smart Quotes" are fixed (replaced by
+  apostrophes) by default.
+
+* At any stage it's easy to go back and change your earlier answers, without
+  losing any later answers.
+
+Also, releases imported from FreeDB (both automatically and manually) should
+now have their track lengths set.
+
+ 
+Other Changes
+-------------
+
+There is now an "Edit Artist Alias" moderation type, so you don't have to
+delete and re-add an alias to change it.  See the "Edit" links on
+/showaliases.html.
+
+Previously add links to add a note to a moderation required Javascript to
+work.  This has now been fixed.
+
+For "Add non-album track" moderations, the (meaningless) track number is
+no longer displayed.
+
+A couple of security flaws relating to moderation notes have been fixed.
+
+There is now a script to fix "smart quotes" in bulk (activated by the
+server administrators).
+
+The nightly database dump archives (mbdump*.tar.bz2) now each include a
+TIMESTAMP file.  This will make it easier to identify exactly when each dump
+was taken, and to check that a set of dump files belong together.
+
+
+
+Dave Evans
+
+</pre>
+
+<& /comp/footer &>
