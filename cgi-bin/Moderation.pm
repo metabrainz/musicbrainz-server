@@ -826,8 +826,6 @@ sub GetModerationList
    return ($num_rows, $total_rows, @data);
 }
 
-# TODO make a separate "vote" class
-
 # Go through the Moderation table and evaluate open Moderations
 # This is "the modbot!"
 
