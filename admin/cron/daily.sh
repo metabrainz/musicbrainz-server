@@ -41,6 +41,9 @@ tar -cjvf /tmp/apacheconf-backup.tar.bz2 $apacheconfigdirs
 chown $backupuser:$backupgroup /tmp/apacheconf-backup.tar.bz2
 mv /tmp/apacheconf-backup.tar.bz2 $backupdir
 
+# Identify and remove unused artists
+./cleanup/EmptyArtists.pl --remove --summary --noverbose
+
 # Vacuum and analyze the database for peak performance
 echo "VACUUM ANALYZE;" | psql $DB_PGOPTS -U $DB_USER $DB_NAME
 
