@@ -132,14 +132,15 @@ sub _set
 	$cache->set(_encode_key($key), $data, @opts);
 }
 
-sub remove
+sub delete
 {
-	my ($class, $key) = @_;
+	my ($class, $key, $time) = @_;
+	$time = &DBDefs::CACHE_DEFAULT_DELETE unless defined $time;
 	my $cache = $class->_new
 		or return undef;
-	carp "Cache REMOVE $key" if &DBDefs::CACHE_DEBUG;
-	eval { $cache->set(_encode_key($key), "", time) };
-	warn "Cache remove $key failed: $@\n" if $@;
+	carp "Cache DELETE $key $time" if &DBDefs::CACHE_DEBUG;
+	eval { $cache->delete(_encode_key($key), $time) };
+	warn "Cache delete $key failed: $@\n" if $@;
 }
 
 =pod
