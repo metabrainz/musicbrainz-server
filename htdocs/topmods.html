@@ -4,7 +4,7 @@
 
 my $result = $m->cache(action=>'retrieve');
 
-if (1) #!defined($result)) 
+if (!defined($result)) 
 {
     my $mb = $m->comp("/comp/dblogin");
 
