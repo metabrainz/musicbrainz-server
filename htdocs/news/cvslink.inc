@@ -6,5 +6,6 @@ my $show = $opts{'show'};
 require File::Basename;
 $show = File::Basename::basename($cvspath)
 	unless defined $show;
+</%perl><a href="http://cvs.musicbrainz.org/cvs/<% $cvspath %>"><% $show %></a><%perl>
+return;
 </%perl>
-<a href="http://cvs.musicbrainz.org/cvs/<% $cvspath %>"><% $show %></a>
