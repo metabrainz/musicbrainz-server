@@ -92,7 +92,7 @@ sub Dump
     my $sname = ($type eq 'Artist') ? "sortname" : "name";
 
     my ($start, $nw, $count, $mx, $spr, $left, $mins, $hours, $secs);
-    if ($sql->Select("select id from $type order by $sname limit 100"))
+    if ($sql->Select("select id from $type order by $sname"))
     {
         $start = time;
         $mx = $sql->Rows();
