@@ -17,7 +17,8 @@ my ($bgcolor, $tr_bgcolor, $length_in_secs);
 $bgcolor = ($track->GetModPending()) ? 'bgcolor="#FFFFCC"' : '';
 $bgcolor = ($hilitetrack == $track->GetId()) ? 'bgcolor="#FFCCFF"' : $bgcolor;
 $tr_bgcolor = ($track->GetAlbumJoinModPending()) ? 'bgcolor="#FFFFCC"' : '';
-$length_in_secs = int($track->GetLength() / 1000);
+$length_in_secs = int((defined $track->GetLength()) ? 
+                      $track->GetLength() / 1000 : 0);
 
 </%perl>
 

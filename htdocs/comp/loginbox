@@ -45,7 +45,11 @@ $url=>""
 <%perl>
 if ($url eq "") 
 {
-   $url = $r->uri() . "?" . $r->args();
+   $url = $r->uri();
+   if (defined $r->args() && $r->args() ne '')
+   {
+      $url .= "?" . $r->args();
+   }
 }
 
 if ($url ne "") {
