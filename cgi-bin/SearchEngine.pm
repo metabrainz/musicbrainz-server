@@ -240,7 +240,6 @@ sub Search {
     $search =~ s/^\s+//;
 
     my $query = $self->GetQuery($search);
-    print STDERR "$query\n";
 
     $self->{DBH}->do('SET SQL_BIG_TABLES=1');
 

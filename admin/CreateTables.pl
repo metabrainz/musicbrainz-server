@@ -28,6 +28,13 @@ use DBDefs;
 use MusicBrainz;
 use Artist;
 
+
+# To change this over to work with Postgres, you'll need to:
+#   remove the qualifiers (e.g. (11) behind the ints)
+#   change tinyints to smallints
+#   change blobs to bytea
+#   change all the alter table add index to create index queries
+
 sub CreateTables
 {
     my ($dbh) = @_;
@@ -214,7 +221,8 @@ sub CreateTables
              "   Moderator int not null, ".
              "   YesVotes int, ".
              "   NoVotes int,".
-             "   Depmod int)")
+             "   Depmod int,".
+             "   Automod tinyint)")
           or die("Cannot create Changes table");
           
     print "Created Changes table.\n";

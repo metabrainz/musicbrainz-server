@@ -30,7 +30,6 @@ elsif (defined $ARGS{User} && $ARGS{User} ne '' &&
         $session{user} = $user;
         $session{privs} = $privs;
         $session{uid} = $uid;  
-        print STDERR "Login: $uid\n";
     }
     $mb->Logout();
 }    

@@ -29,6 +29,7 @@ use Track;
 use Artist;
 use Album;
 use Insert;
+use SearchEngine;
 
 package AddTrackModeration;
 use vars qw(@ISA);
@@ -285,6 +286,16 @@ sub ApprovedAction
                my $al = Alias->new($this->{DBH});
                $al->SetTable("ArtistAlias");
                $al->Insert($datarowid, $prevval);
+           }
+
+           if ($column eq 'Name' && ($table eq 'Artist' ||
+               $table eq 'Album' || $table eq 'Track'))
+           {
+               # Now remove the old name from the word index, and then
+               # add the new name to the index
+               my $engine = SearchEngine->new( { Table => $table } );
+               $engine->RemoveObjectRefs($datarowid);
+               $engine->AddWordRefs($datarowid, $this->GetNew());
            }
            $status = ModDefs::STATUS_APPLIED;
        }
