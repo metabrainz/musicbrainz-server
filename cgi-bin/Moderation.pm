@@ -472,8 +472,9 @@ sub InsertModeration
 {
     my ($this, $privs) = @_;
     my ($table, $column, $prev, $new);
-    my ($sql, $ui, $insertid);
+    my ($sql, $ui, $insertid, $automod);
 
+    $automod = 0;
     $this->CheckSpecialCases();
 
     $sql = Sql->new($this->{DBH});
@@ -492,8 +493,25 @@ sub InsertModeration
            ModDefs::STATUS_OPEN . ", $this->{depmod}, 0)");
     $insertid = $sql->GetLastInsertId();
 
+    # Check to see if this moderaton should get automod approval
     if ($this->IsAutoModType($this->GetType()) && 
         defined $privs && $ui->IsAutoMod($privs))
+    {
+        $automod = 1;
+    }
+    else
+    {
+        if ($this->GetType() == ModDefs::MOD_EDIT_ARTISTNAME ||
+            $this->GetType() == ModDefs::MOD_EDIT_ARTISTSORTNAME ||
+            $this->GetType() == ModDefs::MOD_EDIT_ALBUMNAME ||
+            $this->GetType() == ModDefs::MOD_EDIT_TRACKNAME)
+        {
+            $automod = 1 if (uc($this->GetNew()) eq uc($this->GetPrev));
+        }
+    }
+
+    # If it is automod, then approve the mod and credit the moderator
+    if ($automod)
     {
         my ($mod, $status);
 
@@ -505,6 +523,7 @@ sub InsertModeration
     }
     else
     {
+        # Not automoded, so set the modpending flags
         if ($this->{table} ne 'GUIDJoin')
         {
             $sql->Do(qq/update $this->{table} set modpending = modpending + 1 
@@ -512,7 +531,7 @@ sub InsertModeration
         }
     }
 
-    return $sql->GetLastInsertId();
+    return $insertid;
 }
 
 # Some modifications need to get changed before being inserted into

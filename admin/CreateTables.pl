@@ -49,8 +49,7 @@ sub CreateTables
              "   ModPending int," .
              "   LastChanged datetime," .
              "   SortName varchar(100) NOT NULL)" ) 
-          or die("Cannot create Artist table");
-
+          or warn("Cannot create Artist table");
     print "Created Artist table.\n";
 
 
@@ -63,7 +62,7 @@ sub CreateTables
              "   AuxPage blob," .
              "   LastChanged datetime," .
              "   ModPending int)" )
-          or die("Cannot create Album table");
+          or warn("Cannot create Album table");
 
     print "Created Album table.\n";
 
@@ -81,14 +80,14 @@ sub CreateTables
              "   AuxPage blob," .
              "   LastChanged datetime,".
              "   ModPending int(11))" )
-          or die("Cannot create Track table");
+          or warn("Cannot create Track table");
 
     print "Created Track table.\n";
 
     $dbh->do("create table GUID (" .
              "   Id int(11) DEFAULT '0' NOT NULL auto_increment primary key," .
              "   GUID char(36) DEFAULT '' NOT NULL)")
-          or die("Cannot create GUID table");
+          or warn("Cannot create GUID table");
 
     print "Created GUID table.\n";
 
@@ -98,7 +97,7 @@ sub CreateTables
              "   Track int(11) NOT NULL," .
              "   Sequence int(11) NOT NULL," .
              "   ModPending int)")
-          or die("Cannot create AlbumJoin table");
+          or warn("Cannot create AlbumJoin table");
 
     print "Created AlbumJoin table.\n";
 
@@ -106,7 +105,7 @@ sub CreateTables
              "   Id int(11) auto_increment primary key," .
              "   GUID int(11) NOT NULL," . 
              "   Track int(11) NOT NULL)")
-          or die("Cannot create GUIDJoin table");
+          or warn("Cannot create GUIDJoin table");
 
     print "Created GUIDJoin table.\n";
 
@@ -115,7 +114,7 @@ sub CreateTables
              "   Name varchar(64) not null," .
              "   Description varchar(255)," .
              "   ModPending int)")
-          or die("Cannot create Genre table");
+          or warn("Cannot create Genre table");
 
     print "Created Genre table.\n";
 
@@ -132,7 +131,7 @@ sub CreateTables
              "   Comment text," .
              "   Sha1 char(40) not null," . 
              "   Duration int)")
-          or die("Cannot create Pending table");
+          or warn("Cannot create Pending table");
 
     print "Created Pending table.\n";
 
@@ -156,7 +155,7 @@ sub CreateTables
              "   Bitrate smallint," .
              "   Stereo tinyint," .
              "   VBR tinyint)")
-          or die("Cannot create BitziArchive table");
+          or warn("Cannot create BitziArchive table");
 
     print "Created BitziArchive table.\n";
 
@@ -169,7 +168,7 @@ sub CreateTables
              "   Toc varchar(255), ".
              "   LastChanged datetime, ".
              "   ModPending int)")
-          or die("Cannot create Diskid table");
+          or warn("Cannot create Diskid table");
 
     print "Created Diskid table.\n";
 
@@ -188,7 +187,7 @@ sub CreateTables
     $query .= ")";
 
     $dbh->do($query)
-          or die("Cannot create toc table");
+          or warn("Cannot create toc table");
 
     print "Created TOC table.\n";
 
@@ -203,7 +202,7 @@ sub CreateTables
              "   WebUrl varchar(255), ".
              "   MemberSince datetime not null,".
              "   Bio text)")
-          or die("Cannot create ModeratorInfo table");
+          or warn("Cannot create ModeratorInfo table");
     
     print "Created ModeratorInfo table.\n";
     
@@ -223,7 +222,7 @@ sub CreateTables
              "   NoVotes int,".
              "   Depmod int,".
              "   Automod tinyint)")
-          or die("Cannot create Changes table");
+          or warn("Cannot create Changes table");
           
     print "Created Changes table.\n";
 
@@ -232,7 +231,7 @@ sub CreateTables
              "   Uid int not null, ".
              "   Rowid int not null, ".
              "   vote tinyint not null)")
-          or die("Cannot create Votes table");
+          or warn("Cannot create Votes table");
     
     print "Created Votes table.\n";    
     
@@ -243,35 +242,35 @@ sub CreateTables
              "   LastUsed datetime not null,".
              "   TimesUsed int not null,".
              "   ModPending int)")
-          or die("Cannot create ArtistAlias table");
+          or warn("Cannot create ArtistAlias table");
     
     print "Created ArtistAlias table.\n";    
 
     $dbh->do(qq| create table WordList (
                    Id int auto_increment primary key,
                    Word varchar(255) NOT NULL) |)
-       or die("Cannot create WordList table");
+       or warn("Cannot create WordList table");
     
     print "Created WordList table.\n";    
     
     $dbh->do(qq| create table ArtistWords (
                    Wordid int NOT NULL,
                    Artistid int NOT NULL) |)
-          or die("Cannot create ArtistWords table");
+          or warn("Cannot create ArtistWords table");
 
     print "Created ArtistWords table.\n";    
     
     $dbh->do(qq| create table AlbumWords (
                    Wordid int NOT NULL,
                    Albumid int NOT NULL) |)
-          or die("Cannot create AlbumWords table");
+          or warn("Cannot create AlbumWords table");
 
     print "Created AlbumWords table.\n";    
     
     $dbh->do(qq| create table TrackWords (
                    Wordid int NOT NULL,
                    Trackid int NOT NULL) |)
-          or die("Cannot create TrackWords table");
+          or warn("Cannot create TrackWords table");
 
     print "Created TrackWords table.\n";    
 
@@ -279,7 +278,7 @@ sub CreateTables
                    Id int auto_increment primary key,
                    Track int NOT NULL,
                    Inserted datetime NOT NULL) |)
-          or die("Cannot create InsertHistory table");
+          or warn("Cannot create InsertHistory table");
 
     print "Created InsertHistory table.\n";    
 
@@ -288,7 +287,7 @@ sub CreateTables
              "   ModId int not null, ".
              "   Uid int not null, ".
              "   Text varchar(255) not null)")
-          or die("Cannot create ModeratorNote table");
+          or warn("Cannot create ModeratorNote table");
     
     print "Created ModeratorNote table.\n";
     
@@ -303,7 +302,7 @@ sub CreateTables
                 votes int not null, 
                 moderators int not null, 
                 timestamp datetime NOT NULL)|)
-          or die("Cannot create DatabaseStats table");
+          or warn("Cannot create DatabaseStats table");
     
     print "Created DatabaseStats table.\n";
     
@@ -319,7 +318,7 @@ sub CreateTables
                 "   Track     int      not null," .
                 "   Text      text     not null," .
                 "   Writer    varchar(64)) ")
-             or die("Cannot create Lyrics table");
+             or warn("Cannot create Lyrics table");
        print "Created Lyrics table.\n";
  
        #this table contains the index of SyncEvents. 1 set of SyncEvents has
@@ -337,7 +336,7 @@ sub CreateTables
                 "   URL       text     ," .
                 "   Submittor text     ," .
                 "   Submitted datetime not null)")
-             or die("Cannot create SyncText table");
+             or warn("Cannot create SyncText table");
        print "Created SyncText table.\n";
 
        #The SyncEvent table contains a set of timestamps and text for a given 
@@ -349,7 +348,7 @@ sub CreateTables
                 "   SyncText int      not null," .
                 "   Ts       int      not null," .
                 "   Text     text     not null) ")
-             or die("Cannot create SyncEvent table");
+             or warn("Cannot create SyncEvent table");
        print "Created SyncEvent table.\n";
       }
     else
@@ -390,123 +389,123 @@ sub CreateIndices
     $dbh->do(qq/alter table Artist add unique index NameIndex (Name), 
                                    add index SortNameIndex (SortName), 
                                    add unique index GIDIndex (GID)/)
-          or die("Could not add indices to Artist table");
+          or warn("Could not add indices to Artist table");
     print "Added indices to Artist table.\n";
 
     $dbh->do(qq/alter table Album add index NameIndex (Name), 
                                   add unique index GIDIndex (GID)/)
-          or die("Could not add indices to Album table");
+          or warn("Could not add indices to Album table");
     print "Added indices to Album table.\n";
 
     $dbh->do(qq/alter table Track add index NameIndex (Name), 
                                   add unique index GIDIndex (GID), 
                                   add index ArtistIndex (Artist)/)
-          or die("Could not add indices to Track table");
+          or warn("Could not add indices to Track table");
     print "Added indices to Track table.\n";
 
     $dbh->do(qq/alter table GUID add unique index GUIDIndex (GUID)/)
-          or die("Could not add indices to GUID table");
+          or warn("Could not add indices to GUID table");
     print "Added indices to GUID table.\n";
 
     $dbh->do(qq/alter table AlbumJoin add index AlbumIndex (Album), 
                                       add index TrackIndex (Track)/)
-          or die("Could not add indices to AlbumJoin table");
+          or warn("Could not add indices to AlbumJoin table");
     print "Added indices to AlbumJoin table.\n";
 
     $dbh->do(qq/alter table GUIDJoin add index GUIDIndex (GUID), 
                                      add index TrackIndex (Track)/)
-          or die("Could not add indices to GUIDJoin table");
+          or warn("Could not add indices to GUIDJoin table");
     print "Added indices to GUIDJoin table.\n";
 
     $dbh->do(qq/alter table Genre add unique index NameIndex (Name)/)
-          or die("Could not add indices to Genre table");
+          or warn("Could not add indices to Genre table");
     print "Added indices to Genre table.\n";
 
     $dbh->do(qq/alter table Pending add index GUIDIndex (GUID)/)
-          or die("Could not add indices to Pending table");
+          or warn("Could not add indices to Pending table");
     print "Added indices to Pending table.\n";
 
     $dbh->do(qq/alter table BitziArchive add index GUIDIndex (GUID)/)
-          or die("Could not add indices to BitziArchive table");
+          or warn("Could not add indices to BitziArchive table");
     print "Added indices to BitziArchive table.\n";
 
     $dbh->do(qq/alter table Diskid add unique index DiskIndex (Disk),
                                    add index AlbumIndex (Album)/) 
-          or die("Could not add indices to Diskid table");
+          or warn("Could not add indices to Diskid table");
     print "Added indices to Diskid table.\n";
 
     $dbh->do(qq/alter table TOC add unique index DiskIndex (Diskid), 
                                 add index AlbumIndex (Album) /)
-          or die("Could not add indices to TOC table");
+          or warn("Could not add indices to TOC table");
     print "Added indices to TOC table.\n";
 
     $dbh->do(qq/alter table ModeratorInfo add index NameIndex (Name)/)
-          or die("Could not add indices to ModeratorInfo table");
+          or warn("Could not add indices to ModeratorInfo table");
     print "Added indices to ModeratorInfo table.\n";
 
     $dbh->do(qq/alter table Changes add index ModeratorIndex (Moderator), 
                             add index TimeSubmittedIndex (TimeSubmitted),
                             add index StatusIndex (Status)/)
-          or die("Could not add indices to Changes table");
+          or warn("Could not add indices to Changes table");
     print "Added indices to Changes table.\n";
 
     $dbh->do(qq/alter table Votes add index UidIndex (Uid),
                                   add index RowidIndex (Rowid)/)
-          or die("Could not add indices to Votes table");
+          or warn("Could not add indices to Votes table");
     print "Added indices to Votes table.\n";
 
     $dbh->do(qq/alter table ArtistAlias add unique index NameIndex (Name), 
                                          add index RefIndex (Ref)/)
-          or die("Could not add indices to ArtistAlias table");
+          or warn("Could not add indices to ArtistAlias table");
     print "Added indices to ArtistAlias table.\n";
     
     $dbh->do(qq/alter table WordList add unique index WordIndex (Word)/) 
-          or die("Could not add indices to WordList table");
+          or warn("Could not add indices to WordList table");
     print "Added indices to WordList table.\n";
 
     $dbh->do(qq/alter table AlbumWords add index WordidIndex (Wordid),
                                        add index AlbumidIndex (Albumid),
                                        add unique index AlbumWordIndex (Wordid,Albumid)/)
-          or die("Could not add indices to AlbumWords table");
+          or warn("Could not add indices to AlbumWords table");
     print "Added indices to AlbumWords table.\n";
 
     $dbh->do(qq/alter table ArtistWords add index WordidIndex (Wordid),
                                         add index ArtistidIndex (Artistid),
                                         add unique index ArtistWordIndex (Wordid,Artistid)/)
-          or die("Could not add indices to ArtistWords table");
+          or warn("Could not add indices to ArtistWords table");
     print "Added indices to ArtistWords table.\n";
 
     $dbh->do(qq/alter table TrackWords  add index WordidIndex (Wordid),
                                         add index TrackidIndex (Trackid),
                                         add unique index TrackWordIndex (Wordid,Trackid)/)
-          or die("Could not add indices to TrackWords table");
+          or warn("Could not add indices to TrackWords table");
     print "Added indices to TrackWords table.\n";
 
     $dbh->do(qq/alter table InsertHistory add unique index TrackIndex (Track)/)
-          or die("Could not add indices to InsertHistory table");
+          or warn("Could not add indices to InsertHistory table");
     print "Added indices to InsertHistory table.\n";
 
     $dbh->do(qq/alter table ModeratorNote add index ModIndex (Modid)/)
-          or die("Could not add indices to ModeratorNot table");
+          or warn("Could not add indices to ModeratorNot table");
     print "Added indices to ModeratorNote table.\n";
 
     $dbh->do(qq/alter table DatabaseStats add index TimestampIndex (timestamp)/)
-          or die("Could not add indices to DatabaseStats table");
+          or warn("Could not add indices to DatabaseStats table");
     print "Added indices to DatabaseStats table.\n";
 
     if (DBDefs->USE_LYRICS)
     {
        $dbh->do(qq/alter table Lyrics add index TrackIndex (Track)/)
-             or die("Could not add indices to Lyrics table");
+             or warn("Could not add indices to Lyrics table");
        print "Added indices to Lyrics table.\n";
 
        $dbh->do(qq/alter table SyncText add index TrackIndex (Track), 
                                         add index TypeIndex (Type) /)
-             or die("Could not add indices to SyncText table");
+             or warn("Could not add indices to SyncText table");
        print "Added indices to SyncText table.\n";
 
        $dbh->do(qq/alter table SyncEvent add index SyncTextIndex (SyncText)/)
-             or die("Could not add indices to SyncEvent table");
+             or warn("Could not add indices to SyncEvent table");
        print "Added indices to SyncEvent table.\n";
     }
     else
