@@ -21,8 +21,8 @@ album attribute, as long as the attribute applies to the album overall.
 <p>
 <table width="100%">
 <tr>
-  <td align="center" NOWRAP><b>Release type:</b></td>
-  <td align="center" NOWRAP><b>Definition:</b></td>
+  <td align="left" NOWRAP><b>Release type</b></td>
+  <td align="left" NOWRAP><b>Definition</b></td>
 </tr>
 
 % for(Album::ALBUM_ATTR_SECTION_TYPE_START..Album::ALBUM_ATTR_SECTION_TYPE_END) {
@@ -32,9 +32,10 @@ album attribute, as long as the attribute applies to the album overall.
      </tr>
 % }
 
+<tr><td>&nbsp;</td></tr>
 <tr>
-  <td align="center" NOWRAP><b>Release Status:</b></td>
-  <td align="center" NOWRAP><b>Definition:</b></td>
+  <td align="left" NOWRAP><b>Release Status</b></td>
+  <td align="left" NOWRAP><b>Definition</b></td>
 </tr>
 % for(Album::ALBUM_ATTR_SECTION_STATUS_START..Album::ALBUM_ATTR_SECTION_STATUS_END) {
      <tr>
