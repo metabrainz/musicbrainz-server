@@ -49,7 +49,7 @@ sub RunSQLScript
 
 	my $echo = ($fEcho ? "-e" : "");
 
-	open(PIPE, "$psql $echo $opts -U $dbuser -f $sqldir/$file $dbname |")
+	open(PIPE, "$psql $echo $opts -U $dbuser -f $sqldir/$file $dbname 2>&1 |")
 		or die "exec '$psql': $!";
 	while (<PIPE>)
 	{
@@ -76,6 +76,7 @@ sub Create
 		}
 	}
 
+	print localtime() . " : Creating database '$dbname'\n";
 	system "createdb $opts -U postgres -E UNICODE --owner=$dbuser $dbname";
 	system "createlang $opts -U postgres -d $dbname plpgsql";
 }
@@ -103,7 +104,7 @@ sub Import
     print localtime() . " : Optimizing database ...\n";
     system("echo \"vacuum analyze\" | $psql $opts -U $dbuser $dbname");
 
-    print localtime() . " : \nInitialized and imported data into the database.\n\n";
+    print localtime() . " : Initialized and imported data into the database.\n";
 }
 
 sub Clean
@@ -120,17 +121,7 @@ sub Clean
 
 	RunSQLScript("InsertDefaultRows.sql", "Adding default rows ...");
 
-    print "\nCreated a clean and empty database.\n\n";
-}
-
-sub BuildText
-{
-    print "Build Text\n";
-}
-
-sub BuildOpt
-{
-    print "Build Opt\n";
+    print localtime() . " : Created a clean and empty database.\n";
 }
 
 sub SanityCheck
@@ -150,9 +141,6 @@ Options are:
   -i --import     Prepare the database and then import the data from 
                   the given files
   -c --clean      Prepare a ready to use empty database
-  -t --build-text Build (or rebuild) text indexes for text searching
-  -o --build-opt  Build (or rebuild) optimization tables (e.g. albummeta table)
-  -a --build-all  Equivalent to --build-text --build-opt
      --[no]echo   When running the various SQL scripts, echo the commands
                   as they are run
   -h --help       This help
@@ -165,29 +153,33 @@ EOF
 }
 
 my $fCreateDB;
-my ($fImport, $fClean, $fBuildText, $fBuildOpt, $fHelp, $fBuildAll) = (0,0,0,0,0,0);
+my ($fImport, $fClean) = (0, 0);
 
 GetOptions(
-	"psql=s"	=>\$psql,
-	"createdb"	=>\$fCreateDB,
-	"import|i"     => \$fImport,
-	"clean|c"      => \$fClean,
-	"build-text|t" => \$fBuildText,
-	"build-opt|o"  => \$fBuildOpt,
-	"build-all|a"  => \$fBuildAll,
-	"echo!"        => \$fEcho,
-	"help|h"       => \$fHelp,
+	"psql=s"	=> \$psql,
+	"createdb"	=> \$fCreateDB,
+	"import|i"	=> \$fImport,
+	"clean|c"	=> \$fClean,
+	"echo!"		=> \$fEcho,
+	"help|h"	=> \&Usage,
 );
 
-Usage() if ($fHelp);
-Usage() if (($fCreateDB || $fImport) + $fClean + $fBuildText + $fBuildOpt + $fBuildAll != 1);
+Usage() if $fImport and $fClean;
 
 SanityCheck();
 
+print localtime() . " : InitDb.pl starting\n";
+my $started = 1;
+
 Create() if $fCreateDB;
-Import(@ARGV) if ($fImport);
-Clean() if ($fClean);
-BuildText() if ($fBuildText || $fBuildAll);
-BuildOpt() if ($fBuildOpt || $fBuildAll);
+Import(@ARGV) if $fImport;
+Clean() if $fClean;
+
+END {
+	print localtime() . " : InitDb.pl "
+		. ($? == 0 ? "succeeded" : "failed")
+		. "\n"
+		if $started;
+}
 
 # vi: set ts=4 sw=4 :
