@@ -69,44 +69,43 @@ sub EnterRecord
     my $artistname = shift @_;
     my $diskid = shift @_;
     my $toc = shift @_;
-    my $artist;
+    my ($artistid, $albumid);
     my ($sql, $sql2);
-    my $album;
-    my ($i, $a, $al, $d, @ids, $num, $t);
+    my ($i, $ar, $al, $d, @ids, $num, $t);
 
     if (!defined $artistname || $artistname eq '')
     {
         $artistname = "Unknown";
     }
 
-    $a = Artist->new($this->{DBH});
-    $a->SetName($artistname);
-    $a->SetSortName($artistname);
-    $artist = $a->Insert();
-    if (not defined $artist)
+    $ar = Artist->new($this->{DBH});
+    $ar->SetName($artistname);
+    $ar->SetSortName($artistname);
+    $artistid = $a->Insert();
+    if (not defined $artistid)
     {
         return 0;
     }
 
-    @ids = $a->GetAlbumsByName($title);
-    for(;defined($album = shift @ids);)
+    @ids = $ar->GetAlbumsByName($title);
+    for(;defined($al = shift @ids);)
     {
-        $num = $album->GetTrackCount();
+        $num = $al->GetTrackCount();
         if (!defined $num || $num < 0)
         {
-            undef $album;
+            undef $al;
             last;
         }
         last if ($num == $tracks);
     }
 
-    $al = Album->new($this->{DBH});
-    $al->SetArtist($artist);
-    if (!defined $album)
+    if (!defined $al)
     {
+        $al = Album->new($this->{DBH});
+        $al->SetArtist($artistid);
         $al->SetName($title);
-        $album = $al->Insert();
-        if (!defined $album)
+        $albumid = $al->Insert();
+        if (!defined $albumid)
         {
             return 0;
         }
@@ -119,15 +118,15 @@ sub EnterRecord
         $t = Track->new($this->{DBH});
         $t->SetName($title);
         $t->SetSequence($i + 1);
-        if (!defined $t->Insert($al, $a))
+        if (!defined $t->Insert($al, $ar))
         {
-            print STDERR "Inserting track $title ($artist, $album) failed.\n";
+            print STDERR "Inserting track $title ($artistid, $albumid) failed.\n";
         }
     }
     $d = Diskid->new($this->{DBH});
-    $d->Insert($diskid, $album, $toc);
+    $d->Insert($diskid, $al->GetId(), $toc);
 
-    return $album;
+    return $albumid;
 }
 
 sub Lookup
