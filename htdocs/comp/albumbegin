@@ -14,11 +14,9 @@ $tagchecked=>0
 my $check_box = "";
 my $albumid = $album->GetId();
 my $script = $albumdetail ? "albumdetail" : "showalbum";
-my ($image, $alt, $title, $nonalbum);
-my ($name) = $album->GetName();
-
-$nonalbum = $album->IsNonAlbumTracks();
-$name = "Non-album tracks" if ($nonalbum);
+my ($image, $alt, $title);
+my $name = $album->GetName;
+my $nonalbum = $album->IsNonAlbumTracks;
 
 if ($link ne '')
 {
