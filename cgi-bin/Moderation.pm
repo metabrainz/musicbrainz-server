@@ -372,8 +372,8 @@ sub CreateFromId
                       ExpireTime, Moderator.name, 
                       yesvotes, novotes, Artist.name, status, 0, depmod,
                       Moderator.id, Moderation.automod,
-		      opentime, closetime,
-		      ExpireTime < now()
+                      opentime, closetime,
+                      ExpireTime < now()
                from   Moderation, Moderator, Artist 
                where  Moderator.id = moderator and Moderation.artist = 
                       Artist.id and Moderation.id = $id/;
@@ -525,11 +525,11 @@ sub InsertModeration
     use DebugLog;
     if (my $d = DebugLog->open)
     {
-	$d->stamp;
-	$d->dumper([$this], ['this']);
-	$d->dumpstring($this->{prev}, "this-prev");
-	$d->dumpstring($this->{new}, "this-new");
-	$d->close;
+        $d->stamp;
+        $d->dumper([$this], ['this']);
+        $d->dumpstring($this->{prev}, "this-prev");
+        $d->dumpstring($this->{new}, "this-new");
+        $d->close;
     }
 
     $automod = 0;
@@ -540,10 +540,10 @@ sub InsertModeration
 
     if (my $d = DebugLog->open)
     {
-	$d->stamp;
-	$d->dumpstring($this->{prev}, "this-prev");
-	$d->dumpstring($this->{new}, "this-new");
-	$d->close;
+        $d->stamp;
+        $d->dumpstring($this->{prev}, "this-prev");
+        $d->dumpstring($this->{new}, "this-new");
+        $d->close;
     }
 
     $table = $sql->Quote($this->{table});
@@ -553,9 +553,9 @@ sub InsertModeration
 
     if (my $d = DebugLog->open)
     {
-	$d->stamp;
-	$d->dumper([$prev, $new], ['prev', 'new']);
-	$d->close;
+        $d->stamp;
+        $d->dumper([$prev, $new], ['prev', 'new']);
+        $d->close;
     }
 
     $sql->Do(qq|insert into Moderation (tab, col, rowid, prevvalue, 
@@ -581,8 +581,8 @@ sub InsertModeration
             $this->GetType() == ModDefs::MOD_EDIT_ALBUMNAME ||
             $this->GetType() == ModDefs::MOD_EDIT_TRACKNAME)
         {
-	    my $old = uc decode("utf-8", unac_string("utf-8", $this->GetPrev));
-	    my $new = uc decode("utf-8", unac_string("utf-8", $this->GetNew));
+            my $old = uc decode("utf-8", unac_string("utf-8", $this->GetPrev));
+            my $new = uc decode("utf-8", unac_string("utf-8", $this->GetNew));
             $automod = 1 if $old eq $new;
         }
         elsif ($this->GetType() == ModDefs::MOD_ADD_TRMS)
@@ -654,6 +654,32 @@ sub CheckSpecialCases
 # Rowid will not be defined for TYPE_NEW, TYPE_MINE or TYPE_VOTED. 
 # rowid is used only for TYPE_ARTIST and TYPE_ALBUM , and it specifies 
 # the rowid of the artist/album for which to return moderations. 
+
+# This function is used within GetModerationList to optimise the
+# "new moderations" query.
+{
+	my ($exptime, $id) = ();
+	my $refresh = 500;
+
+	sub GetMinOpenModID
+	{
+		my $self = shift;
+
+		my $now = time;
+
+		if (not defined($exptime) or $now >= $exptime)
+		{
+			my $sql = Sql->new($self->{DBH});
+			$id = $sql->SelectSingleValue(
+				"SELECT MIN(id) FROM moderation WHERE status = 1",
+			) || 0;
+			$exptime = $now + $refresh;
+		}
+
+		$id;
+	}
+}
+
 sub GetModerationList
 {
    my ($this, $index, $num, $uid, $type, $rowid) = @_;
@@ -664,23 +690,24 @@ sub GetModerationList
    if ($type == ModDefs::TYPE_NEW)
    {
        $query = qq|
-	SELECT  m.id, m.tab, m.col, m.rowid,
-		m.artist, m.type, m.prevvalue, m.newvalue,
-		m.expiretime, m.yesvotes, m.novotes, m.status,
-		m.automod,
-		u.id, u.name,
-		a.name
-	FROM	moderation m
-		LEFT JOIN votes v ON v.rowid = m.id AND v.uid = ?
-		INNER JOIN moderator u ON u.id = m.moderator
-		INNER JOIN artist a ON a.id = m.artist
-	WHERE	m.moderator NOT IN (2,?)
-	AND	m.status = 1
-	AND	v.vote IS NULL
-	ORDER BY 1
-	LIMIT $num
+        SELECT  m.id, m.tab, m.col, m.rowid,
+                m.artist, m.type, m.prevvalue, m.newvalue,
+                m.expiretime, m.yesvotes, m.novotes, m.status,
+                m.automod,
+                u.id, u.name,
+                a.name
+        FROM    moderation m
+                LEFT JOIN votes v ON v.rowid = m.id AND v.uid = ?
+                INNER JOIN moderator u ON u.id = m.moderator
+                INNER JOIN artist a ON a.id = m.artist
+        WHERE   m.moderator NOT IN (2,?)
+        AND     m.status = 1
+        AND     m.id >= ?
+        AND     v.vote IS NULL
+        ORDER BY 1
+        LIMIT $num
        |;
-       @args = ($uid, $uid);
+       @args = ($uid, $uid, $this->GetMinOpenModID);
    }
    elsif ($type == ModDefs::TYPE_MINE)
    {
@@ -1318,3 +1345,4 @@ sub GetVoterList
 }
 
 1;
+# vi: set ts=4 sw=4 :
