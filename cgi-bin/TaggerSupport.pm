@@ -49,7 +49,6 @@ use constant ALBUMTRACKID           => 64;
 use constant ALBUMTRACKLIST         => 128;
 use constant FUZZY                  => 256;
 
-# TODO: Make sure the RDF interface still works (change to hash refs lists)
 sub new
 {
    my ($type, $dbh) = @_;
@@ -58,22 +57,12 @@ sub new
    return bless $this, $type;
 }
 
-# Used by mq.pl
-
+# Used by MQ_2_1.pm
 sub FileInfoLookup
 {
-   my $tagger = TaggerSupport->new(shift);
-   return $tagger->Lookup(@_);
-}
-
-# TODO: Fix this for the new Lookup function
-# ? not used yet in the codebase I'm looking at.  dave 2003-01-09
-
-sub RDFLookup
-{
-   my ($this, $doc, $rdf, $artistName, $albumName, $trackName, $trmId,
-          $trackNum, $duration, $fileName, $artistId, $albumId, $trackId, $maxItems) = @_;
-   my ($status, $error, %data);
+   my ($dbh, $doc, $rdf, $artistName, $albumName, $trackName, $trmId,
+       $trackNum, $duration, $fileName, $artistId, $albumId, $trackId, $maxItems) = @_;
+   my (%data);
 
    $data{artist} = $artistName;
    $data{artistid} = $artistId;
@@ -86,62 +75,12 @@ sub RDFLookup
    $data{duration} = $duration;
    $data{filename} = $fileName;
 
-   ($status, $error) = $this->Lookup(\%data);
-   if (defined $error)
-   {
-       return $rdf->ErrorRDF($error);
-   }
+   my $ts = TaggerSupport->new($dbh);
 
-   return $rdf->CreateFileLookup($this, $status);
+   return $rdf->CreateFileLookup($ts, $ts->Lookup(\%data, $maxItems));
 }
 
-# Internal.
-
-       use Data::Dumper;
-# fix users of lensim and namesim for track matches
-sub SetSim
-{
-   my ($this, $ref) = @_;
-
-   if (exists $ref->{sim_album} &&
-       exists $ref->{sim_track} &&
-       exists $ref->{sim_tracklen} &&
-       exists $ref->{sim_tracknum})
-   {
-       $ref->{sim} = ($ref->{sim_album} * .3) + 
-                     ($ref->{sim_track} * .3) + 
-                     ($ref->{sim_tracklen} * .3) +
-                     ($ref->{sim_tracknum} * .1);
-       return $ref;
-   }
-
-   if (exists $ref->{sim_track} &&
-       exists $ref->{sim_tracklen})
-   {
-       $ref->{sim} = ($ref->{sim_track} * .5) + 
-                     ($ref->{sim_tracklen} * .5);
-      return $ref;
-   }
-
-   if (exists $ref->{sim_artist})
-   {
-      $ref->{sim} = $ref->{sim_artist};
-      return $ref;
-   }
-
-   if (exists $ref->{sim_album})
-   {
-      $ref->{sim} = $ref->{sim_album};
-      return $ref;
-   }
-
-   # Ooops, something wen't wrong
-   $ref->{sim} = -1;
-
-   return $ref;
-}
-
-# Public object method.  Used by QuerySupport and taglookup.
+# Public object method.  Used by QuerySupport and taglookup and above
 
 # returns ($error, $dataref, $flags, $listref);
 sub Lookup
@@ -240,6 +179,48 @@ sub Lookup
    return ("", $data, $flags, undef);
 }
 
+# fix users of lensim and namesim for track matches
+sub SetSim
+{
+   my ($this, $ref) = @_;
+
+   if (exists $ref->{sim_album} &&
+       exists $ref->{sim_track} &&
+       exists $ref->{sim_tracklen} &&
+       exists $ref->{sim_tracknum})
+   {
+       $ref->{sim} = ($ref->{sim_album} * .3) + 
+                     ($ref->{sim_track} * .3) + 
+                     ($ref->{sim_tracklen} * .3) +
+                     ($ref->{sim_tracknum} * .1);
+       return $ref;
+   }
+
+   if (exists $ref->{sim_track} &&
+       exists $ref->{sim_tracklen})
+   {
+       $ref->{sim} = ($ref->{sim_track} * .5) + 
+                     ($ref->{sim_tracklen} * .5);
+      return $ref;
+   }
+
+   if (exists $ref->{sim_artist})
+   {
+      $ref->{sim} = $ref->{sim_artist};
+      return $ref;
+   }
+
+   if (exists $ref->{sim_album})
+   {
+      $ref->{sim} = $ref->{sim_album};
+      return $ref;
+   }
+
+   # Ooops, something wen't wrong
+   $ref->{sim} = -1;
+
+   return $ref;
+}
 # Internal method: given a filename, try to extract artist/album/track etc
 # from it.  Stash the results in $data.
 # NOTE: I *think* this is unicode-safe.  Not sure about the use of \s and \d.

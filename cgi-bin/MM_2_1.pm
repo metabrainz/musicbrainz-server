@@ -31,6 +31,7 @@ use DBDefs;
 use Discid;
 use Artist;
 use MM;
+use TaggerSupport;
 use Data::Dumper;
 
 use vars qw(@ISA @EXPORT);
@@ -303,140 +304,107 @@ sub CreateAuthenticateResponse
 
 sub CreateFileLookup
 {
-   my ($this, $tagger, $matchType) = @_;
-   my (@cache, %obj, $id, $ref, @newrefs, $i, $total, @gids, $out, $depth); 
+   my ($this, $tagger, $error, $data, $flags, $list) = @_;
+   my ($ar, $out, $id, $al);
 
-   return $this->CreateStatus() if (!defined $tagger);
-
-   $depth = $this->GetDepth();
-   return $this->ErrorRDF("Invalid search depth specified.") if ($depth < 1);
-   #print STDERR "Depth: $depth\n";
-
-   $this->{cache} = \@cache;
+   $this->{cache} = [];
+   if (defined $error && $error ne '')
+   {
+       return $this->ErrorRDF($error);
+   }
 
    $out  = $this->BeginRDFObject(exists $this->{file});
-   $out .= $this->BeginDesc("mq:Result");
-   $out .= $this->Element("mq:status", $tagger->{fuzzy} ? "Fuzzy" : "OK");
-   $out .= $this->Element("mq:matchType", $matchType);
 
-   # Load the artists or artistlist of Ids
-   if (exists $tagger->{artistid})
+   if ($flags & TaggerSupport::ARTISTLIST)
    {
-       $obj{mbid} = $tagger->{artistid};
-       $obj{type} = 'artist';
-       push @newrefs, {%obj};
-
-       $out .= $this->OutputList('artist', [$tagger->{artistid}]);
-
-       if (exists $tagger->{artist})
+       $out .= $this->BeginDesc("mq:Result");
+       $out .= $this->Element("mq:status", ($flags & TaggerSupport::FUZZY) != 0  ? "Fuzzy" : "OK");
+       $out .= $this->BeginDesc("mq:lookupResultList");
+       $out .= $this->BeginSeq();
+       foreach $id (@$list)
        {
-           $this->AddToCache($depth, 'artist', 
-                             $tagger->{artist}->GetId(), 
-                             $tagger->{artist}->GetMBId(), 
-                             $tagger->{artist});
+           $out .= $this->BeginDesc("rdf:li");
+           $out .= $this->BeginDesc("mq:ArtistResult");
+
+           $ar = Artist->new($this->{DBH});
+           $ar->SetId($id->{id});
+           $ar->LoadFromId();
+           $this->AddToCache(0, 'artist', $ar->GetId(), $ar->GetMBId(), $ar);
+          
+           $out .=   $this->Element("mq:relevance", int(100 * $id->{sim}));
+           $out .=   $this->Element("mq:artist", "", "rdf:resource",
+                     $this->{baseuri}. "/artist/" . $ar->GetMBId());
+
+           $out .= $this->EndDesc("mq:ArtistResult");
+           $out .= $this->EndDesc("rdf:li");
+       }
+       $out .= $this->EndSeq();
+       $out .= $this->EndDesc("mq:lookupResultList");
+      
+       $out .= $this->EndDesc("mq:Result");
+
+       foreach $id (@$list)
+       {
+           $ar = $this->GetFromCache('artist', $id->{id});
+           if (defined $ar)
+           {
+               $out .= $this->OutputArtistRDF({ obj=>$ar });
+           }
        }
    }
-   elsif (exists $tagger->{artistlist})
+   elsif ($flags & TaggerSupport::ALBUMLIST)
    {
-       my $aref = $tagger->{artistlist};
-
-       $out .= $this->OutputList('artist', $tagger->{artistlist});
-       foreach $ref (@$aref)
+       $out .= $this->BeginDesc("mq:Result");
+       $out .= $this->Element("mq:status", ($flags & TaggerSupport::FUZZY) != 0  ? "Fuzzy" : "OK");
+       if (exists $tagger->{artist} && defined $tagger->{artist})
        {
-           $obj{mbid} = $ref;
-           $obj{type} = 'artist';
-           push @newrefs, {%obj};
+           $ar = $tagger->{artist};
        }
-   }
-
-   # Load the albums or albumlist of Ids
-   if (exists $tagger->{albumid})
-   {
-       $obj{mbid} = $tagger->{albumid};
-       $obj{type} = 'album';
-       push @newrefs, {%obj};
-
-       $out .= $this->OutputList('album', [$tagger->{albumid}]);
-
-       if (exists $tagger->{album})
+       else
        {
-           $this->AddToCache($depth, 'album', 
-                             $tagger->{album}->GetId(), 
-                             $tagger->{album}->GetMBId(), 
-                             $tagger->{album});
+           $ar = Artist->new($this->{DBH});
+           $ar->SetMBId($data->{artistid});
+           $ar->LoadFromId()
        }
-   }
-   elsif (exists $tagger->{albumlist})
-   {
-       my $aref = $tagger->{albumlist};
-       $out .= $this->OutputList('album', $tagger->{albumlist});
-       foreach $ref (@$aref)
+       $this->AddToCache(0, 'artist', $ar->GetId(), $ar->GetMBId(), $ar);
+
+       $out .= $this->BeginDesc("mq:lookupResultList");
+       $out .= $this->BeginSeq();
+       foreach $id (@$list)
        {
-           $obj{mbid} = $ref;
-           $obj{type} = 'album';
-           push @newrefs, {%obj};
+           $out .= $this->BeginDesc("rdf:li");
+           $out .= $this->BeginDesc("mq:AlbumResult");
+
+           $al = Album->new($this->{DBH});
+           $al->SetId($id->{id});
+           $al->LoadFromId();
+           $this->AddToCache(0, 'album', $al->GetId(), $al->GetMBId(), $al);
+          
+           $out .=   $this->Element("mq:relevance", int(100 * $id->{sim}));
+           $out .=   $this->Element("mq:album", "", "rdf:resource",
+                     $this->{baseuri}. "/album/" . $al->GetMBId());
+
+           $out .= $this->EndDesc("mq:AlbumResult");
+           $out .= $this->EndDesc("rdf:li");
        }
-   }
+       $out .= $this->EndSeq();
+       $out .= $this->EndDesc("mq:lookupResultList");
+      
+       $out .= $this->EndDesc("mq:Result");
 
-   # Load the tracks or tracklist of Ids
-   if (exists $tagger->{trackid})
-   {
-       $obj{mbid} = $tagger->{trackid};
-       $obj{type} = 'track';
-       push @newrefs, {%obj};
+       $out .= $this->OutputArtistRDF({ obj=>$ar });
 
-       $out .= $this->OutputList('track', [$tagger->{trackid}]);
-
-       if (exists $tagger->{track})
+       foreach $id (@$list)
        {
-           $this->AddToCache($depth, 'track', 
-                             $tagger->{track}->GetId(), 
-                             $tagger->{track}->GetMBId(), 
-                             $tagger->{track});
+           $ar = $this->GetFromCache('album', $id->{id});
+           if (defined $ar)
+           {
+               $out .= $this->OutputAlbumRDF({ obj=>$ar });
+           }
        }
-   }
-   elsif (exists $tagger->{tracklist})
-   {
-       my $aref = $tagger->{tracklist};
-       $out .= $this->OutputList('track', $tagger->{tracklist});
-       foreach $ref (@$aref)
-       {
-           $obj{mbid} = $ref;
-           $obj{type} = 'track';
-           push @newrefs, {%obj};
-       }
-   }
-
-   $out .= $this->EndDesc("mq:Result");
-   $out .= "\n";
-
-   # Call find references to recursively load and find referenced objects
-   $this->FindReferences(0, @newrefs);
-
-   # Output all of the referenced objects. Make sure to only output
-   # the objects in the cache that have been loaded. The objects that
-   # have not been loaded will not be output, even though they are
-   # in the cache. (They would've been output if depth was one greater)
-   $total = scalar(@cache);
-   for($i = 0; $i < $total; $i++)
-   {
-      next if (!defined $cache[$i]->{depth} || $cache[$i]->{depth} > $depth);
-
-      $out .= $this->OutputRDF(\@cache, $cache[$i]);
-      $out .= "\n";
-      if (exists $this->{file})
-      {
-          print {$this->{file}} $out;
-          $out = "";
-      }
    }
 
    $out .= $this->EndRDFObject;
-   if (exists $this->{file})
-   {
-       print {$this->{file}} $out;
-       $out = "";
-   }
 
    return $out;
 }
