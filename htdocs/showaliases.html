@@ -55,9 +55,7 @@ if (!defined $list[0])
 
 		</%perl>
 		<tr>
-			<td
-				<% $item->[4] ? "bgcolor='#FFFFCC'" : "" %>
-				><% $item->[1] %></td>
+			<td <% $item->[4] ? "class='mp'" : "" |n %>><% $item->[1] %></td>
 			<td style="text-align: right"><% $item->[2] %></td>
 			<td><% $time %></td>
 % if (exists $session{user}) {
