@@ -47,6 +47,11 @@ sub CheckAttributes
         $a->{_attr_type} = $attr if ($attr == Album::ALBUM_ATTR_NONALBUMTRACKS);
     }
 
+	# The "actual values", used for display
+	$a->{_actual_attr_type} = $a->{_attr_type};
+	$a->{_actual_attr_status} = $a->{_attr_status};
+
+	# Used for sorting
     $a->{_attr_type} = Album::ALBUM_ATTR_SECTION_TYPE_END + 1 if (not defined $a->{_attr_type});
     $a->{_attr_status} = Album::ALBUM_ATTR_SECTION_STATUS_END + 1 if (not defined $a->{_attr_status});
 }
@@ -86,8 +91,34 @@ sub SortAlbums
 	($a->GetId cmp $b->GetId)
 }
 
-    $m->comp("/comp/sidebar", title=>'',
-            pagetitle=>"Artist: " . $artist->GetName());
+my @albums = $artist->GetAlbums(0, 1);
+
+my $fCompact = $ARGS{compact};
+	$fCompact = (@albums >= UserPreference::get('releases_show_compact'))
+	if not defined $fCompact;
+
+$m->comp(
+	"/comp/sidebar",
+	pagetitle => "Artist: " . $artist->GetName(),
+	title => '',
+	head => $fCompact ? <<EOF : undef,
+<style type="text/css">
+
+td.trk, td.did, td.trm { padding: 0.3em 1em; text-align: right }
+td.trk *, td.did *, td.trm * { vertical-align: middle }
+td.rst { padding: 0 1.5em; text-align: center }
+td.rtag { padding: 0 1em; text-align: center }
+td.rname { padding: 0 1em }
+
+tr.ev { background-color: #eee }
+
+th h2 { margin: 1em 0 0.5em }
+
+.mp { background: #ffc }
+
+</style>
+EOF
+);
 
     $m->comp("/comp/artisttitle", artist=>$artist);
 
@@ -183,7 +214,6 @@ sub SortAlbums
     }
     else
     {
-        my @albums = $artist->GetAlbums(0, 1);
         if (scalar(@albums) == 0)
         {
 			</%perl>
@@ -243,6 +273,7 @@ sub SortAlbums
 
             <table width="100%">
             <tr>
+% unless ($fCompact) {
             <td align="center">
 
             <a href="/showartist.html?artistid=<% $artist->GetId() %>&amp;ex=<% $exall %>">
@@ -258,6 +289,14 @@ sub SortAlbums
                  alt="Collapse" title="Collapse All Albums"
                  height="13" width="13" border="0"> Collapse All</a>
             </td>
+% }
+
+            <td align="center">
+				<a href="?artistid=<% $artistid %>&amp;compact=<%
+					$fCompact ?  0 : 1
+					%>&amp;mbt=<% $mbt?1:0 %>&amp;mbid=<% $mbid |uh %>"
+					>Change to <% $fCompact ? "full" : "compact" %> listing</a>
+			</td>
 
 %           if ($session{uid}) {
     	    <td align="center">
@@ -281,7 +320,28 @@ sub SortAlbums
             <br>
 
             <%perl>
+            </%perl>
+
+			<p style="text-align: center">
+			</p>
+
+            <%perl>
+			if ($fCompact)
+			{
+				</%perl>
+				<table>
+					<col style="width: 3em; text-align: right">
+					<col style="width: 3em; text-align: right">
+					<col style="width: 5em; text-align: right">
+					<col>
+% if ($session{uid}) {
+					<col style="width: 3em">
+% }
+				<%perl>
+			}
+
             my $last = "";
+			my $rownum = 0;
 
             for my $album (@albums)
             {
@@ -292,14 +352,55 @@ sub SortAlbums
 					$name = "Uncategorized Releases" if $name eq "";
 
 					my $desc = ($name ? "$va $name" : $va ? $va."s" : "None");
-                    $m->comp("/comp/albumtype", text => $desc);
+					$m->comp("/comp/albumtype", text => $desc)
+						unless $fCompact;
+
+					if ($fCompact)
+					{
+						my $s = 5;
+						++$s if $session{'uid'};
+						</%perl>
+						<tr><th colspan='<% $s %>' align="left"><h2><% $desc %></h2></th></tr>
+						<%perl>
+					}
 
                     $last = $album->{_section_key_};
+					$rownum = 0;
                 }
 
                 my $id = $album->GetId();
+				++$rownum;
 
-                if ($ex =~ /(^|\D)$id(\D|$)/)
+				if ($fCompact)
+				{
+					my $amp = $album->GetAttributeModPending;
+					my $nmp = $album->GetModPending;
+
+					</%perl>
+					<tr class="<% ('ev', 'od')[$rownum % 2] %>">
+						<td class="trk"><% $album->GetTrackCount %>&nbsp;<img src="/images/notes.gif" alt="Tracks"></td>
+						<td class="did"><% $album->GetDiscidCount %>&nbsp;<img src="/images/cd.gif" alt="disc ids"></td>
+						<td class="trm"><% $album->GetTrmidCount %>&nbsp;<img src="/images/trm.gif" alt="TRM ids"></td>
+						<td class="rst" nowrap><%
+								$amp ? "<span class='mp'>" : "" |n
+							%><% do {
+								my $s = $album->{_actual_attr_status};
+								$s ? ($album->GetAttributeName($s)||"?$s") : "None"
+							} %><%
+								$amp ? "</span>" : "" |n
+						%></td>
+% if ($session{uid}) {
+						<td class="rtag"><input type="checkbox" name="AlbumId<% $album->GetId %>"></td>
+% }
+						<td class="rname"><%
+								$nmp ? "<span class='mp'>" : "" |n
+							%><a href="/showalbum.html?albumid=<% $album->GetId %>"><% $album->GetName %></a><%
+								$nmp ? "</span>" : "" |n
+						%></td>
+					</tr>
+					<%perl>
+				}
+                elsif ($ex =~ /(^|\D)$id(\D|$)/)
                 {
                      $m->comp("/comp/album",
                              album=>$album,
@@ -320,6 +421,9 @@ sub SortAlbums
                              showtag=>1);
                 }
             }
+
+			$m->out("</table><br><br>") if $fCompact;
+
             </%perl>
             </form>
             <%perl>
