@@ -29,7 +29,7 @@ else
 {
     mc_comp("/comp/sidebar", title=>($artist->GetName . " Aliases"));
     @list = $alias->GetList($artist->GetId());
-    if (!defined @list)
+    if (!defined $list[0])
     {
         $mb->Logout();
         mc_out("There are no aliases for this artist.");
