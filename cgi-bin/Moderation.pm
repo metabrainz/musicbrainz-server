@@ -1236,7 +1236,7 @@ sub InsertModerationNote
 	);
 
     my $mod = $this->CreateFromId($modid);
-    if ($mod)
+    if ($mod and $mod->GetModerator != $uid)
     {
         my ($ui, $info, $mod_info);
 
