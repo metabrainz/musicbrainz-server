@@ -125,17 +125,15 @@ sub Insert
 
     if (defined $id && defined $trackid)
     {
-        my ($temp) = $sql->GetSingleRow("TRMJoin, TRM", 
-                                         ["TRMJoin.id"], 
-                                         ["TRMJoin.track", $trackid,
-                                          "TRMJoin.TRM", "TRM.id",
-                                          "TRM.TRM", $TRM]);
-        if (!defined $temp)
-        {
-            $sql->Do(qq/insert into TRMJoin (TRM, track) values 
-                       ($id, $trackid)/);
-        }
+		$sql->Do(
+			"INSERT INTO trmjoin (trm, track)
+				SELECT * FROM (SELECT ?, ?) AS data
+				WHERE NOT EXISTS (SELECT 1 FROM trmjoin WHERE trm = ? AND track = ?)",
+			$id, $trackid,
+			$id, $trackid,
+		);
     }
+
     return $id;
 }
 
