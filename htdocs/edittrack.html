@@ -53,6 +53,8 @@ $ar->LoadFromId
 
 <h2>Edit Track Name</h2>
 
+<script type="text/javascript" src="scripts/guess.js"></script>
+
 <form method="post" action="/bare/enter_mod.html" name="EditTrackForm"
 	enctype="application/x-www-form-urlencoded">
 
@@ -100,7 +102,15 @@ $ar->LoadFromId
 % }
 
 		<tr>
-			<td colspan="2">
+			<td></td>
+			<td>
+				<script type="text/javascript"><!--
+				document.write(
+					"<input type='button' value='Guess Case' " +
+					"onclick='this.form.new0.value = GuessCase(this.form.new0.value)'>"
+				);
+				document.write(" &nbsp; ");
+				//--></script>
 				<input type="submit" value="Submit">
 			</td>
 		</tr>

@@ -43,6 +43,8 @@ $ar->LoadFromId
 	<& /comp/modpending &>
 % }
 
+<script type="text/javascript" src="scripts/guess.js"></script>
+
 <form method="post" action="/bare/enter_mod.html" name="EditAlbumForm"
 	enctype="application/x-www-form-urlencoded">
 
@@ -66,6 +68,13 @@ $ar->LoadFromId
 	</table>
 
 	<p>
+		<script type="text/javascript"><!--
+		document.write(
+			"<input type='button' value='Guess Case' " +
+			"onclick='this.form.new0.value = GuessCase(this.form.new0.value)'>"
+		);
+		document.write(" &nbsp; ");
+		//--></script>
 		<input type="submit" value="Submit">
 	</p>
 
