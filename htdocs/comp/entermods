@@ -21,6 +21,8 @@ my $ok = eval {
 	1;
 };
 
+use MusicBrainz::Server::ModerationNote qw( mark_up_text_as_html );
+
 unless ($ok)
 {
 	my $err = $@;
@@ -31,13 +33,13 @@ unless ($ok)
 
 	if (ref $err)
 	{
-		$err = eval { $err->GetError };
+		$err = eval { $err->GetError } || $err || "(Unknown error)";
 		$m->comp("/comp/sidebar", title => "Moderation Error");
 		</%perl>
 		<p>
 			Error entering moderations:
 		</p>
-		<p class="notice"><% $err || "(Unknown error)" %></p>
+		<p class="notice"><% mark_up_text_as_html($err) |n %></p>
 		<%perl>
 		$m->comp("/comp/footer");
 	} else {
