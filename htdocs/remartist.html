@@ -1,6 +1,7 @@
 %# vi: set ts=4 sw=4 ft=mason :
 <%args>
 $artist => ""
+$notetext => ""
 </%args>
 <%perl>
 
@@ -44,6 +45,10 @@ if ($ARGS{confirm})
 				# --
 				artist => $ar,
 			);
+
+			$mods[0]->InsertNote($session{'uid'}, $notetext)
+				if $mods[0]
+				and $notetext =~ /\S/;
 		},
 		success_url => $url,
 	) or return;
@@ -81,6 +86,15 @@ if ($ARGS{confirm})
 		<input type="hidden" name="confirm" value="1">
 		<input type="submit" value="YES &gt;&gt;">
 	</div>
+
+	<p>
+		If YES, enter moderation note (optional):
+	</p>
+
+	<p>
+		<textarea name="notetext" rows="3" cols="60"></textarea>
+	</p>
+
 </form>
 
 <& /comp/movefocus, "ModFormNo", 0 &>
