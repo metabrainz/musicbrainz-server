@@ -107,7 +107,7 @@ sub CreateTables
         $sql->Do(qq|create table Discid (
                        Id serial primary key,
                        Album int not null references Album,
-                       Disc char(28) not null,
+                       Disc char(28) not null unique,
                        Toc text not null, 
                        ModPending int default 0)|)
               or die("Cannot create Discid table");
@@ -116,8 +116,8 @@ sub CreateTables
 
         $query = qq|create table TOC (
                        Id serial primary key,
-                       Album int not null references (Album),
-                       Discid char(28) references Discid Disc,
+                       Album int not null references Album,
+                       Discid char(28) references Discid (Disc),
                        Tracks int,
                        Leadout int|;
 

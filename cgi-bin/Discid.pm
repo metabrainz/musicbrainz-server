@@ -206,9 +206,16 @@ sub Insert
 sub InsertTOC
 {
     my ($this, $Discid, $album, $toc) = @_;
-    my (@offsets, $query, $i, $sql);
+    my (@offsets, $query, $i, $sql, $id);
 
     return if (!defined $Discid || !defined $album || !defined $toc);
+
+    $sql = Sql->new($this->{DBH});
+    $Discid = $sql->Quote($Discid);
+
+    # Check to see if we already have this Discid
+    ($id) = $sql->GetSingleRow("TOC", ["id"], ["discid", $Discid]);
+    return if (defined $id);
 
     @offsets = split / /, $toc;
 
@@ -220,8 +227,6 @@ sub InsertTOC
     chop($query);
     chop($query);
 
-    $sql = Sql->new($this->{DBH});
-    $Discid = $sql->Quote($Discid);
     $query .= ") values ($Discid, $album, ". (scalar(@offsets) - 3) .
               ", $offsets[2], ";
     for($i = 3; $i < scalar(@offsets); $i++)
