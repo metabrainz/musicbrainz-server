@@ -57,6 +57,8 @@ The MusicBrainz server requires the following items:
    Digest::SHA1
    UUID (requires e2fsprogs)
    String::CRC32
+   Text::Unaccent (at least version 1.05:
+         http://www.senga.org/download/unac/Text-Unaccent-1.05.tar.gz)
 
    These probably come standard with Perl:
    IO::Socket     

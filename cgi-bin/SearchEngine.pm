@@ -262,6 +262,8 @@ sub GetWhereClause
 sub RebuildIndex
 {
     my $self = shift;
+    
+    $self->{DBH}->do("delete from " . $self->{Table} . "Words");
     my $sth = $self->{DBH}->prepare_cached( qq|
         SELECT Id, Name
         FROM $self->{Table}
@@ -281,6 +283,8 @@ sub RebuildAllIndices
 {
     my $self = shift;
     my $orig_table = $self->{Table};
+    
+    $self->{DBH}->do("delete from WordList");
     foreach my $table ( @{$self->{ValidTables}} )
     {
         $self->{'Table'} = $table;
