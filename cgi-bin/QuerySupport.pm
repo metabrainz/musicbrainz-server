@@ -642,15 +642,17 @@ sub TrackInfoFromTRMId
       if (!defined $id || $id eq '');
    return undef if (!defined $dbh);
 
+    use Time::HiRes qw( gettimeofday tv_interval );
+    my $t0 = [ gettimeofday ];
+
    $sql = Sql->new($dbh);
    $id =~ tr/A-Z/a-z/;
-   $qid = $sql->Quote($id);
    $query = qq|select track.gid
                  from TRM, TRMJoin, track
-                where TRM.TRM = | . $qid . qq| and
+                where TRM.TRM = ? and
                       TRMJoin.TRM = TRM.id and
                       TRMJoin.track = track.id|;
-   if ($sql->Select($query))
+   if ($sql->Select($query, $id))
    {
        my @row;
 
@@ -665,10 +667,19 @@ sub TrackInfoFromTRMId
        }
        $sql->Finish;
 
-       return $rdf->CreateDenseTrackList(0, \@ids);
+	my $t1 = [ gettimeofday ];
+	my $out = $rdf->CreateDenseTrackList(0, \@ids);
+	printf STDERR "TRM lookup, select=%.3f, HIT, RDF=%.3f\n",
+		tv_interval($t0, $t1),
+		tv_interval($t1),
+		;
+	return $out;
    }
    else
    {
+	$sql->Finish;
+	my $t1 = [ gettimeofday ];
+
        my (%lookup, $ts);
 
        $lookup{artist} = $artist; 
@@ -680,6 +691,8 @@ sub TrackInfoFromTRMId
 
        $ts = TaggerSupport->new($dbh);
        my ($error, $result, $flags, $list) = $ts->Lookup(\%lookup, 3);
+	my $t2 = [ gettimeofday ];
+
        if ($flags & TaggerSupport::ALBUMTRACKLIST)
        {
            my ($id);
@@ -688,15 +701,26 @@ sub TrackInfoFromTRMId
            {
                if ($id->{sim} >= .9)
                {
-                   return $rdf->CreateDenseTrackList(1, [$id->{mbid}]);
+		    my $out = $rdf->CreateDenseTrackList(1, [$id->{mbid}]);
+		    printf STDERR "TRM lookup, select=%.3f, MISS, TSLookup=%.3f, HIT, RDF=%.3f\n",
+			    tv_interval($t0, $t1),
+			    tv_interval($t1, $t2),
+			    tv_interval($t2),
+			    ;
+		    return $out;
                }
            }
        }
+
+	printf STDERR "TRM lookup, select=%.3f, MISS, TSLookup=%.3f, MISS\n",
+		tv_interval($t0, $t1),
+		tv_interval($t1, $t2),
+		;
        return $rdf->CreateStatus(0);
    }
 }
 
-# This method is now depricated
+# This method is now deprecated
 sub QuickTrackInfoFromTRMId
 {
    my ($dbh, $parser, $rdf, $id, $artist, $album, $track, 
