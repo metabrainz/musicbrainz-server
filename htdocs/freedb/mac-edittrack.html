@@ -23,7 +23,6 @@ if (MusicBrainz::IsSingleLineString($trackname)
 	and MusicBrainz::IsSingleLineString($search))
 {
 	$session{"freedb_track$t"} = $trackname;
-	use HTML::Mason::Tools qw( url_escape );
 	return $m->comp(
 		"/comp/redirect",
 		"/freedb/mac-selecttrackartist.html"

@@ -82,7 +82,6 @@ $session{'changetrack_splitorder'} = not $session{'changetrack_splitorder'}
 # Enter the mod and move on to the artist filter if the form is submitted OK
 if ($search =~ /\S/ and $trackname =~ /\S/)
 {
-	use HTML::Mason::Tools qw( url_escape );
 	my $url = "/changetrackartist.html?album=$album&tindex=$tindex&modid=$modid";
 	$url .= "&search=" . url_escape($search);
 	$url .= "&solo=1" if $ARGS{solo};
