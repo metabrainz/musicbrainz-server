@@ -123,7 +123,7 @@ else
         mc_comp("/comp/googlelink", search=>($artist->GetName()), 
             text=>"Search Google"); 
     }
-    mc_out("]<p>");
+    mc_out("]<br>");
 
     if ($ARGS{artistid} == ModDefs::VARTIST_ID)
     {
@@ -167,12 +167,13 @@ else
             @albums = sort SortAlbums @albums;
 
             </%perl>
+
+            <form method="post" action="/mod/tag/donetag.html" 
+                  name="EditAlbumAttrsForm"
+                  enctype="application/x-www-form-urlencoded"> 
+
             <& /comp/framedboxbegin, width=>"100%" &>
             <& /comp/modnotice &>
-
-            <FORM METHOD="POST" ACTION="/mod/tag/donetag.html" 
-                  NAME="EditAlbumAttrsForm"
-                  ENCTYPE="application/x-www-form-urlencoded"> 
 
             <table width="100%">
             <tr>
@@ -193,6 +194,10 @@ else
             </td>
 
 %           if (exists $session{user}) {
+                <td align="center"><input name="submit" type="image" border="0" alt="Batch Operation" 
+                       title="Moderate a batch of selected albums"
+                       src="/images/batch.gif" height="13" width="13">
+                   <a href="javascript:submitit()">Batch Operation</a>
                 <script language="JavaScript" type="text/javascript">
                 <!--
                 function submitit ( )
@@ -201,10 +206,6 @@ else
                 }
                 -->
                 </script>
-                <td align="center"><input name="submit" type="image" border="0" alt="Batch Operation" 
-                       title="Moderate a batch of selected albums"
-                       src="/images/batch.gif" height="13" width="13">
-                   <a href="javascript:submitit()">Batch Operation</a>
                 </td>
 %           }
 
