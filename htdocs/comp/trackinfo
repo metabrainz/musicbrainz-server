@@ -47,7 +47,7 @@ $track
 
 %				foreach my $id (@TRM) {
           <tr>
-					 	<td valign="top"><% $id->{TRM} %></td>
+					 	<td valign="top"><a href="/showtrm.html?trm=<% $id->{TRM} %>"><% $id->{TRM} %></a></td>
 						<td valign="top" align="center"><% $id->{lookupcount} %></td>
 						<td valign="top">
 %							if (exists $session{user}) {
