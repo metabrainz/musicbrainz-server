@@ -295,7 +295,7 @@ sub LoadFull
 sub GetArtistDisplayList
 {
    my ($this, $ind, $offset) = @_;
-   my ($query, @info, @row, $sql, $page, $page_max, $ind_max, $un); 
+   my ($query, @info, @row, $sql, $page, $page_max, $ind_max, $un, $max_artists); 
 
    return if length($ind) <= 0;
 
@@ -305,49 +305,32 @@ sub GetArtistDisplayList
    setlocale( LC_CTYPE, "en_US.UTF-8" )
        or die "Couldn't change locale.";
   
-   if ($ind =~ /^(.{1})/)
-   {
-      $ind_max = $1;
-
-      if ($ind_max eq '_')
-      {
-          $ind_max = ' ';
-      }
-      elsif ($ind_max eq ' ')
-      {
-          $ind_max = 'A';
-      }
-      else
-      {
-          $ind_max++;
-      }
-   }
-
+   $ind_max = $this->UpperPageIndex($ind);
    $page = $this->CalculatePageIndex($ind);
    $page_max = $this->CalculatePageIndex($ind_max);
    $query = qq/select id, sortname, modpending 
                     from Artist 
-                   where page >= $page and page <= $page_max
-                  offset $offset/;
+                   where page >= $page and page < $page_max/;
+   $max_artists = 0;
    if ($sql->Select($query))
    {
-       $ind =~ s/_/.{1}/g;
+       $max_artists = $sql->Rows();
        for(;@row = $sql->NextRow;)
        {
-           $un = unac_string('UTF-8', $row[1]);
-           if ($un =~ /^$ind/i)
-           {
-               push @info, [$row[0], $row[1], $row[2], $un];
-           }
+           push @info, [$row[0], $row[1], $row[2], unac_string('UTF-8', $row[1])];
        }
        $sql->Finish;   
 
+       # This sort is necessary in order for us to get the right
+       # ordering. Unfortunately its sorting a mainly sorted list
+       # and it uses quicksort, which is BAD.
        @info = sort { $a->[3] cmp $b->[3] } @info;
+       splice @info, 0, $offset;
    }
 
    setlocale( LC_CTYPE, $old_locale );
 
-   return @info;
+   return ($max_artists, @info);
 }
 
 # retreive the set of albums by this artist. Returns an array of 
@@ -384,6 +367,8 @@ sub GetAlbums
 
    return @albums if (defined $novartist && $novartist);
 
+   # TODO: PAINFULLY SLOW. Optimize!
+   # e.g. http://musicbrainz.eorbit.net/showartist.html?artistid=2327
    # then, pull in the multiple artist albums
    if ($sql->Select(qq/select distinct on (AlbumJoin.album) AlbumJoin.album,
                               Album.name, 

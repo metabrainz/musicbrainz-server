@@ -618,51 +618,32 @@ sub GetVariousDisplayList
    setlocale( LC_CTYPE, "en_US.UTF-8" )
        or die "Couldn't change locale.";
   
-   if ($ind =~ /^(.{1})/)
-   {
-      $ind_max = $1;
-
-      if ($ind_max eq '_')
-      {
-          $ind_max = ' ';
-      }
-      elsif ($ind_max eq ' ')
-      {
-          $ind_max = 'A';
-      }
-      else
-      {
-          $ind_max++;
-      }
-   }
-
    $num_albums = 0;
+   $ind_max = $this->UpperPageIndex($ind);
    $page = $this->CalculatePageIndex($ind);
    $page_max = $this->CalculatePageIndex($ind_max);
    $query = qq|select id, name, modpending 
                     from Album 
-                   where page >= $page and page <= $page_max and
-                         album.artist = | . ModDefs::VARTIST_ID . qq|
-                  offset $offset|;
+                   where page >= $page and page < $page_max and
+                         album.artist = | . ModDefs::VARTIST_ID;
    if ($sql->Select($query))
    {
-       $ind =~ s/_/.{1}/g;
+       $num_albums = $sql->Rows();
+       print STDERR "$ind -> $page, $ind_max -> $page_max == " . $sql->Rows() .
+                               " to consider.\n";
        for(;@row = $sql->NextRow;)
        {
-           $un = unac_string('UTF-8', $row[1]);
-           if ($un =~ /^$ind/i)
-           {
-               push @info, [$row[0], $row[1], $row[2], $un];
-           }
+           push @info, [$row[0], $row[1], $row[2], unac_string('UTF-8', $row[1])];
        }
        $sql->Finish;   
 
        @info = sort { $a->[3] cmp $b->[3] } @info;
+       splice @info, 0, $offset;
    }
 
    setlocale( LC_CTYPE, $old_locale );
 
-   return @info;
+   return ($num_albums, @info);
 }
 
 sub old_shit

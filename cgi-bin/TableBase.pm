@@ -154,6 +154,14 @@ sub CreateNewGlobalId
     return $id;
 }  
 
+sub Escape 
+{
+  $_[0] =~ s/&/&amp;/g;  # & first of course
+  $_[0] =~ s/</&lt;/g;
+  $_[0] =~ s/>/&gt;/g;
+  return $_[0];
+}
+
 sub CalculatePageIndex 
 {
     my ($this, $string) = @_;
@@ -184,11 +192,45 @@ sub CalculatePageIndex
     return $path;
 }
 
-sub Escape 
+sub UpperPageIndex
 {
-  $_[0] =~ s/&/&amp;/g;  # & first of course
-  $_[0] =~ s/</&lt;/g;
-  $_[0] =~ s/>/&gt;/g;
-  return $_[0];
-}
+   my ($this, $ind) = @_;
+   my ($base, $tail);
 
+   if ($ind =~ /(.*)(.{1})$/)
+   {
+      $base = $1;
+      $tail = $2;
+
+      if ($tail eq '_')
+      {
+          $tail = ' ';
+      }
+      elsif ($tail eq ' ')
+      {
+          $tail = 'A';
+      }
+      elsif ($tail eq 'Z')
+      {
+          if ($base eq '')
+          {
+              $base = '';
+              for(1..MAX_PAGE_INDEX_LEVELS)
+              {
+                  $base .= 'Z';
+              }
+          }
+          else
+          {
+              $base = $this->UpperPageIndex($base);
+          }
+          $tail = "";
+      }
+      else
+      {
+          $tail++;
+      }
+   }
+
+   return ($base . $tail);
+}

@@ -29,27 +29,16 @@ $mb = mc_comp("/comp/dblogin");
 $al = Album->new($mb->{DBH});
 $al->SetId(ModDefs::VARTIST_ID);
 
-@info = $al->GetVariousDisplayList($ind, $offset);
-$num_albums = scalar(@info);
+($num_albums, @info) = $al->GetVariousDisplayList($ind, $offset);
 
 mc_comp("/comp/framedboxbegin", width=>"100%");
-
 if ($num_albums > 0)
 {
-    mc_out('<table width="100%"><tr>');
-    mc_comp("/comp/listprevbutton", offset=>$offset, ind=>$ind, 
-            text=>"< Prev", num=>$max_items, page=>"browsevarious.html");
-    mc_comp("/comp/listprevbutton", offset=>$offset, ind=>$ind, 
-            text=>"<< Prev", num=>($max_items * 2), page=>"browsevarious.html");
-    mc_out("<td width=\"40%\">&nbsp;</td>");
-    mc_comp("/comp/listnextbutton", offset=>$offset, ind=>$ind, 
-            text=>"Next >>", num=>($max_items * 2), rows=>$num_albums, page=>"browsevarious.html");
-    mc_comp("/comp/listnextbutton", offset=>$offset, ind=>$ind, 
-            text=>"Next >", num=>$max_items, rows=>$num_albums, page=>"browsevarious.html");
-    mc_out('</tr></table>');
-
     </%perl>
-
+    <& /comp/pageselector, numitems=>$num_albums,
+                           numlinks=>18,
+                           pagesize=>50,
+                           link=>"/browsevarious.html?index=$ind" &>
     <& /comp/modnotice &>
 
 %   $rows = $max_items / 2;

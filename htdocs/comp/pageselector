@@ -1,0 +1,41 @@
+<%args>
+$pagesize=>50
+$numitems=>0
+$link=>""
+$numlinks=>5
+</%args>
+
+<%perl>
+
+my ($frontpages, $backpages);
+
+my $totalpages = $numitems / $pagesize;
+return if ($totalpages < 2);
+
+if ($totalpages < $numlinks)
+{
+   $frontpages = $totalpages;
+   $backpages = 0;
+}
+else
+{
+   $frontpages = $numlinks / 2;
+   $backpages = $numlinks / 2;
+}
+
+</%perl>
+
+<table width="100%"><tr><td align="center">
+% my ($i);
+  [&nbsp;
+% for($i = 0; $i < $frontpages; $i++) {
+    <a href="<% $link %>&offset=<% $i * $pagesize %>"><% $i + 1 %></a>&nbsp;
+% }
+% if ($backpages > 0) {
+      ... &nbsp;
+%     for($i = int($totalpages - $backpages); $i < $totalpages; $i++) {
+         <a href="<% $link %>&offset=<% $i * $pagesize %>"><% $i + 1 %></a>&nbsp;
+%     }
+% }
+  ]
+</td></tr></table>

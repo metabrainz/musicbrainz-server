@@ -14,7 +14,7 @@ if (length($ind) > 0)
     $t =~ s/_/?/g;
     $t =~ s/ /(space)/g;
     </%perl>
-    <td width="30%" align="center">
+    <td width="25%" align="center">
     <table cellpadding="0" cellspacing="0" border="0" bgcolor="#000000">
      <tr><td bgcolor="#000000">
       <table width="100%" cellpadding="2" cellspacing="1" border="0">
@@ -41,7 +41,7 @@ if (length($ind) > 0)
 if (length($ind) > 0)
 {
     </%perl>
-    <td width="10%" align="center">
+    <td width="15%" align="center">
       <a href="<% $page %>?index=<% $t %>">Back</a><br>
       <a href="<% $page %>">Start&nbsp;over</a>
     </td>
@@ -62,7 +62,7 @@ for($i = 0; $i < 26; $i++)
 }
 </%perl>
 
-<td width="50%" align="center">
+<td width="60%" align="center">
     <table>
     <tr>
 %   if ($showspecial) {
