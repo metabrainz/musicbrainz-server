@@ -89,6 +89,7 @@ use constant ALLOW_SELF_VOTE => 0;
 # that are needed for HTTP session persistence.
 use constant LOCK_DIR => "/home/httpd/musicbrainz/locks";
 use constant SESSION_DIR => "/home/httpd/musicbrainz/sessions";
+use constant CACHE_DIR => "/home/httpd/musicbrainz/mason/cache";
 
 use constant DEBUG_LOG => "/tmp/musicbrainz-debug.log";
 
