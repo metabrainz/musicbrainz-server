@@ -154,7 +154,7 @@ if ($asin)
 % }
 
 % if ($coverart_url && $showlinks && UserPreference::get('show_amazon_coverart')) {
-    <form method="POST" action="http://<% $store %>/exec/obidos/dt/assoc/handle-buy-box=<% $asin %>">
+    <form name="AddToCartForm" method="POST" action="http://<% $store %>/exec/obidos/dt/assoc/handle-buy-box=<% $asin %>">
     <div class="AlbumTitleAmazon">
     Amazon: [
     <input type="hidden" name="asin.<% $asin %>" value="1">
