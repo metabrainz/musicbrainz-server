@@ -78,6 +78,17 @@ my %TypesLyric =
    5 => "funny"
 );
 
+sub IsValidUUID
+{
+    my ($uuid) = @_;
+
+    # 1166c3d4-ddec-4c51-8e77-3cd7d1a2f1aa
+    return 0 if (length($uuid) != 36);
+    return 0 if (!($uuid =~ /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/));
+
+    return 1;
+}
+
 sub SolveXQL
 {
     my ($doc, $xql) = @_;
@@ -642,7 +653,7 @@ sub SubmitTRMList
 {
    my ($dbh, $triples, $rdf) = @_;
    my (@ids, @ids2, $sql, $gu, $tr);
-   my ($i, $trmid, $trackid, $uri);
+   my ($i, $trmid, $trackid, $uri, $clientVer);
 
    return undef if (!defined $dbh);
 
@@ -655,6 +666,14 @@ sub SubmitTRMList
    $gu = TRM->new($dbh);
 
    $uri = (@$triples)[0]->subject->getLabel;
+   $clientVer = Extract($triples, $uri, 0, 
+                        "http://musicbrainz.org/mm/mq-1.0#clientVersion");
+   if (not defined $clientVer)
+   {
+       return $rdf->ErrorRDF("Your MusicBrainz client must provide its version " .
+                             "id string when submitting data to MusicBrainz.") 
+   }
+
    for($i = 1; ; $i++)
    {
        $trackid = Extract($triples, $uri, $i, 
@@ -669,6 +688,14 @@ sub SubmitTRMList
             last if ($i > 1);
             return $rdf->ErrorRDF("Incomplete trackid and trmid submitted.") 
        } 
+       if (!IsValidUUID($trmid))
+       {
+            return $rdf->ErrorRDF("Invalid trmid submitted.") 
+       } 
+       if (!IsValidUUID($trackid))
+       {
+            return $rdf->ErrorRDF("Invalid trackid submitted.") 
+       } 
        print STDERR "trackid: $trackid\n";
        print STDERR "trmid: $trmid\n";
 
@@ -682,11 +709,20 @@ sub SubmitTRMList
                                       "AlbumJoin.album", "Album.id"]);
        if (scalar(@ids) == 0 || !defined($ids[0]))
        {
-           print STDERR "Invalid MB Track Id: $trackid\n";
+           print STDERR "Unknown MB Track Id: $trackid\n";
        }
        else
        {
-           $gu->Insert($trmid,$ids[0]);
+           eval
+           {
+               $sql->Begin();
+               $gu->Insert($trmid,$ids[0], $clientVer);
+               $sql->Commit();
+           };
+           if ($@)
+           {
+               $sql->Rollback();
+           }
        }
    }
    print STDERR "\n";
