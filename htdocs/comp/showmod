@@ -25,32 +25,31 @@ my $modtype = Moderation::GetModificationName($type);
 
 </%perl>
 
-<TABLE BORDER="0" CELLPADDING="0" CELLSPACING="0"
-       BGCOLOR="#000000" WIDTH="100%">
-<TR><TD>
-<TABLE WIDTH="100%" BORDER="0" CELLSPACING="1" CELLPADDING="3">
 <tr>
-   <td width=40% valign=top bgcolor=white>
+<td bgcolor="#FFBA58" colspan=3><img src="/images/pixel.gif" width="1" height="1" alt="" border=""></td>
+</tr>
+<tr>
+   <td width=38% valign=top bgcolor=white class="body">
      Type: <% $modtype %>
      (<a href="/showartist.html?artistid=<% $artist %>"><% $artistname %></a>)
    </td>
-   <td width=40% valign=top bgcolor=white>
+   <td width=38% valign=top bgcolor=white class="body">
      Moderator: <% $moderator %>
    </td>
-   <td width=20% align=center valign=top valign=top bgcolor=white>
+   <td width=24% align=center valign=top valign=top bgcolor=white class="body">
      <% $yesvotes %> yes,
      <% $novotes %> no
    </td>
 </tr>
 <tr>
-   <td width=40% valign=top bgcolor=white>
+   <td width=40% valign=top bgcolor=white class="body">
      Old: <& /comp/showmodprev, prev=>$prev, 
              table=>$table, id=>$rowid, type=>$type &>
    </td>
-   <td width=40% valign=top bgcolor=white>
+   <td width=40% valign=top bgcolor=white class="body">
      New: <% $new %>
    </td>
-   <td width=20% valign=top valign=top bgcolor=white>
+   <td width=20% valign=top valign=top bgcolor=white class="body">
 % if (($session{uid} != $moderator && !$voted) || DBDefs::ALLOW_SELF_VOTE) {
      Yes <input type="radio" name="rowid<% $id %>" value="yes">
      No <input type="radio" name="rowid<% $id %>" value="no">
@@ -60,6 +59,3 @@ my $modtype = Moderation::GetModificationName($type);
 % }
    </td>
 </tr>
-</table>
-</td></tr>
-</table>

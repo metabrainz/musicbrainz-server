@@ -34,6 +34,7 @@
       .design             {font : Normal 8pt Verdana, Geneva, Arial, Helvetica, sans-serif; color : #BBBBBB; text-decoration : none;}
       .design a           {font : Normal 8pt Verdana, Geneva, Arial, Helvetica, sans-serif; color : #BBBBBB; text-decoration : none;}
       .design a:hover     {font : Normal 8pt Verdana, Geneva, Arial, Helvetica, sans-serif; color : #555555; text-decoration : none;}
+      .bold               {font : Bold 10pt Verdana, Geneva, Arial, Helvetica, sans-serif; color : #000000; text-decoration : none;}
 
       .body               {font : normal 10pt Verdana, Geneva, Arial, Helvetica, sans-serif; color : #000000; text-decoration : none;}
       .body a             {font : normal 10pt Verdana, Geneva, Arial, Helvetica, sans-serif; color : #534D8B; text-decoration : none;}

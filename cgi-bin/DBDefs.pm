@@ -69,7 +69,7 @@ use constant NUM_UNANIMOUS_VOTES => 5;
 # Do not set this unless you are running on a test server. This setting
 # Allows a person to vote on ther own modifications. It should be used
 # for testing purposes only.
-use constant ALLOW_SELF_VOTE => 1;
+use constant ALLOW_SELF_VOTE => 0;
 
 # These two defines specify where to create the Apache::Session files
 # that are needed for HTTP session persistence.

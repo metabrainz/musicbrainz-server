@@ -1,7 +1,7 @@
 <%perl>
 
 my ($mb, @info, $row, $offset, $i, $num_mods, $comp, $mod);
-my $max_items = 25;
+my $max_items = 15;
 
 $mb = new MusicBrainz;  
 
@@ -35,6 +35,24 @@ $mb->Logout();
    There are no modifcations pending.
    </center>
 %}
+
+% if ($num_mods > $max_items) {
+<table width="100%">
+<tr><td bgcolor=white>
+<& /comp/prevnextbuttons, 
+   url=>"moderate.html",
+   offset=>$offset,
+   itemsperpage=>$max_items,
+   totalitems=>$num_mods
+&>
+</td></tr></table>
+% }
+
+<TABLE BORDER="0" CELLPADDING="0" CELLSPACING="0"
+       BGCOLOR="#000000" WIDTH="100%">
+<TR><TD>
+<TABLE WIDTH="100%" BORDER="0" CELLSPACING="1" CELLPADDING="3">
+
 <%perl>
 for($i = 0; ; $i++) 
 {
@@ -56,21 +74,24 @@ for($i = 0; ; $i++)
            novotes=>($$row[11]),
            artistname=>($$row[12]),
            voted=>($$row[13]));
-   mc_out("<br>");
 }
-
-#% if ($num_mods > $max_items) {
-#<tr><td colspan=7 bgcolor=white>
-#
-#<& /comp/prevnextbuttons, 
-#   url=>"moderate.html",
-#   offset=>$offset,
-#   itemsperpage=>$max_items,
-#   totalitems=>$num_mods
-#&>
-#</td></tr>
-#% }
-#
 </%perl>
+
+</table>
+</td></tr>
+</table>
+
+% if ($num_mods > $max_items) {
+<table width="100%">
+<tr><td bgcolor=white>
+<& /comp/prevnextbuttons, 
+   url=>"moderate.html",
+   offset=>$offset,
+   itemsperpage=>$max_items,
+   totalitems=>$num_mods
+&>
+</td></tr></table>
+% }
+
 
 </form>
