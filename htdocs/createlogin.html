@@ -25,7 +25,7 @@ if ($err ne "")
 	return;
 }
 
-$ui->SetSession(\%session, $user, $privs, $uid, !$email);
+$ui->SetSession($user, $privs, $uid, !$email);
     
 $m->comp('/comp/sidebar', title => "MusicBrainz account created!");
 

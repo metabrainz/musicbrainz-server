@@ -66,7 +66,7 @@ if (not defined $info)
 
 if ($ui->SetUserInfo($uid, $email))
 {
-    $ui->SetSession(\%session, $info->{name}, $info->{privs}, $info->{uid}, 0);
+    $ui->SetSession($info->{name}, $info->{privs}, $info->{uid}, 0);
     $m->comp("/comp/sidebar", title => 'Verify EMail Address');
     </%perl>
     Your new email address has been saved. Thank you!<p>

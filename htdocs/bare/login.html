@@ -23,7 +23,7 @@ elsif (defined $ARGS{User} && $ARGS{User} ne '' &&
 
     if ($ok)
     {
-        $ui->SetSession(\%session, $user, $privs, $uid, !$email || $confirm);
+        $ui->SetSession($user, $privs, $uid, !$email || $confirm);
     }
 }    
 
