@@ -16,9 +16,11 @@ drop index TRM_TRMIndex;
 
 drop index TRMJoin_TRMIndex;
 drop index TRMJoin_TrackIndex;
+DROP INDEX trmjoin_trmtrack;
 
 drop index AlbumJoin_AlbumIndex;
 drop index AlbumJoin_TrackIndex;
+DROP INDEX albumjoin_albumtrack;
 
 drop index Discid_DiscIndex;
 drop index Discid_AlbumIndex;

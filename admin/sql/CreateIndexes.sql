@@ -18,9 +18,11 @@ create unique index TRM_TRMIndex on TRM (TRM);
 
 create index TRMJoin_TRMIndex on TRMJoin (TRM);
 create index TRMJoin_TrackIndex on TRMJoin (Track);
+CREATE UNIQUE INDEX trmjoin_trmtrack ON trmjoin (trm, track);
 
 create index AlbumJoin_AlbumIndex on AlbumJoin (Album);
 create index AlbumJoin_TrackIndex on AlbumJoin (Track);
+CREATE UNIQUE INDEX albumjoin_albumtrack ON albumjoin (album, track);
 
 create unique index Discid_DiscIndex on Discid (Disc);
 create index Discid_AlbumIndex on Discid (Album);
