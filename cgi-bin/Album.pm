@@ -88,11 +88,10 @@ my %AlbumAttributeNames = (
 
 sub new
 {
-   my ($type, $dbh) = @_;
-
-   my $this = TableBase->new($dbh);
-   $this->{attrs} = [ 0 ];
-   return bless $this, $type;
+	my $class = shift;
+	my $self = $class->SUPER::new(@_);
+	$self->{attrs} = [ 0 ];
+	$self;
 }
 
 # Accessor functions to set/get the artist id of this album
@@ -440,8 +439,8 @@ sub GetAlbumListFromName
        {
            push @info, { mbid=>$row[0], name=>$row[1] };
        }
-       $sql->Finish;
    }
+   $sql->Finish;
 
    return @info;
 }
