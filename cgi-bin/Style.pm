@@ -74,7 +74,7 @@ sub UpperLowercaseCheck
     {
         $ok = 0;
     }
-    print STDERR "$textarg: $lccount $uccount --> $ok\n";
+    #print STDERR "$textarg: $lccount $uccount --> $ok\n";
 
     return $ok;
 }

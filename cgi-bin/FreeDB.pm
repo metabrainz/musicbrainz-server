@@ -376,7 +376,7 @@ sub Retrieve
 sub InsertForModeration
 {
     my ($this, $info) = @_;
-    my ($new, $track, $in, $u, $st);
+    my ($new, $track, $in, $u, $st, $ar);
     my $ref = $info->{tracks};
 
     # Don't insert CDs that have only one track.
@@ -389,6 +389,29 @@ sub InsertForModeration
     $st = Style->new;
     return if (!$st->UpperLowercaseCheck($info->{artist}));
     return if (!$st->UpperLowercaseCheck($info->{album}));
+
+    $ar = Artist->new($this->{DBH});
+    if ($ar->LoadFromName($info->{artist}))
+    {
+        my (@albums, $al);
+
+        @albums = $ar->GetAlbums();
+        foreach $al (@albums)
+        {
+            if (lc($al->GetName()) eq lc($info->{album}))
+            {
+                if ($al->GetTrackCount() == scalar(@$ref))
+                {
+                    my ($di);
+
+                    $di = Diskid->new($this->{DBH});
+                    $di->Insert($info->{cdindexid}, $al->GetId(), $info->{toc});
+
+                    return;
+                }
+            }
+        }
+    }
 
     $new = "Artist=$info->{artist}\n";
     $new .= "Sortname=" . $st->MakeDefaultSortname($info->{artist}) . "\n";
