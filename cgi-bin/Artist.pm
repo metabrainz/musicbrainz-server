@@ -289,6 +289,7 @@ sub LoadFromId
 
 # Load an artist and all the aliases, albums, tracks, disc ids, tocs and TRM ids
 # returns 1 on success, undef otherwise. 
+# XXX is this ever used?
 sub LoadFull
 {
    my ($this) = @_;
@@ -310,6 +311,7 @@ sub LoadFull
    $ret = $this->LoadFromId();
    if (defined $ret)
    {
+	# XXX I suspect that _aliases and _albums here are unused.
        $alias = Alias->new($this->{DBH});
        $alias->{table} = "ArtistAlias";
        $ret = $alias->LoadFull($this->GetId());
@@ -593,11 +595,23 @@ sub GetRelations
 
    $sql = Sql->new($this->{DBH});
    return $sql->SelectListOfHashes(
-       "select artist.name, artist.id, artist_relation.weight
-          from artist_relation, artist
-         where artist_relation.artist = ? and
-               artist_relation.ref = artist.id
-      order by weight desc, artist.name", $this->{id});
+	"
+	SELECT a.name, a.id, t.weight
+	FROM (
+		SELECT artist, (SUM(weight)+1)/2 AS weight
+		FROM (
+			SELECT artist, weight FROM artist_relation WHERE ref = ?
+			UNION
+			SELECT ref, weight FROM artist_relation WHERE artist = ?
+		) tt
+		GROUP BY artist
+	) t, artist a
+	WHERE a.id = t.artist
+	ORDER BY t.weight DESC, a.name
+	",
+	$this->{id},
+	$this->{id},
+    );
 } 
 
 1;
