@@ -55,13 +55,22 @@ else
     <table>
 % if ($vartist > 0 && $vartist !=  scalar(@objs)) {
     <tr>
-      <td>
-      <font color="red">Not available</font>
+      <td align="center">
+      <font color="red">Merge Album<br>Not available</font>
       </td>
       <td>
       Merge albums is not available -- in order to merge tagged albums, the
       tagged albums must all be single artist albums or all multiple 
       artist albums.
+    </tr>
+% } elsif (scalar(@objs) == 1) {
+    <tr>
+      <td align="center">
+      <font color="red">Merge Album<br>Not available</font>
+      </td>
+      <td>
+      Merge albums is not available -- you must select multiple albums to
+      merge.
     </tr>
 % } else {
     <tr>
