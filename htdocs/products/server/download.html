@@ -1,0 +1,84 @@
+%# vi: set ts=2 sw=2 ft=mason :
+<& /comp/sidebar, title=>'MusicBrainz Server / Database - Download' &>
+
+<h2>Introduction</h2>
+
+<p>
+	The MusicBrainz server is a relational database
+	plus a collection of web pages and web services providing
+	access to that data.
+</p>
+
+<h2>The Database</h2>
+
+<p>
+	The MusicBrainz database is built on the
+	<a href="http://postgresql.org/">Postgres</a>
+	relational database engine.&nbsp;
+	Therefore these files are in Postgres "dump" format,
+	only really suitable for restoring to a Postgres database.
+</p>
+
+<ul>
+	<li><a href="/products/server/import_howto.html">How to import these files to make a working MusicBrainz database</a></li>
+	<li><a href="/db_structure.html">The structure of the MusicBrainz database</a></li>
+</ul>
+
+<p>
+	<a href="ftp://ftp.musicbrainz.org/pub/musicbrainz/data/mbdump.tar.bz2"
+		class="DownloadLink"
+		><img src="/images/divider_end.gif"
+		>Core data (artists, albums, tracks etc)
+	</a>
+</p>
+
+<p>
+	<a href="ftp://ftp.musicbrainz.org/pub/musicbrainz/data/mbdump-derived.tar.bz2"
+		class="DownloadLink"
+		><img src="/images/divider_end.gif"
+		>Derived data (mainly search indexes)
+	</a>
+</p>
+
+<p>
+	<a href="ftp://ftp.musicbrainz.org/pub/musicbrainz/data/mbdump-moderation.tar.bz2"
+		class="DownloadLink"
+		><img src="/images/divider_end.gif"
+		>Moderation data (moderators, moderations, votes)
+	</a>
+</p>
+
+<h3>Miscellaneous</h3>
+	
+<ul>
+	<li><a href="ftp://ftp.musicbrainz.org/pub/musicbrainz/mysql/mbdump.tar.bz2">MusicBrainz MySQL Data</a> (tar.bz2) suitable for importing into MySQL.</li>
+	<li><a href="ftp://ftp.musicbrainz.org/pub/musicbrainz/data/mbdump.rdf.bz2">MusicBrainz RDF Data dump</a> (bz2) suitable for parsing with any RDF parser.</li>
+	<li><a href="http://www.lukeharless.com/musicbrainzdb.zip">MusicBrainz Access DB</a> (zip) MS Access database suitable for importing the above file into MS Access. [<a href="http://www.lukeharless.com/accessmusicbrainz.htm">Details</a>] (updated 2002-03-13)</li>
+</ul>
+
+<p>
+	Other data files are available from time to time on the
+	<a href="ftp://ftp.musicbrainz.org/pub/musicbrainz/data/"
+		>MusicBrainz FTP Server</a>.&nbsp;
+</p>
+
+<h2>The Server Software</h2>
+
+<p>
+	This software is licensed under the
+	<a href="http://www.gnu.org/copyleft/gpl.html"
+		><abbr title="General Public License">GPL</abbr></a>.&nbsp;
+</p>
+
+<ul>
+	<li><a href="/products/server/setup_howto.html">How to set up a working MusicBrainz server</a></li>
+	<li><a href="/products/server/faq.html">Server FAQ</a></li>
+</ul>
+
+<p>
+	The source code to the server is available via CVS.&nbsp;
+	Read the <a href="/development/cvs.html">instructions for using CVS</a>
+	to find out how to get the source.
+</p>
+
+<& /comp/footer &>

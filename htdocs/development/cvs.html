@@ -1,0 +1,183 @@
+%# vi: set ts=2 sw=2 ft=mason :
+<& /comp/sidebar, title=>'Using the MusicBrainz CVS Repository' &>
+
+<h2>Introduction</h2>
+
+<p>
+	The latest bleeding edge version of our client library and server
+	source is always available to everyone interested by read-only CVS.&nbsp;
+	You can <a href="http://musicbrainz.org/cgi-bin/viewcvs/viewcvs.cgi/">browse</a>
+	the CVS trees online.&nbsp;
+</p>
+
+<p>
+	Changes to the source trees are commented, releases are labeled,
+	so you can find out what was going on and retrieve older releases if necessary.&nbsp;
+</p>
+
+<p>
+	This system is well suited to administer changes to a project made by
+	a group of various developers, and is thus used by many large Internet
+	projects.&nbsp;
+</p>
+
+<h3>Further reading</h3>
+
+<p>
+	For more information visit the
+	<a href="http://www.cyclic.com">Cyclic Software</a>
+	site or have a look at the info documentation that is online
+	<a href="http://docs.freebsd.org/info/cvs/cvs.info.Top.html">here</a>
+	at the
+	<a href="http://www.freebsd.org">FreeBSD Project</a>
+	or
+	<a href="http://www.publicsource.apple.com/tools/cvs/docs.html">here</a>
+	at
+	<a href="http://www.apple.com">Apple Computer, Inc</a>.
+</p>
+
+<h2>Summary</h2>
+
+<p>
+	If you're looking for the quick copy-and-paste answer,
+	and you're working under UNIX using some sort of
+	Bourne shell, try this:
+</p>
+
+<pre><kbd class="KbdBlock"
+>CVSROOT=:pserver:musicbrainz@zim.musicbrainz.org:/var/cvs
+export CVSROOT
+
+cvs login</kbd></pre>
+
+<p>(here you'll be asked for the password, which is "musicbrainz")</p>
+
+<p>Now check out whichever modules you want:</p>
+
+<pre><kbd class="KbdBlock"
+>cvs -z3 checkout -P mb_client
+cvs -z3 checkout -P mb_tagger
+cvs -z3 checkout -P mb_server</kbd></pre>
+
+<p>
+	To bring your checked-out copy up to date later on:
+</p>
+
+<pre><kbd class="KbdBlock"
+>cd mb_client
+cvs -z3 update</kbd></pre>
+
+<h2>The Details</h2>
+
+<h3>Preparation</h3>
+
+<p>
+	Before you can access the CVS server you need to set up an
+	environment variable.
+</p>
+
+<p>
+	Under UNIX using a Bourne shell (<tt>sh</tt>, <tt>bash</tt> etc)
+	type the following:
+</p>
+
+<pre><kbd class="KbdBlock"
+>CVSROOT=:pserver:musicbrainz@zim.musicbrainz.org:/var/cvs
+export CVSROOT</kbd></pre>
+
+<p>or</p>
+
+<pre><kbd class="KbdBlock"
+>setenv CVSROOT :pserver:musicbrainz@zim.musicbrainz.org:/var/cvs</kbd></pre>
+
+<p>
+	if you work under a C shell (<tt>csh</tt>, <tt>tcsh</tt> etc).
+</p>
+
+<p>
+	Under Windows type the following:
+</p>
+
+<pre><kbd class="KbdBlock"
+>set CVSROOT=:pserver:musicbrainz@zim.musicbrainz.org:/var/cvs</kbd></pre>
+
+<p>
+	Alternately you can specify the <tt>CVSROOT</tt> when you give a CVS command
+	by using the <tt>-d</tt> flag.&nbsp; While this allows you to access
+	multiple CVS servers at a time, it does require you to specify the server
+	each time you login to or checkout from the repository.&nbsp;
+</p>
+
+<pre><kbd class="KbdBlock"
+>cvs -d :pserver:musicbrainz@zim.musicbrainz.org:/var/cvs <em>command</em></kbd></pre>
+
+<h3>Login</h3>
+
+<p>
+	In order to login to the server type: 
+</p>
+
+<pre><kbd class="KbdBlock">cvs login</kbd></pre>
+
+<p>
+	When prompted, use the password "musicbrainz". 
+</p>
+
+<p>
+	Under UNIX, after the first time you log into the CVS server the
+	password should be saved in <tt>~/.cvspass</tt>.&nbsp;
+</p>
+
+<h3>Getting the source trees</h3>
+
+<p>
+	Now all you have to do to get the most up-to-date copy of
+	the source code is type:
+</p>
+
+<pre><kbd class="KbdBlock"
+>cvs -z3 checkout -P <em>module</em></kbd></pre>
+
+<p>
+	where <em>module</em> is one (or more) of these values:
+</p>
+
+<ul>
+	<li>
+		<b>mb_client</b> for the MusicBrainz client library
+	</li>
+	<li>
+		<b>mb_server</b> for the MusicBrainz server
+	</li>
+	<li>
+		<b>mb_tagger</b> for the MusicBrainz Tagger
+	</li>
+</ul>
+
+<p>
+	Note that the <tt>-z3</tt> option will use a moderate level
+	of compression
+	on the data exchanged with the server, thus speeding up
+	the checkout process across the network.
+</p>
+
+<h3>Updating</h3>
+
+<p>
+	Once you have checked out a copy of the source you can
+	bring your copy up to date again
+	by changing to the project directory and typing:
+</p>
+
+<pre><kbd class="KbdBlock">cvs -z3 update -Pd</kbd></pre>
+
+<h2>Help</h2>
+
+<p>
+	Confused?&nbsp;
+	Send mail to
+	<a href="mailto:rob@eorbit.net">rob@eorbit.net</a>
+	if you need more help.
+</p>
+
+<& /comp/footer &>
