@@ -288,13 +288,14 @@ sub RebuildIndex
     
     $self->{DBH}->do("delete from " . $self->{Table} . "Words");
 
+    # Make postgres analyze its foo to speed up the insertion
+    print STDERR "Postgres: analyze vacuum " . $self->{Table} . "Words\n";
+    $self->{DBH}->{AutoCommit} = 1;
+    $self->{DBH}->do("vacuum analyze " . $self->{Table} . "Words");
+
     my $block_size = 5000;
     for($count = 0;; $count += $block_size)
     {
-        # Make postgres analyze its foo to speed up the insertion
-        print STDERR "Postgres: analyze vacuum\n";
-        $self->{DBH}->{AutoCommit} = 1;
-        $self->{DBH}->do("vacuum analyze");
 
         $written = 0;
         # Start a transaction
@@ -314,9 +315,9 @@ sub RebuildIndex
         
             while ( my $row = $sth->fetch )
             {
-                #print STDERR "Adding words for $self->{Table} $row->[0]: $row->[1]\n";
+                print STDERR "Adding words for $self->{Table} $row->[0]: $row->[1]\n";
                 $self->AddWordRefs(@$row);
-                $count--;
+                $written++;
             }
             $sth->finish;
     
@@ -328,6 +329,15 @@ sub RebuildIndex
         {
             print STDERR "Index insert: $@\n";
         }
+
+        # Make postgres analyze its foo to speed up the insertion
+        print STDERR "Postgres: vacuum analyze WordList\n";
+        $self->{DBH}->{AutoCommit} = 1;
+        $self->{DBH}->do("vacuum analyze WordList");
+
+        print STDERR "Postgres: analyze vacuum " . $self->{Table} . "Words\n";
+        $self->{DBH}->{AutoCommit} = 1;
+        $self->{DBH}->do("vacuum analyze " . $self->{Table} . "Words");
 
         if ($written < $block_size)
         {
@@ -342,6 +352,12 @@ sub RebuildAllIndices
     my $orig_table = $self->{Table};
     
     $self->{DBH}->do("delete from WordList");
+
+    # Make postgres analyze its foo to speed up the insertion
+    print STDERR "Postgres: analyze vacuum\n";
+    $self->{DBH}->{AutoCommit} = 1;
+    $self->{DBH}->do("vacuum analyze");
+
     foreach my $table ( @{$self->{ValidTables}} )
     {
         $self->{'Table'} = $table;
