@@ -69,7 +69,10 @@ my %all_types = reverse %{ ModDefs->type_as_hashref };
 						"/comp/options",
 						[
 							sort { $a->[1] cmp $b->[1] }
-								map { [ $_, Moderation->ClassFromType($_)->Name ] }
+								map {
+									my $class = Moderation->ClassFromType($_);
+									[ $_, $class ? $class->Name : "? #$_" ]
+								}
 								keys %all_types
 						],
 						$filter->{"mod_type"},
