@@ -1,202 +1,223 @@
+%# vi: set ts=4 sw=4 ft=mason :
+<%args>
+$album => ""
+$tindex => 0
+$modid => 0
+</%args>
+<%perl>
+
+$m->comp("/comp/checkloggedin", 1, 1)
+	or return;
+
+MusicBrainz::IsNonNegInteger($album) && $album
+	or return $m->comp("/comp/badargs", 1, 1);
+
+MusicBrainz::IsNonNegInteger($tindex)
+	or return $m->comp("/comp/badargs", 1, 1);
+
+MusicBrainz::IsNonNegInteger($modid)
+	or return $m->comp("/comp/badargs", 1, 1);
+
+my $mb = $m->comp("/comp/dblogin");
+
+my $al = Album->new($mb->{DBH});
+$al->SetId($album);
+$al->LoadFromId
+	or return $m->comp(
+		"/comp/error",
+		"Album #$album not found in the database.",
+		1, 1,
+	);
+
+my $ar = Artist->new($mb->{DBH});
+$ar->SetId($al->GetArtist);
+$ar->LoadFromId
+	or return $m->comp(
+		"/comp/error",
+		"Artist not found in the database.",
+		1, 1,
+	);
+
+my @tracks = $al->LoadTracks();
+
+# Check if we've done all the tracks on this album
+
+if ($tindex >= scalar(@tracks))
+{
+	</%perl>
+	<& /comp/sidebar, title => 'Album Conversion Complete' &>
+	<p>
+		The moderations for changing album
+		<a href="/showalbum.html?albumid=<% $album %>"
+			><% $al->GetName %></a>
+		by
+		<a href="/showartist.html?artistid=<% $ar->GetId %>"
+			><% $ar->GetName %></a>
+		to a multiple artist album have been entered.&nbsp;
+		Thanks!
+	</p>
+	<& /comp/footer &>
+	<%perl>
+	return;
+}
+
+my $track = $tracks[$tindex];
+
+my ($newtrackname, $newartistname, $tar);
+
+if ($track->GetArtist == $al->GetArtist)
+{
+	$tar = $ar;
+	$newartistname = $newtrackname = $track->GetName;
+
+	if ($newtrackname =~ /^(.*?)\s*[\/-]\s*(.*?)$/)
+	{
+		$newartistname = $1;
+		$newtrackname = $2;
+	}
+} else {
+	$tar = Artist->new($mb->{DBH});
+	$tar->SetId($track->GetArtist);
+	$tar->LoadFromId
+		or return $m->comp(
+			"/comp/error",
+			"Artist not found in the database.",
+			1, 1,
+		);
+
+	$newtrackname = $track->GetName;
+	$newartistname = $tar->GetSortName;
+}
+
+</%perl>
+
 <& /comp/sidebar, title=>'Change Track Artist', expand=>'moderate' &>
 
 <script type="text/javascript">
 <!--
 
-function B1_onclick() 
-{
-  var tmp
-  tmp=document.forms["ChangeTrackForm"].new1.value;
-  document.forms["ChangeTrackForm"].new1.value=document.forms["ChangeTrackForm"].new0.value;
-  document.forms["ChangeTrackForm"].new0.value=tmp;
-}
-
-function B2_onclick() 
-{
-  document.forms["ChangeTrackForm"].new0.value =
-      document.forms["ChangeTrackForm"].orig_artist.value;
-  document.forms["ChangeTrackForm"].new1.value=
-      document.forms["ChangeTrackForm"].orig_track.value;
-}
-
 //-->
-</SCRIPT>
-<%perl>
-
-my ($mb, $id, $albumname, $modpending);
-my ($artistname, $al, $artist, $ar, $newtrackname, $newartistname, $sortname);
-my ($track, @tracks, $tr, $trackname, $tindex, $depmod, $trackid); 
-
-if (!exists $ARGS{album} || $ARGS{album} eq '' ||
-    !exists $ARGS{artist} || $ARGS{artist} eq '' ||
-    !exists $ARGS{tindex} || $ARGS{tindex} eq '')
-{
-    mc_comp("/comp/badargs");
-    return undef;
-}
-
-$mb = mc_comp("/comp/dblogin");
-$id = $ARGS{album};
-$artist = $ARGS{artist};
-$tindex = $ARGS{tindex};
-if (exists $ARGS{modid})
-{
-   $depmod = $ARGS{modid};
-}
-else
-{
-   $depmod = 0;
-}
-
-$al = Album->new($mb->{DBH});
-$al->SetId($id);
-$al->LoadFromId();
-$albumname = $al->GetName();
-
-if ($artist != ModDefs::VARTIST_ID)
-{
-   $ar = Artist->new($mb->{DBH});
-   $ar->SetId($artist);
-   $ar->LoadFromId();
-   $artistname = $ar->GetName();
-   $sortname = $ar->GetSortName();
-}
-else
-{
-   $artistname = "Various Artists";
-   $sortname = "Various Artists";
-}
-
-@tracks = $al->LoadTracks();
-
-if ($tindex >= scalar(@tracks))
-{
-   mc_out("<p><br>The moderations for changing album ");
-   mc_out("<a href=\"/showalbum.html?albumid=$id\">$albumname</a> by ");
-   mc_out("<a href=\"/showartist.html?artistid=$artist\">$artistname</a> ");
-   mc_out("to a multiple artist album have been entered. Thanks!");
-}
-else
-{
-   $track = $tracks[$tindex];
-   $trackid = $track->GetId();
-   $trackname = $track->GetName();
-   $modpending = $track->GetModPending();
-
-   $newtrackname = $trackname;
-   $newartistname = $trackname;
-   if ($trackname =~ /^(.*)\s*-\s*(.*)$/)
-   {
-      $newartistname = $1;
-      $newtrackname = $2;
-   }
-   else
-   {
-      if ($trackname =~ /^(.*)\s*\/\s*(.*)$/)
-         {
-          $newartistname = $1;
-          $newtrackname = $2;
-      }
-   }
-   $newartistname =~ s/\s*$//g;
-   $newtrackname =~ s/\s*$//g;
+</script>
    
-   </%perl>
-   
-%  if (!defined $session{user} || $session{user} eq '') {
-       You must be logged in to edit the database.<p>
-       <& /comp/tablebegin, title=>'Login' &>
-       <& /comp/loginbox &>
-       <& /comp/tableend &>
-%  } else {
-   
-       <& /comp/stylemenu &>
+<& /comp/stylemenu &>
 
-       <& /comp/tablebegin, gattrs=>"width=\"100%\"",
-          title=>"Change Artist for track $trackname" &>
+<h2>Change Artist for track '<% $track->GetName %>'</h2>
    
-%  if ($modpending) {
-       <& /comp/modpending &>
+%  if ($track->GetModPending) {
+<& /comp/modpending &>
 %  } 
   
-       Enter the artist <span class="bold">sortname</span> to 
-       whom you'd like to move track <% $trackname %>:
+<p>
+	Enter the name of the artist to
+	whom you'd like to move track
+	'<% $track->GetName %>':
+</p>
 
-       <FORM METHOD="POST" ACTION="/artistfilter.html" NAME="ChangeTrackForm"
-             ENCTYPE="application/x-www-form-urlencoded">  
-       <table>
-         <tr>
-           <td>
-           Current Track Name:
-           </td>
-           <td>
-           <% $trackname  %>
-           </td>
-         </tr>
-         <tr>
-           <td>
-           Current Artist Sortname:
-           </td>
-           <td>
-           <% $sortname  %>
-           </td>
-         </tr>
-         <tr>
-           <td>
-           New Track Name:
-           </td>
-           <td>
-           <INPUT TYPE="text" NAME="new1" SIZE=25 value="<% $newtrackname %>">
-           <br> 
-           <input type="button" value="Swap" name="B1" 
-                  onclick="return B1_onclick(this)">
-           <input type="button" value="Use Current" name="B2" 
-                  onclick="return B2_onclick(this)">
-           </td>
-         </tr>
-         <tr>
-           <td>
-           New Artist Sortname:
-           </td>
-           <td>
-           <INPUT TYPE="text" NAME="new0" SIZE=25 value="<% $newartistname %>"> 
-           </td>
-         </tr>
-         <tr>
-           <td colspan=2>
-           <INPUT TYPE="submit" NAME="Submit" VALUE="Submit">    
-           </td>
-         </tr>
-       </table>
-       <input type="hidden" name="mode" value="track">
-       <input type="hidden" name="depmod0" value="<% $depmod %>">
-       <input type="hidden" name="depmod1" value="<% $depmod %>">
-       <input type="hidden" name="artist0" value="<% $artist %>">
-       <input type="hidden" name="artist1" value="<% $artist %>">
-       <input type="hidden" name="type0" 
-              value="<% ModDefs::MOD_CHANGE_TRACK_ARTIST %>">
-       <input type="hidden" name="type1" 
-              value="<% ModDefs::MOD_EDIT_TRACKNAME %>">
-       <input type="hidden" name="prev0" value="<% $artistname %>">
-       <input type="hidden" name="prev1" value="<% $trackname %>">
-       <input type="hidden" name="table0" value="Track">
-       <input type="hidden" name="table1" value="Track">
-       <input type="hidden" name="column0" value="Artist">
-       <input type="hidden" name="column1" value="Name">
-       <input type="hidden" name="id0" value="<% $trackid %>">
-       <input type="hidden" name="id1" value="<% $trackid %>">
-       <input type="hidden" name="orig_artist" value="<% $artistname %>">
-       <input type="hidden" name="orig_track" value="<% $trackname %>">
+<form method="post" action="/artistfilter.html"
+	name="ChangeTrackForm"
+	enctype="application/x-www-form-urlencoded"
+	>
+	
+	<table>
+   		<tr>
+			<td>
+		 		Current Track Name:
+		  	</td>
+		   	<td>
+				<% $track->GetName %>
+			</td>
+		</tr>
+		<tr>
+			<td>
+				Current Artist Name:
+			</td>
+			<td>
+				<% $tar->GetName  %>
+% if ($tar->GetSortName ne $tar->GetName) {
+				(<% $tar->GetSortName %>)
+% }
+			</td>
+		</tr>
+		<tr><td>&nbsp;</td></tr>
+		<tr>
+			<td>
+				New Track Name:
+			</td>
+			<td>
+				<input type="text" name="new1" size="40" value="<% $newtrackname %>">
+			</td>
+		</tr>
+		<tr>
+			<td></td>
+			<td>
+				<script type="text/javascript">
+
+function SwapFields() 
+{
+	var f = document.forms.ChangeTrackForm;
+	var tmp = f.new1.value;
+	f.new1.value = f.new0.value;
+	f.new0.value = tmp;
+}
+
+function UseCurrent() 
+{
+	var f = document.forms.ChangeTrackForm;
+	f.new0.value = f.orig_artname.value;
+	f.new1.value= f.orig_track.value;
+}
+
+	document.writeln('<input type="button" value="Swap" onclick="return SwapFields(this)">');
+	document.writeln(' ');				
+	document.writeln('<input type="button" value="Use Current" onclick="return UseCurrent(this)">');
+				</script>
+				<input type="reset" value="Use Guessed"
+					>
+			</td>
+		</tr>
+		<tr>
+			<td>
+				New Artist Sortname:
+			</td>
+			<td>
+				<input type="text" name="new0" size="40" value="<% $newartistname %>"> 
+			</td>
+		</tr>
+		<tr>
+			<td></td>
+			<td>
+				<input type="submit" name="Submit" value="Submit">    
+			</td>
+		</tr>
+	</table>
+	
+ 	<input type="hidden" name="mode" value="track">
+	<input type="hidden" name="depmod0" value="<% $modid %>">
+	<input type="hidden" name="depmod1" value="<% $modid %>">
+	<input type="hidden" name="artist0" value="<% $ar->GetId %>">
+	<input type="hidden" name="artist1" value="<% $ar->GetId %>">
+	<input type="hidden" name="type0" value="<% ModDefs::MOD_CHANGE_TRACK_ARTIST %>">
+	<input type="hidden" name="type1" value="<% ModDefs::MOD_EDIT_TRACKNAME %>">
+%						   # TODO should this be $ar->GetName ?
+	<input type="hidden" name="prev0" value="<% $tar->GetName %>">
+	<input type="hidden" name="prev1" value="<% $track->GetName %>">
+	<input type="hidden" name="table0" value="Track">
+	<input type="hidden" name="table1" value="Track">
+	<input type="hidden" name="column0" value="Artist">
+	<input type="hidden" name="column1" value="Name">
+	<input type="hidden" name="id0" value="<% $track->GetId %>">
+	<input type="hidden" name="id1" value="<% $track->GetId %>">
+	<input type="hidden" name="orig_artname" value="<% $tar->GetName %>">
+	<input type="hidden" name="orig_track" value="<% $track->GetName %>">
+	<input type="hidden" name="url"
 % if (exists $ARGS{solo}) {
-       <input type="hidden" 
-              name="url" value="/showalbum.html?albumid=<% $id %>">
+		value="/showalbum.html?albumid=<% $album %>"
 % } else {
-       <input type="hidden" name="url" value="/changetrack.html?album=<% $id %>&amp;artist=<% $artist %>&amp;tindex=<% $tindex + 1 %>&amp;modid=<% $depmod %>">
+		value="/changetrack.html?album=<% $al->GetId %>&amp;tindex=<% $tindex + 1 %>&amp;modid=<% $modid %>"
 % }
-       </form>
+		>
+
+</form>
          
-       <& /comp/tableend &>
-%    }
-% }
-% $mb->Logout();
+<& /comp/movefocus, "ChangeTrackForm", "new1" &>
 <& /comp/footer &>
