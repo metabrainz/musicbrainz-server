@@ -2,7 +2,7 @@
 <& /comp/sidebar, title => "MusicBrainz Development - Dave's TODO List " &>
 <& /comp/wraptextfile,
 	file => (
-		DBDefs::DB_STAGING_SERVER
+		&DBDefs::DB_STAGING_SERVER
 			? "/home/mbrainz/cvs/TODO"
 			: "/home/dave/public_html/TODO.txt"
 	)
