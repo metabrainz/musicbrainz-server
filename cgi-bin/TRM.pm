@@ -31,6 +31,7 @@ use vars qw(@ISA @EXPORT);
 use strict;
 use DBI;
 use DBDefs;
+use Carp qw( carp croak );
 
 # Accessor functions to set/get the artist id of this album
 sub GetTRM
@@ -70,26 +71,32 @@ sub GetIdFromTRM
 sub GetTRMFromTrackId
 {
     my ($this, $id) = @_;
-    my (@row, $sql, @ret);
 
-    $sql = Sql->new($this->{DBH});
-	# TODO Fix SQL interpolation bug (sometimes $id eq "")
-    if ($sql->Select(qq|select TRM.TRM, TRMJoin.id, TRM.lookupcount 
-                          from TRMJoin, TRM
-                         where TRMJoin.track = $id and
-                               TRMJoin.TRM = TRM.id
-                      order by TRM.lookupcount desc|))
-    {
-        while(@row = $sql->NextRow())
-        {
-            push @ret, { TRMjoinid=>$row[1],
-                         TRM=>$row[0],
-                         lookupcount=>$row[2]
-                       };
-        }
-        $sql->Finish();
-    }
-    return @ret;
+	unless ($id)
+	{
+		carp "No track id passed ("
+			. (defined($id) ? "'$id'" : "undef")
+			. ")";
+		return;
+	}
+
+	my $sql = Sql->new($this->{DBH});
+	my $data = $sql->SelectListOfLists(
+		"SELECT TRM.TRM, TRMJoin.id, TRM.lookupcount
+		FROM	TRMJoin, TRM
+		WHERE	TRMJoin.track = ?
+		AND		TRMJoin.TRM = TRM.id
+		ORDER BY TRM.lookupcount DESC",
+		$id,
+	);
+
+	map {
+		+{
+			TRM			=> $_->[0],
+			TRMjoinid	=> $_->[1],
+			lookupcount	=> $_->[2],
+		}
+	} @$data;
 }
 
 sub Insert
