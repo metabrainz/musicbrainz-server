@@ -5,7 +5,11 @@ $m->comp(
 	"/comp/header",
 	title => $pagetitle || $title,
 	head => $head,
+	nosidebar => $session{'nosidebar'},
 );
+
+unless ($session{'nosidebar'})
+{
 
 </%perl>
 <& /comp/sidebarsectiontop, title=>'Site Menu' &>
@@ -29,11 +33,11 @@ $m->comp(
 <& /comp/sidebarareaend &>
 
    </td>
+% }
    <td bgcolor="FFFFFF" align="left" valign="top">
       <table cellpadding="15" cellspacing="0" border="0" width="100%" >
       <tr>
          <td align="left" valign="top" class="body" width="100%">  
-         <img src="/images/pixel.gif" width="435" height="1" alt="">
 	 <a id="maincontent"></a>
 
 %if($title ne '' and not $noh1) {
