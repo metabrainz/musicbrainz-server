@@ -27,7 +27,7 @@ use lib "$FindBin::Bin/../cgi-bin";
 
 use DBI;
 use MusicBrainz;
-use Moderation;
+use MusicBrainz::Server::ModBot;
 use Apache;
 use Tie::STDERR \&handle_output;
 
@@ -70,6 +70,6 @@ sub handle_output
 my $mb = MusicBrainz->new();
 
 $mb->Login();
-$mod = Moderation->new($mb->{DBH});
+$mod = MusicBrainz::Server::ModBot->new($mb->{DBH});
 $mod->CheckModerations();
 $mb->Logout();
