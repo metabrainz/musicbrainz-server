@@ -2,6 +2,7 @@
 
    my ($i, $p);
 
+   $p = '<a href="/browseartists.html?index=1">#</a> ';
    for($i = 0; $i < 26; $i++)
    {
        $p .= '<a href="/browseartists.html?index=' . chr($i + 65) . '">' .

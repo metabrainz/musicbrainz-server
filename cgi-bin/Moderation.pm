@@ -603,6 +603,7 @@ sub CheckModificationsForExpiredItems
    }
 
    $this->CheckModifications(@ids);
+   $this->CheckModificationsForFailedDependencies();
 }
 
 sub CheckModifications
@@ -693,6 +694,50 @@ sub CheckModifications
        }
    }
 }
+
+# Go through the Changes table and find Moderations that have dependencies
+# that have failed. Close all moderations that have failed dependencies
+sub CheckModificationsForFailedDependencies
+{
+   my ($this) = @_;
+   my ($sql, $sql2, @row, $query, $i, $dep, $status); 
+
+   $sql = Sql->new($this->{DBH});
+   $sql2 = Sql->new($this->{DBH});
+   $query = qq|select id, newvalue, moderator, rowid, tab from Changes 
+               where status = | . ModDefs::STATUS_OPEN;
+   if ($sql->Select($query))
+   {
+       while(@row = $sql->NextRow())
+       {
+           for($i = 0;; $i++)
+           {
+               if ($row[1] =~ m/Dep$i=(.*)/m)
+               {
+                   ($status) = $sql2->GetSingleRow("Changes", ["status"],
+                                                  ["id", $1]);
+                   if (!defined $status || 
+                       $status == ModDefs::STATUS_FAILEDVOTE ||
+                       $status == ModDefs::STATUS_FAILEDDEP)
+                   {
+                       my $mod = $this->CreateFromId($row[0]);
+                       $mod->DeniedAction();
+                       $this->CreditModerator($row[2], 0);
+                       $this->CloseModification($row[0], $row[4], $row[3],
+                                                ModDefs::STATUS_FAILEDDEP);
+                       print STDERR "found: Dep$i=$1 failed!\n"; 
+                   }
+               }
+               else
+               {
+                   last; 
+               }
+           }
+       }
+       $sql->Finish;
+   }
+}
+
 
 sub GetModerationStatus
 {

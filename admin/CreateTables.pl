@@ -37,6 +37,7 @@ use Artist;
 #alter table Pending drop column Length;
 #alter table Pending drop column First20;
 #alter table Pending change column Bitprint Sha1 char(40) not null;
+#move artist 2 to a new location
 
 sub CreateTables
 {
@@ -301,6 +302,9 @@ sub CreateTables
     $id = $dbh->quote($ar->CreateNewGlobalId());
     $dbh->do(qq\insert into Artist (Id, Name, SortName, GID, ModPending) values
                 (1, "Various Artists", "Various Artists", $id, 0)\); 
+    $id = $dbh->quote($ar->CreateNewGlobalId());
+    $dbh->do(qq\insert into Artist (Id, Name, SortName, GID, ModPending) values
+                (2, "Deleted Artist", "Deleted Artist", $id, 0)\); 
     print "Inserted default rows.\n";
 
     print "\nCreated tables successfully.\n";

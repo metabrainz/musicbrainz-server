@@ -38,6 +38,9 @@ use Alias;
 
 # Use the following id for the multiple/various artist albums
 use constant VARTIST_ID => 1;
+# Use the following id to reference artist that have been deleted.
+# This will be used only by the moderation system
+use constant DARTIST_ID => 2;
 
 sub new
 {
@@ -198,10 +201,22 @@ sub GetArtistDisplayList
                                         ["left(sortname, 1)", 
                                          $sql->Quote($ind)]);
    return undef if (!defined $num_artists);
-      
-   $query = qq/select id, sortname, modpending from 
+   
+   if ($ind == '1')
+   {
+      $query = qq/select id, sortname, modpending 
+                  from   Artist 
+                  where  left(sortname, 1) < 'A' or
+                         left(sortname, 1) > 'Z' 
+                  order  by sortname 
+                  limit  $offset, $max_items/;
+   }
+   else
+   {
+      $query = qq/select id, sortname, modpending from 
                Artist where left(sortname, 1) = '$ind' order by sortname 
                limit $offset, $max_items/;
+   }
    if ($sql->Select($query))
    {
        for(;@row = $sql->NextRow;)

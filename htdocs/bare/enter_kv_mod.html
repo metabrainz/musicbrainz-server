@@ -52,14 +52,22 @@ if (CheckArg(\%ARGS, 'column') &&
         $mod->SetModerator($session{uid});
         $mod->SetDepMod(0);
 
+        $mod->DetermineDependencies();
         $mod->PreVoteAction();
 
-        # Go to the album that we just inserted...
+        # Go to the item that we just inserted...
         if ($mod->GetType() == ModDefs::MOD_ADD_ALBUM)
         {
             if ($mod->GetNew() =~ /^AlbumId=(.*)$/m)
             {
                $ARGS{referer} = "/showalbum.html?albumid=$1";
+            }
+        }
+        if ($mod->GetType() == ModDefs::MOD_ADD_ARTIST)
+        {
+            if ($mod->GetNew() =~ /^ArtistId=(.*)$/m)
+            {
+               $ARGS{referer} = "/showartist.html?artistid=$1";
             }
         }
         $modid = $mod->InsertModeration();

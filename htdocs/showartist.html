@@ -27,14 +27,26 @@ else
 {
     mc_comp("/comp/sidebar", title=>'',
             pagetitle=>"Artist: " . $artist->GetName());
-    mc_comp("/comp/artisttitle", artist=>$artist);
 
+    if ($ARGS{artistid} == Artist::DARTIST_ID)
+    {
+        mc_out("<font size=\"+2\">Deleted Artist</font><p>");
+        mc_out("<table width=\"100%\"><tr><td align=\"center\">");
+        mc_out("<font size=\"+1\">This artist is a placeholder for the ");
+        mc_out("moderation system. Please do not use it.</font>");
+        mc_out("</td></tr></table>");
+        return;
+    }
+
+    mc_comp("/comp/artisttitle", artist=>$artist);
+    
     mc_out("[ <a href=\"/addalbum.html?artistid=");
     mc_out($artist->GetId());
     mc_out("\">Add album</a> ");
 
     if ($artist->GetName() ne "Unknown" && 
         $artist->GetId() != Artist::VARTIST_ID && 
+        $artist->GetId() != Artist::DARTIST_ID && 
         $artist->GetName() ne "Data CD")
     {
          

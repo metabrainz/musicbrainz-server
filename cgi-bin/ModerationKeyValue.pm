@@ -57,14 +57,33 @@ sub ShowNewValue
        $id = $1;
    }
 
-   if ($this->{status} == ModDefs::STATUS_FAILEDVOTE ||
-       $this->{status} == ModDefs::STATUS_FAILEDPREREQ)
+   if ($this->{status} != ModDefs::STATUS_OPEN &&
+       $this->{status} != ModDefs::STATUS_APPLIED)
    {
        return "Album: $name";
    }
    else
    {
        return "Album: <a href=\"/showalbum.html?albumid=$id\">$name</a>";
+   }
+}
+
+sub DetermineDependencies
+{
+   my ($this) = @_;
+   my ($nw, $sql, $id);
+
+   $sql = Sql->new($this->{DBH}); 
+   ($id) = $sql->GetSingleRow("Changes", ["id"], 
+                              ["type", ModDefs::MOD_ADD_ARTIST,
+                               "rowid", $this->GetArtist(),
+                               "status", ModDefs::STATUS_OPEN]);
+   if (defined $id)
+   {
+      $nw = $this->ConvertNewToHash($this->{new});
+      return if (!defined $nw);
+      $nw->{Dep0} = $id;
+      $this->{new} = $this->ConvertHashToNew($nw);
    }
 }
 
@@ -110,15 +129,14 @@ sub PreVoteAction
    }
    $info{tracks} = \@tracks;
 
-   print STDERR "Before insert:\n$this->{new}\n";
    # TODO: Support for inserting partial albums
    $in = Insert->new($this->{DBH});
    if (defined $in->Insert(\%info))
    {
-       print STDERR "Error: $in->{error}\n";
        if (exists $info{album_insertid})
        {
            $nw->{AlbumId} = $info{album_insertid};
+           $this->{rowid} = $info{album_insertid};
        }
        if (exists $info{artist_insertid})
        {
@@ -152,7 +170,6 @@ sub PreVoteAction
        $nw->{_artistid} = $info{_artistid};
        $nw->{_albumid} = $info{_albumid};
        $this->{new} = $this->ConvertHashToNew($nw);
-       print STDERR "After insert:\n$this->{new}\n";
 
        return 1;
    }
@@ -280,6 +297,12 @@ sub ShowNewValue
    }
 }
 
+# An artist is not dependent on anything, so no dependency information needs
+# to be determined.
+sub DetermineDependencies
+{
+}
+
 sub PreVoteAction
 {
    my ($this) = @_;
@@ -288,11 +311,14 @@ sub PreVoteAction
    $nw = $this->ConvertNewToHash($this->{new});
    return undef if (!defined $nw);
 
+   if (!exists $nw->{SortName} || $nw->{SortName} eq "")
+   {
+      $nw->{SortName} = $nw->{ArtistName};
+   }
    $info{artist} = $nw->{"ArtistName"}; 
-   $info{sortname} = $nw->{"Sortname"}; 
-   $info{artist_only} = $nw->{"Sortname"}; 
+   $info{sortname} = $nw->{"SortName"}; 
+   $info{artist_only} = $nw->{"SortName"}; 
 
-   print STDERR "Before insert:\n$this->{new}\n";
    # TODO: Support for inserting partial albums
    $in = Insert->new($this->{DBH});
    if (defined $in->Insert(\%info))
@@ -300,15 +326,14 @@ sub PreVoteAction
        if (exists $info{artist_insertid})
        {
            $nw->{ArtistId} = $info{artist_insertid};
+           $this->{rowid} = $info{artist_insertid};
        }
        $this->{new} = $this->ConvertHashToNew($nw);
-       print STDERR "After insert:\n$this->{new}\n";
 
        return 1;
    }
    else
    {
-       print STDERR "Error: $in->{error}\n";
        $this->{error} = $in->GetError();
        return 0;
    }
@@ -324,7 +349,7 @@ sub ApprovedAction
 sub DeniedAction
 {
    my ($this) = @_;
-   my ($newval, $i, $done);
+   my ($newval, $i, $done, $sql);
 
    $newval = $this->ConvertNewToHash($this->{new});
    if (exists $newval->{"ArtistId"})
@@ -334,6 +359,10 @@ sub DeniedAction
       $ar = Artist->new($this->{DBH});
       $ar->SetId($newval->{"ArtistId"});
       $ar->Remove();
+
+      $sql = Sql->new($this->{DBH});
+      $sql->Do("update Changes set artist = " . Artist::DARTIST_ID . 
+               " where artist = " . $newval->{"ArtistId"});
    }
 }
 
@@ -381,6 +410,25 @@ sub ShowNewValue
    return $out;
 }
 
+sub DetermineDependencies
+{
+   my ($this) = @_;
+   my ($nw, $sql, $id);
+
+   $sql = Sql->new($this->{DBH}); 
+   ($id) = $sql->GetSingleRow("Changes", ["id"], 
+                              ["type", ModDefs::MOD_ADD_ALBUM,
+                               "rowid", $this->GetRowId(),
+                               "status", ModDefs::STATUS_OPEN]);
+   if (defined $id)
+   {
+      $nw = $this->ConvertNewToHash($this->{new});
+      return if (!defined $nw);
+      $nw->{Dep0} = $id;
+      $this->{new} = $this->ConvertHashToNew($nw);
+   }
+}
+
 sub PreVoteAction
 {
    my ($this) = @_;
@@ -410,18 +458,15 @@ sub PreVoteAction
    }
    $info{tracks} = \@tracks;
 
-   print STDERR "Before insert:\n$this->{new}\n";
-
    $in = Insert->new($this->{DBH});
    if (defined $in->Insert(\%info))
    {
-       print STDERR "Error: $in->{error}\n";
-
        foreach $track (@tracks)
        {
            if (exists $track->{track_insertid})
            {
                $nw->{"TrackId"} = $track->{track_insertid};
+               $this->{rowid} = $track->{track_insertid};
            }
 
            if (exists $track->{artist_insertid})
@@ -431,7 +476,6 @@ sub PreVoteAction
        }
 
        $this->{new} = $this->ConvertHashToNew($nw);
-       print STDERR "After insert:\n$this->{new}\n";
 
        return 1;
    }
