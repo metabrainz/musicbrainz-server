@@ -186,7 +186,7 @@ sub CheckModerations
           ($mod->GetYesVotes() > 0 || $mod->GetNoVotes() > 0))
        {
            # Are there more yes votes than no votes?
-           if ($mod->GetYesVotes() <= $mod->GetNoVotes())
+           if ($mod->GetYesVotes() < $mod->GetNoVotes())
            {
 				#print localtime () . " : EvalChange: expire and voted down\n"
 				#	if $fDebug;
