@@ -1,5 +1,19 @@
 <& /comp/sidebar, title=>'Change Track Artist', expand=>'moderate' &>
 
+<script LANGUAGE=javascript>
+<!--
+
+
+function B1_onclick() {
+var tmp
+tmp=document.forms["ChangeTrackForm"].new1.value;
+document.forms["ChangeTrackForm"].new1.value=document.forms["ChangeTrackForm"].new0.value;
+document.forms["ChangeTrackForm"].new0.value=tmp;
+
+}
+
+//-->
+</SCRIPT>
 <%perl>
 
 my ($mb, $id, $albumname, $modpending);
@@ -124,7 +138,10 @@ else
            New Track Name:
            </td>
            <td>
-           <INPUT TYPE="text" NAME="new1" SIZE=25 value="<% $newtrackname %>"> 
+           <INPUT TYPE="text" NAME="new1" SIZE=25 value="<% $newtrackname %>">
+           <br> 
+           <input type="button" value="Swap" name="B1" 
+                  onclick="return B1_onclick(this)">
            </td>
          </tr>
          <tr>
