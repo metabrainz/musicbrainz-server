@@ -18,7 +18,11 @@ sub pc
 
 <p>These statistics were last refreshed <% (split /\./, $stat->LastRefreshed)[0] %> UTC</p>
 
-<& /comp/tablebegin, title=>'Basic Metadata Statistics', gattrs=>'width="50%"' &>
+% my $gattrs = q[ width="100%" ];
+
+<div style="width: 30em">
+
+<& /comp/tablebegin, title=>'Basic Metadata Statistics', gattrs=>$gattrs &>
 <table class="StatsTable" style="width: 100%">
 	<tr>
 		<th class="StatName">Artists</th>
@@ -68,7 +72,7 @@ sub pc
 </table>
 <& /comp/tableend &>
 
-<& /comp/tablebegin, title=>'Disc Identifiers', gattrs=>'width="50%"' &>
+<& /comp/tablebegin, title=>'Disc Identifiers', gattrs=>$gattrs &>
 <table class="StatsTable" style="width: 100%">
 	<tr>
 		<th class="StatName">Disc IDs</th>
@@ -95,7 +99,7 @@ sub pc
 </table>
 <& /comp/tableend &>
 
-<& /comp/tablebegin, title=>'Track Identifiers', gattrs=>'width="50%"' &>
+<& /comp/tablebegin, title=>'Track Identifiers', gattrs=>$gattrs &>
 <table class="StatsTable" style="width: 100%">
 	<tr>
 		<th class="StatName">TRMs</th>
@@ -122,7 +126,7 @@ sub pc
 </table>
 <& /comp/tableend &>
 
-<& /comp/tablebegin, title=>'TRM Collisions', gattrs=>'width="50%"' &>
+<& /comp/tablebegin, title=>'TRM Collisions', gattrs=>$gattrs &>
 <table class="StatsTable" style="width: 100%">
 	<tr>
 		<th class="StatName">TRM IDs</th>
@@ -144,7 +148,7 @@ sub pc
 </table>
 <& /comp/tableend &>
 
-<& /comp/tablebegin, title=>'Moderations', gattrs=>'width="50%"' &>
+<& /comp/tablebegin, title=>'Moderations', gattrs=>$gattrs &>
 <table class="StatsTable" style="width: 100%">
 	<tr>
 		<th class="StatName">Moderations</th>
@@ -194,7 +198,7 @@ sub pc
 </table>
 <& /comp/tableend &>
 
-<& /comp/tablebegin, title=>'Votes', gattrs=>'width="50%"' &>
+<& /comp/tablebegin, title=>'Votes', gattrs=>$gattrs &>
 <table class="StatsTable" style="width: 100%">
 	<tr>
 		<th class="StatName">Votes</th>
@@ -218,6 +222,8 @@ sub pc
 	</tr>
 </table>
 <& /comp/tableend &>
+
+</div>
 
 <!--
 	TODO reinstate the "top moderators" boxes
@@ -267,14 +273,38 @@ sub pc
 
  -->
 
-<table cellpadding="10" cellspacing="0" border="0">
-<tr>
-   <td><img src="/images/basic_stats.png" alt="[basic stats]"></td>
-</tr>
-<tr>
-   <td><img src="/images/mod_stats.png" alt="[moderation stats]"></td>
-</tr>
-</table>  
+<p>
+	Here's some graphs over a few of the above statistics over time.&nbsp;
+	Each one is presented as a simple count, followed by a "delta" plot
+	showing how the weekly change rate.
+</p>
+
+<%perl>
+
+for my $n (qw(
+	count.artist
+	count.album
+	count.track
+	count.trm
+	count.discid
+	count.moderator
+	count.moderation
+	count.vote
+)) {
+	mc_out(qq{
+		<div style="border: 0; width: 80%; border-top: 3px double #999;
+			margin: 1em"></div>
+		<div>
+			<img src="generated/plot_$n.png" alt="$n">
+		</div>
+		<div>
+			<img src="generated/plot_${n}_delta.png" alt="$n">
+		</div>
+	});
+}
+
+</%perl>
+
 <& /comp/footer &>
 
 % $mb->Logout();
