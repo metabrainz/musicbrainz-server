@@ -32,7 +32,7 @@ use Discid;
 use Artist;
 use MM;
 use TaggerSupport;
-use Carp qw(cluck);
+use Carp qw( carp cluck croak confess );
 
 use vars qw(@ISA @EXPORT);
 @ISA    = @ISA    = qw(MM RDF2);
@@ -342,6 +342,7 @@ sub GetObject
 sub CreateTrackListing
 {
    my ($this, $album) = @_;
+   $album or confess '$album not defined';
    my (@trackids, @tracks, $track);
 
    @tracks = $album->LoadTracks();
@@ -435,6 +436,7 @@ sub CreateFileLookup
        {
            my $trackids;
            $al = $this->GetFromCache('album', $id->{id});
+	   # FIXME sometimes $al is undef (fatal error)
            $trackids = $this->CreateTrackListing($al);
            if (defined $al)
            {
