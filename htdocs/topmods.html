@@ -1,4 +1,68 @@
-<& /comp/sidebar, title=>'Top Moderators', expand=>'information' &>
+<& /comp/sidebar, title => 'Top Moderators & Voters' &>
+
+<%def .ShowTop>
+% my ($data, $usertitle, $numtitle) = @_;
+	<table class="topmods">
+		<col style="width: 8em">
+		<col style="width: 8em">
+		<tr>
+			<th class="topmodsname"><% $usertitle || "Moderator" %></th>
+			<th class="topmodsnum"><% $numtitle || 'Count' %></th>
+		</tr>
+%		local $. = 0;
+%		for my $d (@$data) {
+		<tr class="topmods<% ("odd", "even")[++$. % 2] %>">
+			<td class="topmodsname"
+				<% ($d->{name} eq $d->{nametrunc}) ? "" : 'title="'.encode_entities($d->{name}).'"' |n %>
+				><a href="/user/view.html?uid=<% $d->{id} %>"><% $d->{nametrunc} %></a></td>
+			<td class="topmodsnum"><% $d->{num} %></td>
+		</tr>
+%		}
+%		if (not @$data) {
+		<tr class="topmods<% ("odd", "even")[++$. % 2] %>">
+			<td class="topmodsnone" colspan="2">(no data to show)</td>
+		</tr>
+%		}
+	</table>
+</%def>
+
+<%def .GetData>
+	<%perl>
+    my $mb = $m->comp("/comp/dblogin");
+		my $mod = Moderation->new($mb->{DBH});
+		my $vote = MusicBrainz::Server::Vote->new($mb->{DBH});
+		my @opts = (rowlimit => 25, namelimit => 20);
+	</%perl>
+
+	<h2>Most active moderators in the last week (open and accepted moderations)</h2>
+	<& .ShowTop,
+		$mod->TopModerators(@opts),
+		"Moderator",
+		"Moderations",
+	&>
+
+	<h2>Most active moderators overall (accepted moderations only)</h2>
+	<& .ShowTop,
+		$mod->TopAcceptedModeratorsAllTime(@opts),
+		"Moderator",
+		"Moderations",
+	&>
+
+	<h2>Most active voters in the last week (yes and no votes only)</h2>
+	<& .ShowTop,
+		$vote->TopVoters(@opts, interval => "1 week"),
+		"Voter",
+		"Votes",
+	&>
+
+	<h2>Most active voters overall (yes and no votes only)</h2>
+	<& .ShowTop,
+		$vote->TopVoters(@opts, interval => "10 years"),
+		"Voter",
+		"Votes",
+	&>
+
+</%def>
 
 <%perl>
 
@@ -6,84 +70,19 @@ my $result = $m->cache->get("anyoldkey");
 
 if (!defined($result)) 
 {
-    my $mb = $m->comp("/comp/dblogin");
-
-    $result = "";
-
-    $result .= $m->comp("/comp/tablestat", 
-                       mb=>$mb,
-                       query=>qq|select Moderator.name, 
-                                        count(Moderator.id) as num 
-                                   from moderation_all m, Moderator 
-                                  where m.Moderator = Moderator.id 
-                                        and Moderator.id != | .  &ModDefs::FREEDB_MODERATOR . qq|
-                                        and Moderator.id != | .  &ModDefs::MODBOT_MODERATOR . qq|
-                                        and opentime > now() - interval '1 week' 
-                               group by Moderator.name 
-                               order by num desc limit 25|,
-                       title=>"Most active moderators in the last week:<br>".
-                              "(Open and accepted moderations)",
-                       numcols=>2,
-                       coltitles=>["User", "Moderations"]);
-
-    $result .= $m->comp("/comp/tablestat", 
-                       mb=>$mb,
-                       query=>qq|select name, modsaccepted+automodsaccepted 
-                                   from Moderator
-                                        where Moderator.id != | .
-                                        &ModDefs::FREEDB_MODERATOR . qq|
-                                        and Moderator.id != | .
-                                        &ModDefs::MODBOT_MODERATOR . qq|
-                               order by 2 desc limit 25|,
-                       title=>"Most active moderators overall:<br>".
-                              "(Accepted moderations only)",
-                       numcols=>2,
-                       coltitles=>["User", "Moderations"]);
-
-    $result .= $m->comp("/comp/tablestat", 
-                       mb=>$mb,
-                       query=>qq|select Moderator.name, count(v.id) as num
-                                   from vote_all v, Moderator
-                                  where v.moderator = Moderator.id and 
-                                        (v.vote = 0 or v.vote = 1) and
-                                        votetime > now() - interval '1 week' 
-                               group by Moderator.id, Moderator.name
-                               order by num desc limit 25|,
-                       title=>"Most active voters in the last week:<br>" .
-                              "(Yes and No votes only)",
-                       numcols=>2,
-											 coltitles=>["User", "Votes"]);
-
-    $result .= $m->comp("/comp/tablestat", 
-                       mb=>$mb,
-                       query=>qq|select Moderator.name, count(v.id) 
-                                        as num 
-                                   from vote_all v, Moderator 
-                                  where v.moderator = Moderator.id and
-                                        (v.vote = 0 or v.vote = 1)
-                               group by Moderator.id, Moderator.name 
-                               order by num desc limit 25|,
-                       title=>"Most active voters overall:<br>" .
-                              "(Yes and No votes only)",
-                       numcols=>2,
-											 coltitles=>["User", "Votes"]);
-
-    $mb->Logout();
-
-		$result = { HTML=>$result, TIME=>time() };
-
-		$m->cache->set('anyoldkey', $result, '3 hours');
+	$result = $m->scomp(".GetData");
+	$result = { HTML=> $result, TIME=>time() };
+	$m->cache->set('anyoldkey', $result, '3 hours');
 }
 
 </%perl>
 
-<table>
-	<tr><td>
-			Generated:
-			<% $m->comp("/comp/datetime", $result->{TIME}) %>
-	</td></tr>
-	<% $result->{HTML} |n %>
-</table>
+<p>
+	Generated:
+	<% $m->comp("/comp/datetime", $result->{TIME}) %>
+</p>
+
+<% $result->{HTML} |n %>
 
 <& /comp/footer &>
 %# vi: set ts=2 sw=2 ft=mason :

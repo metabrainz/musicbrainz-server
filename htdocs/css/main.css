@@ -325,12 +325,19 @@ td.trk *, td.did *, td.trm *, td.rdate * { vertical-align: middle }
 
 .SupersededVote { background: #ccc }
 
-
 /* Reports */
 
 #Report tr.shade { background-color: #eee; }
 #Report td.head { background-color: #eee; font-weight: bold;
                   padding-top: 0.5em; padding-bottom: 0.5em; }
 #Report td.link { text-align: center; white-space: nowrap; }
+
+/* topmods.html */
+table.topmods { border-collapse: collapse }
+table.topmods td { padding: 0.2em; border: 1px solid #999 }
+.topmodsname { text-align: left }
+.topmodsnum { text-align: right }
+.topmodseven { background-color: #eee }
+.topmodsnone { text-align: center }
 
 /* eof */
