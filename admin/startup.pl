@@ -56,7 +56,6 @@ use MusicBrainz;
 use MusicBrainz::Server::DeferredUpdate;
 use MusicBrainz::Server::Handlers;
 use MusicBrainz::Server::Mail;
-use MusicBrainz::Server::Mason;
 use MusicBrainz::Server::ModerationNote;
 use MusicBrainz::Server::Vote;
 # Don't load MusicBrainz::Server::Moderation::* - Moderation.pm does that
@@ -74,6 +73,10 @@ use TRM;
 use UserPreference;
 use UserStuff;
 use UserSubscription;
+
+# Loading the Mason handler preloads the pages, so the other MusicBrainz
+# modules must be ready by this point.
+use MusicBrainz::Server::Mason;
 
 1;
 # eof startup.pl
