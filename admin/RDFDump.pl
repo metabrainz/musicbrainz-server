@@ -71,10 +71,10 @@ print RDF "\n";
 $| = 1;
 print "\nDumping artists.\n";
 DumpArtists($sql, $rdf, \*RDF, "http://musicbrainz.org");
-print "\nDumping albums.\n";
-DumpAlbums($sql, $rdf, \*RDF, "http://musicbrainz.org");
 print "\nDumping tracks.\n";
 DumpTracks($sql, $rdf, \*RDF, "http://musicbrainz.org");
+print "\nDumping albums.\n";
+DumpAlbums($sql, $rdf, \*RDF, "http://musicbrainz.org");
 
 print RDF $rdf->EndRDFObject();
 
@@ -94,9 +94,8 @@ sub DumpArtists
 	$sql->Select(
 		"select Artist.gid, Artist.name, Artist.sortname, 
 				Album.gid
-		from	Artist, Album
-		where	Artist.id = Album.artist
-		order by Artist.sortname",
+		from	Artist left join Album on Artist.id = Album.artist
+		order by Artist.id",
 	);
 
 	$start = time;
@@ -123,7 +122,7 @@ sub DumpArtists
 			$out .= $rdf->BeginSeq();
 		}
 
-		$out .=		 $rdf->Li("$baseuri/album/$row[3]");
+		$out .= $rdf->Li("$baseuri/album/$row[3]") if defined $row[3];
 		print {$file} $out;
 
 		$last_id = $row[0];
