@@ -702,6 +702,7 @@ sub RebuildAllIndices
 	my $lastid = 0;
 	my @tokens;
 	my $i = 0;
+        my $key = 0;
 
 	my $flush = sub {
 	    # @tokens is a list of hash references (tokenized names)
@@ -724,8 +725,9 @@ sub RebuildAllIndices
 		}
 
 		++$wordentry->[$useindex];
+                ++$key;
 
-		print $fh_tablewords "$wordentry->[0]\t$lastid\n";
+		print $fh_tablewords "$key\t$wordentry->[0]\t$lastid\n";
 	    }
 
 	    ++$i;
