@@ -36,9 +36,8 @@ use DBDefs;
 
 sub new
 {
-    my $this = {};
-    bless $this;
-    return $this;
+    my $class = shift;
+    bless {}, ref($class) || $class;
 }  
 
 sub Login

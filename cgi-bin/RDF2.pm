@@ -31,11 +31,8 @@ use vars qw(@ISA @EXPORT);
 
 sub new
 {
-    my $this;
-
-    $this = {};
-    bless $this;
-    return $this;
+    my $class = shift;
+    bless {}, ref($class) || $class;
 }
 
 sub escape 
