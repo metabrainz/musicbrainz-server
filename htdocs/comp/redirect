@@ -3,7 +3,9 @@
 
 my ($url) = @_;
 
-$url = "http://" . &DBDefs::WEB_SERVER . $url
+my $host = $r->header_in("Host") || &DBDefs::WEB_SERVER;
+
+$url = "http://" . $host . $url
 	unless $url =~ /^\w+:/;
 $r->header_out(Location => $url);
 $m->abort(303);
