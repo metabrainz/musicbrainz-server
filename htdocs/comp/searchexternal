@@ -1,3 +1,4 @@
+%# vi: set ts=8 sw=2 ft=mason :
 <%perl>
 #This varable contain the form values to search the aria database
 #at location www.aria-database.com
@@ -44,8 +45,9 @@ my @site_musica = (
 
   <& /comp/tablebegin, title=>'CD shopping sites', attrs=>"align=left",
      gattrs=>"width='100%'" &>
+    <p style="margin: 0.3em">
     Please enter the name of the artist to search.<br>
-    &nbsp<br>
+    </p>
     <& /comp/searchbox, name=>'www.amazon.com',
                         nameurl=>'http://www.amazon.com',
                         scripturl=>'http://www.amazon.com/exec/obidos/external-search',
@@ -78,36 +80,11 @@ my @site_musica = (
                         searchfield=>'find' &>
   <& /comp/tableend &>
 
-  <& /comp/tablebegin, title=>'Info sites', attrs=>"align=left",
-     gattrs=>"width='100%'" &>
-    Please enter the name of the artist to search.
-    
-    <& /comp/searchbox, name=>'www.rollingstone.com',
-                        nameurl=>'http://www.rollingstone.com',
-                        scripturl=>'http://www.rollingstone.com/sections/artists/text/searchresults.asp',
-                        method=>'get',
-                        hidden=>['afl','lstn','SearchType','ArtistCheck'],
-                        searchfield=>'SearchFor' &>
-    <& /comp/searchbox, name=>'www.allmusic.com',
-                        nameurl=>'http://www.allmusic.com',
-                        scripturl=>'http://allmusic.com/cg/x.dll',
-                        hidden=>['P','amg', 'opt1','1'],
-                        searchfield=>'sql' &>
-    <& /comp/searchbox, name=>'www.listen.com',
-                        nameurl=>'http://www.listen.com',
-                        scripturl=>'http://www.listen.com/results.jsp',
-                        method=>'get',
-                        searchfield=>'artist' &>
-    <& /comp/searchbox, name=>'www.juno.co.uk',
-                        nameurl=>'http://www.juno.co.uk',
-                        scripturl=>'http://209.207.190.80/search.asp',
-                        hidden=>['page','sall.htm'],
-                        searchfield=>'search' &>
-  <& /comp/tableend &>
-
   <& /comp/tablebegin, title=>'Classical music sites', attrs=>"align=left",
      gattrs=>"width='100%'" &>
+    <p style="margin: 0.3em">
     For each of these searches please enter the name of the composer to search.
+    </p>
     
     <& /comp/searchbox, name=>'allclassical.com',
                         nameurl=>'http://allclassical.com',
@@ -132,7 +109,6 @@ my @site_musica = (
                         searchfield=>'E3' &>
   <& /comp/tableend &>
 
-
 </td>
 <td width="2%" valign="top">
 &nbsp;
@@ -141,7 +117,9 @@ my @site_musica = (
 
   <& /comp/tablebegin, title=>'Lyrics sites', attrs=>"align=left",
      gattrs=>"width='100%'" &>
+    <p style="margin: 0.3em">
     For each of these searches please enter the name of the artist, album or track to search.
+    </p>
     <& /comp/searchbox, name=>'www.lyricfind.com',
                         nameurl=>'http://www.lyricfind.com',
                         scripturl=>'http://www.lyricfind.com/search.php3',
@@ -167,6 +145,35 @@ my @site_musica = (
                         scripturl=>'http://lyrics.astraweb.com/search.cgi',
                         method=>'get',
                         searchfield=>'word' &>
+  <& /comp/tableend &>
+
+  <& /comp/tablebegin, title=>'Info sites', attrs=>"align=left",
+     gattrs=>"width='100%'" &>
+    <p style="margin: 0.3em">
+    Please enter the name of the artist to search.
+    </p>
+    
+    <& /comp/searchbox, name=>'www.rollingstone.com',
+                        nameurl=>'http://www.rollingstone.com',
+                        scripturl=>'http://www.rollingstone.com/sections/artists/text/searchresults.asp',
+                        method=>'get',
+                        hidden=>['afl','lstn','SearchType','ArtistCheck'],
+                        searchfield=>'SearchFor' &>
+    <& /comp/searchbox, name=>'www.allmusic.com',
+                        nameurl=>'http://www.allmusic.com',
+                        scripturl=>'http://allmusic.com/cg/x.dll',
+                        hidden=>['P','amg', 'opt1','1'],
+                        searchfield=>'sql' &>
+    <& /comp/searchbox, name=>'www.listen.com',
+                        nameurl=>'http://www.listen.com',
+                        scripturl=>'http://www.listen.com/results.jsp',
+                        method=>'get',
+                        searchfield=>'artist' &>
+    <& /comp/searchbox, name=>'www.juno.co.uk',
+                        nameurl=>'http://www.juno.co.uk',
+                        scripturl=>'http://209.207.190.80/search.asp',
+                        hidden=>['page','sall.htm'],
+                        searchfield=>'search' &>
   <& /comp/tableend &>
 
 </td>
