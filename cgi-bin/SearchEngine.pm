@@ -472,7 +472,10 @@ sub Search
     require String::Unicode::Similarity;
 
     my %wordids = map { $_->[1] => $_->[0] } @$counts;
-    my $s0 = pack "l*", @wordids{ @$wordchain };
+    my $s0 = do {
+	no warnings 'uninitialized';
+	pack "l*", @wordids{ @$wordchain };
+    };
 
     for my $r (@$results)
     {
@@ -482,7 +485,10 @@ sub Search
 	for my $pair (@$q)
 	{
 	    my ($tokens, $chain) = @$pair;
-	    my $s1 = pack "l*", @wordids{ @$chain };
+	    my $s1 = do {
+		no warnings 'uninitialized';
+		pack "l*", @wordids{ @$chain };
+	    };
 	    my $sim = String::Unicode::Similarity::fstrcmp($s0, $s1, length($s0)/4, length($s1)/4);
 	    $bestsim = $sim if $sim > $bestsim;
 	}
@@ -530,7 +536,7 @@ sub Search
 
     # Finally, limit the results if so requested.
     my $lim = $self->{'limit'};
-    splice(@$results, $lim) if $lim;
+    splice(@$results, $lim) if $lim and @$results > $lim;
 
     # Return the results
     $self->{RESULTTYPE} = SEARCHRESULT_SUCCESS;
