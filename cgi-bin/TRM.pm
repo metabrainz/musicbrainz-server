@@ -191,7 +191,7 @@ sub RemoveByTrackId
          $sql2 = Sql->new($this->{DBH});
          while(@row = $sql->NextRow)
          {
-             $sql->Do("DELETE FROM trmjoin WHERE id = ", $row[0]);
+             $sql->Do("DELETE FROM trmjoin WHERE id = ?", $row[0]);
              ($refcount) = $sql2->GetSingleRow("TRMJoin", ["count(*)"],
                                               [ "TRMJoin.TRM", $row[1]]);
              if ($refcount == 0)
