@@ -18,7 +18,7 @@ OUTPUT=`
 ` || echo "$OUTPUT"
 
 OUTPUT=`
-	./admin/RunExport
+	./admin/RunExport 2>&1
 ` || echo "$OUTPUT"
 
 # eof
