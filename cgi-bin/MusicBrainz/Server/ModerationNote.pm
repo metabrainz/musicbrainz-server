@@ -112,8 +112,8 @@ EOF
 	);
 }
 
-*newFromModerationID = \&newFromModerationIDs;
-sub newFromModerationIDs
+*newFromModerationId = \&newFromModerationIds;
+sub newFromModerationIds
 {
 	my ($self, $minmodid, $maxmodid) = @_;
    	my $sql = Sql->new($self->{DBH});

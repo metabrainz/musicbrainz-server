@@ -107,7 +107,7 @@ foreach $obj (@info)
 if ($num_mods > 0)
 {
 	my $notes = MusicBrainz::Server::ModerationNote->new($mb->{DBH});
-	my @notes = $notes->newFromModerationIDs(
+	my @notes = $notes->newFromModerationIds(
 		$info[0]->GetId,
 		$info[-1]->GetId,
 	);
