@@ -55,7 +55,7 @@ if (scalar(@ids) > 0)
                   "has $id_numtracks tracks.");
        }
 
-       mc_out("<br></td><td align=\"center\">");
+       mc_out("<br></td><td nowrap align=\"center\">");
        if (exists $session{user} && !$nomod) 
        {
            mc_out("<a href=\"/movediskid.html?diskid=$id->{diskid}&albumid=");
