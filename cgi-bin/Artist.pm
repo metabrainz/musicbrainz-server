@@ -153,6 +153,25 @@ sub Remove
     return 1;
 }
 
+# The artist name has changed, or an alias has been removed
+# (or possibly, in the future, been changed).  Rebuild the words for this
+# artist.
+
+sub RebuildWordList
+{
+    my ($this) = @_;
+
+    my $al = Alias->new($this->{DBH});
+    $al->SetTable("ArtistAlias");
+    my @aliases = $al->GetList($this->GetId);
+    @aliases = map { $_->[1] } @aliases;
+
+    my $engine = SearchEngine->new($this->{DBH}, { Table => 'Artist' } );
+    $engine->RemoveObjectRefs($this->GetId);
+    $engine->AddWordRefs($this->GetId, $_)
+    	for ($this->{name}, @aliases);
+}
+
 # Load an artist record given a name. The name must match exactly.
 # returns 1 on success, undef otherwise. Access the artist info via the
 # accessor functions.

@@ -161,17 +161,20 @@ sub Resolve
 sub Remove
 {
    my ($this, $id) = @_;
-   my ($sql, @row);
+   my $sql;
 
-   if ($this->{table} eq 'ArtistAlias')
+   if ($id)
    {
-       # Remove references from artist words table
-       my $engine = SearchEngine->new($this->{DBH}, { Table => 'Artist' } );
-       $engine->RemoveObjectRefs($id);
+        $this->SetId($id);
+        $this->LoadFromId;
    }
+
+   my $parent = $this->Parent;
 
    $sql = Sql->new($this->{DBH});
    $sql->Do("delete from $this->{table} where id = " . $id);
+
+   $parent->RebuildWordList;
 
    return 1;
 }
@@ -227,3 +230,24 @@ sub LoadFull
 
    return undef;
 }
+
+sub ParentClass
+{
+    my $this = shift;
+    return "Artist" if $this->{table} eq "ArtistAlias";
+    die "Don't understand Alias where table = $this->{table}";
+}
+
+sub Parent
+{
+    my $this = shift;
+    my $parentclass = $this->ParentClass;
+    my $parent = $parentclass->new($this->{DBH});
+    $parent->SetId($this->GetRowId);
+    $parent->LoadFromId
+        or die "Couldn't load $parentclass #" . $this->GetRowId;
+    $parent;
+}
+
+1;
+# vi: set ts=8 sw=4 et :

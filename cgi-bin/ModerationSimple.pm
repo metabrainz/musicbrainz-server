@@ -337,7 +337,7 @@ sub ApprovedAction
                                where id = $datarowid/); 
                }
     
-               if ($column eq 'Name' && ($table eq 'Artist' ||
+               if ($column eq 'Name' && (
                    $table eq 'Album' || $table eq 'Track'))
                {
                    # Now remove the old name from the word index, and then
@@ -346,6 +346,15 @@ sub ApprovedAction
                    $engine->RemoveObjectRefs($datarowid);
                    $engine->AddWordRefs($datarowid, $this->GetNew());
                }
+
+	       if ($table eq 'Artist')
+	       {
+     		    my $artist = Artist->new($this->{DBH});
+		    $artist->SetId($datarowid);
+		    $artist->LoadFromId;
+		    $artist->RebuildWordList;
+	       }
+
                $status = ModDefs::STATUS_APPLIED;
            }
        }
