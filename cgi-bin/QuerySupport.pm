@@ -47,6 +47,7 @@ use UserStuff;
 use Moderation;
 use GUID;  
 use ParseFilename;  
+use FreeDB;  
 
 BEGIN { require 5.003 }
 use vars qw(@ISA @EXPORT);
@@ -142,6 +143,7 @@ sub GenerateCDInfoObjectFromDiskId
 
    return EmitErrorRDF("No DiskId given.") if (!defined $id);
 
+   # Check to see if the album is in the main database
    $di = Diskid->new($mb);
    $sth = $mb->{DBH}->prepare("select Album from Diskid where disk='$id'");
    if ($sth->execute && $sth->rows)
@@ -151,6 +153,8 @@ sub GenerateCDInfoObjectFromDiskId
    }
    else
    {
+        # Ok, its not in the main db. Do we have a freedb entry that
+        # matches, but has no DiskId?
         $album = $di->FindFreeDBEntry($numtracks, $toc, $id);
         if (defined $album)
         {
@@ -159,7 +163,8 @@ sub GenerateCDInfoObjectFromDiskId
         else
         {
             my (@albums, $album, $disk);
-    
+   
+            # Ok, no freedb entries were found. Can we find a fuzzy match?
             @albums = $di->FindFuzzy($numtracks, $toc);
             if (scalar(@albums) > 0)
             {
@@ -167,13 +172,27 @@ sub GenerateCDInfoObjectFromDiskId
             }
             else
             {
-                my $r = RDF::new;
+                my $fd;
 
-                $rdf = $r->BeginRDFObject;
-                $rdf .= $r->BeginDesc;
-                $rdf .= $r->Element("MQ:Status", "OK", items=>0);
-                $rdf .= $r->EndDesc;
-                $rdf .= $r->EndRDFObject;
+                # No fuzzy matches either. Let's pull the records
+                # from freedb.org and insert it into the db if we find it.
+                $fd = FreeDB->new($mb);
+                $album = $fd->Lookup($id, $toc);
+                if ($album > 0)
+                {
+                    $rdf = CreateAlbum($mb, 0, $album);
+                }
+                else
+                {
+                    my $r = RDF::new;
+                   
+                    # No Dice. This CD cannot be found!
+                    $rdf = $r->BeginRDFObject;
+                    $rdf .= $r->BeginDesc;
+                    $rdf .= $r->Element("MQ:Status", "OK", items=>0);
+                    $rdf .= $r->EndDesc;
+                    $rdf .= $r->EndRDFObject;
+                }
             }
         }
    }
@@ -1025,7 +1044,6 @@ sub ExchangeMetadata
                $pe->Insert($name, $guid, $artist, $album, $seq,
                            $len, $year, $genre, $filename, $comment);
             }
-            # Logical structure problem!!!
        }
        else
        {

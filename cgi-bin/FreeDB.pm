@@ -22,14 +22,15 @@
 #____________________________________________________________________________
                                                                                
 package FreeDB;
+use TableBase;
 
 BEGIN { require 5.003 }
 use vars qw(@ISA @EXPORT);
-@ISA    = @ISA    = '';
+@ISA    = @ISA    = 'TableBase';
 @EXPORT = @EXPORT = '';
 
 use strict;
-use CDDB;
+use CDDBmb;
 use Track;
 use Album;
 use Artist;
@@ -40,14 +41,12 @@ use constant  CD_SECS       =>  60;
 
 sub new
 {
-    my ($type, $mb) = @_;
-    my $this = {};
+   my ($type, $mb) = @_;
 
-    $this->{MB} = $mb;
-
-    bless $this;
-    return $this;
-}  
+   my $this = TableBase->new($mb);
+   $this->{MB} = $mb;
+   return bless $this, $type;
+}
 
 sub _lba_to_msf
 {
@@ -115,7 +114,7 @@ sub EnterRecord
         $d->Insert($diskid, $album, $toc);
     }
 
-    return 1;
+    return $album;
 }
 
 sub Lookup
@@ -125,10 +124,10 @@ sub Lookup
     my ($m, $s, $f, $cddb, @cd_data);
     my ($genre, $cddb_id, $title, $details, $artist);
 
-    $cddb = CDDB->new(Host  => 'www.freedb.org',
+    $cddb = CDDBmb->new(Host  => 'www.freedb.org',
                       Port  => 888,
                       Login => "mrstinky")
-      or 0;
+      or return 0;
 
     my @toc = split / /, $toc;
     $first = shift @toc;
