@@ -1,0 +1,28 @@
+<& /comp/sidebar, title => 'June 15th, 2003: Server Updates' &>
+
+<pre>
+Change Log for mb_server
+========================
+
+- Preferences are now saved (moderator_preferences table, plus internal
+  reworking of the "User" code)
+
+- Potential Perl ambiguities and bugs worked around by not using barewords
+
+- Fixed a Mason error which showed up only if a database error occurred
+  while entering a mod note (bug #754557)
+
+- sitemenu HTML code now fractionally more compact, tidier
+
+- Where mentioned in the HTML pages, the CVS repository is now cited as
+  "cvs.musicbrainz.org", not "zim.musicbrainz.org"
+
+- Channel prefix "#" removed from all "irc://" links
+
+- The two "view mods" links on the "show album" page are now "show
+  artist mods" and "show album mods" (bug #754314)
+
+Dave Evans
+</pre>
+
+<& /comp/footer &>
