@@ -6,6 +6,7 @@ $expand=>''
 #define the expanded sidebox items of the information pages
 my @information = (
   {url=>'/faq.html',                       name=>'FAQ'},
+  {url=>'/tagger/intro.html',              name=>'MB Tagger Intro'},
   {url=>'/stats.html',                     name=>'Database Stats'},
   {url=>'/status.html',                    name=>'Project Status'},
   {url=>'/contract.html',                  name=>'Social Contract'},
@@ -40,6 +41,7 @@ my @moderate = (
   {url=>'/moderate.html?type=1',           name=>'New Moderation'},
   {url=>'/moderate.html?type=3',           name=>'My Moderations'},
   {url=>'/moderate.html?type=2',           name=>'Old Moderations'},
+  {url=>'/moderate.html?type=5',           name=>'Freedb Mods'},
   {url=>'/style.html',                     name=>'Style Guidelines'},
   {url=>'/jumpmod.html',                   name=>'Jump to Mod'},
   {url=>'logout.html',                     name=>'Logout'}

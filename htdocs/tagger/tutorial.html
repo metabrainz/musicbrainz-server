@@ -1,0 +1,81 @@
+<& /comp/sidebar, title=>'MB Tagger Tutorial', expand=>'moderate' &>
+
+<table width="480">
+<tr>
+<td>
+
+To get started with the MusicBrainz Tagger, select MP3 or WAV files or whole
+folders with MP3/WAV files using the Open Files and Open Folders buttons
+on the toolbar of the application:<br>
+<center>
+<img src="/tagger/images/open.gif">
+</center>
+
+<p>
+Once you have selected some MP3s/WAVs the tagger will show the files in
+the <i>Pending Tracks</i> section of the file display panel. The tagger will 
+automatically start generating the TRM ids and looking up the metadata 
+for these files in the background. If the Tagger identifies a file, it will
+move the file from the <i>Pending Tracks</i> section to the 
+<i>Identified &amp; Unsaved Tracks</i> section. If the tagger does not 
+identify the
+file, it will be moved to the <i>Unidentified Tracks</i> section.
+
+<p>
+Once tracks start appearing in your <i>Unidentified Tracks</i> section,
+select one track and then click on the <i>Lookup</i> button. If the tagger
+found an artist name in the ID3 tags, it will use this name to lookup
+that artist on MusicBrainz. Otherwise, the lookup button will take 
+you to the Search page.
+
+<p>
+Then, browse the MusicBrainz pages to find the track. If the track is not
+listed, add it using the the <i>Add Missing Track</i> link shown below
+the album (you must be logged in to see this link) or import the album from
+Freedb. Once you've located the track, click the Tag link
+<img align="center" src="/images/mblookup-tag.gif"> in front of the track name.
+
+<p>
+Clicking on the tag icon will automatically download the data for that
+track from the MusicBrainz server and then move on to the next 
+unidentified track.
+
+<p>
+Repeat this process until you have no more <i>Unidentified Tracks</i> left
+and then click the <i>Write ID3 tags</i> button in the toolbar to write
+the ID3 tags and rename your files with the new metadata. Saved tracks
+will be moved to the <i>Saved tracks</i> section.
+
+<p>
+Once you've written the ID3 tags to the files, you will also need to click on
+the <i>Submit</i> button to submit the TRM and Track Ids that you matched
+to the MusicBrainz server. Submitting your data to the server will enter
+your matched information into the server database, so that other people who
+have the same tracks will have their tracks automatically identified.
+The more people use this system, the more tracks it will automatically
+recognize, so please submit your tagged information to the MusicBrainz
+server.
+
+<p>
+If the MB Tagger encounters a problem generating a TRM id for a given
+track, the track will be moved to the <i>Tracks with Errors</i> section.
+If you place the mouse over the item with an error, the MB Tagger will
+display a popup message to let you know what the error was. 
+
+<p>
+The MB Tagger will write the matched Track Ids to the ID3v2 tags, if you've
+chosen to write ID3v2 tags. Files that have been run through the tagger
+before and have the ID3v2 tags written, will automatically show up in
+the <i>Saved tracks</i> section in subsequent runs. If you'd like to force
+a file to be identified again, right click on the file and select <i>Identify
+again</i>. The right click menus for the track listings also allow you
+to remove tracks.
+
+<p>
+Good luck and happy tagging!
+
+</td>
+</tr>
+</table>
+
+<& /comp/footer &>

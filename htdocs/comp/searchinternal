@@ -23,7 +23,11 @@
                         scripturl=>'/showguid.html',
                         searchfield=>'guid',
                         method=>'GET' &>
-    <br>
+    <center>
+    <img src="/images/black_pixel.gif" width="225" height="1" alt="" border="0">
+    <p>
+    <a href="/engine.html">Search other sites</a><br>
+    </center>
   <& /comp/tableend &>
 
   <& /comp/tablebegin, title=>'Site Search', attrs=>"align=left",
