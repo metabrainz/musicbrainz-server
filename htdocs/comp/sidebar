@@ -25,7 +25,7 @@ else
       <table cellpadding="15" cellspacing="0" border="0" width="100%" >
       <tr>
          <td align="left" valign="top" class="body" width="100%">  
-         <img src="/images/pixel.gif" width="435" height="1">
+         <img src="/images/pixel.gif" width="435" height="1" alt="">
 %if($title ne '') {
 <& /comp/title, title=>$title &>
 %}
