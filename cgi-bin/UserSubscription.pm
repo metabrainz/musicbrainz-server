@@ -338,13 +338,19 @@ sub _ProcessUserSubscriptions
 
 	(my $safe_name = $user->GetName) =~ s/\W/?/g;
 
-	$text = <<EOF;
+	use MIME::QuotedPrint qw( encode_qp );
+
+	$text = <<EOF
 To: $safe_name
 From: MusicBrainz Subscription Robot <noreply\@musicbrainz.org>
 Reply-To: MusicBrainz Support <support\@musicbrainz.org>
 Subject: Moderations for your subscribed artists
+MIME-Version: 1.0
 Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
 
+EOF
+		. encode_qp(<<EOF)
 This is a notification that moderations have been added for artists to
 whom you subscribed on the MusicBrainz web site.  To view or edit your
 subscription list, please use the following link:
@@ -360,6 +366,7 @@ Please do not reply to this message.  If you need help, please see
 $root/support/contact.html
 
 EOF
+		;
 
 	if ($self->{'dryrun'})
 	{
