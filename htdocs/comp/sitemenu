@@ -97,6 +97,7 @@ use Scalar::Util qw( reftype weaken );
             { name => "Lowercase",				url => "/reports/caps2.html" },
             { name => "'Unknown'",				url => "/reports/unknown.html" },
             { name => "Wrong Charset",			url => "/reports/wrong_charset.html" },
+            { name => "Duplicate Artists",		url => "/reports/duplicate_artists.html" },
         ],
         { name => "FAQ",					url => "/mod_faq.html" },
         { name => "Style",					url => "/style.html" },

@@ -67,5 +67,6 @@ nice ./Caps2.pl > $reportdir/caps2.html
 nice ./BadEntries.pl > $reportdir/bad_entries.html
 nice ./Unknown.pl > $reportdir/unknown.html
 nice ./WrongCharset.pl > $reportdir/wrong_charset.html
+nice ./reports/DuplicateArtists.pl > $reportdir/duplicate_artists.html
 
 cd -
