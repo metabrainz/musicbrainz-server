@@ -7,7 +7,7 @@
 
 <p>
 <img src="/tagger/images/open.gif" style="float: right; margin: .25em;">
-To get started with the MusicBrainz Tagger, select MP3, Ogg/Vorbis or WAV files or whole
+To get started with the MusicBrainz Tagger, select MP3, Ogg/Vorbis, WAV or FLAC files or whole
 folders containing these files using the <em>Open Files</em> and <em>Open Folders</em>
 buttons on the toolbar of the application.
 </p>
@@ -85,7 +85,7 @@ If a track has been misidentified/mismatched, select the track and click on
 </p>
 
 <br/>
-<& /comp/section, title=>"Submit TRMs and Write Metadata Tags" &>
+<& /comp/section, title=>"Submit TRMs and Saving Files" &>
 
 <p>
 <img src="/tagger/images/submit.gif" style="float: right; margin: .25em;">
@@ -101,15 +101,22 @@ server.
 </p>
 
 <p>Finally, click the <i>Write ID3 tags</i> button (left button) in the 
-toolbar to write the ID3 and/or Ogg/Vorbis tags and rename your files with 
-the new metadata. Saved tracks will be removed from the <i>Identified</i> tab.
+toolbar to write the ID3 and/or Ogg/Vorbis/FLAC tags and rename/move your files with 
+the new metadata. Saved tracks will be moved from the <i>Identified</i> tab into
+the <i>Saved</i> tab. Files in the <i>Saved</i> tab will be marked with (Saved)
+if the tagger finished writing it to disk, or with (Saving) if its in the process
+of saving that file.
 </p>
 
 <p>
-The MB Tagger will write the matched Track Ids to the ID3v2/Vorbis comment tags.
+The MB Tagger will write the matched <a href="/docs/specs/metadata_tags.html">Track Ids, 
+Artist Ids and Album Ids</a> to the ID3v2/Vorbis/FLAC comment tags.
 Files that have been run through the tagger before and have the ID3v2 tags written, 
-will automatically show up in the <i>Identified</i> tab in subsequent runs through
-the Tagger. If you'd like to force a file to be identified again, click on the 
+will automatically show up in the <i>Saved</i> tab in subsequent runs through
+the Tagger. If something has changed or the file needs to be moved or renamed then
+the file will show up in the <i>Identified</i> tab and clicking on <i>Save</i>
+will move those files and/or write update metadata tags to the files. 
+If you'd like to force a file to be identified again, click on the 
 <i>Identify again</i> button. 
 </p>
 

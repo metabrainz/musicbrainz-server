@@ -66,7 +66,7 @@ for my $i (0 .. $t-1)
 	# Remove leading track number
 	my $n1 = $i+1;
 	my $n2 = sprintf "%02d", $n1;
-	$n =~ s/^($n1|$n2)[\.\)]?\s*//;
+	$n =~ s/^($n1|$n2)\b[\.\)]?\s*//;
 
 	$session{"freedb_track$i"} = $n;
 }

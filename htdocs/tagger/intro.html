@@ -19,9 +19,14 @@ UserStuff::EnsureSessionOpen(), $session{mbt} = ($mbt?1:0)
 
 <h2>MusicBrainz Tagger Home Page</h2>
 
-<p>
-
 <table width="420">
+<tr>
+<td colspan="2">
+<p style="border-style: dashed; border-width: thin; border-color: #ff0000; padding: .5em;">Important: Please read the tutorial before you use the tagger to avoid
+mistagging your files!</p>
+</td></tr>
+
+<p>
 % if ($mbt) {
   <tr>
      <td valign="middle" colspan="2">

@@ -749,9 +749,21 @@ sub MergeAlbums
            {
                 # We already have that track. Move any existing TRMs
                 # to the existing track
-                $sql->Do("update TRMJoin set track = " .
-                         $merged{$tr->GetSequence()}->GetId() . 
-                         " where track = " . $tr->GetId());
+				my $old = $tr->GetId;
+				my $new = $merged{$tr->GetSequence()}->GetId;
+
+				$sql->Do(
+					"DELETE FROM trmjoin WHERE track = ?
+						AND trm IN (SELECT trm FROM trmjoin WHERE track = ?)",
+					$old,
+					$new,
+				);
+
+                $sql->Do(
+					"UPDATE trmjoin SET track = ? WHERE track = ?",
+					$new,
+					$old,
+				);
            }
            else
            {

@@ -444,8 +444,8 @@ sub AlbumSearch
            my @attrs = $al->GetAttributes();
            foreach $attr (@attrs)
            {
-               if ($attr >= Album::ALBUM_ATTR_SECTION_TYPE_START &&
-                   $attr <= Album::ALBUM_ATTR_SECTION_TYPE_END)
+               if ($attr >= &Album::ALBUM_ATTR_SECTION_TYPE_START &&
+                   $attr <= &Album::ALBUM_ATTR_SECTION_TYPE_END)
                {
                    $albumtype = $attr;
                    last;
@@ -489,8 +489,8 @@ sub AlbumSearch
            my @attrs = $al->GetAttributes();
            foreach $attr (@attrs)
            {
-               if ($attr >= Album::ALBUM_ATTR_SECTION_TYPE_START &&
-                   $attr <= Album::ALBUM_ATTR_SECTION_TYPE_END)
+               if ($attr >= &Album::ALBUM_ATTR_SECTION_TYPE_START &&
+                   $attr <= &Album::ALBUM_ATTR_SECTION_TYPE_END)
                {
                    $albumtype = $attr;
                    last;
@@ -858,10 +858,19 @@ my @weights = (
     [ 0.25, 0.25, 0.25, 0.125, 0.125]  #  1   1   1   1   1
 );
 
+sub IsNumber
+{
+    return 0 unless defined $_[0];
+    return 0 unless $_[0] =~ /\d/;
+    $_[0] =~ /^-?[\d]*\.?[\d]*$/;
+}
+
 sub DurationSim
 {
-    my ($this, $trackA, $trackB) = @_;
+    my ($trackA, $trackB) = @_;
     my $diff;
+
+    return 0 if ($trackA == 0 || $trackB == 0);
 
     $diff = abs($trackA - $trackB);
     if ($diff > 30000)
@@ -879,6 +888,13 @@ sub MetadataCompare
     my %A = %{ $trackA };
     my %B = %{ $trackB };
 
+    $A{duration} = 0 if (!IsNumber($A{duration}));
+    $B{duration} = 0 if (!IsNumber($B{duration}));
+    $A{tracknum} = -1 if (!IsNumber($A{tracknum}));
+    $B{tracknum} = -2 if (!IsNumber($B{tracknum}));
+    $A{albumtype} = -1 if (!IsNumber($A{albumtype}));
+    $B{albumtype} = -1 if (!IsNumber($B{albumtype}));
+
     foreach (values %A)
     {
         $_ = lc(decode "utf-8", $_);
@@ -894,19 +910,22 @@ sub MetadataCompare
 
     $index |= 16 if ($A{artist} ne '' && $B{artist} ne '');
 
+#use Data::Dumper;
+#print STDERR Data::Dumper->Dump([ \%A, \%B ],[ '*A', '*B' ]);
+
     # If one album is blank, and the other is an album, copy it over to favor it.
     $A{album} = $B{album} if ($A{album} eq '' && $B{album} ne '' && 
-                              $B{albumtype} == Album::ALBUM_ATTR_ALBUM);
+                              $B{albumtype} == &Album::ALBUM_ATTR_ALBUM);
 
     # Now check the reverse case as well.
     $B{album} = $A{album} if ($B{album} eq '' && $A{album} ne '' && 
-                              $A{albumtype} == Album::ALBUM_ATTR_ALBUM);
+                              $A{albumtype} == &Album::ALBUM_ATTR_ALBUM);
 
     $index |= 8 if ($A{album} ne '' && $B{album} ne '');
 
     $index |= 4 if ($A{track} ne '' && $B{track} ne '');
 
-    $index |= 2 if ($A{tracknum} != 0 && $B{tracknum} != 0);
+    $index |= 2 if ($A{tracknum} > 0 && $B{tracknum} > 0);
 
     $index |= 1 if ($A{duration} != 0 && $B{duration} != 0);
 
