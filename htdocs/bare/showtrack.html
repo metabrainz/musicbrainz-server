@@ -18,7 +18,7 @@ $r->method('GET');
 $r->headers_in->unset('Content-length');
 
 $r->content_type('text/html; charset=UTF-8');
-$r->header_out(Location=>"/showalbum.html?albumid=$albums[0]");
+$r->header_out(Location=>"/showalbum.html?albumid=$albums[0]->{id}");
 $r->status(302);
 
 </%perl>

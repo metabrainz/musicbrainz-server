@@ -271,7 +271,7 @@ sub Insert
            }
            else
            {
-               $albumid = $ids[0];
+               $albumid = $ids[0]->{mbid};
                $al->SetMBId($albumid);
                if (!defined $al->LoadFromId())
                {

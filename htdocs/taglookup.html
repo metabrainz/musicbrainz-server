@@ -60,7 +60,7 @@ sub OutputAlbums
    @albums = $album->GetAlbumIdsFromTrackId($ts->{trackid});
    foreach $albumid (@albums)
    {
-      $album->SetId($albumid);
+      $album->SetId($albumid->{id});
       if ($album->LoadFromId())
       {
          $artist->SetId($album->GetArtist());
@@ -145,6 +145,7 @@ if (defined $error)
    $mb->Logout();
    return undef;
 }
+print STDERR "\bStatus: $status\n";
 
 if ($status eq 'unknown')
 {
@@ -176,8 +177,9 @@ if ($status eq 'unknown')
        <%perl>
    }
 }
-elsif ($status eq 'artist')
+elsif ($status eq 'artist' || $status eq 'artist_track')
 {
+
    </%perl>
    <b>Found Artist:</b> <% $ts->{artist}->GetName %>.<br>
    <p>
@@ -194,9 +196,36 @@ elsif ($status eq 'artist')
 %      foreach $id (@{$ts->{albumlist}}) {
           <tr>
              <td valign="top"><% $id->{name} %></td>
+%            if ($ts->{fuzzy}) {
+             <td valign="top"><% $id->{sim} %></td>
+%            }
              <td valign="top">
 %               $copy{albumid} = $id->{mbid};
 %               $copy{album} = $id->{name};
+                <% OutputForm(\%copy) |n %>         
+             </td>
+          </tr>
+%      }
+       </table>
+
+       <%perl>
+   }
+   elsif (exists $ts->{tracklist} && scalar(@{$ts->{tracklist}}) > 0)
+   {
+       my %copy = %data;
+
+       </%perl>
+       <b>Found matching tracks</b>:<p>
+       <table>
+%      foreach $id (@{$ts->{tracklist}}) {
+          <tr>
+             <td valign="top"><% $id->{name} %></td>
+%            if ($ts->{fuzzy}) {
+             <td valign="top"><% $id->{sim} %></td>
+%            }
+             <td valign="top">
+%               $copy{trackid} = $id->{mbid};
+%               $copy{track} = $id->{name};
                 <% OutputForm(\%copy) |n %>         
              </td>
           </tr>
@@ -212,14 +241,6 @@ elsif ($status eq 'artist')
        <%perl>
    }
 }
-elsif ($status eq 'album')
-{
-   </%perl>
-   <b>Found Album:</b> <% $ts->{album}->GetName %>.<br>
-   <p>
-   <%perl>
-   OutputAlbum($ts);
-}
 elsif ($status eq 'artist_album')
 {
    </%perl>
@@ -229,19 +250,6 @@ elsif ($status eq 'artist_album')
    <%perl>
    OutputArtist($ts);
    OutputAlbum($ts);
-}
-elsif ($status eq 'artist_track')
-{
-   mc_comp("/comp/artisttitle", artist=>$ts->{artist}, nomod=>0);
-
-   </%perl>
-   <b>Found Artist:</b> <% $ts->{artist}->GetName %>.<br>
-   <b>Found Track:</b> <% $ts->{trackid} %>.<br>
-   <p>
-   <%perl>
-
-   OutputArtist($ts);
-   OutputAlbums($ts);
 }
 elsif ($status eq 'artist_album_track')
 {

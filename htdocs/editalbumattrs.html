@@ -25,6 +25,12 @@ $al->LoadFromId();
 $prev = "";
 @attrs = sort { $a <=> $b} $al->GetAttributes();
 $prev = join ',', @attrs;
+
+if (scalar(@attrs) == 0)
+{
+   @attrs = (Album::ALBUM_ATTR_ALBUM, Album::ALBUM_ATTR_OFFICIAL);
+}
+
 $modpending = $al->GetAttributeModPending();
 $attrlist = $al->GetAttributeList();
 
@@ -55,21 +61,31 @@ $attrlist = $al->GetAttributeList();
         <td>
         <blockquote>
         <%perl>
-        $index = 1;
-        foreach $attr (sort { $a <=> $b } keys %$attrlist)
+        for(Album::ALBUM_ATTR_SECTION_TYPE_START..Album::ALBUM_ATTR_SECTION_TYPE_END)
         {
-            next if ($attr == Album::ALBUM_ATTR_NONALBUMTRACKS);
-            mc_out("<input type=\"checkbox\" name=\"value$index\"");
-            if (scalar(@attrs) > 0 && $attrs[0] == $attr)
+            mc_out("<input type=\"radio\" name=\"value1\" value=\"$_\"");
+            if (scalar(@attrs) > 0 && $attrs[0] == $_)
             {
                 mc_out(" CHECKED");
                 shift @attrs;
             }
-            mc_out("> $attrlist->{$attr}");
-            mc_out("<input type=\"hidden\" name=\"key$index\"");
-            mc_out(" value=\"$attr\"><br>\n");
-            $index++;
+            mc_out("> $attrlist->{$_}<br>");
         }
+        mc_out("<input type=\"hidden\" name=\"key1\"");
+        mc_out(" value=\"AttrType\">");
+        mc_out("<p>");
+        for(Album::ALBUM_ATTR_SECTION_STATUS_START..Album::ALBUM_ATTR_SECTION_STATUS_END)
+        {
+            mc_out("<input type=\"radio\" name=\"value2\" value=\"$_\"");
+            if (scalar(@attrs) > 0 && $attrs[0] == $_)
+            {
+                mc_out(" CHECKED");
+                shift @attrs;
+            }
+            mc_out("> $attrlist->{$_}<br>");
+        }
+        mc_out("<input type=\"hidden\" name=\"key2\"");
+        mc_out(" value=\"AttrStatus\">");
         </%perl>
         </blockquote>
         <p>

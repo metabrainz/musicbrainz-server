@@ -40,7 +40,7 @@ $nonalbum = $album->IsNonAlbumTracks();
 <%perl>
 if (!$nonalbum)
 {
-    mc_out("</td><td>&nbsp;&nbsp;Attributes: [ ");
+    mc_out("</td><td>&nbsp;&nbsp;Attributes: [ </td>");
     if ($modpend)
     {
         mc_out("<td bgcolor=\"#FFFFCC\">") 
@@ -49,6 +49,7 @@ if (!$nonalbum)
     {
         mc_out("<td>") 
     }
+    mc_out("&nbsp;");
     if (scalar(@attrs) > 0) 
     {
         foreach $attr (@attrs) 

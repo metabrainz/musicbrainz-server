@@ -919,14 +919,7 @@ sub PreVoteAction
 
    $nw = $this->ConvertNewToHash($this->{new});
 
-   foreach $key (sort { $a <=> $b } keys %{$nw})
-   {
-      if ($key =~ /^\d+$/)
-      {
-          $text .= $key . ",";
-      }
-   }
-   chop($text);
+   $text = $nw->{AttrType} . "," . $nw->{AttrStatus};
    @attrs = split /,/, $text;
    $text = "Attributes=$text\nAlbumName=$nw->{AlbumName}\n";
    $this->{new} = $text;

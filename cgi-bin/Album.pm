@@ -40,18 +40,27 @@ use SearchEngine;
 use ModDefs;
 
 use constant ALBUM_ATTR_NONALBUMTRACKS => 0;
+
 use constant ALBUM_ATTR_ALBUM          => 1;
 use constant ALBUM_ATTR_SINGLE         => 2;
 use constant ALBUM_ATTR_EP             => 3;
 use constant ALBUM_ATTR_COMPILATION    => 4;
-use constant ALBUM_ATTR_BOOTLEG        => 5;
-use constant ALBUM_ATTR_SOUNDTRACK     => 6;
-use constant ALBUM_ATTR_SPOKENWORD     => 7;
+use constant ALBUM_ATTR_SOUNDTRACK     => 5;
+use constant ALBUM_ATTR_SPOKENWORD     => 6;
+use constant ALBUM_ATTR_INTERVIEW      => 7;
 use constant ALBUM_ATTR_AUDIOBOOK      => 8;
-use constant ALBUM_ATTR_INTERVIEW      => 9;
-use constant ALBUM_ATTR_CONCERT        => 10;
-use constant ALBUM_ATTR_LIVE           => 11;
-use constant ALBUM_ATTR_PROMOTION      => 12;
+use constant ALBUM_ATTR_LIVE           => 9;
+use constant ALBUM_ATTR_REMIX          => 10;
+use constant ALBUM_ATTR_OTHER          => 11;
+
+use constant ALBUM_ATTR_OFFICIAL       => 100;
+use constant ALBUM_ATTR_PROMOTION      => 101;
+use constant ALBUM_ATTR_BOOTLEG        => 102;
+
+use constant ALBUM_ATTR_SECTION_TYPE_START   => ALBUM_ATTR_ALBUM;
+use constant ALBUM_ATTR_SECTION_TYPE_END     => ALBUM_ATTR_OTHER;
+use constant ALBUM_ATTR_SECTION_STATUS_START => ALBUM_ATTR_OFFICIAL;
+use constant ALBUM_ATTR_SECTION_STATUS_END   => ALBUM_ATTR_BOOTLEG;
 
 my %AlbumAttributeNames = (
     0 => "Non Album Tracks",
@@ -59,14 +68,17 @@ my %AlbumAttributeNames = (
     2 => "Single",
     3 => "EP",
     4 => "Compilation",
-    5 => "Bootleg",
-    6 => "Soundtrack",
-    7 => "Spokenword",
+    5 => "Soundtrack",
+    6 => "Spokenword",
+    7 => "Interview",
     8 => "Audiobook",
-    9 => "Interview",
-    10 => "Concert",
-    11 => "Live",
-    12 => "Promotion"
+    9 => "Live",
+    10 => "Remix",
+    11 => "Other",
+
+    100 => "Official",
+    101 => "Promotion",
+    102 => "Bootleg"
 );
 
 sub new
@@ -327,15 +339,24 @@ sub LoadFromId
 sub GetAlbumListFromName
 {
    my ($this, $name) = @_;
-   my ($sth, $sql, @row);
+   my (@info, $sql, @row);
 
    return undef if (!exists $this->{artist} || $this->{artist} eq '');
 
    $sql = Sql->new($this->{DBH});
-   my (@ids) = $sql->GetSingleColumnLike("Album", "gid",
-                                 ["name", $sql->Quote($name),
-                                  "artist", $this->{artist}]);
-   return @ids;
+   if ($sql->Select(qq|select gid, name
+                         from Album
+                        where name = | . $sql->Quote($name) . qq| and
+                              artist = | . $this->{artist}))
+   {
+       while(@row = $sql->NextRow())
+       {
+           push @info, { mbid=>$row[0], name=>$row[1] };
+       }
+       $sql->Finish;
+   }
+
+   return @info;
 }
 
 # Load tracks for current album. Returns an array of Track references
