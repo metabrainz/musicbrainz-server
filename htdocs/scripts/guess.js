@@ -76,12 +76,14 @@ function GuessCase2(string, inbrackets)
 	{
 		string = string
 			// common first words of bracketed parts
+			. replace(/^acoustic\b/i, "acoustic")
 			. replace(/^album\b/i, "album")
 			. replace(/^clean\b/i, "clean")
 			. replace(/^club\b/i, "club")
 			. replace(/^dance\b/i, "dance")
 			. replace(/^dirty\b/i, "dirty")
 			. replace(/^dis[ck]\b/i, "disc")
+			. replace(/^instrumental\b/i, "instrumental")
 			. replace(/^live\b/i, "live")
 			. replace(/^original\b/i, "original")
 			. replace(/^radio\b/i, "radio")
