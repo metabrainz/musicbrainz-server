@@ -1,3 +1,7 @@
+\set ON_ERROR_STOP 1
+
+BEGIN;
+
 CREATE TABLE "Pending" (
 "SeqId" serial,
 "TableName" varchar NOT NULL,
@@ -16,6 +20,8 @@ CREATE TABLE "PendingData" (
 PRIMARY KEY ("SeqId", "IsKey") ,
 FOREIGN KEY ("SeqId") REFERENCES "Pending" ("SeqId") ON UPDATE CASCADE  ON DELETE CASCADE
 );
+
+COMMIT;
 
 -- Reconnect as postgres since creating a local function requires it
 \c - postgres
