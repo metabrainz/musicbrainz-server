@@ -14,8 +14,15 @@ $mbt=>$session{'mbt'}
 $tport=>$session{'tport'}
 </%args>
 
-% UserStuff::EnsureSessionOpen(), $session{tport} = $tport
-%   if $tport;
+<%perl>
+UserStuff::EnsureSessionOpen(), $session{tport} = $tport
+   if $tport;
+
+$artist =~ s/^\s*(.*?)\s*$/$1/;
+$album =~ s/^\s*(.*?)\s*$/$1/;
+$track =~ s/^\s*(.*?)\s*$/$1/;
+$tracknum =~ s/^\s*(.*?)\s*$/$1/;
+</%perl>
 
 %###############################################################################
 %# Subcomponents for displaying matches & forms
