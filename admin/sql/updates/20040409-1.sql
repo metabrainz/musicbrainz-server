@@ -11,15 +11,15 @@ BEGIN;
 
 CREATE TABLE replication_control
 (
-        id                              SERIAL,
-        current_schema_sequence         INTEGER NOT NULL,
-        current_replication_sequence    INTEGER NOT NULL
+    id                              SERIAL,
+    current_schema_sequence         INTEGER NOT NULL,
+    current_replication_sequence    INTEGER
 );
 
 INSERT INTO replication_control VALUES (
-    1,  -- fixed primary key
-	1,	-- after this DB upgrade, we're at schema #1
-	0	-- until we pull in a particular dump, we don't know what replication sequence we're at
+    1,   -- fixed primary key
+    1,   -- after this DB upgrade, we're at schema #1
+    NULL -- until we pull in a particular dump, we don't know what replication sequence we're at
 );
 
 ALTER TABLE replication_control ADD CONSTRAINT replication_control_pkey PRIMARY KEY (id);

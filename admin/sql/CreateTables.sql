@@ -279,7 +279,7 @@ CREATE TABLE replication_control
 (
         id                              SERIAL,
         current_schema_sequence         INTEGER NOT NULL,
-        current_replication_sequence    INTEGER NOT NULL
+        current_replication_sequence    INTEGER
 );
 
 commit;
