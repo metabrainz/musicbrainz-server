@@ -6,6 +6,9 @@ $all_words => undef
 </%args>
 
 <%perl>
+
+use Data::Dumper;
+
 use SearchEngine;
 if ( defined $table && defined $search)
 {

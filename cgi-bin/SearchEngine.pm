@@ -259,7 +259,7 @@ sub GetWhereClause
 sub RebuildIndex
 {
     my $self = shift;
-    my ($count, $written, $query);
+    my ($count, $written, $query, $total_rows, $start_time);
     
     my $sql = Sql->new($self->{DBH});
     $sql->Begin();
@@ -270,7 +270,9 @@ sub RebuildIndex
     $sql->AutoCommit();
     $sql->Do("vacuum analyze " . $self->{Table} . "Words");
 
-    my $block_size = 5000;
+    ($total_rows) = $sql->GetSingleColumn($self->{Table}, "count(*)", []);
+
+    my $block_size = 1000;
     for($count = 0;; $count += $block_size)
     {
 
@@ -280,7 +282,6 @@ sub RebuildIndex
         {
             print STDERR "Start transaction for $count -> " . ($count + $block_size) . "\n";
             $sql->Begin;
-            $self->{DBH}->{AutoCommit} = 0;
        
             $query = qq|SELECT Id, Name FROM $self->{Table} |;
             if ($self->{Table} eq 'Artist')
@@ -289,24 +290,43 @@ sub RebuildIndex
                                        from ArtistAlias |;
             }
             $query .= qq|LIMIT $block_size OFFSET $count|;
+
+            $start_time = time();
             if ($sql->Select($query))
             {
                 while ( my $row = $sql->NextRowRef)
                 {
-                    print STDERR "Adding words for $self->{Table} $row->[0]: $row->[1]\n";
+                    #print STDERR "Adding words for $self->{Table} $row->[0]: $row->[1]\n";
                     $self->AddWordRefs(@$row);
+
+                    if (($written % 100) == 0 && $written > 0)
+                    {
+                         print STDERR $self->{Table} . " index added " . 
+                              ($written + $count) . " of $total_rows. (".
+                              int(($written + $count) * 100 / $total_rows) . 
+                              "%, " .  int($written / (time() - $start_time)) . 
+                              " rows/sec)                \r";
+                    }
+
                     $written++;
                 }
                 $sql->Finish;
             }
 
+            print STDERR $self->{Table} . " index added " . 
+                         ($written + $count) . " of $total_rows. (".
+                         int(($written + $count) * 100 / $total_rows) . 
+                         "%, " .  int($written / (time() - $start_time)) . 
+                         " rows/sec)                \r";
+
             # And commit all the changes
             $sql->Commit;
-            print STDERR "Commit transaction\n";
+            print STDERR "\nCommit transaction\n";
         };
         if ($@)
         {
-            print STDERR "Index insert: $@\n";
+            $sql->Rollback;
+            print STDERR "\nIndex insert: $@\n";
         }
 
         # Make postgres analyze its foo to speed up the insertion
@@ -314,7 +334,7 @@ sub RebuildIndex
         $sql->AutoCommit();
         $sql->Do("vacuum analyze WordList");
 
-        print STDERR "Postgres: analyze vacuum " . $self->{Table} . "Words\n";
+        print STDERR "Postgres: vacuum analyze " . $self->{Table} . "Words\n";
         $sql->AutoCommit();
         $sql->Do("vacuum analyze " . $self->{Table} . "Words");
 
@@ -329,14 +349,15 @@ sub RebuildAllIndices
 {
     my $self = shift;
     my $orig_table = $self->{Table};
-    
+   
+    $| = 1;
     my $sql = Sql->new($self->{DBH});
     $sql->Begin();
     $sql->Do("delete from WordList");
     $sql->Commit();
 
     # Make postgres analyze its foo to speed up the insertion
-    print STDERR "Postgres: analyze vacuum\n";
+    print STDERR "Postgres: vacuum analyze\n";
     $sql->AutoCommit();
     $sql->Do("vacuum analyze");
 
@@ -346,6 +367,7 @@ sub RebuildAllIndices
         $self->RebuildIndex;
     }
     $self->{'Table'} = $orig_table;
+    $| = 0;
 }
 
 sub Finish

@@ -112,7 +112,7 @@ Installation:
    into the DB server and create all the necessary tables. If you want to
    create a blank database for testing, run CreateTables.pl with the 'all'
    option. However, if you plan to import the data from the MB website,
-   then run 'CreateTables.pl views tables index' skipping the insertion
+   then run 'CreateTables.pl views tables indexes' skipping the insertion
    of the default rows. The default rows are included in the data dump
    and would cause problems when trying to import the data dump.
 
