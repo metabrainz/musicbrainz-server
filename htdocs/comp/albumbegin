@@ -13,6 +13,12 @@ my $albumid = $album->GetId();
 my $script = $albumdetail ? "albumdetail" : "showalbum";
 my ($image, $alt, $title);
 
+# Check to see if we're in tagging mode, if so, pass off control
+if (exists $session{tagged_albums})
+{
+    return mc_comp("/comp/tagalbumbegin", %ARGS);
+}
+
 if ($link ne '')
 {
     if ($linktype eq 'expand')
@@ -29,18 +35,6 @@ if ($link ne '')
     }
 }
 
-#if (exists $session{user} && !$nomod) 
-#{
-#   if (exists $session{tagged_albums} && 
-#       $session{tagged_albums} =~ m/\b$albumid\b/)
-#   {
-#       $check_box = "<a href=\"/bare/tag.html?album=$albumid\"><img src=\"/images/checked.gif\" border=\"0\" alt=\"Untag this album\"></a>";
-#   }
-#   else
-#   {
-#       $check_box = "<a href=\"/bare/tag.html?album=$albumid\"><img src=\"/images/unchecked.gif\" border=\"0\" alt=\"Tag this album\"></a>";
-#   }
-#}
 </%perl>
 <table border="0" cellpadding="0" cellspacing="0"
        bgcolor="#000000" width="100%">

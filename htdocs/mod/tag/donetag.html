@@ -1,0 +1,112 @@
+<& /comp/sidebar, title=>'Done Tagging Albums', expand=>'moderate' &>
+
+<%perl>
+
+my ($mb, $id, $ar, $artist); 
+
+$mb = new MusicBrainz;
+$mb->Login();
+
+if (!defined $session{user} || $session{user} eq '') {
+</%perl>
+    You must be logged in to edit the database.<p>
+    <& /comp/tablebegin, title=>'Login' &>
+    <& /comp/loginbox &>
+    <& /comp/tableend &>
+<%perl>
+} 
+else 
+{
+    my (@albums, @objs, $albumid, $al, $ar, $vartist);
+
+    $vartist = 0;
+    @albums = split / /, $session{tagged_albums};
+
+    if (scalar(@albums) == 0)
+    {
+        mc_out("You have not tagged any albums.");
+        return undef;
+    }
+
+    foreach $albumid (@albums)
+    {
+       $al = Album->new($mb->{DBH});
+       $al->SetId($albumid);
+       if (defined $al->LoadFromId())
+       {
+           $vartist++ if ($al->GetArtist() == Artist::VARTIST_ID);
+           push @objs, $al;
+       }
+       else
+       {
+           mc_out("Count not load album " . $al->GetId() . ".");
+       }
+    }
+
+    # Sort by artist so that all the artists are sequential
+    @objs = sort { $a->GetArtist() <=> $b->GetArtist()} @objs;
+
+
+</%perl>
+
+    Now that you've selected the albums below, you can:
+    <form method="POST" action="/bare/enter_kv_mod.html" name="AddArtist"
+          enctype="application/x-www-form-urlencoded">
+    <table>
+% if ($vartist > 0 && $vartist !=  scalar(@objs)) {
+    <tr>
+      <td>
+      <font color="red">Not available</font>
+      </td>
+      <td>
+      Merge albums is not available -- in order to merge tagged albums, the
+      tagged albums must all be single artist albums or all multiple 
+      artist albums.
+    </tr>
+% } else {
+    <tr>
+      <td>
+      <input type="submit" NAME="Submit" VALUE="Merge Albums">
+      </td>
+      <td>
+      Merge all the tagged albums into one album, preserving all
+      TRM ids and CD Index ids.
+      </td>
+    </tr>
+% }
+     <tr>
+      <td>
+      <input type="submit" NAME="Submit" VALUE="Delete Albums">
+      </td>
+      <td>
+      Delete all the tagged albums.
+      </td>
+    </tr>
+    </form>
+    </table>
+
+    <hr>
+    You tagged the following albums:
+    <p>
+
+<%perl>
+
+    $ar = Artist->new($mb->{DBH});
+    foreach $al (@objs)
+    {
+       if ($ar->GetId() != $al->GetArtist())
+       {
+           $ar->SetId($al->GetArtist());
+           if (not defined $ar->LoadFromId())
+           {
+              mc_out("Could not load artist " . $ar->GetId() . ".");
+              next;
+           }
+           mc_comp("/comp/artisttitle", artist=>$ar, nomod=>1);
+       }
+       mc_comp("/comp/album", album=>$al, artist=>$ar, nomod=>1);
+    }
+</%perl>
+
+% }
+% $mb->Logout();

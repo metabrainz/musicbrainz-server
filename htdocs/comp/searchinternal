@@ -68,7 +68,8 @@
     <br>
     <a href="/addartist.html">Add artist</a> | 
     <a href="/addalbum.html?artistid=0">Add  album</a> |<br>
-    <a href="/addalbum.html?artistid=1">Add various artist album</a> 
+    <a href="/addalbum.html?artistid=1">Add various artist album</a> |<br>
+    <a href="/mod/tag/starttag.html">Tag Albums</a> 
     <br>
     &nbsp;
   <& /comp/tableend &>

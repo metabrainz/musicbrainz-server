@@ -1,0 +1,44 @@
+<& /comp/sidebar, title=>'Tag Albums', expand=>'moderate' &>
+
+<%perl>
+
+my ($mb, $id, $ar, $artist); 
+
+$mb = new MusicBrainz;
+$mb->Login();
+
+# Create the tag list in the user's session to enter tag mode.
+$session{tagged_albums} = "";
+
+</%perl>
+
+% if (!defined $session{user} || $session{user} eq '') {
+    You must be logged in to edit the database.<p>
+    <& /comp/tablebegin, title=>'Login' &>
+    <& /comp/loginbox &>
+    <& /comp/tableend &>
+% } else {
+
+     <font size="+1">You are now in tag album mode!</font><br><p>
+
+     What does that mean? <p>
+
+     Easy. When you look at an <a href="/showartist.html?artistid=65">artist
+     page</a> or an <a href="/showalbum.html?albumid=5955">album page</a>
+     the title bar of the shown albums will have a checkbox. Click the
+     checkbox to <i>tag</i> or <i>untag</i> the album.
+
+     Once you've tagged a set of albums, you can hit the Done Tagging link
+     listed at the top of each album to finish tagging. You can then
+     select an operation to perform on the tagged albums. 
+     If you want to stop tagging albums, click on the Cancel Tagging link.
+ 
+     <br><p>
+% }
+% $mb->Logout();
+
+<& /comp/tablebegin, title=>'Search', attrs=>"align=left" &>
+<br>
+<& /comp/textsearch, default=>'Artist' &>
+<br>
+<& /comp/tableend &>

@@ -40,6 +40,7 @@ else
         return undef;
     }
 
+print STDERR "tagged: " .$session{tagged_albums} . "\n";
     mc_comp("/comp/artisttitle", artist=>$artist);
     
     mc_out("[ <a href=\"/addalbum.html?artistid=");
@@ -96,24 +97,27 @@ else
                 $count++;
             }
 
-            </%perl>
-            <table width="100%">
-            <tr><td align="center">
-
-            <a href="/showartist.html?artistid=<% $artist->GetId() %>&ex=<% $exall %>">
-            <img src="/images/plus.gif" align="center"
-                 alt="Expand" title="Expand All Albums"
-                 height="13" width="13" border="0"> Expand All</a>
-
-            </td><td align="center">
-
-            <a href="/showartist.html?artistid=<% $artist->GetId() %>">
-            <img src="/images/minus.gif" align="center""
-                 alt="Collapse" title="Collapse All Albums"
-                 height="13" width="13" border="0"> Collapse All</a>
-
-            </td></tr></table>
-            <%perl>
+            if (not exists $session{tagged_albums})
+            {
+                </%perl>
+                <table width="100%">
+                <tr><td align="center">
+    
+                <a href="/showartist.html?artistid=<% $artist->GetId() %>&ex=<% $exall %>">
+                <img src="/images/plus.gif" align="center"
+                     alt="Expand" title="Expand All Albums"
+                     height="13" width="13" border="0"> Expand All</a>
+    
+                </td><td align="center">
+    
+                <a href="/showartist.html?artistid=<% $artist->GetId() %>">
+                <img src="/images/minus.gif" align="center""
+                     alt="Collapse" title="Collapse All Albums"
+                     height="13" width="13" border="0"> Collapse All</a>
+    
+                </td></tr></table>
+                <%perl>
+            }
 
             foreach $album (@albums)
             {
@@ -121,7 +125,8 @@ else
                 $exall .= "," if ($count > 0);
                 $exall .= $id;
 
-                if ($ex =~ /(^|\D)$id(\D|$)/)
+                if (($ex =~ /(^|\D)$id(\D|$)/) || 
+                    (exists $session{tagged_albums}))
                 {
                      mc_comp("/comp/album", 
                              album=>$album, 

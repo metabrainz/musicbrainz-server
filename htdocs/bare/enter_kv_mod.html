@@ -17,6 +17,9 @@ my ($mb, $i, $j, $mod, $new, $modid, $depmod, $url);
 $mb = new MusicBrainz;
 $mb->Login();
 
+# Untag the tagged albums
+delete $session{tagged_albums};
+
 #print STDERR "Sanity check\n";
 if (CheckKVArg(\%ARGS, 'column') &&
     CheckKVArg(\%ARGS, 'key0') &&

@@ -1,0 +1,31 @@
+<& /comp/sidebar, title=>'Cancel Tagged Albums', expand=>'moderate' &>
+
+<%perl>
+
+my ($mb, $id, $ar, $artist); 
+
+$mb = new MusicBrainz;
+$mb->Login();
+
+delete $session{tagged_albums};
+
+</%perl>
+
+% if (!defined $session{user} || $session{user} eq '') {
+    You must be logged in to edit the database.<p>
+    <& /comp/tablebegin, title=>'Login' &>
+    <& /comp/loginbox &>
+    <& /comp/tableend &>
+% } else {
+
+     <font size="+1">You have left tag album mode!</font><br><p>
+
+     <br><p>
+% }
+% $mb->Logout();
+
+<& /comp/tablebegin, title=>'Search', attrs=>"align=left" &>
+<br>
+<& /comp/textsearch, default=>'Artist' &>
+<br>
+<& /comp/tableend &>
