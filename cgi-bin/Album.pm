@@ -618,24 +618,22 @@ sub GetVariousDisplayList
    setlocale( LC_CTYPE, "en_US.UTF-8" )
        or die "Couldn't change locale.";
   
-   $ind_max = $ind;
-   if ($ind_max =~ /^(.{1})/)
+   if ($ind =~ /^(.{1})/)
    {
-      my $t = $1;
+      $ind_max = $1;
 
-      if ($t eq '_')
+      if ($ind_max eq '_')
       {
-          $t = ' ';
+          $ind_max = ' ';
       }
-      elsif ($t eq ' ')
+      elsif ($ind_max eq ' ')
       {
-          $t = 'A';
+          $ind_max = 'A';
       }
       else
       {
-          $t++;
+          $ind_max++;
       }
-      $ind_max =~ s/^(.{1})/$t/e;
    }
 
    $num_albums = 0;
