@@ -22,6 +22,8 @@
 #   $Id$
 #____________________________________________________________________________
 
+use strict;
+
 use FindBin;
 use lib "$FindBin::Bin/../cgi-bin";
 
@@ -33,12 +35,10 @@ use Sql;
 sub SetSequence
 {
     my ($sql, $table) = @_;
-    my ($max, $seq);
 
-    $seq = $table . "_id_seq";
-    $mb{DBH} = $sql;
+    my $seq = $table . "_id_seq";
 
-    ($max) = $sql->GetSingleColumn($table, "max(id)", []);
+    my $max = $sql->SelectSingleValue("SELECT MAX(id) FROM $table");
     if (not defined $max)
     {
         print "Table $table is empty, not altering sequence $seq\n";
@@ -61,9 +61,9 @@ sub SetSequence
 
 }
 
-$mb = MusicBrainz->new;
+my $mb = MusicBrainz->new;
 $mb->Login;
-$sql = Sql->new($mb->{DBH});
+my $sql = Sql->new($mb->{DBH});
 
 print "Connected to database.\n";
 
