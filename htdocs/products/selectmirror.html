@@ -1,0 +1,144 @@
+%# vi: set ts=2 sw=2 ft=mason :
+<%args>
+$path => ""
+$site => ""
+</%args>
+<%perl>
+
+my $pref_cookie_name = "preferred_download_site";
+require CGI::Cookie;
+(my $basename) = (split '/', $path, -1)[-1];
+
+# Set up the data
+
+my @mirrors = (
+	{
+		KEYS => [qw( main )],
+		URL => "ftp://ftp.musicbrainz.org/",
+		NAME => "Primary server (FTP)",
+		DEFAULT => 1,
+	},
+	{
+		KEYS => [qw( mainhttp )],
+		URL => "http://ftp.musicbrainz.org/",
+		NAME => "Primary server (HTTP)",
+	},
+	{
+		KEYS => [qw( au )],
+		URL => "ftp://ftp.au.musicbrainz.org/",
+		NAME => "Australia (FTP)",
+	},
+);
+
+my %mirrors_by_key;
+
+for my $m (@mirrors)
+{
+	for (@{ $m->{KEYS} })
+	{
+		$mirrors_by_key{$_} = $m;
+	}
+}
+
+(my $default_mirror) = grep { $_->{DEFAULT} } @mirrors;
+$default_mirror ||= $mirrors[0];
+
+# Work out which mirror is selected
+
+my %cookies = parse CGI::Cookie($r->header_in('Cookie'));
+my $c = $cookies{$pref_cookie_name};
+
+$site ||= $c->value
+	if $c and $c->value;
+
+my $selected_mirror = $mirrors_by_key{$site};
+
+# If we've got all the info we need, go ahead and redirect to the file
+
+# If $dontask is true, a user with the cookie already set doesn't see the
+# form again - they just get redirected straight away to their download.
+# If false, they see the form again, but with their preferred mirror
+# pre-selected.
+my $dontask = 0;
+
+if ($path and $selected_mirror and ($ARGS{'go'} or $dontask))
+{
+	unless ($c and $c->value and $mirrors_by_key{$c->value})
+	{
+		my $cookie = new CGI::Cookie (
+			-name			=> $pref_cookie_name,
+			-value		=> $site,
+			-path			=> '/',
+			-expires	=> '+12M',
+			#-domain		=> '.musicbrainz.org',
+		);
+		$r->headers_out->add('Set-Cookie' => $cookie); 
+	}
+
+	my $url = $selected_mirror->{URL} . $path;
+
+	unless ($basename)
+	{
+		$r->status(303);
+		$r->header_out(Location => $url);
+		return;
+	}
+
+	$r->headers_out->add('Refresh' => "1; url=$url");
+
+	</%perl>
+	<& /comp/sidebar, title => 'MusicBrainz Download' &>
+
+	<p>
+		Your download should start automatically.&nbsp;
+		If it does not, please <a href="<% $url %>">download using this link</a>.
+	</p>
+	
+	<& /comp/footer &>
+	<%perl>
+
+	return;
+}
+
+$selected_mirror ||= $default_mirror;
+
+</%perl>
+<& /comp/sidebar, title => 'Select a download site' &>
+
+<p>
+	Please select the site
+% if ($basename) {
+	from which you would
+	like to download the file <b><% $basename %></b>
+% } else {
+	you would like to browse
+% }
+	:
+</p>
+
+<form method="post" action="/ftpmirror/<% $path %>">
+	<p>
+		<% $basename ? "Download from" : "Browse" %>:
+		<select name="site">
+%			for (@mirrors) {
+			<option value="<% $_->{KEYS}[0] %>"
+%				if ($selected_mirror and $selected_mirror->{URL} eq $_->{URL}) {
+				selected
+%				}
+				><% $_->{NAME} %></option>
+%			}
+		</select>
+		<input type="hidden" name="go" value="1">
+		<input type="submit" value="Go">
+	</p>
+	<!--
+	<p>
+		<input type="checkbox" name="dontask"
+			checked
+			>
+			Don't ask me again
+	</p>
+	-->
+</form>
+
+<& /comp/footer &>
