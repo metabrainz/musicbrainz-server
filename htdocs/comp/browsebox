@@ -46,7 +46,7 @@ if (length($ind) > 0)
       <a href="<% $page %>">Start&nbsp;over</a>
     </td>
     <td width="3" align="center">
-      <img src="/images/black_pixel.gif" height="20" width="1" border="0">
+      <img src="/images/black_pixel.gif" height="20" width="1" border="0" alt="">
     </td>
     <%perl>
 }
@@ -57,10 +57,10 @@ if (length($ind) > 0)
     <table>
     <tr>
 %   for($i = 0; $i < 13; $i++) {
-%      if ($i == 0 && $showspecial) {
+%      if ($i == 0 && $showspecial && $showspecial ne "below") {
           <td align="center">
-             <a href="<% $page %>?index=<% $ind %>_">symbol&nbsp;</a><br>
-             <a href="<% $page %>?index=<% $ind %>+">space&nbsp;</a> 
+             <a href="<% $page %>?index=<% $ind %>_">symbol</a>&nbsp;<br>
+             <a href="<% $page %>?index=<% $ind %>+">space</a>&nbsp;
           </td>
 %      }
        <td align="center">
@@ -69,6 +69,15 @@ if (length($ind) > 0)
        </td>
 %   }
     </tr>
+% if (defined $showspecial and $showspecial eq "below") {
+    <tr>
+       <td align="center" colspan="13">
+             <a href="<% $page %>?index=<% $ind %>_">symbol</a>
+	     <span style="margin: 0 2.5em"></span>
+             <a href="<% $page %>?index=<% $ind %>+">space</a>
+       </td>
+    </tr>
+% }
     </table>
 </td>
 </tr>
