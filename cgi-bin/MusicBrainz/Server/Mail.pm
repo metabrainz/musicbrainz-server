@@ -103,19 +103,19 @@ sub open
 
 	require Net::SMTP;
 	my $smtp = Net::SMTP->new(&DBDefs::SMTP_SERVER)
-		or return;
+		or return warn "Failed to open SMTP connection: $!";
 
 	$smtp->mail($from)
-		or return;
+		or return warn "SMTP 'mail' error: " . $smtp->message;
 
 	for (@$to)
 	{
 		$smtp->to($_)
-			or return;
+			or return warn "SMTP 'rcpt' ($_) error: " . $smtp->message;
 	}
 
 	$smtp->data
-		or return;
+		or return warn "SMTP 'data' error: " . $smtp->message;
 
 	use Symbol qw( gensym );
 	my $fh = gensym;
@@ -147,7 +147,8 @@ sub PRINTF
 sub CLOSE
 {
 	my $self = shift;
-	$self->[0]->dataend;
+	$self->[0]->dataend
+		or warn "SMTP 'dataend' error: " . $self->[0]->message;
 }
 
 sub FILENO { fileno($_[0][0]) }
