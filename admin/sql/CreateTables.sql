@@ -103,6 +103,8 @@ create table Moderator (
    MemberSince datetime default now(),
    Bio text default null);
 
+SELECT * INTO moderator_sanitised FROM moderator;
+
 create table Moderation (
    Id serial primary key,
    Artist int not null references Artist, 
