@@ -130,15 +130,7 @@ sub AddWord
     }
     else
     {
-        eval
-        {
-            $sql->Do(qq|INSERT into WordList (Word) VALUES ('$word')|);
-        };
-        if ($@)
-        {
-            return undef;
-        }
-
+        $sql->Do(qq|INSERT into WordList (Word) VALUES ('$word')|);
         return $sql->GetLastInsertId('WordList');
     }
 }
@@ -155,16 +147,16 @@ sub AddWordRefs
         next if not defined $word_id;
 
         my $sql = Sql->new($self->{DBH});
-        eval 
-        { 
-           $self->{DBH}->{RaiseError} = 0;
-           $sql->Do(qq|INSERT into $self->{Table}Words ($self->{Table}id, Wordid) 
-                       VALUES($object_id,$word_id)|);
-           $self->{DBH}->{RaiseError} = 1;
-        };
-        if ($@ && !($@ =~ /Duplicate/) ) 
+        if ($sql->GetSingleColumn("$self->{Table}Words", "Wordid", 
+                                  ["$self->{Table}id", $object_id,
+                                   "Wordid", $word_id]))
         {
-            print STDERR "Attempt to insert duplicate word ref.\n";
+            $sql->Finish();
+        }
+        else
+        {
+            $sql->Do(qq|INSERT into $self->{Table}Words ($self->{Table}id, Wordid) 
+                        VALUES($object_id,$word_id)|);
         }
     }
 }

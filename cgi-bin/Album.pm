@@ -74,6 +74,7 @@ sub Insert
     $name = $sql->Quote($this->{name});
     $id = $sql->Quote($this->CreateNewGlobalId());
 
+    # No need to check for an insert clash here since album name is not unique
     if ($sql->Do(qq/insert into Album (name,artist,gid,modpending)
                 values ($name,$this->{artist}, $id, 0)/))
     {
