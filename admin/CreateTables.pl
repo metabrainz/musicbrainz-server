@@ -35,6 +35,7 @@ use Sql;
 # update album set attributes = '{0}';
 # alter table TRM add column LookupCount int;
 # alter table TRM alter column LookupCount set default 0;
+# update TRM set lookupcount = 0;
 
 sub CreateTables
 {
