@@ -1,5 +1,6 @@
 <%args>
 $badlogin=>0
+$url=>""
 </%args>
 
 <& /comp/sidebar, title=>'' &>
@@ -10,7 +11,7 @@ $badlogin=>0
 %  }
    <table width=50%><tr><td>
    <& /comp/tablebegin, title=>'Moderator Login' &>
-   <& /comp/loginbox, referer=>$ARGS{referer} &>
+   <& /comp/loginbox, url=>$url &>
    <& /comp/tableend &>
    </td></tr></table>
    </center>

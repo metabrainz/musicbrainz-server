@@ -1,5 +1,5 @@
 <%args>
-$referer=>""
+$url=>""
 </%args>
 
 % if (DBDefs::DB_READ_ONLY) {
@@ -43,10 +43,16 @@ $referer=>""
 </tr>
 </table>
 <%perl>
-if ($referer ne "") {
-   $referer =~ s/\?/\@Q\@/g; 
-   $referer =~ s/\&/\@A\@/g; 
-   mc_out("<INPUT TYPE=\"hidden\" NAME=\"referer\" VALUE=\"$referer\">");
+if ($url eq "") 
+{
+   $url = $r->uri() . "?" . $r->args();
+   print STDERR "Loginbox: " . $r->uri() . "?" . $r->args() . "\n";
+}
+
+if ($url ne "") {
+   $url =~ s/\?/\@Q\@/g; 
+   $url =~ s/\&/\@A\@/g; 
+   mc_out("<INPUT TYPE=\"hidden\" NAME=\"url\" VALUE=\"$url\">");
 }
 </%perl>
 </form>

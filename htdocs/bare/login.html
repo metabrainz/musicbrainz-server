@@ -34,25 +34,22 @@ elsif (defined $ARGS{User} && $ARGS{User} ne '' &&
     $mb->Logout();
 }    
 
-if (exists $ARGS{referer})
+if (exists $ARGS{url})
 {
-    $url = $ARGS{referer};
-}
-elsif (!exists $r->headers_in->{'Referer'})
-{
-    $url = "/search.html";
+    $url = $ARGS{url};
+    print STDERR "bare/login: url: $url\n";
 }
 else
 {
-    $url = $r->headers_in->{'Referer'};
+    $url = "/search.html";
+    print STDERR "bare/login: no path given.\n";
 }
-
 
 if (!$ok)
 {
     $url =~ s/\?/\@Q\@/g; 
     $url =~ s/\&/\@A\@/g; 
-    $url = "/login.html?badlogin=1&referer=$url";
+    $url = "/login.html?badlogin=1&url=$url";
 }
 else
 {
