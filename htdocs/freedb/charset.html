@@ -1,0 +1,118 @@
+%# vi: set ts=4 sw=4 ft=mason :
+<%args>
+$enc => undef
+</%args>
+<%perl>
+
+$session{"freedb_ready"}
+	or return $m->comp("/comp/redirect", "/freedb/freedb.html");
+
+require Encode;
+require Devel::Peek;
+
+my $t = @{ $session{"freedb_lookup"}{"tracks"} };
+my $l = $session{"freedb_lookup"};
+my @pairs = (
+	[ $l->{"artist"}, "artist" ],
+	[ $l->{"album"}, "album" ],
+	map {
+		[ $l->{"tracks"}[$_]{"track"}, "track$_" ]
+	} 0 .. $t-1
+);
+
+if (defined $enc)
+{
+	my $ok = 1;
+	eval {
+		for my $pair (@pairs)
+		{
+			my $t = $pair->[0];
+			# Convert back to iso-8859-1
+			Encode::from_to($t, "utf-8", "iso-8859-1", Encode::FB_CROAK);
+			# Convert those bytes from this encoding to utf-8
+			Encode::from_to($t, $enc, "utf-8", Encode::FB_CROAK);
+			$session{"freedb_$pair->[1]"} = $t;
+		}
+	};
+
+	if ($ok and $@ eq "")
+	{
+		return $m->comp("/comp/redirect", "/freedb/select-macsac.html");
+	} else {
+		warn "error: $@\n" if $@;
+		return $m->comp("/comp/redirect", "/freedb/bad-encoding.html");
+	}
+}
+
+my %dec;
+my @failed;
+
+my @all = Encode->encodings(":all");
+@all = sort map { lc $_ } @all;
+
+for $enc (@all)
+{
+	my @out;
+
+	eval {
+		for my $pair (@pairs)
+		{
+			my $t = $pair->[0];
+			# Convert back to iso-8859-1
+			Encode::from_to($t, "utf-8", "iso-8859-1", Encode::FB_CROAK);
+			# Convert those bytes from this encoding to utf-8
+			Encode::from_to($t, $enc, "utf-8", Encode::FB_CROAK);
+			push @out, $t;
+		}
+		1;
+	} or do {
+		push @failed, $enc;
+		next;
+	};
+
+	my $key = join "\n", @out;
+	my $e = $dec{$key} ||= [ \@out, [] ];
+	push @{ $e->[1] }, $enc;
+}
+
+my @dec = sort {
+	$a->[1][0] cmp $b->[1][0]
+} values %dec;
+
+@dec or return $m->comp("charset-failed.inc");
+
+</%perl>
+<& /comp/sidebar, title => 'FreeDB - Select Encoding' &>
+
+<p>
+	Please select the correct encoding:
+</p>
+
+% for my $dec (@dec) {
+% my ($strings, $encodings) = @$dec;
+<h2><% join ", ", @$encodings %></h2>
+<table>
+	<tr><td>Artist:</td><td><% $strings->[0] %></td></tr>
+	<tr><td>Album:</td><td><% $strings->[1] %></td></tr>
+% for my $n (1..$t) {
+	<tr><td><% $n %>:</td><td><% $strings->[2+$n-1] %></td></tr>
+% }
+</table>
+<form method="post" action="charset.html">
+	<p>
+		<input type="hidden" name="enc" value="<% $encodings->[0] %>">
+		<input type="submit" value="Use this encoding">
+	</p>
+</form>
+% }
+
+% if (@failed) {
+<h2>Failed Conversions</h2>
+<p>
+	The data is not in any of the following encodings,
+	as attempting to use these encodings produced an error:
+	<% join ", ", sort @failed %>.
+</p>
+% }
+
+<& /comp/footer &>

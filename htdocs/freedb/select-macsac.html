@@ -47,4 +47,17 @@ $session{"freedb_ready"}
 % }
 </ol>
 
+% if ($session{"freedb_offer_charset"}) {
+
+<h2>Garbled Data</h2>
+
+<form method="post" action="charset.html">
+	<p>
+		Does the data above look garbled?&nbsp;
+		<input type="submit" value="Change character set">
+	</p>
+</form>
+
+% }
+
 <& /comp/footer &>

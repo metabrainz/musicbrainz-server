@@ -35,6 +35,7 @@ use Encode qw( decode from_to );
 use constant AUTO_INSERT_MIN_TRACKS => 5;
 use constant FREEDB_SERVER => "www.freedb.org";
 use constant FREEDB_PORT => 888;
+use constant FREEDB_PROTOCOL => 6; # speaks UTF-8
 
 sub new
 {
@@ -158,6 +159,16 @@ sub _Retrieve_no_cache
     if ($response[0] < 200 || $response[0] > 299)
     {
         print STDERR "FreeDB $remote:$port does not like our hello: $line\n";
+        return undef;
+    }
+
+    # Select the required protocol
+    printf $sock "proto %d$CRLF", FREEDB_PROTOCOL;
+    $line = <$sock>;
+    # Expect 201 (OK, changed) or 502 (already using that protocol)
+    unless ($line =~ /^(201|502) /)
+    {
+        print STDERR "FreeDB $remote:$port failed to switch to protocol ".FREEDB_PROTOCOL.": $line\n";
         return undef;
     }
 
@@ -323,12 +334,7 @@ READQUERY:
         $title = $artist;
     }
 
-    # Convert from iso-8859-1 to UTF-8
-
-    from_to($artist, "iso-8859-1", "utf-8");
     $info{artist} = $info{sortname} = $artist;
-
-    from_to($title, "iso-8859-1", "utf-8");
     $info{album} = $title;
 
     require Style;
@@ -341,8 +347,6 @@ READQUERY:
         #print("[$i]: $track_titles[$i]\n"); 
 
 	my $t = $track_titles[$i];
-	from_to($t, "iso-8859-1", "utf-8");
-
         push @tracks, { track=>$t, tracknum => ($i+1) };
     }
 
