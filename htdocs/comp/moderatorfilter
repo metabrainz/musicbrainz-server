@@ -72,13 +72,13 @@ my %dontshow = map { $_=>1 } @dontshow;
 
 		<table>
 %			my $checked = "checked";
-%			for my $r (@r) {
+%			for my $row (@r) {
 				<tr>
-					<td style="vertical-align: baseline"><input type="radio" name="selectedmoderator" value="<% $r->GetId %>" <% $checked %>
+					<td style="vertical-align: baseline"><input type="radio" name="selectedmoderator" value="<% $row->GetId %>" <% $checked %>
 						ondblclick="this.form.submit()"
 						></td>
 					<td>
-						<a href="/user/view.html?uid=<% $r->GetId %>"><% $r->GetName %></a>
+						<a href="/user/view.html?uid=<% $row->GetId %>"><% $row->GetName %></a>
 					</td>
 				</tr>
 %				$checked = "";

@@ -54,10 +54,10 @@ my @r = do {
 
 	my @r;
 
-	while (my $r = $engine->NextRow)
+	while (my $row = $engine->NextRow)
 	{
-		next if $dontshow{ $r->{'artistid'} };
-		push @r, $r;
+		next if $dontshow{ $row->{'artistid'} };
+		push @r, $row;
 	}
 
 	@r;
@@ -83,13 +83,13 @@ my @r = do {
 
 		<table>
 %			my $checked = "checked";
-%			for my $r (@r) {
+%			for my $row (@r) {
 				<tr>
-					<td style="vertical-align: baseline"><input type="radio" name="selectedartist" value="<% $r->{artistid} %>" <% $checked %>
+					<td style="vertical-align: baseline"><input type="radio" name="selectedartist" value="<% $row->{artistid} %>" <% $checked %>
 						ondblclick="this.form.submit()"
 						></td>
 					<td>
-						<a href="/showartist.html?artistid=<% $r->{artistid} %>"><% $r->{'artistname'} %></a>
+						<a href="/showartist.html?artistid=<% $row->{artistid} %>"><% $row->{'artistname'} %></a>
 					</td>
 				</tr>
 %				$checked = "";
