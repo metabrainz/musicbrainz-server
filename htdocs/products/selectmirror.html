@@ -42,11 +42,11 @@ my @mirrors = (
 
 my %mirrors_by_key;
 
-for my $m (@mirrors)
+for my $mirror (@mirrors)
 {
-	for (@{ $m->{KEYS} })
+	for (@{ $mirror->{KEYS} })
 	{
-		$mirrors_by_key{$_} = $m;
+		$mirrors_by_key{$_} = $mirror;
 	}
 }
 
