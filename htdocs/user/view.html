@@ -186,12 +186,20 @@ my $is_me = ($uid == $my_uid);
 		<td valign="top"><% $membersince |n %></td>
 	</tr>
 	<tr>
-		<td valign="top" align="right">Mods Accepted:</td>
-		<td valign="top"><% $user->GetModsAccepted %></td>
+		<td valign="top" align="right"><% $user->GetModsAccepted %></td>
+		<td valign="top">moderations accepted (excludes automods)</td>
 	</tr>
 	<tr>
-		<td valign="top" align="right">Mods Rejected:</td>
-		<td valign="top"><% $user->GetModsRejected %></td>
+		<td valign="top" align="right"><% $user->GetAutoModsAccepted %></td>
+		<td valign="top">automods entered</td>
+	</tr>
+	<tr>
+		<td valign="top" align="right"><% $user->GetModsRejected %></td>
+		<td valign="top">moderations voted down</td>
+	</tr>
+	<tr>
+		<td valign="top" align="right"><% $user->GetModsFailed %></td>
+		<td valign="top">moderations failed for other reasons</td>
 	</tr>
 
 	<tr>
@@ -234,8 +242,8 @@ for ($allvotes, $recentvotes)
 			<table>
 				<tr>
 					<td></td>
-					<td style="font-weight: bold; text-align: right" colspan="2">Last 28 days</td>
-					<td style="font-weight: bold; text-align: right" colspan="2">All time</td>
+					<td style="font-weight: bold; text-align: center" colspan="2">Last 28 days</td>
+					<td style="font-weight: bold; text-align: center" colspan="2">All time</td>
 				</tr>
 				<%perl>
 				for (
@@ -253,7 +261,7 @@ for ($allvotes, $recentvotes)
 						my $c = $h->{$vote} || 0;
 						my $pc = 100 * $c / ($h->{"TOTAL"}||1);
 						$pc = int($pc + 0.5);
-						$m->out("<td>&nbsp; $c</td><td>&nbsp; ($pc\%)</td>");
+						$m->out("<td align='right'>&nbsp; $c</td><td align='right'>&nbsp; ($pc\%)</td>");
 					}
 
 					$m->out("</tr>");
