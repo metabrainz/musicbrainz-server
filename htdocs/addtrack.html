@@ -1,0 +1,66 @@
+<& /comp/title, title=>'Add Track' &>
+
+<%perl>
+
+my ($mb, $id, $trackname, $referer, $al, $tracknum, $album, $artist); 
+
+$referer = $r->headers_in->{'Referer'};
+$mb = new MusicBrainz;
+$mb->Login();
+$al = Album->new($mb);
+
+$album = $ARGS{album};
+$artist = $ARGS{artist};
+$al->LoadFromId($album);
+
+</%perl>
+
+% if (!defined $session{user} || $session{user} eq '') {
+    You must be logged in to edit the database.<p>
+    <& /comp/tablebegin, title=>'Login' &>
+    <& /comp/loginbox &>
+    <& /comp/tableend &>
+% } else {
+
+    <& /comp/tablebegin, title=>'Add Track to '.$al->Value(1) &>
+
+    <FORM METHOD="POST" ACTION="/bare/enter_mod.html"
+          ENCTYPE="application/x-www-form-urlencoded">  
+    <table>
+      <tr>
+        <td>
+        Track Name:
+        </td>
+        <td>
+        <INPUT TYPE="text" NAME="new0" SIZE=25> 
+        </td>
+      </tr>
+      <tr>
+        <td>
+        Track Number:
+        </td>
+        <td>
+        <INPUT TYPE="text" NAME="extra0-0" SIZE=25> 
+        </td>
+      <tr>
+        <td colspan=2>
+        <INPUT TYPE="submit" NAME="Submit" VALUE="Submit">    
+        </td>
+      </tr>
+    </table>
+    <input type="hidden" name="extra0-1" value="<% $album %>">
+    <input type="hidden" name="artist0" value="<% $artist %>">
+    <input type="hidden" name="type0"
+           value="<% Moderation::MOD_ADD_TRACK %>">
+    <input type="hidden" name="prev0" value="">
+    <input type="hidden" name="table" value="Track">
+    <input type="hidden" name="column0" value="Name">
+    <input type="hidden" name="id" value="0">
+    <input type="hidden" name="referer" value="<% $referer %>">
+    </form>
+      
+    <& /comp/tableend &>
+
+    <& /comp/stylenotes &>
+% }
+% $mb->Logout();
