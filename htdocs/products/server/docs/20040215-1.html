@@ -1,0 +1,220 @@
+%# vi: set ts=2 sw=2 ft=mason :
+<& /comp/sidebar, title => "The mb_server codebase" &>
+
+<p>
+	This document aims to give a brief overview of what's in the
+	<tt>mb_server</tt> codebase.&nbsp; See also
+	<a href="/development/cvs.html">Using the MusicBrainz CVS
+		Repository</a>.&nbsp; The list below doesn't show every directory; just
+	the more interesting ones.
+</p>
+
+<%perl>
+
+my %root = ( children => {} );
+
+my $addit = sub {
+	my ($path, $html) = @_;
+
+	my $node = \%root;
+	for (split /\//, $path)
+	{
+		$node = ($node->{children}{$_} ||= { name => $_, children => {} });
+	}
+
+	$node->{path} = $path;
+	$node->{p} = $html;
+};
+
+&$addit("mb_server", <<EOF);
+The root of the MusicBrainz server codebase.
+EOF
+
+&$addit("mb_server/admin", <<EOF);
+Various scripts relating to such tasks as database import and export,
+regular database maintenance, and so on.
+EOF
+
+&$addit("mb_server/admin/cleanup", <<EOF);
+Ad-hoc scripts for cleaning, tidying and fixing the database.
+EOF
+
+&$addit("mb_server/admin/cron", <<EOF);
+Scripts to be run via "cron".
+EOF
+
+&$addit("mb_server/admin/reports", <<EOF);
+The <a href="/reports/">moderation suggestion reports</a>.
+EOF
+
+&$addit("mb_server/admin/sql", <<EOF);
+SQL scripts used to create a new MusicBrainz database (and destroy it again).
+EOF
+
+&$addit("mb_server/admin/sql/updates", <<EOF);
+SQL scripts (and a few programs to run from the shell) for upgrading
+between specific releases.&nbsp; These are only necessary if you've got
+a database at one release and you want to upgrade it to the next release.
+EOF
+
+&$addit("mb_server/admin/statistics", <<EOF);
+Used to produce the <a href="/stats.html">statistics page</a>.
+EOF
+
+&$addit("mb_server/cgi-bin", <<EOF);
+Perl modules (".pm" files) which implement most of the server's
+functionality.&nbsp; Also some ".pl" scripts which are the interface to the
+web services.
+EOF
+
+&$addit("mb_server/cgi-bin/MusicBrainz/Server", <<EOF);
+More Perl modules for the server.&nbsp; Older modules were put in "cgi-bin";
+new ones go here instead.
+EOF
+
+&$addit("mb_server/cgi-bin/MusicBrainz/Server/Moderation", <<EOF);
+Handlers for each of the different moderation types; each in its own file.
+See also htdocs/comp/moderation.
+EOF
+
+&$addit("mb_server/htdocs", <<EOF);
+The web "document root".&nbsp; New pages should go in subdirectories;
+however many miscellaneous older pages are placed directly in this one.
+EOF
+
+&$addit("mb_server/htdocs/cdi", <<EOF);
+("cdi" stands for "CDIndex", MusicBrainz' previous incarnation).&nbsp;
+Pages relating to the adding of new albums.
+EOF
+
+&$addit("mb_server/htdocs/comp", <<EOF);
+Many miscellaneous Mason components which are called from other
+pages.&nbsp; The web server refuses direct requests for these files.&nbsp;
+New components should be implemented as ".inc" files elsewhere, in a nice
+structured way if you can think of one (the web server also refuses
+direct requests for any ".inc" files).
+EOF
+
+&$addit("mb_server/htdocs/comp/moderation", <<EOF);
+"Display" handlers for each of the moderation types, one file per type.&nbsp;
+See also cgi-bin/MusicBrainz/Server/Moderation.
+EOF
+
+&$addit("mb_server/htdocs/css", <<EOF);
+Style sheets.
+EOF
+
+&$addit("mb_server/htdocs/docs", <<EOF);
+Miscellaneous documentation.&nbsp; At the moment I'm tending to add new
+documents in here with date-based names (like this file).
+EOF
+
+&$addit("mb_server/htdocs/freedb", <<EOF);
+Pages relating to <a href="/freedb/freedb.html">manually importing from FreeDB</a>.
+EOF
+
+&$addit("mb_server/htdocs/generated", <<EOF);
+Generated content, such as the graphs on the <a href="/stats.html">stats page</a>.
+EOF
+
+&$addit("mb_server/htdocs/images", <<EOF);
+Static images.
+EOF
+
+&$addit("mb_server/htdocs/mod", <<EOF);
+Various things related to moderation.&nbsp; Note however that most of the
+"edit" pages (e.g. edit artist, edit album name, edit track, move disc ID)
+are currently in the top "htdocs" directory.
+EOF
+
+&$addit("mb_server/htdocs/mod/edit-album", <<EOF);
+The "album editor".
+EOF
+
+&$addit("mb_server/htdocs/mod/edit-releases", <<EOF);
+The "release editor".
+EOF
+
+&$addit("mb_server/htdocs/mod/search", <<EOF);
+The "moderation search" pages.
+EOF
+
+&$addit("mb_server/htdocs/mod/search/pre", <<EOF);
+The "preset" moderation searches.
+EOF
+
+&$addit("mb_server/htdocs/mod/tag", <<EOF);
+Things relating to tagging albums, also known as "Batch Operation".
+EOF
+
+&$addit("mb_server/htdocs/news", <<EOF);
+News articles and server change logs.
+EOF
+
+&$addit("mb_server/htdocs/products", <<EOF);
+Download and information pages for the main parts of MusicBrainz:
+the client and the server.&nbsp; Logically the tagger belongs here
+too, but actually it's got its own section (htdocs/tagger).
+EOF
+
+&$addit("mb_server/htdocs/products/server", <<EOF);
+The "home" of pages relating to the MusicBrainz server "product"
+- downloads, documentation, help etc.
+EOF
+
+&$addit("mb_server/htdocs/products/client", <<EOF);
+The "home" of pages relating to the MusicBrainz client "product"
+- downloads, documentation, help etc.
+EOF
+
+&$addit("mb_server/htdocs/reports", <<EOF);
+The moderation suggestion reports.&nbsp; The "source" of the reports
+is in admin/reports; the "executed" reports are in htdocs/reports/generated;
+this directory itself only contains a few shared files.
+EOF
+
+&$addit("mb_server/htdocs/reports/generated", <<EOF);
+Pages and data generated by the scripts at admin/reports.
+EOF
+
+&$addit("mb_server/htdocs/tagger", <<EOF);
+Things relating to the Tagger - downloads, help, FAQs, etc.
+EOF
+
+&$addit("mb_server/htdocs/user", <<EOF);
+Things relating to MusicBrainz users - view user information,
+edit it, change your password and so on.
+EOF
+
+</%perl>
+
+<%def .drawnodes>
+<%perl>
+my $children = shift;
+my @k = sort keys %$children;
+my @children = @$children{@k};
+@children or return;
+</%perl>
+<ul>
+% for (@children) {
+	<& .drawnode, $_ &>
+% }
+</ul>
+</%def>
+
+<%def .drawnode>
+%	my $node = shift;
+<li>
+	<p>
+		<b><a href="http://cvs.musicbrainz.org/cvs/<% $node->{path} %>/"><% $node->{name} %></a></b>
+% if ($node->{p}) {
+		&mdash; <% $node->{p} |n %>
+% }
+	</p>
+	<& .drawnodes, $node->{'children'} &>
+</li>
+</%def>
+
+<& .drawnodes, $root{'children'} &>
+
+<& /comp/footer &>

@@ -89,6 +89,7 @@ use Scalar::Util qw( reftype weaken );
 				{ url => "/db_structure.html" },
 				{ url => "/products/server/import_howto.html" },
 				{ url => "/products/server/docs/20030820-1/index.html" },
+				{ url => "/products/server/docs/20040215-1.html" },
 			],
 		],
 	],
