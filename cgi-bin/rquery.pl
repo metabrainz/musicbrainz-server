@@ -53,6 +53,9 @@ my %Queries =
    GetTrackById =>
       [\&QuerySupport::GetTrackByGlobalId, 
         '/rdf:RDF/rdf:Description/MQ:Args/@id'],
+   GetTrackByGUID =>
+      [\&QuerySupport::GetTrackByGUID, 
+        '/rdf:RDF/rdf:Description/MQ:Args/@id'],
    GetAlbumsByArtistId =>
       [\&QuerySupport::GetAlbumsByArtistGlobalId, 
         '/rdf:RDF/rdf:Description/MQ:Args/@id'],

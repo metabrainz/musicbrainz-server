@@ -109,14 +109,14 @@ sub SolveXQL
 
 sub EmitErrorRDF
 {
-    my ($emit_headers) = @_;
+    my ($text, $emit_headers) = @_;
     my ($rdf, $r, $len);
 
     $r = RDF::new;
 
     $rdf .= $r->BeginRDFObject;
     $rdf .= $r->BeginDesc;
-    $rdf .= $r->Element("MQ:Error", $_[0]);
+    $rdf .= $r->Element("MQ:Error", $text);
     $rdf .= $r->EndDesc;
     $rdf .= $r->EndRDFObject;
 
@@ -678,7 +678,7 @@ sub GetAlbumByGlobalId
    my ($sth, $sql, @row, $album);
 
    return EmitErrorRDF("No album id given.") 
-      if (!defined $id);
+      if (!defined $id || $id eq '');
    return undef if (!defined $mb);
 
 
@@ -704,7 +704,7 @@ sub GetTrackByGlobalId
    $count = 0;
 
    return EmitErrorRDF("No track id given.") 
-      if (!defined $id);
+      if (!defined $id || $id eq '');
    return undef if (!defined $mb);
 
    $rdf = $r->BeginRDFObject;
@@ -714,7 +714,44 @@ sub GetTrackByGlobalId
    $sth = $mb->{DBH}->prepare(qq/select Track.id from Track, Album, AlbumJoin
               where Track.gid = $id and AlbumJoin.track = Track.id and 
               AlbumJoin.album = Album.id/);
-   if ($sth->execute())
+   if ($sth->execute() && $sth->rows > 0)
+   {
+        @row = $sth->fetchrow_array;
+
+        $rdf .=   $r->BeginLi;
+        $rdf .=      CreateTrackRDFSnippet($mb, $r, 1, $row[0]);
+        $rdf .=   $r->EndLi;
+        $count++;
+   }
+   $sth->finish;
+
+   $rdf .= $r->Element("MQ:Status", "OK", items=>$count);
+   $rdf .= $r->EndDesc;
+   $rdf .= $r->EndRDFObject;
+
+   return $rdf;
+}
+
+# returns trackList
+sub GetTrackByGUID
+{
+   my ($mb, $doc, $id) = @_;
+   my ($sth, $rdf, $sql, @row, $count);
+
+   my $r = RDF::new; 
+   $count = 0;
+
+   return EmitErrorRDF("No track id given.") 
+      if (!defined $id || $id eq '');
+   return undef if (!defined $mb);
+
+   $rdf = $r->BeginRDFObject;
+   $rdf .= $r->BeginDesc;
+
+   $id = $mb->{DBH}->quote($id);
+   $sth = $mb->{DBH}->prepare(qq/select Track from GUID, GUIDJoin where 
+                              GUIDJoin.GUID=GUID.id and GUID.GUID = $id/);
+   if ($sth->execute() && $sth->rows > 0)
    {
         @row = $sth->fetchrow_array;
 
