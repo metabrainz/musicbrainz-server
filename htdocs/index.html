@@ -1,18 +1,6 @@
 %# vi: set ts=2 sw=2 ft=mason :
 <& /comp/sidebar, title=>'Welcome to MusicBrainz!', noh1 => 1 &>  
 
-<%perl>
-my $show_text = eval {
-  my $ip = $r->connection->remote_ip;
-  return 1 if $ip =~ /^10\./;
-  return 1 if $ip =~ /^127\./;
-  return 1 if $ip =~ /^172\.(\d+)\./
-    and $1>=16 and $1<32;
-  return 1 if $ip =~ /^192\.168\./;
-  0;
-};
-</%perl>
-
 <div class="SideArticlePanel">
 
 % if (DBDefs::DB_STAGING_SERVER) {
@@ -44,7 +32,6 @@ my $show_text = eval {
 	<div class="SideArticle">
 		<h2>Latest News</h2>
 
-% if ($show_text) {
 		<div class="SideNewsArticle">
 			<h3>MusicBrainz launches</h3>
 			<p>
@@ -58,7 +45,6 @@ my $show_text = eval {
 				class="PressReleaseLink"
 				>Read the whole article &gt;&gt;</a>
 		</div>
-% }
 		<div class="SideNewsArticle">
 			<h3>Non-Profit White Paper</h3>
 			<p>
@@ -79,7 +65,7 @@ my $show_text = eval {
         remaining data under a <a href="http://creativecommons.org/licenses/by-nc-sa/1.0">Creative Commons 
         license</a>.
 			</p>
-			<a href="/papers/mb_nonprofit.html#licenses"
+			<a href="/news/licenses.html"
 				class="WhitePaperLink"
 				>Read the whole article &gt;&gt;</a>
 		</div>

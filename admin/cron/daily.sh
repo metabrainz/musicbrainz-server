@@ -51,6 +51,12 @@ nice ./MBDump.pl --moderation --nosanitised -o /tmp/mbdump-moderation.tar.bz2
 mv /tmp/mbdump-moderation.tar.bz2 $backupdir
 chown $backupuser:$backupgroup $backupdir/mbdump.tar.bz2
 
+# Dump the agent arts provided data
+nice ./MBDump.pl --relation -o /tmp/mbdump-artistrelation.tar.bz2
+cp /tmp/mbdump-artistrelation.tar.bz2 $ftpdir
+mv /tmp/mbdump-artistrelation.tar.bz2 $backupdir
+
+chown $backupuser:$backupgroup $backupdir/mbdump-derived.tar.bz2
 # Dump the RDF data
 nice ./RDFDump.pl /tmp/mbdump.rdf.bz2
 mv /tmp/mbdump.rdf.bz2 $ftpdir

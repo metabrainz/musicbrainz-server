@@ -22,6 +22,7 @@ use Scalar::Util qw( reftype weaken );
 			{ name => "Finances",				url => "/finances.html" },
 			{ name => "Contribute",				url => "/contribute.html"},
 		],
+		{ name => "Licenses",               url => "/news/licenses.html" },
 
 		{ url => "/freeamp/index.html" },
 	],
@@ -34,6 +35,7 @@ use Scalar::Util qw( reftype weaken );
 			{ name => "Non-Profit",				url => "/papers/mb_nonprofit.html" },
 			{ name => "Licensing",				url => "/papers/mb_license.html" },
 		],
+        { url => "/news/pressreleases/20030211-1.html" },
 	],
 	{ name => "Products",				url => "/download.html" },
 	[

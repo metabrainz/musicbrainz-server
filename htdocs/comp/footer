@@ -19,9 +19,7 @@
    </td>
    <td height="20" bgcolor="#FFBA58" background="/images/topmenu_BG.gif" width="15%" class="footer">
        <a href="http://www.creativecommons.org">Creative Commons</a>
-   </td>
-   <td height="20" bgcolor="#FFBA58" background="/images/topmenu_BG.gif" width="15%" class="footer">
-       <a href="http://www.opencontent.org">OpenContent</a>
+
    </td>
    <td height="20" bgcolor="#FFBA58" background="/images/topmenu_BG.gif" width="15%" class="footer">
        <a href="http://www.eff.org">EFF</a>
@@ -30,11 +28,15 @@
        <a href="http://www.gnu.org/copyleft/gpl.html">GPL</a>
    </td>
    <td height="20" bgcolor="#FFBA58" background="/images/topmenu_BG.gif" width="15%" class="footer">
+       <a href="http://www.gnu.org/copyleft/lesser.html">LGPL</a>
+   </td>
+   <td height="20" bgcolor="#FFBA58" background="/images/topmenu_BG.gif" width="15%" class="footer">
        <a href="http://www.freshmeat.net">Freshmeat</a>
    </td>
    <td height="20" bgcolor="#FFBA58" background="/images/topmenu_BG.gif" width="10%" class="footer">
      &nbsp;
    </td>
+
 </tr>
 </table>
 <table width="100%" cellpadding="0" cellspacing="0" border="0">

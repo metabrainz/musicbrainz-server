@@ -6,17 +6,6 @@ $mbt=>0
 
 <%perl>
 
-# TODO: Remove this if for release
-my $show_related = eval {
-	my $ip = $r->connection->remote_ip;
-	return 1 if $ip =~ /^10\./;
-	return 1 if $ip =~ /^127\./;
-	return 1 if $ip =~ /^172\.(\d+)\./
-		and $1>=16 and $1<32;
-	return 1 if $ip =~ /^192\.168\./;
-	0;
-};
-
 sub CheckAttributes
 {
     my ($a) = @_;
@@ -116,12 +105,9 @@ else
     mc_out($artist->GetId());
     mc_out("\">Aliases</a> ");
 
-    if ($show_related)
-    {
 	mc_out("| <a href=\"/artistrel.html?artistid=");
 	mc_out($artist->GetId());
 	mc_out("\">Related artists</a> ");
-    }
 
     if ($artist->GetName() ne "Unknown" && 
         $artist->GetId() != ModDefs::VARTIST_ID && 
@@ -144,7 +130,7 @@ else
 
 	my $relations = $artist->GetRelations();
 
-	if (@$relations and $show_related)
+	if (@$relations)
 	{
 		splice(@$relations, 3) if @$relations > 3;
 		</%perl>
