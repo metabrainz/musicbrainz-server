@@ -32,6 +32,8 @@ echo "VACUUM ANALYZE;" | psql musicbrainz
 
 # Dump the data
 nice ./MBDump.pl /tmp/mbdump.tar.bz2
+cp /tmp/mbdump.tar.bz2 $backupdir
+chown $backupuser:$backupgroup $backupdir/mbdump.tar.bz2
 mv /tmp/mbdump.tar.bz2 $ftpdir
 nice ./MBDump.pl -p /tmp/mbdump-private.tar.bz2
 chown $backupuser:$backupgroup /tmp/mbdump-private.tar.bz2
