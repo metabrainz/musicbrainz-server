@@ -166,8 +166,7 @@ for my $i ( 0 .. $tracks-1 )
            }
        }
 
-       $artistname =~ s/^\s*(.*?)\s*$/$1/;
-       $trackname =~ s/^\s*(.*?)\s*$/$1/;
+	   MusicBrainz::TrimInPlace($artistname, $trackname);
        my $st = Style->new;
        $sortname = $st->MakeDefaultSortname($artistname); 
    }

@@ -18,10 +18,12 @@ $tport=>$session{'tport'}
 UserStuff::EnsureSessionOpen(), $session{tport} = $tport
    if $tport;
 
-$artist =~ s/^\s*(.*?)\s*$/$1/;
-$album =~ s/^\s*(.*?)\s*$/$1/;
-$track =~ s/^\s*(.*?)\s*$/$1/;
-$tracknum =~ s/^\s*(.*?)\s*$/$1/;
+MusicBrainz::TrimInPlace(
+	$artist,
+	$album,
+	$track,
+	$tracknum,
+);
 </%perl>
 
 %###############################################################################
