@@ -81,12 +81,15 @@ else
 
     if ($ARGS{artistid} == Artist::VARTIST_ID)
     {
-        mc_out("<table width=\"100%\"><tr><td align=\"center\">");
-        mc_out("<font size=\"+1\">There are too many albums to list.</font>");
-        mc_out("<br>Please use the <a href=\"search.html\">Search Page</a>");
-        mc_out(" to look for a specific album.<p>");
-        mc_comp("/comp/browsebox", page=>"/browsevarious.html");
-        mc_out("</td></tr></table>");
+        </%perl>
+        <table width="100%"><tr><td align="center">
+        <font size="+1">There are too many albums to list.</font>
+        <p>Please use the <a href="search.html">Search Page</a>
+         to look for a specific album,<br>
+         or browse the various artist albums:<p>
+        <& /comp/browsebox, page=>"/browsevarious.html" &>
+        </td></tr></table>
+        <%perl>
     }
     else
     {

@@ -57,22 +57,24 @@
 &nbsp;
 </td>
 <td width="48%" valign="top">
-  <& /comp/tablebegin, title=>'Browse', attrs=>"align=center", 
+  <& /comp/tablebegin, title=>'Browse Artists', attrs=>"align=center", 
      gattrs=>"width=100%" &>
     <br>
-    To browse the database alphabetically,<br>
-    select a letter below:<p>
-    <& /comp/browsebox &>
+    <& /comp/browsebox, page=>'/browseartists.html'&>
+  <& /comp/tableend &>
+    
+  <& /comp/tablebegin, title=>'Browse Various Artist Albums', attrs=>"align=center", 
+     gattrs=>"width=100%" &>
     <br>
-    &nbsp;
+    <& /comp/browsebox, page=>'/browsevarious.html' &>
   <& /comp/tableend &>
 
   <& /comp/tablebegin, title=>'Contribute', attrs=>"align=center", 
      gattrs=>"width=100%" &>
     <br>
     <a href="/addartist.html">Add artist</a> | 
-    <a href="/addalbum.html?artistid=0">Add  album</a> |<br>
-    <a href="/addalbum.html?artistid=1">Add various artist album</a> |<br>
+    <a href="/addalbum.html?artistid=0">Add  album</a><br>
+    <a href="/addalbum.html?artistid=1">Add various artist album</a><br>
     <a href="/mod/tag/starttag.html">Tag Albums</a> |
     <a href="/freedb/freedb.html">Freedb Import</a> 
     <br>
