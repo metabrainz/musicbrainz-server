@@ -65,12 +65,15 @@ begin
             COALESCE(t.count, 0) AS tracks,
             COALESCE(d.count, 0) AS discids,
             COALESCE(m.count, 0) AS trmids,
-            r.firstreleasedate
+            r.firstreleasedate,
+            aws.asin,
+            aws.coverarturl
     FROM    album a
             LEFT JOIN albummeta_tracks t ON t.id = a.id
             LEFT JOIN albummeta_discids d ON d.id = a.id
             LEFT JOIN albummeta_trmids m ON m.id = a.id
             LEFT JOIN albummeta_firstreleasedate r ON r.id = a.id
+            LEFT JOIN album_amazon_asin aws on aws.album = a.id
             ;
 
     ALTER TABLE albummeta ALTER COLUMN id SET NOT NULL;
@@ -78,6 +81,8 @@ begin
     ALTER TABLE albummeta ALTER COLUMN discids SET NOT NULL;
     ALTER TABLE albummeta ALTER COLUMN trmids SET NOT NULL;
     -- firstreleasedate stays "WITH NULL"
+    -- asin stays "WITH NULL"
+    -- coverarturl stays "WITH NULL"
 
    create unique index albummeta_id on albummeta(id);
 
@@ -96,15 +101,28 @@ end;
 --'-----------------------------------------------------------------
 
 create or replace function insert_album_meta () returns TRIGGER as '
+begin 
+    insert into albummeta (id, tracks, discids, trmids) values (NEW.id, 0, 0, 0); 
+    insert into album_amazon_asin (album, lastupdate) values (NEW.id, \'1970-01-01 00:00:00\'); 
+    
+    return NEW; 
+end; 
+' language 'plpgsql';
+
+create or replace function update_album_meta () returns TRIGGER as '
 begin
-   insert into albummeta (id, tracks, discids, trmids) values (NEW.id, 0, 0, 0);
-   return NEW;
+    if NEW.name != OLD.name 
+    then
+        update album_amazon_asin set lastupdate = \'1970-01-01 00:00:00\' where album = NEW.id; 
+    end if;
+   return NULL;
 end;
 ' language 'plpgsql';
 
 create or replace function delete_album_meta () returns TRIGGER as '
 begin
    delete from albummeta where id = OLD.id;
+   delete from album_amazon_asin where album = OLD.id;
    return OLD;
 end;
 ' language 'plpgsql';
@@ -355,5 +373,47 @@ BEGIN
     RETURN OLD;
 END;
 ' LANGUAGE 'plpgsql';
+
+--'-----------------------------------------------------------------
+-- Changes to album_amazon_asin should cause changes to albummeta.asin
+--'-----------------------------------------------------------------
+
+CREATE OR REPLACE FUNCTION set_album_asin(INTEGER)
+RETURNS VOID AS '
+BEGIN
+    UPDATE albummeta SET coverarturl = (
+        SELECT coverarturl FROM album_amazon_asin WHERE album = $1
+    ), asin = (
+        SELECT asin FROM album_amazon_asin WHERE album = $1
+    ) WHERE id = $1;
+    RETURN;
+END;
+' LANGUAGE 'plpgsql';
+
+CREATE OR REPLACE FUNCTION a_ins_album_amazon_asin () RETURNS TRIGGER AS '
+BEGIN
+    EXECUTE set_album_asin(NEW.album);
+    RETURN NEW;
+END;
+' LANGUAGE 'plpgsql';
+
+CREATE OR REPLACE FUNCTION a_upd_album_amazon_asin () RETURNS TRIGGER AS '
+BEGIN
+    EXECUTE set_album_asin(NEW.album);
+    IF (OLD.album != NEW.album)
+    THEN
+        EXECUTE set_album_asin(OLD.album);
+    END IF;
+    RETURN NEW;
+END;
+' LANGUAGE 'plpgsql';
+
+CREATE OR REPLACE FUNCTION a_del_album_amazon_asin () RETURNS TRIGGER AS '
+BEGIN
+    EXECUTE set_album_asin(OLD.album);
+    RETURN OLD;
+END;
+' LANGUAGE 'plpgsql';
+
 
 --'-- vi: set ts=4 sw=4 et :

@@ -42,7 +42,7 @@ if ($mbid ne "")
 	$album->SetId($albumid);
 }
 
-$album->LoadFromId
+$album->LoadFromId(1)
 	or return $m->comp(
 		"/comp/error",
 		"Album not found in the database.",
@@ -67,11 +67,6 @@ $artist->LoadFromId
 
 <& /comp/artisttitle, artist => $artist &>
 
-% if ($session{uid}) {
-<form method="post" action="/mod/tag/donetag.html" id="EditAlbumAttrsForm"
-	enctype="application/x-www-form-urlencoded"
-   	>
-% }
 
 	<& /comp/framedboxbegin, width=>"100%" &>
 
@@ -83,18 +78,15 @@ $artist->LoadFromId
 %		       if ($session{uid}) {
 					<td align="center">
 
-					<input type="image" alt="Batch Operation"
-						   title="Moderate a batch of selected albums"
-						   src="/images/batch.gif"
-						   style="border: 0; height: 13px; width: 13px">
+               <form method="post" action="/mod/tag/donetag.html" name="BatchOp"
+                   	enctype="application/x-www-form-urlencoded">
 
+               <input type="hidden" name="AlbumId<% $album->GetId() %>" value="">
 					<script type="text/javascript">
-					document.writeln('<\a href="#" onclick="document.forms.EditAlbumAttrsForm.submit(); return false">Batch Operation<\/a>');
+					document.writeln('<\input type="image" alt="Batch Operation" title="Moderate a batch of selected albums" src="/images/batch.gif" style="border: 0; height: 13px; width: 13px"\>');
+					document.writeln('<\a href="#" onclick="document.forms.BatchOp.submit(); return false">Batch Operation<\/a>');
 					</script>
-					<noscript>
-					<input type="submit" value="Batch Operation">
-					</noscript>
-
+               </form>
 				</td>
 %		       }
 			</tr>
@@ -109,10 +101,7 @@ $artist->LoadFromId
 		showids => 1,
 		showtag => 1,
 		showreleases => 1,
+      closeform => $session{uid}, 
 		&>
-
-% if ($session{uid}) {
-</form>
-% }
 
 <& /comp/footer &>

@@ -1,10 +1,12 @@
 \set ON_ERROR_STOP 1
 
-create trigger a_ins_album after insert on album 
-               for each row execute procedure insert_album_meta();
-
-create trigger a_del_album after delete on album 
-               for each row execute procedure delete_album_meta();
+-- These XXXX_album_meta() functions should really have the _meta dropped
+CREATE TRIGGER a_ins_album AFTER INSERT ON album 
+    FOR EACH ROW EXECUTE PROCEDURE insert_album_meta();
+CREATE TRIGGER a_upd_album after update on album 
+    FOR EACH ROW EXECUTE PROCEDURE update_album_meta();
+CREATE TRIGGER a_del_album after DELETE ON album 
+    FOR EACH ROW EXECUTE PROCEDURE delete_album_meta();
 
 CREATE TRIGGER a_ins_albumjoin AFTER INSERT ON albumjoin
     FOR EACH ROW EXECUTE PROCEDURE a_ins_albumjoin();
@@ -38,5 +40,12 @@ CREATE TRIGGER a_upd_release AFTER UPDATE ON release
     FOR EACH ROW EXECUTE PROCEDURE a_upd_release();
 CREATE TRIGGER a_del_release AFTER DELETE ON release
     FOR EACH ROW EXECUTE PROCEDURE a_del_release();
+
+CREATE TRIGGER a_ins_album_amazon_asin AFTER INSERT ON album_amazon_asin
+    FOR EACH ROW EXECUTE PROCEDURE a_ins_album_amazon_asin();
+CREATE TRIGGER a_upd_album_amazon_asin AFTER UPDATE ON album_amazon_asin
+    FOR EACH ROW EXECUTE PROCEDURE a_upd_album_amazon_asin();
+CREATE TRIGGER a_del_album_amazon_asin AFTER DELETE ON album_amazon_asin
+    FOR EACH ROW EXECUTE PROCEDURE a_del_album_amazon_asin();
 
 -- vi: set ts=4 sw=4 et :

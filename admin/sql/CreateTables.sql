@@ -32,7 +32,9 @@ create table AlbumMeta (
    tracks int default 0,
    discids int default 0,
    trmids int default 0,
-   firstreleasedate char(10));
+   firstreleasedate char(10),
+   asin char(10),
+   coverarturl varchar(255));
 
 create table Track (
    Id serial,
@@ -264,6 +266,13 @@ CREATE TABLE release
         country         INTEGER NOT NULL, -- references country
         releasedate     CHAR(10) NOT NULL,
         modpending      INTEGER DEFAULT 0
+);
+
+create table album_amazon_asin (
+        album           INTEGER NOT NULL, -- references Album
+        asin            CHAR(10),
+        coverarturl     VARCHAR(255),
+        lastupdate      timestamp with time zone default now()
 );
 
 commit;

@@ -108,6 +108,17 @@ sub SetArtist
    $_[0]->{artist} = $_[1];
 }
 
+sub GetCoverartURL
+{
+   return "/images/no_coverart.png" if ($_[0]->{coverarturl} eq '');
+   return "http://images.amazon.com" . $_[0]->{coverarturl};
+}
+
+sub GetAsin
+{
+   return $_[0]{asin} =~ /(\S+)/ ? $1 : ""
+}
+
 sub GetAttributeName
 {
    return $AlbumAttributeNames{$_[1]}->[0];
@@ -489,7 +500,7 @@ sub LoadFromId
 {
 	my ($this, $loadmeta) = @_;
 	my ($idcol, $idval);
-	
+
 	if ($this->GetId)
 	{
 		$idcol = "id";
@@ -509,7 +520,7 @@ sub LoadFromId
 	my $sql = Sql->new($this->{DBH});
 	my $row = $sql->SelectSingleRowArray(
 		"SELECT	a.id, name, gid, modpending, artist, attributes"
-		. ($loadmeta ? ", tracks, discids, trmids, firstreleasedate" : "")
+		. ($loadmeta ? ", tracks, discids, trmids, firstreleasedate,coverarturl,asin" : "")
 		. " FROM album a"
 		. ($loadmeta ? " INNER JOIN albummeta m ON m.id = a.id" : "")
 		. " WHERE	a.$idcol = ?",
@@ -523,7 +534,7 @@ sub LoadFromId
 	$this->{artist}		= $row->[4]; 
 	$this->{attrs}		= [ $row->[5] =~ /(\d+)/g ];
 
-	delete @$this{qw( trackcount discidcount trmidcount firstreleasedate )};
+	delete @$this{qw( trackcount discidcount trmidcount firstreleasedate asin coverarturl )};
 	delete @$this{qw( _discids _tracks )};
 
 	if ($loadmeta)
@@ -532,6 +543,8 @@ sub LoadFromId
 		$this->{discidcount}	= $row->[7];
 		$this->{trmidcount}		= $row->[8];
 		$this->{firstreleasedate}=$row->[9] || "";
+		$this->{coverarturl}=$row->[10] || "";
+		$this->{asin}=$row->[11] || "";
 	}
 
 	1;

@@ -20,6 +20,7 @@ if ($ARGS{"SavePrefs"})
 		navbar_mod_show_select_page
 		JSMoveFocus
 		reveal_address_when_mailing
+      show_amazon_coverart
 		sitemenu_heavy
 		sidebar_panel_search
 		sidebar_panel_stats
@@ -158,6 +159,23 @@ $time = time();
 			>
 		releases or more.&nbsp;
 		(allowed range: 1-100)
+	</p>
+
+	<h2>Amazon.com Cover Art</h2>
+
+	<p>
+		<input type="checkbox" name="show_amazon_coverart"
+			<% UserPreference::get('show_amazon_coverart') ? "checked" : "" %>
+			>
+      Show Amazon.com cover art and buy links
+	</p>
+
+	<p>
+		Your preferred Amazon Store:
+		<select name="use_amazon_store">
+			<& /comp/options, [ UserPreference::allowed_amazon_stores() ],
+			UserPreference::get('use_amazon_store') &>
+		</select>
 	</p>
 
 	<h2>Country</h2>

@@ -32,24 +32,26 @@ my $sortname = $artist->GetSortName;
 				style => "url",
 			&>">Permanent link</a>
 			| <a href="/perm_links.html?name=<% uri_escape($name) %>&amp;id=<% $mbid %>&amp;type=artist">Link to this</a>
-			| <a href="/artistinfo.html?artistid=<% $id %>">View info</a>
+			| <a href="/artistinfo.html?artistid=<% $id %>">View&nbsp;info</a>
 			| <a href="/showaliases.html?artistid=<% $id %>">Aliases</a>
 % if ($id != &ModDefs::VARTIST_ID) {
-			| <a href="/showartist.html?artistid=<% $id %>">View albums</a>
+			| <a href="/showartist.html?artistid=<% $id %>">View&nbsp;albums</a>
 % } else {
-			| <a href="/browsevarious.html">Browse albums</a>
+			| <a href="/browsevarious.html">Browse&nbsp;albums</a>
 % }
 % if ($id != &ModDefs::VARTIST_ID) {
-			| <a href="/artistrel.html?artistid=<% $id %>">Related artists</a>
-			| <& /comp/googlelink, search => $name, text => "Search Google" &>
+			| <a href="/artistrel.html?artistid=<% $id %>">Related&nbsp;artists</a>
+			| <& /comp/googlelink, search => $name, text => "Search&nbsp;Google" &>
 % }
 % if ($session{uid}) {
-			| <a href="/mod/search/pre/artist.html?artistid=<% $id %>">View mods</a>
+			| <a href="/mod/search/pre/artist.html?artistid=<% $id %>">View&nbsp;mods</a>
 % }
 		]</div>
 % }
+</div>
 %# Row 3: editing links
 % if ($session{uid} and $showmodlinks) {
+<div class="ArtistTitleMod">
 		<div class="ArtistTitleLinks">Edit: [
 % if ($id != &ModDefs::VARTIST_ID
 %			and $name !~ /^\[(unknown|data track|silence|no artist)\]$/
@@ -65,9 +67,12 @@ my $sortname = $artist->GetSortName;
 				| <a href="/addnonalbumtracks.html?artistid=<% $id %>">Add non-album tracks</a>
 % }
 		]</div>
+</div>
 % } elsif ($showmodlinks) {
-		<div class="ArtistTitleLinks">[
+    <div class="ArtistTitleMod">
+		<div class="ArtistTitleLinks">Edit: [
 			<a href="/login.html">Log in</a> to edit this
 		]</div>
-% }
+    </div>
 </div>
+% }

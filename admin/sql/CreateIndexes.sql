@@ -90,4 +90,6 @@ CREATE UNIQUE INDEX country_name ON country (name);
 
 CREATE INDEX release_album ON release (album);
 
+CREATE INDEX album_amazon_asin_asin ON album_amazon_asin (asin);
+
 -- vi: set ts=4 sw=4 et :

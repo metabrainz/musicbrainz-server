@@ -55,7 +55,7 @@ my $colspan = ($nonalbum ? 'colspan="2"' : '');
 % }
     </td>
 % }
-    <td width="10%" align="right" <% $tr_bgcolor |n %> nowrap>
+    <td width="15%" align="right" <% $tr_bgcolor |n %> nowrap>
        <% Track::FormatTrackLength($track->GetLength) %>
     </td>
 % if ($session{uid} and $showmodlinks) {

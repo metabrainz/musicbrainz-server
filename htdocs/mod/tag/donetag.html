@@ -14,7 +14,31 @@ my $referer = $r->headers_in->{'Referer'} || "";
 my @albums = split / /, $session{tagged_albums};
 @albums = () if $reset;
 
-push @albums, map { /AlbumId(\d+)/ } keys %ARGS;
+my $id;
+foreach (keys %ARGS)
+{
+    undef $id;
+    $id = $1 if (/AlbumId(\d+)/);
+    next if (!defined $id || $ARGS{$_} eq '');
+
+    if ($ARGS{$_} eq 'off')
+    {
+        my $i = 0;
+        foreach (@albums)
+        {
+            if ($_ == $id)
+            {
+                splice(@albums, $i, 1);
+                last;
+            }
+            $i++;
+        }
+    }
+    else
+    {
+        push @albums, $id;
+    }
+}
 
 # Remove dupes
 my %temp = ();
@@ -38,7 +62,7 @@ my @objs = map {
 	my $al = Album->new($mb->{DBH});
  	$al->SetId($albumid);
 
-	$al->LoadFromId
+	$al->LoadFromId(1)
 		or return $m->comp(
 			"/comp/error",
 			"Album #$albumid not found.",
@@ -174,7 +198,6 @@ $more_albums_url = "/showartist.html?artistid=$artist_id" if $artist_id;
     the "Update" button at the bottom of this form:
 </p>
 
-<form method="post" action="/mod/tag/donetag.html">
 
 	<%perl>
 
@@ -201,6 +224,7 @@ $more_albums_url = "/showartist.html?artistid=$artist_id" if $artist_id;
 				artist => $ar,
 				showmodlinks => 0,
 			);
+			$m->out("<p/>");
 		}
 		
 	 	$m->comp(
@@ -216,12 +240,19 @@ $more_albums_url = "/showartist.html?artistid=$artist_id" if $artist_id;
 
 	</%perl>
 	
-    <center>
-		<input type="submit" NAME="Submit" VALUE="Update">
-		<input type="hidden" NAME="url" VALUE="<% $referer %>">
-		<input type="hidden" NAME="reset" VALUE="1">
-	</center>
+<form method="post" action="/mod/tag/donetag.html" name="BatchOp"
+      enctype="application/x-www-form-urlencoded">
 
+    <center>
+    <script type="text/javascript">
+		document.writeln('<\input type="submit" NAME="Submit" VALUE="Update"\>');
+    </script>
+    <input type="hidden" NAME="url" VALUE="<% $referer %>">
+	 <input type="hidden" NAME="reset" VALUE="1">
+	</center>
+%  for my $al (@objs) {
+     <input type="hidden" name="AlbumId<% $al->GetId() %>" value="on">
+%  }
 </form>
 
 </div>

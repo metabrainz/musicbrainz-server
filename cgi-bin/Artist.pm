@@ -512,7 +512,7 @@ sub GetAlbums
    $sql = Sql->new($this->{DBH});
    if (defined $loadmeta && $loadmeta)
    {
-       $query = qq/select album.id, name, modpending, GID, attributes, tracks, discids, trmids, firstreleasedate
+       $query = qq/select album.id, name, modpending, GID, attributes, tracks, discids, trmids, firstreleasedate, coverarturl, asin
                      from Album, Albummeta 
                     where artist=$this->{id} and albummeta.id = album.id/;
    }
@@ -541,6 +541,8 @@ sub GetAlbums
                 $album->{discidcount} = $row[6];
                 $album->{trmidcount} = $row[7];
                 $album->{firstreleasedate} = $row[8]||"";
+                $album->{coverarturl} = $row[9]||"";
+                $album->{asin} = $row[10]||"";
             }
 
             push @albums, $album;

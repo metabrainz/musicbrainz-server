@@ -77,5 +77,9 @@ nice ./reports/RunReports
 echo `date`" : Processing subscriptions"
 ./ProcessSubscriptions
 
+# Lookup amazon pairings
+echo `date`" : Processing amazon matches"
+aws/Match.pl -u
+
 echo `date`" : Nightly jobs complete!"
 cd -

@@ -84,4 +84,6 @@ DROP INDEX country_name;
 
 DROP INDEX release_album;
 
+DROP INDEX album_amazon_asin_asin;
+
 -- vi: set ts=4 sw=4 et :

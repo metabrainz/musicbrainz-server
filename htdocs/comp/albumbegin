@@ -33,65 +33,19 @@ if ($link)
     }
 }
 
+my ($coverart_url, $store, $ass_id);
+my $asin = $album->GetAsin();
+if ($asin)
+{
+    $coverart_url = $album->GetCoverartURL();
+    $store = UserPreference::get('use_amazon_store');
+    $ass_id = &DBDefs::AWS_ASSOCIATE_ID($store);
+}
+
 </%perl>
 
-% if ($showlinks or $showmodlinks) {
-<div style="margin: 0.5em 0 0.5em">
-%# First row: non-editing links
-% if ($showlinks) {
-<div class="AlbumLinks">Info: [
-	<a href="<&
-		/comp/copyable-link,
-		id		=> $mbid,
-		name	=> $name,
-		type	=> "album",
-		style	=> "url",
-	&>">Permanent link</a>
-	| <a href="/perm_links.html?name=<% uri_escape($name) %>&amp;id=<% $mbid %>&amp;type=album">Link to this</a>
-	| <a href="/albumdetail.html?albumid=<% $albumid %>">View info</a>
-	| <& /comp/googlelink, search => [ $artist->GetName, $name ], text => "Search Google" &>
-% if ($session{uid}) {
-	| <a href="/mod/search/pre/album.html?albumid=<% $albumid %>">View album mods</a>
-% }
-]</div>
-% }
-
-%# Second row: editing links
-% if ($session{uid} and $showmodlinks) {
-<div class="AlbumLinks">Edit: [
-%		if (!$nonalbum) {
-	<a href="/editalbum.html?album=<% $albumid %>">Edit name</a> |
-%			unless ($artist->GetId == &ModDefs::VARTIST_ID) {
-	<a href="/mod/edit-album/index.html?album=<% $albumid %>">Edit all</a> |
-%			}
-%		}
-	<a href="/remalbum.html?album=<% $albumid %>&amp;artist=<% $artist->GetId %>">Delete</a>
-%		if ($nonalbum) {
-	| <a href="/addnonalbumtracks.html?artistid=<% $album->GetArtist %>">Add a non-album track</a>
-%		} else {
-	| <a href="/mod/edit-releases/index.html?album=<% $albumid %>">Edit releases</a>
-%			if ($album->CanAddTrack) {
-	| <a href="/addtrack.html?album=<% $albumid %>">Add track</a>
-%			}
-	| <a href="/movealbum.html?album=<% $albumid %>">Move</a>
-%			if ($album->GetArtist != &ModDefs::VARTIST_ID) {
-	| <a href="/tomac.html?album=<% $albumid %>">Convert to multiple artists</a>
-%			} else {
-	| <a href="/tosac.html?album=<% $albumid %>">Convert to single artist</a>
-%			}
-	| <a href="/mod/tag/donetag.html?AlbumId<% $albumid %>=1">Merge with ...</a>
-%		}
-]</div> 
-%	} elsif ($showmodlinks) {
-		<div>[
-			<a href="/login.html">Log in</a> to edit this
-		]</div>
-% }
-</div>
-% }
-
 <table id="al<% $albumid %>" border="0" cellpadding="0" cellspacing="0" bgcolor="#000000" width="100%"
-	style="margin-bottom: 1em">
+	style="margin-bottom: 1em;">
 <tr><td bgcolor="#000000">
   <table width="100%" border="0" cellspacing="1" cellpadding="2">
   <tr>
@@ -101,27 +55,122 @@ if ($link)
                   alt="<% $alt %>"
                   src="<% $image %>" align="middle" border="0"></a>
 %          }
-           <a href="/album/<% $mbid %>.html"><% $name %></a>
+           <a href="/album/<% $mbid %>.html" style="font-weight: bold"><% $name %></a>
         </td>
 %       if ($session{uid} && !$nonalbum && $showtag) {
             <td width="1%" bgcolor="#FFBA58" align=center valign=top nowrap>
-              <input type="checkbox" name="AlbumId<% $albumid %>"
-                 <% $tagchecked ? " CHECKED" : "" %>>
+              <form method="post" action="/mod/tag/donetag.html" 
+                    enctype="application/x-www-form-urlencoded">
+              <script type="text/javascript">
+              document.writeln('<\input type="checkbox" name="check" onchange="document.BatchOp.AlbumId<% $albumid %>.value = this.form.check.checked ? \'on\' : \'\';" <% $tagchecked ? " CHECKED" : "" %>\>');
+              </script>
+              <noscript>
+              <input type="hidden" name="AlbumId<% $albumid %>" value="<% $tagchecked ? 'off' : 'on' %>">
+              <input type="submit" name="submit" value="<% $tagchecked ? 'Remove' : 'Select' %>">
+              </noscript>
+              </form>
             </td>
 %       }
-% if ($session{uid} and $showmodlinks) {
-        <td width="15%" bgcolor="#FFBA58" nowrap
-					class="CenterChildren" style="text-align: center"
-					>
-%         if (!$nonalbum) {
-              <a href="/editalbum.html?album=<% $albumid %>">Edit</a> | 
-% unless ($artist->GetId == &ModDefs::VARTIST_ID) {
-              <a href="/mod/edit-album/index.html?album=<% $albumid %>">Edit All</a> | 
-%         }
-%         }
-          <a href="/remalbum.html?album=<% $albumid %>&amp;artist=<% $artist->GetId %>">Del</a>
-        </td>
-% }
   </tr>
   </table>
-  <table width="100%" bgcolor=black border="0" cellspacing="1" cellpadding="3">
+
+
+% if ($coverart_url && $showlinks && UserPreference::get('show_amazon_coverart')) {
+
+  <table width="100%" bgcolor="black" border="0" cellspacing="1" cellpadding="0">
+  <tr><td>
+     <table width="100%" bgcolor="white" border="0" cellspacing="0" cellpadding="5">
+     <tr><td bgcolor="#dddddd">
+
+<a href="http://<% $store %>/exec/obidos/ASIN/<% $asin %>/<% $ass_id %>?v=glance&s=music" border="0"><img 
+   src="<% $coverart_url %>" height="130" width="130" 
+   style="float: right; border: 1px solid black; padding: 1px;" 
+   border="0"></a>
+<div class="AlbumInfo">
+% }
+
+% if ($showlinks or $showmodlinks) {
+<div class="AlbumTitle">
+%# First row: non-editing links
+% if ($showlinks) {
+<div class="AlbumTitleLinks">Album: [
+	<a href="<&
+		/comp/copyable-link,
+		id		=> $mbid,
+		name	=> $name,
+		type	=> "album",
+		style	=> "url",
+	&>">Permanent link</a>
+	| <a href="/perm_links.html?name=<% uri_escape($name) %>&amp;id=<% $mbid %>&amp;type=album">Link to this</a>
+	| <a href="/albumdetail.html?albumid=<% $albumid %>">View&nbsp;info</a>
+	| <& /comp/googlelink, search => [ $artist->GetName, $name ], text => "Search Google" &>
+% if ($session{uid}) {
+	| <a href="/mod/search/pre/album.html?albumid=<% $albumid %>">View album mods</a>
+% }
+]</div>
+% }
+</div> 
+
+%# Second row: editing links
+% if ($session{uid} and $showmodlinks) {
+<div class="AlbumTitleMod">
+<div class="AlbumTitleLinks">Edit: [
+%		if (!$nonalbum) {
+	<a href="/editalbum.html?album=<% $albumid %>">Edit name</a> |
+%			unless ($artist->GetId == &ModDefs::VARTIST_ID) {
+	<a href="/mod/edit-album/index.html?album=<% $albumid %>">Edit all</a> |
+%			}
+%		}
+	<a href="/remalbum.html?album=<% $albumid %>&amp;artist=<% $artist->GetId %>">Delete</a>
+%		if ($nonalbum) {
+	| <a href="/addnonalbumtracks.html?artistid=<% $album->GetArtist %>">Add&nbsp;a&nbsp;non-album&nbsp;track</a>&nbsp;]
+%		} else {
+	| <a href="/mod/edit-releases/index.html?album=<% $albumid %>">Edit&nbsp;releases</a>
+%			if ($album->CanAddTrack) {
+	| <a href="/addtrack.html?album=<% $albumid %>">Add&nbsp;track</a>
+%			}
+	| <a href="/movealbum.html?album=<% $albumid %>">Move</a>
+%			if ($album->GetArtist != &ModDefs::VARTIST_ID) {
+	| <a href="/tomac.html?album=<% $albumid %>">Convert&nbsp;to&nbsp;multiple&nbsp;artists</a>
+%			} else {
+	| <a href="/tosac.html?album=<% $albumid %>">Convert&nbsp;to&nbsp;single&nbsp;artist</a>
+%			}
+	| <a href="/mod/tag/donetag.html?AlbumId<% $albumid %>=on">Merge&nbsp;with&nbsp;...</a>&nbsp;]
+%		}
+</div> 
+</div> 
+%	} elsif ($showmodlinks) {
+<div class="AlbumTitleMod">
+		<div>Edit: [
+			<a href="/login.html">Log in</a> to edit this
+		]</div>
+</div>
+% }
+% }
+
+% if ($coverart_url && $showlinks && UserPreference::get('show_amazon_coverart')) {
+    <form method="POST" action="http://<% $store %>/exec/obidos/dt/assoc/handle-buy-box=<% $asin %>"
+          id="AddToCartForm">
+    <div class="AlbumTitleAmazon">
+    Amazon: [
+    <input type="hidden" name="asin.<% $asin %>" value="1">
+    <input type="hidden" name="tag-value" value="<% $ass_id %>"> 
+    <input type="hidden" name="tag_value" value="<% $ass_id %>">
+    <input type="hidden" name="dev-tag-value" value="<% &DBDefs::AWS_DEVELOPER_ID %>">
+    <input type="submit" name="submit.add-to-cart" value="Buy">
+    <script type="text/javascript">
+      var t = document.forms.AddToCartForm;
+      if (t) t = t["submit.add-to-cart"];
+      if (t) t.style.display = "none";
+      document.writeln('<\a href="#" onclick="document.forms.AddToCartForm.submit(); return false">Buy<\/a>');
+    </script>
+    | <a href="http://<% $store %>/exec/obidos/ASIN/<% $asin %>/<% $ass_id %>?v=glance&s=music">Info</a>
+    ]
+    </div>
+    </form>
+</div>
+  </td> </tr> </table> </td> </tr> </table> 
+
+% }
+
+  <table width="100%" bgcolor="black" border="0" cellspacing="1" cellpadding="3" style="clear: both;">

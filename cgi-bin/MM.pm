@@ -456,7 +456,7 @@ sub LoadObject
    {
        $obj->SetId($id);
    }
-   if (!defined $obj->LoadFromId())
+   if (!defined $obj->LoadFromId(1))
    {
        return undef;
    }

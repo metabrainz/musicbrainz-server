@@ -1,6 +1,7 @@
 ALTER TABLE album DROP CONSTRAINT album_pkey;
 ALTER TABLE albumjoin DROP CONSTRAINT albumjoin_pkey;
 ALTER TABLE albummeta DROP CONSTRAINT albummeta_pkey;
+ALTER TABLE album_amazon_asin DROP CONSTRAINT album_amazon_asin_pkey;
 ALTER TABLE artistalias DROP CONSTRAINT artistalias_pkey;
 ALTER TABLE artist DROP CONSTRAINT artist_pkey;
 ALTER TABLE artist_relation DROP CONSTRAINT artist_relation_pkey;

@@ -89,4 +89,7 @@ ALTER TABLE release
 ALTER TABLE release
     DROP CONSTRAINT release_fk_country;
 
+ALTER TABLE album_amazon_asin
+    DROP CONSTRAINT album_amazon_asin_fk_album;
+
 -- vi: set ts=4 sw=4 et :

@@ -204,9 +204,6 @@ $m->comp(
 
             </%perl>
 
-            <form method="post" action="/mod/tag/donetag.html"
-                  id="EditAlbumAttrsForm"
-                  enctype="application/x-www-form-urlencoded">
 
             <& /comp/framedboxbegin, width=>"100%" &>
             <& /comp/modnotice &>
@@ -241,17 +238,18 @@ $m->comp(
 %           if ($session{uid}) {
     	    <td align="center">
 
-			<input type="image" alt="Batch Operation"
-				   title="Moderate a batch of selected albums"
-				   src="/images/batch.gif"
-				   style="border: 0; height: 13px; width: 13px">
+            <form method="post" action="/mod/tag/donetag.html"
+                  name="BatchOp"
+                  enctype="application/x-www-form-urlencoded">
+%            for my $album (@albums) {
+                 <input type="hidden" name="AlbumId<% $album->GetId() %>" value="">
+%            }
 
-	    <script type="text/javascript">
-	    document.writeln('<\a href="#" onclick="document.forms.EditAlbumAttrsForm.submit(); return false">Batch Operation<\/a>');
-	    </script>
-	    <noscript>
-	    <input type="submit" value="Batch Operation">
-	    </noscript>
+	          <script type="text/javascript">
+   			 document.writeln('<\input type="image" alt="Batch Operation" title="Moderate a batch of selected albums" src="/images/batch.gif" style="border: 0; height: 13px; width: 13px"\>');
+	          document.writeln('<\a href="#" onclick="document.forms.BatchOp.submit(); return false">Batch Operation<\/a>');
+      	    </script>
+       </form>
 
 	    </td>
 %           }
@@ -344,7 +342,7 @@ $m->comp(
 % }
 						<td class="rname"><%
 								$nmp ? "<span class='mp'>" : "" |n
-							%><a href="/showalbum.html?albumid=<% $album->GetId %>"><% $album->GetName %></a><%
+							%><a href="/album/<% $album->GetMBId %>.html"><% $album->GetName %></a><%
 								$nmp ? "</span>" : "" |n
 						%></td>
 					</tr>
@@ -376,7 +374,6 @@ $m->comp(
 			$m->out("</table><br><br>") if $fCompact;
 
             </%perl>
-            </form>
             <%perl>
         }
     }

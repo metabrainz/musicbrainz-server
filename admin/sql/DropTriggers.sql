@@ -1,4 +1,5 @@
 DROP TRIGGER a_del_album ON album;
+DROP TRIGGER a_upd_album ON album;
 DROP TRIGGER a_ins_album ON album;
 DROP TRIGGER a_del_albumjoin ON albumjoin;
 DROP TRIGGER a_upd_albumjoin ON albumjoin;
@@ -14,5 +15,8 @@ DROP TRIGGER b_iu_release ON release;
 DROP TRIGGER a_ins_release ON release;
 DROP TRIGGER a_upd_release ON release;
 DROP TRIGGER a_del_release ON release;
+DROP TRIGGER a_ins_album_amazon_asin ON album_amazon_asin;
+DROP TRIGGER a_upd_album_amazon_asin ON album_amazon_asin;
+DROP TRIGGER a_del_album_amazon_asin ON album_amazon_asin;
 
 -- vi: set ts=4 sw=4 et :

@@ -30,6 +30,7 @@ DROP TABLE moderator_preference;
 DROP TABLE moderator_subscribe_artist;
 DROP TABLE country;
 DROP TABLE release;
+DROP TABLE album_amazon_asin;
 
 drop sequence album_id_seq;
 drop sequence albumjoin_id_seq;

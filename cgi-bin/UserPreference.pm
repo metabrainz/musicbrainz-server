@@ -117,6 +117,8 @@ our @allowed_timezones = (
 
 sub allowed_timezones { @allowed_timezones }
 
+sub allowed_amazon_stores { &DBDefs::AWS_ASSOCIATE_ID() }
+
 ################################################################################
 # Set up the list of valid preferences
 ################################################################################
@@ -135,11 +137,13 @@ addpref('nosidebar', 0, \&check_bool);
 addpref('no_sidebar_panels', 0, \&check_bool);
 addpref('releases_show_compact', 50, sub { check_int(1,100,@_) });
 addpref('reveal_address_when_mailing', 0, \&check_bool);
+addpref('show_amazon_coverart', 1, \&check_bool);
 addpref('sidebar_panel_search', 1, \&check_bool);
 addpref('sidebar_panel_stats', 1, \&check_bool);
 addpref('sidebar_panel_topmods', 1, \&check_bool);
 addpref('sitemenu_heavy', 0, \&check_bool);
 addpref('timezone', 'UTC', \&check_timezone);
+addpref('use_amazon_store', 'amazon.com', \&check_amazon_store);
 addpref('vote_abs_default', 1, \&check_bool);
 addpref('vote_show_novote', 0, \&check_bool);
 
@@ -199,6 +203,15 @@ sub check_timezone
 	my $value = shift;
 	$_->[0] eq $value and return $value
 		for @allowed_timezones;
+	undef;
+}
+
+sub check_amazon_store
+{
+	my $value = shift;
+
+	$_ eq $value and return $value
+		for allowed_amazon_stores();
 	undef;
 }
 

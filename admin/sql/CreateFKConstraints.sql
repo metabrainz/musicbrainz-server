@@ -147,4 +147,9 @@ ALTER TABLE release
     FOREIGN KEY (country)
     REFERENCES country(id);
 
+ALTER TABLE album_amazon_asin
+    ADD CONSTRAINT album_amazon_asin_fk_album
+    FOREIGN KEY (album)
+    REFERENCES album(id);
+
 -- vi: set ts=4 sw=4 et :

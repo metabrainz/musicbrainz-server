@@ -167,4 +167,30 @@ sub SESSION_DOMAIN { undef }
 sub APACHE_USER  { "nobody" }
 sub APACHE_GROUP { "nobody" }
 
+# Amazon associate and developer ids
+# #my %amazon_store_associate_ids = (
+# #    'amazon.ca' => 'musicbrainz0a-20',
+# #    'amazon.co.jp' => 'musicbrainz-22',
+# #    'amazon.co.uk' => 'musicbrainz-21',
+# #    'amazon.com' => 'musicbrainz-20',
+# #    'amazon.de' => 'musicbrainz02-21',
+# #    'amazon.fr' => 'musicbrainz01-21'
+# #);
+
+# Neutered until we have a non-profit company
+my %amazon_store_associate_ids = (
+        'amazon.ca' => '',
+        'amazon.co.jp' => '',
+        'amazon.co.uk' => '',
+        'amazon.com' => '',
+        'amazon.de' => '',
+        'amazon.fr' => ''
+        );
+
+sub AWS_ASSOCIATE_ID 
+{ 
+    return (defined $_[0]) ? $amazon_store_associate_ids{$_[0]} : (keys %amazon_store_associate_ids);
+}
+sub AWS_DEVELOPER_ID { "D1TBI5FHXK38IE" }
+
 1;

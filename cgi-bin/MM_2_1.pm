@@ -32,6 +32,7 @@ use Discid;
 use Artist;
 use MM;
 use TaggerSupport;
+use MusicBrainz::Server::Release;
 use Carp qw( carp cluck croak confess );
 
 use vars qw(@ISA @EXPORT);
@@ -50,6 +51,13 @@ sub GetMMNamespace
     my ($this) = @_;
 
     return "http://musicbrainz.org/mm/mm-2.1#";
+}
+
+sub GetAZNamespace
+{
+    my ($this) = @_;
+
+    return "http://www.amazon.com/gp/aws/landing.html#";
 }
 
 # Return the RDF representation of the Artist
@@ -90,12 +98,16 @@ sub OutputAlbumRDF
 {
     my ($this, $ref) = @_;
     my ($out, $album, $track, $artist, $ids, $i, $attr);
+	 my (@releases, $releasedate);
 
     return "" if (!defined $this->GetBaseURI());
 
     $album = $ref->{obj};
-
     $artist = $this->GetFromCache('artist', $album->GetArtist()); 
+
+    @releases = $album->Releases;
+    my $country_obj = MusicBrainz::Server::Country->new($album->{DBH})
+       if @releases;
 
     $out  = $this->BeginDesc("mm:Album", $this->GetBaseURI() .
                             "/album/" . $album->GetMBId());
@@ -150,6 +162,41 @@ sub OutputAlbumRDF
            $out .= $this->Element("mm:releaseStatus", "", "rdf:resource", $this->GetMMNamespace() . 
                                   "Status" . $album->GetAttributeName($attr));
         }
+    }
+
+    if (@releases)
+    {
+        $out .= $this->BeginDesc("mm:releaseDateList");
+        $out .= $this->BeginSeq();
+        for my $rel (@releases)
+        {
+             my $cid = $rel->GetCountry;
+             my $c = $country_obj->newFromId($cid);
+             my ($year, $month, $day) = $rel->GetYMD();
+        
+             $releasedate = $year;
+             $releasedate .= sprintf "-%02d", $month if ($month != 0);
+             $releasedate .= sprintf "-%02d", $day if ($day != 0);
+             $out .= $this->BeginElement("rdf:li");
+             $out .= $this->BeginElement("mm:ReleaseDate");
+             $out .= $this->Element("dc:date", $releasedate);
+             $out .= $this->Element("mm:country", $c ? $c->GetISOCode : "?");
+             $out .= $this->EndElement("mm:ReleaseDate");
+             $out .= $this->EndElement("rdf:li");
+         }
+         $out .= $this->EndSeq();
+         $out .= $this->EndDesc("mm:releaseDateList");
+    }
+
+    my $asin = $album->GetAsin();
+    if ($asin)
+    {
+        $out .= $this->Element("az:Asin", $asin);
+    }
+    my $coverart = $album->GetCoverartURL();
+    if ($coverart)
+    {
+        $out .= $this->Element("mm:coverart", "", "rdf:resource", $coverart);
     }
 
     if (exists $ref->{_album})

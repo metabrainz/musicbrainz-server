@@ -50,6 +50,13 @@ sub GetMMNamespace
     return "http://musicbrainz.org/mm/mm-2.0#";
 }
 
+sub GetAZNamespace
+{
+    my ($this) = @_;
+
+    return "http://www.amazon.com/gp/aws/landing.html#";
+}
+
 # Return the RDF representation of the Artist
 sub OutputArtistRDF
 {
