@@ -30,8 +30,9 @@ use Artist;
 use ModDefs;
 use Sql;
 
-# create table AlbumAttributeJoin ( Id serial primary key, Album int not null references Album, Attr int not null); 
-# create index AlbumAttributeJoin_AlbumIndex on AlbumAttributeJoin (Album);
+# alter table album add column Attributes int[];
+# alter table album alter column Attributes set default '{0}';
+# update album set attributes = '{0}';
 
 sub CreateTables
 {
@@ -65,7 +66,8 @@ sub CreateTables
                        Artist int not null references Artist,
                        Name varchar(255) not null,
                        GID char(36) not null, 
-                       ModPending int default 0)| )
+                       ModPending int default 0,
+                       Attributes int[] default '{0}')| )
               or die("Cannot create Album table");
             
         print "Created Album table.\n";
@@ -91,14 +93,6 @@ sub CreateTables
               or die("Cannot create AlbumJoin table");
 
         print "Created AlbumJoin table.\n";
-
-        $sql->Do(qq|create table AlbumAttributeJoin (
-                       Id serial primary key,
-                       Album int not null references Album,
-                       Attr int not null)|)
-              or die("Cannot create AlbumAttributeJoin table");
-
-        print "Created AlbumAttributeJoin table.\n";
 
         $sql->Do(qq|create table TRM (
                        Id serial primary key,
@@ -342,11 +336,6 @@ sub CreateIndices
         $sql->Do(qq|create index AlbumJoin_TrackIndex on AlbumJoin (Track)|)
               or die("Could not add indices to AlbumJoin table");
         print "Added indices to AlbumJoin table.\n";
-
-        $sql->Do(qq|create index AlbumAttributeJoin_AlbumIndex on 
-                                 AlbumAttributeJoin (Album)|)
-              or die("Could not add indices to AlbumAttributeJoin table");
-        print "Added indices to AlbumAttributeJoin table.\n";
 
         $sql->Do(qq|create unique index Discid_DiscIndex on Discid (Disc)|)
               or die("Could not add indices to Discid table");

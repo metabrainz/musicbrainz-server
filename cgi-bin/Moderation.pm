@@ -314,7 +314,8 @@ sub IsAutoModType
         $type == ModDefs::MOD_ADD_ARTIST ||
         $type == ModDefs::MOD_ADD_TRACK_KV ||
         $type == ModDefs::MOD_MOVE_DISCID ||
-        $type == ModDefs::MOD_REMOVE_TRMID)
+        $type == ModDefs::MOD_REMOVE_TRMID ||
+        $type == ModDefs::MOD_EDIT_ALBUMATTRS)
     {
         return 1;
     }
@@ -471,6 +472,10 @@ sub CreateModerationObject
    {
        return RemoveAlbumsModeration->new($this->{DBH});
    }
+   elsif ($type == ModDefs::MOD_EDIT_ALBUMATTRS)
+   {
+       return EditAlbumAttributesModeration->new($this->{DBH});
+   }
 
    print STDERR "Undefined moderation type $type.\n";
 
@@ -540,8 +545,16 @@ sub InsertModeration
         # Not automoded, so set the modpending flags
         if ($this->{table} ne 'TRMJoin')
         {
-            $sql->Do(qq/update $this->{table} set modpending = modpending + 1 
-                        where id = $this->{rowid}/);
+            if ($this->{table} eq 'Album' && $this->{column} eq 'Attributes')
+            {
+                $sql->Do(qq/update $this->{table} set attributes[1] = 
+                            attributes[1] + 1 where id = $this->{rowid}/);
+            }
+            else
+            {
+                $sql->Do(qq/update $this->{table} set modpending = 
+                            modpending + 1 where id = $this->{rowid}/);
+            }
         }
     }
 

@@ -858,3 +858,97 @@ sub ApprovedAction
 sub DeniedAction
 {
 }
+
+package EditAlbumAttributesModeration;
+use vars qw(@ISA);
+@ISA = 'Moderation';
+
+sub ShowPreviousValue
+{
+   my ($this) = @_;
+   my ($nw, $text, $value);
+   
+   $nw = $this->ConvertNewToHash($this->{new});
+   $text = "<b>Album:</b> <a href=\"/showalbum.html?albumid=" . $this->{rowid} .
+           "\">" . $nw->{AlbumName} .  "</a><br>Old: ";
+   $value = $this->ConvertToText(split /,/, $this->{prev});
+   $value = "None" if ($value eq '');
+   return $text . $value;
+}
+
+sub ShowNewValue
+{
+   my ($this) = @_;
+   my ($nw, $key, $text, $value);
+   
+   $nw = $this->ConvertNewToHash($this->{new});
+   $value = $this->ConvertToText(split /,/, $nw->{Attributes});
+   $value = "None" if ($value eq '');
+   return "New: " . $value
+}
+
+sub ConvertToText
+{
+   my $this = shift;
+   my ($text, $al, $num);
+
+   $al = Album->new($this->{DBH});
+   while(defined($num = shift))
+   {
+       $text .= $al->GetAttributeName($num) . ", ";
+   }
+   chop($text);
+   chop($text);
+
+   return $text;
+}
+
+sub DetermineDependencies
+{
+}
+
+sub PreVoteAction
+{
+   my ($this) = @_;
+   my ($nw, $key, $text);
+
+   $nw = $this->ConvertNewToHash($this->{new});
+
+   $text = "Attributes=";
+   foreach $key (sort { $a <=> $b } keys %{$nw})
+   {
+      if ($key =~ /^\d+$/)
+      {
+          $text .= $key . ",";
+      }
+   }
+   chop($text);
+   $text .= "\nAlbumName=$nw->{AlbumName}\n";
+   $this->{new} = $text;
+
+   return 1;
+}
+
+#returns STATUS_XXXX
+sub ApprovedAction
+{
+   my ($this) = @_;
+   my ($nw, $key, $text, @attrs, $al);
+
+   $nw = $this->ConvertNewToHash($this->{new});
+   @attrs = split /,/, $nw->{Attributes};
+
+   $al = Album->new($this->{DBH});
+   $al->SetId($this->{rowid});
+   $al->SetAttributes(@attrs);
+   if (defined $al->UpdateAttributes($nw->{Attributes}))
+   {
+        return ModDefs::STATUS_APPLIED;
+   }
+   return ModDefs::STATUS_FAILEDDEP;
+}
+
+#returns nothing
+sub DeniedAction
+{
+}

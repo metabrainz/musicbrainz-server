@@ -6,7 +6,7 @@ sub CheckKVArg
 
     if (!defined($args->{$name}))
     {
-#       print STDERR "enter_kv_mod: $name not defined\n";
+       #print STDERR "enter_kv_mod: $name not defined\n";
        return 0;
     }
     return 1;
@@ -24,101 +24,108 @@ if (!exists $ARGS{confirm0} || $ARGS{confirm0} eq 'yes')
 
    #print STDERR "Sanity check\n";
    if (CheckKVArg(\%ARGS, 'column') &&
-       CheckKVArg(\%ARGS, 'key0') &&
-       CheckKVArg(\%ARGS, 'value0') &&
        CheckKVArg(\%ARGS, 'prev') &&
        CheckKVArg(\%ARGS, 'artist') &&
        CheckKVArg(\%ARGS, 'type') &&
        CheckKVArg(\%ARGS, 'table') &&
        CheckKVArg(\%ARGS, 'id')) 
    {
-       for($i = 0;; $i++)
+       my $mx = scalar(keys %ARGS);
+       $new = undef;
+       for($i = 0; $i < $mx; $i++)
        {
            my $value;
-           last if (!exists $ARGS{"key$i"} || !exists $ARGS{"value$i"});
+           next if (!exists $ARGS{"key$i"} || !exists $ARGS{"value$i"});
 
            $value = $ARGS{"value$i"};
            $value =~ s/^\s*(.*?)\s*$/$1/;
            $new .= $ARGS{"key$i"} . "=$value\n";
        }
 
-       #print STDERR "$new\n\n";
-       #print STDERR join(" - ", $ARGS{'table'}, 
-       #   $ARGS{'column'}, $ARGS{'artist'}, 
-       #   $ARGS{'type'}, $ARGS{'id'},
-       #   $ARGS{'prev'}, $new, $session{uid}) . "\nNew:\n$new\n";
-
-       $mod = Moderation->new($mb->{DBH});
-       $mod = $mod->CreateModerationObject($ARGS{'type'});
-       if (defined $mod)
+       if (defined $new)
        {
-           $mod->SetTable($ARGS{'table'});
-           $mod->SetColumn($ARGS{'column'});
-           $mod->SetArtist($ARGS{'artist'});
-           $mod->SetType($ARGS{'type'});
-           $mod->SetRowId($ARGS{'id'});
-           $mod->SetPrev($ARGS{'prev'});
-           $mod->SetNew($new);
-           $mod->SetModerator($session{uid});
-           $mod->SetDepMod(0);
+           #print STDERR "new: $new\n\n";
+           #print STDERR join(" - ", $ARGS{'table'}, 
+           #   $ARGS{'column'}, $ARGS{'artist'}, 
+           #   $ARGS{'type'}, $ARGS{'id'},
+           #   $ARGS{'prev'}, $new, $session{uid}) . "\nNew:\n$new\n";
 
-           eval
+           $mod = Moderation->new($mb->{DBH});
+           $mod = $mod->CreateModerationObject($ARGS{'type'});
+           if (defined $mod)
            {
-               $sql->Begin;
-       
-               # Do the prevote action (like insert data)
-               if (!$mod->PreVoteAction())
+               $mod->SetTable($ARGS{'table'});
+               $mod->SetColumn($ARGS{'column'});
+               $mod->SetArtist($ARGS{'artist'});
+               $mod->SetType($ARGS{'type'});
+               $mod->SetRowId($ARGS{'id'});
+               $mod->SetPrev($ARGS{'prev'});
+               $mod->SetNew($new);
+               $mod->SetModerator($session{uid});
+               $mod->SetDepMod(0);
+
+               eval
                {
-                   # If the PreVoteAction, failed, give the user an error.
-                   mc_comp("/comp/sidebar", title=>"Insert moderation error",
-                           expand=>'moderate');
-    
-                   mc_out("<p>Insert moderation error: ");
-                   if (defined $mod->GetError())
+                   $sql->Begin;
+           
+                   # Do the prevote action (like insert data)
+                   if (!$mod->PreVoteAction())
                    {
-                       mc_out($mod->GetError());
+                       # If the PreVoteAction, failed, give the user an error.
+                       mc_comp("/comp/sidebar", title=>"Insert moderation error",
+                               expand=>'moderate');
+           
+                       mc_out("<p>Insert moderation error: ");
+                       if (defined $mod->GetError())
+                       {
+                           mc_out($mod->GetError());
+                       }
+                       else
+                       {
+                           mc_out("Unknown error.\n");
+                       }
+                       mc_comp("/comp/footer");
+                       return undef;
                    }
-                   else
+           
+                   # And now determine if there are any dependencies
+                   $mod->DetermineDependencies();
+           
+                   # Go to the item that we just inserted...
+                   if ($mod->GetType() == ModDefs::MOD_ADD_ALBUM)
                    {
-                       mc_out("Unknown error.\n");
+                       if ($mod->GetNew() =~ /^AlbumId=(.*)$/m)
+                       {
+                          $ARGS{url} = "/showalbum.html?albumid=$1";
+                       }
                    }
+                   if ($mod->GetType() == ModDefs::MOD_ADD_ARTIST)
+                   {
+                       if ($mod->GetNew() =~ /^ArtistId=(.*)$/m)
+                       {
+                          $ARGS{url} = "/showartist.html?artistid=$1";
+                       }
+                   }
+                   $modid = $mod->InsertModeration($session{privs});
+           
+                   $sql->Commit;
+               };
+               if ($@)
+               {
+                   my $err = $@;
+
+                   $sql->Rollback;
+                   mc_comp("/comp/sidebar", expand=>"moderation", 
+                                           title=>'Moderation Error');
+                   mc_out("<b>A database error occurred.</b><pre>($err)</pre>");
                    mc_comp("/comp/footer");
                    return undef;
                }
-    
-               # And now determine if there are any dependencies
-               $mod->DetermineDependencies();
-    
-               # Go to the item that we just inserted...
-               if ($mod->GetType() == ModDefs::MOD_ADD_ALBUM)
-               {
-                   if ($mod->GetNew() =~ /^AlbumId=(.*)$/m)
-                   {
-                      $ARGS{url} = "/showalbum.html?albumid=$1";
-                   }
-               }
-               if ($mod->GetType() == ModDefs::MOD_ADD_ARTIST)
-               {
-                   if ($mod->GetNew() =~ /^ArtistId=(.*)$/m)
-                   {
-                      $ARGS{url} = "/showartist.html?artistid=$1";
-                   }
-               }
-               $modid = $mod->InsertModeration($session{privs});
-    
-               $sql->Commit;
-           };
-           if ($@)
-           {
-               my $err = $@;
-
-               $sql->Rollback;
-               mc_comp("/comp/sidebar", expand=>"moderation", 
-                                       title=>'Moderation Error');
-               mc_out("<b>A database error occurred.</b><pre>($err)</pre>");
-               mc_comp("/comp/footer");
-               return undef;
            }
+       }
+       else
+       {
+           print STDERR "enter_kv_mod: no valid key/value pairs passed.\n";
        }
    }
    $mb->Logout();

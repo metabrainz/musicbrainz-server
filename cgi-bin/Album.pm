@@ -39,34 +39,34 @@ use TRM;
 use SearchEngine;
 use ModDefs;
 
+use constant ALBUM_ATTR_NONALBUMTRACKS => 0;
 use constant ALBUM_ATTR_ALBUM          => 1;
-use constant ALBUM_ATTR_NONALBUMTRACKS => 2;
-use constant ALBUM_ATTR_SINGLE         => 3;
-use constant ALBUM_ATTR_EP             => 4;
-use constant ALBUM_ATTR_COMPILATION    => 5;
-use constant ALBUM_ATTR_BOOTLEG        => 6;
-use constant ALBUM_ATTR_SOUNDTRACK     => 7;
-use constant ALBUM_ATTR_SPOKENWORD     => 8;
-use constant ALBUM_ATTR_AUDIOBOOK      => 9;
-use constant ALBUM_ATTR_INTERVIEW      => 10;
-use constant ALBUM_ATTR_CONCERT        => 11;
-use constant ALBUM_ATTR_LIVE           => 12;
-use constant ALBUM_ATTR_PROMOTION      => 13;
+use constant ALBUM_ATTR_SINGLE         => 2;
+use constant ALBUM_ATTR_EP             => 3;
+use constant ALBUM_ATTR_COMPILATION    => 4;
+use constant ALBUM_ATTR_BOOTLEG        => 5;
+use constant ALBUM_ATTR_SOUNDTRACK     => 6;
+use constant ALBUM_ATTR_SPOKENWORD     => 7;
+use constant ALBUM_ATTR_AUDIOBOOK      => 8;
+use constant ALBUM_ATTR_INTERVIEW      => 9;
+use constant ALBUM_ATTR_CONCERT        => 10;
+use constant ALBUM_ATTR_LIVE           => 11;
+use constant ALBUM_ATTR_PROMOTION      => 12;
 
 my %AlbumAttributeNames = (
+    0 => "Non Album Tracks",
     1 => "Album",
-    2 => "Non Album Tracks",
-    3 => "Single",
-    4 => "EP",
-    5 => "Compilation",
-    6 => "Bootleg",
-    7 => "Soundtrack",
-    8 => "Spokenword",
-    9 => "Audiobook",
-    10 => "Interview",
-    11 => "Concert",
-    12 => "Live",
-    13 => "Promotion"
+    2 => "Single",
+    3 => "EP",
+    4 => "Compilation",
+    5 => "Bootleg",
+    6 => "Soundtrack",
+    7 => "Spokenword",
+    8 => "Audiobook",
+    9 => "Interview",
+    10 => "Concert",
+    11 => "Live",
+    12 => "Promotion"
 );
 
 sub new
@@ -95,12 +95,28 @@ sub GetAttributeName
 
 sub GetAttributes
 {
-   return $_[0]->{attrs};
+   my @attrs = @{ $_[0]->{attrs }};
+
+   # Shift off the mod pending indicator
+   shift @attrs;
+
+   return @attrs;
+}
+
+sub SetAttributes
+{
+   my $this = shift @_;
+   $this->{attrs} = [ shift @{ $this->{attrs }}, @_ ];
 }
 
 sub GetAttributeList
 {
    return \%AlbumAttributeNames;
+}
+
+sub GetAttributeModPending
+{
+   return ${$_[0]->{attrs}}[0]
 }
 
 # Insert an album that belongs to this artist. The Artist object should've
@@ -272,12 +288,14 @@ sub LoadFromId
    $sql = Sql->new($this->{DBH});
    if (defined $this->GetId())
    {
-        @row = $sql->GetSingleRow("Album", [qw(id name GID modpending artist)],
+        @row = $sql->GetSingleRow("Album", [qw(id name GID modpending 
+                                               artist attributes)],
                                   ["id", $this->{id}]);
    }
    else
    {
-        @row = $sql->GetSingleRow("Album", [qw(id name GID modpending artist)],
+        @row = $sql->GetSingleRow("Album", [qw(id name GID modpending 
+                                               artist attributes)],
                                   ["gid", $sql->Quote($this->GetMBId())]);
    }
 
@@ -288,35 +306,11 @@ sub LoadFromId
         $this->{mbid} = $row[2];
         $this->{modpending} = $row[3];
         $this->{artist} = $row[4]; 
-        $this->{attrs} = undef;
+        $row[5] =~ s/^\{(.*)\}$/$1/;
+        $this->{attrs} = [ split /,/, $row[5] ];
         return 1;
    }
    return undef;
-}
-
-sub LoadAttrs
-{
-   my ($this) = @_;
-   my (@row, $sql, @data);
-
-   $sql = Sql->new($this->{DBH});
-   if ($sql->Select(qq|select Attr 
-                         from AlbumAttributeJoin 
-                        where album = | . $this->{id} . qq|
-                     order by Attr|))
-   {
-       while(@row = $sql->NextRow)
-       {
-          push @data, $row[0];
-       }
-       $this->{attrs} = \@data;
-       return scalar(@data);
-   }
-   else
-   {   
-       $this->{attrs} = undef;
-       return undef;
-   }
 }
 
 # This function returns a list of album ids for a given artist and album name.
@@ -620,4 +614,14 @@ sub GetVariousDisplayList
    }
 
    return ($num_albums, @info);
+}
+
+sub UpdateAttributes
+{
+   my ($this) = @_;
+   my ($sql, $attr);
+
+   $attr = join ',', @{ $this->{attrs }};
+   $sql = Sql->new($this->{DBH});
+   $sql->Do("update Album set Attributes = '{$attr}' where id = $this->{id}");
 }

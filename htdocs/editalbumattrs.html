@@ -2,7 +2,8 @@
 
 <%perl>
 
-my ($mb, $id, $modpending, $al, $artist, $attr, $attrlist, @attrs, $prev); 
+my ($mb, $id, $modpending, $al, $artist, $attr, 
+    $attrlist, @attrs, $prev, $index); 
 
 if (!exists $ARGS{id} || $ARGS{id} eq '' ||
     !exists $ARGS{artist} || $ARGS{artist} eq '')
@@ -19,16 +20,10 @@ $al = Album->new($mb->{DBH});
 $al->SetId($id);
 $al->LoadFromId();
 
-@attrs = ();
 $prev = "";
-if (defined $al->LoadAttrs())
-{
-    @attrs = sort { $a <=> $b} @{$al->GetAttributes()};
-    $prev = join ',', @attrs;
-}
-
-$modpending = $al->GetModPending();
-
+@attrs = sort { $a <=> $b} $al->GetAttributes();
+$prev = join ',', @attrs;
+$modpending = $al->GetAttributeModPending();
 $attrlist = $al->GetAttributeList();
 
 </%perl>
@@ -40,28 +35,38 @@ $attrlist = $al->GetAttributeList();
     <& /comp/tableend &>
 % } else {
 
+% if ($modpending) {
+    <& /comp/modpending &>
+% } 
+
+    <p>
     Select or deselect the appropriate album attributes below and then 
     click on Submit.<p>
 
     Album <b><% $al->GetName() %></b>:<br>
 
-    <FORM METHOD="POST" ACTION="/bare/enter_mod.html" NAME="EditAlbumAttrsForm"
+    <FORM METHOD="POST" ACTION="/bare/enter_kv_mod.html" 
+          NAME="EditAlbumAttrsForm"
           ENCTYPE="application/x-www-form-urlencoded">  
     <table width="100%">
       <tr>
         <td>
         <blockquote>
         <%perl>
+        $index = 1;
         foreach $attr (sort { $a <=> $b } keys %$attrlist)
         {
             next if ($attr == Album::ALBUM_ATTR_NONALBUMTRACKS);
-            mc_out("<input type=\"checkbox\" name=\"a$attr\"");
+            mc_out("<input type=\"checkbox\" name=\"value$index\"");
             if (scalar(@attrs) > 0 && $attrs[0] == $attr)
             {
                 mc_out(" CHECKED");
                 shift @attrs;
             }
-            mc_out("> $attrlist->{$attr}<br>");
+            mc_out("> $attrlist->{$attr}");
+            mc_out("<input type=\"hidden\" name=\"key$index\"");
+            mc_out(" value=\"$attr\"><br>\n");
+            $index++;
         }
         </%perl>
         </blockquote>
@@ -74,12 +79,14 @@ $attrlist = $al->GetAttributeList();
         </td>
       </tr>
     </table>
+    <input type="hidden" name="key0" value="AlbumName">
+    <input type="hidden" name="value0" value="<% $al->GetName() %>">
     <input type="hidden" name="artist" value="<% $artist %>">
     <input type="hidden" name="type" 
            value="<% ModDefs::MOD_EDIT_ALBUMATTRS %>">
     <input type="hidden" name="prev" value="<% $prev  %>">
     <input type="hidden" name="table" value="Album">
-    <input type="hidden" name="column" value="Name">
+    <input type="hidden" name="column" value="Attributes">
     <input type="hidden" name="id" value="<% $id %>">
     <input type="hidden" 
            name="url" value="/showalbum.html?albumid=<% $id %>">

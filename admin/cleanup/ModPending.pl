@@ -25,9 +25,9 @@
 use lib "../../cgi-bin";
 use DBI;
 use DBDefs;
-use MusicBrainz;
+#use MusicBrainz;
 use ModDefs;
-use Moderation;
+#use Moderation;
 require "Main.pl";
 
 my $count = 0;
@@ -47,6 +47,8 @@ sub Cleanup
 
    print("update Album set modpending = 0\n") if (!$quiet);
    $dbh->do("update Album set modpending = 0") if ($fix);
+   print("update Album set attributes[1] = 0\n") if ($fix);
+   $dbh->do("update Album set attributes[1] = 0") if ($fix);
 
    print("update Discid set modpending = 0\n") if (!$quiet);
    $dbh->do("update Discid set modpending = 0") if ($fix);

@@ -352,8 +352,10 @@ sub GetAlbums
 
    # First, pull in the single artist albums
    $sql = Sql->new($this->{DBH});
-   if ($sql->Select(qq/select id, name, modpending, GID from 
-                       Album where artist=$this->{id} order by upper(name), name/))
+   if ($sql->Select(qq/select id, name, modpending, GID, attributes 
+                         from Album 
+                        where artist=$this->{id} 
+                     order by upper(name), name/))
    {
         while(@row = $sql->NextRow)
         {
@@ -363,6 +365,8 @@ sub GetAlbums
             $album->SetModPending($row[2]);
             $album->SetArtist($this->{id});
             $album->SetMBId($row[3]);
+            $row[4] =~ s/^\{(.*)\}$/$1/;
+            $album->{attrs} = [ split /,/, $row[4] ];
             push @albums, $album;
             undef $album;
         }
@@ -370,12 +374,16 @@ sub GetAlbums
    }
 
    # then, pull in the multiple artist albums
-   if ($sql->Select(qq/select distinct AlbumJoin.album, Album.name, 
-       Album.modpending, Album.gid, upper(Album.name) from Track, Album, AlbumJoin 
-       where Track.Artist = 
-       $this->{id} and AlbumJoin.track = Track.id and AlbumJoin.album = 
-       Album.id and Album.artist = / . ModDefs::VARTIST_ID ." order by 
-       upper(Album.name), Album.name"))
+   if ($sql->Select(qq/select distinct on (AlbumJoin.album) AlbumJoin.album,
+                              Album.name, 
+                              Album.modpending, Album.gid, Album.attributes, 
+                              upper(Album.name) 
+                         from Track, Album, AlbumJoin 
+                        where Track.Artist = $this->{id} and 
+                              AlbumJoin.track = Track.id and 
+                              AlbumJoin.album = Album.id and 
+                              Album.artist = / . ModDefs::VARTIST_ID .qq/ 
+                     order by AlbumJoin.album, upper(Album.name), Album.name/))
    {
         while(@row = $sql->NextRow)
         {
@@ -385,6 +393,8 @@ sub GetAlbums
             $album->SetModPending($row[2]);
             $album->SetArtist(ModDefs::VARTIST_ID);
             $album->SetMBId($row[3]);
+            $row[4] =~ s/^\{(.*)\}$/$1/;
+            $album->{attrs} = [ split /,/, $row[4] ];
             push @albums, $album;
             undef $album;
         }
