@@ -222,6 +222,12 @@ my %all_types = reverse %{ ModDefs->type_as_hashref };
 					<input type="text" name="maxid" size="20" maxlength="30"
 						value="<% $filter->{'maxid'}||'' %>">
 				</p>
+				<p style="font-color: #666; font-size: 75%">
+					Examples of valid dates / times include: yesterday;
+					monday 5pm; 17:22 PST wednesday; 3 Nov; April 7; 3/11 (which can be
+					either March 11th or 3rd November, depending on your preferred
+					date/time format); 7pm CET jan 2 2005.
+				</p>
 			</td>
 		</tr>
 		<tr>
