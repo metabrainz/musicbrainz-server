@@ -1,0 +1,133 @@
+<%perl>
+
+# This script is designed as a pass-through script. All the data passed
+# in gets passed along unmodified, with the exception of the artistfield.
+# Which field/var to use, depends on the mode -- normally argument
+# new0 should be used, except for the add track to MAC case.
+# $argname specifies the name of the argument to perform the artist search on
+# $dest_argname is the name of the argument where the sortname of a new
+#               artist should be stored.
+
+my ($mb, $ar, $key, @albums, $found_tracks, $found_id, $num);
+
+mc_comp("/comp/sidebar", title=>'Add Album');
+
+if (!exists $ARGS{key0} || $ARGS{key0} eq '' ||
+    !exists $ARGS{value0} || $ARGS{value0} eq '' ||
+    !exists $ARGS{key1} || $ARGS{key1} eq '' ||
+    !exists $ARGS{value1} || $ARGS{value1} eq '')
+{
+    mc_comp("/comp/badargs");
+    return;
+}
+
+
+$mb = new MusicBrainz;
+$mb->Login();
+
+$ar = Artist->new($mb->{DBH});
+$ar->SetId($ARGS{artist0});
+if (!defined $ar->LoadFromId())
+{
+    mc_comp("/comp/badargs");
+    return;
+}
+
+@albums = $ar->GetAlbums();
+if (scalar @albums > 0)
+{
+    my ($album);
+
+    foreach $album (@albums)
+    {
+       if ($ARGS{value0} eq $album->GetName())
+       {
+          $found_tracks = $album->GetTrackCount();
+          $found_id = $album->GetId();
+       }
+    }
+}
+
+</%perl>
+
+% if (!defined $session{user} || $session{user} eq '') {
+    You must be logged in to edit the database.<p>
+    <& /comp/tablebegin, title=>'Login' &>
+    <& /comp/loginbox &>
+    <& /comp/tableend &>
+% } else {
+
+    <& /comp/tablebegin, gattrs=>"width=\"100%\"", title=>'Add Tracks' &>
+
+    <form method="POST" action="/bare/enter_mod.html" NAME="AddAlbumTracks"
+          enctype="application/x-www-form-urlencoded" class="formstyle">
+
+
+    <table>
+% if (defined $found_id) {
+
+      <tr>
+        <td colspan="2">
+          The artist <font class="bold"><% $ar->GetName() %></font> already
+          has an album called <font class="bold"><% $ARGS{value0} %></font>
+          which contains <font class="bold"><% $found_tracks %></font> tracks.
+          <p>
+          If you are certain that you need to add another album with the
+          same name, then fill out the form below and click Finish &gt;&gt;.
+          Otherwise, check out album 
+          <a href="/showalbum.html?albumid=<% $found_id %>"><% $ARGS{value0} %></a>.<p>
+        </td>
+      </tr>
+% }
+      <tr>
+        <td align="right" valign="top">
+        Artist:
+        </td>
+        <td>
+        <% $ar->GetName() %>
+        </td>
+      </tr>
+      <tr>
+        <td align="right" valign="top">
+        Album:
+        </td>
+        <td>
+        <% $ARGS{value0} %>
+        </td>
+      </tr>
+% for($num = 1; $num <= $ARGS{value1}; $num++) {
+      <tr>
+        <td align="right" valign="top">
+        Track <% $num %>:
+        </td>
+        <td>
+        <INPUT TYPE="text" NAME="value<% ($num + 1) %>" SIZE=25>
+        <INPUT TYPE="hidden" NAME="key<% ($num + 1) %>" 
+               value="track<% $num %>" SIZE=25>
+        </td>
+      </tr>
+% }
+      <tr>
+        <td>
+        &nbsp;
+        </td>
+        <td>
+        <input type="submit" value="Finish >>" name="Finish">
+        </td>
+      </tr>
+    </table>
+
+    </form>
+    <& /comp/tableend &>
+    <%perl>
+
+    foreach $key (keys %ARGS)
+    {
+    </%perl>
+        <input type="hidden" name="<% $key %>" value="<% $ARGS{$key} %>">
+    <%perl>
+    }
+}
+
+$mb->Logout();
+</%perl>
