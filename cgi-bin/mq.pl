@@ -263,7 +263,7 @@ else
    }
 }
 
-print STDERR "RDF: $rdfinput\n";
+#print STDERR "RDF: $rdfinput\n";
 
 if (!defined $rdf)
 {
