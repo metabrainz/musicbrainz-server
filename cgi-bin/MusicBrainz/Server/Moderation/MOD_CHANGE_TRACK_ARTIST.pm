@@ -72,14 +72,14 @@ sub CheckPrerequisites
 	$tr->SetId($rowid);
 	unless ($tr->LoadFromId)
 	{
-		$self->InsertNote(MODBOT_MODERATOR, "Track #$rowid has been deleted");
+		$self->InsertNote(MODBOT_MODERATOR, "This track has been deleted");
 		return STATUS_FAILEDDEP;
 	}
 
 	# Check that its artist has not changed
 	if ($tr->GetArtist != $self->GetArtist)
 	{
-		$self->InsertNote(MODBOT_MODERATOR, "Track #$rowid has already been moved to another artist");
+		$self->InsertNote(MODBOT_MODERATOR, "This track has already been moved to another artist");
 		return STATUS_FAILEDPREREQ;
 	}
 

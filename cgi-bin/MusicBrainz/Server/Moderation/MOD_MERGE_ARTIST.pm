@@ -86,21 +86,21 @@ sub CheckPrerequisites
 	$oldar->SetId($rowid);
 	unless ($oldar->LoadFromId)
 	{
-		$self->InsertNote(MODBOT_MODERATOR, "Artist #$rowid has been deleted");
+		$self->InsertNote(MODBOT_MODERATOR, "This artist has been deleted");
 		return STATUS_ERROR;
 	}
 
 	# Check to see that the old value is still what we think it is
 	unless ($oldar->GetName eq $prevval)
 	{
-		$self->InsertNote(MODBOT_MODERATOR, "Artist name has changed");
+		$self->InsertNote(MODBOT_MODERATOR, "This artist has already been renamed");
 		return STATUS_FAILEDPREREQ;
 	}
 
 	# You can't merge an artist into itself!
 	if ($oldar->GetId == $newar->GetId)
 	{
-		$self->InsertNote(MODBOT_MODERATOR, "Source and destination artists are the same");
+		$self->InsertNote(MODBOT_MODERATOR, "Source and destination artists are the same!");
 		return STATUS_ERROR;
 	}
 

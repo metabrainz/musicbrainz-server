@@ -64,19 +64,19 @@ sub CheckPrerequisites
 	$al->SetId($rowid);
 	unless ($al->LoadFromId)
 	{
-		$self->InsertNote(MODBOT_MODERATOR, "Album #$rowid has been deleted");
+		$self->InsertNote(MODBOT_MODERATOR, "This album has been deleted");
 		return STATUS_FAILEDDEP;
 	}
 
 	# Check that its artist has not changed
 	if ($al->GetArtist == VARTIST_ID)
 	{
-		$self->InsertNote(MODBOT_MODERATOR, "Album #$rowid has already been converted to multiple artists");
+		$self->InsertNote(MODBOT_MODERATOR, "This album has already been converted to multiple artists");
 		return STATUS_FAILEDPREREQ;
 	}
 	if ($al->GetArtist != $self->GetArtist)
 	{
-		$self->InsertNote(MODBOT_MODERATOR, "Album #$rowid is no longer associated with this artist");
+		$self->InsertNote(MODBOT_MODERATOR, "This album is no longer associated with this artist");
 		return STATUS_FAILEDDEP;
 	}
 

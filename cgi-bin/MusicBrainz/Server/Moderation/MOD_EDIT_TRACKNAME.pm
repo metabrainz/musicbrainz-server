@@ -67,14 +67,14 @@ sub CheckPrerequisites
 	$tr->SetId($rowid);
 	unless ($tr->LoadFromId)
 	{
-		$self->InsertNote(MODBOT_MODERATOR, "Track #$rowid has been deleted");
+		$self->InsertNote(MODBOT_MODERATOR, "This track has been deleted");
 		return STATUS_FAILEDDEP;
 	}
 
 	# Check that its name has not changed
 	if ($tr->GetName ne $self->GetPrev)
 	{
-		$self->InsertNote(MODBOT_MODERATOR, "Track #$rowid has already been renamed");
+		$self->InsertNote(MODBOT_MODERATOR, "This track has already been renamed");
 		return STATUS_FAILEDPREREQ;
 	}
 
