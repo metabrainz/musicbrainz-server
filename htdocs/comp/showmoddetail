@@ -10,7 +10,7 @@ my $my_mod = ($mod->GetModerator == $my_uid);
 my $my_vote = $mod->VoteFromUser($my_uid);
 my $is_open = ($mod->GetStatus == &ModDefs::STATUS_OPEN);
 
-my $see_votes = ($my_mod or not $is_open);
+my $see_votes = 1; # ($my_mod or not $is_open);
 
 my $opentime = $mod->GetOpenTime;
 $opentime = $opentime ? $m->comp("/comp/datetime", $opentime) : "?";
