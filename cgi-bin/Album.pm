@@ -630,39 +630,6 @@ sub Releases
 	$rel->newFromAlbum($self->GetId);
 }
 
-# Load albums for the given artist. Returns a reference to an array of references to
-# album objects, or undef if no albums or error
-sub LoadFull
-{
-   my ($this, $artist) = @_;
-   my (@info, $query, $sql, @row, $album, $ret);
-
-   $sql = Sql->new($this->{DBH});
-   $query = qq|select id, name, artist, gid 
-                 from Album 
-                where artist = ?
-                order by lower(name), name|;
-   if ($sql->Select($query, $artist) && $sql->Rows)
-   {
-       for(;@row = $sql->NextRow();)
-       {
-           $album = Album->new($this->{DBH});
-           $album->SetId($row[0]);
-           $album->SetName($row[1]);
-           $album->SetArtist($row[2]);
-           $album->SetMBId($row[3]);
-
-		   $album->GetTracks;
-		   $album->GetDiscIDs;
-
-           push @info, $album;
-       }
-   }
-   $sql->Finish;
-
-   @info ? \@info : undef;
-}
-
 sub GetDiscIDs
 {
 	my $self = shift;
