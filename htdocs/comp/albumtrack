@@ -53,13 +53,13 @@ $length_in_secs = int($track->GetLength() / 1000);
 % }
     </td>
 % }
-    <td width="10%" align="right" <% $tr_bgcolor |n %>>
+    <td width="10%" align="right" <% $tr_bgcolor |n %> nowrap>
 % if ($length_in_secs != 0) {
     <% int($length_in_secs / 60) %>:<% sprintf("%02d",($length_in_secs % 60)) %>
 % }
     </td>
 % if (exists $session{user} && !$nomod) {
-    <td width="15%" align=center>
+    <td width="15%" align=center nowrap>
        <a href="/edittrack.html?id=<% $track->GetId() %>&album=<% $album->GetId() %>&artist=<% $artist->GetId() %>">Edit</a>
        | <a href="/remtrack.html?id=<% $track->GetId() %>&album=<% $album->GetId() %>&artist=<% $artist->GetId() %>">Del</a>
     </td>

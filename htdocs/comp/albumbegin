@@ -63,7 +63,7 @@ if ($link ne '')
 %#           <% $check_box |n %>
 %#        </td>
 % if (exists $session{user} && !$nomod) {
-        <td width=15% bgcolor="#FFBA58" align=center>
+        <td width=15% bgcolor="#FFBA58" align=center nowrap>
           <a href="/editalbum.html?id=<% $albumid %>&artist=<% $artist->GetId() %>">Edit</a>
            | <a href="/remalbum.html?album=<% $albumid %>&artist=<% $artist->GetId() %>">Del</a>
         </td>
