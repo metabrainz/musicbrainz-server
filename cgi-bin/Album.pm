@@ -939,6 +939,23 @@ sub UpdateAttributes
 	);
 }
 
+sub UpdateAttributesModPending
+{
+	my ($self, $adjust) = @_;
+
+	my $id = $self->GetId
+		or croak "Missing album ID in UpdateAttributesModPending";
+	defined($adjust)
+		or croak "Missing adjustment in UpdateAttributesModPending";
+
+	my $sql = Sql->new($self->{DBH});
+	$sql->Do(
+		"UPDATE album SET attributes[1] = NUMERIC_LARGER(attributes[1]+?, 0) WHERE id = ?",
+		$adjust,
+		$id,
+	);
+}
+
 sub GetTrackSequence
 {
 	my ($this, $trackid) = @_;

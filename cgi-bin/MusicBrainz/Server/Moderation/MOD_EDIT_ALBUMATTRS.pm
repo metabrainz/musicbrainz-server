@@ -156,7 +156,6 @@ sub ConvertToText
 sub AdjustModPending
 {
 	my ($self, $adjust) = @_;
-	my $sql = Sql->new($self->{DBH});
 
 	# Prior to the ModerationClasses2 branch, the "mod pending" change would
 	# only be applied to the album listed in $self->GetRowId - which, in the
@@ -164,20 +163,12 @@ sub AdjustModPending
 	# for them was zero).
 	# Now though we apply the modpending change to all affected albums.
 
+	my $al = Album->new($self->{DBH});
+
 	for my $album (@{ $self->{'new_albums'} })
 	{
-		$sql->Do(
-			"UPDATE album SET attributes[1] = attributes[1] + ? WHERE id = ?",
-			$adjust,
-			$album->{'id'},
-		);
-
-		# ... and we allow for modpending to go negative (if it was never
-		# incremented in the first place), and fix it if it does.
-		$sql->Do(
-			"UPDATE album SET attributes[1] = 0 WHERE id = ? AND attributes[1] < 0",
-			$album->{'id'},
-		) if $adjust < 0;
+		$al->SetId($album->{'id'});
+		$al->UpdateAttributesModPending($adjust);
 	}
 }
 
