@@ -104,9 +104,21 @@ if ( defined $table && defined $search)
 %   while ( my $row = $engine->NextRow ) {
         <tr bgcolor="<% $bgcolor = ( $bgcolor eq '#ffffff' ? '#ffe1b7' : '#ffffff' ) %>">
 %       if ($engine->Table eq 'Album') {
+% if ($row->{tracks}) {
 			<td class="trk"><% $row->{tracks} %>&nbsp;<img src="/images/notes.gif" alt="Tracks"></td>
+% } else {
+			<td></td>
+% }
+% if ($row->{discids}) {
 			<td class="did"><% $row->{discids} %>&nbsp;<img src="/images/cd.gif" alt="disc ids"></td>
+% } else {
+			<td></td>
+% }
+% if ($row->{trmids}) {
 			<td class="trm"><% $row->{trmids} %>&nbsp;<img src="/images/trm.gif" alt="TRM ids"></td>
+% } else {
+			<td></td>
+% }
             <td><a href="/showalbum.html?albumid=<% $row->{'albumid'} %>"><% $row->{'albumname'} %></a></td> 
             <td><a href="/showartist.html?artistid=<% $row->{'artistid'} %>"><% $row->{'artistname'} %></a></td> 
 %       } elsif ($engine->Table eq 'Artist') {
