@@ -161,10 +161,7 @@ sub CreateDenseTrackList
        $al->SetId($ids[0]);
        $al->LoadFromId();
    
-       $this->AddToCache(1, 'artist', 
-                         $ar->GetId(), 
-                         $ar->GetMBId(), 
-                         $ar);
+       $this->AddToCache(0, 'artist', $ar);
 
        $out .= $this->OutputTrackRDF({ obj=>$tr }, $al) . "\n";
        $out .= $this->OutputArtistRDF({ obj=>$ar }) . "\n";
@@ -218,10 +215,7 @@ sub CreateDumpRDF
    $rdf = $this->BeginRDFObject();
    $rdf .= $this->OutputArtistRDF(\%ref) . "\n";
 
-   $this->AddToCache(0, 'artist', 
-                     $ar->GetId(), 
-                     $ar->GetMBId(), 
-                     $ar);
+   $this->AddToCache(1, 'artist', $ar);
 
    foreach $al (@albums)
    {
@@ -249,56 +243,55 @@ sub CreateDumpRDF
 # Check for duplicates, then add if not already in cache
 sub AddToCache
 {
-   my ($this, $curdepth, $type, $id, $mbid, $obj) = @_;
-   my (%item, $i, $cache, $ret);
+    my ($this, $curdepth, $type, $obj) = @_;
+    my (%item, $i, $cache, $ret);
 
-   return undef if (!defined $curdepth || !defined $type || !defined $obj);
-   return undef if (!defined $id && !defined $mbid);
+    return undef if (!defined $curdepth || !defined $type || !defined $obj);
 
-   # TODO: Probably best to use a hash for this, rather than scanning the
-   # list each time.
-   $cache = $this->{cache};
-   foreach $i (@$cache)
-   {
-      next if ($i->{type} ne $type);
-      if ((defined $id && exists $i->{id} && $i->{id} == $id) ||
-          (defined $mbid && exists $i->{mbid} && $i->{mbid} eq $mbid))
-      {
-          return $i->{obj} 
-      }
-   }
+    # TODO: Probably best to use a hash for this, rather than scanning the
+    # list each time.
+    $cache = $this->{cache};
+    foreach $i (@$cache)
+    {
+        next if ($i->{type} ne $type);
+        if ((exists $i->{id} && $i->{id} == $obj->GetId()) ||
+            (exists $i->{mbid} && $i->{mbid} eq $obj->GetMBId))
+        {
+            return $i;
+        }
+    }
 
-   $item{type} = $type;
-   $item{id} = $id;
-   $item{mbid} = $mbid;
-   $item{obj} = $obj;
-   $item{depth} = $curdepth;
-   $ret = \%item;
-   push @$cache, $ret;
+    $item{type} = $type;
+    $item{id} = $obj->GetId();
+    $item{mbid} = $obj->GetMBId();
+    $item{obj} = $obj;
+    $item{depth} = $curdepth;
+    $ret = \%item;
+    push @$cache, $ret;
 
-   return $ret;
+    return $ret;
 }
 
 # Get an object from the cache, given its id
 sub GetFromCache
 {
-   my ($this, $type, $id, $mbid) = @_;
-   my ($i, $cache);
+    my ($this, $type, $id, $mbid) = @_;
+    my ($i, $cache);
 
-   return undef if (!defined $type || !defined $id);
+    return undef if (!defined $type || (!defined $id && !defined $mbid));
 
-   # check to make sure this object does not already exist in the list
-   $cache = $this->{cache};
-   foreach $i (@$cache)
-   {
-      next if ($i->{type} ne $type);
-      if ((defined $id && exists $i->{id} && $i->{id} == $id) ||
-          (defined $mbid && exists $i->{mbid} && $i->{mbid} eq $mbid))
-      {
-          return $i->{obj} 
-      }
-   }
-   return undef;
+    # check to make sure this object does not already exist in the list
+    $cache = $this->{cache};
+    foreach $i (@$cache)
+    {
+        next if ($i->{type} ne $type);
+        if ((defined $id && exists $i->{id} && $i->{id} == $id) ||
+            (defined $mbid && exists $i->{mbid} && $i->{mbid} eq $mbid))
+        {
+            return $i->{obj} 
+        }
+    }
+    return undef;
 }
 
 sub FindReferences
@@ -324,16 +317,11 @@ sub FindReferences
       $obj = $this->GetFromCache($ref->{type}, $ref->{id}, $ref->{mbid});
       if (!defined $obj)
       {
-          #print STDERR "load\n";
           $obj = $this->LoadObject($ref->{id}, $ref->{mbid}, $ref->{type});
-      }
-      else
-      {
-          #print STDERR "cached\n";
       }
       next if (!defined $obj);
 
-      $cacheref = AddToCache($this, $curdepth, $ref->{type}, $ref->{id}, $ref->{mbid}, $obj);
+      $cacheref = $this->AddToCache($curdepth, $ref->{type}, $obj);
       if (defined $cacheref)
       {
            push @newrefs, $this->GetReferences($cacheref, $curdepth);

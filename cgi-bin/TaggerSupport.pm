@@ -562,7 +562,7 @@ sub TrackSearch
 
            if ($albumName ne '')
            {
-	       my $thisalbum = lc(decode "utf-8", $row[1]);
+	            my $thisalbum = lc(decode "utf-8", $row[1]);
                $namesim = similarity($thisalbum, $albumName);
            }
            if ($trackNum > 0 && $row[3] > 0 && $trackNum == $row[3])
@@ -584,7 +584,6 @@ sub TrackSearch
            $id->{album_tracks} = $row[5];
            $id->{album_discids} = $row[6];
            $id->{album_trmids} = $row[7];
-           $id->{albumid} = $row[0];
            $id->{albumid} = $row[0];
            $id->{artist} = $ar->GetName();
            $id->{artistmbid} = $ar->GetMBId();

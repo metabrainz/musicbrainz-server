@@ -698,4 +698,15 @@ sub UpdateAttributes
    $sql->Do("update Album set Attributes = '{$attr}' where id = $this->{id}");
 }
 
+sub GetTrackSequence
+{
+   my ($this, $trackid) = @_;
+   my ($num, $sql);
+
+   $sql = Sql->new($this->{DBH});
+   ($num) = $sql->GetSingleColumn("AlbumJoin", "Sequence", 
+                                  ["album", $this->GetId(),
+                                   "track", $trackid]);
+   return $num;
+}
 1;
