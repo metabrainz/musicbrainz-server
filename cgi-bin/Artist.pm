@@ -31,7 +31,7 @@ use vars qw(@ISA @EXPORT);
 @EXPORT = @EXPORT = '';
 
 use strict;
-use Carp qw(cluck);
+use Carp qw( cluck croak );
 use DBI;
 use DBDefs;
 use Alias;
@@ -240,6 +240,23 @@ sub UpdateSortName
 
     $this->SetSortName($name);
     1;
+}
+
+sub UpdateModPending
+{
+    my ($self, $adjust) = @_;
+
+    my $id = $self->GetId
+	or croak "Missing artist ID in UpdateModPending";
+    defined($adjust)
+	or croak "Missing adjustment in UpdateModPending";
+
+    my $sql = Sql->new($self->{DBH});
+    $sql->Do(
+	"UPDATE artist SET modpending = NUMERIC_LARGER(modpending+?, 0) WHERE id = ?",
+	$adjust,
+	$id,
+    );
 }
 
 # The artist name has changed, or an alias has been removed

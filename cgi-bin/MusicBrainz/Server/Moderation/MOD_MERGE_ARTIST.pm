@@ -89,15 +89,13 @@ sub PostLoad
 sub AdjustModPending
 {
 	my ($self, $adjust) = @_;
-	my $sql = Sql->new($self->{DBH});
+	my $ar = Artist->new($self->{DBH});
 
 	for my $artistid ($self->GetRowId, $self->{"new.id"})
 	{
-		$sql->Do(
-			"UPDATE artist SET modpending = modpending + ? WHERE id = ?",
-			$adjust,
-			$artistid,
-		) if defined $artistid;
+		defined($artistid) or next;
+		$ar->SetId($artistid);
+		$ar->UpdateModPending($adjust);
 	}
 }
 
