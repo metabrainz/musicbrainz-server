@@ -1,7 +1,7 @@
 <%perl>
 
 my ($mb, $mod, $key, @yeslist, @nolist, @abslist);
-my $url = $r->headers_in->{'url'};
+my $url = $ARGS{url};
 
 foreach $key (keys %ARGS)
 {

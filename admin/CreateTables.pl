@@ -28,12 +28,10 @@ use DBDefs;
 use MusicBrainz;
 use Artist;
 
-# insert into ModeratorInfo values (9999, "FreeDB", NULL, 0, 0, 0);
-# create table InsertHistory (Id int auto_increment primary key, Track int NOT NULL, Inserted datetime NOT NULL);
-# alter table InsertHistory add unique index TrackIndex (Track);
-# create table ModeratorNote (Id int auto_increment primary key, ModId int not null, Uid int not null, Text varchar(255) not null);
-# alter table ModeratorNote add index ModIndex (Modid);
-# run modpending cleanup
+# alter table ModeratorInfo add column (EMail varchar(64));
+# alter table ModeratorInfo add column (WebUrl varchar(255));
+# alter table ModeratorInfo add column (MemberSince datetime not null);
+# alter table ModeratorInfo add column (Bio text);
 
 sub CreateTables
 {
@@ -198,7 +196,11 @@ sub CreateTables
              "   Password varchar(64), ".
              "   Privs int, ".
              "   ModsAccepted int, ".
-             "   ModsRejected int)")
+             "   ModsRejected int, ".
+             "   EMail varchar(64), ".
+             "   WebUrl varchar(255), ".
+             "   MemberSince timedate not null,".
+             "   Bio text)")
           or die("Cannot create ModeratorInfo table");
     
     print "Created ModeratorInfo table.\n";
@@ -286,6 +288,21 @@ sub CreateTables
           or die("Cannot create ModeratorNote table");
     
     print "Created ModeratorNote table.\n";
+    
+    $dbh->do(qq|create table DatabaseStats (
+                Id int auto_increment primary key,
+                artists int not null, 
+                albums int not null, 
+                tracks int not null, 
+                diskids int not null, 
+                trmids int not null, 
+                moderations int not null, 
+                votes int not null, 
+                moderators int not null, 
+                timestamp datetime NOT NULL)|)
+          or die("Cannot create DatabaseStats table");
+    
+    print "Created DatabaseStats table.\n";
     
     if (DBDefs->USE_LYRICS)
     {
@@ -466,6 +483,10 @@ sub CreateIndices
     $dbh->do(qq/alter table ModeratorNote add index ModIndex (Modid)/)
           or die("Could not add indices to ModeratorNot table");
     print "Added indices to ModeratorNote table.\n";
+
+    $dbh->do(qq/alter table DatabaseStats add index TimestampIndex (timestamp)/)
+          or die("Could not add indices to DatabaseStats table");
+    print "Added indices to DatabaseStats table.\n";
 
     if (DBDefs->USE_LYRICS)
     {

@@ -158,6 +158,7 @@ $mb->Logout();
   </td>
   <td align=right>
      Click here to vote on the items on this page:
+     <INPUT TYPE="hidden" NAME="url" VALUE="/moderate.html">
      <INPUT TYPE="submit" NAME="Submit" VALUE="Submit">
   </td>
 </tr>

@@ -32,6 +32,7 @@ use strict;
 use DBI;
 use DBDefs;
 #use Benchmark;
+use Carp qw(cluck);
 
 sub new
 {
@@ -70,7 +71,7 @@ sub Select
         return $this->{STH}->rows;
     }
     $this->{ERR} = $this->{DBH}->errstr;
-    print STDERR "Failed query:\n  '$query' -> " . $this->{DBH}->errstr . "\n";
+    cluck("Failed query:\n  '$query' -> " . $this->{DBH}->errstr . "\n");
 
     $this->{STH}->finish;
 
@@ -117,7 +118,7 @@ sub Do
        return $ret;
     }
     $this->{ERR} = $this->{DBH}->errstr;
-    print STDERR "Failed query:\n  '$query' -> " . $this->{DBH}->errstr . "\n";
+    cluck("Failed query:\n  '$query' -> " . $this->{DBH}->errstr . "\n");
 
     return undef;
 }

@@ -124,3 +124,31 @@ sub GetUserPasswordAndId
 
    return (undef, undef);
 } 
+
+sub GetUserInfo
+{
+   my ($this, $uid) = @_;
+   my ($sql, $dbuser);
+
+   $sql = Sql->new($this->{DBH});
+   return undef if (!defined $uid || $uid == 0);
+
+   if ($sql->Select(qq|select name, email, password, privs, modsaccepted, 
+                              modsrejected, WebUrl, MemberSince, Bio 
+                         from ModeratorInfo 
+                        where id = $uid|))
+   {
+       my @row = $sql->NextRow();
+       $sql->Finish;
+       return { name=>$row[0],
+                email=>$row[1],
+                passwd=>$row[2],
+                privs=>$row[3],
+                modsaccepted=>$row[4],
+                modsrejected=>$row[5],
+                weburl =>$row[6],
+                membersince =>$row[7],
+                bio=>$row[8] };
+   }
+   return undef;
+} 

@@ -1,0 +1,135 @@
+<%args>
+$uid=>0
+$update=>0
+</%args>
+
+<& /comp/sidebar, title=>'Moderator Profile' &>
+
+<%perl>
+
+if ($uid == 0) 
+{
+    mc_comp("/comp/badargs");
+    return undef;
+}
+
+if ($update && $session{uid} != $uid)
+{
+     mc_out("You can't update someone else's configuration, smartass!");
+     return undef;
+}
+
+my ($ui, $info);
+
+my $mb = MusicBrainz->new();  
+$mb->Login();
+$ui = UserStuff->new($mb->{DBH});
+
+if ($update > 1)
+{
+     
+
+
+
+
+
+}
+
+$info = $ui->GetUserInfo($uid);
+if (!defined $info)
+{
+     mc_out("User $uid was not found.");
+     return undef;
+}
+
+if ($info->{membersince} eq "0000-00-00 00:00:00")
+{
+    $info->{membersince} = '<font class="bold">Charter Member</font>';
+} 
+if ($info->{name} eq "rob")
+{
+    $info->{membersince} = '<font class="bold">the dawn of this project</font>';
+} 
+
+</%perl>
+
+<FORM METHOD="POST" ACTION="/moderator.html"
+      ENCTYPE="application/x-www-form-urlencoded">
+<table>
+<tr>
+    <td valign="top" align="right">Name:</td>
+    <td><% $info->{name} %></td>
+</tr>
+% if ($session{uid} == $uid && $update) {
+<tr>
+    <td valign="top" align="right">Password:</td>
+    <td><input type="password" name="passwd" size="30"></td>
+</tr>
+<tr>
+    <td valign="top" align="right">Verify password:</td>
+    <td><input type="password" name="passwd" size="30"></td>
+</tr>
+% }
+% if ($session{uid} == $uid) {
+<tr>
+    <td valign="top" align="right">EMail:</td>
+% if ($update) {
+    <td><input type="text" name="email" size="30" 
+               value="<% $info->{email} %>">
+    </td>
+% } else {
+    <td><% $info->{email} |n %></td>
+% }
+</tr>
+% }
+% if (!$update) {
+<tr>
+    <td valign="top" align="right">Member Since:</td>
+    <td><% $info->{membersince} |n %></td>
+</tr>
+<tr>
+    <td valign="top" align="right">Mods Accepted:</td>
+    <td><% $info->{modsaccepted} %></td>
+</tr>
+<tr>
+    <td valign="top" align="right">Mods Rejected:</td>
+    <td><% $info->{modsrejected} %></td>
+</tr>
+% }
+<tr>
+    <td valign="top" align="right">Homepage:</td>
+% if ($update) {
+    <td><input type="text" name="weburl" size="30" 
+               value="<% $info->{weburl} %>">
+    </td>
+% } else {
+    <td><a href="<% $info->{weburl} |n %>"><% $info->{weburl} |n %></a>
+% }
+</tr>
+<tr>
+    <td valign="top" align="right">Bio:</td>
+% if ($update) {
+    <td><input type="textarea" name="bio" size="30"  height="10"
+               value="<% $info->{bio} %>">
+    </td>
+% } else {
+    <td><% $info->{bio} |n %></td>
+% }
+% if ($session{uid} == $uid) {
+<tr>
+    <td>&nbsp;</td>
+    <td>
+        <INPUT TYPE="hidden" NAME="uid" VALUE="<% $uid %>">
+% if ($update) {
+        <INPUT TYPE="hidden" NAME="update" VALUE="1">
+        <INPUT TYPE="submit" NAME="Submit" VALUE="Save Changes">
+% } else {
+        <INPUT TYPE="hidden" NAME="update" VALUE="2">
+        <INPUT TYPE="submit" NAME="Submit" VALUE="Update Profile">
+% }
+    </td>
+</tr>
+% }
+
+</table>
+</FORM>

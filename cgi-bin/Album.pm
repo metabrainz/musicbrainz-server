@@ -98,11 +98,11 @@ sub Remove
     return if (!defined $album);
   
     $sql = Sql->new($this->{DBH});
-    print STDERR "DELETE: Removed Album " . $row[0] . "\n";
+    print STDERR "DELETE: Removed Album " . $album . "\n";
     $sql->Do("delete from Album where id = $album");
-    iprint STDERR "DELETE: Removed Diskid where album was " . $row[0] . "\n";
+    print STDERR "DELETE: Removed Diskid where album was " . $album . "\n";
     $sql->Do("delete from Diskid where album = $album");
-    print STDERR "DELETE: Removed TOC where album was " . $row[0] . "\n";
+    print STDERR "DELETE: Removed TOC where album was " . $album . "\n";
     $sql->Do("delete from TOC where album = $album");
 
     if ($sql->Select(qq|select AlbumJoin.track from AlbumJoin 

@@ -380,7 +380,7 @@ sub Remove
     if ($refcount > 0)
     {
         print STDERR "DELETE: refcount = $refcount on track delete " .
-                     this->GetId() . "\n";
+                     $this->GetId() . "\n";
         return undef 
     }
 
