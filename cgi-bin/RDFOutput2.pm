@@ -195,26 +195,26 @@ sub FindReferences
    my ($id, $obj, @newrefs, $ref, $cacheref);
 
 
-   print STDERR "\n" if ($curdepth > $this->{depth});
+   #print STDERR "\n" if ($curdepth > $this->{depth});
    return if ($curdepth > $this->{depth});
 
-   print STDERR "Find references: $curdepth max: $this->{depth}\n";
+   #print STDERR "Find references: $curdepth max: $this->{depth}\n";
     
    $curdepth+=2;
 
    # Load all of the referenced objects
    foreach $ref (@ids)
    {
-      print STDERR "  Object: $ref->{type} $ref->{id} --> ";
+      #print STDERR "  Object: $ref->{type} $ref->{id} --> ";
       $obj = $this->GetFromCache($ref->{type}, $ref->{id});
       if (!defined $obj)
       {
-          print STDERR "load\n";
+          #print STDERR "load\n";
           $obj = $this->LoadObject($ref->{id}, $ref->{type});
       }
       else
       {
-          print STDERR "cached\n";
+          #print STDERR "cached\n";
       }
       next if (!defined $obj);
 
