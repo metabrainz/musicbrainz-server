@@ -2,6 +2,7 @@
 <%args>
 $albumid => ""
 $mbid => ""
+$disciddetail => ""
 </%args>
 <%perl>
 
@@ -45,5 +46,73 @@ $ar->LoadFromId
 
 <& /comp/albuminfo, album => $al &>
 <& /comp/artistinfo, artist => $ar &>
+
+<%perl>
+$al->GetDiscidCount;
+my $di = Discid->new($al->{DBH});
+my @ids = $di->GetDiscidFromAlbum($al->GetId);
+
+my $maxtracks = 0;
+for my $d (@ids)
+{
+	my %info = Discid->ParseTOC($d->{toc});
+	$d->{PARSE} = \%info;
+	$maxtracks = $info{tracks}
+		if $info{tracks} > $maxtracks;
+}
+
+</%perl>
+
+% if (@ids) {
+<p>
+	Show Disc ID detail:
+	<a href="?albumid=<% $al->GetId %>&amp;disciddetail=times">times</a>
+	| <a href="?albumid=<% $al->GetId %>&amp;disciddetail=sectors">sectors</a>
+	| <a href="?albumid=<% $al->GetId %>&amp;disciddetail=both">both</a>
+</p>
+
+% if ($disciddetail) {
+<table>
+	<tr>
+		<td>DiscID</td>
+		<td>Tracks</td>
+		<td>Total Length</td>
+% for (1..$maxtracks) {
+		<td align="center"><% $_ %></td>
+% }
+	</tr>
+% my $row = 0;
+% for my $info (map { $_->{PARSE} } @ids) {
+% my $style = (++$row % 2 ? "background-color: #eee" : "");
+	<tr style="<% $style |n %>">
+		<td><% $info->{discid} %></td>
+		<td><% $info->{tracks} %></td>
+% if ($disciddetail =~ /(times|both)/) {
+		<td><% Track::FormatTrackLength($info->{leadoutoffset}/75*1000) %></td>
+% for (1..$maxtracks) {
+		<td><% Track::FormatTrackLength($info->{tracklengths}[$_-1]/75*1000) %></td>
+% }
+% }
+% if ($disciddetail =~ /(both)/) {
+	</tr>
+	<tr style="<% $style |n %>">
+		<td align="right" colspan="2">Sector offsets: &nbsp; </td>
+% }
+% if ($disciddetail =~ /(sectors|both)/) {
+		<td><% $info->{leadoutoffset} %></td>
+% for (1..$maxtracks) {
+		<td><% $info->{trackoffsets}[$_-1] %></td>
+% }
+% }
+	</tr>
+% }
+</table>
+
+<p>
+	(<a href="?albumid=<% $al->GetId %>">Hide Disc ID detail</a>)
+</p>
+% }
+
+% }
 
 <& /comp/footer &>
