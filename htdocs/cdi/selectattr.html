@@ -26,18 +26,21 @@ elsif (my $toc = $ARGS{toc})
 	$disclength = $p{leadoutoffset} / 75 * 1000 if %p;
 }
 
+# Always default to not selecting any attributes
+my @attr = (0,0);
+
 # Guess the release type
-
-my @attr = (Album::ALBUM_ATTR_ALBUM, Album::ALBUM_ATTR_OFFICIAL);
-
-$attr[0] = Album::ALBUM_ATTR_COMPILATION
-	if $ARGS{artist} == &ModDefs::VARTIST_ID;
-
-$attr[0] = Album::ALBUM_ATTR_SINGLE
-	if ($disclength ? ($disclength < 30*60*1000) : ($ARGS{tracks} <= 5));
-
-$attr[0] = Album::ALBUM_ATTR_EP
-	if $ARGS{title} =~ /\bEP\b/i;
+#
+#my @attr = (Album::ALBUM_ATTR_ALBUM, Album::ALBUM_ATTR_OFFICIAL);
+#
+#$attr[0] = Album::ALBUM_ATTR_COMPILATION
+#	if $ARGS{artist} == &ModDefs::VARTIST_ID;
+#
+#$attr[0] = Album::ALBUM_ATTR_SINGLE
+#	if ($disclength ? ($disclength < 30*60*1000) : ($ARGS{tracks} <= 5));
+#
+#$attr[0] = Album::ALBUM_ATTR_EP
+#	if $ARGS{title} =~ /\bEP\b/i;
 
 my $selected_index = 0;
 
@@ -46,9 +49,17 @@ my $selected_index = 0;
 <form method="POST" action="/cdi/done.html" Name="SelectAttrs"
       enctype="application/x-www-form-urlencoded" class="formstyle">
 
-<& /comp/albumattrform, mb=>$mb, albumname=>$ARGS{title}, 
-						attrs=>\@attr, field1=>"attrtype", field2=>"attrstatus",
-						selindex => \$selected_index &>
+% my @focus_to;
+	<& /comp/albumattrform,
+		adding				=> 1,
+		albumname			=> $ARGS{'title'},
+		multi_album			=> undef,
+		type_value			=> undef,
+		status_value		=> undef,
+		type_fieldname		=> "attrtype",
+		status_fieldname	=> "attrstatus",
+		focus_to			=> \@focus_to,
+	&>
 
 	<p>
 		Disc length: <% Track::FormatTrackLength($disclength) %>
@@ -71,4 +82,4 @@ my $selected_index = 0;
 
 </form>
 
-<& /comp/movefocus, "SelectAttrs", "attrtype", $selected_index &>
+<& /comp/movefocus, "SelectAttrs", @focus_to &>

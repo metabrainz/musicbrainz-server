@@ -1,114 +1,118 @@
 %# vi: set ts=4 sw=4 ft=mason :
 <%args>
-$mb
-$albumname=>""
-$attrs
-$field1=>""
-$field2=>""
-$selindex=>undef
+$adding => 0
+$albumname => ""
+$multi_album => 0
+$type_value
+$status_value
+$type_fieldname
+$status_fieldname
+$focus_to => undef
 </%args>
 
 <%perl>
-
-my ($s, $al, $attrlist, $attr, $type, $status);
-
-$s = ($albumname eq '') ? 's' : '';
-$al = Album->new($mb->{DBH});
-$attrlist = $al->GetAttributeList();
-
-foreach $attr (@{$attrs})
-{
-    if ($attr >= Album::ALBUM_ATTR_SECTION_TYPE_START &&
-        $attr <= Album::ALBUM_ATTR_SECTION_TYPE_END)
-    {
-       $type = $attr;
-       next;
-    }
-    if ($attr >= Album::ALBUM_ATTR_SECTION_STATUS_START &&
-        $attr <= Album::ALBUM_ATTR_SECTION_STATUS_END)
-    {
-       $status = $attr;
-       next;
-    }
-}
-
-$type = Album::ALBUM_ATTR_ALBUM if (not defined $type);
-$status = Album::ALBUM_ATTR_OFFICIAL if (not defined $status);
-
+my $attrlist = Album->GetAttributeList();
+my @indexes;
 </%perl>
 
-Album attributes define the type and status of an audio release and
-provide information about the contents of the release.
 <p>
-Album attributes should apply to <b>most</b> of the tracks on the 
-album<% $s %>. Its OK to have a couple of tracks that do not fit the
-album attribute, as long as the attribute applies to the album<% $s %> 
-overall.
+	Album attributes define the type and status of an audio release and
+	provide information about the contents of the release.
+</p>
+<p>
+	Album attributes should apply to <b>most</b> of the tracks on the 
+	album<% $multi_album ? "s" : "" %>.&nbsp; It's OK to have a couple
+	of tracks that do not fit the album attribute, as long as the
+	attribute applies to the album<%  $multi_album ? "s" : "" %> 
+	as a whole.
+</p>
+<p>
+	Select the appropriate album attributes below and then 
+	click on Submit: 
+</p>
 
 <p>
-Select the appropriate album attributes below and then 
-click on Submit: 
-
-<p>
-
 % if ($albumname eq '') {
     All tagged albums:
 % } else {
-    Album <b><% $albumname %></b>:<br>
+    Album <b><% $albumname %></b>:
 % }
+</p>
 
-<table width="100%">
-  <tr>
-    <td>
-    <blockquote>
-    <table width="75%">
-		<tr><td colspan="3"><b>Release type:</b></td></tr>
+<table width="75%" style="margin-left: 3em">
 
-%		my $i = 0;
+		<& .DoAttribute,
+			label => "Release type",
+			value => $type_value,
+			fieldname => $type_fieldname,
+			valuelist => [ &Album::ALBUM_ATTR_SECTION_TYPE_START .. &Album::ALBUM_ATTR_SECTION_TYPE_END ],
+			attrlist => $attrlist,
+			pushindex => \@indexes,
+			&>
 
-%		for (Album::ALBUM_ATTR_SECTION_TYPE_START .. Album::ALBUM_ATTR_SECTION_TYPE_END)
-%		{
-        <tr>
-			<td valign="top" NOWRAP>
-				<input type="radio"
-					name="<% $field1 %>"
-					value="<% $_ %>"
-%					if ($_ == $type) {
-					checked
-%					$$selindex = $i if $selindex;
-%					}
-					ondblclick="this.form.submit()"
-				>
-			</td>
-			<td valign="top"><% $attrlist->{$_}->[0] %></td>
-			<td valign="top"><% $attrlist->{$_}->[2] %></td>
-		</tr>
-%		++$i;
-%		}
+		<& .DoAttribute,
+			label => "Release status",
+			value => $status_value,
+			fieldname => $status_fieldname,
+			valuelist => [ &Album::ALBUM_ATTR_SECTION_STATUS_START .. &Album::ALBUM_ATTR_SECTION_STATUS_END ],
+			attrlist => $attrlist,
+			pushindex => \@indexes,
+			&>
 
-	    <tr><td colspan="3"><br><b>Release status:</b></td></tr>
-
-%		for (Album::ALBUM_ATTR_SECTION_STATUS_START .. Album::ALBUM_ATTR_SECTION_STATUS_END)
-%		{
-        <tr>
-			<td valign="top" NOWRAP>
-				<input type="radio"
-					name="<% $field2 %>"
-					value="<% $_ %>"
-%					if ($_ == $status) {
-					checked
-%					}
-					ondblclick="this.form.submit()"
-				>
-			</td>
-			<td valign="top"><% $attrlist->{$_}->[0] %></td>
-			<td valign="top"><% $attrlist->{$_}->[2] %></td>
-		</tr>
-%		}
-
-    </table> 
-    </blockquote>
-    <p>
-    </td>
-  </tr>
 </table>
+<%perl>
+@$focus_to = ($type_fieldname, $indexes[0]) if $focus_to;
+return;
+</%perl>
+
+<%def .DoAttribute>
+<%args>
+$label
+$value
+$fieldname
+@valuelist
+$attrlist
+$pushindex
+</%args>
+<%perl>
+
+# Each entry is a triple of (submitted-value, short-name, description)
+@valuelist = map {
+	[ $_, $attrlist->{$_}[0], $attrlist->{$_}[2] ]
+} @valuelist;
+
+unshift @valuelist,
+	[ "", "I don't know", "If you don't know the correct ".lc($label).", choose this option" ],
+	;
+
+# Which one is selected?
+$value = "" unless defined $value;
+(my $i) = grep { $value eq $valuelist[$_][0] } 0 .. $#valuelist;
+# If none are selected, pre-select "I don't know"
+$i = 0, $value = "" unless defined $i;
+push @$pushindex, $i;
+
+</%perl>
+
+		<tr><td colspan="3" style="padding: 1em 0"><b><% $label %>:</b></td></tr>
+
+%		for my $v (@valuelist)
+%		{
+        <tr>
+			<td valign="top" NOWRAP>
+				<input type="radio"
+					style="position: relative; top: -4px"
+					name="<% $fieldname %>"
+					value="<% $v->[0] %>"
+%					if ($v->[0] eq $value) {
+					checked
+%					}
+					ondblclick="this.form.submit()"
+				></td>
+			<td valign="top"><% $v->[1] %></td>
+			<td valign="top">&nbsp;</td>
+			<td valign="top"><% $v->[2] %></td>
+		</tr>
+%		}
+
+</%def>

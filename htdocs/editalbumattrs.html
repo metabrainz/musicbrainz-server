@@ -40,8 +40,6 @@ for my $album (@id)
 
 my $modpending = grep { $_->GetAttributeModPending } @objs;
 
-my $selected_index = 0;
-
 my $url =
 	@id == 1
 		? "/showalbum.html?albumid=$id[0]"
@@ -88,6 +86,7 @@ for my $al (@objs)
 }
 
 my @attrs = sort { $a<=>$b } keys %attrs;
+my ($type, $status) = Album->GetReleaseTypeAndStatus(\@attrs);
 
 </%perl>
 
@@ -101,13 +100,16 @@ my @attrs = sort { $a<=>$b } keys %attrs;
 	name="EditAlbumAttrsForm"
 	>
 
+% my @focus_to;
 	<& /comp/albumattrform,
-		mb			=> $mb,
-		albumname	=> (@objs > 1 ? "" : $objs[0]->GetName),
-		attrs		=> \@attrs,
-		field1		=> "attr_type",
-		field2		=> "attr_status",
-		selindex	=> \$selected_index,
+		adding				=> undef,
+		albumname			=> (@objs > 1 ? "" : $objs[0]->GetName),
+		multi_album			=> (@objs > 1),
+		type_value			=> $type,
+		status_value		=> $status,
+		type_fieldname		=> "attr_type",
+		status_fieldname	=> "attr_status",
+		focus_to	=> \@focus_to,
 	&>
 
 	<p>
@@ -129,5 +131,5 @@ my @attrs = sort { $a<=>$b } keys %attrs;
 
 </form>
 
-<& /comp/movefocus, "EditAlbumAttrsForm", "value0", $selected_index &>
+<& /comp/movefocus, "EditAlbumAttrsForm", @focus_to &>
 <& /comp/footer &>
