@@ -221,7 +221,7 @@ sub Login
 	my $sql = Sql->new($this->{DBH});
 
 	my $row = $sql->SelectSingleRowHash(
-		"SELECT * FROM moderator WHERE name = ? LIMIT 1",
+		"SELECT * FROM moderator WHERE name = ?",
 		$user,
 	);
 
@@ -307,21 +307,24 @@ sub CreateLogin
 sub GetUserPasswordAndId
 {
 	my ($this, $username) = @_;
-	my ($sql, $dbuser);
 
-	$sql = Sql->new($this->{DBH});
-	return undef if (!defined $username || $username eq '');
+    MusicBrainz::TrimInPlace($username) if defined $username;
+    if (not defined $username or $username eq "")
+    {
+		carp "Missing username in GetUserPasswordAndId";
+		return undef;
+    }
 
-	$dbuser = $sql->Quote($username);
-	if ($sql->Select(qq|select password, id from Moderator 
-							where name ilike $dbuser|))
-	{
-		my @row = $sql->NextRow();
-		$sql->Finish;
-		return ($row[0], $row[1]);
-	}
+	my $sql = Sql->new($this->{DBH});
 
-	return (undef, undef);
+	my $row = $sql->SelectSingleRowArray(
+		"SELECT password, id FROM moderator WHERE name = ?",
+		$username,
+	);
+
+	$row or return (undef, undef);
+
+	@$row;
 } 
 
 sub GetUserInfo
