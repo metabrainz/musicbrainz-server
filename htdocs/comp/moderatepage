@@ -89,11 +89,11 @@ if ($num_mods > 0)
 
 <table width=100%>
 <tr>
-<td width="25%" align="center">
+<td width="20%" align="center">
 <% $total_mods + $offset %> mods 
 <% $type == ModDefs::TYPE_NEW ? 'pending' : 'total' %>
 </td>
-<td width="75%" align="center">
+<td width="80%" align="center" NOWRAP>
 [ <a href="moderate.html?type=1">New Mods</a> |
 <a href="moderate.html?type=3">My Mods</a> |
 <a href="moderate.html?type=2">Old Mods</a> |
@@ -126,6 +126,7 @@ if ($num_mods > 0)
 %}
 
 % if ($num_mods > $max_items || $offset > 0) {
+<& /comp/framedboxbegin, width=>"100%" &>
 <& /comp/pageselector, 
    url=>"moderate.html?type=$type" . 
         (($artistid > 0) ?  "&artistid=$artistid" : ""),
@@ -133,6 +134,7 @@ if ($num_mods > 0)
    pagesize=>$max_items,
    numitems=>$total_mods+$offset,
 &>
+<& /comp/framedboxend &>
 % }
 
 <form method="POST" action="/bare/vote.html"
