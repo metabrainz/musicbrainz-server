@@ -66,6 +66,14 @@ elsif ($type == ModDefs::TYPE_FREEDB)
     $m->comp("/comp/sidebar", title=>'Moderations from FreeDB',
             expand=>"moderate"); 
 }
+elsif ($type == ModDefs::TYPE_ALBUM)
+{
+    ($num_mods, $total_mods, @info) = 
+           $mod->GetModerationList($offset, $max_items,
+                                   $session{uid}, $type, $albumid);
+    $m->comp("/comp/sidebar", title=>'Moderations by Album',
+            expand=>"moderate"); 
+}
 else
 {
     $m->comp("/comp/sidebar", title=>'Error', expand=>"moderate"); 

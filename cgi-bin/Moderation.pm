@@ -722,6 +722,25 @@ sub GetModerationList
        |;
        @args = ($uid, ModDefs::FREEDB_MODERATOR, $this->GetMinOpenModID);
    }
+   elsif ($type == ModDefs::TYPE_ALBUM)
+   {
+       $query = qq|select Moderation.id as moderation_id, tab, col, 
+                          Moderation.rowid, Moderation.artist, type, 
+                          prevvalue, newvalue, ExpireTime, yesvotes, novotes, 
+                          status, automod, Moderator.id as moderator_id, 
+                          Moderator.name as moderator_name, 
+                          Artist.name as artist_name, 
+						  moderation.expiretime < NOW(),
+                          Votes.vote
+                     from Moderator, Artist, Moderation left join Votes 
+                          on Votes.uid = ? and Votes.rowid=moderation.id 
+                    where Moderator.id = moderation.moderator and 
+                          Moderation.artist = Artist.id and
+						  Moderation.rowid = ? and
+						  LOWER(Moderation.tab) = 'album'
+                          offset ?|;
+	@args = ($uid, $rowid, $index);
+   }
    else
    {
        return undef;

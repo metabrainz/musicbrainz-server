@@ -1,53 +1,46 @@
+%# vi: set ts=4 sw=4 ft=mason :
 <%args>
-$type=>1
-$artistid=>0
-$albumid=>0
+$type => &ModDefs::TYPE_NEW
+$offset => 0
+$page => 0
+$artistid => 0
+$albumid => 0
+$moderator => 0
 </%args>
-
-% if (!defined $session{user} || $session{user} eq '' || 
-%     !defined $session{uid} || $session{uid} == 0) {
-    <& /comp/sidebar, title=>'Login Required', expand=>'moderate' &>
-    <center>
-    <span class="bold">
-       You must be logged in to edit/moderate the database.
-    </span>
-    <p>
-    If you are new to the MusicBrainz moderation<br> 
-    system, you may want to check out the check out<br>
-    the <a href="mod_intro.html">Moderation Introduction</a>.<p>
-
-    <& /comp/tablebegin, title=>'Login' &>
-    <& /comp/loginbox &>
-    <& /comp/tableend &>
-
-    </center>
 <%perl>
-} 
-else 
-{
-    if ($artistid > 0)
-    {
-        if ($albumid > 0)
-        {
-             $m->comp("/comp/moderatepage", offset=>$ARGS{offset}, 
-                     page=>$ARGS{page},
-                     type=>ModDefs::TYPE_ARTIST, artistid=>$artistid,
-                     albumid=>$albumid);
-        }
-        else
-        {
-             $m->comp("/comp/moderatepage", offset=>$ARGS{offset}, 
-                     page=>$ARGS{page},
-                     type=>ModDefs::TYPE_ARTIST, artistid=>$artistid);
-        }
-    }
-    else
-    {
-        $m->comp("/comp/moderatepage", offset=>$ARGS{offset}, type=>$type,
-                     page=>$ARGS{page},
-		     moderator => $ARGS{moderator},
-		     );
-    }
-}
+
+$m->comp("/comp/checkloggedin", 1, 1)
+	or return;
+
+MusicBrainz::IsNonNegInteger($type) && $type && $type <= &ModDefs::TYPE_MAX
+	or return $m->comp("/comp/badargs", 1, 1);
+MusicBrainz::IsNonNegInteger($offset)
+	or return $m->comp("/comp/badargs", 1, 1);
+MusicBrainz::IsNonNegInteger($page)
+	or return $m->comp("/comp/badargs", 1, 1);
+
+MusicBrainz::IsNonNegInteger($artistid) && $artistid
+	or return $m->comp("/comp/badargs", 1, 1)
+	if $type == &ModDefs::TYPE_ARTIST;
+
+MusicBrainz::IsNonNegInteger($albumid) && $albumid
+	or return $m->comp("/comp/badargs", 1, 1)
+	if $type == &ModDefs::TYPE_ALBUM;
+
+MusicBrainz::IsNonNegInteger($moderator) && $moderator
+	or return $m->comp("/comp/badargs", 1, 1)
+	if $type == &ModDefs::TYPE_MODERATOR;
+
+$m->comp(
+	"/comp/moderatepage",
+	offset => $offset,
+	page => $page,
+	type => $type,
+	artistid => $artistid,
+	albumid => $albumid,
+	moderator => $moderator,
+);
+
 </%perl>
+
 <& /comp/footer &>

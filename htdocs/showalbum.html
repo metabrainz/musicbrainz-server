@@ -84,6 +84,11 @@ $artist->LoadFromId
 	|
 	<a href="/freedb/freedb.html?search=<% $artist->GetName() |u %>"
 		>Import album</a>
+% if ($session{uid}) {
+	|
+	<a href="/moderate.html?type=<% &ModDefs::TYPE_ALBUM %>&amp;albumid=<% $album->GetId %>"
+ 		>View mods</a>
+% }
 	|
 	<a href="/albumdetail.html?albumid=<% $album->GetId %>"
 		>View Info</a>
