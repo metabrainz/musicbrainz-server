@@ -31,6 +31,8 @@
     </center>
   <& /comp/tableend &>
 
+  <& /taglookup.html, embedded_form => 1 &>
+
   <& /comp/tablebegin, title=>'Site Search', attrs=>"align=left",
      gattrs=>"width='100%'" &>
 
