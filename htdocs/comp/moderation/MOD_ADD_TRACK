@@ -14,9 +14,14 @@
 
 	Name:
 	<span class="bold"><% $this->{'new.trackname'} %></span>
+
+%# Dirty; really we should test the non-album bit of the album attribute.
+%# but that would require another fetch.
+% unless ($this->GetPrev eq "Non-album tracks") {
 	<br>
 	Track:
 	<span class="bold"><% $this->{'new.tracknum'} %></span>
+% }
 	
 % if ($this->GetArtist == &ModDefs::VARTIST_ID) {
 
