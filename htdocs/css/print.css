@@ -1,0 +1,12 @@
+.LogoBarCell { display: none }
+.NavBarCell { display: none }
+.SideBarCell { display: none }
+#FooterBar { display: none }
+#CreditsBar { display: none }
+
+h2
+{
+	background: none;
+	border: none;
+	border-bottom: 1px solid black;
+}

@@ -1,0 +1,34 @@
+/* These are the rules which used to be in htdocs/brainz.css */
+
+body, p, td         {font : normal 10pt Verdana, Geneva, Arial, Helvetica, sans-serif; color : #000000; text-decoration : none;}
+
+/* only used by /comp/navbar */
+.topmenu            {font : Normal 10pt Verdana, Geneva, Arial, Helvetica, sans-serif; color : #000000; text-decoration : none;}
+.topmenu a          {font : Bold 10pt Verdana, Geneva, Arial, Helvetica, sans-serif; color : #997035; text-decoration : none;}
+.topmenu a:hover    {font : Bold 10pt Verdana, Geneva, Arial, Helvetica, sans-serif; color : #000000; text-decoration : none;}
+
+/* /comp/navbox (which isn't even used any more) */
+.sidemenu           {font : Bold 10pt Verdana, Geneva, Arial, Helvetica, sans-serif; color : #000000; text-decoration : none;}
+.sidemenu a         {font : Bold 10pt Verdana, Geneva, Arial, Helvetica, sans-serif; color : #555555; text-decoration : none;}
+.sidemenu a:hover   {font : Bold 10pt Verdana, Geneva, Arial, Helvetica, sans-serif; color : #000000; text-decoration : none;}
+
+/* the other sidebar panels */
+.sidemenusmall           {font : Normal 8pt Verdana, Geneva, Arial, Helvetica, sans-serif; color : #000000; text-decoration : none;}
+.sidemenusmall a         {font : Normal 8pt Verdana, Geneva, Arial, Helvetica, sans-serif; color : #555555; text-decoration : none;}
+.sidemenusmall a:hover   {font : Normal 8pt Verdana, Geneva, Arial, Helvetica, sans-serif; color : #000000; text-decoration : none; text-decoration: underline;}
+
+.title              {font : Bold 12pt Verdana, Geneva, Arial, Helvetica, sans-serif; color : #000000; text-decoration : none;}
+.stats           {font : Normal 8pt Verdana, Geneva, Arial, Helvetica, sans-serif; color : #000000; text-decoration : none;}
+.statsb           {font : Bold 8pt Verdana, Geneva, Arial, Helvetica, sans-serif; color : #000000; text-decoration : none;}
+.stats a         {font : Normal 8pt Verdana, Geneva, Arial, Helvetica, sans-serif; color : #555555; text-decoration : none;}
+.stats a:hover   {font : Normal 8pt Verdana, Geneva, Arial, Helvetica, sans-serif; color : #000000; text-decoration : none;}
+
+/* /comp/sidebarsection* */
+.section            {font : Normal 10pt Verdana, Geneva, Arial, Helvetica, sans-serif; color : #000000; text-decoration : none;}
+
+.mbtable            {font : Bold 10pt Verdana, Geneva, Arial, Helvetica, sans-serif; color : #997035; text-decoration : none;}
+.formstyle input    {font : Normal 10pt Verdana, Geneva, Arial, Helvetica, sans-serif; color : #000000; text-decoration : none;}
+
+.bold               {font : Bold 10pt Verdana, Geneva, Arial, Helvetica, sans-serif; color : #000000; text-decoration : none;}
+
+/* eof */
