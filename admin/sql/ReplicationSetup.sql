@@ -1,6 +1,3 @@
-
-SET autocommit TO 'on';
-
 CREATE TABLE "Pending" (
 "SeqId" serial,
 "TableName" varchar NOT NULL,
@@ -20,7 +17,9 @@ PRIMARY KEY ("SeqId", "IsKey") ,
 FOREIGN KEY ("SeqId") REFERENCES "Pending" ("SeqId") ON UPDATE CASCADE  ON DELETE CASCADE
 );
 
-\c musicbrainz_db postgres
+-- Reconnect as postgres since creating a local function requires it
+\c - postgres
+
 CREATE FUNCTION "recordchange" () RETURNS trigger AS
 '/usr/local/pgsql/lib/pending.so', 'recordchange' LANGUAGE 'C';
 

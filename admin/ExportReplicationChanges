@@ -1,0 +1,225 @@
+#!/usr/bin/perl -w
+# vi: set ts=4 sw=4 :
+
+#____________________________________________________________________________
+#
+#   MusicBrainz -- the open internet music database
+#
+#   Copyright (C) 1998 Robert Kaye
+#
+#   This program is free software; you can redistribute it and/or modify
+#   it under the terms of the GNU General Public License as published by
+#   the Free Software Foundation; either version 2 of the License, or
+#   (at your option) any later version.
+#
+#   This program is distributed in the hope that it will be useful,
+#   but WITHOUT ANY WARRANTY; without even the implied warranty of
+#   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+#   GNU General Public License for more details.
+#
+#   You should have received a copy of the GNU General Public License
+#   along with this program; if not, write to the Free Software
+#   Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
+#
+#   $Id$
+#____________________________________________________________________________
+
+use FindBin;
+use lib "$FindBin::Bin/../cgi-bin";
+
+use strict;
+use DBI;
+use DBDefs;
+use integer;
+
+use Getopt::Long;
+
+my $fHelp;
+my $OutputDir = ".";
+my $dir = "/tmp";
+my $fCompress = 1;
+my $fKeepFiles = 0;
+my $fSequence = -1;
+my @tablelist;
+
+GetOptions(
+	"output-dir|d=s"	=> \$OutputDir,
+	"tmp-dir|t=s"		=> \$dir,
+	"compress|c!"		=> \$fCompress,
+	"keep-files|k!"		=> \$fKeepFiles,
+	"help"				=> \$fHelp,
+);
+
+sub usage
+{
+	print <<EOF;
+Usage: ExportReplicationChanges [options] <sequence number>
+
+        --help            show this help
+    -d, --output-dir DIR  place the final archive files in DIR (default: ".")
+    -t, --tmp-dir DIR     use DIR for temporary storage (default: /tmp)
+    -c, --[no]compress    [don't] create .tar.bz2 archives after exporting
+    -k, --keep-files      don't delete the exported files from the tmp directory
+
+Specifying --nocompress and omitting --keep-files would discard the
+files just exported straight away, so don't do that. 
+
+EOF
+}
+
+usage(), exit if $fHelp;
+usage(), exit 1 if scalar(@ARGV) != 1;
+usage(), exit 1 if not $fCompress and not $fKeepFiles;
+
+$fSequence = shift;
+
+use File::Temp qw( tempdir );
+$SIG{'INT'} = sub { exit 3 };
+$dir = tempdir("mbreplicate-XXXXXX", DIR => $dir, CLEANUP => not $fKeepFiles);
+mkdir "$dir/replicate" or die $!;
+print "Exporting to $dir/replicate\n" if $fKeepFiles;
+
+use MusicBrainz;
+my $mb = new MusicBrainz;
+$mb->Login;
+
+use Sql;
+my $sql = Sql->new($mb->{DBH});
+my $dbh = $mb->{DBH};
+
+my @tables = qw(
+	"Pending"
+    "PendingData"
+);
+
+@tables = @tablelist if @tablelist;
+
+use Time::HiRes qw( gettimeofday tv_interval );
+my $t0 = [gettimeofday];
+my $totalrows = 0;
+my $tables = 0;
+
+$sql->AutoCommit;
+$sql->Do("SET SESSION CHARACTERISTICS AS TRANSACTION ISOLATION LEVEL SERIALIZABLE");
+$sql->Begin;
+
+my $now = $sql->SelectSingleValue("SELECT NOW()");
+open(TIMESTAMP, ">$dir/replicate/TIMESTAMP") or die $!;
+print TIMESTAMP "This snapshot was taken at $now UTC\n";
+close TIMESTAMP;
+
+$| = 1;
+
+printf "%-30.30s %9s %4s %9s\n",
+	"Table", "Rows", "est%", "rows/sec",
+	;
+
+for my $table (@tables)
+{
+	open(DUMP, ">$dir/replicate/$table")
+		or die $!;
+
+	my $estrows = $sql->SelectSingleValue(
+		"SELECT reltuples FROM pg_class WHERE relname = ? LIMIT 1",
+		$table,
+	) || 1;
+
+	$sql->Do("COPY $table TO stdout");
+	my ($r, $buffer);
+	my $rows = 0;
+
+	my $t1 = [gettimeofday];
+	my $interval;
+
+	my $p = sub {
+		my ($pre, $post) = @_;
+		no integer;
+		printf $pre."%-30.30s %9d %3d%% %9d".$post,
+			$table, $rows, int(100 * $rows / $estrows),
+			$rows / ($interval||1);
+	};
+
+	$p->("", "") if -t;
+
+	# This has to be at least as large as the longest line given
+	# by "copy table to stdout".
+	# Currently the largest value I can see is a row in the moderation
+	# table which is approx 215,000 bytes.
+	my $max = 250_000; my $maxline = __LINE__;
+
+	while ($dbh->func($buffer, $max, "getline"))
+	{
+		die "\nProbable data truncation!  See $0 line $maxline"
+			if length($buffer) >= $max-1;
+
+		print DUMP $buffer, "\n"
+			or die $!;
+
+		++$rows;
+		unless ($rows & 0xFFF)
+		{
+			$interval = tv_interval($t1);
+			$p->("\r", "") if -t;
+		}
+	}
+
+	$dbh->func("endcopy") or die;
+	close DUMP
+		or die $!;
+
+	$interval = tv_interval($t1);
+	$p->("\r", sprintf(" %.2f sec\n", $interval));
+
+	++$tables;
+	$totalrows += $rows;
+
+	$sql->Do("DELETE FROM $table");
+}
+
+$sql->Commit;
+
+my $dumptime = tv_interval($t0);
+printf "Dumped %d tables (%d rows) in %d seconds\n",
+	$tables, $totalrows, $dumptime;
+
+# Now we have all the files; disconnect from the database.
+# This also drops the moderator_sanitised temporary table.
+undef $sql;
+undef $mb;
+
+use File::Copy qw( copy );
+
+if ($totalrows == 0)
+{
+    print "No rows for replication -- not writing a replication package\n";    
+}
+
+if ($totalrows > 0 && $fCompress)
+{
+    # We need to stick a MB copyright in here instead ofthe PD header
+	copy("$FindBin::Bin/COPYING-PublicDomain", "$dir/replicate/COPYING") or die $!;
+	make_tar("mbreplicate-$fSequence.tar.bz2", @tables);
+}
+
+sub make_tar
+{
+	my ($tarfile, @files) = @_;
+
+	unshift @files, "TIMESTAMP", "COPYING";
+
+	my $t0 = [gettimeofday];
+	print "Creating $tarfile\n";
+	system { "/bin/tar" } "tar",
+		"-C", $dir,
+		"--bzip2",
+		"--create",
+		"--verbose",
+		"--file", "$OutputDir/$tarfile",
+		"--",
+		map { "replicate/$_" } @files,
+		;
+	$? == 0 or warn "Tar returned $?";
+	printf "Tar completed in %d seconds\n", tv_interval($t0);
+}
+
+# eof ExportReplicationChanges
