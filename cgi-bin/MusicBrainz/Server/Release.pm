@@ -160,5 +160,26 @@ sub RemoveById
 	);
 }
 
+sub RemoveByAlbum
+{
+	my ($self, $albumid) = @_;
+   	my $sql = Sql->new($self->{DBH});
+	$sql->Do(
+		"DELETE FROM release WHERE album = ?",
+		$albumid,
+	);
+}
+
+sub MoveFromAlbumToAlbum
+{
+	my ($self, $fromalbumid, $toalbumid) = @_;
+   	my $sql = Sql->new($self->{DBH});
+	$sql->Do(
+		"UPDATE release SET album = ? WHERE album = ?",
+		$toalbumid,
+		$fromalbumid,
+	);
+}
+
 1;
 # eof Release.pm

@@ -362,9 +362,10 @@ sub Remove
     $sql->Do("DELETE FROM toc WHERE album = ?", $album);
     print STDERR "DELETE: Removed Discid where album was " . $album . "\n";
     $sql->Do("DELETE FROM discid WHERE album = ?", $album);
-	# TODO move to Release.pm
+
     print STDERR "DELETE: Removed release where album was " . $album . "\n";
-    $sql->Do("DELETE FROM release WHERE album = ?", $album);
+	my $rel = MusicBrainz::Server::Release->new($sql->{DBH});
+	$rel->RemoveByAlbum($album);
 
     if ($sql->Select(qq|select AlbumJoin.track from AlbumJoin 
                          where AlbumJoin.album = $album|))
@@ -828,12 +829,8 @@ sub MergeAlbums
 		);
 
 		# And the releases
-		# TODO move to Release.pm
-		$sql->Do(
-			"UPDATE release SET album = ? WHERE album = ?",
-			$this->GetId,
-			$id,
-		);
+		my $rel = MusicBrainz::Server::Release->new($sql->{DBH});
+		$rel->MoveFromAlbumToAlbum($id, $this->GetId);
 
        # Then, finally remove what is left of the old album
        $al->Remove();
