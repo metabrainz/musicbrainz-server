@@ -1,3 +1,5 @@
+#!/usr/bin/perl -w
+# vi: set ts=4 sw=4 :
 #____________________________________________________________________________
 #
 #   MusicBrainz -- the open internet music database
@@ -215,24 +217,5 @@ sub Li
     return $this->_indent() . "<rdf:li rdf:resource=\"$res\"/>\n";
 }   
 
-sub BeginLi
-{
-    my ($this, $about) = @_;
-    my $rdf;
-
-    $rdf = BeginElement($this, "rdf:li");
-    $rdf .= BeginDesc($this, $about);
-}
-
-sub EndLi
-{
-    my ($this) = @_;
-    my $rdf;
-
-    $rdf = EndDesc($this);
-    $rdf .= EndElement($this, "rdf:li");
-
-    return $rdf;
-}
-
 1;
+# eof RDF2.pm
