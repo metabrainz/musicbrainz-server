@@ -115,7 +115,9 @@ sub OutputTrack
 
 sub OutputForm
 {
-   my ($data) = @_;
+   my ($data, $submit) = @_;
+
+   $submit = "Select" unless defined $submit;
 
    my $ret = qq|<FORM METHOD="POST" ACTION="/taglookup.html"
          ENCTYPE="application/x-www-form-urlencoded" class="formstyle">
@@ -130,7 +132,7 @@ sub OutputForm
      <INPUT TYPE="hidden" NAME="trmid" VALUE="$data->{trmid}">
      <INPUT TYPE="hidden" NAME="duration" VALUE="$data->{duration}">
      <INPUT TYPE="hidden" NAME="mbt" VALUE="$data->{mbt}">
-     <INPUT TYPE="submit" NAME="submit" VALUE="Select">
+     <INPUT TYPE="submit" NAME="submit" VALUE="$submit">
    </form>|;
 
    return $ret;
@@ -219,7 +221,9 @@ if ($artist eq '' && $artistid eq '' && $album eq '' && $albumid eq '' &&
     <% OutputEditForm(\%orig_data) |n %>
     <& /comp/tableend &>
     </td></tr></table>
+    <& /comp/footer &>
     <%perl>
+    $mb->Logout();
     return undef;
 }
 
@@ -237,10 +241,62 @@ if ($artist eq '' && $artistid eq '' &&
     <% OutputEditForm(\%orig_data) |n %>
     <& /comp/tableend &>
     </td></tr></table>
+    <& /comp/footer &>
     <%perl>
+    $mb->Logout();
     return undef;
 }
 
+my (@coll_list) = $ts->LookupTRMCollisions($trmid); 
+if (scalar(@coll_list))
+{
+    my ($ar, $al, $ref, %data_copy);
+
+    </%perl>
+    TRM Id: <b><% $data{trmid} %></b><p> 
+    <table width="420"><tr><td>
+    More than one track has the same TRM Id shown above. The highlighted tracks
+    shown in the albums below are the possible matches for the track
+    you're matching. If none of the tracks below apply, click on 
+    the lookup button at the bottom of this page:
+    </td></tr></table>
+    <p>
+    <%perl>
+
+    foreach $ref (@coll_list)
+    {
+        $al = Album->new($ts->{DBH});
+        $al->SetId($ref->{album});
+        if ($al->LoadFromId())
+        {
+            $ar = Artist->new($ts->{DBH});
+            $ar->SetId($al->GetArtist());
+            if ($ar->LoadFromId())
+            {
+                mc_comp("/comp/album", album=>$al, artist=>$ar, 
+                                       hilitetrack=>$ref->{track},
+                                       mbtagger=>$mbt);
+            }
+        }
+    }
+
+    %data_copy = %data;
+    $data_copy{trmid} = "";
+
+    </%perl>
+    <table width="420"><tr><td>
+    If none of the albums above apply, click on lookup to ignore
+    these albums and continue with your lookup:<p>
+    <center>
+    <% OutputForm(\%data_copy, "Lookup") |n %>
+    </center>
+    </td></tr></table>
+    <& /comp/footer &>
+    <%perl>
+
+    $mb->Logout();
+    return undef;
+}
 
 ($error, $result, $flags, $list) = $ts->Lookup(\%data, 25);
 #mc_out "Debug: [ ";

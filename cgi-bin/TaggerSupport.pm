@@ -190,6 +190,30 @@ sub Lookup
    return ("", $data, $flags, undef);
 }
 
+# Called by taglookup.html
+sub LookupTRMCollisions
+{
+   my ($this, $trm) = @_;
+   my ($sql, $id, @row, @list);
+
+   $sql = Sql->new($this->{DBH});
+   $id = $sql->Quote($trm);
+   if ($sql->Select(qq|select distinct albumjoin.album, trmjoin.track 
+                         from trm, trmjoin, albumjoin 
+                        where trm.trm = | . $id . qq| and 
+                              trmjoin.trm = trm.id and 
+                              trmjoin.track = albumjoin.track|))
+   {
+        while(@row = $sql->NextRow)
+        {
+            push @list, { album=>$row[0], track=>$row[1] };
+        }
+        $sql->Finish;
+   }
+
+   return @list;
+}
+
 # fix users of lensim and namesim for track matches
 sub SetSim
 {

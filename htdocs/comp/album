@@ -94,7 +94,7 @@ $colspan++ if (exists $session{user}  && !$nomod);
 $colspan++ if ($album->GetArtist() == ModDefs::VARTIST_ID);
 
 mc_out('<tr bgcolor="white"><td bgcolor="#f0efff" colspan="' . $colspan . '">');
-mc_comp("/comp/albumsummary", album=>$album, artist=>$artist);
+mc_comp("/comp/albumsummary", album=>$album, artist=>$artist, nomod=>$nomod);
 mc_out('</td></tr>');
 mc_comp("/comp/albumend", album=>$album, artist=>$artist, 
                           nomod=>$nomod, showids=>$showids);
