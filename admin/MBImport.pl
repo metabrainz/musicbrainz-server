@@ -35,107 +35,279 @@ use Sql;
 
 my $dbname = DBDefs::DB_NAME;
 my $dbuser = DBDefs::DB_USER;
-my $sql;
+
+my ($fHelp, $fIgnoreErrors);
+my $tmpdir = "/tmp";
+
+GetOptions(
+	"help|h"       		=> \$fHelp,
+	"ignore-errors|i!"	=> \$fIgnoreErrors,
+	"tmp-dir|t=s"		=> \$tmpdir,
+);
+
+sub usage
+{
+	print <<EOF;
+Usage: MBImport.pl [options] FILE ...
+
+        --help            show this help
+    -i, --ignore-errors   if a table fails to import, continue anyway
+    -t, --tmp-dir DIR     use DIR for temporary storage (default: /tmp)
+
+FILE can be any of: a regular file in Postgres "copy" format (as produced
+by ExportAllTables --nocompress); a gzip'd or bzip2'd tar file of Postgres
+"copy" files (as produced by ExportAllTables); a directory containing
+Postgres "copy" files; or a directory containing an "mbdump" directory
+containing Postgres "copy" files.
+
+If any "tar" files are named, they are firstly all
+decompressed to temporary directories (under the directory named by
+--tmp-dir).  These directories are removed on exit.
+
+This script then proceeds through all of the MusicBrainz known table names,
+and processes each as follows: firstly the file to load for that table
+is identified, by considering each named argument in turn to see if it
+provides a file for this table; if no file is available, processing of this
+table ends.
+
+Then, if the database table is not empty, a warning is generated, and
+processing of this table ends.  Otherwise, the file is loaded into the table.
+(Exception: the "moderator_santised" file, if present, is loaded into the
+"moderator" table).
+
+EOF
+}
+
+$fHelp and usage();
+@ARGV or usage();
+
+my $mb = MusicBrainz->new;
+$mb->Login;
+my $sql = Sql->new($mb->{DBH});
+
+for my $arg (@ARGV)
+{
+	-e $arg or die "'$arg' not found";
+	next if -d _;
+	-f _ or die "'$arg' is neither a regular file nor a directory";
+
+	next unless $arg =~ /\.tar\.(gz|bz2)$/;
+
+	my $mode = ($1 eq "gz" ? "gzip" : "bzip2");
+
+	my $dir = make_tmp_dir();
+	print localtime() . " : tar -C $dir --$mode -xvf $arg\n";
+	system "tar -C $dir --$mode -xvf $arg";
+	exit $? if $? >> 8;
+	$arg = $dir;
+}
+
+use Time::HiRes qw( gettimeofday tv_interval );
+my $t0 = [gettimeofday];
+my $totalrows = 0;
+my $tables = 0;
+my $errors = 0;
+
+print localtime() . " : starting import\n";
+
+printf "%-30.30s %9s %4s %9s\n",
+	"Table", "Rows", "est%", "rows/sec",
+	;
+
+ImportAllTables();
+
+print localtime() . " : import finished\n";
+
+my $dumptime = tv_interval($t0);
+printf "Loaded %d tables (%d rows) in %d seconds\n",
+	$tables, $totalrows, $dumptime;
+
+exit($errors ? 1 : 0);
+
+
 
 sub ImportTable
 {
-    my ($name, $dir) = @_;
-    my ($cmd, $dsn);
+    my ($table, $file) = @_;
 
-    my $rows = eval { $sql->SelectSingleValue("SELECT 1 FROM $name LIMIT 1") };
+	print localtime() . " : load $table\n";
 
-    if ($rows)
-    {
-	    print STDERR "Warning: table '$name' already contains data, skipping import\n";
-	    return;
-    }
+	my $rows = 0;
 
-    if (-e "$dir/$name")
-    {
-        $cmd = "pg_restore -U $dbuser -S postgres -O -a -t $name -d $dbname $dir/$name"; 
+	my $t1 = [gettimeofday];
+	my $interval;
 
-		printf "%s: %s\n", scalar(localtime), $cmd;
-        my $ret = system($cmd) >> 8;
+	my $size = -s($file) || 1;
 
-        return !$ret;
-    }
-    else
-    {
-        print "Skipping table $name (no file present)\n";
-        return 1;
-    }
+	my $p = sub {
+		my ($pre, $post) = @_;
+		no integer;
+		printf $pre."%-30.30s %9d %3d%% %9d".$post,
+			$table, $rows, int(100 * tell(LOAD) / $size),
+			$rows / ($interval||1);
+	};
+
+	$| = 1;
+
+	eval
+	{
+		open(LOAD, "<", $file) or die "open $file: $!";
+
+		$sql->Begin;
+		$sql->Do("COPY $table FROM stdin");
+		my $dbh = $sql->{DBH};
+
+		$p->("", "");
+
+		while (<LOAD>)
+		{
+			$dbh->func($_, "putline") or die;
+
+			++$rows;
+			unless ($rows & 0xFFF)
+			{
+				$interval = tv_interval($t1);
+				$p->("\r", "");
+			}
+		}
+
+		$dbh->func("\\.\n", "putline") or die;
+		$dbh->func("endcopy") or die;
+
+		$interval = tv_interval($t1);
+		$p->("\r", sprintf(" %.2f sec\n", $interval));
+
+		close LOAD
+			or die $!;
+
+		$sql->Commit;
+
+		die "Error loading data"
+			if -f $file and empty($table);
+
+		++$tables;
+		$totalrows += $rows;
+
+		1;
+	};
+
+	return 1 unless $@;
+	warn "Error loading $file: $@";
+	$sql->Rollback;
+
+	++$errors, return 0 if $fIgnoreErrors;
+	exit 1;
+}
+
+sub empty
+{
+	my $table = shift;
+
+	my $oid = $sql->SelectSingleValue(
+		"SELECT oid FROM $table LIMIT 1",
+	);
+
+	not defined $oid;
 }
 
 sub ImportAllTables
 {
-    my ($dir) = @_;
+	for my $table (qw(
+		album
+		albumjoin
+		albummeta
+		albumwords
+		artist
+		artist_relation
+		artistalias
+		artistwords
+		clientversion
+		currentstat
+		discid
+		historicalstat
+		moderation
+		moderationnote
+		moderator
+		moderator_sanitised
+		stats
+		toc
+		track
+		trackwords
+		trm
+		trmjoin
+		votes
+		wordlist
+	)) {
+		my $file = find_file($table);
+		$file or print("No data file found for '$table', skipping\n"), next;
 
-    ImportTable("artist", $dir);
-    ImportTable("artistalias", $dir);
-    ImportTable("album", $dir);
-    ImportTable("track", $dir);
-    ImportTable("albumjoin", $dir);
-    ImportTable("clientversion", $dir);
-    ImportTable("trm", $dir);
-    ImportTable("trmjoin", $dir);
-    ImportTable("discid", $dir);
-    ImportTable("toc", $dir);
-    ImportTable("albummeta", $dir);
+		if ($table eq "moderator_sanitised")
+		{
+			if (not empty("moderator"))
+			{
+				warn "moderator table already contains data; skipping moderator_sanitised\n";
+				next;
+			}
 
-    ImportTable("moderator", $dir);
-    ImportTable("moderator_sanitised", $dir);
-    ImportTable("moderation", $dir);
-    ImportTable("moderationnote", $dir);
-    ImportTable("votes", $dir);
+			print localtime() . " : loading $file into moderator\n";
+			ImportTable("moderator", $file) or next;
 
-    ImportTable("wordlist", $dir);
-    ImportTable("artistwords", $dir);
-    ImportTable("albumwords", $dir);
-    ImportTable("trackwords", $dir);
-    ImportTable("stats", $dir);
-    ImportTable("currentstat", $dir);
-    ImportTable("historicalstat", $dir);
+		} else {
+			if (not empty($table))
+			{
+				warn "$table already contains data; skipping\n";
+				next;
+			}
 
-    ImportTable("artist_relation", $dir);
+			ImportTable($table, $file);
+		}
+	}
 
     return 1;
 }
 
-my ($fHelp, $tmpdir);
-
-GetOptions(
-	"help|h"       => \$fHelp,
-);
-
-if (not @ARGV or $fHelp)
+sub find_file
 {
-    print "Usage: MBImport.pl dumpfile [dumpfile ...]\n\n";
-    print "or:    MBImport.pl dir [dir ...]\n\n";
-    print "Make sure to have plenty of diskspace on /tmp!\n";
-    exit(0);
+	my $table = shift;
+
+	for my $arg (@ARGV)
+	{
+		use File::Basename;
+		return $arg if -f $arg and basename($arg) eq $table;
+		return "$arg/$table" if -f "$arg/$table";
+		return "$arg/mbdump/$table" if -f "$arg/mbdump/$table";
+	}
+
+	undef;
 }
 
-my $mb = MusicBrainz->new;
-$mb->Login;
-$sql = Sql->new($mb->{DBH});
-
-$tmpdir = "/tmp/mbdump";
-
-for my $arg (@ARGV)
 {
-	if (-d $arg)
+	my @tmpdirs;
+
+	END
 	{
-		ImportAllTables($arg);
-	} else {
-		print "Unpacking $arg ...\n";
-		(!(system("tar -C /tmp -vxjf $arg") >> 8))
-			or die("Cannot untar/unzip the database dump.\n");
-		ImportAllTables($tmpdir);
+		use File::Path;
+		rmtree(\@tmpdirs);
+	}
+
+	sub make_tmp_dir
+	{
+		for (my $i = 0; ; ++$i)
+		{
+			my $dir = "$tmpdir/mbimport-$$-$i";
+
+			if (mkdir $dir)
+			{
+				push @tmpdirs, $dir;
+				return $dir;
+			}
+			
+			use Errno 'EEXIST';
+			next if $! == EEXIST;
+
+			die "Error creating temporary directory ($!)";
+		}
 	}
 }
- 
-printf "%s: import finished\n", scalar localtime;
-
-system("rm -rf $tmpdir") if -d $tmpdir;
 
 # vi: set ts=4 sw=4 :

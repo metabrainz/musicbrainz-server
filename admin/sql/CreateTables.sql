@@ -11,9 +11,9 @@ create table Artist (
 
 create table ArtistAlias (
    Id serial primary key,
-   Ref int not null references Artist, 
+   Ref int not null, -- references Artist, 
    Name varchar(255) not null, 
-   LastUsed_notz datetime not null default now(),
+   LastUsed_notz timestamp without time zone,
    TimesUsed int default 0,
    ModPending int default 0,
    lastused timestamp with time zone
@@ -21,7 +21,7 @@ create table ArtistAlias (
 
 create table Album (
    Id serial primary key,
-   Artist int not null references Artist,
+   Artist int not null, -- references Artist,
    Name varchar(255) not null,
    GID char(36) not null, 
    ModPending int default 0,
@@ -36,7 +36,7 @@ create table AlbumMeta (
 
 create table Track (
    Id serial primary key,
-   Artist int not null references Artist,
+   Artist int not null, -- references Artist,
    Name varchar(255) not null,
    GID char(36) not null, 
    Length int default 0,
@@ -45,8 +45,8 @@ create table Track (
 
 create table AlbumJoin (
    Id serial primary key,
-   Album int not null references Album,
-   Track int not null references Track,
+   Album int not null, -- references Album,
+   Track int not null, -- references Track,
    Sequence int not null,
    ModPending int default 0);
 
@@ -58,24 +58,24 @@ create table TRM (
    Id serial primary key,
    TRM char(36) not null,
    LookupCount int default 0,
-   Version int not null references ClientVersion);
+   Version int not null); -- references ClientVersion);
 
 create table TRMJoin (
    Id serial primary key,
-   TRM int not null references TRM, 
-   Track int not null references Track);
+   TRM int not null, -- references TRM, 
+   Track int not null); -- references Track);
 
 create table Discid (
    Id serial primary key,
-   Album int not null references Album,
+   Album int not null, -- references Album,
    Disc char(28) not null unique,
    Toc text not null, 
    ModPending int default 0);
 
 create table TOC (
    Id serial primary key,
-   Album int not null references Album,
-   Discid char(28) references Discid (Disc),
+   Album int not null, -- references Album,
+   Discid char(28), -- references Discid (Disc),
    Tracks int,
    Leadout int, Track1 int, Track2 int, Track3 int, Track4 int, Track5 int, Track6 int, Track7 int, 
    Track8 int, Track9 int, Track10 int, Track11 int, Track12 int, Track13 int, Track14 int, 
@@ -102,17 +102,15 @@ create table Moderator (
    ModsRejected int default 0, 
    EMail varchar(64) default null, 
    WebUrl varchar(255) default null, 
-   MemberSince_notz datetime default now(),
+   MemberSince_notz timestamp without time zone default now(),
    Bio text default null,
    membersince timestamp with time zone default now()
    );
 
-SELECT * INTO moderator_sanitised FROM moderator;
-
 create table Moderation (
    Id serial primary key,
-   Artist int not null references Artist, 
-   Moderator int not null references Moderator, 
+   Artist int not null, -- references Artist, 
+   Moderator int not null, -- references Moderator, 
    Tab varchar(32) not null,
    Col varchar(64) not null, 
    Type smallint not null, 
@@ -137,8 +135,8 @@ create table ModerationNote (
 
 create table Votes (
    Id serial primary key,
-   Uid int not null references Moderator, 
-   Rowid int not null references Moderation, 
+   Uid int not null, -- references Moderator, 
+   Rowid int not null, -- references Moderation, 
    vote smallint not null,
    votetime timestamp with time zone default now()
    );
@@ -175,7 +173,7 @@ CREATE TABLE currentstat
 (
 	name		VARCHAR(100) PRIMARY KEY,
 	value		INTEGER NOT NULL,
-	lastupdated	TIMESTAMP
+	lastupdated	TIMESTAMP WITHOUT TIME ZONE -- TODO
 );
 
 CREATE TABLE historicalstat
@@ -187,8 +185,8 @@ CREATE TABLE historicalstat
 
 create table artist_relation (
    Id serial primary key,
-   artist int not null references Artist, 
-   ref int not null references Artist, 
+   artist int not null, -- references Artist, 
+   ref int not null, -- references Artist, 
    weight integer not null);
 
 commit;

@@ -30,33 +30,16 @@ mv /tmp/cvs-backup.tar.bz2 $backupdir
 # FIXME use DB_USER, DB_NAME
 echo "VACUUM ANALYZE;" | psql musicbrainz
 
-# Dump the main data
-nice ./MBDump.pl --core -o /tmp/mbdump.tar.bz2
-cp /tmp/mbdump.tar.bz2 $backupdir
-chown $backupuser:$backupgroup $backupdir/mbdump.tar.bz2
-mv /tmp/mbdump.tar.bz2 $ftpdir
+# Dump all the data
+./ExportAllTables --output-dir /tmp
 
-# Dump the derived data
-nice ./MBDump.pl --derived -o /tmp/mbdump-derived.tar.bz2
-cp /tmp/mbdump-derived.tar.bz2 $ftpdir
-mv /tmp/mbdump-derived.tar.bz2 $backupdir
-chown $backupuser:$backupgroup $backupdir/mbdump-derived.tar.bz2
+# The unsanitised moderator data goes only to the backup dir.
+# The other files go to both the backup and the FTP dirs.
+mv /tmp/mbdump-moderator.tar.bz2 $backupdir
+cp /tmp/mbdump*.tar.bz2 $ftpdir
+mv /tmp/mbdump*.tar.bz2 $backupdir
+chown $backupuser:$backupgroup $backupdir/mbdump*.tar.bz2
 
-# Dump the sanitized moderation data
-nice ./MBDump.pl --moderation --sanitised -o /tmp/mbdump-moderation.tar.bz2
-mv /tmp/mbdump-moderation.tar.bz2 $ftpdir
-
-# Dump the unsanitized moderation data for backup
-nice ./MBDump.pl --moderation --nosanitised -o /tmp/mbdump-moderation.tar.bz2
-mv /tmp/mbdump-moderation.tar.bz2 $backupdir
-chown $backupuser:$backupgroup $backupdir/mbdump.tar.bz2
-
-# Dump the agent arts provided data
-nice ./MBDump.pl -o /tmp/mbdump-artistrelation.tar.bz2 artist_relation
-cp /tmp/mbdump-artistrelation.tar.bz2 $ftpdir
-mv /tmp/mbdump-artistrelation.tar.bz2 $backupdir
-
-chown $backupuser:$backupgroup $backupdir/mbdump-derived.tar.bz2
 # Dump the RDF data
 nice ./RDFDump.pl /tmp/mbdump.rdf.bz2
 mv /tmp/mbdump.rdf.bz2 $ftpdir

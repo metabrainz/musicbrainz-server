@@ -1,0 +1,275 @@
+#!/usr/bin/perl -w
+# vi: set ts=4 sw=4 :
+
+#____________________________________________________________________________
+#
+#   MusicBrainz -- the open internet music database
+#
+#   Copyright (C) 1998 Robert Kaye
+#
+#   This program is free software; you can redistribute it and/or modify
+#   it under the terms of the GNU General Public License as published by
+#   the Free Software Foundation; either version 2 of the License, or
+#   (at your option) any later version.
+#
+#   This program is distributed in the hope that it will be useful,
+#   but WITHOUT ANY WARRANTY; without even the implied warranty of
+#   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+#   GNU General Public License for more details.
+#
+#   You should have received a copy of the GNU General Public License
+#   along with this program; if not, write to the Free Software
+#   Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
+#
+#   $Id$
+#____________________________________________________________________________
+
+use FindBin;
+use lib "$FindBin::Bin/../cgi-bin";
+
+use strict;
+use DBI;
+use DBDefs;
+use integer;
+
+my $dbname = DBDefs::DB_NAME;
+my $dbuser = DBDefs::DB_USER;
+
+use Getopt::Long;
+
+my $fHelp;
+my $OutputDir = ".";
+my $dir = "/tmp/mbexport";
+my $fCompress = 1;
+my $fKeepFiles = 0;
+
+GetOptions(
+	"output-dir|d=s"	=> \$OutputDir,
+	"tmp-dir|t=s"		=> \$dir,
+	"compress|c!"		=> \$fCompress,
+	"keep-files|k!"		=> \$fKeepFiles,
+	"help"				=> \$fHelp,
+);
+
+sub usage
+{
+	print <<EOF;
+Usage: ExportAllTables [options]
+
+        --help            show this help
+    -d, --output-dir DIR  place the final archive files in DIR (default: ".")
+    -t, --tmp-dir DIR     use DIR for temporary storage (default: /tmp)
+    -c, --[no]compress    [don't] create .tar.bz2 archives after exporting
+    -k, --keep-files      don't delete the exported files from the tmp directory
+
+EOF
+}
+
+usage(), exit if $fHelp;
+usage(), exit 1 if @ARGV;
+
+for (my $i=0; ; ++$i)
+{
+	my $try = "$dir/mbexport-$$-$i";
+
+	if (mkdir $try)
+	{
+		$dir = $try;
+		last;
+	}
+	
+	use Errno 'EEXIST';
+	next if $! == EEXIST;
+
+	die "Error creating temporary directory ($!)";
+}
+
+mkdir "$dir/mbdump" or die $!;
+
+use MusicBrainz;
+my $mb = new MusicBrainz;
+$mb->Login;
+
+use Sql;
+my $sql = Sql->new($mb->{DBH});
+my $dbh = $mb->{DBH};
+
+my @tables = qw(
+	album
+	albumjoin
+	albummeta
+	albumwords
+	artist
+	artist_relation
+	artistalias
+	artistwords
+	clientversion
+	currentstat
+	discid
+	historicalstat
+	moderation
+	moderationnote
+	moderator
+	moderator_sanitised
+	stats
+	toc
+	track
+	trackwords
+	trm
+	trmjoin
+	votes
+	wordlist
+);
+
+use Time::HiRes qw( gettimeofday tv_interval );
+my $t0 = [gettimeofday];
+my $totalrows = 0;
+my $tables = 0;
+
+$sql->AutoCommit;
+$sql->Do("SET SESSION CHARACTERISTICS AS TRANSACTION ISOLATION LEVEL SERIALIZABLE");
+$sql->Begin;
+
+$sql->Do("SELECT * INTO TEMPORARY TABLE moderator_sanitised FROM moderator");
+$sql->Do("UPDATE moderator_sanitised SET password = 'mb', privs = 0, email = ''");
+
+$| = 1;
+
+printf "%-30.30s %9s %4s %9s\n",
+	"Table", "Rows", "est%", "rows/sec",
+	;
+
+for my $table (@tables)
+{
+	open(DUMP, ">$dir/mbdump/$table")
+		or die $!;
+
+	my $estrows = $sql->SelectSingleValue(
+		"SELECT reltuples FROM pg_class WHERE relname = ? LIMIT 1",
+		$table,
+	) || 1;
+
+	$sql->Do("COPY $table TO stdout");
+	my ($r, $buffer);
+	my $rows = 0;
+
+	my $t1 = [gettimeofday];
+	my $interval;
+
+	my $p = sub {
+		my ($pre, $post) = @_;
+		no integer;
+		printf $pre."%-30.30s %9d %3d%% %9d".$post,
+			$table, $rows, int(100 * $rows / $estrows),
+			$rows / ($interval||1);
+	};
+
+	$p->("", "");
+
+	while ($dbh->func($buffer, 10000, "getline"))
+	{
+		print DUMP $buffer, "\n"
+			or die $!;
+
+		++$rows;
+		unless ($rows & 0xFFF)
+		{
+			$interval = tv_interval($t1);
+			$p->("\r", "");
+		}
+	}
+
+	$dbh->func("endcopy") or die;
+	close DUMP
+		or die $!;
+
+	$interval = tv_interval($t1);
+	$p->("\r", sprintf(" %.2f sec\n", $interval));
+
+	++$tables;
+	$totalrows += $rows;
+}
+
+$sql->Commit;
+my $dumptime = tv_interval($t0);
+printf "Dumped %d tables (%d rows) in %d seconds\n",
+	$tables, $totalrows, $dumptime;
+
+# Now we have all the files; disconnect from the database.
+# This also drops the moderator_sanitised temporary table.
+undef $sql;
+undef $mb;
+
+my @core = qw(
+	album
+	albumjoin
+	artist
+	artistalias
+	discid
+	toc
+	track
+	trm
+	trmjoin
+	);
+
+my @derived = qw(
+	albummeta
+	albumwords
+	artistwords
+	trackwords
+	wordlist
+	);
+
+my @moderation = qw(
+    clientversion
+	currentstat
+	historicalstat
+	moderation
+	moderationnote
+	moderator_sanitised
+	stats
+	votes
+	);
+
+use File::Copy qw( copy );
+
+if ($fCompress)
+{
+	copy("$FindBin::Bin/COPYING-PublicDomain", "$dir/mbdump/COPYING") or die $!;
+	make_tar("mbdump.tar.bz2", "COPYING", @core);
+
+	copy("$FindBin::Bin/COPYING-CCShareAlike", "$dir/mbdump/COPYING") or die $!;
+	make_tar("mbdump-derived.tar.bz2", "COPYING", @derived);
+	make_tar("mbdump-moderation.tar.bz2",  "COPYING", @moderation);
+	make_tar("mbdump-artistrelation.tar.bz2", "COPYING", qw( artist_relation ));
+	make_tar("mbdump-moderator.tar.bz2", "COPYING", qw( moderator ));
+}
+
+if ($fKeepFiles)
+{
+	print "Keeping temporary directory $dir\n";
+} else {
+	use File::Path;
+	rmtree($dir);
+}
+
+sub make_tar
+{
+	my ($tarfile, @files) = @_;
+
+	my $t0 = [gettimeofday];
+	print "Creating $tarfile\n";
+	system { "/bin/tar" } "tar",
+		"-C", $dir,
+		"--bzip2",
+		"--create",
+		"--verbose",
+		"--file", "$OutputDir/$tarfile",
+		"--",
+		map { "mbdump/$_" } @files,
+		;
+	$? == 0 or warn "Tar returned $?";
+	printf "Tar completed in %d seconds\n", tv_interval($t0);
+}
+
+# eof ExportAllTables

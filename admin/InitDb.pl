@@ -35,89 +35,83 @@ my $psql = "psql";
 use Getopt::Long;
 use strict;
 
-chdir $FindBin::Bin or die "cd $FindBin::Bin: $!";
--d "sql" or die "Couldn't find SQL script directory";
+my $sqldir = "$FindBin::Bin/sql";
+-d $sqldir or die "Couldn't find SQL script directory";
 
 sub Create 
 {
-	system "createdb -U postgres -E UNICODE $dbname";
+	system "createuser -U postgres $dbuser"
+		unless $dbuser eq "postgres";
+
+	system "createdb -U postgres -E UNICODE --owner=$dbuser $dbname";
 	system "createlang -U postgres -d $dbname plpgsql";
-
-	return if $dbuser eq "postgres";
-
-	system "createuser -U postgres $dbuser";
-
-	# This is only here because you can't
-	# "CREATE DATABASE ... WITH OWNER = ..."
-	# under Postgres 7.2
-	open(PSQL, "| $psql -U postgres $dbname");
-	print PSQL 
-		"UPDATE pg_database SET datdba = ("
-		. "SELECT usesysid FROM pg_shadow WHERE usename = '$dbuser'"
-		. ") WHERE datname = '$dbname';\n";
-	close PSQL;
 }
 
 sub Import
 {
-    print "Creating tables ...\n";
-    system("$psql -U $dbuser -f sql/CreateTables.sql $dbname");
+    print localtime() . " : Creating tables ...\n";
+    system("$psql -U $dbuser -f $sqldir/CreateTables.sql $dbname");
     die "\nFailed to create tables.\n" if ($? >> 8);
 
-    print "Creating functions ...\n";
-    system("$psql -U $dbuser -f sql/CreateFunctions.sql $dbname");
+    print localtime() . " : Creating functions ...\n";
+    system("$psql -U $dbuser -f $sqldir/CreateFunctions.sql $dbname");
     die "\nFailed to create functions.\n" if ($? >> 8);
 
     {
 	local $" = " ";
-        system($^X, "$FindBin::Bin/MBImport.pl", @_);
+        system($^X, "$FindBin::Bin/MBImport.pl", "--ignore-errors", @_);
         die "\nFailed to import dataset.\n" if ($? >> 8);
     }
 
-    system "echo 'select fill_moderator();' | $psql -U $dbuser $dbname";
-
-    print "Setting initial sequence values ...\n";
+    print localtime() . " : Setting initial sequence values ...\n";
     system($^X, "$FindBin::Bin/SetSequences.pl");
     die "\nFailed to set sequences.\n" if ($? >> 8);
 
-    print "Creating indexes ...\n";
-    system("$psql -U $dbuser -f sql/CreateIndexes.sql $dbname");
+    print localtime() . " : Adding foreign key constraints ...\n";
+    system("$psql -U $dbuser -f $sqldir/CreateFKConstraints.sql $dbname");
+    die "\nFailed to add foreign key constraints.\n" if ($? >> 8);
+
+    print localtime() . " : Creating indexes ...\n";
+    system("$psql -U $dbuser -f $sqldir/CreateIndexes.sql $dbname");
     die "\nFailed to create indexes.\n" if ($? >> 8);
 
-    print "Creating views ...\n";
-    system("$psql -U $dbuser -f sql/CreateViews.sql $dbname");
+    print localtime() . " : Creating views ...\n";
+    system("$psql -U $dbuser -f $sqldir/CreateViews.sql $dbname");
     die "\nFailed to create views.\n" if ($? >> 8);
 
-    print "Creating triggers ...\n";
-    system("$psql -U $dbuser -f sql/CreateTriggers.sql $dbname");
+    print localtime() . " : Creating triggers ...\n";
+    system("$psql -U $dbuser -f $sqldir/CreateTriggers.sql $dbname");
     die "\nFailed to create triggers.\n" if ($? >> 8);
 
-    print "Optimizing database ...\n";
+    print localtime() . " : Optimizing database ...\n";
     system("echo \"vacuum analyze\" | $psql -U $dbuser $dbname");
 
-    print "\nInitialized and imported data into the database.\n\n";
+    print localtime() . " : \nInitialized and imported data into the database.\n\n";
 }
 
 sub Clean
 {
     my $ret;
     
-    system("$psql -U $dbuser -f sql/CreateTables.sql $dbname");
+    system("$psql -U $dbuser -f $sqldir/CreateTables.sql $dbname");
     die "\nFailed to create tables.\n" if ($? >> 8);
 
-    system("$psql -U $dbuser -f sql/CreateIndexes.sql $dbname");
+    system("$psql -U $dbuser -f $sqldir/CreateFKConstraints.sql $dbname");
+    die "\nFailed to add foreign key constraints.\n" if ($? >> 8);
+
+    system("$psql -U $dbuser -f $sqldir/CreateIndexes.sql $dbname");
     die "\nFailed to create indexes.\n" if ($? >> 8);
 
-    system("$psql -U $dbuser -f sql/CreateViews.sql $dbname");
+    system("$psql -U $dbuser -f $sqldir/CreateViews.sql $dbname");
     die "\nFailed to create views.\n" if ($? >> 8);
 
-    system("$psql -U $dbuser -f sql/CreateFunctions.sql $dbname");
+    system("$psql -U $dbuser -f $sqldir/CreateFunctions.sql $dbname");
     die "\nFailed to create functions.\n" if ($? >> 8);
 
-    system("$psql -U $dbuser -f sql/CreateTriggers.sql $dbname");
+    system("$psql -U $dbuser -f $sqldir/CreateTriggers.sql $dbname");
     die "\nFailed to create triggers.\n" if ($? >> 8);
 
-    system("$psql -U $dbuser -f sql/InsertDefaultRows.sql $dbname");
+    system("$psql -U $dbuser -f $sqldir/InsertDefaultRows.sql $dbname");
     die "\nFailed to insert default rows tables.\n" if ($? >> 8);
 
     print "\nCreated a clean and empty database.\n\n";

@@ -116,9 +116,6 @@ create table moderator (
    membersince datetime not null
    );
 
-drop table if exists moderator_sanitised;
-CREATE TABLE moderator_sanitised AS SELECT * FROM moderator;
-
 drop table if exists moderation;
 create table moderation (
    Id bigint auto_increment primary key,

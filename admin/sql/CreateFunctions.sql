@@ -1,34 +1,4 @@
 \set ON_ERROR_STOP 1
-create or replace function fill_moderator () returns integer as '
-declare
-   table_count integer;
-   num_rows    integer;
-begin
-
-   table_count := (SELECT count(*) FROM pg_class WHERE relname = ''moderator_sanitised'');
-   if table_count > 0 then
-
-       table_count := (SELECT count(*) FROM pg_class WHERE relname = ''moderator'');
-       if table_count > 0 then
-           num_rows := (SELECT count(*) FROM moderator);
-       else
-           num_rows := 0;
-       end if;
-
-       if num_rows > 0 then
-           raise notice ''Existing moderator table is not empty.'';
-       else
-           raise notice ''Copying into existing moderator table'';
-           insert into moderator select * from moderator_sanitised;
-       end if;
-   end if;
-
-   return 1;
-
-end;
-' language 'plpgsql';
-
---------------------------------------------------------------------
 
 create or replace function fill_album_meta () returns integer as '
 declare
