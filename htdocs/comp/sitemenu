@@ -12,7 +12,7 @@ use Scalar::Util qw( reftype weaken );
 		{ name => "History",				url => "/history.html" },
 		{ name => "People",					url => "/bio.html" },
 		[
-			{ name => "Moderators",				url => "/moderator.html" },
+			{ name => "Moderators",				url => "/user/view.html" },
 			{ name => "Top Mods",				url => "/topmods.html" },
 		],
 		{ name => "The Future",				url => "/future.html" },
@@ -143,8 +143,9 @@ use Scalar::Util qw( reftype weaken );
         [
             { name => "Existing User",			url => "/login.html" },
             [
-                { name => "Preferences",			url => "/prefs.html" },
-                { name => "Subscriptions",			url => "/user/subscriptions.html" },
+                { name => "My Profile",			url => "/user/edit.html" },
+                { name => "Preferences",		url => "/prefs.html" },
+                { name => "Subscriptions",		url => "/user/subscriptions.html" },
                 { name => "Send Password",		url => "/user/forgot-password.html" },
             ],
             { name => "New User",				url => "/newlogin.html" },
