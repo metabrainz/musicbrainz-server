@@ -93,15 +93,20 @@ sub Tokenize
 		my $old_locale = setlocale(LC_CTYPE);
 		setlocale( LC_CTYPE, "en_US.ISO_8859-1" )
 			  or die "Couldn't change locale.";
-		
+
+	  my %seen = 	();
     foreach (@words) 
     {
         s/\W//g; # strip non words
 				$_ = unac_string('ISO-8859-1',$_);
+				$seen{$_}++;
     }
 
 		#switch it back, just to be polite
 		setlocale( LC_CTYPE, $old_locale );
+		
+		#uniqify the word list
+		@words = keys %seen;
 
     return @words;
 }
