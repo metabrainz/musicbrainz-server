@@ -263,7 +263,7 @@ sub Retrieve
     @response = split ' ', $line;
     if ($response[0] == 202)
     {
-        print STDERR "Server $remote cannot find this cd.\n  ($query)\n";
+        #print STDERR "Server $remote cannot find this cd.\n  ($query)\n";
         return undef;
     }
     if ($response[0] < 200 || $response[0] > 299)
