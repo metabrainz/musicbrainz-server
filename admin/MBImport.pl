@@ -150,6 +150,14 @@ sub ImportTable
 	{
 		open(LOAD, "<", $file) or die "open $file: $!";
 
+		# If you're looking at this code because your import failed, maybe
+		# with an error like this:
+		#   ERROR:  copy: line 1, Missing data for column "automodsaccepted"
+		# then the chances are it's because the data you're trying to load
+		# doesn't match the structure of the database you're trying to load it
+		# into.  Please make sure you've got the right copy of the server
+		# code, as described in the INSTALL file.
+
 		$sql->Begin;
 		$sql->Do("COPY $table FROM stdin");
 		my $dbh = $sql->{DBH};

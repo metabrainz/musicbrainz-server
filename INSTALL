@@ -116,11 +116,29 @@ then build with:
 Installation:
 =============
 
-1) Make sure you have all the prerequisite pieces of software installed.
+1) If you want to import the current live data into your database, you'll need
+   the current live copy of the server codebase, not the latest CVS copy.
+   Otherwise, the import may fail, possibly with an error like this:
+     ERROR:  copy: line 1, Missing data for column "automodsaccepted" 
+ 
+   How to get the live server code:
+
+   i) Work out what CVS tag corresponds to the live server.  It should be of
+      the form "RELEASE_yyyymmdd-BRANCH".  The date (yyyymmdd) in question
+      will probably match the "server version" smallprint shown at the bottom
+      of every MusicBrainz web page.  Alternatively, list the possible tags
+      ("cvs status -v INSTALL | grep RELEASE_ | sort") and pick the one with
+      the latest date.
+      (Yes, I agree, that was too complicated.  It needs to be made simpler.)
+
+   ii) Check out that version of the mb_server source code, e.g.
+      cvs checkout -r RELEASE_20031019-BRANCH mb_server
+
+2) Make sure you have all the prerequisite pieces of software installed.
    Installing perl modules using CPAN is easier than doing it by hand.
    To use CPAN, as root type 'perl -MCPAN -e shell'.
 
-2) Decide on a name for your database (e.g. musicbrainz) and a database
+3) Decide on a name for your database (e.g. musicbrainz) and a database
    owner (e.g. musicbrainz).  Decide on a location for the mb_server code.
    Pick directories for storing Mason and session/lock data.  If you pick
    these values, you'll have less work to do in the next step:
@@ -138,7 +156,7 @@ Installation:
    Make sure your "session data" and "session locks" directories exist.  (The
    "Mason data" directory will be created automatically if it doesn't exist).
 
-3) Edit the following files (in mb_server) to match the choices you made in
+4) Edit the following files (in mb_server) to match the choices you made in
    the previous step:
 
    cgi-bin/DBDefs.pm
@@ -155,7 +173,7 @@ Installation:
      This contains many things to customize - look for the TODO comments,
      which point out things that you might need to change.
 
-4) Assuming you want to start off with a fully-populated database, you'll
+5) Assuming you want to start off with a fully-populated database, you'll
    want to download the database dump files from the FTP site:
 
    wget --mirror ftp://ftp.musicbrainz.org/pub/musicbrainz/data/*tar*
@@ -171,10 +189,10 @@ Installation:
 
    When run in this way, the script should do everything, including creating
    the database for you.  As a rough guide, on my Athlon 800MHz box it takes
-   about 60-80 minutes to run this step, creating and loading a full database.
+   about 2 hours to run this step, creating and loading a full database.
    Don't be surprised if this takes a while.
 
-5) Configure Apache to use Mason.  In the admin directory you will find
+6) Configure Apache to use Mason.  In the admin directory you will find
    the vh_httpd.conf file, which is a VirtualHost fragment for Apache's
    httpd.conf file.  I suggest you run MusicBrainz as a virtual host.
    You should only have to import vh_httpd.conf into your virtualhosts section
@@ -182,11 +200,11 @@ Installation:
    startup.pl, which is the mod_perl startup file.  You should have already
    customised these two files in step 3.
 
-6) Copy all the files/subdirs in the htdocs directory into DocumentRoot
+7) Copy all the files/subdirs in the htdocs directory into DocumentRoot
    directory that you specified in httpd.conf. Then copy all the files/subdirs
    from the cgi-bin dir into the ScriptAlias directory specified in httpd.conf
 
-7) Now start Apache and you should be set and ready to roll.  Go the the
+8) Now start Apache and you should be set and ready to roll.  Go the the
    selected URL and you should see a MusicBrainz site, complete with data.
 
    This should be it and now you have your very own MusicBrainz server.
