@@ -15,11 +15,11 @@ use UserStuff;
    use Apache::Session::File;
 }
 
-my $parser = new HTML::Mason::Parser;
+my $parser = new HTML::Mason::Parser(default_escape_flags=>'h');
 my $interp = new HTML::Mason::Interp (parser=>$parser,
-                comp_root=>'/home/robert/musicbrainz/mb_server/htdocs',
-                data_dir=>'/usr/apache/mason');
-
+            comp_root=>'/home/robert/musicbrainz/mb_server/htdocs',
+            data_dir=>'/usr/apache/mason',
+            allow_recursive_autohandlers=>undef);
 my $ah = new HTML::Mason::ApacheHandler (interp=>$interp);
 chown ( [getpwnam('nobody')]->[2], [getgrnam('nobody')]->[2],
         $interp->files_written );   # chown nobody
