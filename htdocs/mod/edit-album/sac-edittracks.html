@@ -1,0 +1,233 @@
+%# vi: set ts=4 sw=4 ft=mason :
+<%perl>
+
+my $edit = $session{"editalbum"}
+	or return $m->comp("/comp/redirect", "/search.html");
+
+while (my ($k, $v) = each %ARGS)
+{
+	delete $ARGS{$k}, next
+		unless MusicBrainz::IsSingleLineString($v);
+	$v =~ s/\A\s+//;
+	$v =~ s/\s+\z//;
+	$v =~ s/\s\s+/ /g;	#/# for vim
+	$ARGS{$k} = $v;
+}
+
+# Update track names
+
+$edit->{"name"} = $ARGS{"album"}
+	if exists $ARGS{"album"};
+
+for (qw( type status ))
+{
+	my $v = $ARGS{"release_$_"};
+	defined $v or next;
+
+	$edit->{$_} = undef, next
+		if $v eq "";
+
+	MusicBrainz::IsNonNegInteger($v)
+		or next;
+	# TODO check range
+	$edit->{$_} = $v;
+}
+
+my $tracks = $edit->{"tracks"};
+for my $t (@$tracks)
+{
+	my $k = "track".$t->{id};
+	$t->{"name"} = $ARGS{$k}
+		if exists $ARGS{$k}
+		and $ARGS{$k} ne "";
+
+	my $seq = $ARGS{"trackseq".$t->{id}};
+	if (MusicBrainz::IsNonNegInteger($seq))
+	{
+		$t->{"seq"} = $seq;
+	}
+
+	if (%ARGS)
+	{
+		$ARGS{"trackdel".$t->{id}}
+			? $t->{"delete"} = 1
+			: delete $t->{"delete"};
+	}
+}
+
+@$tracks = grep {
+	not $_->{'new'} or not $_->{"delete"}
+} @$tracks;
+
+if ($ARGS{"AddATrack"})
+{
+	my $new_id = 0;
+	my $new_seq = 1;
+	for (@$tracks)
+	{
+		$new_id = $_->{id} if $_->{id} < $new_id;
+		++$new_seq if $_->{seq} == $new_seq;
+	}
+	--$new_id;
+
+	push @$tracks, {
+		new => 1,
+		id => $new_id,
+		name => "",
+		seq => $new_seq,
+	};
+	delete $ARGS{'continue'};
+}
+
+@$tracks = sort {
+	$a->{seq} <=> $b->{seq}
+	or
+	$a->{name} cmp $b->{name}
+} @$tracks;
+
+$session{"editalbum"} = $edit; # write
+
+return $m->comp("/comp/redirect", "/mod/edit-album/review.html")
+	if $ARGS{"continue"};
+
+my $ar = Artist->new(undef);
+
+$ar->SetId($edit->{"artist"}{"id"});
+$ar->SetName($edit->{"artist"}{"name"});
+$ar->SetSortName($edit->{"artist"}{"sortname"});
+
+</%perl>
+<& /comp/sidebar, title => "Album Editor - Edit Track Names" &>
+
+<& /comp/stylemenu &>
+
+<p>
+	You can edit the album and track names here.&nbsp;
+	To re-order tracks, edit the track numbers on the left.&nbsp;
+	To remove tracks, tick the boxes on the right.&nbsp;
+	To add a track, click the "Add a Track" button; a new, empty track
+	will appear.&nbsp; Please note that adding a track with the same
+	track number as an existing track will not work, even if you
+	mark the other track for removal.
+</p>
+
+<p>
+	When you click "Continue" you'll be shown what changes you've made,
+	together with a preview of how the album would look if all the
+	changes were applied.&nbsp; However, please note that all the changes
+	will be inserted as <b>separate moderations</b>, so it's perfectly
+	possible that some, but not all, of your changes will get voted in.
+</p>
+
+<script type="text/javascript" src="/scripts/guess.js"></script>
+
+<form method="post" action="/mod/edit-album/sac-edittracks.html">
+
+	<table class="SpacedColumns TopAlignCells">
+		<col style="width: 4em">
+		<col style="width: 20em">
+		<col style="width: 1em">
+		<col style="width: 6em">
+		<tr>
+			<td><a href="/showartist.html?artistid=<% $ar->GetId %>">Artist</a>:</td>
+			<td><% $ar->GetName %></td>
+			<td></td>
+			<td></td>
+		</tr>
+		<tr>
+			<td><a href="/showalbum.html?albumid=<% $edit->{'id'} %>">Album</a>:</td>
+			<td><input type="text" name="album" style="width: 100%"
+				value="<% $edit->{'name'} %>"></td>
+			<td></td>
+			<td align="center"><input type="button" value="Guess Case"
+				onclick="this.form.album.value = GuessCase(this.form.album.value)"
+				></td>
+		</tr>
+% for my $t (@$tracks) {
+		<tr>
+			<td nowrap>
+% unless ($t->{"new"}) {
+				<a href="/showtrack.html?trackid=<% $t->{'id'} %>">Track</a>
+% } else {
+				Track
+% }
+				<input type="text" name="trackseq<% $t->{"id"} %>"
+				value="<% $t->{seq} %>" size="2" maxlength="2"
+				style="text-align: center"></td>
+			<td><input type="text" name="track<% $t->{"id"} %>" style="width: 100%"
+				maxlength="255"
+				value="<% $t->{"name"} %>"></td>
+			<td align="center"><input type="checkbox" name="trackdel<% $t->{"id"} %>"
+				value="1" <% $t->{'delete'} ? "checked" : "" %>
+				title="Remove this track?"></td>
+			<td align="center"><input type="button" value="Guess Case"
+				onclick="this.form['track<% $t->{'id'} %>'].value = GuessCase(this.form['track<% $t->{'id'} %>'].value)"
+				></td>
+		</tr>
+% }
+		<tr>
+			<td></td>
+			<td>
+				<input type="checkbox" name="AddATrack" value="1">
+				Add a track ...
+			</td>
+			<td align="center"><img src="/images/remove.gif"
+				title="Tick the boxes above to remove tracks"></td>
+			<td align="center"><input type="button" value="Guess All"
+				onclick="
+					this.form.album.value = GuessCase(this.form.album.value);
+% for my $t (@$tracks) {
+					this.form['track<% $t->{'id'} %>'].value = GuessCase(this.form['track<% $t->{'id'} %>'].value);
+% }
+				"></td>
+		</tr>
+		<tr><td>&nbsp;</td></tr>
+		<tr>
+			<td>Type/Status:</td>
+			<td>
+				<select name="release_type">
+				<& /comp/options,
+					do {
+						[
+							[ "", "[none]" ],
+							map {
+								[ $_, Album->GetAttributeName($_) ]
+							} &Album::ALBUM_ATTR_SECTION_TYPE_START
+								.. &Album::ALBUM_ATTR_SECTION_TYPE_END
+						]
+					},
+					$edit->{"type"}
+				&>
+				</select>
+				&nbsp;
+				<select name="release_status">
+				<& /comp/options,
+					do {
+						[
+							[ "", "[none]" ],
+							map {
+								[ $_, Album->GetAttributeName($_) ]
+							} &Album::ALBUM_ATTR_SECTION_STATUS_START
+								.. &Album::ALBUM_ATTR_SECTION_STATUS_END
+						]
+					},
+					$edit->{"status"}
+				&>
+				</select>
+				&nbsp;
+				[ <a href="/popup/attrguide.html"
+					onclick="MyWindow=window.open('/popup/attrguide.html','AlbumAttributeGuide','toolbar=no,location=no,directories=no,status=no,menubar=no,scrollbars=yes,resizable=yes,width=400,height=275'); return false;"
+					>help</a> ]
+			</td>
+		</tr>
+		<tr><td>&nbsp;</td></tr>
+		<tr>
+			<td colspan="8" align="center">
+				<input type="submit" value="Continue">
+				<input type="hidden" name="continue" value="1">
+			</td>
+		</tr>
+	</table>
+</form>
+
+<& /comp/footer &>
