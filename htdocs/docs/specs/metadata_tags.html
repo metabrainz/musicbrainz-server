@@ -16,7 +16,11 @@ unambiguously about the music it's working with.
 <p>
 To store the MusicBrainz identifiers in an ID3v2 tag, you will need to
 use a UFID frame for the Track Id, and up to three TXXX user defined
-text frames for the artist, album and trm identifiers:
+text frames for the artist, album and trm identifiers. Please note
+that for ease of use the ID3 frames are specified to use ISO 8859-1.
+However, the types of characters used to express these tags are the 
+same in ISO 8895-1 and UTF-8, since UTF-8 is backward compatible with
+7-bit ASCII.
 </p>
 
 <p>
