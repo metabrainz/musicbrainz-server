@@ -52,6 +52,19 @@ sub _quoted_string
 	qq["$string"];
 }
 
+sub _quoted_header
+{
+	my ($class, $string) = @_;
+
+	if ($string =~ /[\x00-\x1F\x7F-\xFF]/)
+	{
+		from_to($string, "utf-8", "MIME-Q");
+		return $string;
+	}
+
+	$string;
+}
+
 ################################################################################
 # MIME::Lite interface.
 ################################################################################
