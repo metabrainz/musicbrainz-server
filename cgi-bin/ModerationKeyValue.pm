@@ -86,12 +86,10 @@ sub DetermineDependencies
                               ["type", ModDefs::MOD_ADD_ARTIST,
                                "rowid", $this->GetArtist(),
                                "status", ModDefs::STATUS_OPEN]);
-   print STDERR "depend for album insert\n";
    if (defined $id)
    {
        if (defined $nw)
        {
-          print STDERR "change $row[1] depends on artist insert \n";
           $nw->{"Dep$numdeps"} = $id;
           $numdeps++;
        }
@@ -281,7 +279,6 @@ sub DeniedAction
 
       $ar = Artist->new($this->{DBH});
       $ar->SetId($newval->{"ArtistId"});
-      print STDERR "Remove artist " . $newval->{"ArtistId"} . "\n";
       $ar->Remove();
    }
 }

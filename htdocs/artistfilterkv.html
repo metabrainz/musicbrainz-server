@@ -24,8 +24,6 @@ foreach $key (keys %ARGS)
     last if (defined $sortnamevalue && defined $artistnamevalue);
 }
 
-print STDERR "$name, $artistnamevalue, $sortnamevalue\n";
-
 # Check to make sure we found the name
 if (!defined $name || !defined $artistnamevalue || !defined $sortnamevalue)
 {

@@ -207,7 +207,6 @@ sub ApprovedAction
    {
        $sql->Do(qq/update Album set artist = $newid where artist = $rowid/);
        $sql->Do(qq/update Track set artist = $newid where artist = $rowid/);
-       print STDERR ("delete from Artist where id = $rowid\n");
        $sql->Do("delete from Artist where id = $rowid");
        $sql->Do("update Changes set artist = $newid where artist = $rowid");
 
@@ -268,9 +267,8 @@ sub ApprovedAction
    $status = ModDefs::STATUS_ERROR;
    $sql = Sql->new($this->{DBH});
    
-   @row = $sql->NextRow();
    $table = $this->GetTable();
-   $column = $this->GetCol();
+   $column = $this->GetColumn();
    $prevval = $this->GetPrev();
    $newval = $sql->Quote($this->GetNew());
    $datarowid = $this->GetRowId();

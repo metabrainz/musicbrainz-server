@@ -359,8 +359,6 @@ sub Retrieve
  
      close SOCK;
 
-     print STDERR "FreeDB found: $disc_id\n";
-
      return \%info;
 }
 
