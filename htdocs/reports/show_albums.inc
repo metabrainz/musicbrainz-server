@@ -30,7 +30,8 @@ $rep->Seek($offset);
 
 </%perl>
 
-<p>Total tracks found: <% $rep->Records %></p>
+<p>Report generated: <% $m->comp('/comp/datetime', $rep->Time) %></p>
+<p>Total albums found: <% $rep->Records %></p>
 
 % if ($rep->Records) {
 <& /comp/framedboxbegin, width=>"100%" &>
@@ -69,6 +70,17 @@ $rep->Seek($offset);
 
 </table>
 
-% }
+<br><br>
+<& /comp/framedboxbegin, width=>"100%" &>
+<& /comp/pageselector,
+	numitems	=> $rep->Records, 
+	numlinks	=> 6,
+	snaptoend	=> 2,
+	pagesize	=> $pagesize,
+	offset		=> $offset,
+	url				=> $r->uri,
+	args			=> { pagesize => $pagesize },
+&>
+<& /comp/framedboxend &>
 
-<p> Generated <% $m->comp('/comp/datetime', $rep->Time) %> </p>
+% }

@@ -32,6 +32,9 @@ my $mb = $m->comp('/comp/dblogin');
 
 </%perl>
 
+<p>Report generated: <% $m->comp('/comp/datetime', $rep->Time) %></p>
+<p>Total artists found: <% $rep->Records %></p>
+
 % if ($rep->Records) {
 <& /comp/framedboxbegin, width=>"100%" &>
 <& /comp/pageselector,
@@ -76,6 +79,17 @@ my $mb = $m->comp('/comp/dblogin');
 
 % }
 
-% }
+<br><br>
+<& /comp/framedboxbegin, width=>"100%" &>
+<& /comp/pageselector,
+	numitems	=> $rep->Records, 
+  numlinks	=> 6,
+  snaptoend	=> 2,
+  pagesize	=> $pagesize,
+  offset		=> $offset,
+	url				=> $r->uri,
+	args			=> { pagesize => $pagesize },
+	&>
+<& /comp/framedboxend &>
 
-<p>Generated <% $m->comp('/comp/datetime', $rep->Time) %></p>
+% }
