@@ -301,14 +301,14 @@ my $pc = sub
 	my $min = $mod->GetMinOpenModID;
 
 	my $sql = Sql->new($mb->{DBH});
-	my $r = $sql->SelectListOfLists(
+	my $rows = $sql->SelectListOfLists(
 		"SELECT type, COUNT(*) FROM moderation
 		WHERE status = ".&ModDefs::STATUS_OPEN." AND id >= $min GROUP BY type
 		ORDER BY 2 DESC, 1",
 	);
 
 	my $open = 0;
-	$open += $_->[1] for @$r;
+	$open += $_->[1] for @$rows;
 
 	</%perl>
 	<tr>
@@ -318,7 +318,7 @@ my $pc = sub
 	</tr>
 	<%perl>
 
-	for (@$r)
+	for (@$rows)
 	{
 		my ($t, $c) = @$_;
 		my $class = Moderation->ClassFromType($t);
