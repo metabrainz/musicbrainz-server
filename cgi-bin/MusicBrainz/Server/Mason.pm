@@ -149,7 +149,23 @@ sub handler
 		} if $c->value;
     }
 
-	# TODO drop the session if expired
+	# Drop the session if expired
+	if ($tied and $session{expire} and time() > $session{expire})
+	{
+		UserStuff->EnsureSessionClosed;
+	}
+
+	if (my $ipmask = $session{'ipmask'})
+	{
+		my $my_ip = $r->connection->remote_ip;
+
+		if ($ipmask ne $my_ip)
+		{
+			$tied = undef;
+			untie %session;
+			UserStuff->ClearSessionCookie;
+		}
+	}
 
 	# If we're not logged in, try and log in now using the "permanent" cookie.
 	# Note that the condition ("unless") isn't strictly required; it's a
