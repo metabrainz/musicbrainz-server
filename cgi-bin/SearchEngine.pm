@@ -284,35 +284,55 @@ sub GetWhereClause
 sub RebuildIndex
 {
     my $self = shift;
+    my ($count, $written);
     
     $self->{DBH}->do("delete from " . $self->{Table} . "Words");
 
-    # Start a transaction
-
-    eval
+    my $block_size = 10000;
+    for($count = 0;; $count += $block_size)
     {
-        $self->{DBH}->{AutoCommit} = 0;
-    
-        my $sth = $self->{DBH}->prepare_cached( qq|
-            SELECT Id, Name
-            FROM $self->{Table}
-            |);
-    
-        $sth->execute;
-    
-        while ( my $row = $sth->fetch )
+        $written = 0;
+        # Start a transaction
+        eval
         {
-            #print STDERR "Adding words for $self->{Table} $row->[0]: $row->[1]\n";
-            $self->AddWordRefs(@$row);
+            print STDERR "Start transaction\n";
+            $self->{DBH}->{AutoCommit} = 0;
+        
+            my $sth = $self->{DBH}->prepare_cached( qq|
+                SELECT Id, Name
+                  FROM $self->{Table}
+                 LIMIT $block_size
+                OFFSET $count
+                |);
+        
+            $sth->execute;
+        
+            while ( my $row = $sth->fetch )
+            {
+                #print STDERR "Adding words for $self->{Table} $row->[0]: $row->[1]\n";
+                $self->AddWordRefs(@$row);
+                $count--;
+            }
+            $sth->finish;
+    
+            # And commit all the changes
+            $self->{DBH}->commit;
+            print STDERR "Commit transaction\n";
+        };
+        if ($@)
+        {
+            print STDERR "Index insert: $@\n";
         }
-        $sth->finish;
 
-        # And commit all the changes
-        $self->{DBH}->commit;
-    };
-    if ($@)
-    {
-        print STDERR "Index insert: $@\n";
+        # Make postgres analyze its foo to speed up the insertion
+        print STDERR "Postgres: analyze vacuum\n";
+        $self->{DBH}->{AutoCommit} = 1;
+        $self->{DBH}->do("vacuum analyze");
+
+        if ($written < $block_size)
+        {
+            last;
+        }
     }
 }
 
