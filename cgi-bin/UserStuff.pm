@@ -50,6 +50,8 @@ sub Login
 
    $ok = 0;
 
+   return (0) if ($user =~ m/Anonymous/i);
+
    $sql = Sql->new($this->{DBH});
    $dbuser = $sql->Quote($user);
    if ($sql->Select(qq/select name,password,privs,id 

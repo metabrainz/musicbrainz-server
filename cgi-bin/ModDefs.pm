@@ -27,6 +27,8 @@ BEGIN { require 5.003 }
 
 use strict;
 
+use constant ANON_MODERATOR              => 1;
+
 use constant TYPE_NEW                    => 1;
 use constant TYPE_VOTED                  => 2;
 use constant TYPE_MINE                   => 3;

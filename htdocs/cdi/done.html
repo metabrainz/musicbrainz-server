@@ -64,14 +64,20 @@ else
     $mod = $mod->CreateModerationObject(ModDefs::MOD_ADD_ALBUM);
     if (defined $mod)
     {
-        $mod->SetTable('Artist');
+        $mod->SetTable('Album');
         $mod->SetColumn('Name');
         $mod->SetPrev("");
         $mod->SetNew($new);
         $mod->SetType(ModDefs::MOD_ADD_ALBUM);
-        
-        # TODO set moderator
-        $mod->SetModerator($session{uid});
+       
+        if (!exists $session{uid})
+        {
+            $mod->SetModerator(ModDefs::ANON_MODERATOR);
+        }
+        else
+        {
+            $mod->SetModerator($session{uid});
+        }
         $mod->SetDepMod(0);
 
         # if we already have an artist id, set it here
@@ -90,7 +96,7 @@ else
         if (defined $artistid && defined $albumid)
         {
             $mod->SetArtist($artistid);
-            $mod->SetRowId($artistid);
+            $mod->SetRowId($albumid);
             $mod->InsertModeration(); 
 
             mc_out("Thank you for your submission!<p><br>");

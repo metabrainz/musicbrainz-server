@@ -1,59 +1,16 @@
+<%args>
+$badlogin=>0
+</%args>
+
 <& /comp/sidebar, title=>'' &>
-<%perl>
-
-my ($mb, $user, $ok, $cookie, $privs, $uid);
-
-$ok = undef;
-if (DBDefs::DB_READ_ONLY)
-{
-    $ok = 0;
-}
-elsif (defined $ARGS{User} && $ARGS{User} ne '' &&
-    defined $ARGS{Password} && $ARGS{Password} ne '')
-{
-    $mb = MusicBrainz->new();
-    $mb->Login();
-    $user = UserStuff->new($mb->{DBH});
-    
-    ($ok, $user, $privs, $uid) = $user->Login($ARGS{User}, $ARGS{Password});
-    if ($ok)
-    {
-        tie %HTML::Mason::Commands::session, 
-           'Apache::Session::File', undef, 
-           {
-              Directory => DBDefs::SESSION_DIR,
-              LockDirectory   => DBDefs::LOCK_DIR,
-           };
-        $cookie = new CGI::Cookie (-name=>'AF_SID',
-                -value=>$HTML::Mason::Commands::session{_session_id},
-                -path => '/',); 
-        $r->headers_out->add('Set-cookie' => $cookie); 
-        $session{user} = $user;
-        $session{privs} = $privs;
-        $session{uid} = $uid;  
-    }
-    $mb->Logout();
-}    
-</%perl>
-
-% if ($ok) {
-    
-   <center><b>You are now logged into MusicBrainz!</b></center>
-   <br><p>
-   <& /comp/searchinternal &>
-
-% } else {
 
    <center>
-%  if (defined $ok) {
+%  if ($badlogin) {
      <b>Invalid Login. Please try again:</b><p>
 %  }
    <table width=50%><tr><td>
    <& /comp/tablebegin, title=>'Moderator Login' &>
-   <& /comp/loginbox &>
+   <& /comp/loginbox, referer=>$ARGS{referer} &>
    <& /comp/tableend &>
    </td></tr></table>
    </center>
-
-% }
-% untie %HTML::Mason::Commands::session;

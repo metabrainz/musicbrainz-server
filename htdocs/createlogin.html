@@ -14,8 +14,8 @@ $user = UserStuff->new($mb->{DBH});
 if ($err ne "")
 {
     mc_out($err);
-    #this html displays the sidebar, the new_login should not to it again
-    mc_comp('/newlogin.html', sidebar=>'0');
+    #this html displays the sidebar, the new_login should not do it again
+    mc_comp('/newlogin.html', sidebar=>'0', referer=>$ARGS{referer});
 }
 else
 {
@@ -34,9 +34,21 @@ else
     $session{privs} = $privs;
     $session{uid} = $uid;  
     
-    mc_out(qq/A new account has been created and you are 
-              now logged into MusicBrainz!/);
-    mc_comp('/comp/searchinternal');
+    mc_out(qq|<center>A new account has been created and you are 
+              now logged into MusicBrainz!</center><p><br><br>|);
+
+    if (exists $ARGS{referer})
+    {
+        my $url;
+        $url = $ARGS{referer};
+        $url =~ s/\@Q\@/\?/g;
+        $url =~ s/\@A\@/\&/g;
+        mc_out("<center>Click <a href=\"$url\">here</a> to continue.</center>");
+    }
+    else
+    {
+        mc_comp('/comp/searchinternal');
+    }
     untie %HTML::Mason::Commands::session;
 }
 $mb->Logout();

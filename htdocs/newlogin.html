@@ -1,5 +1,6 @@
 <%args>
 $sidebar=>'1'
+$referer=>""
 </%args>
 
 %if ($sidebar == 1) {
@@ -39,6 +40,18 @@ Please fill out the form below to create a new MusicBrainz account:
    </td>
 </tr>
 </table>
+<%perl>
+
+if ($referer eq '')
+{
+   $referer = $r->headers_in->{'Referer'};
+}
+if ($referer ne "") {
+   $referer =~ s/\?/\@Q\@/g; 
+   $referer =~ s/\&/\@A\@/g; 
+   mc_out("<INPUT TYPE=\"hidden\" NAME=\"referer\" VALUE=\"$referer\">");
+}
+</%perl>
 </form>
 <script language="JavaScript">document.LoginForm.User.focus();</script>
 

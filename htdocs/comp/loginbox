@@ -1,5 +1,8 @@
-% if (DBDefs::DB_READ_ONLY) {
+<%args>
+$referer=>""
+</%args>
 
+% if (DBDefs::DB_READ_ONLY) {
 <table>
 <tr>
    <td>
@@ -16,7 +19,7 @@
 
 % } else {
 
-<FORM METHOD="POST" ACTION="/login.html" NAME="LoginForm"
+<FORM METHOD="POST" ACTION="/bare/login.html" NAME="LoginForm"
       ENCTYPE="application/x-www-form-urlencoded" class="formstyle">
 <table>
 <tr>
@@ -39,6 +42,13 @@
    </td>
 </tr>
 </table>
+<%perl>
+if ($referer ne "") {
+   $referer =~ s/\?/\@Q\@/g; 
+   $referer =~ s/\&/\@A\@/g; 
+   mc_out("<INPUT TYPE=\"hidden\" NAME=\"referer\" VALUE=\"$referer\">");
+}
+</%perl>
 </form>
 <script language="JavaScript">document.LoginForm.User.focus();</script>
 

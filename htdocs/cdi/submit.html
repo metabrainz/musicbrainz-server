@@ -3,7 +3,7 @@ my ($o, $mb, $di, $num_tracks, $notfound);
 my ($i, $sth, $album, $valid, $id, $tracks, $toc); 
 
 $mb = new MusicBrainz;
-mc_comp("/comp/sidebar", title=>"Submit a New CD");
+mc_comp("/comp/sidebar", title=>"Lookup/Submit a CD");
 
 $id = $ARGS{'id'};
 $tracks = $ARGS{'tracks'};
@@ -17,7 +17,11 @@ if (!defined $id || $id eq '' ||
     !defined $tracks || $tracks eq '' ||
     !defined $toc || $toc eq '')
 {
-    mc_out("This page needs the id, tracks and toc arguments.");
+    mc_out("The Disk id, TOC and the number of tracks need to be passed in ");
+    mc_out("as part of the page URL. Without this information you ");
+    mc_out("cannot use these pages to submit a CD. Please use ");
+    mc_out("<a href=\"/addalbum.html?artistid=0\">this page</a> ");
+    mc_out("instead.");
 }
 elsif (length($id) == 32 || !defined $toc || $toc eq '')
 {
@@ -34,21 +38,58 @@ else
     $album = $di->GetAlbumFromDiskId($id);
     if (defined $album)
     {
-</%perl>
-        Thank you for your submission, but this CD is already in the index. 
-        <p>If you cannot retrieve this
-        CD for some reason, please <a href="mailto:rob\@eorbit.net">
-        send</a> me some mail.
-        </TD></TR></TABLE>
-%   } else {
+        my ($al, $ar);
+
+        $al = Album->new($mb->{DBH});
+        $al->SetId($album);
+        if ($al->LoadFromId())
+        {
+            $ar = Artist->new($mb->{DBH});
+            $ar->SetId($al->GetArtist());
+            if ($ar->LoadFromId())
+            {
+                mc_out("Found album:<p>");
+                mc_comp("/comp/artisttitle", artist=>$ar);
+                mc_comp("/comp/album", album=>$al, artist=>$ar);
+            }
+            else
+            {
+                mc_out("Could not load artist for the album.");
+            }
+        }
+        else
+        {
+            mc_out("Could not load album.");
+        }
+    } 
+    else 
+    {
+</%perl> 
+        <table>
+        <tr>
+        <td valign="top" width="50%">
 %       if ($notfound) {
             The CD you tried to look up was not found. Please use the
             form below to submit this CD to MusicBrainz.
-            <hr>
 %       }
- 
         Please follow the instructions below:
         <p>
+%       if (!exists $session{user}) {
+            <font class="bold">Note:</font> Please 
+            log in to get credit for your submission. 
+            <p>
+% }
+        </td>
+        <td align="center" width="50%">
+%       if (!exists $session{user}) {
+            <& /comp/tablebegin, title=>'Moderator Login' &>
+            <& /comp/loginbox &>
+            <& /comp/tableend &>
+% }
+        </td>
+        </tr>
+        </table>
+
         <center>
         Does the CD have a single artist or multiple artists?
         </center>
