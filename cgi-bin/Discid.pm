@@ -251,7 +251,6 @@ sub _FindFuzzy
    return @albums;
 }
 
-# TODO should this ever return undef?
 sub LoadFull
 {
    my ($this, $album) = @_;
@@ -267,7 +266,7 @@ sub LoadFull
    {
        for(;@row = $sql->NextRow();)
        {
-		   require Discid;
+			require Discid;
            $disc = Discid->new($this->{DBH});
            $disc->SetId($row[0]);
            $disc->SetAlbum($row[1]);
@@ -276,9 +275,8 @@ sub LoadFull
            push @info, $disc;
        }
    }
-	$sql->Finish;
 
-   return undef if not @info;
+   $sql->Finish;
    \@info;
 }
 

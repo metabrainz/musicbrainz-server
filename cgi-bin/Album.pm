@@ -640,15 +640,12 @@ sub GetDiscIDs
 {
 	my $self = shift;
 
-	unless (defined $self->{"_discids"})
+	$self->{"_discids"} ||= do
 	{
 		require Discid;
 		my $di = Discid->new($self->{DBH});
-		my $ret = $di->LoadFull($self->GetId);
-		$self->{"_discids"} = ($ret || 0);
-	}
-
-	$self->{"_discids"} || undef;
+		$di->LoadFull($self->GetId);
+	};
 }
 
 sub GetTracks
@@ -1142,7 +1139,8 @@ sub CanRemoveTrack
 sub _GetTOCTracksHash
 {
 	my $self = shift;
-	my $discids = $self->GetDiscIDs
+	my $discids = $self->GetDiscIDs;
+	@$discids
 		or return +{};
 
 	my %h;
