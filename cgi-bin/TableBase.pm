@@ -155,7 +155,7 @@ sub FindTextInColumn
     my ($sql, $sth, @idslabels, @row, $i);
 
     $sql = AppendWhereClause($this, $search, "select id, $column from $table ".
-                             "where ", $column) . " order by $column";
+                             "where ", $column) . " order by $column limit 25";
 
     $sth = $this->{DBH}->prepare($sql);
     $sth->execute();

@@ -50,10 +50,10 @@ sub ImportAllTables
     ImportTable("AlbumJoin", $dir) or return 0;
     ImportTable("GUIDJoin", $dir) or return 0;
     ImportTable("Genre", $dir) or return 0;
-    ImportTable("Pending", $dir) or return 0;
     ImportTable("Diskid", $dir) or return 0;
     ImportTable("TOC", $dir) or return 0;
 
+    #ImportTable("Pending", $dir) or return 0;
     #ImportTable("ModeratorInfo", $dir) or return 0;
     #ImportTable("Changes", $dir) or return 0;
     #ImportTable("Votes", $dir) or return 0;

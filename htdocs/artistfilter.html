@@ -1,29 +1,48 @@
 <%perl>
 
 my ($mb, $i, $j, $mod, $new, @idslabels, $ar);
-my ($artistid, $artistname, $key);
+my ($artistid, $artistname, $key, $found);
 
-mc_comp("/comp/title", title=>'Artist Name Check');
+mc_comp("/comp/title", title=>'Select Artist');
 
 $mb = new MusicBrainz;
 $mb->Login();
 
 $ar = Artist->new($mb);
-@idslabels = $ar->FindTextInColumn("Artist", "Name", $ARGS{new0});
-push @idslabels, -1;
-push @idslabels, $ARGS{new0};
+@idslabels = $ar->FindTextInColumn("Artist", "SortName", $ARGS{new0});
 
+$found = 0;
+foreach $key (@idslabels)
+{
+    if (lc($key) eq lc($ARGS{new0}))
+    {
+       $found = 1;
+       last;
+    }
+}
 </%perl>
+
 A search on <font class="title"><% $ARGS{new0} %></font>
-has turned up the following matching
-artists that are similar to the artist name that you just entered. 
-Please choose one of the artists below, and click Select Artist to
-enter this moderation:
+has turned up the following matching artists that are similar to the 
+artist name that you just entered. 
+
+% if ($ARGS{mode} eq 'move') {
+Please choose one of the artists below, and click Finish>> to
+move album <% $ARGS{prev0} %> to the selected artist:
+% } else {
+Please choose one of the artists below, and click Finish>> to
+merge artist <% $ARGS{prev0} %> with the selected artist:
+% }
 
 <form method="POST" action="/bare/enter_mod.html"
       enctype="application/x-www-form-urlencoded" class="formstyle">
-<%perl>
 
+% if (!$found) {
+<input type="radio" name="new0" 
+       value="$artistname">&nbsp;<% $ARGS{new0} %><br>
+% }
+
+<%perl>
 for($i = 0; $i < scalar(@idslabels); $i++)
 {
     $artistid = shift @idslabels;
@@ -41,7 +60,7 @@ foreach $key (keys %ARGS)
 }
 
 </%perl>
-<input type="submit" value="Select Artist>>" name="Search">
+<input type="submit" value="Finish>>" name="Search">
 </form>
 <%perl>
 

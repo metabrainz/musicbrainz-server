@@ -50,10 +50,10 @@ sub DumpAllTables
     DumpTable("AlbumJoin", $dir) or return 0;
     DumpTable("GUIDJoin", $dir) or return 0;
     DumpTable("Genre", $dir) or return 0;
-    DumpTable("Pending", $dir) or return 0;
     DumpTable("Diskid", $dir) or return 0;
     DumpTable("TOC", $dir) or return 0;
     
+    #DumpTable("Pending", $dir) or return 0;
     #DumpTable("ModeratorInfo", $dir) or return 0;
     #DumpTable("Changes", $dir) or return 0;
     #DumpTable("Votes", $dir) or return 0;

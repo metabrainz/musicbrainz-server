@@ -18,7 +18,8 @@ $bgcolor = $modpending ? 'bgcolor="#FFFFCC"' : '';
     </td>
     <td>
 % if (exists $session{user} && $artistid != 0) {
-      (<a href="/editartist.html?id=<% $ARGS{artistid} %>">Edit</a>)
+      (<a href="/editartist.html?id=<% $ARGS{artistid} %>">Edit</a> |
+      <a href="/mergeartist.html?id=<% $ARGS{artistid} %>">Merge</a>)
 % } else {
       &nbsp;
 % }

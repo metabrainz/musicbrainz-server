@@ -36,6 +36,8 @@ $artistname = $ar->Value(1);
     <& /comp/modpending &>
 % } 
 
+    Enter the name of the artist to whom you'd like to move this album:
+
     <FORM METHOD="POST" ACTION="/artistfilter.html"
           ENCTYPE="application/x-www-form-urlencoded">  
     <table>
@@ -61,6 +63,7 @@ $artistname = $ar->Value(1);
         </td>
       </tr>
     </table>
+    <input type="hidden" name="mode" value="move">
     <input type="hidden" name="artist0" value="<% $artist %>">
     <input type="hidden" name="type0" 
            value="<% Moderation::MOD_MOVE_ALBUM %>">
