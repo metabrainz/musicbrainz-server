@@ -1,7 +1,8 @@
 I Server update tasks
 ---------------------
 
-- admin/sql/MoreTimestamps.sql
+- admin/sql/AddMoreTimestamps.sql (not very important, and quite slow.
+  optional)
 - admin/sql/WordTables20030321.sql
 - admin/build_words.pl
 
