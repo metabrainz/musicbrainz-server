@@ -24,7 +24,8 @@ create index AlbumJoin_AlbumIndex on AlbumJoin (Album);
 create index AlbumJoin_TrackIndex on AlbumJoin (Track);
 CREATE UNIQUE INDEX albumjoin_albumtrack ON albumjoin (album, track);
 
-create unique index Discid_DiscIndex on Discid (Disc);
+CREATE UNIQUE INDEX discid_disc_key
+    ON discid (disc);
 create index Discid_AlbumIndex on Discid (Album);
 
 create unique index TOC_DiscIndex on TOC (Discid);
@@ -77,6 +78,12 @@ CREATE UNIQUE INDEX historicalstat_namedate on historicalstat (name, snapshotdat
 
 create index artist_relation_artist  on artist_relation (artist);
 create index artist_relation_ref  on artist_relation (ref);
+
+CREATE UNIQUE INDEX moderator_preference_moderator_key
+    ON moderator_preference (moderator, name);
+
+CREATE UNIQUE INDEX moderator_subscribe_artist_moderator_key
+    ON moderator_subscribe_artist (moderator, artist);
 
 CREATE UNIQUE INDEX country_isocode ON country (isocode);
 CREATE UNIQUE INDEX country_name ON country (name);

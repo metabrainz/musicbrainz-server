@@ -236,8 +236,9 @@ sub ImportAllTables
 		moderation_note_open
 		moderation_open
 		moderator
-		moderator_subscribe_artist
 		moderator_sanitised
+		moderator_preference
+		moderator_subscribe_artist
 		release
 		stats
 		toc

@@ -85,7 +85,6 @@ sub Create
 sub Import
 {
 	RunSQLScript("CreateTables.sql", "Creating tables ...");
-	RunSQLScript("CreateFunctions.sql", "Creating functions ...");
 
     {
 		local $" = " ";
@@ -93,13 +92,16 @@ sub Import
         die "\nFailed to import dataset.\n" if ($? >> 8);
     }
 
+	RunSQLScript("CreatePrimaryKeys.sql", "Creating primary keys ...");
+	RunSQLScript("CreateIndexes.sql", "Creating indexes ...");
+	RunSQLScript("CreateFKConstraints.sql", "Adding foreign key constraints ...");
+
     print localtime() . " : Setting initial sequence values ...\n";
     system($^X, "$FindBin::Bin/SetSequences.pl");
     die "\nFailed to set sequences.\n" if ($? >> 8);
 
-	RunSQLScript("CreateFKConstraints.sql", "Adding foreign key constraints ...");
-	RunSQLScript("CreateIndexes.sql", "Creating indexes ...");
 	RunSQLScript("CreateViews.sql", "Creating views ...");
+	RunSQLScript("CreateFunctions.sql", "Creating functions ...");
 	RunSQLScript("CreateTriggers.sql", "Creating triggers ...");
 
     print localtime() . " : Optimizing database ...\n";
@@ -113,11 +115,13 @@ sub Clean
     my $ret;
     
 	RunSQLScript("CreateTables.sql", "Creating tables ...");
-	RunSQLScript("CreateFunctions.sql", "Creating functions ...");
 
+	RunSQLScript("CreatePrimaryKeys.sql", "Creating primary keys ...");
 	RunSQLScript("CreateFKConstraints.sql", "Adding foreign key constraints ...");
 	RunSQLScript("CreateIndexes.sql", "Creating indexes ...");
+
 	RunSQLScript("CreateViews.sql", "Creating views ...");
+	RunSQLScript("CreateFunctions.sql", "Creating functions ...");
 	RunSQLScript("CreateTriggers.sql", "Creating triggers ...");
 
 	RunSQLScript("InsertDefaultRows.sql", "Adding default rows ...");
@@ -150,6 +154,11 @@ Options are:
 After the import option, you may specify one or more MusicBrainz data dump
 files for importing into the database. Once this script runs to completion
 without errors, the database will be ready to use. Or it *should* at least.
+
+Since all non-option arguments are passed directly to MBImport.pl, you can
+pass additional options to that script by using "--".  For example:
+
+  InitDb.pl --createdb --echo --import -- --tmp-dir=/var/tmp *.tar.bz2
 
 EOF
 }

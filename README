@@ -110,7 +110,7 @@ MusicBrainz.pm        database login/logout functions, main package
 DBDefs.pm             database name, access user/passwd, server settings
 FreeDB.pm             access to the FreeDB CD database for Audio CD's
 Insert.pm             houses the large Insert function of new info
-Sql.pm                SQL helper function for Quote, NextRow, GetSingleRow, etc.
+Sql.pm                every project has a DBI-wrapper layer.  This is ours.
 TableBase.pm          helper functions for building table access queries
 
 Database table control files:

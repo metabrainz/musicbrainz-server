@@ -2,7 +2,7 @@
 begin;
 
 create table Artist (
-   Id serial primary key,
+   Id serial,
    Name varchar(255) not null,
    GID char(36) not null,
    ModPending int default 0,
@@ -10,7 +10,7 @@ create table Artist (
    Page int not null);
 
 create table ArtistAlias (
-   Id serial primary key,
+   Id serial,
    Ref int not null, -- references Artist
    Name varchar(255) not null, 
    TimesUsed int default 0,
@@ -19,7 +19,7 @@ create table ArtistAlias (
    );
 
 create table Album (
-   Id serial primary key,
+   Id serial,
    Artist int not null, -- references Artist
    Name varchar(255) not null,
    GID char(36) not null, 
@@ -28,14 +28,14 @@ create table Album (
    Page int not null);
 
 create table AlbumMeta (
-   Id int primary key,
+   Id integer not null,
    tracks int default 0,
    discids int default 0,
    trmids int default 0,
    firstreleasedate char(10));
 
 create table Track (
-   Id serial primary key,
+   Id serial,
    Artist int not null, -- references Artist
    Name varchar(255) not null,
    GID char(36) not null, 
@@ -44,36 +44,36 @@ create table Track (
    ModPending int default 0);
 
 create table AlbumJoin (
-   Id serial primary key,
+   Id serial,
    Album int not null, -- references Album
    Track int not null, -- references Track
    Sequence int not null,
    ModPending int default 0);
 
 create table ClientVersion (
-   Id serial primary key,
+   Id serial,
    Version varchar(64) not null);
 
 create table TRM (
-   Id serial primary key,
+   Id serial,
    TRM char(36) not null,
    LookupCount int default 0,
    Version int not null); -- references ClientVersion
 
 create table TRMJoin (
-   Id serial primary key,
+   Id serial,
    TRM int not null, -- references TRM
    Track int not null); -- references Track
 
 create table Discid (
-   Id serial primary key,
+   Id serial,
    Album int not null, -- references Album
-   Disc char(28) not null unique,
+   Disc char(28) not null,
    Toc text not null, 
    ModPending int default 0);
 
 create table TOC (
-   Id serial primary key,
+   Id serial,
    Album int not null, -- references Album
    Discid char(28), -- references Discid (Disc)
    Tracks int,
@@ -94,7 +94,7 @@ create table TOC (
    Track99 int);
 
 CREATE TABLE moderator (
-    id                  SERIAL PRIMARY KEY,
+    id                  SERIAL,
     name                VARCHAR(64) NOT NULL,
     password            VARCHAR(64) NOT NULL, 
     privs               INTEGER DEFAULT 0, 
@@ -111,7 +111,7 @@ CREATE TABLE moderator (
 );
 
 create table moderation_open (
-   id serial primary key,
+   id serial not null,
    artist int not null, -- references Artist
    moderator int not null, -- references Moderator
    tab varchar(32) not null,
@@ -131,13 +131,13 @@ create table moderation_open (
    );
 
 create table moderation_note_open (
-   id serial primary key,
+   id serial not null,
    moderation int not null, 
    moderator int not null, 
    text TEXT not null);
 
 create table vote_open (
-   id serial primary key,
+   id serial not null,
    moderator int not null, -- references Moderator
    moderation int not null, -- references Moderation
    vote smallint not null,
@@ -146,7 +146,7 @@ create table vote_open (
    );
 
 create table moderation_closed (
-   id int primary key,
+   id int not null,
    artist int not null, -- references Artist
    moderator int not null, -- references Moderator
    tab varchar(32) not null,
@@ -166,13 +166,13 @@ create table moderation_closed (
    );
 
 create table moderation_note_closed (
-   id int primary key,
+   id int not null,
    moderation int not null, 
    moderator int not null, 
    text TEXT not null);
 
 create table vote_closed (
-   id int primary key,
+   id int not null,
    moderator int not null, -- references Moderator
    moderation int not null, -- references Moderation
    vote smallint not null,
@@ -181,7 +181,7 @@ create table vote_closed (
    );
 
 create table WordList(
-   Id serial primary key,
+   Id serial,
    Word varchar(255) not null,
    artistusecount SMALLINT NOT NULL DEFAULT 0,
    albumusecount SMALLINT NOT NULL DEFAULT 0,
@@ -201,7 +201,7 @@ create table TrackWords (
    Trackid int not null);
 
 create table Stats (
-   Id serial primary key,
+   Id serial,
    artists int not null, 
    albums int not null, 
    tracks int not null, 
@@ -213,14 +213,14 @@ create table Stats (
    timestamp date not null);
 
 create table artist_relation (
-   Id serial primary key,
+   Id serial,
    artist int not null, -- references Artist
    ref int not null, -- references Artist
    weight integer not null);
 
 CREATE TABLE currentstat
 (
-        name            VARCHAR(100) PRIMARY KEY,
+        name            VARCHAR(100) NOT NULL,
         value           INTEGER NOT NULL,
         lastupdated     TIMESTAMP WITH TIME ZONE
 );
@@ -234,34 +234,32 @@ CREATE TABLE historicalstat
 
 CREATE TABLE moderator_preference
 (
-        id              SERIAL PRIMARY KEY,
+        id              SERIAL,
         moderator       INTEGER NOT NULL, -- references moderator
         name            VARCHAR(50) NOT NULL,
-        value           VARCHAR(100) NOT NULL,
-        UNIQUE (moderator, name)
+        value           VARCHAR(100) NOT NULL
 );
 
 CREATE TABLE moderator_subscribe_artist
 (
-        id              SERIAL PRIMARY KEY,
+        id              SERIAL,
         moderator       INTEGER NOT NULL, -- references moderator
         artist          INTEGER NOT NULL, -- weakly references artist
         lastmodsent     INTEGER NOT NULL, -- weakly references moderation
         deletedbymod    INTEGER NOT NULL DEFAULT 0, -- weakly references moderation
-        mergedbymod     INTEGER NOT NULL DEFAULT 0, -- weakly references moderation
-        UNIQUE (moderator, artist)
+        mergedbymod     INTEGER NOT NULL DEFAULT 0 -- weakly references moderation
 );
 
 CREATE TABLE country
 (
-        id              SERIAL PRIMARY KEY,
+        id              SERIAL,
         isocode         VARCHAR(2) NOT NULL,
         name            VARCHAR(100) NOT NULL
 );
 
 CREATE TABLE release
 (
-        id              SERIAL PRIMARY KEY,
+        id              SERIAL,
         album           INTEGER NOT NULL, -- references album
         country         INTEGER NOT NULL, -- references country
         releasedate     CHAR(10) NOT NULL,
