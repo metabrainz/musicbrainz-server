@@ -40,7 +40,7 @@ sub SetSequence
 
     if (not defined $max)
     {
-		$max = (iiMinMaxID($table))[1];
+		$max = $sql->GetColumnRange($table);
     }
 
     $max++;
@@ -109,41 +109,10 @@ SetSequence($sql, "wordlist");
 # sequence).
 
 $_ = "moderation";
-SetSequence($sql, "${_}_open", (iiMinMaxID("${_}_open", "${_}_closed"))[1]);
+SetSequence($sql, "${_}_open", scalar $sql->GetColumnRange(["${_}_open", "${_}_closed"]));
 $_ = "moderation_note";
-SetSequence($sql, "${_}_open", (iiMinMaxID("${_}_open", "${_}_closed"))[1]);
+SetSequence($sql, "${_}_open", scalar $sql->GetColumnRange(["${_}_open", "${_}_closed"]));
 $_ = "vote";
-SetSequence($sql, "${_}_open", (iiMinMaxID("${_}_open", "${_}_closed"))[1]);
-
-exit;
-
-sub iiMinMaxID
-{
-	my @tables = @_;
-
-	# Postgres is poor at optimising SELECT MIN(id) FROM table
-	# (or MAX).  It uses a table scan, instead of an index scan.
-	# However for the following queries it gets it right:
-
-	my ($min, $max) = (undef, undef);
-	for my $table (@tables)
-	{
-		my $thismin = $sql->SelectSingleValue(
-			"SELECT id FROM $table ORDER BY id ASC LIMIT 1",
-		);
-		$min = $thismin
-			if defined($thismin)
-			and (not defined($min) or $thismin < $min);
-
-		my $thismax = $sql->SelectSingleValue(
-			"SELECT id FROM $table ORDER BY id DESC LIMIT 1",
-		);
-		$max = $thismax
-			if defined($thismax)
-			and (not defined($max) or $thismax > $max);
-	}
-
-	return ($min, $max);
-}
+SetSequence($sql, "${_}_open", scalar $sql->GetColumnRange(["${_}_open", "${_}_closed"]));
 
 # eof SetSequences.pl
