@@ -98,7 +98,7 @@ if (!exists $ARGS{confirm0} || $ARGS{confirm0} eq 'yes')
                   $ARGS{url} = "/showartist.html?artistid=$1";
                }
            }
-           $modid = $mod->InsertModeration();
+           $modid = $mod->InsertModeration($session{privs});
        }
    }
    $mb->Logout();

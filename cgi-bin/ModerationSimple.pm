@@ -597,8 +597,15 @@ sub ShowPreviousValue
 {
    my ($this) = @_;
 
-   return "Old: <a href=\"/showalbum.html?albumid=" .
-          "$this->{rowid}\">$this->{prev}</a>";
+   if ($this->GetStatus() == ModDefs::STATUS_APPLIED)
+   {
+       return "Old: $this->{prev}";
+   }
+   else
+   {
+       return "Old: <a href=\"/showalbum.html?albumid=" .
+              "$this->{rowid}\">$this->{prev}</a>";
+   }
 }
 
 sub ShowNewValue

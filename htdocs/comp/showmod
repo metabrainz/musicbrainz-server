@@ -45,6 +45,11 @@ my $time = sprintf "%d-%02d-%02d %02d:%02d",
         src="/images/remove.gif" alt="remove" title="Remove this moderation"
         border="0" height="16" width="16" align="center"></a>
 % }
+% if ($mod->GetAutomod()) {
+     <img src="/images/automod.png" alt="automod" 
+          title="This is an automod moderation" border="0" height="16" 
+          width="16" align="center">
+% }
    </td>
 </tr>
 <tr>

@@ -71,10 +71,9 @@ else
         } 
     }
 
-    print STDERR "$new\n\n";
     $in = Insert->new($mb->{DBH});
     ($artistid, $albumid) = $in->InsertAlbumModeration($new,
-                                    $session{uid}, $artist);
+                                    $session{uid}, $session{privs}, $artist);
     if (defined $artistid && defined $albumid)
     {
         mc_out("Thank you for your submission!<p><br>");

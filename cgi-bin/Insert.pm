@@ -453,7 +453,7 @@ sub Insert
 
 sub InsertAlbumModeration
 {
-    my ($this, $new, $moderator, $artist) = @_;
+    my ($this, $new, $moderator, $privs, $artist) = @_;
     my ($mod, $albumid, $artistid);
 
     $mod = Moderation->new($this->{DBH});
@@ -497,7 +497,7 @@ sub InsertAlbumModeration
     {
         # Now use the new ids to determine any dependecies
         $mod->DetermineDependencies();
-        $mod->InsertModeration();
+        $mod->InsertModeration($privs);
     
         return ($artistid, $albumid);
     }

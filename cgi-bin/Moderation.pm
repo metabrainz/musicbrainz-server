@@ -256,6 +256,16 @@ sub SetModeratorName
    $_[0]->{moderatorname} = $_[1];
 }
 
+sub GetAutomod
+{
+   return $_[0]->{automod};
+}
+
+sub SetAutomod
+{
+   $_[0]->{automod} = $_[1];
+}
+
 sub GetError
 {
    return $_[0]->{error};
@@ -299,7 +309,7 @@ sub CreateFromId
                       Changes.artist, type, prevvalue, newvalue, 
                       UNIX_TIMESTAMP(TimeSubmitted), ModeratorInfo.name, 
                       yesvotes, novotes, Artist.name, status, 0, depmod,
-                      ModeratorInfo.id
+                      ModeratorInfo.id, Changes.automod
                from   Changes, ModeratorInfo, Artist 
                where  ModeratorInfo.id = moderator and Changes.artist = 
                       Artist.id and Changes.id = $id/;
@@ -328,6 +338,7 @@ sub CreateFromId
            $mod->SetVote(ModDefs::VOTE_UNKNOWN);
            $mod->SetDepMod($row[15]);
            $mod->SetModerator($row[16]);
+           $mod->SetAutomod($row[17]);
        }
        $sql->Finish();
    }
@@ -431,31 +442,46 @@ sub CreateModerationObject
 # functions to set the data to be inserted
 sub InsertModeration
 {
-    my ($this) = shift @_;
+    my ($this, $privs) = @_;
     my ($table, $column, $prev, $new);
-    my ($sql);
+    my ($sql, $ui, $insertid);
 
     $this->CheckSpecialCases();
 
     $sql = Sql->new($this->{DBH});
-
-    # TODO: When automods come around, this should be an automod check
-    if ($this->{table} ne 'GUIDJoin')
-    {
-        $sql->Do(qq/update $this->{table} set modpending = modpending + 1 
-                    where id = $this->{rowid}/);
-    }
+    $ui = UserStuff->new($this->{DBH});
 
     $table = $sql->Quote($this->{table});
     $column = $sql->Quote($this->{column});
     $prev = $sql->Quote($this->{prev});
     $new = $sql->Quote($this->{new});
+
     $sql->Do(qq/insert into Changes (tab, col, rowid, prevvalue, 
            newvalue, timesubmitted, moderator, yesvotes, novotes, artist, 
-           type, status, depmod) values ($table, $column, 
+           type, status, depmod, automod) values ($table, $column, 
            $this->{rowid}, $prev, $new, now(), 
            $this->{moderator}, 0, 0, $this->{artist}, $this->{type}, / . 
-           ModDefs::STATUS_OPEN . ", $this->{depmod})");
+           ModDefs::STATUS_OPEN . ", $this->{depmod}, 0)");
+    $insertid = $sql->GetLastInsertId();
+
+    if (defined $privs && $ui->IsAutoMod($privs))
+    {
+        my ($mod, $status);
+
+        $mod = $this->CreateFromId($insertid);
+        $status = $mod->ApprovedAction();
+        $sql->Do(qq|update Changes set status = $status, automod = 1 
+                    where id = $insertid|);
+        $this->CreditModerator($this->{moderator}, 1);
+    }
+    else
+    {
+        if ($this->{table} ne 'GUIDJoin')
+        {
+            $sql->Do(qq/update $this->{table} set modpending = modpending + 1 
+                        where id = $this->{rowid}/);
+        }
+    }
 
     return $sql->GetLastInsertId();
 }
@@ -504,7 +530,8 @@ sub GetModerationList
             Changes.artist, type, prevvalue, newvalue, 
             UNIX_TIMESTAMP(TimeSubmitted), ModeratorInfo.name, yesvotes, 
             novotes, Artist.name, status, / . ModDefs::VOTE_NOTVOTED .
-            qq/, ModeratorInfo.id, count(Votes.id) as num_votes from 
+            qq/, ModeratorInfo.id, Changes.automod, count(Votes.id) 
+            as num_votes from 
             Artist, ModeratorInfo, Changes left join Votes on Votes.uid = $uid 
             and Votes.rowid=Changes.id where Changes.Artist = Artist.id and 
             ModeratorInfo.id = moderator and moderator != $uid and 
@@ -518,7 +545,8 @@ sub GetModerationList
             Changes.artist, type, prevvalue, newvalue, 
             UNIX_TIMESTAMP(TimeSubmitted), ModeratorInfo.name, yesvotes, 
             novotes, Artist.name, status, / . ModDefs::VOTE_NOTVOTED .
-            qq/, ModeratorInfo.id from Changes, ModeratorInfo, Artist 
+            qq/, ModeratorInfo.id, Changes.automod from Changes, 
+            ModeratorInfo, Artist 
             where ModeratorInfo.id = moderator and Changes.artist = 
             Artist.id and moderator = $uid order by TimeSubmitted desc limit 
             $index, -1/;
@@ -528,7 +556,8 @@ sub GetModerationList
        $query = qq/select Changes.id, tab, col, Changes.rowid, 
             Changes.artist, type, prevvalue, newvalue, 
             UNIX_TIMESTAMP(TimeSubmitted), ModeratorInfo.name, yesvotes, 
-            novotes, Artist.name, status, Votes.vote, ModeratorInfo.id
+            novotes, Artist.name, status, Votes.vote, ModeratorInfo.id, 
+            Changes.automod
             from Changes, ModeratorInfo, Artist,
             Votes where ModeratorInfo.id = moderator and Changes.artist = 
             Artist.id and Votes.rowid = Changes.id and Votes.uid = $uid 
@@ -539,7 +568,8 @@ sub GetModerationList
        $query = qq/select Changes.id, tab, col, Changes.rowid, 
             Changes.artist, type, prevvalue, newvalue, 
             UNIX_TIMESTAMP(TimeSubmitted), ModeratorInfo.name, yesvotes, 
-            novotes, Artist.name, status, Votes.vote, ModeratorInfo.id
+            novotes, Artist.name, status, Votes.vote, ModeratorInfo.id,
+            Changes.automod
             from ModeratorInfo, Artist, Changes left join Votes on
             Votes.uid = $uid and Votes.rowid=Changes.id
             where ModeratorInfo.id = moderator and Changes.artist = 
@@ -552,7 +582,8 @@ sub GetModerationList
             Changes.artist, type, prevvalue, newvalue, 
             UNIX_TIMESTAMP(TimeSubmitted), ModeratorInfo.name, yesvotes, 
             novotes, Artist.name, status, / . ModDefs::VOTE_NOTVOTED .
-            qq/, ModeratorInfo.id, count(Votes.id) as num_votes from 
+            qq/, ModeratorInfo.id, Changes.automod, 
+            count(Votes.id) as num_votes, from 
             Artist, ModeratorInfo, Changes left join Votes on Votes.uid = $uid 
             and Votes.rowid=Changes.id where Changes.Artist = Artist.id and 
             ModeratorInfo.id = moderator and moderator = / . 
@@ -598,6 +629,7 @@ sub GetModerationList
                     $mod->SetVote(ModDefs::VOTE_NOTVOTED);
                 }
                 $mod->SetModerator($row[15]);
+                $mod->SetAutomod($row[16]);
                 push @data, $mod;
             }
             else
