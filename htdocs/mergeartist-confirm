@@ -8,9 +8,16 @@
 	Are you sure you want to merge artist
 	<a href="/showartist.html?artistid=<% $ar->GetId %>"
 		class="bold"><% $ar->GetName %></a>
+%   if ($ar->GetResolution()) {
+	    (<% $ar->GetResolution %>)
+%   }
 	into
 	<a href="/showartist.html?artistid=<% $target->GetId %>"
-		class="bold"><% $target->GetName %></a>?
+		class="bold"><% $target->GetName %></a>
+%   if ($target->GetResolution()) {
+	    (<% $target->GetResolution %>)
+%   }
+    ?
 </p>
 
 <form method="get" action="/showartist.html"

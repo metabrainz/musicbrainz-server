@@ -2,7 +2,7 @@
 <%args>
 $artistid
 </%args>
-% return if !$session{uid} or $session{no_inline_mods};
+% return if !$session{uid} || !$session{PREF_show_inline_mods} || $session{email_nag};
 <script type="text/javascript" src="/scripts/iframe.js"></script>
 <div style="margin: 1em 0" width="100%">
 <iframe src="/mod/inlinemod.html?artistid=<% $artistid %>" height="100" width="100%" frameborder="0"

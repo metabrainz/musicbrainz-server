@@ -76,7 +76,7 @@ if (MusicBrainz::IsSingleLineString($text)
 	<& /comp/header_small, title => 'Moderation note added' &>
 	<script type="text/javascript"> window.close(); </script>
 	<p>Note saved successfully.</p>
-	<p><a href="/">Continue</a></p>
+	<p><a href="/showmod.html?modid=<% $mod->GetId %>">Continue</a></p>
 	<& /comp/footer_small &>
 	<%perl>
 	return;

@@ -51,23 +51,7 @@ sub PreInsert
 	$self->SetColumn("name");
 	$self->SetRowId($ar->GetId);
 
-	# Check to see if we already have the artist that we're supposed
-	# to edit to. If so, change this mod to a MERGE_ARTISTNAME.
-	require Artist;
-	my $newar = Artist->new($self->{DBH});
-
-	if ($newar->LoadFromName($newname))
-	{
-		if ($newar->GetId != $ar->GetId)
-		{
-			$self->InsertModeration(
-				type	=> MOD_MERGE_ARTIST,
-				source	=> $ar,
-				target	=> $newar,
-			);
-			$self->SuppressInsert;
-		}
-	}
+    # We used to perform a duplicate artist check here, but that has been removed.
 }
 
 sub IsAutoMod
@@ -106,28 +90,6 @@ sub CheckPrerequisites
 		return STATUS_FAILEDPREREQ;
 	}
 
-	# Avert duplicate index entries: check for this name already existing
-	require Artist;
-	my $dupar = Artist->new($self->{DBH});
-	if ($dupar->LoadFromName($self->GetNew))
-	{
-	 	# Check to see if they are exact, including case
-	  	if ($self->GetNew eq $dupar->GetName)
-		{
-			my $url = "http://" . &DBDefs::WEB_SERVER
-				. "/showartist.html?artistid=" . $dupar->GetId;
-
-		 	$self->InsertNote(
-				MODBOT_MODERATOR,
-			 	"This edit moderation clashes with the existing artist"
-				. " '" . $dupar->GetName . "': "
-				. $url
-			);
-
-			return STATUS_ERROR;
-		}
-	}
-	
 	# Save for ApprovedAction
 	$self->{_artist} = $ar;
 

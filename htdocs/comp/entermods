@@ -10,6 +10,14 @@ $show_failure_message => 1
 ref($DBH) or die;
 ref($sub) eq "CODE" or die;
 
+if ($session{email_nag}) 
+{
+    $m->comp("/comp/sidebar", title => "Moderation Error");
+    $m->comp("/comp/stylemenu");
+	$m->comp("/comp/footer");
+	return 0;
+}
+
 my $sql = Sql->new($DBH);
 $sql->Begin;
 

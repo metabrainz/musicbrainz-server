@@ -1,0 +1,23 @@
+%# vi: set ts=4 sw=4 ft=mason :
+<%perl>
+
+return 1 if UserStuff->IsLinkModerator($session{privs});
+
+my ($fHeader, $fFooter, $sMessage) = @_;
+$sMessage ||= "You must be a link moderator to view this page.";
+
+$m->comp("/comp/sidebar", title => "Link Moderator Required")
+	if $fHeader;
+</%perl>
+
+<center>
+	<p><% $sMessage %></p>
+</center>
+
+<%perl>
+$m->comp("/comp/footer")
+	if $fFooter;
+
+return 0;
+
+</%perl>

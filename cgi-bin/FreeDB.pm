@@ -430,10 +430,15 @@ sub InsertForModeration
         }
     }
 
-    if ($ar->LoadFromName($info->{artist}) || 
-        $ar->LoadFromSortname($info->{artist}))
+    my $artists = $ar->GetArtistsFromName($info->{artist});
+    $artists = $ar->GetArtistsFromSortname($info->{artist}) if (!scalar(@$artists));
+    if (scalar(@$artists))
     {
         my (@albums, $al);
+
+        # Just pick the first artist -- this is probably not the smartest thing to do, but
+        # this feature has been disabled, so it shouldn't be too big of a problem.
+	$ar = $$artists[0];
 
         # This is currently a byte-wise comparison, i.e. case-sensitive, etc.
 	# Should it be done using lc() and maybe even unac_string() too?

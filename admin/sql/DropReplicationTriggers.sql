@@ -19,6 +19,28 @@ DROP TRIGGER "reptg_clientversion" ON "clientversion";
 DROP TRIGGER "reptg_country" ON "country";
 DROP TRIGGER "reptg_currentstat" ON "currentstat";
 DROP TRIGGER "reptg_historicalstat" ON "historicalstat";
+DROP TRIGGER "reptg_l_album_album" ON "l_album_album";
+DROP TRIGGER "reptg_l_album_artist" ON "l_album_artist";
+DROP TRIGGER "reptg_l_album_track" ON "l_album_track";
+DROP TRIGGER "reptg_l_album_url" ON "l_album_url";
+DROP TRIGGER "reptg_l_artist_artist" ON "l_artist_artist";
+DROP TRIGGER "reptg_l_artist_track" ON "l_artist_track";
+DROP TRIGGER "reptg_l_artist_url" ON "l_artist_url";
+DROP TRIGGER "reptg_l_track_track" ON "l_track_track";
+DROP TRIGGER "reptg_l_track_url" ON "l_track_url";
+DROP TRIGGER "reptg_l_url_url" ON "l_url_url";
+DROP TRIGGER "reptg_link_attribute" ON "link_attribute";
+DROP TRIGGER "reptg_link_attribute_type" ON "link_attribute_type";
+DROP TRIGGER "reptg_lt_album_album" ON "lt_album_album";
+DROP TRIGGER "reptg_lt_album_artist" ON "lt_album_artist";
+DROP TRIGGER "reptg_lt_album_track" ON "lt_album_track";
+DROP TRIGGER "reptg_lt_album_url" ON "lt_album_url";
+DROP TRIGGER "reptg_lt_artist_artist" ON "lt_artist_artist";
+DROP TRIGGER "reptg_lt_artist_track" ON "lt_artist_track";
+DROP TRIGGER "reptg_lt_artist_url" ON "lt_artist_url";
+DROP TRIGGER "reptg_lt_track_track" ON "lt_track_track";
+DROP TRIGGER "reptg_lt_track_url" ON "lt_track_url";
+DROP TRIGGER "reptg_lt_url_url" ON "lt_url_url";
 -- Not replicated: moderation_open, moderation_note_open
 -- Not replicated: moderation_closed, moderation_note_closed
 -- Not replicated: moderator
@@ -31,5 +53,8 @@ DROP TRIGGER "reptg_track" ON "track";
 DROP TRIGGER "reptg_trackwords" ON "trackwords";
 DROP TRIGGER "reptg_trm" ON "trm";
 DROP TRIGGER "reptg_trmjoin" ON "trmjoin";
+DROP TRIGGER "reptg_url" ON "url";
 -- Not replicated: vote_closed, vote_open
 DROP TRIGGER "reptg_wordlist" ON "wordlist";
+
+-- vi: set ts=4 sw=4 et :

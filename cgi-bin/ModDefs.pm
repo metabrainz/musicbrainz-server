@@ -102,8 +102,18 @@ use constant MOD_EDIT_RELEASES           => 29;
 use constant MOD_ADD_ARTIST_ANNOTATION   => 30;
 use constant MOD_ADD_ALBUM_ANNOTATION    => 31;
 use constant MOD_ADD_DISCID              => 32;
-use constant MOD_LAST                    => 32;
-
+use constant MOD_ADD_LINK                => 33;
+use constant MOD_EDIT_LINK               => 34;
+use constant MOD_REMOVE_LINK             => 35;
+use constant MOD_ADD_LINK_TYPE           => 36;
+use constant MOD_EDIT_LINK_TYPE          => 37;
+use constant MOD_REMOVE_LINK_TYPE        => 38;
+use constant MOD_MERGE_LINK_TYPE         => 39;
+use constant MOD_EDIT_ARTIST             => 40;
+use constant MOD_ADD_LINK_ATTR           => 41;
+use constant MOD_EDIT_LINK_ATTR          => 42;
+use constant MOD_REMOVE_LINK_ATTR        => 43;
+use constant MOD_LAST                    => 43;
 
 # The constants below define the state a moderation can have:
 

@@ -1,0 +1,23 @@
+%# vi: set ts=4 sw=4 ft=mason :
+
+<%method ShowPreviousValue>
+% my $self = shift;
+</%method>
+
+<%method ShowNewValue>
+% my $self = shift;
+% my $new = $self->{'new_unpacked'};
+
+	New:
+	<span class="bold"><a href="/mod/link/link_types.html?type=<% $new->{'types'} %>&amp;new=<% $self->GetRowId %>"
+		><% $new->{'name'} %></a></span><br>
+	Link Type: <% $new->{'types'} %><br>
+	Link Phrase: <% $new->{'linkphrase'} %><br>
+	Reverse Link Phrase: <% $new->{'rlinkphrase'} %>
+%   if ($new->{'attribute'}) {
+    	<br/>Attributes: <% $new->{'attribute'} %>
+%   }
+   
+</%method>
+
+%# eof

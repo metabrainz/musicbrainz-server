@@ -81,6 +81,8 @@ my %AlbumAttributeNames = (
     102 => [ "Bootleg", "Bootlegs", "An unofficial/underground release that was not sanctioned by the artist and/or the record company."]
 );
 
+sub LinkEntityName { "album" }
+
 sub new
 {
 	my $class = shift;

@@ -10,13 +10,47 @@ my $id = $artist->GetId;
 my $mbid = $artist->GetMBId;
 my $name = $artist->GetName;
 my $sortname = $artist->GetSortName;
+my $type = $artist->GetType;
+my $type_name = Artist::GetTypeName($type) || '';
+my $begin = $artist->GetBeginDate;
+my $end = $artist->GetEndDate;
+my $resolution = $artist->GetResolution;
+
+$begin = MusicBrainz::MakeDisplayDateStr($begin);
+$end = MusicBrainz::MakeDisplayDateStr($end);
+my $date_str = '';
+if ( $begin and $end )
+{
+	$date_str = "$begin - $end";
+}
+elsif ( $begin )
+{
+	$date_str = "begin $begin";
+	$date_str = "born $begin" if $type == &Artist::ARTIST_TYPE_PERSON;
+	$date_str = "founded $begin" if $type == &Artist::ARTIST_TYPE_GROUP;
+}
+elsif ( $end )
+{
+	$date_str = "end $end";
+	$date_str = "deceased $end" if $type == &Artist::ARTIST_TYPE_PERSON;
+	$date_str = "dissolved $end" if $type == &Artist::ARTIST_TYPE_GROUP;
+}
 
 </%perl>
 <div class="ArtistTitle">
 %# Row 1: the artist name (link) and sortname
 		<p class='ArtistTitleNameSortname<% $artist->GetModPending ? " mp" : "" %>'
 			style="margin-left: 48px; text-indent: -48px">
-			<a class="ArtistTitleName" href="/artist/<% $mbid %>.html"><img src="/images/aicon_lg.png" alt="" class="ArtistTitleIcon"><% $name %></a>
+			<a class="ArtistTitleName" href="/artist/<% $mbid %>.html"><img src="/images/aicon_lg.png" alt="" class="ArtistTitleIcon"><% $name %></a></br>
+%     if ($resolution) {
+    			<% $resolution %></br>
+%			}
+%			if ($date_str) {
+					(<% $date_str %>)
+%			}
+%			if ($type) {
+					Type: <% $type_name %>
+%			}
 %			if ($name ne $sortname) {
 					<br><span class="ArtistTitleSortname"><% $sortname %></span>
 %			}
@@ -55,7 +89,7 @@ my $sortname = $artist->GetSortName;
 % if ($id != &ModDefs::VARTIST_ID
 %			and $name !~ /^\[(unknown|data track|silence|no artist)\]$/
 %	) {
-				<a href="/editartist.html?id=<% $id %>">Edit name</a>
+				<a href="/editartist.html?id=<% $id %>">Edit artist</a>
 				| <a href="/mergeartist.html?id=<% $id %>">Merge into ...</a>
 				| <a href="/user/subscribe.html?artistid=<% $id %>">Subscribe</a>
 				|

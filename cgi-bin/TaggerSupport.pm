@@ -137,7 +137,7 @@ sub Lookup
        }
        else
        {
-           return ("", $data, $flags, $list) if ($data->{album} eq '');
+           return ("", $data, $flags, $list) if ($data->{album} eq '' || scalar(@$list) > 1);
 
            ($flags, $list) = $this->VariousArtistSearch($data->{album});
            if (scalar(@$list) == 1 && ($flags & ALBUMID))
@@ -335,19 +335,37 @@ sub ArtistSearch
    my ($this, $name) = @_;
    my ($ar, @ids);
 
+   return (0, []) if (!$name);
+
    require Artist;
    $ar = Artist->new($this->{DBH});
-   # FIXME complains that $name is missing
-   if (defined $ar->LoadFromName($name))
+
+   my $artists = $ar->GetArtistsFromName($name);
+   if (scalar(@$artists) == 1)
    {
-       $this->{artist} = $ar;     
+       $this->{artist} = $$artists[0];
        return (ARTISTID, [ 
                            $this->SetSim(ARTISTID, {
-                             id=>$ar->GetId(),
-                             mbid=>$ar->GetMBId(), 
-                             name=>$ar->GetName(),
-                             sortname=>$ar->GetSortName() })
+                             id=>$this->{artist}->GetId(),
+                             mbid=>$this->{artist}->GetMBId(), 
+                             name=>$this->{artist}->GetName(),
+                             resolution=>$this->{artist}->GetResolution(),
+                             sortname=>$this->{artist}->GetSortName() })
                          ]);
+   }
+   if (scalar(@$artists) > 1)
+   {
+       foreach my $item (@$artists)
+       {
+           push @ids, { id=>$item->GetId(),
+                      name=>$item->GetName(),
+                  sortname=>$item->GetSortName(),
+                      mbid=>$item->GetMBId(),
+                resolution=>$item->GetResolution(),
+                       sim=>1.0
+                      };
+       }
+       return (ARTISTLIST, \@ids);
    }
 
    require SearchEngine;
@@ -376,6 +394,7 @@ sub ArtistSearch
                                  id=>$ar->GetId(),
                                  mbid=>$ar->GetMBId(), 
                                  name=>$ar->GetName(),
+                                 resolution=>$ar->GetResolution(),
                                  sortname=>$ar->GetSortName()})
                              ]);
        }
@@ -391,6 +410,7 @@ sub ArtistSearch
            push @ids, $this->SetSim(ARTISTID, { id=>$row->{'artistid'},
                         name=>$row->{'artistname'},
                         sortname=>$row->{'artistsortname'},
+                        resolution=>$row->{'artistresolution'},
                         mbid=>$row->{'artistgid'}});
        }
 

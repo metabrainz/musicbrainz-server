@@ -42,6 +42,7 @@ use Getopt::Long;
 use strict;
 
 my $fEcho = 0;
+my $fQuiet = 0;
 
 my $sqldir = "$FindBin::Bin/sql";
 -d $sqldir or die "Couldn't find SQL script directory";
@@ -53,8 +54,9 @@ sub RunSQLScript
 	print localtime() . " : $startmessage ($file)\n";
 
 	my $echo = ($fEcho ? "-e" : "");
+	my $stdout = ($fQuiet ? ">/dev/null" : "");
 
-	open(PIPE, "$psql $echo -f $sqldir/$file $opts 2>&1 |")
+	open(PIPE, "$psql $echo -f $sqldir/$file $opts 2>&1 $stdout |")
 		or die "exec '$psql': $!";
 	while (<PIPE>)
 	{
@@ -160,20 +162,20 @@ EOF
 	die "\nFailed to create language\n" if ($? >> 8);
 }
 
-sub Import
+sub CreateRelations
 {
-	RunSQLScript("ReplicationSetup.sql", "Setting up replication ...")
-		if $with_replication || &DBDefs::DB_IS_REPLICATED;
-	CreateReplicationFunction()
-		if $with_replication;
+	my $import = shift;
 
 	RunSQLScript("CreateTables.sql", "Creating tables ...");
 
+	if ($import)
     {
 		local $" = " ";
-        system($^X, "$FindBin::Bin/MBImport.pl", "--ignore-errors", @_);
+        system($^X, "$FindBin::Bin/MBImport.pl", "--ignore-errors", @$import);
         die "\nFailed to import dataset.\n" if ($? >> 8);
-    }
+    } else {
+		RunSQLScript("InsertDefaultRows.sql", "Adding default rows ...");
+	}
 
 	RunSQLScript("CreatePrimaryKeys.sql", "Creating primary keys ...");
 	RunSQLScript("CreateIndexes.sql", "Creating indexes ...");
@@ -189,43 +191,17 @@ sub Import
 	RunSQLScript("CreateTriggers.sql", "Creating triggers ...")
 	    if ! &DBDefs::DB_IS_REPLICATED;
 
-	RunSQLScript("CreateReplicationTriggers.sql", "Creating replication triggers ...")
-		if $with_replication;
+	if ($with_replication)
+	{
+		CreateReplicationFunction();
+		RunSQLScript("CreateReplicationTriggers.sql", "Creating replication triggers ...");
+	}
 
     print localtime() . " : Optimizing database ...\n";
     system("echo \"vacuum analyze\" | $psql $opts");
     die "\nFailed to optimize database\n" if ($? >> 8);
 
     print localtime() . " : Initialized and imported data into the database.\n";
-}
-
-sub Clean
-{
-    my $ret;
-    
-	RunSQLScript("ReplicationSetup.sql", "Setting up replication ...")
-		if $with_replication || &DBDefs::DB_IS_REPLICATED;
-	CreateReplicationFunction()
-		if $with_replication;
-
-	RunSQLScript("CreateTables.sql", "Creating tables ...");
-
-	RunSQLScript("CreatePrimaryKeys.sql", "Creating primary keys ...");
-	RunSQLScript("CreateIndexes.sql", "Creating indexes ...");
-	RunSQLScript("CreateFKConstraints.sql", "Adding foreign key constraints ...")
-	    if ! &DBDefs::DB_IS_REPLICATED;
-
-	RunSQLScript("CreateViews.sql", "Creating views ...");
-	RunSQLScript("CreateFunctions.sql", "Creating functions ...");
-	RunSQLScript("CreateTriggers.sql", "Creating triggers ...")
-	    if ! &DBDefs::DB_IS_REPLICATED;
-
-	RunSQLScript("CreateReplicationTriggers.sql", "Creating replication triggers ...")
-		if $with_replication;
-
-	RunSQLScript("InsertDefaultRows.sql", "Adding default rows ...");
-
-    print localtime() . " : Created a clean and empty database.\n";
 }
 
 sub GrantSelect
@@ -284,6 +260,7 @@ Options are:
   -c --clean            Prepare a ready to use empty database
      --[no]echo         When running the various SQL scripts, echo the commands
                         as they are run
+  -q, --quiet           Don't show the output of any SQL scripts
   -h --help             This help
      --with-replication Activate the replication triggers (if you want to
                         be a master database to someone else's slave).
@@ -307,21 +284,22 @@ EOF
 }
 
 my $fCreateDB;
-my ($fImport, $fClean) = (0, 0);
+my $mode = "MODE_IMPORT";
 
 GetOptions(
-	"psql=s"	=> \$psql,
-	"createdb"	=> \$fCreateDB,
-	"import|i"	=> \$fImport,
-	"clean|c"	=> \$fClean,
+	"psql=s"			=> \$psql,
+	"createdb"			=> \$fCreateDB,
+	"empty-database"	=> sub { $mode = "MODE_NO_TABLES" },
+	"import|i"			=> sub { $mode = "MODE_IMPORT" },
+	"clean|c"			=> sub { $mode = "MODE_NO_DATA" },
 	"with-replication!"	=> \$with_replication,
 	"with-pending=s"	=> \$path_to_pending_so,
-	"echo!"		=> \$fEcho,
-	"help|h"	=> \&Usage,
+	"echo!"				=> \$fEcho,
+	"quiet|q"			=> \$fQuiet,
+	"help|h"			=> \&Usage,
 ) or exit 2;
 
 Usage() if $isrep and $with_replication;
-Usage() if $fImport and $fClean;
 
 SanityCheck();
 
@@ -329,8 +307,10 @@ print localtime() . " : InitDb.pl starting\n";
 my $started = 1;
 
 Create() if $fCreateDB;
-Import(@ARGV) if $fImport;
-Clean() if $fClean;
+
+if ($mode eq "MODE_NO_TABLES") { } # nothing to do
+elsif ($mode eq "MODE_NO_DATA") { CreateRelations() }
+elsif ($mode eq "MODE_IMPORT") { CreateRelations(\@ARGV) }
 
 GrantSelect() if $isrep;
 

@@ -1,0 +1,124 @@
+%# vi: set ts=4 sw=4 ft=mason :
+
+<%method ShowPreviousValue>
+<%perl>
+my $self = shift;
+my $prev = $self->{'prev_unpacked'};
+
+my $name = $prev->{'ArtistName'};
+my $sortname = $prev->{'SortName'};
+my $resolution = $prev->{'Resolution'};
+my $begin = $prev->{'BeginDate'};
+my $end = $prev->{'EndDate'};
+my $type = $prev->{'Type'};
+my $type_str = Artist::GetTypeName($type);
+</%perl>
+
+% if (defined $name) {
+	Name:
+   	<span class="bold"><% $name %></span>
+	<br>
+% }
+
+% if (defined $sortname) {
+	Sortname:
+   	<span class="bold"><% $sortname %></span>
+	<br>
+% }
+
+% if (defined $type_str) {
+	Type:
+	<span class="bold"><% $type_str %></span>
+	<br>
+% }
+
+% if ($resolution) {
+	Resolution:
+   	<span class="bold"><% $resolution %></span>
+	<br>
+% }
+
+% if ($begin) {
+	Begin Date:
+   	<span class="bold"><% MusicBrainz::MakeDisplayDateStr($begin) %></span>
+	<br>
+% }
+
+% if ($end) {
+	End Date:
+   	<span class="bold"><% MusicBrainz::MakeDisplayDateStr($end) %></span>
+	<br>
+% }
+
+</%method>
+
+
+<%method ShowNewValue>
+<%perl>
+my $self = shift;
+my $new = $self->{'new_unpacked'};
+
+my $name = $new->{'ArtistName'};
+my $sortname = $new->{'SortName'};
+my $resolution = $new->{'Resolution'};
+my $begin = $new->{'BeginDate'};
+my $end = $new->{'EndDate'};
+my $type = $new->{'Type'};
+my $type_str = Artist::GetTypeName($type);
+</%perl>
+
+% if (defined $name) {
+	Name:
+   	<span class="bold"><% $name %></span>
+	<br>
+% }
+
+% if (defined $sortname) {
+	Sortname:
+   	<span class="bold"><% $sortname %></span>
+	<br>
+% }
+
+% if (defined $type_str) {
+	Type:
+%	if ($type_str) {
+		<span class="bold"><% $type_str %></span>
+%	} else {
+		<em>(Unset)</em>
+%	}
+	<br>
+% }
+
+% if (exists $new->{'Resolution'}) {
+	Resolution:
+%	if ($resolution ne '') {
+		<span class="bold"><% $resolution %></span>
+%	} else {
+		<em>(Unset)</em>
+%	}
+	<br>
+% }
+
+% if (exists $new->{'BeginDate'}) {
+	Begin Date:
+%	if ($begin) {
+		<span class="bold"><% MusicBrainz::MakeDisplayDateStr($begin) %></span>
+%	} else {
+		<em>(Unset)</em>
+%	}
+	<br>
+% }
+
+% if (exists $new->{'EndDate'}) {
+	End Date:
+%	if ($end) {
+		<span class="bold"><% MusicBrainz::MakeDisplayDateStr($end) %></span>
+%	} else {
+		<em>(Unset)</em>
+%	}
+	<br>
+% }
+
+</%method>
+
+%# eof

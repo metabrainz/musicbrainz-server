@@ -1,0 +1,31 @@
+%# vi: set ts=4 sw=4 ft=mason :
+<%args>
+$type => ""
+$id => ""
+$name => ""
+</%args>
+<%perl>
+
+$m->comp("/comp/checkloggedin", 1, 1)
+    or return undef;
+
+my $recent_links = ($session{recent_links} ||= []);
+if (
+     MusicBrainz::Server::LinkEntity->IsValidType($type)
+     and MusicBrainz::IsNonNegInteger($id)
+     and $id
+     and $name =~ /\S/
+) {
+     # Put ($type, $id) at top of recently linked things
+
+     @$recent_links = grep {
+   		$_->[0] != $type or $_->[1] != $id
+     } @$recent_links;
+     unshift @$recent_links, [ $type, $id, $name ];
+
+     splice(@$recent_links, 25) if @$recent_links > 25;
+
+     # Force session save
+     $session{recent_links} = $recent_links;
+}
+</%perl>

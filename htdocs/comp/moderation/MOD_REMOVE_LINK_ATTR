@@ -1,0 +1,12 @@
+%# vi: set ts=4 sw=4 ft=mason :
+
+<%method ShowPreviousValue>
+% my $self = shift;
+	Old: <% $self->GetPrev %>
+</%method>
+
+<%method ShowNewValue>
+    New: (deleted)
+</%method>
+
+%# eof

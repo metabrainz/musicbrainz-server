@@ -37,6 +37,18 @@ use LocaleSaver;
 use POSIX qw(:locale_h);
 use Encode qw( decode encode );
 
+sub LinkEntityName { "artist" }
+
+use constant ARTIST_TYPE_UNKNOWN	=> 0;
+use constant ARTIST_TYPE_PERSON		=> 1;
+use constant ARTIST_TYPE_GROUP		=> 2;
+
+my %ArtistTypeNames = (
+   0 => [ 'Unknown', 'Begin Date', 'End Date' ],
+   1 => [ 'Person', 'Born', 'Deceased' ],
+   2 => [ 'Group', 'Founded', 'Dissolved' ],
+);
+
 # Artist specific accessor function. Others are inherted from TableBase 
 sub GetSortName
 {
@@ -67,6 +79,93 @@ sub InvalidateCache
     MusicBrainz::Server::Cache->delete($self->_GetMBIDCacheKey($self->GetMBId));
 }
 
+sub GetType
+{
+   return ( defined $_[0]->{type} ) ? $_[0]->{type} : 0;
+}
+
+sub SetType
+{
+   $_[0]->{type} = $_[1];
+}
+
+sub GetTypeName
+{
+   return $ArtistTypeNames{$_[0]}->[0];
+}
+
+sub GetBeginDateName
+{
+   return $ArtistTypeNames{$_[0]}->[1] || 'Begin Date';
+}
+
+sub GetEndDateName
+{
+   return $ArtistTypeNames{$_[0]}->[2] || 'End Date';
+}
+
+sub IsValidType
+{
+   my $type = shift;
+
+   if ( defined $type and $type ne ''
+	and ($type == ARTIST_TYPE_UNKNOWN
+		or $type == ARTIST_TYPE_PERSON or $type == ARTIST_TYPE_GROUP) )
+   {
+      return 1;
+   }
+   else
+   {
+      return 0;
+   }
+}
+
+sub GetResolution
+{
+   return ( defined $_[0]->{resolution} ) ? $_[0]->{resolution} : '';
+}
+
+sub SetResolution
+{
+   $_[0]->{resolution} = $_[1];
+}
+
+sub GetBeginDate
+{
+   return ( defined $_[0]->{begindate} ) ? $_[0]->{begindate} : '';
+}
+
+sub GetBeginDateYMD
+{
+   my $self = shift;
+
+   return ('', '', '') unless $self->GetBeginDate();
+   return map { $_ == 0 ? '' : $_ } split(m/-/, $self->GetBeginDate);
+}
+
+sub SetBeginDate
+{
+   $_[0]->{begindate} = $_[1];
+}
+
+sub GetEndDate
+{
+   return ( defined $_[0]->{enddate} ) ? $_[0]->{enddate} : '';
+}
+
+sub GetEndDateYMD
+{
+   my $self = shift;
+
+   return ('', '', '') unless $self->GetEndDate();
+   return map { $_ == 0 ? '' : $_ } split(m/-/, $self->GetEndDate);
+}
+
+sub SetEndDate
+{
+   $_[0]->{enddate} = $_[1];
+}
+
 # Insert an artist into the DB and return the artist id. Returns undef
 # on error. The name and sortname of this artist must be set via the accesor
 # functions.
@@ -86,13 +185,7 @@ sub Insert
     $this->SetSortName($sortname);
 
     my $sql = Sql->new($this->{DBH});
-
-    # Check to see if this artist already exists
-    my $artist = $sql->SelectSingleValue(
-	"SELECT id FROM artist WHERE LOWER(name) = LOWER(?)",
-	$name,
-    );
-    return $artist if $artist;
+    my $artist;
 
     unless ($opts{no_alias})
     {
@@ -106,15 +199,23 @@ sub Insert
 
     my $page = $this->CalculatePageIndex($this->{sortname});
     my $mbid = $this->CreateNewGlobalId;
+    $this->SetMBId($mbid);
 
     $sql->Do(
-	"INSERT INTO artist (name, sortname, gid, modpending, page)"
-	. " VALUES (?, ?, ?, 0, ?)",
-	$name,
-	$this->{sortname},
-	$mbid,
+	qq|INSERT INTO artist
+		    (name, sortname, gid, type, resolution,
+		     begindate, enddate, modpending, page)
+	    VALUES (?, ?, ?, ?, ?, ?, ?, 0, ?)|,
+	$this->GetName(),
+	$this->GetSortName(),
+	$this->GetMBId,
+	$this->GetType() || undef,
+	$this->GetResolution() || undef,
+	$this->GetBeginDate() || undef,
+	$this->GetEndDate() || undef,
 	$page,
     );
+
 
     $artist = $sql->GetLastInsertId('Artist');
     $this->{new_insert} = 1;
@@ -281,6 +382,51 @@ sub UpdateSortName
     1;
 }
 
+sub Update
+{
+    my ($this, $new) = @_;
+
+    my $name = $new->{ArtistName};
+    my $sortname = $new->{SortName};
+
+    my $sql = Sql->new($this->{DBH});
+
+    my %update;
+    $update{name} = $new->{ArtistName} if exists $new->{ArtistName};
+    $update{sortname} = $new->{SortName} if exists $new->{SortName};
+    $update{type} = $new->{Type} if exists $new->{Type};
+    $update{resolution} = $new->{Resolution} if exists $new->{Resolution};
+    $update{begindate} = $new->{BeginDate} if exists $new->{BeginDate};
+    $update{enddate} = $new->{EndDate} if exists $new->{EndDate};
+
+    # We map the following attributes to NULL
+    $update{type} = undef if exists $update{type} and $update{type} == 0;
+    $update{resolution} = undef
+	if exists $update{resolution} and $update{resolution} eq '';
+    $update{begindate} = undef
+	if exists $update{begindate} and $update{begindate} eq '';
+    $update{enddate} = undef
+	if exists $update{enddate} and $update{enddate} eq '';
+
+
+    my $attrlist = join ', ', map { "$_ = ?" } sort keys %update;
+
+    my @values = map { $update{$_} } sort keys %update;
+
+    # there is nothing to change, exit.
+    return 1 unless $attrlist;
+
+    $sql->Do("UPDATE artist SET $attrlist WHERE id = ?", @values, $this->GetId)
+	or return 0;
+
+    # Update the search engine
+    $this->SetName($name) if exists $update{name};
+    $this->SetSortName($sortname) if exists $update{sortname};
+    $this->RebuildWordList;
+
+    return 1;
+}
+
 sub UpdateModPending
 {
     my ($self, $adjust) = @_;
@@ -395,31 +541,28 @@ sub RebuildWordListForAll
 	$n, 0+@failed, 0+@notloaded, $noerrcount-@notloaded;
 }
 
-# Load an artist record given a name. The name must match exactly.
-# returns 1 on success, undef otherwise. Access the artist info via the
-# accessor functions.
-sub LoadFromName
+# Return a hash of hashes for artists that match the given artist name
+sub GetArtistsFromName
 {
     my ($this, $artistname) = @_;
 
     MusicBrainz::TrimInPlace($artistname) if defined $artistname;
     if (not defined $artistname or $artistname eq "")
     {
-	carp "Missing artistname in LoadFromName";
-	return undef;
+	carp "Missing artistname in GetArtistsFromName";
+	return [];
     }
 
     my $sql = Sql->new($this->{DBH});
-
-    my $row;
+    my $artists;
     {
 	# First, try exact match on name
-	$row = $sql->SelectSingleRowArray(
-	    "SELECT id, name, gid, modpending, sortname
+	$artists = $sql->SelectListOfHashes(
+	    "SELECT id, name, gid, modpending, sortname, resolution
 	    FROM artist WHERE name = ?",
 	    $artistname,
 	);
-	last if $row;
+	last if scalar(@$artists);
 
 	# Search using 'ilike' is expensive, so try the usual capitalisations
 	# first using the index.
@@ -431,29 +574,27 @@ sub LoadFromName
 	(my $tc = $lc) =~ s/\b(\w)/uc $1/eg;
 	(my $fwu = $lc) =~ s/\A(\S+)/uc $1/e;
 
-	$row = $sql->SelectSingleRowArray(
-	    "SELECT id, name, gid, modpending, sortname
-	    FROM artist WHERE name IN (?, ?, ?, ?)
-	    LIMIT 1",
+	$artists = $sql->SelectListOfHashes(
+	    "SELECT id, name, gid, modpending, sortname, resolution
+	    FROM artist WHERE name IN (?, ?, ?, ?)",
 	    encode("utf-8", $uc),
 	    encode("utf-8", $lc),
 	    encode("utf-8", $tc),
 	    encode("utf-8", $fwu),
 	);
-	last if $row;
+	last if scalar(@$artists);
 
 	# Next, try a full case-insensitive search
-	$row = $sql->SelectSingleRowArray(
-	    "SELECT id, name, gid, modpending, sortname
-	    FROM artist WHERE LOWER(name) = LOWER(?)
-	    LIMIT 1",
+	$artists = $sql->SelectListOfHashes(
+	    "SELECT id, name, gid, modpending, sortname, resolution
+	    FROM artist WHERE LOWER(name) = LOWER(?)",
 	    $artistname,
 	);
-	last if $row;
+	last if scalar(@$artists);
 
         # If that failed, then try to find the artist by sortname
-	$this->LoadFromSortname($artistname)
-		and return 1;
+	$artists = $this->GetArtistsFromSortname($artistname)
+		and return $artists;
 
         # If that failed too, then try the artist aliases
 	require Alias;
@@ -461,56 +602,69 @@ sub LoadFromName
 
         if (my $artist = $alias->Resolve($artistname))
 	{
-	    $this->SetId($artist);
-	    $this->LoadFromId
-		and return 1;
+	    $artists = $sql->SelectListOfHashes(
+		"SELECT id, name, gid, modpending, sortname, resolution
+		FROM artist WHERE id = ?",
+		$artist,
+	    );
 	}
     }
-    $row or return undef;
+    return [] if (!defined $artists || !scalar(@$artists));
 
-    @$this{qw(
-	id
-	name
-	mbid
-	modpending
-	sortname
-    )} = @$row;
+    my @results;
+    foreach my $row (@$artists)
+    {
+        my $ar = Artist->new($this->{DBH});
 
-    return 1;
+	$ar->SetId($row->{id});
+	$ar->SetMBId($row->{gid});
+	$ar->SetName($row->{name});
+	$ar->SetSortName($row->{sortname});
+	$ar->SetModPending($row->{modpending});
+	$ar->SetResolution($row->{resolution});
+
+        push @results, $ar;
+    }
+    return \@results;
 }
 
-# Load an artist record given a sortname. The name must match exactly.
-# returns 1 on success, undef otherwise. Access the artist info via the
-# accessor functions.
-sub LoadFromSortname
+# Return a hash of hashes for artists that match the given artist's sortname
+sub GetArtistsFromSortname
 {
     my ($this, $sortname) = @_;
 
     MusicBrainz::TrimInPlace($sortname) if defined $sortname;
     if (not defined $sortname or $sortname eq "")
     {
-	carp "Missing sortname in LoadFromSortname";
-	return undef;
+	carp "Missing sortname in GetArtistsFromSortname";
+	return [];
     }
 
     my $sql = Sql->new($this->{DBH});
 
-    my $row = $sql->SelectSingleRowArray(
-	"SELECT	id, name, gid, modpending, sortname
+    my $artists = $sql->SelectListOfHashes(
+	"SELECT	id, name, gid, modpending, sortname, resolution
 	FROM	artist
-	WHERE	LOWER(sortname) = LOWER(?) LIMIT 1",
+	WHERE	LOWER(sortname) = LOWER(?)",
 	$sortname,
-    ) or return undef;
+    );
+    scalar(@$artists) or return [];
 
-    @$this{qw(
-	id
-	name
-	mbid
-	modpending
-	sortname
-    )} = @$row;
+    my @results;
+    foreach my $row (@$artists)
+    {
+        my $ar = Artist->new($this->{DBH});
 
-    return 1;
+	$ar->SetId($row->{id});
+	$ar->SetMBId($row->{gid});
+	$ar->SetName($row->{name});
+	$ar->SetSortName($row->{sortname});
+	$ar->SetResolution($row->{resolution});
+	$ar->SetModPending($row->{modpending});
+
+        push @results, $ar;
+    }
+    return \@results;
 }
 
 # Load an artist record given an artist id, or an MB Id

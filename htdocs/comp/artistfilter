@@ -88,7 +88,10 @@ my @r = do {
 						ondblclick="this.form.submit()"
 						></td>
 					<td>
-						<a href="/showartist.html?artistid=<% $row->{artistid} %>"><% $row->{'artistname'} %></a>
+						<a href="/showartist.html?artistid=<% $row->{artistid} %>"><% $row->{'artistname'} %></a> 
+%                       if ($row->{artistresolution}) {
+	                        (<% $row->{artistresolution} %>)
+%                       }
 					</td>
 				</tr>
 %				$checked = "";

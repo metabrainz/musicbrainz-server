@@ -1,0 +1,20 @@
+%# vi: set ts=4 sw=4 ft=mason :
+
+<%method ShowPreviousValue>
+% my $self = shift;
+% my $types = $self->{'new_unpacked'}{'types'};
+	Old: <% $types %><br>
+	Name: <span class="bold"><% $self->{'new_unpacked'}{'old_name'} %></span><br>
+	Link Phrase: <% $self->{'new_unpacked'}{'old_linkphrase'} %><br>
+	Reverse Link Phrase: <% $self->{'new_unpacked'}{'old_rlinkphrase'} %>
+	Description: <% $self->{'new_unpacked'}{'old_description'} %>
+%   if ($self->{'new_unpacked'}->{'old_attribute'}) {
+    	<br/>Attributes: <% $self->{'new_unpacked'}->{'old_attribute'} %>
+%   }
+</%method>
+
+<%method ShowNewValue>
+    New: (deleted)
+</%method>
+
+%# eof

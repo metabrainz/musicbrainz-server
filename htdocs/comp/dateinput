@@ -1,0 +1,11 @@
+%# vi: set ts=2 sw=2 ft=mason :
+<%args>
+$name_prefix
+$value => [ ]
+</%args>
+<input type="text" name="<% $name_prefix %>_y" size="4" maxlength="4"
+	value="<% $value->[0] %>" style="text-align: center;">
+<input type="text" name="<% $name_prefix %>_m" size="2" maxlength="2"
+	value="<% $value->[1] %>" style="text-align: center;">
+<input type="text" name="<% $name_prefix %>_d" size="2" maxlength="2"
+	value="<% $value->[2] %>" style="text-align: center;">

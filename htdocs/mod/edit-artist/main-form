@@ -1,0 +1,188 @@
+%# vi: set ts=2 sw=2 ft=mason :
+<%args>
+$action
+$artist => undef
+$name => ""
+$sortname => ""
+$type => 0
+$resolution => ""
+$begindate => [ ]
+$enddate => [ ]
+$typechanged => 0
+$notetext => ""
+$confirm => 0
+</%args>
+<%perl>
+my $begindate_str = Artist::GetBeginDateName($type);
+my $enddate_str = Artist::GetEndDateName($type);
+</%perl>
+
+<script type="text/javascript" src="scripts/guess.js"></script>
+
+	<form method="POST" action="<% $action %>" name="EditArtist">
+
+    <table>
+			<tr>
+				<td style="padding: 2ex 0" colspan="2">
+					<p>
+						Please <a href="/style.html">read the style guidelines</a>,
+						then enter the new Artist name and Sort name below.
+					</p>
+				</td>
+			</tr>
+      <tr>
+      	<td align="right">
+					Type:
+				</td>
+				<td>
+					<select name="type"
+							onChange="EditArtist.typechanged.value = 1; EditArtist.submit();">
+						<& /comp/options,
+								[[0, 'Unknown'], [1, 'Person'], [2, 'Group']], $type &>
+					</select>
+				</td>
+      </tr>
+			<tr>
+				<td style="padding: 1ex 0"></td>
+			</tr>
+% if ( defined $artist ) {
+			<tr>
+        <td align="right">Current Name:</td>
+				<td><% $artist->GetName() %></td>
+			</tr>
+% }
+      <tr>
+        <td align="right">
+					Artist Name:
+        </td>
+        <td>
+					<input type="text" name="name" size="40" value="<% $name %>">
+					<script type="text/javascript"><!--
+					document.write(
+						"&nbsp; <input type='button' value='Guess Case' " +
+						"onclick='this.form.name.value = GuessCase(this.form.name.value)'>"
+					)
+					//--></script>
+				</td>
+			</tr>
+			<tr>
+				<td style="padding: 1ex 0"></td>
+			</tr>
+% if ( defined $artist ) {
+			<tr>
+        <td align="right">Current Sort Name:</td>
+				<td><% $artist->GetSortName() %></td>
+			</tr>
+% }
+      <tr>
+        <td align="right">
+					Sort Name:
+        </td>
+        <td>
+					<input type="text" name="sortname" size="40" value="<% $sortname %>">
+					<script type="text/javascript">
+					document.write(
+						"&nbsp; <input type='button' value='Guess' " +
+						"onclick='this.form.sortname.value = GuessSortname(this.form.name.value)'>"
+						+ "&nbsp; <input type='button' value='Copy' " +
+						"onclick='this.form.sortname.value = this.form.name.value'>"
+					)
+					</script>
+        </td>
+      </tr>
+% if ( $confirm || $resolution ) {
+			<tr>
+				<td style="padding: 2ex 0" colspan="2">
+					<p>
+						The comment field is used to differentiate between artists with
+						the same, or confusingly similar, names. Please leave this blank if this
+						artist does not conflict with an artist of a similar name.
+					</p>
+				</td>
+			</tr>
+% if ( defined $artist ) {
+			<tr>
+        <td align="right">Current Comment:</td>
+				<td><% $artist->GetResolution() || "(none)" %></td>
+			</tr>
+% }
+			<tr>
+				<td align="right">
+					Comment:
+				</td>
+        <td>
+					<input type="text" name="resolution" size="30" maxlength="64"
+						style="width: 100%"
+						value="<% $resolution %>">
+				</td>
+			</tr>
+% }
+			<tr>
+				<td style="padding: 2ex 0" colspan="2">
+					<p>
+						Dates are in the format YYYY-MM-DD.&nbsp; Partial dates
+						(YYYY-MM or just YYYY) are OK, or you can omit the date entirely.
+					</p>
+				</td>
+			</tr>
+			<tr>
+				<td align="right">
+					<% $begindate_str %>:
+				</td>
+        <td>
+					<& /comp/dateinput, name_prefix => 'begindate', value => $begindate &>
+					Year/Month/Day
+				</td>
+			</tr>
+			<tr>
+				<td align="right">
+					<% $enddate_str %>:
+				</td>
+        <td>
+					<& /comp/dateinput, name_prefix => 'enddate', value => $enddate &>
+					Year/Month/Day
+				</td>
+			</tr>
+			<tr>
+				<td style="padding: 2ex 0"></td>
+			</tr>
+			<tr>
+				<td></td>
+				<td>
+					<p>
+						Enter moderation note (optional):
+					<br>
+						<textarea name="notetext" rows="3" cols="60"><%
+							$notetext %></textarea>
+					</p>
+				</td>
+			</tr>
+% if ( $confirm ) {
+      <tr> <td colspan="2">&nbsp;</td> </tr>
+      <tr>
+			  <td align="right">Confirm:</td>
+				<td>
+% if ($action =~ /edit/) {
+				    <input type="checkbox" name="confirm"> I <b>really</b> do want to edit this artist.
+% } else {
+				    <input type="checkbox" name="confirm"> I <b>really</b> do want to add a duplicate artist.
+% }
+				</td>
+			</tr>
+      <tr> <td colspan="2">&nbsp;</td> </tr>
+% }
+      <tr>
+				<td></td>
+				<td>
+% if ( defined $artist ) {
+					<input type="hidden" name="id" value="<% $artist->GetId() %>">
+% }
+					<input type="hidden" name="typechanged" value="0">
+	 				<input type="submit" value="Submit">
+        </td>
+      </tr>
+    </table>
+
+	</form>
+
+<& /comp/movefocus, "EditArtist", "name" &>

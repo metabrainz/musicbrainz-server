@@ -423,6 +423,13 @@ if ($flags & TaggerSupport::ARTISTLIST)
    {
        my %copy = %data;
 
+	   push @$list, { name=>'Various Artists', 
+		              sortname=>'Various Artists', 
+					  mbid=>&ModDefs::VARTIST_MBID, 
+					  id=>&ModDefs::VARTIST_ID, 
+					  sim=>-1
+				    };
+
        </%perl>
 	   <p><b>Found matching artists</b>:</p>
        <& /comp/framedboxbegin, width=>"420" &>
@@ -434,8 +441,12 @@ if ($flags & TaggerSupport::ARTISTLIST)
 %      foreach my $id (@$list) {
           <tr bgcolor="<% $bgcolor = ( $bgcolor eq '#ffffff' ? '#ffe1b7' : '#ffffff' ) %>">
              <td valign="top">&nbsp;<a href="/showartist.html?artistid=<% $id->{id} %>"
-                 ><% $id->{name} %></a></td>
-             <td valign="top" align="center"><% int(($id->{sim} * 100) + .5) %>%</td>
+                 ><% $id->{name} %></a>
+%            if ($id->{resolution}) {
+	            (<% $id->{resolution} %>)
+%            }
+			 </td>
+             <td valign="top" align="center"><% ($id->{sim} >= 0) ? sprintf("%d%%", int(($id->{sim} * 100) + .5)) : '--' %></td>
              <td valign="top" align="right">
 %               $copy{artistid} = $id->{mbid};
 %               $copy{artist} = $id->{name};

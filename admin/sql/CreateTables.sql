@@ -89,7 +89,11 @@ CREATE TABLE artist
     gid                 CHAR(36) NOT NULL,
     modpending          INTEGER DEFAULT 0,
     sortname            VARCHAR(255) NOT NULL,
-    page                INTEGER NOT NULL
+    page                INTEGER NOT NULL,
+    resolution          VARCHAR(64),
+    begindate           CHAR(10),
+    enddate             CHAR(10),
+    type                SMALLINT
 );
 
 CREATE TABLE artistalias
@@ -187,6 +191,275 @@ CREATE TABLE historicalstat
     snapshotdate        DATE NOT NULL
 );
 
+CREATE TABLE l_album_album
+(
+    id                  SERIAL,
+    link0               INTEGER NOT NULL DEFAULT 0, -- references album
+    link1               INTEGER NOT NULL DEFAULT 0, -- references album
+    link_type           INTEGER NOT NULL DEFAULT 0, -- references lt_album_album
+    begindate           CHAR(10) NOT NULL DEFAULT '',
+    enddate             CHAR(10) NOT NULL DEFAULT '',
+    modpending          INTEGER NOT NULL DEFAULT 0
+);
+
+CREATE TABLE l_album_artist
+(
+    id                  SERIAL,
+    link0               INTEGER NOT NULL DEFAULT 0, -- references album
+    link1               INTEGER NOT NULL DEFAULT 0, -- references artist
+    link_type           INTEGER NOT NULL DEFAULT 0, -- references lt_album_artist
+    begindate           CHAR(10) NOT NULL DEFAULT '',
+    enddate             CHAR(10) NOT NULL DEFAULT '',
+    modpending          INTEGER NOT NULL DEFAULT 0
+);
+
+CREATE TABLE l_album_track
+(
+    id                  SERIAL,
+    link0               INTEGER NOT NULL DEFAULT 0, -- references album
+    link1               INTEGER NOT NULL DEFAULT 0, -- references track
+    link_type           INTEGER NOT NULL DEFAULT 0, -- references lt_album_track
+    begindate           CHAR(10) NOT NULL DEFAULT '',
+    enddate             CHAR(10) NOT NULL DEFAULT '',
+    modpending          INTEGER NOT NULL DEFAULT 0
+);
+
+CREATE TABLE l_album_url
+(
+    id                  SERIAL,
+    link0               INTEGER NOT NULL DEFAULT 0, -- references album
+    link1               INTEGER NOT NULL DEFAULT 0, -- references url
+    link_type           INTEGER NOT NULL DEFAULT 0, -- references lt_album_url
+    begindate           CHAR(10) NOT NULL DEFAULT '',
+    enddate             CHAR(10) NOT NULL DEFAULT '',
+    modpending          INTEGER NOT NULL DEFAULT 0
+);
+
+CREATE TABLE l_artist_artist
+(
+    id                  SERIAL,
+    link0               INTEGER NOT NULL DEFAULT 0, -- references artist
+    link1               INTEGER NOT NULL DEFAULT 0, -- references artist
+    link_type           INTEGER NOT NULL DEFAULT 0, -- references lt_artist_artist
+    begindate           CHAR(10) NOT NULL DEFAULT '',
+    enddate             CHAR(10) NOT NULL DEFAULT '',
+    modpending          INTEGER NOT NULL DEFAULT 0
+);
+
+CREATE TABLE l_artist_track
+(
+    id                  SERIAL,
+    link0               INTEGER NOT NULL DEFAULT 0, -- references artist
+    link1               INTEGER NOT NULL DEFAULT 0, -- references track
+    link_type           INTEGER NOT NULL DEFAULT 0, -- references lt_artist_track
+    begindate           CHAR(10) NOT NULL DEFAULT '',
+    enddate             CHAR(10) NOT NULL DEFAULT '',
+    modpending          INTEGER NOT NULL DEFAULT 0
+);
+
+CREATE TABLE l_artist_url
+(
+    id                  SERIAL,
+    link0               INTEGER NOT NULL DEFAULT 0, -- references artist
+    link1               INTEGER NOT NULL DEFAULT 0, -- references url
+    link_type           INTEGER NOT NULL DEFAULT 0, -- references lt_artist_url
+    begindate           CHAR(10) NOT NULL DEFAULT '',
+    enddate             CHAR(10) NOT NULL DEFAULT '',
+    modpending          INTEGER NOT NULL DEFAULT 0
+);
+
+CREATE TABLE l_track_track
+(
+    id                  SERIAL,
+    link0               INTEGER NOT NULL DEFAULT 0, -- references track
+    link1               INTEGER NOT NULL DEFAULT 0, -- references track
+    link_type           INTEGER NOT NULL DEFAULT 0, -- references lt_track_track
+    begindate           CHAR(10) NOT NULL DEFAULT '',
+    enddate             CHAR(10) NOT NULL DEFAULT '',
+    modpending          INTEGER NOT NULL DEFAULT 0
+);
+
+CREATE TABLE l_track_url
+(
+    id                  SERIAL,
+    link0               INTEGER NOT NULL DEFAULT 0, -- references track
+    link1               INTEGER NOT NULL DEFAULT 0, -- references url
+    link_type           INTEGER NOT NULL DEFAULT 0, -- references lt_track_url
+    begindate           CHAR(10) NOT NULL DEFAULT '',
+    enddate             CHAR(10) NOT NULL DEFAULT '',
+    modpending          INTEGER NOT NULL DEFAULT 0
+);
+
+CREATE TABLE l_url_url
+(
+    id                  SERIAL,
+    link0               INTEGER NOT NULL DEFAULT 0, -- references track
+    link1               INTEGER NOT NULL DEFAULT 0, -- references url
+    link_type           INTEGER NOT NULL DEFAULT 0, -- references lt_track_url
+    begindate           CHAR(10) NOT NULL DEFAULT '',
+    enddate             CHAR(10) NOT NULL DEFAULT '',
+    modpending          INTEGER NOT NULL DEFAULT 0
+);
+
+CREATE TABLE link_attribute
+(
+    id                  SERIAL,
+    attribute_type      INTEGER NOT NULL DEFAULT 0, -- references link_attribute_type
+    link                INTEGER NOT NULL DEFAULT 0, -- references l_<ent>_<ent> without FK
+    link_type           VARCHAR(32) NOT NULL DEFAULT '' -- indicates which l_ table to refer to
+);
+
+CREATE TABLE link_attribute_type
+(
+    id                  SERIAL,
+    parent              INTEGER NOT NULL, -- references self
+    childorder          INTEGER NOT NULL DEFAULT 0,
+    mbid                CHAR(36) NOT NULL,
+    name                VARCHAR(255) NOT NULL,
+    description         TEXT NOT NULL,
+    modpending          INTEGER NOT NULL DEFAULT 0
+);
+
+CREATE TABLE lt_album_album
+(
+    id                  SERIAL,
+    parent              INTEGER NOT NULL, -- references self
+    childorder          INTEGER NOT NULL DEFAULT 0,
+    mbid                CHAR(36) NOT NULL,
+    name                VARCHAR(255) NOT NULL,
+    description         TEXT NOT NULL,
+    linkphrase          VARCHAR(255) NOT NULL,
+    rlinkphrase         VARCHAR(255) NOT NULL,
+    attribute           VARCHAR(255) DEFAULT '',
+    modpending          INTEGER NOT NULL DEFAULT 0
+);
+
+CREATE TABLE lt_album_artist
+(
+    id                  SERIAL,
+    parent              INTEGER NOT NULL, -- references self
+    childorder          INTEGER NOT NULL DEFAULT 0,
+    mbid                CHAR(36) NOT NULL,
+    name                VARCHAR(255) NOT NULL,
+    description         TEXT NOT NULL,
+    linkphrase          VARCHAR(255) NOT NULL,
+    rlinkphrase         VARCHAR(255) NOT NULL,
+    attribute           VARCHAR(255) DEFAULT '',
+    modpending          INTEGER NOT NULL DEFAULT 0
+);
+
+CREATE TABLE lt_album_track
+(
+    id                  SERIAL,
+    parent              INTEGER NOT NULL, -- references self
+    childorder          INTEGER NOT NULL DEFAULT 0,
+    mbid                CHAR(36) NOT NULL,
+    name                VARCHAR(255) NOT NULL,
+    description         TEXT NOT NULL,
+    linkphrase          VARCHAR(255) NOT NULL,
+    rlinkphrase         VARCHAR(255) NOT NULL,
+    attribute           VARCHAR(255) DEFAULT '',
+    modpending          INTEGER NOT NULL DEFAULT 0
+);
+
+CREATE TABLE lt_album_url
+(
+    id                  SERIAL,
+    parent              INTEGER NOT NULL, -- references self
+    childorder          INTEGER NOT NULL DEFAULT 0,
+    mbid                CHAR(36) NOT NULL,
+    name                VARCHAR(255) NOT NULL,
+    description         TEXT NOT NULL,
+    linkphrase          VARCHAR(255) NOT NULL,
+    rlinkphrase         VARCHAR(255) NOT NULL,
+    attribute           VARCHAR(255) DEFAULT '',
+    modpending          INTEGER NOT NULL DEFAULT 0
+);
+
+CREATE TABLE lt_artist_artist
+(
+    id                  SERIAL,
+    parent              INTEGER NOT NULL, -- references self
+    childorder          INTEGER NOT NULL DEFAULT 0,
+    mbid                CHAR(36) NOT NULL,
+    name                VARCHAR(255) NOT NULL,
+    description         TEXT NOT NULL,
+    linkphrase          VARCHAR(255) NOT NULL,
+    rlinkphrase         VARCHAR(255) NOT NULL,
+    attribute           VARCHAR(255) DEFAULT '',
+    modpending          INTEGER NOT NULL DEFAULT 0
+);
+
+CREATE TABLE lt_artist_track
+(
+    id                  SERIAL,
+    parent              INTEGER NOT NULL, -- references self
+    childorder          INTEGER NOT NULL DEFAULT 0,
+    mbid                CHAR(36) NOT NULL,
+    name                VARCHAR(255) NOT NULL,
+    description         TEXT NOT NULL,
+    linkphrase          VARCHAR(255) NOT NULL,
+    rlinkphrase         VARCHAR(255) NOT NULL,
+    attribute           VARCHAR(255) DEFAULT '',
+    modpending          INTEGER NOT NULL DEFAULT 0
+);
+
+CREATE TABLE lt_artist_url
+(
+    id                  SERIAL,
+    parent              INTEGER NOT NULL, -- references self
+    childorder          INTEGER NOT NULL DEFAULT 0,
+    mbid                CHAR(36) NOT NULL,
+    name                VARCHAR(255) NOT NULL,
+    description         TEXT NOT NULL,
+    linkphrase          VARCHAR(255) NOT NULL,
+    rlinkphrase         VARCHAR(255) NOT NULL,
+    attribute           VARCHAR(255) DEFAULT '',
+    modpending          INTEGER NOT NULL DEFAULT 0
+);
+
+CREATE TABLE lt_track_track
+(
+    id                  SERIAL,
+    parent              INTEGER NOT NULL, -- references self
+    childorder          INTEGER NOT NULL DEFAULT 0,
+    mbid                CHAR(36) NOT NULL,
+    name                VARCHAR(255) NOT NULL,
+    description         TEXT NOT NULL,
+    linkphrase          VARCHAR(255) NOT NULL,
+    rlinkphrase         VARCHAR(255) NOT NULL,
+    attribute           VARCHAR(255) DEFAULT '',
+    modpending          INTEGER NOT NULL DEFAULT 0
+);
+
+CREATE TABLE lt_track_url
+(
+    id                  SERIAL,
+    parent              INTEGER NOT NULL, -- references self
+    childorder          INTEGER NOT NULL DEFAULT 0,
+    mbid                CHAR(36) NOT NULL,
+    name                VARCHAR(255) NOT NULL,
+    description         TEXT NOT NULL,
+    linkphrase          VARCHAR(255) NOT NULL,
+    rlinkphrase         VARCHAR(255) NOT NULL,
+    attribute           VARCHAR(255) DEFAULT '',
+    modpending          INTEGER NOT NULL DEFAULT 0
+);
+
+CREATE TABLE lt_url_url
+(
+    id                  SERIAL,
+    parent              INTEGER NOT NULL, -- references self
+    childorder          INTEGER NOT NULL DEFAULT 0,
+    mbid                CHAR(36) NOT NULL,
+    name                VARCHAR(255) NOT NULL,
+    description         TEXT NOT NULL,
+    linkphrase          VARCHAR(255) NOT NULL,
+    rlinkphrase         VARCHAR(255) NOT NULL,
+    attribute           VARCHAR(255) DEFAULT '',
+    modpending          INTEGER NOT NULL DEFAULT 0
+);
+
 CREATE TABLE moderation_note_closed
 (
     id                  INTEGER NOT NULL,
@@ -281,6 +554,21 @@ CREATE TABLE moderator_subscribe_artist
     mergedbymod         INTEGER NOT NULL DEFAULT 0 -- weakly references moderation
 );
 
+CREATE TABLE "Pending"
+(
+    "SeqId"             SERIAL,
+    "TableName"         VARCHAR NOT NULL,
+    "Op"                CHARACTER,
+    "XID"               INT4 NOT NULL
+);
+
+CREATE TABLE "PendingData"
+(
+    "SeqId"             INT4 NOT NULL,
+    "IsKey"             BOOL NOT NULL,
+    "Data"              VARCHAR
+);
+
 CREATE TABLE release
 (
     id                  SERIAL,
@@ -359,6 +647,16 @@ CREATE TABLE trmjoin_stat
     trmjoin_id          INTEGER NOT NULL, -- references trmjoin
     month_id            INTEGER NOT NULL,
     usecount            INTEGER NOT NULL DEFAULT 0
+);
+
+CREATE TABLE url
+(
+    id                  SERIAL,
+    gid                 CHAR(36) NOT NULL,
+    url                 VARCHAR(255) NOT NULL,
+    description         TEXT NOT NULL,
+    refcount            INTEGER NOT NULL DEFAULT 0,
+    modpending          INTEGER NOT NULL DEFAULT 0
 );
 
 CREATE TABLE vote_closed

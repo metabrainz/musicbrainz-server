@@ -38,14 +38,17 @@ my %Queries =
    album => \&QuerySupport::GetAlbumByGlobalId,
    track => \&QuerySupport::GetTrackByGlobalId,
    trmid => \&QuerySupport::GetTrackByTRM,
-   trm => \&QuerySupport::GetTrackByTRM
+   trm => \&QuerySupport::GetTrackByTRM,
+   artistrel => \&QuerySupport::GetArtistRelationships,
+   albumrel => \&QuerySupport::GetAlbumRelationships,
+   trackrel => \&QuerySupport::GetTrackRelationships,
 );
 
 $depth = 2;
 require MM_2_1;
 $rdf = MM_2_1->new(0);
 
-$rdf->SetBaseURI("http://" . $ENV{SERVER_NAME});
+$rdf->SetBaseURI("http://" . $ENV{SERVER_NAME} . "/mm-2.1");
 
 if (exists $ENV{"MOD_PERL"})
 {

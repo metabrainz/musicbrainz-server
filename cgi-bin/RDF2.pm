@@ -44,7 +44,7 @@ sub escape
 sub BeginRDFObject 
 {
     my ($this, $skipxmldecl) = @_;
-    my ($out, $mm, $mq, $az);
+    my ($out, $mm, $mq, $az, $ar);
 
     $this->{level} = 1;
 
@@ -56,10 +56,12 @@ sub BeginRDFObject
     $mq = $this->GetMQNamespace();
     $mm = $this->GetMMNamespace();
     $az = $this->GetAZNamespace();
+    $ar = $this->GetARNamespace();
     $out .=  "<rdf:RDF xmlns:rdf = \"http://www.w3.org/1999/02/22-rdf-syntax-ns#\"\n".
       "         xmlns:dc  = \"http://purl.org/dc/elements/1.1/\"\n".
       "         xmlns:mq  = \"$mq\"\n".
       "         xmlns:mm  = \"$mm\"\n".
+      "         xmlns:ar  = \"$ar\"\n".
       "         xmlns:az  = \"$az\">\n";
 
     return $out;

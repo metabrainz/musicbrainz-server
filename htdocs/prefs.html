@@ -14,6 +14,9 @@ my $saved = 0;
 my $countries_menu = $m->comp("/mod/edit-releases/countries-menu.inc");
 my $countries_menu_2 = [ [ 0, "[none]" ], @$countries_menu ];
 
+my $mb = $m->comp("/comp/dblogin");
+my $ui = UserStuff->new($mb->{DBH});
+
 if ($ARGS{"SavePrefs"})
 {
 	# Insert zeroes for checkboxes which weren't submitted
@@ -33,6 +36,7 @@ if ($ARGS{"SavePrefs"})
 		vote_show_novote
 		mail_notes_if_i_noted
 		mail_notes_if_i_voted
+		show_inline_mods
 		subscriptions_public
 	)) {
 		$ARGS{$_} = 0 if not defined $ARGS{$_};
@@ -44,15 +48,11 @@ if ($ARGS{"SavePrefs"})
 			if defined $ARGS{$key};
 	}
 
-	my $mb = $m->comp("/comp/dblogin");
-	my $ui = UserStuff->new($mb->{DBH});
-
 	$saved = eval { UserPreference::SaveForUser($ui->Current) };
 
 	# Volatile debugging preferences
 	if (&DBDefs::DB_STAGING_SERVER) {
 		for (qw(
-			no_inline_mods
 		)) {
 			$session{$_} = $ARGS{$_} ? 1 : 0;
 		}
@@ -182,15 +182,14 @@ $time = time();
 		yes or no - not "abstain")
 	</p>
 
-% if (&DBDefs::DB_STAGING_SERVER) {
+% unless ($ui->Current->IsNewbie) {
 	<p>
-		<label for="pref_no_inline_mods"><input type="checkbox" name="no_inline_mods" id="pref_no_inline_mods"
-			<% $session{no_inline_mods} ? "checked" : "" %>
+		<label for="pref_show_inline_mods"><input type="checkbox" name="show_inline_mods" id="pref_show_inline_mods"
+			<% UserPreference::get('show_inline_mods') ? "checked" : "" %>
 			>
-		Don't show 'inline' moderations</label>
+		Show 'inline' moderations
 	</p>
 % }
-
 	<h2>E-Mailing Other Moderators</h2>
 
 	<p>

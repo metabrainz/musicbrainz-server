@@ -1,0 +1,11 @@
+%# vi: set ts=4 sw=4 ft=mason :
+<%args>
+$targetid
+$targettype
+$isrelpage=>0
+</%args>
+
+% my $page = $isrelpage ? "showrel" : "show$targettype";
+% my $idarg = $isrelpage ? "type=$targettype&id" : ($targettype . "id");
+
+<a href="/<% $page %>.html?<% $idarg %>=<% $targetid %>&amp;arcancel=1">Cancel</a> 

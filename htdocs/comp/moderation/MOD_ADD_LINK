@@ -1,0 +1,41 @@
+%# vi: set ts=4 sw=4 ft=mason :
+
+<%method ShowPreviousValue>
+% my $self = shift;
+</%method>
+
+<%method ShowNewValue>
+% my $self = shift;
+% my $new = $self->{'new_unpacked'};
+
+	New: 
+% if ($new->{entity1type} ne 'url') {
+	<& /comp/ar/ShowEntityLink, id=>$new->{entity0id}, type=>$new->{entity0type}, 
+	                            name=>$new->{entity0name}, simple=>1 &>
+	<i><% $new->{linktypephrase} %></i>
+	<& /comp/ar/ShowEntityLink, id=>$new->{entity1id}, type=>$new->{entity1type}, 
+	                            name=>$new->{entity1name}, simple=>1 &>
+%   if ($new->{begindate} || $new->{enddate}) {
+	   from 
+%      if ($new->{begindate}) {
+           <% $new->{begindate} %>
+%      }
+%      if ($new->{enddate}) {
+    	   until <% $new->{enddate} %>.
+%      } else {
+	       to present.
+%      }
+%   }
+
+% } else {
+	<& /comp/ar/ShowEntityLink, id=>$new->{entity0id}, type=>$new->{entity0type}, 
+	                            name=>$new->{entity0name}, simple=>1 &>
+	<i><% $new->{linktypephrase} %></i>
+	<& /comp/ar/ShowEntityLink, id=>$new->{entity1id}, type=>$new->{entity1type}, 
+	                            name=>$new->{entity1name}, url=>$new->{url}, simple=>1 &>
+
+% }
+
+</%method>
+
+%# eof

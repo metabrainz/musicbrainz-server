@@ -44,6 +44,13 @@ sub GetMMNamespace
     return "http://musicbrainz.org/mm/mm-2.0#";
 }
 
+sub GetARNamespace
+{
+    my ($this) = @_;
+
+    return "http://musicbrainz.org/ar/ar-1.0#";
+}
+
 sub GetAZNamespace
 {
     my ($this) = @_;

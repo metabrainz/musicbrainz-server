@@ -1,0 +1,188 @@
+#!/usr/bin/perl -w
+# vi: set ts=4 sw=4 :
+#____________________________________________________________________________
+#
+#   MusicBrainz -- the open internet music database
+#
+#   Copyright (C) 2000 Robert Kaye
+#
+#   This program is free software; you can redistribute it and/or modify
+#   it under the terms of the GNU General Public License as published by
+#   the Free Software Foundation; either version 2 of the License, or
+#   (at your option) any later version.
+#
+#   This program is distributed in the hope that it will be useful,
+#   but WITHOUT ANY WARRANTY; without even the implied warranty of
+#   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+#   GNU General Public License for more details.
+#
+#   You should have received a copy of the GNU General Public License
+#   along with this program; if not, write to the Free Software
+#   Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
+#
+#   $Id$
+#____________________________________________________________________________
+
+use strict;
+
+package MusicBrainz::Server::LinkEntity;
+
+use Carp qw( croak );
+
+my @sorted_types;
+my %classes;
+
+sub Register
+{
+	my ($class, $handler) = @_;
+	my $type = $handler->Type;
+	$classes{$type} = $handler;
+	@sorted_types = sort keys %classes;
+}
+
+sub Types { @sorted_types }
+
+sub ValidateTypes
+{
+	my ($class, $types) = @_;
+	
+	# Verify that the types are all valid, and are in order
+	my $last = undef;
+	for my $type (@$types)
+	{
+		$classes{$type} or return 0;
+		defined($last) or next;
+		$type ge $last or return 0;
+		$last = $type;
+	}
+
+	1;
+}
+
+sub IsValidType
+{
+	exists $classes{ $_[1] }
+}
+
+sub NameFromType
+{
+	my ($class, $type) = @_;
+	my $handler = $classes{$type}
+		or croak "Bad type '$type'";
+	$handler->Name;
+}
+
+sub newFromTypeAndId
+{
+	my ($class, $dbh, $type, $id) = @_;
+	my $handler = $classes{$type}
+		or croak "Bad type '$type'";
+	$handler->newFromId($dbh, $id);
+}
+
+sub URLFromTypeAndId
+{
+	my ($class, $type, $id) = @_;
+	my $handler = $classes{$type}
+		or croak "Bad type '$type'";
+	$handler->URLFromId($id);
+}
+
+sub Transform
+{
+	shift;
+	map { +{ type => $_->LinkEntityName, id => $_->GetId } } @_;
+}
+
+################################################################################
+package MusicBrainz::Server::LinkEntity::Album;
+MusicBrainz::Server::LinkEntity->Register(__PACKAGE__);
+################################################################################
+
+sub Type { "album" }
+sub Name { "Album" }
+
+sub newFromId
+{
+	my ($class, $dbh, $id) = @_;
+	require Album;
+	my $object = Album->new($dbh);
+	$object->SetId($id);
+	$object->LoadFromId or return undef;
+	$object;
+}
+
+sub URLFromId
+{
+	"/showalbum.html?albumid=$_[1]";
+}
+
+################################################################################
+package MusicBrainz::Server::LinkEntity::Artist;
+MusicBrainz::Server::LinkEntity->Register(__PACKAGE__);
+################################################################################
+
+sub Type { "artist" }
+sub Name { "Artist" }
+
+sub newFromId
+{
+	my ($class, $dbh, $id) = @_;
+	require Artist;
+	my $object = Artist->new($dbh);
+	$object->SetId($id);
+	$object->LoadFromId or return undef;
+	$object;
+}
+
+sub URLFromId
+{
+	"/showartist.html?artistid=$_[1]";
+}
+
+################################################################################
+package MusicBrainz::Server::LinkEntity::Track;
+MusicBrainz::Server::LinkEntity->Register(__PACKAGE__);
+################################################################################
+
+sub Type { "track" }
+sub Name { "Track" }
+
+sub newFromId
+{
+	my ($class, $dbh, $id) = @_;
+	require Track;
+	my $object = Track->new($dbh);
+	$object->SetId($id);
+	$object->LoadFromId or return undef;
+	$object;
+}
+
+sub URLFromId
+{
+	"/showtrack.html?trackid=$_[1]";
+}
+
+################################################################################
+package MusicBrainz::Server::LinkEntity::URL;
+MusicBrainz::Server::LinkEntity->Register(__PACKAGE__);
+################################################################################
+
+sub Type { "url" }
+sub Name { "URL" }
+
+sub newFromId
+{
+	my ($class, $dbh, $id) = @_;
+	require MusicBrainz::Server::URL;
+	my $object = MusicBrainz::Server::URL->new($dbh);
+	$object->newFromId($id);
+}
+
+sub URLFromId
+{
+	"/showurl.html?id=$_[1]";
+}
+
+1;
+# eof LinkEntity.pm

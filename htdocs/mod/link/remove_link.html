@@ -1,0 +1,99 @@
+%# vi: set ts=4 sw=4 ft=mason :
+<%args>
+$type => ""
+$id => ""
+$confirm=>0
+$notetext=>""
+</%args>
+<%perl>
+
+$m->comp("/comp/checkloggedin", 1, 1)
+	or return;
+
+my @types = sort split '-', $type;
+
+my $mb = $m->comp("/comp/dblogin");
+my $link = MusicBrainz::Server::Link->new($mb->{DBH}, \@types);
+if (!$link)
+{
+	</%perl>
+    <& /comp/sidebar, title => 'Remove Link: error' &>
+	<p>
+	This page was passed invalid arguments. The type and id arguments need to be passed to this page.
+	</p>
+    <& /comp/footer &>
+	<%perl>
+	return;
+}
+
+my $node = $link->newFromId($id);
+if (!$node)
+{
+	</%perl>
+    <& /comp/sidebar, title => 'Remove Link: error' &>
+	<p>
+	The link you selected for removal no longer exists.
+	</p>
+    <& /comp/footer &>
+	<%perl>
+	return;
+}
+
+my @ents = $node->Entities();
+
+if ($confirm)
+{
+	my $r = $m->comp(
+		"/comp/entermods",
+		DBH => $mb->{DBH},
+		sub => sub {
+			my @mods = Moderation->InsertModeration(
+				DBH	=> $mb->{DBH},
+				uid	=> $session{uid},
+				privs => $session{privs},
+				type => &ModDefs::MOD_REMOVE_LINK,
+				# --
+				link => $node,
+				types=> \@types,
+			);
+
+            $mods[0]->InsertNote($session{'uid'}, $notetext)
+                if $mods[0] and $notetext =~ /\S/;
+		},
+	) or return;
+	
+	$m->comp(
+		"/comp/redirect",
+		"/showrel.html?id=".$ents[0]->GetId ."&type=". $types[0]
+	);
+	return;
+}
+
+</%perl>
+<& /comp/sidebar, title => 'Remove Link' &>
+
+<form method="post" action="/mod/link/remove_link.html" name="RemoveLinkForm">
+	<p>
+	Are you sure you want to remove the <% $type %> link from 
+	<a href="/show<% $types[0] %>.html?<% $types[0] %>id=<% $ents[0]->GetId %>"><% $ents[0]->GetName() %></a>
+	to
+	<a href="/show<% $types[1] %>.html?<% $types[1] %>id=<% $ents[1]->GetId %>"><% $ents[1]->GetName() %></a>?
+	</p>
+
+    <p>
+        Enter moderation note (optional):
+    </p>
+    <p>
+        <textarea name="notetext" rows="3" cols="60"></textarea>
+    </p>
+
+    <p>
+		<input type="hidden" name="type" value="<% $type %>">
+		<input type="hidden" name="id" value="<% $id %>">
+		<input type="hidden" name="confirm" value="1">
+		<input type="submit" value="Confirm">
+    </p>
+</form>
+
+<& /comp/movefocus, "RemoveLinkForm", "linktypename" &>
+<& /comp/footer &>

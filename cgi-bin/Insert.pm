@@ -101,7 +101,11 @@ sub Insert
 #	MOD_ADD_ARTIST PreInsert
 #		artist => ArtistName
 #		sortname => SortName
-#		artist_only => same as sortname
+#		type  => ArtistType
+#		OPTIONAL begindate => date-str
+#		OPTIONAL enddate => date-str
+#		OPTIONAL resolution => str
+#		artist_only => 1
 #	MOD_ADD_TRACK_KV PreInsert
 #		artistid => some id
 #		albumid => some id
@@ -118,6 +122,10 @@ sub Insert
 
 # %info hash needs to have the following keys defined
 #  (artist (name) and sortname) or artistid                [required]
+#  artist_type                                             [optional]
+#  artist_resolution                                       [optional]
+#  artist_begindate                                        [optional]
+#  artist_enddate                                          [optional]
 #  album name or albumid                                   [required]
 #  attributes -> ref to array                              [optional]
 #  forcenewalbum (defaults to no)                          [optional]
@@ -190,6 +198,10 @@ sub _Insert
 	my $artist;
 	my $artistid;
 	my $sortname;
+	my $artist_type;
+	my $artist_resolution;
+	my $artist_begindate;
+	my $artist_enddate;
 
     # Try and resolve/check the artist name
     if (exists $info->{artistid})
@@ -220,6 +232,10 @@ sub _Insert
 
         $artist = $info->{artist};
         $sortname = $info->{sortname};
+		$artist_type = $info->{artist_type};
+		$artist_resolution = $info->{artist_resolution};
+		$artist_begindate = $info->{artist_begindate};
+		$artist_enddate = $info->{artist_enddate};
     }
 
 	my $albumid;
@@ -235,8 +251,7 @@ sub _Insert
             $al->SetId($info->{albumid});
             if (!defined $al->LoadFromId())
             {
-                die "Insert failed: Could not load given " .
-                                 "albumid.\n";
+                die "Insert failed: Could not load given albumid.\n";
             }
     
             $album = $al->GetName();
@@ -262,6 +277,10 @@ sub _Insert
     {
         $ar->SetName($artist);
         $ar->SetSortName($sortname);
+		$ar->SetType($artist_type);
+		$ar->SetResolution($artist_resolution);
+		$ar->SetBeginDate($artist_begindate);
+		$ar->SetEndDate($artist_enddate);
         $artistid = $ar->Insert(no_alias => $info->{artist_only});
         if (!defined $artistid)
         {

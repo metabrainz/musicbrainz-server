@@ -38,28 +38,51 @@ sub PreInsert
 	my ($self, %opts) = @_;
 
 	my $name = $opts{'name'};
-	$name =~ /\S/ or die;
-	
 	my $sortname = $opts{'sortname'};
-	$sortname = $name if not defined $sortname or $sortname eq "";
-	$sortname =~ /\S/ or die;
+	my $type = $opts{'artist_type'};
+	my $resolution = $opts{'artist_resolution'};
+	my $begindate = $opts{'artist_begindate'};
+	my $enddate = $opts{'artist_enddate'};
+
+	MusicBrainz::TrimInPlace($name) if defined $name;
+	$name =~ /\S/ or die $self->SetError('Artist name not set');;
 	
-	$self->SetTable("artist");
-	$self->SetColumn("name");
-	$self->SetRowId(&ModDefs::DARTIST_ID);
+	MusicBrainz::TrimInPlace($sortname) if defined $sortname;
+	$sortname = $name if not defined $sortname or $sortname eq "";
 
-	my %new = (
-		ArtistName => $name,
-		SortName => $sortname,
-	);
+	# We allow a type of 0. It is mapped to NULL in the DB.
+	die $self->SetError('Artist type invalid')
+		unless Artist::IsValidType($type) or not defined $type;
 
-	$self->SetNew($self->ConvertHashToNew(\%new));
+	MusicBrainz::TrimInPlace($resolution) if defined $resolution;
 
+	# undefined $begindate means: no date given
+	my $begindate_str;
+	if ( defined $begindate and $begindate->[0] ne '')
+	{
+		die 'Invalid begin date' unless MusicBrainz::IsValidDate(@$begindate);
+		$begindate_str = MusicBrainz::MakeDBDateStr(@$begindate);
+	}
+
+	my $enddate_str;
+	if ( defined $enddate and $enddate->[0] ne '')
+	{
+		die 'Invalid end date' unless MusicBrainz::IsValidDate(@$enddate);
+		$enddate_str = MusicBrainz::MakeDBDateStr(@$enddate);
+	}
+	
+	# Prepare the data that Insert needs.
+	#
 	my %info = (
 		artist		=> $name,
 		sortname	=> $sortname,
 		artist_only	=> 1,
 	);
+	
+	$info{'artist_type'} = $type if $type;
+	$info{'artist_resolution'} = $resolution if defined $resolution;
+	$info{'artist_begindate'} = $begindate_str if defined $begindate_str;
+	$info{'artist_enddate'} = $enddate_str if defined $enddate_str;
 
 	require Insert;
 	my $in = Insert->new($self->{DBH});
@@ -69,16 +92,28 @@ sub PreInsert
 	defined($ans)
 		or ($self->SetError($in->GetError), die $self);
 
-	unless (exists $info{artist_insertid})
- 	{
-		$self->SetError("The artist '$name' already exists.");
-		die $self;
-	}
+	# The artist has been inserted. Now set up the moderation record
+	# to undo it if the vote fails.
 
-	my $artist = $info{'artist_insertid'};
-	$self->SetArtist($artist);
-	$self->SetRowId($artist);
-	$new{'ArtistId'} = $artist;
+	my %new = (
+		ArtistName => $name,
+		SortName => $sortname,
+	);
+
+	$new{'Type'} = $info{'artist_type'}
+		if exists $info{'artist_type'};
+	$new{'Resolution'} = $info{'artist_resolution'}
+		if exists $info{'artist_resolution'};
+	$new{'BeginDate'} = $info{'artist_begindate'}
+		if exists $info{'artist_begindate'};
+	$new{'EndDate'} = $info{'artist_enddate'}
+		if exists $info{'artist_enddate'};
+	$new{'ArtistId'} = $info{'artist_insertid'};
+
+	$self->SetTable('artist');
+	$self->SetColumn('name');
+	$self->SetArtist($info{'artist_insertid'});
+	$self->SetRowId($info{'artist_insertid'});
 	$self->SetNew($self->ConvertHashToNew(\%new));
 }
 

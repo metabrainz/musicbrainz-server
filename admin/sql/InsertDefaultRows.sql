@@ -10,14 +10,10 @@ insert into Artist (Name, SortName, GID, ModPending, Page)
       values ('Deleted Artist', 'Deleted Artist', 
               'c06aa285-520e-40c0-b776-83d2c9e8a6d1', 0, 0); 
 
--- Three of these four moderators need fixed IDs, so we must set the sequence
--- first to make sure we get the right ones.
-SELECT SETVAL('moderator_id_seq', 1);
-
-INSERT INTO moderator (name, password) VALUES ('Anonymous', '');
-INSERT INTO moderator (name, password) VALUES ('FreeDB', '');
-INSERT INTO moderator (name, password, privs) VALUES ('rob', '', 1);
-INSERT INTO moderator (name, password) VALUES ('ModBot', '');
+INSERT INTO moderator (id, name, password) VALUES (1, 'Anonymous', '');
+INSERT INTO moderator (id, name, password) VALUES (2, 'FreeDB', '');
+INSERT INTO moderator (id, name, password, privs) VALUES (3, 'rob', '', 1);
+INSERT INTO moderator (id, name, password) VALUES (4, 'ModBot', '');
 
 INSERT INTO clientversion (id, version) VALUES (1, 'unknown');
 

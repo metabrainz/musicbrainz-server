@@ -5,6 +5,10 @@ $mbid => ""
 $ex=>""
 $mbt=>$session{'mbt'}
 $tport=>$session{'tport'}
+$addrel=>0
+$remrel=>-1
+$remtype=>""
+$arcancel=>0
 </%args>
 <%perl>
 
@@ -104,7 +108,7 @@ $m->comp(
 );
 
     # show any related moderations so people can vote on them
-	$m->comp("/comp/relmods", artistid=>$artist->GetId);
+ 	$m->comp("/comp/relmods", artistid=>$artist->GetId);
 
     $m->comp("/comp/artisttitle", artist=>$artist);
 
@@ -136,6 +140,17 @@ $m->comp(
 		</div>
 		<%perl>
 	}
+
+    $m->comp("/comp/ar/AddRelationship", id=>$artist->GetId, type=>'artist', name=>$artist->GetName) 
+	    if ($addrel);
+    $m->comp("/comp/ar/ClearRelationships") 
+	    if ($arcancel);
+
+    $m->comp("/comp/ar/RemoveRelationship", id=>$remrel, type=>$remtype) 
+	    if ($remrel >= 0);
+
+    $m->comp("/comp/ar/RelationshipBox", id=>$artist->GetId, type=>'artist', 
+			                             name=>$artist->GetName);
 
 	if ($artist->GetId == &ModDefs::VARTIST_ID)
     {

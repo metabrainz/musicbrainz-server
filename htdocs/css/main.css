@@ -271,6 +271,14 @@ kbd.KbdBlock
 	border-style: solid;
 }
 
+.AlbumTitleRelationships
+{
+   padding: 5px;
+   background-color: #efe8e2;
+	border-width: 0 1px 1px 1px;
+   border-style: solid;
+}
+
 .AlbumTitleAmazon
 {
 	padding: 5px;
@@ -300,6 +308,17 @@ h2.AlbumType
 	text-align: center;
 	margin-top: 0.7em;
 	margin-bottom: 0.7em;
+}
+
+/* /comp/ar/relationship_box */
+
+.RelationshipBox
+{
+   padding: 5px;
+   background-color: #efe8e2;
+	border-width: 1px;
+   border-style: solid;
+	margin-bottom: .5em;
 }
 
 /* Search Results */

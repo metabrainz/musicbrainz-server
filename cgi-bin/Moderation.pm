@@ -50,6 +50,7 @@ require MusicBrainz::Server::Moderation::MOD_EDIT_ALBUMNAME;
 require MusicBrainz::Server::Moderation::MOD_EDIT_ARTISTALIAS;
 require MusicBrainz::Server::Moderation::MOD_EDIT_ARTISTNAME;
 require MusicBrainz::Server::Moderation::MOD_EDIT_ARTISTSORTNAME;
+require MusicBrainz::Server::Moderation::MOD_EDIT_ARTIST;
 require MusicBrainz::Server::Moderation::MOD_EDIT_RELEASES;
 require MusicBrainz::Server::Moderation::MOD_EDIT_TRACKNAME;
 require MusicBrainz::Server::Moderation::MOD_EDIT_TRACKNUM;
@@ -67,6 +68,15 @@ require MusicBrainz::Server::Moderation::MOD_REMOVE_DISCID;
 require MusicBrainz::Server::Moderation::MOD_REMOVE_TRACK;
 require MusicBrainz::Server::Moderation::MOD_REMOVE_TRMID;
 require MusicBrainz::Server::Moderation::MOD_SAC_TO_MAC;
+require MusicBrainz::Server::Moderation::MOD_ADD_LINK;
+require MusicBrainz::Server::Moderation::MOD_EDIT_LINK;
+require MusicBrainz::Server::Moderation::MOD_REMOVE_LINK;
+require MusicBrainz::Server::Moderation::MOD_ADD_LINK_TYPE;
+require MusicBrainz::Server::Moderation::MOD_EDIT_LINK_TYPE;
+require MusicBrainz::Server::Moderation::MOD_REMOVE_LINK_TYPE;
+require MusicBrainz::Server::Moderation::MOD_ADD_LINK_ATTR;
+require MusicBrainz::Server::Moderation::MOD_EDIT_LINK_ATTR;
+require MusicBrainz::Server::Moderation::MOD_REMOVE_LINK_ATTR;
 
 use constant SEARCHRESULT_SUCCESS => 1;
 use constant SEARCHRESULT_NOQUERY => 2;
@@ -322,6 +332,7 @@ sub IsAutoModType
     if ($type == &ModDefs::MOD_EDIT_ARTISTNAME ||
         $type == &ModDefs::MOD_EDIT_ARTISTSORTNAME ||
         $type == &ModDefs::MOD_EDIT_ARTISTALIAS ||
+        $type == &ModDefs::MOD_EDIT_ARTIST ||
         $type == &ModDefs::MOD_EDIT_ALBUMNAME ||
         $type == &ModDefs::MOD_EDIT_TRACKNAME ||
         $type == &ModDefs::MOD_EDIT_TRACKNUM ||
@@ -338,7 +349,13 @@ sub IsAutoModType
         $type == &ModDefs::MOD_REMOVE_TRMID ||
         $type == &ModDefs::MOD_ADD_ARTIST_ANNOTATION ||
         $type == &ModDefs::MOD_ADD_ALBUM_ANNOTATION ||
-        $type == &ModDefs::MOD_EDIT_ALBUMATTRS)
+        $type == &ModDefs::MOD_EDIT_ALBUMATTRS ||
+		$type == &ModDefs::MOD_ADD_LINK_TYPE ||
+		$type == &ModDefs::MOD_EDIT_LINK_TYPE ||
+		$type == &ModDefs::MOD_REMOVE_LINK_TYPE ||
+		$type == &ModDefs::MOD_ADD_LINK_ATTR ||
+		$type == &ModDefs::MOD_EDIT_LINK_ATTR ||
+		$type == &ModDefs::MOD_REMOVE_LINK_ATTR)
     {
         return 1;
     }
@@ -389,7 +406,7 @@ sub CreateFromId
    my ($mod, $query, $sql, @row);
 
    $query = qq/select m.id, tab, col, m.rowid, 
-                      m.artist, type, prevvalue, newvalue, 
+                      m.artist, m.type, prevvalue, newvalue, 
                       ExpireTime, Moderator.name, 
                       yesvotes, novotes, Artist.name, status, 0, depmod,
                       Moderator.id, m.automod,
@@ -1166,7 +1183,7 @@ sub CheckPrerequisites { undef }
 # which case the transaction will probably be committed).
 # Arguments: none
 # Called in scalar context; returns &ModDefs::STATUS_*
-# sub ApprovedAction { () }
+sub ApprovedAction { &ModDefs::STATUS_APPLIED }
 
 # The moderation is to be undone (voted down, failed a test, or was deleted)
 # Arguments: none

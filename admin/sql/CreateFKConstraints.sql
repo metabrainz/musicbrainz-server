@@ -2,6 +2,12 @@
 
 -- Alphabetical order by table, then constraint
 
+-- No BEGIN/COMMIT here.  Each FK is created in its own transaction;
+-- this is mainly because if you're setting up a big database, it
+-- could get really annoying if it takes a long time to create the FKs,
+-- only for the last one to fail and the whole lot gets rolled back.
+-- It should also be more efficient, of course.
+
 ALTER TABLE album
     ADD CONSTRAINT album_fk_artist
     FOREIGN KEY (artist)
@@ -78,6 +84,211 @@ ALTER TABLE automod_election_vote
     FOREIGN KEY (voter)
     REFERENCES moderator(id);
 
+ALTER TABLE l_album_album
+    ADD CONSTRAINT fk_l_album_album_link_type
+    FOREIGN KEY (link_type)
+    REFERENCES lt_album_album(id);
+
+ALTER TABLE l_album_album
+    ADD CONSTRAINT fk_l_album_album_link0
+    FOREIGN KEY (link0)
+    REFERENCES album(id);
+
+ALTER TABLE l_album_album
+    ADD CONSTRAINT fk_l_album_album_link1
+    FOREIGN KEY (link1)
+    REFERENCES album(id);
+
+ALTER TABLE l_album_artist
+    ADD CONSTRAINT fk_l_album_artist_link_type
+    FOREIGN KEY (link_type)
+    REFERENCES lt_album_artist(id);
+
+ALTER TABLE l_album_artist
+    ADD CONSTRAINT fk_l_album_artist_link0
+    FOREIGN KEY (link0)
+    REFERENCES album(id);
+
+ALTER TABLE l_album_artist
+    ADD CONSTRAINT fk_l_album_artist_link1
+    FOREIGN KEY (link1)
+    REFERENCES artist(id);
+
+ALTER TABLE l_album_track
+    ADD CONSTRAINT fk_l_album_track_link_type
+    FOREIGN KEY (link_type)
+    REFERENCES lt_album_track(id);
+
+ALTER TABLE l_album_track
+    ADD CONSTRAINT fk_l_album_track_link0
+    FOREIGN KEY (link0)
+    REFERENCES album(id);
+
+ALTER TABLE l_album_track
+    ADD CONSTRAINT fk_l_album_track_link1
+    FOREIGN KEY (link1)
+    REFERENCES track(id);
+
+ALTER TABLE l_album_url
+    ADD CONSTRAINT fk_l_album_url_link_type
+    FOREIGN KEY (link_type)
+    REFERENCES lt_album_url(id);
+
+ALTER TABLE l_album_url
+    ADD CONSTRAINT fk_l_album_url_link0
+    FOREIGN KEY (link0)
+    REFERENCES album(id);
+
+ALTER TABLE l_album_url
+    ADD CONSTRAINT fk_l_album_url_link1
+    FOREIGN KEY (link1)
+    REFERENCES url(id);
+
+ALTER TABLE l_artist_artist
+    ADD CONSTRAINT fk_l_artist_artist_link_type
+    FOREIGN KEY (link_type)
+    REFERENCES lt_artist_artist(id);
+
+ALTER TABLE l_artist_artist
+    ADD CONSTRAINT fk_l_artist_artist_link0
+    FOREIGN KEY (link0)
+    REFERENCES artist(id);
+
+ALTER TABLE l_artist_artist
+    ADD CONSTRAINT fk_l_artist_artist_link1
+    FOREIGN KEY (link1)
+    REFERENCES artist(id);
+
+ALTER TABLE l_artist_track
+    ADD CONSTRAINT fk_l_artist_track_link_type
+    FOREIGN KEY (link_type)
+    REFERENCES lt_artist_track(id);
+
+ALTER TABLE l_artist_track
+    ADD CONSTRAINT fk_l_artist_track_link0
+    FOREIGN KEY (link0)
+    REFERENCES artist(id);
+
+ALTER TABLE l_artist_track
+    ADD CONSTRAINT fk_l_artist_track_link1
+    FOREIGN KEY (link1)
+    REFERENCES track(id);
+
+ALTER TABLE l_artist_url
+    ADD CONSTRAINT fk_l_artist_url_link_type
+    FOREIGN KEY (link_type)
+    REFERENCES lt_artist_url(id);
+
+ALTER TABLE l_artist_url
+    ADD CONSTRAINT fk_l_artist_url_link0
+    FOREIGN KEY (link0)
+    REFERENCES artist(id);
+
+ALTER TABLE l_artist_url
+    ADD CONSTRAINT fk_l_artist_url_link1
+    FOREIGN KEY (link1)
+    REFERENCES url(id);
+
+ALTER TABLE l_track_track
+    ADD CONSTRAINT fk_l_track_track_link_type
+    FOREIGN KEY (link_type)
+    REFERENCES lt_track_track(id);
+
+ALTER TABLE l_track_track
+    ADD CONSTRAINT fk_l_track_track_link0
+    FOREIGN KEY (link0)
+    REFERENCES track(id);
+
+ALTER TABLE l_track_track
+    ADD CONSTRAINT fk_l_track_track_link1
+    FOREIGN KEY (link1)
+    REFERENCES track(id);
+
+ALTER TABLE l_track_url
+    ADD CONSTRAINT fk_l_track_url_link_type
+    FOREIGN KEY (link_type)
+    REFERENCES lt_track_url(id);
+
+ALTER TABLE l_track_url
+    ADD CONSTRAINT fk_l_track_url_link0
+    FOREIGN KEY (link0)
+    REFERENCES track(id);
+
+ALTER TABLE l_track_url
+    ADD CONSTRAINT fk_l_track_url_link1
+    FOREIGN KEY (link1)
+    REFERENCES url(id);
+
+ALTER TABLE l_url_url
+    ADD CONSTRAINT fk_l_url_url_link_type
+    FOREIGN KEY (link_type)
+    REFERENCES lt_url_url(id);
+
+ALTER TABLE l_url_url
+    ADD CONSTRAINT fk_l_url_url_link0
+    FOREIGN KEY (link0)
+    REFERENCES url(id);
+
+ALTER TABLE l_url_url
+    ADD CONSTRAINT fk_l_url_url_link1
+    FOREIGN KEY (link1)
+    REFERENCES url(id);
+
+ALTER TABLE link_attribute
+    ADD CONSTRAINT fk_link_attribute_type_id
+    FOREIGN KEY (attribute_type)
+    REFERENCES link_attribute_type(id);
+
+ALTER TABLE lt_album_album
+    ADD CONSTRAINT fk_lt_album_album_parent
+    FOREIGN KEY (parent)
+    REFERENCES lt_album_album(id);
+
+ALTER TABLE lt_album_artist
+    ADD CONSTRAINT fk_lt_album_artist_parent
+    FOREIGN KEY (parent)
+    REFERENCES lt_album_artist(id);
+
+ALTER TABLE lt_album_track
+    ADD CONSTRAINT fk_lt_album_track_parent
+    FOREIGN KEY (parent)
+    REFERENCES lt_album_track(id);
+
+ALTER TABLE lt_album_url
+    ADD CONSTRAINT fk_lt_album_url_parent
+    FOREIGN KEY (parent)
+    REFERENCES lt_album_url(id);
+
+ALTER TABLE lt_artist_artist
+    ADD CONSTRAINT fk_lt_artist_artist_parent
+    FOREIGN KEY (parent)
+    REFERENCES lt_artist_artist(id);
+
+ALTER TABLE lt_artist_track
+    ADD CONSTRAINT fk_lt_artist_track_parent
+    FOREIGN KEY (parent)
+    REFERENCES lt_artist_track(id);
+
+ALTER TABLE lt_artist_url
+    ADD CONSTRAINT fk_lt_artist_url_parent
+    FOREIGN KEY (parent)
+    REFERENCES lt_artist_url(id);
+
+ALTER TABLE lt_track_track
+    ADD CONSTRAINT fk_lt_track_track_parent
+    FOREIGN KEY (parent)
+    REFERENCES lt_track_track(id);
+
+ALTER TABLE lt_track_url
+    ADD CONSTRAINT fk_lt_track_url_parent
+    FOREIGN KEY (parent)
+    REFERENCES lt_track_url(id);
+
+ALTER TABLE lt_url_url
+    ADD CONSTRAINT fk_lt_url_url_parent
+    FOREIGN KEY (parent)
+    REFERENCES lt_url_url(id);
+
 ALTER TABLE moderation_closed
     ADD CONSTRAINT moderation_closed_fk_artist
     FOREIGN KEY (artist)
@@ -127,6 +338,12 @@ ALTER TABLE moderator_subscribe_artist
     ADD CONSTRAINT modsubartist_fk_moderator
     FOREIGN KEY (moderator)
     REFERENCES moderator(id);
+
+ALTER TABLE "PendingData"
+    ADD CONSTRAINT "PendingData_SeqId"
+    FOREIGN KEY ("SeqId")
+    REFERENCES "Pending" ("SeqId")
+    ON UPDATE CASCADE ON DELETE CASCADE;
 
 ALTER TABLE release
     ADD CONSTRAINT release_fk_album

@@ -119,6 +119,28 @@ my @tables = qw(
 	country
 	currentstat
 	historicalstat
+	l_album_album
+	l_album_artist
+	l_album_track
+	l_album_url
+	l_artist_artist
+	l_artist_track
+	l_artist_url
+	l_track_track
+	l_track_url
+	l_url_url
+	link_attribute
+	link_attribute_type
+	lt_album_album
+	lt_album_artist
+	lt_album_track
+	lt_album_url
+	lt_artist_artist
+	lt_artist_track
+	lt_artist_url
+	lt_track_track
+	lt_track_url
+	lt_url_url
 	moderation_closed
 	moderation_note_closed
 	moderation_note_open
@@ -135,6 +157,7 @@ my @tables = qw(
 	trmjoin
 	trmjoin_stat
 	trm_stat
+	url
 	vote_closed
 	vote_open
 	wordlist
@@ -379,11 +402,34 @@ my @group_core = qw(
 	cdtoc
     clientversion
 	country
+	l_album_album
+	l_album_artist
+	l_album_track
+	l_album_url
+	l_artist_artist
+	l_artist_track
+	l_artist_url
+	l_track_track
+	l_track_url
+	l_url_url
+	link_attribute
+	link_attribute_type
+	lt_album_album
+	lt_album_artist
+	lt_album_track
+	lt_album_url
+	lt_artist_artist
+	lt_artist_track
+	lt_artist_url
+	lt_track_track
+	lt_track_url
+	lt_url_url
 	release
 	replication_control
 	track
 	trm
 	trmjoin
+	url
 	);
 
 my @group_derived = qw(
@@ -463,6 +509,8 @@ sub make_tar
 	my ($tarfile, @files) = @_;
 
 	@files = map { "mbdump/$_" } grep { defined $rowcounts{$_} } @files;
+
+	# These ones go first, so MBImport can quickly find them
 	unshift @files, qw(
 		TIMESTAMP
 		COPYING

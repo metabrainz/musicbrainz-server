@@ -70,10 +70,10 @@ if ($user->GetId == &ModDefs::ANON_MODERATOR
 	or $user->GetId == &ModDefs::MODBOT_MODERATOR)
 {
     $membersince = 'n/a';
-} elsif ($user->GetMemberSince =~ /^1970-01-01 /) {
-    $membersince = '<font class="bold">Charter Member</font>';
 } elsif ($user->GetName eq "rob") {
     $membersince = '<font class="bold">the dawn of this project</font>';
+} elsif ($user->GetMemberSince =~ /^1970-01-01 /) {
+    $membersince = '<font class="bold">Charter Member</font>';
 } else {
 	$membersince = $m->comp("/comp/datetime", $user->GetMemberSince);
 }

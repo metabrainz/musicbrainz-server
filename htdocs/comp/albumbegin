@@ -113,7 +113,17 @@ if ($asin)
 % }
 </div> 
 
-%# Second row: editing links
+%# Second row: relationship links
+% if ($session{uid} and $showmodlinks and !$nonalbum) {
+<div class="AlbumTitleRelationships">
+<div class="AlbumTitleLinks">
+Relationships: 
+<& /comp/ar/ShowARLinks, id=>$albumid, type=>'album' , short=>1 &>
+</div> 
+</div> 
+%	}
+
+%# Third row: editing links
 % if ($session{uid} and $showmodlinks) {
 <div class="AlbumTitleMod">
 <div class="AlbumTitleLinks">Edit: [
@@ -121,6 +131,7 @@ if ($asin)
 	<a href="/editalbum.html?album=<% $albumid %>">Edit name</a> |
 %			unless ($artist->GetId == &ModDefs::VARTIST_ID) {
 	<a href="/mod/edit-album/index.html?album=<% $albumid %>">Edit all</a> |
+  <a href="/mod/link/selectlink.html?type=album&amp;id=<% $albumid %>&amp;name=<% uri_escape($name) %>">Link</a> |
 %			}
 %		}
 	<a href="/remalbum.html?album=<% $albumid %>&amp;artist=<% $artist->GetId %>">Delete</a>
@@ -159,7 +170,6 @@ if ($asin)
     </div>
 </div>
   </td> </tr> </table> </td> </tr> </table> 
-
 % }
 
   <table width="100%" bgcolor="black" border="0" cellspacing="1" cellpadding="3" style="clear: both;">

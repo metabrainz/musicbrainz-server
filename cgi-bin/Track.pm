@@ -34,6 +34,8 @@ use Carp qw( carp croak );
 use DBDefs;
 use ModDefs;
 
+sub LinkEntityName { "track" }
+
 # Accessor functions to set/get the artist id of this album
 sub GetArtist
 {

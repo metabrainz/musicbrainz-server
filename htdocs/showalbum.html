@@ -5,6 +5,10 @@ $discid => undef
 $mbid => ""
 $mbt=>$session{'mbt'}
 $tport=>$session{'tport'}
+$addrel=>0
+$remrel=>-1
+$remtype=>""
+$arcancel=>0
 </%args>
 <%perl>
 
@@ -63,6 +67,21 @@ $artist->LoadFromId
 
 <& /comp/artisttitle, artist => $artist &>
 
+<%perl>
+if (!$album->IsNonAlbumTracks)
+{
+	$m->comp("/comp/ar/AddRelationship", id=>$album->GetId, type=>'album', name=>$album->GetName)
+		if ($addrel);
+	$m->comp("/comp/ar/ClearRelationships")
+		if ($arcancel);
+	$m->comp("/comp/ar/RemoveRelationship", id=>$remrel, type=>$remtype)
+		if ($remrel >= 0);
+
+	$m->comp("/comp/ar/RelationshipBox", id=>$album->GetId, type=>'album',
+										 name=>$album->GetName);
+}
+
+</%perl>
 
 	<& /comp/framedboxbegin, width=>"100%" &>
 

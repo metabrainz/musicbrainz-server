@@ -37,6 +37,7 @@ use MusicBrainz::Server::Cache;
 use Carp qw( carp cluck croak );
 use Encode qw( decode );
 use Text::Unaccent qw( unac_string );
+use Date::Calc qw( check_date Delta_YMD );
 
 sub new
 {
@@ -152,6 +153,100 @@ sub TrimInPlace
 		s/\A\s+//;
 		s/\s+\z//;
 	}
+}
+
+# Create a date string if the parameters are valid, or return undef.
+# For inserting dates into the database.
+sub MakeDBDateStr
+{
+	my ($year, $month, $day) = @_;
+
+	# initialize undef values to ''
+	defined or $_ = '' foreach $year, $month, $day;
+
+	return undef if $year eq '' and $month eq '' and $day eq '';
+
+	return sprintf('%04d-%02d-%02d', $year, $month, $day)
+		if IsValidDate($year, $month, $day);
+
+	return undef;
+}
+
+sub MakeDisplayDateStr
+{
+	my $str = shift;
+
+	return '' unless defined $str and $str ne '';
+
+	my ($year, $month, $day) = split m/-/, $str;
+
+	if (0+$day)
+	{
+		return sprintf('%04d-%02d-%02d', $year, $month, $day);
+	}
+	elsif (0+$month)
+	{
+		return sprintf('%04d-%02d', $year, $month);
+	}
+	elsif (0+$year)
+	{
+		return sprintf('%04d', $year);
+	}
+	else
+	{
+		return '';
+	}
+}
+
+sub IsValidDateOrEmpty
+{
+	my ($year, $month, $day) = @_;
+
+	return 1 if $year eq '' and $month eq '' and $day eq '';
+
+	return IsValidDate($year, $month, $day);
+}
+
+# Dave's obscure date checker
+sub IsValidDate
+{
+	my ($y, $m, $d) = @_;
+
+	defined() or $_ = "" for ($y, $m, $d);
+	MusicBrainz::TrimInPlace($y, $m, $d);
+	$_ eq "" or MusicBrainz::IsNonNegInteger($_) or return
+		for ($y, $m, $d);
+
+	# All valid dates have a year
+	return unless $y ne "" and $y >= 1000 and $y <= 2100;
+
+	# Month is either missing ...
+	$d = "", goto OK if $m eq "";
+	# ... or must be valid
+	return unless $m >= 1 and $m <= 12;
+
+	# Day is either missing ...
+	goto OK if $d eq "";
+	# ... or must be valid
+	return unless check_date($y, $m, $d);
+
+OK:
+	return (wantarray ? ($y, $m, $d) : 1);
+}
+
+sub IsDateEarlierThan
+{
+    my ($y1, $m1, $d1, $y2, $m2, $d2) = @_;
+
+    return 1 unless IsValidDate($y1, $m1, $d1) and IsValidDate($y2, $m2, $d2);
+
+    ($m1, $m2, $d1, $d2) = (1, 1, 1, 1) if ($m1 eq '' || $m2 eq '');
+    ($d1, $d2) = (1, 1) if ($d1 eq '' || $d2 eq '');
+
+    my ($days) = Date::Calc::Delta_Days($y1, $m1, $d1, $y2, $m2, $d2);
+
+    return 0 if ($days < 0);
+    return 1;
 }
 
 sub NormaliseSortText

@@ -1,0 +1,67 @@
+%# vi: set ts=4 sw=4 ft=mason :
+
+<%method ShowPreviousValue>
+% my $self = shift;
+% my $new = $self->{'new_unpacked'};
+
+	Old: 
+% if ($new->{oldentity1type} ne 'url') {
+	<& /comp/ar/ShowEntityLink, id=>$new->{oldentity0id}, type=>$new->{oldentity0type}, 
+	                            name=>$new->{oldentity0name}, simple=>1 &>
+	<i><% $new->{oldlinktypephrase} %></i>
+	<& /comp/ar/ShowEntityLink, id=>$new->{oldentity1id}, type=>$new->{oldentity1type}, 
+	                            name=>$new->{oldentity1name}, simple=>1 &>
+%   if ($new->{oldbegindate} =~ /\S/ || $new->{oldenddate} =~ /\S/) {
+	   from 
+%      if ($new->{oldbegindate}) {
+           <% $new->{oldbegindate} %>
+%      }
+%      if ($new->{oldenddate}) {
+    	   until <% $new->{oldenddate} %>.
+%      } else {
+	       to present.
+%      }
+%   }
+
+% } else {
+	<& /comp/ar/ShowEntityLink, id=>$new->{oldentity0id}, type=>$new->{oldentity0type}, 
+	                            name=>$new->{oldentity0name}, simple=>1 &>
+	<i><% $new->{oldlinktypephrase} %></i>
+	<% $new->{oldentity1name} %>
+
+% }
+
+</%method>
+
+<%method ShowNewValue>
+% my $self = shift;
+% my $new = $self->{'new_unpacked'};
+New:
+% if ($new->{newentity1type} ne 'url') {
+	<& /comp/ar/ShowEntityLink, id=>$new->{newentity0id}, type=>$new->{newentity0type}, 
+	                            name=>$new->{newentity0name}, simple=>1 &>
+	<i><% $new->{newlinktypephrase} %></i>
+	<& /comp/ar/ShowEntityLink, id=>$new->{newentity1id}, type=>$new->{newentity1type}, 
+	                            name=>$new->{newentity1name}, simple=>1 &>
+%   if ($new->{newbegindate} =~ /\S/ || $new->{newenddate} =~ /\S/) {
+	   from 
+%      if ($new->{newbegindate}) {
+           <% $new->{newbegindate} %>
+%      }
+%      if ($new->{newenddate}) {
+    	   until <% $new->{newenddate} %>.
+%      } else {
+	       to present.
+%      }
+%   }
+
+% } else {
+	<& /comp/ar/ShowEntityLink, id=>$new->{newentity0id}, type=>$new->{newentity0type}, 
+	                            name=>$new->{newentity0name}, simple=>1 &>
+	<i><% $new->{newlinktypephrase} %></i>
+	<% $new->{newentity1name} %>
+
+% }
+</%method>
+
+%# eof

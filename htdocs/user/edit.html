@@ -71,6 +71,7 @@ if ($update)
 		} else {
 			# The user wants to blank out their email address.
 			$email = "";
+			$session{email_nag} = 1;
 
 			</%perl>
 			<p class="notice">

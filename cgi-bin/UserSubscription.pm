@@ -69,7 +69,7 @@ sub GetSubscribedArtists
 	my $sql = Sql->new($self->{DBH});
 
 	$sql->SelectListOfHashes(
-		"SELECT s.*, a.name, a.sortname
+		"SELECT s.*, a.name, a.sortname, a.resolution
 		FROM moderator_subscribe_artist s
 		LEFT JOIN artist a ON a.id = s.artist
 		WHERE s.moderator = ?

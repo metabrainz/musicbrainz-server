@@ -1,0 +1,24 @@
+%# vi: set ts=4 sw=4 ft=mason :
+<%args>
+$id
+$name
+$type
+$simple=>0
+$url=>""
+</%args>
+
+%my $label = $type;
+%$label = ucfirst($type) . ":" if (!$simple);
+
+<% $label %>
+% if ($type eq 'artist') {
+    <a href="/showartist.html?artistid=<% $id %>"><% $name %></a> 
+% } elsif ($type eq 'album') {
+    <a href="/showalbum.html?albumid=<% $id %>"><% $name %></a>
+% } elsif ($type eq 'track') { 
+	<a href="/showtrack.html?trackid=<% $id %>"><% $name %></a>
+% } elsif ($type eq 'url') { 
+	<a href="<% $url %>"><% $name %></a>
+% } else { 
+	<% $name %>
+% }

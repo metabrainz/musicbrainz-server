@@ -1,0 +1,16 @@
+%# vi: set ts=4 sw=4 ft=mason :
+
+<%method ShowPreviousValue>
+% my $self = shift;
+</%method>
+
+<%method ShowNewValue>
+% my $self = shift;
+% my $new = $self->{'new_unpacked'};
+
+	New:
+	<span class="bold"><% $new->{'name'} %></span> (<% $new->{'desc'} %>)
+   
+</%method>
+
+%# eof

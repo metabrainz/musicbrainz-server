@@ -1,0 +1,9 @@
+%# vi: set ts=4 sw=4 ft=mason :
+<%perl>
+
+$m->comp("/comp/checkloggedin", 1, 1)
+    or return undef;
+
+$session{recent_links} = [];
+
+</%perl>

@@ -877,7 +877,7 @@ sub QuickTrackInfoFromTrackId
 {
    my ($dbh, $parser, $rdf, $tid, $aid) = @_;
 
-   return $rdf->ErrorRDF("No track id given.")
+   return $rdf->ErrorRDF("No track and/or album id given.")
       if (!defined $tid || $tid eq '' || !defined $aid || $aid eq '');
    return undef if (!defined $dbh);
 
@@ -990,6 +990,81 @@ sub QuickTrackInfoFromTrackId
    $out .= $rdf->EndRDFObject;
 
    return $out;
+}
+
+# returns artistList
+sub GetArtistRelationships
+{
+    my ($dbh, $parser, $rdf, $id) = @_;
+
+    if (not defined $id or $id eq "")
+    {
+	carp "Missing artist GUID in GetArtistRelationships";
+	return $rdf->ErrorRDF("No artist GUID given");
+    }
+
+    my $ar = Artist->new($dbh);
+    $ar->SetMBId($id);
+    if (!$ar->LoadFromId())
+    {
+	carp "Invalid artist is given to GetTrackRelationships";
+	return $rdf->ErrorRDF("Invalid artist GUID given");
+    }
+
+    my $sql = Sql->new($dbh);
+    my @links = MusicBrainz::Server::Link->FindLinkedEntities($dbh, $ar->GetId, 'artist');
+
+    return $rdf->CreateRelationshipList($parser, $ar, 'artist', \@links);
+}
+
+# returns albumList
+sub GetAlbumRelationships
+{
+    my ($dbh, $parser, $rdf, $id) = @_;
+
+    if (not defined $id or $id eq "")
+    {
+	carp "Missing artist GUID in GetAlbumRelationships";
+	return $rdf->ErrorRDF("No album GUID given");
+    }
+
+    my $al = Album->new($dbh);
+    $al->SetMBId($id);
+    if (!$al->LoadFromId())
+    {
+	carp "Invalid album is given to GetTrackRelationships";
+	return $rdf->ErrorRDF("Invalid album GUID given");
+    }
+
+    my $sql = Sql->new($dbh);
+    my @links = MusicBrainz::Server::Link->FindLinkedEntities($dbh, $al->GetId, 'album');
+
+    return $rdf->CreateRelationshipList($parser, $al, 'album', \@links);
+}
+
+# returns albumList
+sub GetTrackRelationships
+{
+    my ($dbh, $parser, $rdf, $id) = @_;
+
+    if (not defined $id or $id eq "")
+    {
+	carp "Missing artist GUID in GetTrackRelationships";
+	return $rdf->ErrorRDF("No artist GUID given");
+    }
+
+    my $tr = Track->new($dbh);
+    $tr->SetMBId($id);
+    if (!$tr->LoadFromId())
+    {
+	carp "Invalid artist is given to GetTrackRelationships";
+	return $rdf->ErrorRDF("Invalid artist GUID given");
+    }
+
+    my $sql = Sql->new($dbh);
+    my @links = MusicBrainz::Server::Link->FindLinkedEntities($dbh, $tr->GetId, 'track');
+
+    return $rdf->CreateRelationshipList($parser, $tr, 'track', \@links);
 }
 
 1;

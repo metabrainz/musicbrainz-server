@@ -18,9 +18,8 @@
 
 	<p class="notice">
 		<span style="color: red">You have not provided an email address!</span>
-   If you're going to edit the database, please 
-   <a href="/user/edit.html">edit your profile</a> and
-   provide an email address.
+   To edit the database, you MUST provide a verified email address.
+   <a href="/user/edit.html">Edit your profile to provide an email address</a>
 	</p>
 % }
 <p>

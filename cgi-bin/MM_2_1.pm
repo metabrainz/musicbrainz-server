@@ -55,6 +55,13 @@ sub GetAZNamespace
     return "http://www.amazon.com/gp/aws/landing.html#";
 }
 
+sub GetARNamespace
+{
+    my ($this) = @_;
+
+    return "http://musicbrainz.org/ar/ar-1.0#";
+}
+
 # Return the RDF representation of the Artist
 sub OutputArtistRDF
 {
@@ -64,11 +71,23 @@ sub OutputArtistRDF
     return "" if (!defined $this->GetBaseURI());
     $artist = $ref->{obj};
 
-    # FIXME undef warning
-    $out  = $this->BeginDesc("mm:Artist", $this->GetBaseURI() .
-                            "/artist/" . $artist->GetMBId());
+    $out  = $this->BeginDesc("mm:Artist", $this->GetBaseURI() . "/artist/" . $artist->GetMBId())
+	if ($artist);
+
     $out .=   $this->Element("dc:title", $artist->GetName());
     $out .=   $this->Element("mm:sortName", $artist->GetSortName());
+
+    my $begindate = MusicBrainz::MakeDisplayDateStr($artist->GetBeginDate);
+    $out .= $this->Element("mm:beginDate", $begindate) if ($begindate);
+
+    my $enddate = MusicBrainz::MakeDisplayDateStr($artist->GetEndDate);
+    $out .= $this->Element("mm:endDate", $enddate) if ($enddate);
+    $out .= $this->Element("dc:comment", $artist->GetResolution) if ($artist->GetResolution);
+
+    $out .= $this->Element("mm:artistType", "", "rdf:resource", $this->GetMMNamespace() . 
+                                  "Type" . &Artist::GetTypeName($artist->GetType)) if ($artist->GetType);
+    $out .= $this->OutputRelationships($ref->{_relationships})
+        if (exists $ref->{_relationships});
 
     if (exists $ref->{_artist})
     {
@@ -106,9 +125,8 @@ sub OutputAlbumRDF
     my $country_obj = MusicBrainz::Server::Country->new($album->{DBH})
        if @releases;
 
-    # FIXME undef warning
-    $out  = $this->BeginDesc("mm:Album", $this->GetBaseURI() .
-                            "/album/" . $album->GetMBId());
+    $out  = $this->BeginDesc("mm:Album", $this->GetBaseURI() . "/album/" . $album->GetMBId())
+	if ($album);
     $out .=   $this->Element("dc:title", $album->GetName());
     if (defined $artist)
     {
@@ -116,12 +134,15 @@ sub OutputAlbumRDF
                                  $this->GetBaseURI() . "/artist/" . 
                                  $artist->GetMBId());
     }
-    # FIXME GetArtist returns undef
-    elsif ($album->GetArtist() == &ModDefs::VARTIST_ID)
+    else
     {
-        $out .=   $this->Element("dc:creator", "", "rdf:resource",
-                                 $this->GetBaseURI() . "/artist/" . 
-                                 &ModDefs::VARTIST_MBID);
+	my $temp = $album->GetArtist();
+	if ($temp && $temp == &ModDefs::VARTIST_ID)
+	{
+	    $out .=   $this->Element("dc:creator", "", "rdf:resource",
+				     $this->GetBaseURI() . "/artist/" . 
+				     &ModDefs::VARTIST_MBID);
+	}
     }
 
     if (exists $album->{"_cdindexid0"} && $album->{"_cdindexid0"} ne '')
@@ -193,6 +214,9 @@ sub OutputAlbumRDF
         $out .= $this->Element("az:Asin", $asin);
     }
 
+    $out .= $this->OutputRelationships($ref->{_relationships})
+        if (exists $ref->{_relationships});
+
     if (exists $ref->{_album})
     {
         my $complete;
@@ -201,13 +225,15 @@ sub OutputAlbumRDF
         $out .=   $this->BeginSeq();
         $ids = $ref->{_album};
 
-	# FIXME Modification of non-creatable array value attempted, subscript -1
-        $complete = $$ids[scalar(@$ids) - 1]->{tracknum} != (scalar(@$ids) + 1);
-        foreach $track (@$ids)
-        {
-            my $li = $complete ? "rdf:li" : ("rdf:_" . $track->{tracknum});
-            $out .= $this->Element($li, "", "rdf:resource", 
-                                   $this->{baseuri} . "/track/" . $track->{id});
+	if (scalar(@$ids))
+	{
+	    $complete = $$ids[scalar(@$ids) - 1]->{tracknum} != (scalar(@$ids) + 1);
+	    foreach $track (@$ids)
+	    {
+		my $li = $complete ? "rdf:li" : ("rdf:_" . $track->{tracknum});
+		$out .= $this->Element($li, "", "rdf:resource", 
+				       $this->{baseuri} . "/track/" . $track->{id});
+	    }
         }
 
         $out .=   $this->EndSeq();
@@ -217,16 +243,17 @@ sub OutputAlbumRDF
     if (exists $ref->{_track})
     {
         my ($trackid, $tracknum) = @{$ref->{_track}};
+	if ($trackid && $tracknum)
+	{
+	    $out .=   $this->BeginDesc("mm:trackList");
+	    $out .=   $this->BeginSeq();
 
-        $out .=   $this->BeginDesc("mm:trackList");
-        $out .=   $this->BeginSeq();
+	    $out .= $this->Element("rdf:_" . $tracknum, "", "rdf:resource", 
+				   $this->{baseuri} . "/track/" . $trackid);
 
-	# FIXME complains of undefs
-        $out .= $this->Element("rdf:_" . $tracknum, "", "rdf:resource", 
-                               $this->{baseuri} . "/track/" . $trackid);
-
-        $out .=   $this->EndSeq();
-        $out .=   $this->EndDesc("mm:trackList");
+	    $out .=   $this->EndSeq();
+	    $out .=   $this->EndDesc("mm:trackList");
+	}
     }
     $out .= $this->EndDesc("mm:Album");
 
@@ -245,10 +272,6 @@ sub OutputTrackRDF
     }
 
     $track = $ref->{obj};
-    require TRM;
-    $gu = TRM->new($this->{DBH});
-    # FIXME complains of missing trackid
-    @TRM = $gu->GetTRMFromTrackId($track->GetId());
 
     $artist = $this->GetFromCache('artist', $track->GetArtist()); 
     return "" if (!defined $artist);
@@ -270,19 +293,28 @@ sub OutputTrackRDF
                   $this->{baseuri}. "/album/" . $album->GetMBId());
     }
 
-    if (scalar(@TRM) > 0)
+    $out .= $this->OutputRelationships($ref->{_relationships})
+        if (exists $ref->{_relationships});
+
+    require TRM;
+    $gu = TRM->new($this->{DBH});
+    if ($track->GetId())
     {
-        $out .=   $this->BeginDesc("mm:trmidList");
-        $out .=   $this->BeginBag();
+	@TRM = $gu->GetTRMFromTrackId($track->GetId());
+	if (scalar(@TRM) > 0)
+	{
+	    $out .=   $this->BeginDesc("mm:trmidList");
+	    $out .=   $this->BeginBag();
 
-        foreach $trm (@TRM)
-        {
-            $out .= $this->Element("rdf:li", "", "rdf:resource", 
-                    $this->{baseuri} . "/trmid/" . $trm->{TRM});
-        }
+	    foreach $trm (@TRM)
+	    {
+		$out .= $this->Element("rdf:li", "", "rdf:resource", 
+			$this->{baseuri} . "/trmid/" . $trm->{TRM});
+	    }
 
-        $out .=   $this->EndBag();
-        $out .=   $this->EndDesc("mm:trmidList");
+	    $out .=   $this->EndBag();
+	    $out .=   $this->EndDesc("mm:trmidList");
+	}
     }
     $out .= $this->EndDesc("mm:Track");
 
@@ -481,10 +513,9 @@ sub CreateFileLookup
        {
            my $trackids;
            $al = $this->GetFromCache('album', $id->{id});
-	   # FIXME sometimes $al is undef (fatal error)
-           $trackids = $this->CreateTrackListing($al);
            if (defined $al)
            {
+               $trackids = $this->CreateTrackListing($al);
                $out .= $this->OutputAlbumRDF({ obj=>$al, _album=> $trackids });
            }
        }
@@ -504,18 +535,18 @@ sub CreateFileLookup
        {
            $out .= $this->BeginDesc("rdf:li");
            $out .= $this->BeginDesc("mq:AlbumTrackResult");
-
-	   # FIXME $id->{albumid} undefined
-           $albums{$id->{albumid}}++;
-           $al = $this->GetObject($tagger, 'album', $id->{albumid});
-           $tr = $this->GetObject($tagger, 'track', $id->{id});
-
            $out .=   $this->Element("mq:relevance", int(100 * $id->{sim}));
-	   # FIXME Can't call method "GetMBId" on an undefined value ($al)
-           $out .=   $this->Element("mq:album", "", "rdf:resource",
-                     $this->{baseuri}. "/album/" . $al->GetMBId());
-           $out .=   $this->Element("mq:track", "", "rdf:resource",
-                     $this->{baseuri}. "/track/" . $tr->GetMBId());
+
+	   if ($id->{albumid})
+	   {
+	       $albums{$id->{albumid}}++;
+	       $al = $this->GetObject($tagger, 'album', $id->{albumid});
+               $out .=   $this->Element("mq:album", "", "rdf:resource", $this->{baseuri}. "/album/" . $al->GetMBId());
+	   }
+
+           $tr = $this->GetObject($tagger, 'track', $id->{id});
+           $out .=   $this->Element("mq:track", "", "rdf:resource", $this->{baseuri}. "/track/" . $tr->GetMBId())
+	       if ($tr);
 
            $out .= $this->EndDesc("mq:AlbumTrackResult");
            $out .= $this->EndDesc("rdf:li");
@@ -566,8 +597,8 @@ sub CreateFileLookup
        $out .= $this->BeginDesc("mq:Result");
        $out .=    $this->Element("mq:status", ($flags & TaggerSupport::FUZZY) != 0  ? "Fuzzy" : "OK");
        $out .=    $this->Element("mq:artist", "", "rdf:resource", $this->{baseuri}. "/artist/" . $ar->GetMBId());
-       # FIXME Can't call method "GetMBId" on an undefined value ($al)
-       $out .=    $this->Element("mq:album", "", "rdf:resource", $this->{baseuri}. "/album/" . $al->GetMBId());
+       $out .=    $this->Element("mq:album", "", "rdf:resource", $this->{baseuri}. "/album/" . $al->GetMBId())
+           if ($al);
        $out .=    $this->Element("mq:track", "", "rdf:resource", $this->{baseuri}. "/track/" . $tr->GetMBId());
        $out .= $this->EndDesc("mq:Result");
 
@@ -628,13 +659,154 @@ sub CreateFileLookup
 
 sub GetTRMTrackIdPair
 {
-   my ($this, $parser, $uri, $i) = @_;
-   my $ns = $this->GetMMNamespace(); 
+    my ($this, $parser, $uri, $i) = @_;
+    my $ns = $this->GetMMNamespace(); 
+    
+    my $trackid = $parser->Extract($uri, "${ns}trmidList [$i] ${ns}trackid");
+    my $trmid = $parser->Extract($uri, "${ns}trmidList [$i] ${ns}trmid");
+    
+    return ($trackid, $trmid);
+}
 
-   my $trackid = $parser->Extract($uri, "${ns}trmidList [$i] ${ns}trackid");
-   my $trmid = $parser->Extract($uri, "${ns}trmidList [$i] ${ns}trmid");
+sub OutputRelationships
+{
+    my ($this, $rels) = @_;
 
-   return ($trackid, $trmid);
+    return "" if (scalar @$rels == 0);
+    my $out;
+
+    $out = $this->BeginDesc("ar:relationshipList");
+    $out .= $this->BeginBag();
+    foreach my $item (@$rels)
+    {
+	my $name = ucfirst($item->{name});
+	$name =~ s/[^A-Za-z0-9]+([A-Za-z0-9]?)/uc $1/eg;
+        $out .= $this->BeginDesc("rdf:li");
+	$out .= $this->BeginElement("ar:$name");
+	$item->{begindate} = MusicBrainz::MakeDisplayDateStr($item->{begindate});
+	$item->{enddate} = MusicBrainz::MakeDisplayDateStr($item->{enddate});
+	$out .= $this->Element("ar:beginDate", $item->{begindate}) if ($item->{begindate});
+	$out .= $this->Element("ar:endDate", $item->{enddate}) if ($item->{enddate});
+	if ($item->{type} eq 'url')
+	{
+	    $out .= $this->Element("ar:to".ucfirst($item->{type}), "", "rdf:resource", $item->{url});
+	}
+	else
+	{
+	    $out .= $this->Element("ar:to".ucfirst($item->{type}), "", "rdf:resource", $this->{baseuri} . '/' . $item->{type} .'/' . $item->{id});
+	    if (exists $item->{"_attrs"})
+	    {
+                my $attrs = $item->{"_attrs"}->GetAttributes();
+		if ($attrs)
+		{
+		    foreach my $ref (@$attrs)
+		    {
+			my $text = ucfirst($ref->{value_text});
+	                $text =~ s/[^A-Za-z0-9]+([A-Za-z0-9]?)/uc $1/eg;
+			if ($ref->{name} eq $ref->{value_text})
+			{
+     			    $out .= $this->Element("ar:hasAttribute", "", "rdf:resource", $this->GetARNamespace . ucfirst($ref->{name}));
+			}
+			else
+			{
+     			    $out .= $this->Element("ar:hasAttribute", "", "rdf:resource", $this->GetARNamespace . $text);
+			}
+		    }
+	        }
+	    }
+	}
+	$out .= $this->EndElement("ar:$name");
+        $out .= $this->EndDesc("rdf:li");
+    }
+    $out .= $this->EndBag();
+    $out .= $this->EndDesc("ar:relationshipList");
+    return $out;
+}
+
+sub CreateRelationshipList
+{
+    my ($this, $parser, $obj, $type, $links) = @_;
+
+    my $out;
+    $out  = $this->BeginRDFObject();
+    $out .= $this->BeginDesc("mq:Result");
+    $out .= $this->OutputList($type, [$obj->GetMBId]);
+    $out .= $this->EndDesc("mq:Result");
+
+    # Create a list of rel names and other ent mbids
+    # Create list of unique artists
+
+    my (@rels, @entities);
+    foreach my $item (@$links)
+    {
+        my $temp;
+
+	my $otype = $item->{"link" . (($item->{link0_id} == $obj->GetId && $item->{link0_type} eq $type) ? 1 : 0) . "_type"};
+	my $oid = $item->{"link" . (($item->{link0_id} == $obj->GetId && $item->{link0_type} eq $type) ? 1 : 0) . "_id"};
+
+	if ($item->{link0_id} == $obj->GetId && $item->{link0_type} eq $type)
+	{
+	     my $ref = { 
+	    	         type =>$item->{"link1_type"},
+		         id =>$item->{"link1_mbid"}, 
+		         name => $item->{"link_name"}, 
+		         url => $item->{"link1_name"},
+		         begindate => $item->{"begindate"},
+		         enddate => $item->{"enddate"},
+                       };
+	     $ref->{_attrs} = $item->{"_attrs"} if (exists $item->{"_attrs"});
+	     push @rels, $ref;
+	     push @entities, $item->{"link1_type"} ."-". $item->{"link1_id"};
+	}
+	else
+	{
+	     my $ref = { 
+		         type =>$item->{"link0_type"},
+		         id =>$item->{"link0_mbid"}, 
+			 name => $item->{"link_name"}, 
+			 url => $item->{"link0_name"},
+			 begindate => $item->{"begindate"},
+			 enddate => $item->{"enddate"},
+	               };
+	     $ref->{_attrs} = $item->{"_attrs"} if (exists $item->{"_attrs"});
+	     push @rels, $ref;
+	     push @entities, $item->{"link0_type"} ."-". $item->{"link0_id"};
+	}
+    }
+
+    $out .= $this->OutputArtistRDF({ obj => $obj, _relationships => \@rels }) if ($type eq 'artist');
+    $out .= $this->OutputAlbumRDF({ obj => $obj, _relationships => \@rels }) if ($type eq 'album');
+    $out .= $this->OutputTrackRDF({ obj => $obj, _relationships => \@rels }) if ($type eq 'track');
+
+    @entities = do { my %t; @t{@entities}=(); keys %t };
+    foreach my $item (@entities)
+    {
+        my $temp;
+	my ($type, $id) = split '-', $item;
+	if ($type eq 'artist')
+	{
+	    $temp = Artist->new($this->{DBH});
+	    $temp->SetId($id);
+	    die if (!$temp->LoadFromId());
+            $out .= $this->OutputArtistRDF({ obj=> $temp });
+	} elsif ($type eq 'album')
+	{
+	    $temp = Album->new($this->{DBH});
+	    $temp->SetId($id);
+	    die if (!$temp->LoadFromId());
+            $out .= $this->OutputAlbumRDF({ obj=> $temp });
+	} elsif ($type eq 'track')
+	{
+	    $temp = Track->new($this->{DBH});
+	    $temp->SetId($id);
+	    die if (!$temp->LoadFromId());
+            $out .= $this->OutputTrackRDF({ obj=> $temp });
+	}
+    }
+
+    $out .= $this->EndRDFObject;
+
+    return $out;
 }
 
 1;

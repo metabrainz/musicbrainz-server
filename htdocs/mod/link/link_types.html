@@ -1,0 +1,80 @@
+%# vi: set ts=4 sw=4 ft=mason :
+<%args>
+$type => ""
+$new => undef
+</%args>
+<%perl>
+
+$m->comp("/comp/checkloggedin", 1, 1)
+	or return;
+$m->comp("/comp/ar/CheckLinkModerator", 1, 1)
+	or return;
+
+my @types = split /-/, $type, -1;
+MusicBrainz::Server::LinkEntity->ValidateTypes(\@types)
+	or return $m->comp("/comp/redirect", "/mod/link/link_type_roots.html");
+
+my $mb = $m->comp("/comp/dblogin");
+my $root = MusicBrainz::Server::LinkType->new($mb->{DBH}, \@types);
+$root = $root->Root
+	or die;
+
+</%perl>
+<%def .ShowList>
+% my ($type, $new, $node) = @_;
+	<li>
+		<div>
+			<input type="radio" name="id" value="<% $node->GetMBId %>"
+				<% ($new and $new == $node->GetId) ? "checked" : "" %>>
+			<span <% $node->GetModPending ? "class='mp'" : "" %>>
+				<b><% $node->GetName %></b> 
+%               if ($node->GetName ne 'ROOT') { 
+	               <br>
+				   <ul>
+				   <li>forward: <i><% $node->GetLinkPhrase %></i></li>
+   				   <li>reverse: <i><% $node->GetReverseLinkPhrase %></i></li>
+   				   <li>description: <% $node->GetDescription %></li>
+%                  if ($node->GetAttributes) {
+      				   <li>attributes: <% $node->GetAttributes %></li>
+%                  }
+				   </ul>
+%               }
+			</span>
+		</div>
+		<ul class="linktype">
+%			$m->comp(".ShowList", $type, $new, $_)
+%				 for $node->Children;
+		</ul>
+	</li>
+</%def>
+<& /comp/sidebar, title => 'Link Types', head => '
+<style type="text/css">
+ul.linktype { list-style: none; padding-left: 1em }
+</style>
+'&>
+
+<div class="LinksRow"> [
+	<a href="/mod/link/link_type_roots.html">Edit link types</a>
+	| <a href="/mod/link/selectlink.html">Create a link</a>
+] </div>
+
+<form method="post" action="do_link_type.html">
+<p>Link type: <b><% $type %></b></p>
+<ul class="linktype">
+<& .ShowList, $type, $new, $root &>
+</ul>
+
+<p>
+	<input type="hidden" name="type" value="<% $type %>">
+	Select link type above, and then:
+	<br>
+	<input type="submit" name="AddChild" value="Add Child"> below the selected link type
+	<br>
+	<input type="submit" name="EditLink" value="Edit"> the selected link type
+	<br>
+	<input type="submit" name="DeleteLink" value="Remove"> the selected link type
+</p>
+
+</form>
+
+<& /comp/footer &>

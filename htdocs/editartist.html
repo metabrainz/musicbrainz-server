@@ -1,46 +1,86 @@
 %# vi: set ts=2 sw=2 ft=mason :
 <%args>
 $id => ""
-$newname => ""
-$newsortname => ""
+$name => ""
+$sortname => ""
+$type => -1
+$resolution => ""
+$begindate_y => ""
+$begindate_m => ""
+$begindate_d => ""
+$enddate_y => ""
+$enddate_m => ""
+$enddate_d => ""
+$typechanged => 0
 $notetext => ""
+$confirm => ""
 </%args>
 <%perl>
-
-$m->comp("/comp/checkloggedin", 1, 1)
-	or return;
 
 MusicBrainz::IsNonNegInteger($id) && $id
 	or return $m->comp("/comp/badargs", 1, 1);
 
-$id == &ModDefs::DARTIST_ID
-	and return $m->comp("/comp/badargs", 1, 1);
+$id == &ModDefs::VARTIST_ID || $id == &ModDefs::DARTIST_ID
+	and return $m->comp("/comp/error", "You cannot edit this artist.", 1, 1);
 
-$id == &ModDefs::VARTIST_ID
-	and return $m->comp(
-		"/comp/error",
-    	"You cannot edit this artist.",
-		1, 1,
-	);
+MusicBrainz::IsSingleLineString($name)
+	or return $m->comp("/comp/badargs", 1, 1);
+
+MusicBrainz::IsSingleLineString($sortname)
+	or return $m->comp("/comp/badargs", 1, 1);
+
+MusicBrainz::IsSingleLineString($resolution)
+	or return $m->comp("/comp/badargs", 1, 1);
+
+$m->comp("/comp/checkloggedin", 1, 1)
+	or return;
 
 my $mb = $m->comp("/comp/dblogin");
 
 my $ar = Artist->new($mb->{DBH});
 $ar->SetId($id);
-$ar->LoadFromId
-	or return $m->comp(
+$ar->LoadFromId or return $m->comp(
 		"/comp/error",
 		"Artist not found in the database.",
 		1, 1,
 	);
 
-my $url = "/showartist.html?artistid=$id";
-
-if (MusicBrainz::IsSingleLineString($newname)
-	and $newname =~ /\S/
-	and MusicBrainz::IsSingleLineString($newsortname)
-	and $newsortname =~ /\S/)
+# Try to load the named artist by name. If an artist comes up, give the user a stern warning
+# about adding a duplicate artist.
+my ($samecheck, $same) = (1,0);
+my $dupar = Artist->new($mb->{DBH});
+if ($name)
 {
+	  my $artists = $dupar->GetArtistsFromName($name);
+		if (defined $artists && scalar(@$artists))
+		{
+			  foreach my $item (@$artists)
+				{
+					  next if ($item->GetId == $ar->GetId);
+						$same = lc($item->GetName) eq lc($name);
+						$samecheck = ($same && $resolution ne '' && $confirm ne '') ? 1 : 0 if ($same);
+						if ($same)
+						{
+							 $dupar = $item;
+							 last;
+						}
+				}
+		}
+}
+
+# If anything has been filled in, the user has clicked 'submit'.
+# We only accept valid dates or no dates at all.
+if (not $typechanged 
+		and $name =~ m/\S/ 
+		and $sortname =~ m/\S/
+    and $samecheck
+	  and MusicBrainz::IsValidDateOrEmpty($begindate_y, $begindate_m, $begindate_d)
+	  and MusicBrainz::IsValidDateOrEmpty($enddate_y, $enddate_m, $enddate_d)
+	  and MusicBrainz::IsDateEarlierThan($begindate_y, $begindate_m, $begindate_d, $enddate_y, $enddate_m, $enddate_d)
+  	and Artist::IsValidType($type) )
+{
+  # If the artist is not deemed to be the same as another artist, don't save the comment
+  $resolution = "" if (!$same);
 	$m->comp(
 		"/comp/entermods",
 		DBH => $mb->{DBH},
@@ -49,137 +89,105 @@ if (MusicBrainz::IsSingleLineString($newname)
 				DBH	=> $mb->{DBH},
 				uid	=> $session{uid},
 				privs => $session{privs},
-				type => &ModDefs::MOD_EDIT_ARTISTNAME,
+				type => &ModDefs::MOD_EDIT_ARTIST,
 				# --
 				artist => $ar,
-				newname => $newname,
-			) if $newname ne $ar->GetName;
-
-			# If the above mod became a "merge", don't enter the "edit sortname"
-			# mod.
-			return if grep { $_->Type == &ModDefs::MOD_MERGE_ARTIST } @mods;
+				name => $name,
+				sortname => $sortname,
+				artist_type => $type,
+				resolution => $resolution,
+				begindate => [ $begindate_y, $begindate_m, $begindate_d ],
+				enddate => [ $enddate_y, $enddate_m, $enddate_d ],
+			);
 
 			$mods[0]->InsertNote($session{'uid'}, $notetext)
-				if $mods[0]
-				and $notetext =~ /\S/;
-
-			my @mods2 = Moderation->InsertModeration(
-				DBH	=> $mb->{DBH},
-				uid	=> $session{uid},
-				privs => $session{privs},
-				type => &ModDefs::MOD_EDIT_ARTISTSORTNAME,
-				# --
-				artist => $ar,
-				newname => $newsortname,
-			) if $newsortname ne $ar->GetSortName;
-
-			$mods2[0]->InsertNote($session{'uid'}, $notetext)
-				if $mods2[0]
-				and not @mods
-				and $notetext =~ /\S/;
+				if $mods[0] and $notetext =~ /\S/;
 		},
-		success_url => $url,
+		success_url => "/showartist.html?artistid=$id",
 	) or return;
 
 	die "Shouldn't get here";
 }
 
+# Set reasonable default values
+#
+$name = $ar->GetName() if $name eq '';
+$sortname = $ar->GetSortName() if $sortname eq '';
+$resolution = $ar->GetResolution() if $resolution eq '';
+$type = $ar->GetType() if $ar->GetType() and $type == -1; # else we default to 0
+($begindate_y, $begindate_m, $begindate_d) = $ar->GetBeginDateYMD()
+	unless grep { $_ } ($begindate_y, $begindate_m, $begindate_d);
+($enddate_y, $enddate_m, $enddate_d) = $ar->GetEndDateYMD()
+	unless grep { $_ } ($enddate_y, $enddate_m, $enddate_d);
+
+# Error checking
+#
+my $error_msg;
+unless ( 
+		MusicBrainz::IsValidDateOrEmpty($begindate_y, $begindate_m, $begindate_d)
+	and MusicBrainz::IsValidDateOrEmpty($enddate_y, $enddate_m, $enddate_d)
+	and MusicBrainz::IsDateEarlierThan($begindate_y, $begindate_m, $begindate_d,
+																			$enddate_y, $enddate_m, $enddate_d) )
+{
+	$error_msg = 'Please enter valid dates';
+}
+
 </%perl>
 
-<& /comp/sidebar, title => 'Edit Artist Name' &>
+<& /comp/sidebar, title => 'Edit Artist' &>
 
 <& /comp/stylemenu &>
 
-<h2>Edit Artist Name</h2>
+<h2>Edit Artist</h2>
 
 % if ($ar->GetModPending) {
     <& /comp/modpending &>
 % }
 
+% if (defined $error_msg) {
+	<p style="color: red">
+		<% $error_msg %>
+	</p>
+% }
+
+% if ($dupar->GetId) {
+	<div style="border-width: 2px; border-style: dotted; border-color: red; margin: 1em; padding: 1em;">
+  <p>
+  <span style="color: red; font-weight: bold;">Warning!</span> You are attempting to edit the artist "<% $ar->GetName %>"
+	to be very similar, if not exactly the same as the existing artist <a href="/artist/<% $dupar->GetMBId %>.html"><% $dupar->GetName %></a>.
+	</p>
+
+	<p>
+	If you are certain that you want to edit this artist, please check the <b>confirm</b> checkbox below,
+	and submit this page again.
+  </p>
+
+% if (!$resolution && lc($dupar->GetName) eq lc($name)) {
+     <p>
+     You <b>must</b> provide a comment to distinguish the edited artist from artist <a href="/artist/<% $dupar->GetMBId %>.html"><% $dupar->GetName %></a>.
+     </p>
+% }
+	</div>
+% }
+
 <p>
-    Use the fields below to enter a corrected name and/or sort name for
-    this artist.&nbsp; If the the new artist name already exists in the database,
-    the 'Edit Artist Name' modification will result in the albums from the
-    old artist name being merged in with the albums for the new artist.
+	Use the fields below to enter a corrected name and/or sort name for
+	this artist.&nbsp; If the the new artist name already exists in the database,
+	the 'Edit Artist' modification will result in the albums from the
+	old artist name being merged in with the albums for the new artist.
 <p>
 
-<script type="text/javascript" src="scripts/guess.js"></script>
+<& /mod/edit-artist/main-form,
+		action			=> '/editartist.html',
+		artist			=> $ar,
+		name				=> $name,
+		sortname		=> $sortname,
+		type				=> $type,
+		resolution	=> $resolution,
+		begindate		=> [ $begindate_y, $begindate_m, $begindate_d ],
+		enddate			=> [ $enddate_y, $enddate_m, $enddate_d ],
+		notetext		=> $notetext,
+		confirm     => $same,
+&>
 
-<form method="post" action="/editartist.html"
-	name="EditArtistForm"
-	enctype="application/x-www-form-urlencoded"
-	>
-
-    <table width="100%">
-		<tr>
-			<td>
-				Current Name:
-			</td>
-			<td>
-				<% $ar->GetName  %>
-			</td>
-		</tr>
-		<tr>
-			<td>
-				New Name:
-			</td>
-			<td>
-				<input type="text" name="newname" size="40" value="<% $ar->GetName %>"> 
-				<script type="text/javascript"><!--
-        document.write(
-          "&nbsp; <input type='button' value='Guess Case' " +
-          "onclick='this.form.newname.value = GuessCase(this.form.newname.value)'>"
-        )
-				//--></script>
-			</td>
-		</tr>
-		<tr>
-			<td>
-				Current Sort Name:
-			</td>
-			<td>
-				<% $ar->GetSortName  %>
-			</td>
-		</tr>
-		<tr>
-			<td>
-				New Sort Name:
-			</td>
-			<td>
-				<input type="text" name="newsortname" size="40" value="<% $ar->GetSortName %>"> 
-				<script type="text/javascript">
-        document.write(
-          "&nbsp; <input type='button' value='Guess' " +
-          "onclick='this.form.newsortname.value = GuessSortname(this.form.newname.value)'>"
-					+ "&nbsp; <input type='button' value='Copy' " +
-					"onclick='this.form.newsortname.value = this.form.newname.value'>"
-        )
-				</script>
-			</td>
-		</tr>
-		<tr>
-			<td></td>
-			<td>
-				<b>Note</b>: Please view the Sortname help guide
-				for more information on the artist sortname.
-			</td>
-		</tr>
-	</table>
-
-	<p>
-		Enter moderation note (optional):
-	</p>
-
-	<p>
-		<textarea name="notetext" rows="3" cols="60"></textarea>
-	</p>
-
-	<p>
-		<input type="hidden" name="id" value="<% $id %>">    
-		<input type="submit" value="Submit">    
-	</p>
-
-</form>
-
-<& /comp/movefocus, "EditArtistForm", "newname" &>
 <& /comp/footer &>

@@ -101,16 +101,51 @@ $sql->Select(<<EOF) or die;
 
 	SELECT	a.id, a.name, a.sortname
 	FROM	artist a
+
+	-- Look for albums 
 	LEFT JOIN (
 		SELECT artist, COUNT(*) AS albums FROM album GROUP BY artist
 	) t1
 		ON a.id = t1.artist
+
+	-- Look for tracks 
 	LEFT JOIN (
         SELECT artist, COUNT(*) AS tracks FROM track GROUP BY artist
 	) t2
         ON a.id = t2.artist
+
+    -- Look for AR artist-artist relationships
+	LEFT JOIN (
+        SELECT link0 as artist, COUNT(*) AS arar_links FROM l_artist_artist GROUP BY link0
+		UNION
+        SELECT link1 as artist, COUNT(*) AS arar_links FROM l_artist_artist GROUP BY link1
+	) t3
+        ON a.id = t3.artist
+
+    -- Look for AR album-artist relationships
+	LEFT JOIN (
+        SELECT link1 as artist, COUNT(*) AS alar_links FROM l_album_artist GROUP BY link1
+	) t4
+        ON a.id = t4.artist
+
+    -- Look for AR artist-track relationships
+	LEFT JOIN (
+        SELECT link0 as artist, COUNT(*) AS artr_links FROM l_artist_track GROUP BY link0
+	) t5
+        ON a.id = t5.artist
+
+    -- Look for AR artist-url relationships
+	LEFT JOIN (
+        SELECT link0 as artist, COUNT(*) AS arur_links FROM l_artist_url GROUP BY link0
+	) t6
+        ON a.id = t6.artist
+
 	WHERE	t1.albums IS NULL
 	AND		t2.tracks IS NULL
+	AND		t3.arar_links IS NULL
+	AND		t4.alar_links IS NULL
+	AND		t5.artr_links IS NULL
+	AND		t6.arur_links IS NULL
 	AND		a.modpending = 0
 	ORDER BY sortname
 

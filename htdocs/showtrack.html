@@ -4,6 +4,10 @@ $trackid => ""
 $mbid => ""
 $albumjoinid => ""
 $tport=>$session{'tport'}
+$addrel=>0
+$remrel=>-1
+$remtype=>""
+$arcancel=>0
 </%args>
 <%perl>
 
@@ -71,6 +75,22 @@ $artist->LoadFromId
 
 %# show any related moderations so people can vote on them
 <& /comp/relmods, artistid => $artist->GetId &>
+
+%# Show the relationships for this track
+
+% if ($addrel) {
+    <& /comp/ar/AddRelationship, id=>$track->GetId, type=>'track', name=>$track->GetName &>
+% }
+
+% if ($arcancel) {
+     <& /comp/ar/ClearRelationships &>
+% }
+
+% if ($remrel >= 0) {
+     <& /comp/ar/RemoveRelationship, id=>$remrel, type=>$remtype &>
+% }
+
+<& /comp/ar/RelationshipBox, id=>$track->GetId, type=>'track', name=>$track->GetName &>
 
 <& /comp/trackinfo, track => $track, TRM => \@TRM &>
 

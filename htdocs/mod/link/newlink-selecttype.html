@@ -1,0 +1,493 @@
+%# vi: set ts=4 sw=4 ft=mason :
+<%args>
+$link0 => -1
+$link1 => -1
+$linktypeid => undef
+$notetext => undef
+$begindate_y => ''
+$begindate_m => ''
+$begindate_d => ''
+$enddate_y => ''
+$enddate_m => ''
+$enddate_d => ''
+$submit=>0
+$swap=>''
+</%args>
+<%perl>
+
+$m->comp("/comp/checkloggedin", 1, 1)
+    or return;
+
+if ($link0 < 0 || $link1 < 0)
+{
+    $m->comp("/comp/error", "You must select two elements before you can create a relationship." , 1, 1);
+    return;
+}
+my @links = @ARGS{qw( link0 link1 )};
+
+my $mb = $m->comp("/comp/dblogin");
+
+for my $ref (\(@links))
+{
+    my ($type, $id) = $$ref =~ /\A(\w+)=(\d+)\z/
+        or die "? $$ref";
+    MusicBrainz::Server::LinkEntity->IsValidType($type)
+        or die;
+
+    my $obj = MusicBrainz::Server::LinkEntity->newFromTypeAndId(
+        $mb->{DBH},
+        $type, $id,
+    ) or die;
+
+    $$ref = {
+        type => $type,
+        id => $id,
+        obj => $obj,
+        name => $obj->GetName,
+    };
+}
+
+if ($links[0]->{type} ne $links[1]->{type})
+{
+    # Sort the links in the right order
+    @links = sort { $a->{type} cmp $b->{type} }  @links;
+}
+elsif ($swap)
+{
+    my $temp = $links[0];
+    $links[0] = $links[1];
+    $links[1] = $temp;
+}
+
+my @types = map { $_->{type} } @links;
+
+# Sanity check... this should be fine
+MusicBrainz::Server::LinkEntity->ValidateTypes(\@types)
+    or die;
+
+my ($attributes, $desc);
+($linktypeid, $attributes, $desc) = split '\|', $linktypeid if ($linktypeid);
+
+my $link = MusicBrainz::Server::LinkType->new($mb->{DBH}, \@types);
+
+# Load the top level link attributes
+my $attrType = MusicBrainz::Server::LinkAttr->new($mb->{DBH});
+my $attr_root = $attrType->Root;
+my @children = $attr_root->Children;
+
+my @submit_attr;
+my $attr_error = "";
+
+for my $kvpair (split ' ', $attributes)
+{
+	my ($name, $limits) = split '=', $kvpair;
+	my ($mn, $mx) = split '-', $limits;
+
+	$mn = 0 if (!defined $mn or $mn eq '');
+	$mx = 1000 if (!defined $mx or $mx eq '');
+	
+    my $total = 0;
+    for(my $index = 0; $index < $mx; $index++)
+    {
+        # First, check to see if we have a passed arg
+        last if (!exists $ARGS{"attr_".$name."_".$index});
+        my $value = $ARGS{"attr_".$name."_".$index};
+        if ($value)
+        {
+            if ($value < 0)
+            {
+                my $lookupAttr = $attrType->newFromParentIdAndChildName(0, $name);
+                $value = ($lookupAttr) ?  $lookupAttr->GetId() : 0;
+            }
+            $total++;
+	        push @submit_attr, { value=>$value, name=>$name };
+        }
+    }
+
+    if ($total > $mx && $mx >= 0)
+    {
+        # This should never happen
+        $attr_error .= "Too many selections made for attribute '$name'.<br/>";
+    }
+    elsif ($total == 0 && $mn == 1)
+    {
+        $attr_error .= "No selection made for required attribute '$name'.<br/>";
+    }
+    elsif ($total < $mn)
+    {
+        $attr_error .= "Too few selections for attribute '$name'.<br/>";
+    }
+}
+
+if (!$swap 
+    and !$attr_error
+	and $desc
+    and ($linktypeid =~ /^\d+$/)
+    and MusicBrainz::IsValidDateOrEmpty($begindate_y, $begindate_m, $begindate_d)
+    and MusicBrainz::IsValidDateOrEmpty($enddate_y, $enddate_m, $enddate_d)
+    and MusicBrainz::IsDateEarlierThan($begindate_y, $begindate_m, $begindate_d,
+                                       $enddate_y, $enddate_m, $enddate_d))
+{
+    my $linktype = $link->newFromId($linktypeid);
+    if ($linktype)
+    {
+        # Remove the two entities being linked from recent_links
+        my $recent_links = ($session{recent_links} ||= []);
+        @$recent_links = grep {
+                ($_->[0] != $links[0]{type} || $_->[1] != $links[0]{id}) &&
+                ($_->[0] != $links[1]{type} || $_->[1] != $links[1]{id})
+        } @$recent_links;
+        $session{recent_links} = $recent_links;
+
+        my $url = "/show" . $links[0]{type} . ".html?" . $links[0]{type} . "id=" . $links[0]{id};
+        $m->comp(
+            "/comp/entermods",
+            DBH => $mb->{DBH},
+            sub => sub {
+                my @mods = Moderation->InsertModeration(
+                    DBH       => $mb->{DBH},
+                    uid       => $session{uid},
+                    privs     => $session{privs},
+                    type      => &ModDefs::MOD_ADD_LINK,
+                    # --
+                    entities  => \@links,
+                    linktype  => $linktype,
+                    begindate => [ $begindate_y, $begindate_m, $begindate_d ],
+                    enddate   => [ $enddate_y, $enddate_m, $enddate_d ],
+					attributes=> \@submit_attr,
+                );
+
+                $mods[0]->InsertNote($session{'uid'}, $notetext)
+                    if $mods[0]
+                    and $notetext =~ /\S/;
+            },
+            success_url => $url,
+        ) or return;
+    }
+}
+
+my $root = $link->Root;
+
+my $rev = ($links[0]->{type} eq 'album' && $links[1]->{type} eq 'artist') ? 1 : 0;
+
+my %seen_attrs;
+
+</%perl>
+<& /comp/sidebar, title => 'Create a Link - Select Link Type' &>
+
+% if (UserStuff->IsLinkModerator($session{privs})) {
+    <div class="LinksRow"> [
+        <a href="/mod/link/link_type_roots.html">Edit link types</a>
+    ] </div>
+% }
+
+% if ($submit && !$swap) {
+%     if (!$linktypeid) {
+          <p style="color: red;">Error: You must select a link type.</p>
+%     }
+%     if (!MusicBrainz::IsValidDateOrEmpty($begindate_y, $begindate_m, $begindate_d)) {
+          <p style="color: red;">Error: You entered an invalid start date.</p>
+%     }
+%     if (!MusicBrainz::IsValidDateOrEmpty($enddate_y, $enddate_m, $enddate_d)) {
+          <p style="color: red;">Error: You entered an invalid end date.</p>
+%     }
+%     if (!MusicBrainz::IsDateEarlierThan($begindate_y, $begindate_m, $begindate_d, $enddate_y, $enddate_m, $enddate_d)) {
+          <p style="color: red;">Error: Your end date is before your begin date.</p>
+%     }
+%     if ($attr_error) {
+          <p style="color: red;">Error: <% $attr_error |n %></p>
+%     }
+%     if (!$desc && $linktypeid) {
+          <p style="color: red;">Error: Please select a subtype of the currently selected link type. The selected link type is only used for grouping sub-types.</p>
+%     }
+% }
+<p>
+% if ($rev) {
+    Select the link type for a <% $links[1]->{type} %>-<% $links[0]->{type} %> link:
+% } else {
+    Select the link type for a <% $links[0]->{type} %>-<% $links[1]->{type} %> link:
+% }
+</p>
+
+<form method="post" name="linkselect" action="/mod/link/newlink-selecttype.html">
+<table width="100%">
+    <tr>
+        <td>
+        <table>
+        <tr>
+%          if ($rev) {
+               <td><% $links[1]{type} %> <a href="/show<% $links[1]{type} %>.html?<% $links[1]{type} %>id=<% $links[1]{id} %>"><b><% $links[1]{name} %></b></a></td>
+%          } else {
+               <td><% $links[0]{type} %> <a href="/show<% $links[0]{type} %>.html?<% $links[0]{type} %>id=<% $links[0]{id} %>"><b><% $links[0]{name} %></b></a></td>
+%          }
+           <td>
+            <select name="linktypeid" onchange="linkTypeChanged()">
+               <option value="||">[select a link type]</option>
+               <%perl>
+                 my @q = map { [$_,0] } $root;
+                 while (my $l = shift @q) 
+                 {
+                     unshift @q, map { [$_,$l->[1]+1] } $l->[0]->Children;
+                     next if ($l->[0]->GetName eq 'ROOT');
+                     if ($l->[0]->GetAttributes()) 
+                     {
+                         my @at = split ' ', $l->[0]->GetAttributes();
+                         foreach my $a (@at)
+                         {
+                             my ($key, $value) = split '=', $a;
+                             my ($mn, $mx) = split '-', $value;
+                             $mx = -1 if (!defined $mx or $mx eq '');
+                             $seen_attrs{$key} = $mx;
+                         }
+                     }
+                     </%perl>
+                     <option value="<% $l->[0]->GetId %>|<% $l->[0]->GetAttributes() %>|<% $l->[0]->GetDescription() %>" <% $l->[0]->GetId eq $linktypeid ? 'selected=""' : '' %>
+%                    my $text = $rev ? $l->[0]->GetReverseLinkPhrase : $l->[0]->GetLinkPhrase;
+%                    $text =~ s/\{(\w+:)/{/;
+                      ><% ("&nbsp;&nbsp;" x $l->[1]) |n %><% $text %></option>
+%                }
+            </select>
+          </td>
+%          if ($rev) {
+               <td><% $links[0]{type} %> <a href="/show<% $links[0]{type} %>.html?<% $links[0]{type} %>id=<% $links[0]{id} %>"><b><% $links[0]{name} %></b></a></td>
+%          } else {
+               <td><% $links[1]{type} %> <a href="/show<% $links[1]{type} %>.html?<% $links[1]{type} %>id=<% $links[1]{id} %>"><b><% $links[1]{name} %></b></a></td>
+%          }
+        </tr>
+%       if ($links[0]{type} eq $links[1]{type}) {
+        <tr>
+            <td>&nbsp;</td>
+            <td align="center"><input type="submit" name="swap" value="Swap left <% $links[0]{type} %> &lt;=&gt; right <% $links[0]{type} %>"></td>
+            <td>&nbsp;</td>
+        </tr>
+%       }
+        </table>
+        </td>
+    </tr>
+    <tr>
+        <td>
+		<p id="link_desc">&nbsp;</p>
+        </td>
+    </tr>
+    <tr>
+        <td>
+        <br>
+        <p>
+           If the link type you selected indicates a temporal link (e.g. <i>was a member of</i>), then enter
+           the begin and/or end dates below. These dates are optional, and leaving the end date blank
+           indicates that this relationship is still active today:
+        </p>
+        </td>
+    </tr>
+</table>
+<table width="100%">
+    <tr>
+      <td align="right" width="15%">
+         Begin date:
+      </td>
+      <td width="80%">
+        <& /comp/dateinput, name_prefix => 'begindate', value=> [$begindate_y, $begindate_m, $begindate_d] &>
+        Year/Month/Day
+      </td>
+    </tr>
+    <tr>
+      <td align="right">
+         End date:
+      </td>
+      <td>
+        <& /comp/dateinput, name_prefix => 'enddate', value=>[$enddate_y, $enddate_m, $enddate_d] &>
+        Year/Month/Day
+      </td>
+    </tr>
+</table>
+<div id="attributes">
+<p/>
+<table width="100%">
+    <tr>
+        <td valign="top" align="right" width="15%">
+         Attributes:
+        </td>
+        <td>
+           <%perl>
+           foreach my $sec (keys %seen_attrs) 
+           {
+              my $desc;
+              my $isSimple;
+		      my $tree;
+              foreach my $child (@children) 
+              {
+                  if ($child->GetName eq $sec) 
+                  {
+                      $desc = $child->GetDescription; 
+                      $isSimple = !$child->HasChildren;
+		    		  $tree = $child;
+                  }
+              }
+              $m->out(qq|<div id="$sec">$desc|);
+              $m->out(qq| <a href="javascript:addAttribute('$sec')">Add another $sec</a>|) if ($seen_attrs{$sec} < 0 || $seen_attrs{$sec} > 1);
+              $m->out(qq|<br/>|);
+              for(my $index = 0;; $index++)
+              {
+                  last if ($index > 0 && !exists $ARGS{"attr_". $sec . "_$index"});
+                  if ($isSimple)
+                  {
+					  $m->out(qq|<input type="checkbox" name="attr_|. $sec . qq|_$index" value="| . $tree->GetId . "\"");
+                      $m->out(qq| checked=""|) if ($ARGS{"attr_$sec"."_$index"});
+                      $m->out(qq|> <i>$sec</i>|);
+                  }
+                  else
+                  {
+                      $m->out(qq|<select name="attr_|.$sec."_$index\">");
+                      $m->out(qq|<option value="">[select $sec]</option>|);
+                      my @q = map { [$_,0] } $tree->Children;
+                      while (my $l = shift @q)
+                      {
+                          unshift @q, map { [$_,$l->[1]+1] } $l->[0]->Children;
+                          next if ($l->[0]->GetName eq 'ROOT');
+                          $m->out("<option value=\"".$l->[0]->GetId.'" ');
+                          $m->out($l->[0]->GetId eq $ARGS{"attr_".$sec."_$index"} ? 'selected=""' : '');
+                          $m->out(">" . ("&nbsp;&nbsp;" x $l->[1]) . $l->[0]->GetName . "</option>\n");
+                      }
+                      $m->out("</select><br/>\n");
+                  }
+              }
+              $m->out("</div>");
+		   }
+     	   </%perl>
+           <noscript>
+		      NOTE: You do not have JavaScript enabled. Not all of the attributes shown above apply
+			  to all relationship types and without JavaScript we cannot selectively display
+			  the appropriate attributes. We recommend that you turn on JavaScript in your browser.
+           </noscript>
+        </td>
+    </tr>
+</table>
+</div>
+
+<table width="100%">
+    <tr>
+        <td colspan="2">
+       <br>
+        <p>
+            Enter moderation note (optional):
+        </p>
+        <p>
+            <textarea name="notetext" rows="3" cols="60"><% $notetext %></textarea>
+        </p>
+        </td>
+    </tr>
+
+    </tr>
+        <td>
+        &nbsp;
+        </td>
+        <td>
+        <input type="hidden" name="link0" value="<% sprintf("%s=%d", $links[0]->{type}, $links[0]->{id}) %>"> 
+        <input type="hidden" name="link1" value="<% sprintf("%s=%d", $links[1]->{type}, $links[1]->{id}) %>"> 
+        <input type="submit" value="Submit">
+        <input type="hidden" name="submit" value="1">
+        </td>
+    </tr>
+</table>
+</form>
+
+<script language="javascript" type="text/javascript">
+<!--
+function showDiv(id,show)
+{
+    var obj = document.getElementById(id);
+    if (obj) obj.style.display = (show == 1 ? "block" : "none");
+}
+function hideAll()
+{
+%   foreach my $sec (keys %seen_attrs) {
+        showDiv('<% $sec %>', 0);
+%   }
+}
+
+function linkTypeChanged()
+{
+    var selection = document.linkselect.linktypeid.value;
+    var sp = selection.split("|");
+    var attrs = sp[1];
+    var p;
+
+    hideAll();
+    if (attrs == "")
+    {
+        showDiv('attributes', 0);
+    }
+	else
+	{
+		showDiv('attributes', 1);
+
+		var pairs = attrs.split(" ");
+		for(p in pairs)
+		{
+			var kv = pairs[p].split('=');
+			if (kv[0] != "")
+			{
+				showDiv(kv[0], 1);
+			}
+		}
+    }
+
+    var link_desc = document.getElementById('link_desc');
+	if (link_desc)
+	{
+		var textNode = link_desc.firstChild;
+		if (sp[2] != "")
+		{
+		    textNode.data = "Description: " + sp[2];
+			link_desc.setAttribute("style", "");
+		}
+		else
+		{
+			if (<% $submit %>)
+			{
+				textNode.data = "Error: Please select a subtype of the currently selected link type. The selected link type is only used for grouping sub-types.";
+				link_desc.setAttribute("style", "color: red;");
+			}
+		}
+	}
+}
+
+function findAttrIndex(attr)
+{
+    var elements, index;
+
+    for(index = 1;; index++)
+    {
+        elements = document.getElementsByName('attr_' + attr + "_" + index);
+        if (elements.length > 0)
+            continue;
+        else
+            return index;
+    }
+}
+
+function addAttribute(attr)
+{
+    var elements = document.getElementsByName('attr_' + attr + "_0");
+    if (elements)
+    {
+        var attrElement = elements[0];
+        if (attrElement)
+        {
+            var index = findAttrIndex(attr);
+            var newNode = attrElement.cloneNode(true);
+            newNode.setAttribute("name", "attr_" + attr + "_" + index);
+            var parent = document.getElementById(attr);
+            if (parent)
+            {
+                parent.appendChild(newNode);    
+                parent.appendChild(document.createElement("BR"));   
+            } 
+        } 
+    }
+}
+
+linkTypeChanged();
+-->
+</script>
+<& /comp/footer &>

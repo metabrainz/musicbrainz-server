@@ -610,11 +610,12 @@ sub _GetQuery
 		t.gid		AS artistgid,
 		t.name		AS artistname,
 		t.sortname	AS artistsortname,
+		t.resolution	AS artistresolution,
 		COUNT(aa.id)	AS numartistaliases
         FROM	$from
 	    LEFT JOIN artistalias aa ON aa.ref = t.id
 	WHERE	$where
-	GROUP BY t.id, t.name, t.sortname, t.gid
+	GROUP BY t.id, t.name, t.sortname, t.gid, t.resolution
     " if $table eq "artist";
 
     return "
@@ -628,7 +629,8 @@ sub _GetQuery
 		a.id		AS artistid,
 		a.gid		AS artistgid,
 		a.name		AS artistname,
-		a.sortname	AS artistsortname
+		a.sortname	AS artistsortname,
+		a.resolution	AS artistresolution
         FROM	$from
 	    INNER JOIN artist a ON a.id = t.artist
 	    LEFT JOIN albummeta m ON m.id = t.id
@@ -642,6 +644,7 @@ sub _GetQuery
 		a.id		AS artistid,
 		a.name		AS artistname,
 		a.sortname	AS artistsortname,
+		a.resolution	AS artistresolution,
 		al.id		AS albumid,
 		al.gid		AS albumgid,
 		al.name		AS albumname

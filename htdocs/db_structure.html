@@ -1,242 +1,40 @@
-<& /comp/sidebar,  title=>'The database structure of MusicBrainz', 
+%# vi: set ts=2 sw=2 ft=mason :
+<& /comp/sidebar,  title=>'MusicBrainz database structure', 
                    expand=>'documentation' &>
 
-
-The relational database is the heart of MusicBrainz.
-The content is placed under the OpenContent license.
-Currently the content of MusicBrainz is still limited to artist names, 
-albums, and the tracks.  But we are working very hard to include more 
-information.  The number of entries in our database is increasing rapidly,
-we expect to have the names of 1.000.000 tracks in MusicBrainz within a few 
-months.  With MusicBrainz it is possible to uniquely identify artists, 
-albums/CDs and tracks, and therefore allow the MusicBrainz users to refer to 
-music without any ambiguities. This capability will also allow users
-to exchange playlists that are based on unique track identifiers.
-
-<p>The artist/album/track names are augmented with several databases for
-administration and identification.  All tables have a Id field as a
-technical key that is a locally unique number incremented each time a new
-record is inserted into the table.  
-
-<a name="MusicBrainz I database structure"></a>
-<& /comp/section, title=>'MusicBrainz I database structure' &>  
-
-The main tables in the database are
-(with the important fields):
-
-<pre>
--Artist     Id field as key, Name, SortName, and a Global ID (GID)
--Album      Id field as key, Name, artist Id reference, and a Global ID (GID)
--Track      Id field as key, Name, artist Id reference, a Global ID (GID),
-            length, year, and genre Id
--TRM        Id field as key and a TRM field that contains a acoustic 
-            identification hash (relatable.com value a.k.a. TRMId)
-</pre>
-
-The above tables contain the core information. Several additional tables exist 
-for the moderation process , insert process and combining the information of 
-the above core tables. For example the AlbumJoin table connects the Tracks 
-with the Albums. 
-
-Connecting the core info:
-<pre>
--AlbumJoin  Id field, Album Id, Track Id, and sequence number
--TRMJoin   Id field, TRM Id, and Track Id
-</pre>
-
-Moderation process:
-<pre>
--Moderator  Id field, Name, Password (simple cleartext), Privs, Accepted 
-            moderations, and rejected moderations
--Moderations    Id field, Table, Colom, Artist, Type of moderation, Status, 
-            RowId, Previous value, New value, Moderator Id, Yes votes, 
-            No votes, and Dependant Change Id
--Votes      Id field, User Id , Row Id, vote (without a capital)
-</pre>
-
-Additional info:
-<pre>
--Discid     Id field, Disk hash, Album Id, and disk table of content
--TOC        Id field, Disk number, Album Id, Amount of tracks, Leadout, 
-            and 99 track lengths
--ArtistAlias Id field, Name, Ref
--Lyrics     Id field, Track Id, Text, and Writer name
--Synctext   Id field, Track Id, Type, URL, and Submitter name
--SyncEvent  Id field, Synctext Id, TimeStamp, Text
-</pre>
-
-
-<a name="MusicBrainz II database structure"></a>
-<& /comp/section, title=>'MusicBrainz II database structure' &>  
-
-We want to expand MusicBrainz with more information and store more then Artist/Album/Track information. For this we need the help of a serious number of people that are willing to add the information to the thousands of records in our database. If creating the biography of an artist takes a whole day, imagine the total time needed to write 50,000 of them. We need to call upon a large number of people to help us fill this extended database. In the true spirit of MusicBrainz we give all content back to the users. By automatically collecting the information from ID3 tags inside MP3 audio files the MusicBrainz I database was filled with less effort. For MusicBrainz II we need to build a large community to add more information to the thousands of existing records.
-
-<p>On the mailing list the following list of requirements for the content was discussed and generally accepted:
-<UL>
-<li>Model all the roles of contributors and events: songwriters, artist band breakups, album releases, album cover creator, etc.</LI>
-<li>Strict separation of facts and subjective data into separate tables for the copyright issue.</LI>
-<li>Contain pop charts, biographies, birth day's, URL's of fan pages</LI>
-<li>Support for classical CDs, opera's, etc.</LI>
-<li>Tackle the genre system, a good workable system is probably layered with two levels of genre where the top is < 15. Each track can have a number of genre's.
-<pre>
-    topgenre(rock, classic, jazz, blues, country)
-    genre   (piano, symphonic, heavy metal, punk, acoustic, etc.)
-</pre>
- Is a voting system for subjective genre data realistic? We need a lot of votes to
- get the genre for 500.000 tracks. </LI>
-<li>Picture gallery. storage of (artist/concert/etc.) pictures, not in Postgres, but referred to with URL. (http://musicbrainz.org/pictures/mugshots/beatles_342.jpg</LI>
-<li>guitar tabs, use a structured schema for music notation</LI>
-<li>User discussion groups. User comments should be connected to an genre/artist/album/track/etc and displayed while browsing MB. Discussions are vital to building a true on-line community that goes beyond the dry encyclopedia stuff. With our reputation system we can fight spam better then alt.music.* and our license allows more openness than the popular "Yahoo music message boards"
-</LI></UL>
-
-<p>This database structure is still in the planning process. Any suggestions/additions/etc should be send to the mailing list or myself (j@mp3.nl)
-
-<p>The CDDB.com and <a href="http://www.freedb.org">FreeDB.org</a> databases also contain information about tracks/albums/artists however, these databases contain a high number of erros and spelling-mistakes. The aim for MusicBrainz is to build the cleanest possible database. With the new database structure the amount of information is increased by an order of magnitude. This is why it makes sense to implement the database extensions in small increments were the database extension will be used before more extensions are made. 
-
-<a name="MusicBrainz II primary tables"></a>
-<& /comp/section, title=>'MusicBrainz II primary tables' &>  
-
-The primary tables in the MusicBrainz II database are listed here, together with the important fields. The tables are shown with a number of example records to clearly explain the structure. 
-
-<pre>
--Person     Id field as key, RealName, SortName, and a Global ID (GID)
-            1     Alanis Morisette   Morisette, Alanis  00001
-            2     Candy Dulfer       Dulfer, Candy      00002
-            3     Ilse de Lange      Lange, Ilse de     00003
-            4     Kurt Cobain        Cobain, Kurt       00004
-            5     Dave Grohl         Grohl, Dave        00005
-            6     Krist Novoselic    Novoselic, Krist   00006
--Group      Id field as key, GroupName, a Global ID (GID)
-            1     Alanis Morisette                      00309
-            2     Nirvana                               00310
-            3     Eels                                  00311
-            4     Portishead                            00312
--RoleType   Id field as key, RoleName, Role Description
-            1   solo artist
-            2   lead singer
-            3   guitar
-            4   bass guitar
-            5   drummer
-            6   keyboard
-            7   conductor
-            8   violin
-            9   1st violin
-            10  2nd violin
--Role       Id field, Person ID identifier, Group ID identifier, Role Type identifier
-            1         1                     1                    1
-            2         4                     2                    2
-            3         4                     2                    3
-            4         5                     2                    5
-            5         6                     2                    4      
--Track      Id field as key, group Id reference, Name, a Global ID (GID),
-            length, year, and genre Id
-            1                1                 Hand in my pocket
-            2                1                 Mary Jane
-            3                2                 Smells like teen spirit
-            4                2                 In bloom
-            5                2                 Lithium
-            6                2                 Polly
-            7                2                 Drain you
--Album      Id field as key, Group Id reference, Name, and a Global ID (GID)
-            1                1                   Jagged little pill
-            2                2                   The best of Nirvana
-            3                2                   MTV Unplugged in New York
-            4                2                   In Utero
-            5                2                   Oh Well, whatever ... Nevermind
--AlbumJoin  Id field, Album Id, Track Id, and Sequence number
-            1         1         1             4
-            2         1         2             9
-            3         2         6             4    
-            4         3         6             7 (Yep, Polly track listed on both CDs)
-            5         2         7             5
-</pre>
-
-<a name="MusicBrainz II secondary tables"></a>
-<& /comp/section, title=>'MusicBrainz II secondary tables' &>  
-
-The secondary tables contain Pop charts, biographies, URL references, pictures, discussions, guitar tabs, etc. The primary tables only contain info on persons, bands, tracks, and albums.
-
-Fingerprinting, an acoustic identification hash (relatable.com value a.k.a. TRMId)
-<pre>
--TRM       Id field as key and a TRM field 
-            1       478a3107d-47ae8290-bc6df226
-            2       aa3956d97-f8c214fb-21047ea5
-            3       bd307c9a9-92fe6678-8e882465
-            4       5f8fe8829-d948287f-9478d9e9
-            5       4849c9f9e-9a9c9b9b-e486c8bf
--TRMJoin   Id field, TRM Id, and Track Id
-            1         1            1
-            2         2            70
-            3         3            24
-            4         4            24
-            5         5            69
-
-Event tables
--EventType  Id field as key, EventName, Name of table
-            1     band formation      Group
-            2     band split          Group
-            3     person marriage     Person
-            4     person divorce      Person
-            5     person suicide      Person
-            6     birth of baby       Person
-            7     person deceased     Person
--Event      Id field as key, Event Type identifier, ID field identifier within table 
-            EventTypeTable, Event Start timestamp, Event End timestamp, Event Description. 
-            1       3      34   10-oct-1997 10-oct-1997  Divorced from Sean Penn
-            2       5      4    05-apr-1994 05-apr-1994  The sad garage incident
-	    3       2      35          1996        1996  At the press conference the Spice Girls
-                                                           said to pursue solo careers...
-
-Pop charts
--Chart      Id field, Name
-            1         Euro Top 100
-            2         UK hit parade
-            3         Dutch Top 40
-            4         MTV charts
--Chartposition Id field, Chart ID, Track ID, Date,       Position
-            1            1         3         02-jan-1998 48 
-            2            1         3         09-jan-1998 34
-            3            1         3         19-jan-1998 21
-            4            1         3         26-jan-1998  5
-            5            1         9         02-jan-1998 31
-            6            1         9         09-jan-1998 25         
-            7            1         9         19-jan-1998 26
-            8            1         9         26-jan-1998 40
-
-Biographies
--Biography  Id field, Person ID, User ID, HTML enhanced Text
-            1         4          59491    Born in a little town near ...
-            2         8          49436    At age 12 she already ...
-            3         8          10294    At a very young age the girl that ...
--BioModerations Id field, Biography ID, user ID, proposed Moderations to original text (UNIX diff format).
-            1         2             68830    10a11 , including the lesser known ...
-            2         9             68830    44c43 who later became a janitor 
-            3         12            7502     11c11 with MTV in the picture ...
-
-URL lists
--URL        Id field, URL type ID, ID within referring table, URL
-            1         4             3                http://eelstheband.com
-            2         2             3                http://www.geocities.com/TimesSquare/Realm/9341/Eels.htm         
-            3         6             4                http://kurt-cobain.com/Images/DeathCert.jpg
--URL Types  Id field, referring table, Name
-            1         Person          fanpage of person
-            2         Group           fanpage of group
-            3         Person          interview
-            4         Group           official group page
-            5         Person          birth certificate
-            6         Person          death certificate         
-
-</pre>
-
-<a name="MusicBrainz II extended tables"></a>
-<& /comp/section, title=>'MusicBrainz II extended tables' &>  
-
-Paul Shape from the UK based Miraclefish cooperation developed a very extensive database design that replaces the above primary tables with more and elaborate tables. Below the database tables are shown from Paul's Access example database. This database contains over 50 tables including tables with city and instrument information tied to tables: recording, release, track, and song.
-<p ALIGN=CENTER>
-<IMG SRC = "images/mbrainz_db_small.jpg" ALT="[Database layout]" width="320" height="240">
-</p>
-<a href="images/mbrainz_db_small.jpg">Full sized version</a><br>
+<& /comp/section, title=>"Current database structure" &>
 
 <p>
-Johan.
+We used to attempt to document the database structure of the MusicBrainz Server,
+but we implement features at a rapid pace and the documentation never seems to 
+keep up with our changes. In the future we hope to change that, but for now
+we invite you to take a look at our 
+<a href="http://cvs.musicbrainz.org/cvs/mb_server/admin/sql/CreateTables.sql?rev=HEAD&content-type=text/vnd.viewcvs-markup">CreateTables.sql</a>
+script in CVS for a definitive
+guide to the database structure of MusicBrainz. This sql script
+defines the database structure currently in use on the main server and is 
+religously kept up to date. 
+</p>
+
+<p>
+The other scripts in the <a href="http://cvs.musicbrainz.org/cvs/mb_server/admin/sql/">mb_server/admin/sql</a>
+directory give more details about index, foreign key, and serial number management workings
+of the MusicBrainz Server. Please be advised that you'll need to understand the fundamentals
+of SQL before these scripts will make sense to you.
+</p>
+
+<& /comp/section, title=>"Future database structure" &>
+
+<p>
+We also used to attempt to document our future plans for the database. But,
+as it is typical in software engineering, our implementations never matched
+our speculations about how we thought we'd do things in the future.
+</p>
+
+<p>
+In order to get a gimpse of what we are working on the for the future, take
+a look a our <a href="http://wiki.musicbrainz.org/wiki.pl?MusicBrainzDevelopment">MusicBrainz Development Wiki page</a> which
+describes all sorts of work being done with MusicBrainz right now.
+</p>
+
 <& /comp/footer &>

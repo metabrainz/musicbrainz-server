@@ -83,24 +83,36 @@ my $mb = MusicBrainz->new;
 $mb->Login(db => "READWRITE");
 my $sql = Sql->new($mb->{DBH});
 
+my @tar_to_extract;
+
 for my $arg (@ARGV)
 {
 	-e $arg or die "'$arg' not found";
 	next if -d _;
 	-f _ or die "'$arg' is neither a regular file nor a directory";
 
-	next unless $arg =~ /\.tar\.(gz|bz2)$/;
+	next unless $arg =~ /\.tar(?:\.(gz|bz2))?$/;
 
-	my $mode = ($1 eq "gz" ? "gzip" : "bzip2");
+	my $decompress = "";
+	$decompress = "--gzip" if $1 and $1 eq "gz";
+	$decompress = "--bzip2" if $1 and $1 eq "bz2";
 
 	use File::Temp qw( tempdir );
 	my $dir = tempdir("MBImport-XXXXXXXX", DIR => $tmpdir, CLEANUP => 1)
 		or die $!;
 
-	print localtime() . " : tar -C $dir --$mode -xvf $arg\n";
-	system "tar -C $dir --$mode -xvf $arg";
-	exit $? if $?;
+	validate_tar($arg, $dir, $decompress);
+	push @tar_to_extract, [ $arg, $dir, $decompress ];
+
 	$arg = $dir;
+}
+
+for (@tar_to_extract)
+{
+	my ($tar, $dir, $decompress) = @$_;
+	print localtime() . " : tar -C $dir $decompress -xvf $tar\n";
+	system "tar -C $dir $decompress -xvf $tar";
+	exit $? if $?;
 }
 
 print localtime() . " : Validating snapshot\n";
@@ -292,6 +304,28 @@ sub ImportAllTables
 		country
 		currentstat
 		historicalstat
+		l_album_album
+		l_album_artist
+		l_album_track
+		l_album_url
+		l_artist_artist
+		l_artist_track
+		l_artist_url
+		l_track_track
+		l_track_url
+		l_url_url
+		link_attribute
+		link_attribute_type
+		lt_album_album
+		lt_album_artist
+		lt_album_track
+		lt_album_url
+		lt_artist_artist
+		lt_artist_track
+		lt_artist_url
+		lt_track_track
+		lt_track_url
+		lt_url_url
 		moderation_closed
 		moderation_note_closed
 		moderation_note_open
@@ -309,6 +343,7 @@ sub ImportAllTables
 		trmjoin
 		trmjoin_stat
 		trm_stat
+		url
 		vote_closed
 		vote_open
 		wordlist
@@ -387,6 +422,46 @@ sub read_all_and_check
 	}
 
 	$v[0];
+}
+
+sub validate_tar
+{
+	my ($tar, $dir, $decompress) = @_;
+
+	# One of the more annoying things that can go wrong with imports is
+	# schema sequence mismatches.  It's annoying because this script has to
+	# first decompress and extract all the tar files, which take a while.
+	# /Then/ the error is uncovered, the script exits, all the extracted
+	# data is wiped, and you have to start again.  Grrr.
+
+	# Here we extract just the first 100Kb of each tar file, which should
+	# contain all the relevant SCHEMA_SEQUENCE, TIMESTAMP files etc.
+
+	my $cat_cmd = (
+		not($decompress) ? "cat"
+		: $decompress eq "--gzip" ? "gunzip"
+		: $decompress eq "--bzip2" ? "bunzip2"
+		: die
+	);
+
+	print localtime() . " : Pre-checking $tar\n";
+	system "$cat_cmd < $tar | head --bytes=102400 | tar -C $dir -xf- 2>/dev/null";
+
+	if (open(my $fh, "<", "$dir/SCHEMA_SEQUENCE"))
+	{
+		my $all = do { local $/; <$fh> };
+		close $fh;
+		chomp($all);
+		if ($all ne &DBDefs::DB_SCHEMA_SEQUENCE)
+		{
+			printf STDERR "%s : Schema sequence mismatch - codebase is %d, $tar is %d\n",
+				scalar localtime,
+				&DBDefs::DB_SCHEMA_SEQUENCE,
+				$all,
+				;
+			exit 1;
+		}
+	}
 }
 
 # vi: set ts=4 sw=4 :

@@ -72,4 +72,7 @@ The following people have contributed to the MusicBrainz server:
   Matthew Exon
   - fixed bug #1066072
 
+  Nikki <nikki@lmfao.org.uk>
+  - Contributed a tiny add note patch
+
 (please send change requests to rob@musicbrainz.org or maintainer)

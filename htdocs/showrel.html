@@ -1,0 +1,83 @@
+%# vi: set ts=4 sw=4 ft=mason :
+<%args>
+$id
+$type
+$addrel=>0
+$remrel=>-1
+$remtype=>""
+$arcancel=>0
+$expanded=>0
+</%args>
+<%perl>
+
+MusicBrainz::IsNonNegInteger($id) && $id
+	or return $m->comp("/comp/badargs", 1, 1);
+
+my $mb = $m->comp("/comp/dblogin");
+my $obj;
+
+if ($type eq 'artist')
+{
+   $obj = Artist->new($mb->{DBH});
+}
+elsif ($type eq 'album')
+{
+   $obj = Album->new($mb->{DBH});
+}
+elsif ($type eq 'track')
+{
+   $obj = Track->new($mb->{DBH});
+}
+else
+{
+	return $m->comp(
+		"/comp/error",
+		"$type is not a supported type for showing relationships.",
+		1, 1,
+	);
+}
+
+$obj->SetId($id);
+$obj->LoadFromId(1)
+	or return $m->comp(
+		"/comp/error",
+		"$type not found in the database.",
+		1, 1,
+	);
+
+my $title = ("Relationships for $type " . $obj->GetName());
+$m->comp("/comp/sidebar", pagetitle => $title, title => $title);
+
+$m->comp("/comp/artisttitle", artist=>$obj) if ($type eq 'artist');
+
+$m->comp("/comp/framedboxbegin", width=>"100%");
+$m->comp("/comp/modnotice");
+$m->comp("/comp/framedboxend");
+$m->out("<br>");
+
+$m->comp("/comp/ar/AddRelationship", id=>$id, type=>$type, name=>$obj->GetName) 
+    if ($addrel);
+$m->comp("/comp/ar/ClearRelationships") 
+    if ($arcancel);
+
+$m->comp("/comp/ar/RemoveRelationship", id=>$remrel, type=>$remtype) 
+    if ($remrel >= 0);
+
+$m->comp("/comp/ar/RelationshipBox", id=>$obj->GetId, type=>$type, 
+		 name=>$obj->GetName, modlinks=>1, isrelpage=>1, expanded=>$expanded);
+
+if ($type eq 'album')
+{
+   my $artist = Artist->new($mb->{DBH});
+   $artist->SetId($obj->GetArtist());
+   $artist->LoadFromId();
+
+   $m->comp("/comp/album", artist=>$artist, album=>$obj, showreleases=>1, showlinks=>1);
+}
+if ($type eq 'track')
+{
+   $m->comp("/comp/trackinfo", track=>$obj);
+}
+
+</%perl>
+<& /comp/footer &>

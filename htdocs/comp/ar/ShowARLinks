@@ -1,0 +1,57 @@
+%# vi: set ts=4 sw=4 ft=mason :
+<%args>
+$id
+$type
+$short=>0
+$isrelpage=>0
+$expanded=>0
+$count=>0
+</%args>
+<%perl>
+
+return undef if (!$session{uid} && $isrelpage);
+
+my $link = $short ? "Add relationship" : "Use this $type in a relationship";
+
+$m->out("[ ");
+if ($session{uid}) 
+{
+	if ($isrelpage)
+	{
+        $m->out('<a href="/showrel.html?id='.$id.'&amp;type='.$type.'&amp;addrel=1">'.$link.'</a> ');
+		if ($count)
+		{
+			if ($expanded)
+			{
+				$m->out(qq! | <a href="/showrel.html?id=$id&amp;type=$type">Compact listing</a>!);
+			}
+			else
+			{
+				$m->out(qq! | <a href="/showrel.html?id=$id&amp;type=$type&amp;expanded=1">Edit relationships</a>!);
+			}
+     	}
+	}
+	else
+	{
+        $m->out('<a href="/show'.$type.'.html?'.$type.'id='.$id.'&amp;addrel=1">'.$link.'</a> ');
+		if ($count)
+		{
+			$m->out(qq! | <a href="/showrel.html?id=$id&amp;type=$type">View all relationships</a>!);
+			$m->out(qq! | <a href="/showrel.html?id=$id&amp;type=$type&amp;expanded=1">Edit relationships</a>!);
+		}
+	}
+
+}
+else
+{
+	if (!$isrelpage)
+	{
+	    $m->out(qq! <a href="/showrel.html?id=$id&amp;type=$type">View all relationships</a>!);
+	}
+}
+if (UserStuff->IsLinkModerator($session{privs}))
+{
+	$m->out(qq! | <a href="/mod/link/link_type_roots.html">Edit link types</a> !);
+}
+$m->out(" ]");
+</%perl>

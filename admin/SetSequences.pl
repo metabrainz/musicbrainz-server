@@ -82,6 +82,28 @@ SetSequence($sql, "clientversion");
 SetSequence($sql, "country");
 SetSequence($sql, "currentstat");
 SetSequence($sql, "historicalstat");
+SetSequence($sql, "l_album_album");
+SetSequence($sql, "l_album_artist");
+SetSequence($sql, "l_album_track");
+SetSequence($sql, "l_album_url");
+SetSequence($sql, "l_artist_artist");
+SetSequence($sql, "l_artist_track");
+SetSequence($sql, "l_artist_url");
+SetSequence($sql, "l_track_track");
+SetSequence($sql, "l_track_url");
+SetSequence($sql, "l_url_url");
+SetSequence($sql, "link_attribute");
+SetSequence($sql, "link_attribute_type");
+SetSequence($sql, "lt_album_album");
+SetSequence($sql, "lt_album_artist");
+SetSequence($sql, "lt_album_track");
+SetSequence($sql, "lt_album_url");
+SetSequence($sql, "lt_artist_artist");
+SetSequence($sql, "lt_artist_track");
+SetSequence($sql, "lt_artist_url");
+SetSequence($sql, "lt_track_track");
+SetSequence($sql, "lt_track_url");
+SetSequence($sql, "lt_url_url");
 # moderation_closed - see below
 # moderation_note_closed - see below
 # moderation_note_open - see below
@@ -98,6 +120,7 @@ SetSequence($sql, "trm");
 SetSequence($sql, "trmjoin");
 SetSequence($sql, "trmjoin_stat");
 SetSequence($sql, "trm_stat");
+SetSequence($sql, "url");
 # vote_closed - see below
 # vote_open - see below
 SetSequence($sql, "wordlist");

@@ -1,0 +1,62 @@
+%# vi: set ts=4 sw=4 ft=mason :
+<%args>
+$urlid
+$addrel=>0
+$remrel=>-1
+$remtype=>""
+$arcancel=>0
+</%args>
+<%perl>
+
+MusicBrainz::IsNonNegInteger($urlid) && $urlid
+	or return $m->comp("/comp/badargs", 1, 1);
+
+my $mb = $m->comp("/comp/dblogin");
+my $url = MusicBrainz::Server::URL->new($mb->{DBH});
+
+$url->SetId($urlid);
+$url->LoadFromId(1)
+	or return $m->comp(
+		"/comp/error",
+		"url $urlid not found in the database.",
+		1, 1,
+	);
+
+my $title = ("URL Information");
+$m->comp("/comp/sidebar", pagetitle => $title, title => $title);
+
+$m->comp("/comp/framedboxbegin", width=>"100%");
+$m->comp("/comp/modnotice");
+$m->comp("/comp/framedboxend");
+$m->out("<br>");
+
+</%perl>
+<& /comp/framedboxbegin, width=>"100%" &>
+<table>
+<tr>
+  <td align="right">URL:</td>
+  <td><a href="<% $url->GetName %>"><% $url->GetName %></a></td>
+</tr>
+<tr>
+  <td align="right">Description:</td>
+  <td><% $url->GetDesc %></a></td>
+</tr>
+</table>
+<& /comp/framedboxend &>
+<br>
+<%perl>
+
+$m->comp("/comp/ar/AddRelationship", id=>$urlid, type=>'url', name=>$url->GetName) 
+    if ($addrel);
+$m->comp("/comp/ar/ClearRelationships") 
+    if ($arcancel);
+
+$m->comp("/comp/ar/RemoveRelationship", id=>$remrel, type=>$remtype) 
+    if ($remrel >= 0);
+
+$m->comp("/comp/ar/RelationshipBox", id=>$urlid, type=>'url', name=>$url->GetName, modlinks=>1);
+
+</%perl>
+
+
+<& /comp/footer &>

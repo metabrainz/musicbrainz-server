@@ -42,6 +42,7 @@ use Encode qw( decode );
 use constant AUTOMOD_FLAG => 1;
 use constant BOT_FLAG => 2;
 use constant UNTRUSTED_FLAG => 4;
+use constant LINK_MODERATOR_FLAG => 8;
 
 use constant SEARCHRESULT_SUCCESS => 1;
 use constant SEARCHRESULT_NOQUERY => 2;
@@ -384,6 +385,19 @@ sub GetUserPasswordAndId
 	@$row;
 } 
 
+sub IsNewbie
+{
+	my $self = shift;
+	my $sql = Sql->new($self->{DBH});
+
+	return $sql->SelectSingleValue(
+		"SELECT NOW() < membersince + INTERVAL '2 weeks'
+		FROM	moderator
+		WHERE	id = ?",
+		$self->GetId,
+	);
+}
+
 # Used by /login.html, /user/edit.html and /user/confirmaddress.html
 sub SetUserInfo
 {
@@ -587,11 +601,14 @@ sub GetUserType
 
 	my $type = "";
 
-	$type = "Automatic Moderator "
+	$type = "Automatic Moderator"
 		if ($this->IsAutoMod($privs));
 
-	$type = "Internal/Bot User "
+	$type = "Internal/Bot User"
 		if ($this->IsBot($privs));
+
+	$type .= ", Link Moderator"
+		if ($this->IsLinkModerator($privs));
 
 	$type = "Normal User"
 		if ($type eq "");
@@ -618,6 +635,13 @@ sub IsUntrusted
 	my ($this, $privs) = @_;
 
 	return ($privs & UNTRUSTED_FLAG) > 0;
+}
+
+sub IsLinkModerator
+{
+	my ($this, $privs) = @_;
+
+	return ($privs & LINK_MODERATOR_FLAG) > 0;
 }
 
 ################################################################################

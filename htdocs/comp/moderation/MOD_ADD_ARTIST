@@ -13,6 +13,11 @@ my $new = $this->{'new_unpacked'};
 (my $name) = grep { defined } ($new->{'ArtistName'}, "[error]");
 (my $sortname) = grep { defined } ($new->{'SortName'}, "[error]");
 (my $id) = grep { defined } ($new->{'ArtistId'}, 0);
+my $resolution = $new->{'Resolution'};
+my $begin = $new->{'BeginDate'};
+my $end = $new->{'EndDate'};
+my $type = $new->{'Type'};
+my $type_str = Artist::GetTypeName($type);
 
 my $s = $this->GetStatus;
 </%perl>
@@ -29,6 +34,30 @@ my $s = $this->GetStatus;
 	<br>
 	Sortname:
    	<span class="bold"><% $sortname %></span>
+% }
+
+% if ($type_str) {
+	<br>
+	Type:
+	<span class="bold"><% $type_str %></span>
+% }
+
+% if ($resolution) {
+	<br>
+	Resolution:
+   	<span class="bold"><% $resolution %></span>
+% }
+
+% if ($begin) {
+	<br>
+	<% Artist::GetBeginDateName($type) %>:
+   	<span class="bold"><% MusicBrainz::MakeDisplayDateStr($begin) %></span>
+% }
+
+% if ($end) {
+	<br>
+	<% Artist::GetEndDateName($type) %>:
+   	<span class="bold"><% MusicBrainz::MakeDisplayDateStr($end) %></span>
 % }
 
 </%method>

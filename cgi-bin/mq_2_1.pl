@@ -199,7 +199,7 @@ sub Authenticate
 
 require MM_2_1;
 $rdf = MM_2_1->new(0);
-$rdf->SetBaseURI("http://" . $ENV{SERVER_NAME});
+$rdf->SetBaseURI("http://" . $ENV{SERVER_NAME} . "/mm-2.1");
 if (exists $ENV{"MOD_PERL"})
 {
    $r = Apache->request();

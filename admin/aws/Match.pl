@@ -537,18 +537,26 @@ sub ProcessSingleArtists
 	{
 		my $ar = Artist->new($dbh);
 
+		my $arlist;
 		if ($artist =~ /^(\d+)$/)
 		{
 			$ar->SetId($1);
 			$ar->LoadFromId
 				or warn("No artist #$1 found\n"), next;
+		    $arlist = [ $ar ];
 		} else {
-			$ar->LoadFromName($artist)
-				or warn("No artist '$artist' found\n"), next;
+			$arlist = $ar->GetArtistsFromName($artist);
+			if (scalar(@$artists) == 0)
+			{
+				warn("No artist '$artist' found\n"), next;
+			}
 		}
 
-		my ($ret, $error) = MatchArtist($dbh, $ar->GetName, $ar->GetId);
-		print "ret=$ret error=$error\n";
+		foreach $ar (@$arlist)
+		{
+			my ($ret, $error) = MatchArtist($dbh, $ar->GetName, $ar->GetId);
+			print "ret=$ret error=$error\n";
+		}
 	}
 }
 

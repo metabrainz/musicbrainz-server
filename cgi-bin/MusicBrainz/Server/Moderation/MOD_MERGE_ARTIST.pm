@@ -123,11 +123,13 @@ sub CheckPrerequisites
 		}
 	} else {
 		# Load new artist by name
-		unless ($newar->LoadFromName($name))
+		my $artists = $newar->GetArtistsFromName($name);
+		if (scalar(@$artists) == 0)
 		{
 			$self->InsertNote(MODBOT_MODERATOR, "Artist '$name' not found - it has been deleted or renamed");
 			return STATUS_FAILEDDEP;
 		}
+		$newar = $$artists[0];
 	}
 
 	# Load old artist by ID

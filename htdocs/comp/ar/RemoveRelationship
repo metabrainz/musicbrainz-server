@@ -1,0 +1,25 @@
+%# vi: set ts=4 sw=4 ft=mason :
+<%args>
+$type => ""
+$id => ""
+</%args>
+<%perl>
+
+$m->comp("/comp/checkloggedin", 1, 1)
+    or return undef;
+
+my $recent_links = ($session{recent_links} ||= []);
+if (
+     MusicBrainz::Server::LinkEntity->IsValidType($type)
+     and MusicBrainz::IsNonNegInteger($id)
+     and $id
+) {
+     # Remove ($type, $id) from the list of recently linked things
+     @$recent_links = grep {
+   		$_->[0] != $type or $_->[1] != $id
+     } @$recent_links;
+
+     # Force session save
+     $session{recent_links} = $recent_links;
+}
+</%perl>

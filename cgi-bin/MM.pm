@@ -449,8 +449,7 @@ sub LoadObject
 	$obj->SetMBId($id);
 	return $obj;
     }
-
-    if ($type eq 'artist')
+    elsif ($type eq 'artist')
     {
        	require Artist;
 	$obj = Artist->new($this->{DBH});
@@ -471,7 +470,6 @@ sub LoadObject
 	# load an object.
 	$obj = undef;
     }
-
     return undef if (not defined $obj);
 
     if (defined $mbid)

@@ -28,7 +28,11 @@
 %    }
 % }
          <a href="/download.html">Download</a> |
-         <a href="/faq.html">FAQ</a> |
+%        if (UserStuff->IsLinkModerator($session{privs})) {
+            <a href="/mod/link/link_type_roots.html">AR</a> |
+% } else {
+            <a href="/faq.html">FAQ</a> |
+% }
          <a href="http://wiki.musicbrainz.org/">Wiki</a>
       </span>&nbsp;
    </td>
