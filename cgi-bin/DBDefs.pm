@@ -50,4 +50,4 @@ use constant VERSION => "1.0.0-pre2";
 use constant MOD_PERIOD => 604800;   # 1 week
 
 # Defines the number of unanimous votes required to pass a mod early
-use constant NUM_UNANIMOUS_VOTES => 2;
+use constant NUM_UNANIMOUS_VOTES => 5;
