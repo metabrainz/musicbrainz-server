@@ -54,7 +54,7 @@ CREATE TABLE albumjoin
 
 CREATE TABLE albummeta
 (
-    Id                  INTEGER NOT NULL,
+    id                  INTEGER NOT NULL,
     tracks              INTEGER DEFAULT 0,
     discids             INTEGER DEFAULT 0,
     trmids              INTEGER DEFAULT 0,
