@@ -2,98 +2,10 @@
 
 <& /comp/sidebar, title=>'MusicBrainz Tagger NG (picard) Tutorial' &>
 
-<h2>For the impatient</h2>
-
-<ol>
-<li>Select a directory and then drag a directory or any files to the 'Drag tracks to identify here' folder.
-<li>Wait for files to show up in the 'unidenitfied files' folder
-<li>Click on 'cluster' to cluster files into albums.
-<li>Highlight an album and click on lookup. Find the right album using your normal web browser.
-<li>Click on the 'open in tagger' link near the album cover art.
-<li>Drag the clustered album onto the album that was just opened.
-<li>Inspect the matches and save.
-</ol>
-
-<h2>For the patient</h2>
-
-<h3>Basic Concepts</h3>
-
-<ol>
-<li>Add files/dirs by dragging them from the left to the 'drag tracks to identify here' folder.
-Double clicking on files and folders also adds them.
-<li>Cluster unidentified files into album clusters by clicking on the 'cluster' button.
-<li>Open albums using the lookup or search button and use the web browser to find the right album on the MB web site. To open an album in the tagger, click on the 'open in tagger' link.
-<li>Drag and drop files/dirs from 'unidentified files' and 'album clusters' to the opened albums.
-<li>Inspect the matches and save files if the matches are ok.
-</ol>
-
-<h3>More details</h3>
-
 <p>
-The idea is use the search functions to open an album from MB in the tagging application.
-Pick your favorite album and enter into the search field at the bottom of the tagger
-application. This spawns a browser to find the album in question -- once you found the album,
-click on the 'Open in tagger' link in the blue bar just to the left of the album cover art.
-This should open the album in the tagger.
-</p>
-
-<p>
-Another good way to open an album is to double click on a track that has already been tagged
-with the old MB Tagger. 
-</p>
-
-<p>
-Now you can drag tracks from the file browser directly onto the tracks in the album in order to
-'tag' them. You can also drag tracks to the album line and have the tagger attempt to figure out which
-track to tag the file to. You can also drag a directory onto an album to have the tagger match the
-tracks in that directory to the album.
-</p>
-
-<p>
-You can also drag tracks and directories to the [ Drag tracks here ] album, which will read the metadata
-and show the track in the [ Unmatched files ] album. From there you can select one of these tracks 
-and use the 'lookup' button to lookup that track in MB. Once you find the right album, click on the 'open 
-in tagger' link to open the album in the tagger. Then drag the track from the [ Unmatched files ] to the
-album (by dragging to a specific track or the album itself).
-</p>
-
-<p>
-Once you have dragged a file to a track, an icon will appear to the left of the track:
-</p>
-
-<ul>
-<li>a green check mark indicates the track is up to date and saved.
-<li>a small rectangle ranging from red to green indicates the quality of the match. 
-    red -> bad match, green -> good match
-<li>a blue ? indicates an unmatched file.
-<li>no icon means that no file is associated with that track
-</ul>
-
-<p>
-You can now select an album or a track and hit save to save the track to disk. Click remove on a track
-with an associated file to remove the associated file. Click on an album and hit remove to remove that
-album from the tagger. You can use the info panel at the bottom to manually edit the track information 
-to override the information provided by the MB server.
-</p>
-
-<p>
-You can also hit the Cluster button in order to cluster the files in your [ Unmatched files ] folder.
-This will attempt to figure out tracks that belong to the same album and will allow you to drag these
-clusters onto albums in order to match clusters to albums.
-</p>
-
-<p>
-The Cluster Similarity slider allows you to control the similarity between tracks in order to be considered
-to be part of the same album. A lower similarity will get more (perhaps incorrect) tracks to be clustered
-and a higher similarity value will get fewer tracks clustered. If you are unhappy with a clustering,
-you can drag the [ Clustered files ] item back into the [ Unmatched files ] item in order to move
-all the files in clusters back into the unmatched section. Then you can adjust the cluster similarity and
-try the clustering again.
-</p>
-
-<p>
-Please keep in mind that this is an early release. See the <a href="/products/picard">picard project
-page</a> before you submit any bug reports.
+During the beta-test phase, you can find the <a href="http://wiki.musicbrainz.org/wiki.pl?PicardTagger">Picard
+Tagger information</a> and <a href="http://wiki.musicbrainz.org/wiki.pl?PicardTaggerDocumentation">Picard
+Tagger documentation</a> on our Wiki pages.
 </p>
 
 <& /comp/footer &>

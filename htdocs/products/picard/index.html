@@ -3,82 +3,9 @@
 <& /comp/sidebar, title=>'MusicBrainz Tagger NG (picard) information' &>
 
 <p>
-<b>PLEASE READ THIS ENTIRE PAGE BEFORE REPORTING BUGS/PROBLEMS!</b>
-</p>
-
-<h2>How to get the new tagger</h2>
-
-<p>
-To download this new (beta) project, go to the <a href="https://helixcommunity.org/project/showfiles.php?group_id=171">Helix Community download page</a>.
-</p>
-
-<h2>Things that do work:</h2>
-
-<ol>
-<li>Open files into [Drags tracks here] by doubleclicking file
-<li>Drag files, and directories into [ drag tacks here ]
-<li>Drag files into specific album slots
-<li>Drag files/dirs into album name slot, auto match tracks to album
-<li>Save files
-<li>Remove files/albums
-<li>Cluster unmatched files into album clusters
-<li>Basic preference dialog features
-</ol>
-
-<h2>Things that need to be done, but are not done:</h2>
-
-<h3>General</h3>
-<li>Not all options are hooked up yet.
-<li>No keyboard shortcuts for drag and drop operations
-<li>There is no way to generate a TRM for a file
-<li>All files that have no MB ids in their tags will always end up in the
-    unmatched tracks folder when dropped onto [Drag your tracks here] -- use
-    the Cluster button to cluster these unmatched files into album clusters.
-<li>The application exits without asking the user to save unsaved files
-<li>The genre and comment fields are not read/written from/to music files
-<li>Add Helix Community support by using PyPlayer for music preview and
-    for mp3 decode support.
-
-<h3>Album Panel</h3>
-<li>Should be able to drag albums onto other albums to merge them
-<li>Multiple select in the album view does not work
-
-<h3>File Browser</h3>
-<li>The file browser does not get updated when files/dirs are saved
-<li>The file details should show up in Local mdata when file clicked
-<li>Files should have appropriate icons
-<li>Dragging directories out of the directory browser will most of the time not
-    fully release the dragged item from the dir browser. The drag and drop
-    operation will still work, but the dragged item is still 'stuck' to
-    the mouse cursor when the mouse cursor is moved over the dir browser.
-    Double click in the white area of the dir browser to 'unstick' this item.
-    This happens under windows only.
-<li>Dragging multiple files from the file listing will cause the all but the 
-    clicked item to deselect just before dragging starts. The application
-    is smart enough to still drag the right number of items, but it doesn't look
-    right -- this happens under Linux only.
-
-<h3>Metadata Information Panel</h3>
-<li>The artist and album combo box drop downs do not populate with correct data
-
-<h3>Toolbar, Menus and Appearance</h3>
-<li>The application needs a toolbar
-<li>The edit menu cut, copy and paste options are not functional yet.
-<li>No hourglass cursors are in use yet.
-
-<h3>Platform Specific Issues</h3>
-<li>The application has not been tuned for Mac OS X
-<li>Application currently runs as a UNICODE application, but ID3 tags are still written in ISO-8859-1
-
-<h2>Reporting Bug and Project Mailing Lists</h2>
-
-<p>
-Please report any bugs you find <a href="https://helixcommunity.org/tracker/admin/?atid=180&group_id=171">here</a>. Enhancement requests may be file <a href="https://helixcommunity.org/tracker/admin/?atid=181&group_id=171">here</a>.
-</p>
-
-<p>
-If you'd like to participate in the discussion about this project, please join the
-<a href="https://helixcommunity.org/mail/?group_id=171">Helix community's MusicBrainz-dev</a> mailing list.
+During the beta-test phase, you can find the <a href="http://wiki.musicbrainz.org/wiki.pl?PicardTagger">Picard
+Tagger information</a> and <a href="http://wiki.musicbrainz.org/wiki.pl?PicardTaggerDocumentation">Picard
+Tagger documentation</a> on our Wiki pages.
 </p>
 
 <& /comp/footer &>
