@@ -1,3 +1,14 @@
+Changed for Version 1.0.0pre23
+------------------------------
+
+- Lots bug fixes over version 22. See the bug tracking system for more 
+  details.
+- Added freedb import link to the search box when a search comes up empty.
+- Added a 30 day statistics view to the stats page. Based on Johans gnuplot
+  stuff. Those flat lines are pretty sad, when you only have data for 6
+  days. :-(
+
+
 Changes for Version 1.0.0pre22
 -----------------------------
 
