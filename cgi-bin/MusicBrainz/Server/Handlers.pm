@@ -44,7 +44,7 @@ sub TransHandler
 	if ($uri =~ s/;remote_ip=(.*?)$//)
 	{
 		my $ip = $1;
-	   	$r->connection->remote_ip($ip);
+		$r->connection->remote_ip($ip);
 		$r->uri($uri);
 
 		my $request = $r->the_request;
@@ -55,20 +55,43 @@ sub TransHandler
 		}
 	}
 
+	# These ones are the "permanent URLs" to HTML pages
+	# /(artist|album|track)/$GUID.html
+	if ($uri =~ m[^/(artist|album|track)/($GUID)\.html\z])
+	{
+		return use_new_uri($r, "/show$1.html?mbid=$2");
+	}
+
+	# Obsolete?
+	# /show(artist|album|track)/$GUID
+	if ($uri =~ m[^/show(artist|album|track)/($GUID)\z])
+	{
+		return use_new_uri($r, "/show$1.html?mbid=$2");
+	}
+
+	# /mm-2.1/(artist|album|track|trm|trmid|cdindex)/$GUID [/$depth]
+	if ($uri =~ m[^/mm-2.1/(artist|album|track|trmid|trm|cdindex)/($GUID)(?:/(\d+))?\z])
+	{
+		my $what = $1; $what = "trmid" if $what eq "trm";
+		my $guid = $2;
+		my $depth = (defined($3) ? "&depth=$3" : "");
+		return use_new_uri($r, "/cgi-bin/rdf_2_1.pl?query=$what&id=$guid$depth");
+	}
+
+	# /(artist|album|track)/$GUID [/$depth] [?query...]
+	# Includes mm-2.0 (RDF) and also can negotiate to HTML.
 	return negotiate_artist($r, $1, $2, $3)
-		if $uri =~ m[^/artist/($GUID)(?:/(.*?))?(?:\?(.*))?$]; #]
-
+		if $uri =~ m[^/artist/($GUID)(?:/(.*?))?(?:\?(.*))?\z];
 	return negotiate_album($r, $1, $2, $3)
-		if $uri =~ m[^/album/($GUID)(?:/(.*?))?(?:\?(.*))?$]; #]
-
+		if $uri =~ m[^/album/($GUID)(?:/(.*?))?(?:\?(.*))?\z];
 	return negotiate_track($r, $1, $2, $3)
-		if $uri =~ m[^/track/($GUID)(?:/(.*?))?(?:\?(.*))?$]; #]
-
+		if $uri =~ m[^/track/($GUID)(?:/(.*?))?(?:\?(.*))?\z];
+	# /(trm|trmid)/$GUID [/path...] [?query...]
 	return negotiate_trm($r, $1, $2, $3)
-		if $uri =~ m[^/(?:trm|trmid)/($GUID)(?:/(.*?))?(?:\?(.*))?$]; #]
-
+		if $uri =~ m[^/(?:trm|trmid)/($GUID)(?:/(.*?))?(?:\?(.*))?\z];
+	# /(cdindex|discid)/$GUID [/path...] [?query...]
 	return negotiate_discid($r, $1, $2, $3)
-		if $uri =~ m[^/(?:cdindex|discid)/($discid)(?:/(.*?))?(?:\?(.*))?$]; #]
+		if $uri =~ m[^/(?:cdindex|discid)/($discid)(?:/(.*?))?(?:\?(.*))?\z];
 
 	DECLINED;
 }
