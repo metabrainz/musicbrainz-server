@@ -1,63 +1,21 @@
-%# vi: set ts=4 sw=4 ft=mason :
+%# vi: set ts=2 sw=2 ft=mason :
 <%args>
-$type => &ModDefs::TYPE_NEW
-$offset => undef
-$page => undef
-$artistid => 0
-$albumid => 0
-$moderator => $session{uid}
+$type => 1
 </%args>
 <%perl>
 
-$m->comp("/comp/checkloggedin", 1, 1)
-	or return;
+# This is a temporary redirect page.  It can be removed after a few days.
 
-MusicBrainz::IsNonNegInteger($type) && $type && $type <= &ModDefs::TYPE_MAX
-	or return $m->comp("/comp/badargs", 1, 1);
-not defined $offset
-	or MusicBrainz::IsNonNegInteger($offset)
-	or return $m->comp("/comp/badargs", 1, 1);
-not defined $page
-	or MusicBrainz::IsNonNegInteger($page)
-	or return $m->comp("/comp/badargs", 1, 1);
+my $url = "/mod/search/select-filter.html";
 
-MusicBrainz::IsNonNegInteger($artistid) && $artistid
-	or return $m->comp("/comp/badargs", 1, 1)
-	if $type == &ModDefs::TYPE_ARTIST;
+$url = "/mod/search/pre/new.html" if $type == 1;
+$url = "/mod/search/pre/voted.html?moderator=$ARGS{moderator}" if $type == 2;
+$url = "/mod/search/pre/moderator.html?moderator=$ARGS{moderator}" if $type == 3;
+$url = "/mod/search/pre/artist.html?artistid=$ARGS{artistid}" if $type == 4;
+$url = "/mod/search/pre/freedb.html" if $type == 5;
+$url = "/mod/search/pre/album.html?albumid=$ARGS{albumid}" if $type == 6;
+$url = "/mod/search/pre/moderator-failed.html?moderator=$ARGS{moderator}" if $type == 7;
 
-MusicBrainz::IsNonNegInteger($albumid) && $albumid
-	or return $m->comp("/comp/badargs", 1, 1)
-	if $type == &ModDefs::TYPE_ALBUM;
-
-MusicBrainz::IsNonNegInteger($moderator) && $moderator
-	or return $m->comp("/comp/badargs", 1, 1)
-	if $type == &ModDefs::TYPE_MODERATOR;
-
-$m->comp("/comp/redirect", "/mod/preset-new.html")
-	if $type == &ModDefs::TYPE_NEW;
-$m->comp("/comp/redirect", "/mod/preset-voted.html?moderator=$moderator")
-	if $type == &ModDefs::TYPE_VOTED;
-$m->comp("/comp/redirect", "/mod/preset-moderator.html?moderator=$moderator")
-	if $type == &ModDefs::TYPE_MODERATOR;
-$m->comp("/comp/redirect", "/mod/preset-artist.html?artistid=$artistid")
-	if $type == &ModDefs::TYPE_ARTIST;
-$m->comp("/comp/redirect", "/mod/preset-freedb.html")
-	if $type == &ModDefs::TYPE_FREEDB;
-$m->comp("/comp/redirect", "/mod/preset-album.html?albumid=$albumid")
-	if $type == &ModDefs::TYPE_ALBUM;
-$m->comp("/comp/redirect", "/mod/preset-moderator-failed.html?moderator=$moderator")
-	if $type == &ModDefs::TYPE_MODERATOR_FAILED;
-
-$m->comp(
-	"/comp/moderatepage",
-	offset => $offset,
-	page => $page,
-	type => $type,
-	artistid => $artistid,
-	albumid => $albumid,
-	moderator => $moderator,
-);
+$m->comp("/comp/redirect", $url);
 
 </%perl>
-
-<& /comp/footer &>
