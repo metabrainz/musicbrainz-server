@@ -510,7 +510,7 @@ elsif ($flags & TaggerSupport::ALBUMLIST)
                  <td align="center"><a 
 					 href="http://127.0.0.1:<% $session{tport} %>/openalbum?id=<% $id->{mbid} %>&amp;t=<% time %>"
                      target="hiddeniframe" title="Open in Tagger" border="0"><img 
-					 src="/images/mblookup-tagger.png" border="0"></a></td>
+					 src="/images/mblookup-tagger.png" border="0" alt="Open in tagger"></a></td>
 %            }
              <td valign="top" align="right">
 %               $copy{albumid} = $id->{mbid};
@@ -640,7 +640,7 @@ if ($duration and $id->{tracklen})
                  <td align="center" rowspan="2" valign="top"><a 
 					 href="http://127.0.0.1:<% $session{tport} %>/openalbum?id=<% $id->{albummbid} %>&amp;t=<% time %>"
                      target="hiddeniframe" title="Open in Tagger" border="0"><img 
-					 src="/images/mblookup-tagger.png" border="0" style="margin: 2px"></a></td>
+					 src="/images/mblookup-tagger.png" border="0" style="margin: 2px" alt="Open in tagger"></a></td>
 %            }
              <td valign="top" align="right" rowspan="2">
 %               $copy{trackid} = $id->{mbid};

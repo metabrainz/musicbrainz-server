@@ -30,6 +30,7 @@ use strict;
 use Album; # for constants
 use DBDefs;
 use MusicBrainz;
+use MusicBrainz::Server::LogFile qw( lprint lprintf );
 use TaggerSupport; # for constants
 
 use Carp qw( carp );
@@ -40,7 +41,7 @@ use vars qw(@ISA @EXPORT);
 @ISA    = @ISA    = '';
 @EXPORT = @EXPORT = '';
 
-use constant DEBUG_TRM_LOOKUP => 0;
+use constant DEBUG_TRM_LOOKUP => 1;
 
 sub GetCDInfoMM2
 {
@@ -669,11 +670,11 @@ sub TrackInfoFromTRMId
       if (!defined $id || $id eq '');
    return undef if (!defined $dbh);
 
-   printf(STDERR "TRM lookup, TRM_SIGSERVER_BUSY\n"),
+   lprintf("trmlookup", "TRM lookup, TRM_SIGSERVER_BUSY"),
    return $rdf->ErrorRDF("This special TRM indicates the TRM server is too busy and cannot be looked up.")
        if ($id eq &ModDefs::TRM_SIGSERVER_BUSY);
 
-   printf(STDERR "TRM lookup, TRM_TOO_SHORT\n"),
+   lprintf("trmlookup", "TRM lookup, TRM_TOO_SHORT"),
    return $rdf->ErrorRDF("This is a special TRM Id associated to files that are too short for a full TRM.")
        if ($id eq &ModDefs::TRM_TOO_SHORT);
 
@@ -705,7 +706,7 @@ sub TrackInfoFromTRMId
 
 	my $t1 = [ gettimeofday ];
 	my $out = $rdf->CreateDenseTrackList(0, \@ids);
-	printf STDERR "TRM lookup, select=%.3f, HIT, RDF=%.3f\n",
+	lprintf "trmlookup", "TRM lookup, select=%.3f, HIT, RDF=%.3f",
 		tv_interval($t0, $t1),
 		tv_interval($t1),
 		if DEBUG_TRM_LOOKUP;
@@ -739,7 +740,7 @@ sub TrackInfoFromTRMId
                if ($id->{sim} >= .9)
                {
 		    my $out = $rdf->CreateDenseTrackList(1, [$id->{mbid}]);
-		    printf STDERR "TRM lookup, select=%.3f, MISS, TSLookup=%.3f, HIT, RDF=%.3f\n",
+		    lprintf "trmlookup", "TRM lookup, select=%.3f, MISS, TSLookup=%.3f, HIT, RDF=%.3f",
 			    tv_interval($t0, $t1),
 			    tv_interval($t1, $t2),
 			    tv_interval($t2),
@@ -749,7 +750,7 @@ sub TrackInfoFromTRMId
            }
        }
 
-	printf STDERR "TRM lookup, select=%.3f, MISS, TSLookup=%.3f, MISS\n",
+	lprintf "trmlookup", "TRM lookup, select=%.3f, MISS, TSLookup=%.3f, MISS",
 		tv_interval($t0, $t1),
 		tv_interval($t1, $t2),
 		if DEBUG_TRM_LOOKUP;
@@ -790,7 +791,7 @@ sub QuickTrackInfoFromTRMId
        }
        else
        {
-           print STDERR "TRM collision on: $id\n";
+           lprint "trmlookup", "TRM collision on: $id";
        }
        $sql->Finish;
    }

@@ -1,69 +1,10 @@
 <& /comp/sidebar, title=>'Project Status', expand=>'information' &>
 
 <p>
-This page should give you a good overview of there the various portions of
-this project stand.
+Please refer to the 
+<a href="http://wiki.musicbrainz.org/wiki.pl?CurrentWork">Current Work</a>,
+<a href="http://wiki.musicbrainz.org/wiki.pl?FutureWork">Future Work</a> and
+<a href="http://wiki.musicbrainz.org/wiki.pl?FinishedWork">Finished Work</a> pages 
+on our wiki for the current project status.
 <p>
-
-<& /comp/section, title=>'MusicBrainz Server' &>
-<p>
-<font class="bold">Complete/Working Features</font>
-<p>
-<ul>
-<li>Support for storing and moderating the basic metadata (artist, album,
-    title, track number)
-<li>Searching/browsing the database
-<li>Daily data dumps made available to the public in postgres dump format
-    and in RDF.
-<li>Support for adding CDs via the web interface with support for importing
-    existing CD metadata from FreeDB.org
-<li>RDF web services API to search/retrieve data from MusicBrainz.
-<li>Artist alias support
-<li>Adding new artists and albums via the web interface.
-<li>An improved moderation system that allows data to be added to
-    MusicBrainz immediately, and if the moderation fails the data will
-    be removed from the database.
-<li>Support for deleting whole albums and CD Index ids
-<li>Support for fast text searching that does not overload the server.
-<li>Support for moving and deleting CD Index ids
-<li>Support for deleting TRM Ids
-<li>Database statistics page
-<li>CDs looked up via the web service (RDF) interface are automatically
-    inserted into the moderation system.
-<li>Database commit/rollback support &amp; port to real DB like postgres
-<li>Support for Album attributes and non-album tracks
-</ul>
-
-<font class="bold">Needed Features before a 1.1 Release</font>
-<p>
-<ul>
-<li>Database replication 
-<li>Add support for submitting tracks/CDs via the RDF interface. These
-    submissions must then be passed through the moderation system.
-</ul>
-
-<& /comp/section, title=>'MusicBrainz Client Library' &>
-<p>
-
-<font class="bold">Complete/Working Features</font>
-<p>
-<ul>
-<li>Complete/working reference implementation.
-<li>Support for looking up Audio CDs.
-<li>Support for looking up/searching metadata.
-<li>Support for generating TRM Ids from audio data.
-<li>Basic authentication to allow submittors to get credit for their
-    non web submissions.
-<li>Working and polished MB Tagger
-</ul>
-
-<& /comp/section, title=>'MusicBrainz Metadata Initiative' &>
-<p>
-
-<font class="bold">Complete/Working Features</font>
-<p>
-<ul>
-<li>Complete and working client/server implementation
-<li>Complete MusicBrainz Metadata Initiative 2.1 specification.
-</ul>
 <& /comp/footer &>

@@ -28,12 +28,14 @@ use strict;
 package MusicBrainz::Server::AlbumCDTOC;
 
 use constant DEBUG_GENERATE_FROM_DISCID => 1;
+use constant LOOKUP_AT_FREEDB => 1;
 use constant AUTO_FREEDB_IMPORTS => 0;
 
 use TableBase;
 { our @ISA = qw( TableBase ) }
 
 use MusicBrainz::Server::CDTOC ':hashlength';
+use MusicBrainz::Server::LogFile qw( lprint lprintf );
 
 ################################################################################
 # Properties
@@ -284,8 +286,7 @@ sub GenerateAlbumFromDiscid
 	return $rdf->ErrorRDF("No Discid given.")
 		if not defined $discid;
 
-	printf STDERR "%s [%d] : GenerateAlbumFromDiscid start: discid=%s toc=[%s]\n",
-		scalar localtime, $$,
+	lprintf "generatefromdiscid", "GenerateAlbumFromDiscid start: discid=%s toc=[%s]",
 		$discid, $toc || "?",
 		if DEBUG_GENERATE_FROM_DISCID;
 
@@ -294,16 +295,14 @@ sub GenerateAlbumFromDiscid
 		my %info = MusicBrainz::Server::CDTOC->ParseTOC($toc);
 		if (not %info)
 		{
-			printf STDERR "%s [%d] : GenerateAlbumFromDiscid error: invalid TOC\n",
-				scalar localtime, $$,
+			lprintf "generatefromdiscid", "GenerateAlbumFromDiscid error: invalid TOC",
 				if DEBUG_GENERATE_FROM_DISCID;
 			return $rdf->ErrorRDF("Invalid TOC.");
 		}
 
 		if ($discid ne $info{'discid'})
 		{
-			printf STDERR "%s [%d] : GenerateAlbumFromDiscid error: TOC/discid mismatch; discid=%s/%s\n",
-				scalar localtime, $$,
+			lprintf "generatefromdiscid", "GenerateAlbumFromDiscid error: TOC/discid mismatch; discid=%s/%s",
 				$discid, $info{'discid'},
 				if DEBUG_GENERATE_FROM_DISCID;
 			return $rdf->ErrorRDF("TOC doesn't match discid / track count.");
@@ -325,8 +324,7 @@ sub GenerateAlbumFromDiscid
 			push @mbids, $al->GetMBId;
 		}
 
-		printf STDERR "%s [%d] : GenerateAlbumFromDiscid success: already got album%s %s\n",
-			scalar localtime, $$,
+		lprintf "generatefromdiscid", "GenerateAlbumFromDiscid success: already got album%s %s",
 			(@mbids == 1 ? "" : "s"),
 			join(",", @mbids),
 			if DEBUG_GENERATE_FROM_DISCID;
@@ -337,13 +335,12 @@ sub GenerateAlbumFromDiscid
 	# If we were querying on discid only (no TOC), we can't go any further
 	if (not defined $toc)
 	{
-		printf STDERR "%s [%d] : GenerateAlbumFromDiscid no-match: No album match, and no TOC submitted; can't proceed\n",
-			scalar localtime, $$,
+		lprintf "generatefromdiscid", "GenerateAlbumFromDiscid no-match: No album match, and no TOC submitted; can't proceed",
 			if DEBUG_GENERATE_FROM_DISCID;
 		return $rdf->CreateStatus(0);
 	}
 
-	if (AUTO_FREEDB_IMPORTS)
+	if (LOOKUP_AT_FREEDB)
 	{
 		# Let's pull the records from FreeDB and insert it into the db if we find it
 		require FreeDB;
@@ -352,12 +349,14 @@ sub GenerateAlbumFromDiscid
 
 		if (defined $ref)
 		{
-			my ($artistid, $albumid, $mods) = $fd->InsertForModeration($ref);
+            if (AUTO_FREEDB_IMPORTS)
+            {
+                my ($artistid, $albumid, $mods) = $fd->InsertForModeration($ref);
 
-			printf STDERR "%s [%d] : GenerateAlbumFromDiscid success: FreeDB lookup succeeded (%s insert)\n",
-				scalar localtime, $$,
-				($albumid ? "with" : "without"),
-				if DEBUG_GENERATE_FROM_DISCID;
+                lprintf "generatefromdiscid", "GenerateAlbumFromDiscid success: FreeDB lookup succeeded (%s insert)",
+                    ($albumid ? "with" : "without"),
+                    if DEBUG_GENERATE_FROM_DISCID;
+            }
 
 			# If $albumid is true (indicating a FreeDB insert just happened),
 			# maybe we could return $rdf->CreateDenseAlbum(0, [ $mbid-of-$albumid ]) ?
@@ -366,8 +365,7 @@ sub GenerateAlbumFromDiscid
 	}
 
 	# This CD can't be found
-	printf STDERR "%s [%d] : GenerateAlbumFromDiscid no-match: returning nothing\n",
-		scalar localtime, $$,
+	lprintf "generatefromdiscid", "GenerateAlbumFromDiscid no-match: returning nothing",
 		if DEBUG_GENERATE_FROM_DISCID;
 
 	return $rdf->CreateStatus(0);

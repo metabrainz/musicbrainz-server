@@ -1,4 +1,4 @@
-%# vi: set ts=4 sw=4 ft=mason :
+%# vi: set ts=4 sw=4 ft=mason tw=0 :
 <%once>
 use vars qw( @main %urlmap %urlmap2 $render_all );
 
@@ -10,6 +10,10 @@ use Scalar::Util qw( reftype weaken );
 	{ name => "About",					url => "/introduction.html" },
 	[
 		{ name => "Introduction",			url => "/introduction.html" },
+		{ name => "Privacy",				url => "/privacy" },
+		[
+			{ url => "/docs/20040922-1.html" },
+		],
 		{ name => "History",				url => "/history.html" },
 		{ name => "People",					url => "/bio.html" },
 		[
@@ -51,6 +55,8 @@ use Scalar::Util qw( reftype weaken );
 		],
 		{ name => "Server Updates",			url => "/news/server.html" },
 		[
+			{ name => "2004-11-04",				url => "/news/20041104-1.html" },
+			{ name => "2004-10-10",				url => "/news/20040915-1.html" },
 			{ name => "2004-08-09",				url => "/news/20040809-1.html" },
 			{ name => "2004-07-24",				url => "/news/20040724-1.html" },
 			{ name => "2004-05-09",				url => "/news/20040412-1.html" },
@@ -279,17 +285,10 @@ use Scalar::Util qw( reftype weaken );
 		{ name => "Development",			url => "/development/index.html" },
 		[
 			{ name => "Introduction",			url => "/development/index.html" },
-			{ name => "Project Status",			url => "/status.html" },
 			{ name => "CVS Access",		        url => "/development/cvs.html" },
 			{ name => "CVS Modules",		    url => "/development/cvs-modules.html" },
 			{ name => "CVS Viewer",		        url => "http://cvs.musicbrainz.org/" },
 			{ name => "TODO",					url => "/todo.html" },
-			[
-				{ name => "TODO",					url => "/todo.html" },
-				{ name => "Rob's TODO",				url => "/development/TODO.rob.html" },
-				{ name => "Johan's TODO",			url => "/johan_todo.html" },
-				{ name => "Dave's TODO",			url => "/development/TODO.dave.html" },
-			],
 			{ name => "Metadata 2.1",			url => "/MM/index.html" },
 			[
 				{ name => "Introduction",			url => "/MM/index.html" },
@@ -321,11 +320,10 @@ use Scalar::Util qw( reftype weaken );
 		],
 		{ name => "Contact Us",				url => "/support/contact.html" },
 		{ name => "Mailing Lists",			url => "/list.html" },
-		{ name => "Known Bugs",				url => "http://www.musicbrainz.org/bugs" },
-		{ name => "Report a Bug",			url => "http://www.musicbrainz.org/bug" },
+		{ name => "Bugs / RFEs",			url => "/support/contact.html#report-a-bug" },
 	],
 	{ name => "Wiki",					url => "http://wiki.musicbrainz.org/" },
-	{ name => "Weblog",					url => "http://blog.musicbrainz.org/" },
+	{ name => "Blog",					url => "http://blog.musicbrainz.org/" },
 );
 
 %urlmap = ();

@@ -44,9 +44,9 @@ require LocaleSaver;
 eval { require POSIX; new LocaleSaver(&POSIX::LC_CTYPE, "en_US.UTF-8"); 1 }
 	or die "setlocale() failed ($@).  Is the en_US.UTF-8 locale installed?";
 
-use Text::Unaccent;
-unac_string("UTF-8", "test");
-do { no warnings; unac_string("UTF-8", undef) eq "" }
+use Text::Unaccent ();
+Text::Unaccent::unac_string("UTF-8", "test");
+do { no warnings; Text::Unaccent::unac_string("UTF-8", undef) eq "" }
 	or die "Text::Unaccent can't handle 'undef'";
 
 1;

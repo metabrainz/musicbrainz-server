@@ -50,8 +50,8 @@ EOF
 
 	my $rows = $sql->SelectListOfHashes(<<'EOF');
 		SELECT	trm.trm, lookupcount, trm.id, freq
-		FROM	trm, trm_stat, tmp_trm_collisions t
-		WHERE	t.trm = trm.id and trm.id = trm_stat.trm_id
+		FROM	trm, tmp_trm_collisions t
+		WHERE	t.trm = trm.id
 		ORDER BY freq desc, lookupcount desc, trm.trm
 EOF
 

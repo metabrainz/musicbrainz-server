@@ -31,7 +31,7 @@ BACKUP_FILE_MODE=600
 # Other things to be backed up every night.  Omit the leading slash.
 # Set these to empty to disable these backups.
 CVS_DIR=var/cvs
-WIKI_DIR=var/mbwiki
+WIKI_DIRS="var/mbwiki var/website/wiki.musicbrainz.org usr/share/moin var/website/blog.musicbrainz.org"
 APACHE_CONFIG_DIRS="usr/local/perl58/apache/conf usr/local/perl58/apache2/conf"
 MAILMAN_DIR=usr/local/mailman
 

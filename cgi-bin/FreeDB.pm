@@ -30,6 +30,7 @@ package FreeDB;
 use Carp;
 use Socket qw( $CRLF );
 use ModDefs qw( FREEDB_MODERATOR );
+use MusicBrainz::Server::LogFile qw( lprint lprintf );
 use Encode qw( decode from_to );
 
 use constant AUTO_INSERT_MIN_TRACKS => 5;
@@ -108,7 +109,7 @@ sub _Retrieve
 	return $$r;
     }
 
-    print STDERR "Querying FreeDB: $remote:$port '$query'\n";
+    lprint "freedb", "Querying FreeDB: $remote:$port '$query'";
     my $r = $this->_Retrieve_no_cache($remote, $port, $query);
     MusicBrainz::Server::Cache->set($key, \$r);
     return $r;
@@ -133,7 +134,7 @@ sub _Retrieve_no_cache
 
     if (not $sock)
     {
-	print STDERR "FreeDB $remote:$port connect failed: $!\n";
+	lprint "freedb", "FreeDB $remote:$port connect failed: $!";
 	return undef;
     }
 
@@ -147,7 +148,7 @@ sub _Retrieve_no_cache
     @response = split ' ', $line;
     if (!MusicBrainz::IsNonNegInteger($response[0]) || $response[0] < 200 || $response[0] > 299)
     {
-        print STDERR "FreeDB $remote:$port does not want to talk to us: $line\n";
+        lprint "freedb", "FreeDB $remote:$port does not want to talk to us: $line";
         close $sock;
         return undef;
     }
@@ -160,7 +161,7 @@ sub _Retrieve_no_cache
     @response = split ' ', $line;
     if ($response[0] < 200 || $response[0] > 299)
     {
-        print STDERR "FreeDB $remote:$port does not like our hello: $line\n";
+        lprint "freedb", "FreeDB $remote:$port does not like our hello: $line";
         return undef;
     }
 
@@ -170,7 +171,7 @@ sub _Retrieve_no_cache
     # Expect 201 (OK, changed) or 502 (already using that protocol)
     unless ($line =~ /^(201|502) /)
     {
-        print STDERR "FreeDB $remote:$port failed to switch to protocol ".FREEDB_PROTOCOL.": $line\n";
+        lprint "freedb", "FreeDB $remote:$port failed to switch to protocol ".FREEDB_PROTOCOL.": $line";
         return undef;
     }
 
@@ -189,7 +190,7 @@ sub _Retrieve_no_cache
     }
     if ($response[0] < 200 || $response[0] > 299)
     {
-        print STDERR "FreeDB $remote:$port encountered an error: $line\n";
+        lprint "freedb", "FreeDB $remote:$port encountered an error: $line";
         return undef;
     }
 
@@ -233,7 +234,7 @@ sub _Retrieve_no_cache
     $query = "cddb read $category $disc_id";
    
 READQUERY:
-    print STDERR ">> $query\n";
+    lprint "freedb", ">> $query";
     print $sock $query, $CRLF;
 
     my $artist = "";

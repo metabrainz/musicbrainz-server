@@ -86,8 +86,8 @@ for my $id (@$albums)
 	no warnings 'exiting';
 	eval {
 
-		require Musicbrainz::Server::AlbumCDTOC;
-		my $tocs = Musicbrainz::Server::AlbumCDTOC->newFromAlbum($mb->{DBH}, $id);
+		require MusicBrainz::Server::AlbumCDTOC;
+		my $tocs = MusicBrainz::Server::AlbumCDTOC->newFromAlbum($mb->{DBH}, $id);
 		$_ = $_->GetCDTOC for @$tocs;
 
 		if ($debug)
@@ -128,7 +128,7 @@ for my $id (@$albums)
 		# tracks, and all the tracks have no length.
 		if (@$tocs == 1)
 		{
-			my $ideal_tracks = $tocs->GetTrackCount;
+			my $ideal_tracks = $tocs->[0]->GetTrackCount;
 			my $want_tracks = join ",", 1 .. $ideal_tracks;
 			my $have_tracks = join ",", sort { $a<=>$b } map { $_->{sequence} } @$tracks;
 
@@ -164,7 +164,7 @@ for my $id (@$albums)
 					{
 						# TODO? next if $t->{length} > 0;
 						my $id = $t->{id};
-						my $l = $want[$t->{sequence}-1];
+						my $l = int($want[$t->{sequence}-1]);
 						print "UPDATE track SET length = $l WHERE id = $id\n"
 							if $verbose;
 						$sql->Do("UPDATE track SET length = ? WHERE id = ?", $l, $id)

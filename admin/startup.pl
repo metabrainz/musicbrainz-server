@@ -11,72 +11,75 @@ use lib "/home/httpd/musicbrainz/mb_server/cgi-bin";
 $ENV{GATEWAY_INTERFACE} =~ /^CGI-Perl/
 	or die "GATEWAY_INTERFACE not Perl!";
 
-use Apache::Registry;
-use Apache::Session;
-use DBI;
-use DBD::Pg;
+# cgi-bin/*.pl is run via Apache::Registry
+require Apache::Registry;
+
+require Apache::Session;
+require DBI;
+require DBD::Pg;
 
 # Some of the MB modules defer loading ("require" instead of "use") for some
 # modules.  If we know we're likely to want some module eventually, load it
 # now.
-use IO::Socket::INET; # FreeDB
-use UUID; # TableBase
-use Net::SMTP; # MusicBrainz::Server::Mail
+require IO::Socket::INET; # FreeDB
+require UUID; # TableBase
+require Net::SMTP; # MusicBrainz::Server::Mail
 
 # Alphabetical order, for ease of maintenance
 # (apart from DBDefs and ModDefs, which we'll load first, just to make sure)
-use DBDefs;
-use ModDefs;
+require DBDefs;
+require ModDefs;
 
-use Album;
-use Alias;
-use Artist;
-use DebugLog;
-use FreeDB;
-use Insert;
-use LocaleSaver;
-# use MM;
-# use MM_2_0;
-# use MM_2_1;
-use Moderation;
-use MusicBrainz;
-use MusicBrainz::Server::Annotation;
-use MusicBrainz::Server::AutomodElection;
-use MusicBrainz::Server::AlbumCDTOC;
-use MusicBrainz::Server::Cache;
-use MusicBrainz::Server::CDTOC;
-use MusicBrainz::Server::Country;
-use MusicBrainz::Server::DeferredUpdate;
-use MusicBrainz::Server::Handlers;
-use MusicBrainz::Server::Mail;
-use MusicBrainz::Server::Markup;
-use MusicBrainz::Server::ModerationNote;
-use MusicBrainz::Server::PagedReport;
-use MusicBrainz::Server::Release;
-use MusicBrainz::Server::TRMGateway;
-use MusicBrainz::Server::TRMGatewayHandler;
-use MusicBrainz::Server::Vote;
+require Album;
+require Alias;
+require Artist;
+require DebugLog;
+require FreeDB;
+require Insert;
+require LocaleSaver;
+# require MM;
+# require MM_2_0;
+# require MM_2_1;
+require Moderation;
+require MusicBrainz;
+require MusicBrainz::Server::Annotation;
+require MusicBrainz::Server::AutomodElection;
+require MusicBrainz::Server::AlbumCDTOC;
+require MusicBrainz::Server::Cache;
+require MusicBrainz::Server::CDTOC;
+require MusicBrainz::Server::Country;
+require MusicBrainz::Server::DeferredUpdate;
+require MusicBrainz::Server::Handlers;
+require MusicBrainz::Server::LogFile;
+require MusicBrainz::Server::Mail;
+require MusicBrainz::Server::Markup;
+require MusicBrainz::Server::ModerationNote;
+require MusicBrainz::Server::PagedReport;
+require MusicBrainz::Server::Release;
+require MusicBrainz::Server::TRMGateway;
+require MusicBrainz::Server::TRMGatewayHandler;
+require MusicBrainz::Server::Vote;
 # Don't load MusicBrainz::Server::Moderation::* - Moderation.pm does that
-use Parser;
-use QuerySupport;
-# use RDF2;
-use SearchEngine;
-use Sql;
-use Statistic;
-use Style;
-use TableBase;
-use TaggerSupport;
-use Track;
-use TRM;
-use UserPreference;
-use UserStuff;
-use UserSubscription;
+require Parser;
+require QuerySupport;
+# require RDF2;
+require SearchEngine;
+require Sql;
+require Statistic;
+require Style;
+require TableBase;
+require TaggerSupport;
+require Track;
+require TRM;
+require UserPreference;
+require UserStuff;
+require UserSubscription;
 
 require &DBDefs::MB_SERVER_ROOT . "/admin/depend.pl";
 
 # Loading the Mason handler preloads the pages, so the other MusicBrainz
 # modules must be ready by this point.
-use MusicBrainz::Server::Mason;
+require MusicBrainz::Server::Mason;
 
 1;
 # eof startup.pl

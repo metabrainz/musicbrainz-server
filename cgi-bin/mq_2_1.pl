@@ -8,6 +8,7 @@ use Parser;
 use DBDefs;
 use MM_2_1;
 use Apache;
+use MusicBrainz::Server::LogFile qw( lprint lprintf );
 
 my ($i, $line, $r, $rdf, $out);
 my ($queryname, $querydata, $data, $rdfinput);
@@ -155,7 +156,7 @@ sub Authenticate
                return "Session key expired. Please Authenticate again."; 
            }
 
-           print STDERR "Authenticated session $session_id\n";
+           lprint "mq", "Authenticated session $session_id";
 	   $session->{expire} = time() + &DBDefs::RDF_SESSION_SECONDS_TO_LIVE;
 
 	   use URI::Escape qw( uri_escape );

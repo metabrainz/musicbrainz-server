@@ -29,10 +29,10 @@ then
 fi
 
 # Backup the Wiki
-if [ "$WIKI_DIR" != "" ]
+if [ "$WIKI_DIRS" != "" ]
 then
 	echo `date`" : Backing up the Wiki"
-	tar -C / -cjf "$TEMP_DIR"/wiki-$DATETIME.tar.bz2 "$WIKI_DIR"
+	tar -C / -cjf "$TEMP_DIR"/wiki-$DATETIME.tar.bz2 $WIKI_DIRS
 	chown "$BACKUP_USER:$BACKUP_GROUP" "$TEMP_DIR"/wiki-$DATETIME.tar.bz2
 	chmod "$BACKUP_FILE_MODE" "$TEMP_DIR"/wiki-$DATETIME.tar.bz2
 	mv "$TEMP_DIR"/wiki-$DATETIME.tar.bz2 "$BACKUP_DIR"/

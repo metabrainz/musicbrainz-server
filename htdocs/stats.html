@@ -35,10 +35,11 @@ my $pc = sub
 
 </%perl>
 
-% my $gattrs = q[ width="100%" ];
+% my $gattrs = { width => "100%" };
 
 <div style="width: 30em">
 
+% $gattrs->{"id"} = "BasicMetadataStats";
 <& /comp/tablebegin, title=>'Basic Metadata Statistics', gattrs=>$gattrs &>
 <table class="StatsTable" style="width: 100%">
 	<tr>
@@ -68,6 +69,7 @@ my $pc = sub
 </table>
 <& /comp/tableend &>
 
+% $gattrs->{"id"} = "AlbumStats";
 <& /comp/tablebegin, title=>'Albums', gattrs=>$gattrs &>
 <table class="StatsTable" style="width: 100%">
 	<col>
@@ -91,6 +93,7 @@ my $pc = sub
 </table>
 <& /comp/tableend &>
 
+% $gattrs->{"id"} = "DiscIdStats";
 <& /comp/tablebegin, title=>'Disc Identifiers', gattrs=>$gattrs &>
 <table class="StatsTable" style="width: 100%">
 	<col>
@@ -126,6 +129,7 @@ my $pc = sub
 </table>
 <& /comp/tableend &>
 
+% $gattrs->{"id"} = "TRMStats";
 <& /comp/tablebegin, title=>'Track Identifiers', gattrs=>$gattrs &>
 <table class="StatsTable" style="width: 100%">
 	<col>
@@ -156,6 +160,7 @@ my $pc = sub
 </table>
 <& /comp/tableend &>
 
+% $gattrs->{"id"} = "TRMCollisionStats";
 <& /comp/tablebegin, title=>'TRM Collisions', gattrs=>$gattrs &>
 <table class="StatsTable" style="width: 100%">
 	<col>
@@ -186,6 +191,7 @@ my $pc = sub
 </table>
 <& /comp/tableend &>
 
+% $gattrs->{"id"} = "ModeratorStats";
 <& /comp/tablebegin, title=>'Moderators', gattrs=>$gattrs &>
 <table class="StatsTable" style="width: 100%">
 	<col>
@@ -214,6 +220,7 @@ my $pc = sub
 </table>
 <& /comp/tableend &>
 
+% $gattrs->{"id"} = "ModerationStats";
 <& /comp/tablebegin, title=>'Moderations', gattrs=>$gattrs &>
 <table class="StatsTable" style="width: 100%">
 	<col>
@@ -267,6 +274,7 @@ my $pc = sub
 </table>
 <& /comp/tableend &>
 
+% $gattrs->{"id"} = "VoteStats";
 <& /comp/tablebegin, title=>'Votes', gattrs=>$gattrs &>
 <table class="StatsTable" style="width: 100%">
 	<col>
@@ -301,6 +309,7 @@ my $pc = sub
 	to match&nbsp;up).
 </p>
 
+% $gattrs->{"id"} = "OpenModerationStats";
 <& /comp/tablebegin, title=>'Open Moderations', gattrs=>$gattrs &>
 <table class="StatsTable" style="width: 100%">
 	<col>
@@ -353,7 +362,7 @@ my $pc = sub
 </div>
 
 <p>
-	Here's some graphs over a few of the above statistics over time.&nbsp;
+	Here are some graphs over a few of the above statistics over time.&nbsp;
 	Each one is presented as a simple count, followed by a "delta" plot
 	showing how the weekly change rate.
 </p>
@@ -374,10 +383,10 @@ for my $n (qw(
 		<div style="border: 0; width: 80%; border-top: 3px double #999;
 			margin: 1em"></div>
 		<div>
-			<img src="generated/plot_$n.png" alt="$n">
+			<img id="plot.$n" src="generated/plot_$n.png" alt="$n">
 		</div>
 		<div>
-			<img src="generated/plot_${n}_delta.png" alt="$n">
+			<img id="plot.$n.delta" src="generated/plot_${n}_delta.png" alt="$n">
 		</div>
 	});
 }
@@ -389,7 +398,7 @@ for my $n (qw(
 		<div style="border: 0; width: 80%; border-top: 3px double #999;
 			margin: 1em"></div>
 		<div>
-			<img src="generated/plot_$n.png" alt="$n">
+			<img id="plot.$n" src="generated/plot_$n.png" alt="$n">
 		</div>
 	});
 }

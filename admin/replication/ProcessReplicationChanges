@@ -100,6 +100,10 @@ $sql->Do("SET CONSTRAINTS ALL DEFERRED");
 #SeqId of the last row edit in the transaction.
 my $query = 'SELECT pd."XID",MAX("SeqId") FROM "Pending" pd GROUP BY pd."XID" ORDER BY MAX(pd."SeqId")';
 
+my $total_statements = $sql->SelectSingleValue(
+	'SELECT COUNT(*) FROM "Pending"',
+);
+
 # This loop loops through each pending transaction in the proper order.
 # The Pending row edits for that transaction will be queried from the
 # master and sent + committed to the slaves.
@@ -111,16 +115,20 @@ if (my $totalrows = $sql->Select($query))
 	my $t1 = [gettimeofday];
 	my $interval;
 	my $rows = 0;
+	my $strows = 0;
 
-	printf "%9s %4s %9s\n", "XIDs", "est%", "XIDs/sec";
+	printf "%9s %9s %4s %9s %9s\n", "XIDs", "Stmts", "est%", "XIDs/sec", "Stmt/sec";
 
 	my $lasttime;
 	my $p = sub {
 		my ($pre, $post) = @_;
 		no integer;
-		printf $pre."%9d %3d%% %9d".$post,
-			$rows, int(100 * $rows / $totalrows),
-			$rows / ($interval||1);
+		printf $pre."%9d %9d %3d%% %9d %9d".$post,
+			$rows, $strows,
+			int(100 * $strows / $total_statements),
+			$rows / ($interval||1),
+			$strows / ($interval||1),
+			;
 		$lasttime = time;
 	};
 
@@ -162,6 +170,7 @@ if (my $totalrows = $sql->Select($query))
 				{
 					die "Mirror command failed.\n";
 				}
+				++$strows;
 			}
 			$slave->Do(qq[DELETE FROM "Pending" WHERE "XID" = ?], $XID);
 			print localtime() . " : COMMIT XID #$XID\n" if $debug_xact;

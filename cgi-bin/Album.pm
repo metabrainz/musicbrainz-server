@@ -349,6 +349,7 @@ sub Remove
     return if (!defined $album);
   
     $sql = Sql->new($this->{DBH});
+    require MusicBrainz::Server::AlbumCDTOC;
 	MusicBrainz::Server::AlbumCDTOC->RemoveAlbum($this->{DBH}, $album);
 
     print STDERR "DELETE: Removed release where album was " . $album . "\n";

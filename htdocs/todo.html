@@ -2,56 +2,11 @@
 <& /comp/sidebar, title=>'To Do List', expand=>'information' &>
 
 <p>
-	If you are interested in helping out with MusicBrainz, this list should
-	serve as a good starting point to get you started.&nbsp; If you would like to 
-	help out with a particular task, please subscribe to the
-	<a href="/list.html">MusicBrainz mailing lists</a>
-	and then post any questions that you might have.
+	If you are interested in helping out with MusicBrainz, take a look at the
+	<a href="/about/helpwanted.html">help wanted</a> page for a list of
+	skills we're looking for in contributors.
+  The actual MusicBrainz todo list has been moved to the wiki so we can keep it up to date better:
+	<a href="http://wiki.musicbrainz.org/wiki.pl?DevelopmentToDoList">Development Todo list</a>.
 </p>
-
-<p>
-	Please also refer to
-	<a href="/development/TODO.rob.html">Rob's</a>,
-	<a href="/johan_todo.html">Johan's</a>
-	and
-	<a href="/development/TODO.dave.html">Dave's</a>
-	TODO lists
-	to see what they are currently working on.
-</p>
-
-<& /comp/todoentry, 
-   task=>'Integrate MusicBrainz/TRM support into CDEx and similar tools', 
-   skills=>'General programming', 
-   desc=>qq\Take the MusicBrainz client library and integrate it into
-            CDEx and other CD Ripping/MP3 encoding tools.\
-&>
-
-<& /comp/todoentry, 
-   task=>'Testing MusicBrainz', 
-   skills=>'General web skills', 
-   desc=>qq\Excerise the MusicBrainz site to find the bugs that are lurking 
-            somewhere in the code. All features need to get tested: Searching,
-            browsing, editing, voting. Any time an error occurs and 
-            MusicBrainz does not work properly, please 
-            <a href="http://www.musicbrainz.org/bugs">report a bug</a>.\
-&>
-
-<& /comp/todoentry, 
-   task=>'Test & Port the MusicBrainz Client Library', 
-   skills=>'UNIX & C/C++', 
-   desc=>qq\Download the mb_client project from CVS and compile it on any
-            of the supported platorms. The client library has not been
-            tested under Solaris, *BSD, IRIX, OS/2, Cygwin (win32). If
-            you have access to one of these platforms, please download
-            the client and see compiles and runs. If not, I would appreciate
-            any patches that fix problems in the client library.\
-&>
-
-<& /comp/todoentry, 
-   task=>'Add MusicBrainz to existing players', 
-   skills=>'General programming', 
-   desc=>qq\Take the MusicBrainz client library and integrate it into
-            your favorite digital audio player.\
-&>
 
 <& /comp/footer &>

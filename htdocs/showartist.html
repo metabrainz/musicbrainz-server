@@ -197,11 +197,11 @@ $m->comp(
 				$album->{_disc_no_} = 0;
 
 				# Attempt to sort "disc x [of y]" correctly
-				if ($album->{_name_sort_} =~ /\bdisc (\d+)(?: of (\d+))?\b(?:\W*$)/i)
+				if ($album->{_name_sort_} =~ /^(.*)\bdisc (\d+)(?: of (\d+))?\b(?::[^()]*\))?(.*)$/i)
 				{
-					$album->{_name_sort_} = "$` $'";
-					$album->{_disc_no_} = $1;
-					$album->{_disc_max_} = $2 || 0;
+					$album->{_name_sort_} = "$1 $4";
+					$album->{_disc_no_} = $2;
+					$album->{_disc_max_} = $3 || 0;
 				}
 
 				# Sort albums with no release last
