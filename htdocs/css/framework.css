@@ -1,0 +1,23 @@
+/* Styles for the MB page layout framework */
+
+.LogoBarCell
+{
+	background: #736DAB url(/images/header_BG.gif) bottom left repeat-x;
+}
+
+.NavBarCell
+{
+	background: #FFBA58 url(/images/topmenu_BG.gif) bottom left repeat-x;
+}
+
+.SideBarCell
+{
+	background: #DDDDDD url(/images/sidemenu_BG.gif) top left repeat-y;
+}
+
+.footer
+{
+	background: #FFBA58 url(/images/topmenu_BG.gif) top left repeat-x;
+}
+
+/* eof */
