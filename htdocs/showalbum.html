@@ -87,6 +87,12 @@ else
         </%perl>
         <a href="/freedb/freedb.html?search=<% $artist->GetName() |u %>">Import album</a> ]<p>
 
+%       if (exists $session{user}) {
+        <FORM METHOD="POST" ACTION="/mod/tag/donetag.html" id="EditAlbumAttrsForm"
+	    ENCTYPE="application/x-www-form-urlencoded"
+	    >
+%	}
+
         <& /comp/framedboxbegin, width=>"100%" &>
         <table width="100%"><tr>
         <td>
@@ -94,22 +100,18 @@ else
         </td>
 %       if (exists $session{user}) {
             <td align="center">
-            <script type="text/javascript">
-            <!--
-            function submitit ( )
-            {
-                document.forms.EditAlbumAttrsForm.submit() ;
-            }
-            -->
-            </script>
-            <FORM METHOD="POST" ACTION="/mod/tag/donetag.html" id="EditAlbumAttrsForm"
-            ENCTYPE="application/x-www-form-urlencoded"> 
 
             <input name="submit" type="image" border="0" alt="Batch Operation" 
                    title="Moderate a batch of selected albums"
                    src="/images/batch.gif" height="13" width="13">
-            <a href="javascript:submitit()">Batch Operation</a>
-	    </form>
+
+	    <script type="text/javascript">
+	    document.writeln('<\a href="#" onclick="document.forms.EditAlbumAttrsForm.submit(); return false">Batch Operation<\/a>');
+	    </script>
+	    <noscript>
+	    <input type="submit" value="Batch Operation">
+	    </noscript>
+
             </td>
 %       }
         </tr></table>
@@ -119,6 +121,10 @@ else
         <%perl>
         mc_comp("/comp/album", album=>$album, artist=>$artist, showalbumdetail=>1, 
                                mbtagger=>$mbt, showids=>1, showtag=>1);
+
+	if (exists $session{user}) {
+	mc_out("</form>");
+	}
     }
 }
 $mb->Logout();

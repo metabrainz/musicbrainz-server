@@ -193,19 +193,20 @@ else
             </td>
 
 %           if (exists $session{user}) {
-                <td align="center"><input name="submit" type="image" border="0" alt="Batch Operation" 
-                       title="Moderate a batch of selected albums"
-                       src="/images/batch.gif" height="13" width="13">
-                   <a href="javascript:submitit()">Batch Operation</a>
-                <script type="text/javascript">
-                <!--
-                function submitit ( )
-                {
-                    document.forms.EditAlbumAttrsForm.submit() ;
-                }
-                -->
-                </script>
-                </td>
+    	    <td align="center">
+
+            <input name="submit" type="image" border="0" alt="Batch Operation" 
+                   title="Moderate a batch of selected albums"
+                   src="/images/batch.gif" height="13" width="13">
+
+	    <script type="text/javascript">
+	    document.writeln('<\a href="#" onclick="document.forms.EditAlbumAttrsForm.submit(); return false">Batch Operation<\/a>');
+	    </script>
+	    <noscript>
+	    <input type="submit" value="Batch Operation">
+	    </noscript>
+
+	    </td>
 %           }
 
             </tr></table>
