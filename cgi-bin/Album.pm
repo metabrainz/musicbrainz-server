@@ -39,7 +39,7 @@ use Track;
 use Discid;
 use TRM;
 use SearchEngine;
-use ModDefs;
+use ModDefs qw( VARTIST_ID );
 use Text::Unaccent;
 use LocaleSaver;
 use POSIX qw(:locale_h);
@@ -752,8 +752,11 @@ sub MergeAlbums
    # If we're merging into a MAC, then set this album to a MAC album
    if ($intoMAC)
    {
-      $sql->Do("update Album set artist = ? WHERE id = ?",
-	&ModDefs::VARTIST_ID, $this->GetId);
+		$sql->Do(
+			"UPDATE album SET artist = ? WHERE id = ?",
+			VARTIST_ID,
+			$this->GetId,
+		);
    }
 
    $al = Album->new($this->{DBH});
@@ -788,24 +791,36 @@ sub MergeAlbums
            else
            {
                 # We don't already have that track
-                $sql->Do("update AlbumJoin set Album = " . 
-                         $this->GetId() . " where track = " . $tr->GetId());
+                $sql->Do(
+					"UPDATE albumjoin SET album = ? WHERE track = ?",
+					$this->GetId,
+					$tr->GetId,
+				);
                 $merged{$tr->GetSequence()} = $tr;
            }
 
            if (!$intoMAC)
            {
                 # Move that the track to the target album's artist
-                $sql->Do("update Track set artist = " . $this->GetArtist() .
-                         " where id = " . $tr->GetId());
+                $sql->Do(
+					"UPDATE track SET artist = ? WHERE id = ?",
+					$this->GetArtist,
+					$tr->GetId,
+				);
            }                
        }
 
        # Also merge the Discids
-       $sql->Do("update Discid set Album = " . $this->GetId() . 
-                " where Album = $id");
-       $sql->Do("update TOC set Album = " . $this->GetId() . 
-                " where Album = $id");
+		$sql->Do(
+			"UPDATE discid SET album = ? WHERE album = ?",
+			$this->GetId,
+			$id,
+		);
+		$sql->Do(
+			"UPDATE toc SET album = ? WHERE album = ?",
+			$this->GetId,
+			$id,
+		);
 
 		# And the releases
 		# TODO move to Release.pm
@@ -844,8 +859,8 @@ sub GetVariousDisplayList
                    where page >= $page and page <= $page_max|;
 
 	$artists ||= "";
-	$query .= " and album.artist = " . &ModDefs::VARTIST_ID if $artists eq "";
-	$query .= " and album.artist != " . &ModDefs::VARTIST_ID if $artists eq "single";
+	$query .= " and album.artist = " . VARTIST_ID if $artists eq "";
+	$query .= " and album.artist != " . VARTIST_ID if $artists eq "single";
 	# the other recognised value is "all".
 
 	$query .= " AND attributes[2] = $reltype" if $reltype;
@@ -882,7 +897,7 @@ sub UpdateAttributes
 {
 	my ($this) = @_;
 
-	my $attr = join ',', @{ $this->{attrs}};
+	my $attr = join ',', @{ $this->{attrs} };
 	my $sql = Sql->new($this->{DBH});
 	$sql->Do(
 		"UPDATE album SET attributes = ? WHERE id = ?",
