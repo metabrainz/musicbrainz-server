@@ -622,6 +622,7 @@ sub SelectListOfHashes
 
 package Sql::Timer;
 
+use Carp qw(cluck croak carp);
 use Time::HiRes qw( gettimeofday tv_interval );
 
 sub new
@@ -653,11 +654,17 @@ sub DESTROY
 	#return if $t < 0.1;
 
 	local $" = ", ";
-	printf STDERR "SQL: %6.2fs \"%s\" (%s)\n",
+	my $msg = sprintf "SQL: %8.4fs \"%s\" (%s)",
 		$t,
 		$self->{SQL},
 		join(", ", @{ $self->{ARGS} }),
 		;
+
+	# Uncomment your preferred logging method
+	# warn "$msg\n";
+	local $Carp::CarpInternal{'Sql'} = 1;
+	local $Carp::CarpInternal{'Sql::Timer'} = 1;
+	carp $msg;
 }
 
 1;
