@@ -1,14 +1,36 @@
+%# vi: set ts=2 sw=2 ft=mason :
 <& /comp/header_small, title=>'freedb import' &>
 
 <form method="POST" action="/freedb/import.html" target="_parent"
       enctype="application/x-www-form-urlencoded">
-category / freedb id: <input type="text" name="catid" size="20">
-<input type="checkbox" name="mac">CD has multiple artists
-<input type="submit" value="Import">
+
+		<label for="catid">
+			Category / FreeDB id:
+		</label>
+		<input type="text" name="catid" id="catid" size="20">
+
+		&nbsp; &nbsp;
+
+		<input type="checkbox" name="mac" id="mac">
+		<label for="mac">
+			CD has multiple artists
+		</label>
+
+		&nbsp; &nbsp;
+
+		<input type="submit" value="Import">
+
 </form>
 
-Use the frame below to search for the CD you want to import.<br>
-Then cut and paste the category and id (e.g. <b>rock / 940d8b0c</b>) into the 
-text field above.
+<p>
+	Use the frame below to search for the CD you want to import.&nbsp;
+	Then cut and paste the category and id (e.g. <b>rock / 940d8b0c</b>)
+	into the text field above.
+</p>
+
+<p>
+	<a href="/index.html" target="_parent"
+		>Return to MusicBrainz without importing</a>
+</p>
 
 <& /comp/footer_small &>
