@@ -76,8 +76,7 @@ if (scalar(@ids) > 0)
        {
            mc_out("<td nowrap align=\"center\" bgcolor=\"#ffecd6\">");
            mc_out("<a href=\"/movediscid.html?discid=$id->{discid}&amp;albumid=");
-           mc_out($album->GetId() . "&amp;artistid=");
-           mc_out($artist->GetId() . "\">Move</a> | ");
+           mc_out($album->GetId() . "\">Move</a> | ");
            mc_out("<a href=\"/remdiscid.html?discid=$id->{discid}&amp;albumid=");
            mc_out($album->GetId() . "\">Del</a>");
            mc_out("</td>");
