@@ -3,8 +3,9 @@
 package XMLDBI;
 use DBI qw/:sql_types/;
 use XML::Parser;
+use Unicode::String;
 
-use vars qw(@ISA @EXPORT $table $dbh $sth);
+use vars qw(@ISA @EXPORT $table $dbh $sth $u);
 
 @ISA= ("XML::Parser");
 
@@ -108,7 +109,8 @@ sub Char {
 	my $column = pop @context;
 	my $curtable = pop @context;
 	if (defined $curtable && $curtable eq "ROW") {
-		$expat->{ __PACKAGE__ . "currentData"} .= $string;
+      $u= Unicode::String::utf8($string);
+		$expat->{ __PACKAGE__ . "currentData"} .= $u->latin1;
 	}
 }
 
