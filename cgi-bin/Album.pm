@@ -635,10 +635,9 @@ sub Releases
 sub LoadFull
 {
    my ($this, $artist) = @_;
-   my (@info, $query, $sql, @row, $album, $di, $ret);
+   my (@info, $query, $sql, @row, $album, $ret);
 
    $sql = Sql->new($this->{DBH});
-   $di = Discid->new($this->{DBH});
    $query = qq|select id, name, artist, gid 
                  from Album 
                 where artist = ?
