@@ -19,6 +19,8 @@ if ($ARGS{"SavePrefs"})
 		sidebar_panel_stats
 		sidebar_panel_topmods
 		nosidebar
+		vote_abs_default
+		vote_show_novote
 	)) {
 		$ARGS{$_} = 0 if not defined $ARGS{$_};
 	}
@@ -93,6 +95,20 @@ $time = time();
 			value="<% UserPreference::get('mods_per_page') %>"
 			>
 		mods per page (max: 25)
+	</p>
+
+	<p>
+		<input type="checkbox" name="vote_abs_default"
+			<% UserPreference::get('vote_abs_default') ? "checked" : "" %>
+			>
+		Abstain by default
+	</p>
+
+	<p>
+		<input type="checkbox" name="vote_show_novote"
+			<% UserPreference::get('vote_show_novote') ? "checked" : "" %>
+			>
+		Show the "No Vote" option
 	</p>
 
 	<h2>Artist Page (List of Releases)</h2>

@@ -105,6 +105,8 @@ addpref('sidebar_panel_stats', 1, \&check_bool);
 addpref('sidebar_panel_topmods', 1, \&check_bool);
 addpref('sitemenu_heavy', 0, \&check_bool);
 addpref('timezone', 'UTC', \&check_timezone);
+addpref('vote_abs_default', 1, \&check_bool);
+addpref('vote_show_novote', 0, \&check_bool);
 
 sub addpref
 {
