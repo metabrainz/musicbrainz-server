@@ -19,14 +19,14 @@ $m->comp("/comp/checkloggedin", 0, 1)
 
 	<form method="post" action="/bare/enter_kv_mod.html" name="AddArtist"
 		enctype="application/x-www-form-urlencoded">
-		
+
     <table>
       <tr>
         <td align="right">
 					Artist Name:<br>
         </td>
         <td>
-					<INPUT TYPE="text" NAME="value0" SIZE=25>
+					<input type="text" name="value0" SIZE="40">
 					<br>(Please read the style notes!)
         </td>
       </tr>
@@ -35,12 +35,12 @@ $m->comp("/comp/checkloggedin", 0, 1)
 					Sort name:
         </td>
         <td>
-					<input type="text" name="value1" size=25 value="">
+					<input type="text" name="value1" size="40" value="">
         </td>
       </tr>
       <tr>
         <td colspan=2>
-	 				<input type="submit" value="Next &gt;&gt;">    
+	 				<input type="submit" value="Next &gt;&gt;">
         </td>
       </tr>
     </table>
@@ -55,7 +55,7 @@ $m->comp("/comp/checkloggedin", 0, 1)
     <input type="hidden" name="id" value="<% ModDefs::DARTIST_ID %>">
     <input type="hidden" name="url" value="/search.html">
 	</form>
-      
+
 <& /comp/tableend &>
 
 <& /comp/movefocus, "AddArtist", "value0" &>
