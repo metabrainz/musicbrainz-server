@@ -195,7 +195,7 @@ sub GetAlbums
 
    # First, pull in the single artist albums
    $sql = Sql->new($this->{DBH});
-   if ($sql->Select(qq/select id, name, modpending from 
+   if ($sql->Select(qq/select id, name, modpending, GID from 
                        Album where artist=$this->{id}/))
    {
         while(@row = $sql->NextRow)
@@ -205,6 +205,7 @@ sub GetAlbums
             $album->SetName($row[1]);
             $album->SetModPending($row[2]);
             $album->SetArtist($this->{id});
+            $album->SetMBId($row[3]);
             push @albums, $album;
             undef $album;
         }

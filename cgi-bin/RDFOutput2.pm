@@ -180,14 +180,14 @@ sub FindReferences
    my ($this, $curdepth, @ids) = @_;
    my ($id, $obj, @newrefs, $ref, $cacheref);
 
-   print STDERR "Find: dep: $curdepth > ", $this->{depth} + 1, "\n";
+   #print STDERR "Find: dep: $curdepth > ", $this->{depth} + 1, "\n";
    return if ($curdepth > $this->{depth} + 1);
      
-   print STDERR "Find: adding\n";
+   #print STDERR "Find: adding\n";
    foreach $ref (@ids)
    {
       $obj = $this->LoadObject($ref->{id}, $ref->{type});
-      print STDERR "Add to cache: $ref->{type}, $ref->{id} dep: $curdepth\n";
+      #print STDERR "Add to cache: $ref->{type}, $ref->{id} dep: $curdepth\n";
       $cacheref = AddToCache($this, $curdepth, $ref->{type}, $ref->{id}, $obj);
       push @newrefs, $this->GetReferences($cacheref);
    }
@@ -205,7 +205,7 @@ sub CreateOutputRDF
    return $this->ErrorRDF("Invalid search depth specified.") if ($depth < 0);
 
    $this->{cache} = \@cache;
-   print STDERR "Depth: $depth\n";
+   #print STDERR "Depth: $depth\n";
 
    # Create a cache of objects and add the passed object ids without
    # loading the actual objects
@@ -246,7 +246,7 @@ sub CreateOutputRDF
    $total = scalar(@cache);
    for($i = 0; $i < $total; $i++)
    {
-      print STDERR "Cache: $cache[$i]->{type} $cache[$i]->{id} dep: $cache[$i]->{depth}\n";
+      #print STDERR "Cache: $cache[$i]->{type} $cache[$i]->{id} dep: $cache[$i]->{depth}\n";
       next if $cache[$i]->{depth} > $depth;
 
       $out .= $this->OutputRDF(\@cache, $cache[$i]);
@@ -317,6 +317,8 @@ sub GetReferences
    return () if not defined $ref;
 
    # Artists and TRMIDs do not have any references, so they are not listed here
+   return $this->GetArtistReferences($ref, $ref->{obj}) 
+       if ($ref->{type} eq 'artist');
    return $this->GetAlbumReferences($ref, $ref->{obj}) 
        if ($ref->{type} eq 'album');
    return $this->GetTrackReferences($ref, $ref->{obj}) 
@@ -326,7 +328,29 @@ sub GetReferences
    return ();
 }
 
-# An for an album, add the artist ref and a ref for each track
+# For an Artist, add a ref for each album
+sub GetArtistReferences
+{
+   my ($this, $ref, $artist) = @_;
+   my (@albums, @albumids, $album, %info, @ret);
+
+   @albums = $artist->GetAlbums();
+   foreach $album (@albums)
+   {
+      $info{type} = 'album';
+      $info{id} = $album->GetId();
+      $info{obj} = undef;
+      push @ret, {%info};
+      push @albumids, $album->GetMBId();
+      #print STDERR "artist " .$artist->GetId() . " needs album: $info{id}\n";
+      #print STDERR $albumids[0], "\n";
+   }
+   $ref->{_artist} = \@albumids;
+
+   return @ret;
+}
+
+# And for an album, add the artist ref and a ref for each track
 sub GetAlbumReferences
 {
    my ($this, $ref, $album) = @_;
@@ -412,7 +436,7 @@ sub OutputRDF
 sub OutputArtistRDF
 {
     my ($this, $cache, $ref) = @_;
-    my ($out, $artist);
+    my ($out, $artist, $ids, $album);
 
     $artist = $ref->{obj};
 
@@ -420,6 +444,15 @@ sub OutputArtistRDF
                             "/artist/" . $artist->GetMBId());
     $out .=   $this->Element("dc:title", $artist->GetName());
     $out .=   $this->Element("mm:sortName", $artist->GetSortName());
+    $out .=   $this->BeginDesc("mm:albumList");
+    $out .=   $this->BeginSeq();
+    $ids = $ref->{_artist};
+    foreach $album (@$ids)
+    {
+       $out .=      $this->Li($this->{baseuri}. "/album/$album");
+    }
+    $out .=   $this->EndSeq();
+    $out .=   $this->EndDesc("mm:albumList");
     $out .= $this->EndDesc("mm:Artist");
 
     return $out;
@@ -476,4 +509,36 @@ sub OutputTrackRDF
     $out .= $this->EndDesc("mm:Track");
 
     return $out;
+}
+
+sub CreateMetadataExchange
+{
+   my ($this, @data) = @_;
+   my ($rdf);
+
+   $rdf = $this->BeginRDFObject();
+   $rdf .= $this->BeginDesc("mq:Result");
+   $rdf .=   $this->Element("mq:status", "OK");
+   $rdf .= $this->Element("mq:trackName", $data[0])
+       unless !defined $data[0] || $data[0] eq '';
+   $rdf .= $this->Element("mq:artistName", $data[1])
+       unless !defined $data[1] || $data[1] eq '';
+   $rdf .= $this->Element("mq:albumName", $data[2])
+       unless !defined $data[2] || $data[2] eq '';
+   $rdf .= $this->Element("mm:trackNum", $data[3])
+       unless !defined $data[3] || $data[3] == 0;
+   $rdf .= $this->Element("mm:trmid", "", guid=>$data[4])
+       unless !defined $data[4] || $data[4] eq '';
+   $rdf .= $this->Element("mm:issued", $data[6])
+       unless !defined $data[6] || $data[6] == 0;
+   $rdf .= $this->Element("mm:genre", $data[7])
+       unless !defined $data[7] || $data[7] eq '';
+   $rdf .= $this->Element("dc:description", $data[8])
+       unless !defined $data[8] || $data[8] eq '';
+   $rdf .= $this->Element("mm:duration", $data[13])
+       unless !defined $data[13] || $data[13] == 0;
+   $rdf .= $this->EndDesc("mq:Result");
+   $rdf .= $this->EndRDFObject();
+
+   return $rdf;
 }
