@@ -16,7 +16,7 @@ set terminal gif
 set xdata time
 set timefmt "%d %m %Y"
 set xlabel "Time"
-set xrange ["01 10 2000" : "31 2 2002"]
+set xrange ["01 10 2000" : "1 6 2002"]
 set format x "%m/%Y"
 set key left
 set ylabel "Number of entries in MusicBrainz"
@@ -31,7 +31,7 @@ set logscale y 2
 #set xdata time
 #set timefmt "%d %m %Y"
 #set xlabel "Time"
-set xrange ["01 01 1997" : "31 12 2001"]
+set xrange ["01 01 1997" : "1 6 2002"]
 #set format x "%m/%Y"
 #set xtics "01 01 1997", 3600*24*30.5*6, "31 12 2002"
 set ylabel "number of albums, using LOGSCALE ( x 1000)"
