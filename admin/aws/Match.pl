@@ -47,6 +47,7 @@ use constant MODE_FIND       => 1;
 use constant MODE_UPDATE     => 2;
 use constant MODE_DAILY      => 3;
 use constant MODE_SINGLE     => 4;
+use constant MODE_ALL		 => 5;
 
 my $verbose = -t;
 my $summary = -t;
@@ -480,6 +481,10 @@ sub MatchAlbums
                                  where aaa.album = al.id and al.artist = ar.id 
                                  order by aaa.lastupdate asc, ar.id|);
     }
+    elsif ($mode == MODE_ALL)
+    {
+    	$sth = $dbh->prepare(qq|select ar.id, ar.name from artist ar|);
+    }
     else
     {
         die "Invalid Mode.\n";
@@ -595,6 +600,7 @@ GetOptions(
 	"find|f"		=> sub { $mode = MODE_FIND },
 	"update|u"		=> sub { $mode = MODE_UPDATE },
 	"daily|d"		=> sub { $mode = MODE_DAILY },
+	"all|a"			=> sub { $mode = MODE_ALL },
 	"single|s"		=> sub { $mode = MODE_SINGLE },
 	"artist=s"		=> \@artist,
 	"debugfd=i"		=> \$debugfd,
