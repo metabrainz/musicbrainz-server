@@ -76,7 +76,9 @@ $artistid = $al->GetArtist();
         &nbsp;
         </td>
         <td>
-        <INPUT TYPE="radio" NAME="confirm0" SIZE=25 value="yes"> Yes
+        <INPUT TYPE="radio" NAME="confirm0" SIZE=25 value="yes"
+            ondblclick="this.form.submit()"
+            > Yes
         </td>
       </tr>
       <tr>
@@ -84,7 +86,9 @@ $artistid = $al->GetArtist();
         &nbsp;
         </td>
         <td>
-        <INPUT TYPE="radio" NAME="confirm0" SIZE=25 value="no" CHECKED> No
+        <INPUT TYPE="radio" NAME="confirm0" SIZE=25 value="no" CHECKED
+            ondblclick="this.form.submit()"
+            > No
         </td>
       </tr>
       <tr>
