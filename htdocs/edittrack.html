@@ -4,6 +4,7 @@ $album => undef
 $track => undef
 $newname => ""
 $newseq => ""
+$notetext => ""
 </%args>
 <%perl>
 
@@ -66,6 +67,10 @@ if (MusicBrainz::IsSingleLineString($newname)
 				newname => $newname,
 			) if $newname ne $tr->GetName;
 
+			$mods[0]->InsertNote($session{'uid'}, $notetext)
+				if $mods[0]
+				and $notetext =~ /\S/;
+
 			my @mods2 = Moderation->InsertModeration(
 				DBH	=> $mb->{DBH},
 				uid	=> $session{uid},
@@ -76,6 +81,10 @@ if (MusicBrainz::IsSingleLineString($newname)
 				newseq => $newseq,
 			) if not $al->IsNonAlbumTracks
 				and $newseq != $tr->GetSequence;
+
+			$mods2[0]->InsertNote($session{'uid'}, $notetext)
+				if $mods2[0]
+				and $notetext =~ /\S/;
 		},
 		success_url => $url,
 	) or return;
@@ -113,6 +122,16 @@ if (MusicBrainz::IsSingleLineString($newname)
 			</td>
 			<td>
 				<input type="text" name="newname" size="50" value="<% $tr->GetName %>">
+				<script type="text/javascript"><!--
+				document.write(
+					"<\/td><\/tr>"
+					+ "<tr><td><\/td>"
+					+ "<td>"
+					+ "<input type='button' value='Guess Case' " +
+					"onclick='this.form.newname.value = GuessCase(this.form.newname.value)'>"
+				);
+				document.write(" &nbsp; ");
+				//--></script>
 			</td>
 		</tr>
 
@@ -135,21 +154,21 @@ if (MusicBrainz::IsSingleLineString($newname)
 		</tr>
 % }
 
-		<tr>
-			<td colspan="2">
-				<script type="text/javascript"><!--
-				document.write(
-					"<input type='button' value='Guess Case' " +
-					"onclick='this.form.newname.value = GuessCase(this.form.newname.value)'>"
-				);
-				document.write(" &nbsp; ");
-				//--></script>
-				<input type="hidden" name="album" value="<% $album %>">
-				<input type="hidden" name="track" value="<% $track %>">
-				<input type="submit" value="Submit">
-			</td>
-		</tr>
 	</table>
+
+	<p>
+		Enter moderation note (optional):
+	</p>
+
+	<p>
+		<textarea name="notetext" rows="3" cols="60"></textarea>
+	</p>
+
+	<p align="center">
+		<input type="hidden" name="album" value="<% $album %>">
+		<input type="hidden" name="track" value="<% $track %>">
+		<input type="submit" value="Submit">
+	</p>
 
 </form>
 
