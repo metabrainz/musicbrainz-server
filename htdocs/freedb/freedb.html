@@ -1,0 +1,21 @@
+% if (!defined $session{user} || $session{user} eq '') {
+    <& /comp/sidebar, title=>"Freedb Disc Import", expand=>"moderate" &>
+    You must be logged in to edit the database.<p>
+    <& /comp/tablebegin, title=>'Login' &>
+    <& /comp/loginbox &>
+    <& /comp/tableend &>
+    <& /comp/footer &>
+% } else {
+<html>
+
+<frameset rows="15%,*" frameborder="1">
+
+ <frame name="mb" src="top.html">
+ <frame name="freedb" src="http://www.freedb.org/freedb_search.php">
+
+ </frameset>
+
+</frameset>
+
+</html>
+% }

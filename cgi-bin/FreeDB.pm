@@ -169,11 +169,25 @@ sub Lookup
     $total_seconds = $m * 60 + $s;
     $query = "cddb query $id $last $trackoffsets $total_seconds\n";
 
-    $ret = $this->Retrieve("www.freedb.org", 888, $query, $last);
+    $ret = $this->Retrieve("www.freedb.org", 888, $query);
     if (defined $ret)
     {
         $ret->{cdindexid} = $diskid;
         $ret->{toc} = $toc; 
+    }
+    return $ret;
+}
+
+sub LookupByFreeDBId
+{
+    my ($this, $id, $cat) = @_;
+    my ($ret, $query);
+
+    $query = "cddb read $cat $id\n";
+    $ret = $this->Retrieve("www.freedb.org", 888, $query);
+    if (defined $ret)
+    {
+        $ret->{freedbid} = $id;
     }
     return $ret;
 }
@@ -203,7 +217,7 @@ sub IsNumber
 
 sub Retrieve
 {
-    my ($this, $remote, $port, $query, $last_track) = @_;
+    my ($this, $remote, $port, $query) = @_;
     my ($iaddr, $paddr, $proto, $line);
     my (@response, $category, $i);
     my (@selection, @chars, @parts, @subparts);
@@ -362,7 +376,7 @@ sub Retrieve
      $info{sortname} = Strip($aritst);
      $info{album} = Strip($title);
  
-     for($i = 0; $i < $last_track; $i++)
+     for($i = 0; $i < scalar(@track_titles); $i++)
      {
          #print("[$i]: $track_titles[$i]\n"); 
          push @tracks, { track=>$track_titles[$i], tracknum => ($i+1) };

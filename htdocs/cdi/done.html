@@ -1,25 +1,28 @@
+<%args>
+$id=>""
+$tracks=>0
+$toc=>""
+$freedbid=>""
+$artist=>undef
+$artistname=>""
+$sortname=>""
+$title=>""
+</%args>
+
 <%perl>
 
-my ($id, $tracks, $artist, $artistname, $sortname, $title);
-my ($error, $i, $artistid, $albumid, $new, $mb, $toc);
+my ($error, $i, $artistid, $albumid, $new, $mb);
 
 $mb = new MusicBrainz;
 mc_comp("/comp/sidebar", title=>'New CD Submission');
 
 # Do a bunch of error checking
-$id = $ARGS{'id'};
-$tracks = $ARGS{'tracks'};
-$toc = $ARGS{'toc'};
-$artist = $ARGS{'artist'};
-$artistname = $ARGS{'artistname'};
-$sortname = $ARGS{'sortname'};
-$title = $ARGS{'title'};
 
 $error = 0;
-$error = 1 if (!defined $artist && !defined $artistname);
-$error = 2 if (!defined $id || $id eq '');
-$error = 3 if (!defined $toc || $toc eq '');
-$error = 4 if (!defined $tracks || $tracks eq 0);
+$error = 1 if (!defined $artist && $artistname eq '');
+$error = 2 if ($id eq '' && $freedbid eq '');
+$error = 3 if ($toc eq '' && $freedbid eq '');
+$error = 4 if ($tracks eq 0);
 for($i = 0; $i < $tracks && !$error; $i++)
 {
     if (!exists $ARGS{"track$i"} || $ARGS{"track$i"} eq '')
@@ -49,7 +52,10 @@ else
     {
        $new = "Artist=$artistname\nSortname=$sortname\n";
     }
-    $new .= "AlbumName=$title\nNumTracks=$tracks\nCDIndexId=$id\nTOC=$toc\n";
+    $new .= "AlbumName=$title\nNumTracks=$tracks\n";
+    $new .= "CDIndexId=$id\n" if ($id ne '');
+    $new .= "TOC=$toc\n" if ($toc ne '');
+    $new .= "FreedbId=$freedbid\n" if ($freedbid ne '');
     for($i = 0; $i < $tracks; $i++)
     {
         $new .= "Track" . ($i + 1) . "=" . $ARGS{"track$i"} . "\n";
@@ -60,6 +66,7 @@ else
         } 
     }
 
+    print STDERR "$new";
     $in = Insert->new($mb->{DBH});
     ($artistid, $albumid) = $in->InsertAlbumModeration($new,
                                     $session{uid}, $artist);
@@ -86,7 +93,8 @@ else
     }
     else
     {
-        mc_out("An error occurred during the data insertion.");
+        mc_out("An error occurred during the data insertion:<br>");
+        mc_out("(" . $in->GetError() . ")");
     }
     $mb->Logout;
 }

@@ -1,0 +1,126 @@
+<%args>
+$catid=>""
+</%args>
+
+
+<%perl>
+
+my ($cat, $id);
+
+if ($catid eq '') 
+{
+    mc_comp("/comp/sidebar", title=>'FreeDB Import', expand=>"moderation");
+    mc_comp("/comp/badargs");
+    return undef;
+}
+</%perl>
+
+%if ($catid =~ m-\s*(\w*)\s*/\s*(\w{8})-) {
+%   $cat = $1;
+%   $id = $2;
+% } else {
+
+    <& /comp/sidebar, title=>'FreeDB Import', expand=>"moderation" &>
+    Invalid category and id pasted: <b><% $catid %></b><p>
+    Please cut and paste a category (rock, blues, etc.) and a freedb id
+    (e.g. 940d8b0c) seperated by <b>/</b> , as shown below:
+
+    <blockquote>
+       <b>rock / 7b0dae0a<br>
+          misc / 970d1b0c</b>
+    </blockquote>
+    
+    
+    Please go back and try again.
+    <& /comp/footer &>
+
+%   return undef;
+% }
+
+<%perl>
+my ($mb); 
+my ($i, $artistname, $modpending, $ar);
+my ($lookup, $tracks);
+
+$mb = new MusicBrainz;
+mc_comp("/comp/sidebar", title=>'Verify/Correct CD Information');
+
+mc_comp("/comp/stylemenu");
+
+my $fdb = FreeDB->new($mb->{DBH});
+$lookup = $fdb->LookupByFreeDBId($id, $cat);
+if (!$lookup)
+{
+   mc_out("That could could not be loaded from freedb.org. ");
+   mc_out("Please try another one.");
+   mc_comp("/comp/footer");
+   return undef;
+}
+
+$ar = $lookup->{tracks};
+$tracks = scalar(@$ar);
+
+</%perl>
+
+<script LANGUAGE="JavaScript">
+function validate()
+{  
+    if (
+% for($i = 0; $i < $tracks; $i++) {
+        document.EnterCD.track<% $i %>.value == "" ||
+% }
+        document.EnterCD.artistname.value == "" ||
+        document.EnterCD.sortname.value == "" ||
+        document.EnterCD.title.value == "")
+    {
+        alert("Please enter all the information for this CD.");
+        return false;
+    }
+    return true;
+};
+</script>
+
+Retrieved CD <font class="bold"><% $lookup->{album} %></font> 
+by <font class="bold"><% $lookup->{artist} %></font> at
+<a href="http://www.freedb.org">freedb.org</a>.<p>
+Please check the information below for accuracy and correct any
+mistakes you may find:<p>
+
+<form method="POST" action="/cdi/done.html" Name="EnterCD"
+      enctype="application/x-www-form-urlencoded" class="formstyle">
+<table>
+    <tr><td>Artist:</td><td>
+        <input type="text" name="artistname" size="30"
+               value="<% $lookup->{artist} %>"></td>
+    </tr>
+    <tr><td>SortName:</td><td>
+%     my ($sortname, $st);
+%     $st = Style->new;
+%     $sortname = $st->MakeDefaultSortname($lookup->{artist});
+      <input type="text" name="sortname" size="30"
+             value="<% $sortname %>"></td>
+    </td></tr>
+
+
+    <tr><td>CD Title:</td><td>
+      <input type="text" name="title" size="30"
+             value="<% $lookup->{album} %>">
+    </td></tr>
+
+% for($i = 0; $i < $tracks; $i++) {
+    <tr><td>Track <% $i + 1 %>:</td><td>
+
+     <input type="text" name="track<% $i %>" size="30"
+            value="<% $$ar[$i]->{track} %>">
+    
+    </td></tr>
+% }
+</table>
+
+<input type="hidden" name="freedbid" value="<% $id %>">
+<input type="hidden" name="tracks" value="<% $tracks %>">
+<input type="submit" value="Next>>" name="Next"
+       onClick="return validate(form);">
+</form>
+
+<& /comp/footer &>
