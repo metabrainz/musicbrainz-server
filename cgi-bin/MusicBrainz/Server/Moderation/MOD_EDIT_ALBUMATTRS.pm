@@ -74,28 +74,31 @@ sub PreInsert
 		$attrs = [ $type, $status ];
 	}
 
-	unless (@$albums)
-	{
-		require Carp;
-		Carp::cluck("MOD_EDIT_ALBUMATTRS called with empty albums list");
-		$self->SuppressInsert;
-		return;
-	}
-
 	my %new;
 	my %artists;
 
 	$new{"Attributes"} = join ",", @$attrs;
 	
-	for my $seq (0 .. $#$albums)
+	my $seq = 0;
+	for my $al (@$albums)
 	{
-		my $al = $albums->[$seq];
 		die "Can't edit attributes of 'non-album tracks' album"
 			if $al->IsNonAlbumTracks;
+		my $prev = join ",", $al->GetAttributes;
+		next if $prev eq $new{'Attributes'};
+
 		$new{"AlbumId$seq"} = $al->GetId;
 		$new{"AlbumName$seq"} = $al->GetName;
-		$new{"Prev$seq"} = join ",", $al->GetAttributes;
+		$new{"Prev$seq"} = $prev;
+
 		++$artists{$al->GetArtist};
+		++$seq;
+	}
+
+	unless ($seq)
+	{
+		$self->SuppressInsert;
+		return;
 	}
 
 	$self->SetArtist(
