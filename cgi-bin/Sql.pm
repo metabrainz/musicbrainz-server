@@ -68,16 +68,19 @@ sub Select
     $ret = eval
     {
        #print STDERR "SELECT: $query\n";
-       #$t = Benchmark::Timer->new(skip => 0);
-       #$t->start('start');
+       $t = Benchmark::Timer->new(skip => 0);
+       $t->start('start');
 
        $this->{STH} = $this->{DBH}->prepare($query);
        $ret = $this->{STH}->execute;
 
-       #$t->stop;
-       #print STDERR "--------------------------------------------\n";
-       #print STDERR "$query\n";
-       #$t->report;
+       $t->stop;
+       if ($t->result('start') > 0.05)
+       {
+           print STDERR "--------------------------------------------\n";
+           print STDERR "$query\n";
+           $t->report;
+       }
        
        return $this->{STH}->rows;
     };

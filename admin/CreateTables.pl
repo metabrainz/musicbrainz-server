@@ -311,6 +311,8 @@ sub CreateIndices
               or die("Could not add indices to Album table");
         $sql->Do(qq|create unique index Album_GIDIndex on Album (GID)|)
               or die("Could not add indices to Album table");
+        $sql->Do(qq|create index Album_ArtistIndex on Album (Artist)|)
+              or die("Could not add indices to Album table");
         print "Added indices to Album table.\n";
 
         $sql->Do(qq|create index Track_NameIndex on Track (Name)|)
