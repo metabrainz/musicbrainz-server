@@ -120,6 +120,7 @@ sub PreInsert
 		if ($is_various)
 		{
 		   	$tmp{'artist'} = $new{"Artist$i"};
+		   	$tmp{'sortname'} = $new{"Sortname$i"};
 		}
 
 		if (exists $new{"TrackDur$i"})
