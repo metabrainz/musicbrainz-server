@@ -28,18 +28,6 @@ use DBDefs;
 use MusicBrainz;
 use Artist;
 
-# Changes:
-#alter table Pending drop column VBR;
-#alter table Pending drop column Stereo;
-#alter table Pending drop column Bitrate;
-#alter table Pending drop column Samplerate;
-#alter table Pending drop column AudioSha1;
-#alter table Pending drop column Length;
-#alter table Pending drop column First20;
-#alter table Pending change column Bitprint Sha1 char(40) not null;
-#move artist 2 to a new location
-#move user 1 to a new location
-
 sub CreateTables
 {
     my ($dbh) = @_;
