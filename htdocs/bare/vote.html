@@ -16,7 +16,7 @@ my %votes;
 
 while (my ($key, $vote) = each %ARGS)
 {
-    my ($modid) = $key =~ /^rowid(\d*)$/
+    my ($modid) = $key =~ /^rowid(\d+)$/
 		or next;
 	$vote = $votemap{$vote};
 	$votes{$modid} = $vote
