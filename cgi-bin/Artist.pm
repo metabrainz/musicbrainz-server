@@ -228,7 +228,7 @@ sub GetMultipleArtistAlbumList
    $sth = $this->{DBH}->prepare(qq/select AlbumJoin.album, Album.name, 
        Album.modpending from Track, Album, AlbumJoin where Track.Artist = 
        $id and AlbumJoin.track = Track.id and AlbumJoin.album = Album.id 
-       order by Album.name/);
+       and Album.artist = 0 order by Album.name/);
    $sth->execute;
    if ($sth->rows)
    {

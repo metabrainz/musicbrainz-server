@@ -51,6 +51,8 @@ sub GetIdFromNameAlbumAndSeq
    my ($this, $name, $album, $seq) = @_;
    my ($sth, $rv);
 
+   return -1 if (!defined $name || !defined $album || !defined $seq);
+
    $name = $this->{DBH}->quote($name);
    $sth = $this->{DBH}->prepare(qq/select Track.id from Track, AlbumJoin 
                                    where name=$name and AlbumJoin.track = 
@@ -63,7 +65,6 @@ sub GetIdFromNameAlbumAndSeq
 
         @row = $sth->fetchrow_array;
         $rv = $row[0];
-
    }
    else
    {
