@@ -71,11 +71,11 @@ my @allowed_timezones = (
 
 if ($ARGS{"SavePrefs"})
 {
-	my $format = $ARGS{'format'};
-	$session{"datetimeformat"} = $format
-		if grep { $format eq $_ } @allowed_formats;
+	my $datetimeformat = $ARGS{'datetimeformat'};
+	$session{"datetimeformat"} = $datetimeformat
+		if grep { $datetimeformat eq $_ } @allowed_formats;
 
-	my $tz = $ARGS{'zone'};
+	my $tz = $ARGS{'timezone'};
 	$session{"tz"} = $tz
 	if grep { $tz eq $_->[0] } @allowed_timezones;
 
@@ -84,13 +84,20 @@ if ($ARGS{"SavePrefs"})
 	$session{"sitemenu_light"} = ($ARGS{"sitemenu_light"} ? 1 : 0);
 
 	$session{"no_sidebar_panels"} = ($ARGS{"no_sidebar_panels"} ? 1 : 0);
+
+	$session{"mod_add_album_inline"} = ($ARGS{"mod_add_album_inline"} ? 1 : 0);
+
+	my $mpp = $ARGS{"mods_per_page"};
+	MusicBrainz::IsNonNegInteger($mpp) or $mpp = 0;
+	$mpp = 25 if $mpp > 25;
+	$session{"mods_per_page"} = $mpp if $mpp;
 } else {
 	$session{"JSMoveFocus"} = 1
 		unless defined $session{"JSMoveFocus"};
 }
 
-my $format = $session{"datetimeformat"} || $allowed_formats[0];
-my $zone = $session{"tz"} || 'UTC';
+my $datetimeformat = $session{"datetimeformat"} || $allowed_formats[0];
+my $timezone = $session{"tz"} || 'UTC';
 
 require POSIX;
 my $time = POSIX::mktime(24,56,13,31,11,101,0,0,0);
@@ -100,6 +107,9 @@ my @format_list = map {
 } @allowed_formats;
 
 $time = time();
+
+$session{mod_add_album_inline} ||= 0;
+$session{mods_per_page} ||= 10;
 
 </%perl>
 
@@ -115,18 +125,36 @@ $time = time();
 <form method="post" action="/prefs.html" name="Preferences">
 	<input type="hidden" name="SavePrefs" value="1">
 
+	<h2>Moderation Pages</h2>
+
+	<p>
+		<input type="checkbox" name="mod_add_album_inline"
+			<% $session{mod_add_album_inline} ? "checked" : "" %>
+			>
+		For "Add Album" mods, show the whole album
+	</p>
+
+	<p>
+		Show up to
+		<input type="text" name="mods_per_page"
+			size=3
+			value="<% $session{mods_per_page} %>"
+			>
+		mods per page (max: 25)
+	</p>
+
 	<h2>Date/Time Display</h2>
 
 	<p>
 		Your preferred date/time format:
-		<select name="format">
-			<& /comp/options, \@format_list, $format &>
+		<select name="datetimeformat">
+			<& /comp/options, \@format_list, $datetimeformat &>
 		</select>
 	</p>
 	<p>
 		Your preferred time zone:
-		<select name="zone">
-			<& /comp/options, \@allowed_timezones, $zone &>
+		<select name="timezone">
+			<& /comp/options, \@allowed_timezones, $timezone &>
 		</select>
 	</p>
 
@@ -168,5 +196,5 @@ $time = time();
 
 </form>
 
-<& /comp/movefocus, "Preferences", "format" &>
+<& /comp/movefocus, "Preferences", "mod_add_album_inline" &>
 <& /comp/footer &>
