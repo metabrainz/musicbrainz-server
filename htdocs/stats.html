@@ -1,6 +1,12 @@
-<& /comp/sidebar, title=>'Database Stats', expand=>'information' &>
-
 <%perl>
+
+my $sMagicWord = "CacheMe!";
+my $fCallingSelf = ($_[0] and $_[0] eq $sMagicWord);
+
+if ($fCallingSelf)
+{
+
+################################################################################
 
 my $mb = mc_comp("/comp/dblogin", quiet=>1);
 my $stat = Statistic->new($mb->{DBH});
@@ -280,54 +286,6 @@ sub pc
 
 </div>
 
-<!--
-	TODO reinstate the "top moderators" boxes
-	
-    $result .= mc_comp("/comp/tablestat", 
-                       mb=>$mb,
-                       query=>qq|select Moderator.name, 
-                                        count(Moderator.id) as num 
-                                   from Moderation,Moderator 
-                                  where Moderation.Moderator = Moderator.id 
-                                        and Moderator.id != | .
-                                        ModDefs::FREEDB_MODERATOR . qq|
-                                        and ExpireTime - interval '| .
-                                        DBDefs::MOD_PERIOD . qq| seconds' > 
-                                            now() - interval '1 week' 
-                               group by Moderator.ModsAccepted, Moderator.name 
-                               order by num desc limit 10|,
-                       title=>"Most active moderators in the last week:<br>".
-                              "(Open and accepted moderations)",
-                       numcols=>2,
-                       coltitles=>["User", "Moderations"]);
-
-    $result .= mc_comp("/comp/tablestat", 
-                       mb=>$mb,
-                       query=>qq|select name, modsaccepted 
-                                   from Moderator
-                                        where Moderator.id != | .
-                                        ModDefs::FREEDB_MODERATOR . qq|
-                               order by modsaccepted desc limit 10|,
-                       title=>"Most active moderators overall:<br>".
-                              "(Accepted moderations only)",
-                       numcols=>2,
-                       coltitles=>["User", "Moderations"]);
-
-    $result .= mc_comp("/comp/tablestat", 
-                       mb=>$mb,
-                       query=>qq|select Moderator.name, count(Votes.id) 
-                                        as num 
-                                   from Votes,Moderator 
-                                  where Votes.Uid = Moderator.id 
-                               group by Moderator.id, Moderator.name 
-                               order by num desc limit 10|,
-                       title=>"Most active voters overall:",
-                       numcols=>2,
-                       coltitles=>["User", "Votes"]);
-
-
- -->
-
 <p>
 	Here's some graphs over a few of the above statistics over time.&nbsp;
 	Each one is presented as a simple count, followed by a "delta" plot
@@ -358,9 +316,28 @@ for my $n (qw(
 	});
 }
 
+$mb->Logout();
+
+################################################################################
+
+}
+else
+{
+	$m->comp("/comp/sidebar", title=>'Database Stats', expand=>'information');
+
+	my $result = $m->cache(action=>'retrieve');
+
+	if (!$result)
+	{
+		$result = $m->scomp("stats.html", $sMagicWord);
+		$m->cache(action=>'store', expire_in=>'1hour', value=>$result);
+	}
+
+	mc_out($result);
+
+	$m->comp("/comp/footer");
+}
+
 </%perl>
 
-<& /comp/footer &>
-
-% $mb->Logout();
 <!-- vi: set ts=2 sw=2 ft=mason : -->
