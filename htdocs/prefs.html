@@ -117,64 +117,65 @@ $time = time();
 	<h2>Moderation Pages</h2>
 
 	<p>
-		<input type="checkbox" name="mod_add_album_inline"
+		<label for="pref_mod_add_album_inline"><input type="checkbox" name="mod_add_album_inline" id="pref_mod_add_album_inline"
 			<% UserPreference::get('mod_add_album_inline') ? "checked" : "" %>
 			onclick="this.form.mod_add_album_link.disabled = !this.checked"
 			>
-		For "Add Album" mods, show the whole album
+		For "Add Album" mods, show the whole album</label> ...
 		<br>
 		&nbsp; &nbsp;
-		<input type="checkbox" name="mod_add_album_link"
+		<label for="pref_mod_add_album_link"><input type="checkbox" name="mod_add_album_link" id="pref_mod_add_album_link"
 			<% UserPreference::get('mod_add_album_link') ? "checked" : "" %>
-			<% UserPreference::get('mod_add_album_inline') ? "" : "disabled" %>
 			>
-		and show editing links
+		and show editing links</label>
 	</p>
 
 	<p>
-		<input type="checkbox" name="navbar_mod_show_select_page"
+		<label for="pref_navbar_mod_show_select_page"><input type="checkbox" name="navbar_mod_show_select_page" id="pref_navbar_mod_show_select_page"
 			<% UserPreference::get('navbar_mod_show_select_page') ? "checked" : "" %>
 			>
 		Make the "Moderate" link in the navigation bar go to
 		<a href="/mod/search/select-filter.html">this page</a>
-		instead of the "New Mods" list
+		instead of the "New Mods" list</label>
 	</p>
 
 	<p>
+		<label for="pref_mods_per_page">
 		Show up to
-		<input type="text" name="mods_per_page"
+		<input type="text" name="mods_per_page" id="pref_mods_per_page"
 			size=3
 			value="<% UserPreference::get('mods_per_page') %>"
 			>
 		mods per page (max: 25)
+		</label>
 	</p>
 
 	<p>
-		<input type="checkbox" name="vote_abs_default"
+		<label for="pref_vote_abs_default"><input type="checkbox" name="vote_abs_default" id="pref_vote_abs_default"
 			<% UserPreference::get('vote_abs_default') ? "checked" : "" %>
 			>
-		Abstain by default
+		Abstain by default</label>
 	</p>
 
 	<p>
-		<input type="checkbox" name="vote_show_novote"
+		<label for="pref_vote_show_novote"><input type="checkbox" name="vote_show_novote" id="pref_vote_show_novote"
 			<% UserPreference::get('vote_show_novote') ? "checked" : "" %>
 			>
-		Show the "No Vote" option
+		Show the "No Vote" option</label>
 	</p>
 
 	<p>
-		<input type="checkbox" name="mail_notes_if_i_noted"
+		<label for="pref_mail_notes_if_i_noted"><input type="checkbox" name="mail_notes_if_i_noted" id="pref_mail_notes_if_i_noted"
 			<% UserPreference::get('mail_notes_if_i_noted') ? "checked" : "" %>
 			>
-		When I add a note to a moderation, mail me all future notes for that moderation
+		When I add a note to a moderation, mail me all future notes for that moderation</label>
 	</p>
 
 	<p>
-		<input type="checkbox" name="mail_notes_if_i_voted"
+		<label for="pref_mail_notes_if_i_voted"><input type="checkbox" name="mail_notes_if_i_voted" id="pref_mail_notes_if_i_voted"
 			<% UserPreference::get('mail_notes_if_i_voted') ? "checked" : "" %>
 			>
-		When I vote on a moderation, mail me all future notes for that moderation
+		When I vote on a moderation, mail me all future notes for that moderation</label>
 		<br>
 		&nbsp; &nbsp;
 		(Note: only takes effect when your most recent vote on a mod is either
@@ -183,20 +184,20 @@ $time = time();
 
 % if (&DBDefs::DB_STAGING_SERVER) {
 	<p>
-		<input type="checkbox" name="no_inline_mods"
+		<label for="pref_no_inline_mods"><input type="checkbox" name="no_inline_mods" id="pref_no_inline_mods"
 			<% $session{no_inline_mods} ? "checked" : "" %>
 			>
-		Don't show 'inline' moderations
+		Don't show 'inline' moderations</label>
 	</p>
 % }
 
 	<h2>E-Mailing Other Moderators</h2>
 
 	<p>
-		<input type="checkbox" name="reveal_address_when_mailing"
+		<label for="pref_reveal_address_when_mailing"><input type="checkbox" name="reveal_address_when_mailing" id="pref_reveal_address_when_mailing"
 			<% UserPreference::get('reveal_address_when_mailing') ? "checked" : "" %>
 			>
-		Reveal my e-mail address
+		Reveal my e-mail address</label>
 		[&nbsp;<a <& /comp/auto-popup-link,
 			url => "/products/server/docs/20040103-1.html",
 			&>>help</a>&nbsp;]
@@ -205,22 +206,24 @@ $time = time();
 	<h2>Artist Page (List of Releases)</h2>
 
 	<p>
+		<label for="pref_releases_show_compact">
 		Default to a "compact" listing when there are
-		<input type="text" name="releases_show_compact"
+		<input type="text" name="releases_show_compact" id="pref_releases_show_compact"
 			size=3
 			value="<% UserPreference::get('releases_show_compact') %>"
 			>
 		releases or more.&nbsp;
 		(allowed range: 1-100)
+		</label>
 	</p>
 
 	<h2>Amazon.com Cover Art</h2>
 
 	<p>
-		<input type="checkbox" name="show_amazon_coverart"
+		<label for="pref_show_amazon_coverart"><input type="checkbox" name="show_amazon_coverart" id="pref_show_amazon_coverart"
 			<% UserPreference::get('show_amazon_coverart') ? "checked" : "" %>
 			>
-      Show Amazon.com cover art and buy links
+		Show Amazon.com cover art and buy links</label>
 	</p>
 
 	<p>
@@ -277,19 +280,19 @@ $time = time();
 	<h2>Use of Javascript</h2>
 
 	<p>
-		<input type="checkbox" name="JSMoveFocus"
+		<label for="pref_JSMoveFocus"><input type="checkbox" name="JSMoveFocus" id="pref_JSMoveFocus"
 			<% UserPreference::get('JSMoveFocus') ? "checked" : "" %>
 			>
-		Use Javascript to move the input focus when the page loads
+		Use Javascript to move the input focus when the page loads</label>
 	</p>
 
 	<h2>HTML Features</h2>
 
 	<p>
-		<input type="checkbox" name="sitemenu_heavy"
+		<label for="pref_sitemenu_heavy"><input type="checkbox" name="sitemenu_heavy" id="pref_sitemenu_heavy"
 			<% UserPreference::get('sitemenu_heavy') ? "checked" : "" %>
 			>
-		Load the full version of the "site menu" (more dynamic, but slower page loads)
+		Load the full version of the "site menu" (more dynamic, but slower page loads)</label>
 	</p>
 
 	<p>
@@ -298,38 +301,38 @@ $time = time();
 
 	<ul style="list-style: none">
 		<li>
-			<input type="checkbox" name="sidebar_panel_search"
+			<label for="pref_sidebar_panel_search"><input type="checkbox" name="sidebar_panel_search" id="pref_sidebar_panel_search"
 				<% UserPreference::get('sidebar_panel_search') ? "checked" : "" %>
-				> Quick Search
+				> Quick Search</label>
 		</li>
 		<li>
-			<input type="checkbox" name="sidebar_panel_topmods"
+			<label for="pref_sidebar_panel_topmods"><input type="checkbox" name="sidebar_panel_topmods" id="pref_sidebar_panel_topmods"
 				<% UserPreference::get('sidebar_panel_topmods') ? "checked" : "" %>
-				> Top Moderators
+				> Top Moderators</label>
 		</li>
 		<li>
-			<input type="checkbox" name="sidebar_panel_stats"
+			<label for="pref_sidebar_panel_stats"><input type="checkbox" name="sidebar_panel_stats" id="pref_sidebar_panel_stats"
 				<% UserPreference::get('sidebar_panel_stats') ? "checked" : "" %>
-				> Server Stats
+				> Server Stats</label>
 		</li>
 	</ul>
 
 	<p>
-		<input type="checkbox" name="nosidebar"
+		<label for="pref_nosidebar"><input type="checkbox" name="nosidebar" id="pref_nosidebar"
 			<% UserPreference::get('nosidebar') ? "checked" : "" %>
 			>
 		Don't show the sidebar at all (even faster, but it makes it
-		rather hard to navigate the site)
+		rather hard to navigate the site)</label>
 	</p>
 
 	<h2 id="privacy-settings">Privacy Settings</h2>
 
 	<p>
-		<input type="checkbox" name="subscriptions_public"
+		<label for="pref_subscriptions_public"><input type="checkbox" name="subscriptions_public" id="pref_subscriptions_public"
 		<% UserPreference::get('subscriptions_public') ? "checked" : "" %>
 			>
 		Allow other users to see <a href="/user/subscriptions.html"
-			>my subscribed artists</a>
+			>my subscribed artists</a></label>
 		(see <a href="/docs/20050108-1.html">notes</a>)
 	</p>
 
@@ -347,10 +350,10 @@ $time = time();
 
 	<h2>Automoderator Privileges</h2>
 	<p>
-		<input type="checkbox" name="enable_automod_privs"
+		<label for="pref_enable_automod_privs"><input type="checkbox" name="enable_automod_privs" id="pref_enable_automod_privs"
 			<% UserStuff->IsAutoMod($session{privs}) ? "checked" : "" %>
 			>
-		Enable auto-moderator privileges
+		Enable auto-moderator privileges</label>
 	</p>
 
 	<p>
@@ -360,5 +363,9 @@ $time = time();
 
 </form>
 
+<script type="text/javascript">
+var f=document.forms.PreferencesForm;
+f.mod_add_album_link.disabled = !(f.mod_add_album_inline.checked);
+</script>
 <& /comp/movefocus, "PreferencesForm", "mod_add_album_inline" &>
 <& /comp/footer &>
