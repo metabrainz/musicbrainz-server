@@ -33,10 +33,13 @@ CREATE UNIQUE INDEX clientversion_version ON clientversion (version);
 CREATE UNIQUE INDEX country_isocode ON country (isocode);
 CREATE UNIQUE INDEX country_name ON country (name);
 
+CREATE INDEX currentstat_name ON currentstat (name);
+
 CREATE INDEX discid_albumindex ON discid (album);
 CREATE UNIQUE INDEX discid_disc_key ON discid (disc);
 
 CREATE INDEX historicalstat_date ON historicalstat (snapshotdate);
+CREATE INDEX historicalstat_name_snapshotdate ON historicalstat (name, snapshotdate);
 
 CREATE INDEX moderation_closed_idx_artist ON moderation_closed (artist);
 CREATE INDEX moderation_closed_idx_expiretime ON moderation_closed (expiretime);

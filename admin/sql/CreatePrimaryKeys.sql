@@ -9,9 +9,9 @@ ALTER TABLE artist_relation ADD CONSTRAINT artist_relation_pkey PRIMARY KEY (id)
 ALTER TABLE artistwords ADD CONSTRAINT artistwords_pkey PRIMARY KEY (wordid, artistid);
 ALTER TABLE clientversion ADD CONSTRAINT clientversion_pkey PRIMARY KEY (id);
 ALTER TABLE country ADD CONSTRAINT country_pkey PRIMARY KEY (id);
-ALTER TABLE currentstat ADD CONSTRAINT currentstat_pkey PRIMARY KEY (name);
+ALTER TABLE currentstat ADD CONSTRAINT currentstat_pkey PRIMARY KEY (id);
 ALTER TABLE discid ADD CONSTRAINT discid_pkey PRIMARY KEY (id);
-ALTER TABLE historicalstat ADD CONSTRAINT historicalstat_pkey PRIMARY KEY (name, snapshotdate);
+ALTER TABLE historicalstat ADD CONSTRAINT historicalstat_pkey PRIMARY KEY (id);
 ALTER TABLE moderation_closed ADD CONSTRAINT moderation_closed_pkey PRIMARY KEY (id);
 ALTER TABLE moderation_note_closed ADD CONSTRAINT moderation_note_closed_pkey PRIMARY KEY (id);
 ALTER TABLE moderation_note_open ADD CONSTRAINT moderation_note_open_pkey PRIMARY KEY (id);

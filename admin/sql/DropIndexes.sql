@@ -67,7 +67,10 @@ drop index Stats_TimestampIndex;
 
 drop index ClientVersion_Version;
 
+DROP INDEX currentstat_name;
+
 DROP INDEX historicalstat_date;
+DROP INDEX historicalstat_name_snapshotdate;
 
 drop index artist_relation_artist;
 drop index artist_relation_ref;
