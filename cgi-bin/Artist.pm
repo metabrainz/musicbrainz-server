@@ -220,4 +220,30 @@ sub GetAlbumList
    return @idsalbums;
 } 
 
+sub GetMultipleArtistAlbumList
+{
+   my ($this, $id) = @_;
+   my ($sth, @idsalbums);
+
+   $sth = $this->{DBH}->prepare(qq/select AlbumJoin.album, Album.name, 
+       Album.modpending from Track, Album, AlbumJoin where Track.Artist = 
+       $id and AlbumJoin.track = Track.id and AlbumJoin.album = Album.id 
+       order by Album.name/);
+   $sth->execute;
+   if ($sth->rows)
+   {
+        my @row;
+
+        while(@row = $sth->fetchrow_array)
+        {
+            push @idsalbums, $row[0];
+            push @idsalbums, $row[1];
+            push @idsalbums, $row[2];
+        }
+   }
+   $sth->finish;
+
+   return @idsalbums;
+} 
+
 1;
