@@ -95,6 +95,13 @@ if ($url =~ s/&modid=\d*//g)
 {
     $url .= "&modid=$modid" if (defined $modid);
 }
+
+# For some reason, sometimes the referer gets lost. I dunno why.
+if ($url eq '')
+{
+    $url = "/search.html";
+}
+
 $r->header_out(Location=>$url);
 $r->status(302);
 
