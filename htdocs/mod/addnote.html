@@ -13,36 +13,34 @@ $text=>""
 %  return undef;
 % }
 
-<center>
 <FORM METHOD="POST" ACTION="/bare/enter_note.html" 
+	name="ModNoteForm"
       ENCTYPE="application/x-www-form-urlencoded">
 
-<table border="0">
-<tr><td>
 % if ($text ne '') {
+<p>
     You have embedded an invalid link into your note. Links must point
     to pages on the MusicBrainz server. Please enter a link address that
     does not contain a server name, but only an absolute path to
-    one of the MusicBrainz pages and contains no @ signs..<p>
-
-    Enter the note text below:
-% } else {
-    Enter the note text below:
+    one of the MusicBrainz pages and contains no @ signs.
+</p>
 % }
-</td></tr>
 
-<tr><td>
-<INPUT TYPE="text" NAME="text" VALUE="<% $text %>" SIZE=42> 
+<p>
+    Enter the note text below:
+</p>
+
+<p style="width: 100%">
+<INPUT TYPE="text" NAME="text" VALUE="<% $text %>" SIZE=30 style="width: 100%"> 
 <INPUT TYPE="hidden" NAME="modid" VALUE="<% $modid %>"><br>
 <INPUT TYPE="hidden" NAME="uid" VALUE="<% $uid %>"><br>
-</td></tr>
+</p>
 
-<tr><td align="right">
+<p align="right">
 <INPUT TYPE="submit" NAME="Submit" VALUE="Submit">
-</td></tr>
-</table>
+</p>
 
 </FORM>
-</center>
 
+<& /comp/movefocus, "ModNoteForm", "text" &>
 <& /comp/footer_small &>  
