@@ -357,7 +357,6 @@ for my $n (qw(
 	count.discid
 	count.moderator
 	count.moderation
-	count.moderation.open
 	count.vote
 )) {
 	$m->out(qq{
@@ -368,6 +367,18 @@ for my $n (qw(
 		</div>
 		<div>
 			<img src="generated/plot_${n}_delta.png" alt="$n">
+		</div>
+	});
+}
+
+for my $n (qw(
+	count.moderation.open
+)) {
+	$m->out(qq{
+		<div style="border: 0; width: 80%; border-top: 3px double #999;
+			margin: 1em"></div>
+		<div>
+			<img src="generated/plot_$n.png" alt="$n">
 		</div>
 	});
 }
