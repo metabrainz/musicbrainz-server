@@ -277,7 +277,7 @@ sub ShowNewValue
    {
        $artist = $1;
    }
-   if ($new =~ /^Sortname=(.*)$/m)
+   if ($new =~ /^SortName=(.*)$/m)
    {
        $sortname = $1;
    }
@@ -293,7 +293,9 @@ sub ShowNewValue
    }
    else
    {
-       return "Artist: <a href=\"/showartist.html?artistid=$id\"><font style=\"bold\">$artist</font></a>";
+       return qq|Artist: <a href=\"/showartist.html?artistid=$id\">
+                 <font style=\"bold\">$artist</font></a><br>
+                 Sortname: <font style=\"bold\">$sortname</font>|;
    }
 }
 
