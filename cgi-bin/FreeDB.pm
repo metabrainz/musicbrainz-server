@@ -43,6 +43,8 @@ use ModDefs;
 use Style;
 use Alias;
 use Encode qw( decode from_to );
+
+use constant AUTO_INSERT_MIN_TRACKS => 5;
 use constant  CD_MSF_OFFSET => 150;
 use constant  CD_FRAMES     =>  75;
 use constant  CD_SECS       =>  60;
@@ -397,8 +399,8 @@ sub InsertForModeration
     my ($new, $track, $in, $u, $st, $ar, $alias, $aliasid);
     my $ref = $info->{tracks};
 
-    # Don't insert CDs that have only one track.
-    return if (scalar(@$ref) < 2);
+    # Don't insert CDs that have only a few tracks
+    return if (scalar(@$ref) < AUTO_INSERT_MIN_TRACKS);
 
     # Don't insert into the DB if the Toc is not correct.
     return unless $this->CheckTOC($info->{toc});
