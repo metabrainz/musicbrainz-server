@@ -96,6 +96,7 @@ sub GenerateAlbumFromDiscid
 	require FreeDB;
 	my $fd = FreeDB->new($this->{DBH});
 	my $ref = $fd->Lookup($id, $toc);
+
 	if (defined $ref)
 	{
 		$fd->InsertForModeration($ref);
