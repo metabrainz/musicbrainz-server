@@ -1,6 +1,7 @@
 %# vi: set ts=2 sw=2 ft=mason :
 <%args>
 $mod
+$voter => $session{uid}
 $notes => []
 </%args>
 <%perl>
@@ -80,7 +81,7 @@ $time = $m->comp("/comp/datetime", $time);
    <td width="30%" align=center valign=top bgcolor=white class="body" nowrap>
 
 % unless ($voted == &ModDefs::VOTE_NOTVOTED) {
-			<% ($session{moderation_voter_id} == $session{uid}) ? "Your" : "Their" %> vote:
+			<% ($voter == $session{uid}) ? "Your" : "Their" %> vote:
 			<% MusicBrainz::Server::Vote->GetVoteName($voted) %><br>
 % }
 

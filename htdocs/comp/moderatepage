@@ -1,16 +1,14 @@
 %# vi: set ts=4 sw=4 ft=mason :
 <%args>
-$type
-$artistid=>0
-$albumid=>0
-$num => UserPreference::get('mods_per_page')
+$query
+$voter_id
+$page => undef
+$offset => undef
+$args
 </%args>
-
 <%perl>
 
-my $max_items = $num;
-my $offset = $ARGS{offset};
-my $page = $ARGS{page};
+my $max_items = UserPreference::get('mods_per_page');
 $offset = ($page-1) * $max_items if not defined $offset and defined $page;
 $offset = 0 if not defined $offset;
 $offset = 0 if $offset < 0;  
@@ -19,10 +17,11 @@ my $mb = $m->comp("/comp/dblogin");
 my $mod = Moderation->new($mb->{DBH});
 
 my ($result, $mods, $total_mods) = $mod->GetModerationList(
+	$query, $voter_id,
 	$offset, $max_items,
 );
 
-$m->comp("/comp/redirect", "/mod/filter.html")
+$m->comp("/comp/redirect", "/mod/search/index.html")
 	if $result == &Moderation::SEARCHRESULT_NOQUERY;
 
 return $m->comp(
@@ -59,6 +58,7 @@ if (@$mods)
 	push @{ $notes{ $_->GetModerationId } }, $_
 		for @notes;
 }
+
 </%perl>
 
 <table width="100%">
@@ -67,20 +67,20 @@ if (@$mods)
 
 	<div class="LinksRow">
 <% $total_mods %> matching mod<% (($total_mods==1) ? "" : "s") %> &nbsp; [
-<a href="/mod/select-filter.html">Search Again</a> |
-<a href="/mod/filter.html">Advanced Search</a> |
+<a href="/mod/search/select-filter.html">New Search</a> |
+<a href="/mod/search/index.html?<% $m->comp('/comp/args-to-querystring.inc', %$args) %>">Advanced Search</a> |
 <a href="/jumpmod.html">Jump</a> |
 <a href="/mod_faq.html">FAQ</a> |
 <a href="/mod_intro.html">Help</a>
 	]</div>
 
 	<div class="LinksRow">[
-<a href="/mod/preset-new.html">New Mods</a> |
-<a href="/mod/preset-subscriptions.html">Subscribed Mods</a> |
-<a href="/mod/preset-freedb.html">FreeDB Mods</a> |
-<a href="/mod/preset-moderator.html">My Mods</a> |
-<a href="/mod/preset-moderator-failed.html">My Failed Mods</a> |
-<a href="/mod/preset-voted.html">My Votes</a>
+<a href="/mod/search/pre/new.html">New Mods</a> |
+<a href="/mod/search/pre/subscriptions.html">Subscribed Mods</a> |
+<a href="/mod/search/pre/freedb.html">FreeDB Mods</a> |
+<a href="/mod/search/pre/moderator.html">My Mods</a> |
+<a href="/mod/search/pre/moderator-failed.html">My Failed Mods</a> |
+<a href="/mod/search/pre/voted.html">My Votes</a>
 	]</div>
 
 </td>
@@ -97,9 +97,8 @@ if (@$mods)
 % if ($total_mods-$offset > $max_items || $offset > 0) {
 <& /comp/framedboxbegin, width=>"100%", style=>"margin: 1em 0" &>
 <& /comp/pageselector, 
-   url=>"moderate.html?type=$type"
-   	. ($ARGS{moderator} ? "&moderator=$ARGS{moderator}" : "")
-	. (($artistid > 0) ? "&artistid=$artistid" : ""),
+   url=>"/mod/search/results.html",
+   args=>$args,
    offset=>$offset,
    pagesize=>$max_items,
    numitems=>$total_mods,
@@ -120,7 +119,7 @@ if (@$mods)
 for my $obj (@$mods)
 {
 	my $n = $notes{ $obj->GetId } || [];
-   $m->comp("/comp/showmod", mod=>$obj, notes=>$n);
+   $m->comp("/comp/showmod", mod=>$obj, notes=>$n, voter=>$voter_id);
 }
 </%perl>
 
@@ -150,9 +149,8 @@ for my $obj (@$mods)
 % if (($total_mods-$offset > $max_items || $offset > 0) and @$mods) {
 <& /comp/framedboxbegin, width=>"100%", style=>"margin: 1em 0" &>
 <& /comp/pageselector, 
-   url=>"moderate.html?type=$type"
-   	. ($ARGS{moderator} ? "&moderator=$ARGS{moderator}" : "")
-	. (($artistid > 0) ? "&artistid=$artistid" : ""),
+   url=>"/mod/search/results.html",
+   args=>$args,
    offset=>$offset,
    pagesize=>$max_items,
    numitems=>$total_mods,
