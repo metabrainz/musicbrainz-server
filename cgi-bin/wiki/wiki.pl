@@ -70,7 +70,7 @@ $RcDefault   = 30;              # Default number of RecentChanges days
 @RcDays      = qw(1 3 7 30 90); # Days for links on RecentChanges
 $KeepDays    = 14;              # Days to keep old revisions
 $SiteBase    = "";              # Full URL for <BASE> header
-$FullUrl     = "http://musicbrainz.org/cgi-bin/wiki/wiki.pl";              # Set if the auto-detected URL is wrong
+$FullUrl     = "";              # Set if the auto-detected URL is wrong
 $RedirType   = 1;               # 1 = CGI.pm, 2 = script, 3 = no redirect
 $AdminPass   = "";              # Set to non-blank to enable password(s)
 $EditPass    = "";              # Like AdminPass, but for editing only
