@@ -30,6 +30,14 @@ use MusicBrainz;
 use Moderation;
 use Tie::STDERR \&handle_output;
 
+# Should submit this as a patch, or make it a required patch for MusicBrainz
+# (like String::Similarity)
+sub Tie::STDERR::PRINTF
+{
+	my ($self, $fmt) = splice(@_, 0, 2);
+	$self->print(sprintf $fmt, @_);
+}
+
 my $email = shift;
 
 sub handle_output
