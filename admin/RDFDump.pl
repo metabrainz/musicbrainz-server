@@ -85,6 +85,8 @@ sub DumpArtists
 
     my (@row, $out, $last_id);
     my ($start, $nw, $count, $mx, $spr, $left, $mins, $hours, $secs);
+
+    $sql->Do("set SQL_BIG_TABLES = 1");
     if ($sql->Select(qq|select Artist.gid, Artist.name, Artist.sortname, 
                         Album.gid from Artist, Album where Artist.id = 
                         Album.artist order by Artist.sortname|))
@@ -135,6 +137,7 @@ sub DumpArtists
         print {$file} $out;
 
     }
+    $sql->Do("set SQL_BIG_TABLES = 0");
     $sql->Finish;
 }
 
@@ -146,6 +149,7 @@ sub DumpAlbums
     my ($sql2, @row2);
     my ($start, $nw, $count, $mx, $spr, $left, $mins, $hours, $secs);
 
+    $sql->Do("set SQL_BIG_TABLES = 1");
     if ($sql->Select(qq|select Album.gid, Artist.gid, Album.name, Track.gid,
                                Album.id, AlbumJoin.sequence
                           from Artist, Album, AlbumJoin, Track 
@@ -226,6 +230,7 @@ sub DumpAlbums
         print {$file} $out;
 
     }
+    $sql->Do("set SQL_BIG_TABLES = 0");
     $sql->Finish;
 }
 
@@ -237,6 +242,7 @@ sub DumpTracks
     my ($sql2, @row2);
     my ($start, $nw, $count, $mx, $spr, $left, $mins, $hours, $secs);
 
+    $sql->Do("set SQL_BIG_TABLES = 1");
     if ($sql->Select(qq|select Track.gid, Artist.gid, Track.name, Track.id
                           from Artist, Track 
                          where Artist.id = Track.artist 
@@ -310,6 +316,7 @@ sub DumpTracks
         print {$file} $out;
 
     }
+    $sql->Do("set SQL_BIG_TABLES = 0");
     $sql->Finish;
 }
 
