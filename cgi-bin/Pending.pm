@@ -153,7 +153,7 @@ sub GetPendingList
                                            ["count(*)"], []);
                     
        $query = qq/select guid, artist, album, name,
-                   sequence, length, genre from Pending order by artist 
+                   sequence, duration, genre from Pending order by artist 
                    limit $offset, $max_items/;
    }
    else
@@ -163,7 +163,7 @@ sub GetPendingList
                                            ["guid", $guid]);
 
        $query = qq/select guid, artist, album, name,
-                   sequence, length, genre from Pending where 
+                   sequence, duration, genre from Pending where 
                    guid = $guid order by artist limit $offset, $max_items/;
    }
 
