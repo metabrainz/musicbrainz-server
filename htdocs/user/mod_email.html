@@ -117,14 +117,18 @@ else
 				 <% $you->GetName %>
 			</p>
 
+% if ($me->GetEmail) {
 			<p style="margin: 0.5em">
 				<input type="checkbox" name="revealaddress" <%
 					UserPreference::get('reveal_address_when_mailing')
 					? "checked" : ""
 					%>>
-				Reveal my e-mail address, so they can e-mail me back
-				without having to use this web page
+				Reveal my e-mail address
+				[&nbsp;<a <& /comp/auto-popup-link,
+					url => "/products/server/docs/20040103-1.html",
+					&>>help</a>&nbsp;]
 			</p>
+% }
 
 			<p style="margin: 0.5em">
 				Subject:<br>
