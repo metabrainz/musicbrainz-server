@@ -38,28 +38,38 @@ my $sql = Sql->new($mb->{DBH});
 
 $sql->Begin;
 
-#$sql->Do("LOCK TABLE trmjoin IN EXCLUSIVE MODE");
+$sql->Do("LOCK TABLE trmjoin IN EXCLUSIVE MODE");
+$sql->Do("DROP TRIGGER a_del_trmjoin on trmjoin");
 
 $| = 1;
-print localtime() . " : Finding dupes\n";
+print localtime() . " : Finding duplicate (trm, track) pairs\n";
 my $dupes = $sql->SelectListOfHashes(
 	"SELECT trm, track, join(id::VARCHAR) AS ids, COUNT(*) AS freq
 	FROM trmjoin GROUP BY trm, track HAVING COUNT(*) > 1",
 );
-print localtime() . " : Done.  Deleting...\n";
+
+my @ids = map {
+	my @i = split ' ', $_->{ids};
+	shift @i;
+	@i;
+} @$dupes;
+
+printf localtime() . " : Deleting %d trmjoin rows\n",
+	scalar @ids;
 
 my $del = 0;
 
-for my $r (@$dupes)
+for (@ids)
 {
-	my @ids = split ' ', $r->{ids};
-	shift @ids;
-	print("."), ++$del, $sql->Do("DELETE FROM trmjoin WHERE id = ?", $_)
-		for @ids;
+	print ++$del, "\r" if -t;
+	$sql->Do("DELETE FROM trmjoin WHERE id = ?", $_);
 }
 
-print "\n" if $del;
 print localtime() . " : Deleted $del rows\n";
+
+$sql->Do("CREATE TRIGGER a_del_trmjoin AFTER DELETE ON trmjoin
+	FOR EACH ROW EXECUTE PROCEDURE delete_album_meta()");
+
 $sql->Commit;
 
-# eof RemoveDuplicateTRMJoins.pl
+# eof 20031004-1.pl
