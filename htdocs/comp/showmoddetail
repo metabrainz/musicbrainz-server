@@ -150,7 +150,7 @@ my $expire_verb = ($mod->GetExpired ? "Expired" : "Expires");
         <td>Notes</td>
         <td>
            [
-		   <a href="#" onclick="MyWindow=window.open('mod/addnote.html?modid=<% $mod->GetId %>&amp;uid=<% $my_uid %>','AddNote','toolbar=no,location=no,directories=no,status=no,menubar=no,scrollbars=yes,resizable=yes,width=400,height=150'); return false;">Add note</a>
+		   <a href="/mod/addnote.html?modid=<% $mod->GetId %>" onclick="MyWindow=window.open('/mod/addnote.html?modid=<% $mod->GetId %>','AddNote','toolbar=no,location=no,directories=no,status=no,menubar=no,scrollbars=yes,resizable=yes,width=400,height=150'); return false;">Add note</a>
 		   |
            <a href="/user/mod_email.html?uid=<% $mod->GetModerator %>&amp;modid=<% $mod->GetId %>&amp;url=<% $r->uri . "?" . $r->args %>">Send email</a>
 		   ]
@@ -163,7 +163,7 @@ my $expire_verb = ($mod->GetExpired ? "Expired" : "Expires");
              &nbsp;&nbsp;&nbsp;&nbsp;
 %            my $bold = ($obj->{user} eq $mod->GetModeratorName) ? 'bold' : 'body';
              <font class="<% $bold %>"><% $obj->{user} %></font>:
-             <% $obj->{text} |n %><br> 
+             <% $obj->{text} %><br> 
 %         }
 		</td>
   	</tr>
