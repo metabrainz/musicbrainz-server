@@ -111,7 +111,7 @@ else
 }
 if (!defined $xml)
 {
-    print QuerySupport::EmitErrorRDF("An RDF object must be supplied.");
+    print QuerySupport::EmitErrorRDF("An RDF object must be supplied.", 1);
     exit(0);
 }
 
@@ -123,7 +123,7 @@ eval
 if ($@)
 {
     $@ =~ tr/\n\r/  /;
-    print QuerySupport::EmitErrorRDF("Cannot parse query: $@");
+    print QuerySupport::EmitErrorRDF("Cannot parse query: $@", 1);
     print STDERR QuerySupport::EmitErrorRDF("Cannot parse query: $@");
     print STDERR "$xml\n";
     exit(0);
@@ -132,12 +132,12 @@ if ($@)
 $queryname = QuerySupport::SolveXQL($doc, "/rdf:RDF/rdf:Description/MQ:Query");
 if (!defined $queryname)
 {
-    print QuerySupport::EmitErrorRDF("Cannot determine query name.");
+    print QuerySupport::EmitErrorRDF("Cannot determine query name.", 1);
     exit(0);
 }
 if (!exists $Queries{$queryname})
 {
-    print QuerySupport::EmitErrorRDF("Cannot find query $queryname.");
+    print QuerySupport::EmitErrorRDF("Cannot find query $queryname.", 1);
     exit(0);
 }
 $querydata = $Queries{$queryname};
@@ -164,7 +164,7 @@ for(;;)
 $cd = new MusicBrainz(1);
 if (!$cd->Login(1))
 {
-    print QuerySupport::EmitErrorRDF("Database Error: ".$DBI::errstr.")");
+    print QuerySupport::EmitErrorRDF("Database Error: ".$DBI::errstr.")", 1);
     exit(0);
 }
 
@@ -173,7 +173,7 @@ $cd->Logout;
 
 if (!defined $xml)
 {
-    print QuerySupport::EmitErrorRDF("Query failed.");
+    print QuerySupport::EmitErrorRDF("Query failed.", 1);
     exit(0);
 }
 

@@ -109,6 +109,7 @@ sub SolveXQL
 
 sub EmitErrorRDF
 {
+    my ($emit_headers) = @_;
     my ($rdf, $r, $len);
 
     $r = RDF::new;
@@ -119,9 +120,12 @@ sub EmitErrorRDF
     $rdf .= $r->EndDesc;
     $rdf .= $r->EndRDFObject;
 
-    $len = length($rdf);
-    $rdf = "Content-type: text/plain\n" .
-           "Content-Length: $len\n\r\n" . $rdf;
+    if (defined $emit_headers && $emit_headers)
+    {
+        $len = length($rdf);
+        $rdf = "Content-type: text/plain\n" .
+               "Content-Length: $len\n\r\n" . $rdf;
+    }
 
     return $rdf;
 }
