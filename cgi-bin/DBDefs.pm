@@ -74,4 +74,9 @@ use constant CACHE_DIR => "/home/httpd/musicbrainz/mason/cache";
 
 use constant DEBUG_LOG => "/tmp/musicbrainz-debug.log";
 
+# The host names of the HTML / RDF parts of the server.
+# To use a port number other than 80, add it like so: "myhost:8000"
+use constant WEB_SERVER => "www.musicbrainz.org";
+use constant RDF_SERVER => "mm.musicbrainz.org";
+
 1;
