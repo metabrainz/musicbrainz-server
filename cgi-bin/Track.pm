@@ -233,7 +233,6 @@ sub GetMetadataFromIdAndAlbum
 {
     my ($this, $id, $albumname) = @_;
     my (@row, $sql, $artist, $album, $seq, @TRM);
-    my ($ar, $gu);
 
     $artist = "Unknown";
     $album = "Unknown";
@@ -245,15 +244,15 @@ sub GetMetadataFromIdAndAlbum
          return ();
     }
 
-    $ar = Artist->new($this->{DBH});
+    my $ar = Artist->new($this->{DBH});
     $ar->SetId($this->GetArtist());
     if (!defined $ar->LoadFromId())
     {
          return ();
     }
 
-    $gu = TRM->new($this->{DBH});
-    @TRM = $gu->GetTRMFromTrackId($id);
+    my $trm = TRM->new($this->{DBH});
+    @TRM = $trm->GetTRMFromTrackId($id);
     if (scalar(@TRM) == 0)
     {
          return ();
@@ -380,7 +379,7 @@ sub Insert
 sub Remove
 {
     my ($this) = @_;
-    my ($sql, @row, $refcount, $gu);
+    my ($sql, @row, $refcount);
 
     return undef if (!defined $this->GetId());
   
@@ -394,8 +393,8 @@ sub Remove
         return undef 
     }
 
-    $gu = TRM->new($this->{DBH});
-    $gu->RemoveByTrackId($this->GetId());
+    my $trm = TRM->new($this->{DBH});
+    $trm->RemoveByTrackId($this->GetId());
 
     print STDERR "DELETE: Remove track " . $this->GetId() . "\n";
     $sql->Do("delete from Track where id = " . $this->GetId());
