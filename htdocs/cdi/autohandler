@@ -1,2 +1,2 @@
-<% mc_auto_next %>
+% $m->call_next;
 <& /comp/footer &>
