@@ -32,7 +32,7 @@ my $max_items = 50;
 
 sub PrintPrevButton
 {
-    my ($offset, $num, $text) = @_;
+    my ($offset, $num, $text, $ind) = @_;
 
     print '<td width="15%">';
     if ($offset > 0)
@@ -49,7 +49,7 @@ sub PrintPrevButton
 
 sub PrintNextButton
 {
-    my ($offset, $num, $text, $rows) = @_;
+    my ($offset, $num, $text, $ind, $rows) = @_;
 
     print '<td width="15%">';
     if ($offset + $num < $rows)
@@ -98,11 +98,11 @@ $sth = $cd->{DBH}->prepare("select id, name from Artist where left(name, 1) = '$
 $sth->execute();
 
 print '<table width="100%"><tr>';
-PrintPrevButton($offset, $max_items, "< Prev");
-PrintPrevButton($offset, $max_items * 2, "<< Prev");
+PrintPrevButton($offset, $max_items, "< Prev", $ind);
+PrintPrevButton($offset, $max_items * 2, "<< Prev", $ind);
 print '<td width="40%">&nbsp;</td>';
-PrintNextButton($offset, $max_items * 2, "Next >>", $num_artists);
-PrintNextButton($offset, $max_items, "Next >", $num_artists);
+PrintNextButton($offset, $max_items * 2, "Next >>", $ind, $num_artists);
+PrintNextButton($offset, $max_items, "Next >", $ind, $num_artists);
 print '</tr></table>';
 
 if ($sth->rows > 0)  
@@ -112,13 +112,13 @@ if ($sth->rows > 0)
     {
         print "<tr><td valign=top>" . ($i + 1);
         print ".</td><td valign=top width=\"50%\">";
-        print "<font size=+1><a href=\"showartist.pl?artistid=$row[0]\">";
+        print "<font size=+1><a href=\"/showartist.html?artistid=$row[0]\">";
         print "$row[1]</font></td><td valign=top>\n";
         if (@row = $sth->fetchrow_array)
         {
             $i++;
             print (($i + 1) . ".</td><td valign=top width=\"50%\">");
-            print "<font size=+1><a href=\"showartist.pl?artistid=$row[0]\">";
+            print "<font size=+1><a href=\"/showartist.html?artistid=$row[0]\">";
             print "$row[1]</font>\n";
         }
         else

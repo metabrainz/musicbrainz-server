@@ -1,0 +1,13 @@
+<FORM METHOD="POST" ACTION="/cgi-bin/search_art.pl"
+      ENCTYPE="application/x-www-form-urlencoded">
+<table>
+<tr><td>
+<b>Artist Search</b>
+</td></tr>
+<tr><td colspan=2>
+<INPUT TYPE="text" NAME="artist" SIZE=15>
+</td><td>
+<INPUT TYPE="submit" NAME="Search" VALUE="Search">
+</td></tr>
+</table>
+</form>  

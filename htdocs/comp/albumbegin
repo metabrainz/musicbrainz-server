@@ -1,0 +1,21 @@
+<%args>
+$albumid
+$title
+</%args>
+
+<table bgcolor="#643b99" cellspacing=0 cellpadding=0 width=100%>
+   <tr><td>
+   <table width=100%>
+      <tr>
+        <td width=92%>
+          <font color=white><b><% $title %></b></font>
+        </td>
+% if (exists $session{user}) {
+        <td width=8%>
+          <a href="/editalbum.html?id=<% $albumid %>">
+          <font color=white>Edit</font></a>
+        </td>
+% } 
+      </tr>
+   </table>
+   <table bgcolor=white cellspacing=0 width=100%>

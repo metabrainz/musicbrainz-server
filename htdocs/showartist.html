@@ -1,0 +1,51 @@
+<%perl>
+
+my ($mb); 
+my (@info, $artistname, $albumname);
+my ($trackinfo, $albumid, @idsalbums, $i, $j); 
+
+$mb = new MusicBrainz;
+$mb->Login();
+
+$artistname = $mb->GetArtistName($ARGS{artistid});
+@idsalbums = $mb->GetAlbumList($ARGS{artistid});
+
+</%perl>
+
+<table width=100%>
+  <tr>
+    <td width=90%>
+      <font size=+2><% $artistname %></font>
+% if (exists $session{user}) {
+      (<a href="/editartist.html?id=<% $ARGS{artistid} %>">Edit</a>)
+% }
+      <p>
+    </td>
+  </tr>
+</table>
+<%perl>
+
+for(;;)
+{
+    $albumid = shift @idsalbums;
+    last if (! defined $albumid);
+    $albumname = shift @idsalbums;
+    mc_comp("/comp/albumbegin", albumid=>$albumid, title=>$albumname);
+
+    @info = $mb->GetAlbumInfo($albumid);
+    for($i = 0;; $i++)
+    {
+        $trackinfo = $info[$i]; 
+        last if (!defined $trackinfo);
+        mc_comp("/comp/albumtrack", 
+                id=>$$trackinfo[0],
+                tracknum=>($$trackinfo[1] + 1), 
+                name=>$$trackinfo[2]);
+    }
+    mc_comp("/comp/albumend");
+}
+
+$mb->Logout();
+
+</%perl>
+

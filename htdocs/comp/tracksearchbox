@@ -1,0 +1,13 @@
+<FORM METHOD="POST" ACTION="/cgi-bin/search_trk.pl"
+      ENCTYPE="application/x-www-form-urlencoded">
+<table>
+<tr><td>
+<b>Track Search</b>
+</td></tr>
+<tr><td colspan=2>
+<INPUT TYPE="text" NAME="track" SIZE=15>
+</td><td>
+<INPUT TYPE="submit" NAME="Search" VALUE="Search">
+</td></tr>
+</table>
+</form>  

@@ -1,8 +1,3 @@
-<%perl>
-my $p = MusicBrainz::SearchForm;
-my $b = MusicBrainz::ArtistBrowseForm;
-</%perl>
-
 <table width="100%">
 <tr>
 <td width="49%" valign="top">
@@ -11,7 +6,9 @@ my $b = MusicBrainz::ArtistBrowseForm;
     appear in the title of the artist, album or track. The search
     is case insensitive and partial keywords are ok. (e.g. 'Port' 
     will match 'Portishead')
-    <% $p %>
+    <& /comp/artistsearchbox &>
+    <& /comp/albumsearchbox &>
+    <& /comp/tracksearchbox &>
   <& /comp/tableend &>
 
 </td>
@@ -19,7 +16,7 @@ my $b = MusicBrainz::ArtistBrowseForm;
 <td width="49%" valign="top">
   <& /comp/tablebegin, title=>'Browse MusicBrainz' &>
     To browse the database alphabetically, select a letter below:<p>
-    <% $b %>
+    <& /comp/artistbrowsebox &>
   <& /comp/tableend &>
 
 % if ($session{user} ne "") {

@@ -1,0 +1,19 @@
+<%perl>
+
+   my ($i, $p);
+
+   $p = "<center>";
+   for($i = 0; $i < 26; $i++)
+   {
+       $p .= '<a href="/cgi-bin/browseartists.pl?index=' . chr($i + 65) . '">' .
+              chr($i + 65) . "</a> ";
+       if (($i + 1) % 13 == 0)
+       {
+           $p .= "<br>\n";
+       }
+   }
+   $p .= "</center>";  
+
+   mc_out($p);
+
+</%perl>

@@ -417,6 +417,25 @@ sub GetArtistName
    return $rv;
 }
 
+sub GetAlbumName
+{
+   my ($this, $albumid) = @_;
+   my ($sth, $rv);
+
+   $sth = $this->{DBH}->prepare("select name from Album where id=$albumid");
+   $sth->execute;
+   if ($sth->rows)
+   {
+        my @row;
+
+        @row = $sth->fetchrow_array;
+        $rv = $row[0];
+   }
+   $sth->finish;
+
+   return $rv;
+}
+
 sub GetAlbumList
 {
    my ($this, $id) = @_;
@@ -824,93 +843,6 @@ sub AppendWhereClause
     return $sql;
 }
 
-sub SearchForm
-{
-   my ($p);
-
-   $p = ArtistSearchForm();
-   $p .= AlbumSearchForm();
-   $p .= TrackSearchForm();
-}
-
-sub ArtistBrowseForm
-{
-   my ($i, $p);
-
-   $p = "<center>";
-   for($i = 0; $i < 26; $i++)
-   {
-       $p .= '<a href="/cgi-bin/browseartists.pl?index=' . chr($i + 65) . '">' .
-              chr($i + 65) . "</a> ";
-       if (($i + 1) % 13 == 0)
-       {
-           $p .= "<br>\n";
-       }
-   } 
-   $p .= "</center>";
-
-   return $p;
-}
-
-sub ArtistSearchForm
-{
-return <<END;
-
-   <FORM METHOD="POST" ACTION="/cgi-bin/search_art.pl"
-         ENCTYPE="application/x-www-form-urlencoded">
-   <table>
-   <tr><td>
-   <b>Artist Search</b>
-   </td></tr>
-   <tr><td colspan=2>
-   <INPUT TYPE="text" NAME="artist" SIZE=15>
-   </td><td>
-   <INPUT TYPE="submit" NAME="Search" VALUE="Search">
-   </td></tr>
-   </table>
-   </form>
-END
-}
-
-sub AlbumSearchForm
-{
-return <<END;
-
-   <FORM METHOD="POST" ACTION="/cgi-bin/search_alb.pl"
-         ENCTYPE="application/x-www-form-urlencoded">
-   <table>
-   <tr><td>
-   <b>Album Search</b>
-   </td></tr>
-   <tr><td colspan=2>
-   <INPUT TYPE="text" NAME="album" SIZE=15>
-   </td><td>
-   <INPUT TYPE="submit" NAME="Search" VALUE="Search">
-   </td></tr>
-   </table>
-   </form>
-END
-}
-
-sub TrackSearchForm
-{
-return <<END;
-   <FORM METHOD="POST" ACTION="/cgi-bin/search_trk.pl"
-         ENCTYPE="application/x-www-form-urlencoded">
-   <table>
-   <tr><td>
-   <b>Album Search</b>
-   </td></tr>
-   <tr><td colspan=2>
-   <INPUT TYPE="text" NAME="track" SIZE=15>
-   </td><td>
-   <INPUT TYPE="submit" NAME="Search" VALUE="Search">
-   </td></tr>
-   </table>
-   </form>
-END
-}
-
 sub FindFuzzy
 {
    my ($this, $tracks, $toc) = @_;
@@ -981,5 +913,27 @@ sub FindFreeDBEntry
 
    return $album;
 }
+
+sub GetAlbumInfo
+{
+   my ($this, $albumid) = @_;
+   my (@info, $sth);
+
+   $sth = $this->{DBH}->prepare(qq/select id, sequence, name from Track where 
+                Album = $albumid order by sequence/);
+   if ($sth->execute())
+   {
+       my @row;
+       my $i;
+
+       for(;@row = $sth->fetchrow_array;)
+       {  
+           push @info, [$row[0], $row[1], $row[2]];
+       }
+   }
+   $sth->finish;
+
+   return @info;
+};
 
 1;

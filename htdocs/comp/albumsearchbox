@@ -1,0 +1,13 @@
+<FORM METHOD="POST" ACTION="/cgi-bin/search_alb.pl"
+      ENCTYPE="application/x-www-form-urlencoded">
+<table>
+<tr><td>
+<b>Album Search</b>
+</td></tr>
+<tr><td colspan=2>
+<INPUT TYPE="text" NAME="album" SIZE=15>
+</td><td>
+<INPUT TYPE="submit" NAME="Search" VALUE="Search">
+</td></tr>
+</table>
+</form>  

@@ -71,16 +71,13 @@ else
     $sth->execute();
     if ($sth->rows > 0)
     {
-        print"Click on the artist name to see all the albums for that artist";
-        print", or click on 'Edit' to edit the name of the artist:<p>";
-        print"<table><tr><td><b>Artist Name:</b></td>\n";
-        print"<td><b>Options:</b></td></tr>\n";
+        print"Click on the artist name to see all the albums for that artist.";
+        print"<p><table><tr><td><b>Artist Name:</b></td></tr>\n";
         while(@row = $sth->fetchrow_array)
         {
-           print"<tr><td><a href=\"showartist.pl?artistid=$row[0]\">";
-           print $o->escapeHTML($row[1]),"</a></td><td>\n";
-           print"<a href=\"editartist.pl?artistid=$row[0]\">Edit</a>\n";
-           print"</td></tr>\n";
+           print"<tr><td><a href=\"/showartist.html?artistid=$row[0]\">";
+           print $o->escapeHTML($row[1]),"</a></td>\n";
+           print"</tr>\n";
         }
         print"</table>\n";
     }
