@@ -43,6 +43,7 @@ use Carp;
 
 use constant AUTOMOD_FLAG => 1;
 use constant BOT_FLAG => 2;
+use constant UNTRUSTED_FLAG => 4;
 
 sub GetPassword			{ $_[0]{password} }
 sub SetPassword			{ $_[0]{password} = $_[1] }
@@ -334,6 +335,13 @@ sub IsBot
 	my ($this, $privs) = @_;
 
 	return ($privs & BOT_FLAG) > 0;
+}
+
+sub IsUntrusted
+{
+	my ($this, $privs) = @_;
+
+	return ($privs & UNTRUSTED_FLAG) > 0;
 }
 
 ################################################################################
