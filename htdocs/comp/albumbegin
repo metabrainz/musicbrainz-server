@@ -43,7 +43,7 @@ if ($link ne '')
   <table width="100%" border="0" cellspacing="1" cellpadding="2">
   <tr>
 % if ($album->GetModPending()) {
-        <td width=85% bgcolor="#FFFFCC" valign="center">
+        <td width="85%" bgcolor="#FFFFCC" valign="center">
 %          if ($image ne '') {
                <a href="<% $link %>"><img title="<% $title %>"
                   alt="<% $alt %>"
@@ -51,7 +51,7 @@ if ($link ne '')
 %          }
            <a href="/<% $script %>.html?albumid=<% $album->GetId() %>"><% $name |h %></a>
 % } else {
-        <td width=85% bgcolor="#FFBA58" valign="center">
+        <td width="85%" bgcolor="#FFBA58" valign="center">
 %          if ($image ne '') {
                <a href="<% $link %>"><img alt="<% $alt %>" title="<% $title %>"
                   src="<% $image %>" align="center" border="0"></a>
@@ -62,17 +62,17 @@ if ($link ne '')
 % if (exists $session{user} && !$nomod) {
 
 %       if (!$nonalbum && $showtag) {
-            <td width=1% bgcolor="#FFBA58" align=center valign=top nowrap>
+            <td width="1%" bgcolor="#FFBA58" align=center valign=top nowrap>
               <input type="checkbox" name="AlbumId<% $album->GetId() %>"
                  <% $tagchecked ? " CHECKED" : "" %>>
             </td>
 %       }
 
-        <td width=1% bgcolor="#FFBA58" align=center valign=top nowrap>
+        <td width="1%" bgcolor="#FFBA58" align=center valign=top nowrap>
 %         if (!$nonalbum) {
-              <a href="/editalbum.html?id=<% $albumid %>&artist=<% $artist->GetId() %>">Edit</a> | 
+              <a href="/editalbum.html?id=<% $albumid %>&amp;artist=<% $artist->GetId() %>">Edit</a> | 
 %         }
-          <a href="/remalbum.html?album=<% $albumid %>&artist=<% $artist->GetId() %>">Del</a>
+          <a href="/remalbum.html?album=<% $albumid %>&amp;artist=<% $artist->GetId() %>">Del</a>
         </td>
 % }
   </tr>
