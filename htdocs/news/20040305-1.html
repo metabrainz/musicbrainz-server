@@ -1,0 +1,57 @@
+%# vi: set ts=2 sw=2 ft=mason :
+<& /comp/sidebar, title => 'March 99th, 2004: Server Updates' &>
+
+<h2>Changes mainly of interest to MusicBrainz Users</h2>
+
+<p>
+	Bug #874401 has been fixed.&nbsp; This bug meant that when you added
+	"Various Artist" albums, any sortnames you specified for new artists
+	were ignored.&nbsp; Now you can specify both the name and sortname as
+	you create the artist, as you'd expect.
+</p>
+
+<h2>Changes mainly of interest to MusicBrainz Programmers</h2>
+
+<p>
+	Web service changes: release dates, and release type and status have been
+	added to the <tt>QuickTrackInfoFromTrackId</tt> query.&nbsp; This query uses
+	the same RDF prepresentation that the <tt>GetAlbumFromGlobalId</tt> function
+	returns.&nbsp; This query will be deprecated for the next version of the web
+	service; the <tt>QuickTrackInfoFromTRMId</tt> function has also been
+	deprecated.
+</p>
+
+<h2>Changes mainly of interest to MusicBrainz Server Programmers</h2>
+
+<p>
+	We're switching over to use
+	<a href="http://www.danga.com/memcached/">Memcached</a> for our cacheing
+	implementation (after a short spell with <tt>Cache::SizeAwareFileCache</tt> at the
+	last release).&nbsp; Of course this means you'll probably want to install
+	Memcached on your machine if you want to run a MusicBrainz server.
+</p>
+
+<p>
+	Some obsolete cleanup scripts have been ditched, and "RemoveBadTOCs.pl" has
+	been completely rewritten (and renamed).
+</p>
+
+<p>
+	In <& cvslink.inc, "mb_server/cgi-bin/Discid.pm" &>,
+	<tt>_FindFreeDBEntry</tt> has been removed - it wasn't used any more, and if
+	we had happened to invoke it there was a nasty bug in there waiting to bite,
+	which would have caused data corruption of the TOC table.
+</p>
+
+<h2>Bugs and RFEs Closed</h2>
+
+<& buglist.inc,
+	"874401 VA Add album doesn't create sortnames",
+	"905237 Python binding are not where the download page says they are",
+	"697100 during freedb import (submission)",
+	"905755 Localise google search link",
+	&>
+
+<p style="margin-top: 3em"><a href="/support/contact.html">Dave Evans</a></p>
+
+<& /comp/footer &>
