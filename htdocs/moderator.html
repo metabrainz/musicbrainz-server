@@ -69,7 +69,7 @@ if ($update > 1)
         $mb->Logout();
         return undef;
     }
-    if (!$ui->CheckEMailAddress($email))
+    if ($email =~ /\S/ and !$ui->CheckEMailAddress($email))
     {
         </%perl>
         The email address you entered is not a valid email address. Please go back
@@ -82,30 +82,44 @@ if ($update > 1)
     }
 	if ($info->GetEmail ne $email)
     {
-        my $ret = $info->SendVerificationEmail($email);
-        if ($ret)
-        {
-            </%perl>
-            <p>
-            The email verification mail could not be sent: <b><% $ret %></b>.
-            Your email address has not been updated.
-            </p>
-            <%perl>
-        }
-        else
-        {
-            </%perl>
-            <p>
-            The email verification mail has been sent to <b><% $email %></b>.
-            Please check your mailbox and click on the link in the email to 
-            verify the new email address.
-            </p>
-            <%perl>
-        }
+		if ($email =~ /\S/)
+		{
+			my $ret = $info->SendVerificationEmail($email);
+			if ($ret)
+			{
+				</%perl>
+				<p>
+				The email verification mail could not be sent: <b><% $ret %></b>.
+				Your email address has not been updated.
+				</p>
+				<%perl>
+			}
+			else
+			{
+				</%perl>
+				<p>
+				The email verification mail has been sent to <b><% $email %></b>.
+				Please check your mailbox and click on the link in the email to 
+				verify the new email address.
+				</p>
+				<%perl>
+			}
 
-        # Reset the email address to the old one since this one has
-        # not been verified yet.
-        $email = $info->GetEmail;
+			# Reset the email address to the old one since this one has
+			# not been verified yet.
+			$email = $info->GetEmail;
+		} else {
+			# The user wants to blank out their email address.
+			$email = "";
+
+			</%perl>
+			<p>
+				Your e-mail address has been removed.&nbsp;
+				Please note that if you add it in again in the future,
+				you will be asked to verify it again.
+			</p>
+			<%perl>
+		}
     }
     $ui->SetUserInfo($uid, $email, $password1, $weburl, $bio);
 
