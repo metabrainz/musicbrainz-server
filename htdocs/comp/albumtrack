@@ -2,15 +2,25 @@
 $id
 $tracknum
 $name
+$artistname
 </%args>
 
 <tr>
     <td width="10%" align=center>
        <% $tracknum %>
     </td>
+% if ($artistname ne '') {
+    <td width="50%">
+% } else {
     <td width="80%">
+% }
        <% $name %>
     </td>
+% if ($artistname ne '') {
+    <td width="30%">
+       <% $artistname %>
+    </td>
+% }
 % if (exists $session{user}) {
     <td width="10%" align=center>
        <a href="/edittrack.html?id=<% $id %>">Edit</a>

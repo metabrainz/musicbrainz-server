@@ -14,10 +14,10 @@ $mb->Login();
 if (scalar(@data) > 0)
 {
 </%perl>
+    <& /comp/tablebegin, title=>'Found Albums' &>
+
     Click on the album to view that album or click on the artist to
     view all the albums by that artist:
-
-    <& /comp/tablebegin, title=>'Found Albums' &>
 
     <table><tr><th>Album</th><th>Artist</th></tr>
 %   for($i = 0;; $i++) {

@@ -474,6 +474,17 @@ sub GetArtistInfoFromAlbumId
    {
         @row = $sth->fetchrow_array;
    }
+   else
+   {
+       $sth->finish;
+       $sth = $this->{DBH}->prepare(qq/select artist from Album where id =
+                 $albumid/);
+       $sth->execute;
+       if ($sth->rows)
+       {
+           $row[1] = 'Various Artists' if ($row[0] == 0);
+       }
+   }
    $sth->finish;
 
    return @row;
@@ -484,8 +495,8 @@ sub GetAlbumInfo
    my ($this, $albumid) = @_;
    my (@info, $sth);
 
-   $sth = $this->{DBH}->prepare(qq/select id, sequence, name from Track where 
-                Album = $albumid order by sequence/);
+   $sth = $this->{DBH}->prepare(qq/select id, sequence, name from 
+                Track where Album = $albumid order by sequence/);
    if ($sth->execute())
    {
        my @row;
@@ -494,6 +505,29 @@ sub GetAlbumInfo
        for(;@row = $sth->fetchrow_array;)
        {  
            push @info, [$row[0], $row[1], $row[2]];
+       }
+   }
+   $sth->finish;
+
+   return @info;
+}
+
+sub GetMultipleArtistAlbumInfo
+{
+   my ($this, $albumid) = @_;
+   my (@info, $sth);
+
+   $sth = $this->{DBH}->prepare(qq/select Track.id, sequence, Track.name, 
+                Artist.name from Track, Artist where Album = $albumid 
+                and Track.Artist = Artist.id order by sequence/);
+   if ($sth->execute())
+   {
+       my @row;
+       my $i;
+
+       for(;@row = $sth->fetchrow_array;)
+       {  
+           push @info, [$row[0], $row[1], $row[2], $row[3]];
        }
    }
    $sth->finish;
@@ -520,6 +554,24 @@ sub AlbumSearch
        for(;@row = $sth->fetchrow_array;)
        {  
            push @info, [$row[0], $row[1], $row[2], $row[3]];
+       }
+   }
+   $sth->finish;
+
+   $sql = $this->AppendWhereClause($search, "select id, name " .
+           "from Album where artist = 0 and ", "Name");
+    $sql .= " order by name";
+
+   $sth = $this->{DBH}->prepare($sql);
+   $sth->execute();
+   if ($sth->rows > 0) 
+   {
+       my @row;
+       my $i;
+
+       for(;@row = $sth->fetchrow_array;)
+       {  
+           push @info, [$row[0], $row[1], 'Various Artists', 0];
        }
    }
    $sth->finish;

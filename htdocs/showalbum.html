@@ -15,11 +15,20 @@ mc_comp("/comp/artisttitle",
         artistname=>$artistname, 
         artistid=>$artistid);
 
-mc_comp("/comp/album", 
-        albumid=>$albumid, 
-        albumname=>$albumname, 
-        mb=>$mb);
-
+if ($artistid == 0)
+{
+    mc_comp("/comp/malbum", 
+            albumid=>$albumid, 
+            albumname=>$albumname, 
+            mb=>$mb);
+}
+else
+{
+    mc_comp("/comp/album", 
+            albumid=>$albumid, 
+            albumname=>$albumname, 
+            mb=>$mb);
+}
 $mb->Logout();
 
 </%perl>

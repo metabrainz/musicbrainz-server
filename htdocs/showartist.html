@@ -19,8 +19,10 @@ for(;;)
     last if (! defined $albumid);
     $albumname = shift @idsalbums;
 
-    mc_comp("/comp/album", albumid=>$albumid, 
-            albumname=>$albumname, mb=>$mb);
+    mc_comp("/comp/album", 
+            albumid=>$albumid, 
+            albumname=>$albumname, 
+            mb=>$mb);
 }
 
 $mb->Logout();
