@@ -67,6 +67,11 @@ sub Logout
    $this->{DBH}->disconnect() if ($this->{DBH});
 }
 
+sub DESTROY
+{
+    shift()->Logout;
+}
+
 # If nothing complains, lets get rid of this
 #sub CheckArgs
 #{
