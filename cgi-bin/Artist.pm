@@ -59,37 +59,51 @@ sub SetSortName
 # functions.
 sub Insert
 {
-    my ($this) = @_;
-    my ($artist, $mbid, $sql, $alias, $page);
-
+    my ($this, %opts) = @_;
     $this->{new_insert} = 0;
 
-    return undef if (!defined $this->{name});
-    $this->{sortname} = $this->{name} if (!defined $this->{sortname});
-  
-    $sql = Sql->new($this->{DBH});
-    $alias = Alias->new($this->{DBH});
+    # Check name and sortname
+    defined(my $name = $this->GetName)
+	or return undef;
+    my $sortname = $this->GetSortName;
+    $sortname = $name if not defined $sortname;
 
-    # Check to see if the artist has an alias.
-    $alias->{table} = "ArtistAlias";
-    $artist = $alias->Resolve($this->{name});
-    return $artist if (defined $artist);
+    MusicBrainz::TrimInPlace($name, $sortname);
+    $this->SetName($name);
+    $this->SetSortName($sortname);
+
+    my $sql = Sql->new($this->{DBH});
 
     # Check to see if this artist already exists
-    ($artist) = $sql->GetSingleRowLike("Artist", ["id"], 
-                                       ["name", $sql->Quote($this->{name})]); 
-    if (!defined $artist)
-    {
-         $page = $this->CalculatePageIndex($this->{sortname});
-         $mbid = $sql->Quote($this->CreateNewGlobalId());
-	 
-         $sql->Do(qq/insert into Artist (name, sortname, gid, 
-                     modpending, page) values (/ . $sql->Quote($this->{name}) .
-                     ", " . $sql->Quote($this->{sortname}) . ", $mbid, 0, $page)");
+    my $artist = $sql->SelectSingleValue(
+	"SELECT id FROM artist WHERE name ILIKE ?",
+	$name,
+    );
+    return $artist if $artist;
 
-	$artist = $sql->GetLastInsertId('Artist');
-	$this->{new_insert} = 1;
-    } 
+    unless ($opts{no_alias})
+    {
+	# Check to see if the artist has an alias.
+	my $alias = Alias->new($this->{DBH});
+	$alias->{table} = "ArtistAlias";
+	$artist = $alias->Resolve($name);
+	return $artist if (defined $artist);
+    }
+
+    my $page = $this->CalculatePageIndex($this->{sortname});
+    my $mbid = $this->CreateNewGlobalId;
+
+    $sql->Do(
+	"INSERT INTO artist (name, sortname, gid, modpending, page)"
+	. " VALUES (?, ?, ?, 0, ?)",
+	$name,
+	$this->{sortname},
+	$mbid,
+	$page,
+    );
+
+    $artist = $sql->GetLastInsertId('Artist');
+    $this->{new_insert} = 1;
     $this->{id} = $artist;
 
     # Add search engine tokens.
