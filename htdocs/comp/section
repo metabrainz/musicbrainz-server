@@ -9,8 +9,7 @@ $title
   <TABLE WIDTH="100%" BORDER="0" CELLSPACING="1" CELLPADDING="3">
   <TR>
      <TD BGCOLOR="#643b99">
-        <B><FONT FACE="Lucida,Verdana,Helvetica,Arial">
-        <FONT COLOR=white><% $title %></FONT></FONT></B>
+        <B><FONT COLOR=white><% $title %></FONT></B>
      </TD>
   </TR>
   </TABLE>

@@ -14,15 +14,14 @@ $modpending
            <B><FONT FACE="Lucida,Verdana,Helvetica,Arial">
            <FONT COLOR=black><% $title %></FONT></FONT></B>
 % } else {
-        <td width=90% BGCOLOR="#643b99"><font color=white>
-           <B><FONT FACE="Lucida,Verdana,Helvetica,Arial">
-           <FONT COLOR=white><% $title %></FONT></FONT></B>
+        <td width=90% BGCOLOR="#643b99">
+           <font color=white><b><% $title %></B></font>
 % }
         </td>
 % if (exists $session{user}) {
         <td width=10% bgcolor="#643b99" align=center>
           <a href="/editalbum.html?id=<% $albumid %>">
-          <B><FONT FACE="Lucida,Verdana,Helvetica,Arial" color=white>Edit</FONT></B></a>
+          <B><FONT color=white>Edit</FONT></B></a>
         </td>
 % } 
   </tr>

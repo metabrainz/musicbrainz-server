@@ -1,8 +1,8 @@
 <td width="10%">
 % if ($ARGS{offset} > 0) {
    <a href="/moderate.html?offset=<% $ARGS{offset} - $ARGS{num} %>">
-   <font face="Lucida,Verdana,Helvetica,Arial"><% $ARGS{text}  %></font></a>
+   <% $ARGS{text}  %></a>
 % } else {
-   <font face="Lucida,Verdana,Helvetica,Arial"><% $ARGS{text}  %></font></a>
+   <% $ARGS{text}  %></a>
 % }
 </td>
