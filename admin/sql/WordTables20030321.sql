@@ -6,10 +6,6 @@ DROP INDEX artistwords_wordidindex;
 DROP INDEX albumwords_wordidindex;
 DROP INDEX trackwords_wordidindex;
 
-SELECT *
-INTO TEMPORARY TABLE tmp_wordlist
-FROM wordlist;
-
 DROP TABLE wordlist;
 
 CREATE TABLE wordlist
@@ -22,11 +18,10 @@ CREATE TABLE wordlist
    UNIQUE(word)
 );
 
+COMMIT;
+
 TRUNCATE TABLE artistwords;
 TRUNCATE TABLE albumwords;
 TRUNCATE TABLE trackwords;
---INSERT INTO wordlist (id, word) SELECT * FROM tmp_wordlist;
-
-COMMIT;
 
 -- vi: set et :
