@@ -20,6 +20,8 @@ use DBD::Pg;
 # modules.  If we know we're likely to want some module eventually, load it
 # now.
 use IO::Socket::INET; # FreeDB
+use UUID; # TableBase
+use Net::SMTP; # MusicBrainz::Server::Mail
 
 # Alphabetical order, for ease of maintenance
 # (apart from DBDefs and ModDefs, which we'll load first, just to make sure)
