@@ -40,7 +40,6 @@ use URI::Escape;
 use CGI::Cookie;
 use Digest::SHA1 qw(sha1_base64);
 use MIME::QuotedPrint qw( encode_qp );
-use Encode qw( encode );
 
 use constant AUTOMOD_FLAG => 1;
 use constant BOT_FLAG => 2;
