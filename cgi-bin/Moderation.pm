@@ -920,7 +920,8 @@ sub VoteFromUser
 	# The number of votes per mod is small, so we may as well just retrieve
 	# all votes for the mod, then find the one we want.
 	my @votes = $votes->newFromModerationId($self->GetId);
-	(my $thevote) = grep { $_->GetUserId == $uid } @votes;
+	# Pick the most recent vote from this user
+	(my $thevote) = reverse grep { $_->GetUserId == $uid } @votes;
 	$thevote;
 }
 
