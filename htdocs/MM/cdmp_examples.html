@@ -1,0 +1,166 @@
+<html>
+<head>
+  <title>Compact Disk Lookup Examples</title></head>
+</head>
+
+<body BGCOLOR="#FFFFE7">
+
+<TABLE ALIGN="CENTER" BORDER="0" WIDTH="86%" CELLSPACING="0" CELLPADDING="0">
+<tr><td>
+
+<TABLE BORDER="0" WIDTH="100%" CELLSPACING="0" CELLPADDING="0">
+<TR><TD WIDTH="2%" BGCOLOR="#FFFFCC">&nbsp;</TD>
+<TD WIDTH="96%" VALIGN="TOP" BGCOLOR="#FFFFCC"><BR>
+
+<font size=+2><center>Compact Disk Lookup Examples</center></font>
+<p>
+
+<font size=+2 color=990000>Table of Contents</font><p>
+
+<ul>
+<li><a href="#lookup">LookupCD Example</a>
+<li><a href="#lookupnear">Non exact LookupCD Example</a>
+<li><a href="#searchcd">SearchCD Example</a>
+<li><a href="#submitcd">SubmitCD Example</a>
+<li><a href="#response">Sample server response</a>
+</ul>
+
+<p><a name="lookup"></a>
+<font size=+2 color=990000>LookupCD Example</font><p>
+
+<pre>
+&lt;rdf:RDF xmlns:rdf  = "http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+         xmlns:dc   = "http://purl.org/dc/elements/1.1/"
+         xmlns:cdmp = "http://musicbrainz.org/mm/cdmp-1.0#"
+         xmlns:mm   = "http://musicbrainz.org/mm/mm-2.0#"&gt;
+
+  &lt;cdmp:LookupCD&gt;
+    &lt;cdmp:offsets&gt;150-17895-34567-51432-68025-87365-106380-123452-140620-157792-175650&lt;/cdmp:offsets&gt;
+  &lt;/cdmp:LookupCD&gt;
+
+&lt;/rdf:RDF&gt;
+</pre>
+
+<p><a name="lookupnear"></a>
+<font size=+2 color=990000>Non exact LookupCD Example</font><p>
+
+<pre>
+&lt;rdf:RDF xmlns:rdf  = "http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+         xmlns:dc   = "http://purl.org/dc/elements/1.1/"
+         xmlns:cdmp = "http://musicbrainz.org/mm/cdmp-1.0#"
+         xmlns:mm   = "http://musicbrainz.org/mm/mm-2.0#"&gt;
+
+  &lt;cdmp:LookupCD&gt;
+    &lt;cdmp:threshold&gt;97&lt;/cdmp:threshold&gt;
+    &lt;cdmp:offsets&gt;150-17895-34567-51432-68025-87365-106380-123452-140620-157792-175650&lt;/cdmp:offsets&gt;
+  &lt;/cdmp:LookupCD&gt;
+
+&lt;/rdf:RDF&gt;
+</pre>
+
+<p><a name="searchcd"></a>
+<font size=+2 color=990000>SearchCD Example</font><p>
+
+<pre>
+&lt;rdf:RDF xmlns:rdf  = "http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+         xmlns:dc   = "http://purl.org/dc/elements/1.1/"
+         xmlns:cdmp = "http://musicbrainz.org/mm/cdmp-1.0#"
+         xmlns:mm   = "http://musicbrainz.org/mm/mm-2.0#"&gt;
+
+  &lt;cdmp:SearchCD&gt;
+    &lt;dc:title&gt;Pure Guava&lt;/dc:title&gt;
+    &lt;mm:genre&gt;rock&lt;/mm:genre&gt;
+    &lt;mm:modifyDate&gt;9932422100&lt;/mm:modifyDate&gt;
+  &lt;/cdmp:SearchCD&gt;
+
+&lt;/rdf:RDF&gt;
+</pre>
+
+<p><a name="submitcd"></a>
+<font size=+2 color=990000>SubmitCD Example</font><p>
+
+<pre>
+&lt;rdf:RDF xmlns:rdf  = "http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+         xmlns:dc   = "http://purl.org/dc/elements/1.1/"
+         xmlns:cdmp = "http://musicbrainz.org/mm/cdmp-1.0#"
+         xmlns:mm   = "http://musicbrainz.org/mm/mm-2.0#"&gt;
+
+  &lt;cdmp:SubmitCD&gt;
+
+     &lt;dc:title&gt;Rubycon&lt;/dc:title&gt;
+     &lt;mm:Artist&gt;
+        &lt;rdf:Description&gt;
+           &lt;dc:title&gt;Tangerine Dream&lt;/dc:title&gt;
+        &lt;/rdf:Description&gt;
+     &lt;/mm:Artist&gt;
+     &lt;mm:trackList&gt;
+       &lt;rdf:Seq&gt;
+         &lt;rdf:li&gt;
+           &lt;mm:Track&gt;
+              &lt;dc:title&gt;Rubycon (Part I)&lt;/dc:title&gt;
+              &lt;mm:trackNum&gt;1&lt;/mm:trackNum&gt;
+           &lt;/mm:Track&gt;
+         &lt;/rdf:li&gt;
+         &lt;rdf:li&gt;
+           &lt;mm:Track&gt;
+              &lt;dc:title&gt;Rubycon (Part II)&lt;/dc:title&gt;
+              &lt;mm:trackNum&gt;2&lt;/mm:trackNum&gt;
+           &lt;/mm:Track&gt;
+         &lt;/rdf:li&gt;
+       &lt;/rdf:Seq&gt;
+     &lt;/mm:trackList&gt;
+
+  &lt;/cdmp:SubmitCD&gt;
+
+&lt;/rdf:RDF&gt;
+</pre>
+
+<p><a name="response"></a>
+<font size=+2 color=990000>Sample Server Response</font><p>
+
+<pre>
+&lt;rdf:RDF xmlns:rdf  = "http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+         xmlns:dc   = "http://purl.org/dc/elements/1.1/"
+         xmlns:cdmp = "http://musicbrainz.org/mm/cdmp-1.0#"
+         xmlns:mm   = "http://musicbrainz.org/mm/mm-2.0#"&gt;
+  &lt;rdf:Bag&gt;
+    &lt;rdf:li&gt;
+      &lt;cdmp:CDMetadata&gt;
+        &lt;dc:title&gt;Rubycon&lt;/dc:title&gt;
+        &lt;cdmp:cdmpId&gt;ivDFb2Tw6HzN.XdYZFj5zr1Q9EY-&lt;/cdmp:cdmpId&gt;
+        &lt;mm:Artist&gt;
+           &lt;rdf:Description&gt;
+              &lt;dc:title&gt;Tangerine Dream&lt;/dc:title&gt;
+           &lt;/rdf:Description&gt;
+        &lt;/mm:Artist&gt;
+        &lt;mm:trackList&gt;
+          &lt;rdf:Seq&gt;
+            &lt;rdf:li&gt;
+              &lt;mm:Track&gt;
+                 &lt;dc:title&gt;Rubycon (Part I)&lt;/dc:title&gt;
+                 &lt;mm:trackNum&gt;1&lt;/mm:trackNum&gt;
+              &lt;/mm:Track&gt;
+            &lt;/rdf:li&gt;
+            &lt;rdf:li&gt;
+              &lt;mm:Track&gt;
+                 &lt;dc:title&gt;Rubycon (Part II)&lt;/dc:title&gt;
+                 &lt;mm:trackNum&gt;2&lt;/mm:trackNum&gt;
+              &lt;/mm:Track&gt;
+            &lt;/rdf:li&gt;
+          &lt;/rdf:Seq&gt;
+        &lt;/mm:trackList&gt;
+      &lt;/cdmp:CDMetadata&gt;
+    &lt;/rdf:li&gt;
+  &lt;/rdf:Bag&gt;
+&lt;/rdf:RDF&gt;
+</pre>
+
+<br> <br> <br> <br>
+
+</TD><TD WIDTH="2%" BGCOLOR="#FFFFCC">&nbsp;</TD>
+</TR></TABLE>
+
+</td></tr></table>
+
+</body>
+</html>

@@ -1,0 +1,424 @@
+<html>
+<head>
+  <title>MusicBrainz Metadata Initiative 2.0</title></head>
+</head>
+
+<body BGCOLOR="#FFFFE7">
+
+<TABLE ALIGN="CENTER" BORDER="0" WIDTH="86%" CELLSPACING="0" CELLPADDING="0">
+<tr><td>
+
+<TABLE BORDER="0" WIDTH="100%" CELLSPACING="0" CELLPADDING="0">
+<TR><TD WIDTH="2%" BGCOLOR="#FFFFCC">&nbsp;</TD>
+<TD WIDTH="96%" VALIGN="TOP" BGCOLOR="#FFFFCC"><BR>
+
+<font size=+2><center>MusicBrainz Metadata Initiative 2.0</center></font>
+<p>
+
+<font size=+2 color=990000>Table of Contents</font><p>
+
+<ul>
+<li><a href="#intro">Introduction</a>
+<li><a href="#cdmp">Compact Disk Lookup Namespace</a>
+<li><a href="#mm">MusicBrainz Metadata Namespace</a>
+<li><a href="#mq">MusicBrainz Query Namespace</a>
+<li><a href="#mem">MusicBrainz Extended Metadata Namespace</a>
+</ul>
+
+<a name="intro"></a>
+<font size=+2 color=990000>Introduction</font><p>
+
+<p>
+
+The MusicBrainz Metadata initiative is designed to create a portable
+and flexible means of storing and exchanging metadata related to digital
+audio and video tracks. The MusicBrainz Metadata Initiative is a content 
+description model for audio and video tracks on the Internet.
+
+<p>
+The MM Initiative uses 
+<a href="http://www.w3.org/RDF">RDF/XML</a> to facilitate the exchange
+of audio/video related metadata. This document describes an RDF namespace
+that should be used in conjunction with the 
+<a href="http://purl.org/DC/documents/rec-dces-19990702.htm">Dublin Core</a> metadata recommendation.
+
+<p>This specification will be used by the MusicBrainz.org metadata server
+to communicate metadata queries. All the data returned from the server will
+be in the MM/Dublin Core RDF format. Furthermore, this format will hopefully
+be used by the Open Source audio codec <a href="http://www.vorbis.com">
+Vorbis</a> to store audio/video metadata with the audio/video tracks.
+
+<p>If you have any feedback/comments/gripes/requests regarding this
+proposal, please <a href="mailto:rob@eorbit.net">let me know</a>.
+
+<p>
+[<a href="mm2_examples.html">MusicBrainz RDF Examples</a> |
+<a href="cdmp_examples.html">Compact Disk Lookup RDF Examples</a> |
+<a href="http://www.w3.org/RDF">RDF Information</a> |
+<a href="http://www.purl.org/DC">Dublin Core Home Page</a>]
+<p>
+
+<a name="cdmp"></a>
+<font size=+2 color=990000>cdmp: Compact Disk Lookup Namespace</font><p>
+
+The cdmp namespace defines RDF classes and properties that facilitate
+CD-ROM lookups between an RDF enabled client and an RDF/cdmp compatible
+metadata server.
+
+<p> <font size="+1"><b>Classes</b></font> <p>
+
+<table>
+<tr><td valign="top" align="right">
+<b>LookupCD</b><br>
+[<a href="http://musicbrainz/MM/cdmp_examples.html#lookup">Example</a>]
+</td><td valign="top">
+This class is used to create a CD-ROM lookup query. Include the offsets or
+cdmpId properties as arguments to this query. Optionally you may also
+include a threshold property to indicate that this search should be 
+carried as an inexact match. Include the maxreturn property to indicate the
+maximum number of CD-ROM metadata items to return.
+</td></tr>
+
+<tr><td valign="top" align="right">
+<b>SearchCD</b><br>
+[<a href="http://musicbrainz/MM/cdmp_examples.html#searchcd">Example</a>]
+</td><td valign="top">
+This class is used to create a CD-ROM search query. Include the 
+artist, contributor, modifyDate, label, offset or source properties.
+</td></tr>
+
+<tr><td valign="top" align="right">
+<b>SubmitCD</b><br>
+[<a href="http://musicbrainz/MM/cdmp_examples.html#submitcd">Example</a>]
+</td><td valign="top">
+This class is used to submit a CD-ROM to the server. Include the 
+dc:title, mm:Artist, mm:tracklist properties to describe the CD-ROM.
+</td></tr>
+
+<tr><td valign="top" align="right">
+<b>CDMetadata</b><br>
+[<a href="http://musicbrainz/MM/cdmp_examples.html#response">Example</a>]
+</td><td valign="top">
+CDMetadata defines the metadata for a given CD-ROM. Inside of this
+class, use dc:title, mm:Artist, and mm:trackList properties to describe
+the CD-ROM.
+</td></tr>
+</table>
+
+
+<p> <font size="+1"><b>Properties</b></font> <p>
+
+<table>
+<tr><td valign="top" align="right">
+<b>cdmpId</b>
+</td><td valign="top">
+The cdmpId calculated for a CD-ROM. The exact algorithm for calculating this
+Id will still need to get nailed down.
+</td></tr>
+
+<tr><td valign="top" align="right">
+<b>threshold</b>
+</td><td valign="top">
+A number from 0 to 100 giving the near match threshold. The higher the number, the more exact the match must be. The algorithm for this threshold will be documented as well. 
+</td></tr>
+
+<tr><td valign="top" align="right">
+<b>offsets</b>
+</td><td valign="top">
+The track offsets for the CD, each seperated by '-'.
+</td></tr>
+
+<tr><td valign="top" align="right">
+<b>maxReturn</b>
+</td><td valign="top">
+The maximum number of near matches to return.
+</td></tr>
+
+<tr><td valign="top" align="right">
+<b>freeDBId</b>
+</td><td valign="top">
+Specifies a backward compatible FreeDBId.
+</td></tr>
+
+<tr><td valign="top" align="right">
+<b>artist</b>
+</td><td valign="top">
+The name of an artist, for use with the SearchCD function.
+</td></tr>
+
+<tr><td valign="top" align="right">
+<b>contributor</b>
+</td><td valign="top">
+Email address or name of person who contributed information
+</td></tr>
+
+<tr><td valign="top" align="right">
+<b>modifyDate</b>
+</td><td valign="top">
+this record was last modified.  format is POSIX time stamps, ie seconds since the epoch
+</td></tr>
+
+<tr><td valign="top" align="right">
+<b>label</b>
+</td><td valign="top">
+Optional record label for use with SearchCD
+</td></tr>
+
+<tr><td valign="top" align="right">
+<b>source</b>
+</td><td valign="top">
+The name of the program that submitted the CD.
+</td></tr>
+
+</table>
+
+<p>
+
+<a name="mm"></a>
+<font size=+2 color=990000>mm: MusicBrainz Metadata Namespace</font><p>
+
+The mm namespace defines RDF classes and properties for expressing basic
+music related metadata. This namespace intentionally focuses on the primitives
+for metadata; more detailed metadata will be supported in the 
+<a href="#mem">MusicBrainz Extended Metadata Namespace</a>.
+
+<p> <font size="+1"><b>Classes</b></font> <p>
+
+<table>
+<tr><td valign="top" align="right">
+<b>Artist</b>
+</td><td valign="top">
+This class is used to describe an Artist. Inside of Artist, use dc:title,
+mm:sortName, and mm:albumList to describe the name and sortname of the artist
+as well as a list of albums available by that artist.
+</td></tr>
+
+<tr><td valign="top" align="right">
+<b>Album</b>
+</td><td valign="top">
+Use this to describe an Album. The dc:title, dc:creator and mm:trackList
+properties should be used to describe the album.
+</td></tr>
+
+<tr><td valign="top" align="right">
+<b>Track</b>
+</td><td valign="top">
+Use Track to describe one audio track. Use the dc:title, mm:trackNum, 
+dc:creator, mm:trmId properties to descibe a track.
+</td></tr>
+
+</table>
+
+
+<p> <font size="+1"><b>Properties</b></font> <p>
+
+<table>
+<tr><td valign="top" align="right">
+<b>sortName</b>
+</td><td valign="top">
+Use this to indicate the name of an artist for use in an alphabetically
+sorted list. If the dc:title field for an Artist contains "The Beatles",
+this field should contain "Beatles, The".
+</td></tr>
+
+<tr><td valign="top" align="right">
+<b>trackNum</b>
+</td><td valign="top">
+This indicates the sequence number for a track in a given album. Tracknumbers
+start with 1.
+</td></tr>
+
+<tr><td valign="top" align="right">
+<b>trmId</b>
+</td><td valign="top">
+This property is used to indicate a Relatable TRM Id for an audio track.
+</td></tr>
+
+<tr><td valign="top" align="right">
+<b>cdindexId</b>
+</td><td valign="top">
+Used to convey a CD Index Disk Id for a CD-ROM.
+</td></tr>
+
+<tr><td valign="top" align="right">
+<b>artistList</b>
+</td><td valign="top">
+This property is used to convey a list of artists.
+</td></tr>
+
+<tr><td valign="top" align="right">
+<b>albumList</b>
+</td><td valign="top">
+This property is used to convey a list of albums.
+</td></tr>
+
+<tr><td valign="top" align="right">
+<b>trackList</b>
+</td><td valign="top">
+This property is used to convey a list of tracks.
+</td></tr>
+
+<tr><td valign="top" align="right">
+<b>duration</b>
+</td><td valign="top">
+Used to indicate the duration of a track in milliseconds.
+</td></tr>
+
+<tr><td valign="top" align="right">
+<b>genre</b>
+</td><td valign="top">
+This is a free-form text field that indicates the genre for a given track.
+</td></tr>
+
+</table>
+
+<p><a name="mq"></a>
+<font size=+2 color=990000>mm: MusicBrainz Query Namespace</font><p>
+
+The mq namespace defines RDF classes and properties that facilitate
+metadata lookups between an RDF enabled client and a MusicBrainz 
+metadata server.
+
+<p> <font size="+1"><b>Classes</b></font> <p>
+
+<table>
+<tr><td valign="top" align="right">
+<b>Result</b>
+</td><td valign="top">
+To be completed.
+</td></tr>
+
+<tr><td valign="top" align="right">
+<b>SubmitTrack</b>
+</td><td valign="top">
+</td></tr>
+
+<tr><td valign="top" align="right">
+<b>LookupMetadata</b>
+</td><td valign="top">
+</td></tr>
+
+<tr><td valign="top" align="right">
+<b>ExchangeMetadata</b>
+</td><td valign="top">
+</td></tr>
+
+<tr><td valign="top" align="right">
+<b>FindDisctinctTrmId</b>
+</td><td valign="top">
+</td></tr>
+
+<tr><td valign="top" align="right">
+<b>FindArtist</b>
+</td><td valign="top">
+</td></tr>
+
+<tr><td valign="top" align="right">
+<b>FindAlbum</b>
+</td><td valign="top">
+</td></tr>
+
+<tr><td valign="top" align="right">
+<b>FindTrack</b>
+</td><td valign="top">
+</td></tr>
+
+<tr><td valign="top" align="right">
+<b>GetCDInfo</b>
+</td><td valign="top">
+</td></tr>
+
+</table>
+
+
+<p> <font size="+1"><b>Properties</b></font> <p>
+
+<table>
+<tr><td valign="top" align="right">
+<b>status</b>
+</td><td valign="top">
+To be completed.
+</td></tr>
+
+<tr><td valign="top" align="right">
+<b>depth</b>
+</td><td valign="top">
+</td></tr>
+
+<tr><td valign="top" align="right">
+<b>artistName</b>
+</td><td valign="top">
+</td></tr>
+
+<tr><td valign="top" align="right">
+<b>albumName</b>
+</td><td valign="top">
+</td></tr>
+
+<tr><td valign="top" align="right">
+<b>trackName</b>
+</td><td valign="top">
+</td></tr>
+
+</table>
+
+
+
+
+<p><a name="mem"></a>
+<font size=+2 color=990000>mem: MusicBrainz Extended Metadata Namespace</font><p>
+
+The mem namespace defines RDF classes and properties for expressing extended
+music related metadata that is not covered by the <a href="#mm">MusicBrainz 
+Metadata Namespace</a>. This namespace focuses on the more detailed
+metadata such as contributors, roles, lyrics, release dates, remix/cover 
+information, etc. 
+
+<p> <font size="+1"><b>Classes</b></font> <p>
+
+<table>
+<tr><td valign="top" align="right">
+<b>Lyrics</b>
+</td><td valign="top">
+To be completed.
+</td></tr>
+
+<tr><td valign="top" align="right">
+<b>Role</b>
+</td><td valign="top">
+</td></tr>
+
+<tr><td valign="top" align="right">
+<b>Contributor</b>
+</td><td valign="top">
+</td></tr>
+
+</table>
+
+
+<p> <font size="+1"><b>Properties</b></font> <p>
+
+<table>
+<tr><td valign="top" align="right">
+<b>remixInfo</b>
+</td><td valign="top">
+To be completed.
+</td></tr>
+
+<tr><td valign="top" align="right">
+<b>coverInfo</b>
+</td><td valign="top">
+</td></tr>
+
+</table>
+
+
+<br> <br> <br> <br>
+
+</TD><TD WIDTH="2%" BGCOLOR="#FFFFCC">&nbsp;</TD>
+</TR></TABLE>
+
+</td></tr></table>
+
+</body>
+</html>
