@@ -48,6 +48,25 @@ sub SetSortName
    $_[0]->{sortname} = $_[1];
 }
 
+sub _GetIdCacheKey
+{
+    my ($class, $id) = @_;
+    "artist-id-" . int($id);
+}
+
+sub _GetMBIDCacheKey
+{
+    my ($class, $mbid) = @_;
+    "artist-mbid-" . lc $mbid;
+}
+
+sub InvalidateCache
+{
+    my $self = shift;
+    MusicBrainz::Server::Cache->delete($self->_GetIdCacheKey($self->GetId));
+    MusicBrainz::Server::Cache->delete($self->_GetMBIDCacheKey($self->GetMBId));
+}
+
 # Insert an artist into the DB and return the artist id. Returns undef
 # on error. The name and sortname of this artist must be set via the accesor
 # functions.
@@ -100,6 +119,9 @@ sub Insert
     $artist = $sql->GetLastInsertId('Artist');
     $this->{new_insert} = 1;
     $this->{id} = $artist;
+
+    MusicBrainz::Server::Cache->delete($this->_GetIdCacheKey($artist));
+    MusicBrainz::Server::Cache->delete($this->_GetMBIDCacheKey($mbid));
 
     # Add search engine tokens.
     # TODO This should be in a trigger if we ever get a real DB.
@@ -168,6 +190,7 @@ sub Remove
     MusicBrainz::Server::Annotation->DeleteArtist($this->{DBH}, $this->GetId);
 
     $sql->Do("DELETE FROM artist WHERE id = ?", $this->GetId);
+    $this->InvalidateCache;
 
     return 1;
 }
@@ -195,6 +218,7 @@ sub MergeInto
     $sql->Do("UPDATE moderation_open SET artist = ? WHERE artist = ?", $n, $o);
     $sql->Do("UPDATE artistalias     SET ref    = ? WHERE ref    = ?", $n, $o);
     $sql->Do("DELETE FROM artist     WHERE id   = ?", $o);
+    $old->InvalidateCache;
 
     # Merge any non-album tracks albums together
     require Album;
@@ -224,6 +248,8 @@ sub UpdateName
 	$this->GetId,
     ) or return 0;
 
+    $this->InvalidateCache;
+
     # Update the search engine
     $this->SetName($name);
     $this->RebuildWordList;
@@ -245,6 +271,8 @@ sub UpdateSortName
 	$page,
 	$this->GetId,
     ) or return 0;
+
+    $this->InvalidateCache;
 
     # Update the search engine
     $this->SetSortName($name);
@@ -268,6 +296,8 @@ sub UpdateModPending
 	$adjust,
 	$id,
     );
+
+    $self->InvalidateCache;
 }
 
 # The artist name has changed, or an alias has been removed
@@ -488,43 +518,100 @@ sub LoadFromSortname
 # accessor functions.
 sub LoadFromId
 {
-   my ($this) = @_;
+    my $this = shift;
+    my $id;
 
-   if (not $this->GetId() and not $this->GetMBId())
-   {
-        cluck "Artist::LoadFromId is called with undef Id\n"; 
-        return undef;
-   }
-
-    my $sql = Sql->new($this->{DBH});
-    my $row;
-
-    if (defined $this->GetId())
+    if ($id = $this->GetId)
     {
-	$row = $sql->SelectSingleRowArray(
-	    "SELECT id, name, gid, modpending, sortname
-	    FROM artist
-	    WHERE id = ?",
-	    $this->GetId,
-	) or return undef;
+	my $obj = $this->newFromId($id)
+	    or return undef;
+	%$this = %$obj;
+	return 1;
+    }
+    elsif ($id = $this->GetMBId)
+    {
+	my $obj = $this->newFromMBId($id)
+	    or return undef;
+	%$this = %$obj;
+	return 1;
     }
     else
     {
-	$row = $sql->SelectSingleRowArray(
-	    "SELECT id, name, gid, modpending, sortname
-	    FROM artist
-	    WHERE gid = ?",
-	    $this->GetMBId,
-	) or return undef;
+       	cluck "Artist::LoadFromId is called with no ID / MBID\n";
+       	return undef;
+    }
+}
+
+sub newFromId
+{
+    my $this = shift;
+    $this = $this->new(shift) if not ref $this;
+    my $id = shift;
+
+    my $key = $this->_GetIdCacheKey($id);
+    my $obj = MusicBrainz::Server::Cache->get($key);
+
+    if ($obj)
+    {
+       	$$obj->{DBH} = $this->{DBH} if $$obj;
+	return $$obj;
     }
 
-    $this->{id} = $row->[0];
-    $this->{name} = $row->[1];
-    $this->{mbid} = $row->[2];
-    $this->{modpending} = $row->[3];
-    $this->{sortname} = $row->[4];
+    my $sql = Sql->new($this->{DBH});
 
-    return 1;
+    $obj = $this->_new_from_row(
+	$sql->SelectSingleRowHash(
+	    "SELECT * FROM artist WHERE id = ?",
+    	    $id,
+	),
+    );
+
+    $obj->{mbid} = delete $obj->{gid} if $obj;
+
+    # We can't store DBH in the cache...
+    delete $obj->{DBH} if $obj;
+    MusicBrainz::Server::Cache->set($key, \$obj);
+    MusicBrainz::Server::Cache->set($obj->_GetMBIDCacheKey($obj->GetMBId), \$obj)
+	if $obj;
+    $obj->{DBH} = $this->{DBH} if $obj;
+
+    return $obj;
+}
+
+sub newFromMBId
+{
+    my $this = shift;
+    $this = $this->new(shift) if not ref $this;
+    my $id = shift;
+
+    my $key = $this->_GetMBIDCacheKey($id);
+    my $obj = MusicBrainz::Server::Cache->get($key);
+
+    if ($obj)
+    {
+       	$$obj->{DBH} = $this->{DBH} if $$obj;
+	return $$obj;
+    }
+
+    my $sql = Sql->new($this->{DBH});
+
+    $obj = $this->_new_from_row(
+	$sql->SelectSingleRowHash(
+	    "SELECT * FROM artist WHERE gid = ?",
+    	    $id,
+	),
+    );
+
+    $obj->{mbid} = delete $obj->{gid} if $obj;
+
+    # We can't store DBH in the cache...
+    delete $obj->{DBH} if $obj;
+    MusicBrainz::Server::Cache->set($key, \$obj);
+    MusicBrainz::Server::Cache->set($obj->_GetIdCacheKey($obj->GetId), \$obj)
+	if $obj;
+    $obj->{DBH} = $this->{DBH} if $obj;
+
+    return $obj;
 }
 
 # Pull back a section of artist names for the browse artist display.
