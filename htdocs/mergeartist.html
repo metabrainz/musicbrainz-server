@@ -1,0 +1,79 @@
+<& /comp/title, title=>'Merge Artist' &>
+
+<%perl>
+
+my ($mb, $id, $ar); 
+my ($artistname, $referer, $modpending, $sortname); 
+
+$referer = $r->headers_in->{'Referer'};
+$mb = new MusicBrainz;
+$mb->Login();
+$id = $ARGS{id};
+
+$ar = Artist->new($mb);
+$ar->LoadFromId($id);
+$artistname = $ar->Value(1);
+$sortname = $ar->Value(2);
+$modpending = $ar->Value(3);
+
+</%perl>
+
+% if (!defined $session{user} || $session{user} eq '') {
+    You must be logged in to edit the database.<p>
+    <& /comp/tablebegin, title=>'Login' &>
+    <& /comp/loginbox &>
+    <& /comp/tableend &>
+% } else {
+
+    <& /comp/tablebegin, title=>'Merge Artist' &>
+
+% if ($modpending) {
+    <& /comp/modpending &>
+% }
+
+    Use the field below to enter the name of the artist with whom to
+    merge the current artist, then click Next &gt;&gt;.
+
+
+    <FORM METHOD="POST" ACTION="/artistfilter.html"
+          ENCTYPE="application/x-www-form-urlencoded">  
+    <table>
+      <tr>
+        <td>
+        Artist:
+        </td>
+        <td>
+        <% $artistname  %>
+        </td>
+      </tr>
+      <tr>
+        <td>
+        Artist to Merge with:
+        </td>
+        <td>
+        <INPUT TYPE="text" NAME="new0" SIZE=25 value="<% $artistname %>"> 
+        </td>
+      </tr>
+      <tr>
+        <td>
+        <INPUT TYPE="submit" NAME="Submit" VALUE="Next >>">    
+        </td>
+        <td>
+        &nbsp;
+        </td>
+      </tr>
+    </table>
+    <input type="hidden" name="mode" value="merge">
+    <input type="hidden" name="artist0" value="<% $id  %>">
+    <input type="hidden" name="type0" 
+           value="<% Moderation::MOD_MERGE_ARTIST  %>">
+    <input type="hidden" name="prev0" value="<% $artistname  %>">
+    <input type="hidden" name="table0" value="Artist">
+    <input type="hidden" name="column0" value="Name">
+    <input type="hidden" name="id0" value="<% $id %>">
+    <input type="hidden" name="referer" value="<% $referer %>">
+    </form>
+    <& /comp/tableend &>
+
+% }
+% $mb->Logout();
