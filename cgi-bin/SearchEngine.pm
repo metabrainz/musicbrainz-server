@@ -245,7 +245,7 @@ sub Search {
     my $query = $self->GetQuery($search);
 
     $self->{STH} = Sql->new($self->{DBH});
-    $self->{STH}->Select($query) or print STDERR "Search query failed: $search\n";
+    $self->{STH}->Select($query);
 }
 
 sub GetWhereClause
