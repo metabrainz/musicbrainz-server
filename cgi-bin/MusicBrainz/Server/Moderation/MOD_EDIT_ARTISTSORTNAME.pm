@@ -62,7 +62,6 @@ sub IsAutoMod
 sub ApprovedAction
 {
 	my $this = shift;
-	my $sql = Sql->new($this->{DBH});
 
 	my $rowid = $this->GetRowId;
 
@@ -72,28 +71,21 @@ sub ApprovedAction
 		return STATUS_ERROR;
 	}
 
-	my $current = $sql->SelectSingleValue(
-		"SELECT sortname FROM artist WHERE id = ?",
-		$rowid,
-	);
+	my $artist = Artist->new($this->{DBH});
+	$artist->SetId($rowid);
 
-	unless (defined $current)
+	unless ($artist->LoadFromId)
 	{
 		$this->InsertNote(MODBOT_MODERATOR, "This artist has been deleted");
 		return STATUS_FAILEDPREREQ;
 	}
 	
-	unless ($current eq $this->GetPrev)
+	unless ($artist->GetSortName eq $this->GetPrev)
 	{
 		$this->InsertNote(MODBOT_MODERATOR, "This artist's sortname has already been changed");
 		return STATUS_FAILEDDEP;
 	}
 
-	my $artist = Artist->new($this->{DBH});
-	$artist->SetId($rowid);
-	$artist->LoadFromId
-		or die; # should be handled by the above checks
-		
 	$artist->UpdateSortName($this->GetNew)
 		or die "Failed to update artist in MOD_EDIT_ARTISTSORTNAME";
 
