@@ -436,6 +436,113 @@ sub CreateFromId
    return $mod;
 }
 
+sub iiMinMaxID
+{
+	my $self = shift;
+	$self = $self->new(shift) if not ref $self;
+
+	require MusicBrainz::Server::Cache;
+	my $key = "Moderation-id-range";
+	if (my $t = MusicBrainz::Server::Cache->get($key)) { return @$t }
+
+	my $sql = Sql->new($self->{DBH});
+
+	# Postgres is poor at optimising SELECT MIN(id) FROM table
+	# (or MAX).  It uses a table scan, instead of an index scan.
+	# However for the following queries it gets it right:
+
+	my ($min, $max) = (undef, undef);
+	for my $table (qw(
+		moderation_open
+		moderation_closed
+	)) {
+		my $thismin = $sql->SelectSingleValue(
+			"SELECT id FROM $table ORDER BY id ASC LIMIT 1",
+		);
+		$min = $thismin
+			if defined($thismin)
+			and (not defined($min) or $thismin < $min);
+
+		my $thismax = $sql->SelectSingleValue(
+			"SELECT id FROM $table ORDER BY id DESC LIMIT 1",
+		);
+		$max = $thismax
+			if defined($thismax)
+			and (not defined($max) or $thismax > $max);
+	}
+
+	my @range = ($min, $max);
+	MusicBrainz::Server::Cache->set($key, \@range, 120);
+	return @range;
+}
+
+# Find the ID of the first message at or after $iTime
+sub iFindByTime
+{
+	my $self = shift;
+	$self = $self->new(shift) if not ref $self;
+	my $sTime = shift;
+
+	if ($sTime =~ /\A\d+\z/)
+	{
+		require POSIX;
+		$sTime = POSIX::strftime("%Y-%m-%d %H:%M:%S", gmtime $sTime);
+	}
+
+	my ($iMin, $iMax) = $self->iiMinMaxID;
+	my $sql = Sql->new($self->{DBH});
+
+	my $gettime = sub {
+		$sql->SelectSingleValue(
+			"SELECT opentime FROM moderation_all WHERE id = ?",
+			0 + shift(),
+		);
+	};
+
+	my $sMinTime = &$gettime($iMin);
+	my $sMaxTime = &$gettime($iMax);
+	return $iMin if $sTime le $sMinTime;
+	return undef if $sTime gt $sMaxTime;
+
+	while ($iMax-$iMin > 100)
+	{
+		#my $pct = ($iTime-$iMinTime) / ($iMaxTime-$iMinTime);
+		my $pct = 0.5;
+		my $iMid = int( $iMin + ($iMax-$iMin)*$pct );
+		$iMid += 10 if $iMid == $iMin;
+		$iMid -= 10 if $iMid == $iMax;
+		my $oldmid = $iMid;
+		my $sMidTime;
+
+		for (;;)
+		{
+			$sMidTime = &$gettime($iMid)
+				and last;
+			++$iMid;
+			die "No mods found between $oldmid and $iMax"
+				if $iMid == $iMax;
+		}
+
+		if ($sMidTime lt $sTime)
+		{
+			$iMin = $iMid;
+			$sMinTime = $sMidTime;
+		} else {
+			$iMax = $iMid;
+			$sMaxTime = $sMidTime;
+		}
+	}
+
+	$sql->SelectSingleValue(
+		"SELECT MIN(id) FROM moderation_all
+		WHERE id BETWEEN ? AND ?
+		AND opentime >= ?",
+		$iMin,
+		$iMax,
+		$sTime,
+	);
+}
+
 # Use this function to create a new moderation object of the specified type
 sub CreateModerationObject
 {
