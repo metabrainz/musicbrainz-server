@@ -1,3 +1,4 @@
+%# vi: set ts=2 sw=2 ft=mason :
 <%args>
 $id
 $tracks=>""
@@ -5,6 +6,9 @@ $toc=>""
 </%args>
 <%perl>
 use CGI;
+
+# For some reason, in order to precompile, $r needs to be declared:
+use vars qw( $r );
 
 my ($mb, $al, $url, $album, $valid, $di);
 
