@@ -111,6 +111,39 @@ QUERY:
     return $currentURI;
 }
 
+sub FindNodeByType
+{
+   my ($this, $type, $ordinal) = @_;
+   my ($ref, $refs, $count, $pid);
+
+   my $triples = $this->{triples};
+
+   $ordinal = 1 if not defined $ordinal;
+   $count = 0;
+
+   $pid = crc32($type);
+   foreach $ref (@$triples)
+   {
+       $refs = $this->{index}->{$pid};
+       return undef if (!defined $refs);
+
+       foreach $ref (@{$refs})
+       {
+           $triple = $$triples[$ref]; 
+           #print "$this->{uri}->{$$triple[0]}\n";
+           #print "$this->{uri}->{$$triple[1]}\n";
+           #print "$this->{uri}->{$$triple[2]}\n";
+           if ($this->{uri}->{$$triple[1]} eq $type)
+           {
+              $count++;
+              print "Match!\n\n";
+              return $this->{uri}->{$$ref[0]} if $count == $ordinal;
+           }
+       }
+   }
+   return undef;
+}
+
 sub Parse
 {
    my ($this, $rdf) = @_;
