@@ -33,12 +33,14 @@ if (!defined($result))
 }
 </%perl>
 
-<table cellpadding="10" cellspacing="0" border="0">
-<tr>
-   <td>
-     <table width="100%">
+<table cellpadding="2" cellspacing="0" border="0" class="statsb" style="width: 100%">
         <% $result |n %>
-     </table>
-   </td>
-</tr>
-</table>  
+</table>
+
+	<div class="SideBarMoreLink">
+		<span class="sidemenusmall"> 
+			<a href="/topmods.html">more &gt;&gt;</a>
+		</span>
+	</div>
+
+<!-- vi: set ts=2 sw=2 ft=mason : -->

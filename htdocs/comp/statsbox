@@ -10,38 +10,39 @@ sub StatLine
 }
 
 my $result = $m->cache(action=>'retrieve');
-if (!defined($result) or 1) 
+if (!defined($result)) 
 {
-    print STDERR "got no stats from cache\n";
     my $mb = mc_comp("/comp/dblogin", quiet=>1);
 
     if (defined $mb)
     {
-	my $stat = Statistic->new($mb->{DBH});
-	my %stats = %{ $stat->FetchAllAsHashRef };
+			my $stat = Statistic->new($mb->{DBH});
+			my %stats = %{ $stat->FetchAllAsHashRef };
 
-             $result = StatLine("Artists", $stats{'count.artist'});
-             $result .= StatLine("Albums", $stats{'count.album'});
-             $result .= StatLine("Tracks", $stats{'count.track'});
-             $result .= StatLine("Discids", $stats{'count.discid'});
-             $result .= StatLine("TRM Ids", $stats{'count.trm'});
-             $result .= StatLine("Mods", $stats{'count.moderation'});
-             $result .= StatLine("Users", $stats{'count.moderator'});
+			$result = StatLine("Artists", $stats{'count.artist'});
+			$result .= StatLine("Albums", $stats{'count.album'});
+			$result .= StatLine("Tracks", $stats{'count.track'});
+			$result .= StatLine("Discids", $stats{'count.discid'});
+			$result .= StatLine("TRM Ids", $stats{'count.trm'});
+			$result .= StatLine("Mods", $stats{'count.moderation'});
+			$result .= StatLine("Users", $stats{'count.moderator'});
 
-             $result = "<table>$result</table>";
-
-        $m->cache(action=>'store', expire_next=>'hour', value=>$result);
-        $mb->Logout();
-    }
+			$m->cache(action=>'store', expire_next=>'hour', value=>$result);
+			$mb->Logout();
+		}
 }
 </%perl>
 
-<table cellpadding="10" cellspacing="0" border="0">
-<tr>
-   <td>
-      <table width="100%">
-        <tr><td align="center" class="statsb"><% $result |n %></td></tr>
-      </table>
-   </td>
-</tr>
+<table cellpadding="2" cellspacing="0" border="0" class="statsb" style="width: 100%">
+	<col style="width: 50%">
+	<col style="width: 50%">
+	<% $result |n %>
 </table>  
+
+<div class="SideBarMoreLink">
+	<span class="sidemenusmall"> 
+		<a href="/stats.html">more &gt;&gt;</a>
+	</span>
+</div>
+
+<!-- vi: set ts=2 sw=2 ft=mason : -->

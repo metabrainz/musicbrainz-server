@@ -9,16 +9,24 @@ else
 }
 </%perl>
 <& /comp/sidebarsectiontop, title=>'Jump To' &>
+<& /comp/sidebarareabegin &>
 <& /comp/navbox, expand=>$expand &>
+<& /comp/sidebarareaend &>
 
 <& /comp/sidebarsection, title=>'Top Moderators' &>
+<& /comp/sidebarareabegin &>
 <& /comp/topmodsbox &>
+<& /comp/sidebarareaend &>
 
 <& /comp/sidebarsection, title=>'Server Stats' &>
+<& /comp/sidebarareabegin &>
 <& /comp/statsbox &>
+<& /comp/sidebarareaend &>
 
 <& /comp/sidebarsection, title=>'Sponsors' &>
+<& /comp/sidebarareabegin &>
 <& /comp/sponsors &>
+<& /comp/sidebarareaend &>
 
    </td>
    <td bgcolor="FFFFFF" align="left" valign="top">

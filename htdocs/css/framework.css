@@ -20,4 +20,20 @@
 	background: #FFBA58 url(/images/topmenu_BG.gif) top left repeat-x;
 }
 
+.SideBarContentArea
+{
+	width: 130px;
+}
+.SideBarContentArea2
+{
+	margin: 0.5em;
+}
+
+.SideBarMoreLink
+{
+	text-align: right;
+	margin-top: 8pt;
+	margin-bottom: 8pt;
+}
+
 /* eof */
