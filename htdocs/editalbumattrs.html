@@ -3,7 +3,7 @@
 <%perl>
 
 my ($mb, $id, $modpending, $al, $artist, $attr, 
-    $attrlist, @attrs, $prev, $index); 
+    $attrlist, @attrs, $prev, $index, $url); 
 
 if (!exists $ARGS{id} || $ARGS{id} eq '' ||
     !exists $ARGS{artist} || $ARGS{artist} eq '')
@@ -15,6 +15,8 @@ if (!exists $ARGS{id} || $ARGS{id} eq '' ||
 $mb = mc_comp("/comp/dblogin");
 $id = $ARGS{id};
 $artist = $ARGS{artist};
+$url = $r->headers_in->{'Referer'};
+$url = "/showalbum.html?albumid=$id" if (not defined $url || $url eq '');
 
 $al = Album->new($mb->{DBH});
 $al->SetId($id);
@@ -88,8 +90,7 @@ $attrlist = $al->GetAttributeList();
     <input type="hidden" name="table" value="Album">
     <input type="hidden" name="column" value="Attributes">
     <input type="hidden" name="id" value="<% $id %>">
-    <input type="hidden" 
-           name="url" value="/showalbum.html?albumid=<% $id %>">
+    <input type="hidden" name="url" value="<% $url %>">
     </form>
       
 % }
