@@ -1,94 +1,81 @@
-<& /comp/sidebar, title=>'Convert Album to Multiple Artists',
-   expand=>'moderate' &>
+%# vi: set ts=2 sw=2 ft=mason :
+<%args>
+$album => undef
+</%args>
+
+<& /comp/sidebar, title => 'Convert Album to Multiple Artists' &>
 
 <%perl>
 
-my ($mb, $id, $albumname, $modpending);
-my ($artistname, $al, $artist, $ar, $track); 
+$m->comp("/comp/checkloggedin", 0, 1)
+	or return;
 
-if (!exists $ARGS{album} || $ARGS{album} eq '' ||
-    !exists $ARGS{artist} || $ARGS{artist} eq '' ||
-    !exists $ARGS{track} || $ARGS{track} eq '')
-{
-    mc_comp("/comp/badargs");
-    return undef;
-}
+MusicBrainz::IsNonNegInteger($album) && $album
+	or return $m->comp("/comp/badargs", 0, 1);
 
-$mb = mc_comp("/comp/dblogin");
-$id = $ARGS{album};
-$artist = $ARGS{artist};
-$track = $ARGS{track};
+my $mb = $m->comp("/comp/dblogin");
 
-$al = Album->new($mb->{DBH});
-$al->SetId($id);
-$al->LoadFromId();
+my $al = Album->new($mb->{DBH});
+$al->SetId($album);
+$al->LoadFromId
+	or return $m->comp(
+		"/comp/error",
+		"Album #$album does not exist",
+		0, 1,
+	);
 
-$ar = Artist->new($mb->{DBH});
-$ar->SetId($artist);
-$ar->LoadFromId();
-
-$albumname = $al->GetName();
-$modpending = $al->GetModPending();
-$artistname = $ar->GetName();
+my $ar = Artist->new($mb->{DBH});
+$ar->SetId($al->GetArtist);
+$ar->LoadFromId
+	or return $m->comp(
+		"/comp/error",
+		"Artist does not exist",
+		0, 1,
+	);
 
 </%perl>
 
-% if (!defined $session{user} || $session{user} eq '') {
-    You must be logged in to edit the database.<p>
-    <& /comp/tablebegin, title=>'Login' &>
-    <& /comp/loginbox &>
-    <& /comp/tableend &>
-% } else {
+<h2>Convert Album '<% $al->GetName %>' to Multiple Artists</h2>
 
-    <& /comp/tablebegin, gattrs=>"width=\"100%\"",
-       title=>"Convert Album $albumname to Multiple Artists" &>
+<p>
+ 	A single artist to multiple artist moderation will be entered
+	into the database for album
+	<a href="/showalbum.html?albumid=<% $al->GetId %>"><% $al->GetName %></a>.
+</p>
 
-    A single artist to multiple artist moderation will be entered
-    into the database for album <% $albumname %>.
+<p>
+	Would you like to move all of the tracks to new artists?
+</p>
 
-    <FORM METHOD="POST" ACTION="/bare/enter_mod.html" NAME="ToMacForm"
-          ENCTYPE="application/x-www-form-urlencoded">  
-    <table>
-      <tr>
-        <td>
-        Would you like to move all<br> of the tracks to new artists?
-        </td>
-        <td>
-        <INPUT TYPE="radio" NAME="choice" VALUE="yes" CHECKED>
-        Yes, move tracks now.
-        </td>
-      </tr>
-      <tr>
-        <td>
-        &nbsp;
-        </td>
-        <td>
-        <INPUT TYPE="radio" NAME="choice" VALUE="no">
-        No, leave it for later.    
-        </td>
-      </tr>
-      <tr>
-        <td colspan=2>
-        <INPUT TYPE="submit" NAME="Submit" VALUE="Submit">    
-        </td>
-      </tr>
-    </table>
-    <input type="hidden" name="artist0" value="<% $artist %>">
-    <input type="hidden" name="type0" 
-           value="<% ModDefs::MOD_SAC_TO_MAC %>">
-    <input type="hidden" name="new0" value="Various Artists">
-    <input type="hidden" name="prev0" value="<% $ar->GetName() %>">
-    <input type="hidden" name="table0" value="Album">
-    <input type="hidden" name="column0" value="Artist">
-    <input type="hidden" name="id0" value="<% $id %>">
-    <input type="hidden" 
-           name="url" 
-           value="/changetrack.html?album=<% $id %>&amp;artist=<% $artist %>&amp;tindex=0&amp;modid=0">
-    <input type="hidden" name="alturl" 
-           value="/showalbum.html?albumid=<% $id %>">
-    </form>
-      
-    <& /comp/tableend &>
-% }
-% $mb->Logout();
+<form method="post" action="/bare/enter_mod.html" name="ToMacForm"
+	enctype="application/x-www-form-urlencoded">
+
+	<p>
+		<input type="radio" name="choice" value="yes" checked
+			ondblclick="this.form.submit()"
+			>
+		Yes, move tracks now.
+		<br>
+		<input type="radio" name="choice" value="no"
+			ondblclick="this.form.submit()"
+			>
+		No, leave it for later.
+	</p>
+
+	<p>
+		<input type="submit" value="Submit">
+	</p>
+
+	<input type="hidden" name="artist0" value="<% $ar->GetId %>">
+	<input type="hidden" name="type0" value="<% ModDefs::MOD_SAC_TO_MAC %>">
+	<input type="hidden" name="new0" value="Various Artists">
+	<input type="hidden" name="prev0" value="<% $ar->GetName() %>">
+	<input type="hidden" name="table0" value="Album">
+	<input type="hidden" name="column0" value="Artist">
+	<input type="hidden" name="id0" value="<% $al->GetId %>">
+	<input type="hidden" name="url" value="/changetrack.html?album=<% $al->GetId %>&amp;artist=<% $ar->GetId %>&amp;tindex=0&amp;modid=0">
+	<input type="hidden" name="alturl" value="/showalbum.html?albumid=<% $al->GetId %>">
+</form>
+
+<& /comp/movefocus, "ToMacForm", "choice", 0 &>
 <& /comp/footer &>

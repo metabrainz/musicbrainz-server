@@ -102,9 +102,9 @@ if (scalar(@ids) > 0)
 %        }
            <a href="/movealbum.html?album=<% $album->GetId() %>&amp;artist=<% $album->GetArtist() %>">Move</a> 
 %            if ($album->GetArtist() != ModDefs::VARTIST_ID) {
-              | <a href="/tomac.html?album=<% $album->GetId() %>&amp;artist=<% $album->GetArtist() %>&amp;track=1">Convert to multiple artists</a>
+              | <a href="/tomac.html?album=<% $album->GetId() %>">Convert to multiple artists</a>
 %            } else {
-              | <a href="/tosac.html?album=<% $album->GetId() %>&amp;artist=<% $album->GetArtist() %>&amp;track=1">Convert to single artist</a>
+              | <a href="/tosac.html?album=<% $album->GetId() %>">Convert to single artist</a>
 %            }
          ]
 %    } else {

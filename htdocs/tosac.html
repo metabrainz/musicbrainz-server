@@ -1,88 +1,76 @@
-<& /comp/sidebar, title=>'Change Album to Single Artist' &>
+%# vi: set ts=2 sw=2 ft=mason :
+<%args>
+$album => undef
+</%args>
+
+<& /comp/sidebar, title => 'Change Album to Single Artist' &>
 
 <%perl>
 
-my ($mb, $id, $albumname, $referer, $modpending, $sortname);
-my ($artistname, $al, $artist, $ar); 
+$m->comp("/comp/checkloggedin", 0, 1)
+	or return;
 
-$referer = $r->headers_in->{'Referer'};
-$mb = mc_comp("/comp/dblogin");
+MusicBrainz::IsNonNegInteger($album) && $album
+	or return $m->comp("/comp/badargs", 0, 1);
 
-if (!exists $ARGS{album} || $ARGS{album} eq '' ||
-    !exists $ARGS{artist} || $ARGS{artist} eq '')
-{
-    mc_comp("/comp/badargs");
-    return undef;
-}
+my $mb = $m->comp("/comp/dblogin");
 
-$id = $ARGS{album};
-$artist = $ARGS{artist};
+my $al = Album->new($mb->{DBH});
+$al->SetId($album);
+$al->LoadFromId
+	or return $m->comp(
+		"/comp/error",
+		"Album #$album does not exist",
+		0, 1,
+	);
 
-$al = Album->new($mb->{DBH});
-$al->SetId($id);
-$al->LoadFromId($id);
-
-$ar = Artist->new($mb->{DBH});
-$ar->SetId($artist);
-$ar->LoadFromId();
-
-$albumname = $al->GetName();
-$modpending = $al->GetModPending();
-$artistname = $ar->GetName();
-$sortname = $ar->GetSortName();
+my $ar = Artist->new($mb->{DBH});
+$ar->SetId($al->GetArtist);
+$ar->LoadFromId
+	or return $m->comp(
+		"/comp/error",
+		"Artist does not exist",
+		0, 1,
+	);
 
 </%perl>
 
-% if (!defined $session{user} || $session{user} eq '') {
-    You must be logged in to edit the database.<p>
-    <& /comp/tablebegin, title=>'Login' &>
-    <& /comp/loginbox &>
-    <& /comp/tableend &>
-% } else {
+<& /comp/stylemenu &>
 
-    <& /comp/stylemenu &>
+<h2>Change Album '<% $al->GetName %>' to Single Artist</h2>
 
-    <& /comp/tablebegin, gattrs=>"width=\"100%\"",
-       title=>"Change Album $albumname to Single Artist" &>
-
-% if ($modpending) {
+% if ($al->GetModPending) {
     <& /comp/modpending &>
-% } 
-
-    Enter the artist <span class="bold">sortname</span> to 
-    whom you'd like to change the album <% $albumname %>:
-
-    <FORM METHOD="POST" ACTION="/artistfilter.html" NAME="ToSacForm"
-          ENCTYPE="application/x-www-form-urlencoded">  
-    <table>
-      <tr>
-        <td>
-        New Artist Sortname:
-        </td>
-        <td>
-        <INPUT TYPE="text" NAME="new0" SIZE=25 value="<% $sortname %>"> 
-        </td>
-      </tr>
-      <tr>
-        <td colspan=2>
-        <INPUT TYPE="submit" NAME="Submit" VALUE="Submit">    
-        </td>
-      </tr>
-    </table>
-    <input type="hidden" name="mode" value="tosac">
-    <input type="hidden" name="album" value="<% $albumname %>">
-    <input type="hidden" name="artist0" value="<% $artist %>">
-    <input type="hidden" name="type0" 
-           value="<% ModDefs::MOD_MAC_TO_SAC %>">
-    <input type="hidden" name="prev0" value="Various Artists">
-    <input type="hidden" name="table0" value="Album">
-    <input type="hidden" name="column0" value="Artist">
-    <input type="hidden" name="id0" value="<% $id %>">
-    <input type="hidden" 
-           name="url" value="/showalbum.html?albumid=<% $id %>">
-    </form>
-      
-    <& /comp/tableend &>
 % }
-% $mb->Logout();
+
+<p>
+	Enter the artist <span class="bold">sortname</span> to
+	whom you'd like to change the album
+	<a href="/showalbum.html?albumid=<% $al->GetId %>"><% $al->GetName %></a>:
+</p>
+
+<form method="post" action="/artistfilter.html" name="ToSacForm"
+	enctype="application/x-www-form-urlencoded">
+
+	<p>
+		New Artist Sortname:
+		<input type="text" name="new0" size="25" value="<% $ar->GetSortName %>">
+	</p>
+
+	<p>
+		<input type="submit" value="Submit">
+	</p>
+
+	<input type="hidden" name="mode" value="tosac">
+	<input type="hidden" name="album" value="<% $al->GetName %>">
+	<input type="hidden" name="artist0" value="<% $ar->GetId %>">
+	<input type="hidden" name="type0" value="<% ModDefs::MOD_MAC_TO_SAC %>">
+	<input type="hidden" name="prev0" value="Various Artists">
+	<input type="hidden" name="table0" value="Album">
+	<input type="hidden" name="column0" value="Artist">
+	<input type="hidden" name="id0" value="<% $al->GetId %>">
+	<input type="hidden" name="url" value="/showalbum.html?albumid=<% $al->GetId %>">
+</form>
+
+<& /comp/movefocus, "ToSacForm", "new0" &>
 <& /comp/footer &>
