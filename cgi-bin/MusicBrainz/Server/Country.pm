@@ -35,53 +35,78 @@ use Carp;
 sub GetISOCode	{ $_[0]{isocode} }
 sub SetISOCode	{ $_[0]{isocode} = $_[1] }
 
+sub _GetIdCacheKey
+{
+    my ($class, $id) = @_;
+    "country-id-" . int($id);
+}
+
+sub _GetAllCacheKey
+{
+	"country-all";
+}
+
 sub newFromId
 {
-	my ($self, $id) = @_;
+	my $self = shift;
+    $self = $self->new(shift) if not ref $self;
+	my $id = shift;
+
+    my $key = $self->_GetIdCacheKey($id);
+    my $obj = MusicBrainz::Server::Cache->get($key);
+
+    if ($obj)
+    {
+       	$$obj->{DBH} = $self->{DBH} if $$obj;
+		return $$obj;
+    }
+
    	my $sql = Sql->new($self->{DBH});
-	$self->_new_from_row(
+
+	$obj = $self->_new_from_row(
 		$sql->SelectSingleRowHash(
 			"SELECT * FROM country WHERE id = ?",
 			$id,
 		),
 	);
-}
 
-sub newFromISOCode
-{
-	my ($self, $isocode) = @_;
-   	my $sql = Sql->new($self->{DBH});
-	$self->_new_from_row(
-		$sql->SelectSingleRowHash(
-			"SELECT * FROM country WHERE LOWER(isocode) = ?",
-			lc($isocode),
-		),
-	);
+    # We can't store DBH in the cache...
+    delete $obj->{DBH} if $obj;
+    MusicBrainz::Server::Cache->set($key, \$obj);
+    $obj->{DBH} = $self->{DBH} if $obj;
+
+    return $obj;
 }
 
 sub All
 {
-	my ($self, $isocode) = @_;
+	my $self = shift;
+    $self = $self->new(shift) if not ref $self;
+
+    my $key = $self->_GetAllCacheKey;
+    my $obj = MusicBrainz::Server::Cache->get($key);
+
+    if ($obj)
+    {
+		$_->{DBH} = $self->{DBH} for @$obj;
+		return @$obj;
+    }
+
    	my $sql = Sql->new($self->{DBH});
-	map { $self->_new_from_row($_) }
+
+	my @list = map { $self->_new_from_row($_) }
 		@{
 			$sql->SelectListOfHashes(
 				"SELECT * FROM country ORDER BY name",
 			),
 		};
-}
 
-sub GetCountryIdToNameHash
-{
-	my $self = shift;
-   	my $sql = Sql->new($self->{DBH});
-	my %h = map { $_->[0], $_->[1] }
-		@{
-			$sql->SelectListOfLists(
-				"SELECT id, name FROM country ORDER BY name",
-			),
-		};
-	wantarray ? %h : \%h;
+    # We can't store DBH in the cache...
+    delete $_->{DBH} for @list;
+    MusicBrainz::Server::Cache->set($key, \@list);
+    $_->{DBH} = $self->{DBH} for @list;
+
+	return @list;
 }
 
 1;

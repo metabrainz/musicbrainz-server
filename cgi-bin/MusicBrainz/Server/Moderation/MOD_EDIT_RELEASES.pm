@@ -176,13 +176,13 @@ sub ApprovedAction
 
 	require MusicBrainz::Server::Country;
 	my $country = MusicBrainz::Server::Country->new($self->{DBH});
-	my $countrynames = $country->GetCountryIdToNameHash;
 
 	# Update the "edits" list
 	for my $t (@{ $self->{"edits"} })
 	{
 		my $r = $release->newFromId($t->{"id"});
-		my $name = $countrynames->{ $t->{'c'} } || "?";
+		my $c = $country->newFromId($t->{"c"});
+		my $name = ($c ? $c->GetName : "?");
 		my $display = "'$t->{d} - $name'";
 
 		unless ($r)
@@ -212,8 +212,8 @@ sub ApprovedAction
 	{
 		$release->RemoveById($t->{"id"})
 			and ++$ok, next;
-
-		my $name = $countrynames->{ $t->{'c'} } || "?";
+		my $c = $country->newFromId($t->{"c"});
+		my $name = ($c ? $c->GetName : "?");
 		my $display = "'$t->{d} - $name'";
 		push @notes, "$display has already been deleted";
 	}
