@@ -125,6 +125,7 @@ use Scalar::Util qw( reftype weaken );
             { name => "'Unknown'",				url => "/reports/unknown.html" },
             { name => "Wrong Charset",			url => "/reports/wrong_charset.html" },
             { name => "Duplicate Artists",		url => "/reports/DuplicateArtists.html" },
+            { name => "'feat.' Tracks",			url => "/reports/FeaturingArtists/index.html" },
             { name => "MAC Albums",				url => "/reports/AlbumsToConvert.html" },
             { name => "TRM Collisions",			url => "/reports/TRMsWithManyTracks.html" },
             { name => "Multiple TRMs",			url => "/reports/TracksWithManyTRMs.html" },
