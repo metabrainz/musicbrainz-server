@@ -45,6 +45,31 @@ sub GetError
     return $this->{error};
 }
 
+sub Insert
+{
+    my $self = shift;
+
+	require DebugLog;
+	if (my $d = DebugLog->open)
+	{
+		$d->stamp("Insert->Insert");
+		$d->dumper([\@_], ['*_in']);
+		$d->close;
+	}
+
+	my $ok = $self->_Insert(@_);
+
+	require DebugLog;
+	if (my $d = DebugLog->open)
+	{
+		$d->stamp("Insert->Insert");
+		$d->dumper([\@_], ['*_out']);
+		$d->close;
+	}
+
+	$ok;
+}
+
 # Called by (with argument patterns):
 #	admin/freedb.pl
 #	QuerySupport->SubmitTrack
@@ -111,7 +136,7 @@ sub GetError
 #        exists, this function will attempt to fill in any missing information
 #        in the first album it finds. If you want to use a specific album,
 #        specify the album id, rather than the album name.
-sub Insert
+sub _Insert
 {
     my ($this, $info) = @_; 
 
