@@ -205,8 +205,8 @@ sub Remove
     return if (!defined $id);
   
     $sql = Sql->new($this->{DBH});
-    $sql->Do("delete from TOC where Discid = '$id'");
-    $sql->Do("delete from Discid where disc = '$id'");
+    $sql->Do("DELETE FROM toc WHERE discid = ?", $id);
+    $sql->Do("DELETE FROM discid WHERE disc = ?", $id);
 }
 
 sub _FindFuzzy
