@@ -71,6 +71,9 @@ if ($link ne '')
 		>
 %         if (!$nonalbum) {
               <a href="/editalbum.html?album=<% $albumid %>">Edit</a> | 
+% unless ($artist->GetId == &ModDefs::VARTIST_ID) {
+              <a href="/mod/edit-album/index.html?album=<% $albumid %>">Edit All</a> | 
+%         }
 %         }
           <a href="/remalbum.html?album=<% $albumid %>&amp;artist=<% $artist->GetId() %>">Del</a>
         </td>
