@@ -344,10 +344,10 @@ sub GetUserInfo
 	);
 }
 
-# Used by (login|moderator|confirmaddress).html
+# Used by /login.html, /user/edit.html and /user/confirmaddress.html
 sub SetUserInfo
 {
-	my ($this, $uid, $email, $password, $weburl, $bio) = @_;
+	my ($this, $uid, $email, $weburl, $bio) = @_;
 
 	my $sql = Sql->new($this->{DBH});
 	return undef if (!defined $uid || $uid == 0);
@@ -358,9 +358,6 @@ sub SetUserInfo
 		if (defined $email && $email ne '');
 	$query .= " email = '', emailconfirmdate = NULL,"
 		if (defined $email && $email eq '');
-
-	$query .= " password = " . $sql->Quote($password) . ","
-		if (defined $password && $password ne '');
 
 	$query .= " weburl = " . $sql->Quote($weburl) . ","
 		if (defined $weburl && $weburl ne '');
@@ -383,7 +380,98 @@ sub SetUserInfo
 	$sql->AutoTransaction(
 		sub { $sql->Do($query); 1 },
 	);
-} 
+}
+
+# Change a user's password.  The old password must be given.
+# Returns true or false.  If false, $@ will be an appropriate
+# text/plain error message.
+
+sub ChangePassword
+{
+	my ($self, $oldpassword, $newpass1, $newpass2) = @_;
+
+	if (not defined $oldpassword
+		or not defined $newpass1
+		or not defined $newpass2)
+	{
+		$@ = "You must supply your old password, your new password, and confirm your new password.";
+		return;
+	}
+
+	MusicBrainz::TrimInPlace($oldpassword, $newpass1, $newpass2);
+
+	unless ($newpass1 eq $newpass2)
+	{
+		$@ = "Password change failed - the new passwords do not match.";
+		return;
+	}
+
+	unless ($self->IsGoodPassword($newpass1))
+	{
+		# IsGoodPassword sets $@; we can just pass it through.
+		return;
+	}
+
+	my $sql = Sql->new($self->{DBH});
+
+	my $ok = $sql->AutoTransaction(
+		sub {
+			$sql->Do(
+				"UPDATE moderator SET password = ?
+					WHERE id = ?
+					AND password = ?",
+				$newpass1,
+				$self->GetId,
+				$oldpassword,
+			);
+		},
+	);
+
+	unless ($ok)
+	{
+		$@ = "Password changed failed - please check the old password and try again.";
+		return;
+	}
+
+	$@ = "";
+	1;
+}
+
+# Determine if the given password is "good enough".  Returns true or false.
+# If false, $@ will be a plain text message describing in what way it fails.
+
+sub IsGoodPassword
+{
+	my ($class, $password) = @_;
+
+	if (length($password) < 6)
+	{
+		$@ = "New password is too short - it " . $class->DescribePasswordConditions;
+		return;
+	}
+
+	my $t = decode "utf-8", $password;
+
+	if ($t =~ /\A\p{IsAlpha}+\z/)
+	{
+		$@ = "New password is all letters - it " . $class->DescribePasswordConditions;
+		return;
+	}
+	if ($t =~ /\A\p{IsDigit}+\z/)
+	{
+		$@ = "New password is all numbers - it " . $class->DescribePasswordConditions;
+		return;
+	}
+
+	$@ = "";
+	1;
+}
+
+sub DescribePasswordConditions
+{
+	"must be at least six characters long, and must be"
+		. " neither all letters nor all numbers.";
+}
 
 sub GetUserType
 {
