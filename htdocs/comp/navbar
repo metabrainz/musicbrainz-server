@@ -9,7 +9,7 @@
    ></a></td>
    <td class="NavBarCell" align="right" valign="middle">
       <span class="topmenu">
-% if (&DBDefs::DB_STAGING_SERVER =~ /test/) {
+% if (&DBDefs::DB_STAGING_SERVER) {
          <a href="/user/debug.html">Debug</a> |
 % }
          <a href="/search.html">Search</a> |
