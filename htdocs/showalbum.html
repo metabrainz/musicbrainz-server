@@ -17,7 +17,7 @@ $albumid = $ARGS{albumid};
 $ar = Artist->new($mb);
 if (! $ar->LoadFromAlbumId($albumid))
 {
-    print("This Album (ID=$albumid) was not found<br>");
+    mc_out("This Album (ID=$albumid) was not found<br>");
 }
 else
 {
