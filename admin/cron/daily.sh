@@ -67,7 +67,10 @@ nice ./Caps2.pl > $reportdir/caps2.html
 nice ./BadEntries.pl > $reportdir/bad_entries.html
 nice ./Unknown.pl > $reportdir/unknown.html
 nice ./WrongCharset.pl > $reportdir/wrong_charset.html
-nice ./reports/DuplicateArtists.pl > $reportdir/duplicate_artists.html
-nice ./reports/AlbumsToConvert.pl > $reportdir/albums_to_convert.html
+nice ./reports/DuplicateArtists.pl > $reportdir/DuplicateArtists.html
+nice ./reports/AlbumsToConvert.pl > $reportdir/AlbumsToConvert.html
+nice ./reports/TRMsWithManyTracks.pl > $reportdir/TRMsWithManyTracks.html
+nice ./reports/TracksWithManyTRMs.pl > $reportdir/TracksWithManyTRMs.html
+nice ./reports/TracksNamedWithSequence.pl > $reportdir/TracksNamedWithSequence.html
 
 cd -

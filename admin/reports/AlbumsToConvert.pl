@@ -58,8 +58,6 @@ print <<EOF;
 
 EOF
 
-my $page = 1;
-
 my $albums = $sql->SelectListOfLists("
 	SELECT m.id, m.tracks, COUNT(*)
 	FROM albummeta m, albumjoin j, track t
@@ -141,6 +139,7 @@ for my $artist (sort { $a->{_sort_} cmp $b->{_sort_} } values %artists)
 		}
 
 		print "\n";
+	}
 }
 
 my $artists = keys %artists;
