@@ -207,4 +207,8 @@ td.trk *, td.did *, td.trm * { vertical-align: middle }
 #TagLookupTrackResults td.tlen.ok { color: blue }
 #TagLookupTrackResults td.tlen.bad { color: red }
 
+/* Mod Detail */
+
+.SupersededVote { background: #ccc }
+
 /* eof */
