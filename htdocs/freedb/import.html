@@ -4,8 +4,17 @@ $catid => ""
 </%args>
 <%perl>
 
-$catid =~ s/\s+//g;
-my ($cat, $id) = $catid =~ /^(\w*)\/([0-9A-Fa-f]{8})$/;
+my ($cat, $id) = $catid =~ /
+	^\s*				# start of line, leading space
+	(\w*)				# category (e.g. misc)
+	(?:					# either:
+		\s*\/\s*		#  a slash (optional whitespace)
+		|				# or:
+		\s+				#  mandatory whitespace
+	)
+	([0-9A-Fa-f]{8})	# FreeDB ID (e.g. 12345678)
+	\s*$				# trailing space, end of line
+	/x;
 
 return $m->comp("id-error", catid => $catid)
 	if not defined $cat;
