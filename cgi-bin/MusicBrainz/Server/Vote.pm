@@ -146,6 +146,11 @@ sub GetLatestVoteFromUser
 sub AllVotesForUser_as_hashref
 {
 	my ($self, $uid) = @_;
+
+	my $key = __PACKAGE__."-AllVotesForUser_as_hashref-$uid";
+	my $data = MusicBrainz::Server::Cache->get($key);
+	return $data if $data;
+
 	my $sql = Sql->new($self->{DBH});
 
 	my $rows = $sql->SelectListOfLists(
@@ -153,14 +158,21 @@ sub AllVotesForUser_as_hashref
 		$uid,
 	);
 
-	+{
+	$data = +{
 		map { $_->[0] => $_->[1] } @$rows
 	};
+	MusicBrainz::Server::Cache->set($key, $data, "1 hour");
+	$data;
 }
 
 sub RecentVotesForUser_as_hashref
 {
 	my ($self, $uid) = @_;
+
+	my $key = __PACKAGE__."-RecentVotesForUser_as_hashref-$uid";
+	my $data = MusicBrainz::Server::Cache->get($key);
+	return $data if $data;
+
 	my $sql = Sql->new($self->{DBH});
 
 	my $rows = $sql->SelectListOfLists(
@@ -170,9 +182,11 @@ sub RecentVotesForUser_as_hashref
 		$uid,
 	);
 
-	+{
+	$data = +{
 		map { $_->[0] => $_->[1] } @$rows
 	};
+	MusicBrainz::Server::Cache->set($key, $data, "1 hour");
+	$data;
 }
 
 ################################################################################
