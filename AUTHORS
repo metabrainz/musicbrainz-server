@@ -22,4 +22,7 @@ The following people have contributed to the MusicBrainz server:
   Paul Sharpe <paul@miraclefish.com>
   - install patches for db import and handler.pl fixes
 
+  Cedric Tefft <cedric@earthling.net>
+  - some minor cleanup/install/doc changes
+
 (please send change requests to rob@musicbrainz.org or maintainer)

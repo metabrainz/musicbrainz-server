@@ -29,7 +29,7 @@ use vars qw(@ISA @EXPORT);
 @EXPORT = @EXPORT = '';
 
 # Make sure these settings are right. If you are using MySQL with a
-# database called 'cdindex' then you shouldn't need to change the next line
+# database called 'musicbrainz' then you shouldn't need to change the next line
 use constant DSN 	=>	'dbi:mysql:musicbrainz';
 
 # Insert the user name that has access to the database listed above
@@ -83,5 +83,5 @@ use constant ALLOW_SELF_VOTE => 0;
 
 # These two defines specify where to create the Apache::Session files
 # that are needed for HTTP session persistence.
-use constant LOCK_DIR => "/tmp/locks";
-use constant SESSION_DIR => "/tmp/sessions";
+use constant LOCK_DIR => "/home/httpd/musicbrainz/locks";
+use constant SESSION_DIR => "/home/httpd/musicbrainz/sessions";

@@ -32,7 +32,7 @@ if($#ARGV < 0)
     exit;
 }
 
-$Password = $ARGV[2];
+$Password = $ARGV[2] ? $ARGV[2] : '';
 ($ReturnCode, $hDB) = &InitializeConnection("mysql", "mysql", "root", $Password);
 
 #First, delete any blank users from the database, which would supercede this 
@@ -109,7 +109,7 @@ while((!$Admin) && ($Index <= $#Admin))
 
 if($Admin)
 {
-    print "Running \"mysladmin reload\" to resynch permissions...\n";
+    print "Running \"mysqladmin reload\" to resynch permissions...\n";
     system("$Admin -u root --password=\"$Password\" reload") && die "Can't run $Admin!\n";
 }
 else

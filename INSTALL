@@ -9,7 +9,7 @@ The MusicBrainz server requires the following items:
 1) An SQL server. The code has been tested with MySQL. The scripts use the
    perl DBI interface to talk to the server. It should work with other
    servers as well, but that has not been tested.
-2) A database and user dedicated to musicbrainz. These scripts use
+2) A database and user dedicated to MusicBrainz. These scripts use
    the database name 'musicbrainz' and user name 'musicbrainz'.
 3) Apache with mod_perl and Mason installed. See the following sites for more
    details on each of these packages:
@@ -18,20 +18,32 @@ The MusicBrainz server requires the following items:
       mod_perl: http://perl.apache.org for details.
       Mason:    http://www.masonhq.com
 
-   NOTE: When configuring Apache, make sure to not include the built in
-         expat, since that will conflice with the SiRPAC RDF parser's user
-         of the external expat module. configure apache with:
+   NOTE: When configuring Apache, make sure to not include the built-in
+         expat, since that will conflict with the SiRPAC RDF parser's use
+         of the external expat module. Configure Apache with:
 
          mod_perl: perl Makefile.PL APACHE_SRC=../apache_1.3.19/src DO_HTTPD=1 USE_APACI=1 PREP_HTTPD=1 EVERYTHING=1
          apache: ./configure --enable-module=rewrite --disable-rule=expat --prefix=/usr/apache --activate-module=src/modules/perl/libperl.a
 
+    Also NOTE: Red Hat is known to ship their Apache packages with the
+               built-in expat support enabled, so you will have to build
+               Apache from scratch on Red Hat systems.
+
+    WARNING!  Don't compile Apache with mod_perl built as a DSO (Dynamic
+              Shared Object).  Mason doesn't get along with a DSO mod_perl
+              (though it's not alone). If you do build mod_perl as a DSO,
+              Apache can (and probably will) segfault or die silently on
+              startup.
 
 
-4) Perl 5.003 or higher and the required perl modules: 
+4) Expat XML Parser library: http://sourceforge.net/projects/expat
+
+5) Perl 5.003 or higher and the required perl modules: 
   
    CPAN Name
    ---------
-   Bundle::Apache (Apache::Registry and Apache::Session)
+   Bundle::Apache
+   Apache::Session
    DBI          
    DBD::mysql  
    HTML::Mason
@@ -60,7 +72,7 @@ Installation:
    included in the admin directory. You will probably need to review
    it and make sure that all the paths point to the right place. Check
    the file for TODO sections which point out things that might need to
-   change. However, if you place all musicbrainz related things into
+   change. However, if you place all MusicBrainz related things into
    /home/httpd/musicbrainz/{htdocs|cgi-bin|mason|locks|sessions} you
    shouldn't have to make any changes.
 
@@ -79,7 +91,7 @@ Installation:
 2) Create a database called 'musicbrainz'. 
    (mysql: 'mysqladmin create musicbrainz')
 
-3) Add a user to the database called musicbrainz. The user needs to have
+3) Add a user to the database called 'musicbrainz'. The user needs to have
    insert, select, and update priveledges. An easy way to do this is
    to use the MySQLAddUser.pl script in the admin directory.
    (cd admin ; MySQLAddUser.pl musicbrainz localhost)
@@ -89,17 +101,17 @@ Installation:
    in the module.
 
 5) In the admin directory, run the script CreateTables.pl. This will log
-   into the DB server and create all the necessary tables. If want to
+   into the DB server and create all the necessary tables. If you want to
    create a blank database for testing, run CreateTables.pl without any
    options. However, if you plan to import the data from the MB website,
    then give CreateTables.pl the -nd option for skipping the insertion
    of the default rows. The default rows are included in the data dump
    and would cause problems when trying to import the data dump.
 
-6) Configure apache to use mason. In the admin directory you will find
-   a prefab handler.pl to use with the mason setup and the vh_httpd.conf
+6) Configure Apache to use Mason. In the admin directory you will find
+   a prefab handler.pl to use with the Mason setup and the vh_httpd.conf
    file which is a VirtualHost fragment for Apache's httpd.conf file.
-   I suggest to run MusicBrainz as a virtual host, and if you stash
+   I suggest you run MusicBrainz as a virtual host, and if you stash
    the htdocs files into /home/httpd/musicbrains/htdocs and the files
    from cgi-bin into /home/httpd/musicbrainz/cgi-bin you shouldn't have
    to modify handler.pl and you should only have to import vh_httpd.conf
@@ -110,11 +122,11 @@ Installation:
    and look for TODO comments. Each of the TODO comments indicates a
    path or setting that needs to be set for your configuration. 
 
-7) Copy the all the files/subdirs in the htdocs directory into DocumentRoot
+7) Copy all the files/subdirs in the htdocs directory into DocumentRoot
    directory that you specified in httpd.conf. Then copy all the files/subdirs
    from the cgi-bin dir into the ScriptAlias directory specified in httpd.conf
 
-8) Now start mysql (if its not already running), and then start apache and
+8) Now start mysql (if its not already running), and then start Apache and
    you should be set and ready to roll. Go the the selected URL and you
    should see a MusicBrainz site without any data.
 

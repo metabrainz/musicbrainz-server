@@ -140,6 +140,29 @@ sub Cleanup
 
     # --------------------------------------------------------------------
     
+    print "Orphaned TOCs:\n";
+    $count = 0;
+    $sth = $dbh->prepare(qq|select TOC.id, TOC.Diskid, TOC.Album
+                            from   TOC left join Album 
+                            on     TOC.album = Album.id 
+                            WHERE  Album.id IS NULL|);
+    if ($sth->execute() && $sth->rows())
+    {
+        my @row;
+
+        while(@row = $sth->fetchrow_array())
+        {
+            print "  TOC $row[1] references non-existing album $row[2].\n";
+            $count++;
+
+            $dbh->do("delete from TOC where id = $row[0]") if ($fix);
+        }
+    }
+    $sth->finish;
+    print "Found $count orphaned TOCs.\n\n";
+
+    # --------------------------------------------------------------------
+    
     print "Orphaned albumjoins:\n";
     $count = 0;
     $sth = $dbh->prepare(qq|select AlbumJoin.id, AlbumJoin.album
