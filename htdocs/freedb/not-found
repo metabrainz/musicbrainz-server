@@ -1,0 +1,21 @@
+%# vi: set ts=4 sw=4 ft=mason :
+<%args>
+$catid
+</%args>
+
+<& /comp/sidebar, title => "FreeDB Import - Error" &>
+
+<p>
+	The CD with id <b><% $catid %></b> could not be loaded
+	from freedb.org.
+</p>
+
+<p>
+	Please
+	<a href="/freedb/freedb.html"
+		onclick="history.go(-1); return false"
+		>go back</a>
+	and try another one.
+</p>
+
+<& /comp/footer &>

@@ -1,0 +1,94 @@
+%# vi: set ts=4 sw=4 ft=mason :
+<%perl>
+
+$session{"freedb_ready"}
+	or return $m->comp("/comp/redirect", "/freedb/freedb.html");
+
+# Update track names
+
+$session{"freedb_album"} = $ARGS{"album"}
+	if exists $ARGS{"album"};
+
+for my $i (0 .. $session{"freedb_tracks"}-1)
+{
+	$session{"freedb_track$i"} = $ARGS{"track$i"}
+		if exists $ARGS{"track$i"};
+}
+
+return $m->comp("/comp/redirect", "/freedb/sac-confirm.html")
+	if $ARGS{"continue"};
+
+my $ar = Artist->new(undef);
+
+$ar->SetId($session{"freedb_artistid"});
+$ar->SetName($session{'freedb_artist'});
+$ar->SetSortName($session{'freedb_sortname'});
+
+my $t = $session{"freedb_tracks"};
+
+</%perl>
+<& /comp/sidebar, title => "FreeDB Import - Edit Track Names" &>
+
+<script type="text/javascript" src="/scripts/guess.js"></script>
+
+<form method="post" action="/freedb/sac-edittracks.html">
+
+	<table>
+		<col>
+		<col style="width: 0.5em">
+		<col style="width: 20em">
+		<col style="width: 0.5em">
+		<col style="width: 6em">
+		<tr>
+			<td>Artist:</td>
+			<td rowspan="<% $t+3 %>">
+			<td>
+% if ($ar->GetId) {
+				<a href="/showartist.html?artistid=<% $ar->GetId %>"
+					><% $ar->GetName %></a>
+% } else {
+				<% $ar->GetName %>
+				(<% $ar->GetSortName %>)
+% }
+			</td>
+			<td rowspan="<% $t+3 %>">
+			<td nowrap align="center">[ <a href="/freedb/select-macsac.html">Change</a> ]</td>
+		</tr>
+		<tr>
+			<td>Album:</td>
+			<td><input type="text" name="album" style="width: 100%"
+				value="<% $session{'freedb_album'} %>"></td>
+			<td align="center"><input type="button" value="Guess Case"
+				onclick="this.form.album.value = GuessCase(this.form.album.value)"
+				></td>
+		</tr>
+% for my $i (0 .. $t-1) {
+		<tr>
+			<td>Track <% $i+1 %>:</td>
+			<td><input type="text" name="track<% $i %>" style="width: 100%"
+				value="<% $session{"freedb_track$i"} %>"></td>
+			<td align="center"><input type="button" value="Guess Case"
+				onclick="this.form.track<% $i %>.value = GuessCase(this.form.track<% $i %>.value)"
+				></td>
+		</tr>
+% }
+		<tr>
+			<td></td>
+			<td></td>
+			<td align="center"><input type="button" value="Guess All"
+				onclick="
+					this.form.album.value = GuessCase(this.form.album.value);
+					for (var i=0; i &lt; <% $t %>; ++i) {
+						this.form['track'+i].value = GuessCase(this.form['track'+i].value);
+					}
+				"></td>
+		</tr>
+	</table>
+
+	<p style="text-align: center">
+		<input type="submit" value="Continue">
+		<input type="hidden" name="continue" value="1">
+	</p>
+</form>
+
+<& /comp/footer &>

@@ -1,315 +1,93 @@
 %# vi: set ts=4 sw=4 ft=mason :
 <%args>
-$catid=>""
-$mac=>""
-$parse_artist_track=>""
-$parse_track_artist=>""
-$sep=>""
+$catid => ""
 </%args>
-
 <%perl>
 
-$sep = '/' unless $sep ne '';
-$mac = ($mac eq 'on') ? 1 : 0;
+$catid =~ s/\s+//g;
+my ($cat, $id) = $catid =~ /^(\w*)\/([0-9A-Fa-f]{8})$/;
 
-my ($cat, $id);
+return $m->comp("id-error", catid => $catid)
+	if not defined $cat;
 
-if ($catid eq '') 
-{
-    $m->comp("/comp/sidebar", title=>'FreeDB Import', expand=>"moderation");
-    $m->comp("/comp/badargs");
-    return undef;
-}
-</%perl>
-
-%if ($catid =~ m-\s*(\w*)\s*/\s*(\w{8})-) {
-%   $cat = $1;
-%   $id = $2;
-% } else {
-
-    <& /comp/sidebar, title=>'FreeDB Import', expand=>"moderation" &>
-    Invalid category and id pasted: <b><% $catid %></b><p>
-    Please cut and paste a category (rock, blues, etc.) and a freedb id
-    (e.g. 940d8b0c) separated by <b>/</b> , as shown below:
-
-    <blockquote>
-       <b>rock / 7b0dae0a<br>
-          misc / 970d1b0c</b>
-    </blockquote>
-    
-    
-    Please go back and try again.
-    <& /comp/footer &>
-
-%   return undef;
-% }
-
-<%perl>
-my ($mb); 
-my ($i, $arraytistname, $modpending, $array, $ar, $al, $match, @albums);
-my ($lookup, $tracks, $durations, $artist, $ret);
-
-$m->comp("/comp/sidebar", title=>'FreeDB Import: Verify/Correct CD Information');
-$m->comp("/comp/stylemenu");
-
-$mb = $m->comp("/comp/dblogin");
+my $mb = $m->comp("/comp/dblogin");
 
 my $fdb = FreeDB->new($mb->{DBH});
-$lookup = $fdb->LookupByFreeDBId($id, $cat);
-if (!$lookup)
+my $lookup = $fdb->LookupByFreeDBId($id, $cat);
+
+return $m->comp("not-found", catid => $catid)
+	if not defined $lookup;
+
+# Right, I'm making a decision here to use %session to store all this stuff,
+# instead of passing it all around in POSTed data.  The upside of this is that
+# it makes the coding much simpler, and the HTTP transactions less convoluted;
+# plus you don't have to re-validate all the data on every request.
+# The downside is that going "back" in the browser history won't unwind your
+# work as you might expect.  Also you'll need a session per import if you want
+# to do multiple FreeDB imports in parallel.
+
+# Clear out any existing freedb data
+$m->comp("cancel.html", "true");
+
+# Save the original FreeDB lookup results
+$session{"freedb_lookup"} = $lookup;
+my $t = $session{"freedb_tracks"} = @{ $lookup->{tracks} };
+
+# $lookup has keys:
+# - freedbid (eq $id)
+# - artist (string)
+# - sortname (??? is this meant to be in there?)
+# - album (string)
+# - tracks: array ref, each entry is hash of {tracknum, track}
+# - durations: space-joined list of integers, one per track
+
+# Let's start off with some trivial data tidying
+my $tidy = sub {
+	local $_ = shift;
+	use Encode qw( encode decode );
+	$_ = decode "utf-8", $_;
+	s/\A\s+//;
+	s/\s+\z//;
+	s/\s+/ /g; #/#
+	tr/\x{0060}\x{00B4}"\x{00AB}\x{00BB}/'/; #"#
+	encode "utf-8", $_;
+};
+
+$session{"freedb_artist"} = &$tidy($lookup->{"artist"});
+$session{"freedb_album"} = &$tidy($lookup->{"album"});
+
+for my $i (0 .. $t-1)
 {
-   $m->out("The selected CD could could not be loaded from freedb.org. ");
-   $m->out("Please try another one.");
-   $m->comp("/comp/footer");
-   return undef;
+	# Hmmm, does freedb always return 1..n tracks (no gaps?)
+	# i.e. do we ignore "tracknum" ?
+
+	my $n = &$tidy($lookup->{"tracks"}[$i]{"track"});
+
+	# Remove leading track number
+	my $n1 = $i+1;
+	my $n2 = sprintf "%02d", $n1;
+	$n =~ s/^($n1|$n2)[\.\)]?\s*//;
+
+	$session{"freedb_track$i"} = $n;
 }
 
-$array = $lookup->{tracks};
-$tracks = scalar(@$array);
-$durations = $lookup->{durations};
+# TODO "Guess Case" on everything?
 
-$lookup->{artist} =~ tr[ ][ ]s;
-$ar = Artist->new($mb->{DBH});
+# Save these as the defaults.
 
-if ($mac)
+for ("artist", "album", map { "track$_" } 0..$t-1)
 {
-    $ar->SetId(&ModDefs::VARTIST_ID);
-    $ret = $ar->LoadFromId();
-}
-else
-{
-    $ar->SetId(&ModDefs::VARTIST_ID);
-    $ret = $ar->LoadFromName($lookup->{artist});
-
-    if (defined $ret && $ar->GetId() == &ModDefs::VARTIST_ID)
-    {
-        $mac = 1;
-    }
+	$session{"freedb_default_$_"} = $session{"freedb_$_"};
 }
 
-if (defined $ret)
-{
-    $lookup->{artist} = $ar->GetName();
-    $artist = $ar->GetId();
+# Hence we have three sets of values:
+# - $session{"freedb_lookup"} contains the data originally fetched from FreeDB
+# - $session{"freedb_default_X"} is the same thing after some simple tidying up
+# - $session{"freedb_X"} is our current 'working copy'
 
-    @albums = $ar->HasAlbum($lookup->{album}, .8);
-    if (defined $albums[0])
-    {
-        my $banner = 0;
-        foreach $match (@albums)
-        {
-            $al = Album->new($mb->{DBH});
-            $al->SetId($match->{id});
-            if (defined $al->LoadFromId())
-            {
-                if ($al->GetTrackCount() == $tracks)
-                {
-                    if (!$banner)
-                    {
-                         $m->out("<b>MusicBrainz already contains the following 
-                                   albums that have the same or a similar title
-                                   to the CD that you'd like to import:</b><p>");
-                         $banner++;
-                    }
+$session{"freedb_ready"} = 1;
 
-                    $m->out("<a href=\"/showalbum.html?albumid=" . $al->GetId() .
-                           "\">" . $al->GetName() . "</a>");  
-                    $m->out(" with $tracks tracks is ");
-                    $m->out($match->{match} == 1.0 ? 
-                           "an exact match" : "a close match");
-                    $m->out(".<br>");
-                }
-            }
-        }
-
-        if ($banner)
-        {
-            $m->out("<p><font color='red'>Please do not import albums that are
-                      already present in the database!</font><p>However, if
-                      you feel that this album still needs to be added for some
-                      reason, please follow the instructions below:<p>");
-        }
-    }
-}
-else
-{
-    $artist = undef;
-}
+# First question: to VA or not to VA?
+return $m->comp("/comp/redirect", "/freedb/select-macsac.html");
 
 </%perl>
-
-Retrieved CD <font class="bold"><% $lookup->{album} %></font> 
-by <font class="bold"><% $lookup->{artist} %></font> at
-<a href="http://www.freedb.org">freedb.org</a>.<p>
-Please check the information below for accuracy and correct any
-mistakes you may find.<p>
-
-% if ($mac) {
-  <table width="400">
-     <tr colspan="5">
-     If the track names and artist names are the same for all the tracks
-     below or if the track and artist names are reversed, then use the
-     buttons below to reload this page.<p>
-
-     Choose which way to display the artist and track names, and also
-     select a character that is used to separate the artist from the
-     track names in this album.<p>
-
-     Current settings: <span class="bold">
-%    if ($parse_artist_track ne "") {
-        Artist/Track</span>, separated by
-%    } else {
-        Track/Artist</span>, separated by
-%    }
-     <span class="bold"><% $sep %></span><p>
-
-     </tr>
-     <tr><td align="center">
-     <form method="POST" action="/freedb/import.html" Name="FreeDBImport"
-           enctype="application/x-www-form-urlencoded" class="formstyle">
-        Reload CD Info,<br> and display as:<br><br>
-        <input type="hidden" name="catid" value="<% $catid %>">
-        <input type="hidden" name="mac" value="<% $mac ? 'on' : '' %>">
-        <input type="submit" value="Artist / Track" name="parse_artist_track">
-     </td><td align="center">
-        use separator:<br><br>
-        <input type="text" name="sep" size="3">
-     </form>
-     </td><td align="center">
-        <img src="/images/black_pixel.gif" height="40" width="1" alt="">
-     </td><td align="center">
-     <form method="POST" action="/freedb/import.html" Name="FreeDBImport"
-           enctype="application/x-www-form-urlencoded" class="formstyle">
-        Reload CD Info,<br> and display as:<br><br>
-        <input type="hidden" name="catid" value="<% $catid %>">
-        <input type="hidden" name="mac" value="<% $mac ? 'on' : '' %>">
-        <input type="submit" value="Track / Artist" name="parse_track_artist">
-     </td><td align="center">
-        use separator:<br><br>
-        <input type="text" name="sep" size="3">
-      </form>
-     </td></tr>
-  </table>
-  <%perl>
-
-  if ($sep eq ')' || $sep eq '(' || $sep eq '*' ||
-      $sep eq '?' || $sep eq '+' || $sep eq '.' ||
-      $sep eq '[' || $sep eq ']' || $sep eq '.')
-  {
-     $sep = "\\$sep";
-  }
-}
-
-my ($artistname, $sortname, $trackname, $temp);
-
-</%perl>
-
-<script type="text/javascript" src="/scripts/entervalidate.js"></script>
-
-<form method="POST" action="/cdi/selectattr.html" Name="EnterCD"
-      enctype="application/x-www-form-urlencoded" class="formstyle"
-      onsubmit="return validate(this);">
-<table>
-
-%   if (!$mac) {
-
-%      if (!defined $artist) {
-            <tr><td>Artist:</td><td>
-            <input type="text" name="artistname" size="50" maxlength="255"
-                   value="<% $lookup->{artist} %>"></td>
-            </tr>
-            <tr><td>SortName:</td><td>
-%           my ($sortname, $st);
-%           $st = Style->new;
-%           $sortname = $st->MakeDefaultSortname($lookup->{artist});
-            <input type="text" name="sortname" size="50" maxlength="255"
-                   value="<% $sortname %>"></td>
-            </td></tr>
-%      } else {
-            <tr><td>Artist:</td><td>
-            <b><% $lookup->{artist} %></b>
-            </tr>
-%      }
-       <tr><td>CD Title:</td><td>
-         <input type="text" name="title" size="50" maxlength="255"
-                value="<% $lookup->{album} %>">
-       </td></tr>
-%   } else {
-
-       <tr>
-           <td colspan="2" align="right" valign="top">CD Title:</td>
-           <td>
-              <input type="text" name="title" size="50" maxlength="255"
-                    value="<% $lookup->{album} %>">
-           </td>
-       </tr>
-%   }
-
-    <%perl>
-
-    for($i = 0; $i < $tracks; $i++) 
-    {
-        $artistname = $trackname = "";
-        if ($mac)
-        {
-            my $exp;
-     
-            $temp = $$array[$i]->{track};
-            $artistname = $trackname = $temp;
-     
-            $exp = '(.*)\s*'.$sep.'\s*(.*)';
-            if ($temp =~ m|$exp|)
-            {
-                if (defined $1 && defined $2)
-                {
-                   $artistname = ($parse_artist_track ne '') ? $1 : $2;
-                   $trackname = ($parse_artist_track ne '') ? $2 : $1;
-                }
-            }
-            my $st = Style->new;
-            $sortname = $st->MakeDefaultSortname($artistname);
-    
-            </%perl>
-           
-            <tr>
-               <td valign="top"><font class="bold">Track <% $i + 1 %>:</font></td>
-               <td align="right" valign="top">Track Name:</td>
-               <td>
-                  <input type="text" name="track<% $i %>" size="50" maxlength="255"
-                         value="<% $trackname %>">
-           </td>
-                </tr>
-        
-            <tr>
-               <td colspan="2" align="right" valign="top">Artist Name:</td>
-           <td><input type="text" name="artistname<% $i %>" size="50" 
-                      maxlength="255" value="<% $artistname %>"></td>
-            </tr>
-        
-            <tr>
-               <td colspan="2" align="right" valign="top">Sort Name:</td>
-               <td><input type="text" name="sortname<% $i %>" size="50" 
-                          maxlength="255" value="<% $sortname %>"><p></td>
-            </tr>
-%        } else {
-
-            <tr><td>Track <% $i + 1 %>:</td><td>
-        
-             <input type="text" name="track<% $i %>" size="50" maxlength="255"
-                    value="<% $$array[$i]->{track} %>">
-            
-            </td></tr>
-%        }
-%    }
-</table>
-
-% if (defined $artist) {
-    <input type="hidden" name="artist" value="<% $artist %>">
-% }
-<input type="hidden" name="freedbid" value="<% $id %>">
-<input type="hidden" name="tracks" value="<% $tracks %>">
-<input type="hidden" name="durations" value="<% $durations %>">
-<input type="submit" value="Next &gt;&gt;" name="Next">
-</form>
-
-<& /comp/footer &>

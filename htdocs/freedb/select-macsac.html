@@ -1,0 +1,50 @@
+%# vi: set ts=4 sw=4 ft=mason :
+<%perl>
+
+$session{"freedb_ready"}
+	or return $m->comp("/comp/redirect", "/freedb/freedb.html");
+
+</%perl>
+<& /comp/sidebar, title => "FreeDB Import - Select Import Type" &>
+
+<p>
+	Is this release by only one artist, or by more than one?
+</p>
+
+<table>
+	<tr>
+		<td style="width: 50%">
+
+<form method="post" action="/freedb/select-artist.html">
+	<p>
+		<input type="submit" value="Only one artist">
+		<input type="hidden" name="search" value="<% $session{'freedb_artist'} %>">
+	</p>
+</form>
+
+		</td>
+		<td style="width: 50%">
+
+<form method="post" action="/freedb/mac-check-similar.html">
+	<p>
+		<input type="submit" value="More than one artist">
+	</p>
+</form>
+
+		</td>
+	</tr>
+</table>
+
+<p>
+	<b><% $session{"freedb_album"} %></b>
+	by
+	<b><% $session{"freedb_artist"} %></b>
+</p>
+
+<ol>
+% for my $i (0 .. $session{"freedb_tracks"}-1) {
+	<li><% $session{"freedb_track$i"} %></li>
+% }
+</ol>
+
+<& /comp/footer &>

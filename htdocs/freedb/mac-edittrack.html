@@ -1,0 +1,216 @@
+%# vi: set ts=4 sw=4 ft=mason :
+<%args>
+$t => undef
+$auto => undef
+$trackname => undef
+$search => undef
+</%args>
+<%perl>
+
+$session{"freedb_ready"}
+	or return $m->comp("/comp/redirect", "/freedb/freedb.html");
+
+MusicBrainz::IsNonNegInteger($t) and $t < $session{"freedb_tracks"}
+	or return $m->comp("/comp/redirect", "/freedb/mac-edittracks.html");
+
+# Chunks of code copied from changetrack.html :
+
+# If the user had to click "swap", flip our "split order" flag
+$session{'changetrack_splitorder'} = not $session{'changetrack_splitorder'}
+	if $ARGS{'swapped'};
+
+if (MusicBrainz::IsSingleLineString($trackname)
+	and MusicBrainz::IsSingleLineString($search))
+{
+	$session{"freedb_track$t"} = $trackname;
+	use HTML::Mason::Tools qw( url_escape );
+	return $m->comp(
+		"/comp/redirect",
+		"/freedb/mac-selecttrackartist.html"
+			. "?search=" . url_escape($search)
+			. "&t=$t"
+			. "&auto=" . ($auto ? 1 : 0)
+	);
+}
+
+# Scan through the track names and artists, and work out what the likely
+# "split" sequence is, and what the most common track artist is.
+my %trackartists;
+my %split = map { $_ => 0 } (" - ", "-", " / ", "/", ": ", ":");
+
+for my $i (0 .. $session{"freedb_tracks"}-1)
+{
+	for my $split (keys %split)
+	{
+		++$split{$split} if index($session{"freedb_track$i"}, $split) >= 0;
+		++$trackartists{ $session{"freedb_artistname$i"} };
+	}
+}
+
+my $mostcommonkey = sub {
+	my $t = shift;
+	my @k = sort { $t->{$a} <=> $t->{$b} } keys %$t;
+	$k[-1];
+};
+
+my $split = $mostcommonkey->(\%split);
+my $oldartist = $mostcommonkey->(\%trackartists);
+
+# These are the existing values
+my $oldtrackname = $session{"freedb_track$t"};
+my $oldartistname = $session{"freedb_artistname$t"};
+my $oldartistsortname = $session{"freedb_sortname$t"};
+
+# Do a split on the track name
+my ($splittrackname, $splitartistname) = split($split, $oldtrackname, 2);
+($splittrackname, $splitartistname) = split(/\s+[\/-]\s+/, $oldtrackname, 2)
+	unless defined $splitartistname;
+my $did_split = defined $splitartistname;
+($splittrackname, $splitartistname) = ($splitartistname, $splittrackname)
+	if $session{'changetrack_splitorder'};
+
+# Trim everything
+for ($oldtrackname, $oldartistname, $splittrackname, $splitartistname)
+{
+	s/\A\s+//;
+	s/\s+\z//;
+	s/\s\s+/ /g; #/#
+}
+
+# Now work out what we think is the more likely - use the split values,
+# or use the current values.
+my ($newtrackname, $newartistname) = ($oldtrackname, $oldartistname);
+
+if ($did_split
+	and (
+		$oldtrackname eq "Various Artists"
+		or $oldartistname eq ""
+		or $oldtrackname eq $oldartistname
+		or $session{"freedb_artistid$t"} == &ModDefs::VARTIST_ID
+		# or $track->GetArtist == $oldartist
+	))
+{
+	$newtrackname = $splittrackname;
+	$newartistname = $splitartistname;
+}
+
+</%perl>
+<& /comp/sidebar, title => "FreeDB Import - Edit Track Name & Search for Artist" &>
+
+<script type="text/javascript" src="/scripts/guess.js"></script>
+
+<form method="post" action="/freedb/mac-edittrack.html?t=<% $t %>&amp;auto=<% $a?1:0 %>"
+	name="ChangeTrackForm"
+	>
+	
+	<table>
+   		<tr>
+			<td>
+		 		Current Track Name:
+		  	</td>
+		   	<td>
+				<% $oldtrackname %>
+			</td>
+		</tr>
+		<tr>
+			<td>
+				Current Artist Name:
+			</td>
+			<td>
+				<% $oldartistname %>
+% if ($oldartistsortname ne $oldartistname) {
+				(<% $oldartistsortname %>)
+% }
+			</td>
+		</tr>
+		<tr><td>&nbsp;</td></tr>
+		<tr>
+			<td>
+				New Track Name:
+			</td>
+			<td>
+				<input type="text" name="trackname" size="40" value="<% $newtrackname %>">
+				<script type="text/javascript"><!--
+				document.write(
+					"<input type='button' value='Guess Case' " +
+					"onclick='this.form.trackname.value = GuessCase(this.form.trackname.value)'>"
+				);
+				document.write(" &nbsp; ");
+				//--></script>
+			</td>
+		</tr>
+		<tr>
+			<td></td>
+			<td>
+				<script type="text/javascript">
+
+function SwapFields() 
+{
+	var f = document.forms.ChangeTrackForm;
+	var tmp = f.trackname.value;
+	f.trackname.value = f.search.value;
+	f.search.value = tmp;
+	f.swapped.value = 1 - f.swapped.value;
+}
+
+function UseCurrent() 
+{
+	var f = document.forms.ChangeTrackForm;
+	f.search.value = f.orig_artname.value;
+	f.trackname.value= f.orig_track.value;
+}
+
+% if ($did_split) {
+function UseSplit() 
+{
+	var f = document.forms.ChangeTrackForm;
+	f.search.value = f.split_artname.value;
+	f.trackname.value= f.split_track.value;
+}
+% }
+
+	document.writeln('<input type="button" value="Swap" onclick="return SwapFields(this)">');
+	document.writeln(' ');
+	document.writeln('<input type="button" value="Use Current" onclick="return UseCurrent(this)">');
+% if ($did_split) {
+	document.writeln(' ');
+	document.writeln('<input type="button" value="Use Split" onclick="return UseSplit(this)">');
+% }
+				</script>
+				<noscript>
+				<input type="reset" value="Use Guessed">
+				</noscript>
+			</td>
+		</tr>
+		<tr>
+			<td>
+				Search for New Artist:
+			</td>
+			<td>
+				<input type="text" name="search" size="40" value="<% $newartistname %>"> 
+			</td>
+		</tr>
+		<tr>
+			<td></td>
+			<td>
+				<input type="hidden" name="swapped" value="0">    
+				<input type="submit" name="Submit" value="Submit">    
+			</td>
+		</tr>
+	</table>
+	
+	<input type="hidden" name="orig_artname" value="<% $oldartistname %>">
+	<input type="hidden" name="orig_track" value="<% $oldtrackname %>">
+% if ($did_split) {
+	<input type="hidden" name="split_artname" value="<% $splitartistname %>">
+	<input type="hidden" name="split_track" value="<% $splittrackname %>">
+% }
+
+</form>
+         
+<p>(<a href="/freedb/mac-edittracks.html">Back to track listing</a>)</p>
+
+<& /comp/movefocus, "ChangeTrackForm", "trackname" &>
+<& /comp/footer &>
+
+<& /comp/footer &>

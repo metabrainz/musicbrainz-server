@@ -1,0 +1,81 @@
+%# vi: set ts=4 sw=4 ft=mason :
+<%perl>
+
+my $lookup = $session{"freedb_lookup"};
+my $ar = shift;
+my $nextpage = shift;
+
+my @albums = $ar->HasAlbum($lookup->{album}, .8);
+my @similar;
+my $n = $session{"freedb_tracks"};
+
+for my $match (@albums)
+{
+	my $al = Album->new($ar->{DBH});
+	$al->SetId($match->{id});
+	$al->LoadFromId
+		or next;
+	next unless $al->GetTrackCount == $n;
+
+	$al->{_exact_} = 1
+		if $match->{match} >= 0.999;
+	$al->{_pct_match_} = $match->{match} * 100;
+
+	push @similar, $al;
+}
+
+return 0 unless @similar;
+
+my $trackphrase = "$n tracks";
+$trackphrase = "one track" if $n == 1;
+
+</%perl>
+<& /comp/sidebar, title => "FreeDB Import - Similar Albums Found" &>
+
+<p>
+	MusicBrainz already contains the following 
+	releases that have the same or a similar title
+	to the CD that you'd like to import:
+</p>
+
+<ul>
+% for my $al (@similar) {
+	<li>
+		<% int $al->{_pct_match_} %>% match
+		<br>
+		<%perl>
+		$m->comp("/comp/album", artist=>$ar, album=>$al, nomod=>1, showids=>1);
+		</%perl>
+	</li>
+% }
+</ul>
+
+<center>
+
+<p style="color: red; font-size: 150%">
+	Please do not import releases that are already present
+	in the database!
+</p>
+
+<p>
+	Are you sure you want to continue importing this CD?
+</p>
+
+<table>
+	<td width="40%">
+		<form method="get" action="/freedb/cancel.html">
+			<input type="submit" value="No">
+		</form>
+	</td>
+	<td></td>
+	<td width="40%">
+		<form method="post" action="<% $nextpage %>">
+			<input type="submit" value="Yes">
+		</form>
+	</td>
+</table>
+
+</center>
+
+<& /comp/footer &>
+% return 1;
