@@ -171,7 +171,8 @@ TXXX User defined text information frame
 <p>
 The artist sortname should really be stored in a ID3v2.4 frame called TSOP,
 but that is not supported under ID3v2.3. For writing ID3v2.3 tags, a XSOP
-frame that is formatted like a regular text frame should be used.
+frame that is formatted like a regular text frame should be used.  You should 
+never write a XSOP frame in ID3v2.4 tag.
 
 <blockquote>
 <p>
@@ -190,11 +191,8 @@ XSOP Experimental, Sort order, Performer.
 
 <p>
 * The text encoding field should be set to whatever encoding
-is being used for the TPE1, TIT2 and TALB track. Given
-that MusicBrainz uses UTF-8 to store its data, you should
-choose encoding $03 (UTF-8) if you plan to store
-MB data without changing its encoding. Alternatively use
-encoding $01 (UTF-16) if you plan convert the data to 16bit UNICODE.
+is being used for the TPE1, TIT2 and TALB track. If you are writing a
+ID3v2.3 tag you only have one option for unicode data: $01 (UTF-16).  
 </p>
 
 <p>
