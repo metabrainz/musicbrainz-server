@@ -56,7 +56,7 @@ sub BeginRDFObject
 
     if (!defined $skipxmldecl || $skipxmldecl != 1)
     {
-       $out = "<?xml version=\"1.0\" encoding=\"ISO-8859-1\"?>\n";
+       $out = "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n";
     }
 
     $out .=  "<rdf:RDF xmlns:rdf = \"http://www.w3.org/1999/02/22-rdf-syntax-ns#\"\n".

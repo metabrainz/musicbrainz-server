@@ -45,7 +45,7 @@ sub BeginRDFObject
 
     $this->{level} = 1;
 
-    return "<?xml version=\"1.0\" encoding=\"ISO-8859-1\"?>\n" . 
+    return "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n" . 
        "<rdf:RDF xmlns:rdf = \"http://w3.org/TR/1999/PR-rdf-syntax-19990105#\"\n".
        "         xmlns:DC = \"http://purl.org/DC#\"\n" . 
        "         xmlns:MM = \"http://cdindex.org/MM#\"\n" .
