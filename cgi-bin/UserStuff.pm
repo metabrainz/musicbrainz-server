@@ -93,17 +93,39 @@ sub GetWebURLComplete
 	$_;
 }
 
+sub _GetCacheKey
+{
+	my ($class, $id) = @_;
+	"moderator-id-" . int($id);
+}
+
 sub newFromId
 {
 	my ($this, $uid) = @_;
+
+	my $key = $this->_GetCacheKey($uid);
+	my $obj = MusicBrainz::Server::Cache->get($key);
+
+	if ($obj)
+	{
+		$$obj->{DBH} = $this->{DBH} if $$obj;
+		return $$obj;
+	}
+
 	my $sql = Sql->new($this->{DBH});
 
-	$this->_new_from_row(
+	$obj = $this->_new_from_row(
 		$sql->SelectSingleRowHash(
 			"SELECT * FROM moderator WHERE id = ?",
 			$uid,
 		),
 	);
+
+	delete $obj->{DBH} if $obj;
+	MusicBrainz::Server::Cache->set($key, \$obj);
+	$obj->{DBH} = $this->{DBH} if $obj;
+
+	$obj;
 }
 
 sub newFromName
@@ -361,6 +383,30 @@ sub SetUserInfo
 	$sql->AutoTransaction(
 		sub { $sql->Do($query); 1 },
 	);
+
+	MusicBrainz::Server::Cache->remove($this->_GetCacheKey($uid));
+}
+
+sub CreditModerator
+{
+  	my ($this, $uid, $status, $isautomod) = @_;
+
+	use ModDefs qw( STATUS_FAILEDVOTE STATUS_APPLIED );
+
+	my $column = (
+		($status == STATUS_FAILEDVOTE)
+			? "modsrejected"
+			: ($status == STATUS_APPLIED)
+				? ($isautomod ? "automodsaccepted" : "modsaccepted")
+				: "modsfailed"
+	);
+
+ 	my $sql = Sql->new($this->{DBH});
+	$sql->Do(
+		"UPDATE moderator SET $column = $column + 1 WHERE id = ?",
+		$uid,
+	);
+	MusicBrainz::Server::Cache->remove($this->_GetCacheKey($uid));
 }
 
 # Change a user's password.  The old password must be given.
@@ -407,6 +453,8 @@ sub ChangePassword
 			);
 		},
 	);
+
+	MusicBrainz::Server::Cache->remove($self->_GetCacheKey($self->GetId));
 
 	unless ($ok)
 	{
@@ -1058,21 +1106,15 @@ sub _SetLastLoginDate
 {
 	my ($this, $uid) = @_;
 	my $sql = Sql->new($this->{DBH});
-	my $wrap_transaction = $sql->{DBH}{AutoCommit};
 
-	eval {
-		$sql->Begin if $wrap_transaction;
+	$sql->AutoTransaction(sub {
 		$sql->Do(
 			"UPDATE moderator SET lastlogindate = NOW() WHERE id = ?",
 			$uid,
 		);
-		$sql->Commit if $wrap_transaction;
-		1;
-	} or do {
-		my $e = $@;
-		$sql->Rollback if $wrap_transaction;
-		die $e;
-	};
+		# We don't invalidate the cache for this write, since we never show
+		# lastlogindate anyway.
+	});
 }
 
 1;
