@@ -88,13 +88,13 @@ sub Insert
     {
          $page = $this->CalculatePageIndex($this->{sortname});
          $mbid = $sql->Quote($this->CreateNewGlobalId());
-         if ($sql->Do(qq/insert into Artist (name, sortname, gid, 
+	 
+         $sql->Do(qq/insert into Artist (name, sortname, gid, 
                      modpending, page) values (/ . $sql->Quote($this->{name}) .
-                     ", " . $sql->Quote($this->{sortname}) . ", $mbid, 0, $page)"))
-         {
-             $artist = $sql->GetLastInsertId('Artist');
-             $this->{new_insert} = 1;
-         }
+                     ", " . $sql->Quote($this->{sortname}) . ", $mbid, 0, $page)");
+
+	$artist = $sql->GetLastInsertId('Artist');
+	$this->{new_insert} = 1;
     } 
     $this->{id} = $artist;
 
@@ -261,8 +261,14 @@ sub LoadFromId
 
    if (defined $this->GetId())
    {
-        @row = $sql->GetSingleRow("Artist", [qw(id name GID modpending sortname)],
-                                  ["id", $this->GetId()]);
+	my $row = $sql->SelectSingleRowArray(
+	    "SELECT id, name, GID, modpending, sortname
+	    FROM artist
+	    WHERE id = ?",
+	    $this->GetId,
+	) or return undef;
+	
+	@row = @$row;
    }
    else
    {
