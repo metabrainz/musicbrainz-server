@@ -100,7 +100,7 @@ if ($id < 0)
                    <& /comp/album, artist=>$ar, album=>$ref, nomod=>1 &>
                 </td>
                 <td align="right" valign="top">
-                   <input type="submit" value="Select <% $albumname %>>>"
+                   <input type="submit" value="Select <% $albumname %> &gt;&gt;"
                           name="Select">
                    <input type="hidden" name="confirm_message" 
                           value="Are you sure you want to move CD Index id <% '<font class="bold">' . $discid . '</font>' |h %> to album <% '<font class="bold">' . $ref->GetName() .'</font>' |h %>?">

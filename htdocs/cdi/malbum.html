@@ -86,7 +86,7 @@ if ($eng->Rows > 0)
                     <& /comp/album, artist=>$ar, album=>$al, nomod=>1 &>
                  </td>
                  <td align="right" valign="top">
-                    <input type="submit" name="Submit" value="Select CD>>">
+                    <input type="submit" name="Submit" value="Select CD &gt;&gt;">
                     <input type="hidden" name="id" value="<% $id %>">
                     <input type="hidden" name="album" 
                            value="<% $al->GetId() %>">
@@ -150,7 +150,7 @@ if ($eng->Rows > 0)
 <form method="POST" action="menter.html" 
    enctype="application/x-www-form-urlencoded">
     <table width="100%"><tr><td align=right>
-        <input type="submit" name="Submit" value="New CD>>">
+        <input type="submit" name="Submit" value="New CD &gt;&gt;">
     </td></tr></table>
     <input type="hidden" name="id" value="<% $id %>">
     <input type="hidden" name="tracks" value="<% $tracks %>">
@@ -161,7 +161,7 @@ if ($eng->Rows > 0)
 
 <form method="POST" action="malbum.html" 
    enctype="application/x-www-form-urlencoded">
-    <input type="submit" name="Submit" value="Search >>">
+    <input type="submit" name="Submit" value="Search &gt;&gt;">
     <input type="text" name="search" size="25">
     <input type="hidden" name="id" value="<% $id %>">
     <input type="hidden" name="tracks" value="<% $tracks %>">
