@@ -288,7 +288,7 @@ my $uri = shift() || $r->uri;
 my $args = shift() || $r->args;
 
 use vars qw( $render_all );
-$render_all = not $session{'sitemenu_light'};
+$render_all = $session{'sitemenu_heavy'};
 
 sub drawmenu
 {
