@@ -30,7 +30,7 @@ $track
 % if ($track->GetLength) {
 	<tr>
     <td valign="top" align="right">Length:</td>
-    <td valign="top"><% format_tracklen($track->GetLength) %></td>
+    <td valign="top"><% Track::FormatTrackLength($track->GetLength) %></td>
 	</tr>
 % }
 
@@ -67,16 +67,3 @@ $track
 </table>
 
 <& /comp/tableend &> 
-
-<%perl>
-
-sub format_tracklen
-{
-	my $ms = shift()
-		or return "?:??";
-	return "$ms ms" if $ms < 1000;
-	my $s = $ms / 1000;
-	sprintf "%d:%02d", int($s / 60), ($s % 60);
-}
-
-</%perl>
