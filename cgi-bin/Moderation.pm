@@ -36,6 +36,7 @@ use DBI;
 use DBDefs;
 use Track;
 use Artist;
+use Album;
 
 use constant TYPE_NEW                    => 1;
 use constant TYPE_VOTED                  => 2;
@@ -49,12 +50,15 @@ use constant MOD_EDIT_TRACKNUM           => 5;
 use constant MOD_MERGE_ARTIST            => 6;
 use constant MOD_ADD_TRACK               => 7;
 use constant MOD_MOVE_ALBUM              => 8;
+use constant MOD_SAC_TO_MAC              => 9;
+use constant MOD_CHANGE_TRACK_ARTIST     => 10;
 
 use constant STATUS_OPEN                 => 1;
 use constant STATUS_APPLIED              => 2;
 use constant STATUS_FAILEDVOTE           => 3;
 use constant STATUS_FAILEDDEP            => 4;
 use constant STATUS_ERROR                => 5;
+use constant STATUS_FAILEDPREREQ         => 6;
 
 my %ModNames = (
     "1" => "Edit Artist Name",
@@ -64,7 +68,9 @@ my %ModNames = (
     "5" => "Edit Track Number",
     "6" => "Merge Artist",
     "7" => "Add Track",  
-    "8" => "Move Album"  
+    "8" => "Move Album",
+    "9" => "Convert to Multiple Artists",
+    "10" => "Change Track Artist"
 );
 
 my %ChangeNames = (
@@ -72,7 +78,8 @@ my %ChangeNames = (
     "2" => "Change applied",
     "3" => "Failed vote",
     "4" => "Failed dependency",
-    "5" => "Internal Error"
+    "5" => "Internal error",
+    "6" => "Failed prerequisite"
 );
 
 my %VoteText = (
@@ -119,7 +126,7 @@ sub GetVoteText
 sub InsertModification
 {
     my ($this) = shift @_;
-    my ($table, $column, $artist, $type, $id, $prev, $new, $uid) =
+    my ($table, $column, $artist, $type, $id, $prev, $new, $uid, $depmod) =
         $this->CheckSpecialCases(@_);
 
     $this->{DBH}->do(qq/update $table set modpending = modpending + 1  
@@ -131,13 +138,16 @@ sub InsertModification
     $new = $this->{DBH}->quote($new);
     $this->{DBH}->do(qq/insert into Changes (tab, col, rowid, prevvalue, 
            newvalue, timesubmitted, moderator, yesvotes, novotes, artist, 
-           type, status) values ($table, $column, $id, $prev, $new, now(), 
-           $uid, 0, 0, $artist, $type, / . STATUS_OPEN . ")");
+           type, status, depmod) values ($table, $column, $id, $prev, $new, 
+           now(), $uid, 0, 0, $artist, $type, / . STATUS_OPEN . ", $depmod)");
+
+    return $this->GetLastInsertId();
 }
 
 sub CheckSpecialCases
 {
-    my ($this, $table, $column, $artist, $type, $id, $prev, $new, $uid) = @_;
+    my ($this, $table, $column, $artist, $type, 
+        $id, $prev, $new, $uid, $depmod) = @_;
 
     if ($type == Moderation::MOD_EDIT_ARTISTNAME)
     {
@@ -151,10 +161,12 @@ sub CheckSpecialCases
            $type = MOD_MERGE_ARTIST;
         }
 
-        return ($table, $column, $artist, $type, $id, $prev, $new, $uid);
+        return ($table, $column, $artist, $type, $id, 
+                $prev, $new, $uid, $depmod);
     }
 
-    return ($table, $column, $artist, $type, $id, $prev, $new, $uid);
+    return ($table, $column, $artist, $type, $id, 
+            $prev, $new, $uid, $depmod);
 }
 
 sub GetModerationList
@@ -248,7 +260,7 @@ sub CheckModificationsForExpiredItems
    $sth = $this->{DBH}->prepare(qq/select id from Changes where 
               status = / . STATUS_OPEN . qq/ and
               UNIX_TIMESTAMP(now()) - UNIX_TIMESTAMP(TimeSubmitted) > / 
-              . DBDefs::MOD_PERIOD);
+              . DBDefs::MOD_PERIOD . " order by TimeSubmitted, Depmod");
    $sth->execute;
    if ($sth->rows)
    {
@@ -265,20 +277,43 @@ sub CheckModificationsForExpiredItems
 sub CheckModifications
 {
    my ($this, @ids) = @_;
-   my ($sth, $rowid, @row, $status); 
+   my ($sth, $rowid, @row, $status, $dep_status); 
 
    while(defined($rowid = shift @ids))
    {
        $sth = $this->{DBH}->prepare(qq/select yesvotes, novotes,
               UNIX_TIMESTAMP(now()) - UNIX_TIMESTAMP(TimeSubmitted),
-              tab, rowid, moderator, type from Changes where id = $rowid/);
+              tab, rowid, moderator, type, depmod from Changes 
+              where id = $rowid/);
        $sth->execute;
        if ($sth->rows)
        {
             @row = $sth->fetchrow_array;
 
+            # Check to see if this change has another change that it depends on
+            if ($row[7] > 0)
+            {
+                # Get the status of the dependent change
+                $dep_status = $this->GetModerationStatus($row[7]);
+                if ($dep_status == STATUS_OPEN)
+                {
+                    # If the prereq. change is still open, skip this change 
+                    $sth->finish;
+                    next;
+                }
+                if ($dep_status != STATUS_OPEN && $dep_status != STATUS_APPLIED)
+                {
+                    # If the prereq. change failed, close this modification
+                    $this->CreditModerator($row[5], 0);
+                    $this->CloseModification($rowid, $row[3], 
+                                             $row[4], STATUS_FAILEDPREREQ);
+                    $sth->finish;
+                    next;
+                }
+            }
             # Has the vote period expired?
-            if ($row[2] >= DBDefs::MOD_PERIOD && ($row[0] > 0 || $row[1] > 0))
+            if ($row[2] >= DBDefs::MOD_PERIOD && 
+                ($row[0] > 0 || $row[1] > 0))
             {
                 # Are there more yes votes than no votes?
                 if ($row[0] > $row[1])
@@ -316,6 +351,27 @@ sub CheckModifications
    }
 }
 
+sub GetModerationStatus
+{
+   my ($this, $id) = @_;
+   my ($sth, @row, $ret); 
+
+   $ret = STATUS_ERROR;
+   $sth = $this->{DBH}->prepare(qq/select status from Changes 
+                                   where id = $id/);
+   $sth->execute;
+   if ($sth->rows)
+   {
+      @row = $sth->fetchrow_array;
+
+      $ret = $row[0];
+   }
+   $sth->finish;
+
+   return $ret;
+}
+
+
 sub CreditModerator
 {
    my ($this, $uid, $yes) = @_;
@@ -347,7 +403,6 @@ sub CloseModification
 sub ApplyModification
 {
    my ($this, $rowid, $type) = @_;
-   my ($sth, @row, $prevval, $newval, $table, $column, $datarowid);
 
    if ($type == MOD_EDIT_ARTISTNAME || $type == MOD_EDIT_ARTISTSORTNAME ||
        $type == MOD_EDIT_ALBUMNAME  || $type == MOD_EDIT_TRACKNAME ||
@@ -366,6 +421,14 @@ sub ApplyModification
    elsif ($type == MOD_MOVE_ALBUM)
    {
        return ApplyMoveAlbumModification($this, $rowid);
+   }
+   elsif ($type == MOD_CHANGE_TRACK_ARTIST)
+   {
+       return ApplyChangeTrackArtistModification($this, $rowid);
+   }
+   elsif ($type == MOD_SAC_TO_MAC)
+   {
+       return ApplySACToMACModification($this, $rowid);
    }
 
    return STATUS_ERROR;
@@ -456,7 +519,7 @@ sub ApplyMergeArtistModification
        $this->{DBH}->do(qq/update Track set artist = $newid where 
                            artist = $rowid/);
        $this->{DBH}->do("delete from Artist where id = $rowid");
-       $this->{DBH}->do("update Changes set artist = $newid where id = $id");
+       $this->{DBH}->do("update Changes set artist = $newid where artist = $rowid");
    }
 
    return $status;
@@ -554,6 +617,69 @@ sub ApplyMoveAlbumModification
                                 id = $rowid/);
             $status = STATUS_APPLIED;
         }
+   }
+   $sth->finish;
+
+   return $status;
+}
+
+sub ApplySACToMACModification
+{
+   my ($this, $id) = @_;
+   my ($status, $sth, @row);
+
+   $status = STATUS_ERROR;
+
+   # Pull back all the pertinent info for this mod
+   $sth = $this->{DBH}->prepare(qq/select rowid from Changes where id = $id/);
+   $sth->execute;
+   if ($sth->rows)
+   {
+        @row = $sth->fetchrow_array();
+
+        $this->{DBH}->do("update Album set Artist = 0 where id = $row[0]");
+        $status = STATUS_APPLIED 
+   }
+   $sth->finish;
+
+   return $status;
+}
+
+sub ApplyChangeTrackArtistModification
+{
+   my ($this, $id) = @_;
+   my ($sth, @row, $newval, $rowid, $status, $ar, $newid, $al, $album);
+
+   $status = STATUS_ERROR;
+
+   # Pull back all the pertinent info for this mod
+   $sth = $this->{DBH}->prepare(qq/select newvalue, rowid 
+                                from Changes where id = $id/);
+   $sth->execute;
+   if ($sth->rows)
+   {
+        @row = $sth->fetchrow_array;
+        $newval = $this->{DBH}->quote($row[0]);
+        $rowid = $row[1];
+
+        $sth->finish;
+        $sth = $this->{DBH}->prepare(qq/select id from Artist where 
+                                     name = $newval/);
+        $sth->execute;
+        if ($sth->rows)
+        {
+            @row = $sth->fetchrow_array;
+            $newid = $row[0];
+        }
+        else
+        {
+            $ar = Artist->new($this->{MB});
+            $newid = $ar->Insert($row[0], $row[0]);
+        }
+        $al = Album->new($this->{MB});
+        $album = $al->GetIdFromTrackId($row[0]);
+        $this->{DBH}->do("update Track set Artist = $newid where id = $rowid");
+        $status = STATUS_APPLIED 
    }
    $sth->finish;
 

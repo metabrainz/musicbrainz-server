@@ -1,6 +1,6 @@
 <%perl>
 
-my ($mb, $i, $j, $mod, $new);
+my ($mb, $i, $j, $mod, $new, $modid, $depmod, $url);
 
 $mb = new MusicBrainz;
 $mb->Login();
@@ -8,6 +8,7 @@ $mod = Moderation->new($mb);
 
 for($i = 0;; $i++)
 {
+    $depmod = 0;
     last if (!defined($ARGS{('column' . $i)}));
     last if (!defined($ARGS{('new' . $i)}));
     last if (!defined($ARGS{('prev' . $i)}));
@@ -17,6 +18,10 @@ for($i = 0;; $i++)
     last if (!defined($ARGS{('id' . $i)}));
     next if ($ARGS{('new' . $i)} eq '');
     next if ($ARGS{('new' . $i)} eq $ARGS{('prev' . $i)});
+    if (defined($ARGS{('depmod' . $i)}))
+    {
+       $depmod = $ARGS{('depmod' . $i)};
+    }
 
     $new = $ARGS{'new' . $i}; 
     for($j = 0; ; $j++)
@@ -31,14 +36,14 @@ for($i = 0;; $i++)
         }
     }
 
-    $mod->InsertModification($ARGS{('table' . $i)}, 
-                             $ARGS{('column' . $i)}, 
-                             $ARGS{('artist' . $i)}, 
-                             $ARGS{('type' . $i)}, 
-                             $ARGS{('id' . $i)},
-                             $ARGS{('prev' . $i)}, 
-                             $new, 
-                             $session{uid});
+    #print STDERR join(" - ", $ARGS{('table' . $i)}, 
+    #   $ARGS{('column' . $i)}, $ARGS{('artist' . $i)}, 
+    #   $ARGS{('type' . $i)}, $ARGS{('id' . $i)},
+    #   $ARGS{('prev' . $i)}, $new, $session{uid}, $depmod) . "\n";
+    $modid = $mod->InsertModification($ARGS{('table' . $i)}, 
+       $ARGS{('column' . $i)}, $ARGS{('artist' . $i)}, 
+       $ARGS{('type' . $i)}, $ARGS{('id' . $i)},
+       $ARGS{('prev' . $i)}, $new, $session{uid}, $depmod);
 }
 $mb->Logout();
 
@@ -46,7 +51,19 @@ $r->method('GET');
 $r->headers_in->unset('Content-length');
 
 $r->content_type('text/html');
-$r->header_out(Location=>$ARGS{referer});
+
+if (exists $ARGS{choice} && lc($ARGS{choice}) eq 'no')
+{
+    $url = $ARGS{altreferer};
+}
+else
+{
+    $url = $ARGS{referer};
+}
+
+$url =~ s/&modid=\d*//g;
+$url .= "&modid=$modid" if (defined $modid);
+$r->header_out(Location=>$url);
 $r->status(302);
 
 </%perl>

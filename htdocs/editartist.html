@@ -25,7 +25,8 @@ $modpending = $ar->Value(3);
     <& /comp/tableend &>
 % } else {
 
-    <& /comp/tablebegin, title=>'Edit Artist Name' &>
+    <& /comp/tablebegin, gattrs=>"width=\"100%\"",
+       title=>'Edit Artist Name' &>
 
 % if ($modpending) {
     <& /comp/modpending &>

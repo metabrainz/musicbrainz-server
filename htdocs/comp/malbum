@@ -35,13 +35,15 @@ for($i = 0;; $i++)
             tracknum=>$track->Value(3),
             name=>$track->Value(1),
             artistname=>$track->Value(12),
-            artistid=>0,
+            artistid=>$track->Value(2),
             album=>$albumid,
             modpending=>$track->Value(9),
             tr_modpending=>$track->Value(11),
             hilitetrack=>$hilitetrack,
             hilitecolor=>$hilitecolor,
-            lyricspresent=>$lyricspresent);  
+            lyricspresent=>$lyricspresent,
+            tindex=>$i,
+            albumartist=>0);
 }
 mc_comp("/comp/albumend", id=>$albumid, artist=>0);
 

@@ -1,0 +1,163 @@
+<& /comp/title, title=>'Change Track Artist' &>
+
+<%perl>
+
+my ($mb, $id, $albumname, $referer, $modpending);
+my ($artistname, $al, $artist, $ar, $newtrackname, $newartistname);
+my ($track, @tracks, $tr, $trackname, $tindex, $depmod, $trackid); 
+
+$referer = $r->headers_in->{'Referer'};
+$mb = new MusicBrainz;
+$mb->Login();
+$id = $ARGS{album};
+$artist = $ARGS{artist};
+$tindex = $ARGS{tindex};
+if (exists $ARGS{modid})
+{
+   $depmod = $ARGS{modid};
+}
+else
+{
+   $depmod = 0;
+}
+
+$al = Album->new($mb);
+$al->LoadFromId($id);
+$albumname = $al->Value(1);
+
+if ($artist > 0)
+{
+   $ar = Artist->new($mb);
+   $ar->LoadFromId($artist);
+   $artistname = $ar->Value(1);
+}
+else
+{
+   $artistname = "Various Artists";
+}
+
+
+$tr = Track->new($mb);
+@tracks = $tr->GetTracksFromAlbumId($id);
+
+if ($tindex >= scalar(@tracks))
+{
+   mc_out("<p><br>The moderations for changing album ");
+   mc_out("<a href=\"/showalbum.html?albumid=$id\">$albumname</a> by ");
+   mc_out("<a href=\"/showartist.html?artistid=$artist\">$artistname</a> ");
+   mc_out("to a multiple artist album have been entered. Thanks!");
+}
+else
+{
+   $track = $tracks[$tindex];
+   $trackid = $track->Value(0);
+   $trackname = $track->Value(1);
+   $modpending = $track->Value(9);
+   
+   
+   $newtrackname = $trackname;
+   $newartistname = $trackname;
+   if ($trackname =~ /^(.*)\s*-\s*(.*)$/)
+   {
+      $newtrackname = $1;
+      $newartistname = $2;
+   }
+   else
+   {
+      if ($trackname =~ /^(.*)\s*\/\s*(.*)$/)
+      {
+          $newtrackname = $1;
+          $newartistname = $2;
+      }
+   }
+   
+   </%perl>
+   
+%  if (!defined $session{user} || $session{user} eq '') {
+       You must be logged in to edit the database.<p>
+       <& /comp/tablebegin, title=>'Login' &>
+       <& /comp/loginbox &>
+       <& /comp/tableend &>
+%  } else {
+   
+       <& /comp/tablebegin, gattrs=>"width=\"100%\"",
+          title=>"Change Artist for track $trackname" &>
+   
+%  if ($modpending) {
+       <& /comp/modpending &>
+%  } 
+  
+       Enter the name of the artist to whom you'd like to move 
+       track <% $trackname %>:
+
+       <FORM METHOD="POST" ACTION="/artistfilter.html"
+             ENCTYPE="application/x-www-form-urlencoded">  
+       <table>
+         <tr>
+           <td>
+           Current Track Name:
+           </td>
+           <td>
+           <% $trackname  %>
+           </td>
+         </tr>
+         <tr>
+           <td>
+           Current Artist:
+           </td>
+           <td>
+           <% $artistname  %>
+           </td>
+         </tr>
+         <tr>
+           <td>
+           New Track Name:
+           </td>
+           <td>
+           <INPUT TYPE="text" NAME="new1" SIZE=25 value="<% $newtrackname %>"> 
+           </td>
+         </tr>
+         <tr>
+           <td>
+           New Artist:
+           </td>
+           <td>
+           <INPUT TYPE="text" NAME="new0" SIZE=25 value="<% $newartistname %>"> 
+           </td>
+         </tr>
+         <tr>
+           <td colspan=2>
+           <INPUT TYPE="submit" NAME="Submit" VALUE="Submit">    
+           </td>
+         </tr>
+       </table>
+       <input type="hidden" name="mode" value="track">
+       <input type="hidden" name="depmod0" value="<% $depmod %>">
+       <input type="hidden" name="depmod1" value="<% $depmod %>">
+       <input type="hidden" name="artist0" value="<% $artist %>">
+       <input type="hidden" name="artist1" value="<% $artist %>">
+       <input type="hidden" name="type0" 
+              value="<% Moderation::MOD_CHANGE_TRACK_ARTIST %>">
+       <input type="hidden" name="type1" 
+              value="<% Moderation::MOD_EDIT_TRACKNAME %>">
+       <input type="hidden" name="prev0" value="<% $artistname %>">
+       <input type="hidden" name="prev1" value="<% $trackname %>">
+       <input type="hidden" name="table0" value="Track">
+       <input type="hidden" name="table1" value="Track">
+       <input type="hidden" name="column0" value="Artist">
+       <input type="hidden" name="column1" value="Name">
+       <input type="hidden" name="id0" value="<% $trackid %>">
+       <input type="hidden" name="id1" value="<% $trackid %>">
+% if (exists $ARGS{solo}) {
+       <input type="hidden" name="referer" value="<% $referer %>">
+% } else {
+       <input type="hidden" name="referer" value="/changetrack.html?album=<% $id %>&artist=<% $artist %>&tindex=<% $tindex + 1 %>">
+% }
+       </form>
+         
+       <& /comp/tableend &>
+   
+       <& /comp/stylenotes &>
+%    }
+% }
+% $mb->Logout();

@@ -1,15 +1,16 @@
-<& /comp/title, title=>'Move Album' &>
+<& /comp/title, title=>'Convert Album to Multiple Artists' &>
 
 <%perl>
 
 my ($mb, $id, $albumname, $referer, $modpending);
-my ($artistname, $al, $artist, $ar); 
+my ($artistname, $al, $artist, $ar, $track); 
 
 $referer = $r->headers_in->{'Referer'};
 $mb = new MusicBrainz;
 $mb->Login();
 $id = $ARGS{album};
 $artist = $ARGS{artist};
+$track = $ARGS{track};
 
 $al = Album->new($mb);
 $al->LoadFromId($id);
@@ -31,32 +32,30 @@ $artistname = $ar->Value(1);
 % } else {
 
     <& /comp/tablebegin, gattrs=>"width=\"100%\"",
-       title=>"Move Album $albumname" &>
+       title=>"Convert Album $albumname to Multiple Artists" &>
 
-% if ($modpending) {
-    <& /comp/modpending &>
-% } 
+    A single artist to multiple artist moderation will be entered
+    into the database for album <% $albumname %>.
 
-    Enter the name of the artist to whom you'd like to move 
-    album <% $albumname %>:
-
-    <FORM METHOD="POST" ACTION="/artistfilter.html"
+    <FORM METHOD="POST" ACTION="/bare/enter_mod.html"
           ENCTYPE="application/x-www-form-urlencoded">  
     <table>
       <tr>
         <td>
-        Current Artist:
+        Would you like to move all<br> of the tracks to new artists?
         </td>
         <td>
-        <% $artistname  %>
+        <INPUT TYPE="radio" NAME="choice" VALUE="yes" CHECKED>
+        Yes, move tracks now.
         </td>
       </tr>
       <tr>
         <td>
-        New Artist:
+        &nbsp;
         </td>
         <td>
-        <INPUT TYPE="text" NAME="new0" SIZE=25 value="<% $artistname %>"> 
+        <INPUT TYPE="radio" NAME="choice" VALUE="no">
+        No, leave it for later.    
         </td>
       </tr>
       <tr>
@@ -65,19 +64,18 @@ $artistname = $ar->Value(1);
         </td>
       </tr>
     </table>
-    <input type="hidden" name="mode" value="move">
     <input type="hidden" name="artist0" value="<% $artist %>">
     <input type="hidden" name="type0" 
-           value="<% Moderation::MOD_MOVE_ALBUM %>">
-    <input type="hidden" name="prev0" value="<% $artistname  %>">
+           value="<% Moderation::MOD_SAC_TO_MAC %>">
+    <input type="hidden" name="new0" value="N/A">
+    <input type="hidden" name="prev0" value="<% $albumname  %>">
     <input type="hidden" name="table0" value="Album">
     <input type="hidden" name="column0" value="Artist">
     <input type="hidden" name="id0" value="<% $id %>">
-    <input type="hidden" name="referer" value="<% $referer %>">
+    <input type="hidden" name="referer" value="/changetrack.html?album=<% $id %>&artist=<% $artist %>&tindex=0">
+    <input type="hidden" name="altreferer" value="<% $referer %>">
     </form>
       
     <& /comp/tableend &>
-
-    <& /comp/stylenotes &>
 % }
 % $mb->Logout();

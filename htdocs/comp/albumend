@@ -3,5 +3,8 @@
 </table> 
 <center>
 <a href="/addtrack.html?album=<% $ARGS{id} %>&artist=<% $ARGS{artist} %>">Add a missing track</a> | 
-<a href="/movealbum.html?album=<% $ARGS{id} %>&artist=<% $ARGS{artist} %>">Move album</a>
+<a href="/movealbum.html?album=<% $ARGS{id} %>&artist=<% $ARGS{artist} %>">Move album</a> 
+% if ($ARGS{artist}) {
+| <a href="/tomac.html?album=<% $ARGS{id} %>&artist=<% $ARGS{artist} %>&track=1">Convert to multiple artists</a>
+% }
 <p>

@@ -48,8 +48,8 @@ $time = sprintf "%d-%d %02d:%02d", $entered[4]+1, $entered[3],
 </tr>
 <tr>
    <td width=40% valign=top bgcolor=white class="body">
-     Old: <& /comp/showmodprev, prev=>$prev, table=>$table, id=>$rowid, 
-             type=>$type, artist=>$artist &>
+     <& /comp/showmodprev, prev=>$prev, table=>$table, id=>$rowid, 
+        type=>$type, artist=>$artist &>
    </td>
    <td width=40% valign=top bgcolor=white class="body">
      <& /comp/showmodnew, new=>$new, 
@@ -60,6 +60,7 @@ $time = sprintf "%d-%d %02d:%02d", $entered[4]+1, $entered[3],
      <% Moderation::GetChangeName($status) %>
 % } elsif ($mode == Moderation::TYPE_VOTED) {
      <% Moderation::GetVoteText($voted) %>
+     (<% Moderation::GetChangeName($status) %>)
 % } elsif (($session{user} ne $moderator && !$voted) || 
 %          DBDefs::ALLOW_SELF_VOTE) {
      Yes <input type="radio" name="rowid<% $id %>" value="yes">

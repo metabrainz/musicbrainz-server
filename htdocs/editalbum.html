@@ -25,7 +25,8 @@ $modpending = $al->Value(2);
     <& /comp/tableend &>
 % } else {
 
-    <& /comp/tablebegin, title=>'Edit Album Name' &>
+    <& /comp/tablebegin, gattrs=>"width=\"100%\"",
+       title=>'Edit Album Name' &>
 
 % if ($modpending) {
     <& /comp/modpending &>

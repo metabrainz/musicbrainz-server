@@ -10,6 +10,8 @@ $tr_modpending
 $hilitetrack
 $hilitecolor
 $lyricspresent
+$tindex
+$albumartist
 </%args>
 
 <%perl>
@@ -25,7 +27,7 @@ $tr_bgcolor = ($tr_modpending) ? 'bgcolor="#FFFFCC"' : '';
     <td width="10%" align=center <% $tr_bgcolor |n %>>
        <% $tracknum %>
     </td>
-% if ($artistname ne '') {
+% if ($albumartist == 0) {
     <td width="50%" <% $bgcolor |n %>>
 % } else {
     <td width="80%" <% $bgcolor |n %>>
@@ -33,12 +35,15 @@ $tr_bgcolor = ($tr_modpending) ? 'bgcolor="#FFFFCC"' : '';
 % if ($lyricspresent == 1) {
        <a href="/showlyrics.html?id=<% $id %>"><% $name %></a>
 % } else {
-       <% $name %> 
+       <% $name %>
 % }
     </td>
-% if ($artistname ne '') {
+% if ($albumartist == 0) {
     <td width="30%">
        <% $artistname  %>
+% if (exists $session{user}) {
+          (<a href="/changetrack.html?album=<% $album %>&artist=<% $artistid %>&tindex=<% $tindex %>&solo=1">Change</a>)
+% }
     </td>
 % }
 % if (exists $session{user}) {

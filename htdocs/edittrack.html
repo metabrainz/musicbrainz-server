@@ -27,7 +27,8 @@ $seq_id = $tr->Value(10);
     <& /comp/tableend &>
 % } else {
 
-    <& /comp/tablebegin, title=>'Edit Track Name' &>
+    <& /comp/tablebegin, gattrs=>"width=\"100%\"",
+       title=>'Edit Track Name' &>
 
     <FORM METHOD="POST" ACTION="/bare/enter_mod.html"
           ENCTYPE="application/x-www-form-urlencoded">  

@@ -9,25 +9,30 @@ $artist
 <%perl>
 if ($type == Moderation::MOD_EDIT_ARTISTNAME || 
     $type == Moderation::MOD_EDIT_ARTISTSORTNAME ||
-    $type == Moderation::MOD_ADD_TRACK ||
     $type == Moderation::MOD_MERGE_ARTIST)
 {
-    mc_out("<a href=\"/showartist.html?artistid=$id\">$prev</a>");
+    mc_out("Old: <a href=\"/showartist.html?artistid=$id\">$prev</a>");
 }
-elsif ($type == Moderation::MOD_EDIT_ALBUMNAME)
+elsif ($type == Moderation::MOD_ADD_TRACK)
 {
-    mc_out("<a href=\"/showalbum.html?albumid=$id\">$prev</a>");
+    mc_out("Album: <a href=\"/showalbum.html?albumid=$id\">$prev</a>");
+}
+elsif ($type == Moderation::MOD_EDIT_ALBUMNAME ||
+       $type == Moderation::MOD_SAC_TO_MAC)
+{
+    mc_out("Old: <a href=\"/showalbum.html?albumid=$id\">$prev</a>");
 }
 elsif ($type == Moderation::MOD_EDIT_TRACKNAME)
 {
-    mc_out("<a href=\"/bare/showtrack.html?trackid=$id\">$prev</a>");
+    mc_out("Old: <a href=\"/bare/showtrack.html?trackid=$id\">$prev</a>");
 }
 elsif ($type == Moderation::MOD_EDIT_TRACKNUM)
 {
-    mc_out("<a href=\"/bare/showtrack.html?albumjoinid=$id\">$prev</a>");
+    mc_out("Old: <a href=\"/bare/showtrack.html?albumjoinid=$id\">$prev</a>");
 }
-if ($type == Moderation::MOD_MOVE_ALBUM)
+if ($type == Moderation::MOD_MOVE_ALBUM ||
+    $type == Moderation::MOD_CHANGE_TRACK_ARTIST)
 {
-    mc_out("<a href=\"/showartist.html?artistid=$artist\">$prev</a>");
+    mc_out("Old: <a href=\"/showartist.html?artistid=$artist\">$prev</a>");
 }
 </%perl>

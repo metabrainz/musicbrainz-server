@@ -225,7 +225,7 @@ sub GetMultipleArtistAlbumList
    my ($this, $id) = @_;
    my ($sth, @idsalbums);
 
-   $sth = $this->{DBH}->prepare(qq/select AlbumJoin.album, Album.name, 
+   $sth = $this->{DBH}->prepare(qq/select distinct AlbumJoin.album, Album.name, 
        Album.modpending from Track, Album, AlbumJoin where Track.Artist = 
        $id and AlbumJoin.track = Track.id and AlbumJoin.album = Album.id 
        and Album.artist = 0 order by Album.name/);

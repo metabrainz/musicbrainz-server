@@ -29,9 +29,12 @@ artist name that you just entered.
 % if ($ARGS{mode} eq 'move') {
 Please choose one of the artists below, and click Finish>> to
 move album <span class="bold"><% $ARGS{prev0} %></span> to the selected artist:
-% } else {
+% } elsif ($ARGS{mode} eq 'merge') {
 Please choose one of the artists below, and click Finish>> to
 merge artist <span class="bold"><% $ARGS{prev0} %></span> with the selected artist:
+% } else {
+Please choose one of the artists below, and click Finish>> to
+move track <span class="bold"><% $ARGS{prev0} %></span> to the selected artist:
 % }
 
 <form method="POST" action="/bare/enter_mod.html"
@@ -41,7 +44,7 @@ merge artist <span class="bold"><% $ARGS{prev0} %></span> with the selected arti
 % if (!$found) {
 <& /comp/tablebegin, title=>'New Artist', gattrs=>'width="100%"' &>
 <input type="radio" name="new0" 
-       value="<% $ARGS{new0} %>">&nbsp;<% $ARGS{new0} %><p>
+       value="<% $ARGS{new0} %>" CHECKED>&nbsp;<% $ARGS{new0} %><p>
 <& /comp/tableend, title=>'Existing Artists' &>
 % }
 
@@ -54,7 +57,7 @@ merge artist <span class="bold"><% $ARGS{prev0} %></span> with the selected arti
     </tr>
 
 <%perl>
-    for(;;)
+    for($i = 0;; $i++)
     {
         $name = shift @names;
         last if not defined $name;
@@ -62,7 +65,9 @@ merge artist <span class="bold"><% $ARGS{prev0} %></span> with the selected arti
         last if not defined $sortname;
         mc_out("<tr><td>");
         mc_out(qq\<input type="radio" name="new0" 
-               value="$name">&nbsp;$sortname</td><td>$name</td></tr>\);
+               value="$name"\);
+        mc_out(" CHECKED") if ($i == 0 && $found);
+        mc_out(">&nbsp;$sortname</td><td>$name</td></tr>");
     }
     mc_out("</table>");
     mc_comp("/comp/tableend", title=>'Existing Artists');

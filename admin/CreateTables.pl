@@ -213,7 +213,8 @@ sub CreateTables
              "   TimeSubmitted datetime not null, ".
              "   Moderator int not null, ".
              "   YesVotes int, ".
-             "   NoVotes int)")
+             "   NoVotes int,".
+             "   Depmod int)" 
           or die("Cannot create Changes table");
           
     print "Created Changes table.\n";
