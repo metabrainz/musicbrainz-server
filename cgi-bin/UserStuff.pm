@@ -51,6 +51,85 @@ sub new
 	return bless $this, $type;
 }
 
+sub GetPassword			{ $_[0]{password} }
+sub SetPassword			{ $_[0]{password} = $_[1] }
+sub GetPrivs			{ $_[0]{privs} }
+sub SetPrivs			{ $_[0]{privs} = $_[1] }
+sub GetModsAccepted		{ $_[0]{modsaccepted} }
+sub SetModsAccepted		{ $_[0]{modsaccepted} = $_[1] }
+sub GetModsRejected		{ $_[0]{modsrejected} }
+sub SetModsRejected		{ $_[0]{modsrejected} = $_[1] }
+sub GetEmail			{ $_[0]{email} }
+sub SetEmail			{ $_[0]{email} = $_[1] }
+sub GetWebURL			{ $_[0]{weburl} }
+sub SetWebURL			{ $_[0]{weburl} = $_[1] }
+sub GetBio				{ $_[0]{bio} }
+sub SetBio				{ $_[0]{bio} = $_[1] }
+sub GetMemberSince		{ $_[0]{membersince} }
+sub SetMemberSince		{ $_[0]{membersince} = $_[1] }
+sub GetEmailConfirmDate	{ $_[0]{emailconfirmdate} }
+sub SetEmailConfirmDate	{ $_[0]{emailconfirmdate} = $_[1] }
+sub GetLastLoginDate	{ $_[0]{lastlogindate} }
+sub SetLastLoginDate	{ $_[0]{lastlogindate} = $_[1] }
+
+sub _new_from_row
+{
+	my ($this, $row) = @_;
+	$row or return undef;
+	$row->{DBH} = $this->{DBH};
+	bless $row, ref($this) || $this;
+}
+
+sub newFromId
+{
+	my ($this, $uid) = @_;
+	my $sql = Sql->new($this->{DBH});
+
+	$this->_new_from_row(
+		$sql->SelectSingleRowHash(
+			"SELECT * FROM moderator WHERE id = ?",
+			$uid,
+		),
+	);
+}
+
+sub newFromName
+{
+	my ($this, $name) = @_;
+	my $sql = Sql->new($this->{DBH});
+
+	$this->_new_from_row(
+		$sql->SelectSingleRowHash(
+			"SELECT * FROM moderator WHERE name = ? LIMIT 1",
+			$name,
+		),
+	);
+}
+
+sub Current
+{
+	my $this = shift;
+
+	# For now this constructs just a partial user, containing
+	# an id, name, and privs.  In the future it would be nice
+	# if any attempt to fetch any of the other fields would
+	# cause this object to be silently "upgraded" by fetching
+	# the full user record from the database.
+	# To do so manually use:
+	# $user = $user->newFromId($user->GetId) if $user;
+
+	my $s = \%HTML::Mason::Commands::session;
+	$s->{uid} or return undef;
+
+	my %u = (
+		id		=> $s->{uid},
+		name	=> $s->{user},
+		privs	=> $s->{privs},
+	);
+
+	$this->_new_from_row(\%u);
+}
+
 sub Login
 {
 	my ($this, $user, $pwd) = @_;
@@ -184,7 +263,7 @@ sub GetUserInfo
 		};
 	}
 	return undef;
-} 
+}
 
 sub SetUserInfo
 {
@@ -397,6 +476,9 @@ sub SetSession
 	$session->{expire} = time() + &DBDefs::WEB_SESSION_SECONDS_TO_LIVE;
 	$session->{email_nag} = $email_nag;
 
+	require UserPreference;
+	UserPreference::LoadForUser($this->Current);
+
 	eval { $this->_SetLastLoginDate($uid) };
 }
 
@@ -404,13 +486,21 @@ sub _SetLastLoginDate
 {
 	my ($this, $uid) = @_;
 	my $sql = Sql->new($this->{DBH});
+	my $wrap_transaction = $sql->{DBH}{AutoCommit};
 
-	$sql->Begin;
-	$sql->Do(
-		"UPDATE moderator SET lastlogindate = NOW() WHERE id = ?",
-		$uid,
-	);
-	$sql->Commit;
+	eval {
+		$sql->Begin if $wrap_transaction;
+		$sql->Do(
+			"UPDATE moderator SET lastlogindate = NOW() WHERE id = ?",
+			$uid,
+		);
+		$sql->Commit if $wrap_transaction;
+		1;
+	} or do {
+		my $e = $@;
+		$sql->Rollback if $wrap_transaction;
+		die $e;
+	};
 }
 
 1;
