@@ -115,9 +115,9 @@ sub OutputAlbumRDF
                              $artist->GetMBId());
     for($i = 0;; $i++)
     {
-        if (exists $ref->{"_cdindexid$i"} && $ref->{"_cdindexid$i"} ne '')
+        if (exists $album->{"_cdindexid$i"} && $album->{"_cdindexid$i"} ne '')
         {
-            $out .=   $this->Element("mm:cdindexId", $ref->{"_cdindexid$i"});
+            $out .=   $this->Element("mm:cdindexId", $album->{"_cdindexid$i"});
         }
         else
         {

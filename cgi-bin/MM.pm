@@ -456,6 +456,20 @@ sub LoadObject
        return undef;
    }
 
+   if ($type eq 'album')
+   {
+       my ($di, $index, @albumrefs, $aref);
+
+       $di = Discid->new($this->{DBH});
+       $index = 0;
+       @albumrefs = $di->GetDiscidFromAlbum($obj->GetId());
+       foreach $aref (@albumrefs)
+       {
+          $obj->{"_cdindexid$index"} = $aref->{discid};
+          $index++;
+       }
+   }
+
    return $obj;
 }
 
@@ -528,8 +542,7 @@ sub GetArtistReferences
 sub GetAlbumReferences
 {
    my ($this, $ref, $album, $depth) = @_;
-   my (@tracks, $track, @ret, %info, @trackids, $albumartist, $di);
-   my (@albumrefs, $aref, $index);
+   my (@tracks, $track, @ret, %info, @trackids, $albumartist);
 
    $albumartist = $album->GetArtist();
    $info{type} = 'artist';
@@ -560,16 +573,6 @@ sub GetAlbumReferences
                            tracknum=>$track->GetSequence() };
       }
       $ref->{_album} = \@trackids;
-   }
-
-   $di = Discid->new($this->{DBH});
-
-   $index = 0;
-   @albumrefs = $di->GetDiscidFromAlbum($album->GetId());
-   foreach $aref (@albumrefs)
-   {
-      $ref->{"_cdindexid$index"} = $aref->{discid};
-      $index++;
    }
 
    return @ret;

@@ -115,17 +115,17 @@ sub OutputAlbumRDF
                              $this->GetBaseURI() . "/artist/" . 
                              $artist->GetMBId());
 
-    if (exists $ref->{"_cdindexid0"} && $ref->{"_cdindexid0"} ne '')
+    if (exists $album->{"_cdindexid0"} && $album->{"_cdindexid0"} ne '')
     {
         $out .=   $this->BeginDesc("mm:cdindexidList");
         $out .=   $this->BeginBag();
 
         for($i = 0;; $i++)
         {
-            if (exists $ref->{"_cdindexid$i"} && $ref->{"_cdindexid$i"} ne '')
+            if (exists $album->{"_cdindexid$i"} && $album->{"_cdindexid$i"} ne '')
             {
                 $out .= $this->Element("rdf:li", "", "rdf:resource", 
-                                  $this->{baseuri} . "/cdindex/" . $ref->{"_cdindexid$i"});
+                              $this->{baseuri} . "/cdindex/" . $album->{"_cdindexid$i"});
             }
             else
             {
