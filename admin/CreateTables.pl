@@ -71,7 +71,7 @@ sub CreateTables
              "   WebPage blob," .
              "   AuxPage blob," .
              "   LastChanged datetime,".
-             "   ModPending int(11)" )
+             "   ModPending int(11))" )
           or die("Cannot create Track table");
 
     print "Created Track table.\n";
