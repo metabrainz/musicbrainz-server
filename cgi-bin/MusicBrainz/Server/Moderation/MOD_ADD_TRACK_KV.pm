@@ -59,8 +59,8 @@ sub PreInsert
 
 	# Track number is set here (the passed in value is ignored) if this is a
 	# "non-album tracks" album.
-	$tracknum = $al->GetTrackCount() + 1
-		if $al->IsNonAlbumTracks;
+	$tracknum = $al->GetNextFreeTrackId
+		if $nonalbum;
 	$tracknum or die;
 
 	if ($al->GetArtist == &ModDefs::VARTIST_ID)
