@@ -1,4 +1,4 @@
-Install instructions for the MusicBrainz Server: 
+Install instructions for the MusicBrainz Server:
 ------------------------------------------------
 
 Requirements:
@@ -6,14 +6,14 @@ Requirements:
 
 The MusicBrainz server requires the following items:
 
-1) A real SQL server, like postgres. MySQL won't work. 
-   The scripts use the perl DBI interface to talk to the server. It should 
+1) A real SQL server, like postgres. MySQL won't work.
+   The scripts use the perl DBI interface to talk to the server. It should
    work with other servers as well, but that has not been tested.
 
    You need at least version 7.3 of Postgres!
 
    PostgreSQL notes:
-    
+
       - Configure the server with: configure --enable-multibyte=UNICODE
         to enable UTF-8 support. THIS IS IMPORTANT!!
       - if you've installed postgres via a package and have "pg_config"
@@ -28,8 +28,8 @@ The MusicBrainz server requires the following items:
 
 3) Apache with mod_perl and Mason installed. See the following sites for more
    details on each of these packages:
-   
-      Apache:   http://www.apache.org 
+
+      Apache:   http://www.apache.org
       mod_perl: http://perl.apache.org for details.
       Mason:    http://www.masonhq.com
 
@@ -59,23 +59,23 @@ The MusicBrainz server requires the following items:
    capabilities and the "Encode" module.  Strange encoding problems were
    observed with Perl 5.6.1.
 
-6) Required perl modules: 
-  
+6) Required perl modules:
+
    CPAN Name
    ---------
    Bundle::Apache
    Apache::Session
    Apache::Session::File
    Storable
-   DBI          
+   DBI
    DBD::Pg
    HTML::Mason (MB works only with version 1.05:
                 http://www.masonhq.com/code/download/HTML-Mason-1.05.tar.gz)
    String::CRC32
    String::Unicode::Similiarity (see notes below)
    Unicode::String
-   XML::Parser 
-   XML::DOM   
+   XML::Parser
+   XML::DOM
    RDFStore
    Digest::SHA1
    UUID (requires e2fsprogs)
@@ -83,9 +83,10 @@ The MusicBrainz server requires the following items:
          http://www.senga.org/download/unac/Text-Unaccent-1.05.tar.gz)
 
    These probably come standard with Perl:
-   IO::Socket     
+   IO::Socket
    URI::Escape
-   Carp;
+   Carp
+   Net::SMTP
    Tie::STDERR
    Time::HiRes
    String::ShellQuote
@@ -114,7 +115,7 @@ Installation:
 
 1) Make sure you have all the prerequisite pieces of software installed.
    Installing perl modules using CPAN is easier than doing it by hand.
-   To use CPAN, as root type 'perl -MCPAN -e shell'. 
+   To use CPAN, as root type 'perl -MCPAN -e shell'.
 
 2) Decide on a name for your database (e.g. musicbrainz) and a database
    owner (e.g. musicbrainz).  Decide on a location for the mb_server code.
@@ -133,7 +134,7 @@ Installation:
 
    Make sure your "session data" and "session locks" directories exist.  (The
    "Mason data" directory will be created automatically if it doesn't exist).
-   
+
 3) Edit the following files (in mb_server) to match the choices you made in
    the previous step:
 
@@ -146,11 +147,11 @@ Installation:
    admin/startup.pl
      There's only one thing to change here, namely the "use lib" line,
      which is marked with a "TODO" comment.
-   
+
    admin/vh_httpd.conf
      This contains many things to customize - look for the TODO comments,
      which point out things that you might need to change.
-   
+
 4) Assuming you want to start off with a fully-populated database, you'll
    want to download the database dump files from the FTP site:
 
