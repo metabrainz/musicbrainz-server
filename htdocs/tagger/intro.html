@@ -1,12 +1,12 @@
 %# vi: set ts=2 sw=2 ft=mason :
 %# This is the page loaded by default into the tagger's browser pane
 <%args>
-$mbt=>0
+$mbt=>undef
 </%args>
 <%perl>
 
-UserStuff::EnsureSessionOpen(), $session{mbt} = 1
-	if $mbt;
+UserStuff::EnsureSessionOpen(), $session{mbt} = ($mbt?1:0)
+	if defined $mbt;
 
 </%perl>
 <& /comp/sidebar, title=>'Welcome to the MB Tagger!', expand=>'moderate' &>
