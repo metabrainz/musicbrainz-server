@@ -1,6 +1,13 @@
 I Server update tasks
 ---------------------
 
+Update the moderator table with the following query:
+
+alter table moderator add column emailconfirmdate timestamp with time zone;
+
+Old notes:
+----------
+
 - admin/sql/MoreTimezones20030401.sql (not very important, and quite slow.
   optional)
 - admin/sql/WordTables20030321.sql

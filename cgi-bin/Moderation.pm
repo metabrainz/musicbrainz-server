@@ -1173,6 +1173,27 @@ sub InsertModerationNote
 		$uid,
 		$text,
 	);
+
+    my $mod = $this->CreateFromId($modid);
+    if ($mod)
+    {
+        my ($ui, $info, $mod_info);
+
+        $ui = UserStuff->new($this->{DBH});
+        $info = $ui->GetUserInfo($mod->GetModerator());
+        if ($info && $info->{email} && $info->{emailconfirmdate})
+        {
+            my $body;
+
+            $mod_info = $ui->GetUserInfo($uid);
+
+            $body = "Moderator $mod_info->{name} has attached a note to your moderation " .
+                    "#$modid:\n\n" . $text . "\n\nModeration link: http://" . 
+                    DBDefs::WEB_SERVER .  "/showmod.html?modid=$modid\n";
+            $ui->SendEMail("MusicBrainz ModBot", undef, $info, 
+                           "Note for moderation #$modid", $body);
+        }
+    }
 }
 
 sub LoadModerationNotes

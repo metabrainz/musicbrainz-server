@@ -1,7 +1,9 @@
 %# vi: set ts=4 sw=4 ft=mason :
 <%perl>
 
-my ($mb, $user, $ok, $cookie, $privs, $uid, $url);
+use URI::Escape;
+
+my ($mb, $user, $ok, $privs, $uid, $url, $confirm, $email, $ui);
 
 $ok = undef;
 if (DBDefs::DB_READ_ONLY)
@@ -12,25 +14,13 @@ elsif (defined $ARGS{User} && $ARGS{User} ne '' &&
        defined $ARGS{Password} && $ARGS{Password} ne '')
 {
     $mb = mc_comp("/comp/dblogin");
-    $user = UserStuff->new($mb->{DBH});
+    $ui = UserStuff->new($mb->{DBH});
     
-    ($ok, $user, $privs, $uid) = $user->Login($ARGS{User}, $ARGS{Password});
+    ($ok, $user, $privs, $uid, $email, $confirm) = $ui->Login($ARGS{User}, 
+                                                             $ARGS{Password});
     if ($ok)
     {
-        tie %HTML::Mason::Commands::session, 
-           'Apache::Session::File', undef, 
-           {
-              Directory => DBDefs::SESSION_DIR,
-              LockDirectory   => DBDefs::LOCK_DIR,
-           };
-        $cookie = new CGI::Cookie (-name=>'AF_SID',
-                -value=>$HTML::Mason::Commands::session{_session_id},
-                -path => '/',); 
-        $r->headers_out->add('Set-cookie' => $cookie); 
-        $session{user} = $user;
-        $session{privs} = $privs;
-        $session{uid} = $uid;  
-        $session{expire} = time() + &DBDefs::WEB_SESSION_SECONDS_TO_LIVE;  
+        $ui->SetSession(\%session, $user, $privs, $uid, !$email || $confirm);
     }
     $mb->Logout();
 }    
@@ -54,8 +44,9 @@ else
 {
     $url =~ s/\@Q\@/\?/g; 
     $url =~ s/\@A\@/\&/g; 
+    $email = uri_escape($email);
+    $url = "/login.html?confirm=1&email=$email&url=$url" if ($confirm);
 }
-untie %HTML::Mason::Commands::session;
 
 $r->method('GET');
 $r->headers_in->unset('Content-length');

@@ -14,4 +14,13 @@
 </tr>
 </table>
 <& /comp/framedboxend &>
+% if ($session{email_nag}) {
+
+   <p style="color: red">You have not provided an email address!</p>
+   <p>
+   If you're going to edit the database, please 
+   <a href="/moderator.html?uid=<% $session{uid} %>">edit your profile</a> and
+   provide an email address.
+   </p>
+% }
 <p>

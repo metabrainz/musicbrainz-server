@@ -186,7 +186,8 @@ use HTML::Mason::Tools qw( html_escape );
           Notes:
         </td>
         <td valign=top bgcolor=white class="body">
-           <a href="#" onClick="MyWindow=window.open('mod/addnote.html?modid=<% $mod->GetId() %>&amp;uid=<% $session{uid} %>','AddNote','toolbar=no,location=no,directories=no,status=no,menubar=no,scrollbars=yes,resizable=yes,width=400,height=150'); return false;">Add note</a>
+           [ <a href="#" onClick="MyWindow=window.open('mod/addnote.html?modid=<% $mod->GetId() %>&amp;uid=<% $session{uid} %>','AddNote','toolbar=no,location=no,directories=no,status=no,menubar=no,scrollbars=yes,resizable=yes,width=400,height=150'); return false;">Add note</a> | 
+           <a href="/user/mod_email.html?uid=<% $mod->GetModerator() %>&modid=<% $mod->GetId() %>&url=<% $r->uri() . "?" . $r->args() %>">Send email</a> ]
         </td>
      </tr>
      <tr>

@@ -45,6 +45,15 @@ if ($update && $session{uid} != $uid)
     return undef;
 }
 
+$info = $ui->GetUserInfo($uid);
+if (!defined $info)
+{
+     mc_out("User $uid was not found.");
+     mc_comp("/comp/footer");
+     $mb->Logout();
+     return undef;
+}
+
 if ($update > 1)
 { 
     $bio =~ s/<.*?>//g;
@@ -60,24 +69,54 @@ if ($update > 1)
         $mb->Logout();
         return undef;
     }
+    if (!$ui->CheckEMailAddress($email))
+    {
+        </%perl>
+        The email address you entered is not a valid email address. Please go back
+        and enter a valid email address, or leave the email field blank for no email 
+        address.
+        <& /comp/footer &>
+        <%perl>
+        $mb->Logout();
+        return undef;
+    }
+    if ($info->{email} ne $email)
+    {
+        my $ret = $ui->SendVerificationEmail($info, $email);
+        if ($ret)
+        {
+            </%perl>
+            <p>
+            The email verification mail could not be sent: <b><% $ret %></b>.
+            Your email address has not been updated.
+            </p>
+            <%perl>
+        }
+        else
+        {
+            </%perl>
+            <p>
+            The email verification mail has been sent to <b><% $email %></b>.
+            Please check your mailbox and click on the link in the email to 
+            verify the new email address.
+            </p>
+            <%perl>
+        }
+
+        # Reset the email address to the old one since this one has
+        # not been verified yet.
+        $email = $info->{email};
+    }
     $ui->SetUserInfo($uid, $email, $password1, $weburl, $bio);
 
     mc_out("Your information was updated.<p>");
     $update = 0;
 }
 
-$info = $ui->GetUserInfo($uid);
-if (!defined $info)
-{
-     mc_out("User $uid was not found.");
-     mc_comp("/comp/footer");
-     $mb->Logout();
-     return undef;
-}
 
 my $membersince = $m->comp("/comp/datetime", $info->{membersince});
 
-if ($info->{membersince} eq "1970-01-01 00:00:00")
+if ($info->{membersince} eq "1970-01-01 00:00:00 UTC")
 {
     $membersince = '<font class="bold">Charter Member</font>';
 } 
@@ -117,18 +156,23 @@ $mb->Logout();
     <td colspan="2">&nbsp;</td>
 </tr>
 % }
-% if ($session{uid} == $uid) {
 <tr>
     <td valign="top" align="right">EMail:</td>
-% if ($update) {
-    <td><input type="text" name="email" size="40" 
-               value="<% $info->{email} %>">
-    </td>
+% if ($session{uid} == $uid) {
+%     if ($update) {
+        <td><input type="text" name="email" size="40" 
+                   value="<% $info->{email} %>"><br>
+            (If you enter a new email address, you will be required to
+            verify the new email address)
+        </td>
+%     } else {
+        <td><% $info->{email} ne '' ? $info->{email} : "[none specified/not verified]" |h %></td>
+%     }
 % } else {
-    <td><% $info->{email} ne '' ? $info->{email} : "[none specified]" |h %></td>
+    <td><% $info->{email} ne '' ? "[not shown]" : "[none specified]" |h %></td>
 % }
 </tr>
-% }
+
 <tr>
     <td valign="top" align="right">Homepage:</td>
 % if ($update) {
@@ -174,7 +218,9 @@ $mb->Logout();
 </tr>
 <tr>
 	<td></td>
-	<td valign="top"><a href="/moderate.html?type=<% ModDefs::TYPE_MODERATOR %>&amp;moderator=<% $uid %>">List Moderations</a></td>
+	<td valign="top">[ 
+    <a href="/user/mod_email.html?uid=<% $uid %>&url=<% "/moderator.html?uid=$uid" %>">Send email</a> | 
+    <a href="/moderate.html?type=<% ModDefs::TYPE_MODERATOR %>&amp;moderator=<% $uid %>">List Moderations</a> ]</td>
 </tr>
 % }
 % if ($session{uid} == $uid) {

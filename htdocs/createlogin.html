@@ -2,14 +2,15 @@
 <%perl>
 
 my ($mb, $cookie);
-my ($err, $user, $privs, $uid);
+my ($err, $user, $privs, $uid, $email, $ui);
 
 mc_comp('/comp/sidebar');
 
 $mb = mc_comp("/comp/dblogin");
-$user = UserStuff->new($mb->{DBH});
+$ui = UserStuff->new($mb->{DBH});
+$email = $ARGS{EMail};
 
-($err, $user, $privs, $uid) = $user->CreateLogin($ARGS{User}, $ARGS{Password}, 
+($err, $user, $privs, $uid) = $ui->CreateLogin($ARGS{User}, $ARGS{Password}, 
                                         $ARGS{RetypePassword});
 if ($err ne "")
 {
@@ -19,40 +20,51 @@ if ($err ne "")
 }
 else
 {
-    tie %HTML::Mason::Commands::session, 
-       'Apache::Session::File', undef, 
-       {
-          Directory => DBDefs::SESSION_DIR,
-          LockDirectory   => DBDefs::LOCK_DIR,
-       };
-    $cookie = new CGI::Cookie (-name=>'AF_SID',
-            -value=>$HTML::Mason::Commands::session{_session_id},
-            -path => '/',); 
-    $r->headers_out->add('Set-cookie' => $cookie); 
-
-    $session{user} = $user;
-    $session{privs} = $privs;
-    $session{uid} = $uid;  
-    $session{expire} = time() + &DBDefs::WEB_SESSION_SECONDS_TO_LIVE;  
+    $ui->SetSession(\%session, $user, $privs, $uid, !$email);
     
     </%perl>
     
-    <center>
-       A new account has been created and you are 
-       now logged into MusicBrainz!<p><br>
-       
-       Please update your <a href="/moderator.html?uid=<% $uid %>">profile</a>
-       to let the other users know a little bit about you.
-    </center>
+    A new account has been created and you are 
+    now logged into MusicBrainz!<p><br>
+
+    <%perl>
+    if ($email) 
+    {
+        my $info = $ui->GetUserInfo($uid);
+        my $ret = $ui->SendVerificationEmail($info, $email);
+        if ($ret)
+        {
+            </%perl>
+            <p>
+            The email verification mail could not be sent: <b><% $ret %></b>.
+            Your email address has not been updated.
+            </p>
+            <%perl>
+        }
+        else
+        {
+            </%perl>
+            <p>
+            Since you have provided an email address, an email verification mail has been 
+            sent to <b><% $email %></b>.
+            Please check your mailbox and click on the link in the email to
+            verify the new email address.
+            </p>
+            <%perl>
+        }
+    }
+    </%perl>
+    
+    Please update your <a href="/moderator.html?uid=<% $uid %>">profile</a>
+    to let the other users know a little bit about you.
     <br><br>
     <%perl>
 
     if (exists $ARGS{mbt} && $ARGS{mbt})
     {
         </%perl>
-        <center><b>Click <a href="#mbt_login">here</a> to enter login 
+        <b>Click <a href="#mbt_login">here</a> to enter login 
         information into the Options Dialog.
-        </center>
         <%perl>
 
     }
@@ -62,13 +74,12 @@ else
         $url = $ARGS{url};
         $url =~ s/\@Q\@/\?/g;
         $url =~ s/\@A\@/\&/g;
-        mc_out("<center>Click <a href=\"$url\">here</a> to continue.</center>");
+        mc_out("Click <a href=\"$url\">here</a> to continue.");
     }
     else
     {
         mc_comp('/comp/searchinternal');
     }
-    untie %HTML::Mason::Commands::session;
 }
 $mb->Logout();
 

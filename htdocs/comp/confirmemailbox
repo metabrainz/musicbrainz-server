@@ -1,0 +1,61 @@
+%# vi: set ts=4 sw=4 ft=mason :
+<%args>
+$url=>""
+$email=>""
+</%args>
+
+% if (DBDefs::DB_READ_ONLY) {
+<table>
+<tr>
+   <td>
+      &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
+   </td>
+   <td>
+      <% DBDefs::DB_READ_ONLY_MESSAGE %>
+   </td>
+   <td>
+      &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
+   </td>
+</tr>
+</table>
+
+% } else {
+
+<form METHOD="POST" ACTION="/login.html" ID="ConfirmEMailForm"
+      ENCTYPE="application/x-www-form-urlencoded" class="formstyle"
+      style="padding: 0 0.5em"
+      >
+
+	<p style="margin: 0.5em">
+		EMail Address:<br>
+		<INPUT TYPE="text" NAME="email" VALUE="<% $email %>" SIZE=20>
+	</p>
+
+	<p style="margin: 0.5em">
+		<INPUT TYPE="submit" NAME="Submit" VALUE="Submit">
+		<INPUT TYPE="hidden" NAME="confirmed" VALUE="1">
+	</p>
+
+<%perl>
+
+if ($url eq "") 
+{
+   $url = $r->uri();
+   if (defined $r->args() && $r->args() ne '')
+   {
+      $url .= "?" . $r->args();
+   }
+}
+
+if ($url ne "") {
+   $url =~ s/\?/\@Q\@/g; 
+   $url =~ s/\&/\@A\@/g; 
+   mc_out("<INPUT TYPE=\"hidden\" NAME=\"url\" VALUE=\"$url\">");
+}
+</%perl>
+
+</form>
+
+<& /comp/movefocus, "ConfirmEMailForm", "email" &>
+
+% }

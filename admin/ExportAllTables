@@ -222,6 +222,7 @@ my @core = qw(
 	albumjoin
 	artist
 	artistalias
+    clientversion
 	discid
 	toc
 	track
@@ -238,7 +239,6 @@ my @derived = qw(
 	);
 
 my @moderation = qw(
-    clientversion
 	currentstat
 	historicalstat
 	moderation

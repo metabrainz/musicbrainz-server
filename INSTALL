@@ -139,7 +139,9 @@ Installation:
 
    cgi-bin/DBDefs.pm
      This just contains lots of configuration settings; read the comments
-     in the file for more information.
+     in the file for more information.  There's at least one setting in there
+     which MUST be changed for you to run a server (SMTP_SECRET_CHECKSUM);
+     most of the settings you can probably leave unchanged if you wish.
 
    admin/startup.pl
      There's only one thing to change here, namely the "use lib" line,

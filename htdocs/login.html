@@ -1,5 +1,9 @@
+%# vi: set ts=4 sw=4 ft=mason :
 <%args>
 $badlogin=>0
+$confirm=>0
+$confirmed=>0
+$email=>""
 $url=>""
 </%args>
 
@@ -20,16 +24,103 @@ if ($url eq '')
 }
 </%perl>
 
-<& /comp/sidebar, title=>'' &>
+<& /comp/sidebar, title=>'MusicBrainz Login' &>
 
-   <center>
-%  if ($badlogin) {
-     <b>Invalid Login. Please try again:</b><p>
+%  if ($confirm) {
+
+   <p><b>You have been logged in.</b></p>
+
+   <h2>EMail address confirmation</h2>
+
+   <p>However, we do not have a confirmed email address for you. Please
+   check to make sure the email address below is valid and click on submit.
+   If you wish to remove your email address, just leave the field below blank.
+   </p>
+
+   <p>
+   If you give a valid email address, a confirmation email will be sent to
+   the address provided. Please click on the link in the email to confirm
+   your email address:
+   </p>
+
+   <& /comp/confirmemailbox, url=>$url, email=>$email  &>
+
+%  } elsif ($confirmed) {
+
+   <h2>EMail address confirmation</h2>
+
+       <%perl> 
+       my ($ui, $mb, $info);
+       $mb = mc_comp("/comp/dblogin");
+       my $user = UserStuff->new($mb->{DBH});
+
+       if (!$user->CheckEMailAddress($email))
+       {
+           </%perl>
+           The email address you entered is not a valid email address. Please go back
+           and enter a valid email address, or leave the email field blank for no email
+           address.
+           <& /comp/footer &>
+           <%perl>
+           $mb->Logout();
+           return undef;
+       }
+
+       $info = $user->GetUserInfo($session{uid});
+       if (!defined $info)
+       {
+           mc_out("User $session{uid} was not found.");
+           mc_comp("/comp/footer");
+           $mb->Logout();
+           return undef;
+       }
+
+       if ($email eq '') 
+       {
+           $user->SetUserInfo($session{uid}, $email);
+           </%perl>
+           <p>Your email address has been removed.</p>
+           <%perl>
+
+       } 
+       else 
+       {
+           my $ret = $user->SendVerificationEmail($info, $email);
+           if ($ret)
+           {
+               </%perl>
+               <p>
+               The email verification mail could not be sent: <b><% $ret %></b>.
+               Your email address has not been updated.
+               </p>
+               <%perl>
+           }
+           else
+           {
+               </%perl>
+               <p>
+               The email verification mail has been sent to <b><% $email %></b>.
+               Please check your mailbox and click on the link in the email to
+               verify the new email address.
+               </p>
+               <%perl>
+           }
+       }
+
+       </%perl> 
+
+       <p>[ <a href="<% $url %>">Continue</a> ]</p>
+
+%  } else {
+        <center>
+%       if ($badlogin) {
+          <b>Invalid Login. Please try again:</b><p>
+%       }
+        <table width="50%"><tr><td>
+        <& /comp/tablebegin, title=>'Moderator Login' &>
+        <& /comp/loginbox, url=>$url &>
+        <& /comp/tableend &>
+        </td></tr></table>
+        </center>
 %  }
-   <table width="50%"><tr><td>
-   <& /comp/tablebegin, title=>'Moderator Login' &>
-   <& /comp/loginbox, url=>$url &>
-   <& /comp/tableend &>
-   </td></tr></table>
-   </center>
 <& /comp/footer &>

@@ -7,10 +7,16 @@ if (!defined($result))
     my $mb = mc_comp("/comp/dblogin", quiet=>1);
     if (defined $mb)
     {
-        $sth = $mb->{DBH}->prepare(qq/select name, modsaccepted from Moderator where
-                                            id != / . ModDefs::FREEDB_MODERATOR . 
-                                            " and id != " . ModDefs::MODBOT_MODERATOR .
-                                            qq/ order by modsaccepted desc limit 5/); 
+        $sth = $mb->{DBH}->prepare(qq|select Moderator.name, count(Moderator.id) as num
+                                        from Moderation,Moderator
+                                       where Moderation.Moderator = Moderator.id
+                                             and Moderator.id != | .
+                                             ModDefs::FREEDB_MODERATOR . qq|
+                                             and Moderator.id != | .
+                                             ModDefs::MODBOT_MODERATOR . qq|
+                                             and opentime > now() - interval '1 week' 
+                                    group by Moderator.ModsAccepted, Moderator.name
+                                    order by num desc limit 5|);
         if ($sth->execute)
         {
            my @row;

@@ -79,6 +79,20 @@ sub RDF_SERVER	{ "rdf.musicbrainz.example.com" }
 
 
 ################################################################################
+# Mail Settings
+################################################################################
+
+sub SMTP_SERVER { "localhost" }
+# This value should be set to some secret value for your server.  Any old
+# string of stuff should do; something suitably long and random, like for
+# passwords.  However you MUST change it from the default
+# value (the empty string).  This is so an attacker can't just look in CVS and
+# see the default secret value, and then use it to attack your server.
+sub SMTP_SECRET_CHECKSUM { "" }
+sub EMAIL_VERIFICATION_TIMEOUT { 604800 } # one week
+
+
+################################################################################
 # Other Settings
 ################################################################################
 
