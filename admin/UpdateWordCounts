@@ -27,6 +27,30 @@ use strict;
 use FindBin;
 use lib "$FindBin::Bin/../cgi-bin";
 
+use Getopt::Long;
+
+my $do_update = 0;
+my $do_delete = 1;
+
+my $help = <<EOF;
+Usage: UpdateWordCounts [options]
+
+        --help            show this help
+        --[no]update      [don't] update the stored frequencies
+        --[no]delete      [don't] delete unused words afterwards
+
+Default is --update --delete.  Specifying --noupdate --nodelete is pointless.
+
+EOF
+
+GetOptions(
+	"help"		=> sub { print $help; exit; },
+	"update!"	=> \$do_update,
+	"delete!"	=> \$do_delete,
+) or exit 2;
+print($help), exit 2 if @ARGV;
+print($help), exit 2 if not $do_update and not $do_delete;
+
 use MusicBrainz;
 use Sql;
 
@@ -34,6 +58,8 @@ use Sql;
 (my $mb2 = MusicBrainz->new)->Login;
 my $sqlRead = Sql->new($mb1->{DBH});
 my $sqlWrite = Sql->new($mb2->{DBH});
+
+if ($do_update) {
 
 my $sth = $sqlWrite->{DBH}->prepare(
 	"UPDATE wordlist
@@ -73,6 +99,8 @@ my $j = 0;
 use Time::HiRes qw( gettimeofday tv_interval );
 my $t0 = [gettimeofday];
 
+my $rows = $sqlRead->Rows;
+
 my $flush = sub {
 	$sqlWrite->Begin;
 
@@ -85,9 +113,8 @@ my $flush = sub {
 	@updates = ();
 
 	my $int = tv_interval($t0);
-	printf "%s : %d rows %d rows/sec\n",
-		scalar(localtime),
-		$j, $j/($int||1),
+	printf "\r%7d rows  %6d rows/sec  %3d%%",
+		$j, $j/($int||1), 100*$j/($rows||1),
 		if -t;
 };
 
@@ -110,6 +137,29 @@ $sqlRead->Finish;
 
 my $int = tv_interval($t0);
 print localtime() . " : Updated $j rows, $int sec\n";
+
+}
+
+if ($do_delete)
+{
+	print localtime() . " : Deleting unused rows\n";
+
+	$sqlWrite->AutoCommit;
+	my $n = $sqlWrite->Do("
+		DELETE FROM wordlist
+		WHERE	artistusecount = 0
+		AND		albumusecount = 0
+		AND		trackusecount = 0
+		AND NOT EXISTS (SELECT 1 FROM artistwords t WHERE t.wordid = wordlist.id)
+		AND NOT EXISTS (SELECT 1 FROM albumwords t WHERE t.wordid = wordlist.id)
+		AND NOT EXISTS (SELECT 1 FROM trackwords t WHERE t.wordid = wordlist.id)
+	");
+
+	printf "%s : Deleted %d row%s\n",
+		scalar localtime,
+		$n, ($n==1 ? "" : "s"),
+		;
+}
 
 # vi: set ts=4 sw=4 :
 # eof UpdateWordCounts
