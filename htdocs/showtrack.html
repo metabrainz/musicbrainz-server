@@ -81,6 +81,7 @@ if (@info)
 		$album->SetId($_->[0]);
 		$album->SetName($_->[1]);
 		$album->SetMBId($_->[3]);
+		$album->SetAttributes($_->[4]);
 
 		$m->comp(
 			"/comp/albuminfo",
