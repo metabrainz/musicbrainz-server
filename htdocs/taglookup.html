@@ -11,6 +11,7 @@ $tracknum=>""
 $filename=>""
 $trmid=>""
 $duration=>0
+$mbt=>0
 </%args>
 
 <%perl>
@@ -56,7 +57,7 @@ sub OutputAlbum
        $ts->{album}->LoadFromId()
    }
    mc_comp("/comp/album", artist=>$ts->{artist}, album=>$ts->{album},
-           showalbumdetail=>1, mbtagger=>0, showids=>1);
+           showalbumdetail=>1, mbtagger=>$data->{mbt}, showids=>1);
 }
 
 sub OutputTrack
@@ -84,7 +85,7 @@ sub OutputTrack
    }
 
    mc_comp("/comp/album", artist=>$ts->{artist}, album=>$ts->{album},
-           showalbumdetail=>1, mbtagger=>0, showids=>1, hilitetrack=>$ts->{track}->GetId());
+           showalbumdetail=>1, mbtagger=>$data->{mbt}, showids=>1, hilitetrack=>$ts->{track}->GetId());
 }
 
 sub OutputForm
@@ -103,6 +104,7 @@ sub OutputForm
      <INPUT TYPE="hidden" NAME="filename" VALUE="$data->{filename}">
      <INPUT TYPE="hidden" NAME="trmid" VALUE="$data->{trmid}">
      <INPUT TYPE="hidden" NAME="duration" VALUE="$data->{duration}">
+     <INPUT TYPE="hidden" NAME="mbt" VALUE="$data->{mbt}">
      <INPUT TYPE="submit" NAME="submit" VALUE="Continue &gt;&gt;">
    </form>|;
 
@@ -151,6 +153,7 @@ sub OutputEditForm
      <tr>
       <td colspan="2" align="right" valign="top" NOWRAP>
         <INPUT TYPE="submit" NAME="submit" SIZE="30" VALUE="Lookup &gt;&gt;">
+        <INPUT TYPE="hidden" NAME="mbt" SIZE="2" VALUE="$data->{mbt}">
       </td>
      </tr>
      <tr>
@@ -190,6 +193,14 @@ sub OutputEditForm
         $data->{duration}
       </td>
      </tr>
+     <tr>
+      <td align="right" valign="top" NOWRAP>
+        MBTagger:
+      </td>
+      <td>
+        $data->{mbt}
+      </td>
+     </tr>
    </table>
    </form>|;
 
@@ -211,6 +222,7 @@ $data{tracknum} = $tracknum;
 $data{tmid} = $trmid;
 $data{duration} = $duration;
 $data{filename} = $filename;
+$data{mbt} = $mbt;
 
 ($error, $result, $flags, $list) = $ts->Lookup(\%data, 25);
 if ($flags & TaggerSupport::ARTISTLIST)
