@@ -7,29 +7,33 @@ $artist
 	<table>
     <tr>
 			<td valign="top" align="right">Artist:</td>
-			<td valign="top"><a href="/showartist.html?artistid=<% $artist->GetId %>"><% $artist->GetName() %></a></td>
+			<td valign="top"><a href="/showartist.html?artistid=<% $artist->GetId %>"><% $artist->GetName %></a></td>
     </tr>
 		<tr>
 			<td valign="top" align="right">Artist MB Id:</td>
-			<td valign="top"><% $artist->GetMBId() %></td>
+			<td valign="top"><% $artist->GetMBId %></td>
     </tr>
+		<tr>
+			<td valign="top" align="right">Permanent Link:</td>
+			<td valign="top"><& /comp/copyable-link,
+				id => $artist->GetMBId,
+				name => $artist->GetName,
+				type => "artist",
+				style => "linkedurl",
+			&></td>
+		</tr>
 		<tr>
 			<td valign="top" align="right">Fancy Link:</td>
- 			<td valign="top"><a href="/perm_links.html?name=<% $artist->GetName() |u %>&id=<% $artist->GetMBId() %>&type=artist">Click here for a fancy link to this artist</a></td>
+ 			<td valign="top"><a href="/perm_links.html?name=<% url_escape($artist->GetName) %>&amp;id=<% $artist->GetMBId %>&amp;type=artist">Click here for a fancy link to this artist</a></td>
 		</tr>
 		<tr>
-			<td valign="top" align="right">Perm. Link:</td>
- 			<td valign="top"><a href="http://musicbrainz.org/artist/<% $artist->GetMBId() %>.html">http://musicbrainz.org/artist/<% $artist->GetMBId() %>.html</a>
-      </td>
-		</tr>
-		<tr>
-			<td valign="top" align="right"><a href="/MM/index.html">MM/RDF</a></td>
+			<td valign="top" align="right"><a href="/MM/index.html">MM/RDF</a>:</td>
 			<td valign="top"><a href="<% $artist->RDF_URL %>"><% $artist->RDF_URL %></a></td>
     </tr>
-% if (exists $session{user}) {
+% if ($session{uid}) {
     <tr>
 			<td valign="top" align="right">Artist RowId:</td>
-			<td valign="top"><% $artist->GetId() %></a></td>
+			<td valign="top"><% $artist->GetId %></td>
     </tr>
 % }
 	</table>

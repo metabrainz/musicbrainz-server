@@ -3,8 +3,6 @@
 $album
 $track => undef
 </%args>
-
-
 <& /comp/tablebegin, title => "Album Information",
 	gattrs=>'width="100%"' &>
 
@@ -18,20 +16,24 @@ $track => undef
 			<td valign="top"><% $album->GetMBId %></td>
 		</tr>
 		<tr>
+			<td valign="top" align="right">Permanent Link:</td>
+			<td valign="top"><& /comp/copyable-link,
+				id => $album->GetMBId,
+				name => $album->GetName,
+				type => "album",
+				style => "linkedurl",
+			&></td>
+		</tr>
+		<tr>
 			<td valign="top" align="right">Fancy Link:</td>
- 			<td valign="top"><a href="/perm_links.html?name=<% $album->GetName() |u %>&id=<% $album->GetMBId() %>&type=album">Click here for a fancy link to this album</a></td>
+ 			<td valign="top"><a href="/perm_links.html?name=<% url_escape($album->GetName) %>&amp;id=<% $album->GetMBId %>&amp;type=album">Click here for a fancy link to this album</a></td>
 		</tr>
 		<tr>
-			<td valign="top" align="right">Perm. Link:</td>
- 			<td valign="top"><a href="http://musicbrainz.org/album/<% $album->GetMBId() %>.html">http://musicbrainz.org/album/<% $album->GetMBId() %>.html</a>
-      </td>
-		</tr>
-		<tr>
-			<td valign="top" align="right"><a href="/MM/index.html">MM/RDF</a></td>
+			<td valign="top" align="right"><a href="/MM/index.html">MM/RDF</a>:</td>
  			<td valign="top"><a href="<% $album->RDF_URL %>"><% $album->RDF_URL %></a></td>
 		</tr>
 
-% if (exists $session{user}) {
+% if ($session{uid}) {
 		<tr>
 			<td valign="top" align="right">Album RowId:</td>
 			<td valign="top"><% $album->GetId %></td>

@@ -9,36 +9,41 @@ $track
 <table>
 	<tr>
     <td valign="top" align="right">Title:</td>
-    <td valign="top"><% $track->GetName() %></td>
+    <td valign="top"><% $track->GetName %></td>
 	</tr>
 	<tr>
 		<td valign="top" align="right">Track MB Id:</td>
-    <td valign="top"><% $track->GetMBId() %></td>
+    <td valign="top"><% $track->GetMBId %></td>
+	</tr>
+	<tr>
+		<td valign="top" align="right">Permanent Link:</td>
+ 		<td valign="top"><& /comp/copyable-link,
+			id => $track->GetMBId,
+			name => $track->GetName,
+			type => "track",
+			style => "linkedurl",
+		&></td>
 	</tr>
 	<tr>
 		<td valign="top" align="right">Fancy Link:</td>
- 		<td valign="top"><a href="/perm_links.html?name=<% $track->GetName() |u %>&id=<% $track->GetMBId() %>&type=track">Click here for a fancy link to this track</a></td>
+ 		<td valign="top"><a href="/perm_links.html?name=<% url_escape($track->GetName) %>&amp;id=<% $track->GetMBId %>&amp;type=track">Click here for a fancy link to this track</a></td>
 	</tr>
 	<tr>
-		<td valign="top" align="right">Perm. Link:</td>
- 		<td valign="top"><a href="http://musicbrainz.org/track/<% $track->GetMBId() %>.html">http://musicbrainz.org/track/<% $track->GetMBId() %>.html</a></td>
-		</tr>
-	<tr>
-		<td valign="top" align="right"><a href="/MM/index.html">MM/RDF</a></td>
+		<td valign="top" align="right"><a href="/MM/index.html">MM/RDF</a>:</td>
 		<td valign="top"><a href="<% $track->RDF_URL %>"><% $track->RDF_URL %></a></td>
 	</tr>
-
-% if (exists $session{user}) {
-	<tr>
-    <td valign="top" align="right">Track RowId:</td>
-    <td valign="top"><% $track->GetId() %></td>
-	</tr>
-% }
 
 % if ($track->GetLength) {
 	<tr>
     <td valign="top" align="right">Length:</td>
     <td valign="top"><% Track::FormatTrackLength($track->GetLength) %></td>
+	</tr>
+% }
+
+% if ($session{uid}) {
+	<tr>
+    <td valign="top" align="right">Track RowId:</td>
+    <td valign="top"><% $track->GetId %></td>
 	</tr>
 % }
 
@@ -48,7 +53,7 @@ $track
     <td>
 			<table>
 		 		<tr>
-		 			<td><img src="/images/trm.gif" align="middle"></td>
+		 			<td><img src="/images/trm.gif" alt="" align="middle"></td>
           <td>Lookup count:</td>
           <td>&nbsp;</td>
 			 	</tr>
@@ -59,7 +64,7 @@ $track
 						<td valign="top" align="center"><% $id->{lookupcount} %></td>
 						<td valign="top">
 %							if (exists $session{user}) {
-				 				<a href="/remtrm.html?TRMjoin=<% $id->{TRMjoinid} %>&amp;trackid=<% $track->GetId() %>&amp;trmid=<% $id->{TRM} %>">Delete</a>
+				 				[ <a href="/remtrm.html?TRMjoin=<% $id->{TRMjoinid} %>&amp;trackid=<% $track->GetId %>&amp;trmid=<% $id->{TRM} %>">Delete</a> ]
 %							} else {
 								&nbsp;
 %							}
