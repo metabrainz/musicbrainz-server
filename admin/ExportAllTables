@@ -111,6 +111,8 @@ my @tables = qw(
 	artist_relation
 	artistalias
 	artistwords
+	automod_election
+	automod_election_vote
 	clientversion
 	country
 	currentstat
@@ -404,6 +406,7 @@ my @group_stats = qw(
 );
 
 my @group_moderation = qw(
+	automod_election
 	moderation_note_open
 	moderation_open
 	moderator_sanitised
@@ -422,6 +425,7 @@ my @group_artistrelation = qw(
 
 my @group_modprivate = qw(
 	album_amazon_asin
+	automod_election_vote
 	moderator
 	moderator_preference
 	moderator_subscribe_artist

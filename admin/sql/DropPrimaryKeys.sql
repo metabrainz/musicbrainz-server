@@ -7,6 +7,8 @@ ALTER TABLE artist DROP CONSTRAINT artist_pkey;
 ALTER TABLE artistalias DROP CONSTRAINT artistalias_pkey;
 ALTER TABLE artist_relation DROP CONSTRAINT artist_relation_pkey;
 ALTER TABLE artistwords DROP CONSTRAINT artistwords_pkey;
+ALTER TABLE automod_election DROP CONSTRAINT automod_election_pkey;
+ALTER TABLE automod_election_vote DROP CONSTRAINT automod_election_vote_pkey;
 ALTER TABLE clientversion DROP CONSTRAINT clientversion_pkey;
 ALTER TABLE country DROP CONSTRAINT country_pkey;
 ALTER TABLE currentstat DROP CONSTRAINT currentstat_pkey;

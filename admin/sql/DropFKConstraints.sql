@@ -92,4 +92,22 @@ ALTER TABLE release
 ALTER TABLE album_amazon_asin
     DROP CONSTRAINT album_amazon_asin_fk_album;
 
+ALTER TABLE automod_election
+    DROP CONSTRAINT automod_election_fk_candidate;
+
+ALTER TABLE automod_election
+    DROP CONSTRAINT automod_election_fk_proposer;
+
+ALTER TABLE automod_election
+    DROP CONSTRAINT automod_election_fk_seconder_1;
+
+ALTER TABLE automod_election
+    DROP CONSTRAINT automod_election_fk_seconder_2;
+
+ALTER TABLE automod_election_vote
+    DROP CONSTRAINT automod_election_vote_fk_automod_election;
+
+ALTER TABLE automod_election_vote
+    DROP CONSTRAINT automod_election_vote_fk_voter;
+
 -- vi: set ts=4 sw=4 et :

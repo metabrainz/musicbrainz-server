@@ -11,6 +11,7 @@ DROP TRIGGER "reptg_artist" ON "artist";
 DROP TRIGGER "reptg_artist_relation" ON "artist_relation";
 DROP TRIGGER "reptg_artistalias" ON "artistalias";
 DROP TRIGGER "reptg_artistwords" ON "artistwords";
+-- Not replicated: automod_election, automod_election_vote
 DROP TRIGGER "reptg_clientversion" ON "clientversion";
 DROP TRIGGER "reptg_country" ON "country";
 DROP TRIGGER "reptg_currentstat" ON "currentstat";

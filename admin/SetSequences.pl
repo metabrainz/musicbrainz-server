@@ -74,6 +74,8 @@ SetSequence($sql, "artist");
 SetSequence($sql, "artist_relation");
 SetSequence($sql, "artistalias");
 # artistwords - no unique column
+SetSequence($sql, "automod_election");
+SetSequence($sql, "automod_election_vote");
 SetSequence($sql, "clientversion");
 SetSequence($sql, "country");
 SetSequence($sql, "currentstat");

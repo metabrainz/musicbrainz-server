@@ -153,4 +153,34 @@ ALTER TABLE album_amazon_asin
     REFERENCES album(id)
     ON DELETE CASCADE;
 
+ALTER TABLE automod_election
+    ADD CONSTRAINT automod_election_fk_candidate
+    FOREIGN KEY (candidate)
+    REFERENCES moderator(id);
+
+ALTER TABLE automod_election
+    ADD CONSTRAINT automod_election_fk_proposer
+    FOREIGN KEY (proposer)
+    REFERENCES moderator(id);
+
+ALTER TABLE automod_election
+    ADD CONSTRAINT automod_election_fk_seconder_1
+    FOREIGN KEY (seconder_1)
+    REFERENCES moderator(id);
+
+ALTER TABLE automod_election
+    ADD CONSTRAINT automod_election_fk_seconder_2
+    FOREIGN KEY (seconder_2)
+    REFERENCES moderator(id);
+
+ALTER TABLE automod_election_vote
+    ADD CONSTRAINT automod_election_vote_fk_automod_election
+    FOREIGN KEY (automod_election)
+    REFERENCES automod_election(id);
+
+ALTER TABLE automod_election_vote
+    ADD CONSTRAINT automod_election_vote_fk_voter
+    FOREIGN KEY (voter)
+    REFERENCES moderator(id);
+
 -- vi: set ts=4 sw=4 et :

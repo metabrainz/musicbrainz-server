@@ -7,6 +7,8 @@ ALTER TABLE artist ADD CONSTRAINT artist_pkey PRIMARY KEY (id);
 ALTER TABLE artistalias ADD CONSTRAINT artistalias_pkey PRIMARY KEY (id);
 ALTER TABLE artist_relation ADD CONSTRAINT artist_relation_pkey PRIMARY KEY (id);
 ALTER TABLE artistwords ADD CONSTRAINT artistwords_pkey PRIMARY KEY (wordid, artistid);
+ALTER TABLE automod_election ADD CONSTRAINT automod_election_pkey PRIMARY KEY (id);
+ALTER TABLE automod_election_vote ADD CONSTRAINT automod_election_vote_pkey PRIMARY KEY (id);
 ALTER TABLE clientversion ADD CONSTRAINT clientversion_pkey PRIMARY KEY (id);
 ALTER TABLE country ADD CONSTRAINT country_pkey PRIMARY KEY (id);
 ALTER TABLE currentstat ADD CONSTRAINT currentstat_pkey PRIMARY KEY (id);

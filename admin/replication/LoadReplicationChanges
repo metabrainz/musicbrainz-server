@@ -283,6 +283,8 @@ sub empty_replication_tables
 sub non_replicated_tables
 {
 	qw(
+		automod_election
+		automod_election_vote
 		moderation_closed
 		moderation_note_closed
 		moderation_note_open

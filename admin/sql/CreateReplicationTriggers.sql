@@ -41,6 +41,8 @@ CREATE TRIGGER "reptg_artistwords"
 AFTER INSERT OR DELETE OR UPDATE ON "artistwords"
 FOR EACH ROW EXECUTE PROCEDURE "recordchange" ();
 
+-- Not replicated: automod_election, automod_election_vote
+
 CREATE TRIGGER "reptg_clientversion" 
 AFTER INSERT OR DELETE OR UPDATE ON "clientversion"
 FOR EACH ROW EXECUTE PROCEDURE "recordchange" ();

@@ -283,6 +283,8 @@ sub ImportAllTables
 		artist_relation
 		artistalias
 		artistwords
+		automod_election
+		automod_election_vote
 		clientversion
 		country
 		currentstat
