@@ -1,3 +1,6 @@
+-- Abstract: change moderationnote.text from VARCHAR(255) to TEXT
+-- Formerly called admin/sql/AlterModerationNoteText.sql
+
 \set ON_ERROR_STOP 1
 
 BEGIN;
