@@ -1,17 +1,14 @@
 %# vi: set ts=4 sw=4 ft=mason :
 <%perl>
 
-my ($o, $mb, $di, $num_tracks, $notfound);
-my ($i, $sth, $album, $valid, $id, $tracks, $toc); 
-
 $m->comp("/comp/sidebar", title=>"Lookup/Submit a CD");
 
-$id = $ARGS{'id'};
-$tracks = $ARGS{'tracks'};
-$toc = $ARGS{'toc'};
-$notfound = $ARGS{'notfound'};
+my $id = $ARGS{'id'};
+my $tracks = $ARGS{'tracks'};
+my $toc = $ARGS{'toc'};
+my $notfound = $ARGS{'notfound'};
 
-$valid = $id;
+my $valid = $id;
 $valid =~ tr/_.\-A-Za-z0-9//d;
 
 if (!defined $id || $id eq '' ||
@@ -19,28 +16,31 @@ if (!defined $id || $id eq '' ||
     !defined $toc || $toc eq '')
 {
     $m->out("The Disc id, TOC and the number of tracks need to be passed in ");
-    $m->out("as part of the page URL. Without this information you ");
-    $m->out("cannot use these pages to submit a CD. Please use ");
-    $m->out("<a href=\"/addalbum.html?artistid=0\">this page</a> ");
+    $m->out("as part of the page URL.&nbsp; Without this information you ");
+    $m->out("cannot use these pages to submit a CD.&nbsp; Please use the ");
+    $m->out("<a href='/addalbum.html?artistid=0'>add album</a> page ");
     $m->out("instead.");
+	return;
 }
 elsif (length($id) == 32 || !defined $toc || $toc eq '')
 {
     $m->out('Please <a href="/download.html">download</a> the latest client software.');
+	return;
 }
 elsif (length($id) != 28 || substr($id, -1, 1) ne "-" || $valid ne "")
 {
     $m->out("The disk id you are trying to submit ($id) is invalid.");
+	return;
 }
 elsif (not Discid->ParseTOC($toc))
 {
     $m->out("The TOC (table of contents) you are trying to submit ($toc) is invalid.");
+	return;
 }
-else
-{
-    $mb = $m->comp("/comp/dblogin");
-    $di = Discid->new($mb->{DBH});
-    $album = $di->GetAlbumFromDiscid($id);
+
+    my $mb = $m->comp("/comp/dblogin");
+    my $di = Discid->new($mb->{DBH});
+    my $album = $di->GetAlbumFromDiscid($id);
     if (defined $album)
     {
         my ($al, $ar);
@@ -66,9 +66,9 @@ else
         {
             $m->out("Could not load album.");
         }
+		return;
     } 
-    else 
-    {
+
 </%perl> 
         <table>
         <tr>
@@ -150,6 +150,3 @@ else
         All data submitted to MusicBrainz will be covered by the 
         <a href="http://opencontent.org/opl.shtml">OpenContent</a> license.
         </center>
-%   }
-%   $mb->Logout;
-% }
