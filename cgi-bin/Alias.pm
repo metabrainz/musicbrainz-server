@@ -33,6 +33,7 @@ use vars qw(@ISA @EXPORT);
 use strict;
 use DBI;
 use DBDefs;
+use SearchEngine;
 
 sub new
 {
@@ -121,6 +122,12 @@ sub Insert
    $name = $sql->Quote($name);
    $sql->Do(qq|insert into $this->{table} (Name, Ref, LastUsed) values 
                ($name, $id, '1970-01-01 00:00')|);
+
+   if ($this->{table} eq 'ArtistAlias')
+   {
+       my $engine = SearchEngine->new($this->{DBH}, { Table => 'Artist' } );
+       $engine->AddWordRefs($id,$name);
+   }
 }
 
 sub Resolve
@@ -155,6 +162,13 @@ sub Remove
 {
    my ($this, $id) = @_;
    my ($sql, @row);
+
+   if ($this->{table} eq 'ArtistAlias')
+   {
+       # Remove references from artist words table
+       my $engine = SearchEngine->new($this->{DBH}, { Table => 'Artist' } );
+       $engine->RemoveObjectRefs($id);
+   }
 
    $sql = Sql->new($this->{DBH});
    $sql->Do("delete from $this->{table} where id = " . $id);

@@ -259,7 +259,7 @@ sub GetWhereClause
 sub RebuildIndex
 {
     my $self = shift;
-    my ($count, $written);
+    my ($count, $written, $query);
     
     my $sql = Sql->new($self->{DBH});
     $sql->Begin();
@@ -281,11 +281,15 @@ sub RebuildIndex
             print STDERR "Start transaction for $count -> " . ($count + $block_size) . "\n";
             $sql->Begin;
             $self->{DBH}->{AutoCommit} = 0;
-        
-            if ($sql->Select(qq|SELECT Id, Name
-                              FROM $self->{Table}
-                             LIMIT $block_size
-                            OFFSET $count|))
+       
+            $query = qq|SELECT Id, Name FROM $self->{Table} |;
+            if ($self->{Table} eq 'Artist')
+            {
+                  $query .= qq|union select artistalias.ref, artistalias.name 
+                                       from ArtistAlias |;
+            }
+            $query .= qq|LIMIT $block_size OFFSET $count|;
+            if ($sql->Select($query))
             {
                 while ( my $row = $sql->NextRowRef)
                 {
