@@ -9,7 +9,6 @@
 @import url(css/boxes.css);
 @import url(css/album.css);
 @import url(css/brainz.css);
-/* @import url(css/print.css) print; */
 
 /* handy Vim command to strip the timestamps before committing to CVS:
 %s/?t=\w\+//
