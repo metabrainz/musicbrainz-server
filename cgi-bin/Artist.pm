@@ -232,7 +232,6 @@ sub GetArtistDisplayList
    {
       $ind =~ s/_/[^A-Za-z]/g;
       $ind = "^$ind";
-      print STDERR "$ind\n";
       $query = qq/select id, sortname, modpending 
                   from   Artist 
                   where  sortname regexp "$ind"

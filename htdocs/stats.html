@@ -2,7 +2,7 @@
 
 <%perl>
 my $result = $m->cache(action=>'retrieve');
-$result = undef;
+#$result = undef;
 if (!defined($result)) 
 {
     my $mb = MusicBrainz->new();  
@@ -49,19 +49,40 @@ if (!defined($result))
                        title=>"Users:");
     $result .= mc_comp("/comp/tablestat", 
                        mb=>$mb,
-                       query=>qq|select ModeratorInfo.name, count(ModeratorInfo.id) as num from Changes,ModeratorInfo where Changes.Moderator = ModeratorInfo.id and UNIX_TIMESTAMP(now()) - UNIX_TIMESTAMP(TimeSubmitted) < 604800 group by ModeratorInfo.ModsAccepted order by num desc limit 10|,
-                       title=>"Most active moderators in the last week:",
+                       query=>qq|select ModeratorInfo.name, 
+                                        count(ModeratorInfo.id) as num 
+                                   from Changes,ModeratorInfo 
+                                  where Changes.Moderator = ModeratorInfo.id 
+                                        and UNIX_TIMESTAMP(now()) - 
+                                        UNIX_TIMESTAMP(TimeSubmitted) < 604800 
+                               group by ModeratorInfo.ModsAccepted 
+                               order by num desc limit 10|,
+                       title=>"Most active moderators in the last week:<br>".
+                              "(Open and accepted moderations)",
                        numcols=>2,
                        coltitles=>["User", "Moderations"]);
 
     $result .= mc_comp("/comp/tablestat", 
                        mb=>$mb,
-                       query=>qq|select name, modsaccepted from ModeratorInfo
-                                 order by modsaccepted desc limit 10|,
-                       title=>"Most active moderators overall:",
+                       query=>qq|select name, modsaccepted 
+                                   from ModeratorInfo
+                               order by modsaccepted desc limit 10|,
+                       title=>"Most active moderators overall:<br>".
+                              "(Accepted moderations only)",
                        numcols=>2,
                        coltitles=>["User", "Moderations"]);
 
+    $result .= mc_comp("/comp/tablestat", 
+                       mb=>$mb,
+                       query=>qq|select ModeratorInfo.name, count(Votes.id) 
+                                        as num 
+                                   from Votes,ModeratorInfo 
+                                  where Votes.Uid = ModeratorInfo.id 
+                               group by ModeratorInfo.id 
+                               order by num desc limit 10|,
+                       title=>"Most active voters overall:",
+                       numcols=>2,
+                       coltitles=>["User", "Votes"]);
 
     $result .= '<tr><td>&nbsp;<br><font class="bold">';
     $result .= 'Moderation Statistics</font></td></tr>';
@@ -99,7 +120,7 @@ if (!defined($result))
                        title=>"&nbsp;&nbsp;&nbsp;No Votes:");
     $result .= mc_comp("/comp/simplestat", 
                        mb=>$mb,
-                       query=>"select count(*) from Votes where vote = 2", 
+                       query=>"select count(*) from Votes where vote = -1", 
                        title=>"&nbsp;&nbsp;&nbsp;Abstain Votes:");
     $mb->Logout();
     $m->cache(action=>'store', expire_next=>'hour', value=>$result);
