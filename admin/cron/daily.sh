@@ -30,14 +30,24 @@ mv /tmp/cvs-backup.tar.bz2 $backupdir
 # Vacuum and analyze the database for peak performance
 echo "VACUUM ANALYZE;" | psql musicbrainz
 
-# Dump the data
-nice ./MBDump.pl /tmp/mbdump.tar.bz2
+# Dump the main data
+nice ./MBDump.pl --core -o /tmp/mbdump.tar.bz2
 cp /tmp/mbdump.tar.bz2 $backupdir
 chown $backupuser:$backupgroup $backupdir/mbdump.tar.bz2
 mv /tmp/mbdump.tar.bz2 $ftpdir
-nice ./MBDump.pl -p /tmp/mbdump-private.tar.bz2
-chown $backupuser:$backupgroup /tmp/mbdump-private.tar.bz2
-mv /tmp/mbdump-private.tar.bz2 $backupdir
+
+# Dump the derived data
+nice ./MBDump.pl --derived -o /tmp/mbdump-derived.tar.bz2
+mv /tmp/mbdump-derived.tar.bz2 $ftpdir
+
+# Dump the sanitized moderation data
+nice ./MBDump.pl --moderation --sanitised -o /tmp/mbdump-moderation.tar.bz2
+mv /tmp/mbdump-moderation.tar.bz2 $ftpdir
+
+# Dump the unsanitized moderation data for backup
+nice ./MBDump.pl --moderation --unsanitised -o /tmp/mbdump-moderation.tar.bz2
+mv /tmp/mbdump-moderation.tar.bz2 $backupdir
+chown $backupuser:$backupgroup $backupdir/mbdump.tar.bz2
 
 # Dump the RDF data
 nice ./RDFDump.pl /tmp/mbdump.rdf.bz2
