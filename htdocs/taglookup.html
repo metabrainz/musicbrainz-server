@@ -1,3 +1,4 @@
+%# vi: set ts=4 sw=4 ft=mason :
 <& /comp/sidebar, title=>'Track Lookup', expand=>'moderate' &>
 
 <%args>
@@ -188,6 +189,15 @@ sub OutputEditForm
    return $ret;
 }
 
+sub format_tracklen
+{
+	my $ms = shift()
+		or return "?:??";
+	return "$ms ms" if $ms < 1000;
+	my $s = $ms / 1000;
+	sprintf "%d:%02d", int($s / 60), ($s % 60);
+}
+
 my ($mb, $ts, $result, $flags, $list, $error, $id, %data, %orig_data); 
 my $bgcolor= '#ffffff';
 
@@ -225,6 +235,8 @@ if (scalar(@coll_list) > 1)
     <p>
     <%perl>
 
+	# Retrieve artist info, then sort on artist
+
     foreach $ref (@coll_list)
     {
         $al = Album->new($ts->{DBH});
@@ -235,12 +247,46 @@ if (scalar(@coll_list) > 1)
             $ar->SetId($al->GetArtist());
             if ($ar->LoadFromId())
             {
-                mc_comp("/comp/album", album=>$al, artist=>$ar, 
-                                       hilitetrack=>$ref->{track},
-                                       mbtagger=>$mbt);
-            }
-        }
-    }
+				use Encode qw( decode );
+				$ref->{_name1_} = lc decode "utf-8", $ar->GetName;
+				$ref->{_name2_} = lc decode "utf-8", $al->GetName;
+
+				$ref->{al} = $al;
+				$ref->{ar} = $ar;
+			}
+		}
+	}
+
+	@coll_list = grep { $_->{_name1_} } @coll_list;
+	@coll_list = sort {
+		$a->{_name1_} cmp $b->{_name1_}
+		or
+		$a->{_name2_} cmp $b->{_name2_}
+	} @coll_list;
+
+	# Now show albums with tracks highlighted, indicating the artist name
+	# whenever it changes.
+
+	my $last_artist = 0;
+
+	for $ref (@coll_list)
+	{
+		my $artist_id = $ref->{ar}->GetId;
+
+		unless ($last_artist == $artist_id)
+		{
+			$m->comp("/comp/artisttitle", artist => $ref->{ar}, nomod => 1);
+			$last_artist = $artist_id;
+		}
+
+		$m->comp(
+			"/comp/album",
+			album => $ref->{al},
+			artist => $ref->{ar},
+			hilitetrack => $ref->{track},
+			mbtagger => $mbt,
+		);
+	}
 
     %data_copy = %data;
     $data_copy{trmid} = "";
@@ -434,6 +480,36 @@ elsif ($flags & TaggerSupport::ALBUMTRACKLIST)
 
    OutputArtist($ts, $result);
 
+	for (@$list)
+	{
+		my @attrs = ($_->{album_attrs} =~ /(\d+)/g);
+
+		(my $type) = grep {
+			$_ >= Album::ALBUM_ATTR_SECTION_TYPE_START
+			and
+			$_ <= Album::ALBUM_ATTR_SECTION_TYPE_END
+		} @attrs;
+
+		(my $status) = grep {
+			$_ >= Album::ALBUM_ATTR_SECTION_STATUS_START
+			and
+			$_ <= Album::ALBUM_ATTR_SECTION_STATUS_END
+		} @attrs;
+		
+		my $is_va = ($_->{album_artist} == ModDefs::VARTIST_ID);
+		
+		my $va = $is_va ? "Various Artist" : "";
+		my $name = Album->GetAttributeName($type);
+		my $statname = Album->GetAttributeName($status);
+
+		my $desc = join " ", grep {$_}
+			$statname,
+			$va,
+			$name;
+
+		$_->{attr_desc} = $desc || "Uncategorized Release";
+	}
+
    if (scalar(@$list) > 0)
    {
        my %copy = %data;
@@ -444,44 +520,49 @@ elsif ($flags & TaggerSupport::ALBUMTRACKLIST)
        <table cellspacing="0" width="100%">
           <tr>
              <td align="center" NOWRAP><b>Album</b></td>
-             <td align="center" NOWRAP>&nbsp;</b></td>
-             <td align="center" colspan="3"NOWRAP><b>Album Info</b></td>
+             <td align="center" colspan="3" NOWRAP><b>Album Info</b></td>
              <td align="center" NOWRAP><b>Track</b></td>
+             <td align="center" NOWRAP><b>Length</b></td>
              <td align="center" NOWRAP><b>Relevance</b></td>
              <td align="center" NOWRAP>&nbsp;</td>
           </tr>
 %      foreach $id (@$list) {
           <tr bgcolor="<% $bgcolor = ( $bgcolor eq '#ffffff' ? '#ffe1b7' : '#ffffff' ) %>">
-             <td valign="top" width="40%">&nbsp;<a href="/showalbum.html?albumid=<% $id->{albumid} %>"><% $id->{album} %></a></td>
-             <td width="10">&nbsp;</td>
-             <td valign="top" NOWRAP>
+             <td valign="top" width="40%" rowspan="2"
+                 style="padding-right: 1em"
+                  >&nbsp;<a href="/showalbum.html?albumid=<% $id->{albumid} %>"><% $id->{album} %></a></td>
+             <td valign="top" align="right" style="padding-right: 4px" NOWRAP>
              <% $id->{album_tracks} %>
              <img src="/images/notes.gif" align="middle" alt="Tracks" 
                   width="13" height="13"
                   title="This album has <% $id->{album_tracks} %> Tracks">
              </td>
-             <td valign="top" NOWRAP>
+             <td valign="top" align="right" style="padding-right: 4px" NOWRAP>
              &nbsp;
              <% $id->{album_discids} %>
              <img src="/images/cd.png" align="middle" alt="CD" 
                   width="13" height="13"
                   title="This album has <% $id->{album_discids} %> CD Index Ids">
              </td>
-             <td valign="top" NOWRAP>
+             <td valign="top" align="right" style="padding-right: 1em" NOWRAP>
              &nbsp;
              <% $id->{album_trmids} %>
              <img src="/images/trm.gif" align="middle" alt="TRM" 
                   width="30" height="11"
                   title="This album has <% $id->{album_trmids} %> TRM Ids">&nbsp;
              </td>
-             <td valign="top" width="40%"><a href="/showtrack.html?trackid=<% $id->{id} %>"><% $id->{name} %></a></td>
-             <td valign="top" align="center"><% int($id->{sim} * 100) %>%</td>
-             <td valign="top" align="right">
+             <td valign="top" width="40%" rowspan="2"><a href="/showtrack.html?trackid=<% $id->{id} %>"><% $id->{name} %></a></td>
+             <td valign="top" align="center" rowspan="2"><% format_tracklen($id->{tracklen}) %></td>
+             <td valign="top" align="center" rowspan="2"><% int($id->{sim} * 100) %>%</td>
+             <td valign="top" align="right" rowspan="2">
 %               $copy{trackid} = $id->{mbid};
 %               $copy{albumid} = $id->{albummbid};
 %               $copy{track} = $id->{name};
                 <% OutputForm(\%copy) |n %>         
              </td>
+          </tr>
+          <tr bgcolor="<% $bgcolor %>">
+              <td colspan="3" style="color: #666"><% $id->{attr_desc} %></td>
           </tr>
 %      }
        </table>

@@ -194,24 +194,21 @@ sub Lookup
 sub LookupTRMCollisions
 {
    my ($this, $trm) = @_;
-   my ($sql, $id, @row, @list);
+   my $sql = Sql->new($this->{DBH});
 
-   $sql = Sql->new($this->{DBH});
-   $id = $sql->Quote($trm);
-   if ($sql->Select(qq|select distinct albumjoin.album, trmjoin.track 
-                         from trm, trmjoin, albumjoin 
-                        where trm.trm = | . $id . qq| and 
-                              trmjoin.trm = trm.id and 
-                              trmjoin.track = albumjoin.track|))
-   {
-        while(@row = $sql->NextRow)
-        {
-            push @list, { album=>$row[0], track=>$row[1] };
-        }
-        $sql->Finish;
-   }
+   my $data = $sql->SelectListOfHashes(
+   	"SELECT DISTINCT
+		albumjoin.album,
+		trmjoin.track
+	FROM	trm
+		INNER JOIN trmjoin ON trmjoin.trm = trm.id
+		INNER JOIN albumjoin ON albumjoin.track = trmjoin.track
+	WHERE	trm.trm = ?
+	ORDER BY 1, 2",
+	$trm,
+   );
 
-   return @list;
+   @$data;
 }
 
 # fix users of lensim and namesim for track matches
@@ -571,7 +568,9 @@ sub AlbumTrackSearch
    @ids = (sort { $b->{sim} <=> $a->{sim} } @ids);
    @ids = splice @ids, 0, $this->{maxitems};
    $query = qq|select album.id, album.name, album.gid, albumjoin.sequence, track,
-                      albummeta.tracks, albummeta.discids, albummeta.trmids 
+                      albummeta.tracks, albummeta.discids, albummeta.trmids,
+		      album.artist,
+		      album.attributes
                  from Album, AlbumJoin, albummeta
                 where albumjoin.album = album.id and 
                       album.id = albummeta.id and
@@ -622,6 +621,8 @@ sub AlbumTrackSearch
            $id->{album_tracks} = $row[5];
            $id->{album_discids} = $row[6];
            $id->{album_trmids} = $row[7];
+           $id->{album_artist} = $row[8];
+           $id->{album_attrs} = $row[9];
            $id->{albumid} = $row[0];
            $id->{artist} = $ar->GetName();
            $id->{artistmbid} = $ar->GetMBId();
