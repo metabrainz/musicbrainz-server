@@ -1,0 +1,67 @@
+<& /comp/sidebar, title=>'Top Moderators', expand=>'information' &>
+
+<%perl>
+
+my $result = $m->cache(action=>'retrieve');
+
+if (!defined($result)) 
+{
+    my $mb = mc_comp("/comp/dblogin");
+
+		require POSIX;
+		my $t = POSIX::strftime('%Y-%m-%d %H:%M:%S UTC', gmtime);
+   
+    $result = "<tr><td>Generated on: $t</td></tr>";
+
+    $result .= mc_comp("/comp/tablestat", 
+                       mb=>$mb,
+                       query=>qq|select Moderator.name, 
+                                        count(Moderator.id) as num 
+                                   from Moderation,Moderator 
+                                  where Moderation.Moderator = Moderator.id 
+                                        and Moderator.id != | .
+                                        ModDefs::FREEDB_MODERATOR . qq|
+                                        and ExpireTime - interval '| .
+                                        DBDefs::MOD_PERIOD . qq| seconds' > 
+                                            now() - interval '1 week' 
+                               group by Moderator.ModsAccepted, Moderator.name 
+                               order by num desc limit 10|,
+                       title=>"Most active moderators in the last week:<br>".
+                              "(Open and accepted moderations)",
+                       numcols=>2,
+                       coltitles=>["User", "Moderations"]);
+
+    $result .= mc_comp("/comp/tablestat", 
+                       mb=>$mb,
+                       query=>qq|select name, modsaccepted 
+                                   from Moderator
+                                        where Moderator.id != | .
+                                        ModDefs::FREEDB_MODERATOR . qq|
+                               order by modsaccepted desc limit 10|,
+                       title=>"Most active moderators overall:<br>".
+                              "(Accepted moderations only)",
+                       numcols=>2,
+                       coltitles=>["User", "Moderations"]);
+
+    $result .= mc_comp("/comp/tablestat", 
+                       mb=>$mb,
+                       query=>qq|select Moderator.name, count(Votes.id) 
+                                        as num 
+                                   from Votes,Moderator 
+                                  where Votes.Uid = Moderator.id 
+                               group by Moderator.id, Moderator.name 
+                               order by num desc limit 10|,
+                       title=>"Most active voters overall:",
+                       numcols=>2,
+											 coltitles=>["User", "Votes"]);
+
+    $mb->Logout();
+    $m->cache(action=>'store', expire_in=>'1hour', value=>$result);
+}
+
+</%perl>
+
+<table><% $result |n %></table>
+
+<& /comp/footer &>
+<!-- vi: set ts=2 sw=2 ft=mason : -->

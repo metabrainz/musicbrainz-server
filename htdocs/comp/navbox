@@ -7,6 +7,7 @@ $expand=>''
 my @information = (
   {url=>'/faq.html',                       name=>'FAQ'},
   {url=>'/stats.html',                     name=>'Database Stats'},
+  {url=>'/topmods.html',                   name=>'Top Moderators'},
   {url=>'/status.html',                    name=>'Project Status'},
   {url=>'/contract.html',                  name=>'Social Contract'},
   {url=>'/papers/index.html',              name=>'White Papers'},
@@ -71,7 +72,7 @@ my @main = (
 );
 
 </%perl>
-<table cellpadding="10" cellspacing="0" border="0">
+<table cellpadding="3" cellspacing="0" border="0">
   <tr>
     <td>
       <span class="sidemenu"> 
