@@ -23,7 +23,7 @@
 #____________________________________________________________________________
 
 use FindBin;
-use lib "$FindBin::Bin/../cgi-bin";
+use lib "$FindBin::Bin/../../cgi-bin";
 
 use strict;
 use DBI;
