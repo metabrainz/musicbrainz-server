@@ -234,6 +234,7 @@ addpref('datetimeformat', $allowed_datetime_formats[0], \&check_datetimeformat);
 addpref('default_country', 0, sub { check_int(0,undef,@_) });
 addpref('google_domain', "www.google.com", \&check_google_domain);
 addpref('JSMoveFocus', '1', \&check_bool);
+addpref('mail_notes_if_i_noted', 1, \&check_bool);
 addpref('mod_add_album_inline', 0, \&check_bool);
 addpref('mod_add_album_link', 0, \&check_bool);
 addpref('mods_per_page', 10, sub { check_int(1,25,@_) });
@@ -426,6 +427,27 @@ sub SaveForUser
 		$sql->Rollback if $wrap_transaction;
 		die $e;
 	};
+}
+
+################################################################################
+# get another user's preference
+################################################################################
+
+sub get_for_user
+{
+	my ($key, $user) = @_;
+	my $info = $prefs{$key}
+		or carp("UserPreference::get called with invalid key '$key'"), return undef;
+
+	my $sql = Sql->new($user->{DBH});
+	my $value = $sql->SelectSingleValue(
+		"SELECT value FROM moderator_preference WHERE moderator = ? AND name = ?",
+		$user->GetId,
+		$key,
+	);
+
+	defined($value) or return $info->{DEFAULT};
+	$value;
 }
 
 1;
