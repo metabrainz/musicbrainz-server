@@ -30,7 +30,7 @@ $artistname = $ar->Value(1);
     <& /comp/tableend &>
 % } else {
 
-    <& /comp/tablebegin, title=>'Move Album' &>
+    <& /comp/tablebegin, title=>"Move Album $albumname" &>
 
 % if ($modpending) {
     <& /comp/modpending &>
