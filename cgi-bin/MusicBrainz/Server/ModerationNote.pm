@@ -58,10 +58,11 @@ sub GetTextAsHTML
 		(?:
 			showalbum\.html\?albumid=\d+
 			| showartist\.html\?artistid=\d+
+			| showaliases\.html\?artistid=\d+
 			| showtrack\.html\?trackid=\d+
 			| showmod\.html\?modid=\d+
 		)
-		(?:\s|$)
+		\b
 	][<a href="$&">$&</a>]ix;
 
 	$html;
