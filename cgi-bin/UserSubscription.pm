@@ -226,9 +226,14 @@ sub _ProcessUserSubscriptions
 
 	unless ($user->GetEmail and $user->GetEmailConfirmDate)
 	{
-		printf STDERR "Skipping subscriptions for user #%d '%s' because they have no confirmed e-mail address\n",
-			$user->GetId, $user->GetName;
-		return;
+		printf "Skipping subscriptions for user #%d '%s' because they have no confirmed e-mail address\n",
+			$user->GetId, $user->GetName
+			if $self->{'verbose'};
+		# Instead of returning here, we just empty the list of subscriptions.
+		# Thus we don't go to all the trouble of looking for moderations, and
+		# we don't send an e-mail, but we *do* update the "lastmodsent" values
+		# for this user.
+		@$subs = ();
 	}
 
 	my $text = "";
@@ -314,13 +319,6 @@ sub _ProcessUserSubscriptions
 			. "&artistid=$sub->{'artist'}\n\n";
 	}
 
-	if ($text eq "")
-	{
-		print "No moderations for subscribed artists\n"
-			if $self->{'verbose'};
-		return;
-	}
-
 	unless ($self->{'dryrun'})
 	{
 		$sql->Do(
@@ -334,6 +332,13 @@ sub _ProcessUserSubscriptions
 			$self->{THRESHOLD_MODID},
 			$self->GetUser,
 		);
+	}
+
+	if ($text eq "")
+	{
+		print "No moderations for subscribed artists\n"
+			if $self->{'verbose'};
+		return;
 	}
 
 	(my $safe_name = $user->GetName) =~ s/\W/?/g;
