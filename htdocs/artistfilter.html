@@ -52,7 +52,7 @@ else
 {
     $artist = undef;
 
-    $eng = SearchEngine->new();
+    $eng = SearchEngine->new($mb->{DBH});
     $eng->Table("Artist");
     $eng->AllWords(1);
     $eng->Search($arg);
