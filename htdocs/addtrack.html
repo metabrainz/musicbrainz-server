@@ -67,6 +67,9 @@ if ($newartistname =~ /\S/ and $newartistsortname =~ /\S/
 {
 	MusicBrainz::IsNonNegInteger($tracknum) && $tracknum >= 1 && $tracknum <= 99
 		or return $m->comp("/comp/badargs", 1, 1);
+	
+	$al->CanAddTrack($tracknum)
+		or return $m->comp("/comp/error", $@, 1, 1);
 
 	$m->comp(
 		"/comp/entermods",

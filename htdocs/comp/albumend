@@ -7,13 +7,13 @@ $nomod
 
 <%perl>
 
-my (@ids, $di, $id, $rows, $id_numtracks, $numtracks, $duration);
+my (@ids, $id, $rows, $id_numtracks, $numtracks, $duration);
 
 $numtracks = $album->GetTrackCount();
 
 if ($showids)
 {
-   $di = Discid->new($album->{DBH});
+   my $di = Discid->new($album->{DBH});
    @ids = $di->GetDiscidFromAlbum($album->GetId());
 }
 
@@ -96,7 +96,7 @@ if (scalar(@ids) > 0)
   <table width="100%"><tr><td align="center">
 %    if (!$album->IsNonAlbumTracks()) {
          [
-%        if (!defined $id_numtracks || $id_numtracks > $numtracks) {
+%        if ($album->CanAddTrack) {
              <a href="/addtrack.html?album=<% $album->GetId() %>">Add track</a> | 
 %        }
            <a href="/movealbum.html?album=<% $album->GetId() %>">Move</a> 

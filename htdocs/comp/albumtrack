@@ -73,7 +73,9 @@ elsif ($ms > 0)
     	class="CenterChildren" style="text-align: center"
 	>
        <a href="/edittrack.html?track=<% $track->GetId() %>&amp;album=<% $album->GetId() %>">Edit</a>
+% if ($album->CanRemoveTrack($track->GetSequence)) {
        | <a href="/remtrack.html?id=<% $track->GetId() %>&amp;album=<% $album->GetId() %>&amp;artist=<% $artist->GetId() %>">Del</a>
+% }
     </td>
 % }
 </tr>
