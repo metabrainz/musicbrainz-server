@@ -65,11 +65,11 @@ print RDF "\n";
 
 $| = 1;
 print "\nDumping artists.\n";
-#DumpArtists($sql, $rdf, \*RDF, "http://mm.musicbrainz.org");
+DumpArtists($sql, $rdf, \*RDF, "http://mm.musicbrainz.org");
 print "\nDumping albums.\n";
 DumpAlbums($sql, $rdf, \*RDF, "http://mm.musicbrainz.org");
 print "\nDumping tracks.\n";
-#DumpTracks($sql, $rdf, \*RDF, "http://mm.musicbrainz.org");
+DumpTracks($sql, $rdf, \*RDF, "http://mm.musicbrainz.org");
 
 print RDF $rdf->EndRDFObject();
 
@@ -151,7 +151,7 @@ sub DumpAlbums
                                Album.id, AlbumJoin.sequence, Album.attributes
                           from Artist, Album, AlbumJoin, Track 
                         where  Artist.id = Album.artist and Album.id = 
-                               AlbumJoin.album and AlbumJoin.track = Track.id and Album.id = 28463
+                               AlbumJoin.album and AlbumJoin.track = Track.id
                       order by Album.id|))
     {
         my $cur_diskid_album = -1;
