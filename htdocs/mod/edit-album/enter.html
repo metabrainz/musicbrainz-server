@@ -45,7 +45,8 @@ $m->comp(
 				type => &ModDefs::MOD_EDIT_ALBUMATTRS,
 				# --
 				albums => [ $al ],
-				attrs => [ split ' ', $new_attrs ],
+				attr_type => $edit->{"type"},
+				attr_status => $edit->{"status"},
 			);
 		}
 

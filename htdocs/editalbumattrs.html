@@ -62,7 +62,8 @@ if ($ARGS{confirm})
 				type => &ModDefs::MOD_EDIT_ALBUMATTRS,
 				# --
 				albums => \@objs,
-				attrs => [ $attr_type, $attr_status ],
+				attr_type => $attr_type,
+				attr_status => $attr_status,
 			);
 
 			$mods[0]->InsertNote($session{'uid'}, $notetext)
