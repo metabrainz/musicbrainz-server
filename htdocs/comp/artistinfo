@@ -36,6 +36,10 @@ $artist
 			<td valign="top"><% $artist->GetId %></td>
     </tr>
 % }
+    <tr>
+			<td valign="top" align="right">Subscribers:</td>
+			<td valign="top"><% scalar $artist->GetSubscribers %></td>
+    </tr>
 	</table>
 
 % if (exists $session{user} and $artist->GetId != &ModDefs::VARTIST_ID and $artist->GetId != &ModDefs::DARTIST_ID) {
