@@ -346,6 +346,9 @@ sub Remove
     $sql->Do("delete from TOC where album = $album");
     print STDERR "DELETE: Removed Discid where album was " . $album . "\n";
     $sql->Do("delete from Discid where album = $album");
+	# TODO move to Release.pm
+    print STDERR "DELETE: Removed release where album was " . $album . "\n";
+    $sql->Do("DELETE FROM release WHERE ALBUM = ?", $album);
 
     if ($sql->Select(qq|select AlbumJoin.track from AlbumJoin 
                          where AlbumJoin.album = $album|))
@@ -824,6 +827,14 @@ sub MergeAlbums
                 " where Album = $id");
        $sql->Do("update TOC set Album = " . $this->GetId() . 
                 " where Album = $id");
+
+		# And the releases
+		# TODO move to Release.pm
+		$sql->Do(
+			"UPDATE release SET album = ? WHERE album = ?",
+			$this->GetId,
+			$id,
+		);
 
        # Then, finally remove what is left of the old album
        $al->Remove();

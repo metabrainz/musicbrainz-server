@@ -76,7 +76,7 @@ use constant SEARCHRESULT_SUCCESS => 1;
 use constant SEARCHRESULT_NOQUERY => 2;
 use constant SEARCHRESULT_TIMEOUT => 3;
 
-use constant DEFAULT_SEARCH_TIMEOUT => 30;
+use constant DEFAULT_SEARCH_TIMEOUT => 90;
 
 my %ChangeNames = (
     &ModDefs::STATUS_OPEN			=> "Open",

@@ -39,8 +39,10 @@ my $sortname = $artist->GetSortName;
 % } else {
 			| <a href="/browsevarious.html">Browse albums</a>
 % }
+% if ($id != &ModDefs::VARTIST_ID) {
 			| <a href="/artistrel.html?artistid=<% $id %>">Related artists</a>
 			| <& /comp/googlelink, search => $name, text => "Search Google" &>
+% }
 % if ($session{uid}) {
 			| <a href="/mod/search/pre/artist.html?artistid=<% $id %>">View mods</a>
 % }
@@ -59,7 +61,9 @@ my $sortname = $artist->GetSortName;
 % }
         <a href="/addalbum.html?artistid=<% $id %>">Add album</a>
         | <a href="/freedb/freedb.html?search=<% uri_escape($name) %>">Import album</a>
+% if ($id != &ModDefs::VARTIST_ID) {
 				| <a href="/addnonalbumtracks.html?artistid=<% $id %>">Add non-album tracks</a>
+% }
 		]</div>
 % } elsif ($showmodlinks) {
 		<div class="ArtistTitleLinks">[

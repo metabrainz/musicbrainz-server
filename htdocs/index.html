@@ -45,6 +45,20 @@
 		<h2>Latest News</h2>
 
 		<div class="SideNewsArticle">
+			<h3>Latest Server Updates</h3>
+			<p>
+        Dec 28 2003, 2115 GMT (1315 PST) -
+				Easy ways to link to MusicBrainz,
+				country / date release information,
+				and of course a bunch of bug fixes and
+				enhancements&nbsp;...
+			</p>
+			<a href="/news/20031227-1.html"
+				class="PressReleaseLink"
+				>Change log &gt;&gt;</a>
+		</div>
+
+		<div class="SideNewsArticle">
 			<h3>MusicBrainz Tagger 0.10.2 released</h3>
 			<p>
         Nov 17 2003, 2100 GMT (1300 PST) -
@@ -56,18 +70,6 @@
 				class="PressReleaseLink"
 				>Download &gt;&gt;</a>
 			<a href="/news/20031117-1.html"
-				class="PressReleaseLink"
-				>Change log &gt;&gt;</a>
-		</div>
-
-		<div class="SideNewsArticle">
-			<h3>Latest Server Updates</h3>
-			<p>
-        Nov 10 2003, 1910 GMT (1110 PST) -
-				"Moderation Search" makes it possible to
-				query the moderation data as never before&nbsp;...
-			</p>
-			<a href="/news/20031110-1.html"
 				class="PressReleaseLink"
 				>Change log &gt;&gt;</a>
 		</div>
@@ -107,6 +109,21 @@
 <div class="AvoidArticlePanel">
 
 	<h1>Welcome to MusicBrainz!</h1>
+
+% if (time() < 1073257844) { # approx 11pm UTC Sun 4th Jan 2004
+	<div style="border: 0.5em outset #ffebd1; background: #ffebd1; padding: 1em">
+		<p style="font-size: 180%; font-weight: bold">
+			Happy New Year!
+		</p>
+		<p>
+			We'd just like to take this opportunity to wish everyone in
+			the MusicBrainz community all the best for 2004.&nbsp;
+			Your support for MusicBrainz throughout 2003 was great, and
+			helped us improve enormously&nbsp;- Thanks!&nbsp;
+			Let's make this year even better!
+		</p>
+	</div>
+% }
 
 	<h2>What is MusicBrainz?</h2>
 

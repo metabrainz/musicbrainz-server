@@ -47,6 +47,37 @@
 	margin-bottom: 8pt;
 }
 
+.SideBarStatsBox
+{
+}
+
+.SideBarStatsBoxName
+{
+	width: 50%;
+	font-size: 8pt;
+	color: #000;
+	text-align: right;
+	font-weight: bold;
+}
+
+.SideBarStatsBoxCount
+{
+	width: 50%;
+	font-size: 8pt;
+	color: #000;
+	text-align: left;
+}
+
+.SideBarStatsBox a,
+.SideBarStatsBox a:link,
+.SideBarStatsBox a:visited,
+.SideBarStatsBox a:hover,
+.SideBarStatsBox a:active,
+.SideBarStatsBox a:focus
+{
+	color: #000;
+}
+
 #FooterBar
 {
 	width: 100%;

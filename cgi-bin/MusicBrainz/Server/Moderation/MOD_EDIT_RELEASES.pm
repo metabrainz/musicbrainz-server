@@ -171,11 +171,13 @@ sub ApprovedAction
 {
 	my $self = shift;
 	my $sql = Sql->new($self->{DBH});
+	require MusicBrainz::Server::Release;
 	my $release = MusicBrainz::Server::Release->new($self->{DBH});
 
 	my @notes;
-	my $ok = 0;
+	my $ok = @{ $self->{"adds"} };
 
+	require MusicBrainz::Server::Country;
 	my $country = MusicBrainz::Server::Country->new($self->{DBH});
 	my $countrynames = $country->GetCountryIdToNameHash;
 
@@ -229,6 +231,7 @@ sub DeniedAction
 {
 	my $self = shift;
 	my $sql = Sql->new($self->{DBH});
+	require MusicBrainz::Server::Release;
 	my $release = MusicBrainz::Server::Release->new($self->{DBH});
 
 	# Remove the "adds" list

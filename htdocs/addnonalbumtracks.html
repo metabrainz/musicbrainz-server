@@ -51,13 +51,16 @@ $numtracks = @names if $numtracks < @names;
 if (@names and $confirm)
 {
 
-  if ($notetext eq '')
+	unless ($notetext =~ /\S/)
   {
       </%perl>
-      <& /comp/sidebar, title => "Add Non-Album Tracks Error" &>
+      <& /comp/sidebar, title => "Add Non-Album Tracks - Error" &>
 
-      <span style="color: red;">Error</span>: You <b>must</b> provide a moderation note
-      in order to add a non-album track! Please go back and enter a moderation note.
+			<p class="error">
+				You must provide a moderation note in order to add a non-album
+				track!&nbsp; Please go back and enter a moderation note.
+			</p>
+
       <& /comp/footer &>
       <%perl>
 
@@ -122,13 +125,13 @@ for (@names[0..$numtracks-1])
    promotional tracks that have never been released on an album are good 
    candidates for non-album tracks. Most live versions or singles are released
    on <i>single CDs</i> -- to enter those tracks into MusicBrainz, <a 
-   href="/freedb/freedb.html">import the album from freedb</a> instead.
+   href="/freedb/freedb.html">import the album from FreeDB</a> instead.
 </p>
 
 <p>
   To enter a non-album track you <b>must</b> provide a moderation note that
   lets the voters know why you think this is a non-album track. You're
-  strongly encouraged to add a URL to the moderation note that will allow
+  strongly encouraged to include a URL that will allow
   the voters to evaluate the correctness of this moderation.
 </p>
 
@@ -177,7 +180,7 @@ for (@names[0..$numtracks-1])
 		<tr>
 			<td colspan="3">
 				<p style="margin: 1em 0">
-					Enter moderation note (<span style="color: red;">required</span>):
+					Enter moderation note (<strong>required</strong>):
 				<br>
 					<textarea name="notetext" rows="3" cols="60"></textarea>
 				</p>

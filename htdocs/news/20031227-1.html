@@ -1,0 +1,319 @@
+%# vi: set ts=2 sw=2 ft=mason :
+<& /comp/sidebar, title => 'December 28th, 2003: Server Updates', head => '
+<style type="text/css">
+ul, ol { padding-left: 0.7em }
+li { margin-top: 0.5em; margin-bottom: 0.5em }
+</style>
+' &>
+
+<h2>Changes mainly of interest to MusicBrainz Users</h2>
+
+<h3>Linking to MusicBrainz</h3>
+
+<p>(This feature by Robert Kaye)</p>
+
+<p>
+	One of the main aims of MusicBrainz has always been to provide unchanging,
+	globally-unique identifiers for various music-related things (artists,
+	albums, tracks).&nbsp; Until recently these identifiers have been all too
+	hard to find and use.&nbsp;
+</p>
+
+<p>
+	The official "permanent" way of linking to HTML web pages for MusicBrainz
+	artists, albums and tracks is now like this, using the 128-bit globally
+	unique identifier (GUID) values:
+</p>
+
+<ul>
+	<li>
+		For artists:
+		<em>http://musicbrainz.org/artist/<strong>GUID</strong>.html</em><br>
+		- for example, <a
+			href="http://musicbrainz.org/artist/83d91898-7763-47d7-b03b-b92132375c47.html"
+				>http://musicbrainz.org/artist/83d91898-7763-47d7-b03b-b92132375c47.html</a>
+		is Pink Floyd
+	</li>
+	<li>
+		For albums:
+		<em>http://musicbrainz.org/album/<strong>GUID</strong>.html</em><br>
+		- for example, <a
+			href="http://musicbrainz.org/album/25fbfbb4-b1ee-4448-aadf-ae3bc2e2dd27.html"
+				>http://musicbrainz.org/album/25fbfbb4-b1ee-4448-aadf-ae3bc2e2dd27.html</a>
+		is "Dark Side of the Moon"
+	</li>
+	<li>
+		For tracks:
+		<em>http://musicbrainz.org/track/<strong>GUID</strong>.html</em><br>
+		- for example, <a
+			href="http://musicbrainz.org/track/7fef22bd-76aa-4803-b56b-93a5d6e70662.html"
+				>http://musicbrainz.org/track/7fef22bd-76aa-4803-b56b-93a5d6e70662.html</a>
+		is "Money"
+	</li>
+</ul>
+
+<p>
+	To make it easier to link to artists, albums and tracks as you find them,
+	there are now two new links next to each linkable item:
+</p>
+
+<p>
+	<strong>Permanent link</strong> is a link to the permanent URL, so if you
+	just want to get the URL without any fancy markup, then you can use your
+	browser to copy the URL behind these links to your clipboard.
+</p>
+
+<p>
+	<strong>Link to this</strong> takes you to a page where you can
+	choose what appearance you want your link to have, then copy the HTML
+	provided so you can paste it into your web page (or web log, etc).
+</p>
+
+<h3>Releases</h3>
+
+<p>(This feature by Dave Evans with help from Matthias Friedrich)</p>
+
+<p>
+	A <em>Release</em> is when a particular album (or single, etc) was made
+	available in a particular country on a particular date.&nbsp; For example,
+	you could say that the single
+	<a href="http://mm.musicbrainz.org/album/d673ab9d-f5b1-48f1-b98a-b8c05d082cc0.html">White Flag</a>
+	was released in the United Kingdom in 2003.
+</p>
+
+<p>
+	The <em>date</em> part of a release can be just a year (e.g. 1977), or a
+	year and a month (July 1977) or a specific day (12th July 1977).
+</p>
+
+<p>
+	When searching for albums, or showing a list of albums on the "show artist"
+	page, the first known release date is shown for each album.&nbsp; On the
+	latter page, albums are listed (within release type) by first release date, in
+	forward chronological order.&nbsp; Albums with no release data will have
+	no known first release date.&nbsp; Albums <em>with</em> a first release date are
+	listed first, then the ones without.
+</p>
+
+<p>
+	Releases are edited using the <em>Release Editor</em> page, which works much
+	like the <em>Album Editor</em>.&nbsp; It's based on your session cookie, so
+	you can only edit one album's releases at a time.&nbsp; The main way in
+	which it's different from the Album Editor is that when you've finished, all
+	the changes you make are entered as a single moderation.&nbsp; Hence a
+	single "Edit Releases" moderation may include, say, two releases to add and
+	one to edit.&nbsp;
+</p>
+
+<p>
+	"Edit Releases" moderations are auto-moderated if no releases are being
+	removed, and EITHER there are no releases being edited OR the user is an
+	automoderator.&nbsp; This should make it possible to initially add a lot of
+	"release" data without having to vote it all through.
+</p>
+
+<h3>Log In Permanently</h3>
+
+<p>
+	When you log in, there are now two extra tick box options:
+	"Log in permanently" and "Only from this IP address".&nbsp;
+</p>
+
+<p>
+	By choosing "Log in permanently" you will be sent a non-session cookie (it
+	expires after one year) including your user name and a hashed form of your
+	password.&nbsp; When you close and restart your browser, instead of having
+	to log in to MusicBrainz again, this "permanent" cookie will be detected and
+	you will automatically be logged in straight away.&nbsp; You will only have
+	to log in again if the cookie expires or is deleted, or if you click
+	"Logout" (which causes this cookie to be deleted), or if your password is
+	changed.
+</p>
+
+<p>
+	By choosing "Only from this IP address" you gain some little protection
+	against someone maliciously "stealing" your MusicBrainz cookies and trying
+	to use them to log in as you - your cookies will only be valid when used
+	from your IP address.
+</p>
+
+<p>
+	As part of the "Log in permanently" feature it was necessary to update the
+	way in which you update your password - you must now enter your old (existing)
+	password in order to change it to something else.&nbsp; Some simple rules
+	now apply to passwords to ensure that the password isn't too easy to guess:
+	new passwords must be at least six characters long, and must be neither all
+	letters nor all numbers.&nbsp; Finally, password changing is now done on a
+	separate page, not the main "update my profile" page.
+</p>
+
+<h3>Moderation Suggestion Reports</h3>
+
+<p>(This feature by Matthias Friedrich and Dave Evans)</p>
+
+<p>
+	All the "moderation suggestion reports" have been completely rewritten;
+	the main visible change is that instead of producing a single (sometimes
+	VERY long) page per report, each report is now split over a series of pages,
+	like when you browse over moderations, artists or albums.&nbsp; This
+	generally means that the reports are much faster and nicer to use.
+</p>
+
+<p>
+	There is one completely new report, called "Tracks with broken featuring
+	artist tags".&nbsp; This report looks for tracks which should, but don't,
+	say "Foo (feat. Bar)" - for example, "Foo featuring Bar" would be in this
+	report.&nbsp; Next to each track found is a link to edit that track's
+	name.&nbsp; The editing is done in a pop-up window.&nbsp; If the report
+	thinks it knows what the track name should be, then the link says "Suggest",
+	and clicking on the link opens the pop-up with the new track name pre-filled
+	in with what it thinks the new name should be.&nbsp; All you have to do is
+	make sure it guessed right and submit the form.
+</p>
+
+<h3>Editing</h3>
+
+<p>
+	When a moderation fails in an unusual way (e.g. failed prerequisite, internal
+	error) the ModBot now <strong>always</strong> adds a note describing exactly
+	what went wrong.&nbsp; (This was partially implemented before; the gaps have
+	now been filled in).
+</p>
+
+<p>
+	The "edit track name" page now shows the warning about pending moderations,
+	when appropriate.
+</p>
+
+<p>
+	When adding [non-album tracks], it is now <strong>mandatory</strong> to
+	enter a moderation note - you are strongly encouraged to provide some URL
+	with "evidence" as to what the track is.&nbsp; A "Guess Case" button has
+	also been added.
+</p>
+
+<p>
+	When changing a "Various Artists" track (particularly when first converting
+	an album to Various Artists), the track name is now split in the correct
+	place more often.&nbsp; This fixes bug #854750.
+</p>
+
+<p>
+	When adding artists, or moving a track to a new artist, it is now possible
+	to create a new artist with the same name as another artist's alias
+	(bugs #788282, #837930).
+</p>
+
+<p>
+	The "Add Artist" page now has a "Guess Case" button.&nbsp; It also has a
+	button to copy the artist name into the artist sortname (but this should be
+	exactly the same as leaving the sortname blank).
+</p>
+
+<p>
+	Previously some users experienced a Javascript error while merging artists
+	or moving albums.&nbsp; This bug has now been fixed.
+</p>
+
+<p>
+	The "Guess Case" buttons now put these words in lower case when within
+	parentheses: <em>acoustic instrumental live demo skit</em>.
+</p>
+
+<h3>Other Changes</h3>
+
+<p>
+	The "top moderators" sidebar panel has been replaced by the "top voters"
+	panel.
+</p>
+
+<p>
+	When browsing moderations (e.g. when voting), closed moderations now say
+	"Closed", instead of "Expires" or "Expired".&nbsp; The little red "X" that
+	you had to click on to delete a moderation has now been changed to a much
+	more obvious textual link saying "Delete mod".
+</p>
+
+<p>
+	A "fix" (run on demand by the MusicBrainz server administrators)
+	script has been created to find and fix track names which should say "Foo
+	feat. Bar", but don't.&nbsp; (by Matthias Friedrich)
+</p>
+
+<p>
+	There is a "fix" script
+	which recalculates the "modpending" count (and thus, for example, removes
+	the "mod pending" highlight from things which actually have no mods pending).&nbsp;
+	This script had been out of date and useless for a while; it has now been
+	rewritten and is now up-to-date and useful again.
+</p>
+
+<p>
+	The "Tag lookup" form has been added to
+	<a href="/search.html">the main search page</a>,
+	the idea being to make it easier to do a combined artist+album+track search.
+</p>
+
+<p>
+	The very old, very out-of-date downloads of the MySQL and Access databases
+	have been removed from the downloads page.
+</p>
+
+<h2>New and Changed Documentation</h2>
+
+<ul>
+	<li>
+		<a <& /comp/auto-popup-link,
+			url => "/products/server/docs/20031210-1.html",
+			&>>the "Log In Permanently" option</a>
+	</li>
+	<li>
+		<a <& /comp/auto-popup-link,
+			url => "/products/server/docs/20031213-1.html",
+			&>>Restricting your login by IP address</a>
+	</li>
+	<li>
+		<a <& /comp/auto-popup-link,
+			url => "/style.html",
+			attrs => { width=>450, height => 500, scrollbars => 'yes', resizable => 'yes' },
+			&>>The style guide</a> has been updated.
+	</li>
+	<li>
+		Various references to "Ogg/Vorbis" have been changed to "Ogg Vorbis".
+	</li>
+</ul>
+
+<h2>Changes mainly of interest to MusicBrainz Server Programmers</h2>
+
+<p>
+	Two missing foreign keys have been added: moderationnote to moderator, and
+	moderationnote to moderation.
+</p>
+
+<p>
+	At server startup, we now pre-load many Mason components, for faster
+	subsequent response, and for a smaller memory footprint.
+</p>
+
+<p>
+	A SQL interpolation bug fix in <em>TRM-&gt;GetTRMFromTrackId</em>
+	has been fixed.
+</p>
+
+<h2>Bugs and RFEs Closed</h2>
+
+<& buglist.inc,
+	"788282 	can't change track artist (supremes)",
+	"826293 	Tagger IE script error when modding using browser",
+	"831584		Permanent cookies",
+	"837930 	Unable to add Artist",
+	"838950 	\"Ogg Vorbis,\" not \"Ogg/Vorbis\"",
+	"845163 	Inability to search for soundtracks (must supply artist)",
+	"848878 	database download",
+	"851029 	search fields displayed incorrectly in Opera",
+	"854750 	track split when artist contains hyphen",
+	&>
+
+Dave Evans
+
+<& /comp/footer &>
