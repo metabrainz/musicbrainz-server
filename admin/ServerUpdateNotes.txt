@@ -4,6 +4,7 @@ I Server update tasks
 Update the moderator table with the following query:
 
 alter table moderator add column emailconfirmdate timestamp with time zone;
+alter table moderator add column lastlogindate timestamp with time zone;
 
 Add triggers to handle MOD_MOVE_DISCID like so:
 
@@ -14,8 +15,6 @@ create trigger a_upd_discid_2 after update on discid
                for each row execute procedure increment_discid_count();
 
 (Ideally albummeta should be re-calculated)
-
-alter table moderator add column lastlogindate timestamp with time zone;
 
 Old notes:
 ----------
