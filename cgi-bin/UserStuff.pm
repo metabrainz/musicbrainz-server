@@ -722,6 +722,9 @@ sub SetSession
 	$session->{expire} = time() + &DBDefs::WEB_SESSION_SECONDS_TO_LIVE;
 	$session->{email_nag} = $email_nag;
 
+	my $mod = Moderation->new($this->{DBH});
+	$session->{moderation_id_start} = $mod->GetMaxModID;
+
 	require UserPreference;
 	UserPreference::LoadForUser($this->Current);
 
