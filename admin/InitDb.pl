@@ -71,6 +71,23 @@ sub Create
 		die "Can't find '$prog' on your PATH\n";
 	}
 
+	# Check the cluster uses the C locale
+	{
+		my $locale = `
+			echo "select setting from pg_settings where name = 'lc_collate'" \\
+			| $psql $opts -t -U $postgres -t template1
+		`;
+		$locale =~ /(\S+)/;
+		unless ($1 eq "C"")
+		{
+			die <<EOF;
+It looks like your Postgres database cluster was created with locale '$1'.
+MusicBrainz needs the "C" locale instead.  To rectify this, re-run "initdb"
+with the option "--locale=C".
+EOF
+		}
+	}
+
 	unless ($dbuser eq "$postgres")
 	{
 		my $use = `
