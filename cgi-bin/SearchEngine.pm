@@ -30,6 +30,9 @@ use vars qw(@ISA @EXPORT);
 use strict;
 use DBDefs;
 use DBI;
+use Text::Unaccent;
+use locale;
+use POSIX qw(locale_h);
 
 sub new
 {
@@ -82,10 +85,24 @@ sub Tokenize
 {
     my $self  = shift;
     my @words = split /\s/, shift;
+		
+		# we set the locale here to a known quantity
+		# so that accented characters are considered
+		# "word characters" (\w)
+
+		my $old_locale = setlocale(LC_CTYPE);
+		setlocale( LC_CTYPE, "en_US.ISO_8859-1" )
+			  or die "Couldn't change locale.";
+		
     foreach (@words) 
     {
-        s/\W//g;
+        s/\W//g; # strip non words
+				$_ = unac_string('ISO-8859-1',$_);
     }
+
+		#switch it back, just to be polite
+		setlocale( LC_CTYPE, $old_locale );
+
     return @words;
 }
 
