@@ -643,7 +643,7 @@ sub AlbumTrackSearch
 
    @ids = sort { $b->{sim} <=> $a->{sim} } @ids;
 
-   return (TRACKLIST | $flags, \@ids);
+   return (ALBUMTRACKLIST | $flags, \@ids);
 }
 
 sub TrackSearch
@@ -742,7 +742,7 @@ sub TrackSearch
    @ids = (sort { $b->{sim} <=> $a->{sim} } @ids);
    @ids = splice @ids, 0, $this->{maxitems};
 
-   return (ALBUMTRACKLIST | $flags, \@ids);
+   return (TRACKLIST | $flags, \@ids);
 }
 
 sub VariousArtistSearch
