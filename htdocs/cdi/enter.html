@@ -115,13 +115,9 @@ function validate()
 %    if (!defined $lookup) {
          <input type="text" name="sortname" size="30">
 %    } else {
-%       my $sortname;
-%       if ($lookup->{artist} =~ /^the (.*)$/i)
-%       {
-%           $sortname = "$1, The";
-%       } else {
-%           $sortname = $lookup->{artist};
-%       }
+%        my ($sortname, $st);
+%        $st = Style->new;
+%        $sortname = $st->MakeDefaultSortname($lookup->{artist});
          <input type="text" name="sortname" size="30"
                 value="<% $sortname %>"></td>
 %    }

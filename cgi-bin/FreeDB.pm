@@ -36,10 +36,12 @@ use Album;
 use Artist;
 use Diskid;
 use ModDefs;
+use Style;
 use Unicode::String;
 use constant  CD_MSF_OFFSET => 150;
 use constant  CD_FRAMES     =>  75;
 use constant  CD_SECS       =>  60;
+use bytes;
 
 sub new
 {
@@ -371,11 +373,10 @@ sub Retrieve
      return \%info;
 }
 
-use bytes;
 sub InsertForModeration
 {
     my ($this, $info) = @_;
-    my ($new, $track, $in, $u);
+    my ($new, $track, $in, $u, $st);
     my $ref = $info->{tracks};
 
     # Don't insert CDs that have only one track.
@@ -385,8 +386,12 @@ sub InsertForModeration
     return if ($info->{artist} =~ /^various$/i ||
                $info->{artist} =~ /^various artists$/i); 
 
+    $st = Style->new;
+    return if (!$st->UpperLowercaseCheck($info->{artist}));
+    return if (!$st->UpperLowercaseCheck($info->{album}));
+
     $new = "Artist=$info->{artist}\n";
-    $new .= "Sortname=$info->{artist}\n";
+    $new .= "Sortname=" . $st->MakeDefaultSortname($info->{artist}) . "\n";
     $new .= "AlbumName=$info->{album}\n";
     $new .= "NumTracks=" . scalar(@$ref) . "\n";
     $new .= "CDIndexId=$info->{cdindexid}\n";
@@ -394,6 +399,7 @@ sub InsertForModeration
 
     foreach $track (@$ref)
     {
+        return if (!$st->UpperLowercaseCheck($track->{track}));
         $new .= "Track" . $track->{tracknum} . "=" . $track->{track} . "\n";
     }
 

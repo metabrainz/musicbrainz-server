@@ -41,7 +41,7 @@ sub new
     return $this;
 }  
 
-sub IsMostlyUpperOrLowercase
+sub UpperLowercaseCheck
 {
     my ($this, $textarg) = @_;
     my ($len, $temp, $lccount, $uccount, $text, $numspaces, $ok);
@@ -62,7 +62,11 @@ sub IsMostlyUpperOrLowercase
     $uccount = 100 * ($temp =~ tr/A-Z//);
     $uccount = int($uccount / $len);
 
-    if ($numspaces == 0 && ($uccount == 100 || $lccount == 100))
+    if ($numspaces == 0 && $uccount == 100 && length($textarg) <= 3)
+    {
+        $ok = 1;
+    }
+    elsif ($numspaces == 0 && ($uccount == 100 || $lccount == 100))
     {
         $ok = 0;
     }
@@ -70,6 +74,22 @@ sub IsMostlyUpperOrLowercase
     {
         $ok = 0;
     }
+    print STDERR "$textarg: $lccount $uccount --> $ok\n";
 
     return $ok;
+}
+
+sub MakeDefaultSortname
+{
+    my ($this, $name) = @_;
+
+    if ($name =~ /^the (.*)$/i) 
+    {
+        return "$1, The";
+    }
+    if ($name =~ /^dj (.*)$/i) 
+    {
+        return "$1, DJ";
+    }
+    return $name;
 }

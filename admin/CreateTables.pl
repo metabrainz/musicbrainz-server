@@ -214,7 +214,7 @@ sub CreateTables
              "   Status tinyint not null, ".
              "   Rowid int not null, ".
              "   PrevValue varchar(255), ".
-             "   NewValue varchar(255), ".
+             "   NewValue text, ".
              "   TimeSubmitted datetime not null, ".
              "   Moderator int not null, ".
              "   YesVotes int, ".
@@ -372,6 +372,9 @@ sub InsertDefaultRows
 
     $dbh->do(qq|insert into ModeratorInfo (Id, Name, Password, Privs, 
                 ModsAccepted, ModsRejected) values (1, "Anonymous", "", 0,
+                0, 0)|);
+    $dbh->do(qq|insert into ModeratorInfo (Id, Name, Password, Privs, 
+                ModsAccepted, ModsRejected) values (9999, "FreeDB", "", 0,
                 0, 0)|);
 
     print "Inserted default rows.\n";

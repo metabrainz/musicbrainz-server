@@ -26,6 +26,7 @@ use Moderation;
 use ModerationSimple;
 use GUID;
 use Sql;
+use Style;
 
 {  
    package HTML::Mason::Commands;

@@ -181,12 +181,8 @@ for($i = 0; $i < $tracks; $i++)
               $trackname = ($parse_artist_track ne '') ? $2 : $1;
            }
        }
-
-       $sortname = $artistname; 
-       if ($artistname =~ /^the (.*)$/i)
-       {
-           $sortname = "$1, The";
-       }
+       my $st = Style->new;
+       $sortname = $st->MakeDefaultSortname($artistname); 
    }
    
 </%perl>
