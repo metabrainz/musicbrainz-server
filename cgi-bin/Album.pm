@@ -487,8 +487,9 @@ sub LoadTracks
 
            push @info, $track;
        }
-       $sql->Finish;
    }
+
+   $sql->Finish;
 
    return @info;
 }
