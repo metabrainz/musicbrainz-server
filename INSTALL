@@ -22,13 +22,19 @@ The MusicBrainz server requires the following items:
   
    CPAN Name         Actual Perl module distributions
    --------------------------------------------------
-   DBI         http://www.perl.com/CPAN/authors/id/TIMB/DBI-1.14.tar.gz
-   DBD::mysql  http://www.perl.com/CPAN/authors/id/JWIED/Msql-Mysql-modules-1.2215.tar.gz
-   CGI         http://www.perl.com/CPAN/authors/id/LDS/CGI.pm-2.73.tar.gz
-   HTML::Mason http://www.perl.com/CPAN/authors/id/J/JS/JSWARTZ/HTML-Mason-0.88.tar.gz
-   XML::Parser http://www.perl.com/CPAN/authors/id/C/CO/COOPERCL/XML-Parser-2.29.tar.gz
-   XML::DOM    http://www.perl.com/CPAN/authors/id/E/EN/ENNO/XML-DOM-1.25.tar.gz
-   XML::XQL    http://www.perl.com/CPAN/authors/id/E/EN/ENNO/XML-XQL-0.61.tar.gz
+   DBI             http://www.perl.com/CPAN/authors/id/TIMB/DBI-1.14.tar.gz
+   DBD::mysql      http://www.perl.com/CPAN/authors/id/JWIED/Msql-Mysql-modules-1.2215.tar.gz
+   CGI             http://www.perl.com/CPAN/authors/id/LDS/CGI.pm-2.73.tar.gz
+   HTML::Mason     http://www.perl.com/CPAN/authors/id/J/JS/JSWARTZ/HTML-Mason-0.88.tar.gz
+   LWP             http://www.perl.com/CPAN/authors/id/GAAS/libwww-perl-5.48.tar.gz
+   Apache::Session http://www.perl.com/CPAN/authors/id/JBAKER/Apache-Session-1.53.tar.gz
+   MLDBM           http://www.perl.com/CPAN/authors/id/GSAR/MLDBM-2.00.tar.gz
+   Digest::MD5     http://www.perl.com/CPAN/authors/id/GAAS/Digest-MD5-2.12.tar.gz
+   HTML::Parser    http://www.perl.com/CPAN/authors/id/GAAS/HTML-Parser-3.13.tar.gz
+   MIME::Base64    http://www.perl.com/CPAN/authors/id/GAAS/MIME-Base64-2.11.tar.gz
+   XML::Parser     http://www.perl.com/CPAN/authors/id/C/CO/COOPERCL/XML-Parser-2.29.tar.gz
+   XML::DOM        http://www.perl.com/CPAN/authors/id/E/EN/ENNO/XML-DOM-1.25.tar.gz
+   XML::XQL        http://www.perl.com/CPAN/authors/id/E/EN/ENNO/XML-XQL-0.61.tar.gz
 
 Installation:
 =============
