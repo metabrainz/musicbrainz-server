@@ -22,7 +22,7 @@ if (!defined($result))
                                         &ModDefs::MODBOT_MODERATOR . qq|
                                         and opentime > now() - interval '1 week' 
                                group by Moderator.ModsAccepted, Moderator.name 
-                               order by num desc limit 10|,
+                               order by num desc limit 25|,
                        title=>"Most active moderators in the last week:<br>".
                               "(Open and accepted moderations)",
                        numcols=>2,
@@ -36,7 +36,7 @@ if (!defined($result))
                                         &ModDefs::FREEDB_MODERATOR . qq|
                                         and Moderator.id != | .
                                         &ModDefs::MODBOT_MODERATOR . qq|
-                               order by modsaccepted desc limit 10|,
+                               order by modsaccepted desc limit 25|,
                        title=>"Most active moderators overall:<br>".
                               "(Accepted moderations only)",
                        numcols=>2,
@@ -49,7 +49,7 @@ if (!defined($result))
                                    from Votes,Moderator 
                                   where Votes.Uid = Moderator.id 
                                group by Moderator.id, Moderator.name 
-                               order by num desc limit 10|,
+                               order by num desc limit 25|,
                        title=>"Most active voters overall:",
                        numcols=>2,
 											 coltitles=>["User", "Votes"]);
