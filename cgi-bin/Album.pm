@@ -1,3 +1,5 @@
+#!/usr/bin/perl -w
+# vi: set ts=4 sw=4 :
 #____________________________________________________________________________
 #
 #   MusicBrainz -- the open internet music database
@@ -403,7 +405,7 @@ sub LoadFromId
         $row[5] =~ s/^\{(.*)\}$/$1/;
         $this->{attrs} = [ split /,/, $row[5] ];
 
-	delete @$this{qw( trackcount discidcount trmidcount )};
+		delete @$this{qw( trackcount discidcount trmidcount )};
 
         if (defined $loadmeta && $loadmeta)
         {
@@ -574,27 +576,23 @@ sub LoadTracksFromMultipleArtistAlbum
 # The array is empty if there are no tracks or on error
 sub LoadTRMCount
 {
-   my ($this) = @_;
-   my ($query, $sql, @row, %trmcount);
+ 	my $this = shift;
+	my $sql = Sql->new($this->{DBH});
 
-   $sql = Sql->new($this->{DBH});
-   $query = qq|select AlbumJoin.track, count(TRMJoin.track) as num_trm 
-                 from AlbumJoin, TRMJoin 
-                where AlbumJoin.album = ? and 
-                      AlbumJoin.track = TRMJoin.track 
-             group by AlbumJoin.track, AlbumJoin.sequence, albumjoin.id 
-             order by AlbumJoin.sequence, AlbumJoin.id|;
+	my $counts = $sql->SelectListOfLists(
+		"SELECT	albumjoin.track, COUNT(trmjoin.track) AS num_trm
+		FROM	albumjoin, trmjoin
+		WHERE	albumjoin.album = ?
+		AND		albumjoin.track = trmjoin.track
+	   	GROUP BY albumjoin.track",
+		$this->GetId,
+	);
 
-   if ($sql->Select($query, $this->{id}))
-   {
-       for(;@row = $sql->NextRow();)
-       {
-           $trmcount{$row[0]} = $row[1];
-       }
-       $sql->Finish;
-   }
-
-   return \%trmcount;
+	+{
+		map {
+			$_->[0] => $_->[1]
+		} @$counts
+	};
 }
 
 # Given a list of albums, this function will merge the list of albums into
