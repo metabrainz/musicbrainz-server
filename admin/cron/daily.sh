@@ -13,8 +13,8 @@ cd ..
 # Collect stats
 ./CollectStats.pl
 cd statistics
-./GeneratePlot.pl $imagedir/stats_30_days.gif
-chmod a+r $imagedir/stats_30_days.gif
+./GeneratePlot.pl $imagedir/stats_30_days.png
+chmod a+r $imagedir/stats_30_days.png
 cd ..
 
 # Vacuum and analyze the database for peak performance
