@@ -59,7 +59,9 @@ sub TransHandler
 	# /(artist|album|track)/$GUID.html
 	if ($uri =~ m[^/(artist|album|track)/($GUID)\.html\z])
 	{
-		return use_new_uri($r, "/show$1.html?mbid=$2");
+		my $new_uri = "/show$1.html?mbid=$2";
+		$new_uri .= "&" . $r->args if defined $r->args;
+		return use_new_uri($r, $new_uri);
 	}
 
 	# Obsolete?
