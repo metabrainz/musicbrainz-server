@@ -57,7 +57,7 @@ CREATE INDEX moderation_open_idx_moderator ON moderation_open (moderator);
 CREATE INDEX moderation_open_idx_rowid ON moderation_open (rowid);
 CREATE INDEX moderation_open_idx_status ON moderation_open (status);
 
-CREATE INDEX moderator_nameindex ON moderator (name);
+CREATE UNIQUE INDEX moderator_nameindex ON moderator (name);
 
 CREATE UNIQUE INDEX moderator_preference_moderator_key ON moderator_preference (moderator, name);
 
