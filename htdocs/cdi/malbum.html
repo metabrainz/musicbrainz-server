@@ -13,8 +13,8 @@ mc_comp('/comp/sidebar', title=>'Submit CD: Select Album');
 
 if (!defined $search || $search eq '')
 {
-    mc_comp("Please enter the CD name. Click on the " .
-            "Back button in your browser and try again.");
+    mc_out("Please enter the CD name. Click on the " .
+           "Back button in your browser and try again.");
     return;
 }
 

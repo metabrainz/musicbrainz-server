@@ -94,7 +94,12 @@ my %Queries =
    SubmitTrackTRMId =>
       [\&QuerySupport::SubmitTrackTRMId, 
         'http://musicbrainz.org/mm/mm-2.0#trackid',
-        'http://musicbrainz.org/mm/mm-2.0#trmid']
+        'http://musicbrainz.org/mm/mm-2.0#trmid',
+        'http://musicbrainz.org/mm/mq-1.0#sessionId',
+        'http://musicbrainz.org/mm/mq-1.0#sessionKey'],
+   AuthenticateQuery =>
+      [\&QuerySupport::AuthenticateQuery, 
+        'http://musicbrainz.org/mm/mq-1.0#username']
 );  
 
 sub Statement

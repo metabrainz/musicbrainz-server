@@ -104,3 +104,23 @@ sub CreateLogin
 
    return ("", $user, 0, $uid);
 } 
+
+sub GetUserPasswordAndId
+{
+   my ($this, $username) = @_;
+   my ($sql, $dbuser);
+
+   $sql = Sql->new($this->{DBH});
+   return undef if (!defined $username || $username eq '');
+
+   $dbuser = $sql->Quote($username);
+   if ($sql->Select(qq|select password, id from ModeratorInfo 
+                       where name = $dbuser|))
+   {
+       my @row = $sql->NextRow();
+       $sql->Finish;
+       return ($row[0], $row[1]);
+   }
+
+   return (undef, undef);
+} 

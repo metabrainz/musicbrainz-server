@@ -46,7 +46,7 @@ sub GenerateAlbumFromDiskId
    my ($this, $rdf, $id, $numtracks, $toc) = @_;
    my ($sql, @row, $album, $di);
 
-   return $rdf->EmitErrorRDF("No DiskId given.") if (!defined $id);
+   return $rdf->ErrorRDF("No DiskId given.") if (!defined $id);
 
    $sql = Sql->new($this->{DBH});
 

@@ -47,6 +47,8 @@ use GUID;
 use FreeDB;  
 use Insert;  
 use RDFStore::Parser::SiRPAC;  
+use Digest::SHA1 qw(sha1_hex);
+use Apache::Session::File;
 
 BEGIN { require 5.003 }
 use vars qw(@ISA @EXPORT);
@@ -143,7 +145,7 @@ sub GenerateCDInfoObjectFromDiskId
    my ($dbh, $doc, $rdf, $id, $numtracks, $toc) = @_;
    my ($di);
 
-   return $rdf->EmitErrorRDF("No DiskId given.") if (!defined $id);
+   return $rdf->ErrorRDF("No DiskId given.") if (!defined $id);
 
    # Check to see if the album is in the main database
    $di = Diskid->new($dbh);
@@ -163,7 +165,7 @@ sub GetCDInfoMM2
    my ($dbh, $triples, $rdf, $id, $numtracks) = @_;
    my ($sql, @row, $album, $di, $toc, $i, $currentURI);
 
-   return $rdf->EmitErrorRDF("No DiskId given.") if (!defined $id);
+   return $rdf->ErrorRDF("No DiskId given.") if (!defined $id);
 
    if (defined $numtracks)
    {
@@ -185,7 +187,7 @@ sub AssociateCDMM2
    my ($dbh, $triples, $rdf, $diskid, $albumid) = @_;
    my ($numtracks, $di, $toc, $i, $currentURI);
 
-   return $rdf->EmitErrorRDF("No DiskId given.") if (!defined $diskid);
+   return $rdf->ErrorRDF("No DiskId given.") if (!defined $diskid);
    
    $currentURI = $$triples[0]->subject->getLabel;
    $numtracks = QuerySupport::Extract($triples, $currentURI, $i, EXTRACT_NUMTRACKS_QUERY);
@@ -206,7 +208,7 @@ sub FindArtistByName
    my ($dbh, $doc, $rdf, $search) = @_;
    my ($sql, $query, @row, @ids, $tb);
 
-   return $rdf->EmitErrorRDF("No artist search criteria given.") 
+   return $rdf->ErrorRDF("No artist search criteria given.") 
       if (!defined $search);
    return undef if (!defined $dbh);
 
@@ -234,7 +236,7 @@ sub FindAlbumsByArtistName
    my ($dbh, $doc, $rdf, $search) = @_;
    my ($query, $sql, @row, @ids);
 
-   return $rdf->EmitErrorRDF("No artist search criteria given.") 
+   return $rdf->ErrorRDF("No artist search criteria given.") 
       if (!defined $search);
    return undef if (!defined $dbh);
 
@@ -280,7 +282,7 @@ sub FindAlbumByName
    my ($dbh, $doc, $rdf, $search, $artist) = @_;
    my ($sql, $query, @row, @ids);
 
-   return $rdf->EmitErrorRDF("No album search criteria given.") 
+   return $rdf->ErrorRDF("No album search criteria given.") 
       if (!defined $search && !defined $artist);
    return undef if (!defined $dbh);
 
@@ -325,7 +327,7 @@ sub FindTrackByName
    my ($dbh, $doc, $rdf, $search, $album, $artist) = @_;
    my ($query, $sql, @row, $count, @ids);
 
-   return $rdf->EmitErrorRDF("No track search criteria given.") 
+   return $rdf->ErrorRDF("No track search criteria given.") 
       if (!defined $search && !defined $artist && !defined $album);
    return undef if (!defined $dbh);
 
@@ -377,7 +379,7 @@ sub FindTrackByName
        }
        else
        {
-           return $rdf->EmitErrorRDF("Invalid track search criteria given.") 
+           return $rdf->ErrorRDF("Invalid track search criteria given.") 
        }
    }
 
@@ -399,7 +401,7 @@ sub FindDistinctGUID
    my ($dbh, $doc, $rdf, $name, $artist) = @_;
    my ($sql, $query, @ids, @row);
 
-   return $rdf->EmitErrorRDF("No name or artist search criteria given.")
+   return $rdf->ErrorRDF("No name or artist search criteria given.")
       if (!defined $name && !define $artist);
    return undef if (!defined $dbh);
 
@@ -441,7 +443,7 @@ sub GetArtistByGlobalId
    my ($dbh, $doc, $rdf, $id) = @_;
    my ($sql, $artist);
 
-   return $rdf->EmitErrorRDF("No artist id given.") 
+   return $rdf->ErrorRDF("No artist id given.") 
       if (!defined $id);
    return undef if (!defined $dbh);
    
@@ -458,7 +460,7 @@ sub GetAlbumByGlobalId
    my ($dbh, $doc, $rdf, $id) = @_;
    my ($sql, @row, $album);
 
-   return $rdf->EmitErrorRDF("No album id given.") 
+   return $rdf->ErrorRDF("No album id given.") 
       if (!defined $id || $id eq '');
    return undef if (!defined $dbh);
 
@@ -475,7 +477,7 @@ sub GetTrackByGlobalId
    my ($dbh, $doc, $rdf, $id) = @_;
    my ($sql, $query, @row, @ids);
 
-   return $rdf->EmitErrorRDF("No track id given.") 
+   return $rdf->ErrorRDF("No track id given.") 
       if (!defined $id || $id eq '');
    return undef if (!defined $dbh);
 
@@ -496,7 +498,7 @@ sub GetTrackByGUID
    my ($dbh, $doc, $rdf, $id) = @_;
    my ($sql, @ids);
 
-   return $rdf->EmitErrorRDF("No track id given.") 
+   return $rdf->ErrorRDF("No track id given.") 
       if (!defined $id || $id eq '');
    return undef if (!defined $dbh);
 
@@ -516,7 +518,7 @@ sub GetAlbumsByArtistGlobalId
    my ($dbh, $doc, $rdf, $id) = @_;
    my ($sql, @row, @ids);
 
-   return $rdf->EmitErrorRDF("No album id given.") 
+   return $rdf->ErrorRDF("No album id given.") 
       if (!defined $id);
    return undef if (!defined $dbh);
 
@@ -766,12 +768,12 @@ sub SubmitTrack
        !defined $seq || $seq eq '' ||
        !defined $artist || $artist eq '')
    {
-       return $rdf->EmitErrorRDF("Incomplete track information submitted.") 
+       return $rdf->ErrorRDF("Incomplete track information submitted.") 
    }
 
    if (DBDefs::DB_READ_ONLY)
    {
-       return $rdf->EmitErrorRDF(DBDefs::DB_READ_ONLY_MESSAGE) 
+       return $rdf->ErrorRDF(DBDefs::DB_READ_ONLY_MESSAGE) 
    }
 
    $in = Insert->new($dbh);
@@ -790,7 +792,7 @@ sub SubmitTrack
      ];
 
    $ret = $in->Insert(\%info);
-   return $rdf->EmitErrorRDF($in->GetError()) 
+   return $rdf->ErrorRDF($in->GetError()) 
       if (!defined $ret);
 
    return $rdf->CreateStatus(0);
@@ -803,8 +805,11 @@ sub SubmitTrack
 #       ToDo: extend with moderation system instead of deafult accept.
 sub SubmitTrackTRMId
 {
-   my ($dbh, $doc, $rdf, $trackgid, $trmid) = @_;
+   my ($dbh, $doc, $rdf, $trackgid, $trmid, $session_id, $session_key) = @_;
    my (@ids, @ids2, $sql, $gu, $tr);
+   my (%session);
+
+   print STDERR "track $trackgid, trmid $trmid\n";
 
    return undef if (!defined $dbh);
 
@@ -816,7 +821,49 @@ sub SubmitTrackTRMId
 
    if (DBDefs::DB_READ_ONLY)
    {
-       return $rdf->EmitErrorRDF(DBDefs::DB_READ_ONLY_MESSAGE) 
+       return $rdf->ErrorRDF(DBDefs::DB_READ_ONLY_MESSAGE) 
+   }
+
+   if (defined $session_id && $session_id ne '' &&
+       defined $session_key && $session_key ne '')
+   {
+       print STDERR "Find session: $session_id\n";
+       eval {
+          tie %session, 'Apache::Session::File', $session_id, {
+                     Directory => DBDefs::SESSION_DIR,
+                     LockDirectory   => DBDefs::LOCK_DIR};
+       };
+       if ($@)
+       {
+           print STDERR "Cannot find session!\n";
+           undef $session_id;
+           undef $session_key;
+           return $rdf->ErrorRDF("Invalid session id.");
+       }
+       else
+       {
+           print STDERR "Found session!\n";
+           if ($session{session_key} ne $session_key)
+           {
+               tied(%session)->delete;
+               untie %session;
+               return $rdf->ErrorRDF("Invalid session key or invalid " .
+                                     "password. ");
+           }
+           if ($session{expire} < time)
+           {
+               tied(%session)->delete;
+               untie %session;
+               return $rdf->ErrorRDF("Session key expired. " .
+                                     "Please Authenticate again"); 
+           }
+           print STDERR "Authenticated user $session{moderator}\n";
+       }
+   }
+   else
+   {
+       undef $session_id;
+       undef $session_key;
    }
 
    $sql = Sql->new($dbh);
@@ -830,6 +877,7 @@ sub SubmitTrackTRMId
 
    if (scalar(@ids) == 0 || !defined($ids[0]))
    {
+       untie %session unless !defined $session_id;
        return $rdf->ErrorRDF("Unknown GlobalID of the track.") 
    }
    #print "TrackID: $ids[0].\n";
@@ -841,14 +889,22 @@ sub SubmitTrackTRMId
    if (scalar(@ids) > 0 && defined($ids2[0]))
    {
       #There already is a track associated with the $trmid
-      if ($ids2[0] != $ids[0]) {
-         return $rdf->ErrorRDF("The TRMId is already associated with a different track.") 
+      if ($ids2[0] != $ids[0]) 
+      {
+         untie %session unless !defined $session_id;
+         return $rdf->ErrorRDF("The TRMId is already associated with" .
+                               " a different track.") 
       }
-      #print "Found TRMId already.\n";
+      untie %session unless !defined $session_id;
       return $rdf->CreateStatus(0);
    }
    $gu->Insert($trmid,$ids[0]);
-   #print "Inserted TRMId.\n";
+
+   if (defined $session_id)
+   {
+       untie %session;
+   }
+
    return $rdf->CreateStatus(0);
 }
 
@@ -865,7 +921,7 @@ sub SubmitSyncText
    if (!defined $gid || $gid eq '' ||
        !defined $sync_contrib || $sync_contrib eq '' )
    {
-       return $rdf->EmitErrorRDF("Incomplete synctext information submitted.") 
+       return $rdf->ErrorRDF("Incomplete synctext information submitted.") 
    }
 
    if (! DBDefs->USE_LYRICS) 
@@ -875,7 +931,7 @@ sub SubmitSyncText
 
    if (DBDefs::DB_READ_ONLY)
    {
-       return $rdf->EmitErrorRDF(DBDefs::DB_READ_ONLY_MESSAGE) 
+       return $rdf->ErrorRDF(DBDefs::DB_READ_ONLY_MESSAGE) 
    }
 
    $tr = Track->new($dbh);
@@ -886,7 +942,7 @@ sub SubmitSyncText
    ($trackid) = $sql->GetSingleRow("Track", ["id"], ["gid", $id]);
    if (!defined($trackid)) 
    {
-       return $rdf->EmitErrorRDF("Unknown track id.") 
+       return $rdf->ErrorRDF("Unknown track id.") 
    }
    if (!defined $sync_type || !exists $LyricTypes{$sync_type}) 
    { 
@@ -919,7 +975,7 @@ sub SubmitSyncText
    } 
    else 
    {
-       return $rdf->EmitErrorRDF("Synctext information already submitted.") 
+       return $rdf->ErrorRDF("Synctext information already submitted.") 
    }
 
    return $rdf->CreateStatus(0);
@@ -938,7 +994,7 @@ sub GetSyncTextByTrackGlobalId
        return $r->EmitRDFError("This server does not support synctext.");
    }
 
-   return $r->EmitErrorRDF("No track id given.") 
+   return $r->ErrorRDF("No track id given.") 
       if (!defined $id);
    return undef if (!defined $dbh);
 
@@ -946,7 +1002,7 @@ sub GetSyncTextByTrackGlobalId
    $id = $sql->Quote($id);
    ($trackid) = $sql->GetSingleRow("Track", ["id"], ["gid", $id]);
    if (!defined($trackid)) {
-       return $r->EmitErrorRDF("Unknown track id.") 
+       return $r->ErrorRDF("Unknown track id.") 
    }
 
    my $ly= Lyrics->new($dbh);
@@ -1014,7 +1070,7 @@ sub GetLyricsByGlobalId
        return $r->EmitRDFError("This server does not support lyrics.");
    }
 
-   return $r->EmitErrorRDF("No track id given.") 
+   return $r->ErrorRDF("No track id given.") 
       if (!defined $id);
    return undef if (!defined $dbh);
 
@@ -1065,3 +1121,52 @@ sub GetLyricsByGlobalId
 
    return $rdf;
 }
+
+sub AuthenticateQuery
+{
+   my ($dbh, $doc, $rdf, $username) = @_;
+   my ($session_id, $challenge, $us, $data);
+   my ($uid, $digest, $chal_size, $i, $pass);
+
+   if (!defined $username || $username eq '')
+   {
+       return $rdf->ErrorRDF("Invalid/missing user name.") 
+   }
+
+   if (DBDefs::DB_READ_ONLY)
+   {
+       return $rdf->ErrorRDF(DBDefs::DB_READ_ONLY_MESSAGE) 
+   }
+
+   $us = UserStuff->new($dbh);
+   ($pass, $uid) = $us->GetUserPasswordAndId($username);
+   if (!defined $pass)
+   {
+       return $rdf->ErrorRDF("Unknown user.") 
+   }
+
+   srand;
+   $chal_size = int(rand 16) + 16;
+   for($i = 0; $i < $chal_size; $i++)
+   {
+       $challenge .= sprintf("%02x", int(rand 256));
+   }
+
+   $data = $challenge . $username . $pass;
+   $digest = sha1_hex($data);
+
+   my %session;
+   tie %session, 'Apache::Session::File', undef, {
+                 Directory => DBDefs::SESSION_DIR,
+                 LockDirectory   => DBDefs::LOCK_DIR};
+   $session{session_key} = $digest;
+   $session{uid} = $uid;
+   $session{moderator} = $username;
+   $session{expire} = time + 3600;
+   $session_id = $session{_session_id};
+   untie %session;
+   print STDERR "Start session: $session_id\n";
+
+   return $rdf->CreateAuthenticateResponse($session_id, $challenge);
+}
+

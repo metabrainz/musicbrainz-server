@@ -658,54 +658,18 @@ sub CreateFreeDBLookup
    return $rdf;
 }
 
-sub DumpBegin
+sub CreateAuthenticateResponse
 {
-   my ($this) = @_;
+   my ($this, $sessionid, $challenge) = @_;
+   my ($rdf);
 
-   return undef if (!exists $this->{file});
+   $rdf = $this->BeginRDFObject();
+   $rdf .= $this->BeginDesc("mq:Result");
+   $rdf .= $this->Element("mq:status", "OK");
+   $rdf .= $this->Element("mq:sessionId", $sessionid);
+   $rdf .= $this->Element("mq:authChallenge", $challenge);
+   $rdf .= $this->EndDesc("mq:Result");
+   $rdf .= $this->EndRDFObject();
 
-   print {$this->{file}} $this->BeginRDFObject(1);
-
-   return 1;
-}
-
-sub DumpItem
-{
-   my ($this, $type, $id) = @_;
-   my (@cache, %obj, $ref, @newrefs, $i, $total, @gids, $out, $depth); 
-
-   $depth = $this->{depth};
-   return $this->ErrorRDF("Invalid search depth specified.") if ($depth < 0);
-
-   $this->{cache} = \@cache;
-
-   # Create a cache of objects and add the passed object ids without
-   # loading the actual objects
-   $obj{id} = $id;
-   $obj{type} = $type;
-   push @newrefs, {%obj};
-
-   # Call find references to recursively load and find referenced objects
-   $this->FindReferences(1, @newrefs);
-
-   # Output all of the referenced objects. Make sure to only output
-   # the objects in the cache that have been loaded. The objects that
-   # have not been loaded will not be output, even though they are
-   # in the cache. (They would've been output if depth was one greater)
-   $total = scalar(@cache);
-   for($i = 0; $i < $total; $i++)
-   {
-      next if (!defined $cache[$i]->{depth} || $cache[$i]->{depth} > $depth);
-
-      print {$this->{file}} $this->OutputRDF(\@cache, $cache[$i]) . "\n";
-   }
-
-   return 1;
-}
-
-sub DumpEnd
-{
-   my ($this) = @_;
-
-   print {$this->{file}} $this->EndRDFObject;
+   return $rdf;
 }

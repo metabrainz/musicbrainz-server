@@ -52,7 +52,7 @@ sub escape
     return $_[0];
 }
 
-sub EmitErrorRDF
+sub ErrorRDF
 {
     my ($this, $text, $emit_headers) = @_;
     my ($rdf, $r, $len);
