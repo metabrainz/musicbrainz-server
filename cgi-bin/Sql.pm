@@ -41,9 +41,20 @@ sub new
     $this->{DBH} = $dbh;
     $this->{Quiet} = 0;
 
-    bless $this;
-    return $this;
+    bless $this, ref($type) || $type;
 }  
+
+sub DESTROY
+{
+    my $self = shift;
+    my $dbh = $self->{DBH};
+
+    unless ($self->{DBH}{AutoCommit})
+    {
+        warn "Sql DESTROY invoking rollback!\n";
+        eval { $self->{DBH}->rollback };
+    }
+}
 
 sub Quiet
 {
@@ -313,7 +324,6 @@ sub GetSingleColumnLike
 sub Begin
 {
    my $this = $_[0];
-
    $this->{DBH}->{AutoCommit} = 0;
 }
 
@@ -327,12 +337,16 @@ sub Commit
        cluck("Commit failed") if ($rv eq '' && !$this->{Quiet});
        return $rv;
    };
+
    if ($@)
    {
        my $err = $@;
        cluck($err) unless ($this->{Quiet});
+       eval { $this->Rollback };
        die $err;
    }
+
+   $this->{DBH}{AutoCommit} = 1;
    return $ret;
 }
 
@@ -346,12 +360,15 @@ sub Rollback
        cluck("Rollback failed") if ($rv eq '' && !$this->{Quiet});
        return $rv;
    };
+
    if ($@)
    {
        my $err = $@;
        cluck($err) unless ($this->{Quiet});
        die $err;
    }
+
+   $this->{DBH}{AutoCommit} = 1;
    return $ret;
 }
 
@@ -598,6 +615,9 @@ sub new
 
     my ($class, $sql, $args) = @_;
 
+    #printf STDERR "Starting SQL: \"%s\" (%s)\n",
+    #    $sql, join(", ", @$args);
+    
     bless {
         SQL => $sql,
         ARGS => $args,
