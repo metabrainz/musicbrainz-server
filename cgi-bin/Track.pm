@@ -31,6 +31,8 @@ use vars qw(@ISA @EXPORT);
 @EXPORT = @EXPORT = '';
 
 use strict;
+
+use Carp qw( carp croak );
 use DBI;
 use DBDefs;
 use Artist;
@@ -140,73 +142,88 @@ sub LoadFromAlbumJoin
 # Accessor functions. Return true on success, undef otherwise
 sub LoadFromId
 {
-   my ($this) = @_;
-   my ($sth, $sql, @row);
+	my ($this) = @_;
 
-   if (!defined $this->GetId() && !defined $this->GetMBId())
-   {
-        return undef;
-   }
+	my $id = $this->GetId;
+	my $mbid = $this->GetMBId;
 
-   $sql = Sql->new($this->{DBH});
-   if (exists $this->{album})
-   {
-       if (defined $this->GetId())
-       {
-           @row = $sql->GetSingleRow("Track, AlbumJoin", 
-                             [qw(Track.id Track.name GID sequence length 
-                                 Track.artist Track.modpending 
-                                 AlbumJoin.modpending AlbumJoin.id)],
-                             ["Track.id", $this->GetId(),
-                              "AlbumJoin.track", "Track.id",
-                              "AlbumJoin.album", $this->{album}]);
-       }
-       else
-       {
-           @row = $sql->GetSingleRow("Track, AlbumJoin", 
-                             [qw(Track.id Track.name GID sequence length 
-                                 Track.artist Track.modpending 
-                                 AlbumJoin.modpending AlbumJoin.id)],
-                             ["Track.gid", $sql->Quote($this->GetMBId()),
-                              "AlbumJoin.track", "Track.id",
-                              "AlbumJoin.album", $this->{album}]);
-       }
-   }
-   else
-   {
-       if (defined $this->GetId())
-       {
-           @row = $sql->GetSingleRow("Track, AlbumJoin", 
-                             [qw(Track.id Track.name GID sequence length 
-                                 Track.artist Track.modpending 
-                                 AlbumJoin.modpending AlbumJoin.id)],
-                             ["Track.id", $this->GetId(),
-                              "AlbumJoin.track", "Track.id"]);
-       }
-       else
-       {
-           @row = $sql->GetSingleRow("Track, AlbumJoin", 
-                             [qw(Track.id Track.name GID sequence length 
-                                 Track.artist Track.modpending 
-                                 AlbumJoin.modpending AlbumJoin.id)],
-                             ["Track.gid", $sql->Quote($this->GetMBId()),
-                              "AlbumJoin.track", "Track.id"]);
-       }
-   }
-   if (defined $row[0])
-   {
-        $this->{id} = $row[0];
-        $this->{name} = $row[1];
-        $this->{mbid} = $row[2];
-        $this->{sequence} = $row[3];
-        $this->{length} = $row[4];
-        $this->{artist} = $row[5];
-        $this->{modpending} = $row[6];
-        $this->{albumjoinmodpending} = $row[7];
-        $this->{sequenceid} = $row[8];
-        return 1;
-   }
-   return undef;
+	if (not $id and not $mbid)
+	{
+		carp "No ID / MBID specified";
+		return undef;
+	}
+
+	my $sql = Sql->new($this->{DBH});
+	my $row;
+
+	if (my $albumid = $this->{album})
+	{
+		if ($id)
+		{
+			$row = $sql->SelectSingleRowArray(
+				"SELECT t.id, t.name, t.gid, j.sequence, t.length, t.artist, t.modpending,
+						j.modpending, j.id
+				FROM	track t, albumjoin j
+				WHERE	j.track = t.id
+				AND		j.track = ?
+				AND		j.album = ?",
+				$id,
+				$albumid,
+			);
+		}
+		elsif ($mbid)
+		{
+			$row = $sql->SelectSingleRowArray(
+				"SELECT t.id, t.name, t.gid, j.sequence, t.length, t.artist, t.modpending,
+						j.modpending, j.id
+				FROM	track t, albumjoin j
+				WHERE	j.track = t.id
+				AND		t.gid = ?
+				AND		j.album = ?",
+				$mbid,
+				$albumid,
+			);
+		} else {
+			croak "No ID / MBID specified";
+		}
+	}
+	else
+	{
+		# FIXME this will fail when tracks appear on more than one album
+		if ($id)
+		{
+			$row = $sql->SelectSingleRowArray(
+				"SELECT t.id, t.name, t.gid, j.sequence, t.length, t.artist, t.modpending,
+						j.modpending, j.id
+				FROM	track t, albumjoin j
+				WHERE	j.track = t.id
+				AND		j.track = ?",
+				$id,
+			);
+		}
+		elsif ($mbid)
+		{
+			$row = $sql->SelectSingleRowArray(
+				"SELECT t.id, t.name, t.gid, j.sequence, t.length, t.artist, t.modpending,
+						j.modpending, j.id
+				FROM	track t, albumjoin j
+				WHERE	j.track = t.id
+				AND		t.gid = ?",
+				$mbid,
+			);
+		} else {
+			croak "No ID / MBID specified";
+		}
+	}
+
+	$row or return undef;
+
+	@$this{qw(
+		id name mbid sequence length artist modpending
+		albumjoinmodpending sequenceid
+	)} = @$row;
+	
+	1;
 }
 
 sub GetMetadataFromIdAndAlbum
