@@ -93,6 +93,8 @@ sub handler
 		};
     }
 
+	# TODO drop the session if expired
+
     if ($tied)
     {
         $session{expire} = time() + &DBDefs::WEB_SESSION_SECONDS_TO_LIVE;
