@@ -90,4 +90,6 @@ use constant ALLOW_SELF_VOTE => 0;
 use constant LOCK_DIR => "/home/httpd/musicbrainz/locks";
 use constant SESSION_DIR => "/home/httpd/musicbrainz/sessions";
 
+use constant DEBUG_LOG => "/tmp/musicbrainz-debug.log";
+
 1;

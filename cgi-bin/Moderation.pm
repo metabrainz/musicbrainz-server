@@ -498,6 +498,14 @@ sub InsertModeration
     my ($table, $column, $prev, $new);
     my ($sql, $ui, $insertid, $automod);
 
+    use DebugLog;
+    if (my $d = DebugLog->open)
+    {
+	$d->stamp;
+	$d->dumper([$this], ['this']);
+	$d->close;
+    }
+
     $automod = 0;
     $this->CheckSpecialCases();
 
@@ -508,6 +516,13 @@ sub InsertModeration
     $column = $sql->Quote($this->{column});
     $prev = $sql->Quote($this->{prev});
     $new = $sql->Quote($this->{new});
+
+    if (my $d = DebugLog->open)
+    {
+	$d->stamp;
+	$d->dumper([$prev, $new], ['prev', 'new']);
+	$d->close;
+    }
 
     $sql->Do(qq|insert into Moderation (tab, col, rowid, prevvalue, 
                             newvalue, expiretime, moderator, yesvotes, 

@@ -17,6 +17,14 @@ my ($mb, $i, $j, $mod, $new, $modid, $depmod, $url, $sql);
 #print STDERR "enter_mod: =============================================================\n";
 #print STDERR Data::Dumper->Dump([%ARGS], ["ARGS"]);
 
+use DebugLog;
+if (my $d = DebugLog->open)
+{
+    $d->stamp("enter_mod.html");
+    $d->dumper([\%ARGS], ['*ARGS']);
+    $d->close;
+}
+
 $mb = mc_comp("/comp/dblogin");
 $mod = Moderation->new($mb->{DBH});
 $sql = Sql->new($mb->{DBH});
