@@ -1,0 +1,56 @@
+%# vi: set ts=4 sw=4 ft=mason :
+<%args>
+@artistid => ()
+$unsubscribe => 0
+</%args>
+<%perl>
+
+return $m->comp(
+	"/comp/redirect",
+	"/user/subscriptions.html",
+) if not @artistid;
+
+$m->comp(
+	"/comp/checkloggedin", 1, 1,
+	"You must log in to change your subscriptions.",
+) or return;
+
+my $mb = $m->comp("/comp/dblogin");
+my @artists;
+
+for my $artistid (@artistid)
+{
+	MusicBrainz::IsNonNegInteger($artistid)
+		and $artistid
+		and $artistid != &ModDefs::VARTIST_ID
+		and $artistid != &ModDefs::DARTIST_ID
+		or next;
+
+	my $artist = Artist->new($mb->{DBH});
+	$artist->SetId($artistid);
+	$artist->LoadFromId
+		or next;
+
+	push @artists, $artist;
+}
+
+@artists
+	or return $m->comp("/comp/badargs", 1, 1);
+
+my $subs = UserSubscription->new($mb->{DBH});
+$subs->SetUser($session{uid});
+
+my $method = ($unsubscribe ? "UnsubscribeArtists" : "SubscribeArtists");
+$subs->$method(@artists)
+	or return $m->comp(
+		"/comp/error",
+		"Sorry, there was an error processing your request.",
+		1, 1,
+	);
+    
+return $m->comp(
+	"/comp/redirect",
+	"/user/subscriptions.html",
+);
+
+</%perl>

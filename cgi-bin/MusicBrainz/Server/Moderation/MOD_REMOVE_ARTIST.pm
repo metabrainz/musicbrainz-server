@@ -65,6 +65,9 @@ sub ApprovedAction
 	my $ar = Artist->new($this->{DBH});
 	$ar->SetId($rowid);
 
+	my $subs = UserSubscription->new($this->{DBH});
+	$subs->ArtistBeingDeleted($ar, $this);
+
 	defined($ar->Remove)
 		or return &ModDefs::STATUS_FAILEDDEP;
 

@@ -1,0 +1,81 @@
+%# vi: set ts=4 sw=4 ft=mason :
+<%perl>
+
+$m->comp(
+	"/comp/checkloggedin", 1, 1,
+	"You must log in to manage your subscriptions.",
+) or return;
+
+my $mb = $m->comp("/comp/dblogin");
+my $subs = UserSubscription->new($mb->{DBH});
+$subs->SetUser($session{uid});
+
+my $info = $subs->GetSubscribedArtists;
+@$info = grep { defined $_->{name} } @$info;
+
+$m->comp("/comp/sidebar", title => 'Artist Subscriptions');
+
+</%perl>
+
+% if ($session{email_nag}) {
+	<p class="notice">
+		<span style="color: red">You have not provided an email address!</span>
+		<br>
+		To receive notice of when moderations are added to your
+		subscribed artists, please
+		<a href="/moderator.html?uid=<% $session{uid} %>">edit your profile</a>
+		and provide an email address.
+   </p>
+% }
+
+% if (not @$info) {
+
+	<p>
+		You are not currently subscribed to any artists.&nbsp;
+		To subscribe to an artist, click the "Subscribe" link
+		on the artist's page.
+	</p>
+
+% } else {
+
+	<p>
+		You are currently subscribed to
+		<% (@$info == 1) ? "this artist" : "these artists" %>.&nbsp;
+		To unsubscribe, tick the "unsubscribe" box next to the
+		subscriptions you want to delete,
+		then click the button below.&nbsp;
+		To subscribe to an artist, click the "Subscribe" link
+		on the artist's page.
+	</p>
+
+% my $row = 0;
+% my @colours = ('#fff', '#ffe1b7');
+
+	<form method="post" action="/user/subscribe.html">
+		<center>
+		<table class="SpacedColumns" style="width: 30em">
+			<caption>Subscribed Artists</caption>
+			<tr>
+				<th style="width: 1em"></th>
+				<th>Artist</th>
+			</tr>
+% for my $artist (@$info) {
+			<tr style="background-color: <% $colours[++$row % @colours] %>">
+				<td style="text-align: center"><input type="checkbox" name="artistid" value="<% $artist->{artist} %>"></td>
+				<td style="padding-right: 2em"><a href="/showartist.html?artistid=<% $artist->{artist} %>"
+					><% $artist->{name} %></a></td>
+			</tr>
+% }
+		</table>
+
+		<p>
+			<input type="hidden" name="unsubscribe" value="1">
+			<input type="submit" value="Deleted selected subscriptions">
+		</p>
+
+		</center>
+	</form>
+
+% }
+
+<& /comp/footer &>

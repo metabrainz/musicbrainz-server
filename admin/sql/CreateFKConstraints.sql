@@ -90,6 +90,11 @@ ALTER TABLE moderator_preference
     FOREIGN KEY (moderator)
     REFERENCES moderator(id);
 
+ALTER TABLE moderator_subscribe_artist
+    ADD CONSTRAINT modsubartist_fk_moderator
+    FOREIGN KEY (moderator)
+    REFERENCES moderator(id);
+
 -- albummeta ?
 -- moderationnote ?
 

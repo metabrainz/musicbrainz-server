@@ -69,6 +69,7 @@ use Track;
 use TRM;
 use UserPreference;
 use UserStuff;
+use UserSubscription;
 
 1;
 # eof startup.pl

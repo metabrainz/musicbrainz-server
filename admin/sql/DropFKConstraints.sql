@@ -53,6 +53,9 @@ ALTER TABLE artist_relation
 ALTER TABLE moderator_preference_fk_moderator
     DROP CONSTRAINT moderator_preference_fk_moderator;
 
+ALTER TABLE moderator_subscribe_artist
+    DROP CONSTRAINT modsubartist_fk_moderator;
+
 -- albummeta ?
 -- moderationnote ?
 

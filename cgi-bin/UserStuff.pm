@@ -377,7 +377,7 @@ sub SendVerificationEmail
 	return "Could not send mail. Please try again later." unless $smtp;
 
     $safe_from = $info->{name};
-    $safe_from =~ s/\W/?/;
+    $safe_from =~ s/\W/?/g;
 
 	$smtp->mail("noreply\@musicbrainz.org");
 	$smtp->to($email);
@@ -423,7 +423,7 @@ sub SendEMail
 		unless $to_info->{email};
 
     $safe_from = $from;
-    $safe_from =~ s/\W/?/;
+    $safe_from =~ s/\W/?/g;
 
     $text = encode_qp($text);
 
@@ -463,6 +463,29 @@ sub SendEMail
 	$smtp->quit();
 
 	return $ret;
+}
+
+sub SendFormattedEmail
+{
+	my ($self, $messagetext, $envelope_from) = @_;
+	$envelope_from ||= 'noreply@musicbrainz.org';
+
+	my $smtp = Net::SMTP->new(&DBDefs::SMTP_SERVER);
+	return "Could not send mail. Please try again later." unless $smtp;
+
+	$smtp->mail($envelope_from);
+	$smtp->to($self->GetEmail);
+	$smtp->data;
+
+	for (split /\n/, $messagetext, -1)
+	{
+		$smtp->datasend($_."\n");
+	}
+
+	my $ok = $smtp->dataend;
+	$smtp->quit;
+
+	$ok ? undef : "Failed to send mail. Please try again later.";
 }
 
 sub SetSession

@@ -90,6 +90,12 @@ sub ApprovedAction
 		$name,
 	) or return &ModDefs::STATUS_FAILEDDEP;
 
+	my $oldar = Artist->new($self->{DBH});
+	$oldar->SetId($rowid);
+	$oldar->LoadFromId or return &ModDefs::STATUS_FAILEDDEP;
+	my $subs = UserSubscription->new($self->{DBH});
+	$subs->ArtistBeingMerged($oldar, $self);
+
 	# Do the merge
 	$sql->Do("UPDATE artist_relation SET artist = ? WHERE artist = ?", $newid, $rowid);
 	$sql->Do("UPDATE artist_relation SET ref	= ? WHERE ref	 = ?", $newid, $rowid);

@@ -355,6 +355,38 @@ sub Rollback
    return $ret;
 }
 
+# AutoTransaction: call back the given code reference,
+# automatically applying a Begin/Commit/Rollback around it
+# if required (i.e. if we are not already in a transaction).
+# Calling context is preserved.  Exceptions may be thrown.
+
+sub AutoTransaction
+{
+        my ($self, $sub) = @_;
+        return &$sub unless $self->{DBH}{AutoCommit};
+
+        my ($r, @r);
+        my $w = wantarray;
+
+        local $@;
+	eval {
+		$self->Begin;
+
+		@r = &$sub() if $w;
+		$r = &$sub() if defined $w and not $w;
+		&$sub() if not defined $w;
+
+		$self->Commit;
+		1;
+	} or do {
+		my $e = $@;
+		$self->Rollback;
+		die $e;
+	};
+
+        ($w ? @r : $r);
+}
+
 # The "Select*" methods.  All these methods accept ($query, @args) parameters,
 # run the given SELECT query using prepare_cached, retrieve the required data,
 # and then "finish" the statement handle.

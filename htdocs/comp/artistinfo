@@ -24,4 +24,12 @@ $artist
     </tr>
 % }
 	</table>
+
+% if (exists $session{user} and $artist->GetId != &ModDefs::VARTIST_ID and $artist->GetId != &ModDefs::DARTIST_ID) {
+    <center>
+			<a href="/user/subscribe.html?artistid=<% $artist->GetId %>"
+				>Subscribe to this artist</a>
+    </center>
+% }
+
 <& /comp/tableend &> 

@@ -87,6 +87,13 @@ sub SortAlbums
         <a href="/freedb/freedb.html?search=<% $artist->GetName() |u %>">Import
            album</a> |
         <%perl>
+		if ($artistid != &ModDefs::VARTIST_ID and $artistid != &ModDefs::DARTIST_ID)
+		{
+        </%perl>
+		<a href="/user/subscribe.html?artistid=<% $artist->GetId %>"
+			>Subscribe</a> |
+        <%perl>
+		}
     }
     else
     {

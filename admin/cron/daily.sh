@@ -92,5 +92,8 @@ nice ./reports/TracksWithManyTRMs.pl > $reportdir/TracksWithManyTRMs.html
 echo `date`" : Running report 'TracksNamedWithSequence'"
 nice ./reports/TracksNamedWithSequence.pl > $reportdir/TracksNamedWithSequence.html
 
+# Process subscriptions
+./ProcessSubscriptions
+
 echo `date`" : Nightly jobs complete!"
 cd -

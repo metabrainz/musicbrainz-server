@@ -201,4 +201,14 @@ CREATE TABLE moderator_preference
 	PRIMARY KEY (moderator, name)
 );
 
+CREATE TABLE moderator_subscribe_artist
+(
+	moderator	INTEGER NOT NULL, -- references moderator
+	artist 		INTEGER NOT NULL, -- weakly references artist
+	lastmodsent	INTEGER NOT NULL DEFAULT NEXTVAL('moderation_id_seq'), -- weakly references moderation
+	deletedbymod	INTEGER NOT NULL DEFAULT 0, -- weakly references moderation
+	mergedbymod	INTEGER NOT NULL DEFAULT 0, -- weakly references moderation
+	PRIMARY KEY (moderator, artist)
+);
+
 commit;

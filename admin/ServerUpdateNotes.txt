@@ -1,6 +1,6 @@
 Server Update Tasks
 -------------------
 
-Create the moderator_preference table: see CreateTables.sql and
+Create the moderator_subscribe_artist table: see CreateTables.sql and
 CreateFKConstraints.sql
 

@@ -23,6 +23,8 @@
 #   $Id$
 #____________________________________________________________________________
 
+use strict;
+
 package UserPreference;
 
 use Carp qw( carp );

@@ -43,15 +43,13 @@ use constant NUM_BITS_PAGE_INDEX => 5;
 sub new
 {
     my ($type, $dbh) = @_;
-    my $this = {};
+    $type = ref($type) || $type;
 
-    # Use the db handle from the musicbrainz object
-    $this->{DBH} = $dbh;
-    $this->{type} = $type;
-
-    bless $this;
-    return $this;
-}  
+    bless {
+	DBH => $dbh,
+	type => $type,
+    }, $type;
+}
 
 sub GetDBH
 {

@@ -132,6 +132,7 @@ use Scalar::Util qw( reftype weaken );
             { name => "Existing User",			url => "/login.html" },
             [
                 { name => "Preferences",			url => "/prefs.html" },
+                { name => "Subscriptions",			url => "/user/subscriptions.html" },
             ],
             { name => "New User",				url => "/newlogin.html" },
             [

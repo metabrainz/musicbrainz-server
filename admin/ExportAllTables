@@ -117,6 +117,7 @@ my @tables = qw(
 	moderationnote
 	moderator
 	moderator_preference
+	moderator_subscribe_artist
 	moderator_sanitised
 	stats
 	toc
@@ -249,6 +250,12 @@ my @moderation = qw(
 	votes
 	);
 
+my @moderator_private = qw(
+	moderator
+	moderator_preference
+	moderator_subscribe_artist
+);
+
 use File::Copy qw( copy );
 
 if ($fCompress)
@@ -260,7 +267,7 @@ if ($fCompress)
 	make_tar("mbdump-derived.tar.bz2", "COPYING", @derived);
 	make_tar("mbdump-moderation.tar.bz2",  "COPYING", @moderation);
 	make_tar("mbdump-artistrelation.tar.bz2", "COPYING", qw( artist_relation ));
-	make_tar("mbdump-moderator.tar.bz2", "COPYING", qw( moderator moderator_preference ));
+	make_tar("mbdump-moderator.tar.bz2", "COPYING", @moderator_private);
 }
 
 if ($fKeepFiles)

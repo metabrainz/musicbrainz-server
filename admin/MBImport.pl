@@ -225,6 +225,7 @@ sub ImportAllTables
 		moderation
 		moderationnote
 		moderator
+		moderator_subscribe_artist
 		moderator_sanitised
 		stats
 		toc
