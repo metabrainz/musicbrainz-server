@@ -646,3 +646,59 @@ sub CreateFreeDBLookup
 
    return $rdf;
 }
+
+sub DumpBegin
+{
+   my ($this, $type, @gids) = @_;
+
+   return undef if (!exists $this->{file});
+
+   print {$this->{file}} $this->BeginRDFObject(1);
+   print {$this->{file}} $this->OutputList($type, \@gids);
+
+   $this->{depth} = 2;
+
+   return 1;
+}
+
+sub DumpArtist
+{
+   my ($this, $type, $id) = @_;
+   my (@cache, %obj, $ref, @newrefs, $i, $total, @gids, $out, $depth); 
+
+   $depth = $this->{depth};
+   return $this->ErrorRDF("Invalid search depth specified.") if ($depth < 0);
+
+   $this->{cache} = \@cache;
+
+   # Create a cache of objects and add the passed object ids without
+   # loading the actual objects
+   $obj{id} = $id;
+   $obj{type} = $type;
+   push @newrefs, {%obj};
+
+   # Call find references to recursively load and find referenced objects
+   $this->FindReferences(1, @newrefs);
+
+   # Output all of the referenced objects. Make sure to only output
+   # the objects in the cache that have been loaded. The objects that
+   # have not been loaded will not be output, even though they are
+   # in the cache. (They would've been output if depth was one greater)
+   $total = scalar(@cache);
+   for($i = 0; $i < $total; $i++)
+   {
+      #print STDERR "Cache: $cache[$i]->{type} $cache[$i]->{id} dep: $cache[$i]->{depth}\n";
+      next if (!defined $cache[$i]->{depth} || $cache[$i]->{depth} > $depth);
+
+      print {$this->{file}} $this->OutputRDF(\@cache, $cache[$i]) . "\n";
+   }
+
+   return 1;
+}
+
+sub DumpEnd
+{
+   my ($this) = @_;
+
+   print {$this->{file}} $this->EndRDFObject;
+}

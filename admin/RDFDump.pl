@@ -43,12 +43,12 @@ if (defined $outfile && ($outfile eq "-h" || $outfile eq "--help"))
     print "Usage: RDFDump.pl <dumpfile>\n\n";
     exit(0);
 }
-$outfile = "$timestring.rdf.gz" if (!defined $outfile);
+$outfile = "$timestring.rdf.bz2" if (!defined $outfile);
 
 @tinfo = localtime;
 
-open RDF, "| gzip -c > $outfile"
-  or die "Cannot open a pipe to gzip for output.\n";
+open RDF, "| bzip2 -c > $outfile"
+  or die "Cannot open a pipe to bzip2 for output.\n";
 
 print RDF "<?xml version=\"1.0\" encoding=\"ISO-8859-1\"?>\n";
 print RDF (GetLicense());
@@ -61,7 +61,7 @@ $rdfout->SetBaseURI("http://mm.musicbrainz.org");
 $rdfout->SetDepth(2);
 
 $sql = Sql->new($mb->{DBH});
-if ($sql->Select("select id from Artist order by sortname"))
+if ($sql->Select("select gid from Artist order by sortname"))
 {
     for(;@row = $sql->NextRow;)
     {
@@ -71,7 +71,27 @@ if ($sql->Select("select id from Artist order by sortname"))
 $sql->Finish;
 
 $rdfout->SetOutputFile(\*RDF);
-$rdfout->CreateOutputRDF('artist', @ids);
+
+print "Dumping artist list.\n";
+$rdfout->DumpBegin('artist', @ids);
+@ids = ();
+
+print "Dumping artists.\n";
+$| = 1;
+if ($sql->Select("select id from Artist order by sortname"))
+{
+    my $count;
+    for($count = 0;@row = $sql->NextRow; $count++)
+    {
+        print "  $count\r";
+        $rdfout->DumpArtist('artist', $row[0]);
+    }
+}
+$sql->Finish;
+print "Dump finished.\n";
+
+$rdfout->DumpEnd();
+
 close RDF;
 
 $mb->Logout;

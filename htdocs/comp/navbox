@@ -34,6 +34,7 @@ my @moderate = (
 #these links can be expanded with the expand parameter
 my @main = (
   {url=>'/index.html',                     name=>'Home'},
+  {url=>'/download.html',                  name=>'Download'},
   {url=>'/introduction.html',              name=>'Introduction'},
   {url=>'/documentation.html',             name=>'Info/Docs',        expand=>'documentation', array=>\@documentation },
   {url=>'/search.html',                    name=>'Search/Browse'},
