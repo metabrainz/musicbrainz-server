@@ -1,41 +1,42 @@
 %# vi: set ts=4 sw=4 ft=mason :
+<%args>
+$trm => undef
+</%args>
 <& /comp/sidebar, title=>'Show TRM Id' &>
 <%perl>
 
-my ($mb, $gu, $album, $artist); 
-my ($albumid, $trackid, @albums, @ids); 
-
-if (!exists $ARGS{trm})
+unless (MusicBrainz::IsGUID($trm))
 {
     $m->out("This page needs a trm argument.");
 }
 else
 {
-	# TODO HTML-encode
-   $m->out("<font size='+1'><b>TRM Id: $ARGS{trm}</b></font><p>");
+	</%perl>
+	<h2><b>TRM Id: <% $ARGS{trm} %></b></h2>
+	<%perl>
 
-   if ($ARGS{trm} eq "7d154f52-b536-4fae-b58b-0666826c2bac")
+   if ($ARGS{trm} eq &ModDefs::TRM_ID_SILENCE)
    {
        $m->out("<p><br>This TRM Id represents silence.<p>");
    }
    else
    {
-       $mb = $m->comp("/comp/dblogin");
-       $artist = Artist->new($mb->{DBH});
-       $album = Album->new($mb->{DBH});
-       $gu = TRM->new($mb->{DBH});
+       my $mb = $m->comp("/comp/dblogin");
+       my $artist = Artist->new($mb->{DBH});
+       my $album = Album->new($mb->{DBH});
+       my $gu = TRM->new($mb->{DBH});
     
-       @ids = $gu->GetTrackIdsFromTRM($ARGS{trm});
+       my @ids = $gu->GetTrackIdsFromTRM($ARGS{trm});
        if (scalar(@ids) == 0)
        {
-           $m->out("<p>This TRM Id was not found in the main database.<p>");
+           $m->out("<p>This TRM Id was not found in the database.<p>");
        }
        else
        {
-           foreach $trackid (@ids)
+           for my $trackid (@ids)
            {
-              @albums = $album->GetAlbumIdsFromTrackId($trackid);
-              foreach $albumid (@albums)
+              my @albums = $album->GetAlbumIdsFromTrackId($trackid);
+              for my $albumid (@albums)
               {
                  $album->SetId($albumid);
                  if ($album->LoadFromId())
