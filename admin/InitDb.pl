@@ -22,38 +22,82 @@
 #   $Id$
 #____________________________________________________________________________
 
+use FindBin;
+use lib "$FindBin::Bin/../cgi-bin";
+
+use MusicBrainz;
+use DBDefs;
+
+my $dbname = DBDefs::DB_NAME;
+my $dbuser = DBDefs::DB_USER;
+my $psql = "psql";
+
 use Getopt::Long;
 use strict;
+
+sub Create 
+{
+	system "createdb -U postgres -E UNICODE $dbname";
+	system "createlang -U postgres -d $dbname plpgsql";
+
+	return if $dbuser eq "postgres";
+
+	system "createuser -U postgres $dbuser";
+
+	# This is only here because you can't
+	# "CREATE DATABASE ... WITH OWNER = ..."
+	# under Postgres 7.2
+	open(PSQL, "| $psql -U postgres $dbname");
+	print PSQL 
+		"UPDATE pg_database SET datdba = ("
+		. "SELECT usesysid FROM pg_shadow WHERE usename = '$dbuser'"
+		. ") WHERE datname = '$dbname';\n";
+	close PSQL;
+}
 
 sub Import
 {
     my $file;
 
-    system("psql -f sql/CreateTables.sql musicbrainz");
+    print "Creating tables ...\n";
+    system("$psql -U $dbuser -f sql/CreateTables.sql $dbname");
     die "\nFailed to create tables.\n" if ($? >> 8);
 
-    system("psql -f sql/CreateFunctions.sql musicbrainz");
+    print "Creating functions ...\n";
+    system("$psql -U $dbuser -f sql/CreateFunctions.sql $dbname");
     die "\nFailed to create functions.\n" if ($? >> 8);
 
-    foreach $file (@_)
     {
-        system("./MBImport.pl $file");
-        die "\nFailed to import dataset in $file.\n" if ($? >> 8);
+	local $" = " ";
+        system($^X, "$FindBin::Bin/MBImport.pl", @_);
+        die "\nFailed to import dataset.\n" if ($? >> 8);
     }
 
-    system("./SetSequences.pl");
+    system "echo 'select fill_moderator();' | $psql -U $dbuser $dbname";
+
+    system("$psql -U $dbuser -f sql/tables/currentstat.sql $dbname");
+    die "\nFailed to create tables.\n" if ($? >> 8);
+    system("$psql -U $dbuser -f sql/tables/historicalstat.sql $dbname");
+    die "\nFailed to create tables.\n" if ($? >> 8);
+
+    print "Setting initial sequence values ...\n";
+    system($^X, "$FindBin::Bin/SetSequences.pl");
     die "\nFailed to set sequences.\n" if ($? >> 8);
 
-    system("psql -f sql/CreateIndexes.sql musicbrainz");
+    print "Creating indexes ...\n";
+    system("$psql -U $dbuser -f sql/CreateIndexes.sql $dbname");
     die "\nFailed to create indexes.\n" if ($? >> 8);
 
-    system("psql -f sql/CreateViews.sql musicbrainz");
+    print "Creating views ...\n";
+    system("$psql -U $dbuser -f sql/CreateViews.sql $dbname");
     die "\nFailed to create views.\n" if ($? >> 8);
 
-    system("psql -f sql/CreateTriggers.sql musicbrainz");
+    print "Creating triggers ...\n";
+    system("$psql -U $dbuser -f sql/CreateTriggers.sql $dbname");
     die "\nFailed to create triggers.\n" if ($? >> 8);
 
-    system("echo \"vacuum analyze\" | psql musicbrainz");
+    print "Optimizing database ...\n";
+    system("echo \"vacuum analyze\" | $psql -U $dbuser $dbname");
 
     print "\nInitialized and imported data into the database.\n\n";
 }
@@ -62,22 +106,22 @@ sub Clean
 {
     my $ret;
     
-    system("psql -f sql/CreateTables.sql musicbrainz");
+    system("$psql -U $dbuser -f sql/CreateTables.sql $dbname");
     die "\nFailed to create tables.\n" if ($? >> 8);
 
-    system("psql -f sql/CreateIndexes.sql musicbrainz");
+    system("$psql -U $dbuser -f sql/CreateIndexes.sql $dbname");
     die "\nFailed to create indexes.\n" if ($? >> 8);
 
-    system("psql -f sql/CreateViews.sql musicbrainz");
+    system("$psql -U $dbuser -f sql/CreateViews.sql $dbname");
     die "\nFailed to create views.\n" if ($? >> 8);
 
-    system("psql -f sql/CreateFunctions.sql musicbrainz");
+    system("$psql -U $dbuser -f sql/CreateFunctions.sql $dbname");
     die "\nFailed to create functions.\n" if ($? >> 8);
 
-    system("psql -f sql/CreateTriggers.sql musicbrainz");
+    system("$psql -U $dbuser -f sql/CreateTriggers.sql $dbname");
     die "\nFailed to create triggers.\n" if ($? >> 8);
 
-    system("psql -f sql/InsertDefaultRows.sql musicbrainz");
+    system("$psql -U $dbuser -f sql/InsertDefaultRows.sql $dbname");
     die "\nFailed to insert default rows tables.\n" if ($? >> 8);
 
     print "\nCreated a clean and empty database.\n\n";
@@ -96,7 +140,7 @@ sub BuildOpt
 sub SanityCheck
 {
     die "The postgres psql application must be on your path for this script to work.\n"
-       if (`which psql` eq '');
+       if not -x $psql and (`which psql` eq '');
 }
 
 sub Usage
@@ -125,9 +169,12 @@ that has postgres privledges to create databases:
 EOF
 }
 
+my $fCreateDB;
 my ($fImport, $fClean, $fBuildText, $fBuildOpt, $fHelp, $fBuildAll) = (0,0,0,0,0,0);
 
 GetOptions(
+	"psql=s"	=>\$psql,
+	"createdb"	=>\$fCreateDB,
 	"import|i"     => \$fImport,
 	"clean|c"      => \$fClean,
 	"build-text|t" => \$fBuildText,
@@ -137,11 +184,11 @@ GetOptions(
 );
 
 Usage() if ($fHelp);
-
-Usage() if ($fImport + $fClean + $fBuildText + $fBuildOpt + $fBuildAll != 1);
+Usage() if (($fCreateDB || $fImport) + $fClean + $fBuildText + $fBuildOpt + $fBuildAll != 1);
 
 SanityCheck();
 
+Create() if $fCreateDB;
 Import(@ARGV) if ($fImport);
 Clean() if ($fClean);
 BuildText() if ($fBuildText || $fBuildAll);
