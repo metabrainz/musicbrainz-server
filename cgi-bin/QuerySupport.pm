@@ -588,16 +588,13 @@ sub SubmitTRMList
             last if ($i > 1);
             return $rdf->ErrorRDF("Incomplete trackid and trmid submitted.") 
        } 
-       if (!IsValidUUID($trmid))
+       if (!IsValidUUID($trmid) || !IsValidUUID($trackid))
        {
-            return $rdf->ErrorRDF("Invalid trmid submitted.") 
+           print STDERR "Invalid track/trm combination:\n";
+           print STDERR "trackid: $trackid\n";
+           print STDERR "trmid: $trmid\n\n";
+           return $rdf->ErrorRDF("Invalid trackid or trmid submitted.") 
        } 
-       if (!IsValidUUID($trackid))
-       {
-            return $rdf->ErrorRDF("Invalid trackid submitted.") 
-       } 
-       print STDERR "trackid: $trackid\n";
-       print STDERR "trmid: $trmid\n";
 
        $trackid =~ tr/A-Z/a-z/;
        $trackid = $sql->Quote($trackid);
