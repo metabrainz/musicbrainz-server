@@ -44,7 +44,7 @@ sub Login
 
    $user = $mb->{DBH}->quote($user);
    $sth = $mb->{DBH}->prepare(qq/
-          select name,password,privs from ModeratorInfo where name = $user/);
+          select name,password,privs,id from ModeratorInfo where name = $user/);
    if ($sth->execute && $sth->rows)
    {
        my @row;
@@ -55,6 +55,7 @@ sub Login
           $ok = 1;
           $sess->{user} = $user;
           $sess->{privs} = $row[2];
+          $sess->{uid} = $row[3];
        }
    }
    $sth->finish;   

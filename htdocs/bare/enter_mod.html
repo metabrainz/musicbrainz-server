@@ -1,0 +1,18 @@
+<%perl>
+
+my ($mb);
+
+$mb = new MusicBrainz;
+$mb->Login();
+$mb->InsertModification($ARGS{table}, $ARGS{column}, $ARGS{id},
+                        $ARGS{prev}, $ARGS{new}, $session{uid});
+$mb->Logout();
+
+$r->method('GET');
+$r->headers_in->unset('Content-length');
+
+$r->content_type('text/html');
+$r->header_out(Location=>$ARGS{referer});
+$m->abort(302);
+
+</%perl>

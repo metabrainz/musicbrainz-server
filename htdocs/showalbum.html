@@ -8,12 +8,16 @@ $mb = new MusicBrainz;
 $mb->Login();
 $albumid = $ARGS{albumid};
 
-($artistid, $artistname) = $mb->GetArtistInfoFromAlbumId($albumid);
-$albumname = $mb->GetAlbumName($albumid);
+($artistid, $artistname, $modpending) = $mb->GetArtistInfoFromAlbumId($albumid);
 
 mc_comp("/comp/artisttitle", 
         artistname=>$artistname, 
-        artistid=>$artistid);
+        artistid=>$artistid,
+        modpending=>$modpending);
+
+mc_comp("/comp/modnotice");
+
+$albumname = $mb->GetAlbumName($albumid);
 
 if ($artistid == 0)
 {

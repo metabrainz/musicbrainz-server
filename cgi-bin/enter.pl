@@ -28,7 +28,7 @@ use DBI;
 use MusicBrainz;
 
 my ($o, $cd); 
-my ($tracks, $i, $artist, $artistname);
+my ($tracks, $i, $artist, $artistname, $modpending);
 my ($dbh, $sth, $rv);
 
 $cd = new MusicBrainz;
@@ -42,7 +42,7 @@ $artist = $o->param('artist');
 
 if (defined $artist)
 {
-   $artistname = $cd->GetArtistName($artist);
+   ($artistname, $modpending) = $cd->GetArtistName($artist);
    if (!defined $artistname)
    {
        $artistname = 'Tabasco bondage action';

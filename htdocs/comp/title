@@ -2,5 +2,5 @@
 $title
 </%args>
 
-<font size="+2"><% $title %></font>
+<font size="+2"><% $title  %></font>
 <p>

@@ -40,6 +40,7 @@ $dbh->do("create table Artist (" .
          "   WebPage blob," . 
          "   AuxPage blob," .
          "   LastChanged datetime," .
+         "   ModPending int," .
          "   index NameIndex (Name)," .
          "   index GIDIndex (GID)," .
          "   unique (Name))")
@@ -55,6 +56,7 @@ $dbh->do("create table Album (" .
          "   WebPage blob," .
          "   AuxPage blob," .
          "   LastChanged datetime," .
+         "   ModPending int," .
          "   index GIDIndex (GID)," .
          "   index NameIndex (Name))")
       or die("Cannot create Album table");
@@ -77,6 +79,7 @@ $dbh->do("create table Track (" .
          "   WebPage blob," .
          "   AuxPage blob," .
          "   LastChanged datetime," .
+         "   ModPending int," .
          "   index GIDIndex (GID)," .
          "   index NameIndex (Name)," .
          "   index AlbumIndex (Album))") 
@@ -87,6 +90,7 @@ print "Created Track table.\n";
 $dbh->do("create table Genre (" .
          "   Id int auto_increment primary key," .
          "   Name varchar(64) not null," .
+         "   ModPending int," .
          "   Description varchar(255))")
       or die("Cannot create Genre table");
 		
@@ -134,6 +138,7 @@ $dbh->do("create table Diskid (" .
          "   TimeCreated datetime, ".
          "   Toc varchar(255), ".
          "   LastChanged datetime," .
+         "   ModPending int," .
          "   index AlbumIndex (Album)," .
          "   index DiskIndex (Disk))")
       or die("Cannot create Diskid table");
@@ -187,6 +192,21 @@ $dbh->do("create table ModeratorInfo (" .
       or die("Cannot create ModeratorInfo table");
 
 print "Created ModeratorInfo table.\n";
+
+$dbh->do("create table Changes (" .
+         "   Id int auto_increment primary key," .
+         "   Tab varchar(32) not null," .
+         "   Col varchar(64) not null, ".
+         "   Rowid int not null, ".
+         "   PrevValue varchar(255), ".
+         "   NewValue varchar(255), ".
+         "   TimeSubmitted datetime not null, ".
+         "   Moderator int, ".
+         "   YesVotes int, ".
+         "   NoVotes int)")
+      or die("Cannot create Changes table");
+
+print "Created Changes table.\n";
 
 if (DBDefs->USE_LYRICS)
 {

@@ -1,17 +1,20 @@
 <%perl>
 
 my ($mb); 
-my (@info, $artistname, $albumname);
+my (@info, $artistname, $albumname, $modpending);
 my ($trackinfo, $albumid, @idsalbums, $i, $j); 
 
 $mb = new MusicBrainz;
 $mb->Login();
 
-$artistname = $mb->GetArtistName($ARGS{artistid});
+($artistname, $modpending) = $mb->GetArtistName($ARGS{artistid});
 @idsalbums = $mb->GetAlbumList($ARGS{artistid});
 
-mc_comp("/comp/artisttitle", artistname=>$artistname, 
-        artistid=>$ARGS{artistid});
+mc_comp("/comp/artisttitle", 
+        artistname=>$artistname, 
+        artistid=>$ARGS{artistid},
+        modpending=>$modpending);
+mc_comp("/comp/modnotice");
 
 for(;;)
 {

@@ -12,7 +12,8 @@ for($i = 0;; $i++)
             id=>$$trackinfo[0],
             tracknum=>($$trackinfo[1] + 1), 
             name=>$$trackinfo[2],
-            artistname=>'');
+            artistname=>'',
+            modpending=>$$trackinfo[3]);
 }
 mc_comp("/comp/albumend");
 

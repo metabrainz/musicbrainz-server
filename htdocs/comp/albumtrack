@@ -3,22 +3,30 @@ $id
 $tracknum
 $name
 $artistname
+$modpending
 </%args>
+
+<%perl>
+
+my $bgcolor;
+$bgcolor = $modpending ? 'bgcolor="#FFFFCC"' : '';
+
+</%perl>
 
 <tr>
     <td width="10%" align=center>
        <% $tracknum %>
     </td>
 % if ($artistname ne '') {
-    <td width="50%">
+    <td width="50%" <% $bgcolor |n %>>
 % } else {
-    <td width="80%">
+    <td width="80%" <% $bgcolor |n %>>
 % }
-       <% $name %>
+       <% $name  %>
     </td>
 % if ($artistname ne '') {
     <td width="30%">
-       <% $artistname %>
+       <% $artistname  %>
     </td>
 % }
 % if (exists $session{user}) {

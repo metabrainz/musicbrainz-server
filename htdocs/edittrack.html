@@ -1,0 +1,58 @@
+<& /comp/title, title=>'Edit Track Name' &>
+
+<%perl>
+
+my ($mb, $id, $trackname, $referer); 
+
+$referer = $r->headers_in->{'Referer'};
+$mb = new MusicBrainz;
+$mb->Login();
+$id = $ARGS{id};
+$trackname = $mb->GetTrackName($id);
+
+</%perl>
+
+% if (!defined $session{user} || $session{user} eq '') {
+    You must be logged in to edit the database.<p>
+    <& /comp/tablebegin, title=>'Login' &>
+    <& /comp/loginbox &>
+    <& /comp/tableend &>
+% } else {
+
+    <& /comp/tablebegin, title=>'Edit Track Name' &>
+
+    <FORM METHOD="POST" ACTION="/bare/enter_mod.html"
+          ENCTYPE="application/x-www-form-urlencoded">  
+    <table>
+      <tr>
+        <td>
+        Current Name:
+        </td>
+        <td>
+        <% $trackname  %>
+        </td>
+      </tr>
+      <tr>
+        <td>
+        New Name:
+        </td>
+        <td>
+        <INPUT TYPE="text" NAME="new" SIZE=25> 
+        </td>
+      </tr>
+      <tr>
+        <td colspan=2>
+        <INPUT TYPE="submit" NAME="Submit" VALUE="Submit">    
+        </td>
+      </tr>
+    </table>
+    <input type="hidden" name="prev" value="<% $trackname  %>">
+    <input type="hidden" name="table" value="Track">
+    <input type="hidden" name="column" value="Name">
+    <input type="hidden" name="id" value="<% $id %>">
+    <input type="hidden" name="referer" value="<% $referer %>">
+    </form>
+      
+    <& /comp/tableend &>
+% }
+% $mb->Logout();

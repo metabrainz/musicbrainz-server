@@ -8,7 +8,7 @@ $title
    <table width=100%>
       <tr>
         <td width=92%>
-          <font color=white><b><% $title %></b></font>
+          <font color=white><b><% $title  %></b></font>
         </td>
 % if (exists $session{user}) {
         <td width=8%>

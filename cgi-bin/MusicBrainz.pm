@@ -401,20 +401,18 @@ sub GetLastInsertId
 sub GetArtistName
 {
    my ($this, $artistid) = @_;
-   my ($sth, $rv);
+   my ($sth, @row);
 
-   $sth = $this->{DBH}->prepare("select name from Artist where id=$artistid");
+   $sth = $this->{DBH}->prepare(qq/select name, modpending from Artist 
+                                   where id=$artistid/);
    $sth->execute;
    if ($sth->rows)
    {
-        my @row;
-
         @row = $sth->fetchrow_array;
-        $rv = $row[0];
    }
    $sth->finish;
 
-   return $rv;
+   return @row;
 }
 
 sub ArtistSearch
@@ -453,8 +451,8 @@ sub GetArtistList
    $num_artists = ($sth->fetchrow_array)[0];
    $sth->finish;   
 
-   $sth = $this->{DBH}->prepare(qq/select id, name from Artist where 
-         left(name, 1) = '$ind' order by name limit $offset, $max_items/);
+   $sth = $this->{DBH}->prepare(qq/select id, name, modpending from Artist 
+      where left(name, 1) = '$ind' order by name limit $offset, $max_items/);
    $sth->execute();  
    if ($sth->rows > 0)
    {
@@ -463,7 +461,7 @@ sub GetArtistList
 
        for(;@row = $sth->fetchrow_array;)
        {
-           push @info, [$row[0], $row[1]];
+           push @info, [$row[0], $row[1], $row[2]];
        }
    }
    $sth->finish;   
@@ -495,9 +493,9 @@ sub GetArtistInfoFromAlbumId
    my ($this, $albumid) = @_;
    my ($sth, @row);
 
-   $sth = $this->{DBH}->prepare(qq/select Artist.id, Artist.name from 
-             Album, Artist where Album.id=$albumid and Album.artist = 
-             Artist.id/);
+   $sth = $this->{DBH}->prepare(qq/select Artist.id, Artist.name, 
+             Artist.modpending from Album, Artist where Album.id=$albumid 
+             and Album.artist = Artist.id/);
    $sth->execute;
    if ($sth->rows)
    {
@@ -524,7 +522,7 @@ sub GetAlbumInfo
    my ($this, $albumid) = @_;
    my (@info, $sth);
 
-   $sth = $this->{DBH}->prepare(qq/select id, sequence, name from 
+   $sth = $this->{DBH}->prepare(qq/select id, sequence, name, modpending from 
                 Track where Album = $albumid order by sequence/);
    if ($sth->execute())
    {
@@ -533,7 +531,7 @@ sub GetAlbumInfo
 
        for(;@row = $sth->fetchrow_array;)
        {  
-           push @info, [$row[0], $row[1], $row[2]];
+           push @info, [$row[0], $row[1], $row[2], $row[3]];
        }
    }
    $sth->finish;
@@ -547,8 +545,9 @@ sub GetMultipleArtistAlbumInfo
    my (@info, $sth);
 
    $sth = $this->{DBH}->prepare(qq/select Track.id, sequence, Track.name, 
-                Artist.name from Track, Artist where Album = $albumid 
-                and Track.Artist = Artist.id order by sequence/);
+                Artist.name, Track.modpending from Track, Artist where 
+                Album = $albumid and Track.Artist = Artist.id order by 
+                sequence/);
    if ($sth->execute())
    {
        my @row;
@@ -556,7 +555,7 @@ sub GetMultipleArtistAlbumInfo
 
        for(;@row = $sth->fetchrow_array;)
        {  
-           push @info, [$row[0], $row[1], $row[2], $row[3]];
+           push @info, [$row[0], $row[1], $row[2], $row[3], $row[4]];
        }
    }
    $sth->finish;
@@ -629,6 +628,25 @@ sub GetAlbumList
    $sth->finish;
 
    return @idsalbums;
+}
+
+sub GetTrackName
+{
+   my ($this, $trackid) = @_;
+   my ($sth, $rv);
+
+   $sth = $this->{DBH}->prepare("select name from Track where id=$trackid");
+   $sth->execute;
+   if ($sth->rows)
+   {
+        my @row;
+
+        @row = $sth->fetchrow_array;
+        $rv = $row[0];
+   }
+   $sth->finish;
+
+   return $rv;
 }
 
 sub GetTrackList
@@ -1113,6 +1131,21 @@ sub FindFreeDBEntry
    $sth->finish;
 
    return $album;
+}
+
+sub InsertModification
+{
+    my ($this, $table, $column, $id, $prev, $new, $uid) = @_;
+
+    $this->{DBH}->do(qq/update $table set modpending = 1 where id = $id/);
+
+    $table = $this->{DBH}->quote($table);
+    $column = $this->{DBH}->quote($column);
+    $prev = $this->{DBH}->quote($prev);
+    $new = $this->{DBH}->quote($new);
+    $this->{DBH}->do(qq/insert into Changes (tab, col, rowid, prevvalue, 
+           newvalue, timesubmitted, moderator, yesvotes, novotes) values 
+           ($table, $column, $id, $prev, $new, now(), $uid, 0, 0)/);
 }
 
 1;

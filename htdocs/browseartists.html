@@ -44,6 +44,8 @@ mc_out('</tr></table>');
 
 </%perl>
 
+<& /comp/modnotice &>
+
 <p><table align="center" width="100%">
 % for($i = 0; ; $i+=2) {
 %  $row = $info[$i];  
@@ -52,18 +54,26 @@ mc_out('</tr></table>');
       <td valign=top>
          <% ($i + 1 + $offset) %>.
       </td>
+% if ($$row[2]) {
+      <td valign=top width="50%" bgcolor="#FFFFCC">
+% } else {
       <td valign=top width="50%">
+% }
         <a href="/showartist.html?artistid=<% $$row[0] %>">
-        <% $$row[1] %>
+        <% $$row[1]  %>
       </td>
       <td valign=top>
 %     $row = $info[$i + 1];  
 %     if (defined $row) {
-            <% ($i + 1 + $offset) %>.
+            <% ($i + 2 + $offset) %>.
          </td>
+% if ($$row[2]) {
+         <td valign=top width="50%" bgcolor="#FFFFCC">
+% } else {
          <td valign=top width="50%">
+% }
             <a href="/showartist.html?artistid=<% $$row[0] %>">
-            <% $$row[1] %>
+            <% $$row[1]  %>
 %     } else {
          &nbsp;</td><td>&nbsp;
 %     }

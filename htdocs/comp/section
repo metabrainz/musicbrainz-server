@@ -10,7 +10,7 @@ $title
 </tr>
 <tr>
 <td colspan=3 bgcolor="#000000" cellpadding="2">
-  <font color="white"><% $title %></font>
+  <font color="white"><% $title  %></font>
 </td>
 </tr>
 <tr>

@@ -6,7 +6,7 @@ $title
    <tr><td>
    <table width=100%>
       <tr><td align=center width=100%>
-      <font color=white><b><% $title %></b></font>
+      <font color=white><b><% $title  %></b></font>
       </td></tr>
    </table>
    <table bgcolor=white cellpadding=15 width=100%><tr><td>

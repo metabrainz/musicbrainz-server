@@ -2,9 +2,9 @@
 
 % if ($ARGS{offset} + $ARGS{num} < $ARGS{rows}) {
     <a href="/browseartists.html?index=<% $ARGS{ind} %>&offset=<%
-     $ARGS{offset} + $ARGS{num} %>"><% $ARGS{text} %></a>
+     $ARGS{offset} + $ARGS{num} %>"><% $ARGS{text}  %></a>
 % } else {
-    <% $ARGS{text} %>
+    <% $ARGS{text}  %>
 % }
 
 </td>

@@ -12,11 +12,11 @@ $name
    <table>
    <tr>
      <td valign=top>
-       <a name="<% $name %>"></a>
+       <a name="<% $name  %>"></a>
        <b><font color="#542b89">Q:</font></b>
      </td>
      <td> 
-       <% $question %>
+       <% $question  %>
      </td>
    </tr>
    </tr>
@@ -24,7 +24,7 @@ $name
        <b><font color="#542b89">A:</font></b>
      </td>
      <td> 
-       <% $answer %>
+       <% $answer  %>
        <br>
      </td>
    </tr>

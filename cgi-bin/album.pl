@@ -27,7 +27,7 @@ use DBI;
 use strict;
 use MusicBrainz;
 
-my ($o, $num_tracks, $i, $cd); 
+my ($o, $num_tracks, $i, $cd, $modpending); 
 my ($toc, $id, $tracks, $artist);
 
 $cd = new MusicBrainz;
@@ -54,7 +54,7 @@ my (%unused, $first, $found, $artistname, @ids_tracks_seqs, @idsalbums);
 $first = 1;
 $found = 0;
 
-$artistname = $cd->GetArtistName($artist);
+($artistname, $modpending) = $cd->GetArtistName($artist);
 print '<font size=+1>'. $o->escapeHTML($artistname) . '</font><p>';
 
 @idsalbums = $cd->GetAlbumList($artist);
