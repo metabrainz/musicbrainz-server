@@ -1,5 +1,6 @@
 <%args>
 $artist
+$nomod=>0
 </%args>
 
 <%perl>
@@ -20,7 +21,8 @@ $sortname = $artist->GetSortName();
 %     }
     </td>
     <td>
-% if (exists $session{user} && $artist->GetId() != Artist::VARTIST_ID &&
+% if (exists $session{user} && !$nomod && 
+%     $artist->GetId() != Artist::VARTIST_ID &&
 %     $name ne 'Unknown' && $name ne 'Various') {
       [<a href="/editartist.html?id=<% $artist->GetId() %>">Edit</a> |
       <a href="/mergeartist.html?id=<% $artist->GetId() %>">Merge</a>]

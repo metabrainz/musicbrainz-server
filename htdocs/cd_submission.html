@@ -1,0 +1,92 @@
+<& /comp/sidebar, 
+   title=>'The Audio CD-ROM Submission Process',
+   expand=>'documentation' &>
+
+<& /comp/section, title=>'Audio CD-ROM background' &>
+
+Before explaining the Audio CD-ROM submission process for MusicBrainz, some
+background on Audio CD-ROMs is necessary. Below is a quick, fairly 
+non-technical introduction to Audio CD-ROMs. If you want <b>lots</b> more
+detail about CD-ROMs and how CD Index Ids are calculated, you should
+take a look at the <a href="/disc.html">CD Index Ids</a> document.
+
+<p>
+An audio CD-ROM does not contain
+any metadata, like its title, the artist or the track names. There are some
+newer variants of audio CD-ROMs with CD-TEXT extensions that do contain
+metadata, but they are not in wide use. So, you need a system like MusicBrainz
+to identify a CD-ROM and to provide the metadata for that CD-ROM.
+
+<p>
+An Audio CD-ROM contains a table of contents (TOC) that indicates where 
+each of the tracks on the CD starts. After the TOC, the audio tracks start,
+each at a given sector offset, as outlined in the TOC. The CD-ROM is logically
+broken into sectors, where each sector represents 1/75th of a second of sound. 
+So, 75 sectors on a CD equate to 1 second of sound.
+
+<p>
+The CD Index Id is calculated from the table of contents, and nothing else.
+So, if one CD differs from another CD by as little as one single track being 
+longer/shorter by one sector, the CD Index Id will be completely different.
+This ensures that each type of CD has a unique identifier, which is important
+for looking up metadata for CDs.
+
+<p>
+However, there is a downside to this as well. Audio CD-ROMs are usually
+produced in large batches, that may include thousands if not millions of copies
+of one CD. Once a record company is done selling that one batch, or a 
+record company in another country wants to print up a batch of the same
+CD, they will make another batch. There are over 10 different pressings
+for the album 'The Dark Side of the Moon' by Pink Floyd, for instance.
+
+<p>
+If the CDs from the new batch are off by one sector (as mentioned above)
+they will have a different unique CD Index id. Let's assume that a CD from
+a new batch has one track that is shorter by one sector (as compared to
+the previous batch). This yields a different CD Index is, but to the human
+ear the CD will be identical, since humans cannot tell that one track 
+is shorter by 1/75th of a second.
+
+<& /comp/section, title=>'Inserting Audio CD-ROMs into MusicBrainz' &>
+
+Now to explain the MusicBrainz CD insertion process. Lets say you use one of
+the <a href="/download.html">CD Submission tools</a> to submit a CD and you
+find that MusicBrainz doesn't know about the CD. You then proceed to
+select the artist and then MusicBrainz shows you a list of CDs and your CD
+is right there is in the list. What's wrong?
+
+<p>
+There may be a few things going on:
+<ul>
+<li>MusicBrainz may not have any CD Index Ids for this album.
+<li>MusicBrainz may have a different CD Index Id than you have, thus
+    MusicBrainz already knows about a different pressing of the CD.
+</ul>
+
+<p>
+In either case, you should select the matching CD and let MusicBrainz create
+another <b>association</b> for you. This means that MusicBrainz will now know 
+about the new CD Index Id that you just reported. The next time you 
+want to look up this CD, MusicBrainz will gladly deliver the data to you.
+
+<p>
+However, that's not all. Let's say that the CD you're looking for is not found.
+In that case, you should select 'CD not found' and then proceed to enter the
+data for that CD, so it can be included in the MusicBrainz database. And, there
+may be yet another case, where MusicBrainz knows about your CD, but it has a different number of tracks than your CD.
+
+<p>
+This happens when two different pressings of CD have a different number of 
+tracks. Let's say that a band in the UK releases a CD that contains 10 tracks
+and one bonus track for a total of 11 tracks. Once the CD is released in
+the US, the US record company may decide for some reason to yank the bonus
+track and issue the CD under the exact same name as the CD released in the UK.
+As far as MusicBrainz is concerned, they are two completely different CDs,
+and MusicBrainz should have a record for both of these CDs. So, if you run
+into this problem, please proceed with entering the data for your CD, even
+though MusicBrainz already has one version of it.
+
+<p>
+If you still have questions, please join the <a href="/list.html">mailing
+list</a> and post your questions there.
+

@@ -30,7 +30,7 @@ else
     $ar->SetId($artist);
     $ar->LoadFromId();
     mc_comp("/comp/artisttitle", artistname=>($ar->GetName()), 
-            artist=>$ar, modpending=>0);
+            artist=>$ar, modpending=>0, nomod=>1);
     
     @albumlist = $ar->GetAlbums();
     for(;;)
@@ -51,7 +51,12 @@ else
                the track listings matches the CD that you are
                submitting, click on <b>Select Album</b> next to
                the matching album. If none of the listed albums
-               match, click on <b>Album not listed</b>.<p>
+               match, click on <b>Album not listed</b>.
+               If you're unsure as to which one to pick or you have
+               questions about this step, please check out our
+               <a href="/cd_submission.html">CD Submission</a> document
+               for more details on the submission process. The CD Index
+               Id for the CD you're submitting is <b><% $id %></b> .<p>
 
                <form method="POST" action="/cdi/enter.html"
                   enctype="application/x-www-form-urlencoded" class="formstyle">

@@ -1,5 +1,6 @@
 <%args>
 $default=>'Artist'
+$text=>''
 </%args>
 
 <FORM METHOD="GET" ACTION="/newsearch.html" ENCTYPE="application/x-www-form-urlencoded" class="formstyle">
@@ -45,7 +46,7 @@ $default=>'Artist'
   <tr>
   <td colspan="2">
     <img src="/images/pixel.gif" width="20" height="1" alt="" border="0">
-    <INPUT TYPE="text" NAME="search" SIZE=30>
+    <INPUT TYPE="text" NAME="search" VALUE="<% $text %>" SIZE=30>
   </td>
   </tr>
   <tr>

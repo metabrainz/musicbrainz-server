@@ -15,7 +15,7 @@ if ($showids)
    @ids = $di->GetDiskIdFromAlbum($album->GetId());
 }
 
-if (exists $session{user} && !$nomod && scalar(@ids) > 0) 
+if (scalar(@ids) > 0) 
 {
     $rows = 0;
     foreach $id (@ids)
@@ -35,8 +35,15 @@ if (exists $session{user} && !$nomod && scalar(@ids) > 0)
        mc_out('align="center">');
        mc_out("CD Index Id: $id->{diskid}<br>");
        mc_out("</td><td align=\"center\">");
-       mc_out("<a href=\"/remdiskid.html?diskid=$id->{diskid}&albumid=");
-       mc_out($album->GetId() . "\">Delete</a>");
+       if (exists $session{user} && !$nomod) 
+       {
+           mc_out("<a href=\"/remdiskid.html?diskid=$id->{diskid}&albumid=");
+           mc_out($album->GetId() . "\">Delete</a>");
+       }
+       else
+       {
+           mc_out("&nbsp;");
+       }
        mc_out("</td></tr>");
 
        $rows++;
