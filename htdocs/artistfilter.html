@@ -1,0 +1,50 @@
+<%perl>
+
+my ($mb, $i, $j, $mod, $new, @idslabels, $ar);
+my ($artistid, $artistname, $key);
+
+mc_comp("/comp/title", title=>'Artist Name Check');
+
+$mb = new MusicBrainz;
+$mb->Login();
+
+$ar = Artist->new($mb);
+@idslabels = $ar->FindTextInColumn("Artist", "Name", $ARGS{new0});
+push @idslabels, -1;
+push @idslabels, $ARGS{new0};
+
+</%perl>
+A search on <font class="title"><% $ARGS{new0} %></font>
+has turned up the following matching
+artists that are similar to the artist name that you just entered. 
+Please choose one of the artists below, and click Select Artist to
+enter this moderation:
+
+<form method="POST" action="/bare/enter_mod.html"
+      enctype="application/x-www-form-urlencoded" class="formstyle">
+<%perl>
+
+for($i = 0; $i < scalar(@idslabels); $i++)
+{
+    $artistid = shift @idslabels;
+    $artistname = shift @idslabels;
+    mc_out(qq\<input type="radio" name="new0" 
+           value="$artistname">&nbsp;$artistname<br>\);
+}
+
+foreach $key (keys %ARGS)
+{
+    next if ($key eq 'new0');
+
+    mc_out(qq\<input type="hidden" name="$key" value="$ARGS{$key}">\);
+    mc_out("\n");
+}
+
+</%perl>
+<input type="submit" value="Select Artist>>" name="Search">
+</form>
+<%perl>
+
+$mb->Logout();
+
+</%perl>

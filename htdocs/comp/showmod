@@ -24,6 +24,9 @@ if ($voted)
    $text = "(Already voted)";
 }
 my $modtype = Moderation::GetModificationName($type);
+my @entered = localtime($time);
+$time = sprintf "%d-%d %02d:%02d", $entered[4]+1, $entered[3], 
+                                   $entered[2], $entered[1];
 
 </%perl>
 
@@ -32,11 +35,11 @@ my $modtype = Moderation::GetModificationName($type);
 </tr>
 <tr>
    <td width=38% valign=top bgcolor=white class="body">
-     <% $modtype %>
-     (<a href="/showartist.html?artistid=<% $artist %>"><% $artistname %></a>)
+     Moderator: <% $moderator %> (exp: <% $time %>)
    </td>
    <td width=38% valign=top bgcolor=white class="body">
-     Moderator: <% $moderator %>
+     <% $modtype %>
+     (<a href="/showartist.html?artistid=<% $artist %>"><% $artistname %></a>)
    </td>
    <td width=24% align=center valign=top valign=top bgcolor=white class="body">
      <% $yesvotes %> yes,

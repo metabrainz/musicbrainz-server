@@ -35,6 +35,7 @@ use CGI;
 use DBI;
 use DBDefs;
 use Track;
+use Artist;
 
 use constant TYPE_NEW                    => 1;
 use constant TYPE_VOTED                  => 2;
@@ -47,6 +48,7 @@ use constant MOD_EDIT_TRACKNAME          => 4;
 use constant MOD_EDIT_TRACKNUM           => 5;
 use constant MOD_MERGE_ARTIST            => 6;
 use constant MOD_ADD_TRACK               => 7;
+use constant MOD_MOVE_ALBUM              => 8;
 
 use constant STATUS_OPEN                 => 1;
 use constant STATUS_APPLIED              => 2;
@@ -61,7 +63,8 @@ my %ModNames = (
     "4" => "Edit Track Name",
     "5" => "Edit Track Number",
     "6" => "Merge Artist",
-    "7" => "Add Track"  
+    "7" => "Add Track",  
+    "8" => "Move Album"  
 );
 
 my %ChangeNames = (
@@ -275,7 +278,7 @@ sub CheckModifications
             @row = $sth->fetchrow_array;
 
             # Has the vote period expired?
-            if ($row[2] >= DBDefs::MOD_PERIOD)
+            if ($row[2] >= DBDefs::MOD_PERIOD && ($row[0] > 0 || $row[1] > 0))
             {
                 # Are there more yes votes than no votes?
                 if ($row[0] > $row[1])
@@ -359,6 +362,10 @@ sub ApplyModification
    elsif ($type == MOD_ADD_TRACK)
    {
        return ApplyAddTrackModification($this, $rowid);
+   }
+   elsif ($type == MOD_MOVE_ALBUM)
+   {
+       return ApplyMoveAlbumModification($this, $rowid);
    }
 
    return STATUS_ERROR;
@@ -492,6 +499,60 @@ sub ApplyEditModification
             {
                 $status = STATUS_FAILEDDEP;
             }
+        }
+   }
+   $sth->finish;
+
+   return $status;
+}
+
+sub ApplyMoveAlbumModification
+{
+   my ($this, $id) = @_;
+   my ($sth, @row, $newval, $rowid, $status, $ar, $newid);
+
+   $status = STATUS_ERROR;
+
+   # Pull back all the pertinent info for this mod
+   $sth = $this->{DBH}->prepare(qq/select newvalue, rowid 
+                                from Changes where id = $id/);
+   $sth->execute;
+   if ($sth->rows)
+   {
+        @row = $sth->fetchrow_array;
+        $newval = $this->{DBH}->quote($row[0]);
+        $rowid = $row[1];
+
+        $sth->finish;
+        $sth = $this->{DBH}->prepare(qq/select id from Artist where 
+                                     name = $newval/);
+        $sth->execute;
+        if ($sth->rows)
+        {
+            @row = $sth->fetchrow_array;
+            $newid = $row[0];
+        }
+        else
+        {
+            $ar = Artist->new($this->{MB});
+            $newid = $ar->Insert($row[0], $row[0]);
+        }
+
+        $sth->finish;
+        $sth = $this->{DBH}->prepare(qq/select track from AlbumJoin where 
+                                     Album = $rowid/);
+        $sth->execute;
+        if ($sth->rows)
+        {
+            while(@row = $sth->fetchrow_array)
+            {
+                $this->{DBH}->do(qq/update Track set artist = $newid where 
+                                id = $row[0]/);
+            }
+
+            $this->{DBH}->do(qq/update Album set artist = $newid where 
+                                id = $rowid/);
+            $status = STATUS_APPLIED;
         }
    }
    $sth->finish;
