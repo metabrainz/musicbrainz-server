@@ -33,9 +33,6 @@ use MusicBrainz;
 use DBDefs;
 use Sql;
 
-my $dbname = DBDefs::DB_NAME;
-my $dbuser = DBDefs::DB_USER;
-
 my ($fHelp, $fIgnoreErrors);
 my $tmpdir = "/tmp";
 

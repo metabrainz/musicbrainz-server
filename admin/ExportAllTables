@@ -32,9 +32,6 @@ use DBI;
 use DBDefs;
 use integer;
 
-my $dbname = DBDefs::DB_NAME;
-my $dbuser = DBDefs::DB_USER;
-
 use Getopt::Long;
 
 my $fHelp;
