@@ -1,10 +1,16 @@
-      <table cellpadding="10" cellspacing="0" border="0" width=100%>
+      <table cellpadding="10" cellspacing="0" border="0" width="100%">
       <tr>
          <td align=center>
-           <a href="http://www.relatable.com"><img src="/images/relatable.gif" border=0></a>
+           <a href="http://www.relatable.com"><img src="/images/relatable.gif" border=0
+	   	alt="Relatable"
+	   	title="Relatable"
+	   	></a>
            <br>
            <br>
-           <a href="http://www.communitycolo.net"><img src="/images/cccp.png" border=0></a>
+           <a href="http://www.communitycolo.net"><img src="/images/cccp.png" border=0
+	   	alt="CCCP"
+		title="California Community Colocation Project"
+	   	></a>
            <br>
            <br>
            <form action="https://www.paypal.com/cgi-bin/webscr" method="post">
