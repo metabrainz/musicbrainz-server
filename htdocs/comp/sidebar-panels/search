@@ -1,13 +1,46 @@
 <table class="SidebarSearch">
 	<col style="width: 3em">
 	<col>
-% for my $table (qw( Artist Album Track )) {
+	<& .QuickSearchForm,
+		label => "Artist",
+		action => "/newsearch.html",
+		hidden_args => { table => "artist" },
+		textname => "search",
+		&>
+	<& .QuickSearchForm,
+		label => "Album",
+		action => "/newsearch.html",
+		hidden_args => { table => "album" },
+		textname => "search",
+		&>
+	<& .QuickSearchForm,
+		label => "Track",
+		action => "/newsearch.html",
+		hidden_args => { table => "Track" },
+		textname => "search",
+		&>
+	<& .QuickSearchForm,
+		label => "Editor",
+		action => "/user/view.html",
+		textname => "modname",
+		&>
+</table>
+
+<%def .QuickSearchForm>
+<%args>
+$label
+$method => "GET"
+$action
+$textname
+$hidden_args => {}
+</%args>
+% my $formid = "qs$label"; $formid =~ s/\W//g;
 	<tr>
-		<th><% $table %></th>
+		<th><label for="<% $formid %>_text"><% $label %></label></th>
 		<td>
-	<form method="get" action="/newsearch.html">
+	<form method="<% $method %>" action="<% $action %>">
 		<div>
-			<input type="text" name="search" value=""
+			<input type="text" name="<% $textname %>" id="<% $formid %>_text" value=""
 %# What is the official position on forms with no submit button?
 %# Normally they're OK, and you can press "return" and the form is submitted.
 %# Can we rely on this, always?
@@ -16,12 +49,11 @@
 					onkeydown="if (event.keyCode==13) this.form.submit()"
 % }
 				>
-			<input type="hidden" name="table" value="<% $table %>">
+			<& /comp/args-to-hidden-fields.inc, %$hidden_args &>
 		</div>
 	</form>
 		</td>
 	</tr>
-% }
-</table>
+</%def>
 
 %# vi: set ts=2 sw=2 ft=mason :
