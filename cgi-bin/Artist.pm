@@ -486,7 +486,6 @@ sub GetArtistDisplayList
            $temp =~ tr/ /0/;
            push @info, [$row[0], $row[1], $row[2], $temp];
        }
-       $sql->Finish;   
 
        # This sort is necessary in order for us to get the right
        # ordering. Unfortunately its sorting a mainly sorted list
@@ -498,6 +497,7 @@ sub GetArtistDisplayList
        splice(@$_, 3) for @info;
    }
 
+   $sql->Finish;   
    return ($max_artists, @info);
 }
 
@@ -551,8 +551,9 @@ sub GetAlbums
             push @albums, $album;
             undef $album;
         }
-        $sql->Finish;
    }
+
+    $sql->Finish;
 
    return @albums if (defined $novartist && $novartist);
 
@@ -604,9 +605,9 @@ sub GetAlbums
             push @albums, $album;
             undef $album;
         }
-        $sql->Finish;
    }
 
+    $sql->Finish;
    return @albums;
 } 
 
@@ -641,19 +642,21 @@ sub HasAlbum
                 }
             }
         }
-        $sql->Finish;
    }
 
+    $sql->Finish;
+
    # then, pull in the multiple artist albums
-   if ($this->{id} != &ModDefs::VARTIST_ID &&
+   if ($this->{id} != &ModDefs::VARTIST_ID)
+   {
        $sql->Select(qq/select distinct AlbumJoin.album, Album.name, lower(Album.name) 
                          from Track, Album, AlbumJoin
                         where Track.Artist = $this->{id} and 
                               AlbumJoin.track = Track.id and 
                               AlbumJoin.album = Album.id and 
                               Album.artist = / . &ModDefs::VARTIST_ID .
-                   " order by lower(Album.name), Album.name"))
-   {
+                   " order by lower(Album.name), Album.name");
+
         while(@row = $sql->NextRow)
         {
 	    my $name = decode("utf-8", $row[1]);

@@ -129,8 +129,8 @@ sub ApprovedAction
 			) or die "Failed to update track #$row[0] in MOD_MAC_TO_SAC";
 		}
 
-		$sql->Finish;
 	}
+	$sql->Finish;
 
 	# Move the album itself
 

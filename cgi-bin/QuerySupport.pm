@@ -719,6 +719,7 @@ sub QuickTrackInfoFromTRMId
    }
    else
    {
+       $sql->Finish;
        my (%lookup, $ts);
 
        $lookup{artist} = $artist;

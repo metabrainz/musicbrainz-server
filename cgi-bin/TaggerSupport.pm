@@ -1,3 +1,5 @@
+#!/usr/bin/perl -w
+# vi: set ts=8 sw=4 et :
 #____________________________________________________________________________
 #
 #   MusicBrainz -- the internet music database
@@ -595,8 +597,8 @@ sub AlbumTrackSearch
                         tracklen=>$row[3]
                       });
        }
-       $sql->Finish;
    }
+    $sql->Finish;
 
    return (0, []) if (scalar(@ids) == 0);
 
@@ -661,8 +663,8 @@ sub AlbumTrackSearch
            $id->{artistmbid} = $ar->GetMBId();
            $this->SetSim(ALBUMTRACKID, $id);
        }
-       $sql->Finish;
    }
+    $sql->Finish;
 
    @ids = sort { $b->{sim} <=> $a->{sim} } @ids;
 
@@ -754,8 +756,8 @@ sub TrackSearch
                         tracknum=>$row[4]
                       });
        }
-       $sql->Finish;
    }
+    $sql->Finish;
 
    return (0, []) if (scalar(@ids) == 0);
 
@@ -956,3 +958,4 @@ sub MetadataCompare
 }
 
 1;
+# eof TaggerSupport.pm

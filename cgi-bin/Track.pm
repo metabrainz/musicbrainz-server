@@ -285,8 +285,8 @@ sub GetMetadataFromIdAndAlbum
                 }
              }
          }
-         $sql->Finish;
     }
+	$sql->Finish;
 
     return ($this->GetName(), $ar->GetName(), $album, $seq, $TRM[0]->{TRM});
 }
@@ -492,8 +492,8 @@ sub GetAlbumInfo
        {
            push @info, [@row];
        }
-       $sql->Finish;
    }
+	$sql->Finish;
 
    return @info;
 }

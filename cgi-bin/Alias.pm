@@ -271,6 +271,7 @@ sub LoadFull
        return \@info;
    }
 
+   $sql->Finish;
    return undef;
 }
 

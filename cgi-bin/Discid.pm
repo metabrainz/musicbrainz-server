@@ -134,8 +134,8 @@ sub GetDiscidFromAlbum
                          toc=>$row[2],
                          modpending=>$row[3] };
         }
-        $sql->Finish();
     }
+	$sql->Finish();
     return @ret;
 }
 
@@ -245,14 +245,13 @@ sub _FindFuzzy
       {
           push @albums, $row[0];
       }
-      $sql->Finish;
    }
 
+	$sql->Finish;
    return @albums;
 }
 
-# Load all the aliases for a given artist and return an array of references to alias
-# objects. Returns undef if error occurs
+# TODO should this ever return undef?
 sub LoadFull
 {
    my ($this, $album) = @_;
@@ -264,7 +263,7 @@ sub LoadFull
                 where album = $album
              order by id|;
 
-   if ($sql->Select($query) && $sql->Rows)
+   $sql->Select($query);
    {
        for(;@row = $sql->NextRow();)
        {
@@ -276,12 +275,11 @@ sub LoadFull
            $disc->SetTOC($row[3]);
            push @info, $disc;
        }
-       $sql->Finish;
-
-       return \@info;
    }
+	$sql->Finish;
 
-   return undef;
+   return undef if not @info;
+   \@info;
 }
 
 # Take in a CD TOC in string format.  Parse it, validate it.

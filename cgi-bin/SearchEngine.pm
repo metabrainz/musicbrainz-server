@@ -268,8 +268,8 @@ sub RebuildIndex
 
                     $written++;
                 }
-                $self->{SQL}->Finish;
             }
+	    $self->{SQL}->Finish;
 
             print STDERR $self->{Table} . " index added " .
                          ($written + $count) . " of $total_rows. (".

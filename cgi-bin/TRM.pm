@@ -226,6 +226,7 @@ sub RemoveTRMByTRMJoin
 
 # Load all the trms for a given track and return an array of references to trms
 # objects. Returns undef if error occurs
+# TODO should this ever return undef?
 sub LoadFull
 {
    my ($this, $track) = @_;
@@ -251,6 +252,7 @@ sub LoadFull
        return \@info;
    }
 
+	$sql->Finish;
    return undef;
 }
 

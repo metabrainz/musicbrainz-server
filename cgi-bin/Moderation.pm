@@ -414,9 +414,9 @@ sub CreateFromId
            $mod->SetExpired($row[20]);
 			$mod->PostLoad;
        }
-       $sql->Finish();
    }
 
+   $sql->Finish();
    return $mod;
 }
 

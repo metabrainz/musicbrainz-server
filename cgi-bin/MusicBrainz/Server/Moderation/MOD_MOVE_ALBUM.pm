@@ -112,8 +112,8 @@ sub ApprovedAction
 			);
 		}
 
-		$sql->Finish;
 	}
+	$sql->Finish;
 
 	# Move the album itself
 
