@@ -84,6 +84,9 @@ $artist->LoadFromId
 	|
 	<a href="/freedb/freedb.html?search=<% $artist->GetName() |u %>"
 		>Import album</a>
+	|
+	<a href="/albumdetail.html?albumid=<% $album->GetId %>"
+		>View Info</a>
 	]
 </p>
 
