@@ -1,5 +1,7 @@
 <& /comp/sidebar, title=>'Welcome to MusicBrainz!' &>  
 
+<table width="420"><tr><td>
+
 % if (DBDefs::DB_STAGING_SERVER) {
    <center>
    <font size="+2" color="red">You are using the MusicBrainz staging server!</font>
@@ -12,22 +14,34 @@
 % }
 
 <p>
-   MusicBrainz is the second generation incarnation of the 
-   <a href="http://www.cdindex.org"> CD Index</a>. This server is designed 
-   to enable Audio CD and MP3/Vorbis players to download metadata about the 
-   music they are playing. All of the data collected on this server 
-   is made available to the public under the 
-   <a href="http://www.opencontent.org">OpenContent</a> license. 
+
+   MusicBrainz is a community music metadatabase that attempts to create
+   a comprehensive music encyclopedia. Automatic Audio CD and digital audio 
+   track identification using community supplied and maintained data
+   is the first goal of MusicBrainz.
 
 <p>
-   To get started using MusicBrainz, you may want
-   to look at our <a href="/download.html">download</a> or
-   <a href="/search.html">search</a> pages. For a more in-depth
+   In the future, MusicBrainz will have a genre system and a comprehensive
+   geneology of music, tracking not only music releases, but also detailed
+   information about who contributed to a piece of music. MusicBrainz will
+   keep track of which artists/performers/engineers contributed to
+   a piece of music, and when these contributions took place. The system 
+   will also keep track of artist influences on each other and many more 
+   pieces of information to create a comprehensive geneology of modern music.
+
+<p>
+   To get started using MusicBrainz, take a look at the 
+   <a href="/search.html">search</a> page. For a more in-depth
    view of MusicBrainz, take a look at the 
-   <a href="/documentation.html">documentation</a> pages.
+   <a href="/introduction.html">introduction</a> page and the 
+   <a href="/information.html">information</a> pages.
    To get started contributing to MusicBrainz, please 
    look at our <a href="/contribute.html">contribute</a> and
    <a href="/mod_intro.html">moderation introduction</a> pages.
+
+<p>
+   All of the data collected on this server is made available to the public 
+   under the <a href="http://www.opencontent.org">OpenContent</a> license. 
 
    <p>
    If you have any questions or comments about this server, please
@@ -36,13 +50,14 @@
    <br>
 
    <center>
-   <table width="75%"><tr><td>
-   <font color="red" size="+1">Newsflash:</font> 
-   I've been <a href="http://bitzi.com/bboard/message?message_id=18393&forum_id=1667">laid off</a> from my position at <a href="http://bitzi.com">Bitzi</a> 
-   and thus I need to find a new job! Bitzi was the main MusicBrainz
-   sponsor, and in order to keep development on MusicBrainz moving forward
-   at a rapid pace I would like to find another company who would be 
-   interested in hiring me full/part time to continue my work on this project.
+   <table width="85%"><tr><td>
+   <font color="red" size="+1">Still looking:</font> 
+   I'm still looking for a new job after having been 
+   <a href="http://bitzi.com/bboard/message?message_id=18393&forum_id=1667">laid off</a> from my position at <a href="http://bitzi.com">Bitzi</a>. 
+   Bitzi was the main MusicBrainz sponsor, and in order to keep development 
+   on MusicBrainz moving forward at a rapid pace I would like to find another 
+   company who would be interested in hiring me full/part time to continue 
+   my work on this project.
    Please <a href="mailto:rob@eorbit.net">drop me a line</a> if you know of
    a company who might be interested. [ <a href="http://www.mayhem-chaos.net/resume.html">Resume</a> ]
    </td></tr></table>
@@ -50,6 +65,16 @@
 
 <& /comp/tablebegin, title=>"Recent News Items" &>
 <table border="0" cellpadding="3">
+<tr>
+   <td valign="top" nowrap>
+   2002-04-19
+   </td>
+   <td valign="top">
+   Updated the MusicBrainz server, with a more flexible merge album function,
+   automatic moderation for capitalization-change-only moderations, and
+   a number of other minor improvements and bug fixes.
+   </td>
+</tr>
 <tr>
    <td valign="top" nowrap>
    2002-03-29
@@ -121,16 +146,6 @@
    and each artist page now has a view mods link.
    </td>
 </tr>
-<tr>
-   <td valign="top" nowrap>
-   2001-12-21
-   </td>
-   <td valign="top">
-   Updated the MusicBrainz server, which adds a Move CD Index id feature,
-   some text highlighting in the moderation and various small bug fixes. 
-   All the tracks with a 0 track number have also been removed.
-   </td>
-</tr>
 </table>
 <& /comp/tableend &>
 
@@ -141,4 +156,7 @@
    If you encounter strange behaviour or missing pages, please
    <a href="http://www.freeamp.org/bugzilla">report a bug</a>.
    </center>
+
+</td></tr></table>
+
 <& /comp/footer &>
