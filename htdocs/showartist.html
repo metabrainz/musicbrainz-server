@@ -1,25 +1,52 @@
 %# vi: set ts=4 sw=4 ft=mason :
 <%args>
+$artistid => ""
+$mbid => ""
 $ex=>""
 $mbt=>0
 </%args>
 
 <%perl>
 
+if ($mbid ne "")
+{
+	MusicBrainz::IsGUID($mbid)
+		or return $m->comp("/comp/badargs", 1, 1);
+} else {
+	MusicBrainz::IsNonNegInteger($artistid) && $artistid
+		or return $m->comp("/comp/badargs", 1, 1);
+}
+
+my $mb = $m->comp("/comp/dblogin");
+
+my $artist = Artist->new($mb->{DBH});
+$artist->SetMBId($mbid) if $mbid;
+$artist->SetId($artistid) unless $mbid;
+$artist->LoadFromId()
+	or return $m->comp(
+		"/comp/error",
+		"Artist not found in the database.",
+		1, 1,
+	);
+
+$artist->GetId == ModDefs::DARTIST_ID
+	and return $m->comp("/comp/badargs", 1, 1);
+
+
+
 sub CheckAttributes
 {
     my ($a) = @_;
-    my ($attr, @aattr);
 
-    @aattr = $a->GetAttributes();
-    foreach $attr (@aattr)
-    {  
+	for my $attr ($a->GetAttributes)
+    {
         $a->{_attr_type} = $attr if ($attr >= Album::ALBUM_ATTR_SECTION_TYPE_START &&
                                      $attr <= Album::ALBUM_ATTR_SECTION_TYPE_END);
         $a->{_attr_status} = $attr if ($attr >= Album::ALBUM_ATTR_SECTION_STATUS_START &&
                                        $attr <= Album::ALBUM_ATTR_SECTION_STATUS_END);
         $a->{_attr_type} = $attr if ($attr == Album::ALBUM_ATTR_NONALBUMTRACKS);
     }
+
     $a->{_attr_type} = Album::ALBUM_ATTR_SECTION_TYPE_END + 1 if (not defined $a->{_attr_type});
     $a->{_attr_status} = Album::ALBUM_ATTR_SECTION_STATUS_END + 1 if (not defined $a->{_attr_status});
 }
@@ -46,50 +73,17 @@ sub SortAlbums
 	($a->{_attr_status} <=> $b->{_attr_status})
 }
 
-my ($mb); 
-my (@albums, $artist, $album); 
-
-if (!exists $ARGS{artistid} || $ARGS{artistid} eq '')
-{
-    mc_comp("/comp/sidebar", title=>"Error");
-    mc_comp("/comp/badargs");
-    return undef;
-}
-
-$mb = mc_comp("/comp/dblogin");
-$artist = Artist->new($mb->{DBH});
-$album = Album->new($mb->{DBH});
-
-$artist->SetId($ARGS{artistid});
-if (! $artist->LoadFromId())
-{
-    mc_comp("/comp/sidebar", title=>"Error");
-    mc_out("This artist (id=$ARGS{artistid}) was not found in the database.");
-}
-else
-{
-    mc_comp("/comp/sidebar", title=>'',
+    $m->comp("/comp/sidebar", title=>'',
             pagetitle=>"Artist: " . $artist->GetName());
 
-    if ($ARGS{artistid} == ModDefs::DARTIST_ID)
-    {
-        mc_out("<font size=\"+2\">Deleted Artist</font><p>");
-        mc_out("<table width=\"100%\"><tr><td align=\"center\">");
-        mc_out("<font size=\"+1\">This artist is a placeholder for the ");
-        mc_out("moderation system. Please do not use it.</font>");
-        mc_out("</td></tr></table>");
-        return undef;
-    }
+    $m->comp("/comp/artisttitle", artist=>$artist);
 
-
-    mc_comp("/comp/artisttitle", artist=>$artist);
-    
-    mc_out("[ ");
-    if (exists $session{uid})
+    $m->out("[ ");
+    if ($session{uid})
     {
         </%perl>
-        <a href="/addalbum.html?artistid=<% $artist->GetId() %>">Add 
-           album</a> | 
+        <a href="/addalbum.html?artistid=<% $artist->GetId() %>">Add
+           album</a> |
         <a href="/freedb/freedb.html?search=<% $artist->GetName() |u %>">Import
            album</a> |
         <%perl>
@@ -97,24 +91,23 @@ else
     else
     {
         </%perl>
-        <a href="/mod_intro.html">Edit data</a> | 
+        <a href="/mod_intro.html">Edit data</a> |
         <%perl>
     }
 
-    mc_out("<a href=\"/showaliases.html?artistid=");
-    mc_out($artist->GetId());
-    mc_out("\">Aliases</a> ");
+    $m->out("<a href=\"/showaliases.html?artistid=");
+    $m->out($artist->GetId());
+    $m->out("\">Aliases</a> ");
 
-	mc_out("| <a href=\"/artistrel.html?artistid=");
-	mc_out($artist->GetId());
-	mc_out("\">Related artists</a> ");
+	$m->out("| <a href=\"/artistrel.html?artistid=");
+	$m->out($artist->GetId());
+	$m->out("\">Related artists</a> ");
 
-    if ($artist->GetName() ne "Unknown" && 
-        $artist->GetId() != ModDefs::VARTIST_ID && 
-        $artist->GetId() != ModDefs::DARTIST_ID && 
+    if ($artist->GetName() ne "Unknown" &&
+        $artist->GetId() != ModDefs::VARTIST_ID &&
         $artist->GetName() ne "Data CD")
     {
-        if (exists $session{uid})
+        if ($session{uid})
         {
             </%perl>
             | <a href="/moderate.html?type=4&amp;artistid=<% $artist->GetId() %>"
@@ -122,11 +115,16 @@ else
             <%perl>
         }
 
-        mc_out(" | ");
-        mc_comp("/comp/googlelink", search=>($artist->GetName()), 
-            text=>"Search Google"); 
+		</%perl>
+		|
+		<a href="/artistinfo.html?artistid=<% $artist->GetId %>"
+			>View Info</a>
+		|
+		<& /comp/googlelink, search => $artist->GetName, text => "Search Google" &>
+
+		<%perl>
     }
-    mc_out("]<br>");
+    $m->out("]<br>");
 
 	my $relations = $artist->GetRelations();
 
@@ -152,41 +150,42 @@ else
 		<%perl>
 	}
 
-    if ($ARGS{artistid} == ModDefs::VARTIST_ID)
+    if ($artistid == ModDefs::VARTIST_ID)
     {
         </%perl>
-        <table width="100%"><tr><td align="center">
-        <font size="+1">There are too many albums to list.</font>
+
         <p>Please use the <a href="search.html">Search Page</a>
-         to look for a specific album,<br>
+         to look for a specific album,
          or browse the various artist albums:<p>
+
         <& /comp/browsebox, page=>"/browsevarious.html" &>
-        </td></tr></table>
+
         <%perl>
     }
     else
     {
-        @albums = $artist->GetAlbums(0, 1);
+        my @albums = $artist->GetAlbums(0, 1);
         if (scalar(@albums) == 0)
         {
-            mc_out("<center>This artist has no albums.<br>");
-            mc_out("[ <a href=\"remartist.html?artist=$ARGS{artistid}\">");
-            mc_out("Remove this artist</a> ]</center><br>");
+			</%perl>
+			<center>
+				<p>This artist has no albums.</p>
+				<p>
+					[
+					<a href="/remartist.html?artist=<% $artistid %>"
+						>Remove this artist</a>
+					]
+				</p>
+			</center>
+			<%perl>
         }
         else
         {
-            my ($count, $exall, $id, $hasnonalbum);
+			my $exall = join ",", map { $_->GetId } @albums;
+            my $hasnonalbum = 0;
 
-
-            $count = 0;
-            $hasnonalbum = 0;
-            foreach $album (@albums)
+            for my $album (@albums)
             {
-                $id = $album->GetId();
-                $exall .= "," if ($count > 0);
-                $exall .= $id;
-                $count++;
-
                 $hasnonalbum += $album->IsNonAlbumTracks();
                 CheckAttributes($album);
 
@@ -206,9 +205,9 @@ else
 
             </%perl>
 
-            <form method="post" action="/mod/tag/donetag.html" 
+            <form method="post" action="/mod/tag/donetag.html"
                   id="EditAlbumAttrsForm"
-                  enctype="application/x-www-form-urlencoded"> 
+                  enctype="application/x-www-form-urlencoded">
 
             <& /comp/framedboxbegin, width=>"100%" &>
             <& /comp/modnotice &>
@@ -221,9 +220,9 @@ else
             <img src="/images/plus.gif" align="middle"
                  alt="Expand" title="Expand All Albums"
                  height="13" width="13" border="0"> Expand All</a>
-    
+
             </td>
-            
+
             <td align="center">
             <a href="/showartist.html?artistid=<% $artist->GetId() %>">
             <img src="/images/minus.gif" align="middle"
@@ -231,10 +230,10 @@ else
                  height="13" width="13" border="0"> Collapse All</a>
             </td>
 
-%           if (exists $session{user}) {
+%           if ($session{uid}) {
     	    <td align="center">
 
-            <input name="submit" type="image" border="0" alt="Batch Operation" 
+            <input name="submit" type="image" border="0" alt="Batch Operation"
                    title="Moderate a batch of selected albums"
                    src="/images/batch.gif" height="13" width="13">
 
@@ -254,7 +253,8 @@ else
 
             <%perl>
             my $last = "";
-            foreach $album (@albums)
+
+            for my $album (@albums)
             {
                 if ($last ne $album->{_section_key_})
                 {
@@ -263,20 +263,18 @@ else
 					$name = "Uncategorized Releases" if $name eq "";
 
 					my $desc = ($name ? "$va $name" : $va ? $va."s" : "None");
-                    mc_comp("/comp/albumtype", text => $desc);
+                    $m->comp("/comp/albumtype", text => $desc);
 
                     $last = $album->{_section_key_};
                 }
 
-                $id = $album->GetId();
-                $exall .= "," if ($count > 0);
-                $exall .= $id;
+                my $id = $album->GetId();
 
-                if ($ex =~ /(^|\D)$id(\D|$)/) 
+                if ($ex =~ /(^|\D)$id(\D|$)/)
                 {
-                     mc_comp("/comp/album", 
-                             album=>$album, 
-                             artist=>$artist, 
+                     $m->comp("/comp/album",
+                             album=>$album,
+                             artist=>$artist,
                              ex=>$ex,
                              showcollapsed=>1,
                              showids=>0,
@@ -285,9 +283,9 @@ else
                 }
                 else
                 {
-                     mc_comp("/comp/albumcollapsed", 
-                             album=>$album, 
-                             artist=>$artist, 
+                     $m->comp("/comp/albumcollapsed",
+                             album=>$album,
+                             artist=>$artist,
                              ex=>$ex,
                              showids=>0,
                              showtag=>1);
@@ -299,16 +297,16 @@ else
             if (!$hasnonalbum)
             {
                 </%perl>
-                <table width="100%"><tr><td align="center">[ 
-                <a href="/addalbum.html?artistid=<% $artist->GetId() %>&amp;nonalbum=1">Add non-album 
-                tracks</a> ]</td></tr></table>
+				<center>
+					[
+					<a href="/addalbum.html?artistid=<% $artist->GetId() %>&amp;nonalbum=1"
+						>Add non-album tracks</a>
+					]
+				</center>
                 <%perl>
             }
         }
     }
-}
-
-$mb->Logout();
 
 </%perl>
 <& /comp/footer &>
