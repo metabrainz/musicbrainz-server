@@ -131,17 +131,19 @@ use Scalar::Util qw( reftype weaken );
         ],
         { name => "FAQ",					url => "/mod_faq.html" },
         { name => "Style",					url => "/style.html" },
-        { name => "Moderations",			url => "/moderate.html" },
+        { name => "Moderations",			url => "/mod/select-filter.html" },
         [
             { name => "New",					url => "/moderate.html?type=1" },
             { name => "New (FreeDB)",			url => "/moderate.html?type=5" },
             { name => "My Mods",				url => "/moderate.html?type=3" },
             { name => "My Votes",				url => "/moderate.html?type=2" },
             { name => "Failed Mods",			url => "/moderate.html?type=7" },
+            { name => "Advanced",				url => "/mod/filter.html" },
             { name => "Jump to ID",				url => "/jumpmod.html" },
 			[
 				{ url => "/showmod.html" },
 			],
+			{ url => "/moderate.html" },
         ],
 
 		# XXX Should this be here?  Currently this means that even logged-in
