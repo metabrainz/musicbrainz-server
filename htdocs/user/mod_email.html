@@ -2,6 +2,7 @@
 <%args>
 $uid=>-1
 $modid=>0
+$revealaddress=>0
 $subject=>""
 $text=>""
 $url=>""
@@ -74,7 +75,12 @@ if ($subject and $text)
 			"/showmod.html?modid=$modid\n\n" . $text;
 	}
 
-	my $ret = $me->SendMessageToUser($subject, $text, $you);
+	my $ret = $me->SendMessageToUser(
+		to						=> $you,
+		revealaddress => $revealaddress,
+		subject				=> $subject,
+		body					=> $text,
+	);
 
 	if ($ret)
 	{
@@ -109,6 +115,15 @@ else
 			<p style="margin: 0.5em">
 				 <span class="font-style: bold">To:</span>
 				 <% $you->GetName %>
+			</p>
+
+			<p style="margin: 0.5em">
+				<input type="checkbox" name="revealaddress" <%
+					UserPreference::get('reveal_address_when_mailing')
+					? "checked" : ""
+					%>>
+				Reveal my e-mail address, so they can e-mail me back
+				without having to use this web page
 			</p>
 
 			<p style="margin: 0.5em">

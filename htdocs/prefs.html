@@ -135,6 +135,16 @@ $time = time();
 		Show the "No Vote" option
 	</p>
 
+	<h2>E-Mailing Other Moderators</h2>
+
+	<p>
+		<input type="checkbox" name="reveal_address_when_mailing"
+			<% UserPreference::get('reveal_address_when_mailing') ? "checked" : "" %>
+			>
+		Reveal my e-mail address, so they can e-mail me back
+		without having to use this web site
+	</p>
+
 	<h2>Artist Page (List of Releases)</h2>
 
 	<p>

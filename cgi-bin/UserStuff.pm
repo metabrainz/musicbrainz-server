@@ -646,8 +646,15 @@ EOF
 
 sub SendMessageToUser
 {
-	my ($self, $subject, $message, $otheruser) = @_;
-	
+	my ($self, %opts) = @_;
+	my $otheruser = $opts{'to'};
+	my $revealaddress = $opts{'revealaddress'};
+	my $subject = $opts{'subject'};
+	my $message = $opts{'body'};
+
+	return $self->SendMessageToUser_unmasked(%opts)
+		if $revealaddress and $self->GetEmail;
+
 	my $fromname = $self->GetName;
 
 	# Collapse onto a single line
@@ -678,6 +685,44 @@ EOF
 		From		=> $self->GetForwardingAddressHeader,
 		# To: $otheruser (automatic)
 		"Reply-To"	=> 'Nobody <noreply@musicbrainz.org>',
+		Subject		=> MusicBrainz::Server::Mail->_quoted_string($subject),
+		Type		=> "text/plain",
+		Encoding	=> "quoted-printable",
+		Data		=> $body,
+	);
+    $mail->attr("content-type.charset" => "utf-8");
+
+	$otheruser->SendFormattedEmail(entity => $mail);
+}
+
+sub SendMessageToUser_unmasked
+{
+	my ($self, %opts) = @_;
+	my $otheruser = $opts{'to'};
+	my $revealaddress = $opts{'revealaddress'};
+	my $subject = $opts{'subject'};
+	my $message = $opts{'body'};
+
+	my $fromname = $self->GetName;
+
+	# Collapse onto a single line
+	$subject =~ s/\s+/ /g;
+
+	my $body = <<EOF;
+$message
+
+------------------------------------------------------------------------
+
+If you would like to send mail to moderator '$fromname',
+either reply to this e-mail, or use this link:
+http://${\ DBDefs::WEB_SERVER() }/user/mod_email.html?uid=${\ $self->GetId }
+EOF
+
+	require MusicBrainz::Server::Mail;
+	my $mail = MusicBrainz::Server::Mail->new(
+		Sender		=> 'Webserver <webserver@musicbrainz.org>',
+		From		=> $self->GetRealAddressHeader,
+		# To: $otheruser (automatic)
 		Subject		=> MusicBrainz::Server::Mail->_quoted_string($subject),
 		Type		=> "text/plain",
 		Encoding	=> "quoted-printable",
