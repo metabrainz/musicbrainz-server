@@ -138,7 +138,7 @@ sub UpdateModPending
 	my ($self, $adjust) = @_;
 
 	my $id = $self->GetId
-		or croak "Missing album ID in UpdateModPending";
+		or croak "Missing release ID in UpdateModPending";
 	defined($adjust)
 		or croak "Missing adjustment in UpdateModPending";
 
