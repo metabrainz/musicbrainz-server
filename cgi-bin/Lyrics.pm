@@ -47,6 +47,7 @@ sub GetLyricsFromTrackId
    my ($this, $trackid) = @_;
    my ($sth, @row);
 
+   $trackid = $this->{DBH}->quote($trackid);
    $sth = $this->{DBH}->prepare("select Text, Writer from Lyrics where Track=$trackid");
    $sth->execute;
    if ($sth->rows)
@@ -65,6 +66,7 @@ sub GetLyricsIdFromTrackId
 
    $rv = -1;
 
+   $id = $this->{DBH}->quote($id);
    $sth = $this->{DBH}->prepare("select Id from Lyrics where Track=$id");
    $sth->execute;
    if ($sth->rows)
@@ -86,6 +88,8 @@ sub GetSyncTextId
 
    $rv = -1;
 
+   $id = $this->{DBH}->quote($id);
+   $type = $this->{DBH}->quote($type);
    $contrib = $this->{DBH}->quote($contrib);
    $sth = $this->{DBH}->prepare("select Id from SyncText where track=$id and type=$type and submittor=$contrib");
    $sth->execute;
@@ -106,6 +110,7 @@ sub GetSyncTextList
    my ($this, $id) = @_;
    my ($sth, @ids);
 
+   $id = $this->{DBH}->quote($id);
    $sth = $this->{DBH}->prepare("select Id from SyncText where track=$id");
    $sth->execute;
    if ($sth->rows)
@@ -127,6 +132,7 @@ sub GetSyncTextData
     my ($this, $id) = @_;
     my (@row, $sth);
 
+    $id = $this->{DBH}->quote($id);
     $sth = $this->{DBH}->prepare("select track, type, url, submittor, submitted, id from SyncText where id = $id");
     $sth->execute;
     if ($sth->rows)
@@ -143,6 +149,7 @@ sub GetSyncEventList
    my ($this, $lyricid) = @_;
    my ($sth, @ids_ts_text);
 
+   $lyricid = $this->{DBH}->quote($lyricid);
    $sth = $this->{DBH}->prepare("select id, ts, text from SyncEvent " .
                                 "where synctext=$lyricid order by ts");
    $sth->execute;

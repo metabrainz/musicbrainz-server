@@ -201,11 +201,11 @@ sub Li
 
 sub BeginLi
 {
-    my ($this, $type) = @_;
+    my ($this, $about) = @_;
     my $rdf;
 
     $rdf = BeginElement($this, "rdf:li");
-    $rdf .= BeginDesc($this);
+    $rdf .= BeginDesc($this, $about);
 }
 
 sub EndLi

@@ -78,11 +78,15 @@ my %Queries =
         '/rdf:RDF/rdf:Description/DC:Format/@duration',
         '/rdf:RDF/rdf:Description/DC:Date/@issued',
         '/rdf:RDF/rdf:Description/MM:Genre',
-        '/rdf:RDF/rdf:Description/DC:Description',
-        '/rdf:RDF/rdf:Description/MM:SyncEvents/rdf:Description/@about',
+        '/rdf:RDF/rdf:Description/DC:Description'],
+   SubmitSyncText =>
+      [\&QuerySupport::SubmitSyncText, 
+        '/rdf:RDF/rdf:Description/DC:Identifier/@id',
         '/rdf:RDF/rdf:Description/MM:SyncEvents/rdf:Description/DC:Contributor',
-        '/rdf:RDF/rdf:Description/MM:SyncEvents/rdf:Description/DC:Type/@type',
-        '/rdf:RDF/rdf:Description/MM:SyncEvents/rdf:Description/DC:Date'],
+        '/rdf:RDF/rdf:Description/MM:SyncEvents/rdf:Description/DC:Type/@type'],
+   GetSyncTextById =>
+      [\&QuerySupport::GetSyncTextByTrackGlobalId, 
+        '/rdf:RDF/rdf:Description/MQ:Args/@id'],
    GetLyricsById =>
       [\&QuerySupport::GetLyricsByGlobalId, 
         '/rdf:RDF/rdf:Description/MQ:Args/@id']
@@ -93,6 +97,7 @@ if (exists $ENV{"MOD_PERL"})
    $r = Apache->request();
    my $size = $r->header_in("Content-length");
    $r->read($xml, $size);
+ #print "perl code\n";
 }
 else
 {
@@ -109,13 +114,14 @@ else
        }
        $xml .= $line;
    }
+ #print "manual code\n";
 }
 if (!defined $xml)
 {
     print QuerySupport::EmitErrorRDF("An RDF object must be supplied.", 1);
     exit(0);
 }
-
+#print "creating parser for\n" . $xml . "_end_\n";
 $parser = new XML::DOM::Parser;
 eval
 {

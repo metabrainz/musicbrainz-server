@@ -58,7 +58,7 @@ my %LyricTypes =
 (
    unknown        => 0,
    lyrics         => 1,
-   artitstinfo    => 2,
+   artistinfo     => 2,
    albuminfo      => 3,
    trackinfo      => 4,
    funny          => 5
@@ -69,7 +69,7 @@ my %TypesLyric =
 (
    0 => "unknown",
    1 => "lyrics",
-   2 => "artitstinfo",
+   2 => "artistinfo",
    3 => "albuminfo",
    4 => "trackinfo",
    5 => "funny"
@@ -1223,8 +1223,7 @@ sub CheckMetadata
 sub SubmitTrack
 {
    my ($mb, $doc, $name, $guid, $artist, $album, $seq,
-       $len, $year, $genre, $comment, $sync_url, $sync_contrib,
-       $sync_type, $sync_date) = @_;
+       $len, $year, $genre, $comment) = @_;
    my ($rdf, $r, $i, $ts, $text, $artistid, $albumid, $trackid, $type, $id);
    my ($al, $ar, $tr, $ly, $gu, @albumids);
 
@@ -1237,7 +1236,6 @@ sub SubmitTrack
    }
 
    #print STDERR "T: '$name' a: '$artist' l: '$album'\n";
-
    $ar = Artist->new($mb);
    $al = Album->new($mb);
    $tr = Track->new($mb);
@@ -1273,49 +1271,156 @@ sub SubmitTrack
        $gu->Insert($guid, $trackid);
    }
 
-   if (defined $sync_url || defined $sync_contrib || 
-       defined $sync_type || defined $sync_date)
-   {
-       if (! DBDefs->USE_LYRICS)
-       {  
-           return EmitRDFError("This server does not accept lyrics.");
-       }
-       if (!defined $sync_type || !exists $LyricTypes{$sync_type})
-       { 
-           $type = 0;
-       }
-       else
-       {
-           $type = $LyricTypes{$sync_type};
-       }
-       #only accept entry if it is not already present with same type for same person
-       $id = $ly->GetSyncTextId($trackid, $type, $sync_contrib);
-       if ($id < 0)
-       {
-           $id = $ly->InsertSyncText($trackid, $type, $sync_url, $sync_contrib);
-           for($i = 0;; $i++)
-           {
-               $ts = SolveXQL($doc, "/rdf:RDF/rdf:Description/MM:SyncEvents/rdf:Description/rdf:Seq/rdf:li[$i]" . '/rdf:Description/MM:SyncText/@ts');
-               $text = SolveXQL($doc, "/rdf:RDF/rdf:Description/MM:SyncEvents/rdf:Description/rdf:Seq/rdf:li[$i]/rdf:Description/MM:SyncText");
-               last if (!defined $ts || !defined $text);
+   $r = RDF::new;
+   $rdf = $r->BeginRDFObject();
+   $rdf .= $r->BeginDesc; 
+   $rdf .= $r->Element("MQ:Status", "OK", items=>0);
+   $rdf .= $r->EndDesc;
+   $rdf .= $r->EndRDFObject;
 
-               if ($ts =~ /:/)
-               {
-                   $ts = ($1 * 3600 + $2 * 60 + $3) * 1000 + $4
-                       if ($ts =~ /(\d*):(\d*):(\d*)\.(\d*)/);
-                   $ts = ($1 * 60 + $2) * 1000 + $3
-                       if ($ts =~ /(\d*):(\d*)\.(\d*)/);
-               }
-        
-               $id = $ly->InsertSyncEvent($trackid, $ts, $text);
+   return $rdf;
+}
+
+
+sub SubmitSyncText
+{
+   my ($mb, $doc, $gid, $sync_contrib, $sync_type) = @_;
+   my ($rdf, $r, $i, $ts, $text, $synctextid, $trackid, $type, $id);
+   my ($tr, $ly, $sth);
+
+   if (!defined $gid || $gid eq '' ||
+       !defined $sync_contrib || $sync_contrib eq '' )
+   {
+       return EmitErrorRDF("Incomplete synctext information submitted.") 
+   }
+
+   #print STDERR "I: '$gid' w: '$sync_contrib' T: '$sync_type'\n";
+   if (! DBDefs->USE_LYRICS) {  
+       return EmitRDFError("This server does not accept lyrics.");
+   }
+   $tr = Track->new($mb);
+   $ly = Lyrics->new($mb);
+
+   $id = $mb->{DBH}->quote($gid);
+   $sth = $mb->{DBH}->prepare(qq/select id from Track where gid = $id /);
+   if ($sth->execute() && $sth->rows() > 0) {
+        my @row = $sth->fetchrow_array;
+        $trackid=$row[0];
+   }
+   $sth->finish;
+   if (!defined($trackid)) {
+       return EmitErrorRDF("Unknown track id.") 
+   }
+   if (!defined $sync_type || !exists $LyricTypes{$sync_type}) { 
+       $type = 0;
+   } else {
+       $type = $LyricTypes{$sync_type};
+   }
+   #only accept entry if it is not already present with same type for same person
+   $id = $ly->GetSyncTextId($trackid, $type, $sync_contrib);
+   if ($id < 0) {
+       $synctextid = $ly->InsertSyncText($trackid, $type, '', $sync_contrib);
+       for($i = 0;; $i++) {
+           $ts = SolveXQL($doc, "/rdf:RDF/rdf:Description/MM:SyncEvents/rdf:Description/rdf:Seq/rdf:li[$i]" . '/rdf:Description/MM:SyncText/@ts');
+           $text = SolveXQL($doc, "/rdf:RDF/rdf:Description/MM:SyncEvents/rdf:Description/rdf:Seq/rdf:li[$i]/rdf:Description/MM:SyncText");
+           last if (!defined $ts || !defined $text);
+
+           if ($ts =~ /:/) {
+               $ts = ($1 * 3600 + $2 * 60 + $3) * 1000 + $4
+                   if ($ts =~ /(\d*):(\d*):(\d*)\.(\d*)/);
+               $ts = ($1 * 60 + $2) * 1000 + $3
+                   if ($ts =~ /(\d*):(\d*)\.(\d*)/);
            }
+     
+           $id = $ly->InsertSyncEvent($synctextid, $ts, $text);
        }
+   } else {
+       return EmitErrorRDF("Synctext information already submitted.") 
    }
 
    $r = RDF::new;
    $rdf = $r->BeginRDFObject();
    $rdf .= $r->BeginDesc; 
    $rdf .= $r->Element("MQ:Status", "OK", items=>0);
+   $rdf .= $r->EndDesc;
+   $rdf .= $r->EndRDFObject;
+
+   return $rdf;
+}
+
+# returns synctext
+sub GetSyncTextByTrackGlobalId
+{
+   my ($mb, $doc, $id) = @_;
+   my ($sth, $rdf, $sql, @row, $count, $trackid);
+
+   $count = 0;
+
+   if (! DBDefs->USE_LYRICS)
+   {  
+       return EmitRDFError("This server does not support synctext.");
+   }
+
+   return EmitErrorRDF("No track id given.") 
+      if (!defined $id);
+   return undef if (!defined $mb);
+
+   $id = $mb->{DBH}->quote($id);
+   $sth = $mb->{DBH}->prepare(qq/select id from Track where gid = $id /);
+   if ($sth->execute() && $sth->rows() > 0) {
+        my @row = $sth->fetchrow_array;
+        $trackid=$row[0];
+   }
+   $sth->finish;
+   if (!defined($trackid)) {
+       return EmitErrorRDF("Unknown track id.") 
+   }
+
+   my $ly= Lyrics->new($mb);
+   my $r = RDF::new; 
+   $rdf  = $r->BeginRDFObject;
+   $rdf .= $r->BeginDesc;
+   $rdf .= CreateTrackRDFSnippet($mb, $r, 1, $trackid);
+   $rdf .= $r->BeginElement("MM:SyncEvents");
+   $rdf .= $r->BeginSeq;
+
+   #get all synctext ID entries for this track
+   my @id=$ly->GetSyncTextList($trackid);
+
+   foreach $id (@id) {
+      #read the table SyncText for this id
+      (my $type, my $url, my $contributor, my $date) =
+         ($ly->GetSyncTextData($id))[1..4];
+
+      if ($contributor eq '' ||			#invalid record
+          $url         eq '' ||
+          $date        eq '' ) { next }		#TODO: log error
+     
+
+      $rdf .= $r->BeginLi($url);
+      $rdf .= $r->Element("DC:Contributor", $contributor); 
+      $rdf .= $r->Element("DC:Type", "", type=>($TypesLyric{$type}));
+      $rdf .= $r->Element("DC:Date", $date);
+      $rdf .= $r->BeginSeq;
+    
+      my @events=$ly->GetSyncEventList($id);	#get text & timestamps
+     
+      while(scalar(@events) > 2) {
+         shift @events;				#read away the ID
+         my $ts=shift(@events);
+         my $text=shift(@events);
+         $rdf .= $r->BeginLi;
+         $rdf .= $r->Element("MM:SyncText", $text, ts=>$ts);
+         $rdf .= $r->EndLi;
+      }
+      $rdf .= $r->EndSeq;
+      $rdf .= $r->EndLi;
+      $count++;
+   }
+   $sth->finish;
+   $rdf .= $r->EndSeq;
+   $rdf .= $r->EndElement("MM:SyncEvents");
+   $rdf .= $r->Element("MQ:Status", "OK", items=>$count);
    $rdf .= $r->EndDesc;
    $rdf .= $r->EndRDFObject;
 
@@ -1334,7 +1439,7 @@ sub GetLyricsByGlobalId
 
    if (! DBDefs->USE_LYRICS)
    {  
-       return EmitRDFError("This server does not store lyrics.");
+       return EmitRDFError("This server does not support lyrics.");
    }
 
    return EmitErrorRDF("No track id given.") 
