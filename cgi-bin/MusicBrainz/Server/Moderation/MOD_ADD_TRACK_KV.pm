@@ -165,16 +165,27 @@ sub DeniedAction
 		# Remove the track itself (only if it's now unused)
 		my $tr = Track->new($self->{DBH});
 		$tr->SetId($track);
-	  	$tr->Remove;
+		$tr->Remove;
 	}
 
-	# TODO try to remove the album if it's a "non-album" album
-   
+	if (my $album = $new->{"AlbumId"})
+	{
+		# Try to remove the album if it's a "non-album" album
+		my $al = Album->new($self->{DBH});
+		$al->SetId($album);
+		if ($al->LoadFromId)
+		{
+			$al->Remove
+				if $al->IsNonAlbumTracks
+				and $al->LoadTracks == 0;
+		}
+	}
+
 	if (my $artist = $new->{"ArtistId"})
 	{
-  		my $ar = Artist->new($self->{DBH});
+		my $ar = Artist->new($self->{DBH});
 		$ar->SetId($artist);
-	  	$ar->Remove;
+		$ar->Remove;
 	}
 }
 

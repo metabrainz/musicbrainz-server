@@ -74,7 +74,15 @@ sub ApprovedAction
 	$tr->Remove
 		or return &ModDefs::STATUS_FAILEDDEP;
 
-	# TODO try to remove the album if it's a "non-album" album
+	# Try to remove the album if it's a "non-album" album
+	my $al = Album->new($this->{DBH});
+	$al->SetId($this->{'prev.albumid'});
+	if ($al->LoadFromId)
+	{
+		$al->Remove
+			if $al->IsNonAlbumTracks
+			and $al->LoadTracks == 0;
+	}
 
 	&ModDefs::STATUS_APPLIED;
 }
