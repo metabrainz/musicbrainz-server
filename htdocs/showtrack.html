@@ -2,6 +2,8 @@
 
 my ($mb); 
 my ($track, $artist, $album, $trackid, @info, $gu, @TRM, $id, $length_in_secs); 
+my ($hostname);
+my $r = Apache->request();
 
 if ((!exists $ARGS{trackid} || $ARGS{trackid} eq '') &&
     (!exists $ARGS{albumjoinid} || $ARGS{albumjoinid} eq ''))
@@ -65,8 +67,8 @@ $length_in_secs = int($track->GetLength() / 1000);
     </tr><tr>
     <td valign="top" align="right"><a href="/MM/index.html">MM/RDF</a></td>
     <td valign="top"><a 
-       href="http://mm.musicbrainz.org/track/<% $track->GetMBId() %>">
-       http://mm.musicbrainz.org/track/<% $track->GetMBId() %></a></td>
+       href="http://<% $r->hostname %>/mm-2.1/track/<% $track->GetMBId() %>">
+       http://<% $r->hostname %>/mm-2.1/track/<% $track->GetMBId() %></a></td>
     </tr>
 % if (exists $session{user}) {
     <tr>
@@ -123,8 +125,8 @@ $length_in_secs = int($track->GetLength() / 1000);
     </tr><tr>
     <td valign="top" align="right"><a href="/MM/index.html">MM/RDF</a></td>
     <td valign="top"><a 
-       href="http://mm.musicbrainz.org/artist/<% $artist->GetMBId() %>">
-       http://mm.musicbrainz.org/artist/<% $artist->GetMBId() %></a></td>
+       href="http://<% $r->hostname %>/mm-2.1/artist/<% $artist->GetMBId() %>">
+       http://<% $r->hostname %>/mm-2.1/artist/<% $artist->GetMBId() %></a></td>
     </tr>
 % if (exists $session{user}) {
     <tr>
@@ -162,8 +164,8 @@ $length_in_secs = int($track->GetLength() / 1000);
             <td valign="top" align="right"><a 
                 href="/MM/index.html">MM/RDF</a></td>
             <td valign="top"><a 
-              href="http://mm.musicbrainz.org/album/<% $$album[3] %>">
-              http://mm.musicbrainz.org/album/<% $$album[3] %></a></td>
+              href="http://<% $r->hostname %>/mm-2.1/album/<% $$album[3] %>">
+              http://<% $r->hostname %>/mm-2.1/album/<% $$album[3] %></a></td>
             </tr>
 
 % if (exists $session{user}) {

@@ -5,6 +5,9 @@ use strict;
 use QuerySupport;
 use DBI;
 use DBDefs;
+use Apache;
+use Apache::Request;
+use MM;
 use MM_2_0;
 
 my ($rdf, $mb, $query, $id, $out, $r, $depth);

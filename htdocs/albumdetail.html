@@ -46,8 +46,8 @@ else
     </tr><tr>
     <td valign="top" align="right"><a href="/MM/index.html">MM/RDF</a></td>
     <td valign="top"><a 
-       href="http://mm.musicbrainz.org/album/<% $album->GetMBId() %>">
-       http://mm.musicbrainz.org/album/<% $album->GetMBId() %></a></td>
+       href="http://<% $r->hostname %>/mm-2.1/album/<% $album->GetMBId() %>">
+       http://<% $r->hostname %>/mm-2.1/album/<% $album->GetMBId() %></a></td>
     </tr><tr>
 % if (exists $session{user}) {
     <td valign="top" align="right">Album RowId:</td>
@@ -70,8 +70,8 @@ else
     </tr><tr>
     <td valign="top" align="right"><a href="/MM/index.html">MM/RDF</a></td>
     <td valign="top"><a 
-       href="http://mm.musicbrainz.org/artist/<% $artist->GetMBId() %>">
-       http://mm.musicbrainz.org/artist/<% $artist->GetMBId() %></a></td>
+       href="http://<% $r->hostname %>/mm-2.1/artist/<% $artist->GetMBId() %>">
+       http://<% $r->hostname %>/mm-2.1/artist/<% $artist->GetMBId() %></a></td>
     </tr><tr>
 % if (exists $session{user}) {
     <td valign="top" align="right">Artist RowId:</td>

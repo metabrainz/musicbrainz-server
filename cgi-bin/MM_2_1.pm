@@ -341,7 +341,7 @@ sub GetObject
    return $obj;
 }
 
-sub CreateTrackList
+sub CreateTrackListing
 {
    my ($this, $album) = @_;
    my (@trackids, @tracks, $track);
@@ -437,7 +437,7 @@ sub CreateFileLookup
        {
            my $trackids;
            $al = $this->GetFromCache('album', $id->{id});
-           $trackids = $this->CreateTrackList($al);
+           $trackids = $this->CreateTrackListing($al);
            if (defined $al)
            {
                $out .= $this->OutputAlbumRDF({ obj=>$al, _album=> $trackids });
@@ -485,7 +485,7 @@ sub CreateFileLookup
        {
            my $trackids;
            $al = $this->GetFromCache('album', $id);
-           $trackids = $this->CreateTrackList($al);
+           $trackids = $this->CreateTrackListing($al);
            $out .= $this->OutputAlbumRDF({ obj=>$al, _album=> $trackids });
        }
        foreach $id (@$list)
