@@ -106,19 +106,19 @@ QUERY:
 		my $refs = $this->{triples}{$pid}
 			or return undef;
 
-		for my $triple (@$refs)
+		foreach my $triple (@$refs)
 		{
-			$this->{uri}->{$$triple[0]} == $currentURIid
+			$$triple[0] == $currentURIid
 				or next;
 
-			$currentURIid = $this->{uri}->{$$triple[1]};
+			$currentURIid = $$triple[1];
 			next QUERY;
 		}
 
 		return undef;
     }
 
-    $this->{url2}[$currentURIid];
+    $this->{uri2}[$currentURIid];
 }
 
 sub FindNodeByType
@@ -126,23 +126,17 @@ sub FindNodeByType
  	my ($this, $object, $ordinal) = @_;
 	$ordinal = 1 if not defined $ordinal;
 
-	print "FNBT ob=$object";
 	my $oid = $this->{uri}{$object}
 		or return undef;
-	print " oid=$oid";
 	my $pid = $this->{uri}{'http://www.w3.org/1999/02/22-rdf-syntax-ns#type'}
 		or return undef;
-	print " pid=$pid";
 
 	my $r = $this->{triples1}{$oid}{$pid}
 		or return;
-	print " r=$r";
 	my $sid = $r->[$ordinal-1]
 		or return undef;
 
-	print " sid=$sid";
-	print " url=$this->{url2}[$sid]\n";
-	$this->{url2}[$sid];
+	$this->{uri2}[$sid];
 }
 
 sub Parse
