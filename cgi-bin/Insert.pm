@@ -23,34 +23,19 @@
 #   $Id$
 #____________________________________________________________________________
 
+use strict;
+
 package Insert;
 
-use vars qw(@ISA @EXPORT);
-@ISA    = @ISA    = '';
-@EXPORT = @EXPORT = '';
-
-use strict;
-use Artist;
-use Album;
-use Track;
-use Alias;
-use TRM;
-use Discid;
-use Moderation;
-use ModDefs;
-use Sql;
+use ModDefs qw( VARTIST_ID ANON_MODERATOR MOD_ADD_ALBUM );
 
 sub new
 {
     my ($type, $dbh) = @_;
-    my $this = {};
 
-    # Use the db handle from the musicbrainz object
-    $this->{DBH} = $dbh;
-    $this->{type} = $type;
-
-    bless $this;
-    return $this;
+	bless {
+		DBH	=> $dbh,
+	}, ref($type) || $type;
 }  
 
 sub GetError
@@ -129,10 +114,6 @@ sub GetError
 sub Insert
 {
     my ($this, $info) = @_; 
-    my ($ar, $al, $mar, $tr, $gu, $di, $sql);
-    my ($artist, $album, $sortname, $artistid, $albumid, $trackid);
-    my ($forcenewalbum, @albumtracks, $albumtrack, $track, $found);
-    my ($track_artistid);
 
     delete $info->{artist_insertid};
     delete $info->{album_insertid};
@@ -165,18 +146,27 @@ sub Insert
         die "Skipped failed: invalid toc given.\n";
     }
 
-    $forcenewalbum = (exists $info->{forcenewalbum} && $info->{forcenewalbum});
+    my $forcenewalbum = $info->{forcenewalbum};
     if ($forcenewalbum && exists $info->{albumid})
     {
         die "Insert failed: you cannot force a new album and provide an albumid.\n";
     }
 
-    $ar = Artist->new($this->{DBH});
-    $mar = Artist->new($this->{DBH});
-    $al = Album->new($this->{DBH});
-    $tr = Track->new($this->{DBH});
-    $gu = TRM->new($this->{DBH});
-    $di = Discid->new($this->{DBH});
+	require Artist;
+    my $ar = Artist->new($this->{DBH});
+    my $mar = Artist->new($this->{DBH});
+	require Album;
+    my $al = Album->new($this->{DBH});
+	require Track;
+    my $tr = Track->new($this->{DBH});
+	require TRM;
+    my $trm = TRM->new($this->{DBH});
+	require Discid;
+    my $di = Discid->new($this->{DBH});
+
+	my $artist;
+	my $artistid;
+	my $sortname;
 
     # Try and resolve/check the artist name
     if (exists $info->{artistid})
@@ -208,6 +198,9 @@ sub Insert
         $artist = $info->{artist};
         $sortname = $info->{sortname};
     }
+
+	my $albumid;
+	my $album;
 
     if (!exists $info->{artist_only})
     {
@@ -335,10 +328,11 @@ sub Insert
     # a valid loaded album
 
     $info->{album_complete} = 1;
-    @albumtracks = $al->LoadTracks();
+    my @albumtracks = $al->LoadTracks();
 
     my $ref = $info->{tracks};
-    foreach $track (@$ref)
+TRACK:
+    for my $track (@$ref)
     {
         if (!exists $track->{track} || $track->{track} eq '')
         {
@@ -361,8 +355,7 @@ sub Insert
         #print STDERR "trm: $track->{trmid}\n" if (exists $track->{trmid});
         #print STDERR "artist: $track->{artist}\n" if (exists $track->{artist});
 
-        $found = 0;
-        foreach $albumtrack (@albumtracks)
+        for my $albumtrack (@albumtracks)
         {
             # Check to see if the given track exists. If so, check to
             # see if a trm id was given. If it was, then insert the
@@ -373,27 +366,20 @@ sub Insert
             {
                 my $newtrm;
                 
-                $newtrm = $gu->Insert($track->{trmid}, $albumtrack->GetId());
+                $newtrm = $trm->Insert($track->{trmid}, $albumtrack->GetId());
                 if (defined $newtrm)
                 {
-                    $track->{trm_insertid} = $newtrm if ($gu->GetNewInsert());
+                    $track->{trm_insertid} = $newtrm if ($trm->GetNewInsert());
                 }
                 
-                $found = 1;
-                last;
+                next TRACK;
             }
             # If a track with that tracknumber already exists, skip the insertion.
             if ($albumtrack->GetSequence() == $track->{tracknum})
             {
                 $info->{album_complete} = 0;
-                $found = 1;
-                last;
+				next TRACK;
             }
-        }
-        if ($found)
-        {
-            #print STDERR ("Track found. Skipping.\n\n");
-            next;
         }
 
         # Ok, the track passes all the tests. Insert the track.
@@ -410,8 +396,8 @@ sub Insert
 
         # Check to see if this track has an artist that needs to get
         # looked up/inserted.
-        undef $track_artistid;
-        if (exists $track->{artist} && $artistid == &ModDefs::VARTIST_ID)
+        my $track_artistid;
+        if (exists $track->{artist} && $artistid == VARTIST_ID)
         {
             if ($track->{artist} eq '')
             {
@@ -436,7 +422,7 @@ sub Insert
                 $track->{artist_insertid} = $track_artistid 
             }
         }
-        if (exists $track->{artistid} && $artistid == &ModDefs::VARTIST_ID)
+        if (exists $track->{artistid} && $artistid == VARTIST_ID)
         {
             $ar->SetId($track->{artistid});
             if (!defined $ar->LoadFromId())
@@ -446,8 +432,10 @@ sub Insert
             $track_artistid = $track->{artistid};
         }
 
+		my $trackid;
+
         # Now insert the track. Make sure to check what kind of track it is...
-        if ($artistid != &ModDefs::VARTIST_ID)
+        if ($artistid != VARTIST_ID)
         {
             $trackid = $tr->Insert($al, $ar);
         }
@@ -466,10 +454,10 @@ sub Insert
         # The track has been inserted. Now insert the TRM if there is one
         if (exists $track->{trmid} && $track->{trmid} ne '')
         {
-            my $newtrm = $gu->Insert($track->{trmid}, $trackid);
+            my $newtrm = $trm->Insert($track->{trmid}, $trackid);
             if (defined $newtrm)
             {
-                $track->{trm_insertid} = $newtrm if ($gu->GetNewInsert());
+                $track->{trm_insertid} = $newtrm if ($trm->GetNewInsert());
             }
         }
     }
@@ -484,6 +472,7 @@ sub Insert
 sub InsertAlbumModeration
 {
     my ($this, $new, $moderator, $privs, $artist) = @_;
+	require Sql;
     my $sql = Sql->new($this->{DBH});
 
 	# TODO: for now, the $new passed in is still the packed string
@@ -499,17 +488,18 @@ sub InsertAlbumModeration
     {
        $sql->Begin;
 
+		require Moderation;
 		my @mods = Moderation->InsertModeration(
 			DBH	=> $this->{DBH},
-			uid	=> $moderator || &ModDefs::ANON_MODERATOR,
+			uid	=> $moderator || ANON_MODERATOR,
 			privs => $privs || 0,
-			type => &ModDefs::MOD_ADD_ALBUM,
+			type => MOD_ADD_ALBUM,
 			#
 			%opts,
 			artist => $artist,
 		);
 
-		(my $mod) = grep { $_->Type == &ModDefs::MOD_ADD_ALBUM } @mods
+		(my $mod) = grep { $_->Type == MOD_ADD_ALBUM } @mods
 			or die;
           
 		$sql->Commit;
