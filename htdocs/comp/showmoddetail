@@ -1,0 +1,193 @@
+%# vi: set ts=4 sw=4 ft=mason :
+<%perl>
+
+my $mod = shift
+	or return;
+my $my_uid = $session{uid}
+	or return;
+
+my $my_mod = ($mod->GetModerator == $my_uid);
+my $my_vote = $mod->GetUserVote($my_uid);
+my $is_open = ($mod->GetStatus == &ModDefs::STATUS_OPEN);
+
+my $see_votes = ($my_mod or not $is_open or defined $my_vote);
+
+my $opentime = $mod->GetOpenTime;
+$opentime = $opentime ? $m->comp("/comp/datetime", $opentime) : "?";
+
+my $closetime = $mod->GetCloseTime;
+$closetime = $closetime ? $m->comp("/comp/datetime", $closetime) : "-";
+
+my $expiretime = $mod->GetExpireTime;
+$expiretime = $m->comp("/comp/datetime", $expiretime);
+
+my $expire_verb = ($mod->GetExpired ? "Expired" : "Expires");
+
+</%perl>
+
+<& /comp/tablebegin, title=>'Moderation Information' &> 
+
+<table>
+	<tr>
+		<td>Moderator:</td>
+		<td><a href="/moderator.html?uid=<% $mod->GetModerator %>"
+			style="font-weight: bold"
+			><% $mod->GetModeratorName %></a></td>
+	</tr>
+	<tr>
+		<td>MB Id:</td>
+		<td><% $mod->GetId %></td>
+	</tr>
+	<tr>
+		<td>Status:</td>
+		<td><% $mod->GetChangeName %></td>
+	</tr>
+	<tr>
+		<td>Opened:</td>
+		<td><% $opentime %></td>
+	</tr>
+	<tr>
+		<td><% $expire_verb %>:</td>
+		<td><% $expiretime %></td>
+	</tr>
+	<tr>
+		<td>Closed:</td>
+		<td><% $closetime %></td>
+	</tr>
+
+	<tr><td colspan="2"><hr></td></tr>
+
+	<tr>
+		<td>Type:</td>
+		<td><% do { $mod->ShowModType($m); "" } %></td>
+	</tr>
+	<tr>
+		<td>Old Value:</td>
+		<td><% do { $mod->ShowPreviousValue($m); "" } %></td>
+	</tr>
+	<tr>
+		<td>New Value:</td>
+		<td><% do { $mod->ShowNewValue($m); "" } %></td>
+	</tr>
+
+% if (not $my_mod) {
+
+	<tr><td colspan="2"><hr></td></tr>
+
+% if (defined $my_vote) {
+	<tr>
+		<td>Your Vote:</td>
+		<td><% $mod->GetVoteText($my_vote) %></td>
+	</tr>
+% } elsif ($is_open) {
+	<tr>
+		<td>Your Vote:</td>
+		<td>You haven't yet voted.&nbsp; Vote now!</td>
+	</tr>
+	<tr>
+		<td colspan="2">
+			<form method="post" action="/bare/vote.html">
+				<p style="text-align: center">
+					<label for="rowid<% $mod->GetId %>-yes">Yes</label>&nbsp;<input type="radio" name="rowid<% $mod->GetId %>" id="rowid<% $mod->GetId %>-yes" value="yes">&nbsp;
+					<label for="rowid<% $mod->GetId %>-no">No</label>&nbsp;<input type="radio" name="rowid<% $mod->GetId %>"  id="rowid<% $mod->GetId %>-no" value="no">&nbsp;
+					<label for="rowid<% $mod->GetId %>-abst">Abst</label>&nbsp;<input type="radio" name="rowid<% $mod->GetId %>" id="rowid<% $mod->GetId %>-abst" value="abs">
+				</p>
+				<p style="text-align: center">
+					<input type="hidden" name="url" value="/showmod.html?modid=<% $mod->GetId %>">
+					<input type="submit" value="Vote">
+				</p>
+			</form>
+		</td>
+	</tr>
+% } else {
+	<tr>
+		<td>Your Vote:</td>
+		<td>You didn't vote</td>
+	</tr>
+% }
+
+
+
+%# Votes
+
+% if ($see_votes) {
+	<tr>
+		<td>Yes Votes:</td>
+		<td><% $mod->GetYesVotes %></td>
+	</tr>
+	<tr>
+		<td>No Votes:</td>
+		<td><% $mod->GetNoVotes %></td>
+	</tr>
+% if (my @votes = $mod->GetVoterList) {
+	<tr>
+		<td valign="top">Votes:</td>
+		<td valign="top">
+			<table>
+% for my $v (@votes) {
+				<tr>
+					<td><a href="/moderator.html?uid=<% $v->{modid} %>"
+						><% $v->{moderator} %></a></td>
+					<td style="text-align: right"><% $mod->GetVoteText($v->{vote}) %></td>
+				</tr>
+% } # each vote
+			</table>
+		</td>
+	</tr>
+% } # @votes
+% } # $see_votes
+
+% } # $my_mod
+
+
+
+%# Notes
+
+   <tr><td colspan="2"><hr></td></tr>
+
+%  my $notes = $mod->LoadModerationNotes($mod->GetId);
+     <tr>
+        <td>Notes</td>
+        <td>
+           [
+		   <a href="#" onclick="MyWindow=window.open('mod/addnote.html?modid=<% $mod->GetId %>&amp;uid=<% $my_uid %>','AddNote','toolbar=no,location=no,directories=no,status=no,menubar=no,scrollbars=yes,resizable=yes,width=400,height=150'); return false;">Add note</a>
+		   |
+           <a href="/user/mod_email.html?uid=<% $mod->GetModerator %>&amp;modid=<% $mod->GetId %>&amp;url=<% $r->uri . "?" . $r->args %>">Send email</a>
+		   ]
+        </td>
+     </tr>
+%  if (my $ref = $notes->{ $mod->GetId }) {
+     <tr>
+        <td colspan="2">
+%         foreach my $obj (@$ref) {
+             &nbsp;&nbsp;&nbsp;&nbsp;
+%            my $bold = ($obj->{user} eq $mod->GetModeratorName) ? 'bold' : 'body';
+             <font class="<% $bold %>"><% $obj->{user} %></font>:
+             <% $obj->{text} |n %><br> 
+%         }
+		</td>
+  	</tr>
+%   } else {
+	<tr>
+		<td></td>
+		<td>No notes</td>
+	</tr>
+%   }
+
+</table>
+
+<& /comp/tableend &> 
+
+% if (&DBDefs::DB_STAGING_SERVER and $mod->GetStatus == &ModDefs::STATUS_OPEN) {
+	<hr>
+	<h2>Manually Accept / Reject This Moderation</h2>
+	<form action="/showmod.html" method="post">
+		<p>
+			<input type="hidden" name="modid" value="<% $mod->GetId %>">
+			<input type="submit" name="ACCEPT" value="ACCEPT">
+			&nbsp;
+			<input type="submit" name="REJECT" value="REJECT">
+		</p>
+	</form>
+% }
+

@@ -2,32 +2,25 @@
 <%args>
 $modid=>0
 </%args>
-
-<& /comp/sidebar, title=> "Moderation #$modid" &>
-
 <%perl>
 
-$m->comp("/comp/checkloggedin", 0, 1)
+$m->comp("/comp/checkloggedin", 1, 1)
 	or return;
 
 MusicBrainz::IsNonNegInteger($modid) && $modid
-	or return $m->comp("/comp/badargs", 0, 1);
+	or $modid = 0;
 
 my $mb = $m->comp("/comp/dblogin");
 
-my $mod = Moderation->new($mb->{DBH});
-$mod = $mod->CreateFromId($modid);
+my $mod = undef;
 
-if (!defined $mod)
+if ($modid)
 {
-	$m->out("<p>Moderation $modid does not exist.</p>");
-	$m->comp("/comp/jumpmod");
-	$m->comp("/comp/movefocus", "JumpMod", "modid");
-	$m->comp("/comp/footer");
-    return undef;
+	$mod = Moderation->new($mb->{DBH});
+	$mod = $mod->CreateFromId($modid);
 }
 
-if (&DBDefs::DB_STAGING_SERVER)
+if (&DBDefs::DB_STAGING_SERVER and $mod)
 {
 	if ($ARGS{'ACCEPT'} or $ARGS{'REJECT'})
 	{
@@ -65,164 +58,35 @@ if (&DBDefs::DB_STAGING_SERVER)
 	}
 }
 
-my ($ref, $obj, $bold, $text, $voted);
-my (@votes, $votelist);
-
-if ($session{user} eq $mod->GetModeratorName()) 
-{
-   $text = "Your Moderation. Thanks!";
-}
-elsif (defined($voted = $mod->GetUserVote($session{uid})))
-{
-   $text = $mod->GetVoteText($voted);
-}
-else
-{
-   if ($mod->GetStatus() == &ModDefs::STATUS_OPEN)
-   {
-      $text = "You haven't voted.";
-	  # TODO provide the means to vote here
-   }
-   else
-   {
-      $text = "You didn't vote.";
-   }
-   $voted = &ModDefs::VOTE_NOTVOTED;
-}
-
-my $opentime = $mod->GetOpenTime();
-$opentime = $opentime ? $m->comp("/comp/datetime", $opentime) : "?";
-
-my $closetime = $mod->GetCloseTime();
-$closetime = $closetime ? $m->comp("/comp/datetime", $closetime) : "-";
-
-my $time = $mod->GetExpireTime();
-$time = $m->comp("/comp/datetime", $time);
-
-my $expired = ($mod->GetExpired() ? "d" : "s");
-
-@votes = $mod->GetVoterList();
-$votelist = "<table>";
-foreach $ref (@votes)
-{
-    $votelist .= "<tr><td><a href=\"/moderator.html?uid=" . $ref->{modid} . "\"> " .
-                 $ref->{moderator} . "</a></td><td>" . 
-                 Moderation::GetVoteText(undef, $ref->{vote}) . "<td></tr>";
-}
-$votelist .= "</table>";
-
-use HTML::Mason::Tools qw( html_escape );
-
 </%perl>
 
-<& /comp/tablebegin, title=>'Moderation Information' &> 
+<& /comp/sidebar, title => $mod ? "Moderation #$modid" : "Show Moderation" &>
 
-<table>
-
-<tr>
-   <& /comp/tableline, name=>"Moderator:", 
-                       text=>
-		"<a href='/moderator.html?uid=" . $mod->GetModerator . "'>"
-		. html_escape($mod->GetModeratorName)
-		. "</a>",
-                       bold=>1 &>
-   <& /comp/tableline, name=>"MB Id:", 
-                       text=>$mod->GetId(),
-                       bold=>0 &>
-   <& /comp/tableline, name=>"Status:", 
-                       text=>$mod->GetChangeName(),
-                       bold=>0 &>
-   <& /comp/tableline, name=>"Opened:", 
-                       text=>$opentime,
-                       bold=>0 &>
-   <& /comp/tableline, name=>"Expire$expired:", 
-                       text=>$time,
-                       bold=>0 &>
-   <& /comp/tableline, name=>"Closed:", 
-                       text=>$closetime,
-                       bold=>0 &>
-
-   <tr><td colspan="2"><hr></td></tr>
-
-   <& /comp/tableline, name=>"Type:", 
-					   text=>sub { $mod->ShowModType($m) },
-                       bold=>0 &>
-   <& /comp/tableline, name=>"Previous Value:", 
-					   text=>sub { $mod->ShowPreviousValue($m) },
-                       bold=>0 &>
-   <& /comp/tableline, name=>"New Value:", 
-					   text=>sub { $mod->ShowNewValue($m) },
-                       bold=>0 &>
-
-   <tr><td colspan="2"><hr></td></tr>
-
-   <& /comp/tableline, name=>"Your vote:", 
-                       text=>$text,
-                       bold=>0 &>
-%    if ($session{uid} == $mod->GetModerator() ||
-%        $mod->GetStatus() != &ModDefs::STATUS_OPEN ||
-%        $voted != &ModDefs::VOTE_NOTVOTED) {
-       <& /comp/tableline, name=>"Yes Votes:", 
-                           text=>$mod->GetYesVotes(),
-                           bold=>0 &>
-
-       <& /comp/tableline, name=>"No Votes:", 
-                           text=>$mod->GetNoVotes(),
-                           bold=>0 &>
-
-%      if (scalar(@votes) > 0) {
-           <tr><td colspan="2"><hr></td></tr>
-           <& /comp/tableline, name=>"Vote history:", 
-                               text=>$votelist,
-                               bold=>0 &>
-%      }
-%  }
-
-   <tr><td colspan="2"><hr></td></tr>
-
-%  my $notes = $mod->LoadModerationNotes($modid);
-     <tr>
-        <td valign=top bgcolor=white class="body">
-          Notes:
-        </td>
-        <td valign=top bgcolor=white class="body">
-           [ <a href="#" onClick="MyWindow=window.open('mod/addnote.html?modid=<% $mod->GetId() %>&amp;uid=<% $session{uid} %>','AddNote','toolbar=no,location=no,directories=no,status=no,menubar=no,scrollbars=yes,resizable=yes,width=400,height=150'); return false;">Add note</a> | 
-           <a href="/user/mod_email.html?uid=<% $mod->GetModerator() %>&modid=<% $mod->GetId() %>&url=<% $r->uri() . "?" . $r->args() %>">Send email</a> ]
-        </td>
-     </tr>
-     <tr>
-        <td colspan="2" valign=top bgcolor=white class="body">
-%  if (exists $notes->{ $mod->GetId }) {
-%         $ref = $notes->{ $mod->GetId };
-%         foreach $obj (@$ref) {
-             &nbsp;&nbsp;&nbsp;&nbsp;
-%            $bold = ($obj->{user} eq $mod->GetModeratorName) ? 'bold' : 'body';
-             <font class="<% $bold %>"><% $obj->{user} %></font>:
-             <% $obj->{text} |n %><br> 
-%         }
-%   } else {
-          &nbsp;&nbsp;&nbsp;&nbsp; No notes.
-%   }
-        </td>
-     </tr>
-
-    </table>
-    <& /comp/tableend &> 
-
-    <& /comp/jumpmod &> 
-
-% if (&DBDefs::DB_STAGING_SERVER and $mod->GetStatus == &ModDefs::STATUS_OPEN) {
-	<hr>
-	<h2>Manually Accept / Reject This Moderation</h2>
-	<form action="/showmod.html" method="post">
-		<p>
-			<input type="hidden" name="modid" value="<% $modid %>">
-			<input type="submit" name="ACCEPT" value="ACCEPT">
-			&nbsp;
-			<input type="submit" name="REJECT" value="REJECT">
-		</p>
-	</form>
+% if ($modid and not $mod) {
+<p>
+	Moderation #<% $modid %> not found.
+</p>
 % }
+
+% if ($mod) {
+<& /comp/showmoddetail, $mod &>
+% }
+
+% if ($modid) {
+<p>
+	[
+% if ($modid > 1) {
+		<a href="/showmod.html?modid=<% $modid-1 %>">back one</a>
+		|
+% }
+		<a href="/showmod.html?modid=<% $modid+1 %>">forward one</a>
+		]
+		<br>
+		(note: there may be gaps in the sequence of moderation numbers)
+</p>
+% }
+
+<& /comp/jumpmod, $modid &>
 
 <& /comp/movefocus, "JumpMod", "modid" &>
 <& /comp/footer &>
