@@ -70,7 +70,6 @@ sub PreInsert
 
 	unless (exists $info{artist_insertid})
  	{
-		#$self->SetError("The artist <a href=\"/showartist.html?artistid=$info{_artistid}\">$info{artist}</a> already exists.");
 		$self->SetError("The artist '$name' already exists.");
 		die $self;
 	}
