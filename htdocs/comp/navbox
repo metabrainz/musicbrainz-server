@@ -14,6 +14,7 @@ my @documentation = (
   {url=>'/how.html',                       name=>'How?'},
   {url=>'/contribute.html',                name=>'Contribute'},
   {url=>'/finances.html',                  name=>'Finances'},
+  {url=>'/sponsors.html',                  name=>'Sponsors'},
   {url=>'/client_howto.html',              name=>'Client&nbsp;HOWTO'},
   {url=>'/history.html',                   name=>'History/Roots'},
   {url=>'/future.html',                    name=>'Future/Goals'},

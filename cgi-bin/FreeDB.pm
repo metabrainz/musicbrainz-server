@@ -35,6 +35,7 @@ use Track;
 use Album;
 use Artist;
 use Diskid;
+use Unicode::String;
 use constant  CD_MSF_OFFSET => 150;
 use constant  CD_FRAMES     =>  75;
 use constant  CD_SECS       =>  60;
