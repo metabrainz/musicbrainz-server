@@ -101,6 +101,14 @@ sub CreateArtistList
    return $this->CreateOutputRDF('artist', @ids);
 }
 
+sub CreateAlbum
+{
+   my ($this, $fuzzy, $id) = @_;
+
+   $this->{fuzzy} = 1;
+   return $this->CreateOutputRDF('album', $id);
+}
+
 sub CreateAlbumList
 {
    my ($this, @ids) = @_;
@@ -132,7 +140,7 @@ sub AddToCache
    $cache = $this->{cache};
    foreach $i (@$cache)
    {
-      return if ($i->{id} == $id && $i->{type} eq $type);
+      return $i->{obj} if ($i->{id} == $id && $i->{type} eq $type);
    }
 
    $item{type} = $type;
@@ -168,14 +176,14 @@ sub FindReferences
    my ($this, $curdepth, @ids) = @_;
    my ($id, $obj, @newrefs, $ref, $cacheref);
 
-   #print "Find: dep: $curdepth > ", $this->{depth} + 1, "\n";
+   print STDERR "Find: dep: $curdepth > ", $this->{depth} + 1, "\n";
    return if ($curdepth > $this->{depth} + 1);
      
-   #print "Find: adding\n";
+   print STDERR "Find: adding\n";
    foreach $ref (@ids)
    {
       $obj = $this->LoadObject($ref->{id}, $ref->{type});
-      #print "Add to cache: $ref->{type}, $ref->{id} dep: $curdepth\n";
+      print STDERR "Add to cache: $ref->{type}, $ref->{id} dep: $curdepth\n";
       $cacheref = AddToCache($this, $curdepth, $ref->{type}, $ref->{id}, $obj);
       push @newrefs, $this->GetReferences($cacheref);
    }
@@ -193,7 +201,7 @@ sub CreateOutputRDF
    return $this->ErrorRDF("Invalid search depth specified.") if ($depth < 0);
 
    $this->{cache} = \@cache;
-   #print "Depth: $depth\n";
+   print STDERR "Depth: $depth\n";
 
    # Create a cache of objects and add the passed object ids without
    # loading the actual objects
@@ -234,7 +242,7 @@ sub CreateOutputRDF
    $total = scalar(@cache);
    for($i = 0; $i < $total; $i++)
    {
-      #print "Cache: $cache[$i]->{type} $cache[$i]->{id} dep: $cache[$i]->{depth}\n";
+      print STDERR "Cache: $cache[$i]->{type} $cache[$i]->{id} dep: $cache[$i]->{depth}\n";
       next if $cache[$i]->{depth} > $depth;
 
       $out .= $this->OutputRDF(\@cache, $cache[$i]);
@@ -283,7 +291,14 @@ sub OutputList
    my ($item, $rdf);
 
    $rdf  =   $this->BeginDesc("mq:Result");
-   $rdf .=     $this->Element("mq:status", "OK");
+   if (exists $this->{fuzzy})
+   {
+      $rdf .=  $this->Element("mq:status", "Fuzzy");
+   }
+   else
+   {
+      $rdf .=  $this->Element("mq:status", "OK");
+   }
    $rdf .=     $this->BeginDesc("mm:" . $type . "List");
    $rdf .=       $this->BeginSeq();
    foreach $item (@$list)
@@ -301,6 +316,8 @@ sub OutputList
 sub GetReferences
 {
    my ($this, $ref) = @_;
+
+   return () if not defined $ref;
 
    # Artists and TRMIDs do not have any references, so they are not listed here
    return $this->GetAlbumReferences($ref, $ref->{obj}) 

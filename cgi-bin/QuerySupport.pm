@@ -170,7 +170,6 @@ sub GetCDInfoMM2
    {
        $toc .= Extract($triples, $currentURI, $i, EXTRACT_TOC_QUERY) . " ";
    }
-   print "$toc\n";
 
    # Check to see if the album is in the main database
    $di = Diskid->new($dbh);
@@ -191,7 +190,6 @@ sub AssociateCDMM2
    {
        $toc .= Extract($triples, $currentURI, $i, EXTRACT_TOC_QUERY) . " ";
    }
-   print "$toc\n";
 
    # Check to see if the album is in the main database
    $di = Diskid->new($dbh);

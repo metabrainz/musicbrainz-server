@@ -18,6 +18,15 @@ The MusicBrainz server requires the following items:
       mod_perl: http://perl.apache.org for details.
       Mason:    http://www.masonhq.com
 
+   NOTE: When configuring Apache, make sure to not include the built in
+         expat, since that will conflice with the SiRPAC RDF parser's user
+         of the external expat module. configure apache with:
+
+         mod_perl: perl Makefile.PL APACHE_SRC=../apache_1.3.19/src DO_HTTPD=1 USE_APACI=1 PREP_HTTPD=1 EVERYTHING=1
+         apache: ./configure --enable-module=rewrite --disable-rule=expat --prefix=/usr/apache --activate-module=src/modules/perl/libperl.a
+
+
+
 4) Perl 5.003 or higher and the required perl modules: 
   
    CPAN Name

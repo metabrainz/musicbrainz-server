@@ -80,17 +80,22 @@ my %Queries =
 sub Statement
 {
    my ($expat, $st) = @_;
+   my ($t);
 
    if ($st->predicate->getLabel =~ m/_(\d+)$/)
    {
       $st->{ordinal} = $1;
    }
-   push @triples, $st;
+   $t = $expat->{__mbtriples};
+   push @$t, $st;
 }
 
 sub Output
 {
    my ($r, $out) = @_;
+
+   print STDERR "Query return:\n$$out\n";
+   print STDERR length($$out), " bytes.\n\n";
 
    if (defined $r)
    {
@@ -134,11 +139,11 @@ if (!defined $rdf)
     Output($r, \$out);
     exit(0);
 }
-$rdf->SetBaseURI("http://www.musicbrainz.org");
 
 $parser=new RDFStore::Parser::SiRPAC( 
                 NodeFactory => new RDFStore::NodeFactory(),
                 Handlers => { Assert  => \&Statement });
+$parser->{__mbtriples} = \@triples;
 eval
 {
     $parser->parse($rdfinput);
@@ -151,6 +156,7 @@ if ($@)
     Output($r, \$out);
     exit(0);
 }
+
 
 # Find the toplevel URI
 $currentURI = $triples[0]->subject->getLabel;
@@ -212,9 +218,11 @@ $rdf->SetDBH($mb->{DBH});
 $out = $function->($mb->{DBH}, \@triples, $rdf, @queryargs);
 $mb->Logout;
 
+
 if (!defined $out)
 {
     $out = $rdf->ErrorRDF("Query failed.");
 }
+
 
 Output($r, \$out);
