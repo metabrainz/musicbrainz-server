@@ -137,10 +137,19 @@ sub NormaliseSortText
 
 # HTML-encoding, but only on the listed "unsafe" characters.  Specifically,
 # don't (incorrectly) encode top-bit-set characters as &Atilde; and the like.
+
+# Hmmm.  For some reason HTML::Entities just wasn't kicking in here like it is
+# meant to - it just left the string untouched.  So, since we only need a nice
+# simple, fixed, substitution, we'll do it ourselves.  Ugh.
+
+my %ent = qw( > &gt; < &lt; " &quot; ' &apos; & &amp; );
 sub encode_entities
 {
-	use HTML::Entities ();
-	HTML::Entities::encode_entities($_[0], "<>&\"'");
+	${ $_[0] } =~ s/([<>"'&])/$ent{$1}/go, return
+		if not defined wantarray;
+	my $t = $_[0];
+	$t =~ s/([<>"'&])/$ent{$1}/go;
+	$t;
 }
 
 1;
