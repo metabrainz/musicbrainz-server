@@ -2,7 +2,7 @@
 <html>
 <head>
    <title>MusicBrainz</title>
-   <link rel="stylesheet" type="text/css" href="brainz.css">
+   <link rel="stylesheet" type="text/css" href="/brainz.css">
 </head>
 <body marginheight="0" marginwidth="0" topmargin="0" leftmargin="0" rightmargin="0" bottommargin="0" bgcolor=white>
 
