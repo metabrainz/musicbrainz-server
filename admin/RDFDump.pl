@@ -78,13 +78,25 @@ $rdfout->DumpBegin('artist', @ids);
 
 print "Dumping artists.\n";
 $| = 1;
+ my ($start, $nw, $count, $mx, $spr, $left, $mins, $hours, $secs);
+$start = time;
 if ($sql->Select("select id from Artist order by sortname"))
 {
-    my $count;
-    for($count = 0;@row = $sql->NextRow; $count++)
+    $mx = $sql->Rows();
+    for($count = 1;@row = $sql->NextRow; $count++)
     {
-        print "  $count\r";
         $rdfout->DumpArtist('artist', $row[0]);
+
+        $nw = time;
+        $spr = ($nw - $start) / $count;
+        $left = ($mx - $count) * $spr;
+        $hours = int($left / 3600);
+        $left %= 3600;
+        $mins = int($left / 60);
+        $left %= 60;
+
+        print "  $count of $mx -- Time left: " . 
+              sprintf("%02d:%02d:%02d   \r", $hours, $mins, $left, $spr);
     }
 }
 $sql->Finish;
