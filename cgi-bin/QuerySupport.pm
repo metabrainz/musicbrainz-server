@@ -729,6 +729,7 @@ sub TrackInfoFromTRMId
    }
 }
 
+# This method will soon be depricated
 sub QuickTrackInfoFromTRMId
 {
    my ($dbh, $parser, $rdf, $id, $artist, $album, $track, 
@@ -822,6 +823,8 @@ sub QuickTrackInfoFromTRMId
    return $out;
 }
 
+# This function will also soon be depricated. As soon as MB Tagger 0.10.x becomes
+# completely irrelevant this function can go.
 sub QuickTrackInfoFromTrackId
 {
    my ($dbh, $parser, $rdf, $tid, $aid) = @_;
@@ -835,9 +838,9 @@ sub QuickTrackInfoFromTrackId
    $tid = $sql->Quote($tid);
    $aid = $sql->Quote($aid);
    @data = $sql->GetSingleRow(
-      "Track, AlbumJoin, Album, Artist", 
+       "Track, AlbumJoin, Album, Artist", 
       ["Track.name", "Artist.name", "Album.name", 
-       "AlbumJoin.sequence", "Track.Length"],
+       "AlbumJoin.sequence", "Track.Length", "Album.artist"],
       ["Track.gid", $tid,
        "AlbumJoin.album", "Album.id",
        "Album.gid", $aid,
@@ -855,6 +858,14 @@ sub QuickTrackInfoFromTrackId
    if ($data[4] != 0) 
    {
         $out .= $rdf->Element("mm:duration", $data[4]);
+   }
+
+   # This is a total hack, RDF wise speaking. This is to bridge the gap
+   # for the MB Tagger 0.10.0 series. Once the new cross platform tagger
+   # is out, this function will go away.
+   if ($data[5] == ModDefs::VARTIST_ID) 
+   {
+        $out .= $rdf->Element("mm:albumArtist", ModDefs::VARTIST_MBID);
    }
    $out .= $rdf->EndDesc("mq:Result");
    $out .= $rdf->EndRDFObject;
