@@ -1,0 +1,44 @@
+<%args>
+$type
+$link
+$objs
+</%args>
+<%perl>
+
+my ($al, $ind, $num, $out, @obj);
+$ind = 0;
+@obj = @$objs;
+$num = scalar(@obj);
+
+</%perl>
+
+<form method="POST" action="$link" name="Merge"
+      enctype="application/x-www-form-urlencoded">
+<input type="submit" NAME="Submit"
+
+%if ($type == ModDefs::MOD_MERGE_ALBUM) {
+      VALUE="Merge into one Single Artist Album"
+%} elsif ($type == ModDefs::MOD_MERGE_ALBUM_MAC) {
+      VALUE="Merge into one Multiple Artist Album"
+%} else {
+      VALUE="Remove tagged Albums"
+%} 
+
+%foreach $al (@obj) {
+    <input type="hidden" name="key<% $ind %>" value="AlbumId<% $ind %>">
+    <input type="hidden" name="value<% $ind %>" value="<% $al->GetId() %>">
+    <input type="hidden" name="key<% $ind + $num %>" value="AlbumName<%$ind%>">
+    <input type="hidden" name="value<% ($ind++) + $num %>"
+           value="<% $al->GetName() |h %>">
+%}
+
+<input type="hidden" name="type" value="<% $type %>">
+<input type="hidden" name="artist" value="<% $obj[0]->GetArtist() %>">
+<input type="hidden" name="prev" value="N/A">
+<input type="hidden" name="table" value="Album">
+<input type="hidden" name="column" value="id">
+<input type="hidden" name="id" value="<% $obj[0]->GetId() %>">
+<input type="hidden" name="url" 
+       value="/showalbum.html?albumid=<% $obj[0]->GetId() %>">
+</form>
+    

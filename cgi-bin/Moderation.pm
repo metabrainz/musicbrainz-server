@@ -65,7 +65,8 @@ my %ModNames = (
     "21" => "Move Diskid",
     "22" => "Remove TRM id",
     "23" => "Merge Albums",
-    "24" => "Remove Albums"
+    "24" => "Remove Albums",
+    "25" => "Merge Various Artist Album"
 );
 
 my %ChangeNames = (
@@ -449,7 +450,8 @@ sub CreateModerationObject
    {
        return RemoveTRMIdModeration->new($this->{DBH});
    }
-   elsif ($type == ModDefs::MOD_MERGE_ALBUM)
+   elsif ($type == ModDefs::MOD_MERGE_ALBUM ||
+          $type == ModDefs::MOD_MERGE_ALBUM_MAC)
    {
        return MergeAlbumModeration->new($this->{DBH});
    }

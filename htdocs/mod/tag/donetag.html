@@ -17,9 +17,8 @@ if (!defined $session{user} || $session{user} eq '') {
 } 
 else 
 {
-    my (@albums, @objs, $albumid, $al, $ar, $vartist);
+    my (@albums, @objs, $albumid, $al, $ar);
 
-    $vartist = 0;
     @albums = split / /, $session{tagged_albums};
 
     if (scalar(@albums) == 0)
@@ -34,7 +33,6 @@ else
        $al->SetId($albumid);
        if (defined $al->LoadFromId())
        {
-           $vartist++ if ($al->GetArtist() == Artist::VARTIST_ID);
            push @objs, $al;
        }
        else
@@ -47,17 +45,7 @@ else
 
     Now that you've selected the albums below, you can:
     <table>
-% if ($vartist > 0 && $vartist !=  scalar(@objs)) {
-    <tr>
-      <td align="center">
-      <font color="red">Merge Album<br>Not available</font>
-      </td>
-      <td>
-      Merge albums is not available -- in order to merge tagged albums, the
-      tagged albums must all be single artist albums or all multiple 
-      artist albums.
-    </tr>
-% } elsif (scalar(@objs) == 1) {
+% if (scalar(@objs) == 1) {
     <tr>
       <td align="center">
       <font color="red">Merge Album<br>Not available</font>
@@ -69,30 +57,9 @@ else
 % } else {
     <tr>
       <td>
-      <form method="POST" action="/mod/tag/merge.html" name="Merge"
-            enctype="application/x-www-form-urlencoded">
-      <input type="submit" NAME="Submit" VALUE="Merge Albums">
-%     my $ind = 0;
-%     my $num = scalar(@objs);
-%     foreach $al (@objs) {
-          <input type="hidden" name="key<% $ind %>" value="AlbumId<% $ind %>">
-          <input type="hidden" name="value<% $ind %>" 
-                 value="<% $al->GetId() %>">
-          <input type="hidden" name="key<% $ind + $num %>" value="AlbumName<% $ind %>">
-          <input type="hidden" name="value<% ($ind++) + $num %>" 
-                 value="<% $al->GetName() |h %>">
-%     }
-      <input type="hidden" name="type"
-             value="<% ModDefs::MOD_MERGE_ALBUM %>">
-      <input type="hidden" name="artist" value="<% $objs[0]->GetArtist() %>">
-      <input type="hidden" name="prev" value="N/A">
-      <input type="hidden" name="table" value="Album">
-      <input type="hidden" name="column" value="id">
-      <input type="hidden" name="id" value="<% $objs[0]->GetId() %>">
-      <input type="hidden" 
-             name="url" value="/showalbum.html?albumid=<% $objs[0]->GetId() %>">
-      </form>
-
+      <& comp/mergeform, type=>ModDefs::MOD_MERGE_ALBUM, 
+                         link=>"/mod/tag/merge.html", 
+                         objs=>\@objs &>
       </td>
       <td>
       Merge all the tagged albums into one album, preserving all
@@ -102,29 +69,20 @@ else
 % }
      <tr>
       <td>
-      <form method="POST" action="/mod/tag/remove.html" name="AddArtist"
-            enctype="application/x-www-form-urlencoded">
-      <input type="submit" NAME="Submit" VALUE="Remove Albums">
-%     my $ind = 0;
-%     my $num = scalar(@objs);
-%     foreach $al (@objs) {
-          <input type="hidden" name="key<% $ind %>" value="AlbumId<% $ind %>">
-          <input type="hidden" name="value<% $ind %>" 
-                 value="<% $al->GetId() %>">
-          <input type="hidden" name="key<% $ind + $num %>" value="AlbumName<% $ind %>">
-          <input type="hidden" name="value<% ($ind++) + $num %>" 
-                 value="<% $al->GetName() |h %>">
-%     }
-      <input type="hidden" name="type"
-             value="<% ModDefs::MOD_REMOVE_ALBUMS %>">
-      <input type="hidden" name="artist" value="<% Artist::VARTIST_ID %>">
-      <input type="hidden" name="prev" value="N/A">
-      <input type="hidden" name="table" value="Album">
-      <input type="hidden" name="column" value="id">
-      <input type="hidden" name="id" value="<% $objs[0]->GetId() %>">
-      <input type="hidden" 
-             name="url" value="/showalbum.html?albumid=<% $objs[0]->GetId() %>">
-      </form>
+      <& comp/mergeform, type=>ModDefs::MOD_MERGE_ALBUM_MAC, 
+                         link=>"/mod/tag/merge.html", 
+                         objs=>\@objs &>
+      </td>
+      <td>
+      Merge all the tagged albums into one various artist album, preserving all
+      TRM ids and CD Index ids.
+      </td>
+    </tr>
+     <tr>
+      <td>
+      <& comp/mergeform, type=>ModDefs::MOD_REMOVE_ALBUMS, 
+                         link=>"/mod/tag/remove.html", 
+                         objs=>\@objs &>
       </td>
       <td>
       Remove all the tagged albums.
