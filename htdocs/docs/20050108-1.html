@@ -1,0 +1,33 @@
+%# vi: set ts=2 sw=2 ft=mason :
+<& /comp/sidebar, title => "Artist Subscription List - Privacy Settings" &>
+
+<p>
+	This page describes the detailed workings of the "Allow other users to see my
+	subscribed artists" setting.&nbsp; 
+	The default state of this preference is "on", i.e. other users can see your
+	list of subscribed artists.
+</p>
+
+<p>
+	You can opt to change this setting to "off", disallowing other users from
+	seeing the list.&nbsp;
+	However this does not provide "perfect" privacy - in some cases, it will be
+	possible to infer information about the contents of your subscription list,
+	even though you have disallowed others from viewing that list
+	directly.&nbsp;
+</p>
+
+<p>
+	This imperfection arises because various parts of the system behave
+	differently depending on whether or not an artist has any subscribers; also,
+	the number of users subscribed to each artist is available via the artist
+	pages.&nbsp;
+	In the most extreme (possibly contrived) example, imagine that all users
+	have their subscriptions set to "public", except for exactly one user
+	whose list is "private".&nbsp; In that case, any discrepancy for a given
+	artist between the shown list of subscribers and the total number of
+	subscribers must be down to that one user.&nbsp; Thus, you can infer what
+	artists are on that user's list.&nbsp;
+</p>
+
+<& /comp/footer &>
