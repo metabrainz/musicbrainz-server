@@ -60,13 +60,15 @@
   <& /comp/tablebegin, title=>'Browse Artists', attrs=>"align=center", 
      gattrs=>"width=100%" &>
     <br>
-    <& /comp/browsebox, page=>'/browseartists.html'&>
+    <& /comp/browsebox, page=>'/browseartists.html', showspecial=>0 &>
+    <br>
   <& /comp/tableend &>
     
   <& /comp/tablebegin, title=>'Browse Various Artist Albums', attrs=>"align=center", 
      gattrs=>"width=100%" &>
     <br>
-    <& /comp/browsebox, page=>'/browsevarious.html' &>
+    <& /comp/browsebox, page=>'/browsevarious.html', showspecial=>0  &>
+    <br>
   <& /comp/tableend &>
 
   <& /comp/tablebegin, title=>'Contribute', attrs=>"align=center", 

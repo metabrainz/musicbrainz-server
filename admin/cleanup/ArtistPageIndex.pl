@@ -65,7 +65,7 @@ sub Cleanup
             # Do something with the returned row. Make sure to
             # keep the user informed as to what the script is doing.
             $page = $tb->CalculatePageIndex($row[1]);
-            printf("%06lld -> %s\n", $page, $row[1]);
+            printf("%09d -> %s\n", $page, $row[1]);
             $dbh->do("update artist set page = $page where id = $row[0]") if ($fix);
         }
     }

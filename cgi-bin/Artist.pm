@@ -38,6 +38,10 @@ use Alias;
 use Album;
 use Track;
 use String::Similarity;
+use Text::Unaccent;
+use locale;
+use POSIX qw(locale_h);
+use utf8;
 
 sub new
 {
@@ -64,7 +68,7 @@ sub SetSortName
 sub Insert
 {
     my ($this) = @_;
-    my ($artist, $mbid, $sql, $alias);
+    my ($artist, $mbid, $sql, $alias, $page);
 
     $this->{new_insert} = 0;
 
@@ -84,10 +88,11 @@ sub Insert
                                        ["name", $sql->Quote($this->{name})]); 
     if (!defined $artist)
     {
+         $page = $this->CalculatePageIndex($this->{sortname});
          $mbid = $sql->Quote($this->CreateNewGlobalId());
          if ($sql->Do(qq/insert into Artist (name, sortname, gid, 
-                     modpending) values (/ . $sql->Quote($this->{name}) .
-                     ", " . $sql->Quote($this->{sortname}) . ", $mbid, 0)"))
+                     modpending, page) values (/ . $sql->Quote($this->{name}) .
+                     ", " . $sql->Quote($this->{sortname}) . ", $mbid, 0, $page)"))
          {
              $artist = $sql->GetLastInsertId('Artist');
              $this->{new_insert} = 1;
@@ -289,50 +294,63 @@ sub LoadFull
 # of artistid, sortname, modpending. The array is empty on error.
 sub GetArtistDisplayList
 {
-   my ($this, $ind, $offset, $max_items) = @_;
-   my ($query, $num_artists, @info, @row, $sql, $page, $page_max, $ind_max); 
+   my ($this, $ind, $offset) = @_;
+   my ($query, $num_artists, @info, @row, $sql, $page, $page_max, $ind_max, $un); 
 
    return if length($ind) <= 0;
 
    $sql = Sql->new($this->{DBH});
+
+   my $old_locale = setlocale(LC_CTYPE);
+   setlocale( LC_CTYPE, "en_US.UTF-8" )
+       or die "Couldn't change locale.";
   
    $ind_max = $ind;
    if ($ind_max =~ /^(.{1})/)
    {
       my $t = $1;
-      $t++;
+
+      if ($t eq '_')
+      {
+          $t = ' ';
+      }
+      elsif ($t eq ' ')
+      {
+          $t = 'A';
+      }
+      else
+      {
+          $t++;
+      }
       $ind_max =~ s/^(.{1})/$t/e;
    }
 
+   $num_artists = 0;
    $page = $this->CalculatePageIndex($ind);
    $page_max = $this->CalculatePageIndex($ind_max);
-   print STDERR "($page, $ind) to ($page_max, $ind_max\n";
    $query = qq/select id, sortname, modpending 
                     from Artist 
                    where page >= $page and page <= $page_max
-                order by lower(sortname), sortname 
                   offset $offset/;
-   # TODO: Make sure locale is proper/unaccent, 
-   #       wildcards filtered properly
-   #       return only number of items wanted
-   #       test wildcards
-   #       add support for spaces
-   #       fix html
-   #       add support in browsevarious
-   #       ensure that on update/insert the page index is updated as well
    if ($sql->Select($query))
    {
+       $ind =~ s/_/.{1}/g;
        for(;@row = $sql->NextRow;)
        {
-           if ($row[1] =~ /^$ind/i)
+           $un = unac_string('UTF-8', $row[1]);
+           if ($un =~ /^$ind/i)
            {
-               push @info, [$row[0], $row[1], $row[2]];
+               push @info, [$row[0], $row[1], $row[2], $un];
            }
        }
        $sql->Finish;   
+
+       @info = sort { $a->[3] cmp $b->[3] } @info;
    }
 
-   return ($num_artists, @info);
+   setlocale( LC_CTYPE, $old_locale );
+
+   return @info;
 }
 
 # retreive the set of albums by this artist. Returns an array of 
