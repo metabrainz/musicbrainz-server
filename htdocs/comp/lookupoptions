@@ -55,7 +55,7 @@ you can do the following things:
 
 </td></tr></table>
 
-<form method="post" action="/addnonalbumtracks.html" name="AddNonAlbumTrack">
+<form method="post" action="/addnonalbumtracks.html" id="AddNonAlbumTrack">
 	<input type="hidden" name="artistid" value="<% $artistobj ? $artistobj->GetId : '' %>">
 	<input type="hidden" name="trackname" value="<% $data->{track} %>">
 </form>
