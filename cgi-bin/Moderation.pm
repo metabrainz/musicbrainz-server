@@ -50,6 +50,7 @@ require MusicBrainz::Server::Moderation::MOD_ADD_TRMS;
 require MusicBrainz::Server::Moderation::MOD_CHANGE_TRACK_ARTIST;
 require MusicBrainz::Server::Moderation::MOD_EDIT_ALBUMATTRS;
 require MusicBrainz::Server::Moderation::MOD_EDIT_ALBUMNAME;
+require MusicBrainz::Server::Moderation::MOD_EDIT_ARTISTALIAS;
 require MusicBrainz::Server::Moderation::MOD_EDIT_ARTISTNAME;
 require MusicBrainz::Server::Moderation::MOD_EDIT_ARTISTSORTNAME;
 require MusicBrainz::Server::Moderation::MOD_EDIT_TRACKNAME;
@@ -314,6 +315,7 @@ sub IsAutoModType
 
     if ($type == &ModDefs::MOD_EDIT_ARTISTNAME ||
         $type == &ModDefs::MOD_EDIT_ARTISTSORTNAME ||
+        $type == &ModDefs::MOD_EDIT_ARTISTALIAS ||
         $type == &ModDefs::MOD_EDIT_ALBUMNAME ||
         $type == &ModDefs::MOD_EDIT_TRACKNAME ||
         $type == &ModDefs::MOD_EDIT_TRACKNUM ||

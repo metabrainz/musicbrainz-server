@@ -75,7 +75,8 @@ use constant MOD_REMOVE_ALBUMS           => 24;
 use constant MOD_MERGE_ALBUM_MAC         => 25;
 use constant MOD_EDIT_ALBUMATTRS         => 26;
 use constant MOD_ADD_TRMS                => 27;
-use constant MOD_LAST                    => 27;
+use constant MOD_EDIT_ARTISTALIAS        => 28;
+use constant MOD_LAST                    => 28;
 
 
 # The constants below define the state a moderation can have:
