@@ -1,0 +1,10 @@
+<td width="15%">
+
+% if ($ARGS{offset} + $ARGS{num} < $ARGS{rows}) {
+    <a href="/moderate.html?offset=<%
+     $ARGS{offset} + $ARGS{num} %>"><% $ARGS{text}  %></a>
+% } else {
+    <% $ARGS{text}  %>
+% }
+
+</td>

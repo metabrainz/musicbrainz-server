@@ -379,6 +379,32 @@ sub GetAlbumFromDiskId
    return $rv;
 }
 
+sub GetAlbumFromTrackId
+{
+   my ($this, $id) = @_;
+   my ($sth, $rv);
+
+   $id = $this->{DBH}->quote($id);
+   $sth = $this->{DBH}->prepare("select album from Track where id=$id");
+   $sth->execute;
+   if ($sth->rows)
+   {
+        my @row;
+
+        @row = $sth->fetchrow_array;
+        $rv = $row[0];
+
+   }
+   else
+   {
+       $rv = -1;
+   }
+   $sth->finish;
+
+   return $rv;
+}
+
+
 sub GetLastInsertId
 {
    my $this = $_[0];
@@ -1144,6 +1170,30 @@ sub InsertModification
     $this->{DBH}->do(qq/insert into Changes (tab, col, rowid, prevvalue, 
            newvalue, timesubmitted, moderator, yesvotes, novotes) values 
            ($table, $column, $id, $prev, $new, now(), $uid, 0, 0)/);
+}
+
+sub GetModerationList
+{
+   my ($this, $index, $num) = @_;
+   my ($sth, @data, $num_mods, @row);
+
+   $sth = $this->{DBH}->prepare(qq/select count(*) from Changes/);
+   $sth->execute();
+   $num_mods = ($sth->fetchrow_array)[0];
+   $sth->finish;   
+
+   $sth = $this->{DBH}->prepare(qq/select * from Changes limit $index, $num/);
+   $sth->execute;
+   if ($sth->rows)
+   {
+        while(@row = $sth->fetchrow_array)
+        {
+            push @data, [@row];
+        }
+   }
+   $sth->finish;
+
+   return ($num_mods, @data);
 }
 
 1;

@@ -1,0 +1,20 @@
+<%args>
+$prev
+$table
+$id
+</%args>
+
+<%perl>
+if ($table eq 'Artist')
+{
+    mc_out("<a href=\"/showartist.html?artistid=$id\">$prev</a>");
+}
+elsif ($table eq 'Album')
+{
+    mc_out("<a href=\"/showalbum.html?albumid=$id\">$prev</a>");
+}
+elsif ($table eq 'Track')
+{
+    mc_out("<a href=\"/bare/showtrack.html?trackid=$id\">$prev</a>");
+}
+</%perl>

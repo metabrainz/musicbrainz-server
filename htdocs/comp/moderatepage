@@ -1,0 +1,85 @@
+<%perl>
+
+my ($mb, @info, $row, $offset, $i, $num_mods, $comp);
+my $max_items = 25;
+
+$mb = new MusicBrainz;  
+
+mc_comp("/comp/title", title=>'Review Pending Moderations'); 
+
+$offset = $ARGS{offset};
+$offset = 0 if not defined $offset;
+$offset = 0 if $offset < 0;  
+
+$mb->Login();
+($num_mods, @info) = $mb->GetModerationList($offset, $max_items);
+
+mc_out('<table width="100%"><tr>');
+mc_comp("/comp/modlistprevbutton", offset=>$offset, 
+        text=>"< Prev", num=>$max_items);
+mc_comp("/comp/modlistprevbutton", offset=>$offset, 
+        text=>"<< Prev", num=>($max_items * 2));
+mc_out("<td width=\"40%\">&nbsp;</td>");
+mc_comp("/comp/modlistnextbutton", offset=>$offset,
+        text=>"Next >>", num=>($max_items * 2), rows=>$num_mods);
+mc_comp("/comp/modlistnextbutton", offset=>$offset,
+        text=>"Next >", num=>$max_items, rows=>$num_mods);
+</%perl>
+
+</tr>
+</table>
+
+<p>
+
+<form method="POST" action="/vote.html"
+      enctype="application/x-www-form-urlencoded"> 
+
+<table>
+<tr>
+  <td width=100% align=right>
+     Click here to vote on the items on this page:
+  </td>
+  <td>
+     <INPUT TYPE="submit" NAME="Submit" VALUE="Submit">
+  </td>
+</tr>
+</table>
+
+<table bgcolor="#643b99" cellspacing=0 cellpadding=0 width=100%>
+<tr><td>
+
+<table bgcolor=white cellspacing=0 width=100%>
+<tr>
+   <& /comp/thcell, text=>'Field' &>
+   <& /comp/thcell, text=>'Old Value' &>
+   <& /comp/thcell, text=>'New Value' &>
+   <& /comp/thcell, text=>'Votes Yes/No' &>
+   <& /comp/thcell, text=>'Vote Yes' &>
+   <& /comp/thcell, text=>'Vote No' &>
+   <& /comp/thcell, text=>'Abstain' &>
+</tr>
+
+<%perl>
+for($i = 0; ; $i++) 
+{
+   $row = $info[$i];
+   last if (!defined $row);
+
+   mc_comp("/comp/showmod",
+           id=>($$row[0]),
+           table=>($$row[1]),
+           column=>($$row[2]),
+           rowid=>($$row[3]),
+           prev=>($$row[4]),
+           new=>($$row[5]),
+           time=>($$row[6]),
+           moderator=>($$row[7]),
+           yesvotes=>($$row[8]),
+           novotes=>($$row[9]));
+}
+</%perl>
+</table>
+
+</td></tr>
+</table>
+</form>

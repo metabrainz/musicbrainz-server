@@ -1,3 +1,0 @@
-<& /comp/tablebegin, title=>'Review pending moderations' &>
-Foo!<br>
-<& /comp/tableend &>

@@ -31,14 +31,14 @@ $mb->Login();
 ($num_artists, @info) = $mb->GetArtistList($ind, $offset, $max_items);
 
 mc_out('<table width="100%"><tr>');
-mc_comp("/comp/prevbutton", offset=>$offset, ind=>$ind, 
+mc_comp("/comp/artistlistprevbutton", offset=>$offset, ind=>$ind, 
         text=>"< Prev", num=>$max_items);
-mc_comp("/comp/prevbutton", offset=>$offset, ind=>$ind, 
+mc_comp("/comp/artistlistprevbutton", offset=>$offset, ind=>$ind, 
         text=>"<< Prev", num=>($max_items * 2));
 mc_out("<td width=\"40%\">&nbsp;</td>");
-mc_comp("/comp/nextbutton", offset=>$offset, ind=>$ind, 
+mc_comp("/comp/artistlistnextbutton", offset=>$offset, ind=>$ind, 
         text=>"Next >>", num=>($max_items * 2), rows=>$num_artists);
-mc_comp("/comp/nextbutton", offset=>$offset, ind=>$ind, 
+mc_comp("/comp/artistlistnextbutton", offset=>$offset, ind=>$ind, 
         text=>"Next >", num=>$max_items, rows=>$num_artists);
 mc_out('</tr></table>');
 

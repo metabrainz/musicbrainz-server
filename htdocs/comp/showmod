@@ -1,0 +1,57 @@
+<%args>
+$id
+$table
+$column
+$rowid
+$prev
+$new
+$time
+$moderator
+$yesvotes
+$novotes
+</%args>
+
+<tr>
+   <td width=10% valign=top>
+     <% $table %>
+   </td>
+   <td width=35% valign=top>
+     <& /comp/showmodprev, prev=>$prev, table=>$table, id=>$rowid &>
+   </td>
+   <td width=35% valign=top>
+     <% $new %>
+   </td>
+   <td width=5% align=center valign=top>
+     <% $yesvotes %>,
+     <% $novotes %>
+   </td>
+% if ($session{uid} != $moderator) {
+     <td width=5% align=center valign=top>
+     <input type="radio" name="b<% $id %>" value="yes">
+     </td>
+% } else {
+     <td width=5% align=center valign=top bgcolor=red>
+     &nbsp; 
+     </td>
+% }
+   </td>
+% if ($session{uid} != $moderator) {
+     <td width=5% align=center valign=top>
+     <input type="radio" name="b<% $id %>" value="no">
+     </td>
+% } else {
+     <td width=5% align=center valign=top bgcolor=red>
+     &nbsp; 
+     </td>
+% }
+% if ($session{uid} != $moderator) {
+     <td width=5% align=center valign=top>
+     <input type="radio" name="b<% $id %>" value="abstain" CHECKED>
+     </td>
+% } else {
+     <td width=5% align=center valign=top bgcolor=red>
+     &nbsp; 
+     </td>
+% }
+</tr>
+</tr>

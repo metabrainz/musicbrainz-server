@@ -1,0 +1,8 @@
+% if (!defined $session{user} || $session{user} eq '') {
+    You must be logged in to edit the database.<p>
+    <& /comp/tablebegin, title=>'Login' &>
+    <& /comp/loginbox &>
+    <& /comp/tableend &>
+% } else {
+    <& /comp/moderatepage, offset=>$ARGS{offset} &>
+% }

@@ -1,0 +1,17 @@
+<%perl>
+
+my ($mb, $album);
+
+$mb = new MusicBrainz;
+$mb->Login();
+$album = $mb->GetAlbumFromTrackId($ARGS{trackid});
+$mb->Logout();
+
+$r->method('GET');
+$r->headers_in->unset('Content-length');
+
+$r->content_type('text/html');
+$r->header_out(Location=>"/showalbum.html?albumid=$album");
+$m->abort(302);
+
+</%perl>

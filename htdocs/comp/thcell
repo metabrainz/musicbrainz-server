@@ -1,0 +1,5 @@
+<th bgcolor="#643b99">
+  <font color=white>
+  <% $ARGS{text} %>
+  </font>
+</th>

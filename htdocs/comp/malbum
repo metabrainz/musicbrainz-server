@@ -1,0 +1,23 @@
+<%perl>
+
+my ($i, $trackinfo, @info);
+
+mc_comp("/comp/albumbegin", 
+        albumid=>$ARGS{albumid}, 
+        title=>$ARGS{albumname},
+        modpending=>$ARGS{modpending});
+@info = $ARGS{mb}->GetMultipleArtistAlbumInfo($ARGS{albumid});
+for($i = 0;; $i++)
+{
+    $trackinfo = $info[$i]; 
+    last if (!defined $trackinfo);
+    mc_comp("/comp/albumtrack", 
+            id=>$$trackinfo[0],
+            tracknum=>($$trackinfo[1] + 1), 
+            name=>$$trackinfo[2],
+            artistname=>$$trackinfo[3],
+            modpending=>$$trackinfo[4]);
+}
+mc_comp("/comp/albumend");
+
+</%perl>

@@ -1,0 +1,49 @@
+<table width="100%">
+<tr>
+<td width="49%" valign="top">
+  <& /comp/tablebegin, title=>'Search MusicBrainz' &>
+    For each of these searches, you may enter a few keywords that
+    appear in the title of the artist, album or track. The search
+    is case insensitive and partial keywords are ok. (e.g. 'Port' 
+    will match 'Portishead')
+    <& /comp/artistsearchbox &>
+    <& /comp/albumsearchbox &>
+    <& /comp/tracksearchbox &>
+  <& /comp/tableend &>
+
+</td>
+<td width="2%">&nbsp;</td>
+<td width="49%" valign="top">
+  <& /comp/tablebegin, title=>'Browse MusicBrainz' &>
+    To browse the database alphabetically, select a letter below:<p>
+    <& /comp/artistbrowsebox &>
+  <& /comp/tableend &>
+
+% if ($session{user} ne "") {
+  <& /comp/tablebegin, title=>'Change Login' &>
+  <table width=100%>
+  <tr><td align=center>
+    You are logged in as <b><% $session{user} %></b>.
+  </td></tr>
+  <tr><td align=center>
+    <a href="/logout.html">Logout</a> from MusicBrainz.
+  </td></tr>
+  </table>
+  <& /comp/tableend &>
+
+  <& /comp/tablebegin, title=>'Moderate/Vote' &>
+  <table width=100%>
+  <tr><td align=center>
+    <a href="/moderate.html">Vote/Moderate</a> MusicBrainz.
+  </td></tr>
+  </table>
+  <& /comp/tableend &>
+% } else {
+  <& /comp/tablebegin, title=>'Moderator Login' &>
+    <& /comp/loginbox &>
+  <& /comp/tableend &>
+% }
+
+</td>
+</tr>
+</table>
