@@ -246,7 +246,7 @@ sub Insert
     {
         $ar->SetName($artist);
         $ar->SetSortName($sortname);
-        $artistid = $ar->Insert();
+        $artistid = $ar->Insert(no_alias => $info->{artist_only});
         if (!defined $artistid)
         {
             die "Insert failed: Cannot insert artist.\n";
