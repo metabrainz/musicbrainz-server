@@ -32,7 +32,6 @@ use vars qw(@ISA @EXPORT);
 use strict;
 use DBI;
 use DBDefs;
-use Benchmark::Timer;
 use Carp qw(cluck);
 
 sub new
@@ -78,21 +77,10 @@ sub Select
 
     $ret = eval
     {
-       #print STDERR "SELECT: $query (@params)\n";
-       $t = Benchmark::Timer->new(skip => 0);
-       $t->start('start');
-
+       my $tt = Sql::Timer->new($query, \@params);
        $this->{STH} = $this->{DBH}->$prepare($query);
        $ret = $this->{STH}->execute(@params);
 
-       $t->stop;
-       if ($t->result('start') > 2)
-       {
-           print STDERR "--------------------------------------------\n";
-           print STDERR "$query\n(@params)\n";
-           $t->report;
-       }
-       
        return $this->{STH}->rows;
     };
     if ($@)
@@ -159,27 +147,14 @@ sub Do
         die "AutoCommit on!"
     }
 #    die "No transaction started in Do." if ($this->{DBH}->{AutoCommit} == 0);
-#    my (@ltime, $trace, $prefix, @strace, $q);
-#    $trace = Carp::longmess();
     
-#    @ltime = localtime(time());
-#    $prefix = ($ltime[5]+1900) . ($ltime[4]+1) . $ltime[3] . ": ";
-    
-#    @strace = split /^/m, $trace;
-#    $trace = $prefix . join $prefix, $strace[0], $strace[1], $strace[2];
-
-#    $q = $query;
-#    $q =~ s/\n/ /g;
-#    print STDERR "$prefix $q\n$trace";
-#    print STDERR "DO: $query (@params)\n";
-
     my $prepare = (@params ? "prepare_cached" : "prepare");
 
     $ret = eval
     {
+       my $tt = Sql::Timer->new($query, \@params);
         my $sth = $this->{DBH}->$prepare($query);
         $sth->execute(@params);
-        return 1;
     };
     if ($@)
     {
@@ -190,7 +165,7 @@ sub Do
             unless ($this->{Quiet});
         die $err;
     }
-    return $ret;
+    return 0+$ret;
 }
 
 sub GetSingleRow
@@ -393,6 +368,7 @@ sub SelectSingleRowHash
 
     my $row = eval
     {
+       my $tt = Sql::Timer->new($query, \@params);
         my $sth = $this->{DBH}->prepare_cached($query);
         my $rv = $sth->execute(@params)
             or die;
@@ -425,6 +401,7 @@ sub SelectSingleRowArray
 
     my $row = eval
     {
+       my $tt = Sql::Timer->new($query, \@params);
         my $sth = $this->{DBH}->prepare_cached($query);
         my $rv = $sth->execute(@params)
             or die;
@@ -456,6 +433,7 @@ sub SelectSingleColumnArray
 
     my $col = eval
     {
+       my $tt = Sql::Timer->new($query, \@params);
         my $sth = $this->{DBH}->prepare_cached($query);
         my $rv = $sth->execute(@params)
             or die;
@@ -509,6 +487,7 @@ sub SelectListOfLists
 
     my $data = eval
     {
+       my $tt = Sql::Timer->new($query, \@params);
         my $sth = $this->{DBH}->prepare_cached($query);
         my $rv = $sth->execute(@params)
             or die;
@@ -545,6 +524,7 @@ sub SelectListOfHashes
 
     my $data = eval
     {
+       my $tt = Sql::Timer->new($query, \@params);
         my $sth = $this->{DBH}->prepare_cached($query);
         my $rv = $sth->execute(@params)
             or die;
@@ -569,6 +549,43 @@ sub SelectListOfHashes
     $this->{ERR} = $this->{DBH}->errstr;
     cluck("Failed query:\n  '$query'\n  (@params)\n$err\n");
     die $err;
+}
+
+package Sql::Timer;
+
+use Time::HiRes qw( gettimeofday tv_interval );
+
+sub new
+{
+    # Comment this out if you actually want to log all/slow queries
+    return;
+
+    my ($class, $sql, $args) = @_;
+
+    bless {
+        SQL => $sql,
+        ARGS => $args,
+        CALLER => [ caller(1) ],
+        T0 => [ gettimeofday ],
+    }, ref($class) || $class;
+}
+
+sub DESTROY
+{
+    my $self = shift;
+    my $t = tv_interval($self->{T0});
+    $self->{SQL} =~ s/\s+/ /sg;
+
+    # Uncomment this if you're only interested in queries which take longer
+    # than $somelimit
+    #return if $t < 0.1;
+
+    local $" = ", ";
+    printf STDERR "SQL: %6.2fs \"%s\" (%s)\n",
+        $t,
+        $self->{SQL},
+        join(", ", @{ $self->{ARGS} }),
+        ;
 }
 
 1;
