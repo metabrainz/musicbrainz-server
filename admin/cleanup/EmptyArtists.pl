@@ -50,7 +50,6 @@ my $sqlWrite = Sql->new($mb2->{DBH});
 my $use_auto_mod = 1;
 my $moderator = ModDefs::MODBOT_MODERATOR;
 my $help = 0;
-my $debug = 0;
 my $nofix = 0;
 
 GetOptions(
@@ -63,13 +62,13 @@ GetOptions(
 		$moderator = $uid;
 	},
 	"dry-run|n"		=> \$nofix,
-	"debug!"		=> \$debug,
-	"help"			=> \$help,
-) or $help = 1;
+	"help|h|?"		=> \$help,
+) or exit 2;
 
-$help = 1 if @ARGV;
+usage(), exit if $help;
+usage(), exit 2 if @ARGV;
 
-die <<EOF if $help;
+sub usage { print <<EOF }
 Usage: EmptyArtists.pl [OPTIONS]
 
 Allowed options are:
@@ -78,9 +77,11 @@ Allowed options are:
         --moderator=NAME  insert the moderations as moderator NAME
                           (default is the 'ModBot')
     -n, --dry-run         show what needs to be done; don't change anything
-        --help            show this help
+    -h, --help            show this help (also "-?")
 
 EOF
+
+print "Finding unused artists...\n";
 
 $sql->Select(<<EOF) or die;
 
