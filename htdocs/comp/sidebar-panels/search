@@ -1,0 +1,17 @@
+<table class="SidebarSearch">
+% for my $table (qw( Artist Album Track )) {
+	<tr>
+		<th><% $table %></th>
+		<td>
+	<form method="get" action="/newsearch.html">
+		<div>
+			<input type="text" name="search" value="">
+			<input type="hidden" name="table" value="<% $table %>">
+		</div>
+	</form>
+		</td>
+	</tr>
+% }
+</table>
+
+%# vi: set ts=2 sw=2 ft=mason :
