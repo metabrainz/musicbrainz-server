@@ -30,6 +30,10 @@ elsif (defined $ARGS{User} && $ARGS{User} ne '' &&
         $session{user} = $user;
         $session{privs} = $privs;
         $session{uid} = $uid;  
+        if (exists $ARGS{mblookup})
+        {
+            $session{mblookup} = 1;  
+        }
     }
     $mb->Logout();
 }    

@@ -40,7 +40,6 @@ else
         return undef;
     }
 
-print STDERR "tagged: " .$session{tagged_albums} . "\n";
     mc_comp("/comp/artisttitle", artist=>$artist);
     
     mc_out("[ <a href=\"/addalbum.html?artistid=");
