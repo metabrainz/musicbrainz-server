@@ -74,6 +74,10 @@ sub Insert
    	my $sql = Sql->new($self->{DBH});
 
 	my $modid = $moderation->GetId;
+
+	# Make sure we have the most up-to-date status, so we get the correct
+	# table (open/closed)
+	$moderation->Refresh;
 	my $openclosed = ($moderation->IsOpen ? "open" : "closed");
 
 	# For moderation and vote, rows only ever get added to _open, then moved

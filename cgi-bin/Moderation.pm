@@ -89,6 +89,13 @@ my %ChangeNames = (
     &ModDefs::STATUS_DELETED		=> "Deleted"
 );
 
+sub Refresh
+{
+	my $self = shift;
+	my $newself = $self->CreateFromId($self->GetId);
+	%$self = %$newself;
+}
+
 sub GetModerator
 {
    return $_[0]->{moderator};
