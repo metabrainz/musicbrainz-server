@@ -51,8 +51,12 @@ sub GetPrivs			{ $_[0]{privs} }
 sub SetPrivs			{ $_[0]{privs} = $_[1] }
 sub GetModsAccepted		{ $_[0]{modsaccepted} }
 sub SetModsAccepted		{ $_[0]{modsaccepted} = $_[1] }
+sub GetAutoModsAccepted	{ $_[0]{automodsaccepted} }
+sub SetAutoModsAccepted	{ $_[0]{automodsaccepted} = $_[1] }
 sub GetModsRejected		{ $_[0]{modsrejected} }
 sub SetModsRejected		{ $_[0]{modsrejected} = $_[1] }
+sub GetModsFailed		{ $_[0]{modsfailed} }
+sub SetModsFailed		{ $_[0]{modsfailed} = $_[1] }
 sub GetEmail			{ $_[0]{email} }
 sub SetEmail			{ $_[0]{email} = $_[1] }
 sub GetWebURL			{ $_[0]{weburl} }
@@ -156,7 +160,7 @@ sub Login
 sub CreateLogin
 {
 	my ($this, $user, $pwd, $pwd2) = @_;
-	my ($sql, $uid, $dbuser);
+	my ($sql, $uid);
 
 	$sql = Sql->new($this->{DBH});
 
@@ -173,24 +177,21 @@ sub CreateLogin
 		return "You cannot leave the user name blank. Please try again."
 	}
 
-	$dbuser = $sql->Quote($user);
-	$pwd = $sql->Quote($pwd);
-
 	my $msg = eval
 	{
 		$sql->Begin;
 
-		if ($sql->Select("select id from Moderator where name ilike $dbuser"))
+		if ($sql->Select("SELECT id FROM moderator WHERE name ILIKE ?", $user))
 		{
 			$sql->Finish;
 			$sql->Rollback;
 			return ("That login already exists. Please choose another login name.");
 		}
 
-		$sql->Do(qq/
-					insert into Moderator (Name, Password, Privs, ModsAccepted, 
-					ModsRejected, MemberSince) values ($dbuser, $pwd, 0, 0, 0, now())
-		/);
+		$sql->Do(
+			"INSERT INTO moderator (name, password, privs) values (?, ?, 0)",
+			$user, $pwd,
+		);
 
 		$uid = $sql->GetLastInsertId("Moderator");
 		$sql->Commit;
@@ -233,34 +234,28 @@ sub GetUserPasswordAndId
 sub GetUserInfo
 {
 	my ($this, $uid) = @_;
-	my ($sql, $dbuser);
+	$uid or return undef;
 
-	$sql = Sql->new($this->{DBH});
-	return undef if (!defined $uid || $uid == 0);
+	my $sql = Sql->new($this->{DBH});
 
-	if ($sql->Select(qq|select name, email, password, privs, modsaccepted, 
-					modsrejected, WebUrl, MemberSince, Bio, 
-					emailconfirmdate
-					from Moderator 
-					where id = $uid|))
-	{
-		my @row = $sql->NextRow();
-		$sql->Finish;
-		return {
-			name=>$row[0],
-			email=>$row[1],
-			passwd=>$row[2],
-			privs=>$row[3],
-			modsaccepted=>$row[4],
-			modsrejected=>$row[5],
-			weburl =>$row[6],
-			membersince =>$row[7],
-			bio=>$row[8],
-			emailconfirmdate=>$row[9],
-			uid=>$uid,
-		};
-	}
-	return undef;
+	$sql->SelectSingleRowHash(
+		"SELECT	id AS uid,
+				name,
+				email,
+				password AS passwd,
+				privs,
+				modsaccepted,
+				automodsaccepted,
+				modsrejected,
+				modsfailed,
+				weburl,
+				membersince,
+				bio,
+				emailconfirmdate
+		FROM	moderator
+		WHERE	id = ?",
+		$uid,
+	);
 }
 
 # Used by (login|moderator|confirmaddress).html
