@@ -1,6 +1,5 @@
 #!/home/httpd/musicbrainz/mb_server/cgi-bin/perl -w
 # vi: set ts=4 sw=4 :
-
 #____________________________________________________________________________
 #
 #   MusicBrainz -- the open internet music database
@@ -40,6 +39,8 @@ my $dir = "/tmp";
 my $fCompress = 1;
 my $fKeepFiles = 0;
 my $fProgress = -t STDOUT;
+my $fDoFullExport = 1;
+my $fDoReplication = 0;
 my @tablelist;
 
 GetOptions(
@@ -48,6 +49,10 @@ GetOptions(
 	"compress|c!"		=> \$fCompress,
 	"keep-files|k!"		=> \$fKeepFiles,
 	"table=s"			=> \@tablelist,
+	"with-replication"		=> sub { $fDoReplication = 1 },
+	"without-replication"	=> sub { $fDoReplication = 0 },
+	"with-full-export"		=> sub { $fDoFullExport = 1 },
+	"without-full-export"	=> sub { $fDoFullExport = 0 },
 	"help"				=> \$fHelp,
 );
 
@@ -62,11 +67,16 @@ Usage: ExportAllTables [options]
     -c, --[no]compress    [don't] create .tar.bz2 archives after exporting
     -k, --keep-files      don't delete the exported files from the tmp directory
         --table TABLE     process only these tables
+        --with[out]-replication  Do [not] produce a replication packet
+        --with[out]-full-export  Do [not] export full tables
 
-Specifying --nocompress and omitting --keep-files would discard the
-files just exported straight away, so don't do that.  If you specify --table
-TABLE, you won't get a complete consistent snapshot of the database, of
-course.
+Certain combinations of options are pointless:
+ * specifying --without-replication and --without-full-export
+ * specifying tables (via --table) and --without-full-export
+ * specifying --nocompress and omitting --keep-files
+
+If you specify --table TABLE, you won't get a complete consistent snapshot
+of the database, of course.
 
 EOF
 }
@@ -74,12 +84,14 @@ EOF
 usage(), exit if $fHelp;
 usage(), exit 1 if @ARGV;
 usage(), exit 1 if not $fCompress and not $fKeepFiles;
+usage(), exit 1 if not $fDoFullExport and not $fDoReplication;
+usage(), exit 1 if not $fDoFullExport and @tablelist;
 
 use File::Temp qw( tempdir );
 $SIG{'INT'} = sub { exit 3 };
 $dir = tempdir("mbexport-XXXXXX", DIR => $dir, CLEANUP => not $fKeepFiles);
 mkdir "$dir/mbdump" or die $!;
-print "Exporting to $dir/mbdump\n" if $fKeepFiles;
+print "Exporting to $dir\n" if $fKeepFiles;
 
 use MusicBrainz;
 my $mb = new MusicBrainz;
@@ -125,7 +137,13 @@ my @tables = qw(
 	wordlist
 );
 
+my @replication_tables = qw(
+	Pending
+    PendingData
+);
+
 @tables = @tablelist if @tablelist;
+@tables = () if not $fDoFullExport;
 
 use Time::HiRes qw( gettimeofday tv_interval );
 my $t0 = [gettimeofday];
@@ -135,17 +153,45 @@ my $tables = 0;
 $sql->AutoCommit;
 $sql->Do("SET SESSION CHARACTERISTICS AS TRANSACTION ISOLATION LEVEL SERIALIZABLE");
 $sql->Begin;
-
 my $now = $sql->SelectSingleValue("SELECT NOW()");
-open(TIMESTAMP, ">$dir/mbdump/TIMESTAMP") or die $!;
-print TIMESTAMP "This snapshot was taken at $now UTC\n";
-close TIMESTAMP;
 
-$sql->Do("SELECT * INTO TEMPORARY TABLE album_amazon_asin_sanitised FROM album_amazon_asin");
-$sql->Do("UPDATE album_amazon_asin_sanitised SET coverarturl = ''");
+# Write the TIMESTAMP file
+# This used to be free text; now it's parseable.  It contains a PostgreSQL
+# TIMESTAMP WITH TIME ZONE expression.
+writefile("TIMESTAMP", "$now\n");
 
-$sql->Do("SELECT * INTO TEMPORARY TABLE moderator_sanitised FROM moderator");
-$sql->Do("UPDATE moderator_sanitised SET password = 'mb', privs = 0, email = ''");
+# Get the replication control data
+
+my ($iSchemaSequence, $iReplicationSequence) = do {
+	my $row = $sql->SelectSingleRowHash("SELECT * FROM replication_control");
+	$row ||= {};
+	@$row{qw(
+		current_schema_sequence
+		current_replication_sequence
+	)};
+};
+
+$iSchemaSequence or die "Don't know what schema sequence number we're using";
+$iSchemaSequence == &DBDefs::DB_SCHEMA_SEQUENCE
+	or die "Stored schema sequence ($iSchemaSequence) does not match DBDefs::DB_SCHEMA_SEQUENCE (".&DBDefs::DB_SCHEMA_SEQUENCE.")";
+
+# Write the SCHEMA_SEQUENCE file.  Again, this is parseable - it's just an
+# integer.
+writefile("SCHEMA_SEQUENCE", "$iSchemaSequence\n");
+
+# Sanitise various things for public consumption
+
+if (grep { $_ eq "album_amazon_asin_sanitised" } @tables)
+{
+	$sql->Do("SELECT * INTO TEMPORARY TABLE album_amazon_asin_sanitised FROM album_amazon_asin");
+	$sql->Do("UPDATE album_amazon_asin_sanitised SET coverarturl = ''");
+}
+
+if (grep { $_ eq "moderator_sanitised" } @tables)
+{
+	$sql->Do("SELECT * INTO TEMPORARY TABLE moderator_sanitised FROM moderator");
+	$sql->Do("UPDATE moderator_sanitised SET password = 'mb', privs = 0, email = ''");
+}
 
 $| = 1;
 
@@ -153,8 +199,17 @@ printf "%-30.30s %9s %4s %9s\n",
 	"Table", "Rows", "est%", "rows/sec",
 	;
 
+my %rowcounts;
+
 for my $table (@tables)
 {
+	dumptable($table);
+}
+
+sub dumptable
+{
+	my $table = shift;
+
 	open(DUMP, ">$dir/mbdump/$table")
 		or die $!;
 
@@ -163,7 +218,7 @@ for my $table (@tables)
 		$table,
 	) || 1;
 
-	$sql->Do("COPY $table TO stdout");
+	$sql->Do("COPY \"$table\" TO stdout");
 	my $buffer;
 	my $rows = 0;
 
@@ -211,6 +266,53 @@ for my $table (@tables)
 
 	++$tables;
 	$totalrows += $rows;
+	$rowcounts{$table} = $rows;
+
+	$rows;
+}
+
+my $iReplicationRows = 0;
+if ($fDoReplication)
+{
+	# Is there any replication data to dump?
+	my $fAnyReplicationData = 0;
+	for my $table (@replication_tables)
+	{
+		$fAnyReplicationData = 1
+			if $sql->SelectSingleValue("SELECT COUNT(*) FROM \"$table\"") > 0;
+	}
+
+	if ($fAnyReplicationData)
+	{
+		# Increment the replication sequence number.  This should (I think) be
+		# the final transaction included in each packet.
+		$iReplicationSequence ||= 0;
+		++$iReplicationSequence,
+
+		$sql->Do(
+			"UPDATE replication_control SET current_replication_sequence = ?",
+			$iReplicationSequence,
+		);
+
+		print localtime() . " : Producing replication packet #$iReplicationSequence\n";
+
+		# Dump 'em
+		dumptable($_) for @replication_tables;
+
+		# Remove the rows we just dumped
+		# TODO check the efficiency of using ON DELETE CASCADE
+		for my $table (@replication_tables)
+		{
+			$sql->Do("DELETE FROM \"$table\"");
+		}
+
+		writefile("REPLICATION_SEQUENCE", "$iReplicationSequence\n");
+	} else {
+		print localtime() . " : No replication data dumped - not producing a replication packet\n";
+		writefile("REPLICATION_SEQUENCE", "");
+	}
+} else {
+	writefile("REPLICATION_SEQUENCE", "");
 }
 
 $sql->Commit;
@@ -276,12 +378,12 @@ my @group_modprivate = qw(
 
 use File::Copy qw( copy );
 
-if ($fCompress)
+if ($fCompress and $fDoFullExport)
 {
-	copy("$FindBin::Bin/COPYING-PublicDomain", "$dir/mbdump/COPYING") or die $!;
+	copy("$FindBin::Bin/COPYING-PublicDomain", "$dir/COPYING") or die $!;
 	make_tar("mbdump.tar.bz2", @group_core);
 
-	copy("$FindBin::Bin/COPYING-CCShareAlike", "$dir/mbdump/COPYING") or die $!;
+	copy("$FindBin::Bin/COPYING-CCShareAlike", "$dir/COPYING") or die $!;
 	make_tar("mbdump-derived.tar.bz2", @group_derived);
 	make_tar("mbdump-moderation.tar.bz2",  @group_moderation);
 	make_tar("mbdump-closedmoderation.tar.bz2",  @group_closedmoderation);
@@ -289,11 +391,29 @@ if ($fCompress)
 	make_tar("mbdump-moderator.tar.bz2", @group_modprivate);
 }
 
+if ($fCompress and $fDoReplication)
+{
+	my $tarfile = "mbdump-replication-$iReplicationSequence.tar.bz2";
+
+	if (grep { $rowcounts{$_} } @replication_tables)
+	{
+		# Go for the "most restrictive" licence
+		copy("$FindBin::Bin/COPYING-PublicDomain", "$dir/COPYING") or die $!;
+		make_tar($tarfile, @replication_tables);
+	}
+}
+
 sub make_tar
 {
 	my ($tarfile, @files) = @_;
 
-	unshift @files, "TIMESTAMP", "COPYING";
+	@files = map { "mbdump/$_" } @files;
+	unshift @files, qw(
+		TIMESTAMP
+		COPYING
+		REPLICATION_SEQUENCE
+		SCHEMA_SEQUENCE
+	);
 
 	my $t0 = [gettimeofday];
 	print "Creating $tarfile\n";
@@ -304,10 +424,18 @@ sub make_tar
 		"--verbose",
 		"--file", "$OutputDir/$tarfile",
 		"--",
-		map { "mbdump/$_" } @files,
+		@files,
 		;
 	$? == 0 or warn "Tar returned $?";
 	printf "Tar completed in %d seconds\n", tv_interval($t0);
+}
+
+sub writefile
+{
+	my ($file, $contents) = @_;
+	open(my $fh, ">$dir/$file") or die $!;
+	print $fh $contents or die $!;
+	close $fh or die $!;
 }
 
 # eof ExportAllTables
