@@ -50,7 +50,6 @@ use vars qw(@ISA @EXPORT @EXPORT_OK %EXPORT_TAGS);
 
 use strict;
 use DBDefs;
-use DBI;
 use MusicBrainz;
 use Sql;
 use ModDefs;
@@ -71,12 +70,13 @@ sub new
 {
     my $class = shift;
     my $dbh = shift;
-    my $self = shift || {};
-    bless $self, $class;
 
-    $self->{DBH}          = $dbh;
-    $self->{ValidTables}  = ['Album','Artist','Track'];
-    $self->{Table}      ||= 'Artist';
+    my $self = bless {
+	DBH	=> $dbh,
+	Table	=> "artist",
+    }, $class;
+
+    $self->Table(shift);
 
     my $sql = Sql->new($self->{DBH});
     $self->{SQL} = $sql;
@@ -87,7 +87,7 @@ sub new
 sub Table
 {
     my ($self,$table) = @_;
-    $self->{Table} = $table if defined $table;
+    $self->{Table} = lc $table if defined $table;
     return $self->{Table};
 }
 
@@ -131,7 +131,7 @@ sub AddWord
     my ($self, $word) = @_;
 
     my $id = $self->{SQL}->SelectSingleValue(
-	"SELECT id FROM WordList WHERE word = ?",
+	"SELECT id FROM wordlist WHERE word = ?",
 	$word,
     );
     return $id if $id;
@@ -143,18 +143,35 @@ sub AddWord
 sub AddWordRefs
 {
     my $self = shift;
-    my ($object_id,$name) = @_;
+    my ($object_id, $name, $remove_others) = @_;
+    $name = join "\n", @$name if ref($name) eq "ARRAY";
     my @words = keys %{ $self->Tokenize($name) };
+
+    # The word IDs we want to keep when we've finished (only applies if
+    # $remove_others is true)
+    my %word_ids;
+
+    # Retrieve existing word IDs for this object in one hit so we don't keep
+    # looking them up later
+    my $existing_wordids = do {
+	my $t = $self->{SQL}->SelectSingleColumnArray(
+	    "SELECT wordid FROM $self->{Table}words WHERE $self->{Table}id = ?",
+	    $object_id,
+	);
+	+{ map { $_ => 1 } @$t };
+    };
 
     foreach (@words)
     {
-        my $word_id = $self->AddWord ($_);
+        my $word_id = $self->AddWord($_);
         next if not defined $word_id;
+	++$word_ids{$word_id};
+	next if $existing_wordids->{$word_id};
 
 	$self->{SQL}->SelectSingleValue(
 	    "SELECT 1 FROM $self->{Table}words
     	    WHERE $self->{Table}id = ?
-	    AND WordId = ?",
+	    AND wordid = ?",
 	    $object_id,
 	    $word_id,
 	) and next;
@@ -166,6 +183,25 @@ sub AddWordRefs
 	    $object_id,
 	    $word_id,
 	);
+    }
+
+    if ($remove_others)
+    {
+	if (keys %word_ids)
+	{
+	    my $qs = join ", ", ("?") x keys %word_ids;
+	    $self->{SQL}->Do(
+		"DELETE FROM $self->{Table}words WHERE $self->{Table}id = ? AND wordid NOT IN ($qs)",
+		$object_id,
+		keys %word_ids,
+	    );
+	} else {
+	    # Not very likely
+	    $self->{SQL}->Do(
+		"DELETE FROM $self->{Table}words WHERE $self->{Table}id = ?",
+		$object_id,
+	    );
+	}
     }
 }
 
@@ -205,13 +241,12 @@ sub RebuildIndex
             print STDERR "Start transaction for $count -> " . ($count + $block_size) . "\n";
             $self->{SQL}->Begin;
 
-            $query = qq|SELECT Id, Name FROM $self->{Table} |;
-            if ($self->{Table} eq 'Artist')
+            $query = "SELECT id, name FROM $self->{Table}";
+            if ($self->{Table} eq 'artist')
             {
-                  $query .= qq|union select artistalias.ref, artistalias.name
-                                       from ArtistAlias |;
+                  $query .= " UNION SELECT artistalias.ref, artistalias.name FROM artistalias";
             }
-            $query .= qq|LIMIT $block_size OFFSET $count|;
+            $query .= " LIMIT $block_size OFFSET $count";
 
             $start_time = time();
             if ($self->{SQL}->Select($query))
@@ -338,14 +373,14 @@ sub Search
     {
         $d->stamp;
 	$d->print(
-	    "Analze words: "
+	    "Analyze words: "
 	    . join(" ", map { "$_=$sqlwords->{$_}" } keys %$sqlwords)
 	    . "\n"
 	);
         $d->close;
     }
 
-    my $table = lc $self->Table;
+    my $table = $self->Table;
 
     my $sql = Sql->new($self->{DBH});
     my $counts = $sql->SelectListOfLists(
@@ -443,6 +478,7 @@ sub Search
 
 	    if ($r->{'numartistaliases'})
 	    {
+		require Alias;
 		my $al = Alias->new($self->{DBH}, "ArtistAlias");
 		my $aliases = $al->LoadFull($r->{'artistid'});
 
@@ -549,7 +585,7 @@ sub _GetQuery
 {
     my $self = shift;
     my $numwords = shift;
-    my $table = lc $self->Table;
+    my $table = $self->Table;
     my $wtable = $table . "words";
     my $idcol = $table . "id";
 
