@@ -37,9 +37,11 @@ use vars qw(@ISA @EXPORT);
 @ISA    = @ISA    = 'TableBase';
 @EXPORT = @EXPORT = '';
 
-use constant FUZZY_THRESHOLD => .8;
-use constant ALL_WORDS       => 1;
+use constant FUZZY_THRESHOLD_ALBUM  => .5;
+use constant FUZZY_THRESHOLD_TRACK  => .8;
+use constant ALL_WORDS              => 1;
 
+# TODO: Make sure the RDF interface still works (change to hash refs lists)
 sub new
 {
    my ($type, $dbh) = @_;
@@ -54,113 +56,141 @@ sub FileInfoLookup
    return $tagger->Lookup(@_);
 }
 
-sub Lookup
+sub RDFLookup
 {
    my ($this, $doc, $rdf, $artistName, $albumName, $trackName, $trmId,
-       $trackNum, $duration, $fileName, $artistId, $albumId, $trackId, $maxItems) = @_;
+          $trackNum, $duration, $fileName, $artistId, $albumId, $trackId, $maxItems) = @_;
+   my ($status, $error, %data);
+
+   $data{artist} = $artistName;
+   $data{artistid} = $artistId;
+   $data{album} = $albumName;
+   $data{albumid} = $albumId;
+   $data{track} = $trackName;
+   $data{trackid} = $trackId;
+   $data{tracknum} = $trackNum;
+   $data{tmid} = $trmId;
+   $data{duration} = $duration;
+   $data{filename} = $fileName;
+
+   ($status, $error) = $this->Lookup(\%data);
+   if (defined $error)
+   {
+       return $rdf->ErrorRDF($error);
+   }
+
+   return $rdf->CreateFileLookup($this, $status);
+}
+   
+sub Lookup
+{
+   my ($this, $data, $maxItems) = @_;
 
    my ($fileInfo, %info);
 
    # Initialize the data to reasonable defaults
-   $artistName ||= '';
-   $albumName ||= '';
-   $trackName ||= '';
-   $trackNum = 0 if (!defined $trackNum || !($trackNum =~ /^\d+$/));
-   $artistId ||= '';
-   $albumId ||= '';
-   $trackId ||= '';
+   $data->{artist} ||= '';
+   $data->{album} ||= '';
+   $data->{track} ||= '';
+   $data->{artistid} ||= '';
+   $data->{albumid} ||= '';
+   $data->{trackid} ||= '';
+   $data->{tracknum} = 0 if (!defined $data->{tracknum} || 
+                             !($data->{tracknum} =~ /^\d+$/));
 
    $this->{fuzzy} = 0;
    $maxItems = 15 if not defined $maxItems;
    $this->{maxitems} = $maxItems;
 
-   if ($artistName eq "Various Artists")
+   if ($data->{artist} eq "Various Artists")
    {
-       $artistId = "e06d2236-5806-409f-ac9f-9245844ce5d9";
+       $data->{artistid} = "e06d2236-5806-409f-ac9f-9245844ce5d9";
    }
 
-   if ($artistName eq '' || $albumName eq '' || $trackName eq '' || 
-       $trackNum < 0 || $trackNum > 99)
+   if ($data->{artist} eq '' || $data->{album} eq '' || $data->{track} eq '' || 
+       $data->{tracknum} < 0 || $data->{tracknum} > 99)
    {
-       ($artistName, $albumName, $trackName, $trackNum) = 
-           $this->ParseFileName($fileName, $artistName, $albumName, $trackName, $trackNum);
+       $this->ParseFileName($data->{filename}, $data);
    }
 
-   if ($artistId eq '')
+   if ($data->{artistid} eq '')
    {
        my $artistList;
 
-       return $rdf->ErrorRDF("No artist name or artist id given.") if ($artistName eq '');
+       return (undef, "No artist name or artist id given.") if ($data->{artist} eq '');
 
-       ($artistId, $artistList) = $this->ArtistSearch($artistName);
-       if (not defined $artistId)
+       ($data->{artistid}, $artistList) = $this->ArtistSearch($data->{artist});
+       if (not defined $data->{artistid})
        {
            if (scalar(@$artistList) > 0)
            {
                $this->{artistlist} = $artistList;
            }
 
-           return $rdf->CreateFileLookup($this, "unknown");
+           return ("unknown", undef);
        }
-       $this->{artistid} = $artistId;
-       print STDERR "FIL artistId: $artistId\n";
+       $this->{artistid} = $data->{artistid};
+       print STDERR "FIL artistId: $data->{artistid}\n";
    }   
 
-   if ($albumId eq '')
+   if ($data->{albumid} eq '')
    {
-       if ($albumName ne '')
+       if ($data->{album} ne '')
        {
            my $albumList;
 
-           ($albumId, $albumList) = $this->AlbumSearch($albumName, $artistId);
-           if (not defined $albumId)
+           ($data->{albumid}, $albumList) = $this->AlbumSearch($data->{album}, 
+                                                               $data->{artistid});
+           if (not defined $data->{albumid})
            {
                if (scalar(@$albumList) > 0)
                {
                    $this->{albumlist} = $albumList;
                }
 
-               return $rdf->CreateFileLookup($this, "artist");
+               return ("artist", undef);
            }
-           $this->{albumid} = $albumId;
-           print STDERR "FIL albumId: $albumId\n";
+           $this->{albumid} = $data->{albumid};
+           print STDERR "FIL albumId: $data->{albumid}\n";
        }   
    }   
 
-   if ($trackId eq '')
+   if ($data->{trackid} eq '')
    {
        my $trackList;
 
-       ($trackId, $trackList) = $this->TrackSearch($trackName, $artistId, $albumId, 
-                                                   $trackNum, $duration);
-       if (not defined $trackId)
+       ($data->{trackid}, $trackList) = $this->TrackSearch($data->{track}, 
+                                                           $data->{artistid}, 
+                                                           $data->{albumid}, 
+                                                           $data->{tracknum}, 
+                                                           $data->{duration});
+       if (not defined $data->{trackid})
        {
            if (scalar(@$trackList) > 0)
            {
                $this->{tracklist} = $trackList;
            }
 
-           if ($albumId ne '')
+           if ($data->{albumid} ne '')
            {
-               return $rdf->CreateFileLookup($this, "artist_album");
+               return ("artist_album", undef);
            }
            else
            {
-               return $rdf->CreateFileLookup($this, "artist");
+               return ("artist", undef);
            }
        }
-       $this->{trackid} = $trackId;
-       print STDERR "FIL trackId: $trackId\n";
+       $this->{trackid} = $data->{trackid};
+       print STDERR "FIL trackId: $data->{trackid}\n";
    }   
 
    print STDERR "\n";
-   return $rdf->CreateFileLookup($this, 
-                      ($albumId ne '') ? "artist_album_track" : "artist_track");
+   return ((($data->{albumid} ne '') ? "artist_album_track" : "artist_track"), undef);
 }
 
 sub ParseFileName
 {
-   my ($this, $fileName, $artistName, $albumName, $trackName, $trackNum) = @_;
+   my ($this, $fileName, $data) = @_;
    my (@parts);
 
    for(;;)
@@ -183,37 +213,36 @@ sub ParseFileName
    }
    if (scalar(@parts) == 4)
    {
-        $artistName ||= $parts[0];
-        $albumName ||= $parts[1];
+        $data->{artist} ||= $parts[0];
+        $data->{album} ||= $parts[1];
         if ($parts[2] =~ /^\d+$/)
         {
-            $trackNum ||= $parts[2];
+            $data->{tracknum} ||= $parts[2];
         }
-        $trackName ||= $parts[3];
+        $data->{track} ||= $parts[3];
    }
    elsif (scalar(@parts) == 3)
    {
-        $artistName ||= $parts[0];
+        $data->{artist} ||= $parts[0];
         if ($parts[1] =~ /^\d+$/)
         {
-            $trackNum ||= $parts[1];
+            $data->{tracknum} ||= $parts[1];
         }
         else
         {
-            $albumName ||= $parts[1];
+            $data->{album} ||= $parts[1];
         }
-        $trackName ||= $parts[2];
+        $data->{track} ||= $parts[2];
    }
    elsif (scalar(@parts) == 2)
    {
-        $artistName ||= $parts[0];
-        $trackName ||= $parts[1];
+        $data->{album} ||= $parts[0];
+        $data->{track} ||= $parts[1];
    }
    elsif (scalar(@parts) == 1)
    {
-        $trackName ||= $parts[0];
+        $data->{track} ||= $parts[0];
    }
-   return ($artistName, $albumName, $trackName, $trackNum);
 }
 
 sub ArtistSearch
@@ -252,9 +281,13 @@ sub ArtistSearch
    {
        my $row;
        
+       print STDERR "Artist: search on '$name'\n";
        while($row = $engine->NextRow)
        {
-           push @ids, $row->[3];
+           print STDERR "  $row->[1]\n";
+           push @ids, { name=>$row->[1],
+                        sortname=>$row->[2],
+                        mbid=>$row->[3] };
        }
 
        return (undef, \@ids);
@@ -320,13 +353,18 @@ sub AlbumSearch
    # do fuzzy matches if need be
    if (scalar(@ids) == 0)
    {
+       my $sim;
+
        print STDERR "Albums: fuzzy match\n"; 
        foreach $al (@albums)
        {
-           if (similarity($al->GetName(), $name) >= FUZZY_THRESHOLD)
+           $sim = similarity($al->GetName(), $name);
+           if ($sim >= FUZZY_THRESHOLD_ALBUM)
            {
                print STDERR "Album: fuzzy match '$al->{name}'\n";
-               push @ids, $al->GetMBId(); 
+               push @ids, { name=>$al->GetName(),
+                            mbid=>$al->GetMBId(),
+                            sim=>$sim};
                $last = $al;
                $this->{fuzzy} = 1;
            }
@@ -356,7 +394,8 @@ sub AlbumSearch
    my $row;
    while($row = $engine->NextRow)
    {
-       push @ids, $row->[4];
+       push @ids, { name=>$row->[1],
+                    mbid=>$row->[4] };
    }
    print STDERR "Album: search return " . scalar(@ids) . "\n";
 
@@ -501,7 +540,7 @@ sub TrackSearch
            print STDERR "Track: fuzzy match\n"; 
            foreach $tr (@tracks)
            {
-               if (similarity($tr->GetName(), $name) >= FUZZY_THRESHOLD)
+               if (similarity($tr->GetName(), $name) >= FUZZY_THRESHOLD_TRACK)
                {
                    print STDERR "Track: fuzzy match '$al->{name}'\n";
                    push @ids, $tr->GetMBId(); 

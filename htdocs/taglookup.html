@@ -9,33 +9,259 @@ $track=>""
 $trackid=>""
 $tracknum=>""
 $filename=>""
+$trmid=>""
+$duration=>0
 </%args>
-
-<%perl>
-
-my ($mb, $id, $ar); 
-my ($artistname, $modpending, $sortname); 
-
-$mb = mc_comp("/comp/dblogin");
-
-</%perl>
 
 % if (!defined $session{user} || $session{user} eq '') {
     You must be logged in to edit the database.<p>
     <& /comp/tablebegin, title=>'Login' &>
     <& /comp/loginbox &>
     <& /comp/tableend &>
-% } else {
-    <table>
-      <tr><td>Artist:</td><td><% $artist %></td></tr>
-      <tr><td>Album:</td><td><% $album %></td></tr>
-      <tr><td>Track:</td><td><% $track %></td></tr>
-      <tr><td>ArtistId:</td><td><% $artistid %></td></tr>
-      <tr><td>AlbumId:</td><td><% $albumid %></td></tr>
-      <tr><td>TrackId:</td><td><% $trackid %></td></tr>
-      <tr><td>TrackNum:</td><td><% $tracknum %></td></tr>
-      <tr><td>File Name:</td><td><% $filename %></td></tr>
-    </table>
+    <& /comp/footer &>
+%   return undef;
 % }
+
+<b>Input:</b>
+<table>
+<tr><td>Artist:</td><td><% $artist %></td></tr>
+<tr><td>Album:</td><td><% $album %></td></tr>
+<tr><td>Track:</td><td><% $track %></td></tr>
+<tr><td>ArtistId:</td><td><% $artistid %></td></tr>
+<tr><td>AlbumId:</td><td><% $albumid %></td></tr>
+<tr><td>TrackId:</td><td><% $trackid %></td></tr>
+<tr><td>TrackNum:</td><td><% $tracknum %></td></tr>
+<tr><td>File Name:</td><td><% $filename %></td></tr>
+</table>
+<p><br>
+
+<%perl>
+
+sub OutputArtist
+{
+   my ($ts) = @_;
+
+   mc_comp("/comp/artisttitle", artist=>$ts->{artist}, nomod=>1);
+}
+
+sub OutputAlbum
+{
+   my ($ts) = @_;
+
+   mc_comp("/comp/album", artist=>$ts->{artist}, album=>$ts->{album},
+           showalbumdetail=>1, mbtagger=>0, showids=>1);
+}
+
+sub OutputAlbums
+{
+   my ($ts) = @_;
+   my (@albums, $albumid, $album, $artist);
+
+   @albums = $album->GetAlbumIdsFromTrackId($ts->{trackid});
+   foreach $albumid (@albums)
+   {
+      $album->SetId($albumid);
+      if ($album->LoadFromId())
+      {
+         $artist->SetId($album->GetArtist());
+         if ($artist->LoadFromId())
+         {
+             # TODO: show artist names if different from one we found
+             mc_comp("comp/album",
+                     album=>$album,
+                     artist=>artist=>$ts->{artist},
+                     hilitetrack=>$ts->{trackid},
+                     showalbumdetail=>1, 
+                     mbtagger=>0, 
+                     showids=>1);
+         }
+      }
+   }
+
+}
+
+sub OutputTrack
+{
+   my ($ts) = @_;
+   my ($tr);
+
+   $tr = Track->new($ts->{DBH});
+   $tr->SetMBId($ts->{trackid});
+   if (defined $tr->LoadFromId())
+   {
+       mc_comp("/comp/album", artist=>$ts->{artist}, album=>$ts->{album},
+               showalbumdetail=>1, mbtagger=>0, showids=>1, hilitetrack=>$tr->GetId());
+       return;
+   }
+
+   mc_out("Cannot load track.");
+}
+
+sub OutputForm
+{
+   my ($data) = @_;
+
+   my $ret = qq|<FORM METHOD="POST" ACTION="/taglookup.html"
+         ENCTYPE="application/x-www-form-urlencoded" class="formstyle">
+     <INPUT TYPE="hidden" NAME="artist" VALUE="$data->{artist}">
+     <INPUT TYPE="hidden" NAME="artistid" VALUE="$data->{artistid}">
+     <INPUT TYPE="hidden" NAME="album" VALUE="$data->{album}">
+     <INPUT TYPE="hidden" NAME="albumid" VALUE="$data->{albumid}">
+     <INPUT TYPE="hidden" NAME="track" VALUE="$data->{track}">
+     <INPUT TYPE="hidden" NAME="trackid" VALUE="$data->{trackid}">
+     <INPUT TYPE="hidden" NAME="tracknum" VALUE="$data->{tracknum}">
+     <INPUT TYPE="hidden" NAME="filename" VALUE="$data->{filename}">
+     <INPUT TYPE="hidden" NAME="trmid" VALUE="$data->{trmid}">
+     <INPUT TYPE="hidden" NAME="duration" VALUE="$data->{duration}">
+     <INPUT TYPE="submit" NAME="submit" VALUE="Continue &gt;&gt;">
+   </form>|;
+
+   return $ret;
+}
+
+my ($mb, $ts, $status, $error, $id, %data); 
+
+$mb = mc_comp("/comp/dblogin");
+$ts = TaggerSupport->new($mb->{DBH});
+
+$data{artist} = $artist;
+$data{artistid} = $artistid;
+$data{album} = $album;
+$data{albumid} = $albumid;
+$data{track} = $track;
+$data{trackid} = $trackid;
+$data{tracknum} = $tracknum;
+$data{tmid} = $trmid;
+$data{duration} = $duration;
+$data{filename} = $filename;
+
+($status, $error) = $ts->Lookup(\%data, 25);
+if (defined $error)
+{
+   </%perl>
+   <b>Error:</b> <% $error %>
+   <%perl>
+
+   $mb->Logout();
+   return undef;
+}
+
+if ($status eq 'unknown')
+{
+   if (exists $ts->{artistlist} && scalar(@{$ts->{artistlist}}) > 0)
+   {
+       my %copy = %data;
+
+       </%perl>
+       <b>Found matching artists</b>:<p>
+       <table>
+%      foreach $id (@{$ts->{artistlist}}) {
+          <tr>
+             <td valign="top"><% $id->{sortname} %></td>
+             <td valign="top">
+%               $copy{artistid} = $id->{mbid};
+%               $copy{artist} = $id->{name};
+                <% OutputForm(\%copy) |n %>         
+             </td>
+          </tr>
+%      }
+       </table>
+
+       <%perl>
+   }
+   else
+   {
+       </%perl>
+       <b>Error:</b> Nothing is known about artist <b><% $artist %></b>. 
+       <%perl>
+   }
+}
+elsif ($status eq 'artist')
+{
+   </%perl>
+   <b>Found Artist:</b> <% $ts->{artist}->GetName %>.<br>
+   <p>
+   <%perl>
+   OutputArtist($ts);
+
+   if (exists $ts->{albumlist} && scalar(@{$ts->{albumlist}}) > 0)
+   {
+       my %copy = %data;
+
+       </%perl>
+       <b>Found matching albums</b>:<p>
+       <table>
+%      foreach $id (@{$ts->{albumlist}}) {
+          <tr>
+             <td valign="top"><% $id->{name} %></td>
+             <td valign="top">
+%               $copy{albumid} = $id->{mbid};
+%               $copy{album} = $id->{name};
+                <% OutputForm(\%copy) |n %>         
+             </td>
+          </tr>
+%      }
+       </table>
+
+       <%perl>
+   }
+   else
+   {
+       </%perl>
+       <b>Error:</b> Nothing is known about artist <b><% $artist %></b>. 
+       <%perl>
+   }
+}
+elsif ($status eq 'album')
+{
+   </%perl>
+   <b>Found Album:</b> <% $ts->{album}->GetName %>.<br>
+   <p>
+   <%perl>
+   OutputAlbum($ts);
+}
+elsif ($status eq 'artist_album')
+{
+   </%perl>
+   <b>Found Artist:</b> <% $ts->{artist}->GetName %>.<br>
+   <b>Found Album:</b> <% $ts->{album}->GetName %>.<br>
+   <p>
+   <%perl>
+   OutputArtist($ts);
+   OutputAlbum($ts);
+}
+elsif ($status eq 'artist_track')
+{
+   mc_comp("/comp/artisttitle", artist=>$ts->{artist}, nomod=>0);
+
+   </%perl>
+   <b>Found Artist:</b> <% $ts->{artist}->GetName %>.<br>
+   <b>Found Track:</b> <% $ts->{trackid} %>.<br>
+   <p>
+   <%perl>
+
+   OutputArtist($ts);
+   OutputAlbums($ts);
+}
+elsif ($status eq 'artist_album_track')
+{
+   </%perl>
+   <b>Found Artist:</b> <% $ts->{artist}->GetName %>.<br>
+   <b>Found Album:</b> <% $ts->{album}->GetName %>.<br>
+   <b>Found Track:</b> <% $ts->{trackid} %>.<br>
+   <p>
+   <%perl>
+
+   OutputArtist($ts);
+   OutputTrack($ts);
+}
+else
+{
+   </%perl>
+   <b>Error:</b> Unknown return status.
+   <%perl>
+}
+</%perl>
+    
 % $mb->Logout();
 <& /comp/footer &>

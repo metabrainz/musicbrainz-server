@@ -1021,10 +1021,11 @@ sub QuickTrackInfoFromTRMId
        my ($trm, $sql);
        
        $sql = Sql->new($dbh);
+       $trm = TRM->new($dbh);
        eval
        {
           $sql->Begin();
-          $trm->IncrementLookupCount(shift);
+          $trm->IncrementLookupCount($id);
           $sql->Commit();
        };
        if ($@)
