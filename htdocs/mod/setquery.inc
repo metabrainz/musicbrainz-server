@@ -107,6 +107,30 @@ if (my $type = $filter->{"artist_type"})
 		if $type == 4;
 }
 
+my $object_type = $filter->{"object_type"};
+my $object_id = $filter->{"object_id"};
+if ($object_type and $object_id)
+{
+	my $l = lc $object_type;
+	my $uf = ucfirst $l;
+
+	if ($l eq "track")
+	{
+		push @where, "
+			(
+				(m.tab IN ('$l', '$uf') AND m.rowid = $object_id)
+				OR
+				(m.tab IN ('albumjoin', 'AlbumJoin') AND m.rowid IN
+					(SELECT id FROM albumjoin WHERE track = $object_id)
+					)
+			)
+		";
+	} else {
+		push @where, "m.tab IN ('$l', '$uf')";
+		push @where, "m.rowid = $object_id";
+	}
+}
+
 my $am = $filter->{"automod"};
 push @where, "m.automod = $am"
 	if $am ne "";
