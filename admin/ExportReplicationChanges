@@ -76,8 +76,8 @@ $fSequence = shift;
 use File::Temp qw( tempdir );
 $SIG{'INT'} = sub { exit 3 };
 $dir = tempdir("mbreplicate-XXXXXX", DIR => $dir, CLEANUP => not $fKeepFiles);
-mkdir "$dir/replicate" or die $!;
-print "Exporting to $dir/replicate\n" if $fKeepFiles;
+mkdir "$dir/mbreplicate" or die $!;
+print "Exporting to $dir/mbreplicate\n" if $fKeepFiles;
 
 use MusicBrainz;
 my $mb = new MusicBrainz;
@@ -104,7 +104,7 @@ $sql->Do("SET SESSION CHARACTERISTICS AS TRANSACTION ISOLATION LEVEL SERIALIZABL
 $sql->Begin;
 
 my $now = $sql->SelectSingleValue("SELECT NOW()");
-open(TIMESTAMP, ">$dir/replicate/TIMESTAMP") or die $!;
+open(TIMESTAMP, ">$dir/mbreplicate/TIMESTAMP") or die $!;
 print TIMESTAMP "This snapshot was taken at $now UTC\n";
 close TIMESTAMP;
 
@@ -116,7 +116,7 @@ printf "%-30.30s %9s %4s %9s\n",
 
 for my $table (@tables)
 {
-	open(DUMP, ">$dir/replicate/$table")
+	open(DUMP, ">$dir/mbreplicate/$table")
 		or die $!;
 
 	my $estrows = $sql->SelectSingleValue(
@@ -173,7 +173,12 @@ for my $table (@tables)
 	++$tables;
 	$totalrows += $rows;
 
-	$sql->Do("DELETE FROM $table");
+}
+
+# now remove the rows we just dumped
+for my $table (@tables)
+{
+    $sql->Do("DELETE FROM $table");
 }
 
 $sql->Commit;
@@ -197,7 +202,7 @@ if ($totalrows == 0)
 if ($totalrows > 0 && $fCompress)
 {
     # We need to stick a MB copyright in here instead ofthe PD header
-	copy("$FindBin::Bin/COPYING-PublicDomain", "$dir/replicate/COPYING") or die $!;
+	copy("$FindBin::Bin/COPYING-PublicDomain", "$dir/mbreplicate/COPYING") or die $!;
 	make_tar("mbreplicate-$fSequence.tar.bz2", @tables);
 }
 
@@ -216,7 +221,7 @@ sub make_tar
 		"--verbose",
 		"--file", "$OutputDir/$tarfile",
 		"--",
-		map { "replicate/$_" } @files,
+		map { "mbreplicate/$_" } @files,
 		;
 	$? == 0 or warn "Tar returned $?";
 	printf "Tar completed in %d seconds\n", tv_interval($t0);
