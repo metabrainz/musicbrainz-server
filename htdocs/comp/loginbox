@@ -46,7 +46,6 @@ $url=>""
 if ($url eq "") 
 {
    $url = $r->uri() . "?" . $r->args();
-   print STDERR "Loginbox: " . $r->uri() . "?" . $r->args() . "\n";
 }
 
 if ($url ne "") {

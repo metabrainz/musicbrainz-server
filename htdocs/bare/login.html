@@ -37,12 +37,10 @@ elsif (defined $ARGS{User} && $ARGS{User} ne '' &&
 if (exists $ARGS{url})
 {
     $url = $ARGS{url};
-    print STDERR "bare/login: url: $url\n";
 }
 else
 {
     $url = "/search.html";
-    print STDERR "bare/login: no path given.\n";
 }
 
 if (!$ok)
