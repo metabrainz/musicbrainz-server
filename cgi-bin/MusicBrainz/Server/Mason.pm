@@ -8,10 +8,15 @@ use HTML::Mason; # brings in subpackages: Parser, Interp, etc.
 
 package MusicBrainz::Server::Mason;
 
+use Apache::Constants qw( DECLINED NOT_FOUND );
+
 sub get_handler
 {
+	# The in_package value here is the default, but it's worth
+	# stating that we *depend* upon that default.
 	my $parser = HTML::Mason::Parser->new(
-		default_escape_flags => 'h',
+		default_escape_flags=> 'h',
+		in_package			=> 'HTML::Mason::Commands',
 	);
 
 	my $interp = HTML::Mason::Interp->new(
@@ -19,11 +24,12 @@ sub get_handler
 		comp_root			=> &DBDefs::HTDOCS_ROOT,
 		data_dir			=> &DBDefs::MASON_DIR,
 		allow_recursive_autohandlers => undef,
-		system_log_events	=> 'CACHE',
 	);
 
 	my $handler = HTML::Mason::ApacheHandler->new(
-		interp => $interp,
+		interp				=> $interp,
+		apache_status_title	=> __PACKAGE__." status",
+		error_mode			=> (&DBDefs::DB_STAGING_SERVER ? "html" : "fatal"),
 	);
 
 	my ($user, $group) = (&DBDefs::APACHE_USER, &DBDefs::APACHE_GROUP);
@@ -49,12 +55,20 @@ sub handler
 {
     my ($r) = @_;
 
-    # return "FORBIDDEN" for anyone trying to access comp directory
-    return 403 if ($r->uri =~ m|^/comp/|);
-    return -1 if (!defined $r->content_type);
-    return -1 if $r->content_type && $r->content_type !~ m|^text/html|io;
+	{
+		my $uri = $r->uri;
+		return NOT_FOUND if $uri =~ m[/comp/];
+		return NOT_FOUND if $uri =~ /\.inc$/;
+	}
+
+    return DECLINED if (!defined $r->content_type);
+    return DECLINED if $r->content_type && $r->content_type !~ m|^text/html|io;
 
     package HTML::Mason::Commands;
+
+	# Make these available to all components:
+	use HTML::Mason::Tools qw( html_escape url_escape );
+
     use vars qw(%session);
     untie %session;
     %session = ();
@@ -93,8 +107,11 @@ sub handler
     }
 
     my $ret = eval { $ah->handle_request($r) };
+	my $err = $@;
 
     untie %session;
+
+	die $err if $err ne "";
 
     $ret;
 }
