@@ -246,8 +246,8 @@ sub Remove
              $tr->SetId($row[0]);
              $tr->Remove();
          }
-         $sql->Finish;
     }
+	$sql->Finish;
 
     # Remove references from album words table
     my $engine = SearchEngine->new($this->{DBH},  { Table => 'Album' } );
@@ -319,24 +319,19 @@ sub GetTrmidCount
 # on which this track appears. The array is empty on error.
 sub GetAlbumIdsFromTrackId
 {
-   my ($this, $trackid) = @_;
-   my (@albums, $sql, @row);
+	my ($this, $trackid) = @_;
+	my $sql = Sql->new($this->{DBH});
 
-   $sql = Sql->new($this->{DBH});
-   if ($sql->Select(qq|select album.id
-                         from AlbumJoin, Album 
-                        where track=? and 
-                              albumjoin.album = album.id
-                     order by album.attributes[1]|, $trackid))
-   {
-        while(@row = $sql->NextRow)
-        {
-            push @albums, $row[0];
-        }
-        $sql->Finish;
-   }
+	my $r = $sql->SelectSingleColumnArray(
+		"SELECT	a.id
+		FROM	album a, albumjoin j
+		WHERE	j.track = ?
+		AND		j.album = a.id
+		ORDER BY a.attributes[1]",
+		$trackid,
+	);
 
-   return @albums;
+	@$r;
 }
 
 # This function takes a track id and returns an array of album ids
@@ -522,12 +517,10 @@ sub LoadFull
 
            push @info, $album;
        }
-       $sql->Finish;
-   
-       return \@info;
    }
+   $sql->Finish;
 
-   return undef;
+   @info ? \@info : undef;
 }
 
 sub GetDiscIDs
@@ -587,8 +580,8 @@ sub LoadTracksFromMultipleArtistAlbum
            $track->SetMBId($row[8]);
            push @info, $track;
        }
-       $sql->Finish;
    }
+   $sql->Finish;
 
    return @info;
 }
@@ -694,7 +687,7 @@ sub MergeAlbums
 # of albumid, sortname, modpending. The array is empty on error.
 sub GetVariousDisplayList
 {
-   my ($this, $ind, $offset, $reltype, $relstatus) = @_;
+   my ($this, $ind, $offset, $reltype, $relstatus, $artists) = @_;
    my ($query, $num_albums, @info, @row, $sql, $page, $page_max, $ind_max, $un); 
 
    $sql = Sql->new($this->{DBH});
@@ -707,8 +700,13 @@ sub GetVariousDisplayList
    ($page, $page_max) = $this->CalculatePageIndex($ind);
    $query = qq|select id, name, modpending 
                     from Album 
-                   where page >= $page and page <= $page_max and
-                         album.artist = | . &ModDefs::VARTIST_ID;
+                   where page >= $page and page <= $page_max|;
+
+	$artists ||= "";
+	$query .= " and album.artist = " . &ModDefs::VARTIST_ID if $artists eq "";
+	$query .= " and album.artist != " . &ModDefs::VARTIST_ID if $artists eq "single";
+	# the other recognised value is "all".
+
 	$query .= " AND attributes[2] = $reltype" if $reltype;
 	$query .= " AND attributes[3] = $relstatus" if $relstatus;
 
@@ -727,7 +725,6 @@ sub GetVariousDisplayList
            $temp =~ tr/ /0/;
            push @info, [$row[0], $row[1], $row[2], $temp];
        }
-       $sql->Finish;   
 
        @info = sort { $a->[3] cmp $b->[3] } @info;
        splice @info, 0, $offset;
@@ -735,6 +732,7 @@ sub GetVariousDisplayList
        # Only return the three things we said we would
        splice(@$_, 3) for @info;
    }
+   $sql->Finish;   
 
    return ($num_albums, @info);
 }
