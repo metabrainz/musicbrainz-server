@@ -931,10 +931,11 @@ sub CheckModerations
            };
            if ($@)
            {
+               my $err = $@;
                $sql->Rollback;
 
                print STDERR "CheckModsError: Moderation commit failed -- mod " . 
-                            $mod->GetId . " will remain open.\n($@)\n";
+                            $mod->GetId . " will remain open.\n($err)\n";
            }
        }
        elsif ($mod->{__eval__} == ModDefs::STATUS_DELETED)
@@ -953,10 +954,11 @@ sub CheckModerations
            };
            if ($@)
            {
+               my $err = $@;
                $sql->Rollback;
 
                print STDERR "CheckModsError: Moderation commit failed -- mod " . 
-                            $mod->GetId . " will remain open.\n($@)\n";
+                            $mod->GetId . " will remain open.\n($err)\n";
            }
        }
        else
@@ -975,10 +977,11 @@ sub CheckModerations
            };
            if ($@)
            {
+               my $err = $@;
                $sql->Rollback;
 
                print STDERR "CheckModsError: Moderation commit failed -- mod " . 
-                            $mod->GetId . " will remain open.\n($@)\n";
+                            $mod->GetId . " will remain open.\n($err)\n";
            }
        }
    }
