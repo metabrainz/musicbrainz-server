@@ -5,6 +5,8 @@ $track => undef
 $newname => ""
 $newseq => ""
 $notetext => ""
+$defaultname => undef
+$defaultseq => undef
 </%args>
 <%perl>
 
@@ -53,6 +55,11 @@ if (MusicBrainz::IsSingleLineString($newname)
 	and $newname =~ /\S/
 	and (MusicBrainz::IsNonNegInteger($newseq) or $al->IsNonAlbumTracks))
 {
+	# Don't redirect if we're in a popup window.
+	#
+	my %redirect;
+	$redirect{success_url} = $url unless $pnotes{'ispopup'};
+
 	$m->comp(
 		"/comp/entermods",
 		DBH => $mb->{DBH},
@@ -86,10 +93,20 @@ if (MusicBrainz::IsSingleLineString($newname)
 				if $mods2[0]
 				and $notetext =~ /\S/;
 		},
-		success_url => $url,
+		%redirect,
 	) or return;
 
-	die "Shouldn't get here";
+	die "Shouldn't get here" unless $pnotes{'ispopup'};
+
+        </%perl>
+        <& /comp/header_small, title => 'Moderation entered' &>
+        <script type="text/javascript"> window.close(); </script>
+        <p>Moderation entered successfully.</p>
+        <p><a href="/">Continue</a></p>
+        <& /comp/footer_small &>
+        <%perl>
+
+	return;
 }
 
 </%perl>
@@ -99,6 +116,10 @@ if (MusicBrainz::IsSingleLineString($newname)
 <& /comp/stylemenu &>
 
 <h2>Edit Track Name</h2>
+
+% if ($tr->GetModPending) {
+	<& /comp/modpending &>
+% }
 
 <script type="text/javascript" src="scripts/guess.js"></script>
 
@@ -121,7 +142,7 @@ if (MusicBrainz::IsSingleLineString($newname)
 				New Name:
 			</td>
 			<td>
-				<input type="text" name="newname" size="50" maxlength="255" value="<% $tr->GetName %>">
+				<input type="text" name="newname" size="50" maxlength="255" value="<% $defaultname || $tr->GetName %>">
 				<script type="text/javascript"><!--
 				document.write(
 					"<\/td><\/tr>"
@@ -149,7 +170,7 @@ if (MusicBrainz::IsSingleLineString($newname)
 				New Track Number:
 			</td>
 			<td>
-				<input type="text" name="newseq" size="5" value="<% $tr->GetSequence %>">
+				<input type="text" name="newseq" size="5" value="<% $defaultseq || $tr->GetSequence %>">
 			</td>
 		</tr>
 % }
@@ -167,6 +188,7 @@ if (MusicBrainz::IsSingleLineString($newname)
 	<p align="center">
 		<input type="hidden" name="album" value="<% $album %>">
 		<input type="hidden" name="track" value="<% $track %>">
+		<input type="hidden" name="ispopup" value="<% $pnotes{'ispopup'} %>">
 		<input type="submit" value="Submit">
 	</p>
 
