@@ -1,10 +1,11 @@
 <%args>
 $modid
+$uid
 </%args>
 
 <& /comp/header_small, title=>'Add moderation note' &>  
 
-% if (!defined $session{uid}) {
+% if (!defined $uid) {
    <font size="+1" color="red">Login Error detected!</font><br>
    Please log out and log back in and then add a note.
    <& /comp/footer_small &>  
@@ -23,7 +24,7 @@ Enter the note text below:
 <tr><td>
 <INPUT TYPE="text" NAME="text" SIZE=42> 
 <INPUT TYPE="hidden" NAME="modid" VALUE="<% $modid %>"><br>
-<INPUT TYPE="hidden" NAME="uid" VALUE="<% $session{uid} %>"><br>
+<INPUT TYPE="hidden" NAME="uid" VALUE="<% $uid %>"><br>
 </td></tr>
 
 <tr><td align="right">

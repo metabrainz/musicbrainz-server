@@ -4,7 +4,8 @@ $artistid=>0
 $albumid=>0
 </%args>
 
-% if (!defined $session{user} || $session{user} eq '' || !defined $session{uid}) {
+% if (!defined $session{user} || $session{user} eq '' || 
+%     !defined $session{uid} || $session{uid} == 0) {
     <& /comp/sidebar, title=>'Login Required', expand=>'moderate' &>
     <center>
     <span class="bold">

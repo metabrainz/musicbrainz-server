@@ -38,7 +38,7 @@ my $time = sprintf "%d-%02d-%02d %02d:%02d",
      <% $mod->GetYesVotes() |n %> yes,
      <% $mod->GetNoVotes() |n %> no
      &nbsp;&nbsp; 
-     <a href="#" onClick="MyWindow=window.open('mod/addnote.html?modid=<% $mod->GetId() %>','AddNote','toolbar=no,location=no,directories=no,status=no,menubar=no,scrollbars=yes,resizable=yes,width=400,height=150'); return false;"><img align="center" src="/images/note.gif" border="0" alt="Add a note"></a>
+     <a href="#" onClick="MyWindow=window.open('mod/addnote.html?modid=<% $mod->GetId() %>&uid=<% $session{uid} %>','AddNote','toolbar=no,location=no,directories=no,status=no,menubar=no,scrollbars=yes,resizable=yes,width=400,height=150'); return false;"><img align="center" src="/images/note.gif" border="0" alt="Add a note"></a>
 % if ($session{uid} == $mod->GetModerator() &&
 %     $mod->GetStatus() == ModDefs::STATUS_OPEN) {
      <a href="/removemod.html?modid=<% $mod->GetId() %>"><img 
