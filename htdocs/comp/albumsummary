@@ -1,16 +1,25 @@
 <%args>
 $album
 $artist
+$nomod=>0
 </%args>
 
 <%perl>
 
-my ($trackcount, $trmids, @ids, $di);
+my ($count, $trackcount, $trmids, @ids, $di, @attrs, $attr);
 
 $trackcount = $album->GetTrackCount();
 $trmids = $album->GetTRMCount();
 $di = Discid->new($album->{DBH});
 @ids = $di->GetDiscidFromAlbum($album->GetId());
+$attr = $album->GetAttributes();
+if (not defined $attr)
+{
+   $album->LoadAttrs();
+   $attr = $album->GetAttributes();
+}
+
+@attrs = @{$attr} if (defined $attr);
 
 </%perl>
 
@@ -31,3 +40,26 @@ $di = Discid->new($album->{DBH});
                width="30" height="11"
                title="This album has <% $trmids %> TRM Ids">&nbsp;
 % }
+<%perl>
+mc_out("&nbsp;&nbsp;Attributes: [ ");
+if (scalar(@attrs) > 0) 
+{
+    foreach $attr (@attrs) 
+    {
+        mc_out(", ") if ($count > 0);
+        mc_out($album->GetAttributeName($attr));
+        $count++;
+    }
+}
+else
+{
+    mc_out("None ");
+}
+mc_out("] ");
+
+if (exists $session{user} && !$nomod) 
+{
+    mc_out("<a href=\"/editalbumattrs.html?albumid=" . $album->GetId());
+    mc_out("\">Edit</a>");
+}
+</%perl>

@@ -39,34 +39,34 @@ use TRM;
 use SearchEngine;
 use ModDefs;
 
-use constant ALBUM_TYPE_ALBUM          => 1;
-use constant ALBUM_TYPE_NONALBUMTRACKS => 2;
-use constant ALBUM_TYPE_SINGLE         => 3;
-use constant ALBUM_TYPE_EP             => 4;
-use constant ALBUM_TYPE_COMPILATION    => 5;
-use constant ALBUM_TYPE_BOOTLEG        => 6;
-use constant ALBUM_TYPE_SOUNDTRACK     => 7;
-use constant ALBUM_TYPE_SPOKENWORD     => 8;
-use constant ALBUM_TYPE_AUDIOBOOK      => 9;
-use constant ALBUM_TYPE_INTERVIEW      => 10;
-use constant ALBUM_TYPE_CONCERT        => 11;
-use constant ALBUM_TYPE_LIVE           => 12;
-use constant ALBUM_TYPE_PROMOTION      => 13;
+use constant ALBUM_ATTR_ALBUM          => 1;
+use constant ALBUM_ATTR_NONALBUMTRACKS => 2;
+use constant ALBUM_ATTR_SINGLE         => 3;
+use constant ALBUM_ATTR_EP             => 4;
+use constant ALBUM_ATTR_COMPILATION    => 5;
+use constant ALBUM_ATTR_BOOTLEG        => 6;
+use constant ALBUM_ATTR_SOUNDTRACK     => 7;
+use constant ALBUM_ATTR_SPOKENWORD     => 8;
+use constant ALBUM_ATTR_AUDIOBOOK      => 9;
+use constant ALBUM_ATTR_INTERVIEW      => 10;
+use constant ALBUM_ATTR_CONCERT        => 11;
+use constant ALBUM_ATTR_LIVE           => 12;
+use constant ALBUM_ATTR_PROMOTION      => 13;
 
-my %AlbumTypeNames = (
-    ALBUM_TYPE_ALBUM          => "Album",
-    ALBUM_TYPE_NONALBUMTRACKS => "Non Album Tracks",
-    ALBUM_TYPE_SINGLE         => "Single",
-    ALBUM_TYPE_EP             => "EP",
-    ALBUM_TYPE_COMPILATION    => "Compilation",
-    ALBUM_TYPE_BOOTLEG        => "Bootleg",
-    ALBUM_TYPE_SOUNDTRACK     => "Soundtrack",
-    ALBUM_TYPE_SPOKENWORD     => "Spokenword",
-    ALBUM_TYPE_AUDIOBOOK      => "Audiobook",
-    ALBUM_TYPE_INTERVIEW      => "Interview",
-    ALBUM_TYPE_CONCERT        => "Concert",
-    ALBUM_TYPE_LIVE           => "Live",
-    ALBUM_TYPE_PROMOTION      => "Promotion"
+my %AlbumAttributeNames = (
+    1 => "Album",
+    2 => "Non Album Tracks",
+    3 => "Single",
+    4 => "EP",
+    5 => "Compilation",
+    6 => "Bootleg",
+    7 => "Soundtrack",
+    8 => "Spokenword",
+    9 => "Audiobook",
+    10 => "Interview",
+    11 => "Concert",
+    12 => "Live",
+    13 => "Promotion"
 );
 
 sub new
@@ -88,9 +88,14 @@ sub SetArtist
    $_[0]->{artist} = $_[1];
 }
 
-sub GetAlbumTypeName
+sub GetAttributeName
 {
-   return $AlbumTypeNames{$_[1]};
+   return $AlbumAttributeNames{$_[1]};
+}
+
+sub GetAttributes
+{
+   return $_[0]->{attrs};
 }
 
 # Insert an album that belongs to this artist. The Artist object should've
@@ -278,9 +283,35 @@ sub LoadFromId
         $this->{mbid} = $row[2];
         $this->{modpending} = $row[3];
         $this->{artist} = $row[4]; 
+        $this->{attrs} = undef;
         return 1;
    }
    return undef;
+}
+
+sub LoadAttrs
+{
+   my ($this) = @_;
+   my (@row, $sql, @data);
+
+   $sql = Sql->new($this->{DBH});
+   if ($sql->Select(qq|select Attr 
+                         from AlbumAttributeJoin 
+                        where album = | . $this->{id} . qq|
+                     order by Attr|))
+   {
+       while(@row = $sql->NextRow)
+       {
+          push @data, $row[0];
+       }
+       $this->{attrs} = \@data;
+       return scalar(@data);
+   }
+   else
+   {   
+       $this->{attrs} = undef;
+       return undef;
+   }
 }
 
 # This function returns a list of album ids for a given artist and album name.
