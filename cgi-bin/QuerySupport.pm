@@ -182,7 +182,7 @@ sub GenerateCDInfoObjectFromDiskId
                 # from freedb.org and insert it into the db if we find it.
                 $fd = FreeDB->new($mb);
                 $album = $fd->Lookup($id, $toc);
-                if ($album > 0)
+                if (defined $album && $album > 0)
                 {
                     $rdf = CreateAlbum($mb, 0, $album);
                 }
