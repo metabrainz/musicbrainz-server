@@ -150,13 +150,13 @@ sub _hash
 {
 	my $re = shift;
 
-	my $stash = do { no strict 'refs'; \%{ __PACKAGE__ . "::" } };
+	my $stash = \%ModDefs::;
 	my %h;
 
 	for my $name (grep /$re/, keys %$stash)
 	{
 		my $glob = $stash->{$name};
-		$h{$name} = &{ *$glob{CODE} };
+		$h{$name} = &$glob if defined &$glob;
 	}
 
 	\%h;
