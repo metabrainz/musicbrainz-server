@@ -120,7 +120,7 @@ sub Remove
              " where artist = " . $this->GetId());
 
     # Remove references from artist words table
-    my $engine = SearchEngine->new( { Table => 'Artist' } );
+    my $engine = SearchEngine->new($this->{DBH}, { Table => 'Artist' } );
     $engine->RemoveObjectRefs($this->GetId());
 
     print STDERR "DELETE: Removed artist " . $this->GetId() . "\n";
