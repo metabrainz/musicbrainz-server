@@ -12,7 +12,11 @@
 <TR><TD WIDTH="2%" BGCOLOR="#FFFFCC">&nbsp;</TD>
 <TD WIDTH="96%" VALIGN="TOP" BGCOLOR="#FFFFCC"><BR>
 
-<font size=+2><center>MusicBrainz Metadata Initiative 2.0</center></font>
+<center>
+<font size=+2>MusicBrainz Metadata Initiative 2.0</font><br>
+Last revision: 7-3-2001 by <a href="mailto:rob@eorbit.net">Mayhem &amp; 
+Chaos</a>
+</center>
 <p>
 
 <table>
@@ -28,6 +32,7 @@ and would like to help out with the MusicBrainz specfication, please
 
 <ul>
 <li><a href="#intro">Introduction</a>
+<li><a href="#protocol">General Protocol Definition</a>
 <li><a href="#cdmp">Compact Disk Lookup Namespace</a>
 <li><a href="#mm">MusicBrainz Metadata Namespace</a>
 <li><a href="#mq">MusicBrainz Query Namespace</a>
@@ -39,7 +44,7 @@ and would like to help out with the MusicBrainz specfication, please
 
 <p>
 
-The MusicBrainz Metadata initiative is designed to create a portable
+The MusicBrainz Metadata Initiative is designed to create a portable
 and flexible means of storing and exchanging metadata related to digital
 audio and video tracks. The MusicBrainz Metadata Initiative is a content 
 description model for audio and video tracks on the Internet.
@@ -78,9 +83,8 @@ Vorbis</a> to store audio/video metadata with the audio/video tracks.
 the remainder of this document, to refer to the namespaces defined above.
 
 
-
 <p>If you have any feedback/comments/gripes/requests regarding this
-proposal, please <a href="mailto:rob@eorbit.net">let me know</a>.
+proposal, please join the <a href="http://www.freeamp.org/mailman/listinfo/mm">MM Mailing list</a> and post your feedback.
 
 <p>
 [<a href="mm2_examples.html">MusicBrainz RDF Examples</a> |
@@ -88,6 +92,103 @@ proposal, please <a href="mailto:rob@eorbit.net">let me know</a>.
 <a href="http://www.w3.org/RDF">RDF Information</a> |
 <a href="http://www.purl.org/DC">Dublin Core Home Page</a>]
 <p>
+
+<a name="protocol"></a>
+<font size=+2 color=990000>General Protocol Definition</font><p>
+
+The metadata queries defined here are carried over the <a
+href="http://www.w3.org/Protocols/rfc2616/rfc2616.html">HTTP/1.1</a>
+protocol. By using the HTTP/1.1 protocol, the metadata query system
+can take advantage of existing HTTP implementations and pass
+through firewalls without any special considerations. 
+
+<p>
+A MM enabled server must implement HTTP/1.1 fully, unless otherwise
+noted in this document. Furthermore, an MM server should listen for 
+requests on port 80, following the standard HTTP convention to allow the 
+metadata requests to flow across firewalls unhindered.
+
+<p>
+<font size="+1">Character Encodings</font>
+<p>
+
+In order to achieve the most versatile international support in this
+protocol, the recommended encoding for use with this protocol is <a
+href="ftp://ftp.isi.edu/in-notes/rfc2279.txt">UTF-8</a>. However, the
+XML/RDF that is POSTed to the server by a client can be in any XML
+compliant character encoding. The server will convert any incoming
+data to UTF-8 and process it in UTF-8 and respond to the client
+using the UTF-8 encoding. 
+
+<p>
+<font size="+1">Client Requests</font>
+
+<p>
+Client requests may either use the HTTP GET or POST commands. All of
+the functions provided by the server are accessible via POSTing
+query/submission data in RDF format to the MM capable server.
+Other methods (OPTIONS, HEAD, PUT, DELETE, TRACE, CONNECT) will 
+receive an error response.  
+
+<p>
+Some functions may have GET command shortcuts to ease the implementation
+on the client side. However, any functions that must pass data to the server
+that may not be encodable into a compliant URL, do not have GET functions
+defined, and the POST functions should be used instead. 
+
+<p>
+For example, the searching functions require that a search string be 
+passed to the server. However, using a GET function requires the
+search string to be encoded into a valid URL, which must be encoded
+in the ISO-8859-1 character encoding. Thus, serach functions using the
+GET command cannot correctly search all of the data available on the
+server.
+
+<p>
+The specific details for accessing the server features with GET and POST
+commands are described in the following namespace definitions. For
+each RDF examples given in the sections below, the client can POST
+that RDF document to the server. 
+
+<p>
+<font size="+1">Server Responses</font>
+
+<p>
+Server responses are compliant with the HTTP/1.1 protocol, and
+the data returned in the body of the response is in XML/RDF format
+described in the following sections.
+
+<p>Only the following status codes and reason phrases are valid:
+<ul>
+<li>200 OK - Successful query and normal response.
+<li>202 Accepted - Submission accepted and batched for review or merge.
+<li>204 No Content - Query was understood but there is no content. As 
+in HTTP/1.1, there must not be a message body following this status code.
+<li>400 Bad Request - There was an error processing the request. This
+may also be used for 405 Method Not Allowed since only one method is
+allowed.
+<li>403 Forbidden - The server refuses to process the request. Used
+for refusal to accept metadata submissions.
+<li>500 Internal Server Error - Random catch-all for server errors.
+This indicates a bug in the server software, otherwise pass a status 503.
+<li>503 Service Unavailable - The server is temporarily unable to service
+this request, although it may have been valid. Clients are advised to
+try another MM server if this message is received.
+</ul>
+
+<p>Required headers:
+<ul>
+<li>Server: - Server name and version number.
+<li>Date: - Server date, as per HTTP/1.1.
+<li>Content-type: - "text/xml" is the only valid return content type.
+</ul>
+
+<p>Optional headers:
+<ul>
+<li>Connection: - The "close" value is required here for implementations
+not supporting persistent connections, as in HTTP/1.1.
+</ul>
+
 
 <a name="cdmp"></a>
 <font size=+2 color=990000>cdmp: Compact Disk Lookup Namespace</font><p>
@@ -115,7 +216,8 @@ maximum number of CD-ROM metadata items to return.
 [<a href="cdmp_examples.html#searchcd">Example</a>]
 </td><td valign="top">
 This class is used to create a CD-ROM search query. Include the 
-artist, contributor, modifyDate, label, offset or source properties.
+mm:Artist/dc:creator, contributor, modifyDate, label, offset or 
+source properties.
 </td></tr>
 
 <tr><td valign="top" align="right">
@@ -128,18 +230,52 @@ dc:title, mm:Artist, mm:tracklist properties to describe the CD-ROM.
 
 <tr><td valign="top" align="right">
 <b>CDMetadata</b><br>
-[<a href="cdmp_examples.html#response">Example</a>]
+[<a href="cdmp_examples.html#resultcd">Example</a>]
 </td><td valign="top">
 CDMetadata defines the metadata for a given CD-ROM. Inside of this
 class, use dc:title, mm:Artist, and mm:trackList properties to describe
 the CD-ROM.
 </td></tr>
+
+<tr><td valign="top" align="right">
+<b>ResultCD</b><br>
+[<a href="cdmp_examples.html#resultcd">Example</a>]
+</td><td valign="top">
+The ResultCD class is used to contain the description of one CD. A server
+query response should contain a ResultCD element if only one CD
+was found. For a response with multiple CDs, the server should respond
+with ResultCDList element.
+</td></tr>
+
+<tr><td valign="top" align="right">
+<b>ResultCDList</b><br>
+[<a href="cdmp_examples.html#resultcdlist">Example</a>]
+</td><td valign="top">
+The ResultCDList class contains the description of multiple CDs. This
+class should contain one cdList property, which in turn defines
+a Bag of CDMetadata elements.
+</td></tr>
+
 </table>
 
 
 <p> <font size="+1"><b>Properties</b></font> <p>
 
 <table>
+
+<tr><td valign="top" align="right">
+<b>cd</b>
+</td><td valign="top">
+This property will contain one CDMetadata element to describe one CD.
+</td></tr>
+
+<tr><td valign="top" align="right">
+<b>cdList</b>
+</td><td valign="top">
+This property will contain a bag of CDMetadata elements to describe a list 
+of CDs.
+</td></tr>
+
 <tr><td valign="top" align="right">
 <b>cdmpId</b>
 </td><td valign="top">
@@ -172,12 +308,6 @@ Specifies a backward compatible FreeDBId.
 </td></tr>
 
 <tr><td valign="top" align="right">
-<b>artist</b>
-</td><td valign="top">
-The name of an artist, for use with the SearchCD function.
-</td></tr>
-
-<tr><td valign="top" align="right">
 <b>contributor</b>
 </td><td valign="top">
 Email address or name of person who contributed information
@@ -186,7 +316,9 @@ Email address or name of person who contributed information
 <tr><td valign="top" align="right">
 <b>modifyDate</b>
 </td><td valign="top">
-this record was last modified.  format is POSIX time stamps, ie seconds since the epoch
+When this record was last modified. The format is the suggested 
+<a href="http://www.w3.org/TR/NOTE-datetime">W3 Date/Time</a> which
+is a subset of the ISO 8601 date format standard.
 </td></tr>
 
 <tr><td valign="top" align="right">
@@ -199,6 +331,31 @@ Optional record label for use with SearchCD
 <b>source</b>
 </td><td valign="top">
 The name of the program that submitted the CD.
+</td></tr>
+
+</table>
+
+<p>
+To specify the name of an artist for searching for a CD, use the
+MM:Artist/dc:title class/property combination. 
+[<a href="cdmp_examples.html#searchcd">Example</a>]
+
+<p> <font size="+1"><b>HTTP Command Details</b></font> <p>
+
+All POST commands should be posted to: <b>http://[servername]/cdmp</b><p>
+Also, the following GET shortcuts have been defined:
+<table>
+
+<tr><td valign="top" align="right">
+<b>lookupcd</b>
+</td><td valign="top">
+GET /cdmp/lookupcd?offsets=150-77950-2093
+</td></tr>
+
+<tr><td valign="top" align="right">
+<b>lookupcd<br>(inexact)</b>
+</td><td valign="top">
+GET /cdmp/lookupcd?offsets=150-77950-2093&threshold=90&maxreturns=50
 </td></tr>
 
 </table>
@@ -303,9 +460,19 @@ This is a free-form text field that indicates the genre for a given track.
 
 </table>
 
-<p><a name="mq"></a>
-<font size=+2 color=990000>mm: MusicBrainz Query Namespace</font><p>
+<p> <font size="+1"><b>HTTP Command Details</b></font> <p>
 
+There are no command details defined for this namespace. This namespace
+serves as a helper namespace for the <a href="#cdmp">cdmp</a> and
+<a href="#mq">mq</a> namespaces.
+
+<p><a name="mq"></a>
+<font size=+2 color=990000>mq: MusicBrainz Query Namespace</font><p>
+
+[ <font color="red">ed:</font> This section is incomplete -- however this
+namespace is not required for use with the cdmp namespace. ]
+
+<p>
 The mq namespace defines RDF classes and properties that facilitate
 metadata lookups between an RDF enabled client and a MusicBrainz 
 metadata server.
@@ -399,6 +566,10 @@ To be completed.
 <p><a name="mem"></a>
 <font size=+2 color=990000>mem: MusicBrainz Extended Metadata Namespace</font><p>
 
+[ <font color="red">ed:</font> This section is incomplete -- however this
+namespace is not required for use with the cdmp namespace. ]
+
+<p>
 The mem namespace defines RDF classes and properties for expressing extended
 music related metadata that is not covered by the <a href="#mm">MusicBrainz 
 Metadata Namespace</a>. This namespace focuses on the more detailed

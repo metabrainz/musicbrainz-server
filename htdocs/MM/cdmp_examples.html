@@ -70,7 +70,8 @@
   &lt;cdmp:SearchCD&gt;
     &lt;dc:title&gt;Pure Guava&lt;/dc:title&gt;
     &lt;mm:genre&gt;rock&lt;/mm:genre&gt;
-    &lt;mm:modifyDate&gt;9932422100&lt;/mm:modifyDate&gt;
+    &lt;cdmp:modifyDate&gt;2001-06-29T16:20:00Z&lt;/cdmp:modifyDate&gt;
+    &lt;mm:Artist dc:title="Ween" /&gt;
   &lt;/cdmp:SearchCD&gt;
 
 &lt;/rdf:RDF&gt;
@@ -88,11 +89,11 @@
   &lt;cdmp:SubmitCD&gt;
 
      &lt;dc:title&gt;Rubycon&lt;/dc:title&gt;
-     &lt;mm:Artist&gt;
-        &lt;rdf:Description&gt;
-           &lt;dc:title&gt;Tangerine Dream&lt;/dc:title&gt;
-        &lt;/rdf:Description&gt;
-     &lt;/mm:Artist&gt;
+     &lt;dc:creator&gt;
+       &lt;mm:Artist&gt;
+         &lt;dc:title&gt;Tangerine Dream&lt;/dc:title&gt;
+       &lt;/mm:Artist&gt;
+     &lt;/dc:creator&gt;
      &lt;mm:trackList&gt;
        &lt;rdf:Seq&gt;
          &lt;rdf:li&gt;
@@ -115,43 +116,161 @@
 &lt;/rdf:RDF&gt;
 </pre>
 
-<p><a name="response"></a>
-<font size=+2 color=990000>Sample Server Response</font><p>
+<p><a name="resultcd"></a>
+<font size=+2 color=990000>Sample Single CD Server Response</font><p>
 
 <pre>
 &lt;rdf:RDF xmlns:rdf  = "http://www.w3.org/1999/02/22-rdf-syntax-ns#"
          xmlns:dc   = "http://purl.org/dc/elements/1.1/"
          xmlns:cdmp = "http://musicbrainz.org/mm/cdmp-1.0#"
          xmlns:mm   = "http://musicbrainz.org/mm/mm-2.0#"&gt;
-  &lt;rdf:Bag&gt;
-    &lt;rdf:li&gt;
-      &lt;cdmp:CDMetadata&gt;
-        &lt;dc:title&gt;Rubycon&lt;/dc:title&gt;
-        &lt;cdmp:cdmpId&gt;ivDFb2Tw6HzN.XdYZFj5zr1Q9EY-&lt;/cdmp:cdmpId&gt;
-        &lt;mm:Artist&gt;
-           &lt;rdf:Description&gt;
-              &lt;dc:title&gt;Tangerine Dream&lt;/dc:title&gt;
-           &lt;/rdf:Description&gt;
-        &lt;/mm:Artist&gt;
-        &lt;mm:trackList&gt;
-          &lt;rdf:Seq&gt;
-            &lt;rdf:li&gt;
-              &lt;mm:Track&gt;
-                 &lt;dc:title&gt;Rubycon (Part I)&lt;/dc:title&gt;
-                 &lt;mm:trackNum&gt;1&lt;/mm:trackNum&gt;
-              &lt;/mm:Track&gt;
-            &lt;/rdf:li&gt;
-            &lt;rdf:li&gt;
-              &lt;mm:Track&gt;
-                 &lt;dc:title&gt;Rubycon (Part II)&lt;/dc:title&gt;
-                 &lt;mm:trackNum&gt;2&lt;/mm:trackNum&gt;
-              &lt;/mm:Track&gt;
-            &lt;/rdf:li&gt;
-          &lt;/rdf:Seq&gt;
-        &lt;/mm:trackList&gt;
-      &lt;/cdmp:CDMetadata&gt;
-    &lt;/rdf:li&gt;
-  &lt;/rdf:Bag&gt;
+&lt;cdmp:ResultCD&gt;
+  &lt;cdmp:cd&gt;
+    &lt;cdmp:CDMetadata&gt;
+      &lt;dc:title&gt;Rubycon&lt;/dc:title&gt;
+      &lt;cdmp:cdmpId&gt;ivDFb2Tw6HzN.XdYZFj5zr1Q9EY-&lt;/cdmp:cdmpId&gt;
+      &lt;mm:Artist&gt;
+         &lt;rdf:Description&gt;
+            &lt;dc:title&gt;Tangerine Dream&lt;/dc:title&gt;
+         &lt;/rdf:Description&gt;
+      &lt;/mm:Artist&gt;
+      &lt;mm:trackList&gt;
+        &lt;rdf:Seq&gt;
+          &lt;rdf:li&gt;
+            &lt;mm:Track&gt;
+               &lt;dc:title&gt;Rubycon (Part I)&lt;/dc:title&gt;
+               &lt;mm:trackNum&gt;1&lt;/mm:trackNum&gt;
+            &lt;/mm:Track&gt;
+          &lt;/rdf:li&gt;
+          &lt;rdf:li&gt;
+            &lt;mm:Track&gt;
+               &lt;dc:title&gt;Rubycon (Part II)&lt;/dc:title&gt;
+               &lt;mm:trackNum&gt;2&lt;/mm:trackNum&gt;
+            &lt;/mm:Track&gt;
+         &lt;/rdf:li&gt;
+        &lt;/rdf:Seq&gt;
+      &lt;/mm:trackList&gt;
+    &lt;/cdmp:CDMetadata&gt;
+  &lt;/cdmp:cd&gt;
+&lt;/cdmp:ResultCD&gt;
+&lt;/rdf:RDF&gt;
+</pre>
+
+<p><a name="resultcdlist"></a>
+<font size=+2 color=990000>Sample Multiple CD Server Response</font><p>
+
+<pre>
+&lt;rdf:RDF xmlns:rdf  = "http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+         xmlns:dc   = "http://purl.org/dc/elements/1.1/"
+         xmlns:cdmp = "http://musicbrainz.org/mm/cdmp-1.0#"
+         xmlns:mm   = "http://musicbrainz.org/mm/mm-2.0#"&gt;
+&lt;cdmp:ResultCDList&gt;
+  &lt;cdmp:cdList&gt;
+     &lt;rdf:Bag&gt;
+       &lt;rdf:li&gt;
+         &lt;cdmp:CDMetadata&gt;
+           &lt;dc:title&gt;Rubycon&lt;/dc:title&gt;
+           &lt;cdmp:cdmpId&gt;ivDFb2Tw6HzN.XdYZFj5zr1Q9EY-&lt;/cdmp:cdmpId&gt;
+           &lt;dc:creator&gt;
+              &lt;mm:Artist&gt;
+                 &lt;dc:title&gt;Tangerine Dream&lt;/dc:title&gt;
+              &lt;/mm:Artist&gt;
+           &lt;/dc:creator&gt;
+           &lt;mm:trackList&gt;
+             &lt;rdf:Seq&gt;
+               &lt;rdf:li&gt;
+                 &lt;mm:Track&gt;
+                    &lt;dc:title&gt;Rubycon (Part I)&lt;/dc:title&gt;
+                    &lt;mm:trackNum&gt;1&lt;/mm:trackNum&gt;
+                 &lt;/mm:Track&gt;
+               &lt;/rdf:li&gt;
+               &lt;rdf:li&gt;
+                 &lt;mm:Track&gt;
+                    &lt;dc:title&gt;Rubycon (Part II)&lt;/dc:title&gt;
+                    &lt;mm:trackNum&gt;2&lt;/mm:trackNum&gt;
+                 &lt;/mm:Track&gt;
+              &lt;/rdf:li&gt;
+             &lt;/rdf:Seq&gt;
+           &lt;/mm:trackList&gt;
+         &lt;/cdmp:CDMetadata&gt;
+       &lt;/rdf:li&gt;
+       &lt;rdf:li&gt;
+         &lt;cdmp:CDMetadata&gt;
+           &lt;dc:title&gt;Phaedra&lt;/dc:title&gt;
+           &lt;cdmp:cdmpId&gt;gcvtsldWDpqnRFc0DeD3D9S21AI-&lt;/cdmp:cdmpId&gt;
+           &lt;dc:creator&gt;
+              &lt;mm:Artist&gt;
+                 &lt;dc:title&gt;Tangerine Dream&lt;/dc:title&gt;
+              &lt;/mm:Artist&gt;
+           &lt;/dc:creator&gt;
+           &lt;mm:trackList&gt;
+             &lt;rdf:Seq&gt;
+               &lt;rdf:li&gt;
+           &lt;dc:creator&gt;
+              &lt;mm:Artist&gt;
+                 &lt;dc:title&gt;Tangerine Dream&lt;/dc:title&gt;
+              &lt;/mm:Artist&gt;
+           &lt;/dc:creator&gt;
+           &lt;mm:trackList&gt;
+             &lt;rdf:Seq&gt;
+               &lt;rdf:li&gt;
+                 &lt;mm:Track&gt;
+                    &lt;dc:title&gt;Rubycon (Part I)&lt;/dc:title&gt;
+                    &lt;mm:trackNum&gt;1&lt;/mm:trackNum&gt;
+                 &lt;/mm:Track&gt;
+               &lt;/rdf:li&gt;
+               &lt;rdf:li&gt;
+                 &lt;mm:Track&gt;
+                    &lt;dc:title&gt;Rubycon (Part II)&lt;/dc:title&gt;
+                    &lt;mm:trackNum&gt;2&lt;/mm:trackNum&gt;
+                 &lt;/mm:Track&gt;
+              &lt;/rdf:li&gt;
+             &lt;/rdf:Seq&gt;
+           &lt;/mm:trackList&gt;
+         &lt;/cdmp:CDMetadata&gt;
+       &lt;/rdf:li&gt;
+       &lt;rdf:li&gt;
+         &lt;cdmp:CDMetadata&gt;
+           &lt;dc:title&gt;Phaedra&lt;/dc:title&gt;
+           &lt;cdmp:cdmpId&gt;gcvtsldWDpqnRFc0DeD3D9S21AI-&lt;/cdmp:cdmpId&gt;
+           &lt;dc:creator&gt;
+              &lt;mm:Artist&gt;
+                 &lt;dc:title&gt;Tangerine Dream&lt;/dc:title&gt;
+              &lt;/mm:Artist&gt;
+           &lt;/dc:creator&gt;
+           &lt;mm:trackList&gt;
+             &lt;rdf:Seq&gt;
+               &lt;rdf:li&gt;
+                 &lt;mm:Track&gt;
+                    &lt;dc:title&gt;Phaedra&lt;/dc:title&gt;
+                    &lt;mm:trackNum&gt;1&lt;/mm:trackNum&gt;
+                 &lt;/mm:Track&gt;
+               &lt;/rdf:li&gt;
+               &lt;rdf:li&gt;
+                 &lt;mm:Track&gt;
+                    &lt;dc:title&gt;Mysterious Semblance At The Strand Of Nightmares&lt;/dc:title&gt;
+                    &lt;mm:trackNum&gt;2&lt;/mm:trackNum&gt;
+                 &lt;/mm:Track&gt;
+               &lt;/rdf:li&gt;
+               &lt;rdf:li&gt;
+                 &lt;mm:Track&gt;
+                    &lt;dc:title&gt;Movements Of A Visionary&lt;/dc:title&gt;
+                    &lt;mm:trackNum&gt;3&lt;/mm:trackNum&gt;
+                 &lt;/mm:Track&gt;
+               &lt;/rdf:li&gt;
+               &lt;rdf:li&gt;
+                 &lt;mm:Track&gt;
+                    &lt;dc:title&gt;Sequent C'&lt;/dc:title&gt;
+                    &lt;mm:trackNum&gt;4&lt;/mm:trackNum&gt;
+                 &lt;/mm:Track&gt;
+               &lt;/rdf:li&gt;
+             &lt;/rdf:Seq&gt;
+           &lt;/mm:trackList&gt;
+         &lt;/cdmp:CDMetadata&gt;
+       &lt;/rdf:li&gt;
+     &lt;/rdf:Bag&gt;
+   &lt;/cdmp:cdList&gt;
+&lt;/cdmp:ResultCDList&gt;
 &lt;/rdf:RDF&gt;
 </pre>
 
