@@ -24,8 +24,7 @@ my $sortname = $artist->GetSortName;
 %# Row 2: non-editing links
 % if ($link) {
 		<div class="ArtistTitleLinks">Info: [
-			<a href="<&
-				/comp/copyable-link,
+			<a href="<& /comp/copyable-link,
 				id => $mbid,
 				name => $name,
 				type => "artist",

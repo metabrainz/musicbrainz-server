@@ -95,8 +95,7 @@ if ($asin)
 %# First row: non-editing links
 % if ($showlinks) {
 <div class="AlbumTitleLinks">Album: [
-	<a href="<&
-		/comp/copyable-link,
+	<a href="<& /comp/copyable-link,
 		id		=> $mbid,
 		name	=> $name,
 		type	=> "album",
