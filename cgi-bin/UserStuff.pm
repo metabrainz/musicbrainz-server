@@ -733,6 +733,7 @@ EOF
 
 # Send an address verification e-mail for a user to the specified address.
 # Used by htdocs/(createlogin|login|moderator).html
+# and htdocs/user/send-email-confirmation.html
 
 sub SendVerificationEmail
 {
