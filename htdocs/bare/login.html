@@ -24,10 +24,12 @@ elsif (defined $ARGS{User} && $ARGS{User} ne '' &&
     if ($ok)
     {
         $ui->SetSession($user, $privs, $uid, !$email || $confirm);
-		$ui->SetPermanentCookie($ARGS{User}, $ARGS{Password})
+		$session{'ipmask'} = $r->connection->remote_ip
+			if $ARGS{OnlyThisIP};
+		$ui->SetPermanentCookie($ARGS{User}, $ARGS{Password}, $ARGS{OnlyThisIP})
 			if $ARGS{PermanentCookie};
     }
-}    
+}
 
 my $url = $ARGS{url};
 $url = "/search.html"

@@ -8,35 +8,38 @@ return if $m->comp("/comp/dbreadonly", 0, 0);
 
 <form METHOD="POST" ACTION="/bare/login.html" ID="LoginForm"
       ENCTYPE="application/x-www-form-urlencoded" class="formstyle"
-      style="padding: 0 0.5em"
+      style="padding: 0 0.5em; max-width: 20em"
       >
 
-	<p style="font-style: italic">
-		Please note that both the<br>
-		user name and password<br>
-		are case sensitive.
+	<p style="margin: 1em 0">
+		<em>Please note that both the user name
+		and password are case sensitive.</em>
 	</p>
 
-	<p style="margin: 0.5em">
+	<p style="margin: 0.5em; text-align: center">
 		User Name:<br>
-		<INPUT TYPE="text" NAME="User" SIZE=20>
+		<INPUT TYPE="text" NAME="User" SIZE=20 style="width: 10em">
 	</p>
 
-	<p style="margin: 0.5em">
+	<p style="margin: 0.5em; text-align: center">
 		Password:<br>
-		<INPUT TYPE="password" NAME="Password" SIZE=20>
+		<INPUT TYPE="password" NAME="Password" SIZE=20 style="width: 10em">
 	</p>
 
-	<div style="margin: 0.5em">
-		<div>
-			<input type="checkbox" name="PermanentCookie">
-			Log in permanently
-		</div>
-		<div style="text-align: center">
-			[ <a <& /comp/auto-popup-link,
-				url => "/products/server/docs/20031210-1.html",
-				&>>help</a> ]
-		</div>
+	<p class="CenterChildren" style="margin: 1em 0; text-align: center">
+		<input type="checkbox" name="PermanentCookie">
+		Log in permanently
+		[&nbsp;<a <& /comp/auto-popup-link,
+			url => "/products/server/docs/20031210-1.html",
+			&>>help</a>&nbsp;]
+	</p>
+
+	<p class="CenterChildren" style="margin: 1em 0; text-align: center">
+		<input type="checkbox" name="OnlyThisIP">
+		Only from this IP address
+		[&nbsp;<a <& /comp/auto-popup-link,
+			url => "/products/server/docs/20031213-1.html",
+			&>>help</a>&nbsp;]
 	</p>
 
 	<p style="text-align: center">
