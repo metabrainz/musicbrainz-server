@@ -31,13 +31,21 @@ sub ImportTable
     my ($name, $dir) = @_;
     my ($cmd, $dsn);
 
-    print "Importing table $name..\n";
 
-    $cmd = "pg_restore -a -t $name -d musicbrainz $dir/$name"; 
-    print "$cmd\n";
-    $ret = system($cmd) >> 8;
+    if (-e "$dir/$name")
+    {
+        print "Importing table $name..\n";
+        $cmd = "pg_restore -a -t $name -d musicbrainz $dir/$name"; 
+        print "$cmd\n";
+        $ret = system($cmd) >> 8;
 
-    return !$ret;
+        return !$ret;
+    }
+    else
+    {
+        print "Skipping table $name (no file present)\n";
+        return 1;
+    }
 }
 
 sub ImportAllTables
@@ -54,10 +62,10 @@ sub ImportAllTables
     ImportTable("discid", $dir) or return 0;
     ImportTable("toc", $dir) or return 0;
 
-    #ImportTable("moderator", $dir) or return 0;
-    #ImportTable("moderation", $dir) or return 0;
-    #ImportTable("moderationnote", $dir) or return 0;
-    #ImportTable("votes", $dir) or return 0;
+    ImportTable("moderator", $dir) or return 0;
+    ImportTable("moderation", $dir) or return 0;
+    ImportTable("moderationnote", $dir) or return 0;
+    ImportTable("votes", $dir) or return 0;
 
     if (DBDefs->USE_LYRICS)
     {

@@ -7,6 +7,7 @@ imagedir=/var/website/musicbrainz/prod/htdocs/images
 backupdir=/home/backup
 backupuser=backup
 backupgroup=users
+cvspath=/var/cvs
 
 export PATH=/bin:/usr/bin:/usr/local/pgsql/bin
 
@@ -19,6 +20,11 @@ cd statistics
 ./GeneratePlot.pl $imagedir/stats_30_days.png
 chmod a+r $imagedir/stats_30_days.png
 cd ..
+
+# Backup CVS
+tar -cIvf /tmp/cvs-backup.tar.bz2 $cvspath
+chown $backupuser:$backupgroup /tmp/cvs-backup.tar.bz2
+mv /tmp/cvs-backup.tar.bz2 $backupdir
 
 # Vacuum and analyze the database for peak performance
 echo "VACUUM ANALYZE;" | psql musicbrainz
