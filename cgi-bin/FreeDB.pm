@@ -290,7 +290,9 @@ READQUERY:
 	    my $temp;
             if ($artist eq "")
             {
-                ($artist, $temp) = split '\/', $parts[1];
+                ($artist, $temp) = split ' \/ ', $parts[1], 2
+		    or
+                ($artist, $temp) = split '\/', $parts[1], 2;
             }
             else
             {
