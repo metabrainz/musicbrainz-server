@@ -1349,6 +1349,16 @@ sub AdjustModPending
 	);
 }
 
+# Check the moderation to see if it can still be applied, e.g. that all the
+# prerequisites and other dependencies are still OK.  If all is well, return
+# "undef".  Otherwise, return one of the "bad" STATUS_* codes (e.g.
+# STATUS_FAILEDPREREQ).  You might want to add a note using
+# $self->InsertNote(MODBOT_MODERATOR, $message) too.  Either way the
+# transaction will be committed if possible.
+# Arguments: none
+# Called in scalar context; returns &ModDefs::STATUS_* or undef.
+sub CheckPrerequisites { undef }
+
 # The moderation has been approved - either immediately (automod), or voted
 # in.  Either throw an exception (in which case the transaction will be rolled
 # back), or do whatever work is necessary and return &ModDefs::STATUS_* (in
@@ -1361,13 +1371,6 @@ sub ApprovedAction { () }
 # Arguments: none
 # Called in void context
 sub DeniedAction { () }
-
-################################################################################
-# Hook points which are becoming obsolete
-################################################################################
-
-# PreVoteAction
-# DetermineDependencies
 
 ################################################################################
 # Utility methods for moderation handlers
