@@ -1,3 +1,4 @@
+%# vi: set ts=4 sw=4 ft=mason :
 <%args>
 $id=>""
 $tracks=>0
@@ -148,7 +149,14 @@ else
             {
                 mc_out("<hr>Here is the album you inserted:<p><br>");
                 mc_comp("/comp/artisttitle", artist=>$ar, link=>1);
-                mc_comp("/comp/album", album=>$al, artist=>$ar);
+
+				$m->comp(
+					"/comp/album",
+					album => $al,
+					artist => $ar,
+					showalbumdetail => 1,
+					showids => 1,
+				);
             }
         }
     }
