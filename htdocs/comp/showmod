@@ -7,10 +7,9 @@ $notes
 
 my ($ref, $obj, $bold);
 my $voted = $mod->GetVote();
-my $text = "(Your change)";
-if ($voted != ModDefs::VOTE_UNKNOWN && $voted != ModDefs::VOTE_NOTVOTED)
+if (!defined $voted)
 {
-   $text = "(Already voted)";
+   $voted = ModDefs::VOTE_NOTVOTED;
 }
 my @entered = gmtime($mod->GetExpireTime());
 my $time = sprintf "%d-%02d-%02d %02d:%02d", 
@@ -58,12 +57,14 @@ my $time = sprintf "%d-%02d-%02d %02d:%02d",
      <% $mod->GetChangeName() |n %>
 % } elsif ($voted == ModDefs::VOTE_YES || $voted == ModDefs::VOTE_NO ||
 %          $voted == ModDefs::VOTE_ABS) {
-     <% $mod->GetVoteText($voted) |n %> -- <% $mod->GetChangeName() |n %>
+     <% $mod->GetVoteText($voted) |n %><br>
+     <% $mod->GetChangeName() |n %>
 % } elsif ($session{uid} != $mod->GetModerator() && 
+%          $mod->GetStatus() == ModDefs::STATUS_OPEN &&
 %          $voted == ModDefs::VOTE_NOTVOTED) {
      Yes&nbsp;<input type="radio" name="rowid<% $mod->GetId() %>" value="yes">&nbsp;No&nbsp;<input type="radio" name="rowid<% $mod->GetId() %>" value="no">&nbsp;Abst&nbsp;<input type="radio" name="rowid<% $mod->GetId() %>" value="abs" CHECKED>
 % } else {
-     <% $text %> 
+     <% $mod->GetChangeName() |n %>
 % }
    </td>
 

@@ -26,13 +26,17 @@ else
 {
     if ($artistid > 0)
     {
-        mc_comp("/comp/moderatepage", offset=>$ARGS{offset}, 
-                type=>ModDefs::TYPE_ARTIST, artistid=>$artistid);
-    }
-    elsif ($albumid > 0)
-    {
-        mc_comp("/comp/moderatepage", offset=>$ARGS{offset}, 
-                type=>ModDefs::TYPE_ARTIST, artistid=>$albumid);
+        if ($albumid > 0)
+        {
+             mc_comp("/comp/moderatepage", offset=>$ARGS{offset}, 
+                     type=>ModDefs::TYPE_ARTIST, artistid=>$artistid,
+                     albumid=>$albumid);
+        }
+        else
+        {
+             mc_comp("/comp/moderatepage", offset=>$ARGS{offset}, 
+                     type=>ModDefs::TYPE_ARTIST, artistid=>$artistid);
+        }
     }
     else
     {

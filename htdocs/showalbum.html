@@ -55,6 +55,10 @@ else
         mc_out("[ <a href=\"/showartist.html?artistid=");
         mc_out($artist->GetId());
         mc_out("\">View albums</a> | ");
+    
+        mc_out("<a href=\"/moderate.html?type=4&artistid=" .
+               $artist->GetId()."\">");
+        mc_out("View mods</a> | ");
 
         mc_out("<a href=\"/addalbum.html?artistid=");
         mc_out($artist->GetId());

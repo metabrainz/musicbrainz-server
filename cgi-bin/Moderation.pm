@@ -514,9 +514,10 @@ sub GetModerationList
             Changes.artist, type, prevvalue, newvalue, 
             UNIX_TIMESTAMP(TimeSubmitted), ModeratorInfo.name, yesvotes, 
             novotes, Artist.name, status, Votes.vote, ModeratorInfo.id
-            from Changes, ModeratorInfo, Artist,
-            Votes where ModeratorInfo.id = moderator and Changes.artist = 
-            Artist.id and Changes.artist = $rowid and Votes.rowid = Changes.id
+            from ModeratorInfo, Artist, Changes left join Votes on
+            Votes.uid = $uid and Votes.rowid=Changes.id
+            where ModeratorInfo.id = moderator and Changes.artist = 
+            Artist.id and Changes.artist = $rowid
             order by TimeSubmitted desc limit $index, -1/;
    }
    else
@@ -548,7 +549,14 @@ sub GetModerationList
                 $mod->SetNoVotes($row[11]);
                 $mod->SetArtistName($row[12]);
                 $mod->SetStatus($row[13]);
-                $mod->SetVote($row[14]);
+                if (defined $row[14])
+                {
+                    $mod->SetVote($row[14]);
+                }
+                else
+                {
+                    $mod->SetVote(ModDefs::VOTE_NOTVOTED);
+                }
                 $mod->SetModerator($row[15]);
                 push @data, $mod;
             }

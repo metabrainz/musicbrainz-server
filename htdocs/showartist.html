@@ -44,7 +44,9 @@ else
     
     mc_out("[ <a href=\"/addalbum.html?artistid=");
     mc_out($artist->GetId());
-    mc_out("\">Add album</a> ");
+    mc_out("\">Add album</a> | ");
+    mc_out("<a href=\"/moderate.html?type=4&artistid=".$artist->GetId()."\">");
+    mc_out("View mods</a> ");
 
     if ($artist->GetName() ne "Unknown" && 
         $artist->GetId() != Artist::VARTIST_ID && 
@@ -58,7 +60,7 @@ else
         mc_comp("/comp/googlelink", search=>($artist->GetName()), 
             text=>"Search Google"); 
     }
-    mc_out("]<p>");
+    mc_out(" ]<p>");
 
     if ($ARGS{artistid} == Artist::VARTIST_ID)
     {

@@ -1,13 +1,15 @@
 <%args>
 $type
 $artistid=>0
+$albumid=>0
+$num=>10
 </%args>
 
 <%perl>
 
 my ($mb, @info, $mod, $offset, $i, $comp, $obj);
 my ($option1, $option2, $num_mods, $total_mods, $notes);
-my $max_items = 10;
+my $max_items = $num;
 
 $mb = new MusicBrainz;  
 
@@ -19,6 +21,7 @@ $mb->Login();
 $mod = Moderation->new($mb->{DBH});
 
 my $freedb_note = 0;
+my $show_button = 0;
 if ($type == ModDefs::TYPE_NEW)
 {
     ($num_mods, $total_mods, @info) = 
@@ -28,14 +31,6 @@ if ($type == ModDefs::TYPE_NEW)
     $option1 = '<a href="moderate.html?type=2">Old Mods</a>';
     $option2 = '<a href="moderate.html?type=3">My Mods</a>';
 
-    foreach $obj (@info)
-    {
-        if ($obj->GetModeratorName() eq "FreeDB")
-        {
-            $freedb_note = 1;
-            last;
-        }
-    }
 }
 elsif ($type == ModDefs::TYPE_VOTED)
 {
@@ -66,10 +61,39 @@ elsif ($type == ModDefs::TYPE_ARTIST)
             expand=>"moderate"); 
     $option1 = '<a href="moderate.html?type=1">New Mods</a>';
     $option2 = '<a href="moderate.html?type=2">Old Mods</a>';
+
+    #if ($albumid > 0)
+    #{
+    #    $i = 0;
+    #    foreach $obj (@info)
+    #    {
+    #        # Add the filter criteria here that will toss out moderations
+    #        # that are not related to the given album.
+    #    }
+    #}
 }
 else
 {
+    mc_comp("/comp/sidebar", title=>'Error', expand=>"moderate"); 
+    mc_comp("/comp/badargs");
     return undef;
+}
+
+$i = 0;
+foreach $obj (@info)
+{
+    if ($obj->GetModeratorName() eq "FreeDB" &&
+        $obj->GetStatus() == ModDefs::STATUS_OPEN)
+    {
+       $freedb_note = 1;
+    }
+    if ($obj->GetModerator() != $session{uid} &&
+        $obj->GetVote() == ModDefs::VOTE_NOTVOTED &&
+        $obj->GetStatus() == ModDefs::STATUS_OPEN)
+    {
+       $show_button = 1;
+    }
+    last if ($i >= $max_items || ($freedb_note && $show_button));
 }
 
 if ($num_mods > 0)
@@ -120,12 +144,11 @@ if ($num_mods > 0)
    There are no old (voted on) moderations.
 %  } elsif ($type == ModDefs::TYPE_ARTIST) {
    There are no moderations for this artist.
-%  } elsif ($type == ModDefs::TYPE_ALBUM) {
-   There are no moderations for this album.
 %  } else {
    You have not entered any moderations.
 %  }
    </center>
+%  return undef;
 %}
 
 % if ($num_mods > $max_items || $offset > 0) {
@@ -172,7 +195,7 @@ $mb->Logout();
 </td></tr></table>
 % }
 
-% if ($num_mods > 0 && $type == ModDefs::TYPE_NEW) {
+% if ($num_mods > 0 && $show_button) {
 <table width=100%>
 <tr>
   <td width=20%>
@@ -180,11 +203,13 @@ $mb->Logout();
   </td>
   <td align=right>
      Click here to vote on the items on this page:
-     <INPUT TYPE="hidden" NAME="url" VALUE="/moderate.html">
+     <INPUT TYPE="hidden" NAME="url" 
+            VALUE="<% $r->uri() . "?" . $r->args() %>">
      <INPUT TYPE="submit" NAME="Submit" VALUE="Submit">
   </td>
 </tr>
 </table>
 %}
+
 
 </form>
