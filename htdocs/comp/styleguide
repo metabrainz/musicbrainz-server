@@ -32,23 +32,19 @@
    <b>The Led Zeppelin Box Set (box 2, disc 3)</b>
    </blockquote>
 
-<li> When two artists collaborate on an album, file
-  the album under the primary artist, and then
-  append the name of the secondary artist to the
-  name of the album as follows:
-
-   <blockquote>
-   <b>The Green Album (feat. Kate Bush)</b>
-   </blockquote>
-
-<li> When two artists collaborate one one track,
-  add the guest artists to the track name as
-  follows:
+<li> When two artists collaborate on a track or
+  album, file the track/album under the primary
+  artist, and then append the name of the
+  secondary artist to the name of the track/album
+  as follows:
 
    <blockquote>
    <b>Put Your Lights On (feat. Everlast)</b>
    </blockquote>
 
+  If neither artist can be considered secondary,
+  choose either artist.
+<p>
 <li> When work from two artists are remixed in the 
   popular <b>vs.</b> fashion, file the album/track
   under the mix artist and title the album/track
@@ -58,11 +54,61 @@
    <b>ATB vs. Faithless</b>
    </blockquote>
 
-<li> Some Audio CDs contain extra data tracks. Enter
+<li> Some audio CDs contain extra data tracks. Enter
   <b>[data track]</b> as the name for these tracks.
 <p>
-<li> Some Audio CDs contain silent tracks. Enter
+<li> Some CDs contain silent tracks. Enter
   <b>[silence]</b> as the name for these tracks.
+<p>
+<li> Some CDs contain unnamed tracks. Enter
+  <b>[untitled]</b> as the name for these tracks.
+<p>
+<li> Tracks or CDs whose artist is unknown should be
+  filed under the <b>[unknown]</b> artist.
+<p>
+<li> It is currently not possible to store all
+  information about releases that people might be
+  interested in. Rather than clutter release titles
+  with too much information, the following details
+  should be left out:
+   <p>
+   <ul>
+   <li> Disc numbers of CD singles
+   <li> Country of origin/import status
+   <li> Record label
+   </ul>
+<p>
+<li> Mix names and other track attributes should be
+  entered in parenthesis after the title. These
+  attributes should be in lower case, except for
+  proper names (including titles given to mixes):
+   <p>
+   <b>
+   <ul>
+   <li> Blue (extended mix)
+   <li> Talking All That Jazz (Torti's Old School Mix of Edits dub)
+   <li> Bear Witness (Automator's 2 Turntables and a Razor Blade re-edit)
+   <li> Disciple (demo)
+   </ul>
+   </b>
+
+<li> If a live bootleg release has no proper title, you
+  should follow the format used in these examples:
+   <p>
+   <b>
+   <ul>
+   <li> 2000-10-22: Las Vegas, NV, USA
+   <li> 2000-06-01: Dublin, Ireland (disc 2)
+   <li> Milan, Italy (disc 1)
+   </ul>
+   </b>
+
+<li> If two albums are re-released on one CD, or if
+  two songs share the same track, the title should be
+  split as follows:
+
+   <blockquote>
+   <b>This Is the Modern World/All Mod Cons</b>
+   </blockquote>
 
 </ol>
-
