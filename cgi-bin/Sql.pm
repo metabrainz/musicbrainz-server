@@ -31,7 +31,7 @@ use vars qw(@ISA @EXPORT);
 use strict;
 use DBI;
 use DBDefs;
-#use Benchmark;
+use Benchmark::Timer;
 use Carp qw(cluck);
 
 sub new
@@ -55,17 +55,18 @@ sub Quote
 sub Select
 {
     my ($this, $query) = @_;
-    my ($ret, $t0, $t1, $td);
-    my ($secs);
+    my ($ret, $t);
 
-    #$t0 = new Benchmark;
+    #print STDERR "SELECT: $query\n";
+    #$t = Benchmark::Timer->new(skip => 0);
+    #$t->start('start');
     $this->{STH} = $this->{DBH}->prepare($query);
     $ret = $this->{STH}->execute;
-    #$t1 = new Benchmark;
-
-    #$td = timediff($t1, $t0);
-    #print STDERR (timestr($td, 'nop') . ": $query\n");
+    #$t->stop;
+    #print STDERR "--------------------------------------------\n";
     #print STDERR "$query\n";
+    #$t->report;
+
     if ($ret)
     {
         return $this->{STH}->rows;
@@ -111,6 +112,7 @@ sub Do
     my ($this, $query) = @_;
     my $ret;
 
+#    die "No transaction started in Do." if ($this->{DBH}->{AutoCommit} == 0);
 #    my (@ltime, $trace, $prefix, @strace, $q);
 #    $trace = Carp::longmess();
     
@@ -124,6 +126,7 @@ sub Do
 #    $q =~ s/\n/ /g;
 #    print STDERR "$prefix $q\n$trace";
 
+#    print STDERR "DO: $query\n";
     $ret = $this->{DBH}->do($query);
     if ($ret)
     {
@@ -166,12 +169,47 @@ sub GetSingleRow
     return undef;
 }
 
+# This function is just like GetSingleRow, but the first pair or
+# where clause items is compared with ILIKE, and not a simple =
+sub GetSingleRowLike
+{
+    my ($this, $tab, $cols, $where) = @_;
+    my (@row, $query, $count);
+
+    $query = "select " . join(", ", @$cols) . " from $tab";
+    if (scalar(@$where) > 0)
+    {
+       for($count = 0; scalar(@$where) > 1; $count++)
+       {
+           if ($count == 0)
+           {
+               $query .= " where " . (shift @$where) . " ilike " .  
+                         (shift @$where);
+           }
+           else
+           {
+               $query .= " and " . (shift @$where) . " = " .  
+                         (shift @$where);
+           }
+       }
+    }
+    #print STDERR "$query\n";
+    if ($this->Select($query))
+    {
+        @row = $this->NextRow;
+        $this->Finish;
+
+        return @row;
+    }
+    return undef;
+}
+
 sub GetLastInsertId
 {
-   my $this = $_[0];
+   my ($this, $table) = @_;
    my (@row, $sth);
 
-   $sth = $this->{DBH}->prepare("select LAST_INSERT_ID()");
+   $sth = $this->{DBH}->prepare("select currval('" . $table ."_id_seq')");
    if ($sth->execute && $sth->rows)
    {
        @row = $sth->fetchrow_array;
@@ -218,11 +256,47 @@ sub GetSingleColumn
     return ();
 }
 
+sub GetSingleColumnLike
+{
+    my ($this, $tab, $col, $where) = @_;
+    my (@row, $query, $count, @col);
+
+    $query = "select $col from $tab";
+    if (scalar(@$where) > 0)
+    {
+       for($count = 0; scalar(@$where) > 1; $count++)
+       {
+           if ($count == 0)
+           {
+               $query .= " where " . (shift @$where) . " ilike " .  
+                         (shift @$where);
+           }
+           else
+           {
+               $query .= " and " . (shift @$where) . " = " .  
+                         (shift @$where);
+           }
+       }
+    }
+    if ($this->Select($query))
+    {
+        while(@row = $this->NextRow)
+        {
+            push @col, $row[0];
+        }
+        $this->Finish;
+
+        return @col;
+    }
+    return ();
+}
+
 sub Begin
 {
    my $this = $_[0];
 
-   return $this->{DBH}->begin;
+   $this->{DBH}->{AutoCommit} = 0;
+   return 1;
 }
 
 sub Commit

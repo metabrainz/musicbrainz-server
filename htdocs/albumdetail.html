@@ -1,7 +1,7 @@
 <%perl>
 
 my ($mb); 
-my ($track, $artist, $album, $albumid, @info, $gu, @guid, $id); 
+my ($track, $artist, $album, $albumid, @info, $gu, @TRM, $id); 
 
 if (!exists $ARGS{albumid} || $ARGS{albumid} eq '')
 {
@@ -10,8 +10,7 @@ if (!exists $ARGS{albumid} || $ARGS{albumid} eq '')
 }
 
 $albumid = $ARGS{albumid};
-$mb = new MusicBrainz;
-$mb->Login();
+$mb = mc_comp("/comp/dblogin");
 
 $album = Album->new($mb->{DBH});
 $album->SetId($albumid);

@@ -4,8 +4,7 @@
 
 my ($mb, $id, $ar, $artist); 
 
-$mb = new MusicBrainz;
-$mb->Login();
+$mb = mc_comp("/comp/dblogin");
 
 </%perl>
 
@@ -61,7 +60,7 @@ $mb->Login();
     <input type="hidden" name="prev" value="">
     <input type="hidden" name="table" value="Artist">
     <input type="hidden" name="column" value="Name">
-    <input type="hidden" name="id" value="<% Artist::DARTIST_ID %>">
+    <input type="hidden" name="id" value="<% ModDefs::DARTIST_ID %>">
     <input type="hidden" name="url" value="/search.html">
     </form>
       

@@ -14,14 +14,14 @@
     </center>
     <& /comp/searchbox, name=>'CD Index Id Lookup',
                         scripturl=>'/showalbum.html',
-                        searchfield=>'diskid',
+                        searchfield=>'discid',
                         method=>'GET' &>
     <center>
     <img src="/images/black_pixel.gif" width="225" height="1" alt="" border="0">
     </center>
     <& /comp/searchbox, name=>'TRM Id Lookup',
-                        scripturl=>'/showguid.html',
-                        searchfield=>'guid',
+                        scripturl=>'/showtrm.html',
+                        searchfield=>'trm',
                         method=>'GET' &>
     <center>
     <img src="/images/black_pixel.gif" width="225" height="1" alt="" border="0">

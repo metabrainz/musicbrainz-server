@@ -11,7 +11,7 @@ use lib "/home/httpd/musicbrainz/cgi-bin";
 use MusicBrainz;  
 use UserStuff;  
 use Album;
-use Diskid;
+use Discid;
 use TableBase;
 use Artist;
 use Alias;
@@ -24,7 +24,7 @@ use ModDefs;
 use FreeDB;
 use Moderation;
 use ModerationSimple;
-use GUID;
+use TRM;
 use Sql;
 use Style;
 

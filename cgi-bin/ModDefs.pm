@@ -27,8 +27,16 @@ BEGIN { require 5.6.1 }
 
 use strict;
 
+# Use the following id for the multiple/various artist albums
+use constant VARTIST_ID                  => 1;
+use constant VARITST_MBID                => "89ad4ac3-39f7-470e-963a-56509c546377";
+
+# Use the following id to reference artist that have been deleted.
+# This will be used only by the moderation system
+use constant DARTIST_ID                  => 2;
+
 use constant ANON_MODERATOR              => 1;
-use constant FREEDB_MODERATOR            => 9999;
+use constant FREEDB_MODERATOR            => 2;
 
 # These define the different types of moderation pages that can be shown
 use constant TYPE_NEW                    => 1;
@@ -57,8 +65,8 @@ use constant MOD_ADD_ALBUM               => 16;
 use constant MOD_ADD_ARTIST              => 17;
 use constant MOD_ADD_TRACK_KV            => 18;
 use constant MOD_REMOVE_ARTIST           => 19;
-use constant MOD_REMOVE_DISKID           => 20;
-use constant MOD_MOVE_DISKID             => 21;
+use constant MOD_REMOVE_DISCID           => 20;
+use constant MOD_MOVE_DISCID             => 21;
 use constant MOD_REMOVE_TRMID            => 22;
 use constant MOD_MERGE_ALBUM             => 23;
 use constant MOD_REMOVE_ALBUMS           => 24;
@@ -90,7 +98,7 @@ use constant STATUS_FAILEDPREREQ         => 6;
 # The user should never see this state.
 use constant STATUS_EVALNOCHANGE         => 7;
 
-# When a moderator wants to delete their own mod, the web interface changes 
+# When a moderator wants to delete their own mod, the web interface Moderation 
 # its status to 'to be deleted' so that the ModerationBot can clean it and
 # its possible depedents up. Once the ModBot spots this record it cleans up
 # any dependants adn then marks the record as 'deleted'.

@@ -33,7 +33,8 @@ sub ImportTable
 
     print "Importing table $name..\n";
 
-    $cmd = "mysqlimport -u root musicbrainz $dir/$name"; 
+    $cmd = "pg_restore -a -t $name -d musicbrainz $dir/$name"; 
+    print "$cmd\n";
     $ret = system($cmd) >> 8;
 
     return !$ret;
@@ -43,27 +44,26 @@ sub ImportAllTables
 {
     my ($dir) = @_;
 
-    ImportTable("Artist", $dir) or return 0;
-    ImportTable("Album", $dir) or return 0;
-    ImportTable("Track", $dir) or return 0;
-    ImportTable("GUID", $dir) or return 0;
-    ImportTable("AlbumJoin", $dir) or return 0;
-    ImportTable("GUIDJoin", $dir) or return 0;
-    ImportTable("Diskid", $dir) or return 0;
-    ImportTable("TOC", $dir) or return 0;
-    ImportTable("ArtistAlias", $dir) or return 0;
+    ImportTable("artist", $dir) or return 0;
+    ImportTable("artistalias", $dir) or return 0;
+    ImportTable("album", $dir) or return 0;
+    ImportTable("track", $dir) or return 0;
+    ImportTable("albumjoin", $dir) or return 0;
+    ImportTable("trm", $dir) or return 0;
+    ImportTable("trmjoin", $dir) or return 0;
+    ImportTable("discid", $dir) or return 0;
+    ImportTable("toc", $dir) or return 0;
 
-    #ImportTable("Pending", $dir) or return 0;
-    #ImportTable("ModeratorInfo", $dir) or return 0;
-    #ImportTable("Changes", $dir) or return 0;
-    #ImportTable("Votes", $dir) or return 0;
-    #ImportTable("Genre", $dir) or return 0;
+    ImportTable("moderator", $dir) or return 0;
+    ImportTable("moderation", $dir) or return 0;
+    ImportTable("moderationnote", $dir) or return 0;
+    ImportTable("votes", $dir) or return 0;
 
     if (DBDefs->USE_LYRICS)
     {
        ImportTable("Lyrics", $dir) or return 0;
        ImportTable("SyncText", $dir) or return 0;
-       ImportTable(SyncEvent, $dir) or return 0;
+       ImportTable("SyncEvent", $dir) or return 0;
     }
     else
     {
@@ -94,4 +94,4 @@ $dir = "/tmp/mbdump";
  
 ImportAllTables($dir);
 
-system("rm -rf $dir");
+#system("rm -rf $dir");

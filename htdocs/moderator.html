@@ -13,9 +13,8 @@ $weburl=>""
 
 <%perl>
 
-my ($ui, $info);
-my $mb = MusicBrainz->new();  
-$mb->Login();
+my ($ui, $info, $mb);
+$mb = mc_comp("/comp/dblogin");
 $ui = UserStuff->new($mb->{DBH});
 
 if ($user ne "")
@@ -75,7 +74,7 @@ if (!defined $info)
      return undef;
 }
 
-if ($info->{membersince} eq "0000-00-00 00:00:00")
+if ($info->{membersince} eq "1970-01-01 00:00:00")
 {
     $info->{membersince} = '<font class="bold">Charter Member</font>';
 } 
@@ -122,7 +121,7 @@ if ($info->{name} eq "rob")
                value="<% $info->{email} %>">
     </td>
 % } else {
-    <td><% $info->{email} ne '' ? $info->{email} : "[none specified]" |n %></td>
+    <td><% $info->{email} ne '' ? $info->{email} : "[none specified]" |h %></td>
 % }
 </tr>
 % }
@@ -134,9 +133,9 @@ if ($info->{name} eq "rob")
     </td>
 % } else {
 %   if ($info->{weburl} ne "") {    
-       <td><a href="<% $info->{weburl} |n %>"><% $info->{weburl} |n %></a>
+       <td><% $info->{weburl} |h %></td>
 %   } else {
-       <td>[none specified]</a>
+       <td>[none specified]</td>
 %   }
 % }
 </tr>

@@ -12,8 +12,7 @@ $type
 
 my ($mb, $id, $ar, $artist); 
 
-$mb = new MusicBrainz;
-$mb->Login();
+$mb = mc_comp("/comp/dblogin");
 
 if (!defined $session{user} || $session{user} eq '') {
 </%perl>

@@ -2,7 +2,6 @@
 my ($o, $mb, $di, $num_tracks, $notfound);
 my ($i, $sth, $album, $valid, $id, $tracks, $toc); 
 
-$mb = new MusicBrainz;
 mc_comp("/comp/sidebar", title=>"Lookup/Submit a CD");
 
 $id = $ARGS{'id'};
@@ -17,7 +16,7 @@ if (!defined $id || $id eq '' ||
     !defined $tracks || $tracks eq '' ||
     !defined $toc || $toc eq '')
 {
-    mc_out("The Disk id, TOC and the number of tracks need to be passed in ");
+    mc_out("The Disc id, TOC and the number of tracks need to be passed in ");
     mc_out("as part of the page URL. Without this information you ");
     mc_out("cannot use these pages to submit a CD. Please use ");
     mc_out("<a href=\"/addalbum.html?artistid=0\">this page</a> ");
@@ -33,9 +32,9 @@ elsif (length($id) != 28 || substr($id, -1, 1) ne "-" || $valid ne "")
 }
 else
 {
-    $mb->Login();
-    $di = Diskid->new($mb->{DBH});
-    $album = $di->GetAlbumFromDiskId($id);
+    $mb = mc_comp("/comp/dblogin");
+    $di = Discid->new($mb->{DBH});
+    $album = $di->GetAlbumFromDiscid($id);
     if (defined $album)
     {
         my ($al, $ar);

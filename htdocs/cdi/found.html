@@ -11,9 +11,8 @@ my ($mb, $di);
 
 mc_comp("/comp/sidebar", title=>'Found CD');
 
-$mb = MusicBrainz->new();
-$mb->Login();
-$di = Diskid->new($mb->{DBH});
+$mb = mc_comp("/comp/dblogin");
+$di = Discid->new($mb->{DBH});
 $di->Insert($id, $album, $toc);
 $mb->Logout;
 </%perl>

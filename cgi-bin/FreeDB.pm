@@ -35,11 +35,11 @@ use Socket;
 use Track;
 use Album;
 use Artist;
-use Diskid;
+use Discid;
 use ModDefs;
 use Style;
 use Alias;
-use Unicode::String;
+use Unicode::String qw(utf8 latin1);
 use constant  CD_MSF_OFFSET => 150;
 use constant  CD_FRAMES     =>  75;
 use constant  CD_SECS       =>  60;
@@ -73,7 +73,7 @@ sub EnterRecord
     my $tracks = shift @_;
     my $title = shift @_;
     my $artistname = shift @_;
-    my $diskid = shift @_;
+    my $Discid = shift @_;
     my $toc = shift @_;
     my ($artistid, $albumid);
     my ($sql, $sql2);
@@ -133,8 +133,8 @@ sub EnterRecord
             print STDERR "Inserting track $title ($artistid, $albumid) failed.\n";
         }
     }
-    $d = Diskid->new($this->{DBH});
-    $d->Insert($diskid, $al->GetId(), $toc);
+    $d = Discid->new($this->{DBH});
+    $d->Insert($Discid, $al->GetId(), $toc);
 
     return $albumid;
 }
@@ -142,12 +142,12 @@ sub EnterRecord
 
 sub Lookup
 {
-    my ($this, $diskid, $toc) = @_;
+    my ($this, $Discid, $toc) = @_;
     my ($i, $first, $last, $leadout, @cddb_toc);
     my ($m, $s, $f, @cd_data, $ret);
     my ($id, $query, $trackoffsets, $offset, $sum, $total_seconds);
 
-    #$diskid = "LXBA5mxxJFScjy2ncbIsUKTpEmU-";
+    #$Discid = "LXBA5mxxJFScjy2ncbIsUKTpEmU-";
     #$toc = "1 14 212378 150 10604 26749 41987 57077 70660 83280 101001 114817 125664 139693 150638 172674 192038";
 
     my @toc = split / /, $toc;
@@ -176,7 +176,7 @@ sub Lookup
     $ret = $this->Retrieve("www.freedb.org", 888, $query);
     if (defined $ret)
     {
-        $ret->{cdindexid} = $diskid;
+        $ret->{cdindexid} = $Discid;
         $ret->{toc} = $toc; 
 
     }
@@ -412,8 +412,34 @@ sub Retrieve
     $info{artist} = $artist;
     $info{sortname} = $artist;
 
+    if (!defined $title || $title eq "")
+    {
+        $title = $artist;
+    }
+
+    # Convert to UTF-8
+    my $u = utf8("");
+
+    $artist =~ s/^\s*(.*?)\s*$/$1/;
+    $title =~ s/^\s*(.*?)\s*$/$1/;
+
+    $u->latin1($artist);
+    $info{artist} = $u->utf8();
+    $info{sortname} = $u->utf8();
+
     my $sty = Style->new;
-    $info{album} = $sty->NormalizeDiscNumbers($title);
+    $u->latin1($sty->NormalizeDiscNumbers($title));
+    $info{album} = $u->utf8();
+
+    for($i = 0; $i < scalar(@track_titles); $i++)
+    {
+        #print("[$i]: $track_titles[$i]\n"); 
+        $u->latin1($track_titles[$i]);
+        push @tracks, { track=>$u->utf8(), tracknum => ($i+1) };
+    }
+    $info{tracks} = \@tracks;
+
+    close SOCK;
 
     for($i = 0; $i < scalar(@track_titles); $i++)
     {
@@ -482,7 +508,7 @@ sub InsertForModeration
                 {
                     my ($di);
 
-                    $di = Diskid->new($this->{DBH});
+                    $di = Discid->new($this->{DBH});
                     $di->Insert($info->{cdindexid}, $al->GetId(), $info->{toc});
 
                     return;
@@ -503,6 +529,7 @@ sub InsertForModeration
         return if (!$st->UpperLowercaseCheck($track->{track}));
         $new .= "Track" . $track->{tracknum} . "=" . $track->{track} . "\n";
     }
+
 
     $in = Insert->new($this->{DBH});
     $in->InsertAlbumModeration($new, ModDefs::FREEDB_MODERATOR, 0);

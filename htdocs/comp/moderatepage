@@ -11,13 +11,12 @@ my ($mb, @info, $mod, $offset, $i, $comp, $obj);
 my ($num_mods, $total_mods, $notes);
 my $max_items = $num;
 
-$mb = new MusicBrainz;  
 
 $offset = $ARGS{offset};
 $offset = 0 if not defined $offset;
 $offset = 0 if $offset < 0;  
 
-$mb->Login();
+$mb = mc_comp("/comp/dblogin");
 $mod = Moderation->new($mb->{DBH});
 
 my $show_button = 0;

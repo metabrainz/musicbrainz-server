@@ -13,7 +13,7 @@ my %Queries =
    artist => \&QuerySupport::GetArtistByGlobalId,
    album => \&QuerySupport::GetAlbumByGlobalId,
    track => \&QuerySupport::GetTrackByGlobalId,
-   trmid => \&QuerySupport::GetTrackByGUID,
+   trmid => \&QuerySupport::GetTrackByTRM,
    synctext => \&QuerySupport::GetSyncTextByTrackGlobalId,
 );
 
@@ -48,7 +48,11 @@ $rdf->SetDepth($depth);
 
 #print STDERR "$query $id\n";
 
-if (!defined $query || $query eq '' || !defined $id || $id eq '')
+if ($depth > 6)
+{
+    $out = $rdf->ErrorRDF("Query depth cannot be larger than 6!");
+}
+elsif (!defined $query || $query eq '' || !defined $id || $id eq '')
 {
     $out = $rdf->ErrorRDF("The id and query arguments must be given.");
 }

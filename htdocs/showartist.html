@@ -18,8 +18,7 @@ if (!exists $ARGS{artistid} || $ARGS{artistid} eq '')
 my ($ret, $t0, $t1, $td);
 my ($secs);
 
-$mb = new MusicBrainz;
-$mb->Login();
+$mb = mc_comp("/comp/dblogin");
 $artist = Artist->new($mb->{DBH});
 $album = Album->new($mb->{DBH});
 
@@ -34,7 +33,7 @@ else
     mc_comp("/comp/sidebar", title=>'',
             pagetitle=>"Artist: " . $artist->GetName());
 
-    if ($ARGS{artistid} == Artist::DARTIST_ID)
+    if ($ARGS{artistid} == ModDefs::DARTIST_ID)
     {
         mc_out("<font size=\"+2\">Deleted Artist</font><p>");
         mc_out("<table width=\"100%\"><tr><td align=\"center\">");
@@ -63,8 +62,8 @@ else
     mc_out("\">View aliases</a> ");
 
     if ($artist->GetName() ne "Unknown" && 
-        $artist->GetId() != Artist::VARTIST_ID && 
-        $artist->GetId() != Artist::DARTIST_ID && 
+        $artist->GetId() != ModDefs::VARTIST_ID && 
+        $artist->GetId() != ModDefs::DARTIST_ID && 
         $artist->GetName() ne "Data CD")
     {
         if (exists $session{uid})
@@ -81,7 +80,7 @@ else
     }
     mc_out("]<p>");
 
-    if ($ARGS{artistid} == Artist::VARTIST_ID)
+    if ($ARGS{artistid} == ModDefs::VARTIST_ID)
     {
         </%perl>
         <table width="100%"><tr><td align="center">

@@ -6,12 +6,48 @@ $text
 
 <%perl>
 
-my ($mb, $mod);
+use URI::Escape;
 
-$mb = new MusicBrainz;
-$mb->Login();
+if ($text =~ /href\s*?=\s*?"(.*?)"/)
+{
+    my $addr = $1;
+
+    if ($addr =~ /(^http:|^[^\/]|@)/)
+    {
+              my $url = "/mod/addnote.html?modid=$modid&uid=$uid&text=" .
+                    uri_escape($text);
+         $r->method('GET');
+         $r->headers_in->unset('Content-length');
+         $r->content_type('text/html');
+         $r->header_out(Location=>$url);
+         $r->status(302);
+     
+         return undef;
+     }
+}
+
+my ($mb, $mod, $sql);
+
+$mb = mc_comp("/comp/dblogin");
 $mod = Moderation->new($mb->{DBH});
-$mod->InsertModerationNote($modid, $uid, $text);
+$sql = Sql->new($mb->{DBH});
+
+eval
+{
+    $sql->Begin;
+    $mod->InsertModerationNote($modid, $uid, $text);
+    $sql->Commit;
+};
+if ($@)
+{
+    my $err = $@;
+    $sql->Rollback;
+
+    mc_comp("/comp/header_small");
+    mc_out("<b>A database error occurred.</b><pre>($err)</pre>");
+    mc_comp("/comp/footer_small");
+    return undef;
+}
 
 </%perl>
 

@@ -31,7 +31,7 @@ sub FindDuplicates
 {
     my ($dbh) = @_;
     my ($last_num, $last_name, $last_id);
-    my ($id, $name, $album, $num);
+    my ($id, $name, $num);
     my (@tm);
 
     $last_id = -1;
@@ -39,13 +39,23 @@ sub FindDuplicates
     $last_name = "";
     $last_artist = "";
 
-    @tm = gmtime(time());
 
     print "<font size=\"+2\" class=\"title\">Duplicate Tracks</font><p>";
-    printf "Generated on %d/%d/%d %02d:%02d GMT<p><br>\n",
-             $tm[4] + 1, $tm[3], $tm[5] + 1900, $tm[2], $tm[1];
+    my @current = gmtime(time());
+    my $t = sprintf "%d-%02d-%02d %02d:%02d:%02d",
+              $current[5] + 1900,
+              $current[4]+1,
+              $current[3],
+              $current[2], $current[1], $current[0];
 
-    $sth = $dbh->prepare(qq\select * from Track, AlbumJoin, Artist where AlbumJoin.Track = Track.id and Track.Artist = Artist.id order by Artist.name, AlbumJoin.Album, Track.Name\);
+    print "Generated on: $t";
+
+    $sth = $dbh->prepare(qq\select track.id, track.name, sequence, track.artist, 
+                                   artist.name
+                              from Track, AlbumJoin, Artist 
+                             where AlbumJoin.Track = Track.id and 
+                                   Track.Artist = Artist.id 
+                          order by Artist.name, AlbumJoin.Album, Track.Name\);
     $sth->execute();
     if ($sth->rows)
     {
@@ -55,15 +65,14 @@ sub FindDuplicates
         {
             $id = $row[0];
             $name = $row[1];
-            $album = $row[14];
-            $num = $row[16];
-            $artist = $row[19];
+            $num = $row[2];
+            $artist = $row[4];
             if ($name eq $last_name && 
                 ($num == 0 || $last_num == 0 || $num == $last_num))
             {
                 if ($artist ne $last_artist)
                 {
-                   print "<p><a href=\"/showartist.html?artistid=$row[18]\">";
+                   print "<p><a href=\"/showartist.html?artistid=$row[3]\">";
                    print "<font size=\"+1\">$artist</font></a><br>";
                 }
 

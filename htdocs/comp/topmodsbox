@@ -4,30 +4,31 @@ my $result = $m->cache(action=>'retrieve');
 if (!defined($result)) 
 {
     my ($sth, @row);
-    my $mb = MusicBrainz->new();  
-    $mb->Login();
-
-    $sth = $mb->{DBH}->prepare(qq/select name, modsaccepted from ModeratorInfo
-                                  where id != / . ModDefs::FREEDB_MODERATOR . 
-                               qq/ order by modsaccepted desc limit 5/); 
-    if ($sth->execute)
+    my $mb = mc_comp("/comp/dblogin", quiet=>1);
+    if (defined $mb)
     {
-       my @row;
-
-       while(@row = $sth->fetchrow_array)
-       {
-          $result .=qq\<tr>
-                         <td align=right valign=top width=50% class="statsb">
-                             $row[0]:
-                         </td>
-                         <td align=left valign=top width=50% class="stats">
-                             $row[1]
-                         </td>
-                       </tr>\;
-       }
+        $sth = $mb->{DBH}->prepare(qq/select name, modsaccepted from Moderator
+                                      where id != / . ModDefs::FREEDB_MODERATOR . 
+                                   qq/ order by modsaccepted desc limit 5/); 
+        if ($sth->execute)
+        {
+           my @row;
+    
+           while(@row = $sth->fetchrow_array)
+           {
+              $result .=qq\<tr>
+                             <td align=right valign=top width=50% class="statsb">
+                                 $row[0]:
+                             </td>
+                             <td align=left valign=top width=50% class="stats">
+                                 $row[1]
+                             </td>
+                               </tr>\;
+           }
+        }
+        $mb->Logout();
     }
 
-    $mb->Logout();
     $m->cache(action=>'store', expire_next=>'hour', value=>$result);
 }
 </%perl>

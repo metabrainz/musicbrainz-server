@@ -1,5 +1,6 @@
 <%args>
 $artist
+$link=>0
 $nomod=>0
 </%args>
 
@@ -15,16 +16,20 @@ $sortname = $artist->GetSortName();
 <table>
   <tr>
     <td <% $bgcolor |n %> valign="top">
-      <span style="title"><font size=+2><% $name %><font></span>
+      <span style="title"><font size=+2><% $name |h %><font></span>
 %     if ($name ne $sortname) {
-          <br>(<% $sortname %>)
+          <br>(<% $sortname |h %>)
 %     }
     </td>
     <td>
 % if (exists $session{user} && !$nomod && 
-%     $artist->GetId() != Artist::VARTIST_ID &&
+%     $artist->GetId() != ModDefs::VARTIST_ID &&
 %     $name ne 'Unknown' && $name ne 'Various') {
-      [<a href="/editartist.html?id=<% $artist->GetId() %>">Edit</a> |
+      [
+% if ($link) {
+      <a href="/showartist.html?artistid=<% $artist->GetId() %>">View albums</a> |
+% }
+      <a href="/editartist.html?id=<% $artist->GetId() %>">Edit</a> |
       <a href="/mergeartist.html?id=<% $artist->GetId() %>">Merge</a>]
 % } else {
       &nbsp;

@@ -8,8 +8,6 @@ use CGI;
 
 my ($mb, $al, $url, $album, $valid, $di);
 
-$mb = new MusicBrainz;
-$mb->Login();
 
 $valid = $id;
 $valid =~ tr/_.\-A-Za-z0-9//d;
@@ -28,9 +26,9 @@ elsif (length($id) != 28 || substr($id, -1, 1) ne "-" || $valid ne "")
 }
 else
 {
-    $mb->Login();
-    $di = Diskid->new($mb->{DBH});
-    $album = $di->GetAlbumFromDiskId($id);
+    $mb = mc_comp("/comp/dblogin");
+    $di = Discid->new($mb->{DBH});
+    $album = $di->GetAlbumFromDiscid($id);
     if (defined $album)
     {
         $url = "/showalbum.html?albumid=$album";

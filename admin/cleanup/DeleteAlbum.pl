@@ -27,6 +27,12 @@ use lib "../../cgi-bin";
 use DBI;
 use DBDefs;
 use MusicBrainz;
+use Album;
+use Track;
+use Artist;
+use Alias;
+use TRM;
+
 require "Main.pl";
 
 # TODO: Make this script take multiple arguments so we can delete a whole
@@ -68,57 +74,25 @@ sub Cleanup
 sub DeleteAlbum
 {
     my ($dbh, $fix, $quiet, $thenum) = @_;
-    my ($id, $name, $album, $thetrack);
+    my ($al);
 
-    # RAK: If the fix flag is not given, we should really print out
-    #      human understandable output. 
-
-    #This query selects the tracks associated with the given album number
-    $sth = $dbh->prepare(qq\SELECT track FROM AlbumJoin WHERE (((AlbumJoin.Album)=$thenum))\);
-    $sth->execute();
-
-    #Loop through the returned queryset and make the sql to delete the tracks
-    if ($sth->rows)
+    if ($fix)
     {
-        my @row;
-
-        @row = $sth->fetchrow_array();
-        $track=$row[0];
-        $thetrack="DELETE from Track WHERE id=$track";
-        while(@row = $sth->fetchrow_array())
+        $al = Album->new($dbh);
+        $al->SetId($thenum);
+        $ret = $al->Remove();
+        if (!$quiet)
         {
-            $thetrack .= " OR id=$row[0]";
+            if (defined $ret)
+            {
+                print "Album $thenum deleted.\n";
+            }
+            else
+            {
+                print "Album coulnd not be deleted.\n";
+            }
         }
     }
-    else
-    {
-        $thetrack ="";
-    }
-    $sth->finish;
-
-    #Delete the tracks
-    if ($thetrack ne '')
-    {
-       print "$thetrack\n" if (!$quiet);
-       $dbh->do(qq\$thetrack\) if ($fix);
-    }
-
-    #Delete the album from albumjoin
-    print(qq/DELETE FROM AlbumJoin WHERE ALBUM=$thenum\n/) if (!$quiet);
-    $dbh->do(qq\DELETE FROM AlbumJoin WHERE ALBUM=$thenum\) if ($fix);
-
-    # RAK: Need to delete album from album table too!
-    print(qq/DELETE FROM Album WHERE ID=$thenum\n/) if (!$quiet);
-    $dbh->do(qq\DELETE FROM Album WHERE ID=$thenum\) if ($fix);
-
-    # RAK: Need to delete album from album table too!
-    print(qq/DELETE FROM Diskid WHERE Album=$thenum\n/) if (!$quiet);
-    $dbh->do(qq\DELETE FROM Diskid WHERE Album=$thenum\) if ($fix);
-
-    # RAK: It would be nice if the artist was deleted after the
-    #      last album was deleted.
-
-    print "\nAlbum deleted.\n" if ($fix);
 }
 
 Main(1);

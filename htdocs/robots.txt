@@ -17,7 +17,7 @@ Disallow: /newlogin.html
 Disallow: /search.html
 Disallow: /showalbum.html
 Disallow: /showartist.html
-Disallow: /showguid.html
+Disallow: /showtrm.html
 Disallow: /showlyrics.html
 Disallow: /showpending.html
 Disallow: /showsyncevents.html

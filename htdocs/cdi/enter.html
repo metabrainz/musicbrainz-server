@@ -11,13 +11,11 @@ my ($mb);
 my ($i, $artistname, $modpending, $ar);
 my ($dbh, $sth, $rv);
 
-$mb = new MusicBrainz;
 mc_comp("/comp/sidebar", title=>'Enter CD Information');
-
 
 if ($artist > 0)
 {
-   $mb->Login();
+   $mb = mc_comp("/comp/dblogin");
    $ar = Artist->new($mb->{DBH});
    $ar->SetId($artist);
    $ar->LoadFromId();

@@ -14,8 +14,7 @@ if ($modid == 0)
     return undef;
 }
 
-$mb = new MusicBrainz;
-$mb->Login();
+$mb = mc_comp("/comp/dblogin");
 
 $mod = Moderation->new($mb->{DBH});
 $mod = $mod->CreateFromId($modid);
@@ -42,12 +41,8 @@ else
    $text = "You didn't vote.";
 }
 
-my @entered = gmtime($mod->GetExpireTime());
-my $time = sprintf "%d-%02d-%02d %02d:%02d", 
-              $entered[5] + 1900,
-              $entered[4]+1, 
-              $entered[3], 
-              $entered[2], $entered[1];
+my $time = $mod->GetExpireTime();
+$time =~ s/:\d\d\..*$//;
 
 mc_comp("/comp/sidebar", title=>"Moderation $modid");
 
@@ -120,7 +115,7 @@ my $expired = ($mod->GetExpireTime() > time()) ? "s" : "d";
              &nbsp;&nbsp;&nbsp;&nbsp;
 %            $bold = ($obj->{user} eq $mod->GetModeratorName()) ?  'bold' : 'body';
              <font class="<% $bold %>"><% $obj->{user} %></font>:
-             <% $obj->{text} |n %><br> 
+             <% $obj->{text} |h %><br> 
 %         }
 %   } else {
           &nbsp;&nbsp;&nbsp;&nbsp; No notes.

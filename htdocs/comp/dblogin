@@ -1,0 +1,25 @@
+<%args>
+$quiet=>0
+</%args>
+
+<%perl>
+
+my ($mb);
+
+$mb = new MusicBrainz;
+if ($mb->Login() == 0)
+{
+    return undef if ($quiet);
+
+    $r->method('GET');
+    $r->headers_in->unset('Content-length');
+    
+    $r->content_type('text/html');
+    $r->header_out(Location=>"/bare/dbdown.html");
+    $r->status(302);
+    exit(0);
+}
+
+return $mb;
+
+</%perl>

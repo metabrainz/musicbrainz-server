@@ -19,12 +19,31 @@ their applications.
 The client library includes the following features:
 
 <ul>
-<li>Lookup Audio CD metadata using CD Index diskids
+<li>Lookup Audio CD metadata using CD Index Discids
 <li>Calculate <a href="http://www.relatable.com">Relatable TRM</a> acoustic 
     fingerprints
 <li>Search for artist/album/track titles
 <li>Lookup metadata by name, TRM ids or MusicBrainz Ids
 </ul>
+
+<p> 
+
+The client library source distribution comes with the following example
+programs:
+<UL>
+<li><a href="/docs/mb_client/examples.html#cdlookup">cdlookup.c</a>
+<li><a href="/docs/mb_client/examples.html#findartist">findartist.c</a>  
+<li><a href="/docs/mb_client/examples.html#findtrack">findtrack.c</a>  
+<li><a href="/docs/mb_client/examples.html#getartist">getartist.c</a>  
+<li><a href="/docs/mb_client/examples.html#getalbum">getalbum.c</a>   
+<li><a href="/docs/mb_client/examples.html#gettrack">gettrack.c</a>   
+<li><a href="/docs/mb_client/examples.html#gettrm">gettrm.c</a>
+<li><a href="/docs/mb_client/examples.html#submittrm">submittrm.c</a>
+</ul>
+
+<p>
+If you prefer to read code than documentation in order to learn this
+client library, please check out these code samples.
 
 <p>
 The client library is released under the 
@@ -33,9 +52,17 @@ which means that even
 developers of closed source applications can use the client library, 
 without having to open source their own code.
 
+<& /comp/section, title=>'Function & Query Reference' &>
+
 <p>
-If you prefer to read code than documentation in order to learn this
-client library, please check out the code in the examples directory.
+For details on the individual functions and queries mentioned in this HOWTO,
+please refer to the following pages:
+
+<ul>
+<li><a href="/docs/mb_client/index.html">Online Reference</a>
+<li><a href="/docs/mb_client/queries_h.html">Query Reference</a>
+<li><a href="/docs/mb_client/mb_c_h.html">Function Reference</a>
+</ul>
 
 <& /comp/section, title=>'Overview' &>
 
@@ -130,17 +157,6 @@ Relatable server and the server will assign and return a TRM ID to the given
 song. You can then use the TRM id to look up metadata for the song,
 and fill out the ID3 tags (or equivalent) automatically! 
 
-<& /comp/section, title=>'Function & Query Reference' &>
-
-<p>
-For details on the individual functions and queries mentioned in this HOWTO,
-please refer to the following pages:
-
-<ul>
-<li><a href="/docs/mb_client/index.html">Online Reference</a>
-<li><a href="/docs/mb_client/queries_h.html">Query Reference</a>
-<li><a href="/docs/mb_client/mb_c_h.html">Function Reference</a>
-</ul>
 
 <& /comp/section, title=>'Select & Get Documentation' &>
 

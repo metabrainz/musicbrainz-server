@@ -1,37 +1,36 @@
 <%args>
-$diskid=>""
+$discid=>""
 $albumid=>0
 $artistid=>0
 $confirm=>0
 </%args>
 
-<& /comp/sidebar, title=>'Move Diskid', expand=>'moderate' &>
+<& /comp/sidebar, title=>'Move Discid', expand=>'moderate' &>
 
 <%perl>
 
 my ($mb, $ar, @albums, $albumname, $al, $di, $count);
-my ($id, @diskid_refs, $ref, @tracks, $numtracks); 
+my ($id, @discid_refs, $ref, @tracks, $numtracks); 
 
 if ($confirm)
 {
     mc_comp("/comp/confirmmod", 
-            title=>"Confirm Move Diskid",
+            title=>"Confirm Move Discid",
             args=>{ %ARGS });
     return undef;
 }
 
-if ($diskid eq '' || $albumid == 0 || $artistid == 0)
+if ($discid eq '' || $albumid == 0 || $artistid == 0)
 {
     mc_comp("/comp/badargs");
     return undef;
 }
 
-$mb = new MusicBrainz;
-$mb->Login();
+$mb = mc_comp("/comp/dblogin");
 
 $ar = Artist->new($mb->{DBH});
 $al = Album->new($mb->{DBH});
-$di = Diskid->new($mb->{DBH});
+$di = Discid->new($mb->{DBH});
 
 $al = Album->new($mb->{DBH});
 $al->SetId($albumid);
@@ -45,17 +44,17 @@ if (scalar(@albums) == 0)
     return undef;
 }
   
-@diskid_refs = $di->GetDiskIdFromAlbum($albumid);
-if (scalar(@diskid_refs) == 0)
+@discid_refs = $di->GetDiscidFromAlbum($albumid);
+if (scalar(@discid_refs) == 0)
 {
-    mc_out("Invalid diskid and album passed.\n");
+    mc_out("Invalid discid and album passed.\n");
     return undef;
 }
 
 $id = -1;
-foreach $ref (@diskid_refs)
+foreach $ref (@discid_refs)
 {
-    if ($ref->{diskid} eq $diskid)
+    if ($ref->{discid} eq $discid)
     {
         $id = $ref->{id};
         if ($ref->{toc} =~ /^\d+ (\d+)/)
@@ -68,7 +67,7 @@ foreach $ref (@diskid_refs)
 
 if ($id < 0)
 {
-    mc_out("Invalid diskid and album passed.\n");
+    mc_out("Invalid discid and album passed.\n");
     return undef;
 }
 
@@ -85,15 +84,15 @@ if ($id < 0)
 %     $count = 0;
 %     foreach $ref (@albums) {
 %        next if ($ref->GetId() == $albumid);
-%        next if ($ref->GetArtist() == Artist::VARTIST_ID);
+%        next if ($ref->GetArtist() == ModDefs::VARTIST_ID);
 %        @tracks = $ref->LoadTracks();
 %        next if ($numtracks != scalar(@tracks));
 %        if ($count == 0) {
             Select a new album for CD Index Id 
-            <span class="bold"><% $diskid %></span>:<p>
+            <span class="bold"><% $discid %></span>:<p>
 %        }
 %        $count++;
-            <form method="POST" action="/movediskid.html"
+            <form method="POST" action="/movediscid.html"
                   enctype="application/x-www-form-urlencoded" class="formstyle">
               <table width="100%">
               <tr>
@@ -104,7 +103,7 @@ if ($id < 0)
                    <input type="submit" value="Select <% $albumname %>>>"
                           name="Select">
                    <input type="hidden" name="confirm_message" 
-                          value="Are you sure you want to move CD Index id <% '<font class="bold">' . $diskid . '</font>' |h %> to album <% '<font class="bold">' . $ref->GetName() .'</font>' |h %>?">
+                          value="Are you sure you want to move CD Index id <% '<font class="bold">' . $discid . '</font>' |h %> to album <% '<font class="bold">' . $ref->GetName() .'</font>' |h %>?">
 
 
                    <input type="hidden" name="key0" value="NewAlbumId">
@@ -116,16 +115,16 @@ if ($id < 0)
                    <input type="hidden" name="key2" value="NewAlbumName">
                    <input type="hidden" name="value2" 
                           value="<% $ref->GetName() %>">
-                   <input type="hidden" name="key3" value="DiskId">
+                   <input type="hidden" name="key3" value="DiscId">
                    <input type="hidden" name="value3" 
-                          value="<% $diskid %>">
+                          value="<% $discid %>">
                    <input type="hidden" name="confirm" value="1">
                    <input type="hidden" name="artist" value="<% $artistid %>">
                    <input type="hidden" name="type"
-                          value="<% ModDefs::MOD_MOVE_DISKID %>">
+                          value="<% ModDefs::MOD_MOVE_DISCID %>">
                    <input type="hidden" name="prev" value="<% $albumid %>">
-                   <input type="hidden" name="table" value="Diskid">
-                   <input type="hidden" name="column" value="Disk">
+                   <input type="hidden" name="table" value="Discid">
+                   <input type="hidden" name="column" value="Disc">
                    <input type="hidden" name="id" value="<% $id %>">
                    <input type="hidden" 
                           name="url" 
@@ -137,7 +136,7 @@ if ($id < 0)
 %     }
 %     if ($count == 0) {
       <p>This artist does not have any albums with <% $numtracks %> tracks
-      and therefore the id <% $diskid %> cannot be moved.<p>
+      and therefore the id <% $discid %> cannot be moved.<p>
       <a href="/showalbum.html?albumid=<% $albumid %>">Back</a> to
       album <% $al->GetName() %>.
 %     } else {

@@ -34,18 +34,17 @@ use TableBase;
 use MusicBrainz;
 use UserStuff;
 use Album;
-use Diskid;
+use Discid;
 use TableBase;
 use Artist;
-use Genre;
-use Pending;
 use Track;
 use Lyrics;
 use UserStuff;
 use Moderation;
-use GUID;  
+use TRM;  
 use FreeDB;  
 use Insert;  
+use SearchEngine;  
 use RDFStore::Parser::SiRPAC;  
 use Digest::SHA1 qw(sha1_hex);
 use Apache::Session::File;
@@ -140,24 +139,24 @@ sub Extract
    return $currentURI;
 }
 
-sub GenerateCDInfoObjectFromDiskId
+sub GenerateCDInfoObjectFromDiscid
 {
    my ($dbh, $doc, $rdf, $id, $numtracks, $toc) = @_;
    my ($di);
 
-   return $rdf->ErrorRDF("No DiskId given.") if (!defined $id);
+   return $rdf->ErrorRDF("No Discid given.") if (!defined $id);
 
    # Check to see if the album is in the main database
-   $di = Diskid->new($dbh);
-   return $di->GenerateAlbumFromDiskId($rdf, $id, $numtracks, $toc);
+   $di = Discid->new($dbh);
+   return $di->GenerateAlbumFromDiscid($rdf, $id, $numtracks, $toc);
 }
 
 sub AssociateCDFromAlbumId
 {
-   my ($dbh, $doc, $rdf, $diskid, $toc, $albumid) = @_;
+   my ($dbh, $doc, $rdf, $Discid, $toc, $albumid) = @_;
 
-   my $di = Diskid->new($dbh);
-   $di->Insert($diskid, $albumid, $toc);
+   my $di = Discid->new($dbh);
+   $di->Insert($Discid, $albumid, $toc);
 }
 
 sub GetCDInfoMM2
@@ -165,7 +164,7 @@ sub GetCDInfoMM2
    my ($dbh, $triples, $rdf, $id, $numtracks) = @_;
    my ($sql, @row, $album, $di, $toc, $i, $currentURI);
 
-   return $rdf->ErrorRDF("No DiskId given.") if (!defined $id);
+   return $rdf->ErrorRDF("No Discid given.") if (!defined $id);
 
    if (defined $numtracks)
    {
@@ -178,16 +177,16 @@ sub GetCDInfoMM2
    }
 
    # Check to see if the album is in the main database
-   $di = Diskid->new($dbh);
-   return $di->GenerateAlbumFromDiskId($rdf, $id, $numtracks, $toc);
+   $di = Discid->new($dbh);
+   return $di->GenerateAlbumFromDiscid($rdf, $id, $numtracks, $toc);
 }
 
 sub AssociateCDMM2
 {
-   my ($dbh, $triples, $rdf, $diskid, $albumid) = @_;
+   my ($dbh, $triples, $rdf, $Discid, $albumid) = @_;
    my ($numtracks, $di, $toc, $i, $currentURI);
 
-   return $rdf->ErrorRDF("No DiskId given.") if (!defined $diskid);
+   return $rdf->ErrorRDF("No Discid given.") if (!defined $Discid);
    
    $currentURI = $$triples[0]->subject->getLabel;
    $numtracks = QuerySupport::Extract($triples, $currentURI, $i, EXTRACT_NUMTRACKS_QUERY);
@@ -198,124 +197,57 @@ sub AssociateCDMM2
    }
 
    # Check to see if the album is in the main database
-   $di = Diskid->new($dbh);
-   $di->Insert($diskid, $albumid, $toc);
+   $di = Discid->new($dbh);
+   $di->Insert($Discid, $albumid, $toc);
 }
 
 # returns artistList
 sub FindArtistByName
 {
-   my ($dbh, $doc, $rdf, $search) = @_;
-   my ($sql, $query, @row, @ids, $tb);
+   my ($dbh, $doc, $rdf, $search, $limit) = @_;
+   my ($sql, @ids);
 
    return $rdf->ErrorRDF("No artist search criteria given.") 
       if (!defined $search);
    return undef if (!defined $dbh);
 
-   $tb = TableBase->new($dbh);
-   $query = $tb->AppendWhereClause($search, "select id from Artist where ", 
-                                 "Name");
-   $query .= " order by name";
+   $limit = 25 if not defined $limit;
 
-   $sql = Sql->new($dbh);
-   if ($sql->Select($query))
+   my $engine = SearchEngine->new;
+   $engine->Table('Artist');
+   $engine->AllWords(1);
+   $engine->Limit($limit);
+   $engine->Search($search);
+
+   while (my $row = $engine->NextRow) 
    {
-        while(@row = $sql->NextRow())
-        {
-            push @ids, $row[0];
-        }
-        $sql->Finish;
+       push @ids, $row->[0];
    }
 
    return $rdf->CreateArtistList($doc, @ids);
 }
 
-# returns an albumList
-sub FindAlbumsByArtistName
-{
-   my ($dbh, $doc, $rdf, $search) = @_;
-   my ($query, $sql, @row, @ids);
-
-   return $rdf->ErrorRDF("No artist search criteria given.") 
-      if (!defined $search);
-   return undef if (!defined $dbh);
-
-   # This query finds single artist albums
-   my $tb = TableBase->new($dbh);
-   $query = $tb->AppendWhereClause($search, qq/select Album.id from Album, 
-                  Artist where Album.artist = Artist.id and /, "Artist.Name");
-   $query .= " order by Album.name";
-
-   $sql = Sql->new($dbh);
-   if ($sql->Select($query))
-   {
-        while(@row = $sql->NextRow())
-        {
-            push @ids, $row[0];
-        }
-        $sql->Finish;
-   }
-
-   # This query finds multiple artist albums
-   $query = $tb->AppendWhereClause($search, qq/select Album.id from Album, 
-          Artist,Track,AlbumJoin where Album.artist = / . 
-          Artist::VARTIST_ID . qq/ and Track.Artist = 
-          Artist.id and AlbumJoin.track = Track.id and AlbumJoin.album = 
-          Album.id and Artist.name and /, "Artist.name");
-   $query .= " order by Album.name";
-
-   if ($sql->Select($query))
-   {
-        while(@row = $sql->NextRow())
-        {
-            push @ids, $row[0];
-        }
-        $sql->Finish;
-   }
-
-   return $rdf->CreateAlbumList(@ids);
-}
-
 # returns albumList
 sub FindAlbumByName
 {
-   my ($dbh, $doc, $rdf, $search, $artist) = @_;
-   my ($sql, $query, @row, @ids);
+   my ($dbh, $doc, $rdf, $search, $limit) = @_;
+   my ($sql, @ids);
 
    return $rdf->ErrorRDF("No album search criteria given.") 
-      if (!defined $search && !defined $artist);
+      if (!defined $search);
    return undef if (!defined $dbh);
 
-   $sql = Sql->new($dbh);
-   my $tb = TableBase->new($dbh);
-   if (defined $artist && $artist ne '')
-   {
-       $artist = $sql->Quote($artist);
-       if (defined $search)
-       {
-           $query = $tb->AppendWhereClause($search, "select Album.id from Album, Artist where Artist.name = $artist and Artist.id = Album.artist and " , "Album.Name");
-       }
-       else
-       {
-           $query = "select Album.id from Album, Artist where ".
-                  "Album.artist=Artist.id and Artist.name = $artist";
-       }
-   }
-   else
-   {
-       $query = $tb->AppendWhereClause($search, "select Album.id from Album where ", "Album.Name");
-   }
+   $limit = 25 if not defined $limit;
 
-   print STDERR "$query\n";
-   $query .= " order by Album.name";   
+   my $engine = SearchEngine->new;
+   $engine->Table('Album');
+   $engine->AllWords(1);
+   $engine->Limit($limit);
+   $engine->Search($search);
 
-   if ($sql->Select($query))
+   while (my $row = $engine->NextRow) 
    {
-        while(@row = $sql->NextRow())
-        {
-            push @ids, $row[0];
-        }
-        $sql->Finish;
+       push @ids, $row->[0];
    }
 
    return $rdf->CreateAlbumList(@ids);
@@ -324,79 +256,31 @@ sub FindAlbumByName
 # returns trackList
 sub FindTrackByName
 {
-   my ($dbh, $doc, $rdf, $search, $album, $artist) = @_;
-   my ($query, $sql, @row, $count, @ids);
+   my ($dbh, $doc, $rdf, $search, $limit) = @_;
+   my ($sql, @ids);
 
    return $rdf->ErrorRDF("No track search criteria given.") 
-      if (!defined $search && !defined $artist && !defined $album);
+      if (!defined $search);
    return undef if (!defined $dbh);
 
-   my $tb = TableBase->new($dbh);
-   $sql = Sql->new($dbh);
-   if (defined $search)
-   {
-       if (!defined $album && !defined $artist)
-       {
-           $query = $tb->AppendWhereClause($search,
-             qq/select Track.id from Track, Album, Artist, AlbumJoin where 
-                Track.artist = Artist.id and AlbumJoin.track = Track.id 
-                and AlbumJoin.album = Album.id and /,
-                "Track.Name") .  " order by Track.name";
-       }
-       else
-       {
-           if (defined $artist  && !defined $album)
-           {
-               $artist = $sql->Quote($artist);
-               $query = $tb->AppendWhereClause($search,
-                 qq/select Track.id from Track, Album, Artist, AlbumJoin 
-                    where Track.artist = Artist.id and AlbumJoin.track = 
-                    Track.id and AlbumJoin.album = Album.id and Artist.name = 
-                    $artist and /, "Track.Name") . " order by Track.name";
+   $limit = 25 if not defined $limit;
 
-           }
-           else
-           {
-               $album = $sql->Quote($album);
-               $query = $tb->AppendWhereClause($search,
-                 qq/select Track.id from Track, Album, Artist, AlbumJoin
-                 where Track.artist = Artist.id and AlbumJoin.track = 
-                 Track.id and AlbumJoin.album = Album.id and Album.name = 
-                 $album and /, "Track.Name") .  " order by Track.name";
-           }
-       }
-   }
-   else
-   {
-       if (defined $album && defined $artist)
-       {
-           $artist = $sql->Quote($artist);
-           $album = $sql->Quote($album);
-           $query = qq/select Track.id from Track, Album, Artist where 
-                     Track.Artist = Artist.id and AlbumJoin.track = Track.id 
-                     and AlbumJoin.album = Album.id and Album.name = $album 
-                     and Artist.name = $artist/;
-       }
-       else
-       {
-           return $rdf->ErrorRDF("Invalid track search criteria given.") 
-       }
-   }
+   my $engine = SearchEngine->new;
+   $engine->Table('Track');
+   $engine->AllWords(1);
+   $engine->Limit($limit);
+   $engine->Search($search);
 
-   if ($sql->Select($query))
+   while (my $row = $engine->NextRow) 
    {
-        while(@row = $sql->NextRow())
-        {
-            push @ids, $row[0];
-        }
-        $sql->Finish;
+       push @ids, $row->[0];
    }
 
    return $rdf->CreateTrackList(@ids);
 }
 
-# returns GUIDList
-sub FindDistinctGUID
+# returns TRMList
+sub FindDistinctTRM
 {
    my ($dbh, $doc, $rdf, $name, $artist) = @_;
    my ($sql, $query, @ids, @row);
@@ -413,12 +297,12 @@ sub FindDistinctGUID
       # This query finds single track id by name and artist
       $name = $sql->Quote($name);
       $artist = $sql->Quote($artist);
-      $query = qq/select distinct GUID.guid from Track, Artist, GUIDJoin, GUID 
-                where Track.artist = Artist.id and 
-                GUIDJoin.track = Track.id and
-                GUID.id = GUIDJoin.guid and
-                lower(Artist.name) = lower($artist) and 
-                lower(Track.Name) = lower($name)/;
+      $query = qq/select distinct TRM.TRM from Track, Artist, TRMJoin, TRM 
+                   where Track.artist = Artist.id and 
+                         TRMJoin.track = Track.id and
+                         TRM.id = TRMJoin.TRM and
+                         Artist.name ilike $artist and 
+                         Track.Name ilike $name/;
 
       if ($sql->Select($query))
       {
@@ -434,7 +318,7 @@ sub FindDistinctGUID
       }
    }
 
-   return $rdf->CreateGUIDList(@ids);
+   return $rdf->CreateTRMList(@ids);
 }
 
 # returns artistList
@@ -466,7 +350,7 @@ sub GetAlbumByGlobalId
 
    $sql = Sql->new($dbh);
    $id = $sql->Quote($id);
-   ($album) = $sql->GetSingleRow("Album", ["id"], ["gid", $id]);
+   ($album) = $sql->GetSingleRowLike("Album", ["id"], ["gid", $id]);
 
    return $rdf->CreateAlbum(0, $album);
 }
@@ -483,17 +367,17 @@ sub GetTrackByGlobalId
 
    $sql = Sql->new($dbh);
    $id = $sql->Quote($id);
-   @ids = $sql->GetSingleRow("Album, Track, AlbumJoin", 
-                             ["Track.id"], 
-                             ["Track.gid", $id,
-                              "AlbumJoin.track", "Track.id",
-                              "AlbumJoin.album", "Album.id"]);
+   @ids = $sql->GetSingleRowLike("Album, Track, AlbumJoin", 
+                                 ["Track.id"], 
+                                 ["Track.gid", $id,
+                                  "AlbumJoin.track", "Track.id",
+                                  "AlbumJoin.album", "Album.id"]);
 
    return $rdf->CreateTrackList(@ids);
 }
 
 # returns trackList
-sub GetTrackByGUID
+sub GetTrackByTRM
 {
    my ($dbh, $doc, $rdf, $id) = @_;
    my ($sql, @ids);
@@ -504,10 +388,10 @@ sub GetTrackByGUID
 
    $sql = Sql->new($dbh);
    $id = $sql->Quote($id);
-   @ids = $sql->GetSingleRow("GUID, GUIDJoin",
-                             ["Track"], 
-                             ["GUIDJoin.GUID", "GUID.id",
-                              "GUID.GUID", $id]);
+   @ids = $sql->GetSingleRowLike("TRM, TRMJoin",
+                                 ["Track"], 
+                                 ["TRM.TRM", $id,
+                                 "TRMJoin.TRM", "TRM.id"]);
 
    return $rdf->CreateTrackList(@ids);
 }
@@ -524,9 +408,9 @@ sub GetAlbumsByArtistGlobalId
 
    $sql = Sql->new($dbh);
    $id = $sql->Quote($id);
-   @ids = $sql->GetSingleColumn("Album, Artist", "Album.id", 
-                                ["Artist.gid", $id,
-                                 "Album.artist", "Artist.id"]);
+   @ids = $sql->GetSingleColumnLike("Album, Artist", "Album.id", 
+                                    ["Artist.gid", $id,
+                                     "Album.artist", "Artist.id"]);
 
    return $rdf->CreateAlbumList(@ids);
 }
@@ -538,11 +422,11 @@ sub LookupMetadata
 
    #PrintData("Lookup:", $id);
 
-   $gu = GUID->new($dbh);
+   $gu = TRM->new($dbh);
    $tr = Track->new($dbh);
 
    # has this data been accepted into the database?
-   @ids = $gu->GetTrackIdsFromGUID($id);
+   @ids = $gu->GetTrackIdsFromTRM($id);
    if (scalar(@ids) > 0)
    {
       my (@data, $i);
@@ -567,7 +451,7 @@ sub PrintData
      print STDERR "  Artist: $data[1]\n";
      print STDERR "   Album: $data[2]\n";
      print STDERR "     Seq: $data[3]\n";
-     print STDERR "    GUID: $data[4]\n";
+     print STDERR "    TRM: $data[4]\n";
      print STDERR "Filename: $data[5]\n";
      print STDERR "    Year: $data[6]\n";
      print STDERR "   Genre: $data[7]\n";
@@ -588,7 +472,7 @@ sub PrintData
 #  1  Artist
 #  2  Album
 #  3  Sequence
-#  4  GUID
+#  4  TRM
 #  5  Filename
 #  6  Year
 #  7  Genre
@@ -613,70 +497,14 @@ sub ExchangeMetadata
    if (!DBDefs::DB_READ_ONLY)
    {
        $ar = Artist->new($dbh);
-       $gu = GUID->new($dbh);
-       $pe = Pending->new($dbh);
+       $gu = TRM->new($dbh);
        $tr = Track->new($dbh);
 
-       # Is a bitprint or a sha1 being passed in for $data[10]?
-       if (length($data[10]) == 88)
-       {
-           my $i;
-
-           # If its a bitprint, save this submission into the Bitzi archive
-           $pe->InsertIntoBitziArchive(@data);
-
-           # And convert the bitprint to a sha1 by lopping off 
-           # the last 48 bytes
-           $data[10] =~ s/.{48}$//;
-
-           for($i = 0; $i < 7; $i++)
-           {
-               pop @data;
-           }
-       }
-
        # has this data been accepted into the database?
-       @ids = $gu->GetTrackIdsFromGUID($data[4]);
-       if (scalar(@ids) == 0)
-       {
-           #print STDERR "Not in database\n";
-           # No it has not.
-           @ids = $pe->GetIdsFromGUID($data[4]);
-           if (scalar(@ids) == 0)
-           {
-               #print STDERR "Not in pending\n";
-               if (defined $data[0] && $data[0] ne '' &&
-                   defined $data[4] && $data[4] ne '' &&
-                   defined $data[1] && $data[1] ne '' &&
-                   defined $data[2] && $data[2] ne '')
-               {
-                   # Check to see if this track already exits, but we do
-                   # not have a GUID for it. If so, associate the GUID,
-                   # otherwise insert into the pending table
-                   if (!$gu->AssociateGUID($data[4], $data[0], 
-                                           $data[1], $data[2]))
-                   {
-                      #print STDERR "Insert into pending\n";
-                      $pe->Insert(@data);
-                   }
-                   else
-                   {
-                      #print STDERR "Associated trmid\n";
-                   }
-               }
-           }
-           else
-           {
-                #print STDERR "Found in pending.\n";
-                # Do the metadata glom
-                CheckMetadata($dbh, $rdf, $pe, \@data, \@ids); 
-           }
-       }
-       else
+       @ids = $gu->GetTrackIdsFromTRM($data[4]);
+       if (scalar(@ids) > 0)
        {
            my (@db_data, $i);
-
-           #print STDERR "Found in database\n";
 
            # @db_data will contain 5 items, in the same order as shown above
            @db_data = $tr->GetMetadataFromIdAndAlbum($ids[0], $data[2]);
@@ -691,7 +519,6 @@ sub ExchangeMetadata
                  }
               }
            }
-           #PrintData("Matched database (outgoing):", @data);
        }
    }
 
@@ -763,7 +590,7 @@ sub CheckMetadata
                $ref2 = $$ref[0];
                $pe->InsertIntoInsertHistory($ref2->{track_insertid});
            }
-           $pe->DeleteByGUID($$data[4]);
+           $pe->DeleteByTRM($$data[4]);
            return;
        }
    }
@@ -771,7 +598,7 @@ sub CheckMetadata
 
 sub SubmitTrack
 {
-   my ($dbh, $doc, $rdf, $name, $guid, $artist, $album, $seq,
+   my ($dbh, $doc, $rdf, $name, $TRM, $artist, $album, $seq,
        $len, $year, $genre, $comment) = @_;
    my (@albumids, %info, $in, $ret);
 
@@ -799,7 +626,7 @@ sub SubmitTrack
           track => $name,
           tracknum => $seq,
           duration => $len, 
-          trmid => $guid
+          trmid => $TRM
        }
      ];
 
@@ -824,7 +651,7 @@ sub SubmitTRMList
    }
 
    $sql = Sql->new($dbh);
-   $gu = GUID->new($dbh);
+   $gu = TRM->new($dbh);
 
    $uri = (@$triples)[0]->subject->getLabel;
    for($i = 1; ; $i++)
@@ -847,11 +674,11 @@ sub SubmitTRMList
        $trackid = $sql->Quote($trackid);
 
        #lookup the IDs associated with the $trackGID
-       @ids = $sql->GetSingleRow("Album, Track, AlbumJoin", 
-                                 ["Track.id"], 
-                                 ["Track.gid", $trackid,
-                                  "AlbumJoin.track", "Track.id",
-                                  "AlbumJoin.album", "Album.id"]);
+       @ids = $sql->GetSingleRowLike("Album, Track, AlbumJoin", 
+                                     ["Track.id"], 
+                                     ["Track.gid", $trackid,
+                                      "AlbumJoin.track", "Track.id",
+                                      "AlbumJoin.album", "Album.id"]);
        if (scalar(@ids) == 0 || !defined($ids[0]))
        {
            print STDERR "Invalid MB Track Id: $trackid\n";
@@ -1139,13 +966,13 @@ sub QuickTrackInfoFromTRMId
 
    $sql = Sql->new($dbh);
    $id = $sql->Quote($id);
-   @data = $sql->GetSingleRow(
-      "GUID, GUIDJoin, Track, AlbumJoin, Album, Artist", 
+   @data = $sql->GetSingleRowLike(
+      "TRM, TRMJoin, Track, AlbumJoin, Album, Artist", 
       ["Track.name", "Artist.name", "Album.name", 
        "AlbumJoin.sequence", "Track.GID", "Track.Length"],
-      ["GUID.guid", $id,
-       "GUIDJoin.guid", "GUID.id",
-       "GUIDJoin.track", "Track.id",
+      ["TRM.TRM", $id,
+       "TRMJoin.TRM", "TRM.id",
+       "TRMJoin.track", "Track.id",
        "Track.id", "AlbumJoin.track",
        "Album.id", "AlbumJoin.album",
        "Track.Artist", "Artist.id"]);
@@ -1158,7 +985,10 @@ sub QuickTrackInfoFromTRMId
    $out .= $rdf->Element("mq:trackName", $data[0]);
    $out .= $rdf->Element("mm:trackNum", $data[3]);
    $out .= $rdf->Element("mm:trackid", $data[4]);
-   $out .= $rdf->Element("mm:duration", $data[5]);
+   if ($data[5] != 0)
+   {
+       $out .= $rdf->Element("mm:duration", $data[5]);
+   }
    $out .= $rdf->EndDesc("mq:Result");
    $out .= $rdf->EndRDFObject;
 
@@ -1179,9 +1009,10 @@ sub QuickTrackInfoFromTrackId
    $sql = Sql->new($dbh);
    $tid = $sql->Quote($tid);
    $aid = $sql->Quote($aid);
-   @data = $sql->GetSingleRow(
+   @data = $sql->GetSingleRowLike(
       "Track, AlbumJoin, Album, Artist", 
-      ["Track.name", "Artist.name", "Album.name", "AlbumJoin.sequence"],
+      ["Track.name", "Artist.name", "Album.name", 
+       "AlbumJoin.sequence", "Track.Length"],
       ["Track.gid", $tid,
        "AlbumJoin.album", "Album.id",
        "Album.gid", $aid,
@@ -1196,6 +1027,10 @@ sub QuickTrackInfoFromTrackId
    $out .= $rdf->Element("mq:albumName", $data[2]);
    $out .= $rdf->Element("mq:trackName", $data[0]);
    $out .= $rdf->Element("mm:trackNum", $data[3]);
+   if ($data[4] != 0) 
+   {
+        $out .= $rdf->Element("mm:duration", $data[4]);
+   }
    $out .= $rdf->EndDesc("mq:Result");
    $out .= $rdf->EndRDFObject;
 

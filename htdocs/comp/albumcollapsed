@@ -9,8 +9,8 @@ my ($trackcount, $trmcount, @ids, $di, $link);
 
 $trackcount = $album->GetTrackCount();
 $trmcount = $album->GetTRMCount();
-$di = Diskid->new($album->{DBH});
-@ids = $di->GetDiskIdFromAlbum($album->GetId());
+$di = Discid->new($album->{DBH});
+@ids = $di->GetDiscidFromAlbum($album->GetId());
 $link = "/showartist.html?artistid=" . $artist->GetId() . "&ex=";
 
 $ex .= "," . $album->GetId();

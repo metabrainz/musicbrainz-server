@@ -6,17 +6,33 @@ $url=>"/moderate.html?type=3"
 
 <%perl>
 
-my $mb = new MusicBrainz;
-$mb->Login();
+my $mb = mc_comp("/comp/dblogin");
 
 if ($modid > 0 && $confirm eq 'yes')
 {
     my $mod = Moderation->new($mb->{DBH});
+    my $sql = Sql->new($mb->{DBH});
 
     $mod = $mod->CreateFromId($modid);
     if (defined $mod)
     {
-        $mod->RemoveModeration();
+        eval
+        {
+            $sql->Begin;
+            $mod->RemoveModeration();
+            $sql->Commit;
+        };
+        if ($@)
+        {
+            my $err = $@;
+            $sql->Rollback;
+
+            mc_comp("/comp/sidebar", expand=>"moderation", 
+                                    title=>'Remove Moderation Error');
+            mc_out("<b>A database error occurred.</b><pre>($err)</pre>");
+            mc_comp("/comp/footer");
+            return undef;
+        }
     }
 }
 

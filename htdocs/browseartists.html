@@ -3,7 +3,6 @@
 my ($mb, @info, $row, $ind, $i, $offset, $num_artists, $ar, $rows);
 my $max_items = 50;
 
-$mb = new MusicBrainz;
 mc_comp("/comp/sidebar", title=>'Browse Artists');
 
 
@@ -31,7 +30,7 @@ if (!defined $ind || $ind eq '')
     exit(0);
 }
 
-$mb->Login();
+$mb = mc_comp("/comp/dblogin");
 $ar = Artist->new($mb->{DBH});
 
 ($num_artists, @info) = $ar->GetArtistDisplayList($ind, $offset, $max_items);

@@ -86,7 +86,6 @@ sub DumpArtists
     my (@row, $out, $last_id);
     my ($start, $nw, $count, $mx, $spr, $left, $mins, $hours, $secs);
 
-    $sql->Do("set SQL_BIG_TABLES = 1");
     if ($sql->Select(qq|select Artist.gid, Artist.name, Artist.sortname, 
                         Album.gid from Artist, Album where Artist.id = 
                         Album.artist order by Artist.sortname|))
@@ -137,7 +136,6 @@ sub DumpArtists
         print {$file} $out;
 
     }
-    $sql->Do("set SQL_BIG_TABLES = 0");
     $sql->Finish;
 }
 
@@ -149,7 +147,6 @@ sub DumpAlbums
     my ($sql2, @row2);
     my ($start, $nw, $count, $mx, $spr, $left, $mins, $hours, $secs);
 
-    $sql->Do("set SQL_BIG_TABLES = 1");
     if ($sql->Select(qq|select Album.gid, Artist.gid, Album.name, Track.gid,
                                Album.id, AlbumJoin.sequence
                           from Artist, Album, AlbumJoin, Track 
@@ -163,7 +160,7 @@ sub DumpAlbums
         $mx = $sql->Rows();
 
         $sql2 = Sql->new($sql->{DBH});
-        if (!$sql2->Select(qq|select album, disk from Diskid order by album|))
+        if (!$sql2->Select(qq|select album, disc from Discid order by album|))
         {
             die "Cannot start nested disk id query.\n";
         }
@@ -230,7 +227,6 @@ sub DumpAlbums
         print {$file} $out;
 
     }
-    $sql->Do("set SQL_BIG_TABLES = 0");
     $sql->Finish;
 }
 
@@ -242,7 +238,6 @@ sub DumpTracks
     my ($sql2, @row2);
     my ($start, $nw, $count, $mx, $spr, $left, $mins, $hours, $secs);
 
-    $sql->Do("set SQL_BIG_TABLES = 1");
     if ($sql->Select(qq|select Track.gid, Artist.gid, Track.name, Track.id
                           from Artist, Track 
                          where Artist.id = Track.artist 
@@ -254,10 +249,10 @@ sub DumpTracks
         $mx = $sql->Rows();
 
         $sql2 = Sql->new($sql->{DBH});
-        if (!$sql2->Select(qq|select GUIDJoin.track, GUID.guid
-                                from GUIDJoin, GUID
-                               where GUIDJoin.guid = GUID.id
-                            order by GUIDJoin.track|))
+        if (!$sql2->Select(qq|select TRMJoin.track, TRM.trm
+                                from TRMJoin, TRM
+                               where TRMJoin.trm = TRM.id
+                            order by TRMJoin.track|))
         {
             die "Cannot start trm id query.\n";
         }
@@ -316,7 +311,6 @@ sub DumpTracks
         print {$file} $out;
 
     }
-    $sql->Do("set SQL_BIG_TABLES = 0");
     $sql->Finish;
 }
 

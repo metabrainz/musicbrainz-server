@@ -11,8 +11,7 @@ if (!exists $ARGS{id} || $ARGS{id} eq '')
     return undef;
 }
 
-$mb = new MusicBrainz;
-$mb->Login();
+$mb = mc_comp("/comp/dblogin");
 $id = $ARGS{id};
 
 $ar = Artist->new($mb->{DBH});

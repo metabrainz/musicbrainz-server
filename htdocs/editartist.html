@@ -12,14 +12,13 @@ if (!exists $ARGS{id} || $ARGS{id} eq '')
 }
 
 $id = $ARGS{id};
-if ($id == Artist::VARTIST_ID)
+if ($id == ModDefs::VARTIST_ID)
 {
     mc_out("You cannot edit this artist.\n");
     return undef;
 }
 
-$mb = new MusicBrainz;
-$mb->Login();
+$mb = mc_comp("/comp/dblogin");
 
 $ar = Artist->new($mb->{DBH});
 $ar->SetId($id);

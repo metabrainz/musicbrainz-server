@@ -31,17 +31,26 @@ sub FindDuplicates
 {
     my ($dbh) = @_;
     my ($id, $name, $album, $num);
-    my (@tm, $last_artist);
+    my ($last_artist);
 
-    @tm = gmtime(time());
+    my @current = gmtime(time());
+    my $t = sprintf "%d-%02d-%02d %02d:%02d:%02d",
+              $current[5] + 1900,
+              $current[4]+1,
+              $current[3],
+              $current[2], $current[1], $current[0];
 
     print "<& /comp/sidebar, title=>'Tracks with too many capital letters' &>\n";
-    printf "Generated on %d/%d/%d %02d:%02d GMT. ",
-             $tm[4] + 1, $tm[3], $tm[5] + 1900, $tm[2], $tm[1];
+    print "Generated on: $t<br><br>";
     print 'All tracks which contain at least four sequential capital ';
     print "characters are listed below:<p><br>\n";
 
-    $sth = $dbh->prepare(qq\select * from Track, AlbumJoin, Artist where AlbumJoin.Track = Track.id and Track.Artist = Artist.id order by Artist.name, AlbumJoin.Album, Track.Name\);
+    $sth = $dbh->prepare(qq\select track.id, track.name, sequence, 
+                                   track.artist, artist.name 
+                              from Track, AlbumJoin, Artist 
+                             where AlbumJoin.Track = Track.id and 
+                                   Track.Artist = Artist.id 
+                          order by Artist.name, AlbumJoin.Album, Track.Name\);
     $sth->execute();
     if ($sth->rows)
     {
@@ -51,15 +60,14 @@ sub FindDuplicates
         {
             $id = $row[0];
             $name = $row[1];
-            $album = $row[14];
-            $num = $row[16];
-            $artist = $row[19];
+            $num = $row[2];
+            $artist = $row[4];
 
             if ($name =~ /unknown/i)
             {
                 if ($artist ne $last_artist)
                 {
-                   print "<p><a href=\"/showartist.html?artistid=$row[18]\">";
+                   print "<p><a href=\"/showartist.html?artistid=$row[3]\">";
                    print "<font size=\"+1\">$artist</font></a><br>";
                 }
 

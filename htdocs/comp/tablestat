@@ -8,31 +8,42 @@ $coltitles
 
 <%perl>
 
-my ($sth, $result, $i);
+my ($sth, $result, $i, $bgcolor);
 
 $sth = $mb->{DBH}->prepare($query);
 if ($sth->execute)
 {
    my @row;
  
-   $result = '<tr><TD valign=top>' . $title . '</td><td>';;
-   $result .= '<table><tr>';
+   $result = '<tr><TD valign=top>' . $title . '</td><td>';
+   $result .= qq|<table cellpadding="0" cellspacing="0" border="0" 
+                        bgcolor="#000000" width="100%">
+                 <tr><td bgcolor="#000000">
+                    <table width="100%" cellpadding="2" cellspacing="1" 
+                           border="0">
+                    <tr>
+                 |;
    for($i = 0; $i < $numcols; $i++)
    {
-       $result .= '<th valign=top>' . $$coltitles[$i]. '</th>';
+       $result .= '<th bgcolor="#FFFFFF" valign=top>' . $$coltitles[$i]. 
+                  '</th>';
    }
    $result .= '</tr>';
    while(@row = $sth->fetchrow_array)
    {
-       $result .= '<tr>';
+       $bgcolor = ( $bgcolor eq '#ffffff' ? '#ffe1b7' : '#ffffff' );
+       $result .= "<tr bgcolor=\"$bgcolor\">";
        for($i = 0; $i < $numcols; $i++)
        {
-           $result .= '<TD valign=top>' . $row[$i]. '</td>';
+           $result .= '<TD valign="top" align="center">' . $row[$i]. '</td>';
        }
        $result .= '</tr>';
    }
-   $result .= '</tr></table></td></tr>';
+   $result .= "</table>";
+   $result .= '</td></tr></table></td></tr>';
 }
 $sth->finish;
 return $result;
 </%perl>
+
+

@@ -12,8 +12,8 @@ my (@ids, $di, $id, $rows, $id_numtracks);
 
 if ($showids)
 {
-   $di = Diskid->new($album->{DBH});
-   @ids = $di->GetDiskIdFromAlbum($album->GetId());
+   $di = Discid->new($album->{DBH});
+   @ids = $di->GetDiscidFromAlbum($album->GetId());
 }
 
 if (scalar(@ids) > 0) 
@@ -22,7 +22,7 @@ if (scalar(@ids) > 0)
     foreach $id (@ids)
     {
        mc_out("<tr>");
-       if ($album->GetArtist() == Artist::VARTIST_ID) 
+       if ($album->GetArtist() == ModDefs::VARTIST_ID) 
        {
           mc_out('<td colspan="4" ');
        }
@@ -48,7 +48,7 @@ if (scalar(@ids) > 0)
        {
            mc_out('<font color="red">');
        }
-       mc_out($id->{diskid});
+       mc_out($id->{discid});
        if (defined $id_numtracks && $id_numtracks != $numtracks)
        {
            mc_out("</font><br>This id belongs to an album that " .
@@ -58,10 +58,10 @@ if (scalar(@ids) > 0)
        mc_out("<br></td><td nowrap align=\"center\">");
        if (exists $session{user} && !$nomod) 
        {
-           mc_out("<a href=\"/movediskid.html?diskid=$id->{diskid}&albumid=");
+           mc_out("<a href=\"/movediscid.html?discid=$id->{discid}&albumid=");
            mc_out($album->GetId() . "&artistid=");
            mc_out($artist->GetId() . "\">Move</a> | ");
-           mc_out("<a href=\"/remdiskid.html?diskid=$id->{diskid}&albumid=");
+           mc_out("<a href=\"/remdiscid.html?discid=$id->{discid}&albumid=");
            mc_out($album->GetId() . "\">Del</a>");
        }
        else
@@ -84,7 +84,7 @@ if (scalar(@ids) > 0)
    [ <a href="/addtrack.html?album=<% $album->GetId() %>&artist=<% $album->GetArtist() %>">Add a missing track</a> | 
    <a href="/movealbum.html?album=<% $album->GetId() %>&artist=<% $album->GetArtist() %>">Move</a> 
 %#   <a href="/mergealbum.html?album=<% $album->GetId() %>&artist=<% $album->GetArtist() %>">Merge</a> 
-%    if ($album->GetArtist() != Artist::VARTIST_ID) {
+%    if ($album->GetArtist() != ModDefs::VARTIST_ID) {
       | <a href="/tomac.html?album=<% $album->GetId() %>&artist=<% $album->GetArtist() %>&track=1">Convert to multiple artists</a>
 %    } else {
       | <a href="/tosac.html?album=<% $album->GetId() %>&artist=<% $album->GetArtist() %>&track=1">Convert to single artist</a>

@@ -34,7 +34,10 @@ use DBI;
 use DBDefs;
 use Artist;
 use Track;
+use Discid;
+use TRM;
 use SearchEngine;
+use ModDefs;
 
 sub new
 {
@@ -70,10 +73,11 @@ sub Insert
     $sql = Sql->new($this->{DBH});
     $name = $sql->Quote($this->{name});
     $id = $sql->Quote($this->CreateNewGlobalId());
+
     if ($sql->Do(qq/insert into Album (name,artist,gid,modpending)
                 values ($name,$this->{artist}, $id, 0)/))
     {
-        $album = $sql->GetLastInsertId;
+        $album = $sql->GetLastInsertId('Album');
         $this->{new_insert} = 1;
     }
 
@@ -98,10 +102,8 @@ sub Remove
     return if (!defined $album);
   
     $sql = Sql->new($this->{DBH});
-    print STDERR "DELETE: Removed Album " . $album . "\n";
-    $sql->Do("delete from Album where id = $album");
-    print STDERR "DELETE: Removed Diskid where album was " . $album . "\n";
-    $sql->Do("delete from Diskid where album = $album");
+    print STDERR "DELETE: Removed Discid where album was " . $album . "\n";
+    $sql->Do("delete from Discid where album = $album");
     print STDERR "DELETE: Removed TOC where album was " . $album . "\n";
     $sql->Do("delete from TOC where album = $album");
 
@@ -122,6 +124,9 @@ sub Remove
     # Remove references from album words table
     my $engine = SearchEngine->new( { Table => 'Album' } );
     $engine->RemoveObjectRefs($this->GetId());
+
+    print STDERR "DELETE: Removed Album " . $album . "\n";
+    $sql->Do("delete from Album where id = $album");
 
     return 1;
 }
@@ -154,10 +159,10 @@ sub GetTRMCount
    if (!exists $this->{trmcount} || !defined $this->{trmcount})
    {
         $sql = Sql->new($this->{DBH});
-        ($this->{trmcount}) = $sql->GetSingleRow("AlbumJoin, GUIDJoin", 
+        ($this->{trmcount}) = $sql->GetSingleRow("AlbumJoin, TRMJoin", 
                                   ["count(*)"], 
                                   ["album", $this->{id}, 
-                                   "AlbumJoin.track", "GUIDJoin.track"]);
+                                   "AlbumJoin.track", "TRMJoin.track"]);
    }
 
    return $this->{trmcount};
@@ -241,9 +246,9 @@ sub LoadFromName
    return undef if (!exists $this->{artist} || $this->{artist} eq '');
 
    $sql = Sql->new($this->{DBH});
-   @row = $sql->GetSingleRow("Album", [qw(id name GID modpending artist)],
-                             ["name", $sql->Quote($this->{name}),
-                              "artist", $this->{artist}]);
+   @row = $sql->GetSingleRowLike("Album", [qw(id name GID modpending artist)],
+                                 ["name", $sql->Quote($this->{name}),
+                                  "artist", $this->{artist}]);
    if (defined $row[0])
    {
         $this->{id} = $row[0];
@@ -260,24 +265,18 @@ sub LoadFromName
 # The array is empty if there are no tracks or on error
 sub LoadTracks
 {
-   my ($this) = @_;
-   my (@info, $query, $query2, $sql, $sql2, @row, @row2, $track);
+   my ($this, $full) = @_;
+   my (@info, $query, $query2, $sql, $sql2, @row, @row2, $track, $trm);
 
    $sql = Sql->new($this->{DBH});
+   $trm = TRM->new($this->{DBH});
    $query = qq|select Track.id, Track.name, Track.artist,
                       AlbumJoin.sequence, Track.length,
                       Track.modpending, AlbumJoin.modpending, Track.GID 
                from   Track, AlbumJoin 
                where  AlbumJoin.track = Track.id
                       and AlbumJoin.album = $this->{id} 
-               order  by AlbumJoin.sequence, AlbumJoin.id|;
-
-#       $query2 = qq|select AlbumJoin.track, count(GUIDJoin.track) as num_trm 
-#                      from AlbumJoin, GUIDJoin 
-#                     where AlbumJoin.album = $this->{id} and 
-#                           AlbumJoin.track = GUIDJoin.track 
-#                  group by AlbumJoin.track 
-#                  order by AlbumJoin.sequence, AlbumJoin.id|;
+             order by AlbumJoin.sequence|;
 
    if ($sql->Select($query))
    {
@@ -292,6 +291,16 @@ sub LoadTracks
            $track->SetModPending($row[5]);
            $track->SetAlbumJoinModPending($row[6]);
            $track->SetMBId($row[7]);
+
+           if (defined $full && $full)
+           {
+               my $ret = $trm->LoadFull($row[0]);
+               if (defined $ret)
+               {
+                   $track->{"_trms"} = $ret;
+               }
+           }
+
            push @info, $track;
        }
        $sql->Finish;
@@ -300,19 +309,63 @@ sub LoadTracks
    return @info;
 }
 
+# Load tracks for the given artist. Returns a reference to an array of references to
+# album objects, or undef if no albums or error
+sub LoadFull
+{
+   my ($this, $artist) = @_;
+   my (@info, $query, $sql, @row, $album, $di, $ret);
+
+   $sql = Sql->new($this->{DBH});
+   $di = Discid->new($this->{DBH});
+   $query = qq|select id, name, artist, gid 
+                 from Album 
+                where artist = $artist 
+                order by name|;
+   if ($sql->Select($query) && $sql->Rows)
+   {
+       for(;@row = $sql->NextRow();)
+       {
+           $album = Album->new($this->{DBH});
+           $album->SetId($row[0]);
+           $album->SetName($row[1]);
+           $album->SetArtist($row[2]);
+           $album->SetMBId($row[3]);
+           my @tracks = $album->LoadTracks(1);
+           if (scalar(@tracks) > 0)
+           {
+               $album->{"_tracks"} = \@tracks;
+           }
+
+           $ret = $di->LoadFull($row[0]);
+           if (defined $ret)
+           {
+               $album->{"_discids"} = $ret;
+           }
+           push @info, $album;
+       }
+       $sql->Finish;
+   
+       return \@info;
+   }
+
+   return undef;
+}
+
 sub LoadTracksFromMultipleArtistAlbum
 {
    my ($this) = @_;
    my (@info, $query, $sql, @row, $track);
 
    $sql = Sql->new($this->{DBH});
-   $query = qq/select Track.id, Track.name, Track.artist,
-               AlbumJoin.sequence, Track.length,
-               Track.modpending, AlbumJoin.modpending, Artist.name, 
-               Track.gid from
-               Track, AlbumJoin, Artist where AlbumJoin.track = Track.id
-               and AlbumJoin.album = $this->{id} and Track.Artist = Artist.id
-               order by AlbumJoin.sequence/;
+   $query = qq/select Track.id, Track.name, Track.artist, AlbumJoin.sequence, 
+                      Track.length, Track.modpending, AlbumJoin.modpending, 
+                      Artist.name, Track.gid 
+                 from Track, AlbumJoin, Artist 
+                where AlbumJoin.track = Track.id and 
+                      AlbumJoin.album = $this->{id} and 
+                      Track.Artist = Artist.id
+             order by AlbumJoin.sequence/;
    if ($sql->Select($query))
    {
        for(;@row = $sql->NextRow();)
@@ -343,12 +396,12 @@ sub LoadTRMCount
    my ($query, $sql, @row, %trmcount);
 
    $sql = Sql->new($this->{DBH});
-   $query = qq|select AlbumJoin.track, count(GUIDJoin.track) as num_trm 
-                      from AlbumJoin, GUIDJoin 
-                     where AlbumJoin.album = $this->{id} and 
-                           AlbumJoin.track = GUIDJoin.track 
-                  group by AlbumJoin.track 
-                  order by AlbumJoin.sequence, AlbumJoin.id|;
+   $query = qq|select AlbumJoin.track, count(TRMJoin.track) as num_trm 
+                 from AlbumJoin, TRMJoin 
+                where AlbumJoin.album = $this->{id} and 
+                      AlbumJoin.track = TRMJoin.track 
+             group by AlbumJoin.track, AlbumJoin.sequence, albumjoin.id 
+             order by AlbumJoin.sequence, AlbumJoin.id|;
 
    if ($sql->Select($query))
    {
@@ -362,53 +415,8 @@ sub LoadTRMCount
    return \%trmcount;
 }
 
-# Given an album search argument, this function searches for albums
-# that match in name, and then ruturns an array of references to arrays
-# of album id, album name, artist name, artist id. The array is empty on
-# error
-sub SearchByName
-{
-   my ($this, $search, $martist_only) = @_;
-   my (@info, $query, $sql, @row);
- 
-   $sql = Sql->new($this->{DBH});
-   if (!defined $martist_only || !$martist_only)
-   {
-       # Search for single artist albums
-       $query = $this->AppendWhereClause($search, qq/select Album.id, 
-                      Album.name, Artist.name, Artist.id from Album,Artist 
-                      where Album.artist = Artist.id and /, "Album.Name") . 
-                      " order by Album.name";
-       if ($sql->Select($query))
-       {
-           for(;@row = $sql->NextRow();)
-           {  
-               push @info, [$row[0], $row[1], $row[2], $row[3]];
-           }
-           $sql->Finish;
-       }
-   }
-
-   # Now search for multiple artist albums
-   $query = $this->AppendWhereClause($search, "select id, name " .
-           "from Album where artist = ". Artist::VARTIST_ID ." and ", "Name");
-   $query .= " order by name";
-
-   if ($sql->Select($query))
-   {
-       for(;@row = $sql->NextRow();)
-       {  
-           push @info, [$row[0], $row[1], 
-                       'Various Artists', Artist::VARTIST_ID];
-       }
-       $sql->Finish;
-   }
-
-   return @info;
-};
-
 # Given a list of albums, this function will merge the list of albums into
-# the current album. All DiskIds and TRM Ids are preserved in the process
+# the current album. All Discids and TRM Ids are preserved in the process
 sub MergeAlbums
 {
    my ($this, $intoMAC, @list) = @_;
@@ -429,7 +437,7 @@ sub MergeAlbums
    # If we're merging into a MAC, then set this album to a MAC album
    if ($intoMAC)
    {
-      $sql->Do("update Album set artist = " . Artist::VARTIST_ID . 
+      $sql->Do("update Album set artist = " . ModDefs::VARTIST_ID . 
                " where id = " . $this->GetId());
    }
 
@@ -446,7 +454,7 @@ sub MergeAlbums
            {
                 # We already have that track. Move any existing TRMs
                 # to the existing track
-                $sql->Do("update GUIDJoin set track = " .
+                $sql->Do("update TRMJoin set track = " .
                          $merged{$tr->GetSequence()}->GetId() . 
                          " where track = " . $tr->GetId());
            }
@@ -466,8 +474,8 @@ sub MergeAlbums
            }                
        }
 
-       # Also merge the Diskids
-       $sql->Do("update Diskid set Album = " . $this->GetId() . 
+       # Also merge the Discids
+       $sql->Do("update Discid set Album = " . $this->GetId() . 
                 " where Album = $id");
        $sql->Do("update TOC set Album = " . $this->GetId() . 
                 " where Album = $id");
@@ -493,30 +501,31 @@ sub GetVariousDisplayList
    return undef if ($ind_len <= 0);
 
    $sql = Sql->new($this->{DBH});
-   ($num_albums) =  $sql->GetSingleRow("Album", ["count(*)"], 
-                                        ["left(name, $ind_len)", 
+   ($num_albums) =  $sql->GetSingleRowLike("Album", ["count(*)"], 
+                                        ["substring(name from 1 for $ind_len)", 
                                          $sql->Quote($ind),
-                                         "Album.artist", Artist::VARTIST_ID]);
+                                         "Album.artist", ModDefs::VARTIST_ID]);
    return undef if (!defined $num_albums);
    
    if ($ind =~ m/_/)
    {
       $ind =~ s/_/[^A-Za-z]/g;
       $ind = "^$ind";
-      $query = qq/select id, sortname, modpending 
+      $query = qq/select id, name, modpending 
                   from   Album 
-                  where  name regexp "$ind" and
-                         Album.artist = / . Artist::VARTIST_ID . qq/
+                  where  name ~ '$ind' and
+                         Album.artist = / . ModDefs::VARTIST_ID . qq/
                   order  by name 
-                  limit  $offset, $max_items/;
+                  limit  $max_items offset $offset/;
+      print STDERR "$query\n";
    }
    else
    {
       $query = qq/select id, name, modpending from Album 
-                   where left(name, $ind_len) = '$ind' and
-                         Album.artist = / . Artist::VARTIST_ID . qq/
+                   where substring(name from 1 for $ind_len) ilike '$ind' and
+                         Album.artist = / . ModDefs::VARTIST_ID . qq/
                 order by name 
-                   limit $offset, $max_items/;
+                   limit $max_items offset $offset/;
    }
    if ($sql->Select($query))
    {

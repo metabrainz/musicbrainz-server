@@ -33,10 +33,11 @@ use Artist;
 use Album;
 use Track;
 use Alias;
-use GUID;
-use Diskid;
+use TRM;
+use Discid;
 use Moderation;
 use ModDefs;
+use Sql;
 
 use Data::Dumper;
 
@@ -82,7 +83,7 @@ sub GetError
 sub Insert
 {
     my ($this, $info) = @_; 
-    my ($ar, $al, $mar, $tr, $gu, $di);
+    my ($ar, $al, $mar, $tr, $gu, $di, $sql);
     my ($artist, $album, $sortname, $artistid, $albumid, $trackid);
     my ($forcenewalbum, @albumtracks, $albumtrack, $track, $found);
     my ($track_artistid);
@@ -97,49 +98,42 @@ sub Insert
     # Sanity check all the insert values
     if (!exists $info->{artist} && !exists $info->{artistid})
     {
-        $this->{error} = "Insert failed: no artist or artistid given.\n";
-        return undef;
+        die "Insert failed: no artist or artistid given.\n";
     }
     if (!exists $info->{album} && 
         !exists $info->{albumid} &&
         !exists $info->{artist_only})
     {
-        $this->{error} = "Insert failed: no album or albumid given.\n";
-        return undef;
+        die "Insert failed: no album or albumid given.\n";
     }
     if (!exists $info->{tracks} &&
         !exists $info->{artist_only})
     {
-        $this->{error} = "Insert failed: no tracks given.\n";
-        return undef;
+        die "Insert failed: no tracks given.\n";
     }
     if (exists $info->{cdindexid} && 
         (length($info->{cdindexid}) != 28 || 
          substr($info->{cdindexid}, -1, 1) ne '-'))
     {
-        $this->{error} = "Skipped failed: invalid cdindex id given.\n";
-        delete $info->{cdindexid};
+        die "Skipped failed: invalid cdindex id given.\n";
     }
     if (exists $info->{toc} && $info->{toc} eq '')
     {
-        $this->{error} = "Skipped failed: invalid toc given.\n";
-        delete $info->{toc};
+        die "Skipped failed: invalid toc given.\n";
     }
 
     $forcenewalbum = (exists $info->{forcenewalbum} && $info->{forcenewalbum});
     if ($forcenewalbum && exists $info->{albumid})
     {
-        $this->{error} = "Insert failed: you cannot force a new album and ";
-        $this->{error} = "provide an albumid.\n";
-        return undef;
+        die "Insert failed: you cannot force a new album and provide an albumid.\n";
     }
 
     $ar = Artist->new($this->{DBH});
     $mar = Artist->new($this->{DBH});
     $al = Album->new($this->{DBH});
     $tr = Track->new($this->{DBH});
-    $gu = GUID->new($this->{DBH});
-    $di = Diskid->new($this->{DBH});
+    $gu = TRM->new($this->{DBH});
+    $di = Discid->new($this->{DBH});
 
     # Try and resolve/check the artist name
     if (exists $info->{artistid})
@@ -148,8 +142,7 @@ sub Insert
         $ar->SetId($info->{artistid});
         if (!defined $ar->LoadFromId())
         {
-            $this->{error} = "Insert failed: Could not load artist: $info->{artistid}\n";
-            return undef;
+            die "Insert failed: Could not load artist: $info->{artistid}\n";
         }
 
         $artist = $ar->GetName();
@@ -162,8 +155,7 @@ sub Insert
 
         if ($info->{artist} eq '')
         {
-            $this->{error} = "Insert failed: no artist given.\n";
-            return undef;
+            die "Insert failed: no artist given.\n";
         }
         if (!exists $info->{sortname} || $info->{sortname} eq '')
         {
@@ -184,9 +176,8 @@ sub Insert
             $al->SetId($info->{albumid});
             if (!defined $al->LoadFromId())
             {
-                $this->{error} = "Insert failed: Could not load given " .
+                die "Insert failed: Could not load given " .
                                  "albumid.\n";
-                return undef;
             }
     
             $album = $al->GetName();
@@ -196,8 +187,7 @@ sub Insert
         {
             if ($info->{album} eq '')
             {
-                $this->{error} = "Insert failed: No album name given.\n";
-                return undef;
+                die "Insert failed: No album name given.\n";
             }
     
             $album = $info->{album};
@@ -208,8 +198,6 @@ sub Insert
     #print STDERR = "Sortname: '$sortname'\n";
     #print STDERR = "   Album: '$album'\n";
 
-    # TODO: BEGIN a DB transaction here
-
     # If we have no artistid, then insert the artist
     if (!defined $artistid)
     {
@@ -218,8 +206,7 @@ sub Insert
         $artistid = $ar->Insert();
         if (!defined $artistid)
         {
-            $this->{error} = "Insert failed: Cannot insert artist.\n";
-            return undef;
+            die "Insert failed: Cannot insert artist.\n";
         }
         $info->{artist_insertid} = $artistid if ($ar->GetNewInsert());
     }
@@ -228,7 +215,6 @@ sub Insert
     # If we're only inserting an artist, bail now
     if (exists $info->{artist_only})
     {
-        # TODO: Commit transaction here
         return 1;
     }
 
@@ -241,8 +227,7 @@ sub Insert
         # album does indeed go to the correct artist.
         if ($artistid != $al->GetArtist())
         {
-            $this->{error} = "Insert failed: Artist/Album id clash.\n";
-            return undef;
+            die "Insert failed: Artist/Album id clash.\n";
         }
     }
 
@@ -256,8 +241,7 @@ sub Insert
            $albumid = $al->Insert;
            if (!defined $albumid)
            {
-               $this->{error} = "Insert failed: cannot insert new album.\n";
-               return undef;
+               die "Insert failed: cannot insert new album.\n";
            }
            $info->{album_insertid} = $albumid if ($al->GetNewInsert());
         }
@@ -270,8 +254,7 @@ sub Insert
                $albumid = $al->Insert;
                if (!defined $albumid)
                {
-                   $this->{error} = "Insert failed: cannot insert new album.\n";
-                   return undef;
+                   die "Insert failed: cannot insert new album.\n";
                }
                $info->{album_insertid} = $albumid if ($al->GetNewInsert());
            }
@@ -301,18 +284,15 @@ sub Insert
     {
         if (!exists $track->{track} || $track->{track} eq '')
         {
-            $this->{error} = "Skipped Insert: Cannot insert blank track name\n";
-            next;
+            die "Skipped Insert: Cannot insert blank track name\n";
         }
         if (!exists $track->{tracknum} || $track->{tracknum} <= 0)
         {
-            $this->{error} = "Skipped Insert: Invalid track number\n";
-            next;
+            die "Skipped Insert: Invalid track number\n";
         }
         if (exists $track->{trmid} && length($track->{trmid}) != 36)
         {
-            $this->{error} = "Skipped Insert: Invalid trmid\n";
-            delete $track->{trmid};
+            die "Skipped Insert: Invalid trmid\n";
         }
         delete $track->{track_insertid};
         delete $track->{trm_insertid};
@@ -341,8 +321,6 @@ sub Insert
                     $track->{trm_insertid} = $newtrm if ($gu->GetNewInsert());
                 }
                 
-                #$print STDERR "Insert GUID.\n";
-
                 $found = 1;
                 last;
             }
@@ -376,26 +354,24 @@ sub Insert
         # Check to see if this track has an artist that needs to get
         # looked up/inserted.
         undef $track_artistid;
-        if (exists $track->{artist} && $artistid == Artist::VARTIST_ID)
+        if (exists $track->{artist} && $artistid == ModDefs::VARTIST_ID)
         {
             if ($track->{artist} eq '')
             {
-                $this->{error} = "Track Insert failed: no artist given.\n";
-                next;
+                die "Track Insert failed: no artist given.\n";
             }
             if (!exists $track->{sortname} || $track->{sortname} eq '')
             {
                 $track->{sortname} = $track->{artist};
             }
-    
+        
             # Load/insert artist
             $ar->SetName($track->{artist});
             $ar->SetSortName($track->{sortname});
             $track_artistid = $ar->Insert();
             if (!defined $track_artistid)
             {
-                $this->{error} = "Track Insert failed: Cannot insert artist.\n";
-                return undef;
+                die "Track Insert failed: Cannot insert artist.\n";
             }
             if ($ar->GetNewInsert())
             {
@@ -403,20 +379,18 @@ sub Insert
                 $track->{artist_insertid} = $track_artistid 
             }
         }
-        if (exists $track->{artistid} && $artistid == Artist::VARTIST_ID)
+        if (exists $track->{artistid} && $artistid == ModDefs::VARTIST_ID)
         {
             $ar->SetId($track->{artistid});
             if (!defined $ar->LoadFromId())
             {
-                $this->{error} = "Track Insert failed: Could not load artist: " .
-                                 "$info->{artistid}\n";
-                next;
+                die "Track Insert failed: Could not load artist: $info->{artistid}\n";
             }
             $track_artistid = $track->{artistid};
         }
 
         # Now insert the track. Make sure to check what kind of track it is...
-        if ($artistid != Artist::VARTIST_ID)
+        if ($artistid != ModDefs::VARTIST_ID)
         {
             $trackid = $tr->Insert($al, $ar);
         }
@@ -428,12 +402,11 @@ sub Insert
         }
         if (!defined $trackid)
         {
-            $this->{error} = "Insert failed: Cannot insert track.\n";
-            last;
+            die "Insert failed: Cannot insert track.\n";
         }
         $track->{track_insertid} = $trackid;
 
-        # The track has been inserted. Now insert the GUID if there is one
+        # The track has been inserted. Now insert the TRM if there is one
         if (exists $track->{trmid} && $track->{trmid} ne '')
         {
             my $newtrm = $gu->Insert($track->{trmid}, $trackid);
@@ -442,11 +415,7 @@ sub Insert
                 $track->{trm_insertid} = $newtrm if ($gu->GetNewInsert());
             }
         }
-
-        #print STDERR "Inserted track $track->{tracknum} $track->{track}.\n\n";
     }
-
-    # TODO: Commit a transaction here
 
     return 1;
 }
@@ -454,7 +423,7 @@ sub Insert
 sub InsertAlbumModeration
 {
     my ($this, $new, $moderator, $privs, $artist) = @_;
-    my ($mod, $albumid, $artistid);
+    my ($mod, $albumid, $artistid, $sql);
 
     $mod = Moderation->new($this->{DBH});
     $mod = $mod->CreateModerationObject(ModDefs::MOD_ADD_ALBUM);
@@ -479,34 +448,50 @@ sub InsertAlbumModeration
     # if we already have an artist id, set it here
     $mod->SetArtist($artist) if (defined $artist);
 
-    # Do the data insertion, and resolve all the ids
-    $mod->PreVoteAction();
+    $sql = Sql->new($this->{DBH});
+    ($artistid, $albumid) = eval
+    {
+       $sql->Begin;
 
-    if ($mod->GetNew() =~ /^_albumid=(.*)$/m)
-    {
-       $albumid = $1;
-       $mod->SetRowId($albumid);
-    }
-    if ($mod->GetNew() =~ /^_artistid=(.*)$/m)
-    {
-       $artistid = $1;
-       $mod->SetArtist($artistid);
-    }
+       # Do the data insertion, and resolve all the ids
+       if ($mod->PreVoteAction())
+       {
+          if ($mod->GetNew() =~ /^_albumid=(.*)$/m)
+          {
+             $albumid = $1;
+             $mod->SetRowId($albumid);
+          }
+          if ($mod->GetNew() =~ /^_artistid=(.*)$/m)
+          {
+             $artistid = $1;
+             $mod->SetArtist($artistid);
+          }
+      
+          if (defined $artistid && defined $albumid)
+          {
+              # Now use the new ids to determine any dependecies
+              $mod->DetermineDependencies();
+              $mod->InsertModeration($privs);
+       
+              $sql->Commit;
+          
+              return ($artistid, $albumid);
+          }
+          else
+          {
+              die "Cannot insert album moderation. Artist and album " .  
+                  "are not fully defined.\n";
+          }
+       }
 
-    if (defined $artistid && defined $albumid)
+       # We should never get here
+       die "Database insertion faileda\n.";
+    };
+    if ($@)
     {
-        # Now use the new ids to determine any dependecies
-        $mod->DetermineDependencies();
-        $mod->InsertModeration($privs);
-    
-        return ($artistid, $albumid);
+       $this->{error} = $@;
+       $sql->Rollback;
+       return (undef, undef);
     }
-    else
-    {
-        print STDERR "Cannot insert album moderation. Artist and album " .
-                     "are not fully defined.\n";
-        $mod->DeniedAction();
-    }
-
-    return (undef, undef);
+    return ($artistid, $albumid);
 }

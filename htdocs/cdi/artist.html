@@ -8,8 +8,6 @@ $search
 my ($mb, $ar, $eng, $num_tracks, $i, $sth, $sql); 
 my (@row, $artist, @artists);
 
-$mb = new MusicBrainz;
-
 mc_comp("/comp/sidebar", title=>'Submit CD: Artist Search Results');
   
 if ($search eq '')
@@ -19,7 +17,7 @@ if ($search eq '')
 }
 else
 {
-    $mb->Login();
+    $mb = mc_comp("/comp/dblogin");
     $ar = Artist->new($mb->{DBH});
     $eng = SearchEngine->new();
     $eng->Table("Artist");

@@ -9,8 +9,7 @@ if (!exists $ARGS{artistid} || $ARGS{artistid} eq '')
     return undef;
 }
 
-$mb = new MusicBrainz;
-$mb->Login();
+$mb = mc_comp("/comp/dblogin");
 $artist = Artist->new($mb->{DBH});
 $alias = Alias->new($mb->{DBH}, "ArtistAlias");
 

@@ -10,8 +10,7 @@ if (!exists $ARGS{alias} || $ARGS{alias} eq '')
     return undef;
 }
 
-$mb = new MusicBrainz;
-$mb->Login();
+$mb = mc_comp("/comp/dblogin");
 
 $alias = $ARGS{alias};
 

@@ -1,7 +1,7 @@
 <%perl>
 
 my ($mb); 
-my ($track, $artist, $album, $trackid, @info, $gu, @guid, $id, $length_in_secs); 
+my ($track, $artist, $album, $trackid, @info, $gu, @TRM, $id, $length_in_secs); 
 
 if ((!exists $ARGS{trackid} || $ARGS{trackid} eq '') &&
     (!exists $ARGS{albumjoinid} || $ARGS{albumjoinid} eq ''))
@@ -11,8 +11,7 @@ if ((!exists $ARGS{trackid} || $ARGS{trackid} eq '') &&
     return undef;
 }
 
-$mb = new MusicBrainz;
-$mb->Login();
+$mb = mc_comp("/comp/dblogin");
 $track = Track->new($mb->{DBH});
 
 if (exists $ARGS{trackid})
@@ -36,8 +35,8 @@ else
     }
 }
 
-$gu = GUID->new($mb->{DBH});
-@guid = $gu->GetGUIDFromTrackId($track->GetId());
+$gu = TRM->new($mb->{DBH});
+@TRM = $gu->GetTRMFromTrackId($track->GetId());
 
 $artist = Artist->new($mb->{DBH});
 $artist->SetId($track->GetArtist());
@@ -79,12 +78,12 @@ $length_in_secs = int($track->GetLength() / 1000);
     <td valign="top"><% int($length_in_secs / 60) %>:<% sprintf("%02d",($length_in_secs % 60)) %></td>
     </tr><tr>
 % }
-% foreach $id (@guid) {
+% foreach $id (@TRM) {
     <td valign="top" align="right"><img src="/images/trm.gif" align="center">
     TRM Id:</td>
-    <td valign="top"><% $id->{guid} %> 
+    <td valign="top"><% $id->{TRM} %> 
 % if (exists $session{user}) {
-        <a href="/remtrm.html?guidjoin=<% $id->{guidjoinid} %>&trackid=<% $track->GetId() %>&trmid=<% $id->{guid} %>">Delete</a>
+        <a href="/remtrm.html?TRMjoin=<% $id->{TRMjoinid} %>&trackid=<% $track->GetId() %>&trmid=<% $id->{TRM} %>">Delete</a>
 % }
     </td>
     </tr><tr>

@@ -35,8 +35,7 @@ if (!defined $name || !defined $artistnamevalue || !defined $sortnamevalue)
 # Do some housekeeping
 mc_comp("/comp/sidebar", title=>$ARGS{title});
 
-$mb = new MusicBrainz;
-$mb->Login();
+$mb = mc_comp("/comp/dblogin");
 
 $ar = Artist->new($mb->{DBH});
 # try to load the artist. If that artist is not found, then try a search

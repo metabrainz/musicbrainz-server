@@ -6,8 +6,7 @@ my ($mb, $id, $albumname, $referer, $modpending, $sortname);
 my ($artistname, $al, $artist, $ar); 
 
 $referer = $r->headers_in->{'Referer'};
-$mb = new MusicBrainz;
-$mb->Login();
+$mb = mc_comp("/comp/dblogin");
 
 if (!exists $ARGS{album} || $ARGS{album} eq '' ||
     !exists $ARGS{artist} || $ARGS{artist} eq '')

@@ -4,7 +4,6 @@
 #   MusicBrainz -- the open internet music database
 #
 #   Copyright (C) 1998 Robert Kaye
-#   Copyright (C) 2001 Luke Harless
 #
 #   This program is free software; you can redistribute it and/or modify
 #   it under the terms of the GNU General Public License as published by
@@ -23,57 +22,66 @@
 #   $Id$
 #____________________________________________________________________________
 
-use lib "../../cgi-bin";
+use lib "../cgi-bin";
 use DBI;
 use DBDefs;
 use MusicBrainz;
-use Album;
-use GUID;
 use Artist;
-use Diskid;
-use Track;
-require "Main.pl";
+use ModDefs;
+use Sql;
 
-sub Arguments
+sub SetSequence
 {
-    return "<merge into album id> <merge album id> ...";
-}
+    my ($sql, $table) = @_;
+    my ($max, $seq);
 
-sub Cleanup
-{
-    my ($dbh, $fix, $quiet, @list) = @_;
-    my ($al);
+    $seq = $table . "_id_seq";
+    $mb{DBH} = $sql;
 
-    if (scalar(@list) < 2)
+    ($max) = $sql->GetSingleColumn($table, "max(id)", []);
+    if (not defined $max)
     {
-        print "At least two albums must be given.\n\n";
-        Usage();
+        print "Cannot get max value of $seq\n";
         return;
     }
+    $max++;
+    $sql->Do("drop sequence $seq");
 
-    if (!$fix)
+    eval
     {
-        print "This script cannot be tested first.\n";
-        return;
+        $sql->Begin;
+        $sql->Do("create sequence $seq start $max");
+        $sql->Commit;
+    
+        print "Set sequence $seq to $max.\n";
+    };
+    if ($@)
+    {
+        $sql->Rollback;
     }
 
-    $al = Album->new($dbh);
-    $al->SetId(shift @list);
-    if (defined $al->LoadFromId())
-    {
-        if (defined $al->MergeAlbums(@list))
-        {
-            print "Merged albums\n";
-        }
-        else
-        {
-            print "Failed to merge albums\n";
-        }
-    }
-    else
-    {
-        print "Invalid album id specified\n";
-    }
 }
 
-Main(2);
+$mb = MusicBrainz->new;
+$mb->Login;
+$sql = Sql->new($mb->{DBH});
+
+print "Connected to database.\n";
+
+SetSequence($sql, "artist");
+SetSequence($sql, "artistalias");
+SetSequence($sql, "album");
+SetSequence($sql, "track");
+SetSequence($sql, "albumjoin");
+SetSequence($sql, "discid");
+SetSequence($sql, "toc");
+SetSequence($sql, "trm");
+SetSequence($sql, "trmjoin");
+SetSequence($sql, "moderator");
+SetSequence($sql, "moderation");
+SetSequence($sql, "moderationnote");
+SetSequence($sql, "votes");
+SetSequence($sql, "stats");
+
+# Disconnect
+$mb->Logout;

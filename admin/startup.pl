@@ -10,7 +10,7 @@
   #load perl modules of your choice here
   #this code is interpreted *once* when the server starts
   use DBI;
-  use DBD::mysql;
+  use DBD::Pg;
   
   sub UNIVERSAL::AUTOLOAD
   { 

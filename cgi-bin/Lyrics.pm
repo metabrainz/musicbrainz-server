@@ -139,7 +139,7 @@ sub InsertLyrics
          $sql->Do("insert into Lyrics (track, text, writer) values 
                    ($trackid, $lines, $writer)");
 
-         $id = $sql->GetLastInsertId();
+         $id = $sql->GetLastInsertId("Lyrics");
     } 
     return $id;
 }
@@ -158,7 +158,7 @@ sub InsertSyncText
          $contrib = $sql->Quote($contrib);
          $sql->Do("insert into SyncText (track, type, url, submittor, submitted) values ($trackid, $type, $url, $contrib, now())");
 
-         $id = $sql->GetLastInsertId();
+         $id = $sql->GetLastInsertId("SyncText");
     } 
     return $id;
 }
@@ -171,7 +171,7 @@ sub InsertSyncEvent
     $sql = Sql->new($this->{DBH});
     $text = $sql->Quote($text);
     $sql->Do("insert into SyncEvent (synctext, ts, text) values ($lyricid, $ts, $text)");
-    $id = $sql->GetLastInsertId();
+    $id = $sql->GetLastInsertId("SyncEvent");
 
     return $id;
 }

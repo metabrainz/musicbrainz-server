@@ -30,7 +30,7 @@ The main tables in the database are
 -Album      Id field as key, Name, artist Id reference, and a Global ID (GID)
 -Track      Id field as key, Name, artist Id reference, a Global ID (GID),
             length, year, and genre Id
--GUID       Id field as key and a GUID field that contains a acoustic 
+-TRM        Id field as key and a TRM field that contains a acoustic 
             identification hash (relatable.com value a.k.a. TRMId)
 </pre>
 
@@ -42,20 +42,14 @@ with the Albums.
 Connecting the core info:
 <pre>
 -AlbumJoin  Id field, Album Id, Track Id, and sequence number
--GUIDJoin   Id field, GUID Id, and Track Id
-</pre>
-
-Insert process info:
-<pre>
--Pending    Id field, Name, Artist name, Album name, Sequence number, 
-            GUID, Filename, Year, Genre name, Sha1 hash, and Duration
+-TRMJoin   Id field, TRM Id, and Track Id
 </pre>
 
 Moderation proces:
 <pre>
--ModeratorInfo Id field, Name, Password (simple cleartext), Privs, Accepted 
+-Moderator  Id field, Name, Password (simple cleartext), Privs, Accepted 
             moderations, and rejected moderations
--Changes    Id field, Table, Colom, Artist, Type of moderation, Status, 
+-Moderations    Id field, Table, Colom, Artist, Type of moderation, Status, 
             RowId, Previous value, New value, Moderator Id, Yes votes, 
             No votes, and Dependant Change Id
 -Votes      Id field, User Id , Row Id, vote (without a capital)
@@ -63,10 +57,9 @@ Moderation proces:
 
 Additional info:
 <pre>
--Diskid     Id field, Disk hash, Album Id, and disk table of content
+-Discid     Id field, Disk hash, Album Id, and disk table of content
 -TOC        Id field, Disk number, Album Id, Amount of tracks, Leadout, 
             and 99 track lengths
--Genre      Id field, Name, and Description
 -ArtistAlias Id field, Name, Ref
 -Lyrics     Id field, Track Id, Text, and Writer name
 -Synctext   Id field, Track Id, Type, URL, and Submittor name
@@ -93,7 +86,7 @@ We want to expand MusicBrainz with more information and store more then Artist/A
 </pre>
  Is a voting system for subjective genere data realistic? We need a lot of votes to
  get the genre for 500.000 tracks. </LI>
-<li>Picture gallery. storage of (artist/concert/etc.) pictures, not in MySQL, but refered to with URL. (http://musicbrainz.org/pictures/mugshots/beatles_342.jpg</LI>
+<li>Picture gallery. storage of (artist/concert/etc.) pictures, not in Postgres, but refered to with URL. (http://musicbrainz.org/pictures/mugshots/beatles_342.jpg</LI>
 <li>guitar tabs, use a structured schema for music notation</LI>
 <li>User discussion groups. User comments should be connected to an genre/artist/album/track/etc and displayed while browsing MB. Discussions are vital to building a true on-line community that goes beyond the dry encylopedia stuff. With our reputation system we can fight spamm better then alt.music.* and our license allows more openness than the popular "Yahoo music message boards"
 </LI></UL>
@@ -169,13 +162,13 @@ The secondairy tables contain Pop charts, biographies, URL references, pictures,
 
 Fingerprinting, an acoustic identification hash (relatable.com value a.k.a. TRMId)
 <pre>
--GUID       Id field as key and a GUID field 
+-TRM       Id field as key and a TRM field 
             1       478a3107d-47ae8290-bc6df226
             2       aa3956d97-f8c214fb-21047ea5
             3       bd307c9a9-92fe6678-8e882465
             4       5f8fe8829-d948287f-9478d9e9
             5       4849c9f9e-9a9c9b9b-e486c8bf
--GUIDJoin   Id field, GUID Id, and Track Id
+-TRMJoin   Id field, TRM Id, and Track Id
             1         1            1
             2         2            70
             3         3            24
@@ -218,7 +211,7 @@ Biographies
             1         4          59491    Born in a little town near ...
             2         8          49436    At age 12 she already ...
             3         8          10294    At a very young age the girl that ...
--BioChanges Id field, Biography ID, user ID, proposed changes to original text (UNIX diff format).
+-BioModerations Id field, Biography ID, user ID, proposed Moderations to original text (UNIX diff format).
             1         2             68830    10a11 , including the lesser known ...
             2         9             68830    44c43 who later became a janitor 
             3         12            7502     11c11 with MTV in the picture ...

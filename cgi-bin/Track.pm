@@ -32,6 +32,10 @@ use vars qw(@ISA @EXPORT);
 use strict;
 use DBI;
 use DBDefs;
+use Artist;
+use Album;
+use Alias;
+use ModDefs;
 
 sub new
 {
@@ -204,34 +208,34 @@ sub LoadFromId
 # Search for tracks by name. Given a search argument, it will return
 # a array of references to arrays of track id, Track name, album id,
 # album name, artist id and artist name.
-sub SearchByName
-{
-   my ($this, $search) = @_;
-   my (@info, $query, $sql, @row);
-
-   $query = $this->AppendWhereClause($search, qq/select Track.id, Track.Name, 
-                  Album.id, Album.name, Artist.id, Artist.name from Track, 
-                  AlbumJoin, Album, Artist where Track.artist = Artist.id and 
-                  AlbumJoin.track = Track.id and AlbumJoin.album = Album.id 
-                  and /, "Track.Name") .  " order by Track.name";
-
-   $sql = Sql->new($this->{DBH});
-   if ($sql->Select($query))
-   {
-       for(;@row = $sql->NextRow();)
-       {
-           push @info, [$row[0], $row[1], $row[2], $row[3], $row[4], $row[5]];
-       }
-       $sql->Finish;
-   }
-
-   return @info;
-};
+#sub SearchByName
+#{
+#   my ($this, $search) = @_;
+#   my (@info, $query, $sql, @row);
+#
+#   $query = $this->AppendWhereClause($search, qq/select Track.id, Track.Name, 
+#                  Album.id, Album.name, Artist.id, Artist.name from Track, 
+#                  AlbumJoin, Album, Artist where Track.artist = Artist.id and 
+#                  AlbumJoin.track = Track.id and AlbumJoin.album = Album.id 
+#                  and /, "Track.Name") .  " order by Track.name";
+#
+#   $sql = Sql->new($this->{DBH});
+#   if ($sql->Select($query))
+#   {
+#       for(;@row = $sql->NextRow();)
+#       {
+#           push @info, [$row[0], $row[1], $row[2], $row[3], $row[4], $row[5]];
+#       }
+#       $sql->Finish;
+#   }
+#
+#   return @info;
+#};
 
 sub GetMetadataFromIdAndAlbum
 {
     my ($this, $id, $albumname) = @_;
-    my (@row, $sql, $artist, $album, $seq, @guid);
+    my (@row, $sql, $artist, $album, $seq, @TRM);
     my ($ar, $gu);
 
     $artist = "Unknown";
@@ -251,17 +255,18 @@ sub GetMetadataFromIdAndAlbum
          return ();
     }
 
-    $gu = GUID->new($this->{DBH});
-    @guid = $gu->GetGUIDFromTrackId($id);
-    if (scalar(@guid) == 0)
+    $gu = TRM->new($this->{DBH});
+    @TRM = $gu->GetTRMFromTrackId($id);
+    if (scalar(@TRM) == 0)
     {
          return ();
     }
 
     $sql = Sql->new($this->{DBH});
-    if ($sql->Select(qq/select name, sequence from Album, 
-                     AlbumJoin where AlbumJoin.track = $id and Album.id = 
-                     AlbumJoin.album/))
+    if ($sql->Select(qq/select name, sequence 
+                          from Album, AlbumJoin 
+                         where AlbumJoin.track = $id and 
+                               Album.id = AlbumJoin.album/))
     {
          # if this track appears on one album only, return that one
          if ($sql->Rows == 1)
@@ -286,7 +291,7 @@ sub GetMetadataFromIdAndAlbum
          $sql->Finish;
     }
 
-    return ($this->GetName(), $ar->GetName(), $album, $seq, $guid[0]->{guid}); 
+    return ($this->GetName(), $ar->GetName(), $album, $seq, $TRM[0]->{TRM}); 
 }
 
 # This function inserts a new track. A properly initialized/loaded album
@@ -301,18 +306,18 @@ sub Insert
   
     $this->{new_insert} = 0;
     $album = $al->GetId();
-    $artist = ($al->GetArtist() == Artist::VARTIST_ID) ? 
+    $artist = ($al->GetArtist() == ModDefs::VARTIST_ID) ? 
                 $ar->GetId() : $al->GetArtist();
 
     return undef if (!defined $artist);
 
     $sql = Sql->new($this->{DBH});
     $name = $sql->Quote($this->{name});
-    ($track) = $sql->GetSingleRow("Track, AlbumJoin", ["Track.id"],
-                                  ["name", $name,
-                                   "AlbumJoin.track", "Track.id",
-                                   "AlbumJoin.album", $album,
-                                   "AlbumJoin.sequence", $this->{sequence}]);
+    ($track) = $sql->GetSingleRowLike("Track, AlbumJoin", ["Track.id"],
+                                      ["name", $name,
+                                      "AlbumJoin.track", "Track.id",
+                                      "AlbumJoin.album", $album,
+                                      "AlbumJoin.sequence", $this->{sequence}]);
     if (!defined $track)
     {
         $id = $sql->Quote($this->CreateNewGlobalId());
@@ -347,7 +352,7 @@ sub Insert
 
         if ($sql->Do("$query) $values)"))
         {
-            $track = $sql->GetLastInsertId();
+            $track = $sql->GetLastInsertId("Track");
             $this->{new_insert} = $track;
             $sql->Do(qq/insert into AlbumJoin (album, track, sequence,
                      modpending) values ($album, $track, 
@@ -384,7 +389,7 @@ sub Remove
         return undef 
     }
 
-    $gu = GUID->new($this->{DBH});
+    $gu = TRM->new($this->{DBH});
     $gu->RemoveByTrackId($this->GetId());
 
     print STDERR "DELETE: Remove track " . $this->GetId() . "\n";
@@ -403,9 +408,10 @@ sub GetAlbumInfo
    my ($sql, @row, @info);
 
    $sql = Sql->new($this->{DBH});
-   if ($sql->Select(qq|select album, name, sequence, GID from AlbumJoin, Album 
-                       where AlbumJoin.album = Album.id and track = | . 
-                       $this->GetId()))
+   if ($sql->Select(qq|select album, name, sequence, GID 
+                         from AlbumJoin, Album 
+                        where AlbumJoin.album = Album.id and 
+                              track = | . $this->GetId()))
    {
        for(;@row = $sql->NextRow();)
        {

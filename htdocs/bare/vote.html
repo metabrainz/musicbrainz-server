@@ -1,6 +1,6 @@
 <%perl>
 
-my ($mb, $mod, $key, @yeslist, @nolist, @abslist);
+my ($mb, $mod, $key, @yeslist, @nolist, @abslist, $sql);
 my $url = $ARGS{url};
 
 foreach $key (keys %ARGS)
@@ -13,10 +13,28 @@ foreach $key (keys %ARGS)
     }
 }
 
-$mb = new MusicBrainz;
-$mb->Login();
+$mb = mc_comp("/comp/dblogin");
 $mod = Moderation->new($mb->{DBH});
-$mod->InsertVotes($session{uid}, \@yeslist, \@nolist, \@abslist);
+$sql = Sql->new($mb->{DBH});
+
+eval
+{
+    $sql->Begin;
+    $mod->InsertVotes($session{uid}, \@yeslist, \@nolist, \@abslist);
+    $sql->Commit;
+};
+if ($@)
+{
+    my $err = $@;
+    $sql->Rollback;
+
+    mc_comp("/comp/sidebar", expand=>"moderation", 
+                            title=>'Insert Vote Error');
+    mc_out("<b>A database error occurred.</b><pre>($err)</pre>");
+    mc_comp("/comp/footer");
+    return undef;
+}
+
 $mb->Logout();
 
 $r->method('GET');

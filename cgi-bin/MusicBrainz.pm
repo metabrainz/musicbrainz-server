@@ -31,6 +31,7 @@ use vars qw(@ISA @EXPORT);
 use strict;
 use DBI;
 use DBDefs;
+use Apache::Registry;
 
 sub new
 {
@@ -44,17 +45,9 @@ sub Login
    my ($this, $quiet, $dsn) = @_;
 
    $dsn = DBDefs->DSN if (!defined $dsn);
-   $this->{DBH} = DBI->connect($dsn,DBDefs->DB_USER,DBDefs->DB_PASSWD);
-   if (!$this->{DBH})
-   {
-       return 0 if (defined $quiet);
-
-       print "<font size=+1 color=red>Sorry, the database is currently ";
-       print "not available. Please try again in a few minutes.</font>";
-       print "(Error: ".$DBI::errstr.")";
-       Footer($this);
-       exit(0);
-   } 
+   $this->{DBH} = DBI->connect($dsn,DBDefs->DB_USER,DBDefs->DB_PASSWD,
+                               { RaiseError => 1, AutoCommit => 1 });
+   return 0 if (!$this->{DBH});
    return 1;
 }
 

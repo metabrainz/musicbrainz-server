@@ -7,19 +7,20 @@ $mbt=>0
 my ($mb); 
 my ($artist, $album, $albumid); 
 
-$mb = new MusicBrainz;
-$mb->Login();
+$mb = mc_comp("/comp/dblogin");
 
-if (exists $ARGS{diskid} && $ARGS{diskid} ne '')
+if (exists $ARGS{discid} && $ARGS{discid} ne '')
 {
-    my $di;
+    my ($di, $disc);
 
-    $di = Diskid->new($mb->{DBH});
-    $albumid = $di->GetAlbumFromDiskId($ARGS{diskid});
+    $disc = $ARGS{discid};
+    $disc =~ s/^\s*(.*?)\s*$/$1/;;
+    $di = Discid->new($mb->{DBH});
+    $albumid = $di->GetAlbumFromDiscid($disc);
     if (!defined $albumid)
     {
         mc_comp("/comp/sidebar", title=>"Error");
-        mc_out("Diskid $ARGS{diskid} was not found in the database.");
+        mc_out("Discid $ARGS{discid} was not found in the database.");
         return undef;
     }
 }
@@ -60,7 +61,7 @@ else
         mc_out($artist->GetId());
         mc_out("\">View albums</a> | ");
 
-        if ($artist->GetId() != Artist::VARTIST_ID)
+        if ($artist->GetId() != ModDefs::VARTIST_ID)
         {
             mc_out("<a href=\"/moderate.html?type=4&artistid=" .
                    $artist->GetId()."\">");

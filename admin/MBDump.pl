@@ -26,19 +26,39 @@ use lib "../cgi-bin";
 use DBI;
 use DBDefs;
 
-sub DumpAllTables
+sub DumpTable
 {
+    my $table = shift;
 
-    $cmd = "mysql -u root musicbrainz < mbdump.sql";
+    $cmd = "pg_dump -Fc -t $table musicbrainz > /tmp/mbdump/$table";
     $ret = system($cmd) >>8;
 
-    print "\nDumped tables successfully.\n";
+    print "Dumped table $table.\n";
 
     return !$ret;
 }
 
-    my ($outfile, $dir, @tinfo, $timestring);
+sub DumpAllTables
+{
+    return 0 if not DumpTable("artist");
+    return 0 if not DumpTable("artistalias");
+    return 0 if not DumpTable("album");
+    return 0 if not DumpTable("track");
+    return 0 if not DumpTable("albumjoin");
+    return 0 if not DumpTable("discid");
+    return 0 if not DumpTable("toc");
+    return 0 if not DumpTable("trm");
+    return 0 if not DumpTable("trmjoin");
 
+    return 0 if not DumpTable("votes");
+    return 0 if not DumpTable("moderator");
+    return 0 if not DumpTable("moderation");
+    return 0 if not DumpTable("moderationnote");
+
+    return 1;
+}
+
+my ($outfile, $dir, @tinfo, $timestring);
 
 @tinfo = localtime;
 $timestring = "mbdump-" . (1900 + $tinfo[5]) . "-".($tinfo[4]+1)."-$tinfo[3]";

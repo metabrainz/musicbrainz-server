@@ -1,35 +1,34 @@
-<& /comp/sidebar, title=>'Remove Diskid', expand=>'moderate' &>
+<& /comp/sidebar, title=>'Remove Discid', expand=>'moderate' &>
 
 <%perl>
 
 my ($mb, $albumname, $al, $di);
-my ($albumid, $artistid, $diskid, $id, @diskid_refs, $ref); 
+my ($albumid, $artistid, $discid, $id, @discid_refs, $ref); 
 
-if (!exists $ARGS{diskid} || $ARGS{diskid} eq '' ||
+if (!exists $ARGS{discid} || $ARGS{discid} eq '' ||
     !exists $ARGS{albumid} || $ARGS{albumid} eq '')
 {
     mc_comp("/comp/badargs");
     return undef;
 }
 
-$mb = new MusicBrainz;
-$mb->Login();
+$mb = mc_comp("/comp/dblogin");
 $al = Album->new($mb->{DBH});
-$di = Diskid->new($mb->{DBH});
+$di = Discid->new($mb->{DBH});
 
-$diskid = $ARGS{diskid};
+$discid = $ARGS{discid};
 $albumid = $ARGS{albumid};
-@diskid_refs = $di->GetDiskIdFromAlbum($albumid);
-if (scalar(@diskid_refs) == 0)
+@discid_refs = $di->GetDiscidFromAlbum($albumid);
+if (scalar(@discid_refs) == 0)
 {
-    mc_out("Invalid diskid and album passed.\n");
+    mc_out("Invalid discid and album passed.\n");
     return undef;
 }
 
 $id = -1;
-foreach $ref (@diskid_refs)
+foreach $ref (@discid_refs)
 {
-    if ($ref->{diskid} eq $diskid)
+    if ($ref->{discid} eq $discid)
     {
         $id = $ref->{id};
         last;
@@ -38,7 +37,7 @@ foreach $ref (@diskid_refs)
 
 if ($id < 0)
 {
-    mc_out("Invalid diskid and album passed.\n");
+    mc_out("Invalid discid and album passed.\n");
     return undef;
 }
 
@@ -57,15 +56,15 @@ $artistid = $al->GetArtist();
 % } else {
 
     <& /comp/tablebegin, gattrs=>"width=\"100%\"",
-       title=>'Remove Diskid' &>
+       title=>'Remove Discid' &>
 
-    <FORM METHOD="POST" ACTION="/bare/enter_mod.html" NAME="RemoveDiskidForm"
+    <FORM METHOD="POST" ACTION="/bare/enter_mod.html" NAME="RemoveDiscidForm"
           ENCTYPE="application/x-www-form-urlencoded">  
 
     <table width="100%">
       <tr>
         <td colspan="2">
-        Are you sure you want to remove CD Index Id <% $diskid %> from album
+        Are you sure you want to remove CD Index Id <% $discid %> from album
         <span class="bold"><% $albumname %></span>? <p>Please be sure you
         are certain that this CD Index Id is an error, since an Album
         can have multiple valid CD Index Ids. For more info, please see our
@@ -96,11 +95,11 @@ $artistid = $al->GetArtist();
     </table>
     <input type="hidden" name="artist0" value="<% $artistid %>">
     <input type="hidden" name="type0"
-           value="<% ModDefs::MOD_REMOVE_DISKID %>">
-    <input type="hidden" name="prev0" value="<% $diskid %>">
+           value="<% ModDefs::MOD_REMOVE_DISCID %>">
+    <input type="hidden" name="prev0" value="<% $discid %>">
     <input type="hidden" name="new0" value="DELETE">
-    <input type="hidden" name="table0" value="Diskid">
-    <input type="hidden" name="column0" value="Disk">
+    <input type="hidden" name="table0" value="Discid">
+    <input type="hidden" name="column0" value="Disc">
     <input type="hidden" name="id0" value="<% $id %>">
     <input type="hidden" 
            name="url" value="/showalbum.html?albumid=<% $albumid %>">

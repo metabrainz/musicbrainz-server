@@ -207,13 +207,14 @@ sub ProcessFile
    my $i = 0;
    my $line;
    my %info;
-   my $in;
    my @track_offsets;
    my $disk_info;
    my $total;
    my $error = 0;
-   
+   my ($in, $sql);
+
    $in = Insert->new($mb->{DBH});
+   $sql = Sql->new($mb->{DBH});
 
    $file = $_[0];
 
@@ -278,18 +279,26 @@ sub ProcessFile
                      $tracknum++;
                   }
                   $info{tracks} = \@tarray;
-                  
-                  #use Data::Dumper;
-                  #print Dumper(\%info);
-                   
-                  if (!defined $in->Insert(\%info))
+                  eval
                   {
                      $error = 1;
                      print STDERR "Error with \"$file\":\n";
                      print STDERR $in->GetError();
                      print STDERR $disk_info;
+                     $sql->Begin;
+
+                     if (!defined $in->Insert(\%info))
+                     {
+                         print $in->GetError();
+                     }
+                     $i++;
+                     $sql->Commit;
+                  };
+                  if ($@)
+                  {
+                     $sql->Rollback;
+                     print "Error: $@\n";
                   }
-                  $i++;
               }
           }
       }
@@ -306,60 +315,6 @@ sub ProcessFile
    }         
 
    return $i;
-}
-
-sub EnterRecord
-{
-    my $mb = shift @_;
-    my $tracks = shift @_;
-    my $title = shift @_;
-    my $artistname = shift @_;
-    my $toc = shift @_;
-    my $artist;
-    my ($sql, $sql2);
-    my $album;
-    my ($i, $a, $al, $d, @ids, $num, $t);
-
-    if ($artistname eq '')
-    {
-        $artistname = "Unknown";
-    }
-
-    $a = Artist->new($mb);
-    $a->SetName($artistname);
-    $artist = $a->Insert();
-    if (!defined $artist)
-    {
-        print "Cannot insert artist.\n";
-        exit 0;
-    }
-
-    $al = Album->new($mb);
-    @ids = $al->FindFromNameAndArtistId($title, $artist);
-    for(;defined($album = shift @ids);)
-    {
-        $num = $al->GetTrackCountFromAlbum($album); 
-        last if ($num == $tracks);
-    }
-    if (!defined $album)
-    {
-        $album = $al->Insert($title, $artist, $tracks);
-        if ($album < 0)
-        {
-            print "Cannot insert album.\n";
-            exit 0;
-        }
-    }
-    for($i = 0; $i < $tracks; $i++)
-    {
-        $title = shift @_;
-        $title = "Unknown" if $title eq '';
-
-        $t = Track->new($mb);
-        $t->Insert($title, $artist, $album, $i + 1);
-        $d = Diskid->new($mb);
-        $d->Insert("", $album, $toc);
-    }
 }
 
 sub Recurse

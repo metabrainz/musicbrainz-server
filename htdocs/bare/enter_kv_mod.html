@@ -12,11 +12,10 @@ sub CheckKVArg
     return 1;
 }
    
-my ($mb, $i, $j, $mod, $new, $modid, $depmod, $url);
+my ($mb, $i, $j, $mod, $new, $modid, $depmod, $url, $sql);
 
-$mb = new MusicBrainz;
-$mb->Login();
-
+$mb = mc_comp("/comp/dblogin");
+$sql = Sql->new($mb->{DBH});
 
 if (!exists $ARGS{confirm0} || $ARGS{confirm0} eq 'yes')
 {
@@ -60,45 +59,63 @@ if (!exists $ARGS{confirm0} || $ARGS{confirm0} eq 'yes')
            $mod->SetModerator($session{uid});
            $mod->SetDepMod(0);
 
-           # Do the prevote action (like insert data)
-           if (!$mod->PreVoteAction())
+           eval
            {
-               # If the PreVoteAction, failed, give the user an error.
-               mc_comp("/comp/sidebar", title=>"Insert moderation error",
-                       expand=>'moderate');
+               $sql->Begin;
+       
+               # Do the prevote action (like insert data)
+               if (!$mod->PreVoteAction())
+               {
+                   # If the PreVoteAction, failed, give the user an error.
+                   mc_comp("/comp/sidebar", title=>"Insert moderation error",
+                           expand=>'moderate');
+    
+                   mc_out("<p>Insert moderation error: ");
+                   if (defined $mod->GetError())
+                   {
+                       mc_out($mod->GetError());
+                   }
+                   else
+                   {
+                       mc_out("Unknown error.\n");
+                   }
+                   mc_comp("/comp/footer");
+                   return undef;
+               }
+    
+               # And now determine if there are any dependencies
+               $mod->DetermineDependencies();
+    
+               # Go to the item that we just inserted...
+               if ($mod->GetType() == ModDefs::MOD_ADD_ALBUM)
+               {
+                   if ($mod->GetNew() =~ /^AlbumId=(.*)$/m)
+                   {
+                      $ARGS{url} = "/showalbum.html?albumid=$1";
+                   }
+               }
+               if ($mod->GetType() == ModDefs::MOD_ADD_ARTIST)
+               {
+                   if ($mod->GetNew() =~ /^ArtistId=(.*)$/m)
+                   {
+                      $ARGS{url} = "/showartist.html?artistid=$1";
+                   }
+               }
+               $modid = $mod->InsertModeration($session{privs});
+    
+               $sql->Commit;
+           };
+           if ($@)
+           {
+               my $err = $@;
 
-               mc_out("<p>Insert moderation error: ");
-               if (defined $mod->GetError())
-               {
-                   mc_out($mod->GetError());
-               }
-               else
-               {
-                   mc_out("Unknown error.\n");
-               }
+               $sql->Rollback;
+               mc_comp("/comp/sidebar", expand=>"moderation", 
+                                       title=>'Moderation Error');
+               mc_out("<b>A database error occurred.</b><pre>($err)</pre>");
                mc_comp("/comp/footer");
                return undef;
            }
-
-           # And now determine if there are any dependencies
-           $mod->DetermineDependencies();
-
-           # Go to the item that we just inserted...
-           if ($mod->GetType() == ModDefs::MOD_ADD_ALBUM)
-           {
-               if ($mod->GetNew() =~ /^AlbumId=(.*)$/m)
-               {
-                  $ARGS{url} = "/showalbum.html?albumid=$1";
-               }
-           }
-           if ($mod->GetType() == ModDefs::MOD_ADD_ARTIST)
-           {
-               if ($mod->GetNew() =~ /^ArtistId=(.*)$/m)
-               {
-                  $ARGS{url} = "/showartist.html?artistid=$1";
-               }
-           }
-           $modid = $mod->InsertModeration($session{privs});
        }
    }
    $mb->Logout();

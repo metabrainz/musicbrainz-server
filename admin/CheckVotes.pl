@@ -26,11 +26,38 @@ use lib "../cgi-bin";
 use DBI;
 use MusicBrainz;
 use Moderation;
+use Tie::STDERR \&handle_output;
+
+my $email = shift;
+
+sub handle_output
+{
+   my ($text) = @_;
+
+   if ($text =~ /CheckModsError:/)
+   {
+       if (defined $email && $email ne '')
+       {
+           open MAIL, "|mail -s 'ModBot Error' $email"
+              or die "Cannot open mail program\n";
+
+           print MAIL "During moderation/vote eval an error occurred:\n$text\n";
+           close MAIL;
+       }
+       else
+       {
+           print "An error occurred:\n$text\n";
+       }
+   }
+   else
+   {
+       print "No errors.\n$text\n";
+   }
+}
 
 my $mb = MusicBrainz->new();
-my $mod;
 
 $mb->Login();
 $mod = Moderation->new($mb->{DBH});
-$mod->CheckModifications();
+$mod->CheckModerations();
 $mb->Logout();

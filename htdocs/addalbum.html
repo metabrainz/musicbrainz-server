@@ -10,8 +10,7 @@ if (!exists $ARGS{artistid} || $ARGS{artistid} eq '')
     return undef;
 }
 
-$mb = new MusicBrainz;
-$mb->Login();
+$mb = mc_comp("/comp/dblogin");
 $artist = $ARGS{artistid};
 
 $ar = Artist->new($mb->{DBH});
@@ -50,7 +49,7 @@ $ar->LoadFromId();
 
     You are about to add an album to the artist 
     <span class="bold"><% $ar->GetName %></span>.
-    Please be read the style notes (see links above) 
+    Please read the style notes (see links above) 
     and enter the Album name and the number of tracks on this
     Album below:
 

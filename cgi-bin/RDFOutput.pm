@@ -123,14 +123,14 @@ sub CreateTrackList
    return $rdf;
 }
 
-sub CreateGUIDList
+sub CreateTRMList
 {
    my ($this, @ids) = @_;
    my ($rdf, $id, $count);
 
    $rdf = $this->BeginRDFObject;
    $rdf .= $this->BeginDesc;
-   $rdf .= $this->BeginElement("MM:Collection", 'type'=>'guidList');
+   $rdf .= $this->BeginElement("MM:Collection", 'type'=>'TRMList');
    $rdf .= $this->BeginBag();
 
    for($count = 0;; $count++)
@@ -139,7 +139,7 @@ sub CreateGUIDList
       last if not defined $id;
 
       $rdf .= $this->BeginLi;
-      $rdf .= $this->Element("DC:Identifier", "", guid=>($id));
+      $rdf .= $this->Element("DC:Identifier", "", TRM=>($id));
       $rdf .= $this->EndLi;
    }
 
@@ -161,7 +161,7 @@ sub CreateMetadataExchange
    $rdf .= $this->BeginDesc;
    $rdf .= $this->Element("DC:Title", $data[0])
        unless !defined $data[0] || $data[0] eq '';
-   $rdf .= $this->Element("DC:Identifier", "", guid=>$data[4])
+   $rdf .= $this->Element("DC:Identifier", "", TRM=>$data[4])
        unless !defined $data[4] || $data[4] eq '';
    $rdf .= $this->Element("DC:Creator", $data[1])
        unless !defined $data[1] || $data[1] eq '';
@@ -407,11 +407,11 @@ sub CreateAlbum
 sub CreateTrackRDFSnippet
 {
    my ($this);
-   my ($sql, $rdf, @row, $id, $r, @guid, $gu, $emit_details);
+   my ($sql, $rdf, @row, $id, $r, @TRM, $gu, $emit_details);
 
    $this = shift @_; 
    $emit_details = shift @_; 
-   $gu = GUID->new($this->{DBH});
+   $gu = TRM->new($this->{DBH});
    $sql = Sql->new($this->{DBH});
 
    for(;;)
@@ -432,9 +432,9 @@ sub CreateTrackRDFSnippet
 
                 $ids{'trackId'} = escape($row[1]),
 
-                @guid = $gu->GetGUIDFromTrackId($id);
-                $ids{'trackGUID'} = escape($guid[0]->{guid}) 
-                    if (scalar(@guid) > 0);
+                @TRM = $gu->GetTRMFromTrackId($id);
+                $ids{'trackTRM'} = escape($TRM[0]->{TRM}) 
+                    if (scalar(@TRM) > 0);
 
                 if ($emit_details)
                 {

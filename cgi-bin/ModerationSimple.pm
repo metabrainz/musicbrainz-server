@@ -52,7 +52,7 @@ sub ShowNewValue
 
    $out = qq\Name: <span class="bold">$data[0]</span>\;
    $out .= qq\ Track: <span class="bold">$data[1]</span>\;
-   if ($this->GetArtist() == Artist::VARTIST_ID)
+   if ($this->GetArtist() == ModDefs::VARTIST_ID)
    {
        $out .= qq\<br>Artist: <span class="bold">$data[3]</span>\;
        if (defined $data[4])
@@ -80,7 +80,7 @@ sub ApprovedAction
    $in = Insert->new($this->{DBH});
 
    # Is this a single artist that we're adding a track to?
-   if ($this->GetArtist() != Artist::VARTIST_ID)
+   if ($this->GetArtist() != ModDefs::VARTIST_ID)
    {
        my ($trackname, $tracknum, $album) = split(/\n/, $this->GetNew());
 
@@ -105,7 +105,7 @@ sub ApprovedAction
              split(/\n/, $this->GetNew());
 
        # Multiple artist album
-       $info{artistid} = Artist::VARTIST_ID;
+       $info{artistid} = ModDefs::VARTIST_ID;
        $info{albumid} = $album;
        $info{tracks} =
          [
@@ -208,12 +208,20 @@ sub ApprovedAction
    {
        $sql->Do(qq/update Album set artist = $newid where artist = $rowid/);
        $sql->Do(qq/update Track set artist = $newid where artist = $rowid/);
+       $sql->Do("update Moderation set artist = $newid where artist = $rowid");
+       $sql->Do("update artistalias set ref = $newid where ref = $rowid");
        $sql->Do("delete from Artist where id = $rowid");
-       $sql->Do("update Changes set artist = $newid where artist = $rowid");
 
-       my $al = Alias->new($this->{DBH});
-       $al->SetTable("ArtistAlias");
-       $al->Insert($newid, $prevval);
+       # Wrap this in eval -- its not a fatal error
+       my $mb = MusicBrainz->new;
+       $mb->Login();
+       eval
+       {
+           my $al = Alias->new($mb->{DBH});
+           $al->SetTable("ArtistAlias");
+           $al->Insert($newid, $prevval);
+       };
+       $mb->Logout;
    }
 
    return $status;
@@ -449,7 +457,7 @@ sub ApprovedAction
    $sql = Sql->new($this->{DBH});
 
    $sql->Do("update Album set Artist = " . 
-                    Artist::VARTIST_ID . "  where id = " . $this->GetRowId());
+                    ModDefs::VARTIST_ID . "  where id = " . $this->GetRowId());
    $status = ModDefs::STATUS_APPLIED; 
 
    return $status;
@@ -793,7 +801,7 @@ sub ApprovedAction
    return $status;
 }
 
-package RemoveDiskidModeration;
+package RemoveDiscidModeration;
 use vars qw(@ISA);
 @ISA = 'Moderation';
 
@@ -803,7 +811,7 @@ sub ShowPreviousValue
 
    if ($this->GetStatus != ModDefs::STATUS_APPLIED)
    {
-       return "Old: <a href=\"/showalbum.html?diskid=" .
+       return "Old: <a href=\"/showalbum.html?Discid=" .
               "$this->{prev}\">$this->{prev}</a>";
    }
    else
@@ -830,7 +838,7 @@ sub ApprovedAction
 
    $status = ModDefs::STATUS_ERROR;
 
-   my $di = Diskid->new($this->{DBH});
+   my $di = Discid->new($this->{DBH});
    if ($di->Remove($this->GetPrev()))
    {
       $status = ModDefs::STATUS_APPLIED;

@@ -61,8 +61,8 @@ my %ModNames = (
     "17" => "Add Artist",
     "18" => "Add Track",
     "19" => "Remove Artist",
-    "20" => "Remove Diskid",
-    "21" => "Move Diskid",
+    "20" => "Remove Discid",
+    "21" => "Move Discid",
     "22" => "Remove TRM id",
     "23" => "Merge Albums",
     "24" => "Remove Albums",
@@ -105,6 +105,16 @@ sub GetModerator
 sub SetModerator
 {
    $_[0]->{moderator} = $_[1];
+}
+
+sub GetExpired
+{
+   return $_[0]->{isexpired};
+}
+
+sub SetExpired
+{
+   $_[0]->{isexpired} = $_[1];
 }
 
 sub GetExpireTime
@@ -302,7 +312,7 @@ sub IsAutoModType
         $type == ModDefs::MOD_ADD_ALBUM ||
         $type == ModDefs::MOD_ADD_ARTIST ||
         $type == ModDefs::MOD_ADD_TRACK_KV ||
-        $type == ModDefs::MOD_MOVE_DISKID ||
+        $type == ModDefs::MOD_MOVE_DISCID ||
         $type == ModDefs::MOD_REMOVE_TRMID)
     {
         return 1;
@@ -332,14 +342,14 @@ sub CreateFromId
    my ($this, $id) = @_;
    my ($mod, $query, $sql, @row);
 
-   $query = qq/select Changes.id, tab, col, Changes.rowid, 
-                      Changes.artist, type, prevvalue, newvalue, 
-                      UNIX_TIMESTAMP(TimeSubmitted), ModeratorInfo.name, 
+   $query = qq/select Moderation.id, tab, col, Moderation.rowid, 
+                      Moderation.artist, type, prevvalue, newvalue, 
+                      ExpireTime, Moderator.name, 
                       yesvotes, novotes, Artist.name, status, 0, depmod,
-                      ModeratorInfo.id, Changes.automod
-               from   Changes, ModeratorInfo, Artist 
-               where  ModeratorInfo.id = moderator and Changes.artist = 
-                      Artist.id and Changes.id = $id/;
+                      Moderator.id, Moderation.automod, ExpireTime < now()
+               from   Moderation, Moderator, Artist 
+               where  Moderator.id = moderator and Moderation.artist = 
+                      Artist.id and Moderation.id = $id/;
 
    $sql = Sql->new($this->{DBH});
    if ($sql->Select($query))
@@ -356,7 +366,7 @@ sub CreateFromId
            $mod->SetType($row[5]);
            $mod->SetPrev($row[6]);
            $mod->SetNew($row[7]);
-           $mod->SetExpireTime($row[8] + DBDefs::MOD_PERIOD);
+           $mod->SetExpireTime($row[8]);
            $mod->SetModeratorName($row[9]);
            $mod->SetYesVotes($row[10]);
            $mod->SetNoVotes($row[11]);
@@ -366,6 +376,7 @@ sub CreateFromId
            $mod->SetDepMod($row[15]);
            $mod->SetModerator($row[16]);
            $mod->SetAutomod($row[17]);
+           $mod->SetExpired($row[18]);
        }
        $sql->Finish();
    }
@@ -438,13 +449,13 @@ sub CreateModerationObject
    {
        return RemoveArtistModeration->new($this->{DBH});
    }
-   elsif ($type == ModDefs::MOD_REMOVE_DISKID)
+   elsif ($type == ModDefs::MOD_REMOVE_DISCID)
    {
-       return RemoveDiskidModeration->new($this->{DBH});
+       return RemoveDiscidModeration->new($this->{DBH});
    }
-   elsif ($type == ModDefs::MOD_MOVE_DISKID)
+   elsif ($type == ModDefs::MOD_MOVE_DISCID)
    {
-       return MoveDiskidModeration->new($this->{DBH});
+       return MoveDiscidModeration->new($this->{DBH});
    }
    elsif ($type == ModDefs::MOD_REMOVE_TRMID)
    {
@@ -485,13 +496,15 @@ sub InsertModeration
     $prev = $sql->Quote($this->{prev});
     $new = $sql->Quote($this->{new});
 
-    $sql->Do(qq/insert into Changes (tab, col, rowid, prevvalue, 
-           newvalue, timesubmitted, moderator, yesvotes, novotes, artist, 
-           type, status, depmod, automod) values ($table, $column, 
-           $this->{rowid}, $prev, $new, now(), 
-           $this->{moderator}, 0, 0, $this->{artist}, $this->{type}, / . 
-           ModDefs::STATUS_OPEN . ", $this->{depmod}, 0)");
-    $insertid = $sql->GetLastInsertId();
+    $sql->Do(qq|insert into Moderation (tab, col, rowid, prevvalue, 
+                            newvalue, expiretime, moderator, yesvotes, 
+                            novotes, artist, type, status, depmod, automod) 
+                     values ($table, $column, $this->{rowid}, $prev, $new, 
+                            now() + interval '| . DBDefs::MOD_PERIOD . qq|', 
+                            $this->{moderator}, 0, 0, $this->{artist}, 
+                            $this->{type}, | .  ModDefs::STATUS_OPEN . qq|,
+                            $this->{depmod}, 0)|);
+    $insertid = $sql->GetLastInsertId("Moderation");
 
     # Check to see if this moderaton should get automod approval
     if ($this->IsAutoModType($this->GetType()) && 
@@ -517,14 +530,14 @@ sub InsertModeration
 
         $mod = $this->CreateFromId($insertid);
         $status = $mod->ApprovedAction();
-        $sql->Do(qq|update Changes set status = $status, automod = 1 
+        $sql->Do(qq|update Moderation set status = $status, automod = 1 
                     where id = $insertid|);
         $this->CreditModerator($this->{moderator}, 1);
     }
     else
     {
         # Not automoded, so set the modpending flags
-        if ($this->{table} ne 'GUIDJoin')
+        if ($this->{table} ne 'TRMJoin')
         {
             $sql->Do(qq/update $this->{table} set modpending = modpending + 1 
                         where id = $this->{rowid}/);
@@ -574,70 +587,81 @@ sub GetModerationList
    $num_rows = $total_rows = 0;
    if ($type == ModDefs::TYPE_NEW)
    {
-       $query = qq/select Changes.id, tab, col, Changes.rowid, 
-            Changes.artist, type, prevvalue, newvalue, 
-            UNIX_TIMESTAMP(TimeSubmitted), ModeratorInfo.name, yesvotes, 
-            novotes, Artist.name, status, / . ModDefs::VOTE_NOTVOTED .
-            qq/, ModeratorInfo.id, Changes.automod, count(Votes.id) 
-            as num_votes from 
-            Artist, ModeratorInfo, Changes left join Votes on Votes.uid = $uid 
-            and Votes.rowid=Changes.id where Changes.Artist = Artist.id and 
-            ModeratorInfo.id = moderator and moderator != $uid and 
-            moderator != / . ModDefs::FREEDB_MODERATOR . qq/ and status = /
-            . ModDefs::STATUS_OPEN . 
-            qq/ group by Changes.id having num_votes < 1/;
+       $query = qq|select * 
+                     from open_moderations left join votes 
+                          on Votes.uid = $uid and Votes.rowid=moderation_id 
+                    where moderator_id != $uid 
+                 group by moderation_id, moderator_id, moderator_name, tab, 
+                          col, open_moderations.rowid, open_moderations.artist,
+                          type, prevvalue, newvalue, expiretime, yesvotes, 
+                          novotes, status, automod, artist_name, votes.id, 
+                          votes.uid, votes.rowid, votes.vote 
+                   having count(Votes.id) < 1|;
    }
    elsif ($type == ModDefs::TYPE_MINE)
    {
-       $query = qq/select Changes.id, tab, col, Changes.rowid, 
-            Changes.artist, type, prevvalue, newvalue, 
-            UNIX_TIMESTAMP(TimeSubmitted), ModeratorInfo.name, yesvotes, 
-            novotes, Artist.name, status, / . ModDefs::VOTE_NOTVOTED .
-            qq/, ModeratorInfo.id, Changes.automod from Changes, 
-            ModeratorInfo, Artist 
-            where ModeratorInfo.id = moderator and Changes.artist = 
-            Artist.id and moderator = $uid order by TimeSubmitted desc limit 
-            $index, -1/;
+       $query = qq|select Moderation.id as moderation_id, tab, col, rowid, 
+                          Moderation.artist, type, prevvalue, newvalue, 
+                          ExpireTime, yesvotes, novotes, status, automod,
+                          Moderator.id as moderator_id, 
+                          Moderator.name as moderator_name, 
+                          Artist.name as artist_name, | .
+                          ModDefs::VOTE_NOTVOTED . qq|
+                     from Moderation, Moderator, Artist 
+                    where Moderator.id = moderator and 
+                          Moderation.artist = Artist.id and 
+                          moderator = $uid 
+                 order by ExpireTime desc 
+                          offset $index|;
    }
    elsif ($type == ModDefs::TYPE_VOTED)
    {
-       $query = qq/select Changes.id, tab, col, Changes.rowid, 
-            Changes.artist, type, prevvalue, newvalue, 
-            UNIX_TIMESTAMP(TimeSubmitted), ModeratorInfo.name, yesvotes, 
-            novotes, Artist.name, status, Votes.vote, ModeratorInfo.id, 
-            Changes.automod
-            from Changes, ModeratorInfo, Artist,
-            Votes where ModeratorInfo.id = moderator and Changes.artist = 
-            Artist.id and Votes.rowid = Changes.id and Votes.uid = $uid 
-            order by TimeSubmitted desc limit $index, -1/;
+       $query = qq|select Moderation.id as moderation_id, tab, col, 
+                          Moderation.rowid, Moderation.artist, type, 
+                          prevvalue, newvalue, ExpireTime, yesvotes, novotes, 
+                          status, automod, Moderator.id as moderator_id, 
+                          Moderator.name as moderator_name, 
+                          Artist.name as artist_name, 
+                          Votes.vote
+                     from Moderation, Moderator, Artist, Votes 
+                    where Moderator.id = moderation.moderator and 
+                          Moderation.artist = Artist.id and 
+                          Votes.rowid = Moderation.id and 
+                          Votes.uid = $uid
+                 order by ExpireTime desc 
+                          offset $index|;
    }
    elsif ($type == ModDefs::TYPE_ARTIST)
    {
-       $query = qq/select Changes.id, tab, col, Changes.rowid, 
-            Changes.artist, type, prevvalue, newvalue, 
-            UNIX_TIMESTAMP(TimeSubmitted), ModeratorInfo.name, yesvotes, 
-            novotes, Artist.name, status, Votes.vote, ModeratorInfo.id,
-            Changes.automod
-            from ModeratorInfo, Artist, Changes left join Votes on
-            Votes.uid = $uid and Votes.rowid=Changes.id
-            where ModeratorInfo.id = moderator and Changes.artist = 
-            Artist.id and Changes.artist = $rowid
-            order by TimeSubmitted desc limit $index, -1/;
+       $query = qq|select Moderation.id as moderation_id, tab, col, 
+                          Moderation.rowid, Moderation.artist, type, 
+                          prevvalue, newvalue, ExpireTime, yesvotes, novotes, 
+                          status, automod, Moderator.id as moderator_id, 
+                          Moderator.name as moderator_name, 
+                          Artist.name as artist_name, 
+                          Votes.vote
+                     from Moderator, Artist, Moderation left join Votes 
+                          on Votes.uid = $uid and Votes.rowid=moderation.id 
+                    where Moderator.id = moderation.moderator and 
+                          Moderation.artist = Artist.id and 
+                          Votes.rowid = Moderation.id and 
+                          moderation.artist = $rowid
+                 order by ExpireTime desc 
+                          offset $index|;
    }
    elsif ($type == ModDefs::TYPE_FREEDB)
    {
-       $query = qq/select Changes.id, tab, col, Changes.rowid, 
-            Changes.artist, type, prevvalue, newvalue, 
-            UNIX_TIMESTAMP(TimeSubmitted), ModeratorInfo.name, yesvotes, 
-            novotes, Artist.name, status, / . ModDefs::VOTE_NOTVOTED .
-            qq/, ModeratorInfo.id, Changes.automod, 
-            count(Votes.id) as num_votes from 
-            Artist, ModeratorInfo, Changes left join Votes on Votes.uid = $uid 
-            and Votes.rowid=Changes.id where Changes.Artist = Artist.id and 
-            ModeratorInfo.id = moderator and moderator = / . 
-            ModDefs::FREEDB_MODERATOR . qq/ and status = /
-            . ModDefs::STATUS_OPEN . 
-            qq/ group by Changes.id having num_votes < 1/;
+       $query = qq|select * 
+                     from open_moderations_freedb left join votes 
+                          on Votes.uid = $uid and Votes.rowid=moderation_id 
+                    where moderator_id = | . ModDefs::FREEDB_MODERATOR . qq| 
+                 group by moderation_id, moderator_id, moderator_name, tab, 
+                          col, open_moderations_freedb.rowid, 
+                          open_moderations_freedb.artist,
+                          type, prevvalue, newvalue, expiretime, yesvotes, 
+                          novotes, status, automod, artist_name, votes.id, 
+                          votes.uid, votes.rowid, votes.vote 
+                   having count(Votes.id) < 1|;
    }
    else
    {
@@ -662,22 +686,22 @@ sub GetModerationList
                 $mod->SetType($row[5]);
                 $mod->SetPrev($row[6]);
                 $mod->SetNew($row[7]);
-                $mod->SetExpireTime($row[8] + DBDefs::MOD_PERIOD);
-                $mod->SetModeratorName($row[9]);
-                $mod->SetYesVotes($row[10]);
-                $mod->SetNoVotes($row[11]);
-                $mod->SetArtistName($row[12]);
-                $mod->SetStatus($row[13]);
-                if (defined $row[14])
+                $mod->SetExpireTime($row[8]);
+                $mod->SetYesVotes($row[9]);
+                $mod->SetNoVotes($row[10]);
+                $mod->SetStatus($row[11]);
+                $mod->SetAutomod($row[12]);
+                $mod->SetModerator($row[13]);
+                $mod->SetModeratorName($row[14]);
+                $mod->SetArtistName($row[15]);
+                if (defined $row[16])
                 {
-                    $mod->SetVote($row[14]);
+                    $mod->SetVote($row[16]);
                 }
                 else
                 {
                     $mod->SetVote(ModDefs::VOTE_NOTVOTED);
                 }
-                $mod->SetModerator($row[15]);
-                $mod->SetAutomod($row[16]);
                 push @data, $mod;
             }
             else
@@ -706,7 +730,7 @@ sub ShowModType
 }
 
 # This function enters a number of votes into the Votes table.
-# The caller must supply three lists of ids in the Changes table:
+# The caller must supply three lists of ids in the Moderation table:
 # The list of moderations that the user votes yes on, the no list
 # and the abstain list
 sub InsertVotes
@@ -720,7 +744,7 @@ sub InsertVotes
       next if ($this->DoesVoteExist($uid, $val));
       $sql->Do(qq/insert into Votes (uid, rowid, vote) values
                            ($uid, $val, 1)/); 
-      $sql->Do(qq/update Changes set yesvotes = yesvotes + 1
+      $sql->Do(qq/update Moderation set yesvotes = yesvotes + 1
                        where id = $val/); 
    }
    foreach $val (@{$nolist})
@@ -728,14 +752,14 @@ sub InsertVotes
       next if ($this->DoesVoteExist($uid, $val));
       $sql->Do(qq/insert into Votes (uid, rowid, vote) values
                            ($uid, $val, 0)/); 
-      $sql->Do(qq/update Changes set novotes = novotes + 1
+      $sql->Do(qq/update Moderation set novotes = novotes + 1
                        where id = $val/); 
    }
    foreach $val (@{$abslist})
    {
       next if ($this->DoesVoteExist($uid, $val));
       $sql->Do(qq/insert into Votes (uid, rowid, vote) values
-                           ($uid, $val, -1)/); 
+                       ($uid, $val, -1)/); 
    }
 }
 
@@ -752,17 +776,17 @@ sub DoesVoteExist
    return defined($id) ? 1 : 0;
 }   
 
-# Go through the Changes table and evaluate open Moderations
-sub CheckModifications
+# Go through the Moderation table and evaluate open Moderations
+sub CheckModerations
 {
    my ($this) = @_;
    my ($sql, $query, $rowid, @row, $status, $dep_status, $mod); 
    my (%mods, $now, $key);
 
    $sql = Sql->new($this->{DBH});
-   $query = qq|select id from Changes where status = | . 
+   $query = qq|select id from Moderation where status = | . 
                ModDefs::STATUS_OPEN . qq| or status = | .
-               ModDefs::STATUS_TOBEDELETED . qq| order by Changes.id|;
+               ModDefs::STATUS_TOBEDELETED . qq| order by Moderation.id|;
    return if (!$sql->Select($query));
 
    $now = time();
@@ -845,7 +869,7 @@ sub CheckModifications
        }
 
        # Has the vote period expired and there have been votes?
-       if ($mod->GetExpireTime() < $now && 
+       if ($mod->GetExpired() &&
           ($mod->GetYesVotes() > 0 || $mod->GetNoVotes() > 0))
        {
            # Are there more yes votes than no votes?
@@ -894,23 +918,69 @@ sub CheckModifications
        if ($mod->{__eval__} == ModDefs::STATUS_APPLIED)
        {
            print STDERR "Mod " . $mod->GetId() . " applied\n";
-           $mod->SetStatus($mod->ApprovedAction($mod->GetRowId()));
-           $this->CreditModerator($mod->GetModerator(), 1);
+           eval
+           {
+               $sql->Begin;
+
+               $mod->SetStatus($mod->ApprovedAction($mod->GetRowId()));
+               $this->CreditModerator($mod->GetModerator(), 1);
+               $this->CloseModeration($mod->GetId(), $mod->GetTable(), 
+                                      $mod->GetRowId(), $mod->{__eval__});
+
+               $sql->Commit;
+           };
+           if ($@)
+           {
+               $sql->Rollback;
+
+               print STDERR "CheckModsError: Moderation commit failed -- mod " . 
+                            $mod->GetId . " will remain open.\n($@)\n";
+           }
        }
        elsif ($mod->{__eval__} == ModDefs::STATUS_DELETED)
        {
            print STDERR "Mod " . $mod->GetId() . " deleted\n";
-           $mod->SetStatus(ModDefs::STATUS_DELETED);
-           $mod->DeniedAction();
+           eval
+           {
+               $sql->Begin;
+
+               $mod->SetStatus(ModDefs::STATUS_DELETED);
+               $mod->DeniedAction();
+               $this->CloseModeration($mod->GetId(), $mod->GetTable(), 
+                                      $mod->GetRowId(), $mod->{__eval__});
+
+               $sql->Commit;
+           };
+           if ($@)
+           {
+               $sql->Rollback;
+
+               print STDERR "CheckModsError: Moderation commit failed -- mod " . 
+                            $mod->GetId . " will remain open.\n($@)\n";
+           }
        }
        else
        {
            print STDERR "Mod " . $mod->GetId() . " denied\n";
-           $mod->DeniedAction();
-           $this->CreditModerator($mod->GetModerator(), 0);
+           eval
+           {
+               $sql->Begin;
+
+               $mod->DeniedAction();
+               $this->CreditModerator($mod->GetModerator(), 0);
+               $this->CloseModeration($mod->GetId(), $mod->GetTable(), 
+                                      $mod->GetRowId(), $mod->{__eval__});
+
+               $sql->Commit;
+           };
+           if ($@)
+           {
+               $sql->Rollback;
+
+               print STDERR "CheckModsError: Moderation commit failed -- mod " . 
+                            $mod->GetId . " will remain open.\n($@)\n";
+           }
        }
-       $this->CloseModification($mod->GetId(), $mod->GetTable(), 
-                                $mod->GetRowId(), $mod->{__eval__});
    }
 }
 
@@ -933,7 +1003,7 @@ sub CheckModificationForFailedDependencies
            }
            else
            {
-              ($status) = $sql->GetSingleRow("Changes", ["status"], ["id", $1]);
+              ($status) = $sql->GetSingleRow("Moderation", ["status"], ["id", $1]);
            }
            if (!defined $status || 
                $status == ModDefs::STATUS_FAILEDVOTE ||
@@ -959,7 +1029,7 @@ sub GetModerationStatus
 
    $ret = ModDefs::STATUS_ERROR;
    $sql = Sql->new($this->{DBH});
-   ($ret) = $sql->GetSingleRow("Changes", ["status"], ["id", $id]);
+   ($ret) = $sql->GetSingleRow("Moderation", ["status"], ["id", $id]);
 
    return $ret;
 }
@@ -971,31 +1041,31 @@ sub CreditModerator
    my $sql = Sql->new($this->{DBH});
    if ($yes)
    {
-       $sql->Do(qq/update ModeratorInfo set 
+       $sql->Do(qq/update Moderator set 
                    modsaccepted = modsaccepted+1 where id = $uid/);
    }
    else
    {
-       $sql->Do(qq/update ModeratorInfo set 
+       $sql->Do(qq/update Moderator set 
                    modsrejected = modsrejected+1 where id = $uid/);
    }
 }
 
-sub CloseModification
+sub CloseModeration
 {
    my ($this, $rowid, $table, $datarowid, $status) = @_;
 
    my $sql = Sql->new($this->{DBH});
 
    # Decrement the mod count in the data row
-   if ($table ne 'GUIDJoin')
+   if ($table ne 'TRMJoin')
    {
        $sql->Do(qq/update $table set modpending = modpending - 1
                           where id = $datarowid/);
    }
 
-   # Set the status in the Changes row
-   $sql->Do(qq/update Changes set status = $status where id = $rowid/);
+   # Set the status in the Moderation row
+   $sql->Do(qq/update Moderation set status = $status where id = $rowid/);
 }
 
 sub RemoveModeration
@@ -1007,7 +1077,7 @@ sub RemoveModeration
        # Set the status to be deleted. THe ModBot will clean it up
        # on its next pass.
        my $sql = Sql->new($this->{DBH});
-       $sql->Do(qq|update Changes set status = | . 
+       $sql->Do(qq|update Moderation set status = | . 
                    ModDefs::STATUS_TOBEDELETED . 
                 qq| where id = | . $this->GetId());
    }
@@ -1020,7 +1090,7 @@ sub ConvertNewToHash
 
    for(;;)
    {
-      if ($nw =~ s/^(.*)=(.*)$//m)
+      if ($nw =~ s/^(.*?)=(.*)$//m)
       {
           $kv{$1} = $2;
       }
@@ -1052,7 +1122,9 @@ sub InsertModerationNote
 
    my $sql = Sql->new($this->{DBH});
    $text = $sql->Quote($text);
-   $sql->Do(qq/insert into ModeratorNote (modid, uid, text) values
+
+   # No transaction needed, since its a one table insert
+   $sql->Do(qq/insert into ModerationNote (modid, uid, text) values
                       ($modid, $uid, $text)/);
 }
 
@@ -1071,12 +1143,12 @@ sub LoadModerationNotes
    }
 
    my $sql = Sql->new($this->{DBH});
-   if ($sql->Select(qq|select modid, uid, text, ModeratorInfo.name
-                         from ModeratorNote, ModeratorInfo
-                        where ModeratorNote.uid = ModeratorInfo.id and
-                              ModeratorNote.modid >= $minmodid and
-                              ModeratorNote.modid <= $maxmodid
-                     order by ModeratorNote.modid, ModeratorNote.id|))
+   if ($sql->Select(qq|select modid, uid, text, Moderator.name
+                         from ModerationNote, Moderator
+                        where ModerationNote.uid = Moderator.id and
+                              ModerationNote.modid >= $minmodid and
+                              ModerationNote.modid <= $maxmodid
+                     order by ModerationNote.modid, ModerationNote.id|))
    {
         $lastmodid = -1;
         while(@row = $sql->NextRow())

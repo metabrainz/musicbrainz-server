@@ -2,8 +2,7 @@
 
 my ($mb, $al, @albums);
 
-$mb = new MusicBrainz;
-$mb->Login();
+$mb = mc_comp("/comp/dblogin");
 $al = Album->new($mb->{DBH});
 if (exists $ARGS{trackid})
 {

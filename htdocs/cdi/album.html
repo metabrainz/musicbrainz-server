@@ -8,8 +8,6 @@ $artist=>''
 
 my ($num_tracks, $i, $mb, $ar, $al, $modpending); 
 
-$mb = new MusicBrainz;
-
 mc_comp('/comp/sidebar', title=>'Submit CD: Select Album');
 
 if (!defined $artist || $artist eq '')
@@ -19,7 +17,7 @@ if (!defined $artist || $artist eq '')
 }
 else
 {
-    $mb->Login();
+    $mb = mc_comp("/comp/dblogin");
     $ar = Artist->new($mb->{DBH});
 
     my (%unused, $first, $found, $artistname, @ids_tracks_seqs, @albumlist);

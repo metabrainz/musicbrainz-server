@@ -35,12 +35,6 @@ sub Arguments
     return "";
 }
 
-# To convert on fatman:
-# alter table Diskid drop index DiskIndex;
-# alter table Diskid add unique index DiskIndex (Disk);
-# alter table TOC drop index DiskIndex;
-# alter table TOC add unique index DiskIndex (Diskid);
-
 sub Cleanup
 {
     my ($dbh, $fix, $quiet) = @_;
@@ -56,9 +50,9 @@ sub RemoveFromDiskId
     my $count = 0;
 
     # Here is a basic select loop for you to work with.
-    $sth = $dbh->prepare(qq|select id, disk
-                            from   Diskid 
-                            order  by disk|);
+    $sth = $dbh->prepare(qq|select id, disc
+                            from   Discid 
+                            order  by disc|);
     if ($sth->execute() && $sth->rows())
     {
         my @row;
@@ -73,7 +67,7 @@ sub RemoveFromDiskId
                 print "Duplicate DiskId: $row[0] $row[1]\n";
                 if ($fix)
                 {
-                   $dbh->do(qq\delete from Diskid where id = $row[0]\); 
+                   $dbh->do(qq\delete from Discid where id = $row[0]\); 
                    $count++;
                 }
             }
@@ -93,9 +87,9 @@ sub RemoveFromTOC
     my $count = 0;
 
     # Here is a basic select loop for you to work with.
-    $sth = $dbh->prepare(qq|select id, diskid
+    $sth = $dbh->prepare(qq|select id, discid
                             from   TOC 
-                            order  by diskid|);
+                            order  by discid|);
     if ($sth->execute() && $sth->rows())
     {
         my @row;

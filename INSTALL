@@ -6,11 +6,17 @@ Requirements:
 
 The MusicBrainz server requires the following items:
 
-1) An SQL server. The code has been tested with MySQL. The scripts use the
-   perl DBI interface to talk to the server. It should work with other
-   servers as well, but that has not been tested.
-2) A database and user dedicated to MusicBrainz. These scripts use
-   the database name 'musicbrainz' and user name 'musicbrainz'.
+1) A real SQL server, like postgres. MySQL won't work. 
+   The scripts use the perl DBI interface to talk to the server. It should 
+   work with other servers as well, but that has not been tested.
+
+   PostgreSQL notes:
+    
+      - Configure the server with: configure --enable-multibyte=UNICODE
+        to enable UTF-8 support. THIS IS IMPORTANT!!
+
+2) A database dedicated to MusicBrainz. These scripts use
+   the database name 'musicbrainz' and user name 'postgres'.
 3) Apache with mod_perl and Mason installed. See the following sites for more
    details on each of these packages:
    
@@ -47,7 +53,7 @@ The MusicBrainz server requires the following items:
    Apache::Session::File
    Storable
    DBI          
-   DBD::mysql  
+   DBD::Pg
    HTML::Mason
    String::CRC32
    String::Similarity;
@@ -64,7 +70,9 @@ The MusicBrainz server requires the following items:
 
    These probably come standard with Perl:
    IO::Socket     
+   URI::Escape
    Carp;
+   Tie::STDERR
 
 Installation:
 =============
@@ -93,27 +101,22 @@ Installation:
         and /home/httpd/musicbrainz/locks. Make sure the selected
         directories exist before you start the server.
 
-2) Create a database called 'musicbrainz'. 
-   (mysql: 'mysqladmin create musicbrainz')
+2) Create a UNICODE (!) database called 'musicbrainz'. 
+   (postgres: createdb -E UNICODE musicbrainz)
 
-3) Add a user to the database called 'musicbrainz'. The user needs to have
-   insert, select, and update priveledges. An easy way to do this is
-   to use the MySQLAddUser.pl script in the admin directory.
-   (cd admin ; MySQLAddUser.pl musicbrainz localhost)
-
-4) In the cgi-bin directory, edit DBDefs.pm. This perl module will keep
+3) In the cgi-bin directory, edit DBDefs.pm. This perl module will keep
    all the information for accesing the database. Follow the instructions
    in the module.
 
-5) In the admin directory, run the script CreateTables.pl. This will log
+4) In the admin directory, run the script CreateTables.pl. This will log
    into the DB server and create all the necessary tables. If you want to
-   create a blank database for testing, run CreateTables.pl without any
-   options. However, if you plan to import the data from the MB website,
-   then give CreateTables.pl the -nd option for skipping the insertion
+   create a blank database for testing, run CreateTables.pl with the 'all'
+   option. However, if you plan to import the data from the MB website,
+   then run 'CreateTables.pl views tables index' skipping the insertion
    of the default rows. The default rows are included in the data dump
    and would cause problems when trying to import the data dump.
 
-6) Configure Apache to use Mason. In the admin directory you will find
+5) Configure Apache to use Mason. In the admin directory you will find
    a prefab handler.pl to use with the Mason setup and the vh_httpd.conf
    file which is a VirtualHost fragment for Apache's httpd.conf file.
    I suggest you run MusicBrainz as a virtual host, and if you stash
@@ -127,32 +130,28 @@ Installation:
    and look for TODO comments. Each of the TODO comments indicates a
    path or setting that needs to be set for your configuration. 
 
-7) Copy all the files/subdirs in the htdocs directory into DocumentRoot
+6) Copy all the files/subdirs in the htdocs directory into DocumentRoot
    directory that you specified in httpd.conf. Then copy all the files/subdirs
    from the cgi-bin dir into the ScriptAlias directory specified in httpd.conf
 
-8) Now start mysql (if its not already running), and then start Apache and
+7) Now start postgres (if its not already running), and then start Apache and
    you should be set and ready to roll. Go the the selected URL and you
    should see a MusicBrainz site without any data.
 
-9) Finally, import some data into the system. Download the data dump from
+8) Finally, import some data into the system. Download the data dump from
        ftp://ftp.musicbrainz.org/pub/musicbrainz/mbdump.tar.bz2
    and then run the data import script in the admin dir:
 
        ./MBImport.pl mbdump.tar.bz2
 
-   This should import the data and now you have your very own MusicBrainz
-   server.
+   Then, build the keyword indexes for the text searching:
+
+       ./build_words.pl
+
+   This should be it and now you have your very own MusicBrainz server.
 
 Good luck!
 
 Robert Kaye
 Mayhem & Chaos Coordinator
 rob@eorbit.net
-
-
-------------------------------------------------------------------------------
-Notes for moving to Postgres:
-
-- Configure with: configure --enable-multibyte=UNICODE
-- create db with: initdb -E UNICODE musicbrainz

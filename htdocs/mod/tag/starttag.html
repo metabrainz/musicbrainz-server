@@ -4,8 +4,7 @@
 
 my ($mb, $id, $ar, $artist, $referer); 
 
-$mb = new MusicBrainz;
-$mb->Login();
+$mb = mc_comp("/comp/dblogin");
 if (defined $r->headers_in->{'Referer'} &&
     $r->headers_in->{'Referer'} ne '')
 {    

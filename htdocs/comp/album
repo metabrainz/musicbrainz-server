@@ -18,7 +18,7 @@ $ly = Lyrics->new($artist->GetDBH());
 
 $nomod = 1 if (exists $session{tagged_albums});
 
-if ($album->GetArtist() == Artist::VARTIST_ID)
+if ($album->GetArtist() == ModDefs::VARTIST_ID)
 {
     @info = $album->LoadTracksFromMultipleArtistAlbum();
 }

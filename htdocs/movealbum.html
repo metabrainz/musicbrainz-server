@@ -5,8 +5,7 @@
 my ($mb, $id, $albumname, $modpending, $sortname);
 my ($artistname, $al, $artist, $ar); 
 
-$mb = new MusicBrainz;
-$mb->Login();
+$mb = mc_comp("/comp/dblogin");
 
 if (!exists $ARGS{album} || $ARGS{album} eq '' ||
     !exists $ARGS{artist} || $ARGS{artist} eq '')

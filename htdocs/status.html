@@ -13,7 +13,7 @@ this project stand.
 <li>Support for storing and moderating the basic metadata (artist, album,
     title, track number)
 <li>Searching/browsing the database
-<li>Daily data dumps made available to the public in mysql dump format
+<li>Daily data dumps made available to the public in postgres dump format
     and in RDF.
 <li>Support for adding CDs via the web interface with support for importing
     existing CD metadata from FreeDB.org
@@ -30,13 +30,13 @@ this project stand.
 <li>Database statistics page
 <li>CDs looked up via the web service (RDF) interface are automatically
     inserted into the moderation system.
+<li>Database commit/rollback support & port to real DB like postgres
 </ul>
 
 <font class="bold">Needed Features before a 1.0 Release</font>
 <p>
 <ul>
-<li>Database commit/rollback support
-<li>Database replication using MySQL
+<li>Database replication 
 <li>Add support for submitting tracks/CDs via the RDF interface. These
     submissions must then be passed through the moderation system.
 </ul>

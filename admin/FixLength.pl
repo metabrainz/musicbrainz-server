@@ -38,10 +38,10 @@ $sth->execute();
 while ( my $row = $sth->fetchrow_hashref )
 {
 
-    print "Fixing length for all tracks in Album Id '".$row->{'Id'}."'...";
+    print "Fixing length for all tracks in Album Id '".$row->{'id'}."'...";
     
     my $alb = Album->new($dbh);
-    $alb->SetId($row->{'Id'});
+    $alb->SetId($row->{'id'});
     if(!$alb->LoadFromId()) {
         printf("Can't loadfrom id.\n");
         exit(0);
@@ -50,9 +50,9 @@ while ( my $row = $sth->fetchrow_hashref )
     my @tracks = $alb->LoadTracks();
     
     # select the first TOC
-    my $sth2 = $dbh->prepare("SELECT * FROM TOC WHERE Album = '$row->{'Id'}'");
+    my $sth2 = $dbh->prepare("SELECT * FROM TOC WHERE Album = '$row->{'id'}'");
     $sth2->execute();
-    my $toc;
+    my ($toc, $lastnum);
     for(;;)
     {
         $toc = $sth2->fetchrow_hashref;
@@ -60,23 +60,26 @@ while ( my $row = $sth->fetchrow_hashref )
         {
            last;
         }
-        last if ($toc->{'Tracks'} == scalar(@tracks));
+        $lastnum = $toc->{'tracks'};
+        last if ($toc->{'tracks'} == scalar(@tracks));
     }
-    $sth2->finish();
 
     if (!defined $toc)
     {
         print "No valid id found.\n";
+        print "$lastnum == " . scalar(@tracks) . "\n";
+        $sth2->finish();
         next;
     }
+    $sth2->finish();
 
     # Compute and update the length of each track
     my $ii;
     my @lengths;
-    for($ii = 1; $ii < $toc->{'Tracks'}; $ii++) {
-        $lengths[$ii] = int((($toc->{'Track'.($ii+1)} - $toc->{'Track'.$ii})*1000)/75);
+    for($ii = 1; $ii < $toc->{'tracks'}; $ii++) {
+        $lengths[$ii] = int((($toc->{'track'.($ii+1)} - $toc->{'track'.$ii})*1000)/75);
     }
-    $lengths[$ii] =  int((($toc->{'Leadout'} - $toc->{'Track'.$ii})*1000)/75);
+    $lengths[$ii] =  int((($toc->{'leadout'} - $toc->{'track'.$ii})*1000)/75);
 
     foreach(@tracks) {
         if(defined($lengths[$_->GetSequence()])) {

@@ -30,6 +30,7 @@ use Artist;
 use Album;
 use Insert;
 
+
 package AddAlbumModeration;
 use vars qw(@ISA);
 @ISA = 'Moderation';
@@ -86,7 +87,7 @@ sub DetermineDependencies
 
    return if (!defined $this->GetArtist());
    
-   ($id) = $sql->GetSingleRow("Changes", ["id"], 
+   ($id) = $sql->GetSingleRow("Moderation", ["id"], 
                               ["type", ModDefs::MOD_ADD_ARTIST,
                                "rowid", $this->GetArtist(),
                                "status", ModDefs::STATUS_OPEN]);
@@ -99,7 +100,7 @@ sub DetermineDependencies
        }
    }
 
-   if ($sql->Select(qq|select newvalue, id from Changes where type = | .
+   if ($sql->Select(qq|select newvalue, id from Moderation where type = | .
                        ModDefs::MOD_ADD_ALBUM . " and status = " .
                        ModDefs::STATUS_OPEN))
    {
@@ -152,13 +153,15 @@ sub PreVoteAction
       my $tmp = {};
       last if (!exists $nw->{"Track$i"});
       if (exists $this->{artist} &&
-          $this->{artist} == Artist::VARTIST_ID)
+          $this->{artist} == ModDefs::VARTIST_ID)
       {
           $$tmp{artist} = $nw->{"Artist$i"};
       }
-      if (exists $nw->{"TrackDur$i"}) 
+
+      # print STDERR $nw->{"TrackDur$i"};
+      if (exists $nw->{"TrackDur$i"})
       {
-      	  $$tmp{duration} = $nw->{"TrackDur$i"};
+          $$tmp{duration} = $nw->{"TrackDur$i"};
       }
       $$tmp{track} = $nw->{"Track$i"};
       $$tmp{tracknum} = $i;
@@ -180,7 +183,7 @@ sub PreVoteAction
        }
        if (exists $info{cdindexid_insertid})
        {
-           $nw->{DiskId} = $info{cdindexid_insertid};
+           $nw->{Discid} = $info{cdindexid_insertid};
        }
        foreach $track (@tracks)
        {
@@ -249,7 +252,7 @@ sub DeniedAction
       {
           my $gu;
 
-          $gu = GUID->new($this->{DBH});
+          $gu = TRM->new($this->{DBH});
           $gu->SetId($newval->{"Trm".$i."Id"});
           $gu->Remove();
 
@@ -275,12 +278,12 @@ sub DeniedAction
       $al->SetId($newval->{"AlbumId"});
       $al->Remove();
    }
-   if (exists $newval->{"DiskId"})
+   if (exists $newval->{"Discid"})
    {
       my $di;
 
-      $di = Diskid->new($this->{DBH});
-      $di->Remove($newval->{"DiskId"});
+      $di = Discid->new($this->{DBH});
+      $di->Remove($newval->{"Discid"});
    }
    if (exists $newval->{"ArtistId"})
    {
@@ -404,7 +407,7 @@ sub DeniedAction
       $ar->Remove();
 
       $sql = Sql->new($this->{DBH});
-      $sql->Do("update Changes set artist = " . Artist::DARTIST_ID . 
+      $sql->Do("update Moderation set artist = " . ModDefs::DARTIST_ID . 
                " where artist = " . $newval->{"ArtistId"});
    }
 }
@@ -444,7 +447,7 @@ sub ShowNewValue
 
    $out = qq\Track: <span class="bold">$nw->{TrackName}</span>\;
    $out .= qq\<br>TrackNum: <span class="bold">$nw->{TrackNum}</span>\;
-   if ($this->GetArtist() == Artist::VARTIST_ID)
+   if ($this->GetArtist() == ModDefs::VARTIST_ID)
    {
        $out .= qq\<br>Artist: <span class="bold">$nw->{ArtistName}</span>\;
        $out .= qq\<br>Sortname: <span class="bold">$nw->{SortName}</span>\
@@ -459,7 +462,7 @@ sub DetermineDependencies
    my ($nw, $sql, $id);
 
    $sql = Sql->new($this->{DBH}); 
-   ($id) = $sql->GetSingleRow("Changes", ["id"], 
+   ($id) = $sql->GetSingleRow("Moderation", ["id"], 
                               ["type", ModDefs::MOD_ADD_ALBUM,
                                "rowid", $this->GetRowId(),
                                "status", ModDefs::STATUS_OPEN]);
@@ -483,7 +486,7 @@ sub PreVoteAction
    $info{artistid} = $this->{artist}; 
    $info{albumid} = $nw->{AlbumId}; 
 
-   if ($this->{artist} == Artist::VARTIST_ID)
+   if ($this->{artist} == ModDefs::VARTIST_ID)
    {
       if (!exists $nw->{SortName} || $nw->{SortName} eq "")
       {
@@ -561,7 +564,7 @@ sub DeniedAction
    }
 }
 
-package MoveDiskidModeration;
+package MoveDiscidModeration;
 use vars qw(@ISA);
 @ISA = 'Moderation';
 
@@ -570,18 +573,19 @@ sub ShowPreviousValue
    my ($this) = @_;
 
    my $name = "Unknown";
-   my $diskid = "Unknown";
+   my $Discid = "Unknown";
    my $new = $this->{new};
+
    if ($new =~ /^OldAlbumName=(.*)$/m)
    {
        $name = $1;
    }
-   if ($new =~ /^DiskId=(.*)$/m)
+   if ($new =~ /^DiscId=(.*)$/m)
    {
-       $diskid = $1;
+       $Discid = $1;
    }
    return "Old: <a href=\"/showalbum.html?albumid=" . $this->GetPrev() .
-          "\">$name</a><br>$diskid";
+          "\">$name</a><br>$Discid";
 }
 
 sub ShowNewValue
@@ -607,9 +611,9 @@ sub PreVoteAction
    return undef if (!defined $nw);
 
    $sql = Sql->new($this->{DBH});
-   $quote = $sql->Quote($nw->{DiskId});
-   $sql->Do(qq|update Diskid set album=$nw->{NewAlbumId} where disk = $quote|);
-   $sql->Do(qq|update TOC set album=$nw->{NewAlbumId} where diskid = $quote|);
+   $quote = $sql->Quote($nw->{Discid});
+   $sql->Do(qq|update Discid set album=$nw->{NewAlbumId} where disc = $quote|);
+   $sql->Do(qq|update TOC set album=$nw->{NewAlbumId} where Discid = $quote|);
 }
 
 #returns STATUS_XXXX
@@ -628,11 +632,11 @@ sub DeniedAction
    return undef if (!defined $nw);
 
    $sql = Sql->new($this->{DBH});
-   $quote = $sql->Quote($nw->{DiskId});
-   $sql->Do("update Diskid set album= " . $this->GetPrev() . 
-            " where disk = $quote");
+   $quote = $sql->Quote($nw->{Discid});
+   $sql->Do("update Discid set album= " . $this->GetPrev() . 
+            " where disc = $quote");
    $sql->Do("update TOC set album= " . $this->GetPrev() . 
-            " where diskid = $quote");
+            " where Discid = $quote");
 }
 
 package RemoveTRMIdModeration;
@@ -671,8 +675,8 @@ sub PreVoteAction
 {
    my ($this) = @_;
 
-   my $gu = GUID->new($this->{DBH});
-   $gu->RemoveGUIDByGUIDJoin($this->GetRowId());
+   my $gu = TRM->new($this->{DBH});
+   $gu->RemoveTRMByTRMJoin($this->GetRowId());
 }
 
 #returns STATUS_XXXX
@@ -692,7 +696,7 @@ sub DeniedAction
 
    if (exists $nw->{TrackId} && $nw->{TrackId} != 0)
    {
-       my $gu = GUID->new($this->{DBH});
+       my $gu = TRM->new($this->{DBH});
        $gu->Insert($this->GetPrev(), $nw->{TrackId});
    }
 }

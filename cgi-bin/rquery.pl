@@ -16,7 +16,7 @@ my $use_old_style = 0;
 my %Queries = 
 (
    GetCDInfoFromCDIndexId => 
-      [ \&QuerySupport::GenerateCDInfoObjectFromDiskId, 
+      [ \&QuerySupport::GenerateCDInfoObjectFromDiscid, 
         '/rdf:RDF/rdf:Description/MQ:Args/@id',
         '/rdf:RDF/rdf:Description/MQ:Args/@last', 
         '/rdf:RDF/rdf:Description/MQ:Args/@toc'],
@@ -40,8 +40,8 @@ my %Queries =
         '/rdf:RDF/rdf:Description/MQ:Args/@track', 
         '/rdf:RDF/rdf:Description/MQ:Args/@album', 
         '/rdf:RDF/rdf:Description/MQ:Args/@artist'],
-   FindDistinctGUID => 
-      [\&QuerySupport::FindDistinctGUID, 
+   FindDistinctTRM => 
+      [\&QuerySupport::FindDistinctTRM, 
         '/rdf:RDF/rdf:Description/MQ:Args/@track', 
         '/rdf:RDF/rdf:Description/MQ:Args/@artist'],
    GetArtistById =>
@@ -53,8 +53,8 @@ my %Queries =
    GetTrackById =>
       [\&QuerySupport::GetTrackByGlobalId, 
         '/rdf:RDF/rdf:Description/MQ:Args/@id'],
-   GetTrackByGUID =>
-      [\&QuerySupport::GetTrackByGUID, 
+   GetTrackByTRM =>
+      [\&QuerySupport::GetTrackByTRM, 
         '/rdf:RDF/rdf:Description/MQ:Args/@id'],
    GetAlbumsByArtistId =>
       [\&QuerySupport::GetAlbumsByArtistGlobalId, 
@@ -65,7 +65,7 @@ my %Queries =
         '/rdf:RDF/rdf:Description/DC:Creator',
         '/rdf:RDF/rdf:Description/DC:Relation/rdf:Description/DC:Title',
         '/rdf:RDF/rdf:Description/MM:TrackNum',
-        '/rdf:RDF/rdf:Description/DC:Identifier/@guid',
+        '/rdf:RDF/rdf:Description/DC:Identifier/@TRM',
         '/rdf:RDF/rdf:Description/MQ:Filename',
         '/rdf:RDF/rdf:Description/DC:Date/@issued',
         '/rdf:RDF/rdf:Description/MM:Genre',
@@ -82,7 +82,7 @@ my %Queries =
    #SubmitTrack =>
    #   [\&QuerySupport::SubmitTrack, 
    #     '/rdf:RDF/rdf:Description/DC:Title',
-   #     '/rdf:RDF/rdf:Description/DC:Identifier/@guid',
+   #     '/rdf:RDF/rdf:Description/DC:Identifier/@TRM',
    #     '/rdf:RDF/rdf:Description/DC:Creator',
    #     '/rdf:RDF/rdf:Description/DC:Relation/rdf:Description/DC:Title',
    #     '/rdf:RDF/rdf:Description/MM:TrackNum',
@@ -232,7 +232,7 @@ sub UpdateQuery
    $xml =~ s/DC:Relation track=\"(\d+)\"\/>/MM:TrackNum>$1<\/MM:TrackNum>/gs;
    $xml =~ s/MC:Collection/MM:Collection/gs;
    $xml =~ s/<MM:Album>(.*)<\/MM:Album>/<DC:Relation>\n  <rdf:Description>\n    <DC:Title>$1<\/DC:Title>\n  <\/rdf:Description>\n<\/DC:Relation>/gs;
-   $xml =~ s/<DC:Identifier\s+guid=\"(.*)\"\s+fileName=\"(.*?)\"\/>/<DC:Identifier guid=\"$1\"\/>\n<MQ:Filename>$2<\/MQ:Filename>/gs;
+   $xml =~ s/<DC:Identifier\s+TRM=\"(.*)\"\s+fileName=\"(.*?)\"\/>/<DC:Identifier TRM=\"$1\"\/>\n<MQ:Filename>$2<\/MQ:Filename>/gs;
 
    return $xml;
 }

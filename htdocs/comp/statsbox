@@ -1,36 +1,38 @@
 <%perl>
 my $result = $m->cache(action=>'retrieve');
-$result = undef;
+#$result = undef;
 if (!defined($result)) 
 {
-    my $mb = MusicBrainz->new();  
-    $mb->Login();
+    my $mb = mc_comp("/comp/dblogin", quiet=>1);
 
-    $result .= mc_comp("/comp/calcstat", 
-                       mb=>$mb,
-                       query=>"select count(*) from Artist", 
-                       title=>"Artists:");
-    $result .= mc_comp("/comp/calcstat", 
-                       mb=>$mb,
-                       query=>"select count(*) from Album", 
-                       title=>"Albums:");
-    $result .= mc_comp("/comp/calcstat", 
-                       mb=>$mb,
-                       query=>"select count(*) from Track", 
-                       title=>"Tracks:");
-    $result .= mc_comp("/comp/calcstat", 
-                       mb=>$mb,
-                       query=>"select count(*) from GUID", 
-                       title=>"TRM Ids:");
-    $result .= mc_comp("/comp/calcstat", 
-                       mb=>$mb,
-                       query=>"select count(*) from Diskid", 
-                       title=>"DiskIds:");
-    $result .= mc_comp("/comp/calcstat", 
-                       mb=>$mb,
-                       query=>"select count(*) from Changes", 
-                       title=>"Mods:");
-    $mb->Logout();
+    if (defined $mb)
+    {
+        $result .= mc_comp("/comp/calcstat", 
+                           mb=>$mb,
+                           query=>"select count(*) from Artist", 
+                           title=>"Artists:");
+        $result .= mc_comp("/comp/calcstat", 
+                           mb=>$mb,
+                           query=>"select count(*) from Album", 
+                           title=>"Albums:");
+        $result .= mc_comp("/comp/calcstat", 
+                           mb=>$mb,
+                           query=>"select count(*) from Track", 
+                           title=>"Tracks:");
+        $result .= mc_comp("/comp/calcstat", 
+                           mb=>$mb,
+                           query=>"select count(*) from TRM", 
+                           title=>"TRM Ids:");
+        $result .= mc_comp("/comp/calcstat", 
+                           mb=>$mb,
+                           query=>"select count(*) from Discid", 
+                           title=>"Discids:");
+        $result .= mc_comp("/comp/calcstat", 
+                           mb=>$mb,
+                           query=>"select count(*) from Moderation", 
+                           title=>"Mods:");
+        $mb->Logout();
+    }
     $m->cache(action=>'store', expire_next=>'hour', value=>$result);
 }
 </%perl>

@@ -70,9 +70,19 @@ sub GetLastUsed
    return $_[0]->{lastused};
 }
 
+sub SetLastUsed
+{
+   $_[0]->{lastused} = $_[1];
+}
+
 sub GetTimesUsed
 {
    return $_[0]->{timesused};
+}
+
+sub SetTimesUsed
+{
+   $_[0]->{timesused} = $_[1];
 }
 
 sub LoadFromId
@@ -105,8 +115,8 @@ sub Insert
 
    $sql = Sql->new($this->{DBH});
    $name = $sql->Quote($name);
-   $sql->Do("insert into $this->{table} (Name, Ref, ".
-            "TimesUsed, ModPending) values ($name, $id, 0, 0)");
+   $sql->Do(qq|insert into $this->{table} (Name, Ref, LastUsed) values 
+               ($name, $id, '1970-01-01 00:00')|);
 }
 
 sub Resolve
@@ -115,13 +125,14 @@ sub Resolve
    my ($sql, $id, @row);
 
    $sql = Sql->new($this->{DBH});
-   if ($sql->Select("select ref, id from $this->{table} where name =".
+   if ($sql->Select("select ref, id from $this->{table} where name ilike ".
                     $sql->Quote($name)))
    {
        @row = $sql->NextRow();
        $id = $row[0];
        $sql->Finish;
 
+       # No transaction needed -- single column update only
        $sql->Do(qq|update $this->{table} set LastUsed = now(), TimesUsed =
                    TimesUsed + 1 where id = $row[1]|);
    }
@@ -155,4 +166,38 @@ sub GetList
        $sql->Finish;
    }
    return @list;
+}
+
+# Load all the aliases for a given artist and return an array of references to alias
+# objects. Returns undef if error occurs
+sub LoadFull
+{
+   my ($this, $artist) = @_;
+   my (@info, $query, $sql, @row, $alias);
+
+   $sql = Sql->new($this->{DBH});
+   $query = qq|select id, name, ref, lastused, timesused 
+                 from $this->{table}
+                where ref = $artist
+             order by name|;
+
+   if ($sql->Select($query) && $sql->Rows)
+   {
+       for(;@row = $sql->NextRow();)
+       {
+           $alias = Alias->new($this->{DBH});
+           $alias->{table} = "ArtistAlias";
+           $alias->SetId($row[0]);
+           $alias->SetName($row[1]);
+           $alias->SetRowId($row[2]);
+           $alias->SetLastUsed($row[3]);
+           $alias->SetTimesUsed($row[4]);
+           push @info, $alias;
+       }
+       $sql->Finish;
+   
+       return \@info;
+   }
+
+   return undef;
 }

@@ -12,8 +12,7 @@ if (!exists $ARGS{album} || $ARGS{album} eq '' ||
     return undef;
 }
 
-$mb = new MusicBrainz;
-$mb->Login();
+$mb = mc_comp("/comp/dblogin");
 $al = Album->new($mb->{DBH});
 
 $album = $ARGS{album};

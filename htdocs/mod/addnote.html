@@ -1,6 +1,7 @@
 <%args>
 $modid
 $uid
+$text=>""
 </%args>
 
 <& /comp/header_small, title=>'Add moderation note' &>  
@@ -18,11 +19,20 @@ $uid
 
 <table border="0">
 <tr><td>
-Enter the note text below:
+% if ($text ne '') {
+    You have embedded an invalid link into your note. Links must point
+    to pages on the MusicBrainz server. Please enter a link address that
+    does not contain a server name, but only an absolute path to
+    one of the MusicBrainz pages and contains no @ signs..<p>
+
+    Enter the note text below:
+% } else {
+    Enter the note text below:
+% }
 </td></tr>
 
 <tr><td>
-<INPUT TYPE="text" NAME="text" SIZE=42> 
+<INPUT TYPE="text" NAME="text" VALUE="<% $text %>" SIZE=42> 
 <INPUT TYPE="hidden" NAME="modid" VALUE="<% $modid %>"><br>
 <INPUT TYPE="hidden" NAME="uid" VALUE="<% $uid %>"><br>
 </td></tr>

@@ -12,14 +12,14 @@ sub CheckArg
     return 1;
 }
 
-my ($mb, $i, $j, $mod, $new, $modid, $depmod, $url);
+my ($mb, $i, $j, $mod, $new, $modid, $depmod, $url, $sql);
 
 #print STDERR "enter_mod: =============================================================\n";
 #print STDERR Data::Dumper->Dump([%ARGS], ["ARGS"]);
 
-$mb = new MusicBrainz;
-$mb->Login();
+$mb = mc_comp("/comp/dblogin");
 $mod = Moderation->new($mb->{DBH});
+$sql = Sql->new($mb->{DBH});
 
 for($i = 0;; $i++)
 {
@@ -79,8 +79,26 @@ for($i = 0;; $i++)
     $mod->SetModerator($session{uid});
     $mod->SetDepMod($depmod);
 #    print STDERR "Insert mod\n";
-    $modid = $mod->InsertModeration($session{privs});
-    $modid = ($depmod == 0) ? $modid : $depmod;
+
+    eval
+    {
+        $sql->Begin;
+
+        $modid = $mod->InsertModeration($session{privs});
+        $modid = ($depmod == 0) ? $modid : $depmod;
+
+        $sql->Commit;
+    };
+    if ($@)
+    {
+        my $err = $@;
+        $sql->Rollback;
+        mc_comp("/comp/sidebar", expand=>"moderation", 
+                                title=>'Moderation Error');
+        mc_out("<b>A database error occurred.</b><pre>($err)</pre>");
+        mc_comp("/comp/footer");
+        return undef;
+    }
 }
 #print STDERR "enter_mod done: ========================================================\n";
 

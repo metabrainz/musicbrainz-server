@@ -18,8 +18,7 @@ if ($artist <= 2)
     return undef;
 }
 
-$mb = new MusicBrainz;
-$mb->Login();
+$mb = mc_comp("/comp/dblogin");
 $ar = Artist->new($mb->{DBH});
 
 $ar->SetId($artist);

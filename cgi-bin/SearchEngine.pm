@@ -33,6 +33,7 @@ use DBI;
 use Text::Unaccent;
 use locale;
 use POSIX qw(locale_h);
+use utf8;
 
 sub new
 {
@@ -84,29 +85,35 @@ sub DESTROY
 sub Tokenize
 {
     my $self  = shift;
-    my @words = split /\s/, shift;
-		
-		# we set the locale here to a known quantity
-		# so that accented characters are considered
-		# "word characters" (\w)
+    my $str = shift;
+    
+    # we set the locale here to a known quantity
+    # so that accented characters are considered
+    # "word characters" (\w)
 
-		my $old_locale = setlocale(LC_CTYPE);
-		setlocale( LC_CTYPE, "en_US.ISO_8859-1" )
-			  or die "Couldn't change locale.";
+    my $old_locale = setlocale(LC_CTYPE);
+    setlocale( LC_CTYPE, "en_US.UTF-8" )
+        or die "Couldn't change locale.";
 
-	  my %seen = 	();
+    my @words = split /\s/, $str;
+
+    my %seen =  ();
     foreach (@words) 
     {
-        s/\W//g; # strip non words
-				$_ = unac_string('ISO-8859-1',$_);
-				$seen{$_}++;
+        $_ = unac_string('UTF-8',$_);
+
+        s/[^a-zA-Z]//g; # strip non words
+        tr/A-Z/a-z/;
+        next if $_ eq '';
+
+        $seen{$_}++;
     }
 
-		#switch it back, just to be polite
-		setlocale( LC_CTYPE, $old_locale );
-		
-		#uniqify the word list
-		@words = keys %seen;
+    #switch it back, just to be polite
+    setlocale( LC_CTYPE, $old_locale );
+    
+    #uniqify the word list
+    @words = keys %seen;
 
     return @words;
 }
@@ -115,36 +122,47 @@ sub AddWord
 {
     my $self = shift;
     my $word = shift;
-    my $sth = $self->{DBH}->prepare_cached ( qq|
-        INSERT into WordList (Word)
-        VALUES (?)
-        |);
 
-    eval { $sth->execute($word) };
-    if ($@)
+    my $lookup_sth = $self->{DBH}->prepare_cached ( qq|
+            SELECT Id 
+              FROM WordList 
+             WHERE Word = ?|);
+    $lookup_sth->execute($word);
+    if ($lookup_sth->rows > 0)
     {
-        if ( $@ =~ /Duplicate/ ) 
+        if (my $row = $lookup_sth->fetch)
         {
-            my $lookup_sth = $self->{DBH}->prepare_cached ( qq|
-                SELECT Id 
-                FROM WordList 
-                WHERE Word = ?
-                |);
-            $lookup_sth->execute($word);
-            if (my $row = $lookup_sth->fetch)
-            {
-                $lookup_sth->finish;
-                return $row->[0];
-            }
-            else { die "Can't find duplicate word in database!" }
+            $lookup_sth->finish;
+            return $row->[0];
         }
-        else
-        {
-            die $@; # Jump ship if it's not a duplicate key error.
-        }
+        $lookup_sth->finish;
+        return undef;
     }
-    else {
-        return $sth->{mysql_insertid};
+    else
+    {
+        $lookup_sth->finish;
+
+        my $sth = $self->{DBH}->prepare_cached ( qq|
+            INSERT into WordList (Word)
+            VALUES (?)|);
+
+        eval { $sth->execute($word) };
+        if ($@)
+        {
+            return undef;
+        }
+
+        $sth = $self->{DBH}->prepare("select currval('WordList_id_seq')");
+        if ($sth->execute && $sth->rows)
+        {
+            my @row = $sth->fetchrow_array;
+            $sth->finish;
+     
+            return $row[0];
+        }
+        $sth->finish;
+
+        return undef;
     }
 }
 
@@ -155,6 +173,8 @@ sub AddWordRefs {
     foreach (@words)
     {
         my $word_id = $self->AddWord ($_);
+        next if not defined $word_id;
+
         my $sth = $self->{DBH}->prepare_cached ( qq|
             INSERT into $self->{Table}Words ($self->{Table}id, Wordid)
             VALUES(?,?)
@@ -188,46 +208,46 @@ sub GetQuery
 
     my $where_clause = $self->GetWhereClause(@words);
     
-    $conditions .= ("HAVING num_matches = " . (scalar @words)) if $self->AllWords;
+    $conditions .= ("HAVING count(WordList.Id) = " . (scalar @words)) if $self->AllWords;
 
     if ($self->{Table} eq 'Album')
     {
         $query = "
-        SELECT Album.id, Album.name, Artist.id, Artist.name, count(WordList.Id) as num_matches
+        SELECT Album.id, Album.name, Artist.id, Artist.name, count(WordList.Id)
         FROM Album, AlbumWords, WordList, Artist
         WHERE $where_clause
         and AlbumWords.Wordid = WordList.Id
         and AlbumWords.Albumid = Album.Id
         and Artist.Id = Album.Artist
-        GROUP BY Album.Id 
+        GROUP BY Album.Id, Album.name, Artist.id, Artist.name 
         $conditions
-        ORDER BY num_matches desc, Album.name";
+        ORDER BY count(WordList.Id) desc, Album.name";
     }
     elsif ($self->{Table} eq 'Artist')
     {
         $query = "
-        SELECT Artist.id, Artist.name, Artist.sortname, count(WordList.Id) as num_matches
+        SELECT Artist.id, Artist.name, Artist.sortname, count(WordList.Id) 
         FROM Artist, ArtistWords, WordList
         WHERE $where_clause
         and ArtistWords.Wordid = WordList.Id
         and ArtistWords.Artistid = Artist.Id
-        GROUP BY Artist.Id 
+        GROUP BY Artist.id, Artist.name, Artist.sortname
         $conditions
-        ORDER BY num_matches desc, Artist.sortname";
+        ORDER BY count(WordList.Id) desc, Artist.sortname";
     }
     elsif ($self->{Table} eq 'Track')
     {
         $query = "
-        SELECT Track.id, Track.name, Artist.id, Artist.name, AlbumJoin.album, count(WordList.Id) as num_matches
+        SELECT Track.id, Track.name, Artist.id, Artist.name, AlbumJoin.album, count(WordList.Id)
         FROM Track, TrackWords, WordList, Artist, AlbumJoin
         WHERE $where_clause
         and TrackWords.Wordid = WordList.Id
         and TrackWords.Trackid = Track.Id
         and Track.Artist = Artist.id
         and AlbumJoin.Track = Track.Id
-        GROUP BY Track.Id 
+        GROUP BY Track.Id, Track.name, Artist.id, Artist.name, AlbumJoin.album 
         $conditions
-        ORDER BY num_matches desc, Track.name";
+        ORDER BY count(WordList.Id) desc, Track.name";
     }
     $query .= (" LIMIT " . $self->Limit) if  $self->Limit;
     return $query;
@@ -241,13 +261,8 @@ sub Search {
 
     my $query = $self->GetQuery($search);
 
-    $self->{DBH}->do('SET SQL_BIG_TABLES=1');
-
     $self->{STH} = $self->{DBH}->prepare_cached ( $query );
-
     $self->{STH}->execute or print STDERR "Search query failed: $search\n";
-    
-    $self->{DBH}->do('SET SQL_BIG_TABLES=0');
 }
 
 sub GetWhereClause
@@ -271,19 +286,34 @@ sub RebuildIndex
     my $self = shift;
     
     $self->{DBH}->do("delete from " . $self->{Table} . "Words");
-    my $sth = $self->{DBH}->prepare_cached( qq|
-        SELECT Id, Name
-        FROM $self->{Table}
-        |);
 
-    $sth->execute;
+    # Start a transaction
 
-    while ( my $row = $sth->fetch )
+    eval
     {
-        print STDERR "Adding words for $self->{Table} $row->[0]: $row->[1]\n";
-        $self->AddWordRefs(@$row);
+        $self->{DBH}->{AutoCommit} = 0;
+    
+        my $sth = $self->{DBH}->prepare_cached( qq|
+            SELECT Id, Name
+            FROM $self->{Table}
+            |);
+    
+        $sth->execute;
+    
+        while ( my $row = $sth->fetch )
+        {
+            #print STDERR "Adding words for $self->{Table} $row->[0]: $row->[1]\n";
+            $self->AddWordRefs(@$row);
+        }
+        $sth->finish;
+
+        # And commit all the changes
+        $self->{DBH}->commit;
+    };
+    if ($@)
+    {
+        print STDERR "Index insert: $@\n";
     }
-    $sth->finish;
 }
 
 sub RebuildAllIndices

@@ -35,8 +35,7 @@ if (!exists $ARGS{album} || $ARGS{album} eq '' ||
     return undef;
 }
 
-$mb = new MusicBrainz;
-$mb->Login();
+$mb = mc_comp("/comp/dblogin");
 $id = $ARGS{album};
 $artist = $ARGS{artist};
 $tindex = $ARGS{tindex};
@@ -54,7 +53,7 @@ $al->SetId($id);
 $al->LoadFromId();
 $albumname = $al->GetName();
 
-if ($artist != Artist::VARTIST_ID)
+if ($artist != ModDefs::VARTIST_ID)
 {
    $ar = Artist->new($mb->{DBH});
    $ar->SetId($artist);

@@ -49,14 +49,14 @@ if ($link ne '')
                   alt="<% $alt %>"
                   src="<% $image %>" align="center" border="0"></a>
 %          }
-           <a href="/<% $script %>.html?albumid=<% $album->GetId() %>"><% $album->GetName() %></a>
+           <a href="/<% $script %>.html?albumid=<% $album->GetId() %>"><% $album->GetName() |h %></a>
 % } else {
         <td width=85% bgcolor="#FFBA58" valign="center">
 %          if ($image ne '') {
                <a href="<% $link %>"><img alt="<% $alt %>" title="<% $title %>"
                   src="<% $image %>" align="center" border="0"></a>
 %          }
-           <a href="/<% $script %>.html?albumid=<% $album->GetId() %>"><% $album->GetName() %></a>
+           <a href="/<% $script %>.html?albumid=<% $album->GetId() %>"><% $album->GetName() |h %></a>
 % }
         </td>
 %#        <td width="10" bgcolor="#FFBA58" valign="center" align="center">

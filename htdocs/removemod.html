@@ -14,9 +14,8 @@ if ($modid == 0)
     return undef;
 }
 
-my $mb = new MusicBrainz;
-$mb->Login();
 
+my $mb = mc_comp("/comp/dblogin");
 my $mod = Moderation->new($mb->{DBH});
 $mod = $mod->CreateFromId($modid);
 

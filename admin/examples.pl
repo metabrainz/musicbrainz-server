@@ -277,7 +277,7 @@ sub add_examples
     #multiple artist album with artistid 0
 
     $al->SetName("National Anthems");
-    $al->SetArtist(Artist::VARTIST_ID);
+    $al->SetArtist(ModDefs::VARTIST_ID);
     my $album = $al->Insert();
     if ($album < 0)
     {

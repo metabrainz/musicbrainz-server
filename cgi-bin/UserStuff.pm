@@ -58,7 +58,7 @@ sub Login
    $sql = Sql->new($this->{DBH});
    $dbuser = $sql->Quote($user);
    if ($sql->Select(qq/select name,password,privs,id 
-                   from ModeratorInfo where name = $dbuser/))
+                   from Moderator where name ilike $dbuser/))
    {
        @row = $sql->NextRow();
        if ($pwd eq $row[1])
@@ -92,18 +92,37 @@ sub CreateLogin
 
    $dbuser = $sql->Quote($user);
    $pwd = $sql->Quote($pwd);
-   if ($sql->Select("select id from ModeratorInfo where name = $dbuser"))
+
+   my $msg = eval
    {
-       $sql->Finish;
-       return "That login already exists. Please choose another login name."
+       $sql->Begin;
+
+       if ($sql->Select("select id from Moderator where name ilike $dbuser"))
+       {
+           $sql->Finish;
+           $sql->Rollback;
+           return ("That login already exists. Please choose another login name.");
+       }
+
+       $sql->Do(qq/
+                insert into Moderator (Name, Password, Privs, ModsAccepted, 
+                ModsRejected, MemberSince) values ($dbuser, $pwd, 0, 0, 0, now())
+                /);
+
+       $uid = $sql->GetLastInsertId("Moderator");
+       $sql->Commit;
+
+       return "";
+   };
+   if ($@)
+   {
+       $sql->Rollback;
+       return ("A database error occurred. ($@)", undef, undef, undef);
    }
-
-   $sql->Do(qq/
-            insert into ModeratorInfo (Name, Password, Privs, ModsAccepted, 
-            ModsRejected, MemberSince) values ($dbuser, $pwd, 0, 0, 0, now())
-            /);
-
-   $uid = $sql->GetLastInsertId();
+   if ($msg ne '')
+   {
+       return $msg; 
+   }
 
    return ("", $user, 0, $uid);
 } 
@@ -117,7 +136,7 @@ sub GetUserPasswordAndId
    return undef if (!defined $username || $username eq '');
 
    $dbuser = $sql->Quote($username);
-   if ($sql->Select(qq|select password, id from ModeratorInfo 
+   if ($sql->Select(qq|select password, id from Moderator 
                        where name = $dbuser|))
    {
        my @row = $sql->NextRow();
@@ -138,7 +157,7 @@ sub GetUserInfo
 
    if ($sql->Select(qq|select name, email, password, privs, modsaccepted, 
                               modsrejected, WebUrl, MemberSince, Bio 
-                         from ModeratorInfo 
+                         from Moderator 
                         where id = $uid|))
    {
        my @row = $sql->NextRow();
@@ -164,7 +183,7 @@ sub SetUserInfo
    $sql = Sql->new($this->{DBH});
    return undef if (!defined $uid || $uid == 0);
 
-   $query = "update ModeratorInfo set";
+   $query = "update Moderator set";
 
    $query .= " email = " . $sql->Quote($email) . ","
        if (defined $email && $email ne '');
@@ -190,6 +209,7 @@ sub SetUserInfo
 
    $query .= " where id = $uid";
 
+   # No transaction here, since its a simple one-row update
    $sql->Do($query);
 
    return 1;

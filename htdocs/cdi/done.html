@@ -12,9 +12,8 @@ $durations=>""
 
 <%perl>
 
-my ($error, $i, $artistid, $albumid, $new, $mb);
+my ($error, $i, $artistid, $albumid, $new, $mb, $di);
 
-$mb = new MusicBrainz;
 mc_comp("/comp/sidebar", title=>'New CD Submission');
 
 # Do a bunch of error checking
@@ -33,7 +32,18 @@ for($i = 0; $i < $tracks && !$error; $i++)
     }
 }
 
-if ($error)
+$mb = mc_comp("/comp/dblogin");
+$di = Discid->new($mb->{DBH});
+if ($id ne '' && defined $di->GetAlbumFromDiscid($id))
+{
+</%perl>
+    This CD has already (just?) been entered into the system. 
+    <a href="/showalbum.html?discid=<% $id %>">Click here</a> to see the
+    album.
+    </TD></TR></TABLE>
+<%perl>
+}
+elsif ($error)
 {
 </%perl>
     <FONT SIZE=+1 COLOR=RED>
@@ -48,7 +58,6 @@ else
 {
     my ($in, $mod);
     my (@offsets, @durations);
-    $mb->Login();
 
     if ($durations ne '')
     {
@@ -63,7 +72,6 @@ else
         my $leadout = shift @offsets;
         push @offsets, $leadout;
     }
-
     if (!defined $artist)
     {
        $artistname =~ s/^\s*(.*?)\s*$/$1/;
@@ -82,14 +90,12 @@ else
         {
            my $dur = int((($offsets[$i+1] - $offsets[$i])*1000)/75);
            $new .= "TrackDur" . ($i + 1) . "=" . $dur . "\n";
-        } 
-        
+        }
         if ($durations ne '')
         {
            $new .= "TrackDur" . ($i + 1) . "=" . $durations[$i] . "\n";
         }
-
-        if ($artist == Artist::VARTIST_ID)
+        if ($artist == ModDefs::VARTIST_ID)
         {
             $ARGS{"artistname$i"} =~ s/^\s*(.*?)\s*$/$1/;
             $ARGS{"sortname$i"} =~ s/^\s*(.*?)\s*$/$1/;
@@ -99,8 +105,8 @@ else
     }
 
     $in = Insert->new($mb->{DBH});
-    ($artistid, $albumid) = $in->InsertAlbumModeration($new,
-                                    $session{uid}, $session{privs}, $artist);
+    ($artistid, $albumid) = $in->InsertAlbumModeration($new, $session{uid}, 
+                                                    $session{privs}, $artist);
     if (defined $artistid && defined $albumid)
     {
         mc_out("Thank you for your submission!<p><br>");
@@ -117,7 +123,7 @@ else
             if ($al->LoadFromId())
             {
                 mc_out("<hr>Here is the album you inserted:<p><br>");
-                mc_comp("/comp/artisttitle", artist=>$ar);
+                mc_comp("/comp/artisttitle", artist=>$ar, link=>1);
                 mc_comp("/comp/album", album=>$al, artist=>$ar);
             }
         }
@@ -125,8 +131,8 @@ else
     else
     {
         mc_out("An error occurred during the data insertion:<br>");
-        mc_out("(" . $in->GetError() . ")");
+        mc_out("<pre>" . $in->GetError() . "</pre>");
     }
-    $mb->Logout;
 }
+$mb->Logout;
 </%perl>

@@ -5,15 +5,14 @@ my ($err, $user, $privs, $uid);
 
 mc_comp('/comp/sidebar');
 
-$mb = MusicBrainz::new();
-$mb->Login();
+$mb = mc_comp("/comp/dblogin");
 $user = UserStuff->new($mb->{DBH});
 
 ($err, $user, $privs, $uid) = $user->CreateLogin($ARGS{User}, $ARGS{Password}, 
                                         $ARGS{RetypePassword});
 if ($err ne "")
 {
-    mc_out($err);
+    mc_out("<b>$err</b><p>");
     #this html displays the sidebar, the new_login should not do it again
     mc_comp('/newlogin.html', sidebar=>'0', url=>$ARGS{url});
 }
@@ -63,4 +62,3 @@ else
 $mb->Logout();
 
 </%perl>
-<& /comp/footer &>

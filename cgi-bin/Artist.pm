@@ -35,13 +35,9 @@ use Carp qw(cluck);
 use DBI;
 use DBDefs;
 use Alias;
+use Album;
+use Track;
 use String::Similarity;
-
-# Use the following id for the multiple/various artist albums
-use constant VARTIST_ID => 1;
-# Use the following id to reference artist that have been deleted.
-# This will be used only by the moderation system
-use constant DARTIST_ID => 2;
 
 sub new
 {
@@ -84,8 +80,8 @@ sub Insert
     return $artist if (defined $artist);
 
     # Check to see if this artist already exists
-    ($artist) = $sql->GetSingleRow("Artist", ["id"], 
-                                   ["name", $sql->Quote($this->{name})]); 
+    ($artist) = $sql->GetSingleRowLike("Artist", ["id"], 
+                                       ["name", $sql->Quote($this->{name})]); 
     if (!defined $artist)
     {
          $mbid = $sql->Quote($this->CreateNewGlobalId());
@@ -93,7 +89,7 @@ sub Insert
                      modpending) values (/ . $sql->Quote($this->{name}) .
                      ", " . $sql->Quote($this->{sortname}) . ", $mbid, 0)"))
          {
-             $artist = $sql->GetLastInsertId;
+             $artist = $sql->GetLastInsertId('Artist');
              $this->{new_insert} = 1;
          }
     } 
@@ -118,35 +114,17 @@ sub Remove
 
     $sql = Sql->new($this->{DBH});
 
-    # See if there are any tracks that needs this artist
-    ($refcount) = $sql->GetSingleRow("Track", ["count(*)"],
-                                   [ "Track.artist", $this->GetId()]);
-    if ($refcount > 0)
-    {
-        print STDERR "Cannot remove artist ". $this->GetId() . 
-                     ". $refcount tracks still depend on it.\n";
-        return undef;
-    }
-  
-    # See if there are any albums that needs this artist
-    ($refcount) = $sql->GetSingleRow("Album", ["count(*)"],
-                                   [ "Album.artist", $this->GetId()]);
-    if ($refcount > 0)
-    {
-        print STDERR "Cannot remove artist ". $this->GetId() . 
-                     ". $refcount albums still depend on it.\n";
-        return undef;
-    }
 
-    print STDERR "DELETE: Removed artist " . $this->GetId() . "\n";
-    $sql->Do("delete from Artist where id = " . $this->GetId());
     $sql->Do("delete from ArtistAlias where ref = " . $this->GetId());
-    $sql->Do("update Changes set Artist = " . Artist::DARTIST_ID . 
+    $sql->Do("update Moderation set Artist = " . ModDefs::DARTIST_ID . 
              " where artist = " . $this->GetId());
 
     # Remove references from artist words table
     my $engine = SearchEngine->new( { Table => 'Artist' } );
     $engine->RemoveObjectRefs($this->GetId());
+
+    print STDERR "DELETE: Removed artist " . $this->GetId() . "\n";
+    $sql->Do("delete from Artist where id = " . $this->GetId());
 
     return 1;
 }
@@ -161,14 +139,15 @@ sub LoadFromName
 
    # First try to find the artist by name
    $sql = Sql->new($this->{DBH});
-   @row = $sql->GetSingleRow("Artist", [qw(id name GID modpending sortname)],
-                             ["name", $sql->Quote($artistname)]);
+   @row = $sql->GetSingleRowLike("Artist", 
+                                 [qw(id name GID modpending sortname)],
+                                 ["name", $sql->Quote($artistname)]);
    if (!defined $row[0])
    {
         # If that failed, then try to find the artist by sortname
-        @row = $sql->GetSingleRow("Artist", 
-                                  [qw(id name GID modpending sortname)],
-                                  ["sortname", $sql->Quote($artistname)]);
+        @row = $sql->GetSingleRowLike("Artist", 
+                                      [qw(id name GID modpending sortname)],
+                                      ["sortname", $sql->Quote($artistname)]);
    }
    if (!defined $row[0])
    {
@@ -208,8 +187,9 @@ sub LoadFromSortname
    my ($sql, @row);
 
    $sql = Sql->new($this->{DBH});
-   @row = $sql->GetSingleRow("Artist", [qw(id name GID modpending sortname)],
-                             ["sortname", $sql->Quote($sortname)]);
+   @row = $sql->GetSingleRowLike("Artist", 
+                                 [qw(id name GID modpending sortname)],
+                                 ["sortname", $sql->Quote($sortname)]);
    if (defined $row[0])
    {
         $this->{id} = $row[0];
@@ -251,28 +231,71 @@ sub LoadFromId
    return undef;
 }
 
+# Load an artist and all the aliases, albums, tracks, disc ids, tocs and TRM ids
+# returns 1 on success, undef otherwise. 
+sub LoadFull
+{
+   my ($this) = @_;
+   my ($sql, @row, $ret, $alias, $al);
+
+   if (!defined $this->GetId())
+   {
+       cluck "Artist::LoadFull is called with undef Id\n"; 
+       return undef;
+   }
+
+   if ($this->GetId() == ModDefs::VARTIST_ID ||
+       $this->GetId() == ModDefs::DARTIST_ID)
+   {
+       cluck "Artist::LoadFull cannot be used to load this artist.\n"; 
+       return undef;
+   }
+
+   $ret = $this->LoadFromId();
+   if (defined $ret)
+   {
+       $alias = Alias->new($this->{DBH});
+       $alias->{table} = "ArtistAlias";
+       $ret = $alias->LoadFull($this->GetId());
+       if (defined $ret)
+       {
+           $this->{"_aliases"} = $ret;
+       }
+
+       $al = Album->new($this->{DBH});
+       $ret = $al->LoadFull($this->GetId());
+       if (defined $ret)
+       {
+           $this->{"_albums"} = $ret;
+
+           return 1;
+       }
+   }
+   return undef;
+}
+
 # Search for an artist by name. The name my be a substring match.
 # returns an array of references to an array of artist id, name, sortname,
 # The array is empty if there are no matches.
-sub SearchByName
-{
-   my ($this, $search) = @_;
-   my (@info, $query, $sql, $i, @row);
-
-   $sql = Sql->new($this->{DBH});
-   $query = $this->AppendWhereClause($search, qq/select id, name, sortname 
-                    from Artist where /, "name") . " order by sortname";
-   if ($sql->Select($query))
-   {
-       for(;@row = $sql->NextRow;)
-       {  
-           push @info, [$row[0], $row[1], $row[2]];
-       }
-   }
-   $sql->Finish;
-
-   return @info;
-};
+#sub SearchByName
+#{
+#   my ($this, $search) = @_;
+#   my (@info, $query, $sql, $i, @row);
+#
+#   $sql = Sql->new($this->{DBH});
+#   $query = $this->AppendWhereClause($search, qq/select id, name, sortname 
+#                    from Artist where /, "name") . " order by sortname";
+#   if ($sql->Select($query))
+#   {
+#       for(;@row = $sql->NextRow;)
+#       {  
+#           push @info, [$row[0], $row[1], $row[2]];
+#       }
+#   }
+#   $sql->Finish;
+#
+#   return @info;
+#};
 
 # Pull back a section of artist names for the browse artist display.
 # Given an index character ($ind), a page offset ($offset) and a page length
@@ -287,9 +310,9 @@ sub GetArtistDisplayList
    return undef if ($ind_len <= 0);
 
    $sql = Sql->new($this->{DBH});
-   ($num_artists) =  $sql->GetSingleRow("Artist", ["count(*)"], 
-                                        ["left(sortname, $ind_len)", 
-                                         $sql->Quote($ind)]);
+   ($num_artists) =  $sql->GetSingleRowLike("Artist", ["count(*)"], 
+                            ["substring(sortname from 1 for $ind_len)", 
+                             $sql->Quote($ind)]);
    return undef if (!defined $num_artists);
    
    if ($ind =~ m/_/)
@@ -298,15 +321,17 @@ sub GetArtistDisplayList
       $ind = "^$ind";
       $query = qq/select id, sortname, modpending 
                   from   Artist 
-                  where  sortname regexp "$ind"
+                  where  sortname ~ '$ind'
                   order  by sortname 
-                  limit  $offset, $max_items/;
+                  limit  $max_items offset $offset/;
    }
    else
    {
-      $query = qq/select id, sortname, modpending from 
-               Artist where left(sortname, $ind_len) = '$ind' order by sortname 
-               limit $offset, $max_items/;
+      $query = qq/select id, sortname, modpending 
+                    from Artist 
+                   where substring(sortname from 1 for $ind_len) ilike '$ind' 
+                order by sortname 
+                   limit $max_items offset $offset/;
    }
    if ($sql->Select($query))
    {
@@ -353,7 +378,7 @@ sub GetAlbums
        Album.modpending, Album.gid from Track, Album, AlbumJoin 
        where Track.Artist = 
        $this->{id} and AlbumJoin.track = Track.id and AlbumJoin.album = 
-       Album.id and Album.artist = / . Artist::VARTIST_ID ." order by 
+       Album.id and Album.artist = / . ModDefs::VARTIST_ID ." order by 
        Album.name"))
    {
         while(@row = $sql->NextRow)
@@ -362,7 +387,7 @@ sub GetAlbums
             $album->SetId($row[0]);
             $album->SetName($row[1]);
             $album->SetModPending($row[2]);
-            $album->SetArtist(Artist::VARTIST_ID);
+            $album->SetArtist(ModDefs::VARTIST_ID);
             $album->SetMBId($row[3]);
             push @albums, $album;
             undef $album;
@@ -384,8 +409,10 @@ sub GetAlbumsByName
    # First, pull in the single artist albums
    $sql = Sql->new($this->{DBH});
    $name = $sql->Quote($name);
-   if ($sql->Select(qq/select id, name, modpending from Album where 
-                       name=$name and artist = $this->{id}/))
+   if ($sql->Select(qq/select id, name, modpending 
+                         from Album 
+                        where name ilike $name and 
+                              artist = $this->{id}/))
    {
         while(@row = $sql->NextRow)
         {
@@ -439,7 +466,7 @@ sub HasAlbum
                         where Track.Artist = $this->{id} and 
                               AlbumJoin.track = Track.id and 
                               AlbumJoin.album = Album.id and 
-                              Album.artist = / . Artist::VARTIST_ID .
+                              Album.artist = / . ModDefs::VARTIST_ID .
                    " order by Album.name"))
    {
         while(@row = $sql->NextRow)
@@ -462,28 +489,3 @@ sub HasAlbum
 
    return @matches;
 } 
-
-sub FindArtist
-{
-   my ($this, $search) = @_;
-   my (@names, $query, $sql);
-
-   $sql = Sql->new($this->{DBH});
-   $query = $this->AppendWhereClause($search, qq/select id, name, sortname
-               from Artist where /, "name") . " order by sortname";
-
-   if ($sql->Select($query))
-   {
-       my @row;
-       my $i;
-
-       for(;@row = $sql->NextRow();)
-       {
-           push @names, { id=>$row[0], name=>$row[1], sortname=>$row[2] };
-       }
-       $sql->Finish;
-   }
-
-   return @names;
-};
-

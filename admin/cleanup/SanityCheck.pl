@@ -130,14 +130,15 @@ sub Cleanup
 
         while(@row = $sth->fetchrow_array())
         {
-            next if ($row[0] == Artist::DARTIST_ID); 
+            next if ($row[0] == ModDefs::DARTIST_ID); 
+            next if ($row[0] == ModDefs::VARTIST_ID); 
             print "  Artist $row[0] has no tracks.\n";
             $count++;
 
             if ($fix)
             {
                 $dbh->do("delete from Artist where id = $row[0]"); 
-                $dbh->do("update Changes set Artist = " . Artist::DARTIST_ID .
+                $dbh->do("update Changes set Artist = " . ModDefs::DARTIST_ID .
                          " where artist = $row[0]");
             }
         }
@@ -151,7 +152,7 @@ sub Cleanup
     $count = 0;
     $sth = $dbh->prepare(qq|select Track.id, Track.artist
                             from   Track
-                            where  Track.name = ""|);
+                            where  Track.name = ''|);
     if ($sth->execute() && $sth->rows())
     {
         my @row;
@@ -194,7 +195,8 @@ sub Cleanup
                     if ($fix)
                     {
                         $dbh->do("delete from Album where id = $row[0]");
-                        $dbh->do("delete from Diskid where album = $row[0]");
+                        $dbh->do("delete from Discid where album = $row[0]");
+                        $dbh->do("delete from TOC where album = $row[0]");
                     }
                 }
             }
@@ -207,9 +209,9 @@ sub Cleanup
     
     print "Orphaned diskids:\n";
     $count = 0;
-    $sth = $dbh->prepare(qq|select Diskid.id, Diskid.Disk, Diskid.Album
-                            from   Diskid left join Album 
-                            on     Diskid.album = Album.id 
+    $sth = $dbh->prepare(qq|select Discid.id, Discid.Disc, Discid.Album
+                            from   Discid left join Album 
+                            on     Discid.album = Album.id 
                             WHERE  Album.id IS NULL|);
     if ($sth->execute() && $sth->rows())
     {
@@ -217,10 +219,10 @@ sub Cleanup
 
         while(@row = $sth->fetchrow_array())
         {
-            print "  Diskid $row[1] references non-existing album $row[2].\n";
+            print "  Discid $row[1] references non-existing album $row[2].\n";
             $count++;
 
-            $dbh->do("delete from Diskid where id = $row[0]") if ($fix);
+            $dbh->do("delete from Discid where id = $row[0]") if ($fix);
         }
     }
     $sth->finish;
@@ -230,7 +232,7 @@ sub Cleanup
     
     print "Orphaned TOCs:\n";
     $count = 0;
-    $sth = $dbh->prepare(qq|select TOC.id, TOC.Diskid, TOC.Album
+    $sth = $dbh->prepare(qq|select TOC.id, TOC.Discid, TOC.Album
                             from   TOC left join Album 
                             on     TOC.album = Album.id 
                             WHERE  Album.id IS NULL|);
@@ -299,9 +301,9 @@ sub Cleanup
     
     print "Orphaned trmids:\n";
     $count = 0;
-    $sth = $dbh->prepare(qq|select GUIDJoin.id, GUIDJoin.guid, GUIDJoin.track
-                            from   GUIDJoin left join Track 
-                            on     GUIDJoin.track = Track.id 
+    $sth = $dbh->prepare(qq|select TRMJoin.id, TRMJoin.trm, TRMJoin.track
+                            from   TRMJoin left join Track 
+                            on     TRMJoin.track = Track.id 
                             WHERE  Track.id IS NULL|);
     if ($sth->execute() && $sth->rows())
     {
@@ -312,8 +314,8 @@ sub Cleanup
             print "  TRM Id $row[0] references non-existing track $row[2].\n";
             $count++;
 
-            $dbh->do("delete from GUIDJoin where id = $row[0]") if ($fix);
-            $dbh->do("delete from GUID where id = $row[1]") if ($fix);
+            $dbh->do("delete from TRMJoin where id = $row[0]") if ($fix);
+            $dbh->do("delete from TRM where id = $row[1]") if ($fix);
         }
     }
     $sth->finish;
@@ -321,26 +323,26 @@ sub Cleanup
 
     # --------------------------------------------------------------------
     
-    print "Invalid guidjoins:\n";
+    print "Invalid trmjoins:\n";
     $count = 0;
-    $sth = $dbh->prepare(qq|select GUIDJoin.id, GUIDJoin.guid 
-                              from GUIDJoin left join GUID 
-                                on GUIDJoin.guid = GUID.id 
-                             where GUID.id IS NULL|);
+    $sth = $dbh->prepare(qq|select TRMJoin.id, TRMJoin.trm 
+                              from TRMJoin left join TRM 
+                                on TRMJoin.trm = TRM.id 
+                             where TRM.id IS NULL|);
     if ($sth->execute() && $sth->rows())
     {
         my @row;
 
         while(@row = $sth->fetchrow_array())
         {
-            print "  GUIDJoin $row[0] references non-existing GUID $row[1].\n";
+            print "  TRMJoin $row[0] references non-existing TRM $row[1].\n";
             $count++;
 
-            $dbh->do("delete from GUIDJoin where id = $row[0]") if ($fix);
+            $dbh->do("delete from TRMJoin where id = $row[0]") if ($fix);
         }
     }
     $sth->finish;
-    print "Found $count invalid guidjoins.\n\n";
+    print "Found $count invalid trmjoins.\n\n";
 
     # --------------------------------------------------------------------
  

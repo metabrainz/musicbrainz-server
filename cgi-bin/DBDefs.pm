@@ -28,12 +28,12 @@ use vars qw(@ISA @EXPORT);
 @ISA    = @ISA    = '';
 @EXPORT = @EXPORT = '';
 
-# Make sure these settings are right. If you are using MySQL with a
+# Make sure these settings are right. If you are using Postgres with a
 # database called 'musicbrainz' then you shouldn't need to change the next line
-use constant DSN 	=>	'dbi:mysql:musicbrainz';
+use constant DSN 	=>	'dbi:Pg:dbname=musicbrainz';
 
 # Insert the user name that has access to the database listed above
-use constant DB_USER 	=>	'musicbrainz';
+use constant DB_USER 	=>	'postgres';
 # Insert the password of the user from above
 use constant DB_PASSWD 	=>	'';
 
@@ -73,8 +73,8 @@ use constant VERSION => "1.0.0-preX";
 # Defines the number of seconds before the votes on a 
 # modification are evaluated
 #use constant MOD_PERIOD => 604800;   # 1 week
-#use constant MOD_PERIOD => 172800;   # 2 days
-use constant MOD_PERIOD => 1;   
+#use constant MOD_PERIOD => '2 days';   # 2 days
+use constant MOD_PERIOD => '1 second';   
 
 # Defines the number of unanimous votes required to pass a mod early
 use constant NUM_UNANIMOUS_VOTES => 5;
@@ -103,6 +103,7 @@ sub Connect
     $DBDefs::connection = DBI->connect(DBDefs->DSN,DBDefs->DB_USER,DBDefs->DB_PASSWD, {
         PrintError => 0,
         RaiseError => 1,
+        AutoCommit => 1
     }) or die $DBI::errstr;
     
     return $DBDefs::connection;

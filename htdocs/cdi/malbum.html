@@ -7,7 +7,6 @@ $tracks
 <%perl>
 
 my ($mb, $ar, $al, $album, @albums, $num); 
-$mb = new MusicBrainz;
 
 mc_comp('/comp/sidebar', title=>'Submit CD: Select Album');
 
@@ -32,10 +31,10 @@ my (%unused, $first, $found);
 $first = 1;
 $found = 0;
 
-$mb->Login;
+$mb = mc_comp("/comp/dblogin");
 
 $ar = Artist->new($mb->{DBH});
-$ar->SetId(Artist::VARTIST_ID);
+$ar->SetId(ModDefs::VARTIST_ID);
 $ar->LoadFromId();
 
 $al = Album->new($mb->{DBH});

@@ -1,5 +1,5 @@
 <%args>
-$guidjoin=>0
+$TRMjoin=>0
 $trackid=>0
 $trmid=>""
 </%args>
@@ -8,16 +8,15 @@ $trmid=>""
 
 my ($mb, $gu, $tr);
 
-if ($guidjoin == 0 || $trackid == 0 || $trmid eq '')
+if ($TRMjoin == 0 || $trackid == 0 || $trmid eq '')
 {
     mc_comp("/comp/badargs");
     return undef;
 }
 
-$mb = new MusicBrainz;
-$mb->Login();
+$mb = mc_comp("/comp/dblogin");
 
-$gu = GUID->new($mb->{DBH});
+$gu = TRM->new($mb->{DBH});
 $tr = Track->new($mb->{DBH});
 $tr->SetId($trackid);
 if (!defined $tr->LoadFromId())
@@ -77,9 +76,9 @@ if (!defined $tr->LoadFromId())
     <input type="hidden" name="artist" value="<% $tr->GetArtist() %>">
     <input type="hidden" name="prev" value="<% $trmid %>">
     <input type="hidden" name="new" value="DELETE">
-    <input type="hidden" name="table" value="GUIDJoin">
+    <input type="hidden" name="table" value="TRMJoin">
     <input type="hidden" name="column" value="id">
-    <input type="hidden" name="id" value="<% $guidjoin %>">
+    <input type="hidden" name="id" value="<% $TRMjoin %>">
     <input type="hidden" 
            name="url" value="/showtrack.html?trackid=<% $trackid %>">
     </form>

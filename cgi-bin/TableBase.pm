@@ -32,7 +32,6 @@ use strict;
 use DBI;
 use DBDefs;
 use Sql;
-use Artist;
 use UUID;
 
 sub new
@@ -121,7 +120,7 @@ sub AppendWhereClause
           {
              $sql .= " and ";
           }
-          $sql .= "instr(lower($col), '" . $_ . "') <> 0";
+          $sql .= "position('" . $_ . "' in lower($col)) <> 0";
        }
        else
        {
@@ -129,7 +128,7 @@ sub AppendWhereClause
           {
              $sql .= " and ";
           }
-          $sql .= "lower($col) regexp  '([[:<:]]+|[[:punct:]]+)" .
+          $sql .= "lower($col) ~  '([[:<:]]+|[[:punct:]]+)" .
                   $_ . "([[:punct:]]+|[[:>:]]+)'";
        }
     }

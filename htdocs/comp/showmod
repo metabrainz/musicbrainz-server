@@ -11,12 +11,8 @@ if (!defined $voted)
 {
    $voted = ModDefs::VOTE_NOTVOTED;
 }
-my @entered = gmtime($mod->GetExpireTime());
-my $time = sprintf "%d-%02d-%02d %02d:%02d", 
-              $entered[5] + 1900,
-              $entered[4]+1, 
-              $entered[3], 
-              $entered[2], $entered[1];
+my $time = $mod->GetExpireTime();
+$time =~ s/:\d\d\..*$//;
 
 </%perl>
 

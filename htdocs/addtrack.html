@@ -4,8 +4,7 @@
 
 my ($mb, $id, $trackname, $al, $tracknum, $album, $artist); 
 
-$mb = new MusicBrainz;
-$mb->Login();
+$mb = mc_comp("/comp/dblogin");
 $al = Album->new($mb->{DBH});
 
 if (!exists $ARGS{album} || $ARGS{album} eq '' ||
@@ -34,7 +33,7 @@ $al->LoadFromId();
     <& /comp/tablebegin, gattrs=>"width=\"100%\"",
        title=>'Add Track to '.$al->GetName() &>
 
-% if ($artist == Artist::VARTIST_ID) {
+% if ($artist == ModDefs::VARTIST_ID) {
     <FORM METHOD="POST" ACTION="/artistfilterkv.html"
 % } else {
     <FORM METHOD="POST" ACTION="/bare/enter_kv_mod.html"
@@ -57,7 +56,7 @@ $al->LoadFromId();
         <INPUT TYPE="text" NAME="value2" SIZE=25> (1 - 99)
         </td>
       </tr>
-% if ($artist == Artist::VARTIST_ID) {
+% if ($artist == ModDefs::VARTIST_ID) {
       <tr>
         <td>
         Artist Sortname:
@@ -92,7 +91,7 @@ $al->LoadFromId();
     <input type="hidden" name="column" value="Name">
     <input type="hidden"
            name="url" value="/showalbum.html?albumid=<% $al->GetId() %>">
-% if ($artist == Artist::VARTIST_ID) {
+% if ($artist == ModDefs::VARTIST_ID) {
     <input type="hidden" name="title" value="Select Artist for Track Addition">
     <input type="hidden" name="mode" value="addtrack">
 % }

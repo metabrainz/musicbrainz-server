@@ -11,8 +11,7 @@ if (DBDefs::USE_LYRICS) {
       return undef;
   }
   
-  $mb = new MusicBrainz;
-  $mb->Login();
+  $mb = mc_comp("/comp/dblogin");
 
   $tr = Track->new($mb->{DBH});
   $ar = Artist->new($mb->{DBH});

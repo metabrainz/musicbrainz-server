@@ -29,8 +29,7 @@ if (!Moderation::IsNumber($num_tracks) || $num_tracks < 1 || $num_tracks > 99)
     return undef;
 }
 
-$mb = new MusicBrainz;
-$mb->Login();
+$mb = mc_comp("/comp/dblogin");
 
 $ar = Artist->new($mb->{DBH});
 $ar->SetId($ARGS{artist});
@@ -40,7 +39,7 @@ if (!defined $ar->LoadFromId())
     return undef;
 }
 
-@albums = $ar->GetAlbums() if ($ARGS{artist} != Artist::VARTIST_ID);
+@albums = $ar->GetAlbums() if ($ARGS{artist} != ModDefs::VARTIST_ID);
 if (scalar @albums > 0)
 {
     my ($album);
@@ -57,7 +56,7 @@ if (scalar @albums > 0)
 
 my $num_vals;
 
-if ($ARGS{artist} == Artist::VARTIST_ID) 
+if ($ARGS{artist} == ModDefs::VARTIST_ID) 
 {
    $num_vals = ($num_tracks * 2) + 2;
 }
@@ -139,7 +138,7 @@ else
         <INPUT TYPE="hidden" NAME="key<% $val++ %>" 
                value="Track<% $num %>" SIZE=25>
 
-% if ($ARGS{artist} == Artist::VARTIST_ID) {
+% if ($ARGS{artist} == ModDefs::VARTIST_ID) {
         </tr>
         <tr>
         <td align="right" valign="top">

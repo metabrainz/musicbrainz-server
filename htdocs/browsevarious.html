@@ -3,7 +3,6 @@
 my ($mb, @info, $row, $ind, $i, $offset, $num_albums, $al, $rows);
 my $max_items = 50;
 
-$mb = new MusicBrainz;
 mc_comp("/comp/sidebar", title=>'Browse Various Artist Albums');
 
 
@@ -31,9 +30,9 @@ if (!defined $ind || $ind eq '')
     exit(0);
 }
 
-$mb->Login();
+$mb = mc_comp("/comp/dblogin");
 $al = Album->new($mb->{DBH});
-$al->SetId(Artist::VARTIST_ID);
+$al->SetId(ModDefs::VARTIST_ID);
 
 ($num_albums, @info) = $al->GetVariousDisplayList($ind, $offset, $max_items);
 

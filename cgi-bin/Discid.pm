@@ -21,7 +21,7 @@
 #   $Id$
 #____________________________________________________________________________
                                                                                
-package Diskid;
+package Discid;
 use TableBase;
 
 BEGIN { require 5.6.1 }
@@ -41,18 +41,49 @@ sub new
    return bless $this, $type;
 }
 
-sub GenerateAlbumFromDiskId
+# Accessor functions
+sub GetAlbum
+{
+   return $_[0]->{album};
+}
+
+sub SetAlbum
+{
+   $_[0]->{album} = $_[1];
+}
+
+sub GetDiscid
+{
+   return $_[0]->{discid};
+}
+
+sub SetDiscid
+{
+   $_[0]->{discid} = $_[1];
+}
+
+sub GetTOC
+{
+   return $_[0]->{toc};
+}
+
+sub SetTOC
+{
+   $_[0]->{toc} = $_[1];
+}
+
+sub GenerateAlbumFromDiscid
 {
    my ($this, $rdf, $id, $numtracks, $toc) = @_;
    my ($sql, @row, $album, $di);
 
-   return $rdf->ErrorRDF("No DiskId given.") if (!defined $id);
+   return $rdf->ErrorRDF("No Discid given.") if (!defined $id);
 
    $sql = Sql->new($this->{DBH});
 
    # Check to see if the album is in the main database
-   $di = Diskid->new($this->{DBH});
-   if ($sql->Select("select Album from Diskid where disk='$id'"))
+   $di = Discid->new($this->{DBH});
+   if ($sql->Select("select Album from Discid where disc = '$id'"))
    {
         @row = $sql->NextRow();
         $sql->Finish();
@@ -60,7 +91,7 @@ sub GenerateAlbumFromDiskId
    }
    else
    {
-        my (@albums, $album, $disk);
+        my (@albums, $album, $disc);
 
         if (!defined $toc || !defined $numtracks)
         {
@@ -76,7 +107,7 @@ sub GenerateAlbumFromDiskId
         else
         {
             # Ok, its not in the main db. Do we have a freedb entry that
-            # matches, but has no DiskId?
+            # matches, but has no Discid?
             $album = $di->FindFreeDBEntry($numtracks, $toc, $id);
             if (defined $album)
             {
@@ -105,41 +136,42 @@ sub GenerateAlbumFromDiskId
    }
 }
 
-sub GetAlbumFromDiskId
+sub GetAlbumFromDiscid
 {
     my ($this, $id) = @_;
     my ($rv, $sql);
  
     $sql = Sql->new($this->{DBH});
     $id = $sql->Quote($id);
-    ($rv) = $sql->GetSingleRow("Diskid", ["album"], ["disk", $id]);
+    ($rv) = $sql->GetSingleRow("Discid", ["album"], ["disc", $id]);
  
     return $rv;
 }
 
-sub GetAlbumAndIdFromDiskId
+sub GetAlbumAndIdFromDiscid
 {
     my ($this, $id) = @_;
     my ($sql);
  
     $sql = Sql->new($this->{DBH});
     $id = $sql->Quote($id);
-    return $sql->GetSingleRow("Diskid", ["album", "id"], ["disk", $id]);
+    return $sql->GetSingleRow("Discid", ["album", "id"], ["disc", $id]);
 }
 
-sub GetDiskIdFromAlbum
+sub GetDiscidFromAlbum
 {
     my ($this, $album) = @_;
     my (@row, $sql, @ret);
  
     $sql = Sql->new($this->{DBH});
-    if ($sql->Select(qq|select id, disk, toc, modpending from Diskid 
+    if ($sql->Select(qq|select id, disc, toc, modpending 
+                          from Discid 
                          where album = $album|))
     {
         while(@row = $sql->NextRow())
         {
             push @ret, { id=>$row[0],
-                         diskid=>$row[1],
+                         discid=>$row[1],
                          toc=>$row[2],
                          modpending=>$row[3] };
         }
@@ -151,19 +183,19 @@ sub GetDiskIdFromAlbum
 sub Insert
 {
     my ($this, $id, $album, $toc) = @_;
-    my ($diskidalbum, $sql, $temp, $rowid);
+    my ($Discidalbum, $sql, $temp, $rowid);
 
     return if (!defined $id || !defined $album || !defined $toc);
 
-    $diskidalbum = $this->GetAlbumFromDiskId($id);
-    if (!defined $diskidalbum)
+    $Discidalbum = $this->GetAlbumFromDiscid($id);
+    if (!defined $Discidalbum)
     {
         $sql = Sql->new($this->{DBH});
         $temp = $sql->Quote($id);
-        $sql->Do("insert into Diskid (disk,album,toc,timecreated,modpending) " .
-                 "values ($temp, $album, '$toc', now(), 0)"); 
+        $sql->Do(qq|insert into Discid (disc,album,toc,
+                    modpending) values ($temp, $album, '$toc', 0)|); 
 
-        $rowid = $sql->GetLastInsertId;
+        $rowid = $sql->GetLastInsertId("Discid");
     }
 
     $this->InsertTOC($id, $album, $toc);
@@ -173,14 +205,14 @@ sub Insert
  
 sub InsertTOC
 {
-    my ($this, $diskid, $album, $toc) = @_;
+    my ($this, $Discid, $album, $toc) = @_;
     my (@offsets, $query, $i, $sql);
 
-    return if (!defined $diskid || !defined $album || !defined $toc);
+    return if (!defined $Discid || !defined $album || !defined $toc);
 
     @offsets = split / /, $toc;
 
-    $query = "insert into TOC (DiskId, Album, Tracks, Leadout, ";
+    $query = "insert into TOC (Discid, Album, Tracks, Leadout, ";
     for($i = 3; $i < scalar(@offsets); $i++)
     {
          $query .= "Track" . ($i - 2) . ", ";
@@ -189,8 +221,8 @@ sub InsertTOC
     chop($query);
 
     $sql = Sql->new($this->{DBH});
-    $diskid = $sql->Quote($diskid);
-    $query .= ") values ($diskid, $album, ". (scalar(@offsets) - 3) .
+    $Discid = $sql->Quote($Discid);
+    $query .= ") values ($Discid, $album, ". (scalar(@offsets) - 3) .
               ", $offsets[2], ";
     for($i = 3; $i < scalar(@offsets); $i++)
     {
@@ -203,7 +235,7 @@ sub InsertTOC
     $sql->Do($query);
 }
 
-# Remove an diskid from the database. Set the id via the accessor function.
+# Remove an Discid from the database. Set the id via the accessor function.
 sub Remove
 {
     my ($this, $id) = @_;
@@ -212,8 +244,8 @@ sub Remove
     return if (!defined $id);
   
     $sql = Sql->new($this->{DBH});
-    $sql->Do("delete from Diskid where disk = '$id'");
-    $sql->Do("delete from TOC where diskid = '$id'");
+    $sql->Do("delete from Discid where disc = '$id'");
+    $sql->Do("delete from TOC where Discid = '$id'");
 }
 
 sub FindFreeDBEntry
@@ -239,14 +271,25 @@ sub FindFreeDBEntry
       $sql->Finish;
       $album = $row[1];
 
-      # Once we've found a record that matches exactly, update
-      # the missing data (leadout) and the diskid for future use.
-      $query = "update TOC set Leadout = $list[2], Diskid = '$id' " . 
-               "where id = $row[0]";
-      $sql->Do($query);
-      $query = "update Diskid set Disk = '$id', Toc = '$toc', " .
-               "LastChanged = now() where id = $row[0]";
-      $sql->Do($query);
+      eval
+      {
+          $sql->Begin;
+
+          # Once we've found a record that matches exactly, update
+          # the missing data (leadout) and the Discid for future use.
+          $query = "update TOC set Leadout = $list[2], Discid = '$id' " . 
+                   "where id = $row[0]";
+          $sql->Do($query);
+          $query = "update Discid set Disc = '$id', Toc = '$toc', " .
+                   "LastChanged = now() where id = $row[0]";
+          $sql->Do($query);
+
+          $sql->Commit;
+      };
+      if ($@)
+      {
+          $sql->Rollback;
+      }
    }
 
    return $album;
@@ -279,4 +322,36 @@ sub FindFuzzy
    }
 
    return @albums;
+}
+
+# Load all the aliases for a given artist and return an array of references to alias
+# objects. Returns undef if error occurs
+sub LoadFull
+{
+   my ($this, $album) = @_;
+   my (@info, $query, $sql, @row, $disc);
+
+   $sql = Sql->new($this->{DBH});
+   $query = qq|select id, album, disc, toc 
+                 from Discid
+                where album = $album
+             order by id|;
+
+   if ($sql->Select($query) && $sql->Rows)
+   {
+       for(;@row = $sql->NextRow();)
+       {
+           $disc = Discid->new($this->{DBH});
+           $disc->SetId($row[0]);
+           $disc->SetAlbum($row[1]);
+           $disc->SetDiscid($row[2]);
+           $disc->SetTOC($row[3]);
+           push @info, $disc;
+       }
+       $sql->Finish;
+
+       return \@info;
+   }
+
+   return undef;
 }

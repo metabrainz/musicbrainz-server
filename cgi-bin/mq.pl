@@ -27,21 +27,21 @@ my %Queries =
         'http://musicbrainz.org/mm/mq-1.0#albumId'],
    FindArtist =>
       [\&QuerySupport::FindArtistByName, 0, 
-        'http://musicbrainz.org/mm/mq-1.0#artistName'],
+        'http://musicbrainz.org/mm/mq-1.0#artistName',
+        'http://musicbrainz.org/mm/mq-1.0#maxItems'],
    FindAlbum =>
       [\&QuerySupport::FindAlbumByName, 0, 
         'http://musicbrainz.org/mm/mq-1.0#albumName',
-        'http://musicbrainz.org/mm/mq-1.0#artistName'],
-   FindAlbumsByArtistName =>
-      [\&QuerySupport::FindAlbumsByArtistName, 0, 
-        'http://musicbrainz.org/mm/mq-1.0#artistName'],
+        'http://musicbrainz.org/mm/mq-1.0#artistName',
+        'http://musicbrainz.org/mm/mq-1.0#maxItems'],
    FindTrack => 
       [\&QuerySupport::FindTrackByName, 0, 
         'http://musicbrainz.org/mm/mq-1.0#trackName',
         'http://musicbrainz.org/mm/mq-1.0#albumName',
-        'http://musicbrainz.org/mm/mq-1.0#artistName'],
+        'http://musicbrainz.org/mm/mq-1.0#artistName',
+        'http://musicbrainz.org/mm/mq-1.0#maxItems'],
    FindDistinctTRMID => 
-      [\&QuerySupport::FindDistinctGUID, 0, 
+      [\&QuerySupport::FindDistinctTRM, 0, 
         'http://musicbrainz.org/mm/mq-1.0#trackName',
         'http://musicbrainz.org/mm/mq-1.0#artistName'],
    ExchangeMetadata =>
@@ -282,6 +282,12 @@ $depth = QuerySupport::Extract(\@triples, $currentURI, -1,
 if (not defined $depth)
 {
    $depth = 2;
+}
+if ($depth > 6)
+{
+    $out = $rdf->ErrorRDF("Query depth cannot be larger than 6!");
+    Output($r, \$out);
+    exit(0);
 }
 $rdf->SetDepth($depth);
 
