@@ -32,6 +32,7 @@ my $dbname = &DBDefs::DB_NAME;
 my $dbuser = &DBDefs::DB_USER;
 my $opts = &DBDefs::DB_PGOPTS;
 my $psql = "psql";
+my $postgres = "postgres";
 
 use Getopt::Long;
 use strict;
@@ -62,23 +63,23 @@ sub RunSQLScript
 
 sub Create 
 {
-	unless ($dbuser eq "postgres")
+	unless ($dbuser eq "$postgres")
 	{
 		my $use = `
 			echo "select 'EXISTS' from pg_shadow where usename = '$dbuser'" \\
-			| $psql $opts -U postgres -t template1 \\
+			| $psql $opts -U $postgres -t template1 \\
 			| grep EXISTS
 		`;
 		unless ($? == 0)
 		{
 			print localtime() . " : Creating user '$dbuser'\n";
-			system "createuser $opts -U postgres $dbuser";
+			system "createuser $opts -U $postgres $dbuser";
 		}
 	}
 
 	print localtime() . " : Creating database '$dbname'\n";
-	system "createdb $opts -U postgres -E UNICODE --owner=$dbuser $dbname";
-	system "createlang $opts -U postgres -d $dbname plpgsql";
+	system "createdb $opts -U $postgres -E UNICODE --owner=$dbuser $dbname";
+	system "createlang $opts -U $postgres -d $dbname plpgsql";
 }
 
 sub Import
@@ -136,14 +137,15 @@ sub Usage
 Usage: InitDb.pl [options] [file] ...
 
 Options are:
-     --psql=PATH  Specify the path to the "psql" utility
-     --createdb   Create the database, PL/PGSQL language and user
-  -i --import     Prepare the database and then import the data from 
-                  the given files
-  -c --clean      Prepare a ready to use empty database
-     --[no]echo   When running the various SQL scripts, echo the commands
-                  as they are run
-  -h --help       This help
+     --psql=PATH      Specify the path to the "psql" utility
+     --postgres=NAME  Specify the name of the system user
+     --createdb       Create the database, PL/PGSQL language and user
+  -i --import         Prepare the database and then import the data from 
+                      the given files
+  -c --clean          Prepare a ready to use empty database
+     --[no]echo       When running the various SQL scripts, echo the commands
+                      as they are run
+  -h --help           This help
 
 After the import option, you may specify one or more MusicBrainz data dump
 files for importing into the database. Once this script runs to completion
@@ -157,6 +159,7 @@ my ($fImport, $fClean) = (0, 0);
 
 GetOptions(
 	"psql=s"	=> \$psql,
+	"postgres=s"=> \$postgres,
 	"createdb"	=> \$fCreateDB,
 	"import|i"	=> \$fImport,
 	"clean|c"	=> \$fClean,
