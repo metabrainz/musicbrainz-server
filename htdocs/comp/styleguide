@@ -1,141 +1,199 @@
-<b>General Style Guidelines</b>
+%# vi: set ts=2 sw=2 ft=mason :
+<%def .StyleGuideLink>
+<a id="styleguide-<% $_[0] %>" href="#styleguide-<% $_[0] %>"><b>&bull;</b></a>
+</%def>
 
-<p>
-<ol>
-<li> Use a colon (<b>:</b>) to separate parts of a title. Take an example
-     from Etta James:
+<p><b>General Style Guidelines</b></p>
 
-   <blockquote>
-   <b>Tell Mama: The Complete Muscle Shoals Sessions</b>
-   </blockquote>
+<ol class="StyleGuideList">
 
-<li> When a CD is part of a multiple CD volume,
-  indicate the disc number as follows:
+	<li>
+		<& .StyleGuideLink, "sep-with-colon" &>
+		Use a colon (<b>:</b>) to separate parts of a title. Take an example
+		from Etta James:
+		<blockquote class="StyleExample">
+		 	<b>Tell Mama: The Complete Muscle Shoals Sessions</b>
+		</blockquote>
+	</li>
 
-   <blockquote>
-   <b>The Wall (disc 1)</b>
-   </blockquote>
+	<li>
+		<& .StyleGuideLink, "disc-n" &>
+		When a CD is part of a multiple CD volume,
+		indicate the disc number as follows:
 
-  If each CD has a name as well, the disc name should be
-  included as follows:
+		<blockquote class="StyleExample">
+			<b>The Wall (disc 1)</b>
+		</blockquote>
 
-   <blockquote>
-   <b>Mellon Collie and the Infinite Sadness
-     (disc 2: Twilight to Starlight)</b>
-   </blockquote>
+		<& .StyleGuideLink, "disc-n-with-name" &>
+		If each CD has a name as well, the disc name should be
+		included as follows:
 
-<li> If some copies of a release are accompanied by a
-  "bonus" disc, the bonus disc's name should follow
-  one of the following examples:
-   <ul style="font-weight: bold; margin: 1em 0">
-   <li>Mother Nature Calls (bonus disc)
-   <li>Greatest Hits (bonus disc: Acoustic Hits)
-   </ul>
+		<blockquote class="StyleExample">
+			<b>Mellon Collie and the Infinite Sadness (disc 2: Twilight to Starlight)</b>
+		</blockquote>
+	</li>
 
-<li> For CD Box sets that contain more than one
-  multiple CD volume, indicate the name of
-  the box set in the title of the release 
-  as follows:
+	<li>
+		<& .StyleGuideLink, "bonus-disc" &>
+		If some copies of a release are accompanied by a
+		"bonus" disc, the bonus disc's name should follow
+		one of the following examples:
+		
+		<ul class="StyleExample">
+			<li>Mother Nature Calls (bonus disc)</li>
+			<li>Greatest Hits (bonus disc: Acoustic Hits)</li>
+		</ul>
+	</li>
 
-   <blockquote>
-   <b>The Later Years (disc 2)</b>
-   </blockquote>
+	<li>
+		<& .StyleGuideLink, "box-set-name" &>
+		For CD Box sets that contain more than one
+		multiple CD volume, indicate the name of
+		the box set in the title of the release 
+		as follows:
 
-  If the individual boxes are not named, then
-  indicate the box and disc as follows:
+		<blockquote class="StyleExample">
+			<b>The Later Years (disc 2)</b>
+		</blockquote>
 
-   <blockquote>
-   <b>The Led Zeppelin Box Set (box 2, disc 3)</b>
-   </blockquote>
+		<& .StyleGuideLink, "box-set-name-disc-n" &>
+		If the individual boxes are not named, then
+		indicate the box and disc as follows:
 
-<li> When two artists collaborate on a track or
-  release, file the track/release under the primary
-  artist, and then append the name of the
-  secondary artist to the name of the track/release
-  as follows:
+		<blockquote class="StyleExample">
+			<b>The Led Zeppelin Box Set (box 2, disc 3)</b>
+		</blockquote>
+	</li>
 
-   <blockquote>
-   <b>Put Your Lights On (feat. Everlast)</b>
-   </blockquote>
+	<li>
+		<& .StyleGuideLink, "feat-artist" &>
+		When two artists collaborate on a track or
+		release, file the track/release under the primary
+		artist, and then append the name of the
+		secondary artist to the name of the track/release
+		as follows:
 
-  If neither artist can be considered secondary,
-  choose either artist.
-<p>
-<li> When work from two artists are remixed in the 
-  popular <b>vs.</b> fashion, file the release/track
-  under the mix artist and title the release/track
-  as follows:
+		<blockquote class="StyleExample">
+			<b>Put Your Lights On (feat. Everlast)</b>
+		</blockquote>
+
+		If neither artist can be considered secondary,
+		choose either artist.
+	</li>
+
+	<li>
+		<& .StyleGuideLink, "remix-versus" &>
+		When work from two artists are remixed in the 
+		popular <b>vs.</b> fashion, file the release/track
+		under the mix artist and title the release/track
+		as follows:
    
-   <blockquote>
-   <b>ATB vs. Faithless</b>
-   </blockquote>
+		<blockquote class="StyleExample">
+			<b>ATB vs. Faithless</b>
+		</blockquote>
+	</li>
 
-<li> Some audio CDs contain extra data tracks. Enter
-  <b>[data track]</b> as the name for these tracks.
-  Note, however, that if the data track comes last
-  on the CD and isn't visible in an audio CD player,
-  the track shouldn't be entered into MusicBrainz.
-<p>
-<li> Some CDs contain silent tracks. Enter
-  <b>[silence]</b> as the name for these tracks.
-<p>
-<li> Some CDs contain unnamed tracks. Enter
-  <b>[untitled]</b> as the name for these tracks.
-<p>
-<li> Tracks or releases whose artist is unknown should be
-  filed under the <b>[unknown]</b> artist.
-<p>
-<li> It is currently not possible to store all
-  information about releases that people might be
-  interested in. Rather than clutter release/track
-  titles with too much information, the following
-  details should be left out:
-   <p>
-   <ul>
-   <li> Disc numbers of CD singles.
-   <li> Country of release or designation as an import.
-   <li> Record label.
-   <li> Designation as a "bonus track".
-   <li> Any other information not discussed in this guide.
-   </ul>
-<p>
-<li> Mix names and other track attributes should be
-  entered in parenthesis after the title. These
-  attributes should be in lower case, except for
-  proper names (including titles given to mixes):
-   <ul style="font-weight: bold; margin: 1em 0">
-   <li> Blue (extended mix)
-   <li> Talking All That Jazz (Torti's Old School Mix of Edits dub)
-   <li> Bear Witness (Automator's 2 Turntables and a Razor Blade re-edit)
-   <li> Disciple (demo)
-   </ul>
+	<li>
+		<& .StyleGuideLink, "data-track" &>
+		Some audio CDs contain extra data tracks. Enter
+		<b>[data&nbsp;track]</b> as the name for these tracks.
+		Note, however, that if the data track comes last
+		on the CD and isn't visible in an audio CD player,
+		the track shouldn't be entered into MusicBrainz.
+	</li>
 
-<li> If a live bootleg release has no proper title, you
-  should follow the format used in these examples:
-   <ul style="font-weight: bold; margin: 1em 0">
-   <li> 2000-10-22: Las Vegas, NV, USA
-   <li> 2000-06-01: Dublin, Ireland (disc 2)
-   <li> Milan, Italy (disc 1)
-   </ul>
+	<li>
+		<& .StyleGuideLink, "silence-track" &>
+		Some CDs contain silent tracks. Enter
+		<b>[silence]</b> as the name for these tracks.
+	</li>
 
-<li> If two releases are re-released on one CD, or if
-  two songs share the same track, the title should be
-  split as follows:
+	<li>
+		<& .StyleGuideLink, "untitled-track" &>
+		Some CDs contain unnamed tracks. Enter
+		<b>[untitled]</b> as the name for these tracks.
+	</li>
 
-   <blockquote>
-   <b>This Is the Modern World / All Mod Cons</b>
-   </blockquote>
+	<li>
+		<& .StyleGuideLink, "unknown-artist" &>
+		Tracks or releases whose artist is unknown should be
+		filed under the <b>[unknown]</b> artist.
+	</li>
+	
+	<li>
+		<& .StyleGuideLink, "information-to-omit" &>
+		It is currently not possible to store all
+		information about releases that people might be
+		interested in. Rather than clutter release/track
+		titles with too much information, the following
+		details should be left out:
 
-<li>  If the letters <b>EP</b> are part of an EP's
-  title, they should not be removed. Eg. <b>The
-  Sunrise EP</b> by Cause and Effect.
-<p>
-<li> A soundtrack should be given the same title as
-  the film (or other production) it is from.
-<p>
-<li> Tracks or releases without an artist should
-  be filed under <b>[no artist]</b>. This would be
-  appropriate for silence on a VA release, bird
-  song etc.
+		<ul>
+		 	<li>Disc numbers of CD singles</li>
+			<li>Country of release or designation as an import</li>
+			<li>Record label</li>
+			<li>Designation as a "bonus track"</li>
+			<li>Any other information not discussed in this guide.</li>
+		</ul>
+	</li>
+
+	<li>
+		<& .StyleGuideLink, "track-attributes" &>
+		Mix names and other track attributes should be
+		entered in parentheses after the title. These
+		attributes should be in lower case, except for
+		proper names (including titles given to mixes):
+		
+		<ul class="StyleExample">
+			<li>Blue (extended mix)</li>
+			<li>Talking All That Jazz (Torti's Old School Mix of Edits dub)</li>
+			<li>Bear Witness (Automator's 2 Turntables and a Razor Blade re-edit)</li>
+			<li>Disciple (demo)</li>
+		</ul>
+	</li>
+
+	<li>
+		<& .StyleGuideLink, "unnamed-bootlegs" &>
+		If a live bootleg release has no proper title, you
+		should follow the format used in these examples:
+		
+		<ul class="StyleExample">
+			<li>2000-10-22: Las Vegas, NV, USA</li>
+			<li>2000-06-01: Dublin, Ireland (disc 2)</li>
+			<li>Milan, Italy (disc 1)</li>
+		</ul>
+	</li>
+
+	<li>
+		<& .StyleGuideLink, "multiple-names" &>
+		If two releases are re-released on one CD, or if
+		two songs share the same track, the title should be
+		split as follows:
+
+		<blockquote class="StyleExample">
+			<b>This Is the Modern World / All Mod Cons</b>
+		</blockquote>
+
+	<li>
+		<& .StyleGuideLink, "keep-EP" &>
+		If the letters <b>EP</b> are part of an EP's
+		title, they should not be removed. Eg.
+		<b>The Sunrise EP</b> by Cause and Effect.
+	</li>
+
+	<li>
+		<& .StyleGuideLink, "soundtrack-name" &>
+		A soundtrack should be given the same title as
+		the film (or other production) it is from.
+	</li>
+	
+	<li>
+		<& .StyleGuideLink, "no-artist" &>
+		Tracks or releases without an artist should
+		be filed under <b>[no&nbsp;artist]</b>. This would be
+		appropriate for silence on a VA release, bird
+		song etc.
+	</li>
 
 </ol>

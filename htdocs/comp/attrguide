@@ -1,3 +1,4 @@
+%# vi: set ts=2 sw=2 ft=mason :
 <%perl>
 my ($al, $attrlist, $mb);
 
@@ -7,26 +8,35 @@ $attrlist = $al->GetAttributeList();
 
 </%perl>
 
-<b>Album Attribute Definitions</b>
+<%def .StyleGuideLink>
+<a id="albumattrguide-<% $_[0] %>" href="#albumattrguide-<% $_[0] %>"><b>&bull;</b></a>
+</%def>
+
+<p><b>Album Attribute Definitions</b></p>
 
 <p>
-Album attributes define the type and status of an audio 
-release and provide information about the contents of the release.
+	<& .StyleGuideLink, "general" &>
+	Album attributes define the type and status of an audio 
+	release and provide information about the contents of the release.
+</p>
 
 <p>
-Album attributes should apply to most of the tracks on the 
-album. Its OK to have a couple of tracks that do not fit the 
-album attribute, as long as the attribute applies to the album overall. 
+	<& .StyleGuideLink, "most-tracks" &>
+	Album attributes should apply to most of the tracks on the 
+	album. It's OK to have a couple of tracks that do not fit the 
+	album attribute, as long as the attribute applies to the album overall.
+</p>
 
-<p>
 <table width="100%">
 <tr>
+	<td></td>
   <td align="left" NOWRAP><b>Release type</b></td>
   <td align="left" NOWRAP><b>Definition</b></td>
 </tr>
 
 % for(Album::ALBUM_ATTR_SECTION_TYPE_START..Album::ALBUM_ATTR_SECTION_TYPE_END) {
      <tr>
+					<td valign="top"><& .StyleGuideLink, "attr-type-$attrlist->{$_}->[0]" &></td>
           <td valign="top"><% $attrlist->{$_}->[0] %></td>
           <td valign="top"><% $attrlist->{$_}->[2] %></td>
      </tr>
@@ -34,11 +44,13 @@ album attribute, as long as the attribute applies to the album overall.
 
 <tr><td>&nbsp;</td></tr>
 <tr>
+	<td></td>
   <td align="left" NOWRAP><b>Release Status</b></td>
   <td align="left" NOWRAP><b>Definition</b></td>
 </tr>
 % for(Album::ALBUM_ATTR_SECTION_STATUS_START..Album::ALBUM_ATTR_SECTION_STATUS_END) {
      <tr>
+					<td valign="top"><& .StyleGuideLink, "attr-status-$attrlist->{$_}->[0]" &></td>
           <td valign="top"><% $attrlist->{$_}->[0] %></td>
           <td valign="top"><% $attrlist->{$_}->[2] %></td>
      </tr>

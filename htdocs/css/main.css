@@ -340,4 +340,12 @@ table.topmods td { padding: 0.2em; border: 1px solid #999 }
 .topmodseven { background-color: #eee }
 .topmodsnone { text-align: center }
 
+/* style.html */
+ol.StyleGuideList li { margin: 1em 0 }
+ol.StyleGuideList li .StyleExample { font-weight: bold }
+ol.StyleGuideList li li { list-style-type: none }
+
+ol.StyleGuideList li ul { padding-left: 1em }
+ol.StyleGuideList li blockquote { margin-left: 2em }
+
 /* eof */
