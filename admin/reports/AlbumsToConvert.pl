@@ -118,10 +118,44 @@ for my $album (@album_ids)
 	++$count;
 }
 
+use MusicBrainz::Server::PagedReport;
+my $report = MusicBrainz::Server::PagedReport->Save(
+	"$FindBin::Bin/../../htdocs/reports/AlbumsToConvert"
+);
+
 for my $artist (sort { $a->{_sort_} cmp $b->{_sort_} } values %artists)
 {
 	my @a = @{ $artist->{_albums_} }
 		or next;
+
+	my $albums = $artist->{_albums_};
+	@$albums = sort { $a->{_sort_} cmp $b->{_sort_} } @$albums;
+
+	for my $al (sort { $a->{_sort_} cmp $b->{_sort_} } @$albums)
+	{
+		$report->Print(
+			{
+				artist_id			=> $artist->GetId,
+				artist_name			=> $artist->GetName,
+				artist_sortname		=> $artist->GetSortName,
+				artist_modpending	=> $artist->GetModPending,
+				album_id			=> $al->GetId,
+				album_name			=> $al->GetName,
+				album_modpending	=> $al->GetModPending,
+				tracks				=> [
+					map {
+						+{
+							track_id	=> $_->GetId,
+							track_seq	=> $_->GetSequence,
+							track_name	=> $_->GetName,
+						}
+					} @{ $al->{tracks} }
+				],
+			},
+		);
+	}
+
+	next;
 
 	my $id = $artist->GetId;
 	my $n = html_escape($artist->GetName);

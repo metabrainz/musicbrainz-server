@@ -44,97 +44,51 @@ my $mb = MusicBrainz->new;
 $mb->Login;
 my $sql = Sql->new($mb->{DBH});
 
-print <<EOF;
-<& /comp/sidebar, title => 'TRMs with many tracks' &>
+use MusicBrainz::Server::PagedReport;
+my $report = MusicBrainz::Server::PagedReport->Save(
+	"$FindBin::Bin/../../htdocs/reports/TRMsWithManyTracks"
+);
 
-<p>Generated <% \$m->comp('/comp/datetime', ${\ time() }) %></p>
-
-<p>
-    This report lists TRMs which resolve to at least 5 tracks.
-</p>
-
-<table>
-	<caption>TRMs with at least 5 tracks</caption>
-	<thead>
-		<tr>
-			<th>TRM</th>
-			<th>Track Count</th>
-			<th>Track</th>
-			<th>Length</th>
-			<th>Artist</th>
-		</tr>
-	</thead>
-	<tbody>
+print STDERR localtime() . " : Finding most-collided TRMs\n";
+$sql->AutoCommit;
+$sql->Do(<<EOF);
+SELECT	trm, COUNT(*) AS freq
+INTO TEMPORARY TABLE tmp_trm_collisions
+FROM	trmjoin
+GROUP BY trm
+HAVING COUNT(*) >= 10
 EOF
 
-my $rows = $sql->SelectListOfLists("
-		SELECT trm, COUNT(*) AS trackcount
-		FROM trmjoin
-		GROUP BY trm
-		HAVING COUNT(*) >= 5
-		ORDER BY trackcount DESC
+print STDERR localtime() . " : Sorting and retrieving\n";
+my $rows = $sql->SelectListOfHashes("
+	SELECT	trm.trm, lookupcount, id, freq
+	FROM	trm, tmp_trm_collisions t
+	WHERE	t.trm = trm.id
+	ORDER BY freq desc, lookupcount desc, trm.trm
 ");
 
+print STDERR localtime() . " : Finding tracks, and saving\n";
 for my $row (@$rows)
 {
-	my $trm = $sql->SelectSingleValue(
-		"SELECT trm FROM trm WHERE id = ?",
-		$row->[0],
-	);
-
-	my $tracks = $sql->SelectListOfLists("
-		SELECT t.id, t.name, a.id, a.name, a.sortname, t.length
-		FROM trmjoin j
-		INNER JOIN track t ON t.id = j.track
-		INNER JOIN artist a ON a.id = t.artist
-		WHERE j.trm = ?
+	$row->{'tracks'} = $sql->SelectListOfHashes("
+		SELECT	t.id AS track_id, t.name AS track_name,
+				a.id AS artist_id, a.name AS artist_name, a.sortname AS artist_sortname,
+				t.length
+		FROM	trmjoin j
+			INNER JOIN track t ON t.id = j.track
+			INNER JOIN artist a ON a.id = t.artist
+		WHERE	j.trm = ?
 		ORDER BY a.sortname, t.name
 		",
-		$row->[0],
+		$row->{'id'},
 	);
 
-	my $numtracks = scalar @$tracks;
-
-	my $first = 1;
-
-	for my $track (@$tracks)
-	{
-		my $t = html_escape($track->[1]);
-		my $a = html_escape($track->[3]);
-		use Track;
-		my $length = Track::FormatTrackLength($track->[5]);
-
-		print <<EOF;
-		<tr>
-EOF
-
-		print <<EOF if $first;
-			<td><a href="/showtrm.html?trm=$trm">$trm</a></td>
-			<td style="text-align: center">$numtracks</td>
-EOF
-
-		print "<td></td><td></td>\n" unless $first;
-
-		print <<EOF;
-			<td><a href="/showtrack.html?trackid=$track->[0]">$t</a></td>
-			<td>$length</td>
-			<td><a href="/showartist.html?artistid=$track->[2]">$a</a></td>
-		</tr>
-EOF
-
-		$first = 0;
-	}
-
-	print "<tr><td>&nbsp;</td></tr>\n";
+	$report->Print($row);
 }
 
-print <<EOF;
-	</tbody>
-</table>
+$report->End;
 
-<p>End of report; found ${\ scalar @$rows } TRMs.</p>
-
-<& /comp/footer &>
-EOF
+print STDERR localtime() . " : Done\n";
+system("cat $FindBin::Bin/TRMsWithManyTracks.inc");
 
 # eof TRMsWithManyTracks.pl
