@@ -1,119 +1,130 @@
-<& /comp/sidebar, title=>'Add Track', expand=>'moderation' &>
+%# vi: set ts=2 sw=2 ft=mason :
+<%args>
+$album => undef
+$nontrack => 0
+</%args>
+
+<& /comp/sidebar, title => 'Add Track' &>
 
 <%perl>
 
-my ($mb, $id, $trackname, $al, $ar, $tracknum, $album, $artist, $name, $nontrack); 
+$m->comp("/comp/checkloggedin", 0, 1)
+	or return;
 
-$mb = mc_comp("/comp/dblogin");
-$al = Album->new($mb->{DBH});
-$ar = Artist->new($mb->{DBH});
+MusicBrainz::IsNonNegInteger($album) && $album
+	or return $m->comp("/comp/badargs", 0, 1);
 
-if (!exists $ARGS{album} || $ARGS{album} eq '' ||
-    !exists $ARGS{artist} || $ARGS{artist} eq '')
-{
-    mc_comp("/comp/badargs");
-    return undef;
-}
+MusicBrainz::IsNonNegInteger($nontrack) && $nontrack < 100
+	or return $m->comp("/comp/badargs", 0, 1);
 
-$album = $ARGS{album};
-$artist = $ARGS{artist};
-$nontrack = $ARGS{nontrack};
-$nontrack = 0 if (not defined $nontrack);
+my $mb = $m->comp("/comp/dblogin");
 
-$ar->SetId($artist);
-$ar->LoadFromId();
-
+my $al = Album->new($mb->{DBH});
 $al->SetId($album);
-$al->LoadFromId();
-$name = ($nontrack) ? $ar->GetName() . " Non-album tracks" : $al->GetName();
+$al->LoadFromId
+	or return $m->comp(
+		"/comp/error",
+		"Album #$album does not exist",
+		0, 1,
+	);
+
+my $ar = Artist->new($mb->{DBH});
+$ar->SetId($al->GetArtist);
+$ar->LoadFromId
+	or return $m->comp(
+		"/comp/error",
+		"Artist does not exist",
+		0, 1,
+	);
+
+my $name = ($nontrack) ? $ar->GetName() . " Non-album tracks" : $al->GetName();
 
 </%perl>
 
-% if (!defined $session{user} || $session{user} eq '') {
-    You must be logged in to edit the database.<p>
-    <& /comp/tablebegin, title=>'Login' &>
-    <& /comp/loginbox &>
-    <& /comp/tableend &>
+<& /comp/stylemenu &>
+
+<& /comp/tablebegin, gattrs => "width='100%'",
+	title => "Add Track to '$name'" &>
+
+	<form method="post"
+% if ($ar->GetId == ModDefs::VARTIST_ID) {
+		action="/artistfilterkv.html"
 % } else {
-
-    <& /comp/stylemenu &>
-
-    <& /comp/tablebegin, gattrs=>"width=\"100%\"",
-       title=>'Add Track to '.$name &>
-
-% if ($artist == ModDefs::VARTIST_ID) {
-    <FORM METHOD="POST" ACTION="/artistfilterkv.html"
-% } else {
-    <FORM METHOD="POST" ACTION="/bare/enter_kv_mod.html"
+		action="/bare/enter_kv_mod.html"
 % }
-          ENCTYPE="application/x-www-form-urlencoded" NAME="AddTrackForm">  
+		enctype="application/x-www-form-urlencoded"
+		name="AddTrackForm"
+		>
+
     <table>
       <tr>
         <td>
-        Track Name:
+					Track Name:
         </td>
         <td>
-        <INPUT TYPE="text" NAME="value1" SIZE=25> 
+					<input type="text" name="value1" size="25">
         </td>
       </tr>
+
 % if (!$nontrack) {
       <tr>
         <td>
-        Track Number:
+					Track Number:
         </td>
         <td>
-        <INPUT TYPE="text" NAME="value2" SIZE=25> (1 - 99)
+					<input type="text" name="value2" size="25"> (1 - 99)
         </td>
       </tr>
 % } else {
       <tr>
         <td colspan="2">
-           <INPUT TYPE="hidden" NAME="value2" VALUE="<% $nontrack %>"> 
+           <input type="hidden" name="value2" value="<% $nontrack %>">
         </td>
       </tr>
 % }
-% if ($artist == ModDefs::VARTIST_ID) {
+
+% if ($ar->GetId == ModDefs::VARTIST_ID) {
       <tr>
         <td>
-        Artist Sortname:
+					Artist Sortname:
         </td>
         <td>
-        <INPUT TYPE="text" NAME="value4" SIZE=25> 
-        <input type="hidden" name="key4" value="SortName">
-        <input type="hidden" name="value3" value="">
-        <input type="hidden" name="key3" value="ArtistName">
+					<input type="text" name="value4" size="25">
+					<input type="hidden" name="key4" value="SortName">
+					<input type="hidden" name="value3" value="">
+					<input type="hidden" name="key3" value="ArtistName">
         </td>
       </tr>
 % }
+
       <tr>
         <td colspan=2>
-        <INPUT TYPE="submit" NAME="Submit" VALUE="Submit">    
+					<input type="submit" value="Submit">
         </td>
       </tr>
     </table>
-
 
     <input type="hidden" name="value0" value="<% $al->GetId() %>">
     <input type="hidden" name="key0" value="AlbumId">
     <input type="hidden" name="key1" value="TrackName">
     <input type="hidden" name="key2" value="TrackNum">
-
-    <input type="hidden" name="artist" value="<% $artist %>">
-    <input type="hidden" name="type"
-           value="<% ModDefs::MOD_ADD_TRACK_KV %>">
+		<input type="hidden" name="artist" value="<% $ar->GetId %>">
+    <input type="hidden" name="type" value="<% ModDefs::MOD_ADD_TRACK_KV %>">
     <input type="hidden" name="prev" value="<% $al->GetName() %>">
     <input type="hidden" name="table" value="Track">
     <input type="hidden" name="id" value="<% $al->GetId() %>">
     <input type="hidden" name="column" value="Name">
-    <input type="hidden"
-           name="url" value="/showalbum.html?albumid=<% $al->GetId() %>">
-% if ($artist == ModDefs::VARTIST_ID) {
+    <input type="hidden" name="url" value="/showalbum.html?albumid=<% $al->GetId() %>">
+% if ($ar->GetId == ModDefs::VARTIST_ID) {
     <input type="hidden" name="title" value="Select Artist for Track Addition">
     <input type="hidden" name="mode" value="addtrack">
 % }
-    </form>
-      
-    <& /comp/tableend &>
-% }
-% $mb->Logout();
+
+	</form>
+
+<& /comp/tableend &>
+
+% $mb->Logout;
+
+<& /comp/movefocus, "AddTrackForm", "value1" &>
 <& /comp/footer &>
