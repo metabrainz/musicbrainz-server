@@ -62,7 +62,7 @@ $artist->LoadFromId
 
 <& /comp/artisttitle, artist => $artist &>
 
-<p>
+<p style="text-align: center">
 	[
 
 % if (not $session{uid}) {
@@ -84,16 +84,18 @@ $artist->LoadFromId
 	|
 	<a href="/freedb/freedb.html?search=<% url_escape($artist->GetName) %>"
 		>Import album</a>
-% if ($session{uid}) {
-	|
-	<a href="/moderate.html?type=<% &ModDefs::TYPE_ALBUM %>&amp;albumid=<% $album->GetId %>"
- 		>View album mods</a>
-% }
-	|
-	<a href="/albumdetail.html?albumid=<% $album->GetId %>"
-		>View Info</a>
 	]
 </p>
+
+<p style="text-align: center">
+	[ <a href="/albumdetail.html?albumid=<% $album->GetId %>">View Info</a>
+% if ($session{uid}) {
+	| <a href="/moderate.html?type=<% &ModDefs::TYPE_ALBUM %>&amp;albumid=<% $album->GetId %>">View album mods</a>
+	| <a href="/mod/tag/donetag.html?AlbumId<% $album->GetId %>=1">Merge this album ...</a>
+% }
+	]
+</p>
+
 
 % if ($session{uid}) {
 <form method="post" action="/mod/tag/donetag.html" id="EditAlbumAttrsForm"
