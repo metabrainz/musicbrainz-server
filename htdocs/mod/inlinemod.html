@@ -8,7 +8,7 @@ $artistid
 	my $result;
 
 	my $try_search = sub {
-		my ($query, $voter_id) = $m->comp("/mod/search/setquery.inc", @_);
+		my ($query, $voter_id) = $m->comp("/mod/search/setquery.inc", dbh => $modobj->GetDBH, @_);
 		my ($status, $list, $num) = $modobj->GetModerationList($query, $voter_id, 0, 1);
 
 		return $list->[0]
