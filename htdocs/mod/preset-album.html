@@ -9,10 +9,10 @@ $albumid => 0
 $m->comp("/comp/checkloggedin", 1, 1)
 	or return;
 
-# TODO ability to filter on album
-
 my %filter = (
 	orderby			=> "asc",
+	object_type	=> "album",
+	object_id		=> $albumid,
 );
 
 $session{"moderation_filter"} = \%filter;
