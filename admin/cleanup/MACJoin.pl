@@ -1,7 +1,7 @@
 #!/usr/bin/perl -w
 #____________________________________________________________________________
 #
-#   CD Index - The Internet CD Index
+#   MusicBrainz -- the open internet music database
 #
 #   Copyright (C) 1998 Robert Kaye
 #   Copyright (C) 2001 Luke Harless

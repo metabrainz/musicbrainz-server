@@ -1,6 +1,6 @@
 #____________________________________________________________________________
 #
-#   CD Index - The Internet CD Index
+#   MusicBrainz -- the open internet music database
 #
 #   Copyright (C) 1998 Robert Kaye
 #
