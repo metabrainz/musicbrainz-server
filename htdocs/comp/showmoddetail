@@ -63,11 +63,11 @@ my $expire_verb = ($mod->GetExpired ? "Expired" : "Expires");
 	</tr>
 	<tr>
 		<td valign="top">Old Value:</td>
-		<td valign="top"><%perl> $mod->ShowPreviousValue($m); </%perl></td>
+		<td valign="top"><%perl> $mod->ShowPreviousValue($m, 0); </%perl></td>
 	</tr>
 	<tr>
 		<td valign="top">New Value:</td>
-		<td valign="top"><%perl> $mod->ShowNewValue($m); </%perl></td>
+		<td valign="top"><%perl> $mod->ShowNewValue($m, 0); </%perl></td>
 	</tr>
 
 
