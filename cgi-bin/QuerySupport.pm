@@ -566,7 +566,7 @@ sub FindTrackByName
 
    $rdf = $r->BeginRDFObject;
    $rdf .= $r->BeginDesc;
-   $rdf .= $r->BeginElement("MC:Collection", 'type'=>'trackList');
+   $rdf .= $r->BeginElement("MM:Collection", 'type'=>'trackList');
    $rdf .= $r->BeginBag();
 
    $sth = $mb->{DBH}->prepare($sql);
@@ -575,14 +575,14 @@ sub FindTrackByName
         for($count = 0; @row = $sth->fetchrow_array; $count++)
         {
             $rdf .= $r->BeginLi;
-            $rdf .=   CreateTrackRDFSnippet($mb, $r, $row[0]);
+            $rdf .=   CreateTrackRDFSnippet($mb, $r, 1, $row[0]);
             $rdf .= $r->EndLi;
         }
    }
    $sth->finish;
 
    $rdf .= $r->EndBag();
-   $rdf .= $r->EndElement("MC:Collection");
+   $rdf .= $r->EndElement("MM:Collection");
    $rdf .= $r->Element("MQ:Status", "OK", items=>$count);
    $rdf .= $r->EndDesc;
    $rdf .= $r->EndRDFObject;
@@ -605,7 +605,7 @@ sub FindDistinctGUID
 
    $rdf = $r->BeginRDFObject;
    $rdf .= $r->BeginDesc;
-   $rdf .= $r->BeginElement("MC:Collection", 'type'=>'guidList');
+   $rdf .= $r->BeginElement("MM:Collection", 'type'=>'guidList');
    $rdf .= $r->BeginBag();
 
    if ((defined $name && $name ne '') && 
@@ -641,7 +641,7 @@ sub FindDistinctGUID
    }
 
    $rdf .= $r->EndBag();
-   $rdf .= $r->EndElement("MC:Collection");
+   $rdf .= $r->EndElement("MM:Collection");
    $rdf .= $r->Element("MQ:Status", "OK", items=>$count);
    $rdf .= $r->EndDesc;
    $rdf .= $r->EndRDFObject;
@@ -719,7 +719,7 @@ sub GetTrackByGlobalId
         @row = $sth->fetchrow_array;
 
         $rdf .=   $r->BeginLi;
-        $rdf .=      CreateTrackRDFSnippet($mb, $r, $row[0]);
+        $rdf .=      CreateTrackRDFSnippet($mb, $r, 1, $row[0]);
         $rdf .=   $r->EndLi;
         $count++;
    }
@@ -769,7 +769,7 @@ sub CreateArtistList
 
    $rdf = $r->BeginRDFObject();
    $rdf .= $r->BeginDesc; 
-   $rdf .= $r->BeginElement("MC:Collection", 'type'=>'artistList'); 
+   $rdf .= $r->BeginElement("MM:Collection", 'type'=>'artistList'); 
    $rdf .= $r->BeginBag();
    for(;;)
    {
@@ -790,7 +790,7 @@ sub CreateArtistList
        $sth->finish;
    }
    $rdf .= $r->EndBag();
-   $rdf .= $r->EndElement("MC:Collection"); 
+   $rdf .= $r->EndElement("MM:Collection"); 
    $rdf .= $r->Element("MQ:Status", "OK", items=>$count);
    $rdf .= $r->EndDesc();
    $rdf .= $r->EndRDFObject();  
@@ -811,7 +811,7 @@ sub CreateAlbumList
 
    $rdf = $r->BeginRDFObject();
    $rdf .= $r->BeginDesc; 
-   $rdf .= $r->BeginElement("MC:Collection", 'type'=>'albumList'); 
+   $rdf .= $r->BeginElement("MM:Collection", 'type'=>'albumList'); 
    $rdf .= $r->BeginBag();
    for(;;)
    {
@@ -825,10 +825,15 @@ sub CreateAlbumList
             {
                 $rdf .= $r->BeginLi();
                 $rdf .=   $r->Element("DC:Identifier", "", 
-                              'artistId'=>$row[3],
-                              'albumId'=>$row[1]);
+                              'artistId'=>$row[3]);
                 $rdf .=   $r->Element("DC:Creator", escape($row[2]));
-                $rdf .=   $r->Element("MM:Album", escape($row[0]));
+                $rdf .=   $r->BeginElement("DC:Relation", 'type'=>'album');
+                $rdf .=      $r->BeginDesc();
+                $rdf .=         $r->Element("DC:Title", escape($row[0]));
+                $rdf .=         $r->Element("DC:Identifier", "", 
+                                            'albumId'=>$row[1]);
+                $rdf .=      $r->EndDesc();
+                $rdf .=   $r->EndElement("DC:Relation");
                 $rdf .= $r->EndLi();
             }
        }
@@ -845,7 +850,14 @@ sub CreateAlbumList
                      $rdf .=   $r->Element("DC:Identifier", "", 
                                    'albumId'=>$row[1]);
                      $rdf .=   $r->Element("DC:Creator", "[Multiple Artists]");
-                     $rdf .=   $r->Element("MM:Album", escape($row[0]));
+                     $rdf .=   $r->BeginElement("DC:Relation", "", 
+                                                'type'=>'album');
+                     $rdf .=      $r->BeginDesc();
+                     $rdf .=         $r->Element("DC:Title", escape($row[0]));
+                     $rdf .=         $r->Element("DC:Identifier", "", 
+                                                 'albumId'=>$row[1]);
+                     $rdf .=      $r->EndDesc();
+                     $rdf .=   $r->EndElement("DC:Relation");
                      $rdf .= $r->EndLi();
                  }
             }
@@ -853,7 +865,7 @@ sub CreateAlbumList
        $sth->finish;
    }
    $rdf .= $r->EndBag();
-   $rdf .= $r->EndElement("MC:Collection"); 
+   $rdf .= $r->EndElement("MM:Collection"); 
    $rdf .= $r->Element("MQ:Status", "OK", items=>$count);
    $rdf .= $r->EndDesc();
    $rdf .= $r->EndRDFObject();  
@@ -866,71 +878,71 @@ sub CreateAlbum
 {
    my ($mb, $fuzzy);
    my ($sth, $rdf, $sth2, @row, @row2);
-   my ($artist, $id, $count, $trdf, $numtracks);
+   my ($artist, $id, $count, $trdf, $numtracks, $first);
 
    $mb = shift @_; 
    $fuzzy = shift @_; 
+   $id = shift @_;
    my $r = RDF::new;
    $count = 0;
 
    $rdf = $r->BeginRDFObject();
    $rdf .= $r->BeginDesc; 
-   $rdf .= $r->BeginElement("MC:Collection", 'type'=>'album'); 
-   $rdf .= $r->BeginBag();
-   for(;;)
+
+   $artist = "";
+   $first = 1;
+   $sth = $mb->{DBH}->prepare("select Album.name, Album.gid, Album.id " .
+                              "from Album where Album.id = $id");
+   if ($sth->execute() && $sth->rows)
    {
-       $id = shift @_;
-       last if !defined $id;
-
-       $artist = "";
-       $sth = $mb->{DBH}->prepare("select Album.name, Album.gid, Album.id " .
-                                  "from Album where Album.id = $id");
-       if ($sth->execute() && $sth->rows)
-       {
-            while(@row = $sth->fetchrow_array)
+        while(@row = $sth->fetchrow_array)
+        {
+            $trdf = "";
+            $sth2 = $mb->{DBH}->prepare("select Track.id, Artist.id, Artist.name from Track, Artist, AlbumJoin where AlbumJoin.track = Track.id and AlbumJoin.album = $row[2] and Track.artist = Artist.id order by AlbumJoin.sequence");
+            if ($sth2->execute() && $sth2->rows)
             {
-                $trdf = "";
-                $sth2 = $mb->{DBH}->prepare("select Track.id, Artist.id, Artist.name from Track, Artist, AlbumJoin where AlbumJoin.track = Track.id and AlbumJoin.album = $row[2] and Track.artist = Artist.id order by AlbumJoin.sequence");
-                if ($sth2->execute() && $sth2->rows)
+                $numtracks = $sth2->rows;
+                $r->BeginSeq();
+                $r->BeginLi();
+                while(@row2 = $sth2->fetchrow_array)
                 {
-                    $numtracks = $sth2->rows;
-                    $r->BeginSeq();
-                    $r->BeginLi();
-                    while(@row2 = $sth2->fetchrow_array)
-                    {
-                         $trdf .= $r->BeginLi();
-                         $trdf .=   CreateTrackRDFSnippet($mb, $r, $row2[0]);
-                         $trdf .= $r->EndLi();
-                    
-                         $artist = $row2[2] if ($row2[1] != 0);
-                    }
-                    $r->EndLi();
-                    $r->EndSeq();
+                     $trdf .= $r->BeginLi();
+                     $trdf .=   CreateTrackRDFSnippet($mb, $r, 0, $row2[0]);
+                     $trdf .= $r->EndLi();
+                
+                     $artist = $row2[2] if ($row2[1] != 0);
                 }
-                $sth2->finish;
-
-                $count++;
-                $rdf .= $r->BeginLi();
-                $rdf .= $r->Element("DC:Identifier", "",
-                                    'albumId'=>escape($row[1]));
-                $rdf .= $r->Element("MM:Album", 
-                                    escape($row[0]),
-                                    'numTracks'=>$numtracks);
-                if ($artist ne "")
-                {
-                    $rdf .= $r->Element("DC:Creator", $artist);
-                }
-                $rdf .= $r->BeginSeq();
-                $rdf .= $trdf;
-                $rdf .= $r->EndSeq();
-                $rdf .= $r->EndLi();
+                $r->EndLi();
+                $r->EndSeq();
             }
-       }
-       $sth->finish;
-   }
+            $sth2->finish;
 
-   $rdf .= $r->EndBag();
-   $rdf .= $r->EndElement("MC:Collection"); 
+            $rdf .= $r->BeginElement("MM:Collection", 
+                                     'type'=>'album',
+                                     'numParts'=>$numtracks); 
+
+            $rdf .= $r->BeginDesc();
+            $rdf .= $r->Element("DC:Identifier", "",
+                                'albumId'=>escape($row[1]));
+            $rdf .= $r->Element("DC:Title", escape($row[0]));
+
+            if ($artist ne "")
+            {
+                $rdf .= $r->Element("DC:Creator", $artist);
+            }
+
+            $rdf .= $r->BeginSeq();
+            $rdf .= $trdf;
+            $rdf .= $r->EndSeq();
+        
+            $rdf .= $r->EndDesc();
+            $rdf .= $r->EndElement("MM:Collection"); 
+
+            $count++;
+        }
+   }
+   $sth->finish;
+
    if ($fuzzy)
    {
       $rdf .= $r->Element("MQ:Status", "Fuzzy", items=>$count);
@@ -949,10 +961,11 @@ sub CreateAlbum
 sub CreateTrackRDFSnippet
 {
    my ($mb);
-   my ($sth, $rdf, @row, $id, $r, $guid, $gu);
+   my ($sth, $rdf, @row, $id, $r, $guid, $gu, $emit_details);
 
    $mb = shift @_; 
    $r = shift @_; 
+   $emit_details = shift @_; 
    $gu = GUID->new($mb);
 
    for(;;)
@@ -970,30 +983,35 @@ sub CreateTrackRDFSnippet
        {
             while(@row = $sth->fetchrow_array)
             {
+                my %ids;
+
+                $ids{'trackId'} = escape($row[1]),
+
                 $guid = $gu->GetGUIDFromTrackId($id);
-                if (defined $guid)
+                $ids{'trackGUID'} = escape($guid) if (defined $guid);
+
+                if ($emit_details)
                 {
-                    $rdf .= $r->Element("DC:Identifier", "",
-                                'artistId'=>escape($row[4]),
-                                'albumId'=>escape($row[6]),
-                                'trackId'=>escape($row[1]),
-                                'trackGUID'=>escape($guid));
+                    $ids{'artistId'} = escape($row[4]),
+                    $ids{'trackId'} = escape($row[1]);
                 }
-                else
+
+                $rdf .= $r->Element("DC:Identifier", "", %ids);
+                $rdf .= $r->Element("MM:TrackNum", $row[2]);
+                $rdf .= $r->Element("DC:Title", escape($row[0]));
+
+                if ($emit_details)
                 {
-                    $rdf .= $r->Element("DC:Identifier", "",
-                                'artistId'=>escape($row[4]),
-                                'albumId'=>escape($row[6]),
-                                'trackId'=>escape($row[1]));
+                    $rdf .= $r->Element("DC:Creator", escape($row[3]));
+                    $rdf .= $r->BeginElement("DC:Relation", "type"=>"album");
+                    $rdf .=   $r->BeginDesc();
+                    $rdf .=     $r->Element("DC:Title", 
+                                            escape($row[5]));
+                    $rdf .=     $r->Element("DC:Identifier", "",
+                                  'albumId'=>escape($row[6]));
+                    $rdf .=   $r->EndDesc();
+                    $rdf .= $r->EndElement("DC:Relation");
                 }
-                $rdf .= $r->Element("DC:Relation", "",
-                            'track'=>($row[2]+1));
-                $rdf .= $r->Element("DC:Creator", 
-                            escape($row[3]));
-                $rdf .= $r->Element("DC:Title", 
-                            escape($row[0]));
-                $rdf .= $r->Element("MM:Album", 
-                            escape($row[5]));
             }     
        }
        $sth->finish;
@@ -1093,8 +1111,16 @@ sub ExchangeMetadata
        unless !defined $guid || $guid eq '';
    $rdf .= $r->Element("DC:Creator", $artist)
        unless !defined $artist || $artist eq '';
-   $rdf .= $r->Element("MM:Album", $album)
-       unless !defined $album || $album eq '';
+
+   if (defined $album && $album ne '')
+   {
+       $rdf .= $r->BeginElement("DC:Relation", "", 'type'=>'album');
+       $rdf .=    $r->BeginDesc; 
+       $rdf .=       $r->Element("DC:Title", escape($album));
+       $rdf .=    $r->EndDesc();
+       $rdf .= $r->EndElement("DC:Relation");
+   }
+
    $rdf .= $r->Element("DC:Relation", "", track=>$seq)
        unless !defined $seq || $seq == 0;
    $rdf .= $r->Element("DC:Format", "", duration=>$len)
@@ -1325,7 +1351,7 @@ sub GetLyricsByGlobalId
             @row = $sth->fetchrow_array;
             $sth->finish;
     
-            $rdf .= CreateTrackRDFSnippet($mb, $r, $trackid);
+            $rdf .= CreateTrackRDFSnippet($mb, $r, 1, $trackid);
             $rdf .= $r->BeginElement("MM:SyncEvents");
             $rdf .= $r->BeginDesc($row[1]);
             $rdf .= $r->Element("DC:Contributor", $row[2]); 
