@@ -92,22 +92,22 @@ else
                 $count++;
             }
 
-            mc_out("<table width=\"100%\">");
-            mc_out("<tr><td align=\"center\">");
+            </%perl>
+            <table width="100%">
+            <tr><td align="center">
 
-            mc_out("<a href=\"/showartist.html?artistid=" . 
-                       $artist->GetId() . "&ex=$exall\">");
-            mc_out("<img src=\"/images/plus.gif\" align=\"center\">");
-            mc_out(" Expand All</a>");
+            <a href="/showartist.html?artistid=<% $artist->GetId() %>&ex=<% $exall %>">
+            <img src="/images/plus.gif" align="center"
+                 height="13" width="13" border="0"> Expand All</a>
 
-            mc_out("</td><td align=\"center\">");
+            </td><td align="center">
 
-            mc_out("<a href=\"/showartist.html?artistid=" . 
-                   $artist->GetId() .  "\">");
-            mc_out("<img src=\"/images/minus.gif\" align=\"center\">");
-            mc_out(" Collapse All</a>");
+            <a href="/showartist.html?artistid=<% $artist->GetId() %>">
+            <img src="/images/minus.gif" align="center""
+                 height="13" width="13" border="0"> Collapse All</a>
 
-            mc_out("</td></tr></table>");
+            </td></tr></table>
+            <%perl>
 
             foreach $album (@albums)
             {

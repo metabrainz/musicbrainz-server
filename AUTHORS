@@ -28,4 +28,6 @@ The following people have contributed to the MusicBrainz server:
   Kevin Murphy <kevin@eorbit.net>
   - Wrote the new spiffy text search routines
 
+  Ian Thompson <disarray@wacko.trickster.net>
+  - Created the TRM and CD icons
 (please send change requests to rob@musicbrainz.org or maintainer)

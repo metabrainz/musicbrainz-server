@@ -11,19 +11,21 @@ $linktype=>""
 my $check_box = "";
 my $albumid = $album->GetId();
 my $script = $albumdetail ? "albumdetail" : "showalbum";
-my ($image, $alt);
+my ($image, $alt, $title);
 
 if ($link ne '')
 {
     if ($linktype eq 'expand')
     {
         $image = "/images/plus.gif";
-        $alt = "Show expanded album";
+        $title = "Show expanded album";
+        $alt = "Expand";
     }
     if ($linktype eq 'collapse')
     {
         $image = "/images/minus.gif"; 
-        $alt = "Show collapsed album";
+        $title = "Show collapsed album";
+        $alt = "Collapse";
     }
 }
 
@@ -48,14 +50,15 @@ if ($link ne '')
 % if ($album->GetModPending()) {
         <td width=85% bgcolor="#FFFFCC" valign="center">
 %          if ($image ne '') {
-               <a href="<% $link %>"><img alt="<% $alt %>"
+               <a href="<% $link %>"><img title="<% $title %>"
+                  alt="<% $alt %>"
                   src="<% $image %>" align="center" border="0"></a>
 %          }
            <a href="/<% $script %>.html?albumid=<% $album->GetId() %>"><% $album->GetName() %></a>
 % } else {
         <td width=85% bgcolor="#FFBA58" valign="center">
 %          if ($image ne '') {
-               <a href="<% $link %>"><img alt="<% $alt %>"
+               <a href="<% $link %>"><img alt="<% $alt %>" title="<% $title %>"
                   src="<% $image %>" align="center" border="0"></a>
 %          }
            <a href="/<% $script %>.html?albumid=<% $album->GetId() %>"><% $album->GetName() %></a>

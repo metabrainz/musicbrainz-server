@@ -66,7 +66,7 @@ sub Cleanup
 
     # --------------------------------------------------------------------
 
-    print "Missing artists: (from track)\n";
+    print "Invalid tracks (Missing artists):\n";
     $count = 0;
     $sth = $dbh->prepare(qq|select Track.id, Track.Artist 
                             from   Track left join Artist 
@@ -88,7 +88,33 @@ sub Cleanup
         }
     }
     $sth->finish;
-    print "Found $count missing artists.\n\n";
+    print "Found $count invalid tracks.\n\n";
+
+    # --------------------------------------------------------------------
+
+    print "Invalid artist aliases (Missing artists):\n";
+    $count = 0;
+    $sth = $dbh->prepare(qq|select ArtistAlias.id, ArtistAlias.Ref 
+                            from   ArtistAlias left join Artist 
+                            on     ArtistAlias.ref = Artist.id 
+                            WHERE  Artist.id IS NULL|);
+    if ($sth->execute() && $sth->rows())
+    {
+        my @row;
+
+        while(@row = $sth->fetchrow_array())
+        {
+            print "  ArtistAlias $row[0] references non-existing artist $row[1].\n";
+            $count++;
+
+            if ($fix)
+            {
+                $dbh->do("delete from ArtistAlias where id = $row[0]"); 
+            }
+        }
+    }
+    $sth->finish;
+    print "Found $count invalid aritst aliases.\n\n";
 
     # --------------------------------------------------------------------
 

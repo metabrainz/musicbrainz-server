@@ -139,6 +139,7 @@ sub Remove
 
     print STDERR "DELETE: Removed artist " . $this->GetId() . "\n";
     $sql->Do("delete from Artist where id = " . $this->GetId());
+    $sql->Do("delete from ArtistAlias where ref = " . $this->GetId());
     $sql->Do("update Changes set Artist = " . Artist::DARTIST_ID . 
              " where artist = " . $this->GetId());
 

@@ -34,8 +34,8 @@ $tr_bgcolor = ($track->GetAlbumJoinModPending()) ? 'bgcolor="#FFFFCC"' : '';
        <a href="/showtrack.html?trackid=<% $track->GetId() %>"><% $track->GetName() %></a>
 % }
 % if ($trmcount > 0) {
-       &nbsp;<img src="/images/trm.gif" align="center"
-             alt="This album has <% $trmcount %> TRM Ids">&nbsp;
+       &nbsp;<img src="/images/trm.gif" align="center" alt="TRM" width="30" 
+                  height="11" title="<% $trmcount %> TRM Ids">&nbsp;
 % }
     </td>
 % if ($album->GetArtist() == Artist::VARTIST_ID) {
