@@ -1,6 +1,6 @@
 %# vi: set ts=2 sw=2 ft=mason :
 <%args>
-$id
+$id => undef
 $tracks=>""
 $toc=>""
 </%args>
@@ -10,10 +10,7 @@ use CGI;
 # For some reason, in order to precompile, $r needs to be declared:
 use vars qw( $r );
 
-my ($mb, $al, $url, $album, $valid, $di);
-
-
-$valid = $id;
+my $valid = $id;
 $valid =~ tr/_.\-A-Za-z0-9//d;
 
 if (!defined $id || $id eq '')
@@ -21,18 +18,22 @@ if (!defined $id || $id eq '')
     $m->comp("/comp/sidebar", title=>"Lookup Error");
     $m->out("This page needs the id argument.");
     $m->comp("/comp/footer");
+		return;
 }
 elsif (length($id) != 28 || substr($id, -1, 1) ne "-" || $valid ne "")
 {
     $m->comp("/comp/sidebar", title=>"Lookup Error");
     $m->out("The disk id you are trying to lookup ($id) is invalid.");
     $m->comp("/comp/footer");
+		return;
 }
-else
-{
-    $mb = $m->comp("/comp/dblogin");
-    $di = Discid->new($mb->{DBH});
-    $album = $di->GetAlbumFromDiscid($id);
+
+    my $mb = $m->comp("/comp/dblogin");
+    my $di = Discid->new($mb->{DBH});
+    my $album = $di->GetAlbumFromDiscid($id);
+
+		my $url;
+
     if (defined $album)
     {
         $url = "/showalbum.html?albumid=$album";
@@ -47,8 +48,6 @@ else
                       to this page, you will be automatically redirected
                       to the proper submit page)|);
             $m->comp("/comp/footer");
-
-            $url = "";
         }
         else
         {
@@ -58,7 +57,7 @@ else
         }
     }
 
-    if ($url ne "")
+    if ($url)
     {
         $r->method('GET');
         $r->headers_in->unset('Content-length');
@@ -67,8 +66,5 @@ else
         $r->header_out(Location=>$url);
         $r->status(302);
     }
-
-    $mb->Logout();
-}
 
 </%perl>
