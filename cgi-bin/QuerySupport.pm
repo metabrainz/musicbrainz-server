@@ -651,7 +651,8 @@ sub ExchangeMetadata
            {
               for($i = 0; $i < 5;  $i++)
               {
-                 if (defined $db_data[$i])
+                 if (defined $db_data[$i] && 
+                    (!defined $data[$i] || $data[$i] eq ''))
                  {
                      $data[$i] = $db_data[$i] 
                  }
