@@ -116,7 +116,7 @@ $time = $m->comp("/comp/datetime", $time);
 <tr>
 
    <td width="37%" valign=top bgcolor="#ffecd6" class="body">
-%			$mod->ShowPreviousValue($m);
+%			$mod->ShowPreviousValue($m, $inline);
    </td>
 
    <td width="37%" valign=top bgcolor="#f0efff" class="body">
