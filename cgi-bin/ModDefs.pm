@@ -46,6 +46,7 @@ use Exporter;
 	modtype		=> &$get(qr/^MOD_/),
 	modstatus	=> &$get(qr/^STATUS_/),
 	vote		=> &$get(qr/^VOTE_/),
+	all		=> \@subs,
 );
 
 @EXPORT_OK = @subs;
