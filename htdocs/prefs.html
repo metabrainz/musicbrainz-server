@@ -80,6 +80,10 @@ if ($ARGS{"SavePrefs"})
 	if grep { $tz eq $_->[0] } @allowed_timezones;
 
 	$session{"JSMoveFocus"} = ($ARGS{"JSMoveFocus"} ? 1 : 0);
+
+	$session{"sitemenu_light"} = ($ARGS{"sitemenu_light"} ? 1 : 0);
+
+	$session{"no_sidebar_panels"} = ($ARGS{"no_sidebar_panels"} ? 1 : 0);
 } else {
 	$session{"JSMoveFocus"} = 1
 		unless defined $session{"JSMoveFocus"};
@@ -140,6 +144,22 @@ $time = time();
 			<% $session{JSMoveFocus} ? "checked" : "" %>
 			>
 		Use Javascript to move the input focus when the page loads
+	</p>
+
+	<h2>HTML Features</h2>
+
+	<p>
+		<input type="checkbox" name="sitemenu_light"
+			<% $session{sitemenu_light} ? "checked" : "" %>
+			>
+		Load a cut-down version of the "site menu" (less dynamic, but faster page loads)
+	</p>
+
+	<p>
+		<input type="checkbox" name="no_sidebar_panels"
+			<% $session{no_sidebar_panels} ? "checked" : "" %>
+			>
+		Don't show sidebar panels (faster page loads)
 	</p>
 
 	<p>
