@@ -1,80 +1,100 @@
 \set ON_ERROR_STOP 1
 BEGIN;
 
-CREATE TABLE artist (
+CREATE TABLE artist
+(
     id                  SERIAL,
     name                VARCHAR(255) NOT NULL,
     gid                 CHAR(36) NOT NULL,
     modpending          INT DEFAULT 0,
     sortname            VARCHAR(255) NOT NULL,
-    page                INT NOT NULL);
+    page                INT NOT NULL
+);
 
-CREATE TABLE artistalias (
+CREATE TABLE artistalias
+(
     id                  SERIAL,
     ref                 INT NOT NULL, -- references artist
     name                VARCHAR(255) NOT NULL, 
     timesused           INT DEFAULT 0,
     modpending          INT DEFAULT 0,
     lastused            TIMESTAMP WITH TIME ZONE
-   );
+);
 
-CREATE TABLE album (
+CREATE TABLE album
+(
     id                  SERIAL,
     artist              INT NOT NULL, -- references artist
     name                VARCHAR(255) NOT NULL,
     gid                 CHAR(36) NOT NULL, 
     modpending          INT DEFAULT 0,
     attributes          INT[] DEFAULT '{0}',
-    page                INT NOT NULL);
+    page                INT NOT NULL
+);
 
-CREATE TABLE albummeta (
+CREATE TABLE albummeta
+(
     Id                  INTEGER NOT NULL,
     tracks              INT DEFAULT 0,
     discids             INT DEFAULT 0,
     trmids              INT DEFAULT 0,
     firstreleasedate    CHAR(10),
     asin                CHAR(10),
-    coverarturl         VARCHAR(255));
+    coverarturl         VARCHAR(255)
+);
 
-CREATE TABLE track (
+CREATE TABLE track
+(
     id                  SERIAL,
     artist              INT NOT NULL, -- references artist
     name                VARCHAR(255) NOT NULL,
     gid                 CHAR(36) NOT NULL, 
     length              INT DEFAULT 0,
     year                INT DEFAULT 0,
-    modpending          INT DEFAULT 0);
+    modpending          INT DEFAULT 0
+);
 
-CREATE TABLE albumjoin (
+CREATE TABLE albumjoin
+(
     id                  SERIAL,
     album               INT NOT NULL, -- references album
     track               INT NOT NULL, -- references track
     sequence            INT NOT NULL,
-    modpending          INT DEFAULT 0);
+    modpending          INT DEFAULT 0
+);
 
-CREATE TABLE clientversion (
+CREATE TABLE clientversion
+(
     id                  SERIAL,
-    version             VARCHAR(64) NOT NULL);
+    version             VARCHAR(64) NOT NULL
+);
 
-CREATE TABLE trm (
+CREATE TABLE trm
+(
     id                  SERIAL,
     trm                 CHAR(36) NOT NULL,
     lookupcount         INT DEFAULT 0,
-    version             INT NOT NULL); -- references clientversion
+    version             INT NOT NULL -- references clientversion
+);
 
-CREATE TABLE trmjoin (
+CREATE TABLE trmjoin
+(
     id                  SERIAL,
     trm                 INT NOT NULL, -- references trm
-    track               INT NOT NULL); -- references track
+    track               INT NOT NULL -- references track
+);
 
-CREATE TABLE discid (
+CREATE TABLE discid
+(
     id                  SERIAL,
     album               INT NOT NULL, -- references album
     disc                CHAR(28) NOT NULL,
     toc                 TEXT NOT NULL, 
-    modpending          INT DEFAULT 0);
+    modpending          INT DEFAULT 0
+);
 
-CREATE TABLE toc (
+CREATE TABLE toc
+(
     id                  SERIAL,
     album               INT NOT NULL, -- references album
     discid              CHAR(28), -- references discid (disc)
@@ -93,9 +113,11 @@ CREATE TABLE toc (
     track78 int, track79 int, track80 int, track81 int, track82 int, track83 int, track84 int, 
     track85 int, track86 int, track87 int, track88 int, track89 int, track90 int, track91 int, 
     track92 int, track93 int, track94 int, track95 int, track96 int, track97 int, track98 int, 
-    track99 int);
+    track99 int
+);
 
-CREATE TABLE moderator (
+CREATE TABLE moderator
+(
     id                  SERIAL,
     name                VARCHAR(64) NOT NULL,
     password            VARCHAR(64) NOT NULL, 
@@ -112,7 +134,8 @@ CREATE TABLE moderator (
     modsfailed          INTEGER DEFAULT 0
 );
 
-CREATE TABLE moderation_open (
+CREATE TABLE moderation_open
+(
     id                  SERIAL NOT NULL,
     artist              INT NOT NULL, -- references artist
     moderator           INT NOT NULL, -- references moderator
@@ -130,24 +153,28 @@ CREATE TABLE moderation_open (
     opentime            TIMESTAMP WITH TIME ZONE DEFAULT NOW(),
     closetime           TIMESTAMP WITH TIME ZONE,
     expiretime          TIMESTAMP WITH TIME ZONE NOT NULL
-   );
+);
 
-CREATE TABLE moderation_note_open (
+CREATE TABLE moderation_note_open
+(
     id                  SERIAL NOT NULL,
     moderation          INT NOT NULL, 
     moderator           INT NOT NULL, 
-    text                TEXT NOT NULL);
+    text                TEXT NOT NULL
+);
 
-CREATE TABLE vote_open (
+CREATE TABLE vote_open
+(
     id                  SERIAL NOT NULL,
     moderator           INT NOT NULL, -- references moderator
     moderation          INT NOT NULL, -- references moderation
     vote                SMALLINT NOT NULL,
     votetime            TIMESTAMP WITH TIME ZONE DEFAULT NOW(),
     superseded          BOOLEAN NOT NULL DEFAULT FALSE
-   );
+);
 
-CREATE TABLE moderation_closed (
+CREATE TABLE moderation_closed
+(
     id                  INT NOT NULL,
     artist              INT NOT NULL, -- references artist
     moderator           INT NOT NULL, -- references moderator
@@ -165,24 +192,28 @@ CREATE TABLE moderation_closed (
     opentime            TIMESTAMP WITH TIME ZONE DEFAULT NOW(),
     closetime           TIMESTAMP WITH TIME ZONE,
     expiretime          TIMESTAMP WITH TIME ZONE NOT NULL
-   );
+);
 
-CREATE TABLE moderation_note_closed (
+CREATE TABLE moderation_note_closed
+(
     id                  INT NOT NULL,
     moderation          INT NOT NULL, 
     moderator           INT NOT NULL, 
-    text                TEXT NOT NULL);
+    text                TEXT NOT NULL
+);
 
-CREATE TABLE vote_closed (
+CREATE TABLE vote_closed
+(
     id                  INT NOT NULL,
     moderator           INT NOT NULL, -- references moderator
     moderation          INT NOT NULL, -- references moderation
     vote                SMALLINT NOT NULL,
     votetime            TIMESTAMP WITH TIME ZONE DEFAULT NOW(),
     superseded          BOOLEAN NOT NULL DEFAULT FALSE
-   );
+);
 
-CREATE TABLE wordlist(
+CREATE TABLE wordlist
+(
     id                  SERIAL,
     word                VARCHAR(255) NOT NULL,
     artistusecount      SMALLINT NOT NULL DEFAULT 0,
@@ -190,19 +221,26 @@ CREATE TABLE wordlist(
     trackusecount       SMALLINT NOT NULL DEFAULT 0
 );
 
-CREATE TABLE artistwords(
+CREATE TABLE artistwords
+(
     wordid              INT NOT NULL,
-    artistid            INT NOT NULL);
+    artistid            INT NOT NULL
+);
 
-CREATE TABLE albumwords(
+CREATE TABLE albumwords
+(
     wordid              INT NOT NULL,
-    albumid             INT NOT NULL);
+    albumid             INT NOT NULL
+);
 
-CREATE TABLE trackwords (
+CREATE TABLE trackwords
+(
     wordid              INT NOT NULL,
-    trackid             INT NOT NULL);
+    trackid             INT NOT NULL
+);
 
-CREATE TABLE stats (
+CREATE TABLE stats
+(
     id                  SERIAL,
     artists             INT NOT NULL, 
     albums              INT NOT NULL, 
@@ -212,13 +250,16 @@ CREATE TABLE stats (
     moderations         INT NOT NULL, 
     votes               INT NOT NULL, 
     moderators          INT NOT NULL, 
-    timestamp           DATE NOT NULL);
+    timestamp           DATE NOT NULL
+);
 
-CREATE TABLE artist_relation (
+CREATE TABLE artist_relation
+(
     id                  SERIAL,
     artist              INT NOT NULL, -- references artist
     ref                 INT NOT NULL, -- references artist
-    weight              INTEGER NOT NULL);
+    weight              INTEGER NOT NULL
+);
 
 CREATE TABLE currentstat
 (
@@ -270,7 +311,8 @@ CREATE TABLE release
     modpending          INTEGER DEFAULT 0
 );
 
-CREATE TABLE album_amazon_asin (
+CREATE TABLE album_amazon_asin
+(
     album               INTEGER NOT NULL, -- references album
     asin                CHAR(10),
     coverarturl         VARCHAR(255),
