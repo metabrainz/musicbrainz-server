@@ -45,7 +45,7 @@ if (MusicBrainz::IsSingleLineString($text)
 
 	eval {
 		$sql->Begin;
-		$mod->InsertModerationNote($modid, $session{uid}, $text);
+		$mod->InsertNote($session{uid}, $text);
 		$sql->Commit;
 	};
 
