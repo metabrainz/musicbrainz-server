@@ -69,9 +69,9 @@ if (@$mods)
 <% $total_mods %> matching mod<% (($total_mods==1) ? "" : "s") %> &nbsp; [
 <a href="/mod/select-filter.html">Search Again</a> |
 <a href="/mod/filter.html">Advanced Search</a> |
-<a href="jumpmod.html">Jump</a> |
-<a href="mod_faq.html">FAQ</a> |
-<a href="mod_intro.html">Help</a>
+<a href="/jumpmod.html">Jump</a> |
+<a href="/mod_faq.html">FAQ</a> |
+<a href="/mod_intro.html">Help</a>
 	]</div>
 
 	<div class="LinksRow">[
