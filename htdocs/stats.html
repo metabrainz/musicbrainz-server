@@ -8,7 +8,12 @@ if (!defined($result))
     my $mb = MusicBrainz->new();  
     $mb->Login();
 
-    my $t = `date -u`;
+    my @current = gmtime(time());
+    my $t = sprintf "%d-%02d-%02d %02d:%02d:%02d",
+              $current[5] + 1900,
+              $current[4]+1,
+              $current[3],
+              $current[2], $current[1], $current[0];
    
     $result = "<tr><td>Generated on: $t</td></tr>";
 
