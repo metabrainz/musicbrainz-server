@@ -461,7 +461,7 @@ sub GetModerationList
    my ($sql, @data, @row, $num_rows, $total_rows);
    my ($mod, $query);
 
-   $num_rows = 0;
+   $num_rows = $total_rows = 0;
    if ($type == ModDefs::TYPE_NEW)
    {
        $query = qq/select Changes.id, tab, col, Changes.rowid, 
