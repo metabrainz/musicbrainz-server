@@ -192,11 +192,6 @@ sub OutputAlbumRDF
     {
         $out .= $this->Element("az:Asin", $asin);
     }
-    my $coverart = $album->GetCoverartURL();
-    if ($coverart)
-    {
-        $out .= $this->Element("mm:coverart", "", "rdf:resource", $coverart);
-    }
 
     if (exists $ref->{_album})
     {
