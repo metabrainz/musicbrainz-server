@@ -292,6 +292,30 @@ sub Cleanup
     }
     $sth->finish;
     print "Found $count orphaned trmids.\n\n";
+
+    # --------------------------------------------------------------------
+    
+    print "Invalid guidjoins:\n";
+    $count = 0;
+    $sth = $dbh->prepare(qq|select GUIDJoin.id, GUIDJoin.guid 
+                              from GUIDJoin left join GUID 
+                                on GUIDJoin.guid = GUID.id 
+                             where GUID.id IS NULL|);
+    if ($sth->execute() && $sth->rows())
+    {
+        my @row;
+
+        while(@row = $sth->fetchrow_array())
+        {
+            print "  GUIDJoin $row[0] references non-existing GUID $row[1].\n";
+            $count++;
+
+            $dbh->do("delete from GUIDJoin where id = $row[0]") if ($fix);
+        }
+    }
+    $sth->finish;
+    print "Found $count invalid guidjoins.\n\n";
+
 }
 
 # Call main with the number of arguments that you are expecting

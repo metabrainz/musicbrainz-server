@@ -10,13 +10,14 @@ if (!exists $ARGS{artistid} || $ARGS{artistid} eq '')
     return undef;
 }
 
-my ($ret, $t0, $t1, $td);
+my ($ret, $t0, $t1, $td, $ex);
 my ($secs);
 
 $mb = new MusicBrainz;
 $mb->Login();
 $artist = Artist->new($mb->{DBH});
 $album = Album->new($mb->{DBH});
+$ex = $ARGS{ex};
 
 $artist->SetId($ARGS{artistid});
 if (! $artist->LoadFromId())
@@ -83,8 +84,26 @@ else
             {
                 $album = shift @albums;
                 last if (!defined $album);
-                mc_comp("/comp/album", album=>$album, artist=>$artist, 
-                                       showid=>1);
+
+                my $id = $album->GetId();
+
+                if ($ex =~ /(^|\D)$id(\D|$)/)
+                {
+                     mc_comp("/comp/album", 
+                             album=>$album, 
+                             artist=>$artist, 
+                             ex=>$ex,
+                             showcollapsed=>1,
+                             showid=>1);
+                }
+                else
+                {
+                     mc_comp("/comp/albumcollapsed", 
+                             album=>$album, 
+                             artist=>$artist, 
+                             ex=>$ex,
+                             showid=>0);
+                }
             }
         }
     }

@@ -282,7 +282,7 @@ sub GetAlbums
    # First, pull in the single artist albums
    $sql = Sql->new($this->{DBH});
    if ($sql->Select(qq/select id, name, modpending, GID from 
-                       Album where artist=$this->{id}/))
+                       Album where artist=$this->{id} order by name/))
    {
         while(@row = $sql->NextRow)
         {

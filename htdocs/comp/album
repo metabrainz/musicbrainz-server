@@ -5,11 +5,13 @@ $hilitetrack=>-1
 $hilitecolor=>""
 $nomod=>0
 $showalbumdetail=>0
+$showcollapsed=>0
+$ex=>""
 </%args>
 
 <%perl>
 
-my ($i, $track, @info, $ly, $lyricspresent);
+my ($i, $track, @info, $ly, $lyricspresent, $trmcounts, $tcount);
 
 $ly = Lyrics->new($artist->GetDBH());
 
@@ -22,12 +24,34 @@ else
 {
     @info = $album->LoadTracks();
 }
+$trmcounts = $album->LoadTRMCount();
 
-mc_comp("/comp/albumbegin", 
-        artist=>$artist, 
-        album=>$album, 
-        nomod=>$nomod,
-        albumdetail=>$showalbumdetail);
+if ($showcollapsed)
+{
+    my ($id, $link);
+    
+    $link = "/showartist.html?artistid=" . $artist->GetId();
+    $id = $album->GetId();
+    $ex =~ s/(^|\D)$id(\D|$)/$1$2/g;
+    $ex =~ s/,,/,/g;
+    $ex =~ s/(,$)|(^,)//g;
+    $link .= "&ex=$ex" if ($ex ne '');
+    mc_comp("/comp/albumbegin", 
+            artist=>$artist, 
+            album=>$album, 
+            nomod=>$nomod,
+            albumdetail=>$showalbumdetail,
+            linktype=>"collapse",
+            link=>$link);
+}
+else
+{
+    mc_comp("/comp/albumbegin", 
+            artist=>$artist, 
+            album=>$album, 
+            nomod=>$nomod,
+            albumdetail=>$showalbumdetail);
+}
 for($i = 0;; $i++)
 {
     $track = $info[$i]; 
@@ -41,10 +65,19 @@ for($i = 0;; $i++)
            $lyricspresent=1;
         }
     }
+    if (exists $trmcounts->{$track->GetId()})
+    {
+        $tcount = $trmcounts->{$track->GetId()};
+    }
+    else
+    {
+        $tcount = 0;
+    }
     mc_comp("/comp/albumtrack", track=>$track, album=>$album, 
             artist=>$artist, lyricspresent=>$lyricspresent,
             tindex=>$i, hilitetrack=>$hilitetrack, 
-            hilitecolor=>$hilitecolor, nomod=>$nomod);
+            hilitecolor=>$hilitecolor, nomod=>$nomod, 
+            trmcount=>$tcount);
 }
 mc_comp("/comp/albumend", album=>$album, artist=>$artist, 
                           numtracks=>$i, nomod=>$nomod);

@@ -3,12 +3,29 @@ $artist
 $album
 $nomod
 $albumdetail=>0
+$link=>""
+$linktype=>""
 </%args>
 
 <%perl>
 my $check_box = "";
 my $albumid = $album->GetId();
 my $script = $albumdetail ? "albumdetail" : "showalbum";
+my ($image, $alt);
+
+if ($link ne '')
+{
+    if ($linktype eq 'expand')
+    {
+        $image = "/images/plus.gif";
+        $alt = "Show expanded album";
+    }
+    if ($linktype eq 'collapse')
+    {
+        $image = "/images/minus.gif"; 
+        $alt = "Show collapsed album";
+    }
+}
 
 #if (exists $session{user} && !$nomod) 
 #{
@@ -30,9 +47,17 @@ my $script = $albumdetail ? "albumdetail" : "showalbum";
   <tr>
 % if ($album->GetModPending()) {
         <td width=85% bgcolor="#FFFFCC" valign="center">
+%          if ($image ne '') {
+               <a href="<% $link %>"><img alt="<% $alt %>"
+                  src="<% $image %>" align="center" border="0"></a>
+%          }
            <a href="/<% $script %>.html?albumid=<% $album->GetId() %>"><% $album->GetName() %></a>
 % } else {
         <td width=85% bgcolor="#FFBA58" valign="center">
+%          if ($image ne '') {
+               <a href="<% $link %>"><img alt="<% $alt %>"
+                  src="<% $image %>" align="center" border="0"></a>
+%          }
            <a href="/<% $script %>.html?albumid=<% $album->GetId() %>"><% $album->GetName() %></a>
 % }
         </td>

@@ -9,8 +9,8 @@ $confirm=>0
 
 <%perl>
 
-my ($mb, $ar, @albums, $albumname, $al, $di);
-my ($id, @diskid_refs, $ref); 
+my ($mb, $ar, @albums, $albumname, $al, $di, $count);
+my ($id, @diskid_refs, $ref, @tracks, $numtracks); 
 
 if ($confirm)
 {
@@ -36,6 +36,14 @@ $di = Diskid->new($mb->{DBH});
 $al = Album->new($mb->{DBH});
 $al->SetId($albumid);
 $al->LoadFromId();
+
+@tracks = $al->LoadTracks();
+$numtracks = scalar(@tracks);
+if ($numtracks == 0)
+{
+    mc_out("Cannot load album $albumid\n");
+    return undef;
+}
 
 $ar->SetId($artistid);
 @albums = $ar->GetAlbums();
@@ -77,12 +85,18 @@ if ($id < 0)
     <& /comp/tableend &>
 % } else {
 
-      Select a new album for CD Index Id 
-      <span class="bold"><% $diskid %></span>:<p>
 
+%     $count = 0;
 %     foreach $ref (@albums) {
 %        next if ($ref->GetId() == $albumid);
 %        next if ($ref->GetArtist() == Artist::VARTIST_ID);
+%        @tracks = $ref->LoadTracks();
+%        next if ($numtracks != scalar(@tracks));
+%        if ($count == 0) {
+            Select a new album for CD Index Id 
+            <span class="bold"><% $diskid %></span>:<p>
+%        }
+%        $count++;
             <form method="POST" action="/movediskid.html"
                   enctype="application/x-www-form-urlencoded" class="formstyle">
               <table width="100%">
@@ -124,6 +138,14 @@ if ($id < 0)
               </tr>
               </table>
             </form>
+%     }
+%     if ($count == 0) {
+      <p>This artist does not have any albums with <% $numtracks %> tracks
+      and therefore the id <% $diskid %> cannot be moved.<p>
+      <a href="/showalbum.html?albumid=<% $albumid %>">Back</a> to
+      album <% $al->GetName() %>.
+%     } else {
+      NOTE: Only albums with the <% $numtracks %> tracks have been shown.
 %     }
 % }
 % $mb->Logout();

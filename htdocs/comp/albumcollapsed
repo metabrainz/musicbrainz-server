@@ -1,0 +1,38 @@
+<%args>
+$album
+$artist
+$ex=>""
+</%args>
+
+<%perl>
+my ($trackcount, $trmcount, @ids, $di, $link);
+
+$trackcount = $album->GetTrackCount();
+$trmcount = $album->GetTRMCount();
+$di = Diskid->new($album->{DBH});
+@ids = $di->GetDiskIdFromAlbum($album->GetId());
+$link = "/showartist.html?artistid=" . $artist->GetId() . "&ex=";
+
+$ex .= "," . $album->GetId();
+$ex =~ s/^,//g;
+$link .= $ex;
+mc_comp("/comp/albumbegin", 
+            album=>$album, artist=>$artist, nomod=>1,
+            linktype=>'expand', 
+            link=>$link);
+
+</%perl>
+<tr><td>
+<% $trackcount %> tracks
+% if (scalar(@ids) > 0) {
+    &nbsp;<img src="/images/cd.gif" align="center" 
+               alt="This album has <% scalar(@ids) %> CD Index Ids">
+% }
+% if ($trmcount > 0) {
+    &nbsp;<img src="/images/trm.gif" align="center" 
+               alt="This album has <% $trmcount %> TRM Ids">&nbsp;
+% }
+</td></tr>
+
+<& /comp/albumend, showids=>0, album=>$album, artist=>$artist, 
+                   nomod=>1, numtracks=>$trackcount &>

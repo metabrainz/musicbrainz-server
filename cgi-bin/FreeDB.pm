@@ -218,7 +218,8 @@ sub Retrieve
         $port = getsrvbyname($port, 'tcp');
     }
 
-    $iaddr = inet_aton($remote) or die "no host: $remote";
+    $iaddr = inet_aton($remote) or 
+       return undef;
     $paddr = sockaddr_in($port, $iaddr);
     $proto = getprotobyname('tcp');
 

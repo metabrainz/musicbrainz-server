@@ -7,6 +7,7 @@ $lyricspresent
 $hilitetrack
 $hilitecolor
 $nomod
+$trmcount=>0
 </%args>
 
 <%perl>
@@ -31,6 +32,10 @@ $tr_bgcolor = ($track->GetAlbumJoinModPending()) ? 'bgcolor="#FFFFCC"' : '';
        <a href="/showlyrics.html?id=<% $track->GetId() %>"><% $track->GetName() %></a>
 % } else {
        <a href="/showtrack.html?trackid=<% $track->GetId() %>"><% $track->GetName() %></a>
+% }
+% if ($trmcount > 0) {
+       &nbsp;<img src="/images/trm.gif" align="center"
+             alt="This album has <% $trmcount %> TRM Ids">&nbsp;
 % }
     </td>
 % if ($album->GetArtist() == Artist::VARTIST_ID) {

@@ -144,6 +144,25 @@ sub GetTrackCount
    return $this->{trackcount};
 }
 
+# Returns the number of TRM ids for this album or undef on error
+sub GetTRMCount
+{
+   my ($this) = @_;
+   my ($sql);
+
+   return undef if (!exists $this->{id});
+   if (!exists $this->{trmcount} || !defined $this->{trmcount})
+   {
+        $sql = Sql->new($this->{DBH});
+        ($this->{trmcount}) = $sql->GetSingleRow("AlbumJoin, GUIDJoin", 
+                                  ["count(*)"], 
+                                  ["album", $this->{id}, 
+                                   "AlbumJoin.track", "GUIDJoin.track"]);
+   }
+
+   return $this->{trmcount};
+}
+
 # This function takes a track id and returns an array of album ids
 # on which this track appears. The array is empty on error.
 sub GetAlbumIdsFromTrackId
@@ -242,7 +261,7 @@ sub LoadFromName
 sub LoadTracks
 {
    my ($this) = @_;
-   my (@info, $query, $sql, @row, $track);
+   my (@info, $query, $query2, $sql, $sql2, @row, @row2, $track);
 
    $sql = Sql->new($this->{DBH});
    $query = qq|select Track.id, Track.name, Track.artist,
@@ -251,7 +270,14 @@ sub LoadTracks
                from   Track, AlbumJoin 
                where  AlbumJoin.track = Track.id
                       and AlbumJoin.album = $this->{id} 
-               order  by AlbumJoin.sequence|;
+               order  by AlbumJoin.sequence, AlbumJoin.id|;
+
+#       $query2 = qq|select AlbumJoin.track, count(GUIDJoin.track) as num_trm 
+#                      from AlbumJoin, GUIDJoin 
+#                     where AlbumJoin.album = $this->{id} and 
+#                           AlbumJoin.track = GUIDJoin.track 
+#                  group by AlbumJoin.track 
+#                  order by AlbumJoin.sequence, AlbumJoin.id|;
 
    if ($sql->Select($query))
    {
@@ -305,6 +331,33 @@ sub LoadTracksFromMultipleArtistAlbum
    }
 
    return @info;
+}
+
+# Load trmid counts for current album. Returns an array of Track references
+# The array is empty if there are no tracks or on error
+sub LoadTRMCount
+{
+   my ($this) = @_;
+   my ($query, $sql, @row, %trmcount);
+
+   $sql = Sql->new($this->{DBH});
+   $query = qq|select AlbumJoin.track, count(GUIDJoin.track) as num_trm 
+                      from AlbumJoin, GUIDJoin 
+                     where AlbumJoin.album = $this->{id} and 
+                           AlbumJoin.track = GUIDJoin.track 
+                  group by AlbumJoin.track 
+                  order by AlbumJoin.sequence, AlbumJoin.id|;
+
+   if ($sql->Select($query))
+   {
+       for(;@row = $sql->NextRow();)
+       {
+           $trmcount{$row[0]} = $row[1];
+       }
+       $sql->Finish;
+   }
+
+   return \%trmcount;
 }
 
 # Given an album search argument, this function searches for albums
