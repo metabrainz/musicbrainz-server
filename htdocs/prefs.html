@@ -15,7 +15,9 @@ if ($ARGS{"SavePrefs"})
 		mod_add_album_inline
 		JSMoveFocus
 		sitemenu_heavy
-		no_sidebar_panels
+		sidebar_panel_search
+		sidebar_panel_stats
+		sidebar_panel_topmods
 		nosidebar
 	)) {
 		$ARGS{$_} = 0 if not defined $ARGS{$_};
@@ -129,11 +131,26 @@ $time = time();
 	</p>
 
 	<p>
-		<input type="checkbox" name="no_sidebar_panels"
-			<% UserPreference::get('no_sidebar_panels') ? "checked" : "" %>
-			>
-		Don't show sidebar panels (faster page loads)
+		Sidebar panels:
 	</p>
+
+	<ul style="list-style: none">
+		<li>
+			<input type="checkbox" name="sidebar_panel_search"
+				<% UserPreference::get('sidebar_panel_search') ? "checked" : "" %>
+				> Quick Search
+		</li>
+		<li>
+			<input type="checkbox" name="sidebar_panel_topmods"
+				<% UserPreference::get('sidebar_panel_topmods') ? "checked" : "" %>
+				> Top Moderators
+		</li>
+		<li>
+			<input type="checkbox" name="sidebar_panel_stats"
+				<% UserPreference::get('sidebar_panel_stats') ? "checked" : "" %>
+				> Server Stats
+		</li>
+	</ul>
 
 	<p>
 		<input type="checkbox" name="nosidebar"
