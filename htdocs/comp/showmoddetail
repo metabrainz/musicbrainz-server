@@ -70,6 +70,8 @@ my $expire_verb = ($mod->GetExpired ? "Expired" : "Expires");
 		<td valign="top"><% do { $mod->ShowNewValue($m); "" } %></td>
 	</tr>
 
+
+
 % if (not $my_mod) {
 
 	<tr><td colspan="2"><hr></td></tr>
@@ -106,6 +108,8 @@ my $expire_verb = ($mod->GetExpired ? "Expired" : "Expires");
 	</tr>
 % }
 
+% } # not $my_mod
+
 
 
 %# Votes
@@ -136,8 +140,6 @@ my $expire_verb = ($mod->GetExpired ? "Expired" : "Expires");
 	</tr>
 % } # @votes
 % } # $see_votes
-
-% } # $my_mod
 
 
 
