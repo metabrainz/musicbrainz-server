@@ -4,19 +4,18 @@ These are the tasks that I am currently working on. The first task the
 the most important and the last task is the least important. <p>
 
 <& /comp/todoentry, 
-   task=>'Database improvements', 
-   skills=>'Perl/Database', 
-   desc=>qq\Add support for committ/rollback, upgrade to the new MySQL,
-            create a central data insertion class with artist alias support, 
-            convert MB Ids to UUIDS, and moderate new submissions.\
-&>
-
-<& /comp/todoentry, 
    task=>'Database Replication', 
    skills=>'Perl/Database', 
    desc=>qq\Accept Paul Sharpe's patch, change general server functions
             to allow a read-only mirror to work. All read-write functions
             need to get redirected to the main server.\
+&>
+
+<& /comp/todoentry, 
+   task=>'Database improvements', 
+   skills=>'Perl/Database', 
+   desc=>qq\Add support for data insertions via RDF with spam prevention,
+            and moderate new data insertions.\
 &>
 
 <& /comp/todoentry, 
@@ -26,11 +25,11 @@ the most important and the last task is the least important. <p>
 &>
 
 <& /comp/todoentry, 
-   task=>'Add support for merging albums', 
+   task=>'Add support for merging and deleting albums', 
    skills=>'Perl/HTML', 
    desc=>qq\Finish the support for tagged moderations and implement a merge
             album feature. (Curt Siffert has expressed interest in taking
-            this on.\
+            this on.)\
 &>
 
 <& /comp/todoentry, 
