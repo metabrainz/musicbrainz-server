@@ -562,5 +562,11 @@ sub RecalculateAll
 	}
 }
 
+sub GetStatDescription
+{
+	my ($self, $name) = @_;
+	$stats{$name}{DESC};
+}
+
 1;
 # vi: set ts=4 sw=4 :
