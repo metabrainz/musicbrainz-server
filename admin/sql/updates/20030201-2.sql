@@ -1,3 +1,6 @@
+-- Abstract: add "with time zone" to moderator.membersince and artistalias.lastused
+-- Formerly called admin/sql/AddTimeZones.sql
+
 \set ON_ERROR_STOP 1
 
 BEGIN;
