@@ -48,9 +48,10 @@ $mb2->Login;
 my $sqlWrite = Sql->new($mb2->{DBH});
 
 my $use_auto_mod = 1;
-my $moderator = ModDefs::MODBOT_MODERATOR;
-my $help = 0;
-my $nofix = 0;
+my $moderator = &ModDefs::MODBOT_MODERATOR;
+my $remove = 1;
+my $verbose;
+my $summary = 1;
 
 GetOptions(
 	"automod!"		=> \$use_auto_mod,
@@ -61,14 +62,17 @@ GetOptions(
 		$uid or die "No such moderator '$user'";
 		$moderator = $uid;
 	},
-	"dry-run|n"		=> \$nofix,
-	"help|h|?"		=> \$help,
+	"remove!"		=> \$remove,
+	"verbose!"		=> \$verbose,
+	"summary!"		=> \$summary,
+	"help|h|?"		=> sub { usage(); exit },
 ) or exit 2;
 
-usage(), exit if $help;
 usage(), exit 2 if @ARGV;
 
-sub usage { print <<EOF }
+sub usage
+{
+	print <<EOF;
 Usage: EmptyArtists.pl [OPTIONS]
 
 Allowed options are:
@@ -76,10 +80,21 @@ Allowed options are:
                           (default is to automod)
         --moderator=NAME  insert the moderations as moderator NAME
                           (default is the 'ModBot')
-    -n, --dry-run         show what needs to be done; don't change anything
+        --[no]remove      [don't] remove unused artists
+                          (default is --remove)
+        --[no]verbose     [don't] show information about each artist
+        --[no]summary     [don't] show summary information at the end
+                          (default is --summary)
     -h, --help            show this help (also "-?")
 
 EOF
+}
+
+$verbose = ($remove ? 0 : 1)
+	unless defined $verbose;
+
+print(STDERR "Running with --noremove --noverbose --nosummary is pointless\n"), exit 1
+	unless $remove or $verbose or $summary;
 
 print "Finding unused artists...\n";
 
@@ -103,8 +118,8 @@ EOF
 
 my $count = 0;
 my $removed = 0;
-my $privs = UserStuff::BOT_FLAG;
-$privs |= UserStuff::AUTOMOD_FLAG if $use_auto_mod;
+my $privs = &UserStuff::BOT_FLAG;
+$privs |= &UserStuff::AUTOMOD_FLAG if $use_auto_mod;
 
 while (my ($id, $name, $sortname) = $sql->NextRow)
 {
@@ -113,10 +128,11 @@ while (my ($id, $name, $sortname) = $sql->NextRow)
 
 	++$count;
 
-	if ($nofix)
+	if (not $remove)
 	{
 		printf "Need to remove %6d %-30.30s (%s)\n",
-			$id, $name, $sortname;
+			$id, $name, $sortname
+			if $verbose;
 		next;
 	}
 
@@ -142,7 +158,8 @@ while (my ($id, $name, $sortname) = $sql->NextRow)
 		
 		printf "Inserted mod %6d for %6d %-30.30s (%s)\n",
 			$modid,
-			$id, $name, $sortname;
+			$id, $name, $sortname
+			if $verbose;
 
 		++$removed;
 		1;
@@ -157,10 +174,13 @@ while (my ($id, $name, $sortname) = $sql->NextRow)
 
 $sql->Finish;
 
-printf "Found %d unused artist%s.\n",
-	$count, ($count==1 ? "" : "s");
-printf "Successfully removed %d artist%s\n",
-	$removed, ($removed==1 ? "" : "s")
-	unless $nofix;
+if ($summary)
+{
+	printf "Found %d unused artist%s.\n",
+		$count, ($count==1 ? "" : "s");
+	printf "Successfully removed %d artist%s\n",
+		$removed, ($removed==1 ? "" : "s")
+		if $remove;
+}
 
 # eof EmptyArtists.pl
