@@ -213,16 +213,6 @@ $data{duration} = $duration;
 $data{filename} = $filename;
 
 ($error, $result, $flags, $list) = $ts->Lookup(\%data, 25);
-if ($error ne '')
-{
-   </%perl>
-   <b>Error:</b> <% $error %>
-   <%perl>
-
-   $mb->Logout();
-   return undef;
-}
-
 if ($flags & TaggerSupport::ARTISTLIST)
 {
    OutputArtist($ts, $result);
@@ -399,19 +389,6 @@ elsif (($flags & TaggerSupport::ARTISTID) &&
 elsif ($flags & TaggerSupport::ARTISTID)
 {
    OutputArtist($ts, $result);
-}
-else
-{
-   </%perl>
-   Unknown lookup response.<br>
-   flags: <% $flags %><br>
-   list: 
-%  mc_out(Dumper($list));
-   <br>
-   list: 
-%  mc_out(Dumper($result));
-   <br>
-   <%perl>
 }
 </%perl>
 

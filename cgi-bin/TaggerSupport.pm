@@ -111,6 +111,11 @@ sub Lookup
    $data->{tracknum} = 0 if (!defined $data->{tracknum} || 
                              !($data->{tracknum} =~ /^\d+$/));
 
+   foreach (keys %$data)
+   {
+       $data->{$_} =~ tr/A-Z/a-z/;
+   }
+
    $this->{fuzzy} = 0;
    $maxItems = 15 if not defined $maxItems;
    $this->{maxitems} = $maxItems;
@@ -282,7 +287,7 @@ sub ArtistSearch
                                  mbid=>$ar->GetMBId(), 
                                  name=>$ar->GetName(),
                                  sortname=>$ar->GetSortName(),
-                                 sim=>similarity($ar->GetName(), $name)
+                                 sim=>similarity(lc($ar->GetName()), $name)
                                }
                              ]);
        }
@@ -299,7 +304,7 @@ sub ArtistSearch
                         name=>$row->[1],
                         sortname=>$row->[2],
                         mbid=>$row->[3], 
-                        sim=>similarity($row->[1], $name) };
+                        sim=>similarity(lc($row->[1]), $name) };
        }
 
        @ids = sort { $b->{sim} <=> $a->{sim} } @ids;
@@ -368,7 +373,7 @@ sub AlbumSearch
        print STDERR "Albums: fuzzy match\n"; 
        foreach $al (@albums)
        {
-           $sim = similarity($al->GetName(), $name);
+           $sim = similarity(lc($al->GetName()), $name);
            print STDERR "Album: fuzzy match '$al->{name}'\n";
            push @ids, { id=>$al->GetId(),
                         name=>$al->GetName(),
@@ -423,10 +428,10 @@ sub TrackSearch
        while(@row = $sql->NextRow)
        {
            $lensim = 0.0;
-           $namesim = similarity($row[2], $trackName);
+           $namesim = similarity(lc($row[2]), $trackName);
            if ($row[2] =~ /^(.*)\s*\(.*\)\s*$/)
            {
-               my $chopsim = similarity($1, $trackName);
+               my $chopsim = similarity(lc($1), $trackName);
                $namesim = ($chopsim > $namesim) ? $chopsim : $namesim;
            }
            if ($duration > 0 && $row[3] > 0)
@@ -474,7 +479,7 @@ sub TrackSearch
 
            if ($albumName ne '')
            {
-               $namesim = similarity($row[1], $albumName);
+               $namesim = similarity(lc($row[1]), $albumName);
            }
            if ($trackNum > 0 && $row[3] > 0 && $trackNum == $row[3])
            {
