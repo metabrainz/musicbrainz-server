@@ -13,6 +13,7 @@ $offset = 0 if $offset < 0;
 
 $mb->Login();
 ($num_mods, @info) = $mb->GetModerationList($offset, $max_items, $session{uid});
+$mb->Logout();
 
 </%perl>
 
