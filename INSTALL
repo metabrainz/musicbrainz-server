@@ -1,22 +1,37 @@
 Install instructions for the MusicBrainz Server:
 ------------------------------------------------
 
-These instructions are general instructions for setting up MusicBrainz server.
-There are three different types of MusicBrainz server setups that you could install:
+New (Jan 2005):
+	If you can dedicate a whole machine to use as a MusicBrainz
+	server, you might find the following helpful:
 
-1. Master server - Currently there is only one master server and that is musicbrainz.org
-   itself. Unless you are testing/playing with the replication system, you will never need
-	to setup a master replication server.
-2. Slave server - If you want to install a MusicBrainz slave server, follow these 
-   instructions and whenever replication is mentioned, make sure to follow the instructions
-	for setting up a slave. If you want to set up a database only slave (without the
-   web site portions), you will still need to install most of the perl modules. You can
-	skip the Apache (and related) and Mason modules for a database only slave. There is
-	also a special section for replicated servers at the bottom of this file that summarizes
-	the changes needed to setup a slave server.
-3. Independent/development server - If you want to tinker with your own server that does
-   not get automatic data updates, then choose this option. If you're considering helping
-	with server development, you'd want to choose this option.
+	http://wiki.musicbrainz.org/wiki.pl?DebianServerSetup
+
+	It describes how to take a fresh machine, install Debian on it,
+	and then install the MusicBrainz server on top of that.
+	Even if you don't have a whole machine for MusicBrainz, you
+	might find the above document a useful source of reference.
+
+These instructions are general instructions for setting up MusicBrainz server.
+There are three different types of MusicBrainz server setups that you could
+install:
+
+1. Master server - Currently there is only one master server and that is
+musicbrainz.org itself. Unless you are testing/playing with the replication
+system, you will never need to setup a master replication server.
+
+2. Slave server - If you want to install a MusicBrainz slave server, follow
+these instructions and whenever replication is mentioned, make sure to follow
+the instructions for setting up a slave. If you want to set up a database only
+slave (without the web site portions), you will still need to install most of
+the perl modules. You can skip the Apache (and related) and Mason modules for
+a database only slave. There is also a special section for replicated servers
+at the bottom of this file that summarizes the changes needed to setup a slave
+server.
+
+3. Independent/development server - If you want to tinker with your own server
+that does not get automatic data updates, then choose this option. If you're
+considering helping with server development, you'd want to choose this option.
 
 Requirements:
 =============
@@ -88,8 +103,8 @@ specific notes about a server type, the instructions apply to all server types.
    allow that.  You could:
 	
 	a) configure Postgres to allow your MusicBrainz OS user to connect
-	   as both "postgres" and "musicbrainz_user"; you can then run everything
-	   from one user account, e.g.
+	   as both "postgres" and "musicbrainz_user"; you can then run
+	   everything from one user account, e.g.
 	   
 	   ./admin/InitDb.pl --createdb --import mbdump*.tar.bz2
 	
@@ -130,7 +145,10 @@ specific notes about a server type, the instructions apply to all server types.
    if you're using a base path of /usr/local/mb_server, this command should
    make the required adjustments for you:
 
-   perl -i -pwe 's[^#!/home/httpd/musicbrainz/mb_server/cgi-bin/perl][#!/usr/local/mb_server/cgi-bin/perl]' `grep -rl '^#!/home/httpd/musicbrainz/mb_server/cgi-bin/perl' .`
+   perl -i -pwe 's[^#!/home/httpd/musicbrainz/mb_server/cgi-bin/perl]
+	[#!/usr/local/mb_server/cgi-bin/perl]' `
+		grep -rl '^#!/home/httpd/musicbrainz/mb_server/cgi-bin/perl' .
+	`
 
 4) Apache with mod_perl and Mason installed. You can skip this step
    for a database only slave. See the following sites for more details on 
@@ -144,8 +162,20 @@ specific notes about a server type, the instructions apply to all server types.
          expat, since that will conflict with the SiRPAC RDF parser's use
          of the external expat module. Configure Apache with:
 
-         mod_perl: perl Makefile.PL APACHE_SRC=../apache_1.3.19/src DO_HTTPD=1 USE_APACI=1 PREP_HTTPD=1 EVERYTHING=1
-         apache: ./configure --enable-module=rewrite --disable-rule=expat --prefix=/usr/apache --activate-module=src/modules/perl/libperl.a
+         # mod_perl:
+	 perl Makefile.PL \
+		APACHE_SRC=../apache_1.3.19/src \
+		DO_HTTPD=1 \
+		USE_APACI=1 \
+		PREP_HTTPD=1 \
+		EVERYTHING=1
+
+         # apache:
+	 ./configure \
+		--enable-module=rewrite \
+		--disable-rule=expat \
+		--prefix=/usr/apache \
+		--activate-module=src/modules/perl/libperl.a
 
     Also NOTE: Red Hat is known to ship their Apache packages with the
                built-in expat support enabled, so you will have to build
@@ -296,9 +326,9 @@ Installation:
 	  to 1 and the READONLY setting in the register_all section to 1.
 	  This indicates that you wish to run a database slave and that the
 	  web site should be accessing the DB in a READONLY fashion to avoid
-	  making changes to the database. The only changes applied to a database
-	  should come from the replication packets downloaded from the main server.
-	  More about that later!
+	  making changes to the database. The only changes applied to a
+	  database should come from the replication packets downloaded from
+	  the main server.  More about that later!
 
    admin/startup.pl
      There's only one thing to change here, namely the "use lib" line,
@@ -325,8 +355,8 @@ Installation:
 		mbdump-derived.tar.bz2
 
    Download the appropriate dump files, double-check your settings in 
-	DBDefs.pm, make sure Postgres is running, then run the "InitDb.pl" script, 
-	passing it the names of the "dump" files you just downloaded:
+	DBDefs.pm, make sure Postgres is running, then run the "InitDb.pl"
+	script, passing it the names of the "dump" files you just downloaded:
 
 	./admin/InitDb.pl --createdb --echo --import mbdump*.tar.bz2
 
