@@ -398,6 +398,18 @@ sub UpdateArtist
 	);
 }
 
+sub UpdateSequence
+{
+	my $self = shift;
+	my $sql = Sql->new($self->{DBH});
+
+	$sql->Do(
+		"UPDATE albumjoin SET sequence = ? WHERE id = ?",
+		$self->GetSequence,
+		$self->GetSequenceId,
+	);
+}
+
 sub RemoveFromAlbum
 {
 	my $self = shift;

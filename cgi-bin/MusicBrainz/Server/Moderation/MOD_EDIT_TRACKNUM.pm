@@ -51,20 +51,15 @@ sub PreInsert
 sub ApprovedAction
 {
 	my $this = shift;
-	my $sql = Sql->new($this->{DBH});
 
-	my $current = $sql->SelectSingleValue(
-		"SELECT sequence FROM albumjoin WHERE id = ?",
-		$this->GetRowId,
-	);
-
-	unless (defined $current)
+	my $tr = Track->new($this->{DBH});
+	unless ($tr->LoadFromAlbumJoin($this->GetRowId))
 	{
 		$this->InsertNote(MODBOT_MODERATOR, "This track has been deleted");
 		return STATUS_FAILEDPREREQ;
 	}
-	
-	unless ($current == $this->GetPrev)
+
+	unless ($tr->GetSequence == $this->GetPrev)
 	{
 		$this->InsertNote(MODBOT_MODERATOR, "This track has already been renumbered");
 		return STATUS_FAILEDDEP;
@@ -73,12 +68,9 @@ sub ApprovedAction
 	# TODO check no other track exists with the new sequence?
 	# (but if you do that, it makes it very hard to swap/rotate
 	# tracks within an album).
-	
-	$sql->Do(
-		"UPDATE albumjoin SET sequence = ? WHERE id = ?",
-		$this->GetNew,
-		$this->GetRowId,
-	);
+
+	$tr->SetSequence($this->GetNew);
+	$tr->UpdateSequence;
 
 	STATUS_APPLIED;
 }
