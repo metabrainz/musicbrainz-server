@@ -28,9 +28,9 @@ $tr_bgcolor = ($tr_modpending) ? 'bgcolor="#FFFFCC"' : '';
        <% $tracknum %>
     </td>
 % if ($albumartist == Artist::VARTIST_ID) {
-    <td width="50%" <% $bgcolor |n %>>
+    <td width="45%" <% $bgcolor |n %>>
 % } else {
-    <td width="80%" <% $bgcolor |n %>>
+    <td width="75%" <% $bgcolor |n %>>
 % }
 % if ($lyricspresent == 1) {
        <a href="/showlyrics.html?id=<% $id %>"><% $name %></a>
@@ -47,8 +47,9 @@ $tr_bgcolor = ($tr_modpending) ? 'bgcolor="#FFFFCC"' : '';
     </td>
 % }
 % if (exists $session{user}) {
-    <td width="10%" align=center>
+    <td width="15%" align=center>
        <a href="/edittrack.html?id=<% $id %>&album=<% $album %>&artist=<% $artistid %>">Edit</a>
+       | <a href="/remtrack.html?id=<% $id %>&album=<% $album %>&artist=<% $artistid %>">Del</a>
     </td>
 % }
 </tr>

@@ -52,6 +52,7 @@ use constant MOD_ADD_TRACK               => 7;
 use constant MOD_MOVE_ALBUM              => 8;
 use constant MOD_SAC_TO_MAC              => 9;
 use constant MOD_CHANGE_TRACK_ARTIST     => 10;
+use constant MOD_REMOVE_TRACK            => 11;
 
 use constant STATUS_OPEN                 => 1;
 use constant STATUS_APPLIED              => 2;
@@ -70,7 +71,8 @@ my %ModNames = (
     "7" => "Add Track",  
     "8" => "Move Album",
     "9" => "Convert to Multiple Artists",
-    "10" => "Change Track Artist"
+    "10" => "Change Track Artist",
+    "11" => "Remove Track"
 );
 
 my %ChangeNames = (
@@ -430,6 +432,10 @@ sub ApplyModification
    {
        return ApplySACToMACModification($this, $rowid);
    }
+   elsif ($type == MOD_REMOVE_TRACK)
+   {
+       return ApplyRemoveTrackModification($this, $rowid);
+   }
 
    return STATUS_ERROR;
 }
@@ -736,6 +742,46 @@ sub ApplyChangeTrackArtistModification
         $album = $al->GetIdFromTrackId($row[0]);
         $this->{DBH}->do("update Track set Artist = $newid where id = $rowid");
         $status = STATUS_APPLIED 
+   }
+   $sth->finish;
+
+   return $status;
+}
+
+sub ApplyRemoveTrackModification
+{
+   my ($this, $rowid) = @_;
+   my ($sth, @row, $trackid);
+   my ($status);
+
+   $status = STATUS_ERROR;
+   $sth = $this->{DBH}->prepare(qq/select rowid, prevvalue from Changes 
+                                   where id = $rowid/);
+   if ($sth->execute && $sth->rows)
+   {
+        my $album;
+
+        @row = $sth->fetchrow_array;
+        $trackid = $row[0];
+        $album = $row[1];
+        $album =~ s/^.*?\n//s;
+        $this->{DBH}->do(qq/delete from AlbumJoin where Album = $album and
+                         track = $row[0]/);
+
+        $sth->finish;
+        $sth = $this->{DBH}->prepare(qq/select count(*) from AlbumJoin
+                                     where track = $trackid/); 
+        if ($sth->execute && $sth->rows)
+        {
+            @row = $sth->fetchrow_array;
+
+            if ($row[0] == 0)
+            {
+                $this->{DBH}->do(qq/delete from Track where id = $trackid/);
+            }
+        }
+
+        $status = STATUS_APPLIED;
    }
    $sth->finish;
 

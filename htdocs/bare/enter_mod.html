@@ -8,6 +8,12 @@ $mod = Moderation->new($mb);
 
 for($i = 0;; $i++)
 {
+    if ($ARGS{('new' . $i)} eq 'DELETE' && 
+        $ARGS{('confirm' . $i)} ne 'yes')
+    {
+        last;
+    }
+
     $depmod = 0;
     last if (!defined($ARGS{('column' . $i)}));
     last if (!defined($ARGS{('new' . $i)}));

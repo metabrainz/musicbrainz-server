@@ -20,11 +20,15 @@ if (! $ar->LoadFromId($ARGS{artistid}))
 {
     mc_out("This artist (id=$ARGS{artistid}) was not found in the database.");
 }
+elsif ($ARGS{artistid} == Artist::VARTIST_ID)
+{
+    mc_out("You cannot view all Various Artist albums using this page. Sorry.");
+}
 else
 {
     $artistname = $ar->Value(1);
     $modpending = $ar->Value(3);
-    
+
     @idsalbums = $ar->GetAlbumList($ARGS{artistid});
     
     mc_comp("/comp/artisttitle", 

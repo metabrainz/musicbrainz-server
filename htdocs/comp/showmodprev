@@ -30,8 +30,14 @@ elsif ($type == Moderation::MOD_EDIT_TRACKNUM)
 {
     mc_out("Old: <a href=\"/bare/showtrack.html?albumjoinid=$id\">$prev</a>");
 }
-if ($type == Moderation::MOD_MOVE_ALBUM ||
-    $type == Moderation::MOD_CHANGE_TRACK_ARTIST)
+elsif ($type == Moderation::MOD_REMOVE_TRACK)
+{
+    my $temp = $prev;
+    $temp =~ s/\n.*$//s;
+    mc_out("Old: <a href=\"/bare/showtrack.html?albumjoinid=$id\">$temp</a>");
+}
+elsif ($type == Moderation::MOD_MOVE_ALBUM ||
+       $type == Moderation::MOD_CHANGE_TRACK_ARTIST)
 {
     mc_out("Old: <a href=\"/showartist.html?artistid=$artist\">$prev</a>");
 }

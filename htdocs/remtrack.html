@@ -1,0 +1,88 @@
+<& /comp/sidebar, title=>'Remove Track', expand=>'moderate' &>
+
+<%perl>
+
+my ($mb, $id, $trackname, $referer, $tr);
+my ($seq_id, $tracknum, $album, $artist); 
+
+if (!exists $ARGS{album} || $ARGS{album} eq '' ||
+    !exists $ARGS{artist} || $ARGS{artist} eq '' ||
+    !exists $ARGS{id} || $ARGS{id} eq '')
+{
+    mc_comp("/comp/badargs");
+    return;
+}
+
+$referer = $r->headers_in->{'Referer'};
+$mb = new MusicBrainz;
+$mb->Login();
+$tr = Track->new($mb);
+
+$id = $ARGS{id};
+$album = $ARGS{album};
+$artist = $ARGS{artist};
+$tr->LoadFromId($id, $album);
+$trackname = $tr->Value(1);
+$tracknum = $tr->Value(3);
+$seq_id = $tr->Value(10);
+
+</%perl>
+
+% if (!defined $session{user} || $session{user} eq '') {
+    You must be logged in to edit the database.<p>
+    <& /comp/tablebegin, title=>'Login' &>
+    <& /comp/loginbox &>
+    <& /comp/tableend &>
+% } else {
+
+    <& /comp/tablebegin, gattrs=>"width=\"100%\"",
+       title=>'Remove Track' &>
+
+    <FORM METHOD="POST" ACTION="/bare/enter_mod.html"
+          ENCTYPE="application/x-www-form-urlencoded">  
+
+    <table>
+      <tr>
+        <td colspan="2">
+        Are you sure you want to remove track 
+        <span class="bold"><% $trackname %></span>?
+        </td>
+      </tr>
+      <tr>
+        <td>
+        &nbsp;
+        </td>
+        <td>
+        <INPUT TYPE="radio" NAME="confirm0" SIZE=25 value="yes"> Yes
+        </td>
+      </tr>
+      <tr>
+        <td>
+        &nbsp;
+        </td>
+        <td>
+        <INPUT TYPE="radio" NAME="confirm0" SIZE=25 value="no" CHECKED> No
+        </td>
+      </tr>
+      <tr>
+        <td colspan=2>
+        <INPUT TYPE="submit" NAME="Submit" VALUE="Submit">    
+        </td>
+      </tr>
+    </table>
+    <input type="hidden" name="artist0" value="<% $artist %>">
+    <input type="hidden" name="type0"
+           value="<% Moderation::MOD_REMOVE_TRACK %>">
+    <input type="hidden" name="prev0" value="<% $trackname . "\n" %><% $album %>">
+    <input type="hidden" name="new0" value="DELETE">
+    <input type="hidden" name="table0" value="Track">
+    <input type="hidden" name="column0" value="Name">
+    <input type="hidden" name="id0" value="<% $id %>">
+    <input type="hidden" name="referer" value="<% $referer %>">
+    </form>
+      
+    <& /comp/tableend &>
+
+    <& /comp/stylenotes &>
+% }
+% $mb->Logout();

@@ -11,15 +11,15 @@ $modpending
   <table width="100%" border="0" cellspacing="1" cellpadding="2">
   <tr>
 % if ($modpending) {
-        <td width=90% bgcolor="#FFFFCC">
+        <td width=85% bgcolor="#FFFFCC">
            <% $title %>
 % } else {
-        <td width=90% bgcolor="#FFBA58">
+        <td width=85% bgcolor="#FFBA58">
            <% $title %>
 % }
         </td>
 % if (exists $session{user}) {
-        <td width=10% bgcolor="#FFBA58" align=center>
+        <td width=15% bgcolor="#FFBA58" align=center>
           <a href="/editalbum.html?id=<% $albumid %>&artist=<% $artist %>">
           <B><FONT color=black>Edit</FONT></B></a>
         </td>
