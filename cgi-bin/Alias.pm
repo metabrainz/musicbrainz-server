@@ -179,20 +179,18 @@ sub Remove
 
 sub GetList
 {
-   my ($this, $id) = @_;
-   my ($sql, @list, @row);
+    my ($this, $id) = @_;
+    my $sql = Sql->new($this->{DBH});
 
-   $sql = Sql->new($this->{DBH});
-   if ($sql->Select(qq\select id, Name, TimesUsed, LastUsed, ModPending from 
-                       $this->{table} where ref = $id order by TimesUsed desc\))
-   {
-       while(@row = $sql->NextRow())
-       {
-           push @list, [$row[0], $row[1], $row[2], $row[3], $row[4]];
-       }
-       $sql->Finish;
-   }
-   return @list;
+    my $data = $sql->SelectListOfLists(
+        "SELECT id, Name, TimesUsed, LastUsed, ModPending
+        FROM $this->{table}
+        WHERE ref = ?
+        ORDER BY TimesUsed DESC",
+        $id,
+    );
+
+    @$data;
 }
 
 # Load all the aliases for a given artist and return an array of references to alias
