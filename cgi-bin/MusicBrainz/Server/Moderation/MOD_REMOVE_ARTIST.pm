@@ -65,6 +65,7 @@ sub ApprovedAction
 	my $ar = Artist->new($this->{DBH});
 	$ar->SetId($rowid);
 
+	require UserSubscription;
 	my $subs = UserSubscription->new($this->{DBH});
 	$subs->ArtistBeingDeleted($ar, $this);
 

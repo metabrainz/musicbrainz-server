@@ -93,6 +93,7 @@ sub ApprovedAction
 	my $oldar = Artist->new($self->{DBH});
 	$oldar->SetId($rowid);
 	$oldar->LoadFromId or return &ModDefs::STATUS_FAILEDDEP;
+	require UserSubscription;
 	my $subs = UserSubscription->new($self->{DBH});
 	$subs->ArtistBeingMerged($oldar, $self);
 
