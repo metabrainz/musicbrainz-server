@@ -602,6 +602,7 @@ sub InsertVotes
    $sql = Sql->new($this->{DBH});
    foreach $val (@{$yeslist})
    {
+      next if ($this->DoesVoteExist($uid, $val));
       $sql->Do(qq/insert into Votes (uid, rowid, vote) values
                            ($uid, $val, 1)/); 
       $sql->Do(qq/update Changes set yesvotes = yesvotes + 1
@@ -609,6 +610,7 @@ sub InsertVotes
    }
    foreach $val (@{$nolist})
    {
+      next if ($this->DoesVoteExist($uid, $val));
       $sql->Do(qq/insert into Votes (uid, rowid, vote) values
                            ($uid, $val, 0)/); 
       $sql->Do(qq/update Changes set novotes = novotes + 1
@@ -616,10 +618,24 @@ sub InsertVotes
    }
    foreach $val (@{$abslist})
    {
+      next if ($this->DoesVoteExist($uid, $val));
       $sql->Do(qq/insert into Votes (uid, rowid, vote) values
                            ($uid, $val, -1)/); 
    }
 }
+
+sub DoesVoteExist
+{
+   my ($this, $uid, $id) = @_;
+   my ($val, $sql);
+
+   $sql = Sql->new($this->{DBH});
+
+   ($id) = $sql->GetSingleRow("Votes", ["id"], 
+                              ["uid", $uid, "rowid", $id]);
+
+   return defined($id) ? 1 : 0;
+}   
 
 # Go through the Changes table and evaluate open Moderations
 sub CheckModifications
