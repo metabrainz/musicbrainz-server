@@ -56,6 +56,10 @@ if ($asin)
 %          }
            <a href="/album/<% $mbid %>.html" style="font-weight: bold"><% $name %></a>
         </td>
+%       if ($session{tport}) {
+            <td width="5%" valign="middle" bgcolor="#FFBA58"><a href="http://127.0.0.1:<% $session{tport} %>/openalbum?id=<% $album->GetMBId %>&amp;t=<% time %>"
+            target="hiddeniframe" title="Open in Tagger" border="0"><img align="absmiddle" src="/images/mblookup-tagger.png" border="0"></a></td>
+%       }
 %       if ($session{uid} && !$nonalbum && $showtag) {
             <td width="1%" bgcolor="#FFBA58" align=center valign=top nowrap>
               <form method="post" action="/mod/tag/donetag.html" 
@@ -104,10 +108,6 @@ if ($asin)
 	| <& /comp/googlelink, search => [ $artist->GetName, $name ], text => "Search Google" &>
 % if ($session{uid}) {
 	| <a href="/mod/search/pre/album.html?albumid=<% $albumid %>">View album mods</a>
-% }
-% if ($session{tport}) {
-   | <a href="http://127.0.0.1:<% $session{tport} %>/openalbum?id=<% $album->GetMBId %>&amp;t=<% time %>"
-        target="hiddeniframe" title="Open in Tagger">Open in tagger</a>
 % }
 ]</div>
 % }

@@ -506,6 +506,12 @@ elsif ($flags & TaggerSupport::ALBUMLIST)
                   title="This album has <% $id->{album_trmids} %> TRM Ids">&nbsp;
              </td>
              <td valign="top" align="center"><% int(($id->{sim} * 100) + .5) %>%</td>
+%            if ($session{tport}) {
+                 <td align="center"><a 
+					 href="http://127.0.0.1:<% $session{tport} %>/openalbum?id=<% $id->{mbid} %>&amp;t=<% time %>"
+                     target="hiddeniframe" title="Open in Tagger" border="0"><img 
+					 src="/images/mblookup-tagger.png" border="0"></a></td>
+%            }
              <td valign="top" align="right">
 %               $copy{albumid} = $id->{mbid};
 %               $copy{album} = $id->{name};
