@@ -179,7 +179,7 @@ sub Insert
 
 	my $sql = Sql->new($this->{DBH});
 	$sql->Do(
-		"INSERT INTO discid (disc, album toc) VALUES (?, ?, ?)",
+		"INSERT INTO discid (disc, album, toc) VALUES (?, ?, ?)",
 		$id, $album, $toc,
 	);
 	my $rowid = $sql->GetLastInsertId("discid");
