@@ -20,11 +20,6 @@ if (! $artist->LoadFromId())
     mc_comp("/comp/sidebar", title=>"Error");
     mc_out("This artist (id=$ARGS{artistid}) was not found in the database.");
 }
-elsif ($ARGS{artistid} == Artist::VARTIST_ID)
-{
-    mc_comp("/comp/sidebar", title=>"Error");
-    mc_out("You cannot view all Various Artist albums using this page. Sorry.");
-}
 else
 {
     mc_comp("/comp/sidebar", title=>($artist->GetName . " Aliases"));

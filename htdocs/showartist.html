@@ -54,9 +54,13 @@ else
            album</a> | 
         <a href="/freedb/freedb.html?search=<% $artist->GetName() |u %>">Import
            album</a> |
-        <a href="/mod/tag/starttag.html">Merge albums</a>
+        <a href="/mod/tag/starttag.html">Merge albums</a> |
         <%perl>
     }
+
+    mc_out("<a href=\"/showaliases.html?artistid=");
+    mc_out($artist->GetId());
+    mc_out("\">View aliases</a> ");
 
     if ($artist->GetName() ne "Unknown" && 
         $artist->GetId() != Artist::VARTIST_ID && 
@@ -71,9 +75,7 @@ else
             <%perl>
         }
 
-        mc_out("| <a href=\"/showaliases.html?artistid=");
-        mc_out($artist->GetId());
-        mc_out("\">View aliases</a> | ");
+        mc_out(" | ");
         mc_comp("/comp/googlelink", search=>($artist->GetName()), 
             text=>"Search Google"); 
     }
