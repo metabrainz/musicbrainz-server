@@ -132,7 +132,7 @@ sub handler
     use CGI::Cookie ();
     my %cookies = CGI::Cookie->parse($r->header_in('Cookie'));
 
-    my $tied;
+    my $tied = undef;
 
     if (my $c = $cookies{'AF_SID'})
     {
@@ -146,10 +146,16 @@ sub handler
 				Directory => &DBDefs::SESSION_DIR,
 				LockDirectory => &DBDefs::LOCK_DIR,
 			};
-		};
+		} if $c->value;
     }
 
 	# TODO drop the session if expired
+
+	# If we're not logged in, try and log in now using the "permanent" cookie.
+	# Note that the condition ("unless") isn't strictly required; it's a
+	# minor optimisation.
+	UserStuff->TryAutoLogin(\%cookies)
+		unless $tied and $session{uid};
 
     if ($tied)
     {
