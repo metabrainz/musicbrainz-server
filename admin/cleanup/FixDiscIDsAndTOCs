@@ -1,0 +1,352 @@
+#!/home/httpd/musicbrainz/mb_server/cgi-bin/perl -w
+# vi: set ts=4 sw=4 :
+#____________________________________________________________________________
+#
+#   MusicBrainz -- The community music metadata project.
+#
+#   Copyright (C) 1998 Robert Kaye
+#   Copyright (C) 2001 Luke Harless
+#
+#   This program is free software; you can redistribute it and/or modify
+#   it under the terms of the GNU General Public License as published by
+#   the Free Software Foundation; either version 2 of the License, or
+#   (at your option) any later version.
+#
+#   This program is distributed in the hope that it will be useful,
+#   but WITHOUT ANY WARRANTY; without even the implied warranty of
+#   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+#   GNU General Public License for more details.
+#
+#   You should have received a copy of the GNU General Public License
+#   along with this program; if not, write to the Free Software
+#   Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
+#
+#   $Id$
+#____________________________________________________________________________
+
+use strict;
+
+use FindBin;
+use lib "$FindBin::Bin/../../cgi-bin";
+
+use DBI;
+use DBDefs;
+use MusicBrainz;
+use Discid;
+
+sub showhelp { print <<EOF; }
+Usage: FixDiscIDsAndTOCs [OPTIONS]
+
+Allowed options are:
+        --[no]dry-run     don't actually make any changes (best used with
+                          --verbose) (default is to make the changes)
+        --[no]verbose     show the changes as they are made
+        --[no]summary     show a summary when done
+        --[no]debug       show lots of debugging information
+        --help            show this help
+
+EOF
+
+use Getopt::Long;
+my $debug = 0;
+my $dry_run = 0;
+my $verbose = -t;
+my $summary = -t;
+GetOptions(
+	"debug!"			=> \$debug,
+	"dry-run|dryrun!"	=> \$dry_run,
+	"verbose!"			=> \$verbose,
+	"summary!"			=> \$summary,
+	"help"				=> sub { showhelp(); exit 0; },
+) or exit 2;
+showhelp(), exit 2 if @ARGV;
+
+print localtime() . " : FixDiscIDsAndTOCs starting\n";
+eval 'END { print localtime() . " : FixDiscIDsAndTOCs complete\n"; }';
+
+my $mb = MusicBrainz->new;
+$mb->Login;
+my $sql = Sql->new($mb->{DBH});
+$| = 1;
+
+=pod
+
+Currently there's a unique index on discid.disc, and a foreign key from
+toc.discid to discid.disc.  So by simply checking that toc.discid is unique
+we can ensure that there's a simple mapping between the two tables (and
+we can easily tell what that mapping is):
+
+=cut
+
+{
+	my $n = $sql->SelectSingleValue(
+		"SELECT COUNT(*) FROM (
+			SELECT discid, COUNT(*) FROM toc
+			GROUP BY discid
+			HAVING COUNT(*)>1
+		) AS tmp",
+	);
+	if ($n)
+	{
+		print localtime() . " : toc.discid is not unique, so I can't easily"
+			. " determine the mapping of discids to tocs - aborting\n";
+		exit 3;
+	}
+}
+
+=pod
+
+So we can now retrieve the discid and toc rows in pairs, and check that, for
+each pair, everything ties up.  Some discid rows may not have a toc.
+
+=cut
+
+print localtime() . " : Scanning discid/toc\n";
+
+$sql->Select("
+	SELECT d.id AS d_id, d.album AS d_album, d.disc AS d_disc, d.toc AS d_toc,
+	t.*
+	FROM discid d LEFT JOIN toc t ON t.discid = d.disc
+	ORDER BY 1
+");
+
+my $rows = $sql->Rows;
+my $i = 0;
+
+my $perfect = 0;
+my @delete_unparseable;
+my @generate_toc_row;
+my @fix_discid_and_generate_toc_row;
+my @fix_discid;
+my $other_errors;
+
+while (my $row = $sql->NextRowHashRef)
+{
+	print "$i/$rows\r" if -t STDOUT and not $i % 31;
+	++$i;
+
+	my $discid = $row->{d_disc}; # and also t.discid, if present
+
+	# First check that the discid row is consistent in and of itself
+	# - i.e. that discid.toc hashes to discid.disc
+	my $toc = $row->{d_toc};
+	my %info = Discid->ParseTOC($toc);
+
+	if (not %info)
+	{
+		my $t = ($row->{id} ? "TOC row #$row->{id}" : "no TOC row");
+		print localtime() . " : Discid row #$row->{d_id} '$discid' ($t) has unparseable TOC ('$toc') - will delete\n"
+			if $verbose;
+		push @delete_unparseable, $row;
+		next;
+	}
+
+	my $correct_discid = $info{discid};
+	$row->{correct_discid} = $correct_discid;
+
+	if (not $row->{id}) # toc.id
+	{
+		if ($discid eq $correct_discid)
+		{
+			print localtime() . " : Discid row #$row->{d_id} '$discid' has missing TOC row - will add it\n"
+				if $verbose;
+			push @generate_toc_row, $row;
+		} else {
+			print localtime() . " : Discid row #$row->{d_id} has wrong discid and missing TOC row - will fix / add\n"
+				if $verbose;
+			push @fix_discid_and_generate_toc_row, $row;
+		}
+	} else {
+
+		# TOC row is present
+		# album, discid, tracks, leadout, track1..track99
+
+		# Checks tracks, leadout, track1..track99 against discid.toc
+		my $match_ok = toc_row_matches_parsed_toc($row, \%info);
+		# We also need to check toc.album.  We already know that toc.discid eq
+		# discid.disc
+
+		if ($match_ok and $row->{d_album} == $row->{album})
+		{
+			if ($discid eq $correct_discid)
+			{
+				++$perfect;
+			} else {
+				print localtime() . " : Discid row #$row->{d_id} / TOC row #$row->{id} are OK, but have the wrong discid - will fix\n"
+					if $verbose;
+				push @fix_discid, $row;
+			}
+		}
+		else
+		{
+			my $desc = join ", ",
+				("toc.* ".($match_ok ? "matches" : "doesn't match")." discid.toc"),
+				("toc.album ".(($row->{d_album} == $row->{album}) ? "==" : "!=")." discid.album"),
+				("discid is ".(($discid eq $correct_discid) ? "correct" : "wrong")),
+				;
+			print localtime() . " : Discid row #$row->{d_id} / TOC row #$row->{id} have some sort of problem ($desc)\n"
+				if $verbose;
+			++$other_errors;
+		}
+	}
+}
+
+$sql->Finish;
+print "$i/$rows\n" if -t STDOUT;
+
+printf <<EOF,
+%s : Summary follows:
+		Perfect: %d
+		Unparseable: %d
+		Missing TOC row: %d
+		Fix discid and missing TOC row: %d
+		Fix discid: %d
+		Other errors: %d
+EOF
+	scalar localtime,
+	$perfect,
+	0+@delete_unparseable,
+	0+@generate_toc_row,
+	0+@fix_discid_and_generate_toc_row,
+	0+@fix_discid,
+	$other_errors,
+	if $summary;
+
+#use Data::Dumper;
+#print Data::Dumper->Dump([ \@delete_unparseable ],[ '*delete_unparseable' ]);
+#print Data::Dumper->Dump([ \@generate_toc_row ],[ '*generate_toc_row' ]);
+#print Data::Dumper->Dump([ \@fix_discid_and_generate_toc_row ],[ '*fix_discid_and_generate_toc_row' ]);
+#print Data::Dumper->Dump([ \@fix_discid ],[ '*fix_discid' ]);
+
+unless (@delete_unparseable
+	or @generate_toc_row
+	or @fix_discid_and_generate_toc_row
+	or @fix_discid
+) {
+	print localtime() . " : Nothing to fix - exiting\n";
+	exit 0;
+}
+
+if ($dry_run)
+{
+	print localtime() . " : Dry run requested - not fixing data\n";
+	exit 1;
+}
+
+# Fix it!
+
+$sql->Begin;
+$sql->Do("LOCK TABLE discid, toc IN EXCLUSIVE MODE");
+
+if (@delete_unparseable)
+{
+	printf "%s : Deleting %d unparseable TOC row%s\n",
+		scalar localtime,
+		0+@delete_unparseable,
+		(@delete_unparseable==1 ? "" : "s"),
+		;
+
+	for my $row (@delete_unparseable)
+	{
+		my $t = ($row->{id} ? "toc #$row->{id}" : "no toc row");
+		print localtime() . " : Deleting discid #$row->{d_id} ($t) with unparseable TOC\n"
+			if $verbose;
+		$sql->Do("DELETE FROM toc WHERE id = ?", $row->{id})
+			if $row->{id};
+		$sql->Do("DELETE FROM discid WHERE id = ?", $row->{d_id});
+	}
+}
+
+if (@generate_toc_row)
+{
+	printf "%s : Generating %d missing TOC row%s\n",
+		scalar localtime,
+		0+@generate_toc_row,
+		(@generate_toc_row==1 ? "" : "s"),
+		;
+
+	warn "TODO";
+}
+
+if (@fix_discid_and_generate_toc_row)
+{
+	printf "%s : Generating %d missing TOC row%s (and fixing discid at the same time)\n",
+		scalar localtime,
+		0+@fix_discid_and_generate_toc_row,
+		(@fix_discid_and_generate_toc_row==1 ? "" : "s"),
+		;
+
+	warn "TODO";
+	# TODO how to handle cases where the target discid is already in use?
+}
+
+if (@fix_discid)
+{
+	printf "%s : Fixing %d incorrect disc id%s\n",
+		scalar localtime,
+		0+@fix_discid,
+		(@fix_discid==1 ? "" : "s"),
+		;
+	
+	my $dropped_constraint = 0;
+
+	for my $row (@fix_discid)
+	{
+		my $t = ($row->{id} ? "toc #$row->{id}" : "no toc row");
+		my $correct_discid = $row->{correct_discid};
+
+		if ($sql->SelectSingleValue("SELECT 1 FROM discid WHERE disc = ?", $correct_discid))
+		{
+			print localtime() . " : Unable to fix discid #$row->{d_id} ($t) with wrong discid, since the correct discid is already in use - deleting instead\n"
+				if $verbose;
+			$sql->Do("DELETE FROM toc WHERE id = ?", $row->{id})
+				if $row->{id};
+			$sql->Do("DELETE FROM discid WHERE id = ?", $row->{d_id});
+			next;
+		}
+
+		if (not $dropped_constraint)
+		{
+			$sql->Do("ALTER TABLE toc DROP CONSTRAINT toc_fk_discid");
+			$dropped_constraint = 1;
+		}
+
+		print localtime() . " : Fixing discid #$row->{d_id} ($t) with wrong discid\n"
+			if $verbose;
+		$sql->Do("UPDATE toc SET discid = ? WHERE id = ?", $correct_discid, $row->{id})
+			if $row->{id};
+		$sql->Do("UPDATE discid SET disc = ? WHERE id = ?", $correct_discid, $row->{d_id});
+	}
+
+	$sql->Do("ALTER TABLE toc ADD CONSTRAINT toc_fk_discid FOREIGN KEY (discid) REFERENCES discid(disc)")
+		if $dropped_constraint;
+}
+
+$sql->Commit;
+
+exit 0;
+
+sub toc_row_matches_parsed_toc
+{
+	my ($row, $info) = @_;
+	$row->{tracks} == $info->{tracks}
+		or return 0;
+	$row->{leadout} == $info->{leadoutoffset}
+		or return 0;
+
+	for (1 .. $row->{tracks})
+	{
+		my $v = $row->{"track$_"};
+		return 0 unless defined($v) and $v == $info->{trackoffsets}[$_-1];
+	}
+
+	for ($row->{tracks}+1 .. 99)
+	{
+		my $v = $row->{"track$_"};
+		return 0 if $v;
+	}
+
+	1;
+}
+
+# eof FixDiscIDsAndTOCs
