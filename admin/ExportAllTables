@@ -39,6 +39,7 @@ my $OutputDir = ".";
 my $dir = "/tmp";
 my $fCompress = 1;
 my $fKeepFiles = 0;
+my $fProgress = -t STDOUT;
 my @tablelist;
 
 GetOptions(
@@ -172,7 +173,7 @@ for my $table (@tables)
 			$rows / ($interval||1);
 	};
 
-	$p->("", "") if -t;
+	$p->("", "") if $fProgress;
 
 	# This has to be at least as large as the longest line given
 	# by "copy table to stdout".
@@ -192,7 +193,7 @@ for my $table (@tables)
 		unless ($rows & 0xFFF)
 		{
 			$interval = tv_interval($t1);
-			$p->("\r", "") if -t;
+			$p->("\r", "") if $fProgress;
 		}
 	}
 
@@ -201,7 +202,7 @@ for my $table (@tables)
 		or die $!;
 
 	$interval = tv_interval($t1);
-	$p->("\r", sprintf(" %.2f sec\n", $interval));
+	$p->(($fProgress ? "\r" : ""), sprintf(" %.2f sec\n", $interval));
 
 	++$tables;
 	$totalrows += $rows;

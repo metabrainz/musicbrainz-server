@@ -35,6 +35,7 @@ use Sql;
 
 my ($fHelp, $fIgnoreErrors);
 my $tmpdir = "/tmp";
+my $fProgress = -t STDOUT;
 
 GetOptions(
 	"help|h"       		=> \$fHelp,
@@ -163,7 +164,7 @@ sub ImportTable
 		$sql->Do("COPY $table FROM stdin");
 		my $dbh = $sql->{DBH};
 
-		$p->("", "");
+		$p->("", "") if $fProgress;
 
 		while (<LOAD>)
 		{
@@ -173,7 +174,7 @@ sub ImportTable
 			unless ($rows & 0xFFF)
 			{
 				$interval = tv_interval($t1);
-				$p->("\r", "");
+				$p->("\r", "") if $fProgress;
 			}
 		}
 
@@ -181,7 +182,7 @@ sub ImportTable
 		$dbh->func("endcopy") or die;
 
 		$interval = tv_interval($t1);
-		$p->("\r", sprintf(" %.2f sec\n", $interval));
+		$p->(($fProgress ? "\r" : ""), sprintf(" %.2f sec\n", $interval));
 
 		close LOAD
 			or die $!;
