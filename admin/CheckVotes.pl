@@ -43,6 +43,7 @@ sub handle_output
 
            print MAIL "During moderation/vote eval an error occurred:\n$text\n";
            close MAIL;
+           print "Sent mail to $email\n";
        }
        else
        {
