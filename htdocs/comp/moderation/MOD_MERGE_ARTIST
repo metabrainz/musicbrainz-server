@@ -13,10 +13,14 @@
 % my $this = shift;
 
 	Artist:
+% if ($this->{"new.id"}) {
+	<a href="/showartist.html?artistid=<% $this->{"new.id"} %>"><% $this->{'new.name'} %></a>
+% } else {
 	<span class="bold"><% $this->{'new.name'} %></span>
 % if ($this->{'new.name'} ne $this->{'new.sortname'}) {
 	<br>
 	(<span class="bold"><% $this->{'new.sortname'} %></span>)
+% }
 % }
 
 </%method>

@@ -44,24 +44,61 @@ sub PreInsert
 	die if $source->GetId == DARTIST_ID;
 	die if $target->GetId == DARTIST_ID;
 
+	if ($source->GetId == $target->GetId)
+	{
+		$self->SetError("Source and destination artists are the same!");
+		die $self;
+	}
+
+	my %new;
+	$new{"ArtistName"} = $target->GetName;
+	$new{"ArtistId"} = $target->GetId;
+
 	$self->SetTable("artist");
 	$self->SetColumn("name");
 	$self->SetArtist($source->GetId);
 	$self->SetRowId($source->GetId);
 	$self->SetPrev($source->GetName);
-	$self->SetNew($target->GetSortName . "\n" . $target->GetName);
+	$self->SetNew($self->ConvertHashToNew(\%new));
 }
 
 sub PostLoad
 {
 	my $self = shift;
 
-	# Name can be missing
-	@$self{qw( new.sortname new.name )} = split /\n/, $self->GetNew;
+	# Possible formats of "new":
+	# "$sortname"
+	# "$sortname\n$name"
+	# or hash structure (containing at least two \n characters).
 
-	$self->{'new.name'} = $self->{'new.sortname'}
-		unless defined $self->{'new.name'}
-		and $self->{'new.name'} =~ /\S/;
+	if (($self->GetNew =~ tr/\n//) < 2)
+	{
+		# Name can be missing
+		@$self{qw( new.sortname new.name )} = split /\n/, $self->GetNew;
+
+		$self->{'new.name'} = $self->{'new.sortname'}
+			unless defined $self->{'new.name'}
+			and $self->{'new.name'} =~ /\S/;
+	} else {
+		my $unpacked = $self->ConvertNewToHash($self->GetNew);
+		$self->{"new.name"} = $unpacked->{"ArtistName"};
+		$self->{"new.id"} = $unpacked->{"ArtistId"};
+	}
+}
+
+sub AdjustModPending
+{
+	my ($self, $adjust) = @_;
+	my $sql = Sql->new($self->{DBH});
+
+	for my $artistid ($self->GetRowId, $self->{"new.id"})
+	{
+		$sql->Do(
+			"UPDATE artist SET modpending = modpending + ? WHERE id = ?",
+			$adjust,
+			$artistid,
+		) if defined $artistid;
+	}
 }
 
 sub CheckPrerequisites
@@ -73,12 +110,23 @@ sub CheckPrerequisites
 	my $name = $self->{'new.name'};
 	#my $sortname = $self->{'new.sortname'};
 
-	# Load new artist by name
 	my $newar = Artist->new($self->{DBH});
-	unless ($newar->LoadFromName($name))
+
+	if (my $newid = $self->{"new.id"})
 	{
-		$self->InsertNote(MODBOT_MODERATOR, "Artist '$name' not found - it has been deleted or renamed");
-		return STATUS_FAILEDDEP;
+		$newar->SetId($newid);
+		unless ($newar->LoadFromId)
+		{
+			$self->InsertNote(MODBOT_MODERATOR, "The target artist has been deleted");
+			return STATUS_FAILEDDEP;
+		}
+	} else {
+		# Load new artist by name
+		unless ($newar->LoadFromName($name))
+		{
+			$self->InsertNote(MODBOT_MODERATOR, "Artist '$name' not found - it has been deleted or renamed");
+			return STATUS_FAILEDDEP;
+		}
 	}
 
 	# Load old artist by ID
