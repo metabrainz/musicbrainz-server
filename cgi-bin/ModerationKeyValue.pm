@@ -588,7 +588,7 @@ sub PreVoteAction
    return undef if (!defined $nw);
 
    $sql = Sql->new($this->{DBH});
-   $quote = $sql->Quote($nw->{Discid});
+   $quote = $sql->Quote($nw->{DiscId});
    $sql->Do(qq|update Discid set album=$nw->{NewAlbumId} where disc = $quote|);
    $sql->Do(qq|update TOC set album=$nw->{NewAlbumId} where Discid = $quote|);
 }
