@@ -76,7 +76,7 @@ sub Insert
 
     # Check to see if this artist already exists
     my $artist = $sql->SelectSingleValue(
-	"SELECT id FROM artist WHERE name ILIKE ?",
+	"SELECT id FROM artist WHERE LOWER(name) = LOWER(?)",
 	$name,
     );
     return $artist if $artist;
