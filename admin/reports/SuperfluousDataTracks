@@ -44,8 +44,10 @@ sub GatherData
 		AND		m.id = al.id
 		AND		al.id IN (
 
-			( SELECT album FROM albumjoin, track
+			( SELECT album FROM albummeta, albumjoin, track
 			  WHERE track.id = albumjoin.track
+			  AND albumjoin.album = albummeta.id
+			  AND albumjoin.sequence = albummeta.tracks
 			  AND track.name ~* '[[:<:]]data[[:>:]]' )
 
 		)
