@@ -116,13 +116,13 @@ create table Moderation (
    Rowid int not null, 
    PrevValue varchar(255) not null, 
    NewValue text not null, 
-   ExpireTime timestamp not null, 
    YesVotes int default 0, 
    NoVotes int default 0,
    Depmod int default 0,
    Automod smallint default 0,
    opentime timestamp with time zone default now(),
-   closetime timestamp with time zone
+   closetime timestamp with time zone,
+   ExpireTime timestamp not null
    );
 
 create table ModerationNote (

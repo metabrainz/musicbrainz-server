@@ -126,13 +126,13 @@ create table moderation (
    Rowid int not null, 
    PrevValue varchar(255) not null, 
    NewValue text not null, 
-   ExpireTime timestamp not null, 
    YesVotes int default 0, 
    NoVotes int default 0,
    Depmod int default 0,
    Automod smallint default 0,
    opentime datetime not null,
-   closetime datetime
+   closetime datetime,
+   ExpireTime timestamp not null
    );
 
 drop table if exists moderationnote;
