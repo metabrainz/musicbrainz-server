@@ -253,6 +253,7 @@ sub GetFromId
     }
     $sth->finish;
 
+    my $seq;
     return ($row[0], $row[1], $artist, $album, $seq, $row[4],
             $row[5], $row[6], $row[7]);
 }

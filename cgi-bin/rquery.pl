@@ -109,7 +109,6 @@ else
        $xml .= $line;
    }
 }
-
 if (!defined $xml)
 {
     print QuerySupport::EmitErrorRDF("An RDF object must be supplied.");

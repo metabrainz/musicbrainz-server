@@ -1173,12 +1173,16 @@ sub SubmitTrack
    @albumids = $al->FindFromNameAndArtistId($album, $artistid);
    if (defined @albumids)
    {
+      print STDERR "Found album, picking first one.\n";
       $albumid = $albumids[0];
    }
    else
    {
+      print STDERR "Insert album\n";
       $albumid = $al->Insert($album, $artistid, -1);
    }
+   print STDERR "Insert album failed.\n"
+      if (!defined $albumid || $albumid < 0);
    
    return EmitErrorRDF("Cannot insert album into database.") 
       if (!defined $albumid || $albumid < 0);

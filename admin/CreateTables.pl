@@ -61,6 +61,7 @@ sub CreateTables
     $dbh->do("create table Track (" .
              "   Id int auto_increment primary key," .
              "   Name varchar(255) not null ," .
+             "   GID varchar(64) NOT NULL," . 
              "   Artist int not null," .
              "   Length int," .
              "   Year int," .
