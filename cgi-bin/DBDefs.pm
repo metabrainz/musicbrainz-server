@@ -150,6 +150,9 @@ sub VERSION { "TRUNK" }
 # after which a simple majority will carry the vote.  This has to be in a
 # format understood by Postgres as an "interval".
 sub MOD_PERIOD { '1 week' }
+# Mods with no votes, for artists which have subscribers, can stay open longer
+# after expiry.  This defines how long.
+sub MOD_PERIOD_GRACE { '1 week' }
 
 # Defines the number of unanimous votes required to pass a moderation early
 sub NUM_UNANIMOUS_VOTES { 5 }

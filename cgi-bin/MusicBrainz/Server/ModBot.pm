@@ -88,7 +88,10 @@ sub CheckModerations
 		"SELECT id FROM moderation_open ORDER BY id",
 	);
 
-
+	# A cache of subscribers to each artist.  Saves us repeatedly fetching the
+	# subscribers for the same artist, as there are likely to be several mods
+	# per artist.
+	my %artist_subscribers;
 
 	# Fetch each moderation in the set and put it into the %mods hash (keyed
 	# by moderation ID).  Then determine the mod's new status, and save that
@@ -219,6 +222,46 @@ sub CheckModerations
            $mod->{__eval__} = STATUS_FAILEDVOTE;
            next;
        }
+
+
+		# At this point all expired votes have been applied if someone has
+		# voted on them.
+
+		# grace period exceeded, nobody voted on it
+		if ($mod->GetGracePeriodExpired)
+		{
+			print localtime() .
+			" : EvalChange: grace period exceeded, approved\n"
+				if $fDebug;
+
+		 	$mod->{__eval__} = STATUS_APPLIED;
+		  	next;
+		}
+
+		# If the mod has expired, see if anyone (other than the moderator) is
+		# subscribed to the artist.  If so, allow the mod to stay open a
+		# little longer.
+		if ($mod->GetExpired)
+		{
+			my $subscribers = $artist_subscribers{$mod->GetArtist} ||= do {
+				require UserSubscription;
+				my $us = UserSubscription->new($this->{DBH});
+				$us->GetSubscribersForArtist($mod->GetArtist);
+			};
+
+			# Any subscribers other than the original moderator?
+			my @other_subscribers = grep { $_ != $mod->GetModerator } @$subscribers;
+
+		 	# mod has expired, artist has no subscribers
+		  	if (not @other_subscribers)
+		   	{
+				print localtime() .	" : EvalChange: no subscribers, expired, approved\n"
+					if $fDebug;
+			   
+				$mod->{__eval__} = STATUS_APPLIED;
+				next;
+			}
+		}
 	   
 		print localtime() . " : EvalChange: no change\n"
 			if $fDebug;

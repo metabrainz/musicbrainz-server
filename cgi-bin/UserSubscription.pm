@@ -34,6 +34,22 @@ sub GetUser	{ $_[0]{moderator} }
 sub SetUser	{ $_[0]{moderator} = $_[1] }
 
 ################################################################################
+# Users subscribed to an artist
+################################################################################
+
+# Returns a list of users subscribed to a particular artist
+sub GetSubscribersForArtist
+{
+    my ($this, $artist) = @_;
+    my $sql = Sql->new($this->{DBH});
+
+    $sql->SelectSingleColumnArray(
+		"SELECT DISTINCT moderator FROM moderator_subscribe_artist WHERE artist = ?",
+		$artist,
+    );
+}
+
+################################################################################
 # Managing a user's subscription list
 ################################################################################
 
