@@ -125,7 +125,6 @@ sub Lookup
        $data->{artistid} = "e06d2236-5806-409f-ac9f-9245844ce5d9";
    }
 
-   # TODO: Re-add this. Its not useful for testing
    if ($data->{artist} eq '' || $data->{album} eq '' || $data->{track} eq '' || 
        $data->{tracknum} < 0 || $data->{tracknum} > 99)
    {
@@ -148,7 +147,6 @@ sub Lookup
        {
            return ("", $data, $flags, $list);
        }
-       print STDERR "FIL artistId: $data->{artistid}\n";
    }   
 
    if ($data->{albumid} eq '' && $data->{trackid} eq '' && $data->{track} ne '')
@@ -173,7 +171,6 @@ sub Lookup
        {
            return ("", $data, $flags, $list);
        }
-       print STDERR "FIL albumId: $data->{albumid}\n";
    }   
 
    my $flags = 0;
@@ -182,7 +179,6 @@ sub Lookup
    $flags |= ALBUMID if ($data->{albumid} ne '');
    $flags |= TRACKID if ($data->{trackid} ne '');
 
-   print STDERR "No-op in TaggerSupport!\n";
    return ("", $data, $flags, undef);
 }
 
@@ -251,8 +247,6 @@ sub ArtistSearch
    $ar = Artist->new($this->{DBH});
    if (defined $ar->LoadFromName($name))
    {
-       print STDERR "Artist: loaded '$name'\n";
-
        $this->{artist} = $ar;     
        return (ARTISTID, [ 
                            {
@@ -277,7 +271,6 @@ sub ArtistSearch
        $ar->SetId($row->[0]);
        if (defined $ar->LoadFromId())
        {
-           print STDERR "Artist: found 1/loaded '$ar->{name}'\n";
            $this->{artist} = $ar;     
            $this->{fuzzy} = 1;
            return (ARTISTID | FUZZY, 
@@ -296,10 +289,8 @@ sub ArtistSearch
    {
        my $row;
        
-       print STDERR "Artist: search on '$name'\n";
        while($row = $engine->NextRow)
        {
-           print STDERR "  $row->[1]\n";
            push @ids, { id=>$row->[0],
                         name=>$row->[1],
                         sortname=>$row->[2],
@@ -330,7 +321,6 @@ sub AlbumSearch
        $ar->SetMBId($artistId);
        if (!defined $ar->LoadFromId())
        {
-           print STDERR "Album: failed to load artist\n";
            return (undef, []);
        }
        $this->{artist} = $ar;     
@@ -341,7 +331,6 @@ sub AlbumSearch
    my (@aids) = $al->GetAlbumListFromName($name);
    if (scalar(@aids) > 1)
    {
-       print STDERR "Album: more then one album by same name\n";
        return (ALBUMLIST, \@aids);
    }
 
@@ -351,13 +340,11 @@ sub AlbumSearch
        return (undef, []);
    }
 
-   print STDERR "Albums: exact match\n"; 
    # do an exact match
    foreach $al (@albums)
    {
        if (lc($al->GetName()) eq lc($name))
        {
-           print STDERR "Album: exact match '$al->{name}'\n";
            push @ids, { id=>$al->GetId(),
                         name=>$al->GetName(),
                         mbid=>$al->GetMBId(),
@@ -370,11 +357,9 @@ sub AlbumSearch
    {
        my $sim;
 
-       print STDERR "Albums: fuzzy match\n"; 
        foreach $al (@albums)
        {
            $sim = similarity(lc($al->GetName()), $name);
-           print STDERR "Album: fuzzy match '$al->{name}'\n";
            push @ids, { id=>$al->GetId(),
                         name=>$al->GetName(),
                         mbid=>$al->GetMBId(),
@@ -385,7 +370,6 @@ sub AlbumSearch
 
    if (scalar(@ids) > 0)
    {
-       print STDERR "Album: return " . scalar(@ids) . "\n";
        @ids = sort { $b->{sim} <=> $a->{sim} } @ids;
        return (ALBUMLIST, \@ids);
    }
@@ -411,7 +395,6 @@ sub TrackSearch
        $ar->SetMBId($artistId);
        if (!defined $ar->LoadFromId())
        {
-           print STDERR "Track: failed to load artist\n";
            return (undef, []);
        }
        $this->{artist} = $ar;     
@@ -444,7 +427,6 @@ sub TrackSearch
            push @ids, { id=>$row[0],
                         name=>$row[2], 
                         mbid=>$row[1],
-                        id=>$row[0],
                         namesim=>$namesim,
                         lensim=>$lensim,
                         sim=>$sim
@@ -461,11 +443,13 @@ sub TrackSearch
                 where albumjoin.album = album.id and albumjoin.track in (|;
    foreach $id (@ids)
    {
+      next if (!defined $id);
       $result{$id->{id}} = $id;
       $query .= $id->{id} . ",";
    }
    chop($query);
    $query .= ")";
+
 
    $sql = Sql->new($this->{DBH});
    if ($sql->Select($query))
