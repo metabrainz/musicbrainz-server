@@ -200,7 +200,7 @@ sub FindReferences
       push @newrefs, $this->GetReferences($cacheref)
          if (defined $cacheref);
    }
-   print STDERR "New refs: " . join(", ", @newrefs) . "\n";
+   #print STDERR "New refs: " . join(", ", @newrefs) . "\n";
    $this->FindReferences($curdepth + 1, @newrefs);
 }
 
