@@ -23,46 +23,26 @@
 #   $Id$
 #____________________________________________________________________________
 
-package FreeDB;
-use TableBase;
-use Style;
-
-use vars qw(@ISA @EXPORT);
-@ISA    = @ISA    = 'TableBase';
-@EXPORT = @EXPORT = '';
-
 use strict;
+
+package FreeDB;
+
 use Carp;
 use Socket qw( $CRLF );
-use IO::Socket::INET;
-use Track;
-use Album;
-use Artist;
-use Discid;
-use ModDefs;
-use Style;
-use Alias;
+use ModDefs qw( FREEDB_MODERATOR );
 use Encode qw( decode from_to );
 
 use constant AUTO_INSERT_MIN_TRACKS => 5;
-use constant  CD_MSF_OFFSET => 150;
-use constant  CD_FRAMES     =>  75;
-use constant  CD_SECS       =>  60;
+use constant FREEDB_SERVER => "www.freedb.org";
+use constant FREEDB_PORT => 888;
 
-# private sub
-
-sub _lba_to_msf
+sub new
 {
-    my ($lba) = @_;
-    my ($m, $s, $f);
+    my ($class, $dbh) = @_;
 
-    $lba &= 0xffffff;   # negative lbas use only 24 bits 
-    $m = int($lba / (CD_SECS * CD_FRAMES));
-    $lba %= (CD_SECS * CD_FRAMES);
-    $s = int($lba / CD_FRAMES);
-    $f = int($lba % CD_FRAMES);
-
-    return ($m, $s, $f);
+    bless {
+	DBH => $dbh,
+    }, ref($class) || $class;
 }
 
 # Public
@@ -70,39 +50,27 @@ sub _lba_to_msf
 sub Lookup
 {
     my ($this, $Discid, $toc) = @_;
-    my ($i, $first, $last, $leadout, @cddb_toc);
-    my ($m, $s, $f, @cd_data, $ret);
-    my ($id, $query, $trackoffsets, $offset, $sum, $total_seconds);
 
-    my @toc = split / /, $toc;
-    $first = shift @toc;
-    $last = shift @toc;
-    $leadout = shift @toc;
+    require Discid;
+    my %info = Discid->ParseTOC($toc)
+    	or die;
+    $info{discid} eq $Discid
+    	or die;
 
-    $trackoffsets = join(" ", @toc);
-    $toc[$last] = $leadout - $toc[0];
-    for($i = $last - 1; $i >= 0; $i--)
-    {
-        $toc[$i] -= $toc[0];
-    }
+    my $ret = $this->_Retrieve(
+	FREEDB_SERVER, FREEDB_PORT,
+	sprintf(
+	    "cddb query %s %d %s %d",
+	    $info{freedbid},
+	    $info{lasttrack},
+	    join(" ", @{ $info{trackoffsets} }),
+	    int($info{leadoutoffset}/75),
+	),
+    ) or return undef;
 
-    for($i = 0; $i < $last; $i++)
-    {
-        $offset = int($toc[$i] / 75 + 2);
-        map { $sum += $_; } split(//, $offset);
-        $total_seconds += int($toc[$i + 1] / 75) - int($toc[$i] / 75);
-    }
-    $id = sprintf("%08x", (($sum % 255) << 24) | ($total_seconds << 8) | $last);
-    ($m, $s, $f) = _lba_to_msf($leadout);
-    $total_seconds = $m * 60 + $s;
-    $query = "cddb query $id $last $trackoffsets $total_seconds";
+    $ret->{cdindexid} = $info{discid};
+    $ret->{toc} = $info{toc}; 
 
-    $ret = $this->Retrieve("www.freedb.org", 888, $query);
-    if (defined $ret)
-    {
-        $ret->{cdindexid} = $Discid;
-        $ret->{toc} = $toc; 
-    }
     return $ret;
 }
 
@@ -111,34 +79,38 @@ sub Lookup
 sub LookupByFreeDBId
 {
     my ($this, $id, $cat) = @_;
-    my ($ret, $query);
 
-    $query = "cddb read $cat $id";
-    $ret = $this->Retrieve("www.freedb.org", 888, $query);
-    if (defined $ret)
-    {
-        $ret->{freedbid} = $id;
-    }
+    my $ret = $this->_Retrieve(
+	FREEDB_SERVER, FREEDB_PORT,
+	"cddb read $cat $id",
+    ) or return undef;
+
+    $ret->{freedbid} = $id;
+
     return $ret;
-}
-
-# private sub
-
-sub IsNumber
-{
-    if ($_[0] =~ m/^-?[\d]*\.?[\d]*$/)
-    {
-        return 1;
-    }
-    else
-    {
-        return 0;
-    }
 }
 
 # private method
 
-sub Retrieve
+sub _Retrieve
+{
+    my ($this, $remote, $port, $query) = @_;
+
+    my $key = "FreeDB-$remote-$port-$query";
+
+    require MusicBrainz::Server::Cache;
+    if (my $r = MusicBrainz::Server::Cache->get($key))
+    {
+	return $$r;
+    }
+
+    print STDERR "Querying FreeDB: $remote:$port '$query'\n";
+    my $r = $this->_Retrieve_no_cache($remote, $port, $query);
+    MusicBrainz::Server::Cache->set($key, \$r);
+    return $r;
+}
+
+sub _Retrieve_no_cache
 {
     my ($this, $remote, $port, $query) = @_;
 
@@ -148,6 +120,7 @@ sub Retrieve
         return undef;
     }
 
+    require IO::Socket::INET;
     my $sock = IO::Socket::INET->new(
 	PeerAddr => $remote,
 	PeerPort => $port,
@@ -168,7 +141,7 @@ sub Retrieve
     #print $line;
 
     @response = split ' ', $line;
-    if (!IsNumber($response[0]) || $response[0] < 200 || $response[0] > 299)
+    if (!MusicBrainz::IsNonNegInteger($response[0]) || $response[0] < 200 || $response[0] > 299)
     {
         print STDERR "FreeDB $remote:$port does not want to talk to us: $line\n";
         close $sock;
@@ -186,6 +159,8 @@ sub Retrieve
         print STDERR "FreeDB $remote:$port does not like our hello: $line\n";
         return undef;
     }
+
+    goto READQUERY if $query =~ /^cddb read /;
 
     # Send the query 
     print $sock $query, $CRLF;
@@ -240,8 +215,12 @@ sub Retrieve
         $category = $categories[1];
         $disc_id = $disc_ids[1];
     }
+
+    $query = "cddb read $category $disc_id";
    
-    print $sock "cddb read $category $disc_id", $CRLF;
+READQUERY:
+    print STDERR ">> $query\n";
+    print $sock $query, $CRLF;
 
     my $artist = "";
     my $title = "";
@@ -251,10 +230,17 @@ sub Retrieve
     my %info;
     $info{durations} = '';
 
+    # Used for debugging
+    my $response = $info{_response} = [];
+    my $offsets = $info{_offsets} = [];
+    my $disc_length = \$info{_disc_length};
+
     my @track_titles;
 
     while(defined($line = <$sock>))
     {
+	push @$response, $line;
+
     	my @chars = split(//, $line, 2);
         if ($chars[0] eq '#')
         {
@@ -271,6 +257,7 @@ sub Retrieve
             if ($line =~ /Disc length:/)
             {
                 $line =~ s/^# Disc length:\s*(\d*).*$/$1/i;
+		$$disc_length = $1;
                 $info{durations} .= ($line * 1000) - int(($last_track_offset*1000) / 75);
                 $in_offsets = 0;
                 next;
@@ -280,6 +267,7 @@ sub Retrieve
             {
                 next;
             }
+	    push @$offsets, $line;
             if($last_track_offset > 0) 
             {
                 $info{durations} .= int ((($line - $last_track_offset)*1000) / 75) . " ";
@@ -340,6 +328,7 @@ sub Retrieve
     $artist =~ s/^\s*(.*?)\s*$/$1/;
     $title =~ s/^\s*(.*?)\s*$/$1/;
 
+    require Style;
     $title = Style->new->NormalizeDiscNumbers($title);
 
     # Convert from iso-8859-1 to UTF-8
@@ -369,28 +358,6 @@ sub Retrieve
     return \%info;
 }
 
-# private method
-
-sub CheckTOC
-{
-    my ($this, $toc) = @_;
-
-    my @parts = split / /, $toc;
-
-    return 0 if $parts[0] != 1;
-    return 0 if $parts[1] < 1;
-    return 0 if $parts[1] > 99;
-    return 0 if $parts[1] != scalar(@parts) - 3;
-    return 0 if $parts[2] <= $parts[scalar(@parts) - 1]; 
-
-    for (3 .. (scalar(@parts) - 2))
-    {
-        return 0 if ($parts[$_] >= $parts[$_ + 1]);
-    }
-
-    return 1;
-}
-
 # Public.  Called by Discid->GenerateAlbumFromDiscid
 
 sub InsertForModeration
@@ -403,18 +370,22 @@ sub InsertForModeration
     return if (scalar(@$ref) < AUTO_INSERT_MIN_TRACKS);
 
     # Don't insert into the DB if the Toc is not correct.
-    return unless $this->CheckTOC($info->{toc});
+    require Discid;
+    return unless Discid->ParseTOC($info->{toc});
 
     # Don't insert albums by the name of 'various' or 'various artists'
     return if ($info->{artist} =~ /^various$/i ||
                $info->{artist} =~ /^various artists$/i); 
 
+    require Style;
     $st = Style->new;
     return if (!$st->UpperLowercaseCheck($info->{artist}));
     return if (!$st->UpperLowercaseCheck($info->{album}));
 
     $info->{sortname} = $st->MakeDefaultSortname($info->{artist});
 
+    require Alias;
+    require Artist;
     $alias = Alias->new($this->{DBH});
     $ar = Artist->new($this->{DBH});
 
@@ -456,6 +427,8 @@ sub InsertForModeration
                 {
                     my ($di, $sql);
 
+		    require Discid;
+		    require Sql;
                     $di = Discid->new($this->{DBH});
                     $sql = Sql->new($this->{DBH});
                     eval
@@ -493,9 +466,31 @@ sub InsertForModeration
 		if defined $dur;
     }
 
-
+    require Insert;
     $in = Insert->new($this->{DBH});
-    $in->InsertAlbumModeration($new, &ModDefs::FREEDB_MODERATOR, 0);
+    $in->InsertAlbumModeration($new, FREEDB_MODERATOR, 0);
+}
+
+# Given the TOC offsets (track 1 start, track 2 start, ... track n start,
+# leadout start), return the 8-character FreeDB ID.
+# Marked as internal, but called from Discid->ParseTOC.
+
+sub _compute_discid
+{
+    my @frames = @_;
+    my $tracks = @frames-1;
+
+    my $n = 0;
+    for my $i (0..$tracks-1)
+    {
+	$n = $n + $_
+	    for split //, int($frames[$i]/75);
+    }
+
+    my $t = int($frames[-1]/75) - int($frames[0]/75);
+
+    sprintf "%08x", ((($n % 0xFF) << 24) | ($t << 8) | $tracks);
 }
 
 1;
+# eof FreeDB.pm

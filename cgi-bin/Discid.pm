@@ -65,69 +65,54 @@ sub SetTOC
    $_[0]->{toc} = $_[1];
 }
 
+# Called by QuerySupport::GetCDInfoMM2 (i.e. the GetCDInfo RDF calls)
+
 sub GenerateAlbumFromDiscid
 {
-   my ($this, $rdf, $id, $numtracks, $toc) = @_;
-   my ($sql, @row, $album, $di);
+	my ($this, $rdf, $id, $numtracks, $toc) = @_;
 
-   return $rdf->ErrorRDF("No Discid given.") if (!defined $id);
+	return $rdf->ErrorRDF("No Discid given.") if (!defined $id);
 
-   $sql = Sql->new($this->{DBH});
+	# Check to see if the album is in the main database
+	if (my $album = $this->GetAlbumFromDiscid($id))
+	{
+		return $rdf->CreateAlbum(0, $album);
+	}
 
-   # Check to see if the album is in the main database
-   $di = Discid->new($this->{DBH});
-   if ($sql->Select("select Album from Discid where disc = '$id'"))
-   {
-        @row = $sql->NextRow();
-        $sql->Finish();
-        return $rdf->CreateAlbum(0, $row[0]);
-   }
-   else
-   {
-        my (@albums, $album, $disc);
+	if (!defined $toc || !defined $numtracks)
+	{
+		return $rdf->CreateStatus(0);
+	}
 
-        if (!defined $toc || !defined $numtracks)
-        {
-            return $rdf->CreateStatus(0);
-        }
+	# Ok, no freedb entries were found. Can we find a fuzzy match?
+	my $di = Discid->new($this->{DBH});
+	my @albums = $di->_FindFuzzy($numtracks, $toc);
+	if (@albums)
+	{
+		return $rdf->CreateAlbum(1, @albums);
+	}
 
-        # Ok, no freedb entries were found. Can we find a fuzzy match?
-        @albums = $di->_FindFuzzy($numtracks, $toc);
-        if (scalar(@albums) > 0)
-        {
-            return $rdf->CreateAlbum(1, @albums);
-        }
-        else
-        {
-            # Ok, its not in the main db. Do we have a freedb entry that
-            # matches, but has no Discid?
-            $album = $di->_FindFreeDBEntry($numtracks, $toc, $id);
-            if (defined $album)
-            {
-                return $rdf->CreateAlbum(0, $album);
-            }
-            else
-            {
-                my ($fd, $ref);
+	# Ok, its not in the main db. Do we have a freedb entry that
+	# matches, but has no Discid?
+	my $album = $di->_FindFreeDBEntry($numtracks, $toc, $id);
+	if (defined $album)
+	{
+		return $rdf->CreateAlbum(0, $album);
+	}
 
-                # No fuzzy matches either. Let's pull the records
-                # from freedb.org and insert it into the db if we find it.
-				require FreeDB;
-                $fd = FreeDB->new($this->{DBH});
-                $ref = $fd->Lookup($id, $toc);
-                if (defined $ref)
-                {
-                    $fd->InsertForModeration($ref);
-                    return $rdf->CreateFreeDBLookup($ref);
-                }
-                else
-                {
-                    # No Dice. This CD cannot be found!
-                    return $rdf->CreateStatus(0);
-                }
-            }
-        }
-   }
+	# No fuzzy matches either. Let's pull the records
+	# from freedb.org and insert it into the db if we find it.
+	require FreeDB;
+	my $fd = FreeDB->new($this->{DBH});
+	my $ref = $fd->Lookup($id, $toc);
+	if (defined $ref)
+	{
+		$fd->InsertForModeration($ref);
+		return $rdf->CreateFreeDBLookup($ref);
+	}
+
+	# No Dice. This CD cannot be found!
+	return $rdf->CreateStatus(0);
 }
 
 sub GetAlbumFromDiscid
@@ -338,6 +323,71 @@ sub LoadFull
    }
 
    return undef;
+}
+
+# Take in a CD TOC in string format.  Parse it, validate it.
+# Returns empty list (false) on failure.  Returns the discid (true)
+# on success.  In list context, returns a hash of derived information,
+# including: toc tracks firsttrack lasttrack leadoutoffset tracklengths
+# trackoffsets discid freedbid.
+
+sub ParseTOC
+{
+	my ($class, $toc) = @_;
+
+	defined($toc) or return;
+	$toc =~ s/\A\s+//;
+	$toc =~ s/\s+\z//;
+	$toc =~ /\A\d+(?: \d+)*\z/ or return;
+
+	my ($firsttrack, $lasttrack, $leadoutoffset, @trackoffsets)
+		= split ' ', $toc;
+
+	$firsttrack == 1 or return;
+	$lasttrack >=1 and $lasttrack <= 99 or return;
+	@trackoffsets == $lasttrack or return;
+
+	for (($firsttrack + 1) .. $lasttrack)
+	{
+		$trackoffsets[$_-1] > $trackoffsets[$_-1-1]
+			or return;
+	}
+
+	$leadoutoffset > $trackoffsets[-1]
+		or return;
+
+	my $message = "";
+	$message .= sprintf("%02X", $firsttrack);
+	$message .= sprintf("%02X", $lasttrack);
+	$message .= sprintf("%08X", $leadoutoffset);
+	$message .= sprintf("%08X", ($trackoffsets[$_-1] || 0))
+		for 1 .. 99;
+
+	use Digest::SHA1 qw(sha1_base64);
+	my $discid = sha1_base64($message);
+	$discid .= "="; # bring up to 28 characters, like the client
+	$discid =~ tr[+/=][._-];
+
+	return $discid unless wantarray;
+
+	my @lengths = map {
+		($trackoffsets[$_+1-1] || $leadoutoffset) - $trackoffsets[$_-1]
+	} $firsttrack .. $lasttrack;
+
+	require FreeDB;
+	my $freedbid = FreeDB::_compute_discid(@trackoffsets, $leadoutoffset);
+
+	return (
+		toc				=> $toc,
+		tracks			=> scalar @trackoffsets,
+		firsttrack		=> $firsttrack,
+		lasttrack		=> $lasttrack,
+		leadoutoffset	=> $leadoutoffset,
+		tracklengths	=> \@lengths,
+		trackoffsets	=> \@trackoffsets,
+		discid			=> $discid,
+		freedbid		=> $freedbid,
+	);
 }
 
 1;
