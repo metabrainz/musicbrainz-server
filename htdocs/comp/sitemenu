@@ -1,6 +1,6 @@
 %# vi: set ts=4 sw=4 ft=mason :
 <%once>
-use vars qw( @main %urlmap %urlmap2 );
+use vars qw( @main %urlmap %urlmap2 $render_all );
 
 use Scalar::Util qw( reftype weaken );
 
@@ -295,9 +295,9 @@ use Scalar::Util qw( reftype weaken );
 
 %urlmap = ();
 %urlmap2 = ();
-transform(\@main, \(my $tmp = 0));
 
-sub transform
+my $transform;
+$transform = sub
 {
 	my ($rarhMenu, $riNextIndex, $rhParentItem) = @_;
 
@@ -319,22 +319,15 @@ sub transform
 		{
 			$rhItem->{children} = $raNext;
 			splice(@$rarhMenu, $i+1, 1);
-			transform($rhItem->{children}, $riNextIndex, $rhItem);
+			&$transform($rhItem->{children}, $riNextIndex, $rhItem);
 		}
 	}
-}
+};
+&$transform(\@main, \(my $tmp = 0));
 
 </%once>
+<%def .drawmenu>
 <%perl>
-
-my $uri = shift() || $r->uri;
-my $args = shift() || $r->args;
-
-use vars qw( $render_all );
-$render_all = UserPreference::get('sitemenu_heavy');
-
-sub drawmenu
-{
 	my ($rarhMenu, $iLevel) = @_;
 
 	$m->out("<div class='sitemenu$iLevel'>\n");
@@ -379,7 +372,7 @@ sub drawmenu
 		if ($rarhChildren and ($render_all or $fSel))
 		{
 			$m->out("<div class='submenu$state' id='${id}sub'>\n");
-			drawmenu($rarhChildren, $iLevel+1);
+			$m->comp(".drawmenu", $rarhChildren, $iLevel+1);
 			$m->out("</div>\n");
 		}
 
@@ -387,7 +380,14 @@ sub drawmenu
 	}
 
 	$m->out("</div>\n"); # level
-}
+</%perl>
+</%def>
+<%perl>
+
+my $uri = shift() || $r->uri;
+my $args = shift() || $r->args;
+
+$render_all = UserPreference::get('sitemenu_heavy');
 
 my $identify_selected = sub
 {
@@ -426,7 +426,7 @@ my $disable_selected = sub
 		<div id="sitemenu">
 		<%perl>
 		my $t = &$identify_selected($uri ,$args);
-		drawmenu(\@main, 0);
+		$m->comp(".drawmenu", \@main, 0);
 		&$disable_selected($t);
 		</%perl>
 		</div>
