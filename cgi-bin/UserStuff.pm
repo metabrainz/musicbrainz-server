@@ -422,7 +422,7 @@ Your MusicBrainz password is "$pass"
 To log in to MusicBrainz, please use this link:
 http://${\ DBDefs::WEB_SERVER() }/login.html
 
-If you still have problems logging, please drop us a line - see
+If you still have problems logging in, please drop us a line - see
 http://${\ DBDefs::WEB_SERVER() }/support/contact.html
 for details.
 
