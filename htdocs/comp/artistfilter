@@ -167,7 +167,7 @@ my @r = do {
 
 <& /comp/stylemenu &>
 
-<script type="text/javascript" src="scripts/guess.js"></script>
+<script type="text/javascript" src="/scripts/guess.js"></script>
 
 <form method="post" action="<% $url %>"
 	name="ArtistFilterAdd"
