@@ -54,7 +54,7 @@ print <<EOF;
 
 EOF
 
-$sql->Select("SELECT id, name FROM artist")
+$sql->Select("SELECT id, name, sortname FROM artist")
     or die "sql error";
 
 my %a;
@@ -75,20 +75,47 @@ $sql->Finish;
 
 my $dupes = my $dupes2 = 0;
 
+print <<EOF;
+<table>
+	<tr>
+		<th>Artist Name</th>
+		<th>Artist Sortname</th>
+		<th style="text-align: right">Albums</th>
+		<th style="text-align: right">Tracks</th>
+	</tr>
+EOF
+
 while (my ($k, $v) = each %a)
 {
     next unless @$v >= 2;
 
-    print "<p>\n";
-    print "  <li><a href='/showartist.html?artistid=$_->[0]'>"
-		. html_escape($_->[1])
-		. "</a></li>\n"
-			for @$v;
-    print "</p>\n";
+	for (@$v)
+	{
+		my $na = $sql->SelectSingleValue("SELECT COUNT(*) FROM album WHERE artist = ?", $_->[0]);
+		my $nt = $sql->SelectSingleValue("SELECT COUNT(*) FROM track WHERE artist = ?", $_->[0]);
+		
+		print <<EOF;
+	<tr>
+		<td>
+			<a href='/showartist.html?artistid=$_->[0]'
+				>${\ html_escape($_->[1]) }</a>
+		</td>
+		<td>
+			${\ html_escape($_->[2]) }
+		</td>
+		<td style="text-align: right">$na</td>
+		<td style="text-align: right">$nt</td>
+	</tr>
+EOF
+	}
+		
+    print "<tr><td>&nbsp;</td></tr>\n";
 
     ++$dupes;
     $dupes2 += @$v;
 }
+
+print "</table>\n\n";
 
 print "<p>End of report; found $dupes2 artists in $dupes combinations.</p>\n\n";
 
