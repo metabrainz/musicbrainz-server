@@ -6,16 +6,41 @@
 	<a href="http://cvs.musicbrainz.org/">our CVS repository</a>.
 </p>
 
+<h3>About CVS Tags</h3>
+
+<p>
+	In all cases by doing a plain "checkout" of the appropriate module
+	you'll be getting the latest development copy, which won't necessarily
+	be stable.&nbsp; If you want a stable copy, corresponding to a
+	particular release, you'll need to find the correct <em>CVS tag</em>
+	corresponding to the release you want; you can then fetch the release
+	in question.
+</p>
+
+<p>
+	For example, to fetch the 2.0.2 release of <em>mb_client</em> you'd
+	use a command like this: <kbd>cvs checkout -r release-2-0-2 mb_client</kbd>
+	.&nbsp; Whereas to fetch the latest, unstable version you'd omit the "-r"
+	option: <kbd>cvs checkout mb_client</kbd> .
+</p>
+
+<p>
+	Here is the list of CVS modules available; each module has its own set of
+	release numbers / tags which you can use if desired.
+</p>
+
 <table class="SpacedColumns SpacedRows TopAlignCells">
+	<col style="width: 10em">
+	<col style="width: 10em">
 	<tr>
-		<td colspan="2">
+		<td colspan="3">
 			<h2>Current Modules</h2>
 		</td>
 	</tr>
 
 	<tr id="module_mb_server">
 		<td><a href="http://cvs.musicbrainz.org/cvs/mb_server">mb_server</a></td>
-		<td>
+		<td colspan="2">
 			MusicBrainz Server source code -- this contains all the sources
 			necessary to set up a <a href="/products/server/">MusicBrainz server</a>.&nbsp;
 			Most of this code is in Perl and is designed to run inside the Apache
@@ -23,19 +48,43 @@
 		</td>
 	</tr>
 
+<%perl>
+my $tag;
+if (open(my $fh, &DBDefs::MB_SERVER_ROOT."/CVS/Tag"))
+{
+	local $_ = <$fh>;
+	($tag) = /^T(.*)$/;
+}
+</%perl>
+	<& .ShowTags,
+		"this version"	=> ($tag || "(the CVS trunk - omit the '-r' flag)"),
+		"2004-01-20"		=> "RELEASE_20040120-BRANCH",
+		"2004-01-10"		=> "RELEASE_20040110-BRANCH",
+		"2003-12-27"		=> "RELEASE_20031227-BRANCH",
+		"(many more)"		=> "(many more)",
+		&>
+
 	<tr id="module_mb_client">
 		<td><a href="http://cvs.musicbrainz.org/cvs/mb_client">mb_client</a></td>
-		<td>
+		<td colspan="2">
 			MusicBrainz Client source code -- this module contains the sources for
 			building the <a href="/products/client/">libmusicbrainz library</a>,
 			which provides low level access to the MusicBrainz server and the
 			ability to look up TRM ids from WAV audio data.
 		</td>
 	</tr>
+	<& .ShowTags,
+		"2.0.2" => "release-2-0-2",
+		"2.0.1" => "release-2-0-1",
+		"2.0.0" => "release-2-0-0",
+		"1.1.0" => "release-1-1-0",
+		"1.0.1" => "release-1-0-1",
+		"1.0.0" => "release-1-0-0",
+		&>
 
 	<tr id="module_tunepimp">
 		<td><a href="http://cvs.musicbrainz.org/cvs/tunepimp">tunepimp</a></td>
-		<td>
+		<td colspan="2">
 			TunePimp library source code -- this module contains the sources for
 			building the <b>libtunepimp library</b>.&nbsp; <!-- TODO /products/tunepimp -->
 			This library encapsulates the core tagging functionality of the
@@ -47,27 +96,40 @@
 			audio files with tracks in the MusicBrainz server.
 		</td>
 	</tr>
+	<& .ShowTags,
+		"0.2.1" => "RELEASE_0_2_1",
+		&>
 
 	<tr id="module_mb_tagger">
 		<td><a href="http://cvs.musicbrainz.org/cvs/mb_tagger">mb_tagger</a></td>
-		<td>
+		<td colspan="2">
 			MusicBrainz Tagger Application source code -- this module contains all
 			the sources necessary to build the <a href="/tagger/">MusicBrainz tagger application</a>.&nbsp;
 			Borland C++ builder 6.0 is required to build this module.
 		</td>
 	</tr>
+	<& .ShowTags,
+		"0.10.2"	=> "release-0-10-2",
+		"0.10.0"	=> "release-0-10-0",
+		"0.5.0"		=> "release-0-5-0",
+		&>
 
 	<tr id="module_python-musicbrainz">
 		<td><a href="http://cvs.musicbrainz.org/cvs/python-musicbrainz">python-musicbrainz</a></td>
-		<td>
+		<td colspan="2">
 			Python bindings for libmusicbrainz -- these bindings allow Python
 			developers to use the MusicBrainz client library.
 		</td>
 	</tr>
+	<& .ShowTags,
+		"2.0.2" => "release-2-0-2",
+		"2.0.1" => "release-2-0-1",
+		"2.0.0" => "release-2-0-0",
+		&>
 
 	<tr id="module_irc-logs">
 		<td><a href="http://cvs.musicbrainz.org/cvs/irc-logs">irc-logs</a></td>
-		<td>
+		<td colspan="2">
 			Archived chat logs -- this module contains the archives of chat logs from
 			<a href="irc://irc.freenode.net/musicbrainz">the #musicbrainz channel</a>
 			on IRC chat at 
@@ -77,16 +139,18 @@
 			and see the most up-to-date logs, at our
 			<a href="http://chatlogs.musicbrainz.org/">IRC log archives</a> site.
 	</tr>
+	<& .ShowTags,
+		&>
 
 	<tr>
-		<td colspan="2">
+		<td colspan="3">
 			<h2>Deprecated Modules</h2>
 		</td>
 	</tr>
 
 	<tr>
 		<td>cdi_client</td>
-		<td>
+		<td colspan="2">
 			CD Index client source code -- this module contains the old CD Index
 			client library.&nbsp; Superseded by
 			<a href="#module_mb_client">the mb_client project</a>.
@@ -95,7 +159,7 @@
 
 	<tr>
 		<td>cdi_lib</td>
-		<td>
+		<td colspan="2">
 			CD Index client library code -- contains code for the CD Index client
 			library.&nbsp; Superseded by
 			<a href="#module_mb_client">the mb_client project</a>.
@@ -104,7 +168,7 @@
 
 	<tr>
 		<td>cdi_server</td>
-		<td>
+		<td colspan="2">
 			CD Index server code -- contains all the code for the old CD Index
 			server.&nbsp; Superseded by
 			<a href="#module_mb_server">mb_server</a>.
@@ -113,7 +177,7 @@
 
 	<tr>
 		<td>charity</td>
-		<td>
+		<td colspan="2">
 			An old text-based tagging application.&nbsp; Superseded by the example
 			program "tp_tagger" in the
 			<a href="#module_tunepimp">tunepimp</a> project.
@@ -122,7 +186,7 @@
 
 	<tr>
 		<td>old.tunepimp</td>
-		<td>
+		<td colspan="2">
 			This module contains the first attempt at a tunepimp library.&nbsp;
 			Superceded by the
 			<a href="#module_tunepimp">tunepimp</a> project.
@@ -131,7 +195,7 @@
 
 	<tr>
 		<td>trm</td>
-		<td>
+		<td colspan="2">
 			This small library originally looked up TRM ids, but this functionality
 			has now been wrapped into the <a href="#module_tunepimp">tunepimp</a>
 			library.
@@ -140,7 +204,7 @@
 
 	<tr>
 		<td>trm_plugin</td>
-		<td>
+		<td colspan="2">
 			This is the TRM plugin for Bitzi's Bitcollider.
 		</td>
 	</tr>
@@ -148,3 +212,25 @@
 </table>
 
 <& /comp/footer &>
+<%def .ShowTags>
+% if (@_) {
+	<tr>
+		<td></td>
+		<td><b>Release</b></td>
+		<td><b>Tag</b></td>
+	</tr>
+% while (my ($rel, $tag) = splice(@_, 0, 2)) {
+	<tr>
+		<td></td>
+		<td><% $rel %></td>
+		<td><% $tag %></td>
+	</tr>
+% }
+% } else {
+	<tr>
+		<td></td>
+		<td colspan="2">No release / tag information is available for this module.</td>
+	</tr>
+% }
+<tr><td>&nbsp;</td></tr>
+</%def>
