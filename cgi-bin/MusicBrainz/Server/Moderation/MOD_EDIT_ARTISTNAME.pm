@@ -114,14 +114,15 @@ sub ApprovedAction
 	 	# Check to see if the are exact, including case
 	  	if ($this->GetNew() eq $ar->GetName())
 	   	{
-			use HTML::Mason::Tools qw( html_escape );
+			my $url = "http://" . &DBDefs::WEB_SERVER
+				. "/showartist.html?artistid=" . $ar->GetId;
+
 		 	$this->InsertModerationNote(
 				$this->GetId,
 				&ModDefs::MODBOT_MODERATOR,
-			 	"This edit moderation clashes with the existing artist "
-				. "<a href='/showartist.html?artistid=${\ $ar->GetId }'>"
-				. html_escape($ar->GetName)
-				. "</a>"
+			 	"This edit moderation clashes with the existing artist"
+				. "'" . $ar->GetName . "': "
+				. $url
 			);
 
 			return &ModDefs::STATUS_ERROR;
