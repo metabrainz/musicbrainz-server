@@ -284,6 +284,58 @@ sub pc
 </table>
 <& /comp/tableend &>
 
+<p style="margin-left: 1em; margin-right: 1em">
+	(These next statistics are calculated separately from
+	the others on this page, so don't expect the numbers
+	to match&nbsp;up).
+</p>
+
+<& /comp/tablebegin, title=>'Open Moderations', gattrs=>$gattrs &>
+<table class="StatsTable" style="width: 100%">
+	<col>
+	<col style="width: 6em">
+	<col style="width: 4em">
+	<%perl>
+
+	my $mod = Moderation->new($mb->{DBH});
+	my $min = $mod->GetMinOpenModID;
+
+	my $sql = Sql->new($mb->{DBH});
+	my $r = $sql->SelectListOfLists(
+		"SELECT type, COUNT(*) FROM moderation
+		WHERE status = ".&ModDefs::STATUS_OPEN." AND id >= $min GROUP BY type
+		ORDER BY 2 DESC, 1",
+	);
+
+	my $open = 0;
+	$open += $_->[1] for @$r;
+
+	</%perl>
+	<tr>
+		<th class="StatName">Open Moderations</th>
+		<td class="NumberCell"><% $open %></td>
+		<td></td>
+	</tr>
+	<%perl>
+
+	for (@$r)
+	{
+		my ($t, $c) = @$_;
+		my $class = Moderation->ClassFromType($t);
+		my $name = ($class ? $class->Name : "? type #$t");
+		</%perl>
+		<tr>
+			<th class="StatName">&nbsp; <% $name %></th>
+			<td class="NumberCell"><% $c %></td>
+			<td class="NumberCell"><% pc($c, $open) %></td>
+		</tr>
+		<%perl>
+	}
+
+	</%perl>
+</table>
+<& /comp/tableend &>
+
 </div>
 
 <p>
