@@ -294,7 +294,6 @@ sub CreateIndices
     {
         $sql->Begin;
 
-if (0) {
         $sql->Do(qq|create unique index Artist_NameIndex on Artist (Name)|)
             or die("Could not add indices to Artist table");
         $sql->Do(qq|create index Artist_SortNameIndex on Artist (SortName)|)
@@ -302,7 +301,6 @@ if (0) {
         $sql->Do(qq|create unique index Artist_GIDIndex on Artist (GID)|)
             or die("Could not add indices to Artist table");
         print "Added indices to Artist table.\n";
-}
 
         $sql->Do(qq|create index Album_NameIndex on Album (Name)|)
               or die("Could not add indices to Album table");
