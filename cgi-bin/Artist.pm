@@ -299,10 +299,11 @@ sub GetArtistDisplayList
    
    if ($ind =~ m/_/)
    {
-      $ind =~ s/_/[^A-Za-z]/g;
+      $ind =~ s/_/.{1}/g;
       $ind = "^$ind";
+      $ind = $sql->Quote($ind);
 
-      if ($sql->Select("select count(*) from Artist where sortname ~ '$ind'"))
+      if ($sql->Select("select count(*) from Artist where sortname ~* $ind"))
       {
           @row = $sql->NextRow();
           $sql->Finish();
@@ -312,20 +313,21 @@ sub GetArtistDisplayList
 
       $query = qq/select id, sortname, modpending 
                     from Artist 
-                   where sortname ~ '$ind'
+                   where sortname ~* $ind
                 order by lower(sortname), sortname 
                    limit $max_items offset $offset/;
    }
    else
    {
+      $ind = $sql->Quote($ind);
       ($num_artists) =  $sql->GetSingleRowLike("Artist", ["count(*)"], 
                                ["substring(sortname from 1 for $ind_len)", 
-                                $sql->Quote($ind)]);
+                                $ind]);
       return undef if (!defined $num_artists);
 
       $query = qq/select id, sortname, modpending 
                     from Artist 
-                   where substring(sortname from 1 for $ind_len) ilike '$ind' 
+                   where substring(sortname from 1 for $ind_len) ilike $ind
                 order by lower(sortname), sortname 
                    limit $max_items offset $offset/;
    }
