@@ -13,6 +13,9 @@ The MusicBrainz server requires the following items:
    since 7.3.0 this has been the default, so you probably don't have to
    worry about it.
 
+   The installation must also be created with the "C" locale, like this:
+   initdb --locale=C
+
    Replication
    
    For replication we use the "dbmirror" code from the "contributed" part of
