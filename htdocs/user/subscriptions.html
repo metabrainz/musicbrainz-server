@@ -63,7 +63,7 @@ $m->comp("/comp/sidebar", title => 'Artist Subscriptions');
 				<td style="text-align: center"><input type="checkbox" name="artistid" value="<% $artist->{artist} %>"></td>
 				<td style="padding-right: 2em"><a href="/showartist.html?artistid=<% $artist->{artist} %>"
 					><% $artist->{name} %></a></td>
-				<td style="text-align: center">[
+				<td style="text-align: center" nowrap>[
 					<a href="/moderate.html?type=<% &ModDefs::TYPE_ARTIST %>&amp;artistid=<% $artist->{artist} %>">Mods</a>
 				]</td>
 			</tr>
