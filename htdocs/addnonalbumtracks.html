@@ -168,14 +168,15 @@ else
       </tr>
     </table>
 
-    <& /comp/tableend &>
-
 %   foreach $key (keys %ARGS) {
         <input type="hidden" name="<% $key %>" value="<% $ARGS{$key} |h %>">
 %   }
     <input type="hidden" name="key<% $val %>" value="NonAlbum">
     <input type="hidden" name="value<% $val %>" value="<% $ARGS{nonalbum} %>">
     </form>
+
+    <& /comp/tableend &>
+
     <%perl>
 }
 
