@@ -44,7 +44,13 @@ The MusicBrainz server requires the following items:
 
 4) Expat XML Parser library: http://sourceforge.net/projects/expat
 
-5) Perl 5.003 or higher and the required perl modules: 
+5) Perl 5.6.1 
+
+   Perl 5.6.1 is the right perl to use. A lot of CPAN packages
+   fail to compile under 5.8, so its best to wait for at least
+   5.8.1.
+
+6) Required perl modules: 
   
    CPAN Name
    ---------
@@ -54,7 +60,8 @@ The MusicBrainz server requires the following items:
    Storable
    DBI          
    DBD::Pg
-   HTML::Mason
+   HTML::Mason (MB works only with version 1.05:
+                http://www.masonhq.com/code/download/HTML-Mason-1.05.tar.gz)
    String::CRC32
    String::Similarity;
    Unicode::String
