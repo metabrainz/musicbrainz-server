@@ -502,7 +502,7 @@ sub InsertAlbumModeration
 		my @mods = Moderation->InsertModeration(
 			DBH	=> $this->{DBH},
 			uid	=> $moderator || &ModDefs::ANON_MODERATOR,
-			privs => $privs,
+			privs => $privs || 0,
 			type => &ModDefs::MOD_ADD_ALBUM,
 			#
 			%opts,
