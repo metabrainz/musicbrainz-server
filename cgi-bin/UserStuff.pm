@@ -54,6 +54,8 @@ use constant SEARCHRESULT_TIMEOUT => 3;
 use constant DEFAULT_SEARCH_TIMEOUT => 30;
 use constant DEFAULT_SEARCH_LIMIT => 0;
 
+use constant PERMANENT_COOKIE_NAME => "remember_login";
+
 sub GetPassword			{ $_[0]{password} }
 sub SetPassword			{ $_[0]{password} = $_[1] }
 sub GetPrivs			{ $_[0]{privs} }
@@ -213,6 +215,32 @@ sub Login
 
 	return (1, $row->{name}, $row->{privs}, $row->{id}, $row->{email},
 			$row->{email} && !$row->{emailconfirmdate});
+}
+
+sub Logout
+{
+	my $self = shift;
+
+	my $session = GetSession()
+		or return;
+	my $obj = tied %$session
+		or return;
+
+	$obj->delete;
+	$obj = undef;
+	untie %$session;
+
+	my $cookie = new CGI::Cookie(
+		-name	=> 'AF_SID',
+		-value	=> "",
+		-path	=> '/',
+		-domain	=> &DBDefs::SESSION_DOMAIN,
+	);
+
+	my $r = Apache->request;
+	$r->headers_out->add('Set-Cookie' => $cookie);
+
+	$self->ClearPermanentCookie;
 }
 
 sub CreateLogin
@@ -729,6 +757,111 @@ sub SetSession
 	UserPreference::LoadForUser($this->Current);
 
 	eval { $this->_SetLastLoginDate($uid) };
+}
+
+# Given that we've just successfully logged in, set a non-session cookie
+# containing our login credentials.  TryAutoLogin (below) then reads this
+# cookie when the user returns.
+
+sub SetPermanentCookie
+{
+	my ($this, $username, $password) = @_;
+
+	# There are (will be) multiple formats to this cookie.  This is format #1.
+	# See TryAutoLogin.
+	my $value = "1\t$username\t$password";
+
+	my $cookie = new CGI::Cookie(
+		-name	=> &PERMANENT_COOKIE_NAME,
+		-value	=> $value,
+		-path	=> '/',
+		-domain	=> &DBDefs::SESSION_DOMAIN,
+		-expires=> '+1y',
+	);
+
+	my $r = Apache->request;
+	$r->headers_out->add('Set-Cookie' => $cookie);
+}
+
+# Deletes the cookie set by SetPermanentCookie
+
+sub ClearPermanentCookie
+{
+	my $r = Apache->request;
+
+	my $cookie = new CGI::Cookie(
+		-name	=> &PERMANENT_COOKIE_NAME,
+		-value	=> "",
+		-path	=> '/',
+		-domain	=> &DBDefs::SESSION_DOMAIN,
+		-expires=> '-1d',
+	);
+
+	$r->headers_out->add('Set-Cookie' => $cookie);
+}
+
+# If we're not logged in, but the PERMANENT_COOKIE_NAME cookie is set,
+# then try logging in using those credentials.
+# Can be called either as: UserStuff->new($dbh)->TryAutoLogin($cookies)
+# or as: UserStuff->TryAutoLogin($cookies)
+
+sub TryAutoLogin
+{
+	my ($self, $cookies) = @_;
+
+	# Already logged in?
+	my $session = GetSession();
+	return if $session->{uid};
+	
+	my $r = Apache->request;
+
+	# Get the permanent cookie
+	my $c = $cookies->{&PERMANENT_COOKIE_NAME}
+		or return;
+
+	my $delete_cookie = 0;
+	for (1)
+	{
+		my ($user, $password);
+
+		# Format 1: plaintext user + password
+		if ($c->value =~ /^1\t(.*?)\t(.*)$/)
+		{
+			$user = $1;
+			$password = $2;
+		}
+		# TODO add other formats: e.g. sha1(password), tied to IP, etc
+
+		defined($user) and defined($password)
+			or $delete_cookie = 1, last;
+
+		# If we were called as a class method, instantiate an object
+		my $mb;
+		if (not ref $self)
+		{
+			# Note: $mb declared outside this block, so leaving this block
+			# doesn't disconnect us.
+			$mb = MusicBrainz->new;
+			$mb->Login;
+			$self = $self->new($mb->{DBH});
+		}
+
+		# Try logging in with these credentials
+		my ($ok, $username, $privs, $uid, $email, $confirm)
+			= $self->Login($user, $password)
+			or $delete_cookie = 1, last;
+
+        $self->SetSession($username, $privs, $uid, !$email || $confirm);
+	}
+
+	# If the cookie proved invalid, we now delete it
+	if ($delete_cookie)
+	{
+		$self->ClearPermanentCookie;
+		return;
+	}
+
+	1;
 }
 
 sub _SetLastLoginDate
