@@ -17,22 +17,33 @@ unless ($nosidebar)
 <& /comp/sidebarsectiontop, title=>'Site Menu' &>
 <& /comp/sitemenu &>
 
-% unless (UserPreference::get('no_sidebar_panels')) {
+% if (UserPreference::get('sidebar_panel_search')) {
+<& /comp/sidebarsection, title=>'Quick Search' &>
+<& /comp/sidebarareabegin &>
+<& /comp/sidebar-panels/search &>
+<& /comp/sidebarareaend &>
+% }
+
+% if (UserPreference::get('sidebar_panel_topmods')) {
 <& /comp/sidebarsection, title=>'Top Moderators' &>
 <& /comp/sidebarareabegin &>
 <& /comp/topmodsbox &>
 <& /comp/sidebarareaend &>
+% }
 
+% if (UserPreference::get('sidebar_panel_stats')) {
 <& /comp/sidebarsection, title=>'Server Stats' &>
 <& /comp/sidebarareabegin &>
 <& /comp/statsbox &>
 <& /comp/sidebarareaend &>
 % }
 
+%# if (UserPreference::get('sidebar_panel_sponsors')) {
 <& /comp/sidebarsection, title=>'Sponsors' &>
 <& /comp/sidebarareabegin &>
 <& /comp/sponsors &>
 <& /comp/sidebarareaend &>
+%# }
 
    </td>
 % }
