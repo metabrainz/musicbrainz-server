@@ -231,6 +231,7 @@ sub CheckModificationsForExpiredItems
    my ($sth, @ids, @row); 
 
    $sth = $this->{DBH}->prepare(qq/select id from Changes where 
+              status = / . STATUS_OPEN . qq/ and
               UNIX_TIMESTAMP(now()) - UNIX_TIMESTAMP(TimeSubmitted) > / 
               . DBDefs::MOD_PERIOD);
    $sth->execute;
