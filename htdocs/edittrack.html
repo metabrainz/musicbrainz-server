@@ -121,7 +121,7 @@ if (MusicBrainz::IsSingleLineString($newname)
 				New Name:
 			</td>
 			<td>
-				<input type="text" name="newname" size="50" value="<% $tr->GetName %>">
+				<input type="text" name="newname" size="50" maxlength="255" value="<% $tr->GetName %>">
 				<script type="text/javascript"><!--
 				document.write(
 					"<\/td><\/tr>"
