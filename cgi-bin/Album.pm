@@ -125,7 +125,7 @@ sub GetAttributeDescription
 
 sub GetAttributes
 {
-   my @attrs = @{ $_[0]->{attrs }};
+   my @attrs = @{ $_[0]->{attrs}};
 
    # Shift off the mod pending indicator
    shift @attrs;
@@ -150,7 +150,7 @@ sub GetReleaseTypeAndStatus
 sub SetAttributes
 {
    my $this = shift @_;
-   $this->{attrs} = [ ${ $this->{attrs }}[0], @_ ];
+   $this->{attrs} = [ ${ $this->{attrs}}[0], @_ ];
 }
 
 sub GetAttributeList
@@ -867,15 +867,15 @@ sub GetVariousDisplayList
 
 sub UpdateAttributes
 {
-   my ($this) = @_;
-   my ($sql, $attr);
+	my ($this) = @_;
 
-   # I got a 
-   #   Use of uninitialized value in join or string at ../cgi-bin/Album.pm line 630
-   # that needs to be investigated
-   $attr = join ',', @{ $this->{attrs}};
-   $sql = Sql->new($this->{DBH});
-   $sql->Do("update Album set Attributes = '{$attr}' where id = $this->{id}");
+	my $attr = join ',', @{ $this->{attrs}};
+	my $sql = Sql->new($this->{DBH});
+	$sql->Do(
+		"UPDATE album SET attributes = ? WHERE id = ?",
+		"{$attr}",
+		$this->GetId,
+	);
 }
 
 sub GetTrackSequence
