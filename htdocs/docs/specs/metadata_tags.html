@@ -136,6 +136,7 @@ TXXX User defined text information frame
  specification</a>)
 </p>
 </blockquote>
+
 <p>
 <b>MusicBrainz TRM Identifier:</b>
 </p>
@@ -163,13 +164,42 @@ TXXX User defined text information frame
 </p>
 </blockquote>
 
-<& /comp/section, title=>'Vorbis comment specifications' &>
+<p>
+<b>MusicBrainz Artist Sortname</b>
+</p>
+
+<p>
+The artist sortname should really be stored in a ID3v2.4 frame called TSOP,
+but that is not supported under ID3v2.3. For writing ID3v2.3 tags, a XSOP
+frame that is formatted like a regular text frame should be used.
+
+<blockquote>
+<p>
+XSOP Experimental, Sort order, Performer.
+</p>
+
+
+<table>
+<tr>
+  <td>Text encoding</td><td>$00 (ISO-8859-1)</td>
+</tr>
+<tr>
+  <td>Value:</td><td>[mb artist sortname]</td>
+</tr>
+</table>
+
+<p>
+(see section 4.2.6 in the <a href="http://www.id3.org/id3v2.4.0-frames.txt">ID3v2.4 
+ specification</a>)
+</p>
+</blockquote>
+<& /comp/section, title=>'Vorbis/FLAC comment specifications' &>
 
 
 <p>
-To store the MusicBrainz identifiers in an Ogg/Vorbis comment stream 
-you will need to use up to four Vorbis comments. Remember that
-Vorbis comments fields are in <b>UTF-8</b>, and they should follow
+To store the MusicBrainz identifiers in an Ogg/Vorbis comment stream  or a FLAC file
+you will need to use the following comments. Remember that
+Vorbis/FLAC comments fields are in <b>UTF-8</b>, and they should follow
 these <a href="http://reactor-core.org/ogg-tag-recommendations.html">recommendations</a>.
 </p>
 
@@ -250,6 +280,21 @@ See comments above in ID3 section.
 </tr>
 <tr>
   <td>Comment value:</td><td>[mb trm uuid]</td>
+</tr>
+</table>
+</blockquote>
+
+<p>
+<b>MusicBrainz Artist Sortname</b>
+</p>
+
+<blockquote>
+<table>
+<tr>
+  <td>Comment name:</td><td>MUSICBRAINZ_SORTNAME</td>
+</tr>
+<tr>
+  <td>Comment value:</td><td>[mb artist sortname]</td>
 </tr>
 </table>
 </blockquote>
