@@ -37,7 +37,7 @@ sub PrintPrevButton
     print '<td width="15%">';
     if ($offset > 0)
     {
-        print "<a href=\"browse_artists.pl?index=$ind&offset=";
+        print "<a href=\"browseartists.pl?index=$ind&offset=";
         print (($offset - $num) . "\">$text</a>");
     }
     else
@@ -54,7 +54,7 @@ sub PrintNextButton
     print '<td width="15%">';
     if ($offset + $num < $rows)
     {
-        print "<a href=\"browse_artists.pl?index=$ind&offset=";
+        print "<a href=\"browseartists.pl?index=$ind&offset=";
         print (($offset + $num) . "\">$text</a>");
     }
     else

@@ -1,0 +1,43 @@
+<& /comp/title, title=>'Album Search Results' &>
+
+<%perl>
+
+# TODO: The data in the rows is not escaped!
+
+my ($mb); 
+my (@data, $i, $row);
+
+$mb = new MusicBrainz;
+$mb->Login();
+
+@data = $mb->AlbumSearch($ARGS{album});
+if (scalar(@data) > 0)
+{
+</%perl>
+    Click on the album to view that album or click on the artist to
+    view all the albums by that artist:
+
+    <& /comp/tablebegin, title=>'Found Albums' &>
+
+    <table><tr><th>Album</th><th>Artist</th></tr>
+%   for($i = 0;; $i++) {
+%      $row = $data[$i];
+%      last if (!defined $row);
+       <tr>
+         <td>
+           <a href="/showalbum.html?albumid=<% $$row[0] %>">
+           <% $$row[1] %></a>
+         </td>
+         <td>
+           <a href="/showartist.html?artistid=<% $$row[3] %>">
+           <% $$row[2] %></a>
+         </td>
+       </tr>
+%   }
+    </table>
+    <& /comp/tableend &>
+%} else {
+    There were no items found. Please try again:<p>
+    <& /comp/albumsearchbox &>
+%}
+% $mb->Logout();

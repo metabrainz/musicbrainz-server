@@ -417,6 +417,31 @@ sub GetArtistName
    return $rv;
 }
 
+sub ArtistSearch
+{
+   my ($this, $search) = @_;
+   my (@info, $sth, $sql);
+
+   $sql = $this->AppendWhereClause($search, qq/select id, name from Artist
+               where /, "name") . " order by name";
+
+   $sth = $this->{DBH}->prepare($sql);
+   $sth->execute();
+   if ($sth->rows > 0) 
+   {
+       my @row;
+       my $i;
+
+       for(;@row = $sth->fetchrow_array;)
+       {  
+           push @info, [$row[0], $row[1]];
+       }
+   }
+   $sth->finish;
+
+   return @info;
+};
+
 sub GetAlbumName
 {
    my ($this, $albumid) = @_;
@@ -435,6 +460,73 @@ sub GetAlbumName
 
    return $rv;
 }
+
+sub GetArtistInfoFromAlbumId
+{
+   my ($this, $albumid) = @_;
+   my ($sth, @row);
+
+   $sth = $this->{DBH}->prepare(qq/select Artist.id, Artist.name from 
+             Album, Artist where Album.id=$albumid and Album.artist = 
+             Artist.id/);
+   $sth->execute;
+   if ($sth->rows)
+   {
+        @row = $sth->fetchrow_array;
+   }
+   $sth->finish;
+
+   return @row;
+}
+
+sub GetAlbumInfo
+{
+   my ($this, $albumid) = @_;
+   my (@info, $sth);
+
+   $sth = $this->{DBH}->prepare(qq/select id, sequence, name from Track where 
+                Album = $albumid order by sequence/);
+   if ($sth->execute())
+   {
+       my @row;
+       my $i;
+
+       for(;@row = $sth->fetchrow_array;)
+       {  
+           push @info, [$row[0], $row[1], $row[2]];
+       }
+   }
+   $sth->finish;
+
+   return @info;
+}
+
+sub AlbumSearch
+{
+   my ($this, $search) = @_;
+   my (@info, $sth, $sql);
+
+   $sql = $this->AppendWhereClause($search, qq/select Album.id, Album.name,
+               Artist.name, Artist.id from Album,Artist where Album.artist = 
+               Artist.id and /, "Album.Name") . " order by Album.name";
+
+   $sth = $this->{DBH}->prepare($sql);
+   $sth->execute();
+   if ($sth->rows > 0) 
+   {
+       my @row;
+       my $i;
+
+       for(;@row = $sth->fetchrow_array;)
+       {  
+           push @info, [$row[0], $row[1], $row[2], $row[3]];
+       }
+   }
+   $sth->finish;
+
+   return @info;
+};
+
 
 sub GetAlbumList
 {
@@ -481,6 +573,34 @@ sub GetTrackList
 
    return @ids_tracks_seqs;
 }
+
+sub TrackSearch
+{
+   my ($this, $search) = @_;
+   my (@info, $sth, $sql);
+
+   $sql = $this->AppendWhereClause($search, qq/select Track.id, Track.Name, 
+             Album.id, Album.name, Artist.id, Artist.name from Track, Album, 
+             Artist where Track.artist = Artist.id and Track.album = Album.id 
+             and /, "Track.Name") .  " order by Track.name";
+
+   $sth = $this->{DBH}->prepare($sql);
+   $sth->execute();
+   if ($sth->rows > 0) 
+   {
+       my @row;
+       my $i;
+
+       for(;@row = $sth->fetchrow_array;)
+       {  
+           push @info, [$row[0], $row[1], $row[2], $row[3], $row[4], $row[5]];
+       }
+   }
+   $sth->finish;
+
+   return @info;
+};
+
 
 sub GetPendingData
 {
@@ -913,27 +1033,5 @@ sub FindFreeDBEntry
 
    return $album;
 }
-
-sub GetAlbumInfo
-{
-   my ($this, $albumid) = @_;
-   my (@info, $sth);
-
-   $sth = $this->{DBH}->prepare(qq/select id, sequence, name from Track where 
-                Album = $albumid order by sequence/);
-   if ($sth->execute())
-   {
-       my @row;
-       my $i;
-
-       for(;@row = $sth->fetchrow_array;)
-       {  
-           push @info, [$row[0], $row[1], $row[2]];
-       }
-   }
-   $sth->finish;
-
-   return @info;
-};
 
 1;

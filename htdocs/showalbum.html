@@ -1,0 +1,26 @@
+<%perl>
+
+my ($mb); 
+my (@info, $artistname, $artistid, $albumname);
+my ($trackinfo, $albumid, @idsalbums, $i, $j); 
+
+$mb = new MusicBrainz;
+$mb->Login();
+$albumid = $ARGS{albumid};
+
+($artistid, $artistname) = $mb->GetArtistInfoFromAlbumId($albumid);
+$albumname = $mb->GetAlbumName($albumid);
+
+mc_comp("/comp/artisttitle", 
+        artistname=>$artistname, 
+        artistid=>$artistid);
+
+mc_comp("/comp/album", 
+        albumid=>$albumid, 
+        albumname=>$albumname, 
+        mb=>$mb);
+
+$mb->Logout();
+
+</%perl>
+
