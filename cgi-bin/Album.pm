@@ -70,7 +70,7 @@ sub GetTrackCountFromAlbum
    my ($this, $albumid) = @_;
    my ($sth, $count);
 
-   return -1 if (!defined $albumid)
+   return -1 if (!defined $albumid);
    $sth = $this->{DBH}->prepare(qq/select count(*) from AlbumJoin where 
                                    album=$albumid/);
    $sth->execute;
