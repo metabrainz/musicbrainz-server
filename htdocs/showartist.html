@@ -84,8 +84,8 @@ else
         mc_out("<table width=\"100%\"><tr><td align=\"center\">");
         mc_out("<font size=\"+1\">There are too many albums to list.</font>");
         mc_out("<br>Please use the <a href=\"search.html\">Search Page</a>");
-        mc_out(" to look for a specific album.");
-        mc_comp("/comp/browsebox", $page=>"/browsevarious.html");
+        mc_out(" to look for a specific album.<p>");
+        mc_comp("/comp/browsebox", page=>"/browsevarious.html");
         mc_out("</td></tr></table>");
     }
     else

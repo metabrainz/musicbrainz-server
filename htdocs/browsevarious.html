@@ -1,6 +1,6 @@
 <%perl>
 
-my ($mb, @info, $row, $ind, $i, $offset, $num_albums, $ar, $rows);
+my ($mb, @info, $row, $ind, $i, $offset, $num_albums, $al, $rows);
 my $max_items = 50;
 
 $mb = new MusicBrainz;
@@ -16,7 +16,7 @@ $offset = $ARGS{offset};
 $offset = 0 if not defined $offset;
 $offset = 0 if $offset < 0;
 
-mc_comp("/comp/variousbrowsebox", ind=>$ind);
+mc_comp("/comp/browsebox", ind=>$ind, page=>"/browsevarious.html");
 
 if (!defined $ind || $ind eq '')
 {
@@ -32,9 +32,10 @@ if (!defined $ind || $ind eq '')
 }
 
 $mb->Login();
-$ar = Artist->new($mb->{DBH});
+$al = Album->new($mb->{DBH});
+$al->SetId(Artist::VARTIST_ID);
 
-($num_artists, @info) = $al->GetVariousDisplayList($ind, $offset, $max_items);
+($num_albums, @info) = $al->GetVariousDisplayList($ind, $offset, $max_items);
 
 mc_out('<table width="100%"><tr>');
 mc_comp("/comp/listprevbutton", offset=>$offset, ind=>$ind, 
@@ -43,9 +44,9 @@ mc_comp("/comp/listprevbutton", offset=>$offset, ind=>$ind,
         text=>"<< Prev", num=>($max_items * 2));
 mc_out("<td width=\"40%\">&nbsp;</td>");
 mc_comp("/comp/listnextbutton", offset=>$offset, ind=>$ind, 
-        text=>"Next >>", num=>($max_items * 2), rows=>$num_artists);
+        text=>"Next >>", num=>($max_items * 2), rows=>$num_albums);
 mc_comp("/comp/listnextbutton", offset=>$offset, ind=>$ind, 
-        text=>"Next >", num=>$max_items, rows=>$num_artists);
+        text=>"Next >", num=>$max_items, rows=>$num_albums);
 mc_out('</tr></table>');
 
 </%perl>

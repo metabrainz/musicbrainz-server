@@ -46,10 +46,10 @@ if (length($ind) > 0)
 mc_out("</td><td>");
 mc_out("&nbsp;&nbsp;</td><td>");
 
-mc_out('<a href="$page?index='.$ind.'_">?</a> ');
+mc_out('<a href="' . $page . '?index='.$ind.'_">?</a> ');
 for($i = 0; $i < 26; $i++)
 {
-    $p .= '<a href="$page?index='. $ind . chr($i + 65) . '">' .
+    $p .= '<a href="' . $page . '?index='. $ind . chr($i + 65) . '">' .
            chr($i + 65) . "</a> ";
     if (($i + 1) % 13 == 0)
     {

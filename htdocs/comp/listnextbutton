@@ -2,8 +2,10 @@
 $ind=>""
 $offset=>0
 $text=>""
+$num=>0
+$rows=>0
 $page=>"/browseartists.html"
-</$args>
+</%args>
 <td width="15%">
 
 % if ($offset + $num < $rows) {

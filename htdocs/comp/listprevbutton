@@ -1,11 +1,12 @@
 <%args>
 $ind=>""
+$num=>0
 $offset=>0
 $text=>""
 $page=>"/browseartists.html"
 </%args>
 <td width="15%">
-% if ($ARGS{offset} > 0) {
+% if ($offset > 0) {
    <a href="<% $page %>?index=<% $ind %>&offset=<% 
     $offset - $num %>"><% $text  %></a>
 % } else {

@@ -470,3 +470,52 @@ sub MergeAlbums
    return 1;
 }
 
+# Pull back a section of various artist albums for the browse various display.
+# Given an index character ($ind), a page offset ($offset) and a page length
+# ($max_items) it will return an array of references to an array
+# of albumid, sortname, modpending. The array is empty on error.
+sub GetVariousDisplayList
+{
+   my ($this, $ind, $offset, $max_items) = @_;
+   my ($query, $num_albums, @info, @row, $sql, $ind_len); 
+
+   $ind_len = length($ind);
+   return undef if ($ind_len <= 0);
+
+   $sql = Sql->new($this->{DBH});
+   ($num_albums) =  $sql->GetSingleRow("Album", ["count(*)"], 
+                                        ["left(name, $ind_len)", 
+                                         $sql->Quote($ind),
+                                         "Album.artist", Artist::VARTIST_ID]);
+   return undef if (!defined $num_albums);
+   
+   if ($ind =~ m/_/)
+   {
+      $ind =~ s/_/[^A-Za-z]/g;
+      $ind = "^$ind";
+      $query = qq/select id, sortname, modpending 
+                  from   Album 
+                  where  name regexp "$ind" and
+                         Album.artist = / . Artist::VARTIST_ID . qq/
+                  order  by name 
+                  limit  $offset, $max_items/;
+   }
+   else
+   {
+      $query = qq/select id, name, modpending from Album 
+                   where left(name, $ind_len) = '$ind' and
+                         Album.artist = / . Artist::VARTIST_ID . qq/
+                order by name 
+                   limit $offset, $max_items/;
+   }
+   if ($sql->Select($query))
+   {
+       for(;@row = $sql->NextRow;)
+       {
+           push @info, [$row[0], $row[1], $row[2]];
+       }
+       $sql->Finish;   
+   }
+
+   return ($num_albums, @info);
+}
