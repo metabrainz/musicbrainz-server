@@ -34,6 +34,7 @@ use DBDefs;
 use MusicBrainz;
 use Sql;
 use ModDefs qw( MODBOT_MODERATOR MOD_MERGE_ARTIST );
+use UserStuff;
 
 $| = 1 if -t STDOUT;
 
