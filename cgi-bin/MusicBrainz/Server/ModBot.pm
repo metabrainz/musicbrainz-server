@@ -65,6 +65,8 @@ sub CheckModerations
 	print localtime() . " : ModBot starting\n"
 		if $fVerbose;
 
+	local $| = 1;
+
    if (&DBDefs::DB_READ_ONLY)
    {
 	   print localtime() . " : ModBot bailing out because DB_READ_ONLY is set\n";
@@ -232,6 +234,7 @@ sub CheckModerations
 	my %count;
 	my %failedcount;
 	my %status_name_from_number = reverse %{ ModDefs::status_as_hashref() };
+	my $errors = 0;
 
 	# This sub will be used to report any errors we encounter.
 	my $report_error = sub {
@@ -244,7 +247,7 @@ sub CheckModerations
 			$actiondesc;
 
 		chomp $err;
-		print $err, "\n";
+		print STDERR $err, "\n";
 
 		unless (eval { $sql->Rollback; 1 })
 		{
@@ -255,6 +258,7 @@ sub CheckModerations
 		print STDERR localtime() . " : The moderation will remain open.\n";
 
 		++$failedcount{ $mod->{__eval__} };
+		++$errors;
    };
 
    # Now run through each mod and do whatever's necessary; namely, nothing,
@@ -315,7 +319,8 @@ sub CheckModerations
        
        if ($newstate != STATUS_EVALNOCHANGE)
        {
-			print localtime() . " : Denying mod #" . $mod->GetId() . "\n"
+			print localtime() . " : Denying mod #" . $mod->GetId()
+				. " (". $status_name_from_number{$newstate} . ")\n"
 				if $fVerbose;
 			next if $fDryRun;
 
@@ -334,8 +339,37 @@ sub CheckModerations
 		   next;
        }
 
-	   # Otherwise: no change, so do nothing.
+	   # Otherwise: no change.  Check to see if the moderation should remain
+	   # open.
+	   {
+			print localtime() . " : Checking mod #" . $mod->GetId()
+				. " prerequisites\n"
+				if $fDebug;
+			next if $fDryRun;
+
+			eval
+			{
+				$sql->Begin;
+
+				my $status = $mod->CheckPrerequisites;
+				if (defined $status)
+				{
+					print localtime() . " : Closing mod #" . $mod->GetId()
+						. " (" . $status_name_from_number{$status} . ")\n";
+
+					$mod->DeniedAction;
+					$mod->CloseModeration($status);
+				}
+
+				$sql->Commit;
+			};
+
+	 		$report_error->($@, $mod, "deny") if $@;
+	 		next;
+	   }
    }
+
+	# All done.  Print a summary if one was requested.
 
 	if ($fSummary)
 	{
@@ -359,10 +393,11 @@ sub CheckModerations
 	print localtime() . " : ModBot completed\n"
 		if $fVerbose;
 
-	0;
+	# Exit with a failure code if any errors were encountered
+	($errors ? 3 : 0);
 }
 
-# Check a given moderation for any dependecies that may have not been met
+# Check a given moderation for any dependencies that may have not been met
 sub CheckModificationForFailedDependencies
 {
    my ($this, $mod, $modhash) = @_;
