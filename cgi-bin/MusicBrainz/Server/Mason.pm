@@ -120,9 +120,14 @@ sub handler
 	# Make these available to all components:
 	use HTML::Mason::Tools qw( html_escape url_escape );
 
-    use vars qw(%session);
+    use vars qw(%session %pnotes);
     untie %session;
     %session = ();
+    %pnotes = ();
+
+	$r = Apache::Request->new($r)
+		unless UNIVERSAL::isa($r, 'Apache::Request');
+	$pnotes{'ispopup'} = ($r->param("ispopup") ? 1 : "");
 
     use CGI::Cookie ();
     my %cookies = CGI::Cookie->parse($r->header_in('Cookie'));
