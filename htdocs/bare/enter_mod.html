@@ -14,15 +14,20 @@ sub CheckArg
 
 my ($mb, $i, $j, $mod, $new, $modid, $depmod, $url);
 
+print STDERR "enter_mod: =============================================================\n";
+print STDERR Data::Dumper->Dump([%ARGS], ["ARGS"]);
+
 $mb = new MusicBrainz;
 $mb->Login();
 $mod = Moderation->new($mb->{DBH});
 
 for($i = 0;; $i++)
 {
+    print STDERR "Sanity check: $i\n";
     if ($ARGS{('new' . $i)} eq 'DELETE' && 
         $ARGS{('confirm' . $i)} ne 'yes')
     {
+        print STDERR "mod was not confirmed\n";
         last;
     }
 
@@ -36,7 +41,7 @@ for($i = 0;; $i++)
     last if (!CheckArg(\%ARGS, $i, 'id'));
     if ($ARGS{('new' . $i)} eq '')
     {
-        #print STDERR "enter_mod: empty new$i\n";
+        print STDERR "enter_mod: empty new$i\n";
         next;
     }
     next if ($ARGS{('new' . $i)} eq $ARGS{('prev' . $i)});
@@ -58,11 +63,12 @@ for($i = 0;; $i++)
             last;
         }
     }
+    print STDERR "Sanity check ok: $i\n";
 
-    #print STDERR join(" - ", $ARGS{('table' . $i)}, 
-    #   $ARGS{('column' . $i)}, $ARGS{('artist' . $i)}, 
-    #   $ARGS{('type' . $i)}, $ARGS{('id' . $i)},
-    #   $ARGS{('prev' . $i)}, $new, $session{uid}, $depmod) . "\n";
+    print STDERR join(" - ", $ARGS{('table' . $i)}, 
+       $ARGS{('column' . $i)}, $ARGS{('artist' . $i)}, 
+       $ARGS{('type' . $i)}, $ARGS{('id' . $i)},
+       $ARGS{('prev' . $i)}, $new, $session{uid}, $depmod) . "\n";
     $mod->SetTable($ARGS{('table' . $i)});
     $mod->SetColumn($ARGS{('column' . $i)});
     $mod->SetArtist($ARGS{('artist' . $i)});
@@ -72,9 +78,11 @@ for($i = 0;; $i++)
     $mod->SetNew($new);
     $mod->SetModerator($session{uid});
     $mod->SetDepMod($depmod);
+    print STDERR "Insert mod\n";
     $modid = $mod->InsertModeration();
     $modid = ($depmod == 0) ? $modid : $depmod;
 }
+print STDERR "enter_mod done: ========================================================\n";
 $mb->Logout();
 
 $r->method('GET');
