@@ -117,22 +117,23 @@ $m->comp(
 
 	my $relations = $artist->GetRelations();
 
-	if (@$relations)
-	{
-		splice(@$relations, 3) if @$relations > 3;
-		</%perl>
+	my @links = map {
+		'<a href="/showartist.html?artistid=' . $_->{'id'} .
+		'">' . $_->{'name'} . '</a>'
+	} @$relations;
 
+	if (@links > 3) {
+		@links = (@links[0..2], '<a href="/artistrel.html?artistid=' .
+			$artist->GetId . '">more...</a>')
+	}
+
+	if (@links)
+	{
+		</%perl>
 		<div class="RelatedArtists">
 			Related artists:
-
-%			for my $rel (@$relations) {
-			<a href="/showartist.html?artistid=<% $rel->{id} %>"
-				><% $rel->{name} %></a>,
-%			}
-
-			<a href="/artistrel.html?artistid=<% $artist->GetId %>">more...</a>
+		<% join ', ', @links | n %>
 		</div>
-
 		<%perl>
 	}
 
