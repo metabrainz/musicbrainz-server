@@ -25,7 +25,6 @@ else
 mc_comp("/comp/albumbegin", 
         artist=>$artist, 
         album=>$album, 
-        showdel=>(scalar(@info) == 0),
         nomod=>$nomod);
 for($i = 0;; $i++)
 {

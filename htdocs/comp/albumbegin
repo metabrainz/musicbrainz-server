@@ -1,7 +1,6 @@
 <%args>
 $artist
 $album
-$showdel
 $nomod
 </%args>
 
@@ -41,9 +40,7 @@ my $albumid = $album->GetId();
 % if (exists $session{user} && !$nomod) {
         <td width=15% bgcolor="#FFBA58" align=center>
           <a href="/editalbum.html?id=<% $albumid %>&artist=<% $artist->GetId() %>">Edit</a>
-%       if ($showdel) {
            | <a href="/remalbum.html?album=<% $albumid %>&artist=<% $artist->GetId() %>">Del</a>
-%       }
         </td>
 % }
   </tr>

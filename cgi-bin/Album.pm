@@ -83,13 +83,40 @@ sub Insert
 sub Remove
 {
     my ($this) = @_;
-    my ($sql);
+    my ($sql, $sql2, $album, @row, @row2);
 
-    return if (!defined $this->GetId());
+    $album = $this->GetId();
+    return if (!defined $album);
   
     $sql = Sql->new($this->{DBH});
-    $sql->Do("delete from Album where id = " . $this->GetId());
-    $sql->Do("delete from Diskid where album = " . $this->GetId());
+    $sql->Do("delete from Album where id = $album");
+    $sql->Do("delete from Diskid where album = $album");
+
+    if ($sql->Select(qq|select AlbumJoin.track from AlbumJoin 
+                         where AlbumJoin.album = $album|))
+    {
+         $sql2 = Sql->new($this->{DBH});
+         while(@row = $sql->NextRow)
+         {
+             if ($sql2->Select(qq|select count(*) from AlbumJoin 
+                                   where AlbumJoin.album != $album and 
+                                         AlbumJoin.track = $row[0]|))
+             {
+                 if (@row2 = $sql2->NextRow())
+                 {
+                     if ($row2[0] == 0)
+                     {
+                         $sql->Do("delete from Track where id=$row[0]");
+                         $sql->Do("delete from AlbumJoin where track=$row[0]");
+                         # TODO gotta delete trms
+                     }
+                 }
+
+                 $sql2->Finish;
+             }
+         }
+         $sql->Finish;
+    }
 }
 
 # Given an album, query the number of tracks present in this album

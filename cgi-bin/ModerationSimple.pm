@@ -656,25 +656,10 @@ sub ApprovedAction
         @row = $sql->NextRow;
         $album = $row[0];
 
-        # Check to see if there are any tracks in this album. If so,
-        # don't delete the album -- set it to failed dependency
-        $sql->Finish;
-        if ($sql->Select(qq/select count(*) from AlbumJoin
-                                     where album = $album/)) 
-        {
-            @row = $sql->NextRow;
-
-            if ($row[0] > 0)
-            {
-                $status = ModDefs::STATUS_FAILEDDEP;
-            }
-            else
-            {
-                $sql->Do(qq/delete from Album where id = $album/);
-                $status = ModDefs::STATUS_APPLIED;
-            }
-            $sql->Finish;
-        }
+        my $al = Album->new($this->{DBH});
+        $al->SetId($album);
+        $al->Remove();
+        $status = ModDefs::STATUS_APPLIED;
    }
 
    return $status;
