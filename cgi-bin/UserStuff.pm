@@ -73,14 +73,6 @@ sub SetEmailConfirmDate	{ $_[0]{emailconfirmdate} = $_[1] }
 sub GetLastLoginDate	{ $_[0]{lastlogindate} }
 sub SetLastLoginDate	{ $_[0]{lastlogindate} = $_[1] }
 
-sub _new_from_row
-{
-	my ($this, $row) = @_;
-	$row or return undef;
-	$row->{DBH} = $this->{DBH};
-	bless $row, ref($this) || $this;
-}
-
 sub newFromId
 {
 	my ($this, $uid) = @_;

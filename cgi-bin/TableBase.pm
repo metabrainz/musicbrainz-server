@@ -51,6 +51,14 @@ sub new
     }, $type;
 }
 
+sub _new_from_row
+{
+	my ($this, $row) = @_;
+	$row or return undef;
+	$row->{DBH} = $this->{DBH};
+	bless $row, ref($this) || $this;
+}
+
 sub GetDBH
 {
     return $_[0]->{DBH}; 
