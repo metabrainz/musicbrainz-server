@@ -1195,7 +1195,8 @@ sub QuickTrackInfoFromTRMId
    $id = $sql->Quote($id);
    @data = $sql->GetSingleRow(
       "GUID, GUIDJoin, Track, AlbumJoin, Album, Artist", 
-      ["Track.name", "Artist.name", "Album.name", "AlbumJoin.sequence"],
+      ["Track.name", "Artist.name", "Album.name", 
+       "AlbumJoin.sequence", "Track.GID"],
       ["GUID.guid", $id,
        "GUIDJoin.guid", "GUID.id",
        "GUIDJoin.track", "Track.id",
@@ -1210,8 +1211,11 @@ sub QuickTrackInfoFromTRMId
    $out .= $rdf->Element("mq:albumName", $data[2]);
    $out .= $rdf->Element("mq:trackName", $data[0]);
    $out .= $rdf->Element("mm:trackNum", $data[3]);
+   $out .= $rdf->Element("mm:trackid", $data[4]);
    $out .= $rdf->EndDesc("mq:Result");
    $out .= $rdf->EndRDFObject;
+
+   print STDERR "$out";
 
    return $out;
 }
