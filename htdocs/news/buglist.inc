@@ -5,7 +5,7 @@
 
 for my $bug (@_)
 {
-	my ($id, $desc) = $bug =~ /^(\d+) (.*)$/;
+	my ($id, $desc) = $bug =~ /^(\d+)\s+(.*)$/;
 	</%perl>
 	<li><% $id %> <a href="http://sourceforge.net/tracker/index.php?func=detail&amp;aid=<% $id %>&amp;group_id=19506&amp;atid=119506"><% $desc %></a></li>
 	<%perl>
