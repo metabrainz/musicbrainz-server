@@ -48,16 +48,13 @@ else
 
 <table width=100%>
 <tr>
-  <td width="25%" align="center" valign="top">
+  <td width="33%" align="center" valign="top">
 %    mc_out($option1);
   </td>
-  <td width="25%" align="center" valign="top">
+  <td width="33%" align="center" valign="top">
 %    mc_out($option2);
   </td>
-  <td width="25%" align="center" valign="top">
-     <a href="tag_mods.html">Tagged Mods</a>
-  </td>
-  <td width="25%" align="center" valign="top">
+  <td width="33%" align="center" valign="top">
      <a href="mod_intro.html">Questions?</a>
   </td>
 </tr>

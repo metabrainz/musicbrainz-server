@@ -65,7 +65,7 @@ use constant DEFAULT_LYRICS_URL => 'http://www.mp3.nl';
 use constant SEARCH_LYRICS_OFFSITE => 1;
 
 # This defines the version of the server
-use constant VERSION => "1.0.0-pre6";
+use constant VERSION => "1.0.0-pre7";
 
 # Defines the number of seconds before the votes on a 
 # modification are evaluated

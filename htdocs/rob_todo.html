@@ -4,12 +4,23 @@ These are the tasks that I am currently working on. The first task the
 the most important and the last task is the least important. <p>
 
 <& /comp/todoentry, 
-   task=>'Server perl module restructure', 
-   skills=>'Perl/RDF/SQL', 
-   desc=>qq\The internal server modules need a cleanup in order to make
-            the server more robust in trapping errors, and this will
-            also serve as a stepping stone to implementing the database
-            replication.\
+   task=>'Run clean-up scripts', 
+   skills=>'Perl/HTML', 
+   desc=>qq\Run a number of scripts to clean up the database:<br>
+            <ul>
+            <li>Automatically set the sortname of artists that start with The.
+            <li>Kicking out duplicate tracks where one of the tracks has
+                a zero tracknumber.
+            <li>Automatically converting EMusic collection albums to MACs.
+            <li>Merge split MACs.
+            </ul>\
+&>
+
+<& /comp/todoentry, 
+   task=>'Add support for merging albums', 
+   skills=>'Perl/HTML', 
+   desc=>qq\Finish the support for tagged moderations and implement a merge
+            album feature.\
 &>
 
 <& /comp/todoentry, 
@@ -37,22 +48,3 @@ the most important and the last task is the least important. <p>
                 does not follow the style guidelines.
             </ul>\
 &>
-
-<& /comp/todoentry, 
-   task=>'Improve pending submisson process (complete)', 
-   skills=>'perl/database programming', 
-   desc=>qq\NOTE: This task is complete, but has not been made active on 
-            the server yet. For the next FreeAmp/MBClient release these
-            changes will be merged into the main CVS branch and then uploaded
-            to the server.<p>
-            
-            Have the client submit the SHA1 signature of a track along with
-            the metadata during a metadata exchange with FreeAmp. This will
-            allow the MB server to not accept data into the database that
-            comes from two tracks that have the same SHA1 value. Also, 
-            store a date when a pending submission was accepted in order
-            to remove old submissions. Last, do not accept items into the
-            pending table if they do not have complete artist album and
-            track information.\
-&>
-
