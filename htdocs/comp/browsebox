@@ -22,10 +22,10 @@ if (length($ind) > 0)
         <td bgcolor="#FFBA58" align="left" valign="middle" 
             width="100%" class="mbtable" NOWRAP>
         <img src="/images/pixel.gif" width="3" height="1" alt="" 
-             border="0" align="absmiddle">
+             border="0">
         <font size="+2" color="black"><% $t %></font> 
         <img src="/images/pixel.gif" width="3" height="1" alt="" 
-             border="0" align="absmiddle">
+             border="0">
         </td>
        </tr>
        </table>

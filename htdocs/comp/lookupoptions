@@ -60,7 +60,7 @@ you can do the following things:
     <input type="hidden" name="id" value="0">
     <input type="hidden" name="url" value="/search.html">
     <input type="hidden" name="nonalbum" value="1">
-    <script language="JavaScript" type="text/javascript">
+    <script type="text/javascript">
     <!--
     function submitit ( )
     {

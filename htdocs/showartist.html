@@ -169,7 +169,7 @@ else
             </%perl>
 
             <form method="post" action="/mod/tag/donetag.html" 
-                  name="EditAlbumAttrsForm"
+                  id="EditAlbumAttrsForm"
                   enctype="application/x-www-form-urlencoded"> 
 
             <& /comp/framedboxbegin, width=>"100%" &>
@@ -180,7 +180,7 @@ else
             <td align="center">
 
             <a href="/showartist.html?artistid=<% $artist->GetId() %>&amp;ex=<% $exall %>">
-            <img src="/images/plus.gif" align="center"
+            <img src="/images/plus.gif" align="middle"
                  alt="Expand" title="Expand All Albums"
                  height="13" width="13" border="0"> Expand All</a>
     
@@ -188,7 +188,7 @@ else
             
             <td align="center">
             <a href="/showartist.html?artistid=<% $artist->GetId() %>">
-            <img src="/images/minus.gif" align="center"
+            <img src="/images/minus.gif" align="middle"
                  alt="Collapse" title="Collapse All Albums"
                  height="13" width="13" border="0"> Collapse All</a>
             </td>
@@ -198,11 +198,11 @@ else
                        title="Moderate a batch of selected albums"
                        src="/images/batch.gif" height="13" width="13">
                    <a href="javascript:submitit()">Batch Operation</a>
-                <script language="JavaScript" type="text/javascript">
+                <script type="text/javascript">
                 <!--
                 function submitit ( )
                 {
-                    document.EditAlbumAttrsForm.submit() ;
+                    document.forms.EditAlbumAttrsForm.submit() ;
                 }
                 -->
                 </script>

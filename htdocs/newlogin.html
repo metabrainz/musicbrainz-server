@@ -14,7 +14,7 @@ $mbt=>0
 Please fill out the form below to create a new MusicBrainz account:
 <br>
 
-<FORM METHOD="POST" ACTION="/createlogin.html" NAME="LoginForm"
+<FORM METHOD="POST" ACTION="/createlogin.html" id="LoginForm"
       ENCTYPE="application/x-www-form-urlencoded">
 <table>
 <tr>
@@ -55,7 +55,7 @@ if ($url ne "") {
 }
 </%perl>
 </form>
-<script language="JavaScript">document.LoginForm.User.focus();</script>
+<script type="text/javascript">document.forms.LoginForm.User.focus();</script>
 
 <& /comp/tableend &>
 <& /comp/footer &>

@@ -17,7 +17,7 @@
            <input type="hidden" name="cmd" value="_xclick">
            <input type="hidden" name="business" value="donations@musicbrainz.org">
            <input type="hidden" name="item_name" value="Donation to MusicBrainz">
-           <input type="image" src="/images/paypal.gif" border="0" name="submit" alt="Donate to MusicBrainz!">
+           <input type="image" src="/images/paypal.gif" style="border: 0" name="submit" alt="Donate to MusicBrainz!">
            </form>
          </td>
       </tr>

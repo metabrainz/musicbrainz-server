@@ -1,8 +1,8 @@
 <!-- This FIRST Section has NO black line on the TOP!!! the Rest are Generic -->
-      <table width="141" cellpadding="0" cellspacing="0" border="0" background="">
+      <table width="141" cellpadding="0" cellspacing="0" border="0">
       <tr>
          <td width="131" height="20" bgcolor="#AAAAAA"><img src="/images/pixel.gif" width="5" height="1" alt="" border="0">
-            <span class="section" align=center>
+            <span class="section">
 
             <% $ARGS{title} %> 
 

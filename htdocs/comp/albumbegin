@@ -43,18 +43,18 @@ if ($link ne '')
   <table width="100%" border="0" cellspacing="1" cellpadding="2">
   <tr>
 % if ($album->GetModPending()) {
-        <td width="85%" bgcolor="#FFFFCC" valign="center">
+        <td width="85%" bgcolor="#FFFFCC" valign="middle">
 %          if ($image ne '') {
                <a href="<% $link %>"><img title="<% $title %>"
                   alt="<% $alt %>"
-                  src="<% $image %>" align="center" border="0"></a>
+                  src="<% $image %>" align="middle" border="0"></a>
 %          }
            <a href="/<% $script %>.html?albumid=<% $album->GetId() %>"><% $name |h %></a>
 % } else {
-        <td width="85%" bgcolor="#FFBA58" valign="center">
+        <td width="85%" bgcolor="#FFBA58" valign="middle">
 %          if ($image ne '') {
                <a href="<% $link %>"><img alt="<% $alt %>" title="<% $title %>"
-                  src="<% $image %>" align="center" border="0"></a>
+                  src="<% $image %>" align="middle" border="0"></a>
 %          }
            <a href="/<% $script %>.html?albumid=<% $album->GetId() %>"><% $name |h %></a>
 % }

@@ -9,9 +9,9 @@ $bgcolor=>"#FFFFFF"
   <table width="100%" cellpadding="2" cellspacing="1" border="0">
   <tr>
     <td bgcolor="#FFBA58" align="left" valign="middle" width="100%" class="mbtable" NOWRAP>
-    <img src="/images/pixel.gif" width="3" height="1" alt="" border="0" align="absmiddle">
+    <img src="/images/pixel.gif" width="3" height="1" alt="" border="0">
     <% $title %> 
-    <img src="/images/pixel.gif" width="3" height="1" alt="" border="0" align="absmiddle">
+    <img src="/images/pixel.gif" width="3" height="1" alt="" border="0">
     </td>
     </tr>
     <tr>

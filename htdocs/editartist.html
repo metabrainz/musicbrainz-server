@@ -1,6 +1,6 @@
 <& /comp/sidebar, title=>'Edit Artist Name', expand=>'moderate' &>
 
-<script language=javascript><!--
+<script type="text/javascript"><!--
 
 function GuessSortname(name)
 {
@@ -124,7 +124,7 @@ $modpending = $ar->GetModPending();
         </td>
         <td>
         <INPUT TYPE="text" NAME="new0" SIZE=25 value="<% $artistname %>"> 
-        <script language=javascript><!--
+        <script type="text/javascript"><!--
         document.write(
           "&nbsp; <input type=\"button\" value=\"Guess Case\" " +
           "onclick=\"form.new0.value=GuessCase(form.new0.value)\">"
@@ -146,7 +146,7 @@ $modpending = $ar->GetModPending();
         </td>
         <td>
         <INPUT TYPE="text" NAME="new1" SIZE=25 value="<% $sortname %>"> 
-        <script language=javascript><!--
+        <script type="text/javascript"><!--
         document.write(
           "&nbsp; <input type=\"button\" value=\"Guess\" " +
           "onclick=\"form.new1.value=GuessSortname(form.new0.value)\">"

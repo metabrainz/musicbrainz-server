@@ -26,7 +26,6 @@ $method=>'POST'
      <INPUT TYPE="submit" VALUE="Search"><br>
   </td>
   </tr>
-  <tr>
 </table>
 
 % while( $hide = shift(@hidden) ) {

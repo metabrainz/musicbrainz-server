@@ -19,7 +19,7 @@ $name
        <% $question |n %>
      </td>
    </tr>
-   </tr>
+   <tr>
      <td valign=top>
        <b><font color="#542b89">A:</font></b>
      </td>

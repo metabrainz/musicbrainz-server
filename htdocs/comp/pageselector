@@ -42,7 +42,7 @@ if ($end > $pagecount-1-$snaptoend) { $end = $pagecount-1 }
 </%perl>
 
 <table width="100%" style="margin: 0.2em 0"><tr>
-<td align="center" valign="absmiddle" NOWRAP>
+<td align="center" valign="middle" NOWRAP>
 <form method="post" action="<% $url %>">
 	[ Page
 	<input type="text" name="page" value="<% $index+1 %>"
@@ -57,7 +57,7 @@ if ($end > $pagecount-1-$snaptoend) { $end = $pagecount-1 }
 	of <% $pagecount %> ]
 </form>
 </td>
-<td align="center" valign="center">
+<td align="center" valign="middle">
 % if ($index > 0) {
     <a href="<% $url %>&amp;offset=0"
     	title="first page"

@@ -94,15 +94,15 @@ else
         </td>
 %       if (exists $session{user}) {
             <td align="center">
-            <script language="JavaScript" type="text/javascript">
+            <script type="text/javascript">
             <!--
             function submitit ( )
             {
-                document.EditAlbumAttrsForm.submit() ;
+                document.forms.EditAlbumAttrsForm.submit() ;
             }
             -->
             </script>
-            <FORM METHOD="POST" ACTION="/mod/tag/donetag.html" NAME="EditAlbumAttrsForm"
+            <FORM METHOD="POST" ACTION="/mod/tag/donetag.html" id="EditAlbumAttrsForm"
             ENCTYPE="application/x-www-form-urlencoded"> 
 
             <input name="submit" type="image" border="0" alt="Batch Operation" 

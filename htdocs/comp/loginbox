@@ -19,7 +19,7 @@ $url=>""
 
 % } else {
 
-<FORM METHOD="POST" ACTION="/bare/login.html" NAME="LoginForm"
+<FORM METHOD="POST" ACTION="/bare/login.html" ID="LoginForm"
       ENCTYPE="application/x-www-form-urlencoded" class="formstyle">
 <table>
 <tr>
@@ -59,6 +59,6 @@ if ($url ne "") {
 }
 </%perl>
 </form>
-<script language="JavaScript">document.LoginForm.User.focus();</script>
+<script type="text/javascript">document.forms.LoginForm.User.focus();</script>
 
 % }

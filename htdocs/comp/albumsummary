@@ -21,19 +21,19 @@ $nonalbum = $album->IsNonAlbumTracks();
 <table width="100%" cellpadding="0" cellspacing="0" border="0">
 <tr><td width="90%">
 <% $trackcount %> 
-<img src="/images/notes.gif" align="center" alt="Tracks" 
+<img src="/images/notes.gif" align="middle" alt="Tracks" 
          width="13" height="13"
          title="This album has <% $trackcount %> Tracks">
 
 % if (scalar(@ids) > 0) {
     &nbsp; &nbsp; &nbsp;<% scalar(@ids) %>
-    <img src="/images/cd.gif" align="center" alt="CD" 
+    <img src="/images/cd.gif" align="middle" alt="CD" 
                width="13" height="13"
                title="This album has <% scalar(@ids) %> CD Index Ids">
 % }
 % if ($trmids > 0) {
     &nbsp; &nbsp; &nbsp;<% $trmids %>
-    <img src="/images/trm.gif" align="center" alt="TRM" 
+    <img src="/images/trm.gif" align="middle" alt="TRM" 
                width="30" height="11"
                title="This album has <% $trmids %> TRM Ids">&nbsp;
 % }
