@@ -2,7 +2,7 @@
 #
 #   CD Index - The Internet CD Index
 #
-#   Copyright (C) 2000 Robert Kaye
+#   Copyright (C) 2000 Robert Kaye, Johan Pouwelse
 #
 #   This program is free software; you can redistribute it and/or modify
 #   it under the terms of the GNU General Public License as published by
@@ -167,7 +167,7 @@ sub InsertLyrics
     my ($this, $trackid, $lines, $writer) = @_;
     my ($id);
 
-    $id = GetLyricsId($this, $trackid);
+    $id = GetLyricsIdFromTrackId($this, $trackid);
     if ($id < 0)
     {
          $lines = $this->{DBH}->quote($lines);
