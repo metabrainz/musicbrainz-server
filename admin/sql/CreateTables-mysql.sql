@@ -142,7 +142,7 @@ create table moderationnote (
    Id bigint auto_increment primary key,
    ModId int not null, 
    Uid int not null, 
-   Text varchar(255) not null);
+   Text TEXT not null);
 
 drop table if exists votes;
 create table votes (

@@ -131,7 +131,7 @@ create table ModerationNote (
    Id serial primary key,
    ModId int not null, 
    Uid int not null, 
-   Text varchar(255) not null);
+   Text TEXT not null);
 
 create table Votes (
    Id serial primary key,
