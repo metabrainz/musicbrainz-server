@@ -66,6 +66,16 @@ h3
 	color: #000;
 }
 
+.error
+{
+	border: 3px outset red;
+	margin: 1em;
+	font-weight: bold;
+	padding: 1em;
+	background-color: #fee;
+	color: #000;
+}
+
 ul, ol
 {
 	margin-left: 1em;
