@@ -110,6 +110,7 @@ push @where, $m->comp(
 
 # Find out whether we're using the _open tables, the _closed ones, or _all.
 my $table_suffix = "all";
+my $open_opt;
 if (@mod_status)
 {
 	my $need_open = 0;
@@ -126,6 +127,10 @@ if (@mod_status)
 	$table_suffix = ($need_open
 		? $need_closed ? "all" : "open"
 		: "closed"
+	);
+	$open_opt = ($need_open
+		? $need_closed ? undef : 1
+		: 0
 	);
 }
 
@@ -423,7 +428,7 @@ for my $t (
 		next;
 	}
 
-	my $modid = Moderation->iFindByTime($dbh, $time);
+	my $modid = Moderation->iFindByTime($dbh, $time, 'open' => $open_opt);
 	$filter{$key} = $$ref;
 	$$ref = $modid;
 }
