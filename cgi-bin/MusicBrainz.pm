@@ -106,13 +106,13 @@ sub DESTROY
 sub IsNonNegInteger
 {
 	my $t = shift;
-	defined($t) and $t =~ /\A(\d{1,20})\z/;
+	defined($t) and not ref($t) and $t =~ /\A(\d{1,20})\z/;
 }
 
 sub IsSingleLineString
 {
 	my $t = shift;
-	defined($t) or return undef;
+	defined($t) and not ref($t) or return undef;
 
 	use Encode qw( decode FB_CROAK );
 	my $s = eval { decode("utf-8", $t, FB_CROAK) };
@@ -124,7 +124,7 @@ sub IsSingleLineString
 sub IsGUID
 {
 	my $t = $_[0];
-	defined($t) or return undef;
+	defined($t) and not ref($t) or return undef;
 	length($t) eq 36 or return undef;
 
 	$t =~ /[^0-]/ or return undef;
