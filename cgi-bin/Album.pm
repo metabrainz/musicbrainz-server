@@ -31,6 +31,7 @@ use vars qw(@ISA @EXPORT);
 @EXPORT = '';
 
 use strict;
+use Carp qw( cluck );
 use DBI;
 use DBDefs;
 use Artist;
@@ -372,12 +373,23 @@ sub Remove
 
 sub LoadAlbumMetadata
 {
-   my ($this) = @_;
-   my ($sql);
+ 	my ($this) = @_;
+	my $sql = Sql->new($this->{DBH});
 
-   $sql = Sql->new($this->{DBH});
-   ($this->{trackcount}, $this->{discidcount}, $this->{trmidcount}) = 
-         $sql->GetSingleRow("albummeta", ["tracks, discids, trmids"], ["id", $this->{id}]);
+	my $row = $sql->SelectSingleRowHash(
+		"SELECT * FROM albummeta WHERE id = ?",
+		$this->GetId,
+	);
+
+	if ($row)
+	{
+		$this->{trackcount} = $row->{tracks};
+		$this->{discidcount} = $row->{discids};
+		$this->{trmidcount} = $row->{trmids};
+	} else {
+		warn "No albummeta row for album #".$this->GetId."\n";
+		delete @$this{qw( trackcount discidcount trmidcount )};
+	}
 }
 
 # Given an album, query the number of tracks present in this album
@@ -450,58 +462,53 @@ sub GetAlbumIdsFromTrackId
 # accessor functions.
 sub LoadFromId
 {
-   my ($this, $loadmeta) = @_;
-   my ($sth, $sql, @row, @where);
+	my ($this, $loadmeta) = @_;
+	my ($idcol, $idval);
+	
+	if ($this->GetId)
+	{
+		$idcol = "id";
+		$idval = $this->GetId;
+	}
+	elsif ($this->GetMBId)
+	{
+		$idcol = "gid";
+		$idval = $this->GetMBId;
+	}
+	else
+	{
+		cluck "Album::LoadFromId called with no id or gid";
+		return undef;
+	}
 
-   if (!defined $this->GetId() && !defined $this->GetMBId())
-   {
-        return undef;
-   }
+	my $sql = Sql->new($this->{DBH});
+	my $row = $sql->SelectSingleRowArray(
+		"SELECT	a.id, name, gid, modpending, artist, attributes"
+		. ($loadmeta ? ", tracks, discids, trmids" : "")
+		. " FROM album a"
+		. ($loadmeta ? " INNER JOIN albummeta m ON m.id = a.id" : "")
+		. " WHERE	a.$idcol = ?",
+		$idval,
+	) or return undef;
 
-   $sql = Sql->new($this->{DBH});
-   if (defined $this->GetId())
-   {
-        @where = ("album.id", $this->{id});
-   }
-   else
-   {
-        @where = ("gid", $sql->Quote($this->GetMBId()));
-   }
-   if (defined $loadmeta && $loadmeta)
-   {
-        @row = $sql->GetSingleRow("Album, Albummeta", [qw(album.id name GID modpending 
-                                  artist attributes tracks discids trmids)],
-                                  [ @where, "album.id", "albummeta.id" ]);
-   }
-   else
-   {
-        @row = $sql->GetSingleRow("Album", [qw(album.id name GID modpending artist attributes)],
-                                  \@where);
-   }
+	$this->{id}			= $row->[0];
+	$this->{name}		= $row->[1];
+	$this->{mbid}		= $row->[2];
+	$this->{modpending}	= $row->[3];
+	$this->{artist}		= $row->[4]; 
+	$this->{attrs}		= [ $row->[5] =~ /(\d+)/g ];
 
-   if (defined $row[0])
-   {
-        $this->{id} = $row[0];
-        $this->{name} = $row[1];
-        $this->{mbid} = $row[2];
-        $this->{modpending} = $row[3];
-        $this->{artist} = $row[4]; 
-        $row[5] =~ s/^\{(.*)\}$/$1/;
-        $this->{attrs} = [ split /,/, $row[5] ];
+	delete @$this{qw( trackcount discidcount trmidcount )};
+	delete @$this{qw( _discids _tracks )};
 
-		delete @$this{qw( trackcount discidcount trmidcount )};
-		delete @$this{qw( _discids _tracks )};
+	if ($loadmeta)
+	{
+		$this->{trackcount}		= $row->[6];
+		$this->{discidcount}	= $row->[7];
+		$this->{trmidcount}		= $row->[8];
+	}
 
-        if (defined $loadmeta && $loadmeta)
-        {
-            $this->{trackcount} = $row[6];
-            $this->{discidcount} = $row[7];
-            $this->{trmidcount} = $row[8];
-        }
-
-        return 1;
-   }
-   return undef;
+	1;
 }
 
 # This function returns a list of album ids for a given artist and album name.
@@ -865,14 +872,20 @@ sub UpdateAttributes
 
 sub GetTrackSequence
 {
-   my ($this, $trackid) = @_;
-   my ($num, $sql);
+	my ($this, $trackid) = @_;
 
-   $sql = Sql->new($this->{DBH});
-   ($num) = $sql->GetSingleColumn("AlbumJoin", "Sequence", 
-                                  ["album", $this->GetId(),
-                                   "track", $trackid]);
-   return $num;
+	unless ($trackid)
+	{
+        cluck "Album::GetTrackSequence called with false trackid\n";
+        return undef;
+	}
+
+	my $sql = Sql->new($this->{DBH});
+	$sql->SelectSingleValue(
+		"SELECT sequence FROM albumjoin WHERE album = ? AND track = ?",
+		$this->GetId,
+		$trackid,
+	);
 }
 
 sub RDF_URL
