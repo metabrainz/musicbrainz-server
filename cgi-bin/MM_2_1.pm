@@ -104,16 +104,18 @@ sub OutputAlbumRDF
     return "" if (!defined $this->GetBaseURI());
 
     $album = $ref->{obj};
-   
+  
     $artist = $this->GetFromCache('artist', $album->GetArtist()); 
-    return "" if (!defined $artist);
 
     $out  = $this->BeginDesc("mm:Album", $this->GetBaseURI() .
                             "/album/" . $album->GetMBId());
     $out .=   $this->Element("dc:title", $album->GetName());
-    $out .=   $this->Element("dc:creator", "", "rdf:resource",
-                             $this->GetBaseURI() . "/artist/" . 
-                             $artist->GetMBId());
+    if (defined $artist)
+    {
+        $out .=   $this->Element("dc:creator", "", "rdf:resource",
+                                 $this->GetBaseURI() . "/artist/" . 
+                                 $artist->GetMBId());
+    }
 
     if (exists $album->{"_cdindexid0"} && $album->{"_cdindexid0"} ne '')
     {
