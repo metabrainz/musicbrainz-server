@@ -3,40 +3,53 @@
 my ($mb); 
 my ($track, $artist, $album, $trackid, @info, $gu, @guid, $id); 
 
-if (!exists $ARGS{trackid} || $ARGS{trackid} eq '')
+if ((!exists $ARGS{trackid} || $ARGS{trackid} eq '') &&
+    (!exists $ARGS{albumjoinid} || $ARGS{albumjoinid} eq ''))
 {
+    mc_comp("/comp/sidebar", title=>"Error");
     mc_comp("/comp/badargs");
     return;
 }
 
-$trackid = $ARGS{trackid};
 $mb = new MusicBrainz;
 $mb->Login();
-
 $track = Track->new($mb->{DBH});
-$track->SetId($trackid);
 
-if (! $track->LoadFromId())
+if (exists $ARGS{trackid})
 {
-    mc_comp("/comp/sidebar", title=>"Error");
-    mc_out("This track (ID=$trackid) was not found<br>");
+    $trackid = $ARGS{trackid};
+    $track->SetId($trackid);
+    if (! $track->LoadFromId())
+    {
+        mc_comp("/comp/sidebar", title=>"Error");
+        mc_out("This track (ID=$trackid) was not found<br>");
+        return;
+    }
 }
 else
 {
-    $gu = GUID->new($mb->{DBH});
-    @guid = $gu->GetGUIDFromTrackId($track->GetId());
-
-    $artist = Artist->new($mb->{DBH});
-    $artist->SetId($track->GetArtist());
-    if (!defined $artist->LoadFromId())
+    if (! $track->LoadFromAlbumJoin($ARGS{albumjoinid}))
     {
         mc_comp("/comp/sidebar", title=>"Error");
-        mc_out("Could not load artist.");
+        mc_out("This track (AlbumJoinID=$ARGS{albumjoinid}) was not found<br>");
+        return;
     }
-    else
-    {
-        mc_comp("/comp/sidebar", title=>"Track Details: " . $track->GetName());
-    }
+}
+
+$gu = GUID->new($mb->{DBH});
+@guid = $gu->GetGUIDFromTrackId($track->GetId());
+
+$artist = Artist->new($mb->{DBH});
+$artist->SetId($track->GetArtist());
+if (!defined $artist->LoadFromId())
+{
+    mc_comp("/comp/sidebar", title=>"Error");
+    mc_out("Could not load artist.");
+}
+else
+{
+    mc_comp("/comp/sidebar", title=>"Track Details: " . $track->GetName());
+}
 
 </%perl>
 
@@ -134,8 +147,6 @@ else
         }
     }
 
-    # SHOW LYRICS!
-}
 $mb->Logout();
 
 </%perl>

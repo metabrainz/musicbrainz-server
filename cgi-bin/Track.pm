@@ -143,6 +143,21 @@ sub SetAlbumJoinModPending
    $_[0]->{albumjoinmodpending} = $_[1];
 }
 
+# Given an albumjoin id, determine the track id and load it
+sub LoadFromAlbumJoin
+{
+   my ($this, $albumjoinid) = @_;
+   my ($sql, $trackid);
+
+   $sql = Sql->new($this->{DBH});
+   ($trackid) = $sql->GetSingleRow("AlbumJoin", ["Track"], 
+                                   ["AlbumJoin.id", $albumjoinid]);
+   return undef if (!defined $trackid);
+
+   $this->SetId($trackid);
+   return $this->LoadFromId();
+}
+
 # Load a track. Set the track id and the album id via the SetId and SetAlbum
 # Accessor functions. Return true on success, undef otherwise
 sub LoadFromId
