@@ -13,14 +13,26 @@
 <& /comp/faqheader, title=>'General Questions' &>
 
 <& /comp/faqentry,
-   question=>'',
-   answer=>'',
+   question=>'The Tagger has identified a track even though the server does not have a TRM id for that track. How does that work?',
+   answer=>'If the server does not know anything about a given TRM, it will attempt to look up the track from the metadata from the ID3/Vorbiscomment tags and the name of the file. If the data matches a track in the database, the tagger will use this data and consider the track identified.',
+   name=>'notrm'
+&>
+
+<& /comp/faqentry,
+   question=>'What is a TRM collision?',
+   answer=>'A TRM collision occurs if two different tracks have the same TRM id. Acoustic finerprinting is not an exact science and thus we have to expect a certain number of duplicates and collisions. The tagger makes its best effort to chose the right track when an collision occurs, but sometimes it cannot make an educated guess and then you need to chose the correct track.',
    name=>''
 &>
 
 <& /comp/faqentry,
-   question=>'',
-   answer=>'',
+   question=>'What is a TRM duplicate?',
+   answer=>'A TRM duplicate occurs if two different copies of the same music track yield the same TRM id. As mentioned above, acoustic fingerprinting is not an exact science and sometimes the same track encoded with two different encoders or bitrates will yield differnt TRM ids.',
+   name=>''
+&>
+
+<& /comp/faqentry,
+   question=>'The track detail page for some tracks show more than one TRM id. Aren\'t the TRM ids supposed to be unique?',
+   answer=>'What you are seeing are TRM duplicates for that track. See above.',
    name=>''
 &>
 
