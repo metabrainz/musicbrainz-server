@@ -1,0 +1,92 @@
+<& /comp/sidebar, title=>'Add Artist Alias', expand=>'moderate' &>
+
+<%perl>
+
+my ($mb, $id, $ar); 
+my ($artistname, $referer, $modpending, $sortname); 
+
+if (!exists $ARGS{id} || $ARGS{id} eq '') 
+{
+    mc_comp("/comp/badargs");
+    return;
+}
+
+$id = $ARGS{id};
+if ($id == Artist::VARTIST_ID)
+{
+    mc_out("You add an alias to this artist.\n");
+    return;
+}
+
+$referer = $r->headers_in->{'Referer'};
+$mb = new MusicBrainz;
+$mb->Login();
+
+$ar = Artist->new($mb->{DBH});
+$ar->SetId($id);
+$ar->LoadFromId();
+$artistname = $ar->GetName();
+$sortname = $ar->GetSortName();
+$modpending = $ar->GetModPending();
+
+</%perl>
+
+% if (!defined $session{user} || $session{user} eq '') {
+    You must be logged in to edit the database.<p>
+    <& /comp/tablebegin, title=>'Login' &>
+    <& /comp/loginbox &>
+    <& /comp/tableend &>
+% } else {
+
+    <& /comp/tablebegin, gattrs=>"width=\"100%\"",
+       title=>'Add Artist Alias' &>
+
+% if ($modpending) {
+    <& /comp/modpending &>
+% }
+
+    Enter a new artist alias below:
+
+    <FORM METHOD="POST" ACTION="/bare/enter_mod.html" NAME="AddAliasForm"
+          ENCTYPE="application/x-www-form-urlencoded">  
+    <table>
+      <tr>
+        <td>
+        Artist Name:
+        </td>
+        <td>
+        <% $artistname  %>
+        </td>
+      </tr>
+      <tr>
+        <td>
+        New Artist Alias:
+        </td>
+        <td>
+        <INPUT TYPE="text" NAME="new0" SIZE=25 value="<% $artistname %>"> 
+        </td>
+      </tr>
+      <tr>
+        <td>
+        <INPUT TYPE="submit" NAME="Submit" VALUE="Submit">
+        </td>
+        <td>
+        &nbsp;
+        </td>
+      </tr>
+    </table>
+    <input type="hidden" name="artist0" value="<% $id  %>">
+    <input type="hidden" name="type0" 
+           value="<% Moderation::MOD_ADD_ARTISTALIAS  %>">
+    <input type="hidden" name="prev0" value="<% $artistname %>">
+    <input type="hidden" name="table0" value="Artist">
+    <input type="hidden" name="column0" value="Name">
+    <input type="hidden" name="id0" value="<% $id %>">
+    <input type="hidden" name="referer" value="<% $referer %>">
+    </form>
+    <& /comp/tableend &>
+
+    <& /comp/stylenotes &>
+    <& /comp/artiststylenotes &>
+% }
+% $mb->Logout();

@@ -42,6 +42,7 @@ The MusicBrainz server requires the following items:
    XML::XQL::DOM
    RDFStore
    Digest::SHA1
+   UUID (requires e2fsprogs)
 
    These probably come standard with Perl:
    IO::Socket     

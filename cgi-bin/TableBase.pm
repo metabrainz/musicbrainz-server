@@ -33,6 +33,7 @@ use DBI;
 use DBDefs;
 use Sql;
 use Artist;
+use UUID;
 
 sub new
 {
@@ -135,20 +136,10 @@ sub AppendWhereClause
 sub CreateNewGlobalId
 {
     my ($this) = @_;
-    my ($sql, $id, @row);
+    my ($uuid, $id);
 
-    $sql = Sql->new($this->{DBH});
-    $sql->Do("lock tables GlobalId write");
-
-    if ($sql->Select("select MaxIndex, Host from GlobalId"))
-    {
-        @row = $sql->NextRow();
-        $sql->Finish;
-        $id = sprintf('%08X@%s@%08X', $row[0], $row[1], time);
-        $row[0]++;
-        $sql->Do("update GlobalId set MaxIndex = $row[0]");
-    }
-    $sql->Do("unlock tables");
+    UUID::generate($uuid);
+    UUID::unparse($uuid, $id);
 
     return $id;
 }  

@@ -60,6 +60,11 @@ sub GetRowId
    return $_[0]->{rowid};
 }
 
+sub SetRowId
+{
+   $_[0]->{rowid} = $_[1];
+}
+
 sub GetLastUsed
 {
    return $_[0]->{lastused};
@@ -100,8 +105,8 @@ sub Insert
 
    $sql = Sql->new($this->{DBH});
    $name = $sql->Quote($name);
-   $sql->Do("insert into $this->{table} (Name, Ref, LastUsed, ".
-            "TimesUsed, ModPending) values ($name, $id, now(), 0, 0)");
+   $sql->Do("insert into $this->{table} (Name, Ref, ".
+            "TimesUsed, ModPending) values ($name, $id, 0, 0)");
 }
 
 sub Resolve

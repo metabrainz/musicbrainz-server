@@ -1,14 +1,18 @@
 <%args>
 $artist
 $album
+$showids=>1
 </%args>
 
 <%perl>
 
 my (@ids, $di, $id);
 
-$di = Diskid->new($album->{DBH});
-@ids = $di->GetDiskIdFromAlbum($album->GetId());
+if ($showids)
+{
+   $di = Diskid->new($album->{DBH});
+   @ids = $di->GetDiskIdFromAlbum($album->GetId());
+}
 
 if (exists $session{user} && scalar(@ids) > 0) 
 {

@@ -44,6 +44,51 @@ sub Arguments
 sub Cleanup
 {
     my ($dbh, $fix, $quiet) = @_;
+
+    RemoveFromDiskId($dbh, $fix, $quiet);
+    RemoveFromTOC($dbh, $fix, $quiet);
+}
+
+sub RemoveFromDiskId
+{
+    my ($dbh, $fix, $quiet) = @_;
+    my $last = "";
+    my $count = 0;
+
+    # Here is a basic select loop for you to work with.
+    $sth = $dbh->prepare(qq|select id, disk
+                            from   Diskid 
+                            order  by disk|);
+    if ($sth->execute() && $sth->rows())
+    {
+        my @row;
+
+        while(@row = $sth->fetchrow_array())
+        {
+            # Do something with the returned row. Make sure to
+            # keep the user informed as to what the script is doing.
+
+            if ($last eq $row[1])
+            {
+                print "Duplicate DiskId: $row[0] $row[1]\n";
+                if ($fix)
+                {
+                   $dbh->do(qq\delete from Diskid where id = $row[0]\); 
+                   $count++;
+                }
+            }
+
+            $last = $row[1];
+        }
+    }
+    $sth->finish;
+
+    print "\nDeleted $count disk ids\n" if ($fix);
+}
+
+sub RemoveFromTOC
+{
+    my ($dbh, $fix, $quiet) = @_;
     my $last = "";
     my $count = 0;
 
@@ -62,7 +107,7 @@ sub Cleanup
 
             if ($last eq $row[1])
             {
-                print "Duplicate: $row[0] $row[1]\n";
+                print "Duplicate TOC: $row[0] $row[1]\n";
                 if ($fix)
                 {
                    $dbh->do(qq\delete from TOC where id = $row[0]\); 
@@ -75,8 +120,9 @@ sub Cleanup
     }
     $sth->finish;
 
-    print "\nDeleted $count disk ids\n" if ($fix);
+    print "\nDeleted $count TOCs\n" if ($fix);
 }
+
 
 # Call main with the number of arguments that you are expecting
 Main(0);

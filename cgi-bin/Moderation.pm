@@ -56,6 +56,7 @@ use constant MOD_REMOVE_TRACK            => 11;
 use constant MOD_REMOVE_ALBUM            => 12;
 use constant MOD_MAC_TO_SAC              => 13;
 use constant MOD_REMOVE_ARTISTALIAS      => 14;
+use constant MOD_ADD_ARTISTALIAS         => 15;
 
 use constant STATUS_OPEN                 => 1;
 use constant STATUS_APPLIED              => 2;
@@ -78,7 +79,8 @@ my %ModNames = (
     "11" => "Remove Track",
     "12" => "Remove Album",
     "13" => "Convert to Single Artist",
-    "14" => "Remove Artist Alias"
+    "14" => "Remove Artist Alias",
+    "15" => "Add Artist Alias"
 );
 
 my %ChangeNames = (
@@ -437,6 +439,10 @@ sub ShowModPrev
    {
        return "Album: <a href=\"/showalbum.html?albumid=$this->{rowid}\">$prev</a>";
    }
+   elsif ($type == Moderation::MOD_ADD_ARTISTALIAS)
+   {
+       return "Aliases: <a href=\"/showaliases.html?artistid=$this->{rowid}\">$prev</a>";
+   }
    elsif ($type == Moderation::MOD_EDIT_ALBUMNAME ||
           $type == Moderation::MOD_SAC_TO_MAC ||
           $type == Moderation::MOD_MAC_TO_SAC ||
@@ -753,6 +759,10 @@ sub ApplyModification
    {
        return ApplyAddTrackModification($this, $rowid);
    }
+   elsif ($type == MOD_ADD_ARTISTALIAS)
+   {
+       return ApplyAddArtistAliasModification($this, $rowid);
+   }
    elsif ($type == MOD_MOVE_ALBUM || $type == MOD_MAC_TO_SAC)
    {
        return ApplyMoveAlbumModification($this, $rowid);
@@ -900,6 +910,10 @@ sub ApplyMergeArtistModification
        $sql->Do(qq/update Track set artist = $newid where artist = $rowid/);
        $sql->Do("delete from Artist where id = $rowid");
        $sql->Do("update Changes set artist = $newid where artist = $rowid");
+
+       my $al = Alias->new($this->{DBH});
+       $al->SetTable("ArtistAlias");
+       $al->Insert($newid, $prevval);
    }
 
    return $status;
@@ -931,6 +945,12 @@ sub ApplyEditModification
             {
                 $sql->Do(qq/update $table set $column = $newval  
                                     where id = $datarowid/); 
+                if ($table eq 'Artist' && $column eq 'Name')
+                {
+                    my $al = Alias->new($this->{DBH});
+                    $al->SetTable("ArtistAlias");
+                    $al->Insert($datarowid, $prevval);
+                }
                 $status = STATUS_APPLIED;
             }
             else
@@ -1165,6 +1185,28 @@ sub ApplyRemoveArtistAliasModification
         $al->Remove($row[0]);
         
         $status = STATUS_APPLIED;
+   }
+
+   return $status;
+}
+
+sub ApplyAddArtistAliasModification
+{
+   my ($this, $rowid) = @_;
+   my ($sql, @row, $al);
+   my ($status);
+
+   $status = STATUS_ERROR;
+   $sql = Sql->new($this->{DBH});
+   if ($sql->Select(qq/select rowid, newvalue from Changes where id = $rowid/))
+   {
+        @row = $sql->NextRow;
+        $sql->Finish;
+
+        $al = Alias->new($this->{DBH});
+        $al->SetTable("ArtistAlias");
+        $status = STATUS_APPLIED
+            if (defined $al->Insert($row[0], $row[1]));
    }
 
    return $status;

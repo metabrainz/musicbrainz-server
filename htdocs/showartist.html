@@ -9,6 +9,9 @@ if (!exists $ARGS{artistid} || $ARGS{artistid} eq '')
     return;
 }
 
+my ($ret, $t0, $t1, $td);
+my ($secs);
+
 $mb = new MusicBrainz;
 $mb->Login();
 $artist = Artist->new($mb->{DBH});
@@ -32,9 +35,15 @@ else
     mc_comp("/comp/sidebar", title=>'',
             pagetitle=>"Artist: " . $artist->GetName());
     mc_comp("/comp/artisttitle", artist=>$artist);
-    mc_out("[ <a href=\"/showaliases.html?artistid=");
-    mc_out($artist->GetId());
-    mc_out("\">View aliases | ");
+    mc_out("[ ");
+    if ($artist->GetName() ne "Unknown" && 
+        $artist->GetId() != Artist::VARTIST_ID && 
+        $artist->GetName() ne "Data CD")
+    {
+        mc_out("<a href=\"/showaliases.html?artistid=");
+        mc_out($artist->GetId());
+        mc_out("\">View aliases |");
+    }
     mc_comp("/comp/googlelink", search=>($artist->GetName()), 
             text=>"Search Google"); 
     mc_out("]<p>");
@@ -44,7 +53,7 @@ else
     {
         $album = shift @albums;
         last if (!defined $album);
-        mc_comp("/comp/album", album=>$album, artist=>$artist);
+        mc_comp("/comp/album", album=>$album, artist=>$artist, showid=>1);
     }
 }
 

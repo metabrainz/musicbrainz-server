@@ -28,15 +28,37 @@ use DBDefs;
 use MusicBrainz;
 use Artist;
 
+# Artist alias stuff
+# alter table ArtistAlias add ModPending int;
+# update ArtistAlias set lastused = "0000-00-00 00:00:00"; 
+
+
+# To convert to the new UUIDs:
+# alter table Artist drop index GIDIndex;
+# alter table Album drop index GIDIndex;
+# alter table Track drop index GIDIndex;
+# alter table Artist change column GID GID char(36) NOT NULL;
+# alter table Album change column GID GID char(36) NOT NULL;
+# alter table Track change column GID GID char(36) NOT NULL;
+# alter table Artist add index GIDIndex (GID);
+# alter table Album add index GIDIndex (GID);
+# alter table Track add index GIDIndex (GID);
+
+# To convert on fatman:
+# alter table Diskid drop index DiskIndex;
+# alter table Diskid add unique index DiskIndex (Disk);
+# alter table TOC drop index DiskIndex;
+# alter table TOC add unique index DiskIndex (Diskid);
+
 sub CreateTables
 {
-    my ($dbh, $host) = @_;
+    my ($dbh) = @_;
 
     # create the tables
     $dbh->do("create table Artist (" .
              "   Id int auto_increment primary key," .
              "   Name varchar(255) NOT NULL," . 
-             "   GID varchar(64) NOT NULL," . 
+             "   GID char(36) NOT NULL," . 
              "   WebPage blob," . 
              "   AuxPage blob," .
              "   ModPending int," .
@@ -50,7 +72,7 @@ sub CreateTables
     $dbh->do("create table Album (" .
              "   Id int auto_increment primary key," .
              "   Name varchar(255) NOT NULL," .
-             "   GID varchar(64) NOT NULL," . 
+             "   GID char(36) NOT NULL," . 
              "   Artist int NOT NULL," .
              "   WebPage blob," .
              "   AuxPage blob," .
@@ -63,7 +85,7 @@ sub CreateTables
     $dbh->do("create table Track (" .
              "   Id int(11) auto_increment primary key," .
              "   Name varchar(255) not null ," .
-             "   GID varchar(64) NOT NULL," . 
+             "   GID char(36) NOT NULL," . 
              "   Artist int(11) not null," .
              "   Length int(11)," .
              "   Year int(11)," .
@@ -190,22 +212,6 @@ sub CreateTables
           or die("Cannot create toc table");
 
     print "Created TOC table.\n";
-
-    if (!defined $host)
-    {
-       $host = `hostname`;
-       chop($host);
-    }
-    $host = $dbh->quote($host);
-    $dbh->do("create table GlobalId (" .
-             "   Id int auto_increment primary key," .
-             "   MaxIndex int," .
-             "   Host varchar(255))")
-          or die("Cannot create GlobalId table");
-    $dbh->do("insert into GlobalId (MaxIndex, Host) values (1, $host)")
-          or die("Cannot insert default value into GlobalId table");
-
-    print "Created Globalid table.\n";
 
     $dbh->do("create table ModeratorInfo (" .
              "   Id int auto_increment primary key," .
@@ -421,7 +427,7 @@ sub CreateIndices
     print "\nCreated indices successfully.\n";
 }
 
-my ($indices, $tables, $arg, $mb, $host);
+my ($indices, $tables, $arg, $mb);
 
 $indices = 0;
 $tables = 0;
@@ -436,10 +442,6 @@ while(defined($arg = shift))
     {
         $indices = 1 
     }
-    else
-    {
-        $host = $arg;
-    }
 }
 
 $mb = MusicBrainz->new;
@@ -448,7 +450,7 @@ $mb->Login;
 print "Connected to database.\n";
 
 print "Creating MusicBrainz Tables.\n\n";
-CreateTables($mb->{DBH}, $host);
+CreateTables($mb->{DBH});
 
 print "Adding indices to MusicBrainz Tables.\n\n";
 CreateIndices($mb->{DBH});
