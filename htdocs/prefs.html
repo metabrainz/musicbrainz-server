@@ -19,6 +19,7 @@ if ($ARGS{"SavePrefs"})
 		mod_add_album_link
 		navbar_mod_show_select_page
 		JSMoveFocus
+		reveal_address_when_mailing
 		sitemenu_heavy
 		sidebar_panel_search
 		sidebar_panel_stats
@@ -141,8 +142,10 @@ $time = time();
 		<input type="checkbox" name="reveal_address_when_mailing"
 			<% UserPreference::get('reveal_address_when_mailing') ? "checked" : "" %>
 			>
-		Reveal my e-mail address, so they can e-mail me back
-		without having to use this web site
+		Reveal my e-mail address
+		[&nbsp;<a <& /comp/auto-popup-link,
+			url => "/products/server/docs/20040103-1.html",
+			&>>help</a>&nbsp;]
 	</p>
 
 	<h2>Artist Page (List of Releases)</h2>
