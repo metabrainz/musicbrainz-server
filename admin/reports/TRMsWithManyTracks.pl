@@ -60,6 +60,7 @@ print <<EOF;
 			<th>TRM</th>
 			<th>Track Count</th>
 			<th>Track</th>
+			<th>Length</th>
 			<th>Artist</th>
 		</tr>
 	</thead>
@@ -82,7 +83,7 @@ for my $row (@$rows)
 	);
 
 	my $tracks = $sql->SelectListOfLists("
-		SELECT t.id, t.name, a.id, a.name, a.sortname
+		SELECT t.id, t.name, a.id, a.name, a.sortname, t.length
 		FROM trmjoin j
 		INNER JOIN track t ON t.id = j.track
 		INNER JOIN artist a ON a.id = t.artist
@@ -100,6 +101,8 @@ for my $row (@$rows)
 	{
 		my $t = html_escape($track->[1]);
 		my $a = html_escape($track->[3]);
+		use Track;
+		my $length = Track::FormatTrackLength($track->[5]);
 
 		print <<EOF;
 		<tr>
@@ -114,6 +117,7 @@ EOF
 
 		print <<EOF;
 			<td><a href="/showtrack.html?trackid=$track->[0]">$t</a></td>
+			<td>$length</td>
 			<td><a href="/showartist.html?artistid=$track->[2]">$a</a></td>
 		</tr>
 EOF
