@@ -205,3 +205,10 @@ CREATE TABLE historicalstat
 	snapshotdate	DATETIME NOT NULL
 );
 
+DROP TABLE IF EXISTS artist_relation;
+CREATE TABLE artist_relation (
+   Id bigint auto_increment primary key,
+   artist int not null,
+   ref int not null,
+   weight integer not null);
+

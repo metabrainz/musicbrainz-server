@@ -61,3 +61,6 @@ drop index ClientVersion_Version;
 DROP INDEX historicalstat_date;
 DROP UNIQUE INDEX historicalstat_namedate;
 
+drop index artist_relation_artist;
+drop index artist_relation_ref;
+

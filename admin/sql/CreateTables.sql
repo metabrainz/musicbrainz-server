@@ -185,4 +185,10 @@ CREATE TABLE historicalstat
 	snapshotdate	DATE NOT NULL
 );
 
+create table artist_relation (
+   Id serial primary key,
+   artist int not null references Artist, 
+   ref int not null references Artist, 
+   weight integer not null);
+
 commit;

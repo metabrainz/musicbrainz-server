@@ -96,6 +96,8 @@ sub ImportAllTables
     ImportTable("currentstat", $dir);
     ImportTable("historicalstat", $dir);
 
+    ImportTable("artist_relation", $dir);
+
     return 1;
 }
 

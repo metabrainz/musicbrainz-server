@@ -63,3 +63,6 @@ create unique index ClientVersion_Version on ClientVersion (version);
 CREATE INDEX historicalstat_date on historicalstat (snapshotdate);
 CREATE UNIQUE INDEX historicalstat_namedate on historicalstat (name, snapshotdate);
 
+create index artist_relation_artist  on artist_relation (artist);
+create index artist_relation_ref  on artist_relation (ref);
+
