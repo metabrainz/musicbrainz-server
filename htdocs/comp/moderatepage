@@ -41,7 +41,6 @@ else
     $option1 = '<a href="moderate.html?type=1">New Moderations</a>';
     $option2 = '<a href="moderate.html?type=2">Old Moderations</a>';
 }
-$mb->Logout();
 </%perl>
 
 <form method="POST" action="/bare/vote.html"
@@ -116,6 +115,7 @@ for($i = 0; $i < $max_items; $i++)
            voted=>($$row[14]),
            mode=>$type);
 }
+$mb->Logout();
 </%perl>
 
 </table>
