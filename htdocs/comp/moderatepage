@@ -7,12 +7,14 @@ $num=>10
 
 <%perl>
 
-my ($mb, @info, $mod, $offset, $i, $comp, $obj);
+my ($mb, @info, $mod, $offset, $page, $i, $comp, $obj);
 my ($num_mods, $total_mods, $notes);
 my $max_items = $num;
 
 
 $offset = $ARGS{offset};
+$page = $ARGS{page};
+$offset = ($page-1) * $max_items if not defined $offset and defined $page;
 $offset = 0 if not defined $offset;
 $offset = 0 if $offset < 0;  
 
@@ -85,9 +87,6 @@ if ($num_mods > 0)
 }
 </%perl>
 
-<form method="POST" action="/bare/vote.html"
-      enctype="application/x-www-form-urlencoded" class="formstyle"> 
-
 <table width=100%>
 <tr>
 <td width="25%" align="center">
@@ -127,17 +126,17 @@ if ($num_mods > 0)
 %}
 
 % if ($num_mods > $max_items || $offset > 0) {
-<table width="100%">
-<tr><td bgcolor=white class="body">
-<& /comp/prevnextbuttons, 
+<& /comp/pageselector, 
    url=>"moderate.html?type=$type" . 
         (($artistid > 0) ?  "&artistid=$artistid" : ""),
    offset=>$offset,
-   itemsperpage=>$max_items,
-   totalitems=>$num_mods
+   pagesize=>$max_items,
+   numitems=>$total_mods+$offset,
 &>
-</td></tr></table>
 % }
+
+<form method="POST" action="/bare/vote.html"
+      enctype="application/x-www-form-urlencoded" class="formstyle"> 
 
 <TABLE BORDER="0" CELLPADDING="0" CELLSPACING="0"
        BGCOLOR="#000000" WIDTH="100%">
@@ -159,19 +158,6 @@ $mb->Logout();
 </td></tr>
 </table>
 
-% if ($num_mods > $max_items || $offset > 0) {
-<table width="100%">
-<tr><td bgcolor=white class="body">
-<& /comp/prevnextbuttons, 
-   url=>"moderate.html?type=$type" . 
-        (($artistid > 0) ?  "&artistid=$artistid" : ""),
-   offset=>$offset,
-   itemsperpage=>$max_items,
-   totalitems=>$num_mods
-&>
-</td></tr></table>
-% }
-
 % if ($num_mods > 0 && $show_button) {
 <table width=100%>
 <tr>
@@ -188,5 +174,5 @@ $mb->Logout();
 </table>
 %}
 
-
 </form>
+

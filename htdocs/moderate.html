@@ -30,18 +30,22 @@ else
         if ($albumid > 0)
         {
              mc_comp("/comp/moderatepage", offset=>$ARGS{offset}, 
+                     page=>$ARGS{page},
                      type=>ModDefs::TYPE_ARTIST, artistid=>$artistid,
                      albumid=>$albumid);
         }
         else
         {
              mc_comp("/comp/moderatepage", offset=>$ARGS{offset}, 
+                     page=>$ARGS{page},
                      type=>ModDefs::TYPE_ARTIST, artistid=>$artistid);
         }
     }
     else
     {
-        mc_comp("/comp/moderatepage", offset=>$ARGS{offset}, type=>$type);
+        mc_comp("/comp/moderatepage", offset=>$ARGS{offset}, type=>$type,
+                     page=>$ARGS{page},
+		     );
     }
 }
 </%perl>
