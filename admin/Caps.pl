@@ -35,7 +35,7 @@ sub FindDuplicates
 
     @tm = gmtime(time());
 
-    print "<& /comp/title, title=>'Tracks with too many capital letters' &>";
+    print "<& /comp/sidebar, title=>'Tracks with too many capital letters' &>\n";
     printf "Generated on %d/%d/%d %02d:%02d GMT. ",
              $tm[4] + 1, $tm[3], $tm[5] + 1900, $tm[2], $tm[1];
     print 'All tracks which contain at least four sequential capital ';
