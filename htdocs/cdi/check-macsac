@@ -1,0 +1,110 @@
+%# vi: set ts=4 sw=4 ft=mason :
+<%perl>
+
+# We're looking for two separate errors here:
+
+# Albums being entered as a single artist, but which should be
+# Various Artists.  We detect this by looking for "-" or "/" in
+# every track name.
+
+# Albums being entered as Various Artists, but which should be
+# a single artist.  We detect this by seeing if all the artist names
+# are the same.
+
+my $NumTracks = $ARGS{tracks};
+
+if ($ARGS{artist} == &ModDefs::VARTIST_ID)
+{
+	return 1 if $NumTracks <= 1;
+
+	my %names;
+	
+	for my $seq (0 .. $NumTracks-1)
+	{
+		++$names{ $ARGS{"artistname$seq"} };
+	}
+
+	return 1 if keys(%names) > 1;
+
+	</%perl>
+
+	<& /comp/sidebar, title => "Album Entry Problem" &>
+
+	<p>
+		You've chosen to enter a "various artists" album, but
+		all the artist names are the same, so this should
+		probably be entered as a "single artist" album.
+		What do you want to do?
+	</p>
+
+%# TODO we really need a way to feed the existing track names
+%# into cdi/enter.html
+
+	<h2>Go Back</h2>
+
+	<p>
+		To go back and choose the appropriate artist when prompted,
+		please use your browser's "back" button.
+	</p>
+
+	<h2>Continue Anyway</h2>
+
+	<form method="post" action="/cdi/selectattr.html">
+		<p>
+			<input type="submit" value="Ignore the problem; continue with no changes">
+			<input type="hidden" name="force-macsac" value="1">
+% for (keys %ARGS) {
+			<input type="hidden" name="<% $_ %>" value="<% $ARGS{$_} %>">
+% }
+		</p>
+	</form>
+
+	<%perl>
+
+	# no footer - autohandler adds it
+	return 0;
+}
+
+my @names = map { $ARGS{"track$_"} } 0 .. $NumTracks-1;
+
+(grep /-/, @names) == $NumTracks
+	or (grep /\//, @names) == $NumTracks
+	or return 1;
+
+</%perl>
+
+<& /comp/sidebar, title => "Album Entry Problem" &>
+
+<p>
+	You've chosen to enter a "single artist" album, but
+	looking at the track names it seems that maybe this
+	should be a "various artists" album.&nbsp;
+	(This message appears because all track names contain
+	either "-" or "/").&nbsp;
+	What do you want to do?
+</p>
+
+%# TODO we really need a way to feed the existing track names
+%# into cdi/menter.html
+
+<h2>Go Back</h2>
+
+<p>
+	To go back and choose "various artists" when prompted,
+	please use your browser's "back" button.
+</p>
+
+<h2>Continue Anyway</h2>
+
+<form method="post" action="/cdi/selectattr.html">
+	<p>
+		<input type="submit" value="Ignore the problem; continue with no changes">
+		<input type="hidden" name="force-macsac" value="1">
+% for (keys %ARGS) {
+		<input type="hidden" name="<% $_ %>" value="<% $ARGS{$_} %>">
+% }
+	</p>
+</form>
+
+%# no footer - autohandler adds it
+% return 0;

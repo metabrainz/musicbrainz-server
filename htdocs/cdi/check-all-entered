@@ -1,0 +1,12 @@
+%# vi: set ts=4 sw=4 ft=mason :
+<%perl>
+
+# Check everything's been entered which should have been.
+# This is sort of already carried out client-side, but of course
+# you can't rely on that.
+# If all OK, return true.
+
+# TODO implement this!
+return 1;
+
+</%perl>

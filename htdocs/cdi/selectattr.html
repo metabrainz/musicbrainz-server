@@ -1,6 +1,14 @@
 %# vi: set ts=4 sw=4 ft=mason :
 <%perl>
 
+$m->comp("check-all-entered", %ARGS) or return;
+
+$m->comp("check-TracksNamedWithSequence", %ARGS) or return
+	unless $ARGS{"force-TracksNamedWithSequence"};
+
+$m->comp("check-macsac", %ARGS) or return
+	unless $ARGS{"force-macsac"};
+
 my ($key, $value, $mb, @attr);
 
 $mb = mc_comp("/comp/dblogin");
