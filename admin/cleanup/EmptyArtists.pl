@@ -96,7 +96,7 @@ $verbose = ($remove ? 0 : 1)
 print(STDERR "Running with --noremove --noverbose --nosummary is pointless\n"), exit 1
 	unless $remove or $verbose or $summary;
 
-print "Finding unused artists...\n";
+print localtime() . " : Finding unused artists\n";
 
 $sql->Select(<<EOF) or die;
 
@@ -130,7 +130,8 @@ while (my ($id, $name, $sortname) = $sql->NextRow)
 
 	if (not $remove)
 	{
-		printf "Need to remove %6d %-30.30s (%s)\n",
+		printf "%s : Need to remove %6d %-30.30s (%s)\n",
+			scalar localtime,
 			$id, $name, $sortname
 			if $verbose;
 		next;
@@ -156,7 +157,8 @@ while (my ($id, $name, $sortname) = $sql->NextRow)
 		my $modid = $m->InsertModeration($privs);
 		$sqlWrite->Commit;
 		
-		printf "Inserted mod %6d for %6d %-30.30s (%s)\n",
+		printf "%s : Inserted mod %6d for %6d %-30.30s (%s)\n",
+			scalar localtime,
 			$modid,
 			$id, $name, $sortname
 			if $verbose;
@@ -166,7 +168,8 @@ while (my ($id, $name, $sortname) = $sql->NextRow)
 	} or do {
 		my $err = $@;
 		$sqlWrite->Rollback;
-		printf "Error removing %6d %-30.30s (%s):\n  %s\n",
+		printf "%s : Error removing %6d %-30.30s (%s):\n  %s\n",
+			scalar localtime,
 			$id, $name, $sortname,
 			$err;
 	};
@@ -176,11 +179,15 @@ $sql->Finish;
 
 if ($summary)
 {
-	printf "Found %d unused artist%s.\n",
+	printf "%s : Found %d unused artist%s.\n",
+		scalar localtime,
 		$count, ($count==1 ? "" : "s");
-	printf "Successfully removed %d artist%s\n",
+	printf "%s : Successfully removed %d artist%s\n",
+		scalar localtime,
 		$removed, ($removed==1 ? "" : "s")
 		if $remove;
 }
+
+print localtime() . " : EmptyArtists.pl finished\n";
 
 # eof EmptyArtists.pl
