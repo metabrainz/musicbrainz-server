@@ -516,6 +516,7 @@ sub dumplucene
            if ($count == 0)
            {
                print $fh '<?xml version="1.0" encoding="UTF-8"?>' . 
+                         "\n<!DOCTYPE changes SYSTEM \"changes.dtd\">" .
                          "\n<changes xid_start=\"$row->[2]\">\n" 
            }
 
