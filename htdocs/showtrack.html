@@ -61,6 +61,10 @@ $artist->LoadFromId
 
 <& /comp/sidebar, title => "Track Details: " . $track->GetName &>
 
+<div class="LinksRow"> [
+	<& /comp/googlelink, search => [ $artist->GetName, $track->GetName ], text => "Search Google" &>
+] </div>
+
 <& /comp/trackinfo, track => $track, TRM => \@TRM &>
 
 <& /comp/artistinfo, artist => $artist &>
