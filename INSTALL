@@ -173,27 +173,25 @@ specific notes about a server type, the instructions apply to all server types.
    Apache::Session::File
    Bundle::Apache
    Cache::Memcached
+   Date::Calc
    DBD::Pg
    DBI
    Digest::SHA1
    HTML::Mason
    HTTP::Negotiate
-   Image::Info
-   MIME-Base64
    MIME::Lite
    Net::Amazon
    RDFStore
    Storable
-   String::CRC32
    String::Unicode::Similarity (see notes below)
    Text::Unaccent (see notes below)
    UUID (requires e2fsprogs)
-   Unicode::String
    XML::Parser
 
    These probably come standard with Perl:
    Carp
    IO::Socket
+   MIME::Base64
    Net::SMTP
    String::ShellQuote
    Tie::STDERR
