@@ -3,7 +3,7 @@
 <%perl>
 
 my ($mb, $id, $modpending, $al, $artist, $attr, 
-    $attrlist, @attrs, $prev, $index, $url, $s); 
+    @attrs, $prev, $index, $url, $s); 
 
 if (!exists $session{tagged_albums} &&
     !exists $ARGS{id} || $ARGS{id} eq '' ||
@@ -45,8 +45,6 @@ if (scalar(@attrs) == 0)
     @attrs = (Album::ALBUM_ATTR_ALBUM, Album::ALBUM_ATTR_OFFICIAL);
 }
 
-$attrlist = $al->GetAttributeList();
-
 </%perl>
 
 % if (!defined $session{user} || $session{user} eq '') {
@@ -60,79 +58,17 @@ $attrlist = $al->GetAttributeList();
     <& /comp/modpending &>
 % } 
 
-    Album attributes define the type and status of an audio release and
-    provide information about the contents of the release.
-    <p>
-    Album attributes should apply to <b>most</b> of the tracks on the 
-    album<% $s %>. Its OK to have a couple of tracks that do not fit the
-    album attribute, as long as the attribute applies to the album<% $s %> 
-    overall.
-
-    <p>
-    Select the appropriate album attributes below and then 
-    click on Submit: 
-    
-    <p>
-
-% if (exists $ARGS{"key0"}) {
-    All tagged albums:
-% } else {
-    Album <b><% $al->GetName() %></b>:<br>
-% }
-
     <FORM METHOD="POST" ACTION="/bare/enter_kv_mod.html" 
           NAME="EditAlbumAttrsForm"
           ENCTYPE="application/x-www-form-urlencoded">  
-    <table width="100%">
-      <tr>
-        <td>
-        <blockquote>
-        <table width="75%">
-        <tr><td colspan=\"3\"><b>Release type:</b></td></tr>
+    <input type="hidden" name="key0" value="AttrType">
+    <input type="hidden" name="key1" value="AttrStatus">
 
-        <%perl>
-        for(Album::ALBUM_ATTR_SECTION_TYPE_START..Album::ALBUM_ATTR_SECTION_TYPE_END)
-        {
-            mc_out("<tr><td valign=\"top\" NOWRAP>");
-            mc_out("<input type=\"radio\" name=\"value0\" value=\"$_\"");
-            if (scalar(@attrs) > 0 && $attrs[0] == $_)
-            {
-                mc_out(" CHECKED");
-                shift @attrs;
-            }
-            mc_out("></td><td valign=\"top\">$attrlist->{$_}->[0]</td>");
-            mc_out("<td valign=\"top\">$attrlist->{$_}->[2]</td></tr>\n");
-        }
-        mc_out("<input type=\"hidden\" name=\"key0\"");
-        mc_out(" value=\"AttrType\">");
-        mc_out("<tr><td colspan=\"3\"><br><b>Release status:</b></td></tr>");
-        for(Album::ALBUM_ATTR_SECTION_STATUS_START..Album::ALBUM_ATTR_SECTION_STATUS_END)
-        {
-            mc_out("<tr><td valign=\"top\" NOWRAP>");
-            mc_out("<input type=\"radio\" name=\"value1\" value=\"$_\"");
-            if (scalar(@attrs) > 0 && $attrs[0] == $_)
-            {
-                mc_out(" CHECKED");
-                shift @attrs;
-            }
-            mc_out("></td><td valign=\"top\">$attrlist->{$_}->[0]</td>");
-            mc_out("<td valign=\"top\">$attrlist->{$_}->[2]</td></tr>");
-        }
-        mc_out("<input type=\"hidden\" name=\"key1\"");
-        mc_out(" value=\"AttrStatus\">");
-        </%perl>
-        </table> 
-        </blockquote>
-        <p>
-        </td>
-      </tr>
-      <tr>
-        <td>
-        <INPUT TYPE="submit" NAME="Submit" VALUE="Submit">    
-        </td>
-      </tr>
-    </table>
 % if (exists $ARGS{"key0"}) {
+
+    <& /comp/albumattrform, mb=>$mb, albumname=>"", attrs=>\@attrs, 
+                            field1=>"value0", field2=>"value1" &>
+
     <%perl>
     my ($i, $urlid);
     for($i = 0;; $i++)
@@ -165,6 +101,8 @@ $attrlist = $al->GetAttributeList();
     <input type="hidden" name="id" value="0">
     <input type="hidden" name="prev" value="">
 % } else {
+    <& /comp/albumattrform, mb=>$mb, albumname=>$al->GetName(), attrs=>\@attrs, 
+                            field1=>"value0", field2=>"value1" &>
     <input type="hidden" name="key2" value="AlbumId0">
     <input type="hidden" name="value2" value="<% $id %>">
     <input type="hidden" name="key3" value="AlbumName0">

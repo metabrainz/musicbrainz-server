@@ -1,0 +1,84 @@
+<%args>
+$mb
+$albumname=>""
+$attrs
+$field1=>""
+$field2=>""
+</%args>
+
+<%perl>
+
+my ($s, $al, $attrlist, @attr);
+
+$s = ($albumname eq '') ? 's' : '';
+$al = Album->new($mb->{DBH});
+$attrlist = $al->GetAttributeList();
+@attr = @{$attrs};
+
+</%perl>
+
+Album attributes define the type and status of an audio release and
+provide information about the contents of the release.
+<p>
+Album attributes should apply to <b>most</b> of the tracks on the 
+album<% $s %>. Its OK to have a couple of tracks that do not fit the
+album attribute, as long as the attribute applies to the album<% $s %> 
+overall.
+
+<p>
+Select the appropriate album attributes below and then 
+click on Submit: 
+
+<p>
+
+% if ($albumname eq '') {
+    All tagged albums:
+% } else {
+    Album <b><% $albumname %></b>:<br>
+% }
+
+<table width="100%">
+  <tr>
+    <td>
+    <blockquote>
+    <table width="75%">
+    <tr><td colspan=\"3\"><b>Release type:</b></td></tr>
+
+    <%perl>
+    for(Album::ALBUM_ATTR_SECTION_TYPE_START..Album::ALBUM_ATTR_SECTION_TYPE_END)
+    {
+        mc_out("<tr><td valign=\"top\" NOWRAP>");
+        mc_out("<input type=\"radio\" name=\"$field1\" value=\"$_\"");
+        if (scalar(@attr) > 0 && $attr[0] == $_)
+        {
+            mc_out(" CHECKED");
+            shift @attr;
+        }
+        mc_out("></td><td valign=\"top\">$attrlist->{$_}->[0]</td>");
+        mc_out("<td valign=\"top\">$attrlist->{$_}->[2]</td></tr>\n");
+    }
+    mc_out("<tr><td colspan=\"3\"><br><b>Release status:</b></td></tr>");
+    for(Album::ALBUM_ATTR_SECTION_STATUS_START..Album::ALBUM_ATTR_SECTION_STATUS_END)
+    {
+        mc_out("<tr><td valign=\"top\" NOWRAP>");
+        mc_out("<input type=\"radio\" name=\"$field2\" value=\"$_\"");
+        if (scalar(@attr) > 0 && $attr[0] == $_)
+        {
+            mc_out(" CHECKED");
+            shift @attr;
+        }
+        mc_out("></td><td valign=\"top\">$attrlist->{$_}->[0]</td>");
+        mc_out("<td valign=\"top\">$attrlist->{$_}->[2]</td></tr>");
+    }
+    </%perl>
+    </table> 
+    </blockquote>
+    <p>
+    </td>
+  </tr>
+  <tr>
+    <td>
+    <INPUT TYPE="submit" NAME="Submit" VALUE="Submit">    
+    </td>
+  </tr>
+</table>

@@ -1,0 +1,34 @@
+<%perl>
+
+my ($key, $value, $mb, @attr);
+
+$mb = mc_comp("/comp/dblogin");
+mc_comp("/comp/sidebar", title=>'Select Album Attributes');
+
+if ($ARGS{artist} == ModDefs::VARTIST_ID)
+{
+    @attr = (Album::ALBUM_ATTR_COMPILATION, Album::ALBUM_ATTR_OFFICIAL);
+}
+else
+{
+    @attr = (Album::ALBUM_ATTR_ALBUM, Album::ALBUM_ATTR_OFFICIAL);
+}
+
+</%perl>
+
+<form method="POST" action="/cdi/done.html" Name="SelectAttrs"
+      enctype="application/x-www-form-urlencoded" class="formstyle">
+
+<& /comp/albumattrform, mb=>$mb, albumname=>$ARGS{title}, 
+                        attrs=>\@attr, field1=>"attrtype", field2=>"attrstatus" &>
+
+<%perl>
+foreach $key (keys %ARGS)
+{
+   </%perl> 
+   <input type="hidden" name="<% $key %>" value="<% $ARGS{$key} %>">
+   <%perl> 
+}
+</%perl>
+</form>
+

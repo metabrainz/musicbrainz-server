@@ -20,7 +20,6 @@ my @information = (
   {url=>'/bio.html',                       name=>'The People'},
   {url=>'/history.html',                   name=>'History/Roots'},
   {url=>'/future.html',                    name=>'Future/Goals'},
-  {url=>'/insert_stats.html',              name=>'Insertion Stats'},
   {url=>'/cgi-bin/wiki/wiki.pl?HomePage',  name=>'Wiki'}
 );
 

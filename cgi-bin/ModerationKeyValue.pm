@@ -152,6 +152,11 @@ sub PreVoteAction
    {
        $info{attrs} = [ 0 ];
    }
+   else
+   {
+       my @attr = split ',', $nw->{Attributes};
+       $info{attrs} = [ @attr ];
+   }
 
    for($i = 1;; $i++)
    {

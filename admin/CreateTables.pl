@@ -43,6 +43,7 @@ use Sql;
 # alter table album add column page int;
 # UPDATE pg_attribute SET attnotnull = TRUE WHERE attname = 'page' AND attrelid = ( SELECT oid FROM pg_class WHERE relname = 'album');
 # create index Album_PageIndex on Album (Page)
+# update track set length = 0 where length < 0;
 
 sub CreateTables
 {

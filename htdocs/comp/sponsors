@@ -5,6 +5,16 @@
            <br>
            <br>
            <a href="http://www.communitycolo.net"><img src="/images/cccp.png" border=0></a>
+           <br>
+           <br>
+           <form action="https://www.paypal.com/cgi-bin/webscr" method="post">
+           <input type="hidden" name="cmd" value="_xclick">
+           <input type="hidden" name="business" value="donations@musicbrainz.org">
+           <input type="hidden" name="item_name" value="Donation">
+           <input type="image" src="/images/paypal.gif" border="0" name="submit" alt="Donate to MusicBrainz!">
+           </form>
          </td>
       </tr>
       </table>
+
+

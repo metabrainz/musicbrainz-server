@@ -8,6 +8,8 @@ $artistname=>""
 $sortname=>""
 $title=>""
 $durations=>""
+$attrtype=>0
+$attrstatus=>0
 </%args>
 
 <%perl>
@@ -25,11 +27,12 @@ $error = 3 if ($toc eq '' && $freedbid eq '');
 $error = 4 if ($freedbid ne '' && $durations eq '');
 $error = 5 if ($tracks eq 0);
 $error = 6 if (!defined $artist && $artistname =~ /various artists/i);
+$error = 7 if ($attrtype == 0 || $attrstatus == 0);
 for($i = 0; $i < $tracks && !$error; $i++)
 {
     if (!exists $ARGS{"track$i"} || $ARGS{"track$i"} eq '')
     {
-       $error = 6 + $i;
+       $error = 7 + $i;
     }
 }
 
@@ -89,6 +92,7 @@ else
        $new = "Artist=$artistname\nSortname=$sortname\n";
     }
     $new .= "AlbumName=$title\nNumTracks=$tracks\n";
+    $new .= "Attributes=$attrtype,$attrstatus\n";
     $new .= "CDIndexId=$id\n" if ($id ne '');
     $new .= "TOC=$toc\n" if ($toc ne '');
     $new .= "FreedbId=$freedbid\n" if ($freedbid ne '');
