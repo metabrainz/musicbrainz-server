@@ -1,3 +1,6 @@
+-- Abstract: add moderation.opentime, moderation.closetime, votes.votetime
+-- Formerly called admin/sql/AddModVoteTimestamps.sql
+
 \set ON_ERROR_STOP 1
 
 BEGIN;
