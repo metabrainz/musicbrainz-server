@@ -288,14 +288,19 @@ sub RebuildIndex
     
     $self->{DBH}->do("delete from " . $self->{Table} . "Words");
 
-    my $block_size = 10000;
+    my $block_size = 5000;
     for($count = 0;; $count += $block_size)
     {
+        # Make postgres analyze its foo to speed up the insertion
+        print STDERR "Postgres: analyze vacuum\n";
+        $self->{DBH}->{AutoCommit} = 1;
+        $self->{DBH}->do("vacuum analyze");
+
         $written = 0;
         # Start a transaction
         eval
         {
-            print STDERR "Start transaction\n";
+            print STDERR "Start transaction for $count -> " . ($count + $block_size) . "\n";
             $self->{DBH}->{AutoCommit} = 0;
         
             my $sth = $self->{DBH}->prepare_cached( qq|
@@ -323,11 +328,6 @@ sub RebuildIndex
         {
             print STDERR "Index insert: $@\n";
         }
-
-        # Make postgres analyze its foo to speed up the insertion
-        print STDERR "Postgres: analyze vacuum\n";
-        $self->{DBH}->{AutoCommit} = 1;
-        $self->{DBH}->do("vacuum analyze");
 
         if ($written < $block_size)
         {
