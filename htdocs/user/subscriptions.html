@@ -1,17 +1,43 @@
 %# vi: set ts=4 sw=4 ft=mason :
+<%args>
+$user => undef
+</%args>
 <%perl>
 
-$m->comp(
-	"/comp/checkloggedin", 1, 1,
-	"You must log in to manage your subscriptions.",
-) or return;
-
 my $mb = $m->comp("/comp/dblogin");
+
+if (defined $user)
+{
+	MusicBrainz::IsNonNegInteger($user)
+		or return $m->comp("/comp/badargs", 1, 1);
+} else {
+	$m->comp(
+		"/comp/checkloggedin", 1, 1,
+		"You must log in to manage your subscriptions.",
+	) or return;
+	$user = $session{uid};
+}
+
+my $is_me = ($user == $session{uid});
+
+my $them = UserStuff->newFromId($mb->{DBH}, $user)
+	or return $m->comp("/comp/error", "There is no user #$user", 1, 1);
+
+unless ($is_me)
+{
+	UserPreference::get_for_user("subscriptions_public", $them)
+		or return $m->comp("subscriptions-private.inc", user => $them);
+}
+
 my $subs = UserSubscription->new($mb->{DBH});
-$subs->SetUser($session{uid});
+$subs->SetUser($user);
 
 my $info = $subs->GetSubscribedArtists;
 @$info = grep { defined $_->{name} } @$info;
+
+return $m->comp("subscriptions-public.inc", user => $them, info => $info)
+	unless $is_me;
+
 
 $m->comp("/comp/sidebar", title => 'Artist Subscriptions');
 
@@ -49,7 +75,7 @@ $m->comp("/comp/sidebar", title => 'Artist Subscriptions');
 
 	<p>
 		You are currently subscribed to
-		<% (@$info == 1) ? "this artist" : "these artists" %>.&nbsp;
+		<% (@$info == 1) ? "this artist" : "these ".scalar(@$info)." artists" %>.&nbsp;
 		To unsubscribe, tick the "unsubscribe" box next to the
 		subscriptions you want to delete,
 		then click the button below.&nbsp;

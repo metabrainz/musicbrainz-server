@@ -1,0 +1,36 @@
+%# vi: set ts=4 sw=4 ft=mason :
+<%args>
+$artist => undef
+</%args>
+<%perl>
+
+my ($id, $mbid);
+if (MusicBrainz::IsNonNegInteger($artist)) { $id = $artist }
+elsif (MusicBrainz::IsGUID($artist)) { $mbid = $artist }
+else { return $m->comp("/comp/error", "$artist is bad", 1, 1) }
+
+return $m->comp("/comp/error", "Public subscription lists are not yet released", 1, 1);
+
+my $mb = $m->comp("/comp/dblogin");
+
+$artist = Artist->new($mb->{DBH});
+$artist->SetMBId($mbid) if $mbid;
+$artist->SetId($id) if $id;
+$artist->LoadFromId()
+	or return $m->comp(
+		"/comp/error",
+		"Artist not found in the database.",
+		1, 1,
+	);
+
+$m->comp(
+	"/comp/sidebar",
+	pagetitle => "Subscriptions for artist: " . $artist->GetName(),
+	title => '',
+);
+
+$m->comp("/comp/artisttitle", artist=>$artist);
+
+</%perl>
+
+<& /comp/footer &>
