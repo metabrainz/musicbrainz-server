@@ -62,7 +62,8 @@ my %ModNames = (
     "18" => "Add Track",
     "19" => "Remove Artist",
     "20" => "Remove Diskid",
-    "21" => "Move Diskid"
+    "21" => "Move Diskid",
+    "22" => "Remove TRM id"
 );
 
 my %ChangeNames = (
@@ -405,6 +406,10 @@ sub CreateModerationObject
    {
        return MoveDiskidModeration->new($this->{DBH});
    }
+   elsif ($type == ModDefs::MOD_REMOVE_TRMID)
+   {
+       return RemoveTRMIdModeration->new($this->{DBH});
+   }
 
    print STDERR "Undefined moderation type $type.\n";
 
@@ -423,8 +428,13 @@ sub InsertModeration
     $this->CheckSpecialCases();
 
     $sql = Sql->new($this->{DBH});
-    $sql->Do(qq/update $this->{table} set modpending = modpending + 1 
-                where id = $this->{rowid}/);
+
+    # TODO: When automods come around, this should be an automod check
+    if ($this->{table} ne 'GUIDJoin')
+    {
+        $sql->Do(qq/update $this->{table} set modpending = modpending + 1 
+                    where id = $this->{rowid}/);
+    }
 
     $table = $sql->Quote($this->{table});
     $column = $sql->Quote($this->{column});
@@ -886,9 +896,13 @@ sub CloseModification
    my ($this, $rowid, $table, $datarowid, $status) = @_;
 
    my $sql = Sql->new($this->{DBH});
+
    # Decrement the mod count in the data row
-   $sql->Do(qq/update $table set modpending = modpending - 1
-                       where id = $datarowid/);
+   if ($table ne 'GUIDJoin')
+   {
+       $sql->Do(qq/update $table set modpending = modpending - 1
+                          where id = $datarowid/);
+   }
 
    # Set the status in the Changes row
    $sql->Do(qq/update Changes set status = $status where id = $rowid/);

@@ -633,3 +633,65 @@ sub DeniedAction
    $sql->Do("update TOC set album= " . $this->GetPrev() . 
             " where diskid = $quote");
 }
+
+package RemoveTRMIdModeration;
+use vars qw(@ISA);
+@ISA = 'Moderation';
+
+sub ShowPreviousValue
+{
+   my ($this) = @_;
+   my ($nw);
+
+   $nw = $this->ConvertNewToHash($this->{new});
+   return "Error!" if (!defined $nw);
+
+   if (exists $nw->{TrackId} && $nw->{TrackId} != 0)
+   {
+       return "Old: <a href=\"/showtrack.html?trackid=" . $nw->{TrackId} .
+          "\">" . $this->GetPrev() . "</a>";
+   }
+   return "Error!";
+}
+
+sub ShowNewValue
+{
+   my ($this) = @_;
+   
+   return "New: DELETE"; 
+}
+
+# I don't think removing a trmid warrants any dependencies
+sub DetermineDependencies
+{
+}
+
+sub PreVoteAction
+{
+   my ($this) = @_;
+
+   my $gu = GUID->new($this->{DBH});
+   $gu->RemoveGUIDByGUIDJoin($this->GetRowId());
+}
+
+#returns STATUS_XXXX
+sub ApprovedAction
+{
+   return ModDefs::STATUS_APPLIED;
+}
+
+#returns nothing
+sub DeniedAction
+{
+   my ($this) = @_;
+   my ($nw, $sql, $quote);
+
+   $nw = $this->ConvertNewToHash($this->{new});
+   return undef if (!defined $nw);
+
+   if (exists $nw->{TrackId} && $nw->{TrackId} != 0)
+   {
+       my $gu = GUID->new($this->{DBH});
+       $gu->Insert($this->GetPrev(), $nw->{TrackId});
+   }
+}

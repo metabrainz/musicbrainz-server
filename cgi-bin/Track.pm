@@ -286,7 +286,7 @@ sub GetMetadataFromIdAndAlbum
          $sql->Finish;
     }
 
-    return ($this->GetName(), $ar->GetName(), $album, $seq, $guid[0]); 
+    return ($this->GetName(), $ar->GetName(), $album, $seq, $guid[0]->{guid}); 
 }
 
 # This function inserts a new track. A properly initialized/loaded album

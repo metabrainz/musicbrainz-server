@@ -65,13 +65,24 @@ sub GetIdFromGUID
 
 sub GetGUIDFromTrackId
 {
-   my ($this, $id) = @_;
-   my ($sql);
+    my ($this, $id) = @_;
+    my (@row, $sql, @ret);
 
-   $sql = Sql->new($this->{DBH});
-   return $sql->GetSingleColumn("GUIDJoin, GUID", "GUID.guid", 
-                                ["GUIDJoin.track", $id,
-                                 "GUIDJoin.guid", "GUID.id"]);
+    $sql = Sql->new($this->{DBH});
+    if ($sql->Select(qq|select GUID.guid, GUIDJoin.id 
+                          from GUIDJoin, GUID
+                         where GUIDJoin.track = $id and
+                               GUIDJoin.guid = GUID.id|))
+    {
+        while(@row = $sql->NextRow())
+        {
+            push @ret, { guidjoinid=>$row[1],
+                         guid=>$row[0]
+                       };
+        }
+        $sql->Finish();
+    }
+    return @ret;
 }
 
 sub Insert
@@ -153,6 +164,34 @@ sub RemoveByTrackId
     return 1;
 }
 
+# Remove a specific single TRM from a given track
+sub RemoveGUIDByGUIDJoin
+{
+    my ($this, $joinid) = @_;
+    my ($sql, $sql2, $refcount, @row);
+
+    return undef if (!defined $joinid);
+ 
+    $sql = Sql->new($this->{DBH});
+    if ($sql->Select(qq|select GUIDJoin.id, GUIDJoin.guid from GUIDJoin
+                         where GUIDJoin.id = $joinid|))
+    {
+         $sql2 = Sql->new($this->{DBH});
+         while(@row = $sql->NextRow)
+         {
+             $sql->Do("delete from GUIDJoin where id = $row[0]");
+             ($refcount) = $sql2->GetSingleRow("GUIDJoin", ["count(*)"],
+                                              [ "GUIDJoin.guid", $row[1]]);
+             if ($refcount == 0)
+             {
+                $sql->Do("delete from GUID where id=$row[1]");
+             }
+         }
+         $sql->Finish;
+    }
+
+    return 1;
+}
 sub AssociateGUID
 {
     my ($this, $guid, $name, $artist, $album) = @_;

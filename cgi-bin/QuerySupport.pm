@@ -854,9 +854,12 @@ sub SubmitTRMList
                                   "AlbumJoin.album", "Album.id"]);
        if (scalar(@ids) == 0 || !defined($ids[0]))
        {
-           return $rdf->ErrorRDF("Invalid MB Track Id provided.") 
+           print STDERR "Invalid MB Track Id: $trackid\n";
        }
-       $gu->Insert($trmid,$ids[0]);
+       else
+       {
+           $gu->Insert($trmid,$ids[0]);
+       }
    }
    print STDERR "\n";
 
@@ -1158,7 +1161,7 @@ sub QuickTrackInfoFromTRMId
    $out .= $rdf->EndDesc("mq:Result");
    $out .= $rdf->EndRDFObject;
 
-   print STDERR "$out";
+   #print STDERR "$out";
 
    return $out;
 }

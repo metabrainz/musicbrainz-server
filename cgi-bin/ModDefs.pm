@@ -59,6 +59,7 @@ use constant MOD_ADD_TRACK_KV            => 18;
 use constant MOD_REMOVE_ARTIST           => 19;
 use constant MOD_REMOVE_DISKID           => 20;
 use constant MOD_MOVE_DISKID             => 21;
+use constant MOD_REMOVE_TRMID            => 22;
 
 # The constants below define the state a moderation can have:
 

@@ -82,7 +82,11 @@ $length_in_secs = int($track->GetLength() / 1000);
 % foreach $id (@guid) {
     <td valign="top" align="right"><img src="/images/trm.gif" align="center">
     TRM Id:</td>
-    <td valign="top"><% $id %></td>
+    <td valign="top"><% $id->{guid} %> 
+% if (exists $session{user}) {
+        <a href="/remtrm.html?guidjoin=<% $id->{guidjoinid} %>&trackid=<% $track->GetId() %>&trmid=<% $id->{guid} %>">Delete</a>
+% }
+    </td>
     </tr><tr>
 % }
     </table>

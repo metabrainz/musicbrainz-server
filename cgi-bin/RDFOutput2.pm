@@ -588,7 +588,7 @@ sub OutputTrackRDF
               $this->{baseuri}. "/artist/" . $artist->GetMBId());
     $out .=   $this->Element("mm:trackNum", $track->GetSequence());
     $out .=   $this->Element("mm:duration", $track->GetLength());
-    $out .=   $this->Element("mm:trmid", $guid[0]) if scalar(@guid);
+    $out .=   $this->Element("mm:trmid", $guid[0]->{guid}) if scalar(@guid);
     $out .= $this->EndDesc("mm:Track");
 
 

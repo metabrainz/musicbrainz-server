@@ -1,0 +1,90 @@
+<%args>
+$guidjoin=>0
+$trackid=>0
+$trmid=>""
+</%args>
+<& /comp/sidebar, title=>'Remove TRM Id', expand=>'moderate' &>
+<%perl>
+
+my ($mb, $gu, $tr);
+
+if ($guidjoin == 0 || $trackid == 0 || $trmid eq '')
+{
+    mc_comp("/comp/badargs");
+    return undef;
+}
+
+$mb = new MusicBrainz;
+$mb->Login();
+
+$gu = GUID->new($mb->{DBH});
+$tr = Track->new($mb->{DBH});
+$tr->SetId($trackid);
+if (!defined $tr->LoadFromId())
+{
+    mc_out("Invalid trackid passed.\n");
+    return undef;
+}
+
+</%perl>
+
+% if (!defined $session{user} || $session{user} eq '') {
+    You must be logged in to edit the database.<p>
+    <& /comp/tablebegin, title=>'Login' &>
+    <& /comp/loginbox &>
+    <& /comp/tableend &>
+% } else {
+
+    <& /comp/tablebegin, gattrs=>"width=\"100%\"",
+       title=>'Remove TRM Id' &>
+
+    <FORM METHOD="POST" ACTION="/bare/enter_kv_mod.html" NAME="RemoveTRMForm"
+          ENCTYPE="application/x-www-form-urlencoded">  
+
+    <table width="100%">
+      <tr>
+        <td colspan="2">
+        Are you sure you want to remove TRM Id <% $trmid %> from track
+        <span class="bold"><% $tr->GetName() %></span>? 
+        </td>
+      </tr>
+      <tr>
+        <td>
+        &nbsp;
+        </td>
+        <td>
+        <INPUT TYPE="radio" NAME="confirm0" SIZE=25 value="yes"> Yes
+        </td>
+      </tr>
+      <tr>
+        <td>
+        &nbsp;
+        </td>
+        <td>
+        <INPUT TYPE="radio" NAME="confirm0" SIZE=25 value="no" CHECKED> No
+        </td>
+      </tr>
+      <tr>
+        <td colspan=2>
+        <INPUT TYPE="submit" NAME="Submit" VALUE="Submit">    
+        </td>
+      </tr>
+    </table>
+    <input type="hidden" name="key0" value="TrackId">
+    <input type="hidden" name="value0" value="<% $trackid %>">
+    <input type="hidden" name="type"
+           value="<% ModDefs::MOD_REMOVE_TRMID %>">
+    <input type="hidden" name="artist" value="<% $tr->GetArtist() %>">
+    <input type="hidden" name="prev" value="<% $trmid %>">
+    <input type="hidden" name="new" value="DELETE">
+    <input type="hidden" name="table" value="GUIDJoin">
+    <input type="hidden" name="column" value="id">
+    <input type="hidden" name="id" value="<% $guidjoin %>">
+    <input type="hidden" 
+           name="url" value="/showtrack.html?trackid=<% $trackid %>">
+    </form>
+      
+    <& /comp/tableend &>
+% }
+% $mb->Logout();
+<& /comp/footer &>

@@ -216,6 +216,7 @@ sub Authenticate
                untie %$session;
                return "Session key expired. Please Authenticate again."; 
            }
+           print STDERR "Authenticated session $session_id\n";
            return "";
        }
    }
@@ -319,7 +320,7 @@ $queryname =~ s/^.*#//;
 if (!exists $Queries{$queryname})
 {
     $out = $rdf->ErrorRDF("Query '$queryname' is not supported.");
-    print STDERR "$out\n\n";
+    #print STDERR "$out\n\n";
     untie %session unless !defined $session_id;
     Output($r, \$out);
     exit(0);

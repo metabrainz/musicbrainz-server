@@ -17,88 +17,96 @@ my ($mb, $i, $j, $mod, $new, $modid, $depmod, $url);
 $mb = new MusicBrainz;
 $mb->Login();
 
-# Untag the tagged albums
-delete $session{tagged_albums};
 
-#print STDERR "Sanity check\n";
-if (CheckKVArg(\%ARGS, 'column') &&
-    CheckKVArg(\%ARGS, 'key0') &&
-    CheckKVArg(\%ARGS, 'value0') &&
-    CheckKVArg(\%ARGS, 'prev') &&
-    CheckKVArg(\%ARGS, 'artist') &&
-    CheckKVArg(\%ARGS, 'type') &&
-    CheckKVArg(\%ARGS, 'table') &&
-    CheckKVArg(\%ARGS, 'id')) 
+if (!exists $ARGS{confirm0} || $ARGS{confirm0} eq 'yes')
 {
-    for($i = 0;; $i++)
-    {
-        last if (!exists $ARGS{"key$i"} || !exists $ARGS{"value$i"});
+   # Untag the tagged albums
+   delete $session{tagged_albums};
 
-        $new .= $ARGS{"key$i"} . "=" . $ARGS{"value$i"} . "\n";
-    }
+   #print STDERR "Sanity check\n";
+   if (CheckKVArg(\%ARGS, 'column') &&
+       CheckKVArg(\%ARGS, 'key0') &&
+       CheckKVArg(\%ARGS, 'value0') &&
+       CheckKVArg(\%ARGS, 'prev') &&
+       CheckKVArg(\%ARGS, 'artist') &&
+       CheckKVArg(\%ARGS, 'type') &&
+       CheckKVArg(\%ARGS, 'table') &&
+       CheckKVArg(\%ARGS, 'id')) 
+   {
+       for($i = 0;; $i++)
+       {
+           last if (!exists $ARGS{"key$i"} || !exists $ARGS{"value$i"});
 
-#    print STDERR "$new\n\n";
-#    print STDERR join(" - ", $ARGS{'table'}, 
-#       $ARGS{'column'}, $ARGS{'artist'}, 
-#       $ARGS{'type'}, $ARGS{'id'},
-#       $ARGS{'prev'}, $new, $session{uid}) . "\nNew:\n$new\n";
+           $new .= $ARGS{"key$i"} . "=" . $ARGS{"value$i"} . "\n";
+       }
 
-    $mod = Moderation->new($mb->{DBH});
-    $mod = $mod->CreateModerationObject($ARGS{'type'});
-    if (defined $mod)
-    {
-        $mod->SetTable($ARGS{'table'});
-        $mod->SetColumn($ARGS{'column'});
-        $mod->SetArtist($ARGS{'artist'});
-        $mod->SetType($ARGS{'type'});
-        $mod->SetRowId($ARGS{'id'});
-        $mod->SetPrev($ARGS{'prev'});
-        $mod->SetNew($new);
-        $mod->SetModerator($session{uid});
-        $mod->SetDepMod(0);
+       #print STDERR "$new\n\n";
+       #print STDERR join(" - ", $ARGS{'table'}, 
+       #   $ARGS{'column'}, $ARGS{'artist'}, 
+       #   $ARGS{'type'}, $ARGS{'id'},
+       #   $ARGS{'prev'}, $new, $session{uid}) . "\nNew:\n$new\n";
 
-        # Do the prevote action (like insert data)
-        if (!$mod->PreVoteAction())
-        {
-            # If the PreVoteAction, failed, give the user an error.
-            mc_comp("/comp/sidebar", title=>"Insert moderation error",
-                    expand=>'moderate');
+       $mod = Moderation->new($mb->{DBH});
+       $mod = $mod->CreateModerationObject($ARGS{'type'});
+       if (defined $mod)
+       {
+           $mod->SetTable($ARGS{'table'});
+           $mod->SetColumn($ARGS{'column'});
+           $mod->SetArtist($ARGS{'artist'});
+           $mod->SetType($ARGS{'type'});
+           $mod->SetRowId($ARGS{'id'});
+           $mod->SetPrev($ARGS{'prev'});
+           $mod->SetNew($new);
+           $mod->SetModerator($session{uid});
+           $mod->SetDepMod(0);
 
-            mc_out("<p>Insert moderation error: ");
-            if (defined $mod->GetError())
-            {
-                mc_out($mod->GetError());
-            }
-            else
-            {
-                mc_out("Unknown error.\n");
-            }
-            mc_comp("/comp/footer");
-            return undef;
-        }
+           # Do the prevote action (like insert data)
+           if (!$mod->PreVoteAction())
+           {
+               # If the PreVoteAction, failed, give the user an error.
+               mc_comp("/comp/sidebar", title=>"Insert moderation error",
+                       expand=>'moderate');
 
-        # And now determine if there are any dependencies
-        $mod->DetermineDependencies();
+               mc_out("<p>Insert moderation error: ");
+               if (defined $mod->GetError())
+               {
+                   mc_out($mod->GetError());
+               }
+               else
+               {
+                   mc_out("Unknown error.\n");
+               }
+               mc_comp("/comp/footer");
+               return undef;
+           }
 
-        # Go to the item that we just inserted...
-        if ($mod->GetType() == ModDefs::MOD_ADD_ALBUM)
-        {
-            if ($mod->GetNew() =~ /^AlbumId=(.*)$/m)
-            {
-               $ARGS{url} = "/showalbum.html?albumid=$1";
-            }
-        }
-        if ($mod->GetType() == ModDefs::MOD_ADD_ARTIST)
-        {
-            if ($mod->GetNew() =~ /^ArtistId=(.*)$/m)
-            {
-               $ARGS{url} = "/showartist.html?artistid=$1";
-            }
-        }
-        $modid = $mod->InsertModeration();
-    }
+           # And now determine if there are any dependencies
+           $mod->DetermineDependencies();
+
+           # Go to the item that we just inserted...
+           if ($mod->GetType() == ModDefs::MOD_ADD_ALBUM)
+           {
+               if ($mod->GetNew() =~ /^AlbumId=(.*)$/m)
+               {
+                  $ARGS{url} = "/showalbum.html?albumid=$1";
+               }
+           }
+           if ($mod->GetType() == ModDefs::MOD_ADD_ARTIST)
+           {
+               if ($mod->GetNew() =~ /^ArtistId=(.*)$/m)
+               {
+                  $ARGS{url} = "/showartist.html?artistid=$1";
+               }
+           }
+           $modid = $mod->InsertModeration();
+       }
+   }
+   $mb->Logout();
 }
-$mb->Logout();
+else
+{
+    print STDERR "Mod not confirmed\n";
+}
 
 $r->method('GET');
 $r->headers_in->unset('Content-length');

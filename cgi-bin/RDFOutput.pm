@@ -433,7 +433,8 @@ sub CreateTrackRDFSnippet
                 $ids{'trackId'} = escape($row[1]),
 
                 @guid = $gu->GetGUIDFromTrackId($id);
-                $ids{'trackGUID'} = escape($guid[0]) if (scalar(@guid) > 0);
+                $ids{'trackGUID'} = escape($guid[0]->{guid}) 
+                    if (scalar(@guid) > 0);
 
                 if ($emit_details)
                 {
