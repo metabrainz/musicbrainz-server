@@ -32,6 +32,7 @@ use XMLParse;
 use RDF;
 use DBDefs;
 use TableBase;
+use Unicode::String;
 
 BEGIN { require 5.003 }
 use vars qw(@ISA @EXPORT);
@@ -79,6 +80,13 @@ sub SolveXQL
             $data = $node->getValue
                 if (defined $node->getNodeType);
         }
+    }
+
+    if (defined $data)
+    {
+       my $u;
+       $u = Unicode::String::utf8($data);
+       $data = $u->latin1;
     }
 
     return $data;
@@ -1136,6 +1144,8 @@ sub SubmitTrack
    {
        return EmitErrorRDF("Incomplete track information submitted.") 
    }
+
+   print STDERR "T: '$name' a: '$artist' l: '$album'\n";
 
    $ar = Artist->new($mb);
    $al = Album->new($mb);
