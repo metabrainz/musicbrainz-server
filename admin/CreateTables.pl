@@ -26,6 +26,7 @@ use lib "../cgi-bin";
 use DBI;
 use DBDefs;
 use MusicBrainz;
+use Artist;
 
 sub CreateTables
 {
@@ -44,6 +45,7 @@ sub CreateTables
           or die("Cannot create Artist table");
 
     print "Created Artist table.\n";
+
 
     $dbh->do("create table Album (" .
              "   Id int auto_increment primary key," .
@@ -214,7 +216,7 @@ sub CreateTables
              "   Moderator int not null, ".
              "   YesVotes int, ".
              "   NoVotes int,".
-             "   Depmod int)" 
+             "   Depmod int)")
           or die("Cannot create Changes table");
           
     print "Created Changes table.\n";
@@ -278,7 +280,17 @@ sub CreateTables
        print "Skipping creation of lyrics tables.\n";
     }
 
+    my ($ar, %mb);
+
+    $mb{DBH} = $dbh;
+    $ar = Artist->new(\%mb);
+    $id = $dbh->quote($ar->CreateNewGlobalId());
+    $dbh->do(qq\insert into Artist (Id, Name, SortName, GID, ModPending) values
+                (1, "Various Artists", "Various Artists", $id, 0)\); 
+    print "Inserted default rows.\n";
+
     print "\nCreated tables successfully.\n";
+
 }
 
 

@@ -34,6 +34,9 @@ use strict;
 use DBI;
 use DBDefs;
 
+# Use the following id for the multiple/various artist albums
+use constant VARTIST_ID => 1;
+
 sub new
 {
    my ($type, $mb) = @_;
@@ -109,9 +112,10 @@ sub LoadFromAlbumId
        if ($sth->rows)
        {
            @row = $sth->fetchrow_array;
-           if ($row[0] == 0)
+           if ($row[0] == Artist::VARTIST_ID)
            {
-               $this->{data} = [0, 'Various Artists', 'Various Artists', 0];
+               $this->{data} = [Artist::VARTIST_ID, 'Various Artists', 
+                                'Various Artists', 0];
                $ok = 1
            }
        }
@@ -228,7 +232,7 @@ sub GetMultipleArtistAlbumList
    $sth = $this->{DBH}->prepare(qq/select distinct AlbumJoin.album, Album.name, 
        Album.modpending from Track, Album, AlbumJoin where Track.Artist = 
        $id and AlbumJoin.track = Track.id and AlbumJoin.album = Album.id 
-       and Album.artist = 0 order by Album.name/);
+       and Album.artist = / . Artist::VARTIST_ID ." order by Album.name");
    $sth->execute;
    if ($sth->rows)
    {

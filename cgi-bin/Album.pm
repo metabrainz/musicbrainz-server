@@ -33,6 +33,7 @@ use strict;
 use CGI;
 use DBI;
 use DBDefs;
+use Artist;
 
 sub new
 {
@@ -148,6 +149,7 @@ sub SearchByName
    my ($this, $search) = @_;
    my (@info, $sth, $sql);
 
+   # Search for single artist albums
    $sql = $this->AppendWhereClause($search, qq/select Album.id, Album.name,
                Artist.name, Artist.id from Album,Artist where Album.artist = 
                Artist.id and /, "Album.Name") . " order by Album.name";
@@ -166,8 +168,9 @@ sub SearchByName
    }
    $sth->finish;
 
+   # Now search for multiple artist albums
    $sql = $this->AppendWhereClause($search, "select id, name " .
-           "from Album where artist = 0 and ", "Name");
+           "from Album where artist = ". Artist::VARTIST_ID ." and ", "Name");
     $sql .= " order by name";
 
    $sth = $this->{DBH}->prepare($sql);
@@ -179,7 +182,8 @@ sub SearchByName
 
        for(;@row = $sth->fetchrow_array;)
        {  
-           push @info, [$row[0], $row[1], 'Various Artists', 0];
+           push @info, [$row[0], $row[1], 
+                       'Various Artists', Artist::VARTIST_ID];
        }
    }
    $sth->finish;

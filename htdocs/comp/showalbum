@@ -28,7 +28,7 @@ mc_comp("/comp/modnotice");
 
 $al->LoadFromId($albumid);
 
-if ($artistid == 0)
+if ($artistid == Artist::VARTIST_ID)
 {
     mc_comp("/comp/malbum",
             mb=>$mb,

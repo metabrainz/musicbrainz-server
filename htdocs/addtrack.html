@@ -32,7 +32,11 @@ $al->LoadFromId($album);
     <& /comp/tablebegin, gattrs=>"width=\"100%\"",
        title=>'Add Track to '.$al->Value(1) &>
 
+% if ($artist == Artist::VARTIST_ID) {
+    <FORM METHOD="POST" ACTION="/artistfilter.html"
+% } else {
     <FORM METHOD="POST" ACTION="/bare/enter_mod.html"
+% }
           ENCTYPE="application/x-www-form-urlencoded">  
     <table>
       <tr>
@@ -50,6 +54,17 @@ $al->LoadFromId($album);
         <td>
         <INPUT TYPE="text" NAME="extra0-0" SIZE=25> 
         </td>
+      </tr>
+% if ($artist == Artist::VARTIST_ID) {
+      <tr>
+        <td>
+        Artist Sortname:
+        </td>
+        <td>
+        <INPUT TYPE="text" NAME="extra0-2" SIZE=25> 
+        </td>
+      </tr>
+% }
       <tr>
         <td colspan=2>
         <INPUT TYPE="submit" NAME="Submit" VALUE="Submit">    
@@ -65,6 +80,9 @@ $al->LoadFromId($album);
     <input type="hidden" name="table0" value="Track">
     <input type="hidden" name="column0" value="Name">
     <input type="hidden" name="referer" value="<% $referer %>">
+% if ($artist == Artist::VARTIST_ID) {
+    <input type="hidden" name="mode" value="addtrack">
+% }
     </form>
       
     <& /comp/tableend &>

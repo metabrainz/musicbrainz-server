@@ -32,7 +32,7 @@ else
     
     $al = Album->new($mb);
     $al->LoadFromId($albumid);
-    if ($artistid == 0)
+    if ($artistid == Artist::VARTIST_ID)
     {
         mc_comp("/comp/malbum", 
                 albumid=>$al->Value(0), 

@@ -9,6 +9,12 @@ $type
 %    my (@data) = split(/\n/, $new);
      Name: <span class="bold"><% $data[0] %></span> 
      Track: <span class="bold"><% $data[1] %></span>
+%    if ($data[2] == Artist::VARTIST_ID) {
+         <br>Artist: <span class="bold"><% $data[3] %></span> 
+%        if (defined $data[4]) {
+             (<span class="bold"><% $data[4] %></span>)
+%        } 
+%    } 
 % } elsif ($type == Moderation::MOD_MERGE_ARTIST ||
 %          $type == Moderation::MOD_MOVE_ALBUM ||
 %          $type == Moderation::MOD_CHANGE_TRACK_ARTIST) {

@@ -11,10 +11,16 @@ if (!exists $ARGS{id} || $ARGS{id} eq '')
     return;
 }
 
+$id = $ARGS{id};
+if ($id == Artist::VARTIST_ID)
+{
+    mc_out("You cannot edit this artist.\n");
+    return;
+}
+
 $referer = $r->headers_in->{'Referer'};
 $mb = new MusicBrainz;
 $mb->Login();
-$id = $ARGS{id};
 
 $ar = Artist->new($mb);
 $ar->LoadFromId($id);

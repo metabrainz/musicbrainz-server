@@ -33,7 +33,7 @@ $al = Album->new($mb);
 $al->LoadFromId($id);
 $albumname = $al->Value(1);
 
-if ($artist > 0)
+if ($artist != Artist::VARTIST_ID)
 {
    $ar = Artist->new($mb);
    $ar->LoadFromId($artist);

@@ -226,8 +226,8 @@ sub Insert
         $this->{DBH}->do("$query) $values)");
         $track = $this->GetLastInsertId();
 
-        $this->{DBH}->do(qq/insert into AlbumJoin (album, track, sequence) 
-                            values ($album, $track, $seq)/);
+        $this->{DBH}->do(qq/insert into AlbumJoin (album, track, sequence, 
+                            modpending) values ($album, $track, $seq, 0)/);
     }
 
     return $track;

@@ -65,13 +65,13 @@ use constant DEFAULT_LYRICS_URL => 'http://www.mp3.nl';
 use constant SEARCH_LYRICS_OFFSITE => 1;
 
 # This defines the version of the server
-use constant VERSION => "1.0.0-pre4";
+use constant VERSION => "1.0.0-pre6";
 
 # Defines the number of seconds before the votes on a 
 # modification are evaluated
 #use constant MOD_PERIOD => 604800;   # 1 week
-#use constant MOD_PERIOD => 172800;   # 2 days
-use constant MOD_PERIOD => 120;   # 2 minutes
+use constant MOD_PERIOD => 172800;   # 2 days
+#use constant MOD_PERIOD => 30;   
 
 # Defines the number of unanimous votes required to pass a mod early
 use constant NUM_UNANIMOUS_VOTES => 5;

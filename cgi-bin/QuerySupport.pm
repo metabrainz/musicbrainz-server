@@ -334,7 +334,7 @@ sub GenerateCDInfoObjectFromAlbumId
        # --------------------------------------------------------------
        # Print track info 
        # --------------------------------------------------------------
-       if ($artistid == 0)
+       if ($artistid == Artist::VARTIST_ID)
        {
            $xml .= "   <MultipleArtistCD>\n";
            $sth = $mb->{DBH}->prepare("select Track.Name, Artist.Name from Track," .
@@ -437,7 +437,8 @@ sub FindAlbumsByArtistName
 
    # This query finds multiple artist albums
    $sql = $tb->AppendWhereClause($search, qq/select Album.id from Album, 
-          Artist,Track,AlbumJoin where Album.artist = 0 and Track.Artist = 
+          Artist,Track,AlbumJoin where Album.artist = / . 
+          Artist::VARTIST_ID . qq/ and Track.Artist = 
           Artist.id and AlbumJoin.track = Track.id and AlbumJoin.album = 
           Album.id and Artist.name and /, "Artist.name");
    $sql .= " order by Album.name";

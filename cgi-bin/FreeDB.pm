@@ -113,9 +113,9 @@ sub EnterRecord
 
         $t = Track->new($this->{MB});
         $t->Insert($title, $artist, $album, $i + 1);
-        $d = Diskid->new($this->{MB});
-        $d->Insert($diskid, $album, $toc);
     }
+    $d = Diskid->new($this->{MB});
+    $d->Insert($diskid, $album, $toc);
 
     return $album;
 }

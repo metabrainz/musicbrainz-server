@@ -437,7 +437,7 @@ sub ApplyModification
 sub ApplyAddTrackModification
 {
    my ($this, $id) = @_;
-   my (@data, $tr, $tid, $status, $sth, @row);
+   my (@data, $tr, $ar, $tid, $status, $sth, @row);
 
    $status = STATUS_ERROR;
 
@@ -447,12 +447,44 @@ sub ApplyAddTrackModification
    $sth->execute;
    if ($sth->rows)
    {
-        @row = $sth->fetchrow_array;
-        @data = split(/\n/, $row[0]);
-
         $tr = Track->new($this->{MB});
-        $status = STATUS_APPLIED 
-           if(defined $tr->Insert($data[0], $row[2], $data[2], $data[1]));
+        $ar = Artist->new($this->{MB});
+        @row = $sth->fetchrow_array;
+
+        # Is this a single artist that we're adding a track to?
+        if ($row[2] != Artist::VARTIST_ID)
+        {
+            @data = split(/\n/, $row[0]);
+
+            # Single artist album
+
+            $status = STATUS_APPLIED 
+               if(defined $tr->Insert($data[0], $row[2], $row[1], $data[1]));
+        }
+        else
+        {
+            my ($artistname, $sortname, $newartistid);
+            @data = split(/\n/, $row[0]);
+
+            # Multiple artist album
+            $artistname = $data[3];
+            if (defined $data[4])
+            {
+                $sortname = $data[4];
+            }
+            else
+            {
+                $sortname = $artistname;
+            }
+
+            $newartistid = $ar->Insert($artistname, $sortname);
+            if (defined $newartistid)
+            {
+               $status = STATUS_APPLIED 
+                   if(defined $tr->Insert($data[0], $newartistid, 
+                                          $data[2], $data[1]));
+            }
+        }
    }
    $sth->finish;
 
@@ -650,7 +682,8 @@ sub ApplySACToMACModification
    {
         @row = $sth->fetchrow_array();
 
-        $this->{DBH}->do("update Album set Artist = 0 where id = $row[0]");
+        $this->{DBH}->do("update Album set Artist = " . 
+                         Artist::VARTIST_ID . "  where id = $row[0]");
         $status = STATUS_APPLIED 
    }
    $sth->finish;
