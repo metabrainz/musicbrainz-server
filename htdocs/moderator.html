@@ -166,10 +166,10 @@ $mb->Logout();
             verify the new email address)
         </td>
 %     } else {
-        <td><% $info->{email} ne '' ? $info->{email} : "[none specified/not verified]" |h %></td>
+        <td><% $info->{email} ne '' ? $info->{email} : "[none specified/not verified]" %></td>
 %     }
 % } else {
-    <td><% $info->{email} ne '' ? "[not shown]" : "[none specified]" |h %></td>
+    <td><% $info->{email} ne '' ? "[not shown]" : "[none specified]" %></td>
 % }
 </tr>
 
@@ -181,7 +181,7 @@ $mb->Logout();
     </td>
 % } else {
 %   if ($info->{weburl} ne "") {    
-       <td><% $info->{weburl} |h %></td>
+		<td><a href="<% $info->{weburl} %>"><% $info->{weburl} %></a></td>
 %   } else {
        <td>[none specified]</td>
 %   }
