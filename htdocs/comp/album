@@ -39,7 +39,7 @@ for($i = 0;; $i++)
     }
     mc_comp("/comp/albumtrack", track=>$track, album=>$album, 
             artist=>$artist, lyricspresent=>$lyricspresent,
-            tindex=>0, hilitetrack=>$hilitetrack, 
+            tindex=>$i, hilitetrack=>$hilitetrack, 
             hilitecolor=>$hilitecolor);
 }
 mc_comp("/comp/albumend", album=>$album, artist=>$artist);

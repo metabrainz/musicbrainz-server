@@ -34,7 +34,10 @@ else
     mc_comp("/comp/artisttitle", artist=>$artist);
     mc_out("[ <a href=\"/showaliases.html?artistid=");
     mc_out($artist->GetId());
-    mc_out("\">Show the aliases for this artist</a> ]<p>");
+    mc_out("\">Show the aliases for this artist</a> | ");
+    mc_comp("/comp/googlelink", search=>($artist->GetName()), 
+            text=>"Search Google"); 
+    mc_out("]<p>");
     mc_comp("/comp/modnotice");
     
     for(;;)
