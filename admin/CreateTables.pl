@@ -283,7 +283,12 @@ sub CreateTables
     {
        print "Skipping creation of lyrics tables.\n";
     }
+    print "Created tables successfully.\n\n";
+}
 
+sub InsertDefaultRows
+{
+    my ($dbh) = @_;
     my ($ar, %mb);
 
     $mb{DBH} = $dbh;
@@ -300,11 +305,7 @@ sub CreateTables
                 0, 0)|);
 
     print "Inserted default rows.\n";
-
-    print "\nCreated tables successfully.\n";
-
 }
-
 
 sub CreateIndices
 {
@@ -403,23 +404,24 @@ sub CreateIndices
     {
        print "Skipping creation of lyrics indices.\n";
     }
-    print "\nCreated indices successfully.\n";
+    print "Created indices successfully.\n\n";
 }
 
 my ($indices, $tables, $arg, $mb);
 
-$indices = 0;
-$tables = 0;
+$default = 1;
 
 while(defined($arg = shift))
 {
-    if ($arg eq '-t')
+    if ($arg eq '-nd')
     {
-        $tables = 1 
+        $default = 0 
     }
-    elsif ($arg eq '-i')
+    elsif ($arg eq '-h' || $arg eq '--help')
     {
-        $indices = 1 
+        print "Usage: CreateTables.pl [-nd]\n\n";
+        print "  -nd  -- don't insert default rows. (use this option when\n";
+        print "          importing a mysql data dump)\n";
     }
 }
 
@@ -428,11 +430,17 @@ $mb->Login;
 
 print "Connected to database.\n";
 
-print "Creating MusicBrainz Tables.\n\n";
+print "Creating MusicBrainz Tables.\n";
 CreateTables($mb->{DBH});
 
-print "Adding indices to MusicBrainz Tables.\n\n";
+print "Adding indices to MusicBrainz Tables.\n";
 CreateIndices($mb->{DBH});
+
+if ($default)
+{
+   print "Adding default rows to MusicBrainz Tables.\n";
+   InsertDefaultRows($mb->{DBH});
+}
 
 # Disconnect
 $mb->Logout;
