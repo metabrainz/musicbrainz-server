@@ -143,6 +143,14 @@ my $did_split = defined $splitartistname;
 ($splittrackname, $splitartistname) = ($splitartistname, $splittrackname)
 	if $session{'changetrack_splitorder'};
 
+# Trim everything
+for ($oldtrackname, $oldartistname, $splittrackname, $splitartistname)
+{
+	s/\A\s+//;
+	s/\s+\z//;
+	s/\s\s+/ /g;
+}
+
 # Now work out what we think is the more likely - use the split values,
 # or use the current values.
 my ($newtrackname, $newartistname) = ($oldtrackname, $oldartistname);
