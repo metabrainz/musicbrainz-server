@@ -10,7 +10,7 @@ my ($count, $trackcount, $trmids, $discids, $di,
     @attrs, $attr, $modpend, $nonalbum);
 
 $trackcount = $album->GetTrackCount();
-$trmids = $album->GetTRMCount();
+$trmids = $album->GetTrmidCount();
 $discids = $album->GetDiscidCount();
 @attrs = $album->GetAttributes();
 $modpend = $album->GetAttributeModPending();

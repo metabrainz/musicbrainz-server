@@ -272,7 +272,7 @@ sub GetDiscidCount
    return $this->{discidcount};
 }
 # Returns the number of TRM ids for this album or undef on error
-sub GetTRMCount
+sub GetTrmidCount
 {
    my ($this) = @_;
    my ($sql);

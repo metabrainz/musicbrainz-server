@@ -355,7 +355,7 @@ elsif ($flags & TaggerSupport::ALBUMTRACKLIST)
           </tr>
 %      foreach $id (@$list) {
           <tr bgcolor="<% $bgcolor = ( $bgcolor eq '#ffffff' ? '#ffe1b7' : '#ffffff' ) %>">
-             <td valign="top" width="50%">&nbsp;<a href="/showalbum.html?albumid=<% $id->{albumid} %>"><% $id->{album} %></a></td>
+             <td valign="top" width="40%">&nbsp;<a href="/showalbum.html?albumid=<% $id->{albumid} %>"><% $id->{album} %></a></td>
              <td width="10">&nbsp;</td>
              <td valign="top" NOWRAP>
              <% $id->{album_tracks} %>
@@ -377,7 +377,7 @@ elsif ($flags & TaggerSupport::ALBUMTRACKLIST)
                   width="30" height="11"
                   title="This album has <% $id->{album_trmids} %> TRM Ids">&nbsp;
              </td>
-             <td valign="top"><a href="/showtrack.html?trackid=<% $id->{id} %>"><% $id->{name} %></a></td>
+             <td valign="top" width="40%"><a href="/showtrack.html?trackid=<% $id->{id} %>"><% $id->{name} %></a></td>
              <td valign="top" align="center"><% int($id->{sim} * 100) %>%</td>
              <td valign="top" align="right">
 %               $copy{trackid} = $id->{mbid};
