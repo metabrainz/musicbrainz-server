@@ -5,7 +5,7 @@ $text=>''
 </%args>
 
 <FORM METHOD="GET" ACTION="/newsearch.html" ENCTYPE="application/x-www-form-urlencoded" class="formstyle"
-	NAME="TextSearchForm"
+	id="TextSearchForm"
 	>
 
 <div style="margin: 0.3em">
