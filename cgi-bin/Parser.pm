@@ -46,10 +46,43 @@ sub new
 	bless { }, $class;
 }
 
-sub GetBaseURI
+sub Parse
 {
-	my ($this) = @_;
-	return $this->{baseuri};
+	my ($this, $rdf) = @_;
+	my (%uri, @uri, %triples, %triples1, %baseuri);
+
+	$baseuri{uri} = "";
+
+	my $parser = RDFStore::Parser::SiRPAC->new(
+		NodeFactory => new RDFStore::NodeFactory(),
+		Handlers => { Assert => \&Statement },
+	);
+
+	$parser->{_next_uri_id_} = 0;
+	$parser->{__mburi__} = \%uri;
+	$parser->{__mburi2__} = \@uri;
+	$parser->{__mbtriples__} = \%triples;
+	$parser->{__mbtriples1__} = \%triples1;
+	$parser->{__baseuri__} = \%baseuri;
+
+	unless (eval { $parser->parse($rdf); 1 })
+	{
+		$this->{error} = $@;
+		# (my $err = $@) =~ s/\s+/ /g;
+		# print STDERR "Parse failed: $err\n";
+		return 0;
+	}
+
+	#print STDERR "Parsed ". scalar(keys %uri) . " unique URIs.\n";
+	#print STDERR "Parsed ". scalar(@triples) . " triples.\n";
+
+	$this->{uri} = \%uri;
+	$this->{uri2} = \@uri;
+	$this->{triples} = \%triples;
+	$this->{triples1} = \%triples1;
+	$this->{baseuri} = $baseuri{uri};
+
+ 	return 1;
 }
 
 sub Statement
@@ -81,6 +114,12 @@ sub Statement
 
 	push @{ $expat->{__mbtriples__}{$pid} }, [ $sid, $oid ];
 	push @{ $expat->{__mbtriples1__}{$oid}{$pid} }, $sid;
+}
+
+sub GetBaseURI
+{
+	my ($this) = @_;
+	return $this->{baseuri};
 }
 
 sub Extract
@@ -135,45 +174,6 @@ sub FindNodeByType
 		or return undef;
 
 	$this->{uri2}[$sid];
-}
-
-sub Parse
-{
-	my ($this, $rdf) = @_;
-	my (%uri, @uri, %triples, %triples1, %baseuri);
-
-	$baseuri{uri} = "";
-
-	my $parser = RDFStore::Parser::SiRPAC->new(
-		NodeFactory => new RDFStore::NodeFactory(),
-		Handlers => { Assert => \&Statement },
-	);
-
-	$parser->{_next_uri_id_} = 0;
-	$parser->{__mburi__} = \%uri;
-	$parser->{__mburi2__} = \@uri;
-	$parser->{__mbtriples__} = \%triples;
-	$parser->{__mbtriples1__} = \%triples1;
-	$parser->{__baseuri__} = \%baseuri;
-
-	unless (eval { $parser->parse($rdf); 1 })
-	{
-		$this->{error} = $@;
-		# (my $err = $@) =~ s/\s+/ /g;
-		# print STDERR "Parse failed: $err\n";
-		return 0;
-	}
-
-	#print STDERR "Parsed ". scalar(keys %uri) . " unique URIs.\n";
-	#print STDERR "Parsed ". scalar(@triples) . " triples.\n";
-
-	$this->{uri} = \%uri;
-	$this->{uri2} = \@uri;
-	$this->{triples} = \%triples;
-	$this->{triples1} = \%triples1;
-	$this->{baseuri} = $baseuri{uri};
-
- 	return 1;
 }
 
 1;
