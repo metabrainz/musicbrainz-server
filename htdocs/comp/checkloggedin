@@ -13,9 +13,12 @@ $m->comp("/comp/sidebar", title => "Login Required")
 
 	<p><% $sMessage %></p>
 
-	<& /comp/tablebegin, title=>'Login' &>
-	<& /comp/loginbox &>
-	<& /comp/tableend &>
+%#	<& /comp/tablebegin, title=>'Login' &>
+	<div class="TitledBox" style="width: 20em">
+		<div class="TitledBoxTitle">Login</div>
+		<& /comp/loginbox &>
+	</div>
+%#	<& /comp/tableend &>
 
 </center>
 

@@ -425,4 +425,22 @@ td.discidlength { background-color: #ffecd6; text-align: right }
 	position: relative;
 }
 
+/* Box with a title (e.g. login) */
+
+.TitledBox
+{
+	border: 1px solid black;
+}
+
+.TitledBoxTitle
+{
+	background: #FFBA58;
+	border-bottom: 1px solid black;
+	padding: 0.2em 0.5em;
+	text-align: left;
+	font: bold 10pt Verdana, Geneva, Arial, Helvetica, sans-serif;
+	color: #997035;
+	text-decoration: none;
+}
+
 /* eof */
