@@ -136,9 +136,17 @@ sub Resolve
        $id = $row[0];
        $sql->Finish;
 
-       # No transaction needed -- single column update only
-       $sql->Do(qq|update $this->{table} set LastUsed = now(), TimesUsed =
+       eval
+       {
+           $sql->Begin();
+           $sql->Do(qq|update $this->{table} set LastUsed = now(), TimesUsed =
                    TimesUsed + 1 where id = $row[1]|);
+           $sql->Commit();
+       };
+       if ($@)
+       {
+           return $id;
+       }
    }
    return $id;
 }

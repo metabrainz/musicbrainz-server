@@ -10,7 +10,8 @@ use SearchEngine;
 if ( defined $table && defined $search)
 {
     my $bgcolor= '#ffffff';
-    my $engine = SearchEngine->new;
+    my $mb = mc_comp("/comp/dblogin");
+    my $engine = SearchEngine->new($mb->{DBH});
     $engine->Table($table);
     $engine->AllWords($all_words);
     $engine->Limit($limit) if $limit;
@@ -39,7 +40,7 @@ if ( defined $table && defined $search)
            $r->content_type('text/html');
            $r->header_out(Location=>$url);
            $r->status(302);
-           $engine->Close();
+           $mb->Logout();
            return undef;
         }
     }
@@ -80,7 +81,7 @@ if ( defined $table && defined $search)
     </table>
     <& /comp/tableend &>
     <& /comp/tablebegin, title=>'Search Again', attrs=>"align=left", gattrs=>"width=100%" &>
-%   $engine->Close();
+%   $mb->Logout();
 % } else {
 <& /comp/sidebar, title=>'Search' &>
     <& /comp/tablebegin, title=>'Search', attrs=>"align=left", 

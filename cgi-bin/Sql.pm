@@ -118,6 +118,11 @@ sub Do
     my ($this, $query) = @_;
     my $ret;
 
+   if ($this->{DBH}->{AutoCommit} == 1)
+   {
+       cluck("AutoCommit is turned on!");
+       die "AutoCommit on!"
+   }
 #    die "No transaction started in Do." if ($this->{DBH}->{AutoCommit} == 0);
 #    my (@ltime, $trace, $prefix, @strace, $q);
 #    $trace = Carp::longmess();
@@ -305,16 +310,7 @@ sub Begin
 {
    my $this = $_[0];
 
-   eval
-   {
-       ($this->{DBH}->{AutoCommit} = 0);
-   };
-   if ($@)
-   {
-       my $err = $@;
-       cluck($err);
-       die $err;
-   }
+   $this->{DBH}->{AutoCommit} = 0;
 }
 
 sub Commit

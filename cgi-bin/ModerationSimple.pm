@@ -212,16 +212,9 @@ sub ApprovedAction
        $sql->Do("update artistalias set ref = $newid where ref = $rowid");
        $sql->Do("delete from Artist where id = $rowid");
 
-       # Wrap this in eval -- its not a fatal error
-       my $mb = MusicBrainz->new;
-       $mb->Login();
-       eval
-       {
-           my $al = Alias->new($mb->{DBH});
-           $al->SetTable("ArtistAlias");
-           $al->Insert($newid, $prevval);
-       };
-       $mb->Logout;
+       my $al = Alias->new($this->{DBH});
+       $al->SetTable("ArtistAlias");
+       $al->Insert($newid, $prevval);
    }
 
    return $status;
@@ -315,7 +308,7 @@ sub ApprovedAction
                {
                    # Now remove the old name from the word index, and then
                    # add the new name to the index
-                   my $engine = SearchEngine->new( { Table => $table } );
+                   my $engine = SearchEngine->new($this->{DBH},  { Table => $table } );
                    $engine->RemoveObjectRefs($datarowid);
                    $engine->AddWordRefs($datarowid, $this->GetNew());
                }
@@ -808,10 +801,13 @@ sub ApprovedAction
 
    $status = ModDefs::STATUS_ERROR;
 
+   print STDERR "AA: AC: $this->{DBH}->{AutoCommit}\n";
    $al = Alias->new($this->{DBH});
    $al->SetTable("ArtistAlias");
+   print STDERR "AA: AC: $this->{DBH}->{AutoCommit}\n";
    $status = ModDefs::STATUS_APPLIED
         if (defined $al->Insert($this->GetRowId(), $this->GetNew()));
+   print STDERR "AA: AC: $this->{DBH}->{AutoCommit}\n";
 
    return $status;
 }

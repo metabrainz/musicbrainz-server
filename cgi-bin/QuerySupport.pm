@@ -214,7 +214,7 @@ sub FindArtistByName
 
    $limit = 25 if not defined $limit;
 
-   my $engine = SearchEngine->new;
+   my $engine = SearchEngine->new($dbh);
    $engine->Table('Artist');
    $engine->AllWords(1);
    $engine->Limit($limit);
@@ -240,7 +240,7 @@ sub FindAlbumByName
 
    $limit = 25 if not defined $limit;
 
-   my $engine = SearchEngine->new;
+   my $engine = SearchEngine->new($dbh);
    $engine->Table('Album');
    $engine->AllWords(1);
    $engine->Limit($limit);
@@ -266,7 +266,7 @@ sub FindTrackByName
 
    $limit = 25 if not defined $limit;
 
-   my $engine = SearchEngine->new;
+   my $engine = SearchEngine->new($dbh);
    $engine->Table('Track');
    $engine->AllWords(1);
    $engine->Limit($limit);

@@ -86,7 +86,7 @@ sub Insert
     # Add search engine tokens.
     # TODO This should be in a trigger if we ever get a real DB.
 
-    my $engine = SearchEngine->new( { Table => 'Album' } );
+    my $engine = SearchEngine->new($this->{DBH}, { Table => 'Album' } );
     $engine->AddWordRefs($album,$this->{name});
 
     return $album;
@@ -122,7 +122,7 @@ sub Remove
     }
 
     # Remove references from album words table
-    my $engine = SearchEngine->new( { Table => 'Album' } );
+    my $engine = SearchEngine->new($this->{DBH},  { Table => 'Album' } );
     $engine->RemoveObjectRefs($this->GetId());
 
     print STDERR "DELETE: Removed Album " . $album . "\n";

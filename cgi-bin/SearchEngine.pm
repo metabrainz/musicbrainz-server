@@ -39,12 +39,11 @@ use utf8;
 sub new
 {
     my $class = shift;
+    my $dbh = shift;
     my $self = shift || {};
     bless $self, $class;
 
-    $self->{MB} = new MusicBrainz;
-    $self->{MB}->Login() || die "Cannot connect to database";
-    $self->{DBH}          = $self->{MB}->{DBH};
+    $self->{DBH}          = $dbh;
     $self->{STH}          = undef;
     $self->{ValidTables}  = ['Album','Artist','Track'];
     $self->{Table}      ||= 'Artist';
@@ -52,12 +51,6 @@ sub new
     $self->{Limit}      ||= 0;
     $self->{BGColor}    ||= "#ffffff";
     return $self;
-}
-
-sub Close
-{
-    my ($self) = @_;
-    $self->{MB}->Logout();
 }
 
 sub Table

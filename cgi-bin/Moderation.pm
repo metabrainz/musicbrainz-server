@@ -1123,9 +1123,18 @@ sub InsertModerationNote
    my $sql = Sql->new($this->{DBH});
    $text = $sql->Quote($text);
 
-   # No transaction needed, since its a one table insert
-   $sql->Do(qq/insert into ModerationNote (modid, uid, text) values
+   eval
+   {
+       $sql->Begin();
+       $sql->Do(qq/insert into ModerationNote (modid, uid, text) values
                       ($modid, $uid, $text)/);
+       $sql->Commit();
+   };
+   if ($@)
+   {
+       return undef;
+   }
+   return 1;
 }
 
 sub LoadModerationNotes

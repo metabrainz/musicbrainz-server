@@ -365,7 +365,7 @@ sub Insert
     # Add search engine tokens.
     # TODO This should be in a trigger if we ever get a real DB.
 
-    my $engine = SearchEngine->new( { Table => 'Track' } );
+    my $engine = SearchEngine->new($this->{DBH},  { Table => 'Track' } );
     $engine->AddWordRefs($track,$this->{name});
 
     return $track;
@@ -396,7 +396,7 @@ sub Remove
     $sql->Do("delete from Track where id = " . $this->GetId());
 
     # Remove references from track words table
-    my $engine = SearchEngine->new( { Table => 'Track' } );
+    my $engine = SearchEngine->new($this->{DBH},  { Table => 'Track' } );
     $engine->RemoveObjectRefs($this->GetId());
 
     return 1;

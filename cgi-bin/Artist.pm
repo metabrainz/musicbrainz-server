@@ -98,7 +98,7 @@ sub Insert
     # Add search engine tokens.
     # TODO This should be in a trigger if we ever get a real DB.
 
-    my $engine = SearchEngine->new( { Table => 'Artist' } );
+    my $engine = SearchEngine->new($this->{DBH}, { Table => 'Artist' } );
     $engine->AddWordRefs($artist,$this->{name});
 
     return $artist;

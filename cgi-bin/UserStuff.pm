@@ -211,8 +211,16 @@ sub SetUserInfo
 
    $query .= " where id = $uid";
 
-   # No transaction here, since its a simple one-row update
-   $sql->Do($query);
+   eval
+   {
+       $sql->Begin;
+       $sql->Do($query);
+       $sql->Commit;
+   };
+   if ($@)
+   {
+       return 0;
+   }
 
    return 1;
 } 
