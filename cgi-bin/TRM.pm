@@ -283,8 +283,7 @@ sub IncrementLookupCount
    my ($sql);
 
    $sql = Sql->new($this->{DBH});
-   $trm = $sql->Quote($trm);
-   $sql->Do("update TRM set lookupcount = lookupcount + 1 where trm = $trm");
+   $sql->Do("update TRM set lookupcount = lookupcount + 1 where trm = ?", $trm);
 }
 
 1;
