@@ -1,0 +1,41 @@
+<& /comp/sidebar, title=>'Track Lookup', expand=>'moderate' &>
+
+<%args>
+$artist=>""
+$artistid=>""
+$album=>""
+$albumid=>""
+$track=>""
+$trackid=>""
+$tracknum=>""
+$filename=>""
+</%args>
+
+<%perl>
+
+my ($mb, $id, $ar); 
+my ($artistname, $modpending, $sortname); 
+
+$mb = mc_comp("/comp/dblogin");
+
+</%perl>
+
+% if (!defined $session{user} || $session{user} eq '') {
+    You must be logged in to edit the database.<p>
+    <& /comp/tablebegin, title=>'Login' &>
+    <& /comp/loginbox &>
+    <& /comp/tableend &>
+% } else {
+    <table>
+      <tr><td>Artist:</td><td><% $artist %></td></tr>
+      <tr><td>Album:</td><td><% $album %></td></tr>
+      <tr><td>Track:</td><td><% $track %></td></tr>
+      <tr><td>ArtistId:</td><td><% $artistid %></td></tr>
+      <tr><td>AlbumId:</td><td><% $albumid %></td></tr>
+      <tr><td>TrackId:</td><td><% $trackid %></td></tr>
+      <tr><td>TrackNum:</td><td><% $tracknum %></td></tr>
+      <tr><td>File Name:</td><td><% $filename %></td></tr>
+    </table>
+% }
+% $mb->Logout();
+<& /comp/footer &>
