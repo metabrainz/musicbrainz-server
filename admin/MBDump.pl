@@ -225,6 +225,8 @@ chmod 0777, $dir;
 $| = 1;
 for (@tables)
 {
+	eval { $sql->SelectSingleValue("SELECT 1 FROM $_ LIMIT 1"); 1 }
+		or warn("No such table '$_', skipping...\n"), next;
 	DumpTable($_) or exit 1;
 }
 
