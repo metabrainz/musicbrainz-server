@@ -98,7 +98,6 @@ sub _Retrieve
 
     my $key = "FreeDB-$remote-$port-$query";
 
-    require MusicBrainz::Server::Cache;
     if (my $r = MusicBrainz::Server::Cache->get($key))
     {
 	return $$r;
