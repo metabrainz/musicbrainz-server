@@ -432,8 +432,7 @@ sub Search
     my $results = eval {
 	local $sql->{Quiet} = 1;
 	$sql->SelectListOfHashes(
-	    $self->_GetQuery(scalar @$counts),
-	    (map { $_->[0] } @$counts),
+	    $self->_GetQuery(map { $_->[0] } @$counts),
 	)
     };
 
@@ -584,13 +583,14 @@ sub Search
 sub _GetQuery
 {
     my $self = shift;
-    my $numwords = shift;
+    my @words = shift;
     my $table = $self->Table;
     my $wtable = $table . "words";
     my $idcol = $table . "id";
+    my $numwords = scalar @words;
 
     my $where = join " AND ", map {
-	"w$_.wordid = ?"
+	"w$_.wordid = $words[$_-1]"
     } 1 .. $numwords;
 
     # Check to see if the query should be restricted to Various artists only
