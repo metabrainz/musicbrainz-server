@@ -193,7 +193,7 @@ use Scalar::Util qw( reftype weaken );
 				{ name => "Rob's TODO",				url => "/rob_todo.html" },
 				{ name => "Johan's TODO",			url => "/johan_todo.html" },
 			],
-			{ name => "Metadata 2.0",			url => "/MM/index.html" },
+			{ name => "Metadata 2.1",			url => "/MM/index.html" },
 			[
 				{ name => "Introduction",			url => "/MM/index.html" },
 				{ name => "Examples",				url => "/MM/examples.html" },
