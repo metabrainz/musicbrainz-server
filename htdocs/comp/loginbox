@@ -1,3 +1,4 @@
+%# vi: set ts=4 sw=4 ft=mason :
 <%args>
 $url=>""
 </%args>
@@ -19,29 +20,29 @@ $url=>""
 
 % } else {
 
-<FORM METHOD="POST" ACTION="/bare/login.html" ID="LoginForm"
-      ENCTYPE="application/x-www-form-urlencoded" class="formstyle">
-<table>
-<tr>
-   <td>
-   User Name:<br>
-   <INPUT TYPE="text" NAME="User" SIZE=20>
-   </td>
-</tr>
-<tr>
-   <td>
-   Password:<br>
-   <INPUT TYPE="password" NAME="Password" SIZE=20>
-   </td>
-</tr>
-<tr>
-   <td>
-   <INPUT TYPE="submit" NAME="Login" VALUE="Log In">
-   <br>
-   <a href="/newlogin.html">Create a new account</a>
-   </td>
-</tr>
-</table>
+<form METHOD="POST" ACTION="/bare/login.html" ID="LoginForm"
+      ENCTYPE="application/x-www-form-urlencoded" class="formstyle"
+      style="padding: 0 0.5em"
+      >
+
+	<p style="margin: 0.5em">
+		User Name:<br>
+		<INPUT TYPE="text" NAME="User" SIZE=20>
+	</p>
+
+	<p style="margin: 0.5em">
+		Password:<br>
+		<INPUT TYPE="password" NAME="Password" SIZE=20>
+	</p>
+
+	<p style="text-align: center">
+		<INPUT TYPE="submit" NAME="Login" VALUE="Log In">
+	</p>
+	
+	<p style="text-align: center">
+		<a href="/newlogin.html">Create a new account</a>
+	</p>
+
 <%perl>
 if ($url eq "") 
 {
@@ -58,7 +59,9 @@ if ($url ne "") {
    mc_out("<INPUT TYPE=\"hidden\" NAME=\"url\" VALUE=\"$url\">");
 }
 </%perl>
+
 </form>
-<script type="text/javascript">document.forms.LoginForm.User.focus();</script>
+
+<& /comp/movefocus, "LoginForm", "User" &>
 
 % }
