@@ -64,9 +64,8 @@ sub handler
               'Apache::Session::File',
               $cookies{'AF_SID'}->value(),
               {
-                 # TODO: Create these directories for the session management
-                 Directory => '/home/httpd/musicbrainz/sessions',
-                 LockDirectory   => '/home/httpd/musicbrainz/locks',
+                 Directory => DBDefs::SESSION_DIR,
+                 LockDirectory => DBDefs::LOCK_DIR,
               }; 
         };
 
