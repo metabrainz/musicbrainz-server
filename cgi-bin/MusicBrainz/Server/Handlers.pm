@@ -14,12 +14,13 @@ sub TransHandler
 
 	if ($uri =~ s/;remote_ip=(.*?)$//)
 	{
-	   	$r->connection->remote_ip($1);
+		my $ip = $1;
+	   	$r->connection->remote_ip($ip);
 		$r->uri($uri);
 
 		my $request = $r->the_request;
 
-		if ($request =~ s/;remote_ip=(.*?)$//)
+		if ($request =~ s/;remote_ip=\Q$ip\E//)
 		{
 			$r->the_request($request);
 		}
