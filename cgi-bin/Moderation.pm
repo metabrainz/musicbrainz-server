@@ -919,6 +919,12 @@ sub CheckModerations
    my ($sql, $query, $rowid, @row, $status, $dep_status, $mod); 
    my (%mods, $now, $key);
 
+   if (DBDefs::DB_READ_ONLY)
+   {
+	   print "ModBot bailing out because DB_READ_ONLY is set\n";
+	   return;
+   }
+
    $sql = Sql->new($this->{DBH});
    $query = qq|select id from Moderation where status = | . 
                ModDefs::STATUS_OPEN . qq| or status = | .
@@ -1021,7 +1027,7 @@ sub CheckModerations
        }
 
        # Are the number of required unanimous votes present?
-       if ($mod->GetYesVotes() == DBDefs::NUM_UNANIMOUS_VOTES && 
+       if ($mod->GetYesVotes() >= DBDefs::NUM_UNANIMOUS_VOTES && 
            $mod->GetNoVotes() == 0)
        {
            print STDERR "EvalChange: unanimous yes\n";
@@ -1030,7 +1036,7 @@ sub CheckModerations
            next;
        }
 
-       if ($mod->GetNoVotes() == DBDefs::NUM_UNANIMOUS_VOTES && 
+       if ($mod->GetNoVotes() >= DBDefs::NUM_UNANIMOUS_VOTES && 
            $mod->GetYesVotes() == 0)
        {
            print STDERR "EvalChange: unanimous no\n";
