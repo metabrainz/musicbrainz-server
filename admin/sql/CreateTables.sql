@@ -279,7 +279,8 @@ CREATE TABLE replication_control
 (
         id                              SERIAL,
         current_schema_sequence         INTEGER NOT NULL,
-        current_replication_sequence    INTEGER
+        current_replication_sequence    INTEGER,
+        last_replication_date           TIMESTAMP WITH TIME ZONE
 );
 
 commit;

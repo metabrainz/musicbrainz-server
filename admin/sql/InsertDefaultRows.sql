@@ -22,7 +22,8 @@ INSERT INTO clientversion (id, version) VALUES (1, 'unknown');
 INSERT INTO replication_control VALUES (
     1,   -- fixed primary key
     1,   -- schema #1
-    NULL -- until we pull in a particular dump, we don't know what replication sequence we're at
+    NULL,-- until we pull in a particular dump, we don't know what replication sequence we're at
+    NULL
 );
 
 Commit;
