@@ -20,9 +20,7 @@ $ui = UserStuff->new($mb->{DBH});
 
 if ($user ne "")
 {
-    my ($dummy);
-    
-    ($dummy, $uid) = $ui->GetUserPasswordAndId($user);
+    (undef, $uid) = $ui->GetUserPasswordAndId($user);
 }
 
 if (!defined $uid || $uid == 0) 
