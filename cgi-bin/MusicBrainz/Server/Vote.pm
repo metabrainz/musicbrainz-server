@@ -57,12 +57,12 @@ sub InsertVotes
 
 sub _InsertVote
 {
-	my ($self, $uid, $id, $vote) = @_;
+	my ($self, $uid, $modid, $vote) = @_;
 	my $sql = Sql->new($self->{DBH});
 
 	my $status = $sql->SelectSingleValue(
 		"SELECT status FROM moderation WHERE id = ?",
-		$id,
+		$modid,
 	);
 
 	$status == STATUS_OPEN
@@ -72,7 +72,7 @@ sub _InsertVote
 	my $prevvote = $sql->SelectSingleValue(
 		"SELECT vote FROM votes WHERE uid = ? AND rowid = ?
 			ORDER BY id DESC LIMIT 1",
-		$uid, $id,
+		$uid, $modid,
 	);
 
 	# Nothing to do if your vote is the same as last time
@@ -89,7 +89,14 @@ sub _InsertVote
 
 	$sql->Do(
 		"INSERT INTO votes (uid, rowid, vote) VALUES (?, ?, ?)",
-		$uid, $id, $vote,
+		$uid, $modid, $vote,
+	);
+
+	my $voteid = $sql->GetLastInsertId("votes");
+	$sql->Do(
+		"UPDATE votes SET superseded = TRUE
+		WHERE uid = ? AND rowid = ? AND id < ?",
+		$uid, $modid, $voteid,
 	);
 
 	$sql->Do(
@@ -99,7 +106,7 @@ sub _InsertVote
 		WHERE id = ?",
 		$yesdelta,
 		$nodelta,
-		$id,
+		$modid,
 	);
 }
 
@@ -118,6 +125,20 @@ sub newFromModerationId
 	);
 
 	map { $self->_new_from_row($_) } @$data;
+}
+
+sub GetLatestVoteFromUser
+{
+	my ($self, $modid, $uid) = @_;
+	my $sql = Sql->new($self->{DBH});
+
+	$sql->SelectSingleValue(
+		"SELECT COALESCE(vote, ?) FROM votes WHERE rowid = ? AND uid = ?
+			AND (superseded IS NULL OR superseded = FALSE)",
+		VOTE_NOTVOTED,
+		$modid,
+		$uid,
+	);
 }
 
 ################################################################################
