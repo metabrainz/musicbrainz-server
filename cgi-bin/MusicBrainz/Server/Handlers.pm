@@ -59,7 +59,6 @@ sub negotiate_artist
 		"text/xml+rdf"	=> "/cgi-bin/rdf.pl?query=artist&id=$guid"
 			. (defined($path) ? "&depth=$path" : ""),
 		"text/html"		=> "/showartist.html?mbid=$guid",
-		"text/css"		=> "/css/main.css",
 	});
 }
 
