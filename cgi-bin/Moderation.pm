@@ -71,6 +71,12 @@ require MusicBrainz::Server::Moderation::MOD_REMOVE_TRACK;
 require MusicBrainz::Server::Moderation::MOD_REMOVE_TRMID;
 require MusicBrainz::Server::Moderation::MOD_SAC_TO_MAC;
 
+use constant SEARCHRESULT_SUCCESS => 1;
+use constant SEARCHRESULT_NOQUERY => 2;
+use constant SEARCHRESULT_TIMEOUT => 3;
+
+use constant DEFAULT_SEARCH_TIMEOUT => 30;
+
 my %ChangeNames = (
     &ModDefs::STATUS_OPEN			=> "Open",
     &ModDefs::STATUS_APPLIED		=> "Change applied",
@@ -631,205 +637,116 @@ sub GetMinOpenModID
 
 sub GetModerationList
 {
-   my ($this, $index, $num, $uid, $type, $rowid) = @_;
-   my ($sql, @data, @row, $num_rows, $total_rows);
-   my ($mod, $query, @args) = ();
+	my ($this, $index, $num) = @_;
 
-   $num_rows = $total_rows = 0;
-   if ($type == &ModDefs::TYPE_NEW)
-   {
-       $query = qq|
-        SELECT  m.id, m.tab, m.col, m.rowid,
-                m.artist, m.type, m.prevvalue, m.newvalue,
-                m.expiretime, m.yesvotes, m.novotes, m.status,
-                m.automod,
-                u.id, u.name,
-                a.name, m.expiretime < NOW()
-        FROM    moderation m
-                LEFT JOIN votes v ON v.rowid = m.id AND v.uid = ?
-                INNER JOIN moderator u ON u.id = m.moderator
-                INNER JOIN artist a ON a.id = m.artist
-        WHERE   m.moderator NOT IN (2,?)
-        AND     m.status = 1
-        AND     m.id >= ?
-        AND     v.vote IS NULL
-        ORDER BY 1
-       |;
-       @args = ($uid, $uid, $this->GetMinOpenModID);
-   }
-   elsif ($type == &ModDefs::TYPE_MODERATOR)
-   {
-       $query = qq|
-        SELECT  m.id, m.tab, m.col, m.rowid,
-                m.artist, m.type, m.prevvalue, m.newvalue,
-                m.expiretime, m.yesvotes, m.novotes, m.status,
-                m.automod,
-                u.id, u.name,
-                a.name, m.expiretime < NOW(),
-				v.vote
-        FROM    moderation m
-                INNER JOIN moderator u ON u.id = m.moderator
-                INNER JOIN artist a ON a.id = m.artist
-                LEFT JOIN votes v ON v.rowid = m.id AND v.uid = ?
-        WHERE   m.moderator = ?
-        ORDER BY 1 DESC
-		OFFSET ?
-       |;
-       @args = ($uid, $rowid, $index);
-   }
-   elsif ($type == &ModDefs::TYPE_VOTED)
-   {
-       $query = qq|select Moderation.id as moderation_id, tab, col, 
-                          Moderation.rowid, Moderation.artist, type, 
-                          prevvalue, newvalue, ExpireTime, yesvotes, novotes, 
-                          status, automod, Moderator.id as moderator_id, 
-                          Moderator.name as moderator_name, 
-                          Artist.name as artist_name, moderation.expiretime < NOW(),
-                          Votes.vote
-                     from Moderation, Moderator, Artist, Votes 
-                    where Moderator.id = moderation.moderator and 
-                          Moderation.artist = Artist.id and 
-                          Votes.rowid = Moderation.id and 
-                          Votes.uid = ?
-                 order by 1 desc 
-                          offset ?|;
-	@args = ($uid, $index);
-   }
-   elsif ($type == &ModDefs::TYPE_ARTIST)
-   {
-       $query = qq|select Moderation.id as moderation_id, tab, col, 
-                          Moderation.rowid, Moderation.artist, type, 
-                          prevvalue, newvalue, ExpireTime, yesvotes, novotes, 
-                          status, automod, Moderator.id as moderator_id, 
-                          Moderator.name as moderator_name, 
-                          Artist.name as artist_name, moderation.expiretime < NOW(),
-                          Votes.vote
-                     from Moderator, Artist, Moderation left join Votes 
-                          on Votes.uid = ? and Votes.rowid=moderation.id 
-                    where Moderator.id = moderation.moderator and 
-                          Moderation.artist = Artist.id and 
-                          moderation.artist = ?
-                 order by 1 desc 
-                          offset ?|;
-	@args = ($uid, $rowid, $index);
-   }
-   elsif ($type == &ModDefs::TYPE_FREEDB)
-   {
-       $query = qq|
-        SELECT  m.id, m.tab, m.col, m.rowid,
-                m.artist, m.type, m.prevvalue, m.newvalue,
-                m.expiretime, m.yesvotes, m.novotes, m.status,
-                m.automod,
-                u.id, u.name,
-                a.name, m.expiretime < NOW()
-        FROM    moderation m
-                LEFT JOIN votes v ON v.rowid = m.id AND v.uid = ?
-                INNER JOIN moderator u ON u.id = m.moderator
-                INNER JOIN artist a ON a.id = m.artist
-        WHERE   m.moderator = ?
-        AND     m.status = 1
-        AND     m.id >= ?
-        AND     v.vote IS NULL
-        ORDER BY 1
-       |;
-       @args = ($uid, &ModDefs::FREEDB_MODERATOR, $this->GetMinOpenModID);
-   }
-   elsif ($type == &ModDefs::TYPE_ALBUM)
-   {
-       $query = qq|select Moderation.id as moderation_id, tab, col, 
-                          Moderation.rowid, Moderation.artist, type, 
-                          prevvalue, newvalue, ExpireTime, yesvotes, novotes, 
-                          status, automod, Moderator.id as moderator_id, 
-                          Moderator.name as moderator_name, 
-                          Artist.name as artist_name, moderation.expiretime < NOW(),
-                          Votes.vote
-                     from Moderator, Artist, Moderation left join Votes 
-                          on Votes.uid = ? and Votes.rowid=moderation.id 
-                    where Moderator.id = moderation.moderator and 
-                          Moderation.artist = Artist.id and
-						  Moderation.rowid = ? and
-						  LOWER(Moderation.tab) = 'album'
-                          offset ?|;
-	@args = ($uid, $rowid, $index);
-   }
-   elsif ($type == &ModDefs::TYPE_MODERATOR_FAILED)
-   {
-       $query = qq|
-        SELECT  m.id, m.tab, m.col, m.rowid,
-                m.artist, m.type, m.prevvalue, m.newvalue,
-                m.expiretime, m.yesvotes, m.novotes, m.status,
-                m.automod,
-                u.id, u.name,
-                a.name, m.expiretime < NOW(),
-				v.vote
-        FROM    moderation m
-                INNER JOIN moderator u ON u.id = m.moderator
-                INNER JOIN artist a ON a.id = m.artist
-                LEFT JOIN votes v ON v.rowid = m.id AND v.uid = ?
-        WHERE   m.moderator = ?
-              AND   m.status IN (|
-		. join(",",
-			&ModDefs::STATUS_FAILEDVOTE,
-			&ModDefs::STATUS_FAILEDDEP,
-			&ModDefs::STATUS_FAILEDPREREQ,
-		) . qq|)
-        ORDER BY 1 DESC
-		OFFSET ?
-        |;
-       @args = ($uid, $rowid, $index);
-   }
-   else
-   {
-       return undef;
-   }
+	my $query = UserStuff->GetSession->{'moderation_sql'};
+	$query or return SEARCHRESULT_NOQUERY;
 
-   $sql = Sql->new($this->{DBH});
-   if ($sql->Select($query, @args))
-   {
-        $total_rows = $sql->Rows();
-        for($num_rows = 0; $num_rows < $num; $num_rows++)
-        {
-            last if not @row = $sql->NextRow();
-            $mod = $this->CreateModerationObject($row[5]);
-            if (defined $mod)
-            {
-                $mod->SetId($row[0]);
-                $mod->SetTable($row[1]);
-                $mod->SetColumn($row[2]);
-                $mod->SetRowId($row[3]);
-                $mod->SetArtist($row[4]);
-                $mod->SetType($row[5]);
-                $mod->SetPrev($row[6]);
-                $mod->SetNew($row[7]);
-                $mod->SetExpireTime($row[8]);
-                $mod->SetYesVotes($row[9]);
-                $mod->SetNoVotes($row[10]);
-                $mod->SetStatus($row[11]);
-                $mod->SetAutomod($row[12]);
-                $mod->SetModerator($row[13]);
-                $mod->SetModeratorName($row[14]);
-                $mod->SetArtistName($row[15]);
-			    $mod->SetExpired($row[16]);
-                if (defined $row[17])
-                {
-                    $mod->SetVote($row[17]);
-                }
-                else
-                {
-                    $mod->SetVote(&ModDefs::VOTE_NOTVOTED);
-                }
-				$mod->PostLoad;
-                push @data, $mod;
-            }
-            else
-            {
-                print STDERR "Could not create Moderation list ($row[5])\n";
-            }
-        }
-        $sql->Finish;
-   }
+	my $sql = Sql->new($this->{DBH});
 
-   return ($num_rows, $total_rows, @data);
+    $sql->AutoCommit;
+	$sql->Do("SET SESSION STATEMENT_TIMEOUT = " . int(DEFAULT_SEARCH_TIMEOUT*1000));
+
+	my $ok = eval {
+		local $sql->{Quiet} = 1;
+		$sql->Select($query . " OFFSET ".($index||0));
+		1;
+	};
+	my $err = $@;
+
+    $sql->AutoCommit;
+	$sql->Do("SET SESSION STATEMENT_TIMEOUT = DEFAULT");
+
+	if (not $ok)
+	{
+		if ($err =~ /query.*cancel/i)
+		{
+			warn "Moderation search timed out.  The query was: $query\n";
+			return SEARCHRESULT_TIMEOUT;
+		}
+
+		die $err;
+	}
+
+	my @mods;
+
+	while (@mods < $num)
+	{
+		my $r = $sql->NextRowHashRef
+			or last;
+		my $mod = $this->CreateModerationObject($r->{type});
+
+		unless ($mod)
+		{
+			print STDERR "Could not create moderation object for type=$r->{type}\n";
+			next;
+		}
+
+		$mod->SetId($r->{id});
+		$mod->SetArtist($r->{artist});
+		$mod->SetModerator($r->{moderator});
+		$mod->SetTable($r->{tab});
+		$mod->SetColumn($r->{col});
+		$mod->SetType($r->{type});
+		$mod->SetStatus($r->{status});
+		$mod->SetRowId($r->{rowid});
+		$mod->SetPrev($r->{prevvalue});
+		$mod->SetNew($r->{newvalue});
+		$mod->SetYesVotes($r->{yesvotes});
+		$mod->SetNoVotes($r->{novotes});
+		# depmod
+		$mod->SetAutomod($r->{automod});
+		# opentime
+		# closetime
+		$mod->SetExpireTime($r->{expiretime});
+
+		$mod->SetExpired($r->{expired});
+		$mod->SetVote($r->{vote});
+
+		push @mods, $mod;
+	}
+
+	my $total_rows = $sql->Rows;
+
+	$sql->Finish;
+
+	# Fetch mod name and artist name for each mod
+	my %moderator_cache;
+	my %artist_cache;
+	my $user = UserStuff->new($this->{DBH});
+	my $artist = Artist->new($this->{DBH});
+	my $vote = MusicBrainz::Server::Vote->new($this->{DBH});
+	my $voter = UserStuff->GetSession->{"moderation_voter_id"};
+	for my $mod (@mods)
+	{
+		# Fetch moderator name
+		my $uid = $mod->GetModerator;
+		$moderator_cache{$uid} = do {
+			my $u = $user->newFromId($uid);
+			$u ? $u->GetName : "?";
+		} unless defined $moderator_cache{$uid};
+		$mod->SetModeratorName($moderator_cache{$uid});
+
+		# Fetch artist name
+		my $artistid = $mod->GetArtist;
+		$artist_cache{$artistid} = do {
+			$artist->SetId($artistid);
+			$artist->LoadFromId()
+				? $artist->GetName : "?";
+		} unless defined $artist_cache{$artistid};
+		$mod->SetArtistName($artist_cache{$artistid});
+
+		# Find vote
+		if ($mod->GetVote == VOTE_UNKNOWN and $voter)
+		{
+			my $thevote = $vote->GetLatestVoteFromUser($mod->GetId, $voter);
+			$mod->SetVote($thevote);
+		}
+	}
+
+	$_->PostLoad for @mods;
+
+	return (SEARCHRESULT_SUCCESS, \@mods, $index+$total_rows);
 }
 
 ################################################################################
