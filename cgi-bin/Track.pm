@@ -127,7 +127,7 @@ sub LoadFromAlbumJoin
 {
 	my ($this, $albumjoinid) = @_;
 	my $sql = Sql->new($this->{DBH});
-	
+
 	my $t = $sql->SelectSingleRowArray(
 		"SELECT track, album FROM albumjoin WHERE id = ?",
 		$albumjoinid,
@@ -222,7 +222,7 @@ sub LoadFromId
 		id name mbid sequence length artist modpending
 		albumjoinmodpending sequenceid
 	)} = @$row;
-	
+
 	1;
 }
 
@@ -256,9 +256,9 @@ sub GetMetadataFromIdAndAlbum
     }
 
     $sql = Sql->new($this->{DBH});
-    if ($sql->Select(qq/select name, sequence 
-                          from Album, AlbumJoin 
-                         where AlbumJoin.track = $id and 
+    if ($sql->Select(qq/select name, sequence
+                          from Album, AlbumJoin
+                         where AlbumJoin.track = $id and
                                Album.id = AlbumJoin.album/))
     {
          # if this track appears on one album only, return that one
@@ -275,7 +275,7 @@ sub GetMetadataFromIdAndAlbum
                  $albumname = unac_string("UTF-8", $albumname);
                  $albumname = lc decode("utf-8", $albumname);
              }
-             
+
              while(@row = $sql->NextRow)
              {
                 my $temp = unac_string("UTF-8", $row[0]);
@@ -292,68 +292,75 @@ sub GetMetadataFromIdAndAlbum
          $sql->Finish;
     }
 
-    return ($this->GetName(), $ar->GetName(), $album, $seq, $TRM[0]->{TRM}); 
+    return ($this->GetName(), $ar->GetName(), $album, $seq, $TRM[0]->{TRM});
 }
 
 # This function inserts a new track. A properly initialized/loaded album
 # must be passed in. If this is a multiple artist album, a fully
 # inited/loaded artist must also be passed in. The new track id is returned
 sub Insert
-{   
+{
     my ($this, $al, $ar) = @_;
-    my ($track, $id, $query, $values, $sql, $artist, $album, $name);
-
-    return undef if ($this->GetName() eq '');
-  
     $this->{new_insert} = 0;
-    $album = $al->GetId();
-    $artist = ($al->GetArtist() == &ModDefs::VARTIST_ID) ? 
+
+	my $name = $this->GetName;
+	MusicBrainz::TrimInPlace($name) if defined $name;
+	if (not defined $name or $name eq "")
+	{
+		carp "Missing track name in Insert";
+		return undef;
+	}
+
+    my $album = $al->GetId;
+    my $artist = ($al->GetArtist() == &ModDefs::VARTIST_ID) ?
                 $ar->GetId() : $al->GetArtist();
 
-    return undef if (!defined $artist);
+	if (not $artist)
+	{
+		carp "Missing artist ID in Insert";
+		return undef;
+	}
 
-    $sql = Sql->new($this->{DBH});
-    $name = $sql->Quote($this->{name});
-    ($track) = $sql->GetSingleRowLike("Track, AlbumJoin", ["Track.id"],
-                                      ["name", $name,
-                                      "AlbumJoin.track", "Track.id",
-                                      "AlbumJoin.album", $album,
-                                      "AlbumJoin.sequence", $this->{sequence}]);
-    if (!defined $track)
-    {
-        $id = $sql->Quote($this->CreateNewGlobalId());
-        $query = "insert into Track (name,gid,artist,modpending";
-        $values = "values ($name, $id, $artist, 0";
+    my $sql = Sql->new($this->{DBH});
 
-        if (exists $this->{length} && $this->{length} != 0)
-        {
-            $query .= ",length";
-            $values .= ", $this->{length}";
-        }
-        if (exists $this->{year} && $this->{year} != 0)
-        {
-            $query .= ",year";
-            $values .= ", $this->{year}";
-        }
+	my $track = $sql->SelectSingleValue(
+		"SELECT	track.id
+		FROM	track, albumjoin
+		WHERE	albumjoin.album = ?
+		AND		albumjoin.sequence = ?
+		AND		track.id = albumjoin.track
+		AND		LOWER(track.name) = LOWER(?)",
+		$album,
+		$this->GetSequence,
+		$this->GetName,
+	);
+	return $track if $track;
 
-        $sql->Do("$query) $values)");
+	my %row = (
+		gid		=> $this->CreateNewGlobalId,
+		name	=> $this->GetName,
+		artist	=> $artist,
+		modpending	=> 0,
+	);
 
-		$track = $sql->GetLastInsertId("Track");
-		$this->{new_insert} = $track;
-		$sql->Do(
-			"INSERT INTO albumjoin (album, track, sequence, modpending)
-				values (?, ?, ?, 0)",
-			$album,
-			$track,
-			$this->{sequence},
-		);
-    }
+	if (my $l = $this->GetLength)
+	{
+		$row{'length'} = $l;
+	}
 
+	$track = $sql->InsertRow("track", \%row);
+	$this->{new_insert} = $track;
     $this->{id} = $track;
 
-    # Add search engine tokens.
-    # TODO This should be in a trigger if we ever get a real DB.
+	$sql->Do(
+		"INSERT INTO albumjoin (album, track, sequence, modpending)
+			values (?, ?, ?, 0)",
+		$album,
+		$track,
+		$this->{sequence},
+	);
 
+    # Add search engine tokens.
     my $engine = SearchEngine->new($this->{DBH},  { Table => 'Track' } );
     $engine->AddWordRefs($track,$this->{name});
 
@@ -434,7 +441,7 @@ sub Remove
     my ($sql, @row, $refcount);
 
     return undef if (!defined $this->GetId());
-  
+
     $sql = Sql->new($this->{DBH});
     ($refcount) = $sql->GetSingleRow("AlbumJoin", ["count(*)"],
                                      [ "AlbumJoin.track", $this->GetId()]);
@@ -442,7 +449,7 @@ sub Remove
     {
         print STDERR "DELETE: refcount = $refcount on track delete " .
                      $this->GetId() . "\n";
-        return undef 
+        return undef
     }
 
     my $trm = TRM->new($this->{DBH});
@@ -465,8 +472,8 @@ sub GetAlbumInfo
 
    $sql = Sql->new($this->{DBH});
    if ($sql->Select(qq|select album, name, sequence, GID, attributes
-                         from AlbumJoin, Album 
-                        where AlbumJoin.album = Album.id and 
+                         from AlbumJoin, Album
+                        where AlbumJoin.album = Album.id and
                               track = | . $this->GetId()))
    {
        for(;@row = $sql->NextRow();)
