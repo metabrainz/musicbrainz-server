@@ -132,7 +132,7 @@ if (!defined($result))
                        query=>"select count(*) from Votes where vote = -1", 
                        title=>"&nbsp;&nbsp;&nbsp;Abstain Votes:");
     $result .= '<tr><td>&nbsp;<br><font class="bold">';
-    $result .= 'Last 30 Days Graph</font></td></tr>';
+    $result .= 'Database size history</font></td></tr>';
 
     $mb->Logout();
     $m->cache(action=>'store', expire_next=>'hour', value=>$result);

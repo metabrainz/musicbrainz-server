@@ -235,8 +235,12 @@ sub Retrieve
     $paddr = sockaddr_in($port, $iaddr);
     $proto = getprotobyname('tcp');
 
-    socket(SOCK, PF_INET, SOCK_STREAM, $proto) or die "socket: $!";
-    connect(SOCK, $paddr)                      or die "connect: $!";
+    socket(SOCK, PF_INET, SOCK_STREAM, $proto) or return undef;
+    if (!connect(SOCK, $paddr))
+    {
+        print STDERR "Cannot connect to FreeDB server.\n";
+        return undef;
+    }
 
     $line = <SOCK>;
     #print $line;

@@ -290,12 +290,21 @@ sub ApprovedAction
                my $ar = Artist->new($this->{DBH});
                if (defined $ar->LoadFromName($this->GetNew()))
                {
-                   $status = ModDefs::STATUS_ERROR;
+                   # Check to see if the are exact, including case
+                   if ($this->GetNew() ne $ar->GetName())
+                   {
+                       $ok = 1;
+                   }
+                   else
+                   {
+                       $status = ModDefs::STATUS_ERROR;
     
-                   $this->InsertModerationNote($this->GetId(), ModDefs::MODBOT_MODERATOR, 
-                             "This edit moderation clashes with the existing artist " .
-                             "<a href=\"/showartist.html?artistid=" . $ar->GetId() . 
-                             "\">" .  $ar->GetName() . "</a>");
+                       $this->InsertModerationNote($this->GetId(), 
+                                ModDefs::MODBOT_MODERATOR, 
+                               "This edit moderation clashes with the existing artist " .
+                               "<a href=\"/showartist.html?artistid=" . $ar->GetId() . 
+                               "\">" .  $ar->GetName() . "</a>");
+                   }
                }
                else
                {
@@ -834,7 +843,7 @@ sub ShowPreviousValue
 
    if ($this->GetStatus != ModDefs::STATUS_APPLIED)
    {
-       return "Old: <a href=\"/showalbum.html?Discid=" .
+       return "Old: <a href=\"/showalbum.html?discid=" .
               "$this->{prev}\">$this->{prev}</a>";
    }
    else
