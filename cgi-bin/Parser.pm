@@ -32,9 +32,9 @@ use MM_2_1;
 use Apache;
 use RDFStore::Parser::SiRPAC;
 use RDFStore::NodeFactory;
-use String::CRC32;
 
 use Data::Dumper;
+use integer;
 
 sub new
 {
@@ -57,16 +57,6 @@ sub GetBaseURI
 sub Statement
 {
    my ($expat, $st) = @_;
-   my ($sid, $pid, $oid, $ordinal);
-
-   if ($st->predicate->getLabel =~ m/_(\d+)$/)
-   {
-       $ordinal = $1;
-   }
-
-   $sid = crc32($st->subject->getLabel);
-   $pid = crc32($st->predicate->getLabel);
-   $oid = crc32($st->object->getLabel);
 
    #print STDERR $st->subject->getLabel . "\n";
    #print STDERR $st->predicate->getLabel . "\n";
@@ -77,72 +67,54 @@ sub Statement
        $expat->{__baseuri__}->{uri} = $st->subject->getLabel;
    }
 
-   if (!exists $expat->{__mburi__}->{$sid})
-   {
-       $expat->{__mburi__}->{$sid} = $st->subject->getLabel;
-   }
-   if (!exists $expat->{__mburi__}->{$pid})
-   {
-       $expat->{__mburi__}->{$pid} = $st->predicate->getLabel;
-   }
-   if (!exists $expat->{__mburi__}->{$oid})
-   {
-       $expat->{__mburi__}->{$oid} = $st->object->getLabel;
-   }
-   if (!exists $expat->{__mbindex__}->{$sid})
-   {
-       $expat->{__mbindex__}->{$sid} = [];
-   }
-   push @{$expat->{__mbindex__}->{$pid}}, scalar(@{$expat->{__mbtriples__}});
-   push @{$expat->{__mbtriples__}}, [ $sid, $pid, $oid, $ordinal ]; 
+    my ($sid, $pid, $oid) = map {
+		my $uri = $_->getLabel;
+		my $id = $expat->{__mburi__}{$uri};
+		$id
+			or
+		($expat->{__mburi__}{$uri} = ++$expat->{_next_uri_id_});
+	} ($st->subject, $st->predicate, $st->object);
+
+	push @{$expat->{__mbtriples__}{$pid}}, [ $sid, $oid ]; 
 }
 
 sub Extract
 {
-   my ($this, $currentURI, $ordinal, $query) = @_;
-   my ($triple, $pid, $found, @querylist, $pred, $refs, $tref);
-   my ($triples);
+    my ($this, $currentURI, $ordinal, $query) = @_;
 
-   $triples = $this->{triples};
-   @querylist = split /\s/, $query;
-   foreach $pred (@querylist)
-   {
-       $found = 0;
+QUERY:
+    for my $pred (split /\s/, $query)
+    {
+		if ($pred eq "[]")
+		{
+			$pred = "http://www.w3.org/1999/02/22-rdf-syntax-ns#_$ordinal";
+		}
 
-       if ($pred eq "[]")
-       {
-          $pred = "http://www.w3.org/1999/02/22-rdf-syntax-ns#_$ordinal";
-       }
-       $pid = crc32($pred);
+		my $pid = $this->{uri}{$pred}
+			or return undef;
 
-       $refs = $this->{index}->{$pid};
-       return undef if (!defined $refs);
+		my $refs = $this->{triples}{$pid}
+			or return undef;
 
-           #print "predicate $pred: [$currentURI]\n";
-       foreach $tref (@{$refs})
-       {
-           $triple = $$triples[$tref]; 
-           #print "$this->{uri}->{$$triple[0]}\n";
-           #print "$this->{uri}->{$$triple[1]}\n";
-           #print "$this->{uri}->{$$triple[2]}\n";
-           if ($this->{uri}->{$$triple[0]} eq $currentURI)
-           {
-              #print "Match!\n\n";
-              $currentURI = $this->{uri}->{$$triple[2]};
-              $found = 1;
-              last;
-           }
-           #print "\n";
-       }
-       return undef if (not $found);
-   }
-   return $this->{uri}->{$$triple[2]};
+		for my $triple (@$refs)
+		{
+			$this->{uri}->{$$triple[0]} eq $currentURI
+				or next;
+
+			$currentURI = $this->{uri}->{$$triple[1]};
+			next QUERY;
+		}
+
+		return undef;
+    }
+
+    return $currentURI;
 }
 
 sub Parse
 {
    my ($this, $rdf) = @_;
-   my (%data, %uri, %index, @triples, $ref, %baseuri);
+   my (%data, %uri, @triples, $ref, %baseuri);
 
    $baseuri{uri} = "";
    my $parser=new RDFStore::Parser::SiRPAC( 
@@ -150,9 +122,9 @@ sub Parse
                    Handlers => { Assert  => \&Statement });
    eval
    {
+		$parser->{_next_uri_id_} = 0;
        $parser->{__mburi__} = \%uri;
        $parser->{__mbtriples__} = \@triples;
-       $parser->{__mbindex__} = \%index;
        $parser->{__baseuri__} = \%baseuri;
        $parser->parse($rdf);
    };
@@ -167,7 +139,6 @@ sub Parse
    #print STDERR "Parsed ". scalar(@triples) . " triples.\n";
 
    $this->{uri} = \%uri;
-   $this->{index} = \%index;
    $this->{triples} = \@triples;
    $this->{baseuri} = $baseuri{uri};
 
@@ -175,3 +146,4 @@ sub Parse
 }
 
 1;
+# vi: set ts=4 sw=4 :
