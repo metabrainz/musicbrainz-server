@@ -937,8 +937,8 @@ sub CheckModerations
                $sql->Begin;
 
                $mod->SetStatus($mod->ApprovedAction($mod->GetRowId()));
-               $this->CreditModerator($mod->GetModerator(), 1);
-               $this->CloseModeration($mod->GetId(), $mod->GetTable(), 
+               $mod->CreditModerator($mod->GetModerator(), 1);
+               $mod->CloseModeration($mod->GetId(), $mod->GetTable(), 
                                       $mod->GetRowId(), $mod->{__eval__});
 
                $sql->Commit;
@@ -961,8 +961,8 @@ sub CheckModerations
 
                $mod->SetStatus(ModDefs::STATUS_DELETED);
                $mod->DeniedAction();
-               $this->CloseModeration($mod->GetId(), $mod->GetTable(), 
-                                      $mod->GetRowId(), $mod->{__eval__});
+               $mod->CloseModeration($mod->GetId(), $mod->GetTable(), 
+                                     $mod->GetRowId(), $mod->{__eval__});
 
                $sql->Commit;
            };
@@ -983,9 +983,9 @@ sub CheckModerations
                $sql->Begin;
 
                $mod->DeniedAction();
-               $this->CreditModerator($mod->GetModerator(), 0);
-               $this->CloseModeration($mod->GetId(), $mod->GetTable(), 
-                                      $mod->GetRowId(), $mod->{__eval__});
+               $mod->CreditModerator($mod->GetModerator(), 0);
+               $mod->CloseModeration($mod->GetId(), $mod->GetTable(), 
+                                     $mod->GetRowId(), $mod->{__eval__});
 
                $sql->Commit;
            };
@@ -1075,10 +1075,18 @@ sub CloseModeration
    my $sql = Sql->new($this->{DBH});
 
    # Decrement the mod count in the data row
-   if ($table ne 'TRMJoin')
+   if ($this->{table} ne 'TRMJoin')
    {
-       $sql->Do(qq/update $table set modpending = modpending - 1
-                          where id = $datarowid/);
+       if ($this->{table} eq 'Album' && $this->{column} eq 'Attributes')
+       {
+           $sql->Do(qq/update $this->{table} set attributes[1] = 
+                       attributes[1] - 1 where id = $datarowid/);
+       }
+       else
+       {
+           $sql->Do(qq/update $table set modpending = modpending - 1
+                              where id = $datarowid/);
+       }
    }
 
    # Set the status in the Moderation row

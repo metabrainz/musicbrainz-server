@@ -74,6 +74,7 @@ sub new
    my ($type, $dbh) = @_;
 
    my $this = TableBase->new($dbh);
+   $this->{attrs} = [ 0 ];
    return bless $this, $type;
 }
 
@@ -106,7 +107,7 @@ sub GetAttributes
 sub SetAttributes
 {
    my $this = shift @_;
-   $this->{attrs} = [ shift @{ $this->{attrs }}, @_ ];
+   $this->{attrs} = [ ${ $this->{attrs }}[0], @_ ];
 }
 
 sub GetAttributeList

@@ -910,11 +910,10 @@ sub DetermineDependencies
 sub PreVoteAction
 {
    my ($this) = @_;
-   my ($nw, $key, $text);
+   my ($nw, $key, $text, @attrs, $al);
 
    $nw = $this->ConvertNewToHash($this->{new});
 
-   $text = "Attributes=";
    foreach $key (sort { $a <=> $b } keys %{$nw})
    {
       if ($key =~ /^\d+$/)
@@ -923,8 +922,15 @@ sub PreVoteAction
       }
    }
    chop($text);
-   $text .= "\nAlbumName=$nw->{AlbumName}\n";
+   @attrs = split /,/, $text;
+   $text = "Attributes=$text\nAlbumName=$nw->{AlbumName}\n";
    $this->{new} = $text;
+
+   $al = Album->new($this->{DBH});
+   $al->SetId($this->{rowid});
+   $al->LoadFromId();
+   $al->SetAttributes(@attrs);
+   $al->UpdateAttributes();
 
    return 1;
 }
@@ -932,23 +938,20 @@ sub PreVoteAction
 #returns STATUS_XXXX
 sub ApprovedAction
 {
-   my ($this) = @_;
-   my ($nw, $key, $text, @attrs, $al);
-
-   $nw = $this->ConvertNewToHash($this->{new});
-   @attrs = split /,/, $nw->{Attributes};
-
-   $al = Album->new($this->{DBH});
-   $al->SetId($this->{rowid});
-   $al->SetAttributes(@attrs);
-   if (defined $al->UpdateAttributes($nw->{Attributes}))
-   {
-        return ModDefs::STATUS_APPLIED;
-   }
-   return ModDefs::STATUS_FAILEDDEP;
+   return ModDefs::STATUS_APPLIED;
 }
 
 #returns nothing
 sub DeniedAction
 {
+   my ($this) = @_;
+   my (@attrs, $al);
+
+   @attrs = split /,/, $this->{prev};
+
+   $al = Album->new($this->{DBH});
+   $al->SetId($this->{rowid});
+   $al->LoadFromId();
+   $al->SetAttributes(@attrs);
+   $al->UpdateAttributes();
 }
