@@ -9,19 +9,35 @@ $m->comp("check-TracksNamedWithSequence", %ARGS) or return
 $m->comp("check-macsac", %ARGS) or return
 	unless $ARGS{"force-macsac"};
 
-my ($key, $value, $mb, @attr);
-
-$mb = $m->comp("/comp/dblogin");
+my $mb = $m->comp("/comp/dblogin");
 $m->comp("/comp/sidebar", title=>'Select Album Attributes');
 
-if ($ARGS{artist} == &ModDefs::VARTIST_ID)
+# Calculate the disc length so we can guess what type of release this is
+my $disclength;
+
+if (my $dur = $ARGS{durations})
 {
-    @attr = (Album::ALBUM_ATTR_COMPILATION, Album::ALBUM_ATTR_OFFICIAL);
+	$disclength = 0;
+	$disclength += $1 while $dur =~ /(\d+)/g;
 }
-else
+elsif (my $toc = $ARGS{toc})
 {
-    @attr = (Album::ALBUM_ATTR_ALBUM, Album::ALBUM_ATTR_OFFICIAL);
+	my %p = Discid->ParseTOC($toc);
+	$disclength = $p{leadoutoffset} / 75 * 1000 if %p;
 }
+
+# Guess the release type
+
+my @attr = (Album::ALBUM_ATTR_ALBUM, Album::ALBUM_ATTR_OFFICIAL);
+
+$attr[0] = Album::ALBUM_ATTR_COMPILATION
+	if $ARGS{artist} == &ModDefs::VARTIST_ID;
+
+$attr[0] = Album::ALBUM_ATTR_SINGLE
+	if ($disclength ? ($disclength < 30*60*1000) : ($ARGS{tracks} <= 5));
+
+$attr[0] = Album::ALBUM_ATTR_EP
+	if $ARGS{title} =~ /\bEP\b/i;
 
 my $selected_index = 0;
 
@@ -35,6 +51,10 @@ my $selected_index = 0;
 						selindex => \$selected_index &>
 
 	<p>
+		Disc length: <% Track::FormatTrackLength($disclength) %>
+	</p>
+
+	<p>
 		Enter moderation note (optional):
 	</p>
 
@@ -43,7 +63,7 @@ my $selected_index = 0;
 	</p>
 
 	<p>
-% foreach $key (keys %ARGS) {
+% for my $key (keys %ARGS) {
 		<input type="hidden" name="<% $key %>" value="<% $ARGS{$key} %>">
 % }
 		<input type="submit" value="Submit">
