@@ -5,7 +5,7 @@ $type
 <%perl>
 
 my ($mb, @info, $mod, $offset, $i, $comp, $obj);
-my ($option1, $option2, $num_mods);
+my ($option1, $option2, $num_mods, $total_mods);
 my $max_items = 10;
 
 $mb = new MusicBrainz;  
@@ -19,8 +19,8 @@ $mod = Moderation->new($mb->{DBH});
 
 if ($type == ModDefs::TYPE_NEW)
 {
-    ($num_mods, @info) = $mod->GetModerationList($offset, $max_items, 
-                                                 $session{uid}, $type);
+    ($num_mods, $total_mods, @info) = 
+           $mod->GetModerationList($offset, $max_items, $session{uid}, $type);
     mc_comp("/comp/sidebar", title=>'Review Pending Moderations',
             expand=>"moderate"); 
     $option1 = '<a href="moderate.html?type=2">Old Moderations</a>';
@@ -28,8 +28,9 @@ if ($type == ModDefs::TYPE_NEW)
 }
 elsif ($type == ModDefs::TYPE_VOTED)
 {
-    ($num_mods, @info) = $mod->GetModerationList($offset, ($max_items * 2)+1, 
-                                                 $session{uid}, $type);
+    ($num_mods, $total_mods, @info) = 
+           $mod->GetModerationList($offset, ($max_items * 2)+1, 
+                                   $session{uid}, $type);
     mc_comp("/comp/sidebar", title=>'Review Old (Voted) Moderations',
             expand=>"moderate"); 
     $option1 = '<a href="moderate.html?type=1">New Moderations</a>';
@@ -37,8 +38,9 @@ elsif ($type == ModDefs::TYPE_VOTED)
 }
 else
 {
-    ($num_mods, @info) = $mod->GetModerationList($offset, ($max_items * 2)+1, 
-                                                 $session{uid}, $type);
+    ($num_mods, $total_mods, @info) = 
+           $mod->GetModerationList($offset, ($max_items * 2)+1, 
+                                   $session{uid}, $type);
     mc_comp("/comp/sidebar", title=>'Review My Moderations',
             expand=>"moderate"); 
     $option1 = '<a href="moderate.html?type=1">New Moderations</a>';
@@ -51,13 +53,16 @@ else
 
 <table width=100%>
 <tr>
-  <td width="33%" align="center" valign="top">
+  <td width="25%" align="center" valign="top">
+      <% $total_mods %> mods total
+  </td>
+  <td width="25%" align="center" valign="top">
 %    mc_out($option1);
   </td>
-  <td width="33%" align="center" valign="top">
+  <td width="25%" align="center" valign="top">
 %    mc_out($option2);
   </td>
-  <td width="33%" align="center" valign="top">
+  <td width="25%" align="center" valign="top">
      <a href="mod_intro.html">Questions?</a>
   </td>
 </tr>
@@ -71,7 +76,7 @@ else
 %  } elsif ($type == ModDefs::TYPE_VOTED) {
    There are no old (voted on) modifications.
 %  } else {
-   You do not have any modifications.
+   You have not made any modifications.
 %  }
    </center>
 %}

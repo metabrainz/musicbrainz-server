@@ -458,7 +458,7 @@ sub CheckSpecialCases
 sub GetModerationList
 {
    my ($this, $index, $num, $uid, $type) = @_;
-   my ($sql, @data, @row, $num_rows);
+   my ($sql, @data, @row, $num_rows, $total_rows);
    my ($mod, $query);
 
    $num_rows = 0;
@@ -472,7 +472,7 @@ sub GetModerationList
             and Votes.rowid=Changes.id where Changes.Artist = Artist.id and 
             ModeratorInfo.id = moderator and moderator != $uid and status = /
             . ModDefs::STATUS_OPEN . 
-            qq/ group by Changes.id having num_votes < 1 limit $num/;
+            qq/ group by Changes.id having num_votes < 1/;
    }
    elsif ($type == ModDefs::TYPE_MINE)
    {
@@ -482,7 +482,7 @@ sub GetModerationList
             novotes, Artist.name, status, 0 from Changes, ModeratorInfo, Artist 
             where ModeratorInfo.id = moderator and Changes.artist = 
             Artist.id and moderator = $uid order by TimeSubmitted desc limit 
-            $index, $num/;
+            $index, -1/;
    }
    else
    {
@@ -493,15 +493,17 @@ sub GetModerationList
             ModeratorInfo, Artist,
             Votes where ModeratorInfo.id = moderator and Changes.artist = 
             Artist.id and Votes.rowid = Changes.id and Votes.uid = $uid 
-            order by TimeSubmitted desc limit $index, $num/;
+            order by TimeSubmitted desc limit $index, -1/;
    }
 
 
    $sql = Sql->new($this->{DBH});
    if ($sql->Select($query))
    {
-        for($num_rows = 0; @row = $sql->NextRow(); $num_rows++)
+        $total_rows = $sql->Rows();
+        for($num_rows = 0; $num_rows < $num; $num_rows++)
         {
+            last if not @row = $sql->NextRow();
             $mod = $this->CreateModerationObject($row[5]);
             if (defined $mod)
             {
@@ -530,7 +532,7 @@ sub GetModerationList
         $sql->Finish;
    }
 
-   return ($num_rows, @data);
+   return ($num_rows, $total_rows, @data);
 }
 
 # This function will get called from the html pages to output the
