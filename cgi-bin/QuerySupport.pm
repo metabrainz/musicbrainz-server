@@ -1182,3 +1182,71 @@ sub AuthenticateQuery
    return $rdf->CreateAuthenticateResponse($session_id, $challenge);
 }
 
+sub QuickTrackInfoFromTRMId
+{
+   my ($dbh, $doc, $rdf, $id) = @_;
+   my ($sql, @data, $out);
+
+   return $rdf->ErrorRDF("No trm id given.") 
+      if (!defined $id || $id eq '');
+   return undef if (!defined $dbh);
+
+   $sql = Sql->new($dbh);
+   $id = $sql->Quote($id);
+   @data = $sql->GetSingleRow(
+      "GUID, GUIDJoin, Track, AlbumJoin, Album, Artist", 
+      ["Track.name", "Artist.name", "Album.name", "AlbumJoin.sequence"],
+      ["GUID.guid", $id,
+       "GUIDJoin.guid", "GUID.id",
+       "GUIDJoin.track", "Track.id",
+       "Track.id", "AlbumJoin.track",
+       "Album.id", "AlbumJoin.album",
+       "Track.Artist", "Artist.id"]);
+
+   $out = $rdf->BeginRDFObject;
+   $out .= $rdf->BeginDesc("mq:Result");
+   $out .= $rdf->Element("mq:status", "OK");
+   $out .= $rdf->Element("mq:artistName", $data[1]);
+   $out .= $rdf->Element("mq:albumName", $data[2]);
+   $out .= $rdf->Element("mq:trackName", $data[0]);
+   $out .= $rdf->Element("mm:trackNum", $data[3]);
+   $out .= $rdf->EndDesc("mq:Result");
+   $out .= $rdf->EndRDFObject;
+
+   return $out;
+}
+
+sub QuickTrackInfoFromTrackId
+{
+   my ($dbh, $doc, $rdf, $tid, $aid) = @_;
+   my ($sql, @data, $out);
+
+   return $rdf->ErrorRDF("No track id given.") 
+      if (!defined $tid || $tid eq '' || !defined $aid || $aid eq '');
+   return undef if (!defined $dbh);
+
+   $sql = Sql->new($dbh);
+   $tid = $sql->Quote($tid);
+   $aid = $sql->Quote($aid);
+   @data = $sql->GetSingleRow(
+      "Track, AlbumJoin, Album, Artist", 
+      ["Track.name", "Artist.name", "Album.name", "AlbumJoin.sequence"],
+      ["Track.gid", $tid,
+       "AlbumJoin.album", "Album.id",
+       "Album.gid", $aid,
+       "Track.id", "AlbumJoin.track",
+       "Album.id", "AlbumJoin.album",
+       "Track.Artist", "Artist.id"]);
+
+   $out = $rdf->BeginRDFObject;
+   $out .= $rdf->BeginDesc("mq:Result");
+   $out .= $rdf->Element("mq:status", "OK");
+   $out .= $rdf->Element("mq:artistName", $data[1]);
+   $out .= $rdf->Element("mq:albumName", $data[2]);
+   $out .= $rdf->Element("mq:trackName", $data[0]);
+   $out .= $rdf->Element("mm:trackNum", $data[3]);
+   $out .= $rdf->EndDesc("mq:Result");
+   $out .= $rdf->EndRDFObject;
+
+   return $out;
+}

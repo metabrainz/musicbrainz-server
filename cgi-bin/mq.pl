@@ -132,7 +132,14 @@ my %Queries =
         'http://musicbrainz.org/mm/mq-1.0#sessionKey'],
    AuthenticateQuery =>
       [\&QuerySupport::AuthenticateQuery, 
-        'http://musicbrainz.org/mm/mq-1.0#username']
+        'http://musicbrainz.org/mm/mq-1.0#username'],
+   QuickTrackInfoFromTRMId =>
+      [\&QuerySupport::QuickTrackInfoFromTRMId, 
+        'http://musicbrainz.org/mm/mm-2.0#trmid'],
+   QuickTrackInfoFromTrackId =>
+      [\&QuerySupport::QuickTrackInfoFromTrackId, 
+        'http://musicbrainz.org/mm/mm-2.0#trackid',
+        'http://musicbrainz.org/mm/mm-2.0#albumid']
 );  
 
 sub Statement
