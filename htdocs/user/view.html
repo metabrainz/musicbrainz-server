@@ -4,6 +4,9 @@ $uid => ($session{uid} || undef)
 $modname => undef
 </%args>
 <%def .JumpForm>
+<%args>
+$jump => 1
+</%args>
 
 <form method="get" action="/user/view.html" id="ModeratorForm">
 	<p>
@@ -13,7 +16,9 @@ $modname => undef
 	</p>
 </form>
 
+% if ($jump) {
 <& /comp/movefocus, "ModeratorForm", "modname" &>
+% }
 
 </%def>
 <%def .ShowError>
@@ -25,7 +30,7 @@ $modname => undef
 		<p class="notice"><% $error %></p>
 % }
 
-		<& .JumpForm &>
+		<& .JumpForm, jump => 1 &>
 		<& /comp/footer &>
 
 </%def>
@@ -281,6 +286,6 @@ for ($allvotes, $recentvotes)
 </table>
 
 <h2>Find Moderator by Name</h2>
-<& .JumpForm &>
+<& .JumpForm, jump => 0 &>
 
 <& /comp/footer &>
