@@ -159,6 +159,8 @@ sub SetStatus
    $_[0]->{status} = $_[1];
 }
 
+sub IsOpen { $_[0]{status} == STATUS_OPEN or $_[0]{status} == STATUS_TOBEDELETED }
+
 sub GetArtist
 {
    return $_[0]->{artist};
@@ -370,16 +372,16 @@ sub CreateFromId
    my ($this, $id) = @_;
    my ($mod, $query, $sql, @row);
 
-   $query = qq/select Moderation.id, tab, col, Moderation.rowid, 
-                      Moderation.artist, type, prevvalue, newvalue, 
+   $query = qq/select m.id, tab, col, m.rowid, 
+                      m.artist, type, prevvalue, newvalue, 
                       ExpireTime, Moderator.name, 
                       yesvotes, novotes, Artist.name, status, 0, depmod,
-                      Moderator.id, Moderation.automod,
+                      Moderator.id, m.automod,
                       opentime, closetime,
                       ExpireTime < now()
-               from   Moderation, Moderator, Artist 
-               where  Moderator.id = moderator and Moderation.artist = 
-                      Artist.id and Moderation.id = ?/;
+               from   moderation_all m, Moderator, Artist 
+               where  Moderator.id = moderator and m.artist = 
+                      Artist.id and m.id = ?/;
 
    $sql = Sql->new($this->{DBH});
    if ($sql->Select($query, $id))
@@ -507,7 +509,7 @@ sub InsertModeration
     my $sql = Sql->new($this->{DBH});
 
     $sql->Do(
-		"INSERT INTO moderation (
+		"INSERT INTO moderation_open (
 			tab, col, rowid,
 			prevvalue, newvalue,
 			moderator, artist, type,
@@ -527,7 +529,7 @@ sub InsertModeration
 		&ModDefs::STATUS_OPEN, &DBDefs::MOD_PERIOD,
 	);
 
-    my $insertid = $sql->GetLastInsertId("moderation");
+    my $insertid = $sql->GetLastInsertId("moderation_open");
 	#print STDERR "Inserted as moderation #$insertid\n";
 	$this->SetId($insertid);
 
@@ -550,7 +552,7 @@ sub InsertModeration
         my $status = $mod->ApprovedAction;
 
 		$sql->Do(
-			"UPDATE moderation SET status = ?, automod = 1 WHERE id = ?",
+			"UPDATE moderation_open SET status = ?, automod = 1 WHERE id = ?",
 			$status,
 			$insertid,
 		);
@@ -585,54 +587,26 @@ SUPPRESS_INSERT:
 	wantarray ? @inserted_moderations : pop @inserted_moderations;
 }
 
-# This function is used by htdocs/mod/search/setquery.inc to optimise the
-# queries that select only mods of status STATUS_OPEN.
-
-sub GetMinOpenModID
-{
-	my $self = shift;
-
-	use HTML::Mason::Utils 'access_data_cache';
-	my $cachefile = &DBDefs::CACHE_DIR . "/OldestOpenModID";
-
-	my $v = access_data_cache(
-		cache_file => $cachefile,
-		action => 'retrieve',
-		busy_lock => '10sec',
-	);
-
-	return $v if defined $v;
-				 
-	print STDERR localtime() . " : Finding oldest open moderation\n";
-
-	use Time::HiRes qw( gettimeofday tv_interval );
-	my $t0 = [ gettimeofday ];
-
-	my $sql = Sql->new($self->{DBH});
-	$v = $sql->SelectSingleValue(
-		"SELECT MIN(id) FROM moderation WHERE status = 1",
-	) || 0;
-
-	access_data_cache(
-		cache_file => $cachefile,
-		action => 'store',
-		value => $v,
-		expire_in => '1 hour',
-	);
-
-	printf STDERR "%s : Took %.2f sec to find oldest open moderation - #%d\n",
-		scalar localtime,
-		tv_interval($t0),
-		$v;
-
-	$v;
-}
-
 sub GetMaxModID
 {
 	my $self = shift;
 	my $sql = Sql->new($self->{DBH});
-	$sql->SelectSingleValue("SELECT NEXTVAL('moderation_id_seq')");
+	$sql->SelectSingleValue("SELECT NEXTVAL('moderation_open_id_seq')");
+}
+
+sub OpenModsByType_as_hashref
+{
+	my $self = shift;
+	my $sql = Sql->new($self->{DBH});
+
+	my $rows = $sql->SelectListOfLists(
+		"SELECT type, COUNT(*) FROM moderation_open
+		WHERE status = ".&ModDefs::STATUS_OPEN." GROUP BY type",
+	);
+
+	+{
+		map { $_->[0] => $_->[1] } @$rows
+	};
 }
 
 # This function returns the list of moderations to
@@ -784,7 +758,7 @@ sub CloseModeration
  	# Set the status in the Moderation row
   	my $sql = Sql->new($this->{DBH});
    	$sql->Do(
-		"UPDATE moderation SET status = ? WHERE id = ?",
+		"UPDATE moderation_open SET status = ? WHERE id = ?",
 		$status,
 		$this->GetId,
 	);
@@ -800,7 +774,7 @@ sub RemoveModeration
 		# on its next pass.
 		my $sql = Sql->new($this->{DBH});
 		$sql->Do(
-			"UPDATE moderation SET status = ?
+			"UPDATE moderation_open SET status = ?
 			WHERE id = ? AND moderator = ? AND status = ?",
 	   		&ModDefs::STATUS_TOBEDELETED,
 			$this->GetId,

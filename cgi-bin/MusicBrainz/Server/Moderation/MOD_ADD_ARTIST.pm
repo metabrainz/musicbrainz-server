@@ -103,14 +103,6 @@ sub DeniedAction
 		my $ar = Artist->new($self->{DBH});
 		$ar->SetId($artist);
 		$ar->Remove;
-
-		# TODO shouldn't this be handled by Artist->Remove?
-		my $sql = Sql->new($self->{DBH});
-		$sql->Do(
-			"UPDATE moderation SET artist = ? WHERE artist = ?",
-			&ModDefs::DARTIST_ID,
-			$artist,
-		);
    }
 }
 

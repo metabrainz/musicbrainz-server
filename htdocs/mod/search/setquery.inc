@@ -106,12 +106,25 @@ push @where, $m->comp(
 	[keys %allowed_status],
 );
 
-# If we are specifically querying for STATUS_OPEN only, optimise using
-# ->GetMinOpenModID.
-if (@mod_status == 1 and $mod_status[0] == &ModDefs::STATUS_OPEN)
+# Find out whether we're using the _open tables, the _closed ones, or _all.
+my $table_suffix = "all";
+if (@mod_status)
 {
-	my $mod = Moderation->new($mb->{DBH});
-	push @where, "m.id >= " . $mod->GetMinOpenModID;
+	my $need_open = 0;
+	my $need_closed = 0;
+
+	for (@mod_status)
+	{
+		$need_open = 1, next
+			if $_ == &ModDefs::STATUS_OPEN
+			or $_ == &ModDefs::STATUS_TOBEDELETED;
+		$need_closed = 1;
+	}
+
+	$table_suffix = ($need_open
+		? $need_closed ? "all" : "open"
+		: "closed"
+	);
 }
 
 ################################################################################
@@ -203,8 +216,8 @@ if (@vote_cast > 0 and @vote_cast < keys(%allowed_votes))
 
 	# Construct the whole JOIN clause.  We may add another filter to this (see
 	# below).
-	$vote_join = " $join_type JOIN votes v ON v.rowid = m.id"
-		. " AND v.uid = $effective_voter_id"
+	$vote_join = " $join_type JOIN vote_$table_suffix v ON v.moderation = m.id"
+		. " AND v.moderator = $effective_voter_id"
 		. " AND NOT v.superseded";
 
 	if (not $no_vote)
@@ -388,7 +401,7 @@ $filter{"orderby"} = $orderby;
 
 my $query = "SELECT m.*, NOW()>m.expiretime AS expired"
 	. $vote
-	. " FROM moderation m" . $vote_join . $subs_join;
+	. " FROM moderation_$table_suffix m" . $vote_join . $subs_join;
 $query .= " WHERE " . join(" AND ", @where) if @where;
 $query .= " ORDER BY m.id ".uc($orderby);
 

@@ -1,11 +1,4 @@
-begin;
-
-select 'Are you sure you want to use this script?';
-select 'If so, you better uncomment the rollback. :-)';
-
--- Uncomment the rollback to make this script do something.
---rollback;
-commit;
+\set ON_ERROR_STOP 1
 
 drop table Artist;
 drop table ArtistAlias;
@@ -19,9 +12,12 @@ drop table TRMJoin;
 drop table Discid;
 drop table TOC;
 drop table Moderator;
-drop table Moderation;
-drop table ModerationNote;
-drop table Votes;
+drop table moderation_closed;
+drop table moderation_note_closed;
+drop table moderation_note_open;
+drop table moderation_open;
+drop table vote_closed;
+drop table vote_open;
 drop table WordList;
 drop table ArtistWords;
 drop table AlbumWords;
@@ -41,15 +37,15 @@ drop sequence artist_id_seq;
 drop sequence artistalias_id_seq;
 drop sequence clientversion_id_seq;
 drop sequence discid_id_seq;
-drop sequence moderation_id_seq;
-drop sequence moderationnote_id_seq;
+drop sequence moderation_open_id_seq;
+drop sequence moderation_note_open_id_seq;
 drop sequence moderator_id_seq;
 drop sequence stats_id_seq;
 drop sequence toc_id_seq;
 drop sequence track_id_seq;
 drop sequence trm_id_seq;
 drop sequence trmjoin_id_seq;
-drop sequence votes_id_seq;
+drop sequence vote_open_id_seq;
 drop sequence wordlist_id_seq;
 drop sequence country_id_seq;
 drop sequence release_id_seq;

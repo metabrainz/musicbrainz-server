@@ -210,26 +210,13 @@ my $is_me = ($uid == $my_uid);
 <%perl>
 
 # Retrieve vote statistics
-my $sql = Sql->new($mb->{DBH});
+my $votes = MusicBrainz::Server::Vote->new($mb->{DBH});
 
-my $allvotes = $sql->SelectListOfLists(
-	"SELECT vote, COUNT(*) FROM votes WHERE uid = ? GROUP BY vote",
-	$uid,
-);
-
-my $recentvotes = $sql->SelectListOfLists(
-	"SELECT vote, COUNT(*) FROM votes WHERE uid = ?
-	AND votetime >= NOW() - INTERVAL '28 days'
-	GROUP BY vote",
-	$uid,
-);
+my $allvotes = $votes->AllVotesForUser_as_hashref($uid);
+my $recentvotes = $votes->RecentVotesForUser_as_hashref($uid);
 
 for ($allvotes, $recentvotes)
 {
-	$_ = +{
-		map { @$_ } @$_
-	};
-
 	my $t = 0;
 	$t += $_ for values %$_;
 	$_->{"TOTAL"} = $t;

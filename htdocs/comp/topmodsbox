@@ -15,8 +15,8 @@ if (!defined($result))
     if (defined $mb)
     {
         my $sth = $mb->{DBH}->prepare(qq|select Moderator.name, count(Moderator.id) as num
-                                        from Moderation,Moderator
-                                       where Moderation.Moderator = Moderator.id
+                                        from moderation_all m,Moderator
+                                       where m.Moderator = Moderator.id
                                              and Moderator.id != | .  &ModDefs::FREEDB_MODERATOR . qq|
                                              and Moderator.id != | .  &ModDefs::MODBOT_MODERATOR . qq|
                                              and opentime > now() - interval '1 week' 

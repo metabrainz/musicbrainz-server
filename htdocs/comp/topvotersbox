@@ -14,9 +14,9 @@ if (!defined($result))
 
     if (defined $mb)
     {
-        my $sth = $mb->{DBH}->prepare(qq|select Moderator.name, count(Votes.id) as num
-                                           from Votes,Moderator
-                                          where Votes.Uid = Moderator.id and 
+        my $sth = $mb->{DBH}->prepare(qq|select Moderator.name, count(v.id) as num
+                                           from vote_all v, Moderator
+                                          where v.moderator = Moderator.id and 
                                                 votetime > now() - interval '1 week' 
                                        group by Moderator.id, Moderator.name
                                        order by num desc limit 5|);

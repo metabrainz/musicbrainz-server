@@ -23,11 +23,13 @@
 #   $Id$
 #____________________________________________________________________________
 
-use lib "../../cgi-bin";
+use FindBin;
+use lib "$FindBin::Bin/../../cgi-bin";
+
 use DBI;
 use DBDefs;
 use MusicBrainz;
-require "Main.pl";
+require "$FindBin::Bin/Main.pl";
 
 sub CheckTOC
 {

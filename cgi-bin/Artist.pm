@@ -148,8 +148,14 @@ sub Remove
     $sql->Do("delete from ArtistAlias where ref = " . $this->GetId());
     $sql->Do("delete from Artist_Relation where artist = " . $this->GetId() . 
              " or ref = ". $this->GetId());
-    $sql->Do("update Moderation set Artist = " . &ModDefs::DARTIST_ID . 
-             " where artist = " . $this->GetId());
+    $sql->Do(
+	"UPDATE moderation_closed SET artist = ? WHERE artist = ?",
+	&ModDefs::DARTIST_ID, $this->GetId,
+    );
+    $sql->Do(
+	"UPDATE moderation_open SET artist = ? WHERE artist = ?",
+	&ModDefs::DARTIST_ID, $this->GetId,
+    );
 
     # Remove references from artist words table
     my $engine = SearchEngine->new($this->{DBH}, { Table => 'Artist' } );
@@ -176,7 +182,8 @@ sub MergeInto
     $sql->Do("UPDATE artist_relation SET ref    = ? WHERE ref    = ?", $n, $o);
     $sql->Do("UPDATE album           SET artist = ? WHERE artist = ?", $n, $o);
     $sql->Do("UPDATE track           SET artist = ? WHERE artist = ?", $n, $o);
-    $sql->Do("UPDATE moderation      SET artist = ? WHERE artist = ?", $n, $o);
+    $sql->Do("UPDATE moderation_closed SET artist = ? WHERE artist = ?", $n, $o);
+    $sql->Do("UPDATE moderation_open SET artist = ? WHERE artist = ?", $n, $o);
     $sql->Do("UPDATE artistalias     SET ref    = ? WHERE ref    = ?", $n, $o);
     $sql->Do("DELETE FROM artist     WHERE id   = ?", $o);
 

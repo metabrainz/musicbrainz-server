@@ -32,14 +32,27 @@ create index TOC_AlbumIndex on TOC (Album);
 
 create index Moderator_NameIndex on Moderator (Name);
 
-create index Moderation_ModeratorIndex on Moderation (Moderator);
-create index Moderation_ExpireTimeIndex on Moderation (ExpireTime);
-create index Moderation_StatusIndex on Moderation (Status);
-CREATE INDEX moderation_artistindex ON moderation (artist);
-CREATE INDEX moderation_rowid ON moderation (rowid);
+CREATE INDEX moderation_open_idx_moderator ON moderation_open (moderator);
+CREATE INDEX moderation_open_idx_expiretime ON moderation_open (expiretime);
+CREATE INDEX moderation_open_idx_status ON moderation_open (status);
+CREATE INDEX moderation_open_idx_artist ON moderation_open (artist);
+CREATE INDEX moderation_open_idx_rowid ON moderation_open (rowid);
 
-create index Votes_UidIndex on Votes (Uid);
-create index Votes_RowidIndex on Votes (Rowid);
+CREATE INDEX moderation_note_open_idx_moderation ON moderation_note_open (moderation);
+
+CREATE INDEX vote_open_idx_moderator ON vote_open (moderator);
+CREATE INDEX vote_open_idx_moderation ON vote_open (moderation);
+
+CREATE INDEX moderation_closed_idx_moderator ON moderation_closed (moderator);
+CREATE INDEX moderation_closed_idx_expiretime ON moderation_closed (expiretime);
+CREATE INDEX moderation_closed_idx_status ON moderation_closed (status);
+CREATE INDEX moderation_closed_idx_artist ON moderation_closed (artist);
+CREATE INDEX moderation_closed_idx_rowid ON moderation_closed (rowid);
+
+CREATE INDEX moderation_note_closed_idx_moderation ON moderation_note_closed (moderation);
+
+CREATE INDEX vote_closed_idx_moderator ON vote_closed (moderator);
+CREATE INDEX vote_closed_idx_moderation ON vote_closed (moderation);
 
 create unique index ArtistAlias_NameIndex on ArtistAlias (Name);
 create index ArtistAlias_RefIndex on ArtistAlias (Ref);
@@ -54,8 +67,6 @@ create unique index ArtistWords_ArtistWordIndex  on ArtistWords (Wordid,Artistid
 
 create index TrackWords_TrackidIndex on TrackWords (Trackid);
 create unique index TrackWords_TrackWordIndex on TrackWords (Wordid,Trackid);
-
-create index ModerationNote_ModIndex on ModerationNote (Modid);
 
 create unique index Stats_TimestampIndex on Stats (timestamp);
 

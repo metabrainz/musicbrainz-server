@@ -23,7 +23,9 @@
 #   $Id$
 #____________________________________________________________________________
 
-use lib "../../cgi-bin";
+use FindBin;
+use lib "$FindBin::Bin/../../cgi-bin";
+
 use DBI;
 use DBDefs;
 use MusicBrainz;
@@ -33,7 +35,7 @@ use Artist;
 use Alias;
 use TRM;
 
-require "Main.pl";
+require "$FindBin::Bin/Main.pl";
 
 # TODO: Make this script take multiple arguments so we can delete a whole
 #       list of albums at once

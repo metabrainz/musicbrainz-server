@@ -23,12 +23,14 @@
 #   $Id$
 #____________________________________________________________________________
 
-use lib "../../cgi-bin";
+use FindBin;
+use lib "$FindBin::Bin/../../cgi-bin";
+
 use DBI;
 use DBDefs;
 use MusicBrainz;
 use String::Similarity;
-require "Main.pl";
+require "$FindBin::Bin/Main.pl";
 
 # This function gets invoked when the usage statement is printed out.
 sub Arguments

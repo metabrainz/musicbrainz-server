@@ -27,8 +27,8 @@ CREATE TRIGGER a_upd_trmjoin AFTER UPDATE ON trmjoin
 CREATE TRIGGER a_del_trmjoin AFTER DELETE ON trmjoin
     FOR EACH ROW EXECUTE PROCEDURE a_del_trmjoin();
 
-create trigger b_upd_moderation before update on moderation 
-               for each row execute procedure before_update_moderation();
+CREATE TRIGGER a_upd_moderation_open AFTER UPDATE ON moderation_open
+    FOR EACH ROW EXECUTE PROCEDURE after_update_moderation_open();
 
 CREATE TRIGGER b_iu_release BEFORE INSERT OR UPDATE ON release
     FOR EACH ROW EXECUTE PROCEDURE before_insertupdate_release();

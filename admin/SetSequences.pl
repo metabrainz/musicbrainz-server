@@ -74,15 +74,18 @@ SetSequence($sql, "artist");
 SetSequence($sql, "artistalias");
 SetSequence($sql, "clientversion");
 SetSequence($sql, "discid");
-SetSequence($sql, "moderation");
-SetSequence($sql, "moderationnote");
+SetSequence($sql, "moderation_closed");
+SetSequence($sql, "moderation_note_closed");
+SetSequence($sql, "moderation_note_open");
+SetSequence($sql, "moderation_open");
 SetSequence($sql, "moderator");
 SetSequence($sql, "stats");
 SetSequence($sql, "toc");
 SetSequence($sql, "track");
 SetSequence($sql, "trm");
 SetSequence($sql, "trmjoin");
-SetSequence($sql, "votes");
+SetSequence($sql, "vote_closed");
+SetSequence($sql, "vote_open");
 SetSequence($sql, "wordlist");
 
 # Disconnect

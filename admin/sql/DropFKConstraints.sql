@@ -32,23 +32,41 @@ ALTER TABLE toc
 ALTER TABLE toc
     DROP CONSTRAINT toc_fk_discid;
 
-ALTER TABLE moderation
-    DROP CONSTRAINT moderation_fk_artist;
+ALTER TABLE moderation_open
+    DROP CONSTRAINT moderation_open_fk_artist;
 
-ALTER TABLE moderation
-    DROP CONSTRAINT moderation_fk_moderator;
+ALTER TABLE moderation_open
+    DROP CONSTRAINT moderation_open_fk_moderator;
 
-ALTER TABLE moderationnote
-    DROP CONSTRAINT moderationnote_fk_moderation;
+ALTER TABLE moderation_note_open
+    DROP CONSTRAINT moderation_note_open_fk_moderation;
 
-ALTER TABLE moderationnote
-    DROP CONSTRAINT moderationnote_fk_moderator;
+ALTER TABLE moderation_note_open
+    DROP CONSTRAINT moderation_note_open_fk_moderator;
 
-ALTER TABLE votes
-    DROP CONSTRAINT votes_fk_moderator;
+ALTER TABLE vote_open
+    DROP CONSTRAINT vote_open_fk_moderator;
 
-ALTER TABLE votes
-    DROP CONSTRAINT votes_fk_moderation;
+ALTER TABLE vote_open
+    DROP CONSTRAINT vote_open_fk_moderation;
+
+ALTER TABLE moderation_closed
+    DROP CONSTRAINT moderation_closed_fk_artist;
+
+ALTER TABLE moderation_closed
+    DROP CONSTRAINT moderation_closed_fk_moderator;
+
+ALTER TABLE moderation_note_closed
+    DROP CONSTRAINT moderation_note_closed_fk_moderation;
+
+ALTER TABLE moderation_note_closed
+    DROP CONSTRAINT moderation_note_closed_fk_moderator;
+
+ALTER TABLE vote_closed
+    DROP CONSTRAINT vote_closed_fk_moderator;
+
+ALTER TABLE vote_closed
+    DROP CONSTRAINT vote_closed_fk_moderation;
 
 ALTER TABLE artist_relation
     DROP CONSTRAINT artist_relation_fk_artist1;

@@ -206,12 +206,9 @@ sub PreInsert
 
 	my $sql = Sql->new($self->{DBH}); 
 	(my $artistmodid) = $sql->SelectSingleValue(
-		"SELECT id FROM moderation WHERE type = " . &ModDefs::MOD_ADD_ARTIST
-		. " AND rowid = ?"
-		. " AND status = " . &ModDefs::STATUS_OPEN
-		. " AND id >= ?",
+		"SELECT id FROM moderation_open WHERE type = " . &ModDefs::MOD_ADD_ARTIST
+		. " AND rowid = ?",
 		$self->GetArtist,
-		$self->GetMinOpenModID,
 	);
 
 	$new{"Dep0"} = $artistmodid

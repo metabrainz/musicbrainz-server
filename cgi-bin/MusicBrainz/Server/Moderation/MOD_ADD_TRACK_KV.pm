@@ -80,12 +80,9 @@ sub PreInsert
 
 		my $sql = Sql->new($self->{DBH}); 
 		(my $albummodid) = $sql->SelectSingleValue(
-			"SELECT id FROM moderation WHERE type = " . &ModDefs::MOD_ADD_ALBUM
-			. " AND rowid = ?"
-			. " AND status = " . &ModDefs::STATUS_OPEN
-			. " AND id >= ?",
+			"SELECT id FROM moderation_open WHERE type = " . &ModDefs::MOD_ADD_ALBUM
+			. " AND rowid = ?",
 			$self->GetRowId,
-			$self->GetMinOpenModID,
 		);
 
 		$new{'Dep0'} = $albummodid

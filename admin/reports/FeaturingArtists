@@ -129,7 +129,7 @@ sub GatherData
 				ar.id AS artist_id, ar.name AS artist_name
 		FROM track t, artist ar, albumjoin aj
 		WHERE t.artist = ar.id AND aj.track = t.id AND NOT EXISTS (
-				SELECT id FROM moderation m
+				SELECT id FROM moderation_open m
 				WHERE m.rowid = t.id AND m.status = ? AND m.type = ?
 		)
 		  AND ( t.name ~* '[[(]feat[^.]' OR t.name ~* ' feat'

@@ -22,7 +22,12 @@
 #   $Id$
 #____________________________________________________________________________
 
-use lib "../../cgi-bin";
+use 5.008;
+use strict;
+
+use FindBin;
+use lib "$FindBin::Bin/../../cgi-bin";
+
 use DBI;
 use DBDefs;
 use MusicBrainz;

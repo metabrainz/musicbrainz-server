@@ -114,7 +114,7 @@ print localtime() . " : Finding tracks ...\n"
 $sql->Select(<<EOF, &ModDefs::STATUS_OPEN, &ModDefs::MOD_EDIT_TRACKNAME) or die;
 	SELECT id, name, artist FROM track t
 	WHERE NOT EXISTS (
-		SELECT id FROM moderation m
+		SELECT id FROM moderation_open m
 		WHERE m.rowid = t.id AND m.status = ? AND m.type = ?
 	)
 	  AND ( t.name ~* '[[(]feat[^.]' OR t.name ~* '[[(]ft' )

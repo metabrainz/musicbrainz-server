@@ -13,7 +13,7 @@ DROP FUNCTION a_del_discid();
 DROP FUNCTION a_ins_trmjoin();
 DROP FUNCTION a_upd_trmjoin();
 DROP FUNCTION a_del_trmjoin();
-DROP FUNCTION before_update_moderation();
+DROP FUNCTION after_update_moderation_open();
 DROP FUNCTION before_insertupdate_release();
 DROP FUNCTION set_album_firstreleasedate(INTEGER);
 DROP FUNCTION a_ins_release();

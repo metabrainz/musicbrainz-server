@@ -55,35 +55,65 @@ ALTER TABLE toc
     FOREIGN KEY (discid)
     REFERENCES discid(disc);
 
-ALTER TABLE moderation
-    ADD CONSTRAINT moderation_fk_artist
+ALTER TABLE moderation_open
+    ADD CONSTRAINT moderation_open_fk_artist
     FOREIGN KEY (artist)
     REFERENCES artist(id);
 
-ALTER TABLE moderation
-    ADD CONSTRAINT moderation_fk_moderator
+ALTER TABLE moderation_open
+    ADD CONSTRAINT moderation_open_fk_moderator
     FOREIGN KEY (moderator)
     REFERENCES moderator(id);
 
-ALTER TABLE moderationnote
-    ADD CONSTRAINT moderationnote_fk_moderation
-    FOREIGN KEY (modid)
-    REFERENCES moderation(id);
+ALTER TABLE moderation_note_open
+    ADD CONSTRAINT moderation_note_open_fk_moderation
+    FOREIGN KEY (moderation)
+    REFERENCES moderation_open(id);
 
-ALTER TABLE moderationnote
-    ADD CONSTRAINT moderationnote_fk_moderator
-    FOREIGN KEY (uid)
+ALTER TABLE moderation_note_open
+    ADD CONSTRAINT moderation_note_open_fk_moderator
+    FOREIGN KEY (moderator)
     REFERENCES moderator(id);
 
-ALTER TABLE votes
-    ADD CONSTRAINT votes_fk_moderator
-    FOREIGN KEY (uid)
+ALTER TABLE vote_open
+    ADD CONSTRAINT vote_open_fk_moderator
+    FOREIGN KEY (moderator)
     REFERENCES moderator(id);
 
-ALTER TABLE votes
-    ADD CONSTRAINT votes_fk_moderation
-    FOREIGN KEY (rowid)
-    REFERENCES moderation(id);
+ALTER TABLE vote_open
+    ADD CONSTRAINT vote_open_fk_moderation
+    FOREIGN KEY (moderation)
+    REFERENCES moderation_open(id);
+
+ALTER TABLE moderation_closed
+    ADD CONSTRAINT moderation_closed_fk_artist
+    FOREIGN KEY (artist)
+    REFERENCES artist(id);
+
+ALTER TABLE moderation_closed
+    ADD CONSTRAINT moderation_closed_fk_moderator
+    FOREIGN KEY (moderator)
+    REFERENCES moderator(id);
+
+ALTER TABLE moderation_note_closed
+    ADD CONSTRAINT moderation_note_closed_fk_moderation
+    FOREIGN KEY (moderation)
+    REFERENCES moderation_closed(id);
+
+ALTER TABLE moderation_note_closed
+    ADD CONSTRAINT moderation_note_closed_fk_moderator
+    FOREIGN KEY (moderator)
+    REFERENCES moderator(id);
+
+ALTER TABLE vote_closed
+    ADD CONSTRAINT vote_closed_fk_moderator
+    FOREIGN KEY (moderator)
+    REFERENCES moderator(id);
+
+ALTER TABLE vote_closed
+    ADD CONSTRAINT vote_closed_fk_moderation
+    FOREIGN KEY (moderation)
+    REFERENCES moderation_closed(id);
 
 ALTER TABLE artist_relation
     ADD CONSTRAINT artist_relation_fk_artist1

@@ -93,7 +93,7 @@ if ($lockmode eq "full" or $lockmode eq "blank")
 {
 	$sql->Begin;
 	my @t = qw(
-		moderation
+		moderation_open
 		artist
 		artistalias
 		album
@@ -132,7 +132,7 @@ for (qw(
 
 print LOG localtime() . " : Finding open moderations\n";
 my $ids = $sql->SelectSingleColumnArray(
-	"SELECT id FROM moderation WHERE status = " . STATUS_OPEN
+	"SELECT id FROM moderation_open WHERE status = " . STATUS_OPEN
 );
 print LOG localtime() . " :   ".@$ids." mods open\n";
 

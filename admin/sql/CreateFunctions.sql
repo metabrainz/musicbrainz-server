@@ -244,21 +244,38 @@ end;
 ' language 'plpgsql';
 
 --'-----------------------------------------------------------------
--- Set moderation.closetime when each moderation closes
+-- When a moderation closes, move rows from _open to _closed
 --'-----------------------------------------------------------------
 
-create or replace function before_update_moderation () returns TRIGGER as '
+CREATE OR REPLACE FUNCTION after_update_moderation_open () RETURNS TRIGGER AS '
 begin
 
-   if (OLD.status = 1 and NEW.status != 1) -- STATUS_OPEN
-   then
-      NEW.closetime := NOW();
-   end if;
+    if (OLD.status IN (1,8) and NEW.status NOT IN (1,8)) -- STATUS_OPEN, STATUS_TOBEDELETED
+    then
+        -- Create moderation_closed record
+        INSERT INTO moderation_closed SELECT * FROM moderation_open WHERE id = NEW.id;
+        -- and update the closetime
+        UPDATE moderation_closed SET closetime = NOW() WHERE id = NEW.id;
 
-   return NEW;
+        -- Copy notes
+        INSERT INTO moderation_note_closed
+            SELECT * FROM moderation_note_open
+            WHERE moderation = NEW.id;
 
+        -- Copy votes
+        INSERT INTO vote_closed
+            SELECT * FROM vote_open
+            WHERE moderation = NEW.id;
+
+        -- Delete the _open records
+        DELETE FROM vote_open WHERE moderation = NEW.id;
+        DELETE FROM moderation_note_open WHERE moderation = NEW.id;
+        DELETE FROM moderation_open WHERE id = NEW.id;
+    end if;
+
+    return NEW;
 end;
-' language 'plpgsql';
+' LANGUAGE 'plpgsql';
 
 --'-----------------------------------------------------------------
 -- Ensure release.releasedate is always valid

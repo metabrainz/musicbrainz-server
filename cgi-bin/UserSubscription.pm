@@ -169,9 +169,10 @@ sub ProcessAllSubscriptions
 	my $self = shift;
 	my $sql = Sql->new($self->{DBH});
 
-	$self->{THRESHOLD_MODID} = $sql->SelectSingleValue(
-		"SELECT NEXTVAL('moderation_id_seq')"
-	);
+	$self->{THRESHOLD_MODID} = do {
+		my $mod = Moderation->new($self->{DBH});
+		$mod->GetMaxModID;
+	};
 	defined($self->{THRESHOLD_MODID}) or die;
 
 	$self->{ARTIST_MODCOUNT_CACHE} = {};
@@ -288,7 +289,7 @@ sub _ProcessUserSubscriptions
 					if $self->{'verbose'};
 
 				$cache->{$cachekey} = $sql->SelectSingleValue(
-					"SELECT COUNT(*) FROM moderation
+					"SELECT COUNT(*) FROM moderation_all
 					WHERE artist = ?
 					AND status = ?
 					AND id > ?

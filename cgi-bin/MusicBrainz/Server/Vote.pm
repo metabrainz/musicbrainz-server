@@ -32,10 +32,10 @@ use Carp;
 use ModDefs ':vote', 'STATUS_OPEN';
 
 # GetId / SetId - see TableBase
-sub GetModerationId	{ $_[0]{rowid} }
-sub SetModerationId	{ $_[0]{rowid} = $_[1] }
-sub GetUserId		{ $_[0]{uid} }
-sub SetUserId		{ $_[0]{uid} = $_[1] }
+sub GetModerationId	{ $_[0]{moderation} }
+sub SetModerationId	{ $_[0]{moderation} = $_[1] }
+sub GetUserId		{ $_[0]{moderator} }
+sub SetUserId		{ $_[0]{moderator} = $_[1] }
 sub GetVote			{ $_[0]{vote} }
 sub SetVote			{ $_[0]{vote} = $_[1] }
 sub GetUserName		{ $_[0]{user} }
@@ -61,16 +61,16 @@ sub _InsertVote
 	my $sql = Sql->new($self->{DBH});
 
 	my $status = $sql->SelectSingleValue(
-		"SELECT status FROM moderation WHERE id = ?",
+		"SELECT status FROM moderation_open WHERE id = ?",
 		$modid,
 	);
 
-	$status == STATUS_OPEN
+	(defined($status) and $status == STATUS_OPEN)
 		or return;
 
 	# Find the user's previous (most recent) vote for this mod
 	my $prevvote = $sql->SelectSingleValue(
-		"SELECT vote FROM votes WHERE uid = ? AND rowid = ?
+		"SELECT vote FROM vote_open WHERE moderator = ? AND moderation = ?
 			ORDER BY id DESC LIMIT 1",
 		$uid, $modid,
 	);
@@ -88,19 +88,19 @@ sub _InsertVote
 	++$nodelta if $vote == VOTE_NO;
 
 	$sql->Do(
-		"INSERT INTO votes (uid, rowid, vote) VALUES (?, ?, ?)",
+		"INSERT INTO vote_open (moderator, moderation, vote) VALUES (?, ?, ?)",
 		$uid, $modid, $vote,
 	);
 
-	my $voteid = $sql->GetLastInsertId("votes");
+	my $voteid = $sql->GetLastInsertId("vote_open");
 	$sql->Do(
-		"UPDATE votes SET superseded = TRUE
-		WHERE uid = ? AND rowid = ? AND id < ?",
+		"UPDATE vote_open SET superseded = TRUE
+		WHERE moderator = ? AND moderation = ? AND id < ?",
 		$uid, $modid, $voteid,
 	);
 
 	$sql->Do(
-		"UPDATE moderation
+		"UPDATE moderation_open
 		SET		yesvotes = yesvotes + ?,
 				novotes = novotes + ?
 		WHERE id = ?",
@@ -117,9 +117,9 @@ sub newFromModerationId
 
 	my $data = $sql->SelectListOfHashes(
 		"SELECT	v.*, u.name AS user
-		FROM	votes v, moderator u
-		WHERE	v.rowid = ?
-		AND		v.uid = u.id
+		FROM	vote_all v, moderator u
+		WHERE	v.moderation = ?
+		AND		v.moderator = u.id
 		ORDER BY v.id",
 		$modid,
 	);
@@ -133,12 +133,46 @@ sub GetLatestVoteFromUser
 	my $sql = Sql->new($self->{DBH});
 
 	$sql->SelectSingleValue(
-		"SELECT COALESCE(vote, ?) FROM votes WHERE rowid = ? AND uid = ?
+		"SELECT COALESCE(vote, ?) FROM vote_all WHERE moderation = ? AND moderator = ?
 			AND (superseded IS NULL OR superseded = FALSE)",
 		VOTE_NOTVOTED,
 		$modid,
 		$uid,
 	);
+}
+
+################################################################################
+
+sub AllVotesForUser_as_hashref
+{
+	my ($self, $uid) = @_;
+	my $sql = Sql->new($self->{DBH});
+
+	my $rows = $sql->SelectListOfLists(
+		"SELECT vote, COUNT(*) FROM vote_all WHERE moderator = ? GROUP BY vote",
+		$uid,
+	);
+
+	+{
+		map { $_->[0] => $_->[1] } @$rows
+	};
+}
+
+sub RecentVotesForUser_as_hashref
+{
+	my ($self, $uid) = @_;
+	my $sql = Sql->new($self->{DBH});
+
+	my $rows = $sql->SelectListOfLists(
+		"SELECT vote, COUNT(*) FROM vote_all WHERE moderator = ?
+		AND votetime >= NOW() - INTERVAL '28 days'
+		GROUP BY vote",
+		$uid,
+	);
+
+	+{
+		map { $_->[0] => $_->[1] } @$rows
+	};
 }
 
 ################################################################################

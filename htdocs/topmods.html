@@ -14,8 +14,8 @@ if (!defined($result))
                        mb=>$mb,
                        query=>qq|select Moderator.name, 
                                         count(Moderator.id) as num 
-                                   from Moderation,Moderator 
-                                  where Moderation.Moderator = Moderator.id 
+                                   from moderation_all m, Moderator 
+                                  where m.Moderator = Moderator.id 
                                         and Moderator.id != | .  &ModDefs::FREEDB_MODERATOR . qq|
                                         and Moderator.id != | .  &ModDefs::MODBOT_MODERATOR . qq|
                                         and opentime > now() - interval '1 week' 
@@ -42,10 +42,10 @@ if (!defined($result))
 
     $result .= $m->comp("/comp/tablestat", 
                        mb=>$mb,
-                       query=>qq|select Moderator.name, count(Votes.id) 
+                       query=>qq|select Moderator.name, count(v.id) 
                                         as num 
-                                   from Votes,Moderator 
-                                  where Votes.Uid = Moderator.id 
+                                   from vote_all v, Moderator 
+                                  where v.moderator = Moderator.id 
                                group by Moderator.id, Moderator.name 
                                order by num desc limit 25|,
                        title=>"Most active voters overall:",

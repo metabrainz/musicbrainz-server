@@ -30,14 +30,27 @@ drop index TOC_AlbumIndex;
 
 drop index Moderator_NameIndex;
 
-drop index Moderation_ModeratorIndex;
-drop index Moderation_ExpireTimeIndex;
-drop index Moderation_StatusIndex;
-DROP INDEX moderation_artistindex;
-DROP INDEX moderation_rowid;
+DROP INDEX moderation_open_idx_moderator;
+DROP INDEX moderation_open_idx_expiretime;
+DROP INDEX moderation_open_idx_status;
+DROP INDEX moderation_open_idx_artist;
+DROP INDEX moderation_open_idx_rowid;
 
-drop index Votes_UidIndex;
-drop index Votes_RowidIndex;
+DROP INDEX moderation_note_open_idx_moderation;
+
+DROP INDEX vote_open_idx_moderator;
+DROP INDEX vote_open_idx_moderation;
+
+DROP INDEX moderation_closed_idx_moderator;
+DROP INDEX moderation_closed_idx_expiretime;
+DROP INDEX moderation_closed_idx_status;
+DROP INDEX moderation_closed_idx_artist;
+DROP INDEX moderation_closed_idx_rowid;
+
+DROP INDEX moderation_note_closed_idx_moderation;
+
+DROP INDEX vote_closed_idx_moderator;
+DROP INDEX vote_closed_idx_moderation;
 
 drop index ArtistAlias_NameIndex;
 drop index ArtistAlias_RefIndex;
@@ -55,8 +68,6 @@ drop index ArtistWords_ArtistWordIndex ;
 drop index TrackWords_WordidIndex;
 drop index TrackWords_TrackidIndex;
 drop index TrackWords_TrackWordIndex;
-
-drop index ModerationNote_ModIndex;
 
 drop index Stats_TimestampIndex;
 

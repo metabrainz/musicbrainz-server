@@ -110,39 +110,74 @@ CREATE TABLE moderator (
     modsfailed          INTEGER DEFAULT 0
 );
 
-create table Moderation (
-   Id serial primary key,
-   Artist int not null, -- references Artist
-   Moderator int not null, -- references Moderator
-   Tab varchar(32) not null,
-   Col varchar(64) not null, 
-   Type smallint not null, 
-   Status smallint not null, 
-   Rowid int not null, 
-   PrevValue varchar(255) not null, 
-   NewValue text not null, 
-   YesVotes int default 0, 
-   NoVotes int default 0,
-   Depmod int default 0,
-   Automod smallint default 0,
+create table moderation_open (
+   id serial primary key,
+   artist int not null, -- references Artist
+   moderator int not null, -- references Moderator
+   tab varchar(32) not null,
+   col varchar(64) not null, 
+   type smallint not null, 
+   status smallint not null, 
+   rowid int not null, 
+   prevvalue varchar(255) not null, 
+   newvalue text not null, 
+   yesvotes int default 0, 
+   novotes int default 0,
+   depmod int default 0,
+   automod smallint default 0,
    opentime timestamp with time zone default now(),
    closetime timestamp with time zone,
-   ExpireTime timestamp with time zone not null
+   expiretime timestamp with time zone not null
    );
 
-create table ModerationNote (
-   Id serial primary key,
-   ModId int not null, 
-   Uid int not null, 
-   Text TEXT not null);
+create table moderation_note_open (
+   id serial primary key,
+   moderation int not null, 
+   moderator int not null, 
+   text TEXT not null);
 
-create table Votes (
-   Id serial primary key,
-   Uid int not null, -- references Moderator
-   Rowid int not null, -- references Moderation
+create table vote_open (
+   id serial primary key,
+   moderator int not null, -- references Moderator
+   moderation int not null, -- references Moderation
    vote smallint not null,
    votetime timestamp with time zone default now(),
-   superseded BOOLEAN NOT NULL
+   superseded BOOLEAN NOT NULL DEFAULT FALSE
+   );
+
+create table moderation_closed (
+   id int primary key,
+   artist int not null, -- references Artist
+   moderator int not null, -- references Moderator
+   tab varchar(32) not null,
+   col varchar(64) not null, 
+   type smallint not null, 
+   status smallint not null, 
+   rowid int not null, 
+   prevvalue varchar(255) not null, 
+   newvalue text not null, 
+   yesvotes int default 0, 
+   novotes int default 0,
+   depmod int default 0,
+   automod smallint default 0,
+   opentime timestamp with time zone default now(),
+   closetime timestamp with time zone,
+   expiretime timestamp with time zone not null
+   );
+
+create table moderation_note_closed (
+   id int primary key,
+   moderation int not null, 
+   moderator int not null, 
+   text TEXT not null);
+
+create table vote_closed (
+   id int primary key,
+   moderator int not null, -- references Moderator
+   moderation int not null, -- references Moderation
+   vote smallint not null,
+   votetime timestamp with time zone default now(),
+   superseded BOOLEAN NOT NULL DEFAULT FALSE
    );
 
 create table WordList(
@@ -211,7 +246,7 @@ CREATE TABLE moderator_subscribe_artist
         id              SERIAL PRIMARY KEY,
         moderator       INTEGER NOT NULL, -- references moderator
         artist          INTEGER NOT NULL, -- weakly references artist
-        lastmodsent     INTEGER NOT NULL DEFAULT NEXTVAL('moderation_id_seq'), -- weakly references moderation
+        lastmodsent     INTEGER NOT NULL, -- weakly references moderation
         deletedbymod    INTEGER NOT NULL DEFAULT 0, -- weakly references moderation
         mergedbymod     INTEGER NOT NULL DEFAULT 0, -- weakly references moderation
         UNIQUE (moderator, artist)

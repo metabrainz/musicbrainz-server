@@ -231,8 +231,10 @@ sub ImportAllTables
 		currentstat
 		discid
 		historicalstat
-		moderation
-		moderationnote
+		moderation_closed
+		moderation_note_closed
+		moderation_note_open
+		moderation_open
 		moderator
 		moderator_subscribe_artist
 		moderator_sanitised
@@ -243,7 +245,8 @@ sub ImportAllTables
 		trackwords
 		trm
 		trmjoin
-		votes
+		vote_closed
+		vote_open
 		wordlist
 	)) {
 		my $file = find_file($table);

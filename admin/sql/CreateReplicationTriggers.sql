@@ -43,13 +43,24 @@ CREATE TRIGGER "a_idu_country"
 AFTER INSERT OR DELETE OR UPDATE ON "country"
 FOR EACH ROW EXECUTE PROCEDURE "recordchange" ();
 
+-- Not replicated: currentstat
+
 CREATE TRIGGER "a_idu_discid" 
 AFTER INSERT OR DELETE OR UPDATE ON "discid"
 FOR EACH ROW EXECUTE PROCEDURE "recordchange" ();
 
+-- Not replicated: historicalstat
+-- Not replicated: moderation_open, moderation_note_open
+-- Not replicated: moderation_closed, moderation_note_closed
+-- Not replicated: moderator
+-- Not replicated: moderator_preference
+-- Not replicated: moderator_subscribe_artist
+
 CREATE TRIGGER "a_idu_release" 
 AFTER INSERT OR DELETE OR UPDATE ON "release"
 FOR EACH ROW EXECUTE PROCEDURE "recordchange" ();
+
+-- Not replicated: stats
 
 CREATE TRIGGER "a_idu_toc" 
 AFTER INSERT OR DELETE OR UPDATE ON "toc"
@@ -70,6 +81,8 @@ FOR EACH ROW EXECUTE PROCEDURE "recordchange" ();
 CREATE TRIGGER "a_idu_trmjoin" 
 AFTER INSERT OR DELETE OR UPDATE ON "trmjoin"
 FOR EACH ROW EXECUTE PROCEDURE "recordchange" ();
+
+-- Not replicated: vote_closed, vote_open
 
 CREATE TRIGGER "a_idu_wordlist" 
 AFTER INSERT OR DELETE OR UPDATE ON "wordlist"

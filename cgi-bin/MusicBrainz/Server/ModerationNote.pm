@@ -31,10 +31,10 @@ use base qw( TableBase );
 use Carp;
 
 # GetId / SetId - see TableBase
-sub GetModerationId	{ $_[0]{modid} }
-sub SetModerationId	{ $_[0]{modid} = $_[1] }
-sub GetUserId		{ $_[0]{uid} }
-sub SetUserId		{ $_[0]{uid} = $_[1] }
+sub GetModerationId	{ $_[0]{moderation} }
+sub SetModerationId	{ $_[0]{moderation} = $_[1] }
+sub GetUserId		{ $_[0]{moderator} }
+sub SetUserId		{ $_[0]{moderator} = $_[1] }
 sub GetText			{ $_[0]{text} }
 sub SetText			{ $_[0]{text} = $_[1] }
 sub GetUserName		{ $_[0]{user} }
@@ -74,9 +74,18 @@ sub Insert
    	my $sql = Sql->new($self->{DBH});
 
 	my $modid = $moderation->GetId;
+	my $openclosed = ($moderation->IsOpen ? "open" : "closed");
 
+	# For moderation and vote, rows only ever get added to _open, then moved
+	# to _closed - so the sequence only applies to the _open "id" column.
+	# Here however rows can get added to either, and _open rows do get moved
+	# to _closed; hence they must use the same sequence.  So here we
+	# explicitly name the sequence as the ID value.  Redundant for _open, but
+	# required for _closed.
 	$sql->Do(
-		"INSERT INTO moderationnote (modid, uid, text) VALUES (?, ?, ?)",
+		"INSERT INTO moderation_note_$openclosed
+			(id, moderation, moderator, text)
+			VALUES (NEXTVAL('moderation_note_open_id_seq'), ?, ?, ?)",
 		$modid,
 		$noteuid,
 		$text,
@@ -112,10 +121,10 @@ sub newFromModerationIds
 	
 	my $list = join ",", @ids;
 	my $data = $sql->SelectListOfHashes(
-		"SELECT	n.id, n.modid, n.uid, n.text, u.name AS user
-		FROM	moderationnote n, moderator u
-		WHERE	n.uid = u.id
-		AND		n.modid IN ($list)
+		"SELECT	n.id, n.moderation, n.moderator, n.text, u.name AS user
+		FROM	moderation_note_all n, moderator u
+		WHERE	n.moderator = u.id
+		AND		n.moderation IN ($list)
 		ORDER BY n.id",
 	);
 

@@ -23,12 +23,18 @@
 #   $Id$
 #____________________________________________________________________________
 
-use lib "../../cgi-bin";
+use 5.008;
+use strict;
+
+use FindBin;
+use lib "$FindBin::Bin/../../cgi-bin";
+
 use DBI;
 use DBDefs;
 use Artist;
+use ModDefs ':modstatus', 'DARTIST_ID';
 use MusicBrainz;
-require "Main.pl";
+require "$FindBin::Bin/Main.pl";
 
 sub Arguments
 {
@@ -39,6 +45,7 @@ sub Cleanup
 {
     my ($dbh, $fix, $quiet, $arg1, $arg2) = @_;
     my $count;
+    my $sth;
 
     print "Missing artists: (from album)\n";
     $count = 0;
@@ -371,9 +378,9 @@ sub Cleanup
  
     print "Invalid artists in Moderations:\n";
     $count = 0;
-    $sth = $dbh->prepare(qq|select Moderation.id, Moderation.artist 
-                              from Moderation left join Artist 
-                                on Moderation.artist = Artist.id 
+    $sth = $dbh->prepare(qq|select m.id, m.artist, m.status
+                              from moderation_all m left join Artist 
+                                on m.artist = Artist.id 
                              where Artist.id IS NULL|);
     if ($sth->execute() && $sth->rows())
     {
@@ -384,7 +391,11 @@ sub Cleanup
             print "  Moderation $row[0] references non-existing artist $row[1].\n";
             $count++;
 
-            $dbh->do("update Moderation set Artist = " . Artist::DARTIST_ID .
+	    my $openclosed = (
+		($row[2] == STATUS_OPEN or $row[2] == STATUS_TOBEDELETED)
+		? "open" : "closed"
+	    );
+            $dbh->do("update moderation_$openclosed set Artist = " . DARTIST_ID .
                      " where id = $row[0]") if ($fix);
         }
     }

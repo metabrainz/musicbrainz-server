@@ -85,10 +85,7 @@ sub CheckModerations
 
 	my $sql = Sql->new($this->{DBH});
 	$sql->Select(
-		"SELECT id FROM moderation
-		WHERE status = " . STATUS_OPEN
-		. " OR status = " . STATUS_TOBEDELETED
-		. " ORDER BY id",
+		"SELECT id FROM moderation_open ORDER BY id",
 	);
 
 
@@ -361,6 +358,7 @@ sub CheckModerations
 					print localtime() . " : Closing mod #" . $mod->GetId()
 						. " (" . $status_name_from_number{$status} . ")\n";
 
+					++$count{$status};
 					$mod->DeniedAction;
 					$mod->CloseModeration($status);
 				}
@@ -425,7 +423,7 @@ sub CheckModificationForFailedDependencies
            }
            else
            {
-              ($status) = $sql->GetSingleRow("Moderation", ["status"], ["id", $1]);
+			   $status = $this->GetModerationStatus($1);
            }
            if (!defined $status || 
                $status == STATUS_FAILEDVOTE ||
@@ -450,7 +448,7 @@ sub GetModerationStatus
 	my $sql = Sql->new($this->{DBH});
 
 	my $status = $sql->SelectSingleValue(
-		"SELECT status FROM moderation WHERE id = ?",
+		"SELECT status FROM moderation_all WHERE id = ?",
 		$id,
 	);
 

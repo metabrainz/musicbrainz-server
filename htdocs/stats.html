@@ -298,14 +298,17 @@ my $pc = sub
 	<%perl>
 
 	my $mod = Moderation->new($mb->{DBH});
-	my $min = $mod->GetMinOpenModID;
+	my $openmods = $mod->OpenModsByType_as_hashref;
 
-	my $sql = Sql->new($mb->{DBH});
-	my $rows = $sql->SelectListOfLists(
-		"SELECT type, COUNT(*) FROM moderation
-		WHERE status = ".&ModDefs::STATUS_OPEN." AND id >= $min GROUP BY type
-		ORDER BY 2 DESC, 1",
-	);
+	my $rows = [
+		sort {
+			$b->[1] <=> $a->[1]
+			or
+			$a->[0] <=> $b->[0]
+		} map {
+			[ $_ => $openmods->{$_} ]
+		} keys %$openmods
+	];
 
 	my $open = 0;
 	$open += $_->[1] for @$rows;

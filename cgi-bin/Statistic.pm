@@ -164,7 +164,7 @@ my %stats = (
 	},
 	"count.moderation" => {
 		DESC => "Count of all moderations",
-		SQL => "SELECT COUNT(*) FROM moderation",
+		SQL => "SELECT COUNT(*) FROM moderation_all",
 	},
 	"count.moderator" => {
 		DESC => "Count of all moderators",
@@ -184,7 +184,7 @@ my %stats = (
 	},
 	"count.vote" => {
 		DESC => "Count of all votes",
-		SQL => "SELECT COUNT(*) FROM votes",
+		SQL => "SELECT COUNT(*) FROM vote_all",
 	},
 
 	"count.album.various" => {
@@ -333,7 +333,7 @@ my %stats = (
 			my ($self, $sql) = @_;
 
 			my $data = $sql->SelectListOfLists(
-				"SELECT status, COUNT(*) FROM moderation GROUP BY status",
+				"SELECT status, COUNT(*) FROM moderation_all GROUP BY status",
 			);
 
 			my %dist = map { @$_ } @$data;
@@ -398,7 +398,7 @@ my %stats = (
 			my ($self, $sql) = @_;
 
 			my $data = $sql->SelectListOfLists(
-				"SELECT vote, COUNT(*) FROM votes GROUP BY vote",
+				"SELECT vote, COUNT(*) FROM vote_all GROUP BY vote",
 			);
 
 			my %dist = map { @$_ } @$data;
@@ -430,14 +430,14 @@ my %stats = (
 			my ($self, $sql) = @_;
 
 			my $threshold_id = $sql->SelectSingleValue(
-				"SELECT MAX(id) FROM moderation
+				"SELECT MAX(id) FROM moderation_all
 				WHERE opentime <= (now() - interval '7 days')",
 			);
 
 			# Active voters
 			my $voters = $sql->SelectSingleValue(
-				"SELECT COUNT(DISTINCT uid)
-				FROM votes
+				"SELECT COUNT(DISTINCT moderator)
+				FROM vote_all
 				WHERE rowid > ?
 				AND uid != ?",
 				$threshold_id,
@@ -447,7 +447,7 @@ my %stats = (
 			# Editors
 			my $editors = $sql->SelectSingleValue(
 				"SELECT COUNT(DISTINCT moderator)
-				FROM moderation
+				FROM moderation_all
 				WHERE id > ?
 				AND moderator != ?",
 				$threshold_id,
@@ -458,11 +458,11 @@ my %stats = (
 			my $both = $sql->SelectSingleValue(
 				"SELECT COUNT(DISTINCT m) FROM (
 					SELECT moderator AS m
-					FROM moderation
+					FROM moderation_all
 					WHERE id > ?
 					UNION
 					SELECT uid AS m
-					FROM votes
+					FROM vote_all
 					WHERE rowid > ?
 				) t WHERE m != ?",
 				$threshold_id,
