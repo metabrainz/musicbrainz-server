@@ -94,22 +94,12 @@ sub PostLoad
 sub AdjustModPending
 {
 	my ($self, $adjust) = @_;
-	my $sql = Sql->new($self->{DBH});
+	my $al = Album->new($self->{DBH});
 
 	for my $t (@{ $self->{'new_albums'} })
 	{
-		$sql->Do(
-			"UPDATE album SET modpending = modpending + ? WHERE id = ?",
-			$adjust,
-			$t->{'id'},
-		);
-
-		# ... and we allow for modpending to go negative (if it was never
-		# incremented in the first place), and fix it if it does.
-		$sql->Do(
-			"UPDATE album SET modpending = 0 WHERE id = ? AND modpending < 0",
-			$t->{'id'},
-		) if $adjust < 0;
+		$al->SetId($t->{'id'});
+		$al->UpdateModPending($adjust);
 	}
 }
 
