@@ -219,12 +219,12 @@ sub CreateTables
                           artists int not null, 
                           albums int not null, 
                           tracks int not null, 
-                          diskids int not null, 
+                          discids int not null, 
                           trmids int not null, 
                           moderations int not null, 
                           votes int not null, 
                           moderators int not null, 
-                          timestamp datetime not null)|)
+                          timestamp date not null)|)
               or die("Cannot create Stats table");
         
         print "Created Stats table.\n";
@@ -402,7 +402,7 @@ if (0) {
               or die("Could not add indices to ModerationNote table");
         print "Added indices to ModerationNote table.\n";
 
-        $sql->Do(qq|create index Stats_TimestampIndex on Stats (timestamp)|)
+        $sql->Do(qq|create unique index Stats_TimestampIndex on Stats (timestamp)|)
               or die("Could not add indices to Stats table");
         print "Added indices to Stats table.\n";
         $sql->Commit;

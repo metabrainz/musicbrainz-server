@@ -1,48 +1,72 @@
 <%perl>
 my $result = $m->cache(action=>'retrieve');
-#$result = undef;
+$result = undef;
 if (!defined($result)) 
 {
     my $mb = mc_comp("/comp/dblogin", quiet=>1);
 
     if (defined $mb)
     {
-        $result .= mc_comp("/comp/calcstat", 
-                           mb=>$mb,
-                           query=>"select count(*) from Artist", 
-                           title=>"Artists:");
-        $result .= mc_comp("/comp/calcstat", 
-                           mb=>$mb,
-                           query=>"select count(*) from Album", 
-                           title=>"Albums:");
-        $result .= mc_comp("/comp/calcstat", 
-                           mb=>$mb,
-                           query=>"select count(*) from Track", 
-                           title=>"Tracks:");
-        $result .= mc_comp("/comp/calcstat", 
-                           mb=>$mb,
-                           query=>"select count(*) from TRM", 
-                           title=>"TRM Ids:");
-        $result .= mc_comp("/comp/calcstat", 
-                           mb=>$mb,
-                           query=>"select count(*) from Discid", 
-                           title=>"Discids:");
-        $result .= mc_comp("/comp/calcstat", 
-                           mb=>$mb,
-                           query=>"select count(*) from Moderation", 
-                           title=>"Mods:");
-        $mb->Logout();
-    }
-    $m->cache(action=>'store', expire_next=>'hour', value=>$result);
-}
-</%perl>
+        my $sql = Sql->new($mb->{DBH});
+        if ($sql->Select(qq|select artists, albums, tracks, discids, trmids, 
+                                   moderations, moderators 
+                              from Stats 
+                             where timestamp = current_date()|))
+        {
+             my @row = $sql->NextRow;
 
+             </%perl>
+<table cellpadding="10" cellspacing="0" border="0">
+<tr> <td>
+<table width=100%>
+<tr>
+ <TD valign=top align=right class="statsb">Artists:</TD>
+ <TD valign=top class="stats"><% $row[0] %></td>
+</tr>
+<tr>
+ <TD valign=top align=right class="statsb">Albums:</TD>
+ <TD valign=top class="stats"><% $row[1] %></td>
+</tr>
+<tr>
+ <TD valign=top align=right class="statsb">Tracks:</TD>
+ <TD valign=top class="stats"><% $row[2] %></td>
+</tr>
+<tr>
+ <TD valign=top align=right class="statsb">TRM Ids:</TD>
+ <TD valign=top class="stats"><% $row[3] %></td>
+</tr>
+<tr>
+ <TD valign=top align=right class="statsb">Discids:</TD>
+ <TD valign=top class="stats"><% $row[4] %></td>
+</tr>
+<tr>
+ <TD valign=top align=right class="statsb">Mods:</TD>
+ <TD valign=top class="stats"><% $row[5] %></td>
+</tr>
+<tr>
+ <TD valign=top align=right class="statsb">Users:</TD>
+ <TD valign=top class="stats"><% $row[6] %></td>
+</tr>
+</table>
+</td> </tr> </table>
+             <%perl>
+             $m->cache(action=>'store', expire_next=>'day', value=>$result);
+        }
+        else
+        {
+             </%perl>
 <table cellpadding="10" cellspacing="0" border="0">
 <tr>
    <td>
       <table width=100%>
-      <% $result |n %>
+        <tr><td align="center" class="statsb">[Updating]</td></tr>
       </table>
    </td>
 </tr>
 </table>  
+             <%perl>
+        }
+    }
+}
+</%perl>
+

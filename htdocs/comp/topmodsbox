@@ -29,7 +29,7 @@ if (!defined($result))
         $mb->Logout();
     }
 
-    $m->cache(action=>'store', expire_next=>'hour', value=>$result);
+    $m->cache(action=>'store', expire_next=>'day', value=>$result);
 }
 </%perl>
 
