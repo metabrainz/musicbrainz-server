@@ -55,6 +55,16 @@ if (scalar @albums > 0)
     }
 }
 
+my $num_vals;
+
+if ($ARGS{artist} == Artist::VARTIST_ID) 
+{
+   $num_vals = ($num_tracks * 2) + 2;
+}
+else
+{
+   $num_vals = $num_tracks + 2;
+}
 </%perl>
 
 % if (!defined $session{user} || $session{user} eq '') {
@@ -66,10 +76,25 @@ if (scalar @albums > 0)
 
     <& /comp/tablebegin, gattrs=>"width=\"100%\"", title=>'Enter Tracks' &>
 
+    
+    <script LANGUAGE="JavaScript">
+    function validate(form)
+    {   
+        if (
+% for($val = 2; $val <= $num_vals; $val++) {
+            document.AddAlbumTracks.value<% $val %>.value == "" ||
+% }
+           false)
+        {
+           alert("Please enter all the track/artist names for this album.");
+           return false;
+        }
+        return true;
+    };
+    </script>
+
     <form method="POST" action="/bare/enter_kv_mod.html" NAME="AddAlbumTracks"
           enctype="application/x-www-form-urlencoded" class="formstyle">
-
-
     <table>
 % if (defined $found_id) {
 
@@ -131,7 +156,8 @@ if (scalar @albums > 0)
         &nbsp;
         </td>
         <td>
-        <input type="submit" value="Finish >>" name="Finish">
+        <input type="submit" value="Finish >>" name="Finish"
+            onClick="return validate(form);">
         </td>
       </tr>
     </table>

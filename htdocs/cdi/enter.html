@@ -35,7 +35,27 @@ if ($artist <= 0) {
 
 </%perl>
 
-<form method="POST" action="/cdi/done.html"
+<script LANGUAGE="JavaScript">
+function validate()
+{  
+    if (
+% for($i = 0; $i < $tracks; $i++) {
+        document.EnterCD.track<% $i %>.value == "" ||
+% }
+% if ($artist <= 0) {
+        document.EnterCD.artistname.value == "" ||
+        document.EnterCD.sortname.value == "" ||
+% }
+        document.EnterCD.title.value == "")
+    {
+        alert("Please enter all the information for this CD.");
+        return false;
+    }
+    return true;
+};
+</script>
+
+<form method="POST" action="/cdi/done.html" Name="EnterCD"
       enctype="application/x-www-form-urlencoded" class="formstyle">
 
 Please enter the CD information below:<p>
@@ -65,7 +85,8 @@ Please enter the CD information below:<p>
 <input type="hidden" name="id" value="<% $id %>">
 <input type="hidden" name="toc" value="<% $toc %>">
 <input type="hidden" name="tracks" value="<% $tracks %>">
-<input type="submit" value="Next>>" name="Next">
+<input type="submit" value="Next>>" name="Next"
+       onClick="return validate(form);">
 </form>
 
 
