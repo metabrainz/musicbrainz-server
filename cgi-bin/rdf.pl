@@ -17,7 +17,6 @@ my %Queries =
    album => \&QuerySupport::GetAlbumByGlobalId,
    track => \&QuerySupport::GetTrackByGlobalId,
    trmid => \&QuerySupport::GetTrackByTRM,
-   synctext => \&QuerySupport::GetSyncTextByTrackGlobalId,
 );
 
 $depth = 2;

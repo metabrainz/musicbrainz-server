@@ -49,25 +49,6 @@ read-only mode for database maintainance./;
 # Set this value if this is a staging server
 use constant DB_STAGING_SERVER => 1;
 
-# Set this to 1 if you would like this server to handle lyrics and SyncText.
-# Please note that this is likely to get you into legal trouble if you
-# insert copyrighted lyrics in the database. Please be aware of the 
-# local laws if you intend to run a lyrics server.
-use constant USE_LYRICS => 0;
-
-# if the USE_LYRICS is set to 0, then trying to access the showlyrics.html 
-# script will cause an error message. The user will see the following URL
-# pointing to a server that also stores lyrics in the error message.
-# Change to point to your favorate lyrics server running the musicbrainz 
-# server software.
-use constant DEFAULT_LYRICS_URL => 'http://www.mp3.nl';
-
-# Set this to 1 if you would like to show a search box for lyrics servers,
-# and other music sites on the web.
-# This search box is a simple form that takes the user offsite to several
-# music web sites. (not musibrainz servers)
-use constant SEARCH_LYRICS_OFFSITE => 1;
-
 # This defines the version of the server
 use constant VERSION => "1.0.0-preX";
 

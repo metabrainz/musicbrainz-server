@@ -15,9 +15,7 @@ $tagchecked=>0
 
 <%perl>
 
-my ($i, $track, @info, $ly, $lyricspresent, $trmcounts, $tcount);
-
-$ly = Lyrics->new($artist->GetDBH());
+my ($i, $track, @info, $trmcounts, $tcount);
 
 #$nomod = 1 if (exists $session{tagged_albums});
 
@@ -65,15 +63,6 @@ for($i = 0;; $i++)
 {
     $track = $info[$i]; 
     last if (!defined $track);
-    $lyricspresent=0;
-    if (DBDefs::USE_LYRICS) 
-    {
-        if ($ly->GetLyricsIdFromTrackId($track->GetId())   > 0 ||
-            scalar ($ly->GetSyncTextList($track->GetId())) > 0) 
-        {
-           $lyricspresent=1;
-        }
-    }
     if (exists $trmcounts->{$track->GetId()})
     {
         $tcount = $trmcounts->{$track->GetId()};
@@ -83,7 +72,7 @@ for($i = 0;; $i++)
         $tcount = 0;
     }
     mc_comp("/comp/albumtrack", track=>$track, album=>$album, 
-            artist=>$artist, lyricspresent=>$lyricspresent,
+            artist=>$artist,
             tindex=>$i, hilitetrack=>$hilitetrack, 
             hilitecolor=>$hilitecolor, nomod=>$nomod, 
             trmcount=>$tcount, mbtagger=>$mbtagger);

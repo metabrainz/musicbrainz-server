@@ -138,7 +138,7 @@ my @site_musica = (
 &nbsp;
 </td>
 <td width="48%" valign="top">
-% if (DBDefs::SEARCH_LYRICS_OFFSITE) {
+
   <& /comp/tablebegin, title=>'Lyrics sites', attrs=>"align=left",
      gattrs=>"width='100%'" &>
     For each of these searches please enter the name of the artist, album or track to search.
@@ -168,7 +168,6 @@ my @site_musica = (
                         method=>'get',
                         searchfield=>'word' &>
   <& /comp/tableend &>
-% }
 
 </td>
 </tr>

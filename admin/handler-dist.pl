@@ -18,7 +18,6 @@ use TableBase;
 use Artist;
 use Alias;
 use Track;
-use Lyrics;
 use UserStuff;
 use ModDefs;
 use FreeDB;

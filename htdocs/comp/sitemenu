@@ -178,8 +178,6 @@ use Scalar::Util qw( reftype weaken );
         { url => "/albumdetail.html" },
         { url => "/showalbum.html" },
         { url => "/showartist.html" },
-        { url => "/showlyrics.html" },
-        { url => "/showsyncevents.html" },
         { url => "/showtrack.html" },
         { url => "/showtrm.html" },
 

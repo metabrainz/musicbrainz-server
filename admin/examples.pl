@@ -36,10 +36,9 @@ use MusicBrainz;
 use Artist;
 use Album;
 use Track;
-use Lyrics;
 use Sql;
 
-my ($mb, $al, $ar, $tr, $ly);
+my ($mb, $al, $ar, $tr);
 
 #yes, all the lyrics are hand-coded in this Perl file, no include file used.
 #everything about the example is now nicely in 1 file.
@@ -258,16 +257,7 @@ sub EnterRecord
         $mb->Logout();
         exit 0;
     }
-    #does the user have the lyrics turned on?
-    if (!DBDefs::USE_LYRICS) { return $track }
 
-    my $lyrics = $ly->InsertLyrics($track, $songtext, $writer);
-    if ($track < 0)
-    {
-        print "Cannot insert lyrics.\n";
-        $mb->Logout();
-        exit 0;
-    }
     return $track;
 }
 
@@ -292,35 +282,6 @@ sub add_examples
     EnterRecord('God Save The Queen', 'United Kingdom', $al, $uk, 'Nelson', 3);
     EnterRecord('The Star Spangled Banner', 'United States of America', $al, $us, 'Columbus', 4);
 
-    #does the user have the lyrics turned on?
-    if (!DBDefs::USE_LYRICS) { return $album }
-
-    #Inserting examples of SyncText; Additional side information about the song
-    #enhanced with timestamps.
-    my $synctext = $ly->InsertSyncText($track, 4, 'http://www.wilhelmus.nl', 'Coornhert');
-    if ($synctext < 0)
-    {
-        print "Cannot insert SyncText.\n";
-        $mb->Logout();
-        exit 0;
-    }
-    while ((my $t,my $txt) = each %dutch_trackinfo) 
-    {
-        $ly->InsertSyncEvent($synctext, $t, $txt);
-    }
-    #the 'trackinfo' type of SyncText is translated into information about the 
-    #National Anthem country.
-    $synctext = $ly->InsertSyncText($track, 2, 'http://www.wilhelmus.nl', 'St. Allegonde');
-    if ($synctext < 0)
-    {
-        print "Cannot insert SyncText.\n";
-        $mb->Logout();
-        exit 0;
-    }
-    while ((my $t,my $txt) = each %dutch_artistinfo) 
-    {
-        $ly->InsertSyncEvent($synctext, $t, $txt);
-    }
     return $album;
 }
 
@@ -333,7 +294,6 @@ if (!$mb->Login(1))			#be quiet
 $al = Album->new($mb->{DBH});
 $ar = Artist->new($mb->{DBH});
 $tr = Track->new($mb->{DBH});
-$ly = Lyrics->new($mb->{DBH});
 
 my $album = add_examples();
 print "added National Anthems album as number $album.\n";
