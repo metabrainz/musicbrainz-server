@@ -1,7 +1,20 @@
 \set ON_ERROR_STOP 1
 BEGIN;
 
--- Alphabetical order
+-- A quick crib sheet: when adding a table to the system, quite a few files
+-- will need modification.  This isn't a complete list, but should serve as a
+-- handy reminder as to most of the files involved:
+--   admin/sql/(Create|Drop)Tables.sql
+--   admin/sql/(Create|Drop)PrimaryKeys.sql
+--   admin/sql/(Create|Drop)Indexes.sql
+--   admin/sql/(Create|Drop)FKConstraints.sql
+--   admin/sql/(Create|Drop)ReplicationTriggers.sql
+--   admin/SetSequences.pl
+--   admin/ExportAllTables
+--   admin/MBImport.pl
+--   admin/replication/LoadReplicationChanges (if not replicated)
+
+-- Add tables in alphabetical order please!
 
 CREATE TABLE album
 (
