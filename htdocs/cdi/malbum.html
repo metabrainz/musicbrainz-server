@@ -65,21 +65,29 @@ if (scalar(@albums) > 0)
                          submitting, click on <font class="bold">Select 
                          CD</font> next to 
                          the matching album. If none of the listed CD 
-                         match, click on <font class="bold">CD not 
-                         listed</font>:<br>|);
+                         match, click on <font class="bold">New CD</font>,
+                         at the bottom of this page:<br>|);
             }
 
 </%perl>
             <form method="POST" action="found.html" 
                   enctype="application/x-www-form-urlencoded">
-               <table width="100%"><tr><td align=right>
-                  <input type="submit" name="Submit" value="Select CD>>">
-               </td></tr></table>
-               <input type="hidden" name="id" value="<% $id %>">
-               <input type="hidden" name="album" value="<% $al->GetId() %>">
-               <input type="hidden" name="toc" value="<% $toc %>">
+               <table width="100%">
+               <tr>
+                 <td width="100%">
+                    <& /comp/album, artist=>$ar, album=>$al, nomod=>1 &>
+                 </td>
+                 <td align="right" valign="top">
+                    <input type="submit" name="Submit" value="Select CD>>">
+                    <input type="hidden" name="id" value="<% $id %>">
+                    <input type="hidden" name="album" 
+                           value="<% $al->GetId() %>">
+                    <input type="hidden" name="toc" value="<% $toc %>">
+                    <input type="hidden" name="tracks" value="<% $tracks %>">
+                 </td>
+               </tr>
+               </table>
 
-               <& /comp/album, artist=>$ar, album=>$al, nomod=>1 &>
             </form>
 <%perl>
         }
