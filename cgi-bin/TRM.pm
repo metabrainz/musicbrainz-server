@@ -302,5 +302,17 @@ sub IncrementLookupCount
 	);
 }
 
+sub UpdateLookupCount
+{
+	my ($self, $trm, $timesused) = @_;
+	$timesused ||= 1;
+    my $sql = Sql->new($self->{DBH});
+
+	$sql->Do(
+		"UPDATE trm SET lookupcount = lookupcount + ? WHERE trm = ?",
+		$timesused, $trm,
+	);
+}
+
 1;
 # vi: set ts=4 sw=4 :
