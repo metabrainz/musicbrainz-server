@@ -585,7 +585,7 @@ SUPPRESS_INSERT:
 	wantarray ? @inserted_moderations : pop @inserted_moderations;
 }
 
-# This function is used by htdocs/mod/setquery.inc to optimise the
+# This function is used by htdocs/mod/search/setquery.inc to optimise the
 # queries that select only mods of status STATUS_OPEN.
 
 sub GetMinOpenModID
@@ -634,9 +634,7 @@ sub GetMinOpenModID
 
 sub GetModerationList
 {
-	my ($this, $index, $num) = @_;
-
-	my $query = UserStuff->GetSession->{'moderation_sql'};
+	my ($this, $query, $voter, $index, $num) = @_;
 	$query or return SEARCHRESULT_NOQUERY;
 
 	my $sql = Sql->new($this->{DBH});
@@ -646,7 +644,9 @@ sub GetModerationList
 
 	my $ok = eval {
 		local $sql->{Quiet} = 1;
-		$sql->Select($query . " OFFSET ".($index||0));
+		$query .= " OFFSET " . ($index||0);
+		print STDERR "Executing mod SQL: $query\n";
+		$sql->Select($query);
 		1;
 	};
 	my $err = $@;
@@ -713,7 +713,6 @@ sub GetModerationList
 	my $user = UserStuff->new($this->{DBH});
 	my $artist = Artist->new($this->{DBH});
 	my $vote = MusicBrainz::Server::Vote->new($this->{DBH});
-	my $voter = UserStuff->GetSession->{"moderation_voter_id"};
 	for my $mod (@mods)
 	{
 		# Fetch moderator name
