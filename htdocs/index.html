@@ -1,147 +1,182 @@
-<& /comp/sidebar, title=>'Welcome to MusicBrainz!' &>  
+%# vi: set ts=2 sw=2 ft=mason :
+<& /comp/sidebar, title=>'Welcome to MusicBrainz!', noh1 => 1 &>  
 
-<table width="420"><tr><td>
+<div class="SideArticlePanel">
 
 % if (DBDefs::DB_STAGING_SERVER) {
-   <center>
-   <font size="+2" color="red">You are using the<br> MusicBrainz staging server!</font>
-   </center>
-   <p>
-   Unless you want to be testing the latest and greatest MusicBrainz features
-   you probably want to <a href="http://www.musicbrainz.org">go here</a>.
-   <p>
-   <hr>
+	<div class="SideArticle">
+		<h1>You are using the MusicBrainz staging server!</h1>
+		<p>
+			Unless you want to be testing the latest and greatest MusicBrainz features
+			you probably want to <a href="http://www.musicbrainz.org">go here</a>.
+		</p>
+	</div>
 % }
 
-<p>
+	<div class="SideArticle">
+		<h2>Sponsor Us!</h2>
+		<p class="Important">
+			<i>Robert Kaye, MusicBrainz founder writes:</i>
+			I&nbsp;am still looking for employment or a sponsor
+			who will contribute towards the further development
+			of MusicBrainz.&nbsp;
+			Please <a href="mailto:sponsors@musicbrainz.org"
+				>drop me a line</a> if you know
+			of a company/person who might be interested.
+		</p>
+		<a href="mailto:sponsors@musicbrainz.org"
+			class="NewsLink"
+			>Sponsorship enquiries &gt;&gt;</a>
+	</div>
 
-   MusicBrainz is a community music metadatabase that attempts to create
-   a comprehensive music encyclopedia. Automatic Audio CD and digital audio 
-   track identification using community supplied and maintained data
-   is the first goal of MusicBrainz.
+	<div class="SideArticle">
+		<h2>Latest News</h2>
 
-<p>
-   In the future, MusicBrainz will have a genre system and a comprehensive
-   geneology of music, tracking not only music releases, but also detailed
-   information about who contributed to a piece of music. MusicBrainz will
-   keep track of which artists/performers/engineers contributed to
-   a piece of music, and when these contributions took place. The system 
-   will also keep track of artist influences on each other and many more 
-   pieces of information to create a comprehensive geneology of modern music.
+		<div class="SideNewsArticle">
+			<h3>MusicBrainz launches</h3>
+			<p>
+				<b>Fremont, CA, Feb 11 2003</b>:
+				TODO
+				blah blah blah
+				blah blah blah
+				blah blah blah
+				blah blah blah
+				blah blah blah
+			</p>
+			<a href="/news/pressreleases/20030211-1.html"
+				class="PressReleaseLink"
+				>Read the whole article &gt;&gt;</a>
+		</div>
 
-<p>
-   To get started using MusicBrainz, take a look at the 
-   <a href="/search.html">search</a> page. For a more in-depth
-   view of MusicBrainz, take a look at the 
-   <a href="/introduction.html">introduction</a> page and the 
-   <a href="/information.html">information</a> pages.
-   To get started contributing to MusicBrainz, please 
-   look at our <a href="/contribute.html">contribute</a> and
-   <a href="/mod_intro.html">moderation introduction</a> pages.
+		<div class="SideNewsArticle">
+			<h3>Some White Paper</h3>
+			<p>
+				TODO
+				Read more about the white paper
+				etc etc etc etc etc etc
+				etc etc etc etc etc etc
+				etc etc etc etc etc etc
+			</p>
+			<a href="/papers/mb_nonprofit.html"
+				class="WhitePaperLink"
+				>Read the whole paper &gt;&gt;</a>
+		</div>
 
-<p>
-   All of the data collected on this server is made available to the public 
-   under the <a href="http://www.opencontent.org">OpenContent</a> license. 
+	</div>
 
-   <p>
-   If you have any questions or comments about this server, please
-   <a href="mailto:rob@eorbit.net">contact me</a>.
+</div>
 
-   <br>
+<div class="AvoidArticlePanel">
 
-   <center>
-   <table width="85%"><tr><td>
-   <font color="red" size="+1">Sponsors/Employers:</font> 
-   I am still looking for employment or a sponsor who will contribute
-   towards the further development of MusicBrainz.  
-   Please <a href="mailto:rob@eorbit.net">drop me a line</a> if you know of
-   a company who might be interested. [ <a href="http://www.mayhem-chaos.net/resume.html">Resume</a> | <a href="http://www.mayhem-chaos.net/blog.html">Blog</a>  ]
-   </td></tr></table>
-   <p>
+	<h1>Welcome to MusicBrainz!</h1>
 
-<& /comp/tablebegin, title=>"Recent News Items" &>
-<table border="0" cellpadding="3">
-<tr>
-   <td valign="top" nowrap>
-   2003-02-07
-   </td>
-   <td valign="top">
-   <a href="/download.html#trm">MB Tagger 0.8.5</a> has been released. This version
-   adds a menu, fixes some minor bugs and makes the embedded browser behave better.
-   </td>
-</tr>
-<tr>
-   <td valign="top" nowrap>
-   2003-02-06
-   </td>
-   <td valign="top">
-   <a href="/download.html#trm">MB Tagger 0.8.4</a> has been released. Proxy support
-   works as expected and other minor usability enhancements have been added.
-   </td>
-</tr>
-<tr>
-   <td valign="top" nowrap>
-   2003-02-01
-   </td>
-   <td valign="top">
-   <a href="/download.html#trm">MB Tagger 0.8.3</a> for Windows has been released!
-   This version support complete TRM collisions, similarity highlighting and
-   a number of other important bug fixes.
-   </td>
-</tr>
-<tr>
-   <td valign="top" nowrap>
-   2003-01-29
-   </td>
-   <td valign="top">
-   Sebastian Spaeth just <a href="/finances.html">donated</a> $15!
-   </td>
-</tr>
-<tr>
-   <td valign="top" nowrap>
-   2003-01-26
-   </td>
-   <td valign="top">
-   <a href="/download.html#trm">libmusicbrainz-2.0.0-pre4</a> has been released!
-   This latest release supports the new MusicBrainz Metadata initiative version
-   2.1 and supports the FileLookup interface for writing MusicBrainz enabled
-   tagger applications.
-   </td>
-</tr>
-<tr>
-   <td valign="top" nowrap>
-   2003-01-21
-   </td>
-   <td valign="top">
-   The main server has been updated with the latest and greatest features and
-   fixes. We now have TRM collision support, TRM stats, improved UNICODE
-   support, an improved RDF web service interface and tons of minor bug
-   fixes and enhancements.
-   </td>
-</tr>
-<tr>
-   <td valign="top" nowrap>
-   2003-01-10
-   </td>
-   <td valign="top">
-   <a href="/download.html#trm">MB Tagger 0.8.2</a> for Windows has been released!
-   This version fixes a number of bugs and has basic support for resolving TRM collisions.
-   </td>
-</tr>
-<tr>
-   <td valign="top" nowrap>
-   2003-01-06
-   </td>
-   <td valign="top">
-   Added an html version of the <a href="/papers/mb_license.html">MusicBrainz
-   license issues</a> white paper.
-   </td>
-</tr>
-</table>
-<& /comp/tableend &>
+	<h2>What is MusicBrainz?</h2>
 
-   </center>
+	<p>
+		MusicBrainz is a community music metadatabase
+		that attempts to create a comprehensive music encyclopedia.&nbsp;
+		You can use the MusicBrainz data either by browsing this web site,
+		or you can access the data from a client program - for example,
+		a CD player program can use MusicBrainz to identify CDs and provide
+		information about the CD, about the artist or about related
+		information.&nbsp; You can also use the MusicBrainz Tagger
+		to automatically identify and clean up the metadata tags
+		in your music collections.
+	</p>
 
-</td></tr></table>
+	<h2>Read more about MusicBrainz</h2>
+	
+	<p>
+		To learn more about what MusicBrainz is and how it works, read on:
+	</p>
+
+	<ul class="SpacedList">
+		<li>Read <a href="/introduction.html">an introduction to MusicBrainz</a></li>
+		<li>Find out about <a href="/history.html">the history of MusicBrainz</a></li>
+		<li>Check out the <a href="/faq.html">MusicBrainz FAQ</a></li>
+		<li>Read the MusicBrainz <a href="/documentation.html">documentation</a></li>
+	</ul>
+
+	<h2>Use MusicBrainz</h2>
+
+	<p>
+		You can use Musicbrainz right now to automatically identify and
+		label your music files - all you have to do is download and run
+		the MusicBrainz Tagger.&nbsp;
+		<a href="/tagger/index.html">Read more about the tagger</a>.
+	</p>
+
+	<p>
+		<a href="/tagger/download.html"
+			class="DownloadLink"
+			><img src="/images/download.gif"
+				alt="[download]"
+				title="download"
+			>Download the MusicBrainz Tagger!</a>
+	</p>
+
+	<p>
+		Alternatively, you might just want to
+		<a href="/search.html">search</a>
+		or 
+		<a href="/browseartists.html">browse</a>
+		the MusicBrainz database.&nbsp;
+		If you spot a mistake, or something that's missing,
+		you can even <a href="/mod_intro.html">edit or add the data</a>!
+	</p>
+
+	<p>
+		If you're a software developer you might want to learn about the
+		<a href="/products/client/index.html">MusicBrainz client library / SDK</a>.&nbsp;
+		You can use the library to enable your programs to access the
+		MusicBrainz database, both for looking up data and also for
+		submitting new data.
+	</p>
+
+	<h2>Be a part of MusicBrainz</h2>
+
+	<p>
+		Many people are needed to make MusicBrainz work.&nbsp;
+		Come and take part!
+	</p>
+
+	<ul class="SpacedList">
+		<li>
+			Please
+			<a href="/tagger/download.html"
+				title="Download the MusicBrainz Tagger"
+				>download and use the MusicBrainz Tagger</a>.&nbsp;
+			By doing so, you'll be using and adding to the
+			MusicBrainz database.
+		</li>
+		<li>
+			<a href="/search.html">Search</a>
+			or
+			<a href="/browseartists.html">browse</a>
+			the MusicBrainz data for your favourite artists,
+			or for
+			<a href="/browsevarious.html">"Various&nbsp;Artists" compilations</a>.&nbsp;
+		</li>
+		<li>
+			If you spot something that's wrong, poorly entered or
+			just plain missing,
+			please <a href="/login.html">log in</a>
+			so you can <a href="/mod_intro.html">edit the data</a>.
+		</li>
+	</ul>
+		
+	<h2>Find out more</h2>
+
+	<p>
+		To find out more about MusicBrainz, read the
+		<a href="/introduction.html">About</a>,
+		<a href="/news/index.html">News</a>,
+		<a href="/information.html">Support</a>
+		and
+		<a href="/development/index.html">Development</a>
+		sections of the web site.
+	</p>
+
+</div>
 
 <& /comp/footer &>
