@@ -424,6 +424,13 @@ BEGIN
     IF (TG_OP = ''INSERT'' OR TG_OP = ''UPDATE'')
     THEN
         UPDATE trm SET lookupcount = (SELECT COALESCE(SUM(trm_stat.lookupcount), 0) FROM trm_stat WHERE trm_id = NEW.trm_id) WHERE id = NEW.trm_id;
+        IF (TG_OP = ''UPDATE'')
+        THEN
+            IF (NEW.trm_id != OLD.trm_id)
+            THEN
+                UPDATE trm SET lookupcount = (SELECT COALESCE(SUM(trm_stat.lookupcount), 0) FROM trm_stat WHERE trm_id = OLD.trm_id) WHERE id = OLD.trm_id;
+            END IF;
+        END IF;
     ELSE
         UPDATE trm SET lookupcount = (SELECT COALESCE(SUM(trm_stat.lookupcount), 0) FROM trm_stat WHERE trm_id = OLD.trm_id) WHERE id = OLD.trm_id;
     END IF;
@@ -437,6 +444,13 @@ BEGIN
     IF (TG_OP = ''INSERT'' OR TG_OP = ''UPDATE'')
     THEN
         UPDATE trmjoin SET usecount = (SELECT COALESCE(SUM(trmjoin_stat.usecount), 0) FROM trmjoin_stat WHERE trmjoin_id = NEW.trmjoin_id) WHERE id = NEW.trmjoin_id;
+        IF (TG_OP = ''UPDATE'')
+        THEN
+            IF (NEW.trmjoin_id != OLD.trmjoin_id)
+            THEN
+                UPDATE trmjoin SET usecount = (SELECT COALESCE(SUM(trmjoin_stat.usecount), 0) FROM trmjoin_stat WHERE trmjoin_id = OLD.trmjoin_id) WHERE id = OLD.trmjoin_id;
+            END IF;
+        END IF;
     ELSE
         UPDATE trmjoin SET usecount = (SELECT COALESCE(SUM(trmjoin_stat.usecount), 0) FROM trmjoin_stat WHERE trmjoin_id = OLD.trmjoin_id) WHERE id = OLD.trmjoin_id;
     END IF;

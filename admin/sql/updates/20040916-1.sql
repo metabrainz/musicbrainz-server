@@ -45,9 +45,16 @@ ALTER TABLE trmjoin_stat ADD CONSTRAINT trmjoin_stat_pkey PRIMARY KEY (id);
 
 -- indexes
 
-CREATE INDEX trm_stat_trm_idindex ON trm_stat (trm_id);
-CREATE INDEX trmjoin_stat_trmjoin_idindex ON trmjoin_stat (trmjoin_id);
+CREATE UNIQUE INDEX trm_stat_trm_idindex ON trm_stat (trm_id, month_id);
+CREATE UNIQUE INDEX trmjoin_stat_trmjoin_idindex ON trmjoin_stat (trmjoin_id, month_id);
 DROP INDEX trmjoin_trmindex;
+
+-- We need to analyze trm_stat now so that the function we're about to create
+-- generates a sensible query plan.  Come to think of it, should we recompile
+-- all functions from time to time for the same reason?
+COMMIT;
+VACUUM ANALYZE trm_stat;
+BEGIN;
 
 -- FKs
 
@@ -75,6 +82,13 @@ BEGIN
     IF (TG_OP = ''INSERT'' OR TG_OP = ''UPDATE'')
     THEN
         UPDATE trm SET lookupcount = (SELECT COALESCE(SUM(trm_stat.lookupcount), 0) FROM trm_stat WHERE trm_id = NEW.trm_id) WHERE id = NEW.trm_id;
+        IF (TG_OP = ''UPDATE'')
+        THEN
+            IF (NEW.trm_id != OLD.trm_id)
+            THEN
+                UPDATE trm SET lookupcount = (SELECT COALESCE(SUM(trm_stat.lookupcount), 0) FROM trm_stat WHERE trm_id = OLD.trm_id) WHERE id = OLD.trm_id;
+            END IF;
+        END IF;
     ELSE
         UPDATE trm SET lookupcount = (SELECT COALESCE(SUM(trm_stat.lookupcount), 0) FROM trm_stat WHERE trm_id = OLD.trm_id) WHERE id = OLD.trm_id;
     END IF;
@@ -88,6 +102,13 @@ BEGIN
     IF (TG_OP = ''INSERT'' OR TG_OP = ''UPDATE'')
     THEN
         UPDATE trmjoin SET usecount = (SELECT COALESCE(SUM(trmjoin_stat.usecount), 0) FROM trmjoin_stat WHERE trmjoin_id = NEW.trmjoin_id) WHERE id = NEW.trmjoin_id;
+        IF (TG_OP = ''UPDATE'')
+        THEN
+            IF (NEW.trmjoin_id != OLD.trmjoin_id)
+            THEN
+                UPDATE trmjoin SET usecount = (SELECT COALESCE(SUM(trmjoin_stat.usecount), 0) FROM trmjoin_stat WHERE trmjoin_id = OLD.trmjoin_id) WHERE id = OLD.trmjoin_id;
+            END IF;
+        END IF;
     ELSE
         UPDATE trmjoin SET usecount = (SELECT COALESCE(SUM(trmjoin_stat.usecount), 0) FROM trmjoin_stat WHERE trmjoin_id = OLD.trmjoin_id) WHERE id = OLD.trmjoin_id;
     END IF;

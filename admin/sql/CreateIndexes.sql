@@ -78,12 +78,12 @@ CREATE INDEX trackwords_trackidindex ON trackwords (trackid);
 
 CREATE UNIQUE INDEX trm_trmindex ON trm (trm);
 
-CREATE INDEX trm_stat_trm_idindex ON trm_stat (trm_id);
+CREATE UNIQUE INDEX trm_stat_trm_idindex ON trm_stat (trm_id, month_id);
 
 CREATE INDEX trmjoin_trackindex ON trmjoin (track);
 CREATE UNIQUE INDEX trmjoin_trmtrack ON trmjoin (trm, track);
 
-CREATE INDEX trmjoin_stat_trmjoin_idindex ON trmjoin_stat (trmjoin_id);
+CREATE UNIQUE INDEX trmjoin_stat_trmjoin_idindex ON trmjoin_stat (trmjoin_id, month_id);
 
 CREATE INDEX vote_closed_idx_moderation ON vote_closed (moderation);
 CREATE INDEX vote_closed_idx_moderator ON vote_closed (moderator);
