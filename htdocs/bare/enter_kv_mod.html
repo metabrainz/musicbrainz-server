@@ -1,6 +1,6 @@
 <%perl>
 
-sub CheckArg
+sub CheckKVArg
 {
     my ($args, $name) = @_;
 
@@ -21,14 +21,14 @@ $mb = new MusicBrainz;
 $mb->Login();
 
 print STDERR "Sanity check\n";
-if (CheckArg(\%ARGS, 'column') &&
-    CheckArg(\%ARGS, 'key0') &&
-    CheckArg(\%ARGS, 'value0') &&
-    CheckArg(\%ARGS, 'prev') &&
-    CheckArg(\%ARGS, 'artist') &&
-    CheckArg(\%ARGS, 'type') &&
-    CheckArg(\%ARGS, 'table') &&
-    CheckArg(\%ARGS, 'id')) 
+if (CheckKVArg(\%ARGS, 'column') &&
+    CheckKVArg(\%ARGS, 'key0') &&
+    CheckKVArg(\%ARGS, 'value0') &&
+    CheckKVArg(\%ARGS, 'prev') &&
+    CheckKVArg(\%ARGS, 'artist') &&
+    CheckKVArg(\%ARGS, 'type') &&
+    CheckKVArg(\%ARGS, 'table') &&
+    CheckKVArg(\%ARGS, 'id')) 
 {
     print STDERR "Sanity check ok\n";
     for($i = 0;; $i++)
