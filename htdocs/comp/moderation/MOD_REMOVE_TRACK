@@ -9,7 +9,7 @@
 % if ($this->GetStatus == &ModDefs::STATUS_APPLIED) {
 	<% $this->{'prev.name'} %>
 % } else {
-	<a href="/showtrack.html?trackid=<% $this->GetRowId %>"
+	<a href="/showalbum.html?albumid=<% $this->{'prev.albumid'} %>"
 		><% $this->{'prev.name'} %></a>
 % }
 
