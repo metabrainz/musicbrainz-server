@@ -90,11 +90,11 @@ sub Insert
         {
             $id = $sql->GetLastInsertId;
         }
-    }
-    if (defined $id && defined $trackid)
-    {
-        $sql->Do(qq/insert into GUIDJoin (guid, track) values 
-                   ($id, $trackid)/);
+        if (defined $id && defined $trackid)
+        {
+            $sql->Do(qq/insert into GUIDJoin (guid, track) values 
+                       ($id, $trackid)/);
+        }
     }
     return $id;
 }
