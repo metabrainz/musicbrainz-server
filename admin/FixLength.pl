@@ -34,7 +34,7 @@ $mb->Login;
 my $dbh = $mb->{DBH};
 
 # select all albums
-my $sth = $dbh->prepare('SELECT DISTINCT(Album.Id) FROM Album, TOC WHERE Album.Id = TOC.Album');
+$my $sth = $dbh->prepare('SELECT DISTINCT(Album.Id) FROM Album, AlbumJoin, Track, TOC WHERE album.id = albumjoin.album and albumjoin.track = track.id and track.length <= 0 and Album.Id = TOC.Album');
 $sth->execute();
 
 # for each album 
@@ -81,8 +81,10 @@ while ( my $row = $sth->fetchrow_hashref )
     my @lengths;
     for($ii = 1; $ii < $toc->{'tracks'}; $ii++) {
         $lengths[$ii] = int((($toc->{'track'.($ii+1)} - $toc->{'track'.$ii})*1000)/75);
+        print "length[$ii]: $lengths[$ii]\n";
     }
     $lengths[$ii] =  int((($toc->{'leadout'} - $toc->{'track'.$ii})*1000)/75);
+    print "length[$ii]: $lengths[$ii]\n\n";
 
     foreach(@tracks) {
         if(defined($lengths[$_->GetSequence()])) {

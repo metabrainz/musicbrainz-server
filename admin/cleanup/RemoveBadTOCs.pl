@@ -33,6 +33,8 @@ sub CheckTOC
 {
     my ($toc) = @_;
 
+    return 0 if ($toc eq '1');
+
     my @parts = split / /, $toc;
 
     return 0 if $parts[0] != 1;
@@ -64,8 +66,7 @@ sub Cleanup
     my $good = 0;
 
     $sth = $dbh->prepare(qq|select toc, disc, album
-                            from   discid
-                            where  length(toc) = 255|);
+                            from   discid|);
     if ($sth->execute() && $sth->rows())
     {
         my @row;
@@ -74,13 +75,12 @@ sub Cleanup
         {
             if (!CheckTOC($row[0]))
             {
-                print "TOC $row[0] is bad ($row[1])\n";
+                print "TOC '$row[0]' is bad ($row[1] $row[2])\n";
                 if ($fix)
                 {
                    $dbh->do(qq\delete from TOC where discid = '$row[1]'\); 
                    $dbh->do(qq\delete from discid where disc = '$row[1]'\); 
-                   $dbh->do(qq\update track set length = 0 where id in 
-                           (select albumjoin.track from albumjoin where album = $row[2]);
+                   $dbh->do(qq\update track set length = 0 where id in (select albumjoin.track from albumjoin where album = $row[2])\);
                 }
                 $bad++;
             }

@@ -3,6 +3,8 @@
 #
 package HTML::Mason;
 use strict;
+use warnings;
+no warnings 'portable';
 use HTML::Mason::ApacheHandler ( args_method => 'mod_perl' );
 use HTML::Mason;    # brings in subpackages: Parser, Interp, etc.
 

@@ -71,9 +71,10 @@ The MusicBrainz server requires the following items:
    HTML::Mason (MB works only with version 1.05:
                 http://www.masonhq.com/code/download/HTML-Mason-1.05.tar.gz)
    String::CRC32
+   String::Unicode::Similiarity (see notes below)
    Unicode::String
-   XML::DOM   
    XML::Parser 
+   XML::DOM   
    RDFStore
    Digest::SHA1
    UUID (requires e2fsprogs)

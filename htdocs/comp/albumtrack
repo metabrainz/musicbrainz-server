@@ -13,13 +13,23 @@ $mbtagger=>0
 
 <%perl>
 
-my ($bgcolor, $tr_bgcolor, $length_in_secs, $colspan, $nonalbum);
+my ($bgcolor, $tr_bgcolor, $colspan, $nonalbum);
 $bgcolor = ($track->GetModPending()) ? 'bgcolor="#FFFFCC"' : 'bgcolor="#FFFFFF"';
 $bgcolor = ($hilitetrack == $track->GetId()) ? 'bgcolor="#FFCCFF"' : $bgcolor;
 $tr_bgcolor = ($track->GetAlbumJoinModPending()) ? 'bgcolor="#FFFFCC"' : 'bgcolor="#FFFFFF"';
-$length_in_secs = int((defined $track->GetLength()) ? 
-                      $track->GetLength() / 1000 : 0);
+my $ms = int((defined $track->GetLength()) ?  $track->GetLength() : -1);
 
+my $secs = "?:??";
+if ($ms > 0 && $ms < 1000) 
+{
+    $secs = "$ms ms"; 
+}
+elsif ($ms > 0)
+{
+    my $length_in_secs = $ms / 1000;
+    $secs = int($length_in_secs / 60) . ":" . 
+            sprintf("%02d",($length_in_secs % 60));
+}
 </%perl>
 
 <tr>
@@ -61,9 +71,7 @@ $length_in_secs = int((defined $track->GetLength()) ?
     </td>
 % }
     <td width="10%" align="right" <% $tr_bgcolor |n %> nowrap>
-% if ($length_in_secs != 0) {
-    <% int($length_in_secs / 60) %>:<% sprintf("%02d",($length_in_secs % 60)) %>
-% }
+       <% $secs %>
     </td>
 % if (exists $session{user} && !$nomod) {
     <td width="15%" align=center bgcolor="white" nowrap>
