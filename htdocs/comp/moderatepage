@@ -63,18 +63,26 @@ if (@$mods)
 
 <table width="100%">
 <tr>
-<td width="20%" align="center" nowrap>
-<% $total_mods %> matching mods 
-</td>
-<td width="80%" align="center" NOWRAP>
-[ <a href="moderate.html?type=1">New Mods</a> |
-<a href="moderate.html?type=5">New FreeDB Mods</a> |
-<a href="moderate.html?type=3">My Mods</a> |
-<a href="moderate.html?type=7">My Failed Mods</a> |
-<a href="moderate.html?type=2">My Votes</a> |
+<td colspan="2" align="center" NOWRAP>
+
+	<div class="LinksRow">
+<% $total_mods %> matching mod<% (($total_mods==1) ? "" : "s") %> &nbsp; [
+<a href="/mod/select-filter.html">Search Again</a> |
 <a href="/mod/filter.html">Advanced Search</a> |
 <a href="jumpmod.html">Jump</a> |
-<a href="mod_intro.html">Help</a> ]
+<a href="mod_faq.html">FAQ</a> |
+<a href="mod_intro.html">Help</a>
+	]</div>
+
+	<div class="LinksRow">[
+<a href="/mod/preset-new.html">New Mods</a> |
+<a href="/mod/preset-subscriptions.html">Subscribed Mods</a> |
+<a href="/mod/preset-freedb.html">FreeDB Mods</a> |
+<a href="/mod/preset-moderator.html">My Mods</a> |
+<a href="/mod/preset-moderator-failed.html">My Failed Mods</a> |
+<a href="/mod/preset-voted.html">My Votes</a>
+	]</div>
+
 </td>
 </tr>
 </table>
