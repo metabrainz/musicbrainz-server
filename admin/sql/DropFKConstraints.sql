@@ -38,6 +38,12 @@ ALTER TABLE moderation
 ALTER TABLE moderation
     DROP CONSTRAINT moderation_fk_moderator;
 
+ALTER TABLE moderationnote
+    DROP CONSTRAINT moderationnote_fk_moderation;
+
+ALTER TABLE moderationnote
+    DROP CONSTRAINT moderationnote_fk_moderator;
+
 ALTER TABLE votes
     DROP CONSTRAINT votes_fk_moderator;
 

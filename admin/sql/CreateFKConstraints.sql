@@ -65,6 +65,16 @@ ALTER TABLE moderation
     FOREIGN KEY (moderator)
     REFERENCES moderator(id);
 
+ALTER TABLE moderationnote
+    ADD CONSTRAINT moderationnote_fk_moderation
+    FOREIGN KEY (modid)
+    REFERENCES moderation(id);
+
+ALTER TABLE moderationnote
+    ADD CONSTRAINT moderationnote_fk_moderator
+    FOREIGN KEY (uid)
+    REFERENCES moderator(id);
+
 ALTER TABLE votes
     ADD CONSTRAINT votes_fk_moderator
     FOREIGN KEY (uid)
@@ -96,7 +106,6 @@ ALTER TABLE moderator_subscribe_artist
     REFERENCES moderator(id);
 
 -- albummeta ?
--- moderationnote ?
 
 ALTER TABLE release
     ADD CONSTRAINT release_fk_album
