@@ -337,6 +337,7 @@ sub ArtistSearch
 
    require Artist;
    $ar = Artist->new($this->{DBH});
+   # FIXME complains that $name is missing
    if (defined $ar->LoadFromName($name))
    {
        $this->{artist} = $ar;     

@@ -1,3 +1,5 @@
+#!/usr/bin/perl -w
+# vi: set ts=8 sw=4 :
 #____________________________________________________________________________
 #
 #   MusicBrainz -- the internet music database
@@ -62,6 +64,7 @@ sub OutputArtistRDF
     return "" if (!defined $this->GetBaseURI());
     $artist = $ref->{obj};
 
+    # FIXME undef warning
     $out  = $this->BeginDesc("mm:Artist", $this->GetBaseURI() .
                             "/artist/" . $artist->GetMBId());
     $out .=   $this->Element("dc:title", $artist->GetName());
@@ -103,6 +106,7 @@ sub OutputAlbumRDF
     my $country_obj = MusicBrainz::Server::Country->new($album->{DBH})
        if @releases;
 
+    # FIXME undef warning
     $out  = $this->BeginDesc("mm:Album", $this->GetBaseURI() .
                             "/album/" . $album->GetMBId());
     $out .=   $this->Element("dc:title", $album->GetName());
@@ -112,6 +116,7 @@ sub OutputAlbumRDF
                                  $this->GetBaseURI() . "/artist/" . 
                                  $artist->GetMBId());
     }
+    # FIXME GetArtist returns undef
     elsif ($album->GetArtist() == &ModDefs::VARTIST_ID)
     {
         $out .=   $this->Element("dc:creator", "", "rdf:resource",
@@ -201,6 +206,7 @@ sub OutputAlbumRDF
         $out .=   $this->BeginSeq();
         $ids = $ref->{_album};
 
+	# FIXME Modification of non-creatable array value attempted, subscript -1
         $complete = $$ids[scalar(@$ids) - 1]->{tracknum} != (scalar(@$ids) + 1);
         foreach $track (@$ids)
         {
@@ -220,6 +226,7 @@ sub OutputAlbumRDF
         $out .=   $this->BeginDesc("mm:trackList");
         $out .=   $this->BeginSeq();
 
+	# FIXME complains of undefs
         $out .= $this->Element("rdf:_" . $tracknum, "", "rdf:resource", 
                                $this->{baseuri} . "/track/" . $trackid);
 
@@ -245,6 +252,7 @@ sub OutputTrackRDF
     $track = $ref->{obj};
     require TRM;
     $gu = TRM->new($this->{DBH});
+    # FIXME complains of missing trackid
     @TRM = $gu->GetTRMFromTrackId($track->GetId());
 
     $artist = $this->GetFromCache('artist', $track->GetArtist()); 
@@ -502,11 +510,13 @@ sub CreateFileLookup
            $out .= $this->BeginDesc("rdf:li");
            $out .= $this->BeginDesc("mq:AlbumTrackResult");
 
+	   # FIXME $id->{albumid} undefined
            $albums{$id->{albumid}}++;
            $al = $this->GetObject($tagger, 'album', $id->{albumid});
            $tr = $this->GetObject($tagger, 'track', $id->{id});
 
            $out .=   $this->Element("mq:relevance", int(100 * $id->{sim}));
+	   # FIXME Can't call method "GetMBId" on an undefined value ($al)
            $out .=   $this->Element("mq:album", "", "rdf:resource",
                      $this->{baseuri}. "/album/" . $al->GetMBId());
            $out .=   $this->Element("mq:track", "", "rdf:resource",

@@ -152,7 +152,9 @@ sub CreateDenseTrackList
 	my $al = Album->new($this->{DBH});
 	my @ids = $al->GetAlbumIdsFromTrackId($tr->GetId());
 	$al->SetId($ids[0]);
+	# TODO this is complaining that the album ID is false
 	$al->LoadFromId();
+	# TODO this is complaining that the trackid is false
 	my $tracknum = $al->GetTrackSequence($tr->GetId());
 
 	$this->AddToCache(0, 'artist', $ar);
@@ -278,6 +280,7 @@ sub CreateOutputRDF
     return $this->CreateStatus() if (!defined $ids[0]);
 
     my $depth = $this->GetDepth();
+    # TODO sometimes $depth is not defined
     return $this->ErrorRDF("Invalid search depth specified.") if ($depth < 1);
 
     $this->{cache} = \(my @cache);
@@ -457,11 +460,11 @@ sub GetReferences
     return () if not defined $ref;
 
     # Artists and TRMIDs do not have any references, so they are not listed here
-    return $this->GetArtistReferences($ref, $ref->{obj}, $depth)
+    return $this->_GetArtistReferences($ref, $ref->{obj}, $depth)
 	if ($ref->{type} eq 'artist');
-    return $this->GetAlbumReferences($ref, $ref->{obj}, $depth)
+    return $this->_GetAlbumReferences($ref, $ref->{obj}, $depth)
 	if ($ref->{type} eq 'album');
-    return $this->GetTrackReferences($ref, $ref->{obj}, $depth)
+    return $this->_GetTrackReferences($ref, $ref->{obj}, $depth)
 	if ($ref->{type} eq 'track');
 
     # If this type is not supported return an empty list
@@ -469,7 +472,7 @@ sub GetReferences
 }
 
 # For an Artist, add a ref for each album
-sub GetArtistReferences
+sub _GetArtistReferences
 {
     my ($this, $ref, $artist, $depth) = @_;
     my (@albums, @albumids, $album, %info, @ret);
@@ -496,7 +499,7 @@ sub GetArtistReferences
 }
 
 # And for an album, add the artist ref and a ref for each track
-sub GetAlbumReferences
+sub _GetAlbumReferences
 {
     my ($this, $ref, $album, $depth) = @_;
     # TODO get rid of %info
@@ -539,7 +542,7 @@ sub GetAlbumReferences
 }
 
 # An for a track, add the artist and album refs
-sub GetTrackReferences
+sub _GetTrackReferences
 {
     my ($this, $ref, $track, $depth) = @_;
     my (@ret, %info);
