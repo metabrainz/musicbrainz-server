@@ -1,3 +1,4 @@
+%# vi: set ts=4 sw=4 ft=mason :
 <%perl>
 
 my ($mb, $user, $ok, $cookie, $privs, $uid, $url);
@@ -29,7 +30,7 @@ elsif (defined $ARGS{User} && $ARGS{User} ne '' &&
         $session{user} = $user;
         $session{privs} = $privs;
         $session{uid} = $uid;  
-        $session{expire} = time() + UserStuff::SESSION_SECONDS_TO_LIVE;  
+        $session{expire} = time() + &DBDefs::WEB_SESSION_SECONDS_TO_LIVE;  
     }
     $mb->Logout();
 }    

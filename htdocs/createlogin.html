@@ -1,3 +1,4 @@
+%# vi: set ts=4 sw=4 ft=mason :
 <%perl>
 
 my ($mb, $cookie);
@@ -32,7 +33,7 @@ else
     $session{user} = $user;
     $session{privs} = $privs;
     $session{uid} = $uid;  
-    $session{expire} = time() + UserStuff::SESSION_SECONDS_TO_LIVE;  
+    $session{expire} = time() + &DBDefs::WEB_SESSION_SECONDS_TO_LIVE;  
     
     </%perl>
     
