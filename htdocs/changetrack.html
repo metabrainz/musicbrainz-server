@@ -78,6 +78,8 @@ else
           $newtrackname = $2;
       }
    }
+   $newartistname =~ s/\s*$//g;
+   $newtrackname =~ s/\s*$//g;
    
    </%perl>
    
