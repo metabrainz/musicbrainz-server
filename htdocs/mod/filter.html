@@ -1,0 +1,314 @@
+%# vi: set ts=2 sw=2 ft=mason :
+<%args>
+@mod_status => ()
+$voter_type => undef
+$voter_id => undef
+$voter_name => undef
+@vote_cast => ()
+@mod_type => ()
+$moderator_type => undef
+$moderator_id => undef
+$moderator_name => undef
+$artist_type => undef
+$artist_id => undef
+$artist_name => undef
+$automod => undef
+$orderby => undef
+$minid => undef
+$maxid => undef
+</%args>
+<%perl>
+
+$m->comp("/comp/checkloggedin", 1, 1)
+	or return;
+
+my %all_status = reverse %{ ModDefs->status_as_hashref };
+delete $all_status{&ModDefs::STATUS_EVALNOCHANGE};
+
+my %all_votes = reverse %{ ModDefs->vote_as_hashref };
+delete $all_votes{&ModDefs::VOTE_UNKNOWN};
+
+my %all_types = reverse %{ ModDefs->type_as_hashref };
+
+my $filter = $session{"moderation_filter"};
+$filter ||= +{};
+
+$filter = {} if $ARGS{"reset"};
+
+$filter->{"mod_status"} ||= [];
+$filter->{"vote_cast"} ||= [];
+$filter->{"mod_type"} ||= [];
+
+$filter->{"moderator_type"} = 0
+	unless defined $filter->{"moderator_type"};
+$filter->{"moderator_id"} = 0
+	unless defined $filter->{"moderator_id"};
+
+$filter->{"artist_type"} = 0
+	unless defined $filter->{"artist_type"};
+$filter->{"artist_id"} = ""
+	unless defined $filter->{"artist_id"};
+
+$filter->{"automod"} = ""
+	unless defined $filter->{"automod"};
+
+$filter->{"orderby"} = "asc"
+	unless defined $filter->{"orderby"};
+
+if (%ARGS)
+{
+	my $sub = sub {
+		my ($values, $valid_hash, $key) = @_;
+		@$values or return;
+
+		my %ok;
+		exists $valid_hash->{$_}
+			and $ok{$_} = 1
+			for @$values;
+
+		%ok = () if keys(%ok) == keys(%$valid_hash);
+		$filter->{$key} = [ keys %ok ];
+	};
+
+	&$sub(\@mod_status, \%all_status, "mod_status");
+	&$sub(\@vote_cast, \%all_votes, "vote_cast");
+	&$sub(\@mod_type, \%all_types, "mod_type");
+
+	$orderby
+		and $orderby =~ /^(asc|desc)$/
+		and $filter->{"orderby"} = $orderby;
+
+	defined($automod)
+		and $automod =~ /^(1|0|)$/
+		and $filter->{"automod"} = $automod;
+
+	MusicBrainz::IsNonNegInteger($voter_id)
+		and $voter_id > 0
+		and $filter->{"voter_id"} = $voter_id
+		and $filter->{"voter_type"} = 1; # 1==this user only
+
+	MusicBrainz::IsSingleLineString($voter_name)
+		and $filter->{"voter_name"} = $voter_name;
+
+	defined($voter_type)
+		and $voter_type =~ /^[01]$/
+		and $filter->{"voter_type"} = $voter_type;
+
+	MusicBrainz::IsNonNegInteger($moderator_id)
+		and $moderator_id > 0
+		and $filter->{"moderator_id"} = $moderator_id
+		and $filter->{"moderator_type"} = 3; # 3==this user only
+
+	MusicBrainz::IsSingleLineString($moderator_name)
+		and $filter->{"moderator_name"} = $moderator_name;
+
+	defined($moderator_type)
+		and $moderator_type =~ /^[0123456]$/
+		and $filter->{"moderator_type"} = $moderator_type;
+
+	MusicBrainz::IsNonNegInteger($artist_id)
+		and $artist_id > 0
+		and $filter->{"artist_id"} = $artist_id
+		and $filter->{"artist_type"} = 3;
+
+	MusicBrainz::IsSingleLineString($artist_name)
+		and $filter->{"artist_name"} = $artist_name;
+
+	defined($artist_type)
+		and $artist_type =~ /^[01234]$/
+		and $filter->{"artist_type"} = $artist_type;
+
+	$filter->{"minid"} = $minid
+		if MusicBrainz::IsNonNegInteger($minid)
+		or (defined($minid) and $minid eq "");
+
+	$filter->{"maxid"} = $maxid
+		if MusicBrainz::IsNonNegInteger($maxid)
+		or (defined($maxid) and $maxid eq "");
+
+	unless ($ARGS{"edit"})
+	{
+		$session{"moderation_filter"} = $filter; # write
+		$m->comp("/mod/setquery.inc"); # which redirects
+	}
+}
+
+$session{"moderation_filter"} = $filter; # write
+
+</%perl>
+<& /comp/sidebar, title => "Browse Moderations" &>
+
+<div class="LinksRow">
+	[ <a href="/mod/filter.html?reset=1&amp;edit=1">Clear this form</a> ]
+</div>
+
+<form method="post" action="/mod/filter.html" name="SearchMods">
+
+	<table class="TopAlignCells SpacedColumns">
+		<tr>
+			<td>
+
+				<h2>Status</h2>
+				<input type="hidden" name="mod_status" value="">
+				<select name="mod_status" multiple>
+					<%perl>
+					$m->comp(
+						"/comp/options",
+						[
+							map { [ $_, Moderation::GetChangeName({ status => $_}) ] }
+								sort { $a<=>$b }
+								keys %all_status
+						],
+						$filter->{"mod_status"},
+					);
+					</%perl>
+				</select>
+
+				<h2>Automoderations</h2>
+				<p>
+% my $am = $filter->{"automod"};
+					<input type="radio" name="automod" value="" <% ($am eq "") ? "checked" : "" %>> Any<br>
+					<input type="radio" name="automod" value="1" <% ($am eq "1") ? "checked" : "" %>> Automoderations<br>
+					<input type="radio" name="automod" value="0" <% ($am eq "0") ? "checked" : "" %>> Non-automoderations<br>
+				</p>
+
+			</td><td>
+
+				<h2>Moderation Type</h2>
+				<input type="hidden" name="mod_type" value="">
+				<select name="mod_type" multiple size="18">
+					<%perl>
+					$m->comp(
+						"/comp/options",
+						[
+							sort { $a->[1] cmp $b->[1] }
+								map { [ $_, Moderation->ClassFromType($_)->Name ] }
+								keys %all_types
+						],
+						$filter->{"mod_type"},
+					);
+					</%perl>
+				</select>
+
+			</td>
+		</tr>
+		<tr>
+			<td>
+	<h2>Moderator</h2>
+
+	<p>
+% my $mt = $filter->{"moderator_type"};
+		<input type="radio" name="moderator_type" value="0" <% ($mt eq "0") ? "checked" : "" %>> Any moderator<br>
+		<input type="radio" name="moderator_type" value="1" <% ($mt eq "1") ? "checked" : "" %>> FreeDB only<br>
+		<input type="radio" name="moderator_type" value="2" <% ($mt eq "2") ? "checked" : "" %>> Any except FreeDB<br>
+% if (my $id = $filter->{"moderator_id"}) {
+		<input type="radio" name="moderator_type" value="3" <% ($mt eq "3") ? "checked" : "" %>> Only
+			<a href="/user/view.html?uid=<% $id %>"><% $filter->{"moderator_name"} %></a><br>
+% } else {
+		<input type="radio" name="moderator_type" disabled> Only
+			<i>(no moderator selected)</i><br>
+% }
+			<div style="width: 20em; margin: 0 0 1em 2em">
+				(To select a moderator, go to their profile page and
+				click the "Set Mod Filter" link.)
+			</div>
+		<input type="radio" name="moderator_type" value="4" <% ($mt eq "4") ? "checked" : "" %>> Me<br>
+		<input type="radio" name="moderator_type" value="5" <% ($mt eq "5") ? "checked" : "" %>> Not me<br>
+		<input type="radio" name="moderator_type" value="6" <% ($mt eq "6") ? "checked" : "" %>> Not me and not FreeDB<br>
+	</p>
+			</td>
+			<td>
+				<h2>Vote Cast</h2>
+
+% my $vt = $filter->{"voter_type"};
+		<input type="radio" name="voter_type" value="0" <% ($vt eq "0") ? "checked" : "" %>> My vote<br>
+% if (my $id = $filter->{"voter_id"}) {
+		<input type="radio" name="voter_type" value="1" <% ($vt eq "1") ? "checked" : "" %>>
+			<a href="/user/view.html?uid=<% $id %>"><% $filter->{"voter_name"} %></a>'s vote<br>
+% } else {
+		<input type="radio" name="voter_type" disabled>
+			<i>(no moderator selected)</i><br>
+% }
+			<div style="width: 20em; margin: 1em 0 1em 2em">
+				(To select a moderator, go to their profile page and
+				click the "List Votes" link.)
+			</div>
+
+				<input type="hidden" name="vote_cast" value="">
+				<select name="vote_cast" multiple style="margin: 1em 0 0 2em">
+					<%perl>
+					$m->comp(
+						"/comp/options",
+						[
+							map { [ $_, MusicBrainz::Server::Vote->GetVoteName($_) ] }
+								sort { $a<=>$b }
+								keys %all_votes
+						],
+						$filter->{"vote_cast"},
+					);
+					</%perl>
+				</select>
+			</td>
+		</tr>
+		<tr>
+			<td>
+	<h2>Artist</h2>
+
+	<p>
+% my $at = $filter->{"artist_type"};
+		<input type="radio" name="artist_type" value="0" <% ($at eq "0") ? "checked" : "" %>> Any artist<br>
+		<input type="radio" name="artist_type" value="1" <% ($at eq "1") ? "checked" : "" %>> "Various Artists" only<br>
+		<input type="radio" name="artist_type" value="2" <% ($at eq "2") ? "checked" : "" %>> Any except "Various Artists"<br>
+% if (my $id = $filter->{"artist_id"}) {
+		<input type="radio" name="artist_type" value="3" <% ($at eq "3") ? "checked" : "" %>> Only
+			<a href="/showartist.html?artistid=<% $id %>"><% $filter->{"artist_name"} %></a><br>
+% } else {
+		<input type="radio" name="artist_type" disabled> Only
+			<i>(no artist selected)</i><br>
+% }
+			<div style="width: 20em; margin: 0 0 1em 2em">
+				(To select an artist, go to their page and
+				click the "Set Mod Filter" link.)
+			</div>
+		<input type="radio" name="artist_type" value="4" <% ($at eq "4") ? "checked" : "" %>> My subscribed artists<br>
+	</p>
+			</td>
+			<td>
+	<h2>Sorting Order</h2>
+	<p>
+% my $o = $filter->{"orderby"};
+		<input type="radio" name="orderby" value="asc" <% ($o eq "asc") ? "checked" : "" %>> Oldest first<br>
+		<input type="radio" name="orderby" value="desc" <% ($o eq "desc") ? "checked" : "" %>> Newest first<br>
+	</p>
+			</td>
+		</tr>
+		<tr>
+			<td colspan="2">
+				<h2>Limit by Moderation ID</h2>
+				<p>
+					You can limit your search to a range of moderation IDs.&nbsp;
+					This can be useful if your moderation query
+					keeps getting cancelled because it's taking too long -
+					you can make the range smaller.
+				</p>
+				<p>
+					Not before
+					#<input type="text" name="minid" size="8" maxlength="12"
+						value="<% $filter->{'minid'}||'' %>">
+					and not after
+					#<input type="text" name="maxid" size="8" maxlength="12"
+						value="<% $filter->{'maxid'}||'' %>">
+				</p>
+			</td>
+		</tr>
+		<tr>
+			<td colspan="2" align="center">
+				<br><br>
+				<input type="submit" value="Query" style="padding: 0 3em">
+			</td>
+		</tr>
+	</table>
+
+</form>
+
+<& /comp/footer &>

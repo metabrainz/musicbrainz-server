@@ -1,0 +1,29 @@
+%# vi: set ts=2 sw=2 ft=mason :
+<%args>
+$artistid => 0
+#$albumid => 0
+#$moderator => $session{uid}
+</%args>
+<%perl>
+
+$m->comp("/comp/checkloggedin", 1, 1)
+	or return;
+
+my %filter = (
+	artist_type	=> 3, # only this artist ...
+	artist_id		=> $artistid,
+	artist_name	=> "?",
+	orderby			=> "asc",
+);
+
+{
+	my $mb = $m->comp("/comp/dblogin");
+	my $ar = Artist->new($mb->{DBH});
+	$ar->SetId($artistid);
+	$ar->LoadFromId and $filter{"artist_name"} = $ar->GetName;
+}
+
+$session{"moderation_filter"} = \%filter;
+$m->comp("/mod/setquery.inc"); # which redirects
+
+</%perl>

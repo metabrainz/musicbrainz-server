@@ -1,0 +1,42 @@
+%# vi: set ts=2 sw=2 ft=mason :
+<%args>
+#$artistid => 0
+#$albumid => 0
+$moderator => $session{uid}
+</%args>
+<%perl>
+
+$m->comp("/comp/checkloggedin", 1, 1)
+	or return;
+
+my %filter = (
+	mod_status				=> [
+		&ModDefs::STATUS_FAILEDVOTE,
+		&ModDefs::STATUS_FAILEDDEP,
+		&ModDefs::STATUS_FAILEDPREREQ,
+	],
+	(
+		($moderator == $session{uid})
+		? (
+			moderator_type	=> 4, # Me
+		) : (
+			moderator_type	=> 3, # only this person ...
+			moderator_id		=> $moderator,
+			moderator_name	=> "?",
+		)
+	),
+	orderby					=> "asc",
+);
+
+if ($filter{"moderator_type"} == 3)
+{
+	my $mb = $m->comp("/comp/dblogin");
+	my $u = UserStuff->new($mb->{DBH});
+	my $user = $u->newFromId($moderator);
+	$filter{"moderator_name"} = $user->GetName if $user;
+}
+
+$session{"moderation_filter"} = \%filter;
+$m->comp("/mod/setquery.inc"); # which redirects
+
+</%perl>

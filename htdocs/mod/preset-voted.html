@@ -1,0 +1,38 @@
+%# vi: set ts=2 sw=2 ft=mason :
+<%args>
+#$artistid => 0
+#$albumid => 0
+$moderator => $session{uid}
+</%args>
+<%perl>
+
+$m->comp("/comp/checkloggedin", 1, 1)
+	or return;
+
+my %filter = (
+	vote_cast	=> [ &ModDefs::VOTE_YES, &ModDefs::VOTE_NO, &ModDefs::VOTE_ABS ],
+	(
+		($moderator == $session{uid})
+		? (
+			voter_type	=> 0, # Me
+		) : (
+			voter_type	=> 1, # only this person ...
+			voter_id		=> $moderator,
+			voter_name	=> "?",
+		)
+	),
+	orderby		=> "desc",
+);
+
+if ($filter{"voter_type"} == 1)
+{
+	my $mb = $m->comp("/comp/dblogin");
+	my $u = UserStuff->new($mb->{DBH});
+	my $user = $u->newFromId($moderator);
+	$filter{"voter_name"} = $user->GetName if $user;
+}
+
+$session{"moderation_filter"} = \%filter;
+$m->comp("/mod/setquery.inc"); # which redirects
+
+</%perl>

@@ -1,0 +1,23 @@
+%# vi: set ts=2 sw=2 ft=mason :
+<%args>
+#$artistid => 0
+#$albumid => 0
+#$moderator => $session{uid}
+</%args>
+<%perl>
+
+$m->comp("/comp/checkloggedin", 1, 1)
+	or return;
+
+my %filter = (
+	mod_status 			=> [ &ModDefs::STATUS_OPEN ],
+	vote_cast				=> [ &ModDefs::VOTE_NOTVOTED ],
+	voter_type			=> 0, # Me
+	moderator_type	=> 6, # Not me and not FreeDB
+	orderby					=> "asc",
+);
+
+$session{"moderation_filter"} = \%filter;
+$m->comp("/mod/setquery.inc"); # which redirects
+
+</%perl>

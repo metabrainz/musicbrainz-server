@@ -1,0 +1,21 @@
+%# vi: set ts=2 sw=2 ft=mason :
+<%args>
+#$artistid => 0
+$albumid => 0
+#$moderator => $session{uid}
+</%args>
+<%perl>
+
+$m->comp("/comp/checkloggedin", 1, 1)
+	or return;
+
+# TODO ability to filter on album
+
+my %filter = (
+	orderby			=> "asc",
+);
+
+$session{"moderation_filter"} = \%filter;
+$m->comp("/mod/setquery.inc"); # which redirects
+
+</%perl>
