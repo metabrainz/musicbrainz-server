@@ -128,6 +128,13 @@ sub PreInsert
 	$new{"TrackId"} = $newtrack;
 	$new{"AlbumId"} = $al->GetId;
 	$new{"ArtistId"} = $newartist if $newartist;
+	if ($al->GetArtist == &ModDefs::VARTIST_ID)
+	{
+		$new{'ArtistName'} = $artistname;
+		$new{'SortName'} = $artistsortname
+			if $artistsortname
+			and $artistsortname ne $artistname;
+	}
 
 	$self->SetTable("track");
 	$self->SetColumn("name");

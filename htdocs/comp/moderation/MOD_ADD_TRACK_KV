@@ -28,7 +28,7 @@
 	<span class="bold"><% $new->{'TrackNum'} %></span>
 % }
 
-% if ($this->GetArtist == &ModDefs::VARTIST_ID) {
+% if ($this->GetArtist == &ModDefs::VARTIST_ID and defined $new->{'ArtistName'}) {
 	<br>
 	Artist:
 	<span class="bold"><% $new->{'ArtistName'} %></span>
