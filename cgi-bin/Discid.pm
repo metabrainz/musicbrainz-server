@@ -188,39 +188,32 @@ sub Insert
  
 sub _InsertTOC
 {
-    my ($this, $Discid, $album, $toc) = @_;
-    my (@offsets, $query, $i, $sql, $id);
+	my ($this, $Discid, $album, $toc) = @_;
 
-    return if (!defined $Discid || !defined $album || !defined $toc);
+	my $sql = Sql->new($this->{DBH});
 
-    $sql = Sql->new($this->{DBH});
-    $Discid = $sql->Quote($Discid);
+	# Check to see if we already have this Discid
+	$sql->SelectSingleValue(
+		"SELECT id FROM toc WHERE discid = ?",
+		$Discid,
+	) and return;
 
-    # Check to see if we already have this Discid
-    ($id) = $sql->GetSingleRow("TOC", ["id"], ["discid", $Discid]);
-    return if (defined $id);
+	my ($firsttrack, $lasttrack, $leadoutoffset, @trackoffsets) = split / /, $toc;
 
-    @offsets = split / /, $toc;
+	my %row = (
+		discid	=> $Discid,
+		album	=> $album,
+		tracks	=> scalar @trackoffsets,
+		leadout	=> $leadoutoffset,
+		(map {( "track$_" => $trackoffsets[$_-1] )} 1..@trackoffsets),
+	);
 
-    $query = "insert into TOC (Discid, Album, Tracks, Leadout, ";
-    for($i = 3; $i < scalar(@offsets); $i++)
-    {
-         $query .= "Track" . ($i - 2) . ", ";
-    }
-    chop($query);
-    chop($query);
+	my @keys = sort keys %row;
+	my @qs = ("?") x @keys;
+	my @values = @row{@keys};
 
-    $query .= ") values ($Discid, $album, ". (scalar(@offsets) - 3) .
-              ", $offsets[2], ";
-    for($i = 3; $i < scalar(@offsets); $i++)
-    {
-        $query .= "$offsets[$i], ";
-    }
-    chop($query);
-    chop($query);
-    $query .= ")";
-
-    $sql->Do($query);
+	local $" = ", ";
+	$sql->Do("INSERT INTO toc (@keys) VALUES (@qs)", @values);
 }
 
 # Remove an Discid from the database. Set the id via the accessor function.
