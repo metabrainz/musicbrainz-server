@@ -34,9 +34,9 @@ use DBDefs;
 use Sql;
 use UUID;
 use Text::Unaccent;
-use locale;
-use POSIX qw(locale_h);
-use utf8;
+use LocaleSaver;
+use POSIX qw(:locale_h);
+use Encode qw( decode );
 
 use constant MAX_PAGE_INDEX_LEVELS => 6;
 use constant NUM_BITS_PAGE_INDEX => 5;
@@ -109,40 +109,6 @@ sub GetNewInsert
    return $_[0]->{new_insert};
 }
 
-sub AppendWhereClause
-{
-    my ($this, $search, $sql, $col) = @_;
-    my (@words, $i);
-
-    $search =~ tr/A-Za-z0-9/ /cs;
-    $search =~ tr/A-Z/a-z/;
-    @words = split / /, $search;
-
-    $i = 0;
-    foreach (@words)
-    {
-       if (length($_) > 1)
-       {
-          if ($i++ > 0)
-          {
-             $sql .= " and ";
-          }
-          $sql .= "position('" . $_ . "' in lower($col)) <> 0";
-       }
-       else
-       {
-          if ($i++ > 0)
-          {
-             $sql .= " and ";
-          }
-          $sql .= "lower($col) ~  '([[:<:]]+|[[:punct:]]+)" .
-                  $_ . "([[:punct:]]+|[[:>:]]+)'";
-       }
-    }
-
-    return $sql;
-} 
-
 sub CreateNewGlobalId
 {
     my ($this) = @_;
@@ -154,83 +120,46 @@ sub CreateNewGlobalId
     return $id;
 }  
 
-sub Escape 
-{
-  $_[0] =~ s/&/&amp;/g;  # & first of course
-  $_[0] =~ s/</&lt;/g;
-  $_[0] =~ s/>/&gt;/g;
-  return $_[0];
-}
-
 sub CalculatePageIndex 
 {
     my ($this, $string) = @_;
     my ($path, $ch, $base, @chars, $o, $wild);
 
-    my $old_locale = setlocale(LC_CTYPE);
-    setlocale( LC_CTYPE, "en_US.UTF-8" )
-        or die "Couldn't change locale.";
+    @chars = do
+    {
+	use locale;
+	my $saver = new LocaleSaver(LC_CTYPE, "en_US.UTF-8");
+
+	$string = unac_string('UTF-8', $string);
+	$string = decode("utf-8", $string);
+	$string =~ tr/A-Za-z /_/c;
+
+	split //, uc($string);
+    };
 
     $path = 0;
     $base = ord('A');
-    $string = unac_string('UTF-8',$string);
-    $string =~ tr/A-Za-z /_/c;
-    @chars = split //, uc($string);
+
+    my $endpath = 0;
+    my $allbitsset = ((1 << NUM_BITS_PAGE_INDEX) - 1);
 
     for(0..MAX_PAGE_INDEX_LEVELS-1)
     {
-        $ch = $chars[$_];
-        $ch = '_' unless defined $ch;
-        $o = ($ch eq '_') ? 0 : ($ch eq ' ') ? 1 : ord($ch) - $base + 2;
-        #print "$ch -> $o\n";
-        $path |= $o << (NUM_BITS_PAGE_INDEX * (MAX_PAGE_INDEX_LEVELS - $_ - 1));
+	my ($start_ch, $end_ch) = (0, $allbitsset);
+
+	if (defined(my $ch = $chars[$_]))
+	{
+		$start_ch = $end_ch
+			= ($ch eq '_') ? 0
+			: ($ch eq ' ') ? 1
+			: ord($ch) - $base + 2;
+	}
+
+        $path |= $start_ch << (NUM_BITS_PAGE_INDEX * (MAX_PAGE_INDEX_LEVELS - $_ - 1));
+        $endpath |= $end_ch << (NUM_BITS_PAGE_INDEX * (MAX_PAGE_INDEX_LEVELS - $_ - 1));
     }
 
-    #switch it back, just to be polite
-    setlocale( LC_CTYPE, $old_locale );
-
+    return ($path, $endpath) if wantarray;
     return $path;
 }
 
-sub UpperPageIndex
-{
-   my ($this, $ind) = @_;
-   my ($base, $tail);
-
-   if ($ind =~ /(.*)(.{1})$/)
-   {
-      $base = $1;
-      $tail = $2;
-
-      if ($tail eq '_')
-      {
-          $tail = ' ';
-      }
-      elsif ($tail eq ' ')
-      {
-          $tail = 'A';
-      }
-      elsif ($tail eq 'Z')
-      {
-          if ($base eq '')
-          {
-              $base = '';
-              for(1..MAX_PAGE_INDEX_LEVELS)
-              {
-                  $base .= 'Z';
-              }
-          }
-          else
-          {
-              $base = $this->UpperPageIndex($base);
-          }
-          $tail = "";
-      }
-      else
-      {
-          $tail++;
-      }
-   }
-
-   return ($base . $tail);
-}

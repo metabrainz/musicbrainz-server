@@ -21,6 +21,8 @@
 #   $Id$
 #____________________________________________________________________________
 
+BEGIN { require 5.8.0 }
+
 package SearchEngine;
 
 use vars qw(@ISA @EXPORT);
@@ -31,11 +33,9 @@ use strict;
 use DBDefs;
 use DBI;
 use MusicBrainz;
-use Text::Unaccent;
 use Sql;
-use locale;
-use POSIX qw(locale_h);
-use utf8;
+use Text::Unaccent;
+use Encode qw( encode decode );
 
 sub new
 {
@@ -79,22 +79,19 @@ sub Tokenize
 {
     my $self  = shift;
     my $str = shift;
-    
-    # we set the locale here to a known quantity
-    # so that accented characters are considered
-    # "word characters" (\w)
 
-    my $old_locale = setlocale(LC_CTYPE);
-    setlocale( LC_CTYPE, "en_US.UTF-8" )
-        or die "Couldn't change locale.";
+    # This used to be "use locale", apparently so that '\w' et al
+    # would translate to known things.  But is "use locale" actually
+    # required here?
+    
+    $str = unac_string('UTF-8', $str);
+    $str = decode("utf-8", $str);
 
     my @words = split /\s/, $str;
 
     my %seen =  ();
     foreach (@words) 
     {
-        $_ = unac_string('UTF-8',$_);
-
         s/[^a-zA-Z]//g; # strip non words
         tr/A-Z/a-z/;
         next if $_ eq '';
@@ -102,11 +99,10 @@ sub Tokenize
         $seen{$_}++;
     }
 
-    #switch it back, just to be polite
-    setlocale( LC_CTYPE, $old_locale );
-    
     #uniqify the word list
     @words = keys %seen;
+
+    @words = map { encode("utf-8", $_) } @words;
 
     return @words;
 }

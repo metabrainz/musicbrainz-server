@@ -314,7 +314,7 @@ sub FindFuzzy
    {
        $query .= "abs(Track" . ($i - 2) . " - $list[$i]) < 1000 and ";
    }
-   chop($query); chop($query); chop($query); chop($query);
+   chop($query); chop($query); chop($query); chop($query); chop($query);
 
    $sql = Sql->new($this->{DBH});
    if ($sql->Select($query))

@@ -25,7 +25,7 @@ package Artist;
 
 use TableBase;
 
-BEGIN { require 5.6.1 }
+BEGIN { require 5.8.0 }
 use vars qw(@ISA @EXPORT);
 @ISA    = @ISA    = 'TableBase';
 @EXPORT = @EXPORT = '';
@@ -37,11 +37,11 @@ use DBDefs;
 use Alias;
 use Album;
 use Track;
-use String::Similarity;
+use String::Unicode::Similarity;
 use Text::Unaccent;
-use locale;
-use POSIX qw(locale_h);
-use utf8;
+use LocaleSaver;
+use POSIX qw(:locale_h);
+use Encode qw( decode );
 
 sub new
 {
@@ -339,23 +339,22 @@ sub GetArtistDisplayList
 
    $sql = Sql->new($this->{DBH});
 
-   my $old_locale = setlocale(LC_CTYPE);
-   setlocale( LC_CTYPE, "en_US.UTF-8" )
-       or die "Couldn't change locale.";
+   use locale;
+   # TODO set LC_COLLATE too?
+   my $saver = new LocaleSaver(LC_CTYPE, "en_US.UTF-8");
   
-   $ind_max = $this->UpperPageIndex($ind);
-   $page = $this->CalculatePageIndex($ind);
-   $page_max = $this->CalculatePageIndex($ind_max);
+   ($page, $page_max) = $this->CalculatePageIndex($ind);
    $query = qq/select id, sortname, modpending 
                     from Artist 
-                   where page >= $page and page < $page_max/;
+                   where page >= $page and page <= $page_max/;
    $max_artists = 0;
    if ($sql->Select($query))
    {
        $max_artists = $sql->Rows();
        for(;@row = $sql->NextRow;)
        {
-           my $temp = lc(unac_string('UTF-8', $row[1]));
+           my $temp = unac_string('UTF-8', $row[1]);
+	   $temp = lc decode("utf-8", $temp);
 
            # Remove all non alpha characters to sort cleaner
            $temp =~ tr/A-Za-z0-9 //cd;
@@ -371,9 +370,10 @@ sub GetArtistDisplayList
        # and it uses quicksort, which is BAD.
        @info = sort { $a->[3] cmp $b->[3] } @info;
        splice @info, 0, $offset;
-   }
 
-   setlocale( LC_CTYPE, $old_locale );
+       # Only return the three things we said we would
+       splice(@$_, 3) for @info;
+   }
 
    return ($max_artists, @info);
 }
@@ -520,6 +520,8 @@ sub HasAlbum
    my ($this, $albumname, $threshold) = @_;
    my (@albums, $sql, @row, $album, @matches, $sim);
 
+   $albumname = decode("utf-8", $albumname);
+
    # First, pull in the single artist albums
    $sql = Sql->new($this->{DBH});
    if ($sql->Select(qq/select id, name from 
@@ -527,13 +529,15 @@ sub HasAlbum
    {
         while(@row = $sql->NextRow)
         {
-            if (lc($row[1]) eq lc($albumname))
+	    my $name = decode("utf-8", $row[1]);
+
+            if (lc($name) eq lc($albumname))
             {
                 push @matches, { id=>$row[0], match=>1, name=>$row[1] };
             }
             else
             {
-                $sim = similarity($albumname, $row[1]);
+                $sim = similarity($albumname, $name);
                 if ($sim >= $threshold)
                 {
                     push @matches, { id=>$row[0], match=>$sim, name=>$row[1] };
@@ -555,13 +559,15 @@ sub HasAlbum
    {
         while(@row = $sql->NextRow)
         {
-            if (lc($row[1]) eq lc($albumname))
+	    my $name = decode("utf-8", $row[1]);
+
+            if (lc($name) eq lc($albumname))
             {
                 push @matches, { id=>$row[0], match=>1, name=>$row[1] };
             }
             else
             {
-                $sim = similarity($albumname, $row[1]);
+                $sim = similarity($albumname, $name);
                 if ($sim >= $threshold)
                 {
                     push @matches, { id=>$row[0], match=>$sim, name=>$row[1] };

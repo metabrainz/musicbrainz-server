@@ -41,6 +41,7 @@ use ModerationSimple;
 use ModerationKeyValue;
 use Data::Dumper;
 use Text::Unaccent;
+use Encode qw( decode );
 use utf8;
 
 my %ModNames = (
@@ -288,7 +289,7 @@ sub GetError
 
 sub IsNumber
 {
-    if ($_[0] =~ m/^-?[\d]*\.?[\d]*$/)
+    if ($_[0] =~ m/\A-?[0-9]*\.?[0-9]*\z/)
     {
         return 1;
     }
@@ -533,8 +534,9 @@ sub InsertModeration
             $this->GetType() == ModDefs::MOD_EDIT_ALBUMNAME ||
             $this->GetType() == ModDefs::MOD_EDIT_TRACKNAME)
         {
-            $automod = 1 if (uc(unac_string('UTF-8', $this->GetNew())) eq 
-                             uc(unac_string('UTF-8', $this->GetPrev())));
+	    my $old = uc decode("utf-8", unac_string("utf-8", $this->GetPrev));
+	    my $new = uc decode("utf-8", unac_string("utf-8", $this->GetNew));
+            $automod = 1 if $old eq $new;
         }
         elsif ($this->GetType() == ModDefs::MOD_ADD_TRMS)
         {
@@ -1025,6 +1027,7 @@ sub CheckModificationForFailedDependencies
    $sql = Sql->new($this->{DBH});
    for($i = 0;; $i++)
    {
+       # FIXME this regex looks too slack for my liking
        if ($mod->GetNew() =~ m/Dep$i=(.*)/m)
        {
            #print STDERR "Mod: " . $mod->GetId() . " depmod: $1\n";

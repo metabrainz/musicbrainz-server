@@ -30,7 +30,8 @@ use Album;
 use Discid;
 use Artist;
 use Track;
-use String::Similarity;
+use String::Unicode::Similarity;
+use Encode qw( encode decode );
 
 BEGIN { require 5.6.1 }
 use vars qw(@ISA @EXPORT);
@@ -58,6 +59,8 @@ sub new
    return bless $this, $type;
 }
 
+# Used by mq.pl
+
 sub FileInfoLookup
 {
    my $tagger = TaggerSupport->new(shift);
@@ -65,6 +68,8 @@ sub FileInfoLookup
 }
 
 # TODO: Fix this for the new Lookup function
+# ? not used yet in the codebase I'm looking at.  dave 2003-01-09
+
 sub RDFLookup
 {
    my ($this, $doc, $rdf, $artistName, $albumName, $trackName, $trmId,
@@ -91,6 +96,10 @@ sub RDFLookup
    return $rdf->CreateFileLookup($this, $status);
 }
 
+# Internal.
+
+       use Data::Dumper;
+# fix users of lensim and namesim for track matches
 sub SetSim
 {
    my ($this, $ref) = @_;
@@ -133,6 +142,8 @@ sub SetSim
    return $ref;
 }
 
+# Public object method.  Used by QuerySupport and taglookup.
+
 # returns ($error, $dataref, $flags, $listref);
 sub Lookup
 {
@@ -159,9 +170,9 @@ sub Lookup
    delete $data->{sim_tracknum};
    delete $data->{sim_duration};
 
-   foreach (keys %$data)
+   foreach (values %$data)
    {
-       $data->{$_} =~ tr/A-Z/a-z/;
+       $_ = encode "utf-8", lc(decode "utf-8", $_);
    }
 
    $this->{fuzzy} = 0;
@@ -230,6 +241,10 @@ sub Lookup
    return ("", $data, $flags, undef);
 }
 
+# Internal method: given a filename, try to extract artist/album/track etc
+# from it.  Stash the results in $data.
+# NOTE: I *think* this is unicode-safe.  Not sure about the use of \s and \d.
+
 sub ParseFileName
 {
    my ($this, $fileName, $data) = @_;
@@ -287,6 +302,8 @@ sub ParseFileName
    }
 }
 
+# Internal.
+
 sub ArtistSearch
 {
    my ($this, $name) = @_;
@@ -312,6 +329,9 @@ sub ArtistSearch
    $engine->AllWords(ALL_WORDS);
    $engine->Limit($this->{maxitems});
    $engine->Search($name);
+
+   $name = lc(decode "utf-8", $name);
+
    if ($engine->Rows == 1)
    {
        my $row = $engine->NextRow;
@@ -321,6 +341,7 @@ sub ArtistSearch
        {
            $this->{artist} = $ar;     
            $this->{fuzzy} = 1;
+	   my $thisname = lc(decode "utf-8", $ar->GetName);
            return (ARTISTID | FUZZY, 
                              [ 
                               $this->SetSim({ 
@@ -328,7 +349,7 @@ sub ArtistSearch
                                  mbid=>$ar->GetMBId(), 
                                  name=>$ar->GetName(),
                                  sortname=>$ar->GetSortName(),
-                                 sim_artist=>similarity(lc($ar->GetName()), $name)
+                                 sim_artist=>similarity($thisname, $name)
                                })
                              ]);
        }
@@ -339,11 +360,13 @@ sub ArtistSearch
        
        while($row = $engine->NextRow)
        {
+	   my $thisname = lc(decode "utf-8", $row->[1]);
+
            push @ids, $this->SetSim({ id=>$row->[0],
                         name=>$row->[1],
                         sortname=>$row->[2],
                         mbid=>$row->[3], 
-                        sim_artist=>similarity(lc($row->[1]), $name) });
+                        sim_artist=>similarity($thisname, $name) });
        }
 
        @ids = sort { $b->{sim} <=> $a->{sim} } @ids;
@@ -353,6 +376,8 @@ sub ArtistSearch
 
    return (0, []);
 }
+
+# Internal.
 
 sub AlbumSearch
 {
@@ -388,10 +413,14 @@ sub AlbumSearch
        return (undef, []);
    }
 
+   $name = lc(decode "utf-8", $name);
+
    # do an exact match
    foreach $al (@albums)
    {
-       if (lc($al->GetName()) eq lc($name))
+       my $thisname = lc(decode "utf-8", $al->GetName);
+
+       if ($thisname eq $name)
        {
            push @ids, $this->SetSim({ id=>$al->GetId(),
                         name=>$al->GetName(),
@@ -410,11 +439,14 @@ sub AlbumSearch
 
        foreach $al (@albums)
        {
-           $sim = similarity(lc($al->GetName()), $name);
-           if ($al->GetName() =~ /^(.*?)\s*\(.*\)\s*$/)
+	   my $thisname = lc(decode "utf-8", $al->GetName);
+
+           $sim = similarity($thisname, $name);
+
+           if ($thisname =~ /^(.*?)\s*\(.*\)\s*$/)
            {
-               my $temp = $1;
-               my $chopsim = similarity(lc($temp), $name);
+               my $temp = lc $1;
+               my $chopsim = similarity($temp, $name);
                $sim = ($chopsim > $sim) ? $chopsim : $sim;
            }
 
@@ -440,6 +472,8 @@ sub AlbumSearch
    return (0, []);
 }
 
+# Internal.
+
 sub TrackSearch
 {
    my ($this, $artistId, $trackName, $albumName, $trackNum, $duration) = @_;
@@ -462,9 +496,11 @@ sub TrackSearch
        $this->{artist} = $ar;     
    }
 
+   $trackName = lc(decode "utf-8", $trackName);
+
    if ($trackName =~ /^(.*?)\s*\(.*\)\s*$/)
    {
-       $altname = lc($1);
+       $altname = $1;
    }
 
    $sql = Sql->new($this->{DBH});
@@ -477,17 +513,19 @@ sub TrackSearch
        $flags |= FUZZY;
        while(@row = $sql->NextRow)
        {
+	   my $thisname = lc(decode "utf-8", $row[2]);
+
            $lensim = 0.0;
-           $namesim = similarity(lc($row[2]), $trackName);
-           if ($row[2] =~ /^(.*?)\s*\(.*\)\s*$/)
+           $namesim = similarity($thisname, $trackName);
+           if ($thisname =~ /^(.*?)\s*\(.*\)\s*$/)
            {
-               my $temp = $1;
-               my $chopsim = similarity(lc($temp), $trackName);
+               my $temp = lc $1;
+               my $chopsim = similarity($temp, $trackName);
                $namesim = ($chopsim > $namesim) ? $chopsim : $namesim;
            }
            if (defined $altname)
            {
-               my $altsim = similarity(lc($row[2]), $altname);
+               my $altsim = similarity($thisname, $altname);
                $namesim = ($altsim > $namesim) ? $altsim : $namesim;
            }
 
@@ -535,6 +573,8 @@ sub TrackSearch
    {
        my (@row, $namesim, $numsim);
 
+       $albumName = lc(decode "utf-8", $albumName);
+
        while(@row = $sql->NextRow)
        {
            $numsim = 0.0;
@@ -542,7 +582,8 @@ sub TrackSearch
 
            if ($albumName ne '')
            {
-               $namesim = similarity(lc($row[1]), $albumName);
+	       my $thisalbum = lc(decode "utf-8", $row[1]);
+               $namesim = similarity($thisalbum, $albumName);
            }
            if ($trackNum > 0 && $row[3] > 0 && $trackNum == $row[3])
            {

@@ -27,9 +27,8 @@ use strict;
 use XML::Parser;
 use XML::DOM;
 use XML::XQL;
-use RDFOutput;
 use DBDefs;
-use Unicode::String;
+use Encode qw( from_to );
 use TableBase;
 use MusicBrainz;
 use UserStuff;
@@ -50,7 +49,7 @@ use Digest::SHA1 qw(sha1_hex);
 use Apache::Session::File;
 use TaggerSupport;
 
-BEGIN { require 5.6.1 }
+BEGIN { require 5.8.0 }
 use vars qw(@ISA @EXPORT);
 @ISA    = @ISA    = '';
 @EXPORT = @EXPORT = '';
@@ -88,38 +87,6 @@ sub IsValidUUID
     return 0 if (!($uuid =~ /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/));
 
     return 1;
-}
-
-sub SolveXQL
-{
-    my ($doc, $xql) = @_;
-    my ($data, $node, @result);
-
-    @result = XML::XQL::solve ($xql, $doc);
-    $node = $result[0];
-
-    if (defined $node)
-    {
-        if ($node->getNodeType == XML::DOM::ELEMENT_NODE)
-        {
-            $data = $node->getFirstChild->getData
-                if (defined $node->getFirstChild);
-        }
-        elsif ($node->getNodeType == XML::DOM::ATTRIBUTE_NODE)
-        {
-            $data = $node->getValue
-                if (defined $node->getNodeType);
-        }
-    }
-
-    if (defined $data)
-    {
-       my $u;
-       $u = Unicode::String::utf8($data);
-       $data = $u->latin1;
-    }
-
-    return $data;
 }
 
 sub Extract
@@ -538,77 +505,6 @@ sub ExchangeMetadata
    return $rdf->CreateMetadataExchange(@data);
 }
 
-sub CheckMetadata
-{
-   my ($dbh, $rdf, $pe, $data, $ids) = @_;
-   my ($artistid, $albumid, @db_data);
-   my ($in, $trackid, $id);
-
-   $in = Insert->new($dbh);
-   for(;;)
-   {
-       $id = shift @$ids;
-       return if !defined $id;
-     
-       # Is the data in the pending row we have the same as the data
-       # that was just passed in?
-       @db_data = $pe->GetData($id);
-       #print STDERR "'$$data[0]' == '$db_data[0]'\n";
-       #print STDERR "'$$data[1]' == '$db_data[1]'\n";
-       #print STDERR "'$$data[2]' == '$db_data[2]'\n";
-       #print STDERR "'$$data[3]' == '$db_data[3]'\n";
-       if (defined $db_data[0] && defined $$data[0] && 
-           $$data[0] eq $db_data[0] && 
-           defined $db_data[1] && defined $$data[1] && 
-           $$data[1] eq $db_data[1] &&
-           defined $db_data[2] && defined $$data[2] && 
-           $$data[2] eq $db_data[2] &&
-           defined $db_data[3] && defined $$data[3] && 
-           $$data[3] eq $db_data[3] &&
-           defined $db_data[10] && defined $$data[10] && 
-           $$data[10] ne $db_data[10])
-       { 
-           my (@albumids, %info);
-
-           if ($$data[2] =~ /^unknown$/i)
-           {
-               print STDERR "Skipping insert of $$data[0] by $$data[1] on $$data[2]\n";
-               next;
-           }
-
-           $info{artist} = $$data[1];
-           $info{sortname} = $$data[1];
-           $info{album} = $$data[2];
-           $info{tracks} = 
-             [
-               {
-                  track => $$data[0],
-                  tracknum => $$data[3],
-                  duration => $$data[9],
-                  trmid => $$data[4]
-               }
-             ];
-
-           if (!defined $in->Insert(\%info))
-           {
-               print STDERR "Insert failed: " . $in->GetError() . "\n";
-           }
-           else
-           {
-               my ($ref, $ref2);
-
-               #print STDERR "Inserted $$data[0] by $$data[1] on $$data[2]\n";
-
-               $ref = $info{tracks};
-               $ref2 = $$ref[0];
-               $pe->InsertIntoInsertHistory($ref2->{track_insertid});
-           }
-           $pe->DeleteByTRM($$data[4]);
-           return;
-       }
-   }
-}
-
 sub SubmitTrack
 {
    my ($dbh, $doc, $rdf, $name, $TRM, $artist, $album, $seq,
@@ -757,79 +653,6 @@ sub SubmitTRMList
    }
 
    return $rdf->ErrorRDF("No valid TRM ids were submitted.") 
-}
-
-# NOTE NOTE NOTE NOTE NOTE NOTE NOTE NOTE NOTE NOTE NOTE NOTE 
-# From here to the end of the file, the RDF has not been seperated out
-# into the RDFOutput object. Johan, can you please take care of this?
-# NOTE NOTE NOTE NOTE NOTE NOTE NOTE NOTE NOTE NOTE NOTE NOTE 
-sub SubmitSyncText
-{
-   my ($dbh, $doc, $rdf, $gid, $sync_contrib, $sync_type) = @_;
-   my ($i, $ts, $text, $synctextid, $trackid, $type, $id);
-   my ($tr, $ly, $sql);
-
-   if (!defined $gid || $gid eq '' ||
-       !defined $sync_contrib || $sync_contrib eq '' )
-   {
-       return $rdf->ErrorRDF("Incomplete synctext information submitted.") 
-   }
-
-   if (! DBDefs->USE_LYRICS) 
-   {  
-       return $rdf->EmitRDFError("This server does not accept lyrics.");
-   }
-
-   if (DBDefs::DB_READ_ONLY)
-   {
-       return $rdf->ErrorRDF(DBDefs::DB_READ_ONLY_MESSAGE) 
-   }
-
-   $tr = Track->new($dbh);
-   $ly = Lyrics->new($dbh);
-
-   $sql = Sql->new($dbh);
-   $id = $sql->Quote($gid);
-   ($trackid) = $sql->GetSingleRow("Track", ["id"], ["gid", $id]);
-   if (!defined($trackid)) 
-   {
-       return $rdf->ErrorRDF("Unknown track id.") 
-   }
-   if (!defined $sync_type || !exists $LyricTypes{$sync_type}) 
-   { 
-       $type = 0;
-   } else 
-   {
-       $type = $LyricTypes{$sync_type};
-   }
-
-   # only accept entry if it is not already present with same type for 
-   # same person
-   $id = $ly->GetSyncTextId($trackid, $type, $sync_contrib);
-   if ($id < 0) 
-   {
-       $synctextid = $ly->InsertSyncText($trackid, $type, '', $sync_contrib);
-       for($i = 0;; $i++) {
-           $ts = SolveXQL($doc, "/rdf:RDF/rdf:Description/MM:SyncEvents/rdf:Description/rdf:Seq/rdf:li[$i]" . '/rdf:Description/MM:SyncText/@ts');
-           $text = SolveXQL($doc, "/rdf:RDF/rdf:Description/MM:SyncEvents/rdf:Description/rdf:Seq/rdf:li[$i]/rdf:Description/MM:SyncText");
-           last if (!defined $ts || !defined $text);
-
-           if ($ts =~ /:/) {
-               $ts = ($1 * 3600 + $2 * 60 + $3) * 1000 + $4
-                   if ($ts =~ /(\d*):(\d*):(\d*)\.(\d*)/);
-               $ts = ($1 * 60 + $2) * 1000 + $3
-                   if ($ts =~ /(\d*):(\d*)\.(\d*)/);
-           }
-     
-           $id = $ly->InsertSyncEvent($synctextid, $ts, $text);
-       }
-   } 
-   else 
-   {
-       return $rdf->ErrorRDF("Synctext information already submitted.") 
-   }
-
-   return $rdf->CreateStatus(0);
 }
 
 # returns synctext

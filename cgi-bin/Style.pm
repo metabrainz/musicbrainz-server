@@ -30,6 +30,8 @@ use vars qw(@ISA @EXPORT);
 
 use strict;
 
+use Encode qw( encode decode );
+
 sub new
 {
     my ($type) = @_;
@@ -46,7 +48,10 @@ sub UpperLowercaseCheck
     my ($this, $textarg) = @_;
     my ($len, $temp, $lccount, $uccount, $text, $numspaces, $ok);
 
+    $textarg = decode "utf-8", $textarg;
     $ok = 1;
+
+    # TODO should use classes: space, upper, lower, etc.
     $numspaces = $textarg =~ tr/ //;
     $text = $textarg;
     $text =~ tr/\n\t\r //d;
@@ -83,6 +88,13 @@ sub UpperLowercaseCheck
 sub MakeDefaultSortname
 {
     my ($this, $name) = @_;
+    encode "utf-8",
+        $this->MakeDefaultSortname_unicode(decode "utf-8", $name);
+}
+
+sub MakeDefaultSortname_unicode
+{
+    my ($this, $name) = @_;
 
     if ($name =~ /^the (.*)$/i) 
     {
@@ -92,6 +104,7 @@ sub MakeDefaultSortname
     {
         return "$1, DJ";
     }
+
     return $name;
 }
 
@@ -100,6 +113,9 @@ sub NormalizeDiscNumbers
     my ($this, $name) = @_;
     my ($new, $disc);
 
+    $name = decode "utf-8", $name;
+
+    # TODO use [0-9] instead of \d?
     if ($name =~ /^(.*)(\(|\[)\s*(disk|disc|cd)\s*(\d+|one|two|three|four)(\)|\])$/i)
     {
         $new = $1;
@@ -123,9 +139,11 @@ sub NormalizeDiscNumbers
             $new =~ s/\s*[(\/|:,-]*\s*$//;
             $new .= " (disc $disc)";
     
+	    $new = encode "utf-8", $new;
             return $new;
         }
     }
 
+    $name = encode "utf-8", $name;
     return $name;
 }

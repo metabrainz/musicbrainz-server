@@ -39,11 +39,10 @@ use Discid;
 use ModDefs;
 use Style;
 use Alias;
-use Unicode::String qw(utf8 latin1);
+use Encode qw( decode from_to );
 use constant  CD_MSF_OFFSET => 150;
 use constant  CD_FRAMES     =>  75;
 use constant  CD_SECS       =>  60;
-use bytes;
 
 sub new
 {
@@ -52,6 +51,8 @@ sub new
    my $this = TableBase->new($dbh);
    return bless $this, $type;
 }
+
+# private sub
 
 sub _lba_to_msf
 {
@@ -67,78 +68,7 @@ sub _lba_to_msf
     return ($m, $s, $f);
 }
 
-sub EnterRecord
-{
-    my $this = shift @_;
-    my $tracks = shift @_;
-    my $title = shift @_;
-    my $artistname = shift @_;
-    my $Discid = shift @_;
-    my $toc = shift @_;
-    my ($artistid, $albumid);
-    my ($sql, $sql2);
-    my ($i, $ar, $al, $d, @ids, $num, $t);
-
-    if (!defined $artistname || $artistname eq '')
-    {
-        $artistname = "Unknown";
-    }
-
-    $ar = Artist->new($this->{DBH});
-    $ar->SetName($artistname);
-    $ar->SetSortName($artistname);
-    $artistid = $ar->Insert();
-    if (not defined $artistid)
-    {
-        return 0;
-    }
-
-    @ids = $ar->GetAlbumsByName($title);
-    for(;defined($al = shift @ids);)
-    {
-        $num = $al->GetTrackCount();
-        if (!defined $num || $num < 0)
-        {
-            undef $al;
-            last;
-        }
-        last if ($num == $tracks);
-    }
-
-    if (!defined $al)
-    {
-        $al = Album->new($this->{DBH});
-        $al->SetArtist($artistid);
-        $al->SetName($title);
-        $albumid = $al->Insert();
-        if (!defined $albumid)
-        {
-            return 0;
-        }
-    }
-    else
-    {
-        $albumid = $al->GetId();
-    }
-    for($i = 0; $i < $tracks; $i++)
-    {
-        $title = shift @_;
-        $title = "Unknown" if $title eq '';
-
-        $t = Track->new($this->{DBH});
-        $t->SetName($title);
-        $t->SetSequence($i + 1);
-        if (!defined $t->Insert($al, $ar))
-        {
-            print STDERR "Inserting track $title ($artistid, $albumid) failed.\n";
-        }
-    }
-    $d = Discid->new($this->{DBH});
-    $d->Insert($Discid, $al->GetId(), $toc);
-
-    return $albumid;
-}
-
+# Public
 
 sub Lookup
 {
@@ -179,6 +109,8 @@ sub Lookup
     return $ret;
 }
 
+# Public
+
 sub LookupByFreeDBId
 {
     my ($this, $id, $cat) = @_;
@@ -193,6 +125,8 @@ sub LookupByFreeDBId
     return $ret;
 }
 
+# private sub
+
 sub IsNumber
 {
     if ($_[0] =~ m/^-?[\d]*\.?[\d]*$/)
@@ -204,6 +138,8 @@ sub IsNumber
         return 0;
     }
 }
+
+# private method
 
 sub Retrieve
 {
@@ -220,6 +156,9 @@ sub Retrieve
         print STDERR "A part and server address/name must be given.\n";
         return undef;
     }
+
+    # TODO for the sake of readability, this chunk would be better done using
+    # IO::Socket.
 
     if ($port =~ /\D/)
     {
@@ -408,33 +347,32 @@ sub Retrieve
     $artist =~ s/^\s*(.*?)\s*$/$1/;
     $title =~ s/^\s*(.*?)\s*$/$1/;
 
-    $info{artist} = $artist;
-    $info{sortname} = $artist;
-
     if (!defined $title || $title eq "")
     {
         $title = $artist;
     }
 
-    # Convert to UTF-8
-    my $u = utf8("");
-
     $artist =~ s/^\s*(.*?)\s*$/$1/;
     $title =~ s/^\s*(.*?)\s*$/$1/;
 
-    $u->latin1($artist);
-    $info{artist} = $u->utf8();
-    $info{sortname} = $u->utf8();
+    $title = Style->new->NormalizeDiscNumbers($title);
 
-    my $sty = Style->new;
-    $u->latin1($sty->NormalizeDiscNumbers($title));
-    $info{album} = $u->utf8();
+    # Convert from iso-8859-1 to UTF-8
+
+    from_to($artist, "iso-8859-1", "utf-8");
+    $info{artist} = $info{sortname} = $artist;
+
+    from_to($title, "iso-8859-1", "utf-8");
+    $info{album} = $title;
 
     for($i = 0; $i < scalar(@track_titles); $i++)
     {
         #print("[$i]: $track_titles[$i]\n"); 
-        $u->latin1($track_titles[$i]);
-        push @tracks, { track=>$u->utf8(), tracknum => ($i+1) };
+
+	my $t = $track_titles[$i];
+	from_to($t, "iso-8859-1", "utf-8");
+
+        push @tracks, { track=>$t, tracknum => ($i+1) };
     }
     $info{tracks} = \@tracks;
 
@@ -442,6 +380,8 @@ sub Retrieve
 
     return \%info;
 }
+
+# private method
 
 sub CheckTOC
 {
@@ -462,6 +402,8 @@ sub CheckTOC
 
     return 1;
 }
+
+# Public
 
 sub InsertForModeration
 {
@@ -506,16 +448,21 @@ sub InsertForModeration
     {
         my (@albums, $al);
 
+        # This is currently a byte-wise comparison, i.e. case-sensitive, etc.
+	# Should it be done using lc() and maybe even unac_string() too?
         if ($ar->GetSortName() eq $info->{artist})
         {
             $info->{sortname} = $ar->GetSortName();
             $info->{artist} = $ar->GetName();
         }
 
+	my $album = lc(decode "utf-8", $info->{album});
         @albums = $ar->GetAlbums();
         foreach $al (@albums)
         {
-            if (lc($al->GetName()) eq lc($info->{album}))
+   	    my $thisname = lc(decode "utf-8", $al->GetName);
+
+            if ($thisname eq $album)
             {
                 if ($al->GetTrackCount() == scalar(@$ref))
                 {

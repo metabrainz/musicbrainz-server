@@ -1,0 +1,83 @@
+
+Strings might be represented at any one time as one of the following:
+
+	- a sequence of bytes in UTF-8 encoding.  e.g. from HTTP request or
+	  database
+	- a sequence of bytes in latin-1 encoding.  e.g. FreeDB (?)
+	- a sequence of characters (so you can lc(), uc(), unaccent, sort etc)
+
+So we probably need four conversions:
+
+	- utf8bytes-to-chars	: sub { decode("utf-8", shift(), $check) }
+	- chars-to-utf8bytes	: sub { encode("utf-8", shift) }
+	- latin1bytes-to-chars	: sub { decode("iso-8859-1", shift(), $check) }
+	- chars-to-latin1bytes	: sub { encode("iso-8859-1", shift) }
+
+For decoding, $check can be
+	Encode::FB_DEFAULT - causes codepoint 0xFFFD to be inserted
+	Encode::FB_CROAK - throws an exception
+	Encode::FB_WARN - hmmm
+	Encode::WARN_ON_ERR - I think causes codepoint 0xFFFD and a warn()ing
+
+################################################################################
+
+reusing IDs? - just created a new artist, changed name+sortname, view mods,
+and I get:
+(#56467)
+	edit artist sortname
+	edit artist name
+	add album ("A Retrospective", #91902)
+
+################################################################################
+
+Most of the modules deal exclusively with utf8-bytes format (with the
+occasional conversion to unicode so we can use string ops).
+
+FreeDB.pm however does a lot of work in latin-1, so the conversion points both
+on the way in and out of the methods must be carefully defined.
+
+The same analysis will be required for other "interface" modules, e.g. RDF
+(see comment in QuerySupport: why the conversion to iso-8859-1?)
+
+################################################################################
+
+Text::Unaccent operates on bytes only:
+
+	$outbytes = unac_string($charset, $inbytes)
+	# (both $inbytes and $outbytes are encoded as $charset)
+
+	$outbytes = unac_string_utf16($inbytes)
+	# (both $inbytes and $outbytes are encoded as utf-16)
+
+What's really missing is a version which operates on characters.  This
+implements it:
+
+	require Text::Unaccent;
+	require Encode;
+
+	sub Text::Unaccent::unac($)
+	{
+		my $t = shift;
+		$t = Encode::encode("utf16", $t);
+		$t = Text::Unaccent::unac_string_utf16($t);
+		$t = Encode::decode("utf16", $t);
+		$t;
+	}
+
+################################################################################
+
+Text::Unaccent is a bit weird on my system... in /usr/lib/perl it fails its
+own self-test (it just passes the strings through without modification), but
+in /home/mbrainz/perl it's fine.  One to watch out for, whatever it is...
+
+################################################################################
+
+LocaleSaver - exactly like SelectSaver, but for locales instead of
+filehandles.
+
+################################################################################
+
+When setting the locale, check the type - should LC_COLLATE be set for
+example.
+
+################################################################################

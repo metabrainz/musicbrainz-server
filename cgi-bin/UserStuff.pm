@@ -49,29 +49,25 @@ sub new
 sub Login
 {
    my ($this, $user, $pwd) = @_;
-   my ($ok, $sth, $dbuser, $sql);
-   my @row;
 
-   $ok = 0;
+   my $sql = Sql->new($this->{DBH});
 
-   return (0) if ($user =~ m/Anonymous/i);
-   return (0) if ($user =~ m/ModBot/i);
-   return (0) if ($user =~ m/FreeDB/i);
+   my $row = $sql->SelectSingleRowHash(
+     	"SELECT * FROM moderator WHERE LOWER(name) = LOWER(?) LIMIT 1",
+	$user,
+   );
 
-   $sql = Sql->new($this->{DBH});
-   $dbuser = $sql->Quote($user);
-   if ($sql->Select(qq/select name,password,privs,id 
-                   from Moderator where name ilike $dbuser/))
-   {
-       @row = $sql->NextRow();
-       if ($pwd eq $row[1])
-       {
-          $ok = 1;
-       }
-       $sql->Finish;   
-   }
+   return unless $row;
 
-   return ($ok, $row[0], $row[2], $row[3]);
+   return if $row->{id} == &ModDefs::ANON_MODERATOR;
+   return if $row->{id} == &ModDefs::FREEDB_MODERATOR;
+   return if $row->{id} == &ModDefs::MODBOT_MODERATOR;
+
+   # Maybe this should be unicode, but a byte-by-byte comparison of passwords
+   # is probably not a bad thing.
+   return unless $row->{password} eq $pwd;
+
+   return (1, $row->{name}, $row->{privs}, $row->{id});
 }
 
 sub CreateLogin
@@ -80,6 +76,7 @@ sub CreateLogin
    my ($sql, $uid, $dbuser);
 
    $sql = Sql->new($this->{DBH});
+
    if ($pwd ne $pwd2)
    {
        return "The given passwords do not match. Please try again.";

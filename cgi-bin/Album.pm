@@ -24,7 +24,7 @@
 package Album;
 use TableBase;
 
-BEGIN { require 5.6.1 }
+BEGIN { require 5.8.0 }
 use vars qw(@ISA @EXPORT);
 @ISA    = (TableBase);
 @EXPORT = '';
@@ -39,9 +39,9 @@ use TRM;
 use SearchEngine;
 use ModDefs;
 use Text::Unaccent;
-use locale;
-use POSIX qw(locale_h);
-use utf8;
+use LocaleSaver;
+use POSIX qw(:locale_h);
+use Encode qw( decode );
 
 use constant ALBUM_ATTR_NONALBUMTRACKS => 0;
 
@@ -647,24 +647,23 @@ sub GetVariousDisplayList
 
    $sql = Sql->new($this->{DBH});
 
-   my $old_locale = setlocale(LC_CTYPE);
-   setlocale( LC_CTYPE, "en_US.UTF-8" )
-       or die "Couldn't change locale.";
+   use locale;
+   # TODO set LC_COLLATE too?
+   my $saver = new LocaleSaver(LC_CTYPE, "en_US.UTF-8");
   
    $num_albums = 0;
-   $ind_max = $this->UpperPageIndex($ind);
-   $page = $this->CalculatePageIndex($ind);
-   $page_max = $this->CalculatePageIndex($ind_max);
+   ($page, $page_max) = $this->CalculatePageIndex($ind);
    $query = qq|select id, name, modpending 
                     from Album 
-                   where page >= $page and page < $page_max and
+                   where page >= $page and page <= $page_max and
                          album.artist = | . ModDefs::VARTIST_ID;
    if ($sql->Select($query))
    {
        $num_albums = $sql->Rows();
        for(;@row = $sql->NextRow;)
        {
-           my $temp = lc(unac_string('UTF-8', $row[1]));
+           my $temp = unac_string('UTF-8', $row[1]);
+	   $temp = lc decode("utf-8", $temp);
 
            # Remove all non alpha characters to sort cleaner
            $temp =~ tr/A-Za-z0-9 //cd;
@@ -677,9 +676,10 @@ sub GetVariousDisplayList
 
        @info = sort { $a->[3] cmp $b->[3] } @info;
        splice @info, 0, $offset;
-   }
 
-   setlocale( LC_CTYPE, $old_locale );
+       # Only return the three things we said we would
+       splice(@$_, 3) for @info;
+   }
 
    return ($num_albums, @info);
 }

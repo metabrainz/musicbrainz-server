@@ -280,10 +280,18 @@ sub GetMetadataFromIdAndAlbum
          }
          else
          {
+	     if (defined $albumname)
+	     {
+	       	$albumname = unac_string("UTF-8", $albumname);
+		$albumname = lc decode("utf-8", $albumname);
+	     }
              
              while(@row = $sql->NextRow)
              {
-                if (not defined $albumname || $row[0] =~ /^$albumname$/i)
+		my $temp = unac_string("UTF-8", $row[0]);
+		$temp = lc decode("utf-8", $temp);
+
+                if (not defined $albumname || $temp eq $albumname)
                 {
                    $seq = $row[1];
                    $album = $row[0];

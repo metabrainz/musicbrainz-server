@@ -52,11 +52,11 @@ The MusicBrainz server requires the following items:
 
 4) Expat XML Parser library: http://sourceforge.net/projects/expat
 
-5) Perl 5.6.1 
+5) Perl 5.8.0
 
-   Perl 5.6.1 is the right perl to use. A lot of CPAN packages
-   fail to compile under 5.8, so its best to wait for at least
-   5.8.1.
+   The MusicBrainz server now uses Perl 5.8.0, required for its Unicode
+   capabilities and the "Encode" module.  Strange encoding problems were
+   observed with Perl 5.6.1.
 
 6) Required perl modules: 
   
@@ -71,7 +71,6 @@ The MusicBrainz server requires the following items:
    HTML::Mason (MB works only with version 1.05:
                 http://www.masonhq.com/code/download/HTML-Mason-1.05.tar.gz)
    String::CRC32
-   String::Similarity;
    Unicode::String
    XML::DOM   
    XML::Parser 
@@ -87,6 +86,25 @@ The MusicBrainz server requires the following items:
    Carp;
    Tie::STDERR
    Benchmark::Timer
+
+7) String::Unicode::Similarity
+
+The server also uses a modified version of String::Similarity from CPAN,
+patched to be able to deal with Unicode data.  Download both the original
+code and the patch:
+
+  http://search.cpan.org/CPAN/authors/id/M/ML/MLEHMANN/String-Similarity-0.02.tar.gz
+  ftp://ftp.musicbrainz.org/pub/musicbrainz/misc/String-Unicode-Similarity.patch
+
+then build with:
+
+	tar zfx String-Similarity-0.02.tar.gz
+	patch -p1 < String-Unicode-Similarity.patch
+	cd String-Similarity-0.02
+	perl Makefile.PL
+	make
+	make test
+	make install
 
 Installation:
 =============
