@@ -54,6 +54,8 @@ sub Login
    $ok = 0;
 
    return (0) if ($user =~ m/Anonymous/i);
+   return (0) if ($user =~ m/ModBot/i);
+   return (0) if ($user =~ m/FreeDB/i);
 
    $sql = Sql->new($this->{DBH});
    $dbuser = $sql->Quote($user);
@@ -68,7 +70,7 @@ sub Login
        $sql->Finish;   
    }
 
-   return ($ok, $user, $row[2], $row[3]);
+   return ($ok, $row[0], $row[2], $row[3]);
 }
 
 sub CreateLogin
@@ -137,7 +139,7 @@ sub GetUserPasswordAndId
 
    $dbuser = $sql->Quote($username);
    if ($sql->Select(qq|select password, id from Moderator 
-                       where name = $dbuser|))
+                       where name ilike $dbuser|))
    {
        my @row = $sql->NextRow();
        $sql->Finish;
