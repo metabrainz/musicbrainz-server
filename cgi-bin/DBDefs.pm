@@ -70,3 +70,8 @@ use constant NUM_UNANIMOUS_VOTES => 1;
 # Allows a person to vote on ther own modifications. It should be used
 # for testing purposes only.
 use constant ALLOW_SELF_VOTE => 1;
+
+# These two defines specify where to create the Apache::Session files
+# that are needed for HTTP session persistence.
+use constant LOCK_DIR => "/tmp/locks";
+use constant SESSION_DIR => "/tmp/sessions";

@@ -17,8 +17,8 @@ if (defined $ARGS{User} && $ARGS{User} ne '' &&
         tie %HTML::Mason::Commands::session, 
            'Apache::Session::File', undef, 
            {
-              Directory => '/tmp/sessions',
-              LockDirectory   => '/tmp/locks',
+              Directory => DBDefs::SESSION_DIR,
+              LockDirectory   => DBDefs::LOCK_DIR,
            };
         $cookie = new CGI::Cookie (-name=>'AF_SID',
                 -value=>$HTML::Mason::Commands::session{_session_id},
