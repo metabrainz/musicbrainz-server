@@ -26,7 +26,6 @@ package QuerySupport;
 use strict;
 use XML::Parser;
 use XML::DOM;
-use XML::XQL;
 use DBDefs;
 use Encode qw( from_to );
 use TableBase;
