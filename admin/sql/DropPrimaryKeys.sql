@@ -1,3 +1,7 @@
+\unset ON_ERROR_STOP
+
+-- Alphabetical order
+
 ALTER TABLE album DROP CONSTRAINT album_pkey;
 ALTER TABLE albumjoin DROP CONSTRAINT albumjoin_pkey;
 ALTER TABLE albummeta DROP CONSTRAINT albummeta_pkey;

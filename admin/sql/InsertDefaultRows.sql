@@ -1,4 +1,6 @@
-Begin;
+\set ON_ERROR_STOP 1
+
+BEGIN;
 
 insert into Artist (Name, SortName, GID, ModPending, Page) 
       values ('Various Artists', 'Various Artists', 
@@ -26,4 +28,4 @@ INSERT INTO replication_control VALUES (
     NULL
 );
 
-Commit;
+COMMIT;

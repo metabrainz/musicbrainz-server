@@ -1,89 +1,65 @@
-drop index Artist_NameIndex;
-drop index Artist_SortNameIndex;
-drop index Artist_GIDIndex;
-drop index Artist_PageIndex;
+\unset ON_ERROR_STOP
 
-drop index Album_NameIndex;
-drop index Album_GIDIndex;
-drop index Album_ArtistIndex;
-drop index Album_PageIndex;
+-- Alphabetical order
 
-drop index annotation_rowidindex;
-drop index annotation_moderationindex;
-
-drop index Track_NameIndex;
-drop index Track_GIDIndex;
-drop index Track_ArtistIndex;
-
-drop index TRM_TRMIndex;
-drop index trm_stat_trm_idindex;
-
-drop index TRMJoin_TrackIndex;
-DROP INDEX trmjoin_trmtrack;
-
-drop index trmjoin_stat_trmjoin_idindex;
-
-drop index AlbumJoin_AlbumIndex;
-drop index AlbumJoin_TrackIndex;
+DROP INDEX album_amazon_asin_asin;
+DROP INDEX album_artistindex;
+DROP INDEX album_cdtoc_albumcdtoc;
+DROP INDEX album_gidindex;
+DROP INDEX album_nameindex;
+DROP INDEX album_pageindex;
+DROP INDEX albumjoin_albumindex;
 DROP INDEX albumjoin_albumtrack;
-
+DROP INDEX albumjoin_trackindex;
+DROP INDEX albumwords_albumidindex;
+DROP INDEX annotation_moderationindex;
+DROP INDEX annotation_rowidindex;
+DROP INDEX artist_gidindex;
+DROP INDEX artist_nameindex;
+DROP INDEX artist_pageindex;
+DROP INDEX artist_relation_artist;
+DROP INDEX artist_relation_ref;
+DROP INDEX artist_sortnameindex;
+DROP INDEX artistalias_nameindex;
+DROP INDEX artistalias_refindex;
+DROP INDEX artistwords_artistidindex;
 DROP INDEX cdtoc_discid;
 DROP INDEX cdtoc_freedbid;
 DROP INDEX cdtoc_toc;
-DROP INDEX album_cdtoc_albumcdtoc;
-
-drop index Moderator_NameIndex;
-
-DROP INDEX moderation_open_idx_moderator;
-DROP INDEX moderation_open_idx_expiretime;
-DROP INDEX moderation_open_idx_status;
-DROP INDEX moderation_open_idx_artist;
-DROP INDEX moderation_open_idx_rowid;
-
-DROP INDEX moderation_note_open_idx_moderation;
-
-DROP INDEX vote_open_idx_moderator;
-DROP INDEX vote_open_idx_moderation;
-
-DROP INDEX moderation_closed_idx_moderator;
-DROP INDEX moderation_closed_idx_expiretime;
-DROP INDEX moderation_closed_idx_status;
-DROP INDEX moderation_closed_idx_artist;
-DROP INDEX moderation_closed_idx_rowid;
-
-DROP INDEX moderation_note_closed_idx_moderation;
-
-DROP INDEX vote_closed_idx_moderator;
-DROP INDEX vote_closed_idx_moderation;
-
-drop index ArtistAlias_NameIndex;
-drop index ArtistAlias_RefIndex;
-
-drop index WordList_WordIndex;
-
-drop index AlbumWords_AlbumidIndex;
-
-drop index ArtistWords_ArtistidIndex;
-
-drop index TrackWords_TrackidIndex;
-
-drop index Stats_TimestampIndex;
-
-drop index ClientVersion_Version;
-
-DROP INDEX currentstat_name;
-
-DROP INDEX historicalstat_date;
-DROP INDEX historicalstat_name_snapshotdate;
-
-drop index artist_relation_artist;
-drop index artist_relation_ref;
-
+DROP INDEX clientversion_version;
 DROP INDEX country_isocode;
 DROP INDEX country_name;
-
+DROP INDEX currentstat_name;
+DROP INDEX historicalstat_date;
+DROP INDEX historicalstat_name_snapshotdate;
+DROP INDEX moderation_closed_idx_artist;
+DROP INDEX moderation_closed_idx_expiretime;
+DROP INDEX moderation_closed_idx_moderator;
+DROP INDEX moderation_closed_idx_rowid;
+DROP INDEX moderation_closed_idx_status;
+DROP INDEX moderation_note_closed_idx_moderation;
+DROP INDEX moderation_note_open_idx_moderation;
+DROP INDEX moderation_open_idx_artist;
+DROP INDEX moderation_open_idx_expiretime;
+DROP INDEX moderation_open_idx_moderator;
+DROP INDEX moderation_open_idx_rowid;
+DROP INDEX moderation_open_idx_status;
+DROP INDEX moderator_nameindex;
 DROP INDEX release_album;
-
-DROP INDEX album_amazon_asin_asin;
+DROP INDEX stats_timestampindex;
+DROP INDEX track_artistindex;
+DROP INDEX track_gidindex;
+DROP INDEX track_nameindex;
+DROP INDEX trackwords_trackidindex;
+DROP INDEX trm_stat_trm_idindex;
+DROP INDEX trm_trmindex;
+DROP INDEX trmjoin_stat_trmjoin_idindex;
+DROP INDEX trmjoin_trackindex;
+DROP INDEX trmjoin_trmtrack;
+DROP INDEX vote_closed_idx_moderation;
+DROP INDEX vote_closed_idx_moderator;
+DROP INDEX vote_open_idx_moderation;
+DROP INDEX vote_open_idx_moderator;
+DROP INDEX wordlist_wordindex;
 
 -- vi: set ts=4 sw=4 et :
