@@ -699,14 +699,15 @@ sub SubmitTRMList
        print STDERR "trackid: $trackid\n";
        print STDERR "trmid: $trmid\n";
 
+       $trackid =~ tr/A-Z/a-z/;
        $trackid = $sql->Quote($trackid);
 
        #lookup the IDs associated with the $trackGID
-       @ids = $sql->GetSingleRowLike("Album, Track, AlbumJoin", 
-                                     ["Track.id"], 
-                                     ["Track.gid", $trackid,
-                                      "AlbumJoin.track", "Track.id",
-                                      "AlbumJoin.album", "Album.id"]);
+       @ids = $sql->GetSingleRow("Album, Track, AlbumJoin", 
+                                 ["Track.id"], 
+                                 ["Track.gid", $trackid,
+                                  "AlbumJoin.track", "Track.id",
+                                  "AlbumJoin.album", "Album.id"]);
        if (scalar(@ids) == 0 || !defined($ids[0]))
        {
            print STDERR "Unknown MB Track Id: $trackid\n";
@@ -987,7 +988,7 @@ sub AuthenticateQuery
    $session{expire} = time + 3600;
    $session_id = $session{_session_id};
    untie %session;
-   print STDERR "Start session: $session_id\n";
+   print STDERR "Start session: $username $session_id\n";
 
    return $rdf->CreateAuthenticateResponse($session_id, $challenge);
 }
@@ -1022,7 +1023,7 @@ sub QuickTrackInfoFromTRMId
    $out .= $rdf->Element("mq:trackName", $data[0]);
    $out .= $rdf->Element("mm:trackNum", $data[3]);
    $out .= $rdf->Element("mm:trackid", $data[4]);
-   if ($data[5] != 0)
+   if (defined $data[5] && $data[5] != 0)
    {
        $out .= $rdf->Element("mm:duration", $data[5]);
    }
