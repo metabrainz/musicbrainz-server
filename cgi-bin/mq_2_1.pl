@@ -172,16 +172,15 @@ sub Authenticate
 }
 
 $rdf = MM_2_1->new(0);
+$rdf->SetBaseURI("http://" . $ENV{SERVER_NAME});
 if (exists $ENV{"MOD_PERL"})
 {
    $r = Apache->request();
-   $rdf->SetBaseURI("http://" . $r->hostname);
    my $size = $r->header_in("Content-length");
    $r->read($rdfinput, $size);
 }
 else
 {
-   $rdf->SetBaseURI("http://" . $ENV{SERVER_NAME});
    while(defined($line = <>))
    {
       $rdfinput .= $line;
