@@ -331,8 +331,7 @@ sub Insert
                 $found = 1;
                 last;
             }
-            # If a track with that tracknumber already exists, skip
-            # the insertion.
+            # If a track with that tracknumber already exists, skip the insertion.
             if ($albumtrack->GetSequence() == $track->{tracknum})
             {
                 $info->{album_complete} = 0;

@@ -6,7 +6,7 @@ $nomod=>0
 
 <%perl>
 
-my ($count, $trackcount, $trmids, @ids, $di, @attrs, $attr, $modpend);
+my ($count, $trackcount, $trmids, @ids, $di, @attrs, $attr, $modpend, $nonalbum);
 
 $trackcount = $album->GetTrackCount();
 $trmids = $album->GetTRMCount();
@@ -14,6 +14,7 @@ $di = Discid->new($album->{DBH});
 @ids = $di->GetDiscidFromAlbum($album->GetId());
 @attrs = $album->GetAttributes();
 $modpend = $album->GetAttributeModPending();
+$nonalbum = $album->IsNonAlbumTracks();
 
 </%perl>
 
@@ -37,34 +38,37 @@ $modpend = $album->GetAttributeModPending();
                title="This album has <% $trmids %> TRM Ids">&nbsp;
 % }
 <%perl>
-mc_out("</td><td>&nbsp;&nbsp;Attributes: [ ");
-if ($modpend)
+if (!$nonalbum)
 {
-    mc_out("<td bgcolor=\"#FFFFCC\">") 
-}
-else
-{
-    mc_out("<td>") 
-}
-if (scalar(@attrs) > 0) 
-{
-    foreach $attr (@attrs) 
+    mc_out("</td><td>&nbsp;&nbsp;Attributes: [ ");
+    if ($modpend)
     {
-        mc_out(", ") if ($count > 0);
-        mc_out($album->GetAttributeName($attr));
-        $count++;
+        mc_out("<td bgcolor=\"#FFFFCC\">") 
     }
-}
-else
-{
-    mc_out("None");
-}
-mc_out("</td><td>&nbsp;] ");
+    else
+    {
+        mc_out("<td>") 
+    }
+    if (scalar(@attrs) > 0) 
+    {
+        foreach $attr (@attrs) 
+        {
+            mc_out(", ") if ($count > 0);
+            mc_out($album->GetAttributeName($attr));
+            $count++;
+        }
+    }
+    else
+    {
+        mc_out("None");
+    }
+    mc_out("</td><td>&nbsp;] ");
 
-if (exists $session{user} && !$nomod) 
-{
-    mc_out("<a href=\"/editalbumattrs.html?id=" . $album->GetId());
-    mc_out("&artist=" . $artist->GetId() . "\">Edit</a>");
+    if (exists $session{user} && !$nomod) 
+    {
+        mc_out("<a href=\"/editalbumattrs.html?id=" . $album->GetId());
+        mc_out("&artist=" . $artist->GetId() . "\">Edit</a>");
+    }
 }
 </%perl>
 </td></tr>

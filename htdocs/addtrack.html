@@ -2,10 +2,11 @@
 
 <%perl>
 
-my ($mb, $id, $trackname, $al, $tracknum, $album, $artist); 
+my ($mb, $id, $trackname, $al, $ar, $tracknum, $album, $artist, $name, $nontrack); 
 
 $mb = mc_comp("/comp/dblogin");
 $al = Album->new($mb->{DBH});
+$ar = Artist->new($mb->{DBH});
 
 if (!exists $ARGS{album} || $ARGS{album} eq '' ||
     !exists $ARGS{artist} || $ARGS{artist} eq '')
@@ -16,8 +17,15 @@ if (!exists $ARGS{album} || $ARGS{album} eq '' ||
 
 $album = $ARGS{album};
 $artist = $ARGS{artist};
+$nontrack = $ARGS{nontrack};
+$nontrack = 0 if (not defined $nontrack);
+
+$ar->SetId($artist);
+$ar->LoadFromId();
+
 $al->SetId($album);
 $al->LoadFromId();
+$name = ($nontrack) ? $ar->GetName() . " Non-album tracks" : $al->GetName();
 
 </%perl>
 
@@ -31,7 +39,7 @@ $al->LoadFromId();
     <& /comp/stylemenu &>
 
     <& /comp/tablebegin, gattrs=>"width=\"100%\"",
-       title=>'Add Track to '.$al->GetName() &>
+       title=>'Add Track to '.$name &>
 
 % if ($artist == ModDefs::VARTIST_ID) {
     <FORM METHOD="POST" ACTION="/artistfilterkv.html"
@@ -48,6 +56,7 @@ $al->LoadFromId();
         <INPUT TYPE="text" NAME="value1" SIZE=25> 
         </td>
       </tr>
+% if (!$nontrack) {
       <tr>
         <td>
         Track Number:
@@ -56,6 +65,13 @@ $al->LoadFromId();
         <INPUT TYPE="text" NAME="value2" SIZE=25> (1 - 99)
         </td>
       </tr>
+% } else {
+      <tr>
+        <td colspan="2">
+           <INPUT TYPE="hidden" NAME="value2" VALUE="<% $nontrack %>"> 
+        </td>
+      </tr>
+% }
 % if ($artist == ModDefs::VARTIST_ID) {
       <tr>
         <td>

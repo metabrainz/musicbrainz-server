@@ -119,6 +119,12 @@ sub GetAttributeModPending
    return ${$_[0]->{attrs}}[0]
 }
 
+sub IsNonAlbumTracks
+{
+   my @attrs = @{$_[0]->{attrs}};
+   return (scalar(@attrs) == 2 && $attrs[1] == 0);
+}
+
 # Insert an album that belongs to this artist. The Artist object should've
 # been loaded with a LoadFromXXXX call, or the id of this artist must be
 # set before this function is called.
@@ -621,7 +627,10 @@ sub UpdateAttributes
    my ($this) = @_;
    my ($sql, $attr);
 
-   $attr = join ',', @{ $this->{attrs }};
+   # I got a 
+   #   Use of uninitialized value in join or string at ../cgi-bin/Album.pm line 630
+   # that needs to be investigated
+   $attr = join ',', @{ $this->{attrs}};
    $sql = Sql->new($this->{DBH});
    $sql->Do("update Album set Attributes = '{$attr}' where id = $this->{id}");
 }

@@ -11,7 +11,11 @@ $linktype=>""
 my $check_box = "";
 my $albumid = $album->GetId();
 my $script = $albumdetail ? "albumdetail" : "showalbum";
-my ($image, $alt, $title);
+my ($image, $alt, $title, $nonalbum);
+my ($name) = $album->GetName();
+
+$nonalbum = $album->IsNonAlbumTracks();
+$name = "Non-album tracks" if ($nonalbum);
 
 # Check to see if we're in tagging mode, if so, pass off control
 if (exists $session{tagged_albums})
@@ -48,20 +52,22 @@ if ($link ne '')
                   alt="<% $alt %>"
                   src="<% $image %>" align="center" border="0"></a>
 %          }
-           <a href="/<% $script %>.html?albumid=<% $album->GetId() %>"><% $album->GetName() |h %></a>
+           <a href="/<% $script %>.html?albumid=<% $album->GetId() %>"><% $name |h %></a>
 % } else {
         <td width=85% bgcolor="#FFBA58" valign="center">
 %          if ($image ne '') {
                <a href="<% $link %>"><img alt="<% $alt %>" title="<% $title %>"
                   src="<% $image %>" align="center" border="0"></a>
 %          }
-           <a href="/<% $script %>.html?albumid=<% $album->GetId() %>"><% $album->GetName() |h %></a>
+           <a href="/<% $script %>.html?albumid=<% $album->GetId() %>"><% $name |h %></a>
 % }
         </td>
 % if (exists $session{user} && !$nomod) {
         <td width=15% bgcolor="#FFBA58" align=center nowrap>
-          <a href="/editalbum.html?id=<% $albumid %>&artist=<% $artist->GetId() %>">Edit</a>
-           | <a href="/remalbum.html?album=<% $albumid %>&artist=<% $artist->GetId() %>">Del</a>
+%         if (!$nonalbum) {
+              <a href="/editalbum.html?id=<% $albumid %>&artist=<% $artist->GetId() %>">Edit</a> | 
+%         }
+          <a href="/remalbum.html?album=<% $albumid %>&artist=<% $artist->GetId() %>">Del</a>
         </td>
 % }
   </tr>

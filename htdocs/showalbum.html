@@ -60,7 +60,15 @@ else
         mc_comp("/comp/sidebar", title=>'',
                 pagetitle=>"Album: " . $album->GetName());
         mc_comp("/comp/artisttitle", artist=>$artist);
-        mc_out("[ <a href=\"/showartist.html?artistid=");
+
+        mc_out("[ ");
+        if (not exists $session{uid})
+        {
+            </%perl>
+            <a href="/moderate.html">Edit data</a> | 
+            <%perl>
+        }
+        mc_out(" <a href=\"/showartist.html?artistid=");
         mc_out($artist->GetId());
         mc_out("\">View albums</a> | ");
 
@@ -70,6 +78,7 @@ else
                    $artist->GetId()."\">");
             mc_out("View mods</a> | ");
         }
+
 
         mc_out("<a href=\"/addalbum.html?artistid=");
         mc_out($artist->GetId());

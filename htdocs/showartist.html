@@ -56,6 +56,12 @@ else
         <a href="/mod/tag/starttag.html">Merge albums</a> |
         <%perl>
     }
+    else
+    {
+        </%perl>
+        <a href="/mod_intro.html">Edit data</a> | 
+        <%perl>
+    }
 
     mc_out("<a href=\"/showaliases.html?artistid=");
     mc_out($artist->GetId());
