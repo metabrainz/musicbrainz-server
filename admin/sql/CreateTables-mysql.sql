@@ -113,7 +113,9 @@ create table moderator (
    Bio text default null,
    membersince datetime not null,
    emailconfirmdate datetime,
-   lastlogindate datetime
+   lastlogindate datetime,
+   automodsaccepted int default 0,
+   modsfailed int default 0
    );
 
 drop table if exists moderation;

@@ -92,20 +92,22 @@ create table TOC (
    Track92 int, Track93 int, Track94 int, Track95 int, Track96 int, Track97 int, Track98 int, 
    Track99 int);
 
-create table Moderator (
-   Id serial primary key,
-   Name varchar(64) not null,
-   Password varchar(64) not null, 
-   Privs int default 0, 
-   ModsAccepted int default 0,
-   ModsRejected int default 0, 
-   EMail varchar(64) default null, 
-   WebUrl varchar(255) default null, 
-   Bio text default null,
-   membersince timestamp with time zone default now(),
-   emailconfirmdate timestamp with time zone,
-   lastlogindate timestamp with time zone
-   );
+CREATE TABLE moderator (
+    id                  SERIAL PRIMARY KEY,
+    name                VARCHAR(64) NOT NULL,
+    password            VARCHAR(64) NOT NULL, 
+    privs               INTEGER DEFAULT 0, 
+    modsaccepted        INTEGER DEFAULT 0,
+    modsrejected        INTEGER DEFAULT 0, 
+    email               VARCHAR(64) DEFAULT NULL, 
+    weburl              VARCHAR(255) DEFAULT NULL, 
+    bio                 TEXT DEFAULT NULL,
+    membersince         TIMESTAMP WITH TIME ZONE DEFAULT NOW(),
+    emailconfirmdate    TIMESTAMP WITH TIME ZONE,
+    lastlogindate       TIMESTAMP WITH TIME ZONE,
+    automodsaccepted    INTEGER DEFAULT 0,
+    modsfailed          INTEGER DEFAULT 0
+);
 
 create table Moderation (
    Id serial primary key,
@@ -218,4 +220,4 @@ CREATE TABLE moderator_subscribe_artist
 
 commit;
 
--- vi: set ts=8 sw=4 et :
+-- vi: set ts=4 sw=4 et :
