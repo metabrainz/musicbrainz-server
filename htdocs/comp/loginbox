@@ -1,24 +1,10 @@
 %# vi: set ts=4 sw=4 ft=mason :
 <%args>
-$url=>""
+$url => (join "?", grep { $_ } ($r->uri, scalar $r->args))
 </%args>
-
-% if (&DBDefs::DB_READ_ONLY) {
-<table>
-<tr>
-   <td>
-      &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
-   </td>
-   <td>
-      <% &DBDefs::DB_READ_ONLY_MESSAGE %>
-   </td>
-   <td>
-      &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
-   </td>
-</tr>
-</table>
-
-% } else {
+<%perl>
+return if $m->comp("/comp/dbreadonly", 0, 0);
+</%perl>
 
 <form METHOD="POST" ACTION="/bare/login.html" ID="LoginForm"
       ENCTYPE="application/x-www-form-urlencoded" class="formstyle"
@@ -46,24 +32,11 @@ $url=>""
 	</p>
 	
 	<p style="text-align: center">
-		<a href="/newlogin.html">Create a new account</a>
+		<a href="/newlogin.html?url=<% url_escape($url) %>">Create a new account</a>
 	</p>
-
-<%perl>
-if ($url eq "") 
-{
-   $url = $r->uri();
-   if (defined $r->args() && $r->args() ne '')
-   {
-      $url .= "?" . $r->args();
-   }
-}
-</%perl>
 
 	<input type="hidden" name="url" value="<% $url %>">
 
 </form>
 
 <& /comp/movefocus, "LoginForm", "User" &>
-
-% }
