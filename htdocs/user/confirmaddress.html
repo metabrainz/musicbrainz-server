@@ -1,0 +1,88 @@
+%# vi: set ts=2 sw=2 ft=mason :
+<%args>
+$uid=>-1
+$email=>""
+$time=>-1
+$chk=>""
+</%args>
+<%perl>
+
+if (DBDefs::DB_READ_ONLY) {
+  </%perl>
+  <table>
+  <tr>
+    <td>
+       &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; 
+    </td>
+    <td>
+       <% DBDefs::DB_READ_ONLY_MESSAGE %>
+    </td>
+    <td>
+    &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
+  </td>
+  </tr>
+  </table>
+  <%perl>
+
+} else {
+
+MusicBrainz::IsNonNegInteger($uid) && $uid
+	or return $m->comp("/comp/badargs", 1, 1);
+
+MusicBrainz::IsNonNegInteger($time) && $time
+  or return $m->comp("/comp/badargs", 1, 1);
+
+$email or return $m->comp("/comp/badargs", 1, 1);
+$chk or return $m->comp("/comp/badargs", 1, 1);
+
+my $mb = $m->comp("/comp/dblogin");
+my $ui = UserStuff->new($mb->{DBH});
+
+$ui->GetVerifyChecksum($email, $uid, $time) eq $chk 
+    or return $m->comp("/comp/badargs", 1, 1);
+
+if ($time + DBDefs::EMAIL_VERIFICATION_TIMEOUT() < time()) 
+{
+    mc_comp("/comp/sidebar", title => 'Verify EMail Address');
+    </%perl>
+    This email address change verification expired. Please 
+    <a href="/login.html">Log in</a> and request the 
+    email change again.
+    <& /comp/footer &>
+    <%perl>
+    return undef;
+}
+
+my $info = $ui->GetUserInfo($uid);
+if (not defined $info)
+{
+    mc_comp("/comp/sidebar", title => 'Verify EMail Address');
+    </%perl>
+    Cannot find user with user id <% $uid %>.
+    <& /comp/footer &>
+    <%perl>
+    return undef;
+}
+
+if ($ui->SetUserInfo($uid, $email))
+{
+    $ui->SetSession(\%session, $info->{name}, $info->{privs}, $info->{uid}, 0);
+    mc_comp("/comp/sidebar", title => 'Verify EMail Address');
+    </%perl>
+    Your new email address has been saved. Thank you!<p>
+    [ <a href="/moderator.html?uid=<% $uid %>">View Profile</a> ]
+    <%perl>
+}
+else
+{
+    mc_comp("/comp/sidebar", title => 'Verify EMail Address');
+    </%perl>
+    Failed to update user information.
+    <%perl>
+}
+
+</%perl>
+
+% }
+
+<& /comp/footer &>

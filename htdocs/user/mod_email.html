@@ -1,0 +1,140 @@
+%# vi: set ts=2 sw=2 ft=mason :
+<%args>
+$uid=>-1
+$modid=>0
+$subject=>""
+$text=>""
+$url=>""
+</%args>
+<%perl>
+
+if (DBDefs::DB_READ_ONLY) 
+{
+    </%perl>
+    <table>
+    <tr>
+      <td>
+         &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; 
+      </td>
+      <td>
+         <% DBDefs::DB_READ_ONLY_MESSAGE %>
+      </td>
+      <td>
+         &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
+      </td>
+    </tr>
+    </table>
+    <%perl>
+
+} 
+else 
+{
+    MusicBrainz::IsNonNegInteger($uid) && $uid
+      or return $m->comp("/comp/badargs", 1, 1);
+
+    mc_comp("/comp/sidebar", title => 'Send email to moderator');
+
+    my $mb = $m->comp("/comp/dblogin");
+    my $ui = UserStuff->new($mb->{DBH});
+
+    my $info = $ui->GetUserInfo($uid);
+    if (not defined $info)
+    {
+        </%perl>
+        <p>Cannot find user with user id <% $uid %>.</p>
+        <& /comp/footer &>
+        <%perl>
+        return undef;
+    }
+
+    if (!$ui->CheckEMailAddress($info->{email}))
+    {
+        </%perl>
+        <p>Moderator <% $info->{name} %> has declined to give an email 
+        address, which means you can't mail this moderator. :-(</p>
+        <%perl>
+       
+        if ($url)
+        {
+            </%perl>
+            <p>[ <a href="<% $url |n %>">Continue</a> ]</p>
+            <%perl>
+        }
+        mc_comp("/comp/footer");
+        return undef;
+    }
+    elsif ($text)
+    {
+        if ($modid)
+        {
+            $text = "Moderation: http://" . DBDefs::WEB_SERVER . 
+                    "/showmod.html?modid=$modid\n\n" . $text;
+        }
+
+        my $ret = $ui->SendEMail($session{user}, $session{uid}, $info, 
+                                 $subject, $text);
+        if ($ret)
+        {
+            </%perl>
+            <p>Could not send email: <% $ret %></p>
+            <%perl>
+        }
+        else
+        {
+            </%perl>
+            <p>Mail has been sent to <% $info->{name} %>.</p>
+            <%perl>
+            if ($url)
+            {
+                </%perl>
+                <p>[ <a href="<% $url |n %>">Continue</a> ]</p>
+                <%perl>
+            }
+        }
+    }
+    else
+    {
+        </%perl>
+
+        <form METHOD="POST" ACTION="/user/mod_email.html" ID="EMailForm"
+              ENCTYPE="application/x-www-form-urlencoded" class="formstyle"
+              style="padding: 0 0.5em"
+              >
+
+          <p style="margin: 0.5em">
+             <span class="font-style: bold">To:</span>
+             <% $info->{name} %>
+
+          </p>
+
+          <p style="margin: 0.5em">
+            Subject:<br>
+%           if ($modid > 0) {
+                <INPUT TYPE="text" NAME="subject" SIZE="40" VALUE="About moderation #<% $modid %>">
+%           } else {
+                <INPUT TYPE="text" NAME="subject" SIZE="40">
+%           }
+          </p>
+
+          <p style="margin: 0.5em">
+            Message Text:<br>
+            <TEXTAREA NAME="text" COLS="60" ROWS="20"></TEXTAREA>
+            <INPUT TYPE="hidden" NAME="uid" VALUE="<% $uid %>">
+            <INPUT TYPE="hidden" NAME="url" VALUE="<% $url %>">
+            <INPUT TYPE="hidden" NAME="modid" VALUE="<% $modid %>">
+          </p>
+
+          <p style="text-align: center">
+            <INPUT TYPE="submit" NAME="Send" VALUE="Send">
+          </p>
+          
+        </form>
+
+        <& /comp/movefocus, "EMailForm", "Subject" &>
+        <%perl>
+    }
+}
+
+</%perl>
+
+<& /comp/footer &>
