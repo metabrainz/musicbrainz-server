@@ -1,14 +1,15 @@
 <%args>
 $artist
 $album
-$numtracks
 $showids=>1
 $nomod
 </%args>
 
 <%perl>
 
-my (@ids, $di, $id, $rows, $id_numtracks);
+my (@ids, $di, $id, $rows, $id_numtracks, $numtracks);
+
+$numtracks = $album->GetTrackCount();
 
 if ($showids)
 {

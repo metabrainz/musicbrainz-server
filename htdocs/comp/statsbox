@@ -10,9 +10,9 @@ sub StatLine
 }
 
 my $result = $m->cache(action=>'retrieve');
-#$result = undef;
 if (!defined($result)) 
 {
+    print STDERR "got no stats from cache\n";
     my $mb = mc_comp("/comp/dblogin", quiet=>1);
 
     if (defined $mb)
@@ -34,14 +34,13 @@ if (!defined($result))
              $result .= StatLine("Mods", $row[5]);
              $result .= StatLine("Users", $row[6]);
 
-	     $result = "<table>$result</table>";
-
-             $m->cache(action=>'store', expire_next=>'day', value=>$result);
+             $result = "<table>$result</table>";
         }
         else
         {
              $result = "[ Updating ]";
         }
+        $m->cache(action=>'store', expire_next=>'day', value=>$result);
         $mb->Logout();
     }
 }

@@ -39,7 +39,7 @@ $albumid = $ARGS{albumid} if (!defined $albumid);
 $album = Album->new($mb->{DBH});
 $album->SetId($albumid);
 
-if (! $album->LoadFromId())
+if (! $album->LoadFromId(1))
 {
     mc_comp("/comp/sidebar", title=>"Error");
     mc_out("This Album (ID=$albumid) was not found<br>");

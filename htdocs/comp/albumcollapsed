@@ -26,5 +26,4 @@ mc_comp("/comp/albumbegin",
 <tr bgcolor="#f0efff"><td bgcolor="#f0efff">
 <& /comp/albumsummary, album=>$album, artist=>$artist &>
 </td></tr>
-<& /comp/albumend, showids=>0, album=>$album, artist=>$artist, 
-                   nomod=>1, numtracks=>$trackcount &>
+<& /comp/albumend, showids=>0, album=>$album, artist=>$artist, nomod=>1 &>

@@ -37,8 +37,9 @@ else
 $num_tracks = $ARGS{value1};
 if (!Moderation::IsNumber($num_tracks) || $num_tracks < 1 || $num_tracks > 99)
 {
-    mc_out(qq|You've entered an invalid number of tracks. Please
+    mc_out(qq|You've entered an invalid number of tracks (| . $num_tracks . qq|). Please
               go back and try again.|);
+    mc_comp("/comp/footer");
     return undef;
 }
 
@@ -52,7 +53,7 @@ if (!defined $ar->LoadFromId())
     return undef;
 }
 
-@albums = $ar->GetAlbums() if ($ARGS{artist} != ModDefs::VARTIST_ID);
+@albums = $ar->GetAlbums(0, 1) if ($ARGS{artist} != ModDefs::VARTIST_ID);
 if (scalar @albums > 0)
 {
     my $album;

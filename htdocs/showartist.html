@@ -139,8 +139,11 @@ else
     }
     else
     {
+        my $t = Benchmark::Timer->new(skip => 0);
+       
+        $t->start('start');
 
-        @albums = $artist->GetAlbums();
+        @albums = $artist->GetAlbums(0, 1);
         if (scalar(@albums) == 0)
         {
             mc_out("<center>This artist has no albums.<br>");
@@ -261,7 +264,9 @@ else
                 <%perl>
             }
         }
-
+        $t->stop;
+        print STDERR "Show album page: \n";
+        $t->report;
     }
 }
 

@@ -365,15 +365,24 @@ sub GetArtistDisplayList
 # also returned by this query. Use SetId() to set the id of artist
 sub GetAlbums
 {
-   my ($this, $novartist) = @_;
-   my (@albums, $sql, @row, $album);
+   my ($this, $novartist, $loadmeta) = @_;
+   my (@albums, $sql, @row, $album, $query);
 
    # First, pull in the single artist albums
    $sql = Sql->new($this->{DBH});
-   if ($sql->Select(qq/select id, name, modpending, GID, attributes 
-                         from Album 
-                        where artist=$this->{id} 
-                     order by upper(name), name/))
+   if (defined $loadmeta && $loadmeta)
+   {
+       $query = qq/select album.id, name, modpending, GID, attributes, tracks, discids, trmids 
+                     from Album, Albummeta 
+                    where artist=$this->{id} and albummeta.id = album.id/;
+   }
+   else
+   {
+       $query = qq/select album.id, name, modpending, GID, attributes 
+                     from Album 
+                    where artist=$this->{id}/;
+   }
+   if ($sql->Select($query))
    {
         while(@row = $sql->NextRow)
         {
@@ -385,6 +394,14 @@ sub GetAlbums
             $album->SetMBId($row[3]);
             $row[4] =~ s/^\{(.*)\}$/$1/;
             $album->{attrs} = [ split /,/, $row[4] ];
+
+            if (defined $loadmeta && $loadmeta)
+            {
+                $album->{trackcount} = $row[5];
+                $album->{discidcount} = $row[6];
+                $album->{trmidcount} = $row[7];
+            }
+
             push @albums, $album;
             undef $album;
         }
@@ -394,13 +411,29 @@ sub GetAlbums
    return @albums if (defined $novartist && $novartist);
 
    # then, pull in the multiple artist albums
-   if ($sql->Select(qq/select id, name, modpending, gid, attributes 
-                         from album 
+   if (defined $loadmeta && $loadmeta)
+   {
+       $query = qq/select album.id, name, modpending, GID, attributes, tracks, discids, trmids 
+                         from album, albummeta 
                         where album.artist = / . ModDefs::VARTIST_ID .qq/ and 
-                              id in (select distinct albumjoin.album 
+                              albummeta.id = album.id and
+                              album.id in (select distinct albumjoin.album 
                                        from albumjoin, track 
                                       where track.artist = $this->{id} and 
-                                            albumjoin.track = track.id)/))
+                                            albumjoin.track = track.id)/;
+   }
+   else
+   {
+       $query = qq/select album.id, name, modpending, GID, attributes
+                         from album
+                        where album.artist = / . ModDefs::VARTIST_ID .qq/ and 
+                              album.id in (select distinct albumjoin.album 
+                                       from albumjoin, track 
+                                      where track.artist = $this->{id} and 
+                                            albumjoin.track = track.id)/;
+   }
+
+   if ($sql->Select($query))
    {
         while(@row = $sql->NextRow)
         {
@@ -412,6 +445,14 @@ sub GetAlbums
             $album->SetMBId($row[3]);
             $row[4] =~ s/^\{(.*)\}$/$1/;
             $album->{attrs} = [ split /,/, $row[4] ];
+
+            if (defined $loadmeta && $loadmeta)
+            {
+                $album->{trackcount} = $row[5];
+                $album->{discidcount} = $row[6];
+                $album->{trmidcount} = $row[7];
+            }
+
             push @albums, $album;
             undef $album;
         }

@@ -230,6 +230,16 @@ sub Remove
     return 1;
 }
 
+sub LoadAlbumMetadata
+{
+   my ($this) = @_;
+   my ($sql);
+
+   $sql = Sql->new($this->{DBH});
+   ($this->{trackcount}, $this->{discidcount}, $this->{trmidcount}) = 
+         $sql->GetSingleRow("albummeta", ["tracks, discids, trmids"], ["id", $this->{id}]);
+}
+
 # Given an album, query the number of tracks present in this album
 # Returns the number of tracks or undef on error
 sub GetTrackCount
@@ -240,14 +250,27 @@ sub GetTrackCount
    return undef if (!exists $this->{id});
    if (!exists $this->{trackcount} || !defined $this->{trackcount})
    {
-        $sql = Sql->new($this->{DBH});
-        ($this->{trackcount}) = $sql->GetSingleRow("AlbumJoin", 
-                                  ["count(*)"], ["album", $this->{id}]);
+       $this->LoadAlbumMetadata();
    }
 
    return $this->{trackcount};
 }
 
+# Given an album, query the number of discids present in this album
+# Returns the number of discids or undef on error
+sub GetDiscidCount
+{
+   my ($this) = @_;
+   my ($sql);
+
+   return undef if (!exists $this->{id});
+   if (!exists $this->{discidcount} || !defined $this->{discidcount})
+   {
+       $this->LoadAlbumMetadata();
+   }
+
+   return $this->{discidcount};
+}
 # Returns the number of TRM ids for this album or undef on error
 sub GetTRMCount
 {
@@ -255,16 +278,12 @@ sub GetTRMCount
    my ($sql);
 
    return undef if (!exists $this->{id});
-   if (!exists $this->{trmcount} || !defined $this->{trmcount})
+   if (!exists $this->{trmidcount} || !defined $this->{trmidcount})
    {
-        $sql = Sql->new($this->{DBH});
-        ($this->{trmcount}) = $sql->GetSingleRow("AlbumJoin, TRMJoin", 
-                                  ["count(*)"], 
-                                  ["album", $this->{id}, 
-                                   "AlbumJoin.track", "TRMJoin.track"]);
+       $this->LoadAlbumMetadata();
    }
 
-   return $this->{trmcount};
+   return $this->{trmidcount};
 }
 
 # This function takes a track id and returns an array of album ids
@@ -314,8 +333,8 @@ sub GetAlbumIdsFromAlbumJoinId
 # accessor functions.
 sub LoadFromId
 {
-   my ($this) = @_;
-   my ($sth, $sql, @row);
+   my ($this, $loadmeta) = @_;
+   my ($sth, $sql, @row, @where);
 
    if (!defined $this->GetId() && !defined $this->GetMBId())
    {
@@ -325,15 +344,22 @@ sub LoadFromId
    $sql = Sql->new($this->{DBH});
    if (defined $this->GetId())
    {
-        @row = $sql->GetSingleRow("Album", [qw(id name GID modpending 
-                                               artist attributes)],
-                                  ["id", $this->{id}]);
+        @where = ("album.id", $this->{id});
    }
    else
    {
-        @row = $sql->GetSingleRow("Album", [qw(id name GID modpending 
-                                               artist attributes)],
-                                  ["gid", $sql->Quote($this->GetMBId())]);
+        @where = ("gid", $sql->Quote($this->GetMBId()));
+   }
+   if (defined $loadmeta && $loadmeta)
+   {
+        @row = $sql->GetSingleRow("Album, Albummeta", [qw(album.id name GID modpending 
+                                  artist attributes tracks discids trmids)],
+                                  [ @where, "album.id", "albummeta.id" ]);
+   }
+   else
+   {
+        @row = $sql->GetSingleRow("Album", [qw(album.id name GID modpending artist attributes)],
+                                  \@where);
    }
 
    if (defined $row[0])
@@ -345,6 +371,13 @@ sub LoadFromId
         $this->{artist} = $row[4]; 
         $row[5] =~ s/^\{(.*)\}$/$1/;
         $this->{attrs} = [ split /,/, $row[5] ];
+        if (defined $loadmeta && $loadmeta)
+        {
+            $this->{trackcount} = $row[6];
+            $this->{discidcount} = $row[7];
+            $this->{trmidcount} = $row[8];
+        }
+
         return 1;
    }
    return undef;

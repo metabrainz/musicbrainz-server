@@ -6,12 +6,12 @@ $nomod=>0
 
 <%perl>
 
-my ($count, $trackcount, $trmids, @ids, $di, @attrs, $attr, $modpend, $nonalbum);
+my ($count, $trackcount, $trmids, $discids, $di, 
+    @attrs, $attr, $modpend, $nonalbum);
 
 $trackcount = $album->GetTrackCount();
 $trmids = $album->GetTRMCount();
-$di = Discid->new($album->{DBH});
-@ids = $di->GetDiscidFromAlbum($album->GetId());
+$discids = $album->GetDiscidCount();
 @attrs = $album->GetAttributes();
 $modpend = $album->GetAttributeModPending();
 $nonalbum = $album->IsNonAlbumTracks();
@@ -25,11 +25,11 @@ $nonalbum = $album->IsNonAlbumTracks();
          width="13" height="13"
          title="This album has <% $trackcount %> Tracks">
 
-% if (scalar(@ids) > 0) {
-    &nbsp; &nbsp; &nbsp;<% scalar(@ids) %>
+% if ($discids > 0) {
+    &nbsp; &nbsp; &nbsp;<% $discids %>
     <img src="/images/cd.gif" align="middle" alt="CD" 
                width="13" height="13"
-               title="This album has <% scalar(@ids) %> CD Index Ids">
+               title="This album has <% $discids %> CD Index Ids">
 % }
 % if ($trmids > 0) {
     &nbsp; &nbsp; &nbsp;<% $trmids %>

@@ -8,7 +8,7 @@ declare
 
 begin
 
-   drop table albummeta;
+   --drop table albummeta;
 
    raise notice ''Counting tracks'';
    create table albummeta_tracks as select album.id, count(albumjoin.album) 
@@ -30,10 +30,12 @@ begin
                 albummeta_tracks.id = albummeta_trmids.id;
 
    -- consider changing the counts to default to 0
+   create unique index albummeta_id on albummeta(id);
 
    drop table albummeta_tracks;
    drop table albummeta_discids;
    drop table albummeta_trmids;
+
 
    return 1;
 

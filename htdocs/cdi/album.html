@@ -30,7 +30,7 @@ else
     mc_comp("/comp/artisttitle", artistname=>($ar->GetName()), 
             artist=>$ar, modpending=>0, nomod=>1);
 
-    @albumlist = sort { $a->{name} cmp $b->{name} } $ar->GetAlbums();
+    @albumlist = sort { $a->{name} cmp $b->{name} } $ar->GetAlbums(0, 1);
     for(;;)
     {
         my ($trackid, $name, $seq, $num_tracks, $albumname);

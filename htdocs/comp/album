@@ -97,5 +97,5 @@ mc_out('<tr bgcolor="white"><td bgcolor="#f0efff" colspan="' . $colspan . '">');
 mc_comp("/comp/albumsummary", album=>$album, artist=>$artist);
 mc_out('</td></tr>');
 mc_comp("/comp/albumend", album=>$album, artist=>$artist, 
-                          numtracks=>$i, nomod=>$nomod, showids=>$showids);
+                          nomod=>$nomod, showids=>$showids);
 </%perl>
