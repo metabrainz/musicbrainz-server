@@ -57,6 +57,9 @@ sub CheckAttributes
 # 'Type' (album type)
 # 'Name' (lowercase)
 # 'Status' (release status)
+# track count
+# TRM count
+# row id
 
 sub SortAlbums
 {
@@ -71,6 +74,12 @@ sub SortAlbums
 	($a->{_name_sort_} cmp $b->{_name_sort_})
 	or
 	($a->{_attr_status} <=> $b->{_attr_status})
+	or
+	($a->{trackcount} cmp $b->{trackcount})
+	or
+	($b->{trmidcount} cmp $a->{trmidcount})
+	or
+	($a->GetId cmp $b->GetId)
 }
 
     $m->comp("/comp/sidebar", title=>'',
