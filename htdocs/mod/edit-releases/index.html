@@ -1,0 +1,80 @@
+%# vi: set ts=2 sw=2 ft=mason :
+<%args>
+$album => undef
+</%args>
+<%perl>
+
+$m->comp("/comp/checkloggedin", 1, 1)
+	or return;
+
+MusicBrainz::IsNonNegInteger($album) && $album
+	or return $m->comp("/comp/badargs", 1, 1);
+
+my $mb = $m->comp("/comp/dblogin");
+
+my $al = Album->new($mb->{DBH});
+$al->SetId($album);
+$al->LoadFromId
+	or return $m->comp(
+		"/comp/error",
+		"Album #$album does not exist",
+		1, 1,
+	);
+
+$al->IsNonAlbumTracks
+	and return $m->comp(
+		"/comp/error",
+		"The 'Edit Releases' feature cannot edit '".&Album::NONALBUMTRACKS_NAME."'",
+		1, 1,
+	);
+
+my $ar = Artist->new($mb->{DBH});
+$ar->SetId($al->GetArtist);
+$ar->LoadFromId
+	or return $m->comp(
+		"/comp/error",
+		"Artist does not exist",
+		1, 1,
+	);
+
+my @r = $al->Releases;
+
+@r = map {
+	my @ymd = $_->GetYMD;
+	+{
+		id				=> $_->GetId,
+		country		=> $_->GetCountry,
+		year 			=> $ymd[0],
+		month 		=> $ymd[1],
+		day				=> $ymd[2],
+		sortdate	=> $_->GetSortDate,
+		orig_country=> $_->GetCountry,
+		orig_year => $ymd[0],
+		orig_month=> $ymd[1],
+		orig_day	=> $ymd[2],
+		modpending=> $_->GetModPending,
+	},
+} @r;
+
+my %edit = (
+	id				=> $al->GetId,
+	name			=> $al->GetName,
+	artist		=> {
+		id				=> $ar->GetId,
+		name			=> $ar->GetName,
+		sortname	=> $ar->GetName,
+	},
+	releases		=> \@r,
+);
+
+$session{editreleases} = \%edit;
+
+# Ask for the list of countries - this causes it to be read and cached now
+delete $session{countries_menu};
+() = $m->comp("countries-menu.inc", $mb->{DBH});
+
+#$m->comp("/user/debug.html");
+
+return $m->comp("/comp/redirect", "/mod/edit-releases/editreleases.html");
+
+</%perl>

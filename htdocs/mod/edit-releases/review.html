@@ -1,0 +1,133 @@
+%# vi: set ts=4 sw=4 ft=mason :
+<%perl>
+
+my $edit = $session{"editreleases"}
+	or return $m->comp("/comp/redirect", "/search.html");
+
+my $mb = $m->comp("/comp/dblogin");
+my $changes = 0;
+
+my $al = Album->new($mb->{DBH});
+$al->SetId($edit->{"id"});
+$al->LoadFromId
+	or return $m->comp(
+		"/comp/error",
+		"Album not found in the database.",
+		1, 1,
+	);
+
+my $ar = Artist->new($mb->{DBH});
+$ar->SetId($al->GetArtist);
+$ar->LoadFromId
+	or return $m->comp(
+		"/comp/error",
+		"Artist not found in the database.",
+		1, 1,
+	);
+
+</%perl>
+<& /comp/sidebar, title => "Releases Editor - Review Changes" &>
+
+<h2>Changes</h2>
+
+<table class="SpacedColumns TopAlignCells">
+	<tr>
+		<th>Change</th>
+		<th>Old</th>
+		<th>New</th>
+	</tr>
+
+<%perl>
+
+my $countries_menu = $m->comp("countries-menu.inc");
+my %country_name = map { $_->[0], $_->[1] } @$countries_menu;
+
+for my $rel (@{ $edit->{releases} })
+{
+	if ($rel->{"new"})
+	{
+		</%perl>
+		<tr>
+			<td>Add Release</td>
+			<td></td>
+			<td>Date: <& /comp/releasedate, @$rel{qw( year month day )} &>
+				<br>Country: <% $country_name{$rel->{country}} || "?" %></td>
+		</tr>
+		<%perl>
+		++$changes;
+		next;
+	}
+		
+	if ($rel->{'delete'})
+	{
+		</%perl>
+		<tr>
+			<td>Remove Release</td>
+			<td>Date: <& /comp/releasedate, @$rel{qw( orig_year orig_month orig_day )} &>
+				<br>Country: <% $country_name{$rel->{orig_country}} || "?" %></td>
+			<td></td>
+		</tr>
+		<%perl>
+		++$changes;
+		next;
+	}
+
+	next unless grep {
+		$rel->{$_} != $rel->{"orig_".$_}
+	} qw( year month day country );
+
+	{
+		</%perl>
+		<tr>
+			<td>Edit Release</td>
+			<td>Date: <& /comp/releasedate, @$rel{qw( orig_year orig_month orig_day )} &>
+				<br>Country: <% $country_name{$rel->{orig_country}} || "?" %></td>
+			<td>Date: <& /comp/releasedate, @$rel{qw( year month day )} &>
+				<br>Country: <% $country_name{$rel->{country}} || "?" %></td>
+		</tr>
+		<%perl>
+		++$changes;
+	}
+}
+
+</%perl>
+
+% if (not $changes) {
+	<tr><td colspan="3">You have not made any changes!</td></tr>
+% }
+
+</table>
+
+% if ($changes) {
+%# TODO preview
+% }
+
+<hr style="clear: both; margin: 2em 0">
+
+<form method="get" action="editreleases.html"
+	style="float: left; margin-right: 2em">
+	<input type="submit" value="Keep Editing">
+</form>
+<form method="get" action="index.html"
+	style="float: left; margin-right: 2em">
+	<input type="hidden" name="album" value="<% $edit->{'id'} %>">
+	<input type="submit" value="Start Over">
+</form>
+<form method="get" action="cancel.html"
+	style="float: left; margin-right: 2em">
+	<input type="submit" value="Abandon">
+</form>
+
+% if ($changes) {
+<form method="post" action="enter.html">
+	<input type="submit" value="Enter Moderations">
+	<p>
+		If entering moderations, enter moderation note (optional):
+	</p>
+
+	<p>
+		<textarea name="notetext" rows="3" cols="60"></textarea>
+	</p>
+% }
+
+<& /comp/footer &>

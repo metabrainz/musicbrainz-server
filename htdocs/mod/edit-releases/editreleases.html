@@ -1,0 +1,217 @@
+%# vi: set ts=4 sw=4 ft=mason :
+<%perl>
+
+my $countries_menu = $m->comp("countries-menu.inc");
+my $countries_menu_2 = [ [ "", "[select a country]" ], @$countries_menu ];
+
+my $edit = $session{"editreleases"}
+	or return $m->comp("/comp/redirect", "/search.html");
+
+while (my ($k, $v) = each %ARGS)
+{
+	delete $ARGS{$k}, next
+		unless MusicBrainz::IsNonNegInteger($v);
+}
+
+# Update releases
+
+my $releases = $edit->{"releases"};
+for my $rel (@$releases)
+{
+	if (%ARGS)
+	{
+		$ARGS{"releasedel".$rel->{id}}
+			? $rel->{"delete"} = 1
+			: delete $rel->{"delete"};
+		next if $rel->{"delete"};
+	}
+
+	# Force all the fields to either "", an integer, or "X" (invalid)
+	my ($y, $mon, $d, $c) = map {
+		my $v = $ARGS{$_.$rel->{id}};
+		$v = "" if not defined $v;
+		$v = "X" if $v ne ""
+			and not MusicBrainz::IsNonNegInteger($v);
+		$v;
+	} qw( y m d country );
+
+	# Check the date
+	if ($y >= 1900 and $y<= 2100)
+	{
+		if ($mon and $d)
+		{
+			# TODO check $y,$m,$d is a valid date
+			@$rel{qw( year month day )} = ($y, $mon, $d);
+		} elsif ($mon and $mon >= 1 and $mon <= 12) {
+			@$rel{qw( year month day )} = ($y, $mon, "");
+		} else {
+			@$rel{qw( year month day )} = ($y, "", "");
+		}
+	}
+
+	# Check the country
+	$rel->{country} = $c
+		if grep { $_->[0] == $c } @$countries_menu;
+	
+	delete $ARGS{'continue'}
+		if not $rel->{country}
+		or not $rel->{year};
+}
+
+@$releases = grep {
+	not $_->{'new'} or not $_->{"delete"}
+} @$releases;
+
+@$releases = sort {
+	$a->{year} <=> $b->{year}
+	or
+	$a->{month} <=> $b->{month}
+	or
+	$a->{day} <=> $b->{day}
+	or
+	$a->{country} <=> $b->{country}
+} @$releases;
+
+my $focusfield;
+
+if ($ARGS{"AddARelease"})
+{
+	my $new_id = 0;
+	for (@$releases)
+	{
+		$new_id = $_->{id} if $_->{id} < $new_id;
+	}
+	--$new_id;
+
+	my @localtime = localtime;
+
+	push @$releases, {
+		new => 1,
+		id => $new_id,
+		country => UserPreference::get('default_country'),
+		year => $localtime[5]+1900,
+		month => $localtime[4]+1,
+		day => $localtime[3],
+	};
+	$focusfield = "country".$new_id;
+
+	delete $ARGS{'continue'};
+}
+
+$focusfield ||= "y".$releases->[0]{id} if @$releases;
+$focusfield ||= "AddARelease";
+
+$session{"editreleases"} = $edit; # write
+
+return $m->comp("/comp/redirect", "/mod/edit-releases/review.html")
+	if $ARGS{"continue"};
+
+my $ar = Artist->new(undef);
+
+$ar->SetId($edit->{"artist"}{"id"});
+$ar->SetName($edit->{"artist"}{"name"});
+$ar->SetSortName($edit->{"artist"}{"sortname"});
+
+</%perl>
+<& /comp/sidebar, title => "Album Editor - Edit Releases" &>
+
+<& /comp/stylemenu &>
+
+<p>
+	You can edit the release information for this album here.&nbsp;
+	Each release has a <em>date</em> and a country.&nbsp;
+	A <em>date</em> can be just a year (four digits please), or a year
+	and a month, or a year and month and day.&nbsp;
+	To remove releases, tick the boxes on the right.&nbsp;
+	To add a release, click the "Add a Release" box and submit the form;
+	a new, empty release will appear, defaulting to today's date.&nbsp;
+</p>
+
+<p>
+	When you click "Continue" you'll be shown what changes you've made.&nbsp;
+	Your changes will be entered as a single moderation.&nbsp;
+	If your moderation includes <em>only additions</em> (no changes, no deletes) then
+	it will be auto-moderated.&nbsp; If you're an automoderator you can
+	automoderate changes too.
+</p>
+
+% if (grep { $_->{modpending} } @$releases) {
+<& /comp/modnotice &>
+% }
+
+<script type="text/javascript" src="validate.js"></script>
+
+<form method="post" action="/mod/edit-releases/editreleases.html"
+	id="EditReleasesForm"
+	onsubmit="return CheckEditReleasesForm(this)">
+
+	<table class="SpacedColumns TopAlignCells">
+		<tr>
+			<td>Artist:</td>
+			<td colspan="3"><a href="/showartist.html?artistid=<% $ar->GetId %>"><% $ar->GetName %></a></td>
+			<td></td>
+		</tr>
+		<tr>
+			<td>Album:</td>
+			<td colspan="3"><a href="/showalbum.html?albumid=<% $edit->{'id'} %>"><% $edit->{'name'} %></a></td>
+			<td></td>
+		</tr>
+		<tr><td>&nbsp;</td></tr>
+		<tr>
+			<td>Year</td>
+			<td>Month</td>
+			<td>Day</td>
+			<td>Country</td>
+			<td align="center"><img src="/images/remove.gif"
+				title="Tick the boxes above to remove releases"></td>
+		</tr>
+% for my $rel (@$releases) {
+		<tr <% $rel->{modpending} ? "class='mp'" : "" %>>
+			<td nowrap>
+				<input type="text" name="y<% $rel->{"id"} %>"
+				value="<% $rel->{year}||'' %>" size="4" maxlength="4"
+				style="text-align: center"></td>
+			<td nowrap>
+				<input type="text" name="m<% $rel->{"id"} %>"
+				value="<% $rel->{month}||'' %>" size="2" maxlength="2"
+				style="text-align: center"></td>
+			<td nowrap>
+				<input type="text" name="d<% $rel->{"id"} %>"
+				value="<% $rel->{day}||'' %>" size="2" maxlength="2"
+				style="text-align: center"></td>
+			<td><select name="country<% $rel->{"id"} %>"
+				><& /comp/options, ($rel->{country} ? $countries_menu : $countries_menu_2), $rel->{country}
+					&></select></td>
+			<td align="center"><input type="checkbox" name="releasedel<% $rel->{"id"} %>"
+				value="1" <% $rel->{'delete'} ? "checked" : "" %>
+				title="Remove this release?"></td>
+		</tr>
+% }
+% if (not @$releases) {
+		<tr>
+			<td colspan="5" style="padding: 1em">
+				No release information available.&nbsp;
+				Click "Add a release" and "Continue" to add a release.
+			</td>
+		</tr>
+% }
+		<tr><td>&nbsp;</td></tr>
+		<tr>
+			<td></td>
+			<td colspan="3">
+				<input type="checkbox" name="AddARelease" value="1">
+				Add a release ...
+			</td>
+		</tr>
+		<tr><td>&nbsp;</td></tr>
+		<tr>
+			<td colspan="5" align="center">
+				<input type="submit" value="Continue">
+				<input type="hidden" name="continue" value="1">
+			</td>
+		</tr>
+	</table>
+</form>
+
+<& /comp/movefocus, "EditReleasesForm", $focusfield &>
+<& /comp/footer &>

@@ -1,0 +1,50 @@
+%# vi: set ts=4 sw=4 ft=mason :
+
+<%def .ShowCountryName>
+<%perl>
+my $c = $m->comp("/mod/edit-releases/countries-menu.inc");
+my $name = "?";
+for (@$c) { $name = $_->[1], last if $_->[0] == $_[0] }
+</%perl>
+<% $name %>
+</%def>
+
+<%method ShowPreviousValue>
+% my $self = shift;
+
+% if (@{ $self->{"edits"} }) {
+	<u>Change From</u>
+% for my $t (@{ $self->{"edits"} }) {
+	<br><& /comp/releasedate, $t->{"d"} &> : <& .ShowCountryName, $t->{"c"} &>
+% }
+% }
+
+% if (@{ $self->{"removes"} }) {
+	<u>Remove</u>
+% for my $t (@{ $self->{"removes"} }) {
+	<br><& /comp/releasedate, $t->{"d"} &> : <& .ShowCountryName, $t->{"c"} &>
+% }
+% }
+
+</%method>
+
+<%method ShowNewValue>
+% my $self = shift;
+
+% if (@{ $self->{"edits"} }) {
+	<u>Change To</u>
+% for my $t (@{ $self->{"edits"} }) {
+	<br><& /comp/releasedate, $t->{"nd"} &> : <& .ShowCountryName, $t->{"nc"} &>
+% }
+% }
+
+% if (@{ $self->{"adds"} }) {
+	<u>Add</u>
+% for my $t (@{ $self->{"adds"} }) {
+	<br><& /comp/releasedate, $t->{"d"} &> : <& .ShowCountryName, $t->{"c"} &>
+% }
+% }
+   
+</%method>
+
+%# eof
