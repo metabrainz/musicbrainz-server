@@ -166,20 +166,23 @@ sub GetDiscidFromAlbum
 sub Insert
 {
     my ($this, $id, $album, $toc) = @_;
-    my ($Discidalbum, $sql, $temp, $rowid);
-
     return if (!defined $id || !defined $album || !defined $toc);
 
-    $Discidalbum = $this->GetAlbumFromDiscid($id);
-    if (!defined $Discidalbum)
-    {
-        $sql = Sql->new($this->{DBH});
-        $temp = $sql->Quote($id);
-        $sql->Do(qq|insert into Discid (disc,album,toc,
-                    modpending) values ($temp, $album, '$toc', 0)|); 
+	if (my $Discidalbum = $this->GetAlbumFromDiscid($id))
+	{
+		# Ensure TOC record present
+		$this->_InsertTOC($id, $Discidalbum, $toc);
+		# Nothing added, so return undef.  Mostly this seems not to matter
+		# anyway, since everyone seems to call this sub in void context.
+		return undef;
+	}
 
-        $rowid = $sql->GetLastInsertId("Discid");
-    }
+	my $sql = Sql->new($this->{DBH});
+	$sql->Do(
+		"INSERT INTO discid (disc, album toc) VALUES (?, ?, ?)",
+		$id, $album, $toc,
+	);
+	my $rowid = $sql->GetLastInsertId("discid");
 
     $this->_InsertTOC($id, $album, $toc);
 
