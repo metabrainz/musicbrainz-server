@@ -83,7 +83,7 @@ sub IsValidUUID
 {
     my ($uuid) = @_;
 
-    # 1166c3d4-ddec-4c51-8e77-3cd7d1a2f1aa
+    return 0 if ($uuid eq '00000000-0000-0000-0000-000000000000');
     return 0 if (length($uuid) != 36);
     return 0 if (!($uuid =~ /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/));
 
