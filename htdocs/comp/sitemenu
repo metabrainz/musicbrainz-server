@@ -49,6 +49,7 @@ use Scalar::Util qw( reftype weaken );
 			{ name => "Download",				url => "/tagger/download.html" },
 			{ name => "Tutorial",				url => "/tagger/tutorial.html" },
 			{ name => "FAQ",					url => "/tagger/faq.html" },
+			{ name => "Donate",					url => "/tagger/donate.html" },
 
 			{ url => "/taglookup.html" },
 			{ url => "/tagger/login.html" },

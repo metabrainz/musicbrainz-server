@@ -1,0 +1,53 @@
+<& /comp/sidebar, title=>'April 5th, 2003: MusicBrainz Tagger 0.9.0 Released' &>
+
+<p>
+A new MusicBrainz Tagger has been released. This version fixes many existing
+bugs and adds a couple of new features that round out the tagger a bit:
+
+<pre>
+
+I've made the following changes/fixes/improvements:
+
+ - Fixed problems with writing ID3 and Ogg/Vorbis tags. Even if one file
+   would've caused previous taggers to crash, the new version should
+   keep chugging.
+ - Random 'cannot connect to signature server' bugs should be fixed.
+ - Added a new Web Proxy tab in the preferences that allows you to 
+   override the proxy settings. If you've been getting 'Cannot connect
+   to signature server' bugs, you should set your proxy settings in this
+   tab and try again.
+ - ArtistId, AlbumId and TRM Ids now get written to the music files.
+ - The tagger will check for needed diskspace before writing tags to
+   files. This should hopefully prevent any files from getting 
+   corrupted in case the system runs out of diskspace.
+ - The file open and dir open dialogs now remember the last used path
+ - The tagger will now limit the number of TRMs in one submission to
+   100 TRMs. Once you have collected 100 TRMs the app will prompt you
+   to submit them to the server.
+ - Files that are all silence will get properly ided.
+ - There is a warning dialog to warn the user that files are about
+   to get renamed.
+
+And I've also implemented a couple of new features:
+
+ - The file naming specification allows you to specify subdirectories.
+   So, the tagger can now save into /%artist/%album/%track.mp3
+   formats. If you'd like to take advantage of that, go to the 
+   preferences and hit the 'default' button in the naming tab.
+ - Tagged files can now get moved to a destination directory,
+   with the appropriate subdirectories mentioned above.
+ - If a file has been previously identified, but the file naming
+   specification has changed, or the file does not reside
+   in the proper destination directory, the tagger will move it
+   there for you when you click write tags.
+ - The tagger will now optionally watch a directory for you and
+   any new files that appear in that directory will automatically
+   be placed in the pending tab. This way if you download music
+   files off the net (from legal sources of course) just save them
+   to that directory and the tagger will start crunching those files
+   once they have completed downloading.
+
+Robert Kaye
+
+</pre>
+<& /comp/footer &>
