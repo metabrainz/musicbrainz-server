@@ -580,7 +580,7 @@ sub GetAlbumListFromName
 # The array is empty if there are no tracks or on error
 sub LoadTracks
 {
-	my ($this, $full) = @_;
+	my ($this) = @_;
 	my $sql = Sql->new($this->{DBH});
    
 	if (not wantarray)
@@ -618,16 +618,6 @@ sub LoadTracks
            $track->SetModPending($row[5]);
            $track->SetAlbumJoinModPending($row[6]);
            $track->SetMBId($row[7]);
-
-           if (defined $full && $full)
-           {
-               my $ret = $trm->LoadFull($row[0]);
-               if (defined $ret)
-               {
-                   $track->{"_trms"} = $ret;
-               }
-           }
-
            push @info, $track;
        }
    }
@@ -667,7 +657,7 @@ sub GetTracks
 
 	unless (defined $self->{"_tracks"})
 	{
-		my @tracks = $self->LoadTracks(1);
+		my @tracks = $self->LoadTracks;
 		$self->{"_tracks"} = \@tracks;
 	}
 
