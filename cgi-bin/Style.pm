@@ -115,6 +115,7 @@ sub NormalizeDiscNumbers
     $name = decode "utf-8", $name;
 
     # TODO use [0-9] instead of \d?
+    # TODO undef warnings come from here
     if ($name =~ /^(.*)(\(|\[)\s*(disk|disc|cd)\s*(\d+|one|two|three|four)(\)|\])$/i)
     {
         $new = $1;

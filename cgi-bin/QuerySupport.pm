@@ -715,6 +715,7 @@ sub TrackInfoFromTRMId
            {
                my $sim;
 
+	       # TODO undef warnings here
                $sim = ($id->{sim_track} * .5) +
                       ($id->{sim_album} * .5);
 

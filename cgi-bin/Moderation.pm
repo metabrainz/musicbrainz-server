@@ -1416,6 +1416,8 @@ sub ConvertHashToNew
 {
 	my ($this, $kv) = @_;
 
+	# TODO warnings caused by "undefs" in here - maybe
+	# carp() if there are undefined values?
 	join "", map {
 		"$_=$kv->{$_}\n"
 	} sort keys %$kv;

@@ -548,6 +548,7 @@ sub AlbumTrackSearch
 
            next if ($namesim < .5);
 
+	   # TODO non-numeric warnings from here
            if ($duration > 0 && $row[3] > 0)
            {
                $lensim = 1 - (int(abs($duration - $row[3]) / 2000) * .25);

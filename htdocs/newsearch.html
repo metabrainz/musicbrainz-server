@@ -16,6 +16,8 @@ if ( defined $table && defined $search)
     my $engine = SearchEngine->new($mb->{DBH});
 	$engine->Table($table);
 
+	# TODO validate $limit
+
 	$engine->Search(
 		query => $search,
 		limit => $limit,
