@@ -27,8 +27,35 @@ sub pc
 	<tr>
 		<th class="StatName">Artists</th>
 		<td class="NumberCell"><% $stats{"count.artist"} %></td>
-		<td></td>
 	</tr>
+	<tr>
+		<th class="StatName">Albums</th>
+		<td class="NumberCell"><% $stats{"count.album"} %></td>
+	</tr>
+	<tr>
+		<th class="StatName">Disc IDs</th>
+		<td class="NumberCell"><% $stats{"count.discid"} %></td>
+	</tr>
+	<tr>
+		<th class="StatName">Tracks</th>
+		<td class="NumberCell"><% $stats{"count.track"} %></td>
+	</tr>
+	<tr>
+		<th class="StatName">TRMs</th>
+		<td class="NumberCell"><% $stats{"count.trm"} %></td>
+	</tr>
+	<tr>
+		<th class="StatName">Moderators</th>
+		<td class="NumberCell"><% $stats{"count.moderator"} %></td>
+	</tr>
+</table>
+<& /comp/tableend &>
+
+<& /comp/tablebegin, title=>'Albums', gattrs=>$gattrs &>
+<table class="StatsTable" style="width: 100%">
+	<col>
+	<col style="width: 6em">
+	<col style="width: 4em">
 	<tr>
 		<th class="StatName">Albums</th>
 		<td class="NumberCell"><% $stats{"count.album"} %></td>
@@ -44,39 +71,22 @@ sub pc
 		<td class="NumberCell"><% $stats{"count.album.nonvarious"} %></td>
 		<td class="NumberCell"><% pc(@stats{qw( count.album.nonvarious count.album )}) %></td>
 	</tr>
-	<tr>
-		<th class="StatName">Tracks</th>
-		<td class="NumberCell"><% $stats{"count.track"} %></td>
-		<td></td>
-	</tr>
-	<tr>
-		<th class="StatName">Moderators</th>
-		<td class="NumberCell"><% $stats{"count.moderator"} %></td>
-		<td></td>
-	</tr>
-	<tr>
-		<th class="StatName">&nbsp; who edited last week</th>
-		<td class="NumberCell"><% $stats{"count.moderator.editlastweek"} %></td>
-		<td class="NumberCell"><% pc(@stats{qw( count.moderator.editlastweek count.moderator )}) %></td>
-	</tr>
-	<tr>
-		<th class="StatName">&nbsp; who voted last week</th>
-		<td class="NumberCell"><% $stats{"count.moderator.votelastweek"} %></td>
-		<td class="NumberCell"><% pc(@stats{qw( count.moderator.votelastweek count.moderator )}) %></td>
-	</tr>
-	<tr>
-		<th class="StatName">&nbsp; active last week</th>
-		<td class="NumberCell"><% $stats{"count.moderator.activelastweek"} %></td>
-		<td class="NumberCell"><% pc(@stats{qw( count.moderator.activelastweek count.moderator )}) %></td>
-	</tr>
 </table>
 <& /comp/tableend &>
 
 <& /comp/tablebegin, title=>'Disc Identifiers', gattrs=>$gattrs &>
 <table class="StatsTable" style="width: 100%">
+	<col>
+	<col style="width: 6em">
+	<col style="width: 4em">
 	<tr>
 		<th class="StatName">Disc IDs</th>
 		<td class="NumberCell"><% $stats{"count.discid"} %></td>
+		<td></td>
+	</tr>
+	<tr>
+		<th class="StatName">Albums</th>
+		<td class="NumberCell"><% $stats{"count.album"} %></td>
 		<td></td>
 	</tr>
 	<tr>
@@ -101,9 +111,12 @@ sub pc
 
 <& /comp/tablebegin, title=>'Track Identifiers', gattrs=>$gattrs &>
 <table class="StatsTable" style="width: 100%">
+	<col>
+	<col style="width: 6em">
+	<col style="width: 4em">
 	<tr>
-		<th class="StatName">TRMs</th>
-		<td class="NumberCell"><% $stats{"count.trm"} %></td>
+		<th class="StatName">Tracks</th>
+		<td class="NumberCell"><% $stats{"count.track"} %></td>
 		<td></td>
 	</tr>
 	<tr>
@@ -128,13 +141,21 @@ sub pc
 
 <& /comp/tablebegin, title=>'TRM Collisions', gattrs=>$gattrs &>
 <table class="StatsTable" style="width: 100%">
+	<col>
+	<col style="width: 6em">
+	<col style="width: 4em">
 	<tr>
-		<th class="StatName">TRM IDs</th>
+		<th class="StatName">TRMs (on tracks)</th>
+		<td class="NumberCell"><% $stats{"count.trm"} %></td>
+		<td></td>
+	</tr>
+	<tr>
+		<th class="StatName">TRMs (distinct IDs)</th>
 		<td class="NumberCell"><% $stats{"count.trm.ids"} %></td>
 		<td></td>
 	</tr>
 	<tr>
-		<th class="StatName">TRMs which identify exactly one track</th>
+		<th class="StatName">TRM IDs which identify exactly one track</th>
 		<td class="NumberCell"><% $stats{"count.trm.1tracks"} %></td>
 		<td class="NumberCell"><% pc(@stats{qw( count.trm.1tracks count.trm.ids )}) %></td>
 	</tr>
@@ -148,8 +169,39 @@ sub pc
 </table>
 <& /comp/tableend &>
 
+<& /comp/tablebegin, title=>'Moderators', gattrs=>$gattrs &>
+<table class="StatsTable" style="width: 100%">
+	<col>
+	<col style="width: 6em">
+	<col style="width: 4em">
+	<tr>
+		<th class="StatName">Moderators</th>
+		<td class="NumberCell"><% $stats{"count.moderator"} %></td>
+		<td></td>
+	</tr>
+	<tr>
+		<th class="StatName">&nbsp; who edited last week</th>
+		<td class="NumberCell"><% $stats{"count.moderator.editlastweek"} %></td>
+		<td class="NumberCell"><% pc(@stats{qw( count.moderator.editlastweek count.moderator )}) %></td>
+	</tr>
+	<tr>
+		<th class="StatName">&nbsp; who voted last week</th>
+		<td class="NumberCell"><% $stats{"count.moderator.votelastweek"} %></td>
+		<td class="NumberCell"><% pc(@stats{qw( count.moderator.votelastweek count.moderator )}) %></td>
+	</tr>
+	<tr>
+		<th class="StatName">&nbsp; active last week</th>
+		<td class="NumberCell"><% $stats{"count.moderator.activelastweek"} %></td>
+		<td class="NumberCell"><% pc(@stats{qw( count.moderator.activelastweek count.moderator )}) %></td>
+	</tr>
+</table>
+<& /comp/tableend &>
+
 <& /comp/tablebegin, title=>'Moderations', gattrs=>$gattrs &>
 <table class="StatsTable" style="width: 100%">
+	<col>
+	<col style="width: 6em">
+	<col style="width: 4em">
 	<tr>
 		<th class="StatName">Moderations</th>
 		<td class="NumberCell"><% $stats{"count.moderation"} %></td>
@@ -200,6 +252,9 @@ sub pc
 
 <& /comp/tablebegin, title=>'Votes', gattrs=>$gattrs &>
 <table class="StatsTable" style="width: 100%">
+	<col>
+	<col style="width: 6em">
+	<col style="width: 4em">
 	<tr>
 		<th class="StatName">Votes</th>
 		<td class="NumberCell"><% $stats{"count.vote"} %></td>
