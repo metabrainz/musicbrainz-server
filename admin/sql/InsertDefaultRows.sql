@@ -29,3 +29,5 @@ INSERT INTO replication_control VALUES (
 );
 
 COMMIT;
+
+-- vi: set ts=4 sw=4 et :

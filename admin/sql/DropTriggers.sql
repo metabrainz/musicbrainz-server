@@ -1,3 +1,7 @@
+\unset ON_ERROR_STOP
+
+-- TODO order this
+
 DROP TRIGGER a_del_album ON album;
 DROP TRIGGER a_upd_album ON album;
 DROP TRIGGER a_ins_album ON album;

@@ -2,6 +2,8 @@
 
 BEGIN;
 
+-- Alphabetical order
+
 CREATE VIEW moderation_all AS
     SELECT * FROM moderation_open
     UNION ALL

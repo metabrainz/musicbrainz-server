@@ -17,7 +17,7 @@ CREATE TABLE "PendingData" (
     "IsKey" bool NOT NULL,
     "Data" varchar,
     PRIMARY KEY ("SeqId", "IsKey") ,
-    FOREIGN KEY ("SeqId") REFERENCES "Pending" ("SeqId") ON UPDATE CASCADE  ON DELETE CASCADE
+    FOREIGN KEY ("SeqId") REFERENCES "Pending" ("SeqId") ON UPDATE CASCADE ON DELETE CASCADE
 );
 
 COMMIT;

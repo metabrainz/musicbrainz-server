@@ -1,3 +1,7 @@
+\set ON_ERROR_STOP 1
+
+-- Alphabetical order by table
+
 ALTER TABLE album ADD CONSTRAINT album_pkey PRIMARY KEY (id);
 ALTER TABLE albumjoin ADD CONSTRAINT albumjoin_pkey PRIMARY KEY (id);
 ALTER TABLE albummeta ADD CONSTRAINT albummeta_pkey PRIMARY KEY (id);
