@@ -220,26 +220,7 @@ sub Login
 sub Logout
 {
 	my $self = shift;
-
-	my $session = GetSession()
-		or return;
-	my $obj = tied %$session
-		or return;
-
-	$obj->delete;
-	$obj = undef;
-	untie %$session;
-
-	my $cookie = new CGI::Cookie(
-		-name	=> 'AF_SID',
-		-value	=> "",
-		-path	=> '/',
-		-domain	=> &DBDefs::SESSION_DOMAIN,
-	);
-
-	my $r = Apache->request;
-	$r->headers_out->add('Set-Cookie' => $cookie);
-
+	$self->EnsureSessionClosed;
 	$self->ClearPermanentCookie;
 }
 
@@ -825,6 +806,33 @@ sub EnsureSessionOpen
 	$r->headers_out->add('Set-Cookie' => $cookie);
 }
 
+sub EnsureSessionClosed
+{
+	my $session = GetSession()
+		or return;
+	my $obj = tied %$session
+		or return;
+
+	$obj->delete;
+	$obj = undef;
+	untie %$session;
+
+	$_[0]->ClearSessionCookie;
+}
+
+sub ClearSessionCookie
+{
+	my $cookie = new CGI::Cookie(
+		-name	=> 'AF_SID',
+		-value	=> "",
+		-path	=> '/',
+		-domain	=> &DBDefs::SESSION_DOMAIN,
+	);
+
+	my $r = Apache->request;
+	$r->headers_out->add('Set-Cookie' => $cookie);
+}
+
 sub SetSession
 {
 	my ($this, $user, $privs, $uid, $email_nag) = @_;
@@ -853,11 +861,20 @@ sub SetSession
 
 sub SetPermanentCookie
 {
-	my ($this, $username, $password) = @_;
+	my ($this, $username, $password, $only_this_ip) = @_;
+	my $r = Apache->request;
 
-	# There are (will be) multiple formats to this cookie.  This is format #1.
+	# There are (will be) multiple formats to this cookie.  This is format #2.
 	# See TryAutoLogin.
-	my $value = "1\t$username\t$password";
+	my $pass_sha1 = sha1_base64($password . "\t" . &DBDefs::SMTP_SECRET_CHECKSUM);
+	my $expirytime = time() + 86400 * 365;
+
+	my $ipmask = "";
+	$ipmask = $r->connection->remote_ip
+		if $only_this_ip;
+
+	my $value = "2\t$username\t$pass_sha1\t$expirytime\t$ipmask";
+	$value .= "\t" . sha1_base64($value . &DBDefs::SMTP_SECRET_CHECKSUM);
 
 	my $cookie = new CGI::Cookie(
 		-name	=> &PERMANENT_COOKIE_NAME,
@@ -867,7 +884,6 @@ sub SetPermanentCookie
 		-expires=> '+1y',
 	);
 
-	my $r = Apache->request;
 	$r->headers_out->add('Set-Cookie' => $cookie);
 }
 
@@ -896,6 +912,7 @@ sub ClearPermanentCookie
 sub TryAutoLogin
 {
 	my ($self, $cookies) = @_;
+	my $mb;
 
 	# Already logged in?
 	my $session = GetSession();
@@ -912,11 +929,53 @@ sub TryAutoLogin
 	{
 		my ($user, $password);
 
+		my ($my_ip, $ipmask);
+
 		# Format 1: plaintext user + password
 		if ($c->value =~ /^1\t(.*?)\t(.*)$/)
 		{
 			$user = $1;
 			$password = $2;
+		}
+		# Format 2: username, sha1(password + secret), expiry time,
+		# IP address mask, sha1(previous fields + secret)
+		elsif ($c->value =~ /^2\t(.*?)\t(\S+)\t(\d+)\t(\S*)\t(\S+)$/)
+		{
+			($user, my $pass_sha1, my $expiry, $ipmask, my $sha1)
+				= ($1, $2, $3, $4, $5);
+
+			my $correct_sha1 = sha1_base64("2\t$1\t$2\t$3\t$4" . &DBDefs::SMTP_SECRET_CHECKSUM);
+			$delete_cookie = 1, last
+				unless $sha1 eq $correct_sha1;
+
+			$delete_cookie = 1, last
+				if time() > $expiry;
+
+			if ($ipmask)
+			{
+				my $my_ip = $r->connection->remote_ip;
+				$delete_cookie = 1, last
+					unless $my_ip eq $ipmask;
+			}
+
+			# If we were called as a class method, instantiate an object
+			if (not ref $self)
+			{
+				$mb = MusicBrainz->new;
+				$mb->Login;
+				$self = $self->new($mb->{DBH});
+			}
+			my ($correct_password, $userid) = $self->GetUserPasswordAndId($user);
+
+			my $correct_pass_sha1 = sha1_base64($correct_password . "\t" . &DBDefs::SMTP_SECRET_CHECKSUM);
+			$delete_cookie = 1, last
+				unless $pass_sha1 eq $correct_pass_sha1;
+
+			$password = $correct_password;
+		}
+		else
+		{
+			#warn "Didn't recognise permanent cookie format";
 		}
 		# TODO add other formats: e.g. sha1(password), tied to IP, etc
 
@@ -924,11 +983,8 @@ sub TryAutoLogin
 			or $delete_cookie = 1, last;
 
 		# If we were called as a class method, instantiate an object
-		my $mb;
 		if (not ref $self)
 		{
-			# Note: $mb declared outside this block, so leaving this block
-			# doesn't disconnect us.
 			$mb = MusicBrainz->new;
 			$mb->Login;
 			$self = $self->new($mb->{DBH});
@@ -940,6 +996,8 @@ sub TryAutoLogin
 			or $delete_cookie = 1, last;
 
         $self->SetSession($username, $privs, $uid, !$email || $confirm);
+		my $session = GetSession();
+		$session->{'ipmask'} = $ipmask;
 	}
 
 	# If the cookie proved invalid, we now delete it
