@@ -1,91 +1,110 @@
 -- Adjust this setting to control where the objects get created.
 SET search_path = public;
 
-SET autocommit TO 'on';
+\set ON_ERROR_STOP 1
 
-CREATE TRIGGER "a_idu_album" 
+BEGIN;
+
+CREATE TRIGGER "reptg_album" 
 AFTER INSERT OR DELETE OR UPDATE ON "album"
 FOR EACH ROW EXECUTE PROCEDURE "recordchange" ();
 
-CREATE TRIGGER "a_idu_albumjoin" 
+CREATE TRIGGER "reptg_album_amazon_asin" 
+AFTER INSERT OR DELETE OR UPDATE ON "album_amazon_asin"
+FOR EACH ROW EXECUTE PROCEDURE "recordchange" ();
+
+CREATE TRIGGER "reptg_albumjoin" 
 AFTER INSERT OR DELETE OR UPDATE ON "albumjoin"
 FOR EACH ROW EXECUTE PROCEDURE "recordchange" ();
 
-CREATE TRIGGER "a_idu_albummeta" 
+CREATE TRIGGER "reptg_albummeta" 
 AFTER INSERT OR DELETE OR UPDATE ON "albummeta"
 FOR EACH ROW EXECUTE PROCEDURE "recordchange" ();
 
-CREATE TRIGGER "a_idu_albumwords" 
+CREATE TRIGGER "reptg_albumwords" 
 AFTER INSERT OR DELETE OR UPDATE ON "albumwords"
 FOR EACH ROW EXECUTE PROCEDURE "recordchange" ();
 
-CREATE TRIGGER "a_idu_artist" 
+CREATE TRIGGER "reptg_artist" 
 AFTER INSERT OR DELETE OR UPDATE ON "artist"
 FOR EACH ROW EXECUTE PROCEDURE "recordchange" ();
 
-CREATE TRIGGER "a_idu_artistwords" 
-AFTER INSERT OR DELETE OR UPDATE ON "artistwords"
-FOR EACH ROW EXECUTE PROCEDURE "recordchange" ();
-
-CREATE TRIGGER "a_idu_artist_relation" 
+CREATE TRIGGER "reptg_artist_relation" 
 AFTER INSERT OR DELETE OR UPDATE ON "artist_relation"
 FOR EACH ROW EXECUTE PROCEDURE "recordchange" ();
 
-CREATE TRIGGER "a_idu_artistalias" 
+CREATE TRIGGER "reptg_artistalias" 
 AFTER INSERT OR DELETE OR UPDATE ON "artistalias"
 FOR EACH ROW EXECUTE PROCEDURE "recordchange" ();
 
-CREATE TRIGGER "a_idu_clientversion" 
+CREATE TRIGGER "reptg_artistwords" 
+AFTER INSERT OR DELETE OR UPDATE ON "artistwords"
+FOR EACH ROW EXECUTE PROCEDURE "recordchange" ();
+
+CREATE TRIGGER "reptg_clientversion" 
 AFTER INSERT OR DELETE OR UPDATE ON "clientversion"
 FOR EACH ROW EXECUTE PROCEDURE "recordchange" ();
 
-CREATE TRIGGER "a_idu_country" 
+CREATE TRIGGER "reptg_country" 
 AFTER INSERT OR DELETE OR UPDATE ON "country"
 FOR EACH ROW EXECUTE PROCEDURE "recordchange" ();
 
--- Not replicated: currentstat
+CREATE TRIGGER "reptg_currentstat" 
+AFTER INSERT OR DELETE OR UPDATE ON "currentstat"
+FOR EACH ROW EXECUTE PROCEDURE "recordchange" ();
 
-CREATE TRIGGER "a_idu_discid" 
+CREATE TRIGGER "reptg_discid" 
 AFTER INSERT OR DELETE OR UPDATE ON "discid"
 FOR EACH ROW EXECUTE PROCEDURE "recordchange" ();
 
--- Not replicated: historicalstat
+CREATE TRIGGER "reptg_historicalstat" 
+AFTER INSERT OR DELETE OR UPDATE ON "historicalstat"
+FOR EACH ROW EXECUTE PROCEDURE "recordchange" ();
+
 -- Not replicated: moderation_open, moderation_note_open
 -- Not replicated: moderation_closed, moderation_note_closed
 -- Not replicated: moderator
 -- Not replicated: moderator_preference
 -- Not replicated: moderator_subscribe_artist
 
-CREATE TRIGGER "a_idu_release" 
+CREATE TRIGGER "reptg_release" 
 AFTER INSERT OR DELETE OR UPDATE ON "release"
 FOR EACH ROW EXECUTE PROCEDURE "recordchange" ();
 
--- Not replicated: stats
+CREATE TRIGGER "reptg_replication_control" 
+AFTER INSERT OR DELETE OR UPDATE ON "replication_control"
+FOR EACH ROW EXECUTE PROCEDURE "recordchange" ();
 
-CREATE TRIGGER "a_idu_toc" 
+CREATE TRIGGER "reptg_stats" 
+AFTER INSERT OR DELETE OR UPDATE ON "stats"
+FOR EACH ROW EXECUTE PROCEDURE "recordchange" ();
+
+CREATE TRIGGER "reptg_toc" 
 AFTER INSERT OR DELETE OR UPDATE ON "toc"
 FOR EACH ROW EXECUTE PROCEDURE "recordchange" ();
 
-CREATE TRIGGER "a_idu_track" 
+CREATE TRIGGER "reptg_track" 
 AFTER INSERT OR DELETE OR UPDATE ON "track"
 FOR EACH ROW EXECUTE PROCEDURE "recordchange" ();
 
-CREATE TRIGGER "a_idu_trackwords" 
+CREATE TRIGGER "reptg_trackwords" 
 AFTER INSERT OR DELETE OR UPDATE ON "trackwords"
 FOR EACH ROW EXECUTE PROCEDURE "recordchange" ();
 
-CREATE TRIGGER "a_idu_trm" 
+CREATE TRIGGER "reptg_trm" 
 AFTER INSERT OR DELETE OR UPDATE ON "trm"
 FOR EACH ROW EXECUTE PROCEDURE "recordchange" ();
 
-CREATE TRIGGER "a_idu_trmjoin" 
+CREATE TRIGGER "reptg_trmjoin" 
 AFTER INSERT OR DELETE OR UPDATE ON "trmjoin"
 FOR EACH ROW EXECUTE PROCEDURE "recordchange" ();
 
 -- Not replicated: vote_closed, vote_open
 
-CREATE TRIGGER "a_idu_wordlist" 
+CREATE TRIGGER "reptg_wordlist" 
 AFTER INSERT OR DELETE OR UPDATE ON "wordlist"
 FOR EACH ROW EXECUTE PROCEDURE "recordchange" ();
+
+COMMIT;
 
 -- vi: set ts=4 sw=4 et :
