@@ -1,0 +1,65 @@
+Install instructions for server side CD Index scripts
+-----------------------------------------------------
+
+Requirements:
+=============
+
+The CD Index requires the following items:
+
+1) An SQL server. The code has been tested with MySQL. The scripts use the
+   perl DBI interface to talk to the server. It should work with other
+   servers as well.
+2) A database and user dedicated to the cd index. These scripts use
+   the database name 'cdindex' and user name 'cdindex'.
+3) Perl and the perl DBI module. The appropriate DBI module is installed with
+   MySQL.
+4) A web server. Preferrably Apache with mod_perl installed. See
+   http://www.apache.org and http://perl.apache.org for details.
+5) Required PERL modules from CPAN. Get CGI::Pretty.pm (author=LDS, 
+   CGI.pm-2.56.tar.gz) and XML::Parser.pm(author=COOPERCL, 
+   XML-Parser-2.27.tar.gz)
+
+Installation:
+=============
+
+1) Make sure you have all the prerequisite pieces of software installed.
+2) Create a database called 'cdindex'. (mysql: 'mysqladmin create cdindex')
+3) Add a user to the database called cdindex. The user needs to have
+   insert, select, and update priveledges.
+4) In the cgi-bin directory, edit DBDefs.pm. This perl module will keep
+   all the information for accesing the database. Follow the instructions
+   in the module.
+5) In the admin directory, run the script CreateTables.pl. This will log
+   into the DB server and create all the necessary tables.
+6) Copy the all the files in the cgi-bin directory into a directory in your
+   Apache's cgi-bin path. I suggest using the directory 'cdi' under the
+   cgi-bin directory.
+7) Configure apache to allow the execution of .pl scripts. Setup to use
+   mod_perl to get better performance. Raw perl scripts through apache
+   can be a bit slow, but running them through mod_perl speeds things
+   up in a big way!
+8) Set up apache so that the cdindex can reside in the root of the htdocs
+   (DocumentRoot) directory. If you are installing this so that the CD Index 
+   will be the only thing running on the web server, simply copy all of the
+   files (and the cdi_img dir) from the www directory into the htdocs directory 
+   of your server.
+
+   If you have something else that is also running on your web server, it would
+   be simplest to create a new virtual host (see the apache docs for details
+   on this) cdindex.yourserver.com and have the CD Index scripts reside in the
+   DocumentRoot dir of this virtual server.
+
+At this point you should be able to use the cdindex client to submit
+a CD into your server. We'll need to modify the cd index client to
+be able to specify a different server, instead of the default freeamp
+server. The URL format for submitting CDs is as follows:
+
+   http://<server>/cgi-bin/cdi/submit.pl?id=<discid>&toc=<tocinfo>
+
+Assuming you installed the cdindex scripts into the /cgi-bin/cdi directory.
+
+Good luck!
+
+Robert Kaye
+Mayhem & Chaos Coordinator
+rob@emusic.com

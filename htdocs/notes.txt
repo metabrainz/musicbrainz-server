@@ -1,0 +1,44 @@
+Overall page layout
+-------------------
+
+Across the page at the top:
+   A) Musicbrains logo in the left hand side
+   B) Some sweeping line that goes across the top of the page,
+      similar to the line across the page of my.yahoo.com
+
+In the left hand column:
+   A) Navigaton (5-6 items on where to go in the page)
+   B) Related sites (3-4 related sites)
+   C) Statistics (3-4 items -- number of albums, artists, ids)
+
+   Each of the items in the left hand colum could be seperate boxes
+   like the slashboxes on the right side on slashdot, or the left
+   hand boxes on freshmeat.
+
+Other page items:
+   A) A section divider that allows me to divide sections of content
+      on a page. http://www.freeamp.org/index.html?mode=download has
+      large black boxes that serve this purpose. I'd like to have some
+      thing that serves the same purpose, but not as klunky.
+
+General page stuff:
+-------------------
+
+1) Don't use frames
+2) Light/simple use of graphics
+
+Pages that I really like: (for look and feel)
+-------------------------
+
+1) freshmeat.net 
+2) Thinkgeek.com
+3) guru.com 
+
+
+Color Scheme:
+-------------
+
+The text on the pages should have a white background. Possible schemes:
+
+1) orange/blue (orange should not be too obnoxious)
+2) purple/white (with some very pale yellow)

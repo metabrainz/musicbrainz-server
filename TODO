@@ -1,0 +1,16 @@
+TODO
+====
+
+The following items are the top features that people have requested. If
+you feel like taking on one of the following, please do. I'll integrate
+patches back into the distribution source code:
+
+1) Correcting logical (non-typo) errors in the index
+2) Mirroring support
+3) More support for classical CDs. Composer/performer fields especially.
+4) UNICODE support for other character sets.
+5) Allowing multiple copies for different languages
+
+Robert Kaye
+Mayhem & Chaos Coordinator
+rob@emusic.com

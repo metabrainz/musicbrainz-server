@@ -1,0 +1,367 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<!-- $Id$ -->
+<& /comp/title, title=>'Download MusicBrainz Software' &> 
+
+<& /comp/section, title=>'Download Client and Server Software' &>
+
+Sorry, there are no packaged downloads available yet. Please see below
+on how to check out the source code from CVS.
+
+<& /comp/section, title=>'CVS Access' &>
+
+<p>
+The latest bleeding edge version of our client library and server
+source is always available to everyone interested by read-only CVS.
+Currently the CVS archives are still named for their predecessor
+counterparts in the CD Index. In the next few days these will be moved
+over to the MusicBrainz repository.
+
+</p>
+
+<p>
+Changes to the source trees are commented, releases are labeled.
+So you can find out what was going on and retrieve older releases if necessary.
+</p>
+
+<p>
+This system is well suited to administer changes to a project made by
+a group of various developers and is thus used by many large Internet
+projects.
+</p>
+
+
+<p>
+<br>
+<font size="+1">Further reading</font>
+</p>
+
+<p>
+For more information visit the
+<a href="http://www.cyclic.com">Cyclic Software</a>
+site or have a look at the info documentation that is online
+<a href="http://docs.freebsd.org/info/cvs/cvs.info.Top.html">here</a>
+at the
+<a href="http://www.freebsd.org">FreeBSD Project</a>
+or
+<a href="http://www.publicsource.apple.com/tools/cvs/docs.html">here</a>
+at
+<a href="http://www.apple.com">Apple Computer, Inc.</a>
+</p>
+
+
+<p>
+<br>
+<font size="+1">Preparation</font>
+</p>
+
+<p>
+Before you can access the CVS server you need to set up an
+environment variable.
+</p>
+
+<p>
+Under UNIX using a Bourne shell (<tt>sh</tt>, <tt>bash</tt> etc) type the following:
+</p>
+
+<center>
+<table width="95%" cellspacing="0" cellpadding="6" border="0"
+       bgcolor="#efefff"
+       summary="setting CVSROOT with sh">
+<tr>
+<td>
+<tt>CVSROOT=:pserver:cdindex@cvs.freeamp.org:/src/repository</tt>
+</td>
+
+<tr>
+<td>
+<tt>export CVSROOT</tt>
+</td>
+</table>
+</center>
+
+or
+
+<center>
+<table width="95%" cellspacing="0" cellpadding="6" border="0"
+       bgcolor="#efefff"
+       summary="setting CVSROOT with csh">
+<tr>
+<td>
+<tt>setenv CVSROOT :pserver:cdindex@cvs.freeamp.org:/src/repository</tt>
+</td>
+</table>
+</center>
+
+<p>
+if you work under a C shell (<tt>csh</tt>, <tt>tcsh</tt> etc).
+</p>
+
+<p>
+Under Windows type the following:
+</p>
+
+<center>
+<table width="95%" cellspacing="0" cellpadding="6" border="0"
+       bgcolor="#efefff"
+       summary="setting CVSROOT under Windows">
+<tr>
+<td>
+<tt>set CVSROOT=:pserver:cdindex@cvs.freeamp.org:/src/repository</tt>
+</td>
+</table>
+</center>
+
+<p>
+Alternately you can specify the <tt>CVSROOT</tt> when you give a CVS command
+by using the <tt>-d</tt> flag.
+
+While this allows you to access multiple CVS servers at a time, it does require
+you to specify the server each time you login to or checkout from the repository. 
+</p>
+
+<center>
+<table width="95%" cellspacing="0" cellpadding="6" border="0"
+       bgcolor="#efefff"
+       summary="setting CVSROOT under Windows">
+<tr>
+<td>
+<tt>cvs -d:pserver:cdindex@cvs.freeamp.org:/src/repository <em>command</em></tt>
+</td>
+</table>
+</center>
+
+
+<p>
+<br>
+<font size="+1">Login</font>
+</p>
+
+<p>
+In order to login to the server type: 
+</p>
+
+<center>
+<table width="95%" cellspacing="0" cellpadding="6" border="0"
+       bgcolor="#efefff"
+       summary="logging into CVS">
+<tr>
+<td>
+<tt>cvs login</tt>
+</td>
+</table>
+</center>
+
+<p>
+And when prompted use the password: 
+</p>
+
+<center>
+<table width="95%" cellspacing="0" cellpadding="6" border="0"
+       bgcolor="#efefff"
+       summary="password for CVS">
+<tr>
+<td>
+<tt>cdindex1</tt>
+</td>
+</table>
+</center>
+
+<p>
+Under UNIX, after the first time you log into the CVS server the
+password should be saved in <tt>~/.cvspass</tt>. 
+</p>
+
+
+<p>
+<br>
+<font size="+1">Getting the source trees</font>
+</p>
+
+<p>
+Now all you have to do to download the server source code is type:
+</p>
+
+<center>
+<table width="95%" cellspacing="0" cellpadding="6" border="0"
+       bgcolor="#efefff"
+       summary="checking out the server code">
+<tr>
+<td>
+<tt>cvs -z3 checkout -P cdi_server</tt>
+</td>
+</table>
+</center>
+
+<p>
+To download the client source code do: 
+</p>
+
+<center>
+<table width="95%" cellspacing="0" cellpadding="6" border="0"
+       bgcolor="#efefff"
+       summary="checking out the client code">
+<tr>
+<td>
+<tt>cvs -z3 checkout -P cdi_client</tt>
+</td>
+</table>
+</center>
+
+<p>
+and to download the client library source code enter this: 
+</p>
+
+<center>
+<table width="95%" cellspacing="0" cellpadding="6" border="0"
+       bgcolor="#efefff"
+       summary="checking out the client librarycode">
+<tr>
+<td>
+<tt>cvs -z3 checkout -P cdi_lib</tt>
+</td>
+</table>
+</center>
+
+<p>
+Note that he <tt>-z3</tt> option will use a moderate level of compression
+on the data exchanged with the server.
+</p>
+
+
+
+<p>
+<br>
+<font size="+1">Updating</font>
+</p>
+
+<p>
+Once you have checked out a copy of the source you can retrieve the
+latest version by changing to the project directory and typing: 
+</p>
+
+<center>
+<table width="95%" cellspacing="0" cellpadding="6" border="0"
+       bgcolor="#efefff"
+       summary="updating a CVS project">
+<tr>
+<td>
+<tt>cvs -z3 update -Pd</tt>
+</td>
+</table>
+</center>
+
+
+<p>
+<br>
+<font size="+1">Retrieving old releases</font>
+</p>
+
+<p>
+Everytime we have the source ready for a release, we tag the files
+at that version with an adequate label.
+To find out what labels exist, run the following command: 
+</p>
+
+<center>
+<table width="95%" cellspacing="0" cellpadding="6" border="0"
+       bgcolor="#efefff"
+       summary="retrieving CVS tags">
+<tr>
+<td>
+<tt>cvs -z3 status -v</tt>
+</td>
+</table>
+</center>
+
+<p>
+Here is the output you get on the <tt>ChangeLog</tt> file:
+</p>
+
+<center>
+<table width="95%" cellspacing="0" cellpadding="6" border="0"
+       bgcolor="#efefff"
+       summary="CVS tags from the ChangeLog file">
+<tr>
+<td>
+<pre>
+===================================================================
+File: ChangeLog             Status: Up-to-date
+
+   Working revision:        1.19
+   Repository revision:     1.19    /src/repository/cdi_client/ChangeLog,v
+   Sticky Tag:              (none)
+   Sticky Date:             (none)
+   Sticky Options:          (none)
+
+   Existing Tags:
+	CDI_1_1_0                   (revision: 1.19)
+	CDI_1_1_0_PRE8              (revision: 1.4)
+	CDI_1_1_0_PRE7              (revision: 1.3)
+	CDI_1_1_0_PRE6              (revision: 1.2)
+	CDI_1_1_0_PRE5              (revision: 1.1.1.2)
+	CDI_1_1_0_PRE4              (revision: 1.1.1.2)
+	CDI_1_1_0_PRE3              (revision: 1.1.1.2)
+	CDI_1_1_0_PRE2              (revision: 1.1.1.1)
+	CDI_1_0_0                   (revision: 1.1.1.1)
+	CDI_0_4_0                   (revision: 1.1.1.1)
+	CDI_ORG                     (branch: 1.1.1)
+</pre>
+</td>
+</table>
+</center>
+
+
+<p>
+Retrieving the version that was in the 0.4.0 client release is as easy as
+</p>
+
+<center>
+<table width="95%" cellspacing="0" cellpadding="6" border="0"
+       bgcolor="#efefff"
+       summary="retrieving the ChangeLog from the 0.4.0 client release">
+<tr>
+<td>
+<tt>cvs -z3 update -rCDI_0_4_0 ChangeLog<tt>
+</td>
+</table>
+</center>
+
+
+<p>
+To restore it back to the most recent version enter:
+</p>
+
+<center>
+<table width="95%" cellspacing="0" cellpadding="6" border="0"
+       bgcolor="#efefff"
+       summary="back to the most recent version">
+<tr>
+<td>
+<tt>cvs -z3 update -A ChangeLog</tt>
+</td>
+</table>
+</center>
+
+<p>
+Note that he <tt>-A</tt> option is necessary to pull you back on the main
+trunk of the development source tree.
+</p>
+
+
+<p>
+<br>
+<font size="+1">Help</font>
+</p>
+
+<p>
+Confused? Send mail to
+<a href="mailto:rob@emusic.com">rob@emusic.com</a>
+if you need more help.
+</p>
+
+</td>
+</tr>
+</table>
+
+</body>
+</html>

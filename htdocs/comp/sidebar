@@ -1,0 +1,4 @@
+<%perl>
+my $sidebar = MusicBrainz::SideBar();
+</%perl>
+<% $sidebar %>

@@ -1,0 +1,37 @@
+Changes in version 0.3.1:
+
+ - Cleaned up various warnings and errors that have cropped up.
+ - Disk Ids gets sanity checked in submit.pl
+ - Fixed a bug where 'edit artist' link was shown for a multple artist CD.
+ - Fuzzy matching support has been integrated into get.pl and get.pl
+
+Changes in version 0.3.0:
+
+ For details on these, please check README.
+
+ - Browserless submission support. 
+ - Data import support.
+ - minor bug fixes
+ - extended XML lookup/search features
+ - If a client sends the TOC on a 'get' call and the CD was not found,
+   the 'CD Not Found' page will print a link to submission page.
+
+Changes in version 0.2.0:
+
+ - Search capabilites have been added
+ - The submission process has been revamped to use the search 
+   process to see if albums exist in the index. 
+ - When an association to an existing CD is entered, it makes
+   sure that the CDs have the same number of tracks.
+ - It now stores TOC (table of contents) information in the database
+ - XML data retrieval has been added
+ - XML data dumping script xdump.pl has been written. This script
+   will dump the entire contents of the database to stdout. This
+   should be piped through gzip and redirected to a file. Add this
+   to a cron job and put it on the ftp site and anyone can download the
+   data.
+ - Various bug fixes.
+ - The perl scripts now assume that the static .html files reside in the
+   root of the DocumentRoot of the web server. This may require setting up
+   a virtual host on your web server. Check INSTALL for details on this.
+   

@@ -1,0 +1,36 @@
+<%args>
+$question
+$answer
+$name
+</%args>
+
+<tr>
+<td>
+&nbsp; &nbsp;
+</td>
+<td>
+   <table>
+   <tr>
+     <td valign=top>
+       <a name="<% $name %>"></a>
+       <b><font color="#542b89">Q:</font></b>
+     </td>
+     <td> 
+       <% $question %>
+     </td>
+   </tr>
+   </tr>
+     <td valign=top>
+       <b><font color="#542b89">A:</font></b>
+     </td>
+     <td> 
+       <% $answer %>
+       <br>
+     </td>
+   </tr>
+   </table>
+</td> 
+<td>
+&nbsp; &nbsp;
+</td>
+</tr>
