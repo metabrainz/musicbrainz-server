@@ -33,6 +33,9 @@ if (!defined($result))
              $result .= StatLine("TRM Ids", $row[4]);
              $result .= StatLine("Mods", $row[5]);
              $result .= StatLine("Users", $row[6]);
+
+	     $result = "<table>$result</table>";
+
              $m->cache(action=>'store', expire_next=>'day', value=>$result);
         }
         else
@@ -47,7 +50,7 @@ if (!defined($result))
 <table cellpadding="10" cellspacing="0" border="0">
 <tr>
    <td>
-      <table width=100%>
+      <table width="100%">
         <tr><td align="center" class="statsb"><% $result |n %></td></tr>
       </table>
    </td>
