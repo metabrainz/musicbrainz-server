@@ -500,6 +500,15 @@ sub CreateFileLookup
            $tr = $this->GetFromCache('track', $id->{id});
            if (defined $tr)
            {
+               if ($ar->GetId() == ModDefs::VARTIST_ID)
+               {
+                   my $artist;
+
+                   $artist = Artist->new($this->{DBH});
+                   $artist->SetId($tr->GetArtist());
+                   $artist->LoadFromId();
+                   $this->AddToCache(0, 'artist', $artist);
+               }
                $out .= $this->OutputTrackRDF({ obj=>$tr });
            }
        }
