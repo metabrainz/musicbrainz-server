@@ -58,18 +58,15 @@ sub ApprovedAction
 {
 	my $this = shift;
 
+  	my $tr = Track->new($this->{DBH});
+ 	$tr->SetId($this->GetRowId);
+	$tr->SetAlbum($this->{'prev.albumid'});
+
 	# Remove the album join for this track
- 	my $sql = Sql->new($this->{DBH});
-	$sql->Do(
-		"DELETE FROM albumjoin WHERE album = ? AND track = ?",
- 		$this->{'prev.albumid'},
-		$this->GetRowId,
-	);
+	$tr->RemoveFromAlbum;
 
 	# Now remove the track. The track will only be removed
    	# if there are no more references to it.
-  	my $tr = Track->new($this->{DBH});
- 	$tr->SetId($this->GetRowId);
 
 	unless ($tr->Remove)
 	{
