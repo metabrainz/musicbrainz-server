@@ -26,7 +26,7 @@ elsif ($ARGS{artistid} == Artist::VARTIST_ID)
 }
 else
 {
-    @albums = $artist->GetAlbums($ARGS{artistid});
+    @albums = $artist->GetAlbums();
     
     mc_comp("/comp/artisttitle", artist=>$artist);
     mc_comp("/comp/modnotice");

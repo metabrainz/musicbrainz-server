@@ -1,17 +1,17 @@
 <%perl>
 
-my ($mb, $al, $album);
+my ($mb, $al, @albums);
 
 $mb = new MusicBrainz;
 $mb->Login();
-$al = Album->new($mb);
+$al = Album->new($mb->{DBH});
 if (exists $ARGS{trackid})
 {
-   $album = $al->GetIdFromTrackId($ARGS{trackid});
+   @albums = $al->GetAlbumIdsFromTrackId($ARGS{trackid});
 }
 else
 {
-   $album = $al->GetIdFromAlbumJoinId($ARGS{albumjoinid});
+   @albums = $al->GetAlbumIdsFromAlbumJoinId($ARGS{albumjoinid});
 }
 $mb->Logout();
 
@@ -19,7 +19,7 @@ $r->method('GET');
 $r->headers_in->unset('Content-length');
 
 $r->content_type('text/html');
-$r->header_out(Location=>"/showalbum.html?albumid=$album");
+$r->header_out(Location=>"/showalbum.html?albumid=$albums[0]");
 $r->status(302);
 
 </%perl>

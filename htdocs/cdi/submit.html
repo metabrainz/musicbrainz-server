@@ -28,14 +28,14 @@ elsif (length($id) != 28 || substr($id, -1, 1) ne "-" || $valid ne "")
 else
 {
     $mb->Login();
-    $di = Diskid->new($mb);
+    $di = Diskid->new($mb->{DBH});
     $album = $di->GetAlbumFromDiskId($id);
-    if ($album >= 0)
+    if (defined $album)
     {
 </%perl>
         Thank you for your submission, but this CD is already in the index. 
         <p>If you cannot retrieve this
-        CD for some reason, please <a href="mailto:rob\@emusic.com">
+        CD for some reason, please <a href="mailto:rob\@eorbit.net">
         send</a> me some mail.
         </TD></TR></TABLE>
 %   } else {
@@ -48,18 +48,14 @@ else
         
         <table cellspacing=0 width=100%>
         <tr>
-        <th bgcolor="#643b99" valign=top>
-        <font color="#FFFFFF">
+        <th bgcolor="#FFBA58" valign=top>
         Single Artist CDs
-        </font>
         </th>
-        <th bgcolor="#643b99" valign=top>
+        <th bgcolor="#FFBA58" valign=top>
         &nbsp;
         </th>
-        <th bgcolor="#643b99">
-            <font color="#FFFFFF">
+        <th bgcolor="#FFBA58">
         Multiple Artists CDs
-        </font>
         </th>
         </tr>
         <td align=center>
@@ -77,7 +73,7 @@ else
         <input type="submit" name="Search" value="Search">
         </form>
         
-        </td><td bgcolor="#643b99">&nbsp;</td><td align=center valign=top>
+        </td><td bgcolor="#FFBA58">&nbsp;</td><td align=center valign=top>
         
         <form method="POST" action="/cdi/malbum.html"
               enctype="application/x-www-form-urlencoded" class="formstyle">

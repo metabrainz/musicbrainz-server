@@ -20,11 +20,11 @@ if ($search eq '')
 else
 {
     $mb->Login();
-    $ar = Artist->new($mb);
-    @idslabels = $ar->FindTextInColumn("Artist", "Name", $search);
+    $ar = Artist->new($mb->{DBH});
+    @idslabels = $ar->FindArtist($search);
     if (defined @idslabels)
     {
-        my ($artistid, $artistname);
+        my ($artistid, $artistname, $artistsortname);
 </%perl>    
         Click on the artist name to display all the albums by that artist:<p>
 
@@ -35,6 +35,7 @@ else
 %       {
 %           $artistid = shift @idslabels;
 %           $artistname = shift @idslabels;
+%           $artistsortname = shift @idslabels;
             <input type="radio" name="artist" 
                    value="<% $artistid %>">&nbsp;<% $artistname %><br>
 %       }

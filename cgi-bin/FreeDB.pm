@@ -81,6 +81,7 @@ sub EnterRecord
 
     $a = Artist->new($this->{DBH});
     $artist = $a->SetName($artistname);
+    $artist = $a->SetSortName($artistname);
     $artist = $a->Insert();
     if (not defined $artist)
     {

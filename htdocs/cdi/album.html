@@ -20,27 +20,26 @@ if (!defined $artist || $artist eq '')
 else
 {
     $mb->Login();
-    $ar = Artist->new($mb);
-    $al = Album->new($mb);
+    $ar = Artist->new($mb->{DBH});
 
-    my (%unused, $first, $found, $artistname, @ids_tracks_seqs, @idsalbums);
+    my (%unused, $first, $found, $artistname, @ids_tracks_seqs, @albumlist);
     
     $first = 1;
     $found = 0;
-    
-    $ar->LoadFromId($artist);
+   
+    $ar->SetId($artist);
+    $ar->LoadFromId();
     mc_comp("/comp/artisttitle", artistname=>($ar->Value(1)), 
-            artistid=>$artist, modpending=>0);
+            artist=>$ar, modpending=>0);
     
-    @idsalbums = $ar->GetAlbumList($artist);
-    while(defined @idsalbums)
+    @albumlist = $ar->GetAlbums();
+    for(;;)
     {
         my ($trackid, $albumid, $name, $seq, $num_tracks, $albumname);
        
-        $albumid = shift @idsalbums;
-        $albumname = shift @idsalbums;
-        $modpending = shift @idsalbums;
-        $num_tracks = $al->GetTrackCountFromAlbum($albumid);
+        $al = shift @albumlist;
+        last if (!defined $al);
+        $num_tracks = $al->GetTrackCount();
         if ($num_tracks == $tracks)
         {
             if ($first)
@@ -66,8 +65,7 @@ else
                </form>
 %           }    
 
-            <& /comp/album, mb=>$mb, albumid=>$albumid, artist=>$artist,
-                            albumname=>$albumname, modpending=>0 &>
+            <& /comp/album, album=>$al, artist=>$ar &>
 
             <form method="POST" action="/cdi/found.html"
                   enctype="application/x-www-form-urlencoded" class="formstyle">
@@ -86,19 +84,19 @@ else
         }
         else
         {
-            $unused{"$albumname"}=$num_tracks;
+            $unused{$al->GetName()}=$num_tracks;
         }
     }
     
     if (scalar(keys(%unused)) > 0)
     {
 </%perl>
-        The following albums in the CD Index are not applicable
+        The following albums in MusicBrainz are not applicable
         because they have a different number of tracks than
         than the album you are submitting:<p>
 %       foreach $i (keys(%unused))
 %       {
-            Album <b> <% $i %> </b> has <% $unused{"$i"} %> tracks.<br>
+            Album <span class="bold"> <% $i %> </span> has <% $unused{"$i"} %> tracks.<br>
 %       }
         <p>Even though there may be an album listed with the same 
         name as you are submitting, there sometimes are different

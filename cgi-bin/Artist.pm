@@ -187,16 +187,16 @@ sub GetArtistDisplayList
 # retreive the set of albums by this artist. Returns an array of 
 # references to Album objects. Refer to the Album object for details.
 # The returned array is empty on error. Multiple artist albums are
-# also returned by this query
+# also returned by this query. Use SetId() to set the id of artist
 sub GetAlbums
 {
-   my ($this, $id) = @_;
+   my ($this) = @_;
    my (@albums, $sql, @row, $album);
 
    # First, pull in the single artist albums
    $sql = Sql->new($this->{DBH});
    if ($sql->Select(qq/select id, name, modpending from 
-                       Album where artist=$id/))
+                       Album where artist=$this->{id}/))
    {
         while(@row = $sql->NextRow)
         {
@@ -204,7 +204,7 @@ sub GetAlbums
             $album->SetId($row[0]);
             $album->SetName($row[1]);
             $album->SetModPending($row[2]);
-            $album->SetArtist($id);
+            $album->SetArtist($this->{id});
             push @albums, $album;
             undef $album;
         }
@@ -214,8 +214,9 @@ sub GetAlbums
    # then, pull in the multiple artist albums
    if ($sql->Select(qq/select distinct AlbumJoin.album, Album.name, 
        Album.modpending from Track, Album, AlbumJoin where Track.Artist = 
-       $id and AlbumJoin.track = Track.id and AlbumJoin.album = Album.id 
-       and Album.artist = / . Artist::VARTIST_ID ." order by Album.name"))
+       $this->{id} and AlbumJoin.track = Track.id and AlbumJoin.album = 
+       Album.id and Album.artist = / . Artist::VARTIST_ID ." order by 
+       Album.name"))
    {
         while(@row = $sql->NextRow)
         {
@@ -269,7 +270,7 @@ sub FindArtist
    my (@names, $query, $sql);
 
    $sql = Sql->new($this->{DBH});
-   $query = $this->AppendWhereClause($search, qq/select name, sortname
+   $query = $this->AppendWhereClause($search, qq/select id, name, sortname
                from Artist where /, "name") . " order by sortname";
 
    if ($sql->Select($query))
@@ -281,6 +282,7 @@ sub FindArtist
        {
            push @names, $row[0];
            push @names, $row[1];
+           push @names, $row[2];
        }
        $sql->Finish;
    }

@@ -117,6 +117,27 @@ sub GetAlbumIdsFromTrackId
    return @albums;
 }
 
+# This function takes a track id and returns an array of album ids
+# on which this track appears. The array is empty on error.
+sub GetAlbumIdsFromAlbumJoinId
+{
+   my ($this, $joinid) = @_;
+   my (@albums, $sql, @row);
+
+   $sql = Sql->new($this->{DBH});
+   if ($sql->Select(qq\select distinct album from AlbumJoin where 
+                       id=$joinid\))
+   {
+        while(@row = $sql->NextRow)
+        {
+            push @albums, $row[0];
+        }
+        $sql->Finish;
+   }
+
+   return @albums;
+}
+
 # Load an album record. Set the album id via the SetId accessor
 # returns 1 on success, undef otherwise. Access the artist info via the
 # accessor functions.

@@ -9,7 +9,7 @@
 #               artist should be stored.
 
 my ($mb, $i, $j, $mod, $new, @names, $ar, $arg, $argname, $dest_argname);
-my ($sortname, $name, $key, $found, $mode, $num_found);
+my ($sortname, $name, $key, $found, $mode, $num_found, $id);
 
 if (!exists $ARGS{new0} || $ARGS{new0} eq '' ||
     !exists $ARGS{mode} || $ARGS{mode} eq '')
@@ -106,6 +106,8 @@ move track <span class="bold"><% $ARGS{prev0} %></span> to the selected artist:
 <%perl>
     for($i = 0;; $i++)
     {
+        $id = shift @names;
+        last if not defined $id;
         $name = shift @names;
         last if not defined $name;
         $sortname = shift @names;

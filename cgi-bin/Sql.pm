@@ -31,7 +31,7 @@ use vars qw(@ISA @EXPORT);
 use strict;
 use DBI;
 use DBDefs;
-use Benchmark;
+#use Benchmark;
 
 sub new
 {
@@ -57,13 +57,14 @@ sub Select
     my ($ret, $t0, $t1, $td);
     my ($secs);
 
-    $t0 = new Benchmark;
+    #$t0 = new Benchmark;
     $this->{STH} = $this->{DBH}->prepare($query);
     $ret = $this->{STH}->execute;
-    $t1 = new Benchmark;
+    #$t1 = new Benchmark;
 
-    $td = timediff($t1, $t0);
-    print STDERR (timestr($td, 'nop') . ": $query\n");
+    #$td = timediff($t1, $t0);
+    #print STDERR (timestr($td, 'nop') . ": $query\n");
+    #print STDERR "$query\n";
     if ($ret)
     {
         return $this->{STH}->rows;
@@ -109,7 +110,7 @@ sub Do
     my ($this, $query) = @_;
     my $ret;
 
-    print STDERR "do: $query\n";
+    #print STDERR "do: $query\n";
     $ret = $this->{DBH}->do($query);
     if ($ret)
     {

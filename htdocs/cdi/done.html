@@ -44,30 +44,32 @@ if ($error)
 else
 {
     $mb->Login();
-    $ar = Artist->new($mb);
-    $al = Album->new($mb);
-    $tr = Track->new($mb);
-    $di = Diskid->new($mb);
+    $ar = Artist->new($mb->{DBH});
+    $al = Album->new($mb->{DBH});
+    $tr = Track->new($mb->{DBH});
+    $di = Diskid->new($mb->{DBH});
 
     if (defined $artistname)
     {
-        $artist = $ar->Insert($artistname, $sortname);
-        if ($artist < 0)
+        $ar->SetName($artistname);
+        $ar->SetSortName($sortname);
+        $artist = $ar->Insert();
+        if (not defined $artist)
         {
             mc_out("Failed to insert a new artist into the database.<br>");
         }
     }
 
-    if ($artist >= 0)
+    if (defined $artist)
     {
-        my @ids;
+        my @albums;
 
-        @ids = $al->FindFromNameAndArtistId($title, $artist);
+        @albums = $ar->GetAlbumsByName($title);
         for(;;)
         {
-            $album = shift @ids;
+            $album = shift @albums;
             last if (!defined $album);
-            if ($al->GetTrackCountFromAlbum($id) == $tracks)
+            if ($album->GetTrackCount() == $tracks)
             {
                 mc_out(qq/That CD already exists in the CD Index. 
                           <p>If this is a different CD, please vary the 
@@ -79,8 +81,10 @@ else
 
         if (!defined $album)
         {
-            $album = $al->Insert($title, $artist, $tracks);
-            if ($album < 0)
+            $al->SetName($title);
+            $al->SetArtist($artist);
+            $album = $al->Insert();
+            if (!defined $album)
             {
                 mc_out("Failed to insert a new album into the database.<br>");
             }
@@ -88,7 +92,10 @@ else
             {
                for($i = 0; $i < $tracks; $i++)
                {
-                   $tr->Insert($ARGS{"track$i"}, $artist, $album, $i + 1);
+                   $tr->SetId(0);
+                   $tr->SetName($ARGS{"track$i"});
+                   $tr->SetSequence($i + 1);
+                   $tr->Insert($al, $ar);
                }
     
                $di->Insert($id, $album, $toc);

@@ -17,9 +17,10 @@ mc_comp("/comp/sidebar", title=>'Enter CD Information');
 if ($artist > 0)
 {
    $mb->Login();
-   $ar = Artist->new($mb);
-   $ar->LoadFromId($artist);
-   $artistname = $ar->Value(1);
+   $ar = Artist->new($mb->{DBH});
+   $ar->SetId($artist);
+   $ar->LoadFromId();
+   $artistname = $ar->GetName();
    if (!defined $artistname)
    {
        $artistname = 'Tabasco bondage action';
@@ -40,16 +41,17 @@ if ($artist <= 0) {
 Please enter the CD information below:<p>
 
 <table>
-% if ($artist <= 0) {
     <tr><td>Artist:</td><td>
-    <input type="text" name="artistname" size="30"></td></tr>
+% if ($artist <= 0) {
+    <input type="text" name="artistname" size="30"></td>
     </tr>
     <tr><td>SortName:</td><td>
-    <input type="text" name="sortname" size="30"></td></tr>
+    <input type="text" name="sortname" size="30">
 % } else {
-    <b><% $artistname %></b>
-    <input type="hidden" name="artist" value="<% $artist %>"></td></tr>
+    <span class="bold"><% $artistname %></span>
+    <input type="hidden" name="artist" value="<% $artist %>">
 % }
+</td></tr>
 
 <tr><td>CD Title:</td><td>
 <input type="text" name="title" size="30"></td></tr>

@@ -453,7 +453,15 @@ sub ShowModPrev
    elsif ($type == Moderation::MOD_REMOVE_TRACK)
    {
        my ($name, $id) = split /\n/, $prev;
-       return "Old: <a href=\"/showalbum.html?albumid=$this->{rowid}\">$name</a>";
+
+       if ($this->GetStatus() == STATUS_APPLIED)
+       {
+           return "Old: $name";
+       }
+       else
+       {
+           return "Old: <a href=\"/bare/showtrack.html?trackid=$this->{rowid}\">$name</a>";
+       }
    }
    elsif ($type == Moderation::MOD_MOVE_ALBUM ||
           $type == Moderation::MOD_CHANGE_TRACK_ARTIST)
