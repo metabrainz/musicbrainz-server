@@ -30,6 +30,7 @@ use Sql;
 use Style;
 use QuerySupport;
 use TaggerSupport;
+use DebugLog;
 
 {  
    package HTML::Mason::Commands;

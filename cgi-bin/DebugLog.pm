@@ -102,7 +102,29 @@ sub dump
 	use Devel::Peek qw( Dump );
 	Dump($_) for @things;
 	CORE::open(STDERR, ">&SAVEERR");
-	close SAVEERR;
+	CORE::close SAVEERR;
+}
+
+sub dumpstring
+{
+	my ($self, $string, $name) = @_;
+	$name ||= "some string";
+	my $fh = $self->[0];
+	use Data::Dumper;
+	print $fh "Various forms of '$name':\n";
+	print {$fh} "DD: ", Data::Dumper::Dumper($string);
+	print $fh "unpack C*: ",
+		join(",", unpack "C*", $string),
+		"\n";
+	print $fh "unpack H*: ",
+		unpack("H*", $string),
+		"\n";
+	print $fh "unpack U*: ",
+		join(",", unpack "U*", $string),
+		"\n";
+
+	print STDERR "Dump of '$name':\n";
+	Dump($string);
 }
 
 1;

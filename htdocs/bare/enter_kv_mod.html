@@ -14,6 +14,14 @@ sub CheckKVArg
    
 my ($mb, $i, $j, $mod, $new, $modid, $depmod, $url, $sql);
 
+use DebugLog;
+if (my $d = DebugLog->open)
+{
+    $d->stamp("enter_mod.html");
+    $d->dumper([\%ARGS], ['*ARGS']);
+    $d->close;
+}
+
 $mb = mc_comp("/comp/dblogin");
 $sql = Sql->new($mb->{DBH});
 

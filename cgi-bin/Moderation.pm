@@ -503,6 +503,8 @@ sub InsertModeration
     {
 	$d->stamp;
 	$d->dumper([$this], ['this']);
+	$d->dumpstring($this->{prev}, "this-prev");
+	$d->dumpstring($this->{new}, "this-new");
 	$d->close;
     }
 
@@ -511,6 +513,14 @@ sub InsertModeration
 
     $sql = Sql->new($this->{DBH});
     $ui = UserStuff->new($this->{DBH});
+
+    if (my $d = DebugLog->open)
+    {
+	$d->stamp;
+	$d->dumpstring($this->{prev}, "this-prev");
+	$d->dumpstring($this->{new}, "this-new");
+	$d->close;
+    }
 
     $table = $sql->Quote($this->{table});
     $column = $sql->Quote($this->{column});
