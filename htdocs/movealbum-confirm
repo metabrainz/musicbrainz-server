@@ -1,8 +1,8 @@
 %# vi: set ts=4 sw=4 ft=mason :
 % my ($al, $ar, $name, $sortname) = @_ or return;
-<& /comp/sidebar, title => 'Merge Artist' &>
+<& /comp/sidebar, title => 'Move Album' &>
 
-<h2>Confirm Artist Merge</h2>
+<h2>Confirm Move Album</h2>
 
 <p>
 	Are you sure you want to move album
