@@ -33,19 +33,7 @@ sub DumpTable
 
     print "Dumping table $name..\n";
 
-    $dsn = DBDefs->DSN;
-    $dsn =~ s/^dbi://;
-
-    $cmd = "./sql2xml.pl -sn localhost -driver ";
-    $cmd .= $dsn;
-    $cmd .= " -uid ";
-    $cmd .= DBDefs->DB_USER;
-    if (length(DBDefs->DB_PASSWD) > 0)
-    {
-        $cmd .= " -pwd ";
-        $cmd .= DBDefs->DB_PASSWD;
-    }
-    $cmd .= " -table $name -output $dir/$name.xml"; 
+    $cmd = "mysqldump musicbrainz $name > $dir/$name"; 
     $ret = system($cmd) >>8;
 
     return !$ret;
@@ -65,6 +53,11 @@ sub DumpAllTables
     DumpTable("Pending", $dir) or return 0;
     DumpTable("Diskid", $dir) or return 0;
     DumpTable("TOC", $dir) or return 0;
+    
+    DumpTable("ModeratorInfo", $dir) or return 0;
+    DumpTable("Changes", $dir) or return 0;
+    DumpTable("Votes", $dir) or return 0;
+
     if (DBDefs->USE_LYRICS)
     {
        DumpTable("Lyrics", $dir) or return 0;
@@ -93,7 +86,7 @@ if (defined $outfile && ($outfile eq "-h" || $outfile eq "--help"))
     print "Make sure to have plenty of diskspace on /tmp!\n";
     exit(0);
 }
-$outfile = "$timestring.tar.gz" if (!defined $outfile);
+$outfile = "$timestring.tar.bz2" if (!defined $outfile);
 
 @tinfo = localtime;
 $dir = "/tmp/mbdump";
@@ -108,7 +101,7 @@ if (DumpAllTables($dir))
     system("date > /tmp/mbdump/timestamp");
     OutputLicense("/tmp/mbdump/COPYING");
     print "Creating tar archive...\n";
-    (!(system("tar -C /tmp -czf $outfile mbdump") >> 8))
+    (!(system("tar -C /tmp -cIf $outfile mbdump") >> 8))
        or die("Cannot write outputfile.\n");
 }
 

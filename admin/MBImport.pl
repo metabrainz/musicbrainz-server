@@ -33,20 +33,7 @@ sub ImportTable
 
     print "Importing table $name..\n";
 
-    $dsn = DBDefs->DSN;
-    $dsn =~ s/^dbi://;
-
-    $cmd = "./xml2sql.pl -sn localhost -driver ";
-    $cmd .= $dsn;
-    $cmd .= " -uid ";
-    $cmd .= DBDefs->DB_USER;
-    if (length(DBDefs->DB_PASSWD) > 0)
-    {
-        $cmd .= " -pwd ";
-        $cmd .= DBDefs->DB_PASSWD;
-    }
-
-    $cmd .= " -table $name -input $dir/$name.xml"; 
+    $cmd = "mysqlimport musicbrainz $dir/$name"; 
     $ret = system($cmd) >> 8;
 
     return !$ret;
@@ -66,6 +53,11 @@ sub ImportAllTables
     ImportTable("Pending", $dir) or return 0;
     ImportTable("Diskid", $dir) or return 0;
     ImportTable("TOC", $dir) or return 0;
+
+    ImportTable("ModeratorInfo", $dir) or return 0;
+    ImportTable("Changes", $dir) or return 0;
+    ImportTable("Votes", $dir) or return 0;
+
     if (DBDefs->USE_LYRICS)
     {
        ImportTable("Lyrics", $dir) or return 0;
@@ -94,7 +86,7 @@ if (!defined $infile || $infile eq "-h" || $infile eq "--help")
 
 $dir = "/tmp/mbdump";
 
-(!(system("tar -C /tmp -xzf $infile") >> 8))
+(!(system("tar -C /tmp -xIf $infile") >> 8))
    or die("Cannot untar/unzip the database dump.\n");
  
 ImportAllTables($dir);
