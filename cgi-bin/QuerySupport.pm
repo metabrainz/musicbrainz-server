@@ -313,25 +313,6 @@ sub GetTrackByTRM
    return $rdf->CreateTrackList(@ids);
 }
 
-# returns albumList
-sub GetAlbumsByArtistGlobalId
-{
-   my ($dbh, $parser, $rdf, $id) = @_;
-   my ($sql, @row, @ids);
-
-   return $rdf->ErrorRDF("No album id given.") 
-      if (!defined $id);
-   return undef if (!defined $dbh);
-
-   $sql = Sql->new($dbh);
-   $id = $sql->Quote($id);
-   @ids = $sql->GetSingleColumn("Album, Artist", "Album.id", 
-                                ["Artist.gid", lc($id),
-                                "Album.artist", "Artist.id"]);
-
-   return $rdf->CreateAlbumList(@ids);
-}
-
 sub LookupMetadata
 {
    my ($dbh, $parser, $rdf, $id) = @_;
