@@ -45,6 +45,12 @@ return $m->comp('/comp/footer_small')
 	</table>
 </div>
 
+% if ($session{'mbt'}) {
+% my $url = "http://" . &DBDefs::WEB_SERVER . $r->uri;
+% $url .= "?$1" if $r->args =~ /(.+)/s;
+<div id="ShowPageURL">This page is: <% $url %></div>
+% }
+
 <div id="CreditsBar">
 	<table width="100%" cellpadding="2" cellspacing="0" border="0">
 	<tr>
