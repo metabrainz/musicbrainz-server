@@ -7,7 +7,8 @@ my $host = $r->header_in("Host") || &DBDefs::WEB_SERVER;
 
 $url = "http://" . $host . $url
 	unless $url =~ /^\w+:/;
+$r->status(303);
 $r->header_out(Location => $url);
-$m->abort(303);
+$m->abort;
 
 </%perl>
