@@ -1,0 +1,94 @@
+<& /comp/sidebar, title=>'Remove Artist Alias', expand=>'moderate' &>
+
+<%perl>
+
+my ($mb, $referer, $al, $alias, $ar);
+
+if (!exists $ARGS{alias} || $ARGS{alias} eq '')
+{
+    mc_comp("/comp/badargs");
+    return;
+}
+
+$referer = $r->headers_in->{'Referer'};
+$mb = new MusicBrainz;
+$mb->Login();
+
+$alias = $ARGS{alias};
+
+$al = Alias->new($mb->{DBH});
+$al->SetId($alias);
+$al->SetTable("ArtistAlias");
+if (!defined $al->LoadFromId())
+{
+   mc_out("Internal error. Cannot load artist alias.");
+   return;
+}
+
+$ar = Artist->new($mb->{DBH});
+$ar->SetId($al->GetRowId());
+if (!defined $ar->LoadFromId())
+{
+   mc_out("Internal error. Cannot load artist.");
+   return;
+}
+
+</%perl>
+
+% if (!defined $session{user} || $session{user} eq '') {
+    You must be logged in to edit the database.<p>
+    <& /comp/tablebegin, title=>'Login' &>
+    <& /comp/loginbox &>
+    <& /comp/tableend &>
+% } else {
+
+    <& /comp/tablebegin, gattrs=>"width=\"100%\"",
+       title=>'Remove Artist Alias' &>
+
+    <FORM METHOD="POST" ACTION="/bare/enter_mod.html" NAME="RemoveAliasForm"
+          ENCTYPE="application/x-www-form-urlencoded">  
+
+    <table width="100%">
+      <tr>
+        <td colspan="2">
+        Are you sure you want to remove the alias 
+        <span class="bold"><% $al->GetName %></span> which points to artist 
+        <span class="bold"><% $ar->GetName %></span>?
+        </td>
+      </tr>
+      <tr>
+        <td>
+        &nbsp;
+        </td>
+        <td>
+        <INPUT TYPE="radio" NAME="confirm0" SIZE=25 value="yes"> Yes
+        </td>
+      </tr>
+      <tr>
+        <td>
+        &nbsp;
+        </td>
+        <td>
+        <INPUT TYPE="radio" NAME="confirm0" SIZE=25 value="no" CHECKED> No
+        </td>
+      </tr>
+      <tr>
+        <td colspan=2>
+        <INPUT TYPE="submit" NAME="Submit" VALUE="Submit">    
+        </td>
+      </tr>
+    </table>
+    <input type="hidden" name="artist0" value="<% $ar->GetId() %>">
+    <input type="hidden" name="type0"
+           value="<% ModDefs::MOD_REMOVE_ARTISTALIAS %>">
+    <input type="hidden" name="prev0" value="<% $al->GetName() %>">
+    <input type="hidden" name="new0" value="DELETE">
+    <input type="hidden" name="table0" value="ArtistAlias">
+    <input type="hidden" name="column0" value="Name">
+    <input type="hidden" name="id0" value="<% $alias %>">
+    <input type="hidden" name="referer" value="<% $referer %>">
+    </form>
+      
+    <& /comp/tableend &>
+% }
+% $mb->Logout();

@@ -39,6 +39,7 @@ use Insert;
 use ModDefs;
 use ModerationSimple;
 use ModerationKeyValue;
+use Data::Dumper;
 
 my %ModNames = (
     "1" => "Edit Artist Name",
@@ -887,7 +888,7 @@ sub LoadModerationNotes
                         where ModeratorNote.uid = ModeratorInfo.id and
                               ModeratorNote.modid >= $minmodid and
                               ModeratorNote.modid <= $maxmodid
-                     order by ModeratorNote.uid|))
+                     order by ModeratorNote.modid, ModeratorNote.id|))
    {
         $lastmodid = -1;
         while(@row = $sql->NextRow())
