@@ -1,0 +1,43 @@
+%# vi: set ts=2 sw=2 ft=mason :
+<%args>
+$album => undef
+$store => undef
+$asin => undef
+</%args>
+<%perl>
+
+defined($store)
+	or goto REJECT;
+
+my $ass_id = &DBDefs::AWS_ASSOCIATE_ID($store)
+	or goto REJECT;
+$ass_id = "" unless &DBDefs::AWS_USE_ASSOCIATE_IDS;
+
+$asin =~ /\A\w{1,100}\z/
+	or goto REJECT;
+
+my $url = "http://$store/exec/obidos/ASIN/$asin/$ass_id?v=glance&s=music";
+
+my $message = do {
+	require POSIX;
+	my $time = POSIX::strftime("%Y%m%d-%H%M%S", localtime);
+
+	no warnings 'uninitialized';
+	join "\t",
+		"time=$time",
+		"type=info",
+		"user=$session{user}",
+		"album=$album",
+		"store=$store",
+		"asin=$asin",
+		;
+} . "\n";
+
+eval { MusicBrainz::SimpleLog("/tmp/amazon-click.log", $message) };
+
+return $m->comp("/comp/redirect", $url);
+
+REJECT:
+return $m->comp("/comp/redirect", "/");
+
+</%perl>
