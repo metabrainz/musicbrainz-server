@@ -70,19 +70,18 @@ sub PreInsert
 sub CheckPrerequisites
 {
 	my $self = shift;
-	my $sql = Sql->new($self->{DBH});
 
 	# Check that the referenced artist is still around
-	$sql->SelectSingleValue(
-		"SELECT 1 FROM artist WHERE id = ?",
-		$self->GetRowId,
-	) or do {
+	my $ar = Artist->new($self->{DBH});
+	$ar->SetId($self->GetRowId);
+	unless ($ar->LoadFromId)
+	{
 		$self->InsertNote(
 			MODBOT_MODERATOR,
 			"This artist has been deleted",
 		);
 		return STATUS_FAILEDPREREQ;
-	};
+	}
 
 	# Check that the alias $self->GetNew does not exist
 	my $al = Alias->new($self->{DBH});
