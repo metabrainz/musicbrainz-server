@@ -27,7 +27,7 @@ use strict;
 
 package MusicBrainz::Server::Moderation::MOD_ADD_ARTISTALIAS;
 
-use ModDefs;
+use ModDefs qw( :modstatus MODBOT_MODERATOR );
 use base 'Moderation';
 
 sub Name { "Add Artist Alias" }
@@ -41,6 +41,24 @@ sub PreInsert
 	my $newalias = $opts{'newalias'};
 	defined $newalias or die;
 
+	# Check that the alias $self->GetNew does not exist
+	my $al = Alias->new($self->{DBH});
+	$al->SetTable("ArtistAlias");
+
+	if (my $artist = $al->Resolve($newalias))
+	{
+		my $url = "http://" . &DBDefs::WEB_SERVER
+			. "/showaliases.html?artistid=" . $artist;
+
+		my $note = "There is already an alias called '$newalias'"
+			. " (see $url)";
+		$note .= " - duplicate aliases are not allowed (yet)"
+			unless $artist == $ar->GetId;
+
+		$self->SetError($note);
+		die $self;
+	}
+
 	$self->SetArtist($ar->GetId);
 	$self->SetPrev($ar->GetName);
 	$self->SetNew($newalias);
@@ -49,16 +67,56 @@ sub PreInsert
 	$self->SetRowId($ar->GetId);
 }
 
+sub CheckPrerequisites
+{
+	my $self = shift;
+	my $sql = Sql->new($self->{DBH});
+
+	# Check that the referenced artist is still around
+	$sql->SelectSingleValue(
+		"SELECT 1 FROM artist WHERE id = ?",
+		$self->GetRowId,
+	) or do {
+		$self->InsertNote(
+			MODBOT_MODERATOR,
+			"This artist has been deleted",
+		);
+		return STATUS_FAILEDPREREQ;
+	};
+
+	# Check that the alias $self->GetNew does not exist
+	my $al = Alias->new($self->{DBH});
+	$al->SetTable("ArtistAlias");
+
+	if (my $artist = $al->Resolve($self->GetNew))
+	{
+		my $url = "http://" . &DBDefs::WEB_SERVER
+			. "/showaliases.html?artistid=" . $artist;
+
+		my $note = "There is already an alias called '".$self->GetNew."'"
+			. " (see $url)";
+		$note .= " - duplicate aliases are not allowed (yet)"
+			unless $artist == $self->GetRowId;
+
+		$self->InsertNote(MODBOT_MODERATOR, $note);
+		return STATUS_FAILEDPREREQ;
+	}
+
+	undef;
+}
+
 sub ApprovedAction
 {
 	my $self = shift;
 
+	my $status = $self->CheckPrerequisites;
+	return $status if $status;
+
 	my $al = Alias->new($self->{DBH});
 	$al->SetTable("ArtistAlias");
-	
 	$al->Insert($self->GetRowId, $self->GetNew);
 
-	&ModDefs::STATUS_APPLIED;
+	STATUS_APPLIED;
 }
 
 1;
