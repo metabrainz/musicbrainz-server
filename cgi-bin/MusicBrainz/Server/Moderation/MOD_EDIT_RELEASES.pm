@@ -170,7 +170,6 @@ sub AdjustModPending
 sub ApprovedAction
 {
 	my $self = shift;
-	my $sql = Sql->new($self->{DBH});
 	require MusicBrainz::Server::Release;
 	my $release = MusicBrainz::Server::Release->new($self->{DBH});
 
@@ -230,7 +229,6 @@ sub ApprovedAction
 sub DeniedAction
 {
 	my $self = shift;
-	my $sql = Sql->new($self->{DBH});
 	require MusicBrainz::Server::Release;
 	my $release = MusicBrainz::Server::Release->new($self->{DBH});
 
