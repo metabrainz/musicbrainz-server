@@ -213,37 +213,6 @@ sub InsertRow
 	$this->GetLastInsertId($tab);
 }
 
-sub GetSingleRow
-{
-	my ($this, $tab, $cols, $where) = @_;
-	my (@row, $query, $count);
-
-	$query = "select " . join(", ", @$cols) . " from $tab";
-	if (scalar(@$where) > 0)
-	{
-		for($count = 0; scalar(@$where) > 1; $count++)
-		{
-			if ($count == 0)
-			{
-				$query .= " where ";
-			}
-			else
-			{
-				$query .= " and ";
-			}
-			$query .= (shift @$where) . " = " .	(shift @$where);
-		}
-	}
-	if ($this->Select($query))
-	{
-		@row = $this->NextRow;
-		$this->Finish;
-
-		return @row;
-	}
-	return undef;
-}
-
 sub GetLastInsertId
 {
 	my ($this, $table) = @_;
