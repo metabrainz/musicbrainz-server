@@ -20,7 +20,7 @@
 #
 #   $Id$
 #____________________________________________________________________________
-                                                                               
+
 use strict;
 use DBDefs;
 use ModDefs;
@@ -29,7 +29,6 @@ use Track;
 use Artist;
 use Album;
 use Insert;
-
 
 package AddAlbumModeration;
 use vars qw(@ISA);
@@ -1135,4 +1134,7 @@ sub ApprovedAction
 #returns nothing
 sub DeniedAction
 {
+	();
 }
+
+1;

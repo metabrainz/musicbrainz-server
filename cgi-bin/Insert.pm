@@ -20,10 +20,11 @@
 #
 #   $Id$
 #____________________________________________________________________________
-                                                                               
+
+use 5.6.1;
+
 package Insert;
 
-BEGIN { require 5.6.1 }
 use vars qw(@ISA @EXPORT);
 @ISA    = @ISA    = '';
 @EXPORT = @EXPORT = '';
@@ -510,3 +511,5 @@ sub InsertAlbumModeration
     }
     return ($artistid, $albumid);
 }
+
+1;

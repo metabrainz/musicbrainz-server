@@ -20,11 +20,12 @@
 #
 #   $Id$
 #____________________________________________________________________________
-                                                                               
+
+use 5.6.1;
+
 package Discid;
 use TableBase;
 
-BEGIN { require 5.6.1 }
 use vars qw(@ISA @EXPORT);
 @ISA    = @ISA    = 'TableBase';
 @EXPORT = @EXPORT = '';
@@ -360,3 +361,5 @@ sub LoadFull
 
    return undef;
 }
+
+1;

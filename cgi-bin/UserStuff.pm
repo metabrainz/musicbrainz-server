@@ -20,11 +20,12 @@
 #
 #   $Id$
 #____________________________________________________________________________
-                                                                               
+
+use 5.8.0;
+
 package UserStuff;
 use TableBase;
 
-BEGIN { require 5.6.1 }
 use vars qw(@ISA @EXPORT);
 @ISA    = @ISA    = 'TableBase';
 @EXPORT = @EXPORT = '';
@@ -253,3 +254,5 @@ sub IsBot
 
    return ($privs & BOT_FLAG) > 0;
 }
+
+1;

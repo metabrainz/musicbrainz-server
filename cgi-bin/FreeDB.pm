@@ -20,12 +20,13 @@
 #
 #   $Id$
 #____________________________________________________________________________
-                                                                               
+
+use 5.8.0;
+
 package FreeDB;
 use TableBase;
 use Style;
 
-BEGIN { require 5.6.1 }
 use vars qw(@ISA @EXPORT);
 @ISA    = @ISA    = 'TableBase';
 @EXPORT = @EXPORT = '';
@@ -504,3 +505,5 @@ sub InsertForModeration
     $in = Insert->new($this->{DBH});
     $in->InsertAlbumModeration($new, ModDefs::FREEDB_MODERATOR, 0);
 }
+
+1;

@@ -20,12 +20,12 @@
 #
 #   $Id$
 #____________________________________________________________________________
-                                                                               
-package Artist;
 
+use 5.8.0;
+
+package Artist;
 use TableBase;
 
-BEGIN { require 5.8.0 }
 use vars qw(@ISA @EXPORT);
 @ISA    = @ISA    = 'TableBase';
 @EXPORT = @EXPORT = '';
@@ -578,4 +578,6 @@ sub HasAlbum
    }
 
    return @matches;
-} 
+}
+
+1;

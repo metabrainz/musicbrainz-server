@@ -20,10 +20,11 @@
 #
 #   $Id$
 #____________________________________________________________________________
-                                                                               
+
+use 5.6.1;
+
 package Sql;
 
-BEGIN { require 5.6.1 }
 use vars qw(@ISA @EXPORT);
 @ISA    = @ISA    = '';
 @EXPORT = @EXPORT = '';
@@ -570,4 +571,5 @@ sub SelectListOfHashes
     die $err;
 }
 
+1;
 # vi: set ts=8 sw=4 et :

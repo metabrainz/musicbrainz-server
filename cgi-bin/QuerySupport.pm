@@ -20,7 +20,9 @@
 #
 #   $Id$
 #____________________________________________________________________________
-                                                                               
+
+use 5.8.0;
+
 package QuerySupport;
 
 use strict;
@@ -49,7 +51,6 @@ use Digest::SHA1 qw(sha1_hex);
 use Apache::Session::File;
 use TaggerSupport;
 
-BEGIN { require 5.8.0 }
 use vars qw(@ISA @EXPORT);
 @ISA    = @ISA    = '';
 @EXPORT = @EXPORT = '';
@@ -982,5 +983,4 @@ sub QuickTrackInfoFromTrackId
    return $out;
 }
 
-
-
+1;

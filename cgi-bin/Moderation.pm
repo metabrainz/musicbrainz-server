@@ -20,12 +20,12 @@
 #
 #   $Id$
 #____________________________________________________________________________
-                                                                               
-package Moderation;
 
+use 5.8.0;
+
+package Moderation;
 use TableBase;
 
-BEGIN { require 5.6.1 }
 use vars qw(@ISA @EXPORT);
 @ISA       = 'TableBase';
 
@@ -1261,3 +1261,5 @@ sub GetVoterList
 
     return @info;
 }
+
+1;

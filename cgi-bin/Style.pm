@@ -20,10 +20,11 @@
 #
 #   $Id$
 #____________________________________________________________________________
-                                                                               
+
+use 5.8.0;
+
 package Style;
 
-BEGIN { require 5.6.1 }
 use vars qw(@ISA @EXPORT);
 @ISA    = @ISA    = '';
 @EXPORT = @EXPORT = '';
@@ -147,3 +148,5 @@ sub NormalizeDiscNumbers
     $name = encode "utf-8", $name;
     return $name;
 }
+
+1;

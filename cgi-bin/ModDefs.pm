@@ -20,10 +20,10 @@
 #
 #   $Id$
 #____________________________________________________________________________
-                                                                               
-package ModDefs;
 
-BEGIN { require 5.6.1 }
+use 5.6.1;
+
+package ModDefs;
 
 use strict;
 

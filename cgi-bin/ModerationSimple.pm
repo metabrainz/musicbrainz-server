@@ -20,7 +20,7 @@
 #
 #   $Id$
 #____________________________________________________________________________
-                                                                               
+
 use strict;
 use DBDefs;
 use ModDefs;
@@ -900,3 +900,5 @@ sub ApprovedAction
 
    return $status;
 }
+
+1;

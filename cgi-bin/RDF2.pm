@@ -20,12 +20,13 @@
 #
 #   $Id$
 #____________________________________________________________________________
-                                                                               
+
+use 5.6.1;
+
 package RDF2;
 
 use strict;
 
-BEGIN { require 5.6.1 }
 use vars qw(@ISA @EXPORT);
 @ISA    = @ISA    = '';
 @EXPORT = @EXPORT = '';
@@ -252,3 +253,5 @@ sub EndLi
 
     return $rdf;
 }
+
+1;

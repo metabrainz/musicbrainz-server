@@ -20,12 +20,12 @@
 #
 #   $Id$
 #____________________________________________________________________________
-                                                                               
-package Alias;
 
+use 5.6.1;
+
+package Alias;
 use TableBase;
 
-BEGIN { require 5.6.1 }
 use vars qw(@ISA @EXPORT);
 @ISA    = @ISA    = 'TableBase';
 @EXPORT = @EXPORT = '';

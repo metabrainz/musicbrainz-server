@@ -20,10 +20,11 @@
 #
 #   $Id$
 #____________________________________________________________________________
-                                                                               
+
+use 5.8.0;
+
 package TableBase;
 
-BEGIN { require 5.6.1 }
 use vars qw(@ISA @EXPORT);
 @ISA    = @ISA    = '';
 @EXPORT = @EXPORT = '';
@@ -163,3 +164,4 @@ sub CalculatePageIndex
     return $path;
 }
 
+1;

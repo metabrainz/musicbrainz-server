@@ -20,11 +20,12 @@
 #
 #   $Id$
 #____________________________________________________________________________
-                                                                               
+
+use 5.8.0;
+
 package Album;
 use TableBase;
 
-BEGIN { require 5.8.0 }
 use vars qw(@ISA @EXPORT);
 @ISA    = (TableBase);
 @EXPORT = '';
@@ -696,3 +697,5 @@ sub UpdateAttributes
    $sql = Sql->new($this->{DBH});
    $sql->Do("update Album set Attributes = '{$attr}' where id = $this->{id}");
 }
+
+1;

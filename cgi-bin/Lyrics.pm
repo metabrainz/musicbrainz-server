@@ -20,12 +20,12 @@
 #
 #   $Id$
 #____________________________________________________________________________
-                                                                               
-package Lyrics;
 
+use 5.6.1;
+
+package Lyrics;
 use TableBase;
 
-BEGIN { require 5.6.1 }
 use vars qw(@ISA @EXPORT);
 @ISA    = @ISA    = 'TableBase';
 @EXPORT = @EXPORT = '';
@@ -175,3 +175,5 @@ sub InsertSyncEvent
 
     return $id;
 }
+
+1;

@@ -20,11 +20,12 @@
 #
 #   $Id$
 #____________________________________________________________________________
-                                                                               
+
+use 5.6.1;
+
 package Track;
 use TableBase;
 
-BEGIN { require 5.6.1 }
 use vars qw(@ISA @EXPORT);
 @ISA    = @ISA    = 'TableBase';
 @EXPORT = @EXPORT = '';
@@ -433,3 +434,5 @@ sub GetAlbumInfo
 
    return @info;
 }
+
+1;

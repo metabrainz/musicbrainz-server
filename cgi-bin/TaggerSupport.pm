@@ -20,7 +20,9 @@
 #
 #   $Id$
 #____________________________________________________________________________
-                                                                               
+
+use 5.8.0;
+
 package TaggerSupport;
 
 use strict;
@@ -33,7 +35,6 @@ use Track;
 use String::Unicode::Similarity;
 use Encode qw( encode decode );
 
-BEGIN { require 5.6.1 }
 use vars qw(@ISA @EXPORT);
 @ISA    = @ISA    = 'TableBase';
 @EXPORT = @EXPORT = '';
@@ -616,3 +617,5 @@ sub TrackSearch
 
    return (ALBUMTRACKLIST | $flags, \@ids);
 }
+
+1;

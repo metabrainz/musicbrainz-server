@@ -20,10 +20,11 @@
 #
 #   $Id$
 #____________________________________________________________________________
-                                                                               
+
+use 5.6.1;
+
 package DBDefs;
 
-BEGIN { require 5.6.1 }
 use vars qw(@ISA @EXPORT);
 @ISA    = @ISA    = '';
 @EXPORT = @EXPORT = '';
@@ -89,3 +90,4 @@ use constant ALLOW_SELF_VOTE => 0;
 use constant LOCK_DIR => "/home/httpd/musicbrainz/locks";
 use constant SESSION_DIR => "/home/httpd/musicbrainz/sessions";
 
+1;

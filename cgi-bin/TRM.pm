@@ -20,11 +20,12 @@
 #
 #   $Id$
 #____________________________________________________________________________
-                                                                               
+
+use 5.6.1;
+
 package TRM;
 use TableBase;
 
-BEGIN { require 5.6.1 }
 use vars qw(@ISA @EXPORT);
 @ISA    = (TableBase);
 @EXPORT = '';
@@ -287,3 +288,5 @@ sub IncrementLookupCount
    $trm = $sql->Quote($trm);
    $sql->Do("update TRM set lookupcount = lookupcount + 1 where trm = $trm");
 }
+
+1;

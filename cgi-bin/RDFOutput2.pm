@@ -20,7 +20,9 @@
 #
 #   $Id$
 #____________________________________________________________________________
-                                                                               
+
+use 5.6.1;
+
 package RDFOutput2;
 
 use TableBase;
@@ -32,7 +34,6 @@ use Discid;
 use Artist;
 use Data::Dumper;
 
-BEGIN { require 5.6.1 }
 use vars qw(@ISA @EXPORT);
 @ISA    = @ISA    = qw(TableBase RDF2);
 @EXPORT = @EXPORT = '';
@@ -962,3 +963,5 @@ sub CreateAuthenticateResponse
 
    return $rdf;
 }
+
+1;
