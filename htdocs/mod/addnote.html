@@ -1,6 +1,7 @@
 %# vi: set ts=4 sw=4 ft=mason :
 <%args>
 $modid=>undef
+$revealaddress=>0
 $text=>""
 </%args>
 <%perl>
@@ -45,7 +46,10 @@ if (MusicBrainz::IsSingleLineString($text)
 
 	eval {
 		$sql->Begin;
-		$mod->InsertNote($session{uid}, $text);
+		$mod->InsertNote(
+			$session{uid}, $text,
+			revealaddress => $revealaddress,
+		);
 		$sql->Commit;
 	};
 
@@ -80,6 +84,9 @@ if (MusicBrainz::IsSingleLineString($text)
 	return;
 }
 
+my $ui = UserStuff->new($mb->{DBH});
+my $me = $ui->newFromId($session{uid});
+
 </%perl>
 <& /comp/header_small, title => 'Add note to moderation' &>
 
@@ -93,6 +100,19 @@ if (MusicBrainz::IsSingleLineString($text)
 		<textarea name="text" rows="3" cols="40" style="width: 100%"
 			><% $text %></textarea>
 	</p>
+
+% if ($me->GetEmail) {
+	<p style="margin: 0; float: left">
+		<input type="checkbox" name="revealaddress" <%
+			UserPreference::get('reveal_address_when_mailing')
+			? "checked" : ""
+			%>>
+		Reveal my e-mail address
+		[&nbsp;<a <& /comp/auto-popup-link,
+			url => "/products/server/docs/20040103-1.html",
+			&>>help</a>&nbsp;]
+	</p>
+% }
 
 	<p style="margin: 0; text-align: right">
 		<input type="hidden" name="modid" value="<% $mod->GetId %>">
