@@ -779,38 +779,17 @@ sub GetModerationList
 # TODO make a separate "vote" class
 
 # This function enters a number of votes into the Votes table.
-# The caller must supply three lists of ids in the Moderation table:
-# The list of moderations that the user votes yes on, the no list
-# and the abstain list
+# The caller must a hash of votes, where the keys are the moderation IDs,
+# and the values are the VOTE_* constants.
 sub InsertVotes
 {
-	my ($this, $uid, $yeslist, $nolist, $abslist) = @_;
+	my ($this, $uid, $votes) = @_;
 	my $sql = Sql->new($this->{DBH});
 
-	for my $val (@{$yeslist})
+	while (my ($modid, $vote) = each %$votes)
 	{
-	   	next if $this->DoesVoteExist($uid, $val);
-		$this->InsertVote($uid, $val, &ModDefs::VOTE_YES);
-		$sql->Do(
-			"UPDATE moderation SET yesvotes = yesvotes + 1 WHERE id = ?",
-			$val,
-		);
-	}
-
-	for my $val (@{$nolist})
-	{
-		next if $this->DoesVoteExist($uid, $val);
-		$this->InsertVote($uid, $val, &ModDefs::VOTE_NO);
-		$sql->Do(
-			"UPDATE moderation SET novotes = novotes + 1 WHERE id = ?",
-			$val,
-		);
-	}
-	
-	for my $val (@{$abslist})
-	{
-	   	next if $this->DoesVoteExist($uid, $val);
-		$this->InsertVote($uid, $val, &ModDefs::VOTE_ABS);
+	   	next if $this->DoesVoteExist($uid, $modid);
+		$this->InsertVote($uid, $modid, $vote);
 	}
 }
 
@@ -830,10 +809,23 @@ sub InsertVote
 	my ($this, $uid, $id, $vote) = @_;
 	my $sql = Sql->new($this->{DBH});
 
+	my $status = $sql->SelectSingleValue(
+		"SELECT status FROM moderation WHERE id = ?",
+		$id,
+	);
+
+	$status == &ModDefs::STATUS_OPEN
+		or return;
+
 	$sql->Do(
 		"INSERT INTO votes (uid, rowid, vote) VALUES (?, ?, ?)",
 		$uid, $id, $vote,
 	);
+
+	$sql->Do("UPDATE moderation SET yesvotes = yesvotes + 1 WHERE id = ?", $id)
+		if $vote == &ModDefs::VOTE_YES;
+	$sql->Do("UPDATE moderation SET novotes = novotes + 1 WHERE id = ?", $id)
+		if $vote == &ModDefs::VOTE_NO;
 }
 
 # Go through the Moderation table and evaluate open Moderations
