@@ -631,7 +631,14 @@ sub GetVariousDisplayList
        $num_albums = $sql->Rows();
        for(;@row = $sql->NextRow;)
        {
-           push @info, [$row[0], $row[1], $row[2], unac_string('UTF-8', $row[1])];
+           my $temp = lc(unac_string('UTF-8', $row[1]));
+
+           # Remove all non alpha characters to sort cleaner
+           $temp =~ tr/A-Za-z0-9 //cd;
+
+           # Change space to 0 since perl has some FUNKY collate order
+           $temp =~ tr/ /0/;
+           push @info, [$row[0], $row[1], $row[2], $temp];
        }
        $sql->Finish;   
 
