@@ -63,6 +63,13 @@ sub RunSQLScript
 
 sub Create 
 {
+	# Check we can find these programs on the path
+	for my $prog (qw( createuser createdb createlang ))
+	{
+		next if `which $prog` and $? == 0;
+		die "Can't find '$prog' on your PATH\n";
+	}
+
 	unless ($dbuser eq "$postgres")
 	{
 		my $use = `
