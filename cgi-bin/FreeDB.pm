@@ -45,7 +45,8 @@ sub new
     }, ref($class) || $class;
 }
 
-# Public
+# Public.  Called from Discid->GenerateAlbumFromDiscid; cdi/enter.html;
+# cdi/menter.html
 
 sub Lookup
 {
@@ -74,7 +75,7 @@ sub Lookup
     return $ret;
 }
 
-# Public
+# Public.  Called by freedb/import.html
 
 sub LookupByFreeDBId
 {
