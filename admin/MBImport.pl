@@ -22,23 +22,41 @@
 #   $Id$
 #____________________________________________________________________________
 
-use lib "../cgi-bin";
+use strict;
+
+use FindBin;
+use lib "$FindBin::Bin/../cgi-bin";
+
+use Getopt::Long;
 use DBI;
+use MusicBrainz;
 use DBDefs;
+use Sql;
+
+my $dbname = DBDefs::DB_NAME;
+my $dbuser = DBDefs::DB_USER;
+my $sql;
 
 sub ImportTable
 {
     my ($name, $dir) = @_;
     my ($cmd, $dsn);
 
+    my $rows = eval { $sql->SelectSingleValue("SELECT 1 FROM $name LIMIT 1") };
+
+    if ($rows)
+    {
+	    print STDERR "Warning: table '$name' already contains data, skipping import\n";
+	    return;
+    }
 
     if (-e "$dir/$name")
     {
-        my $dataonly = ($name eq 'moderator_sanitised') ? '' : '-a';
-        print "Importing table $name..\n";
-        $cmd = "pg_restore $dataonly -t $name -d musicbrainz $dir/$name"; 
-        print "$cmd\n";
-        $ret = system($cmd) >> 8;
+        $cmd = "pg_restore -U $dbuser -S postgres -a -t $name -d $dbname $dir/$name"; 
+
+	printf "%s: %s\n", scalar(localtime), $cmd;
+        my $ret = system($cmd) >> 8;
+	printf "%s: finished\n", scalar localtime;
 
         return !$ret;
     }
@@ -53,49 +71,59 @@ sub ImportAllTables
 {
     my ($dir) = @_;
 
-    ImportTable("artist", $dir) or return 0;
-    ImportTable("artistalias", $dir) or return 0;
-    ImportTable("album", $dir) or return 0;
-    ImportTable("track", $dir) or return 0;
-    ImportTable("albumjoin", $dir) or return 0;
-    ImportTable("trm", $dir) or return 0;
-    ImportTable("trmjoin", $dir) or return 0;
-    ImportTable("discid", $dir) or return 0;
-    ImportTable("toc", $dir) or return 0;
-    ImportTable("clientversion", $dir) or return 0;
-    ImportTable("albummeta", $dir) or return 0;
+    ImportTable("artist", $dir);
+    ImportTable("artistalias", $dir);
+    ImportTable("album", $dir);
+    ImportTable("track", $dir);
+    ImportTable("albumjoin", $dir);
+    ImportTable("trm", $dir);
+    ImportTable("trmjoin", $dir);
+    ImportTable("discid", $dir);
+    ImportTable("toc", $dir);
+    ImportTable("clientversion", $dir);
+    ImportTable("albummeta", $dir);
 
-    ImportTable("moderator", $dir) or return 0;
-    ImportTable("moderator_sanitised", $dir) or return 0;
-    ImportTable("moderation", $dir) or return 0;
-    ImportTable("moderationnote", $dir) or return 0;
-    ImportTable("votes", $dir) or return 0;
+    ImportTable("moderator", $dir);
+    ImportTable("moderator_sanitised", $dir);
+    ImportTable("moderation", $dir);
+    ImportTable("moderationnote", $dir);
+    ImportTable("votes", $dir);
 
-    ImportTable("wordlist", $dir) or return 0;
-    ImportTable("artistwords", $dir) or return 0;
-    ImportTable("albumwords", $dir) or return 0;
-    ImportTable("trackwords", $dir) or return 0;
-
-    `echo "select fill_moderator();" | psql musicbrainz`;
+    ImportTable("wordlist", $dir);
+    ImportTable("artistwords", $dir);
+    ImportTable("albumwords", $dir);
+    ImportTable("trackwords", $dir);
+    ImportTable("stats", $dir);
 
     return 1;
 }
 
-my ($infile, $dir);
+my ($fHelp, $dir);
 
-$infile = shift;
-if (!defined $infile || $infile eq "-h" || $infile eq "--help")
+GetOptions(
+	"help|h"       => \$fHelp,
+);
+
+if (not @ARGV or $fHelp)
 {
-    print "Usage: MBImport.pl <dumpfile>\n\n";
+    print "Usage: MBImport.pl dumpfile [dumpfile ...]\n\n";
     print "Make sure to have plenty of diskspace on /tmp!\n";
     exit(0);
 }
 
 $dir = "/tmp/mbdump";
 
-(!(system("tar -C /tmp -xjf $infile") >> 8))
-   or die("Cannot untar/unzip the database dump.\n");
+for my $infile (@ARGV)
+{
+	print "Unpacking $infile ...\n";
+	(!(system("tar -C /tmp -vxjf $infile") >> 8))
+		or die("Cannot untar/unzip the database dump.\n");
+}
  
+my $mb = MusicBrainz->new;
+$mb->Login;
+$sql = Sql->new($mb->{DBH});
+
 ImportAllTables($dir);
 
 system("rm -rf $dir");
