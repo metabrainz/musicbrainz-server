@@ -49,21 +49,24 @@ sub new
 sub Parse
 {
 	my ($this, $rdf) = @_;
-	my (%uri, @uri, %triples, %triples1, %baseuri);
 
-	$baseuri{uri} = "";
+	# Each URI seen is assigned an integer ID.
+	$this->{_last_uri_id_} = 0;
+	$this->{uri_to_id} = {};
+	$this->{id_to_uri} = [];
+
+	# This stores the triples, using the IDs not the URIs
+	$this->{object_by_subject_predicate} = {};
+
+	# Base URI (subject of first triple)
+	$this->{baseuri} = undef;
 
 	my $parser = RDFStore::Parser::SiRPAC->new(
 		NodeFactory => new RDFStore::NodeFactory(),
-		Handlers => { Assert => \&Statement },
+		Handlers => {
+			Assert => sub { $this->_assert($_[1]) },
+		},
 	);
-
-	$parser->{_next_uri_id_} = 0;
-	$parser->{__mburi__} = \%uri;
-	$parser->{__mburi2__} = \@uri;
-	$parser->{__mbtriples__} = \%triples;
-	$parser->{__mbtriples1__} = \%triples1;
-	$parser->{__baseuri__} = \%baseuri;
 
 	unless (eval { $parser->parse($rdf); 1 })
 	{
@@ -76,44 +79,40 @@ sub Parse
 	#print STDERR "Parsed ". scalar(keys %uri) . " unique URIs.\n";
 	#print STDERR "Parsed ". scalar(@triples) . " triples.\n";
 
-	$this->{uri} = \%uri;
-	$this->{uri2} = \@uri;
-	$this->{triples} = \%triples;
-	$this->{triples1} = \%triples1;
-	$this->{baseuri} = $baseuri{uri};
-
  	return 1;
 }
 
-sub Statement
+sub _assert
 {
-	my ($expat, $st) = @_;
+	my ($this, $st) = @_;
 
 	#print STDERR $st->subject->getLabel . "\n";
 	#print STDERR $st->predicate->getLabel . "\n";
 	#print STDERR $st->object->getLabel . "\n\n";
 
-	if ($expat->{__baseuri__}->{uri} eq '')
+	if (not defined $this->{baseuri})
 	{
-		$expat->{__baseuri__}->{uri} = $st->subject->getLabel;
+		$this->{baseuri} = $st->subject->getLabel;
 	}
 
+	# Get the labels of the subject, predicate and object.  Give each unique
+	# label an ID.
 	my ($sid, $pid, $oid) = map {
 		my $uri = $_->getLabel;
-		my $id = $expat->{__mburi__}{$uri};
+		my $id = $this->{uri_to_id}{$uri};
 
 		unless ($id)
 		{
-			$id = ++$expat->{_next_uri_id_};
-			$expat->{__mburi__}{$uri} = $id;
-			$expat->{__mburi2__}[$id] = $uri;
+			$id = ++$this->{_last_uri_id_};
+			$this->{uri_to_id}{$uri} = $id;
+			$this->{id_to_uri}[$id] = $uri;
 		}
 
 		$id;
 	} ($st->subject, $st->predicate, $st->object);
 
-	push @{ $expat->{__mbtriples__}{$pid} }, [ $sid, $oid ];
-	push @{ $expat->{__mbtriples1__}{$oid}{$pid} }, $sid;
+	# Store the triple using the label IDs
+	$this->{object_by_subject_predicate}{"$sid $pid"} = $oid;
 }
 
 sub GetBaseURI
@@ -126,10 +125,9 @@ sub Extract
 {
 	my ($this, $currentURI, $ordinal, $query) = @_;
 
-	my $currentURIid = $this->{uri}{$currentURI}
+	my $currentURIid = $this->{uri_to_id}{$currentURI}
 		or return undef;
 
-QUERY:
 	for my $pred (split /\s/, $query)
 	{
 		if ($pred eq "[]")
@@ -137,43 +135,16 @@ QUERY:
 			$pred = "http://www.w3.org/1999/02/22-rdf-syntax-ns#_$ordinal";
 		}
 
-		my $pid = $this->{uri}{$pred}
+		my $pid = $this->{uri_to_id}{$pred}
 			or return undef;
 
-		my $refs = $this->{triples}{$pid}
+		my $oid = $this->{object_by_subject_predicate}{"$currentURIid $pid"}
 			or return undef;
 
-		foreach my $triple (@$refs)
-		{
-			$$triple[0] == $currentURIid
-				or next;
-
-			$currentURIid = $$triple[1];
-			next QUERY;
-		}
-
-		return undef;
+		$currentURIid = $oid;
 	}
 
-	$this->{uri2}[$currentURIid];
-}
-
-sub FindNodeByType
-{
- 	my ($this, $object, $ordinal) = @_;
-	$ordinal = 1 if not defined $ordinal;
-
-	my $oid = $this->{uri}{$object}
-		or return undef;
-	my $pid = $this->{uri}{'http://www.w3.org/1999/02/22-rdf-syntax-ns#type'}
-		or return undef;
-
-	my $r = $this->{triples1}{$oid}{$pid}
-		or return;
-	my $sid = $r->[$ordinal-1]
-		or return undef;
-
-	$this->{uri2}[$sid];
+	$this->{id_to_uri}[$currentURIid];
 }
 
 1;
