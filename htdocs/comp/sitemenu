@@ -128,6 +128,7 @@ use Scalar::Util qw( reftype weaken );
             { name => "Track Numbers",			url => "/reports/TracksNamedWithSequence.html" },
             { name => "Duplicate Tracks",		url => "/reports/DuplicateTrackNumbers.html" },
             { name => "Broken Disc IDs",		url => "/reports/BrokenDiscIDs.html" },
+            { name => "Data Tracks",			url => "/reports/SuperfluousDataTracks.html" },
         ],
         { name => "FAQ",					url => "/mod_faq.html" },
         { name => "Style",					url => "/style.html" },

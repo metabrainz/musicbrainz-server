@@ -42,6 +42,7 @@ my @all = (
 	[ "admin/reports/BrokenDiscIDs"				=> "BrokenDiscIDs.html"			],
 	[ "admin/reports/DuplicateArtists.pl"		=> "DuplicateArtists.html"		],
 	[ "admin/reports/DuplicateTrackNumbers"		=> "DuplicateTrackNumbers.html"	],
+	[ "admin/reports/SuperfluousDataTracks"		=> "SuperfluousDataTracks.html"	],
 	[ "admin/reports/TracksNamedWithSequence.pl"=> "TracksNamedWithSequence.html" ],
 	[ "admin/reports/TracksWithManyTRMs.pl"		=> "TracksWithManyTRMs.html"	],
 	[ "admin/reports/TRMsWithManyTracks.pl"		=> "TRMsWithManyTracks.html"	],

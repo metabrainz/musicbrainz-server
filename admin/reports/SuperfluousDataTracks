@@ -1,0 +1,110 @@
+#!/usr/bin/perl -w
+# vi: set ts=4 sw=4 :
+#____________________________________________________________________________
+#
+#   MusicBrainz -- the open internet music database
+#
+#   Copyright (C) 1998 Robert Kaye
+#
+#   This program is free software; you can redistribute it and/or modify
+#   it under the terms of the GNU General Public License as published by
+#   the Free Software Foundation; either version 2 of the License, or
+#   (at your option) any later version.
+#
+#   This program is distributed in the hope that it will be useful,
+#   but WITHOUT ANY WARRANTY; without even the implied warranty of
+#   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+#   GNU General Public License for more details.
+#
+#   You should have received a copy of the GNU General Public License
+#   along with this program; if not, write to the Free Software
+#   Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
+#
+#   $Id$
+#____________________________________________________________________________
+
+use 5.008;
+use strict;
+
+use FindBin;
+use lib "$FindBin::Bin/../../cgi-bin";
+
+use HTML::Mason::Tools qw( html_escape );
+
+use DBI;
+use DBDefs;
+use MusicBrainz;
+use Sql;
+
+my $mb = MusicBrainz->new;
+$mb->Login;
+my $sql = Sql->new($mb->{DBH});
+
+print <<EOF;
+<& /comp/sidebar, title => 'Albums with superfluous data tracks' &>
+
+<p>Generated <% \$m->comp('/comp/datetime', ${\ time() }) %></p>
+
+<p>
+    This report lists albums without CDIndex that probably contain
+    <i>data tracks</i>. A data track should be deleted if it is the last
+    track of the album and there is no CDIndex.
+</p>
+
+EOF
+
+$sql->Select("
+	SELECT al.id, al.name, ar.id, ar.name
+	FROM album al, artist ar
+	WHERE al.artist = ar.id AND al.id IN (
+
+		( SELECT album FROM albumjoin, track
+		  WHERE track.id = albumjoin.track
+		  AND track.name ~* '[[:<:]]data[[:>:]]' )
+
+		EXCEPT
+
+		( SELECT album FROM discid )
+
+	)
+	ORDER BY ar.sortname, al.name
+");
+
+my $n = 0;
+my $lastartist = 0;
+
+while (my @row = $sql->NextRow)
+{
+	my ($album_id, $album_name, $artist_id, $artist_name) = @row;
+
+	if ( $artist_id != $lastartist )
+	{
+		print "</ul>\n" if $lastartist;
+
+		print "<a href=\"/showartist.html?artistid=$artist_id\">",
+			"<font size=\"+1\">", html_escape($artist_name),
+				"</font></a>\n";
+
+		print "<ul>\n";
+
+		$lastartist = $artist_id;
+	}
+
+	print "<li> <a href=\"/showalbum.html?albumid=$album_id\">",
+		html_escape($album_name), "</a> </li>\n";
+
+	++$n;
+}
+
+print "</ul>\n" if $lastartist;
+
+$sql->Finish;
+
+print "<p>No albums to report - good!</p>\n\n" if not $n;
+
+print "<p>End of report; found one album.</p>\n\n" if $n == 1;
+print "<p>End of report; found $n albums.</p>\n\n" if $n > 1;
+
+print "<& /comp/footer &>\n";
+
+# eof SuperfluousDataTracks
