@@ -43,6 +43,7 @@ else
                     $artist->SetId($album->GetArtist());
                     if ($artist->LoadFromId())
                     {
+						$m->comp("/comp/artisttitle", artist => $artist);
                         mc_comp("comp/album", 
                                 album=>$album, 
                                 artist=>$artist,
