@@ -38,7 +38,11 @@ $num = scalar(@obj);
 <input type="hidden" name="table" value="Album">
 <input type="hidden" name="column" value="id">
 <input type="hidden" name="id" value="<% $obj[0]->GetId() %>">
-<input type="hidden" name="url" 
-       value="/showalbum.html?albumid=<% $obj[0]->GetId() %>">
+
+% if ($arid == ModDefs::VARTIST_ID) {
+   <input type="hidden" name="url" value="/showalbum.html?albumid=<% $obj[0]->GetId() %>">
+% } else {
+   <input type="hidden" name="url" value="/showartist.html?artistid=<% $arid %>">
+% }
 </form>
     

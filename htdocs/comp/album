@@ -10,6 +10,7 @@ $ex=>""
 $mbtagger=>0
 $showids=>0
 $showtag=>0
+$tagchecked=>0
 </%args>
 
 <%perl>
@@ -18,7 +19,7 @@ my ($i, $track, @info, $ly, $lyricspresent, $trmcounts, $tcount);
 
 $ly = Lyrics->new($artist->GetDBH());
 
-$nomod = 1 if (exists $session{tagged_albums});
+#$nomod = 1 if (exists $session{tagged_albums});
 
 if ($album->GetArtist() == ModDefs::VARTIST_ID)
 {
@@ -47,7 +48,8 @@ if ($showcollapsed)
             albumdetail=>$showalbumdetail,
             linktype=>"collapse",
             link=>$link,
-            showtag=>$showtag);
+            showtag=>$showtag,
+            tagchecked=>$tagchecked);
 }
 else
 {
@@ -56,7 +58,8 @@ else
             album=>$album, 
             nomod=>$nomod,
             albumdetail=>$showalbumdetail,
-            showtag=>$showtag);
+            showtag=>$showtag,
+            tagchecked=>$tagchecked);
 }
 for($i = 0;; $i++)
 {

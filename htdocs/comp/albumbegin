@@ -6,9 +6,11 @@ $albumdetail=>0
 $link=>""
 $linktype=>""
 $showtag=>0
+$tagchecked=>0
 </%args>
 
 <%perl>
+
 my $check_box = "";
 my $albumid = $album->GetId();
 my $script = $albumdetail ? "albumdetail" : "showalbum";
@@ -61,7 +63,8 @@ if ($link ne '')
 
 %       if (!$nonalbum && $showtag) {
             <td width=1% bgcolor="#FFBA58" align=center valign=top nowrap>
-              <input type="checkbox" name="AlbumId<% $album->GetId() %>">
+              <input type="checkbox" name="AlbumId<% $album->GetId() %>"
+                 <% $tagchecked ? " CHECKED" : "" %>>
             </td>
 %       }
 

@@ -1,3 +1,7 @@
+<%args>
+$add=>1
+</%args>
+
 <& /comp/sidebar, title=>'Batch Operation on Albums', expand=>'moderate' &>
 
 <%perl>
@@ -23,8 +27,11 @@ else
 {
     my (@albums, @objs, $albumid, $al, $ar, $arg);
 
-    # Grab the tagged albums from the cookie
-    @albums = split / /, $session{tagged_albums};
+    if ($add) 
+    {
+       # Grab the tagged albums from the cookie
+       @albums = split / /, $session{tagged_albums};
+    }
 
     for $arg (keys %ARGS)
     {
@@ -147,11 +154,18 @@ else
         <a href="/search.html">Search</a> ]
     <p>
     </td></tr>
-    </table>
+    <tr><td>
     <hr>
-    You selected the following albums:
+    <p>
+    You selected the albums shown below. To remove one or more albums from
+    this list, deselect the checkbox in the album title and click on
+    the Update button at the bottom of this form:
+    </td></tr>
+    </table>
     <p>
 
+    <form method="POST" action="/mod/tag/donetag.html" name="AddArtist"
+          enctype="application/x-www-form-urlencoded">
 <%perl>
 
     # Sort by artist so that all the artists are sequential
@@ -170,9 +184,16 @@ else
            }
            mc_comp("/comp/artisttitle", artist=>$ar, nomod=>1);
        }
-       mc_comp("/comp/album", album=>$al, artist=>$ar, nomod=>1, showtag=>1);
+       mc_comp("/comp/album", album=>$al, artist=>$ar, showids=>1, 
+                              showtag=>1, tagchecked=>1, nomod=>0);
     }
 </%perl>
+    <center>
+    <input type="submit" NAME="Submit" VALUE="Update">
+    </center>
+    <input type="hidden" NAME="url" VALUE="<% $referer %>">
+    <input type="hidden" NAME="add" VALUE="0">
+    </form>
 
 % }
 % $mb->Logout();
