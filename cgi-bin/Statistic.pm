@@ -438,8 +438,8 @@ my %stats = (
 			my $voters = $sql->SelectSingleValue(
 				"SELECT COUNT(DISTINCT moderator)
 				FROM vote_all
-				WHERE rowid > ?
-				AND uid != ?",
+				WHERE moderation > ?
+				AND moderator != ?",
 				$threshold_id,
 				&ModDefs::FREEDB_MODERATOR,
 			);
@@ -461,9 +461,9 @@ my %stats = (
 					FROM moderation_all
 					WHERE id > ?
 					UNION
-					SELECT uid AS m
+					SELECT moderator AS m
 					FROM vote_all
-					WHERE rowid > ?
+					WHERE moderation > ?
 				) t WHERE m != ?",
 				$threshold_id,
 				$threshold_id,
