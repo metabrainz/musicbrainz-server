@@ -39,7 +39,7 @@ use Net::SMTP;
 use URI::Escape;
 use CGI::Cookie;
 use Digest::SHA1 qw(sha1_base64);
-use MIME::QuotedPrint qw( encode_qp );
+use Carp;
 
 use constant AUTOMOD_FLAG => 1;
 use constant BOT_FLAG => 2;
@@ -403,17 +403,7 @@ sub SendPasswordReminder
 
 	my $pass = $self->GetPassword;
 
-	$self->SendFormattedEmail(
-		<<EOF
-From: MusicBrainz <webserver\@musicbrainz.org>
-Reply-To: MusicBrainz Support <support\@musicbrainz.org>
-Subject: Your MusicBrainz account
-MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-
-EOF
-		. encode_qp(<<EOF)
+	my $body = <<EOF;
 Hello.  Someone, probably you, asked that your MusicBrainz password be sent
 to you via e-mail.
 
@@ -428,7 +418,21 @@ for details.
 
 -- The MusicBrainz Team
 EOF
+
+	require MusicBrainz::Server::Mail;
+	my $mail = MusicBrainz::Server::Mail->new(
+		# Sender: not required
+		From		=> 'MusicBrainz <webserver@musicbrainz.org>',
+		# To: $self (automatic)
+		"Reply-To"	=> 'MusicBrainz Support <support@musicbrainz.org>',
+		Subject		=> "Your MusicBrainz account",
+		Type		=> "text/plain",
+		Encoding	=> "quoted-printable",
+		Data		=> $body,
 	);
+    $mail->attr("content-type.charset" => "utf-8");
+
+	$self->SendFormattedEmail(entity => $mail);
 }
 
 # Send an address verification e-mail for a user to the specified address.
@@ -440,29 +444,7 @@ sub SendVerificationEmail
 
 	my $url = $self->GetEmailActivationLink($email);
 
-	require MusicBrainz::Server::Mail;
-	my $to_line = MusicBrainz::Server::Mail->format_address_line(
-		$self->GetName,
-		$email,
-	);
-
-	my $mailer = MusicBrainz::Server::Mail->open(
-		'noreply@musicbrainz.org',
-		$email,
-	) or return "Could not send mail. Please try again later.";
-
-	print $mailer
-		<<EOF,
-Sender: Webserver <webserver\@musicbrainz.org>
-From: MusicBrainz <noreply\@musicbrainz.org>
-To: $to_line
-Subject: email address verification
-MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-
-EOF
-		encode_qp(<<EOF),
+	my $body = <<EOF;
 This is the email confirmation for your MusicBrainz account.
 Please click on the link below to verify your email address:
 
@@ -475,9 +457,21 @@ Thanks for using MusicBrainz!
 
 -- The MusicBrainz Team
 EOF
-		;
 
-	close($mailer) ? undef : "Failed to send mail. Please try again later.";
+	require MusicBrainz::Server::Mail;
+	my $mail = MusicBrainz::Server::Mail->new(
+		Sender		=> 'Webserver <webserver@musicbrainz.org>',
+		From		=> 'MusicBrainz <noreply@musicbrainz.org>',
+		To			=> MusicBrainz::Server::Mail->format_address_line($self->GetName, $email),
+		"Reply-To"	=> 'MusicBrainz Support <support@musicbrainz.org>',
+		Subject		=> "email address verification",
+		Type		=> "text/plain",
+		Encoding	=> "quoted-printable",
+		Data		=> $body,
+	);
+    $mail->attr("content-type.charset" => "utf-8");
+
+	$self->SendFormattedEmail(entity => $mail, to => $email);
 }
 
 sub SendMessageToUser
@@ -485,44 +479,43 @@ sub SendMessageToUser
 	my ($self, $subject, $message, $otheruser) = @_;
 	
 	my $fromname = $self->GetName;
-	my $fromline = $self->GetForwardingAddressHeader;
 
 	# Collapse onto a single line
 	$subject =~ s/\s+/ /g;
 
-	require MusicBrainz::Server::Mail;
-	$subject = MusicBrainz::Server::Mail->_quoted_string($subject);
-
-	$otheruser->SendFormattedEmail(
-		<<EOF
-Sender: Webserver <webserver\@musicbrainz.org>
-From: $fromline
-Subject: $subject
-MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-
-EOF
-		. encode_qp(<<EOF)
+	my $body = <<EOF;
 $message
 
 ------------------------------------------------------------------------
 Please do not respond to this email.
 
 EOF
-		. (
-			$self->GetEmail
-			? encode_qp(<<EOF)
+
+	$body .= <<EOF if $self->GetEmail;
 If you would like to send mail to moderator '$fromname',
 please use this link:
 http://${\ DBDefs::WEB_SERVER() }/user/mod_email.html?uid=${\ $self->GetId }
 EOF
-			: encode_qp(<<EOF)
+
+	$body .= <<EOF if not $self->GetEmail;
 Unfortunately moderator '$fromname' has not supplied their e-mail address,
 so you can't reply to them.
 EOF
-		)
+
+	require MusicBrainz::Server::Mail;
+	my $mail = MusicBrainz::Server::Mail->new(
+		Sender		=> 'Webserver <webserver@musicbrainz.org>',
+		From		=> $self->GetForwardingAddressHeader,
+		# To: $otheruser (automatic)
+		"Reply-To"	=> 'Nobody <noreply@musicbrainz.org>',
+		Subject		=> MusicBrainz::Server::Mail->_quoted_string($subject),
+		Type		=> "text/plain",
+		Encoding	=> "quoted-printable",
+		Data		=> $body,
 	);
+    $mail->attr("content-type.charset" => "utf-8");
+
+	$otheruser->SendFormattedEmail(entity => $mail);
 }
 
 sub SendModNoteToUser
@@ -531,19 +524,8 @@ sub SendModNoteToUser
 
 	my $modid = $mod->GetId;
 	my $fromname = $self->GetName;
-	my $fromline = $self->GetForwardingAddressHeader;
 
-	$otheruser->SendFormattedEmail(
-		<<EOF
-Sender: Webserver <webserver\@musicbrainz.org>
-From: $fromline
-Subject: Note added to moderation #$modid
-MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-
-EOF
-		. encode_qp(<<EOF)
+	my $body = <<EOF;
 Moderator '$fromname' has attached a note to your moderation #$modid:
 
 $notetext
@@ -554,19 +536,32 @@ Moderation link: http://${\ DBDefs::WEB_SERVER() }/showmod.html?modid=$modid
 Please do not respond to this email.
 
 EOF
-		. (
-			$self->GetEmail
-			? encode_qp(<<EOF)
+
+	$body .= <<EOF if $self->GetEmail;
 If you would like to send mail to moderator '$fromname',
 please use this link:
 http://${\ DBDefs::WEB_SERVER() }/user/mod_email.html?uid=${\ $self->GetId }
 EOF
-			: encode_qp(<<EOF)
+
+	$body .= <<EOF if not $self->GetEmail;
 Unfortunately moderator '$fromname' has not supplied their e-mail address,
 so you can't reply to them.
 EOF
-		)
+
+	require MusicBrainz::Server::Mail;
+	my $mail = MusicBrainz::Server::Mail->new(
+		Sender		=> 'Webserver <webserver@musicbrainz.org>',
+		From		=> $self->GetForwardingAddressHeader,
+		# To: $otheruser (automatic)
+		"Reply-To"	=> 'Nobody <noreply@musicbrainz.org>',
+		Subject		=> "Note added to moderation #$modid",
+		Type		=> "text/plain",
+		Encoding	=> "quoted-printable",
+		Data		=> $body,
 	);
+    $mail->attr("content-type.charset" => "utf-8");
+
+	$otheruser->SendFormattedEmail(entity => $mail);
 }
 
 # Send a complete formatted message ($messagetext) to a user ($self).
@@ -575,20 +570,35 @@ EOF
 
 sub SendFormattedEmail
 {
-	my ($self, $messagetext, $envelope_from) = @_;
-	$envelope_from ||= 'noreply@musicbrainz.org';
+	my ($self, %opts) = @_;
 
-	my $email = $self->GetEmail
-		or return "No email address available for moderator " . $self->GetName;
+	($opts{entity} xor $opts{text})
+		or croak "Must specify 'entity' OR 'text'";
+
+	my $from = $opts{'from'} || 'noreply@musicbrainz.org';
+	my $to = $opts{'to'} || $self->GetEmail;
+	$to or return "No email address available for moderator " . $self->GetName;
 
 	require MusicBrainz::Server::Mail;
 	my $mailer = MusicBrainz::Server::Mail->open(
-		$envelope_from,
-		$email,
+		$from,
+		$to,
 	) or return "Could not send mail. Please try again later.";
 
-	print $mailer "To: " . $self->GetRealAddressHeader . "\n";
-	print $mailer $messagetext;
+	if ($opts{'entity'})
+	{
+		my $entity = $opts{entity};
+		print $mailer "To: " . $self->GetRealAddressHeader . "\n"
+			unless $entity->get("To");
+		$entity->print($mailer);
+	} elsif ($opts{'text'}) {
+		my $messagetext = $opts{'text'};
+		my $i = index($messagetext, "\n\n");
+		my $headers = substr($messagetext, 0, $i+1);
+		print $mailer "To: " . $self->GetRealAddressHeader . "\n"
+			unless $headers =~ /^To:/mi;
+		print $mailer $messagetext;
+	}
 
 	my $ok = close $mailer;
 	$ok ? undef : "Failed to send mail. Please try again later.";

@@ -53,6 +53,23 @@ sub _quoted_string
 }
 
 ################################################################################
+# MIME::Lite interface.
+################################################################################
+
+use base qw( MIME::Lite );
+
+sub send
+{
+	my $self = shift;
+	
+	# TODO encode headers?
+	
+	my $fh = $self->open(@_);
+	$self->print($fh);
+	close $fh;
+}
+
+################################################################################
 # Mail::Mailer -like interface.
 # I wanted to use Mail::Mailer itself, but the main drawbacks I could see with
 # it were (i) there was no means (in the 'smtp' mailer) to specify the

@@ -341,18 +341,7 @@ sub _ProcessUserSubscriptions
 		return;
 	}
 
-	use MIME::QuotedPrint qw( encode_qp );
-
-	$text = <<EOF
-From: MusicBrainz Subscription Robot <noreply\@musicbrainz.org>
-Reply-To: MusicBrainz Support <support\@musicbrainz.org>
-Subject: Moderations for your subscribed artists
-MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-
-EOF
-		. encode_qp(<<EOF)
+		my $textbody = <<EOF;
 This is a notification that moderations have been added for artists to
 whom you subscribed on the MusicBrainz web site.  To view or edit your
 subscription list, please use the following link:
@@ -370,15 +359,44 @@ $root/support/contact.html
 EOF
 		;
 
+	require MusicBrainz::Server::Mail;
+	my $mail = MusicBrainz::Server::Mail->new(
+		# Sender: not required
+		From		=> 'MusicBrainz Subscription Robot <noreply@musicbrainz.org>',
+		# To: $user (automatic)
+		"Reply-To"	=> 'MusicBrainz Support <support@musicbrainz.org>',
+		Subject		=> "Moderations for your subscribed artists",
+		Type		=> "text/plain",
+		Encoding	=> "quoted-printable",
+		Data		=> $textbody,
+	);
+    $mail->attr("content-type.charset" => "utf-8");
+
+	my $html = 0; # TODO make use of HTML email
+	if ($html)
+	{
+		my $htmlbody = "...\n";
+
+		my $htmlpart = $mail->new(
+			Type		=> "text/html",
+			Encoding	=> "quoted-printable",
+			Data		=> $htmlbody,
+		);
+		$htmlpart->attr("content-type.charset" => "utf-8");
+
+		$mail->attach($htmlpart);
+		$mail->attr("content-type", "multipart/alternative");
+	}
+
 	if ($self->{'dryrun'})
 	{
 		printf "The following e-mail would be sent to #%d '%s':\n",
 			$user->GetId, $user->GetName;
-		print $text;
+		$mail->print;
 		return;
 	}
 
-	$user->SendFormattedEmail($text);
+	$user->SendFormattedEmail(entity => $mail);
 }
 
 1;
