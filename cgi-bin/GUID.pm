@@ -41,16 +41,15 @@ sub new
    return bless $this, $type;
 }
 
-sub GetTrackIdFromGUID
+sub GetTrackIdsFromGUID
 {
    my ($this, $guid) = @_;
-   my ($sql, $trackid);
+   my ($sql);
 
    $sql = Sql->new($this->{DBH});
-   ($trackid) = $sql->GetSingleRow("GUIDJoin, GUID", ["track"],
-                                   ["GUID.guid", $sql->Quote($guid), 
-                                    "GUID.id", "GUIDJoin.guid"]);
-   return $trackid;
+   return $sql->GetSingleColumn("GUIDJoin, GUID", "track",
+                                ["GUID.guid", $sql->Quote($guid), 
+                                "GUID.id", "GUIDJoin.guid"]);
 }
 
 sub GetIdFromGUID

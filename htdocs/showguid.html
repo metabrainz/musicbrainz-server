@@ -2,7 +2,7 @@
 <%perl>
 
 my ($mb, $gu, $album, $artist); 
-my ($albumid, $trackid, @albums); 
+my ($albumid, $trackid, @albums, @ids); 
 
 if (!exists $ARGS{guid})
 {
@@ -12,7 +12,7 @@ else
 {
    mc_out("<font size=+1><b>Guid: $ARGS{guid}</b></font><p>");
 
-   if ($ARGS{guid} eq "3ab1d2ba-ca38-47d8-b8cc-49f3ced39895")
+   if ($ARGS{guid} eq "7d154f52-b536-4fae-b58b-0666826c2bac")
    {
        mc_out("<p><br>This GUID represents silence.<p>");
    }
@@ -24,35 +24,35 @@ else
        $album = Album->new($mb->{DBH});
        $gu = GUID->new($mb->{DBH});
     
-       $trackid = $gu->GetTrackIdFromGUID($ARGS{guid});
-       if (!defined $trackid)
+       @ids = $gu->GetTrackIdsFromGUID($ARGS{guid});
+       if (!defined $ids[0])
        {
            mc_out("<p>This GUID was not found in the main database.<p>");
        }
        else
        {
-           @albums = $album->GetAlbumIdsFromTrackId($trackid);
-           for(;;)
+           foreach $trackid (@ids)
            {
-              $albumid = shift @albums;
-              last if (!defined $albumid);
-
-              $album->SetId($albumid);
-              if ($album->LoadFromId())
+              @albums = $album->GetAlbumIdsFromTrackId($trackid);
+              foreach $albumid (@albums)
               {
-                 $artist->SetId($album->GetArtist());
-                 if ($artist->LoadFromId())
+                 $album->SetId($albumid);
+                 if ($album->LoadFromId())
                  {
-                     mc_comp("comp/album", album=>$album, 
-                             artist=>$artist); 
+                    $artist->SetId($album->GetArtist());
+                    if ($artist->LoadFromId())
+                    {
+                        mc_comp("comp/album", 
+                                album=>$album, 
+                                artist=>$artist,
+                                hilitetrack=>$trackid);
+                    }
                  }
               }
            }
        }
 
        mc_comp("/comp/title", title=>'Pending Metadata');
-       mc_comp("/comp/showpendingpage", offset=>0, guid=>$ARGS{guid});
-       mc_comp("/comp/title", title=>'Pending Archive Metadata');
        mc_comp("/comp/showpendingpage", offset=>0, guid=>$ARGS{guid});
 
        $mb->Logout;
