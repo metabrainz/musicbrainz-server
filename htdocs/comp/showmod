@@ -14,55 +14,75 @@ $voted
 
 <%perl>
 
-my $text = "X";
+my $text = "n/a";
 if ($voted)
 {
-   $text = "V";
+   $text = "--";
 }
 
 </%perl>
 
 <tr>
-   <td width=10% valign=top>
+   <td width=10% valign=top bgcolor=white>
+     <small><font face="Lucida,Verdana,Helvetica,Arial">
      <% $table %>
+     </font></small>
    </td>
-   <td width=35% valign=top>
+   <td width=35% valign=top bgcolor=white>
+     <small><font face="Lucida,Verdana,Helvetica,Arial">
      <& /comp/showmodprev, prev=>$prev, table=>$table, id=>$rowid &>
+     </font></small>
    </td>
-   <td width=35% valign=top>
+   <td width=35% valign=top bgcolor=white>
+     <small><font face="Lucida,Verdana,Helvetica,Arial">
      <% $new %>
+     </font></small>
    </td>
-   <td width=5% align=center valign=top>
+   <td width=5% align=center valign=top bgcolor=white>
+     <small><font face="Lucida,Verdana,Helvetica,Arial">
      <% $yesvotes %>,
      <% $novotes %>
+     </font></small>
    </td>
 % if ($session{uid} != $moderator && !$voted) {
-     <td width=5% align=center valign=top>
+   <td width=5% align=center valign=top bgcolor=white>
+     <small><font face="Lucida,Verdana,Helvetica,Arial">
      <input type="radio" name="rowid<% $id %>" value="yes">
-     </td>
+     </font></small>
+   </td>
 % } else {
-     <td width=5% align=center valign=top>
+   <td width=5% align=center valign=top bgcolor=white>
+     <small><font face="Lucida,Verdana,Helvetica,Arial">
      <% $text %> 
-     </td>
+     </font></small>
+   </td>
 % }
    </td>
 % if ($session{uid} != $moderator && !$voted) {
-     <td width=5% align=center valign=top>
+   <td width=5% align=center valign=top bgcolor=white>
+     <small><font face="Lucida,Verdana,Helvetica,Arial">
      <input type="radio" name="rowid<% $id %>" value="no">
-     </td>
+     </font></small>
+   </td>
 % } else {
-     <td width=5% align=center valign=top>
+   <td width=5% align=center valign=top bgcolor=white>
+     <small><font face="Lucida,Verdana,Helvetica,Arial">
      <% $text %> 
-     </td>
+     </font></small>
+   </td>
 % }
 % if ($session{uid} != $moderator && !$voted) {
-     <td width=5% align=center valign=top>
+   <td width=5% align=center valign=top bgcolor=white>
+     <small><font face="Lucida,Verdana,Helvetica,Arial">
      <input type="radio" name="rowid<% $id %>" value="abstain" CHECKED>
-     </td>
+     </font></small>
+   </td>
 % } else {
-     <td width=5% align=center valign=top>
+   <td width=5% align=center valign=top bgcolor=white>
+     <small><font face="Lucida,Verdana,Helvetica,Arial">
      <% $text %> 
-     </td>
+     </font></small>
+   </td>
 % }
 </tr>
 </tr>

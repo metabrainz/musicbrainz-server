@@ -2,20 +2,18 @@
 $title
 </%args>
 
-<table border="0" width="100%">
-<tr>
-<td>
-&nbsp;
-</td>
-</tr>
-<tr>
-<td colspan=3 bgcolor="#000000" cellpadding="2">
-  <font color="white"><% $title  %></font>
-</td>
-</tr>
-<tr>
-<td>
-&nbsp;
-</td>
-</tr>
-</table>
+<p>
+<TABLE BORDER="0" CELLPADDING="1" CELLSPACING="0"
+       BGCOLOR="#000000" WIDTH="97%">
+<TR><TD>
+  <TABLE WIDTH="100%" BORDER="0" CELLSPACING="1" CELLPADDING="3">
+  <TR>
+     <TD BGCOLOR="#643b99">
+        <B><FONT FACE="Lucida,Verdana,Helvetica,Arial">
+        <FONT COLOR=white><% $title %></FONT></FONT></B>
+     </TD>
+  </TR>
+  </TABLE>
+</TD></TR>
+</TABLE>
+<p>

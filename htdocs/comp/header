@@ -8,9 +8,12 @@
 <body text="#000000" bgcolor="#FFFFFF" link="#744bA9" vlink="#542b89" 
       alink="C0C000" background="/images/background.gif">
 
+
 <table width="100%" border="0">
 <tr>
+
 <& /comp/sidebar &>
 <td width="100%" valign="top">
+<small><font face="Lucida,Verdana,Helvetica,Arial">
 <& /comp/navbar &>
 

@@ -2,11 +2,18 @@
 $title
 </%args>
 
-<table bgcolor="#643b99" cellspacing=0 cellpadding=0 width=100%>
-   <tr><td>
-   <table width=100%>
-      <tr><td align=center width=100%>
-      <font color=white><b><% $title  %></b></font>
-      </td></tr>
-   </table>
-   <table bgcolor=white cellpadding=15 width=100%><tr><td>
+<!-- Shamelessy ripped from Freshmeat! -->
+
+<TABLE BORDER="0" CELLPADDING="1" CELLSPACING="0"
+       BGCOLOR="#000000" WIDTH="97%">
+<TR><TD>
+  <TABLE WIDTH="100%" BORDER="0" CELLSPACING="1" CELLPADDING="3">
+  <TR>
+     <TD BGCOLOR="#643b99">
+        <B><FONT FACE="Lucida,Verdana,Helvetica,Arial">
+        <FONT COLOR=white><% $title %></FONT></FONT></B>
+     </TD>
+  </TR>
+  <TR>
+     <TD BGCOLOR="#FFFFFF">
+        <small><font face="Lucida,Verdana,Helvetica,Arial">  

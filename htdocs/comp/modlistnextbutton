@@ -1,10 +1,10 @@
-<td width="15%">
+<td width="10%" align=right>
 
 % if ($ARGS{offset} + $ARGS{num} < $ARGS{rows}) {
-    <a href="/moderate.html?offset=<%
-     $ARGS{offset} + $ARGS{num} %>"><% $ARGS{text}  %></a>
+    <a href="/moderate.html?offset=<% $ARGS{offset} + $ARGS{num} %>">
+    <small><font face="Lucida,Verdana,Helvetica,Arial"><% $ARGS{text}  %></font></small></a>
 % } else {
-    <% $ARGS{text}  %>
+    <small><font face="Lucida,Verdana,Helvetica,Arial"><% $ARGS{text}  %></font></small></a>
 % }
 
 </td>

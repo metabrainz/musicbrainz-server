@@ -13,10 +13,14 @@ $session{user} = "" if (!$ok);
 
 % } else {
 
-   Invalid Login. Please try again:<p>
+   <center>
+   <b>Invalid Login. Please try again:</b><p>
+   <table width=50%><tr><td>
    <& /comp/tablebegin, title=>'Moderator Login' &>
    <& /comp/loginbox &>
    <& /comp/tableend &>
+   </td></tr></table>
+   </center>
 
 % }
 

@@ -14,22 +14,7 @@ $offset = 0 if $offset < 0;
 $mb->Login();
 ($num_mods, @info) = $mb->GetModerationList($offset, $max_items, $session{uid});
 
-mc_out('<table width="100%"><tr>');
-mc_comp("/comp/modlistprevbutton", offset=>$offset, 
-        text=>"< Prev", num=>$max_items);
-mc_comp("/comp/modlistprevbutton", offset=>$offset, 
-        text=>"<< Prev", num=>($max_items * 2));
-mc_out("<td width=\"40%\">&nbsp;</td>");
-mc_comp("/comp/modlistnextbutton", offset=>$offset,
-        text=>"Next >>", num=>($max_items * 2), rows=>$num_mods);
-mc_comp("/comp/modlistnextbutton", offset=>$offset,
-        text=>"Next >", num=>$max_items, rows=>$num_mods);
 </%perl>
-
-</tr>
-</table>
-
-<p>
 
 <form method="POST" action="/bare/vote.html"
       enctype="application/x-www-form-urlencoded"> 
@@ -45,19 +30,19 @@ mc_comp("/comp/modlistnextbutton", offset=>$offset,
 </tr>
 </table>
 
-<table bgcolor="#643b99" cellspacing=0 cellpadding=0 width=100%>
-<tr><td>
-
-<table bgcolor=white cellspacing=0 width=100%>
-<tr>
-   <& /comp/thcell, text=>'Field' &>
-   <& /comp/thcell, text=>'Old Value' &>
-   <& /comp/thcell, text=>'New Value' &>
-   <& /comp/thcell, text=>'Votes Yes/No' &>
-   <& /comp/thcell, text=>'Vote Yes' &>
-   <& /comp/thcell, text=>'Vote No' &>
-   <& /comp/thcell, text=>'Abstain' &>
-</tr>
+<TABLE BORDER="0" CELLPADDING="1" CELLSPACING="0"
+       BGCOLOR="#000000" WIDTH="97%">
+<TR><TD>
+  <TABLE WIDTH="100%" BORDER="0" CELLSPACING="1" CELLPADDING="3">
+  <TR>
+    <& /comp/thcell, text=>'Field' &>
+    <& /comp/thcell, text=>'Old Value' &>
+    <& /comp/thcell, text=>'New Value' &>
+    <& /comp/thcell, text=>'Votes Yes/No' &>
+    <& /comp/thcell, text=>'Vote Yes' &>
+    <& /comp/thcell, text=>'Vote No' &>
+    <& /comp/thcell, text=>'Abstain' &>
+  </TR>
 
 <%perl>
 for($i = 0; ; $i++) 
@@ -79,12 +64,47 @@ for($i = 0; ; $i++)
            voted=>($$row[10]));
 }
 </%perl>
+
+% if ($num_mods > $max_items) {
+
+<tr><td colspan=7 bgcolor=white>
+<table width="100%"><tr>
+<%perl>
+mc_comp("/comp/modlistprevbutton", offset=>$offset, 
+        text=>"< Prev", num=>$max_items);
+mc_comp("/comp/modlistprevbutton", offset=>$offset, 
+        text=>"<< Prev", num=>($max_items * 2));
+mc_out("<td width=\"40%\">&nbsp;</td>");
+mc_comp("/comp/modlistnextbutton", offset=>$offset,
+        text=>"Next >>", num=>($max_items * 2), rows=>$num_mods);
+mc_comp("/comp/modlistnextbutton", offset=>$offset,
+        text=>"Next >", num=>$max_items, rows=>$num_mods);
+</%perl>
+</tr></table>
+% }
+
 </table>
-</td></tr>
-</table>
+
+</TD></TR>
+</TABLE><BR><P> 
+
 </form>
 
-Legend:<br>
-<b>X</b> - Vote not allowed. (You're no allowed to vote on your own mods). <br>
-<b>V</b> - Already voted.
+<table>
+<tr><td colspan=2>
+  Legend:
+</td></tr>
+
+<tr><td align=center width="10%">
+<b>N/A</b>
+</td><td>
+Vote not allowed. (You're not allowed to vote on your own mods).
+</td></tr>
+
+<tr><td align=center>
+<b>--</b>
+</td><td>
+Already voted.
+</td></tr>
+</table>
 

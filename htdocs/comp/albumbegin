@@ -4,23 +4,27 @@ $title
 $modpending
 </%args>
 
-<table bgcolor="#643b99" cellspacing=0 cellpadding=0 width=100%>
-   <tr><td>
-   <table width=100%>
-      <tr>
+<TABLE BORDER="0" CELLPADDING="1" CELLSPACING="0"
+       BGCOLOR="#000000" WIDTH="97%">
+<TR><TD>
+  <TABLE WIDTH="100%" BORDER="0" CELLSPACING="1" CELLPADDING="3">
+  <TR> 
 % if ($modpending) {
-        <td width=92% bgcolor="#FFFFCC">
+        <td width=90% bgcolor="FFFFCC">
+           <B><FONT FACE="Lucida,Verdana,Helvetica,Arial">
+           <FONT COLOR=black><% $title %></FONT></FONT></B>
 % } else {
-        <td width=92%><font color=white>
+        <td width=90% BGCOLOR="#643b99"><font color=white>
+           <B><FONT FACE="Lucida,Verdana,Helvetica,Arial">
+           <FONT COLOR=white><% $title %></FONT></FONT></B>
 % }
-          <b><% $title  %></b></font>
         </td>
 % if (exists $session{user}) {
-        <td width=8%>
+        <td width=10% bgcolor="#643b99" align=center>
           <a href="/editalbum.html?id=<% $albumid %>">
-          <font color=white>Edit</font></a>
+          <B><FONT FACE="Lucida,Verdana,Helvetica,Arial" color=white>Edit</FONT></B></a>
         </td>
 % } 
-      </tr>
-   </table>
-   <table bgcolor=white cellspacing=0 width=100%>
+  </tr>
+  </table>
+  <TABLE WIDTH="100%" bgcolor=white BORDER="0" CELLSPACING="1" CELLPADDING="3">

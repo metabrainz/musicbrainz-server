@@ -2,9 +2,5 @@
 $title
 </%args>
 
+<& /comp/section, title=>$title &>
 <table border="0">
-<tr>
-<td colspan=3 bgcolor="#000000" width="100%" cellpadding="2">
-  <font color="white"><% $title  %></font>
-</td>
-</tr>
