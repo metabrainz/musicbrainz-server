@@ -196,7 +196,8 @@ sub handler
 		my $user = $session{user};
 		if (defined $user and $user ne "")
 		{
-			$r->connection->user($user);
+			use URI::Escape qw( uri_escape );
+			$r->connection->user(uri_escape($user));
 		}
 
 		$tied = undef;

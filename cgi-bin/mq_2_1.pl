@@ -157,7 +157,8 @@ sub Authenticate
            print STDERR "Authenticated session $session_id\n";
 	   $session->{expire} = time() + &DBDefs::RDF_SESSION_SECONDS_TO_LIVE;
 
-	   $r->connection->user($session->{moderator})
+	   use URI::Escape qw( uri_escape );
+	   $r->connection->user(uri_escape($session->{moderator}))
 	   	if $r;
 
            return "";
