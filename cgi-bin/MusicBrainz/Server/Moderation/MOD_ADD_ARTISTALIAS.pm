@@ -46,15 +46,14 @@ sub PreInsert
 	my $al = Alias->new($self->{DBH});
 	$al->SetTable("ArtistAlias");
 
-	if (my $artist = $al->Resolve($newalias))
+	if (my $other = $al->newFromName($newalias))
 	{
 		my $url = "http://" . &DBDefs::WEB_SERVER
-			. "/showaliases.html?artistid=" . $artist;
+			. "/showaliases.html?artistid=" . $other->GetRowId;
 
 		my $note = "There is already an alias called '$newalias'"
-			. " (see $url)";
-		$note .= " - duplicate aliases are not allowed (yet)"
-			unless $artist == $ar->GetId;
+			. " (see $url)"
+			. " - duplicate aliases are not yet supported";
 
 		$self->SetError($note);
 		die $self;
@@ -90,15 +89,14 @@ sub CheckPrerequisites
 	my $al = Alias->new($self->{DBH});
 	$al->SetTable("ArtistAlias");
 
-	if (my $artist = $al->Resolve($self->GetNew))
+	if (my $other = $al->newFromName($self->GetNew))
 	{
 		my $url = "http://" . &DBDefs::WEB_SERVER
-			. "/showaliases.html?artistid=" . $artist;
+			. "/showaliases.html?artistid=" . $other->GetRowId;
 
 		my $note = "There is already an alias called '".$self->GetNew."'"
-			. " (see $url)";
-		$note .= " - duplicate aliases are not allowed (yet)"
-			unless $artist == $self->GetRowId;
+			. " (see $url)"
+			. " - duplicate aliases are not yet supported";
 
 		$self->InsertNote(MODBOT_MODERATOR, $note);
 		return STATUS_FAILEDPREREQ;
@@ -117,9 +115,28 @@ sub ApprovedAction
 	require Alias;
 	my $al = Alias->new($self->{DBH});
 	$al->SetTable("ArtistAlias");
-	$al->Insert($self->GetRowId, $self->GetNew);
 
-	STATUS_APPLIED;
+	my $other;
+	if ($al->Insert($self->GetRowId, $self->GetNew, \$other))
+	{
+		return STATUS_APPLIED;
+	}
+
+	# Something went wrong - what?
+	my $message = "Failed to add new alias";
+
+	# So far this is the only gracefully handled error
+	if ($!{EEXIST})
+	{
+		my $url = "http://" . &DBDefs::WEB_SERVER
+			. "/showaliases.html?artistid=" . $other->GetRowId;
+		my $newname = $self->GetNew;
+		$message = "There is already an alias called '$newname' (see $url)"
+			. " - duplicate aliases are not yet supported";
+	}
+
+	$self->InsertNote(MODBOT_MODERATOR, $message);
+	return STATUS_ERROR;
 }
 
 1;

@@ -29,6 +29,7 @@ use TableBase;
 use strict;
 use DBDefs;
 use Carp qw( carp croak );
+use Errno qw( EEXIST );
 
 sub new
 {
@@ -102,34 +103,45 @@ sub LoadFromId
 # and an alias name.
 sub Insert
 {
-   my ($this, $id, $name) = @_;
-
-    # Check to make sure we don't already have this in the database
-    my $lookup = $this->Resolve($name);
-    return $lookup if (defined $lookup);
+    my ($this, $id, $name, $otherref) = @_;
 
     my $sql = Sql->new($this->{DBH});
+    my $table = lc $this->GetTable;
+    $sql->Do("LOCK TABLE $table IN EXCLUSIVE MODE");
+
+    # Check to make sure we don't already have this in the database
+    if (my $other = $this->newFromName($name))
+    {
+        # Note: this sub used to return the rowid of the existing row
+        $$otherref = $other if $otherref;
+        $! = EEXIST;
+        return 0;
+    }
+
     $sql->Do(
-        "INSERT INTO $this->{table} (name, ref, lastused)
+        "INSERT INTO $table (name, ref, lastused)
             VALUES (?, ?, '1970-01-01 00:00')",
         $name,
         $id,
     );
 
-   if (lc($this->{table}) eq 'artistalias')
-   {
-       require SearchEngine;
-       my $engine = SearchEngine->new($this->{DBH}, 'artist');
-       $engine->AddWordRefs($id,$name);
-   }
+    if ($table eq 'artistalias')
+    {
+        require SearchEngine;
+        my $engine = SearchEngine->new($this->{DBH}, 'artist');
+        $engine->AddWordRefs($id,$name);
+    }
+
+    1;
 }
 
 sub UpdateName
 {
     my $self = shift;
+    my $otherref = shift;
 
     $self->{table}
-		or croak "Missing alias ID in UpdateName";
+		or croak "Missing table in UpdateName";
 	my $id = $self->GetId
 		or croak "Missing alias ID in UpdateName";
 	my $name = $self->GetName;
@@ -141,13 +153,28 @@ sub UpdateName
     MusicBrainz::TrimInPlace($name);
 
 	my $sql = Sql->new($self->{DBH});
+    my $table = lc $self->GetTable;
+
+    $sql->Do("LOCK TABLE $table IN EXCLUSIVE MODE");
+
+    if (my $other = $self->newFromName($name))
+    {
+        if ($other->GetId != $self->GetId)
+        {
+            # Note: this sub used to return the rowid of the existing row
+            $$otherref = $other if $otherref;
+            $! = EEXIST;
+            return 0;
+        }
+    }
+
 	$sql->Do(
-		"UPDATE $self->{table} SET name = ? WHERE id = ?",
+		"UPDATE $table SET name = ? WHERE id = ?",
 		$name,
 		$id,
 	);
 
-    if (lc($self->{table}) eq "artistalias")
+    if ($table eq "artistalias")
     {
         # Update the search engine
         require Artist;
@@ -156,6 +183,35 @@ sub UpdateName
         $artist->LoadFromId;
         $artist->RebuildWordList;
     }
+
+    1;
+}
+
+sub newFromName
+{
+    my $self = shift;
+	$self = $self->new(shift, shift) if not ref $self;
+    my $name = shift;
+
+    MusicBrainz::TrimInPlace($name) if defined $name;
+    if (not defined $name or $name eq "")
+    {
+        carp "Missing name in newFromName";
+        return undef;
+    }
+
+    my $sql = Sql->new($self->{DBH});
+
+    my $row = $sql->SelectSingleRowHash(
+        "SELECT * FROM $self->{table}
+        WHERE LOWER(name) = LOWER(?)
+        LIMIT 1",
+        $name,
+    ) or return undef;
+
+    $row->{rowid} = delete $row->{'ref'};
+    $row->{DBH} = $self->{DBH};
+    bless $row, ref($self);
 }
 
 sub Resolve

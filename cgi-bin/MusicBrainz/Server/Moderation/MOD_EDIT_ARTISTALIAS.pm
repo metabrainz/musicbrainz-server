@@ -53,13 +53,13 @@ sub PreInsert
 	require Alias;
 	my $test = Alias->new($self->{DBH}, 'artistalias');
 
-	if (my $id = $test->Resolve($newname))
+	if (my $other = $test->newFromName($newname))
 	{
-		if ($id != $al->GetId)
+		if ($other->GetId != $al->GetId)
 		{
 			$self->SetError(
 				"There is already an alias called '$newname'"
-				. " - duplicate aliases are not allowed (yet)"
+				. " - duplicate aliases are not yet supported"
 			);
 			die $self;
 		}
@@ -109,35 +109,28 @@ sub ApprovedAction
 	my $alias = $self->{_alias}
 		or die;
 
-	# There's currently a unique index on artistalias.name
-	# Try to detect likely violations of that index, and gracefully
-	# add a note to offending moderations.
-
-	require Alias;
-	my $test = Alias->new($self->{DBH}, 'artistalias');
-	my $newname = $self->GetNew;
-
-	if (my $id = $test->Resolve($newname))
+	$alias->SetName($self->GetNew);
+	my $other;
+	if ($alias->UpdateName(\$other))
 	{
-		if ($id != $self->GetRowId)
-		{
-			my $url = "http://" . &DBDefs::WEB_SERVER
-				. "/showaliases.html?artistid=" . $id;
-
-		 	$self->InsertNote(
-				MODBOT_MODERATOR,
-				"There is already an alias called '$newname' (see $url)"
-				. " - duplicate aliases are not allowed (yet)"
-			);
-
-			return STATUS_ERROR;
-		}
+		return STATUS_APPLIED;
 	}
 
-	$alias->SetName($self->GetNew);
-	$alias->UpdateName;
+	# Something went wrong - what?
+	my $message = "Failed to update alias name";
 
-	STATUS_APPLIED;
+	# So far this is the only gracefully handled error
+	if ($!{EEXIST})
+	{
+		my $url = "http://" . &DBDefs::WEB_SERVER
+			. "/showaliases.html?artistid=" . $other->GetRowId;
+		my $newname = $self->GetNew;
+		$message = "There is already an alias called '$newname' (see $url)"
+			. " - duplicate aliases are not yet supported";
+	}
+
+	$self->InsertNote(MODBOT_MODERATOR, $message);
+	return STATUS_ERROR;
 }
 
 1;
