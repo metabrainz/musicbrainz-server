@@ -39,7 +39,7 @@ unless ($artistid)
 $m->comp("/comp/checkloggedin", 0, 1)
 	or return;
 
-MusicBrainz::IsNonNegInteger($artistid)
+MusicBrainz::IsNonNegInteger($artistid) && $artistid
 	or return $m->comp("/comp/badargs", 0, 1);
 
 $artistid != ModDefs::DARTIST_ID
@@ -49,7 +49,7 @@ $artistid != ModDefs::DARTIST_ID
 		0, 1,
 	);
 
-my $mb = mc_comp("/comp/dblogin");
+my $mb = $m->comp("/comp/dblogin");
 
 my $ar = Artist->new($mb->{DBH});
 $ar->SetId($artistid);
@@ -64,15 +64,19 @@ $ar->LoadFromId
 
 <& /comp/stylemenu &>
 
-<& /comp/tablebegin, gattrs => "width='100%'",
-	title => $title &>
+<h2><% $title %></h2>
 
 % if ($nonalbum) {
 
-    You are about to add some non-album tracks to artist
-    <span class="bold"><% $ar->GetName %></span>.<br>
-    Please enter the number of non-album tracks you would like to add and then
-    click next.
+<p>
+	You are about to add some non-album tracks to artist
+	<b><% $ar->GetName %></b>.
+</p>
+
+<p>
+	Please enter the number of non-album tracks you would like to add,
+	and then click 'Next'.
+</p>
 
 	<form method="post" action="/addnonalbumtracks.html" name="AddAlbumForm"
 		enctype="application/x-www-form-urlencoded">
@@ -88,7 +92,7 @@ $ar->LoadFromId
 					Number of non album tracks to add:
         </td>
         <td>
-					<input type="text" name="value1" size="25" value=""> (1 - 99)
+					<input type="text" name="value1" size="3" value=""> (1 - 99)
         </td>
       </tr>
       <tr>
@@ -114,10 +118,15 @@ $ar->LoadFromId
 
 %   } else {
 
-    You are about to add an album to the artist
-    <span class="bold"><% $ar->GetName %></span>.<p>
-    Please read the style notes (see links above)
-		and enter the number of tracks on this Album below:
+<p>
+	You are about to add an album to the artist
+	<b><% $ar->GetName %></b>.
+</p>
+
+<p>
+	Please read the style notes (see links above)
+	and enter the number of tracks on this album:
+</p>
 
 		<form method="post" name="AddAlbumForm"
 %   if ($artistid == ModDefs::VARTIST_ID) {
@@ -133,7 +142,7 @@ $ar->LoadFromId
 					Number of tracks on this album:
         </td>
         <td>
-					<input type="text" name="tracks" size="25" value=""> (1 - 99)
+					<input type="text" name="tracks" size="3" value=""> (1 - 99)
         </td>
       </tr>
       <tr>
@@ -151,9 +160,5 @@ $ar->LoadFromId
 
 	<& /comp/movefocus, "AddAlbumForm", "tracks" &>
 % }
-
-<& /comp/tableend &>
-
-% $mb->Logout;
 
 <& /comp/footer &>
