@@ -1,5 +1,3 @@
-begin;
-
 drop index Artist_NameIndex;
 drop index Artist_SortNameIndex;
 drop index Artist_GIDIndex;
@@ -59,5 +57,3 @@ drop index ModerationNote_ModIndex;
 drop index Stats_TimestampIndex;
 
 drop index ClientVersion_Version;
-
-commit;

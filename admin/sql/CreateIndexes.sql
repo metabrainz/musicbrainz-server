@@ -1,5 +1,4 @@
 \set ON_ERROR_STOP 1
-begin;
 
 create unique index Artist_NameIndex on Artist (Name);
 create index Artist_SortNameIndex on Artist (SortName);
@@ -60,5 +59,3 @@ create index ModerationNote_ModIndex on ModerationNote (Modid);
 create unique index Stats_TimestampIndex on Stats (timestamp);
 
 create unique index ClientVersion_Version on ClientVersion (version);
-
-commit;
