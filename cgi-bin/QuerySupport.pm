@@ -343,7 +343,7 @@ sub LookupMetadata
    $tr = Track->new($dbh);
 
    # has this data been accepted into the database?
-   @ids = $gu->GetTrackIdsFromTRM($id);
+   @ids = @{ $gu->GetTrackIdsFromTRM($id) };
    if (scalar(@ids) > 0)
    {
       my (@data, $i);
@@ -418,7 +418,7 @@ sub ExchangeMetadata
        $tr = Track->new($dbh);
 
        # has this data been accepted into the database?
-       @ids = $gu->GetTrackIdsFromTRM($data[4]);
+       @ids = @{ $gu->GetTrackIdsFromTRM($data[4]) };
        if (scalar(@ids) > 0)
        {
            my (@db_data, $i);

@@ -28,8 +28,8 @@ else
        my $album = Album->new($mb->{DBH});
        my $gu = TRM->new($mb->{DBH});
     
-       my @ids = $gu->GetTrackIdsFromTRM($trm);
-       if (scalar(@ids) == 0)
+       my $ids = $gu->GetTrackIdsFromTRM($trm);
+       if (scalar(@$ids) == 0)
        {
            $m->out("<p>This TRM Id was not found in the database.<p>");
        }
@@ -38,7 +38,7 @@ else
 			my %artists;
 			my %albums;
 
-			for my $trackid (@ids)
+			for my $trackid (@$ids)
 			{
 				my @albums = $album->GetAlbumIdsFromTrackId($trackid);
 				for my $albumid (@albums)

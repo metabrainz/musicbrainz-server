@@ -46,14 +46,16 @@ sub SetTRM
 
 sub GetTrackIdsFromTRM
 {
-   my ($this, $TRM) = @_;
-   my ($sql);
+ 	my ($this, $TRM) = @_;
+	my $sql = Sql->new($this->{DBH});
 
-   $TRM =~ tr/A-Z/a-z/;
-   $sql = Sql->new($this->{DBH});
-   return $sql->GetSingleColumn("TRMJoin, TRM", "track",
-                                ["TRM.TRM", $sql->Quote($TRM), 
-                                 "TRM.id", "TRMJoin.TRM"]);
+	$sql->SelectSingleColumnArray(
+		"SELECT	trmjoin.track
+		FROM	trm, trmjoin
+		WHERE	trm.trm = ?
+		AND		trmjoin.trm = trm.id",
+		lc $TRM,
+	);
 }
 
 sub GetIdFromTRM
