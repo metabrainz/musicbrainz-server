@@ -42,6 +42,18 @@ sub PreInsert
 	my $discid = $opts{'discid'} or die;
 	my $rowid = $opts{'rowid'} or die;
 
+	if ($oldal->GetId == $newal->GetId)
+	{
+		$self->SetError("Source and destination albums are the same!");
+		die $self;
+	}
+
+	if ($newal->IsNonAlbumTracks)
+	{
+		$self->SetError("Disc IDs cannot be moved to '".&Album::NONALBUMTRACKS_NAME."'");
+		die $self;
+	}
+
 	$self->SetTable("discid");
 	$self->SetColumn("disc");
 	$self->SetRowId($rowid);
