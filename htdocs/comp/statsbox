@@ -1,14 +1,5 @@
 <%perl>
 
-sub StatLine
-{
-    my ($title, $count) = @_;
-
-    my $r = "<tr><TD valign=top align=right class=\"statsb\">$title</TD>";
-    $r .= "<TD valign=top class=\"stats\">$count</td></tr>";
-    return $r;
-}
-
 my $result = $m->cache(action=>'retrieve');
 if (!defined($result)) 
 {
@@ -19,13 +10,24 @@ if (!defined($result))
 			my $stat = Statistic->new($mb->{DBH});
 			my %stats = %{ $stat->FetchAllAsHashRef };
 
-			$result = StatLine("Artists", $stats{'count.artist'});
-			$result .= StatLine("Albums", $stats{'count.album'});
-			$result .= StatLine("Tracks", $stats{'count.track'});
-			$result .= StatLine("Discids", $stats{'count.discid'});
-			$result .= StatLine("TRM Ids", $stats{'count.trm'});
-			$result .= StatLine("Mods", $stats{'count.moderation'});
-			$result .= StatLine("Users", $stats{'count.moderator'});
+			$result = "";
+
+			for (
+				[ "Artists", $stats{'count.artist'} ],
+				[ "Albums", $stats{'count.album'} ],
+				[ "Tracks", $stats{'count.track'} ],
+				[ "Discids", $stats{'count.discid'} ],
+				[ "TRM Ids", $stats{'count.trm'} ],
+				[ "Mods", $stats{'count.moderation'} ],
+				[ "Users", $stats{'count.moderator'} ],
+			) {
+				my ($title, $count) = @$_;
+				$result .=
+					"\n<tr>"
+						. "<td valign='top' align='right' class='statsb'>$title</td>"
+						. "<td valign='top' class='stats'>$count</td>"
+					. "</tr>";
+			}
 
 			$m->cache(action=>'store', expire_next=>'hour', value=>$result);
 			$mb->Logout();
