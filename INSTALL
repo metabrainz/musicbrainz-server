@@ -86,7 +86,7 @@ The MusicBrainz server requires the following items:
    URI::Escape
    Carp;
    Tie::STDERR
-   Benchmark::Timer
+   Time::HiRes
 
 7) String::Unicode::Similarity
 
