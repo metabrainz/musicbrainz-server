@@ -509,10 +509,19 @@ $message
 ------------------------------------------------------------------------
 Please do not respond to this email.
 
+EOF
+		. (
+			$self->GetEmail
+			? encode_qp(<<EOF)
 If you would like to send mail to moderator '$fromname',
 please use this link:
 http://${\ DBDefs::WEB_SERVER() }/user/mod_email.html?uid=${\ $self->GetId }
 EOF
+			: encode_qp(<<EOF)
+Unfortunately moderator '$fromname' has not supplied their e-mail address,
+so you can't reply to them.
+EOF
+		)
 	);
 }
 
@@ -544,10 +553,19 @@ Moderation link: http://${\ DBDefs::WEB_SERVER() }/showmod.html?modid=$modid
 ------------------------------------------------------------------------
 Please do not respond to this email.
 
+EOF
+		. (
+			$self->GetEmail
+			? encode_qp(<<EOF)
 If you would like to send mail to moderator '$fromname',
 please use this link:
 http://${\ DBDefs::WEB_SERVER() }/user/mod_email.html?uid=${\ $self->GetId }
 EOF
+			: encode_qp(<<EOF)
+Unfortunately moderator '$fromname' has not supplied their e-mail address,
+so you can't reply to them.
+EOF
+		)
 	);
 }
 
