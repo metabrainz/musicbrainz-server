@@ -3,7 +3,9 @@ $default=>'Artist'
 $text=>''
 </%args>
 
-<FORM METHOD="GET" ACTION="/newsearch.html" ENCTYPE="application/x-www-form-urlencoded" class="formstyle">
+<FORM METHOD="GET" ACTION="/newsearch.html" ENCTYPE="application/x-www-form-urlencoded" class="formstyle"
+	NAME="TextSearchForm"
+	>
 <center>
 <table width="250">
   <tr>

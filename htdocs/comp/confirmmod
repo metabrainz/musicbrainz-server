@@ -6,6 +6,7 @@ $args
 <& /comp/tablebegin, gattrs=>"width=\"100%\"", title=>$title &>
 
     <FORM METHOD="POST" ACTION="/bare/enter_kv_mod.html"
+	  NAME="ConfirmModForm"
           ENCTYPE="application/x-www-form-urlencoded">  
 
     <table width="100%">
@@ -54,3 +55,5 @@ for $arg (keys %$args)
 
 </form>
 <& /comp/tableend &>
+
+<& /comp/movefocus, "ConfirmModForm", "confirm0", 0 &>
