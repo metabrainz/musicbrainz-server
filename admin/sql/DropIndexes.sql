@@ -32,6 +32,7 @@ drop index Moderation_ModeratorIndex;
 drop index Moderation_ExpireTimeIndex;
 drop index Moderation_StatusIndex;
 DROP INDEX moderation_artistindex;
+DROP INDEX moderation_rowid;
 
 drop index Votes_UidIndex;
 drop index Votes_RowidIndex;
