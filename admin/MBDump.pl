@@ -34,7 +34,7 @@ sub DumpAllTables
 
     print "\nDumped tables successfully.\n";
 
-    return 1;
+    return $ret;
 }
 
     my ($outfile, $dir, @tinfo, $timestring);
