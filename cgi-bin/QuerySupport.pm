@@ -640,7 +640,8 @@ sub SubmitTrack
    my ($dbh, $doc, $rdf, $name, $guid, $artist, $album, $seq,
        $len, $year, $genre, $comment) = @_;
    my ($i, $ts, $text, $artistid, $albumid, $trackid, $type, $id);
-   my ($al, $ar, $tr, $ly, $gu, @albumids);
+   my ($al, $ar, $tr, $ly, $gu, @albums);
+   my ($gen, $genid);
 
    if (!defined $name || $name eq '' ||
        !defined $album || $album eq '' ||
@@ -661,18 +662,25 @@ sub SubmitTrack
    $ly = Lyrics->new($dbh);
    $gu = GUID->new($dbh);
 
-   $artistid = $ar->Insert($artist, $artist);
-   return $rdf->EmitErrorRDF("Cannot insert artist into database.") 
-      if (!defined $artistid || $artistid < 0);
+   $ar->SetName($artist);
+   $ar->SetSortName($artist);
+   $artistid = $ar->Insert();
 
-   @albumids = $al->FindFromNameAndArtistId($album, $artistid);
-   if (defined @albumids && scalar(@albumids) > 0)
+   return $rdf->EmitErrorRDF("Cannot insert artist into database.") 
+      if (!defined $artistid);
+
+   $al->SetArtist($artistid);
+
+   @albums = $ar->GetAlbumsByName($album);
+   if (defined $albums[0])
    {
-      $albumid = $albumids[0];
+      $albumid = $albums[0]->GetId();
+      $al->SetId($albumid);
    }
    else
    {
-      $albumid = $al->Insert($album, $artistid, -1);
+      $al->SetName($album);
+      $albumid = $al->Insert();
    }
    print STDERR "Insert album failed!!!!!!!!!!!\n"
       if (!defined $albumid || $albumid < 0);
@@ -680,10 +688,46 @@ sub SubmitTrack
    return $rdf->EmitErrorRDF("Cannot insert album into database.") 
       if (!defined $albumid || $albumid < 0);
 
-   $trackid = $tr->Insert($name, $artistid, $albumid, $seq, 
-                          $len, $year, $genre, $comment);
+   if (defined $genre && $genre ne '')
+   {
+
+       $gen = Genre->new($dbh);
+       $genid = $gen->InsertGenre($genre, "");
+       if (defined $genid)
+       {
+          $tr->SetGenre($genid);
+       }
+   }
+
+   $tr->SetName($name);
+   $tr->SetSequence($seq);
+   $tr->SetLength($len);
+   $tr->SetComment($comment);
+   $trackid = $tr->Insert($al, $ar);
    return $rdf->EmitErrorRDF("Cannot insert track into database.") 
       if (!defined $trackid || $trackid < 0);
+
+   # I need to clean up this hack!
+   my ($sql, @row);
+   $sql = Sql->new($dbh);
+   @row = $sql->GetSingleRow('Track', ['genre', 'comment', 'length'],
+                             ['id', $trackid]);
+   if (scalar(@row) > 0)
+   {
+      if ((!defined $row[0] || $row[0] == 0) && defined $genid)
+      {
+         $sql->Do("update Track set genre = $genid where id = $trackid");
+      }
+      if ((!defined $row[1] || $row[1] eq '') && defined $comment)
+      {
+         $comment = $sql->Quote($comment);
+         $sql->Do("update Track set comment = $comment where id = $trackid");
+      }
+      if ((!defined $row[2] || $row[2] == 0) && defined $len)
+      {
+         $sql->Do("update Track set length = $len where id = $trackid");
+      }
+   }
 
    if (defined $trackid && (defined $guid && $guid ne ''))
    {

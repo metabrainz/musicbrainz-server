@@ -103,6 +103,26 @@ sub SetLength
    $_[0]->{length} = $_[1];
 }
 
+sub GetComment
+{
+   return $_[0]->{comment};
+}
+
+sub SetComment
+{
+   $_[0]->{comment} = $_[1];
+}
+
+sub GetGenre
+{
+   return $_[0]->{genre};
+}
+
+sub SetGenre
+{
+   $_[0]->{genre} = $_[1];
+}
+
 sub GetModPending
 {
    return $_[0]->{modpending};
