@@ -22,7 +22,7 @@ Chaos</a>
 <table>
 <tr><td>&nbsp;&nbsp;&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; </td><td>
 <font size=+1 color="red">NOTE:</font> If you're from the RDF/DC community
-and would like to help out with the MusicBrainz specfication, please
+and would like to help out with the MusicBrainz specification, please
 <a href="http://www.freeamp.org/pipermail/musicbrainz/2001-May/000871.html">read this post</a> for some background information and the current issues at hand.
 <tr><td>&nbsp;&nbsp;&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; </td><td>
 </tr>
@@ -140,7 +140,7 @@ defined, and the POST functions should be used instead.
 For example, the searching functions require that a search string be 
 passed to the server. However, using a GET function requires the
 search string to be encoded into a valid URL, which must be encoded
-in the ISO-8859-1 character encoding. Thus, serach functions using the
+in the ISO-8859-1 character encoding. Thus, search functions using the
 GET command cannot correctly search all of the data available on the
 server.
 
@@ -292,7 +292,7 @@ A number from 0 to 100 giving the near match threshold. The higher the number, t
 <tr><td valign="top" align="right">
 <b>offsets</b>
 </td><td valign="top">
-The track offsets for the CD, each seperated by '-'.
+The track offsets for the CD, each separated by '-'.
 </td></tr>
 
 <tr><td valign="top" align="right">
@@ -355,7 +355,7 @@ GET /cdmp/lookupcd?offsets=150-77950-2093
 <tr><td valign="top" align="right">
 <b>lookupcd<br>(inexact)</b>
 </td><td valign="top">
-GET /cdmp/lookupcd?offsets=150-77950-2093&threshold=90&maxreturns=50
+GET /cdmp/lookupcd?offsets=150-77950-2093&amp;threshold=90&amp;maxreturns=50
 </td></tr>
 
 </table>
