@@ -25,12 +25,7 @@
 
 package Sql;
 
-use vars qw(@ISA @EXPORT);
-@ISA	= @ISA	  = '';
-@EXPORT = @EXPORT = '';
-
 use strict;
-use DBI;
 use DBDefs;
 use Carp qw(cluck croak carp);
 use utf8 ();
