@@ -83,10 +83,10 @@ while ( my $row = $sth->fetchrow_hashref )
     my @lengths;
     for($ii = 1; $ii < $toc->{'tracks'}; $ii++) {
         $lengths[$ii] = int((($toc->{'track'.($ii+1)} - $toc->{'track'.$ii})*1000)/75);
-        print "length[$ii]: $lengths[$ii]\n";
+        #print "length[$ii]: $lengths[$ii]\n";
     }
     $lengths[$ii] =  int((($toc->{'leadout'} - $toc->{'track'.$ii})*1000)/75);
-    print "length[$ii]: $lengths[$ii]\n\n";
+    #print "length[$ii]: $lengths[$ii]\n\n";
 
     foreach(@tracks) {
         if(defined($lengths[$_->GetSequence()])) {
