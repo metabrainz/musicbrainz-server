@@ -12,11 +12,12 @@ $durations=>""
 $attrtype=>0
 $attrstatus=>0
 $noncd=>0
+$notetext => ""
 </%args>
 
 <%perl>
 
-my ($error, $i, $artistid, $albumid, $new, $mb, $di);
+my ($error, $new);
 
 $m->comp("/comp/sidebar", title=>'New CD Submission');
 
@@ -39,7 +40,7 @@ $error = 4 if ($freedbid ne '' && $durations eq '');
 $error = 5 if ($tracks eq 0);
 $error = 6 if (!defined $artist && $artistname =~ /various artists/i);
 $error = 7 if ($attrtype == 0 || $attrstatus == 0);
-for($i = 0; $i < $tracks && !$error; $i++)
+for (my $i = 0; $i < $tracks && !$error; $i++)
 {
     if (!exists $ARGS{"track$i"} || $ARGS{"track$i"} eq '')
     {
@@ -47,8 +48,9 @@ for($i = 0; $i < $tracks && !$error; $i++)
     }
 }
 
-$mb = $m->comp("/comp/dblogin");
-$di = Discid->new($mb->{DBH});
+my $mb = $m->comp("/comp/dblogin");
+my $di = Discid->new($mb->{DBH});
+
 if ($id ne '' && defined $di->GetAlbumFromDiscid($id))
 {
 </%perl>
@@ -80,7 +82,6 @@ elsif ($error == 6)
 }
 else
 {
-    my ($in, $mod);
     my (@offsets, @durations);
 
     if ($durations ne '')
@@ -107,7 +108,7 @@ else
     $new .= "CDIndexId=$id\n" if ($id ne '');
     $new .= "TOC=$toc\n" if ($toc ne '');
     $new .= "FreedbId=$freedbid\n" if ($freedbid ne '');
-    for($i = 0; $i < $tracks; $i++)
+    for (my $i = 0; $i < $tracks; $i++)
     {
         $ARGS{"track$i"} =~ s/^\s*(.*?)\s*$/$1/;
         $new .= "Track" . ($i + 1) . "=" . $ARGS{"track$i"} . "\n";
@@ -129,9 +130,23 @@ else
         } 
     }
 
-    $in = Insert->new($mb->{DBH});
-    ($artistid, $albumid) = $in->InsertAlbumModeration($new, $session{uid}, 
-                                                    $session{privs}, $artist);
+    my $in = Insert->new($mb->{DBH});
+	my ($artistid, $albumid, $mods) = $in->InsertAlbumModeration(
+		$new, $session{uid}, $session{privs}, $artist,
+	);
+
+	if ($mods and @$mods and $notetext =~ /\S/)
+	{
+		# TODO no error checking yet on adding the mod note
+		my $sql = Sql->new($mb->{DBH});
+		eval {
+			$sql->Begin;
+			$mods->[0]->InsertNote($session{'uid'}, $notetext);
+			$sql->Commit;
+		};
+		eval { $sql->Rollback } if $@ ne "";
+	}
+
     if (defined $artistid && defined $albumid)
     {
         $m->out("Thank you for your submission!<p><br>");

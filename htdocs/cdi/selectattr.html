@@ -35,6 +35,14 @@ my $selected_index = 0;
 						selindex => \$selected_index &>
 
 	<p>
+		Enter moderation note (optional):
+	</p>
+
+	<p>
+		<textarea name="notetext" rows="3" cols="60"></textarea>
+	</p>
+
+	<p>
 % foreach $key (keys %ARGS) {
 		<input type="hidden" name="<% $key %>" value="<% $ARGS{$key} %>">
 % }
