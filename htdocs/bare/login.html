@@ -7,6 +7,7 @@ my $email = "";
 
 if (&DBDefs::DB_READ_ONLY)
 {
+    print STDERR "login read only\n";
     $ok = 0;
 }
 elsif (defined $ARGS{User} && $ARGS{User} ne '' &&

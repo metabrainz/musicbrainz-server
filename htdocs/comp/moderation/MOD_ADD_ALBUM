@@ -6,6 +6,7 @@
 
 <%method ShowNewValue>
 % my $this = shift;
+% my $inline = shift;
 
 <%perl>
 my $new = $this->{'new_unpacked'};
@@ -16,7 +17,7 @@ my $al = Album->new($this->{DBH});
 $al->SetId($id);
 my $exists = $al->LoadFromId;
 
-if ($exists and UserPreference::get('mod_add_album_inline'))
+if (!$inline and $exists and UserPreference::get('mod_add_album_inline'))
 {
 	my $ar = Artist->new($this->{DBH});
 	$ar->SetId($al->GetArtist);

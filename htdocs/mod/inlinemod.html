@@ -1,0 +1,173 @@
+%# vi: set ts=4 sw=4 ft=mason :
+<%args>
+$artistid
+</%args>
+<%perl>
+
+sub GetRelatedModeration
+{
+    my ($this, $artistid, $uid) = @_;
+    my ($list, $query, $voter_id, $status, $num);
+
+    # First, look for moderations that are open by the given artist
+    my %filter = (
+        artist_type     => 3, # only this artist ...
+        artist_id       => $artistid,
+        moderator_type  => 5,
+        voter_id        => $uid,
+        vote_cast       => [ &ModDefs::VOTE_NOTVOTED ],
+        mod_status      => [ &ModDefs::STATUS_OPEN ],
+        orderby         => "desc"
+    );
+
+    ($query, $voter_id) = $m->comp("/mod/search/setquery.inc", %filter);
+
+    ($status, $list, $num) = $this->GetModerationList($query, $voter_id, 0, 1);
+    if ($status == Moderation::SEARCHRESULT_SUCCESS and $num > 0)
+    {
+        return ($$list[0], 1);
+    }
+    return (undef, 0) if ($status == Moderation::SEARCHRESULT_TIMEOUT);
+
+    # now look for moderations from subscribed artists
+    %filter = (
+        mod_status      => [ &ModDefs::STATUS_OPEN ],
+        vote_cast       => [ &ModDefs::VOTE_NOTVOTED ],
+        voter_type      => 0,
+        moderator_type  => 5,
+        artist_type     => 4, # subbed artists
+        orderby         => "asc"
+    );
+
+    ($query, $voter_id) = $m->comp("/mod/search/setquery.inc", %filter);
+
+    ($status, $list, $num) = $this->GetModerationList($query, $voter_id, 0, 1);
+    if ($status == Moderation::SEARCHRESULT_SUCCESS and $num > 0)
+    {
+        return ($$list[0], 2);
+    }
+    return (undef, 0) if ($status == Moderation::SEARCHRESULT_TIMEOUT);
+
+    # now look for moderations from related artists
+    # First, look for moderations that are open by the given artist
+    %filter = (
+        artist_type     => 5, # only this artist ...
+        artist_id       => $artistid,
+        moderator_type  => 5,
+        voter_id        => $uid,
+        vote_cast       => [ &ModDefs::VOTE_NOTVOTED ],
+        mod_status      => [ &ModDefs::STATUS_OPEN ],
+        orderby         => "desc"
+    );
+
+    ($query, $voter_id) = $m->comp("/mod/search/setquery.inc", %filter);
+
+    ($status, $list, $num) = $this->GetModerationList($query, $voter_id, 0, 1);
+    if ($status == Moderation::SEARCHRESULT_SUCCESS and $num > 0)
+    {
+        return ($$list[0], 3);
+    }
+    return (undef, 0) if ($status == Moderation::SEARCHRESULT_TIMEOUT);
+
+    # now look for any open moderation
+    %filter = (
+        moderator_type  => 5,
+        voter_id        => $uid,
+        vote_cast       => [ &ModDefs::VOTE_NOTVOTED ],
+        mod_status      => [ &ModDefs::STATUS_OPEN ],
+        orderby         => "desc"
+    );
+
+    ($query, $voter_id) = $m->comp("/mod/search/setquery.inc", %filter);
+
+    ($status, $list, $num) = $this->GetModerationList($query, $voter_id, 0, 1);
+    if ($status == Moderation::SEARCHRESULT_SUCCESS and $num > 0)
+    {
+        return ($$list[0], 4);
+    }
+    return (undef, 0) if ($status == Moderation::SEARCHRESULT_TIMEOUT);
+
+    return (undef, 0);
+}
+
+my $mb = $m->comp("/comp/dblogin");
+my $mod = Moderation->new($mb->{DBH});
+
+my ($relmod, $relationship) = GetRelatedModeration($mod, $artistid, $session{uid});
+
+my %notes;
+
+$m->comp("/comp/header_inline", title=>'Inline Moderation'); 
+
+if (!$relationship)
+{
+    </%perl>
+    Related moderation search timed out. Sorry.
+    <%perl>
+
+    $m->comp("/comp/footer_bare"); 
+    return;
+}
+elsif (!defined $relmod)
+{
+    </%perl>
+    No related or any open moderations found. 
+    <%perl>
+
+    $m->comp("/comp/footer_bare"); 
+    return;
+}
+else
+{
+	my $notes = MusicBrainz::Server::ModerationNote->new($mb->{DBH});
+	my @notes = $notes->newFromModerationIds($relmod->GetId());
+	push @{ $notes{ $_->GetModerationId } }, $_
+		for @notes;
+}
+
+</%perl>
+
+% if ($relationship == 1) {
+    Please vote on this moderation by the same artist:<br>
+% } elsif ($relationship == 2) {
+    Please vote on this moderation by one of your subscribed artists:<br>
+% } elsif ($relationship == 3) {
+    Please vote on this moderation by a related artist:<br>
+% } else {
+    Please vote on this random moderation:<br>
+% }
+
+<base target="_parent">
+<form method="POST" action="/bare/vote.html"
+      enctype="application/x-www-form-urlencoded" 
+      class="formstyle" target="_self">
+
+<TABLE BORDER="0" CELLPADDING="0" CELLSPACING="0"
+       BGCOLOR="#000000" WIDTH="100%">
+<TR><TD width="100%">
+<TABLE WIDTH="100%" BORDER="0" CELLSPACING="1" CELLPADDING="3">
+
+<%perl>
+my $n = $notes{ $relmod->GetId } || [];
+my $show_button = 1;
+$m->comp(
+	"/comp/showmod",
+	mod		=> $relmod,
+	notes	=> $n,
+	voter	=> $session{uid},
+	voteflag=> \$show_button,
+    inline  => 1,
+);
+</%perl>
+
+</table>
+</td></tr>
+</table>
+
+<INPUT TYPE="hidden" NAME="url" 
+       VALUE="<% $r->uri() . "?" . $r->args() %>">
+
+</form>
+</base>
+
+<& /comp/footer_bare &>

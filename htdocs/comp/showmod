@@ -4,6 +4,7 @@ $mod
 $voter => $session{uid}
 $notes => []
 $voteflag=> undef
+$inline=>0
 </%args>
 <%perl>
 
@@ -77,7 +78,7 @@ $time = $m->comp("/comp/datetime", $time);
    </td>
 
    <td width="37%" valign=top bgcolor="#f0efff" class="body">
-%			$mod->ShowNewValue($m);
+%			$mod->ShowNewValue($m, $inline);
    </td>
 
    <td width="30%" align=center valign=top bgcolor=white class="body" nowrap>
@@ -89,7 +90,7 @@ $time = $m->comp("/comp/datetime", $time);
 
 % if (not $is_mine and $is_open) {
 %		$$voteflag = 1 if $voteflag;
-     <& /mod/voting-buttons.inc, mod => $mod, vote => $voted &>
+     <& /mod/voting-buttons.inc, mod => $mod, vote => $voted, inline => $inline &>
 % } else {
      <% $mod->GetChangeName %>
 % }

@@ -1,10 +1,11 @@
 <%args>
 $mod
 $vote => undef
+$inline=>0
 </%args>
 <%perl>
 
-my $show_novote = UserPreference::get("vote_show_novote");
+my $show_novote = !$inline and UserPreference::get("vote_show_novote");
 my $default = (UserPreference::get("vote_abs_default") ? "abs" : "novote");
 
 if (defined $vote)
@@ -28,8 +29,16 @@ for ("Yes=yes", "No=no", "Abst=abs", "No&nbsp;Vote=novote")
 {
 	my ($display, $key) = split /=/;
 	next if $key eq "novote" and not $show_novote;
-	my $checked = (($key eq $default) ? " checked" : "");
-	$m->out(qq[<label for="rowid$modid-$key">$display</label>&nbsp;<input type="radio" name="rowid$modid" id="rowid$modid-$key" value="$key"$checked>&nbsp;]);
+
+   if (!$inline)
+   {
+       my $checked = (($key eq $default) ? " checked" : "");
+       $m->out(qq[<label for="rowid$modid-$key">$display</label>&nbsp;<input type="radio" name="rowid$modid" id="rowid$modid-$key" value="$key"$checked>&nbsp;]);
+   }
+   else
+   {
+       $m->out(qq[<input type="submit" name="rowid$modid" value="$key">&nbsp;]);
+   }
 }
 
 </%perl>

@@ -150,6 +150,14 @@ my %all_types = reverse %{ ModDefs->type_as_hashref };
 			<i>(no artist selected)</i>
 % }
 			&nbsp; [ <a href="/mod/search/select-artist.html?<% scalar $r->args %>">Change ...</a> ]<br>
+% if (my $id = $filter->{"artist_id"}) {
+		<input type="radio" name="artist_type" value="5" <% ($at eq "5") ? "checked" : "" %>> Artists related to
+			<a href="/showartist.html?artistid=<% $id %>"><% $filter->{"artist_name"} %></a>
+% } else {
+		<input type="radio" name="artist_type" disabled> Artists related to
+			<i>(no artist selected)</i>
+% }
+			&nbsp; [ <a href="/mod/search/select-artist.html?<% scalar $r->args %>">Change ...</a> ]<br>
 		<input type="radio" name="artist_type" value="4" <% ($at eq "4") ? "checked" : "" %>> My subscribed artists<br>
 	</p>
 			</td>

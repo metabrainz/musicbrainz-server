@@ -2,6 +2,7 @@
 <%args>
 $title
 $nosidebar => 0
+$notopbar => 0
 $head => undef
 </%args>
 <%perl>
@@ -24,6 +25,8 @@ my $mtime_print = (stat(&DBDefs::HTDOCS_ROOT . "/css/print.css"))[9] || 0;
 </head>
 <body>
 
+% unless ($notopbar) {
+
 <table width="100%" cellpadding="0" cellspacing="0" border="0">
 <tr>
    <td class="LogoBarCell"
@@ -44,6 +47,8 @@ my $mtime_print = (stat(&DBDefs::HTDOCS_ROOT . "/css/print.css"))[9] || 0;
 </p>
 
 <& /comp/navbar &>
+
+% }
 
 % unless ($nosidebar) {
 <table cellpadding="0" cellspacing="0" border="0">

@@ -62,6 +62,9 @@ $artist->LoadFromId
 
 <& /comp/sidebar, title => "", pagetitle => "Album: " . $album->GetName &>
 
+%# show any related moderations so people can vote on them
+<& /comp/relmods, artistid=>$album->GetArtist() &>
+
 <& /comp/artisttitle, artist => $artist &>
 
 % if ($session{uid}) {

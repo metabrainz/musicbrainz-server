@@ -298,7 +298,7 @@ if ($moderator_type)
 ################################################################################
 
 $artist_type = 0
-	unless $artist_type =~ /^[01234]$/;
+	unless $artist_type =~ /^[012345]$/;
 
 if (MusicBrainz::IsNonNegInteger($artist_id) and $artist_id)
 {
@@ -312,7 +312,8 @@ if (MusicBrainz::IsNonNegInteger($artist_id) and $artist_id)
 		$filter{"artist_name"} = $ar->GetName;
 	} else {
 		$artist_type = 0
-			if $artist_type == 3;
+			if $artist_type == 3
+			or $artist_type == 5;
 	}
 }
 
@@ -330,6 +331,9 @@ if ($artist_type)
 	$subs_join = " INNER JOIN moderator_subscribe_artist s"
 		. " ON s.artist = m.artist AND s.moderator = $session{uid}"
 		if $artist_type == 4;
+	$subs_join = " INNER JOIN artist_relation s"
+		. " ON s.artist = m.artist AND s.ref = $artist_id"
+		if $artist_type == 5;
 }
 
 ################################################################################

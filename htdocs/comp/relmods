@@ -1,0 +1,11 @@
+%# vi: set ts=4 sw=4 ft=mason :
+<%args>
+$artistid
+</%args>
+
+% return if !$session{uid};
+
+<div style="border-style: solid; border-width: thin; padding: 5px;" width="100%">
+<iframe src="/mod/inlinemod.html?artistid=<% $artistid %>" height="100" width="100%" frameborder="0">
+</iframe>
+</div>

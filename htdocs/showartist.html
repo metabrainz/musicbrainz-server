@@ -34,8 +34,6 @@ $artist->LoadFromId()
 $artist->GetId == &ModDefs::DARTIST_ID
 	and return $m->comp("/comp/badargs", 1, 1);
 
-
-
 my $CheckAttributes = sub
 {
     my ($a) = @_;
@@ -101,6 +99,9 @@ $m->comp(
 	pagetitle => "Artist: " . $artist->GetName(),
 	title => '',
 );
+
+    # show any related moderations so people can vote on them
+    $m->comp("/comp/relmods", artistid=>$artistid);
 
     $m->comp("/comp/artisttitle", artist=>$artist);
 
