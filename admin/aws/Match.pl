@@ -39,6 +39,7 @@ use Artist;
 use Album;
 use SearchEngine;
 use Text::Unaccent;
+use Image::Info qw( image_info );
 
 use constant MAX_PAGES_PER_ARTIST => 100;
 
@@ -71,11 +72,11 @@ sub IsValidImage
     my $response = $ua->get($url);
     if ($response->is_success)
     {
-        if ($response->content =~ /JFIF/ ||
-            $response->content =~ /GIF87a/ ||
-            $response->content =~ /GIF89a/)
-        {
-            return 0 if (length($response->content) < 1024);
+    	my $content = $response->content;
+    	my $info = image_info(\$content);
+    	if ($info->{file_ext} =~ /jpg|gif|png/)
+    	{
+            return 0 if ($info->{width} <= 1 || $info->{height} <= 1);
             return 1;
         }
     } 
