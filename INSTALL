@@ -8,15 +8,10 @@ The MusicBrainz server requires the following items:
 
 1) PostgreSQL 7.3 or later
 
-      - Configure the server with: configure --enable-multibyte=UNICODE
-        to enable UTF-8 support. THIS IS IMPORTANT!!
-
-      - If you've installed postgres via a package and have "pg_config"
-        you can run:
-            pg_config --configure
-        to see what the source was compiles with to be sure it complies.
-        If it doesn't return "--enable-multibyte" at all, you'll have to
-        recompile it from source
+   Postgres must have multi-byte support enabled.  In older versions
+   this was doing with "./configure --enable-multibyte=UNICODE" , but
+   since 7.3.0 this has been the default, so you probably don't have to
+   worry about it.
 
    Replication
    
