@@ -60,6 +60,7 @@ system("rm -rf $dir");
 mkdir($dir, 0700)
   or die("Cannot create tmp directory $dir.\n");
 
+chmod 0777, $dir;
 
 if (DumpAllTables($dir))
 {
