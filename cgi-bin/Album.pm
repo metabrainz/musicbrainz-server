@@ -132,6 +132,20 @@ sub GetAttributes
    return @attrs;
 }
 
+sub GetReleaseTypeAndStatus
+{
+	my $self = shift;
+	my @attrs = $self->GetAttributes;
+	my ($type, $status);
+	for ($self->GetAttributes)
+	{
+		return () if $_ == ALBUM_ATTR_NONALBUMTRACKS;
+		$type   = $_ if $_ >= ALBUM_ATTR_SECTION_TYPE_START   and $_ <= ALBUM_ATTR_SECTION_TYPE_END;
+		$status = $_ if $_ >= ALBUM_ATTR_SECTION_STATUS_START and $_ <= ALBUM_ATTR_SECTION_STATUS_END;
+	}
+	($type, $status);
+}
+
 sub SetAttributes
 {
    my $this = shift @_;
