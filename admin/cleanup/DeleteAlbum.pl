@@ -68,7 +68,7 @@ sub Cleanup
 sub DeleteAlbum
 {
     my ($dbh, $fix, $quiet, $thenum) = @_;
-    my ($id, $name, $album);
+    my ($id, $name, $album, $thetrack);
 
     # RAK: If the fix flag is not given, we should really print out
     #      human understandable output. 
@@ -90,11 +90,18 @@ sub DeleteAlbum
             $thetrack .= " OR id=$row[0]";
         }
     }
+    else
+    {
+        $thetrack ="";
+    }
     $sth->finish;
 
     #Delete the tracks
-    print "$thetrack\n" if (!$quiet);
-    $dbh->do(qq\$thetrack\) if ($fix);
+    if ($thetrack ne '')
+    {
+       print "$thetrack\n" if (!$quiet);
+       $dbh->do(qq\$thetrack\) if ($fix);
+    }
 
     #Delete the album from albumjoin
     print(qq/DELETE FROM AlbumJoin WHERE ALBUM=$thenum\n/) if (!$quiet);
