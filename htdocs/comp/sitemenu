@@ -273,7 +273,8 @@ use Scalar::Util qw( reftype weaken );
 		],
 		{ name => "Contact Us",				url => "/support/contact.html" },
 		{ name => "Mailing Lists",			url => "/list.html" },
-		{ name => "Report a Bug",			url => "http://sourceforge.net/tracker/?func=add&amp;group_id=19506&amp;atid=119506" },
+		{ name => "Known Bugs",				url => "http://www.musicbrainz.org/bugs" },
+		{ name => "Report a Bug",			url => "http://www.musicbrainz.org/bug" },
 	],
 	{ name => "Wiki",					url => "http://wiki.musicbrainz.org/" },
 );
