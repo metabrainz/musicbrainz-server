@@ -34,14 +34,13 @@ my $selected_index = 0;
 						attrs=>\@attr, field1=>"attrtype", field2=>"attrstatus",
 						selindex => \$selected_index &>
 
-<%perl>
-foreach $key (keys %ARGS)
-{
-   </%perl> 
-   <input type="hidden" name="<% $key %>" value="<% $ARGS{$key} %>">
-   <%perl> 
-}
-</%perl>
+	<p>
+% foreach $key (keys %ARGS) {
+		<input type="hidden" name="<% $key %>" value="<% $ARGS{$key} %>">
+% }
+		<input type="submit" value="Submit">
+	</p>
+
 </form>
 
 <& /comp/movefocus, "SelectAttrs", "attrtype", $selected_index &>
