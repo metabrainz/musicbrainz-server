@@ -147,7 +147,6 @@ sub Remove
     my $engine = SearchEngine->new($this->{DBH}, { Table => 'Artist' } );
     $engine->RemoveObjectRefs($this->GetId());
 
-    print STDERR "DELETE: Removed artist " . $this->GetId() . "\n";
     $sql->Do("delete from Artist where id = " . $this->GetId());
 
     return 1;
