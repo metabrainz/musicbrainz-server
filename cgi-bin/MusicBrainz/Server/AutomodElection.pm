@@ -568,12 +568,17 @@ sub _SendMail
 {
 	my ($self, %opts) = @_;
 
+	my $candidate = $self->{candidate_user};
+	my $has_email = $candidate->GetEmail;
+
 	$opts{Subject} ||= $self->{subject};
 	$opts{Sender} ||= 'Webserver <webserver@musicbrainz.org>';
 	$opts{From} = 'The Returning Officer <returning-officer@musicbrainz.org>';
 	$opts{To} = 'mb-automods Mailing List <musicbrainz-automods@lists.musicbrainz.org>';
 	$opts{Type} ||= "text/plain";
 	$opts{Encoding} ||= "quoted-printable";
+	$opts{Cc} = $candidate->GetForwardingAddressHeader
+		if $has_email;
 
 	my $is_reply = delete $opts{is_reply};
 	if ($is_reply) {
@@ -589,7 +594,10 @@ sub _SendMail
 
 	$entity->send(
 		'returning-officer@musicbrainz.org',
-		'musicbrainz-automods@lists.musicbrainz.org',
+		[
+			'musicbrainz-automods@lists.musicbrainz.org',
+			($has_email ? ($candidate->GetEmail) : ()),
+		]
 	);
 }
 
