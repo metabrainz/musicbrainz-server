@@ -1,11 +1,11 @@
 <%args>
 $mod
-$notes
+$notes => []
 </%args>
 
 <%perl>
 
-my ($ref, $obj, $bold);
+my ($bold);
 my $voted = $mod->GetVote();
 if (!defined $voted)
 {
@@ -88,17 +88,16 @@ $time = $m->comp("/comp/datetime", $time);
 
 </tr>
 
-% if (exists $notes->{ $mod->GetId() }) {
+% if (@$notes) {
 <tr>
    <td colspan="3" valign=top bgcolor=white class="body">
-%    $ref = $notes->{ $mod->GetId() };
      Notes:<br>
-%    foreach $obj (@$ref) {
+%    for my $note (@$notes) {
         &nbsp;&nbsp;&nbsp;&nbsp;
-%       $bold = ($obj->{user} eq $mod->GetModeratorName()) ? 'bold' : 'body';
-        <a href="/moderator.html?uid=<% $obj->{uid} %>"
-	    ><font class="<% $bold %>"><% $obj->{user} %></font></a>:
-        <% $obj->{text} %><br> 
+%       $bold = ($note->GetUserId == $mod->GetModerator) ? 'bold' : 'body';
+        <a href="/moderator.html?uid=<% $note->GetUserId %>"
+	    ><font class="<% $bold %>"><% $note->GetUserName %></font></a>:
+        <% $note->GetTextAsHTML |n %><br> 
 %    }
    </td>
 </tr>

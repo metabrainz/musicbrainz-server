@@ -9,7 +9,7 @@ $num => UserPreference::get('mods_per_page')
 <%perl>
 
 my ($mb, @info, $mod, $offset, $page, $comp, $obj);
-my ($num_mods, $total_mods, $notes);
+my ($num_mods, $total_mods, %notes);
 my $max_items = $num;
 
 my $allow_skip = 1;
@@ -106,8 +106,13 @@ foreach $obj (@info)
 
 if ($num_mods > 0)
 {
-   $notes = $mod->LoadModerationNotes($info[0]->GetId(), 
-                                   $info[$num_mods-1]->GetId());
+	my $notes = MusicBrainz::Server::ModerationNote->new($mb->{DBH});
+	my @notes = $notes->newFromModerationIDs(
+		$info[0]->GetId,
+		$info[-1]->GetId,
+	);
+	push @{ $notes{ $_->GetModerationId } }, $_
+		for @notes;
 }
 </%perl>
 
@@ -178,7 +183,8 @@ if ($num_mods > 0)
 <%perl>
 for my $obj (@info)
 {
-   $m->comp("/comp/showmod", mod=>$obj, notes=>$notes);
+	my $n = $notes{ $obj->GetId } || [];
+   $m->comp("/comp/showmod", mod=>$obj, notes=>$n);
 }
 </%perl>
 

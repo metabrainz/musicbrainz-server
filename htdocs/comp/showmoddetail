@@ -144,8 +144,6 @@ my $expire_verb = ($mod->GetExpired ? "Expired" : "Expires");
 %# Notes
 
    <tr><td colspan="2"><hr></td></tr>
-
-%  my $notes = $mod->LoadModerationNotes($mod->GetId);
      <tr>
         <td>Notes</td>
         <td>
@@ -156,14 +154,17 @@ my $expire_verb = ($mod->GetExpired ? "Expired" : "Expires");
 		   ]
         </td>
      </tr>
-%  if (my $ref = $notes->{ $mod->GetId }) {
+%  if (my @notes = $mod->Notes) {
      <tr>
         <td colspan="2">
-%         foreach my $obj (@$ref) {
+%         foreach my $note (@notes) {
              &nbsp;&nbsp;&nbsp;&nbsp;
-%            my $bold = ($obj->{user} eq $mod->GetModeratorName) ? 'bold' : 'body';
-             <font class="<% $bold %>"><% $obj->{user} %></font>:
-             <% $obj->{text} %><br> 
+			 <a href="/moderator.html?uid=<% $note->GetUserId %>"
+% if ($note->GetUserId == $mod->GetModerator) {
+				style="font-weight: bold"
+% }
+				><% $note->GetUserName %></a>:
+             <% $note->GetTextAsHTML |n %><br> 
 %         }
 		</td>
   	</tr>
