@@ -1,6 +1,16 @@
 # Sample handler.pl file.
 # Start Mason and define the mod_perl handler routine.
 #
+
+BEGIN
+{
+	require HTML::Mason::Config;
+	die "Too late to configure Mason!" if $INC{'HTML/Mason/Utils.pm'};
+	$HTML::Mason::Config{default_cache_tie_class} = "MLDBM";
+	$HTML::Mason::Config{mldbm_serializer} = "Storable";
+	$HTML::Mason::Config{mldbm_use_db} = "DB_File";
+}
+
 package HTML::Mason;
 use strict;
 use warnings;
