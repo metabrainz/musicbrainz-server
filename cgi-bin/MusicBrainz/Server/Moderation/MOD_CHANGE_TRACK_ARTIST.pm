@@ -48,7 +48,6 @@ sub PreInsert
 	$self->SetArtist($ar->GetId);
 	$self->SetPrev($ar->GetName);
 	$self->SetNew($sortname . "\n" . $name);
-	# TODO depmod?
 }
 
 sub PostLoad

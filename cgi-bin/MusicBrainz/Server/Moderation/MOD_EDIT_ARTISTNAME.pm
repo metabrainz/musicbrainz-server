@@ -69,12 +69,6 @@ sub PreInsert
 	}
 }
 
-# TODO insert note if clash (ApprovedAction)
-
-=head
-
-=cut
-
 sub IsAutoMod
 {
 	my $this = shift;
