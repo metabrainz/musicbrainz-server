@@ -22,7 +22,7 @@ chmod a+r $imagedir/stats_30_days.png
 cd ..
 
 # Backup CVS
-tar -cIvf /tmp/cvs-backup.tar.bz2 $cvspath
+tar -cjvf /tmp/cvs-backup.tar.bz2 $cvspath
 chown $backupuser:$backupgroup /tmp/cvs-backup.tar.bz2
 mv /tmp/cvs-backup.tar.bz2 $backupdir
 
