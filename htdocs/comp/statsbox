@@ -10,37 +10,27 @@ sub StatLine
 }
 
 my $result = $m->cache(action=>'retrieve');
-if (!defined($result)) 
+if (!defined($result) or 1) 
 {
     print STDERR "got no stats from cache\n";
     my $mb = mc_comp("/comp/dblogin", quiet=>1);
 
     if (defined $mb)
     {
-        my $sql = Sql->new($mb->{DBH});
-        if ($sql->Select(qq|select artists, albums, tracks, discids, trmids, 
-                                   moderations, moderators 
-                              from Stats 
-                             where timestamp = current_date()|))
-        {
-             my @row = $sql->NextRow;
-             $sql->Finish();
+	my $stat = Statistic->new($mb->{DBH});
+	my %stats = %{ $stat->FetchAllAsHashRef };
 
-             $result = StatLine("Artists", $row[0]);
-             $result .= StatLine("Albums", $row[1]);
-             $result .= StatLine("Tracks", $row[2]);
-             $result .= StatLine("Discids", $row[3]);
-             $result .= StatLine("TRM Ids", $row[4]);
-             $result .= StatLine("Mods", $row[5]);
-             $result .= StatLine("Users", $row[6]);
+             $result = StatLine("Artists", $stats{'count.artist'});
+             $result .= StatLine("Albums", $stats{'count.album'});
+             $result .= StatLine("Tracks", $stats{'count.track'});
+             $result .= StatLine("Discids", $stats{'count.discid'});
+             $result .= StatLine("TRM Ids", $stats{'count.trm'});
+             $result .= StatLine("Mods", $stats{'count.moderation'});
+             $result .= StatLine("Users", $stats{'count.moderator'});
 
              $result = "<table>$result</table>";
-        }
-        else
-        {
-             $result = "[ Updating ]";
-        }
-        $m->cache(action=>'store', expire_next=>'day', value=>$result);
+
+        $m->cache(action=>'store', expire_next=>'hour', value=>$result);
         $mb->Logout();
     }
 }
