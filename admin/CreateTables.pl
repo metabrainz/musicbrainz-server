@@ -39,6 +39,19 @@ use Sql;
 # UPDATE pg_attribute SET attnotnull = TRUE WHERE attname = 'version' AND attrelid = ( SELECT oid FROM pg_class WHERE relname = 'trm');
 # alter table TRM add constraint version_fk foreign key (version) references clientversion match full;
 
+# Optimize:
+#         SELECT Track.id, Track.name, Artist.id, Artist.name, AlbumJoin.album, 
+#               Track.gid, count(WordList.Id), lower(Track.name)
+#          FROM Track, TrackWords, WordList, Artist, AlbumJoin
+#          WHERE WordList.Word IN ( 'up','it','roll')
+#                and TrackWords.Wordid = WordList.Id
+#                and TrackWords.Trackid = Track.Id
+#                and Track.Artist = Artist.id
+#               and AlbumJoin.Track = Track.Id
+#          GROUP BY Track.Id, Track.name, Artist.id, Artist.name, AlbumJoin.album, Track.gid
+#          HAVING count(WordList.Id) = 3
+#          ORDER BY count(WordList.Id) desc, lower(Track.name), Track.name LIMIT 25
+# Insert non album tracks                                                                           
 sub CreateTables
 {
     my ($sql) = @_;

@@ -961,6 +961,8 @@ sub PreVoteAction
 
    $nw = $this->ConvertNewToHash($this->{new});
 
+   $nw->{AttrType} = Album::ALBUM_ATTR_ALBUM if (not defined $nw->{AttrType});
+   $nw->{AttrStatus} = Album::ALBUM_ATTR_OFFICIAL if (not defined $nw->{AttrStatus});
    $text = $nw->{AttrType} . "," . $nw->{AttrStatus};
    @attrs = split /,/, $text;
    $nw->{Attributes} = $text;

@@ -8,12 +8,30 @@ $field2=>""
 
 <%perl>
 
-my ($s, $al, $attrlist, @attr);
+my ($s, $al, $attrlist, $attr, $type, $status);
 
 $s = ($albumname eq '') ? 's' : '';
 $al = Album->new($mb->{DBH});
 $attrlist = $al->GetAttributeList();
-@attr = @{$attrs};
+
+foreach $attr (@{$attrs})
+{
+    if ($attr >= Album::ALBUM_ATTR_SECTION_TYPE_START &&
+        $attr <= Album::ALBUM_ATTR_SECTION_TYPE_END)
+    {
+       $type = $attr;
+       next;
+    }
+    if ($attr >= Album::ALBUM_ATTR_SECTION_STATUS_START &&
+        $attr <= Album::ALBUM_ATTR_SECTION_STATUS_END)
+    {
+       $status = $attr;
+       next;
+    }
+}
+
+$type = Album::ALBUM_ATTR_ALBUM if (not defined $type);
+$status = Album::ALBUM_ATTR_OFFICIAL if (not defined $status);
 
 </%perl>
 
@@ -49,10 +67,9 @@ click on Submit:
     {
         mc_out("<tr><td valign=\"top\" NOWRAP>");
         mc_out("<input type=\"radio\" name=\"$field1\" value=\"$_\"");
-        if (scalar(@attr) > 0 && $attr[0] == $_)
+        if ($_ == $type)
         {
             mc_out(" CHECKED");
-            shift @attr;
         }
         mc_out("></td><td valign=\"top\">$attrlist->{$_}->[0]</td>");
         mc_out("<td valign=\"top\">$attrlist->{$_}->[2]</td></tr>\n");
@@ -62,10 +79,9 @@ click on Submit:
     {
         mc_out("<tr><td valign=\"top\" NOWRAP>");
         mc_out("<input type=\"radio\" name=\"$field2\" value=\"$_\"");
-        if (scalar(@attr) > 0 && $attr[0] == $_)
+        if ($_ == $status)
         {
             mc_out(" CHECKED");
-            shift @attr;
         }
         mc_out("></td><td valign=\"top\">$attrlist->{$_}->[0]</td>");
         mc_out("<td valign=\"top\">$attrlist->{$_}->[2]</td></tr>");
