@@ -48,9 +48,9 @@ if ($url eq "")
 }
 
 if ($url ne "") {
-   $url =~ s/\?/\@Q\@/g; 
-   $url =~ s/\&/\@A\@/g; 
-   $m->out("<INPUT TYPE=\"hidden\" NAME=\"url\" VALUE=\"$url\">");
+   </%perl>
+   <input type="hidden" name="url" value="<% $url %>">
+   <%perl>
 }
 </%perl>
 

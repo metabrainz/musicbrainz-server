@@ -1,3 +1,4 @@
+%# vi: set ts=4 sw=4 ft=mason :
 <%args>
 $sidebar=>'1'
 $url=>""
@@ -55,9 +56,9 @@ if ($url eq '')
    $url = $r->headers_in->{'Referer'};
 }
 if ($url ne "") {
-   $url =~ s/\?/\@Q\@/g; 
-   $url =~ s/\&/\@A\@/g; 
-   $m->out("<INPUT TYPE=\"hidden\" NAME=\"url\" VALUE=\"$url\">");
+   </%perl>
+   <input type="hidden" name="url" value="<% $url %>">
+   <%perl>
 }
 </%perl>
 </form>
