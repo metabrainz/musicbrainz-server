@@ -23,3 +23,6 @@
 <%args>
 $title
 </%args>
+<%perl>
+$r->content_type('text/html; charset=UTF-8');
+</%perl>
