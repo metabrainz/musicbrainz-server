@@ -92,7 +92,6 @@ $cd->Login();
 $sth = $cd->{DBH}->prepare("select count(*) from Artist where left(name, 1) = '$ind'");
 $sth->execute();
 $num_artists = ($sth->fetchrow_array)[0]; 
-print STDERR "$num_artists\n";
 $sth->finish;
 
 $sth = $cd->{DBH}->prepare("select id, name from Artist where left(name, 1) = '$ind' order by name limit $offset, $max_items");
