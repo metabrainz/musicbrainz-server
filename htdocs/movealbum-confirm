@@ -1,0 +1,50 @@
+%# vi: set ts=4 sw=4 ft=mason :
+% my ($al, $ar, $name, $sortname) = @_ or return;
+<& /comp/sidebar, title => 'Merge Artist' &>
+
+<h2>Confirm Artist Merge</h2>
+
+<p>
+	Are you sure you want to move album
+	<a href="/showalbum.html?albumid=<% $al->GetId %>"
+		class="bold"><% $al->GetName %></a>
+	from artist
+	<a href="/showartist.html?artistid=<% $ar->GetId %>"
+		class="bold"><% $ar->GetName %></a>
+	to artist
+	<span class="bold"><% $name %></span>?
+</p>
+
+<form method="get" action="/showalbum.html"
+	name="ModFormNo"
+	style="float: left; margin-right: 2em; margin-top: 0"
+	>
+	<div>
+		<input type="hidden" name="albumid" value="<% $al->GetId %>">
+		<input type="submit" value="&lt;&lt; NO">
+	</div>
+</form>
+
+<form method="post" action="/movealbum.html"
+	name="ModFormYes"
+	style="margin: 0"
+	>
+	<div>
+		<input type="hidden" name="album" value="<% $al->GetId %>">
+		<input type="hidden" name="newartistname" value="<% $name %>">
+		<input type="hidden" name="newartistsortname" value="<% $sortname %>">
+		<input type="submit" value="YES &gt;&gt;">
+	</div>
+
+	<p>
+		If YES, enter moderation note (optional):
+	</p>
+
+	<p>
+		<textarea name="notetext" rows="3" cols="60"></textarea>
+	</p>
+
+</form>
+
+<& /comp/movefocus, "ModFormNo", 0 &>
+<& /comp/footer &>

@@ -6,6 +6,7 @@ $selectedartist => ""
 $newartistname => ""
 $newartistsortname => ""
 $search => ""
+$notetext => undef
 </%args>
 <%perl>
 
@@ -65,6 +66,12 @@ if ($selectedartist ne "")
 
 if ($newartistname =~ /\S/ and $newartistsortname =~ /\S/)
 {
+	defined $notetext
+		or return $m->comp(
+			"movealbum-confirm",
+			$al, $ar, $newartistname, $newartistsortname,
+		);
+
 	$m->comp(
 		"/comp/entermods",
 		DBH => $mb->{DBH},
@@ -80,6 +87,10 @@ if ($newartistname =~ /\S/ and $newartistsortname =~ /\S/)
 				artistname => $newartistname,
 				artistsortname => $newartistsortname,
 			);
+
+			$mods[0]->InsertNote($session{'uid'}, $notetext)
+				if $mods[0]
+				and $notetext =~ /\S/;
 		},
 		success_url => $url,
 	) or return;
