@@ -5,47 +5,39 @@ return if $m->cache_self(
 	expires_in	=> "24 hours",
 );
 </%init>
-<table cellpadding="2" cellspacing="0" border="0" class="statsb" width="110px">
+<table cellpadding="2" cellspacing="0" border="0" class="SideBarStatsBox" width="110px">
 <%perl>
 
-    my $mb = $m->comp("/comp/dblogin", quiet=>1);
+my $mb = $m->comp("/comp/dblogin", quiet=>1);
 
-        my $sth = $mb->{DBH}->prepare(qq|select Moderator.name, count(Moderator.id) as num
-                                        from moderation_all m,Moderator
-                                       where m.Moderator = Moderator.id
-                                             and Moderator.id != | .  &ModDefs::FREEDB_MODERATOR . qq|
-                                             and Moderator.id != | .  &ModDefs::MODBOT_MODERATOR . qq|
-                                             and opentime > now() - interval '1 week' 
-                                    group by Moderator.name
-                                    order by num desc limit 5|);
+if (defined $mb)
+{
+	my $mod = Moderation->new($mb->{DBH});
+	my $data = $v->TopModerators(
+		namelimit => 11,
+		rowlimit => 5,
+		interval => "1 week",
+	);
 
-				 my $rows = 0;
-        if ($sth->execute)
-        {
-           my @row;
-    
-           while(@row = $sth->fetchrow_array)
-           {
-							$row[0] = substr($row[0], 0, 8)."..."
-								if length($row[0]) > 11;
-							</%perl>
-              <tr>
-                             <td align=right valign=top width="50%" class="statsb">
-                                 <% $row[0] %>
-                             </td>
-                             <td align=left valign=top width="50%" class="stats">
-                                 <% $row[1] %>
-                             </td>
-							</tr>
-							<%perl>
-							++$rows;
-           }
-        }
+	for my $row (@$data)
+	{
+		my ($id, $name, $nametrunc, $count) = @$row;
+		</%perl>
+		<tr>
+			<td class="SideBarStatsBoxName"
+				<% ($name eq $nametrunc) ? "" : 'title="'.encode_entities($name).'"' |n %>
+				><a href="/user/view.html?uid=<% $id %>"><% $nametrunc %></a></td>
+			<td class="SideBarStatsBoxCount"><% $count %></td>
+		</tr>
+		<%perl>
+	}
 
-				$sth->finish;
-				$m->out("<tr><td>no-one!</td></tr>")
-					if not $rows;
-
+	$m->out("<tr><td>no-one!</td></tr>")
+		if not @$data;
+				
+} else {
+	$m->out("[error]");
+}
 </%perl>
 </table>
 

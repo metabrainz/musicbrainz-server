@@ -12,22 +12,11 @@ my $mb = $m->comp("/comp/dblogin", quiet=>1);
 
 if (defined $mb)
 {
-	my $sql = Sql->new($mb->{DBH});
-
-	my $data = $sql->SelectListOfLists(
-		q"
-		SELECT	m.id, m.name,
-						CASE WHEN LENGTH(name)<=11 THEN name ELSE SUBSTR(name, 1, 8) || '...' END
-							AS nametrunc,
-						COUNT(*) AS num
-		FROM		vote_all v, moderator m
-		WHERE		v.moderator = m.id
-		AND 		v.vote != " . &ModDefs::VOTE_ABS . q"
-		AND			votetime > NOW() - INTERVAL '1 week' 
-		GROUP BY m.id, m.name
-		ORDER BY num DESC
-		LIMIT 5
-		"
+	my $v = MusicBrainz::Server::Vote->new($mb->{DBH});
+	my $data = $v->TopVoters(
+		namelimit => 11,
+		rowlimit => 5,
+		interval => "1 week",
 	);
 
 	for my $row (@$data)
