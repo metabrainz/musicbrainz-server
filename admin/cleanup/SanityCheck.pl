@@ -34,6 +34,8 @@ use DBDefs;
 use Artist;
 use ModDefs ':modstatus', 'DARTIST_ID';
 use MusicBrainz;
+
+# TODO ditch Main.pl
 require "$FindBin::Bin/Main.pl";
 
 sub Arguments
