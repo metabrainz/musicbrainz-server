@@ -52,7 +52,6 @@ sub GetMMNamespace
     return "http://musicbrainz.org/mm/mm-2.1#";
 }
 
-
 # Return the RDF representation of the Artist
 sub OutputArtistRDF
 {
@@ -95,7 +94,7 @@ sub OutputAlbumRDF
     return "" if (!defined $this->GetBaseURI());
 
     $album = $ref->{obj};
-  
+
     $artist = $this->GetFromCache('artist', $album->GetArtist()); 
 
     $out  = $this->BeginDesc("mm:Album", $this->GetBaseURI() .

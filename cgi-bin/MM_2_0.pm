@@ -56,7 +56,6 @@ sub OutputArtistRDF
     my ($this, $ref) = @_;
     my ($out, $artist, $ids, $album);
 
-
     return "" if (!defined $this->GetBaseURI());
     $artist = $ref->{obj};
 
@@ -93,7 +92,7 @@ sub OutputAlbumRDF
     return "" if (!defined $this->GetBaseURI());
 
     $album = $ref->{obj};
-    
+
     $artist = $this->GetFromCache('artist', $album->GetArtist()); 
     return "" if (!defined $artist);
 
