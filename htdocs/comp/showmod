@@ -42,7 +42,7 @@ $time = $m->comp("/comp/datetime", $time);
            &nbsp;&nbsp; 
 %    }
      <br>[ <a href="/mod/addnote.html?modid=<% $mod->GetId %>" onclick="MyWindow=window.open('mod/addnote.html?modid=<% $mod->GetId %>','AddNote','toolbar=no,location=no,directories=no,status=no,menubar=no,scrollbars=yes,resizable=yes,width=400,height=150'); return false;">Add note</a> |
-     <a href="/user/mod_email.html?uid=<% $mod->GetModerator() %>&modid=<% $mod->GetId() %>&url=<% $r->uri() . "?" . $r->args() %>">Send email</a> ]
+     <a href="/user/mod_email.html?uid=<% $mod->GetModerator() %>&amp;modid=<% $mod->GetId() %>&amp;url=<% $r->uri() . "?" . $r->args() %>">Send email</a> ]
 % if ($session{uid} == $mod->GetModerator() &&
 %     $mod->GetStatus() == &ModDefs::STATUS_OPEN) {
      <a href="/removemod.html?modid=<% $mod->GetId() %>"><img 
