@@ -796,6 +796,62 @@ sub SubmitTrack
    return $rdf->CreateStatus(0);
 }
 
+#JOHAN: attach a track Global ID to a TRM signature
+#       The track is found, check is made if GUID is already present for
+#       a different track, if OK GUID and GUIDJoin are filled with new entry
+#       no checking is done, or moderator is credited.
+#       ToDo: extend with moderation system instead of deafult accept.
+sub SubmitTrackTRMId
+{
+   my ($dbh, $doc, $rdf, $trackgid, $trmid) = @_;
+   my (@ids, @ids2, $sql, $gu, $tr);
+
+   return undef if (!defined $dbh);
+
+   if (!defined $trackgid || $trackgid eq '' ||
+       !defined $trmid || $trmid eq '' )
+   {
+       return $rdf->ErrorRDF("Incomplete signature information submitted.") 
+   } 
+
+   if (DBDefs::DB_READ_ONLY)
+   {
+       return $rdf->EmitErrorRDF(DBDefs::DB_READ_ONLY_MESSAGE) 
+   }
+
+   $sql = Sql->new($dbh);
+   $trackgid = $sql->Quote($trackgid);
+   #lookup the IDs associated with the $trackGID
+   @ids = $sql->GetSingleRow("Album, Track, AlbumJoin", 
+                             ["Track.id"], 
+                             ["Track.gid", $trackgid,
+                              "AlbumJoin.track", "Track.id",
+                              "AlbumJoin.album", "Album.id"]);
+
+   if (scalar(@ids) == 0 || !defined($ids[0]))
+   {
+       return $rdf->ErrorRDF("Unknown GlobalID of the track.") 
+   }
+   #print "TrackID: $ids[0].\n";
+   $gu = GUID->new($dbh);
+
+   #lookup the IDs2 associated with the $trmid
+   @ids2 = $gu->GetTrackIdsFromGUID($trmid);
+   #print "looked up TRMIds @ids2.\n";
+   if (scalar(@ids) > 0 && defined($ids2[0]))
+   {
+      #There already is a track associated with the $trmid
+      if ($ids2[0] != $ids[0]) {
+         return $rdf->ErrorRDF("The TRMId is already associated with a different track.") 
+      }
+      #print "Found TRMId already.\n";
+      return $rdf->CreateStatus(0);
+   }
+   $gu->Insert($trmid,$ids[0]);
+   #print "Inserted TRMId.\n";
+   return $rdf->CreateStatus(0);
+}
+
 # NOTE NOTE NOTE NOTE NOTE NOTE NOTE NOTE NOTE NOTE NOTE NOTE 
 # From here to the end of the file, the RDF has not been seperated out
 # into the RDFOutput object. Johan, can you please take care of this?

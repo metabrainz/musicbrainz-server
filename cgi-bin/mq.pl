@@ -90,7 +90,11 @@ my %Queries =
         'http://musicbrainz.org/mm/mm-2.0#issued',
         'http://musicbrainz.org/mm/mm-2.0#genre',
         'http://purl.org/dc/elements/1.1/description',
-        'http://musicbrainz.org/mm/mm-2.0#link']
+        'http://musicbrainz.org/mm/mm-2.0#link'],
+   SubmitTrackTRMId =>
+      [\&QuerySupport::SubmitTrackTRMId, 
+        'http://musicbrainz.org/mm/mm-2.0#trackid',
+        'http://musicbrainz.org/mm/mm-2.0#trmid']
 );  
 
 sub Statement
