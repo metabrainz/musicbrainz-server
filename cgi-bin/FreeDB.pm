@@ -371,6 +371,7 @@ sub Retrieve
      return \%info;
 }
 
+use bytes;
 sub InsertForModeration
 {
     my ($this, $info) = @_;
