@@ -308,8 +308,22 @@ sub ShowPreviousValue
 
    if ($this->{type} == ModDefs::MOD_MOVE_ALBUM)
    {
-      return "Old: <a href=\"/showartist.html?artistid=" .
-             "$this->{artist}\">$this->{prev}</a>"; 
+      my ($al, $album);
+    
+      $al = Album->new($this->{DBH});
+      $al->SetId($this->{rowid});
+      if (defined($al->LoadFromId()))
+      {
+          $album = $al->GetName();
+      }
+      else 
+      { 
+          $album = "[deleted]";
+      } 
+      return "Move Album <a href=\"/showalbum.html?albumid=" . $al->GetId() . 
+             "\">" . $al->GetName() . "</a><br>" .
+              "from <a href=\"/showartist.html?artistid=" .
+             "$this->{artist}\">$this->{prev}</a>";
    }
    if ($this->{type} == ModDefs::MOD_MAC_TO_SAC)
    {

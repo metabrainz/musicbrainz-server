@@ -550,26 +550,7 @@ sub ShowModType
 
    $type = $this->GetType();
    $out = 'Type: <span class="bold">' . GetModificationName($type) . "</span> ";
-   if ($type == ModDefs::MOD_MOVE_ALBUM) 
-   {
-      my ($al, $album);
-   
-      $al = Album->new($this->{DBH});
-      $al->SetId($this->{rowid});
-      if (defined($al->LoadFromId()))
-      {
-          $album = $al->GetName();
-      }
-      else
-      {
-          $album = "[deleted]";
-      }
-      $out .= qq\<br>Artist: <a href="/showalbum.html?albumid=$this->{rowid}">$album</a>\;
-   } 
-   else 
-   {
-      $out .= qq\<br>Artist: <a href="/showartist.html?artistid=$this->{artist}">$this->{artistname}</a>\;
-   }
+   $out .= qq\<br>Artist: <a href="/showartist.html?artistid=$this->{artist}">$this->{artistname}</a>\;
    
    return $out;
 }
