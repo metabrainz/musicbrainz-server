@@ -13,38 +13,39 @@ my ($i, $line, $r, $rdf, $out);
 my ($queryname, $querydata, $data, $rdfinput);
 my ($function, @queryargs, $mb, $parser, @triples);
 my ($currentURI, $rdfquery, $depth);
+my (%session, $session_id, $session_key, $mustauth);
 
 my %Queries = 
 (
    GetCDInfo => 
-      [ \&QuerySupport::GetCDInfoMM2, 
+      [ \&QuerySupport::GetCDInfoMM2, 0, 
         'http://musicbrainz.org/mm/mm-2.0#cdindexId',
         'http://musicbrainz.org/mm/mm-2.0#lastTrack'],
    AssociateCDFromAlbumId =>
-      [ \&QuerySupport::AssociateCDMM2, 
+      [ \&QuerySupport::AssociateCDMM2, 0, 
         'http://musicbrainz.org/mm/mm-2.0#cdindexId',
         'http://musicbrainz.org/mm/mq-1.0#albumId'],
    FindArtist =>
-      [\&QuerySupport::FindArtistByName, 
+      [\&QuerySupport::FindArtistByName, 0, 
         'http://musicbrainz.org/mm/mq-1.0#artistName'],
    FindAlbum =>
-      [\&QuerySupport::FindAlbumByName, 
+      [\&QuerySupport::FindAlbumByName, 0, 
         'http://musicbrainz.org/mm/mq-1.0#albumName',
         'http://musicbrainz.org/mm/mq-1.0#artistName'],
    FindAlbumsByArtistName =>
-      [\&QuerySupport::FindAlbumsByArtistName, 
+      [\&QuerySupport::FindAlbumsByArtistName, 0, 
         'http://musicbrainz.org/mm/mq-1.0#artistName'],
    FindTrack => 
-      [\&QuerySupport::FindTrackByName, 
+      [\&QuerySupport::FindTrackByName, 0, 
         'http://musicbrainz.org/mm/mq-1.0#trackName',
         'http://musicbrainz.org/mm/mq-1.0#albumName',
         'http://musicbrainz.org/mm/mq-1.0#artistName'],
    FindDistinctTRMID => 
-      [\&QuerySupport::FindDistinctGUID, 
+      [\&QuerySupport::FindDistinctGUID, 0, 
         'http://musicbrainz.org/mm/mq-1.0#trackName',
         'http://musicbrainz.org/mm/mq-1.0#artistName'],
    ExchangeMetadata =>
-      [\&QuerySupport::ExchangeMetadata, 
+      [\&QuerySupport::ExchangeMetadata, 0, 
         'http://musicbrainz.org/mm/mq-1.0#artistName',
         'http://musicbrainz.org/mm/mq-1.0#albumName',
         'http://musicbrainz.org/mm/mq-1.0#trackName',
@@ -64,7 +65,7 @@ my %Queries =
         'http://musicbrainz.org/mm/mm-2.0#channels',
         'http://musicbrainz.org/mm/mm-2.0#vbr'],
    ExchangeMetadataLite =>
-      [\&QuerySupport::ExchangeMetadata, 
+      [\&QuerySupport::ExchangeMetadata, 0, 
         'http://musicbrainz.org/mm/mq-1.0#artistName',
         'http://musicbrainz.org/mm/mq-1.0#albumName',
         'http://musicbrainz.org/mm/mq-1.0#trackName',
@@ -77,7 +78,7 @@ my %Queries =
         'http://musicbrainz.org/mm/mm-2.0#duration',
         'http://musicbrainz.org/mm/mm-2.0#sha1'],
    SubmitAndLookupMetadata =>
-      [\&QuerySupport::ExchangeMetadata, 
+      [\&QuerySupport::ExchangeMetadata, 0, 
         'http://musicbrainz.org/mm/mq-1.0#trackName',
         'http://musicbrainz.org/mm/mq-1.0#artistName',
         'http://musicbrainz.org/mm/mq-1.0#albumName',
@@ -97,7 +98,7 @@ my %Queries =
         'http://musicbrainz.org/mm/mm-2.0#channels',
         'http://musicbrainz.org/mm/mm-2.0#vbr'],
    SubmitAndLookupMetadataLite =>
-      [\&QuerySupport::ExchangeMetadata, 
+      [\&QuerySupport::ExchangeMetadata, 0, 
         'http://musicbrainz.org/mm/mq-1.0#trackName',
         'http://musicbrainz.org/mm/mq-1.0#artistName',
         'http://musicbrainz.org/mm/mq-1.0#albumName',
@@ -110,10 +111,10 @@ my %Queries =
         'http://musicbrainz.org/mm/mm-2.0#duration',
         'http://musicbrainz.org/mm/mm-2.0#sha1'],
    LookupMetadata =>
-      [\&QuerySupport::LookupMetadata, 
+      [\&QuerySupport::LookupMetadata, 0, 
         'http://musicbrainz.org/mm/mm-2.0#trmid'],
    SubmitTrack =>
-      [\&QuerySupport::SubmitTrack, 
+      [\&QuerySupport::SubmitTrack, 1, 
         'http://musicbrainz.org/mm/mq-1.0#artistName',
         'http://musicbrainz.org/mm/mq-1.0#albumName',
         'http://musicbrainz.org/mm/mq-1.0#trackName',
@@ -124,23 +125,20 @@ my %Queries =
         'http://musicbrainz.org/mm/mm-2.0#genre',
         'http://purl.org/dc/elements/1.1/description',
         'http://musicbrainz.org/mm/mm-2.0#link'],
-   SubmitTrackTRMId =>
-      [\&QuerySupport::SubmitTrackTRMId, 
-        'http://musicbrainz.org/mm/mm-2.0#trackid',
-        'http://musicbrainz.org/mm/mm-2.0#trmid',
-        'http://musicbrainz.org/mm/mq-1.0#sessionId',
-        'http://musicbrainz.org/mm/mq-1.0#sessionKey'],
+   SubmitTRMList =>
+      [\&QuerySupport::SubmitTRMList, 1],
    AuthenticateQuery =>
-      [\&QuerySupport::AuthenticateQuery, 
+      [\&QuerySupport::AuthenticateQuery, 0, 
         'http://musicbrainz.org/mm/mq-1.0#username'],
    QuickTrackInfoFromTRMId =>
-      [\&QuerySupport::QuickTrackInfoFromTRMId, 
+      [\&QuerySupport::QuickTrackInfoFromTRMId, 0, 
         'http://musicbrainz.org/mm/mm-2.0#trmid'],
    QuickTrackInfoFromTrackId =>
-      [\&QuerySupport::QuickTrackInfoFromTrackId, 
+      [\&QuerySupport::QuickTrackInfoFromTrackId, 0, 
         'http://musicbrainz.org/mm/mm-2.0#trackid',
         'http://musicbrainz.org/mm/mm-2.0#albumid']
 );  
+
 
 sub Statement
 {
@@ -186,6 +184,49 @@ sub Output
    }
 }
 
+sub Authenticate
+{
+   my ($session, $session_id, $session_key) = @_;
+
+   if (defined $session_id && $session_id ne '' &&
+       defined $session_key && $session_key ne '')
+   {
+       eval {
+          tie %$session, 'Apache::Session::File', $session_id, {
+                     Directory => DBDefs::SESSION_DIR,
+                     LockDirectory   => DBDefs::LOCK_DIR};
+       };
+       if ($@)
+       {
+           undef $session_id;
+           undef $session_key;
+           return "Invalid session id.";
+       }
+       else
+       {
+           if ($session->{session_key} ne $session_key)
+           {
+               tied(%$session)->delete;
+               untie %$session;
+               return "Invalid session key or invalid password.";
+           }
+           if ($session->{expire} < time)
+           {
+               tied(%$session)->delete;
+               untie %$session;
+               return "Session key expired. Please Authenticate again."; 
+           }
+           return "";
+       }
+   }
+   else
+   {
+       undef $session_id;
+       undef $session_key;
+       return "Invalid session id and session key provided.";
+   }
+}
+
 if (exists $ENV{"MOD_PERL"})
 {
    $r = Apache->request();
@@ -199,6 +240,8 @@ else
       $rdfinput .= $line;
    }
 }
+
+#print STDERR "RDF: $rdfinput\n";
 
 $rdf = RDFOutput2->new(0);
 $rdf->SetBaseURI("http://" . $ENV{SERVER_NAME});
@@ -241,6 +284,23 @@ if (not defined $depth)
 }
 $rdf->SetDepth($depth);
 
+$session_id = QuerySupport::Extract(\@triples, $currentURI, -1, 
+                'http://musicbrainz.org/mm/mq-1.0#sessionId');
+if (defined $session_id)
+{
+    my $error;
+
+    $session_key = QuerySupport::Extract(\@triples, $currentURI, -1, 
+                   'http://musicbrainz.org/mm/mq-1.0#sessionKey');
+
+    $error = Authenticate(\%session, $session_id, $session_key);
+    if ($error ne "")
+    {
+        $out = $rdf->ErrorRDF($error);
+        Output($r, \$out);
+        exit(0);
+    }
+}
 
 # Extract the name of the qyery
 $queryname = QuerySupport::Extract(\@triples, $currentURI, -1, 
@@ -248,6 +308,7 @@ $queryname = QuerySupport::Extract(\@triples, $currentURI, -1,
 if (!defined $queryname)
 {
     $out = $rdf->ErrorRDF("Cannot determine query name.");
+    untie %session unless !defined $session_id;
     Output($r, \$out);
     exit(0);
 }
@@ -259,12 +320,22 @@ if (!exists $Queries{$queryname})
 {
     $out = $rdf->ErrorRDF("Query '$queryname' is not supported.");
     print STDERR "$out\n\n";
+    untie %session unless !defined $session_id;
     Output($r, \$out);
     exit(0);
 }
 $querydata = $Queries{$queryname};
 
 $function = shift @$querydata;
+$mustauth = shift @$querydata;
+
+if ($mustauth && !defined $session_id)
+{
+    $out = $rdf->ErrorRDF("You must authenticate to use this query.");
+    Output($r, \$out);
+    exit(0);
+}
+
 for(;;)
 {
     $rdfquery = shift @$querydata;
@@ -283,6 +354,7 @@ $mb = new MusicBrainz(1);
 if (!$mb->Login(1))
 {
     $out = $rdf->ErrorRDF("Database Error: ".$DBI::errstr.")");
+    untie %session unless !defined $session_id;
     Output($r, \$out);
     exit(0);
 }
@@ -297,5 +369,5 @@ if (!defined $out)
     $out = $rdf->ErrorRDF("Query failed.");
 }
 
-
+untie %session unless !defined $session_id;
 Output($r, \$out);

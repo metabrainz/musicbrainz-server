@@ -810,112 +810,55 @@ sub SubmitTrack
    return $rdf->CreateStatus(0);
 }
 
-#JOHAN: attach a track Global ID to a TRM signature
-#       The track is found, check is made if GUID is already present for
-#       a different track, if OK GUID and GUIDJoin are filled with new entry
-#       no checking is done, or moderator is credited.
-#       ToDo: extend with moderation system instead of deafult accept.
-sub SubmitTrackTRMId
+sub SubmitTRMList
 {
-   my ($dbh, $doc, $rdf, $trackgid, $trmid, $session_id, $session_key) = @_;
+   my ($dbh, $triples, $rdf) = @_;
    my (@ids, @ids2, $sql, $gu, $tr);
-   my (%session);
-
-   print STDERR "track $trackgid, trmid $trmid\n";
+   my ($i, $trmid, $trackid, $uri);
 
    return undef if (!defined $dbh);
-
-   if (!defined $trackgid || $trackgid eq '' ||
-       !defined $trmid || $trmid eq '' )
-   {
-       return $rdf->ErrorRDF("Incomplete signature information submitted.") 
-   } 
 
    if (DBDefs::DB_READ_ONLY)
    {
        return $rdf->ErrorRDF(DBDefs::DB_READ_ONLY_MESSAGE) 
    }
 
-   if (defined $session_id && $session_id ne '' &&
-       defined $session_key && $session_key ne '')
-   {
-       print STDERR "Find session: $session_id\n";
-       eval {
-          tie %session, 'Apache::Session::File', $session_id, {
-                     Directory => DBDefs::SESSION_DIR,
-                     LockDirectory   => DBDefs::LOCK_DIR};
-       };
-       if ($@)
-       {
-           print STDERR "Cannot find session!\n";
-           undef $session_id;
-           undef $session_key;
-           return $rdf->ErrorRDF("Invalid session id.");
-       }
-       else
-       {
-           print STDERR "Found session!\n";
-           if ($session{session_key} ne $session_key)
-           {
-               tied(%session)->delete;
-               untie %session;
-               return $rdf->ErrorRDF("Invalid session key or invalid " .
-                                     "password. ");
-           }
-           if ($session{expire} < time)
-           {
-               tied(%session)->delete;
-               untie %session;
-               return $rdf->ErrorRDF("Session key expired. " .
-                                     "Please Authenticate again"); 
-           }
-           print STDERR "Authenticated user $session{moderator}\n";
-       }
-   }
-   else
-   {
-       undef $session_id;
-       undef $session_key;
-   }
-
    $sql = Sql->new($dbh);
-   $trackgid = $sql->Quote($trackgid);
-   #lookup the IDs associated with the $trackGID
-   @ids = $sql->GetSingleRow("Album, Track, AlbumJoin", 
-                             ["Track.id"], 
-                             ["Track.gid", $trackgid,
-                              "AlbumJoin.track", "Track.id",
-                              "AlbumJoin.album", "Album.id"]);
-
-   if (scalar(@ids) == 0 || !defined($ids[0]))
-   {
-       untie %session unless !defined $session_id;
-       return $rdf->ErrorRDF("Unknown GlobalID of the track.") 
-   }
-   #print "TrackID: $ids[0].\n";
    $gu = GUID->new($dbh);
 
-   #lookup the IDs2 associated with the $trmid
-   @ids2 = $gu->GetTrackIdsFromGUID($trmid);
-   #print "looked up TRMIds @ids2.\n";
-#   if (scalar(@ids) > 0 && defined($ids2[0]))
-#   {
-#      #There already is a track associated with the $trmid
-#      if ($ids2[0] != $ids[0]) 
-#      {
-#         untie %session unless !defined $session_id;
-#         return $rdf->ErrorRDF("The TRMId is already associated with" .
-#                               " a different track.") 
-#      }
-#      untie %session unless !defined $session_id;
-#      return $rdf->CreateStatus(0);
-#   }
-   $gu->Insert($trmid,$ids[0]);
-
-   if (defined $session_id)
+   $uri = (@$triples)[0]->subject->getLabel;
+   for($i = 1; ; $i++)
    {
-       untie %session;
+       $trackid = Extract($triples, $uri, $i, 
+          "http://musicbrainz.org/mm/mm-2.0#trmList [] " . 
+          "http://musicbrainz.org/mm/mm-2.0#trackid");
+       $trmid = Extract($triples, $uri, $i, 
+          "http://musicbrainz.org/mm/mm-2.0#trmList [] " .
+          "http://musicbrainz.org/mm/mm-2.0#trmid");
+       if (!defined $trackid || $trackid eq '' ||
+           !defined $trmid || $trmid eq '')
+       {
+            last if ($i > 1);
+            return $rdf->ErrorRDF("Incomplete trackid and trmid submitted.") 
+       } 
+       print STDERR "trackid: $trackid\n";
+       print STDERR "trmid: $trmid\n";
+
+       $trackid = $sql->Quote($trackid);
+
+       #lookup the IDs associated with the $trackGID
+       @ids = $sql->GetSingleRow("Album, Track, AlbumJoin", 
+                                 ["Track.id"], 
+                                 ["Track.gid", $trackid,
+                                  "AlbumJoin.track", "Track.id",
+                                  "AlbumJoin.album", "Album.id"]);
+       if (scalar(@ids) == 0 || !defined($ids[0]))
+       {
+           return $rdf->ErrorRDF("Invalid MB Track Id provided.") 
+       }
+       $gu->Insert($trmid,$ids[0]);
    }
+   print STDERR "\n";
 
    return $rdf->CreateStatus(0);
 }
