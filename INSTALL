@@ -149,3 +149,10 @@ Good luck!
 Robert Kaye
 Mayhem & Chaos Coordinator
 rob@eorbit.net
+
+
+------------------------------------------------------------------------------
+Notes for moving to Postgres:
+
+- Configure with: configure --enable-multibyte=UNICODE
+- create db with: initdb -E UNICODE musicbrainz
