@@ -35,7 +35,7 @@ sub FindDuplicates
     my ($id, $name, $album, $num);
     my ($last_artist);
 
-    print "<& /comp/sidebar, title=>'Tracks which contain the word 'unknown'' &>\n";
+    print "<& /comp/sidebar, title=>'Tracks which contain the word \"unknown\"' &>\n";
 
     my $time = time;
     print "Generated on: <% \$m->comp('/comp/datetime', $time) %><br><br>";
