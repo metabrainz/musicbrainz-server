@@ -76,9 +76,9 @@ SetSequence($sql, "artistalias");
 # artistwords - no unique column
 SetSequence($sql, "clientversion");
 SetSequence($sql, "country");
-# currentstat - no unique integer column
+SetSequence($sql, "currentstat");
 SetSequence($sql, "discid");
-# historicalstat - no unique integer column
+SetSequence($sql, "historicalstat");
 # moderation_closed - not a serial column
 # moderation_note_closed - not a serial column
 SetSequence($sql, "moderation_note_open");
