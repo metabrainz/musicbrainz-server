@@ -27,13 +27,10 @@
 <li> If some copies of a release are accompanied by a
   "bonus" disc, the bonus disc's name should follow
   one of the following examples:
-   <p>
-   <b>
-   <ul>
+   <ul style="font-weight: bold; margin: 1em 0">
    <li>Mother Nature Calls (bonus disc)
    <li>Greatest Hits (bonus disc: Acoustic Hits)
    </ul>
-   </b>
 
 <li> For CD Box sets that contain more than one
   multiple CD volume, indicate the name of
@@ -106,26 +103,20 @@
   entered in parenthesis after the title. These
   attributes should be in lower case, except for
   proper names (including titles given to mixes):
-   <p>
-   <b>
-   <ul>
+   <ul style="font-weight: bold; margin: 1em 0">
    <li> Blue (extended mix)
    <li> Talking All That Jazz (Torti's Old School Mix of Edits dub)
    <li> Bear Witness (Automator's 2 Turntables and a Razor Blade re-edit)
    <li> Disciple (demo)
    </ul>
-   </b>
 
 <li> If a live bootleg release has no proper title, you
   should follow the format used in these examples:
-   <p>
-   <b>
-   <ul>
+   <ul style="font-weight: bold; margin: 1em 0">
    <li> 2000-10-22: Las Vegas, NV, USA
    <li> 2000-06-01: Dublin, Ireland (disc 2)
    <li> Milan, Italy (disc 1)
    </ul>
-   </b>
 
 <li> If two releases are re-released on one CD, or if
   two songs share the same track, the title should be
