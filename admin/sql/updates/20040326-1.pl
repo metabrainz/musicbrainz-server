@@ -25,12 +25,15 @@
 
 # Abstract: Trim leading and trailing whitespace from various textual fields
 
+use strict;
+
 use FindBin;
 use lib "$FindBin::Bin/../../../cgi-bin";
 
 use DBDefs;
 use MusicBrainz;
 use Sql;
+use ModDefs qw( MODBOT_MODERATOR MOD_MERGE_ARTIST );
 
 $| = 1 if -t STDOUT;
 
@@ -65,6 +68,40 @@ for (@$rows)
 		my $ar = Artist->new($mb->{DBH});
 		$ar->SetId($id);
 		$ar->LoadFromId or die "No artist #$id";
+
+		unless ($name eq $_->[1])
+		{
+			# Is there already an artist with the new name?
+			my $mergeinto = Artist->new($mb->{DBH});
+			if ($mergeinto->LoadFromName($name) and $mergeinto->GetName eq $name)
+			{
+				# Merge $ar into $mergeinto
+				require Moderation;
+				my @mods = Moderation->InsertModeration(
+					DBH	=> $mb->{DBH},
+					uid	=> MODBOT_MODERATOR,
+					privs => &UserStuff::AUTOMOD_FLAG,
+					type => MOD_MERGE_ARTIST,
+					# --
+					source => $ar,
+					target => $mergeinto,
+				);
+				print " merging";
+
+				for my $mod (@mods)
+				{
+					my $status = $mod->ApprovedAction;
+					$mod->SetStatus($status);
+					my $user = UserStuff->new($mb->{DBH});
+					$user->CreditModerator($mod->GetModerator, $status);
+					$mod->CloseModeration($status);
+					$mod->InsertNote(MODBOT_MODERATOR, "Automatically approved");
+				}
+
+				$sql->Commit;
+				return; # from eval
+			}
+		}
 
 		$ar->UpdateName($name) unless $name eq $_->[1];
 		$ar->UpdateSortName($sortname) unless $sortname eq $_->[2];
