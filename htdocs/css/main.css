@@ -110,6 +110,12 @@ kbd.KbdBlock
 	empty-cells: show;
 }
 
+.TopAlignCells td,
+.TopAlignCells th
+{
+	vertical-align: baseline;
+}
+
 /* page-specific things */
 
 .StatsTable .SubHeading
