@@ -133,19 +133,16 @@ sub Insert
 
     if (defined $id && defined $trackid)
     {
-		# Damn, now I was *really* hoping this wasn't going to be necessary.
-		# The error I got was: no conversion function from "unknown" to integer
-		# and the "fix" was to force the arguments to be integers by doing a
-		# "0+" on them.
-		# I've used much the same trick before in MySQL, where it's wise to
-		# force each argument to either a number (0+$arg) or a string
-		# ("".$arg) but until now it hadn't been necessary in Postgresql.
+		# I have no idea why, but for some reason from time to time this query
+		# says 'failed to find conversion function from "unknown" to integer'.
+		# This workaround (explicit cast to integer) is working at the
+		# moment...
 		$sql->Do(
 			"INSERT INTO trmjoin (trm, track)
-				SELECT * FROM (SELECT ?, ?) AS data
-				WHERE NOT EXISTS (SELECT 1 FROM trmjoin WHERE trm = ? AND track = ?)",
-			0+$id, 0+$trackid,
-			0+$id, 0+$trackid,
+				SELECT * FROM (SELECT ?::integer, ?::integer) AS data
+				WHERE NOT EXISTS (SELECT 1 FROM trmjoin WHERE trm = ?::integer AND track = ?::integer)",
+			$id, $trackid,
+			$id, $trackid,
 		);
     }
 
