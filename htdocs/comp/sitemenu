@@ -25,14 +25,13 @@ use Scalar::Util qw( reftype weaken );
 
 		{ url => "/freeamp/index.html" },
 	],
-	{ name => "News",			url => "/press.html" },
+	{ name => "News",			url => "/news.html" },
 	[
 		{ name => "In The Press",	url => "/press.html" },
 		{ name => "White Papers",	url => "/papers/index.html" },
 		[
-			{ name => "Introduction",	url => "/papers/index.html" },
-			{ name => "Licensing (1)",	url => "/license.html" },
-			{ name => "Licensing (2)",	url => "/papers/mb_license.html" },
+			{ name => "Non-Profit",	url => "/papers/mb_nonprofit.html" },
+			{ name => "Licensing",	url => "/papers/mb_license.html" },
 		],
 	],
 	{ name => "Products",		url => "" },
@@ -92,94 +91,94 @@ use Scalar::Util qw( reftype weaken );
 		{ url => "/newsearch.html" },
 	],
 	{ name => "Tag",			url => "/tagger/intro.html" },
+    { name => "Edit the Data",	url => "/mod_intro.html" },
+    [
+        { name => "About",			url => "/mod_intro.html" },
+        { name => "Suggestions",	url => "/mod_intro.html#suggestions" },
+        [
+            { name => "Odd Characters",	url => "/reports/bad_entries.html" },
+            { name => "Uppercase",			url => "/reports/caps.html" },
+            { name => "Lowercase",			url => "/reports/caps2.html" },
+            { name => "'Unknown'",		url => "/reports/unknown.html" },
+            { name => "Wrong Charset",	url => "/reports/wrong_charset.html" },
+        ],
+        { name => "FAQ",				url => "/mod_faq.html" },
+        { name => "Style",				url => "/style.html" },
+        { name => "Moderations",		url => "/moderate.html" },
+        [
+            { name => "New",				url => "/moderate.html?type=1" },
+            { name => "Old",				url => "/moderate.html?type=2" },
+            { name => "Mine",				url => "/moderate.html?type=3" },
+            { name => "FreeDB",				url => "/moderate.html?type=5" },
+            { name => "Jump to ID",			url => "/jumpmod.html" },
+        ],
+
+        { name => "Log In",				url => "/login.html" },
+        [
+            { name => "Existing User",		url => "/login.html" },
+            [
+                { name => "Preferences",		url => "/prefs.html" },
+            ],
+            { name => "New User",			url => "/newlogin.html" },
+            [
+                { url => "/createlogin.html" },
+            ],
+            { url => "/logout.html" },
+        ],
+
+        { name => "Add Artist",			url => "/addartist.html" },
+        { name => "Add Album",			url => "/addalbum.html?artistid=0" },
+        { name => "Add Album (VA)",		url => "/addalbum.html?artistid=1" },
+
+        { url => "/addalias.html" },
+        { url => "/addnonalbumtracks.html" },
+        { url => "/addtrack.html" },
+
+        { url => "/artistfilter.html" },
+        { url => "/artistfilterkv.html" },
+        { url => "/changetrack.html" },
+
+        { url => "/editalbumattrs.html" },
+        { url => "/editalbum.html" },
+        { url => "/editartist.html" },
+        { url => "/edittrack.html" },
+
+        { url => "/mergeartist.html" },
+        { url => "/movealbum.html" },
+        { url => "/movediscid.html" },
+
+        { url => "/remalbum.html" },
+        { url => "/remartistalias.html" },
+        { url => "/remartist.html" },
+        { url => "/remdiscid.html" },
+        { url => "/removemod.html" },
+        { url => "/remtrack.html" },
+        { url => "/remtrm.html" },
+
+        { url => "/albumdetail.html" },
+        { url => "/showalbum.html" },
+        { url => "/showartist.html" },
+        { url => "/showlyrics.html" },
+        { url => "/showmod.html" },
+        { url => "/showsyncevents.html" },
+        { url => "/showtrack.html" },
+        { url => "/showtrm.html" },
+
+        { url => "/tomac.html" },
+        { url => "/tosac.html" },
+
+        { url => "/mod/tag/canceltag.html" },
+        { url => "/mod/tag/donetag.html" },
+        { url => "/mod/tag/merge.html" },
+        { url => "/mod/tag/remove.html" },
+    ],
 	{ name => "Help Us",		url => "/contribute.html" },
 	[
 		{ name => "Contribute",		url => "/contribute.html" },
-		{ name => "Edit the Data",	url => "/mod_intro.html" },
-		[
-			{ name => "About",			url => "/mod_intro.html" },
-			{ name => "Suggestions",	url => "/mod_intro.html#suggestions" },
-			[
-				{ name => "Odd Characters",	url => "/reports/bad_entries.html" },
-				{ name => "Uppercase",			url => "/reports/caps.html" },
-				{ name => "Lowercase",			url => "/reports/caps2.html" },
-				{ name => "'Unknown'",		url => "/reports/unknown.html" },
-				{ name => "Wrong Charset",	url => "/reports/wrong_charset.html" },
-			],
-			{ name => "FAQ",				url => "/mod_faq.html" },
-			{ name => "Style",				url => "/style.html" },
-			{ name => "Moderations",		url => "/moderate.html" },
-			[
-				{ name => "New",				url => "/moderate.html?type=1" },
-				{ name => "Old",				url => "/moderate.html?type=2" },
-				{ name => "Mine",				url => "/moderate.html?type=3" },
-				{ name => "FreeDB",				url => "/moderate.html?type=5" },
-				{ name => "Jump to ID",			url => "/jumpmod.html" },
-			],
-
-			{ name => "Log In",				url => "/login.html" },
-			[
-				{ name => "Existing User",		url => "/login.html" },
-				[
-					{ name => "Preferences",		url => "/prefs.html" },
-				],
-				{ name => "New User",			url => "/newlogin.html" },
-				[
-					{ url => "/createlogin.html" },
-				],
-				{ url => "/logout.html" },
-			],
-
-			{ name => "Add Artist",			url => "/addartist.html" },
-			{ name => "Add Album",			url => "/addalbum.html?artistid=0" },
-			{ name => "Add Album (VA)",		url => "/addalbum.html?artistid=1" },
-
-			{ url => "/addalias.html" },
-			{ url => "/addnonalbumtracks.html" },
-			{ url => "/addtrack.html" },
-
-			{ url => "/artistfilter.html" },
-			{ url => "/artistfilterkv.html" },
-			{ url => "/changetrack.html" },
-
-			{ url => "/editalbumattrs.html" },
-			{ url => "/editalbum.html" },
-			{ url => "/editartist.html" },
-			{ url => "/edittrack.html" },
-
-			{ url => "/mergeartist.html" },
-			{ url => "/movealbum.html" },
-			{ url => "/movediscid.html" },
-
-			{ url => "/remalbum.html" },
-			{ url => "/remartistalias.html" },
-			{ url => "/remartist.html" },
-			{ url => "/remdiscid.html" },
-			{ url => "/removemod.html" },
-			{ url => "/remtrack.html" },
-			{ url => "/remtrm.html" },
-
-			{ url => "/albumdetail.html" },
-			{ url => "/showalbum.html" },
-			{ url => "/showartist.html" },
-			{ url => "/showlyrics.html" },
-			{ url => "/showmod.html" },
-			{ url => "/showsyncevents.html" },
-			{ url => "/showtrack.html" },
-			{ url => "/showtrm.html" },
-
-			{ url => "/tomac.html" },
-			{ url => "/tosac.html" },
-
-			{ url => "/mod/tag/canceltag.html" },
-			{ url => "/mod/tag/donetag.html" },
-			{ url => "/mod/tag/merge.html" },
-			{ url => "/mod/tag/remove.html" },
-		],
 		{ name => "Development",			url => "/status.html" },
 		[
 			{ name => "Project Status",			url => "/status.html" },
-			{ name => "Get the source!",		url => "/cvs.html" },
+			{ name => "CVS Access",		        url => "/cvs.html" },
 			{ name => "TODO",					url => "/todo.html" },
 			[
 				{ name => "TODO",					url => "/todo.html" },
