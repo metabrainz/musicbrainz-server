@@ -98,6 +98,64 @@ Old Moderations and My moderations links at the top of the moderation
 table. The expiration times show on the moderation page are in GMT.
 </ol>
 
+<h2>Auto Moderators</h2>
+
+<%perl>
+
+use URI::Escape;
+
+my $mb = $m->comp("/comp/dblogin");
+my $mod = Moderation->new($mb->{DBH});
+my $moderator_list;
+
+my $list = $mod->GetAutomoderatorList();
+foreach my $user (@{$list})
+{
+    $moderator_list .= "<a href=\"/moderator.html?user=" . uri_escape($user) . 
+                       "\">$user</a>, ";
+}
+chop($moderator_list);
+chop($moderator_list);
+
+$list = $mod->GetAutomoderationList();
+my $moderation_list = join(", ", @{$list});
+
+</%perl>
+
+<p>
+Automoderators are moderators who have made a large number of contributions 
+to MusicBrainz, and some basic moderations made by automoderators are not
+required to be voted on by other moderators. The following moderation types
+are automoderations:
+</p>
+
+<blockquote>
+<% $moderation_list %>
+</blockquote>
+
+The following moderators are automoderators:
+
+<blockquote>
+<% $moderator_list |n %>
+</blockquote>
+
+<p>
+The policy for suggesting more automoderators is as follows:
+</p>
+
+<ol>
+<li>Any automoderator can suggest a new moderator to be promoted to an automoderator.</li>
+<li>The suggested moderator must then be endorsed by two other automoderators.</li>
+<li>Once endorsed, the automoderators have one week to vote on the promotion of the endorsed automoderator. A simple majority is required to be promoted.</li>
+</ol>
+
+<p>
+Any moderator who suggests or endorses a moderator cannot vote on the new 
+moderator. The suggesting/endorsing/voting will happen in the mb-users 
+mailing list and should be facilitated by the moderator who suggests the 
+new moderator.
+</p>
+
 <h2>Get Moderating!</h2>
 
 <p>

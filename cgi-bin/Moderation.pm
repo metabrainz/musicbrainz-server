@@ -35,6 +35,7 @@ use Artist;
 use Album;
 use Insert;
 use ModDefs;
+use UserStuff;
 use Text::Unaccent;
 use Encode qw( encode decode );
 use utf8;
@@ -342,6 +343,34 @@ sub GetChangeName
 sub GetVoteText
 {
    return $VoteText{$_[1]};
+}
+
+sub GetAutomoderationList
+{
+   my ($this) = @_;
+   my ($type, %temp, @list);
+
+   foreach $type (1..ModDefs::MOD_LAST)
+   {
+       if ($this->IsAutoModType($type))
+       {
+           my $mod = $this->CreateModerationObject($type);
+           $temp{$mod->Name()} = 1;
+       }
+   }
+   @list = sort keys %temp;
+
+   return \@list;
+}
+
+sub GetAutomoderatorList
+{
+   my ($this) = @_;
+   my ($sql);
+
+   $sql = Sql->new($this->{DBH});
+   return $sql->SelectSingleColumnArray("select name from moderator where privs & " .
+                                        UserStuff::AUTOMOD_FLAG . " > 0 order by name");
 }
 
 # This function will load a change from the database and return

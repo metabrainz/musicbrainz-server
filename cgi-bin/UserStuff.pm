@@ -37,6 +37,7 @@ use MusicBrainz;
 use Apache;
 use Net::SMTP;
 use URI::Escape;
+use CGI::Cookie;
 use Digest::SHA1 qw(sha1_base64);
 
 use constant AUTOMOD_FLAG => 1;
