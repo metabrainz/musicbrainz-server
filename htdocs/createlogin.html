@@ -12,7 +12,7 @@ my $mb = $m->comp("/comp/dblogin");
 my $ui = UserStuff->new($mb->{DBH});
 my $email = $ARGS{EMail};
 
-my ($err, $user, $privs, $uid) = $ui->CreateLogin(
+my ($err, $userobj) = $ui->CreateLogin(
 	$ARGS{User}, $ARGS{Password}, $ARGS{RetypePassword},
 );
 	
@@ -25,8 +25,10 @@ if ($err ne "")
 	return;
 }
 
-$ui->SetSession($user, $privs, $uid, !$email);
-    
+# Suppress the e-mail nag; the account is always created without the e-mail
+# address (it's added further down this page).
+$userobj->SetSession(email_nag => 0);
+
 $m->comp('/comp/sidebar', title => "MusicBrainz account created!");
 
 </%perl>
@@ -54,8 +56,7 @@ $m->comp('/comp/sidebar', title => "MusicBrainz account created!");
     <%perl>
     if ($email) 
     {
-		my $me = $ui->newFromId($uid) or die;
-        my $ret = $me->SendVerificationEmail($email);
+        my $ret = $userobj->SendVerificationEmail($email);
         if ($ret)
         {
             </%perl>
