@@ -454,6 +454,9 @@ sub SendMessageToUser
 	# Collapse onto a single line
 	$subject =~ s/\s+/ /g;
 
+	require MusicBrainz::Server::Mail;
+	$subject = MusicBrainz::Server::Mail->_quoted_string($subject);
+
 	$otheruser->SendFormattedEmail(
 		<<EOF
 Sender: Webserver <webserver\@musicbrainz.org>
