@@ -54,6 +54,7 @@
 			server version: <% DBDefs::VERSION %>
 		</td>
 	</tr>
+	</table>
 </div>
 
 </body>  
