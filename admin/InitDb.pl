@@ -162,7 +162,7 @@ GetOptions(
 	"clean|c"	=> \$fClean,
 	"echo!"		=> \$fEcho,
 	"help|h"	=> \&Usage,
-);
+) or exit 2;
 
 Usage() if $fImport and $fClean;
 
