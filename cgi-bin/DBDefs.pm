@@ -62,6 +62,10 @@ sub DB_PASSWD	{ '' }
 # Other command-line options to pass to Postgres programs, e.g. "-h otherhost"
 sub DB_PGOPTS	{ '' }
 
+# The schema sequence number.  Must match the value in
+# replication_control.current_schema_sequence.
+sub DB_SCHEMA_SEQUENCE { 1 }
+
 
 
 ################################################################################
