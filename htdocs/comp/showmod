@@ -16,7 +16,7 @@ $artistname
 
 <%perl>
 
-my $text = "(Your vote)";
+my $text = "(Your change)";
 if ($voted)
 {
    $text = "(Already voted)";
