@@ -11,6 +11,7 @@ use Apache;
 my ($i, $line, $xml, $supp_xml, $r);
 my ($parser, $doc, $queryname, $querydata, $data);
 my ($function, $xqlquery, @queryargs, $cd);
+my ($use_old_style);
 
 my %Queries = 
 (
@@ -65,7 +66,7 @@ my %Queries =
         '/rdf:RDF/rdf:Description/DC:Format/@duration',
         '/rdf:RDF/rdf:Description/DC:Date/@issued',
         '/rdf:RDF/rdf:Description/MM:Genre',
-        '/rdf:RDF/rdf:Description/DC:Identifier/@fileName',
+        '/rdf:RDF/rdf:Description/MQ:Filename',
         '/rdf:RDF/rdf:Description/DC:Description'],
    SubmitTrack =>
       [\&QuerySupport::SubmitTrack, 
@@ -115,6 +116,8 @@ if (!defined $xml)
     exit(0);
 }
 
+($use_old_style, $xml) = UpdateQuery($xml);
+
 $parser = new XML::DOM::Parser;
 eval
 {
@@ -151,6 +154,7 @@ for(;;)
     if ($xqlquery ne '')
     {
         $data = QuerySupport::SolveXQL($doc, $xqlquery);
+        #print STDERR "[$xqlquery] -> [$data]\n";
         $data = undef if (defined $data && $data eq '');
     }
     else
@@ -177,6 +181,9 @@ if (!defined $xml)
     exit(0);
 }
 
+# Convert the response back if we converted the query
+$xml = RevertResponse($xml) if ($use_old_style);
+
 #print STDERR "$xml\n";
 if (defined $r)
 {
@@ -192,4 +199,33 @@ else
    print "Content-type: text/plain\n";
    print "Content-Length: " . length($xml) . "\n\r\n";
    print $xml;
+}
+
+# This function will take an old style query and convert it to a new
+# style query
+sub UpdateQuery
+{
+   my ($xml) = @_;
+   my $ret = 0;
+
+   $ret = ($xml =~ s/DC:Relation track=\"(\d+)\"\/>/MM:TrackNum>$1<\/MM:TrackNum>/gs);
+   $ret += ($xml =~ s/MC:Collection/MM:Collection/gs);
+   $ret += ($xml =~ s/<MM:Album>(.*)<\/MM:Album>/<DC:Relation>\n  <rdf:Description>\n    <DC:Title>$1<\/DC:Title>\n  <\/rdf:Description>\n<\/DC:Relation>/gs);
+   $ret += ($xml =~ s/<DC:Identifier\s+guid=\"(.*)\"\s+fileName=\"(.*?)\"\/>/<DC:Identifier guid=\"$1\"\/>\n<MQ:Filename>$2<\/MQ:Filename>/gs);
+
+   return ($ret, $xml);
+}
+
+# This function will take a new style response and convert it to a old
+# style response
+sub RevertResponse
+{
+   my ($xml) = @_;
+
+   $xml =~ s/MM:TrackNum>(\d+)<\/MM:TrackNum/DC:Relation track=\"$1\"\//gs;
+   $xml =~ s/MM:Collection/MC:Collection/gs;
+   $xml =~ s/<DC:Relation>\s+<rdf:Description>\s+<DC:Title>(.*)<\/DC:Title>\s+<\/rdf:Description>\s+<\/DC:Relation>/<MM:Album>$1<\/MM:Album>/gs;
+   $xml =~ s/<MQ:Filename>(.*)<\/MQ:Filename>/<DC:Identifier fileName=\"$1\"\/>/gs;
+
+   return $xml;
 }

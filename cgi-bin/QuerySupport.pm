@@ -1058,7 +1058,8 @@ sub ExchangeMetadata
        {
             # Call ParseFilename() in an attempt to parse out the filename and
             # try to find an artist and title within the filename.
-            $rv = ParseFilename::Parse($mb, $ar, $pe, $guid, $filename, 'N');
+            #$rv = ParseFilename::Parse($mb, $ar, $pe, $guid, $filename, 'N');
+            $rv = -1;
             if ($rv == -1)
             {
                # ParseFilename could not find title and artist in filename, 
@@ -1114,14 +1115,14 @@ sub ExchangeMetadata
 
    if (defined $album && $album ne '')
    {
-       $rdf .= $r->BeginElement("DC:Relation", "", 'type'=>'album');
+       $rdf .= $r->BeginElement("DC:Relation", 'type'=>'album');
        $rdf .=    $r->BeginDesc; 
        $rdf .=       $r->Element("DC:Title", escape($album));
        $rdf .=    $r->EndDesc();
        $rdf .= $r->EndElement("DC:Relation");
    }
 
-   $rdf .= $r->Element("DC:Relation", "", track=>$seq)
+   $rdf .= $r->Element("MM:TrackNum", $seq)
        unless !defined $seq || $seq == 0;
    $rdf .= $r->Element("DC:Format", "", duration=>$len)
        unless !defined $len || $len == 0;
@@ -1204,11 +1205,11 @@ sub CheckMetadata
            $pe->DeleteByGUID($guid);
            return;
        }
-       else
-       {
-           # Call ParseFilename in an attempt to match title and artist.
-           ParseFileName::Parse($mb, $ar, $pe, $guid, $filename, 'Y');
-       }
+       #else
+       #{
+       #    # Call ParseFilename in an attempt to match title and artist.
+       #    ParseFileName::Parse($mb, $ar, $pe, $guid, $filename, 'Y');
+       #}
    }
 }
 
