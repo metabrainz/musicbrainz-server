@@ -166,6 +166,12 @@ if ($did_split
 <& /comp/stylemenu &>
 
 <h2>Change Name and Artist for track '<% $track->GetName %>'</h2>
+
+% unless ($ARGS{solo}) {
+<p>
+	Track <% $tindex+1 %> of <% scalar @tracks %>
+</p>
+% }
    
 %  if ($track->GetModPending) {
 <& /comp/modpending &>
@@ -177,6 +183,8 @@ if ($did_split
 	whom you'd like to move track
 	'<% $track->GetName %>':
 </p>
+
+<script type="text/javascript" src="scripts/guess.js"></script>
 
 <form method="post" action="/changetrack.html"
 	name="ChangeTrackForm"
@@ -209,6 +217,13 @@ if ($did_split
 			</td>
 			<td>
 				<input type="text" name="trackname" size="40" value="<% $newtrackname %>">
+				<script type="text/javascript"><!--
+				document.write(
+					"<input type='button' value='Guess Case' " +
+					"onclick='this.form.trackname.value = GuessCase(this.form.trackname.value)'>"
+				);
+				document.write(" &nbsp; ");
+				//--></script>
 			</td>
 		</tr>
 		<tr>
