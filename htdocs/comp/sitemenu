@@ -134,6 +134,7 @@ use Scalar::Util qw( reftype weaken );
 		#[
 			#{ name => "Lookup by ID",			url => "/search.html#id" },
 			{ name => "Search Links",			url => "/engine.html" },
+			{ name => "Search Plugins",			url => "/search/plugins/firefox/install.html" },
 			#{ name => "TRM",					url => "/search.html#trm" },
 		#],
 		{ url => "/newsearch.html" },
