@@ -25,9 +25,12 @@
 use lib "../cgi-bin";
 use DBI;
 use MusicBrainz;
+use Moderation;
 
-my $mb = MusicBrainz::new(1);
+my $mb = MusicBrainz->new();
+my $mod;
 
 $mb->Login();
-$mb->CheckModificationsForExpiredItems();
+$mod = Moderation->new($mb);
+$mod->CheckModificationsForExpiredItems();
 $mb->Logout();
