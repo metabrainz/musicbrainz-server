@@ -1,46 +1,105 @@
+%# vi: set ts=4 sw=4 ft=mason :
 <%args>
-$modid
-$uid
+$modid=>undef
 $text=>""
 </%args>
+<%perl>
 
-<& /comp/header_small, title=>'Add moderation note' &>  
+if (not $session{uid})
+{
+	</%perl>
+	<& /comp/header_small, title => 'Add note to moderation' &>
+	<p style="color: red; font-size: 150%">Oops!&nbsp; You're not logged in.</p>
+	<p>Please log in before adding moderation notes.</p>
+	<& /comp/footer_small &>
+	<%perl>
+	return;
+}
 
-% if (!defined $uid) {
-   <font size="+1" color="red">Login Error detected!</font><br>
-   Please log out and log back in and then add a note.
-   <& /comp/footer_small &>  
-%  return undef;
-% }
+MusicBrainz::IsNonNegInteger($modid) and $modid
+	or $modid = 0;
 
-<FORM METHOD="POST" ACTION="/bare/enter_note.html" 
-	name="ModNoteForm"
-      ENCTYPE="application/x-www-form-urlencoded">
+my $mb = $m->comp("/comp/dblogin");
+my $mod = undef;
 
-% if ($text ne '') {
-<p>
-    You have embedded an invalid link into your note. Links must point
-    to pages on the MusicBrainz server. Please enter a link address that
-    does not contain a server name, but only an absolute path to
-    one of the MusicBrainz pages and contains no @ signs.
-</p>
-% }
+if ($modid)
+{
+	$mod = Moderation->new($mb->{DBH});
+	$mod = $mod->CreateFromId($modid);
+}
 
-<p>
-    Enter the note text below:
-</p>
+if (not $mod)
+{
+	</%perl>
+	<& /comp/header_small, title => 'Add note to moderation' &>
+	<p>Bad or unknown moderation id.</p>
+	<& /comp/footer_small &>
+	<%perl>
+	return;
+}
 
-<p style="width: 100%">
-<INPUT TYPE="text" NAME="text" VALUE="<% $text %>" SIZE=30 style="width: 100%"> 
-<INPUT TYPE="hidden" NAME="modid" VALUE="<% $modid %>"><br>
-<INPUT TYPE="hidden" NAME="uid" VALUE="<% $uid %>"><br>
-</p>
+if (MusicBrainz::IsSingleLineString($text)
+	and $text =~ /\S/)
+{
+	my $sql = Sql->new($mb->{DBH});
 
-<p align="right">
-<INPUT TYPE="submit" NAME="Submit" VALUE="Submit">
-</p>
+	eval {
+		$sql->Begin;
+		$mod->InsertModerationNote($modid, $session{uid}, $text);
+		$sql->Commit;
+	};
 
-</FORM>
+	if ($@)
+	{
+		my $err = $@;
+		eval { $sql->Rollback };
+		</%perl>
+
+		<& /comp/header_small, title => "Error adding moderation note" &>
+
+		<p class="notice">
+			An error occurred whilst saving your moderation note.&nbsp;
+			Sorry.
+		</p>
+
+		<!-- <% $err %> -->
+
+		<& /comp/footer_small &>
+
+		<%perl>
+		return undef;
+	}
+
+	</%perl>
+	<& /comp/header_small, title => 'Moderation note added' &>
+	<script type="text/javascript"> window.close(); </script>
+	<p>Note saved successfully.</p>
+	<p><a href="/">Continue</a></p>
+	<& /comp/footer_small &>
+	<%perl>
+	return;
+}
+
+</%perl>
+<& /comp/header_small, title => 'Add note to moderation' &>
+
+<form method="post" action="/mod/addnote.html" name="ModNoteForm">
+
+	<p style="margin: 0">
+		Enter the note text below:
+	</p>
+
+	<p style="margin: 0.2em; width: 100%">
+		<textarea name="text" rows="3" cols="40" style="width: 100%"
+			><% $text %></textarea>
+	</p>
+
+	<p style="margin: 0; text-align: right">
+		<input type="hidden" name="modid" value="<% $mod->GetId %>">
+		<input type="submit" value="Submit">
+	</p>
+
+</form>
 
 <& /comp/movefocus, "ModNoteForm", "text" &>
-<& /comp/footer_small &>  
+<& /comp/footer_small &>
