@@ -563,10 +563,12 @@ please use this link:
 http://${\ DBDefs::WEB_SERVER() }/user/mod_email.html?uid=${\ $self->GetId }
 EOF
 
-	$body .= <<EOF if not $self->GetEmail;
+	$body .= <<EOF
 Unfortunately moderator '$fromname' has not supplied their e-mail address,
 so you can't reply to them.
 EOF
+		if not $self->GetEmail
+		and $self->GetId != &ModDefs::MODBOT_MODERATOR;
 
 	require MusicBrainz::Server::Mail;
 	my $mail = MusicBrainz::Server::Mail->new(
