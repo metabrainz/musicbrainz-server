@@ -1,0 +1,21 @@
+%# vi: set ts=2 sw=2 ft=mason :
+<%args>
+#$artistid => 0
+$trackid => 0
+#$moderator => $session{uid}
+</%args>
+<%perl>
+
+$m->comp("/comp/checkloggedin", 1, 1)
+	or return;
+
+my %filter = (
+	orderby			=> "asc",
+	object_type	=> "track",
+	object_id		=> $trackid,
+);
+
+$session{"moderation_filter"} = \%filter;
+$m->comp("/mod/setquery.inc"); # which redirects
+
+</%perl>
