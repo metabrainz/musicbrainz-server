@@ -10,13 +10,19 @@
 
     <& /comp/textsearch, default=>'Artist' &>
     <center>
-    <img src="/images/black_pixel.gif" width="250" height="1" alt="" border="0">
+    <img src="/images/black_pixel.gif" width="225" height="1" alt="" border="0">
     </center>
     <& /comp/searchbox, name=>'CD Index Id Lookup',
                         scripturl=>'/showalbum.html',
                         searchfield=>'diskid',
                         method=>'GET' &>
-    &nbsp;
+    <center>
+    <img src="/images/black_pixel.gif" width="225" height="1" alt="" border="0">
+    </center>
+    <& /comp/searchbox, name=>'TRM Id Lookup',
+                        scripturl=>'/showguid.html',
+                        searchfield=>'guid',
+                        method=>'GET' &>
     <br>
   <& /comp/tableend &>
 

@@ -23,11 +23,11 @@ $method=>'POST'
   <tr>
   <td align="center">
      <INPUT TYPE="text" NAME="<% $searchfield %>" SIZE=30>
+     <INPUT TYPE="submit" NAME="Search" VALUE="Search"><br>
   </td>
   </tr>
   <tr>
-  <td align="right">
-     <INPUT TYPE="submit" NAME="Search" VALUE="Search"><br>
+</table>
 
 % while( $hide = shift(@hidden) ) {
 <INPUT TYPE="hidden" NAME="<% $hide %>" 
@@ -37,7 +37,5 @@ $method=>'POST'
                       >
 %  }
 % }
-  </td>
-  </tr>
-</table>
+
 </form>

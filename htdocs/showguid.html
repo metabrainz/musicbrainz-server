@@ -1,4 +1,4 @@
-<& /comp/sidebar, title=>'Show GUID' &>
+<& /comp/sidebar, title=>'Show TRM Id' &>
 <%perl>
 
 my ($mb, $gu, $album, $artist); 
@@ -10,11 +10,11 @@ if (!exists $ARGS{guid})
 }
 else
 {
-   mc_out("<font size=+1><b>Guid: $ARGS{guid}</b></font><p>");
+   mc_out("<font size=+1><b>TRM Id: $ARGS{guid}</b></font><p>");
 
    if ($ARGS{guid} eq "7d154f52-b536-4fae-b58b-0666826c2bac")
    {
-       mc_out("<p><br>This GUID represents silence.<p>");
+       mc_out("<p><br>This TRM Id represents silence.<p>");
    }
    else
    {
@@ -27,7 +27,7 @@ else
        @ids = $gu->GetTrackIdsFromGUID($ARGS{guid});
        if (scalar(@ids) == 0)
        {
-           mc_out("<p>This GUID was not found in the main database.<p>");
+           mc_out("<p>This TRM Id was not found in the main database.<p>");
        }
        else
        {
@@ -52,6 +52,7 @@ else
            }
        }
 
+       mc_out("&nbsp;<p>");
        mc_comp("/comp/title", title=>'Pending Metadata');
        mc_comp("/comp/showpendingpage", offset=>0, guid=>$ARGS{guid});
 

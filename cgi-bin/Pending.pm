@@ -196,7 +196,8 @@ sub LoadInsertHistory
     my (@row, $sql, @ret);
 
     $sql = Sql->new($this->{DBH});
-    if ($sql->Select(qq|select Track.name, Artist.name, InsertHistory.Inserted 
+    if ($sql->Select(qq|select Track.name, Artist.name, InsertHistory.Inserted,
+                               InsertHistory.track, Artist.id
                           from Track, Artist, InsertHistory
                          where Track.artist = Artist.id and
                                InsertHistory.track = Track.id
@@ -204,9 +205,11 @@ sub LoadInsertHistory
     {
         while(@row = $sql->NextRow())
         {
-            push @ret, { name=>$row[0],
+            push @ret, { track_name=>$row[0],
                          artist_name=>$row[1],
-                         inserted=>$row[2] };
+                         inserted=>$row[2],
+                         track_id =>$row[3],
+                         artist_id=>$row[4] };
         }
         $sql->Finish();
     }

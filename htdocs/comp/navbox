@@ -18,7 +18,8 @@ my @information = (
   {url=>'/sponsors.html',                  name=>'Sponsors'},
   {url=>'/bio.html',                       name=>'The People'},
   {url=>'/history.html',                   name=>'History/Roots'},
-  {url=>'/future.html',                    name=>'Future/Goals'}
+  {url=>'/future.html',                    name=>'Future/Goals'},
+  {url=>'/insert_stats.html',              name=>'Insertion Stats'}
 );
 
 #define the expanded sidebox items of the documentation pages

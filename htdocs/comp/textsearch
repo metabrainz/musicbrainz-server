@@ -45,15 +45,10 @@ $text=>''
   </tr>
   <tr>
   <td colspan="2">
-    <img src="/images/pixel.gif" width="20" height="1" alt="" border="0">
     <INPUT TYPE="text" NAME="search" VALUE="<% $text %>" SIZE=30>
-  </td>
-  </tr>
-  <tr>
-  <td colspan="2" align="right">
-    <img src="/images/pixel.gif" width="20" height="1" alt="" border="0">
     <INPUT TYPE="submit" NAME="Search" VALUE="Search"><br>
   </td>
+  </tr>
 </table>
 </center>
 
