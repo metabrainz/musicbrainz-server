@@ -7,9 +7,10 @@ if (!defined($result))
     my $mb = mc_comp("/comp/dblogin", quiet=>1);
     if (defined $mb)
     {
-        $sth = $mb->{DBH}->prepare(qq/select name, modsaccepted from Moderator
-                                      where id != / . ModDefs::FREEDB_MODERATOR . 
-                                   qq/ order by modsaccepted desc limit 5/); 
+        $sth = $mb->{DBH}->prepare(qq/select name, modsaccepted from Moderator where
+                                            id != / . ModDefs::FREEDB_MODERATOR . 
+                                            " and id != " . ModDefs::MODBOT_MODERATOR .
+                                            qq/ order by modsaccepted desc limit 5/); 
         if ($sth->execute)
         {
            my @row;
