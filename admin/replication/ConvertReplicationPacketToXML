@@ -211,12 +211,17 @@ sub output_xml
 
 ################################################################################
 
+# See http://developer.postgresql.org/docs/postgres/sql-copy.html
 my %copy_esc;
 BEGIN {
 	%copy_esc = (
-		't'		=> "\t",
+		'b'		=> "\b",
+		'f'		=> "\f",
 		'n'		=> "\n",
-		'\\'	=> "\\",
+		'r'		=> "\r",
+		't'		=> "\t",
+		'v'		=> chr(11),
+		'\\'	=> chr(92),
 	);
 }
 
@@ -228,7 +233,14 @@ sub decode_row
 
 	my %h;
 	@h{@columns} = map {
-		$_ eq '\N' ? undef : do { s/\\(.)/$copy_esc{$1}/g; $_ }
+		$_ eq '\N' ? undef : do {
+			s[\\(?:([0-7]{1,3})|(.))][
+				defined($1)
+				? chr(oct($1))
+				: ($copy_esc{$2} || $2)
+			]eg;
+			$_;
+		}
 	} split /\t/, $line, -1;
 
 	\%h;
