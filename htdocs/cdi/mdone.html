@@ -35,6 +35,10 @@ my ($sth, $rv, $sql);
 
 $cd = new MusicBrainz;  
 $o = new CGI;
+
+#Johan:is the header realy needed?
+mc_comp("/comp/sidebar");
+
 $cd->Header('New CD Submission Completed');
 
 # Do a bunch of error checking

@@ -1,3 +1,11 @@
+<%args>
+$sidebar=>'1'
+</%args>
+
+%if ($sidebar == 1) {
+<& /comp/sidebar  &>
+%}
+
 <& /comp/tablebegin, title=>'New Login' &>
 
 <p>

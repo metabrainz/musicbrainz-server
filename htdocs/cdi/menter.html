@@ -32,6 +32,8 @@ my ($tracks, $i, $artist, $artistname, $cd);
 $o = new CGI;
 $cd = new MusicBrainz;
 
+mc_comp("/comp/sidebar");
+
 $cd->Header('Enter CD Information');
 $cd->CheckArgs('id', 'tracks');
 

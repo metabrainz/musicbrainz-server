@@ -1,5 +1,10 @@
+<%args>
+$title=>''
+$expand=>''
+</%args>
+
 <& /comp/sidebarsectiontop, title=>'Jump To' &>
-<& /comp/navbox &>
+<& /comp/navbox, expand=>$expand &>
 
 <& /comp/sidebarsection, title=>'Top Moderators' &>
 <& /comp/topmodsbox &>
@@ -9,3 +14,13 @@
 
 <& /comp/sidebarsection, title=>'Sponsors' &>
 <& /comp/sponsors &>
+
+   </td>
+   <td bgcolor="FFFFFF" align="left" valign="top">
+      <table cellpadding="15" cellspacing="0" border="0" width="100%">
+      <tr>
+         <td align="left" valign="top" class="body">  
+
+%if($title ne '') {
+<& /comp/title, title=>$title &>
+%}

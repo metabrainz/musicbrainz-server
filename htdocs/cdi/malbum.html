@@ -36,6 +36,9 @@ my ($search, $toc, $id, $tracks);
 
 $o = new CGI;
 $cd = new MusicBrainz;
+
+mc_comp("/comp/sidebar");
+#Johan: What is the header function? Should it not use the title field?
 $cd->Header('Submit CD: CD Search Results');
 
 $search = $o->param('search');

@@ -1,6 +1,7 @@
 <%args>
 $type=>1
 </%args>
+<& /comp/sidebar, expand=>'moderate' &>
 
 % if (!defined $session{user} || $session{user} eq '') {
     <center>

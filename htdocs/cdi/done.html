@@ -6,7 +6,7 @@ my ($toc, $title, $album, $id, $artist);
 my ($sth, $rv);
 
 $mb = new MusicBrainz;
-mc_comp("/comp/title", title=>'New CD Submission Completed');
+mc_comp("/comp/sidebar", title=>'New CD Submission Completed');
 
 # Do a bunch of error checking
 $id = $ARGS{'id'};

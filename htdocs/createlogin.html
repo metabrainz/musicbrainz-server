@@ -3,6 +3,8 @@
 my ($mb, $cookie);
 my ($err, $user, $privs, $uid);
 
+mc_comp('/comp/sidebar');
+
 $mb = MusicBrainz::new();
 $mb->Login();
 $user = UserStuff->new($mb);
@@ -12,7 +14,8 @@ $user = UserStuff->new($mb);
 if ($err ne "")
 {
     mc_out($err);
-    mc_comp('/newlogin.html');
+    #this html displays the sidebar, the new_login should not to it again
+    mc_comp('/newlogin.html', sidebar=>'0');
 }
 else
 {

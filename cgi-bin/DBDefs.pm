@@ -45,7 +45,7 @@ use constant DB_READ_ONLY => 0;
 use constant DB_READ_ONLY_MESSAGE => qq/This server is temporarily in 
 read-only mode for database maintainance./;
 
-# Set this to 1 if you would like this server to handle lyrics.
+# Set this to 1 if you would like this server to handle lyrics and SyncText.
 # Please note that this is likely to get you into legal trouble if you
 # insert copyrighted lyrics in the database. Please be aware of the 
 # local laws if you intend to run a lyrics server.
@@ -58,9 +58,10 @@ use constant USE_LYRICS => 0;
 # server software.
 use constant DEFAULT_LYRICS_URL => 'http://www.mp3.nl';
 
-# Set this to 1 if you would like to show a search box for lyrics servers.
+# Set this to 1 if you would like to show a search box for lyrics servers,
+# and other music sites on the web.
 # This search box is a simple form that takes the user offsite to several
-# lyrics web sites. (not musibrainz servers)
+# music web sites. (not musibrainz servers)
 use constant SEARCH_LYRICS_OFFSITE => 1;
 
 # This defines the version of the server
@@ -69,11 +70,11 @@ use constant VERSION => "1.0.0-pre4";
 # Defines the number of seconds before the votes on a 
 # modification are evaluated
 #use constant MOD_PERIOD => 604800;   # 1 week
-#use constant MOD_PERIOD => 172800;   # 2 days
-use constant MOD_PERIOD => 120;   # 2 minutes
+use constant MOD_PERIOD => 172800;   # 2 days
+#use constant MOD_PERIOD => 120;   # 2 minutes
 
 # Defines the number of unanimous votes required to pass a mod early
-use constant NUM_UNANIMOUS_VOTES => 1;
+use constant NUM_UNANIMOUS_VOTES => 5;
 
 # Do not set this unless you are running on a test server. This setting
 # Allows a person to vote on ther own modifications. It should be used

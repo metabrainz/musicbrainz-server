@@ -1,19 +1,64 @@
+<%args>
+$expand=>''
+</%args>
+<%perl>
+
+#define the expanded sidebox items of the Introduction pages
+my @documentation = (
+  {url=>'/how.html',                       name=>'How?'},
+  {url=>'/faq.html',                       name=>'FAQ'},
+  {url=>'/history.html',                   name=>'History/Roots'},
+  {url=>'/future.html',                    name=>'Future/Goals'},
+  {url=>'/todo.html',                      name=>'To&nbsp;Do&nbsp;List'},
+  {url=>'/rob_todo.html',                  name=>'Rob\'s&nbsp;To&nbsp;Do'},
+  {url=>'/mod_intro.html',                 name=>'Moderation&nbsp;Intro'},
+  {url=>'/bio.html',                       name=>'The People'}
+);
+
+#define the expanded sidebox items of the moderation pages
+my @moderate = (
+  {url=>'mod_intro.html',                  name=>'Moderation Intro'},
+# It realy should use Moderation::TYPE_VOTED, but you need to include a lot of stuff before that.
+# now it is just hard coded...
+  {url=>'/moderate.html?type=1',           name=>'New Moderation'},
+  {url=>'/moderate.html?type=3',           name=>'My Moderations'},
+  {url=>'/moderate.html?type=2',           name=>'Old Moderations'},
+  {url=>'logout.html',                     name=>'Logout'}
+);
+
+#this is the struct of the main sidebox.
+#these links can be expanded with the expand parameter
+my @main = (
+  {url=>'/index.html',                     name=>'Home'},
+  {url=>'/introduction.html',              name=>'Introduction'},
+  {url=>'/documentation.html',             name=>'Documentation',        expand=>'documentation', array=>\@documentation },
+  {url=>'/search.html',                    name=>'Search/Browse'},
+  {url=>'/engine.html',                    name=>'Search&nbsp;Engine'},
+  {url=>'/moderate.html',                  name=>'Vote/Moderate',        expand=>'moderate', array=>\@moderate },
+  {url=>'/list.html',                      name=>'Mailing&nbsp;List'},
+  {url=>'/MM/',                            name=>'Metadata&nbsp;Initiative'},
+  {url=>'http://www.freeamp.org/bugzilla', name=>'Report&nbsp;a&nbsp;Bug'},
+  {url=>'http://www.freeamp.org',          name=>'FreeAmp'}
+);
+
+</%perl>
 <table cellpadding="10" cellspacing="0" border="0">
   <tr>
     <td>
       <span class="sidemenu"> 
-         <a href="/index.html">Home</a><br>
-         <a href="/introduction.html">Introduction</a><br>
-         <a href="/search.html">Search/Browse</a><br>
-         <a href="/engine.html">Search engine</a><br>
-         <a href="/moderate.html">Vote/Moderate</a><br>
-         <a href="/how.html">How?</a><br>
-         <a href="/todo.html">To Do List</a><br>
-         <a href="/list.html">Mailing List</a><br>
-         <a href="/MM">Metadata Initiative</a><br>
-         <a href="http://www.freeamp.org/bugzilla">Report a bug</a><br>
-         <a href="http://www.freeamp.org">FreeAmp</a><br>
-         </span>
-     </td>
+%#    display all the URLs of the sidebox
+%     foreach my $link (@main) {
+        <a href="<% %{$link}->{'url'} |n %>"><% %{$link}->{'name'} |n %></a><br>
+%#      also display any possible sub items that must be expanded
+%       if ($expand ne '' && $expand eq %{$link}->{'expand'}) {
+          <span class="sidemenusmall"> 
+%         foreach my $expand_link (@{%{$link}->{'array'}}) {
+            &nbsp;&nbsp;&nbsp;<a href="<% %{$expand_link}->{'url'} |n %>"><% %{$expand_link}->{'name'} |n %></a><br>
+%         }
+          </span>
+%       }
+%     }
+      </span>
+    </td>
   </tr>
 </table>
