@@ -36,7 +36,8 @@ my @documentation = (
 #define the expanded sidebox items of the moderation pages
 my @moderate = (
   {url=>'mod_intro.html',                  name=>'Moderation Intro'},
-# It realy should use ModDefs::TYPE_VOTED, but you need to include a lot of stuff before that.
+  {url=>'mod_faq.html',                    name=>'Moderation FAQ'},
+# It really should use ModDefs::TYPE_VOTED, but you need to include a lot of stuff before that.
 # now it is just hard coded...
   {url=>'/moderate.html?type=1',           name=>'New Moderation'},
   {url=>'/moderate.html?type=3',           name=>'My Moderations'},

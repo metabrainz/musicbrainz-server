@@ -1,0 +1,116 @@
+<& /comp/sidebar, title=>'Moderation Frequently Asked Questions', expand=>'moderate' &>
+
+
+Please check to see if your moderation questions are covered in this FAQ. If not, you may want to post your question to our <a href="/list.html">mailing list</a> or join us in the <a href="http://freenode.net">IRC Chat</a> channel #musicbrainz at irc.freenode.net.
+<p>
+
+<& /comp/faqheader, title=>'General Moderation Questions' &>
+
+
+<& /comp/faqentry,
+   question=>qq| I looked up an album I have in my collection, and boy, you guys screwed up on the track listing.  Who do I tell about it?|,
+   answer=>qq| The fastest, easiest way is to roll up your sleeves, dig in and fix the problem yourself. MusicBrainz is a community project where the users add and maintain the data themselves -- in other words, your Mom doesn't work at MusicBrainz. :-) To jump in and help you should create yourself an account, go back to the album in question and use the edit links that are shown once you log in to fix the problems.  Go here <a href="/newlogin.html">to create an account</a> and start moderationg the database.|,
+   name=>''
+&>
+
+
+<& /comp/faqentry,
+   question=>qq| Moderating, what's that?|,
+   answer=>qq| Moderating is making edits to the database to correct errors or adding new data to the database.  Everything in the database is open to moderation: album names, track names, artist names, artist aliases; anything you can think of.|,
+   name=>''
+&>
+
+
+<& /comp/faqentry,
+   question=>qq| You mean I can do whatever I want to the information in the database?|,
+   answer=>qq| Well, anything within reason. We want the Musicbrainz database to reflect as accurately as possible the information contained on the album.  Since we will be receiving data from many sources, every change made to the database will have to be voted on by other users of Musicbrainz.  |,
+   name=>''
+&>
+
+
+<& /comp/faqentry,
+   question=>qq| Huh?  Voted on?|,
+   answer=>qq| Yes, since the database is going to be huge, and mistakes are going to be made, there are several mechanisms in place to check as much stuff as we can every step of the way.<p> When you propose a change, it is entered in the database provisionally, and will be voted on by other moderators.  A change will remain provisional for a period of three days before the change becomes permanent.  In that time, everyone who checks the moderation pages gets to vote for or against it.  If a change is voted down, it is discarded and the data reverts to the original.|,
+   name=>''
+&>
+
+<& /comp/faqentry,
+   question=>qq| OK, so that's what we're supposed to do, now how do I do it?|,
+   answer=>qq| Well, the first thing to do is go to the <a href="/download.html">download page</a> and download the MusicBrainz Tagger tool.  This program that lets you look up and submit metadata for the Audio CDs, MP3, Ogg/Vorbis and WAV files in your collection to the database (if they're not found).<p> It calculates a IDs for CDs and files you submit, and looks them up to see if they're already in the database. |,
+   name=>''
+&>
+
+<& /comp/faqentry,
+   question=>qq|What is a sortname, and how do I capitalize album and track titles?|,
+   answer=>qq|Check out the <a href="/style.html">Style Guidelines</a> for plenty of details on this.|,
+   name=>''
+&>
+
+<& /comp/faqentry,
+   question=>qq| OK, now I've submitted all the data for my CDs and music files to you, now what?|,
+   answer=>qq| Well, thanks for the info, and that's all you really need to do.  But, if you're like us, there always other stuff to do: <ul> <li> <a href="/search.html">Look up</a> your favorite artist and see if their name's spelled correctly.  <li> <a href="/search.html">Look up</a> your favorite album and see if the tracks are all listed, spelled correctly, in the right order, etc.  <li> Browse though the <a href="/browsevarious.html">various artist albums</a> to see if you find obvious mistakes: albums listed twice, albums with tracks listed twice, albums with missing tracks, or albums with too many tracks are just a few of the common erros possible.  <li> <a href="/moderate.html">View and vote</a> on other moderators proposed changes to the database.  We need everyone to lend their music knowledge to help out the effort.  Our goal is to be the most comprehensive database on the 'net. <li>Take a look at and moderate some of these <a href="/mod_intro.html#suggestions">moderation suggestions</a>.</ul>|,
+   name=>''
+&>
+
+<& /comp/faqentry,
+   question=>qq| How do I know if an album is wrong?|,
+   answer=>qq| Well, the most obvious way is to have the album case in front of you when you submit the album.  If you submit a CD and the diskid is not found, and the server says that a matching title exists, but the track counts don't match, you may have found an error.<p> Someone may have entered the album, but not entered all the tracks, or duplicated tracks, etc.  Either enter the info for the album, or try a <a href="/freedb/freedb.html">Freedb lookup</a> to see if you can save the typing.  Then go look at the other album and see if it is actually a match for the one you just did.  If it is, you can merge the two albums together to correct the database.|,
+   name=>''
+&>
+
+<& /comp/faqentry,
+   question=>qq| What order should I make changes in?  Do I have to wait until a Freedb import commits before I change tracks on the album?|,
+   answer=>qq| Well, it never hurts to wait, but if you're like me, you sometimes forget what you're doing from minute to minute.<p> You can actually do the changes in what ever order or whenever is easiest for you.  The server is pretty robust and will not allow things to blow-up.  For example, if you make a change to an album import that fails, the change will just be discarded.  The worst that can happen is that you'll enter a moderation that doesn't affect anything when the underlying data changes.|,
+   name=>''
+&>
+
+<& /comp/faqentry,
+   question=>qq| What if I don't have the CD but I find one when browsing that looks wrong, how should I correct it?|,
+   answer=>qq| Well, as stated elsewhere, we really want the database to reflect what is contained on the CD and accompanying cover info, but you can look at it as fine-tuning the database.  If you see an album with a couple of tracks numbered 1,3,6,10, for example, you can probably guess that it got entered wrong.  Possible approaches would be to do a title search and see if the album is also listed with a more complete track listing.  If that fails, you could check an artists discography to find a complete track listing.  Remember, any changes you make have to be voted on, so mistakes will generally get weeded out. |,
+   name=>''
+&>
+
+<& /comp/faqentry,
+   question=>qq| What about a FreeDB mod that I just voted on?  The album was ALL CAPS.  Should I vote no on the insert?|,
+   answer=>qq| Well, you could, but if the album is correct except for the capitalization, we might as well just correct the capitalization.  Vote "yes" and then open the album page up and start editing the tracks. <p> Also, since changing the capitalization by itself doesn't change any links in the database, capitalization moderations will be automatically approved.|,
+   name=>''
+&>
+
+<& /comp/faqentry,
+   question=>qq| How come this compilation CD has the title listed as the artist?|,
+   answer=>qq| Freedb doesn't handle a "Various Artists" album the same as Musicbrainz does, so occasionally they'll be imported into the database this way.<p> What needs to be done is a MAC, or multiple artist conversion.  This moves the album to the Various Artists list and gives each track an entry for the performing artist on that album.  You can either do just a MAC and leave the tracks as is, or change each track to list track/artist right then.<p>  You can also do the reverse in a case where a single-artist album has been entered as a Various Artists album.|,
+   name=>''
+&>
+
+<& /comp/faqentry,
+   question=>qq| I found 10 albums, each with one track, different tracks, different track numbers, and the same title.  What gives?|,
+   answer=>qq| Well, that would be an album that someone entered wrong.  The easiest way to fix this is to "tag" the albums and merge them all into one. Each album has a check box in its titlebar; select each album and then click on the Batch Operation link. From the Batch Operation page, multiple albums can be merged into either a single-artist album, or a "Various Artists" album.|,
+   name=>''
+&>
+
+<& /comp/faqentry,
+   question=>qq| What is an artist alias? How should it be used?|,
+   answer=>qq| Artist aliases are used to keep track of other names for an artists and for common misspellings. For instance, <i>Slim Shady</i> would be good alias to enter for <i>Eminem</i>, as would <i>Guns and Roses</i> for <i>Guns 'N Roses</i>. Aliases are primarily used for when users come to the site and search for an alias or a misspelled name. The MusicBrainz text searching functions can then show the right artist to the user based on the artist alias.  There is no harm in having too many aliases for an artist.|,
+   name=>''
+&>
+
+<& /comp/faqentry,
+   question=>qq| Where a band name is just, say, number-letter (e.g. E 17, D-12), what's the policy with regards to spacing/punctuation? Should the aliases list the other forms (D12, D 12) ?|,
+   answer=>qq| The name in the database should reflect the way the band spells their own name. Check the band's official web page or look at an album cover to get the right spelling. The artist aliases should contain alternate spellings, so entering common other forms for aliases is a good idea. |,
+   name=>''
+&>
+
+<& /comp/faqentry,
+   question=>qq| If an artist has a name with accented letters (e.g. "Olga Ta&ntilde;&oacute;n"), is it OK if the sortname also has those accented letters?  Is it necessary to enter an alias with the <i>un-accented version</i>?  |,
+   answer=>qq| Yes, the sortname should include the accented letters, and its not necessary to enter a non-accented version of the name as an alias.|,
+   name=>''
+&>
+
+<& /comp/faqentry,
+   question=>qq| I'm trying to enter an album that has a bunch of silent tracks on it. What should I enter for those tracks?|,
+   answer=>qq| Enter <b>[silence]</b> as the track description.|,
+   name=>''
+&>
+
+<& /comp/faqfooter &>
+<& /comp/footer &>
