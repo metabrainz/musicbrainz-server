@@ -129,11 +129,11 @@ $mbt=>$session{'mbt'}
 <%def .OutputEditForm>
 %	my ($data) = @_;
    <form method="post" action="/taglookup.html"
-		name="TagLookup"
+		id="TagLookupForm"
          enctype="application/x-www-form-urlencoded" class="formstyle">
      <table>
      <tr>
-      <td align="right" valign="top" NOWRAP>
+      <td align="right" NOWRAP>
         Artist:
       </td>
       <td>
@@ -141,7 +141,7 @@ $mbt=>$session{'mbt'}
       </td>
      </tr>
      <tr>
-      <td align="right" valign="top" NOWRAP>
+      <td align="right" NOWRAP>
         Album:
       </td>
       <td>
@@ -149,7 +149,7 @@ $mbt=>$session{'mbt'}
       </td>
      </tr>
      <tr>
-      <td align="right" valign="top" NOWRAP>
+      <td align="right" NOWRAP>
         Track:
       </td>
       <td>
@@ -157,7 +157,7 @@ $mbt=>$session{'mbt'}
       </td>
      </tr>
      <tr>
-      <td align="right" valign="top" NOWRAP>
+      <td align="right" NOWRAP>
         Track Num:
       </td>
       <td>
@@ -165,14 +165,14 @@ $mbt=>$session{'mbt'}
       </td>
      </tr>
      <tr>
-      <td colspan="2" align="right" valign="top" NOWRAP>
+      <td colspan="2" align="right" NOWRAP>
         <INPUT TYPE="submit" NAME="submit" SIZE="30" VALUE="Lookup">
         <INPUT TYPE="hidden" NAME="mbt" SIZE="2" VALUE="<% $data->{mbt} %>">
       </td>
      </tr>
    </table>
    </form>
-   <& /comp/movefocus, "TagLookup", "artist" &>
+   <& /comp/movefocus, "TagLookupForm", "artist" &>
 </%def>
 
 %###############################################################################
@@ -180,6 +180,16 @@ $mbt=>$session{'mbt'}
 %###############################################################################
 
 <%perl>
+
+if ($ARGS{"embedded_form"})
+{
+	</%perl>
+	<& /comp/tablebegin, title => 'Advanced Search' &>
+	<& .OutputEditForm, +{} &>
+    <& /comp/tableend &>
+	<%perl>
+	return;
+}
 
 my $bgcolor= '#ffffff';
 
@@ -307,7 +317,7 @@ if ($artist eq '' && $artistid eq '' && $album eq '' && $albumid eq '' &&
     <table width="420"><tr><td>
     Fill out as much as you know about the track in the box below:<p>
 
-    <& /comp/tablebegin, title=>'Tag Lookup', bgcolor=>"#f0efff" &>
+    <& /comp/tablebegin, title=>'Tag Lookup' &>
     <& .OutputEditForm, \%orig_data &>
     <& /comp/tableend &>
     </td></tr></table>
@@ -331,7 +341,7 @@ if ($artist eq '' && $artistid eq '' && $filename eq '' && $filename eq '' &&
     in order to lookup a track. Please enter the artist name below and
     try the lookup again: <p>
 
-    <& /comp/tablebegin, title=>'Modify Lookup', bgcolor=>"#f0efff" &>
+    <& /comp/tablebegin, title=>'Modify Lookup' &>
     <& .OutputEditForm, \%orig_data &>
     <& /comp/tableend &>
     </td></tr></table>
@@ -685,7 +695,7 @@ else
 </%perl>
 
 <center>
-<& /comp/tablebegin, title=>'Modify Lookup', bgcolor=>"#f0efff" &>
+<& /comp/tablebegin, title=>'Modify Lookup' &>
 <& .OutputEditForm, \%orig_data &>
 <& /comp/tableend &>
 </center>
