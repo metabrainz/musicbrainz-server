@@ -1,4 +1,12 @@
-<& /comp/sidebar, title=>'Confirm Merging Albums', expand=>'moderate' &>
+<%args>
+$type
+</%args>
+
+% if ($type == ModDefs::MOD_MERGE_ALBUM) {
+    <& /comp/sidebar, title=>'Confirm Merging Albums', expand=>'moderate' &>
+% } else {
+    <& /comp/sidebar, title=>'Confirm Merging Albums into Various Artist Album', expand=>'moderate' &>
+% }
 
 <%perl>
 
@@ -67,7 +75,11 @@ else
 }
 </%perl>
 
-<& /comp/tablebegin, title=>"Confirm Merge" &>
+% if ($type == ModDefs::MOD_MERGE_ALBUM) {
+    <& /comp/tablebegin, title=>'Confirm Merging Albums' &>
+% } else {
+    <& /comp/tablebegin, title=>'Confirm Merging Albums into Various Artist Album' &>
+% }
 
 <FORM METHOD="POST" ACTION="/bare/enter_kv_mod.html" NAME="MergeConfirm"
       ENCTYPE="application/x-www-form-urlencoded">  
@@ -75,7 +87,12 @@ else
 <table width="100%">
   <tr>
     <td colspan="2">
+% if ($type == ModDefs::MOD_MERGE_ALBUM) {
     Are you sure you want to merge the albums above?
+% } else {
+    Are you sure you want to merge the albums above into one 
+    Various Artist album?
+% }
     </td>
   </tr>
   <tr>

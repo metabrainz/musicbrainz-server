@@ -411,7 +411,7 @@ sub SearchByName
 # the current album. All DiskIds and TRM Ids are preserved in the process
 sub MergeAlbums
 {
-   my ($this, @list) = @_;
+   my ($this, $intoMAC, @list) = @_;
    my ($al, $ar, $tr, @tracks, %merged, $id, $sql);
    
    return undef if (scalar(@list) < 1);
@@ -425,8 +425,15 @@ sub MergeAlbums
       $merged{$tr->GetSequence()} = $tr;
    }
 
-   $al = Album->new($this->{DBH});
    $sql = Sql->new($this->{DBH});
+   # If we're merging into a MAC, then set this album to a MAC album
+   if ($intoMAC)
+   {
+      $sql->Do("update Album set artist = " . Artist::VARTIST_ID . 
+               " where id = " . $this->GetId());
+   }
+
+   $al = Album->new($this->{DBH});
    foreach $id (@list)
    {
        $al->SetId($id);
@@ -451,10 +458,12 @@ sub MergeAlbums
                 $merged{$tr->GetSequence()} = $tr;
            }
 
-           # Move that the track to the target album's artist
-           $sql->Do("update Track set artist = " . $this->GetArtist() .
-                    " where id = " . $tr->GetId());
-                    
+           if (!$intoMAC)
+           {
+                # Move that the track to the target album's artist
+                $sql->Do("update Track set artist = " . $this->GetArtist() .
+                         " where id = " . $tr->GetId());
+           }                
        }
 
        # Also merge the Diskids
@@ -469,6 +478,7 @@ sub MergeAlbums
 
    return 1;
 }
+
 
 # Pull back a section of various artist albums for the browse various display.
 # Given an index character ($ind), a page offset ($offset) and a page length

@@ -43,60 +43,61 @@ else
 
 </%perl>
 
-    Now that you've selected the albums below, you can:
+    Now that you've selected the albums below, you can:<p>
     <table>
 % if (scalar(@objs) == 1) {
     <tr>
-      <td align="center">
+      <td valign="top">
       <font color="red">Merge Album<br>Not available</font>
       </td>
-      <td>
+      <td valign="top">
       Merge albums is not available -- you must select multiple albums to
-      merge.
+      merge.<br>
+      </td>
     </tr>
 % } else {
     <tr>
-      <td>
+      <td valign="top">
       <& comp/mergeform, type=>ModDefs::MOD_MERGE_ALBUM, 
                          link=>"/mod/tag/merge.html", 
                          objs=>\@objs &>
       </td>
-      <td>
+      <td valign="top">
       Merge all the tagged albums into one album, preserving all
-      TRM ids and CD Index ids.
+      TRM ids and CD Index ids.<br>
       </td>
     </tr>
-% }
      <tr>
-      <td>
+      <td valign="top">
       <& comp/mergeform, type=>ModDefs::MOD_MERGE_ALBUM_MAC, 
                          link=>"/mod/tag/merge.html", 
                          objs=>\@objs &>
       </td>
-      <td>
-      Merge all the tagged albums into one various artist album, preserving all
-      TRM ids and CD Index ids.
+      <td valign="top">
+      Merge all the tagged albums into one <b>various artist</b> album, 
+      preserving all TRM ids and CD Index ids.<br>
       </td>
     </tr>
+% }
      <tr>
-      <td>
+      <td valign="top">
       <& comp/mergeform, type=>ModDefs::MOD_REMOVE_ALBUMS, 
                          link=>"/mod/tag/remove.html", 
                          objs=>\@objs &>
       </td>
-      <td>
-      Remove all the tagged albums.
+      <td valign="top">
+      Remove all the tagged albums.<br>
       </td>
     </tr>
     <tr>
-      <td>
+      <td valign="top" align="center">
       <form method="POST" action="/mod/tag/canceltag.html" name="AddArtist"
             enctype="application/x-www-form-urlencoded">
-      <input type="submit" NAME="Submit" VALUE="Cancel Tagging">
+      <input type="submit" NAME="Submit" VALUE="Cancel">
       </form>
       </td>
-      <td>
-      Change your mind and stop tagging.
+      <td valign="top">
+      Change your mind and stop tagging.<br>
       </td>
     </tr>
 

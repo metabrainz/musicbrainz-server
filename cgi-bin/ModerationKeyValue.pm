@@ -759,7 +759,6 @@ sub ShowNewValue
    return $out;
 }
 
-# I don't think removing a trmid warrants any dependencies
 sub DetermineDependencies
 {
 }
@@ -795,7 +794,8 @@ sub ApprovedAction
    $al->SetId(shift @list);
    if (defined $al->LoadFromId())
    {
-       $al->MergeAlbums(@list);
+       $al->MergeAlbums($this->GetType() == ModDefs::MOD_MERGE_ALBUM_MAC, 
+                        @list);
        return ModDefs::STATUS_APPLIED;
    }
    else

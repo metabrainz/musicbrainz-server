@@ -12,17 +12,9 @@ $num = scalar(@obj);
 
 </%perl>
 
-<form method="POST" action="$link" name="Merge"
+<form method="POST" action="<% $link %>" name="Merge"
       enctype="application/x-www-form-urlencoded">
-<input type="submit" NAME="Submit"
-
-%if ($type == ModDefs::MOD_MERGE_ALBUM) {
-      VALUE="Merge into one Single Artist Album"
-%} elsif ($type == ModDefs::MOD_MERGE_ALBUM_MAC) {
-      VALUE="Merge into one Multiple Artist Album"
-%} else {
-      VALUE="Remove tagged Albums"
-%} 
+<input type="submit" NAME="Submit" VALUE="Select &gt;&gt;" size="25">
 
 %foreach $al (@obj) {
     <input type="hidden" name="key<% $ind %>" value="AlbumId<% $ind %>">
