@@ -705,7 +705,6 @@ sub GetModerationList
         AND     m.id >= ?
         AND     v.vote IS NULL
         ORDER BY 1
-        LIMIT $num
        |;
        @args = ($uid, $uid, $this->GetMinOpenModID);
    }
