@@ -122,6 +122,12 @@ if ($num_albums > 0)
       </tr>
 %    }
     </table>
+    <& /comp/pageselector, numitems=>$num_albums,
+                           numlinks=>6,
+                           snaptoend=>2,
+                           offset=>$offset,
+                           pagesize=>$max_items,
+						   url=>"/browsevarious.html?index=$ind&reltype=$reltype&relstatus=$relstatus&artists=$artists" &>
 %} else {
 %   $ind =~ s/_/?/g;
 %   $ind =~ s/ /_/g;

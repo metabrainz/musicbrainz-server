@@ -1,3 +1,4 @@
+%# vi: set ts=2 sw=2 ft=mason :
 <%perl>
 
 my ($mb, @info, $row, $ind, $i, $offset, $page, $ar, $rows, $num_artists);
@@ -80,12 +81,19 @@ if ($num_artists > 0)
       </tr>
 %    }
     </table>
+    <& /comp/pageselector, numitems=>$num_artists, 
+                           numlinks=>6,
+                           snaptoend=>2,
+                           pagesize=>$max_items,
+                           offset=>$offset,
+                           url=>"/browseartists.html?index=$ind" &>
 %} else {
 %   $ind =~ s/_/?/g;
 %   $ind =~ s/ /_/g;
     <p><table align="center" width="100%" bgcolor="#f0efff">
         <tr><td align="center">
-        No artists start with the letters <b><% $ind %></b>.
+        No artists
+				<% length($ind) ? "start with <b>$ind</b>" : "" |n %>
         </td></tr>
         </table>
 

@@ -161,7 +161,7 @@ if ($num_mods > 0)
 %}
 
 % if ($allow_skip and ($total_mods > $max_items || $offset > 0)) {
-<& /comp/framedboxbegin, width=>"100%" &>
+<& /comp/framedboxbegin, width=>"100%", style=>"margin: 1em 0" &>
 <& /comp/pageselector, 
    url=>"moderate.html?type=$type"
    	. ($ARGS{moderator} ? "&moderator=$ARGS{moderator}" : "")
@@ -211,3 +211,15 @@ for my $obj (@info)
 
 </form>
 
+% if ($allow_skip and ($total_mods > $max_items || $offset > 0)) {
+<& /comp/framedboxbegin, width=>"100%", style=>"margin: 1em 0" &>
+<& /comp/pageselector, 
+   url=>"moderate.html?type=$type"
+   	. ($ARGS{moderator} ? "&moderator=$ARGS{moderator}" : "")
+	. (($artistid > 0) ? "&artistid=$artistid" : ""),
+   offset=>$offset,
+   pagesize=>$max_items,
+   numitems=>$total_mods+$offset,
+&>
+<& /comp/framedboxend &>
+% }
