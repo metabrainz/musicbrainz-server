@@ -56,6 +56,8 @@ sub handler
 {
     my ($r) = @_;
 
+    # return "FORBIDDEN" for anyone trying to access comp directory
+    return 403 if ($r->uri =~ m|^/comp/|);
     return -1 if (!defined $r->content_type);
     return -1 if $r->content_type && $r->content_type !~ m|^text/html/|io;
 
