@@ -1,0 +1,64 @@
+<%args>
+$artistid=>0
+</%args>
+<%perl>
+
+use Data::Dumper;
+
+my ($mb); 
+my (@list, $artist, $rel); 
+
+my @colors = ( "#FFFFFF", "#FFFdFC", "#FFFaE4", "#FFF6DE", "#FFF2D7", 
+               "#FFEfD1", "#FFEbCa", "#FFE8C4", "#FFE4BE", "#FFE1B7"); 
+
+if (!exists $ARGS{artistid} || $ARGS{artistid} eq '')
+{
+    mc_comp("/comp/badargs");
+    return undef;
+}
+
+$mb = mc_comp("/comp/dblogin");
+$artist = Artist->new($mb->{DBH});
+
+$artist->SetId($artistid);
+if (! $artist->LoadFromId())
+{
+    mc_comp("/comp/sidebar", title=>"Error");
+    mc_out("This artist (id=$artistid) was not found in the database.");
+}
+else
+{
+    mc_comp("/comp/sidebar", title=>($artist->GetName . " Relations"));
+
+    mc_out("[ <a href=\"/showartist.html?artistid=");
+    mc_out($artist->GetId());
+    mc_out("\">View albums</a>");
+    mc_out(" ]<p>");
+
+    mc_comp("/comp/tablebegin", title=>"Relations"); 
+    mc_out("<table cellspacing=\"0\"><tr>
+            <td align=\"center\">Artist</td>
+            <td align=\"center\">Strength&nbsp;&nbsp;&nbsp;</td>
+            <td align=\"center\">Albums</td></tr>");
+
+    my $relations = $artist->GetRelations();
+    foreach $rel (@{$relations})
+    {
+        </%perl>
+        <tr bgcolor="<% $colors[$rel->{weight} - 1] %>">
+        <td><a href="/artistrel.html?artistid=<% $rel->{id} %>"><% $rel->{name} %></a>&nbsp;&nbsp;</td>
+        <td align="center" NOWRAP><% $rel->{weight} %></td>
+        <td align="center"><a href="/showartist.html?artistid=<% $rel->{id} %>"><img src="/images/cd.png" alt="albums" title="View albums for <% $rel->{name} %>"></a></td>
+        </tr>
+        <tr height="1"><td colspan="3" bgcolor="white"></td></tr>
+        <%perl>
+    }
+
+    mc_out("</table>");
+    mc_comp("/comp/tableend"); 
+}
+
+$mb->Logout();
+
+</%perl>
+<& /comp/footer &>

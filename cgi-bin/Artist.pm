@@ -584,4 +584,20 @@ sub HasAlbum
    return @matches;
 }
 
+sub GetRelations
+{
+   my ($this) = @_;
+   my (@albums, $sql, @row, $album);
+
+   return undef if (!defined $this->{id});
+
+   $sql = Sql->new($this->{DBH});
+   return $sql->SelectListOfHashes(
+       "select artist.name, artist.id, artist_relation.weight
+          from artist_relation, artist
+         where artist_relation.artist = ? and
+               artist_relation.ref = artist.id
+      order by weight desc, artist.name", $this->{id});
+} 
+
 1;
