@@ -160,6 +160,19 @@ sub NormaliseSortText
 }
 *NormalizeSortText = \&NormaliseSortText;
 
+# Append some data to a file.  Create the file if necessary.
+
+use Fcntl 'LOCK_EX';
+sub SimpleLog
+{
+	my ($file, $data) = @_;
+	return if $data eq "";
+	open(my $fh, ">>", $file) or return;
+	flock($fh, LOCK_EX) or return;
+	print $fh $data or return;
+	close $fh;
+}
+
 ################################################################################
 # Our own Mason "escape" handler
 ################################################################################
