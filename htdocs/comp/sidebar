@@ -1,14 +1,13 @@
-<%args>
-$title=>'MusicBrainz'
-$pagetitle=>''
-$expand=>''
-</%args>
-
-% if ($pagetitle ne '') {
-   <& /comp/header, title=>$pagetitle &>
-% } else {
-   <& /comp/header, title=>$title &>
-% }
+<%perl>
+if ($pagetitle ne '') 
+{
+   mc_comp("/comp/header", title=>$pagetitle);
+} 
+else 
+{
+   mc_comp("/comp/header", title=>$title);
+}
+</%perl>
 <& /comp/sidebarsectiontop, title=>'Jump To' &>
 <& /comp/navbox, expand=>$expand &>
 
@@ -30,3 +29,9 @@ $expand=>''
 %if($title ne '') {
 <& /comp/title, title=>$title &>
 %}
+
+<%args>
+$title=>'MusicBrainz'
+$pagetitle=>''
+$expand=>''
+</%args>
