@@ -1,4 +1,5 @@
 #!/usr/bin/perl -w
+# vi: set ts=4 sw=4 :
 #____________________________________________________________________________
 #
 #   MusicBrainz -- the open internet music database
@@ -22,73 +23,140 @@
 #   $Id$
 #____________________________________________________________________________
 
-use lib "../../cgi-bin";
-use DBI;
+use 5.008;
+use strict;
+
+use FindBin;
+use lib "$FindBin::Bin/../../cgi-bin";
+
+use Getopt::Long;
+
 use DBDefs;
-#use MusicBrainz;
-use ModDefs;
-#use Moderation;
-require "Main.pl";
+use MusicBrainz;
+use Sql;
+use Moderation;
+use ModDefs qw( STATUS_OPEN );
 
-my $count = 0;
+# TODO make these options do something
+my $verbose = -t;
+my $summary = 1;
 
-sub Arguments
+# TODO add a "locking strategy" option.  Possible strategies:
+# "full" - all tables exclusively locked, all in one transaction.
+#          (The current behaviour.)
+# "none" - don't lock anything much at all.  Separate transactions for
+#          resetting each table, finding open mods, and adjusting each mod.
+# "blank"- lock whilst blanking modpending and finding open mods.  Then
+#          unlock, and adjust for each mod in its own transaction.
+
+GetOptions(
+	"verbose!"		=> \$verbose,
+	"summary!"		=> \$summary,
+	"help|h|?"		=> sub { usage(); exit },
+) or exit 2;
+
+usage(), exit 2 if @ARGV;
+
+sub usage
 {
-   return "";
+	print <<EOF;
+Usage: ModPending.pl [OPTIONS]
+
+Allowed options are:
+        --[no]verbose     [don't] be verbose
+        --[no]summary     [don't] show summary information at the end
+                          (default is --summary)
+    -h, --help            show this help (also "-?")
+
+EOF
 }
 
-sub Cleanup
+my $mb = MusicBrainz->new;
+$mb->Login;
+my $sql = Sql->new($mb->{DBH});
+
+print localtime() . " : Beginning transaction, locking tables\n";
+$sql->Begin;
+$sql->Do("LOCK TABLE moderation, artist, artistalias, album, discid, albumjoin, track IN EXCLUSIVE MODE");
+
+# Reset modpending to zero
+
+print localtime() . " : Blanking non-zero modpending counts\n";
+
+$a = $sql->Do("UPDATE artist SET modpending = 0 WHERE modpending < 0");
+$b = $sql->Do("UPDATE artist SET modpending = 0 WHERE modpending > 0");
+print localtime() . " :   artist - $a negative, $b positive\n";
+
+$a = $sql->Do("UPDATE artistalias SET modpending = 0 WHERE modpending < 0");
+$b = $sql->Do("UPDATE artistalias SET modpending = 0 WHERE modpending > 0");
+print localtime() . " :   artistalias - $a negative, $b positive\n";
+
+$a = $sql->Do("UPDATE album SET modpending = 0 WHERE modpending < 0");
+$b = $sql->Do("UPDATE album SET modpending = 0 WHERE modpending > 0");
+print localtime() . " :   album - $a negative, $b positive\n";
+
+$a = $sql->Do("UPDATE album SET attributes[1] = 0 WHERE attributes[1] < 0");
+$b = $sql->Do("UPDATE album SET attributes[1] = 0 WHERE attributes[1] > 0");
+print localtime() . " :   album.attributes - $a negative, $b positive\n";
+
+$a = $sql->Do("UPDATE discid SET modpending = 0 WHERE modpending < 0");
+$b = $sql->Do("UPDATE discid SET modpending = 0 WHERE modpending > 0");
+print localtime() . " :   discid - $a negative, $b positive\n";
+
+$a = $sql->Do("UPDATE albumjoin SET modpending = 0 WHERE modpending < 0");
+$b = $sql->Do("UPDATE albumjoin SET modpending = 0 WHERE modpending > 0");
+print localtime() . " :   albumjoin - $a negative, $b positive\n";
+
+$a = $sql->Do("UPDATE track SET modpending = 0 WHERE modpending < 0");
+$b = $sql->Do("UPDATE track SET modpending = 0 WHERE modpending > 0");
+print localtime() . " :   track - $a negative, $b positive\n";
+
+# Find all open moderations
+
+print localtime() . " : Finding open moderations\n";
+my $ids = $sql->SelectSingleColumnArray(
+	"SELECT id FROM moderation WHERE status = " . STATUS_OPEN
+);
+print localtime() . " :   ".@$ids." mods open\n";
+
+# For each open moderation, construct the handler object and call its
+# "AdjustModPending" method
+
+my $modclass = Moderation->new($mb->{DBH});
+my $n = 0;
+
+for my $modid (@$ids)
 {
-   my ($dbh, $fix) = @_;
-   my ($sth, @row);
+	++$n;
+	printf "%6d of %d - mod #%d",
+		$n, scalar(@$ids), $modid;
 
-   print("update Artist set modpending = 0 where modpending != 0\n") if (!$quiet);
-   $dbh->do("update Artist set modpending = 0 where modpending != 0") if ($fix);
+	my $mod = $modclass->CreateFromId($modid);
 
-   print("update Album set modpending = 0 where modpending != 0\n") if (!$quiet);
-   $dbh->do("update Album set modpending = 0 where modpending != 0") if ($fix);
-   print("update Album set attributes[1] = 0 where modpending != 0\n") if ($quiet);
-   $dbh->do("update Album set attributes[1] = 0 where modpending != 0") if ($fix);
+	if (not ref($mod))
+	{
+		print " - load failed\n";
+		warn "Could not load moderation #$modid\n";
+		next;
+	}
 
-   print("update Discid set modpending = 0 where modpending != 0\n") if (!$quiet);
-   $dbh->do("update Discid set modpending = 0 where modpending != 0") if ($fix);
+	printf " - %s (%s #%d)",
+		$mod->Name, $mod->GetTable, $mod->GetRowId;
 
-   print("update AlbumJoin set modpending = 0 where modpending != 0\n") if (!$quiet);
-   $dbh->do("update AlbumJoin set modpending = 0 where modpending != 0") if ($fix);
+	if (eval { $mod->AdjustModPending(+1); 1 })
+	{
+		print " - ok\n";
+		next;
+	}
 
-   print("update Track set modpending = 0 where modpending != 0\n") if (!$quiet);
-   $dbh->do("update Track set modpending = 0 where modpending != 0") if ($fix);
-
-   print("update AlbumJoin set modpending = 0 where modpending != 0\n") if (!$quiet);
-   $dbh->do("update AlbumJoin set modpending = 0 where modpending != 0") if ($fix);
-
-   print("update ArtistAlias set modpending = 0 where modpending != 0\n") if (!$quiet);
-   $dbh->do("update ArtistAlias set modpending = 0 where modpending != 0") if ($fix);
-
-   $sth = $dbh->prepare(qq|select rowid, tab, col from moderation 
-                           where status = | .  &ModDefs::STATUS_OPEN);
-   if ($sth->execute && $sth->rows > 0)
-   {
-       while(@row = $sth->fetchrow_array)
-       {
-          next if ($row[1] eq 'TRMJoin');
-          print("update $row[1] set modpending = modpending + 1 where " .
-                "id = $row[0]\n") if (!$quiet);
-
-          if ($row[1] eq 'Album' && $row[2] eq 'Attributes')
-          {
-               $dbh->do(qq\update Album set attributes[1] = attributes[1] + 1 
-                           where id = $row[0]\) if ($fix);
-          }
-          else
-          {
-               $dbh->do(qq\update $row[1] set modpending = modpending + 1 where 
-                      id = $row[0]\) if ($fix);
-          }
-          $count++;
-       }
-   }
-   $sth->finish;
+	print " - AdjustModPending failed\n";
+	warn "Error encountered for moderation #$modid 'AdjustModPending': $@\n";
 }
 
-Main(0);
+# Commit!
+
+print localtime() . " : Committing transaction\n";
+$sql->Commit;
+print localtime() . " : Done!\n";
+
+# eof ModPending.pl
