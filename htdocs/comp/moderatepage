@@ -108,25 +108,21 @@ if ($num_mods > 0)
 
 <table width=100%>
 <tr>
-  <td width="25%" align="center" valign="top">
-      <% $total_mods + $offset %> mods 
-      <% $type == ModDefs::TYPE_NEW ? 'pending' : 'total' %>
-  </td>
-  <td width="20%" align="center" valign="top">
-%    mc_out($option1);
-  </td>
-  <td width="20%" align="center" valign="top">
-%    mc_out($option2);
-  </td>
-  <td width="15%" align="center" valign="top">
-     <a href="jumpmod.html">Jump</a>
-  </td>
-  <td width="20%" align="center" valign="top">
-     <a href="mod_intro.html">Help</a>
-  </td>
+<td width="25%" align="center">
+<% $total_mods + $offset %> mods 
+<% $type == ModDefs::TYPE_NEW ? 'pending' : 'total' %>
+</td>
+<td width="75%" align="center">
+[ <a href="moderate.html?type=1">New Mods</a> |
+<a href="moderate.html?type=3">My Mods</a> |
+<a href="moderate.html?type=2">Old Mods</a> |
+<a href="jumpmod.html">Jump</a> |
+<a href="mod_intro.html">Help</a> ]
+</td>
 </tr>
+
 % if ($freedb_note) {
-  <tr><td colspan="4" align="center">
+  <tr><td colspan="2" align="center">
   <font color="red" size="+1">Note:</font> This page contains automatic
   Album insertions from moderator FreeDB.<br> If these do not seem 
   correct/appropriate, then vote no. 
@@ -155,7 +151,8 @@ if ($num_mods > 0)
 <table width="100%">
 <tr><td bgcolor=white class="body">
 <& /comp/prevnextbuttons, 
-   url=>"moderate.html?type=$type",
+   url=>"moderate.html?type=$type" . 
+        (($artistid > 0) ?  "&artistid=$artistid" : ""),
    offset=>$offset,
    itemsperpage=>$max_items,
    totalitems=>$num_mods
@@ -187,7 +184,8 @@ $mb->Logout();
 <table width="100%">
 <tr><td bgcolor=white class="body">
 <& /comp/prevnextbuttons, 
-   url=>"moderate.html?type=$type",
+   url=>"moderate.html?type=$type" . 
+        (($artistid > 0) ?  "&artistid=$artistid" : ""),
    offset=>$offset,
    itemsperpage=>$max_items,
    totalitems=>$num_mods

@@ -233,9 +233,6 @@ sub SetVote
    $_[0]->{vote} = $_[1];
 }
 
-# These accessor function are used as shortcuts to avoid having 
-# to look up the moderator/artist names. They are not used for inserting
-# moderations into the DB.
 sub GetArtistName
 {
    return $_[0]->{artistname};
@@ -254,6 +251,11 @@ sub GetModeratorName
 sub SetModeratorName
 {
    $_[0]->{moderatorname} = $_[1];
+}
+
+sub GetError
+{
+   return $_[0]->{error};
 }
 
 sub IsNumber
@@ -628,7 +630,8 @@ sub CheckModifications
 
    $sql = Sql->new($this->{DBH});
    $query = qq|select id from Changes where status = | . 
-               ModDefs::STATUS_OPEN . qq| order by Changes.id|;
+               ModDefs::STATUS_OPEN . qq| or status = | .
+               ModDefs::STATUS_TOBEDELETED . qq| order by Changes.id|;
    return if (!$sql->Select($query));
 
    $now = time();
@@ -646,12 +649,21 @@ sub CheckModifications
        $mod->{__eval__} = $mod->GetStatus();
        $mods{$row[0]} = $mod;
 
-       #print STDERR "\nEvaluate Mod: " . $mod->GetId() . "\n";
+       print STDERR "\nEvaluate Mod: " . $mod->GetId() . "\n";
+
+       # See if this mod has been marked for deletion
+       if ($mod->GetStatus() == ModDefs::STATUS_TOBEDELETED)
+       {
+           # Change the status to deleted. 
+           print STDERR "EvalChange: $mod->{id} to be deleted\n";
+           $mod->{__eval__} = ModDefs::STATUS_DELETED;
+           next;
+       }
 
        # See if a KeyValue mod is pending for this.
        if ($this->CheckModificationForFailedDependencies($mod, \%mods) == 0)
        {
-           #print STDERR "EvalChange: kv dep failed\n";
+           print STDERR "EvalChange: kv dep failed\n";
            # If the prereq. change failed, close this modification
            $mod->{__eval__} = ModDefs::STATUS_FAILEDPREREQ;
            next;
@@ -700,7 +712,7 @@ sub CheckModifications
               }
            }
        }
-    
+
        # Has the vote period expired and there have been votes?
        if ($mod->GetExpireTime() < $now && 
           ($mod->GetYesVotes() > 0 || $mod->GetNoVotes() > 0))
@@ -744,7 +756,7 @@ sub CheckModifications
 
    foreach $key (reverse sort { $a <=> $b} keys %mods)
    {
-       #print STDERR "Check mod: $key\n";
+       print STDERR "Check mod: $key\n";
        $mod = $mods{$key};
        next if ($mod->{__eval__} == ModDefs::STATUS_EVALNOCHANGE);
 
@@ -753,6 +765,12 @@ sub CheckModifications
            print STDERR "Mod " . $mod->GetId() . " applied\n";
            $mod->SetStatus($mod->ApprovedAction($mod->GetRowId()));
            $this->CreditModerator($mod->GetModerator(), 1);
+       }
+       elsif ($mod->{__eval__} == ModDefs::STATUS_DELETED)
+       {
+           print STDERR "Mod " . $mod->GetId() . " deleted\n";
+           $mod->SetStatus(ModDefs::STATUS_DELETED);
+           $mod->DeniedAction();
        }
        else
        {
@@ -851,9 +869,12 @@ sub RemoveModeration
   
    if ($this->GetStatus() == ModDefs::STATUS_OPEN)
    {
-       $this->DeniedAction();
-       $this->CloseModification($this->GetId(), $this->GetTable(),
-                                $this->GetRowId(), ModDefs::STATUS_DELETED);
+       # Set the status to be deleted. THe ModBot will clean it up
+       # on its next pass.
+       my $sql = Sql->new($this->{DBH});
+       $sql->Do(qq|update Changes set status = | . 
+                   ModDefs::STATUS_TOBEDELETED . 
+                qq| where id = | . $this->GetId());
    }
 }
 

@@ -39,7 +39,8 @@ my $time = sprintf "%d-%02d-%02d %02d:%02d",
      <% $mod->GetNoVotes() |n %> no
      &nbsp;&nbsp; 
      <a href="#" onClick="MyWindow=window.open('mod/addnote.html?modid=<% $mod->GetId() %>','AddNote','toolbar=no,location=no,directories=no,status=no,menubar=no,scrollbars=yes,resizable=yes,width=400,height=150'); return false;"><img align="center" src="/images/note.gif" border="0" alt="Add a note"></a>
-% if ($session{uid} == $mod->GetModerator()) {
+% if ($session{uid} == $mod->GetModerator() &&
+%     $mod->GetStatus() == ModDefs::STATUS_OPEN) {
      <a href="/removemod.html?modid=<% $mod->GetId() %>"><img 
         src="/images/remove.gif" alt="remove" title="Remove this moderation"
         border="0" height="16" width="16" align="center"></a>

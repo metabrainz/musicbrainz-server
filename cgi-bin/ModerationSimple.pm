@@ -566,9 +566,11 @@ sub ApprovedAction
    $album = $this->GetPrev();
    $album =~ s/^.*?\n//s;
 
+   print STDERR (qq/delete from AlbumJoin where Album = $album and
+               track = / . $this->GetRowId() . "\n");
    # Remove the album join for this track
    $sql->Do(qq/delete from AlbumJoin where Album = $album and
-                    track = / . $this->GetRowId());
+               track = / . $this->GetRowId());
 
    # Now remove the track. The track will only be removed
    # if there are not more references to it.

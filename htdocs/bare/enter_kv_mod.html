@@ -14,9 +14,6 @@ sub CheckKVArg
    
 my ($mb, $i, $j, $mod, $new, $modid, $depmod, $url);
 
-#print STDERR "enter_kv_mod: ==========================================================\n";
-#print STDERR Data::Dumper->Dump([%ARGS], ["ARGS"]);
-
 $mb = new MusicBrainz;
 $mb->Login();
 
@@ -30,7 +27,6 @@ if (CheckKVArg(\%ARGS, 'column') &&
     CheckKVArg(\%ARGS, 'table') &&
     CheckKVArg(\%ARGS, 'id')) 
 {
-#    print STDERR "Sanity check ok\n";
     for($i = 0;; $i++)
     {
         last if (!exists $ARGS{"key$i"} || !exists $ARGS{"value$i"});
@@ -47,7 +43,6 @@ if (CheckKVArg(\%ARGS, 'column') &&
     $mod = $mod->CreateModerationObject($ARGS{'type'});
     if (defined $mod)
     {
-#        print STDERR "Created moderation\n";
         $mod->SetTable($ARGS{'table'});
         $mod->SetColumn($ARGS{'column'});
         $mod->SetArtist($ARGS{'artist'});
@@ -59,7 +54,24 @@ if (CheckKVArg(\%ARGS, 'column') &&
         $mod->SetDepMod(0);
 
         # Do the prevote action (like insert data)
-        $mod->PreVoteAction();
+        if (!$mod->PreVoteAction())
+        {
+            # If the PreVoteAction, failed, give the user an error.
+            mc_comp("/comp/sidebar", title=>"Insert moderation error",
+                    expand=>'moderate');
+
+            mc_out("<p>Insert moderation error: ");
+            if (defined $mod->GetError())
+            {
+                mc_out($mod->GetError());
+            }
+            else
+            {
+                mc_out("Unknown error.\n");
+            }
+            mc_comp("/comp/footer");
+            return undef;
+        }
 
         # And now determine if there are any dependencies
         $mod->DetermineDependencies();
@@ -79,11 +91,9 @@ if (CheckKVArg(\%ARGS, 'column') &&
                $ARGS{url} = "/showartist.html?artistid=$1";
             }
         }
-#        print STDERR "Insert moderation\n";
         $modid = $mod->InsertModeration();
     }
 }
-#print STDERR "enter_kv_mod done: =====================================================\n";
 $mb->Logout();
 
 $r->method('GET');

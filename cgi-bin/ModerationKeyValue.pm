@@ -365,6 +365,11 @@ sub PreVoteAction
            $nw->{ArtistId} = $info{artist_insertid};
            $this->{rowid} = $info{artist_insertid};
        }
+       else
+       {
+           $this->{error} = "The artist <a href=\"/showartist.html?artistid=$info{_artistid}\">$info{artist}</a> exists already.";
+           return 0;
+       }
        $this->{new} = $this->ConvertHashToNew($nw);
 
        return 1;
@@ -536,7 +541,10 @@ sub DeniedAction
    $newval = $this->ConvertNewToHash($this->{new});
    if (exists $newval->{"TrackId"})
    {
-      my $tr;
+      my ($tr, $sql);
+
+      $sql = Sql->new($this->{DBH});
+      $sql->Do("delete from AlbumJoin where track = " . $newval->{"TrackId"});
 
       $tr = Track->new($this->{DBH});
       $tr->SetId($newval->{"TrackId"});
