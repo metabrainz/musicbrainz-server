@@ -27,7 +27,7 @@ use strict;
 
 package MusicBrainz::Server::Moderation::MOD_MERGE_ARTIST;
 
-use ModDefs;
+use ModDefs qw( :artistid :modstatus MODBOT_MODERATOR );
 use base 'Moderation';
 
 sub Name { "Merge Artists" }
@@ -40,9 +40,9 @@ sub PreInsert
 	my $source = $opts{'source'} or die;
 	my $target = $opts{'target'} or die;
 
-	die if $source->GetId == &ModDefs::VARTIST_ID;
-	die if $source->GetId == &ModDefs::DARTIST_ID;
-	die if $target->GetId == &ModDefs::DARTIST_ID;
+	die if $source->GetId == VARTIST_ID;
+	die if $source->GetId == DARTIST_ID;
+	die if $target->GetId == DARTIST_ID;
 
 	$self->SetTable("artist");
 	$self->SetColumn("name");
@@ -64,55 +64,78 @@ sub PostLoad
 		and $self->{'new.name'} =~ /\S/;
 }
 
-# TODO most of this should be done by Artist.pm
-sub ApprovedAction
+sub CheckPrerequisites
 {
 	my $self = shift;
-	my $sql = Sql->new($self->{DBH});
 
 	my $prevval = $self->GetPrev;
 	my $rowid = $self->GetRowId;
 	my $name = $self->{'new.name'};
 	#my $sortname = $self->{'new.sortname'};
 
-	# Check to see that the old value is still what we think it is
-	my $existname = $sql->SelectSingleValue(
-		"SELECT name FROM artist WHERE id = ?",
-		$rowid,
-	) or return &ModDefs::STATUS_ERROR;
+	# Load new artist by name
+	my $newar = Artist->new($self->{DBH});
+	unless ($newar->LoadFromName($name))
+	{
+		$self->InsertNote(MODBOT_MODERATOR, "Artist '$name' not found - it has been deleted or renamed");
+		return STATUS_FAILEDDEP;
+	}
 
-	$existname eq $prevval
-		or return &ModDefs::STATUS_FAILEDDEP;
-
-	# Check to see that the new artist is still around 
-	my $newid = $sql->SelectSingleValue(
-		"SELECT id FROM artist WHERE name = ?",
-		$name,
-	) or return &ModDefs::STATUS_FAILEDDEP;
-
+	# Load old artist by ID
 	my $oldar = Artist->new($self->{DBH});
 	$oldar->SetId($rowid);
-	$oldar->LoadFromId or return &ModDefs::STATUS_FAILEDDEP;
-	require UserSubscription;
-	my $subs = UserSubscription->new($self->{DBH});
-	$subs->ArtistBeingMerged($oldar, $self);
+	unless ($oldar->LoadFromId)
+	{
+		$self->InsertNote(MODBOT_MODERATOR, "Artist #$rowid has been deleted");
+		return STATUS_ERROR;
+	}
 
-	# Do the merge
-	$sql->Do("UPDATE artist_relation SET artist = ? WHERE artist = ?", $newid, $rowid);
-	$sql->Do("UPDATE artist_relation SET ref	= ? WHERE ref	 = ?", $newid, $rowid);
-	$sql->Do("UPDATE album			 SET artist = ? WHERE artist = ?", $newid, $rowid);
-	$sql->Do("UPDATE track			 SET artist = ? WHERE artist = ?", $newid, $rowid);
-	$sql->Do("UPDATE moderation		 SET artist = ? WHERE artist = ?", $newid, $rowid);
-	$sql->Do("UPDATE artistalias	 SET ref	= ? WHERE ref	 = ?", $newid, $rowid);
-	$sql->Do("DELETE FROM artist WHERE id = ?", $rowid);
+	# Check to see that the old value is still what we think it is
+	unless ($oldar->GetName eq $prevval)
+	{
+		$self->InsertNote(MODBOT_MODERATOR, "Artist name has changed");
+		return STATUS_FAILEDPREREQ;
+	}
 
-	# Insert the old name as an alias for the new one
-	# TODO this is often a bad idea - remove this code?
-	my $al = Alias->new($self->{DBH});
-	$al->SetTable("ArtistAlias");
-   	$al->Insert($newid, $prevval);
+	# You can't merge an artist into itself!
+	if ($oldar->GetId == $newar->GetId)
+	{
+		$self->InsertNote(MODBOT_MODERATOR, "Source and destination artists are the same");
+		return STATUS_ERROR;
+	}
 
-	&ModDefs::STATUS_APPLIED;
+	# Disallow various merges involving the "special" artists
+	if ($oldar->GetId == VARTIST_ID or $oldar->GetId == DARTIST_ID)
+	{
+		$self->InsertNote(MODBOT_MODERATOR, "You can't merge that artist!");
+		return STATUS_ERROR;
+	}
+	
+	if ($newar->GetId == DARTIST_ID)
+	{
+		$self->InsertNote(MODBOT_MODERATOR, "You can't merge into that artist!");
+		return STATUS_ERROR;
+	}
+
+	# Save these for ApprovedAction
+	$self->{_oldar} = $oldar;
+	$self->{_newar} = $newar;
+
+	undef;
+}
+
+sub ApprovedAction
+{
+	my $self = shift;
+
+	my $status = $self->CheckPrerequisites;
+	return $status if $status;
+
+	my $oldar = $self->{_oldar};
+	my $newar = $self->{_newar};
+	$oldar->MergeInto($newar, $self);
+
+	STATUS_APPLIED;
 }
 
 1;
