@@ -109,7 +109,6 @@ $mbt=>0
 
 <%def .OutputForm>
 %	my ($data, $submit) = @_;
-%	$submit = "Select" unless defined $submit;
 	<form method="post" action="/taglookup.html"
          enctype="application/x-www-form-urlencoded" class="formstyle">
      <input type="hidden" name="artist" value="<% $data->{artist} %>">
@@ -123,7 +122,7 @@ $mbt=>0
      <input type="hidden" name="trmid" value="<% $data->{trmid} %>">
      <input type="hidden" name="duration" value="<% $data->{duration} %>">
      <input type="hidden" name="mbt" value="<% $data->{mbt} %>">
-     <input type="submit" name="submit" value="<% $submit %>">
+     <input type="submit" name="submit" value="<% $submit || 'Submit' %>">
 	</form>
 </%def>
 
