@@ -62,7 +62,7 @@ my $time = sprintf "%d-%02d-%02d %02d:%02d",
      <% $mod->ShowNewValue() |n %> 
    </td>
 
-   <td width=30% align=center valign=top bgcolor=white class="body">
+   <td width=30% align=center valign=top bgcolor=white class="body" nowrap>
 
 % if ($session{uid} == $mod->GetModerator()) {
      <% $mod->GetChangeName() |n %>
