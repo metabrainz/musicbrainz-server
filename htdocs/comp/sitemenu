@@ -1,0 +1,384 @@
+%# vi: set ts=4 sw=4 ft=mason :
+<%once>
+use vars qw( @main %urlmap %urlmap2 );
+
+use Scalar::Util qw( reftype weaken );
+
+@main = (
+	{ name => "Home",			url => "/index.html" },
+	{ name => "About",			url => "/introduction.html" },
+	[
+		{ name => "Introduction",	url => "/introduction.html" },
+		{ name => "History",		url => "/history.html" },
+		{ name => "People",			url => "/bio.html" },
+		[
+			{ name => "Moderators",		url => "/moderator.html" },
+			{ name => "Top Mods",		url => "/topmods.html" },
+		],
+		{ name => "The Future",		url => "/future.html" },
+		{ name => "Finance",		url => "/sponsors.html" },
+		[
+			{ name => "Sponsors",	url => "/sponsors.html" },
+			{ name => "Contribute",	url => "/contribute.html" },
+			{ name => "Finances",	url => "/finances.html" },
+		],
+
+		{ url => "/freeamp/index.html" },
+	],
+	{ name => "News",			url => "/press.html" },
+	[
+		{ name => "In The Press",	url => "/press.html" },
+		{ name => "White Papers",	url => "/papers/index.html" },
+		[
+			{ name => "Introduction",	url => "/papers/index.html" },
+			{ name => "Licensing (1)",	url => "/license.html" },
+			{ name => "Licensing (2)",	url => "/papers/mb_license.html" },
+		],
+	],
+	{ name => "Products",		url => "" },
+	[
+		{ name => "Download",		url => "/download.html" },
+		[
+			{ name => "Database",		url => "/download.html#database" },
+			{ name => "Client",			url => "/download.html#client" },
+			{ name => "Tagger",			url => "/download.html#tagger" },
+			{ name => "CD Lookup",		url => "/download.html#cdlookup" },
+		],
+		{ name => "Server",			url => "" },
+		[
+			{ name => "Intro",			url => "" },
+			{ name => "Download",		url => "/download.html#server" },
+			{ name => "Help",			url => "" },
+			{ name => "FAQ",			url => "" },
+			{ name => "DB Structure",	url => "/db_structure.html" },
+		],
+		{ name => "Client",			url => "" },
+		[
+			{ name => "Intro",			url => "" },
+			{ name => "Download",		url => "/download.html#client" },
+			{ name => "HOWTO",			url => "/client_howto.html" },
+		],
+		{ name => "Tagger",			url => "/tagger/intro.html", preferred => 1 },
+		[
+			{ name => "Introduction",	url => "/tagger/intro.html" },
+			{ name => "Download",		url => "/download.html#tagger" },
+			{ name => "Tutorial",		url => "/tagger/tutorial.html" },
+			#{ name => "FAQ",			url => "/tagger/faq.html" },
+			{ name => "About MB IDs",	url => "/tagger/id-intro.html" },
+
+			{ url => "/taglookup.html" },
+			{ url => "/tagger/login.html" },
+			{ url => "/tagger/noitems.html" },
+		],
+		{ name => "CD Lookup",			url => "/download.html#cdlookup" },
+		[
+			{ name => "Download",			url => "/download.html#cdlookup" },
+		],
+	],
+	{ name => "Search/Browse",		url => "/search.html" },
+	[
+		{ name => "Artist",			url => "/search.html#artist" },
+		{ name => "Album",			url => "/search.html#album" },
+		{ name => "Track",			url => "/search.html#track" },
+		{ name => "Browse Artists",	url => "/browseartists.html" },
+		{ name => "Browse Albums",	url => "/browsevarious.html" },
+		{ name => "Site Search",	url => "/search.html#google" },
+		{ name => "Advanced",		url => "/search.html#advanced" },
+		[
+			{ name => "Lookup by ID",	url => "/search.html#id" },
+			{ name => "Search Links",	url => "/engine.html" },
+			{ name => "TRM",			url => "/search.html#trm" },
+		],
+		{ url => "/newsearch.html" },
+	],
+	{ name => "Tag",			url => "/tagger/intro.html" },
+	{ name => "Help Us",		url => "/contribute.html" },
+	[
+		{ name => "Contribute",		url => "/contribute.html" },
+		{ name => "Edit the Data",	url => "/mod_intro.html" },
+		[
+			{ name => "About",			url => "/mod_intro.html" },
+			{ name => "Suggestions",	url => "/mod_intro.html#suggestions" },
+			[
+				{ name => "Odd Characters",	url => "/reports/bad_entries.html" },
+				{ name => "Uppercase",			url => "/reports/caps.html" },
+				{ name => "Lowercase",			url => "/reports/caps2.html" },
+				{ name => "'Unknown'",		url => "/reports/unknown.html" },
+				{ name => "Wrong Charset",	url => "/reports/wrong_charset.html" },
+			],
+			{ name => "FAQ",				url => "/mod_faq.html" },
+			{ name => "Style",				url => "/style.html" },
+			{ name => "Moderations",		url => "/moderate.html" },
+			[
+				{ name => "New",				url => "/moderate.html?type=1" },
+				{ name => "Old",				url => "/moderate.html?type=2" },
+				{ name => "Mine",				url => "/moderate.html?type=3" },
+				{ name => "FreeDB",				url => "/moderate.html?type=5" },
+				{ name => "Jump to ID",			url => "/jumpmod.html" },
+			],
+
+			{ name => "Log In",				url => "/login.html" },
+			[
+				{ name => "Existing User",		url => "/login.html" },
+				[
+					{ name => "Preferences",		url => "/prefs.html" },
+				],
+				{ name => "New User",			url => "/newlogin.html" },
+				[
+					{ url => "/createlogin.html" },
+				],
+				{ url => "/logout.html" },
+			],
+
+			{ name => "Add Artist",			url => "/addartist.html" },
+			{ name => "Add Album",			url => "/addalbum.html?artistid=0" },
+			{ name => "Add Album (VA)",		url => "/addalbum.html?artistid=1" },
+
+			{ url => "/addalias.html" },
+			{ url => "/addnonalbumtracks.html" },
+			{ url => "/addtrack.html" },
+
+			{ url => "/artistfilter.html" },
+			{ url => "/artistfilterkv.html" },
+			{ url => "/changetrack.html" },
+
+			{ url => "/editalbumattrs.html" },
+			{ url => "/editalbum.html" },
+			{ url => "/editartist.html" },
+			{ url => "/edittrack.html" },
+
+			{ url => "/mergeartist.html" },
+			{ url => "/movealbum.html" },
+			{ url => "/movediscid.html" },
+
+			{ url => "/remalbum.html" },
+			{ url => "/remartistalias.html" },
+			{ url => "/remartist.html" },
+			{ url => "/remdiscid.html" },
+			{ url => "/removemod.html" },
+			{ url => "/remtrack.html" },
+			{ url => "/remtrm.html" },
+
+			{ url => "/albumdetail.html" },
+			{ url => "/showalbum.html" },
+			{ url => "/showartist.html" },
+			{ url => "/showlyrics.html" },
+			{ url => "/showmod.html" },
+			{ url => "/showsyncevents.html" },
+			{ url => "/showtrack.html" },
+			{ url => "/showtrm.html" },
+
+			{ url => "/tomac.html" },
+			{ url => "/tosac.html" },
+
+			{ url => "/mod/tag/canceltag.html" },
+			{ url => "/mod/tag/donetag.html" },
+			{ url => "/mod/tag/merge.html" },
+			{ url => "/mod/tag/remove.html" },
+		],
+		{ name => "Development",			url => "/status.html" },
+		[
+			{ name => "Project Status",			url => "/status.html" },
+			{ name => "Get the source!",		url => "/cvs.html" },
+			{ name => "TODO",					url => "/todo.html" },
+			[
+				{ name => "TODO",					url => "/todo.html" },
+				{ name => "Rob's TODO",				url => "/rob_todo.html" },
+				{ name => "Johan's TODO",			url => "/johan_todo.html" },
+			],
+			{ name => "Metadata 2.0",			url => "/MM/index.html" },
+			[
+				{ name => "Introduction",			url => "/MM/index.html" },
+				{ name => "Examples",				url => "/MM/examples.html" },
+				{ name => "mm",						url => "/MM/mm_examples.html" },
+				{ name => "mq",						url => "/MM/mq_examples.html" },
+				{ name => "mm2",					url => "/MM/mm2_examples.html" },
+			],
+		],
+	],
+	{ name => "Support",		url => "/information.html" },
+	[
+		{ name => "FAQ",			url => "/faq.html" },
+		{ name => "Docs",			url => "/documentation.html" },
+		[
+			{ name => "Introduction",	url => "/documentation.html" },
+			{ name => "How",			url => "/how.html" },
+			{ name => "Client HOWTO",	url => "/client_howto.html" },
+			{ name => "Client Docs",	url => "/docs/mb_client/" },
+			{ name => "CD Submission",	url => "/cd_submission.html" },
+			[
+				{ url => "/cdi/album.html" },
+				{ url => "/cdi/artist.html" },
+				{ url => "/cdi/done.html" },
+				{ url => "/cdi/enter.html" },
+				{ url => "/cdi/found.html" },
+				{ url => "/cdi/malbum.html" },
+				{ url => "/cdi/menter.html" },
+				{ url => "/cdi/selectattr.html" },
+				{ url => "/cdi/submit.html" },
+			],
+			{ name => "About Disc IDs",	url => "/disc.html" },
+			{ name => "Database",		url => "/db_structure.html" },
+			{ name => "Stats",			url => "/stats.html" },
+			{ name => "Contract",		url => "/contract.html" },
+		],
+		{ name => "Contact Us",		url => "/contactus.html" },
+		{ name => "Mailing Lists",	url => "/list.html" },
+		{ name => "Report a Bug",	url => "http://sourceforge.net/tracker/?func=add&amp;group_id=19506&amp;atid=119506" },
+	],
+	{ name => "Wiki",			url => "/cgi-bin/wiki/wiki.pl" },
+);
+
+%urlmap = ();
+%urlmap2 = ();
+transform(\@main, \(my $tmp = 0));
+
+sub transform
+{
+	my ($rarhMenu, $riNextIndex, $rhParentItem) = @_;
+
+	for (my $i = 0; $i < @$rarhMenu; ++$i)
+	{
+		my $rhItem = $rarhMenu->[$i];
+
+		$rhItem->{expand} = 0;
+		$rhItem->{id} = "sitemenu" . (++$$riNextIndex);
+		weaken($rhItem->{parent} = $rhParentItem);
+
+		my $u = $rhItem->{url};
+		$urlmap{$u} = $rhItem
+			unless $urlmap{$u} and $urlmap{$u}{preferred};
+		push @{ $urlmap2{$u} }, $rhItem;
+
+		my $raNext = $rarhMenu->[$i+1];
+		if ($raNext and reftype($raNext) eq "ARRAY")
+		{
+			$rhItem->{children} = $raNext;
+			splice(@$rarhMenu, $i+1, 1);
+			transform($rhItem->{children}, $riNextIndex, $rhItem);
+		}
+	}
+}
+
+</%once>
+<%perl>
+
+my $uri = shift() || $r->uri;
+my $args = shift() || $r->args;
+
+sub drawmenu
+{
+	my ($rarhMenu, $iLevel) = @_;
+
+	$m->out("<div class='sitemenu$iLevel'>\n");
+
+	for my $rhItem (@$rarhMenu)
+	{
+		$rhItem->{name} or next;
+
+		my $rarhChildren = $rhItem->{children};
+		my $fSel = $rhItem->{expand};
+
+		my $state = $fSel ? "_o" : "_c";
+		my $id = $rhItem->{id};
+
+		$m->out("<div class='menuitem' id='${id}item'>\n");
+		$m->out("<div class='menurow$state' id='${id}row'>\n");
+
+		$rarhChildren = undef
+			if $rarhChildren
+			and not grep { $_->{name} } @$rarhChildren;
+
+		if ($rarhChildren)
+		{
+			$m->out("<a class='menucontrol$state'
+				id='${id}control'
+				href='$rhItem->{url}'
+				onclick='return smt(\"$rhItem->{id}\")'
+				>&nbsp;</a>");
+		} else {
+			$m->out("<a class='menunocontrol$state'
+				id='${id}control'
+				>&nbsp;</a>");
+		}
+		
+		$m->out("<a class='menulink' href='$rhItem->{url}'>$rhItem->{name}</a>");
+		$m->out("</div>"); # menurow
+
+		if ($rarhChildren)
+		{
+			$m->out("<div class='submenu$state' id='${id}sub'>\n");
+			drawmenu($rarhChildren, $iLevel+1);
+			$m->out("</div>\n");
+		}
+
+		$m->out("</div>\n"); # menuitem
+	}
+
+	$m->out("</div>\n"); # level
+}
+
+sub identify_selected
+{
+	my ($uri, $args) = @_;
+	my @sel;
+
+	my $rhSelItem = $urlmap{$uri . "?" . $args};
+	$rhSelItem ||= $urlmap{$uri};
+
+	while ($rhSelItem)
+	{
+		$rhSelItem->{expand} = 1;
+		unshift @sel, $rhSelItem;
+		$rhSelItem = $rhSelItem->{parent};
+	}
+
+	\@sel;
+}
+
+sub disable_selected
+{
+	my $rarhSel = shift;
+	
+	for (@$rarhSel)
+	{
+		$_->{expand} = 0;
+	}
+}
+
+</%perl>
+
+<table cellpadding="3" cellspacing="0" border="0" width="131px">
+  <tr>
+    <td>
+		<script type="text/javascript" src="/scripts/sitemenu.js"></script>
+		<%perl>
+		my $t = identify_selected($uri ,$args);
+		drawmenu(\@main, 0);
+		disable_selected($t);
+		</%perl>
+    </td>
+  </tr>
+</table>
+
+<%perl>
+
+my $links = $urlmap2{$uri . "?" . $args};
+$links ||= $urlmap2{$uri};
+
+if ($links and @$links > 1)
+{
+	$m->comp("sidebarsection", title => 'Related Links');
+	$m->comp("sidebarareabegin");
+	</%perl>
+	<p>This page appears in these sections:</p>
+	<ul class="RelatedLinksList">
+% for (@$links) {
+		<li><a href="<% $_->{parent}{url} %>"><% $_->{parent}{name} %></a></li>
+% }
+	</ul>
+	<%perl>
+	$m->comp("sidebarareaend");
+}
+
+</%perl>

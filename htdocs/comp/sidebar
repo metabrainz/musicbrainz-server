@@ -8,10 +8,13 @@ else
    mc_comp("/comp/header", title=>$title);
 }
 </%perl>
-<& /comp/sidebarsectiontop, title=>'Jump To' &>
-<& /comp/sidebarareabegin &>
-<& /comp/navbox, expand=>$expand &>
-<& /comp/sidebarareaend &>
+<& /comp/sidebarsectiontop, title=>'Site Menu' &>
+<& /comp/sitemenu &>
+
+%#<& /comp/sidebarsection, title=>'Jump To' &>
+%#<& /comp/sidebarareabegin &>
+%#<& /comp/navbox, expand=>$expand &>
+%#<& /comp/sidebarareaend &>
 
 <& /comp/sidebarsection, title=>'Top Moderators' &>
 <& /comp/sidebarareabegin &>
@@ -34,6 +37,7 @@ else
       <tr>
          <td align="left" valign="top" class="body" width="100%">  
          <img src="/images/pixel.gif" width="435" height="1" alt="">
+	 <a id="maincontent"></a>
 %if($title ne '') {
 <& /comp/title, title=>$title &>
 %}

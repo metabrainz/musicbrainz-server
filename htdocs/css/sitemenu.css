@@ -1,0 +1,97 @@
+.sitemenu0
+{
+	width: 100%;
+}
+
+.menuitem
+{
+	margin-top: 1px;
+	margin-bottom: 1px;
+}
+
+.menucontrol_o,
+.menucontrol_c,
+.menunocontrol_o,
+.menunocontrol_c
+{
+	display: block;
+	float: left;
+	width: 9px;
+	height: 9px;
+	text-decoration: none;
+	margin-right: 3px;
+	font-size: 3px;
+	position: relative;
+	top: 2px;
+}
+
+.menucontrol_c { background: url(/images/tree-plus.gif) no-repeat; }
+.menucontrol_o { background: url(/images/tree-minus.gif) no-repeat; }
+
+/*.menunocontrol_c { background: url(/images/tree-leaf-c.gif) no-repeat; }*/
+.menunocontrol_o { background: url(/images/tree-leaf.gif) no-repeat; }
+
+.menurow_o
+{
+	font-weight: bold;
+	x-font-style: italic;
+	x-text-decoration: underline;
+}
+
+.menulink
+{
+	display: block;
+	width: 100%;
+}
+
+.submenu_o, .submenu_c
+{
+	margin-left: 5px;
+	/*border-left: 1px dotted #999;
+	padding-left: 2px;*/
+}
+
+.submenu_c
+{
+	display: none;
+}
+
+.menulink,
+.menulink:link,
+.menulink:visited
+{
+	color: #333;
+	text-decoration: none;
+}
+
+.menulink:active,
+.menulink:focus,
+.menulink:hover
+{
+	text-decoration: underline;
+}
+
+/* Related Links */
+
+.RelatedLinksList
+{
+	list-style: square;
+	padding-left: 1.5em;
+}
+
+.RelatedLinksList li a,
+.RelatedLinksList li a:visited,
+.RelatedLinksList li a:link
+{
+	color: #534D8B;
+	text-decoration: none;
+}
+
+.RelatedLinksList li a:focus,
+.RelatedLinksList li a:hover,
+.RelatedLinksList li a:active
+{
+	color: #736DAB;
+	text-decoration: underline;
+}
+
