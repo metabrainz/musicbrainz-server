@@ -60,6 +60,9 @@ use constant VARTIST_MBID                => "89ad4ac3-39f7-470e-963a-56509c54637
 # This will be used only by the moderation system
 use constant DARTIST_ID                  => 2;
 
+# Special TRMs
+use constant TRM_ID_SILENCE              => "7d154f52-b536-4fae-b58b-0666826c2bac";
+
 use constant ANON_MODERATOR              => 1;
 use constant FREEDB_MODERATOR            => 2;
 use constant MODBOT_MODERATOR            => 4;
