@@ -4,7 +4,7 @@
 ftpdir=/var/ftp/pub/musicbrainz/data
 reportdir=/var/website/musicbrainz/prod/htdocs/reports
 
-export PATH=/bin:/usr/bin:/usr/local/pgsql/bin/psql
+export PATH=/bin:/usr/bin:/usr/local/pgsql/bin
 
 # Go to the admin dir
 cd ..
