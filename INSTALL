@@ -117,14 +117,17 @@ The MusicBrainz server requires the following items:
 
 5) Expat XML Parser library: http://sourceforge.net/projects/expat
 
-6) Required perl modules:
+6) Memcached: http://www.danga.com/memcached/
+   (optional, but strongly encouraged)
+
+7) Required perl modules:
 
    CPAN Name
    ---------
    Apache::Session
    Apache::Session::File
    Bundle::Apache
-   Cache::SizeAwareFileCache
+   Cache::Memcached
    DBD::Pg
    DBI
    Digest::SHA1
@@ -150,7 +153,7 @@ The MusicBrainz server requires the following items:
    Time::HiRes
    URI::Escape
 
-7) String::Unicode::Similarity
+8) String::Unicode::Similarity
 
 The server also uses a modified version of String::Similarity from CPAN,
 patched to be able to deal with Unicode data.  Download both the original
@@ -169,9 +172,11 @@ then build with:
 	make test
 	make install
 
-8) Other dependencies
+9) Other dependencies
 
 Run ./admin/depend.pl to check for other requirements.
+
+
 
 Installation:
 =============
@@ -268,8 +273,9 @@ Installation:
    directory that you specified in httpd.conf. Then copy all the files/subdirs
    from the cgi-bin dir into the ScriptAlias directory specified in httpd.conf
 
-8) Now start Apache and you should be set and ready to roll.  Go the the
-   selected URL and you should see a MusicBrainz site, complete with data.
+8) Now start Memcached and Apache and you should be set and ready to roll.
+   Go the the selected URL and you should see a MusicBrainz site, complete
+   with data.
 
    This should be it and now you have your very own MusicBrainz server.
 
