@@ -511,7 +511,8 @@ sub ExchangeMetadata
        $tr = Track->new($dbh);
 
        # has this data been accepted into the database?
-       $id = $gu->GetTrackIdFromGUID($data[4]);
+       $id = $gu->GetTrackIdsFromGUID($data[4]);
+       $id = $ids[0];
        if (!defined $id || $id < 0)
        {
            # No it has not.
