@@ -243,7 +243,7 @@ use Scalar::Util qw( reftype weaken );
 		{ name => "Mailing Lists",			url => "/list.html" },
 		{ name => "Report a Bug",			url => "http://sourceforge.net/tracker/?func=add&amp;group_id=19506&amp;atid=119506" },
 	],
-	{ name => "Wiki",					url => "/cgi-bin/wiki/wiki.pl" },
+	{ name => "Wiki",					url => "http://wiki.musicbrainz.org/" },
 );
 
 %urlmap = ();
