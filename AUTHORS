@@ -42,4 +42,7 @@ The following people have contributed to the MusicBrainz server:
   - Patches for adding track lengths during CD insertion
   - Patches to fix other minor bugs
 
+  Tom Heady <musicbrainz@punch.net>
+  - Submitted a patch for labeling the voting buttons
+
 (please send change requests to rob@musicbrainz.org or maintainer)
