@@ -1,0 +1,34 @@
+<%perl>
+my ($al, $attrlist, $mb);
+
+$mb = mc_comp("/comp/dblogin");
+$al = Album->new($mb->{DBH});
+$attrlist = $al->GetAttributeList();
+
+</%perl>
+
+<b>Album Attribute Definitions</b>
+
+<p>
+Album attributes define the type and status of an audio 
+release and provide information about the contents of the release.
+
+<p>
+Album attributes should apply to most of the tracks on the 
+album. Its OK to have a couple of tracks that do not fit the 
+album attribute, as long as the attribute applies to the album overall. 
+
+<p>
+<table width="100%">
+<tr>
+  <td align="center" NOWRAP><b>Release type:</b></th>
+  <td align="center" NOWRAP><b>Defintion:</b></th>
+</tr>
+
+% for(Album::ALBUM_ATTR_SECTION_TYPE_START..Album::ALBUM_ATTR_SECTION_TYPE_END) {
+     <tr>
+          <td valign="top"><% $attrlist->{$_}->[0] %></td>
+          <td valign="top"><% $attrlist->{$_}->[2] %></td>
+     </tr>
+% }
+</table> 

@@ -49,7 +49,7 @@ if (!$nonalbum)
     {
         mc_out("<td NOWRAP>") 
     }
-    mc_out("&nbsp;");
+    mc_out("&nbsp;<a href=\"#\" onClick=\"MyWindow=window.open('/popup/attrguide.html','AlbumAttributeGuide','toolbar=no,location=no,directories=no,status=no,menubar=no,scrollbars=yes,resizable=yes,width=400,height=275'); return false;\">");
     if (scalar(@attrs) > 0) 
     {
         foreach $attr (@attrs) 
@@ -63,7 +63,7 @@ if (!$nonalbum)
     {
         mc_out("None");
     }
-    mc_out("</td><td NOWRAP>&nbsp;] ");
+    mc_out("</a></td><td NOWRAP>&nbsp;] ");
 
     if (exists $session{user} && !$nomod) 
     {
