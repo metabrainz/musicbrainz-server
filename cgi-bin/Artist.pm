@@ -170,7 +170,7 @@ sub MergeInto
     # TODO this is often a bad idea - remove this code?
     my $al = Alias->new($old->{DBH});
     $al->SetTable("ArtistAlias");
-    $al->Insert($n, $o->GetName);
+    $al->Insert($n, $old->GetName);
 }
 
 # The artist name has changed, or an alias has been removed
