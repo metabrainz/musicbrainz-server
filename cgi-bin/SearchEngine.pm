@@ -585,12 +585,16 @@ sub _GetQuery
         SELECT	t.id		AS albumid,
 		t.gid		AS albumgid,
 		t.name		AS albumname,
+		m.tracks,
+		m.discids,
+		m.trmids,
 		a.id		AS artistid,
 		a.gid		AS artistgid,
 		a.name		AS artistname,
 		a.sortname	AS artistsortname
         FROM	$from
 	    INNER JOIN artist a ON a.id = t.artist
+	    LEFT JOIN albummeta m ON m.id = t.id
         WHERE	$where
     " if $table eq 'album';
 
