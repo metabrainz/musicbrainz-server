@@ -37,6 +37,9 @@ use Carp qw( carp );
 
 our @allowed_datetime_formats = (
 	'%Y-%m-%d %H:%M:%S %Z',
+	'%c',
+	'%x %X',
+	'%X %x',
 	'%A %B %e %Y, %H:%M',
 	'%d %B %Y %H:%M:%S',
 	'%a %b %e %Y, %H:%M',
@@ -82,9 +85,35 @@ our @allowed_timezones = (
 	[ "JST-9JDT"		=> "+0900 Japan, USSR Zone 8" ],
 	[ "ACST-09:30ACDT"	=> "+0930 Central Australian" ],
 	[ "AEST-10AEDT"		=> "+1000 Eastern Australian" ],
+	[ "Australia/Melbourne" => "+1100 Australia/Melbourne" ],
 	[ "IDLE-12"			=> "+1200 International Date Line East" ],
 	[ "NZST-12NZDT"		=> "+1200 New Zealand" ],
 );
+
+# Seed the allowed timezones list with files found in
+# /usr/share/zoneinfo/posix - there must be an official way to do this!
+{
+	my $tzdir = "/usr/share/zoneinfo";
+
+	my @posix_zones;
+	my $sub = sub {
+		-f $_ or return;
+		s/^\Q$tzdir\E\///;
+
+		my $offset = ""; # " ????";
+		(my $name = $_) =~ tr/_/ /;
+		$name =~ s/^posix\///;
+		$name =~ s/\bEtc\b/etc/g;
+		$name =~ s[\s*/\s*][ / ]g;
+
+		push @posix_zones, [ $_, $offset ? "$offset $name" : $name ];
+	};
+
+	use File::Find qw( find );
+	find({ wanted => $sub, no_chdir => 1 }, "$tzdir/posix")
+		if -d $tzdir;
+	push @allowed_timezones, sort { $a->[1] cmp $b->[1] } @posix_zones;
+}
 
 sub allowed_timezones { @allowed_timezones }
 
