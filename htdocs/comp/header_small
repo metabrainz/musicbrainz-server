@@ -2,6 +2,9 @@
 $title
 $bgcolor=>"white"
 </%args>
+<%perl>
+$r->content_type('text/html; charset=UTF-8');
+</%perl>
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
 <html>
 <head>
