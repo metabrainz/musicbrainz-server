@@ -30,7 +30,7 @@ package MusicBrainz::Server::Moderation::MOD_ADD_TRACK;
 use ModDefs;
 use base 'Moderation';
 
-sub Name { "Add Track" }
+sub Name { "Add Track (old version)" }
 (__PACKAGE__)->RegisterHandler;
 
 sub PreInsert
