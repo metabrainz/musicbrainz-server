@@ -293,7 +293,6 @@ sub AutoTransaction
 	my ($r, @r);
 	my $w = wantarray;
 
-	local $@;
 	eval {
 		$self->Begin;
 
