@@ -40,6 +40,8 @@ use ModDefs;
 use ModerationSimple;
 use ModerationKeyValue;
 use Data::Dumper;
+use Text::Unaccent;
+use utf8;
 
 my %ModNames = (
     "1" => "Edit Artist Name",
@@ -531,7 +533,8 @@ sub InsertModeration
             $this->GetType() == ModDefs::MOD_EDIT_ALBUMNAME ||
             $this->GetType() == ModDefs::MOD_EDIT_TRACKNAME)
         {
-            $automod = 1 if (uc($this->GetNew()) eq uc($this->GetPrev));
+            $automod = 1 if (uc(unac_string('UTF-8', $this->GetNew())) eq 
+                             uc(unac_string('UTF-8', $this->GetPrev())));
         }
         elsif ($this->GetType() == ModDefs::MOD_ADD_TRMS)
         {
