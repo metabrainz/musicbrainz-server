@@ -99,7 +99,7 @@ $attrlist = $al->GetAttributeList();
                 shift @attrs;
             }
             mc_out("></td><td valign=\"top\">$attrlist->{$_}->[0]</td>");
-            mc_out("<td valign=\"top\">$attrlist->{$_}->[1]</td></tr>\n");
+            mc_out("<td valign=\"top\">$attrlist->{$_}->[2]</td></tr>\n");
         }
         mc_out("<input type=\"hidden\" name=\"key0\"");
         mc_out(" value=\"AttrType\">");
@@ -114,7 +114,7 @@ $attrlist = $al->GetAttributeList();
                 shift @attrs;
             }
             mc_out("></td><td valign=\"top\">$attrlist->{$_}->[0]</td>");
-            mc_out("<td valign=\"top\">$attrlist->{$_}->[1]</td></tr>");
+            mc_out("<td valign=\"top\">$attrlist->{$_}->[2]</td></tr>");
         }
         mc_out("<input type=\"hidden\" name=\"key1\"");
         mc_out(" value=\"AttrStatus\">");

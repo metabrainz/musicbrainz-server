@@ -1,0 +1,15 @@
+<%args>
+$text=>""
+</%args>
+
+% $text = "Uncategorized Releases" if ($text eq '');
+
+<table width="100%"  border="0" bgcolor="black" cellpadding="1" cellspacing="0">
+<tr><td>
+<table width="100%" border="0" bgcolor="#736dab">
+<tr>
+  <td><font color="white"><b><% $text %></b></font></td>
+</tr>
+</table>
+</tr></td></table>
+<p>

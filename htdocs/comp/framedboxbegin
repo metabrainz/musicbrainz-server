@@ -1,0 +1,10 @@
+<%args>
+$width=>""
+</%args>
+
+% $width = "width=\"$width\"" if ($width ne '');
+
+<table <% $width %> border="0" bgcolor="black" cellpadding="1" cellspacing="0">
+<tr><td>
+<table width="100%" border="0" bgcolor="#f0efff" cellpadding="1" cellspacing="0">
+<tr><td>

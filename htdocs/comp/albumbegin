@@ -40,7 +40,7 @@ if ($link ne '')
 }
 
 </%perl>
-<a name="al<% $album->GetId() %>">
+<a name="al<% $album->GetId() %>"></a>
 <table border="0" cellpadding="0" cellspacing="0" bgcolor="#000000" width="100%">
 <tr><td bgcolor="#000000">
   <table width="100%" border="0" cellspacing="1" cellpadding="2">

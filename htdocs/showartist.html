@@ -5,6 +5,46 @@ $mbt=>0
 
 <%perl>
 
+sub CheckAttributes
+{
+    my ($a) = @_;
+    my ($attr, @aattr);
+
+    @aattr = $a->GetAttributes();
+    foreach $attr (@aattr)
+    {  
+        $a->{_attr_type} = $attr if ($attr >= Album::ALBUM_ATTR_SECTION_TYPE_START &&
+                                     $attr <= Album::ALBUM_ATTR_SECTION_TYPE_END);
+        $a->{_attr_status} = $attr if ($attr >= Album::ALBUM_ATTR_SECTION_STATUS_START &&
+                                       $attr <= Album::ALBUM_ATTR_SECTION_STATUS_END);
+        $a->{_attr_type} = $attr if ($attr == Album::ALBUM_ATTR_NONALBUMTRACKS);
+    }
+    $a->{_attr_type} = Album::ALBUM_ATTR_SECTION_TYPE_END + 1 if (not defined $a->{_attr_type});
+    $a->{_attr_status} = Album::ALBUM_ATTR_SECTION_STATUS_END + 1 if (not defined $a->{_attr_status});
+}
+
+sub SortAlbums
+{
+    return 1 if ($a->{_attr_type} == Album::ALBUM_ATTR_NONALBUMTRACKS);
+    return -1 if ($b->{_attr_type} == Album::ALBUM_ATTR_NONALBUMTRACKS);
+
+    if ($a->{_attr_type} == $b->{_attr_type})
+    {
+        if (lc($a->GetName()) eq lc($b->GetName()))
+        {
+            return $a->{_attr_status} <=> $b->{_attr_status};
+        }
+        else
+        {
+            return $a->GetName() cmp $b->GetName();
+        }
+    }
+    else
+    {
+        return $a->{_attr_type} <=> $b->{_attr_type};
+    }
+}
+
 my ($mb); 
 my (@albums, $artist, $album); 
 
@@ -16,7 +56,7 @@ if (!exists $ARGS{artistid} || $ARGS{artistid} eq '')
 }
 
 my ($ret, $t0, $t1, $td);
-my ($secs);
+my ($secs, $section);
 
 $mb = mc_comp("/comp/dblogin");
 $artist = Artist->new($mb->{DBH});
@@ -53,7 +93,7 @@ else
            album</a> | 
         <a href="/freedb/freedb.html?search=<% $artist->GetName() |u %>">Import
            album</a> |
-        <a href="/mod/tag/starttag.html">Merge albums</a> |
+        <a href="/mod/tag/starttag.html">Tag albums</a> |
         <%perl>
     }
     else
@@ -101,7 +141,6 @@ else
     else
     {
 
-        mc_comp("/comp/modnotice");
         @albums = $artist->GetAlbums();
         if (scalar(@albums) == 0)
         {
@@ -113,6 +152,7 @@ else
         {
             my ($count, $exall, $id, $hasnonalbum);
 
+
             $count = 0;
             $hasnonalbum = 0;
             foreach $album (@albums)
@@ -123,14 +163,17 @@ else
                 $count++;
 
                 $hasnonalbum += $album->IsNonAlbumTracks();
+                CheckAttributes($album);
             }
+            @albums = sort SortAlbums @albums;
 
             if (not exists $session{tagged_albums})
             {
                 </%perl>
-                <table width="100%">
-                <tr><td align="center">
-    
+                <& /comp/framedboxbegin, width=>"100%" &>
+                <center>
+                <& /comp/modnotice &>
+                <table width="100%"><tr><td align="center">
                 <a href="/showartist.html?artistid=<% $artist->GetId() %>&ex=<% $exall %>">
                 <img src="/images/plus.gif" align="center"
                      alt="Expand" title="Expand All Albums"
@@ -142,13 +185,23 @@ else
                 <img src="/images/minus.gif" align="center""
                      alt="Collapse" title="Collapse All Albums"
                      height="13" width="13" border="0"> Collapse All</a>
-    
-                </td></tr></table>
+                </tr></td></table> 
+                </center>
+                <& /comp/framedboxend &>
+                <br>
                 <%perl>
             }
 
+            $section = -1;
             foreach $album (@albums)
             {
+                if ($section != $album->{_attr_type})
+                {
+                    mc_comp("/comp/albumtype", 
+                            text=>$album->GetAttributeNamePlural($album->{_attr_type}));
+                    $section = $album->{_attr_type};
+                }
+
                 $id = $album->GetId();
                 $exall .= "," if ($count > 0);
                 $exall .= $id;
