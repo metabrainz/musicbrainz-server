@@ -1,6 +1,6 @@
 #____________________________________________________________________________
 #
-#   CD Index - The Internet CD Index
+#   MusicBrainz -- the internet music database
 #
 #   Copyright (C) 2000 Robert Kaye
 #   Portions  (C) 2000 Benjamin Holzman
@@ -46,6 +46,7 @@ use Lyrics;
 use UserStuff;
 use Moderation;
 use GUID;  
+use ParseFilename;  
 
 BEGIN { require 5.003 }
 use vars qw(@ISA @EXPORT);
@@ -993,7 +994,7 @@ sub ExchangeMetadata
 {
    my ($mb, $doc, $name, $guid, $artist, $album, $seq,
        $len, $year, $genre, $filename, $comment) = @_;
-   my (@ids, $id, $rdf, $r, $gu, $pe, $tr);
+   my (@ids, $id, $rdf, $r, $gu, $pe, $tr, $rv);
 
    $guid = ConvertGUID($guid);
 
@@ -1010,8 +1011,16 @@ sub ExchangeMetadata
        @ids = $pe->GetIdsFromGUID($guid);
        if (scalar(@ids) == 0)
        {
-            $pe->Insert($name, $guid, $artist, $album, $seq,
-                        $len, $year, $genre, $filename, $comment);
+            # Call ParseFilename() in an attempt to parse out the filename and
+            # try to find an artist and title within the filename.
+            $rv = ParseFilename($mb, $guid, $filename, 'N');
+            if ($rv == -1)
+            {
+               # ParseFilename could not find title and artist in filename, 
+               # so insert into Pending table.
+               $pe->Insert($name, $guid, $artist, $album, $seq,
+                           $len, $year, $genre, $filename, $comment);
+            }
        }
        else
        {
@@ -1139,6 +1148,11 @@ sub CheckMetadata
            $pe->DeleteByGUID($guid);
            return;
        }
+       else
+       {
+           # Call ParseFilename in an attempt to match title and artist.
+           ParseFilename($mb, $guid, $filename, 'Y');
+       }
    }
 }
 
@@ -1171,17 +1185,15 @@ sub SubmitTrack
       if (!defined $artistid || $artistid < 0);
 
    @albumids = $al->FindFromNameAndArtistId($album, $artistid);
-   if (defined @albumids)
+   if (defined @albumids && scalar(@albumids) > 0)
    {
-      print STDERR "Found album, picking first one.\n";
       $albumid = $albumids[0];
    }
    else
    {
-      print STDERR "Insert album\n";
       $albumid = $al->Insert($album, $artistid, -1);
    }
-   print STDERR "Insert album failed.\n"
+   print STDERR "Insert album failed!!!!!!!!!!!\n"
       if (!defined $albumid || $albumid < 0);
    
    return EmitErrorRDF("Cannot insert album into database.") 
