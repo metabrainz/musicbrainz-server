@@ -159,3 +159,16 @@ begin
 
 end;
 ' language 'plpgsql';
+--------------------------------------------------------------------
+create or replace function before_update_moderation () returns opaque as '
+begin
+
+   if (OLD.status = 1 and NEW.status != 1) -- STATUS_OPEN
+   then
+      NEW.closetime := NOW();
+   end if;
+
+   return NEW;
+
+end;
+' language 'plpgsql';

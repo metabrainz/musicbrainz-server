@@ -6,3 +6,4 @@ drop trigger a_ins_discid on discid;
 drop trigger a_del_discid on discid; 
 drop trigger a_ins_trmjoin on trmjoin; 
 drop trigger a_del_trmjoin on trmjoin; 
+drop trigger b_upd_moderation on moderation; 

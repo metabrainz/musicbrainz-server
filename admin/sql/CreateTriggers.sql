@@ -22,3 +22,6 @@ create trigger a_ins_trmjoin after insert on trmjoin
 
 create trigger a_del_trmjoin after delete on trmjoin 
                for each row execute procedure decrement_trmid_count();
+
+create trigger b_upd_moderation before update on moderation 
+               for each row execute procedure before_update_moderation();

@@ -13,9 +13,11 @@ create table ArtistAlias (
    Id serial primary key,
    Ref int not null references Artist, 
    Name varchar(255) not null, 
-   LastUsed datetime not null,
+   LastUsed_notz datetime not null,
    TimesUsed int default 0,
-   ModPending int default 0);
+   ModPending int default 0,
+   lastused timestamp with time zone
+   );
 
 create table Album (
    Id serial primary key,
@@ -100,8 +102,10 @@ create table Moderator (
    ModsRejected int default 0, 
    EMail varchar(64) default null, 
    WebUrl varchar(255) default null, 
-   MemberSince datetime default now(),
-   Bio text default null);
+   MemberSince_notz datetime default now(),
+   Bio text default null,
+   membersince timestamp with time zone default now()
+   );
 
 SELECT * INTO moderator_sanitised FROM moderator;
 
@@ -120,7 +124,10 @@ create table Moderation (
    YesVotes int default 0, 
    NoVotes int default 0,
    Depmod int default 0,
-   Automod smallint default 0);
+   Automod smallint default 0,
+   opentime timestamp with time zone default now(),
+   closetime timestamp with time zone
+   );
 
 create table ModerationNote (
    Id serial primary key,
@@ -132,7 +139,9 @@ create table Votes (
    Id serial primary key,
    Uid int not null references Moderator, 
    Rowid int not null references Moderation, 
-   vote smallint not null);
+   vote smallint not null,
+   votetime timestamp with time zone default now()
+   );
 
 create table WordList(
    Id serial primary key,
