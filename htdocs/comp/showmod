@@ -45,10 +45,10 @@ my $time = sprintf "%d-%02d-%02d %02d:%02d",
    </td>
 </tr>
 <tr>
-   <td width=37% valign=top bgcolor=white class="body">
+   <td width=37% valign=top bgcolor="#ffecd6" class="body">
      <% $mod->ShowPreviousValue() |n %> 
    </td>
-   <td width=37% valign=top bgcolor=white class="body">
+   <td width=37% valign=top bgcolor="#f0efff" class="body">
      <% $mod->ShowNewValue() |n %> 
    </td>
    <td width=30% align=center valign=top bgcolor=white class="body">
