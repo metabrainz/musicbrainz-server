@@ -1,0 +1,34 @@
+%#vi: set ts=2 sw=2 ft=mason :
+<& /comp/sidebar, title => 'November 17th, 2003: MusicBrainz Tagger Release', head => '
+<style type="text/css">
+ul, ol { padding-left: 0.7em }
+li { margin-top: 0.5em; margin-bottom: 0.5em }
+</style>
+' &>
+
+<h2>MusicBrainz Tagger 0.10.2</h2>
+
+<p>
+This version fixes a few important bugs from the 0.10.1 version.&nbsp; Files that were
+tagged by clicking on the tag icon may have incomplete artist sortname and artist id
+tags.&nbsp; The saved tab can now be sorted by clicking on the header fields, and the
+filename in the tabs will never be cut off -- now it gets reasonably truncated 
+and the most important info should always be visible.&nbsp; Finally FLAC tagging had
+some bugs where tags were getting cleared or not written to disk.
+</p>
+
+<h3>Bugs and RFEs Closed</h3>
+
+<& buglist.inc,
+  '838805 Local TRM page needs HTML-encoding',
+  "832778 \"Saved\" pane can't be sorted",
+  "834536 Manually IDed tracks can't be saved by sortname",
+  '811130 Need horizontal scroll in tagger',
+  '842299 Retagged FLAC files delete replay_track_gain tag',
+  '842295 FLAC not tagged / only tagged with track # in .10.1',
+  "832777 Too-long filenames can't be saved",
+&>
+
+Robert Kaye
+
+<& /comp/footer &>

@@ -21,15 +21,11 @@ my ($result, $mods, $total_mods) = $mod->GetModerationList(
 	$offset, $max_items,
 );
 
+# If timed out, make an empty list
+$mods ||= [];
+
 $m->comp("/comp/redirect", "/mod/search/index.html")
 	if $result == &Moderation::SEARCHRESULT_NOQUERY;
-
-return $m->comp(
-	"/comp/error",
-	"Your moderation query was cancelled, because it was taking too
-	long.  Please try to narrow down your search.",
-	1,1,
-) if $result == &Moderation::SEARCHRESULT_TIMEOUT;
 
 $m->comp("/comp/sidebar", title=>'Moderation Search'); 
 
@@ -37,16 +33,6 @@ $m->comp("/comp/sidebar", title=>'Moderation Search');
 # XXX this is based upon $mod->GetVote, but that might be showing someone
 # else's votes, not ours!
 my $show_button = 0;
-foreach my $obj (@$mods)
-{
-    if ($obj->GetModerator() != $session{uid} &&
-        $obj->GetVote() == &ModDefs::VOTE_NOTVOTED &&
-        $obj->GetStatus() == &ModDefs::STATUS_OPEN)
-    {
-       $show_button = 1;
-       last;
-    }
-}
 
 my %notes;
 if (@$mods)
@@ -66,8 +52,10 @@ if (@$mods)
 <td colspan="2" align="center" NOWRAP>
 
 	<div class="LinksRow">
-<% $total_mods %> matching mod<% (($total_mods==1) ? "" : "s") %> &nbsp; [
-<a href="/mod/search/select-filter.html">New Search</a> |
+% if (defined $total_mods) {
+<% $total_mods %> matching mod<% (($total_mods==1) ? "" : "s") %> &nbsp;
+% }
+[ <a href="/mod/search/select-filter.html">New Search</a> |
 <a href="/mod/search/index.html?<% $m->comp('/comp/args-to-querystring.inc', %$args) %>">Advanced Search</a> |
 <a href="/jumpmod.html">Jump</a> |
 <a href="/mod_faq.html">FAQ</a> |
@@ -89,7 +77,14 @@ if (@$mods)
 </tr>
 </table>
 
-% if (not @$mods) {
+% if ($result == &Moderation::SEARCHRESULT_TIMEOUT) {
+	<center>
+	Your moderation query was cancelled, because it was taking too
+	long.&nbsp; Please try to
+	<a href="/mod/search/index.html?<% $m->comp('/comp/args-to-querystring.inc', %$args) %>">narrow down your search</a>,
+	or try again later.
+	</center>
+% } elsif (not @$mods) {
    <center>
    <br><br>
    No moderations found.
@@ -121,7 +116,13 @@ if (@$mods)
 for my $obj (@$mods)
 {
 	my $n = $notes{ $obj->GetId } || [];
-   $m->comp("/comp/showmod", mod=>$obj, notes=>$n, voter=>$voter_id);
+	$m->comp(
+		"/comp/showmod",
+		mod		=> $obj,
+		notes	=> $n,
+		voter	=> $voter_id,
+		voteflag=> \$show_button,
+	);
 }
 </%perl>
 
@@ -129,7 +130,7 @@ for my $obj (@$mods)
 </td></tr>
 </table>
 
-% if (@$mods and $show_button) {
+% if ($show_button) {
 <table width="100%">
 <tr>
   <td width="20%">

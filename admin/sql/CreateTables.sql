@@ -142,7 +142,7 @@ create table Votes (
    Rowid int not null, -- references Moderation
    vote smallint not null,
    votetime timestamp with time zone default now(),
-   superseded BOOLEAN
+   superseded BOOLEAN NOT NULL
    );
 
 create table WordList(

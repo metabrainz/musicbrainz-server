@@ -834,7 +834,8 @@ sub QuickTrackInfoFromTrackId
    @data = $sql->GetSingleRow(
        "Track, AlbumJoin, Album, Artist", 
       ["Track.name", "Artist.name", "Album.name", 
-       "AlbumJoin.sequence", "Track.Length", "Album.artist"],
+       "AlbumJoin.sequence", "Track.Length", "Album.artist",
+       "Artist.gid", "Artist.sortname"],
       ["Track.gid", $tid,
        "AlbumJoin.album", "Album.id",
        "Album.gid", $aid,
@@ -846,6 +847,8 @@ sub QuickTrackInfoFromTrackId
    $out .= $rdf->BeginDesc("mq:Result");
    $out .= $rdf->Element("mq:status", "OK");
    $out .= $rdf->Element("mq:artistName", $data[1]);
+   $out .= $rdf->Element("mm:artistid", $data[6]);
+   $out .= $rdf->Element("mm:sortName", $data[7]);
    $out .= $rdf->Element("mq:albumName", $data[2]);
    $out .= $rdf->Element("mq:trackName", $data[0]);
    $out .= $rdf->Element("mm:trackNum", $data[3]);

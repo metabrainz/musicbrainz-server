@@ -1,18 +1,16 @@
 <%args>
 $question
 $answer
-$name
+$name => undef
 </%args>
 
-<tr>
-<td>
-&nbsp; &nbsp;
-</td>
-<td>
-   <table>
+ <table class="TopAlignCells" style="margin-bottom: 1.5em"
+% if ($name) {
+  id="faq_<% $name %>"
+% }
+   >
    <tr>
-     <td valign=top>
-       <a name="<% $name  %>"></a>
+     <td>
        <b><font color="#542b89">Q:</font></b>
      </td>
      <td> 
@@ -20,18 +18,11 @@ $name
      </td>
    </tr>
    <tr>
-     <td valign=top>
+     <td>
        <b><font color="#542b89">A:</font></b>
      </td>
      <td> 
        <% $answer |n %>
-       <p>
-       <br>
      </td>
    </tr>
-   </table>
-</td> 
-<td>
-&nbsp; &nbsp;
-</td>
-</tr>
+ </table>

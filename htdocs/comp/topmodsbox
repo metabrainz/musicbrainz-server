@@ -1,6 +1,11 @@
+%# vi: set ts=2 sw=2 ft=mason :
 <%perl>
-my $result = $m->cache(action=>'retrieve');
-#$result = undef;
+
+my $result = $m->cache(
+	action		=> 'retrieve',
+	busy_lock => "1min",
+);
+
 if (!defined($result)) 
 {
 		$result = "[error]";
@@ -57,5 +62,3 @@ if (!defined($result))
 			<a href="/topmods.html">more &gt;&gt;</a>
 		</span>
 	</div>
-
-%# vi: set ts=2 sw=2 ft=mason :

@@ -85,7 +85,7 @@ my %ChangeNames = (
     &ModDefs::STATUS_FAILEDDEP		=> "Failed dependency",
     &ModDefs::STATUS_ERROR			=> "Internal error",
     &ModDefs::STATUS_FAILEDPREREQ	=> "Failed prerequisite",
-    &ModDefs::STATUS_TOBEDELETED	=> "To Be Deleted",
+    &ModDefs::STATUS_TOBEDELETED	=> "To be deleted",
     &ModDefs::STATUS_DELETED		=> "Deleted"
 );
 

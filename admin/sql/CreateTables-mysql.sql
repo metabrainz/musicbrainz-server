@@ -153,7 +153,8 @@ create table votes (
    Uid int not null,
    Rowid int not null,
    vote smallint not null,
-   votetime datetime not null
+   votetime datetime not null,
+   superseded CHAR(1) NOT NULL
    );
 
 drop table if exists wordlist;

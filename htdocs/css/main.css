@@ -113,10 +113,19 @@ kbd.KbdBlock
 	vertical-align: middle;
 }
 
+.SpacedRows td,
+.SpacedRows th
+{
+	padding-top: 0.2em;
+	padding-bottom: 0.2em;
+	empty-cells: show;
+}
+
 .SpacedColumns td,
 .SpacedColumns th
 {
-	padding: 0 0.5em;
+	padding-left: 0.5em;
+	padding-right: 0.5em;
 	empty-cells: show;
 }
 

@@ -1,0 +1,150 @@
+%# vi: set ts=2 sw=2 ft=mason :
+<& /comp/sidebar, title=>'MusicBrainz CVS Modules' &>
+
+<p>
+	This page describes the various modules you will find in
+	<a href="http://cvs.musicbrainz.org/">our CVS repository</a>.
+</p>
+
+<table class="SpacedColumns SpacedRows TopAlignCells">
+	<tr>
+		<td colspan="2">
+			<h2>Current Modules</h2>
+		</td>
+	</tr>
+
+	<tr id="module_mb_server">
+		<td><a href="http://cvs.musicbrainz.org/cvs/mb_server">mb_server</a></td>
+		<td>
+			MusicBrainz Server source code -- this contains all the sources
+			necessary to set up a <a href="/products/server/">MusicBrainz server</a>.&nbsp;
+			Most of this code is in Perl and is designed to run inside the Apache
+			web server in mod_perl with the Mason web framework.
+		</td>
+	</tr>
+
+	<tr id="module_mb_client">
+		<td><a href="http://cvs.musicbrainz.org/cvs/mb_client">mb_client</a></td>
+		<td>
+			MusicBrainz Client source code -- this module contains the sources for
+			building the <a href="/products/client/">libmusicbrainz library</a>,
+			which provides low level access to the MusicBrainz server and the
+			ability to look up TRM ids from WAV audio data.
+		</td>
+	</tr>
+
+	<tr id="module_tunepimp">
+		<td><a href="http://cvs.musicbrainz.org/cvs/tunepimp">tunepimp</a></td>
+		<td>
+			TunePimp library source code -- this module contains the sources for
+			building the <b>libtunepimp library</b>.&nbsp; <!-- TODO /products/tunepimp -->
+			This library encapsulates the core tagging functionality of the
+			<a href="/tagger/">MusicBrainz Tagger</a>.&nbsp; Using this library,
+			it's easy to write a complete tagging application -- only a
+			<abbr title="User Interface">UI</abbr> layer needs to be added.&nbsp;
+			This library handles all the tricky details of reading and writing metadata
+			tags, looking up TRM ids from various audio formats, and matching local
+			audio files with tracks in the MusicBrainz server.
+		</td>
+	</tr>
+
+	<tr id="module_mb_tagger">
+		<td><a href="http://cvs.musicbrainz.org/cvs/mb_tagger">mb_tagger</a></td>
+		<td>
+			MusicBrainz Tagger Application source code -- this module contains all
+			the sources necessary to build the <a href="/tagger/">MusicBrainz tagger application</a>.&nbsp;
+			Borland C++ builder 6.0 is required to build this module.
+		</td>
+	</tr>
+
+	<tr id="module_python-musicbrainz">
+		<td><a href="http://cvs.musicbrainz.org/cvs/python-musicbrainz">python-musicbrainz</a></td>
+		<td>
+			Python bindings for libmusicbrainz -- these bindings allow Python
+			developers to use the MusicBrainz client library.
+		</td>
+	</tr>
+
+	<tr id="module_irc-logs">
+		<td><a href="http://cvs.musicbrainz.org/cvs/irc-logs">irc-logs</a></td>
+		<td>
+			Archived chat logs -- this module contains the archives of chat logs from
+			<a href="irc://irc.freenode.net/musicbrainz">the #musicbrainz channel</a>
+			on IRC chat at 
+			<a href="http://freenode.net">irc.freenode.net</a>.&nbsp;
+			The logs are saved to CVS once a day, so CVS usually doesn't contain the
+			last 24 hours' data.&nbsp; You can browse all the logs,
+			and see the most up-to-date logs, at our
+			<a href="http://chatlogs.musicbrainz.org/">IRC log archives</a> site.
+	</tr>
+
+	<tr>
+		<td colspan="2">
+			<h2>Deprecated Modules</h2>
+		</td>
+	</tr>
+
+	<tr>
+		<td>cdi_client</td>
+		<td>
+			CD Index client source code -- this module contains the old CD Index
+			client library.&nbsp; Superseded by
+			<a href="#module_mb_client">the mb_client project</a>.
+		</td>
+	</tr>
+
+	<tr>
+		<td>cdi_lib</td>
+		<td>
+			CD Index client library code -- contains code for the CD Index client
+			library.&nbsp; Superseded by
+			<a href="#module_mb_client">the mb_client project</a>.
+		</td>
+	</tr>
+
+	<tr>
+		<td>cdi_server</td>
+		<td>
+			CD Index server code -- contains all the code for the old CD Index
+			server.&nbsp; Superseded by
+			<a href="#module_mb_server">mb_server</a>.
+		</td>
+	</tr>
+
+	<tr>
+		<td>charity</td>
+		<td>
+			An old text-based tagging application.&nbsp; Superseded by the example
+			program "tp_tagger" in the
+			<a href="#module_tunepimp">tunepimp</a> project.
+		</td>
+	</tr>
+
+	<tr>
+		<td>old.tunepimp</td>
+		<td>
+			This module contains the first attempt at a tunepimp library.&nbsp;
+			Superceded by the
+			<a href="#module_tunepimp">tunepimp</a> project.
+		</td>
+	</tr>
+
+	<tr>
+		<td>trm</td>
+		<td>
+			This small library originally looked up TRM ids, but this functionality
+			has now been wrapped into the <a href="#module_tunepimp">tunepimp</a>
+			library.
+		</td>
+	</tr>
+
+	<tr>
+		<td>trm_plugin</td>
+		<td>
+			This is the TRM plugin for Bitzi's Bitcollider.
+		</td>
+	</tr>
+
+</table>
+
+<& /comp/footer &>

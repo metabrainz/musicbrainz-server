@@ -1,0 +1,56 @@
+%# vi: set ts=2 sw=2 ft=mason :
+<& /comp/sidebar, title => "How TRM Generation Works" &>
+
+<p>
+	There are two steps involved in generating a TRM ID for an
+	audio file.&nbsp; One of the steps involves licensed, proprietary,
+	closed-source software; hence it is impossible to generate a TRM ID
+	using only open-source software.
+</p>
+
+<h2>1. Generate an Audio Signature</h2>
+
+<p>
+	This step is performed by the MusicBrainz client software
+	(mb_client and tunepimp modules).
+</p>
+
+<p>
+	The audio file is opened, read, and analysed.&nbsp; Various
+	things are measured, including the duration of the audio file,
+	the frequency distribution, "beat" detection, and so forth.&nbsp;
+	Together these measurements are the <i>Audio Signature</i>.
+</p>
+
+<h2>2. Turn the Audio Signature into a TRM ID</h2>
+
+<p>
+	The MusicBrainz client software now sends the Audio Signature
+	to the <i>Relatable TRM Signature Server</i>.&nbsp;
+	The Signature Server is closed-source proprietary software,
+	licensed to MusicBrainz by
+	<a href="http://www.relatable.com/">Relatable</a>.&nbsp;
+	Our licensed copy of the Signature Server runs on the same hardware as the
+	MusicBrainz Server, but please understand that it is quite
+	separate software.
+</p>
+
+<p>
+	After receiving the Audio Signature data, the Signature Server does
+	whatever it does (remember, it's a "black box" to us),
+	and it returns a TRM ID to the MusicBrainz client software.&nbsp;
+	The client software can then do whatever it wants with the TRM ID,
+	such as make a <i>TrackInfoFromTRMId</i> RDF request to the MusicBrainz
+	Server in order to find out what track it is.
+</p>
+
+<h2>Further Reading</h2>
+
+<p>
+	The document
+	<a href="/docs/20031108-1.html">Dissecting a Tagger Session</a>
+	analyses the various HTTP (web, RDF, TRM) requests
+	made by the MusicBrainz Tagger as a file is tagged.
+</p>
+
+<& /comp/footer &>

@@ -3,6 +3,7 @@
 $mod
 $voter => $session{uid}
 $notes => []
+$voteflag=> undef
 </%args>
 <%perl>
 
@@ -87,7 +88,8 @@ $time = $m->comp("/comp/datetime", $time);
 % }
 
 % if (not $is_mine and $is_open) {
-     <& /mod/voting-buttons.inc, mod => $mod &>
+%		$$voteflag = 1 if $voteflag;
+     <& /mod/voting-buttons.inc, mod => $mod, vote => $voted &>
 % } else {
      <% $mod->GetChangeName %>
 % }

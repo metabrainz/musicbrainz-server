@@ -19,6 +19,65 @@ $minid => ""
 $maxid => ""
 $orderby => "asc"
 </%args>
+<%def .SortUnique>
+<%perl>
+	my %t = map { $_=>1 } @_;
+	return sort { $a <=> $b } keys %t;
+</%perl>
+</%def>
+<%def .SetClause>
+<%perl>
+
+	# Given an expression (e.g. "m.status"), a list of selected values (e.g.
+	# [1,2]) and a list of all possible values (e.g. [1,2,3,4,5,6,7,8]),
+	# return a WHERE clause which efficiently filters the data.
+
+	my ($expr, $selected_values, $all_values) = @_;
+
+	# Find the values we /don't/ want
+	my $discard_values = do {
+		my %all = map { $_ => 1 } @$all_values;
+		delete @all{@$selected_values};
+		[ $m->comp(".SortUnique", keys %all) ];
+	};
+
+	# If all or none selected, do nothing
+	return () unless @$selected_values;
+	return () unless @$discard_values;
+	
+	# If only one selected/discarded, use "=" or "!="
+	return "$expr = $selected_values->[0]"
+		if @$selected_values == 1;
+	return "$expr != $discard_values->[0]"
+		if @$discard_values == 1;
+	
+	# If the selected values are all above or below some threshold, then
+	# use "<" or ">"
+	require List::Util;
+
+	my $max_sel = List::Util::max(@$selected_values);
+	my $min_disc = List::Util::min(@$discard_values);
+	return "$expr < $min_disc"
+		if $max_sel < $min_disc;
+
+	my $min_sel = List::Util::min(@$selected_values);
+	my $max_disc = List::Util::max(@$discard_values);
+	return "$expr > $max_disc"
+		if $min_sel > $max_disc;
+
+	# If the selected values are within or without of some range, then use
+	# BETWEEN or NOT BETWEEN.
+	# TODO
+
+	# Otherwise, use "IN" or "NOT IN", whichever gives the shorter list.
+	local $" = ",";
+	return(
+		(@$selected_values <= @$discard_values)
+			? "$expr IN (@$selected_values)"
+			: "$expr NOT IN (@$discard_values)"
+	);
+</%perl>
+</%def>
 <%perl>
 
 my $mb = $m->comp("/comp/dblogin");
@@ -31,37 +90,28 @@ my $mb = $m->comp("/comp/dblogin");
 my %filter;
 my @where;
 
-my $sortuniq = sub {
-	my %t = map { $_=>1 } @_;
-	sort { $a <=> $b } keys %t;
-};
-
 ################################################################################
 # mod_status - multi-select of STATUS_* constants
 ################################################################################
 
 my %allowed_status = reverse %{ &ModDefs::status_as_hashref };
-# TODO no need to delete STATUS_EVALNOCHANGE - added this comment to force a
-# conflict resolution later.
 @mod_status = grep { exists $allowed_status{$_} } @mod_status;
-@mod_status = &$sortuniq(@mod_status);
+@mod_status = $m->comp(".SortUnique", @mod_status);
 $filter{"mod_status"} = \@mod_status;
 
-if (@mod_status)
+push @where, $m->comp(
+	".SetClause",
+	"m.status",
+	\@mod_status,
+	[keys %allowed_status],
+);
+
+# If we are specifically querying for STATUS_OPEN only, optimise using
+# ->GetMinOpenModID.
+if (@mod_status == 1 and $mod_status[0] == &ModDefs::STATUS_OPEN)
 {
-	push @where, "m.status = $mod_status[0]"
-		if @mod_status == 1;
-	local $" = ",";
-	push @where, "m.status IN (@mod_status)"
-		if @mod_status > 1;
-	
-	# If we are specifically querying for STATUS_OPEN only, optimise using
-	# ->GetMinOpenModID.
-	if (@mod_status == 1 and $mod_status[0] == &ModDefs::STATUS_OPEN)
-	{
-		my $mod = Moderation->new($mb->{DBH});
-		push @where, "m.id >= " . $mod->GetMinOpenModID;
-	}
+	my $mod = Moderation->new($mb->{DBH});
+	push @where, "m.id >= " . $mod->GetMinOpenModID;
 }
 
 ################################################################################
@@ -70,17 +120,15 @@ if (@mod_status)
 
 my %allowed_type = reverse %{ &ModDefs::type_as_hashref };
 @mod_type = grep { exists $allowed_type{$_} } @mod_type;
-@mod_type = &$sortuniq(@mod_type);
+@mod_type = $m->comp(".SortUnique", @mod_type);
 $filter{"mod_type"} = \@mod_type;
 
-if (@mod_type)
-{
-	push @where, "m.type = $mod_type[0]"
-		if @mod_type == 1;
-	local $" = ",";
-	push @where, "m.type IN (@mod_type)"
-		if @mod_type > 1;
-}
+push @where, $m->comp(
+	".SetClause",
+	"m.type",
+	\@mod_type,
+	[keys %allowed_type],
+);
 
 ################################################################################
 # voter_type / voter_id
@@ -126,41 +174,65 @@ $effective_voter_id = $voter_id
 my %allowed_votes = reverse %{ &ModDefs::vote_as_hashref };
 delete $allowed_votes{&ModDefs::VOTE_UNKNOWN};
 @vote_cast = grep { exists $allowed_votes{$_} } @vote_cast;
-@vote_cast = &$sortuniq(@vote_cast);
+@vote_cast = $m->comp(".SortUnique", @vote_cast);
 $filter{"vote_cast"} = \@vote_cast;
 
-if (@vote_cast)
+# Filtering matrix:
+# ("no vote" == VOTE_NOTVOTED; "real" votes are YES, NO, ABS)
+
+# real | "no vote" false              "no vote" true
+# none : no filter required          left join, vote is null
+# some : inner join with SetClause   left join, (vote is null or SetClause)
+# all  : inner join                  no filter required
+
+if (@vote_cast > 0 and @vote_cast < keys(%allowed_votes))
 {
+	# We've now filtered out the two "no filter required" combinations
+
 	my @real = grep {
 		$_ == &ModDefs::VOTE_YES
 		or $_ == &ModDefs::VOTE_NO
 		or $_ == &ModDefs::VOTE_ABS
 	} @vote_cast;
 
-	my @or;
-	my $join_type = "INNER";
+	my $all_real = (@real == 3);
+	my $no_vote = grep { $_ == &ModDefs::VOTE_NOTVOTED } @vote_cast;
 
-	if (grep { $_ == &ModDefs::VOTE_NOTVOTED } @vote_cast)
-	{
-		push @or, "v.vote IS NULL";
-		$join_type = "LEFT";
-	}
+	# The join type depends solely on $no_vote
+	my $join_type = ($no_vote ? "LEFT" : "INNER");
 
-	if (@real)
-	{
-		local $" = ",";
-		my %real = map { $_=>1 } @real;
-		push @or, "v.vote IN (@real)"
-			unless $real{&ModDefs::VOTE_YES}
-			and $real{&ModDefs::VOTE_NO}
-			and $real{&ModDefs::VOTE_ABS};
-	}
-
-	my $or = (@or==1 ? $or[0] : join(" OR ", @or));
+	# Construct the whole JOIN clause.  We may add another filter to this (see
+	# below).
 	$vote_join = " $join_type JOIN votes v ON v.rowid = m.id"
 		. " AND v.uid = $effective_voter_id"
-		. " AND (v.superseded IS NULL OR NOT v.superseded)";
-	$vote_join .= " AND $or" if $or;
+		. " AND NOT v.superseded";
+
+	if (not $no_vote)
+	{
+		unless ($all_real)
+		{
+			my @where = $m->comp(
+				".SetClause",
+				"v.vote",
+				\@real,
+				[ &ModDefs::VOTE_YES, &ModDefs::VOTE_NO, &ModDefs::VOTE_ABS ],
+			);
+			# We're using an INNER JOIN, so this can be added to the JOIN clause
+			# instead of WHERE.
+			$vote_join .= " AND $_" for @where;
+		}
+	} else {
+		my @or = "v.vote IS NULL";
+		push @or, $m->comp(
+			".SetClause",
+			"v.vote",
+			\@real,
+			[ &ModDefs::VOTE_YES, &ModDefs::VOTE_NO, &ModDefs::VOTE_ABS ],
+		) unless $all_real;
+		# This one's a left join, so we add it to the WHERE clause not the JOIN.
+		push @where, "(" . join(" OR ", @or) . ")";
+	}
+
 	$vote = ", COALESCE(v.vote, ".&ModDefs::VOTE_NOTVOTED.") AS vote";
 }
 

@@ -7,21 +7,12 @@ $artist=>0
 $freedb=>0
 $parse_artist_track=>""
 $parse_track_artist=>""
-$sep=>""
+$sep=>"/"
 $noncd=>0
 </%args>
 <%perl>
 
-my ($mb); 
-my ($i, $modpending, $ar);
-my ($dbh, $sth, $rv);
-
-$mb = new MusicBrainz;
-$m->comp("/comp/sidebar", title=>'Enter Information');
-
-$m->comp("/comp/stylemenu");
-
-$sep = '/' unless $sep ne '';
+my $mb = new MusicBrainz;
 
 my $lookup;
 if ($freedb)
@@ -35,8 +26,15 @@ if ($freedb)
 }
 
 </%perl>
+<& /comp/sidebar, title=>'Enter Information', head => '
+<style type="text/css">
+.GuessCase, .GuessSort, .GuessAll { width: 100% }
+</style>
+' &>
+<& /comp/stylemenu &>
 
 <script type="text/javascript" src="/scripts/entervalidate.js"></script>
+<script type="text/javascript" src="/scripts/guess.js"></script>
 
 % if (defined $lookup) {
      Found CD <font class="bold"><% $lookup->{album} %></font>
@@ -54,7 +52,7 @@ if ($freedb)
             this CD from FreeDB:<p>
 %        }
 %        if (!$freedb && !$noncd) {
-           <form method="POST" action="/cdi/menter.html" Name="FreeDBLookup"
+           <form method="POST" action="/cdi/menter.html"
                  enctype="application/x-www-form-urlencoded" class="formstyle">
            <input type="hidden" name="id" value="<% $id %>">
            <input type="hidden" name="toc" value="<% $toc %>">
@@ -75,20 +73,20 @@ if ($freedb)
      buttons below to reload this page.<p>
 
      Choose which way to display the artist and track names, and also
-     select a character that is used to seperate the artist from the 
+     select a character that is used to separate the artist from the 
      track names in this album.<p>
 
      Current settings: <span class="bold">
 %    if ($parse_artist_track ne "") {
-        Artist/Track</span>, seperated by 
+        Artist/Track</span>, separated by 
 %    } else {
-        Track/Artist</span>, seperated by 
+        Track/Artist</span>, separated by 
 %    }
      <span class="bold"><% $sep %></span><p>
 
      </tr>
      <tr><td align="center">
-     <form method="POST" action="/cdi/menter.html" Name="FreeDBLookup"
+     <form method="POST" action="/cdi/menter.html"
            enctype="application/x-www-form-urlencoded" class="formstyle">
         Reload CD Info,<br> and display as:<br><br>
         <input type="hidden" name="id" value="<% $id %>">
@@ -97,13 +95,13 @@ if ($freedb)
         <input type="hidden" name="freedb" value="1">
         <input type="submit" value="Artist / Track" name="parse_artist_track">
      </td><td align="center">
-        use seperator:<br><br>
+        use separator:<br><br>
         <input type="text" name="sep" size="3">
      </form>
      </td><td align="center">
         <img src="/images/black_pixel.gif" height="40" width="1" alt="">
      </td><td align="center">
-     <form method="POST" action="/cdi/menter.html" Name="FreeDBLookup"
+     <form method="POST" action="/cdi/menter.html"
            enctype="application/x-www-form-urlencoded" class="formstyle">
         Reload CD Info,<br> and display as:<br><br>
         <input type="hidden" name="id" value="<% $id %>">
@@ -112,7 +110,7 @@ if ($freedb)
         <input type="hidden" name="freedb" value="1">
         <input type="submit" value="Track / Artist" name="parse_track_artist">
      </td><td align="center">
-        use seperator:<br><br>
+        use separator:<br><br>
         <input type="text" name="sep" size="3">
       </form>
      </td></tr>
@@ -124,11 +122,10 @@ if ($freedb)
      mistakes you may find:<p>
 % }
 
-<form method="POST" action="/cdi/selectattr.html" Name="EnterCD"
+<form method="POST" action="/cdi/selectattr.html"
       enctype="application/x-www-form-urlencoded" class="formstyle"
       onsubmit="return validate(this);">
       
-
 <table>
 <tr>
 %  if ($noncd) {
@@ -144,31 +141,23 @@ if ($freedb)
                 value="<% $lookup->{album} %>"><p>
 %    }
    </td>
+   <td>
+       <input type="button" class="GuessCase" value="Guess Case"
+           onclick="this.form.title.value = GuessCase(this.form.title.value)">
+   </td>
 </tr>
 
 <%perl>
-my ($artistname, $sortname, $trackname, $temp, $array);
 
-if ($sep eq ')' || $sep eq '(' || $sep eq '*' || 
-    $sep eq '?' || $sep eq '+' || $sep eq '.' ||
-    $sep eq '[' || $sep eq ']' || $sep eq '.')
+for my $i ( 0 .. $tracks-1 )
 {
-   $sep = "\\$sep";
-}
+	my ($artistname, $sortname, $trackname) = ("", "", "");
 
-for($i = 0; $i < $tracks; $i++) 
-{
-   $artistname = $trackname = "";
    if (defined $lookup)
    {
-       my $exp;
+	   $artistname = $trackname = $lookup->{tracks}[$i]{'track'};
 
-       $array = $lookup->{tracks};
-       $temp = $$array[$i]->{track};
-       $artistname = $trackname = $temp;
-
-       $exp = '(.*)\s*'.$sep.'\s*(.*)';
-       if ($temp =~ m|$exp|)
+       if ($trackname =~ /(.*)\s*\Q$sep\E\s*(.*)/)
        {
            if (defined $1 && defined $2)
            {
@@ -184,6 +173,9 @@ for($i = 0; $i < $tracks; $i++)
    }
    
 </%perl>
+
+	<tr><td>&nbsp;</td></tr>
+
     <tr>
        <td valign="top"><font class="bold">Track <% $i + 1 %>:</font></td>
       <td align="right" valign="top">Track Name:</td>
@@ -191,20 +183,49 @@ for($i = 0; $i < $tracks; $i++)
          <input type="text" name="track<% $i %>" size="50" maxlength="255"
                 value="<% $trackname %>">
       </td>
+      <td>
+         <input type="button" class="GuessCase" value="Guess Case"
+           onclick="this.form['track<% $i %>'].value
+					  = GuessCase(this.form['track<% $i %>'].value)">
+      </td>
     </tr>
 
     <tr>
       <td colspan="2" align="right" valign="top">Artist Name:</td>
       <td><input type="text" name="artistname<% $i %>" size="50" maxlength="255"
                 value="<% $artistname %>"></td>
+      <td>
+         <input type="button" class="GuessCase" value="Guess Case"
+           onclick="this.form['artistname<% $i %>'].value
+					  = GuessCase(this.form['artistname<% $i %>'].value)">
     </tr>
 
     <tr>
       <td colspan="2" align="right" valign="top">Sort Name:</td>
       <td><input type="text" name="sortname<% $i %>" size="50" maxlength="255"
                 value="<% $sortname %>"><p></td>
+      <td>
+         <input type="button" class="GuessSortname" value="Guess Sort Name"
+           onclick="this.form['sortname<% $i %>'].value
+					  = GuessSortname(this.form['artistname<% $i %>'].value)">
+      </td>
     </tr>
 % }
+
+    <tr>
+	  <td colspan="3"></td>
+	  <td><input type="button" class="GuessAll" value="Guess All" onclick="
+				 this.form.title.value = GuessCase(this.form.title.value);
+% for my $i ( 0 .. $tracks-1 ) {
+           this.form['track<% $i %>'].value
+					  = GuessCase(this.form['track<% $i %>'].value);
+           this.form['artistname<% $i %>'].value
+					  = GuessCase(this.form['artistname<% $i %>'].value);
+           this.form['sortname<% $i %>'].value
+					  = GuessSortname(this.form['artistname<% $i %>'].value);
+% }
+	  "></td>
+	</tr>
 </table>
 
 <input type="hidden" name="artist" value="<% &ModDefs::VARTIST_ID %>">

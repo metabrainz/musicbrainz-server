@@ -63,7 +63,7 @@ if ($freedb)
             this CD from FreeDB:<p>
 %        }
 %        if (!$freedb && !$noncd) {
-           <form method="POST" action="/cdi/enter.html" Name="FreeDBLookup"
+           <form method="POST" action="/cdi/enter.html"
                  enctype="application/x-www-form-urlencoded" class="formstyle">
            <input type="hidden" name="id" value="<% $id %>">
            <input type="hidden" name="toc" value="<% $toc %>">
@@ -80,8 +80,9 @@ if ($freedb)
 % }
 
 <script type="text/javascript" src="/scripts/entervalidate.js"></script>
+<script type="text/javascript" src="/scripts/guess.js"></script>
 
-<form method="POST" action="/cdi/selectattr.html" Name="EnterCD"
+<form method="POST" action="/cdi/selectattr.html"
       enctype="application/x-www-form-urlencoded" class="formstyle"
       onsubmit="return validate(this);">
 <table>
@@ -122,7 +123,11 @@ if ($freedb)
     <input type="text" name="title" size="50" maxlength="255"
            value="<% $lookup->{album} %>">
 % }
-</td></tr>
+</td>
+    <td align="center"><input type="button" value="Guess Case"
+		onclick="this.form.title.value = GuessCase(this.form.title.value)"
+		></td>
+</tr>
 
 % for($i = 0; $i < $tracks; $i++) {
     <tr><td>Track <% $i + 1 %>:</td><td>
@@ -134,9 +139,22 @@ if ($freedb)
          <input type="text" name="track<% $i %>" size="50" maxlength="255"
            value="<% $$ar[$i]->{track} %>">
 %     }
-    
-    </td></tr>
+    </td>
+        <td align="center"><input type="button" value="Guess Case"
+			onclick="this.form.track<% $i %>.value = GuessCase(this.form.track<% $i %>.value)"
+			></td>
+    </tr>
 % }
+    <tr>
+	<td></td><td></td>
+        <td align="center"><input type="button" value="Guess All"
+			onclick="
+			   this.form.title.value = GuessCase(this.form.title.value);
+% for($i = 0; $i < $tracks; $i++) {
+				this.form.track<% $i %>.value = GuessCase(this.form.track<% $i %>.value);
+% }
+			"></td>
+	</tr>
 </table>
 
 <input type="hidden" name="id" value="<% $id %>">

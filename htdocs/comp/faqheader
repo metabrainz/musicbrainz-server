@@ -3,4 +3,3 @@ $title
 </%args>
 
 <& /comp/section, title=>$title &>
-<table border="0">

@@ -65,6 +65,19 @@
 
 <& /comp/faqheader, title=>'TRM Questions' &>
 
+<p>
+	<b>Note:</b> Please read
+	<a href="/docs/20031108-2.html">How TRM Generation Works</a>.&nbsp;
+	It helps to answer many of these questions.
+</p>
+
+<& /comp/faqentry,
+	question => "How are TRMs generated?",
+	answer => qq{
+		Please see <a href="/docs/20031108-2.html">How TRM Generation Works</a>.
+	},
+&>
+
 <& /comp/faqentry,
    question=>'Why does the Tagger need to use the Internet to create TRM ids?',
    answer=>'Calculating a TRM Id for a file happens in two steps: 1. the acoustic fingerprint (about 500 bytes) is calculated locally and then sent to the TRM signature server. 2. The signature server then looks at all the previously known TRMs ids and attempts to match the submitted acoustic fingerprint with an existing TRM. If it is not found, a new TRM id is assigned to this fingerprint.',
@@ -78,14 +91,17 @@
 &>
 
 <& /comp/faqentry,
-   question=>'Can I calculate the acoustic fingerpritns and defer the Internet lookup until later?',
-   answer=>'No, we do not have support for that yet.',
+   question=>'Can I calculate the acoustic fingerprints and defer the Internet lookup until later?',
+	 answer=>qq{
+		Technically this is possible, but we do not support it yet.&nbsp;
+		A future version of the MusicBrainz client software may support this.
+	 },
    name=>''
 &>
 
 <& /comp/faqentry,
    question=>'Where can I download the source to the TRM signature server?',
-   answer=>'You can\'t. It is closed source proprietary software that has been provided by <a href="http://relatable.com">Relatable</a>. We have a contract with Relatable that gives us the priviledge to use a binary only version of the signature server.',
+   answer=>'You can\'t. It is closed source proprietary software that has been provided by <a href="http://relatable.com">Relatable</a>. We have a contract with Relatable that gives us the privilege to use a binary only version of the signature server.',
    name=>''
 &>
 

@@ -461,8 +461,8 @@ sub AlbumSearch
                         album_discids=>$al->GetDiscidCount(),
                         album_trmids=>$al->GetTrmidCount(),
                         albumtype=>$albumtype});
-           $this->{album} = $al;
-	   last;
+           $this->{album} = $al if (scalar(@ids) == 1);
+           $this->{album} = undef if (scalar(@ids) > 1);
        }
    }
 
