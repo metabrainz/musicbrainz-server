@@ -14,9 +14,8 @@ $weburl=>""
 
 <%perl>
 
-my ($ui, $info, $mb);
-$mb = $m->comp("/comp/dblogin");
-$ui = UserStuff->new($mb->{DBH});
+my $mb = $m->comp("/comp/dblogin");
+my $ui = UserStuff->new($mb->{DBH});
 
 if ($user ne "")
 {
@@ -45,7 +44,8 @@ if ($update && $session{uid} != $uid)
     return undef;
 }
 
-$info = $ui->GetUserInfo($uid);
+my $info = $ui->newFromId($uid);
+
 if (!defined $info)
 {
      $m->out("User $uid was not found.");
@@ -80,9 +80,9 @@ if ($update > 1)
         $mb->Logout();
         return undef;
     }
-    if ($info->{email} ne $email)
+	if ($info->GetEmail ne $email)
     {
-        my $ret = $ui->SendVerificationEmail($info, $email);
+        my $ret = $info->SendVerificationEmail($email);
         if ($ret)
         {
             </%perl>
@@ -105,7 +105,7 @@ if ($update > 1)
 
         # Reset the email address to the old one since this one has
         # not been verified yet.
-        $email = $info->{email};
+        $email = $info->GetEmail;
     }
     $ui->SetUserInfo($uid, $email, $password1, $weburl, $bio);
 
@@ -114,13 +114,13 @@ if ($update > 1)
 }
 
 
-my $membersince = $m->comp("/comp/datetime", $info->{membersince});
+my $membersince = $m->comp("/comp/datetime", $info->GetMemberSince);
 
-if ($info->{membersince} eq "1970-01-01 00:00:00 UTC")
+if ($info->GetMemberSince eq "1970-01-01 00:00:00 UTC")
 {
     $membersince = '<font class="bold">Charter Member</font>';
 } 
-if ($info->{name} eq "rob")
+if ($info->GetName eq "rob")
 {
     $membersince = '<font class="bold">the dawn of this project</font>';
 } 
@@ -136,11 +136,11 @@ $mb->Logout();
 </tr>
 <tr>
     <td width="15%" valign="top" align="right">Name:</td>
-    <td><% $info->{name} %></td>
+    <td><% $info->GetName %></td>
 </tr>
 <tr>
     <td width="15%" valign="top" align="right">User type:</td>
-    <td><% $ui->GetUserType($info->{privs}) %></td>
+    <td><% $info->GetUserType %></td>
 </tr>
 % if ($session{uid} == $uid && $update) {
 <tr>
@@ -161,15 +161,15 @@ $mb->Logout();
 % if ($session{uid} == $uid) {
 %     if ($update) {
         <td><input type="text" name="email" size="40" 
-                   value="<% $info->{email} %>"><br>
+                   value="<% $info->GetEmail %>"><br>
             (If you enter a new email address, you will be required to
             verify the new email address)
         </td>
 %     } else {
-        <td><% $info->{email} ne '' ? $info->{email} : "[none specified/not verified]" %></td>
+        <td><% $info->GetEmail || "[none specified/not verified]" %></td>
 %     }
 % } else {
-    <td><% $info->{email} ne '' ? "[not shown]" : "[none specified]" %></td>
+    <td><% $info->GetEmail ne '' ? "[not shown]" : "[none specified]" %></td>
 % }
 </tr>
 
@@ -177,11 +177,11 @@ $mb->Logout();
     <td valign="top" align="right">Homepage:</td>
 % if ($update) {
     <td><input type="text" name="weburl" size="40" 
-               value="<% $info->{weburl} %>">
+               value="<% $info->GetWebURL %>">
     </td>
 % } else {
-%   if ($info->{weburl} ne "") {    
-		<td><a href="<% $info->{weburl} %>"><% $info->{weburl} %></a></td>
+%   if ($info->GetWebURL ne "") {    
+		<td><a href="<% $info->GetWebURL %>"><% $info->GetWebURL %></a></td>
 %   } else {
        <td>[none specified]</td>
 %   }
@@ -190,12 +190,12 @@ $mb->Logout();
 <tr>
     <td valign="top" align="right">Bio:</td>
 % if ($update) {
-%   $info->{bio} =~ s/<p>/\n/g;
-    <td><textarea name="bio" cols=40 rows=10><% $info->{bio} %></textarea><br>
+%   (my $t = $info->GetBio) =~ s/<p>/\n/g;
+    <td><textarea name="bio" cols=40 rows=10><% $t %></textarea><br>
     (No HTML tags, please!)
     </td>
 % } else {
-    <td><% $info->{bio} ne '' ? $info->{bio} : "[none specified]" |n %></td>
+    <td><% ($info->GetBio || "[none specified]") |n %></td>
 % }
 % if (!$update) {
 <tr>
@@ -210,11 +210,11 @@ $mb->Logout();
 </tr>
 <tr>
     <td valign="top" align="right">Mods Accepted:</td>
-    <td valign="top"><% $info->{modsaccepted} %></td>
+	<td valign="top"><% $info->GetModsAccepted %></td>
 </tr>
 <tr>
     <td valign="top" align="right">Mods Rejected:</td>
-    <td valign="top"><% $info->{modsrejected} %></td>
+    <td valign="top"><% $info->GetModsRejected %></td>
 </tr>
 <tr>
 	<td></td>
