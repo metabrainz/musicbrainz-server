@@ -65,7 +65,8 @@ function GuessCase2(string, inbrackets)
 
 	// normalise some punctuation and spacing
 	string = string.replace(/\s*:\s*/g, ": ");
-	string = string.replace(/\s*,\s*/g, ", ");
+	string = string.replace(/\s*,(?!\d)\s*/g, ", ");
+	string = string.replace(/\s*\.(?!\d)\s*/g, ". ");
 
  	string = string.toLowerCase();
   	var words = string.split(" ");
@@ -77,6 +78,7 @@ function GuessCase2(string, inbrackets)
 	}
 
 	string = words.join(" ");
+	string = CapsHyphen(string);
 	string = LowercaseCommonWords(string);
 	string = MiscTransform(string);
 	string = TrimSquash(string);
@@ -93,7 +95,7 @@ function GuessCase2(string, inbrackets)
 			. replace(/^club\b/i, "club")
 			. replace(/^dance\b/i, "dance")
 			. replace(/^dirty\b/i, "dirty")
-			. replace(/^dis[ck]\b/i, "disc")
+			. replace(/^(cd|dis[ck])\b/i, "disc")
 			. replace(/^extended\b/i, "extended")
 			. replace(/^instrumental\b/i, "instrumental")
 			. replace(/^live\b/i, "live")
@@ -103,7 +105,7 @@ function GuessCase2(string, inbrackets)
 			. replace(/^take\b/i, "take")
 			// common last words of bracketed parts
 			. replace(/\bdemo$/i, "demo")
-			. replace(/\bdis[ck]$/i, "disc")
+			. replace(/\b(cd|dis[ck])$/i, "disc")
 			. replace(/\bedit$/i, "edit")
 			. replace(/\bskit$/i, "skit")
 			. replace(/\bmix$/i, "mix")
@@ -138,11 +140,22 @@ function LowercaseCommonWords(string)
 		. replace(/ or /gi, " or ")
 		. replace(/ the /gi, " the ")
 		. replace(/ to /gi, " to ")
-		// TODO .de: der und
-		// TODO .fr: de du et la le les un une
-		// TODO .es: y
-		// TODO .it: con di
-		// TODO .??: da do del
+		. replace(/ der /gi, " der ")
+		. replace(/ und /gi, " und ")
+		. replace(/ de /gi, " de ")
+		. replace(/ du /gi, " du ")
+		. replace(/ et /gi, " et ")
+		. replace(/ la /gi, " la ")
+		. replace(/ le /gi, " le ")
+		. replace(/ les /gi, " les ")
+		. replace(/ un /gi, " un ")
+		. replace(/ une /gi, " une ")
+		. replace(/ y /gi, " y ")
+		. replace(/ con /gi, " con ")
+		. replace(/ di /gi, " di ")
+		. replace(/ da /gi, " da ")
+		. replace(/ do /gi, " do ")
+		. replace(/ del /gi, " del ")
 		// TODO op? (opus)
 		;
 }
@@ -171,6 +184,8 @@ function MiscTransform(string)
 		. replace(/\bix\b/gi, "IX")
 		. replace(/\bx\b/gi, "X")
 		. replace(/\bbwv\b/gi, "BWV") // Bach
+		. replace(/\bymca\b/gi, "YMCA")
+		. replace(/\bnyc\b/gi, "NYC")
 		// TODO major/minor
 		;
 }
@@ -182,6 +197,18 @@ function TrimSquash(s)
 		. replace(/\s\s*$/, "")
 		. replace(/\s\s*/g, " ")
 		;
+}
+
+function CapsHyphen(s)
+{
+	var hyphen = s.indexOf("-");
+	if (hyphen != -1)
+	{
+		s = s.substring(0, hyphen+1)
+		 + s.charAt(hyphen+1).toUpperCase()
+		 + CapsHyphen(s.substring(hyphen+2, s.length));
+	}
+	return s;
 }
 
 // vi: set ts=4 sw=4 :
