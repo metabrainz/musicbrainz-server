@@ -1,0 +1,105 @@
+%# vi: set ts=2 sw=2 ft=mason :
+<& /comp/sidebar, title => 'October 19th, 2003: Server Updates', head => '
+<style type="text/css">
+ul, ol { padding-left: 0.7em }
+li { margin-top: 0.5em; margin-bottom: 0.5em }
+</style>
+' &>
+
+<h2>Changes mainly of interest to MusicBrainz Users</h2>
+
+<h3>Album Editor</h3>
+
+<p>
+The Album Editor lets you edit all sorts of aspects of an album on (almost)
+one screen.&nbsp; Currently this means you can edit the album name and
+attributes, and the track names and numbers (and yes, there are lots of "Guess
+Case" buttons to play with).&nbsp; You can also add and remove tracks.&nbsp;
+The Album Editor is found under a link called "Edit All" on each album.
+</p>
+<p>
+So far there are a few limitations which you should know about:
+</p>
+<ol>
+	<li>It only works for single artist albums
+		(don't worry, there will be a multiple-artists version).</li>
+	<li>When you click the "Enter Moderations" button when you're done,
+		you still get the same moderations we currently have - for
+		example, 1 x "Edit Album Name" + 10 x "Edit Track Name" + 1 x "Edit Album
+		Attributes".&nbsp; A future version will probably enter a single
+		"Modify Album" moderation encompassing all of these things, in order to
+		(hopefully) make voting easier.&nbsp;
+		See <a href="http://sourceforge.net/tracker/index.php?func=detail&amp;aid=816269&amp;group_id=19506&amp;atid=119506">bug #816269</a>.</li>
+	<li>You can't use the Album Editor on [non-album tracks].</li>
+</ol>
+
+<h3>Other Changes</h3>
+
+<p>
+If you choose to show the whole album when reviewing "Add Album" mods,
+there is now an extra preference which, when enabled, causes the "Edit" links
+to be shown on those albums.&nbsp; This saves a page load when you want to
+edit the album, at the expense of making the moderation pages a bit bigger.
+</p>
+<p>
+"Merge Artists" mods now merge by artist ID, not name.&nbsp; This means that
+if the target artist is renamed whilst the merge is open, then the merge
+should still succeed.&nbsp; Also, both the source and destination artists are
+marked as "mod pending".
+</p>
+<p>
+"Remove TRM Id" mods were previously problematic if they had to be undone
+(e.g. if they failed the vote).&nbsp; This has now been fixed.&nbsp; If the
+TRM cannot be re-added then the ModBot may note "Unable to re-insert
+TRM".&nbsp; This will only happen on "Remove TRM Id" mods inserted before this
+server update, but closed after; mods inserted after the update will be OK.
+</p>
+<p>
+When the ModBot added a note to your moderations the e-mail used to say:
+"Unfortunately moderator 'ModBot' has not supplied their e-mail address,
+so you can't reply to them.".&nbsp; This message has been removed.
+</p>
+<p>
+The "page selector", used on the moderation pages and the browse artists /
+browse albums pages, now appears both above and below the things you're
+browsing.
+</p>
+<p>
+When moving a Disc ID, [non-album tracks] releases are now not offered as a
+possible place to move it to.
+</p>
+<p>
+"Guess Case" now also knows about the following words:
+album original single (lower case, if inside brackets);
+ft. (becomes feat.); and finally, LP EP BWV and the Roman numerals I to X.
+</p>
+
+<h2>Changes mainly of interest to MusicBrainz Programmers</h2>
+
+<p>
+Nothing new in this release.
+</p>
+
+<h2>Changes mainly of interest to MusicBrainz Server Programmers</h2>
+
+<p>
+When DBDefs::DB_STAGING_SERVER is set, a "Debug" link appears in the nav
+bar.&nbsp; This takes you to /debug.html, a page which displays your session
+data etc.&nbsp; Currently the debug.html page can be accessed even on the live
+server, but this may change in future.
+</p>
+
+<h2>Bugs and RFEs Closed</h2>
+
+<& buglist.inc,
+	'814308 MOD_REMOVE_TRMID needs to save the clientversion',
+	'819217 MOD_MERGE_ARTIST should merge by ID, not name',
+	'819245 MOD_MERGE_ARTIST should mark both artists as "mod pending"',
+	'820533 You can move CD-Indexes to Non-album tracks',
+	'823496 FreeDB import overzealously stripping track numbers',
+	'825943 need page jump at the bottom of the page too',
+	&>
+
+Dave Evans
+
+<& /comp/footer &>
