@@ -1,47 +1,53 @@
+%# vi: set ts=4 sw=4 ft=mason :
 <%perl>
 
-my ($mb, $mod, $key, @yeslist, @nolist, @abslist, $sql);
+$m->comp("/comp/checkloggedin", 1, 1)
+	or return;
+
+my %votemap = (
+	'yes'	=> &ModDefs::VOTE_YES,
+	'no'	=> &ModDefs::VOTE_NO,
+	'abs'	=> &ModDefs::VOTE_ABS,
+);
+
 my $url = $ARGS{url};
 
-foreach $key (keys %ARGS)
+my %votes;
+
+while (my ($key, $vote) = each %ARGS)
 {
-    if ($key =~ /^rowid(\d*)$/)
-    {
-       push @yeslist, $1 if ($ARGS{$key} eq 'yes');
-       push @nolist, $1 if ($ARGS{$key} eq 'no');
-       push @abslist, $1 if ($ARGS{$key} eq 'abs');
-    }
+    my ($modid) = $key =~ /^rowid(\d*)$/
+		or next;
+	$vote = $votemap{$vote};
+	$votes{$modid} = $vote
+		if defined $vote;
 }
 
-$mb = mc_comp("/comp/dblogin");
-$mod = Moderation->new($mb->{DBH});
-$sql = Sql->new($mb->{DBH});
+%votes or return $m->comp("/comp/redirect", $url);
+
+my $mb = $m->comp("/comp/dblogin");
+my $mod = Moderation->new($mb->{DBH});
+my $sql = Sql->new($mb->{DBH});
 
 eval
 {
     $sql->Begin;
-    $mod->InsertVotes($session{uid}, \@yeslist, \@nolist, \@abslist);
+    $mod->InsertVotes($session{uid}, \%votes);
     $sql->Commit;
 };
+
 if ($@)
 {
     my $err = $@;
     $sql->Rollback;
 
-    mc_comp("/comp/sidebar", expand=>"moderation", 
+	$m->comp("/comp/sidebar", expand=>"moderation", 
                             title=>'Insert Vote Error');
-    mc_out("<b>A database error occurred.</b><pre>($err)</pre>");
-    mc_comp("/comp/footer");
+    $m->out("<b>A database error occurred.</b><pre>($err)</pre>");
+	$m->comp("/comp/footer");
     return undef;
 }
 
-$mb->Logout();
-
-$r->method('GET');
-$r->headers_in->unset('Content-length');
-
-$r->content_type('text/html; charset=UTF-8');
-$r->header_out(Location=>$url);
-$r->status(302);
+return $m->comp("/comp/redirect", $url);
 
 </%perl>
