@@ -27,26 +27,22 @@
 package QuerySupport;
 
 use strict;
-use XML::Parser;
-use XML::DOM;
-use DBDefs;
-use TableBase;
-use MusicBrainz;
-use UserStuff;
+
 use Album;
-use Discid;
-use TableBase;
 use Artist;
-use Track;
-use Moderation;
-use TRM;  
-use FreeDB;  
+use DBDefs;
+use Discid;
 use Insert;  
+use Moderation;
+use MusicBrainz;
 use SearchEngine;  
+use TRM;  
+use TaggerSupport;
+use Track;
+use UserStuff;
+
 use Digest::SHA1 qw(sha1_hex);
 use Apache::Session::File;
-use TaggerSupport;
-use Parser;
 
 use vars qw(@ISA @EXPORT);
 @ISA    = @ISA    = '';
