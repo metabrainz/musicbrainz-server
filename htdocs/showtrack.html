@@ -78,16 +78,33 @@ $length_in_secs = int($track->GetLength() / 1000);
     <td valign="top"><% int($length_in_secs / 60) %>:<% sprintf("%02d",($length_in_secs % 60)) %></td>
     </tr><tr>
 % }
-% foreach $id (@TRM) {
-    <td valign="top" align="right"><img src="/images/trm.gif" align="center">
-    TRM Id:</td>
-    <td valign="top"><% $id->{TRM} %> 
-% if (exists $session{user}) {
-        <a href="/remtrm.html?TRMjoin=<% $id->{TRMjoinid} %>&trackid=<% $track->GetId() %>&trmid=<% $id->{TRM} %>">Delete</a>
+
+% if (scalar(@TRM) > 0) {
+    <td valign="top" align="right">TRM Ids:</td>
+    <td>
+       <table>
+       <tr>
+          <td><img src="/images/trm.gif" align="center"></td>
+          <td>Lookup count:</td>
+          <td>&nbsp;</td>
+       </tr>
+%      foreach $id (@TRM) {
+          <tr>
+             <td valign="top"><% $id->{TRM} %></td>
+             <td valign="top" align="center"><% $id->{lookupcount} %></td>
+             <td valign="top">
+%            if (exists $session{user}) {
+                <a href="/remtrm.html?TRMjoin=<% $id->{TRMjoinid} %>&trackid=<% $track->GetId() %>&trmid=<% $id->{TRM} %>">Delete</a>
+%            } else {
+                &nbsp;
+%            }
+             </td>
+          </tr>
+%   }
+       </table>
 % }
     </td>
-    </tr><tr>
-% }
+    </tr>
     </table>
     <& /comp/tableend &> 
     <& /comp/tablebegin, title=>'Artist Information' &> 

@@ -282,6 +282,61 @@ sub CreateFileLookup
    return $out;
 }
 
+sub CreateDumpRDF
+{
+   my ($this, $artistid) = @_;
+   my ($ar, $al, %ref, @albumids, $rdf, @albums, @tracks, $tr);
+
+   $this->{cache} = [];
+
+   $ar = Artist->new($this->{DBH});
+   $ar->SetId($artistid);
+   if (not defined $ar->LoadFromId())
+   {
+       return $this->ErrorRDF("Invalid artist specified.");
+   }
+
+   @albums = $ar->GetAlbums(1);
+   @albums = sort { $a->GetMBId() cmp $b->GetMBId() } @albums;
+   foreach $al (@albums)
+   {
+       push @albumids, $al->GetMBId();
+   }
+
+   $ref{obj} = $ar;
+   $ref{_artist} = \@albumids;
+
+   $rdf = $this->BeginRDFObject();
+   $rdf .= $this->OutputArtistRDF(undef, \%ref) . "\n";
+
+   $this->AddToCache(0, 'artist', 
+                     $ar->GetId(), 
+                     $ar->GetMBId(), 
+                     $ar);
+
+   foreach $al (@albums)
+   {
+       $ref{obj} = $al;
+       #$ref{_artist} = \@albumids;
+
+       $rdf .= $this->OutputAlbumRDF(undef, \%ref) . "\n";;
+       push @tracks, $al->LoadTracks();
+   }
+
+   @tracks = sort { $a->GetMBId() cmp $b->GetMBId() } @tracks;
+   foreach $tr (@tracks)
+   {
+       $ref{obj} = $tr;
+       #$ref{_artist} = \@albumids;
+
+       $rdf .= $this->OutputTrackRDF(undef, \%ref) . "\n";;
+   }
+
+   $rdf .= $this->EndRDFObject;
+
+   return $rdf;
+}
+
 # Check for duplicates, then add if not already in cache
 sub AddToCache
 {
@@ -384,6 +439,7 @@ sub CreateOutputRDF
    my ($this, $type, @ids) = @_;
    my (@cache, %obj, $id, $ref, @newrefs, $i, $total, @gids, $out, $depth); 
 
+   die if (not defined $this->GetBaseURI() || $this->GetBaseURI() eq '');
    return $this->CreateStatus() if (!defined $ids[0]);
 
    $depth = $this->GetDepth();
@@ -635,7 +691,6 @@ sub GetTrackReferences
    push @ret, {%info};
 
    #$info{type} = 'album';
-   #$info{id} = $track->GetAlbum();
    #$info{obj} = undef;
    #push @ret, {%info};
 
@@ -754,7 +809,7 @@ sub OutputAlbumRDF
 sub OutputTrackRDF
 {
     my ($this, $cache, $ref) = @_;
-    my ($out, $artist, @TRM, $gu, $track);
+    my ($out, $artist, @TRM, $gu, $track, $trm);
 
     if (!defined $this->GetBaseURI())
     {
@@ -780,7 +835,10 @@ sub OutputTrackRDF
     {
         $out .=   $this->Element("mm:duration", $track->GetLength());
     }
-    $out .=   $this->Element("mm:trmid", $TRM[0]->{TRM}) if scalar(@TRM);
+    foreach $trm (@TRM)
+    {
+        $out .= $this->Element("mm:trmid", $trm->{TRM});
+    }
     $out .= $this->EndDesc("mm:Track");
 
 

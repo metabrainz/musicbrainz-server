@@ -97,7 +97,7 @@ if (!defined $infile || $infile eq "-h" || $infile eq "--help")
 
 $dir = "/tmp/mbdump";
 
-(!(system("tar -C /tmp -xIf $infile") >> 8))
+(!(system("tar -C /tmp -xjf $infile") >> 8))
    or die("Cannot untar/unzip the database dump.\n");
  
 ImportAllTables($dir);

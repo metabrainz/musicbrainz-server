@@ -80,15 +80,17 @@ sub GetTRMFromTrackId
     my (@row, $sql, @ret);
 
     $sql = Sql->new($this->{DBH});
-    if ($sql->Select(qq|select TRM.TRM, TRMJoin.id 
+    if ($sql->Select(qq|select TRM.TRM, TRMJoin.id, TRM.lookupcount 
                           from TRMJoin, TRM
                          where TRMJoin.track = $id and
-                               TRMJoin.TRM = TRM.id|))
+                               TRMJoin.TRM = TRM.id
+                      order by TRM.lookupcount desc|))
     {
         while(@row = $sql->NextRow())
         {
             push @ret, { TRMjoinid=>$row[1],
-                         TRM=>$row[0]
+                         TRM=>$row[0],
+                         lookupcount=>$row[2]
                        };
         }
         $sql->Finish();
@@ -259,4 +261,14 @@ sub LoadFull
    }
 
    return undef;
+}
+
+sub IncrementLookupCount
+{
+   my ($this, $trm) = @_;
+   my ($sql);
+
+   $sql = Sql->new($this->{DBH});
+   $trm = $sql->Quote($trm);
+   $sql->Do("update TRM set lookupcount = lookupcount + 1 where trm = $trm");
 }

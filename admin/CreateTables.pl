@@ -33,6 +33,8 @@ use Sql;
 # alter table album add column Attributes int[];
 # alter table album alter column Attributes set default '{0}';
 # update album set attributes = '{0}';
+# alter table TRM add column LookupCount int;
+# alter table TRM alter column LookupCount set default 0;
 
 sub CreateTables
 {
@@ -96,7 +98,8 @@ sub CreateTables
 
         $sql->Do(qq|create table TRM (
                        Id serial primary key,
-                       TRM char(36) not null)|)
+                       TRM char(36) not null,
+                       LookupCount int default 0)|)
               or die("Cannot create TRM table");
 
         print "Created TRM table.\n";

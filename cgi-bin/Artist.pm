@@ -347,7 +347,7 @@ sub GetArtistDisplayList
 # also returned by this query. Use SetId() to set the id of artist
 sub GetAlbums
 {
-   my ($this) = @_;
+   my ($this, $novartist) = @_;
    my (@albums, $sql, @row, $album);
 
    # First, pull in the single artist albums
@@ -372,6 +372,8 @@ sub GetAlbums
         }
         $sql->Finish;
    }
+
+   return @albums if (defined $novartist && $novartist);
 
    # then, pull in the multiple artist albums
    if ($sql->Select(qq/select distinct on (AlbumJoin.album) AlbumJoin.album,

@@ -1003,8 +1003,9 @@ sub QuickTrackInfoFromTRMId
    return undef if (!defined $dbh);
 
    $sql = Sql->new($dbh);
+   $id =~ tr/A-Z/a-z/;
    $id = $sql->Quote($id);
-   @data = $sql->GetSingleRowLike(
+   @data = $sql->GetSingleRow(
       "TRM, TRMJoin, Track, AlbumJoin, Album, Artist", 
       ["Track.name", "Artist.name", "Album.name", 
        "AlbumJoin.sequence", "Track.GID", "Track.Length"],
@@ -1014,6 +1015,14 @@ sub QuickTrackInfoFromTRMId
        "Track.id", "AlbumJoin.track",
        "Album.id", "AlbumJoin.album",
        "Track.Artist", "Artist.id"]);
+
+   if (defined $data[0])
+   {
+       my $trm;
+
+       $trm = TRM->new($dbh);
+       $trm->IncrementLookupCount($id);
+   }
 
    $out = $rdf->BeginRDFObject;
    $out .= $rdf->BeginDesc("mq:Result");
