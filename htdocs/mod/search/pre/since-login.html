@@ -1,0 +1,18 @@
+%# vi: set ts=2 sw=2 ft=mason :
+<%perl>
+
+$m->comp("/comp/checkloggedin", 1, 1)
+	or return;
+
+my %filter = (
+	moderator_type	=> 4, # Me
+	minid						=> $session{'moderation_id_start'},
+	orderby					=> "desc",
+);
+
+$m->comp(
+	"/comp/redirect",
+	"/mod/search/results.html?" . $m->comp("/comp/args-to-querystring.inc", %filter)
+);
+
+</%perl>
