@@ -1,93 +1,71 @@
-<& /comp/sidebar, title=>'Remove Artist', expand=>'moderate' &>
+%# vi: set ts=4 sw=4 ft=mason :
+<%args>
+$artist => ""
+</%args>
+
+<& /comp/sidebar, title => 'Remove Artist' &>
 
 <%perl>
 
-my ($mb, $artistname, $ar);
-my ($artist); 
+$m->comp("/comp/checkloggedin", 0, 1)
+	or return;
 
-if (!exists $ARGS{artist} || $ARGS{artist} eq '')
-{
-    mc_comp("/comp/badargs");
-    return undef;
-}
+MusicBrainz::IsNonNegInteger($artist) && $artist
+	or return $m->comp("/comp/badargs", 0, 1);
 
-$artist = $ARGS{artist};
-if ($artist <= 2)
-{
-    mc_out("This artist cannot be deleted.");
-    return undef;
-}
+$artist != ModDefs::VARTIST_ID && $artist != ModDefs::DARTIST_ID
+	or return $m->comp(
+		"/comp/error",
+		"This artist cannot be deleted.",
+		0, 1,
+	);
 
-$mb = mc_comp("/comp/dblogin");
-$ar = Artist->new($mb->{DBH});
+my $mb = $m->comp("/comp/dblogin");
 
+my $ar = Artist->new($mb->{DBH});
 $ar->SetId($artist);
-$ar->LoadFromId();
-$artistname = $ar->GetName();
+$ar->LoadFromId
+	or return $m->comp(
+		"/comp/error",
+		"Artist #$artist does not exist",
+		0, 1,
+	);
 
 </%perl>
 
-% if (!defined $session{user} || $session{user} eq '') {
-    You must be logged in to edit the database.<p>
-    <& /comp/tablebegin, title=>'Login' &>
-    <& /comp/loginbox &>
-    <& /comp/tableend &>
-% } else {
+<h2>Confirm Artist Removal</h2>
 
-    <& /comp/tablebegin, gattrs=>"width=\"100%\"",
-       title=>'Remove Artist' &>
+<form method="post" action="/bare/enter_mod.html" name="RemoveArtistForm"
+	enctype="application/x-www-form-urlencoded">
 
-    <FORM METHOD="POST" ACTION="/bare/enter_mod.html" NAME="RemoveArtistForm"
-          ENCTYPE="application/x-www-form-urlencoded">  
-
-    <table width="100%">
-      <tr>
-        <td colspan="2">
+	<p>
         Are you sure you want to remove artist
-        <span class="bold"><% $artistname %></span>?
-        </td>
-      </tr>
-      <tr>
-        <td>
-        &nbsp;
-        </td>
-        <td>
-        <INPUT TYPE="radio" NAME="confirm0" SIZE=25 value="yes"
+		<b><% $ar->GetName %></b>?
+	</p>
+
+	<p style="margin-left: 2em">
+        <input type="radio" name="confirm0" value="yes"
             ondblclick="this.form.submit()"
             > Yes
-        </td>
-      </tr>
-      <tr>
-        <td>
-        &nbsp;
-        </td>
-        <td>
-        <INPUT TYPE="radio" NAME="confirm0" SIZE=25 value="no" CHECKED
+		<br>
+        <input type="radio" name="confirm0" value="no" checked
             ondblclick="this.form.submit()"
             > No
-        </td>
-      </tr>
-      <tr>
-        <td colspan=2>
-        <INPUT TYPE="submit" NAME="Submit" VALUE="Submit">    
-        </td>
-      </tr>
-    </table>
-    <input type="hidden" name="artist0" value="<% $artist %>">
-    <input type="hidden" name="type0"
-           value="<% ModDefs::MOD_REMOVE_ARTIST %>">
-    <input type="hidden" name="prev0" value="<% $artistname %>">
+	</p>
+
+	<p>
+        <input type="submit" value="Submit">
+	</p>
+
+	<input type="hidden" name="artist0" value="<% $ar->GetId %>">
+    <input type="hidden" name="type0" value="<% ModDefs::MOD_REMOVE_ARTIST %>">
+	<input type="hidden" name="prev0" value="<% $ar->GetName %>">
     <input type="hidden" name="new0" value="DELETE">
     <input type="hidden" name="table0" value="Artist">
     <input type="hidden" name="column0" value="Name">
-    <input type="hidden" name="id0" value="<% $artist %>">
-    <input type="hidden" 
-           name="url" value="/showartist.html?artistid=<% $artist %>">
-    </form>
-      
-    <& /comp/tableend &>
-% }
-% $mb->Logout();
+	<input type="hidden" name="id0" value="<% $ar->GetId %>">
+	<input type="hidden" name="url" value="/showartist.html?artistid=<% $ar->GetId %>">
+</form>
 
 <& /comp/movefocus, "RemoveArtistForm", "confirm0", 0 &>
 <& /comp/footer &>
