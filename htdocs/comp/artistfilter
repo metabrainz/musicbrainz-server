@@ -58,7 +58,6 @@ if ($engine->Result == SEARCHRESULT_NOQUERY)
 	</div>
 
 	<& /comp/movefocus, "ArtistFilterSearch", "search" &>
-	<& /comp/footer &>
 
 	<%perl>
 
