@@ -13,18 +13,24 @@ $name
    <tr>
      <td valign=top>
        <a name="<% $name  %>"></a>
-       <b><font color="#542b89">Q:</font></b>
+       <b><small><font color="#542b89" 
+           FACE="Lucida,Verdana,Helvetica,Arial">Q:</font></small></b>
      </td>
      <td> 
-       <% $question  %>
+       <small><font face="Lucida,Verdana,Helvetica,Arial">
+       <% $question |n %>
+       </font></small>
      </td>
    </tr>
    </tr>
      <td valign=top>
-       <b><font color="#542b89">A:</font></b>
+       <b><small><font color="#542b89" 
+           FACE="Lucida,Verdana,Helvetica,Arial">A:</font></small></b>
      </td>
      <td> 
-       <% $answer  %>
+       <small><font face="Lucida,Verdana,Helvetica,Arial">
+       <% $answer |n %>
+       </font></small>
        <br>
      </td>
    </tr>

@@ -2,6 +2,7 @@
 <tr>
 <td width="49%" valign="top">
   <& /comp/tablebegin, title=>'Search MusicBrainz' &>
+    <center>
     For each of these searches, you may enter a few keywords that
     appear in the title of the artist, album or track. The search
     is case insensitive and partial keywords are ok. (e.g. 'Port' 
@@ -9,14 +10,19 @@
     <& /comp/artistsearchbox &>
     <& /comp/albumsearchbox &>
     <& /comp/tracksearchbox &>
+    </center>
   <& /comp/tableend &>
 
 </td>
 <td width="2%">&nbsp;</td>
 <td width="49%" valign="top">
   <& /comp/tablebegin, title=>'Browse MusicBrainz' &>
-    To browse the database alphabetically, select a letter below:<p>
+    <center>
+    To browse the database alphabetically,<br>
+    select a letter below:<p>
+    </center>
     <& /comp/artistbrowsebox &>
+    <br>
   <& /comp/tableend &>
 
 % if ($session{user} ne "") {
