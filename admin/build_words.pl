@@ -26,6 +26,10 @@ use lib "../cgi-bin";
 use strict;
 use SearchEngine;
 
-my $engine = SearchEngine->new;
+my $mb = MusicBrainz->new;
+$mb->Login;
 
+my $engine = SearchEngine->new($mb->{DBH});
 $engine->RebuildAllIndices;
+
+$mb->Logout();

@@ -45,6 +45,14 @@ sub new
     return $this;
 }  
 
+# Allow one auto commit transaction!
+sub AutoCommit
+{
+    my ($this) = @_;
+  
+    $this->{AutoCommit} = 1;
+}
+
 sub Quote
 {
     my ($this, $data) = @_;
@@ -106,6 +114,13 @@ sub NextRow
     return $this->{STH}->fetchrow_array;
 }
 
+sub NextRowRef
+{
+    my ($this) = @_;
+
+    return $this->{STH}->fetch;
+}
+
 sub GetError
 {
     my ($this) = @_;
@@ -118,11 +133,16 @@ sub Do
     my ($this, $query) = @_;
     my $ret;
 
-   if ($this->{DBH}->{AutoCommit} == 1)
-   {
-       cluck("AutoCommit is turned on!");
-       die "AutoCommit on!"
-   }
+    if (exists $this->{AutoCommit} && $this->{AutoCommit} == 1)
+    {
+        $this->{AutoCommit} = 0;
+        $this->{DBH}->{AutoCommit} = 1;
+    }
+    elsif ($this->{DBH}->{AutoCommit} == 1)
+    {
+        cluck("AutoCommit is turned on!");
+        die "AutoCommit on!"
+    }
 #    die "No transaction started in Do." if ($this->{DBH}->{AutoCommit} == 0);
 #    my (@ltime, $trace, $prefix, @strace, $q);
 #    $trace = Carp::longmess();

@@ -32,6 +32,7 @@ use DBDefs;
 use DBI;
 use MusicBrainz;
 use Text::Unaccent;
+use Sql;
 use locale;
 use POSIX qw(locale_h);
 use utf8;
@@ -74,17 +75,6 @@ sub Limit
     return $self->{Limit};
 }
 
-
-sub DESTROY
-{
-    my $self = shift;
-    if (defined $self->{STH})
-    {
-        $self->{STH}->finish;
-    }
-}
-
-
 sub Tokenize
 {
     my $self  = shift;
@@ -126,73 +116,56 @@ sub AddWord
     my $self = shift;
     my $word = shift;
 
-    my $lookup_sth = $self->{DBH}->prepare_cached ( qq|
-            SELECT Id 
-              FROM WordList 
-             WHERE Word = ?|);
-    $lookup_sth->execute($word);
-    if ($lookup_sth->rows > 0)
+    my $sql = Sql->new($self->{DBH});
+    if ($sql->Select(qq|SELECT Id FROM WordList WHERE Word = '$word'|))
     {
-        if (my $row = $lookup_sth->fetch)
+        my @row;
+        
+        if (@row = $sql->NextRow())
         {
-            $lookup_sth->finish;
-            return $row->[0];
+            $sql->Finish();
+            return $row[0];
         }
-        $lookup_sth->finish;
         return undef;
     }
     else
     {
-        $lookup_sth->finish;
-
-        my $sth = $self->{DBH}->prepare_cached ( qq|
-            INSERT into WordList (Word)
-            VALUES (?)|);
-
-        eval { $sth->execute($word) };
+        eval
+        {
+            $sql->Do(qq|INSERT into WordList (Word) VALUES ('$word')|);
+        };
         if ($@)
         {
             return undef;
         }
 
-        $sth = $self->{DBH}->prepare("select currval('WordList_id_seq')");
-        if ($sth->execute && $sth->rows)
-        {
-            my @row = $sth->fetchrow_array;
-            $sth->finish;
-     
-            return $row[0];
-        }
-        $sth->finish;
-
-        return undef;
+        return $sql->GetLastInsertId('WordList');
     }
 }
 
-sub AddWordRefs {
+sub AddWordRefs 
+{
     my $self = shift;
     my ($object_id,$name) = @_;
     my @words = $self->Tokenize($name);
+
     foreach (@words)
     {
         my $word_id = $self->AddWord ($_);
         next if not defined $word_id;
 
-        my $sth = $self->{DBH}->prepare_cached ( qq|
-            INSERT into $self->{Table}Words ($self->{Table}id, Wordid)
-            VALUES(?,?)
-            |);
+        my $sql = Sql->new($self->{DBH});
         eval 
         { 
            $self->{DBH}->{RaiseError} = 0;
-           $sth->execute($object_id,$word_id);
+           $sql->Do(qq|INSERT into $self->{Table}Words ($self->{Table}id, Wordid) 
+                       VALUES($object_id,$word_id)|);
            $self->{DBH}->{RaiseError} = 1;
         };
         if ($@ && !($@ =~ /Duplicate/) ) 
         {
             print STDERR "Attempt to insert duplicate word ref.\n";
         }
-        $self->{DBH}->{PrintError} = 1;
     }
 }
 
@@ -205,7 +178,8 @@ sub RemoveObjectRefs
 
     $query = "delete from " . $self->{Table} . "Words where " .
              $self->{Table} . "id = $object_id";
-    $self->{DBH}->do($query);
+    my $sql = Sql->new($self->{DBH});
+    $sql->Do($query);
 }
 
 sub GetQuery
@@ -270,8 +244,8 @@ sub Search {
 
     my $query = $self->GetQuery($search);
 
-    $self->{STH} = $self->{DBH}->prepare_cached ( $query );
-    $self->{STH}->execute or print STDERR "Search query failed: $search\n";
+    $self->{STH} = Sql->new($self->{DBH});
+    $self->{STH}->Select($query) or print STDERR "Search query failed: $search\n";
 }
 
 sub GetWhereClause
@@ -295,12 +269,14 @@ sub RebuildIndex
     my $self = shift;
     my ($count, $written);
     
-    $self->{DBH}->do("delete from " . $self->{Table} . "Words");
+    my $sql = Sql->new($self->{DBH});
+    $sql->Begin();
+    $sql->Do("delete from " . $self->{Table} . "Words");
+    $sql->Commit();
 
     # Make postgres analyze its foo to speed up the insertion
-    print STDERR "Postgres: analyze vacuum " . $self->{Table} . "Words\n";
-    $self->{DBH}->{AutoCommit} = 1;
-    $self->{DBH}->do("vacuum analyze " . $self->{Table} . "Words");
+    $sql->AutoCommit();
+    $sql->Do("vacuum analyze " . $self->{Table} . "Words");
 
     my $block_size = 5000;
     for($count = 0;; $count += $block_size)
@@ -311,27 +287,25 @@ sub RebuildIndex
         eval
         {
             print STDERR "Start transaction for $count -> " . ($count + $block_size) . "\n";
+            $sql->Begin;
             $self->{DBH}->{AutoCommit} = 0;
         
-            my $sth = $self->{DBH}->prepare_cached( qq|
-                SELECT Id, Name
-                  FROM $self->{Table}
-                 LIMIT $block_size
-                OFFSET $count
-                |);
-        
-            $sth->execute;
-        
-            while ( my $row = $sth->fetch )
+            if ($sql->Select(qq|SELECT Id, Name
+                              FROM $self->{Table}
+                             LIMIT $block_size
+                            OFFSET $count|))
             {
-                print STDERR "Adding words for $self->{Table} $row->[0]: $row->[1]\n";
-                $self->AddWordRefs(@$row);
-                $written++;
+                while ( my $row = $sql->NextRowRef)
+                {
+                    print STDERR "Adding words for $self->{Table} $row->[0]: $row->[1]\n";
+                    $self->AddWordRefs(@$row);
+                    $written++;
+                }
+                $sql->Finish;
             }
-            $sth->finish;
-    
+
             # And commit all the changes
-            $self->{DBH}->commit;
+            $sql->Commit;
             print STDERR "Commit transaction\n";
         };
         if ($@)
@@ -341,12 +315,12 @@ sub RebuildIndex
 
         # Make postgres analyze its foo to speed up the insertion
         print STDERR "Postgres: vacuum analyze WordList\n";
-        $self->{DBH}->{AutoCommit} = 1;
-        $self->{DBH}->do("vacuum analyze WordList");
+        $sql->AutoCommit();
+        $sql->Do("vacuum analyze WordList");
 
         print STDERR "Postgres: analyze vacuum " . $self->{Table} . "Words\n";
-        $self->{DBH}->{AutoCommit} = 1;
-        $self->{DBH}->do("vacuum analyze " . $self->{Table} . "Words");
+        $sql->AutoCommit();
+        $sql->Do("vacuum analyze " . $self->{Table} . "Words");
 
         if ($written < $block_size)
         {
@@ -360,12 +334,15 @@ sub RebuildAllIndices
     my $self = shift;
     my $orig_table = $self->{Table};
     
-    $self->{DBH}->do("delete from WordList");
+    my $sql = Sql->new($self->{DBH});
+    $sql->Begin();
+    $sql->Do("delete from WordList");
+    $sql->Commit();
 
     # Make postgres analyze its foo to speed up the insertion
     print STDERR "Postgres: analyze vacuum\n";
-    $self->{DBH}->{AutoCommit} = 1;
-    $self->{DBH}->do("vacuum analyze");
+    $sql->AutoCommit();
+    $sql->Do("vacuum analyze");
 
     foreach my $table ( @{$self->{ValidTables}} )
     {
@@ -375,24 +352,23 @@ sub RebuildAllIndices
     $self->{'Table'} = $orig_table;
 }
 
-
 sub Finish
 {
     my $self = shift;
-    $self->{STH}->finish;
+    $self->{STH}->Finish;
     $self->{STH} = undef;
 }
 
 sub Rows
 {
     my $self = shift;
-    $self->{STH}->rows;
+    $self->{STH}->Rows;
 }
 
 sub NextRow
 {
     my $self = shift;
-    return $self->{STH}->fetch;
+    return $self->{STH}->NextRowRef;
 }
 
 1;

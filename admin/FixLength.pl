@@ -27,8 +27,11 @@ use strict;
 use DBI;
 use DBDefs;
 use Album;
+use MusicBrainz;
 
-my $dbh = DBDefs->Connect || die "Cannot connect to database";
+my $mb = MusicBrainz->new;
+$mb->Login;
+my $dbh = $mb->{DBH};
 
 # select all albums
 my $sth = $dbh->prepare('SELECT DISTINCT(Album.Id) FROM Album, TOC WHERE Album.Id = TOC.Album');
@@ -94,4 +97,4 @@ while ( my $row = $sth->fetchrow_hashref )
 }
 
 $sth->finish();
-
+$mb->Logout;
