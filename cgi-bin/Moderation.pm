@@ -656,28 +656,38 @@ sub CheckSpecialCases
 # the rowid of the artist/album for which to return moderations. 
 
 # This function is used within GetModerationList to optimise the
-# "new moderations" query.
+# "new moderations" queries (types TYPE_NEW and TYPE_FREEDB).
+
+sub GetMinOpenModID
 {
-	my ($exptime, $id) = ();
-	my $refresh = 500;
+	my $self = shift;
 
-	sub GetMinOpenModID
-	{
-		my $self = shift;
+	use HTML::Mason::Utils 'access_data_cache';
+	my $cachefile = &DBDefs::CACHE_DIR . "/OldestOpenModID";
 
-		my $now = time;
+	my $v = access_data_cache(
+		cache_file => $cachefile,
+		action => 'retrieve',
+		busy_lock => '10sec',
+	);
 
-		if (not defined($exptime) or $now >= $exptime)
-		{
-			my $sql = Sql->new($self->{DBH});
-			$id = $sql->SelectSingleValue(
-				"SELECT MIN(id) FROM moderation WHERE status = 1",
-			) || 0;
-			$exptime = $now + $refresh;
-		}
+	return $v if defined $v;
+				 
+	print STDERR "Finding oldest open moderation\n";
 
-		$id;
-	}
+	my $sql = Sql->new($self->{DBH});
+	$v = $sql->SelectSingleValue(
+		"SELECT MIN(id) FROM moderation WHERE status = 1",
+	) || 0;
+
+	access_data_cache(
+		cache_file => $cachefile,
+		action => 'store',
+		value => $v,
+		expire_in => '1 hour',
+	);
+
+	$v;
 }
 
 sub GetModerationList
@@ -710,19 +720,21 @@ sub GetModerationList
    }
    elsif ($type == ModDefs::TYPE_MINE)
    {
-       $query = qq|select Moderation.id as moderation_id, tab, col, rowid, 
-                          Moderation.artist, type, prevvalue, newvalue, 
-                          ExpireTime, yesvotes, novotes, status, automod,
-                          Moderator.id as moderator_id, 
-                          Moderator.name as moderator_name, 
-                          Artist.name as artist_name, | .
-                          ModDefs::VOTE_NOTVOTED . qq|
-                     from Moderation, Moderator, Artist 
-                    where Moderator.id = moderator and 
-                          Moderation.artist = Artist.id and 
-                          moderator = $uid 
-                 order by ExpireTime desc 
-                          offset $index|;
+       $query = qq|
+        SELECT  m.id, m.tab, m.col, m.rowid,
+                m.artist, m.type, m.prevvalue, m.newvalue,
+                m.expiretime, m.yesvotes, m.novotes, m.status,
+                m.automod,
+                u.id, u.name,
+                a.name
+        FROM    moderation m
+                INNER JOIN moderator u ON u.id = m.moderator
+                INNER JOIN artist a ON a.id = m.artist
+        WHERE   m.moderator = ?
+        ORDER BY 1 DESC
+	OFFSET ?
+       |;
+       @args = ($uid, $index);
    }
    elsif ($type == ModDefs::TYPE_VOTED)
    {
@@ -737,9 +749,10 @@ sub GetModerationList
                     where Moderator.id = moderation.moderator and 
                           Moderation.artist = Artist.id and 
                           Votes.rowid = Moderation.id and 
-                          Votes.uid = $uid
-                 order by ExpireTime desc 
-                          offset $index|;
+                          Votes.uid = ?
+                 order by 1 desc 
+                          offset ?|;
+	@args = ($uid, $index);
    }
    elsif ($type == ModDefs::TYPE_ARTIST)
    {
@@ -751,26 +764,34 @@ sub GetModerationList
                           Artist.name as artist_name, 
                           Votes.vote
                      from Moderator, Artist, Moderation left join Votes 
-                          on Votes.uid = $uid and Votes.rowid=moderation.id 
+                          on Votes.uid = ? and Votes.rowid=moderation.id 
                     where Moderator.id = moderation.moderator and 
                           Moderation.artist = Artist.id and 
-                          moderation.artist = $rowid
-                 order by ExpireTime desc 
-                          offset $index|;
+                          moderation.artist = ?
+                 order by 1 desc 
+                          offset ?|;
+	@args = ($uid, $rowid, $index);
    }
    elsif ($type == ModDefs::TYPE_FREEDB)
    {
-       $query = qq|select open_moderations_freedb.* 
-                     from open_moderations_freedb left join votes 
-                          on Votes.uid = $uid and Votes.rowid=moderation_id 
-                    where moderator_id = | . ModDefs::FREEDB_MODERATOR . qq| 
-                 group by moderation_id, moderator_id, moderator_name, tab, 
-                          col, open_moderations_freedb.rowid, 
-                          open_moderations_freedb.artist,
-                          type, prevvalue, newvalue, expiretime, yesvotes, 
-                          novotes, status, automod, artist_name, votes.id, 
-                          votes.uid, votes.rowid, votes.vote 
-                   having count(Votes.id) < 1|;
+       $query = qq|
+        SELECT  m.id, m.tab, m.col, m.rowid,
+                m.artist, m.type, m.prevvalue, m.newvalue,
+                m.expiretime, m.yesvotes, m.novotes, m.status,
+                m.automod,
+                u.id, u.name,
+                a.name
+        FROM    moderation m
+                LEFT JOIN votes v ON v.rowid = m.id AND v.uid = ?
+                INNER JOIN moderator u ON u.id = m.moderator
+                INNER JOIN artist a ON a.id = m.artist
+        WHERE   m.moderator = ?
+        AND     m.status = 1
+        AND     m.id >= ?
+        AND     v.vote IS NULL
+        ORDER BY 1
+       |;
+       @args = ($uid, ModDefs::FREEDB_MODERATOR, $this->GetMinOpenModID);
    }
    else
    {
