@@ -77,11 +77,11 @@ sub Select
 
     $ret = eval
     {
-       my $tt = Sql::Timer->new($query, \@params);
-       $this->{STH} = $this->{DBH}->$prepare($query);
-       $ret = $this->{STH}->execute(@params);
+        my $tt = Sql::Timer->new($query, \@params);
+        $this->{STH} = $this->{DBH}->$prepare($query);
+        $ret = $this->{STH}->execute(@params);
 
-       return $this->{STH}->rows;
+        return $this->{STH}->rows;
     };
     if ($@)
     {
@@ -152,7 +152,7 @@ sub Do
 
     $ret = eval
     {
-       my $tt = Sql::Timer->new($query, \@params);
+        my $tt = Sql::Timer->new($query, \@params);
         utf8::downgrade($query);
         my $sth = $this->{DBH}->$prepare($query);
         utf8::downgrade($_) for @params;
@@ -370,7 +370,7 @@ sub SelectSingleRowHash
 
     my $row = eval
     {
-       my $tt = Sql::Timer->new($query, \@params);
+        my $tt = Sql::Timer->new($query, \@params);
         my $sth = $this->{DBH}->prepare_cached($query);
         my $rv = $sth->execute(@params)
             or die;
@@ -403,7 +403,7 @@ sub SelectSingleRowArray
 
     my $row = eval
     {
-       my $tt = Sql::Timer->new($query, \@params);
+        my $tt = Sql::Timer->new($query, \@params);
         my $sth = $this->{DBH}->prepare_cached($query);
         my $rv = $sth->execute(@params)
             or die;
@@ -435,7 +435,7 @@ sub SelectSingleColumnArray
 
     my $col = eval
     {
-       my $tt = Sql::Timer->new($query, \@params);
+        my $tt = Sql::Timer->new($query, \@params);
         my $sth = $this->{DBH}->prepare_cached($query);
         my $rv = $sth->execute(@params)
             or die;
@@ -489,7 +489,7 @@ sub SelectListOfLists
 
     my $data = eval
     {
-       my $tt = Sql::Timer->new($query, \@params);
+        my $tt = Sql::Timer->new($query, \@params);
         my $sth = $this->{DBH}->prepare_cached($query);
         my $rv = $sth->execute(@params)
             or die;
@@ -526,7 +526,7 @@ sub SelectListOfHashes
 
     my $data = eval
     {
-       my $tt = Sql::Timer->new($query, \@params);
+        my $tt = Sql::Timer->new($query, \@params);
         my $sth = $this->{DBH}->prepare_cached($query);
         my $rv = $sth->execute(@params)
             or die;
@@ -552,6 +552,8 @@ sub SelectListOfHashes
     cluck("Failed query:\n  '$query'\n  (@params)\n$err\n");
     die $err;
 }
+
+################################################################################
 
 package Sql::Timer;
 
