@@ -13,13 +13,13 @@ if ($fCallingSelf)
 
 my %stats = %{ $stat->FetchAllAsHashRef };
 
-sub pc
+my $pc = sub
 {
 	my ($n, $of) = @_;
 	return "-" unless $of;
-	my $pc = 100 * $n / $of;
-	sprintf "%.1f%%", $pc;
-}
+	my $pct = 100 * $n / $of;
+	sprintf "%.1f%%", $pct;
+};
 
 
 </%perl>
@@ -70,12 +70,12 @@ sub pc
 	<tr>
 		<th class="StatName">&nbsp; by various artists</th>
 		<td class="NumberCell"><% $stats{"count.album.various"} %></td>
-		<td class="NumberCell"><% pc(@stats{qw( count.album.various count.album )}) %></td>
+		<td class="NumberCell"><% &$pc(@stats{qw( count.album.various count.album )}) %></td>
 	</tr>
 	<tr>
 		<th class="StatName">&nbsp; by a single artist</th>
 		<td class="NumberCell"><% $stats{"count.album.nonvarious"} %></td>
-		<td class="NumberCell"><% pc(@stats{qw( count.album.nonvarious count.album )}) %></td>
+		<td class="NumberCell"><% &$pc(@stats{qw( count.album.nonvarious count.album )}) %></td>
 	</tr>
 </table>
 <& /comp/tableend &>
@@ -98,18 +98,18 @@ sub pc
 	<tr>
 		<th class="StatName">Albums with no Disc ID</th>
 		<td class="NumberCell"><% $stats{"count.album.0discids"} %></td>
-		<td class="NumberCell"><% pc(@stats{qw( count.album.0discids count.album )}) %></td>
+		<td class="NumberCell"><% &$pc(@stats{qw( count.album.0discids count.album )}) %></td>
 	</tr>
 	<tr>
 		<th class="StatName">Albums with at least one Disc ID</th>
 		<td class="NumberCell"><% $stats{"count.album.has_discid"} %></td>
-		<td class="NumberCell"><% pc(@stats{qw( count.album.has_discid count.album )}) %></td>
+		<td class="NumberCell"><% &$pc(@stats{qw( count.album.has_discid count.album )}) %></td>
 	</tr>
 % for (1 .. 10) {
 	<tr>
 		<th class="StatName">&nbsp; with <% $_ %> <% $_==10 ? "or more" : "" %> Disc ID<% $_==1 ? "" : "s" %></th>
 		<td class="NumberCell"><% $stats{"count.album.${_}discids"} %></td>
-		<td class="NumberCell"><% pc(@stats{"count.album.${_}discids", "count.album.has_discid"}) %></td>
+		<td class="NumberCell"><% &$pc(@stats{"count.album.${_}discids", "count.album.has_discid"}) %></td>
 	</tr>
 % }
 </table>
@@ -128,18 +128,18 @@ sub pc
 	<tr>
 		<th class="StatName">Tracks with no TRMs</th>
 		<td class="NumberCell"><% $stats{"count.track.0trms"} %></td>
-		<td class="NumberCell"><% pc(@stats{qw( count.track.0trms count.track )}) %></td>
+		<td class="NumberCell"><% &$pc(@stats{qw( count.track.0trms count.track )}) %></td>
 	</tr>
 	<tr>
 		<th class="StatName">Tracks with at least one TRM</th>
 		<td class="NumberCell"><% $stats{"count.track.has_trm"} %></td>
-		<td class="NumberCell"><% pc(@stats{qw( count.track.has_trm count.track )}) %></td>
+		<td class="NumberCell"><% &$pc(@stats{qw( count.track.has_trm count.track )}) %></td>
 	</tr>
 % for (1 .. 10) {
 	<tr>
 		<th class="StatName">&nbsp; with <% $_ %> <% $_==10 ? "or more" : "" %> TRM<% $_==1 ? "" : "s" %></th>
 		<td class="NumberCell"><% $stats{"count.track.${_}trms"} %></td>
-		<td class="NumberCell"><% pc(@stats{"count.track.${_}trms", "count.track.has_trm"}) %></td>
+		<td class="NumberCell"><% &$pc(@stats{"count.track.${_}trms", "count.track.has_trm"}) %></td>
 	</tr>
 % }
 </table>
@@ -163,13 +163,13 @@ sub pc
 	<tr>
 		<th class="StatName">TRM IDs which identify exactly one track</th>
 		<td class="NumberCell"><% $stats{"count.trm.1tracks"} %></td>
-		<td class="NumberCell"><% pc(@stats{qw( count.trm.1tracks count.trm.ids )}) %></td>
+		<td class="NumberCell"><% &$pc(@stats{qw( count.trm.1tracks count.trm.ids )}) %></td>
 	</tr>
 % for (2 .. 10) {
 	<tr>
 		<th class="StatName">&nbsp; which resolve to <% $_ %> <% $_==10 ? "or more" : "" %> track<% $_==1 ? "" : "s" %></th>
 		<td class="NumberCell"><% $stats{"count.trm.${_}tracks"} %></td>
-		<td class="NumberCell"><% pc(@stats{"count.trm.${_}tracks", "count.trm.ids"}) %></td>
+		<td class="NumberCell"><% &$pc(@stats{"count.trm.${_}tracks", "count.trm.ids"}) %></td>
 	</tr>
 % }
 </table>
@@ -188,17 +188,17 @@ sub pc
 	<tr>
 		<th class="StatName">&nbsp; who edited last week</th>
 		<td class="NumberCell"><% $stats{"count.moderator.editlastweek"} %></td>
-		<td class="NumberCell"><% pc(@stats{qw( count.moderator.editlastweek count.moderator )}) %></td>
+		<td class="NumberCell"><% &$pc(@stats{qw( count.moderator.editlastweek count.moderator )}) %></td>
 	</tr>
 	<tr>
 		<th class="StatName">&nbsp; who voted last week</th>
 		<td class="NumberCell"><% $stats{"count.moderator.votelastweek"} %></td>
-		<td class="NumberCell"><% pc(@stats{qw( count.moderator.votelastweek count.moderator )}) %></td>
+		<td class="NumberCell"><% &$pc(@stats{qw( count.moderator.votelastweek count.moderator )}) %></td>
 	</tr>
 	<tr>
 		<th class="StatName">&nbsp; active last week</th>
 		<td class="NumberCell"><% $stats{"count.moderator.activelastweek"} %></td>
-		<td class="NumberCell"><% pc(@stats{qw( count.moderator.activelastweek count.moderator )}) %></td>
+		<td class="NumberCell"><% &$pc(@stats{qw( count.moderator.activelastweek count.moderator )}) %></td>
 	</tr>
 </table>
 <& /comp/tableend &>
@@ -216,42 +216,42 @@ sub pc
 	<tr>
 		<th class="StatName">&nbsp; Open</th>
 		<td class="NumberCell"><% $stats{"count.moderation.open"} %></td>
-		<td class="NumberCell"><% pc(@stats{qw( count.moderation.open count.moderation )}) %></td>
+		<td class="NumberCell"><% &$pc(@stats{qw( count.moderation.open count.moderation )}) %></td>
 	</tr>
 	<tr>
 		<th class="StatName">&nbsp; Applied</th>
 		<td class="NumberCell"><% $stats{"count.moderation.applied"} %></td>
-		<td class="NumberCell"><% pc(@stats{qw( count.moderation.applied count.moderation )}) %></td>
+		<td class="NumberCell"><% &$pc(@stats{qw( count.moderation.applied count.moderation )}) %></td>
 	</tr>
 	<tr>
 		<th class="StatName">&nbsp; Rejected</th>
 		<td class="NumberCell"><% $stats{"count.moderation.failedvote"} %></td>
-		<td class="NumberCell"><% pc(@stats{qw( count.moderation.failedvote count.moderation )}) %></td>
+		<td class="NumberCell"><% &$pc(@stats{qw( count.moderation.failedvote count.moderation )}) %></td>
 	</tr>
 	<tr>
 		<th class="StatName">&nbsp; Failed (failed dependency)</th>
 		<td class="NumberCell"><% $stats{"count.moderation.faileddep"} %></td>
-		<td class="NumberCell"><% pc(@stats{qw( count.moderation.faileddep count.moderation )}) %></td>
+		<td class="NumberCell"><% &$pc(@stats{qw( count.moderation.faileddep count.moderation )}) %></td>
 	</tr>
 	<tr>
 		<th class="StatName">&nbsp; Failed (failed prerequisitite)</th>
 		<td class="NumberCell"><% $stats{"count.moderation.failedprereq"} %></td>
-		<td class="NumberCell"><% pc(@stats{qw( count.moderation.failedprereq count.moderation )}) %></td>
+		<td class="NumberCell"><% &$pc(@stats{qw( count.moderation.failedprereq count.moderation )}) %></td>
 	</tr>
 	<tr>
 		<th class="StatName">&nbsp; Failed (internal error)</th>
 		<td class="NumberCell"><% $stats{"count.moderation.error"} %></td>
-		<td class="NumberCell"><% pc(@stats{qw( count.moderation.error count.moderation )}) %></td>
+		<td class="NumberCell"><% &$pc(@stats{qw( count.moderation.error count.moderation )}) %></td>
 	</tr>
 	<tr>
 		<th class="StatName">&nbsp; Delete pending</th>
 		<td class="NumberCell"><% $stats{"count.moderation.tobedeleted"} %></td>
-		<td class="NumberCell"><% pc(@stats{qw( count.moderation.tobedeleted count.moderation )}) %></td>
+		<td class="NumberCell"><% &$pc(@stats{qw( count.moderation.tobedeleted count.moderation )}) %></td>
 	</tr>
 	<tr>
 		<th class="StatName">&nbsp; Deleted</th>
 		<td class="NumberCell"><% $stats{"count.moderation.deleted"} %></td>
-		<td class="NumberCell"><% pc(@stats{qw( count.moderation.deleted count.moderation )}) %></td>
+		<td class="NumberCell"><% &$pc(@stats{qw( count.moderation.deleted count.moderation )}) %></td>
 	</tr>
 </table>
 <& /comp/tableend &>
@@ -269,17 +269,17 @@ sub pc
 	<tr>
 		<th class="StatName">&nbsp; Yes</th>
 		<td class="NumberCell"><% $stats{"count.vote.yes"} %></td>
-		<td class="NumberCell"><% pc(@stats{qw( count.vote.yes count.vote )}) %></td>
+		<td class="NumberCell"><% &$pc(@stats{qw( count.vote.yes count.vote )}) %></td>
 	</tr>
 	<tr>
 		<th class="StatName">&nbsp; No</th>
 		<td class="NumberCell"><% $stats{"count.vote.no"} %></td>
-		<td class="NumberCell"><% pc(@stats{qw( count.vote.no count.vote )}) %></td>
+		<td class="NumberCell"><% &$pc(@stats{qw( count.vote.no count.vote )}) %></td>
 	</tr>
 	<tr>
 		<th class="StatName">&nbsp; Abstain</th>
 		<td class="NumberCell"><% $stats{"count.vote.abstain"} %></td>
-		<td class="NumberCell"><% pc(@stats{qw( count.vote.abstain count.vote )}) %></td>
+		<td class="NumberCell"><% &$pc(@stats{qw( count.vote.abstain count.vote )}) %></td>
 	</tr>
 </table>
 <& /comp/tableend &>
@@ -327,7 +327,7 @@ sub pc
 		<tr>
 			<th class="StatName">&nbsp; <% $name %></th>
 			<td class="NumberCell"><% $c %></td>
-			<td class="NumberCell"><% pc($c, $open) %></td>
+			<td class="NumberCell"><% &$pc($c, $open) %></td>
 		</tr>
 		<%perl>
 	}
