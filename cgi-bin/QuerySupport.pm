@@ -48,6 +48,7 @@ use SearchEngine;
 use RDFStore::Parser::SiRPAC;  
 use Digest::SHA1 qw(sha1_hex);
 use Apache::Session::File;
+use TaggerSupport;
 
 BEGIN { require 5.6.1 }
 use vars qw(@ISA @EXPORT);
@@ -1134,9 +1135,9 @@ sub QuickTrackInfoFromTrackId
       "Track, AlbumJoin, Album, Artist", 
       ["Track.name", "Artist.name", "Album.name", 
        "AlbumJoin.sequence", "Track.Length"],
-      ["Track.gid", lc($tid),
+      ["Track.gid", $tid,
        "AlbumJoin.album", "Album.id",
-       "Album.gid", lc($aid),
+       "Album.gid", $aid,
        "Track.id", "AlbumJoin.track",
        "Album.id", "AlbumJoin.album",
        "Track.Artist", "Artist.id"]);
