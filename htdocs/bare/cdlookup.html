@@ -49,8 +49,20 @@ else
         }
         else
         {
-            # redirect to submit
-            $url = "/cdi/submit.html?id=$id&tracks=$tracks&toc=$toc&notfound=1";
+            my $fdb = FreeDB->new($mb->{DBH});
+            my $lookup = $fdb->Lookup($id, $toc);
+
+            if ($lookup)
+            {
+                mc_comp("/comp/sidebar", title=>"CD Found (kinda)");
+                mc_out("Found $lookup->{album} by $lookup->{artist} at FreeDB\n");
+                mc_comp("/comp/footer");
+            }
+            else
+            {
+                # redirect to submit
+                $url = "/cdi/submit.html?id=$id&tracks=$tracks&toc=$toc&notfound=1";
+            }
         }
     }
 

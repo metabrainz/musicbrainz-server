@@ -52,23 +52,37 @@ else
                submitting, click on <b>Select Album</b> next to
                the matching album. If none of the listed albums
                match, click on <b>Album not listed</b>.<p>
+
+               <form method="POST" action="/cdi/enter.html"
+                  enctype="application/x-www-form-urlencoded" class="formstyle">
+               <input type="hidden" name="artist" value="<% $artist %>">
+               <input type="hidden" name="id" value="<% $id %>">
+               <input type="hidden" name="toc" value="<% $toc %>">
+               <input type="hidden" name="tracks" value="<% $tracks %>">
+               <table width="100%"><tr><td align=right>
+               <input type="submit" value="Album not listed>>" name="Select">
+               </td></tr></table>
+               </form>
 %           }    
 
             <form method="POST" action="/cdi/found.html"
                   enctype="application/x-www-form-urlencoded" class="formstyle">
-            <table width=100%><tr>
-            <td align=right>
-               <input type="submit" value="Select <% $albumname %>>>" name="Select">
-            </td>
-            </tr></table>
-
-            <input type="hidden" name="album" value="<% $al->GetId() %>">
-            <input type="hidden" name="id" value="<% $id %>">
-            <input type="hidden" name="toc" value="<% $toc %>">
-            <input type="hidden" name="tracks" value="<% $tracks %>">
+              <table width="100%">
+              <tr>
+                <td width="100%">
+                   <& /comp/album, artist=>$ar, album=>$al, nomod=>1 &>
+                </td>
+                <td align="right" valign="top">
+                   <input type="submit" value="Select <% $albumname %>>>" 
+                          name="Select">
+                   <input type="hidden" name="album" value="<% $al->GetId() %>">
+                   <input type="hidden" name="id" value="<% $id %>">
+                   <input type="hidden" name="toc" value="<% $toc %>">
+                   <input type="hidden" name="tracks" value="<% $tracks %>">
+                </td>
+              </tr>
+              </table>
             </form>
-
-            <& /comp/album, album=>$al, artist=>$ar, nomod=>1 &>
 <%perl>
         }
         else

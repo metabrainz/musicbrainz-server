@@ -21,6 +21,7 @@ use Track;
 use Lyrics;
 use UserStuff;
 use ModDefs;
+use FreeDB;
 use Moderation;
 use ModerationSimple;
 use GUID;

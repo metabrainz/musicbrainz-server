@@ -52,8 +52,11 @@ if (CheckArg(\%ARGS, 'column') &&
         $mod->SetModerator($session{uid});
         $mod->SetDepMod(0);
 
-        $mod->DetermineDependencies();
+        # Do the prevote action (like insert data)
         $mod->PreVoteAction();
+
+        # And now determine if there are any dependencies
+        $mod->DetermineDependencies();
 
         # Go to the item that we just inserted...
         if ($mod->GetType() == ModDefs::MOD_ADD_ALBUM)

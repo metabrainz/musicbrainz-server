@@ -71,20 +71,54 @@ sub ShowNewValue
 sub DetermineDependencies
 {
    my ($this) = @_;
-   my ($nw, $sql, $id);
+   my ($nw, $sql, $id, $numdeps, @row);
 
+   #TODO: ArtistId is not defined at this point. Do a lookup to see if
+   #      the artist is defined. If not, bail, otherwise check depends.
+
+   $nw = $this->ConvertNewToHash($this->{new});
+   $numdeps = 0;
    $sql = Sql->new($this->{DBH}); 
+
+   return if (!defined $this->GetArtist());
+   
    ($id) = $sql->GetSingleRow("Changes", ["id"], 
                               ["type", ModDefs::MOD_ADD_ARTIST,
                                "rowid", $this->GetArtist(),
                                "status", ModDefs::STATUS_OPEN]);
+   print STDERR "depend for album insert\n";
    if (defined $id)
    {
-      $nw = $this->ConvertNewToHash($this->{new});
-      return if (!defined $nw);
-      $nw->{Dep0} = $id;
-      $this->{new} = $this->ConvertHashToNew($nw);
+       if (defined $nw)
+       {
+          print STDERR "change $row[1] depends on artist insert \n";
+          $nw->{"Dep$numdeps"} = $id;
+          $numdeps++;
+       }
    }
+
+   if ($sql->Select(qq|select newvalue, id from Changes where type = | .
+                       ModDefs::MOD_ADD_ALBUM . " and status = " .
+                       ModDefs::STATUS_OPEN))
+   {
+       while(@row = $sql->NextRow())
+       {
+          print STDERR "Check out: $row[0]\n";
+          if ($row[0] =~ /ArtistId=(\d+)/m)
+          {
+              print STDERR "change $row[1] depends on this artist $1\n";
+              if ($this->GetArtist() == $1)
+              {
+                 $nw->{"Dep$numdeps"} = $1;
+                 $numdeps++;
+                 print STDERR "That's me!\n";
+              }
+          }
+       }
+       $sql->Finish();
+   }
+
+   $this->{new} = $this->ConvertHashToNew($nw);
 }
 
 sub PreVoteAction
