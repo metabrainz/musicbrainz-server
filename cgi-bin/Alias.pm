@@ -139,17 +139,12 @@ sub Resolve
        $id = $row[0];
        $sql->Finish;
 
-       eval
-       {
-           $sql->Begin();
-           $sql->Do(qq|update $this->{table} set LastUsed = now(), TimesUsed =
-                   TimesUsed + 1 where id = $row[1]|);
-           $sql->Commit();
-       };
-       if ($@)
-       {
-           return $id;
-       }
+        use MusicBrainz::Server::DeferredUpdate;
+        MusicBrainz::Server::DeferredUpdate->Write(
+            "Alias::UpdateLookupCount",
+            $this->{table},
+            $row[1],
+        );
    }
    return $id;
 }
@@ -244,4 +239,4 @@ sub Parent
 }
 
 1;
-# vi: set ts=8 sw=4 et :
+# vi: set ts=4 sw=4 et :

@@ -79,4 +79,7 @@ use constant DEBUG_LOG => "/tmp/musicbrainz-debug.log";
 use constant WEB_SERVER => "www.musicbrainz.org";
 use constant RDF_SERVER => "mm.musicbrainz.org";
 
+# This log file is used to record updates to perform later.
+use constant DEFERRED_UPDATE_LOG => "/tmp/musicbrainz-deferred-update.log";
+
 1;

@@ -683,20 +683,7 @@ sub TrackInfoFromTRMId
        # If this TRM generated any hits, update the lookup count
        if ($sql->Rows >= 1)
        {
-           my ($trm, $sql2);
-
-           $sql2 = Sql->new($dbh);
-           $trm = TRM->new($dbh);
-           eval
-           {
-               $sql2->Begin();
-               $trm->IncrementLookupCount($id);
-               $sql2->Commit();
-           };
-           if ($@)
-           {
-               $sql2->Rollback();
-           }
+           TRM->IncrementLookupCount($id);
        }
        while(@row = $sql->NextRow())
        {
@@ -767,21 +754,8 @@ sub QuickTrackInfoFromTRMId
    {
        if ($sql->Rows == 1)
        {
-           my ($trm, $sql2);
-
            @data = $sql->NextRow();
-           $sql2 = Sql->new($dbh);
-           $trm = TRM->new($dbh);
-           eval
-           {
-               $sql2->Begin();
-               $trm->IncrementLookupCount($id);
-               $sql2->Commit();
-           };
-           if ($@)
-           {
-               $sql2->Rollback();
-           }
+           TRM->IncrementLookupCount($id);
        }
        else
        {

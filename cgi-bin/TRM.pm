@@ -279,11 +279,14 @@ sub LoadFull
 
 sub IncrementLookupCount
 {
-   my ($this, $trm) = @_;
-   my ($sql);
-
-   $sql = Sql->new($this->{DBH});
-   $sql->Do("update TRM set lookupcount = lookupcount + 1 where trm = ?", $trm);
+	my ($class, $trm) = @_;
+	
+	use MusicBrainz::Server::DeferredUpdate;
+	MusicBrainz::Server::DeferredUpdate->Write(
+		"TRM::IncrementLookupCount",
+		$trm,
+	);
 }
 
 1;
+# vi: set ts=4 sw=4 :
