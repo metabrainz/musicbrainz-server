@@ -28,36 +28,74 @@ use warnings;
 
 package MusicBrainz::Server::ModBot;
 
+use ModDefs qw( :modstatus );
+
 # Originally this was part of "Moderation.pm", but I feel it's large and
 # complex enough to move into a file of its own.
+
+my $fDryRun = 0;
+my $fDebug = 0;
+my $fSummary = 0;
+my $fVerbose = 0;
+
+sub new
+{
+	my ($class, $dbh) = @_;
+	bless {
+		DBH => $dbh,
+	}, ref($class) || $class;
+}
 
 # Go through the Moderation table and evaluate open Moderations
 
 sub CheckModerations
 {
-   my ($this) = @_;
-   my ($sql, $query, $rowid, @row, $status, $dep_status, $mod); 
-   my (%mods, $now, $key);
+	my $this = shift;
+
+	use Getopt::Long;
+	GetOptions(
+		"dryrun|d"	=> \$fDryRun,
+		"debug"		=> \$fDebug,
+		"summary|s"	=> \$fSummary,
+		"verbose|v"	=> \$fVerbose,
+	) or return 1;
+
+	die "Unknown arguments passed to ModBot" if @ARGV;
+
+	print localtime() . " : ModBot starting\n"
+		if $fVerbose;
 
    if (&DBDefs::DB_READ_ONLY)
    {
-	   print "ModBot bailing out because DB_READ_ONLY is set\n";
-	   return;
+	   print localtime() . " : ModBot bailing out because DB_READ_ONLY is set\n";
+	   return 0;
    }
 
-   require Moderation;
-   my $basemod = Moderation->new($this->{DBH});
+	require Moderation;
+	my $basemod = Moderation->new($this->{DBH});
 
-   $sql = Sql->new($this->{DBH});
-   $query = qq|select id from Moderation where status = | . 
-               &ModDefs::STATUS_OPEN . qq| or status = | .
-               &ModDefs::STATUS_TOBEDELETED . qq| order by Moderation.id|;
-   return if (!$sql->Select($query));
+	print localtime() . " : Finding open and to-be-deleted moderations ...\n"
+		if $fVerbose;
 
-   $now = time();
-   while(@row = $sql->NextRow())
-   {
-       $mod = $basemod->CreateFromId($row[0]);
+	my $sql = Sql->new($this->{DBH});
+	$sql->Select(
+		"SELECT id FROM moderation
+		WHERE status = " . STATUS_OPEN
+		. " OR status = " . STATUS_TOBEDELETED
+		. " ORDER BY id",
+	) or return 2;
+
+
+
+	# Fetch each moderation in the set and put it into the %mods hash (keyed
+	# by moderation ID).  Then determine the mod's new status, and save that
+	# in the key "__eval__".
+	my %mods;
+
+	while (my @row = $sql->NextRow())
+	{
+		my $mod = $basemod->CreateFromId($row[0]);
+
        if (!defined $mod)
        {
            print STDERR "Cannot create moderation $row[0]. This " .
@@ -69,23 +107,26 @@ sub CheckModerations
        $mod->{__eval__} = $mod->GetStatus();
        $mods{$row[0]} = $mod;
 
-       print STDERR "\nEvaluate Mod: " . $mod->GetId() . "\n";
+		print localtime() . " : Evaluate Mod: " . $mod->GetId() . "\n"
+			if $fDebug;
 
        # See if this mod has been marked for deletion
-       if ($mod->GetStatus() == &ModDefs::STATUS_TOBEDELETED)
+       if ($mod->GetStatus() == STATUS_TOBEDELETED)
        {
            # Change the status to deleted. 
-           print STDERR "EvalChange: $mod->{id} to be deleted\n";
-           $mod->{__eval__} = &ModDefs::STATUS_DELETED;
+			print localtime() . " : EvalChange: $mod->{id} to be deleted\n"
+				if $fDebug;
+           $mod->{__eval__} = STATUS_DELETED;
            next;
        }
 
        # See if a KeyValue mod is pending for this.
        if ($this->CheckModificationForFailedDependencies($mod, \%mods) == 0)
        {
-           print STDERR "EvalChange: kv dep failed\n";
+			print localtime() . " : EvalChange: kv dep failed\n"
+				if $fDebug;
            # If the prereq. change failed, close this modification
-           $mod->{__eval__} = &ModDefs::STATUS_FAILEDPREREQ;
+           $mod->{__eval__} = STATUS_FAILEDPREREQ;
            next;
        }
 
@@ -101,33 +142,37 @@ sub CheckModerations
            $depmod = $mods{$mod->GetDepMod()};
            if (defined $depmod)
            {
-              print STDERR "DepMod status: " . $depmod->{__eval__} . "\n";
+				print localtime() . " : DepMod status: " . $depmod->{__eval__} . "\n"
+					if $fDebug;
               # We have the dependant change in memory
-              if ($depmod->{__eval__} == &ModDefs::STATUS_OPEN ||
-                  $depmod->{__eval__} == &ModDefs::STATUS_EVALNOCHANGE)
+              if ($depmod->{__eval__} == STATUS_OPEN ||
+                  $depmod->{__eval__} == STATUS_EVALNOCHANGE)
               {
-                  print STDERR "EvalChange: Memory dep still open\n";
+					print localtime() . " : EvalChange: Memory dep still open\n"
+						if $fDebug;
 
                   # If the prereq. change is still open, skip this change 
-                  $mod->{__eval__} = &ModDefs::STATUS_EVALNOCHANGE;
+                  $mod->{__eval__} = STATUS_EVALNOCHANGE;
                   next;
               }
-              elsif ($depmod->{__eval__} != &ModDefs::STATUS_APPLIED)
+              elsif ($depmod->{__eval__} != STATUS_APPLIED)
               {
-                  print STDERR "EvalChange: Memory dep failed\n";
-                  $mod->{__eval__} = &ModDefs::STATUS_FAILEDPREREQ;
+					print localtime() . " : EvalChange: Memory dep failed\n"
+						if $fDebug;
+                  $mod->{__eval__} = STATUS_FAILEDPREREQ;
                   next;
               }
            }
            else
            {
               # If we can't find it, we need to load the status by hand.
-              $dep_status = $this->GetModerationStatus($mod->GetDepMod());
-              if ($dep_status != &ModDefs::STATUS_APPLIED)
+              my $dep_status = $this->GetModerationStatus($mod->GetDepMod());
+              if ($dep_status != STATUS_APPLIED)
               {
-                  print STDERR "EvalChange: Disk dep failed\n";
+					print localtime() . " : EvalChange: Disk dep failed\n"
+						if $fDebug;
                   # The depedent moderation had failed. Fail this one.
-                  $mod->{__eval__} = &ModDefs::STATUS_FAILEDPREREQ;
+                  $mod->{__eval__} = STATUS_FAILEDPREREQ;
                   next;
               }
            }
@@ -140,12 +185,14 @@ sub CheckModerations
            # Are there more yes votes than no votes?
            if ($mod->GetYesVotes() <= $mod->GetNoVotes())
            {
-               #print STDERR "EvalChange: expire and voted down\n";
-               $mod->{__eval__} = &ModDefs::STATUS_FAILEDVOTE;
+				#print localtime () . " : EvalChange: expire and voted down\n"
+				#	if $fDebug;
+               $mod->{__eval__} = STATUS_FAILEDVOTE;
                next;
            }
-           print STDERR "EvalChange: expire and approved\n";
-           $mod->{__eval__} = &ModDefs::STATUS_APPLIED;
+			print localtime() . " : EvalChange: expire and approved\n"
+				if $fDebug;
+           $mod->{__eval__} = STATUS_APPLIED;
            next;
        }
 
@@ -153,36 +200,80 @@ sub CheckModerations
        if ($mod->GetYesVotes() >= &DBDefs::NUM_UNANIMOUS_VOTES && 
            $mod->GetNoVotes() == 0)
        {
-           print STDERR "EvalChange: unanimous yes\n";
+			print localtime() . " : EvalChange: unanimous yes\n"
+				if $fDebug;
            # A unanimous yes. 
-           $mod->{__eval__} = &ModDefs::STATUS_APPLIED;
+           $mod->{__eval__} = STATUS_APPLIED;
            next;
        }
 
        if ($mod->GetNoVotes() >= &DBDefs::NUM_UNANIMOUS_VOTES && 
            $mod->GetYesVotes() == 0)
        {
-           print STDERR "EvalChange: unanimous no\n";
+			print localtime() . " : EvalChange: unanimous no\n"
+				if $fDebug;
            # A unanimous no.
-           $mod->{__eval__} = &ModDefs::STATUS_FAILEDVOTE;
+           $mod->{__eval__} = STATUS_FAILEDVOTE;
            next;
        }
-       print STDERR "EvalChange: no change\n";
+	   
+		print localtime() . " : EvalChange: no change\n"
+			if $fDebug;
 
        # No condition for this moderation triggered. Leave it alone
-       $mod->{__eval__} = &ModDefs::STATUS_EVALNOCHANGE;
-   }
-   $sql->Finish;
+       $mod->{__eval__} = STATUS_EVALNOCHANGE;
+	}
 
-   foreach $key (reverse sort { $a <=> $b} keys %mods)
+	$sql->Finish;
+
+	# Now we've decided each moderation's fate, update the database as
+	# appropriate.
+
+	my %count;
+	my %failedcount;
+	my %status_name_from_number = reverse %{ ModDefs::status_as_hashref() };
+
+	# This sub will be used to report any errors we encounter.
+	my $report_error = sub {
+		my ($err, $mod, $actiondesc) = @_;
+
+		printf STDERR "%s : An error occurred while trying to set mod #%d to %s (%s).  The error was:\n",
+			scalar(localtime),
+			$mod->GetId,
+			$status_name_from_number{ $mod->{__eval__} },
+			$actiondesc;
+
+		chomp $err;
+		print $err, "\n";
+
+		unless (eval { $sql->Rollback; 1 })
+		{
+			chomp $@;
+			print STDERR localtime() . " : Additionally, the ROLLBACK failed ($@)\n";
+		}
+
+		print STDERR localtime() . " : The moderation will remain open.\n";
+
+		++$failedcount{ $mod->{__eval__} };
+   };
+
+   # Now run through each mod and do whatever's necessary; namely, nothing,
+   # approve, deny, or delete.
+
+   foreach my $key (reverse sort { $a <=> $b} keys %mods)
    {
-       print STDERR "Check mod: $key\n";
-       $mod = $mods{$key};
-       next if ($mod->{__eval__} == &ModDefs::STATUS_EVALNOCHANGE);
+       print localtime() . " : Check mod: $key\n" if $fDebug;
 
-       if ($mod->{__eval__} == &ModDefs::STATUS_APPLIED)
+       my $mod = $mods{$key};
+	   my $newstate = $mod->{__eval__};
+	   ++$count{$newstate};
+
+       if ($newstate == STATUS_APPLIED)
        {
-           print STDERR "Mod " . $mod->GetId() . " applied\n";
+			print localtime() . " : Applying mod #" . $mod->GetId . "\n"
+				if $fVerbose;
+			next if $fDryRun;
+
            eval
            {
                my $status;
@@ -196,60 +287,79 @@ sub CheckModerations
 
                $sql->Commit;
            };
-           if ($@)
-           {
-               my $err = $@;
-               $sql->Rollback;
 
-               print STDERR "CheckModsError: Moderation commit failed -- mod " . 
-                            $mod->GetId . " will remain open.\n($err)\n";
-           }
+		   $report_error->($@, $mod, "approve") if $@;
+		   next;
        }
-       elsif ($mod->{__eval__} == &ModDefs::STATUS_DELETED)
+
+       if ($newstate == STATUS_DELETED)
        {
-           print STDERR "Mod " . $mod->GetId() . " deleted\n";
+			print localtime() . " : Deleting mod #" . $mod->GetId() . "\n"
+				if $fVerbose;
+			next if $fDryRun;
+
            eval
            {
                $sql->Begin;
 
-               $mod->SetStatus(&ModDefs::STATUS_DELETED);
+               $mod->SetStatus(STATUS_DELETED);
                $mod->DeniedAction;
-               $mod->CloseModeration($mod->{__eval__});
+               $mod->CloseModeration(STATUS_DELETED);
 
                $sql->Commit;
            };
-           if ($@)
-           {
-               my $err = $@;
-               $sql->Rollback;
 
-               print STDERR "CheckModsError: Moderation commit failed -- mod " . 
-                            $mod->GetId . " will remain open.\n($err)\n";
-           }
+		   $report_error->($@, $mod, "delete") if $@;
+		   next;
        }
-       else
+       
+       if ($newstate != STATUS_EVALNOCHANGE)
        {
-           print STDERR "Mod " . $mod->GetId() . " denied\n";
+			print localtime() . " : Denying mod #" . $mod->GetId() . "\n"
+				if $fVerbose;
+			next if $fDryRun;
+
            eval
            {
                $sql->Begin;
 
                $mod->DeniedAction;
                $mod->CreditModerator($mod->GetModerator, 0, 1);
-               $mod->CloseModeration($mod->{__eval__});
+               $mod->CloseModeration($newstate);
 
                $sql->Commit;
            };
-           if ($@)
-           {
-               my $err = $@;
-               $sql->Rollback;
 
-               print STDERR "CheckModsError: Moderation commit failed -- mod " . 
-                            $mod->GetId . " will remain open.\n($err)\n";
-           }
+		   $report_error->($@, $mod, "deny") if $@;
+		   next;
        }
+
+	   # Otherwise: no change, so do nothing.
    }
+
+	if ($fSummary)
+	{
+		print localtime() . " : Summary:\n";
+
+		for my $statnum (sort { $a <=> $b } keys %status_name_from_number)
+		{
+			my $count = $count{$statnum} or next;
+			my $statname = $status_name_from_number{$statnum};
+
+			printf "%s :   %-20.20s %5d",
+				scalar localtime(), $statname, $count;
+
+			my $f = $failedcount{$statnum};
+			print " ($f failed)" if $f;
+
+			print "\n";
+		}
+	}
+
+	print localtime() . " : ModBot completed\n"
+		if $fVerbose;
+
+	0;
 }
 
 # Check a given moderation for any dependecies that may have not been met
@@ -264,7 +374,8 @@ sub CheckModificationForFailedDependencies
        # FIXME this regex looks too slack for my liking
        if ($mod->GetNew() =~ m/Dep$i=(.*)/m)
        {
-           #print STDERR "Mod: " . $mod->GetId() . " depmod: $1\n";
+           #print localtime() . " : Mod: " . $mod->GetId() . " depmod: $1\n"
+		   #	if $fDebug;
            $depmod = $modhash->{$1};
            if (defined $depmod)
            {
@@ -275,9 +386,9 @@ sub CheckModificationForFailedDependencies
               ($status) = $sql->GetSingleRow("Moderation", ["status"], ["id", $1]);
            }
            if (!defined $status || 
-               $status == &ModDefs::STATUS_FAILEDVOTE ||
-               $status == &ModDefs::STATUS_FAILEDDEP ||
-               $status == &ModDefs::STATUS_DELETED)
+               $status == STATUS_FAILEDVOTE ||
+               $status == STATUS_FAILEDDEP ||
+               $status == STATUS_DELETED)
            {
               return 0;
            }
@@ -301,7 +412,7 @@ sub GetModerationStatus
 		$id,
 	);
 
-	defined($status) ? $status : &ModDefs::STATUS_ERROR;
+	defined($status) ? $status : STATUS_ERROR;
 }
 
 1;
