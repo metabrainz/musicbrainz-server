@@ -179,15 +179,6 @@ $mbt=>0
 
 <%perl>
 
-my $format_tracklen = sub
-{
-	my $ms = shift()
-		or return "?:??";
-	return "$ms ms" if $ms < 1000;
-	my $s = $ms / 1000;
-	sprintf "%d:%02d", int($s / 60), ($s % 60);
-};
-
 my $bgcolor= '#ffffff';
 
 my $mb = $m->comp("/comp/dblogin");
@@ -390,7 +381,7 @@ if ($flags & TaggerSupport::ARTISTLIST)
        my %copy = %data;
 
        </%perl>
-       <b>Found matching artists</b>:<p>
+	   <p><b>Found matching artists</b>:</p>
        <& /comp/framedboxbegin, width=>"420" &>
        <table cellspacing="0" width="100%">
           <tr>
@@ -418,8 +409,7 @@ if ($flags & TaggerSupport::ARTISTLIST)
    else
    {
        </%perl>
-       <br>
-       <b>Found no matching artists.</b><p>
+	   <p><b>Found no matching artists.</b></p>
        <%perl>
    }
 
@@ -437,7 +427,7 @@ elsif ($flags & TaggerSupport::ALBUMLIST)
        my %copy = %data;
 
        </%perl>
-       <b>Found matching albums</b>:<p>
+	   <p><b>Found matching albums</b>:</p>
        <& /comp/framedboxbegin &>
        <table cellspacing="0" width="100%">
           <tr>
@@ -488,8 +478,7 @@ elsif ($flags & TaggerSupport::ALBUMLIST)
    else
    {
        </%perl>
-       <br>
-       <b>Found no matching albums.</b><p>
+	   <p><b>Found no matching albums.</b></p>
        <%perl>
    }
 
@@ -537,7 +526,7 @@ elsif ($flags & TaggerSupport::ALBUMTRACKLIST)
        my %copy = %data;
 
        </%perl>
-       <b>Found matching albums/tracks</b>:<p>
+	   <p><b>Found matching albums/tracks</b>:</p>
        <& /comp/framedboxbegin &>
        <table cellspacing="0" width="100%">
           <tr>
@@ -574,7 +563,7 @@ elsif ($flags & TaggerSupport::ALBUMTRACKLIST)
                   title="This album has <% $id->{album_trmids} %> TRM Ids">&nbsp;
              </td>
              <td valign="top" width="40%" rowspan="2"><a href="/showtrack.html?trackid=<% $id->{id} %>"><% $id->{name} %></a></td>
-             <td valign="top" align="center" rowspan="2"><% &$format_tracklen($id->{tracklen}) %></td>
+             <td valign="top" align="center" rowspan="2"><% Track::FormatTrackLength($id->{tracklen}) %></td>
              <td valign="top" align="center" rowspan="2"><% int($id->{sim} * 100) %>%</td>
              <td valign="top" align="right" rowspan="2">
 %               $copy{trackid} = $id->{mbid};
@@ -599,8 +588,7 @@ elsif ($flags & TaggerSupport::ALBUMTRACKLIST)
    else
    {
        </%perl>
-       <br>
-       <b>Found no matching albums or tracks.</b><p>
+	   <p><b>Found no matching albums or tracks.</b></p>
        <%perl>
    }
 }
@@ -610,7 +598,7 @@ elsif (($flags & TaggerSupport::ARTISTID) &&
        ($flags & TaggerSupport::TRACKID))
 {
    </%perl>
-   <b>Found matching track:</b><p>
+   <p><b>Found matching track:</b></p>
    <& .OutputArtist, $ts, $result &>
    <& .OutputTrack, $ts, $result &>
    <%perl>
@@ -622,7 +610,7 @@ elsif (($flags & TaggerSupport::ARTISTID) &&
        ($flags & TaggerSupport::TRACKID))
 {
    </%perl>
-   <b>Found matching track:</b><p>
+   <p><b>Found matching track:</b></p>
    <& .OutputArtist, $ts, $result &>
    <& .OutputTrack, $ts, $result &>
    <%perl>
@@ -632,7 +620,7 @@ elsif (($flags & TaggerSupport::ARTISTID) &&
 elsif ($flags & TaggerSupport::TRACKID)
 {
    </%perl>
-   <b>Found matching track:</b><p>
+   <p><b>Found matching track:</b></p>
    <& .OutputArtist, $ts, $result &>
    <& .OutputTrack, $ts, $result &>
    <%perl>
@@ -643,17 +631,17 @@ elsif (($flags & TaggerSupport::ARTISTID) &&
        ($flags & TaggerSupport::ALBUMID))
 {
    </%perl>
-   <b>Found matching album:</b><p>
+   <p><b>Found matching album:</b></p>
    <& .OutputArtist, $ts, $result &>
+   <& .OutputAlbum, $ts, $result &>
    <%perl>
-	$m->comp(".OutputAlbum", $ts, $result);
 }
 
 # Exactly one matching artist
 elsif ($flags & TaggerSupport::ARTISTID)
 {
    </%perl>
-   <b>Found matching artist:</b><p>
+   <p><b>Found matching artist:</b></p>
    <& .OutputArtist, $ts, $result &>
    <& /comp/lookupoptions, artist=>$artist, artistobj=>$ts->{artist}, 
                            album=>$album, albumobj=>$ts->{album}, data=>\%data &>
@@ -664,7 +652,7 @@ elsif ($flags & TaggerSupport::ARTISTID)
 else
 {
    </%perl>
-   <b>No matching artists found.</b><p>
+   <p><b>No matching artists found.</b></p>
    <& /comp/lookupoptions, artist=>$artist, artistobj=>$ts->{artist}, 
                            album=>$album, albumobj=>$ts->{album}, data=>\%data &>
    <%perl>
@@ -672,8 +660,6 @@ else
 
 </%perl>
 
-<br>
-<p>
 <center>
 <& /comp/tablebegin, title=>'Modify Lookup', bgcolor=>"#f0efff" &>
 <& .OutputEditForm, \%orig_data &>
