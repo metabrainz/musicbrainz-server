@@ -34,7 +34,7 @@ $artist->GetId == &ModDefs::DARTIST_ID
 
 
 
-sub CheckAttributes
+my $CheckAttributes = sub
 {
     my ($a) = @_;
 
@@ -54,7 +54,7 @@ sub CheckAttributes
 	# Used for sorting
     $a->{_attr_type} = Album::ALBUM_ATTR_SECTION_TYPE_END + 1 if (not defined $a->{_attr_type});
     $a->{_attr_status} = Album::ALBUM_ATTR_SECTION_STATUS_END + 1 if (not defined $a->{_attr_status});
-}
+};
 
 # Sort by:
 # 'Various' (non-VA, VA);
@@ -66,7 +66,7 @@ sub CheckAttributes
 # TRM count
 # row id
 
-sub SortAlbums
+my $SortAlbums = sub
 {
 	# Note: false ("") sorts before true (1)
 	($a->{_is_va_} <=> $b->{_is_va_})
@@ -89,7 +89,7 @@ sub SortAlbums
 	($b->{trmidcount} cmp $a->{trmidcount})
 	or
 	($a->GetId cmp $b->GetId)
-}
+};
 
 my @albums = $artist->GetAlbums(0, 1);
 
@@ -122,7 +122,7 @@ EOF
 
     $m->comp("/comp/artisttitle", artist=>$artist);
 
-    $m->out("[ ");
+	$m->out("<div class='LinksRow'>[ ");
     if ($session{uid})
     {
         </%perl>
@@ -173,7 +173,7 @@ EOF
 
 		<%perl>
     }
-    $m->out("]<br>");
+    $m->out("]</div>");
 
 	my $relations = $artist->GetRelations();
 
@@ -237,7 +237,7 @@ EOF
             for my $album (@albums)
             {
                 $hasnonalbum += $album->IsNonAlbumTracks();
-                CheckAttributes($album);
+                &$CheckAttributes($album);
 
 				$album->{_is_va_} = ($album->GetArtist == &ModDefs::VARTIST_ID);
 				$album->{_is_nonalbum_} = ($album->{_attr_type} == Album::ALBUM_ATTR_NONALBUMTRACKS);
@@ -261,7 +261,7 @@ EOF
 				}
             }
 
-            @albums = sort SortAlbums @albums;
+            @albums = sort $SortAlbums @albums;
 
             </%perl>
 
