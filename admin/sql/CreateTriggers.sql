@@ -17,6 +17,12 @@ create trigger a_ins_discid after insert on discid
 create trigger a_del_discid after delete on discid 
                for each row execute procedure decrement_discid_count();
 
+create trigger a_upd_discid_1 after update on discid 
+               for each row execute procedure decrement_discid_count();
+
+create trigger a_upd_discid_2 after update on discid 
+               for each row execute procedure increment_discid_count();
+
 create trigger a_ins_trmjoin after insert on trmjoin 
                for each row execute procedure increment_trmid_count();
 
