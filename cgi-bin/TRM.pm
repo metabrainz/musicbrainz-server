@@ -94,47 +94,66 @@ sub GetTRMFromTrackId
 sub Insert
 {
     my ($this, $TRM, $trackid, $clientver) = @_;
-    my ($id, $sql);
 
+    my $sql = Sql->new($this->{DBH});
+    my $id = $this->GetIdFromTRM($TRM);
     $this->{new_insert} = 0;
-    $sql = Sql->new($this->{DBH});
-
-    $id = $this->GetIdFromTRM($TRM);
-    $TRM = $sql->Quote($TRM);
-    $clientver = $sql->Quote($clientver);
 
     if (!defined $id)
     {
-        my $verid;
+		defined($clientver) or return 0;
+
+        my $verid = $sql->SelectSingleValue(
+			"SELECT id FROM clientversion WHERE version = ?",
+			$clientver,
+		);
         
-        ($verid) = $sql->GetSingleRow("ClientVersion", ["id"], ["version", $clientver]);
         if (not defined $verid)
         {
-            if ($sql->Do(qq/insert into ClientVersion (version) values ($clientver)/))
-            {
-                $verid = $sql->GetLastInsertId("ClientVersion");
-            }
+            $sql->Do("INSERT INTO clientversion (version) VALUES (?)", $clientver)
+				or die;
+			$verid = $sql->GetLastInsertId("clientversion")
+				or die;
         }
 
-        if ($sql->Do(qq/insert into TRM (TRM, version) values ($TRM, $verid)/))
-        {
-            $id = $sql->GetLastInsertId("TRM");
-            $this->{new_insert} = 1;
-        }
+        $sql->Do("INSERT INTO trm (trm, version) VALUES (?, ?)", $TRM, $verid)
+			or die;
+		$id = $sql->GetLastInsertId("trm")
+			or die;
+		$this->{new_insert} = 1;
     }
 
     if (defined $id && defined $trackid)
     {
+		# Damn, now I was *really* hoping this wasn't going to be necessary.
+		# The error I got was: no conversion function from "unknown" to integer
+		# and the "fix" was to force the arguments to be integers by doing a
+		# "0+" on them.
+		# I've used much the same trick before in MySQL, where it's wise to
+		# force each argument to either a number (0+$arg) or a string
+		# ("".$arg) but until now it hadn't been necessary in Postgresql.
 		$sql->Do(
 			"INSERT INTO trmjoin (trm, track)
 				SELECT * FROM (SELECT ?, ?) AS data
 				WHERE NOT EXISTS (SELECT 1 FROM trmjoin WHERE trm = ? AND track = ?)",
-			$id, $trackid,
-			$id, $trackid,
+			0+$id, 0+$trackid,
+			0+$id, 0+$trackid,
 		);
     }
 
     return $id;
+}
+
+sub FindTRMClientVersion
+{
+	my ($self, $trm) = @_;
+	$trm = $self->GetTRM if not defined $trm;
+	my $sql = Sql->new($self->{DBH});
+	$sql->SelectSingleValue(
+		"SELECT cv.version FROM trm t, clientversion cv
+		WHERE t.trm = ? AND cv.id = t.version",
+		$trm,
+	);
 }
 
 # Remove a TRM from the database. Set the id via the accessor function.
