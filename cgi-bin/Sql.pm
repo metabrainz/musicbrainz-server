@@ -75,7 +75,7 @@ sub Select
        $ret = $this->{STH}->execute;
 
        $t->stop;
-       if ($t->result('start') > 0.200)
+       if ($t->result('start') > 10.00)
        {
            print STDERR "--------------------------------------------\n";
            print STDERR "$query\n";

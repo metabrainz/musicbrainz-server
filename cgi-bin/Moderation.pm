@@ -67,7 +67,8 @@ my %ModNames = (
     "23" => "Merge Albums",
     "24" => "Remove Albums",
     "25" => "Merge into Various Artist Album",
-    "26" => "Edit Album Attributes"
+    "26" => "Edit Album Attributes",
+    "27" => "Add TRM Ids"
 );
 
 my %ChangeNames = (
@@ -315,7 +316,8 @@ sub IsAutoModType
         $type == ModDefs::MOD_ADD_TRACK_KV ||
         $type == ModDefs::MOD_MOVE_DISCID ||
         $type == ModDefs::MOD_REMOVE_TRMID ||
-        $type == ModDefs::MOD_EDIT_ALBUMATTRS)
+        $type == ModDefs::MOD_EDIT_ALBUMATTRS ||
+        $type == ModDefs::MOD_ADD_TRMS)
     {
         return 1;
     }
@@ -476,6 +478,10 @@ sub CreateModerationObject
    {
        return EditAlbumAttributesModeration->new($this->{DBH});
    }
+   elsif ($type == ModDefs::MOD_ADD_TRMS)
+   {
+       return AddTRMIdModeration->new($this->{DBH});
+   }
 
    print STDERR "Undefined moderation type $type.\n";
 
@@ -526,6 +532,10 @@ sub InsertModeration
             $this->GetType() == ModDefs::MOD_EDIT_TRACKNAME)
         {
             $automod = 1 if (uc($this->GetNew()) eq uc($this->GetPrev));
+        }
+        elsif ($this->GetType() == ModDefs::MOD_ADD_TRMS)
+        {
+            $automod = 1;
         }
     }
 

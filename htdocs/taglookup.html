@@ -37,7 +37,8 @@ sub OutputArtist
        $ts->{artist}->SetMBId($data->{artistid});
        $ts->{artist}->LoadFromId()
    }
-   mc_comp("/comp/artisttitle", artist=>$ts->{artist}, nomod=>1);
+   mc_out("<a href=\"/showartist.html?artistid=" . $ts->{artist}->GetId());
+   mc_out("\"><font size=\"+2\">" . $ts->{artist}->GetName . "</font></a><p>");
 }
 
 sub OutputAlbum
@@ -105,7 +106,7 @@ sub OutputForm
      <INPUT TYPE="hidden" NAME="trmid" VALUE="$data->{trmid}">
      <INPUT TYPE="hidden" NAME="duration" VALUE="$data->{duration}">
      <INPUT TYPE="hidden" NAME="mbt" VALUE="$data->{mbt}">
-     <INPUT TYPE="submit" NAME="submit" VALUE="Continue &gt;&gt;">
+     <INPUT TYPE="submit" NAME="submit" VALUE="Select">
    </form>|;
 
    return $ret;
@@ -152,7 +153,7 @@ sub OutputEditForm
      </tr>
      <tr>
       <td colspan="2" align="right" valign="top" NOWRAP>
-        <INPUT TYPE="submit" NAME="submit" SIZE="30" VALUE="Lookup &gt;&gt;">
+        <INPUT TYPE="submit" NAME="submit" SIZE="30" VALUE="Lookup">
         <INPUT TYPE="hidden" NAME="mbt" SIZE="2" VALUE="$data->{mbt}">
       </td>
      </tr>
@@ -216,6 +217,7 @@ sub OutputEditForm
 }
 
 my ($mb, $ts, $result, $flags, $list, $error, $id, %data); 
+my $bgcolor= '#ffffff';
 
 $mb = mc_comp("/comp/dblogin");
 $ts = TaggerSupport->new($mb->{DBH});
@@ -243,13 +245,13 @@ if ($flags & TaggerSupport::ARTISTLIST)
 
        </%perl>
        <b>Found matching artists</b>:<p>
-       <table>
+       <table cellspacing="0">
           <tr>
              <th>Artist</th>
              <th>Relevance</th>
           </tr>
 %      foreach $id (@$list) {
-          <tr>
+          <tr bgcolor="<% $bgcolor = ( $bgcolor eq '#ffffff' ? '#ffe1b7' : '#ffffff' ) %>">
              <td valign="top"><a href="/showartist.html?artistid=<% $id->{id} %>"
                  ><% $id->{name} %></a></td>
              <td valign="top" align="center"><% int($id->{sim} * 100) %>%</td>
@@ -282,13 +284,13 @@ elsif ($flags & TaggerSupport::ALBUMLIST)
 
        </%perl>
        <b>Found matching albums</b>:<p>
-       <table>
+       <table cellspacing="0">
           <tr>
              <th>Album</th>
              <th>Relevance</th>
           </tr>
 %      foreach $id (@$list) {
-          <tr>
+          <tr bgcolor="<% $bgcolor = ( $bgcolor eq '#ffffff' ? '#ffe1b7' : '#ffffff' ) %>">
              <td valign="top"><a href="/showalbum.html?albumid=<% $id->{id} %>"
                  ><% $id->{name} %></a></td>
              <td valign="top" align="center"><% int($id->{sim} * 100) %>%</td>
@@ -311,47 +313,9 @@ elsif ($flags & TaggerSupport::ALBUMLIST)
        <%perl>
    }
 }
-elsif ($flags & TaggerSupport::TRACKLIST)
-{
-   OutputArtist($ts, $result);
-
-   if (scalar(@$list) > 0)
-   {
-       my %copy = %data;
-
-       </%perl>
-       <b>Found matching tracks</b>:<p>
-       <table>
-          <tr>
-             <th>Track</th>
-             <th>Relevance</th>
-          </tr>
-%      foreach $id (@$list) {
-          <tr>
-             <td valign="top"><a href="/showtrack.html?trackid=<% $id->{id} %>"
-                 ><% $id->{name} %></a></td>
-             <td valign="top" align="center"><% int($id->{sim} * 100) %>%</td>
-             <td valign="top">
-%               $copy{trackid} = $id->{mbid};
-%               $copy{track} = $id->{name};
-                <% OutputForm(\%copy) |n %>         
-             </td>
-          </tr>
-%      }
-       </table>
-
-       <%perl>
-   }
-   else
-   {
-       </%perl>
-       <font size="+1"><b>Error:</b>There were no matches for the  
-       track <b><% $track %></b>.</font> 
-       <%perl>
-   }
-}
 elsif ($flags & TaggerSupport::ALBUMTRACKLIST)
 {
+
    OutputArtist($ts, $result);
 
    if (scalar(@$list) > 0)
@@ -360,18 +324,19 @@ elsif ($flags & TaggerSupport::ALBUMTRACKLIST)
 
        </%perl>
        <b>Found matching albums/tracks</b>:<p>
-       <table>
+       <table cellspacing="0">
           <tr>
              <th>Album</th>
+             <th>&nbsp;</th>
              <th>Track</th>
              <th>Relevance</th>
+             <th>&nbsp;</th>
           </tr>
 %      foreach $id (@$list) {
-          <tr>
-             <td valign="top"><a href="/showalbum.html?albumid=<% $id->{albumid} %>"
-                 ><% $id->{album} %></a></td>
-             <td valign="top"><a href="/showtrack.html?trackid=<% $id->{id} %>"
-                 ><% $id->{name} %></a></td>
+          <tr bgcolor="<% $bgcolor = ( $bgcolor eq '#ffffff' ? '#ffe1b7' : '#ffffff' ) %>">
+             <td valign="top"><a href="/showalbum.html?albumid=<% $id->{albumid} %>"><% $id->{album} %></a></td>
+             <td width="10">&nbsp;</td>
+             <td valign="top"><a href="/showtrack.html?trackid=<% $id->{id} %>"><% $id->{name} %></a></td>
              <td valign="top" align="center"><% int($id->{sim} * 100) %>%</td>
              <td valign="top">
 %               $copy{trackid} = $id->{mbid};

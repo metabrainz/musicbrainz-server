@@ -651,9 +651,9 @@ sub SubmitTrack
 
 sub SubmitTRMList
 {
-   my ($dbh, $triples, $rdf) = @_;
+   my ($dbh, $triples, $rdf, $session) = @_;
    my (@ids, @ids2, $sql, $gu, $tr);
-   my ($i, $trmid, $trackid, $uri, $clientVer);
+   my ($i, $trmid, $trackid, $uri, $clientVer, $new, $index);
 
    return undef if (!defined $dbh);
 
@@ -674,6 +674,8 @@ sub SubmitTRMList
                              "id string when submitting data to MusicBrainz.") 
    }
 
+   $index = 0;
+   $new = "ClientVersion=$clientVer\n";
    for($i = 1; ; $i++)
    {
        $trackid = Extract($triples, $uri, $i, 
@@ -714,21 +716,46 @@ sub SubmitTRMList
        }
        else
        {
-           eval
-           {
-               $sql->Begin();
-               $gu->Insert($trmid,$ids[0], $clientVer);
-               $sql->Commit();
-           };
-           if ($@)
-           {
-               $sql->Rollback();
-           }
+           $new .= "TRMId$index=$trmid\nTrackId$index=$ids[0]\n";
+           $index++;
        }
    }
    print STDERR "\n";
 
-   return $rdf->CreateStatus(0);
+   if ($index > 0)
+   {
+       my ($mod);
+
+       $mod = Moderation->new($dbh);
+       $mod = $mod->CreateModerationObject(ModDefs::MOD_ADD_TRMS);
+       return $rdf->ErrorRDF("Cannot create moderation.") if (!defined $mod);
+
+       $mod->SetTable('TRM');
+       $mod->SetColumn('trm');
+       $mod->SetPrev("");
+       $mod->SetNew($new);
+       $mod->SetType(ModDefs::MOD_ADD_TRMS);
+       $mod->SetRowId(0);
+       $mod->SetArtist(ModDefs::VARTIST_ID);
+       $mod->SetModerator($session->{uid});
+       $mod->SetDepMod(0);
+
+       eval
+       {
+           $sql->Begin;
+           $mod->InsertModeration();
+           $sql->Commit;
+       };
+       if ($@)
+       {
+           print STDERR "Cannot insert TRM: $@\n";
+           $sql->Rollback;
+           return $rdf->ErrorRDF("Cannot write TRM Ids to database.") 
+       }
+       return $rdf->CreateStatus(0);
+   }
+
+   return $rdf->ErrorRDF("No valid TRM ids were submitted.") 
 }
 
 # NOTE NOTE NOTE NOTE NOTE NOTE NOTE NOTE NOTE NOTE NOTE NOTE 
@@ -1093,3 +1120,6 @@ sub QuickTrackInfoFromTrackId
 
    return $out;
 }
+
+
+

@@ -953,3 +953,69 @@ sub DeniedAction
    $al->SetAttributes(@attrs);
    $al->UpdateAttributes();
 }
+
+package AddTRMIdModeration;
+use vars qw(@ISA);
+@ISA = 'Moderation';
+
+sub ShowPreviousValue
+{
+   my ($this) = @_;
+
+   return "Old: N/A";
+}
+
+sub ShowNewValue
+{
+   my ($this) = @_;
+   my ($nw, $i, $out);
+  
+   $nw = $this->ConvertNewToHash($this->{new});
+   for($i = 0;; $i++)
+   {
+      last if (!exists $nw->{"TRMId$i"}); 
+      last if (!exists $nw->{"TrackId$i"}); 
+
+      $out .= "<a href=\"/showtrack.html?trackid=" . $nw->{"TrackId$i"} . 
+              "\">" . $nw->{"TRMId$i"} . "</a><br>"; 
+   }
+
+   return $out;
+}
+
+# An artist is not dependent on anything, so no dependency information needs
+# to be determined.
+sub DetermineDependencies
+{
+}
+
+sub PreVoteAction
+{
+}
+
+#returns STATUS_XXXX
+sub ApprovedAction
+{
+   my ($this) = @_;
+   my ($nw, $i, $gu);
+
+   $nw = $this->ConvertNewToHash($this->{new});
+   return undef if (!defined $nw);
+
+   $gu = TRM->new($this->{DBH});
+   for($i = 0;; $i++)
+   {
+      last if (!exists $nw->{"TRMId$i"}); 
+      last if (!exists $nw->{"TrackId$i"}); 
+
+      $gu->Insert($nw->{"TRMId$i"}, $nw->{"TrackId$i"}, 
+                  $nw->{"ClientVersion"}); 
+   }
+
+   return ModDefs::STATUS_APPLIED;
+}
+
+#returns nothing
+sub DeniedAction
+{
+}

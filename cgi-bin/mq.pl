@@ -379,7 +379,7 @@ if (!$mb->Login(1))
 }
 
 $rdf->SetDBH($mb->{DBH});
-$out = $function->($mb->{DBH}, \@triples, $rdf, @queryargs);
+$out = $function->($mb->{DBH}, \@triples, $rdf, @queryargs, \%session);
 $mb->Logout;
 
 

@@ -48,7 +48,6 @@ use constant ARTISTLIST             => 2;
 use constant ALBUMID                => 4;
 use constant ALBUMLIST              => 8;
 use constant TRACKID                => 16;
-use constant TRACKLIST              => 32;
 use constant ALBUMTRACKID           => 64;
 use constant ALBUMTRACKLIST         => 128;
 use constant FUZZY                  => 256;
@@ -230,7 +229,7 @@ sub ParseFileName
    }
    elsif (scalar(@parts) == 2)
    {
-        $data->{album} ||= $parts[0];
+        $data->{artist} ||= $parts[0];
         $data->{track} ||= $parts[1];
    }
    elsif (scalar(@parts) == 1)
@@ -360,6 +359,11 @@ sub AlbumSearch
        foreach $al (@albums)
        {
            $sim = similarity(lc($al->GetName()), $name);
+           if ($al->GetName() =~ /^(.*?)\s*\(.*\)\s*$/)
+           {
+               my $chopsim = similarity(lc($1), $name);
+               $sim = ($chopsim > $sim) ? $chopsim : $sim;
+           }
            push @ids, { id=>$al->GetId(),
                         name=>$al->GetName(),
                         mbid=>$al->GetMBId(),
@@ -382,7 +386,7 @@ sub TrackSearch
 {
    my ($this, $artistId, $trackName, $albumName, $trackNum, $duration) = @_;
    my ($ar, $al, $tr, @ids, $last, $id, %result);
-   my ($sql, $tracks, $count, $query, $flags);
+   my ($sql, $tracks, $count, $query, $flags, $altname);
 
    $flags = 0;
    if (exists $this->{artist})
@@ -400,6 +404,11 @@ sub TrackSearch
        $this->{artist} = $ar;     
    }
 
+   if ($trackName =~ /^(.*?)\s*\(.*\)\s*$/)
+   {
+       $altname = lc($1);
+   }
+
    $sql = Sql->new($this->{DBH});
    if ($sql->Select(qq|select track.id, track.gid, track.name, track.length
                from Track 
@@ -412,10 +421,15 @@ sub TrackSearch
        {
            $lensim = 0.0;
            $namesim = similarity(lc($row[2]), $trackName);
-           if ($row[2] =~ /^(.*)\s*\(.*\)\s*$/)
+           if ($row[2] =~ /^(.*?)\s*\(.*\)\s*$/)
            {
                my $chopsim = similarity(lc($1), $trackName);
                $namesim = ($chopsim > $namesim) ? $chopsim : $namesim;
+           }
+           if (defined $altname)
+           {
+               my $altsim = similarity(lc($row[2]), $altname);
+               $namesim = ($altsim > $namesim) ? $altsim : $namesim;
            }
            if ($duration > 0 && $row[3] > 0)
            {
@@ -424,6 +438,9 @@ sub TrackSearch
            }
 
            $sim = ($namesim * .5) + ($lensim * .5);
+
+           #print STDERR "$row[2] <-> $trackName == $sim\n";
+
            push @ids, { id=>$row[0],
                         name=>$row[2], 
                         mbid=>$row[1],
