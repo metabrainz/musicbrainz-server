@@ -45,7 +45,7 @@ $ar = Artist->new($mb->{DBH});
 $found = 0;
 foreach $key (@names)
 {
-    if (lc($key) eq lc($name))
+    if (lc($key->{name}) eq lc($name))
     {
        $found = 1;
        last;
@@ -90,18 +90,14 @@ Please choose one of the artists below, and then click Finish>>.
     </tr>
 
 <%perl>
-    for($i = 0;; $i++)
+    $i = 0;
+    foreach $key (@names)
     {
-        $id = shift @names;
-        last if not defined $id;
-        $name = shift @names;
-        last if not defined $name;
-        $sortname = shift @names;
-        last if not defined $sortname;
         mc_out("<tr><td>");
-        mc_out(qq\<input type="radio" name="$artistnamevalue" value="$name"\);
+        mc_out(qq\<input type="radio" name="$artistnamevalue"
+                  value="$key->{name}"\);
         mc_out(" CHECKED") if ($i == 0 && $found);
-        mc_out(">&nbsp;$name</td><td>$sortname</td></tr>");
+        mc_out(">&nbsp;$key->{name}</td><td>$key->{sortname}</td></tr>");
     }
     mc_out("</table>");
     mc_comp("/comp/tableend");

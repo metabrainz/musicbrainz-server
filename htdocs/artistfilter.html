@@ -46,7 +46,7 @@ $ar = Artist->new($mb->{DBH});
 $found = 0;
 foreach $key (@names)
 {
-    if (lc($key) eq lc($arg))
+    if (lc($key->{name}) eq lc($arg))
     {
        $found = 1;
        last;
@@ -104,19 +104,15 @@ move track <span class="bold"><% $ARGS{prev0} %></span> to the selected artist:
     </tr>
 
 <%perl>
-    for($i = 0;; $i++)
+    $i = 0;
+    foreach $name (@names)
     {
-        $id = shift @names;
-        last if not defined $id;
-        $name = shift @names;
-        last if not defined $name;
-        $sortname = shift @names;
-        last if not defined $sortname;
         mc_out("<tr><td>");
         mc_out(qq\<input type="radio" name="$argname" 
-               value="$name"\);
+               value="$name->{name}"\);
         mc_out(" CHECKED") if ($i == 0 && $found);
-        mc_out(">&nbsp;$sortname</td><td>$name</td></tr>");
+        mc_out(">&nbsp;$name->{sortname}</td><td>$name->{name}</td></tr>");
+        $i++;
     }
     mc_out("</table>");
     mc_comp("/comp/tableend");

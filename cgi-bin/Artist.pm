@@ -368,9 +368,7 @@ sub FindArtist
 
        for(;@row = $sql->NextRow();)
        {
-           push @names, $row[0];
-           push @names, $row[1];
-           push @names, $row[2];
+           push @names, { id=>$row[0], name=>$row[1], sortname=>$row[2] };
        }
        $sql->Finish;
    }
