@@ -52,7 +52,7 @@ sub Login
    my $sql = Sql->new($this->{DBH});
 
    my $row = $sql->SelectSingleRowHash(
-     	"SELECT * FROM moderator WHERE LOWER(name) = LOWER(?) LIMIT 1",
+     	"SELECT * FROM moderator WHERE name = ? LIMIT 1",
 	$user,
    );
 

@@ -25,6 +25,12 @@ $url=>""
       style="padding: 0 0.5em"
       >
 
+	<p style="font-style: italic">
+		Please note that both the<br>
+		user name and password<br>
+		are case sensitive.
+	</p>
+
 	<p style="margin: 0.5em">
 		User Name:<br>
 		<INPUT TYPE="text" NAME="User" SIZE=20>
