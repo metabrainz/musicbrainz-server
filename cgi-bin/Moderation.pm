@@ -35,7 +35,7 @@ use Track;
 use Artist;
 use Album;
 use Insert;
-use ModDefs;
+use ModDefs ':all';
 use UserStuff;
 use Text::Unaccent;
 use Encode qw( encode decode );
@@ -548,7 +548,7 @@ sub InsertModeration
 			$insertid,
 		);
 
-        $this->CreditModerator($this->{moderator}, 1, 0);
+        $this->CreditModerator($this->{moderator}, $status, $automod);
     }
     else
     {
@@ -837,16 +837,19 @@ sub GetModerationList
 # TODO Move to UserStuff.pm (which generally handles the "moderator" table)
 sub CreditModerator
 {
-  	my ($this, $uid, $accepts, $rejects) = @_;
+  	my ($this, $uid, $status, $isautomod) = @_;
+
+	my $column = (
+		($status == STATUS_FAILEDVOTE)
+			? "modsrejected"
+			: ($status == STATUS_APPLIED)
+				? ($isautomod ? "automodsaccepted" : "modsaccepted")
+				: "modsfailed"
+	);
 
  	my $sql = Sql->new($this->{DBH});
 	$sql->Do(
-		"UPDATE moderator
-		SET modsaccepted = modsaccepted + ?,
-		modsrejected = modsrejected + ?
-		WHERE ID = ?",
-		$accepts,
-		$rejects,
+		"UPDATE moderator SET $column = $column + 1 WHERE id = ?",
 		$uid,
 	);
 }
