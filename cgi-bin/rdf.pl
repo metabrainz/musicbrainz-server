@@ -17,6 +17,9 @@ my %Queries =
 );
 
 $rdf = RDFOutput2->new(0);
+$rdf->SetDepth(2);
+$rdf->SetBaseURI("http://" . $ENV{SERVER_NAME});
+
 if (exists $ENV{"MOD_PERL"})
 {
    my $apr;
@@ -34,6 +37,8 @@ else
       $id = $2;
    }
 }
+
+print STDERR "$query $id\n";
 
 if (!defined $query || $query eq '' || !defined $id || $id eq '')
 {

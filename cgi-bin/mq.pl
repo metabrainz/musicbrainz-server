@@ -12,7 +12,7 @@ use RDFStore::NodeFactory;
 my ($i, $line, $r, $rdf, $out);
 my ($queryname, $querydata, $data, $rdfinput);
 my ($function, @queryargs, $mb, $parser, @triples);
-my ($currentURI, $rdfquery);
+my ($currentURI, $rdfquery, $depth);
 
 my %Queries = 
 (
@@ -127,13 +127,13 @@ else
 }
 
 $rdf = RDFOutput2->new(0);
+$rdf->SetBaseURI("http://" . $ENV{SERVER_NAME});
 if (!defined $rdf)
 {
     $out = $rdf->ErrorRDF("An RDF object must be supplied.");
     Output($r, \$out);
     exit(0);
 }
-$rdf->SetDepth(2);
 $rdf->SetBaseURI("http://www.musicbrainz.org");
 
 $parser=new RDFStore::Parser::SiRPAC( 
@@ -152,9 +152,21 @@ if ($@)
     exit(0);
 }
 
-print STDERR "Parsed ", scalar(@triples), " triples.\n";
-
+# Find the toplevel URI
 $currentURI = $triples[0]->subject->getLabel;
+
+# Check to see if the client specified a depth for this query. If not,
+# use a depth of 2 by default.
+$depth = QuerySupport::Extract(\@triples, $currentURI, -1, 
+                 "http://musicbrainz.org/mm/mq-1.0#depth");
+if (not defined $depth)
+{
+   $depth = 2;
+}
+$rdf->SetDepth($depth);
+
+
+# Extract the name of the qyery
 $queryname = QuerySupport::Extract(\@triples, $currentURI, -1, 
                  "http://www.w3.org/1999/02/22-rdf-syntax-ns#type");
 if (!defined $queryname)
@@ -165,7 +177,7 @@ if (!defined $queryname)
 }
 
 $queryname =~ s/^.*#//;
-print "query: '$queryname'\n";
+print STDERR "query: '$queryname'\n";
  
 if (!exists $Queries{$queryname})
 {
@@ -183,7 +195,7 @@ for(;;)
 
     $data = QuerySupport::Extract(\@triples, $currentURI, -1, $rdfquery);
     $data = undef if (defined $data && $data eq '');
-    print "query args: '$data'\n" if defined $data;
+    print STDERR "query args: '$data'\n" if defined $data;
     push @queryargs, $data;
     $rdfquery = undef;
 }

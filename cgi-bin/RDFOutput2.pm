@@ -125,34 +125,61 @@ sub CreateGUIDList
 # Check for duplicates, then add if not already in cache
 sub AddToCache
 {
-   my ($cache, $type, $id, $obj) = @_;
-   my (%item, $i);
+   my ($this, $curdepth, $type, $id, $obj) = @_;
+   my (%item, $i, $cache, $ret);
 
    # check to make sure this object does not already exist in the list
+   $cache = $this->{cache};
    foreach $i (@$cache)
    {
       return if ($i->{id} == $id && $i->{type} eq $type);
    }
 
    $item{type} = $type;
-   $item{loaded} = defined $obj;
    $item{id} = $id;
    $item{obj} = $obj;
-   push @$cache, \%item;
+   $item{depth} = $curdepth;
+   $ret = \%item;
+   push @$cache, $ret;
+
+   return $ret;
 }
 
 # Get an object from the cache, given its id
 sub GetFromCache
 {
-   my ($cache, $type, $id) = @_;
-   my ($i);
+   my ($this, $type, $id) = @_;
+   my ($i, $cache);
 
    # check to make sure this object does not already exist in the list
+   $cache = $this->{cache};
    foreach $i (@$cache)
    {
-      return $i->{obj} if ($i->{id} == $id && $i->{type} eq $type);
+      if ($i->{id} == $id && $i->{type} eq $type)
+      {
+          return $i->{obj} 
+      }
    }
    return undef;
+}
+
+sub FindReferences
+{
+   my ($this, $curdepth, @ids) = @_;
+   my ($id, $obj, @newrefs, $ref, $cacheref);
+
+   #print "Find: dep: $curdepth > ", $this->{depth} + 1, "\n";
+   return if ($curdepth > $this->{depth} + 1);
+     
+   #print "Find: adding\n";
+   foreach $ref (@ids)
+   {
+      $obj = $this->LoadObject($ref->{id}, $ref->{type});
+      #print "Add to cache: $ref->{type}, $ref->{id} dep: $curdepth\n";
+      $cacheref = AddToCache($this, $curdepth, $ref->{type}, $ref->{id}, $obj);
+      push @newrefs, $this->GetReferences($cacheref);
+   }
+   $this->FindReferences($curdepth + 1, @newrefs);
 }
 
 sub CreateOutputRDF
@@ -163,38 +190,22 @@ sub CreateOutputRDF
    return $this->CreateStatus() if (scalar(@ids) == 0);
 
    $depth = $this->GetDepth();
-   return $this->ErrorRDF("Invalid search depth specified.") if ($depth < 1);
+   return $this->ErrorRDF("Invalid search depth specified.") if ($depth < 0);
+
+   $this->{cache} = \@cache;
+   #print "Depth: $depth\n";
 
    # Create a cache of objects and add the passed object ids without
    # loading the actual objects
    foreach $id (@ids)
    {
-      AddToCache(\@cache, $type, $id);
+      $obj{id} = $id;
+      $obj{type} = $type;
+      push @newrefs, {%obj};
    }
 
-   # For each depth
-   for($i = 0; $i < $depth; $i++)
-   {
-      # Go through the object cache. If the object is loaded, skip it.
-      # If not, load it and determine the references the object
-      @newrefs = ();
-      foreach $ref (@cache)
-      {
-         next if $ref->{loaded};
-   
-         $ref->{obj} = $this->LoadObject($ref);
-         if (defined $ref->{obj})
-         {
-            print "Loaded object $ref->{obj}\n";
-            $ref->{loaded} = 1;
-            push @newrefs, $this->GetReferences($ref);
-         } 
-      }
-      foreach $ref (@newrefs)
-      {
-         AddToCache(\@cache, $ref->{type}, $ref->{id}, $ref->{obj});
-      }
-   }
+   # Call find references to recursively load and find referenced objects
+   $this->FindReferences(1, @newrefs);
 
    # Now that we've compiled a list of objects, output the list and 
    # the actual objects themselves
@@ -204,7 +215,14 @@ sub CreateOutputRDF
    $total = scalar(@ids);
    for($i = 0; $i < $total; $i++)
    {
-      push @gids, $cache[$i]->{obj}->GetMBId();
+      if (!defined $cache[$i]->{obj})
+      {
+          push @gids, $cache[$i]->{id};
+      }
+      else
+      {
+          push @gids, $cache[$i]->{obj}->GetMBId();
+      }
    }
    $out  = $this->BeginRDFObject();
    $out .= $this->OutputList($type, \@gids);
@@ -216,7 +234,8 @@ sub CreateOutputRDF
    $total = scalar(@cache);
    for($i = 0; $i < $total; $i++)
    {
-      last if not $cache[$i]->{loaded};
+      #print "Cache: $cache[$i]->{type} $cache[$i]->{id} dep: $cache[$i]->{depth}\n";
+      next if $cache[$i]->{depth} > $depth;
 
       $out .= $this->OutputRDF(\@cache, $cache[$i]);
       $out .= "\n";
@@ -228,28 +247,34 @@ sub CreateOutputRDF
 
 sub LoadObject
 {
-   my ($this, $ref) = @_;
+   my ($this, $id, $type) = @_;
    my $obj;
 
-   if ($ref->{type} eq 'artist')
+   if ($type eq 'artist')
    {
       $obj = Artist->new($this->{DBH});
-      $obj->SetId($ref->{id});
-      return (defined $obj->LoadFromId()) ? $obj : undef;
    }
-   elsif ($ref->{type} eq 'album')
+   elsif ($type eq 'album')
    {
       $obj = Album->new($this->{DBH});
-      $obj->SetId($ref->{id});
-      return (defined $obj->LoadFromId()) ? $obj : undef;
    }
-   elsif ($ref->{type} eq 'track')
+   elsif ($type eq 'track')
    {
       $obj = Track->new($this->{DBH});
-      $obj->SetId($ref->{id});
-      return (defined $obj->LoadFromId()) ? $obj : undef;
    }
-   return undef;
+   elsif ($type eq 'trmid')
+   {
+      # In this case, we already have the TRMID, so there is no need to
+      # load an object.
+      $obj = undef;
+   }
+
+   return undef if (not defined $obj);
+
+   $obj->SetId($id);
+   $obj->LoadFromId();
+
+   return $obj;
 }
 
 sub OutputList
@@ -277,8 +302,7 @@ sub GetReferences
 {
    my ($this, $ref) = @_;
 
-   return $this->GetArtistReferences($ref, $ref->{obj}) 
-       if ($ref->{type} eq 'artist');
+   # Artists and TRMIDs do not have any references, so they are not listed here
    return $this->GetAlbumReferences($ref, $ref->{obj}) 
        if ($ref->{type} eq 'album');
    return $this->GetTrackReferences($ref, $ref->{obj}) 
@@ -288,26 +312,30 @@ sub GetReferences
    return ();
 }
 
-# Return the references that this object makes. 
-# An artist makes no references, so return an empty hash
-sub GetArtistReferences
-{
-   return ();
-}
-
 # An for an album, add the artist ref and a ref for each track
 sub GetAlbumReferences
 {
    my ($this, $ref, $album) = @_;
-   my (@tracks, $track, @ret, %info, @trackids);
+   my (@tracks, $track, @ret, %info, @trackids, $albumartist);
+
+   $albumartist = $album->GetArtist();
+   $info{type} = 'artist';
+   $info{id} = $album->GetArtist();
+   $info{obj} = undef;
+   push @ret, {%info};
+   #print STDERR "album " .$album->GetId() . " needs artist: $info{id}\n";
 
    @tracks = $album->LoadTracks();
    foreach $track (@tracks)
    {
-      $info{type} = 'artist';
-      $info{id} = $track->GetArtist();
-      $info{obj} = undef;
-      push @ret, {%info};
+      if ($albumartist == 1)
+      {
+          $info{type} = 'artist';
+          $info{id} = $track->GetArtist();
+          $info{obj} = undef;
+          push @ret, {%info};
+          #print STDERR "malbum track " .$track->GetId() . " needs artist: $info{id}\n";
+      }
 
       $info{type} = 'track';
       $info{obj} = $track;
@@ -331,11 +359,13 @@ sub GetTrackReferences
    $info{id} = $track->GetArtist();
    $info{obj} = undef;
    push @ret, {%info};
+   #print STDERR "track " .$track->GetId() . " needs artist: $info{id}\n";
 
-   $info{type} = 'album';
-   $info{id} = $track->GetAlbum();
-   $info{obj} = undef;
-   push @ret, {%info};
+   #$info{type} = 'album';
+   #$info{id} = $track->GetAlbum();
+   #$info{obj} = undef;
+   #push @ret, {%info};
+   #print STDERR "track " .$track->GetId() . " needs album: $info{id}\n";
 
    return @ret;
 }
@@ -356,7 +386,12 @@ sub OutputRDF
    {
       return $this->OutputTrackRDF($cache, $ref);
    }
-   return undef;
+   elsif ($ref->{type} eq 'trmid')
+   {
+      return "";
+   }
+
+   return "";
 }
 
 # Return the RDF representation of the Artist
@@ -383,7 +418,8 @@ sub OutputAlbumRDF
     my ($out, $album, $track, $artist, $ids);
 
     $album = $ref->{obj};
-    $artist = GetFromCache($cache, 'artist', $album->GetArtist()); 
+    
+    $artist = GetFromCache($this, 'artist', $album->GetArtist()); 
     $out  = $this->BeginDesc("mm:Album", $this->GetBaseURI() .
                             "/album/" . $album->GetMBId());
     $out .=   $this->Element("dc:title", $album->GetName());
@@ -414,7 +450,7 @@ sub OutputTrackRDF
     $gu = GUID->new($this->{DBH});
     $guid = $gu->GetGUIDFromTrackId($track->GetId());
 
-    $artist = GetFromCache($cache, 'artist', $track->GetArtist()); 
+    $artist = GetFromCache($this, 'artist', $track->GetArtist()); 
 
     $out  = $this->BeginDesc("mm:Track", $this->GetBaseURI() .
                             "/track/" . $track->GetMBId());
