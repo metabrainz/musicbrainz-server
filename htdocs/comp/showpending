@@ -29,7 +29,7 @@ $row
    </td>
    <td valign=top bgcolor=white>
 %if (defined $$row[4]) {
-     <% $$row[4] %>
+     <% ($$row[4] + 1) %>
 %} else {
      &nbsp;
 %}
