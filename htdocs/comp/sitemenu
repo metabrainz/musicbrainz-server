@@ -14,6 +14,10 @@ use Scalar::Util qw( reftype weaken );
 		[
 			{ name => "Moderators",				url => "/user/view.html" },
 			{ name => "Top Mods",				url => "/topmods.html" },
+			{ name => "Elections",				url => "/user/election/index.html" },
+			[
+				{ url => "/user/election/show.html" },
+			]
 		],
 		{ name => "The Future",				url => "/future.html" },
 		{ name => "Finance",				url => "/sponsors.html" },
