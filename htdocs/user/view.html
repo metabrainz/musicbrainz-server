@@ -5,7 +5,7 @@ $modname => undef
 </%args>
 <%def .JumpForm>
 
-<form method="get" action="/user/view.html" name="ModeratorForm">
+<form method="get" action="/user/view.html" id="ModeratorForm">
 	<p>
 		Look up a moderator by name:
 		<input type="text" name="modname" size="20">
@@ -119,6 +119,7 @@ my $is_me = ($uid == $my_uid);
 <p class="LinksRow">
 	[
 	<a href="/user/edit.html">Edit</a>
+	| <a href="/user/change-password.html">Change Password</a>
 	| <a href="/prefs.html">Preferences</a>
 	| <a href="/user/subscriptions.html">Subscriptions</a>
 	]
