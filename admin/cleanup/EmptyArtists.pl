@@ -1,4 +1,5 @@
 #!/usr/bin/perl -w
+# vi: set ts=4 sw=4 :
 #____________________________________________________________________________
 #
 #   MusicBrainz -- The community music metadata project.
@@ -23,67 +24,142 @@
 #   $Id$
 #____________________________________________________________________________
 
-use lib "../../cgi-bin";
+use 5.008;
+use strict;
+
+use FindBin;
+use lib "$FindBin::Bin/../../cgi-bin";
+
+use Getopt::Long;
+
 use DBI;
 use DBDefs;
-use Artist;
 use MusicBrainz;
-require "Main.pl";
+use Sql;
+use ModDefs;
+use UserStuff;
 
-sub Arguments
+my $mb = MusicBrainz->new;
+$mb->Login;
+my $sql = Sql->new($mb->{DBH});
+
+my $mb2 = MusicBrainz->new;
+$mb2->Login;
+my $sqlWrite = Sql->new($mb2->{DBH});
+
+my $use_auto_mod = 1;
+my $moderator = ModDefs::MODBOT_MODERATOR;
+my $help = 0;
+my $debug = 0;
+my $nofix = 0;
+
+GetOptions(
+	"automod!"		=> \$use_auto_mod,
+	"moderator=s"	=> sub {
+		my $user = $_[1];
+		my $u = UserStuff->new($mb->{DBH});
+		(undef, my $uid) = $u->GetUserPasswordAndId($user);
+		$uid or die "No such moderator '$user'";
+		$moderator = $uid;
+	},
+	"dry-run|n"		=> \$nofix,
+	"debug!"		=> \$debug,
+	"help"			=> \$help,
+) or $help = 1;
+
+$help = 1 if @ARGV;
+
+die <<EOF if $help;
+Usage: EmptyArtists.pl [OPTIONS]
+
+Allowed options are:
+        --[no]automod     [don't] automod the inserted moderations
+                          (default is to automod)
+        --moderator=NAME  insert the moderations as moderator NAME
+                          (default is the 'ModBot')
+    -n, --dry-run         show what needs to be done; don't change anything
+        --help            show this help
+
+EOF
+
+$sql->Select(<<EOF) or die;
+
+	SELECT	a.id, a.name, a.sortname
+	FROM	artist a
+	LEFT JOIN (
+		SELECT artist, COUNT(*) AS albums FROM album GROUP BY artist
+	) t1
+		ON a.id = t1.artist
+	LEFT JOIN (
+        SELECT artist, COUNT(*) AS tracks FROM track GROUP BY artist
+	) t2
+        ON a.id = t2.artist
+	WHERE	t1.albums IS NULL
+	AND		t2.tracks IS NULL
+	ORDER BY sortname
+
+EOF
+
+my $count = 0;
+my $removed = 0;
+my $privs = UserStuff::BOT_FLAG;
+$privs |= UserStuff::AUTOMOD_FLAG if $use_auto_mod;
+
+while (my ($id, $name, $sortname) = $sql->NextRow)
 {
-    return "";
+	next if $id == &ModDefs::VARTIST_ID;
+	next if $id == &ModDefs::DARTIST_ID;
+
+	++$count;
+
+	if ($nofix)
+	{
+		printf "Need to remove %6d %-30.30s (%s)\n",
+			$id, $name, $sortname;
+		next;
+	}
+
+	$sqlWrite->Begin;
+	
+	eval
+	{
+		use Moderation;
+		my $m = Moderation->new($sqlWrite->{DBH});
+
+		$m->SetType(&ModDefs::MOD_REMOVE_ARTIST);
+		$m->SetArtist($id);
+		$m->SetTable("Artist");
+		$m->SetColumn("Name");
+		$m->SetRowId($id);
+		$m->SetPrev($name);
+		$m->SetNew("DELETE");
+		$m->SetModerator($moderator);
+		$m->SetDepMod(0);
+
+		my $modid = $m->InsertModeration($privs);
+		$sqlWrite->Commit;
+		
+		printf "Inserted mod %6d for %6d %-30.30s (%s)\n",
+			$modid,
+			$id, $name, $sortname;
+
+		++$removed;
+		1;
+	} or do {
+		my $err = $@;
+		$sqlWrite->Rollback;
+		printf "Error removing %6d %-30.30s (%s):\n  %s\n",
+			$id, $name, $sortname,
+			$err;
+	};
 }
 
-sub Cleanup
-{
-    my ($dbh, $fix, $quiet, $arg1, $arg2) = @_;
-    my ($count, $sql);
+$sql->Finish;
 
-    $sql = Sql->new($dbh);
-    print "Empty artists:\n";
-    $count = 0;
-    $sth = $dbh->prepare(qq|select Artist.id, Artist.name
-                            from   Artist left join Track 
-                            on     Artist.id = Track.artist 
-                            WHERE  Track.id IS NULL|);
-    if ($sth->execute() && $sth->rows())
-    {
-        my @row;
+printf "Found %d unused artist%s.\n",
+	$count, ($count==1 ? "" : "s");
+printf "Successfully removed %d artist%s\n",
+	$removed, ($removed==1 ? "" : "s")
+	unless $nofix;
 
-        while(@row = $sth->fetchrow_array())
-        {
-            next if ($row[0] == ModDefs::DARTIST_ID); 
-            next if ($row[0] == ModDefs::VARTIST_ID); 
-            print "  Artist $row[0] has no tracks ";
-            $count++;
-
-            if ($fix)
-            {
-                eval 
-                {
-                   $sql->Begin(); 
-
-                   $sql->Do("delete from ArtistAlias where ref = $row[0]"); 
-                   $sql->Do("update Moderation set Artist = " . ModDefs::DARTIST_ID .
-                           " where artist = $row[0]");
-                   $sql->Do("delete from Artist where id = $row[0]"); 
-
-                   $sql->Commit(); 
-                   print " -- removed";
-                };
-                if ($@)
-                {
-                   print " -- error occurred during remove.";
-                   $sql->Rollback();
-                }
-            }
-            print "\n";
-        }
-    }
-    $sth->finish;
-    print "Found $count empty artists.\n\n";
-}
-
-# Call main with the number of arguments that you are expecting
-Main(0);
+# eof EmptyArtists.pl
