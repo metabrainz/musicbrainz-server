@@ -310,53 +310,50 @@ sub MergeTracks
 
 	for my $oldjoin (@$trmjoins)
 	{
-		# Does this trm exist for the destination track?
-		my $existing_id = $sql->SelectSingleValue(
+		# Ensure the new trmjoin exists
+		$sql->Do(
+			"INSERT INTO trmjoin (trm, track)
+				SELECT * FROM (SELECT ?::integer, ?::integer) AS data
+				WHERE NOT EXISTS (SELECT 1 FROM trmjoin WHERE trm = ?::integer AND track = ?::integer)",
+			$oldjoin->{trm}, $totrack,
+			$oldjoin->{trm}, $totrack,
+		);
+		my $newjoinid = $sql->SelectSingleValue(
 			"SELECT id FROM trmjoin WHERE trm = ? AND track = ?",
 			$oldjoin->{trm}, $totrack,
 		);
 
-		if ($existing_id)
-		{
-			# No need to link the trm to the destination.  But we do need to
-			# move the trmjoin stats across to the new join row.
-			$sql->Do(
-				"UPDATE trmjoin_stat SET trmjoin_id = ? WHERE trmjoin_id = ?",
-				$existing_id, $oldjoin->{id},
-			);
-			$sql->Do(
-				"DELETE FROM trmjoin WHERE id = ?",
-				$oldjoin->{id},
-			);
-		} else {
-			# Normally we'd just update trmjoin.track and use ON UPDATE
-			# CASCADE.  However, to date we haven't found a way of skipping
-			# replication for updates to some columns, hence we don't
-			# replicate updates to trmjoin at all, hence we can't update
-			# trmjoin here.
-
-			# Let usecount default to zero ...
-			my $newjoinid = $sql->InsertRow(
-				"trmjoin",
-				{
-					trm => $oldjoin->{trm},
-					track => $totrack,
-				},
-			);
-			# ... and now the triggers will fix it, and in doing so will
-			# zero the counts on the old row ...
-			$sql->Do(
-				"UPDATE trmjoin_stat SET trmjoin_id = ? WHERE trmjoin_id = ?",
-				$newjoinid,
-				$oldjoin->{id},
-			),
-			# ... which we now delete.
-			$sql->Do(
-				"DELETE FROM trmjoin WHERE id = ?",
-				$oldjoin->{id},
-			);
-		}
+		# Merge the stats from $oldjoin->{id} to $newjoinid
+		$sql->Do(
+			"SELECT month_id, SUM(usecount) AS usecount
+			INTO TEMPORARY TABLE tmp_merge_trmjoin_stat
+			FROM	trmjoin_stat
+			WHERE	trmjoin_id IN (?, ?)
+			GROUP BY month_id",
+			$oldjoin->{id},
+			$newjoinid,
+		);
+		$sql->Do(
+			"DELETE FROM trmjoin_stat WHERE trmjoin_id IN (?, ?)",
+			$oldjoin->{id},
+			$newjoinid,
+		);
+		$sql->Do(
+			"INSERT INTO trmjoin_stat (trmjoin_id, month_id, usecount)
+			SELECT	?, month_id, usecount
+			FROM	tmp_merge_trmjoin_stat",
+			$newjoinid,
+		);
+		$sql->Do(
+			"DROP TABLE tmp_merge_trmjoin_stat",
+		);
 	}
+
+	# Delete the old join row
+	$sql->Do(
+		"DELETE FROM trmjoin WHERE track = ?",
+		$fromtrack,
+	);
 }
 
 1;
