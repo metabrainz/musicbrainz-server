@@ -103,6 +103,40 @@ TXXX User defined text information frame
 </blockquote>
 
 <p>
+<b>MusicBrainz Album Artist Identifier:</b>
+</p>
+
+<p>
+This identifier is used to indicate the artist for the album if the
+tracks on the album are from various artists. Currently, only
+an artist id of 89ad4ac3-39f7-470e-963a-56509c546377 is being used
+to indicate that this track comes from a various artist album. If this
+field is not present, the track comes from an album where all tracks
+were created by the same artist.
+
+<blockquote>
+<p>
+TXXX User defined text information frame 
+</p>
+
+<table>
+<tr>
+  <td>Text encoding</td><td>$00 (ISO-8859-1)</td>
+</tr>
+<tr>
+  <td>Description</td><td>MusicBrainz Album Artist Id</td>
+</tr>
+<tr>
+  <td>Value:</td><td>[mb album `artist uuid]</td>
+</tr>
+</table>
+
+<p>
+(see section 4.2.6 in the <a href="http://www.id3.org/id3v2.4.0-frames.txt">ID3v2.4 
+ specification</a>)
+</p>
+</blockquote>
+<p>
 <b>MusicBrainz TRM Identifier:</b>
 </p>
 
@@ -186,6 +220,25 @@ these <a href="http://reactor-core.org/ogg-tag-recommendations.html">recommendat
 
 </blockquote>
 
+<p>
+<b>MusicBrainz Album Artist Identifier:</b>
+</p>
+
+<p>
+See comments above in ID3 section.
+</p>
+
+<blockquote>
+<table>
+<tr>
+  <td>Comment name:</td><td>MUSICBRAINZ_ALBUMARTISTID</td>
+</tr>
+<tr>
+  <td>Comment value:</td><td>[mb album artist uuid]</td>
+</tr>
+</table>
+
+</blockquote>
 <p>
 <b>MusicBrainz TRM Identifier:</b>
 </p>
