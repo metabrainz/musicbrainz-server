@@ -37,12 +37,13 @@ sub OutputPlotFile
     open PLOT, ">$plotfile" or die "Cannot open plotfile.\n";
 
 print PLOT <<END;
-set terminal gif
+set terminal png small color
 set xdata time
 set timefmt "%d %m %Y"
-set xlabel "Time"
+set xlabel "Date"
 set xrange ["$from_date" : "$to_date"]
-set format x "%m/%Y"
+set yrange [20000:100000]
+set format x "%m/%d"
 set key left
 set ylabel "Number of entries in MusicBrainz"
 
@@ -51,8 +52,7 @@ set output "$outfile"
 plot "$datfile" using 1:(\$5) title "Albums" with linespoints, \\
      "$datfile" using 1:(\$6) title "Artists" with linespoints, \\
      "$datfile" using 1:(\$7) title "Moderations" with linespoints, \\
-     "$datfile" using 1:(\$4) title "Discids" with linespoints, \\
-     "$datfile" using 1:(\$8) title "TRM Ids" with linespoints
+     "$datfile" using 1:(\$4) title "Discids" with linespoints
 END
 
     close PLOT;
@@ -75,9 +75,9 @@ sub DumpStats
         {
             if ($row[9] =~ /(\d\d\d\d)-(\d\d)-(\d\d)/)
             {
-                $start = "$2 $3 $1" if ($count == 0);
-                $end = "$2 $3 $1";
-                print STATS "$2 $3 $1 $row[4] $row[2] $row[1] $row[6] $row[5]\n";
+                $start = "$3 $2 $1" if ($count == 0);
+                $end = "$3 $2 $1";
+                print STATS "$3 $2 $1 $row[4] $row[2] $row[1] $row[6] $row[5]\n";
                 $count++;
             }
         }
@@ -85,8 +85,8 @@ sub DumpStats
 
         OutputPlotFile($datfile, $plotfile, $outfile, $start, $end);
         system("gnuplot $plotfile");
-        unlink $datfile;
-        unlink $plotfile;
+        #unlink $datfile;
+        #unlink $plotfile;
 
         $sql->Finish();
     }
