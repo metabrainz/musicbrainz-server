@@ -813,6 +813,65 @@ sub VoteFromUser
 }
 
 ################################################################################
+
+sub TopModerators
+{
+	my ($self, %opts) = @_;
+
+	my $nl = $opts{namelimit} || 11;
+	$nl = 6 if $nl < 6;
+	my $nl2 = $nl-3;
+
+	$opts{rowlimit} ||= 5;
+	$opts{interval} ||= "1 week";
+
+	my $sql = Sql->new($self->{DBH});
+
+	$sql->SelectListOfHashes(
+		"SELECT	u.id, u.name,
+				CASE WHEN LENGTH(name)<=$nl THEN name ELSE SUBSTR(name, 1, $nl2) || '...' END
+				AS nametrunc,
+				COUNT(*) AS num
+		FROM	moderation_all m, moderator u
+		WHERE	m.moderator = u.id
+		AND		u.id != " . FREEDB_MODERATOR ."
+		AND		u.id != " . MODBOT_MODERATOR ."
+		AND		m.opentime > NOW() - INTERVAL ?
+		GROUP BY u.id, u.name
+		ORDER BY num DESC
+		LIMIT ?",
+		$opts{interval},
+		$opts{rowlimit},
+	);
+}
+
+sub TopAcceptedModeratorsAllTime
+{
+	my ($self, %opts) = @_;
+
+	my $nl = $opts{namelimit} || 11;
+	$nl = 6 if $nl < 6;
+	my $nl2 = $nl-3;
+
+	$opts{rowlimit} ||= 5;
+
+	my $sql = Sql->new($self->{DBH});
+
+	$sql->SelectListOfHashes(
+		"SELECT	id, name,
+				CASE WHEN LENGTH(name)<=$nl THEN name ELSE SUBSTR(name, 1, $nl2) || '...' END
+				AS nametrunc,
+				modsaccepted + automodsaccepted AS num
+		FROM	moderator
+		WHERE	id != " . FREEDB_MODERATOR ."
+		AND		id != " . MODBOT_MODERATOR ."
+		ORDER BY num DESC
+		LIMIT ?",
+		$opts{rowlimit},
+	);
+}
+
+################################################################################
 # Sub-class registration
 ################################################################################
 
