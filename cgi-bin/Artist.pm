@@ -401,42 +401,42 @@ sub LoadFromSortname
 sub LoadFromId
 {
    my ($this) = @_;
-   my ($sql, @row);
 
-   if (!defined $this->GetId() && !defined $this->GetMBId())
+   if (not $this->GetId() and not $this->GetMBId())
    {
         cluck "Artist::LoadFromId is called with undef Id\n"; 
         return undef;
    }
 
-   $sql = Sql->new($this->{DBH});
+    my $sql = Sql->new($this->{DBH});
+    my $row;
 
-   if (defined $this->GetId())
-   {
-	my $row = $sql->SelectSingleRowArray(
-	    "SELECT id, name, GID, modpending, sortname
+    if (defined $this->GetId())
+    {
+	$row = $sql->SelectSingleRowArray(
+	    "SELECT id, name, gid, modpending, sortname
 	    FROM artist
 	    WHERE id = ?",
 	    $this->GetId,
 	) or return undef;
-	
-	@row = @$row;
-   }
-   else
-   {
-        @row = $sql->GetSingleRow("Artist", [qw(id name GID modpending sortname)],
-                                  ["gid", $sql->Quote($this->GetMBId())]);
-   }
-   if (defined $row[0])
-   {
-        $this->{id} = $row[0];
-        $this->{name} = $row[1];
-        $this->{mbid} = $row[2];
-        $this->{modpending} = $row[3];
-        $this->{sortname} = $row[4];
-        return 1;
-   }
-   return undef;
+    }
+    else
+    {
+	$row = $sql->SelectSingleRowArray(
+	    "SELECT id, name, gid, modpending, sortname
+	    FROM artist
+	    WHERE gid = ?",
+	    $this->GetMBId,
+	) or return undef;
+    }
+
+    $this->{id} = $row->[0];
+    $this->{name} = $row->[1];
+    $this->{mbid} = $row->[2];
+    $this->{modpending} = $row->[3];
+    $this->{sortname} = $row->[4];
+
+    return 1;
 }
 
 # Pull back a section of artist names for the browse artist display.
