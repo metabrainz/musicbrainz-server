@@ -56,6 +56,10 @@ sub ShowNewValue
    {
        $id = $1;
    }
+   elsif ($new =~ /^_albumid=(.*)$/m)
+   {
+       $id = $1;
+   }
 
    if ($this->{status} != ModDefs::STATUS_OPEN &&
        $this->{status} != ModDefs::STATUS_APPLIED)
@@ -143,7 +147,8 @@ sub PreVoteAction
    for($i = 1;; $i++)
    {
       last if (!exists $nw->{"Track$i"});
-      if ($this->{artist} == Artist::VARTIST_ID)
+      if (exists $this->{artist} &&
+          $this->{artist} == Artist::VARTIST_ID)
       {
           push @tracks, { track=> $nw->{"Track$i"}, 
                           tracknum => $i, 

@@ -92,6 +92,7 @@ sub GenerateAlbumFromDiskId
                 $ref = $fd->Lookup($id, $toc);
                 if (defined $ref)
                 {
+                    $fd->InsertForModeration($ref);
                     return $rdf->CreateFreeDBLookup($ref);
                 }
                 else

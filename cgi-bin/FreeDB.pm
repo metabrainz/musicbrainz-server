@@ -35,6 +35,7 @@ use Track;
 use Album;
 use Artist;
 use Diskid;
+use ModDefs;
 use Unicode::String;
 use constant  CD_MSF_OFFSET => 150;
 use constant  CD_FRAMES     =>  75;
@@ -139,7 +140,7 @@ sub Lookup
 {
     my ($this, $diskid, $toc) = @_;
     my ($i, $first, $last, $leadout, @cddb_toc);
-    my ($m, $s, $f, @cd_data);
+    my ($m, $s, $f, @cd_data, $ret);
     my ($id, $query, $trackoffsets, $offset, $sum, $total_seconds);
 
     my @toc = split / /, $toc;
@@ -165,7 +166,13 @@ sub Lookup
     $total_seconds = $m * 60 + $s;
     $query = "cddb query $id $last $trackoffsets $total_seconds\n";
 
-    return $this->Retrieve("www.freedb.org", 888, $query, $last);
+    $ret = $this->Retrieve("www.freedb.org", 888, $query, $last);
+    if (defined $ret)
+    {
+        $ret->{cdindexid} = $diskid;
+        $ret->{toc} = $toc; 
+    }
+    return $ret;
 }
 
 sub Strip
@@ -363,3 +370,31 @@ sub Retrieve
      return \%info;
 }
 
+sub InsertForModeration
+{
+    my ($this, $info) = @_;
+    my ($new, $track, $in);
+    my $ref = $info->{tracks};
+
+    # Don't insert CDs that have only one track.
+    return if (scalar($info->{tracks}) < 2);
+
+    # Don't insert albums by the name of 'various' or 'various artists'
+    return if ($info->{artist} =~ /^various$/i ||
+               $info->{artist} =~ /^various artists$/i); 
+
+    $new = "Artist=$info->{artist}\n";
+    $new .= "Sortname=$info->{artist}\n";
+    $new .= "AlbumName=$info->{album}\n";
+    $new .= "NumTracks=" . scalar(@$ref) . "\n";
+    $new .= "CDIndexId=$info->{cdindexid}\n";
+    $new .= "TOC=$info->{toc}\n";
+
+    foreach $track (@$ref)
+    {
+        $new .= "Track" . $track->{tracknum} . "=" . $track->{track} . "\n";
+    }
+
+    $in = Insert->new($this->{DBH});
+    $in->InsertAlbumModeration($new, ModDefs::FREEDB_MODERATOR);
+}
