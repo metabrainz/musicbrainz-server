@@ -51,19 +51,29 @@ sub Cleanup
 
         $count = $sth->rows;
         while(@row = $sth->fetchrow_array())
-        {
-            if ($row[1] =~ /^(.*)(\(|\[)\s*(disc|cd)\s*(\d+)(\)|\])$/i)
+        {            
+            undef $new;
+            if ($row[1] =~ /^(.*)(\(|\[)\s*(disk|disc|cd)\s*(\d+|one|two|three|four)(\)|\])$/i)
             {
                 $new = $1;
                 $disc = $4;
-                $new =~ s/\s*[:,.-]*\s*$//;
-                $new .= " (disc $disc)";
             }
-            elsif ($row[1] =~ /^(.*)(disc|cd)\s*(\d+)$/i)
+            elsif ($row[1] =~ /^(.*)(disk|disc|cd)\s*(\d+|one|two|three|four)$/i)
             {
                 $new = $1;
                 $disc = $3;
-                $new =~ s/\s*[:,.-]*\s*$//;
+            }
+
+            if (defined $new && defined $disc)
+            {
+                $disc = 1 if ($disc =~ /one/i);
+                $disc = 2 if ($disc =~ /two/i);
+                $disc = 3 if ($disc =~ /three/i);
+                $disc = 4 if ($disc =~ /four/i);
+                next if ($disc < 1 || $disc > 99);
+
+                $disc =~ s/^0+//g;
+                $new =~ s/\s*[(\/|:,-]*\s*$//;
                 $new .= " (disc $disc)";
             }
             else
