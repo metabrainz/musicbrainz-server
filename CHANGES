@@ -1,37 +1,23 @@
-Changes in version 0.3.1:
+Changes for Version 1.0.0pre2
+-----------------------------
 
- - Cleaned up various warnings and errors that have cropped up.
- - Disk Ids gets sanity checked in submit.pl
- - Fixed a bug where 'edit artist' link was shown for a multple artist CD.
- - Fuzzy matching support has been integrated into get.pl and get.pl
+- New HTML design. Design and many thanks go to Phester (ceo@phester.org)
+- The database now allows more arbitrary album <-> track and GUID <--> track
+  associations. For this change, the Track table no longer has an Artist or
+  GUID fields. Instead, we now have a GUID table to keep track of GUIDs,
+  a GUIDJoin table to associate GUIDs with Tracks and an AlbumJoin to
+  associate tracks with albums in a nice and flexible manner.
+- The Artist table now also has a SortName column that can be used when a list
+  of artists is displayed. So name might contain 'The Beatles' and sortname
+  should contain 'Beatles, The'.
+- The perl modules are broken down into seperate modules, rather than one
+  large MusicBrainz.pm.
+- The top moderators and server statistics are shown in the sidebar and
+  update once an hour.
+- The sponsors now have graphics on the page. The actual look of that box
+  will be improved shortly.
+- Its now possible to edit the track number of a track
+- The edit pages now include style guidelines for how to edit the data.
+- The CD submission pages have mostly been ported to Mason. The multiple
+  artist CD submission pages are not done yet.
 
-Changes in version 0.3.0:
-
- For details on these, please check README.
-
- - Browserless submission support. 
- - Data import support.
- - minor bug fixes
- - extended XML lookup/search features
- - If a client sends the TOC on a 'get' call and the CD was not found,
-   the 'CD Not Found' page will print a link to submission page.
-
-Changes in version 0.2.0:
-
- - Search capabilites have been added
- - The submission process has been revamped to use the search 
-   process to see if albums exist in the index. 
- - When an association to an existing CD is entered, it makes
-   sure that the CDs have the same number of tracks.
- - It now stores TOC (table of contents) information in the database
- - XML data retrieval has been added
- - XML data dumping script xdump.pl has been written. This script
-   will dump the entire contents of the database to stdout. This
-   should be piped through gzip and redirected to a file. Add this
-   to a cron job and put it on the ftp site and anyone can download the
-   data.
- - Various bug fixes.
- - The perl scripts now assume that the static .html files reside in the
-   root of the DocumentRoot of the web server. This may require setting up
-   a virtual host on your web server. Check INSTALL for details on this.
-   
