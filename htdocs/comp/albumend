@@ -7,7 +7,7 @@ $nomod
 
 <%perl>
 
-my (@ids, $di, $id);
+my (@ids, $di, $id, $rows);
 
 if ($showids)
 {
@@ -17,22 +17,31 @@ if ($showids)
 
 if (exists $session{user} && !$nomod && scalar(@ids) > 0) 
 {
-    if ($album->GetArtist() == Artist::VARTIST_ID) 
-    {
-       mc_out('<td colspan="4"');
-    }
-    else
-    {
-       mc_out('<td colspan="3"');
-    }
-    mc_out('align="center">');
-
+    $rows = 0;
     foreach $id (@ids)
     {
-       mc_out("CD Index Id: $id<br>");
+       if ($rows > 1)
+       {
+          mc_out("<tr>");
+       }
+       if ($album->GetArtist() == Artist::VARTIST_ID) 
+       {
+          mc_out('<td colspan="3"');
+       }
+       else
+       {
+          mc_out('<td colspan="2"');
+       }
+       mc_out('align="center">');
+       mc_out("CD Index Id: $id->{diskid}<br>");
+       mc_out("</td><td align=\"center\">");
+       mc_out("<a href=\"/remdiskid.html?diskid=$id->{diskid}&albumid=");
+       mc_out($album->GetId() . "\">Delete</a>");
+       mc_out("</td></tr>");
+
+       $rows++;
     }
 
-    mc_out("</td></tr>");
 }
 
 </%perl>

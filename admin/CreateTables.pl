@@ -28,6 +28,9 @@ use DBDefs;
 use MusicBrainz;
 use Artist;
 
+# alter table Diskid add column ModPending int;
+# update Diskid set ModPending = 0;
+
 sub CreateTables
 {
     my ($dbh) = @_;
@@ -160,7 +163,8 @@ sub CreateTables
              "   Crc int unsigned," .
              "   TimeCreated datetime, ".
              "   Toc varchar(255), ".
-             "   LastChanged datetime) ")
+             "   LastChanged datetime, ".
+             "   ModPending int)")
           or die("Cannot create Diskid table");
 
     print "Created Diskid table.\n";

@@ -1,12 +1,12 @@
-<& /comp/sidebar, title=>'Remove Album', expand=>'moderate' &>
+<& /comp/sidebar, title=>'Remove Diskid', expand=>'moderate' &>
 
 <%perl>
 
-my ($mb, $albumname, $referer, $al);
-my ($album, $artist); 
+my ($mb, $albumname, $referer, $al, $di);
+my ($albumid, $artistid, $diskid, $id, @diskid_refs, $ref); 
 
-if (!exists $ARGS{album} || $ARGS{album} eq '' ||
-    !exists $ARGS{artist} || $ARGS{artist} eq '')
+if (!exists $ARGS{diskid} || $ARGS{diskid} eq '' ||
+    !exists $ARGS{albumid} || $ARGS{albumid} eq '')
 {
     mc_comp("/comp/badargs");
     return;
@@ -16,12 +16,37 @@ $referer = $r->headers_in->{'Referer'};
 $mb = new MusicBrainz;
 $mb->Login();
 $al = Album->new($mb->{DBH});
+$di = Diskid->new($mb->{DBH});
 
-$album = $ARGS{album};
-$artist = $ARGS{artist};
-$al->SetId($album);
+$diskid = $ARGS{diskid};
+$albumid = $ARGS{albumid};
+@diskid_refs = $di->GetDiskIdFromAlbum($albumid);
+if (scalar(@diskid_refs) == 0)
+{
+    mc_out("Invalid diskid and album passed.\n");
+    return;
+}
+
+$id = -1;
+foreach $ref (@diskid_refs)
+{
+    if ($ref->{diskid} eq $diskid)
+    {
+        $id = $ref->{id};
+        last;
+    }
+}
+
+if ($id < 0)
+{
+    mc_out("Invalid diskid and album passed.\n");
+    return;
+}
+
+$al->SetId($albumid);
 $al->LoadFromId();
 $albumname = $al->GetName();
+$artistid = $al->GetArtist();
 
 </%perl>
 
@@ -33,15 +58,15 @@ $albumname = $al->GetName();
 % } else {
 
     <& /comp/tablebegin, gattrs=>"width=\"100%\"",
-       title=>'Remove Album' &>
+       title=>'Remove Diskid' &>
 
-    <FORM METHOD="POST" ACTION="/bare/enter_mod.html" NAME="RemoveAlbumForm"
+    <FORM METHOD="POST" ACTION="/bare/enter_mod.html" NAME="RemoveDiskidForm"
           ENCTYPE="application/x-www-form-urlencoded">  
 
     <table width="100%">
       <tr>
         <td colspan="2">
-        Are you sure you want to remove album
+        Are you sure you want to remove CD Index Id <% $diskid %> from album
         <span class="bold"><% $albumname %></span>?
         </td>
       </tr>
@@ -67,14 +92,14 @@ $albumname = $al->GetName();
         </td>
       </tr>
     </table>
-    <input type="hidden" name="artist0" value="<% $artist %>">
+    <input type="hidden" name="artist0" value="<% $artistid %>">
     <input type="hidden" name="type0"
-           value="<% ModDefs::MOD_REMOVE_ALBUM %>">
-    <input type="hidden" name="prev0" value="<% $albumname %>">
+           value="<% ModDefs::MOD_REMOVE_DISKID %>">
+    <input type="hidden" name="prev0" value="<% $diskid %>">
     <input type="hidden" name="new0" value="DELETE">
-    <input type="hidden" name="table0" value="Album">
-    <input type="hidden" name="column0" value="Name">
-    <input type="hidden" name="id0" value="<% $album %>">
+    <input type="hidden" name="table0" value="Diskid">
+    <input type="hidden" name="column0" value="Disk">
+    <input type="hidden" name="id0" value="<% $id %>">
     <input type="hidden" name="referer" value="<% $referer %>">
     </form>
       

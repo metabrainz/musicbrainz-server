@@ -23,6 +23,11 @@
     <& /comp/searchbox, name=>'Track Search',
                         scripturl=>'/search_trk.html',
                         searchfield=>'track' &>
+    <& /comp/searchbox, name=>'CD Index Id Lookup',
+                        scripturl=>'/showalbum.html',
+                        searchfield=>'diskid',
+                        method=>'GET' &>
+    <br>
     <br>
     &nbsp;
   <& /comp/tableend &>

@@ -116,13 +116,34 @@ sub GetAlbumFromDiskId
     return $rv;
 }
 
+sub GetAlbumAndIdFromDiskId
+{
+    my ($this, $id) = @_;
+    my ($sql);
+ 
+    $sql = Sql->new($this->{DBH});
+    $id = $sql->Quote($id);
+    return $sql->GetSingleRow("Diskid", ["album", "id"], ["disk", $id]);
+}
+
 sub GetDiskIdFromAlbum
 {
     my ($this, $album) = @_;
-    my ($rv, $sql);
+    my (@row, $sql, @ret);
  
     $sql = Sql->new($this->{DBH});
-    return $sql->GetSingleColumn("Diskid", "disk", ["album", $album]);
+    if ($sql->Select(qq|select id, disk, modpending from Diskid 
+                         where album = $album|))
+    {
+        while(@row = $sql->NextRow())
+        {
+            push @ret, { id=>$row[0],
+                         diskid=>$row[1],
+                         modpending=>$row[1] };
+        }
+        $sql->Finish();
+    }
+    return @ret;
 }
 
 sub Insert

@@ -62,7 +62,7 @@ else
 
     $in = Insert->new($mb->{DBH});
     ($artistid, $albumid) = $in->InsertAlbumModeration($new,
-                                    $session{user}, $artist);
+                                    $session{uid}, $artist);
     if (defined $artistid && defined $albumid)
     {
         mc_out("Thank you for your submission!<p><br>");

@@ -60,6 +60,7 @@ my %ModNames = (
     "17" => "Add Artist",
     "18" => "Add Track",
     "19" => "Remove Artist",
+    "20" => "Remove Diskid"
 );
 
 my %ChangeNames = (
@@ -387,6 +388,10 @@ sub CreateModerationObject
    {
        return RemoveArtistModeration->new($this->{DBH});
    }
+   elsif ($type == ModDefs::MOD_REMOVE_DISKID)
+   {
+       return RemoveDiskidModeration->new($this->{DBH});
+   }
 
    return undef;
 }
@@ -620,7 +625,6 @@ sub CheckModifications
        # See if a KeyValue mod is pending for this.
        if ($this->CheckModificationForFailedDependencies($mod, \%mods) == 0)
        {
-       print STDERR "depmod failed\n";
            # If the prereq. change failed, close this modification
            $mod->{__eval__} = ModDefs::STATUS_FAILEDPREREQ;
            next;

@@ -399,7 +399,7 @@ sub GetAlbumReferences
 {
    my ($this, $ref, $album) = @_;
    my (@tracks, $track, @ret, %info, @trackids, $albumartist, $di);
-   my $cdindexid;
+   my (@albumrefs, $aref, $index);
 
    $albumartist = $album->GetArtist();
    $info{type} = 'artist';
@@ -432,9 +432,14 @@ sub GetAlbumReferences
    $ref->{_album} = \@trackids;
 
    $di = Diskid->new($this->{DBH});
-   
-   ($cdindexid) = $di->GetDiskIdFromAlbum($album->GetId());
-   $ref->{_cdindexid} = $cdindexid if (defined $cdindexid);
+
+   $index = 0;
+   @albumrefs = $di->GetDiskIdFromAlbum($album->GetId());
+   foreach $aref (@albumrefs)
+   {
+      $ref->{"_cdindexid$index"} = $aref->{diskid};
+      $index++;
+   }
 
    return @ret;
 }
@@ -490,6 +495,7 @@ sub OutputArtistRDF
     my ($this, $cache, $ref) = @_;
     my ($out, $artist, $ids, $album);
 
+
     return "" if (!defined $this->GetBaseURI());
     $artist = $ref->{obj};
 
@@ -509,6 +515,7 @@ sub OutputArtistRDF
     $out .=   $this->EndDesc("mm:albumList");
     $out .= $this->EndDesc("mm:Artist");
 
+
     return $out;
 }
 
@@ -516,7 +523,7 @@ sub OutputArtistRDF
 sub OutputAlbumRDF
 {
     my ($this, $cache, $ref) = @_;
-    my ($out, $album, $track, $artist, $ids);
+    my ($out, $album, $track, $artist, $ids, $i);
 
     return "" if (!defined $this->GetBaseURI());
 
@@ -531,10 +538,18 @@ sub OutputAlbumRDF
     $out .=   $this->Element("dc:creator", "", "rdf:resource",
                              $this->GetBaseURI() . "/artist/" . 
                              $artist->GetMBId());
-    if (exists $ref->{_cdindexid} && $ref->{_cdindexid} ne '')
+    for($i = 0;; $i++)
     {
-        $out .=   $this->Element("mm:cdindexId", $ref->{_cdindexid});
+        if (exists $ref->{"_cdindexid$i"} && $ref->{"_cdindexid$i"} ne '')
+        {
+            $out .=   $this->Element("mm:cdindexId", $ref->{"_cdindexid$i"});
+        }
+        else
+        {
+            last;
+        }
     }
+
     $out .=   $this->BeginDesc("mm:trackList");
     $out .=   $this->BeginSeq();
     $ids = $ref->{_album};
@@ -572,6 +587,7 @@ sub OutputTrackRDF
               $this->{baseuri}. "/artist/" . $artist->GetMBId());
     $out .=   $this->Element("mm:trmid", $guid[0]) if scalar(@guid);
     $out .= $this->EndDesc("mm:Track");
+
 
     return $out;
 }

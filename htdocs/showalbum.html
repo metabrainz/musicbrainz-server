@@ -3,15 +3,31 @@
 my ($mb); 
 my ($artist, $album, $albumid); 
 
-if (!exists $ARGS{albumid} || $ARGS{albumid} eq '')
+$mb = new MusicBrainz;
+$mb->Login();
+
+if (exists $ARGS{diskid} && $ARGS{diskid} ne '')
 {
+    my $di;
+
+    $di = Diskid->new($mb->{DBH});
+    $albumid = $di->GetAlbumFromDiskId($ARGS{diskid});
+    if (!defined $albumid)
+    {
+        mc_comp("/comp/sidebar", title=>"Error");
+        mc_out("Diskid $ARGS{diskid} was not found in the database.");
+        return;
+    }
+}
+
+if (!defined $albumid && (!exists $ARGS{albumid} || $ARGS{albumid} eq ''))
+{
+    mc_comp("/comp/sidebar", title=>"Error");
     mc_comp("/comp/badargs");
     return;
 }
 
-$albumid = $ARGS{albumid};
-$mb = new MusicBrainz;
-$mb->Login();
+$albumid = $ARGS{albumid} if (!defined $albumid);
 
 $album = Album->new($mb->{DBH});
 $album->SetId($albumid);

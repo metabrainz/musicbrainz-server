@@ -838,3 +838,53 @@ sub ApprovedAction
 
    return $status;
 }
+
+package RemoveDiskidModeration;
+use vars qw(@ISA);
+@ISA = 'Moderation';
+
+sub ShowPreviousValue
+{
+   my ($this) = @_;
+
+   if ($this->GetStatus != ModDefs::STATUS_APPLIED)
+   {
+       return "Old: <a href=\"/showalbum.html?diskid=" .
+              "$this->{prev}\">$this->{prev}</a>";
+   }
+   else
+   {
+       return "Old: $this->{prev}";
+   }
+}
+
+sub ShowNewValue
+{
+   my ($this) = @_;
+
+   return qq\New: <span class="bold">$this->{new}</span>\;
+}
+
+sub DeniedAction
+{
+}
+
+sub ApprovedAction
+{
+   my ($this, $rowid) = @_;
+   my ($status);
+
+   $status = ModDefs::STATUS_ERROR;
+
+   my $di = Diskid->new($this->{DBH});
+   if ($di->Remove($this->{prev}))
+   {
+      $status = ModDefs::STATUS_APPLIED;
+   }
+   else
+   {
+      $status = ModDefs::STATUS_FAILEDDEP;
+   }
+
+   return $status;
+}
