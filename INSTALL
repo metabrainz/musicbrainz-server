@@ -193,6 +193,30 @@ Installation:
 
 Good luck!
 
+
+
+Loading the MusicBrainz Data into MySQL
+---------------------------------------
+
+Although the MusicBrainz server is intended to run on Postgres, it is possible
+to load the MusicBrainz data into a MySQL database, and additionally it may be
+possible to run a partial server (e.g. it maybe only suitable for read only
+access) on top of that MySQL database.
+
+"Mutiny" said on 2003-09-11
+(http://chatlogs.musicbrainz.org/2003/2003-09/2003-09-11.html#T22-07-49):
+
+  Importing the data into a mysql database was actually insanely easy.  All I
+  did (exactly) was:
+
+    mysqladmin create musicbrainz
+    mysql musicbrainz < CreateTables.sql
+    mysqlimport musicbrainz mbdump/*
+
+So apparently it's that easy!
+
+
+
 Robert Kaye
 Mayhem & Chaos Coordinator
 rob@eorbit.net
