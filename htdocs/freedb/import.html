@@ -1,10 +1,15 @@
 <%args>
 $catid=>""
 $mac=>""
+$parse_artist_track=>""
+$parse_track_artist=>""
+$sep=>""
 </%args>
 
-
 <%perl>
+
+$sep = '/' unless $sep ne '';
+$mac = ($mac eq 'on') ? 1 : 0;
 
 my ($cat, $id);
 
@@ -40,88 +45,265 @@ if ($catid eq '')
 
 <%perl>
 my ($mb); 
-my ($i, $artistname, $modpending, $ar);
-my ($lookup, $tracks);
+my ($i, $arraytistname, $modpending, $array, $ar, $al, $match, @albums);
+my ($lookup, $tracks, $artist, $ret);
+
+mc_comp("/comp/sidebar", title=>'FreeDB Import: Verify/Correct CD Information');
+mc_comp("/comp/stylemenu");
 
 $mb = new MusicBrainz;
-mc_comp("/comp/sidebar", title=>'Verify/Correct CD Information');
-
-mc_comp("/comp/stylemenu");
+$mb->Login();
 
 my $fdb = FreeDB->new($mb->{DBH});
 $lookup = $fdb->LookupByFreeDBId($id, $cat);
 if (!$lookup)
 {
-   mc_out("That could could not be loaded from freedb.org. ");
+   mc_out("The selected CD could could not be loaded from freedb.org. ");
    mc_out("Please try another one.");
    mc_comp("/comp/footer");
    return undef;
 }
 
-$ar = $lookup->{tracks};
-$tracks = scalar(@$ar);
+$array = $lookup->{tracks};
+$tracks = scalar(@$array);
+
+$lookup->{artist} =~ tr/ / /s;
+$ar = Artist->new($mb->{DBH});
+
+if ($mac)
+{
+    $ar->SetId(Artist::VARTIST_ID);
+    $ret = $ar->LoadFromId();
+}
+else
+{
+    $ar->SetId(Artist::VARTIST_ID);
+    $ret = $ar->LoadFromName($lookup->{artist});
+}
+
+if (defined $ret)
+{
+    $lookup->{artist} = $ar->GetName();
+    $artist = $ar->GetId();
+
+    @albums = $ar->HasAlbum($lookup->{album}, .8);
+    if (defined $albums[0])
+    {
+        my $banner = 0;
+        foreach $match (@albums)
+        {
+            $al = Album->new($mb->{DBH});
+            $al->SetId($match->{id});
+            if (defined $al->LoadFromId())
+            {
+                if ($al->GetTrackCount() == $tracks)
+                {
+                    if (!$banner)
+                    {
+                         mc_out(qq|<b>MusicBrainz already contains the following 
+                                   albums that have the same or a similar title
+                                   to the CD that you'd like to import:</b><p>|);
+                         $banner++;
+                    }
+
+                    mc_out("<a href=\"/showalbum.html?albumid=" . $al->GetId() .
+                           "\">" . $al->GetName() . "</a>");  
+                    mc_out(" with $tracks tracks is ");
+                    mc_out($match->{match} == 1.0 ? 
+                           "an exact match" : "a close match");
+                    mc_out(".<br>");
+                }
+            }
+        }
+
+        if ($banner)
+        {
+            mc_out(qq|<p><font color=\"red\">Please do not import albums that are
+                      already present in the database!</font><p>However, if
+                      you feel that this album still needs to be added for some
+                      reason, please follow the instructions below:<p>|);
+        }
+    }
+}
+else
+{
+    $artist = undef;
+}
 
 </%perl>
 
-<script LANGUAGE="JavaScript">
-function validate()
-{  
-    if (
-% for($i = 0; $i < $tracks; $i++) {
-        document.EnterCD.track<% $i %>.value == "" ||
-% }
-        document.EnterCD.artistname.value == "" ||
-        document.EnterCD.sortname.value == "" ||
-        document.EnterCD.title.value == "")
-    {
-        alert("Please enter all the information for this CD.");
-        return false;
-    }
-    return true;
-};
-</script>
+<& /comp/cdi/entervalidate, formname=>"EnterCD", ismac=>0, 
+                            tracks=>$tracks &>
 
 Retrieved CD <font class="bold"><% $lookup->{album} %></font> 
 by <font class="bold"><% $lookup->{artist} %></font> at
 <a href="http://www.freedb.org">freedb.org</a>.<p>
 Please check the information below for accuracy and correct any
-mistakes you may find:<p>
+mistakes you may find.<p>
+
+% if ($mac) {
+  <table width="400">
+     <tr colspan="5">
+     If the track names and artist names are the same for all the tracks
+     below or if the track and artist names are reversed, then use the
+     buttons below to reload this page.<p>
+
+     Choose which way to display the artist and track names, and also
+     select a character that is used to seperate the artist from the
+     track names in this album.<p>
+
+     Current settings: <span class="bold">
+%    if ($parse_artist_track ne "") {
+        Artist/Track</span>, seperated by
+%    } else {
+        Track/Artist</span>, seperated by
+%    }
+     <span class="bold"><% $sep %></span><p>
+
+     </tr>
+     <tr><td align="center">
+     <form method="POST" action="/freedb/import.html" Name="FreeDBImport"
+           enctype="application/x-www-form-urlencoded" class="formstyle">
+        Reload CD Info,<br> and display as:<br><br>
+        <input type="hidden" name="catid" value="<% $catid %>">
+        <input type="hidden" name="mac" value="<% $mac ? 'on' : '' %>">
+        <input type="submit" value="Artist / Track" name="parse_artist_track">
+     </td><td align="center">
+        use seperator:<br><br>
+        <input type="text" name="sep" size="3">
+     </form>
+     </td><td align="center">
+        <img src="/images/black_pixel.gif" height="40" width="1">
+     </td><td align="center">
+     <form method="POST" action="/freedb/import.html" Name="FreeDBImport"
+           enctype="application/x-www-form-urlencoded" class="formstyle">
+        Reload CD Info,<br> and display as:<br><br>
+        <input type="hidden" name="catid" value="<% $catid %>">
+        <input type="hidden" name="mac" value="<% $mac ? 'on' : '' %>">
+        <input type="submit" value="Track / Artist" name="parse_track_artist">
+     </td><td align="center">
+        use seperator:<br><br>
+        <input type="text" name="sep" size="3">
+      </form>
+     </td></tr>
+  </table>
+  <%perl>
+
+  if ($sep eq ')' || $sep eq '(' || $sep eq '*' ||
+      $sep eq '?' || $sep eq '+' || $sep eq '.' ||
+      $sep eq '[' || $sep eq ']' || $sep eq '.')
+  {
+     $sep = "\\$sep";
+  }
+}
+
+my ($artistname, $sortname, $trackname, $temp);
+
+</%perl>
 
 <form method="POST" action="/cdi/done.html" Name="EnterCD"
       enctype="application/x-www-form-urlencoded" class="formstyle">
 <table>
-    <tr><td>Artist:</td><td>
-        <input type="text" name="artistname" size="30"
-               value="<% $lookup->{artist} %>"></td>
-    </tr>
-    <tr><td>SortName:</td><td>
-%     my ($sortname, $st);
-%     $st = Style->new;
-%     $sortname = $st->MakeDefaultSortname($lookup->{artist});
-      <input type="text" name="sortname" size="30"
-             value="<% $sortname %>"></td>
-    </td></tr>
 
+%   if (!$mac) {
 
-    <tr><td>CD Title:</td><td>
-      <input type="text" name="title" size="30"
-             value="<% $lookup->{album} %>">
-    </td></tr>
+%      if (!defined $artist) {
+            <tr><td>Artist:</td><td>
+            <input type="text" name="artistname" size="30"
+                   value="<% $lookup->{artist} %>"></td>
+            </tr>
+            <tr><td>SortName:</td><td>
+%           my ($sortname, $st);
+%           $st = Style->new;
+%           $sortname = $st->MakeDefaultSortname($lookup->{artist});
+            <input type="text" name="sortname" size="30"
+                   value="<% $sortname %>"></td>
+            </td></tr>
+%      } else {
+            <tr><td>Artist:</td><td>
+            <b><% $lookup->{artist} %></b>
+            </tr>
+%      }
+       <tr><td>CD Title:</td><td>
+         <input type="text" name="title" size="30"
+                value="<% $lookup->{album} %>">
+       </td></tr>
+%   } else {
 
-% for($i = 0; $i < $tracks; $i++) {
-    <tr><td>Track <% $i + 1 %>:</td><td>
+       <tr>
+           <td colspan="2" align="right" valign="top">CD Title:</td>
+           <td>
+              <input type="text" name="title" size="30"
+                    value="<% $lookup->{album} %>">
+           </td>
+       </tr>
+%   }
 
-     <input type="text" name="track<% $i %>" size="30"
-            value="<% $$ar[$i]->{track} %>">
+    <%perl>
+
+    for($i = 0; $i < $tracks; $i++) 
+    {
+        $artistname = $trackname = "";
+        if ($mac)
+        {
+            my $exp;
+     
+            $temp = $$array[$i]->{track};
+            $artistname = $trackname = $temp;
+     
+            $exp = '(.*)\s*'.$sep.'\s*(.*)';
+            if ($temp =~ m|$exp|)
+            {
+                if (defined $1 && defined $2)
+                {
+                   $artistname = ($parse_artist_track ne '') ? $1 : $2;
+                   $trackname = ($parse_artist_track ne '') ? $2 : $1;
+                }
+            }
+            my $st = Style->new;
+            $sortname = $st->MakeDefaultSortname($artistname);
     
-    </td></tr>
-% }
+            </%perl>
+           
+            <tr>
+               <td valign="top"><font class="bold">Track <% $i + 1 %>:</font></td>
+               <td align="right" valign="top">Track Name:</td>
+               <td>
+                  <input type="text" name="track<% $i %>" size="30"
+                         value="<% $trackname %>">
+           </td>
+                </tr>
+        
+            <tr>
+               <td colspan="2" align="right" valign="top">Artist Name:</td>
+           <td><input type="text" name="artistname<% $i %>" size="30"
+                          value="<% $artistname %>"></td>
+            </tr>
+        
+            <tr>
+               <td colspan="2" align="right" valign="top">Sort Name:</td>
+               <td><input type="text" name="sortname<% $i %>" size="30"
+                      value="<% $sortname %>"><p></td>
+            </tr>
+%        } else {
+
+            <tr><td>Track <% $i + 1 %>:</td><td>
+        
+             <input type="text" name="track<% $i %>" size="30"
+                    value="<% $$array[$i]->{track} %>">
+            
+            </td></tr>
+%        }
+%    }
 </table>
 
+% if (defined $artist) {
+    <input type="hidden" name="artist" value="<% $artist %>">
+% }
 <input type="hidden" name="freedbid" value="<% $id %>">
 <input type="hidden" name="tracks" value="<% $tracks %>">
 <input type="submit" value="Next>>" name="Next"
-       onClick="return validate(form);">
+       onClick="return validate();">
 </form>
 
 <& /comp/footer &>

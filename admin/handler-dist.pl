@@ -56,7 +56,8 @@ sub handler
 {
     my ($r) = @_;
 
-    return -1 if $r->content_type && $r->content_type !~ m|^text/|io;
+    return -1 if (!defined $r->content_type);
+    return -1 if $r->content_type && $r->content_type !~ m|^text/html/|io;
 
     my %cookies = parse CGI::Cookie($r->header_in('Cookie'));
     if (exists $cookies{'AF_SID'})

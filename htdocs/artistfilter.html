@@ -44,13 +44,23 @@ $ar = Artist->new($mb->{DBH});
 @names = $ar->FindArtist($arg);
 
 $found = 0;
+my $index = 0;
+my $found_self = 0;
 foreach $key (@names)
 {
+    print STDERR "$key->{id} == $ARGS{artist0}\n";
+    if ($key->{id} == $ARGS{artist0})
+    {
+        print STDERR "deleted\n";
+        $found_self = 1;
+        delete $names[$index]; 
+        next; 
+    }
     if (lc($key->{name}) eq lc($arg))
     {
-       $found = 1;
-       last;
+        $found = 1;
     }
+    $index++;
 }
 $num_found = scalar(@names);
 </%perl>
@@ -79,6 +89,20 @@ move track <span class="bold"><% $ARGS{prev0} %></span> to the selected artist:
 <form method="POST" action="/bare/enter_mod.html" NAME="ArtistFilter"
       enctype="application/x-www-form-urlencoded" class="formstyle">
 
+% if ($num_found == 0 && $found_self) {
+   <& /comp/tablebegin, title=>'No Artists Found', gattrs=>'width="100%"' &>
+
+    <br>&nbsp;&nbsp;<span class="bold">No applicable artists found.</span>
+    Only the originating artist was found. 
+    Please <a href="<% $ARGS{url} %>">try again</a>.<p><br>
+
+   <& /comp/tableend &>
+
+   </form>
+
+%  return undef;
+%}
+
 % if (!$found && $mode ne 'merge') {
    <& /comp/tablebegin, title=>'New Artist', gattrs=>'width="100%"' &>
    <table width="100%"> <tr>
@@ -105,6 +129,7 @@ move track <span class="bold"><% $ARGS{prev0} %></span> to the selected artist:
 
 %   $i = 0;
 %   foreach $name (@names) {
+%       next if (!defined $name);
         <tr><td>
         <input type="radio" name="<% $argname %>" value="<% $name->{name} |h %>"
 %       if ($i == 0 && $found) {

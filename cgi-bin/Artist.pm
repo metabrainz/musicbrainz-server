@@ -35,6 +35,7 @@ use Carp qw(cluck);
 use DBI;
 use DBDefs;
 use Alias;
+use String::Similarity;
 
 # Use the following id for the multiple/various artist albums
 use constant VARTIST_ID => 1;
@@ -158,9 +159,34 @@ sub LoadFromName
    my ($this, $artistname) = @_;
    my ($sql, @row);
 
+   # First try to find the artist by name
    $sql = Sql->new($this->{DBH});
    @row = $sql->GetSingleRow("Artist", [qw(id name GID modpending sortname)],
                              ["name", $sql->Quote($artistname)]);
+   if (!defined $row[0])
+   {
+        # If that failed, then try to find the artist by sortname
+        @row = $sql->GetSingleRow("Artist", 
+                                  [qw(id name GID modpending sortname)],
+                                  ["sortname", $sql->Quote($artistname)]);
+   }
+   if (!defined $row[0])
+   {
+        my ($artist, $alias);
+
+        # If that failed too, then try the artist aliases
+        $alias = Alias->new($this->{DBH});
+
+        # Check to see if the artist has an alias.
+        $alias->{table} = "ArtistAlias";
+        $artist = $alias->Resolve($artistname);
+        if (defined $artist)
+        {
+            @row = $sql->GetSingleRow("Artist", 
+                           [qw(id name GID modpending sortname)],
+                           ["id", $artist]);
+        }
+   }
    if (defined $row[0])
    {
         $this->{id} = $row[0];
@@ -375,6 +401,66 @@ sub GetAlbumsByName
    }
 
    return @albums;
+} 
+
+# Checks to see if an album by the given name exists. If no exact match is
+# found, then it will attempt a fuzzy match
+sub HasAlbum
+{
+   my ($this, $albumname, $threshold) = @_;
+   my (@albums, $sql, @row, $album, @matches, $sim);
+
+   # First, pull in the single artist albums
+   $sql = Sql->new($this->{DBH});
+   if ($sql->Select(qq/select id, name from 
+                       Album where artist=$this->{id} order by name/))
+   {
+        while(@row = $sql->NextRow)
+        {
+            if (lc($row[1]) eq lc($albumname))
+            {
+                push @matches, { id=>$row[0], match=>1, name=>$row[1] };
+            }
+            else
+            {
+                $sim = similarity($albumname, $row[1]);
+                if ($sim >= $threshold)
+                {
+                    push @matches, { id=>$row[0], match=>$sim, name=>$row[1] };
+                }
+            }
+        }
+        $sql->Finish;
+   }
+
+   # then, pull in the multiple artist albums
+   if ($sql->Select(qq/select distinct AlbumJoin.album, Album.name
+                         from Track, Album, AlbumJoin 
+                        where Track.Artist = $this->{id} and 
+                              AlbumJoin.track = Track.id and 
+                              AlbumJoin.album = Album.id and 
+                              Album.artist = / . Artist::VARTIST_ID .
+                   " order by Album.name"))
+   {
+        while(@row = $sql->NextRow)
+        {
+            if (lc($row[1]) eq lc($albumname))
+            {
+                push @matches, { id=>$row[0], match=>1, name=>$row[1] };
+            }
+            else
+            {
+                $sim = similarity($albumname, $row[1]);
+                if ($sim >= $threshold)
+                {
+                    push @matches, { id=>$row[0], match=>$sim, name=>$row[1] };
+                }
+            }
+        }
+        $sql->Finish;
+   }
+
+   return @matches;
 } 
 
 sub FindArtist

@@ -34,23 +34,8 @@ if ($freedb)
 
 </%perl>
 
-<script LANGUAGE="JavaScript">
-function validate()
-{ 
-    if (
-% for($i = 0; $i < $tracks; $i++) {
-        document.EnterCD.track<% $i %>.value == "" ||
-        document.EnterCD.artistname<% $i %>.value == "" ||
-        document.EnterCD.sortname<% $i %>.value == "" ||
-% }
-        document.EnterCD.title.value == "")
-    {
-        alert("Please enter all the information for this CD.");
-        return false;
-    }
-    return true;
-};
-</script>
+<& /comp/cdi/entervalidate, formname=>"EnterCD", ismac=>1, 
+                            tracks=>$tracks &>
 
 % if (defined $lookup) {
      Found CD <font class="bold"><% $lookup->{album} %></font>

@@ -3,13 +3,20 @@
 <script LANGUAGE=javascript>
 <!--
 
+function B1_onclick() 
+{
+  var tmp
+  tmp=document.forms["ChangeTrackForm"].new1.value;
+  document.forms["ChangeTrackForm"].new1.value=document.forms["ChangeTrackForm"].new0.value;
+  document.forms["ChangeTrackForm"].new0.value=tmp;
+}
 
-function B1_onclick() {
-var tmp
-tmp=document.forms["ChangeTrackForm"].new1.value;
-document.forms["ChangeTrackForm"].new1.value=document.forms["ChangeTrackForm"].new0.value;
-document.forms["ChangeTrackForm"].new0.value=tmp;
-
+function B2_onclick() 
+{
+  document.forms["ChangeTrackForm"].new0.value =
+      document.forms["ChangeTrackForm"].orig_artist.value;
+  document.forms["ChangeTrackForm"].new1.value=
+      document.forms["ChangeTrackForm"].orig_track.value;
 }
 
 //-->
@@ -87,7 +94,7 @@ else
    else
    {
       if ($trackname =~ /^(.*)\s*\/\s*(.*)$/)
-      {
+         {
           $newartistname = $1;
           $newtrackname = $2;
       }
@@ -144,6 +151,8 @@ else
            <br> 
            <input type="button" value="Swap" name="B1" 
                   onclick="return B1_onclick(this)">
+           <input type="button" value="Use Current" name="B2" 
+                  onclick="return B2_onclick(this)">
            </td>
          </tr>
          <tr>
@@ -177,6 +186,8 @@ else
        <input type="hidden" name="column1" value="Name">
        <input type="hidden" name="id0" value="<% $trackid %>">
        <input type="hidden" name="id1" value="<% $trackid %>">
+       <input type="hidden" name="orig_artist" value="<% $artistname %>">
+       <input type="hidden" name="orig_track" value="<% $trackname %>">
 % if (exists $ARGS{solo}) {
        <input type="hidden" 
               name="url" value="/showalbum.html?albumid=<% $id %>">

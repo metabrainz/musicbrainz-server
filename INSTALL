@@ -49,6 +49,8 @@ The MusicBrainz server requires the following items:
    DBI          
    DBD::mysql  
    HTML::Mason
+   String::CRC32
+   String::Similarity;
    Unicode::String
    XML::DOM   
    XML::Parser 
@@ -57,7 +59,6 @@ The MusicBrainz server requires the following items:
    RDFStore
    Digest::SHA1
    UUID (requires e2fsprogs)
-   String::CRC32
    Text::Unaccent (at least version 1.05:
          http://www.senga.org/download/unac/Text-Unaccent-1.05.tar.gz)
 

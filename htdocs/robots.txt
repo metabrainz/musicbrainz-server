@@ -25,3 +25,6 @@ Disallow: /tomac.html
 Disallow: /cdi
 Disallow: /comp
 Disallow: /bare
+Disallow: /freedb
+Disallow: /mod
+Disallow: /popup
