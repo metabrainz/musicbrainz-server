@@ -421,51 +421,6 @@ sub LoadFromId
    return undef;
 }
 
-# Load an artist and all the aliases, albums, tracks, disc ids, tocs and TRM ids
-# returns 1 on success, undef otherwise. 
-# XXX is this ever used?
-sub LoadFull
-{
-   my ($this) = @_;
-   my ($sql, @row, $ret, $alias, $al);
-
-   if (!defined $this->GetId())
-   {
-       cluck "Artist::LoadFull is called with undef Id\n"; 
-       return undef;
-   }
-
-   if ($this->GetId() == &ModDefs::VARTIST_ID ||
-       $this->GetId() == &ModDefs::DARTIST_ID)
-   {
-       cluck "Artist::LoadFull cannot be used to load this artist.\n"; 
-       return undef;
-   }
-
-   $ret = $this->LoadFromId();
-   if (defined $ret)
-   {
-	# XXX I suspect that _aliases and _albums here are unused.
-       $alias = Alias->new($this->{DBH});
-       $alias->{table} = "ArtistAlias";
-       $ret = $alias->LoadFull($this->GetId());
-       if (defined $ret)
-       {
-           $this->{"_aliases"} = $ret;
-       }
-
-       $al = Album->new($this->{DBH});
-       $ret = $al->LoadFull($this->GetId());
-       if (defined $ret)
-       {
-           $this->{"_albums"} = $ret;
-
-           return 1;
-       }
-   }
-   return undef;
-}
-
 # Pull back a section of artist names for the browse artist display.
 # Given an index character ($ind), a page offset ($offset) 
 # it will return an array of references to an array
