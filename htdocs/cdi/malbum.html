@@ -39,16 +39,19 @@ $ar->SetId(Artist::VARTIST_ID);
 $ar->LoadFromId();
 
 $al = Album->new($mb->{DBH});
-@albums = $al->SearchByName($search, 1);
 
-if (scalar(@albums) > 0)
+my $eng = SearchEngine->new();
+$eng->Table("Album");
+$eng->AllWords(1);
+$eng->Search($search);
+if ($eng->Rows > 0)
 {
     my @row;
     my $i;
 
-    foreach $album (@albums)
+    while (my $row = $eng->NextRow)
     {
-        $al->SetId($$album[0]);
+        $al->SetId($row->[0]);
 
         next if (!defined $al->LoadFromId());
         

@@ -174,6 +174,7 @@ sub Lookup
     {
         $ret->{cdindexid} = $diskid;
         $ret->{toc} = $toc; 
+
     }
     return $ret;
 }
@@ -190,17 +191,6 @@ sub LookupByFreeDBId
         $ret->{freedbid} = $id;
     }
     return $ret;
-}
-
-sub Strip
-{
-    $_ = $_[0];
-
-    tr/\'//d;
-    s/\A[ \n\t\r]\b//;
-    while(s/[ \n\t\r]$//) { } ;
-
-    return $_;
 }
 
 sub IsNumber
@@ -221,7 +211,7 @@ sub Retrieve
     my ($iaddr, $paddr, $proto, $line);
     my (@response, $category, $i);
     my (@selection, @chars, @parts, @subparts);
-    my ($aritst, $title, %info, @track_titles, @tracks, @query);
+    my ($artist, $title, %info, @track_titles, @tracks, @query);
     my ($disc_id, $first_track, @track_offsets, $seconds_in_cd); 
 
     if ($remote eq '' || $port == 0)
@@ -328,7 +318,7 @@ sub Retrieve
     $query = "cddb read $category $disc_id\n";    
     send SOCK, $query, 0;
 
-    $aritst = "";
+    $artist = "";
     $title = "";
     while(defined($line = <SOCK>))
     {
@@ -348,9 +338,9 @@ sub Retrieve
         @parts = split '=', $line;
         if ($parts[0] eq "DTITLE")
         {
-            if ($aritst eq "")
+            if ($artist eq "")
             {
-                ($aritst, $title) = split '\/', $parts[1];
+                ($artist, $title) = split '\/', $parts[1];
             }
             else
             {
@@ -364,17 +354,22 @@ sub Retrieve
             chomp $parts[1];
             chop $parts[1];
             $track_titles[$subparts[1]] .= $parts[1];
+            $track_titles[$subparts[1]] =~ s/^\s*(.*?)\s*$/$1/;
             next;
         }
      }
 
      if (!defined $title || $title eq "")
      {
-         $title = $aritst;
+         $title = $artist;
      }
-     $info{artist} = Strip($aritst);
-     $info{sortname} = Strip($aritst);
-     $info{album} = Strip($title);
+
+     $artist =~ s/^\s*(.*?)\s*$/$1/;
+     $title =~ s/^\s*(.*?)\s*$/$1/;
+
+     $info{artist} = $artist;
+     $info{sortname} = $artist;
+     $info{album} = $title;
  
      for($i = 0; $i < scalar(@track_titles); $i++)
      {

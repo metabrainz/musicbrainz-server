@@ -5,7 +5,7 @@ $tracks
 $search
 </%args>
 <%perl>
-my ($mb, $ar, $num_tracks, $i, $sth, $sql); 
+my ($mb, $ar, $eng, $num_tracks, $i, $sth, $sql); 
 my (@row, $artist, @artists);
 
 $mb = new MusicBrainz;
@@ -21,8 +21,11 @@ else
 {
     $mb->Login();
     $ar = Artist->new($mb->{DBH});
-    @artists = $ar->FindArtist($search);
-    if (scalar(@artists) > 0)
+    $eng = SearchEngine->new();
+    $eng->Table("Artist");
+    $eng->AllWords(1);
+    $eng->Search($search);
+    if ($eng->Rows > 0)
     {
         my ($artistid, $artistname, $artistsortname);
 </%perl>    
@@ -31,10 +34,10 @@ else
         <form method="POST" action="/cdi/album.html"
               enctype="application/x-www-form-urlencoded" class="formstyle">
 
-%       foreach $artist (@artists)
+%       while (my $row = $eng->NextRow) 
 %       {
             <input type="radio" name="artist" 
-                   value="<% $artist->{id} %>">&nbsp;<% $artist->{name} %><br>
+                   value="<% $row->[0] %>">&nbsp;<% $row->[1] %><br>
 %       }
 
         <input type="hidden" name="id" value="<% $id %>">
