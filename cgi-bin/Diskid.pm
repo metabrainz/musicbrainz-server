@@ -125,7 +125,7 @@ sub Insert
     my ($this, $id, $album, $toc) = @_;
     my ($diskidalbum, $sql);
 
-    $diskidalbum = $this->GetAlbumFromDiskId($this->{DBH}, $id);
+    $diskidalbum = $this->GetAlbumFromDiskId($id);
     if (!defined $diskidalbum)
     {
         $sql = Sql->new($this->{DBH});

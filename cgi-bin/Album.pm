@@ -61,8 +61,8 @@ sub Insert
     my ($this) = @_;
     my ($album, $id, $sql, $name);
 
-    return undef if (!defined $this->{artist});
-    return undef if (!defined $this->{name});
+    return undef if (!exists $this->{artist} || $this->{artist} eq '');
+    return undef if (!exists $this->{name} || $this->{name} eq '');
 
     $sql = Sql->new($this->{DBH});
     $name = $sql->Quote($this->{name});
@@ -160,7 +160,8 @@ sub LoadFromId
    return undef;
 }
 
-# Load an album record. Set the album name via the SetName accessor
+# Load an album record. Set the album name via the SetName accessor, and 
+# set the artist via the SetArtist function.
 # returns 1 on success, undef otherwise. Access the Album info via the
 # accessor functions.
 sub LoadFromName
@@ -168,9 +169,13 @@ sub LoadFromName
    my ($this) = @_;
    my ($sth, $sql, @row);
 
+   return undef if (!exists $this->{name} || $this->{name} eq '');
+   return undef if (!exists $this->{artist} || $this->{artist} eq '');
+
    $sql = Sql->new($this->{DBH});
    @row = $sql->GetSingleRow("Album", [qw(id name GID modpending artist)],
-                             ["name", $sql->Quote($this->{name})]);
+                             ["name", $sql->Quote($this->{name}),
+                              "artist", $this->{artist}]);
    if (defined $row[0])
    {
         $this->{id} = $row[0];
@@ -191,12 +196,14 @@ sub LoadTracks
    my (@info, $query, $sql, @row, $track);
 
    $sql = Sql->new($this->{DBH});
-   $query = qq/select Track.id, Track.name, Track.artist,
-               AlbumJoin.sequence, Track.length,
-               Track.modpending, AlbumJoin.modpending, Track.GID from
-               Track, AlbumJoin where AlbumJoin.track = Track.id
-               and AlbumJoin.album = $this->{id} order by
-               AlbumJoin.sequence/;
+   $query = qq|select Track.id, Track.name, Track.artist,
+                      AlbumJoin.sequence, Track.length,
+                      Track.modpending, AlbumJoin.modpending, Track.GID 
+               from   Track, AlbumJoin 
+               where  AlbumJoin.track = Track.id
+                      and AlbumJoin.album = $this->{id} 
+               order  by AlbumJoin.sequence|;
+
    if ($sql->Select($query))
    {
        for(;@row = $sql->NextRow();)
