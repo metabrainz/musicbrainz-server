@@ -66,8 +66,8 @@ if ($url eq '')
            return undef;
        }
 
-       $info = $user->GetUserInfo($session{uid});
-       if (!defined $info)
+       my $me = $user->newFromId($session{uid});
+       if (!defined $me)
        {
            $m->out("User $session{uid} was not found.");
            $m->comp("/comp/footer");
@@ -77,7 +77,7 @@ if ($url eq '')
 
        if ($email eq '') 
        {
-           $user->SetUserInfo($session{uid}, $email);
+           $me->SetUserInfo($session{uid}, $email);
            </%perl>
            <p>Your email address has been removed.</p>
            <%perl>
@@ -85,7 +85,7 @@ if ($url eq '')
        } 
        else 
        {
-           my $ret = $user->SendVerificationEmail($info, $email);
+           my $ret = $me->SendVerificationEmail($email);
            if ($ret)
            {
                </%perl>
