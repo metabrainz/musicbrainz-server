@@ -61,7 +61,7 @@ else
 </%perl>
 
 <table width="100%"><tr><td align="center">
-% if ($index > 1) {
+% if ($index > 0) {
     <a href="<% $url %>&offset=<% ($index - 1) * $pagesize %>">&lt;&lt;</a>&nbsp;
 % } else {
     &lt;&lt;
