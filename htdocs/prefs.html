@@ -6,6 +6,9 @@ $m->comp("/comp/checkloggedin", 1, 1,
 	)
 	or return;
 
+$session{orig_privs} = $session{privs}
+	if not exists $session{orig_privs};
+
 my $saved = 0;
 
 my $countries_menu = $m->comp("/mod/edit-releases/countries-menu.inc");
@@ -51,6 +54,17 @@ if ($ARGS{"SavePrefs"})
 		)) {
 			$session{$_} = $ARGS{$_} ? 1 : 0;
 		}
+	}
+
+	# Other volatile preferences
+	if (UserStuff->IsAutoMod($session{orig_privs}))
+	{
+		my $p = 0 + $session{privs};
+
+		if ($ARGS{enable_automod_privs}) { $p ||= UserStuff->AUTOMOD_FLAG }
+		else { $p &= ~(UserStuff->AUTOMOD_FLAG) }
+
+		$session{privs} = $p;
 	}
 
 	if (not $saved)
@@ -294,6 +308,27 @@ $time = time();
 		Don't show the sidebar at all (even faster, but it makes it
 		rather hard to navigate the site)
 	</p>
+
+	<p>
+		<input type="submit" value="Update">
+	</p>
+
+% if (UserStuff->IsAutoMod($session{orig_privs})) {
+	<h1>Temporary Preferences</h1>
+
+	<p>
+		These preferences are not saved permanently; they are reset every time
+		you log in.
+	</p>
+
+	<h2>Automoderator Privileges</h2>
+	<p>
+		<input type="checkbox" name="enable_automod_privs"
+			<% UserStuff->IsAutoMod($session{privs}) ? "checked" : "" %>
+			>
+		Enable auto-moderator privileges
+	</p>
+% }
 
 	<p>
 		<input type="submit" value="Update">
