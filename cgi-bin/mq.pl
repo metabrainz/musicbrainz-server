@@ -32,13 +32,10 @@ my %Queries =
    FindAlbum =>
       [\&QuerySupport::FindAlbumByName, 0, 
         'http://musicbrainz.org/mm/mq-1.0#albumName',
-        'http://musicbrainz.org/mm/mq-1.0#artistName',
         'http://musicbrainz.org/mm/mq-1.0#maxItems'],
    FindTrack => 
       [\&QuerySupport::FindTrackByName, 0, 
         'http://musicbrainz.org/mm/mq-1.0#trackName',
-        'http://musicbrainz.org/mm/mq-1.0#albumName',
-        'http://musicbrainz.org/mm/mq-1.0#artistName',
         'http://musicbrainz.org/mm/mq-1.0#maxItems'],
    FindDistinctTRMID => 
       [\&QuerySupport::FindDistinctTRM, 0, 
@@ -352,7 +349,7 @@ for(;;)
     $data = QuerySupport::Extract(\@triples, $currentURI, -1, $rdfquery);
     $data = undef if (defined $data && $data eq '');
     $data = "" if (defined $data && $data eq "__NULL__");
-    #print STDERR "query args: '$data'\n" if defined $data;
+    #print STDERR "'$rdfquery' ->\n'$data'\n\n" if defined $data;
     push @queryargs, $data;
     $rdfquery = undef;
 }
