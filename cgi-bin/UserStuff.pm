@@ -45,14 +45,14 @@ sub new
 sub Login
 {
    my ($this, $user, $pwd) = @_;
-   my ($ok, $sth);
+   my ($ok, $sth, $dbuser);
    my @row;
 
    $ok = 0;
 
-   $user = $this->{DBH}->quote($user);
-   $sth = $this->{DBH}->prepare(qq/
-          select name,password,privs,id from ModeratorInfo where name = $user/);
+   $dbuser = $this->{DBH}->quote($user);
+   $sth = $this->{DBH}->prepare(qq/select name,password,privs,id 
+                                   from ModeratorInfo where name = $dbuser/);
    if ($sth->execute && $sth->rows)
    {
    
@@ -70,7 +70,7 @@ sub Login
 sub CreateLogin
 {
    my ($this, $user, $pwd, $pwd2) = @_;
-   my ($sth, $uid);
+   my ($sth, $uid, $dbuser);
 
    if ($pwd ne $pwd2)
    {
@@ -85,10 +85,10 @@ sub CreateLogin
        return "You cannot leave the user name blank. Please try again."
    }
 
-   $user = $this->{DBH}->quote($user);
+   $dbuser = $this->{DBH}->quote($user);
    $pwd = $this->{DBH}->quote($pwd);
    $sth = $this->{DBH}->prepare(qq/
-                         select id from ModeratorInfo where name = $user
+                         select id from ModeratorInfo where name = $dbuser
                          /);
    if ($sth->execute && $sth->rows)
    {
@@ -99,7 +99,7 @@ sub CreateLogin
 
    $this->{DBH}->do(qq/
             insert into ModeratorInfo (Name, Password, Privs, ModsAccepted, 
-            ModsRejected) values ($user, $pwd, 0, 0, 0)
+            ModsRejected) values ($dbuser, $pwd, 0, 0, 0)
             /);
 
    $uid = $this->GetLastInsertId();
