@@ -34,11 +34,9 @@ sub ImportTable
 
     if (-e "$dir/$name")
     {
-        my ($table_name) = $name;
-
-        $table_name = "moderator" if ($name eq 'moderator_sanitised');
+        my $dataonly = ($name eq 'moderator_sanitised') ? '' : '-a';
         print "Importing table $name..\n";
-        $cmd = "pg_restore -a -t $table_name -d musicbrainz $dir/$name"; 
+        $cmd = "pg_restore $dataonly -t $name -d musicbrainz $dir/$name"; 
         print "$cmd\n";
         $ret = system($cmd) >> 8;
 
@@ -65,6 +63,7 @@ sub ImportAllTables
     ImportTable("discid", $dir) or return 0;
     ImportTable("toc", $dir) or return 0;
     ImportTable("clientversion", $dir) or return 0;
+    ImportTable("albummeta", $dir) or return 0;
 
     ImportTable("moderator", $dir) or return 0;
     ImportTable("moderator_sanitised", $dir) or return 0;
@@ -77,9 +76,7 @@ sub ImportAllTables
     ImportTable("albumwords", $dir) or return 0;
     ImportTable("trackwords", $dir) or return 0;
 
-    print "\nImported tables successfully.\n";
-    print "\nNow you will need to run build_words.pl to build the\n";
-    print "text search indexes or import mbdump-derived.\n";
+    `echo "select fill_moderator();" | psql musicbrainz`;
 
     return 1;
 }

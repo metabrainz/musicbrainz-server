@@ -102,6 +102,7 @@ my @derived = qw(
 	stats
 	trackwords
 	wordlist
+	albummeta
 	);
 
 my @moderation = qw(
@@ -152,7 +153,7 @@ EOF
 		$sql->Do("SELECT * INTO moderator_sanitised FROM moderator");
 
 		$sql->AutoCommit;
-		$sql->Do("UPDATE moderator_sanitised SET password = '', privs = 0, email = ''");
+		$sql->Do("UPDATE moderator_sanitised SET password = 'mb', privs = 0, email = ''");
 	}
 }
 
