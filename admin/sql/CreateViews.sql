@@ -1,3 +1,4 @@
+\set ON_ERROR_STOP 1
 begin;
 
 create view open_moderations as

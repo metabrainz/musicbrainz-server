@@ -1,3 +1,4 @@
+\set ON_ERROR_STOP 1
 begin;
 
 create unique index Artist_NameIndex on Artist (Name);

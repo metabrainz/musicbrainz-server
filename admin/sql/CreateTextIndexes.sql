@@ -1,3 +1,4 @@
+\set ON_ERROR_STOP 1
 begin;
 create unique index WordList_WordIndex on WordList (Word);
 create index AlbumWords_WordidIndex on AlbumWords (Wordid);

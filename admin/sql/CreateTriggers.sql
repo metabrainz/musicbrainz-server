@@ -1,3 +1,4 @@
+\set ON_ERROR_STOP 1
 create trigger a_ins_album after insert on album 
                for each row execute procedure insert_album_meta();
 
