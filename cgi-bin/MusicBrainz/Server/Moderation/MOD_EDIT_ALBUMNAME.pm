@@ -87,7 +87,6 @@ sub CheckPrerequisites
 sub ApprovedAction
 {
 	my $this = shift;
-	my $sql = Sql->new($this->{DBH});
 
 	my $status = $this->CheckPrerequisites;
 	return $status if $status;
