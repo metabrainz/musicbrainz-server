@@ -461,6 +461,7 @@ sub AlbumSearch
                         album_trmids=>$al->GetTrmidCount(),
                         albumtype=>$albumtype});
            $this->{album} = $al;
+	   last;
        }
    }
 
