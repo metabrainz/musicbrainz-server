@@ -8,7 +8,7 @@ if ((!exists $ARGS{trackid} || $ARGS{trackid} eq '') &&
 {
     mc_comp("/comp/sidebar", title=>"Error");
     mc_comp("/comp/badargs");
-    return;
+    return undef;
 }
 
 $mb = new MusicBrainz;
@@ -23,7 +23,7 @@ if (exists $ARGS{trackid})
     {
         mc_comp("/comp/sidebar", title=>"Error");
         mc_out("This track (ID=$trackid) was not found<br>");
-        return;
+        return undef;
     }
 }
 else
@@ -32,7 +32,7 @@ else
     {
         mc_comp("/comp/sidebar", title=>"Error");
         mc_out("This track (AlbumJoinID=$ARGS{albumjoinid}) was not found<br>");
-        return;
+        return undef;
     }
 }
 

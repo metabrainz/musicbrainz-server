@@ -13,7 +13,7 @@ if (!exists $ARGS{album} || $ARGS{album} eq '' ||
     !exists $ARGS{artist} || $ARGS{artist} eq '')
 {
     mc_comp("/comp/badargs");
-    return;
+    return undef;
 }
 
 $id = $ARGS{album};

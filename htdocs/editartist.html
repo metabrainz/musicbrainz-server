@@ -8,14 +8,14 @@ my ($artistname, $referer, $modpending, $sortname);
 if (!exists $ARGS{id} || $ARGS{id} eq '') 
 {
     mc_comp("/comp/badargs");
-    return;
+    return undef;
 }
 
 $id = $ARGS{id};
 if ($id == Artist::VARTIST_ID)
 {
     mc_out("You cannot edit this artist.\n");
-    return;
+    return undef;
 }
 
 $referer = $r->headers_in->{'Referer'};

@@ -6,7 +6,7 @@ my ($track, $artist, $album, $albumid, @info, $gu, @guid, $id);
 if (!exists $ARGS{albumid} || $ARGS{albumid} eq '')
 {
     mc_comp("/comp/badargs");
-    return;
+    return undef;
 }
 
 $albumid = $ARGS{albumid};

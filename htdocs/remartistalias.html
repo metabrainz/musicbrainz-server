@@ -7,7 +7,7 @@ my ($mb, $referer, $al, $alias, $ar);
 if (!exists $ARGS{alias} || $ARGS{alias} eq '')
 {
     mc_comp("/comp/badargs");
-    return;
+    return undef;
 }
 
 $referer = $r->headers_in->{'Referer'};
@@ -22,7 +22,7 @@ $al->SetTable("ArtistAlias");
 if (!defined $al->LoadFromId())
 {
    mc_out("Internal error. Cannot load artist alias.");
-   return;
+   return undef;
 }
 
 $ar = Artist->new($mb->{DBH});
@@ -30,7 +30,7 @@ $ar->SetId($al->GetRowId());
 if (!defined $ar->LoadFromId())
 {
    mc_out("Internal error. Cannot load artist.");
-   return;
+   return undef;
 }
 
 </%perl>

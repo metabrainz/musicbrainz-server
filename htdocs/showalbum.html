@@ -16,7 +16,7 @@ if (exists $ARGS{diskid} && $ARGS{diskid} ne '')
     {
         mc_comp("/comp/sidebar", title=>"Error");
         mc_out("Diskid $ARGS{diskid} was not found in the database.");
-        return;
+        return undef;
     }
 }
 
@@ -24,7 +24,7 @@ if (!defined $albumid && (!exists $ARGS{albumid} || $ARGS{albumid} eq ''))
 {
     mc_comp("/comp/sidebar", title=>"Error");
     mc_comp("/comp/badargs");
-    return;
+    return undef;
 }
 
 $albumid = $ARGS{albumid} if (!defined $albumid);
@@ -36,7 +36,7 @@ if (! $album->LoadFromId())
 {
     mc_comp("/comp/sidebar", title=>"Error");
     mc_out("This Album (ID=$albumid) was not found<br>");
-    return;
+    return undef;
 }
 else
 {

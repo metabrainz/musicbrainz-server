@@ -44,6 +44,7 @@ The MusicBrainz server requires the following items:
    ---------
    Bundle::Apache
    Apache::Session
+   Apache::Session::File
    Storable
    DBI          
    DBD::mysql  

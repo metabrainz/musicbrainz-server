@@ -46,5 +46,6 @@ for($i = 0;; $i++)
             tindex=>$i, hilitetrack=>$hilitetrack, 
             hilitecolor=>$hilitecolor, nomod=>$nomod);
 }
-mc_comp("/comp/albumend", album=>$album, artist=>$artist, nomod=>$nomod);
+mc_comp("/comp/albumend", album=>$album, artist=>$artist, 
+                          numtracks=>$i, nomod=>$nomod);
 </%perl>

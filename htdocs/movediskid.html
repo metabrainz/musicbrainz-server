@@ -1,30 +1,56 @@
+<%args>
+$diskid=>""
+$albumid=>0
+$artistid=>0
+$confirm=>0
+</%args>
+
 <& /comp/sidebar, title=>'Move Diskid', expand=>'moderate' &>
 
 <%perl>
 
-my ($mb, $albumname, $referer, $al, $di);
-my ($albumid, $artistid, $diskid, $id, @diskid_refs, $ref); 
+my ($mb, $ar, @albums, $albumname, $referer, $al, $di);
+my ($id, @diskid_refs, $ref); 
 
-if (!exists $ARGS{diskid} || $ARGS{diskid} eq '' ||
-    !exists $ARGS{albumid} || $ARGS{albumid} eq '')
+if ($confirm)
+{
+    mc_comp("/comp/confirmmod", 
+            title=>"Confirm Move Diskid",
+            args=>{ %ARGS });
+    return undef;
+}
+
+if ($diskid eq '' || $albumid == 0 || $artistid == 0)
 {
     mc_comp("/comp/badargs");
-    return;
+    return undef;
 }
 
 $referer = $r->headers_in->{'Referer'};
 $mb = new MusicBrainz;
 $mb->Login();
+
+$ar = Artist->new($mb->{DBH});
 $al = Album->new($mb->{DBH});
 $di = Diskid->new($mb->{DBH});
 
-$diskid = $ARGS{diskid};
-$albumid = $ARGS{albumid};
+$al = Album->new($mb->{DBH});
+$al->SetId($albumid);
+$al->LoadFromId();
+
+$ar->SetId($artistid);
+@albums = $ar->GetAlbums();
+if (scalar(@albums) == 0)
+{
+    mc_out("Cannot load albums for artist $artistid\n");
+    return undef;
+}
+  
 @diskid_refs = $di->GetDiskIdFromAlbum($albumid);
 if (scalar(@diskid_refs) == 0)
 {
     mc_out("Invalid diskid and album passed.\n");
-    return;
+    return undef;
 }
 
 $id = -1;
@@ -40,13 +66,8 @@ foreach $ref (@diskid_refs)
 if ($id < 0)
 {
     mc_out("Invalid diskid and album passed.\n");
-    return;
+    return undef;
 }
-
-$al->SetId($albumid);
-$al->LoadFromId();
-$albumname = $al->GetName();
-$artistid = $al->GetArtist();
 
 </%perl>
 
@@ -57,55 +78,51 @@ $artistid = $al->GetArtist();
     <& /comp/tableend &>
 % } else {
 
-    <& /comp/tablebegin, gattrs=>"width=\"100%\"",
-       title=>'Remove Diskid' &>
+      Select a new album for CD Index Id 
+      <span class="bold"><% $diskid %></span>:<p>
 
-    <FORM METHOD="POST" ACTION="/bare/enter_mod.html" NAME="RemoveDiskidForm"
-          ENCTYPE="application/x-www-form-urlencoded">  
+%     foreach $ref (@albums) {
+%        next if ($ref->GetId() == $albumid);
+%        next if ($ref->GetArtist() == Artist::VARTIST_ID);
+            <form method="POST" action="/movediskid.html"
+                  enctype="application/x-www-form-urlencoded" class="formstyle">
+              <table width="100%">
+              <tr>
+                <td width="100%">
+                   <& /comp/album, artist=>$ar, album=>$ref, nomod=>1 &>
+                </td>
+                <td align="right" valign="top">
+                   <input type="submit" value="Select <% $albumname %>>>"
+                          name="Select">
+                   <input type="hidden" name="confirm_message" 
+                          value="Are you sure you want to move CD Index id <% '<font class="bold">' . $diskid . '</font>' |h %> to album <% '<font class="bold">' . $ref->GetName() .'</font>' |h %>?">
 
-    <table width="100%">
-      <tr>
-        <td colspan="2">
-        Are you sure you want to remove CD Index Id <% $diskid %> from album
-        <span class="bold"><% $albumname %></span>? <p>Please be sure you
-        are certain that this CD Index Id is an error, since an Album
-        can have multiple valid CD Index Ids. For more info, please see our
-        <a href="/cd_submission.html">CD Submission</a> document.<p>
-        </td>
-      </tr>
-      <tr>
-        <td>
-        &nbsp;
-        </td>
-        <td>
-        <INPUT TYPE="radio" NAME="confirm0" SIZE=25 value="yes"> Yes
-        </td>
-      </tr>
-      <tr>
-        <td>
-        &nbsp;
-        </td>
-        <td>
-        <INPUT TYPE="radio" NAME="confirm0" SIZE=25 value="no" CHECKED> No
-        </td>
-      </tr>
-      <tr>
-        <td colspan=2>
-        <INPUT TYPE="submit" NAME="Submit" VALUE="Submit">    
-        </td>
-      </tr>
-    </table>
-    <input type="hidden" name="artist0" value="<% $artistid %>">
-    <input type="hidden" name="type0"
-           value="<% ModDefs::MOD_REMOVE_DISKID %>">
-    <input type="hidden" name="prev0" value="<% $diskid %>">
-    <input type="hidden" name="new0" value="DELETE">
-    <input type="hidden" name="table0" value="Diskid">
-    <input type="hidden" name="column0" value="Disk">
-    <input type="hidden" name="id0" value="<% $id %>">
-    <input type="hidden" name="referer" value="<% $referer %>">
-    </form>
-      
-    <& /comp/tableend &>
+
+                   <input type="hidden" name="key0" value="NewAlbumId">
+                   <input type="hidden" name="value0" 
+                          value="<% $ref->GetId() %>">
+                   <input type="hidden" name="key1" value="OldAlbumName">
+                   <input type="hidden" name="value1" 
+                          value="<% $al->GetName() %>">
+                   <input type="hidden" name="key2" value="NewAlbumName">
+                   <input type="hidden" name="value2" 
+                          value="<% $ref->GetName() %>">
+                   <input type="hidden" name="key3" value="DiskId">
+                   <input type="hidden" name="value3" 
+                          value="<% $diskid %>">
+                   <input type="hidden" name="confirm" value="1">
+                   <input type="hidden" name="artist" value="<% $artistid %>">
+                   <input type="hidden" name="type"
+                          value="<% ModDefs::MOD_MOVE_DISKID %>">
+                   <input type="hidden" name="prev" value="<% $albumid %>">
+                   <input type="hidden" name="table" value="Diskid">
+                   <input type="hidden" name="column" value="Disk">
+                   <input type="hidden" name="id" value="<% $id %>">
+                   <input type="hidden" name="referer" value="<% $referer %>">
+                </td>
+              </tr>
+              </table>
+            </form>
+%     }
 % }
 % $mb->Logout();

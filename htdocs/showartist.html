@@ -7,7 +7,7 @@ if (!exists $ARGS{artistid} || $ARGS{artistid} eq '')
 {
     mc_comp("/comp/sidebar", title=>"Error");
     mc_comp("/comp/badargs");
-    return;
+    return undef;
 }
 
 my ($ret, $t0, $t1, $td);
@@ -36,7 +36,7 @@ else
         mc_out("<font size=\"+1\">This artist is a placeholder for the ");
         mc_out("moderation system. Please do not use it.</font>");
         mc_out("</td></tr></table>");
-        return;
+        return undef;
     }
 
     mc_comp("/comp/artisttitle", artist=>$artist);

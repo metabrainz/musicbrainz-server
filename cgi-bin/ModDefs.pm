@@ -54,6 +54,7 @@ use constant MOD_ADD_ARTIST              => 17;
 use constant MOD_ADD_TRACK_KV            => 18;
 use constant MOD_REMOVE_ARTIST           => 19;
 use constant MOD_REMOVE_DISKID           => 20;
+use constant MOD_MOVE_DISKID             => 21;
 
 use constant STATUS_OPEN                 => 1;
 use constant STATUS_APPLIED              => 2;

@@ -15,7 +15,7 @@ if (!exists $ARGS{new0} || $ARGS{new0} eq '' ||
     !exists $ARGS{mode} || $ARGS{mode} eq '')
 {
     mc_comp("/comp/badargs");
-    return;
+    return undef;
 }
 $mode = $ARGS{mode};
 

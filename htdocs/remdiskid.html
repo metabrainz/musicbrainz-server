@@ -9,7 +9,7 @@ if (!exists $ARGS{diskid} || $ARGS{diskid} eq '' ||
     !exists $ARGS{albumid} || $ARGS{albumid} eq '')
 {
     mc_comp("/comp/badargs");
-    return;
+    return undef;
 }
 
 $referer = $r->headers_in->{'Referer'};
@@ -24,7 +24,7 @@ $albumid = $ARGS{albumid};
 if (scalar(@diskid_refs) == 0)
 {
     mc_out("Invalid diskid and album passed.\n");
-    return;
+    return undef;
 }
 
 $id = -1;
@@ -40,7 +40,7 @@ foreach $ref (@diskid_refs)
 if ($id < 0)
 {
     mc_out("Invalid diskid and album passed.\n");
-    return;
+    return undef;
 }
 
 $al->SetId($albumid);

@@ -6,7 +6,7 @@ my (@list, $artist, $alias, $item);
 if (!exists $ARGS{artistid} || $ARGS{artistid} eq '')
 {
     mc_comp("/comp/badargs");
-    return;
+    return undef;
 }
 
 $mb = new MusicBrainz;
@@ -45,7 +45,7 @@ else
     {
         $mb->Logout();
         mc_out("There are no aliases for this artist.");
-        return;
+        return undef;
     }
 
     mc_comp("/comp/modnotice");

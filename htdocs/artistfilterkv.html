@@ -29,7 +29,7 @@ if (!defined $name || !defined $artistnamevalue || !defined $sortnamevalue)
 {
     mc_comp("/comp/sidebar", title=>'Error');
     mc_comp("/comp/badargs");
-    return;
+    return undef;
 }
 
 # Do some housekeeping

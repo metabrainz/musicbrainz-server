@@ -18,7 +18,7 @@ if (!exists $ARGS{key0} || $ARGS{key0} eq '' ||
     !exists $ARGS{value1} || $ARGS{value1} eq '')
 {
     mc_comp("/comp/badargs");
-    return;
+    return undef;
 }
 
 $num_tracks = $ARGS{value1};
@@ -26,7 +26,7 @@ if (!Moderation::IsNumber($num_tracks) || $num_tracks < 1 || $num_tracks > 99)
 {
     mc_out(qq|You've entered an invalid number of tracks. Please
               go back and try again.|);
-    return;
+    return undef;
 }
 
 $mb = new MusicBrainz;
@@ -37,7 +37,7 @@ $ar->SetId($ARGS{artist});
 if (!defined $ar->LoadFromId())
 {
     mc_comp("/comp/badargs");
-    return;
+    return undef;
 }
 
 @albums = $ar->GetAlbums() if ($ARGS{artist} != Artist::VARTIST_ID);

@@ -8,7 +8,7 @@ if (DBDefs::USE_LYRICS) {
   if (!exists $ARGS{id} || $ARGS{id} eq '')
   {
       mc_comp("/comp/badargs");
-      return;
+      return undef;
   }
   
   $mb = new MusicBrainz;

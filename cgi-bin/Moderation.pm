@@ -61,7 +61,8 @@ my %ModNames = (
     "17" => "Add Artist",
     "18" => "Add Track",
     "19" => "Remove Artist",
-    "20" => "Remove Diskid"
+    "20" => "Remove Diskid",
+    "21" => "Move Diskid"
 );
 
 my %ChangeNames = (
@@ -392,6 +393,10 @@ sub CreateModerationObject
    elsif ($type == ModDefs::MOD_REMOVE_DISKID)
    {
        return RemoveDiskidModeration->new($this->{DBH});
+   }
+   elsif ($type == ModDefs::MOD_MOVE_DISKID)
+   {
+       return MoveDiskidModeration->new($this->{DBH});
    }
 
    print STDERR "Undefined moderation type $type.\n";

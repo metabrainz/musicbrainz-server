@@ -8,14 +8,14 @@ my ($artist);
 if (!exists $ARGS{artist} || $ARGS{artist} eq '')
 {
     mc_comp("/comp/badargs");
-    return;
+    return undef;
 }
 
 $artist = $ARGS{artist};
 if ($artist <= 2)
 {
     mc_out("This artist cannot be deleted.");
-    return;
+    return undef;
 }
 
 $referer = $r->headers_in->{'Referer'};

@@ -10,7 +10,7 @@ if (!exists $ARGS{album} || $ARGS{album} eq '' ||
     !exists $ARGS{id} || $ARGS{id} eq '')
 {
     mc_comp("/comp/badargs");
-    return;
+    return undef;
 }
 
 $referer = $r->headers_in->{'Referer'};

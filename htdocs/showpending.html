@@ -10,7 +10,7 @@ $guid=>""
 if (!exists $ARGS{guid} || $ARGS{guid} eq '')
 {
     mc_comp("/comp/badargs");
-    return;
+    return undef;
 }
 </%perl>
 

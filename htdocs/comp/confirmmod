@@ -1,0 +1,52 @@
+<%args>
+$title
+$args
+</%args>
+
+<& /comp/tablebegin, gattrs=>"width=\"100%\"", title=>$title &>
+
+    <FORM METHOD="POST" ACTION="/bare/enter_kv_mod.html"
+          ENCTYPE="application/x-www-form-urlencoded">  
+
+    <table width="100%">
+      <tr>
+        <td colspan="2">
+        <% $args->{confirm_message} |n %>
+        </td>
+      </tr>
+      <tr>
+        <td>
+        &nbsp;
+        </td>
+        <td>
+        <INPUT TYPE="radio" NAME="confirm0" SIZE=25 value="yes"> Yes
+        </td>
+      </tr>
+      <tr>
+        <td>
+        &nbsp;
+        </td>
+        <td>
+        <INPUT TYPE="radio" NAME="confirm0" SIZE=25 value="no" CHECKED> No
+        </td>
+      </tr>
+      <tr>
+        <td colspan=2>
+        <INPUT TYPE="submit" NAME="Submit" VALUE="Submit">    
+        </td>
+      </tr>
+    </table>
+<%perl>
+
+my $arg;
+
+for $arg (keys %$args)
+{
+    next if ($arg eq "confirm_message");
+    next if ($arg eq "title");
+    mc_out("<input type=\"hidden\" name=\"$arg\" value=\"$args->{$arg}\">\n");
+}
+</%perl>
+
+</form>
+<& /comp/tableend &>

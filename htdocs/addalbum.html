@@ -7,7 +7,7 @@ my ($mb, $id, $referer, $ar, $artist);
 if (!exists $ARGS{artistid} || $ARGS{artistid} eq '')
 {
     mc_comp("/comp/badargs");
-    return;
+    return undef;
 }
 
 $referer = $r->headers_in->{'Referer'};
@@ -33,7 +33,7 @@ $ar->LoadFromId();
 
     </td></tr></table>
 
-%   return;
+%   return undef;
 %}
 
 

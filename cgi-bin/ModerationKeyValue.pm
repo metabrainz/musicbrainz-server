@@ -549,3 +549,76 @@ sub DeniedAction
    }
 }
 
+package MoveDiskidModeration;
+use vars qw(@ISA);
+@ISA = 'Moderation';
+
+sub ShowPreviousValue
+{
+   my ($this) = @_;
+
+   my $name = "Unknown";
+   my $diskid = "Unknown";
+   my $new = $this->{new};
+   if ($new =~ /^OldAlbumName=(.*)$/m)
+   {
+       $name = $1;
+   }
+   if ($new =~ /^DiskId=(.*)$/m)
+   {
+       $diskid = $1;
+   }
+   return "Old: <a href=\"/showalbum.html?albumid=" . $this->GetPrev() .
+          "\">$name</a><br>$diskid";
+}
+
+sub ShowNewValue
+{
+   my ($this) = @_;
+   
+   my $nw = $this->ConvertNewToHash($this->{new});
+   return "New: <a href=\"/showalbum.html?albumid=$nw->{NewAlbumId}\">" .
+          "$nw->{NewAlbumName}</a>";
+}
+
+# I don't think moving an id warrants any dependencies
+sub DetermineDependencies
+{
+}
+
+sub PreVoteAction
+{
+   my ($this) = @_;
+   my ($nw, $sql, $quote);
+
+   $nw = $this->ConvertNewToHash($this->{new});
+   return undef if (!defined $nw);
+
+   $sql = Sql->new($this->{DBH});
+   $quote = $sql->Quote($nw->{DiskId});
+   $sql->Do(qq|update Diskid set album=$nw->{NewAlbumId} where disk = $quote|);
+   $sql->Do(qq|update TOC set album=$nw->{NewAlbumId} where diskid = $quote|);
+}
+
+#returns STATUS_XXXX
+sub ApprovedAction
+{
+   return ModDefs::STATUS_APPLIED;
+}
+
+#returns nothing
+sub DeniedAction
+{
+   my ($this) = @_;
+   my ($nw, $sql, $quote);
+
+   $nw = $this->ConvertNewToHash($this->{new});
+   return undef if (!defined $nw);
+
+   $sql = Sql->new($this->{DBH});
+   $quote = $sql->Quote($nw->{DiskId});
+   $sql->Do("update Diskid set album= " . $this->GetPrev() . 
+            " where disk = $quote");
+   $sql->Do("update TOC set album= " . $this->GetPrev() . 
+            " where diskid = $quote");
+}

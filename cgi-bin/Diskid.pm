@@ -133,14 +133,15 @@ sub GetDiskIdFromAlbum
     my (@row, $sql, @ret);
  
     $sql = Sql->new($this->{DBH});
-    if ($sql->Select(qq|select id, disk, modpending from Diskid 
+    if ($sql->Select(qq|select id, disk, toc, modpending from Diskid 
                          where album = $album|))
     {
         while(@row = $sql->NextRow())
         {
             push @ret, { id=>$row[0],
                          diskid=>$row[1],
-                         modpending=>$row[2] };
+                         toc=>$row[2],
+                         modpending=>$row[3] };
         }
         $sql->Finish();
     }

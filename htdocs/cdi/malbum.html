@@ -15,7 +15,7 @@ if (!defined $search || $search eq '')
 {
     mc_out("Please enter the CD name. Click on the " .
            "Back button in your browser and try again.");
-    return;
+    return undef;
 }
 
 if (!exists $ARGS{toc} || $ARGS{toc} eq '' ||
@@ -23,7 +23,7 @@ if (!exists $ARGS{toc} || $ARGS{toc} eq '' ||
     !exists $ARGS{tracks} || $ARGS{tracks} eq '')
 {
     mc_comp("/comp/badargs");
-    return;
+    return undef;
 }
 
 my (@row, @ids, %labels);
