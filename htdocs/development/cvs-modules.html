@@ -86,14 +86,15 @@ if (open(my $fh, &DBDefs::MB_SERVER_ROOT."/CVS/Tag"))
 		<td><a href="http://cvs.musicbrainz.org/cvs/tunepimp">tunepimp</a></td>
 		<td colspan="2">
 			TunePimp library source code -- this module contains the sources for
-			building the <b>libtunepimp library</b>.&nbsp; <!-- TODO /products/tunepimp -->
+			building the <a href="/products/client/download.html">libtunepimp library</a>.&nbsp;
 			This library encapsulates the core tagging functionality of the
 			<a href="/tagger/">MusicBrainz Tagger</a>.&nbsp; Using this library,
 			it's easy to write a complete tagging application -- only a
 			<abbr title="User Interface">UI</abbr> layer needs to be added.&nbsp;
 			This library handles all the tricky details of reading and writing metadata
 			tags, looking up TRM ids from various audio formats, and matching local
-			audio files with tracks in the MusicBrainz server.
+			audio files with tracks in the MusicBrainz server.&nbsp; Also includes
+			Perl bindings.
 		</td>
 	</tr>
 	<& .ShowTags,
