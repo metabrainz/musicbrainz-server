@@ -22,8 +22,8 @@ my $time = sprintf "%d-%d %02d:%02d", $entered[4]+1, $entered[3],
 </tr>
 <tr>
    <td width=38% valign=top bgcolor=white class="body">
-     Moderator: <% $mod->GetModeratorName() |n %> 
-     (exp: <% $time |n %>)
+     By: <% $mod->GetModeratorName() |n %> 
+     (exp: <% $time |n %> id: <% $mod->GetId() %>)
    </td>
    <td width=38% valign=top bgcolor=white class="body">
      <% $mod->ShowModType() |n %> 

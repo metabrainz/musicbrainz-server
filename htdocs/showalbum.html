@@ -32,6 +32,9 @@ else
     else
     {
         mc_comp("/comp/artisttitle", artist=>$artist);
+        mc_out("[ <a href=\"/showartist.html?artistid=");
+        mc_out($artist->GetId());
+        mc_out("\">View all albums by this artist</a> ]<p>");
         mc_comp("/comp/modnotice");
         mc_comp("/comp/album", album=>$album, artist=>$artist);
     }

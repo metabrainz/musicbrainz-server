@@ -34,7 +34,7 @@ $tr_bgcolor = ($track->GetAlbumJoinModPending()) ? 'bgcolor="#FFFFCC"' : '';
     </td>
 % if ($album->GetArtist() == Artist::VARTIST_ID) {
     <td width="30%">
-       <% $track->GetArtistName()  %>
+       <a href="/showartist.html?artistid=<% $track->GetArtist() %>"><% $track->GetArtistName()  %></a>
 % if (exists $session{user}) {
           (<a href="/changetrack.html?album=<% $album->GetId() %>&artist=<% $artist->GetId() %>&tindex=<% $tindex %>&solo=1">Change</a>)
 % }

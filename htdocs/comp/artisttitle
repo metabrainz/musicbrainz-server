@@ -4,20 +4,25 @@ $artist
 
 <%perl>
 
-my $bgcolor;
+my ($bgcolor, $name, $sortname);
 $bgcolor = $artist->GetModPending() ? 'bgcolor="#FFFFCC"' : '';
+$name = $artist->GetName();
+$sortname = $artist->GetSortName();
 
 </%perl>
 
 <table>
   <tr>
-    <td <% $bgcolor |n %> class="title">
-      <font size=+2><% $artist->GetName() %></font>
+    <td <% $bgcolor |n %> valign="top">
+      <span style="title"><font size=+2><% $name %><font></span>
+%     if ($name ne $sortname) {
+          <br>(<% $sortname %>)
+%     }
     </td>
     <td>
 % if (exists $session{user} && $artist->GetId() != Artist::VARTIST_ID) {
-      (<a href="/editartist.html?id=<% $artist->GetId() %>">Edit</a> |
-      <a href="/mergeartist.html?id=<% $artist->GetId() %>">Merge</a>)
+      [<a href="/editartist.html?id=<% $artist->GetId() %>">Edit</a> |
+      <a href="/mergeartist.html?id=<% $artist->GetId() %>">Merge</a>]
 % } else {
       &nbsp;
 % }

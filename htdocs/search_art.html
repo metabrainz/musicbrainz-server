@@ -26,13 +26,18 @@ if (scalar(@data) > 0)
     Click on the artist name to see all the albums for that artist:
 
     <table>
+       <tr><th>Sort Name</th><th>Name</th></tr>
+
 %   for($i = 0;; $i++) {
 %      $row = $data[$i];
 %      last if (!defined $row);
        <tr>
          <td>
            <a href="/showartist.html?artistid=<% $$row[0] %>">
-           <% $$row[2]  %></a>
+           <% $$row[2] %></a>
+         </td>
+         <td>
+           <% $$row[1] %>
          </td>
        </tr>
 %   }

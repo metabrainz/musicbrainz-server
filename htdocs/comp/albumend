@@ -8,7 +8,7 @@ $album
 </table> 
 % if (exists $session{user}) {
    <center>
-   <a href="/addtrack.html?album=<% $album->GetId() %>&artist=<% $artist->GetId() %>">Add a missing track</a> | 
+   [ <a href="/addtrack.html?album=<% $album->GetId() %>&artist=<% $artist->GetId() %>">Add a missing track</a> | 
    <a href="/movealbum.html?album=<% $album->GetId() %>&artist=<% $artist->GetId() %>">Move</a> 
 %#   <a href="/mergealbum.html?album=<% $album->GetId() %>&artist=<% $artist->GetId() %>">Merge</a> 
 %    if ($album->GetArtist() != Artist::VARTIST_ID) {
@@ -16,5 +16,6 @@ $album
 %    } else {
       | <a href="/tosac.html?album=<% $album->GetId() %>&artist=<% $artist->GetId() %>&track=1">Convert to single artist</a>
 %    }
+   ]
 % }
 <p>
