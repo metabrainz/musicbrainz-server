@@ -39,8 +39,10 @@ if (scalar(@ids) > 0)
        mc_out("</td><td align=\"center\">");
        if (exists $session{user} && !$nomod) 
        {
+           mc_out("<a href=\"/movediskid.html?diskid=$id->{diskid}&albumid=");
+           mc_out($album->GetId() . "\">Move</a> | ");
            mc_out("<a href=\"/remdiskid.html?diskid=$id->{diskid}&albumid=");
-           mc_out($album->GetId() . "\">Delete</a>");
+           mc_out($album->GetId() . "\">Del</a>");
        }
        else
        {
