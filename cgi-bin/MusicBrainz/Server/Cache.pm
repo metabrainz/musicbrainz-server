@@ -29,6 +29,8 @@ package MusicBrainz::Server::Cache;
 
 use Carp qw( carp );
 
+use constant CACHE_TIMER => 0;
+
 our $cache;
 
 # Cache::Memcached can't handle spaces in keys, so we URI-encode them
@@ -53,6 +55,7 @@ sub _new
 sub get
 {
 	my ($class, $key, @args) = @_;
+	my $timer = MusicBrainz::Server::CacheTimer->new("get", $key, @args) if CACHE_TIMER;
 	my $r = eval { $class->_get($key, @args) };
 	warn "Warning: Cache GET $key failed: $@\n" if $@;
 	$r;
@@ -97,6 +100,7 @@ sub _get
 sub set
 {
 	my ($class, $key, @args) = @_;
+	my $timer = MusicBrainz::Server::CacheTimer->new("set", $key, @args) if CACHE_TIMER;
 	my $r = eval { $class->_set("set", $key, @args) };
 	warn "Warning: Cache SET $key failed: $@\n" if $@;
 	$r;
@@ -105,6 +109,7 @@ sub set
 sub add
 {
 	my ($class, $key, @args) = @_;
+	my $timer = MusicBrainz::Server::CacheTimer->new("add", $key, @args) if CACHE_TIMER;
 	my $r = eval { $class->_set("add", $key, @args) };
 	warn "Warning: Cache ADD $key failed: $@\n" if $@;
 	$r;
@@ -113,6 +118,7 @@ sub add
 sub replace
 {
 	my ($class, $key, @args) = @_;
+	my $timer = MusicBrainz::Server::CacheTimer->new("replace", $key, @args) if CACHE_TIMER;
 	my $r = eval { $class->_set("replace", $key, @args) };
 	warn "Warning: Cache REPLACE $key failed: $@\n" if $@;
 	$r;
@@ -153,6 +159,7 @@ sub _set
 sub delete
 {
 	my ($class, $key, $time) = @_;
+	my $timer = MusicBrainz::Server::CacheTimer->new("delete", $key, $time) if CACHE_TIMER;
 	$time = &DBDefs::CACHE_DEFAULT_DELETE unless defined $time;
 	my $cache = $class->_new
 		or return undef;
@@ -168,6 +175,36 @@ the cache (e.g. File, MemCached, etc) is not known to the caller.  This layer
 supports get / set / add / replace / delete.
 
 =cut
+
+package MusicBrainz::Server::CacheTimer;
+
+use Time::HiRes qw( gettimeofday tv_interval );
+
+sub new
+{
+	my $class = shift;
+	bless {
+		t => [ gettimeofday ],
+		c0 => [ caller(0) ],
+		c1 => [ caller(1) ],
+		args => [ @_ ],
+	}, $class;
+}
+
+sub DESTROY
+{
+	my $self = shift;
+	my $t = tv_interval($self->{t});
+	my $c0 = $self->{c0};
+	my @args = @{ $self->{args} };
+
+	my $msg = sprintf "Cache: %8.4fs (%s) from %s line %d\n",
+		$t,
+		join(" ", @args),
+		$c0->[1], $c0->[2];
+
+	print STDERR $msg;
+}
 
 1;
 # eof Cache.pm
