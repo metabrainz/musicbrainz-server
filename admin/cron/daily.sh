@@ -93,6 +93,7 @@ echo `date`" : Running report 'TracksNamedWithSequence'"
 nice ./reports/TracksNamedWithSequence.pl > $reportdir/TracksNamedWithSequence.html
 
 # Process subscriptions
+echo `date`" : Processing subscriptions"
 ./ProcessSubscriptions
 
 echo `date`" : Nightly jobs complete!"
