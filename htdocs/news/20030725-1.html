@@ -1,0 +1,48 @@
+<& /comp/sidebar, title => 'July 25th, 2003: Server Updates' &>
+
+<pre>
+Change Log for mb_server
+========================
+
+Moderation notes: when entering moderations, you now get the chance to enter a
+moderation note at the same time as entering or confirming the moderation
+itself.  Previously it was actually quite hard work to add notes to your own
+moderations, to explain why you were entering a particular mod; now it's easy.
+This should hopefully encourage the use of moderation notes to make voting on
+"difficult" or odd-looking moderations easier.  This change applies to all
+moderation types apart from: Add TRM, Change Track Artist, Move Disc ID,
+Convert Release to Single Artist.  These moderation types will be dealt with
+later.
+
+"Edit Album Attributes" moderation: when adding a moderation of this type, any
+releases whose attributes already match the "new" attributes are now quietly
+removed from the list (because there is nothing to change).  If the list
+becomes empty as a result, no moderation is entered.  Thus there will be no
+more moderations which say (for example) "Old: Album, Official; New: Album,
+Official".
+
+Moderator emails: moderators' names shown in e-mail headers (e.g. when it
+shows your name in the "To:" header) are now displayed correctly much more
+often.  Internally, all of the e-mail code has been rewritten, to make it
+easier to maintain and extend the code.  Proper UTF-8 support has been added
+for e-mail subject lines (the message body was already handled correctly).
+
+Server errors: in the highly unlikely ;-) event that you should experience a
+server programming error of some kind, instead of being presented with a big
+ugly list of error messages, you now just get a much nicer-looking "500 Server
+Error" message.  (The error messages are now written to the server error log).
+
+Login / account creation: Bug #752767 "@Q@ in URL" has been fixed.  Also, when
+you log in you will now never be redirected to the login page again, nor to
+the logout page.  (When this used to happen it was very confusing!).  If you
+see the "you must log in" box whilst trying to do something, and you choose to
+create a new account, you are now redirected back to the correct page once
+your account has been created.
+
+Some obscure and intermittent HTML- and URL-encoding bugs have been fixed.
+
+Dave Evans
+
+</pre>
+
+<& /comp/footer &>
