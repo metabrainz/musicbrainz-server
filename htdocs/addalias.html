@@ -39,8 +39,7 @@ my $modpending = $ar->GetModPending();
 
 <& /comp/stylemenu &>
 
-<& /comp/tablebegin, gattrs => "width='100%'",
-	title => 'Add Artist Alias' &>
+<h2>Add Artist Alias</h2>
 
 % if ($modpending) {
 	<& /comp/modpending &>
@@ -65,7 +64,7 @@ my $modpending = $ar->GetModPending();
 					New Artist Alias:
         </td>
         <td>
-					<input type="text" name="new0" size=25 value="<% $artistname %>"> 
+					<input type="text" name="new0" size="40" value="<% $artistname %>">
         </td>
       </tr>
       <tr>
@@ -87,8 +86,6 @@ my $modpending = $ar->GetModPending();
     <input type="hidden" name="url" value="/showaliases.html?artistid=<% $id %>">
 
 	</form>
-
-<& /comp/tableend &>
 
 % $mb->Logout;
 
