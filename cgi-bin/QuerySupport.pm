@@ -621,7 +621,7 @@ sub TrackInfoFromTRMId
 {
    my ($dbh, $parser, $rdf, $id, $artist, $album, $track,
        $tracknum, $duration, $filename)=@_;
-   my ($sql, @ids, $qid, $query);
+   my ($sql, @ids, $query);
 
    return $rdf->ErrorRDF("No trm id given.")
       if (!defined $id || $id eq '');
@@ -710,7 +710,7 @@ sub QuickTrackInfoFromTRMId
 {
    my ($dbh, $parser, $rdf, $id, $artist, $album, $track,
        $tracknum, $duration, $filename)=@_;
-   my ($sql, @data, $out, $qid);
+   my ($sql, @data, $out);
 
    return $rdf->ErrorRDF("No trm id given.")
       if (!defined $id || $id eq '');
@@ -718,18 +718,17 @@ sub QuickTrackInfoFromTRMId
 
    $sql = Sql->new($dbh);
    $id =~ tr/A-Z/a-z/;
-   $qid = $sql->Quote($id);
 
    my $query = qq|select Track.name, Artist.name, Album.name,
                          AlbumJoin.sequence, Track.GID, Track.Length
                     from TRM, TRMJoin, Track, AlbumJoin, Album, Artist
-                   where TRM.TRM = | . $qid . qq| and
+                   where TRM.TRM = ? and
                          TRMJoin.TRM = TRM.id and
                          TRMJoin.track = Track.id and
                          Track.id = AlbumJoin.track and
                          Album.id = AlbumJoin.album and
                          Track.Artist = Artist.id|;
-   if ($sql->Select($query))
+   if ($sql->Select($query, $id))
    {
        if ($sql->Rows == 1)
        {
