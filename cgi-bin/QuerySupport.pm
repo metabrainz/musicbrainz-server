@@ -43,7 +43,6 @@ use TRM;
 use FreeDB;  
 use Insert;  
 use SearchEngine;  
-use RDFStore::Parser::SiRPAC;  
 use Digest::SHA1 qw(sha1_hex);
 use Apache::Session::File;
 use TaggerSupport;
