@@ -14,7 +14,7 @@
 
 <center>
 <font size=+2>MusicBrainz Metadata Initiative 2.0</font><br>
-Last revision: 7-3-2001 by <a href="mailto:rob@eorbit.net">Mayhem &amp; 
+Last revision: 9-21-2001 by <a href="mailto:rob@eorbit.net">Mayhem &amp; 
 Chaos</a>
 </center>
 <p>
@@ -374,7 +374,8 @@ for metadata; more detailed metadata will be supported in the
 
 <table>
 <tr><td valign="top" align="right">
-<b>Artist</b>
+<b>Artist</b><br>
+[<a href="mm_examples.html#artist">Example</a>]
 </td><td valign="top">
 This class is used to describe an Artist. Inside of Artist, use dc:title,
 mm:sortName, and mm:albumList to describe the name and sortname of the artist
@@ -382,14 +383,16 @@ as well as a list of albums available by that artist.
 </td></tr>
 
 <tr><td valign="top" align="right">
-<b>Album</b>
+<b>Album</b><br>
+[<a href="mm_examples.html#artist">Example</a>]
 </td><td valign="top">
 Use this to describe an Album. The dc:title, dc:creator and mm:trackList
 properties should be used to describe the album.
 </td></tr>
 
 <tr><td valign="top" align="right">
-<b>Track</b>
+<b>Track</b><br>
+[<a href="mm_examples.html#artist">Example</a>]
 </td><td valign="top">
 Use Track to describe one audio track. Use the dc:title, mm:trackNum, 
 dc:creator, mm:trmId properties to descibe a track.
@@ -430,18 +433,21 @@ Used to convey a CD Index Disk Id for a CD-ROM.
 
 <tr><td valign="top" align="right">
 <b>artistList</b>
+[<a href="mq_examples.html#artist">Example</a>]
 </td><td valign="top">
 This property is used to convey a list of artists.
 </td></tr>
 
 <tr><td valign="top" align="right">
-<b>albumList</b>
+<b>albumList</b><br>
+[<a href="mq_examples.html#album">Example</a>]
 </td><td valign="top">
 This property is used to convey a list of albums.
 </td></tr>
 
 <tr><td valign="top" align="right">
-<b>trackList</b>
+<b>trackList</b><br>
+[<a href="mq_examples.html#track">Example</a>]
 </td><td valign="top">
 This property is used to convey a list of tracks.
 </td></tr>
@@ -481,53 +487,102 @@ metadata server.
 
 <table>
 <tr><td valign="top" align="right">
-<b>Result</b>
+<b>Result</b><br>
+[<a href="mq_examples.html#artist">Example</a>]
 </td><td valign="top">
-To be completed.
+The Result class is used to encapsulate all of the server responses. It
+will contain a mq:status property which contains a query status code from
+the server. Currently only OK is defined as a valid value. The Result
+class will also contain one artistList, albumList or trackList, depending 
+on what type of query was executed by the server.
 </td></tr>
 
 <tr><td valign="top" align="right">
-<b>SubmitTrack</b>
+<b>SubmitTrack</b><br>
+[<a href="mq_examples.html#submit">Example</a>]
 </td><td valign="top">
+This class is used to submit metadata for one track.
 </td></tr>
 
 <tr><td valign="top" align="right">
-<b>LookupMetadata</b>
+<b>LookupMetadata</b><br>
+[<a href="mq_examples.html#lookup">Example</a>]
 </td><td valign="top">
+This class is used to lookup metadata for one track. This query returns
+the same data that ExchangeMetadata returns, but no metadata is sent to
+the server.  Please consider using ExchangeMetadata whenever possible in
+order to contribute metadata back to the server.
 </td></tr>
 
 <tr><td valign="top" align="right">
-<b>ExchangeMetadata</b>
+<b>ExchangeMetadata</b><br>
+[<a href="mq_examples.html#exchange">Example</a>]
 </td><td valign="top">
+The ExchangeMetadata class is used to send known metadata about one
+track to the server. The server will then respond with known metadata
+about this track. If this track has never been seen before, the server
+will return the exact data that was sent to the server. If that track 
+has been seen before, the metadata for that track is returned by the
+server. Please note that ExchangeMetadata also sends instance specific 
+metadata (Bitprint, file size, bitrate, etc) to the server for inclusion
+in the Bitzi community metadatabase. For more details about this, 
+please visit <a href="http://bitzi.com">Bitzi's website</a>. If you do
+not wish to contribute to the Bitzi metadatabase, then use 
+ExchangeMetadataLite.
 </td></tr>
 
 <tr><td valign="top" align="right">
-<b>FindDisctinctTrmId</b>
+<b>ExchangeMetadataLite</b><br>
+[<a href="mq_examples.html#exchangelite">Example</a>]
 </td><td valign="top">
+This class is used in the same manner as ExchangeMetadata, but no instance
+specific metadata is sent to the server.
 </td></tr>
 
 <tr><td valign="top" align="right">
-<b>FindArtist</b>
+<b>FindDisctinctTrmId</b><br>
+[<a href="mq_examples.html#finddistinct">Example</a>]
 </td><td valign="top">
+Use the FindDistinctTrmId class to query the server about a trmid. Given
+mq:artistName and mq:trackName the server will find a track that matches
+the two criteria and return one track in a trmidList.
 </td></tr>
 
 <tr><td valign="top" align="right">
-<b>FindAlbum</b>
+<b>FindArtist</b><br>
+[<a href="mq_examples.html#findartist">Example</a>]
 </td><td valign="top">
+The FindArtist class can be used to query the server for artists that
+match a given search string. Use mq:artistName to specify the search
+string.
 </td></tr>
 
 <tr><td valign="top" align="right">
-<b>FindTrack</b>
+<b>FindAlbum</b><br>
+[<a href="mq_examples.html#findalbum">Example</a>]
 </td><td valign="top">
+The FindAlbum class can be used to query the server for albums that
+match a given artist and album search strings. Use mq:artistName and 
+mq:albumName to specify the search strings.
 </td></tr>
 
 <tr><td valign="top" align="right">
-<b>GetCDInfo</b>
+<b>FindTrack</b><br>
+[<a href="mq_examples.html#findtrack">Example</a>]
 </td><td valign="top">
+The FindTrack class can be used to query the server for tracks that
+match a given artist, album and track search strings. Use mq:artistName,
+mq:albumName, and mq:trackName to specify the search strings.
 </td></tr>
 
+<tr><td valign="top" align="right">
+<b>GetCDInfo</b><br>
+[<a href="mq_examples.html#getcd">Example</a>]
+</td><td valign="top">
+Use the GetCDInfo to retrieve metadata for a given CD. Use the mm:cdindexId
+property to specify the CD Index disk id.
+</td></tr>
 </table>
-
 
 <p> <font size="+1"><b>Properties</b></font> <p>
 
@@ -535,12 +590,19 @@ To be completed.
 <tr><td valign="top" align="right">
 <b>status</b>
 </td><td valign="top">
-To be completed.
+This property specifies the result status of the query. Currently the
+only valid value is OK.
 </td></tr>
 
 <tr><td valign="top" align="right">
 <b>depth</b>
 </td><td valign="top">
+The depth property allows the client to set the level of information
+that is returned by the server. Using a depth of 1 will only return
+the topmost list of resources. Using a depth of 2 will return all of the 
+resources referenced by the topmost list of resources. Each subsequently
+higher value of depth will return 
+
 </td></tr>
 
 <tr><td valign="top" align="right">
