@@ -233,43 +233,6 @@ sub DeniedAction
 
    $newval = $this->ConvertNewToHash($this->{new});
 
-   # Remove all the tracks, trm ids and track/artists inserted
-   # for this album.
-   for($i = 1;; $i++)
-   {
-      $done = 1;
-      if (exists $newval->{"Track".$i."Id"})
-      {
-          my $tr;
-
-          $tr = Track->new($this->{DBH});
-          $tr->SetId($newval->{"Track".$i."Id"});
-          $tr->Remove();
-
-          $done = 0;
-      }
-      if (exists $newval->{"Trm".$i."Id"})
-      {
-          my $gu;
-
-          $gu = TRM->new($this->{DBH});
-          $gu->SetId($newval->{"Trm".$i."Id"});
-          $gu->Remove();
-
-          $done = 0;
-      }
-      if (exists $newval->{"Artist".$i."Id"})
-      {
-          my $ar;
-
-          $ar = Artist->new($this->{DBH});
-          $ar->SetId($newval->{"Artist".$i."Id"});
-          $ar->Remove();
-
-          $done = 0;
-      }
-      last if ($done);
-   }
    if (exists $newval->{"AlbumId"})
    {
       my ($al, $di);
@@ -277,21 +240,18 @@ sub DeniedAction
       $al = Album->new($this->{DBH});
       $al->SetId($newval->{"AlbumId"});
       $al->Remove();
-   }
-   if (exists $newval->{"Discid"})
-   {
-      my $di;
 
-      $di = Discid->new($this->{DBH});
-      $di->Remove($newval->{"Discid"});
-   }
-   if (exists $newval->{"ArtistId"})
-   {
-      my $ar;
-
-      $ar = Artist->new($this->{DBH});
-      $ar->SetId($newval->{"ArtistId"});
-      $ar->Remove();
+      if (exists $newval->{"ArtistId"})
+      {
+         my $ar;
+   
+         if ($newval->{"ArtistId"} != ModDefs::VARTIST_ID)
+         {
+             $ar = Artist->new($this->{DBH});
+             $ar->SetId($newval->{"ArtistId"});
+             $ar->Remove();
+         }
+      }
    }
 }
 
