@@ -49,7 +49,7 @@ if (!$nonalbum)
     {
         $m->out("<td NOWRAP>") 
     }
-    $m->out("&nbsp;<a href=\"#\" onClick=\"MyWindow=window.open('/popup/attrguide.html','AlbumAttributeGuide','toolbar=no,location=no,directories=no,status=no,menubar=no,scrollbars=yes,resizable=yes,width=400,height=275'); return false;\">");
+    $m->out("&nbsp;<a href=\"/popup/attrguide.html\" onclick=\"MyWindow=window.open('/popup/attrguide.html','AlbumAttributeGuide','toolbar=no,location=no,directories=no,status=no,menubar=no,scrollbars=yes,resizable=yes,width=400,height=275'); return false;\">");
     if (scalar(@attrs) > 0) 
     {
         foreach $attr (@attrs) 
