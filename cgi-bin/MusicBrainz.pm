@@ -37,7 +37,8 @@ use vars qw(@ISA @EXPORT);
 use strict;
 use DBI;
 use DBDefs;
-use Carp qw( carp );
+use MusicBrainz::Server::Cache;
+use Carp qw( carp cluck );
 use Encode qw( decode );
 use Text::Unaccent qw( unac_string );
 
@@ -45,7 +46,11 @@ sub new
 {
     my $class = shift;
     bless {}, ref($class) || $class;
-}  
+}
+
+################################################################################
+# Database connect / disconnect
+################################################################################
 
 sub Login
 {
@@ -56,15 +61,27 @@ sub Login
                                { RaiseError => 1, PrintError => 0, AutoCommit => 1 });
    return 0 if (!$this->{DBH});
 
-   require Sql;
-   my $sql = Sql->new($this->{DBH});
-   $sql->AutoCommit(1);
-   $sql->Do("SET TIME ZONE 'UTC'");
-   $sql->AutoCommit(1);
-   $sql->Do("SET CLIENT_ENCODING = 'UNICODE'");
+	# Naughty!  Might break in future.  If it does just do the two "SET"
+	# commands every time, like we used to before this was added.
+	my $tied = tied %{ $this->{DBH} };
+	if (not $tied->{'_mb_prepared_connection_'})
+	{
+		require Sql;
+		my $sql = Sql->new($this->{DBH});
+
+		$sql->AutoCommit(1);
+		$sql->Do("SET TIME ZONE 'UTC'");
+		$sql->AutoCommit(1);
+		$sql->Do("SET CLIENT_ENCODING = 'UNICODE'");
+
+		$tied->{'_mb_prepared_connection_'} = 1;
+	}
 
    return 1;
 }
+
+# Logout and DESTROY are pointless under Apache::DBI (since ->disconnect does
+# nothing).  But it does do something under normal DBI (e.g. under cron).
 
 sub Logout
 {
@@ -77,6 +94,10 @@ sub DESTROY
 {
     shift()->Logout;
 }
+
+################################################################################
+# Validation and sanitisation section
+################################################################################
 
 sub IsNonNegInteger
 {
@@ -134,6 +155,10 @@ sub NormaliseSortText
 	lc decode('utf-8', unac_string('UTF-8', shift));
 }
 *NormalizeSortText = \&NormaliseSortText;
+
+################################################################################
+# Our own Mason "escape" handler
+################################################################################
 
 # HTML-encoding, but only on the listed "unsafe" characters.  Specifically,
 # don't (incorrectly) encode top-bit-set characters as &Atilde; and the like.
