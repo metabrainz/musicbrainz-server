@@ -882,4 +882,11 @@ sub RDF_URL
 	;
 }
 
+sub GetSubscribers
+{
+    my $self = shift;
+    require UserSubscription;
+    return UserSubscription->GetSubscribersForArtist($self->{DBH}, $self->GetId);
+}
+
 1;

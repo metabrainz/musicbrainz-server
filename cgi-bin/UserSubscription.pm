@@ -37,11 +37,20 @@ sub SetUser	{ $_[0]{moderator} = $_[1] }
 # Users subscribed to an artist
 ################################################################################
 
-# Returns a list of users subscribed to a particular artist
+# Returns a list or count of users subscribed to a particular artist
 sub GetSubscribersForArtist
 {
-    my ($this, $artist) = @_;
-    my $sql = Sql->new($this->{DBH});
+	my $self = shift;
+	$self = $self->new(shift) if not ref $self;
+	my $artist = shift;
+
+	return if not defined wantarray;
+    my $sql = Sql->new($self->{DBH});
+
+    return $sql->SelectSingleValue(
+		"SELECT COUNT(DISTINCT moderator) FROM moderator_subscribe_artist WHERE artist = ?",
+		$artist,
+    ) if not wantarray;
 
     $sql->SelectSingleColumnArray(
 		"SELECT DISTINCT moderator FROM moderator_subscribe_artist WHERE artist = ?",
