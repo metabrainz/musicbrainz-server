@@ -703,25 +703,27 @@ use vars qw(@ISA);
 sub ShowPreviousValue
 {
    my ($this) = @_;
-   my ($nw, $key, $i, $al, $out);
+   my ($nw, $key, $i, $out);
 
    $out = "Error!";
    $nw = $this->ConvertNewToHash($this->{new});
    return $out if (!defined $nw);
 
    $out = "Old: ";
-   $al = Album->new($this->{DBH});
    for($i = 1;; $i++)
    {
        $key = "AlbumId$i";
        if (exists $nw->{$key} && $nw->{$key} != 0)
        {
-           $al->SetId($nw->{$key});
-           if (defined $al->LoadFromId())
+           $out .= "<br>" if ($i > 1);
+           if ($this->GetStatus() == ModDefs::STATUS_OPEN)
            {
-              $out .= "<br>" if ($i > 1);
-              $out .= "<a href=\"/showalbum.html?albumid=" . 
-                      $nw->{$key} . "\">" . $al->GetName() . "</a>";
+               $out .= "<a href=\"/showalbum.html?albumid=" . 
+                  $nw->{$key} . "\">" . $nw->{"AlbumName$i"} . "</a>";
+           }
+           else
+           {
+               $out .= $nw->{"AlbumName$i"};
            }
        }
        else
@@ -736,24 +738,18 @@ sub ShowPreviousValue
 sub ShowNewValue
 {
    my ($this) = @_;
-   my ($nw, $key, $i, $al, $out);
+   my ($nw, $key, $out);
 
    $out = "Error!";
    $nw = $this->ConvertNewToHash($this->{new});
    return $out if (!defined $nw);
 
    $out = "Merged into: ";
-   $al = Album->new($this->{DBH});
-
    $key = "AlbumId0";
    if (exists $nw->{$key} && $nw->{$key} != 0)
    {
-      $al->SetId($nw->{$key});
-      if (defined $al->LoadFromId())
-      {
-         $out .= "<a href=\"/showalbum.html?albumid=" . 
-                 $nw->{$key} . "\">" . $al->GetName() . "</a>";
-      }
+      $out .= "<a href=\"/showalbum.html?albumid=" . 
+              $nw->{$key} . "\">" . $nw->{"AlbumName0"} . "</a>";
    }
    else
    {
@@ -806,6 +802,91 @@ sub ApprovedAction
    {
        return ModDefs::STATUS_FAILEDPREREQ;
    }
+}
+
+#returns nothing
+sub DeniedAction
+{
+}
+
+package RemoveAlbumsModeration;
+use vars qw(@ISA);
+@ISA = 'Moderation';
+
+sub ShowPreviousValue
+{
+   my ($this) = @_;
+   my ($nw, $key, $key2, $i, $out);
+
+   $out = "Error!";
+   $nw = $this->ConvertNewToHash($this->{new});
+   return $out if (!defined $nw);
+
+   $out = "Old: ";
+   for($i = 0;; $i++)
+   {
+       $key = "AlbumId$i";
+       if (exists $nw->{$key} && $nw->{$key} != 0)
+       {
+           $out .= "<br>" if ($i > 0);
+           if ($this->GetStatus() == ModDefs::STATUS_OPEN)
+           {
+               $out .= "<a href=\"/showalbum.html?albumid=" . 
+                   $nw->{$key} . "\">" . $nw->{"AlbumName$i"} . "</a>";
+           }
+           else
+           {
+               $out .= $nw->{"AlbumName$i"};
+           }
+       }
+       else
+       {
+           last;
+       }
+   }
+
+   return $out;
+}
+
+sub ShowNewValue
+{
+   return "New: DELETE"; 
+}
+
+sub DetermineDependencies
+{
+}
+
+sub PreVoteAction
+{
+    return 1;
+}
+
+#returns STATUS_XXXX
+sub ApprovedAction
+{
+   my ($this) = @_;
+   my ($nw, $key, $i, $al, @list);
+
+   $nw = $this->ConvertNewToHash($this->{new});
+   return "Error!" if (!defined $nw);
+
+   $al = Album->new($this->{DBH});
+   for($i = 0;; $i++)
+   {
+       $key = "AlbumId$i";
+       if (exists $nw->{$key} && $nw->{$key} != 0)
+       {
+           $al->SetId($nw->{$key});
+           $al->Remove();
+       }
+       else
+       {
+           last;
+       }
+   }
+
+   return ModDefs::STATUS_APPLIED;
 }
 
 #returns nothing

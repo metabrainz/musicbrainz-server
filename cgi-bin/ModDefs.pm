@@ -61,6 +61,7 @@ use constant MOD_REMOVE_DISKID           => 20;
 use constant MOD_MOVE_DISKID             => 21;
 use constant MOD_REMOVE_TRMID            => 22;
 use constant MOD_MERGE_ALBUM             => 23;
+use constant MOD_REMOVE_ALBUMS           => 24;
 
 
 # The constants below define the state a moderation can have:

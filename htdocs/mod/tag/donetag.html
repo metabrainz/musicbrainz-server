@@ -43,7 +43,6 @@ else
        }
     }
 
-
 </%perl>
 
     Now that you've selected the albums below, you can:
@@ -74,10 +73,14 @@ else
             enctype="application/x-www-form-urlencoded">
       <input type="submit" NAME="Submit" VALUE="Merge Albums">
 %     my $ind = 0;
+%     my $num = scalar(@objs);
 %     foreach $al (@objs) {
           <input type="hidden" name="key<% $ind %>" value="AlbumId<% $ind %>">
-          <input type="hidden" name="value<% $ind++ %>" 
+          <input type="hidden" name="value<% $ind %>" 
                  value="<% $al->GetId() %>">
+          <input type="hidden" name="key<% $ind + $num %>" value="AlbumName<% $ind %>">
+          <input type="hidden" name="value<% ($ind++) + $num %>" 
+                 value="<% $al->GetName() |h %>">
 %     }
       <input type="hidden" name="type"
              value="<% ModDefs::MOD_MERGE_ALBUM %>">
@@ -99,13 +102,32 @@ else
 % }
      <tr>
       <td>
-      <form method="POST" action="/bare/enter_kv_mod.html" name="AddArtist"
+      <form method="POST" action="/mod/tag/remove.html" name="AddArtist"
             enctype="application/x-www-form-urlencoded">
-      <input type="submit" NAME="Submit" VALUE="Delete Albums">
+      <input type="submit" NAME="Submit" VALUE="Remove Albums">
+%     my $ind = 0;
+%     my $num = scalar(@objs);
+%     foreach $al (@objs) {
+          <input type="hidden" name="key<% $ind %>" value="AlbumId<% $ind %>">
+          <input type="hidden" name="value<% $ind %>" 
+                 value="<% $al->GetId() %>">
+          <input type="hidden" name="key<% $ind + $num %>" value="AlbumName<% $ind %>">
+          <input type="hidden" name="value<% ($ind++) + $num %>" 
+                 value="<% $al->GetName() |h %>">
+%     }
+      <input type="hidden" name="type"
+             value="<% ModDefs::MOD_REMOVE_ALBUMS %>">
+      <input type="hidden" name="artist" value="<% Artist::VARTIST_ID %>">
+      <input type="hidden" name="prev" value="N/A">
+      <input type="hidden" name="table" value="Album">
+      <input type="hidden" name="column" value="id">
+      <input type="hidden" name="id" value="<% $objs[0]->GetId() %>">
+      <input type="hidden" 
+             name="url" value="/showalbum.html?albumid=<% $objs[0]->GetId() %>">
       </form>
       </td>
       <td>
-      Delete all the tagged albums.
+      Remove all the tagged albums.
       </td>
     </tr>
 

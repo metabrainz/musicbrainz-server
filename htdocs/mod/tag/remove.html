@@ -1,4 +1,4 @@
-<& /comp/sidebar, title=>'Confirm Merging Albums', expand=>'moderate' &>
+<& /comp/sidebar, title=>'Confirm Remove Albums', expand=>'moderate' &>
 
 <%perl>
 
@@ -33,24 +33,15 @@ else
        }
     }
 
+    </%perl>
+    Please review the list of albums to be deleted, and then
+    confirm this moderation at the bottom of this page.<p>
+    All of the albums below this one will be removed:<p>
+    <%perl>
+
     $ar = Artist->new($mb->{DBH});
-    $i = 0;
     foreach $al (@objs)
     {
-       if ($i == 0)
-       {
-           </%perl>
-           Please review the proposed album merge moderation and then
-           confirm this moderation at the bottom of this page.<p>
-           All of the albums below this one will be merged into this album:<p>
-           <%perl>
-       }
-       if ($i == 1)
-       {
-           </%perl>
-           All of the albums below will be merged into the above album:<p>
-           <%perl>
-       }
        if ($ar->GetId() != $al->GetArtist())
        {
            $ar->SetId($al->GetArtist());
@@ -59,23 +50,22 @@ else
               mc_out("Could not load artist " . $ar->GetId() . ".");
               next;
            }
-           #mc_comp("/comp/artisttitle", artist=>$ar, nomod=>1);
+           mc_comp("/comp/artisttitle", artist=>$ar, nomod=>1);
        }
        mc_comp("/comp/album", album=>$al, artist=>$ar, nomod=>1);
-       $i++;
     }
 }
 </%perl>
 
-<& /comp/tablebegin, title=>"Confirm Merge" &>
+<& /comp/tablebegin, title=>"Confirm Album Removal" &>
 
-<FORM METHOD="POST" ACTION="/bare/enter_kv_mod.html" NAME="MergeConfirm"
+<FORM METHOD="POST" ACTION="/bare/enter_kv_mod.html" NAME="RemoveConfirm"
       ENCTYPE="application/x-www-form-urlencoded">  
 
 <table width="100%">
   <tr>
     <td colspan="2">
-    Are you sure you want to merge the albums above?
+    Are you sure you want to remove the albums above?
     </td>
   </tr>
   <tr>
