@@ -636,6 +636,12 @@ if ($duration and $id->{tracklen})
              <td valign="top" width="40%" rowspan="2"><a href="/showtrack.html?trackid=<% $id->{id} %>"><% $id->{name} %></a></td>
              <td valign="top" align="center" rowspan="2" class="tlen <% $tracklenclass %>"><% Track::FormatTrackLength($id->{tracklen}) %></td>
              <td valign="top" align="center" rowspan="2"><% int(($id->{sim}*100) + .5) %>%</td>
+%            if ($session{tport}) {
+                 <td align="center" rowspan="2" valign="top"><a 
+					 href="http://127.0.0.1:<% $session{tport} %>/openalbum?id=<% $id->{albummbid} %>&amp;t=<% time %>"
+                     target="hiddeniframe" title="Open in Tagger" border="0"><img 
+					 src="/images/mblookup-tagger.png" border="0" style="margin: 2px"></a></td>
+%            }
              <td valign="top" align="right" rowspan="2">
 %               $copy{trackid} = $id->{mbid};
 %               $copy{albumid} = $id->{albummbid};
