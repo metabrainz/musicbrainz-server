@@ -126,6 +126,7 @@ sub ApprovedAction
 
 package MergeArtistModeration;
 use vars qw(@ISA);
+use URI::Escape;
 @ISA = 'Moderation';
 
 sub ShowPreviousValue
@@ -142,16 +143,15 @@ sub ShowNewValue
 
    my $out;
    my $new = $this->GetNew(); 
+   my (@data) = split(/\n/, $new);
    if ($new =~ /\n/)
    {
-      my (@data) = split(/\n/, $new);
       $out = qq\Artist: <span class="bold">$data[1]</span>\;
       $out .= qq\ (<span class="bold">$data[0]</span>)\;
    }
    else
    {
-      $out = qq\Artist: <a href="/showartist.html?artistid=\ .
-             $this->GetArtist() . qq\"><span class="bold">$new</span></a>\;
+      $out = qq\Artist: <a href="/newsearch.html?limit=25&table=Artist&all_words=1&go=Search&search=\ . uri_escape($data[0]) . qq\"><span class="bold">$new</span></a>\;
    }
    return $out;
 }
