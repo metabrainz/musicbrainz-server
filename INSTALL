@@ -294,6 +294,14 @@ Installation:
    Go the the selected URL and you should see a MusicBrainz site, complete
    with data.
 
+9) Cron jobs (mostly optional)
+   The admin/cron directory contains some scripts to run hourly, daily and
+   weekly.  You might want to add these scripts to your server's crontab.
+   These scripts use various settings from ./admin/config.sh, which you'll
+   need to tweak to suit your installation before running them.  "daily.sh" in
+   particular is heavily geared towards the configuration of the main
+   MusicBrainz server; you probably will want to modify it in some way.
+
    This should be it and now you have your very own MusicBrainz server.
 
 Good luck!
