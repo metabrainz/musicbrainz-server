@@ -317,7 +317,8 @@ sub GetArtistDisplayList
        $max_artists = $sql->Rows();
        for(;@row = $sql->NextRow;)
        {
-           push @info, [$row[0], $row[1], $row[2], unac_string('UTF-8', $row[1])];
+           push @info, [$row[0], $row[1], $row[2], 
+                        lc(unac_string('UTF-8', $row[1]))];
        }
        $sql->Finish;   
 
