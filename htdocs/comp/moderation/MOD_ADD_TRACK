@@ -17,7 +17,7 @@
 
 %# Dirty; really we should test the non-album bit of the album attribute.
 %# but that would require another fetch.
-% unless ($this->GetPrev eq "Non-album tracks") {
+% unless ($this->GetPrev eq &Album::NONALBUMTRACKS_NAME) {
 	<br>
 	Track:
 	<span class="bold"><% $this->{'new.tracknum'} %></span>
