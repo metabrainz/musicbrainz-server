@@ -128,7 +128,7 @@ sub GetIdFromAlbumJoinId
 sub LoadFromId
 {
    my ($this, $albumid) = @_;
-   my ($sth, @row);
+   my ($sth, $rv);
 
    $sth = $this->{DBH}->prepare(qq/select id, name, modpending from 
                                 Album where id=$albumid/);
@@ -136,10 +136,11 @@ sub LoadFromId
    if ($sth->rows)
    {
         $this->{data} = $sth->fetchrow_arrayref;
+        $rv = 1;
    }
    $sth->finish;
 
-   return @row;
+   return $rv;
 }
 
 sub SearchByName

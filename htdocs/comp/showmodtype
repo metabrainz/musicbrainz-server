@@ -17,8 +17,14 @@ if ($type == Moderation::MOD_MOVE_ALBUM)
    my ($al, $album);
 
    $al = Album->new($mb);
-   $al->LoadFromId($id);
-   $album = $al->Value(1);
+   if (defined($al->LoadFromId($id)))
+   {
+       $album = $al->Value(1);
+   }
+   else
+   {
+       $album = "[deleted]";
+   }
    mc_out("(<a href=\"/showalbum.html?albumid=$id\">$album</a>)");
 } else {
    mc_out("(<a href=\"/showartist.html?artistid=$artist\">$artistname</a>)");
