@@ -40,6 +40,7 @@ return $m->comp("/comp/redirect", "/search.html")
         <td align=center>
                                  
         <form method="POST" action="/cdi/artist.html"
+			name="AddSingleArtist"
               enctype="application/x-www-form-urlencoded" class="formstyle">
         
         <br>Enter the name of the <font color=red>Artist</font><br> and
@@ -74,3 +75,5 @@ return $m->comp("/comp/redirect", "/search.html")
         All data submitted to MusicBrainz will be covered by the 
         <a href="http://opencontent.org/opl.shtml">OpenContent</a> license.
         </center>
+
+<& /comp/movefocus, "AddSingleArtist", "search" &>
