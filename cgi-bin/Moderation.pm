@@ -82,22 +82,6 @@ my %ChangeNames = (
     &ModDefs::STATUS_DELETED		=> "Deleted"
 );
 
-my %VoteText = (
-    &ModDefs::VOTE_UNKNOWN	=> "Unknown",
-    &ModDefs::VOTE_NOTVOTED	=> "Not voted",
-    &ModDefs::VOTE_ABS		=> "Abstain",
-    &ModDefs::VOTE_YES		=> "Yes",
-    &ModDefs::VOTE_NO		=> "No"
-);
-
-sub new
-{
-   my ($type, $mb) = @_;
-
-   my $this = TableBase->new($mb);
-   return bless $this, $type;
-}
-
 sub GetModerator
 {
    return $_[0]->{moderator};
@@ -340,11 +324,6 @@ sub IsAutoModType
 sub GetChangeName
 {
    return $ChangeNames{$_[0]->{status}};
-}
-
-sub GetVoteText
-{
-   return $VoteText{$_[1]};
 }
 
 sub GetAutomoderationList
@@ -849,56 +828,6 @@ sub GetModerationList
 
 # TODO make a separate "vote" class
 
-# This function enters a number of votes into the Votes table.
-# The caller must a hash of votes, where the keys are the moderation IDs,
-# and the values are the VOTE_* constants.
-sub InsertVotes
-{
-	my ($this, $uid, $votes) = @_;
-	my $sql = Sql->new($this->{DBH});
-
-	while (my ($modid, $vote) = each %$votes)
-	{
-	   	next if $this->DoesVoteExist($uid, $modid);
-		$this->InsertVote($uid, $modid, $vote);
-	}
-}
-
-sub DoesVoteExist
-{
-	my ($this, $uid, $id) = @_;
-	my $sql = Sql->new($this->{DBH});
-
-	$sql->SelectSingleValue(
-		"SELECT id FROM votes WHERE uid = ? AND rowid = ?",
-		$uid, $id,
-	);
-}
-
-sub InsertVote
-{
-	my ($this, $uid, $id, $vote) = @_;
-	my $sql = Sql->new($this->{DBH});
-
-	my $status = $sql->SelectSingleValue(
-		"SELECT status FROM moderation WHERE id = ?",
-		$id,
-	);
-
-	$status == &ModDefs::STATUS_OPEN
-		or return;
-
-	$sql->Do(
-		"INSERT INTO votes (uid, rowid, vote) VALUES (?, ?, ?)",
-		$uid, $id, $vote,
-	);
-
-	$sql->Do("UPDATE moderation SET yesvotes = yesvotes + 1 WHERE id = ?", $id)
-		if $vote == &ModDefs::VOTE_YES;
-	$sql->Do("UPDATE moderation SET novotes = novotes + 1 WHERE id = ?", $id)
-		if $vote == &ModDefs::VOTE_NO;
-}
-
 # Go through the Moderation table and evaluate open Moderations
 # This is "the modbot!"
 
@@ -1230,7 +1159,7 @@ sub Notes
 	my $self = shift;
 	require MusicBrainz::Server::ModerationNote;
 	my $notes = MusicBrainz::Server::ModerationNote->new($self->{DBH});
-	$notes->newFromModerationID($self->GetId);
+	$notes->newFromModerationId($self->GetId);
 }
 
 sub InsertNote
@@ -1241,35 +1170,26 @@ sub InsertNote
 	$notes->Insert($self, @_);
 }
 
-# TODO Move to vote class
+# Links to the Vote class
 
-sub GetUserVote
+sub Votes
 {
-	my ($this, $uid) = @_;
-	my $sql = Sql->new($this->{DBH});
-   
-	$sql->SelectSingleValue(
-		"SELECT vote FROM votes WHERE uid = ? AND rowid = ?",
-		$uid,
-		$this->GetId,
-	);
+	my $self = shift;
+	require MusicBrainz::Server::Vote;
+	my $votes = MusicBrainz::Server::Vote->new($self->{DBH});
+	$votes->newFromModerationId($self->GetId);
 }
 
-sub GetVoterList
+sub VoteFromUser
 {
-    my ($this) = @_;
-	my $sql = Sql->new($this->{DBH});
-
-	my $data = $sql->SelectListOfHashes(
-		"SELECT	v.vote, u.id AS modid, u.name AS moderator
-		FROM	votes v, moderator u
-		WHERE	v.rowid = ?
-		AND		v.uid = u.id
-		ORDER BY v.id",
-		$this->GetId,
-	);
-
-	@$data;
+	my ($self, $uid) = @_;
+	require MusicBrainz::Server::Vote;
+	my $votes = MusicBrainz::Server::Vote->new($self->{DBH});
+	# The number of votes per mod is small, so we may as well just retrieve
+	# all votes for the mod, then find the one we want.
+	my @votes = $votes->newFromModerationId($self->GetId);
+	(my $thevote) = grep { $_->GetUserId == $uid } @votes;
+	$thevote;
 }
 
 ################################################################################
