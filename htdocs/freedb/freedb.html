@@ -2,17 +2,14 @@
 <%args>
 $search=>""
 </%args>
+<%perl>
 
-% if (!defined $session{user} || $session{user} eq '') {
-    <& /comp/sidebar, title=>"Freedb Disc Import", expand=>"moderate" &>
-    You must be logged in to edit the database.<p>
-    <& /comp/tablebegin, title=>'Login' &>
-    <& /comp/loginbox &>
-    <& /comp/tableend &>
-    <& /comp/footer &>
-%	return;
-% }
+$m->comp("/comp/checkloggedin", 1, 1)
+	or return;
 
+</%perl>
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Frameset//EN"
+	"http://www.w3.org/TR/html4/frameset.dtd">
 <html>
 	<head>
 		<title>Import from FreeDB into MusicBrainz</title>
@@ -23,7 +20,7 @@ $search=>""
 % if ($search eq '') {
 			src="http://www.freedb.org/freedb_search.php"
 % } else {
-			src="http://www.freedb.org/freedb_search.php?words=<% $search |u %>&allfields=NO&fields=artist&fields=title&allcats=YES&grouping=none"
+			src="http://www.freedb.org/freedb_search.php?words=<% $search |u %>&amp;allfields=NO&amp;fields=artist&amp;fields=title&amp;allcats=YES&amp;grouping=none"
 % }
 			>
 	</frameset>
