@@ -104,3 +104,4 @@ Disallow: /tomac.html
 #Allow: /topmods.html
 Disallow: /tosac.html
 Disallow: /usage/
+Disallow: /user/
