@@ -12,4 +12,11 @@ The following people have contributed to the MusicBrainz server:
   Luke Harless <luke_harless@attglobal.net> 
   - improved the db import/export scripts and submitted db cleanup scripts
 
+  Aaron Swartz <aswartz@swartzfam.com>
+  Nicolas Fischer <nfischer@studserv.uni-stuttgart.de>
+  Gabe Beged-Dov <begeddov@jfinity.com>
+  - A big thank you to Aaron, Nick and Gabe for helping me design
+    the second generation MusicBrainz Metadata Initiative. Without
+    you guys I would've never gotten it right! Thanks tons!
+
 (please send change requests to rob@musicbrainz.org or maintainer)

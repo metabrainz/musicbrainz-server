@@ -94,8 +94,8 @@ sub Output
 {
    my ($r, $out) = @_;
 
-   print STDERR "Query return:\n$$out\n";
-   print STDERR length($$out), " bytes.\n\n";
+   #print STDERR "Query return:\n$$out\n";
+   #print STDERR length($$out), " bytes.\n\n";
 
    if (defined $r)
    {
@@ -187,7 +187,7 @@ if (!defined $queryname)
 }
 
 $queryname =~ s/^.*#//;
-print STDERR "query: '$queryname'\n";
+#print STDERR "query: '$queryname'\n";
  
 if (!exists $Queries{$queryname})
 {
@@ -206,7 +206,7 @@ for(;;)
     $data = QuerySupport::Extract(\@triples, $currentURI, -1, $rdfquery);
     $data = undef if (defined $data && $data eq '');
     $data = "" if ($data eq "__NULL__");
-    print STDERR "query args: '$data'\n" if defined $data;
+    #print STDERR "query args: '$data'\n" if defined $data;
     push @queryargs, $data;
     $rdfquery = undef;
 }

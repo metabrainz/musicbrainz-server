@@ -117,10 +117,10 @@ sub Extract
    foreach $query (@querylist)
    {
        $found = 0;
-       #print "Query: $query\n";
+       #print STDERR "Query: $query\n";
        foreach $triple (@$triples)
        {
-           #print "  ",$triple->subject->getLabel, " == $currentURI\n";
+           #print STDERR "  ",$triple->subject->getLabel, " == $currentURI\n";
            if ($triple->subject->getLabel eq $currentURI &&
                ($triple->predicate->getLabel eq $query ||
                (exists $triple->{ordinal} && $triple->{ordinal} == $ordinal)))
@@ -130,10 +130,10 @@ sub Extract
                last;
            }
        }
-       #print "Not found\n" if (!$found);
+       #print STDERR "Not found\n" if (!$found);
        return undef if (!$found);
    }
-   #print "found: '$currentURI'\n";
+   #print STDERR "found: '$currentURI'\n";
    return $currentURI;
 }
 
@@ -163,14 +163,13 @@ sub GetCDInfoMM2
    my ($sql, @row, $album, $di, $toc, $i, $currentURI);
 
    return $rdf->EmitErrorRDF("No DiskId given.") if (!defined $id);
-   
+
    $toc = "1 $numtracks ";
    $currentURI = $$triples[0]->subject->getLabel;
    for($i = 1; $i <= $numtracks + 1; $i++)
    {
        $toc .= Extract($triples, $currentURI, $i, EXTRACT_TOC_QUERY) . " ";
    }
-
    # Check to see if the album is in the main database
    $di = Diskid->new($dbh);
    return $di->GenerateAlbumFromDiskId($rdf, $id, $numtracks, $toc);
