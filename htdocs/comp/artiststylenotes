@@ -41,6 +41,14 @@
          Cypress Hill
          </td>
       </tr>
+      <tr>
+         <td align=center valign=top>
+         Bob Marley and the Wailers
+         </td>
+         <td align=center valign=top>
+         Marley, Bob and the Wailers
+         </td>
+      </tr>
     </table> 
     </center>
     <& /comp/tableend &>

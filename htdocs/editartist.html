@@ -31,6 +31,12 @@ $modpending = $ar->Value(3);
     <& /comp/modpending &>
 % }
 
+    Use the fields below to enter a corrected name and/or sort name for
+    this artist. If the the new artist name already exists in the database
+    the Edit Artist Name modification will result in the Albums from the
+    old artist name to get merged in with the Albums for the new artist
+    name.<p>
+
     <FORM METHOD="POST" ACTION="/bare/enter_mod.html"
           ENCTYPE="application/x-www-form-urlencoded">  
     <table>

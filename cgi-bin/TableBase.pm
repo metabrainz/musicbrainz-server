@@ -40,6 +40,9 @@ sub new
     # Use the db handle from the musicbrainz object
     $this->{DBH} = $mb->{DBH};
 
+    # Save the MB object as well
+    $this->{MB} = $mb;
+
     # This will contain the data for a table row
     $this->{data} = {};
 

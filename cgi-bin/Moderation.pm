@@ -40,13 +40,15 @@ use constant MOD_EDIT_ARTISTSORTNAME     => 2;
 use constant MOD_EDIT_ALBUMNAME          => 3;
 use constant MOD_EDIT_TRACKNAME          => 4;
 use constant MOD_EDIT_TRACKNUM           => 5;
+use constant MOD_MERGE_ARTIST            => 6;
 
 my %ModNames = (
     "1" => "Edit Artist Name",
     "2" => "Edit Artist Sortname",
     "3" => "Edit Album Name",
     "4" => "Edit Track Name",
-    "5" => "Edit Track Number" 
+    "5" => "Edit Track Number",
+    "6" => "Merge Artist" 
 );
 
 sub new
@@ -64,7 +66,9 @@ sub GetModificationName
 
 sub InsertModification
 {
-    my ($this, $table, $column, $artist, $type, $id, $prev, $new, $uid) = @_;
+    my ($this) = shift @_;
+    my ($table, $column, $artist, $type, $id, $prev, $new, $uid) =
+        $this->CheckSpecialCases(@_);
 
     $this->{DBH}->do(qq/update $table set modpending = modpending + 1  
                         where id = $id/);
@@ -77,6 +81,28 @@ sub InsertModification
            newvalue, timesubmitted, moderator, yesvotes, novotes, artist, 
            type) values ($table, $column, $id, $prev, $new, now(), $uid, 0, 0,
            $artist, $type)/);
+}
+
+sub CheckSpecialCases
+{
+    my ($this, $table, $column, $artist, $type, $id, $prev, $new, $uid) = @_;
+
+    if ($type == Moderation::MOD_EDIT_ARTISTNAME)
+    {
+        my $ar;
+
+        # Check to see if we already have the artist that we're supposed
+        # to edit to. If so, change this mod to a MERGE_ARTISTNAME.
+        $ar = Artist->new($this->{MB});
+        if ($ar->GetIdFromName($new) > 0)
+        {
+           $type = MOD_MERGE_ARTIST;
+        }
+
+        return ($table, $column, $artist, $type, $id, $prev, $new, $uid);
+    }
+
+    return ($table, $column, $artist, $type, $id, $prev, $new, $uid);
 }
 
 sub GetModerationList
@@ -215,7 +241,7 @@ sub CheckModifications
    {
        $sth = $this->{DBH}->prepare(qq/select yesvotes, novotes,
               UNIX_TIMESTAMP(now()) - UNIX_TIMESTAMP(TimeSubmitted),
-              tab, rowid, moderator from Changes where id = $rowid/);
+              tab, rowid, moderator, type from Changes where id = $rowid/);
        $sth->execute;
        if ($sth->rows)
        {
@@ -227,7 +253,7 @@ sub CheckModifications
                 # Are there more yes votes than no votes?
                 if ($row[0] > $row[1])
                 {
-                    $this->ApplyModification($rowid);
+                    $this->ApplyModification($rowid, $row[6]);
                     $this->CreditModerator($row[5], 1);
                 }
                 else
@@ -240,7 +266,7 @@ sub CheckModifications
             elsif ($row[0] == DBDefs::NUM_UNANIMOUS_VOTES && $row[1] == 0)
             {
                 # A unanimous yes. Apply and the remove from db
-                $this->ApplyModification($rowid);
+                $this->ApplyModification($rowid, $row[6]);
                 $this->CreditModerator($row[5], 1);
                 $this->RemoveModification($rowid, $row[3], $row[4]);
             }
@@ -287,6 +313,78 @@ sub RemoveModification
 }
 
 sub ApplyModification
+{
+   my ($this, $rowid, $type) = @_;
+   my ($sth, @row, $prevval, $newval, $table, $column, $datarowid);
+
+   if ($type == MOD_EDIT_ARTISTNAME || $type == MOD_EDIT_ARTISTSORTNAME ||
+       $type == MOD_EDIT_ALBUMNAME  || $type == MOD_EDIT_TRACKNAME ||
+       $type == MOD_EDIT_TRACKNUM)
+   {
+       ApplyEditModification($this, $rowid);
+   }
+   elsif ($type == MOD_MERGE_ARTIST)
+   {
+       ApplyMergeArtistModification($this, $rowid);
+   }
+}
+
+sub ApplyMergeArtistModification
+{
+   my ($this, $id) = @_;
+   my ($sth, @row, $prevval, $newval, $rowid, $ok, $newid);
+
+   $ok = 0;
+
+   # Pull back all the pertinent info for this mod
+   $sth = $this->{DBH}->prepare(qq/select prevvalue, newvalue, rowid 
+                                from Changes where id = $id/);
+   $sth->execute;
+   if ($sth->rows)
+   {
+        @row = $sth->fetchrow_array;
+        $prevval = $row[0];
+        $newval = $row[1];
+        $rowid = $row[2];
+
+        $sth->finish;
+        # Check to see that the old value is still what we think it is
+        $sth = $this->{DBH}->prepare(qq/select name from Artist where 
+                                     id = $rowid/);
+        $sth->execute;
+        if ($sth->rows)
+        {
+            @row = $sth->fetchrow_array;
+            if ($row[0] eq $prevval)
+            {
+               $sth->finish;
+               $newval = $this->{DBH}->quote($newval);
+               # Check to see that the new artist is still around 
+               $sth = $this->{DBH}->prepare(qq/select id from Artist where 
+                                            name = $newval/);
+               $sth->execute;
+               if ($sth->rows)
+               {
+                   @row = $sth->fetchrow_array;
+                   $newid = $row[0];
+                   $ok = 1;
+               }
+            }
+        }
+   }
+   $sth->finish;
+
+   if ($ok)
+   {
+       $this->{DBH}->do(qq/update Album set artist = $newid where 
+                           artist = $rowid/);
+       $this->{DBH}->do(qq/update Track set artist = $newid where 
+                           artist = $rowid/);
+       $this->{DBH}->do("delete from Artist where id = $rowid");
+   }
+}
+
+sub ApplyEditModification
 {
    my ($this, $rowid) = @_;
    my ($sth, @row, $prevval, $newval, $table, $column, $datarowid);

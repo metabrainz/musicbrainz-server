@@ -44,7 +44,6 @@ sub new
    my ($type, $mb) = @_;
 
    my $this = TableBase->new($mb);
-   $this->{MB} = $mb;
    return bless $this, $type;
 }
 

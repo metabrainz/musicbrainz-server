@@ -24,6 +24,9 @@ $mb->Logout();
 % if (scalar(@info) > 0) {
 <table width=100%>
 <tr>
+  <td>
+     <a href="mod_intro.html">Moderation questions</a>?
+  </td>
   <td align=right>
      Click here to vote on the items on this page:
      <INPUT TYPE="submit" NAME="Submit" VALUE="Submit">
