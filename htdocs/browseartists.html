@@ -78,8 +78,8 @@ if ($num_artists > 0)
 %    }
     </table>
 %} else {
-%   $ind =~ s/_/(wildcard)/g;
-%   $ind =~ s/ /(space)/g;
+%   $ind =~ s/_/?/g;
+%   $ind =~ s/ /_/g;
     <p><table align="center" width="100%" bgcolor="#f0efff">
         <tr><td align="center">
         No artists start with the letters <b><% $ind %></b>.

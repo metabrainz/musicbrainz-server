@@ -12,7 +12,7 @@ if (length($ind) > 0)
 {
     $t = $ind;
     $t =~ s/_/?/g;
-    $t =~ s/ /(space)/g;
+    $t =~ s/ /_/g;
     </%perl>
     <td width="25%" align="center">
     <table cellpadding="0" cellspacing="0" border="0" bgcolor="#000000">
@@ -20,7 +20,7 @@ if (length($ind) > 0)
       <table width="100%" cellpadding="2" cellspacing="1" border="0">
       <tr>
         <td bgcolor="#FFBA58" align="left" valign="middle" 
-            width="100%" class="mbtable">
+            width="100%" class="mbtable" NOWRAP>
         <img src="/images/pixel.gif" width="3" height="1" alt="" 
              border="0" align="absmiddle">
         <font size="+2" color="black"><% $t %></font> 
