@@ -1,5 +1,11 @@
 %# vi: set ts=4 sw=4 ft=mason :
+<%args>
+$title
+$nosidebar => 0
+$head => undef
+</%args>
 <%perl>
+$r->content_type('text/html; charset=UTF-8');
 my $brainz_css = &DBDefs::HTDOCS_ROOT . "/brainz.css";
 my $mtime = (stat $brainz_css)[9] || 0;
 </%perl>
@@ -11,6 +17,8 @@ my $mtime = (stat $brainz_css)[9] || 0;
    <link rel="shortcut icon" href="/favicon.ico">
    <meta http-equiv="expires" content="1">
    <meta http-equiv="Content-Type" CONTENT="text/html; charset=UTF-8">
+% &$head() if ref($head) eq "CODE";
+% $m->out($head) if defined $head and not ref $head;
 </head>
 <body>
 
@@ -37,11 +45,3 @@ my $mtime = (stat $brainz_css)[9] || 0;
 <tr>
    <td width="141" class="SideBarCell" valign="top">
 % }
-
-<%args>
-$title
-$nosidebar => 0
-</%args>
-<%perl>
-$r->content_type('text/html; charset=UTF-8');
-</%perl>
