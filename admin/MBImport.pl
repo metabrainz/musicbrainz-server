@@ -92,8 +92,7 @@ if (!defined $infile || $infile eq "-h" || $infile eq "--help")
     exit(0);
 }
 
-$dir = "/tmp/$infile";
-$dir =~ s/\.tar\.gz$//;
+$dir = "/tmp/mbdump";
 
 (!(system("tar -C /tmp -xzf $infile") >> 8))
    or die("Cannot untar/unzip the database dump.\n");

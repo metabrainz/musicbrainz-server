@@ -96,7 +96,7 @@ if (defined $outfile && ($outfile eq "-h" || $outfile eq "--help"))
 $outfile = "$timestring.tar.gz" if (!defined $outfile);
 
 @tinfo = localtime;
-$dir = "/tmp/$timestring";
+$dir = "/tmp/mbdump";
 
 system("rm -rf $dir");
 
@@ -105,7 +105,8 @@ mkdir($dir, 0700)
 
 if (DumpAllTables($dir))
 {
-    (!(system("tar -C /tmp -czf $outfile $timestring") >> 8))
+    print "Creating tar archive...\n";
+    (!(system("tar -C /tmp -czf $outfile mbdump") >> 8))
        or die("Cannot write outputfile.\n");
 }
 
