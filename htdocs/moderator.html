@@ -1,5 +1,6 @@
 <%args>
 $uid=>0
+$user=>""
 $update=>0
 $password1=>""
 $password2=>""
@@ -12,9 +13,28 @@ $weburl=>""
 
 <%perl>
 
-if ($uid == 0) 
+my ($ui, $info);
+my $mb = MusicBrainz->new();  
+$mb->Login();
+$ui = UserStuff->new($mb->{DBH});
+
+if ($user ne "")
 {
-    mc_comp("/comp/badargs");
+    my ($dummy);
+    
+    ($dummy, $uid) = $ui->GetUserPasswordAndId($user);
+}
+
+if (!defined $uid || $uid == 0) 
+{
+    </%perl>
+    <form METHOD="POST" ACTION="/moderator.html"
+          ENCTYPE="application/x-www-form-urlencoded">
+       Lookup a moderator by name:<br>
+       <input type="text" name="user" size="20">
+       <INPUT TYPE="submit" NAME="Submit" VALUE="Lookup">
+    </form>
+    <%perl>
     return undef;
 }
 
@@ -24,11 +44,7 @@ if ($update && $session{uid} != $uid)
     return undef;
 }
 
-my ($ui, $info);
 
-my $mb = MusicBrainz->new();  
-$mb->Login();
-$ui = UserStuff->new($mb->{DBH});
 
 if ($update > 1)
 { 
@@ -174,4 +190,12 @@ if ($info->{name} eq "rob")
 
 </table>
 </FORM>
+
+<hr>
+<form METHOD="POST" ACTION="/moderator.html"
+      ENCTYPE="application/x-www-form-urlencoded">
+   Lookup a moderator by name:<br>
+   <input type="text" name="user" size="20">
+   <INPUT TYPE="submit" NAME="Submit" VALUE="Lookup">
+</form>
 <& /comp/footer &>

@@ -46,24 +46,32 @@ else
 
     mc_comp("/comp/artisttitle", artist=>$artist);
     
-    mc_out("[ <a href=\"/addalbum.html?artistid=");
-    mc_out($artist->GetId());
-    mc_out("\">Add album</a> | ");
-    </%perl>
-    <a href="/freedb/freedb.html?search=<% $artist->GetName() |u %>">Import album</a>
-    <%perl>
+    mc_out("[ ");
+    if (exists $session{uid})
+    {
+        </%perl>
+        <a href=\"/addalbum.html?artistid=<% $artist->GetId() %>">Add 
+           album</a> | 
+        <a href="/freedb/freedb.html?search=<% $artist->GetName() |u %>">Import
+           album</a> |
+        <a href="/mod/tag/starttag.html">Merge albums</a> |
+        <%perl>
+    }
 
     if ($artist->GetName() ne "Unknown" && 
         $artist->GetId() != Artist::VARTIST_ID && 
         $artist->GetId() != Artist::DARTIST_ID && 
         $artist->GetName() ne "Data CD")
     {
-         
-        mc_out("| <a href=\"/moderate.html?type=4&artistid=".
-               $artist->GetId()."\">");
-        mc_out("View mods</a> ");
+        if (exists $session{uid})
+        {
+            </%perl>
+            <a href="/moderate.html?type=4&artistid=<% $artist->GetId() %>"
+               >View mods</a> | 
+            <%perl>
+        }
 
-        mc_out("| <a href=\"/showaliases.html?artistid=");
+        mc_out("<a href=\"/showaliases.html?artistid=");
         mc_out($artist->GetId());
         mc_out("\">View aliases</a> | ");
         mc_comp("/comp/googlelink", search=>($artist->GetName()), 

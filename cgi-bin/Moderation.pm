@@ -283,6 +283,32 @@ sub IsNumber
     }
 }
 
+sub IsAutoModType
+{
+    my ($this, $type) = @_;
+
+    if ($type == ModDefs::MOD_EDIT_ARTISTNAME ||
+        $type == ModDefs::MOD_EDIT_ARTISTSORTNAME ||
+        $type == ModDefs::MOD_EDIT_ALBUMNAME ||
+        $type == ModDefs::MOD_EDIT_TRACKNAME ||
+        $type == ModDefs::MOD_EDIT_TRACKNUM ||
+        $type == ModDefs::MOD_ADD_TRACK ||
+        $type == ModDefs::MOD_MOVE_ALBUM ||
+        $type == ModDefs::MOD_SAC_TO_MAC ||
+        $type == ModDefs::MOD_CHANGE_TRACK_ARTIST ||
+        $type == ModDefs::MOD_MAC_TO_SAC ||
+        $type == ModDefs::MOD_ADD_ARTISTALIAS ||
+        $type == ModDefs::MOD_ADD_ALBUM ||
+        $type == ModDefs::MOD_ADD_ARTIST ||
+        $type == ModDefs::MOD_ADD_TRACK_KV ||
+        $type == ModDefs::MOD_MOVE_DISKID ||
+        $type == ModDefs::MOD_REMOVE_TRMID)
+    {
+        return 1;
+    }
+    return 0;
+}
+
 sub GetModificationName
 {
    return $ModNames{$_[1]};
@@ -464,7 +490,8 @@ sub InsertModeration
            ModDefs::STATUS_OPEN . ", $this->{depmod}, 0)");
     $insertid = $sql->GetLastInsertId();
 
-    if (defined $privs && $ui->IsAutoMod($privs))
+    if ($this->IsAutoModType($this->GetType()) && 
+        defined $privs && $ui->IsAutoMod($privs))
     {
         my ($mod, $status);
 
