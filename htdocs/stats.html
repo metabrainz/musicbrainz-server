@@ -1,56 +1,227 @@
 <& /comp/sidebar, title=>'Database Stats', expand=>'information' &>
 
 <%perl>
-my $result = $m->cache(action=>'retrieve');
-#$result = undef;
-if (!defined($result)) 
+
+my $mb = mc_comp("/comp/dblogin", quiet=>1);
+my $stat = Statistic->new($mb->{DBH});
+my %stats = %{ $stat->FetchAllAsHashRef };
+
+sub pc
 {
-    my $mb = mc_comp("/comp/dblogin");
+	my ($n, $of) = @_;
+	return "-" unless $of;
+	my $pc = 100 * $n / $of;
+	sprintf "%.1f%%", $pc;
+}
 
-    my @current = gmtime(time());
-    my $t = sprintf "%d-%02d-%02d %02d:%02d:%02d",
-              $current[5] + 1900,
-              $current[4]+1,
-              $current[3],
-              $current[2], $current[1], $current[0];
-   
-    $result = "<tr><td>Generated on: $t</td></tr>";
+</%perl>
 
-    $result .= '<tr><td>&nbsp;<br><font class="bold">';
-    $result .= 'Basic Metadata Statistics</font></td></tr>';
+<p>These statistics were last refreshed <% (split /\./, $stat->LastRefreshed)[0] %> UTC</p>
 
-    $result .= mc_comp("/comp/simplestat", 
-                       mb=>$mb,
-                       query=>"select count(*) from Artist", 
-                       title=>"Artists:");
-    $result .= mc_comp("/comp/simplestat", 
-                       mb=>$mb,
-                       query=>"select count(*) from Album", 
-                       title=>"Albums:");
-    $result .= mc_comp("/comp/simplestat", 
-                       mb=>$mb,
-                       query=>"select count(*) from Track", 
-                       title=>"Tracks:");
+<& /comp/tablebegin, title=>'Basic Metadata Statistics', gattrs=>'width="50%"' &>
+<table class="StatsTable" style="width: 100%">
+	<tr>
+		<th class="StatName">Artists</th>
+		<td class="NumberCell"><% $stats{"count.artist"} %></td>
+		<td></td>
+	</tr>
+	<tr>
+		<th class="StatName">Albums</th>
+		<td class="NumberCell"><% $stats{"count.album"} %></td>
+		<td></td>
+	</tr>
+	<tr>
+		<th class="StatName">&nbsp; by various artists</th>
+		<td class="NumberCell"><% $stats{"count.album.various"} %></td>
+		<td class="NumberCell"><% pc(@stats{qw( count.album.various count.album )}) %></td>
+	</tr>
+	<tr>
+		<th class="StatName">&nbsp; by a single artist</th>
+		<td class="NumberCell"><% $stats{"count.album.nonvarious"} %></td>
+		<td class="NumberCell"><% pc(@stats{qw( count.album.nonvarious count.album )}) %></td>
+	</tr>
+	<tr>
+		<th class="StatName">Tracks</th>
+		<td class="NumberCell"><% $stats{"count.track"} %></td>
+		<td></td>
+	</tr>
+	<tr>
+		<th class="StatName">Moderators</th>
+		<td class="NumberCell"><% $stats{"count.moderator"} %></td>
+		<td></td>
+	</tr>
+	<tr>
+		<th class="StatName">&nbsp; who edited last week</th>
+		<td class="NumberCell"><% $stats{"count.moderator.editlastweek"} %></td>
+		<td class="NumberCell"><% pc(@stats{qw( count.moderator.editlastweek count.moderator )}) %></td>
+	</tr>
+	<tr>
+		<th class="StatName">&nbsp; who voted last week</th>
+		<td class="NumberCell"><% $stats{"count.moderator.votelastweek"} %></td>
+		<td class="NumberCell"><% pc(@stats{qw( count.moderator.votelastweek count.moderator )}) %></td>
+	</tr>
+	<tr>
+		<th class="StatName">&nbsp; active last week</th>
+		<td class="NumberCell"><% $stats{"count.moderator.activelastweek"} %></td>
+		<td class="NumberCell"><% pc(@stats{qw( count.moderator.activelastweek count.moderator )}) %></td>
+	</tr>
+</table>
+<& /comp/tableend &>
 
-    $result .= '<tr><td>&nbsp;<br><font class="bold">';
-    $result .= 'Metadata Identifier Statistics</font></td></tr>';
+<& /comp/tablebegin, title=>'Disc Identifiers', gattrs=>'width="50%"' &>
+<table class="StatsTable" style="width: 100%">
+	<tr>
+		<th class="StatName">Disc IDs</th>
+		<td class="NumberCell"><% $stats{"count.discid"} %></td>
+		<td></td>
+	</tr>
+	<tr>
+		<th class="StatName">Albums with no Disc ID</th>
+		<td class="NumberCell"><% $stats{"count.album.0discids"} %></td>
+		<td class="NumberCell"><% pc(@stats{qw( count.album.0discids count.album )}) %></td>
+	</tr>
+	<tr>
+		<th class="StatName">Albums with at least one Disc ID</th>
+		<td class="NumberCell"><% $stats{"count.album.has_discid"} %></td>
+		<td class="NumberCell"><% pc(@stats{qw( count.album.has_discid count.album )}) %></td>
+	</tr>
+% for (1 .. 10) {
+	<tr>
+		<th class="StatName">&nbsp; with <% $_ %> <% $_==10 ? "or more" : "" %> Disc ID<% $_==1 ? "" : "s" %></th>
+		<td class="NumberCell"><% $stats{"count.album.${_}discids"} %></td>
+		<td class="NumberCell"><% pc(@stats{"count.album.${_}discids", "count.album.has_discid"}) %></td>
+	</tr>
+% }
+</table>
+<& /comp/tableend &>
 
-    $result .= mc_comp("/comp/simplestat", 
-                       mb=>$mb,
-                       query=>"select count(*) from TRM", 
-                       title=>"TRM Ids:");
-    $result .= mc_comp("/comp/simplestat", 
-                       mb=>$mb,
-                       query=>"select count(*) from Discid", 
-                       title=>"Discids:");
+<& /comp/tablebegin, title=>'Track Identifiers', gattrs=>'width="50%"' &>
+<table class="StatsTable" style="width: 100%">
+	<tr>
+		<th class="StatName">TRMs</th>
+		<td class="NumberCell"><% $stats{"count.trm"} %></td>
+		<td></td>
+	</tr>
+	<tr>
+		<th class="StatName">Tracks with no TRMs</th>
+		<td class="NumberCell"><% $stats{"count.track.0trms"} %></td>
+		<td class="NumberCell"><% pc(@stats{qw( count.track.0trms count.track )}) %></td>
+	</tr>
+	<tr>
+		<th class="StatName">Tracks with at least one TRM</th>
+		<td class="NumberCell"><% $stats{"count.track.has_trm"} %></td>
+		<td class="NumberCell"><% pc(@stats{qw( count.track.has_trm count.track )}) %></td>
+	</tr>
+% for (1 .. 10) {
+	<tr>
+		<th class="StatName">&nbsp; with <% $_ %> <% $_==10 ? "or more" : "" %> TRM<% $_==1 ? "" : "s" %></th>
+		<td class="NumberCell"><% $stats{"count.track.${_}trms"} %></td>
+		<td class="NumberCell"><% pc(@stats{"count.track.${_}trms", "count.track.has_trm"}) %></td>
+	</tr>
+% }
+</table>
+<& /comp/tableend &>
 
-    $result .= '<tr><td>&nbsp;<br><font class="bold">';
-    $result .= 'User Statistics</font></td></tr>';
+<& /comp/tablebegin, title=>'TRM Collisions', gattrs=>'width="50%"' &>
+<table class="StatsTable" style="width: 100%">
+	<tr>
+		<th class="StatName">TRM IDs</th>
+		<td class="NumberCell"><% $stats{"count.trm.ids"} %></td>
+		<td></td>
+	</tr>
+	<tr>
+		<th class="StatName">TRMs which identify exactly one track</th>
+		<td class="NumberCell"><% $stats{"count.trm.1tracks"} %></td>
+		<td class="NumberCell"><% pc(@stats{qw( count.trm.1tracks count.trm.ids )}) %></td>
+	</tr>
+% for (2 .. 10) {
+	<tr>
+		<th class="StatName">&nbsp; which resolve to <% $_ %> <% $_==10 ? "or more" : "" %> track<% $_==1 ? "" : "s" %></th>
+		<td class="NumberCell"><% $stats{"count.trm.${_}tracks"} %></td>
+		<td class="NumberCell"><% pc(@stats{"count.trm.${_}tracks", "count.trm.ids"}) %></td>
+	</tr>
+% }
+</table>
+<& /comp/tableend &>
 
-    $result .= mc_comp("/comp/simplestat", 
-                       mb=>$mb,
-                       query=>"select count(*) from Moderator", 
-                       title=>"Users:");
+<& /comp/tablebegin, title=>'Moderations', gattrs=>'width="50%"' &>
+<table class="StatsTable" style="width: 100%">
+	<tr>
+		<th class="StatName">Moderations</th>
+		<td class="NumberCell"><% $stats{"count.moderation"} %></td>
+		<td></td>
+	</tr>
+	<tr>
+		<th class="StatName">&nbsp; Open</th>
+		<td class="NumberCell"><% $stats{"count.moderation.open"} %></td>
+		<td class="NumberCell"><% pc(@stats{qw( count.moderation.open count.moderation )}) %></td>
+	</tr>
+	<tr>
+		<th class="StatName">&nbsp; Applied</th>
+		<td class="NumberCell"><% $stats{"count.moderation.applied"} %></td>
+		<td class="NumberCell"><% pc(@stats{qw( count.moderation.applied count.moderation )}) %></td>
+	</tr>
+	<tr>
+		<th class="StatName">&nbsp; Rejected</th>
+		<td class="NumberCell"><% $stats{"count.moderation.failedvote"} %></td>
+		<td class="NumberCell"><% pc(@stats{qw( count.moderation.failedvote count.moderation )}) %></td>
+	</tr>
+	<tr>
+		<th class="StatName">&nbsp; Failed (failed dependency)</th>
+		<td class="NumberCell"><% $stats{"count.moderation.faileddep"} %></td>
+		<td class="NumberCell"><% pc(@stats{qw( count.moderation.faileddep count.moderation )}) %></td>
+	</tr>
+	<tr>
+		<th class="StatName">&nbsp; Failed (failed prerequisitite)</th>
+		<td class="NumberCell"><% $stats{"count.moderation.failedprereq"} %></td>
+		<td class="NumberCell"><% pc(@stats{qw( count.moderation.failedprereq count.moderation )}) %></td>
+	</tr>
+	<tr>
+		<th class="StatName">&nbsp; Failed (internal error)</th>
+		<td class="NumberCell"><% $stats{"count.moderation.error"} %></td>
+		<td class="NumberCell"><% pc(@stats{qw( count.moderation.error count.moderation )}) %></td>
+	</tr>
+	<tr>
+		<th class="StatName">&nbsp; Delete pending</th>
+		<td class="NumberCell"><% $stats{"count.moderation.tobedeleted"} %></td>
+		<td class="NumberCell"><% pc(@stats{qw( count.moderation.tobedeleted count.moderation )}) %></td>
+	</tr>
+	<tr>
+		<th class="StatName">&nbsp; Deleted</th>
+		<td class="NumberCell"><% $stats{"count.moderation.deleted"} %></td>
+		<td class="NumberCell"><% pc(@stats{qw( count.moderation.deleted count.moderation )}) %></td>
+	</tr>
+</table>
+<& /comp/tableend &>
+
+<& /comp/tablebegin, title=>'Votes', gattrs=>'width="50%"' &>
+<table class="StatsTable" style="width: 100%">
+	<tr>
+		<th class="StatName">Votes</th>
+		<td class="NumberCell"><% $stats{"count.vote"} %></td>
+		<td></td>
+	</tr>
+	<tr>
+		<th class="StatName">&nbsp; Yes</th>
+		<td class="NumberCell"><% $stats{"count.vote.yes"} %></td>
+		<td class="NumberCell"><% pc(@stats{qw( count.vote.yes count.vote )}) %></td>
+	</tr>
+	<tr>
+		<th class="StatName">&nbsp; No</th>
+		<td class="NumberCell"><% $stats{"count.vote.no"} %></td>
+		<td class="NumberCell"><% pc(@stats{qw( count.vote.no count.vote )}) %></td>
+	</tr>
+	<tr>
+		<th class="StatName">&nbsp; Abstain</th>
+		<td class="NumberCell"><% $stats{"count.vote.abstain"} %></td>
+		<td class="NumberCell"><% pc(@stats{qw( count.vote.abstain count.vote )}) %></td>
+	</tr>
+</table>
+<& /comp/tableend &>
+
+<!--
+	TODO reinstate the "top moderators" boxes
+	
     $result .= mc_comp("/comp/tablestat", 
                        mb=>$mb,
                        query=>qq|select Moderator.name, 
@@ -93,61 +264,9 @@ if (!defined($result))
                        numcols=>2,
                        coltitles=>["User", "Votes"]);
 
-    $result .= '<tr><td>&nbsp;<br><font class="bold">';
-    $result .= 'Moderation Statistics</font></td></tr>';
 
-    $result .= mc_comp("/comp/simplestat", 
-                       mb=>$mb,
-                       query=>"select count(*) from Moderation", 
-                       title=>"Mods:");
-    $result .= mc_comp("/comp/simplestat", 
-                       mb=>$mb,
-                       query=>"select count(*) from Moderation where status = " .
-                               ModDefs::STATUS_OPEN, 
-                       title=>"&nbsp;&nbsp;&nbsp;Open Mods:");
-    $result .= mc_comp("/comp/simplestat", 
-                       mb=>$mb,
-                       query=>"select count(*) from Moderation where status != " .
-                               ModDefs::STATUS_OPEN ." and YesVotes >= NoVotes", 
-                       title=>"&nbsp;&nbsp;&nbsp;Accepted Mods:");
-    $result .= mc_comp("/comp/simplestat", 
-                       mb=>$mb,
-                       query=>"select count(*) from Moderation where status != " .
-                               ModDefs::STATUS_OPEN ." and NoVotes > YesVotes", 
-                       title=>"&nbsp;&nbsp;&nbsp;Rejected Mods:");
-    $result .= mc_comp("/comp/simplestat", 
-                       mb=>$mb,
-                       query=>"select count(*) from Votes", 
-                       title=>"Votes:");
-    $result .= mc_comp("/comp/simplestat", 
-                       mb=>$mb,
-                       query=>"select count(*) from Votes where vote = 1", 
-                       title=>"&nbsp;&nbsp;&nbsp;Yes Votes:");
-    $result .= mc_comp("/comp/simplestat", 
-                       mb=>$mb,
-                       query=>"select count(*) from Votes where vote = 0", 
-                       title=>"&nbsp;&nbsp;&nbsp;No Votes:");
-    $result .= mc_comp("/comp/simplestat", 
-                       mb=>$mb,
-                       query=>"select count(*) from Votes where vote = -1", 
-                       title=>"&nbsp;&nbsp;&nbsp;Abstain Votes:");
-    $result .= '<tr><td>&nbsp;<br><font class="bold">';
-    $result .= 'Database size history</font></td></tr>';
+ -->
 
-    $mb->Logout();
-    $m->cache(action=>'store', expire_next=>'hour', value=>$result);
-}
-</%perl>
-
-<table cellpadding="10" cellspacing="0" border="0">
-<tr>
-   <td>
-      <table width="100%">
-      <% $result |n %>
-      </table>
-   </td>
-</tr>
-</table>  
 <table cellpadding="10" cellspacing="0" border="0">
 <tr>
    <td><img src="/images/basic_stats.png" alt="[basic stats]"></td>
@@ -157,3 +276,6 @@ if (!defined($result))
 </tr>
 </table>  
 <& /comp/footer &>
+
+% $mb->Logout();
+<!-- vi: set ts=2 sw=2 ft=mason : -->

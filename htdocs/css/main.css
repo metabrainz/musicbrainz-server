@@ -7,4 +7,25 @@ body
 	color: #000;
 }
 
+/* page-specific things */
+
+.StatsTable .SubHeading
+{
+	padding-top: 0.5em;
+	text-align: left;
+}
+
+.StatsTable .StatName
+{
+	text-align: left;
+	font-size: 10pt;
+	font-weight: normal;
+}
+
+.StatsTable .NumberCell
+{
+	text-align: right;
+	font-size: 10pt;
+}
+
 /* eof */
