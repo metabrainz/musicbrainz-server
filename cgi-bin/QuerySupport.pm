@@ -732,7 +732,7 @@ sub TrackInfoFromTRMId
        }
        $sql->Finish;
 
-       return $rdf->CreateDenseTrackList(\@ids);
+       return $rdf->CreateDenseTrackList(0, \@ids);
    }
    else
    {
@@ -760,7 +760,7 @@ sub TrackInfoFromTRMId
 
                if ($sim >= .9)
                {
-                   return $rdf->CreateDenseTrackList([$id->{mbid}]);
+                   return $rdf->CreateDenseTrackList(1, [$id->{mbid}]);
                }
            }
        }

@@ -135,13 +135,14 @@ sub CreateTrackList
 
 sub CreateDenseTrackList
 {
-   my ($this, $gids) = @_;
+   my ($this, $fuzzy, $gids) = @_;
    my ($out, $ar, $al, $tr, $id, @ids);
 
    $this->{status} = "OK";
 
    $out  = $this->BeginRDFObject();
    $out .= $this->BeginDesc("mq:Result");
+   $out .= $this->Element("mq:status", $fuzzy  ? "Fuzzy" : "OK");
    $out .= $this->OutputList('track', $gids);
    $out .= $this->EndDesc("mq:Result") . "\n";
 
