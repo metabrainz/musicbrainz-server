@@ -1,0 +1,43 @@
+<%perl>
+
+my ($mb); 
+my (@info, $artistname, $artistid, $albumname, $modpending);
+my ($trackinfo, $albumid, @idsalbums, $i, $j, $trackid); 
+
+$mb = new MusicBrainz;
+$mb->Login();
+
+$trackid = $mb->GetTrackIdFromGUID($ARGS{guid});
+$albumid = $mb->GetAlbumFromTrackId($trackid);
+
+($artistid, $artistname, $modpending) = $mb->GetArtistInfoFromAlbumId($albumid);
+
+mc_comp("/comp/artisttitle", 
+        artistname=>$artistname, 
+        artistid=>$artistid,
+        modpending=>$modpending);
+
+mc_comp("/comp/modnotice");
+
+($albumname, $modpending) = $mb->GetAlbumName($albumid);
+
+if ($artistid == 0)
+{
+    mc_comp("/comp/malbum", 
+            albumid=>$albumid, 
+            albumname=>$albumname, 
+            mb=>$mb,
+            modpending=>$modpending);
+}
+else
+{
+    mc_comp("/comp/album", 
+            albumid=>$albumid, 
+            albumname=>$albumname, 
+            mb=>$mb,
+            modpending=>$modpending);
+}
+$mb->Logout();
+
+</%perl>
+
