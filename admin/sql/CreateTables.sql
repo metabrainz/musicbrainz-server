@@ -13,7 +13,6 @@ create table ArtistAlias (
    Id serial primary key,
    Ref int not null, -- references Artist, 
    Name varchar(255) not null, 
-   LastUsed_notz timestamp without time zone,
    TimesUsed int default 0,
    ModPending int default 0,
    lastused timestamp with time zone
@@ -102,7 +101,6 @@ create table Moderator (
    ModsRejected int default 0, 
    EMail varchar(64) default null, 
    WebUrl varchar(255) default null, 
-   MemberSince_notz timestamp without time zone default now(),
    Bio text default null,
    membersince timestamp with time zone default now()
    );

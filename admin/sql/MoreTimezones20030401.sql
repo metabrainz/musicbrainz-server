@@ -28,3 +28,11 @@ ALTER TABLE moderation DROP COLUMN expiretime_notz;
 CREATE INDEX moderation_expiretimeindex ON moderation (expiretime);
 
 COMMIT;
+
+BEGIN;
+
+ALTER TABLE moderator DROP COLUMN membersince_notz;
+ALTER TABLE artistalias DROP COLUMN lastused_notz;
+
+COMMIT;
+

@@ -12,7 +12,6 @@ create table artistalias (
    Id bigint auto_increment primary key,
    Ref int not null,
    Name varchar(255) not null, 
-   LastUsed_notz datetime not null,
    TimesUsed int default 0,
    ModPending int default 0,
    lastused datetime not null
@@ -111,7 +110,6 @@ create table moderator (
    ModsRejected int default 0, 
    EMail varchar(64) default null, 
    WebUrl varchar(255) default null, 
-   MemberSince_notz datetime not null,
    Bio text default null,
    membersince datetime not null
    );
