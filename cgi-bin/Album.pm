@@ -38,6 +38,10 @@ use Discid;
 use TRM;
 use SearchEngine;
 use ModDefs;
+use Text::Unaccent;
+use locale;
+use POSIX qw(locale_h);
+use utf8;
 
 use constant ALBUM_ATTR_NONALBUMTRACKS => 0;
 
@@ -156,7 +160,7 @@ use Data::Dumper;
 sub Insert
 {
     my ($this) = @_;
-    my ($album, $id, $sql, $name, $attrs);
+    my ($album, $id, $sql, $name, $attrs, $page);
 
     $this->{new_insert} = 0;
     return undef if (!exists $this->{artist} || $this->{artist} eq '');
@@ -166,10 +170,11 @@ sub Insert
     $name = $sql->Quote($this->{name});
     $id = $sql->Quote($this->CreateNewGlobalId());
     $attrs = "'{" . join(',', @{ $this->{attrs} }) . "}'";
+    $page = $this->CalculatePageIndex($this->{name});
 
     # No need to check for an insert clash here since album name is not unique
-    if ($sql->Do(qq/insert into Album (name,artist,gid,modpending,attributes)
-                values ($name,$this->{artist}, $id, 0, $attrs)/))
+    if ($sql->Do(qq/insert into Album (name,artist,gid,modpending,attributes,page)
+                values ($name,$this->{artist}, $id, 0, $attrs, $page)/))
     {
         $album = $sql->GetLastInsertId('Album');
         $this->{new_insert} = 1;
@@ -601,6 +606,68 @@ sub MergeAlbums
 # ($max_items) it will return an array of references to an array
 # of albumid, sortname, modpending. The array is empty on error.
 sub GetVariousDisplayList
+{
+   my ($this, $ind, $offset) = @_;
+   my ($query, $num_albums, @info, @row, $sql, $page, $page_max, $ind_max, $un); 
+
+   return if length($ind) <= 0;
+
+   $sql = Sql->new($this->{DBH});
+
+   my $old_locale = setlocale(LC_CTYPE);
+   setlocale( LC_CTYPE, "en_US.UTF-8" )
+       or die "Couldn't change locale.";
+  
+   $ind_max = $ind;
+   if ($ind_max =~ /^(.{1})/)
+   {
+      my $t = $1;
+
+      if ($t eq '_')
+      {
+          $t = ' ';
+      }
+      elsif ($t eq ' ')
+      {
+          $t = 'A';
+      }
+      else
+      {
+          $t++;
+      }
+      $ind_max =~ s/^(.{1})/$t/e;
+   }
+
+   $num_albums = 0;
+   $page = $this->CalculatePageIndex($ind);
+   $page_max = $this->CalculatePageIndex($ind_max);
+   $query = qq|select id, name, modpending 
+                    from Album 
+                   where page >= $page and page <= $page_max and
+                         album.artist = | . ModDefs::VARTIST_ID . qq|
+                  offset $offset|;
+   if ($sql->Select($query))
+   {
+       $ind =~ s/_/.{1}/g;
+       for(;@row = $sql->NextRow;)
+       {
+           $un = unac_string('UTF-8', $row[1]);
+           if ($un =~ /^$ind/i)
+           {
+               push @info, [$row[0], $row[1], $row[2], $un];
+           }
+       }
+       $sql->Finish;   
+
+       @info = sort { $a->[3] cmp $b->[3] } @info;
+   }
+
+   setlocale( LC_CTYPE, $old_locale );
+
+   return @info;
+}
+
+sub old_shit
 {
    my ($this, $ind, $offset, $max_items) = @_;
    my ($query, $num_albums, @info, @row, $sql, $ind_len); 

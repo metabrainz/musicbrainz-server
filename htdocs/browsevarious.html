@@ -4,7 +4,7 @@ my ($mb, @info, $row, $ind, $i, $offset, $num_albums, $al, $rows);
 my $max_items = 50;
 
 mc_comp("/comp/sidebar", title=>'Browse Various Artist Albums');
-
+mc_out("<p>[ <a href=\"/addalbum.html?artistid=1\">Add New Album</a> ]<p>");
 
 $ind = $ARGS{index};
 if (!defined $ind || $ind eq '')
@@ -15,15 +15,10 @@ $offset = $ARGS{offset};
 $offset = 0 if not defined $offset;
 $offset = 0 if $offset < 0;
 
+mc_comp("/comp/framedboxbegin", width=>"100%");
 mc_comp("/comp/browsebox", ind=>$ind, page=>"/browsevarious.html");
-
-if (!defined $ind || $ind eq '')
-{
-    mc_out(qq/&nbsp;<p>Use the ? as a wildcard character to match non /);
-    mc_out("alpha characters.<p>");
-}
-
-mc_out("<p>[ <a href=\"/addalbum.html?artistid=1\">Add New Album</a> ]<p>");
+mc_comp("/comp/framedboxend");
+mc_out("<p>");
 
 if (!defined $ind || $ind eq '')
 {
@@ -34,60 +29,73 @@ $mb = mc_comp("/comp/dblogin");
 $al = Album->new($mb->{DBH});
 $al->SetId(ModDefs::VARTIST_ID);
 
-($num_albums, @info) = $al->GetVariousDisplayList($ind, $offset, $max_items);
+@info = $al->GetVariousDisplayList($ind, $offset);
+$num_albums = scalar(@info);
 
-mc_out('<table width="100%"><tr>');
-mc_comp("/comp/listprevbutton", offset=>$offset, ind=>$ind, 
-        text=>"< Prev", num=>$max_items, page=>"browsevarious.html");
-mc_comp("/comp/listprevbutton", offset=>$offset, ind=>$ind, 
-        text=>"<< Prev", num=>($max_items * 2), page=>"browsevarious.html");
-mc_out("<td width=\"40%\">&nbsp;</td>");
-mc_comp("/comp/listnextbutton", offset=>$offset, ind=>$ind, 
-        text=>"Next >>", num=>($max_items * 2), rows=>$num_albums, page=>"browsevarious.html");
-mc_comp("/comp/listnextbutton", offset=>$offset, ind=>$ind, 
-        text=>"Next >", num=>$max_items, rows=>$num_albums, page=>"browsevarious.html");
-mc_out('</tr></table>');
+mc_comp("/comp/framedboxbegin", width=>"100%");
 
-</%perl>
+if ($num_albums > 0)
+{
+    mc_out('<table width="100%"><tr>');
+    mc_comp("/comp/listprevbutton", offset=>$offset, ind=>$ind, 
+            text=>"< Prev", num=>$max_items, page=>"browsevarious.html");
+    mc_comp("/comp/listprevbutton", offset=>$offset, ind=>$ind, 
+            text=>"<< Prev", num=>($max_items * 2), page=>"browsevarious.html");
+    mc_out("<td width=\"40%\">&nbsp;</td>");
+    mc_comp("/comp/listnextbutton", offset=>$offset, ind=>$ind, 
+            text=>"Next >>", num=>($max_items * 2), rows=>$num_albums, page=>"browsevarious.html");
+    mc_comp("/comp/listnextbutton", offset=>$offset, ind=>$ind, 
+            text=>"Next >", num=>$max_items, rows=>$num_albums, page=>"browsevarious.html");
+    mc_out('</tr></table>');
 
-<& /comp/modnotice &>
+    </%perl>
 
-% $rows = $max_items / 2;
-<p><table align="center" width="100%">
-% for($i = 0; $i < $rows; $i++) {
-%  $row = $info[$i];  
-%  last if (!defined $row);
-   <tr>
-      <td valign=top>
-         <% ($i + 1 + $offset) %>.
-      </td>
-% if ($$row[2]) {
-      <td valign=top width="50%" bgcolor="#FFFFCC">
-% } else {
-      <td valign=top width="50%">
-% }
-        <a href="/showalbum.html?albumid=<% $$row[0] %>">
-        <% $$row[1]  %>
-      </td>
-      <td valign=top>
-%     $row = $info[$i + $rows];  
-%     if (defined $row) {
-            <% ($i + 1 + $rows + $offset) %>.
+    <& /comp/modnotice &>
+
+%   $rows = $max_items / 2;
+    <p><table align="center" width="100%" bgcolor="#f0efff">
+%   for($i = 0; $i < $rows; $i++) {
+%      $row = $info[$i];  
+%      last if (!defined $row);
+       <tr>
+          <td width="1%" valign="top">
+             <% ($i + 1 + $offset) %>.
+          </td>
+%         if ($$row[2]) {
+             <td valign=top width="50%" bgcolor="#FFFFCC">
+%         } else {
+             <td valign=top width="50%">
+%         }
+            <a href="/showalbum.html?albumid=<% $$row[0] %>"><% $$row[1]  %></a>
+          </td>
+          <td width="1%" valign="top">
+%           $row = $info[$i + $rows];  
+%           if (defined $row) {
+                <% ($i + 1 + $rows + $offset) %>.
+                </td>
+%               if ($$row[2]) {
+                   <td valign=top width="50%" bgcolor="#FFFFCC">
+%               } else {
+                   <td valign=top width="50%">
+%               }
+                <a href="/showalbum.html?albumid=<% $$row[0] %>"><% $$row[1]  %></a>
+%           } else {
+                &nbsp;</td><td>&nbsp;
+%           }
          </td>
-% if ($$row[2]) {
-         <td valign=top width="50%" bgcolor="#FFFFCC">
-% } else {
-         <td valign=top width="50%">
-% }
-            <a href="/showalbum.html?albumid=<% $$row[0] %>">
-            <% $$row[1]  %>
-%     } else {
-         &nbsp;</td><td>&nbsp;
-%     }
-      </td>
-  </tr>
-%}
-</table>
+      </tr>
+%    }
+    </table>
+%} else {
+%   $ind =~ s/_/(wildcard)/g;
+%   $ind =~ s/ /(space)/g;
+    <p><table align="center" width="100%" bgcolor="#f0efff">
+    <tr><td align="center">
+      No various artist albums start with the letters <b><% $ind %></b>.
+    </td></tr>
+    </table>
+%   }
+<& /comp/framedboxend &>
 
 % $mb->Logout;
 <& /comp/footer &>

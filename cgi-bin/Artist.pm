@@ -289,13 +289,13 @@ sub LoadFull
 }
 
 # Pull back a section of artist names for the browse artist display.
-# Given an index character ($ind), a page offset ($offset) and a page length
-# ($max_items) it will return an array of references to an array
+# Given an index character ($ind), a page offset ($offset) 
+# it will return an array of references to an array
 # of artistid, sortname, modpending. The array is empty on error.
 sub GetArtistDisplayList
 {
    my ($this, $ind, $offset) = @_;
-   my ($query, $num_artists, @info, @row, $sql, $page, $page_max, $ind_max, $un); 
+   my ($query, @info, @row, $sql, $page, $page_max, $ind_max, $un); 
 
    return if length($ind) <= 0;
 
@@ -325,7 +325,6 @@ sub GetArtistDisplayList
       $ind_max =~ s/^(.{1})/$t/e;
    }
 
-   $num_artists = 0;
    $page = $this->CalculatePageIndex($ind);
    $page_max = $this->CalculatePageIndex($ind_max);
    $query = qq/select id, sortname, modpending 

@@ -326,13 +326,14 @@ sub ApprovedAction
                    $al->SetTable("ArtistAlias");
                    $al->Insert($datarowid, $prevval);
                }
-               if ($table eq 'Artist' && $column eq 'SortName')
+               if (($table eq 'Artist' && $column eq 'SortName') ||
+                   ($table eq 'Album' && $column eq 'Name'))
                {
                    my ($page, $al);
 
-                   my $al = Artist->new($this->{DBH});
+                   $al = Artist->new($this->{DBH});
                    $page = $al->CalculatePageIndex($this->GetNew());
-                   $sql->Do(qq/update artist set page = $page  
+                   $sql->Do(qq/update $table set page = $page  
                                where id = $datarowid/); 
                }
     

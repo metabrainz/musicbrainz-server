@@ -40,6 +40,9 @@ use Sql;
 # alter table artist add column page int;
 # UPDATE pg_attribute SET attnotnull = TRUE WHERE attname = 'page' AND attrelid = ( SELECT oid FROM pg_class WHERE relname = 'artist');
 # create index Artist_PageIndex on Artist (Page)
+# alter table album add column page int;
+# UPDATE pg_attribute SET attnotnull = TRUE WHERE attname = 'page' AND attrelid = ( SELECT oid FROM pg_class WHERE relname = 'album');
+# create index Album_PageIndex on Album (Page)
 
 sub CreateTables
 {
@@ -75,7 +78,8 @@ sub CreateTables
                        Name varchar(255) not null,
                        GID char(36) not null, 
                        ModPending int default 0,
-                       Attributes int[] default '{0}')| )
+                       Attributes int[] default '{0}',
+                       Page int not null)|)
               or die("Cannot create Album table");
             
         print "Created Album table.\n";
@@ -324,6 +328,8 @@ sub CreateIndices
               or die("Could not add indices to Album table");
         $sql->Do(qq|create index Album_ArtistIndex on Album (Artist)|)
               or die("Could not add indices to Album table");
+        $sql->Do(qq|create index Album_PageIndex on Album (Page)|)
+            or die("Could not add indices to Album table");
         print "Added indices to Album table.\n";
 
         $sql->Do(qq|create index Track_NameIndex on Track (Name)|)
