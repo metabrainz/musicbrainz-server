@@ -87,6 +87,7 @@ sub EnterRecord
         return 0;
     }
 
+    $al = Album->new($this->{DBH});
     @ids = $a->GetAlbumsByName($title);
     for(;defined($album = shift @ids);)
     {
@@ -100,7 +101,6 @@ sub EnterRecord
         last if ($num == $tracks);
     }
 
-    $al = Album->new($this->{DBH});
     $al->SetArtist($artist);
     if (!defined $album)
     {

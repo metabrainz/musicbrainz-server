@@ -227,8 +227,7 @@ HOST:
                                         # cycle to next host
     if ($self->{host} eq '') {
       my $cddb_host = shift(@cddb_hosts);
-      die "ran out of CDDB hosts to query today\n"
-        unless ($cddb_host);
+      return undef unless ($cddb_host);
       ($self->{host}, $self->{port}) = @$cddb_host;
     }
 
