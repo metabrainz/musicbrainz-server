@@ -1,0 +1,157 @@
+%# vi: set ts=2 sw=2 ft=mason :
+<& /comp/sidebar, title => 'April 99th, 2004: Server Updates' &>
+
+<h2>Changes mainly of interest to MusicBrainz Users</h2>
+
+<p>
+	Votes on open moderations are no longer as "aggressively hidden" as they
+	used to be.&nbsp; Now you can always see the voting on any mod, regardless
+	of status etc, by going to the <a href="/jumpmod.html">Moderation Detail</a>
+	page.&nbsp; On the <a href="/mod/search/pre/new.html">main voting pages</a>
+	you'll only not be able to see the vote counts as long as you haven't voted;
+	as soon as you vote (or when the mod closes, or if it's your mod anyway)
+	then the vote counts are shown.
+</p>
+
+<p>
+	From now on, whenever you add a note to a moderation, you'll get mailed all
+	future notes added to that moderation.&nbsp; If you don't like this new
+	behaviour, you can disable it via a new preference.&nbsp; In that case
+	you'll only get mailed notes which were added to your own mods.
+</p>
+
+<p>
+	Each entry in the <a href="/style.html">Style Guide</a> is now "linkable",
+	so you can refer style guide entries to other users just by posting a link.
+</p>
+
+<p>
+	Previously it was possible to add artists, albums etc with trailing
+	whitespace in their names.&nbsp; This caused problems with artists
+	especially, where the name is meant to be unique.&nbsp; The system now tries
+	much harder to remove such whitespace before the data is written to the
+	database.&nbsp; As a one-off exercise for this release, all
+	trailing-whitespace data should now have been removed.
+</p>
+
+<p>
+	Previously, strange side-effects could have occurred in various places if the
+	names of artists, etc. contained the "_" or "%" characters.&nbsp; These
+	potential side-effects have now been fixed.
+</p>
+
+<p>
+	The <a href="/topmods.html">Top Moderators</a> page has been revamped; the
+	moderator names listed there are now links to their profile pages.
+</p>
+
+<p>
+	On the <a href="/browsevarious.html">Browse Releases</a> page, there is now
+	a "title" attribute (which in most browsers is shown as a "tooltip") which
+	shows the track, disc id and TRM id counts for each release.
+</p>
+
+<p>
+	If there is an error when adding a track, previously the system just
+	reported "Error".&nbsp; Now it shows you the full error message, as
+	originally intended.
+</p>
+
+<h2>Changes mainly of interest to MusicBrainz Programmers</h2>
+
+<p>
+	The TRM "gateway" on the server has now been reimplemented in
+	mod_perl.&nbsp; For the most part this shouldn't make much difference to
+	you; but it does mean for example that you can use any URL at
+	<a href="http://trm.musicbrainz.org/">trm.musicbrainz.org</a>,
+	and that we can get
+	<a href="http://www.musicbrainz.org/mrtg/zim.cgi?log=zim-trmstats">better<a>
+	&#32;<a href="http://www.musicbrainz.org/usage/trm/">statistics</a>
+	on use of the signature server.&nbsp;
+	There are also some <a href="/news/20040316-1.html">new "special" TRMs</a>
+	which can be returned to indicate various exceptional conditions.
+</p>
+
+<h2>New and Changed Documentation</h2>
+
+<p>
+	The documentation for the <a href="/docs/mb_client/2.1.0/">client</a>
+	and <a href="/docs/tunepimp/index.html">TunePimp</a> have been
+	extended and reorganised.
+</p>
+
+<h2>Changes mainly of interest to MusicBrainz Server Programmers</h2>
+
+<h3>Replication</h3>
+
+<p>
+	The server now supports one-way data replication, for most (but not all)
+	tables.&nbsp; (The tables excluded are the moderation and moderator tables
+	- nine tables in all).&nbsp; The replication is based on the "dbmirror" code
+	contributed to the Postgres codebase.
+</p>
+
+<p>
+	Every hour, the <& cvslink.inc, "mb_server/admin/ExportAllTables" &> script
+	runs and exports the changed rows into a "replication packet" file (a
+	compressed "tar" file).&nbsp; Those files are then made available on our
+	<a href="http://ftp.musicbrainz.org/pub/musicbrainz/data/replication">FTP site</a>.&nbsp;
+	Every so often (for example, once a week) a complete database export is
+	run, and this too is made available on our FTP site.&nbsp; By initially
+	importing one of these full databases (minus the moderation tables),
+	then applying each replication packet, a slave database can keep up-to-date
+	with the master.
+</p>
+
+<h3>Installation</h3>
+
+<p>
+	The <& cvslink.inc, "mb_server/admin/cron/", show => '"cron" scripts' &>
+	have been rewritten; they are now configured via
+	<& cvslink.inc, "mb_server/admin/config.sh" &>, and the
+	<& cvslink.inc, "mb_server/INSTALL" &> file now mentioned the existence of
+	these scripts.
+</p>
+
+<h3>Other Changes</h3>
+
+<p>
+	<tt>Text::Unaccent</tt> version 1.05 couldn't handle non-string data safely
+	(including "undef").&nbsp; We're now running a patched version of this
+	module; the relevant patch is available on our FTP site.
+</p>
+
+<p>
+	There is a new "cleanup" script,
+	<& cvslink.inc, "mb_server/admin/cleanup/UnusedTracks" &>;
+	some old scripts have been removed.
+</p>
+
+<p>
+	Various database write operations have been moved into more appropriate places
+	in the code, as have some read operations.&nbsp; Lots of SQL has been
+	rewritten, and some unused methods have been removed from
+	<& cvslink.inc, "mb_server/cgi-bin/Sql.pm" &>.
+</p>
+
+<p>
+	<& cvslink.inc, "mb_server/cgi-bin/MusicBrainz/Server/Mail.pm" &>
+	now complains and shows the error message in the event of failure.&nbsp;
+	There were miscellaneous HTML fixes.&nbsp;
+	<& cvslink.inc, "mb_server/cgi-bin/MusicBrainz/Server/Cache.pm" &>
+	was changed to allow false values; "remove" was renamed to "delete".
+</p>
+
+<h2>Bugs and RFEs Closed</h2>
+
+<& buglist.inc,
+	"767226 	Error after failed attempt to e-mail user",
+	"870082 	space at the end of artist name",
+	"919645 	duplicate votes for Add Album mods",
+	"863666 	Mozilla problems with popups",
+	"912780 	Can't change email address",
+	&>
+
+<p style="margin-top: 3em"><a href="/support/contact.html">Dave Evans</a></p>
+
+<& /comp/footer &>
