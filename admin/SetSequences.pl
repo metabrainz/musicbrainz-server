@@ -61,7 +61,7 @@ sub SetSequence
 }
 
 my $mb = MusicBrainz->new;
-$mb->Login;
+$mb->Login(db => "READWRITE");
 my $sql = Sql->new($mb->{DBH});
 
 print "Connected to database.\n";

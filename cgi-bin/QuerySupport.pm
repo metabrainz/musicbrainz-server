@@ -463,6 +463,11 @@ sub SubmitTRMList
     {
       	return $rdf->ErrorRDF(&DBDefs::DB_READ_ONLY_MESSAGE)
     }
+    if (&DBDefs::DB_IS_REPLICATED)
+    {
+      	return $rdf->ErrorRDF("You cannot submit TRM identifiers to a mirror server. Please submit them" .
+		              "to the main server at http://musicbrainz.org")
+    }
 
     my $sql = Sql->new($dbh);
 

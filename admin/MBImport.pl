@@ -80,7 +80,7 @@ $fHelp and usage();
 @ARGV or usage();
 
 my $mb = MusicBrainz->new;
-$mb->Login;
+$mb->Login(db => "READWRITE");
 my $sql = Sql->new($mb->{DBH});
 
 for my $arg (@ARGV)

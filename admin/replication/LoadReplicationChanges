@@ -64,7 +64,7 @@ $SIG{'INT'} = sub { die "SIGINT\n" };
 
 use MusicBrainz;
 my $mb = new MusicBrainz;
-$mb->Login;
+$mb->Login(db => "READWRITE");
 
 use Sql;
 my $sql = Sql->new($mb->{DBH});
@@ -102,8 +102,11 @@ unless (defined $iReplicationSequence)
 
 check_foreign_keys();
 
-goto APPLY_CHANGES
-	if $sql->SelectSingleValue('SELECT COUNT(*) FROM "Pending"');
+if ($sql->SelectSingleValue('SELECT COUNT(*) FROM "Pending"'))
+{
+	print localtime() . " : Continuing a previously aborted load\n";
+	goto APPLY_CHANGES;
+}
 
 NEXT_PACKET:
 
@@ -157,6 +160,9 @@ system "/bin/tar",
 	$localfile,
 	;
 exit $? if $? >> 8;
+
+unlink $localfile
+	or warn "unlink $localfile: $!\n";
 
 # Read SCHEMA_SEQUENCE.  Check it matches the current_schema_sequence
 my $SCHEMA_SEQUENCE = read_file("SCHEMA_SEQUENCE");
@@ -248,11 +254,14 @@ $sql->Commit;
 
 # Check that current_replication_sequence has gone up by one
 # Also last_replication_date should match TIMESTAMP
+$iNextReplicationSequence = $iReplicationSequence + 1
+	if not defined $iNextReplicationSequence;
 {
 	my $row = $sql->SelectSingleRowHash("SELECT * FROM replication_control");
 	$row->{current_replication_sequence} == $iNextReplicationSequence
-		or die "Applied changes, but current_replication_sequence is $row->{current_schema_sequence} not $iNextReplicationSequence\n";
-	$row->{last_replication_date} eq $TIMESTAMP
+		or die "Applied changes, but current_replication_sequence is $row->{current_replication_sequence} not $iNextReplicationSequence\n";
+	not defined($TIMESTAMP)
+		or $row->{last_replication_date} eq $TIMESTAMP
 		or warn "Applied changes, but last_replication_date is '$row->{last_replication_date}' not '$TIMESTAMP'\n";
 }
 ++$iReplicationSequence;

@@ -3,6 +3,17 @@
 my $sMagicWord = "CacheMe!";
 my $fCallingSelf = ($_[0] and $_[0] eq $sMagicWord);
 
+if (&DBDefs::DB_IS_REPLICATED) 
+{
+	  $m->comp("/comp/sidebar", title=>'Database Stats', expand=>'information');
+	  </%perl>
+	  The statistics are available only on the <a 
+    href="http://musicbrainz.org/stats.html">main server</a>.
+	  <%perl>
+	  $m->comp("/comp/footer");
+    return
+} 
+
 my $mb = $m->comp("/comp/dblogin", quiet=>1);
 my $stat = Statistic->new($mb->{DBH});
 

@@ -50,23 +50,38 @@ sub MASON_DIR		{ "/home/httpd/musicbrainz/mason" }
 # The Database
 ################################################################################
 
-# The DBI connection string for your database
-sub DSN		{ 'dbi:Pg:dbname=musicbrainz_db' }
-
-# The name of the database
-sub DB_NAME	{ 'musicbrainz_db' }
-# The database user that has access to the database listed above
-sub DB_USER	{ 'musicbrainz_user' }
-# The password for the above user
-sub DB_PASSWD	{ '' }
-# Other command-line options to pass to Postgres programs, e.g. "-h otherhost"
-sub DB_PGOPTS	{ '' }
+require MusicBrainz::Server::Database;
+MusicBrainz::Server::Database->register_all(
+    {
+	# How to connect when we need read-write access to the database
+	READWRITE => {
+	    database	=> "musicbrainz_db",
+	    username	=> "musicbrainz_user",
+	    password	=> "",
+	    host	=> "",
+	    port	=> "",
+	},
+	# How to connect for read-only access.  See "DB_IS_REPLICATED" (below)
+	READONLY => undef,
+	# How to connect for administrative access
+	SYSTEM	=> {
+	    database	=> "template1",
+	    username	=> "postgres",
+	    password	=> "",
+	    host	=> "",
+	    port	=> "",
+	},
+    },
+);
 
 # The schema sequence number.  Must match the value in
 # replication_control.current_schema_sequence.
 sub DB_SCHEMA_SEQUENCE { 1 }
 
-
+# Replication slaves should prevent users from making any changes to the
+# database.  Note that this setting is closely tied to the "READONLY" key,
+# above.  See the INSTALL file for more information.
+sub DB_IS_REPLICATED { 0 }
 
 ################################################################################
 # HTTP Server Names

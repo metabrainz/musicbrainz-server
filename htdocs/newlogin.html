@@ -9,6 +9,18 @@ $mbt=>$session{'mbt'}
 <& /comp/sidebar, title => "Create a New Login"  &>
 %}
 
+% if (&DBDefs::DB_IS_REPLICATED) {
+	<p style="margin: 1em">
+    This is a mirror server -- you cannot create a login on this server.
+	</p>
+	<p style="margin: 1em">
+	If you would like to create your own login, please go to the 
+	<a href="http://musicbrainz.org/login.html">main server</a>.
+	</p>
+    <& /comp/footer &>
+%	return
+% }
+
 <p>
 Please fill out the form below to create a new MusicBrainz account:
 <br>

@@ -9,21 +9,23 @@
    ></a></td>
    <td class="NavBarCell" align="right" valign="middle">
       <span class="topmenu">
-% if (&DBDefs::DB_STAGING_SERVER) {
+% if (&DBDefs::DB_STAGING_SERVER =~ /test/) {
          <a href="/user/debug.html">Debug</a> |
 % }
          <a href="/search.html">Search</a> |
-% if (!defined $session{user} || $session{user} eq '') {
+% if (!&DBDefs::DB_IS_REPLICATED) {
+%    if (!defined $session{user} || $session{user} eq '') {
          <a href="/login.html">Login</a> |
-% } else {
+%    } else {
          <a href="/user/view.html">Profile</a> |
          <a href="/logout.html">Logout</a> |
-% }
+%    }
          <a href="/prefs.html">Prefs</a> |
-% if (UserPreference::get('navbar_mod_show_select_page')) {
+%    if (UserPreference::get('navbar_mod_show_select_page')) {
          <a href="/mod/search/select-filter.html">Moderate</a> |
-% } else {
+%    } else {
          <a href="/mod/search/pre/new.html">Moderate</a> |
+%    }
 % }
          <a href="/download.html">Download</a> |
          <a href="/faq.html">FAQ</a> |

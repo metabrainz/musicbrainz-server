@@ -38,7 +38,7 @@ The MusicBrainz server requires the following items:
    ReplicationSetup.sql.
 
    If you *do* want to be a replication master, be sure to add the
-   "--with-replication" option to InitDB.pl.  (And be sure to run
+   "--with-replication" option to InitDb.pl.  (And be sure to run
    ExportAllTables regularly, otherwise your Pending and PendingData tables
    may grow out of control).
 
@@ -48,8 +48,9 @@ The MusicBrainz server requires the following items:
 
    For normal operation, MusicBrainz only needs to connect from one or two OS
    users (whoever your web server / crontabs run as), to one database (the
-   MusicBrainz database, given by &DBDefs::DB_NAME), as one Postgres user
-   (&DBDefs::DB_USER).  For example, if you run your web server and crontabs
+   MusicBrainz database), as one Postgres user.  The Postgres database name
+   and user name are given in DBDefs.pm (look for the "READWRITE" key).
+   For example, if you run your web server and crontabs
    as "www-user", the following configuration recipe may prove useful:
 	
 	# in pg_hba.conf:
@@ -58,7 +59,7 @@ The MusicBrainz server requires the following items:
 	# in pg_ident.conf:
 	mb_map www-user musicbrainz_user
 
-   The only time any other connection is required is if the "InitDB.pl"
+   The only time any other connection is required is if the "InitDb.pl"
    installation script is invoked with "--createdb".  In this case it needs to
    connect as the "postgres" user, so something else will need to be done to
    allow that.  You could:
@@ -67,7 +68,7 @@ The MusicBrainz server requires the following items:
 	   as both "postgres" and "musicbrainz_user"; you can then run everything
 	   from one user account, e.g.
 	   
-	   ./admin/InitDB.pl --createdb --import mbdump*.tar.bz2
+	   ./admin/InitDb.pl --createdb --import mbdump*.tar.bz2
 	
    or
    
@@ -75,10 +76,10 @@ The MusicBrainz server requires the following items:
 	   connect as "postgres" (e.g. the "postgres" OS user):
 
 	   # as "postgres":
-	   ./admin/InitDB.pl --createdb
+	   ./admin/InitDb.pl --createdb
 
 	   # as your MusicBrainz OS user:
-	   ./admin/InitDB.pl --import mbdump*.tar.bz2
+	   ./admin/InitDb.pl --import mbdump*.tar.bz2
 
 2) A database dedicated to MusicBrainz.  Of course, the scripts can help you
    create this.
@@ -284,7 +285,7 @@ Installation:
    http://musicbrainz.org/ftpmirror/pub/musicbrainz/data/ for a list).
 
    Download all the dump files, double-check your settings in DBDefs.pm, make
-   sure Postgres is running, then run the "InitDb" script, passing
+   sure Postgres is running, then run the "InitDb.pl" script, passing
    it the names of the "dump" files you just downloaded:
 
 	./admin/InitDb.pl --createdb --echo --import mbdump*.tar.bz2
@@ -325,6 +326,68 @@ Installation:
    This should be it and now you have your very own MusicBrainz server.
 
 Good luck!
+
+
+
+Setting up a replication slave
+------------------------------
+
+If you want to maintain an up-to-date copy of all the latest data from the
+main MusicBrainz server, you can set up your MusicBrainz server to be a
+"replication slave".  In this mode you can use your server to examine the
+data using the usual web pages, but you won't be able to modify the data at
+all - to do that, you go back to the main server and modify the data there.
+Later on, that change will make its way back to your server as you retrieve
+the latest data updates.
+
+To do this you'll need a slightly different set-up.  Firstly you'll need two
+Postgres users - one which has permission to write to the database (so it can
+apply the data updates retrieved from the main server), and another user who
+only read the data, not modify it.  For example, you might choose
+"write_user" for the former and "read_user" for the latter.  In DBDefs.pm
+you'll need to enter three sets of database connection details:
+
+* READWRITE - the user who has permission to write to the database
+* READONLY - the user who only has permission to read it
+* SYSTEM - the "Postgres" user (only used by "InitDb.pl", when you're first
+           creating the database)
+
+The database name for READWRITE and READONLY should usually be the same.  For
+SYSTEM, the database name should always be "template1".  Usually, the "host"
+and "port" values for all three connections should be the same.
+
+Finally, ensure that DB_IS_REPLICATED is set to "1".
+
+For example:
+
+	# How to connect when we need read-write access to the database
+	READWRITE => {
+	    database	=> "mydatabase",
+	    username	=> "write_user",
+	    password	=> "",
+	    host	=> "",
+	    port	=> "",
+	},
+	# How to connect for read-only access.  See "DB_IS_REPLICATED" (below)
+	READONLY => {
+	    database	=> "mydatabase",
+	    username	=> "read_user",
+	    password	=> "",
+	    host	=> "",
+	    port	=> "",
+	},
+	# How to connect for administrative access
+	SYSTEM	=> {
+	    database	=> "template1",
+	    username	=> "postgres",
+	    password	=> "",
+	    host	=> "",
+	    port	=> "",
+	},
+
+...
+
+sub DB_IS_REPLICATED { 1 }
 
 
 

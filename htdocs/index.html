@@ -6,10 +6,18 @@
 % if (&DBDefs::DB_STAGING_SERVER) {
 	<div class="SideArticle">
 		<h1>You are using a MusicBrainz <% lc(&DBDefs::DB_STAGING_SERVER) %> server!</h1>
-		<p>
-			Unless you want to be testing the latest and greatest MusicBrainz features
-			you probably want to <a href="http://musicbrainz.org/">go&nbsp;here</a>.
-		</p>
+
+%   if (&DBDefs::DB_STAGING_SERVER =~ /test/) {
+			<p>
+				Unless you want to be testing the latest and greatest MusicBrainz features
+				you probably want to <a href="http://musicbrainz.org/">go&nbsp;here</a>.
+			</p>
+%   } else {
+			<p>
+				If you want to edit the MusicBrainz data, you will need to go to the 
+				<a href="http://musicbrainz.org/">main&nbsp;server</a>.
+			</p>
+%   }
 	</div>
 % }
 

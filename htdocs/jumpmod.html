@@ -3,7 +3,15 @@
 <p>
 <br>
 
-<& /comp/jumpmod &>
+% if (&DBDefs::DB_IS_REPLICATED) {
 
-<& /comp/movefocus, "JumpMod", "modid" &>
+	 Moderations are not available on this mirror server. To view moderations go to the <a 
+    href="http://musicbrainz.org/jumpmod.html">main server</a>.
+
+% } else { 
+
+	 <& /comp/jumpmod &>
+	 <& /comp/movefocus, "JumpMod", "modid" &>
+
+% }
 <& /comp/footer &>

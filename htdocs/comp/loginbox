@@ -4,6 +4,20 @@ $url => (join "?", grep { $_ } ($r->uri, scalar $r->args))
 </%args>
 <%perl>
 return if $m->comp("/comp/dbreadonly", 0, 0);
+
+if (&DBDefs::DB_IS_REPLICATED)
+{
+	</%perl>
+	<p style="margin: 1em">
+    This is a mirror server -- you cannot log in to this server.
+	</p>
+	<p style="margin: 1em">
+	If you would like to make changes to the database or your personal profile, please go to the 
+	<a href="http://musicbrainz.org/login.html">main server</a>.
+	</p>
+	<%perl>
+	return
+}
 </%perl>
 
 <form METHOD="POST" ACTION="/bare/login.html" ID="LoginForm"

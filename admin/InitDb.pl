@@ -28,9 +28,12 @@ use lib "$FindBin::Bin/../cgi-bin";
 use MusicBrainz;
 use DBDefs;
 
-my $dbname = &DBDefs::DB_NAME;
-my $dbuser = &DBDefs::DB_USER;
-my $opts = &DBDefs::DB_PGOPTS;
+my $SYSTEM = MusicBrainz::Server::Database->get("SYSTEM");
+my $READWRITE = MusicBrainz::Server::Database->get("READWRITE");
+my $READONLY = MusicBrainz::Server::Database->get("READONLY");
+
+my $isrep = &DBDefs::DB_IS_REPLICATED;
+my $opts = $READWRITE->shell_args;
 my $psql = "psql";
 my $postgres = "postgres";
 my $with_replication = 0;
@@ -51,7 +54,7 @@ sub RunSQLScript
 
 	my $echo = ($fEcho ? "-e" : "");
 
-	open(PIPE, "$psql $echo $opts -U $dbuser -f $sqldir/$file $dbname 2>&1 |")
+	open(PIPE, "$psql $echo -f $sqldir/$file $opts 2>&1 |")
 		or die "exec '$psql': $!";
 	while (<PIPE>)
 	{
@@ -60,6 +63,18 @@ sub RunSQLScript
 	close PIPE;
 
 	die "Error during sql/$file" if ($? >> 8);
+}
+
+{
+	my $mb;
+	my $sql;
+	sub get_system_sql
+	{
+		return $sql if $sql;
+		$mb = MusicBrainz->new;
+		$mb->Login(db => "SYSTEM");
+		$sql = Sql->new($mb->{DBH});
+	}
 }
 
 sub Create 
@@ -71,48 +86,62 @@ sub Create
 		die "Can't find '$prog' on your PATH\n";
 	}
 
+	my $system_sql = get_system_sql();
+
 	# Check the cluster uses the C locale
 	{
-		my $locale = `
-			echo "select setting from pg_settings where name = 'lc_collate'" \\
-			| $psql $opts -t -U $postgres -t template1
-		`;
-		$locale =~ /(\S+)/;
-		unless ($1 eq "C")
+		my $locale = $system_sql->SelectSingleValue(
+			"select setting from pg_settings where name = 'lc_collate'",
+		);
+
+		unless ($locale eq "C")
 		{
 			die <<EOF;
-It looks like your Postgres database cluster was created with locale '$1'.
+It looks like your Postgres database cluster was created with locale '$locale'.
 MusicBrainz needs the "C" locale instead.  To rectify this, re-run "initdb"
 with the option "--locale=C".
 EOF
 		}
 	}
 
-	unless ($dbuser eq "$postgres")
+	for my $db (MusicBrainz::Server::Database->all)
 	{
-		my $use = `
-			echo "select 'EXISTS' from pg_shadow where usename = '$dbuser'" \\
-			| $psql $opts -U $postgres -t template1 \\
-			| grep EXISTS
-		`;
-		unless ($? == 0)
-		{
-			print localtime() . " : Creating user '$dbuser'\n";
-			system "createuser $opts -U $postgres --no-adduser --no-createdb $dbuser";
-			die "\nFailed to create user\n" if ($? >> 8);
-		}
+		my $username = $db->username;
+		
+		$system_sql->SelectSingleValue(
+			"SELECT 1 FROM pg_shadow WHERE usename = ?", $username,
+		) and next;
+
+		my $passwordclause = "";
+		$passwordclause = "PASSWORD '$_'"
+			if local $_ = $db->password;
+
+		$system_sql->AutoCommit;
+		$system_sql->Do(
+			"CREATE USER $username $passwordclause NOCREATEDB NOCREATEUSER",
+		);
 	}
 
+	my $dbname = $READWRITE->database;
 	print localtime() . " : Creating database '$dbname'\n";
-	system "createdb $opts -U $postgres -E UNICODE --owner=$dbuser $dbname";
-	die "\nFailed to create database\n" if ($? >> 8);
-	system "createlang $opts -U $postgres -d $dbname plpgsql";
+	$system_sql->AutoCommit;
+	my $dbuser = $READWRITE->username;
+	$system_sql->Do("CREATE DATABASE $dbname WITH OWNER = $dbuser ENCODING = 'UNICODE'");
+
+	# You can do this via CREATE FUNCTION, CREATE LANGUAGE; but using
+	# "createlang" is simpler :-)
+	my $sys_in_rw = $SYSTEM->modify(database => $READWRITE->database);
+	my @opts = $sys_in_rw->shell_args;
+	splice(@opts, -1, 0, "-d");
+	push @opts, "plpgsql";
+	system "createlang", @opts;
 	die "\nFailed to create language\n" if ($? >> 8);
 }
 
 sub Import
 {
-	RunSQLScript("ReplicationSetup.sql", "Setting up replication ...");
+	RunSQLScript("ReplicationSetup.sql", "Setting up replication ...")
+		if $with_replication || &DBDefs::DB_IS_REPLICATED;
 	RunSQLScript("CreateTables.sql", "Creating tables ...");
 
     {
@@ -123,7 +152,8 @@ sub Import
 
 	RunSQLScript("CreatePrimaryKeys.sql", "Creating primary keys ...");
 	RunSQLScript("CreateIndexes.sql", "Creating indexes ...");
-	RunSQLScript("CreateFKConstraints.sql", "Adding foreign key constraints ...");
+	RunSQLScript("CreateFKConstraints.sql", "Adding foreign key constraints ...")
+	    if ! &DBDefs::DB_IS_REPLICATED;
 
     print localtime() . " : Setting initial sequence values ...\n";
     system($^X, "$FindBin::Bin/SetSequences.pl");
@@ -131,13 +161,14 @@ sub Import
 
 	RunSQLScript("CreateViews.sql", "Creating views ...");
 	RunSQLScript("CreateFunctions.sql", "Creating functions ...");
-	RunSQLScript("CreateTriggers.sql", "Creating triggers ...");
+	RunSQLScript("CreateTriggers.sql", "Creating triggers ...")
+	    if ! &DBDefs::DB_IS_REPLICATED;
 
 	RunSQLScript("CreateReplicationTriggers.sql", "Creating replication triggers ...")
 		if $with_replication;
 
     print localtime() . " : Optimizing database ...\n";
-    system("echo \"vacuum analyze\" | $psql $opts -U $dbuser $dbname");
+    system("echo \"vacuum analyze\" | $psql $opts");
     die "\nFailed to optimize database\n" if ($? >> 8);
 
     print localtime() . " : Initialized and imported data into the database.\n";
@@ -147,16 +178,19 @@ sub Clean
 {
     my $ret;
     
-	RunSQLScript("ReplicationSetup.sql", "Setting up replication ...");
+	RunSQLScript("ReplicationSetup.sql", "Setting up replication ...")
+		if $with_replication || &DBDefs::DB_IS_REPLICATED;
 	RunSQLScript("CreateTables.sql", "Creating tables ...");
 
 	RunSQLScript("CreatePrimaryKeys.sql", "Creating primary keys ...");
-	RunSQLScript("CreateFKConstraints.sql", "Adding foreign key constraints ...");
 	RunSQLScript("CreateIndexes.sql", "Creating indexes ...");
+	RunSQLScript("CreateFKConstraints.sql", "Adding foreign key constraints ...")
+	    if ! &DBDefs::DB_IS_REPLICATED;
 
 	RunSQLScript("CreateViews.sql", "Creating views ...");
 	RunSQLScript("CreateFunctions.sql", "Creating functions ...");
-	RunSQLScript("CreateTriggers.sql", "Creating triggers ...");
+	RunSQLScript("CreateTriggers.sql", "Creating triggers ...")
+	    if ! &DBDefs::DB_IS_REPLICATED;
 
 	RunSQLScript("CreateReplicationTriggers.sql", "Creating replication triggers ...")
 		if $with_replication;
@@ -164,6 +198,26 @@ sub Clean
 	RunSQLScript("InsertDefaultRows.sql", "Adding default rows ...");
 
     print localtime() . " : Created a clean and empty database.\n";
+}
+
+sub GrantSelect
+{
+	my $mb = MusicBrainz->new;
+	$mb->Login(db => "READWRITE");
+	my $dbh = $mb->{DBH};
+	$dbh->{AutoCommit} = 1;
+
+	my $username = $READONLY->username;
+
+	my $sth = $dbh->table_info("", "public") or die;
+	while (my $row = $sth->fetchrow_arrayref)
+	{
+		my $tablename = $row->[2];
+		next if $tablename =~ /^(Pending|PendingData)$/;
+		$dbh->do("GRANT SELECT ON $tablename TO $username")
+			or die;
+	}
+	$sth->finish;
 }
 
 sub SanityCheck
@@ -178,17 +232,20 @@ sub Usage
 Usage: InitDb.pl [options] [file] ...
 
 Options are:
-     --psql=PATH      Specify the path to the "psql" utility
-     --postgres=NAME  Specify the name of the system user
-     --createdb       Create the database, PL/PGSQL language and user
-  -i --import         Prepare the database and then import the data from 
-                      the given files
-  -c --clean          Prepare a ready to use empty database
-     --[no]echo       When running the various SQL scripts, echo the commands
-                      as they are run
-  -h --help           This help
-     --with-replication  Activate the replication triggers (if you want to
-                         be a master database to someone else's slave)
+     --psql=PATH        Specify the path to the "psql" utility
+     --postgres=NAME    Specify the name of the system user
+     --createdb         Create the database, PL/PGSQL language and user
+  -i --import           Prepare the database and then import the data from 
+                        the given files
+  -c --clean            Prepare a ready to use empty database
+     --[no]echo         When running the various SQL scripts, echo the commands
+                        as they are run
+  -h --help             This help
+     --with-replication Activate the replication triggers (if you want to
+                        be a master database to someone else's slave).
+                        This option cannot be used if this database is being
+                        up to be a replication slave by setting 
+                        DB_IS_REPLICATED to 1 in DBDefs.pm.
 
 After the import option, you may specify one or more MusicBrainz data dump
 files for importing into the database. Once this script runs to completion
@@ -216,6 +273,7 @@ GetOptions(
 	"help|h"	=> \&Usage,
 ) or exit 2;
 
+Usage() if $isrep and $with_replication;
 Usage() if $fImport and $fClean;
 
 SanityCheck();
@@ -226,6 +284,8 @@ my $started = 1;
 Create() if $fCreateDB;
 Import(@ARGV) if $fImport;
 Clean() if $fClean;
+
+GrantSelect() if $isrep;
 
 END {
 	print localtime() . " : InitDb.pl "

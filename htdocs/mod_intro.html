@@ -118,15 +118,22 @@ are automoderations:
 	<% join ", ", @{ $mod->GetAutomoderationList } %>
 </blockquote>
 
-The following moderators are automoderators:
+% if (&DBDefs::DB_IS_REPLICATED) {
 
-<blockquote>
-% my @users = @{ $mod->GetAutomoderatorList };
-% $m->out("No-one!") if not @users;
-% while (defined(my $user = shift @users)) {
-	<a href="/user/view.html?modname=<% uri_escape($user) %>"><% $user %></a><% (@users ? ", " : "") %>
+	The list of automoderators is available on the <a 
+  href="http://musicbrainz.org/mod_intro.html">main server</a>.
+
+% } else {
+	The following moderators are automoderators:
+
+	<blockquote>
+%   my @users = @{ $mod->GetAutomoderatorList };
+%   $m->out("No-one!") if not @users;
+%   while (defined(my $user = shift @users)) {
+	    	<a href="/user/view.html?modname=<% uri_escape($user) %>"><% $user %></a><% (@users ? ", " : "") %>
+%   }
+	</blockquote>
 % }
-</blockquote>
 
 <p>
 The policy for suggesting more automoderators is as follows:

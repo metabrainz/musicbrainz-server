@@ -34,7 +34,7 @@ require Exporter;
 use strict;
 use DBDefs;
 use MusicBrainz::Server::Cache;
-use Carp qw( carp cluck );
+use Carp qw( carp cluck croak );
 use Encode qw( decode );
 use Text::Unaccent qw( unac_string );
 
@@ -50,12 +50,19 @@ sub new
 
 sub Login
 {
-   my ($this, $quiet, $dsn) = @_;
+	my ($this, %opts) = @_;
 
-   $dsn = &DBDefs::DSN if (!defined $dsn);
+	my $db = $opts{'db'};
+	$db = (&DBDefs::DB_IS_REPLICATED ? "READONLY" : "READWRITE")
+		if not defined $db;
+	unless (ref $db)
+	{
+		$db = MusicBrainz::Server::Database->get($db)
+			or croak "No such database '$db'";
+	}
+
    require DBI;
-   $this->{DBH} = DBI->connect($dsn, &DBDefs::DB_USER, &DBDefs::DB_PASSWD,
-                               { RaiseError => 1, PrintError => 0, AutoCommit => 1 });
+   $this->{DBH} = DBI->connect($db->dbi_args);
    return 0 if (!$this->{DBH});
 
 	# Naughty!  Might break in future.  If it does just do the two "SET"

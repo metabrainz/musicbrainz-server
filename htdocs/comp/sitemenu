@@ -133,7 +133,7 @@ use Scalar::Util qw( reftype weaken );
     [
         { name => "About",					url => "/mod_intro.html" },
         { name => "Suggestions",			url => "/reports/index.html" },
-        [
+        (! &DBDefs::DB_IS_REPLICATED) ? [
             { name => "Odd Characters",			url => "/reports/generated/SuspectTrackCharacters/index.html" },
             { name => "Uppercase",				url => "/reports/generated/TooManyCapitals/index.html" },
             { name => "Lowercase",				url => "/reports/generated/NoUpperCase/index.html" },
@@ -150,7 +150,7 @@ use Scalar::Util qw( reftype weaken );
             { name => "Data Tracks",			url => "/reports/generated/SuperfluousDataTracks/index.html" },
             { name => "Duplicate Albums", 		url => "/reports/generated/DuplicateAlbums/index.html" },
             { name => "More Duplicate Artists", url => "/reports/generated/DuplicateArtists2/index.html" },
-        ],
+        ] : [],
         { name => "FAQ",					url => "/mod_faq.html" },
         { name => "Style",					url => "/style.html" },
         { name => "Moderations",			url => "/mod/search/select-filter.html" },
@@ -311,8 +311,8 @@ use Scalar::Util qw( reftype weaken );
 			{ name => "About Disc IDs",			url => "/disc.html" },
 			{ name => "ID3 Tags",				url => "/docs/specs/metadata_tags.html" },
 			{ name => "Stats",					url => "/stats.html" },
-			{ name => "Web Stats",				url => "/usage/" },
-			{ name => "System Stats",			url => "/mrtg/" },
+            (!&DBDefs::DB_IS_REPLICATED) ? { name => "Web Stats", url => "/usage/" } : undef,
+            (!&DBDefs::DB_IS_REPLICATED) ? { name => "System Stats", url => "/mrtg/" } : undef 
 		],
 		{ name => "Contact Us",				url => "/support/contact.html" },
 		{ name => "Mailing Lists",			url => "/list.html" },
@@ -333,6 +333,8 @@ $transform = sub
 	for (my $i = 0; $i < @$rarhMenu; ++$i)
 	{
 		my $rhItem = $rarhMenu->[$i];
+
+		next if (!defined $rhItem);
 
 		$rhItem->{expand} = 0;
 		$rhItem->{id} = "sitemenu" . (++$$riNextIndex);

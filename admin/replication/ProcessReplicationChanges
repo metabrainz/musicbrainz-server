@@ -57,7 +57,7 @@ my %bytable;
 
 my $mb = MusicBrainz->new;
 
-$mb->Login;
+$mb->Login(db => "READWRITE");
 my $sql = Sql->new($mb->{DBH});
 my $sql2 = Sql->new($mb->{DBH});
 my $slave = Sql->new($mb->{DBH});
@@ -89,12 +89,14 @@ if (my $totalrows = $sql->Select($query))
 
 	printf "%9s %4s %9s\n", "XIDs", "est%", "XIDs/sec";
 
+	my $lasttime;
 	my $p = sub {
 		my ($pre, $post) = @_;
 		no integer;
 		printf $pre."%9d %3d%% %9d".$post,
 			$rows, int(100 * $rows / $totalrows),
 			$rows / ($interval||1);
+		$lasttime = time;
 	};
 
 		$p->("", "");
@@ -125,15 +127,15 @@ if (my $totalrows = $sql->Select($query))
 				{
 					die "Mirror command failed.\n";
 				}
-
 			}
+			$slave->Do(qq[DELETE FROM "Pending" WHERE "XID" = ?], $XID);
 			$slave->Commit;
 		}
 
 		$sql2->Finish;
 
 		++$rows;
-		unless ($rows & 0x1F)
+		unless ($rows & 0x1F and time() == $lasttime)
 		{
 			$interval = tv_interval($t1);
 			$p->("\r", "");

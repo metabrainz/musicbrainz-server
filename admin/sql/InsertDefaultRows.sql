@@ -15,7 +15,7 @@ SELECT SETVAL('moderator_id_seq', 1);
 INSERT INTO moderator (name, password) VALUES ('Anonymous', '');
 INSERT INTO moderator (name, password) VALUES ('FreeDB', '');
 INSERT INTO moderator (name, password, privs) VALUES ('rob', '', 1);
-INSERT INTO moderator (name, password) VALUES ('ModBot');
+INSERT INTO moderator (name, password) VALUES ('ModBot', '');
 
 INSERT INTO clientversion (id, version) VALUES (1, 'unknown');
 

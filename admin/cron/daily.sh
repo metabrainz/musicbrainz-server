@@ -52,7 +52,7 @@ echo `date`" : Removing unused artists"
 
 # Vacuum and analyze the database for peak performance
 echo `date`" : Optimizing the database"
-echo "VACUUM ANALYZE;" | psql $DB_PGOPTS -U "$DB_USER" "$DB_NAME"
+echo "VACUUM ANALYZE;" | ./admin/psql READWRITE
 
 # Dump all the data
 # Only do this every other day

@@ -63,39 +63,41 @@
     <br>
   <& /comp/tableend &>
 
-  <& /comp/tablebegin, title=>'Contribute', attrs=>"align=center", 
-     gattrs=>"width='100%'" &>
-    <br>
-    <a href="/addartist.html">Add artist</a> | 
-    <a href="/addalbum.html?artistid=0">Add  album</a><br>
-    <a href="/addalbum.html?artistid=1">Add various artist album</a><br>
-    <a href="/freedb/freedb.html">Freedb Import</a> 
-    <br>
-    &nbsp;
-  <& /comp/tableend &>
+% if (! &DBDefs::DB_IS_REPLICATED) {
+    <& /comp/tablebegin, title=>'Contribute', attrs=>"align=center", 
+       gattrs=>"width='100%'" &>
+      <br>
+      <a href="/addartist.html">Add artist</a> | 
+      <a href="/addalbum.html?artistid=0">Add  album</a><br>
+      <a href="/addalbum.html?artistid=1">Add various artist album</a><br>
+      <a href="/freedb/freedb.html">Freedb Import</a> 
+      <br>
+      &nbsp;
+    <& /comp/tableend &>
 
 % if ($session{user} ne "") {
-  <& /comp/tablebegin, title=>'Login', attrs=>"align=center",
-     gattrs=>"width='100%'" &>
-     <div style="padding: 1em 0">
-    You are logged in as <b><% $session{user} %></b>.<br>
-    <a href="/user/edit.html">View/update your profile</a><br>
-    or your <a href="/prefs.html">preferences</a>.<br>
-    <a href="/logout.html">Logout</a> from MusicBrainz.
-    </div>
-  <& /comp/tableend &>
+      <& /comp/tablebegin, title=>'Login', attrs=>"align=center",
+	 gattrs=>"width='100%'" &>
+	 <div style="padding: 1em 0">
+	You are logged in as <b><% $session{user} %></b>.<br>
+	<a href="/user/edit.html">View/update your profile</a><br>
+	or your <a href="/prefs.html">preferences</a>.<br>
+	<a href="/logout.html">Logout</a> from MusicBrainz.
+	</div>
+      <& /comp/tableend &>
 
-  <& /comp/tablebegin, title=>'Moderate', attrs=>"align=center",
-     gattrs=>"width='100%'" &>
-     <div style="padding: 1em 0">
-    <a href="/mod/search/pre/new.html">Vote/Moderate</a> MusicBrainz.
-    </div>
-  <& /comp/tableend &>
-% } else {
-  <& /comp/tablebegin, title=>'Login', attrs=>"align=center", 
-     gattrs=>"width='100%'" &>
-    <& /comp/loginbox &>
-  <& /comp/tableend &>
+      <& /comp/tablebegin, title=>'Moderate', attrs=>"align=center",
+	 gattrs=>"width='100%'" &>
+	 <div style="padding: 1em 0">
+	<a href="/mod/search/pre/new.html">Vote/Moderate</a> MusicBrainz.
+	</div>
+      <& /comp/tableend &>
+%   } else {
+      <& /comp/tablebegin, title=>'Login', attrs=>"align=center", 
+	 gattrs=>"width='100%'" &>
+	<& /comp/loginbox &>
+      <& /comp/tableend &>
+%   }
 % }
 </td>
 </tr>
