@@ -5,9 +5,13 @@ $scripturl
 $searchfield
 $method=>'POST'
 @hidden=>''
+$formname=>undef
 </%args>
 % my $hide;
 <FORM METHOD="<% $method %>" ACTION="<% $scripturl |n%>"
+% if ($formname) {
+	NAME="<% $formname %>"
+% }
       ENCTYPE="application/x-www-form-urlencoded" class="formstyle">
 <center>
 <table border=0 width="250">

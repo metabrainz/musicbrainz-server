@@ -51,7 +51,9 @@ my @site_musica = (
                         scripturl=>'http://www.amazon.com/exec/obidos/external-search',
                         method=>'get',
                         hidden=>['mode','music','tag','mp3nl','tag-id','mp3nl'],
-                        searchfield=>'keyword' &>
+                        searchfield=>'keyword',
+			formname=>'AmazonForm',
+			&>
     <& /comp/searchbox, name=>'www.barnesandnoble.com',
                         nameurl=>'http://www.barnesandnoble.com',
                         scripturl=>'http://music.barnesandnoble.com/search/results.asp',
@@ -171,3 +173,5 @@ my @site_musica = (
 </td>
 </tr>
 </table>
+
+<& /comp/movefocus, "AmazonForm", "keyword" &>
