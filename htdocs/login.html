@@ -118,11 +118,10 @@ if ($url eq '')
 %       if ($badlogin) {
           <b>Invalid Login. Please try again:</b><p>
 %       }
-		<table style="width: 15em"><tr><td>
-        <& /comp/tablebegin, title=>'Moderator Login' &>
-        <& /comp/loginbox, url=>$url &>
-        <& /comp/tableend &>
-        </td></tr></table>
+		<div class="TitledBox" style="width: 20em">
+			<div class="TitledBoxTitle">Login</div>
+			<& /comp/loginbox, url=> $url &>
+		</div>
         </center>
 %  }
 <& /comp/footer &>

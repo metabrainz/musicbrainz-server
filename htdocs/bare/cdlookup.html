@@ -186,10 +186,13 @@ else
 			To add a CD, you must first log in.
 		</p>
 
-		<& /comp/tablebegin, title=>'Login', attrs=>"align=center", 
-	 		gattrs=>"width='15em'" &>
-			<& /comp/loginbox, url => $url &>
-	 	<& /comp/tableend &>
+		<center>
+			<div class="TitledBox" style="width: 20em">
+				<div class="TitledBoxTitle">Login</div>
+				<& /comp/loginbox, url=> $url &>
+			</div>
+		</center>
+
 % }
 </%def>
 

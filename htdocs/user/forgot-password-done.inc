@@ -8,9 +8,10 @@
 		Password sent to the e-mail address registered for this account.
 	</p>
 
-	<& /comp/tablebegin, title=>'Moderator Login' &>
-	<& /comp/loginbox &>
-	<& /comp/tableend &>
+	<div class="TitledBox" style="width: 20em">
+		<div class="TitledBoxTitle">Login</div>
+		<& /comp/loginbox &>
+	</div>
 
 </center>
 
