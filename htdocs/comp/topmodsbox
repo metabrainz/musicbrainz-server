@@ -3,11 +3,13 @@ my $result = $m->cache(action=>'retrieve');
 #$result = undef;
 if (!defined($result)) 
 {
-    my ($sth, @row);
+		$result = "[error]";
+
     my $mb = $m->comp("/comp/dblogin", quiet=>1);
+
     if (defined $mb)
     {
-        $sth = $mb->{DBH}->prepare(qq|select Moderator.name, count(Moderator.id) as num
+        my $sth = $mb->{DBH}->prepare(qq|select Moderator.name, count(Moderator.id) as num
                                         from Moderation,Moderator
                                        where Moderation.Moderator = Moderator.id
                                              and Moderator.id != | .
@@ -17,9 +19,11 @@ if (!defined($result))
                                              and opentime > now() - interval '1 week' 
                                     group by Moderator.ModsAccepted, Moderator.name
                                     order by num desc limit 5|);
+
         if ($sth->execute)
         {
            my @row;
+					 $result = "";
     
            while(@row = $sth->fetchrow_array)
            {
@@ -35,6 +39,10 @@ if (!defined($result))
                                </tr>\;
            }
         }
+
+				$sth->finish;
+				$result ||= "no-one!";
+				
         $mb->Logout();
     }
 
