@@ -429,7 +429,10 @@ sub CheckSpecialCases
         $ar = Artist->new($this->{DBH});
         if ($ar->LoadFromName($this->{new}))
         {
-           $this->{type} = ModDefs::MOD_MERGE_ARTIST;
+            if ($this->{artist} != $ar->GetId())
+            {
+                $this->{type} = ModDefs::MOD_MERGE_ARTIST;
+            }
         }
     }
 }
@@ -725,7 +728,6 @@ sub CheckModificationsForFailedDependencies
                        $this->CreditModerator($row[2], 0);
                        $this->CloseModification($row[0], $row[4], $row[3],
                                                 ModDefs::STATUS_FAILEDDEP);
-                       print STDERR "found: Dep$i=$1 failed!\n"; 
                    }
                }
                else

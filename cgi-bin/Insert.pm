@@ -312,9 +312,9 @@ sub Insert
             $this->{error} = "Skipped Insert: Invalid trmid\n";
             delete $track->{trmid};
         }
-        delete $info->{track_insertid};
-        delete $info->{trm_insertid};
-        delete $info->{artist_insertid};
+        delete $track->{track_insertid};
+        delete $track->{trm_insertid};
+        delete $track->{artist_insertid};
 
         #print STDERR "name: $track->{track}\n";
         #print STDERR "num: $track->{tracknum}\n";
@@ -395,8 +395,11 @@ sub Insert
                 $this->{error} = "Track Insert failed: Cannot insert artist.\n";
                 return undef;
             }
-            $track->{artist_insertid} = $track_artistid 
-                 if ($ar->GetNewInsert());
+            if ($ar->GetNewInsert())
+            {
+                #print STDERR "Inserted artist: $track_artistid\n";
+                $track->{artist_insertid} = $track_artistid 
+            }
         }
         if (exists $track->{artistid} && $artistid == Artist::VARTIST_ID)
         {

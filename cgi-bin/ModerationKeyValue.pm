@@ -111,7 +111,6 @@ sub PreVoteAction
        $info{toc} = $nw->{TOC};
    }
 
-   #TODO: Support multiple artists!
    for($i = 1;; $i++)
    {
       last if (!exists $nw->{"Track$i"});
@@ -129,7 +128,6 @@ sub PreVoteAction
    }
    $info{tracks} = \@tracks;
 
-   # TODO: Support for inserting partial albums
    $in = Insert->new($this->{DBH});
    if (defined $in->Insert(\%info))
    {
