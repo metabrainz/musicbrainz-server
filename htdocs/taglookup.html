@@ -143,6 +143,7 @@ sub OutputEditForm
 {
    my ($data) = @_;
 
+   # TODO html-encoding ($m->out the content, don't return it)
    my $ret = qq|<FORM METHOD="POST" ACTION="/taglookup.html"
          ENCTYPE="application/x-www-form-urlencoded" class="formstyle">
      <table>
