@@ -66,7 +66,8 @@ my %ModNames = (
     "22" => "Remove TRM id",
     "23" => "Merge Albums",
     "24" => "Remove Albums",
-    "25" => "Merge into Various Artist Album"
+    "25" => "Merge into Various Artist Album",
+    "26" => "Edit Album Attributes"
 );
 
 my %ChangeNames = (

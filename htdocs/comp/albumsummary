@@ -55,11 +55,11 @@ else
 {
     mc_out("None ");
 }
-mc_out("] ");
+mc_out(" ] ");
 
 if (exists $session{user} && !$nomod) 
 {
-    mc_out("<a href=\"/editalbumattrs.html?albumid=" . $album->GetId());
-    mc_out("\">Edit</a>");
+    mc_out("<a href=\"/editalbumattrs.html?id=" . $album->GetId());
+    mc_out("&artist=" . $artist->GetId() . "\">Edit</a>");
 }
 </%perl>

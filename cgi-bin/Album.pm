@@ -98,6 +98,11 @@ sub GetAttributes
    return $_[0]->{attrs};
 }
 
+sub GetAttributeList
+{
+   return \%AlbumAttributeNames;
+}
+
 # Insert an album that belongs to this artist. The Artist object should've
 # been loaded with a LoadFromXXXX call, or the id of this artist must be
 # set before this function is called.

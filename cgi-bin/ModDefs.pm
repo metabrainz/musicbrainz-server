@@ -73,6 +73,7 @@ use constant MOD_REMOVE_TRMID            => 22;
 use constant MOD_MERGE_ALBUM             => 23;
 use constant MOD_REMOVE_ALBUMS           => 24;
 use constant MOD_MERGE_ALBUM_MAC         => 25;
+use constant MOD_EDIT_ALBUMATTRS         => 26;
 
 
 # The constants below define the state a moderation can have:
