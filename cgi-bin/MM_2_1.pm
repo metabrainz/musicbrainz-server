@@ -508,6 +508,7 @@ sub CreateFileLookup
                    $artist->SetId($tr->GetArtist());
                    $artist->LoadFromId();
                    $this->AddToCache(0, 'artist', $artist);
+                   $out .= $this->OutputArtistRDF({ obj=>$artist });
                }
                $out .= $this->OutputTrackRDF({ obj=>$tr });
            }
