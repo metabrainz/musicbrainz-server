@@ -54,6 +54,7 @@ use Moderation;
 use MusicBrainz;
 use MusicBrainz::Server::DeferredUpdate;
 use MusicBrainz::Server::Handlers;
+use MusicBrainz::Server::Mail;
 use MusicBrainz::Server::Mason;
 use MusicBrainz::Server::ModerationNote;
 use MusicBrainz::Server::Vote;
