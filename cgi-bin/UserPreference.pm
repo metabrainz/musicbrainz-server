@@ -98,6 +98,7 @@ addpref('JSMoveFocus', '1', \&check_bool);
 addpref('mod_add_album_inline', 0, \&check_bool);
 addpref('mod_add_album_link', 0, \&check_bool);
 addpref('mods_per_page', 10, sub { check_int(1,25,@_) });
+addpref('navbar_mod_show_select_page', 0, \&check_bool);
 addpref('nosidebar', 0, \&check_bool);
 addpref('no_sidebar_panels', 0, \&check_bool);
 addpref('releases_show_compact', 50, sub { check_int(1,100,@_) });

@@ -14,6 +14,7 @@ if ($ARGS{"SavePrefs"})
 	for (qw(
 		mod_add_album_inline
 		mod_add_album_link
+		navbar_mod_show_select_page
 		JSMoveFocus
 		sitemenu_heavy
 		sidebar_panel_search
@@ -95,6 +96,15 @@ $time = time();
 			<% UserPreference::get('mod_add_album_inline') ? "" : "disabled" %>
 			>
 		and show editing links
+	</p>
+
+	<p>
+		<input type="checkbox" name="navbar_mod_show_select_page"
+			<% UserPreference::get('navbar_mod_show_select_page') ? "checked" : "" %>
+			>
+		Make the "Moderate" link in the navigation bar go to
+		<a href="/mod/select-filter.html">this page</a>
+		instead of the "New Mods" list
 	</p>
 
 	<p>
