@@ -109,7 +109,10 @@ if ($num_albums > 0)
 %   $ind =~ s/ /_/g;
     <p><table align="center" width="100%" bgcolor="#f0efff">
     <tr><td align="center">
-      No matching various artist albums start with the letters <b><% $ind %></b>.
+		No
+		<% ($reltype || $relstatus) ? "matching" : "" %>
+		various artist albums
+		<% length($ind) ? "start with <b>$ind</b>" : "" |n %>
     </td></tr>
     </table>
 %   }
