@@ -29,47 +29,14 @@ use DBI;
 use MusicBrainz;
 use MusicBrainz::Server::ModBot;
 use Apache;
-use Tie::STDERR \&handle_output;
-
-# Should submit this as a patch, or make it a required patch for MusicBrainz
-# (like String::Similarity)
-sub Tie::STDERR::PRINTF
-{
-	my ($self, $fmt) = splice(@_, 0, 2);
-	$self->print(sprintf $fmt, @_);
-}
-
-my $email = shift;
-
-sub handle_output
-{
-   my ($text) = @_;
-
-   if ($text =~ /CheckModsError:/)
-   {
-       if (defined $email && $email ne '')
-       {
-           open MAIL, "|mail -s 'ModBot Error' $email"
-              or die "Cannot open mail program\n";
-
-           print MAIL "During moderation/vote eval an error occurred:\n$text\n";
-           close MAIL;
-           print "Sent mail to $email\n";
-       }
-       else
-       {
-           print "An error occurred:\n$text\n";
-       }
-   }
-   else
-   {
-       print "No errors.\n$text\n";
-   }
-}
 
 my $mb = MusicBrainz->new();
 
 $mb->Login();
 $mod = MusicBrainz::Server::ModBot->new($mb->{DBH});
-$mod->CheckModerations();
+my $r = $mod->CheckModerations(@_);
 $mb->Logout();
+
+exit $r;
+
+# eof CheckVotes.pl
