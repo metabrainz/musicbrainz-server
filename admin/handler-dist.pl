@@ -27,6 +27,8 @@ use ModerationSimple;
 use TRM;
 use Sql;
 use Style;
+use QuerySupport;
+use TaggerSupport;
 
 {  
    package HTML::Mason::Commands;

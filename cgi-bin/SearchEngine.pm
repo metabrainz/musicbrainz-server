@@ -188,39 +188,40 @@ sub GetQuery
     if ($self->{Table} eq 'Album')
     {
         $query = "
-        SELECT Album.id, Album.name, Artist.id, Artist.name, count(WordList.Id)
+        SELECT Album.id, Album.name, Artist.id, Artist.name, Album.gid, count(WordList.Id)
         FROM Album, AlbumWords, WordList, Artist
         WHERE $where_clause
         and AlbumWords.Wordid = WordList.Id
         and AlbumWords.Albumid = Album.Id
         and Artist.Id = Album.Artist
-        GROUP BY Album.Id, Album.name, Artist.id, Artist.name 
+        GROUP BY Album.Id, Album.name, Artist.id, Artist.name, Album.gid
         $conditions
         ORDER BY count(WordList.Id) desc, Album.name";
     }
     elsif ($self->{Table} eq 'Artist')
     {
         $query = "
-        SELECT Artist.id, Artist.name, Artist.sortname, count(WordList.Id) 
+        SELECT Artist.id, Artist.name, Artist.sortname, Artist.gid, count(WordList.Id) 
         FROM Artist, ArtistWords, WordList
         WHERE $where_clause
         and ArtistWords.Wordid = WordList.Id
         and ArtistWords.Artistid = Artist.Id
-        GROUP BY Artist.id, Artist.name, Artist.sortname
+        GROUP BY Artist.id, Artist.name, Artist.sortname, Artist.gid
         $conditions
         ORDER BY count(WordList.Id) desc, Artist.sortname";
     }
     elsif ($self->{Table} eq 'Track')
     {
         $query = "
-        SELECT Track.id, Track.name, Artist.id, Artist.name, AlbumJoin.album, count(WordList.Id)
+        SELECT Track.id, Track.name, Artist.id, Artist.name, AlbumJoin.album, 
+               Track.gid, count(WordList.Id)
         FROM Track, TrackWords, WordList, Artist, AlbumJoin
         WHERE $where_clause
         and TrackWords.Wordid = WordList.Id
         and TrackWords.Trackid = Track.Id
         and Track.Artist = Artist.id
         and AlbumJoin.Track = Track.Id
-        GROUP BY Track.Id, Track.name, Artist.id, Artist.name, AlbumJoin.album 
+        GROUP BY Track.Id, Track.name, Artist.id, Artist.name, AlbumJoin.album, Track.gid
         $conditions
         ORDER BY count(WordList.Id) desc, Track.name";
     }

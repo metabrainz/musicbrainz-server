@@ -169,25 +169,55 @@ sub LoadFromId
    my ($this) = @_;
    my ($sth, $sql, @row);
 
+   if (!defined $this->GetId() && !defined $this->GetMBId())
+   {
+        return undef;
+   }
+
    $sql = Sql->new($this->{DBH});
    if (exists $this->{album})
    {
-       @row = $sql->GetSingleRow("Track, AlbumJoin", 
+       if (defined $this->GetId())
+       {
+           @row = $sql->GetSingleRow("Track, AlbumJoin", 
                              [qw(Track.id Track.name GID sequence length 
                                  Track.artist Track.modpending 
                                  AlbumJoin.modpending AlbumJoin.id)],
-                             ["Track.id", $this->{id},
+                             ["Track.id", $this->GetId(),
                               "AlbumJoin.track", "Track.id",
                               "AlbumJoin.album", $this->{album}]);
+       }
+       else
+       {
+           @row = $sql->GetSingleRow("Track, AlbumJoin", 
+                             [qw(Track.id Track.name GID sequence length 
+                                 Track.artist Track.modpending 
+                                 AlbumJoin.modpending AlbumJoin.id)],
+                             ["Track.gid", $sql->Quote($this->GetMBId()),
+                              "AlbumJoin.track", "Track.id",
+                              "AlbumJoin.album", $this->{album}]);
+       }
    }
    else
    {
-       @row = $sql->GetSingleRow("Track, AlbumJoin", 
+       if (defined $this->GetId())
+       {
+           @row = $sql->GetSingleRow("Track, AlbumJoin", 
                              [qw(Track.id Track.name GID sequence length 
                                  Track.artist Track.modpending 
                                  AlbumJoin.modpending AlbumJoin.id)],
-                             ["Track.id", $this->{id},
+                             ["Track.id", $this->GetId(),
                               "AlbumJoin.track", "Track.id"]);
+       }
+       else
+       {
+           @row = $sql->GetSingleRow("Track, AlbumJoin", 
+                             [qw(Track.id Track.name GID sequence length 
+                                 Track.artist Track.modpending 
+                                 AlbumJoin.modpending AlbumJoin.id)],
+                             ["Track.gid", $sql->Quote($this->GetMBId()),
+                              "AlbumJoin.track", "Track.id"]);
+       }
    }
    if (defined $row[0])
    {

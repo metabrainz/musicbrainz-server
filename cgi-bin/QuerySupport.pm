@@ -212,7 +212,7 @@ sub FindArtistByName
       if (!defined $search);
    return undef if (!defined $dbh);
 
-   $limit = 25 if not defined $limit;
+   $limit = 15 if not defined $limit;
 
    my $engine = SearchEngine->new($dbh);
    $engine->Table('Artist');

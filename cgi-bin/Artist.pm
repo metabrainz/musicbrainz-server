@@ -202,7 +202,7 @@ sub LoadFromSortname
    return undef;
 }
 
-# Load an artist record given an artist id.
+# Load an artist record given an artist id, or an MB Id
 # returns 1 on success, undef otherwise. Access the artist info via the
 # accessor functions.
 sub LoadFromId
@@ -210,15 +210,24 @@ sub LoadFromId
    my ($this) = @_;
    my ($sql, @row);
 
-   if (!defined $this->GetId())
+   if (!defined $this->GetId() && !defined $this->GetMBId())
    {
         cluck "Artist::LoadFromId is called with undef Id\n"; 
         return undef;
    }
 
    $sql = Sql->new($this->{DBH});
-   @row = $sql->GetSingleRow("Artist", [qw(id name GID modpending sortname)],
-                             ["id", $this->GetId()]);
+
+   if (defined $this->GetId())
+   {
+        @row = $sql->GetSingleRow("Artist", [qw(id name GID modpending sortname)],
+                                  ["id", $this->GetId()]);
+   }
+   else
+   {
+        @row = $sql->GetSingleRow("Artist", [qw(id name GID modpending sortname)],
+                                  ["gid", $sql->Quote($this->GetMBId())]);
+   }
    if (defined $row[0])
    {
         $this->{id} = $row[0];

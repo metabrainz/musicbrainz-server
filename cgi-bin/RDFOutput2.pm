@@ -142,25 +142,171 @@ sub CreateTRMList
    return $this->CreateOutputRDF('trmid', @ids);
 }
 
+sub CreateFileLookup
+{
+   my ($this, $tagger, $matchType) = @_;
+   my (@cache, %obj, $id, $ref, @newrefs, $i, $total, @gids, $out, $depth); 
+
+   return $this->CreateStatus() if (!defined $tagger);
+
+   $depth = $this->GetDepth();
+   return $this->ErrorRDF("Invalid search depth specified.") if ($depth < 1);
+   print STDERR "Depth: $depth\n";
+
+   $this->{cache} = \@cache;
+
+   $out  = $this->BeginRDFObject(exists $this->{file});
+   $out .= $this->BeginDesc("mq:Result");
+   $out .= $this->Element("mq:status", $tagger->{fuzzy} ? "Fuzzy" : "OK");
+   $out .= $this->Element("mq:matchType", $matchType);
+
+   # Load the artists or artistlist of Ids
+   if (exists $tagger->{artistid})
+   {
+       $obj{mbid} = $tagger->{artistid};
+       $obj{type} = 'artist';
+       push @newrefs, {%obj};
+
+       $out .= $this->OutputList('artist', [$tagger->{artistid}]);
+
+       if (exists $tagger->{artist})
+       {
+           $this->AddToCache($depth, 'artist', 
+                             $tagger->{artist}->GetId(), 
+                             $tagger->{artist}->GetMBId(), 
+                             $tagger->{artist});
+       }
+   }
+   elsif (exists $tagger->{artistlist})
+   {
+       my $aref = $tagger->{artistlist};
+
+       $out .= $this->OutputList('artist', $tagger->{artistlist});
+       foreach $ref (@$aref)
+       {
+           $obj{mbid} = $ref;
+           $obj{type} = 'artist';
+           push @newrefs, {%obj};
+       }
+   }
+
+   # Load the albums or albumlist of Ids
+   if (exists $tagger->{albumid})
+   {
+       $obj{mbid} = $tagger->{albumid};
+       $obj{type} = 'album';
+       push @newrefs, {%obj};
+
+       $out .= $this->OutputList('album', [$tagger->{albumid}]);
+
+       if (exists $tagger->{album})
+       {
+           $this->AddToCache($depth, 'album', 
+                             $tagger->{album}->GetId(), 
+                             $tagger->{album}->GetMBId(), 
+                             $tagger->{album});
+       }
+   }
+   elsif (exists $tagger->{albumlist})
+   {
+       my $aref = $tagger->{albumlist};
+       $out .= $this->OutputList('album', $tagger->{albumlist});
+       foreach $ref (@$aref)
+       {
+           $obj{mbid} = $ref;
+           $obj{type} = 'album';
+           push @newrefs, {%obj};
+       }
+   }
+
+   # Load the tracks or tracklist of Ids
+   if (exists $tagger->{trackid})
+   {
+       $obj{mbid} = $tagger->{trackid};
+       $obj{type} = 'track';
+       push @newrefs, {%obj};
+
+       $out .= $this->OutputList('track', [$tagger->{trackid}]);
+
+       if (exists $tagger->{track})
+       {
+           $this->AddToCache($depth, 'track', 
+                             $tagger->{track}->GetId(), 
+                             $tagger->{track}->GetMBId(), 
+                             $tagger->{track});
+       }
+   }
+   elsif (exists $tagger->{tracklist})
+   {
+       my $aref = $tagger->{tracklist};
+       $out .= $this->OutputList('track', $tagger->{tracklist});
+       foreach $ref (@$aref)
+       {
+           $obj{mbid} = $ref;
+           $obj{type} = 'track';
+           push @newrefs, {%obj};
+       }
+   }
+
+   $out .= $this->EndDesc("mq:Result");
+   $out .= "\n";
+
+   # Call find references to recursively load and find referenced objects
+   $this->FindReferences(0, @newrefs);
+
+   # Output all of the referenced objects. Make sure to only output
+   # the objects in the cache that have been loaded. The objects that
+   # have not been loaded will not be output, even though they are
+   # in the cache. (They would've been output if depth was one greater)
+   $total = scalar(@cache);
+   for($i = 0; $i < $total; $i++)
+   {
+      next if (!defined $cache[$i]->{depth} || $cache[$i]->{depth} > $depth);
+
+      $out .= $this->OutputRDF(\@cache, $cache[$i]);
+      $out .= "\n";
+      if (exists $this->{file})
+      {
+          print {$this->{file}} $out;
+          $out = "";
+      }
+   }
+
+   $out .= $this->EndRDFObject;
+   if (exists $this->{file})
+   {
+       print {$this->{file}} $out;
+       $out = "";
+   }
+
+   return $out;
+}
+
 # Check for duplicates, then add if not already in cache
 sub AddToCache
 {
-   my ($this, $curdepth, $type, $id, $obj) = @_;
+   my ($this, $curdepth, $type, $id, $mbid, $obj) = @_;
    my (%item, $i, $cache, $ret);
 
-   return undef if (!defined $curdepth || !defined $type || 
-                    !defined $id || !defined $obj);
+   return undef if (!defined $curdepth || !defined $type || !defined $obj);
+   return undef if (!defined $id && !defined $mbid);
 
    # TODO: Probably best to use a hash for this, rather than scanning the
    # list each time.
    $cache = $this->{cache};
    foreach $i (@$cache)
    {
-      return $i->{obj} if ($i->{id} == $id && $i->{type} eq $type);
+      next if ($i->{type} ne $type);
+      if ((defined $id && exists $i->{id} && $i->{id} == $id) ||
+          (defined $mbid && exists $i->{mbid} && $i->{mbid} eq $mbid))
+      {
+          return $i->{obj} 
+      }
    }
 
    $item{type} = $type;
    $item{id} = $id;
+   $item{mbid} = $mbid;
    $item{obj} = $obj;
    $item{depth} = $curdepth;
    $ret = \%item;
@@ -172,7 +318,7 @@ sub AddToCache
 # Get an object from the cache, given its id
 sub GetFromCache
 {
-   my ($this, $type, $id) = @_;
+   my ($this, $type, $id, $mbid) = @_;
    my ($i, $cache);
 
    return undef if (!defined $type || !defined $id);
@@ -181,7 +327,9 @@ sub GetFromCache
    $cache = $this->{cache};
    foreach $i (@$cache)
    {
-      if ($i->{id} == $id && $i->{type} eq $type)
+      next if ($i->{type} ne $type);
+      if ((defined $id && exists $i->{id} && $i->{id} == $id) ||
+          (defined $mbid && exists $i->{mbid} && $i->{mbid} eq $mbid))
       {
           return $i->{obj} 
       }
@@ -198,27 +346,30 @@ sub FindReferences
    #print STDERR "\n" if ($curdepth > $this->{depth});
    return if ($curdepth > $this->{depth});
 
-   #print STDERR "Find references: $curdepth max: $this->{depth}\n";
+   print STDERR "Find references: $curdepth max: $this->{depth}\n";
     
    $curdepth+=2;
 
    # Load all of the referenced objects
    foreach $ref (@ids)
    {
-      #print STDERR "  Object: $ref->{type} $ref->{id} --> ";
-      $obj = $this->GetFromCache($ref->{type}, $ref->{id});
+      print STDERR "  Object: $ref->{type} ";
+      print STDERR "$ref->{id} " if defined $ref->{id};
+      print STDERR "($ref->{mbid}) " if defined $ref->{mbid};
+      print STDERR "--> ";
+      $obj = $this->GetFromCache($ref->{type}, $ref->{id}, $ref->{mbid});
       if (!defined $obj)
       {
-          #print STDERR "load\n";
-          $obj = $this->LoadObject($ref->{id}, $ref->{type});
+          print STDERR "load\n";
+          $obj = $this->LoadObject($ref->{id}, $ref->{mbid}, $ref->{type});
       }
       else
       {
-          #print STDERR "cached\n";
+          print STDERR "cached\n";
       }
       next if (!defined $obj);
 
-      $cacheref = AddToCache($this, $curdepth, $ref->{type}, $ref->{id}, $obj);
+      $cacheref = AddToCache($this, $curdepth, $ref->{type}, $ref->{id}, $ref->{mbid}, $obj);
       if (defined $cacheref)
       {
            push @newrefs, $this->GetReferences($cacheref, $curdepth);
@@ -273,7 +424,9 @@ sub CreateOutputRDF
       }
    }
    $out  = $this->BeginRDFObject(exists $this->{file});
+   $out .= $this->BeginDesc("mq:Result");
    $out .= $this->OutputList($type, \@gids);
+   $out .= $this->EndDesc("mq:Result");
 
    if (exists $this->{file})
    {
@@ -311,7 +464,7 @@ sub CreateOutputRDF
 
 sub LoadObject
 {
-   my ($this, $id, $type) = @_;
+   my ($this, $id, $mbid, $type) = @_;
    my $obj;
 
 
@@ -336,7 +489,14 @@ sub LoadObject
 
    return undef if (not defined $obj);
 
-   $obj->SetId($id);
+   if (defined $mbid)
+   {
+       $obj->SetMBId($mbid);
+   }
+   else
+   {
+       $obj->SetId($id);
+   }
    if (!defined $obj->LoadFromId())
    {
        return undef;
@@ -350,8 +510,7 @@ sub OutputList
    my ($this, $type, $list) = @_;
    my ($item, $rdf);
 
-   $rdf  =   $this->BeginDesc("mq:Result");
-   $rdf .=   $this->Element("mq:status", $this->{status});
+   $rdf =    $this->Element("mq:status", $this->{status});
    $rdf .=     $this->BeginDesc("mm:" . $type . "List");
    $rdf .=       $this->BeginBag();
    foreach $item (@$list)
@@ -361,7 +520,6 @@ sub OutputList
    }
    $rdf .=       $this->EndBag();
    $rdf .=     $this->EndDesc("mm:" . $type . "List");
-   $rdf .=   $this->EndDesc("mq:Result");
    $rdf .= "\n";
 
    return $rdf;

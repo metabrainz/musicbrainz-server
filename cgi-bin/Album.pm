@@ -219,9 +219,23 @@ sub LoadFromId
    my ($this) = @_;
    my ($sth, $sql, @row);
 
+   if (!defined $this->GetId() && !defined $this->GetMBId())
+   {
+        return undef;
+   }
+
    $sql = Sql->new($this->{DBH});
-   @row = $sql->GetSingleRow("Album", [qw(id name GID modpending artist)],
-                             ["id", $this->{id}]);
+   if (defined $this->GetId())
+   {
+        @row = $sql->GetSingleRow("Album", [qw(id name GID modpending artist)],
+                                  ["id", $this->{id}]);
+   }
+   else
+   {
+        @row = $sql->GetSingleRow("Album", [qw(id name GID modpending artist)],
+                                  ["gid", $sql->Quote($this->GetMBId())]);
+   }
+
    if (defined $row[0])
    {
         $this->{id} = $row[0];
@@ -234,32 +248,19 @@ sub LoadFromId
    return undef;
 }
 
-# Load an album record. Set the album name via the SetName accessor, and 
-# set the artist via the SetArtist function.
-# returns 1 on success, undef otherwise. Access the Album info via the
-# accessor functions.
-sub LoadFromName
+# This function returns a list of album ids for a given artist and album name.
+sub GetAlbumListFromName
 {
-   my ($this) = @_;
+   my ($this, $name) = @_;
    my ($sth, $sql, @row);
 
-   return undef if (!exists $this->{name} || $this->{name} eq '');
    return undef if (!exists $this->{artist} || $this->{artist} eq '');
 
    $sql = Sql->new($this->{DBH});
-   @row = $sql->GetSingleRowLike("Album", [qw(id name GID modpending artist)],
-                                 ["name", $sql->Quote($this->{name}),
+   my (@ids) = $sql->GetSingleColumnLike("Album", "gid",
+                                 ["name", $sql->Quote($name),
                                   "artist", $this->{artist}]);
-   if (defined $row[0])
-   {
-        $this->{id} = $row[0];
-        $this->{name} = $row[1];
-        $this->{mbid} = $row[2];
-        $this->{modpending} = $row[3];
-        $this->{artist} = $row[4]; 
-        return 1;
-   }
-   return undef;
+   return @ids;
 }
 
 # Load tracks for current album. Returns an array of Track references

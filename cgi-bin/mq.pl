@@ -2,6 +2,7 @@
 
 use strict;
 use QuerySupport;
+use TaggerSupport;
 use DBI;
 use DBDefs;
 use RDFOutput2;
@@ -133,7 +134,20 @@ my %Queries =
    QuickTrackInfoFromTrackId =>
       [\&QuerySupport::QuickTrackInfoFromTrackId, 0, 
         'http://musicbrainz.org/mm/mm-2.0#trackid',
-        'http://musicbrainz.org/mm/mm-2.0#albumid']
+        'http://musicbrainz.org/mm/mm-2.0#albumid'],
+   FileInfoLookup =>
+      [\&TaggerSupport::FileInfoLookup, 0, 
+        'http://musicbrainz.org/mm/mq-1.0#artistName',
+        'http://musicbrainz.org/mm/mq-1.0#albumName',
+        'http://musicbrainz.org/mm/mq-1.0#trackName',
+        'http://musicbrainz.org/mm/mm-2.0#trmid',
+        'http://musicbrainz.org/mm/mm-2.0#trackNum',
+        'http://musicbrainz.org/mm/mm-2.0#duration',
+        'http://musicbrainz.org/mm/mq-1.0#fileName',
+        'http://musicbrainz.org/mm/mm-2.0#artistid',
+        'http://musicbrainz.org/mm/mm-2.0#albumid',
+        'http://musicbrainz.org/mm/mm-2.0#trackid',
+        'http://musicbrainz.org/mm/mq-1.0#maxItems']
 );  
 
 
@@ -225,14 +239,17 @@ sub Authenticate
    }
 }
 
+$rdf = RDFOutput2->new(0);
 if (exists $ENV{"MOD_PERL"})
 {
    $r = Apache->request();
+   $rdf->SetBaseURI("http://" . $r->hostname);
    my $size = $r->header_in("Content-length");
    $r->read($rdfinput, $size);
 }
 else
 {
+   $rdf->SetBaseURI("http://" . $ENV{SERVER_NAME});
    while(defined($line = <>))
    {
       $rdfinput .= $line;
@@ -241,8 +258,6 @@ else
 
 #print STDERR "RDF: $rdfinput\n";
 
-$rdf = RDFOutput2->new(0);
-$rdf->SetBaseURI("http://" . $ENV{SERVER_NAME});
 if (!defined $rdf)
 {
     $out = $rdf->ErrorRDF("An RDF object must be supplied.");

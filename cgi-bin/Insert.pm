@@ -247,9 +247,11 @@ sub Insert
         }
         else
         {
-           $al->SetName($album);
+           my @ids;
+
            $al->SetArtist($artistid);
-           if (!defined $al->LoadFromName)
+           (@ids) = $al->GetAlbumListFromName($album);
+           if (scalar(@ids) == 0)
            {
                $albumid = $al->Insert;
                if (!defined $albumid)
@@ -260,7 +262,12 @@ sub Insert
            }
            else
            {
-               $albumid = $al->GetId();
+               $albumid = $ids[0];
+               $al->SetMBId($albumid);
+               if (!defined $al->LoadFromId())
+               {
+                   die "Insert failed: cannot album $albumid.\n";
+               }
            }
         }
     }

@@ -139,7 +139,7 @@ Installation:
    should see a MusicBrainz site without any data.
 
 8) Finally, import some data into the system. Download the data dump from
-       ftp://ftp.musicbrainz.org/pub/musicbrainz/mbdump.tar.bz2
+       ftp://ftp.musicbrainz.org/pub/musicbrainz/data/mbdump.tar.bz2
    and then run the data import script in the admin dir:
 
        ./MBImport.pl mbdump.tar.bz2
@@ -147,6 +147,17 @@ Installation:
    Then, build the keyword indexes for the text searching:
 
        ./build_words.pl
+
+   If you ever need to rebuild the text indexes after they have existed,
+   make sure to drop the indexes before running build_words -- for some
+   reason Postgress is painfully slow on old indexes. The admin/sql
+   directory has two helper scripts to make this easy:
+
+       psql musicbrainz < sql/DropTextIndexes.pl
+       psql musicbrainz < sql/CreateTextIndexes.pl
+       ./build_words.pl
+
+
 
    This should be it and now you have your very own MusicBrainz server.
 
