@@ -53,8 +53,11 @@ sub ApprovedAction
 
 	my $al = Alias->new($this->{DBH});
 	$al->SetTable("ArtistAlias");
+	$al->SetId($this->GetRowId);
+  	$al->LoadFromId
+		or return &ModDefs::STATUS_FAILEDDEP;
 	
-	$al->Remove($this->GetRowId)
+	$al->Remove
 		or return &ModDefs::STATUS_FAILEDDEP;
 
     &ModDefs::STATUS_APPLIED;

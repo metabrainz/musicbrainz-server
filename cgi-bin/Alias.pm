@@ -151,23 +151,16 @@ sub Resolve
 
 sub Remove
 {
-   my ($this, $id) = @_;
-   my $sql;
+    my $this = shift;
+    my $parent = $this->Parent;
 
-   if ($id)
-   {
-        $this->SetId($id);
-        $this->LoadFromId;
-   }
+    my $sql = Sql->new($this->{DBH});
+    $sql->Do("DELETE FROM $this->{table} WHERE id = ?", $this->GetId)
+        or return undef;
 
-   my $parent = $this->Parent;
+    $parent->RebuildWordList;
 
-   $sql = Sql->new($this->{DBH});
-   $sql->Do("delete from $this->{table} where id = " . $id);
-
-   $parent->RebuildWordList;
-
-   return 1;
+    1;
 }
 
 sub GetList
