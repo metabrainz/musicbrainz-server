@@ -1,6 +1,7 @@
+%# vi: set ts=4 sw=4 ft=mason :
 <%perl>
 
-sub CheckTOC
+my $CheckTOC = sub
 {
    my ($toc) = @_;
 
@@ -18,7 +19,7 @@ sub CheckTOC
    }
 
    return 1;
-}
+};
 
 my ($o, $mb, $di, $num_tracks, $notfound);
 my ($i, $sth, $album, $valid, $id, $tracks, $toc); 
@@ -51,7 +52,7 @@ elsif (length($id) != 28 || substr($id, -1, 1) ne "-" || $valid ne "")
 {
     $m->out("The disk id you are trying to submit ($id) is invalid.");
 }
-elsif (!CheckTOC($toc))
+elsif (!&$CheckTOC($toc))
 {
     $m->out("The TOC (table of contents) you are trying to submit ($toc) is invalid.");
 }
