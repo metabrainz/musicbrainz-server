@@ -80,15 +80,15 @@ Does the CD have a single artist or multiple artists?
 
 <table cellspacing=0 width=100%>
 <tr>
-<th bgcolor="#D60021" valign=top>
+<th bgcolor="#643b99" valign=top>
 <font color="#FFFFFF">
 Single Artist CDs
 </font>
 </th>
-<th bgcolor="#D60021" valign=top>
+<th bgcolor="#643b99" valign=top>
 &nbsp;
 </th>
-<th bgcolor="#D60021">
+<th bgcolor="#643b99">
 <font color="#FFFFFF">
 Multiple Artists CDs
 </font>
@@ -109,7 +109,7 @@ print $o->hidden(-name=>'tracks',-default=>'$tracks');
 print $o->p,$o->submit('Search>>');
 print $o->end_form;
 
-print '</td><td bgcolor="#D60021">&nbsp;</td><td align=center valign=top>';
+print '</td><td bgcolor="#643b99">&nbsp;</td><td align=center valign=top>';
 
 print $o->start_form(-action=>'malbum.pl');
 

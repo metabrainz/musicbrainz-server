@@ -12,7 +12,7 @@ $offset = 0 if not defined $offset;
 $offset = 0 if $offset < 0;  
 
 $mb->Login();
-($num_mods, @info) = $mb->GetModerationList($offset, $max_items);
+($num_mods, @info) = $mb->GetModerationList($offset, $max_items, $session{uid});
 
 mc_out('<table width="100%"><tr>');
 mc_comp("/comp/modlistprevbutton", offset=>$offset, 
@@ -31,7 +31,7 @@ mc_comp("/comp/modlistnextbutton", offset=>$offset,
 
 <p>
 
-<form method="POST" action="/vote.html"
+<form method="POST" action="/bare/vote.html"
       enctype="application/x-www-form-urlencoded"> 
 
 <table>
@@ -75,11 +75,16 @@ for($i = 0; ; $i++)
            time=>($$row[6]),
            moderator=>($$row[7]),
            yesvotes=>($$row[8]),
-           novotes=>($$row[9]));
+           novotes=>($$row[9]),
+           voted=>($$row[10]));
 }
 </%perl>
 </table>
-
 </td></tr>
 </table>
 </form>
+
+Legend:<br>
+<b>X</b> - Vote not allowed. (You're no allowed to vote on your own mods). <br>
+<b>V</b> - Already voted.
+

@@ -1174,12 +1174,24 @@ sub InsertModification
 
 sub GetModerationList
 {
-   my ($this, $index, $num) = @_;
-   my ($sth, @data, $num_mods, @row);
+   my ($this, $index, $num, $uid) = @_;
+   my ($sth, @data, $num_mods, @row, @votes, $vote, $voted);
 
    $sth = $this->{DBH}->prepare(qq/select count(*) from Changes/);
    $sth->execute();
    $num_mods = ($sth->fetchrow_array)[0];
+   $sth->finish;   
+
+   $sth = $this->{DBH}->prepare(qq/select rowid from Votes where uid = $uid
+                                order by rowid/);
+   $sth->execute;
+   if ($sth->rows)
+   {
+        while(@row = $sth->fetchrow_array)
+        {
+            push @votes, $row[0];
+        }
+   }
    $sth->finish;   
 
    $sth = $this->{DBH}->prepare(qq/select * from Changes limit $index, $num/);
@@ -1188,12 +1200,74 @@ sub GetModerationList
    {
         while(@row = $sth->fetchrow_array)
         {
-            push @data, [@row];
+            $voted = 0;
+            foreach $vote (@votes)
+            {
+               if ($vote == $row[0])
+               {
+                   $voted = 1;
+                   last;
+               }
+            }
+            push @data, [@row, $voted];
         }
    }
    $sth->finish;
 
    return ($num_mods, @data);
+}
+
+
+sub InsertVotes
+{
+   my ($this, $uid, $yeslist, $nolist) = @_;
+   my (@votes, $num_votes, $vote, $ok, $i, $yesno, $yes_votes);
+   my ($sth, @row, $val);
+
+   $sth = $this->{DBH}->prepare(qq/select rowid from Votes where uid = $uid
+                                order by rowid/);
+   $sth->execute;
+   if ($sth->rows)
+   {
+        while(@row = $sth->fetchrow_array)
+        {
+            push @votes, $row[0];
+        }
+   }
+   $sth->finish;
+
+   $num_votes = scalar(@votes);
+   $yes_votes = scalar(@{$yeslist});
+   $i = 0;
+   foreach $val (@{$yeslist}, @{$nolist})
+   {
+      $ok = 1;
+      foreach $vote (@votes)
+      {
+          if ($vote == $val)
+          {
+              $ok = 0;
+              last;
+          }
+      }
+      if ($ok)
+      {
+          $yesno = ($i >= $yes_votes) ? 0 : 1;
+          $this->{DBH}->do(qq/insert into Votes (uid, rowid, vote) values
+                           ($uid, $val, $yesno)/); 
+          if ($yesno)
+          {
+              $this->{DBH}->do(qq/update Changes set yesvotes = yesvotes + 1
+                               where id = $val/); 
+          }
+          else
+          {
+              $this->{DBH}->do(qq/update Changes set novotes = novotes + 1
+                               where id = $val/); 
+          }
+      }
+      $i++;
+   }
 }
 
 1;

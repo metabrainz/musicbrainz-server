@@ -88,7 +88,7 @@ sub CreateLogin
    $user = $mb->{DBH}->quote($user);
    $pwd = $mb->{DBH}->quote($pwd);
    $sth = $mb->{DBH}->prepare(qq/
-                         select name from ModeratorInfo where name = $user
+                         select id from ModeratorInfo where name = $user
                          /);
    if ($sth->execute && $sth->rows)
    {
@@ -104,6 +104,8 @@ sub CreateLogin
             /);
 
    $sess->{user} = $user;
+   $sess->{privs} = 0;
+   $sess->{uid} = $mb->GetLastInsertId();
    $sth->finish;
    $mb->Logout();
 

@@ -208,6 +208,16 @@ $dbh->do("create table Changes (" .
 
 print "Created Changes table.\n";
 
+$dbh->do("create table Votes (" .
+         "   Id int auto_increment primary key," .
+         "   Uid int not null, ".
+         "   Rowid int not null, ".
+         "   vote tinyint not null, ".
+         "   index UidIndex (Uid))") 
+      or die("Cannot create Votes table");
+
+print "Created Votes table.\n";
+
 if (DBDefs->USE_LYRICS)
 {
    # create theSyncText table.

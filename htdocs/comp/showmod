@@ -9,7 +9,18 @@ $time
 $moderator
 $yesvotes
 $novotes
+$voted
 </%args>
+
+<%perl>
+
+my $text = "X";
+if ($voted)
+{
+   $text = "V";
+}
+
+</%perl>
 
 <tr>
    <td width=10% valign=top>
@@ -25,32 +36,32 @@ $novotes
      <% $yesvotes %>,
      <% $novotes %>
    </td>
-% if ($session{uid} != $moderator) {
+% if ($session{uid} != $moderator && !$voted) {
      <td width=5% align=center valign=top>
-     <input type="radio" name="b<% $id %>" value="yes">
+     <input type="radio" name="rowid<% $id %>" value="yes">
      </td>
 % } else {
-     <td width=5% align=center valign=top bgcolor=red>
-     &nbsp; 
+     <td width=5% align=center valign=top>
+     <% $text %> 
      </td>
 % }
    </td>
-% if ($session{uid} != $moderator) {
+% if ($session{uid} != $moderator && !$voted) {
      <td width=5% align=center valign=top>
-     <input type="radio" name="b<% $id %>" value="no">
+     <input type="radio" name="rowid<% $id %>" value="no">
      </td>
 % } else {
-     <td width=5% align=center valign=top bgcolor=red>
-     &nbsp; 
+     <td width=5% align=center valign=top>
+     <% $text %> 
      </td>
 % }
-% if ($session{uid} != $moderator) {
+% if ($session{uid} != $moderator && !$voted) {
      <td width=5% align=center valign=top>
-     <input type="radio" name="b<% $id %>" value="abstain" CHECKED>
+     <input type="radio" name="rowid<% $id %>" value="abstain" CHECKED>
      </td>
 % } else {
-     <td width=5% align=center valign=top bgcolor=red>
-     &nbsp; 
+     <td width=5% align=center valign=top>
+     <% $text %> 
      </td>
 % }
 </tr>

@@ -1,0 +1,27 @@
+<%perl>
+
+my ($mb, $key, @yeslist, @nolist);
+my $referer = $r->headers_in->{'Referer'};
+
+foreach $key (keys %ARGS)
+{
+    if ($key =~ /^rowid(\d*)$/)
+    {
+       push @yeslist, $1 if ($ARGS{$key} eq 'yes');
+       push @nolist, $1 if ($ARGS{$key} eq 'no');
+    }
+}
+
+$mb = new MusicBrainz;
+$mb->Login();
+$mb->InsertVotes($session{uid}, \@yeslist, \@nolist);
+$mb->Logout();
+
+$r->method('GET');
+$r->headers_in->unset('Content-length');
+
+$r->content_type('text/html');
+$r->header_out(Location=>$referer);
+$m->abort(302);
+
+</%perl>
