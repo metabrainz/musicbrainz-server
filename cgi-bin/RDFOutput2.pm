@@ -98,6 +98,7 @@ sub CreateArtistList
 {
    my ($this, $doc, @ids) = @_;
 
+   $this->{status} = "OK";
    return $this->CreateOutputRDF('artist', @ids);
 }
 
@@ -105,7 +106,7 @@ sub CreateAlbum
 {
    my ($this, $fuzzy, $id) = @_;
 
-   $this->{fuzzy} = 1;
+   $this->{status} = $fuzzy ? "Fuzzy" : "OK";
    return $this->CreateOutputRDF('album', $id);
 }
 
@@ -113,6 +114,7 @@ sub CreateAlbumList
 {
    my ($this, @ids) = @_;
 
+   $this->{status} = "OK";
    return $this->CreateOutputRDF('album', @ids);
 }
 
@@ -120,6 +122,7 @@ sub CreateTrackList
 {
    my ($this, @ids) = @_;
 
+   $this->{status} = "OK";
    return $this->CreateOutputRDF('track', @ids);
 }
 
@@ -127,6 +130,7 @@ sub CreateGUIDList
 {
    my ($this, @ids) = @_;
 
+   $this->{status} = "OK";
    return $this->CreateOutputRDF('trmid', @ids);
 }
 
@@ -195,7 +199,7 @@ sub CreateOutputRDF
    my ($this, $type, @ids) = @_;
    my (@cache, %obj, $id, $ref, @newrefs, $i, $total, @gids, $out, $depth); 
 
-   return $this->CreateStatus() if (scalar(@ids) == 0);
+   return $this->CreateStatus() if (!defined $ids[0]);
 
    $depth = $this->GetDepth();
    return $this->ErrorRDF("Invalid search depth specified.") if ($depth < 0);
@@ -291,14 +295,7 @@ sub OutputList
    my ($item, $rdf);
 
    $rdf  =   $this->BeginDesc("mq:Result");
-   if (exists $this->{fuzzy})
-   {
-      $rdf .=  $this->Element("mq:status", "Fuzzy");
-   }
-   else
-   {
-      $rdf .=  $this->Element("mq:status", "OK");
-   }
+   $rdf .=   $this->Element("mq:status", $this->{status});
    $rdf .=     $this->BeginDesc("mm:" . $type . "List");
    $rdf .=       $this->BeginSeq();
    foreach $item (@$list)

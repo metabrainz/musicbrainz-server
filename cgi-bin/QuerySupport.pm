@@ -297,9 +297,10 @@ sub FindAlbumByName
    }
    else
    {
-       $query = $tb->AppendWhereClause($search, "select Album.id from Album, Artist where Album.artist = Artist.id and ", "Album.Name");
+       $query = $tb->AppendWhereClause($search, "select Album.id from Album where ", "Album.Name");
    }
 
+   print STDERR "$query\n";
    $query .= " order by Album.name";   
 
    if ($sql->Select($query))

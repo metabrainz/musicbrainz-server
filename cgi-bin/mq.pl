@@ -201,6 +201,7 @@ for(;;)
 
     $data = QuerySupport::Extract(\@triples, $currentURI, -1, $rdfquery);
     $data = undef if (defined $data && $data eq '');
+    $data = "" if ($data eq "__NULL__");
     print STDERR "query args: '$data'\n" if defined $data;
     push @queryargs, $data;
     $rdfquery = undef;
