@@ -150,14 +150,14 @@ my ($i, $al, @tracks, $tr, @ids, $di);
               $m->out("Could not load artist " . $ar->GetId() . ".");
               next;
            }
-           $m->comp("/comp/artisttitle", artist=>$ar, nomod=>1);
+		   $m->comp("/comp/artisttitle", artist=>$ar, showmodlinks=>0);
        }
 
        </%perl>
        <table>
 		<tr id="albumrow<% $al->GetId %>">
 		<td width="420" style="padding-bottom: 2em">
-			<& /comp/album, album=>$al, artist=>$ar, nomod=>1 &>
+			<& /comp/album, album=>$al, artist=>$ar, showmodlinks=>0 &>
 		</td>
          <td valign="top" align="left" style="padding-left: 1em">
 			<%perl>

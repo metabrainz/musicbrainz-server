@@ -44,7 +44,7 @@ $trackphrase = "one track" if $n == 1;
 		<% int $al->{_pct_match_} %>% match
 		<br>
 		<%perl>
-		$m->comp("/comp/album", artist=>$ar, album=>$al, nomod=>1, showids=>1);
+		$m->comp("/comp/album", artist=>$ar, album=>$al, showmodlinks=>0, showids=>1);
 		</%perl>
 	</li>
 % }

@@ -64,42 +64,6 @@ $artist->LoadFromId
 
 <& /comp/artisttitle, artist => $artist &>
 
-<p style="text-align: center">
-	[
-
-% if (not $session{uid}) {
-	<a href="/login.html">Edit data</a>
-	|
-% }
-
-% if ($artist->GetId() != &ModDefs::VARTIST_ID) {
-	<a href="/showartist.html?artistid=<% $artist->GetId %>"
-		>View albums</a>
-	|
-	<a href="/mod/search/pre/artist.html?artistid=<% $artist->GetId %>"
-		>View artist mods</a>
-	|
-% }
-
-	<a href="/addalbum.html?artistid=<% $artist->GetId %>"
-		>Add album</a>
-	|
-	<a href="/freedb/freedb.html?search=<% url_escape($artist->GetName) %>"
-		>Import album</a>
-	]
-</p>
-
-<p style="text-align: center">
-	[ <a href="/albumdetail.html?albumid=<% $album->GetId %>">View info</a>
-	| <& /comp/googlelink, search => [ $artist->GetName, $album->GetName ], text => "Search Google" &>
-% if ($session{uid}) {
-	| <a href="/mod/search/pre/album.html?albumid=<% $album->GetId %>">View album mods</a>
-	| <a href="/mod/tag/donetag.html?AlbumId<% $album->GetId %>=1">Merge this album ...</a>
-% }
-	]
-</p>
-
-
 % if ($session{uid}) {
 <form method="post" action="/mod/tag/donetag.html" id="EditAlbumAttrsForm"
 	enctype="application/x-www-form-urlencoded"
@@ -138,7 +102,6 @@ $artist->LoadFromId
 	<br>
 
 	<& /comp/album, album => $album, artist => $artist,
-		showalbumdetail => 1,
 		mbtagger => $mbt,
 		showids => 1,
 		showtag => 1,

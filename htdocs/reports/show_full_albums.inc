@@ -69,7 +69,6 @@ my $mb = $m->comp('/comp/dblogin');
 %			$al->LoadFromId();
 
 			<& /comp/album, album => $al, artist => $ar,
-				showalbumdetail => 1,
 				mbtagger => 0,
 				showids => 1,
 				showtag => 1,
@@ -77,9 +76,9 @@ my $mb = $m->comp('/comp/dblogin');
 
 %		}
 
+		<br><br>
 % }
 
-<br><br>
 <& /comp/framedboxbegin, width=>"100%" &>
 <& /comp/pageselector,
 	numitems	=> $rep->Records, 

@@ -1,7 +1,7 @@
 <%args>
 $album
 $artist
-$nomod=>0
+$showmodlinks=>1
 </%args>
 
 <%perl>
@@ -65,7 +65,7 @@ if (!$nonalbum)
     }
     $m->out("</a></td><td NOWRAP>&nbsp;] ");
 
-    if (exists $session{user} && !$nomod) 
+    if ($session{uid} and $showmodlinks) 
     {
         $m->out("<a href=\"/editalbumattrs.html?id=" . $album->GetId());
         $m->out("\">Edit</a>");

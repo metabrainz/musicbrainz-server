@@ -157,7 +157,7 @@ my $trackdesc = (
 %     for my $ref (@albums) {
 	<tr>
 		<td>
-			<& /comp/album, artist=>$ar, album=>$ref, nomod=>1 &>
+			<& /comp/album, artist=>$ar, album=>$ref, showmodlinks => 0 &>
 		</td>
 		<td>
             <form method="post" action="/movediscid.html"

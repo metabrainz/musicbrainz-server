@@ -3,8 +3,8 @@ $album
 $artist
 $hilitetrack=>-1
 $hilitecolor=>""
-$nomod=>0
-$showalbumdetail=>0
+$link => 1
+$showmodlinks=>1
 $showcollapsed=>0
 $ex=>""
 $mbtagger=>$session{'mbt'}
@@ -18,8 +18,6 @@ $tracks => undef
 <%perl>
 
 my ($i, $track, @info, $trmcounts, $tcount);
-
-#$nomod = 1 if (exists $session{tagged_albums});
 
 if ($tracks)
 {
@@ -37,22 +35,21 @@ $trmcounts = $album->LoadTRMCount();
 
 if ($showcollapsed)
 {
-    my ($id, $link);
+    my ($id, $url);
     
-    $link = "/showartist.html?artistid=" . $artist->GetId();
+    $url = "/showartist.html?artistid=" . $artist->GetId();
     $id = $album->GetId();
     $ex =~ s/(^|\D)$id(\D|$)/$1$2/g;
     $ex =~ s/,,/,/g;
     $ex =~ s/(,$)|(^,)//g;
-    $link .= "&ex=$ex" if ($ex ne '');
-    $link .= "&compact=0";
+    $url .= "&ex=$ex" if ($ex ne '');
+    $url .= "&compact=0";
     $m->comp("/comp/albumbegin", 
             artist=>$artist, 
             album=>$album, 
-            nomod=>$nomod,
-            albumdetail=>$showalbumdetail,
+            showmodlinks=>$showmodlinks,
             linktype=>"collapse",
-            link=>$link,
+            link=>$url,
             showtag=>$showtag,
             tagchecked=>$tagchecked);
 }
@@ -61,8 +58,7 @@ else
     $m->comp("/comp/albumbegin", 
             artist=>$artist, 
             album=>$album, 
-            nomod=>$nomod,
-            albumdetail=>$showalbumdetail,
+            showmodlinks=>$showmodlinks,
             showtag=>$showtag,
             tagchecked=>$tagchecked);
 }
@@ -81,19 +77,23 @@ for($i = 0;; $i++)
     $m->comp("/comp/albumtrack", track=>$track, album=>$album, 
             artist=>$artist,
             tindex=>$i, hilitetrack=>$hilitetrack, 
-            hilitecolor=>$hilitecolor, nomod=>$nomod, 
+            hilitecolor=>$hilitecolor,
+	    showmodlinks=>$showmodlinks, 
             trmcount=>$tcount, mbtagger=>$mbtagger);
 }
 
 my $colspan = 3;
-$colspan++ if (exists $session{user}  && !$nomod);
+$colspan++ if ($session{uid} and $showmodlinks);
 $colspan++ if ($album->GetArtist() == &ModDefs::VARTIST_ID);
 
 $m->out('<tr bgcolor="white"><td bgcolor="#f0efff" colspan="' . $colspan . '">');
-$m->comp("/comp/albumsummary", album=>$album, artist=>$artist, nomod=>$nomod);
+$m->comp("/comp/albumsummary", album=>$album, artist=>$artist, showmodlinks=>$showmodlinks);
 $m->out('</td></tr>');
 $m->comp("/comp/albumend", album=>$album, artist=>$artist, 
-                          nomod=>$nomod, showids=>$showids,
-			  showreleases=>$showreleases);
+                          showmodlinks=>$showmodlinks,
+			  showids=>$showids,
+			  showreleases=>$showreleases,
+	link => $link,
+);
 
 </%perl>

@@ -109,7 +109,7 @@ for my $ar (sort { $a->{_name_} cmp $b->{_name_} } values %artists)
 	$m->comp(
 		"/comp/artisttitle",
 		artist => $ar,
-		nomod => 1,
+		showmodlinks => 0,
 	);
 
 	for my $al (sort { $a->{_name_} cmp $b->{_name_} } @{ $ar->{_albums_} })
@@ -118,7 +118,7 @@ for my $ar (sort { $a->{_name_} cmp $b->{_name_} } values %artists)
 			"/comp/album",
 			album => $al,
 			artist => $ar,
-			nomod => 1,
+			showmodlinks => 0,
 		);
     }
 }

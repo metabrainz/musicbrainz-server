@@ -31,7 +31,7 @@ my $orig = $m->scomp(
 	"/comp/album",
 	album => $al,
 	artist => $ar,
-	nomod => 1,
+	showmodlinks => 0,
 	tracks => \@tracks,
 );
 
@@ -186,7 +186,7 @@ for my $t (@{ $edit->{tracks} })
 <& "/comp/album",
 	album => $al,
 	artist => $ar,
-	nomod => 1,
+	showmodlinks => 0,
 	tracks => \@tracks,
 	&>
 % }

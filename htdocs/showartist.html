@@ -96,12 +96,6 @@ my $SortAlbums = sub
 	($a->GetId cmp $b->GetId)
 };
 
-my @albums = $artist->GetAlbums(0, 1);
-
-my $fCompact = $ARGS{compact};
-$fCompact = (@albums >= UserPreference::get('releases_show_compact'))
-	if not defined $fCompact;
-
 $m->comp(
 	"/comp/sidebar",
 	pagetitle => "Artist: " . $artist->GetName(),
@@ -110,59 +104,6 @@ $m->comp(
 
     $m->comp("/comp/artisttitle", artist=>$artist);
 
-	$m->out("<div class='LinksRow'>[ ");
-    if ($session{uid})
-    {
-        </%perl>
-        <a href="/addalbum.html?artistid=<% $artist->GetId() %>">Add album</a> |
-        <a href="/freedb/freedb.html?search=<% url_escape($artist->GetName) %>">Import album</a> |
-        <%perl>
-		if ($artistid != &ModDefs::VARTIST_ID and $artistid != &ModDefs::DARTIST_ID)
-		{
-        </%perl>
-		<a href="/user/subscribe.html?artistid=<% $artist->GetId %>"
-			>Subscribe</a> |
-        <%perl>
-		}
-    }
-    else
-    {
-        </%perl>
-        <a href="/mod_intro.html">Edit data</a> |
-        <%perl>
-    }
-
-    $m->out("<a href=\"/showaliases.html?artistid=");
-    $m->out($artist->GetId());
-    $m->out("\">Aliases</a> ");
-
-	$m->out("| <a href=\"/artistrel.html?artistid=");
-	$m->out($artist->GetId());
-	$m->out("\">Related artists</a> ");
-
-    if ($artist->GetName() ne "Unknown" &&
-        $artist->GetId() != &ModDefs::VARTIST_ID &&
-        $artist->GetName() ne "Data CD")
-    {
-        if ($session{uid})
-        {
-            </%perl>
-            | <a href="/mod/search/pre/artist.html?artistid=<% $artist->GetId %>"
-               >View mods</a>
-            <%perl>
-        }
-
-		</%perl>
-		|
-		<a href="/artistinfo.html?artistid=<% $artist->GetId %>"
-			>View info</a>
-		|
-		<& /comp/googlelink, search => $artist->GetName, text => "Search Google" &>
-
-		<%perl>
-    }
-    $m->out("]</div>");
-
 	my $relations = $artist->GetRelations();
 
 	if (@$relations)
@@ -170,8 +111,7 @@ $m->comp(
 		splice(@$relations, 3) if @$relations > 3;
 		</%perl>
 
-		<p>
-		<& /comp/framedboxbegin, width=>"100%" &>
+		<& /comp/framedboxbegin, width=>"100%", style=>"margin: 1em 0" &>
 		<div style="padding: 0.2em; position: relative">
 			Related artists:
 
@@ -180,13 +120,14 @@ $m->comp(
 				><% $rel->{name} %></a>,
 %			}
 
-		<a href="/artistrel.html?artistid=<% $artist->GetId %>">more...</a>
+			<a href="/artistrel.html?artistid=<% $artist->GetId %>">more...</a>
+		</div>
 		<& /comp/framedboxend &>
 
 		<%perl>
 	}
 
-    if ($artistid == &ModDefs::VARTIST_ID)
+	if ($artist->GetId == &ModDefs::VARTIST_ID)
     {
         </%perl>
 
@@ -200,6 +141,12 @@ $m->comp(
     }
     else
     {
+		my @albums = $artist->GetAlbums(0, 1);
+
+		my $fCompact = $ARGS{compact};
+		$fCompact = (@albums >= UserPreference::get('releases_show_compact'))
+			if not defined $fCompact;
+
         if (scalar(@albums) == 0)
         {
 			</%perl>
@@ -207,7 +154,7 @@ $m->comp(
 				<p>This artist has no albums.</p>
 				<p>
 					[
-					<a href="/remartist.html?artist=<% $artistid %>"
+					<a href="/remartist.html?artist=<% $artist->GetId %>"
 						>Remove this artist</a>
 					|
 					<a href="/addnonalbumtracks.html?artistid=<% $artist->GetId() %>"
@@ -284,9 +231,9 @@ $m->comp(
 % }
 
             <td align="center">
-				<a href="?artistid=<% $artistid %>&amp;compact=<%
+				<a href="/artist/<% $artist->GetMBId %>.html?compact=<%
 					$fCompact ?  0 : 1
-					%>&amp;mbt=<% $mbt?1:0 %>&amp;mbid=<% url_escape($mbid) %>"
+					%>&amp;mbt=<% $mbt?1:0 %>"
 					>Change to <% $fCompact ? "full" : "compact" %> listing</a>
 			</td>
 
@@ -310,13 +257,7 @@ $m->comp(
 
             </tr></table>
             <& /comp/framedboxend &>
-            <br>
-
-            <%perl>
-            </%perl>
-
-			<p style="text-align: center">
-			</p>
+			<br>
 
             <%perl>
 			if ($fCompact)
@@ -418,7 +359,7 @@ $m->comp(
                              showids=>0,
                              mbtagger=>$mbt,
                              showtag=>1,
-                             nomod=>1);
+							 showmodlinks => 0);
                 }
                 else
                 {
@@ -436,17 +377,6 @@ $m->comp(
             </%perl>
             </form>
             <%perl>
-            if (!$hasnonalbum)
-            {
-                </%perl>
-				<center>
-					[
-					<a href="/addnonalbumtracks.html?artistid=<% $artist->GetId() %>"
-						>Add non-album tracks</a>
-					]
-				</center>
-                <%perl>
-            }
         }
     }
 

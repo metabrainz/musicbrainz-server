@@ -199,7 +199,7 @@ $more_albums_url = "/showartist.html?artistid=$artist_id" if $artist_id;
 			$m->comp(
 				"/comp/artisttitle",
 				artist => $ar,
-				nomod => 1,
+				showmodlinks => 0,
 			);
 		}
 		
@@ -210,7 +210,7 @@ $more_albums_url = "/showartist.html?artistid=$artist_id" if $artist_id;
 			showids => 1, 
 			showtag => 1,
 			tagchecked => 1,
-			nomod => 0,
+			showmodlinks => 1,
 		);
     }
 

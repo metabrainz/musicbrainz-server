@@ -17,10 +17,11 @@ $ex .= "," . $album->GetId();
 $ex =~ s/^,//g;
 $link .= $ex . "&compact=0#al" . $album->GetId();
 $m->comp("/comp/albumbegin", 
-            album=>$album, artist=>$artist, nomod=>0,
+            album=>$album, artist=>$artist,
             linktype=>'expand', 
             link=>$link,
-            nomod=>1,
+            showlinks=>0,
+            showmodlinks=>0,
             showtag=>$showtag);
 
 </%perl>
@@ -32,6 +33,8 @@ $m->comp("/comp/albumbegin",
 	showids		=> 0,
 	album		=> $album,
 	artist		=> $artist,
-	nomod		=> 1,
+	showlinks	=> 0,
+	showmodlinks	=> 0,
+	link		=> 0,
 	showreleases	=> $showreleases,
 	&>

@@ -1,44 +1,69 @@
+%# vi: set ts=2 sw=2 ft=mason :
 <%args>
 $artist
-$link=>0
-$nomod=>0
+$link=>1
+$showmodlinks=>1
 </%args>
-
 <%perl>
 
-my ($bgcolor, $name, $sortname);
-$bgcolor = $artist->GetModPending() ? 'bgcolor="#FFFFCC"' : '';
-$name = $artist->GetName();
-$sortname = $artist->GetSortName();
+my $id = $artist->GetId;
+my $mbid = $artist->GetMBId;
+my $name = $artist->GetName;
+my $sortname = $artist->GetSortName;
 
 </%perl>
-<div style="border-style: solid; border-width: thin; padding: 5px; background-color: #f0efff" width="100%">
-<table>
-  <tr>
-    <td <% $bgcolor |n %> valign="top">
-      <span style="title"><font size="+2"><% $name %></font></span>
-%     if ($name ne $sortname) {
-          &nbsp;&nbsp;(<% $sortname %>)
-%     }
-    </td>
-  </tr>
-  <tr>
-    <td>
-      [ <a href="http://musicbrainz.org/artist/<% $artist->GetMBId() %>.html">Artist link</a> |
-      <a href="/perm_links.html?name=<% $artist->GetName() |u %>&id=<% $artist->GetMBId() %>&type=artist">Fancy link</a> 
-% if (exists $session{user} && !$nomod && 
-%     $artist->GetId() != &ModDefs::VARTIST_ID &&
-%     $name ne 'Unknown' && $name ne 'Various') {
-      |
+<div class="ArtistTitle">
+%# Row 1: the artist name (link) and sortname
+		<p class='ArtistTitleNameSortname<% $artist->GetModPending ? " mp" : "" %>'
+			style="margin-left: 48px; text-indent: -48px">
+			<a class="ArtistTitleName" href="/artist/<% $mbid %>.html"><img src="/images/aicon_lg.png" alt="" class="ArtistTitleIcon"><% $name %></a>
+%			if ($name ne $sortname) {
+					<br><span class="ArtistTitleSortname"><% $sortname %></span>
+%			}
+		</p>
+%# Row 2: non-editing links
 % if ($link) {
-      <a href="/showartist.html?artistid=<% $artist->GetId() %>">View albums</a> |
+		<div class="ArtistTitleLinks">Info: [
+			<a href="<&
+				/comp/copyable-link,
+				id => $mbid,
+				name => $name,
+				type => "artist",
+				style => "url",
+			&>">Permanent link</a>
+			| <a href="/perm_links.html?name=<% url_escape($name) %>&amp;id=<% $mbid %>&amp;type=artist">Link to this</a>
+			| <a href="/artistinfo.html?artistid=<% $id %>">View info</a>
+			| <a href="/showaliases.html?artistid=<% $id %>">Aliases</a>
+% if ($id != &ModDefs::VARTIST_ID) {
+			| <a href="/showartist.html?artistid=<% $id %>">View albums</a>
+% } else {
+			| <a href="/browsevarious.html">Browse albums</a>
 % }
-      <a href="/editartist.html?id=<% $artist->GetId() %>">Edit Name</a> |
-      <a href="/mergeartist.html?id=<% $artist->GetId() %>">Merge</a>
+			| <a href="/artistrel.html?artistid=<% $id %>">Related artists</a>
+			| <& /comp/googlelink, search => $name, text => "Search Google" &>
+% if ($session{uid}) {
+			| <a href="/mod/search/pre/artist.html?artistid=<% $id %>">View mods</a>
 % }
-      ]
-      </td>
-  </tr>
-</table>
+		]</div>
+% }
+%# Row 3: editing links
+% if ($session{uid} and $showmodlinks) {
+		<div class="ArtistTitleLinks">Edit: [
+% if ($id != &ModDefs::VARTIST_ID
+%			and $name !~ /^\[(unknown|data track|silence|no artist)\]$/
+%	) {
+				<a href="/editartist.html?id=<% $id %>">Edit name</a>
+				| <a href="/mergeartist.html?id=<% $id %>">Merge into ...</a>
+				| <a href="/user/subscribe.html?artistid=<% $id %>">Subscribe</a>
+				|
+% }
+        <a href="/addalbum.html?artistid=<% $id %>">Add album</a>
+        | <a href="/freedb/freedb.html?search=<% url_escape($name) %>">Import album</a>
+				| <a href="/addnonalbumtracks.html?artistid=<% $id %>">Add non-album tracks</a>
+		]</div>
+% } elsif ($showmodlinks) {
+		<div class="ArtistTitleLinks">[
+			<a href="/login.html">Log in</a> to edit this
+		]</div>
+% }
 </div>
-<p>

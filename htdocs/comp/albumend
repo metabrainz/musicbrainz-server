@@ -3,15 +3,13 @@ $artist
 $album
 $showids=>1
 $showreleases=>0
-$nomod
+$showmodlinks => 1
 </%args>
-
 <%perl>
 
-my (@ids, $id, $rows, $id_numtracks, $numtracks, $duration);
+my $numtracks = $album->GetTrackCount;
 
-$numtracks = $album->GetTrackCount();
-
+my @ids;
 if ($showids)
 {
    my $di = Discid->new($album->{DBH});
@@ -20,9 +18,11 @@ if ($showids)
 
 if (scalar(@ids) > 0) 
 {
-    $rows = 0;
-    foreach $id (@ids)
+    foreach my $id (@ids)
     {
+    	my $duration;
+	my $id_numtracks;
+
        $m->out("<tr>");
        if ($album->GetArtist() == &ModDefs::VARTIST_ID) 
        {
@@ -73,7 +73,7 @@ if (scalar(@ids) > 0)
        }
 
        $m->out("</td>");
-       if (exists $session{user} && !$nomod) 
+       if ($session{uid} and $showmodlinks) 
        {
            $m->out("<td nowrap align=\"center\" bgcolor=\"#ffecd6\">");
            $m->out("<a href=\"/movediscid.html?discid=$id->{discid}&amp;albumid=");
@@ -83,10 +83,7 @@ if (scalar(@ids) > 0)
            $m->out("</td>");
        }
        $m->out("</tr>");
-
-       $rows++;
     }
-
 }
 
 if ($showreleases and not $album->IsNonAlbumTracks)
@@ -99,7 +96,7 @@ if ($showreleases and not $album->IsNonAlbumTracks)
 
 	my $span = 3;
 	++$span if $album->GetArtist == &ModDefs::VARTIST_ID;
-	++$span unless $nomod;
+	++$span if $showmodlinks;
 
 	$m->out("<tr bgcolor='#ffffff'><td colspan=$span><table>");
 
@@ -130,5 +127,4 @@ if ($showreleases and not $album->IsNonAlbumTracks)
 </%perl>
   </table>
 </td></tr>
-</table> 
-<p>
+</table>

@@ -1,3 +1,4 @@
+%# vi: set ts=4 sw=4 ft=mason :
 <%args>
 $id
 $toc
@@ -27,8 +28,7 @@ else
    
     $ar->SetId($artist);
     $ar->LoadFromId();
-    $m->comp("/comp/artisttitle", artistname=>($ar->GetName()), 
-            artist=>$ar, modpending=>0, nomod=>1);
+	$m->comp("/comp/artisttitle", artist => $ar, showmodlinks => 0);
 
     @albumlist = sort { $a->{name} cmp $b->{name} } $ar->GetAlbums(0, 1);
     for(;;)
@@ -73,7 +73,7 @@ else
               <table width="100%">
               <tr>
                 <td width="100%">
-                   <& /comp/album, artist=>$ar, album=>$al, nomod=>1 &>
+					<& /comp/album, artist=>$ar, album=>$al, showmodlinks=>0 &>
                 </td>
                 <td align="right" valign="top">
                    <input type="submit" value="Select <% $albumname %> &gt;&gt;" 

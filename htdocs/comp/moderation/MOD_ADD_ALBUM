@@ -28,7 +28,7 @@ if ($exists and UserPreference::get('mod_add_album_inline'))
 			"/comp/album",
 			artist	=> $ar,
 			album	=> $al,
-			nomod	=> (UserPreference::get('mod_add_album_link') ? 0 : 1),
+			showmodlinks=> UserPreference::get('mod_add_album_link'),
 			showids	=> 1,
 		);
 	}

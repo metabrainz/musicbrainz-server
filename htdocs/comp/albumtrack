@@ -5,7 +5,7 @@ $artist
 $tindex
 $hilitetrack
 $hilitecolor
-$nomod
+$showmodlinks
 $trmcount=>0
 $mbtagger=>$session{'mbt'}
 </%args>
@@ -30,7 +30,7 @@ my $colspan = ($nonalbum ? 'colspan="2"' : '');
 % } else {
     <td width="75%" <% $bgcolor |n %> <% $colspan %>>
 % }
-% if ($mbtagger && !$nomod and $track->GetId) {
+% if ($mbtagger && $showmodlinks and $track->GetId) {
     <a href="tag:<% $track->GetMBId() %>:<% $album->GetMBId() %>"><img src="/images/mblookup-tag.gif" 
        alt="Tag" title="Tag the current track" height="13" width="28"
        align="middle" border="0"></a>
@@ -48,7 +48,7 @@ my $colspan = ($nonalbum ? 'colspan="2"' : '');
 % if ($album->GetArtist() == &ModDefs::VARTIST_ID) {
     <td width="30%" bgcolor="white">
        <a href="/showartist.html?artistid=<% $track->GetArtist %>"><% $track->GetArtistName %></a>
-% if (exists $session{user} and not $nomod) {
+% if (exists $session{user} and $showmodlinks) {
           (<a href="/changetrack.html?album=<% $album->GetId() %>&amp;tindex=<% $tindex %>&amp;solo=1">Change</a>)
 % }
     </td>
@@ -56,7 +56,7 @@ my $colspan = ($nonalbum ? 'colspan="2"' : '');
     <td width="10%" align="right" <% $tr_bgcolor |n %> nowrap>
        <% Track::FormatTrackLength($track->GetLength) %>
     </td>
-% if (exists $session{user} && !$nomod) {
+% if ($session{uid} and $showmodlinks) {
     <td width="15%" bgcolor="white" nowrap
     	class="CenterChildren" style="text-align: center"
 	>

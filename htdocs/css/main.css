@@ -176,6 +176,69 @@ kbd.KbdBlock
 	list-style-image: url(/images/download.gif);
 }
 
+/* /comp/artisttitle */
+
+.ArtistTitle
+{
+	border: solid 1px black;
+	padding: 5px;
+	margin: 1em 0;
+	background-color: #f0efff;
+	width: 100%;
+}
+
+.ArtistTitleNameSortname
+{
+	margin-left: 48px;
+	text-indent: -48px;
+}
+
+.ArtistTitleIcon
+{
+	vertical-align: bottom;
+	margin: 0 12px 0 4px;
+}
+
+.ArtistTitleName
+{
+	/* font : Bold 12pt Verdana, Geneva, Arial, Helvetica, sans-serif; color : #000000; text-decoration : none;} */
+	font-size: 200%;
+	color: black !important;
+}
+
+.ArtistTitleSortname {}
+
+.ArtistTitleSortname:before { content: "(" }
+.ArtistTitleSortname:after { content: ")" }
+
+.ArtistTitleLinks
+{
+	margin-left: 3em;
+	text-indent: -3em;
+}
+
+/* /comp/album* */
+
+.AlbumLinks
+{
+	margin-left: 3em;
+	text-indent: -3em;
+}
+
+/* /comp/albumtype */
+
+h2.AlbumType
+{
+	background: #736dab;
+	background-image: none;
+	color: #fff;
+	border: 1px solid black;
+	width: 100%;
+	font-weight: bold;
+	padding: 0.3em;
+	margin: 1em 0;
+}
+
 /* [ A | list | of | links ] */
 
 .LinksRow

@@ -117,16 +117,19 @@ sub GatherData
 			$report->Print(
 				{
 					artist_id			=> $artist->GetId,
+					artist_mbid			=> $artist->GetMBId,
 					artist_name			=> $artist->GetName,
 					artist_sortname		=> $artist->GetSortName,
 					artist_modpending	=> $artist->GetModPending,
 					album_id			=> $al->GetId,
+					album_mbid			=> $al->GetMBId,
 					album_name			=> $al->GetName,
 					album_modpending	=> $al->GetModPending,
 					tracks				=> [
 						map {
 							+{
 								track_id	=> $_->GetId,
+								track_mbid	=> $_->GetMBId,
 								track_seq	=> $_->GetSequence,
 								track_name	=> $_->GetName,
 							}

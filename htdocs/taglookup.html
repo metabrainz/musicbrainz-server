@@ -27,9 +27,12 @@ $mbt=>$session{'mbt'}
        $ts->{artist}->SetMBId($data->{artistid});
        $ts->{artist}->LoadFromId();
    }
-	</%perl>
-	<a href="/showartist.html?artistid=<% $ts->{artist}->GetId %>"
-		><font size="+2"><% $ts->{artist}->GetName %></font></a><p>
+
+	$m->comp(
+		"/comp/artisttitle",
+		artist => $ts->{artist},
+	);
+</%perl>
 </%def>
 
 <%def .OutputAlbum>
@@ -48,8 +51,14 @@ $mbt=>$session{'mbt'}
        $ts->{album}->SetMBId($data->{albumid});
        $ts->{album}->LoadFromId();
    }
-   $m->comp("/comp/album", artist=>$ts->{artist}, album=>$ts->{album},
-           showalbumdetail=>1, mbtagger=>$data->{mbt}, showids=>1);
+
+	$m->comp(
+		"/comp/album",
+		artist	=> $ts->{artist},
+		album	=> $ts->{album},
+		mbtagger=> $data->{mbt},
+		showids	=> 1,
+	);
 </%perl>
 </%def>
 
@@ -100,9 +109,15 @@ $mbt=>$session{'mbt'}
            $al->SetId($id);
            $al->LoadFromId();
        }
-       $m->comp("/comp/album", artist=>$ts->{artist}, album=>$al,
-               showalbumdetail=>1, mbtagger=>$data->{mbt}, showids=>1, 
-               hilitetrack=>$ts->{track}->GetId());
+
+		$m->comp(
+			"/comp/album",
+			artist		=> $ts->{artist},
+			album		=> $al,
+			mbtagger	=> $data->{mbt},
+			showids		=> 1,
+			hilitetrack	=> $ts->{track}->GetId,
+		);
    }
 </%perl>
 </%def>
@@ -275,16 +290,16 @@ if (scalar(@coll_list) > 1)
 
 		unless ($last_artist == $artist_id)
 		{
-			$m->comp("/comp/artisttitle", artist => $ref->{ar}, nomod => 1);
+			$m->comp("/comp/artisttitle", artist => $ref->{ar}, showmodlinks => 0);
 			$last_artist = $artist_id;
 		}
 
 		$m->comp(
 			"/comp/album",
-			album => $ref->{al},
-			artist => $ref->{ar},
-			hilitetrack => $ref->{track},
-			mbtagger => $mbt,
+			album		=> $ref->{al},
+			artist		=> $ref->{ar},
+			hilitetrack	=> $ref->{track},
+			mbtagger	=> $mbt,
 		);
 	}
 
@@ -386,8 +401,6 @@ $orig_data{tracknum} = $data{tracknum} if ($orig_data{tracknum} == 0);
 # List of matching artists
 if ($flags & TaggerSupport::ARTISTLIST)
 {
-	$m->comp(".OutputArtist", $ts, $result);
-
    if (scalar(@$list) > 0)
    {
        my %copy = %data;

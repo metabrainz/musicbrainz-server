@@ -1,13 +1,4 @@
 <%args>
 $text=>""
 </%args>
-
-<table width="100%"  border="0" bgcolor="black" cellpadding="1" cellspacing="0">
-<tr><td>
-<table width="100%" border="0" bgcolor="#736dab">
-<tr>
-  <td><font color="white"><b><% $text %></b></font></td>
-</tr>
-</table>
-</td></tr></table>
-<p>
+<h2 class="AlbumType"><% $text %></h2>

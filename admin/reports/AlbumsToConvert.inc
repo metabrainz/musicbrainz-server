@@ -67,13 +67,14 @@ $rep->Seek($offset);
 % if ($row->{artist_id} != $lastartist) {
 %		my $ar = Artist->new(undef);
 %		$ar->SetId($row->{artist_id});
+%		$ar->SetMBId($row->{artist_mbid});
 %		$ar->SetName($row->{artist_name});
 %		$ar->SetSortName($row->{artist_sortname});
 %		$ar->SetModPending($row->{artist_modpending});
-		<& /comp/artisttitle, artist => $ar, link => 1 &>
+		<& /comp/artisttitle, artist => $ar, link => 0, showmodlinks => 0 &>
 % }
 
-		<p><b><a href='/showalbum.html?albumid=<% $row->{'album_id'} %>'
+		<p><b><a href='/album/<% $row->{'album_mbid'} %>.html'
 			><% $row->{'album_name'} %></a></b></p>
 		<ul>
 %		for my $track (@{ $row->{tracks} }) {
