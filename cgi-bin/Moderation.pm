@@ -610,7 +610,7 @@ sub GetModerationList
             UNIX_TIMESTAMP(TimeSubmitted), ModeratorInfo.name, yesvotes, 
             novotes, Artist.name, status, / . ModDefs::VOTE_NOTVOTED .
             qq/, ModeratorInfo.id, Changes.automod, 
-            count(Votes.id) as num_votes, from 
+            count(Votes.id) as num_votes from 
             Artist, ModeratorInfo, Changes left join Votes on Votes.uid = $uid 
             and Votes.rowid=Changes.id where Changes.Artist = Artist.id and 
             ModeratorInfo.id = moderator and moderator = / . 
