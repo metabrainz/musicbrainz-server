@@ -222,6 +222,7 @@ create table artist_relation (
 
 CREATE TABLE currentstat
 (
+        id              SERIAL,
         name            VARCHAR(100) NOT NULL,
         value           INTEGER NOT NULL,
         lastupdated     TIMESTAMP WITH TIME ZONE
@@ -229,6 +230,7 @@ CREATE TABLE currentstat
 
 CREATE TABLE historicalstat
 (
+        id              SERIAL,
         name            VARCHAR(100) NOT NULL,
         value           INTEGER NOT NULL,
         snapshotdate    DATE NOT NULL
