@@ -629,8 +629,6 @@ sub GetVariousDisplayList
    if ($sql->Select($query))
    {
        $num_albums = $sql->Rows();
-       print STDERR "$ind -> $page, $ind_max -> $page_max == " . $sql->Rows() .
-                               " to consider.\n";
        for(;@row = $sql->NextRow;)
        {
            push @info, [$row[0], $row[1], $row[2], unac_string('UTF-8', $row[1])];

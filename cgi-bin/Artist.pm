@@ -367,19 +367,14 @@ sub GetAlbums
 
    return @albums if (defined $novartist && $novartist);
 
-   # TODO: PAINFULLY SLOW. Optimize!
-   # e.g. http://musicbrainz.eorbit.net/showartist.html?artistid=2327
    # then, pull in the multiple artist albums
-   if ($sql->Select(qq/select distinct on (AlbumJoin.album) AlbumJoin.album,
-                              Album.name, 
-                              Album.modpending, Album.gid, Album.attributes, 
-                              upper(Album.name) 
-                         from Track, Album, AlbumJoin 
-                        where Track.Artist = $this->{id} and 
-                              AlbumJoin.track = Track.id and 
-                              AlbumJoin.album = Album.id and 
-                              Album.artist = / . ModDefs::VARTIST_ID .qq/ 
-                     order by AlbumJoin.album, upper(Album.name), Album.name/))
+   if ($sql->Select(qq/select id, name, modpending, gid, attributes 
+                         from album 
+                        where album.artist = / . ModDefs::VARTIST_ID .qq/ and 
+                              id in (select distinct albumjoin.album 
+                                       from albumjoin, track 
+                                      where track.artist = $this->{id} and 
+                                            albumjoin.track = track.id)/))
    {
         while(@row = $sql->NextRow)
         {
