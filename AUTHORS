@@ -66,4 +66,7 @@ The following people have contributed to the MusicBrainz server:
   Rob Rowe (moderator "somniloquy")
   - Contributed several enhancements to the "guess case" Javascript code
 
+  Eli Miller
+  - Contributed various user interface improvement patches
+
 (please send change requests to rob@musicbrainz.org or maintainer)
