@@ -40,6 +40,18 @@ $tr->LoadFromId
 		1, 1,
 	);
 
+my $last_seq = 0;
+if (my $tracks = $al->GetTracks) { $last_seq = $tracks->[-1]->GetSequence }
+
+if (MusicBrainz::IsNonNegInteger($newseq))
+{
+	return $m->comp("/comp/error", "New track number too low (lowest allowed track number is 1)", 1, 1)
+		if $newseq == 0;
+
+	return $m->comp("/comp/error", "New track number too high (highest allowed track number is $last_seq)", 1, 1)
+		if $newseq > $last_seq;
+}
+
 my $ar = Artist->new($mb->{DBH});
 $ar->SetId($al->GetArtist);
 $ar->LoadFromId
@@ -171,6 +183,7 @@ if (MusicBrainz::IsSingleLineString($newname)
 			</td>
 			<td>
 				<input type="text" name="newseq" size="5" value="<% $defaultseq || $tr->GetSequence %>">
+				(1-<% $last_seq %>)
 			</td>
 		</tr>
 % }
