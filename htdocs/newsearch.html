@@ -61,7 +61,13 @@ if ( defined $table && defined $search)
 
 %    if ($engine->Rows == 0) {
 
-        <tr><td>No matching <% $table %>s found.</td></tr>
+        <tr><td align="center"><font class="bold"><p>No matching <% $table %>s found.</font><p></td></tr>
+
+        <tr><td>Please consider 
+        <a href="/freedb/freedb.html?search=<% $search |u %>">importing</a> 
+        the artist/album/track(s) 
+        you are looking for from freedb for insertion into MusicBrainz.
+        </a></td></tr>
 
 %    }
 
