@@ -142,7 +142,7 @@ sub NormaliseSortText
 # meant to - it just left the string untouched.  So, since we only need a nice
 # simple, fixed, substitution, we'll do it ourselves.  Ugh.
 
-my %ent = qw( > &gt; < &lt; " &quot; ' &apos; & &amp; );
+my %ent = qw( > &gt; < &lt; " &quot; ' &#39; & &amp; );
 sub encode_entities
 {
 	${ $_[0] } =~ s/([<>"'&])/$ent{$1}/go, return
