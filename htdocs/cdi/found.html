@@ -12,12 +12,13 @@ $m->comp("/comp/sidebar", title=>'Found CD');
 
 my $mb = $m->comp("/comp/dblogin");
 my $sql = Sql->new($mb->{DBH});
-my $di = Discid->new($mb->{DBH});
+require MusicBrainz::Server::AlbumCDTOC;
+my $alcdtoc = MusicBrainz::Server::AlbumCDTOC->new($mb->{DBH});
 
 eval
 {
    $sql->Begin();
-   $di->Insert($id, $album, $toc);
+	 $alcdtoc->Insert($album, $toc);
    $sql->Commit();
 };
 if ($@)

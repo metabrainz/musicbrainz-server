@@ -489,15 +489,11 @@ sub LoadObject
 
     if ($type eq 'album')
     {
-      	my ($di, $index, @albumrefs, $aref);
-
-       	require Discid;
-	$di = Discid->new($this->{DBH});
-	$index = 0;
-	@albumrefs = $di->GetDiscidFromAlbum($obj->GetId());
-	foreach $aref (@albumrefs)
+	my $discids = $obj->GetDiscIDs;
+	my $index = 0;
+	for my $t (@$discids)
 	{
-	    $obj->{"_cdindexid$index"} = $aref->{discid};
+	    $obj->{"_cdindexid$index"} = $t->GetCDTOC->GetDiscID;
 	    $index++;
 	}
     }

@@ -104,6 +104,7 @@ my @tables = qw(
 	album
 	album_amazon_asin
 	album_amazon_asin_sanitised
+	album_cdtoc
 	albumjoin
 	albummeta
 	albumwords
@@ -113,10 +114,10 @@ my @tables = qw(
 	artistwords
 	automod_election
 	automod_election_vote
+	cdtoc
 	clientversion
 	country
 	currentstat
-	discid
 	historicalstat
 	moderation_closed
 	moderation_note_closed
@@ -128,7 +129,6 @@ my @tables = qw(
 	moderator_sanitised
 	release
 	stats
-	toc
 	track
 	trackwords
 	trm
@@ -377,14 +377,14 @@ close $lockfh;
 my @group_core = qw(
 	album
 	albumjoin
+	album_cdtoc
 	artist
 	artistalias
+	cdtoc
     clientversion
 	country
-	discid
 	release
 	replication_control
-	toc
 	track
 	trm
 	trmjoin

@@ -1,12 +1,13 @@
 %# vi: set ts=4 sw=4 ft=mason :
 <%args>
+$tocid => ""
 $albumid => ""
-$discid => ""
+$confirm => 0
 $notetext => ""
 </%args>
 <%perl>
 
-MusicBrainz::IsSingleLineString($discid)
+MusicBrainz::IsNonNegInteger($tocid) && $tocid
 	or return $m->comp("/comp/badargs", 1, 1);
 
 MusicBrainz::IsNonNegInteger($albumid) && $albumid
@@ -16,35 +17,29 @@ $m->comp("/comp/checkloggedin", 1, 1)
 	or return;
 
 my $mb = $m->comp("/comp/dblogin");
+
 my $al = Album->new($mb->{DBH});
-my $di = Discid->new($mb->{DBH});
-
-my @discid_refs = $di->GetDiscidFromAlbum($albumid);
-
-my $id = -1;
-for my $ref (@discid_refs)
-{
-	next unless $ref->{discid} eq $discid;
-
-	$id = $ref->{id};
-	$di->SetId($id);
-	$di->SetDiscid($ref->{discid});
-
-	last;
-}
-
-return $m->comp(
-	"/comp/error",
-	"Invalid discid and album passed.",
-	1, 1,
-) if $id < 0;
-
 $al->SetId($albumid);
-$al->LoadFromId();
+$al->LoadFromId
+	or return $m->comp(
+		"/comp/error",
+		"Album not found in the database.",
+		1, 1,
+	);
 
+# Get the cdtoc / album_cdtoc
+
+my $alcdtoc = MusicBrainz::Server::AlbumCDTOC->newFromAlbumAndCDTOC($mb->{DBH}, $al, $tocid)
+	or return $m->comp(
+		"/comp/error",
+		"No such CDTOC #$tocid, or it is not linked to album #$albumid",
+		1, 1,
+	);
+
+my $cdtoc = $alcdtoc->GetCDTOC;
 my $url = "/showalbum.html?albumid=$albumid";
 
-if ($ARGS{confirm})
+if ($confirm)
 {
 	$m->comp(
 		"/comp/entermods",
@@ -56,8 +51,8 @@ if ($ARGS{confirm})
 				privs => $session{privs},
 				type => &ModDefs::MOD_REMOVE_DISCID,
 				# --
+				cdtoc => $cdtoc,
 				album => $al,
-				discid => $di,
 			);
 
 			$mods[0]->InsertNote($session{'uid'}, $notetext)
@@ -77,13 +72,16 @@ if ($ARGS{confirm})
 <h2>Remove Disc ID</h2>
 
 <p>
-	Are you sure you want to remove CD Index Id <% $discid %>
-	from album <span class="bold"><% $al->GetName %></span>?
+	Are you sure you want to remove
+	<a href="/showcdtoc.html?id=<% $cdtoc->GetId %>"
+		>disc ID '<% $cdtoc->GetDiscID %>'</a>
+	from album <a href="/showalbum.html?albumid=<% $albumid %>"><% $al->GetName %></a>?
 </p>
 
 <p>
 	Please be sure you are certain that this CD Index Id is an error,
-	since an album can have multiple valid CD Index Ids.&nbsp;
+	since an album can have multiple valid CD Index Ids, and each CD Index Id
+	can belong to more than one album.&nbsp;
 	For more info, please see our
 	<a href="/cd_submission.html">CD Submission</a> document.
 </p>
@@ -103,7 +101,7 @@ if ($ARGS{confirm})
 	style="margin: 0"
 	>
 	<div>
-		<input type="hidden" name="discid" value="<% $discid %>">
+		<input type="hidden" name="tocid" value="<% $tocid %>">
 		<input type="hidden" name="albumid" value="<% $albumid %>">
 		<input type="hidden" name="confirm" value="1">
 		<input type="submit" value="YES &gt;&gt;">

@@ -23,14 +23,11 @@ ALTER TABLE trmjoin
 ALTER TABLE trmjoin
     DROP CONSTRAINT trmjoin_fk_track;
 
-ALTER TABLE discid
-    DROP CONSTRAINT discid_fk_album;
+ALTER TABLE album_cdtoc
+    DROP CONSTRAINT album_cdtoc_fk_album;
 
-ALTER TABLE toc
-    DROP CONSTRAINT toc_fk_album;
-
-ALTER TABLE toc
-    DROP CONSTRAINT toc_fk_discid;
+ALTER TABLE album_cdtoc
+    DROP CONSTRAINT album_cdtoc_fk_cdtoc;
 
 ALTER TABLE moderation_open
     DROP CONSTRAINT moderation_open_fk_artist;

@@ -45,8 +45,8 @@ begin
                 from album left join albumjoin on album.id = albumjoin.album group by album.id;
 
    raise notice ''Counting discids'';
-   create temporary table albummeta_discids as select album.id, count(discid.album) 
-                from album left join discid on album.id = discid.album group by album.id;
+   create temporary table albummeta_discids as select album.id, count(album_cdtoc.album) 
+                from album left join album_cdtoc on album.id = album_cdtoc.album group by album.id;
 
    raise notice ''Counting trmids'';
    create temporary table albummeta_trmids as select album.id, count(trmjoin.track) 
@@ -176,10 +176,10 @@ end;
 ' language 'plpgsql';
 
 --'-----------------------------------------------------------------
--- Changes to discid could cause changes to albummeta.discids
+-- Changes to album_cdtoc could cause changes to albummeta.discids
 --'-----------------------------------------------------------------
 
-create or replace function a_ins_discid () returns trigger as '
+create or replace function a_ins_album_cdtoc () returns trigger as '
 begin
     UPDATE  albummeta
     SET     discids = discids + 1
@@ -189,7 +189,7 @@ begin
 end;
 ' language 'plpgsql';
 --'--
-create or replace function a_upd_discid () returns trigger as '
+create or replace function a_upd_album_cdtoc () returns trigger as '
 begin
     if NEW.album = OLD.album
     then
@@ -208,7 +208,7 @@ begin
 end;
 ' language 'plpgsql';
 --'--
-create or replace function a_del_discid () returns trigger as '
+create or replace function a_del_album_cdtoc () returns trigger as '
 begin
     UPDATE  albummeta
     SET     discids = discids - 1

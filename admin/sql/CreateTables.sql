@@ -35,6 +35,14 @@ CREATE TABLE album_amazon_asin
     lastupdate          TIMESTAMP WITH TIME ZONE DEFAULT NOW()
 );
 
+CREATE TABLE album_cdtoc
+(
+    id                  SERIAL,
+    album               INTEGER NOT NULL,
+    cdtoc               INTEGER NOT NULL,
+    modpending          INTEGER NOT NULL DEFAULT 0
+);
+
 CREATE TABLE albumjoin
 (
     id                  SERIAL,
@@ -127,6 +135,16 @@ CREATE TABLE automod_election_vote
     votetime            TIMESTAMP WITH TIME ZONE NOT NULL DEFAULT NOW()
 );
 
+CREATE TABLE cdtoc
+(
+    id                  SERIAL,
+    discid              CHAR(28) NOT NULL,
+    freedbid            CHAR(8) NOT NULL,
+    trackcount          INTEGER NOT NULL,
+    leadoutoffset       INTEGER NOT NULL,
+    trackoffset         INTEGER[] NOT NULL
+);
+
 CREATE TABLE clientversion
 (
     id                  SERIAL,
@@ -146,15 +164,6 @@ CREATE TABLE currentstat
     name                VARCHAR(100) NOT NULL,
     value               INTEGER NOT NULL,
     lastupdated         TIMESTAMP WITH TIME ZONE
-);
-
-CREATE TABLE discid
-(
-    id                  SERIAL,
-    album               INTEGER NOT NULL, -- references album
-    disc                CHAR(28) NOT NULL,
-    toc                 TEXT NOT NULL, 
-    modpending          INTEGER DEFAULT 0
 );
 
 CREATE TABLE historicalstat
@@ -288,114 +297,6 @@ CREATE TABLE stats
     votes               INTEGER NOT NULL, 
     moderators          INTEGER NOT NULL, 
     timestamp           DATE NOT NULL
-);
-
-CREATE TABLE toc
-(
-    id                  SERIAL,
-    album               INTEGER NOT NULL, -- references album
-    discid              CHAR(28), -- references discid (disc)
-    tracks              INTEGER,
-    leadout             INTEGER,
-    track1              INTEGER,
-    track2              INTEGER,
-    track3              INTEGER,
-    track4              INTEGER,
-    track5              INTEGER,
-    track6              INTEGER,
-    track7              INTEGER,
-    track8              INTEGER,
-    track9              INTEGER,
-    track10             INTEGER,
-    track11             INTEGER,
-    track12             INTEGER,
-    track13             INTEGER,
-    track14             INTEGER,
-    track15             INTEGER,
-    track16             INTEGER,
-    track17             INTEGER,
-    track18             INTEGER,
-    track19             INTEGER,
-    track20             INTEGER,
-    track21             INTEGER,
-    track22             INTEGER,
-    track23             INTEGER,
-    track24             INTEGER,
-    track25             INTEGER,
-    track26             INTEGER,
-    track27             INTEGER,
-    track28             INTEGER,
-    track29             INTEGER,
-    track30             INTEGER,
-    track31             INTEGER,
-    track32             INTEGER,
-    track33             INTEGER,
-    track34             INTEGER,
-    track35             INTEGER,
-    track36             INTEGER,
-    track37             INTEGER,
-    track38             INTEGER,
-    track39             INTEGER,
-    track40             INTEGER,
-    track41             INTEGER,
-    track42             INTEGER,
-    track43             INTEGER,
-    track44             INTEGER,
-    track45             INTEGER,
-    track46             INTEGER,
-    track47             INTEGER,
-    track48             INTEGER,
-    track49             INTEGER,
-    track50             INTEGER,
-    track51             INTEGER,
-    track52             INTEGER,
-    track53             INTEGER,
-    track54             INTEGER,
-    track55             INTEGER,
-    track56             INTEGER,
-    track57             INTEGER,
-    track58             INTEGER,
-    track59             INTEGER,
-    track60             INTEGER,
-    track61             INTEGER,
-    track62             INTEGER,
-    track63             INTEGER,
-    track64             INTEGER,
-    track65             INTEGER,
-    track66             INTEGER,
-    track67             INTEGER,
-    track68             INTEGER,
-    track69             INTEGER,
-    track70             INTEGER,
-    track71             INTEGER,
-    track72             INTEGER,
-    track73             INTEGER,
-    track74             INTEGER,
-    track75             INTEGER,
-    track76             INTEGER,
-    track77             INTEGER,
-    track78             INTEGER,
-    track79             INTEGER,
-    track80             INTEGER,
-    track81             INTEGER,
-    track82             INTEGER,
-    track83             INTEGER,
-    track84             INTEGER,
-    track85             INTEGER,
-    track86             INTEGER,
-    track87             INTEGER,
-    track88             INTEGER,
-    track89             INTEGER,
-    track90             INTEGER,
-    track91             INTEGER,
-    track92             INTEGER,
-    track93             INTEGER,
-    track94             INTEGER,
-    track95             INTEGER,
-    track96             INTEGER,
-    track97             INTEGER,
-    track98             INTEGER,
-    track99             INTEGER
 );
 
 CREATE TABLE track

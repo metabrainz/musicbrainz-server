@@ -97,7 +97,7 @@ if ($lockmode eq "full" or $lockmode eq "blank")
 		artist
 		artistalias
 		album
-		discid
+		album_cdtoc
 		albumjoin
 		track
 	);
@@ -113,7 +113,7 @@ for (qw(
 	artistalias
 	album
 	album.attributes[1]
-	discid
+	album_cdtoc
 	albumjoin
 	track
 )) {

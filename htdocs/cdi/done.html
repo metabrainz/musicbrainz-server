@@ -17,7 +17,7 @@ $notetext => ""
 </%args>
 <%perl>
 
-$m->comp("/comp/checkloggedin", 0, 1)
+$m->comp("/comp/checkloggedin", 1, 1)
 	or return;
 
 $m->comp("/comp/sidebar", title=>'New CD Submission');
@@ -50,18 +50,8 @@ for (my $i = 0; $i < $tracks && !$error; $i++)
 }
 
 my $mb = $m->comp("/comp/dblogin");
-my $di = Discid->new($mb->{DBH});
 
-if ($id ne '' && defined $di->GetAlbumFromDiscid($id))
-{
-</%perl>
-    This CD has already (just?) been entered into the system.&nbsp;
-    <a href="/showalbum.html?discid=<% $id %>">Click here</a> to see the
-    album.
-    </TD></TR></TABLE>
-<%perl>
-}
-elsif ($error > 0 && $error != 6)
+if ($error > 0 && $error != 6)
 {
 </%perl>
     <FONT SIZE="+1" COLOR=RED>

@@ -15,12 +15,12 @@ CREATE TRIGGER a_upd_albumjoin AFTER UPDATE ON albumjoin
 CREATE TRIGGER a_del_albumjoin AFTER DELETE ON albumjoin
     FOR EACH ROW EXECUTE PROCEDURE a_del_albumjoin();
 
-CREATE TRIGGER a_ins_discid AFTER INSERT ON discid
-    FOR EACH ROW EXECUTE PROCEDURE a_ins_discid();
-CREATE TRIGGER a_upd_discid AFTER UPDATE ON discid
-    FOR EACH ROW EXECUTE PROCEDURE a_upd_discid();
-CREATE TRIGGER a_del_discid AFTER DELETE ON discid
-    FOR EACH ROW EXECUTE PROCEDURE a_del_discid();
+CREATE TRIGGER a_ins_album_cdtoc AFTER INSERT ON album_cdtoc
+    FOR EACH ROW EXECUTE PROCEDURE a_ins_album_cdtoc();
+CREATE TRIGGER a_upd_album_cdtoc AFTER UPDATE ON album_cdtoc
+    FOR EACH ROW EXECUTE PROCEDURE a_upd_album_cdtoc();
+CREATE TRIGGER a_del_album_cdtoc AFTER DELETE ON album_cdtoc
+    FOR EACH ROW EXECUTE PROCEDURE a_del_album_cdtoc();
 
 CREATE TRIGGER a_ins_trmjoin AFTER INSERT ON trmjoin
     FOR EACH ROW EXECUTE PROCEDURE a_ins_trmjoin();

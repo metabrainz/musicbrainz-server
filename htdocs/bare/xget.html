@@ -15,17 +15,19 @@ my $MakeCDInfo = sub
 {
     my ($mb, $id) = @_;
     my ($ar, $al, $di);
-    my ($out, $artist, $album, @ids, $ref, @tracks);
+    my ($out, $artist, @tracks);
 
     $ar = Artist->new($mb->{DBH});
     $al = Album->new($mb->{DBH});
-    $di = Discid->new($mb->{DBH});
+		$di = MusicBrainz::Server::AlbumCDTOC->new($mb->{DBH});
 
-    $album = $di->GetAlbumFromDiscid($id);
-    if (!defined $album)
+    my $albums = $di->GetAlbumIDsFromDiscID($id);
+    if (not @$albums)
     {
         return "<CDInfo/>";
     }
+		# TODO cdtoc multiple albums
+		my $album = $albums->[0];
 
     $al->SetId($album);
     if (!defined $al->LoadFromId())
@@ -48,19 +50,17 @@ my $MakeCDInfo = sub
     $out .= "</NumTracks>\n";
     
     $out .= "  <IdInfo>\n";
-    @ids = $di->GetDiscidFromAlbum($album);
-    foreach $ref (@ids)
+		for my $ref ($al->GetDiscIDs)
     {
         $out .= "    <DiskId>\n";
-        $out .= "      <Id>" . $ref->{diskid} . "</Id>\n";
-        if ($ref->{toc} ne '')
+        $out .= "      <Id>" . $ref->GetDiscID . "</Id>\n";
         {
-            my ($sec, $i, @toc);
+            my ($sec, $i);
 
             $i = 0;
-            @toc = split / /, $ref->{toc};
-            $out .= "      <TOC First=\"" . (shift @toc) . "\" Last=\"";
-            $out .= (shift @toc) . "\">\n";
+						$out .= "      <TOC First=\"" . $ref->GetFirstTrack . "\" Last=\"";
+						$out .= $ref->GetLastTrack . "\">\n";
+						my @toc = ($ref->GetLeadoutOffset, @{ $ref->GetTrackOffsets });
             foreach $sec (@toc)
             {
                 $out .= "        <Offset Num=\"" . $i . "\">" . 
@@ -87,7 +87,7 @@ my $MakeCDInfo = sub
         $out .= "  <SingleArtistCD>\n";
         $out .= "    <Artist>" . $ar->GetName() . "</Artist>\n";
 
-        foreach $ref (@tracks)
+        for my $ref (@tracks)
         {
             $out .= "    <Track Num=\"$num\">\n";
             $out .= "      <Name>" . $ref->GetName() . "</Name>\n";
@@ -110,7 +110,7 @@ my $MakeCDInfo = sub
 
         $out .= "  <MultipleArtistCD>\n";
 
-        foreach $ref (@tracks)
+        for my $ref (@tracks)
         {
             $out .= "    <Track Num=\"$num\">\n";
             $out .= "      <Artist>" . $ref->GetArtistName() . "</Artist>\n";

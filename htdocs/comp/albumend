@@ -12,16 +12,17 @@ my $numtracks = $album->GetTrackCount;
 my @ids;
 if ($showids)
 {
-   my $di = Discid->new($album->{DBH});
-   @ids = $di->GetDiscidFromAlbum($album->GetId());
+   @ids = @{ $album->GetDiscIDs };
 }
 
 if (scalar(@ids) > 0) 
 {
     foreach my $id (@ids)
     {
-    	my $duration;
-	my $id_numtracks;
+	my $cdtoc = $id->GetCDTOC;
+    	my $duration = Track::FormatTrackLength($cdtoc->GetLeadoutOffset / 75 * 1000);
+	my $id_numtracks = $cdtoc->GetTrackCount;
+	my $discid = $cdtoc->GetDiscID;
 
        $m->out("<tr>");
        if ($album->GetArtist() == &ModDefs::VARTIST_ID) 
@@ -32,26 +33,8 @@ if (scalar(@ids) > 0)
        {
           $m->out('<td colspan="2" ');
        }
-       if ($id->{toc} =~ /^\d* (\d*)/)
-       {
-          $id_numtracks = $1;
-       }
-       else
-       {
-          $id_numtracks = undef;
-       }
-       if ($id->{toc} =~ /^\d* \d* (\d*)/)
-       {
-           my $length_in_secs = ($1 / 75);
-           $duration = int($length_in_secs / 60) . ":" . 
-                           sprintf("%02d",($length_in_secs % 60));
-       }
-       else
-       {
-           $duration = undef;
-       }
 
-       $m->out($id->{modpending} ? ' bgcolor="#FFFFCC"' : ' bgcolor="#ffecd6"');
+       $m->out($id->GetModPending ? ' bgcolor="#FFFFCC"' : ' bgcolor="#ffecd6"');
        $m->out('>');
        $m->out("CD Index Id: ");
 
@@ -59,26 +42,24 @@ if (scalar(@ids) > 0)
        {
            $m->out('<font color="red">');
        }
-       $m->out($id->{discid});
+       $m->out("<a href='/showcdtoc.html?id=".$cdtoc->GetId."'>$discid</a>");
        if (defined $id_numtracks && $id_numtracks != $numtracks)
        {
            $m->out("</font><br>This id belongs to an album that " .
                   "has $id_numtracks tracks.");
        }
 
-       $m->out('</td><td bgcolor="#ffecd6">');
-       if ($duration)
-       {
-           $m->out("$duration");
-       }
+       $m->out('</td><td class="discidlength">');
+       $m->out("$duration");
 
        $m->out("</td>");
        if ($session{uid} and $showmodlinks) 
        {
+	   my $tocid = $cdtoc->GetId;
            $m->out("<td nowrap align=\"center\" bgcolor=\"#ffecd6\">");
-           $m->out("<a href=\"/movediscid.html?discid=$id->{discid}&amp;albumid=");
+           $m->out("<a href=\"/movediscid.html?tocid=$tocid&amp;albumid=");
            $m->out($album->GetId() . "\">Move</a> | ");
-           $m->out("<a href=\"/remdiscid.html?discid=$id->{discid}&amp;albumid=");
+           $m->out("<a href=\"/remdiscid.html?tocid=$tocid&amp;albumid=");
            $m->out($album->GetId() . "\">Del</a>");
            $m->out("</td>");
        }

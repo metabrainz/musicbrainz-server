@@ -357,4 +357,9 @@ ol.StyleGuideList li blockquote { margin-left: 2em }
 	margin-bottom: -8pt;
 }
 
+table.cdtocinfo td { text-align: right; padding: 0 1em }
+table.cdtocinfo tr.ev { background-color: #eee } /* 'even' rows */
+
+td.discidlength { background-color: #ffecd6; text-align: right }
+
 /* eof */

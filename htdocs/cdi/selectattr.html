@@ -22,7 +22,7 @@ if (my $dur = $ARGS{durations})
 }
 elsif (my $toc = $ARGS{toc})
 {
-	my %p = Discid->ParseTOC($toc);
+	my %p = MusicBrainz::Server::CDTOC->ParseTOC($toc);
 	$disclength = $p{leadoutoffset} / 75 * 1000 if %p;
 }
 

@@ -45,15 +45,15 @@ sub new
     }, ref($class) || $class;
 }
 
-# Public.  Called from Discid->GenerateAlbumFromDiscid; cdi/enter.html;
+# Public.  Called from MusicBrainz::Server::AlbumCDTOC->GenerateAlbumFromDiscid; cdi/enter.html;
 # cdi/menter.html
 
 sub Lookup
 {
     my ($this, $Discid, $toc) = @_;
 
-    require Discid;
-    my %info = Discid->ParseTOC($toc)
+    require MusicBrainz::Server::CDTOC;
+    my %info = MusicBrainz::Server::CDTOC->ParseTOC($toc)
     	or warn("Failed to parse toc '$toc'"), return undef;
     $info{discid} eq $Discid
     	or warn("Parsed toc '$toc' and got '$info{discid}', not '$Discid'"), return undef;
@@ -356,7 +356,7 @@ READQUERY:
     return \%info;
 }
 
-# Public.  Called by Discid->GenerateAlbumFromDiscid
+# Public.  Called by MusicBrainz::Server::AlbumCDTOC->GenerateAlbumFromDiscid
 
 sub InsertForModeration
 {
@@ -368,8 +368,8 @@ sub InsertForModeration
     return if (scalar(@$ref) < AUTO_INSERT_MIN_TRACKS);
 
     # Don't insert into the DB if the Toc is not correct.
-    require Discid;
-    return unless Discid->ParseTOC($info->{toc});
+    require MusicBrainz::Server::CDTOC;
+    return unless MusicBrainz::Server::CDTOC->ParseTOC($info->{toc});
 
     # Don't insert albums by the name of 'various' or 'various artists'
     return if ($info->{artist} =~ /^various$/i ||
@@ -434,14 +434,15 @@ sub InsertForModeration
                 {
                     my ($di, $sql);
 
-		    require Discid;
 		    require Sql;
-                    $di = Discid->new($this->{DBH});
                     $sql = Sql->new($this->{DBH});
+		    require MusicBrainz::Server::AlbumCDTOC;
+		    my $alcdtoc = MusicBrainz::Server::AlbumCDTOC->new($this->{DBH});
+
                     eval
                     {
                         $sql->Begin();
-                        $di->Insert($info->{cdindexid}, $al->GetId(), $info->{toc});
+			$alcdtoc->Insert($al->GetId, $info->{toc});
                         $sql->Commit();
                     };
                     if ($@)
@@ -484,7 +485,7 @@ sub InsertForModeration
 
 # Given the TOC offsets (track 1 start, track 2 start, ... track n start,
 # leadout start), return the 8-character FreeDB ID.
-# Marked as internal, but called from Discid->ParseTOC.
+# Marked as internal, but called from MusicBrainz::Server::CDTOC->ParseTOC.
 
 sub _compute_discid
 {

@@ -349,10 +349,7 @@ sub Remove
     return if (!defined $album);
   
     $sql = Sql->new($this->{DBH});
-    print STDERR "DELETE: Removed TOC where album was " . $album . "\n";
-    $sql->Do("DELETE FROM toc WHERE album = ?", $album);
-    print STDERR "DELETE: Removed Discid where album was " . $album . "\n";
-    $sql->Do("DELETE FROM discid WHERE album = ?", $album);
+	MusicBrainz::Server::AlbumCDTOC->RemoveAlbum($this->{DBH}, $album);
 
     print STDERR "DELETE: Removed release where album was " . $album . "\n";
 	require MusicBrainz::Server::Release;
@@ -642,9 +639,8 @@ sub GetDiscIDs
 
 	$self->{"_discids"} ||= do
 	{
-		require Discid;
-		my $di = Discid->new($self->{DBH});
-		$di->LoadFull($self->GetId);
+		require MusicBrainz::Server::AlbumCDTOC;
+		MusicBrainz::Server::AlbumCDTOC->newFromAlbum($self->{DBH}, $self);
 	};
 }
 
@@ -803,17 +799,9 @@ sub MergeAlbums
            }                
        }
 
-       # Also merge the Discids
-		$sql->Do(
-			"UPDATE discid SET album = ? WHERE album = ?",
-			$this->GetId,
-			$id,
-		);
-		$sql->Do(
-			"UPDATE toc SET album = ? WHERE album = ?",
-			$this->GetId,
-			$id,
-		);
+		# Also merge the Discids
+		require MusicBrainz::Server::AlbumCDTOC;
+		MusicBrainz::Server::AlbumCDTOC->MergeAlbums($this->{DBH}, $id, $this->GetId);
 
 		# And the releases
 		require MusicBrainz::Server::Release;
@@ -1147,7 +1135,7 @@ sub _GetTOCTracksHash
 
 	for (@$discids)
 	{
-		(my $n) = $_->GetTOC =~ /^\d+ (\d+)/;
+		my $n = $_->GetCDTOC->GetTrackCount;
 		++$h{$n};
 	}
 

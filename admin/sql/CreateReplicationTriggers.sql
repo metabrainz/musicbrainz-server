@@ -13,6 +13,10 @@ CREATE TRIGGER "reptg_album_amazon_asin"
 AFTER INSERT OR DELETE OR UPDATE ON "album_amazon_asin"
 FOR EACH ROW EXECUTE PROCEDURE "recordchange" ();
 
+CREATE TRIGGER "reptg_album_cdtoc" 
+AFTER INSERT OR DELETE OR UPDATE ON "album_cdtoc"
+FOR EACH ROW EXECUTE PROCEDURE "recordchange" ();
+
 CREATE TRIGGER "reptg_albumjoin" 
 AFTER INSERT OR DELETE OR UPDATE ON "albumjoin"
 FOR EACH ROW EXECUTE PROCEDURE "recordchange" ();
@@ -43,6 +47,10 @@ FOR EACH ROW EXECUTE PROCEDURE "recordchange" ();
 
 -- Not replicated: automod_election, automod_election_vote
 
+CREATE TRIGGER "reptg_cdtoc" 
+AFTER INSERT OR DELETE OR UPDATE ON "cdtoc"
+FOR EACH ROW EXECUTE PROCEDURE "recordchange" ();
+
 CREATE TRIGGER "reptg_clientversion" 
 AFTER INSERT OR DELETE OR UPDATE ON "clientversion"
 FOR EACH ROW EXECUTE PROCEDURE "recordchange" ();
@@ -53,10 +61,6 @@ FOR EACH ROW EXECUTE PROCEDURE "recordchange" ();
 
 CREATE TRIGGER "reptg_currentstat" 
 AFTER INSERT OR DELETE OR UPDATE ON "currentstat"
-FOR EACH ROW EXECUTE PROCEDURE "recordchange" ();
-
-CREATE TRIGGER "reptg_discid" 
-AFTER INSERT OR DELETE OR UPDATE ON "discid"
 FOR EACH ROW EXECUTE PROCEDURE "recordchange" ();
 
 CREATE TRIGGER "reptg_historicalstat" 
@@ -79,10 +83,6 @@ FOR EACH ROW EXECUTE PROCEDURE "recordchange" ();
 
 CREATE TRIGGER "reptg_stats" 
 AFTER INSERT OR DELETE OR UPDATE ON "stats"
-FOR EACH ROW EXECUTE PROCEDURE "recordchange" ();
-
-CREATE TRIGGER "reptg_toc" 
-AFTER INSERT OR DELETE OR UPDATE ON "toc"
 FOR EACH ROW EXECUTE PROCEDURE "recordchange" ();
 
 CREATE TRIGGER "reptg_track" 

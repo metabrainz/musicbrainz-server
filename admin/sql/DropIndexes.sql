@@ -22,11 +22,10 @@ drop index AlbumJoin_AlbumIndex;
 drop index AlbumJoin_TrackIndex;
 DROP INDEX albumjoin_albumtrack;
 
-drop index Discid_DiscIndex;
-drop index Discid_AlbumIndex;
-
-drop index TOC_DiscIndex;
-drop index TOC_AlbumIndex;
+DROP INDEX cdtoc_discid;
+DROP INDEX cdtoc_freedbid;
+DROP INDEX cdtoc_toc;
+DROP INDEX album_cdtoc_albumcdtoc;
 
 drop index Moderator_NameIndex;
 

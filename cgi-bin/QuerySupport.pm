@@ -61,10 +61,10 @@ sub GetCDInfoMM2
    }
 
    # Check to see if the album is in the main database
-   require Discid;
-   $di = Discid->new($dbh);
+   require MusicBrainz::Server::AlbumCDTOC;
+   $di = MusicBrainz::Server::AlbumCDTOC->new($dbh);
    $rdf->SetDepth(5);
-   return $di->GenerateAlbumFromDiscid($rdf, $id, $numtracks, $toc);
+   return $di->GenerateAlbumFromDiscid($rdf, $id, $toc);
 }
 
 sub AssociateCDMM2
@@ -85,9 +85,9 @@ sub AssociateCDMM2
    }
 
    # Check to see if the album is in the main database
-   require Discid;
-   $di = Discid->new($dbh);
-   $di->Insert($Discid, $albumid, $toc);
+   require MusicBrainz::Server::AlbumCDTOC;
+   $di = MusicBrainz::Server::AlbumCDTOC->new($dbh);
+   $di->Insert($albumid, $toc);
 }
 
 # returns artistList

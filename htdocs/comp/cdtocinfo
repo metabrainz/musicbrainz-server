@@ -1,0 +1,71 @@
+%# vi: set ts=2 sw=2 ft=mason :
+<%args>
+$cdtoc
+</%args>
+
+<& /comp/tablebegin, title=>'CD TOC Information', gattrs => "width='100%'" &> 
+	<table>
+    <tr>
+			<td valign="top" align="right">Full TOC:</td>
+			<td valign="top"><% $cdtoc->GetTOC %></td>
+    </tr>
+		<tr>
+			<td valign="top" align="right">CD Index ID:</td>
+			<td valign="top"><% $cdtoc->GetDiscID %></td>
+    </tr>
+		<tr>
+			<td valign="top" align="right">FreeDB ID:</td>
+			<td valign="top"><a href="/bare/cdlookup.html?id=<% $cdtoc->GetFreeDBID %>"><% $cdtoc->GetFreeDBID %></a></td>
+    </tr>
+% if ($session{uid}) {
+    <tr>
+			<td valign="top" align="right">Database row ID:</td>
+			<td valign="top"><% $cdtoc->GetId %></td>
+    </tr>
+% }
+    <tr>
+			<td valign="top" align="right">First Track:</td>
+			<td valign="top"><% $cdtoc->GetFirstTrack %></td>
+    </tr>
+    <tr>
+			<td valign="top" align="right">Last Track:</td>
+			<td valign="top"><% $cdtoc->GetLastTrack %></td>
+    </tr>
+    <tr>
+			<td valign="top" align="right">Total Length:</td>
+			<td valign="top"><% Track::FormatTrackLength($cdtoc->GetLeadoutOffset / 75 * 1000) %></td>
+    </tr>
+		<tr>
+			<td valign="top" align="right">Track Details:</td>
+			<td>
+				<table class="cdtocinfo">
+					<tr>
+						<td></td>
+						<th colspan="2">Start</th>
+						<th colspan="2">Length</th>
+						<th colspan="2">End</th>
+					</tr>
+					<tr>
+						<th>Track</th>
+						<th>Time</th><th>Sectors</th>
+						<th>Time</th><th>Sectors</th>
+						<th>Time</th><th>Sectors</th>
+					</tr>
+% my $off = $cdtoc->GetTrackOffsets;
+% my $len = $cdtoc->GetTrackLengths;
+% my $fmt = sub { Track::FormatTrackLength($_[0]/75*1000) };
+% for my $n ($cdtoc->GetFirstTrack .. $cdtoc->GetLastTrack) {
+%		my $st = $off->[$n-1];
+%		my $ln = $len->[$n-1];
+					<tr class="<% ($n%2) ? 'odd' : 'ev' %>">
+						<td><% $n %></td>
+						<td><% &$fmt($st) %></td><td><% $st %></td>
+						<td><% &$fmt($ln) %></td><td><% $ln %></td>
+						<td><% &$fmt($st+$ln) %></td><td><% $st+$ln %></td>
+					</tr>
+% }
+				</table>
+			</td>
+		</tr>
+	</table>
+<& /comp/tableend &> 

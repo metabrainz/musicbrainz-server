@@ -33,35 +33,95 @@ use base 'Moderation';
 sub Name { "Remove Disc ID" }
 (__PACKAGE__)->RegisterHandler;
 
+=pod
+
+Old method ("discid" and "toc" tables):
+
+	table="discid"
+	column="disc"
+	rowid=discid.id
+	prev=discid string
+	new=""
+
+New method ("cdtoc" and "album_cdtoc" tables):
+
+	table="album_cdtoc"
+	column="album"
+	rowid=album_cdtoc.id (which is backwards-compatible with discid.id)
+	prev=discid string
+	new=AlbumName		= album.name
+		AlbumId			= album.id
+		FullTOC			= cdtoc string
+		CDTOCId			= cdtoc.id
+
+=cut
+
 sub PreInsert
 {
 	my ($self, %opts) = @_;
 
-	my $al = $opts{album} or die;
-	my $di = $opts{discid} or die;
+	my $cdtoc = $opts{'cdtoc'} or die;
+	my $oldal = $opts{album} or die;
 
-	$self->SetTable("discid");
-	$self->SetColumn("disc");
-	$self->SetArtist($al->GetArtist);
-	$self->SetRowId($di->GetId);
-	$self->SetPrev($di->GetDiscid);
-	$self->SetNew("");
+	require MusicBrainz::Server::AlbumCDTOC;
+	my $alcdtoc = MusicBrainz::Server::AlbumCDTOC->newFromAlbumAndCDTOC($self->{DBH}, $oldal, $cdtoc->GetId);
+	if (not $alcdtoc)
+	{
+		$self->SetError("Old album / CD TOC not found");
+		die $self;
+	}
+
+	$self->SetTable("album_cdtoc");
+	$self->SetColumn("album");
+	$self->SetRowId($alcdtoc->GetId);
+	$self->SetArtist($oldal->GetArtist);
+	$self->SetPrev($cdtoc->GetDiscID);
+
+	my %new = (
+		AlbumName		=> $oldal->GetName,
+		AlbumId			=> $oldal->GetId,
+		FullTOC			=> $cdtoc->GetTOC,
+		CDTOCId			=> $cdtoc->GetId,
+	);
+
+	$self->SetNew($self->ConvertHashToNew(\%new));
+}
+
+sub PostLoad
+{
+	my $self = shift;
+	$self->{'new_unpacked'} = $self->ConvertNewToHash($self->GetNew)
+		or die;
+}
+
+# This implementation is required (instead of the default) because old rows
+# will have a "table" value of "discid" instead of "album_cdtoc"
+
+sub AdjustModPending
+{
+	my ($self, $adjust) = @_;
+	my $sql = Sql->new($self->{DBH});
+	$sql->Do(
+		"UPDATE album_cdtoc SET modpending = modpending + ? WHERE id = ?",
+		$adjust,
+		$self->GetRowId,
+	);
 }
 
 sub ApprovedAction
 {
-	my $this = shift;
+	my $self = shift;
 
-	require Discid;
-	my $di = Discid->new($this->{DBH});
+	require MusicBrainz::Server::AlbumCDTOC;
 
-	unless ($di->Remove($this->GetPrev))
+	my $alcdtoc = MusicBrainz::Server::AlbumCDTOC->newFromId($self->{DBH}, $self->GetRowId);
+	if (not $alcdtoc)
 	{
-		$this->InsertNote(MODBOT_MODERATOR, "This disc ID could not be removed");
-		# TODO should this be "STATUS_ERROR"?  Why would the Remove call fail?
-		return STATUS_FAILEDDEP;
+		$self->InsertNote(MODBOT_MODERATOR, "This disc ID has already been removed");
+		return STATUS_APPLIED;
 	}
 
+	$alcdtoc->Remove;
 	STATUS_APPLIED;
 }
 

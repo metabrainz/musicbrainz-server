@@ -40,20 +40,15 @@ ALTER TABLE trmjoin
     FOREIGN KEY (track)
     REFERENCES track(id);
 
-ALTER TABLE discid
-    ADD CONSTRAINT discid_fk_album
+ALTER TABLE album_cdtoc
+    ADD CONSTRAINT album_cdtoc_fk_album
     FOREIGN KEY (album)
     REFERENCES album(id);
 
-ALTER TABLE toc
-    ADD CONSTRAINT toc_fk_album
-    FOREIGN KEY (album)
-    REFERENCES album(id);
-
-ALTER TABLE toc
-    ADD CONSTRAINT toc_fk_discid
-    FOREIGN KEY (discid)
-    REFERENCES discid(disc);
+ALTER TABLE album_cdtoc
+    ADD CONSTRAINT album_cdtoc_fk_cdtoc
+    FOREIGN KEY (cdtoc)
+    REFERENCES cdtoc(id);
 
 ALTER TABLE moderation_open
     ADD CONSTRAINT moderation_open_fk_artist

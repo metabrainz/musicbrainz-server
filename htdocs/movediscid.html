@@ -1,6 +1,6 @@
 %# vi: set ts=4 sw=4 ft=mason :
 <%args>
-$discid => ""
+$tocid => ""
 $albumid => ""
 $newalbumid => ""
 $confirm => 0
@@ -8,14 +8,14 @@ $notetext => ""
 </%args>
 <%perl>
 
-$m->comp("/comp/checkloggedin", 1, 1)
-	or return;
-
-MusicBrainz::IsSingleLineString($discid) && length($discid)
+MusicBrainz::IsNonNegInteger($tocid) && $tocid
 	or return $m->comp("/comp/badargs", 1, 1);
 
 MusicBrainz::IsNonNegInteger($albumid) && $albumid
 	or return $m->comp("/comp/badargs", 1, 1);
+
+$m->comp("/comp/checkloggedin", 1, 1)
+	or return;
 
 my $mb = $m->comp("/comp/dblogin");
 
@@ -28,28 +28,17 @@ $al->LoadFromId
 		1, 1,
 	);
 
-# Get the ID/toc of the row that joins this discid to this album
+# Get the cdtoc / album_cdtoc
 
-my $di = Discid->new($mb->{DBH});
-my @discid_refs = $di->GetDiscidFromAlbum($al->GetId)
+my $alcdtoc = MusicBrainz::Server::AlbumCDTOC->newFromAlbumAndCDTOC($mb->{DBH}, $al, $tocid)
 	or return $m->comp(
 		"/comp/error",
-		"Invalid discid and album passed.",
+		"No such CDTOC #$tocid, or it is not linked to album #$albumid",
 		1, 1,
 	);
 
-(my $d) = grep { $_->{discid} eq $discid } @discid_refs
-	or return $m->comp(
-		"/comp/error",
-		"Invalid discid and album passed.",
-		1, 1,
-	);
-
-my $id = $d->{id};
-my $numtracks = 0;
-$numtracks = $1
-	if $d->{toc}
-	and $d->{toc} =~ /^\d+ (\d+)/;
+my $cdtoc = $alcdtoc->GetCDTOC;
+my $numtracks = $cdtoc->GetTrackCount;
 
 if ($newalbumid ne "")
 {
@@ -70,6 +59,9 @@ if ($newalbumid ne "")
 
 	my $url = "/showalbum.html?albumid=$albumid";
 
+	return $m->comp("movediscid-confirm", $cdtoc, $al, $newal)
+		if not $confirm;
+
 	$m->comp(
 		"/comp/entermods",
 		DBH => $mb->{DBH},
@@ -80,13 +72,11 @@ if ($newalbumid ne "")
 				privs => $session{privs},
 				type => &ModDefs::MOD_MOVE_DISCID,
 				# --
+				cdtoc => $cdtoc,
 				oldalbum => $al,
 				newalbum => $newal,
-				discid => $discid,
-				rowid => $id,
 			);
 
-			# TODO no UI for entering $notetext
 			$mods[0]->InsertNote($session{'uid'}, $notetext)
 				if $mods[0]
 				and $notetext =~ /\S/;
@@ -147,8 +137,9 @@ my $trackdesc = (
 % if (@albums) {
 
 <p>
-	Select a new album for CD Index Id 
-	<span class="bold"><% $discid %></span>
+	Select a new album for
+	<a href="/showcdtoc.html?id=<% $cdtoc->GetId %>"
+		>disc ID '<% $cdtoc->GetDiscID %>'</a>.&nbsp;
 	(NOTE: Only albums with <% $trackdesc %> have been shown).
 <p>
 
@@ -166,7 +157,7 @@ my $trackdesc = (
 				class="formstyle"
 				>
 				<p>
-					<input type="hidden" name="discid" value="<% $discid %>">
+					<input type="hidden" name="tocid" value="<% $tocid %>">
 					<input type="hidden" name="albumid" value="<% $albumid %>">
 					<input type="hidden" name="newalbumid" value="<% $ref->GetId %>">
 					<input type="submit" value="Select &gt;&gt;">
@@ -186,7 +177,8 @@ my $trackdesc = (
 		Disc IDs can only be moved to albums with the same number
 		of tracks.&nbsp;
 		Since this artist does not have any other albums with <% $trackdesc %>,
-		disc id <% $discid %> cannot be moved.
+		<a href="/showcdtoc.html?id=<% $cdtoc->GetId %>">disc ID '<%
+			$cdtoc->GetDiscID %>'</a> cannot be moved.
 	</p>
 	<p>
 		<a href="/showalbum.html?albumid=<% $al->GetId %>">Back</a>

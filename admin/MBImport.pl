@@ -276,6 +276,7 @@ sub ImportAllTables
 		album
 		album_amazon_asin
 		album_amazon_asin_sanitised
+		album_cdtoc
 		albumjoin
 		albummeta
 		albumwords
@@ -285,10 +286,10 @@ sub ImportAllTables
 		artistwords
 		automod_election
 		automod_election_vote
+		cdtoc
 		clientversion
 		country
 		currentstat
-		discid
 		historicalstat
 		moderation_closed
 		moderation_note_closed
@@ -301,7 +302,6 @@ sub ImportAllTables
 		release
 		replication_control
 		stats
-		toc
 		track
 		trackwords
 		trm

@@ -146,6 +146,7 @@ use Scalar::Util qw( reftype weaken );
             { name => "Track Numbers",			url => "/reports/generated/TracksNamedWithSequence/index.html" },
             { name => "Duplicate Tracks",		url => "/reports/generated/DuplicateTrackNumbers/index.html" },
             { name => "Broken Disc IDs",		url => "/reports/generated/BrokenDiscIDs/index.html" },
+            { name => "Win32 Disc IDs",			url => "/reports/generated/BadWin32CDTOCs/index.html" },
             { name => "Data Tracks",			url => "/reports/generated/SuperfluousDataTracks/index.html" },
             { name => "Duplicate Albums", 		url => "/reports/generated/DuplicateAlbums/index.html" },
             { name => "More Duplicate Artists", url => "/reports/generated/DuplicateArtists2/index.html" },

@@ -57,6 +57,14 @@ sub preload_files
 		&$recurse($t,  qr/\.(html|inc)$/);
 	}
 
+	# Preloading seems to sometimes forget to import '$r'.  This saves
+	# us having to declare '$r' in whichever component happens to complain at
+	# server startup time.
+	{
+		package MusicBrainz::Server::ComponentPackage;
+		use vars '$r';
+	}
+
 	[ sort keys %files ];
 }
 

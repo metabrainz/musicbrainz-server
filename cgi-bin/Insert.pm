@@ -186,8 +186,6 @@ sub _Insert
     my $tr = Track->new($this->{DBH});
 	require TRM;
     my $trm = TRM->new($this->{DBH});
-	require Discid;
-    my $di = Discid->new($this->{DBH});
 
 	my $artist;
 	my $artistid;
@@ -345,7 +343,8 @@ sub _Insert
     # If a valid cdindexid and toc was supplied, then insert that now
     if (exists $info->{cdindexid} && exists $info->{toc})
     {
-        $di->Insert($info->{cdindexid}, $albumid, $info->{toc});
+		require MusicBrainz::Server::AlbumCDTOC;
+		MusicBrainz::Server::AlbumCDTOC->Insert($this->{DBH}, $albumid, $info->{toc});
         $info->{cdindexid_insertid} = $info->{cdindexid};
     }
 

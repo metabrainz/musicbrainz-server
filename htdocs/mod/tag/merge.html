@@ -106,10 +106,9 @@ if ($confirm)
 
 my ($id, $ar, $artist); 
 my (%merged, @id_numtracks);
-my ($i, $al, @tracks, $tr, @ids, $di);
+my ($i, $al, @tracks, $tr, @ids);
 
     $ar = Artist->new($mb->{DBH});
-    $di = Discid->new($mb->{DBH});
     $i = 0;
     foreach $al (@objs)
     {
@@ -119,15 +118,12 @@ my ($i, $al, @tracks, $tr, @ids, $di);
            $merged{$tr->GetSequence()}++;
        }
 
-       @ids = $di->GetDiscidFromAlbum($al->GetId());
-       foreach $id (@ids)
-       {
-           if ($id->{toc} =~ /^\d* (\d*)/)
-           {
-               push @id_numtracks, $1;
-           }
-       }
-       
+		for (@{ $al->GetDiscIDs })
+		{
+			my $num = $_->GetCDTOC->GetTrackCount;
+	  		push @id_numtracks, $num;
+		}
+
        if ($i == 0)
        {
            </%perl>

@@ -3,6 +3,7 @@
 -- Alphabetical order
 DROP TABLE album;
 DROP TABLE album_amazon_asin;
+DROP TABLE album_cdtoc;
 DROP TABLE albumjoin;
 DROP TABLE albummeta;
 DROP TABLE albumwords;
@@ -11,10 +12,10 @@ DROP TABLE artistalias;
 DROP TABLE artistwords;
 DROP TABLE automod_election;
 DROP TABLE automod_election_vote;
+DROP TABLE cdtoc;
 DROP TABLE clientversion;
 DROP TABLE country;
 DROP TABLE currentstat;
-DROP TABLE discid;
 DROP TABLE historicalstat;
 DROP TABLE moderation_closed;
 DROP TABLE moderation_note_closed;
@@ -25,7 +26,6 @@ DROP TABLE moderator_preference;
 DROP TABLE moderator_subscribe_artist;
 DROP TABLE release;
 DROP TABLE stats;
-DROP TABLE toc;
 DROP TABLE track;
 DROP TABLE trackwords;
 DROP TABLE trm;

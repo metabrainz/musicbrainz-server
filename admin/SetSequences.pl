@@ -68,6 +68,8 @@ print "Connected to database.\n";
 
 SetSequence($sql, "album");
 SetSequence($sql, "albumjoin");
+# album_amazon_asin - not a serial column
+SetSequence($sql, "album_cdtoc");
 # albummeta - not a serial column
 # albumwords - no unique integer column
 SetSequence($sql, "artist");
@@ -76,10 +78,10 @@ SetSequence($sql, "artistalias");
 # artistwords - no unique column
 SetSequence($sql, "automod_election");
 SetSequence($sql, "automod_election_vote");
+SetSequence($sql, "cdtoc");
 SetSequence($sql, "clientversion");
 SetSequence($sql, "country");
 SetSequence($sql, "currentstat");
-SetSequence($sql, "discid");
 SetSequence($sql, "historicalstat");
 # moderation_closed - not a serial column
 # moderation_note_closed - not a serial column
@@ -91,7 +93,6 @@ SetSequence($sql, "moderator_subscribe_artist");
 SetSequence($sql, "release");
 SetSequence($sql, "replication_control");
 SetSequence($sql, "stats");
-SetSequence($sql, "toc");
 SetSequence($sql, "track");
 # trackwords - no unique column
 SetSequence($sql, "trm");

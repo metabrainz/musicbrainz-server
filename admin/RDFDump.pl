@@ -174,10 +174,12 @@ sub DumpAlbums
 
 	$album = Album->new($sql->{DBH});
 	$sql2 = Sql->new($sql->{DBH});
-	if (!$sql2->Select(qq|select album, disc from Discid order by album|))
-	{
-		die "Cannot start nested disk id query.\n";
-	}
+	$sql2->Select(
+		"SELECT	j.album, t.discid
+		FROM	album_cdtoc j, cdtoc t
+		WHERE	j.cdtoc = t.id
+		ORDER BY album",
+	);
 
 	$last_id = "";
 	for($count = 1;@row = $sql->NextRow; $count++)

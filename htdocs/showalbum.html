@@ -1,7 +1,7 @@
 %# vi: set ts=4 sw=4 ft=mason :
 <%args>
 $albumid => ""
-$discid => ""
+$discid => undef
 $mbid => ""
 $mbt=>$session{'mbt'}
 $tport=>$session{'tport'}
@@ -14,12 +14,13 @@ UserStuff::EnsureSessionOpen(), $session{mbt} = 1
 UserStuff::EnsureSessionOpen(), $session{tport} = $tport
    if $tport;
 
+use URI::Escape qw( uri_escape );
+return $m->comp("/comp/redirect", "/bare/cdlookup.html?id=" . uri_escape($discid))
+	if defined $discid;
+
 if ($mbid ne "")
 {
 	MusicBrainz::IsGUID($mbid)
-		or return $m->comp("/comp/badargs", 1, 1);
-} elsif ($discid ne "") {
-	MusicBrainz::IsSingleLineString($discid)
 		or return $m->comp("/comp/badargs", 1, 1);
 } else {
 	MusicBrainz::IsNonNegInteger($albumid) && $albumid
@@ -33,15 +34,6 @@ my $album = Album->new($mb->{DBH});
 if ($mbid ne "")
 {
 	$album->SetMBId($mbid);
-} elsif ($discid ne "") {
-    my $di = Discid->new($mb->{DBH});
-    $albumid = $di->GetAlbumFromDiscid($discid)
-		or return $m->comp(
-			"/comp/error",
-			"Discid $discid was not found in the database.",
-			1, 1,
-		);
-	$album->SetId($albumid);
 } else {
 	$album->SetId($albumid);
 }
@@ -49,7 +41,7 @@ if ($mbid ne "")
 $album->LoadFromId(1)
 	or return $m->comp(
 		"/comp/error",
-		"Album not found in the database.",
+		"Album #".$album->GetId." not found in the database.",
 		1, 1,
 	);
 

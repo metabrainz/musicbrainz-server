@@ -9,6 +9,8 @@ CREATE INDEX album_pageindex ON album (page);
 
 CREATE INDEX album_amazon_asin_asin ON album_amazon_asin (asin);
 
+CREATE UNIQUE INDEX album_cdtoc_albumcdtoc ON album_cdtoc (album, cdtoc);
+
 CREATE INDEX albumjoin_albumindex ON albumjoin (album);
 CREATE UNIQUE INDEX albumjoin_albumtrack ON albumjoin (album, track);
 CREATE INDEX albumjoin_trackindex ON albumjoin (track);
@@ -28,15 +30,16 @@ CREATE INDEX artistalias_refindex ON artistalias (ref);
 
 CREATE INDEX artistwords_artistidindex ON artistwords (artistid);
 
+CREATE INDEX cdtoc_discid ON cdtoc (discid);
+CREATE INDEX cdtoc_freedbid ON cdtoc (freedbid);
+CREATE UNIQUE INDEX cdtoc_toc ON cdtoc (trackcount, leadoutoffset, trackoffset);
+
 CREATE UNIQUE INDEX clientversion_version ON clientversion (version);
 
 CREATE UNIQUE INDEX country_isocode ON country (isocode);
 CREATE UNIQUE INDEX country_name ON country (name);
 
 CREATE INDEX currentstat_name ON currentstat (name);
-
-CREATE INDEX discid_albumindex ON discid (album);
-CREATE UNIQUE INDEX discid_disc_key ON discid (disc);
 
 CREATE INDEX historicalstat_date ON historicalstat (snapshotdate);
 CREATE INDEX historicalstat_name_snapshotdate ON historicalstat (name, snapshotdate);
@@ -66,9 +69,6 @@ CREATE UNIQUE INDEX moderator_subscribe_artist_moderator_key ON moderator_subscr
 CREATE INDEX release_album ON release (album);
 
 CREATE UNIQUE INDEX stats_timestampindex ON stats (timestamp);
-
-CREATE INDEX toc_albumindex ON toc (album);
-CREATE UNIQUE INDEX toc_discindex ON toc (discid);
 
 CREATE INDEX track_artistindex ON track (artist);
 CREATE UNIQUE INDEX track_gidindex ON track (gid);

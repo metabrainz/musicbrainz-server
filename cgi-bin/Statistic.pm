@@ -160,7 +160,7 @@ my %stats = (
 	},
 	"count.discid" => {
 		DESC => "Count of all discids",
-		SQL => "SELECT COUNT(*) FROM discid",
+		SQL => "SELECT COUNT(*) FROM album_cdtoc",
 	},
 	"count.moderation" => {
 		DESC => "Count of all moderations",
@@ -204,7 +204,7 @@ my %stats = (
 
 	"count.album.has_discid" => {
 		DESC => "Count of albums with at least one disc ID",
-		SQL => "SELECT COUNT(DISTINCT album) FROM discid",
+		SQL => "SELECT COUNT(DISTINCT album) FROM album_cdtoc",
 	},
 	"count.album.Ndiscids" => {
 		DESC => "Distribution of Disc IDs per album (varying disc IDs)",
@@ -218,7 +218,7 @@ my %stats = (
 				"SELECT c, COUNT(*) AS freq
 				FROM (
 					SELECT album, COUNT(*) AS c
-					FROM discid
+					FROM album_cdtoc
 					GROUP BY album
 				) AS t
 				GROUP BY c

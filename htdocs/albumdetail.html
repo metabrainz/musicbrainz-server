@@ -49,17 +49,10 @@ $ar->LoadFromId
 
 <%perl>
 $al->GetDiscidCount;
-my $di = Discid->new($al->{DBH});
-my @ids = $di->GetDiscidFromAlbum($al->GetId);
+my @ids = @{ $al->GetDiscIDs };
 
-my $maxtracks = 0;
-for my $d (@ids)
-{
-	my %info = Discid->ParseTOC($d->{toc});
-	$d->{PARSE} = \%info;
-	$maxtracks = $info{tracks}
-		if $info{tracks} > $maxtracks;
-}
+use List::Util qw( max );
+my $maxtracks = max(map { $_->GetCDTOC->GetTrackCount } @ids);
 
 </%perl>
 
@@ -82,15 +75,15 @@ for my $d (@ids)
 % }
 	</tr>
 % my $row = 0;
-% for my $info (map { $_->{PARSE} } @ids) {
+% for my $cdtoc (map { $_->GetCDTOC } @ids) {
 % my $style = (++$row % 2 ? "background-color: #eee" : "");
 	<tr style="<% $style |n %>">
-		<td><% $info->{discid} %></td>
-		<td><% $info->{tracks} %></td>
+		<td><a href="/showcdtoc.html?id=<% $cdtoc->GetId %>" title="FreeDB Id: <% $cdtoc->GetFreeDBID %>"><% $cdtoc->GetDiscID %></a></td>
+		<td><% $cdtoc->GetTrackCount %></td>
 % if ($disciddetail =~ /(times|both)/) {
-		<td><% Track::FormatTrackLength($info->{leadoutoffset}/75*1000) %></td>
-% for (1..$maxtracks) {
-		<td><% Track::FormatTrackLength($info->{tracklengths}[$_-1]/75*1000) %></td>
+		<td><% Track::FormatTrackLength($cdtoc->GetLeadoutOffset/75*1000) %></td>
+% for (@{ $cdtoc->GetTrackLengths }) {
+		<td><% Track::FormatTrackLength($_/75*1000) %></td>
 % }
 % }
 % if ($disciddetail =~ /(both)/) {
@@ -99,9 +92,9 @@ for my $d (@ids)
 		<td align="right" colspan="2">Sector offsets: &nbsp; </td>
 % }
 % if ($disciddetail =~ /(sectors|both)/) {
-		<td><% $info->{leadoutoffset} %></td>
-% for (1..$maxtracks) {
-		<td><% $info->{trackoffsets}[$_-1] %></td>
+		<td><% $cdtoc->GetLeadoutOffset %></td>
+% for (@{ $cdtoc->GetTrackOffsets }) {
+		<td><% $_ %></td>
 % }
 % }
 	</tr>

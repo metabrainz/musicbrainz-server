@@ -1,103 +1,27 @@
 %# vi: set ts=4 sw=4 ft=mason :
+<%args>
+$id => undef
+$tracks => undef
+$toc => undef
+$hack => undef
+</%args>
 <%perl>
 
-$m->comp("/comp/sidebar", title=>"Lookup/Submit a CD");
+# Hack: this page used to be called directly (i.e. POSTed to) but now it's
+# only called as a component of another page (/bare/cdlookup.html).
+# Perhaps we should have moved the code we wanted to keep to another place,
+# but keeping it here means we can track it easier with CVS.
 
-my $id = $ARGS{'id'};
-my $tracks = $ARGS{'tracks'};
-my $toc = $ARGS{'toc'};
-my $notfound = $ARGS{'notfound'};
+# $hack can dereference to "hack" if we are called as a subcomponent.
+return $m->comp("/comp/redirect", "/search.html")
+	unless ref($hack)
+	and $$hack eq "hack";
 
-my $valid = $id;
-$valid =~ tr/_.\-A-Za-z0-9//d;
+</%perl>
 
-if (!defined $id || $id eq '' ||
-    !defined $tracks || $tracks eq '' ||
-    !defined $toc || $toc eq '')
-{
-    $m->out("The Disc id, TOC and the number of tracks need to be passed in ");
-    $m->out("as part of the page URL.&nbsp; Without this information you ");
-    $m->out("cannot use these pages to submit a CD.&nbsp; Please use the ");
-    $m->out("<a href='/addalbum.html?artistid=0'>add album</a> page ");
-    $m->out("instead.");
-	return;
-}
-elsif (length($id) == 32 || !defined $toc || $toc eq '')
-{
-    $m->out('Please <a href="/download.html">download</a> the latest client software.');
-	return;
-}
-elsif (length($id) != 28 || substr($id, -1, 1) ne "-" || $valid ne "")
-{
-    $m->out("The disk id you are trying to submit ($id) is invalid.");
-	return;
-}
-elsif (not Discid->ParseTOC($toc))
-{
-    $m->out("The TOC (table of contents) you are trying to submit ($toc) is invalid.");
-	return;
-}
-
-    my $mb = $m->comp("/comp/dblogin");
-    my $di = Discid->new($mb->{DBH});
-    my $album = $di->GetAlbumFromDiscid($id);
-    if (defined $album)
-    {
-        my ($al, $ar);
-
-        $al = Album->new($mb->{DBH});
-        $al->SetId($album);
-        if ($al->LoadFromId())
-        {
-            $ar = Artist->new($mb->{DBH});
-            $ar->SetId($al->GetArtist());
-            if ($ar->LoadFromId())
-            {
-                $m->out("Found album:<p>");
-                $m->comp("/comp/artisttitle", artist=>$ar);
-                $m->comp("/comp/album", album=>$al, artist=>$ar);
-            }
-            else
-            {
-                $m->out("Could not load artist for the album.");
-            }
-        }
-        else
-        {
-            $m->out("Could not load album.");
-        }
-		return;
-    } 
-
-</%perl> 
-        <table>
-        <tr>
-        <td valign="top" width="50%">
-%       if ($notfound) {
-            The CD you tried to look up was not found. Please use the
-            form below to submit this CD to MusicBrainz.
-%       }
-        Please follow the instructions below:
         <p>
-%       if (!exists $session{user}) {
-            <font class="bold">Note:</font> Please 
-            log in to get credit for your submission. 
-            <p>
-% }
-        </td>
-        <td align="center" width="50%">
-%       if (!exists $session{user}) {
-            <& /comp/tablebegin, title=>'Moderator Login' &>
-            <& /comp/loginbox &>
-            <& /comp/tableend &>
-% }
-        </td>
-        </tr>
-        </table>
-
-        <center>
         Does the CD have a single artist or multiple artists (compilation)?
-        </center>
+        </p>
         <p>
         
         <table cellspacing=0 width="100%">

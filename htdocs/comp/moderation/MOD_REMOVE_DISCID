@@ -2,12 +2,14 @@
 
 <%method ShowPreviousValue>
 % my $this = shift;
+% my $new = $this->{'new_unpacked'};
 
-	Old:
-
-% if ($this->GetStatus != &ModDefs::STATUS_APPLIED) {
- 	<a href="/showalbum.html?discid=<% $this->GetPrev %>"
-		><% $this->GetPrev %></a>
+	Disc ID:
+% if (my $cdtocid = $new->{"CDTOCId"}) {
+	<a href="/showcdtoc.html?id=<% $cdtocid %>"><% $this->GetPrev %></a>
+	<br>Album:
+	<a href="/showalbum.html?albumid=<% $new->{"AlbumId"} %>"
+		><% $new->{"AlbumName"} %></a>
 % } else {
 	<% $this->GetPrev %>
 % }
@@ -16,10 +18,6 @@
 
 <%method ShowNewValue>
 % my $this = shift;
-
-	New:
-	<span class="bold"><% $this->GetNew %></span>
-
 </%method>
 
 %# eof

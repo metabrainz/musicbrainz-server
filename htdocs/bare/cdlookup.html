@@ -1,70 +1,243 @@
 %# vi: set ts=2 sw=2 ft=mason :
 <%args>
 $id => undef
-$tracks=>""
-$toc=>""
+# 'tracks' can be passed too, but we'll ignore it
+# $tracks=>""
+$toc => undef
 </%args>
 <%perl>
-use CGI;
 
-# For some reason, in order to precompile, $r needs to be declared:
-use vars qw( $r );
+# This page handles three types of requests:
+# * /showalbum.html?discid=.... (CDIndexId or FreeDBId only, no TOC)
+# * from /search.html, search by disc id (either CDIndexId or FreeDBId, no TOC)
+# * direct request from libmusicbrainz (see GetWebSubmitURL) (has TOC; disc id ignored)
 
-my $valid = $id;
-$valid =~ tr/_.\-A-Za-z0-9//d;
-
-if (!defined $id || $id eq '')
+my %info;
+if (defined $toc)
 {
-    $m->comp("/comp/sidebar", title=>"Lookup Error");
-    $m->out("This page needs the id argument.");
-    $m->comp("/comp/footer");
-		return;
-}
-elsif (length($id) != 28 || substr($id, -1, 1) ne "-" || $valid ne "")
-{
-    $m->comp("/comp/sidebar", title=>"Lookup Error");
-    $m->out("The disk id you are trying to lookup ($id) is invalid.");
-    $m->comp("/comp/footer");
-		return;
+	# Is the passed TOC valid?
+	%info = MusicBrainz::Server::CDTOC->ParseTOC($toc);
+	keys(%info)
+		? ($id = $info{discid}) # ensure discid matches toc
+		: ($toc = undef); # discard invalid toc
 }
 
-    my $mb = $m->comp("/comp/dblogin");
-    my $di = Discid->new($mb->{DBH});
-    my $album = $di->GetAlbumFromDiscid($id);
+if (not defined $id and not defined $toc)
+{
+	</%perl>
+	<& /comp/sidebar, title => "Error: Arguments missing" &>
+	<p>
+		To look up a CD you need to pass a CD Index ID (as "id")
+		and / or the complete CD TOC (as "toc").
+	</p>
+	<& /comp/footer &>
+	<%perl>
+	return;
+}
 
-		my $url;
+my $mb = $m->comp("/comp/dblogin");
 
-    if (defined $album)
-    {
-        $url = "/showalbum.html?albumid=$album";
-    }
-    else
-    {
-        if ($tracks eq '' || $toc eq '')
-        {
-            $m->comp("/comp/sidebar", title=>"CD Not Found");
-            $m->out("This CD was not found.<p>");
-            $m->out(qq|NOTE: If you pass the toc and tracks argument 
-                      to this page, you will be automatically redirected
-                      to the proper submit page)|);
-            $m->comp("/comp/footer");
-        }
-        else
-        {
-            # redirect to submit
-            $toc = CGI::escape($toc);
-            $url = "/cdi/submit.html?id=$id&tracks=$tracks&toc=$toc&notfound=1";
-        }
-    }
+# Here we split into two paths, depending on whether we or not we were passed
+# the TOC.
 
-    if ($url)
-    {
-        $r->method('GET');
-        $r->headers_in->unset('Content-length');
-        
-        $r->content_type('text/html; charset=UTF-8');
-        $r->header_out(Location=>$url);
-        $r->status(302);
-    }
+if (not defined $toc)
+{
+	# If we have no TOC then we cannot add the album if it's missing.  So just
+	# look for the album (based on CDIndex ID or FreeDB ID) and show whatever we
+	# find.
+
+	# Retrieve the albums matching the given ID
+	use MusicBrainz::Server::CDTOC ':hashlength';
+	my $alcdtoc = MusicBrainz::Server::AlbumCDTOC->new($mb->{DBH});
+
+	my $albumids = (
+		length($id) == CDINDEX_ID_LENGTH
+		? $alcdtoc->GetAlbumIDsFromDiscID($id)
+		: length($id) == FREEDB_ID_LENGTH
+		? $alcdtoc->GetAlbumIDsFromFreeDBID($id)
+		: []
+	);
+
+	if (not @$albumids)
+	{
+		# No matches, and we can't add a new album.  Just show the message.
+		</%perl>
+		<& /comp/sidebar, title => "CD Not Found" &>
+		<p>
+			No CD found with the ID '<% $id %>'.
+		</p>
+		<& /comp/footer &>
+		<%perl>
+	} elsif (@$albumids == 1) {
+		# Exactly one match - redirect to it
+		$m->comp("/comp/redirect", "/showalbum.html?albumid=$albumids->[0]");
+	} else {
+		# Multiple matching albums - show them all
+		</%perl>
+		<& /comp/sidebar, title => "Multiple CDs Found" &>
+		<p>
+			The following CDs <% @$albumids == 2 ? "both" : "all" %> have
+			the ID '<% $id %>'.
+		</p>
+		<& .ShowMultipleAlbums, dbh => $mb->{DBH}, albumids => $albumids &>
+		<& /comp/footer &>
+		<%perl>
+	}
+}
+else
+{
+	# If on the other hand we have a TOC then we can add the album if it's
+	# missing.
+	
+	# First let's look for albums using this TOC (which is in any case
+	# more accurate than simply looking up based on CDIndex ID).
+	require MusicBrainz::Server::CDTOC;
+	my $albumids;
+	{
+		my $cdtoc = MusicBrainz::Server::CDTOC->newFromTOC($mb->{DBH}, $toc);
+		$albumids = [], last
+			if not $cdtoc;
+		if ($cdtoc)
+		{
+			my $alcdtocs = $cdtoc->GetAlbumCDTOCs;
+			$albumids = [ map { $_->GetAlbumId } @$alcdtocs ];
+		}
+	}
+
+	if (not @$albumids)
+	{
+		# No albums.  Perhaps you'd like to add one?
+		</%perl>
+		<& /comp/sidebar, title => "CD Not Found" &>
+
+		<p>
+			No CD found with the TOC '<% $toc %>'.
+		</p>
+
+		<& .ShowSubmitForm, \%info &>
+
+		<& /comp/footer &>
+		<%perl>
+	} elsif (@$albumids == 1) {
+		# Exactly one matching album.  Again, let the user add one.
+		</%perl>
+		<& /comp/sidebar, title => "CD Found" &>
+
+		<h2>Matching CD</h2>
+		<p>
+			The following CD has
+			the TOC '<% $toc %>'.&nbsp; If the CD you have is
+			not this one, please <a href="#SubmitForm">enter the missing CD</a>.
+		</p>
+		<& .ShowMultipleAlbums, dbh => $mb->{DBH}, albumids => $albumids &>
+
+		<& .ShowSubmitForm, \%info &>
+
+		<& /comp/footer &>
+		<%perl>
+	} else {
+		# Multiple matching albums.  Show them all, or let the user add one.
+		</%perl>
+		<& /comp/sidebar, title => "Multiple CDs Found" &>
+
+		<h2>Matching CDs</h2>
+		<p>
+			The following CDs <% @$albumids == 2 ? "both" : "all" %> have
+			the TOC '<% $toc %>'.&nbsp; If the CD you have is
+			<% @$albumids == 2 ? "neither" : "none" %> of these,
+			please <a href="#SubmitForm">enter the missing CD</a>.
+		</p>
+		<& .ShowMultipleAlbums, dbh => $mb->{DBH}, albumids => $albumids &>
+
+		<& .ShowSubmitForm, \%info &>
+
+		<& /comp/footer &>
+		<%perl>
+	}
+}
 
 </%perl>
+
+<%def .ShowSubmitForm>
+% my $info = shift;
+% my $url = "/bare/cdlookup.html?toc=" . uri_escape($info->{'toc'});
+
+		<h2 id="SubmitForm">Add a CD</h2>
+
+% if (&DBDefs::DB_IS_REPLICATED) {
+
+		<p>
+			This is a mirror server.&nbsp; To add a CD you must
+			<a href="http://www.musicbrainz.org<% $url %>">go to the main server</a>.
+		</p>
+
+% } elsif ($session{uid}) {
+
+		<& /cdi/submit.html,
+			id => $info->{'discid'},
+			toc => $info->{'toc'},
+			tracks => $info->{'tracks'},
+			hack => \"hack",
+			&>
+
+% } else {
+
+		<p>
+			To add a CD, you must first log in.
+		</p>
+
+		<& /comp/tablebegin, title=>'Login', attrs=>"align=center", 
+	 		gattrs=>"width='15em'" &>
+			<& /comp/loginbox, url => $url &>
+	 	<& /comp/tableend &>
+% }
+</%def>
+
+<%def .ShowMultipleAlbums>
+<%args>
+$dbh
+$albumids
+</%args>
+<%perl>
+
+# Retrieve each album, and the artist for each one
+my %artists;
+
+for my $id (@$albumids)
+{
+	my $al = Album->new($dbh);
+	$al->SetId($id);
+	$al->LoadFromId
+		or next;
+	my $ar = $artists{ $al->GetArtist } ||= do {
+		my $ar = Artist->new($dbh);
+		$ar->SetId($al->GetArtist);
+		$ar->LoadFromId ? $ar : undef;
+	};
+	$ar or next;
+	push @{ $ar->{_albums} }, $al;
+}
+
+my @artists = values %artists
+	or return;
+
+$_->{_sort} = MusicBrainz::NormaliseSortText($_->GetSortName)
+	for @artists;
+
+for my $ar (sort { $a->{_sort} cmp $b->{_sort} } @artists)
+{
+	$m->out('<div style="margin: 1em 0">&nbsp;</div>');
+	$m->comp("/comp/artisttitle", artist => $ar);
+
+	my @albums = @{ $ar->{_albums} };
+	$_->{_sort} = MusicBrainz::NormaliseSortText($_->GetName)
+		for @albums;
+
+	for my $al (sort { $a->{_sort} cmp $b->{_sort} } @albums)
+	{
+		$m->comp("/comp/album", artist => $ar, album => $al);
+	}
+}
+
+</%perl>
+</%def>

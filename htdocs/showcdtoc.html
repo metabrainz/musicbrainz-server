@@ -1,0 +1,21 @@
+%# vi: set ts=4 sw=4 ft=mason :
+<%args>
+$id => ""
+</%args>
+<%perl>
+
+my $mb = $m->comp("/comp/dblogin");
+
+my $cdtoc = MusicBrainz::Server::CDTOC->newFromId($mb->{DBH}, $id)
+	or return $m->comp(
+		"/comp/error",
+		"No such CDTOC #$id",
+		1, 1,
+	);
+
+</%perl>
+<& /comp/sidebar, title => "CD TOC Details" &>
+
+<& /comp/cdtocinfo, cdtoc => $cdtoc &>
+
+<& /comp/footer &>

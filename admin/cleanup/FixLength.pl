@@ -65,10 +65,10 @@ $| = 1;
 print localtime() . " : Finding candidate albums\n" if $verbose;
 my $albums = $sql->SelectSingleColumnArray(
 	"SELECT DISTINCT a.id
-	FROM album a, albumjoin j, track t, toc
+	FROM album a, albumjoin j, track t, album_cdtoc
 	WHERE a.id = j.album
 	AND t.id = j.track
-	AND toc.album = a.id
+	AND album_cdtoc.album = a.id
 	AND t.length <= 0",
 );
 printf localtime() . " : Found %d album%s\n",
@@ -83,18 +83,16 @@ for my $id (@$albums)
 {
     print localtime() . " : Fixing album #$id\n" if $verbose;
 
-	my $tocs = $sql->SelectListOfHashes(
-		"SELECT * FROM toc WHERE album = ?", $id,
-	);
+	require Musicbrainz::Server::AlbumCDTOC;
+	my $tocs = Musicbrainz::Server::AlbumCDTOC->newFromAlbum($mb->{DBH}, $id);
+	$_ = $_->GetCDTOC for @$tocs;
 
 	if ($debug)
 	{
 		print "TOCs:\n";
 		for my $t (@$tocs)
 		{
-			print "  $t->{tracks} -";
-			print " ", $t->{"track$_"} for 1 .. $t->{tracks};
-			print "\n";
+			print "  " . $t->GetTOC . "\n";
 
 			require Track;
 			my @l = TrackLengthsFromTOC($t);
@@ -127,7 +125,7 @@ for my $id (@$albums)
 	# tracks, and all the tracks have no length.
 	if (@$tocs == 1)
 	{
-		my $ideal_tracks = $tocs->[0]{tracks};
+		my $ideal_tracks = $tocs->GetTrackCount;
 		my $want_tracks = join ",", 1 .. $ideal_tracks;
 		my $have_tracks = join ",", sort { $a<=>$b } map { $_->{sequence} } @$tracks;
 
@@ -183,7 +181,7 @@ for my $id (@$albums)
 	# Probably the next case to handle is any combination of:
 	# - multiple TOCs, but where they are all "close enough"
 	# - tracks already have length, but all those tracks match the TOC "well enough"
-	my %c; ++$c{ $_->{tracks} } for @$tocs;
+	my %c; ++$c{ $_->GetTrackCount } for @$tocs;
 
 	if (keys(%c) == 1)
 	{
@@ -272,7 +270,7 @@ for my $id (@$albums)
 
 	if (keys(%c)==1)
 	{
-		my $ideal_tracks = $tocs->[0]{tracks};
+		my $ideal_tracks = $tocs->[0]->GetTrackCount;
 		my $want_tracks = join ",", 1 .. $ideal_tracks;
 		my $have_tracks = join ",", sort { $a<=>$b } map { $_->{sequence} } @$tracks;
 		print " - got tracks $have_tracks\n" if $want_tracks ne $have_tracks;
@@ -288,17 +286,7 @@ print localtime() . " : ($tracks_set had no previous length)\n";
 sub TrackLengthsFromTOC
 {
 	my $toc = shift;
-    my @l;
-
-	$toc->{"track".($toc->{"tracks"}+1)} = $toc->{"leadout"};
-
-    for (my $i = 1; $i <= $toc->{'tracks'}; $i++)
-	{
-		my $frames = $toc->{'track'.($i+1)} - $toc->{'track'.$i};
-        push @l, int($frames/75*1000);
-    }
-
-	@l;
+	map { $_/75*1000 } @{ $toc->GetTrackLengths };
 }
 
 # eof FixLength.pl
