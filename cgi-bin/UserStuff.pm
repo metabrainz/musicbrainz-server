@@ -24,11 +24,9 @@
 #____________________________________________________________________________
 
 package UserStuff;
-use TableBase;
 
-use vars qw(@ISA @EXPORT);
-@ISA    = @ISA    = 'TableBase';
-@EXPORT = @EXPORT = '';
+use TableBase;
+{ our @ISA = qw( TableBase ) }
 
 use strict;
 use DBI;
@@ -357,41 +355,48 @@ sub GetUserInfo
 # Used by /login.html, /user/edit.html and /user/confirmaddress.html
 sub SetUserInfo
 {
-	my ($this, $uid, $email, $weburl, $bio) = @_;
+	my ($self, %opts) = @_;
 
-	my $sql = Sql->new($this->{DBH});
-	return undef if (!defined $uid || $uid == 0);
+	my $uid = $self->GetId;
+	if (not $uid)
+	{
+		carp "No user ID in SetUserInfo";
+		return undef;
+	}
+
+	my $sql = Sql->new($self->{DBH});
 
 	my $query = "UPDATE moderator SET";
+	my @args;
 
-	$query .= " email = " . $sql->Quote($email) . ", emailconfirmdate = NOW(),"
-		if (defined $email && $email ne '');
+	$query .= " email = ?, emailconfirmdate = NOW(),",
+		push @args, $opts{email}
+		if $opts{email};
 	$query .= " email = '', emailconfirmdate = NULL,"
-		if (defined $email && $email eq '');
+		if exists $opts{email}
+		and not $opts{email};
 
-	$query .= " weburl = " . $sql->Quote($weburl) . ","
-		if (defined $weburl && $weburl ne '');
+	$query .= " weburl = ?,",
+		push @args, $opts{weburl}
+		if defined $opts{weburl};
 
-	$query .= " bio = " . $sql->Quote($bio) . ","
-		if (defined $bio && $bio ne '');
+	$query .= " bio = ?,",
+		push @args, $opts{bio}
+		if defined $opts{bio};
 
-	if ($query =~ m/,$/)
-	{
-		chop($query);
-	}
-	else
-	{
-		# No valid args were specified, so bail
-		return;
-	}
+	$query =~ s/,$//
+		or return; # no changed fields
 
-	$query .= " WHERE id = $uid";
+	$query .= " WHERE id = ?";
+	push @args, $uid;
 
 	$sql->AutoTransaction(
-		sub { $sql->Do($query); 1 },
+		sub { $sql->Do($query, @args); 1 },
 	);
 
-	MusicBrainz::Server::Cache->delete($this->_GetCacheKey($uid));
+	MusicBrainz::Server::Cache->delete($self->_GetCacheKey($uid));
+
+	1;
 }
 
 sub CreditModerator
