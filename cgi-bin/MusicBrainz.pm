@@ -46,7 +46,7 @@ sub Login
 
    $dsn = DBDefs->DSN if (!defined $dsn);
    $this->{DBH} = DBI->connect($dsn,DBDefs->DB_USER,DBDefs->DB_PASSWD,
-                               { RaiseError => 1, AutoCommit => 1 });
+                               { RaiseError => 1, PrintError => 0, AutoCommit => 1 });
    return 0 if (!$this->{DBH});
    return 1;
 }

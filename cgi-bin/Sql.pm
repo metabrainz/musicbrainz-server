@@ -57,26 +57,32 @@ sub Select
     my ($this, $query) = @_;
     my ($ret, $t);
 
-    #print STDERR "SELECT: $query\n";
-    #$t = Benchmark::Timer->new(skip => 0);
-    #$t->start('start');
-    $this->{STH} = $this->{DBH}->prepare($query);
-    $ret = $this->{STH}->execute;
-    #$t->stop;
-    #print STDERR "--------------------------------------------\n";
-    #print STDERR "$query\n";
-    #$t->report;
-
-    if ($ret)
+    $ret = eval
     {
-        return $this->{STH}->rows;
+       #print STDERR "SELECT: $query\n";
+       #$t = Benchmark::Timer->new(skip => 0);
+       #$t->start('start');
+
+       $this->{STH} = $this->{DBH}->prepare($query);
+       $ret = $this->{STH}->execute;
+
+       #$t->stop;
+       #print STDERR "--------------------------------------------\n";
+       #print STDERR "$query\n";
+       #$t->report;
+       
+       return $this->{STH}->rows;
+    };
+    if ($@)
+    {
+        my $err = $@;
+
+        $this->{STH}->finish;
+        $this->{ERR} = $this->{DBH}->errstr;
+        cluck("Failed query:\n  '$query'\n$err\n");
+        die $err;
     }
-    $this->{ERR} = $this->{DBH}->errstr;
-    cluck("Failed query:\n  '$query' -> " . $this->{DBH}->errstr . "\n");
-
-    $this->{STH}->finish;
-
-    return undef;
+    return $ret;
 }
 
 sub Finish
@@ -125,17 +131,22 @@ sub Do
 #    $q = $query;
 #    $q =~ s/\n/ /g;
 #    print STDERR "$prefix $q\n$trace";
-
 #    print STDERR "DO: $query\n";
-    $ret = $this->{DBH}->do($query);
-    if ($ret)
-    {
-        return $ret;
-    }
-    $this->{ERR} = $this->{DBH}->errstr;
-    cluck("Failed query:\n  '$query' -> " . $this->{DBH}->errstr . "\n");
 
-    return undef;
+    $ret = eval
+    {
+        $this->{DBH}->do($query);
+        return 1;
+    };
+    if ($@)
+    {
+        my $err = $@;
+
+        $this->{ERR} = $this->{DBH}->errstr;
+        cluck("Failed query:\n  '$query'\n$err\n");
+        die $err;
+    }
+    return $ret;
 }
 
 sub GetSingleRow
@@ -193,7 +204,6 @@ sub GetSingleRowLike
            }
        }
     }
-    #print STDERR "$query\n";
     if ($this->Select($query))
     {
         @row = $this->NextRow;
@@ -295,9 +305,9 @@ sub Begin
 {
    my $this = $_[0];
 
-   return eval
+   eval
    {
-       return ($this->{DBH}->{AutoCommit} = 0);
+       ($this->{DBH}->{AutoCommit} = 0);
    };
    if ($@)
    {
@@ -311,9 +321,11 @@ sub Commit
 {
    my $this = $_[0];
 
-   return eval
+   my $ret = eval
    {
-       return $this->{DBH}->commit;
+       my $rv = $this->{DBH}->commit;
+       cluck("Commit failed") if ($rv eq '');
+       return $rv;
    };
    if ($@)
    {
@@ -321,16 +333,18 @@ sub Commit
        cluck($err);
        die $err;
    }
-   return 1;
+   return $ret;
 }
 
 sub Rollback
 {
    my $this = $_[0];
 
-   return eval
+   my $ret = eval
    {
-       return $this->{DBH}->rollback;
+       my $rv = $this->{DBH}->rollback;
+       cluck("Rollback failed") if ($rv eq '');
+       return $rv;
    };
    if ($@)
    {
@@ -338,5 +352,6 @@ sub Rollback
        cluck($err);
        die $err;
    }
+   return $ret;
 }
 
