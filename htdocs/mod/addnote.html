@@ -1,0 +1,31 @@
+<%args>
+$modid
+</%args>
+
+<& /comp/header_small, title=>'Add moderation note' &>  
+
+
+<center>
+<FORM METHOD="POST" ACTION="/bare/enter_note.html" 
+      ENCTYPE="application/x-www-form-urlencoded">
+
+<table border="0">
+<tr><td>
+Enter the note text below:
+</td></tr>
+
+<tr><td>
+<INPUT TYPE="text" NAME="text" SIZE=42> 
+<INPUT TYPE="hidden" NAME="modid" VALUE="<% $modid %>"><br>
+<INPUT TYPE="hidden" NAME="uid" VALUE="<% $session{uid} %>"><br>
+</td></tr>
+
+<tr><td align="right">
+<INPUT TYPE="submit" NAME="Submit" VALUE="Submit">
+</td></tr>
+</table>
+
+</FORM>
+</center>
+
+<& /comp/footer_small &>  
