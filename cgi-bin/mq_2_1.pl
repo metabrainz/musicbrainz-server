@@ -153,7 +153,9 @@ sub Authenticate
                untie %$session;
                return "Session key expired. Please Authenticate again."; 
            }
+
            print STDERR "Authenticated session $session_id\n";
+	   $session->{expire} = time() + &DBDefs::RDF_SESSION_SECONDS_TO_LIVE;
 
 	   $r->connection->user($session->{moderator})
 	   	if $r;
