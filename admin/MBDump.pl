@@ -110,4 +110,4 @@ if (DumpAllTables($dir))
        or die("Cannot write outputfile.\n");
 }
 
-#system("rm -rf $dir");
+system("rm -rf $dir");
