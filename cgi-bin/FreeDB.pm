@@ -37,6 +37,7 @@ use Artist;
 use Diskid;
 use ModDefs;
 use Style;
+use Alias;
 use Unicode::String;
 use constant  CD_MSF_OFFSET => 150;
 use constant  CD_FRAMES     =>  75;
@@ -144,9 +145,6 @@ sub Lookup
     my ($i, $first, $last, $leadout, @cddb_toc);
     my ($m, $s, $f, @cd_data, $ret);
     my ($id, $query, $trackoffsets, $offset, $sum, $total_seconds);
-
-$diskid = "6FtlNouSR8xl6EKF_JOrUteDGD0-";
-$toc = "1 10 158875 182 15667 35850 45910 57615 78420 91675 107545 120370 137745";
 
     my @toc = split / /, $toc;
     $first = shift @toc;
@@ -379,7 +377,7 @@ sub Retrieve
 sub InsertForModeration
 {
     my ($this, $info) = @_;
-    my ($new, $track, $in, $u, $st, $ar);
+    my ($new, $track, $in, $u, $st, $ar, $alias, $aliasid);
     my $ref = $info->{tracks};
 
     # Don't insert CDs that have only one track.
@@ -395,8 +393,22 @@ sub InsertForModeration
 
     $info->{sortname} = $st->MakeDefaultSortname($info->{artist});
 
-    print STDERR "* Check artist '$info->{artist}'\n";
+    $alias = Alias->new($this->{DBH});
     $ar = Artist->new($this->{DBH});
+
+    # Check to see if the artist has an alias.
+    $alias->{table} = "ArtistAlias";
+    $aliasid = $alias->Resolve($info->{artist});
+
+    if (defined $aliasid)
+    {
+        $ar->SetId($aliasid);
+        if ($ar->LoadFromId())
+        {
+            $info->{artist} = $ar->GetName();
+        }
+    }
+
     if ($ar->LoadFromName($info->{artist}) || 
         $ar->LoadFromSortname($info->{artist}))
     {
@@ -408,22 +420,14 @@ sub InsertForModeration
             $info->{artist} = $ar->GetName();
         }
 
-        print STDERR "* Loaded artist '$info->{artist}'\n";
         @albums = $ar->GetAlbums();
         foreach $al (@albums)
         {
-            print STDERR "* Check album '$info->{album}' - '$al->{name}'\n";
             if (lc($al->GetName()) eq lc($info->{album}))
             {
-                print STDERR "* Check track count " .
-                             $al->GetTrackCount() . " " .
-                             scalar(@$ref) . "\n";
-                             
                 if ($al->GetTrackCount() == scalar(@$ref))
                 {
                     my ($di);
-
-                    print STDERR "* Associate id $info->{cdindexid}\n";
 
                     $di = Diskid->new($this->{DBH});
                     $di->Insert($info->{cdindexid}, $al->GetId(), $info->{toc});
@@ -433,7 +437,6 @@ sub InsertForModeration
             }
         }
     }
-    print STDERR "* Insert new for $info->{artist} $info->{album}\n\n";
 
     $new = "Artist=$info->{artist}\n";
     $new .= "Sortname=$info->{sortname}\n";
