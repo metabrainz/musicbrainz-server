@@ -262,6 +262,8 @@ sub SetUserInfo
 
 	$query .= " email = " . $sql->Quote($email) . ", emailconfirmdate = NOW(),"
 		if (defined $email && $email ne '');
+	$query .= " email = '', emailconfirmdate = NULL,"
+		if (defined $email && $email eq '');
 
 	$query .= " password = " . $sql->Quote($password) . ","
 		if (defined $password && $password ne '');
@@ -284,11 +286,9 @@ sub SetUserInfo
 
 	$query .= " WHERE id = $uid";
 
-	eval {
-		$sql->AutoTransaction(
-			sub { $sql->Do($query); 1 },
-		);
-	};
+	$sql->AutoTransaction(
+		sub { $sql->Do($query); 1 },
+	);
 } 
 
 sub GetUserType
