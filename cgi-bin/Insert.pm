@@ -67,6 +67,8 @@ sub GetError
 #  tracks -> array of hash refs:                           [required]
 #    track    title                                        [required]
 #    tracknum                                              [required]
+#    artist or artistid                                    [MACs only]
+#    sortname                                              [MACs only]
 #    trmid                                                 [optional]
 #    duration                                              [optional]
 #    year                                                  [optional]
@@ -78,9 +80,10 @@ sub GetError
 sub Insert
 {
     my ($this, $info) = @_; 
-    my ($ar, $al, $tr, $gu, $di);
+    my ($ar, $al, $mar, $tr, $gu, $di);
     my ($artist, $album, $sortname, $artistid, $albumid, $trackid);
     my ($forcenewalbum, @albumtracks, $albumtrack, $track, $found);
+    my ($track_artistid);
 
     # Sanity check all the insert values
     if (!exists $info->{artist} && !exists $info->{artistid})
@@ -120,6 +123,7 @@ sub Insert
     }
 
     $ar = Artist->new($this->{DBH});
+    $mar = Artist->new($this->{DBH});
     $al = Album->new($this->{DBH});
     $tr = Track->new($this->{DBH});
     $gu = GUID->new($this->{DBH});
@@ -154,27 +158,8 @@ sub Insert
             $info->{sortname} = $info->{artist};
         }
 
-        $alias = Alias->new($this->{DBH});
-        $alias->{table} = "ArtistAlias";
-        $newartistid = $alias->Resolve($info->{artist});
-        if (defined $newartistid)
-        {
-           $ar->SetId($newartistid);
-           if (!defined $ar->LoadFromId())
-           {
-               $this->{error} = "Insert failed: Could not load aliased " .
-                                "artist $newartistid.\n";
-           }
-
-           $artistid = $newartistid;
-           $artist = $ar->GetName();
-           $sortname = $ar->GetSortName();
-        }
-        else
-        {
-           $artist = $info->{artist};
-           $sortname = $info->{sortname};
-        }
+        $artist = $info->{artist};
+        $sortname = $info->{sortname};
     }
 
     # Try and resolve/check the album name
@@ -234,7 +219,6 @@ sub Insert
             return undef;
         }
     }
-
 
     # No album id at this point means that we need to lookup/insert the album
     if (!defined $albumid)
@@ -346,9 +330,53 @@ sub Insert
             $tr->SetDuration($track->{duration});
         }
 
-        #if (exists $track->{artistid}
+        # Check to see if this track has an artist that needs to get
+        # looked up/inserted.
+        undef $track_artistid;
+        if (exists $track->{artist} && $artistid == Artist::VARTIST_ID)
+        {
+            if ($track->{artist} eq '')
+            {
+                $this->{error} = "Track Insert failed: no artist given.\n";
+                next;
+            }
+            if (!exists $track->{sortname} || $track->{sortname} eq '')
+            {
+                $track->{sortname} = $track->{artist};
+            }
+    
+            # Load/insert artist
+            $ar->SetName($track->{artist});
+            $ar->SetSortName($track->{sortname});
+            $track_artistid = $ar->Insert();
+            if (!defined $track_artistid)
+            {
+                $this->{error} = "Track Insert failed: Cannot insert artist.\n";
+                return undef;
+            }
+        }
+        if (exists $track->{artistid} && $artistid == Artist::VARTIST_ID)
+        {
+            $ar->SetId($track->{artistid});
+            if (!defined $ar->LoadFromId())
+            {
+                $this->{error} = "Track Insert failed: Could not load artist: " .
+                                 "$info->{artistid}\n";
+                next;
+            }
+            $track_artistid = $track->{artistid};
+        }
 
-        $trackid = $tr->Insert($al, $ar);
+        # Now insert the track. Make sure to check what kind of track it is...
+        if ($artistid != Artist::VARTIST_ID)
+        {
+            $trackid = $tr->Insert($al, $ar);
+        }
+        else
+        {
+            $mar->SetId($track_artistid);
+            $trackid = $tr->Insert($al, $mar);
+        }
         if (!defined $trackid)
         {
             $this->{error} = "Insert failed: Cannot insert track.\n";

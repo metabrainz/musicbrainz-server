@@ -72,7 +72,7 @@ for($i = 0;; $i++)
     $mod->SetNew($new);
     $mod->SetModerator($session{uid});
     $mod->SetDepMod($depmod);
-    $modid = $mod->Insert();
+    $modid = $mod->InsertModeration();
 }
 $mb->Logout();
 

@@ -43,14 +43,24 @@ sub Cleanup
 
    print("update Artist set modpending = 0\n") if (!$quiet);
    $dbh->do("update Artist set modpending = 0") if ($fix);
+
    print("update Album set modpending = 0\n") if (!$quiet);
    $dbh->do("update Album set modpending = 0") if ($fix);
+
    print("update AlbumJoin set modpending = 0\n") if (!$quiet);
-   $dbh->do("update Track set modpending = 0") if ($fix);
-   print("update Track set modpending = 0\n") if (!$quiet);
-   $dbh->do("update Genre set modpending = 0") if ($fix);
-   print("update Genre set modpending = 0\n") if (!$quiet);
    $dbh->do("update AlbumJoin set modpending = 0") if ($fix);
+
+   print("update Track set modpending = 0\n") if (!$quiet);
+   $dbh->do("update Track set modpending = 0") if ($fix);
+
+   print("update Genre set modpending = 0\n") if (!$quiet);
+   $dbh->do("update Genre set modpending = 0") if ($fix);
+
+   print("update AlbumJoin set modpending = 0\n") if (!$quiet);
+   $dbh->do("update AlbumJoin set modpending = 0") if ($fix);
+
+   print("update ArtistAlias set modpending = 0\n") if (!$quiet);
+   $dbh->do("update ArtistAlias set modpending = 0") if ($fix);
 
    $sth = $dbh->prepare("select rowid, tab from Changes where status = " .
                         Moderation::STATUS_OPEN);

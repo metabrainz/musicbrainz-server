@@ -40,6 +40,8 @@ else
     mc_out($artist->GetId());
     mc_out("\">View albums</a> ]<p>");
 
+    mc_comp("/comp/modnotice");
+
     mc_comp("/comp/tablebegin", title=>"Aliases"); 
     mc_out("<table><tr><th>Alias</th><th>Times Used</th><th>Last Used</th></tr>");
     for(;;)
@@ -47,7 +49,9 @@ else
         $item = shift @list;
         last if (!defined $item);
 
-        mc_out("<tr><td>$$item[1]</td>");
+        mc_out("<tr><td");
+        mc_out(' bgcolor="#FFFFCC"') if ($$item[4]);
+        mc_out(">$$item[1]</td>");
         mc_out("<td>$$item[2]</td>");
         mc_out("<td>$$item[3]</td>");
         if (exists $session{user}) 

@@ -44,6 +44,53 @@ sub new
    return bless $this, $type;
 }
 
+# Artist specific accessor function. Others are inherted from TableBase
+sub GetTable
+{
+   return $_[0]->{table};
+}
+
+sub SetTable
+{
+   $_[0]->{table} = $_[1];
+}
+
+sub GetRowId
+{
+   return $_[0]->{rowid};
+}
+
+sub GetLastUsed
+{
+   return $_[0]->{lastused};
+}
+
+sub GetTimesUsed
+{
+   return $_[0]->{timesused};
+}
+
+sub LoadFromId
+{
+   my ($this) = @_;
+   my ($sql, @row);
+
+   $sql = Sql->new($this->{DBH});
+   @row = $sql->GetSingleRow($this->{table}, [qw(id name ref 
+                                                 lastused timesused)],
+                             ["id", $this->GetId()]);
+   if (defined $row[0])
+   {
+        $this->{id} = $row[0];
+        $this->{name} = $row[1];
+        $this->{rowid} = $row[2];
+        $this->{lastused} = $row[3];
+        $this->{timesused} = $row[4];
+        return 1;
+   }
+   return undef;
+}
+
 # To insert a new alias, this function needs to be passed the alias id
 # and an alias name.
 sub Insert
@@ -54,7 +101,7 @@ sub Insert
    $sql = Sql->new($this->{DBH});
    $name = $sql->Quote($name);
    $sql->Do("insert into $this->{table} (Name, Ref, LastUsed, ".
-            "TimesUsed) values ($name, $id, now(), 0)");
+            "TimesUsed, ModPending) values ($name, $id, now(), 0, 0)");
 }
 
 sub Resolve
@@ -63,12 +110,15 @@ sub Resolve
    my ($sql, $id, @row);
 
    $sql = Sql->new($this->{DBH});
-   if ($sql->Select("select ref from $this->{table} where name =".
+   if ($sql->Select("select ref, id from $this->{table} where name =".
                     $sql->Quote($name)))
    {
        @row = $sql->NextRow();
        $id = $row[0];
        $sql->Finish;
+
+       $sql->Do(qq|update $this->{table} set LastUsed = now(), TimesUsed =
+                   TimesUsed + 1 where id = $row[1]|);
    }
    return $id;
 }
@@ -79,7 +129,7 @@ sub Remove
    my ($sql, @row);
 
    $sql = Sql->new($this->{DBH});
-   $sql->Do("delete from $this->{table} where ref = " . $id);
+   $sql->Do("delete from $this->{table} where id = " . $id);
 }
 
 sub GetList
@@ -88,12 +138,12 @@ sub GetList
    my ($sql, @list, @row);
 
    $sql = Sql->new($this->{DBH});
-   if ($sql->Select(qq\select id, Name, TimesUsed, LastUsed from 
-                       $this->{table} where ref = $id\))
+   if ($sql->Select(qq\select id, Name, TimesUsed, LastUsed, ModPending from 
+                       $this->{table} where ref = $id order by TimesUsed desc\))
    {
        while(@row = $sql->NextRow())
        {
-           push @list, [$row[0], $row[1], $row[2], $row[3]];
+           push @list, [$row[0], $row[1], $row[2], $row[3], $row[4]];
        }
        $sql->Finish;
    }

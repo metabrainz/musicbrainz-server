@@ -251,7 +251,8 @@ sub CreateTables
              "   Name varchar(255) NOT NULL," . 
              "   Ref int not null, ".
              "   LastUsed datetime not null,".
-             "   TimesUsed int not null)")
+             "   TimesUsed int not null,".
+             "   ModPending int)")
           or die("Cannot create ArtistAlias table");
     
     print "Created ArtistAlias table.\n";    

@@ -6,3 +6,4 @@ select * from GUID into outfile '/tmp/mbdump/GUID';
 select * from AlbumJoin into outfile '/tmp/mbdump/AlbumJoin';
 select * from Track into outfile '/tmp/mbdump/Track';
 select * from TOC into outfile '/tmp/mbdump/TOC';
+select * from ArtistAlias into outfile '/tmp/mbdump/ArtistAlias';

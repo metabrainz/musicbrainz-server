@@ -51,6 +51,7 @@ sub ImportAllTables
     ImportTable("GUIDJoin", $dir) or return 0;
     ImportTable("Diskid", $dir) or return 0;
     ImportTable("TOC", $dir) or return 0;
+    ImportTable("ArtistAlias", $dir) or return 0;
 
     #ImportTable("Pending", $dir) or return 0;
     #ImportTable("ModeratorInfo", $dir) or return 0;

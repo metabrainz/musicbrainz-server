@@ -36,6 +36,7 @@ use DBDefs;
 use Track;
 use Artist;
 use Album;
+use Insert;
 
 use constant TYPE_NEW                    => 1;
 use constant TYPE_VOTED                  => 2;
@@ -54,6 +55,7 @@ use constant MOD_CHANGE_TRACK_ARTIST     => 10;
 use constant MOD_REMOVE_TRACK            => 11;
 use constant MOD_REMOVE_ALBUM            => 12;
 use constant MOD_MAC_TO_SAC              => 13;
+use constant MOD_REMOVE_ARTISTALIAS      => 14;
 
 use constant STATUS_OPEN                 => 1;
 use constant STATUS_APPLIED              => 2;
@@ -75,7 +77,8 @@ my %ModNames = (
     "10" => "Change Track Artist",
     "11" => "Remove Track",
     "12" => "Remove Album",
-    "13" => "Convert to Single Artist"
+    "13" => "Convert to Single Artist",
+    "14" => "Remove Artist Alias"
 );
 
 my %ChangeNames = (
@@ -294,7 +297,7 @@ sub GetVoteText
 # Insert a new moderation into the database. All of the values to be
 # inserted are read from the internal hash -- use the above accessor
 # functions to set the data to be inserted
-sub Insert
+sub InsertModeration
 {
     my ($this) = shift @_;
     my ($table, $column, $prev, $new);
@@ -467,6 +470,10 @@ sub ShowModPrev
    {
        return "Old: <a href=\"/showartist.html?artistid=$this->{artist}\">$prev</a>";
    }
+   elsif ($type == Moderation::MOD_REMOVE_ARTISTALIAS)
+   {
+       return "Old: <a href=\"/showaliases.html?artistid=$this->{artist}\">$prev</a>";
+   }
 
    return "[Internal Error]";
 }
@@ -486,9 +493,9 @@ sub ShowModNew
 
       $out = qq\Name: <span class="bold">$data[0]</span>\;
       $out .= qq\ Track: <span class="bold">$data[1]</span>\;
-      if ($data[2] == Artist::VARTIST_ID) 
+      if ($this->GetArtist() == Artist::VARTIST_ID) 
       {
-          $out += qq\<br>Artist: <span class="bold">$data[3]</span>\;
+          $out .= qq\<br>Artist: <span class="bold">$data[3]</span>\;
           if (defined $data[4]) 
           {
               $out .= qq\ (<span class="bold">$data[4]</span>)\;
@@ -766,6 +773,10 @@ sub ApplyModification
    {
        return ApplyRemoveAlbumModification($this, $rowid);
    }
+   elsif ($type == MOD_REMOVE_ARTISTALIAS)
+   {
+       return ApplyRemoveArtistAliasModification($this, $rowid);
+   }
 
    return STATUS_ERROR;
 }
@@ -820,7 +831,8 @@ sub ApplyAddTrackModification
                  {
                     track => $trackname,
                     tracknum => $tracknum,
-                    artist => $data[3]
+                    artist => $data[3],
+                    sortname => $data[4]
                  }
               ];
 
@@ -1130,6 +1142,29 @@ sub ApplyRemoveAlbumModification
             }
             $sql->Finish;
         }
+   }
+
+   return $status;
+}
+
+sub ApplyRemoveArtistAliasModification
+{
+   my ($this, $rowid) = @_;
+   my ($sql, @row, $al);
+   my ($status);
+
+   $status = STATUS_ERROR;
+   $sql = Sql->new($this->{DBH});
+   if ($sql->Select(qq/select rowid from Changes where id = $rowid/))
+   {
+        @row = $sql->NextRow;
+        $sql->Finish;
+
+        $al = Alias->new($this->{DBH});
+        $al->SetTable("ArtistAlias");
+        $al->Remove($row[0]);
+        
+        $status = STATUS_APPLIED;
    }
 
    return $status;

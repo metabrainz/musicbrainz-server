@@ -36,13 +36,13 @@ if (exists $session{user} && scalar(@ids) > 0)
 </table> 
 % if (exists $session{user}) {
    <center>
-   [ <a href="/addtrack.html?album=<% $album->GetId() %>&artist=<% $artist->GetId() %>">Add a missing track</a> | 
-   <a href="/movealbum.html?album=<% $album->GetId() %>&artist=<% $artist->GetId() %>">Move</a> 
-%#   <a href="/mergealbum.html?album=<% $album->GetId() %>&artist=<% $artist->GetId() %>">Merge</a> 
+   [ <a href="/addtrack.html?album=<% $album->GetId() %>&artist=<% $album->GetArtist() %>">Add a missing track</a> | 
+   <a href="/movealbum.html?album=<% $album->GetId() %>&artist=<% $album->GetArtist() %>">Move</a> 
+%#   <a href="/mergealbum.html?album=<% $album->GetId() %>&artist=<% $album->GetArtist() %>">Merge</a> 
 %    if ($album->GetArtist() != Artist::VARTIST_ID) {
-      | <a href="/tomac.html?album=<% $album->GetId() %>&artist=<% $artist->GetId() %>&track=1">Convert to multiple artists</a>
+      | <a href="/tomac.html?album=<% $album->GetId() %>&artist=<% $album->GetArtist() %>&track=1">Convert to multiple artists</a>
 %    } else {
-      | <a href="/tosac.html?album=<% $album->GetId() %>&artist=<% $artist->GetId() %>&track=1">Convert to single artist</a>
+      | <a href="/tosac.html?album=<% $album->GetId() %>&artist=<% $album->GetArtist() %>&track=1">Convert to single artist</a>
 %    }
    ]
 % }

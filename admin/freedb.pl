@@ -5,10 +5,7 @@ use strict;
 use DBI;
 use DBDefs;
 use MusicBrainz;
-use Artist;
-use Album;
-use Track;
-use Diskid;
+use Insert;
 
 my $line;
 my $tracks;
@@ -143,6 +140,10 @@ sub ProcessFile
 {
    my $i = 0;
    my $line;
+   my %info;
+   my $in;
+
+   $in = Insert->new($mb->{DBH});
 
    $file = $_[0];
 
@@ -162,14 +163,31 @@ sub ProcessFile
           ($title, $artist, $line) = ReadTitleAndArtist;
           if (defined($artist) && defined($title) && defined($line))
           {
-              my @data;
+              my (@data, $tit, @tarray);
+
+              $info{artist} = $artist;
+              $info{sortname} = $artist;
+              $info{album} = $title;
 
               @ttitles = ReadTitles($tracks, $line);
               if (scalar(@ttitles) > 0)
               {   
-                  @data = ($mb, $tracks, $title, $artist, $toc);
-                  push @data, @ttitles;
-                  EnterRecord(@data);
+                  my $tracknum = 1;
+                  foreach $tit (@ttitles)
+                  {
+                     push @tarray, 
+                        {
+                           track => $tit,
+                           tracknum => $tracknum
+                        };
+                     $tracknum++;
+                  }
+                  $info{tracks} = \@tarray;
+
+                  if (!defined $in->Insert(\%info))
+                  {
+                     print $in->GetError();
+                  }
                   $i++;
               }
           }

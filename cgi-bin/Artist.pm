@@ -33,6 +33,7 @@ use vars qw(@ISA @EXPORT);
 use strict;
 use DBI;
 use DBDefs;
+use Alias;
 
 # Use the following id for the multiple/various artist albums
 use constant VARTIST_ID => 1;
@@ -62,13 +63,20 @@ sub SetSortName
 sub Insert
 {
     my ($this) = @_;
-    my ($artist, $mbid, $sql);
+    my ($artist, $mbid, $sql, $alias);
 
     return undef if (!defined $this->{name});
     $this->{sortname} = $this->{name} if (!defined $this->{sortname});
   
-    # Check to see if this artist already exists
     $sql = Sql->new($this->{DBH});
+    $alias = Alias->new($this->{DBH});
+
+    # Check to see if the artist has an alias.
+    $alias->{table} = "ArtistAlias";
+    $artist = $alias->Resolve($this->{name});
+    return $artist if (defined $artist);
+
+    # Check to see if this artist already exists
     ($artist) = $sql->GetSingleRow("Artist", ["id"], 
                                    ["name", $sql->Quote($this->{name})]); 
     if (!defined $artist)
