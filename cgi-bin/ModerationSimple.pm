@@ -375,16 +375,15 @@ sub ShowPreviousValue
       $al->SetId($this->{rowid});
       if (defined($al->LoadFromId()))
       {
-          $album = $al->GetName();
+          return "Move Album <a href=\"/showalbum.html?albumid=" . $al->GetId() . 
+                 "\">" . $al->GetName() . "</a><br>" .
+                  "from <a href=\"/showartist.html?artistid=" .
+                 "$this->{artist}\">$this->{prev}</a>";
       }
       else 
       { 
-          $album = "[deleted]";
+          return "[album has been deleted]";
       } 
-      return "Move Album <a href=\"/showalbum.html?albumid=" . $al->GetId() . 
-             "\">" . $al->GetName() . "</a><br>" .
-              "from <a href=\"/showartist.html?artistid=" .
-             "$this->{artist}\">$this->{prev}</a>";
    }
    if ($this->{type} == ModDefs::MOD_MAC_TO_SAC)
    {
