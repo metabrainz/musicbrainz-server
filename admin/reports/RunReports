@@ -27,6 +27,9 @@ use FindBin;
 use lib "$FindBin::Bin/../../cgi-bin";
 
 use strict;
+use File::Basename qw( basename );
+use File::Temp qw( tempdir );
+use File::Path qw( rmtree );
 use DBDefs;
 $| = 1;
 
@@ -34,20 +37,21 @@ $| = 1;
 
 my $outputdir = &DBDefs::MB_SERVER_ROOT . "/htdocs/reports";
 
-my @all = (
-	[ "admin/BadEntries.pl"						=> "bad_entries.html"			],
-	[ "admin/Caps2.pl"							=> "caps2.html"					],
-	[ "admin/Caps.pl"							=> "caps.html"					],
-	[ "admin/reports/AlbumsToConvert.pl"		=> "AlbumsToConvert.html"		],
-	[ "admin/reports/BrokenDiscIDs"				=> "BrokenDiscIDs.html"			],
-	[ "admin/reports/DuplicateArtists.pl"		=> "DuplicateArtists.html"		],
-	[ "admin/reports/DuplicateTrackNumbers"		=> "DuplicateTrackNumbers.html"	],
-	[ "admin/reports/SuperfluousDataTracks"		=> "SuperfluousDataTracks.html"	],
-	[ "admin/reports/TracksNamedWithSequence.pl"=> "TracksNamedWithSequence.html" ],
-	[ "admin/reports/TracksWithManyTRMs.pl"		=> "TracksWithManyTRMs.html"	],
-	[ "admin/reports/TRMsWithManyTracks.pl"		=> "TRMsWithManyTracks.html"	],
-	[ "admin/Unknown.pl"						=> "unknown.html"				],
-	[ "admin/WrongCharset.pl"					=> "wrong_charset.html"			],
+my @all = qw(
+	admin/BadEntries.pl
+	admin/Caps2.pl
+	admin/Caps.pl
+	admin/reports/AlbumsToConvert.pl
+	admin/reports/BrokenDiscIDs
+	admin/reports/DuplicateArtists.pl
+	admin/reports/DuplicateTrackNumbers
+ 	admin/reports/FeaturingArtists
+	admin/reports/SuperfluousDataTracks
+	admin/reports/TracksNamedWithSequence.pl
+	admin/reports/TracksWithManyTRMs.pl
+	admin/reports/TRMsWithManyTracks.pl
+	admin/Unknown.pl
+	admin/WrongCharset.pl
 );
 
 # The primary purpose of this script is to be able to run the reports, saving
@@ -57,68 +61,70 @@ my @all = (
 
 my $errors = 0;
 
-printf "%-30.30s  exit  time  %7s\n", "Report", "Size";
-
-for (@all)
+for my $script (@all)
 {
-	my ($script, $output) = @$_;
-
-	use File::Basename qw( basename );
 	my $scriptname = basename($script);
+
+	my $output = basename($script);
+	$output =~ s/\.pl$//;
+	$output = "$outputdir/$output";
 
 	unless (grep { $scriptname =~ /$_/i } @ARGV)
 	{
-		print "Not running $script\n";
+		print localtime() . " : Not running $script\n";
 		next;
 	}
 
-	use File::Temp qw( tempfile );
-	my (undef, $tempfile) = tempfile(DIR => $outputdir, UNLINK => 0);
+	my $tempdir = tempdir(DIR => $outputdir, CLEANUP => 1);
 
-	if (not $tempfile)
+	if (not $tempdir)
 	{
-		warn "tempfile: $!\n";
+		warn "tempdir: $!\n";
 		++$errors;
 		next;
 	}
 
 	$script = &DBDefs::MB_SERVER_ROOT . "/" . $script;
 	
-	printf "%-30.30s", $scriptname;
+	print localtime() . " : Running $scriptname\n";
 	my $t0 = time;
-	system "$script > $tempfile";
+	system "$script --output-dir=$tempdir";
 	my $t = time() - $t0;
 
-	my $size = -s $tempfile;
-	$size = "unknown" if not defined $size;
-	printf "  %4d  %4d  %7d\n",
-		$?, $t, $size;
+	my $size = 0;
+	$size += -s($_) for glob("$tempdir/*");
+	$size ||= "unknown";
+	print localtime() . " : $scriptname finished; status=$? time=$t size=$size\n";
 
 	if ($? != 0)
 	{
 		warn "$scriptname exited with $?\n";
 		++$errors;
-		unlink $tempfile;
+		rmtree($tempdir);
 		next;
 	}
 
-	unless (chmod 0644, $tempfile)
-	{
-		warn "chmod $tempfile: $!\n";
-		++$errors;
-		unlink $tempfile;
-		next;
-	}
+	# TODO chmod?
+#	unless (chmod 0644, $tempfile)
+#	{
+#		warn "chmod $tempfile: $!\n";
+#		++$errors;
+#		unlink $tempfile;
+#		next;
+#	}
 
-	unless (rename $tempfile, "$outputdir/$output")
+	rmtree($output) or die "TODO";
+
+	unless (rename $tempdir, $output)
 	{
-		warn "rename $tempfile: $!\n";
+		warn "rename $tempdir: $!\n";
 		++$errors;
-		unlink $tempfile;
+		rmtree($tempdir);
 		next;
 	}
 
 	# Hooray!
+	print localtime() . " : $scriptname successfully swapped in\n";
 }
 
 exit($errors ? 1 : 0);
