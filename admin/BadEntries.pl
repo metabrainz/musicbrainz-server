@@ -33,7 +33,6 @@ sub FindBadEntries
 {
     my ($dbh) = @_;
     my ($id, $name, $num);
-    my ($last_artist);
 
     print "<& /comp/sidebar, title=>'Questionable Tracks' &>\n";
 
@@ -52,6 +51,7 @@ sub FindBadEntries
     $sth->execute();
     if ($sth->rows)
     {
+	my $last_artist = "";
         my @row;
 
         while(@row = $sth->fetchrow_array())

@@ -33,7 +33,6 @@ sub FindDuplicates
 {
     my ($dbh) = @_;
     my ($id, $name, $album, $num);
-    my ($last_artist);
 
     print "<& /comp/sidebar, title=>'Tracks which contain the word \"unknown\"' &>\n";
 
@@ -52,6 +51,7 @@ sub FindDuplicates
     $sth->execute();
     if ($sth->rows)
     {
+	my $last_artist = "";
         my @row;
 
         while(@row = $sth->fetchrow_array())

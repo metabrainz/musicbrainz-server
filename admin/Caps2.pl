@@ -56,7 +56,7 @@ sub RunReport
     if ($sth->rows)
     {
         my @row;
-	my $last_artist;
+	my $last_artist = "";
 
         while(@row = $sth->fetchrow_array())
         {

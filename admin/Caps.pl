@@ -33,7 +33,6 @@ sub FindDuplicates
 {
     my ($dbh) = @_;
     my ($id, $name, $album, $num);
-    my (@tm, $last_artist);
 
     print "<& /comp/sidebar, title=>'Tracks with too many capital letters' &>\n";
 
@@ -53,6 +52,8 @@ sub FindDuplicates
     if ($sth->rows)
     {
         my @row;
+
+	my $last_artist = "";
 
         while(@row = $sth->fetchrow_array())
         {
