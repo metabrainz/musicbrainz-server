@@ -96,6 +96,7 @@ our %prefs = ();
 addpref('datetimeformat', $allowed_datetime_formats[0], \&check_datetimeformat);
 addpref('JSMoveFocus', '1', \&check_bool);
 addpref('mod_add_album_inline', 0, \&check_bool);
+addpref('mod_add_album_link', 0, \&check_bool);
 addpref('mods_per_page', 10, sub { check_int(1,25,@_) });
 addpref('nosidebar', 0, \&check_bool);
 addpref('no_sidebar_panels', 0, \&check_bool);

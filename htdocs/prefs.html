@@ -13,6 +13,7 @@ if ($ARGS{"SavePrefs"})
 	# Insert zeroes for checkboxes which weren't submitted
 	for (qw(
 		mod_add_album_inline
+		mod_add_album_link
 		JSMoveFocus
 		sitemenu_heavy
 		sidebar_panel_search
@@ -84,8 +85,16 @@ $time = time();
 	<p>
 		<input type="checkbox" name="mod_add_album_inline"
 			<% UserPreference::get('mod_add_album_inline') ? "checked" : "" %>
+			onclick="this.form.mod_add_album_link.disabled = !this.checked"
 			>
 		For "Add Album" mods, show the whole album
+		<br>
+		&nbsp; &nbsp;
+		<input type="checkbox" name="mod_add_album_link"
+			<% UserPreference::get('mod_add_album_link') ? "checked" : "" %>
+			<% UserPreference::get('mod_add_album_inline') ? "" : "disabled" %>
+			>
+		and show editing links
 	</p>
 
 	<p>

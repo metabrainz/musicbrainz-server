@@ -24,7 +24,13 @@ if ($exists and UserPreference::get('mod_add_album_inline'))
 	if ($ar->LoadFromId)
 	{
 		#$m->comp("/comp/artisttitle", artist=>$ar, link=>1);
-		$m->comp("/comp/album", artist=>$ar, album=>$al, nomod=>1, showids=>1);
+		$m->comp(
+			"/comp/album",
+			artist	=> $ar,
+			album	=> $al,
+			nomod	=> (UserPreference::get('mod_add_album_link') ? 0 : 1),
+			showids	=> 1,
+		);
 	}
 } elsif ($exists) {
 </%perl>
