@@ -104,7 +104,7 @@ my @site_musica = (
                         searchfield=>'v0_0' &>
     <& /comp/searchbox, name=>'www.gramophone.co.uk',
                         nameurl=>'http://www.gramophone.co.uk',
-                        scripturl=>'http://www.gramofile.co.uk/folio/om_isapi.dll?&amp;infobase=Gramofile.nfo&amp;softpage=All_Frame_Pg42&amp;record=dochitfirst',
+                        scripturl=>'http://www.gramofile.co.uk/folio/om_isapi.dll?&infobase=Gramofile.nfo&softpage=All_Frame_Pg42&record=dochitfirst',
                         hidden=>['querytemplate', 'Test'],
                         searchfield=>'E3' &>
   <& /comp/tableend &>

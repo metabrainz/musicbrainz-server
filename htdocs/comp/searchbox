@@ -8,7 +8,7 @@ $method=>'POST'
 $formname=>undef
 </%args>
 % my $hide;
-<FORM METHOD="<% $method %>" ACTION="<% $scripturl |n%>"
+<form method="<% $method %>" action="<% $scripturl %>"
 % if ($formname) {
 	NAME="<% $formname %>"
 % }
