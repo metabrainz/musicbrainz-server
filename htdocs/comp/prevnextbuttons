@@ -1,0 +1,36 @@
+<%args>
+$url
+$offset
+$itemsperpage
+$totalitems
+</%args>
+
+% if ($totalitems > $itemsperpage) {
+
+<table width="100%"><tr>
+<& /comp/prevbutton,
+   url=>$url,
+   offset=>$offset,
+   text=>"< Prev",
+   num=>$itemsperpage &>
+<& /comp/prevbutton,
+   url=>$url,
+   offset=>$offset,
+   text=>"<< Prev",
+   num=>($itemsperpage * 2) &>
+<td width=\"40%\">&nbsp;</td>
+<& /comp/nextbutton,
+   url=>$url,
+   offset=>$offset,
+   text=>"Next >>",
+   num=>($itemsperpage * 2),
+   rows=>$totalitems &>
+<& /comp/nextbutton,
+   url=>$url,
+   offset=>$offset,
+   text=>"Next >",
+   num=>$itemsperpage,
+   rows=>$totalitems &>
+</tr></table>
+
+% }  
