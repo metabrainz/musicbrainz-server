@@ -3,6 +3,7 @@
 $mac
 @album => ()
 $confirm => 0
+$notetext => ""
 </%args>
 <%perl>
 
@@ -66,6 +67,10 @@ if ($confirm)
 				albums => \@objs,
 				into => $into,
 			);
+
+			$mods[0]->InsertNote($session{'uid'}, $notetext)
+				if $mods[0]
+				and $notetext =~ /\S/;
 		},
 		success_url => $url,
 	) or return;
@@ -234,6 +239,15 @@ foreach (@id_numtracks)
 		<input type="hidden" name="mac" value="<% $mac %>">
 		<input type="hidden" name="confirm" value="1">
 	</p>
+
+	<p>
+		Enter moderation note (optional):
+	</p>
+
+	<p>
+		<textarea name="notetext" rows="3" cols="60"></textarea>
+	</p>
+
 </form>
 
 <& /comp/movefocus, "MergeConfirm", 0 &>
