@@ -75,7 +75,7 @@ $artist->LoadFromId
 		>View albums</a>
 	|
 	<a href="/moderate.html?type=4&amp;artistid=<% $artist->GetId %>"
-		>View mods</a>
+		>View artist mods</a>
 	|
 % }
 
@@ -87,7 +87,7 @@ $artist->LoadFromId
 % if ($session{uid}) {
 	|
 	<a href="/moderate.html?type=<% &ModDefs::TYPE_ALBUM %>&amp;albumid=<% $album->GetId %>"
- 		>View mods</a>
+ 		>View album mods</a>
 % }
 	|
 	<a href="/albumdetail.html?albumid=<% $album->GetId %>"
