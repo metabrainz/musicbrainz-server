@@ -442,6 +442,35 @@ sub ArtistSearch
    return @info;
 };
 
+sub GetArtistList
+{
+   my ($this, $ind, $offset, $max_items) = @_;
+   my ($sth, $num_artists, @info); 
+
+   $sth = $this->{DBH}->prepare(qq/select count(*) from Artist where 
+                       left(name, 1) = '$ind'/);
+   $sth->execute();
+   $num_artists = ($sth->fetchrow_array)[0];
+   $sth->finish;   
+
+   $sth = $this->{DBH}->prepare(qq/select id, name from Artist where 
+         left(name, 1) = '$ind' order by name limit $offset, $max_items/);
+   $sth->execute();  
+   if ($sth->rows > 0)
+   {
+       my @row;
+       my $i;
+
+       for(;@row = $sth->fetchrow_array;)
+       {
+           push @info, [$row[0], $row[1]];
+       }
+   }
+   $sth->finish;   
+
+   return ($num_artists, @info);
+}
+
 sub GetAlbumName
 {
    my ($this, $albumid) = @_;

@@ -1,0 +1,8 @@
+<td width="15%">
+% if ($ARGS{offset} > 0) {
+   <a href="/browseartists.html?index=<% $ARGS{ind} %>&offset=<% 
+    $ARGS{offset} - $ARGS{num} %>"><% $ARGS{text} %></a>
+% } else {
+   <% $ARGS{text} %>
+% }
+</td>
