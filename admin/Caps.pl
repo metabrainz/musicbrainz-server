@@ -43,7 +43,7 @@ sub FindDuplicates
     print "<& /comp/sidebar, title=>'Tracks with too many capital letters' &>\n";
     print "Generated on: $t<br><br>";
 
-    print 'All tracks which contain at least four sequential capital ';
+    print 'All tracks which contain at least five sequential capital ';
     print "characters are listed below:<p><br>\n";
 
     $sth = $dbh->prepare(qq\select track.id, track.name, sequence, 
@@ -64,7 +64,7 @@ sub FindDuplicates
             $num = $row[2];
             $artist = $row[4];
 
-            if ($name =~ /[A-Z][A-Z][A-Z][A-Z]/)
+            if ($name =~ /[A-Z][A-Z][A-Z][A-Z][A-Z]/)
             {
                 if ($artist ne $last_artist)
                 {
