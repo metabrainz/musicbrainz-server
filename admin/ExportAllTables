@@ -206,6 +206,16 @@ for my $table (@tables)
 	dumptable($table);
 }
 
+sub table_rowcount
+{
+	my $table = shift;
+	$table =~ s/_sanitised$//;
+	$sql->SelectSingleValue(
+		"SELECT reltuples FROM pg_class WHERE relname = ? LIMIT 1",
+		$table,
+	);
+}
+
 sub dumptable
 {
 	my $table = shift;
@@ -213,10 +223,7 @@ sub dumptable
 	open(DUMP, ">$dir/mbdump/$table")
 		or die $!;
 
-	my $estrows = $sql->SelectSingleValue(
-		"SELECT reltuples FROM pg_class WHERE relname = ? LIMIT 1",
-		$table,
-	) || 1;
+	my $estrows = table_rowcount($table) || 1;
 
 	$sql->Do("COPY \"$table\" TO stdout");
 	my $buffer;
