@@ -62,23 +62,25 @@ sub Quote
 
 sub Select
 {
-    my ($this, $query) = @_;
+    my ($this, $query, @params) = @_;
     my ($ret, $t);
+
+    my $prepare = (@params ? "prepare_cached" : "prepare");
 
     $ret = eval
     {
-       #print STDERR "SELECT: $query\n";
+       #print STDERR "SELECT: $query (@params)\n";
        $t = Benchmark::Timer->new(skip => 0);
        $t->start('start');
 
-       $this->{STH} = $this->{DBH}->prepare($query);
-       $ret = $this->{STH}->execute;
+       $this->{STH} = $this->{DBH}->$prepare($query);
+       $ret = $this->{STH}->execute(@params);
 
        $t->stop;
        if ($t->result('start') > 2)
        {
            print STDERR "--------------------------------------------\n";
-           print STDERR "$query\n";
+           print STDERR "$query\n(@params)\n";
            $t->report;
        }
        
@@ -90,7 +92,7 @@ sub Select
 
         $this->{STH}->finish;
         $this->{ERR} = $this->{DBH}->errstr;
-        cluck("Failed query:\n  '$query'\n$err\n");
+        cluck("Failed query:\n  '$query'\n  (@params)\n$err\n");
         die $err;
     }
     return $ret;
@@ -133,7 +135,7 @@ sub GetError
 
 sub Do
 {
-    my ($this, $query) = @_;
+    my ($this, $query, @params) = @_;
     my $ret;
 
     if (exists $this->{AutoCommit} && $this->{AutoCommit} == 1)
@@ -159,11 +161,14 @@ sub Do
 #    $q = $query;
 #    $q =~ s/\n/ /g;
 #    print STDERR "$prefix $q\n$trace";
-#    print STDERR "DO: $query\n";
+#    print STDERR "DO: $query (@params)\n";
+
+    my $prepare = (@params ? "prepare_cached" : "prepare");
 
     $ret = eval
     {
-        $this->{DBH}->do($query);
+        my $sth = $this->{DBH}->$prepare($query);
+        $sth->execute(@params);
         return 1;
     };
     if ($@)
@@ -171,7 +176,7 @@ sub Do
         my $err = $@;
 
         $this->{ERR} = $this->{DBH}->errstr;
-        cluck("Failed query:\n  '$query'\n$err\n");
+        cluck("Failed query:\n  '$query'\n  (@params)\n$err\n");
         die $err;
     }
     return $ret;
@@ -245,19 +250,7 @@ sub GetSingleRowLike
 sub GetLastInsertId
 {
    my ($this, $table) = @_;
-   my (@row, $sth);
-
-   $sth = $this->{DBH}->prepare("select currval('" . $table ."_id_seq')");
-   if ($sth->execute && $sth->rows)
-   {
-       @row = $sth->fetchrow_array;
-       $sth->finish;
-
-       return $row[0];
-   }
-   $sth->finish;
-
-   return undef;
+   $this->SelectSingleValue("SELECT CURRVAL(?)", $table . "_id_seq");
 }
 
 sub GetSingleColumn
@@ -374,3 +367,192 @@ sub Rollback
    return $ret;
 }
 
+# The "Select*" methods.  All these methods accept ($query, @args) parameters,
+# run the given SELECT query using prepare_cached, retrieve the required data,
+# and then "finish" the statement handle.
+
+# Run a SELECT query.  Depending on the number of resulting rows:
+# 0 rows: return "undef".
+# >1 row: raise an error.
+# 1 row: return a reference to a hash containing the row data.
+
+sub SelectSingleRowHash
+{
+    my ($this, $query, @params) = @_;
+
+    my $row = eval
+    {
+        my $sth = $this->{DBH}->prepare_cached($query);
+        my $rv = $sth->execute(@params)
+            or die;
+        my $firstRow = $sth->fetchrow_hashref;
+        my $nextRow = $sth->fetchrow_hashref
+            if $firstRow;
+        $sth->finish;
+        die "Query in SelectSingleRowHash returned more than one row"
+            if $nextRow;
+        $firstRow;
+    };
+
+    return $row unless $@;
+
+    my $err = $@;
+    $this->{ERR} = $this->{DBH}->errstr;
+    cluck("Failed query:\n  '$query'\n  (@params)\n$err\n");
+    die $err;
+}
+
+# Run a SELECT query.  Depending on the number of resulting rows:
+# 0 rows: return "undef".
+# >1 row: raise an error.
+# 1 row: return a reference to an array containing the row data.
+
+sub SelectSingleRowArray
+{
+    my ($this, $query, @params) = @_;
+
+    my $row = eval
+    {
+        my $sth = $this->{DBH}->prepare_cached($query);
+        my $rv = $sth->execute(@params)
+            or die;
+        my $firstRow = $sth->fetchrow_arrayref;
+        my $nextRow = $sth->fetchrow_arrayref
+            if $firstRow;
+        $sth->finish;
+        die "Query in SelectSingleRowArray returned more than one row"
+            if $nextRow;
+        $firstRow;
+    };
+
+    return $row unless $@;
+
+    my $err = $@;
+    $this->{ERR} = $this->{DBH}->errstr;
+    cluck("Failed query:\n  '$query'\n  (@params)\n$err\n");
+    die $err;
+}
+
+# Run a SELECT query.  Depending on the number of resulting columns:
+# >1 column (and at least one row): raise an error.
+# otherwise: return a reference to an array containing the column data.
+
+sub SelectSingleColumnArray
+{
+    my ($this, $query, @params) = @_;
+
+    my $col = eval
+    {
+        my $sth = $this->{DBH}->prepare_cached($query);
+        my $rv = $sth->execute(@params)
+            or die;
+
+        my @vals;
+
+        for (;;)
+        {
+            my @row  = $sth->fetchrow_array
+                or last;
+            die unless @row == 1;
+            push @vals, $row[0];
+        }
+
+        $sth->finish;
+
+        \@vals;
+    };
+
+    return $col unless $@;
+
+    my $err = $@;
+    $this->{ERR} = $this->{DBH}->errstr;
+    cluck("Failed query:\n  '$query'\n  (@params)\n$err\n");
+    die $err;
+}
+
+# Run a SELECT query.  Must return either no data (return "undef"), or exactly
+# one row, one column (return that value).
+
+sub SelectSingleValue
+{
+    my ($this, $query, @params) = @_;
+    my $row = $this->SelectSingleRowArray($query, @params);
+    $row or return undef;
+
+    return $row->[0] unless @$row != 1;
+
+    cluck("Failed query:\n  '$query'\n  (@params)\nmore than one column\n");
+    die "Query in SelectSingleValue returned more than one column";
+}
+
+# Run a SELECT query.  Return a reference to an array of rows, where each row
+# is a reference to an array of columns.
+
+sub SelectListOfLists
+{
+    my ($this, $query, @params) = @_;
+
+    my $data = eval
+    {
+        my $sth = $this->{DBH}->prepare_cached($query);
+        my $rv = $sth->execute(@params)
+            or die;
+
+        my @vals;
+
+        for (;;)
+        {
+            my @row  = $sth->fetchrow_array
+                or last;
+            push @vals, \@row;
+        }
+
+        $sth->finish;
+
+        \@vals;
+    };
+
+    return $data unless $@;
+
+    my $err = $@;
+    $this->{ERR} = $this->{DBH}->errstr;
+    cluck("Failed query:\n  '$query'\n  (@params)\n$err\n");
+    die $err;
+}
+
+# Run a SELECT query.  Return a reference to an array of rows, where each row
+# is a reference to a hash of the column data.
+
+sub SelectListOfHashes
+{
+    my ($this, $query, @params) = @_;
+
+    my $data = eval
+    {
+        my $sth = $this->{DBH}->prepare_cached($query);
+        my $rv = $sth->execute(@params)
+            or die;
+
+        my @vals;
+
+        for (;;)
+        {
+            my $row = $sth->fetchrow_hashref
+                or last;
+            push @vals, $row;
+        }
+
+        $sth->finish;
+
+        \@vals;
+    };
+
+    return $data unless $@;
+
+    my $err = $@;
+    $this->{ERR} = $this->{DBH}->errstr;
+    cluck("Failed query:\n  '$query'\n  (@params)\n$err\n");
+    die $err;
+}
+
+# vi: set ts=8 sw=4 et :

@@ -45,4 +45,7 @@ The following people have contributed to the MusicBrainz server:
   Tom Heady <musicbrainz@punch.net>
   - Submitted a patch for labeling the voting buttons
 
+  Dave Evans <musicbrainz-devel@rudolf.org.uk>
+  - Submitted a CSS patch and support for cached queries in Sql.pm
+
 (please send change requests to rob@musicbrainz.org or maintainer)
