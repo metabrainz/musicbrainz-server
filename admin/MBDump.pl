@@ -54,6 +54,8 @@ Options are:
                       either --sanitised or --nosanitised
   -o, --outfile       Output filename (default: $sDefaultOutputFile)
   -t, --tmpdir        Temporary directory to use (default: $sDefaultTmpDir)
+  -f, --format=FORMAT Dump format: "postgres" (the default), "pg_copy",
+                      "excelcsv", "mysql"
   -h, --help          This help
       --debug         If there's a problem, don't remove the temporary files
                       on exit
@@ -78,6 +80,7 @@ my $outfile = $sDefaultOutputFile;
 my $tmpdir = $sDefaultTmpDir;
 my $fHelp;
 my $fDebug;
+my $sFormat = "postgres";
 
 GetOptions(
 	"sanitised|sanitized|s!"	=> \$fSanitised,
@@ -88,9 +91,12 @@ GetOptions(
 	"tmpdir|t=s"	=> \$tmpdir,
 	"help|h"		=> \$fHelp,
 	"debug"			=> \$fDebug,
+	"format|f=s"	=> \$sFormat,
 );
 
 Usage() if ($fHelp);
+
+Usage() unless $sFormat =~ /\A(postgres|pg_copy|excelcsv|mysql)\z/;
 
 require MusicBrainz;
 my $mb = MusicBrainz->new;
@@ -216,6 +222,7 @@ chmod 0777, $dir;
 
 # Dump the tables
 
+$| = 1;
 for (@tables)
 {
 	DumpTable($_) or exit 1;
@@ -255,6 +262,9 @@ END
 
 sub DumpTable
 {
+	return DumpTable_pg_copy(@_) if $sFormat eq "pg_copy";
+	return DumpTable_excelcsv(@_) if $sFormat eq "excelcsv";
+	return DumpTable_mysql(@_) if $sFormat eq "mysql";
     my $table = shift;
 
     my $cmd = "pg_dump -U $dbuser -Fc -t $table $dbname > $dir/$table";
@@ -551,3 +561,136 @@ END
     print OUT $text;
     close(OUT);
 }
+
+sub DumpTable_pg_copy
+{
+    my $table = shift;
+	my $dbh = $sql->{DBH};
+
+	$sql->AutoCommit;
+	$sql->Do("COPY $table TO stdout");
+
+	open(DUMP, ">$dir/$table") or die $!;
+	print "$table ... " if -t STDOUT;
+	my $row = 0;
+
+	my $buffer;
+	while ($dbh->func($buffer, 10000, 'getline'))
+	{
+		print DUMP $buffer, "\n";
+		++$row;
+		print $row, chr(8) x length($row)
+			if -t STDOUT
+			and not $row % 1000;
+	}
+
+	close DUMP;
+	$dbh->func('endcopy');
+	print "$row\n" if -t STDOUT;
+}
+
+sub DumpTable_excelcsv
+{
+    my $table = shift;
+	my $dbh = $sql->{DBH};
+
+	$sql->AutoCommit;
+	$sql->Do("COPY $table TO stdout");
+
+	open(DUMP, ">$dir/$table.csv") or die $!;
+	binmode DUMP;
+	print "$table ... " if -t STDOUT;
+	my $row = 0;
+
+	my $buffer;
+	while ($dbh->func($buffer, 10000, 'getline'))
+	{
+		my @f = split /\t/, $buffer, -1;
+		for (@f) { $_ = undef, next if $_ eq '\N'; s/\\t/\t/g; s/\\n/\n/g; s/\\\\/\\/g; }
+		for (@f)
+		{
+			$_ = "", next unless defined;
+			next unless /[,"\015\012]/;
+			tr/\015//d;
+			s/"/""/g;
+			$_ = qq["$_"];
+		}
+		print DUMP join(",", @f), "\015\012";
+		++$row;
+		print $row, chr(8) x length($row)
+			if -t STDOUT
+			and not $row % 1000;
+	}
+
+	close DUMP;
+	$dbh->func('endcopy');
+	print "$row\n" if -t STDOUT;
+}
+
+sub DumpTable_mysql
+{
+    my $table = shift;
+	my $dbh = $sql->{DBH};
+
+	#open(CREATE, ">$dir/$table-data.sql") or die $!;
+	#print CREATE "DROP TABLE IF EXISTS $table;\n";
+	#print CREATE "CREATE TABLE $table (\n";
+	## TODO get column info
+	#print CREATE "\n);\n";
+	#close CREATE;
+
+	$sql->AutoCommit;
+	$sql->Do("COPY $table TO stdout");
+
+	open(DUMP, ">$dir/$table-data.sql") or die $!;
+	print DUMP "TRUNCATE TABLE $table;\n";
+	print "$table ... " if -t STDOUT;
+	my $row = my $tot = 0;
+
+	my $dumpevery = 5000;
+	$dumpevery = 1000 if $table eq "toc";
+
+	my $buffer;
+	while ($dbh->func($buffer, 10000, 'getline'))
+	{
+		my @f = split /\t/, $buffer, -1;
+		for (@f) { $_ = undef, next if $_ eq '\N'; s/\\t/\t/g; s/\\n/\n/g; s/\\\\/\\/g; }
+		for (@f)
+		{
+			$_ = "NULL", next unless defined;
+			next if /\A\d+\z/;
+
+			# Munge dates into MySQL format (remove ".ms" and "+TZ")
+			# TODO only apply this transformation to things which are
+			# actually date columns
+			s/\A(\d\d\d\d-\d\d-\d\d \d\d:\d\d:\d\d)(?:\.\d+)?(?:\+\d\d)?\z/$1/;
+
+			s/([\\'])/\\$1/g;
+			s/\n/\\n/g;
+			$_ = qq['$_'];
+		}
+
+		print DUMP "INSERT INTO $table VALUES\n"
+			if $row == 0;
+		print DUMP ",\n" if $row;
+
+		print DUMP "(", join(",", @f), ")";
+		++$row; ++$tot;
+		print $tot, chr(8) x length($tot)
+			if -t STDOUT
+			and not $tot % 1000;
+
+		unless ($row % $dumpevery)
+		{
+			print DUMP ";\n";
+			$row = 0;
+		}
+	}
+
+	print DUMP ";\n" if $row;
+	close DUMP;
+	$dbh->func('endcopy');
+	print "$tot\n" if -t STDOUT;
+}
+
+# eof MBDump.pl
