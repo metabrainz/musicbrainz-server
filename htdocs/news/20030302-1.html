@@ -1,0 +1,74 @@
+<& /comp/sidebar, title=>'March 2nd, 2003: Server Updates' &>
+
+<pre>
+Changes since the last release (10 Feb 2003):
+
+Tagger
+
+- a lot of people were experiencing problems uploading anything more
+than a small amount of TRM data at a time, using the Tagger.  This was
+due to some server code which was too slow, the client was "timing out"
+waiting for it.  The offending code has now been sped up a lot, so you
+shouldn't see that error any more.
+
+- when showing TRM collisions in the tagger, sort the albums by artist
+and show the artist name
+
+- when showing found albums/tracks in the tagger, show the album
+attributes (e.g. "Official Album", "Official Various Artists
+Compilation").  Also show the track length.
+
+- when a discid has just been added (via the tagger), show the album
+you've just added the discid to.
+
+- fixed a bug whereby sometimes "various artists" albums were not
+returned to the tagger
+
+
+
+Moderating
+
+- login names, as well as passwords, are now case-sensitive
+
+- ensured that the "related artist" data is maintained for artist
+removals and artist merges
+
+- when merging artists or moving an album, the "source" artist is never
+shown as a possible match.  Also a full search is done for artists (e.g.
+if you enter "Bach", you'll get every artist matching "Bach", not just
+J.S.Bach)
+
+
+
+Other web updates
+
+- the MusicBrainz IRC channel is now logged and archived!  You can see
+the archives here: http://musicbrainz.org/archives/irc/ .  There's a
+link to that page on the "contact us" page.
+
+- fixed a bug whereby sometimes an album's displayed discid/TRM/track
+counts were incorrect
+
+- various textual pages updated, especially the front page, the Finances
+page, and the download page
+
+- My and Rob's TODO lists are now much more up-to-date (and are much
+more likely to be /kept/ up-to-date, since it's now easier for us to
+do).  However, these pages aren't really there on the staging server,
+but trust me, they'll be there when it goes live.
+
+- general re-working of some HTML to be more "modern", making more use
+of CSS
+
+
+
+Other (non-web) server updates
+
+- various fixes and improvements relating to importing and exporting data.
+
+
+Dave Evans
+
+</pre>
+
+<& /comp/footer &>
