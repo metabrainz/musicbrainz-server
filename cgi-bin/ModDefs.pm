@@ -36,6 +36,7 @@ use constant TYPE_VOTED                  => 2;
 use constant TYPE_MINE                   => 3;
 use constant TYPE_ARTIST                 => 4;
 
+# The various moderations, enumerated
 use constant MOD_EDIT_ARTISTNAME         => 1;
 use constant MOD_EDIT_ARTISTSORTNAME     => 2;
 use constant MOD_EDIT_ALBUMNAME          => 3;
@@ -58,19 +59,51 @@ use constant MOD_REMOVE_ARTIST           => 19;
 use constant MOD_REMOVE_DISKID           => 20;
 use constant MOD_MOVE_DISKID             => 21;
 
-use constant STATUS_OPEN                 => 1;
-use constant STATUS_APPLIED              => 2;
-use constant STATUS_FAILEDVOTE           => 3;
-use constant STATUS_FAILEDDEP            => 4;
-use constant STATUS_ERROR                => 5;
-use constant STATUS_FAILEDPREREQ         => 6;
-use constant STATUS_EVALNOCHANGE         => 7;
-use constant STATUS_DELETED              => 8;
+# The constants below define the state a moderation can have:
 
+# Open for people to vote on
+use constant STATUS_OPEN                 => 1;
+
+# The vote was successful and the moderation applied
+use constant STATUS_APPLIED              => 2;
+
+# The vote was unsuccessful and the moderation undone
+use constant STATUS_FAILEDVOTE           => 3;
+
+# A dependent moderation failed, therefore this moderation will fail
+use constant STATUS_FAILEDDEP            => 4;
+
+# There was an internal error. :-(
+use constant STATUS_ERROR                => 5;
+
+# The Moderation system fails a moderation if the previous value field
+# does not match up with the data currently in the rol/col.
+use constant STATUS_FAILEDPREREQ         => 6;
+
+# This is a placeholder that the Moderation Bot will use to evaluate mods.
+# The user should never see this state.
+use constant STATUS_EVALNOCHANGE         => 7;
+
+# When a moderator wants to delete their own mod, the web interface changes 
+# its status to 'to be deleted' so that the ModerationBot can clean it and
+# its possible depedents up. Once the ModBot spots this record it cleans up
+# any dependants adn then marks the record as 'deleted'.
+use constant STATUS_TOBEDELETED          => 8;
+use constant STATUS_DELETED              => 9;
+
+# These are the various vote states
+# The moderation voted NO
 use constant VOTE_NO       => 0;
+# The moderation voted YES
 use constant VOTE_YES      => 1;
+# The moderation voted ABSTAIN
 use constant VOTE_ABS      => -1;
+
+# The moderator didn't vote.
 use constant VOTE_NOTVOTED => -2;
+
+# The database did not retrieve this information. You need to fetch the
+# vote outcome from the moderation specifically.
 use constant VOTE_UNKNOWN  => -3;
 
 1;

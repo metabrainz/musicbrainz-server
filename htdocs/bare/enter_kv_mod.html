@@ -6,7 +6,7 @@ sub CheckKVArg
 
     if (!defined($args->{$name}))
     {
-       print STDERR "enter_kv_mod: $name not defined\n";
+#       print STDERR "enter_kv_mod: $name not defined\n";
        return 0;
     }
     return 1;
@@ -14,13 +14,13 @@ sub CheckKVArg
    
 my ($mb, $i, $j, $mod, $new, $modid, $depmod, $url);
 
-print STDERR "enter_kv_mod: ==========================================================\n";
-print STDERR Data::Dumper->Dump([%ARGS], ["ARGS"]);
+#print STDERR "enter_kv_mod: ==========================================================\n";
+#print STDERR Data::Dumper->Dump([%ARGS], ["ARGS"]);
 
 $mb = new MusicBrainz;
 $mb->Login();
 
-print STDERR "Sanity check\n";
+#print STDERR "Sanity check\n";
 if (CheckKVArg(\%ARGS, 'column') &&
     CheckKVArg(\%ARGS, 'key0') &&
     CheckKVArg(\%ARGS, 'value0') &&
@@ -30,7 +30,7 @@ if (CheckKVArg(\%ARGS, 'column') &&
     CheckKVArg(\%ARGS, 'table') &&
     CheckKVArg(\%ARGS, 'id')) 
 {
-    print STDERR "Sanity check ok\n";
+#    print STDERR "Sanity check ok\n";
     for($i = 0;; $i++)
     {
         last if (!exists $ARGS{"key$i"} || !exists $ARGS{"value$i"});
@@ -38,16 +38,16 @@ if (CheckKVArg(\%ARGS, 'column') &&
         $new .= $ARGS{"key$i"} . "=" . $ARGS{"value$i"} . "\n";
     }
 
-    print STDERR join(" - ", $ARGS{'table'}, 
-       $ARGS{'column'}, $ARGS{'artist'}, 
-       $ARGS{'type'}, $ARGS{'id'},
-       $ARGS{'prev'}, $new, $session{uid}) . "\nNew:\n$new\n";
+#    print STDERR join(" - ", $ARGS{'table'}, 
+#       $ARGS{'column'}, $ARGS{'artist'}, 
+#       $ARGS{'type'}, $ARGS{'id'},
+#       $ARGS{'prev'}, $new, $session{uid}) . "\nNew:\n$new\n";
 
     $mod = Moderation->new($mb->{DBH});
     $mod = $mod->CreateModerationObject($ARGS{'type'});
     if (defined $mod)
     {
-        print STDERR "Created moderation\n";
+#        print STDERR "Created moderation\n";
         $mod->SetTable($ARGS{'table'});
         $mod->SetColumn($ARGS{'column'});
         $mod->SetArtist($ARGS{'artist'});
@@ -79,11 +79,11 @@ if (CheckKVArg(\%ARGS, 'column') &&
                $ARGS{url} = "/showartist.html?artistid=$1";
             }
         }
-        print STDERR "Insert moderation\n";
+#        print STDERR "Insert moderation\n";
         $modid = $mod->InsertModeration();
     }
 }
-print STDERR "enter_kv_mod done: =====================================================\n";
+#print STDERR "enter_kv_mod done: =====================================================\n";
 $mb->Logout();
 
 $r->method('GET');

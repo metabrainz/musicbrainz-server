@@ -1,0 +1,33 @@
+<%args>
+$modid=>0
+$confirm=>0
+$url=>"/moderate.html?type=3"
+</%args>
+
+<%perl>
+
+my $mb = new MusicBrainz;
+$mb->Login();
+
+if ($modid > 0 && $confirm eq 'yes')
+{
+    my $mod = Moderation->new($mb->{DBH});
+
+    $mod = $mod->CreateFromId($modid);
+    if (defined $mod)
+    {
+        $mod->RemoveModeration();
+    }
+}
+
+$mb->Logout();
+
+$r->method('GET');
+$r->headers_in->unset('Content-length');
+
+$r->content_type('text/html');
+
+$r->header_out(Location=>$url);
+$r->status(302);
+
+</%perl>

@@ -71,7 +71,10 @@ my %ChangeNames = (
     "3" => "Failed vote",
     "4" => "Failed dependency",
     "5" => "Internal error",
-    "6" => "Failed prerequisite"
+    "6" => "Failed prerequisite",
+    "7" => "[Not changed]",
+    "8" => "To Be Deleted",
+    "9" => "Deleted"
 );
 
 my %VoteText = (
@@ -666,12 +669,12 @@ sub CheckModifications
            $depmod = $mods{$mod->GetDepMod()};
            if (defined $depmod)
            {
-              #print STDERR "DepMod status: " . $depmod->{__eval__} . "\n";
+              print STDERR "DepMod status: " . $depmod->{__eval__} . "\n";
               # We have the dependant change in memory
               if ($depmod->{__eval__} == ModDefs::STATUS_OPEN ||
                   $depmod->{__eval__} == ModDefs::STATUS_EVALNOCHANGE)
               {
-                  #print STDERR "EvalChange: Memory dep still open\n";
+                  print STDERR "EvalChange: Memory dep still open\n";
 
                   # If the prereq. change is still open, skip this change 
                   $mod->{__eval__} = ModDefs::STATUS_EVALNOCHANGE;
@@ -679,7 +682,7 @@ sub CheckModifications
               }
               elsif ($depmod->{__eval__} != ModDefs::STATUS_APPLIED)
               {
-                  #print STDERR "EvalChange: Memory dep failed\n";
+                  print STDERR "EvalChange: Memory dep failed\n";
                   $mod->{__eval__} = ModDefs::STATUS_FAILEDPREREQ;
                   next;
               }
@@ -690,7 +693,7 @@ sub CheckModifications
               $dep_status = $this->GetModerationStatus($mod->GetDepMod());
               if ($dep_status != ModDefs::STATUS_APPLIED)
               {
-                  #print STDERR "EvalChange: Disk dep failed\n";
+                  print STDERR "EvalChange: Disk dep failed\n";
                   # The depedent moderation had failed. Fail this one.
                   $mod->{__eval__} = ModDefs::STATUS_FAILEDPREREQ;
                   next;
@@ -709,7 +712,7 @@ sub CheckModifications
                $mod->{__eval__} = ModDefs::STATUS_FAILEDVOTE;
                next;
            }
-           #print STDERR "EvalChange: expire and approved\n";
+           print STDERR "EvalChange: expire and approved\n";
            $mod->{__eval__} = ModDefs::STATUS_APPLIED;
            next;
        }
@@ -718,7 +721,7 @@ sub CheckModifications
        if ($mod->GetYesVotes() == DBDefs::NUM_UNANIMOUS_VOTES && 
            $mod->GetNoVotes() == 0)
        {
-           #print STDERR "EvalChange: unanimous yes\n";
+           print STDERR "EvalChange: unanimous yes\n";
            # A unanimous yes. 
            $mod->{__eval__} = ModDefs::STATUS_APPLIED;
            next;
@@ -727,12 +730,12 @@ sub CheckModifications
        if ($mod->GetNoVotes() == DBDefs::NUM_UNANIMOUS_VOTES && 
            $mod->GetYesVotes() == 0)
        {
-           #print STDERR "EvalChange: unanimous no\n";
+           print STDERR "EvalChange: unanimous no\n";
            # A unanimous no. R
            $mod->{__eval__} = ModDefs::STATUS_FAILEDVOTE;
            next;
        }
-       #print STDERR "EvalChange: no change\n";
+       print STDERR "EvalChange: no change\n";
 
        # No condition for this moderation triggered. Leave it alone
        $mod->{__eval__} = ModDefs::STATUS_EVALNOCHANGE;
@@ -747,13 +750,13 @@ sub CheckModifications
 
        if ($mod->{__eval__} == ModDefs::STATUS_APPLIED)
        {
-           #print STDERR "Mod " . $mod->GetId() . " applied\n";
+           print STDERR "Mod " . $mod->GetId() . " applied\n";
            $mod->SetStatus($mod->ApprovedAction($mod->GetRowId()));
            $this->CreditModerator($mod->GetModerator(), 1);
        }
        else
        {
-           #print STDERR "Mod " . $mod->GetId() . " denied\n";
+           print STDERR "Mod " . $mod->GetId() . " denied\n";
            $mod->DeniedAction();
            $this->CreditModerator($mod->GetModerator(), 0);
        }
@@ -785,7 +788,8 @@ sub CheckModificationForFailedDependencies
            }
            if (!defined $status || 
                $status == ModDefs::STATUS_FAILEDVOTE ||
-               $status == ModDefs::STATUS_FAILEDDEP)
+               $status == ModDefs::STATUS_FAILEDDEP ||
+               $status == ModDefs::STATUS_DELETED)
            {
               return 0;
            }
@@ -839,6 +843,18 @@ sub CloseModification
 
    # Set the status in the Changes row
    $sql->Do(qq/update Changes set status = $status where id = $rowid/);
+}
+
+sub RemoveModeration
+{
+   my ($this) = @_;
+  
+   if ($this->GetStatus() == ModDefs::STATUS_OPEN)
+   {
+       $this->DeniedAction();
+       $this->CloseModification($this->GetId(), $this->GetTable(),
+                                $this->GetRowId(), ModDefs::STATUS_DELETED);
+   }
 }
 
 sub ConvertNewToHash

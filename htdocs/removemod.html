@@ -1,0 +1,106 @@
+<%args>
+$modid=>0
+$confirm=>0
+$url=>""
+</%args>
+
+<& /comp/sidebar, title=>'Remove Moderation', expand=>'moderate' &>
+
+<%perl>
+
+if ($modid == 0)
+{
+    mc_comp("/comp/badargs");
+    return undef;
+}
+
+my $mb = new MusicBrainz;
+$mb->Login();
+
+my $mod = Moderation->new($mb->{DBH});
+$mod = $mod->CreateFromId($modid);
+
+$mb->Logout();
+
+</%perl>
+
+<& /comp/tablebegin, gattrs=>"width=\"100%\"", title=>"Remove moderation" &>
+
+    <FORM METHOD="POST" ACTION="/bare/remove_mod.html"
+          ENCTYPE="application/x-www-form-urlencoded">  
+
+    <table width="100%">
+      <tr>
+        <td colspan="2">
+        Moderation:
+        </td>
+      </tr>
+
+      <tr>
+        <td>
+        &nbsp;
+        </td>
+        <td>
+        <% $mod->ShowModType() |n %>
+        </td>
+      </tr>
+        
+      <tr>
+        <td>
+        &nbsp;
+        </td>
+        <td>
+        <% $mod->ShowPreviousValue() |n %>
+        </td>
+      </tr>
+        
+      <tr>
+        <td>
+        &nbsp;
+        </td>
+        <td>
+        <% $mod->ShowNewValue() |n %>
+        </td>
+      </tr>
+        
+      <tr>
+        <td colspan="2">
+        Do you want to remove this moderation?<p>
+        </td>
+      </tr>
+
+      <tr>
+        <td>
+        &nbsp;
+        </td>
+        <td>
+        <INPUT TYPE="radio" NAME="confirm" SIZE=25 value="yes"> Yes
+        </td>
+      </tr>
+      <tr>
+        <td>
+        &nbsp;
+        </td>
+        <td>
+        <INPUT TYPE="radio" NAME="confirm" SIZE=25 value="no" CHECKED> No
+        </td>
+      </tr>
+      <tr>
+        <td colspan=2>
+        <INPUT TYPE="submit" NAME="Submit" VALUE="Submit">    
+        </td>
+      </tr>
+    </table>
+<%perl>
+
+my $arg;
+
+for $arg (keys %ARGS)
+{
+    mc_out("<input type=\"hidden\" name=\"$arg\" value=\"$ARGS{$arg}\">\n");
+}
+</%perl>
+
+</form>
+<& /comp/tableend &>
+
