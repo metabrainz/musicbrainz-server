@@ -38,7 +38,9 @@ mv /tmp/mbdump.tar.bz2 $ftpdir
 
 # Dump the derived data
 nice ./MBDump.pl --derived -o /tmp/mbdump-derived.tar.bz2
-mv /tmp/mbdump-derived.tar.bz2 $ftpdir
+cp /tmp/mbdump-derived.tar.bz2 $ftpdir
+mv /tmp/mbdump-derived.tar.bz2 $backupdir
+chown $backupuser:$backupgroup $backupdir/mbdump-derived.tar.bz2
 
 # Dump the sanitized moderation data
 nice ./MBDump.pl --moderation --sanitised -o /tmp/mbdump-moderation.tar.bz2
