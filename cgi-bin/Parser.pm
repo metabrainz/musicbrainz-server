@@ -35,6 +35,14 @@ use RDFStore::NodeFactory;
 
 use integer;
 
+sub new
+{
+	my $class = shift;
+	$class = ref($class) || $class;
+	# I bet "type" isn't used ...
+	bless { type => $class }, $class;
+}
+
 sub GetBaseURI
 {
     my ($this) = @_;
