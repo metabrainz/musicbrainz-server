@@ -598,38 +598,6 @@ sub GetAlbums
    return @albums;
 } 
 
-# Retreive the set of albums by this artist given a name. Returns an array of 
-# references to Album objects. Refer to the Album object for details.
-sub GetAlbumsByName
-{
-   my ($this, $name) = @_;
-   my (@albums, $sql, @row, $album);
-
-   return undef if (!exists $this->{id});
-   # First, pull in the single artist albums
-   $sql = Sql->new($this->{DBH});
-   $name = $sql->Quote($name);
-   if ($sql->Select(qq/select id, name, modpending 
-                         from Album 
-                        where name ilike $name and 
-                              artist = $this->{id}/))
-   {
-        while(@row = $sql->NextRow)
-        {
-            $album = Album->new($this->{DBH});
-            $album->SetId($row[0]);
-            $album->SetName($row[1]);
-            $album->SetModPending($row[2]);
-            $album->SetArtist($this->{id});
-            push @albums, $album;
-            undef $album;
-        }
-        $sql->Finish;
-   }
-
-   return @albums;
-} 
-
 # Checks to see if an album by the given name exists. If no exact match is
 # found, then it will attempt a fuzzy match
 sub HasAlbum
