@@ -2,6 +2,7 @@
 <%args>
 $id => ""
 $newname => ""
+$notetext => ""
 </%args>
 <%perl>
 
@@ -28,6 +29,9 @@ my $url = "/showaliases.html?artistid=" . $ar->GetId;
 if (MusicBrainz::IsSingleLineString($newname)
 	and $newname =~ /\S/)
 {
+	return $m->comp("/comp/redirect", $url)
+		if $newname eq $al->GetName;
+
 	$m->comp(
 		"/comp/entermods",
 		DBH => $mb->{DBH},
@@ -40,7 +44,11 @@ if (MusicBrainz::IsSingleLineString($newname)
 				# --
 				alias => $al,
 				newname => $newname,
-			) if $newname ne $al->GetName;
+			);
+
+			$mods[0]->InsertNote($session{'uid'}, $notetext)
+				if $mods[0]
+				and $notetext =~ /\S/;
 		},
 		success_url => $url,
 	) or return;
@@ -103,13 +111,20 @@ if (MusicBrainz::IsSingleLineString($newname)
 				//--></script>
 			</td>
 		</tr>
-		<tr>
-			<td></td>
-			<td>
-				<input type="hidden" name="id" value="<% $id %>">
-				<input type="submit" value="Submit">
-			</td>
 	</table>
+
+	<p>
+		Enter moderation note (optional):
+	</p>
+
+	<p>
+		<textarea name="notetext" rows="3" cols="60"></textarea>
+	</p>
+
+	<p>
+		<input type="hidden" name="id" value="<% $id %>">
+		<input type="submit" value="Submit">
+	</p>
 
 </form>
 
