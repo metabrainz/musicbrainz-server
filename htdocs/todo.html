@@ -6,6 +6,19 @@ help out with a particular task, please <a href="/list.html">subscribe</a>
 to the MusicBrainz mailing list and then post about any questions that you 
 might have.<p>
 
+You might also want to check out <a href="rob_todo.html">Rob's To Do list</a>
+to see what he is currently working on.<p>
+
+<& /comp/todoentry, 
+   task=>'Improved Moderation System', 
+   skills=>'perl/database programming', 
+   desc=>qq\The current moderation system allows user to edit the data
+            in MusicBrainz. However, moderators should also be able to
+            delete data, move tracks to other albums, and move albums to
+            other artists. Even beyond that, moderators should be able to
+            change disk and GUID associations.\
+&>
+
 <& /comp/todoentry, 
    task=>'Testing MusicBrainz', 
    skills=>'General web skills', 
@@ -52,7 +65,9 @@ might have.<p>
    desc=>qq\MusicBrainz should keep track of a lot more data than it currently
             does. It should keep track of web pages that relate to Artists
             and Albums, remix info, cover info and whatever else we see
-            fit to track in MusicBrainz.\
+            fit to track in MusicBrainz. Also, a multiple artist album should
+            allow for keeping track of the artist who compiled the album
+            in order to give credit where credit is due.\
 &>
 
 <& /comp/todoentry, 
@@ -63,14 +78,6 @@ might have.<p>
             to classical music.\
 &>
 
-<& /comp/todoentry, 
-   task=>'Advanced Moderation System', 
-   skills=>'perl/database programming', 
-   desc=>qq\The current moderation system allows user to edit the data
-            in MusicBrainz. However, moderators should also be able to
-            delete data, move tracks to other albums, and move albums to
-            other artists.\
-&>
 
 <& /comp/todoentry, 
    task=>'Add MusicBrainz to existing players', 
