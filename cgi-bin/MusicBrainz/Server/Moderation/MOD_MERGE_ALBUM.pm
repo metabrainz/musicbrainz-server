@@ -102,7 +102,7 @@ sub PostLoad
 sub AdjustModPending
 {
 	my ($self, $adjust) = @_;
-	my $sql = Sql->new($self->{DBH});
+	my $al = Album->new($self->{DBH});
 
 	# Prior to the ModerationClasses2 branch, the "mod pending" change would
 	# only be applied to the album listed in $self->GetRowId, i.e. the target
@@ -111,18 +111,8 @@ sub AdjustModPending
 
 	for my $album ($self->{'new_into'}, @{ $self->{'new_albums'} })
 	{
-		$sql->Do(
-			"UPDATE album SET modpending = modpending + ? WHERE id = ?",
-			$adjust,
-			$album->{'id'},
-		);
-
-		# ... and we allow for modpending to go negative (if it was never
-		# incremented in the first place), and fix it if it does.
-		$sql->Do(
-			"UPDATE album SET modpending = 0 WHERE id = ? AND modpending < 0",
-			$album->{'id'},
-		) if $adjust < 0;
+		$al->SetId($album->{'id'});
+		$al->UpdateModPending($adjust);
 	}
 }
 
