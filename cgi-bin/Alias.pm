@@ -29,7 +29,7 @@ use TableBase;
 use strict;
 use DBI;
 use DBDefs;
-use Carp qw( croak );
+use Carp qw( carp croak );
 
 sub new
 {
@@ -160,25 +160,32 @@ sub UpdateName
 
 sub Resolve
 {
-   my ($this, $name) = @_;
-   my ($sql, $id, @row);
+    my ($this, $name) = @_;
 
-   $sql = Sql->new($this->{DBH});
-   if ($sql->Select("select ref, id from $this->{table} where name ilike ".
-                    $sql->Quote($name)))
-   {
-       @row = $sql->NextRow();
-       $id = $row[0];
-       $sql->Finish;
+    MusicBrainz::TrimInPlace($name) if defined $name;
+    if (not defined $name or $name eq "")
+    {
+        carp "Missing name in Resolve";
+        return undef;
+    }
 
-        use MusicBrainz::Server::DeferredUpdate;
-        MusicBrainz::Server::DeferredUpdate->Write(
-            "Alias::UpdateLookupCount",
-            $this->{table},
-            $row[1],
-        );
-   }
-   return $id;
+    my $sql = Sql->new($this->{DBH});
+
+    my $row = $sql->SelectSingleRowArray(
+        "SELECT ref, id FROM $this->{table}
+        WHERE LOWER(name) = LOWER(?)
+        LIMIT 1",
+        $name,
+    ) or return undef;
+    
+    use MusicBrainz::Server::DeferredUpdate;
+    MusicBrainz::Server::DeferredUpdate->Write(
+        "Alias::UpdateLookupCount",
+        $this->{table},
+        $row->[1],
+    );
+
+    $row->[0];
 }
 
 sub Remove
