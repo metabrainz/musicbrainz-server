@@ -15,7 +15,13 @@ not defined $page
 	or MusicBrainz::IsNonNegInteger($page)
 	or return $m->comp("/comp/badargs", 1, 1);
 
-my ($query, $voter_id) = $m->comp("setquery.inc", %ARGS);
+my ($query, $voter_id, $filter, $errors) = $m->comp("setquery.inc", %ARGS);
+
+if (@$errors)
+{
+	my $msg = join ". ", @$errors;
+	return $m->comp("/comp/error", $msg, 1, 1);
+}
 
 $m->comp(
 	"/comp/moderatepage",

@@ -206,11 +206,17 @@ my %all_types = reverse %{ ModDefs->type_as_hashref };
 					you can make the range smaller.
 				</p>
 				<p>
+					You can also enter dates / times here, in which case the date and
+					time you select will be converted to the nearest matching moderation ID.&nbsp;
+					(The date / time applies to the time the moderation was entered,
+					not when it was applied or rejected).
+				</p>
+				<p>
 					Not before
-					#<input type="text" name="minid" size="8" maxlength="12"
+					<input type="text" name="minid" size="20" maxlength="30"
 						value="<% $filter->{'minid'}||'' %>">
 					and not after
-					#<input type="text" name="maxid" size="8" maxlength="12"
+					<input type="text" name="maxid" size="20" maxlength="30"
 						value="<% $filter->{'maxid'}||'' %>">
 				</p>
 			</td>

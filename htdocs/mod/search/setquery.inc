@@ -90,6 +90,7 @@ $dbh ||= $m->comp("/comp/dblogin")->{DBH};
 
 my %filter;
 my @where;
+my @errors;
 
 ################################################################################
 # mod_status - multi-select of STATUS_* constants
@@ -143,6 +144,10 @@ push @where, $m->comp(
 	\@mod_type,
 	[keys %allowed_type],
 );
+
+# Silly Vim hack:
+</%perl>
+<%perl>
 
 ################################################################################
 # voter_type / voter_id
@@ -249,6 +254,10 @@ if (@vote_cast > 0 and @vote_cast < keys(%allowed_votes))
 
 	$vote = ", COALESCE(v.vote, ".&ModDefs::VOTE_NOTVOTED.") AS vote";
 }
+
+# Silly Vim hack:
+</%perl>
+<%perl>
 
 ################################################################################
 # moderator_type / moderator_id
@@ -366,6 +375,10 @@ if ($object_type =~ /^(album|track)$/ and MusicBrainz::IsNonNegInteger($object_i
 	$filter{"object_id"} = $object_id;
 }
 
+# Silly Vim hack:
+</%perl>
+<%perl>
+
 ################################################################################
 # automod
 ################################################################################
@@ -380,15 +393,45 @@ push @where, "m.automod = $automod"
 # minid, maxid
 ################################################################################
 
-$minid = "" unless MusicBrainz::IsNonNegInteger($minid);
-$maxid = "" unless MusicBrainz::IsNonNegInteger($maxid);
+for my $t (
+	[ \$minid, "minid" ],
+	[ \$maxid, "maxid" ],
+) {
+	my ($ref, $key) = @$t;
 
-($minid, $maxid) = ($maxid, $minid)
+	MusicBrainz::TrimInPlace($$ref);
+	if ($$ref eq "")
+	{
+		$filter{$key} = undef;
+		next;
+	}
+
+	if (MusicBrainz::IsNonNegInteger($$ref))
+	{
+		$filter{$key} = $$ref;
+		next;
+	}
+
+	my $time = MusicBrainz::Server::DateTime::parse_datetime(
+		{ PREFER_PAST => 1 },
+		$$ref,
+	);
+
+	if (not defined $time)
+	{
+		push @errors, "Couldn't understand the date/time '$$ref'";
+		next;
+	}
+
+	my $modid = Moderation->iFindByTime($dbh, $time);
+	$filter{$key} = $$ref;
+	$$ref = $modid;
+}
+
+($minid, $maxid, $filter{"minid"}, $filter{"maxid"})
+	= ($maxid, $minid, $filter{"maxid"}, $filter{"minid"})
 	if $minid ne "" and $maxid ne ""
 	and $minid > $maxid;
-
-$filter{"minid"} = $minid;
-$filter{"maxid"} = $maxid;
 
 push @where, "m.id >= $minid" if $minid ne "";
 push @where, "m.id <= $maxid" if $maxid ne "";
@@ -418,6 +461,6 @@ unless ($ARGS{DEFAULT_TEST})
 	$query = undef if $query eq $defquery;
 }
 
-return ($query, $effective_voter_id, \%filter);
+return ($query, $effective_voter_id, \%filter, \@errors);
 
 </%perl>
