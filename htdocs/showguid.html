@@ -6,16 +6,22 @@ my ($albumid, $trackid);
 $mb = new MusicBrainz;
 $mb->Login();
 
-$trackid = $mb->GetTrackIdFromGUID($ARGS{guid});
-$albumid = $mb->GetAlbumFromTrackId($trackid);
-
 mc_out("<font size=+1><b>Guid: $ARGS{guid}</b></font><p>");
 
-mc_comp("comp/showalbum", 
-   mb=>$mb, 
-   albumid=>$albumid,
-   hilitetrack=>$trackid,
-   hilitecolor=>"#CCFFFF");
+$trackid = $mb->GetTrackIdFromGUID($ARGS{guid});
+if ($trackid <= 0)
+{
+    mc_out("<p><b>This GUID was not found.</b><p>");
+}
+else
+{
+    $albumid = $mb->GetAlbumFromTrackId($trackid);
+    mc_comp("comp/showalbum", 
+       mb=>$mb, 
+       albumid=>$albumid,
+       hilitetrack=>$trackid,
+       hilitecolor=>"#CCFFFF");
+}
 
 </%perl>
 
