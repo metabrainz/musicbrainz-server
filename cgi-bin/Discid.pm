@@ -24,13 +24,12 @@
 #____________________________________________________________________________
 
 package Discid;
-use TableBase;
 
-use vars qw(@ISA @EXPORT);
-@ISA    = @ISA    = 'TableBase';
-@EXPORT = @EXPORT = '';
+use TableBase;
+{ our @ISA = qw( TableBase ) }
 
 use strict;
+use Carp qw( croak );
 use DBI;
 use DBDefs;
 
@@ -194,6 +193,20 @@ sub _InsertTOC
 
 	local $" = ", ";
 	$sql->Do("INSERT INTO toc (@keys) VALUES (@qs)", @values);
+}
+
+sub UpdateAlbum
+{
+	my $self = shift;
+
+	my $discid = $self->GetDiscid
+		or croak "Missing DiscID in UpdateAlbum";
+	my $album = $self->GetAlbum
+		or croak "Missing album ID in UpdateAlbum";
+
+	my $sql = Sql->new($self->{DBH});
+	$sql->Do("UPDATE discid SET album = ? WHERE disc = ?", $album, $discid);
+	$sql->Do("UPDATE toc SET album = ? WHERE discid = ?", $album, $discid);
 }
 
 # Remove an Discid from the database. Set the id via the accessor function.

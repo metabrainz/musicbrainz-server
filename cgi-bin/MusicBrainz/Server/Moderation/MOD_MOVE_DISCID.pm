@@ -71,19 +71,10 @@ sub PreInsert
 
 	# This is one of those mods where we give the user instant gratification,
 	# then undo the mod later if it's rejected.
- 	my $sql = Sql->new($self->{DBH});
-
-	$sql->Do(
-		"UPDATE discid SET album = ? WHERE disc = ?",
-		$newal->GetId,
-		$discid,
-	);
-
-	$sql->Do(
-		"UPDATE toc SET album = ? WHERE discid = ?",
-		$newal->GetId,
-		$discid,
-	);
+	my $di = Discid->new($self->{DBH});
+	$di->SetDiscid($discid);
+	$di->SetAlbum($newal->GetId);
+	$di->UpdateAlbum;
 }
 
 sub PostLoad
@@ -101,20 +92,12 @@ sub ApprovedAction
 sub DeniedAction
 {
 	my $self = shift;
-	my $sql = Sql->new($self->{DBH});
 	my $new = $self->{'new_unpacked'};
 	
-	$sql->Do(
-		"UPDATE discid SET album = ? WHERE disc = ?",
-		$self->GetPrev,
-		$new->{'DiscId'},
-	);
-
-	$sql->Do(
-		"UPDATE toc SET album = ? WHERE discid = ?",
-		$self->GetPrev,
-		$new->{'DiscId'},
-	);
+	my $di = Discid->new($self->{DBH});
+	$di->SetDiscid($new->{'DiscId'});
+	$di->SetAlbum($self->GetPrev);
+	$di->UpdateAlbum;
 }
 
 1;
