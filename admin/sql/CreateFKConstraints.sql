@@ -85,6 +85,11 @@ ALTER TABLE artist_relation
     FOREIGN KEY (ref)
     REFERENCES artist(id);
 
+ALTER TABLE moderator_preference
+    ADD CONSTRAINT moderator_preference_fk_moderator
+    FOREIGN KEY (moderator)
+    REFERENCES moderator(id);
+
 -- albummeta ?
 -- moderationnote ?
 

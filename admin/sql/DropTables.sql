@@ -30,6 +30,7 @@ drop table Stats;
 
 DROP TABLE currentstat;
 DROP TABLE historicalstat;
+DROP TABLE moderator_preference;
 
 drop sequence album_id_seq;
 drop sequence albumjoin_id_seq;

@@ -190,6 +190,13 @@ create table stats (
    moderators int not null, 
    timestamp date not null);
 
+DROP TABLE IF EXISTS artist_relation;
+CREATE TABLE artist_relation (
+   Id bigint auto_increment primary key,
+   artist int not null,
+   ref int not null,
+   weight integer not null);
+
 DROP TABLE IF EXISTS currentstat;
 CREATE TABLE currentstat
 (
@@ -206,10 +213,12 @@ CREATE TABLE historicalstat
 	snapshotdate	DATETIME NOT NULL
 );
 
-DROP TABLE IF EXISTS artist_relation;
-CREATE TABLE artist_relation (
-   Id bigint auto_increment primary key,
-   artist int not null,
-   ref int not null,
-   weight integer not null);
+DROP TABLE IF EXISTS moderator_preference;
+CREATE TABLE moderator_preference
+(
+	moderator	INTEGER NOT NULL, -- references moderator
+	name		VARCHAR(50) NOT NULL,
+	value		VARCHAR(100) NOT NULL,
+	PRIMARY KEY (moderator, name)
+);
 

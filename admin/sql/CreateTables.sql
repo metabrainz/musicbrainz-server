@@ -173,6 +173,12 @@ create table Stats (
    moderators int not null, 
    timestamp date not null);
 
+create table artist_relation (
+   Id serial primary key,
+   artist int not null, -- references Artist, 
+   ref int not null, -- references Artist, 
+   weight integer not null);
+
 CREATE TABLE currentstat
 (
 	name		VARCHAR(100) PRIMARY KEY,
@@ -187,10 +193,12 @@ CREATE TABLE historicalstat
 	snapshotdate	DATE NOT NULL
 );
 
-create table artist_relation (
-   Id serial primary key,
-   artist int not null, -- references Artist, 
-   ref int not null, -- references Artist, 
-   weight integer not null);
+CREATE TABLE moderator_preference
+(
+	moderator	INTEGER NOT NULL, -- references moderator
+	name		VARCHAR(50) NOT NULL,
+	value		VARCHAR(100) NOT NULL,
+	PRIMARY KEY (moderator, name)
+);
 
 commit;
