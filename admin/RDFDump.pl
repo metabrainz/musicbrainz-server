@@ -58,7 +58,7 @@ $mb->Login;
 
 $rdfout = RDFOutput2->new($mb->{DBH});
 $rdfout->SetBaseURI("http://mm.musicbrainz.org");
-$rdfout->SetDepth(2);
+$rdfout->SetDepth(1);
 
 $sql = Sql->new($mb->{DBH});
 if ($sql->Select("select gid from Artist order by sortname"))
@@ -72,34 +72,18 @@ $sql->Finish;
 
 $rdfout->SetOutputFile(\*RDF);
 
-print "Dumping artist list.\n";
+print "Dumping Artist list.\n";
 $rdfout->DumpBegin('artist', @ids);
 @ids = ();
 
-print "Dumping artists.\n";
 $| = 1;
- my ($start, $nw, $count, $mx, $spr, $left, $mins, $hours, $secs);
-$start = time;
-if ($sql->Select("select id from Artist order by sortname"))
-{
-    $mx = $sql->Rows();
-    for($count = 1;@row = $sql->NextRow; $count++)
-    {
-        $rdfout->DumpArtist('artist', $row[0]);
+print "Dumping artists.\n";
+Dump($sql, $rdfout, 'Artist');
+print "Dumping albums.\n";
+Dump($sql, $rdfout, 'Album');
+print "Dumping tracks.\n";
+Dump($sql, $rdfout, 'Track');
 
-        $nw = time;
-        $spr = ($nw - $start) / $count;
-        $left = ($mx - $count) * $spr;
-        $hours = int($left / 3600);
-        $left %= 3600;
-        $mins = int($left / 60);
-        $left %= 60;
-
-        print "  $count of $mx -- Time left: " . 
-              sprintf("%02d:%02d:%02d   \r", $hours, $mins, $left, $spr);
-    }
-}
-$sql->Finish;
 print "Dump finished.\n";
 
 $rdfout->DumpEnd();
@@ -107,6 +91,38 @@ $rdfout->DumpEnd();
 close RDF;
 
 $mb->Logout;
+
+sub Dump
+{
+    my ($sql, $rdfout, $type) = @_;
+
+    my @row;
+    my $lctype = $type;
+    $lctype =~ tr/A-Z/a-z/;
+
+    my ($start, $nw, $count, $mx, $spr, $left, $mins, $hours, $secs);
+    if ($sql->Select("select id from Artist order by sortname"))
+    {
+        $start = time;
+        $mx = $sql->Rows();
+        for($count = 1;@row = $sql->NextRow; $count++)
+        {
+            $rdfout->DumpArtist($lctype, $row[0]);
+    
+            $nw = time;
+            $spr = ($nw - $start) / $count;
+            $left = ($mx - $count) * $spr;
+            $hours = int($left / 3600);
+            $left %= 3600;
+            $mins = int($left / 60);
+            $left %= 60;
+
+            print "  $count of $mx -- Time left: " . 
+                  sprintf("%02d:%02d:%02d   \r", $hours, $mins, $left, $spr);
+        }
+    }
+    $sql->Finish;
+}
 
 sub GetLicense
 {

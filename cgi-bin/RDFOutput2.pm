@@ -656,8 +656,6 @@ sub DumpBegin
    print {$this->{file}} $this->BeginRDFObject(1);
    print {$this->{file}} $this->OutputList($type, \@gids);
 
-   $this->{depth} = 2;
-
    return 1;
 }
 
