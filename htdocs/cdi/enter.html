@@ -4,6 +4,7 @@ $id
 $toc
 $artist=>0
 $freedb=>0
+$noncd=>0
 </%args>
 <%perl>
 
@@ -55,10 +56,14 @@ if ($freedb)
 %    if ($freedb) {
          This CD was not found at FreeDB.<p>
 %    } else {
-         Please enter the CD information below, or 
-         click on FreeDB lookup to attempt to load the data for
-         this CD from FreeDB:<p>
-%        if (!$freedb) {
+%        if ($noncd) {
+            Please enter the album information below:
+%        } else {
+            Please enter the CD information below, or 
+            click on FreeDB lookup to attempt to load the data for
+            this CD from FreeDB:<p>
+%        }
+%        if (!$freedb && !$noncd) {
            <form method="POST" action="/cdi/enter.html" Name="FreeDBLookup"
                  enctype="application/x-www-form-urlencoded" class="formstyle">
            <input type="hidden" name="id" value="<% $id %>">
@@ -105,7 +110,11 @@ if ($freedb)
 % }
 </td></tr>
 
-<tr><td>CD Title:</td><td>
+% if ($noncd) {
+   <tr><td>Album Title:</td><td>
+% } else {
+   <tr><td>CD Title:</td><td>
+% }
 % if (!defined $lookup) {
     <input type="text" name="title" size="50" maxlength="255">
 % } else {
@@ -132,5 +141,6 @@ if ($freedb)
 <input type="hidden" name="id" value="<% $id %>">
 <input type="hidden" name="toc" value="<% $toc %>">
 <input type="hidden" name="tracks" value="<% $tracks %>">
+<input type="hidden" name="noncd" value="<% $noncd %>">
 <input type="submit" value="Next>>" name="Next">
 </form>

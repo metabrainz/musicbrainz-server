@@ -10,6 +10,7 @@ $title=>""
 $durations=>""
 $attrtype=>0
 $attrstatus=>0
+$noncd=>0
 </%args>
 
 <%perl>
@@ -22,8 +23,8 @@ mc_comp("/comp/sidebar", title=>'New CD Submission');
 
 $error = 0;
 $error = 1 if (!defined $artist && $artistname eq '');
-$error = 2 if ($id eq '' && $freedbid eq '');
-$error = 3 if ($toc eq '' && $freedbid eq '');
+$error = 2 if ($id eq '' && $freedbid eq '' && $noncd == 0);
+$error = 3 if ($toc eq '' && $freedbid eq '' && $noncd == 0);
 $error = 4 if ($freedbid ne '' && $durations eq '');
 $error = 5 if ($tracks eq 0);
 $error = 6 if (!defined $artist && $artistname =~ /various artists/i);
