@@ -310,15 +310,20 @@ sub GetArtistDisplayList
    return undef if ($ind_len <= 0);
 
    $sql = Sql->new($this->{DBH});
-   ($num_artists) =  $sql->GetSingleRowLike("Artist", ["count(*)"], 
-                            ["substring(sortname from 1 for $ind_len)", 
-                             $sql->Quote($ind)]);
-   return undef if (!defined $num_artists);
    
    if ($ind =~ m/_/)
    {
       $ind =~ s/_/[^A-Za-z]/g;
       $ind = "^$ind";
+
+      if ($sql->Select("select count(*) from Artist where sortname ~ '$ind'"))
+      {
+          @row = $sql->NextRow();
+          $sql->Finish();
+          $num_artists = $row[0];
+      }
+      return undef if (!defined $num_artists);
+
       $query = qq/select id, sortname, modpending 
                   from   Artist 
                   where  sortname ~ '$ind'
@@ -327,6 +332,11 @@ sub GetArtistDisplayList
    }
    else
    {
+      ($num_artists) =  $sql->GetSingleRowLike("Artist", ["count(*)"], 
+                               ["substring(sortname from 1 for $ind_len)", 
+                                $sql->Quote($ind)]);
+      return undef if (!defined $num_artists);
+
       $query = qq/select id, sortname, modpending 
                     from Artist 
                    where substring(sortname from 1 for $ind_len) ilike '$ind' 

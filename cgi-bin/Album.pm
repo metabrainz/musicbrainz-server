@@ -502,26 +502,36 @@ sub GetVariousDisplayList
    return undef if ($ind_len <= 0);
 
    $sql = Sql->new($this->{DBH});
-   ($num_albums) =  $sql->GetSingleRowLike("Album", ["count(*)"], 
-                                        ["substring(name from 1 for $ind_len)", 
-                                         $sql->Quote($ind),
-                                         "Album.artist", ModDefs::VARTIST_ID]);
-   return undef if (!defined $num_albums);
    
    if ($ind =~ m/_/)
    {
       $ind =~ s/_/[^A-Za-z]/g;
       $ind = "^$ind";
+      $num_albums = 0;
+
+      if ($sql->Select(qq|select count(*) from Album where name ~ '$ind' and
+                          Album.artist = | . ModDefs::VARTIST_ID))
+      {
+          @row = $sql->NextRow();
+          $sql->Finish();
+          $num_albums = $row[0];
+      }
+      return undef if (!defined $num_albums);
+
       $query = qq/select id, name, modpending 
                   from   Album 
                   where  name ~ '$ind' and
                          Album.artist = / . ModDefs::VARTIST_ID . qq/
                   order  by name 
                   limit  $max_items offset $offset/;
-      print STDERR "$query\n";
    }
    else
    {
+      ($num_albums) =  $sql->GetSingleRowLike("Album", ["count(*)"], 
+                                        ["substring(name from 1 for $ind_len)", 
+                                         $sql->Quote($ind),
+                                         "Album.artist", ModDefs::VARTIST_ID]);
+      return undef if (!defined $num_albums);
       $query = qq/select id, name, modpending from Album 
                    where substring(name from 1 for $ind_len) ilike '$ind' and
                          Album.artist = / . ModDefs::VARTIST_ID . qq/
