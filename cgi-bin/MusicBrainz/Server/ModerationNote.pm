@@ -95,21 +95,7 @@ sub Insert
 	my $note_user = $ui->newFromId($noteuid)
 		or die;
 
-	my $body = <<EOF;
-Moderator $note_user->{name} has attached a note to your moderation #$modid:
-
-$text
-
-Moderation link: http://${\ DBDefs::WEB_SERVER() }/showmod.html?modid=$modid
-EOF
-
-	$ui->SendEMail(
-		"MusicBrainz ModBot",
-		undef,
-		$mod_user,
-		"Note for moderation #$modid",
-		$body
-	);
+	$note_user->SendModNoteToUser($moderation, $text, $mod_user);
 }
 
 *newFromModerationId = \&newFromModerationIds;
