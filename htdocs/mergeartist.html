@@ -3,6 +3,7 @@
 $id => ""
 $selectedartist => ""
 $search => ""
+$notetext => undef
 </%args>
 <%perl>
 
@@ -32,7 +33,7 @@ if ($selectedartist ne "")
 {
 	MusicBrainz::IsNonNegInteger($selectedartist) && $selectedartist
 		or return $m->comp("/comp/badargs", 1, 1);
-	
+
 	my $target = Artist->new($mb->{DBH});
 	$target->SetId($selectedartist);
 	$target->LoadFromId
@@ -40,6 +41,12 @@ if ($selectedartist ne "")
 			"/comp/error",
 			"Artist #$selectedartist not found.",
 			1, 1,
+		);
+
+	defined $notetext
+		or return $m->comp(
+			"mergeartist-confirm",
+			$ar, $target,
 		);
 
 	$m->comp(
@@ -55,6 +62,10 @@ if ($selectedartist ne "")
 				source => $ar,
 				target => $target,
 			);
+
+			$mods[0]->InsertNote($session{'uid'}, $notetext)
+				if $mods[0]
+				and $notetext =~ /\S/;
 		},
 		success_url => $url,
 	) or return;

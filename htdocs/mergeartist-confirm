@@ -1,0 +1,47 @@
+%# vi: set ts=4 sw=4 ft=mason :
+% my ($ar, $target) = @_ or return;
+<& /comp/sidebar, title => 'Merge Artist' &>
+
+<h2>Confirm Artist Merge</h2>
+
+<p>
+	Are you sure you want to merge artist
+	<a href="/showartist.html?artistid=<% $ar->GetId %>"
+		class="bold"><% $ar->GetName %></a>
+	into
+	<a href="/showartist.html?artistid=<% $target->GetId %>"
+		class="bold"><% $target->GetName %></a>?
+</p>
+
+<form method="get" action="/showartist.html"
+	name="ModFormNo"
+	style="float: left; margin-right: 2em; margin-top: 0"
+	>
+	<div>
+		<input type="hidden" name="artistid" value="<% $ar->GetId %>">
+		<input type="submit" value="&lt;&lt; NO">
+	</div>
+</form>
+
+<form method="post" action="/mergeartist.html"
+	name="ModFormYes"
+	style="margin: 0"
+	>
+	<div>
+		<input type="hidden" name="id" value="<% $ar->GetId %>">
+		<input type="hidden" name="selectedartist" value="<% $target->GetId %>">
+		<input type="submit" value="YES &gt;&gt;">
+	</div>
+
+	<p>
+		If YES, enter moderation note (optional):
+	</p>
+
+	<p>
+		<textarea name="notetext" rows="3" cols="60"></textarea>
+	</p>
+
+</form>
+
+<& /comp/movefocus, "ModFormNo", 0 &>
+<& /comp/footer &>
