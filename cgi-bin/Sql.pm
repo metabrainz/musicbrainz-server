@@ -111,14 +111,27 @@ sub Do
     my ($this, $query) = @_;
     my $ret;
 
-    #print STDERR "do: $query\n";
+    my (@ltime, $trace, $prefix, @strace, $q);
+
+    $trace = Carp::longmess();
+    
+    @ltime = localtime(time());
+    $prefix = ($ltime[5]+1900) . ($ltime[4]+1) . $ltime[3] . ": ";
+    
+    @strace = split /^/m, $trace;
+    $trace = $prefix . join $prefix, $strace[0], $strace[1], $strace[2];
+
+    $q = $query;
+    $q =~ s/\n/ /g;
+    print STDERR "$prefix $q\n$trace";
+
     $ret = $this->{DBH}->do($query);
     if ($ret)
     {
-       return $ret;
+        return $ret;
     }
     $this->{ERR} = $this->{DBH}->errstr;
-    cluck("Failed query:\n  '$query' -> " . $this->{DBH}->errstr . "\n");
+    cluck("$prefix Failed query:\n  '$query' -> " . $this->{DBH}->errstr . "\n");
 
     return undef;
 }
