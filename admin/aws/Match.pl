@@ -579,6 +579,7 @@ Select which artists to process:
   -u, --update         Match only artists who have no Amazon matches at all
   -d, --daily          Match 1/30th of the artists that have the oldest asin
                        pairings
+  -a, --all            Match all artists.  This can take a LONG time!
   -s, --single         Match only the artist(s) given by "--artist"
       --artist=ARTIST  Specify artist IDs or names for --single to process
 
