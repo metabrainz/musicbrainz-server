@@ -83,203 +83,204 @@ for my $id (@$albums)
 {
     print localtime() . " : Fixing album #$id\n" if $verbose;
 
+	no warnings 'exiting';
 	eval {
 
-	require Musicbrainz::Server::AlbumCDTOC;
-	my $tocs = Musicbrainz::Server::AlbumCDTOC->newFromAlbum($mb->{DBH}, $id);
-	$_ = $_->GetCDTOC for @$tocs;
+		require Musicbrainz::Server::AlbumCDTOC;
+		my $tocs = Musicbrainz::Server::AlbumCDTOC->newFromAlbum($mb->{DBH}, $id);
+		$_ = $_->GetCDTOC for @$tocs;
 
-	if ($debug)
-	{
-		print "TOCs:\n";
-		for my $t (@$tocs)
+		if ($debug)
 		{
-			print "  " . $t->GetTOC . "\n";
-
-			require Track;
-			my @l = TrackLengthsFromTOC($t);
-			@l = map { Track::FormatTrackLength($_) } @l;
-			print "    (@l)\n";
-		}
-	}
-
-	my $tracks = $sql->SelectListOfHashes(
-		"SELECT t.id, t.length, j.sequence
-		FROM track t, albumjoin j
-		WHERE t.id = j.track
-		AND j.album = ?
-		ORDER BY j.sequence",
-		$id,
-	);
-
-	if ($debug)
-	{
-		print "Tracks:\n";
-		printf "  #%02d : %10d %-8s  %12d\n",
-			$_->{sequence},
-			$_->{length},
-			(($_->{length} > 0) ? Track::FormatTrackLength($_->{length}) : ""),
-			$_->{id},
-			for @$tracks;
-	}
-
-	# Easy case: there is one disc ID, we have exactly the correct set of
-	# tracks, and all the tracks have no length.
-	if (@$tocs == 1)
-	{
-		my $ideal_tracks = $tocs->GetTrackCount;
-		my $want_tracks = join ",", 1 .. $ideal_tracks;
-		my $have_tracks = join ",", sort { $a<=>$b } map { $_->{sequence} } @$tracks;
-
-		if ($want_tracks eq $have_tracks)
-		{
-			# Check that each track either has no length, or its length seems
-			# to match that given in the TOC
-
-			my @want = TrackLengthsFromTOC($tocs->[0]);
-			my @got = map { $_->{length} } @$tracks;
-			my $bad = 0;
-
-			for (1 .. $ideal_tracks)
+			print "TOCs:\n";
+			for my $t (@$tocs)
 			{
-				my $got_l = $got[$_-1];
-				my $want_l = $want[$_-1];
+				print "  " . $t->GetTOC . "\n";
 
-				next if $got_l <= 0;
-				my $diff = abs($got_l - $want_l);
-				next if $diff < 5000;
-
-				++$bad;
+				require Track;
+				my @l = TrackLengthsFromTOC($t);
+				@l = map { Track::FormatTrackLength($_) } @l;
+				print "    (@l)\n";
 			}
+		}
 
-			if ($bad == 0)
+		my $tracks = $sql->SelectListOfHashes(
+			"SELECT t.id, t.length, j.sequence
+			FROM track t, albumjoin j
+			WHERE t.id = j.track
+			AND j.album = ?
+			ORDER BY j.sequence",
+			$id,
+		);
+
+		if ($debug)
+		{
+			print "Tracks:\n";
+			printf "  #%02d : %10d %-8s  %12d\n",
+				$_->{sequence},
+				$_->{length},
+				(($_->{length} > 0) ? Track::FormatTrackLength($_->{length}) : ""),
+				$_->{id},
+				for @$tracks;
+		}
+
+		# Easy case: there is one disc ID, we have exactly the correct set of
+		# tracks, and all the tracks have no length.
+		if (@$tocs == 1)
+		{
+			my $ideal_tracks = $tocs->GetTrackCount;
+			my $want_tracks = join ",", 1 .. $ideal_tracks;
+			my $have_tracks = join ",", sort { $a<=>$b } map { $_->{sequence} } @$tracks;
+
+			if ($want_tracks eq $have_tracks)
 			{
-				# For each track with no length, set the length as indicated
-				# by the TOC
+				# Check that each track either has no length, or its length seems
+				# to match that given in the TOC
 
-				$sql->Begin;
+				my @want = TrackLengthsFromTOC($tocs->[0]);
+				my @got = map { $_->{length} } @$tracks;
+				my $bad = 0;
 
-				for my $t (@$tracks)
+				for (1 .. $ideal_tracks)
 				{
-					# TODO? next if $t->{length} > 0;
-					my $id = $t->{id};
-					my $l = $want[$t->{sequence}-1];
-					print "UPDATE track SET length = $l WHERE id = $id\n"
-						if $verbose;
-					$sql->Do("UPDATE track SET length = ? WHERE id = ?", $l, $id)
-						unless $dry_run;
-					++$tracks_fixed;
-					++$tracks_set unless $t->{length} > 0;
+					my $got_l = $got[$_-1];
+					my $want_l = $want[$_-1];
+
+					next if $got_l <= 0;
+					my $diff = abs($got_l - $want_l);
+					next if $diff < 5000;
+
+					++$bad;
 				}
 
-				$sql->Commit;
+				if ($bad == 0)
+				{
+					# For each track with no length, set the length as indicated
+					# by the TOC
 
-				++$albums_fixed;
-				next;
+					$sql->Begin;
+
+					for my $t (@$tracks)
+					{
+						# TODO? next if $t->{length} > 0;
+						my $id = $t->{id};
+						my $l = $want[$t->{sequence}-1];
+						print "UPDATE track SET length = $l WHERE id = $id\n"
+							if $verbose;
+						$sql->Do("UPDATE track SET length = ? WHERE id = ?", $l, $id)
+							unless $dry_run;
+						++$tracks_fixed;
+						++$tracks_set unless $t->{length} > 0;
+					}
+
+					$sql->Commit;
+
+					++$albums_fixed;
+					next;
+				}
 			}
 		}
-	}
 
-	# Probably the next case to handle is any combination of:
-	# - multiple TOCs, but where they are all "close enough"
-	# - tracks already have length, but all those tracks match the TOC "well enough"
-	my %c; ++$c{ $_->GetTrackCount } for @$tocs;
+		# Probably the next case to handle is any combination of:
+		# - multiple TOCs, but where they are all "close enough"
+		# - tracks already have length, but all those tracks match the TOC "well enough"
+		my %c; ++$c{ $_->GetTrackCount } for @$tocs;
 
-	if (keys(%c) == 1)
-	{
-		# OK, one or more TOCs where the track counts match at least.
-		# How do the track lengths compare?
-
-		my @parsed_tocs = map { [TrackLengthsFromTOC($_)] } @$tocs;
-		my $num_tracks = (keys %c)[0];
-
-		# Calculate the average track lengths
-		my @average_toc;
-		for my $n (0 .. $num_tracks-1)
+		if (keys(%c) == 1)
 		{
-			my @l = map { $_->[$n] } @parsed_tocs;
-			my $avg = 0;
-			$avg += $_ for @l;
-			$avg /= @l;
-			push @average_toc, $avg;
-		}
+			# OK, one or more TOCs where the track counts match at least.
+			# How do the track lengths compare?
 
-		# See how far off each TOC is from the average
-		my @skew;
-		for my $p (@parsed_tocs)
-		{
-			my $sqdiff = 0;
+			my @parsed_tocs = map { [TrackLengthsFromTOC($_)] } @$tocs;
+			my $num_tracks = (keys %c)[0];
+
+			# Calculate the average track lengths
+			my @average_toc;
 			for my $n (0 .. $num_tracks-1)
 			{
-				my $diff = $p->[$n] - $average_toc[$n];
-				$sqdiff += $diff*$diff;
+				my @l = map { $_->[$n] } @parsed_tocs;
+				my $avg = 0;
+				$avg += $_ for @l;
+				$avg /= @l;
+				push @average_toc, $avg;
 			}
-			$sqdiff /= $num_tracks;
-			$sqdiff = sqrt($sqdiff) / 1000;
 
-			print "Skew for @$p = $sqdiff\n" if $debug;
-			push @skew, $sqdiff;
-		}
-
-		if (not grep { $_ > 5 } @skew)
-		{
-			# Good, the TOC track lengths agree (clearly, if there's only one
-			# TOC).
-			# For each track which has length already, let's see how
-			# closely it matches the average TOC.
-			my $sqdiff = 0;
-			for my $t (@$tracks)
+			# See how far off each TOC is from the average
+			my @skew;
+			for my $p (@parsed_tocs)
 			{
-				my $l = $t->{length};
-				$l > 0 or next;
-				my $diff = $l - $average_toc[$t->{sequence}-1];
-				$sqdiff += $diff*$diff;
+				my $sqdiff = 0;
+				for my $n (0 .. $num_tracks-1)
+				{
+					my $diff = $p->[$n] - $average_toc[$n];
+					$sqdiff += $diff*$diff;
+				}
+				$sqdiff /= $num_tracks;
+				$sqdiff = sqrt($sqdiff) / 1000;
+
+				print "Skew for @$p = $sqdiff\n" if $debug;
+				push @skew, $sqdiff;
 			}
-			$sqdiff /= $num_tracks;
-			$sqdiff = sqrt($sqdiff) / 1000;
 
-			print "Skew for existing tracks = $sqdiff\n" if $debug;
-
-			if ($sqdiff < 5)
+			if (not grep { $_ > 5 } @skew)
 			{
-				$sql->Begin;
-
+				# Good, the TOC track lengths agree (clearly, if there's only one
+				# TOC).
+				# For each track which has length already, let's see how
+				# closely it matches the average TOC.
+				my $sqdiff = 0;
 				for my $t (@$tracks)
 				{
-					# TODO? next if $t->{length} > 0;
-					my $id = $t->{id};
-					my $l = int($average_toc[$t->{sequence}-1]);
-					print "UPDATE track SET length = $l WHERE id = $id\n"
-						if $verbose;
-					$sql->Do("UPDATE track SET length = ? WHERE id = ?", $l, $id)
-						unless $dry_run;
-					++$tracks_fixed;
-					++$tracks_set unless $t->{length} > 0;
+					my $l = $t->{length};
+					$l > 0 or next;
+					my $diff = $l - $average_toc[$t->{sequence}-1];
+					$sqdiff += $diff*$diff;
 				}
+				$sqdiff /= $num_tracks;
+				$sqdiff = sqrt($sqdiff) / 1000;
 
-				$sql->Commit;
+				print "Skew for existing tracks = $sqdiff\n" if $debug;
 
-				++$albums_fixed;
-				next;
+				if ($sqdiff < 5)
+				{
+					$sql->Begin;
+
+					for my $t (@$tracks)
+					{
+						# TODO? next if $t->{length} > 0;
+						my $id = $t->{id};
+						my $l = int($average_toc[$t->{sequence}-1]);
+						print "UPDATE track SET length = $l WHERE id = $id\n"
+							if $verbose;
+						$sql->Do("UPDATE track SET length = ? WHERE id = ?", $l, $id)
+							unless $dry_run;
+						++$tracks_fixed;
+						++$tracks_set unless $t->{length} > 0;
+					}
+
+					$sql->Commit;
+
+					++$albums_fixed;
+					next;
+				}
 			}
 		}
-	}
 
-	print "Don't know what to do about album #$id\n";
+		print "Don't know what to do about album #$id\n";
 
-	print " - multiple TOCs\n" if @$tocs > 1 and keys(%c)==1;
-	print " - multiple conflicting TOCs\n" if @$tocs > 1 and keys(%c)>1;
+		print " - multiple TOCs\n" if @$tocs > 1 and keys(%c)==1;
+		print " - multiple conflicting TOCs\n" if @$tocs > 1 and keys(%c)>1;
 
-	if (keys(%c)==1)
-	{
-		my $ideal_tracks = $tocs->[0]->GetTrackCount;
-		my $want_tracks = join ",", 1 .. $ideal_tracks;
-		my $have_tracks = join ",", sort { $a<=>$b } map { $_->{sequence} } @$tracks;
-		print " - got tracks $have_tracks\n" if $want_tracks ne $have_tracks;
-	}
+		if (keys(%c)==1)
+		{
+			my $ideal_tracks = $tocs->[0]->GetTrackCount;
+			my $want_tracks = join ",", 1 .. $ideal_tracks;
+			my $have_tracks = join ",", sort { $a<=>$b } map { $_->{sequence} } @$tracks;
+			print " - got tracks $have_tracks\n" if $want_tracks ne $have_tracks;
+		}
 
-	my $withlength = grep { $_->{length}>0 } @$tracks;
-	print " - $withlength tracks have length\n" if $withlength;
+		my $withlength = grep { $_->{length}>0 } @$tracks;
+		print " - $withlength tracks have length\n" if $withlength;
 
 	};
 
