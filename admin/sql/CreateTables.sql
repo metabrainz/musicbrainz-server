@@ -275,6 +275,13 @@ create table album_amazon_asin (
         lastupdate      timestamp with time zone default now()
 );
 
+CREATE TABLE replication_control
+(
+        id                              SERIAL,
+        current_schema_sequence         INTEGER NOT NULL,
+        current_replication_sequence    INTEGER NOT NULL
+);
+
 commit;
 
 -- vi: set ts=4 sw=4 et :
