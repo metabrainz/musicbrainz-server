@@ -96,12 +96,6 @@ my @site_musica = (
                         scripturl=>'http://www.listen.com/results.jsp',
                         method=>'get',
                         searchfield=>'artist' &>
-    <& /comp/searchbox, name=>'www.cddb.com',
-                        nameurl=>'http://www.cddb.com',
-                        scripturl=>'http://www.cddb.com/xm/search',
-                        method=>'get',
-                        hidden=>['f','artist','f','disc','f','track'],
-                        searchfield=>'q' &>
     <& /comp/searchbox, name=>'www.juno.co.uk',
                         nameurl=>'http://www.juno.co.uk',
                         scripturl=>'http://209.207.190.80/search.asp',
@@ -171,26 +165,6 @@ my @site_musica = (
                         scripturl=>'http://lyrics.astraweb.com/search.cgi',
                         method=>'get',
                         searchfield=>'word' &>
-  <& /comp/tableend &>
-
-  <& /comp/tablebegin, title=>'CD Cover art sites', attrs=>"align=left",
-     gattrs=>"width='100%'" &>
-    Please enter the name of the artist to search.
-    <& /comp/searchbox, name=>'www.cdcovercentral.com',
-                        nameurl=>'http://www.cdcovercentral.com',
-                        scripturl=>'http://db.cdcovercentral.com/CDCCsearch/search.cfm',
-                        hidden=>['THEAREA','AUDIO'],
-                        searchfield=>'LETTER' &>
-    <& /comp/searchbox, name=>'www.coversarchive.com',
-                        nameurl=>'http://www.coversarchive.com',
-                        scripturl=>'http://www.media-search.com/search.php',
-                        hidden=>['type','0'],
-                        searchfield=>'search' &>
-    <& /comp/searchbox, name=>'www.coveruniverse.com',
-                        nameurl=>'http://www.coveruniverse.com',
-                        scripturl=>'http://www.coveruniverse.com/SearchExtern.php',
-                        hidden=>['cid','0','bitwise','AND'],
-                        searchfield=>'ss' &>
   <& /comp/tableend &>
 % }
 
