@@ -44,7 +44,9 @@ if ($num_artists > 0)
                            snaptoend=>2,
                            pagesize=>$max_items,
                            offset=>$offset,
-                           url=>"/browseartists.html?index=$ind" &>
+													 url=>"/browseartists.html",
+													 args=>{ index=>$ind },
+													 &>
     <& /comp/modnotice &>
 
 %   $rows = $max_items / 2;
@@ -86,7 +88,9 @@ if ($num_artists > 0)
                            snaptoend=>2,
                            pagesize=>$max_items,
                            offset=>$offset,
-                           url=>"/browseartists.html?index=$ind" &>
+													 url=>"/browseartists.html",
+													 args=>{ index=>$ind },
+													 &>
 %} else {
 %   $ind =~ s/_/?/g;
 %   $ind =~ s/ /_/g;

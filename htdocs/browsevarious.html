@@ -85,7 +85,14 @@ if ($num_albums > 0)
                            snaptoend=>2,
                            offset=>$offset,
                            pagesize=>$max_items,
-						   url=>"/browsevarious.html?index=$ind&reltype=$reltype&relstatus=$relstatus&artists=$artists" &>
+						   url=>"/browsevarious.html",
+						   args=>{
+							   index	=>$ind,
+							   reltype	=>$reltype,
+							   relstatus=>$relstatus,
+							   artists	=>$artists,
+						   },
+						   &>
     <& /comp/modnotice &>
 
 %   $rows = $max_items / 2;
@@ -127,7 +134,14 @@ if ($num_albums > 0)
                            snaptoend=>2,
                            offset=>$offset,
                            pagesize=>$max_items,
-						   url=>"/browsevarious.html?index=$ind&reltype=$reltype&relstatus=$relstatus&artists=$artists" &>
+						   url=>"/browsevarious.html",
+						   args=>{
+							   index	=>$ind,
+							   reltype	=>$reltype,
+							   relstatus=>$relstatus,
+							   artists	=>$artists,
+						   },
+						   &>
 %} else {
 %   $ind =~ s/_/?/g;
 %   $ind =~ s/ /_/g;
