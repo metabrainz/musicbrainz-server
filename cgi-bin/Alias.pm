@@ -1,0 +1,101 @@
+#____________________________________________________________________________
+#
+#   CD Index - The Internet CD Index
+#
+#   Copyright (C) 2000 Robert Kaye
+#
+#   This program is free software; you can redistribute it and/or modify
+#   it under the terms of the GNU General Public License as published by
+#   the Free Software Foundation; either version 2 of the License, or
+#   (at your option) any later version.
+#
+#   This program is distributed in the hope that it will be useful,
+#   but WITHOUT ANY WARRANTY; without even the implied warranty of
+#   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+#   GNU General Public License for more details.
+#
+#   You should have received a copy of the GNU General Public License
+#   along with this program; if not, write to the Free Software
+#   Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
+#
+#   $Id$
+#____________________________________________________________________________
+                                                                               
+package Alias;
+
+use TableBase;
+
+BEGIN { require 5.003 }
+use vars qw(@ISA @EXPORT);
+@ISA    = @ISA    = 'TableBase';
+@EXPORT = @EXPORT = '';
+
+use strict;
+use DBI;
+use DBDefs;
+
+sub new
+{
+   my ($type, $dbh, $table) = @_;
+
+   my $this = TableBase->new($dbh);
+   $this->{table} = $table;
+
+   return bless $this, $type;
+}
+
+# To insert a new alias, this function needs to be passed the alias id
+# and an alias name.
+sub Insert
+{
+   my ($this, $id, $name) = @_;
+   my ($sql);
+
+   $sql = Sql->new($this->{DBH});
+   $name = $sql->Quote($name);
+   $sql->Do("insert into $this->{table} (Name, Ref, LastUsed, ".
+            "TimesUsed) values ($name, $id, now(), 0)");
+}
+
+sub Resolve
+{
+   my ($this, $name) = @_;
+   my ($sql, $id, @row);
+
+   $sql = Sql->new($this->{DBH});
+   if ($sql->Select("select ref from $this->{table} where name =".
+                    $sql->Quote($name)))
+   {
+       @row = $sql->NextRow();
+       $id = $row[0];
+       $sql->Finish;
+   }
+   return $id;
+}
+
+sub Remove
+{
+   my ($this, $id) = @_;
+   my ($sql, @row);
+
+   $sql = Sql->new($this->{DBH});
+   $sql->Do("delete from $this->{table} where ref = " . $id);
+}
+
+sub GetList
+{
+   my ($this, $id) = @_;
+   my ($sql, @list, @row);
+
+   $sql = Sql->new($this->{DBH});
+   if ($sql->Select(qq\select id, Name, TimesUsed, LastUsed from 
+                       $this->{table} where ref = $id\))
+   {
+       while(@row = $sql->NextRow())
+       {
+           push @list, [$row[0], $row[1], $row[2], $row[3]];
+       }
+       $sql->Finish;
+   }
+   return @list;
+}

@@ -13,6 +13,7 @@ use Album;
 use Diskid;
 use TableBase;
 use Artist;
+use Alias;
 use Genre;
 use Pending;
 use Track;

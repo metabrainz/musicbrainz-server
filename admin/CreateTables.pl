@@ -213,14 +213,15 @@ sub CreateTables
           
     print "Created Changes table.\n";
     
-    $dbh->do("create table Votes (" .
+    $dbh->do("create table ArtistAlias (" .
              "   Id int auto_increment primary key," .
-             "   Uid int not null, ".
-             "   Rowid int not null, ".
-             "   vote tinyint not null)")
-          or die("Cannot create Votes table");
+             "   Name varchar(255) NOT NULL," . 
+             "   Ref int not null, ".
+             "   LastUsed datetime not null,".
+             "   TimesUsed int not null)")
+          or die("Cannot create ArtistAlias table");
     
-    print "Created Votes table.\n";    
+    print "Created ArtistAlias table.\n";    
 
     if (DBDefs->USE_LYRICS)
     {
@@ -352,6 +353,12 @@ sub CreateIndices
     $dbh->do(qq/alter table Votes add index UidIndex (Uid),
                                   add index RowidIndex (Rowid)/)
           or die("Could not add indices to Votes table");
+
+    $dbh->do(qq/alter table ArtistAlias add unique index NameIndex (Name), 
+                                         add index RefIndex (Ref)/)
+          or die("Could not add indices to ArtistAlias table");
+    print "Added indices to ArtistAlias table.\n";
+
     print "Added indices to Votes table.\n";
 
     if (DBDefs->USE_LYRICS)

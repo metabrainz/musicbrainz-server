@@ -1,4 +1,3 @@
-<& /comp/sidebar &>
 <%perl>
 
 my ($mb); 
@@ -18,17 +17,24 @@ $album = Album->new($mb->{DBH});
 $artist->SetId($ARGS{artistid});
 if (! $artist->LoadFromId())
 {
+    mc_comp("/comp/sidebar", title=>"Error");
     mc_out("This artist (id=$ARGS{artistid}) was not found in the database.");
 }
 elsif ($ARGS{artistid} == Artist::VARTIST_ID)
 {
+    mc_comp("/comp/sidebar", title=>"Error");
     mc_out("You cannot view all Various Artist albums using this page. Sorry.");
 }
 else
 {
     @albums = $artist->GetAlbums();
     
+    mc_comp("/comp/sidebar", title=>'',
+            pagetitle=>"Artist: " . $artist->GetName());
     mc_comp("/comp/artisttitle", artist=>$artist);
+    mc_out("[ <a href=\"/showaliases.html?artistid=");
+    mc_out($artist->GetId());
+    mc_out("\">Show the aliases for this artist</a> ]<p>");
     mc_comp("/comp/modnotice");
     
     for(;;)

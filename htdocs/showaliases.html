@@ -1,0 +1,62 @@
+<%perl>
+
+my ($mb); 
+my (@list, $artist, $alias, $item); 
+
+if (!exists $ARGS{artistid} || $ARGS{artistid} eq '')
+{
+    mc_comp("/comp/badargs");
+    return;
+}
+
+$mb = new MusicBrainz;
+$mb->Login();
+$artist = Artist->new($mb->{DBH});
+$alias = Alias->new($mb->{DBH}, "ArtistAlias");
+
+$artist->SetId($ARGS{artistid});
+if (! $artist->LoadFromId())
+{
+    mc_comp("/comp/sidebar", title=>"Error");
+    mc_out("This artist (id=$ARGS{artistid}) was not found in the database.");
+}
+elsif ($ARGS{artistid} == Artist::VARTIST_ID)
+{
+    mc_comp("/comp/sidebar", title=>"Error");
+    mc_out("You cannot view all Various Artist albums using this page. Sorry.");
+}
+else
+{
+    mc_comp("/comp/sidebar", title=>($artist->GetName . " Aliases"));
+    @list = $alias->GetList($artist->GetId());
+    if (!defined @list)
+    {
+        $mb->Logout();
+        mc_out("There are no aliases for this artist.");
+        return;
+    }
+    
+    mc_comp("/comp/tablebegin", title=>"Aliases"); 
+    mc_out("<table><tr><th>Alias</th><th>Times Used</th><th>Last Used</th></tr>");
+    for(;;)
+    {
+        $item = shift @list;
+        last if (!defined $item);
+
+        mc_out("<tr><td>$$item[1]</td>");
+        mc_out("<td>$$item[2]</td>");
+        mc_out("<td>$$item[3]</td>");
+        if (exists $session{user}) 
+        {
+            mc_out("<td>[<a href=\"/remartistalias.html?alias=" . $$item[0]);
+            mc_out("\">Delete</a>]</td>");
+        }
+        mc_out("</tr>");
+    }
+    mc_out("</tr></table>");
+    mc_comp("/comp/tableend"); 
+}
+
+$mb->Logout();
+
+</%perl>

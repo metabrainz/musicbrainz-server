@@ -1,9 +1,14 @@
 <%args>
 $title=>'MusicBrainz'
+$pagetitle=>''
 $expand=>''
 </%args>
 
-<& /comp/header, title=>$title &>
+% if ($pagetitle ne '') {
+   <& /comp/header, title=>$pagetitle &>
+% } else {
+   <& /comp/header, title=>$title &>
+% }
 <& /comp/sidebarsectiontop, title=>'Jump To' &>
 <& /comp/navbox, expand=>$expand &>
 
