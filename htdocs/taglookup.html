@@ -210,7 +210,7 @@ $data{mbt} = $mbt;
 %orig_data = %data;
 
 my (@coll_list) = $ts->LookupTRMCollisions($trmid); 
-if (scalar(@coll_list))
+if (scalar(@coll_list) > 1)
 {
     my ($ar, $al, $ref, %data_copy);
 
