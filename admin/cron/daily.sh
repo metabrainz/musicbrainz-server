@@ -59,5 +59,6 @@ mv /tmp/mbdump.rdf.bz2 $ftpdir
 nice ./Caps.pl > $reportdir/caps.html
 nice ./BadEntries.pl > $reportdir/bad_entries.html
 nice ./Unknown.pl > $reportdir/unknown.html
+nice ./WrongCharset.pl > $reportdir/wrong_charset.html
 
 cd -
