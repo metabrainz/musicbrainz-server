@@ -1,77 +1,92 @@
 %# vi: set ts=4 sw=4 ft=mason :
+<%args>
+$artistid => ""
+</%args>
 <%perl>
 
-my ($mb); 
-my (@list, $artist, $alias, $item); 
+MusicBrainz::IsNonNegInteger($artistid) && $artistid
+	or return $m->comp("/comp/badargs", 1, 1);
 
-if (!exists $ARGS{artistid} || $ARGS{artistid} eq '')
-{
-    mc_comp("/comp/badargs");
-    return undef;
-}
+my $mb = $m->comp("/comp/dblogin");
 
-$mb = mc_comp("/comp/dblogin");
-$artist = Artist->new($mb->{DBH});
-$alias = Alias->new($mb->{DBH}, "ArtistAlias");
+my $artist = Artist->new($mb->{DBH});
+$artist->SetId($artistid);
+$artist->LoadFromId
+	or return $m->comp(
+		"/comp/error",
+		"Artist #$artistid not found",
+		1, 1,
+	);
 
-$artist->SetId($ARGS{artistid});
-if (! $artist->LoadFromId())
-{
-    mc_comp("/comp/sidebar", title=>"Error");
-    mc_out("This artist (id=$ARGS{artistid}) was not found in the database.");
-}
-else
-{
-    mc_comp("/comp/sidebar", title=>($artist->GetName . " Aliases"));
-
-    mc_out("[ <a href=\"/showartist.html?artistid=");
-    mc_out($artist->GetId());
-    mc_out("\">View albums</a>");
-    if (exists $session{user}) 
-    {
-       mc_out(" | <a href=\"/addalias.html?id=");
-       mc_out($artist->GetId());
-       mc_out("\">Add Alias</a>");
-    }    
-    mc_out(" ]<p>");
-
-    @list = $alias->GetList($artist->GetId());
-    if (!defined $list[0])
-    {
-        $mb->Logout();
-        mc_out("There are no aliases for this artist.");
-        return undef;
-    }
-
-    mc_comp("/comp/modnotice");
-
-    mc_comp("/comp/tablebegin", title=>"Aliases"); 
-    mc_out("<table><tr><th>Alias</th><th>Times Used</th><th>Last Used</th></tr>");
-    for(;;)
-    {
-        $item = shift @list;
-        last if (!defined $item);
-
-		my $time = $m->comp("/comp/datetime", $item->[3]);
-
-		# FIXME html encoding needed
-        mc_out("<tr><td");
-        mc_out(' bgcolor="#FFFFCC"') if ($$item[4]);
-        mc_out(">$$item[1]</td>");
-        mc_out("<td>$$item[2]</td>");
-		mc_out("<td>$time</td>");
-        if (exists $session{user}) 
-        {
-            mc_out("<td>[<a href=\"/remartistalias.html?alias=" . $$item[0]);
-            mc_out("\">Delete</a>]</td>");
-        }
-        mc_out("</tr>");
-    }
-    mc_out("</tr></table>");
-    mc_comp("/comp/tableend"); 
-}
-
-$mb->Logout();
+$m->comp("/comp/sidebar", title => "Artist Aliases");
 
 </%perl>
+
+<p>
+	[
+	<a href="/showartist.html?artistid=<% $artist->GetId %>"
+		>View albums</a>
+% if (exists $session{user}) {
+	|
+	<a href="/addalias.html?id=<% $artist->GetId %>"
+		>Add alias</a>
+% }
+	]
+</p>
+
+<%perl>
+
+my $alias = Alias->new($mb->{DBH}, "ArtistAlias");
+my @list = $alias->GetList($artist->GetId);
+
+if (!defined $list[0])
+{
+	$m->out("<p>There are no aliases for this artist.</p>");
+	$m->comp("/comp/footer");
+	return;
+}
+
+</%perl>
+
+<h2>Aliases for '<% $artist->GetName %>'</h2>
+
+<& /comp/modnotice &>
+
+<table class="SpacedColumns">
+	<tr>
+		<th>Alias</th>
+		<th style="text-align: right">Times Used</th>
+		<th>Last Used</th>
+% if (exists $session{user}) {
+		<th></th>
+% }
+	</tr>
+
+	<%perl>
+    for my $item (@list)
+    {
+		my $time = $m->comp("/comp/datetime", $item->[3]);
+
+		</%perl>
+		<tr>
+			<td
+				<% $item->[4] ? "bgcolor='#FFFFCC'" : "" %>
+				><% $item->[1] %></td>
+			<td style="text-align: right"><% $item->[2] %></td>
+			<td><% $time %></td>
+% if (exists $session{user}) {
+			<td>
+				[ <a href="/remartistalias.html?alias=<% $item->[0] %>"
+					>Delete</a> ]
+			</td>
+% }
+		</tr>
+		<%perl>
+    }
+	</%perl>
+
+</table>
+
+<& /comp/tableend &>
+
 <& /comp/footer &>
