@@ -151,6 +151,7 @@ sub UpdateName
     if (lc($self->{table}) eq "artistalias")
     {
         # Update the search engine
+        require Artist;
         my $artist = Artist->new($self->{DBH});
         $artist->SetId($rowid);
         $artist->LoadFromId;
@@ -284,6 +285,7 @@ sub Parent
 {
     my $this = shift;
     my $parentclass = $this->ParentClass;
+    eval "require $parentclass; 1" or die $@;
     my $parent = $parentclass->new($this->{DBH});
     $parent->SetId($this->GetRowId);
     $parent->LoadFromId
