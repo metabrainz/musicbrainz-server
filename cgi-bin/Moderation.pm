@@ -120,6 +120,26 @@ sub SetExpired
    $_[0]->{isexpired} = $_[1];
 }
 
+sub GetOpenTime
+{
+   return $_[0]->{opentime};
+}
+
+sub SetOpenTime
+{
+   $_[0]->{opentime} = $_[1];
+}
+
+sub GetCloseTime
+{
+   return $_[0]->{closetime};
+}
+
+sub SetCloseTime
+{
+   $_[0]->{closetime} = $_[1];
+}
+
 sub GetExpireTime
 {
    return $_[0]->{expiretime};
@@ -351,7 +371,9 @@ sub CreateFromId
                       Moderation.artist, type, prevvalue, newvalue, 
                       ExpireTime, Moderator.name, 
                       yesvotes, novotes, Artist.name, status, 0, depmod,
-                      Moderator.id, Moderation.automod, ExpireTime < now()
+                      Moderator.id, Moderation.automod,
+		      opentime, closetime,
+		      ExpireTime < now()
                from   Moderation, Moderator, Artist 
                where  Moderator.id = moderator and Moderation.artist = 
                       Artist.id and Moderation.id = $id/;
@@ -381,7 +403,9 @@ sub CreateFromId
            $mod->SetDepMod($row[15]);
            $mod->SetModerator($row[16]);
            $mod->SetAutomod($row[17]);
-           $mod->SetExpired($row[18]);
+           $mod->SetOpenTime($row[18]);
+           $mod->SetCloseTime($row[19]);
+           $mod->SetExpired($row[20]);
        }
        $sql->Finish();
    }
@@ -574,7 +598,7 @@ sub InsertModeration
 
         $mod = $this->CreateFromId($insertid);
         $status = $mod->ApprovedAction($mod->GetRowId());
-        $sql->Do(qq|update Moderation set status = $status, automod = 1 
+        $sql->Do(qq|update Moderation set status = $status, automod = 1
                     where id = $insertid|);
         $this->CreditModerator($this->{moderator}, 1);
     }
@@ -639,7 +663,7 @@ sub GetModerationList
    $num_rows = $total_rows = 0;
    if ($type == ModDefs::TYPE_NEW)
    {
-       $query = qq|select * 
+       $query = qq|select open_moderations.* 
                      from open_moderations left join votes 
                           on Votes.uid = $uid and Votes.rowid=moderation_id 
                     where moderator_id != $uid 
@@ -702,7 +726,7 @@ sub GetModerationList
    }
    elsif ($type == ModDefs::TYPE_FREEDB)
    {
-       $query = qq|select * 
+       $query = qq|select open_moderations_freedb.* 
                      from open_moderations_freedb left join votes 
                           on Votes.uid = $uid and Votes.rowid=moderation_id 
                     where moderator_id = | . ModDefs::FREEDB_MODERATOR . qq| 
