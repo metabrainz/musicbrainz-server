@@ -1,0 +1,48 @@
+<& /comp/tablebegin, title=>'New Login' &>
+
+<p>
+Please fill out the form below to create a new MusicBrainz account:
+<br>
+
+<FORM METHOD="POST" ACTION="/createlogin.html" 
+      ENCTYPE="application/x-www-form-urlencoded">
+<table>
+<tr>
+   <td>
+   User Name:<br>
+   <INPUT TYPE="text" NAME="User" SIZE=30
+% if (defined $ARGS{User}) {
+    VALUE="<% $ARGS{User} %>"
+% }
+   >
+   </td>
+</tr>
+<tr>
+   <td>
+   Password:<br>
+   <INPUT TYPE="password" NAME="Password" SIZE=30
+% if (defined $ARGS{Password}) {
+    VALUE="<% $ARGS{Password} %>"
+% }
+   >
+   </td>
+</tr>
+<tr>
+   <td>
+   Re-Type Password:<br>
+   <INPUT TYPE="password" NAME="RetypePassword" SIZE=30
+% if (defined $ARGS{Password}) {
+    VALUE="<% $ARGS{Password} %>"
+% }
+   >
+   </td>
+</tr>
+<tr>
+   <td>
+   <INPUT TYPE="submit" NAME="Create" VALUE="Create Account">
+   </td>
+</tr>
+</table>
+</form>
+
+<& /comp/tableend &>

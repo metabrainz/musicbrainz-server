@@ -1,0 +1,4 @@
+<& /comp/tablebegin, title=>'Review pending moderations' &>
+Foo!<br>
+<% $session{user} %>
+<& /comp/tableend &>

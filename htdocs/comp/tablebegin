@@ -1,0 +1,12 @@
+<%args>
+$title
+</%args>
+
+<table bgcolor="#643b99" cellspacing=0 cellpadding=0 width=100%>
+   <tr><td>
+   <table width=100%>
+      <tr><td align=center width=100%>
+      <font color=white><b><% $title %></b></font>
+      </td></tr>
+   </table>
+   <table bgcolor=white cellpadding=15 width=100%><tr><td>

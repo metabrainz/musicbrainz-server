@@ -1,0 +1,21 @@
+<%perl>
+my $ok = UserStuff::Login($ARGS{User}, $ARGS{Password}, \%session);
+$session{user} = $ARGS{User} if ($ok);
+$session{user} = "" if (!$ok);
+
+</%perl>
+
+% if ($ok) {
+
+   You are now logged into MusicBrainz!<br><p>
+   <& /comp/mod_review &>
+
+% } else {
+
+   Invalid Login. Please try again:<p>
+   <& /comp/tablebegin, title=>'Moderator Login' &>
+   <& /comp/loginbox &>
+   <& /comp/tableend &>
+
+% }
+

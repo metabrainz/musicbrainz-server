@@ -1,0 +1,10 @@
+You have now logged out. Thank you for moderating MusicBrainz!
+
+<& /comp/tablebegin, title=>'Login Again' &>
+<& /comp/loginbox &>
+<& /comp/tableend &>
+
+<%init>
+$session{user} = "";
+tied(%session)->delete;
+</%init>

@@ -828,30 +828,16 @@ sub SearchForm
 {
    my ($p);
 
-$p = <<END;
-   For each of these searches, you may enter a few keywords that
-   appear in the title of the artist, album or track. The search
-   is case insensitive and partial
-   keywords are ok. (e.g. 'Port' will match 'Portishead')  
-   <p>
-END
-
-   $p .= ArtistSearchForm();
+   $p = ArtistSearchForm();
    $p .= AlbumSearchForm();
    $p .= TrackSearchForm();
-
-   $p .= "<b>Alphabetic Browsing</b><p>";
-   $p .= "To browse the database alphabetically, select a letter below:<p>";
-
-   $p .= ArtistBrowseForm();
-
-   return $p;
 }
 
 sub ArtistBrowseForm
 {
    my ($i, $p);
 
+   $p = "<center>";
    for($i = 0; $i < 26; $i++)
    {
        $p .= '<a href="/cgi-bin/browseartists.pl?index=' . chr($i + 65) . '">' .
@@ -861,6 +847,7 @@ sub ArtistBrowseForm
            $p .= "<br>\n";
        }
    } 
+   $p .= "</center>";
 
    return $p;
 }
@@ -869,19 +856,19 @@ sub ArtistSearchForm
 {
 return <<END;
 
-   <b>Artist Search</b>
-
    <FORM METHOD="POST" ACTION="/cgi-bin/search_art.pl"
          ENCTYPE="application/x-www-form-urlencoded">
    <table>
    <tr><td>
-   <INPUT TYPE="text" NAME="artist" SIZE=20>
+   <b>Artist Search</b>
+   </td></tr>
+   <tr><td colspan=2>
+   <INPUT TYPE="text" NAME="artist" SIZE=15>
    </td><td>
    <INPUT TYPE="submit" NAME="Search" VALUE="Search">
    </td></tr>
    </table>
    </form>
-   <br>
 END
 }
 
@@ -889,38 +876,38 @@ sub AlbumSearchForm
 {
 return <<END;
 
-   <b>Album Search</b>
-
    <FORM METHOD="POST" ACTION="/cgi-bin/search_alb.pl"
          ENCTYPE="application/x-www-form-urlencoded">
    <table>
    <tr><td>
-   <INPUT TYPE="text" NAME="album" SIZE=20>
+   <b>Album Search</b>
+   </td></tr>
+   <tr><td colspan=2>
+   <INPUT TYPE="text" NAME="album" SIZE=15>
    </td><td>
    <INPUT TYPE="submit" NAME="Search" VALUE="Search">
    </td></tr>
    </table>
    </form>
-   <br>
 END
 }
 
 sub TrackSearchForm
 {
 return <<END;
-   <b>Track Search</b>
-
    <FORM METHOD="POST" ACTION="/cgi-bin/search_trk.pl"
          ENCTYPE="application/x-www-form-urlencoded">
    <table>
    <tr><td>
-   <INPUT TYPE="text" NAME="track" SIZE=20>
+   <b>Album Search</b>
+   </td></tr>
+   <tr><td colspan=2>
+   <INPUT TYPE="text" NAME="track" SIZE=15>
    </td><td>
    <INPUT TYPE="submit" NAME="Search" VALUE="Search">
    </td></tr>
    </table>
    </form>
-
 END
 }
 

@@ -1,8 +1,38 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
-<!-- $Id$ -->
-<& /comp/title, title=>'Search/Browse MusicBrainz ' &> 
-
 <%perl>
 my $p = MusicBrainz::SearchForm;
+my $b = MusicBrainz::ArtistBrowseForm;
 </%perl>
-<% $p %>
+
+<table width="100%">
+<tr>
+<td width="49%" valign="top">
+  <& /comp/tablebegin, title=>'Search MusicBrainz' &>
+    For each of these searches, you may enter a few keywords that
+    appear in the title of the artist, album or track. The search
+    is case insensitive and partial keywords are ok. (e.g. 'Port' 
+    will match 'Portishead')
+    <% $p %>
+  <& /comp/tableend &>
+
+</td>
+<td width="2%">&nbsp;</td>
+<td width="49%" valign="top">
+  <& /comp/tablebegin, title=>'Browse MusicBrainz' &>
+    To browse the database alphabetically, select a letter below:<p>
+    <% $b %>
+  <& /comp/tableend &>
+
+% if ($session{user} ne "") {
+  <& /comp/tablebegin, title=>'Change Login' &>
+  You are logged in as <% $session{user} %>.<br> 
+  <a href="/logout.html">Logout</a> from MusicBrainz.
+  <& /comp/tableend &>
+% } else {
+  <& /comp/tablebegin, title=>'Moderator Login' &>
+    <& /comp/loginbox &>
+  <& /comp/tableend &>
+% }
+
+</td>
+</tr>
+</table>

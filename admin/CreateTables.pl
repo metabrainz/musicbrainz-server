@@ -165,6 +165,7 @@ if (!defined $host)
    $host = `hostname`;
    chop($host);
 }
+
 $host = $dbh->quote($host);
 $dbh->do("create table GlobalId (" .
          "   Id int auto_increment primary key," .
@@ -175,6 +176,17 @@ $dbh->do("insert into GlobalId (MaxIndex, Host) values (1, $host)")
       or die("Cannot insert default value into GlobalId table");
 
 print "Created Globalid table.\n";
+
+$dbh->do("create table ModeratorInfo (" .
+         "   Id int auto_increment primary key," .
+         "   Name varchar(64)," .
+         "   Password varchar(64), ".
+         "   Privs int, ".
+         "   ModsAccepted int, ".
+         "   ModsRejected int)")
+      or die("Cannot create ModeratorInfo table");
+
+print "Created ModeratorInfo table.\n";
 
 if (DBDefs->USE_LYRICS)
 {
