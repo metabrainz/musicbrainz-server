@@ -4,6 +4,9 @@ $id
 $toc
 $artist=>0
 $freedb=>0
+$parse_artist_track=>""
+$parse_track_artist=>""
+$sep=>""
 </%args>
 <%perl>
 
@@ -52,8 +55,6 @@ function validate()
      Found CD <font class="bold"><% $lookup->{album} %></font>
      by <font class="bold"><% $lookup->{artist} %></font> at
      <a href="http://www.freedb.org">FreeDB.org</a>.<p>
-     Please check the information below for accuracy and correct any
-     mistakes you may find:<p>
 % } else {
 %    if ($freedb) {
          This CD was not found at FreeDB.<p>
@@ -68,14 +69,60 @@ function validate()
            <input type="hidden" name="toc" value="<% $toc %>">
            <input type="hidden" name="tracks" value="<% $tracks %>">
            <input type="hidden" name="freedb" value="1">
-%        if ($artist > 0) {
-           <input type="hidden" name="artist" value="<% $artist %>">
-%        }
            <input type="submit" value="FreeDB Lookup" name="Next">
            </form>
 %        }
 
 %    }
+% }
+
+% if (defined $lookup) {
+  <table width="400">
+     <tr colspan="5">
+     If the track names and artist names are the same for all the tracks
+     below or if the track and artist names are reversed, then use the
+     buttons below to reload this page.<p>
+
+     Choose which way to display the artist and track names, and also
+     select a character that is used to seperate the artist from the 
+     track names in this album.<p>
+
+     </tr>
+     <tr><td align="center">
+     <form method="POST" action="/cdi/menter.html" Name="FreeDBLookup"
+           enctype="application/x-www-form-urlencoded" class="formstyle">
+        Reload CD Info,<br> and display as:<br><br>
+        <input type="hidden" name="id" value="<% $id %>">
+        <input type="hidden" name="toc" value="<% $toc %>">
+        <input type="hidden" name="tracks" value="<% $tracks %>">
+        <input type="hidden" name="freedb" value="1">
+        <input type="submit" value="Artist / Track" name="parse_artist_track">
+     </td><td align="center">
+        use seperator:<br><br>
+        <input type="text" name="sep" size="3">
+     </form>
+     </td><td align="center">
+        <img src="/images/black_pixel.gif" height="40" width="1">
+     </td><td align="center">
+     <form method="POST" action="/cdi/menter.html" Name="FreeDBLookup"
+           enctype="application/x-www-form-urlencoded" class="formstyle">
+        Reload CD Info,<br> and display as:<br><br>
+        <input type="hidden" name="id" value="<% $id %>">
+        <input type="hidden" name="toc" value="<% $toc %>">
+        <input type="hidden" name="tracks" value="<% $tracks %>">
+        <input type="hidden" name="freedb" value="1">
+        <input type="submit" value="Track / Artist" name="parse_track_artist">
+     </td><td align="center">
+        use seperator:<br><br>
+        <input type="text" name="sep" size="3">
+      </form>
+     </td></tr>
+  </table>
+% }
+
+% if (defined $lookup) {
+     <p>Please check the information below for accuracy and correct any
+     mistakes you may find:<p>
 % }
 
 <form method="POST" action="/cdi/done.html" Name="EnterCD"
@@ -96,19 +143,34 @@ function validate()
 
 <%perl>
 my ($artistname, $trackname, $temp, $array);
+
+$sep = '/' unless $sep ne '';
+if ($sep eq ')' || $sep eq '(' || $sep eq '*' || 
+    $sep eq '?' || $sep eq '+' || $sep eq '.' ||
+    $sep eq '[' || $sep eq ']' || $sep eq '.')
+{
+   $sep = "\\$sep";
+}
+
 for($i = 0; $i < $tracks; $i++) 
 {
    $artistname = $trackname = "";
    if (defined $lookup)
    {
+       my $exp;
+
        $array = $lookup->{tracks};
        $temp = $$array[$i]->{track};
        $artistname = $trackname = $temp;
 
-       if ($temp =~ m|(.*)\s*/\s*(.*)|)
+       $exp = '(.*)\s*'.$sep.'\s*(.*)';
+       if ($temp =~ m|$exp|)
        {
-           $artistname = $1;
-           $trackname = $2;
+           if (defined $1 && defined $2)
+           {
+              $artistname = ($parse_artist_track ne '') ? $1 : $2;
+              $trackname = ($parse_artist_track ne '') ? $2 : $1;
+           }
        }
    }
    
