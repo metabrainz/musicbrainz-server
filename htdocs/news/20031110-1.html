@@ -1,0 +1,166 @@
+%# vi: set ts=2 sw=2 ft=mason :
+<& /comp/sidebar, title => 'November 10th, 2003: Server Updates', head => '
+<style type="text/css">
+ul, ol { padding-left: 0.7em }
+li { margin-top: 0.5em; margin-bottom: 0.5em }
+</style>
+' &>
+
+<h2>Changes mainly of interest to MusicBrainz Users</h2>
+
+<h3>Moderation Search</h3>
+
+<p>
+	Previously it was only possible to list moderations using one of a number of
+	fixed means: for example, "New Mods", "FreeDB Mods", "Artist Mods"
+	etc.&nbsp; Now, all of these have been replaced a rather flexible
+	<a href="/mod/search/index.html">Moderation Search</a> facility.
+</p>
+
+<p>
+	Moderation Search allows you to find moderations according to any
+	combination of the following criteria: moderation status, automod flag,
+	moderation type, moderator, vote cast (by you or anyone else),
+	artist (including "my subscribed artists"), and moderation ID (range).&nbsp;
+	You can also query by album, or by track.&nbsp;
+	Finally you can choose whether to show them oldest to newest, or the other
+	way round.&nbsp; The number of possible combinations is
+	simply astronomical.
+</p>
+
+<p>
+	The old, fixed search types ("New", "FreeDB" etc) now simply pre-fill the
+	search form with the appropriate values.&nbsp; So for example, you can run
+	one of the preset searches (say, "My Failed Mods"), and then click "Advanced
+	Search" to customise your current search in whatever way you please.&nbsp;
+	There's <a href="/mod/search/select-filter.html">a new page</a> which lists
+	the presets.&nbsp; If you like you can <a href="/prefs.html">set a new
+		preference</a> to cause the "Moderate" link in the top navigation bar to
+	go to that page instead of running the "New Mods" query.
+</p>
+
+<p>
+	Some other points of note:
+</p>
+
+<ul>
+	<li>
+		Many more queries than before are possible.&nbsp; For example, show me
+		moderations by (some moderator name) which I haven't voted on yet; or, show
+		me (some moderator name)'s automods only.
+	</li>
+	<li>
+		Many of the moderation URLs have now moved.&nbsp; Hopefully all the links on
+		the site have been updated, but if you do hit an old link (e.g. in an old
+		"subscriptions" e-mail) you should get redirected.
+	</li>
+	<li>
+		The "subscriptions" e-mails now contain an extra link, which is
+		effectively like "New Mods", but for your subscribed artists only.
+	</li>
+	<li>
+		There's now <a href="/mod/search/select-moderator.html">a page where you
+		can search for moderators</a> (so you can include them in your
+		search).&nbsp; Interestingly this is currently the only place in the whole
+		site where you can effectively "browse moderators".&nbsp; No doubt a page
+		dedicated to doing just that will be added some time in a future release.
+	</li>
+	<li>
+		Sometimes your moderation searches may "time out" - just like normal
+		searches (for tracks, etc) the search is cancelled if it's still running
+		after 30 seconds.&nbsp; If this happens, try narrowing down your search,
+		maybe by using the "moderation ID" filter (e.g. only where the ID is at
+		least 530000).
+	</li>
+</ul>
+
+<h3>Other Changes</h3>
+
+<p>
+	Previously only two statistics were recorded for each moderator; a count of
+	"accepted moderations", and one of "failed moderations".&nbsp;
+	Now the "accepted" count has been split into two, one for auto-moderations,
+	and one for the rest; and the "failed" count has also been split into two,
+	one for "failed vote" moderations, and one for the other types of
+	failure.&nbsp; For example, see <a href="/user/view.html">your own profile page</a>.
+</p>
+
+<p>
+	When moving an album to another artist, the original artist is no
+	longer shown in the search results (bug #576354).
+</p>
+
+<p>
+	Each moderation type has a name, and just to ensure that the name of each
+	type is unique, two of the types have been renamed.&nbsp;
+	Previously there were two types of "Add Track" (one used up to
+	17th August 2001, and one used thereafter); now the former is called
+	"Add Track (old version)".&nbsp;
+	Additionally there are in fact two types both known as "Merge Albums" (one
+	for single-artist albums, and one for Various Artists).&nbsp;
+	The latter is now called "Merge Albums (Various Artists)".
+</p>
+
+<p>
+	The "auto-notes" added by the Album Editor (e.g. "The first of a set
+	of 3 moderations") were previously recorded against the moderator's own
+	name; now, they are added by the ModBot.
+</p>
+
+<p>
+	If you use the "compact" album listing, then manually switch to a "full"
+	listing, the expand/collapse links now work, instead of switching you back
+	to a "compact" listing.
+</p>
+
+<p>
+	There is now a new moderation suggestions report, called "Superfluous Data
+	Tracks".&nbsp; Thanks to our script/report writer,
+	<a href="/user/view.html?modname=matt">Matthias Friedrich</a>, for
+	this.&nbsp; This report lists albums which include a final "data track",
+	but have no Disc ID.
+</p>
+
+<p>
+	Also in the are of suggestions reports: the "bad entries" report
+	now does HTML-escaping properly.&nbsp; The "unknown" report also now does
+	this; it also runs much more efficiently, shows counts of how many tracks
+	and artists it found, and correctly includes the page footer.
+</p>
+
+<p>
+	Voting more than once on a moderation sometimes caused that moderation to
+	show up twice when it should not - this is now fixed (bug #829524).
+</p>
+
+<h2>Changes mainly of interest to MusicBrainz Programmers</h2>
+
+<p>
+	Nothing new in this release.
+</p>
+
+<h2>Changes mainly of interest to MusicBrainz Server Programmers</h2>
+
+<p>
+	Added help text to the INSTALL file and to MBImport.pl, stating that
+	the current live SQL scripts must be used to import a live dataset.
+</p>
+
+<p>
+	RDFDump - the RDF dump file (link) is now valid XML.  Previously it tried to
+	put long lines of hyphens ("-----" etc) within a comment (bug #829181).
+</p>
+
+<h2>Bugs and RFEs Closed</h2>
+
+<& buglist.inc,
+	"576354 Source artist isn't filtered out",
+	'829181 RDF dump not valid XML',
+	'829524 Changing vote makes duplicate moderations appear',
+	'829525 Add a "Website bugs" category (invalid)',
+	'833562 Last entry of split to various artists is guessed incorrect (duplicate)',
+	&>
+
+Dave Evans
+
+<& /comp/footer &>
