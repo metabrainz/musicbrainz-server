@@ -1,3 +1,4 @@
+%# vi: set ts=4 sw=4 ft=mason :
 <%args>
 $modid=>0
 </%args>
@@ -73,13 +74,18 @@ else
    $voted = ModDefs::VOTE_NOTVOTED;
 }
 
+my $opentime = $mod->GetOpenTime();
+$opentime = $opentime ? $m->comp("/comp/datetime", $opentime) : "?";
+
+my $closetime = $mod->GetCloseTime();
+$closetime = $closetime ? $m->comp("/comp/datetime", $closetime) : "-";
+
 my $time = $mod->GetExpireTime();
-$time =~ s/:\d\d\..*$//;
+$time = $m->comp("/comp/datetime", $time);
 
 mc_comp("/comp/sidebar", title=>"Moderation $modid");
 
-my $expired = ($mod->GetExpireTime() > time()) ? "s" : "d";
-
+my $expired = ($mod->GetExpired() ? "d" : "s");
 
 @votes = $mod->GetVoterList();
 $votelist = "<table>";
@@ -107,8 +113,14 @@ $votelist .= "</table>";
    <& /comp/tableline, name=>"Status:", 
                        text=>$mod->GetChangeName(),
                        bold=>0 &>
+   <& /comp/tableline, name=>"Opened:", 
+                       text=>$opentime,
+                       bold=>0 &>
    <& /comp/tableline, name=>"Expire$expired:", 
                        text=>$time,
+                       bold=>0 &>
+   <& /comp/tableline, name=>"Closed:", 
+                       text=>$closetime,
                        bold=>0 &>
 
    <tr><td colspan="2"><hr></td></tr>
