@@ -1,3 +1,8 @@
+<%args>
+$ex=>""
+$mbt=>0
+</%args>
+
 <%perl>
 
 my ($mb); 
@@ -10,14 +15,13 @@ if (!exists $ARGS{artistid} || $ARGS{artistid} eq '')
     return undef;
 }
 
-my ($ret, $t0, $t1, $td, $ex);
+my ($ret, $t0, $t1, $td);
 my ($secs);
 
 $mb = new MusicBrainz;
 $mb->Login();
 $artist = Artist->new($mb->{DBH});
 $album = Album->new($mb->{DBH});
-$ex = $ARGS{ex};
 
 $artist->SetId($ARGS{artistid});
 if (! $artist->LoadFromId())
@@ -132,7 +136,8 @@ else
                              artist=>$artist, 
                              ex=>$ex,
                              showcollapsed=>1,
-                             showid=>1);
+                             showid=>1,
+                             mbtagger=>$mbt);
                 }
                 else
                 {

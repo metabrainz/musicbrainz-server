@@ -7,6 +7,7 @@ $nomod=>0
 $showalbumdetail=>0
 $showcollapsed=>0
 $ex=>""
+$mbtagger=>0
 </%args>
 
 <%perl>
@@ -78,7 +79,7 @@ for($i = 0;; $i++)
             artist=>$artist, lyricspresent=>$lyricspresent,
             tindex=>$i, hilitetrack=>$hilitetrack, 
             hilitecolor=>$hilitecolor, nomod=>$nomod, 
-            trmcount=>$tcount);
+            trmcount=>$tcount, mbtagger=>$mbtagger);
 }
 mc_comp("/comp/albumend", album=>$album, artist=>$artist, 
                           numtracks=>$i, nomod=>$nomod);

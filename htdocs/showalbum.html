@@ -1,3 +1,7 @@
+<%args>
+$mbt=>0
+</%args>
+
 <%perl>
 
 my ($mb); 
@@ -70,7 +74,7 @@ else
 
         mc_comp("/comp/modnotice");
         mc_comp("/comp/album", album=>$album, artist=>$artist, 
-                               showalbumdetail=>1);
+                               showalbumdetail=>1, mbtagger=>$mbt);
     }
 }
 $mb->Logout();

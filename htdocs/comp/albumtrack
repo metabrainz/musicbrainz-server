@@ -8,6 +8,7 @@ $hilitetrack
 $hilitecolor
 $nomod
 $trmcount=>0
+$mbtagger=>0
 </%args>
 
 <%perl>
@@ -28,10 +29,10 @@ $tr_bgcolor = ($track->GetAlbumJoinModPending()) ? 'bgcolor="#FFFFCC"' : '';
 % } else {
     <td width="75%" <% $bgcolor |n %>>
 % }
-% if (exists $session{mblookup} && !$nomod) {
+% if ($mbtagger && !$nomod) {
     <a href="tag:<% $track->GetMBId() %>"><img src="/images/mblookup-tag.gif" 
        alt="Tag" title="Tag the current track" height="13" width="28"
-       align="center"></a>
+       align="center" border="0"></a>
 % }
 % if ($lyricspresent == 1) {
        <a href="/showlyrics.html?id=<% $track->GetId() %>"><% $track->GetName() %></a>
