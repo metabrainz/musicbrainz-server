@@ -606,7 +606,7 @@ sub ExchangeMetadata
    my ($dbh, $doc, $rdf, @data) = @_;
    my (@ids, $id, $gu, $pe, $tr, $rv, $ar);
 
-   PrintData("Incoming:", @data);
+   #PrintData("Incoming:", @data);
 
    if (!DBDefs::DB_READ_ONLY)
    {
@@ -637,12 +637,12 @@ sub ExchangeMetadata
        @ids = $gu->GetTrackIdsFromGUID($data[4]);
        if (scalar(@ids) == 0)
        {
-           print STDERR "Not in database\n";
+           #print STDERR "Not in database\n";
            # No it has not.
            @ids = $pe->GetIdsFromGUID($data[4]);
            if (scalar(@ids) == 0)
            {
-               print STDERR "Not in pending\n";
+               #print STDERR "Not in pending\n";
                if (defined $data[0] && $data[0] ne '' &&
                    defined $data[4] && $data[4] ne '' &&
                    defined $data[1] && $data[1] ne '' &&
@@ -654,18 +654,18 @@ sub ExchangeMetadata
                    if (!$gu->AssociateGUID($data[4], $data[0], 
                                            $data[1], $data[2]))
                    {
-                      print STDERR "Insert into pending\n";
+                      #print STDERR "Insert into pending\n";
                       $pe->Insert(@data);
                    }
                    else
                    {
-                      print STDERR "Associated trmid\n";
+                      #print STDERR "Associated trmid\n";
                    }
                }
            }
            else
            {
-                print STDERR "Found in pending.\n";
+                #print STDERR "Found in pending.\n";
                 # Do the metadata glom
                 CheckMetadata($dbh, $rdf, $pe, \@data, \@ids); 
            }
@@ -674,7 +674,7 @@ sub ExchangeMetadata
        {
            my (@db_data, $i);
 
-           print STDERR "Found in database\n";
+           #print STDERR "Found in database\n";
 
            # @db_data will contain 5 items, in the same order as shown above
            @db_data = $tr->GetMetadataFromIdAndAlbum($ids[0], $data[2]);
@@ -689,7 +689,7 @@ sub ExchangeMetadata
                  }
               }
            }
-           PrintData("Matched database (outgoing):", @data);
+           #PrintData("Matched database (outgoing):", @data);
        }
    }
 
