@@ -161,7 +161,7 @@ sub PreVoteAction
        }
        else
        {
-           $info{attrs} = [ 0 ];
+           $info{attrs} = [ ];
        }
    }
 
