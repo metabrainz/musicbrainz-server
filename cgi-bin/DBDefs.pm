@@ -84,6 +84,11 @@ sub RDF_SERVER	{ "rdf.musicbrainz.example.com" }
 ################################################################################
 
 sub SMTP_SERVER { "localhost" }
+
+# If this is not undef, it lists a file to where all mail should be spooled
+# (instead of being sent via SMTP_SERVER)
+sub DEBUG_MAIL_SPOOL { undef }
+
 # This value should be set to some secret value for your server.  Any old
 # string of stuff should do; something suitably long and random, like for
 # passwords.  However you MUST change it from the default

@@ -74,12 +74,12 @@ use base qw( MIME::Lite );
 sub send
 {
 	my $self = shift;
-	
+
 	# TODO encode headers?
-	
-	my $fh = $self->open(@_);
-	$self->print($fh);
-	close $fh;
+
+	my $fh = $self->open(@_) or die $!;
+	$self->print($fh) or die $!;
+	close $fh or die $!;
 }
 
 ################################################################################
@@ -100,6 +100,22 @@ sub open
 	my ($class, $from, $to) = @_;
 	$to = [$to] unless ref($to) eq "ARRAY";
 	@$to or return;
+
+	# For debugging, you can spool all mail into a file, instead of actually sending it
+	if (defined(my $spoolfile = &DBDefs::DEBUG_MAIL_SPOOL))
+	{
+		open(my $fh, ">>$spoolfile")
+			or die $!;
+		use Fcntl qw( :flock );
+		flock($fh, LOCK_EX) or die $!;
+		seek($fh, 0, 2) or die $!;
+		print $fh "\n\cL\n";
+		printf $fh "Mail spooled by %s line %d at %s\n",
+			(caller)[0,2], scalar localtime;
+		print $fh "MAIL FROM: $from\n";
+		print $fh "RCPT TO: $_\n" for @$to;
+		return $fh;
+	}
 
 	require Net::SMTP;
 	my $smtp = Net::SMTP->new(&DBDefs::SMTP_SERVER)
