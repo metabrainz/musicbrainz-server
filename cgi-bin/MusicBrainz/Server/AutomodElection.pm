@@ -80,6 +80,47 @@ sub GetElections
 	$rows;
 }
 
+# Get a list of elections in which user #$uid should be reminded to participate
+# (assuming they're an automod)
+
+sub GetPendingElections
+{
+	my $self = shift;
+	my $uid = shift;
+	my $sql = Sql->new($self->{DBH});
+
+	my $rows = $sql->SelectListOfHashes(
+		"SELECT * FROM automod_election"
+		. " WHERE status IN ($STATUS_AWAITING_SECONDER_1, $STATUS_AWAITING_SECONDER_2, $STATUS_VOTING_OPEN)"
+		. " ORDER BY proposetime DESC",
+	);
+
+	my @pending;
+ELECTION:
+	for my $el (@$rows)
+	{
+		$el->{DBH} = $self->{DBH};
+		bless $el, ref($self);
+
+		no warnings;
+		# Did we propose/second the candidate?
+		next if $el->GetProposer == $uid
+			or $el->GetSeconder1 == $uid
+			or $el->GetSeconder2 == $uid
+			;
+
+		# Have we already voted?
+		for my $vote (@{ $el->GetVotes })
+		{
+			next ELECTION if $vote->GetVoter == $uid;
+		}
+
+		push @pending, $el;
+	}
+
+	return \@pending;
+}
+
 sub newFromId
 {
 	my ($self, $id) = @_;
