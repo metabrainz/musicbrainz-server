@@ -29,6 +29,7 @@ package MusicBrainz::Server::Moderation::MOD_ADD_TRACK_KV;
 
 use ModDefs;
 use base 'Moderation';
+use Carp qw( croak );
 
 sub Name { "Add Track" }
 (__PACKAGE__)->RegisterHandler;
@@ -161,28 +162,38 @@ sub DeniedAction
 	my $self = shift;
 	my $new = $self->{'new_unpacked'};
 
-	if (my $track = $new->{"TrackId"})
-	{
-		my $sql = Sql->new($self->{DBH});
-		$sql->Do("DELETE FROM albumjoin WHERE track = ?", $track);
+	my $track = $new->{"TrackId"}
+		or croak "Missing TrackId";
+	my $album = $new->{"AlbumId"}
+		or croak "Missing AlbumId";
 
-		# Remove the track itself (only if it's now unused)
-		my $tr = Track->new($self->{DBH});
-		$tr->SetId($track);
-		$tr->Remove;
+	my $tr = Track->new($self->{DBH});
+	$tr->SetId($track);
+	$tr->SetAlbum($album);
+
+	unless ($tr->LoadFromId)
+	{
+		$self->InsertNote(
+			&ModDefs::MODBOT_MODERATOR,
+			"This track has been deleted",
+		);
+		return;
 	}
 
-	if (my $album = $new->{"AlbumId"})
+	$tr->RemoveFromAlbum
+		or die "Failed to remove track";
+
+	# Remove the track itself (only if it's now unused)
+	$tr->Remove;
+
+	# Try to remove the album if it's a "non-album" album
+	my $al = Album->new($self->{DBH});
+	$al->SetId($album);
+	if ($al->LoadFromId)
 	{
-		# Try to remove the album if it's a "non-album" album
-		my $al = Album->new($self->{DBH});
-		$al->SetId($album);
-		if ($al->LoadFromId)
-		{
-			$al->Remove
-				if $al->IsNonAlbumTracks
-				and $al->LoadTracks == 0;
-		}
+		$al->Remove
+			if $al->IsNonAlbumTracks
+			and $al->LoadTracks == 0;
 	}
 
 	if (my $artist = $new->{"ArtistId"})

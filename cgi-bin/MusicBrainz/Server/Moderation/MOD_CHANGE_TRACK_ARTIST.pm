@@ -99,12 +99,11 @@ sub ApprovedAction
 	$ar->SetSortName($sortname);
 	my $artistid = $ar->Insert(no_alias => 1);
 
-	my $sql = Sql->new($this->{DBH});
-	$sql->Do(
-		"UPDATE track SET artist = ? WHERE id = ?",
-		$artistid,
-		$this->GetRowId,
-	) or die "Failed to update track in MOD_CHANGE_TRACK_ARTIST";
+	my $tr = Track->new($this->{DBH});
+	$tr->SetId($this->GetRowId);
+	$tr->SetArtist($artistid);
+	$tr->UpdateArtist
+		or die "Failed to update track in MOD_CHANGE_TRACK_ARTIST";
 
 	&ModDefs::STATUS_APPLIED;
 }

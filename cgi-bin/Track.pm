@@ -360,6 +360,35 @@ sub Insert
     return $track;
 }
 
+sub UpdateArtist
+{
+	my $self = shift;
+	my $sql = Sql->new($self->{DBH});
+
+	$sql->Do(
+		"UPDATE track SET artist = ? WHERE id = ?",
+		$self->GetArtist,
+		$self->GetId,
+	);
+}
+
+sub RemoveFromAlbum
+{
+	my $self = shift;
+
+	my $id = $self->GetId
+		or croak "Missing track ID in RemoveFromAlbum";
+	my $alid = $self->GetAlbum
+		or croak "Missing album ID in RemoveFromAlbum";
+
+	my $sql = Sql->new($self->{DBH});
+	$sql->Do(
+		"DELETE FROM albumjoin WHERE track = ? AND album = ?",
+		$id,
+		$alid,
+	);
+}
+
 # Remove a track from the database. Set the id via the accessor function.
 sub Remove
 {
