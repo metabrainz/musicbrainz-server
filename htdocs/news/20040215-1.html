@@ -1,0 +1,236 @@
+%# vi: set ts=2 sw=2 ft=mason :
+<& /comp/sidebar, title => 'February 99th, 2004: Server Updates' &>
+
+<h2>Changes mainly of interest to MusicBrainz Users</h2>
+
+<h3>FreeDB</h3>
+
+<p>
+	These changes only affect "FreeDB moderations" &mdash; i.e. when
+	a web service client requests album information based on
+	a MusicBrainz disc ID (and TOC) that we've not seen before,
+	causing the corresponding album to be automatically imported from FreeDB.
+</p>
+
+<p>
+	Firstly, the code used to turn the TOC into a FreeDB ID was flawed;
+	sometimes it yielded the correct FreeDB ID, and sometimes it didn't.&nbsp;
+	Of course, this has now been fixed.&nbsp; However it is likely that there
+	are now some albums which have been automatically imported into MusicBrainz
+	but which were then associated with the wrong disc ID and TOC.&nbsp;
+	It should be possible to write a "fix" script to identify and remove such
+	broken data; however that script so far has not been written.
+</p>
+
+<p>
+	Secondly, the minimum number of tracks need for an automatic import to
+	proceed has been raised from 2 to 5 (bug #800776).
+</p>
+
+<p>
+	Finally, the logic that tries to prevent the automated import of "Various
+	Artists" albums has been considerably strengthened; this should mean that
+	the <a href="/mod/search/pre/freedb.html">FreeDB Moderations</a> page will
+	tend to contain less junk in future.
+</p>
+
+<h3>Edit Artist Name bug fix</h3>
+
+<p>
+	Previously, when an "Edit Artist Name" moderation was applied, the artist's
+	page index (used for browsing) would be changed, when it should have
+	remained unchanged.
+</p>
+
+<p>
+	For example, if there was an artist "Bob Price"
+	(sortname: "Price, Bob"), then changing the name to "Bob Pryce" would have
+	moved that artist from the "P" page to the "B" page.&nbsp; Since the "Edit
+	Artist Sortname" moderation also (correctly) modified the page index value,
+	the page which Bob ended up on would depend on whether the most recently
+	applied moderation was the "Name" or the "Sortname" moderation.
+</p>
+
+<p>
+	This bug has now been fixed, but it is likely that there are still some artists in
+	the database who are on the wrong index page as a result.&nbsp; Editing
+	their sortnames will fix the error.&nbsp; At some point a "fix" script needs to
+	be written to find and correct such broken data.
+</p>
+
+<h3>Privacy</h3>
+
+<p>
+	Previously, by using the "I forgot my password" feature, it was possible to
+	discover the e-mail address of any user.&nbsp; This (bug #893529) was fixed
+	on the live server the day it was reported (so it falls between the previous
+	release and this one).
+</p>
+	
+<p>
+	You'll know if someone abused this flaw to find
+	your address, because you will have received the "this is your password"
+	reminder e-mail, even though you didn't ask for it to be sent.&nbsp; As far
+	as I am aware, the only person this happened to was me, and that was because
+	the <a href="/user/view.html?modname=Bebop123">bug finder</a> was testing
+	out the bug on me before he reported it :-)
+</p>
+
+<h3>Other Changes</h3>
+
+<p>
+	"Add Track" moderations on "Various Artists" albums previously showed a
+	blank artist name/sortname (on the voting pages, for example).&nbsp; From
+	now on newly entered "Add Track" moderations will show the correct artist;
+	moderations which were already in the database before this release will just
+	not show the artist name (bug #868238).
+</p>
+
+<p>
+	When selecting an "inline moderation" to display on a "Various Artists" page,
+	the server no longer first picks a moderation "by the same artist",
+	since it is very unlikely that
+	the selected moderation will have anything to do with the page you're
+	looking at.
+</p>
+
+<p>
+	Many more timezones have been added to the allowed list, as seen on the
+	<a href="/prefs.html">preferences page</a> (bug #757534).&nbsp; Also a few extra
+	date/time display formats have been added.
+</p>
+
+<p>
+	Some dates were being incorrectly displayed as being Jan 1st, 1970 (or
+	maybe Dec 31st, 1969, depending on your time zone).&nbsp; These dates
+	are now correctly displayed as "never".
+</p>
+
+<h2>New and Changed Documentation</h2>
+
+<p>
+	A couple of typos have been fixed on the <a href="/MM/">MM page</a>.&nbsp;
+	Another has been fixed on the <a href="/MM/mq_examples.html">mq_examples page</a>.
+</p>
+
+<p>
+	Added <a href="/products/server/docs/20040215-1.html">the mb_server codebase</a>.
+</p>
+
+<p>
+	Added release number / CVS Tag information to the
+	<a href="/development/cvs-modules.html">CVS modules</a> page.
+</p>
+
+<h2>Changes mainly of interest to MusicBrainz Server Programmers</h2>
+
+<h3>Perl</h3>
+
+<p>
+	The MusicBrainz scripts now look for the Perl binary at
+	<tt>/home/httpd/musicbrainz/mb_server/cgi-bin/perl</tt> instead of
+	<tt>/usr/bin/perl</tt>.&nbsp; Thus, you can now easily run your mb_server
+	from one installation of Perl, but have your system-wide Perl (which maybe
+	your operating system depends on extensively) be kept separate.&nbsp;
+	All you'll probably have to do is copy the Perl binary you were previously
+	using into the new path.
+</p>
+
+<p>
+	This change is described in the <& cvslink.inc, "mb_server/INSTALL" &> file.
+</p>
+
+<h3>Cacheing</h3>
+
+<p>
+	A cacheing layer has been added: <tt>MusicBrainz::Server::Cache</tt>.&nbsp;
+	Currently this is based on <tt>Cache::SizeAwareFileCache</tt> (from the
+	<tt>Cache::Cache</tt> distribution).&nbsp; There are new options in
+	<& cvslink.inc, "mb_server/cgi-bin/DBDefs.pm" &> to control this.&nbsp; In
+	the future the implementation of the cache might change; code using the
+	cache should neither care nor notice if it does.
+</p>
+
+<p>
+	So far the following things are cached in this way: user data
+	(UserStuff.pm); FreeDB responses; and user voting history statistics (as
+	displayed on the "profile" page).
+</p>
+
+<h3>Discid / FreeDB</h3>
+
+<p>
+	As noted above, the FreeDB ID algorithm has been fixed &mdash; previously it
+	would sometimes give the wrong answer.&nbsp; In fact much of
+	<& cvslink.inc, "mb_server/cgi-bin/Discid.pm" &>
+	and
+	<& cvslink.inc, "mb_server/cgi-bin/FreeDB.pm" &>
+	have been tidied up and revamped:
+</p>
+
+<ul>
+	<li>
+		<tt>Discid-&gt;GenerateAlbumFromDiscid</tt> has been tidied up,
+		as has <tt>Insert</tt> and <tt>InsertTOC</tt>.
+	</li>
+	<li>
+		<tt>Discid-&gt;GetAlbumAndIdFromDiscid</tt> has been removed.
+	</li>
+	<li>
+		<tt>Discid-&gt;ParseTOC</tt> has been added - this takes a TOC and returns
+		lots of useful things from it, including the track count, lengths,
+		MusicBrainz disc ID, and FreeDB ID.
+	</li>
+	<li>
+		In FreeDB.pm, <tt>_lba_to_msf</tt> and <tt>IsNumber</tt> have been removed,
+		and <tt>Lookup</tt> has been greatly simplified.
+	</li>
+	<li>
+		Finally, FreeDB.pm now caches query responses from the FreeDB server.
+	</li>
+</ul>
+
+<h3>Other Changes</h3>
+
+<p>
+	Other changes include:
+</p>
+
+<ul>
+	<li>
+		<tt>XML::DOM</tt> and <tt>XML::Parser</tt> are not required,
+		so they have been removed from the dependency list in the
+		<& cvslink.inc, "mb_server/INSTALL" &> file.
+	</li>
+	<li>
+		A hack has been added to
+		<& cvslink.inc, "mb_server/cgi-bin/MusicBrainz.pm" &>
+		to avoid re-executing the same SQL again and again for every page,
+		when it only needs to be done once (when the database connection is first
+		made).&nbsp; However <strong>this is a hack!</strong> &mdash; it's not
+		done using proper DBI techniques, and it may break things, somewhere, some
+		day.&nbsp; Let us know if it causes you any trouble!
+	</li>
+	<li>
+		<& cvslink.inc, "mb_server/cgi-bin/mq.pl" &> now logs the authenticated user
+		(if known) into the access log.&nbsp; The URL logged is now of the form
+		<em>/mm-2.0/QUERYNAME</em>, like
+		<& cvslink.inc, "mb_server/cgi-bin/mq_2_1.pl" &> has been doing for a while
+		now.&nbsp; Also these two scripts have been tweaked in various small,
+		cosmetic ways so as to make them as similar as possible.
+	</li>
+</ul>
+
+<h2>Bugs and RFEs Closed</h2>
+
+<& buglist.inc,
+	'757534 	Timezones (extend / clarify list)',
+	'800776 	FreeDB inserts with too few tracks',
+	"576291 	Don't allow mult. tracks with the same number",
+	'868238 	"Add Track" for VA album shows blank artist name',
+	'893529 	Email addresses shown on forgotten password screen',
+	&>
+
+Dave Evans
+
+<& /comp/footer &>
