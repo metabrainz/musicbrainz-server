@@ -1,5 +1,6 @@
 #!/usr/bin/perl -w
 
+no warnings qw( portable );
 use strict;
 use QuerySupport;
 use DBI;
@@ -20,6 +21,7 @@ my %Queries =
 
 $depth = 2;
 $rdf = MM_2_1->new(0);
+
 $rdf->SetBaseURI("http://" . $ENV{SERVER_NAME});
 
 if (exists $ENV{"MOD_PERL"})
