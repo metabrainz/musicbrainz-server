@@ -67,19 +67,22 @@ $length_in_secs = int($track->GetLength() / 1000);
     <td valign="top"><a 
        href="http://mm.musicbrainz.org/track/<% $track->GetMBId() %>">
        http://mm.musicbrainz.org/track/<% $track->GetMBId() %></a></td>
-    </tr><tr>
+    </tr>
 % if (exists $session{user}) {
+    <tr>
     <td valign="top" align="right">Track RowId:</td>
     <td valign="top"><% $track->GetId() %></td>
-    </tr><tr>
+    </tr>
 % }
 % if ($length_in_secs != 0) {
+    <tr>
     <td valign="top" align="right">Length:</td>
     <td valign="top"><% int($length_in_secs / 60) %>:<% sprintf("%02d",($length_in_secs % 60)) %></td>
-    </tr><tr>
+    </tr>
 % }
 
 % if (scalar(@TRM) > 0) {
+    <tr>
     <td valign="top" align="right">TRM Ids:</td>
     <td>
        <table>
@@ -94,7 +97,7 @@ $length_in_secs = int($track->GetLength() / 1000);
              <td valign="top" align="center"><% $id->{lookupcount} %></td>
              <td valign="top">
 %            if (exists $session{user}) {
-                <a href="/remtrm.html?TRMjoin=<% $id->{TRMjoinid} %>&trackid=<% $track->GetId() %>&trmid=<% $id->{TRM} %>">Delete</a>
+                <a href="/remtrm.html?TRMjoin=<% $id->{TRMjoinid} %>&amp;trackid=<% $track->GetId() %>&amp;trmid=<% $id->{TRM} %>">Delete</a>
 %            } else {
                 &nbsp;
 %            }
@@ -102,11 +105,13 @@ $length_in_secs = int($track->GetLength() / 1000);
           </tr>
 %   }
        </table>
-% }
     </td>
     </tr>
+% }
+
     </table>
     <& /comp/tableend &> 
+
     <& /comp/tablebegin, title=>'Artist Information' &> 
     <table>
     <tr>
@@ -114,21 +119,20 @@ $length_in_secs = int($track->GetLength() / 1000);
     <td valign="top"><a href="/showartist.html?artistid=<% $artist->GetId() %>"><% $artist->GetName() %></a></td>
     </tr><tr>
     <td valign="top" align="right">Artist MB Id:</td>
-    <td valign="top"><% $artist->GetMBId() %></a></td>
+    <td valign="top"><% $artist->GetMBId() %></td>
     </tr><tr>
     <td valign="top" align="right"><a href="/MM/index.html">MM/RDF</a></td>
     <td valign="top"><a 
        href="http://mm.musicbrainz.org/artist/<% $artist->GetMBId() %>">
        http://mm.musicbrainz.org/artist/<% $artist->GetMBId() %></a></td>
-    </tr><tr>
+    </tr>
 % if (exists $session{user}) {
+    <tr>
     <td valign="top" align="right">Artist RowId:</td>
     <td valign="top"><% $artist->GetId() %></a></td>
-    </tr><tr>
+    </tr>
 % }
 
-
-    </tr>
     </table>
     <& /comp/tableend &> 
 
@@ -160,16 +164,19 @@ $length_in_secs = int($track->GetLength() / 1000);
             <td valign="top"><a 
               href="http://mm.musicbrainz.org/album/<% $$album[3] %>">
               http://mm.musicbrainz.org/album/<% $$album[3] %></a></td>
+            </tr>
 
 % if (exists $session{user}) {
-            </tr><tr>
+            <tr>
             <td valign="top" align="right">Album RowId:</td>
             <td valign="top"><% $$album[0] %></td>
-% }
             </tr>
+% }
+
             </table>
             <center>
             This track appears as track number <% $$album[2] %> on this album.
+            </center>
             <& /comp/tableend &>
 <%perl>
         }
