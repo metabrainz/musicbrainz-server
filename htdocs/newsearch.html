@@ -16,7 +16,7 @@ if ( defined $table && defined $search)
     $engine->Limit($limit) if $limit;
     $engine->Search($search);
 </%perl>
-<& /comp/sidebar, title=>'Search Results' &>
+<& /comp/sidebar, title=>$table . ' Search Results: '.$search &>
     <& /comp/tablebegin, title=>"Found" &>
 
     <table border="0" cellspacing="0" cellpadding="4">
@@ -29,6 +29,12 @@ if ( defined $table && defined $search)
         <th>Track Title</th><th>Artist Name</th>
 %    }
         </tr>
+
+%    if ($engine->Rows == 0) {
+
+        <tr><td>No matching <% $table %>s found.</td></tr>
+
+%    }
 
 %   while ( my $row = $engine->NextRow ) {
         <tr bgcolor="<% $bgcolor = ( $bgcolor eq '#ffffff' ? '#ffe1b7' : '#ffffff' ) %>">
@@ -48,10 +54,11 @@ if ( defined $table && defined $search)
     <& /comp/tablebegin, title=>'Search Again', attrs=>"align=left", gattrs=>"width=100%" &>
 % } else {
 <& /comp/sidebar, title=>'Search' &>
-    <& /comp/tablebegin, title=>'Search', attrs=>"align=left", gattrs=>"width=100%" &>
+    <& /comp/tablebegin, title=>'Search', attrs=>"align=left", 
+                         attrs=>'width="300"' &>
 % }
     <br>
-    <& /comp/textsearch &>
+    <& /comp/textsearch, default=>$table &>
     <br>
     &nbsp;
   <& /comp/tableend &>

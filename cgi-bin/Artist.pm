@@ -139,7 +139,9 @@ sub Remove
   
     $sql->Do("delete from Artist where id = " . $this->GetId());
 
-    # TODO: Add code to remove references from artist words table
+    # Remove references from artist words table
+    my $engine = SearchEngine->new( { Table => 'Artist' } );
+    $engine->RemoveObjectRefs($this->GetId());
 
     return 1;
 }

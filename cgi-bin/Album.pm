@@ -114,7 +114,9 @@ sub Remove
          $sql->Finish;
     }
 
-    # TODO: Remove keywords from the keyword index
+    # Remove references from album words table
+    my $engine = SearchEngine->new( { Table => 'Album' } );
+    $engine->RemoveObjectRefs($this->GetId());
 
     return 1;
 }

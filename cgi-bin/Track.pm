@@ -367,7 +367,9 @@ sub Remove
 
     $sql->Do("delete from Track where id = " . $this->GetId());
 
-    # TODO: Remove keywords from the keyword index
+    # Remove references from track words table
+    my $engine = SearchEngine->new( { Table => 'Track' } );
+    $engine->RemoveObjectRefs($this->GetId());
 
     return 1;
 }

@@ -36,7 +36,7 @@ sub new
     my $class = shift;
     my $self = shift || {};
     bless $self, $class;
-    $self->{DBH}          = DBDefs->Connect || die "ARRGH!"; 
+    $self->{DBH}          = DBDefs->Connect || die "Cannot connect to database";
     $self->{STH}          = undef;
     $self->{ValidTables}  = ['Album','Artist','Track'];
     $self->{Table}      ||= 'Artist';
@@ -140,9 +140,21 @@ sub AddWordRefs {
         eval { $sth->execute($object_id,$word_id) };
         if ($@ && !($@ =~ /Duplicate/) ) 
         {
-            die $@;
+            print STDERR "Attempt to insert duplicate word ref.\n";
         }
     }
+}
+
+sub RemoveObjectRefs
+{
+    my $self = shift;
+    my ($object_id) = @_;
+
+    my $query;
+
+    $query = "delete from " . $self->{Table} . "Words where " .
+             $self->{Table} . "id = $object_id";
+    $self->{DBH}->do($query);
 }
 
 sub GetQuery
@@ -209,7 +221,7 @@ sub Search {
 
     $self->{STH} = $self->{DBH}->prepare_cached ( $query );
 
-    $self->{STH}->execute or die "Search query failed!";
+    $self->{STH}->execute or print STDERR "Search query failed: $search\n";
     
     $self->{DBH}->do('SET SQL_BIG_TABLES=0');
 }

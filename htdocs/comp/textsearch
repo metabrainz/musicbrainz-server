@@ -1,3 +1,7 @@
+<%args>
+$default=>'Artist'
+</%args>
+
 <FORM METHOD="GET" ACTION="/newsearch.html" ENCTYPE="application/x-www-form-urlencoded" class="formstyle">
 <center>
 <table border=0 width="250">
@@ -19,9 +23,9 @@
         <OPTION VALUE="">all</OPTION>
     </SELECT>
     <SELECT NAME="table">
-        <OPTION VALUE="Artist">artists</OPTION>
-        <OPTION VALUE="Album">albums</OPTION>
-        <OPTION VALUE="Track">tracks</OPTION>
+        <OPTION VALUE="Artist" <% ($default eq 'Artist') ? 'SELECTED' : '' %>>artists</OPTION>
+        <OPTION VALUE="Album" <% ($default eq 'Album') ? 'SELECTED' : '' %>>albums</OPTION>
+        <OPTION VALUE="Track" <% ($default eq 'Track') ? 'SELECTED' : '' %>>tracks</OPTION>
     </SELECT>
   </td>
   </tr>
