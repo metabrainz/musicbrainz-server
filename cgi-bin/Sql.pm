@@ -181,6 +181,38 @@ sub Do
 	return 0+$ret;
 }
 
+# Insert a single row into a table, $tab; $row is a hash reference, where the
+# keys are the column names and the values are the values of the columns.
+# Anything which isn't a plain data value (e.g. "NOW()") can be specified by
+# making the value a reference to a SQL fragment (e.g. datecolumn =>
+# \"NOW()").  In non-void context, returns the ID of the row just inserted
+# using ->GetLastInsertId.  If the table has no auto-id field, call this in
+# void context.
+
+sub InsertRow
+{
+	my ($this, $tab, $row) = @_;
+	(ref($row) eq "HASH" and %$row)
+		or croak "Missing or empty row";
+
+	my (@columns, @expressions, @values);
+
+	while (my ($k, $v) = each %$row)
+	{
+		push @columns, $k;
+		push(@expressions, $$v), next
+			if ref $v;
+		push @expressions, "?";
+		push @values, $v;
+	}
+
+	local $" = ", ";
+	$this->Do("INSERT INTO $tab (@columns) VALUES (@expressions)", @values);
+
+	return if not defined wantarray;
+	$this->GetLastInsertId($tab);
+}
+
 sub GetSingleRow
 {
 	my ($this, $tab, $cols, $where) = @_;
