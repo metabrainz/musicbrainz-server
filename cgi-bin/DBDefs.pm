@@ -31,6 +31,8 @@ use vars qw(@ISA @EXPORT);
 # database called 'musicbrainz' then you shouldn't need to change the next line
 use constant DSN 	=>	'dbi:Pg:dbname=musicbrainz';
 
+# Insert the name of the database here
+use constant DB_NAME 	=>	'musicbrainz';
 # Insert the user name that has access to the database listed above
 use constant DB_USER 	=>	'postgres';
 # Insert the password of the user from above
