@@ -76,7 +76,7 @@
     <br>
   <& /comp/tableend &>
     
-  <& /comp/tablebegin, title=>'Browse Various Artist Albums', attrs=>"align=center", 
+  <& /comp/tablebegin, title=>'Browse Releases', attrs=>"align=center", 
      gattrs=>"width='100%'" &>
     <br>
     <& /comp/browsebox, page=>'/browsevarious.html', showspecial=>"below"  &>
