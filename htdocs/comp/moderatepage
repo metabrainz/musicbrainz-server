@@ -8,7 +8,7 @@ $num=>10
 <%perl>
 
 my ($mb, @info, $mod, $offset, $i, $comp, $obj);
-my ($option1, $option2, $num_mods, $total_mods, $notes);
+my ($num_mods, $total_mods, $notes);
 my $max_items = $num;
 
 $mb = new MusicBrainz;  
@@ -20,7 +20,6 @@ $offset = 0 if $offset < 0;
 $mb->Login();
 $mod = Moderation->new($mb->{DBH});
 
-my $freedb_note = 0;
 my $show_button = 0;
 if ($type == ModDefs::TYPE_NEW)
 {
@@ -28,9 +27,6 @@ if ($type == ModDefs::TYPE_NEW)
            $mod->GetModerationList($offset, $max_items, $session{uid}, $type);
     mc_comp("/comp/sidebar", title=>'Review Pending Moderations',
             expand=>"moderate"); 
-    $option1 = '<a href="moderate.html?type=2">Old Mods</a>';
-    $option2 = '<a href="moderate.html?type=3">My Mods</a>';
-
 }
 elsif ($type == ModDefs::TYPE_VOTED)
 {
@@ -39,8 +35,6 @@ elsif ($type == ModDefs::TYPE_VOTED)
                                    $session{uid}, $type);
     mc_comp("/comp/sidebar", title=>'Review Old (Voted) Mods',
             expand=>"moderate"); 
-    $option1 = '<a href="moderate.html?type=1">New Mods</a>';
-    $option2 = '<a href="moderate.html?type=3">My Mods</a>';
 }
 elsif ($type == ModDefs::TYPE_MINE)
 {
@@ -49,8 +43,6 @@ elsif ($type == ModDefs::TYPE_MINE)
                                    $session{uid}, $type);
     mc_comp("/comp/sidebar", title=>'Review My Moderations',
             expand=>"moderate"); 
-    $option1 = '<a href="moderate.html?type=1">New Mods</a>';
-    $option2 = '<a href="moderate.html?type=2">Old Mods</a>';
 }
 elsif ($type == ModDefs::TYPE_ARTIST)
 {
@@ -59,18 +51,13 @@ elsif ($type == ModDefs::TYPE_ARTIST)
                                    $session{uid}, $type, $artistid);
     mc_comp("/comp/sidebar", title=>'Moderations by Artist',
             expand=>"moderate"); 
-    $option1 = '<a href="moderate.html?type=1">New Mods</a>';
-    $option2 = '<a href="moderate.html?type=2">Old Mods</a>';
-
-    #if ($albumid > 0)
-    #{
-    #    $i = 0;
-    #    foreach $obj (@info)
-    #    {
-    #        # Add the filter criteria here that will toss out moderations
-    #        # that are not related to the given album.
-    #    }
-    #}
+}
+elsif ($type == ModDefs::TYPE_FREEDB)
+{
+    ($num_mods, $total_mods, @info) = 
+           $mod->GetModerationList($offset, $max_items, $session{uid}, $type);
+    mc_comp("/comp/sidebar", title=>'Moderations from FreeDB',
+            expand=>"moderate"); 
 }
 else
 {
@@ -82,18 +69,13 @@ else
 $i = 0;
 foreach $obj (@info)
 {
-    if ($obj->GetModeratorName() eq "FreeDB" &&
-        $obj->GetStatus() == ModDefs::STATUS_OPEN)
-    {
-       $freedb_note = 1;
-    }
     if ($obj->GetModerator() != $session{uid} &&
         $obj->GetVote() == ModDefs::VOTE_NOTVOTED &&
         $obj->GetStatus() == ModDefs::STATUS_OPEN)
     {
        $show_button = 1;
     }
-    last if ($i >= $max_items || ($freedb_note && $show_button));
+    last if ($i >= $max_items || $show_button);
 }
 
 if ($num_mods > 0)
@@ -116,19 +98,11 @@ if ($num_mods > 0)
 [ <a href="moderate.html?type=1">New Mods</a> |
 <a href="moderate.html?type=3">My Mods</a> |
 <a href="moderate.html?type=2">Old Mods</a> |
+<a href="moderate.html?type=5">FreeDB Mods</a> |
 <a href="jumpmod.html">Jump</a> |
 <a href="mod_intro.html">Help</a> ]
 </td>
 </tr>
-
-% if ($freedb_note) {
-  <tr><td colspan="2" align="center">
-  <font color="red" size="+1">Note:</font> This page contains automatic
-  Album insertions from moderator FreeDB.<br> If these do not seem 
-  correct/appropriate, then vote no. 
-  <a href="/cd_submission.html">More Info</a> 
-  </td></tr>
-% }
 </table>
 
 % if ($num_mods == 0) {
@@ -140,6 +114,8 @@ if ($num_mods > 0)
    There are no old (voted on) moderations.
 %  } elsif ($type == ModDefs::TYPE_ARTIST) {
    There are no moderations for this artist.
+%  } elsif ($type == ModDefs::TYPE_FREEDB) {
+   There are no freedb moderations pending.
 %  } else {
    You have not entered any moderations.
 %  }

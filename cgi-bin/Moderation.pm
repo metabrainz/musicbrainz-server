@@ -487,7 +487,8 @@ sub GetModerationList
             qq/, ModeratorInfo.id, count(Votes.id) as num_votes from 
             Artist, ModeratorInfo, Changes left join Votes on Votes.uid = $uid 
             and Votes.rowid=Changes.id where Changes.Artist = Artist.id and 
-            ModeratorInfo.id = moderator and moderator != $uid and status = /
+            ModeratorInfo.id = moderator and moderator != $uid and 
+            moderator != / . ModDefs::FREEDB_MODERATOR . qq/ and status = /
             . ModDefs::STATUS_OPEN . 
             qq/ group by Changes.id having num_votes < 1/;
    }
@@ -524,6 +525,20 @@ sub GetModerationList
             where ModeratorInfo.id = moderator and Changes.artist = 
             Artist.id and Changes.artist = $rowid
             order by TimeSubmitted desc limit $index, -1/;
+   }
+   if ($type == ModDefs::TYPE_FREEDB)
+   {
+       $query = qq/select Changes.id, tab, col, Changes.rowid, 
+            Changes.artist, type, prevvalue, newvalue, 
+            UNIX_TIMESTAMP(TimeSubmitted), ModeratorInfo.name, yesvotes, 
+            novotes, Artist.name, status, / . ModDefs::VOTE_NOTVOTED .
+            qq/, ModeratorInfo.id, count(Votes.id) as num_votes from 
+            Artist, ModeratorInfo, Changes left join Votes on Votes.uid = $uid 
+            and Votes.rowid=Changes.id where Changes.Artist = Artist.id and 
+            ModeratorInfo.id = moderator and moderator = / . 
+            ModDefs::FREEDB_MODERATOR . qq/ and status = /
+            . ModDefs::STATUS_OPEN . 
+            qq/ group by Changes.id having num_votes < 1/;
    }
    else
    {

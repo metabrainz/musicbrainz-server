@@ -35,6 +35,7 @@ use constant TYPE_NEW                    => 1;
 use constant TYPE_VOTED                  => 2;
 use constant TYPE_MINE                   => 3;
 use constant TYPE_ARTIST                 => 4;
+use constant TYPE_FREEDB                 => 5;
 
 # The various moderations, enumerated
 use constant MOD_EDIT_ARTISTNAME         => 1;
