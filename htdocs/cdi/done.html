@@ -14,10 +14,10 @@ $attrstatus=>0
 $noncd=>0
 $notetext => ""
 </%args>
-
 <%perl>
 
-my ($error, $new);
+$m->comp("/comp/checkloggedin", 0, 1)
+	or return;
 
 $m->comp("/comp/sidebar", title=>'New CD Submission');
 
@@ -32,7 +32,7 @@ if (my $d = DebugLog->open)
 
 # Do a bunch of error checking
 
-$error = 0;
+my $error = 0;
 $error = 1 if (!defined $artist && $artistname eq '');
 $error = 2 if ($id eq '' && $freedbid eq '' && $noncd == 0);
 $error = 3 if ($toc eq '' && $freedbid eq '' && $noncd == 0);
@@ -54,7 +54,7 @@ my $di = Discid->new($mb->{DBH});
 if ($id ne '' && defined $di->GetAlbumFromDiscid($id))
 {
 </%perl>
-    This CD has already (just?) been entered into the system. 
+    This CD has already (just?) been entered into the system.&nbsp;
     <a href="/showalbum.html?discid=<% $id %>">Click here</a> to see the
     album.
     </TD></TR></TABLE>
@@ -88,31 +88,36 @@ else
     {
         @durations = split / /, $durations;
     }
-    
+
     if ($toc ne '')
     {
         @offsets = split / /, $toc;
         shift @offsets; # first
-        shift @offsets; # last                                     
+        shift @offsets; # last
         my $leadout = shift @offsets;
         push @offsets, $leadout;
     }
+
+	my $new = "";
+
     if (!defined $artist)
     {
        $artistname =~ s/^\s*(.*?)\s*$/$1/;
        $sortname =~ s/^\s*(.*?)\s*$/$1/;
        $new = "Artist=$artistname\nSortname=$sortname\n";
     }
+
     $new .= "AlbumName=$title\nNumTracks=$tracks\n";
     $new .= "Attributes=$attrtype,$attrstatus\n";
     $new .= "CDIndexId=$id\n" if ($id ne '');
     $new .= "TOC=$toc\n" if ($toc ne '');
     $new .= "FreedbId=$freedbid\n" if ($freedbid ne '');
+
     for (my $i = 0; $i < $tracks; $i++)
     {
         $ARGS{"track$i"} =~ s/^\s*(.*?)\s*$/$1/;
         $new .= "Track" . ($i + 1) . "=" . $ARGS{"track$i"} . "\n";
-        if ($toc ne '') 
+        if ($toc ne '')
         {
            my $dur = int((($offsets[$i+1] - $offsets[$i])*1000)/75);
            $new .= "TrackDur" . ($i + 1) . "=" . $dur . "\n";
@@ -127,7 +132,7 @@ else
             $ARGS{"sortname$i"} =~ s/^\s*(.*?)\s*$/$1/;
             $new .= "Artist" . ($i + 1) . "=" . $ARGS{"artistname$i"} . "\n";
             $new .= "Sortname" . ($i + 1) . "=" . $ARGS{"sortname$i"} . "\n";
-        } 
+        }
     }
 
     my $in = Insert->new($mb->{DBH});
@@ -149,7 +154,7 @@ else
 
     if (defined $artistid && defined $albumid)
     {
-        $m->out("Thank you for your submission!<p><br>");
+		$m->out("<p>Thank you for your submission!</p>");
 
         my ($al, $ar);
 
@@ -162,7 +167,7 @@ else
             $al->SetId($albumid);
             if ($al->LoadFromId())
             {
-                $m->out("<hr>Here is the album you inserted:<p><br>");
+                $m->out("<p>Here is the album you inserted:</p>");
                 $m->comp("/comp/artisttitle", artist=>$ar, link=>1);
 
 				$m->comp(
