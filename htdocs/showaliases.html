@@ -20,21 +20,7 @@ $artist->LoadFromId
 
 $m->comp("/comp/sidebar", title => "Artist Aliases");
 
-</%perl>
-
-<p>
-	[
-	<a href="/showartist.html?artistid=<% $artist->GetId %>"
-		>View albums</a>
-% if (exists $session{user}) {
-	|
-	<a href="/addalias.html?id=<% $artist->GetId %>"
-		>Add alias</a>
-% }
-	]
-</p>
-
-<%perl>
+$m->comp("/comp/artisttitle", artist=>$artist);
 
 my $alias = Alias->new($mb->{DBH}, "ArtistAlias");
 my @list = $alias->GetList($artist->GetId);
@@ -42,9 +28,7 @@ my @list = $alias->GetList($artist->GetId);
 if (!defined $list[0])
 {
 	$m->out("<p>There are no aliases for this artist.</p>");
-	$m->comp("/comp/footer");
-	return;
-}
+} else {
 
 </%perl>
 
@@ -90,6 +74,12 @@ if (!defined $list[0])
 
 </table>
 
-<& /comp/tableend &>
+% }
+
+% if ($session{uid}) {
+<p style="margin-top: 2em">
+	[ <a href="/addalias.html?id=<% $artist->GetId %>">Add alias</a> ]
+</p>
+% }
 
 <& /comp/footer &>

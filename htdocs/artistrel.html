@@ -24,15 +24,12 @@ if (! $artist->LoadFromId())
 }
 else
 {
-    $m->comp("/comp/sidebar", title=>($artist->GetName . " Related Artists"));
+	$m->comp("/comp/sidebar", title=>("Artists related to " . $artist->GetName));
 
-    $m->out("[ <a href=\"/showartist.html?artistid=");
-    $m->out($artist->GetId());
-    $m->out("\">View albums</a>");
-    $m->out(" ]<p>");
+	$m->comp("/comp/artisttitle", artist=>$artist);
 
     </%perl>
-    <p>This data has been provided by <a href="http://agentarts.com">Agent Arts</a>.</p>
+    <p>This data has been provided by <a href="http://agentarts.com/">Agent Arts</a>.</p>
     <%perl>
 
     my $relations = $artist->GetRelations();
