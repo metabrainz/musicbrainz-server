@@ -68,5 +68,6 @@ nice ./BadEntries.pl > $reportdir/bad_entries.html
 nice ./Unknown.pl > $reportdir/unknown.html
 nice ./WrongCharset.pl > $reportdir/wrong_charset.html
 nice ./reports/DuplicateArtists.pl > $reportdir/duplicate_artists.html
+nice ./reports/AlbumsToConvert.pl > $reportdir/albums_to_convert.html
 
 cd -
