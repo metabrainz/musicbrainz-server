@@ -185,6 +185,7 @@ sub InsertIntoInsertHistory
 {
    my ($this, $trackid) = @_;
 
+   return undef if (!defined $trackid);
    my $sql = Sql->new($this->{DBH});
    $sql->Do(qq|insert into InsertHistory (track, inserted) 
                                  values ($trackid, now())|);
