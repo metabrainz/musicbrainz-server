@@ -1389,32 +1389,33 @@ sub ApplyModification
 
 sub GetPendingList
 {
-   my ($this, $offset, $max_items, $guid) = @_;
+   my ($this, $offset, $max_items, $guid, $archive) = @_;
    my ($sth, $num_pending, @info, $sql); 
 
+   $archive = (defined $archive && $archive) ? "Archive" : "";
    if (!defined $guid || $guid eq '')
    {
-       $sth = $this->{DBH}->prepare(qq/select count(*) from Pending/);
+       $sth = $this->{DBH}->prepare(qq/select count(*) from Pending$archive/);
        $sth->execute();
        $num_pending = ($sth->fetchrow_array)[0];
        $sth->finish;   
 
        $sql = qq/select guid, artist, album, name,
-                 sequence, length, genre from Pending order by artist 
+                 sequence, length, genre from Pending$archive order by artist 
                  limit $offset, $max_items/;
    }
    else
    {
        $guid = $this->{DBH}->quote($guid);
-       $sth = $this->{DBH}->prepare(qq/select count(*) from Pending
+       $sth = $this->{DBH}->prepare(qq/select count(*) from Pending$archive
                                        where guid=$guid/);
        $sth->execute();
        $num_pending = ($sth->fetchrow_array)[0];
        $sth->finish;   
 
        $sql = qq/select guid, artist, album, name,
-                 sequence, length, genre from Pending where guid = $guid
-                 order by artist limit $offset, $max_items/;
+                 sequence, length, genre from Pending$archive where 
+                 guid = $guid order by artist limit $offset, $max_items/;
    }
 
    $sth = $this->{DBH}->prepare($sql);

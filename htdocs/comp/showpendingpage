@@ -1,6 +1,7 @@
 <%args>
 $offset=>0
 $guid=>""
+$archive=>0
 </%args>
 
 <%perl>
@@ -15,7 +16,7 @@ $offset = 0 if not defined $offset;
 $offset = 0 if $offset < 0;  
 
 $mb->Login();
-($num_mods, @info) = $mb->GetPendingList($offset, $max_items, $guid);
+($num_mods, @info) = $mb->GetPendingList($offset, $max_items, $guid, $archive);
 $mb->Logout();
 
 </%perl>
@@ -60,3 +61,4 @@ for($i = 0; ; $i++)
 
 </TD></TR>
 </TABLE>
+<p>
