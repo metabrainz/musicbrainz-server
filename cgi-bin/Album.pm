@@ -406,6 +406,7 @@ sub LoadFromId
         $this->{attrs} = [ split /,/, $row[5] ];
 
 		delete @$this{qw( trackcount discidcount trmidcount )};
+		delete @$this{qw( _discids _tracks )};
 
         if (defined $loadmeta && $loadmeta)
         {
@@ -516,17 +517,10 @@ sub LoadFull
            $album->SetName($row[1]);
            $album->SetArtist($row[2]);
            $album->SetMBId($row[3]);
-           my @tracks = $album->LoadTracks(1);
-           if (scalar(@tracks) > 0)
-           {
-               $album->{"_tracks"} = \@tracks;
-           }
 
-           $ret = $di->LoadFull($row[0]);
-           if (defined $ret)
-           {
-               $album->{"_discids"} = $ret;
-           }
+		   $album->GetTracks;
+		   $album->GetDiscIDs;
+
            push @info, $album;
        }
        $sql->Finish;
@@ -535,6 +529,33 @@ sub LoadFull
    }
 
    return undef;
+}
+
+sub GetDiscIDs
+{
+	my $self = shift;
+
+	unless (defined $self->{"_discids"})
+	{
+		my $di = Discid->new($self->{DBH});
+		my $ret = $di->LoadFull($self->GetId);
+		$self->{"_discids"} = ($ret || 0);
+	}
+
+	$self->{"_discids"} || undef;
+}
+
+sub GetTracks
+{
+	my $self = shift;
+
+	unless (defined $self->{"_tracks"})
+	{
+		my @tracks = $self->LoadTracks(1);
+		$self->{"_tracks"} = \@tracks;
+	}
+
+	$self->{"_tracks"} || undef;
 }
 
 sub LoadTracksFromMultipleArtistAlbum
@@ -751,6 +772,145 @@ sub RDF_URL
 		&DBDefs::RDF_SERVER,
 		$this->GetMBId,
 	;
+}
+
+# These two subs deal with locking down the tracks on an album once it has
+# valid, non-conflicting disc ids.  In each case the track number may be
+# specified (can the operation be applied to this particular track), or
+# missing/undef (in which case the answer is the logical OR across all tracks,
+# effectively).
+
+sub CanAddTrack
+{
+	my ($self, $tracknum) = @_;
+
+	$@ = "", return 1
+		if $self->IsNonAlbumTracks;
+
+	my $toctracks = $self->_GetTOCTracksHash;
+	my $havetracks = $self->_GetTrackNumbersHash;
+
+	if (defined $tracknum)
+	{
+		$tracknum = int $tracknum;
+
+		# Sanity checks on track number
+		$@ = "$tracknum is not a valid track number", return 0
+			if $tracknum < 1 or $tracknum > 99;
+
+		# Can't add a track if we've already got a track with that number
+		$@ = "This album already has a track $tracknum", return 0
+			if $havetracks->{$tracknum};
+	}
+
+	# If we have no disc ids, or if we do, but they suggest a conflicting
+	# number of tracks, then we don't know what to suggest (yet).
+	unless (keys(%$toctracks) == 1)
+	{
+		$@ = "", return 1;
+	}
+
+	(my $fixtracks) = keys %$toctracks;
+
+	# For a specified track number, just disallow tracks outside of the TOC
+	# range.
+	if (defined $tracknum)
+	{
+		my $t = (($fixtracks == 1) ? "one track" : "$fixtracks tracks");
+		$@ = "You can't add track $tracknum - this album is meant to have exactly $t",
+			return 0
+			if $tracknum > $fixtracks;
+		
+		$@ = "", return 1;
+	}
+
+	# Otherwise, as for "can we add any tracks at all"... yes, if there's a
+	# gap in the track sequence.
+	my $gap = grep { not $havetracks->{$_} } 1 .. $fixtracks;
+
+	$@ = "This album already has all of its tracks", return 0
+		if not $gap;
+
+	$@ = "", return 1;
+}
+
+sub CanRemoveTrack
+{
+	my ($self, $tracknum) = @_;
+
+	$@ = "", return 1
+		if $self->IsNonAlbumTracks;
+
+	my $toctracks = $self->_GetTOCTracksHash;
+	my $havetracks = $self->_GetTrackNumbersHash;
+
+	# Can't remove a track that's not there
+	$@ = "There is no track $tracknum on this album", return 0
+		if defined $tracknum and not $havetracks->{$tracknum};
+
+	# If we have no disc ids, or if we do, but they suggest a conflicting
+	# number of tracks, then we don't know what to suggest (yet).
+	unless (keys(%$toctracks) == 1)
+	{
+		$@ = "", return 1;
+	}
+
+	(my $fixtracks) = keys %$toctracks;
+
+	if (defined $tracknum)
+	{
+		# Disallow removal of a track if it's within the TOC range, and it's not a
+		# duplicate.
+		my $t = (($fixtracks == 1) ? "one track" : "$fixtracks tracks");
+		$@ = "You can't remove track $tracknum - this album is meant to have exactly $t",
+			return 0
+			if $tracknum >= 1 and $tracknum <= $fixtracks
+				and $havetracks->{$tracknum} == 1;
+
+		# Otherwise (outside of TOC range, or inside but duplicated)
+		$@ = "", return 1;
+	}
+
+	# Otherwise, as for "can we remove any tracks at all"...
+	# Yes, if there's a duplicate track number somewhere.
+	$@ = "", return 1 if grep { $_ > 1 } values %$havetracks;
+	# Yes, if there's a track outside of the TOC range
+	$@ = "", return 1 if grep { $_ < 1 or $_ > $fixtracks } keys %$havetracks;
+	# Otherwise no
+	$@ = "None of the tracks on this album is eligible for removal", return 0;
+}
+
+sub _GetTOCTracksHash
+{
+	my $self = shift;
+	my $discids = $self->GetDiscIDs
+		or return +{};
+
+	my %h;
+
+	for (@$discids)
+	{
+		(my $n) = $_->GetTOC =~ /^\d+ (\d+)/;
+		++$h{$n};
+	}
+
+	\%h;
+}
+
+sub _GetTrackNumbersHash
+{
+	my $self = shift;
+	my $tracks = $self->GetTracks
+		or return +{};
+
+	my %h;
+
+	for (@$tracks)
+	{
+		++$h{$_->GetSequence};
+	}
+
+	\%h;
 }
 
 1;
