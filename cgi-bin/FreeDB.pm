@@ -147,9 +147,6 @@ sub Lookup
     my ($m, $s, $f, @cd_data, $ret);
     my ($id, $query, $trackoffsets, $offset, $sum, $total_seconds);
 
-    #$Discid = "LXBA5mxxJFScjy2ncbIsUKTpEmU-";
-    #$toc = "1 14 212378 150 10604 26749 41987 57077 70660 83280 101001 114817 125664 139693 150638 172674 192038";
-
     my @toc = split / /, $toc;
     $first = shift @toc;
     $last = shift @toc;
@@ -178,7 +175,6 @@ sub Lookup
     {
         $ret->{cdindexid} = $Discid;
         $ret->{toc} = $toc; 
-
     }
     return $ret;
 }
@@ -447,6 +443,26 @@ sub Retrieve
     return \%info;
 }
 
+sub CheckTOC
+{
+    my ($this, $toc) = @_;
+
+    my @parts = split / /, $toc;
+
+    return 0 if $parts[0] != 1;
+    return 0 if $parts[1] < 1;
+    return 0 if $parts[1] > 99;
+    return 0 if $parts[1] != scalar(@parts) - 3;
+    return 0 if $parts[2] <= $parts[scalar(@parts) - 1]; 
+
+    for (3 .. (scalar(@parts) - 2))
+    {
+        return 0 if ($parts[$_] >= $parts[$_ + 1]);
+    }
+
+    return 1;
+}
+
 sub InsertForModeration
 {
     my ($this, $info) = @_;
@@ -455,6 +471,9 @@ sub InsertForModeration
 
     # Don't insert CDs that have only one track.
     return if (scalar(@$ref) < 2);
+
+    # Don't insert into the DB if the Toc is not correct.
+    return unless $this->CheckTOC($info->{toc});
 
     # Don't insert albums by the name of 'various' or 'various artists'
     return if ($info->{artist} =~ /^various$/i ||
