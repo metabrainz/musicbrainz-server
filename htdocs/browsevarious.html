@@ -74,7 +74,7 @@ $mb = $m->comp("/comp/dblogin");
 $al = Album->new($mb->{DBH});
 $al->SetId(&ModDefs::VARTIST_ID);
 
-my ($num_albums, @info) = $al->GetVariousDisplayList($ind, $offset, $reltype, $relstatus, $artists);
+my ($num_albums, $albums) = $al->GetVariousDisplayList($ind, $offset, $max_items, $reltype, $relstatus, $artists);
 
 $m->comp("/comp/framedboxbegin", width=>"100%");
 if ($num_albums > 0)
@@ -95,33 +95,49 @@ if ($num_albums > 0)
 						   &>
     <& /comp/modnotice &>
 
+<%def .DescribeAlbumMeta>
+<%perl>
+my $al = shift;
+my $msg = sprintf "%d track%s; %d discid%s; %d TRM%s",
+	$al->GetTrackCount, ($al->GetTrackCount==1 ? "" : "s"),
+	$al->GetDiscidCount, ($al->GetDiscidCount==1 ? "" : "s"),
+	$al->GetTrmidCount, ($al->GetTrmidCount==1 ? "" : "s"),
+	;
+$m->out($msg);
+</%perl>
+</%def>
+
 %   $rows = $max_items / 2;
     <p><table align="center" width="100%" bgcolor="#f0efff">
 %   for($i = 0; $i < $rows; $i++) {
-%      $row = $info[$i];  
+%      $row = $albums->[$i];  
 %      last if (!defined $row);
        <tr>
           <td width="1%" valign="top">
              <% ($i + 1 + $offset) %>.
           </td>
-%         if ($$row[2]) {
+%         if ($row->GetModPending) {
              <td valign=top width="50%" bgcolor="#FFFFCC">
 %         } else {
              <td valign=top width="50%">
 %         }
-            <a href="/showalbum.html?albumid=<% $$row[0] %>"><% $$row[1]  %></a>
+            <a href="/showalbum.html?albumid=<% $row->GetId %>"
+				title="<& .DescribeAlbumMeta, $row &>"
+				><% $row->GetName %></a>
           </td>
           <td width="1%" valign="top">
-%           $row = $info[$i + $rows];  
+%           $row = $albums->[$i + $rows];  
 %           if (defined $row) {
                 <% ($i + 1 + $rows + $offset) %>.
                 </td>
-%               if ($$row[2]) {
+%               if ($row->GetModPending) {
                    <td valign=top width="50%" bgcolor="#FFFFCC">
 %               } else {
                    <td valign=top width="50%">
 %               }
-                <a href="/showalbum.html?albumid=<% $$row[0] %>"><% $$row[1]  %></a>
+                <a href="/showalbum.html?albumid=<% $row->GetId %>"
+					title="<& .DescribeAlbumMeta, $row &>"
+					><% $row->GetName %></a>
 %           } else {
                 &nbsp;</td><td>&nbsp;
 %           }

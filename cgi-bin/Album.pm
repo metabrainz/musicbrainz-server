@@ -845,54 +845,85 @@ sub MergeAlbums
 # of albumid, sortname, modpending. The array is empty on error.
 sub GetVariousDisplayList
 {
-   my ($this, $ind, $offset, $reltype, $relstatus, $artists) = @_;
-   my ($query, $num_albums, @info, @row, $sql, $page, $page_max, $ind_max, $un); 
+ 	my ($this, $ind, $offset, $limit, $reltype, $relstatus, $artists) = @_;
 
-   $sql = Sql->new($this->{DBH});
-
-   use locale;
-   # TODO set LC_COLLATE too?
-   my $saver = new LocaleSaver(LC_CTYPE, "en_US.UTF-8");
-  
-   $num_albums = 0;
-   ($page, $page_max) = $this->CalculatePageIndex($ind);
-   $query = qq|select id, name, modpending 
-                    from Album 
-                   where page >= $page and page <= $page_max|;
+	# Build a query to fetch the things we need
+	my ($page_min, $page_max) = $this->CalculatePageIndex($ind);
+	my $query = "
+		SELECT	a.id, name, gid, modpending, artist, attributes,
+				tracks, discids, trmids, firstreleasedate, coverarturl, asin
+   		FROM	album a, albummeta m
+	  	WHERE	a.page BETWEEN $page_min AND $page_max
+		AND		m.id = a.id
+	";
 
 	$artists ||= "";
-	$query .= " and album.artist = " . VARTIST_ID if $artists eq "";
-	$query .= " and album.artist != " . VARTIST_ID if $artists eq "single";
+	$query .= " AND artist = " . VARTIST_ID if $artists eq "";
+	$query .= " AND artist != " . VARTIST_ID if $artists eq "single";
 	# the other recognised value is "all".
 
-	$query .= " AND attributes[2] = $reltype" if $reltype;
-	$query .= " AND attributes[3] = $relstatus" if $relstatus;
+	$query .= " AND (attributes[2] = $reltype   OR attributes[3] = $reltype  )" if $reltype;
+	$query .= " AND (attributes[3] = $relstatus OR attributes[2] = $relstatus)" if $relstatus;
 
-   if ($sql->Select($query))
-   {
-       $num_albums = $sql->Rows();
-       for(;@row = $sql->NextRow;)
-       {
-           my $temp = unac_string('UTF-8', $row[1]);
-			$temp = lc decode("utf-8", $temp);
+	# TODO if we had an album.sortname, we could get the database to do all
+	# the sorting and filtering for us.  e.g. ORDER BY sortname LIMIT 100,25
+	# But for now, we always retrieve all the matching albums (ugh), sort them
+	# ourselves, then apply the range filter.
 
-           # Remove all non alpha characters to sort cleaner
-           $temp =~ tr/A-Za-z0-9 //cd;
+	my $sql = Sql->new($this->{DBH});
+	my $rows = $sql->SelectListOfLists($query);
+	my $num_albums = @$rows;
 
-           # Change space to 0 since perl has some FUNKY collate order
-           $temp =~ tr/ /0/;
-           push @info, [$row[0], $row[1], $row[2], $temp];
-       }
+	# Add a sortname to each row
+	for my $row (@$rows)
+	{
+		my $temp = unac_string('UTF-8', $row->[1]); # name
+		$temp = lc decode("utf-8", $temp);
 
-       @info = sort { $a->[3] cmp $b->[3] } @info;
-       splice @info, 0, $offset;
+		# Remove all non alpha characters to sort cleaner
+		$temp =~ s/[^[:alnum:][:space]]//g;
+		$temp =~ s/[[:space:]]+/ /g;
 
-       # Only return the three things we said we would
-       splice(@$_, 3) for @info;
-   }
-   $sql->Finish;   
+		unshift @$row, $temp;
+	}
 
-   return ($num_albums, @info);
+	# Sort by that sortname
+	{
+		# Here we could "use locale" etc, but we seem to get the best results
+		# by unaccenting and then using a non-locale sort.
+		@$rows = sort { $a->[0] cmp $b->[0] } @$rows;
+	}
+
+	# Limit the rows we return
+	splice @$rows, 0, $offset;
+	splice @$rows, $limit if @$rows > $limit;
+
+	# Turn each one into an Album object
+	my @albums = map {
+		my $row = $_;
+
+		my $al = Album->new($this->{DBH});
+
+		$al->{_debug_sortname} = shift @$row;
+
+		$al->{id}			= $row->[0];
+		$al->{name}			= $row->[1];
+		$al->{mbid}			= $row->[2];
+		$al->{modpending}	= $row->[3];
+		$al->{artist}		= $row->[4]; 
+		$al->{attrs}		= [ $row->[5] =~ /(\d+)/g ];
+
+		$al->{trackcount}		= $row->[6];
+		$al->{discidcount}		= $row->[7];
+		$al->{trmidcount}		= $row->[8];
+		$al->{firstreleasedate}	= $row->[9] || "";
+		$al->{coverarturl}		= $row->[10] || "";
+		$al->{asin}				= $row->[11] || "";
+
+		$al;
+	} @$rows;
+
+ 	return ($num_albums, \@albums);
 }
 
 sub UpdateName
