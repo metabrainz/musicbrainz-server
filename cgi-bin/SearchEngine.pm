@@ -182,8 +182,12 @@ sub AddWordRefs {
             INSERT into $self->{Table}Words ($self->{Table}id, Wordid)
             VALUES(?,?)
             |);
-        $self->{DBH}->{PrintError} = 0;
-        eval { $sth->execute($object_id,$word_id) };
+        eval 
+        { 
+           $self->{DBH}->{RaiseError} = 0;
+           $sth->execute($object_id,$word_id);
+           $self->{DBH}->{RaiseError} = 1;
+        };
         if ($@ && !($@ =~ /Duplicate/) ) 
         {
             print STDERR "Attempt to insert duplicate word ref.\n";
