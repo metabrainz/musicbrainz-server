@@ -1,0 +1,117 @@
+<%perl>
+
+my ($mb); 
+my ($track, $artist, $album, $trackid, @info); 
+
+if (!exists $ARGS{trackid} || $ARGS{trackid} eq '')
+{
+    mc_comp("/comp/badargs");
+    return;
+}
+
+$trackid = $ARGS{trackid};
+$mb = new MusicBrainz;
+$mb->Login();
+
+$track = Track->new($mb->{DBH});
+$track->SetId($trackid);
+
+if (! $track->LoadFromId())
+{
+    mc_comp("/comp/sidebar", title=>"Error");
+    mc_out("This track (ID=$trackid) was not found<br>");
+}
+else
+{
+    $artist = Artist->new($mb->{DBH});
+    $artist->SetId($track->GetArtist());
+    if (!defined $artist->LoadFromId())
+    {
+        mc_comp("/comp/sidebar", title=>"Error");
+        mc_out("Could not load artist.");
+    }
+    else
+    {
+        mc_comp("/comp/sidebar", title=>"Track Details: " . $track->GetName());
+    }
+
+</%perl>
+
+    <& /comp/tablebegin, title=>'Track Information' &> 
+    <table>
+    <tr>
+    <td valign="top" align="right">Title:</td>
+    <td valign="top"><% $track->GetName() %></td>
+    </tr><tr>
+    <td valign="top" align="right">Track MB Id:</td>
+    <td valign="top"><% $track->GetMBId() %></td>
+    </tr><tr>
+% if (exists $session{user}) {
+    <td valign="top" align="right">Track RowId:</td>
+    <td valign="top"><% $track->GetId() %></td>
+    </tr><tr>
+% }
+    </table>
+    <& /comp/tableend &> 
+    <& /comp/tablebegin, title=>'Artist Information' &> 
+    <table>
+    <tr>
+    <td valign="top" align="right">Artist:</td>
+    <td valign="top"><a href="/showartist.html?artistid=<% $artist->GetId() %>"><% $artist->GetName() %></a></td>
+    </tr><tr>
+    <td valign="top" align="right">Artist MB Id:</td>
+    <td valign="top"><% $artist->GetMBId() %></a></td>
+    </tr><tr>
+% if (exists $session{user}) {
+    <td valign="top" align="right">Artist RowId:</td>
+    <td valign="top"><% $artist->GetId() %></a></td>
+    </tr><tr>
+% }
+
+
+    </tr>
+    </table>
+    <& /comp/tableend &> 
+
+<%perl>
+
+    @info = $track->GetAlbumInfo();
+    if (scalar(@info) == 0)
+    {
+        mc_out("Could not load albums.");
+    }
+    else
+    {
+        foreach $album (@info)
+        {
+</%perl>
+            <& /comp/tablebegin, title=>"Album: $$album[1]", 
+                                 gattrs=>'width="100%"' &>
+            <table>
+            <tr>
+            <td valign="top" align="right">Title:</td>
+            <td valign="top"><% $$album[1] %></td>
+            </tr><tr>
+            <td valign="top" align="right">Album MB Id:</td>
+            <td valign="top"><% $$album[3] %></td>
+
+% if (exists $session{user}) {
+            </tr><tr>
+            <td valign="top" align="right">Album RowId:</td>
+            <td valign="top"><% $$album[0] %></td>
+% }
+            </tr>
+            </table>
+            <center>
+            This track appears as track number <% $$album[2] %> on this album.
+            <& /comp/tableend &>
+<%perl>
+        }
+    }
+
+    # SHOW LYRICS!
+}
+$mb->Logout();
+
+</%perl>
+
