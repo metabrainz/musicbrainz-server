@@ -283,6 +283,9 @@ sub transform
 my $uri = shift() || $r->uri;
 my $args = shift() || $r->args;
 
+use vars qw( $render_all );
+$render_all = not $session{'sitemenu_light'};
+
 sub drawmenu
 {
 	my ($rarhMenu, $iLevel) = @_;
@@ -306,13 +309,17 @@ sub drawmenu
 			if $rarhChildren
 			and not grep { $_->{name} } @$rarhChildren;
 
-		if ($rarhChildren)
+		if ($rarhChildren and ($render_all or $fSel))
 		{
 			$m->out("<a class='menucontrol$state'
 				id='${id}control'
 				href='$rhItem->{url}'
 				onclick='return smt(\"$rhItem->{id}\")'
 				>&nbsp;</a>");
+		} elsif ($rarhChildren) {
+			$m->out("<span class='menucontrol$state'
+				id='${id}control'
+				>&nbsp;</span>");
 		} else {
 			$m->out("<a class='menunocontrol$state'
 				id='${id}control'
@@ -322,7 +329,7 @@ sub drawmenu
 		$m->out("<a class='menulink' href='$rhItem->{url}'>$rhItem->{name}</a>");
 		$m->out("</div>"); # menurow
 
-		if ($rarhChildren)
+		if ($rarhChildren and ($render_all or $fSel))
 		{
 			$m->out("<div class='submenu$state' id='${id}sub'>\n");
 			drawmenu($rarhChildren, $iLevel+1);
