@@ -50,6 +50,8 @@ else
 
     if (!defined $artist)
     {
+       $artistname =~ s/^\s*(.*?)\s*$/$1/;
+       $sortname =~ s/^\s*(.*?)\s*$/$1/;
        $new = "Artist=$artistname\nSortname=$sortname\n";
     }
     $new .= "AlbumName=$title\nNumTracks=$tracks\n";
@@ -58,9 +60,12 @@ else
     $new .= "FreedbId=$freedbid\n" if ($freedbid ne '');
     for($i = 0; $i < $tracks; $i++)
     {
+        $ARGS{"track$i"} =~ s/^\s*(.*?)\s*$/$1/;
         $new .= "Track" . ($i + 1) . "=" . $ARGS{"track$i"} . "\n";
         if ($artist == Artist::VARTIST_ID)
         {
+            $ARGS{"artistname$i"} =~ s/^\s*(.*?)\s*$/$1/;
+            $ARGS{"sortname$i"} =~ s/^\s*(.*?)\s*$/$1/;
             $new .= "Artist" . ($i + 1) . "=" . $ARGS{"artistname$i"} . "\n";
             $new .= "Sortname" . ($i + 1) . "=" . $ARGS{"sortname$i"} . "\n";
         } 

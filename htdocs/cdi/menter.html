@@ -165,6 +165,9 @@ for($i = 0; $i < $tracks; $i++)
               $trackname = ($parse_artist_track ne '') ? $2 : $1;
            }
        }
+
+       $artistname =~ s/^\s*(.*?)\s*$/$1/;
+       $trackname =~ s/^\s*(.*?)\s*$/$1/;
        my $st = Style->new;
        $sortname = $st->MakeDefaultSortname($artistname); 
    }
