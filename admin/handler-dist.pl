@@ -3,6 +3,7 @@
 #
 package HTML::Mason;
 use strict;
+use HTML::Mason::ApacheHandler ( args_method => 'mod_perl' );
 use HTML::Mason;    # brings in subpackages: Parser, Interp, etc.
 
 # TODO: Check to make sure this path points to where the cgi-bin stuff is
@@ -32,6 +33,11 @@ use Sql;
    use Apache::Session::File;
 }
 
+# TODO: Edit the lines below, to indicate the user and group that
+# files written by Mason should belong to.
+my $apache_user = 'nobody';
+my $apache_group = 'nobody';
+
 my $parser = new HTML::Mason::Parser(default_escape_flags=>'h');
 my $interp = new HTML::Mason::Interp (parser=>$parser,
             # TODO: This needs to point to the installed htdocs
@@ -41,7 +47,7 @@ my $interp = new HTML::Mason::Interp (parser=>$parser,
             data_dir=>'/home/httpd/musicbrainz/mason',
             allow_recursive_autohandlers=>undef);
 my $ah = new HTML::Mason::ApacheHandler (interp=>$interp);
-chown ( [getpwnam('nobody')]->[2], [getgrnam('nobody')]->[2],
+chown ( [getpwnam($apache_user)]->[2], [getgrnam($apache_group)]->[2],
         $interp->files_written );   # chown nobody
 
 sub handler
