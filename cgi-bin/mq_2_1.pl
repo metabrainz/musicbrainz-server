@@ -154,6 +154,10 @@ sub Authenticate
                return "Session key expired. Please Authenticate again."; 
            }
            print STDERR "Authenticated session $session_id\n";
+
+	   $r->connection->user($session->{moderator})
+	   	if $r;
+
            return "";
        }
    }
@@ -285,6 +289,12 @@ for(;;)
     #print STDERR "'$rdfquery' ->\n'$data'\n\n" if defined $data;
     push @queryargs, $data;
     $rdfquery = undef;
+}
+
+if ($r)
+{
+	my $uri = "/mm-2.1/$queryname";
+	$r->the_request($r->method . " $uri " . $r->protocol);
 }
 
 $mb = new MusicBrainz(1);
