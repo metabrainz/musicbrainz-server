@@ -77,13 +77,13 @@ my @main = (
       <span class="sidemenu"> 
 %#    display all the URLs of the sidebox
 %     foreach my $link (@main) {
-        <a href="<% %{$link}->{'url'} |n %>"><% %{$link}->{'name'} |n %></a><br>
+        <a href="<% $link->{'url'} %>"><% $link->{'name'} |n %></a><br>
 %#      also display any possible sub items that must be expanded
 %       if (defined $expand && $expand ne '' && 
-%           $expand eq %{$link}->{'expand'}) {
+%           $expand eq $link->{'expand'}) {
           <span class="sidemenusmall"> 
-%         foreach my $expand_link (@{%{$link}->{'array'}}) {
-            &nbsp;&nbsp;&nbsp;<a href="<% %{$expand_link}->{'url'} |n %>"><% %{$expand_link}->{'name'} |n %></a><br>
+%         foreach my $expand_link (@{ $link->{'array'} }) {
+            &nbsp;&nbsp;&nbsp;<a href="<% $expand_link->{'url'} %>"><% $expand_link->{'name'} |n %></a><br>
 %         }
           </span>
 %       }
