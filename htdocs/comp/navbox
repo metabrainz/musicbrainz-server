@@ -9,6 +9,7 @@ my @information = (
   {url=>'/stats.html',                     name=>'Database Stats'},
   {url=>'/status.html',                    name=>'Project Status'},
   {url=>'/contract.html',                  name=>'Social Contract'},
+  {url=>'/papers/index.html',              name=>'White Papers'},
   {url=>'/mod_intro.html',                 name=>'Moderation&nbsp;Intro'},
   {url=>'/press.html',                     name=>'Press Coverage'},
   {url=>'/todo.html',                      name=>'To&nbsp;Do&nbsp;List'},
