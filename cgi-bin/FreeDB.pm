@@ -349,7 +349,6 @@ sub Retrieve
             {
                 $line =~ s/^# Disc length: //;
                 $line =~ s/ seconds(\s*)$//;
-                chop($line);
                 $info{durations} .= ($line * 1000) - int(($last_track_offset*1000) / 75);
                 $in_offsets = 0;
                 next;
