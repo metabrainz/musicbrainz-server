@@ -1,8 +1,6 @@
 %# vi: set ts=2 sw=2 ft=mason :
 <%args>
-#$artistid => 0
 $trackid => 0
-#$moderator => $session{uid}
 </%args>
 <%perl>
 
@@ -10,12 +8,14 @@ $m->comp("/comp/checkloggedin", 1, 1)
 	or return;
 
 my %filter = (
-	orderby			=> "asc",
+	orderby			=> "desc",
 	object_type	=> "track",
 	object_id		=> $trackid,
 );
 
-$session{"moderation_filter"} = \%filter;
-$m->comp("/mod/setquery.inc"); # which redirects
+$m->comp(
+	"/comp/redirect",
+	"/mod/search/results.html?" . $m->comp("/comp/args-to-querystring.inc", %filter)
+);
 
 </%perl>

@@ -1,0 +1,41 @@
+%# vi: set ts=2 sw=2 ft=mason :
+<%args>
+$selectedartist => ""
+$search => ""
+</%args>
+<%perl>
+
+$m->comp("/comp/checkloggedin", 1, 1)
+	or return;
+
+if (MusicBrainz::IsNonNegInteger($selectedartist))
+{
+	my $qs = $m->comp(
+		"/comp/args-to-querystring.inc",
+		%ARGS,
+		search				=> undef,
+		selectedartist=> undef,
+		artist_id 		=> $selectedartist,
+		artist_type		=> 3,
+	);
+
+	$m->comp(
+		"/comp/redirect",
+		"/mod/search/index.html?$qs",
+	);
+}
+
+</%perl>
+<& /comp/sidebar, title => "Search Moderations - Select Artist" &>
+
+<div class="LinksRow">
+	[ <a href="/mod/search/index.html?<% scalar $r->args %>">Back</a> ]
+</div>
+
+<& /comp/artistfilter,
+	search => $search,
+	allowcreate => 0,
+	url => "/mod/search/select-artist.html?" . $r->args,
+	&>
+
+<& /comp/footer &>

@@ -1,0 +1,31 @@
+%# vi: set ts=4 sw=4 ft=mason :
+<%args>
+$offset => undef
+$page => undef
+</%args>
+<%perl>
+
+$m->comp("/comp/checkloggedin", 1, 1)
+	or return;
+
+not defined $offset
+	or MusicBrainz::IsNonNegInteger($offset)
+	or return $m->comp("/comp/badargs", 1, 1);
+not defined $page
+	or MusicBrainz::IsNonNegInteger($page)
+	or return $m->comp("/comp/badargs", 1, 1);
+
+my ($query, $voter_id) = $m->comp("setquery.inc", %ARGS);
+
+$m->comp(
+	"/comp/moderatepage",
+	query	=> $query,
+	voter_id=> $voter_id,
+	offset	=> $offset,
+	page	=> $page,
+	args	=> { %ARGS, page => undef, offset => undef },
+);
+
+</%perl>
+
+<& /comp/footer &>

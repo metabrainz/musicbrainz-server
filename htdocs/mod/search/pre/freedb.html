@@ -1,8 +1,5 @@
 %# vi: set ts=2 sw=2 ft=mason :
 <%args>
-#$artistid => 0
-#$albumid => 0
-#$moderator => $session{uid}
 </%args>
 <%perl>
 
@@ -17,7 +14,9 @@ my %filter = (
 	orderby					=> "asc",
 );
 
-$session{"moderation_filter"} = \%filter;
-$m->comp("/mod/setquery.inc"); # which redirects
+$m->comp(
+	"/comp/redirect",
+	"/mod/search/results.html?" . $m->comp("/comp/args-to-querystring.inc", %filter)
+);
 
 </%perl>

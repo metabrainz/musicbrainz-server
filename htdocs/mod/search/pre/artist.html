@@ -1,0 +1,22 @@
+%# vi: set ts=2 sw=2 ft=mason :
+<%args>
+$artistid => 0
+</%args>
+<%perl>
+
+$m->comp("/comp/checkloggedin", 1, 1)
+	or return;
+
+my %filter = (
+	artist_type	=> 3, # only this artist ...
+	artist_id		=> $artistid,
+	artist_name	=> "?",
+	orderby			=> "desc",
+);
+
+$m->comp(
+	"/comp/redirect",
+	"/mod/search/results.html?" . $m->comp("/comp/args-to-querystring.inc", %filter)
+);
+
+</%perl>

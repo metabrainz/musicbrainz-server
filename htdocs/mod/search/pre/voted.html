@@ -1,7 +1,5 @@
 %# vi: set ts=2 sw=2 ft=mason :
 <%args>
-#$artistid => 0
-#$albumid => 0
 $moderator => $session{uid}
 </%args>
 <%perl>
@@ -24,15 +22,9 @@ my %filter = (
 	orderby		=> "desc",
 );
 
-if ($filter{"voter_type"} == 1)
-{
-	my $mb = $m->comp("/comp/dblogin");
-	my $u = UserStuff->new($mb->{DBH});
-	my $user = $u->newFromId($moderator);
-	$filter{"voter_name"} = $user->GetName if $user;
-}
-
-$session{"moderation_filter"} = \%filter;
-$m->comp("/mod/setquery.inc"); # which redirects
+$m->comp(
+	"/comp/redirect",
+	"/mod/search/results.html?" . $m->comp("/comp/args-to-querystring.inc", %filter)
+);
 
 </%perl>
