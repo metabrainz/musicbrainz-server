@@ -247,8 +247,8 @@ sub AddToCache
     foreach $i (@$cache)
     {
         next if ($i->{type} ne $type);
-        if ((exists $i->{id} && $i->{id} == $obj->GetId()) ||
-            (exists $i->{mbid} && $i->{mbid} eq $obj->GetMBId))
+        if (($i->{id} && $i->{id} == $obj->GetId()) ||
+            ($i->{mbid} && $i->{mbid} eq $obj->GetMBId))
         {
             return $i;
         }
@@ -278,8 +278,8 @@ sub GetFromCache
     foreach $i (@$cache)
     {
         next if ($i->{type} ne $type);
-        if ((defined $id && exists $i->{id} && $i->{id} == $id) ||
-            (defined $mbid && exists $i->{mbid} && $i->{mbid} eq $mbid))
+        if (($id && $i->{id} && $i->{id} == $id) ||
+            ($mbid && $i->{mbid} && $i->{mbid} eq $mbid))
         {
             return $i->{obj} 
         }
@@ -413,6 +413,18 @@ sub LoadObject
    my ($this, $id, $mbid, $type) = @_;
    my $obj;
 
+   if ($type eq "trmid")
+   {
+	$obj = TRM->new($this->{DBH});
+	$obj->SetTRM($id);
+	# Most of the code around here assumes that "GetId" or "GetMBId"
+	# return something sensible, so here we pretend that the TRM is
+	# actually the MB id.
+	# This also means that http://server/trmid/GUID works like all the
+	# other objects.
+	$obj->SetMBId($id);
+	return $obj;
+   }
 
    if ($type eq 'artist')
    {
