@@ -1,0 +1,62 @@
+#!/usr/bin/perl -w
+# vi: set ts=4 sw=4 :
+
+use FindBin;
+use lib "$FindBin::Bin/../cgi-bin";
+
+use strict;
+$| = 1;
+
+use MusicBrainz;
+use Sql;
+use Artist;
+use Alias;
+use SearchEngine;
+
+my $iStartAfter = shift() || 0;
+
+my $mb = MusicBrainz->new;
+$mb->Login;
+
+my $sql = Sql->new($mb->{DBH});
+
+my $artist = Artist->new($mb->{DBH});
+
+use Time::HiRes qw( gettimeofday tv_interval );
+my $iCount = 0;
+my $t0 = [ gettimeofday ];
+
+for (;;)
+{
+	my $raiIDs = $sql->SelectSingleColumnArray(
+		"SELECT id FROM artist WHERE id > $iStartAfter ORDER BY 1 LIMIT 50",
+	);
+	@$raiIDs or last;
+
+	printf "%6d - %6d ...", $raiIDs->[0], $raiIDs->[-1];
+	$sql->Begin;
+
+	for my $id (@$raiIDs)
+	{
+		$artist->SetId($id);
+		$artist->LoadFromId;
+		$artist->RebuildWordList;
+		print ".";
+		$iStartAfter = $id;
+		++$iCount;
+	}
+
+	$sql->Commit;
+
+	my $nTime = tv_interval($t0);
+	printf " %6d in %4d sec (%3d a/s)\n",
+		$iCount,
+		$nTime,
+		$iCount/$nTime,
+		;
+}
+
+print "All done.\n";
+$mb->Logout;
+
+# eof RebuildArtistWords

@@ -2,6 +2,12 @@ I Server update tasks
 ---------------------
 
 1. Rebuild text indexes after David fixed alias remove problem.
+
+	./admin/RebuildArtistWords
+	(Takes about twenty minutes on my machine; apart from the fact
+	that this script will keep the server quite busy, there's no
+	reason to stop the server for this script).
+
 2. For the albummeta optimization changes:
 
     Execute this cwinfor the shell 
