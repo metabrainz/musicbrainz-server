@@ -88,6 +88,7 @@ SetSequence($sql, "moderator");
 SetSequence($sql, "moderator_preference");
 SetSequence($sql, "moderator_subscribe_artist");
 SetSequence($sql, "release");
+SetSequence($sql, "replication_control");
 SetSequence($sql, "stats");
 SetSequence($sql, "toc");
 SetSequence($sql, "track");
