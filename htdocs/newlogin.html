@@ -6,10 +6,8 @@ $mbt=>0
 </%args>
 
 %if ($sidebar == 1) {
-<& /comp/sidebar  &>
+<& /comp/sidebar, title => "Create a New Login"  &>
 %}
-
-<& /comp/tablebegin, title=>'New Login' &>
 
 <p>
 Please fill out the form below to create a new MusicBrainz account:
@@ -18,32 +16,74 @@ Please fill out the form below to create a new MusicBrainz account:
 <FORM METHOD="POST" ACTION="/createlogin.html" id="LoginForm"
       ENCTYPE="application/x-www-form-urlencoded">
 <table>
+<tr><td colspan="2">
+		<h2>User name and Password</h2>
+</td></tr>
+
 <tr>
    <td>
-   User Name:<br>
+	   User Name:</td><td>
    <INPUT TYPE="text" NAME="User" SIZE=30>
    </td>
 </tr>
 <tr>
    <td>
-   Password:<br>
+	   Password:</td><td>
    <INPUT TYPE="password" NAME="Password" SIZE=30>
    </td>
 </tr>
 <tr>
    <td>
-   Re-Type Password:<br>
+	   Re-type Password:</td><td>
    <INPUT TYPE="password" NAME="RetypePassword" SIZE=30>
    </td>
 </tr>
 <tr>
+	<td colspan="2">
+		<h2>E-mail Address</h2>
+		<p>
+			Please enter your e-mail address here.&nbsp; Filling it in is
+			completely optional.&nbsp; However if you don't fill it in, then
+			some of the MusicBrainz features will not be available to you.
+		</p>
+		<p>
+			<b>Your Privacy</b>:
+			rest assured that we will not pass your e-mail address on to
+			<i>anyone</i>, including other MusicBrainz users, without your
+			most explicit consent.&nbsp; At any time you can fill
+			in your e-mail address if it's currently blank, blank it if it's
+			currently filled in, or change from one address to another.
+		</p>
+		<p>
+			<b>What your e-mail address <u>won't</u> be used for</b>:
+			we won't send you any newsletters, promotional mailings,
+			etc.&nbsp; If you're interested in that, please
+			<a href="/list.html">subscribe to our mailing lists</a>.
+		</p>
+		<p>
+			<b>What your e-mail address <u>will</u> be used for</b>:
+			If you enter your e-mail address, then other moderators
+			may choose to send messages to you (and you may
+			wish to send messages to them).&nbsp; Any notes attached to
+			your moderations will be e-mailed to you.&nbsp; You may choose to
+			"subscribe" (for free) to your favourite artists, in which case
+			MusicBrainz will send you a daily list of moderations made against
+			those artists.&nbsp; In all cases your e-mail address will not be
+			revealed to other MusicBrainz users - they'll only see your user
+			name.
+		</p>
+	</td>
+</tr>
+<tr>
    <td>
-   EMail address (optional):<br>
+	   <br>
+	   Your e-mail address:</td><td>
    <INPUT TYPE="text" NAME="EMail" SIZE=30>
    </td>
 </tr>
 <tr>
    <td>
+	   <br><br>
    <INPUT TYPE="submit" NAME="Create" VALUE="Create Account">
    <INPUT TYPE="hidden" NAME="mbt" VALUE="<% $mbt %>">
    </td>
