@@ -7,7 +7,7 @@ $artist => undef
 my ($id, $mbid);
 if (MusicBrainz::IsNonNegInteger($artist)) { $id = $artist }
 elsif (MusicBrainz::IsGUID($artist)) { $mbid = $artist }
-else { return $m->comp("/comp/error", "$artist is bad", 1, 1) }
+else { return $m->comp("/comp/badargs", 1, 1) }
 
 return $m->comp("/comp/error", "Public subscription lists are not yet released", 1, 1);
 
