@@ -132,7 +132,7 @@ create table moderation (
    Automod smallint default 0,
    opentime datetime not null,
    closetime datetime,
-   ExpireTime timestamp not null
+   expiretime datetime not null
    );
 
 drop table if exists moderationnote;
