@@ -43,14 +43,9 @@ sub FindDuplicates
 
 
     print "<font size=\"+2\" class=\"title\">Duplicate Tracks</font><p>";
-    my @current = gmtime(time());
-    my $t = sprintf "%d-%02d-%02d %02d:%02d:%02d",
-              $current[5] + 1900,
-              $current[4]+1,
-              $current[3],
-              $current[2], $current[1], $current[0];
 
-    print "Generated on: $t";
+    my $time = time;
+    print "Generated on: <% \$m->comp('/comp/datetime', $time) %><br><br>";
 
     $sth = $dbh->prepare(qq\select track.id, track.name, sequence, track.artist, 
                                    artist.name

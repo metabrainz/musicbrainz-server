@@ -36,17 +36,10 @@ sub RunReport
 {
     my ($dbh) = @_;
 
-    my @current = gmtime(time());
-    my $t = sprintf "%d-%02d-%02d %02d:%02d:%02d",
-              $current[5] + 1900,
-              $current[4]+1,
-              $current[3],
-              $current[2], $current[1], $current[0];
-
     print <<EOF;
 <& /comp/sidebar, title=>'Tracks which might well be encoded using the wrong character set' &>
 
-<p>Generated $t</p>
+<p>Generated <% \$m->comp('/comp/datetime', ${\ time() }) %></p>
 
 <p>
     When data is imported from FreeDB, it is meant to be in the

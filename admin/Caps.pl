@@ -35,15 +35,10 @@ sub FindDuplicates
     my ($id, $name, $album, $num);
     my (@tm, $last_artist);
 
-    my @current = gmtime(time());
-    my $t = sprintf "%d-%02d-%02d %02d:%02d:%02d",
-              $current[5] + 1900,
-              $current[4]+1,
-              $current[3],
-              $current[2], $current[1], $current[0];
-
     print "<& /comp/sidebar, title=>'Tracks with too many capital letters' &>\n";
-    print "Generated on: $t<br><br>";
+
+    my $time = time;
+    print "Generated on: <% \$m->comp('/comp/datetime', $time) %><br><br>";
 
     print 'All tracks which contain at least five sequential capital ';
     print "characters are listed below:<p><br>\n";
