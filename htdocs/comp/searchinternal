@@ -26,6 +26,13 @@
                         method=>'GET' &>
     <center>
     <img src="/images/black_pixel.gif" width="225" height="1" alt="" border="0">
+    </center>
+    <& /comp/searchbox, name=>'Moderator Lookup',
+                        scripturl=>'/user/view.html',
+                        searchfield=>'modname',
+                        method=>'GET' &>
+    <center>
+    <img src="/images/black_pixel.gif" width="225" height="1" alt="" border="0">
     <p>
     <a href="/engine.html">Search other sites</a><br>
     </center>
