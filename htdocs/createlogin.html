@@ -7,7 +7,7 @@ mc_comp('/comp/sidebar');
 
 $mb = MusicBrainz::new();
 $mb->Login();
-$user = UserStuff->new($mb);
+$user = UserStuff->new($mb->{DBH});
 
 ($err, $user, $privs, $uid) = $user->CreateLogin($ARGS{User}, $ARGS{Password}, 
                                         $ARGS{RetypePassword});

@@ -283,7 +283,7 @@ sub CreateTables
     my ($ar, %mb);
 
     $mb{DBH} = $dbh;
-    $ar = Artist->new(\%mb);
+    $ar = Artist->new($mb{DBH});
     $id = $dbh->quote($ar->CreateNewGlobalId());
     $dbh->do(qq\insert into Artist (Id, Name, SortName, GID, ModPending) values
                 (1, "Various Artists", "Various Artists", $id, 0)\); 
@@ -408,30 +408,16 @@ while(defined($arg = shift))
     }
 }
 
-if ($indices == 0 && $tables == 0)
-{
-    print "Usage: CreateTables.pl <options> [hostname]\n\n";
-    print "Options:\n";
-    print "   -t   Create database tables\n";
-    print "   -i   Create database indices\n";
-    exit(0);
-}
-
 $mb = MusicBrainz->new;
 $mb->Login;
 
 print "Connected to database.\n";
 
-if ($tables)
-{
-    print "Creating MusicBrainz Tables.\n\n";
-    CreateTables($mb->{DBH}, $host);
-}
-if ($indices)
-{
-    print "Adding indices to MusicBrainz Tables.\n\n";
-    CreateIndices($mb->{DBH});
-}
+print "Creating MusicBrainz Tables.\n\n";
+CreateTables($mb->{DBH}, $host);
+
+print "Adding indices to MusicBrainz Tables.\n\n";
+CreateIndices($mb->{DBH});
 
 # Disconnect
 $mb->Logout;

@@ -1,8 +1,8 @@
 <& /comp/sidebar, title=>'Show GUID' &>
 <%perl>
 
-my ($mb, $gu, $al); 
-my ($albumid, $trackid); 
+my ($mb, $gu, $album, $artist); 
+my ($albumid, $trackid, @albums); 
 
 if (!exists $ARGS{guid})
 {
@@ -20,22 +20,34 @@ else
    {
        $mb = new MusicBrainz;
        $mb->Login();
-       $al = Album->new($mb);
-       $gu = GUID->new($mb);
+       $artist = Artist->new($mb->{DBH});
+       $album = Album->new($mb->{DBH});
+       $gu = GUID->new($mb->{DBH});
     
        $trackid = $gu->GetTrackIdFromGUID($ARGS{guid});
-       if ($trackid <= 0)
+       if (!defined $trackid)
        {
            mc_out("<p>This GUID was not found in the main database.<p>");
        }
        else
        {
-           $albumid = $al->GetIdFromTrackId($trackid);
-           mc_comp("comp/showalbum", 
-              mb=>$mb, 
-              albumid=>$albumid,
-              hilitetrack=>$trackid,
-              hilitecolor=>"#CCFFFF");
+           @albums = $album->GetAlbumIdsFromTrackId($trackid);
+           for(;;)
+           {
+              $albumid = shift @albums;
+              last if (!defined $albumid);
+
+              $album->SetId($albumid);
+              if ($album->LoadFromId())
+              {
+                 $artist->SetId($album->GetArtist());
+                 if ($artist->LoadFromId())
+                 {
+                     mc_comp("comp/album", album=>$album, 
+                             artist=>$artist); 
+                 }
+              }
+           }
        }
 
        mc_comp("/comp/title", title=>'Pending Metadata');

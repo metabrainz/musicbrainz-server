@@ -22,11 +22,12 @@ $referer = $r->headers_in->{'Referer'};
 $mb = new MusicBrainz;
 $mb->Login();
 
-$ar = Artist->new($mb);
-$ar->LoadFromId($id);
-$artistname = $ar->Value(1);
-$sortname = $ar->Value(2);
-$modpending = $ar->Value(3);
+$ar = Artist->new($mb->{DBH});
+$ar->SetId($id);
+$ar->LoadFromId();
+$artistname = $ar->GetName();
+$sortname = $ar->GetSortName();
+$modpending = $ar->GetModPending();
 
 </%perl>
 

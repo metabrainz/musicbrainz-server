@@ -1,55 +1,49 @@
 <%args>
-$id
-$tracknum
-$name
-$artistname
-$artistid
+$track
 $album
-$modpending
-$tr_modpending
+$artist
+$tindex
+$lyricspresent
 $hilitetrack
 $hilitecolor
-$lyricspresent
-$tindex
-$albumartist
 </%args>
 
 <%perl>
 
 my ($bgcolor, $tr_bgcolor);
-$bgcolor = ($modpending) ? 'bgcolor="#FFFFCC"' : '';
-$bgcolor = ($hilitetrack == $id) ? 'bgcolor="#FFCCFF"' : $bgcolor;
-$tr_bgcolor = ($tr_modpending) ? 'bgcolor="#FFFFCC"' : '';
+$bgcolor = ($track->GetModPending()) ? 'bgcolor="#FFFFCC"' : '';
+$bgcolor = ($hilitetrack == $track->GetId()) ? 'bgcolor="#FFCCFF"' : $bgcolor;
+$tr_bgcolor = ($track->GetAlbumJoinModPending()) ? 'bgcolor="#FFFFCC"' : '';
 
 </%perl>
 
 <tr>
     <td width="10%" align=center <% $tr_bgcolor |n %>>
-       <% $tracknum %>
+       <% $track->GetSequence() %>
     </td>
-% if ($albumartist == Artist::VARTIST_ID) {
+% if ($album->GetArtist() == Artist::VARTIST_ID) {
     <td width="45%" <% $bgcolor |n %>>
 % } else {
     <td width="75%" <% $bgcolor |n %>>
 % }
 % if ($lyricspresent == 1) {
-       <a href="/showlyrics.html?id=<% $id %>"><% $name %></a>
+       <a href="/showlyrics.html?id=<% $track->GetId() %>"><% $track->GetName() %></a>
 % } else {
-       <% $name %>
+       <% $track->GetName() %>
 % }
     </td>
-% if ($albumartist == Artist::VARTIST_ID) {
+% if ($album->GetArtist() == Artist::VARTIST_ID) {
     <td width="30%">
-       <% $artistname  %>
+       <% $track->GetArtistName()  %>
 % if (exists $session{user}) {
-          (<a href="/changetrack.html?album=<% $album %>&artist=<% $artistid %>&tindex=<% $tindex %>&solo=1">Change</a>)
+          (<a href="/changetrack.html?album=<% $album->GetId() %>&artist=<% $artist->GetId() %>&tindex=<% $tindex %>&solo=1">Change</a>)
 % }
     </td>
 % }
 % if (exists $session{user}) {
     <td width="15%" align=center>
-       <a href="/edittrack.html?id=<% $id %>&album=<% $album %>&artist=<% $artistid %>">Edit</a>
-       | <a href="/remtrack.html?id=<% $id %>&album=<% $album %>&artist=<% $artistid %>">Del</a>
+       <a href="/edittrack.html?id=<% $track->GetId() %>&album=<% $album->GetId() %>&artist=<% $artist->GetId() %>">Edit</a>
+       | <a href="/remtrack.html?id=<% $track->GetId() %>&album=<% $album->GetId() %>&artist=<% $artist->GetId() %>">Del</a>
     </td>
 % }
 </tr>

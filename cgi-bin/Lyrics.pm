@@ -33,6 +33,7 @@ use vars qw(@ISA @EXPORT);
 use strict;
 use DBI;
 use DBDefs;
+use Sql;
 
 sub new
 {
@@ -45,38 +46,21 @@ sub new
 sub GetLyricsFromTrackId
 {
    my ($this, $trackid) = @_;
-   my ($sth, @row);
+   my ($sql, @row);
 
-   $trackid = $this->{DBH}->quote($trackid);
-   $sth = $this->{DBH}->prepare("select Text, Writer from Lyrics where Track=$trackid");
-   $sth->execute;
-   if ($sth->rows)
-   {
-        @row = $sth->fetchrow_array;
-   }
-   $sth->finish;
- 
-   return @row;
+   $sql = Sql->new($this->{DBH});
+   $trackid = $sql->Quote($trackid);
+   return $sql->GetSingleRow("Lyrics", [qw(Text Writer)], ["Track", $trackid]);
 }
 
 sub GetLyricsIdFromTrackId
 {
    my ($this, $id) = @_;
-   my ($sth, $rv);
+   my ($sql, $rv);
 
-   $rv = -1;
-
-   $id = $this->{DBH}->quote($id);
-   $sth = $this->{DBH}->prepare("select Id from Lyrics where Track=$id");
-   $sth->execute;
-   if ($sth->rows)
-   {
-        my @row;
-
-        @row = $sth->fetchrow_array;
-        $rv = $row[0];
-   }
-   $sth->finish;
+   $sql = Sql->new($this->{DBH});
+   $id = $sql->Quote($id);
+   ($rv) = $sql->GetSingleRow("Lyrics", ["Id"], ["Track", $id]);
 
    return $rv;
 }
@@ -84,23 +68,17 @@ sub GetLyricsIdFromTrackId
 sub GetSyncTextId
 {
    my ($this, $id, $type, $contrib) = @_;
-   my ($sth, $rv);
+   my ($sth, $rv, @row, $sql);
 
-   $rv = -1;
-
-   $id = $this->{DBH}->quote($id);
-   $type = $this->{DBH}->quote($type);
-   $contrib = $this->{DBH}->quote($contrib);
-   $sth = $this->{DBH}->prepare("select Id from SyncText where track=$id and type=$type and submittor=$contrib");
-   $sth->execute;
-   if ($sth->rows)
+   $sql = Sql->new($this->{DBH});
+   $type = $sql->Quote($type);
+   $contrib = $sql->Quote($contrib);
+   if ($sql->GetSingleRow("SyncText", ["Id"], ["track", $id, "type", $type,
+                                               "submittor", $contrib]))
    {
-        my @row;
-
-        @row = $sth->fetchrow_array;
+        @row = $sql->NextRow();
         $rv = $row[0];
    }
-   $sth->finish;
 
    return $rv;
 }
@@ -108,63 +86,41 @@ sub GetSyncTextId
 sub GetSyncTextList
 {
    my ($this, $id) = @_;
-   my ($sth, @ids);
+   my ($sql, @ids);
 
-   $id = $this->{DBH}->quote($id);
-   $sth = $this->{DBH}->prepare("select Id from SyncText where track=$id");
-   $sth->execute;
-   if ($sth->rows)
-   {
-        my @row;
-
-        while(@row = $sth->fetchrow_array)
-        {
-            push @ids, $row[0];
-        }
-   }
-   $sth->finish;
-
-   return @ids;
+   $sql = Sql->new($this->{DBH});
+   return $sql->GetSingleColumn("SyncText", "Id", ["track", $id]);
 }
 
 sub GetSyncTextData
 {
     my ($this, $id) = @_;
-    my (@row, $sth);
+    my ($sql);
 
-    $id = $this->{DBH}->quote($id);
-    $sth = $this->{DBH}->prepare("select track, type, url, submittor, submitted, id from SyncText where id = $id");
-    $sth->execute;
-    if ($sth->rows)
-    {
-         @row = $sth->fetchrow_array;
-    }
-    $sth->finish;
- 
-    return @row;
+    $sql = Sql->new($this->{DBH});
+    return $sql->GetSingleRow("SyncText", [qw(track type url submittor 
+                              submitted id)], ["id", $id]);
 }
 
 sub GetSyncEventList
 {
    my ($this, $lyricid) = @_;
-   my ($sth, @ids_ts_text);
+   my ($sql, @ids_ts_text);
 
-   $lyricid = $this->{DBH}->quote($lyricid);
-   $sth = $this->{DBH}->prepare("select id, ts, text from SyncEvent " .
-                                "where synctext=$lyricid order by ts");
-   $sth->execute;
-   if ($sth->rows)
+   $sql = Sql->new($this->{DBH});
+   if ($sql->Select("select id, ts, text from SyncEvent " .
+                    "where synctext=$lyricid order by ts"))
    {
         my @row;
 
-        while(@row = $sth->fetchrow_array)
+        while(@row = $sql->NextRow())
         {
             push @ids_ts_text, $row[0];
             push @ids_ts_text, $row[1];
             push @ids_ts_text, $row[2];
         }
+        $sql->Finish;
    }
-   $sth->finish;
 
    return @ids_ts_text;
 }
@@ -172,17 +128,18 @@ sub GetSyncEventList
 sub InsertLyrics
 {
     my ($this, $trackid, $lines, $writer) = @_;
-    my ($id);
+    my ($id, $sql);
 
+    $sql = Sql->new($this->{DBH});
     $id = GetLyricsIdFromTrackId($this, $trackid);
-    if ($id < 0)
+    if (!defined $id)
     {
-         $lines = $this->{DBH}->quote($lines);
-         $writer = $this->{DBH}->quote($writer);
-         $this->{DBH}->do("insert into Lyrics (track, text, writer) values 
-                            ($trackid, $lines, $writer)");
+         $lines = $sql->Quote($lines);
+         $writer = $sql->Quote($writer);
+         $sql->Do("insert into Lyrics (track, text, writer) values 
+                   ($trackid, $lines, $writer)");
 
-         $id = $this->GetLastInsertId($this);
+         $id = $sql->GetLastInsertId();
     } 
     return $id;
 }
@@ -190,16 +147,18 @@ sub InsertLyrics
 sub InsertSyncText
 {
     my ($this, $trackid, $type, $url, $contrib) = @_;
-    my ($id);
+    my ($id, $sql);
 
+    $sql = Sql->new($this->{DBH});
     $id = GetSyncTextId($this, $trackid, $type, $contrib);
-    if ($id < 0)
+    if (!defined $id)
     {
-         $url = $this->{DBH}->quote($url);				#Even the lookup is now done safely
-         $contrib = $this->{DBH}->quote($contrib);
-         $this->{DBH}->do("insert into SyncText (track, type, url, submittor, submitted) values ($trackid, $type, $url, $contrib, now())");
+         $url = $sql->Quote($url);
+         #Even the lookup is now done safely
+         $contrib = $sql->Quote($contrib);
+         $sql->Do("insert into SyncText (track, type, url, submittor, submitted) values ($trackid, $type, $url, $contrib, now())");
 
-         $id = $this->GetLastInsertId($this);
+         $id = $sql->GetLastInsertId();
     } 
     return $id;
 }
@@ -207,13 +166,12 @@ sub InsertSyncText
 sub InsertSyncEvent
 {
     my ($this, $lyricid, $ts, $text) = @_;
-    my ($id);
+    my ($id, $sql);
 
-    $text = $this->{DBH}->quote($text);
-    $this->{DBH}->do("insert into SyncEvent (synctext, ts, text) values ($lyricid, $ts, $text)");
+    $sql = Sql->new($this->{DBH});
+    $text = $sql->Quote($text);
+    $sql->Do("insert into SyncEvent (synctext, ts, text) values ($lyricid, $ts, $text)");
+    $id = $sql->GetLastInsertId();
 
-    $id = $this->GetLastInsertId($this);
     return $id;
 }
-
-1;

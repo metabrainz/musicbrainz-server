@@ -16,7 +16,7 @@ $offset = 0 if not defined $offset;
 $offset = 0 if $offset < 0;  
 
 $mb->Login();
-$pe = Pending->new($mb);
+$pe = Pending->new($mb->{DBH});
 ($num_mods, @info) = $pe->GetPendingList($offset, $max_items, $guid, $archive);
 $mb->Logout();
 

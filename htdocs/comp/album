@@ -1,29 +1,29 @@
 <%args>
-$mb
-$albumid
-$albumname
+$album
 $artist
-$modpending=>0
 $hilitetrack=>-1
 $hilitecolor=>""
 </%args>
 
 <%perl>
 
-my ($i, $track, @info, $tr, $ly, $lyricspresent);
+my ($i, $track, @info, $ly, $lyricspresent);
 
-$tr = Track->new($mb);
-$ly = Lyrics->new($mb);
+$ly = Lyrics->new($artist->GetDBH());
 
-@info = $tr->GetTracksFromAlbumId($albumid);
+if ($album->GetArtist() == Artist::VARTIST_ID)
+{
+    @info = $album->LoadTracksFromMultipleArtistAlbum();
+}
+else
+{
+    @info = $album->LoadTracks();
+}
 
 mc_comp("/comp/albumbegin", 
-        albumid=>$albumid, 
-        title=>$albumname,
-        artist=>$artist,
-        modpending=>$modpending,
+        artist=>$artist, 
+        album=>$album, 
         showdel=>(scalar(@info) == 0));
-
 for($i = 0;; $i++)
 {
     $track = $info[$i]; 
@@ -31,26 +31,16 @@ for($i = 0;; $i++)
     $lyricspresent=0;
     if (DBDefs::USE_LYRICS) 
     {
-        if ($ly->GetLyricsIdFromTrackId($track->Value(0))   > 0 ||
-            scalar ($ly->GetSyncTextList($track->Value(0))) > 0) 
+        if ($ly->GetLyricsIdFromTrackId($track->GetId())   > 0 ||
+            scalar ($ly->GetSyncTextList($track->GetId())) > 0) 
         {
            $lyricspresent=1;
         }
     }
-    mc_comp("/comp/albumtrack", 
-            id=>$track->Value(0),
-            tracknum=>$track->Value(3),
-            name=>$track->Value(1),
-            artistname=>'',
-            artistid=>$artist,
-            album=>$albumid,
-            modpending=>$track->Value(9),
-            tr_modpending=>$track->Value(11),
-            hilitetrack=>$hilitetrack,
-            hilitecolor=>$hilitecolor,
-            lyricspresent=>$lyricspresent,
-            tindex=>0,
-            albumartist=>$artist);
+    mc_comp("/comp/albumtrack", track=>$track, album=>$album, 
+            artist=>$artist, lyricspresent=>$lyricspresent,
+            tindex=>0, hilitetrack=>$hilitetrack, 
+            hilitecolor=>$hilitecolor);
 }
-mc_comp("/comp/albumend", id=>$albumid, artist=>$artist);
+mc_comp("/comp/albumend", album=>$album, artist=>$artist);
 </%perl>

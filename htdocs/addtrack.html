@@ -7,7 +7,7 @@ my ($mb, $id, $trackname, $referer, $al, $tracknum, $album, $artist);
 $referer = $r->headers_in->{'Referer'};
 $mb = new MusicBrainz;
 $mb->Login();
-$al = Album->new($mb);
+$al = Album->new($mb->{DBH});
 
 if (!exists $ARGS{album} || $ARGS{album} eq '' ||
     !exists $ARGS{artist} || $ARGS{artist} eq '')
@@ -18,7 +18,8 @@ if (!exists $ARGS{album} || $ARGS{album} eq '' ||
 
 $album = $ARGS{album};
 $artist = $ARGS{artist};
-$al->LoadFromId($album);
+$al->SetId($album);
+$al->LoadFromId();
 
 </%perl>
 
@@ -30,7 +31,7 @@ $al->LoadFromId($album);
 % } else {
 
     <& /comp/tablebegin, gattrs=>"width=\"100%\"",
-       title=>'Add Track to '.$al->Value(1) &>
+       title=>'Add Track to '.$al->GetName() &>
 
 % if ($artist == Artist::VARTIST_ID) {
     <FORM METHOD="POST" ACTION="/artistfilter.html"

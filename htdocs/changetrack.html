@@ -29,16 +29,18 @@ else
    $depmod = 0;
 }
 
-$al = Album->new($mb);
-$al->LoadFromId($id);
-$albumname = $al->Value(1);
+$al = Album->new($mb->{DBH});
+$al->SetId($id);
+$al->LoadFromId();
+$albumname = $al->GetName();
 
 if ($artist != Artist::VARTIST_ID)
 {
-   $ar = Artist->new($mb);
-   $ar->LoadFromId($artist);
-   $artistname = $ar->Value(1);
-   $sortname = $ar->Value(2);
+   $ar = Artist->new($mb->{DBH});
+   $ar->SetId($artist);
+   $ar->LoadFromId();
+   $artistname = $ar->GetName();
+   $sortname = $ar->GetSortName();
 }
 else
 {
@@ -46,9 +48,7 @@ else
    $sortname = "Various Artists";
 }
 
-
-$tr = Track->new($mb);
-@tracks = $tr->GetTracksFromAlbumId($id);
+@tracks = $al->LoadTracks();
 
 if ($tindex >= scalar(@tracks))
 {
@@ -60,9 +60,9 @@ if ($tindex >= scalar(@tracks))
 else
 {
    $track = $tracks[$tindex];
-   $trackid = $track->Value(0);
-   $trackname = $track->Value(1);
-   $modpending = $track->Value(9);
+   $trackid = $track->GetId();
+   $trackname = $track->GetName();
+   $modpending = $track->GetModPending();
    
    
    $newtrackname = $trackname;

@@ -15,12 +15,13 @@ if (!exists $ARGS{album} || $ARGS{album} eq '' ||
 $referer = $r->headers_in->{'Referer'};
 $mb = new MusicBrainz;
 $mb->Login();
-$al = Album->new($mb);
+$al = Album->new($mb->{DBH});
 
 $album = $ARGS{album};
 $artist = $ARGS{artist};
-$al->LoadFromId($album);
-$albumname = $al->Value(1);
+$al->SetId($album);
+$al->LoadFromId();
+$albumname = $al->GetName();
 
 </%perl>
 

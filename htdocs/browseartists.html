@@ -1,6 +1,6 @@
 <%perl>
 
-my ($mb, @info, $row, $ind, $i, $offset, $num_artists, $ar);
+my ($mb, @info, $row, $ind, $i, $offset, $num_artists, $ar, $rows);
 my $max_items = 50;
 
 $mb = new MusicBrainz;
@@ -27,7 +27,7 @@ if (!defined $ind || $ind eq '')
 }
 
 $mb->Login();
-$ar = Artist->new($mb);
+$ar = Artist->new($mb->{DBH});
 
 ($num_artists, @info) = $ar->GetArtistDisplayList($ind, $offset, $max_items);
 
@@ -47,8 +47,10 @@ mc_out('</tr></table>');
 
 <& /comp/modnotice &>
 
+% $rows = $max_items / 2;
+% print STDERR "rows: $rows\n";
 <p><table align="center" width="100%">
-% for($i = 0; ; $i+=2) {
+% for($i = 0; $i < $rows; $i++) {
 %  $row = $info[$i];  
 %  last if (!defined $row);
    <tr>
@@ -64,9 +66,9 @@ mc_out('</tr></table>');
         <% $$row[1]  %>
       </td>
       <td valign=top>
-%     $row = $info[$i + 1];  
+%     $row = $info[$i + $rows];  
 %     if (defined $row) {
-            <% ($i + 2 + $offset) %>.
+            <% ($i + 1 + $rows + $offset) %>.
          </td>
 % if ($$row[2]) {
          <td valign=top width="50%" bgcolor="#FFFFCC">

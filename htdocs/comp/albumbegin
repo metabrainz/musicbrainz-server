@@ -1,29 +1,47 @@
 <%args>
-$albumid
-$title
 $artist
-$modpending
+$album
 $showdel
 </%args>
 
+<%perl>
+my $check_box = "";
+my $albumid = $album->GetId();
+
+#if (exists $session{user}) 
+#{
+#   if (exists $session{tagged_albums} && 
+#       $session{tagged_albums} =~ m/\b$albumid\b/)
+#   {
+#       $check_box = "<a href=\"/bare/tag.html?album=$albumid\"><img src=\"/images/checked.gif\" border=\"0\" alt=\"Untag this album\"></a>";
+#   }
+#   else
+#   {
+#       $check_box = "<a href=\"/bare/tag.html?album=$albumid\"><img src=\"/images/unchecked.gif\" border=\"0\" alt=\"Tag this album\"></a>";
+#   }
+#}
+</%perl>
 <table border="0" cellpadding="0" cellspacing="0"
        bgcolor="#000000" width="100%">
 <tr><td bgcolor="#000000">
   <table width="100%" border="0" cellspacing="1" cellpadding="2">
   <tr>
-% if ($modpending) {
-        <td width=85% bgcolor="#FFFFCC">
-           <% $title %>
+% if ($album->GetModPending()) {
+        <td width=85% bgcolor="#FFFFCC" valign="center">
+           <% $album->GetName() %>
 % } else {
-        <td width=85% bgcolor="#FFBA58">
-           <% $title %>
+        <td width=85% bgcolor="#FFBA58" valign="center">
+           <% $album->GetName() %>
 % }
         </td>
+%#        <td width="10" bgcolor="#FFBA58" valign="center" align="center">
+%#           <% $check_box |n %>
+%#        </td>
 % if (exists $session{user}) {
         <td width=15% bgcolor="#FFBA58" align=center>
-          <a href="/editalbum.html?id=<% $albumid %>&artist=<% $artist %>">Edit</a>
+          <a href="/editalbum.html?id=<% $albumid %>&artist=<% $artist->GetId() %>">Edit</a>
 %       if ($showdel) {
-           | <a href="/remalbum.html?album=<% $albumid %>&artist=<% $artist %>">Del</a>
+           | <a href="/remalbum.html?album=<% $albumid %>&artist=<% $artist->GetId() %>">Del</a>
 %       }
         </td>
 % }

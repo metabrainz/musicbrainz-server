@@ -35,6 +35,7 @@ use Artist;
 use Album;
 use Track;
 use Lyrics;
+use Sql;
 
 my ($mb, $al, $ar, $tr, $ly);
 
@@ -223,7 +224,7 @@ sub EnterRecord
 {
     my $title = shift @_;
     my $artistname = shift @_;
-    my $album = shift @_;
+    my $al = shift @_;
     my $songtext = shift @_;
     my $writer = shift @_;
     my $seq = shift @_;
@@ -232,17 +233,24 @@ sub EnterRecord
     {
         $artistname = "Unknown";
     }
-
-    my $artist = $ar->Insert($artistname);
-    if ($artist < 0)
+    
+    $ar->SetName($artistname);
+    $ar->SetSortName($artistname);
+    my $artist = $ar->Insert();
+    if (!defined $artist)
     {
         print "Cannot insert artist.\n";
         $mb->Logout();
         exit 0;
     }
+    $al->SetArtist($artist);
 
-    my $track = $tr->Insert($title, $artist, $album, $seq);
-    if ($track < 0)
+    $tr->SetName($title);
+    $tr->SetArtist($artist);
+    $tr->SetAlbum($al->GetId());
+    $tr->SetSequence($seq);
+    my $track = $tr->Insert($al, $ar);
+    if (!defined $track)
     {
         print "Cannot insert track.\n";
         $mb->Logout();
@@ -263,21 +271,24 @@ sub EnterRecord
 
 sub add_examples
 {
-    my $track;
+    my ($track, $artist);
 
     #Make 1 album for all examples
     #multiple artist album with artistid 0
-    my $album = $al->Insert('National Anthems', 0, 4);
+
+    $al->SetName("National Anthems");
+    $al->SetArtist(Artist::VARTIST_ID);
+    my $album = $al->Insert();
     if ($album < 0)
     {
         print "Cannot insert album.\n";
         $mb->Logout();
         exit 0;
     }
-    EnterRecord('La Marseillaise', 'France', $album, $france, 'Napoleon', 1);
-    $track = EnterRecord('Het Wilhelmus', 'Nederland', $album, $dutch, 'St. Allegonde', 2);
-    EnterRecord('God Save The Queen', 'United Kingdom', $album, $uk, 'Nelson', 3);
-    EnterRecord('The Star Spangled Banner', 'United States of America', $album, $us, 'Columbus', 4);
+    EnterRecord('La Marseillaise', 'France', $al, $france, 'Napoleon', 1);
+    $track = EnterRecord('Het Wilhelmus', 'Nederland', $al, $dutch, 'St. Allegonde', 2);
+    EnterRecord('God Save The Queen', 'United Kingdom', $al, $uk, 'Nelson', 3);
+    EnterRecord('The Star Spangled Banner', 'United States of America', $al, $us, 'Columbus', 4);
 
     #does the user have the lyrics turned on?
     if (!DBDefs::USE_LYRICS) { return $album }
@@ -317,10 +328,10 @@ if (!$mb->Login(1))			#be quiet
     printf("Cannot log into musicbrainz database.\n");
     exit(0);
 }
-$al = Album->new($mb);
-$ar = Artist->new($mb);
-$tr = Track->new($mb);
-$ly = Lyrics->new($mb);
+$al = Album->new($mb->{DBH});
+$ar = Artist->new($mb->{DBH});
+$tr = Track->new($mb->{DBH});
+$ly = Lyrics->new($mb->{DBH});
 
 my $album = add_examples();
 print "added National Anthems album as number $album.\n";

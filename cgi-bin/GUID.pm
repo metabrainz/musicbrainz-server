@@ -36,95 +36,67 @@ use DBDefs;
 
 sub new
 {
-   my ($type, $mb) = @_;
+   my ($type, $dbh) = @_;
 
-   my $this = TableBase->new($mb);
+   my $this = TableBase->new($dbh);
    return bless $this, $type;
 }
 
 sub GetTrackIdFromGUID
 {
    my ($this, $guid) = @_;
-   my ($sth, $rv);
+   my ($sql, $trackid);
 
-   $guid = $this->{DBH}->quote($guid);
-   $sth = $this->{DBH}->prepare(qq/select track from GUIDJoin, GUID where 
-                           GUID.guid=$guid and GUID.id = GUIDJoin.guid/);
-   $sth->execute;
-   if ($sth->rows)
-   {
-        my @row;
-
-        @row = $sth->fetchrow_array;
-        $rv = $row[0];
-   }
-   else
-   {
-       $rv = -1;
-   }
-   $sth->finish;
-
-   return $rv;
+   $sql = Sql->new($this->{DBH});
+   ($trackid) = $sql->GetSingleRow("GUIDJoin, GUID", ["track"],
+                                   ["GUID.guid", $sql->Quote($guid), 
+                                    "GUID.id", "GUIDJoin.guid"]);
+   return $trackid;
 }
 
 sub GetIdFromGUID
 {
    my ($this, $guid) = @_;
-   my ($sth, $rv);
+   my ($sql, $id);
 
-   $guid = $this->{DBH}->quote($guid);
-   $sth = $this->{DBH}->prepare(qq/select id from GUID where guid=$guid/);
-   $sth->execute;
-   if ($sth->rows)
-   {
-        my @row;
+   $sql = Sql->new($this->{DBH});
+   ($id) = $sql->GetSingleRow("GUID", ["id"], ["guid", $sql->Quote($guid)]);
 
-        @row = $sth->fetchrow_array;
-        $rv = $row[0];
-   }
-   $sth->finish;
-
-   return $rv;
+   return $id;
 }
 
 sub GetGUIDFromTrackId
 {
    my ($this, $id) = @_;
-   my ($sth, $rv);
+   my ($sql, $guid);
 
-   $sth = $this->{DBH}->prepare(qq/select GUID.guid from GUIDJoin, GUID where 
-                GUIDJoin.track = $id and GUIDJoin.guid = GUID.id/);
-   $sth->execute;
-   if ($sth->rows)
-   {
-        my @row;
-
-        @row = $sth->fetchrow_array;
-        $rv = $row[0];
-   }
-   $sth->finish;
-
-   return $rv;
+   $sql = Sql->new($this->{DBH});
+   ($guid) = $sql->GetSingleRow("GUIDJoin, GUID", ["GUID.guid"], 
+                                ["GUIDJoin.track", $id,
+                                 "GUIDJoin.guid", "GUID.id"]);
+   return $guid;
 }
 
 sub Insert
 {
     my ($this, $guid, $trackid) = @_;
-    my ($id);
+    my ($id, $sql);
+
+    $sql = Sql->new($this->{DBH});
 
     $id = $this->GetIdFromGUID($guid);
     if (!defined $id)
     {
-        $guid = $this->{DBH}->quote($guid);
-        if ($this->{DBH}->do(qq/insert into GUID (guid) values ($guid)/))
+        $guid = $sql->Quote($guid);
+        if ($sql->Do(qq/insert into GUID (guid) values ($guid)/))
         {
-            $id = $this->GetLastInsertId;
+            $id = $sql->GetLastInsertId;
         }
     }
     if (defined $id && defined $trackid)
     {
-        $this->{DBH}->do(qq/insert into GUIDJoin (guid, track) values 
-                           ($id, $trackid)/);
+        $sql->Do(qq/insert into GUIDJoin (guid, track) values 
+                   ($id, $trackid)/);
     }
     return $id;
 }

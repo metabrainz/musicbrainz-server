@@ -21,15 +21,17 @@ $id = $ARGS{album};
 $artist = $ARGS{artist};
 $track = $ARGS{track};
 
-$al = Album->new($mb);
-$al->LoadFromId($id);
+$al = Album->new($mb->{DBH});
+$al->SetId($id);
+$al->LoadFromId();
 
-$ar = Artist->new($mb);
-$ar->LoadFromId($artist);
+$ar = Artist->new($mb->{DBH});
+$ar->SetId($artist);
+$ar->LoadFromId();
 
-$albumname = $al->Value(1);
-$modpending = $al->Value(2);
-$artistname = $ar->Value(1);
+$albumname = $al->GetName();
+$modpending = $al->GetModPending();
+$artistname = $ar->GetName();
 
 </%perl>
 
@@ -76,7 +78,7 @@ $artistname = $ar->Value(1);
     <input type="hidden" name="artist0" value="<% $artist %>">
     <input type="hidden" name="type0" 
            value="<% Moderation::MOD_SAC_TO_MAC %>">
-    <input type="hidden" name="new0" value="N/A">
+    <input type="hidden" name="new0" value="Various Artists">
     <input type="hidden" name="prev0" value="<% $albumname  %>">
     <input type="hidden" name="table0" value="Album">
     <input type="hidden" name="column0" value="Artist">

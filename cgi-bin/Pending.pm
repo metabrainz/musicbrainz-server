@@ -35,80 +35,62 @@ use DBDefs;
 
 sub new
 {
-   my ($type, $mb) = @_;
+    my ($type, $dbh) = @_;
 
-   my $this = TableBase->new($mb);
-   return bless $this, $type;
+    my $this = TableBase->new($dbh);
+    return bless $this, $type;
 }
-
-my $load_columns = "name, guid, artist, album, sequence, length, year, genre, filename, comment";
 
 sub GetIdsFromGUID
 {
-   my ($this, $guid) = @_;
-   my ($sth, @ids);
+    my ($this, $guid) = @_;
+    my ($sql);
 
-   $guid = $this->{DBH}->quote($guid);
-   $sth = $this->{DBH}->prepare("select id from Pending where guid=$guid");
-   $sth->execute;
-   if ($sth->rows)
-   {
-        my @row;
-
-        while(@row = $sth->fetchrow_array)
-        {
-            push @ids, $row[0];
-        }
-   }
-   $sth->finish;
-
-   return @ids;
+    $sql = Sql->new($this->{DBH});
+    return $sql->GetSingleColumn("Pending", "id", ["guid", $sql->Quote($guid)]);
 }
 
 sub GetData
 {
     my ($this, $id) = @_;
-    my ($sth, @row);
+    my ($sql, @row);
 
-    $sth = $this->{DBH}->prepare("select name, guid, artist, album, sequence, length, year, genre, filename, comment from Pending where id=$id");
-    $sth->execute;
-    if ($sth->rows)
-    {
-        @row = $sth->fetchrow_array;
-    }
-    $sth->finish;
- 
-    return @row;
+    $sql = Sql->new($this->{DBH});
+    return $sql->GetSingleRow("Pending", [qw(name guid artist album sequence 
+                           length  year  genre  filename  comment)],
+                           ["id", $id]);
 }
 
 sub DeleteByGUID
 {
     my ($this, $guid) = @_;
-
-    $guid = $this->{DBH}->quote($guid);
-    $this->{DBH}->do("delete from Pending where guid=$guid");
+    
+    my $sql = Sql->new($this->{DBH});
+    $sql->Do("delete from Pending where guid=" . $sql->Quote($guid));
 }
 
 sub Insert
 {
     my ($this, $name, $guid, $artist, $album, $seq, $length, $year,
         $genre, $filename, $comment) = @_;
-    my (@ids, $id);
+    my (@ids, $id, $sql);
 
+    $sql = Sql->new($this->{DBH});
     @ids = GetIdsFromGUID($this, $guid);
-    if (scalar(@ids) == 0)
+    if (!defined $ids[0])
     {
-         $name = $this->{DBH}->quote($name);
-         $guid = $this->{DBH}->quote($guid);
-         $artist = $this->{DBH}->quote($artist);
-         $album = $this->{DBH}->quote($album);
-         $genre = $this->{DBH}->quote($genre);
-         $filename = $this->{DBH}->quote($filename);
-         $comment = $this->{DBH}->quote($comment);
-         $this->{DBH}->do("insert into Pending (name, GUID, Artist, Album, Sequence, Length, Year, Genre, Filename, Comment) values ($name, $guid, $artist, $album, $seq, $length, $year, $genre, $filename, $comment)");
-         $this->{DBH}->do("insert into PendingArchive (name, GUID, Artist, Album, Sequence, Length, Year, Genre, Filename, Comment) values ($name, $guid, $artist, $album, $seq, $length, $year, $genre, $filename, $comment)");
+         $name = $sql->Quote($name);
+         $guid = $sql->Quote($guid);
+         $artist = $sql->Quote($artist);
+         $album = $sql->Quote($album);
+         $genre = $sql->Quote($genre);
+         $filename = $sql->Quote($filename);
+         $comment = $sql->Quote($comment);
+         $sql = Sql->new($this->{DBH});
+         $sql->Do("insert into Pending (name, GUID, Artist, Album, Sequence, Length, Year, Genre, Filename, Comment) values ($name, $guid, $artist, $album, $seq, $length, $year, $genre, $filename, $comment)");
+         $sql->Do("insert into PendingArchive (name, GUID, Artist, Album, Sequence, Length, Year, Genre, Filename, Comment) values ($name, $guid, $artist, $album, $seq, $length, $year, $genre, $filename, $comment)");
 
-         $id = $this->GetLastInsertId;
+         $id = $sql->GetLastInsertId;
     } 
     return $id;
 }
@@ -116,49 +98,42 @@ sub Insert
 sub GetPendingList
 {
    my ($this, $offset, $max_items, $guid, $archive) = @_;
-   my ($sth, $num_pending, @info, $sql); 
+   my ($sth, $num_pending, @info, $sql, $query); 
+
+   $sql = Sql->new($this->{DBH});
+   $guid = $sql->Quote($guid);
 
    $archive = (defined $archive && $archive) ? "Archive" : "";
    if (!defined $guid || $guid eq '')
    {
-       $sth = $this->{DBH}->prepare(qq/select count(*) from Pending$archive/);
-       $sth->execute();
-       $num_pending = ($sth->fetchrow_array)[0];
-       $sth->finish;   
-
-       $sql = qq/select guid, artist, album, name,
-                 sequence, length, genre from Pending$archive order by artist 
-                 limit $offset, $max_items/;
+       ($num_pending) = $sql->GetSingleRow("Pending$archive", 
+                                           ["count(*)"], []);
+                    
+       $query = qq/select guid, artist, album, name,
+                   sequence, length, genre from Pending$archive order by artist 
+                   limit $offset, $max_items/;
    }
    else
    {
-       $guid = $this->{DBH}->quote($guid);
-       $sth = $this->{DBH}->prepare(qq/select count(*) from Pending$archive
-                                       where guid=$guid/);
-       $sth->execute();
-       $num_pending = ($sth->fetchrow_array)[0];
-       $sth->finish;   
+       ($num_pending) = $sql->GetSingleRow("Pending$archive", 
+                                           ["count(*)"], 
+                                           ["guid", $guid]);
 
-       $sql = qq/select guid, artist, album, name,
-                 sequence, length, genre from Pending$archive where 
-                 guid = $guid order by artist limit $offset, $max_items/;
+       $query = qq/select guid, artist, album, name,
+                   sequence, length, genre from Pending$archive where 
+                   guid = $guid order by artist limit $offset, $max_items/;
    }
 
-   $sth = $this->{DBH}->prepare($sql);
-   $sth->execute();  
-   if ($sth->rows > 0)
+   if ($sql->Select($query))
    {
        my @row;
-       my $i;
 
-       for(;@row = $sth->fetchrow_array;)
+       for(;@row = $sql->NextRow();)
        {
            push @info, [@row];
        }
+       $sql->Finish;   
    }
-   $sth->finish;   
 
    return ($num_pending, @info);
 }
-
-1;

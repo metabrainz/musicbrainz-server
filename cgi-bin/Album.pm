@@ -37,171 +37,213 @@ use Artist;
 
 sub new
 {
-   my ($type, $mb) = @_;
+   my ($type, $dbh) = @_;
 
-   my $this = TableBase->new($mb);
+   my $this = TableBase->new($dbh);
    return bless $this, $type;
 }
 
-sub FindFromNameAndArtistId
+# Accessor functions to set/get the artist id of this album
+sub GetArtist
 {
-   my ($this, $albumname, $artist) = @_;
-   my ($sth, @ids);
-
-   $albumname = $this->{DBH}->quote($albumname);
-   $sth = $this->{DBH}->prepare(qq/select id from Album where 
-                         name=$albumname and artist = $artist/);
-   $sth->execute;
-   if ($sth->rows)
-   {
-       my (@row);
-
-       while(@row = $sth->fetchrow_array)
-       {
-           push @ids, $row[0];
-       }
-   }
-   $sth->finish;
-
-   return @ids;
+   return $_[0]->{artist};
 }
 
-sub GetTrackCountFromAlbum
+sub SetArtist
 {
-   my ($this, $albumid) = @_;
-   my ($sth, $count);
-
-   return -1 if (!defined $albumid);
-   $sth = $this->{DBH}->prepare(qq/select count(*) from AlbumJoin where 
-                                   album=$albumid/);
-   $sth->execute;
-   if ($sth->rows)
-   {
-       my (@row, @row2);
-
-       $count = ($sth->fetchrow_array)[0];
-   }
-   $sth->finish;
-
-   return $count;
+   $_[0]->{artist} = $_[1];
 }
 
-sub GetIdFromTrackId
+# Insert an album that belongs to this artist. The Artist object should've
+# been loaded with a LoadFromXXXX call, or the id of this artist must be
+# set before this function is called.
+sub Insert
 {
-   my ($this, $id) = @_;
-   my ($sth, $rv);
+    my ($this) = @_;
+    my ($album, $id, $sql, $name);
 
-   $id = $this->{DBH}->quote($id);
-   $sth = $this->{DBH}->prepare("select album from AlbumJoin where track=$id");
-   $sth->execute;
-   if ($sth->rows)
-   {
-        my @row;
+    return undef if (!defined $this->{artist});
+    return undef if (!defined $this->{name});
 
-        @row = $sth->fetchrow_array;
-        $rv = $row[0];
-   }
-   $sth->finish;
+    $sql = Sql->new($this->{DBH});
+    $name = $sql->Quote($this->{name});
+    $id = $sql->Quote($this->CreateNewGlobalId());
+    if ($sql->Do(qq/insert into Album (name,artist,gid,modpending)
+                values ($name,$this->{artist}, $id, 0)/))
+    {
+        $album = $sql->GetLastInsertId;
+    }
 
-   return $rv;
+    $this->{id} = $album;
+    return $album;
 }
 
-sub GetIdFromAlbumJoinId
+# Given an album, query the number of tracks present in this album
+# Returns the number of tracks or undef on error
+sub GetTrackCount
 {
-   my ($this, $id) = @_;
-   my ($sth, $rv);
+   my ($this) = @_;
+   my ($sql);
 
-   $id = $this->{DBH}->quote($id);
-   $sth = $this->{DBH}->prepare("select album from AlbumJoin where id=$id");
-   $sth->execute;
-   if ($sth->rows)
+   return undef if (!exists $this->{id});
+   if (!exists $this->{trackcount} || !defined $this->{trackcount})
    {
-        my @row;
-
-        @row = $sth->fetchrow_array;
-        $rv = $row[0];
+        $sql = Sql->new($this->{DBH});
+        ($this->{trackcount}) = $sql->GetSingleRow("AlbumJoin", 
+                                  ["count(*)"], ["album", $this->{id}]);
    }
-   $sth->finish;
 
-   return $rv;
+   return $this->{trackcount};
 }
 
+# This function takes a track id and returns an array of album ids
+# on which this track appears. The array is empty on error.
+sub GetAlbumIdsFromTrackId
+{
+   my ($this, $trackid) = @_;
+   my (@albums, $sql, @row);
+
+   $sql = Sql->new($this->{DBH});
+   if ($sql->Select(qq\select distinct album from AlbumJoin where 
+                       track=$trackid\))
+   {
+        while(@row = $sql->NextRow)
+        {
+            push @albums, $row[0];
+        }
+        $sql->Finish;
+   }
+
+   return @albums;
+}
+
+# Load an album record. Set the album id via the SetId accessor
+# returns 1 on success, undef otherwise. Access the artist info via the
+# accessor functions.
 sub LoadFromId
 {
-   my ($this, $albumid) = @_;
-   my ($sth, $rv);
+   my ($this) = @_;
+   my ($sth, $sql, @row);
 
-   $sth = $this->{DBH}->prepare(qq/select id, name, modpending from 
-                                Album where id=$albumid/);
-   $sth->execute;
-   if ($sth->rows)
+   $sql = Sql->new($this->{DBH});
+   @row = $sql->GetSingleRow("Album", [qw(id name GID modpending artist)],
+                             ["id", $this->{id}]);
+   if (defined $row[0])
    {
-        $this->{data} = $sth->fetchrow_arrayref;
-        $rv = 1;
+        $this->{id} = $row[0];
+        $this->{name} = $row[1];
+        $this->{mbid} = $row[2];
+        $this->{modpending} = $row[3];
+        $this->{artist} = $row[4]; 
+        return 1;
    }
-   $sth->finish;
-
-   return $rv;
+   return undef;
 }
 
+# Load tracks for current album. Returns an array of Track references
+# The array is empty if there are no tracks or on error
+sub LoadTracks
+{
+   my ($this) = @_;
+   my (@info, $query, $sql, @row, $track);
+
+   $sql = Sql->new($this->{DBH});
+   $query = qq/select Track.id, Track.name, Track.artist,
+               AlbumJoin.sequence, Track.length,
+               Track.modpending, AlbumJoin.modpending from
+               Track, AlbumJoin where AlbumJoin.track = Track.id
+               and AlbumJoin.album = $this->{id} order by
+               AlbumJoin.sequence/;
+   if ($sql->Select($query))
+   {
+       for(;@row = $sql->NextRow();)
+       {
+           $track = Track->new($this->{DBH});
+           $track->SetId($row[0]);
+           $track->SetName($row[1]);
+           $track->SetArtist($row[2]);
+           $track->SetSequence($row[3]);
+           $track->SetLength($row[4]);
+           $track->SetModPending($row[5]);
+           $track->SetAlbumJoinModPending($row[6]);
+           push @info, $track;
+       }
+       $sql->Finish;
+   }
+
+   return @info;
+}
+
+sub LoadTracksFromMultipleArtistAlbum
+{
+   my ($this) = @_;
+   my (@info, $query, $sql, @row, $track);
+
+   $sql = Sql->new($this->{DBH});
+   $query = qq/select Track.id, Track.name, Track.artist,
+               AlbumJoin.sequence, Track.length,
+               Track.modpending, AlbumJoin.modpending, Artist.name from
+               Track, AlbumJoin, Artist where AlbumJoin.track = Track.id
+               and AlbumJoin.album = $this->{id} and Track.Artist = Artist.id
+               order by AlbumJoin.sequence/;
+   if ($sql->Select($query))
+   {
+       for(;@row = $sql->NextRow();)
+       {
+           $track = Track->new($this->{DBH});
+           $track->SetId($row[0]);
+           $track->SetName($row[1]);
+           $track->SetArtist($row[2]);
+           $track->SetSequence($row[3]);
+           $track->SetLength($row[4]);
+           $track->SetModPending($row[5]);
+           $track->SetAlbumJoinModPending($row[6]);
+           $track->SetArtistName($row[7]);
+           push @info, $track;
+       }
+       $sql->Finish;
+   }
+
+   return @info;
+}
+
+# Given an album search argument, this function searches for albums
+# that match in name, and then ruturns an array of references to arrays
+# of album id, album name, artist name, artist id. The array is empty on
+# error
 sub SearchByName
 {
    my ($this, $search) = @_;
-   my (@info, $sth, $sql);
+   my (@info, $query, $sql, @row);
 
    # Search for single artist albums
-   $sql = $this->AppendWhereClause($search, qq/select Album.id, Album.name,
+   $query = $this->AppendWhereClause($search, qq/select Album.id, Album.name,
                Artist.name, Artist.id from Album,Artist where Album.artist = 
                Artist.id and /, "Album.Name") . " order by Album.name";
-
-   $sth = $this->{DBH}->prepare($sql);
-   $sth->execute();
-   if ($sth->rows > 0) 
+   $sql = Sql->new($this->{DBH});
+   if ($sql->Select($query))
    {
-       my @row;
-       my $i;
-
-       for(;@row = $sth->fetchrow_array;)
+       for(;@row = $sql->NextRow();)
        {  
            push @info, [$row[0], $row[1], $row[2], $row[3]];
        }
+       $sql->Finish;
    }
-   $sth->finish;
 
    # Now search for multiple artist albums
-   $sql = $this->AppendWhereClause($search, "select id, name " .
+   $query = $this->AppendWhereClause($search, "select id, name " .
            "from Album where artist = ". Artist::VARTIST_ID ." and ", "Name");
-    $sql .= " order by name";
+   $query .= " order by name";
 
-   $sth = $this->{DBH}->prepare($sql);
-   $sth->execute();
-   if ($sth->rows > 0) 
+   if ($sql->Select($query))
    {
-       my @row;
-       my $i;
-
-       for(;@row = $sth->fetchrow_array;)
+       for(;@row = $sql->NextRow();)
        {  
            push @info, [$row[0], $row[1], 
                        'Various Artists', Artist::VARTIST_ID];
        }
+       $sql->Finish;
    }
-   $sth->finish;
 
    return @info;
 };
-
-sub Insert
-{
-    my ($this, $name, $artist) = @_;
-    my ($album, $id);
-
-    $id = $this->{DBH}->quote(($this->CreateNewGlobalId()));
-    $name = $this->{DBH}->quote($name);
-    $this->{DBH}->do(qq/insert into Album (name,artist,gid,modpending) 
-                        values ($name,$artist, $id, 0)/);
-
-    return $this->GetLastInsertId;
-}
-
-1;

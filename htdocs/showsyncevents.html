@@ -1,3 +1,5 @@
+<& /comp/sidebar &>
+
 <%perl>
 if (DBDefs::USE_LYRICS) {
   my ($mb, $ly, $tr, $ar); 
@@ -12,14 +14,16 @@ if (DBDefs::USE_LYRICS) {
   $mb = new MusicBrainz;
   $mb->Login();
 
-  $tr = Track->new($mb);
-  $ar = Artist->new($mb);
-  $ly = Lyrics->new($mb);
+  $tr = Track->new($mb->{DBH});
+  $ar = Artist->new($mb->{DBH});
+  $ly = Lyrics->new($mb->{DBH});
 
   @syncevents = $ly->GetSyncEventList($ARGS{id});
   ($trackid)  = $ly->GetSyncTextData($ARGS{id});
-  $tr->LoadFromId($trackid);
-  $ar->LoadFromId($tr->Value(2));
+  $tr->SetId($trackid);
+  $tr->LoadFromId();
+  $tr->SetId($tr->GetArtist());
+  $ar->LoadFromId();
   if ((scalar(@syncevents) > 0)) {
   </%perl>
       <& /comp/syncevents, trackname=>$tr->Value(1),

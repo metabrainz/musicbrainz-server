@@ -15,7 +15,7 @@ my (@data, $i, $row, $ar);
 
 $mb = new MusicBrainz;
 $mb->Login();
-$ar = Artist->new($mb);
+$ar = Artist->new($mb->{DBH});
 
 @data = $ar->SearchByName($ARGS{artist});
 if (scalar(@data) > 0)

@@ -1,4 +1,4 @@
-<& /comp/sidebar, title=>'Move Album' &>
+<& /comp/sidebar, title=>'Change Album to Single Artist' &>
 
 <%perl>
 
@@ -42,26 +42,18 @@ $sortname = $ar->GetSortName();
 % } else {
 
     <& /comp/tablebegin, gattrs=>"width=\"100%\"",
-       title=>"Move Album $albumname" &>
+       title=>"Change Album $albumname to Single Artist" &>
 
 % if ($modpending) {
     <& /comp/modpending &>
 % } 
 
     Enter the artist <span class="bold">sortname</span> to 
-    whom you'd like to move album <% $albumname %>:
+    whom you'd like to change the album <% $albumname %>:
 
     <FORM METHOD="POST" ACTION="/artistfilter.html"
           ENCTYPE="application/x-www-form-urlencoded">  
     <table>
-      <tr>
-        <td>
-        Current Artist Sortname:
-        </td>
-        <td>
-        <% $sortname  %>
-        </td>
-      </tr>
       <tr>
         <td>
         New Artist Sortname:
@@ -76,12 +68,12 @@ $sortname = $ar->GetSortName();
         </td>
       </tr>
     </table>
-    <input type="hidden" name="mode" value="move">
+    <input type="hidden" name="mode" value="tosac">
     <input type="hidden" name="album" value="<% $albumname %>">
     <input type="hidden" name="artist0" value="<% $artist %>">
     <input type="hidden" name="type0" 
-           value="<% Moderation::MOD_MOVE_ALBUM %>">
-    <input type="hidden" name="prev0" value="<% $artistname  %>">
+           value="<% Moderation::MOD_MAC_TO_SAC %>">
+    <input type="hidden" name="prev0" value="Various Artists">
     <input type="hidden" name="table0" value="Album">
     <input type="hidden" name="column0" value="Artist">
     <input type="hidden" name="id0" value="<% $id %>">

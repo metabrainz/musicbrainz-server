@@ -26,7 +26,7 @@ use TableBase;
 
 BEGIN { require 5.003 }
 use vars qw(@ISA @EXPORT);
-@ISA    = @ISA    = '';
+@ISA    = @ISA    = 'TableBase';
 @EXPORT = @EXPORT = '';
 
 use strict;
@@ -35,35 +35,83 @@ use DBDefs;
 
 sub new
 {
-   my ($type, $mb) = @_;
+   my ($type, $dbh) = @_;
 
-   my $this = TableBase->new($mb);
+   my $this = TableBase->new($dbh);
    return bless $this, $type;
+}
+
+sub GenerateAlbumFromDiskId
+{
+   my ($this, $doc, $rdf, $id, $numtracks, $toc) = @_;
+   my ($sql, @row, $album, $di);
+
+   return $rdf->EmitErrorRDF("No DiskId given.") if (!defined $id);
+
+   $sql = Sql->new($this->{DBH});
+
+   # Check to see if the album is in the main database
+   $di = Diskid->new($this->{DBH});
+   if ($sql->Select("select Album from Diskid where disk='$id'"))
+   {
+        @row = $sql->NextRow();
+        $sql->Finish();
+        return $rdf->CreateAlbum(0, $row[0]);
+   }
+   else
+   {
+        # Ok, its not in the main db. Do we have a freedb entry that
+        # matches, but has no DiskId?
+        $album = $di->FindFreeDBEntry($numtracks, $toc, $id);
+        if (defined $album)
+        {
+            return $rdf->CreateAlbum(0, $album);
+        }
+        else
+        {
+            my (@albums, $album, $disk);
+
+            # Ok, no freedb entries were found. Can we find a fuzzy match?
+            @albums = $di->FindFuzzy($numtracks, $toc);
+            if (scalar(@albums) > 0)
+            {
+                print STDERR "Found fuzzy\n";
+                return $rdf->CreateAlbum(1, @albums);
+            }
+            else
+            {
+                my $fd;
+
+                # No fuzzy matches either. Let's pull the records
+                # from freedb.org and insert it into the db if we find it.
+                $fd = FreeDB->new($this->{DBH});
+                $album = $fd->Lookup($id, $toc);
+                if (defined $album && $album > 0)
+                {
+                    print STDERR "Found at freedb.org\n";
+                    return $rdf->CreateAlbum(0, $album);
+                }
+                else
+                {
+                    print STDERR "no go!\n";
+                    # No Dice. This CD cannot be found!
+                    return $rdf->CreateStatus(0);
+                }
+            }
+        }
+   }
 }
 
 sub GetAlbumFromDiskId
 {
-   my ($this, $id) = @_;
-   my ($sth, $rv);
-
-   $id = $this->{DBH}->quote($id);
-   $sth = $this->{DBH}->prepare("select album from Diskid where disk=$id");
-   $sth->execute;
-   if ($sth->rows)
-   {
-        my @row;
-
-        @row = $sth->fetchrow_array;
-        $rv = $row[0];
-
-   }
-   else
-   {
-       $rv = -1;
-   }
-   $sth->finish;
-
-   return $rv;
+    my ($this, $id) = @_;
+    my ($rv, $sql);
+ 
+    $sql = Sql->new($this->{DBH});
+    $id = $sql->Quote($id);
+    ($rv) = $sql->GetSingleRow("Diskid", ["album"], ["disk", $id]);
+ 
+    return $rv;
 }
 
 sub Insert
@@ -71,21 +119,22 @@ sub Insert
     my ($this, $id, $album, $toc) = @_;
     my ($diskidalbum, $sql);
 
-    $diskidalbum = GetAlbumFromDiskId($this, $id);
-    if ($diskidalbum < 0)
+    $diskidalbum = $this->GetAlbumFromDiskId($this->{DBH}, $id);
+    if (!defined $diskidalbum)
     {
-        $sql = $this->{DBH}->quote($id);
-        $this->{DBH}->do("insert into Diskid (disk,album,toc,timecreated) " .
-                         "values ($sql, $album, '$toc', now())"); 
+        $sql = Sql->new($this->{DBH});
+        $id = $sql->Quote($id);
+        $sql->Do("insert into Diskid (disk,album,toc,timecreated) " .
+                 "values ($id, $album, '$toc', now())"); 
     }
 
-    InsertTOC($this, $id, $album, $toc);
+    $this->InsertTOC($id, $album, $toc);
 }
  
 sub InsertTOC
 {
     my ($this, $diskid, $album, $toc) = @_;
-    my (@offsets, $query, $i);
+    my (@offsets, $query, $i, $sql);
 
     @offsets = split / /, $toc;
 
@@ -97,7 +146,8 @@ sub InsertTOC
     chop($query);
     chop($query);
 
-    $diskid = $this->{DBH}->quote($diskid);
+    $sql = Sql->new($this->{DBH});
+    $diskid = $sql->Quote($diskid);
     $query .= ") values ($diskid, $album, ". (scalar(@offsets) - 3) .
               ", $offsets[2], ";
     for($i = 3; $i < scalar(@offsets); $i++)
@@ -108,15 +158,13 @@ sub InsertTOC
     chop($query);
     $query .= ")";
 
-    $this->{DBH}->do($query);
+    $sql->Do($query);
 }
 
 sub FindFreeDBEntry
 {
    my ($this, $tracks, $toc, $id) = @_;
-   my $sth;
-   my @row;
-   my ($i, $query, @list, $album);
+   my ($i, $query, @list, $album, @row, $sql);
 
    return $album if ($tracks == 1);
 
@@ -129,23 +177,22 @@ sub FindFreeDBEntry
    }
    chop($query); chop($query); chop($query); chop($query); chop($query);
 
-   $sth = $this->{DBH}->prepare($query);
-   $sth->execute;
-   if ($sth->rows == 1)
+   $sql = Sql->new($this->{DBH});
+   if ($sql->Select($query))
    {
-      @row = $sth->fetchrow_array;
+      @row = $sql->NextRow();
+      $sql->Finish;
       $album = $row[1];
 
       # Once we've found a record that matches exactly, update
       # the missing data (leadout) and the diskid for future use.
       $query = "update TOC set Leadout = $list[2], Diskid = '$id' " . 
                "where id = $row[0]";
-      $this->{DBH}->do($query);
+      $sql->Do($query);
       $query = "update Diskid set Disk = '$id', Toc = '$toc', " .
                "LastChanged = now() where id = $row[0]";
-      $this->{DBH}->do($query);
+      $sql->Do($query);
    }
-   $sth->finish;
 
    return $album;
 }
@@ -153,9 +200,7 @@ sub FindFreeDBEntry
 sub FindFuzzy
 {
    my ($this, $tracks, $toc) = @_;
-   my $sth;
-   my @row;
-   my ($i, $query, @list, @albums);
+   my ($i, $query, @list, @albums, @row, $sth, $sql);
 
    return @albums if ($tracks == 1);
 
@@ -168,18 +213,15 @@ sub FindFuzzy
    }
    chop($query); chop($query); chop($query); chop($query);
 
-   $sth = $this->{DBH}->prepare($query);
-   $sth->execute;
-   if ($sth->rows)
+   $sql = Sql->new($this->{DBH});
+   if ($sql->Select($query))
    {
-      while(@row = $sth->fetchrow_array)
+      while(@row = $sql->NextRow())
       {
           push @albums, $row[0];
       }
+      $sql->Finish;
    }
-   $sth->finish;
 
    return @albums;
 }
-
-1;

@@ -36,33 +36,27 @@ use DBDefs;
 
 sub new
 {
-   my ($type, $mb) = @_;
+   my ($type, $dbh) = @_;
 
-   my $this = TableBase->new($mb);
+   my $this = TableBase->new($dbh);
    return bless $this, $type;
 }
 
 sub GetGenreId
 {
    my ($this, $genrename) = @_;
-   my ($sth, $rv);
+   my ($sql, $rv);
 
-   $genrename = $this->{DBH}->quote($genrename);
-   $sth = $this->{DBH}->prepare("select id from Genre where name=$genrename");
-   $sth->execute;
-   if ($sth->rows)
+   $sql = Sql->new($this->{DBH});
+   $genrename = $sql->Quote($genrename);
+   if ($sql->Select("select id from Genre where name=$genrename"))
    {
         my @row;
 
-        @row = $sth->fetchrow_array;
+        @row = $sql->NextRow();
         $rv = $row[0];
-
+        $sql->Finish;
    }
-   else
-   {
-       $rv = -1;
-   }
-   $sth->finish;
 
    return $rv;
 }
@@ -70,16 +64,17 @@ sub GetGenreId
 sub InsertGenre
 {
     my ($this, $name, $desc) = @_;
-    my ($genre, $id);
+    my ($genre, $id, $sql);
 
+    $sql = Sql->new($this->{DBH});
     $genre = GetGenreId($this, $name);
-    if ($genre < 0)
+    if (!defined $genre)
     {
-         $name = $this->{DBH}->quote($name);
-         $desc = $this->{DBH}->quote($desc);
-         $this->{DBH}->do("insert into Genre (name, description) values ($name, $desc)");
+         $name = $sql->Quote($name);
+         $desc = $sql->Quote($desc);
+         $sql->Do("insert into Genre (name, description) values ($name, $desc)");
 
-         $genre = $this->GetLastInsertId;
+         $genre = $sql->GetLastInsertId;
     } 
     return $genre;
 }

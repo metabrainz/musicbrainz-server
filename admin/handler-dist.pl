@@ -20,6 +20,7 @@ use Lyrics;
 use UserStuff;
 use Moderation;
 use GUID;
+use Sql;
 
 {  
    package HTML::Mason::Commands;

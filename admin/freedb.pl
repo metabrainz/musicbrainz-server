@@ -199,8 +199,9 @@ sub EnterRecord
     }
 
     $a = Artist->new($mb);
-    $artist = $a->Insert($artistname);
-    if ($artist < 0)
+    $a->SetName($artistname);
+    $artist = $a->Insert();
+    if (!defined $artist)
     {
         print "Cannot insert artist.\n";
         exit 0;

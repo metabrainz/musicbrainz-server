@@ -1,32 +1,19 @@
 <%args>
-$mb
-$id
-$table
-$rowid
-$artist
-$type
-$prev
-$new
-$time
-$moderator
-$yesvotes
-$novotes
-$voted
-$artistname
-$status
+$mod
 $mode
 </%args>
 
 <%perl>
 
+my $voted = $mod->GetVoteId();
 my $text = "(Your change)";
 if ($voted)
 {
    $text = "(Already voted)";
 }
-my @entered = gmtime($time);
-$time = sprintf "%d-%d %02d:%02d", $entered[4]+1, $entered[3], 
-                                   $entered[2], $entered[1];
+my @entered = gmtime($mod->GetExpireTime());
+my $time = sprintf "%d-%d %02d:%02d", $entered[4]+1, $entered[3], 
+                                      $entered[2], $entered[1];
 
 </%perl>
 
@@ -35,37 +22,35 @@ $time = sprintf "%d-%d %02d:%02d", $entered[4]+1, $entered[3],
 </tr>
 <tr>
    <td width=38% valign=top bgcolor=white class="body">
-     Moderator: <% $moderator %> (exp: <% $time %>)
+     Moderator: <% $mod->GetModeratorName() |n %> 
+     (exp: <% $time |n %>)
    </td>
    <td width=38% valign=top bgcolor=white class="body">
-     <& /comp/showmodtype, mb=>$mb, id=>$rowid, type=>$type, prev=>$prev, 
-                           artist=>$artist, artistname=>$artistname &>
+     <% $mod->ShowModType() |n %> 
    </td>
    <td width=24% align=center valign=top valign=top bgcolor=white class="body">
-     <% $yesvotes %> yes,
-     <% $novotes %> no
+     <% $mod->GetYesVotes() |n %> yes,
+     <% $mod->GetNoVotes() |n %> no
    </td>
 </tr>
 <tr>
    <td width=40% valign=top bgcolor=white class="body">
-     <& /comp/showmodprev, prev=>$prev, table=>$table, id=>$rowid, 
-        type=>$type, artist=>$artist &>
+     <% $mod->ShowModPrev() |n %> 
    </td>
    <td width=40% valign=top bgcolor=white class="body">
-     <& /comp/showmodnew, new=>$new, 
-        table=>$table, id=>$rowid, type=>$type &>
+     <% $mod->ShowModNew() |n %> 
    </td>
    <td width=20% align=center valign=top bgcolor=white class="body">
 % if ($mode == Moderation::TYPE_MINE) {
-     <% Moderation::GetChangeName($status) %>
+     <% $mod->GetChangeName() |n %>
 % } elsif ($mode == Moderation::TYPE_VOTED) {
-     <% Moderation::GetVoteText($voted) %>
-     (<% Moderation::GetChangeName($status) %>)
-% } elsif (($session{user} ne $moderator && !$voted) || 
+     <% $mod->GetVoteText($voted) |n %>
+     (<% $mod->GetChangeName() |n %>)
+% } elsif (($session{user} ne $mod->GetModerator() && !$voted) || 
 %          DBDefs::ALLOW_SELF_VOTE) {
-     Yes <input type="radio" name="rowid<% $id %>" value="yes">
-     No <input type="radio" name="rowid<% $id %>" value="no">
-     Abs <input type="radio" name="rowid<% $id %>" value="abs" CHECKED>
+     Yes <input type="radio" name="rowid<% $mod->GetId() %>" value="yes">
+     No <input type="radio" name="rowid<% $mod->GetId() %>" value="no">
+     Abs <input type="radio" name="rowid<% $mod->GetId() %>" value="abs" CHECKED>
 % } else {
      <% $text %> 
 % }

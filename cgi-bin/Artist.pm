@@ -39,241 +39,252 @@ use constant VARTIST_ID => 1;
 
 sub new
 {
-   my ($type, $mb) = @_;
+   my ($type, $dbh) = @_;
 
-   my $this = TableBase->new($mb);
+   my $this = TableBase->new($dbh);
    return bless $this, $type;
 }
 
-sub GetIdFromName
+# Artist specific accessor function. Others are inherted from TableBase 
+sub GetSortName
+{
+   return $_[0]->{sortname};
+}
+
+sub SetSortName
+{
+   $_[0]->{sortname} = $_[1];
+}
+
+# Insert an artist into the DB and return the artist id. Returns undef
+# on error. The name and sortname of this artist must be set via the accesor
+# functions.
+sub Insert
+{
+    my ($this) = @_;
+    my ($artist, $mbid, $sql);
+
+    return undef if (!defined $this->{name});
+    $this->{sortname} = $this->{name} if (!defined $this->{sortname});
+  
+    # Check to see if this artist already exists
+    $sql = Sql->new($this->{DBH});
+    ($artist) = $sql->GetSingleRow("Artist", ["id"], 
+                                   ["name", $sql->Quote($this->{name})]); 
+    if (!defined $artist)
+    {
+         $mbid = $sql->Quote($this->CreateNewGlobalId());
+         if ($sql->Do(qq/insert into Artist (name, sortname, gid, 
+                     modpending) values (/ . $sql->Quote($this->{name}) .
+                     ", " . $sql->Quote($this->{sortname}) . ", $mbid, 0)"))
+         {
+             $artist = $sql->GetLastInsertId;
+         }
+    } 
+    $this->{id} = $artist;
+    return $artist;
+}
+
+# Load an artist record given a name. The name must match exactly.
+# returns 1 on success, undef otherwise. Access the artist info via the
+# accessor functions.
+sub LoadFromName
 {
    my ($this, $artistname) = @_;
-   my ($sth, $rv);
+   my ($sql, @row);
 
-   $artistname = $this->{DBH}->quote($artistname);
-   $sth = $this->{DBH}->prepare("select id from Artist where name=$artistname");
-   $sth->execute;
-   if ($sth->rows)
+   $sql = Sql->new($this->{DBH});
+   @row = $sql->GetSingleRow("Artist", [qw(id name GID modpending sortname)],
+                             ["name", $sql->Quote($artistname)]);
+   if (defined $row[0])
    {
-        my @row;
-
-        @row = $sth->fetchrow_array;
-        $rv = $row[0];
+        $this->{id} = $row[0];
+        $this->{name} = $row[1];
+        $this->{mbid} = $row[2];
+        $this->{modpending} = $row[3];
+        $this->{sortname} = $row[4];
+        return 1;
    }
-   else
-   {
-       $rv = -1;
-   }
-   $sth->finish;
-
-   return $rv;
+   return undef;
 }
 
+# Load an artist record given an artist id.
+# returns 1 on success, undef otherwise. Access the artist info via the
+# accessor functions.
 sub LoadFromId
 {
-   my ($this, $artistid) = @_;
-   my ($sth, @row, $ok);
+   my ($this) = @_;
+   my ($sql, @row);
 
-   $ok = 0;
-   $sth = $this->{DBH}->prepare(qq/select id, name, sortname, modpending from 
-                                   Artist where id=$artistid/);
-   $sth->execute;
-   if ($sth->rows)
+   $sql = Sql->new($this->{DBH});
+   @row = $sql->GetSingleRow("Artist", [qw(id name GID modpending sortname)],
+                             ["id", $this->GetId()]);
+   if (defined $row[0])
    {
-        $this->{data} = $sth->fetchrow_arrayref;
-        $ok = 1;
+        $this->{id} = $row[0];
+        $this->{name} = $row[1];
+        $this->{mbid} = $row[2];
+        $this->{modpending} = $row[3];
+        $this->{sortname} = $row[4];
+        return 1;
    }
-   $sth->finish;
-
-   return $ok;
+   return undef;
 }
 
-sub LoadFromAlbumId
-{
-   my ($this, $albumid) = @_;
-   my ($sth, $ok, @row);
-
-   $ok = 0;
-   $sth = $this->{DBH}->prepare(qq/select Artist.id, Artist.name, 
-             Artist.sortname, Artist.modpending from Album, Artist where 
-             Album.id=$albumid and Album.artist = Artist.id/);
-   $sth->execute;
-   if ($sth->rows)
-   {
-       $this->{data} = $sth->fetchrow_arrayref;
-       $ok = 1
-   }
-   else
-   {
-       $sth->finish;
-       $sth = $this->{DBH}->prepare(qq/select artist from Album where id =
-                 $albumid/);
-       $sth->execute;
-       if ($sth->rows)
-       {
-           @row = $sth->fetchrow_array;
-           if ($row[0] == Artist::VARTIST_ID)
-           {
-               $this->{data} = [Artist::VARTIST_ID, 'Various Artists', 
-                                'Various Artists', 0];
-               $ok = 1
-           }
-       }
-   }
-   $sth->finish;
-
-   return $ok;
-} 
-
+# Search for an artist by name. The name my be a substring match.
+# returns an array of references to an array of artist id, name, sortname,
+# The array is empty if there are no matches.
 sub SearchByName
 {
    my ($this, $search) = @_;
-   my (@info, $sth, $sql);
+   my (@info, $query, $sql, $i, @row);
 
-   $sql = $this->AppendWhereClause($search, qq/select id, name, sortname 
-               from Artist where /, "name") . " order by sortname";
-
-   $sth = $this->{DBH}->prepare($sql);
-   $sth->execute();
-   if ($sth->rows > 0) 
+   $sql = Sql->new($this->{DBH});
+   $query = $this->AppendWhereClause($search, qq/select id, name, sortname 
+                    from Artist where /, "name") . " order by sortname";
+   if ($sql->Select($query))
    {
-       my @row;
-       my $i;
-
-       for(;@row = $sth->fetchrow_array;)
+       for(;@row = $sql->NextRow;)
        {  
            push @info, [$row[0], $row[1], $row[2]];
        }
    }
-   $sth->finish;
+   $sql->Finish;
 
    return @info;
 };
 
+# Pull back a section of artist names for the browse artist display.
+# Given an index character ($ind), a page offset ($offset) and a page length
+# ($max_items) it will return an array of references to an array
+# of artistid, sortname, modpending. The array is empty on error.
 sub GetArtistDisplayList
 {
    my ($this, $ind, $offset, $max_items) = @_;
-   my ($sth, $num_artists, @info); 
+   my ($query, $num_artists, @info, @row, $sql); 
 
-   $sth = $this->{DBH}->prepare(qq/select count(*) from Artist where 
-                       left(sortname, 1) = '$ind'/);
-   $sth->execute();
-   $num_artists = ($sth->fetchrow_array)[0];
-   $sth->finish;   
-
-   $sth = $this->{DBH}->prepare(qq/select id, sortname, modpending from Artist 
-                      where left(sortname, 1) = '$ind' order by sortname limit 
-                      $offset, $max_items/);
-   $sth->execute();  
-   if ($sth->rows > 0)
+   $sql = Sql->new($this->{DBH});
+   ($num_artists) =  $sql->GetSingleRow("Artist", ["count(*)"], 
+                                        ["left(sortname, 1)", 
+                                         $sql->Quote($ind)]);
+   return undef if (!defined $num_artists);
+      
+   $query = qq/select id, sortname, modpending from 
+               Artist where left(sortname, 1) = '$ind' order by sortname 
+               limit $offset, $max_items/;
+   if ($sql->Select($query))
    {
-       my @row;
-       my $i;
-
-       for(;@row = $sth->fetchrow_array;)
+       for(;@row = $sql->NextRow;)
        {
            push @info, [$row[0], $row[1], $row[2]];
        }
+       $sql->Finish;   
    }
-   $sth->finish;   
 
    return ($num_artists, @info);
 }
 
-sub Insert
-{
-    my ($this, $name, $sortname) = @_;
-    my ($artist, $id);
-
-    $sortname = $name if (!defined $sortname);
-    $artist = GetIdFromName($this, $name);
-    if ($artist < 0)
-    {
-         $id = $this->{DBH}->quote(($this->CreateNewGlobalId()));
-         $name = $this->{DBH}->quote($name);
-         $sortname = $this->{DBH}->quote($sortname);
-         $this->{DBH}->do(qq/insert into Artist (name, sortname, gid, 
-                          modpending) values ($name, $sortname, $id, 0)/);
-
-         $artist = $this->GetLastInsertId;
-    } 
-    return $artist;
-}
-
-sub GetAlbumList
+# retreive the set of albums by this artist. Returns an array of 
+# references to Album objects. Refer to the Album object for details.
+# The returned array is empty on error. Multiple artist albums are
+# also returned by this query
+sub GetAlbums
 {
    my ($this, $id) = @_;
-   my ($sth, @idsalbums);
+   my (@albums, $sql, @row, $album);
 
-   $sth = $this->{DBH}->prepare(qq/select id, name, modpending from 
-                                Album where artist=$id/);
-   $sth->execute;
-   if ($sth->rows)
+   # First, pull in the single artist albums
+   $sql = Sql->new($this->{DBH});
+   if ($sql->Select(qq/select id, name, modpending from 
+                       Album where artist=$id/))
    {
-        my @row;
-
-        while(@row = $sth->fetchrow_array)
+        while(@row = $sql->NextRow)
         {
-            push @idsalbums, $row[0];
-            push @idsalbums, $row[1];
-            push @idsalbums, $row[2];
+            $album = Album->new($this->{DBH});
+            $album->SetId($row[0]);
+            $album->SetName($row[1]);
+            $album->SetModPending($row[2]);
+            $album->SetArtist($id);
+            push @albums, $album;
+            undef $album;
         }
+        $sql->Finish;
    }
-   $sth->finish;
 
-   return @idsalbums;
-} 
-
-sub GetMultipleArtistAlbumList
-{
-   my ($this, $id) = @_;
-   my ($sth, @idsalbums);
-
-   $sth = $this->{DBH}->prepare(qq/select distinct AlbumJoin.album, Album.name, 
+   # then, pull in the multiple artist albums
+   if ($sql->Select(qq/select distinct AlbumJoin.album, Album.name, 
        Album.modpending from Track, Album, AlbumJoin where Track.Artist = 
        $id and AlbumJoin.track = Track.id and AlbumJoin.album = Album.id 
-       and Album.artist = / . Artist::VARTIST_ID ." order by Album.name");
-   $sth->execute;
-   if ($sth->rows)
+       and Album.artist = / . Artist::VARTIST_ID ." order by Album.name"))
    {
-        my @row;
-
-        while(@row = $sth->fetchrow_array)
+        while(@row = $sql->NextRow)
         {
-            push @idsalbums, $row[0];
-            push @idsalbums, $row[1];
-            push @idsalbums, $row[2];
+            $album = Album->new($this->{DBH});
+            $album->SetId($row[0]);
+            $album->SetName($row[1]);
+            $album->SetModPending($row[2]);
+            $album->SetArtist(Artist::VARTIST_ID);
+            push @albums, $album;
+            undef $album;
         }
+        $sql->Finish;
    }
-   $sth->finish;
 
-   return @idsalbums;
+   return @albums;
+} 
+
+# Retreive the set of albums by this artist given a name. Returns an array of 
+# references to Album objects. Refer to the Album object for details.
+sub GetAlbumsByName
+{
+   my ($this, $name) = @_;
+   my (@albums, $sql, @row, $album);
+
+   return undef if (!exists $this->{id});
+   # First, pull in the single artist albums
+   $sql = Sql->new($this->{DBH});
+   $name = $sql->Quote($name);
+   if ($sql->Select(qq/select id, name, modpending from Album where 
+                       name=$name and artist = $this->{id}/))
+   {
+        while(@row = $sql->NextRow)
+        {
+            $album = Album->new($this->{DBH});
+            $album->SetId($row[0]);
+            $album->SetName($row[1]);
+            $album->SetModPending($row[2]);
+            $album->SetArtist($this->{artist});
+            push @albums, $album;
+            undef $album;
+        }
+        $sql->Finish;
+   }
+
+   return @albums;
 } 
 
 sub FindArtist
 {
    my ($this, $search) = @_;
-   my (@names, $sth, $sql);
+   my (@names, $query, $sql);
 
-   $sql = $this->AppendWhereClause($search, qq/select name, sortname 
+   $sql = Sql->new($this->{DBH});
+   $query = $this->AppendWhereClause($search, qq/select name, sortname
                from Artist where /, "name") . " order by sortname";
 
-   $sth = $this->{DBH}->prepare($sql);
-   $sth->execute();
-   if ($sth->rows > 0) 
+   if ($sql->Select($query))
    {
        my @row;
        my $i;
 
-       for(;@row = $sth->fetchrow_array;)
-       {  
+       for(;@row = $sql->NextRow();)
+       {
            push @names, $row[0];
            push @names, $row[1];
        }
+       $sql->Finish;
    }
-   $sth->finish;
 
    return @names;
 };
 
-1;

@@ -23,6 +23,8 @@ $argname = "new0";
 $dest_argname = "extra0-0";
 mc_comp("/comp/sidebar", title=>'Select Artist for Album Move') 
     if ($mode eq 'move');
+mc_comp("/comp/sidebar", title=>'Select Artist for Change to Single Artist')
+    if ($mode eq 'tosac');
 mc_comp("/comp/sidebar", title=>'Select Artist for Album Merge') 
     if ($mode eq 'merge');
 mc_comp("/comp/sidebar", title=>'Select Artist for Track Change') 
@@ -38,7 +40,7 @@ $arg = $ARGS{$argname};
 $mb = new MusicBrainz;
 $mb->Login();
 
-$ar = Artist->new($mb);
+$ar = Artist->new($mb->{DBH});
 @names = $ar->FindArtist($arg);
 
 $found = 0;
@@ -60,6 +62,9 @@ artist name that you just entered.
 % if ($mode eq 'move') {
 Please choose one of the artists below, and click Finish>> to
 move album <span class="bold"><% $ARGS{album} %></span> to the selected artist:
+% } elsif ($mode eq 'tosac') {
+Please choose one of the artists below, and click Finish>> to
+change the multiple artist album <span class="bold"><% $ARGS{album} %></span> to the selected single artist:
 % } elsif ($mode eq 'merge') {
 Please choose one of the artists below, and click Finish>> to
 merge artist <span class="bold"><% $ARGS{prev0} %></span> with the selected artist:

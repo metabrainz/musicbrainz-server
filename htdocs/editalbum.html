@@ -17,11 +17,12 @@ $mb->Login();
 $id = $ARGS{id};
 $artist = $ARGS{artist};
 
-$al = Album->new($mb);
-$al->LoadFromId($id);
+$al = Album->new($mb->{DBH});
+$al->SetId($id);
+$al->LoadFromId();
 
-$albumname = $al->Value(1);
-$modpending = $al->Value(2);
+$albumname = $al->GetName();
+$modpending = $al->GetModPending();
 
 </%perl>
 

@@ -2,7 +2,7 @@
 
 <%perl>
 
-my ($mb, $id, $trackname, $referer, $tr);
+my ($mb, $id, $trackname, $referer, $tr, $al);
 my ($seq_id, $tracknum, $album, $artist); 
 
 if (!exists $ARGS{album} || $ARGS{album} eq '' ||
@@ -16,15 +16,18 @@ if (!exists $ARGS{album} || $ARGS{album} eq '' ||
 $referer = $r->headers_in->{'Referer'};
 $mb = new MusicBrainz;
 $mb->Login();
-$tr = Track->new($mb);
+$tr = Track->new($mb->{DBH});
 
 $id = $ARGS{id};
 $album = $ARGS{album};
 $artist = $ARGS{artist};
-$tr->LoadFromId($id, $album);
-$trackname = $tr->Value(1);
-$tracknum = $tr->Value(3);
-$seq_id = $tr->Value(10);
+
+$tr->SetId($id);
+$tr->SetAlbum($album);
+$tr->LoadFromId();
+$trackname = $tr->GetName();
+$tracknum = $tr->GetSequence();
+$seq_id = $tr->GetSequenceId();
 
 </%perl>
 

@@ -2,8 +2,7 @@
 <%perl>
 
 my ($mb); 
-my (@info, $artistname, $albumname, $modpending);
-my ($trackinfo, $albumid, @idsalbums, $i, $j, $ar, $al); 
+my (@albums, $artist, $album); 
 
 if (!exists $ARGS{artistid} || $ARGS{artistid} eq '')
 {
@@ -13,10 +12,11 @@ if (!exists $ARGS{artistid} || $ARGS{artistid} eq '')
 
 $mb = new MusicBrainz;
 $mb->Login();
-$ar = Artist->new($mb);
-$al = Album->new($mb);
+$artist = Artist->new($mb->{DBH});
+$album = Album->new($mb->{DBH});
 
-if (! $ar->LoadFromId($ARGS{artistid}))
+$artist->SetId($ARGS{artistid});
+if (! $artist->LoadFromId())
 {
     mc_out("This artist (id=$ARGS{artistid}) was not found in the database.");
 }
@@ -26,45 +26,16 @@ elsif ($ARGS{artistid} == Artist::VARTIST_ID)
 }
 else
 {
-    $artistname = $ar->Value(1);
-    $modpending = $ar->Value(3);
-
-    @idsalbums = $ar->GetAlbumList($ARGS{artistid});
+    @albums = $artist->GetAlbums($ARGS{artistid});
     
-    mc_comp("/comp/artisttitle", 
-            artistname=>$artistname, 
-            artistid=>$ARGS{artistid},
-            modpending=>$modpending);
+    mc_comp("/comp/artisttitle", artist=>$artist);
     mc_comp("/comp/modnotice");
     
     for(;;)
     {
-        $albumid = shift @idsalbums;
-        last if (! defined $albumid);
-        $albumname = shift @idsalbums;
-        $modpending = shift @idsalbums;
-    
-        mc_comp("/comp/album", 
-                mb=>$mb,
-                albumid=>$albumid, 
-                artist=>$ARGS{artistid},
-                albumname=>$albumname,
-                modpending=>$modpending);
-    }
-    
-    @idsalbums = $ar->GetMultipleArtistAlbumList($ARGS{artistid});
-    for(;;)
-    {
-        $albumid = shift @idsalbums;
-        last if (! defined $albumid);
-        $albumname = shift @idsalbums;
-        $modpending = shift @idsalbums;
-    
-        mc_comp("/comp/malbum", 
-                mb=>$mb,
-                albumid=>$albumid, 
-                albumname=>$albumname,
-                modpending=>$modpending);
+        $album = shift @albums;
+        last if (!defined $album);
+        mc_comp("/comp/album", album=>$album, artist=>$artist);
     }
 }
 

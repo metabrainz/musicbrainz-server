@@ -5,11 +5,14 @@ $guid=>""
 
 <& /comp/sidebar, title=>'View Pending Metadata' &>
 
+<%perl>
+
 if (!exists $ARGS{guid} || $ARGS{guid} eq '')
 {
     mc_comp("/comp/badargs");
     return;
 }
+</%perl>
 
 <font size=+1><b>Guid: <% $ARGS{guid} %></b></font><p>
 

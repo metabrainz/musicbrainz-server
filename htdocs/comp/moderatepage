@@ -4,7 +4,7 @@ $type
 
 <%perl>
 
-my ($mb, @info, $row, $offset, $i, $comp, $mod);
+my ($mb, @info, $mod, $offset, $i, $comp, $obj);
 my ($option1, $option2, $num_mods);
 my $max_items = 10;
 
@@ -15,7 +15,7 @@ $offset = 0 if not defined $offset;
 $offset = 0 if $offset < 0;  
 
 $mb->Login();
-$mod = Moderation->new($mb);
+$mod = Moderation->new($mb->{DBH});
 
 if ($type == Moderation::TYPE_NEW)
 {
@@ -48,14 +48,17 @@ else
 
 <table width=100%>
 <tr>
-  <td width="33%" align="center" valign="top">
+  <td width="25%" align="center" valign="top">
 %    mc_out($option1);
   </td>
-  <td width="33%" align="center" valign="top">
+  <td width="25%" align="center" valign="top">
 %    mc_out($option2);
   </td>
-  <td width="33%" align="center" valign="top">
-     <a href="mod_intro.html">Moderation questions?</a>
+  <td width="25%" align="center" valign="top">
+     <a href="tag_mods.html">Tagged Mods</a>
+  </td>
+  <td width="25%" align="center" valign="top">
+     <a href="mod_intro.html">Questions?</a>
   </td>
 </tr>
 </table>
@@ -64,9 +67,9 @@ else
    <center>
    <br><br>
 %  if ($type == Moderation::TYPE_NEW) {
-   There are no new modifcations pending.
+   There are no new modifications pending.
 %  } elsif ($type == Moderation::TYPE_VOTED) {
-   There are old (voted on) modifcations.
+   There are old (voted on) modifications.
 %  } else {
    You do not have any modifications.
 %  }
@@ -93,27 +96,10 @@ else
 <%perl>
 for($i = 0; $i < $max_items; $i++) 
 {
-   $row = $info[$i];
-   last if (!defined $row);
+   $obj = $info[$i];
+   last if (!defined $obj);
 
-   mc_comp("/comp/showmod",
-           mb=>$mb,
-           id=>($$row[0]),
-           table=>($$row[1]),
-           column=>($$row[2]),
-           rowid=>($$row[3]),
-           artist=>($$row[4]),
-           type=>($$row[5]),
-           prev=>($$row[6]),
-           new=>($$row[7]),
-           time=>($$row[8]),
-           moderator=>($$row[9]),
-           yesvotes=>($$row[10]),
-           novotes=>($$row[11]),
-           artistname=>($$row[12]),
-           status=>($$row[13]),
-           voted=>($$row[14]),
-           mode=>$type);
+   mc_comp("/comp/showmod", mod=>$obj, mode=>$type);
 }
 $mb->Logout();
 </%perl>

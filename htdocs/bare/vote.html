@@ -15,7 +15,7 @@ foreach $key (keys %ARGS)
 
 $mb = new MusicBrainz;
 $mb->Login();
-$mod = Moderation->new($mb);
+$mod = Moderation->new($mb->{DBH});
 $mod->InsertVotes($session{uid}, \@yeslist, \@nolist, \@abslist);
 $mb->Logout();
 

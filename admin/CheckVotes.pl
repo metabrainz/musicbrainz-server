@@ -31,6 +31,6 @@ my $mb = MusicBrainz->new();
 my $mod;
 
 $mb->Login();
-$mod = Moderation->new($mb);
+$mod = Moderation->new($mb->{DBH});
 $mod->CheckModificationsForExpiredItems();
 $mb->Logout();

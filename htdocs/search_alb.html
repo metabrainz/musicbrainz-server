@@ -14,7 +14,7 @@ if (!exists $ARGS{album} || $ARGS{album} eq '')
 $mb = new MusicBrainz;
 $mb->Login();
 
-$al = Album->new($mb);
+$al = Album->new($mb->{DBH});
 @data = $al->SearchByName($ARGS{album});
 if (scalar(@data) > 0)
 {

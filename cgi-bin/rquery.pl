@@ -3,12 +3,12 @@
 use strict;
 use XML::XQL::DOM;
 use QuerySupport;
-use XMLParse;
 use DBI;
 use DBDefs;
+use RDFOutput;
 use Apache;
 
-my ($i, $line, $xml, $supp_xml, $r);
+my ($i, $line, $xml, $supp_xml, $r, $rdf);
 my ($parser, $doc, $queryname, $querydata, $data);
 my ($function, $xqlquery, @queryargs, $cd, $version);
 my $use_old_style = 0;
@@ -119,9 +119,11 @@ else
    }
  #print "manual code\n";
 }
+
+$rdf = RDFOutput->new(0);
 if (!defined $xml)
 {
-    print QuerySupport::EmitErrorRDF("An RDF object must be supplied.", 1);
+    print $rdf->EmitErrorRDF("An RDF object must be supplied.", 1);
     exit(0);
 }
 #print "creating parser for\n" . $xml . "_end_\n";
@@ -133,8 +135,8 @@ eval
 if ($@)
 {
     $@ =~ tr/\n\r/  /;
-    print QuerySupport::EmitErrorRDF("Cannot parse query: $@", 1);
-    #print STDERR QuerySupport::EmitErrorRDF("Cannot parse query: $@");
+    print $rdf->EmitErrorRDF("Cannot parse query: $@", 1);
+    #print STDERR $rdf->EmitErrorRDF("Cannot parse query: $@");
     #print STDERR "$xml\n";
     exit(0);
 }
@@ -149,12 +151,12 @@ if (!defined $version || $version eq '')
 $queryname = QuerySupport::SolveXQL($doc, "/rdf:RDF/rdf:Description/MQ:Query");
 if (!defined $queryname)
 {
-    print QuerySupport::EmitErrorRDF("Cannot determine query name.", 1);
+    print $rdf->EmitErrorRDF("Cannot determine query name.", 1);
     exit(0);
 }
 if (!exists $Queries{$queryname})
 {
-    print QuerySupport::EmitErrorRDF("Cannot find query $queryname.", 1);
+    print $rdf->EmitErrorRDF("Cannot find query $queryname.", 1);
     exit(0);
 }
 $querydata = $Queries{$queryname};
@@ -181,16 +183,17 @@ for(;;)
 $cd = new MusicBrainz(1);
 if (!$cd->Login(1))
 {
-    print QuerySupport::EmitErrorRDF("Database Error: ".$DBI::errstr.")", 1);
+    print $rdf->EmitErrorRDF("Database Error: ".$DBI::errstr.")", 1);
     exit(0);
 }
 
-$xml = $function->($cd, $doc, @queryargs);
+$rdf->SetDBH($cd->{DBH});
+$xml = $function->($cd->{DBH}, $doc, $rdf, @queryargs);
 $cd->Logout;
 
 if (!defined $xml)
 {
-    print QuerySupport::EmitErrorRDF("Query failed.", 1);
+    print $rdf->EmitErrorRDF("Query failed.", 1);
     exit(0);
 }
 

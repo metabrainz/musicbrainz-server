@@ -41,9 +41,9 @@ use constant  CD_SECS       =>  60;
 
 sub new
 {
-   my ($type, $mb) = @_;
+   my ($type, $dbh) = @_;
 
-   my $this = TableBase->new($mb);
+   my $this = TableBase->new($dbh);
    return bless $this, $type;
 }
 
@@ -79,28 +79,34 @@ sub EnterRecord
         $artistname = "Unknown";
     }
 
-    $a = Artist->new($this->{MB});
-    $artist = $a->Insert($artistname);
-    if ($artist < 0)
+    $a = Artist->new($this->{DBH});
+    $artist = $a->SetName($artistname);
+    $artist = $a->Insert();
+    if (not defined $artist)
     {
         return 0;
     }
 
-    $al = Album->new($this->{MB});
-    @ids = $al->FindFromNameAndArtistId($title, $artist);
+    @ids = $a->GetAlbumsByName($title);
     for(;defined($album = shift @ids);)
     {
-        $num = $al->GetTrackCountFromAlbum($album);
-        if ($num < 0)
+        $al->SetId($album);
+        $num = $al->GetTrackCount();
+        if (!defined $num || $num < 0)
         {
             undef $album;
             last;
         }
         last if ($num == $tracks);
     }
+
+    $al = Album->new($this->{DBH});
+    $al->SetArtist($artist);
     if (!defined $album)
     {
-        $album = $al->Insert($title, $artist, $tracks);
+        $al->SetName($title);
+        $al->SetArtist($artist);
+        $album = $al->Insert();
         if ($album < 0)
         {
             return 0;
@@ -111,10 +117,15 @@ sub EnterRecord
         $title = shift @_;
         $title = "Unknown" if $title eq '';
 
-        $t = Track->new($this->{MB});
-        $t->Insert($title, $artist, $album, $i + 1);
+        $t = Track->new($this->{DBH});
+        $t->SetName($title);
+        $t->SetSequence($i + 1);
+        if (!defined $t->Insert($al, $a))
+        {
+            print STDERR "Inserting track $title ($artist, $album) failed.\n";
+        }
     }
-    $d = Diskid->new($this->{MB});
+    $d = Diskid->new($this->{DBH});
     $d->Insert($diskid, $album, $toc);
 
     return $album;

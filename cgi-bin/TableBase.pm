@@ -31,145 +31,72 @@ use vars qw(@ISA @EXPORT);
 use strict;
 use DBI;
 use DBDefs;
+use Sql;
+use Artist;
 
 sub new
 {
-    my ($type, $mb) = @_;
+    my ($type, $dbh) = @_;
     my $this = {};
 
     # Use the db handle from the musicbrainz object
-    $this->{DBH} = $mb->{DBH};
-
-    # Save the MB object as well
-    $this->{MB} = $mb;
-
-    # This will contain the data for a table row
-    $this->{data} = {};
-
-    # This will contain the last error code
-    $this->{err} = "";
-
-    # The deriving classes should set the table name into this value
-    $this->{table} = "";
-
-    # The deriving classes should set the value of this to the 
-    # columns that they want to retrieve from the table
-    $this->{cols} = "";
-
+    $this->{DBH} = $dbh;
     $this->{type} = $type;
 
     bless $this;
     return $this;
 }  
 
-sub GetLastInsertId
+sub GetDBH
 {
-   my $this = $_[0];
-   my (@row, $sth);
-
-   $sth = $this->{DBH}->prepare("select LAST_INSERT_ID()");
-   $sth->execute;
-   if ($sth->rows)
-   {
-       @row = $sth->fetchrow_array;
-       $sth->finish;
-
-       return $row[0];
-   }
-   $sth->finish;
-
-   return -1;
-}    
-
-sub LoadFromId
-{
-   my ($this, $id) = @_;
-   my ($sth, $rv);
-
-   $sth = $this->{DBH}->prepare("select " . $this->{col} . " from " .
-                                $this->{table} . " where id=$id");
-   $sth->execute;
-   if ($sth->rows)
-   {
-        $this->{data} = $sth->fetchrow_arrayref;
-        $rv = 1;
-   }
-   else
-   {
-       $rv = 0;
-   }
-   $sth->finish;
-
-   return $rv;
+    return $_[0]->{DBH}; 
 }
 
-sub LoadFromGID
+sub SetDBH
 {
-   my ($this, $gid) = @_;
-   my ($sth, $rv);
-
-   $gid = $this->{DBH}->quote($gid);
-   $sth = $this->{DBH}->prepare("select " . $this->{col} . " from " .
-                                $this->{table} . " where gid=$gid");
-   $sth->execute;
-   if ($sth->rows)
-   {
-        $this->{data} = $sth->fetchrow_arrayref;
-        $rv = 1;
-   }
-   else
-   {
-       $rv = 0;
-   }
-   $sth->finish;
-
-   return $rv;
+    $_[0]->{DBH} = $_[1]; 
 }
 
-sub LoadFromGUID
+sub GetId
 {
-   my ($this, $guid) = @_;
-   my ($sth, $rv);
-
-   $guid = $this->{DBH}->quote($guid);
-   $sth = $this->{DBH}->prepare("select " . $this->{col} . " from " .
-                                $this->{table} . " where guid=$guid");
-   $sth->execute;
-   if ($sth->rows)
-   {
-        $this->{data} = $sth->fetchrow_arrayref;
-        $rv = 1;
-   }
-   else
-   {
-       $rv = 0;
-   }
-   $sth->finish;
-
-   return $rv;
+   return $_[0]->{id};
 }
 
-sub FindTextInColumn
+sub SetId
 {
-    my ($this, $table, $column, $search) = @_;
-    my ($sql, $sth, @idslabels, @row, $i);
+   $_[0]->{id} = $_[1];
+}
 
-    $sql = AppendWhereClause($this, $search, "select id, $column from $table ".
-                             "where ", $column) . " order by $column";
+sub GetName
+{
+   return $_[0]->{name};
+}
 
-    $sth = $this->{DBH}->prepare($sql);
-    $sth->execute();
-    if ($sth->rows > 0)
-    {
-        for($i = 0; @row = $sth->fetchrow_array; $i++)
-        {
-            push @idslabels, $row[0];
-            push @idslabels, $row[1];
-        }
-    }
+sub SetName
+{
+   $_[0]->{name} = $_[1];
+}
 
-    return @idslabels;
-} 
+sub GetMBId
+{
+   return $_[0]->{mbid};
+}
+
+sub SetMBId
+{
+   $_[0]->{mbid} = $_[1];
+}
+
+sub GetModPending
+{
+   return $_[0]->{modpending};
+}
+
+sub SetModPending
+{
+   $_[0]->{modpending} = $_[1];
+}
+
 
 sub AppendWhereClause
 {
@@ -208,31 +135,23 @@ sub AppendWhereClause
 sub CreateNewGlobalId
 {
     my ($this) = @_;
-    my ($sth, $id, @row);
+    my ($sql, $id, @row);
 
-    $this->{DBH}->do("lock tables GlobalId write");
+    $sql = Sql->new($this->{DBH});
+    $sql->Do("lock tables GlobalId write");
 
-    $sth = $this->{DBH}->prepare("select MaxIndex, Host from GlobalId");
-    $sth->execute();
-    if ($sth->rows > 0)
+    if ($sql->Select("select MaxIndex, Host from GlobalId"))
     {
-        @row = $sth->fetchrow_array;
+        @row = $sql->NextRow();
+        $sql->Finish;
         $id = sprintf('%08X@%s@%08X', $row[0], $row[1], time);
         $row[0]++;
-        $this->{DBH}->do("update GlobalId set MaxIndex = $row[0]");
+        $sql->Do("update GlobalId set MaxIndex = $row[0]");
     }
-    $sth->finish;
-    $this->{DBH}->do("unlock tables");
+    $sql->Do("unlock tables");
 
     return $id;
 }  
-
-sub Value
-{
-    my ($this, $field) = @_;
-
-    return $this->{data}[$field];
-}
 
 sub Escape 
 {
@@ -242,4 +161,3 @@ sub Escape
   return $_[0];
 }
 
-1;

@@ -36,33 +36,32 @@ use MusicBrainz;
 
 sub new
 {
-   my ($type, $mb) = @_;
+   my ($type, $dbh) = @_;
 
-   my $this = TableBase->new($mb);
+   my $this = TableBase->new($dbh);
    return bless $this, $type;
 }
 
 sub Login
 {
    my ($this, $user, $pwd) = @_;
-   my ($ok, $sth, $dbuser);
+   my ($ok, $sth, $dbuser, $sql);
    my @row;
 
    $ok = 0;
 
-   $dbuser = $this->{DBH}->quote($user);
-   $sth = $this->{DBH}->prepare(qq/select name,password,privs,id 
-                                   from ModeratorInfo where name = $dbuser/);
-   if ($sth->execute && $sth->rows)
+   $sql = Sql->new($this->{DBH});
+   $dbuser = $sql->Quote($user);
+   if ($sql->Select(qq/select name,password,privs,id 
+                   from ModeratorInfo where name = $dbuser/))
    {
-   
-       @row = $sth->fetchrow_array;
+       @row = $sql->NextRow();
        if ($pwd eq $row[1])
        {
           $ok = 1;
        }
+       $sql->Finish;   
    }
-   $sth->finish;   
 
    return ($ok, $user, $row[2], $row[3]);
 }
@@ -70,8 +69,9 @@ sub Login
 sub CreateLogin
 {
    my ($this, $user, $pwd, $pwd2) = @_;
-   my ($sth, $uid, $dbuser);
+   my ($sql, $uid, $dbuser);
 
+   $sql = Sql->new($this->{DBH});
    if ($pwd ne $pwd2)
    {
        return "The given passwords do not match. Please try again.";
@@ -85,25 +85,20 @@ sub CreateLogin
        return "You cannot leave the user name blank. Please try again."
    }
 
-   $dbuser = $this->{DBH}->quote($user);
-   $pwd = $this->{DBH}->quote($pwd);
-   $sth = $this->{DBH}->prepare(qq/
-                         select id from ModeratorInfo where name = $dbuser
-                         /);
-   if ($sth->execute && $sth->rows)
+   $dbuser = $sql->Quote($user);
+   $pwd = $sql->Quote($pwd);
+   if ($sql->Select("select id from ModeratorInfo where name = $dbuser"))
    {
-       $sth->finish;
+       $sql->Finish;
        return "That login already exists. Please choose another login name."
    }
-   $sth->finish;
 
-   $this->{DBH}->do(qq/
+   $sql->Do(qq/
             insert into ModeratorInfo (Name, Password, Privs, ModsAccepted, 
             ModsRejected) values ($dbuser, $pwd, 0, 0, 0)
             /);
 
-   $uid = $this->GetLastInsertId();
-   $sth->finish;
+   $uid = $sql->GetLastInsertId();
 
    return ("", $user, 0, $uid);
 } 
