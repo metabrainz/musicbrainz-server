@@ -99,7 +99,8 @@ use constant MOD_EDIT_ALBUMATTRS         => 26;
 use constant MOD_ADD_TRMS                => 27;
 use constant MOD_EDIT_ARTISTALIAS        => 28;
 use constant MOD_EDIT_RELEASES           => 29;
-use constant MOD_LAST                    => 29;
+use constant MOD_ADD_DISCID              => 32;
+use constant MOD_LAST                    => 32;
 
 
 # The constants below define the state a moderation can have:

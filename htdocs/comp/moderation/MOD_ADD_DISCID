@@ -1,0 +1,18 @@
+%# vi: set ts=4 sw=4 ft=mason :
+
+<%method ShowPreviousValue>
+% my $this = shift;
+</%method>
+
+<%method ShowNewValue>
+% my $this = shift;
+% my $new = $this->{'new_unpacked'};
+
+	Album:
+	<a href="/showalbum.html?albumid=<% $new->{"AlbumId"} %>"
+		><% $new->{"AlbumName"} %></a>
+	<br>TOC: <a href="/showcdtoc.html?id=<% $new->{'CDTOCId'} %>"><% $new->{'FullTOC'} %></a>
+
+</%method>
+
+%# eof

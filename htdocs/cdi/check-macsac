@@ -59,9 +59,9 @@ if ($ARGS{artist} == &ModDefs::VARTIST_ID)
 		</p>
 	</form>
 
+	<& /comp/footer &>
 	<%perl>
 
-	# no footer - autohandler adds it
 	return 0;
 }
 
@@ -106,5 +106,5 @@ my @names = map { $ARGS{"track$_"} } 0 .. $NumTracks-1;
 	</p>
 </form>
 
-%# no footer - autohandler adds it
+<& /comp/footer &>
 % return 0;

@@ -33,6 +33,8 @@ use ModDefs qw( FREEDB_MODERATOR );
 use Encode qw( decode from_to );
 
 use constant AUTO_INSERT_MIN_TRACKS => 5;
+use constant AUTO_ADD_DISCID => 1;
+use constant AUTO_ADD_ALBUM => 0;
 use constant FREEDB_SERVER => "www.freedb.org";
 use constant FREEDB_PORT => 888;
 use constant FREEDB_PROTOCOL => 6; # speaks UTF-8
@@ -436,29 +438,41 @@ sub InsertForModeration
             {
                 if ($al->GetTrackCount() == scalar(@$ref))
                 {
-                    my ($di, $sql);
+		    return unless AUTO_ADD_DISCID;
 
 		    require Sql;
-                    $sql = Sql->new($this->{DBH});
-		    require MusicBrainz::Server::AlbumCDTOC;
-		    my $alcdtoc = MusicBrainz::Server::AlbumCDTOC->new($this->{DBH});
+                    my $sql = Sql->new($this->{DBH});
 
-                    eval
-                    {
+		    my $ret = eval {
                         $sql->Begin();
-			$alcdtoc->Insert($al->GetId, $info->{toc});
-                        $sql->Commit();
-                    };
+			require Moderation;
+			my @mods = Moderation->InsertModeration(
+			    DBH	=> $this->{DBH},
+			    uid	=> FREEDB_MODERATOR,
+			    privs => 0,
+			    type => &ModDefs::MOD_ADD_DISCID,
+			    # --
+			    album => $al,
+			    toc => $info->{toc},
+			);
+			$sql->Commit;
+			\@mods;
+		    };
+
                     if ($@)
                     {
                         # if it didn't insert properly... oh well.
+			my $err = $@;
                         $sql->Rollback();
+			warn "FreeDB MOD_ADD_DISCID failed: $err\n";
                     }
                     return;
                 }
             }
         }
     }
+
+    return unless AUTO_ADD_ALBUM;
 
     $new = "Artist=$info->{artist}\n";
     $new .= "Sortname=$info->{sortname}\n";

@@ -38,6 +38,7 @@ use utf8;
 require MusicBrainz::Server::Moderation::MOD_ADD_ALBUM;
 require MusicBrainz::Server::Moderation::MOD_ADD_ARTIST;
 require MusicBrainz::Server::Moderation::MOD_ADD_ARTISTALIAS;
+require MusicBrainz::Server::Moderation::MOD_ADD_DISCID;
 require MusicBrainz::Server::Moderation::MOD_ADD_TRACK;
 require MusicBrainz::Server::Moderation::MOD_ADD_TRACK_KV;
 require MusicBrainz::Server::Moderation::MOD_ADD_TRMS;
@@ -1058,7 +1059,7 @@ sub CheckPrerequisites { undef }
 # which case the transaction will probably be committed).
 # Arguments: none
 # Called in scalar context; returns &ModDefs::STATUS_*
-sub ApprovedAction { () }
+# sub ApprovedAction { () }
 
 # The moderation is to be undone (voted down, failed a test, or was deleted)
 # Arguments: none

@@ -28,6 +28,12 @@ if (&DBDefs::DB_IS_REPLICATED)
 	<p style="margin: 1em 0">
 		<em>Please note that both the user name
 		and password are case sensitive.</em>
+% if (&DBDefs::DB_STAGING_SERVER) {
+		<br><br>
+		<em>If you have trouble logging in, please note that since this
+		is a <% &DBDefs::DB_STAGING_SERVER %> server, the passwords
+		may have been reset to "mb".</em>
+% }
 	</p>
 
 	<p style="margin: 0.5em; text-align: center">

@@ -15,6 +15,7 @@ if (!defined $search || $search eq '')
 {
     $m->out("Please enter the CD name. Click on the " .
            "Back button in your browser and try again.");
+	$m->comp("/comp/footer");
     return undef;
 }
 
@@ -22,7 +23,7 @@ if (!exists $ARGS{toc} || $ARGS{toc} eq '' ||
     !exists $ARGS{id} || $ARGS{id} eq '' ||
     !exists $ARGS{tracks} || $ARGS{tracks} eq '')
 {
-    $m->comp("/comp/badargs");
+    $m->comp("/comp/badargs", 1, 1);
     return undef;
 }
 
@@ -172,4 +173,4 @@ if ($eng->Rows > 0)
     <input type="hidden" name="toc" value="<% $toc %>">
 </form>
 
-% $mb->Logout;
+<& /comp/footer &>

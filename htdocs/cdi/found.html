@@ -5,57 +5,65 @@ $toc
 $album
 $tracks
 </%args>
-
 <%perl>
 
-$m->comp("/comp/sidebar", title=>'Found CD');
-
 my $mb = $m->comp("/comp/dblogin");
-my $sql = Sql->new($mb->{DBH});
-require MusicBrainz::Server::AlbumCDTOC;
-my $alcdtoc = MusicBrainz::Server::AlbumCDTOC->new($mb->{DBH});
 
-eval
-{
-   $sql->Begin();
-	 $alcdtoc->Insert($album, $toc);
-   $sql->Commit();
-};
-if ($@)
-{
-   $m->out("A database error occurred: $@");
-	 eval { $sql->Rollback() };
-   $mb->Logout;
-   return undef;
-}
+my $al = Album->new($mb->{DBH});
+$al->SetId($album);
+$al->LoadFromId
+	or return $m->comp(
+		"/comp/error",
+		"Album #$album not found in the database.",
+		1, 1,
+	);
+
+my $ar = Artist->new($mb->{DBH});
+$ar->SetId($al->GetArtist);
+$ar->LoadFromId
+	or return $m->comp(
+		"/comp/error",
+		"Artist #".$al->GetArtist." not found in the database.",
+		1, 1,
+	);
+
+my $ret = $m->comp(
+	"/comp/entermods",
+	DBH => $mb->{DBH},
+	sub => sub {
+		my @mods = Moderation->InsertModeration(
+			DBH	=> $mb->{DBH},
+			uid	=> $session{uid},
+			privs => $session{privs},
+			type => &ModDefs::MOD_ADD_DISCID,
+			# --
+			album => $al,
+			toc => $toc,
+		);
+	},
+);
+
+$m->comp("/comp/sidebar", title => 'CD TOC Added');
 
 </%perl>
  
 <p>
 	Thank you for your submission.&nbsp;
+% if (@$ret) {
 	A new association has been entered into the database.
+% }
 </p>
 <p>
 	You will now be able to request the information for this CD.
 </p>
 
-<%perl>
+<& /comp/artisttitle, artist => $ar, link => 1 &>
+<& /comp/album,
+	album => $al,
+	artist => $ar,
+	showids => 1,
+	showtag => 1,
+	showreleases => 1,
+	&>
 
-{
-	my $al = Album->new($mb->{DBH});
-	$al->SetId($album);
-	$al->LoadFromId
-		or last;
-
-	my $ar = Artist->new($mb->{DBH});
-	$ar->SetId($al->GetArtist);
-	$ar->LoadFromId
-		or last;
-
-	$m->comp("/comp/artisttitle", artist=>$ar, link=>1);
-	$m->comp("/comp/album", album=>$al, artist=>$ar);
-}
-
-$mb->Logout;
-
-</%perl>
+<& /comp/footer &>

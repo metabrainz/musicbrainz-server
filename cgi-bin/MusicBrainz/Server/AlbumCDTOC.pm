@@ -81,6 +81,20 @@ sub _GetAlbum
 # Retrieval
 ################################################################################
 
+sub newFromId
+{
+	my $self = shift;
+	$self = $self->new(shift) if not ref $self;
+	my $id = shift;
+
+	my $sql = Sql->new($self->{DBH});
+	my $row = $sql->SelectSingleRowHash(
+		"SELECT * FROM album_cdtoc WHERE id = ?", $id,
+	) or return undef;
+
+	$self->_new_from_row($row);
+}
+
 # Given a CDTOC (object or ID), get a list of AlbumCDTOCs
 
 sub newFromCDTOC
@@ -277,7 +291,7 @@ sub GenerateAlbumFromDiscid
 
 	if (defined($toc))
 	{
-		my %info = $self->ParseTOC($toc);
+		my %info = MusicBrainz::Server::CDTOC->ParseTOC($toc);
 		if (not %info)
 		{
 			printf STDERR "%s [%d] : GenerateAlbumFromDiscid error: invalid TOC\n",
@@ -369,11 +383,13 @@ sub Insert
 	$self = $self->new(shift) if not ref $self;
 	my $album = shift;
 	my $toc = shift;
+	my %opts = @_;
 	$album = $album->GetId if ref $album;
 	die "Expected a TOC string, not a '$toc'" if ref $toc;
 
 	require MusicBrainz::Server::CDTOC;
 	my $tocid = MusicBrainz::Server::CDTOC->GetOrInsertTOC($self->{DBH}, $toc);
+	if (my $t = $opts{'tocid'}) { $$t = $tocid }
 
 	my $sql = Sql->new($self->{DBH});
 	$sql->Do("LOCK TABLE album_cdtoc IN EXCLUSIVE MODE");
@@ -383,6 +399,7 @@ sub Insert
 		$album,
 		$tocid,
 	);
+	if (my $t = $opts{'added'}) { $$t = not $id }
 	return $id if $id;
 
 	return $sql->InsertRow(
@@ -445,6 +462,16 @@ sub MergeAlbums
 		"DELETE FROM album_cdtoc WHERE album = ?",
 		$oldalbum,
 	);
+}
+
+sub Remove
+{
+	my $self = shift;
+
+	my $sql = Sql->new($self->{DBH});
+    print STDERR "DELETE: Removed album_cdtoc where id was " . $self->GetId . "\n";
+	$sql->Do("DELETE FROM album_cdtoc WHERE id = ?", $self->GetId);
+	# TODO remove unused cdtoc?
 }
 
 sub RemoveAlbum

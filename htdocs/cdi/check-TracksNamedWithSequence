@@ -98,5 +98,5 @@ document.writeln('<\/form>');
 </form>
 
 <& /comp/movefocus, "AutoChange", 0 &>
-%# no footer - autohandler adds it
+<& /comp/footer &>
 % return 0;
