@@ -195,7 +195,15 @@ for (@tables)
 # Add the misc files
 
 system("date > $dir/timestamp");
-OutputLicense("$dir/COPYING");
+
+if (fCore)
+{
+    OutputPublicDomainDedication("$dir/COPYING");
+}
+else
+{
+    OutputLicense("$dir/COPYING");
+}
 
 # Tar it all up
 
@@ -239,37 +247,229 @@ sub OutputLicense
     my ($file) = @_;
 
     $text = <<END;
-OpenContent License (OPL)
-Version 1.0, July 14, 1998. 
+-----------------------------------------------------------------------------
 
-This document outlines the principles underlying the OpenContent (OC) movement and may be redistributed provided it remains unaltered. For legal purposes, this document is the license under which OpenContent is made available for use. 
+    This work is licensed under the Creative Commons Attribution-NonCommercial-
+ShareAlike License.
 
-The original version of this document may be found at http://opencontent.org/opl.shtml 
+                 Attribution-NonCommercial-ShareAlike 1.0
 
-LICENSE 
+Key License Terms:
 
-Terms and Conditions for Copying, Distributing, and Modifying 
+Attribution:   The licensor permits others to copy, distribute, display, and 
+               perform the work. In return, licensees must give the original 
+               author credit.
+Noncommercial: The licensor permits others to copy, distribute, display, and 
+               perform the work. In return, licensees may not use the work 
+               for commercial purposes -- unless they get the licensor's 
+               permission.
+Share Alike:   The licensor permits others to distribute derivative works only 
+               under a license identical to the one that governs the licensor's 
+               work.
 
-Items other than copying, distributing, and modifying the Content with which this license was distributed (such as using, etc.) are outside the scope of this license. 
+Whoever has associated this Commons Deed with their copyrighted work licenses 
+his or her work to you on the terms of the Creative Commons License found below.
 
-  1. You may copy and distribute exact replicas of the OpenContent (OC) as you receive it, in any medium, provided that you conspicuously and appropriately publish on each copy an appropriate copyright notice and disclaimer of warranty; keep intact all the notices that refer to this License and to the absence of any warranty; and give any other recipients of the OC a copy of this License along with the OC. You may at your option charge a fee for the media and/or handling involved in creating a unique copy of the OC for use offline, you may at your option offer instructional support for the OC in exchange for a fee, or you may at your option offer warranty in exchange for a fee. You may not charge a fee for the OC itself. You may not charge a fee for the sole service of providing access to and/or use of the OC via a network (e.g. the Internet), whether it be via the world wide web, FTP, or any other method. 
+-----------------------------------------------------------------------------
+License
 
-  2. You may modify your copy or copies of the OpenContent or any portion of it, thus forming works based on the Content, and distribute such modifications or work under the terms of Section 1 above, provided that you also meet all of these conditions: 
+THE WORK (AS DEFINED BELOW) IS PROVIDED UNDER THE TERMS OF THIS CREATIVE 
+COMMONS PUBLIC LICENSE ("CCPL" OR "LICENSE"). THE WORK IS PROTECTED BY 
+COPYRIGHT AND/OR OTHER APPLICABLE LAW. ANY USE OF THE WORK OTHER THAN AS 
+AUTHORIZED UNDER THIS LICENSE IS PROHIBITED.
 
-  a) You must cause the modified content to carry prominent notices stating that you changed it, the exact nature and content of the changes, and the date of any change. 
+BY EXERCISING ANY RIGHTS TO THE WORK PROVIDED HERE, YOU ACCEPT AND AGREE TO 
+BE BOUND BY THE TERMS OF THIS LICENSE. THE LICENSOR GRANTS YOU THE RIGHTS 
+CONTAINED HERE IN CONSIDERATION OF YOUR ACCEPTANCE OF SUCH TERMS AND 
+CONDITIONS.
 
-  b) You must cause any work that you distribute or publish, that in whole or in part contains or is derived from the OC or any part thereof, to be licensed as a whole at no charge to all third parties under the terms of this License,
-  unless otherwise permitted under applicable Fair Use law. 
+1. Definitions
 
-  These requirements apply to the modified work as a whole. If identifiable sections of that work are not derived from the OC, and can be reasonably considered independent and separate works in themselves, then this License, and its terms, do not apply to those sections when you distribute them as separate works. But when you distribute the same sections as part of a whole which is a work based on the OC, the distribution of the whole must be on the terms of this License, whose permissions for other licensees extend to the entire whole, and thus to each and every part regardless of who wrote it. Exceptions are made to this requirement to release modified works free of charge under this license only in compliance with Fair Use law where applicable. 
+   1. "Collective Work" means a work, such as a periodical issue, anthology 
+      or encyclopedia, in which the Work in its entirety in unmodified form, 
+      along with a number of other contributions, constituting separate and 
+      independent works in themselves, are assembled into a collective whole. 
+      A work that constitutes a Collective Work will not be considered a 
+      Derivative Work (as defined below) for the purposes of this License.
+   2. "Derivative Work" means a work based upon the Work or upon the Work 
+      and other pre-existing works, such as a translation, musical arrangement,
+      dramatization, fictionalization, motion picture version, sound recording,
+      art reproduction, abridgment, condensation, or any other form in which 
+      the Work may be recast, transformed, or adapted, except that a work that 
+      constitutes a Collective Work will not be considered a Derivative Work 
+      for the purpose of this License.
+   3. "Licensor" means the individual or entity that offers the Work under the 
+      terms of this License.
+   4. "Original Author" means the individual or entity who created the Work.
+   5. "Work" means the copyrightable work of authorship offered under the 
+      terms of this License.
+   6. "You" means an individual or entity exercising rights under this License 
+      who has not previously violated the terms of this License with respect 
+      to the Work, or who has received express permission from the Licensor 
+      to exercise rights under this License despite a previous violation.
 
-  3. You are not required to accept this License, since you have not signed it. However, nothing else grants you permission to copy, distribute or modify the OC. These actions are prohibited by law if you do not accept this License. Therefore, by distributing or translating the OC, or by deriving works herefrom, you indicate your acceptance of this License to do so, and all its terms and conditions for copying, distributing or translating the OC. 
+2. Fair Use Rights. Nothing in this license is intended to reduce, limit, or 
+   restrict any rights arising from fair use, first sale or other limitations 
+   on the exclusive rights of the copyright owner under copyright law or other 
+   applicable laws.
 
-  NO WARRANTY 
+3. License Grant. Subject to the terms and conditions of this License, 
+   Licensor hereby grants You a worldwide, royalty-free, non-exclusive, 
+   perpetual (for the duration of the applicable copyright) license to 
+   exercise the rights in the Work as stated below:
 
-  4. BECAUSE THE OPENCONTENT (OC) IS LICENSED FREE OF CHARGE, THERE IS NO WARRANTY FOR THE OC, TO THE EXTENT PERMITTED BY APPLICABLE LAW. EXCEPT WHEN OTHERWISE STATED IN WRITING THE COPYRIGHT HOLDERS AND/OR OTHER PARTIES PROVIDE THE OC "AS IS" WITHOUT WARRANTY OF ANY KIND, EITHER EXPRESSED OR IMPLIED, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE. THE ENTIRE RISK OF USE OF THE OC IS WITH YOU. SHOULD THE OC PROVE FAULTY, INACCURATE, OR OTHERWISE UNACCEPTABLE YOU ASSUME THE COST OF ALL NECESSARY REPAIR OR CORRECTION. 
+   1. to reproduce the Work, to incorporate the Work into one or more 
+      Collective Works, and to reproduce the Work as incorporated in the 
+      Collective Works;
+   2. to create and reproduce Derivative Works;
+   3. to distribute copies or phonorecords of, display publicly, perform 
+      publicly, and perform publicly by means of a digital audio 
+      transmission the Work including as incorporated in Collective Works;
+   4. to distribute copies or phonorecords of, display publicly, perform 
+      publicly, and perform publicly by means of a digital audio transmission 
+      Derivative Works;
 
-  5. IN NO EVENT UNLESS REQUIRED BY APPLICABLE LAW OR AGREED TO IN WRITING WILL ANY COPYRIGHT HOLDER, OR ANY OTHER PARTY WHO MAY MIRROR AND/OR REDISTRIBUTE THE OC AS PERMITTED ABOVE, BE LIABLE TO YOU FOR DAMAGES, INCLUDING ANY GENERAL, SPECIAL, INCIDENTAL OR CONSEQUENTIAL DAMAGES ARISING OUT OF THE USE OR INABILITY TO USE THE OC, EVEN IF SUCH HOLDER OR OTHER PARTY HAS BEEN ADVISED OF THE POSSIBILITY OF SUCH DAMAGES. 
+   The above rights may be exercised in all media and formats whether now known 
+   or hereafter devised. The above rights include the right to make such 
+   modifications as are technically necessary to exercise the rights in other 
+   media and formats. All rights not expressly granted by Licensor are hereby 
+   reserved.
+
+4. Restrictions. The license granted in Section 3 above is expressly made 
+   subject to and limited by the following restrictions:
+
+   1. You may distribute, publicly display, publicly perform, or publicly 
+      digitally perform the Work only under the terms of this License, and 
+      You must include a copy of, or the Uniform Resource Identifier for, this 
+      License with every copy or phonorecord of the Work You distribute, 
+      publicly display, publicly perform, or publicly digitally perform. You 
+      may not offer or impose any terms on the Work that alter or restrict the 
+      terms of this License or the recipients' exercise of the rights granted 
+      hereunder. You may not sublicense the Work. You must keep intact all 
+      notices that refer to this License and to the disclaimer of warranties. 
+      You may not distribute, publicly display, publicly perform, or publicly 
+      digitally perform the Work with any technological measures that control 
+      access or use of the Work in a manner inconsistent with the terms of 
+      this License Agreement. The above applies to the Work as incorporated in 
+      a Collective Work, but this does not require the Collective Work apart 
+      from the Work itself to be made subject to the terms of this License. 
+      If You create a Collective Work, upon notice from any Licensor You must, 
+      to the extent practicable, remove from the Collective Work any reference 
+      to such Licensor or the Original Author, as requested. If You create a 
+      Derivative Work, upon notice from any Licensor You must, to the extent 
+      practicable, remove from the Derivative Work any reference to such 
+      Licensor or the Original Author, as requested.
+   2. You may distribute, publicly display, publicly perform, or publicly 
+      digitally perform a Derivative Work only under the terms of this 
+      License, and You must include a copy of, or the Uniform Resource 
+      Identifier for, this License with every copy or phonorecord of each 
+      Derivative Work You distribute, publicly display, publicly perform, or 
+      publicly digitally perform. You may not offer or impose any terms on 
+      the Derivative Works that alter or restrict the terms of this License 
+      or the recipients' exercise of the rights granted hereunder, and You 
+      must keep intact all notices that refer to this License and to the 
+      disclaimer of warranties. You may not distribute, publicly display, 
+      publicly perform, or publicly digitally perform the Derivative Work with 
+      any technological measures that control access or use of the Work in a 
+      manner inconsistent with the terms of this License Agreement. The above 
+      applies to the Derivative Work as incorporated in a Collective Work, 
+      but this does not require the Collective Work apart from the Derivative 
+      Work itself to be made subject to the terms of this License.
+   3. You may not exercise any of the rights granted to You in Section 3 
+      above in any manner that is primarily intended for or directed toward 
+      commercial advantage or private monetary compensation. The exchange of 
+      the Work for other copyrighted works by means of digital file-sharing or 
+      otherwise shall not be considered to be intended for or directed toward 
+      commercial advantage or private monetary compensation, provided there 
+      is no payment of any monetary compensation in connection with the 
+      exchange of copyrighted works.
+   4. If you distribute, publicly display, publicly perform, or publicly 
+      digitally perform the Work or any Derivative Works or Collective Works, 
+      You must keep intact all copyright notices for the Work and give the 
+      Original Author credit reasonable to the medium or means You are 
+      utilizing by conveying the name (or pseudonym if applicable) of the 
+      Original Author if supplied; the title of the Work if supplied; in the 
+      case of a Derivative Work, a credit identifying the use of the Work in 
+      the Derivative Work (e.g., "French translation of the Work by Original 
+      Author," or "Screenplay based on original Work by Original Author"). 
+      Such credit may be implemented in any reasonable manner; provided, 
+      however, that in the case of a Derivative Work or Collective Work, at 
+      a minimum such credit will appear where any other comparable authorship 
+      credit appears and in a manner at least as prominent as such other 
+      comparable authorship credit.
+
+5. Representations, Warranties and Disclaimer
+
+   1. By offering the Work for public release under this License, Licensor 
+      represents and warrants that, to the best of Licensor's knowledge after 
+      reasonable inquiry:
+
+         1. Licensor has secured all rights in the Work necessary to grant 
+            the license rights hereunder and to permit the lawful exercise of 
+            the rights granted hereunder without You having any obligation to 
+            pay any royalties, compulsory license fees, residuals or any 
+            other payments;
+         2. The Work does not infringe the copyright, trademark, publicity 
+            rights, common law rights or any other right of any third party 
+            or constitute defamation, invasion of privacy or other tortious 
+            injury to any third party.
+   2. EXCEPT AS EXPRESSLY STATED IN THIS LICENSE OR OTHERWISE AGREED IN 
+      WRITING OR REQUIRED BY APPLICABLE LAW, THE WORK IS LICENSED ON AN 
+      "AS IS" BASIS, WITHOUT WARRANTIES OF ANY KIND, EITHER EXPRESS OR 
+      IMPLIED INCLUDING, WITHOUT LIMITATION, ANY WARRANTIES REGARDING THE 
+      CONTENTS OR ACCURACY OF THE WORK.
+
+6. Limitation on Liability. EXCEPT TO THE EXTENT REQUIRED BY APPLICABLE LAW, 
+   AND EXCEPT FOR DAMAGES ARISING FROM LIABILITY TO A THIRD PARTY RESULTING 
+   FROM BREACH OF THE WARRANTIES IN SECTION 5, IN NO EVENT WILL LICENSOR BE 
+   LIABLE TO YOU ON ANY LEGAL THEORY FOR ANY SPECIAL, INCIDENTAL, 
+   CONSEQUENTIAL, PUNITIVE OR EXEMPLARY DAMAGES ARISING OUT OF THIS 
+   LICENSE OR THE USE OF THE WORK, EVEN IF LICENSOR HAS BEEN ADVISED OF THE 
+   POSSIBILITY OF SUCH DAMAGES.
+
+7. Termination
+
+   1. This License and the rights granted hereunder will terminate 
+      automatically upon any breach by You of the terms of this License. 
+      Individuals or entities who have received Derivative Works or Collective 
+      Works from You under this License, however, will not have their licenses 
+      terminated provided such individuals or entities remain in full 
+      compliance with those licenses. Sections 1, 2, 5, 6, 7, and 8 will 
+      survive any termination of this License.
+   2. Subject to the above terms and conditions, the license granted here 
+      is perpetual (for the duration of the applicable copyright in the 
+      Work). Notwithstanding the above, Licensor reserves the right to 
+      release the Work under different license terms or to stop distributing 
+      the Work at any time; provided, however that any such election will 
+      not serve to withdraw this License (or any other license that has 
+      been, or is required to be, granted under the terms of this License), 
+      and this License will continue in full force and effect unless 
+      terminated as stated above.
+
+8. Miscellaneous
+
+   1. Each time You distribute or publicly digitally perform the Work or a 
+      Collective Work, the Licensor offers to the recipient a license to 
+      the Work on the same terms and conditions as the license granted to 
+      You under this License.
+   2. Each time You distribute or publicly digitally perform a Derivative 
+      Work, Licensor offers to the recipient a license to the original Work 
+      on the same terms and conditions as the license granted to You under 
+      this License.
+   3. If any provision of this License is invalid or unenforceable under 
+      applicable law, it shall not affect the validity or enforceability of 
+      the remainder of the terms of this License, and without further action 
+      by the parties to this agreement, such provision shall be reformed to 
+      the minimum extent necessary to make such provision valid and enforceable.
+   4. No term or provision of this License shall be deemed waived and no 
+      breach consented to unless such waiver or consent shall be in writing 
+      and signed by the party to be charged with such waiver or consent.
+   5. This License constitutes the entire agreement between the parties with 
+      respect to the Work licensed here. There are no understandings, 
+      agreements or representations with respect to the Work not specified 
+      here. Licensor shall not be bound by any additional provisions that 
+      may appear in any communication from You. This License may not be 
+      modified without the mutual written agreement of the Licensor and You.
 END
 
    open(OUT, ">$file")
@@ -277,4 +477,54 @@ END
 
    print OUT $text;
    close(OUT);
+}
+
+sub OutputPublicDomainDedication
+{
+    my ($file) = @_;
+
+    $text = <<END;
+-----------------------------------------------------------------------------
+
+This work is hereby released into the Public Domain. To view a copy of 
+the public domain dedication, visit 
+
+            http://creativecommons.org/licenses/publicdomain 
+    
+or send a letter to Creative Commons, 559 Nathan Abbott Way, Stanford, 
+California 94305, USA. 
+
+-----------------------------------------------------------------------------
+               P U B L I C   D O M A I N   D E D I C A T I O N
+
+            Copyright-Only Dedication (based on United States law)
+
+
+This is a record of a Public Domain Dedication.
+
+On February 10, 2003, MusicBrainz Community dedicated to the public domain 
+the work "MusicBrainz Core Data." Before making the dedication, MusicBrainz 
+Community represented that MusicBrainz Community owned all copyrights in the
+work. By making the dedication, MusicBrainz Community made an overt act
+of relinquishment in perpetuity of all present and future rigths under
+copyright law, whether vested or contingent, in "MusicBrainz Core Data."
+
+MusicBrainz Community understands that such relinquishment of all rights
+includes the relinquishment of all rights to enforce (by lawsuit or
+otherwise) those copyrights in the Work.
+
+MusicBrainz Community recognizes that, once placed in the public domain,
+"MusicBrainz Core Data" may be freely reproduced, distributed, transmitted, 
+used, modified, built upon, or otherwise exploited by anyone for any
+purpose, commercial or non-commercial, and in any way, including by
+methods that have not yet been invented or conceived.
+
+-----------------------------------------------------------------------------
+END
+
+    open(OUT, ">$file")
+       or die("cannot open $file\n");
+
+    print OUT $text;
+    close(OUT);
 }
