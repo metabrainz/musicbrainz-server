@@ -11,10 +11,10 @@ use SearchEngine qw( :constants );
 
 if ( defined $table && defined $search)
 {
+	$table = lc $table;
 	my $mb = $m->comp("/comp/dblogin");
 
-    my $engine = SearchEngine->new($mb->{DBH});
-	$engine->Table($table);
+    my $engine = SearchEngine->new($mb->{DBH}, $table);
 
 	# TODO validate $limit
 
@@ -28,15 +28,15 @@ if ( defined $table && defined $search)
         my ($row, $url);
         
         $row = $engine->NextRow;
-        if ($engine->Table eq 'Album') 
+        if ($engine->Table eq 'album') 
         {
 			$url = "/showalbum.html?albumid=$row->{'albumid'}";
         }
-        elsif ($engine->Table eq 'Artist') 
+        elsif ($engine->Table eq 'artist') 
         {
 			$url = "/showartist.html?artistid=$row->{'artistid'}";
         }
-        elsif ($engine->Table eq 'Track') 
+        elsif ($engine->Table eq 'track') 
         {
 			$url = "/showtrack.html?trackid=$row->{'trackid'}";
         }
@@ -53,18 +53,18 @@ if ( defined $table && defined $search)
     }
 </%perl>
 
-<& /comp/sidebar, title=>$table . ' Search Results: '.$search &>
+<& /comp/sidebar, title => ucfirst($table) . ' Search Results: '.$search &>
 
     <& /comp/tablebegin, title=>"Found" &>
     <table border="0" cellspacing="0" cellpadding="4" id="SearchResults">
         <tr>
-%    if ($table eq 'Album') {
+%    if ($table eq 'album') {
 		<th colspan="4">Summary</th>
 		<th>Album Title</th>
 		<th>Artist</th>
-%    } elsif ($table eq 'Artist') {
+%    } elsif ($table eq 'artist') {
         <th>Artist Name</th>
-%    } elsif ($table eq 'Track') {
+%    } elsif ($table eq 'track') {
 		<th>Track Title</th>
 		<th>Artist Name</th>
 		<th>Album</th>
@@ -103,7 +103,7 @@ if ( defined $table && defined $search)
 %   my $bgcolor= '#ffffff';
 %   while ( my $row = $engine->NextRow ) {
         <tr bgcolor="<% $bgcolor = ( $bgcolor eq '#ffffff' ? '#ffe1b7' : '#ffffff' ) %>">
-%       if ($engine->Table eq 'Album') {
+%       if ($engine->Table eq 'album') {
 % if ($row->{tracks}) {
 			<td class="trk"><% $row->{tracks} %>&nbsp;<img src="/images/notes.gif" alt="Tracks"></td>
 % } else {
@@ -126,9 +126,9 @@ if ( defined $table && defined $search)
 % }
             <td><a href="/showalbum.html?albumid=<% $row->{'albumid'} %>"><% $row->{'albumname'} %></a></td> 
             <td><a href="/showartist.html?artistid=<% $row->{'artistid'} %>"><% $row->{'artistname'} %></a></td> 
-%       } elsif ($engine->Table eq 'Artist') {
+%       } elsif ($engine->Table eq 'artist') {
             <td><a href="/showartist.html?artistid=<% $row->{'artistid'} %>"><% $row->{'artistname'} %></a></td> 
-%       } elsif ($engine->Table eq 'Track') {
+%       } elsif ($engine->Table eq 'track') {
             <td><a href="/showtrack.html?trackid=<% $row->{'trackid'} %>"><% $row->{'trackname'} %></a></td> 
             <td><a href="/showartist.html?artistid=<% $row->{'artistid'} %>"><% $row->{'artistname'} %></a></td> 
             <td><a href="/showalbum.html?albumid=<% $row->{'albumid'} %>"><% $row->{'albumname'} %></a></td> 

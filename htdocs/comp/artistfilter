@@ -10,8 +10,7 @@ $url
 
 my $mb = $m->comp("/comp/dblogin");
 
-my $engine = SearchEngine->new($mb->{DBH});
-$engine->Table("Artist");
+my $engine = SearchEngine->new($mb->{DBH}, "artist");
 
 $engine->Search(
     query => $search,

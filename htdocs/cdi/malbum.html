@@ -40,8 +40,7 @@ $ar->LoadFromId();
 
 $al = Album->new($mb->{DBH});
 
-my $eng = SearchEngine->new($mb->{DBH});
-$eng->Table("Album");
+my $eng = SearchEngine->new($mb->{DBH}, "album");
 
 $eng->Search(
 	query => $search,

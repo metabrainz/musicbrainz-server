@@ -1,12 +1,11 @@
 <%args>
-$default=>'Artist'
+$default => 'artist'
 $limit => 25
-$text=>''
+$text => ''
 </%args>
+% $default = lc $default;
 
-<FORM METHOD="GET" ACTION="/newsearch.html" ENCTYPE="application/x-www-form-urlencoded" class="formstyle"
-	id="TextSearchForm"
-	>
+<form method="get" action="/newsearch.html" class="formstyle" id="TextSearchForm">
 
 <div style="margin: 0.3em">
   <b>Artist/Album/Track Search</b>
@@ -16,27 +15,27 @@ $text=>''
 
   <div class="CenterChildren" style="margin: 0.3em">
     Find 
-    <SELECT NAME="limit">
-        <OPTION VALUE="25" <% ($limit eq 25) ? 'selected' : '' %>>up to 25</OPTION>
-        <OPTION VALUE="50" <% ($limit eq 50) ? 'selected' : '' %>>up to 50</OPTION>
-        <OPTION VALUE="100" <% ($limit eq 100) ? 'selected' : '' %>>up to 100</OPTION>
-        <OPTION VALUE="0" <% ($limit eq '0') ? 'selected' : '' %>>all</OPTION>
-    </SELECT>
-    <SELECT NAME="table">
-        <OPTION VALUE="Artist" <% ($default eq 'Artist') ? 'SELECTED' : '' %>>artists</OPTION>
-        <OPTION VALUE="Album" <% ($default eq 'Album') ? 'SELECTED' : '' %>>albums</OPTION>
-        <OPTION VALUE="Track" <% ($default eq 'Track') ? 'SELECTED' : '' %>>tracks</OPTION>
-    </SELECT>
+    <select name="limit">
+        <option value="25" <% ($limit eq 25) ? 'selected' : '' %>>up to 25</option>
+        <option value="50" <% ($limit eq 50) ? 'selected' : '' %>>up to 50</option>
+        <option value="100" <% ($limit eq 100) ? 'selected' : '' %>>up to 100</option>
+        <option value="0" <% ($limit eq '0') ? 'selected' : '' %>>all</option>
+    </select>
+    <select name="table">
+        <option value="artist" <% ($default eq 'artist') ? 'selected' : '' %>>artists</option>
+        <option value="album" <% ($default eq 'album') ? 'selected' : '' %>>albums</option>
+        <option value="track" <% ($default eq 'track') ? 'selected' : '' %>>tracks</option>
+    </select>
   </div>
 
   <div class="CenterChildren" style="margin: 0.3em">
-    <INPUT TYPE="text" NAME="search" VALUE="<% $text %>" SIZE=30>
+    <input type="text" name="search" value="<% $text %>" size="30">
   </div>
 
   <div class="CenterChildren" style="margin: 0.3em">
-    <INPUT TYPE="submit" VALUE="Search"><br>
+    <input type="submit" value="Search"><br>
   </div>
 
 </center>
 
-</FORM>
+</form>
