@@ -1,3 +1,7 @@
+-- Abstract: add "with time zone" to currentstat.lastupdated, moderation.expiretime
+-- Abstract: also drop the temporary columns left in place by the last update
+-- Formerly called admin/sql/MoreTimezones20030401.sql
+
 \set ON_ERROR_STOP 1
 
 set TIME ZONE 'UTC';
