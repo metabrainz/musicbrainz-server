@@ -40,6 +40,18 @@ use constant ALBUMTRACKLIST         => 128;
 use constant FUZZY                  => 256;
 use constant TRACKLIST              => 512;
 
+sub new
+{
+    my ($class, $dbh) = @_;
+
+    bless {
+	DBH => $dbh,
+    }, ref($class) || $class;
+}
+
+sub GetDBH { return $_[0]->{DBH} }
+sub SetDBH { $_[0]->{DBH} = $_[1] }
+
 # Used by MQ_2_1.pm
 sub FileInfoLookup
 {
