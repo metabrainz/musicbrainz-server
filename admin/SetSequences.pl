@@ -1,4 +1,5 @@
 #!/home/httpd/musicbrainz/mb_server/cgi-bin/perl -w
+# vi: set ts=4 sw=4 :
 #____________________________________________________________________________
 #
 #   MusicBrainz -- the open internet music database
@@ -33,16 +34,15 @@ use Sql;
 
 sub SetSequence
 {
-    my ($sql, $table) = @_;
+    my ($sql, $table, $max) = @_;
 
     my $seq = $table . "_id_seq";
 
-    my $max = $sql->SelectSingleValue("SELECT MAX(id) FROM $table");
     if (not defined $max)
     {
-        print "Table $table is empty, not altering sequence $seq\n";
-        return;
+		$max = (iiMinMaxID($table))[1];
     }
+
     $max++;
 
     eval
@@ -51,7 +51,7 @@ sub SetSequence
         $sql->SelectSingleValue("SELECT SETVAL(?, ?)", $seq, $max);
         $sql->Commit;
     
-        print "Set sequence $seq to $max.\n";
+        printf "%12d  %s\n", $max, $seq;
     };
     if ($@)
     {
@@ -63,8 +63,6 @@ sub SetSequence
 my $mb = MusicBrainz->new;
 $mb->Login(db => "READWRITE");
 my $sql = Sql->new($mb->{DBH});
-
-print "Connected to database.\n";
 
 SetSequence($sql, "album");
 SetSequence($sql, "albumjoin");
@@ -84,10 +82,10 @@ SetSequence($sql, "clientversion");
 SetSequence($sql, "country");
 SetSequence($sql, "currentstat");
 SetSequence($sql, "historicalstat");
-# moderation_closed - not a serial column
-# moderation_note_closed - not a serial column
-SetSequence($sql, "moderation_note_open");
-SetSequence($sql, "moderation_open");
+# moderation_closed - see below
+# moderation_note_closed - see below
+# moderation_note_open - see below
+# moderation_open - see below
 SetSequence($sql, "moderator");
 SetSequence($sql, "moderator_preference");
 SetSequence($sql, "moderator_subscribe_artist");
@@ -100,8 +98,52 @@ SetSequence($sql, "trm");
 SetSequence($sql, "trmjoin");
 SetSequence($sql, "trmjoin_stat");
 SetSequence($sql, "trm_stat");
-# vote_closed - not a serial column
-SetSequence($sql, "vote_open");
+# vote_closed - see below
+# vote_open - see below
 SetSequence($sql, "wordlist");
+
+# For the three pairs of open/closed tables (moderation, moderation_note
+# and vote), it is possible that the largest ID is actually in the closed
+# table, not the open one.  So we need to find the largest ID across both
+# tables, then set the "open" sequence based on that.  (There is no "closed"
+# sequence).
+
+$_ = "moderation";
+SetSequence($sql, "${_}_open", (iiMinMaxID("${_}_open", "${_}_closed"))[1]);
+$_ = "moderation_note";
+SetSequence($sql, "${_}_open", (iiMinMaxID("${_}_open", "${_}_closed"))[1]);
+$_ = "vote";
+SetSequence($sql, "${_}_open", (iiMinMaxID("${_}_open", "${_}_closed"))[1]);
+
+exit;
+
+sub iiMinMaxID
+{
+	my @tables = @_;
+
+	# Postgres is poor at optimising SELECT MIN(id) FROM table
+	# (or MAX).  It uses a table scan, instead of an index scan.
+	# However for the following queries it gets it right:
+
+	my ($min, $max) = (undef, undef);
+	for my $table (@tables)
+	{
+		my $thismin = $sql->SelectSingleValue(
+			"SELECT id FROM $table ORDER BY id ASC LIMIT 1",
+		);
+		$min = $thismin
+			if defined($thismin)
+			and (not defined($min) or $thismin < $min);
+
+		my $thismax = $sql->SelectSingleValue(
+			"SELECT id FROM $table ORDER BY id DESC LIMIT 1",
+		);
+		$max = $thismax
+			if defined($thismax)
+			and (not defined($max) or $thismax > $max);
+	}
+
+	return ($min, $max);
+}
 
 # eof SetSequences.pl
