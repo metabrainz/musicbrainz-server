@@ -74,12 +74,15 @@ sub Create
 		{
 			print localtime() . " : Creating user '$dbuser'\n";
 			system "createuser $opts -U $postgres --no-adduser --no-createdb $dbuser";
+			die "\nFailed to create user\n" if ($? >> 8);
 		}
 	}
 
 	print localtime() . " : Creating database '$dbname'\n";
 	system "createdb $opts -U $postgres -E UNICODE --owner=$dbuser $dbname";
+	die "\nFailed to create database\n" if ($? >> 8);
 	system "createlang $opts -U $postgres -d $dbname plpgsql";
+	die "\nFailed to create language\n" if ($? >> 8);
 }
 
 sub Import
@@ -106,6 +109,7 @@ sub Import
 
     print localtime() . " : Optimizing database ...\n";
     system("echo \"vacuum analyze\" | $psql $opts -U $dbuser $dbname");
+    die "\nFailed to optimize database\n" if ($? >> 8);
 
     print localtime() . " : Initialized and imported data into the database.\n";
 }
