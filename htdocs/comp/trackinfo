@@ -1,0 +1,82 @@
+%# vi: set ts=2 sw=2 ft=mason :
+<%args>
+$track
+@TRM => ()
+</%args>
+
+<& /comp/tablebegin, title=>'Track Information', gattrs => "width='100%'" &>
+
+<table>
+	<tr>
+    <td valign="top" align="right">Title:</td>
+    <td valign="top"><% $track->GetName() %></td>
+	</tr>
+	<tr>
+		<td valign="top" align="right">Track MB Id:</td>
+    <td valign="top"><% $track->GetMBId() %></td>
+	</tr>
+	<tr>
+		<td valign="top" align="right"><a href="/MM/index.html">MM/RDF</a></td>
+		<td valign="top"><a href="<% $track->RDF_URL %>"><% $track->RDF_URL %></a></td>
+	</tr>
+
+% if (exists $session{user}) {
+	<tr>
+    <td valign="top" align="right">Track RowId:</td>
+    <td valign="top"><% $track->GetId() %></td>
+	</tr>
+% }
+
+% if ($track->GetLength) {
+	<tr>
+    <td valign="top" align="right">Length:</td>
+    <td valign="top"><% format_tracklen($track->GetLength) %></td>
+	</tr>
+% }
+
+% if (scalar(@TRM) > 0) {
+	<tr>
+    <td valign="top" align="right">TRM Ids:</td>
+    <td>
+			<table>
+		 		<tr>
+		 			<td><img src="/images/trm.gif" align="middle"></td>
+          <td>Lookup count:</td>
+          <td>&nbsp;</td>
+			 	</tr>
+
+%				foreach my $id (@TRM) {
+          <tr>
+					 	<td valign="top"><% $id->{TRM} %></td>
+						<td valign="top" align="center"><% $id->{lookupcount} %></td>
+						<td valign="top">
+%							if (exists $session{user}) {
+				 				<a href="/remtrm.html?TRMjoin=<% $id->{TRMjoinid} %>&amp;trackid=<% $track->GetId() %>&amp;trmid=<% $id->{TRM} %>">Delete</a>
+%							} else {
+								&nbsp;
+%							}
+						</td>
+					</tr>
+%				}
+
+			</table>
+		</td>
+	</tr>
+% }
+
+</table>
+
+<& /comp/tableend &> 
+
+<%perl>
+
+sub format_tracklen
+{
+	my $ms = shift()
+		or return "?:??";
+	return "$ms ms" if $ms < 1000;
+	my $s = $ms / 1000;
+	sprintf "%d:%02d", int($s / 60), ($s % 60);
+}
+
+</%perl>

@@ -712,4 +712,14 @@ sub GetTrackSequence
                                    "track", $trackid]);
    return $num;
 }
+
+sub RDF_URL
+{
+	my $this = shift;
+	sprintf "http://%s/mm-2.1/album/%s",
+		&DBDefs::RDF_SERVER,
+		$this->GetMBId,
+	;
+}
+
 1;

@@ -1,0 +1,27 @@
+%# vi: set ts=2 sw=2 ft=mason :
+<%args>
+$artist
+</%args>
+
+<& /comp/tablebegin, title=>'Artist Information', gattrs => "width='100%'" &> 
+	<table>
+    <tr>
+			<td valign="top" align="right">Artist:</td>
+			<td valign="top"><a href="/showartist.html?artistid=<% $artist->GetId %>"><% $artist->GetName() %></a></td>
+    </tr>
+		<tr>
+			<td valign="top" align="right">Artist MB Id:</td>
+			<td valign="top"><% $artist->GetMBId() %></td>
+    </tr>
+		<tr>
+			<td valign="top" align="right"><a href="/MM/index.html">MM/RDF</a></td>
+			<td valign="top"><a href="<% $artist->RDF_URL %>"><% $artist->RDF_URL %></a></td>
+    </tr>
+% if (exists $session{user}) {
+    <tr>
+			<td valign="top" align="right">Artist RowId:</td>
+			<td valign="top"><% $artist->GetId() %></a></td>
+    </tr>
+% }
+	</table>
+<& /comp/tableend &> 

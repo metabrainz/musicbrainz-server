@@ -432,4 +432,13 @@ sub GetAlbumInfo
    return @info;
 }
 
+sub RDF_URL
+{
+	my $this = shift;
+	sprintf "http://%s/mm-2.1/track/%s",
+		&DBDefs::RDF_SERVER,
+		$this->GetMBId,
+	;
+}
+
 1;

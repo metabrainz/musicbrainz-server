@@ -616,4 +616,13 @@ sub GetRelations
     );
 } 
 
+sub RDF_URL
+{
+	my $this = shift;
+	sprintf "http://%s/mm-2.1/artist/%s",
+		&DBDefs::RDF_SERVER,
+		$this->GetMBId,
+	;
+}
+
 1;

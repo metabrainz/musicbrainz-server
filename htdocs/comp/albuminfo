@@ -1,0 +1,39 @@
+%# vi: set ts=2 sw=2 ft=mason :
+<%args>
+$album
+$track => undef
+</%args>
+
+<& /comp/tablebegin, title => "Album Information",
+	gattrs=>'width="100%"' &>
+
+	<table>
+		<tr>
+			<td valign="top" align="right">Title:</td>
+			<td valign="top"><a href="/showalbum.html?albumid=<% $album->GetId %>"><% $album->GetName %></a></td>
+		</tr>
+		<tr>
+			<td valign="top" align="right">Album MB Id:</td>
+			<td valign="top"><% $album->GetMBId %></td>
+		</tr>
+		<tr>
+			<td valign="top" align="right"><a href="/MM/index.html">MM/RDF</a></td>
+ 			<td valign="top"><a href="<% $album->RDF_URL %>"><% $album->RDF_URL %></a></td>
+		</tr>
+
+% if (exists $session{user}) {
+		<tr>
+			<td valign="top" align="right">Album RowId:</td>
+			<td valign="top"><% $album->GetId %></td>
+		</tr>
+% }
+
+	</table>
+
+% if ($track) {
+	<center>
+		This track appears as track number <% $track %> on this album.
+	</center>
+% }
+
+<& /comp/tableend &>
