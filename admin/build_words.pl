@@ -22,7 +22,9 @@
 #   $Id$
 #____________________________________________________________________________
 
-use lib "../cgi-bin";
+use FindBin;
+use lib "$FindBin::Bin/../cgi-bin";
+
 use strict;
 use SearchEngine;
 

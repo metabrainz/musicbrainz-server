@@ -26,7 +26,9 @@
 #of the musicBrainz database.
 #As an example the National Anthems of several countries are inserted in the database.
 
-use lib "../cgi-bin";
+use FindBin;
+use lib "$FindBin::Bin/../cgi-bin";
+
 use strict;
 use DBI;
 use DBDefs;
