@@ -149,19 +149,20 @@ sub PreVoteAction
 
    for($i = 1;; $i++)
    {
+      my $tmp = {};
       last if (!exists $nw->{"Track$i"});
       if (exists $this->{artist} &&
           $this->{artist} == Artist::VARTIST_ID)
       {
-          push @tracks, { track=> $nw->{"Track$i"}, 
-                          tracknum => $i, 
-                          artist=> $nw->{"Artist$i"} };
+          $$tmp{artist} = $nw->{"Artist$i"};
       }
-      else
+      if (exists $nw->{"TrackDur$i"}) 
       {
-          push @tracks, { track=> $nw->{"Track$i"}, 
-                          tracknum => $i };
+      	  $$tmp{duration} = $nw->{"TrackDur$i"};
       }
+      $$tmp{track} = $nw->{"Track$i"};
+      $$tmp{tracknum} = $i;
+      push @tracks, $tmp;
    }
    $info{tracks} = \@tracks;
 

@@ -1,7 +1,23 @@
 <%args>
 $badlogin=>0
-$url=>"/search.html"
+$url=>""
 </%args>
+
+<%perl>
+
+if ($url eq '')
+{
+   if (defined $r->headers_in->{'Referer'} &&
+       $r->headers_in->{'Referer'} ne '')
+   {
+       $url = $r->headers_in->{'Referer'};
+   }
+   else
+   {
+       $url="/search.html"
+   }
+}
+</%perl>
 
 <& /comp/sidebar, title=>'' &>
 

@@ -216,7 +216,8 @@ sub Retrieve
     my (@response, $category, $i, $temp);
     my (@selection, @chars, @parts, @subparts);
     my ($artist, $title, %info, @track_titles, @tracks, @query);
-    my ($disc_id, $first_track, @track_offsets, $seconds_in_cd); 
+    my ($disc_id, $first_track); 
+    my (@track_times);
 
     if ($remote eq '' || $port == 0)
     {
@@ -324,11 +325,45 @@ sub Retrieve
 
     $artist = "";
     $title = "";
+
+    my $in_offsets = 0;
+    my $last_track_offset = 0;
+    $info{durations} = '';
+
     while(defined($line = <SOCK>))
     {
-        @chars = split(//, $line, 2);
+    	@chars = split(//, $line, 2);
         if ($chars[0] eq '#')
         {
+            if ($line =~ /Track frame offsets/)
+            {
+                $in_offsets = 1;
+                next;
+            }
+            if (!$in_offsets)
+            {
+                next;
+            }
+            # parse the track offsets and the total time 
+            if ($line =~ /Disc length:/)
+            {
+                $line =~ s/^# Disc length: //;
+                $line =~ s/ seconds$//;
+                chop($line);
+                $info{durations} .= ($line * 1000) - int(($last_track_offset*1000) / 75);
+                $in_offsets = 0;
+                next;
+            }
+            $line =~ tr/0-9//cd;
+            if ($line eq '')
+            {
+                next;
+            }
+            if($last_track_offset > 0) 
+            {
+                $info{durations} .= int ((($line - $last_track_offset)*1000) / 75) . " ";
+            }           
+            $last_track_offset = $line;
             next;
         }
 
@@ -363,32 +398,32 @@ sub Retrieve
             $track_titles[$subparts[1]] =~ s/^\s*(.*?)\s*$/$1/;
             next;
         }
-     }
+    } 
 
-     if (!defined $title || $title eq "")
-     {
-         $title = $artist;
-     }
+    if (!defined $title || $title eq "")
+    {
+        $title = $artist;
+    }
 
-     $artist =~ s/^\s*(.*?)\s*$/$1/;
-     $title =~ s/^\s*(.*?)\s*$/$1/;
+    $artist =~ s/^\s*(.*?)\s*$/$1/;
+    $title =~ s/^\s*(.*?)\s*$/$1/;
 
-     $info{artist} = $artist;
-     $info{sortname} = $artist;
+    $info{artist} = $artist;
+    $info{sortname} = $artist;
 
-     my $sty = Style->new;
-     $info{album} = $sty->NormalizeDiscNumbers($title);
- 
-     for($i = 0; $i < scalar(@track_titles); $i++)
-     {
-         #print("[$i]: $track_titles[$i]\n"); 
-         push @tracks, { track=>$track_titles[$i], tracknum => ($i+1) };
-     }
-     $info{tracks} = \@tracks;
- 
-     close SOCK;
+    my $sty = Style->new;
+    $info{album} = $sty->NormalizeDiscNumbers($title);
 
-     return \%info;
+    for($i = 0; $i < scalar(@track_titles); $i++)
+    {
+        #print("[$i]: $track_titles[$i]\n"); 
+        push @tracks, { track=>$track_titles[$i], tracknum => ($i+1) };
+    }
+    $info{tracks} = \@tracks;
+
+    close SOCK;
+
+    return \%info;
 }
 
 sub InsertForModeration

@@ -4,6 +4,7 @@ $tracks=>""
 $toc=>""
 </%args>
 <%perl>
+use CGI;
 
 my ($mb, $al, $url, $album, $valid, $di);
 
@@ -50,6 +51,7 @@ else
         else
         {
             # redirect to submit
+            $toc = CGI::escape($toc);
             $url = "/cdi/submit.html?id=$id&tracks=$tracks&toc=$toc&notfound=1";
         }
     }

@@ -46,7 +46,7 @@ if ($catid eq '')
 <%perl>
 my ($mb); 
 my ($i, $arraytistname, $modpending, $array, $ar, $al, $match, @albums);
-my ($lookup, $tracks, $artist, $ret);
+my ($lookup, $tracks, $durations, $artist, $ret);
 
 mc_comp("/comp/sidebar", title=>'FreeDB Import: Verify/Correct CD Information');
 mc_comp("/comp/stylemenu");
@@ -66,6 +66,7 @@ if (!$lookup)
 
 $array = $lookup->{tracks};
 $tracks = scalar(@$array);
+$durations = $lookup->{durations};
 
 $lookup->{artist} =~ tr/ / /s;
 $ar = Artist->new($mb->{DBH});
@@ -302,6 +303,7 @@ my ($artistname, $sortname, $trackname, $temp);
 % }
 <input type="hidden" name="freedbid" value="<% $id %>">
 <input type="hidden" name="tracks" value="<% $tracks %>">
+<input type="hidden" name="durations" value="<% $durations %>">
 <input type="submit" value="Next>>" name="Next">
 </form>
 

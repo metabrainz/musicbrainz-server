@@ -37,7 +37,9 @@ The following people have contributed to the MusicBrainz server:
 
   Myers W. Carpenter <myers@fil.org>
   - Submitted a patch to show track lengths in RDF and web interfaces
-  - Write the FixLenght.pl script to calculate track lengths from 
+  - Write the FixLength.pl script to calculate track lengths from 
     TOC entries in the database
+  - Patches for adding track lengths during CD insertion
+  - Patches to fix other minor bugs
 
 (please send change requests to rob@musicbrainz.org or maintainer)
