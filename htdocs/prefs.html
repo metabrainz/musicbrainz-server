@@ -1,0 +1,140 @@
+%# vi: set ts=4 sw=4 ft=mason :
+<& /comp/sidebar, title=>'Preferences' &>
+
+<%perl>
+
+my @allowed_formats = (
+'%Y-%m-%d %H:%M:%S %Z',
+	'%A %B %e %Y, %H:%M',
+	'%d %B %Y %H:%M:%S',
+	'%a %b %e %Y, %H:%M',
+	'%d %b %Y %H:%M:%S',
+	'%d/%m/%Y %H:%M:%S',
+	'%m/%d/%Y %H:%M:%S',
+	'%d.%m.%Y %H:%M:%S',
+	'%m.%d.%Y %H:%M:%S',
+);
+
+my @allowed_timezones = (
+	#[ "IDLW"	=> "-1200 International Date Line West" ],
+	#[ "NT"	=> "-1100 Nome" ],
+	#[ "HAST"	=> "-1000 Hawaii-Aleutian" ],
+	#[ "AKST"	=> "-0900 Alaska" ],
+	[ "PST8PDT"	=> "-0800 Pacific" ],
+	[ "MST7MDT"	=> "-0700 Mountain" ],
+	[ "CST6CDT"	=> "-0600 Central" ],
+	[ "EST5EDT"	=> "-0500 Eastern" ],
+	#[ "AST"	=> "-0400 Atlantic" ],
+	#[ "NST"	=> "-0350 Newfoundland" ],
+	#[ "GST"	=> "-0300 Greenland" ],
+	#[ "AT"	=> "-0200 Azores" ],
+	#[ "WAT"	=> "-0100 West Africa" ],
+	#[ "WET"	=> "+0000 Western European" ],
+	[ "UTC"	=> "+0000 Universal Coordinated" ],
+	[ "GMT0BST"	=> "+0000 Greenwich Mean" ],
+	#[ "CET"	=> "+0100 Central European" ],
+	#[ "EET"	=> "+0200 Eastern European" ],
+	#[ "BT"	=> "+0300 Baghdad, USSR Zone 2" ],
+	#[ "IT"	=> "+0350 Iran" ],
+	#[ "ZP4"	=> "+0400 USSR Zone 3" ],
+	#[ "ZP5"	=> "+0500 USSR Zone 4" ],
+	#[ "IST"	=> "+0550 Indian" ],
+	#[ "ZP6"	=> "+0600 USSR Zone 5" ],
+	#[ "ZP7"	=> "+0700 USSR Zone 6" ],
+	#[ "JT"	=> "+0750 Java" ],
+	#[ "AWST"	=> "+0800 Western Australian" ],
+	#[ "CCT"	=> "+0800 China Coast, USSR Zone 7" ],
+	#[ "KST"	=> "+0900 Korean" ],
+	#[ "JST"	=> "+0900 Japan, USSR Zone 8" ],
+	#[ "ACST"	=> "+0950 Central Australian" ],
+	#[ "AEST"	=> "+1000 Eastern Australian" ],
+	#[ "IDLE"	=> "+1200 International Date Line East" ],
+	#[ "NZST"	=> "+1200 New Zealand" ],
+);
+
+# FIXME create a session if we haven't got one yet
+
+if (my $format = $ARGS{'format'})
+{
+	$session{"datetimeformat"} = $format
+		if grep { $format eq $_ } @allowed_formats;
+}
+
+if (my $tz = $ARGS{'zone'})
+{
+	$session{"tz"} = $tz
+	if grep { $tz eq $_->[0] } @allowed_timezones;
+}
+
+if (keys %ARGS)
+{
+	$session{"JSMoveFocus"} = ($ARGS{"JSMoveFocus"} ? 1 : 0);
+} else {
+	$session{"JSMoveFocus"} = 1
+		unless defined $session{"JSMoveFocus"};
+}
+
+my $format = $session{"datetimeformat"} || $allowed_formats[0];
+my $zone = $session{"tz"} || 'UTC';
+
+require POSIX;
+my $time = POSIX::mktime(24,56,13,31,11,101,0,0,0);
+
+my @format_list = map {
+	[ $_, $m->comp("/comp/datetime", { datetimeformat=> $_, tz=>'UTC' }, $time) ]
+} @allowed_formats;
+
+$time = time();
+
+</%perl>
+
+<h2>Notice</h2>
+
+<p>
+	Currently these settings are lost at the end of each session.&nbsp;
+	Sometime soon we'll make it so that your preferences will be saved
+	against your moderator profile
+	so you won't have to come back to this page every time you log in.
+</p>
+
+<form method="post" action="/prefs.html" name="Preferences">
+
+	<h2>Date/Time Display</h2>
+
+	<p>
+		Your preferred date/time format:
+		<select name="format">
+			<& /comp/options, \@format_list, $format &>
+		</select>
+	</p>
+	<p>
+		Your preferred time zone:
+		<select name="zone">
+			<& /comp/options, \@allowed_timezones, $zone &>
+		</select>
+	</p>
+
+	<p>
+		The time now (using your preferences) is
+		<b><% $m->comp("/comp/datetime", $time) %></b>
+		and 180 days' time is
+		<b><% $m->comp("/comp/datetime", $time+180*86400) %></b>
+	</p>
+
+	<h2>Use of Javascript</h2>
+
+	<p>
+		<input type="checkbox" name="JSMoveFocus"
+			<% $session{JSMoveFocus} ? "checked" : "" %>
+			>
+		Use Javascript to move the input focus when the page loads
+	</p>
+
+	<p>
+		<input type="submit" value="Update">
+	</p>
+
+</form>
+
+<& /comp/movefocus, "Preferences", "format" &>
+<& /comp/footer &>

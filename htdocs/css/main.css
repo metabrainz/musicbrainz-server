@@ -7,6 +7,24 @@ body
 	color: #000;
 }
 
+/* This is equivalent to /comp/title, i.e. class "title" in brainz.css */
+h1
+{
+	font-size: 120%;
+	font-weight: bold;
+	text-align: center;
+}
+
+/* This is equivalent to /comp/section */
+h2
+{
+	background-color: #ffba58;
+	border: 1px solid black;
+	font-size: 100%;
+	font-weight: bold;
+	padding: 0.1em 0.3em;
+}
+
 /* page-specific things */
 
 .StatsTable .SubHeading
