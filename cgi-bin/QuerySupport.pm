@@ -1064,8 +1064,15 @@ sub ExchangeMetadata
             {
                # ParseFilename could not find title and artist in filename, 
                # so insert into Pending table.
-               $pe->Insert($name, $guid, $artist, $album, $seq,
-                           $len, $year, $genre, $filename, $comment);
+
+               if (defined $name && $name ne '' &&
+                   defined $guid && $guid ne '' &&
+                   defined $artist && $artist ne '' &&
+                   defined $album && $album ne '')
+               {
+                   $pe->Insert($name, $guid, $artist, $album, $seq,
+                               $len, $year, $genre, $filename, $comment);
+               }
             }
        }
        else

@@ -116,8 +116,6 @@ if (!defined $xml)
     exit(0);
 }
 
-print STDERR "$xml\n";
-
 $parser = new XML::DOM::Parser;
 eval
 {
@@ -135,13 +133,8 @@ if ($@)
 $version = QuerySupport::SolveXQL($doc, "/rdf:RDF/rdf:Description/MQ:Version");
 if (!defined $version || $version eq '')
 {
-    print STDERR "Old version\n";
     $use_old_style = 1;
     $xml = UpdateQuery($xml);
-}
-else
-{
-    print STDERR "new version\n";
 }
 
 $queryname = QuerySupport::SolveXQL($doc, "/rdf:RDF/rdf:Description/MQ:Query");
@@ -166,7 +159,6 @@ for(;;)
     if ($xqlquery ne '')
     {
         $data = QuerySupport::SolveXQL($doc, $xqlquery);
-        #print STDERR "[$xqlquery] -> [$data]\n";
         $data = undef if (defined $data && $data eq '');
     }
     else
