@@ -74,23 +74,11 @@ usage(), exit if $fHelp;
 usage(), exit 1 if @ARGV;
 usage(), exit 1 if not $fCompress and not $fKeepFiles;
 
-for (my $i=0; ; ++$i)
-{
-	my $try = "$dir/mbexport-$$-$i";
-
-	if (mkdir $try)
-	{
-		$dir = $try;
-		last;
-	}
-	
-	use Errno 'EEXIST';
-	next if $! == EEXIST;
-
-	die "Error creating temporary directory $try ($!)";
-}
-
+use File::Temp qw( tempdir );
+$SIG{'INT'} = sub { exit 3 };
+$dir = tempdir("mbexport-XXXXXX", DIR => $dir, CLEANUP => not $fKeepFiles);
 mkdir "$dir/mbdump" or die $!;
+print "Exporting to $dir/mbdump\n" if $fKeepFiles;
 
 use MusicBrainz;
 my $mb = new MusicBrainz;
@@ -139,6 +127,11 @@ my $tables = 0;
 $sql->AutoCommit;
 $sql->Do("SET SESSION CHARACTERISTICS AS TRANSACTION ISOLATION LEVEL SERIALIZABLE");
 $sql->Begin;
+
+my $now = $sql->SelectSingleValue("SELECT NOW()");
+open(TIMESTAMP, ">$dir/mbdump/TIMESTAMP") or die $!;
+print TIMESTAMP "This snapshot was taken at $now UTC\n";
+close TIMESTAMP;
 
 $sql->Do("SELECT * INTO TEMPORARY TABLE moderator_sanitised FROM moderator");
 $sql->Do("UPDATE moderator_sanitised SET password = 'mb', privs = 0, email = ''");
@@ -219,7 +212,7 @@ printf "Dumped %d tables (%d rows) in %d seconds\n",
 undef $sql;
 undef $mb;
 
-my @core = qw(
+my @group_core = qw(
 	album
 	albumjoin
 	artist
@@ -232,7 +225,7 @@ my @core = qw(
 	trmjoin
 	);
 
-my @derived = qw(
+my @group_derived = qw(
 	albummeta
 	albumwords
 	artistwords
@@ -240,7 +233,7 @@ my @derived = qw(
 	wordlist
 	);
 
-my @moderation = qw(
+my @group_moderation = qw(
 	currentstat
 	historicalstat
 	moderation
@@ -250,7 +243,11 @@ my @moderation = qw(
 	votes
 	);
 
-my @moderator_private = qw(
+my @group_artistrelation = qw(
+	artist_relation
+);
+
+my @group_modprivate = qw(
 	moderator
 	moderator_preference
 	moderator_subscribe_artist
@@ -261,26 +258,20 @@ use File::Copy qw( copy );
 if ($fCompress)
 {
 	copy("$FindBin::Bin/COPYING-PublicDomain", "$dir/mbdump/COPYING") or die $!;
-	make_tar("mbdump.tar.bz2", "COPYING", @core);
+	make_tar("mbdump.tar.bz2", @group_core);
 
 	copy("$FindBin::Bin/COPYING-CCShareAlike", "$dir/mbdump/COPYING") or die $!;
-	make_tar("mbdump-derived.tar.bz2", "COPYING", @derived);
-	make_tar("mbdump-moderation.tar.bz2",  "COPYING", @moderation);
-	make_tar("mbdump-artistrelation.tar.bz2", "COPYING", qw( artist_relation ));
-	make_tar("mbdump-moderator.tar.bz2", "COPYING", @moderator_private);
-}
-
-if ($fKeepFiles)
-{
-	print "Keeping temporary directory $dir\n";
-} else {
-	use File::Path;
-	rmtree($dir);
+	make_tar("mbdump-derived.tar.bz2", @group_derived);
+	make_tar("mbdump-moderation.tar.bz2",  @group_moderation);
+	make_tar("mbdump-artistrelation.tar.bz2", @group_artistrelation);
+	make_tar("mbdump-moderator.tar.bz2", @group_modprivate);
 }
 
 sub make_tar
 {
 	my ($tarfile, @files) = @_;
+
+	unshift @files, "TIMESTAMP", "COPYING";
 
 	my $t0 = [gettimeofday];
 	print "Creating $tarfile\n";
