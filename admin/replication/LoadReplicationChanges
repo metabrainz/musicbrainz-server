@@ -272,9 +272,7 @@ sub read_file
 
 sub empty_replication_tables
 {
-	# TRUNCATE is generally more efficient than DELETE
-	$sql->Do("TRUNCATE TABLE \"PendingData\"");
-	# but we can't TRUNCATE this, 'cos it's a parent to PendingData (FK).
+	$sql->Do("DELETE FROM \"PendingData\"");
 	$sql->Do("DELETE FROM \"Pending\"");
 }
 
