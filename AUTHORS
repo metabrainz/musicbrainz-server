@@ -55,4 +55,7 @@ The following people have contributed to the MusicBrainz server:
     module)
   - Did the initial coding for artist subscriptions
 
+  Matthias Friedrich <http://www.mafr.de/>
+  - Created the "Superfluous Data Tracks" report
+
 (please send change requests to rob@musicbrainz.org or maintainer)
