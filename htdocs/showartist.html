@@ -111,6 +111,7 @@ $m->comp(
     if ($session{uid})
     {
         </%perl>
+		<a href="/mod/filter.html?artist_id=<% $artist->GetId %>&amp;artist_name=<% url_escape($artist->GetName) %>&amp;edit=1">Set Mod Filter</a> |
         <a href="/addalbum.html?artistid=<% $artist->GetId() %>">Add album</a> |
         <a href="/freedb/freedb.html?search=<% url_escape($artist->GetName) %>">Import album</a> |
         <%perl>
