@@ -1,4 +1,4 @@
-		<div style="margin-top: 1em">&nbsp;</div.
+			<div style="margin-top: 1em">&nbsp;</div>
          </td>
       </tr>
       </table>
@@ -6,59 +6,56 @@
    </td>
 </tr>
 </table>
-<table width="100%" cellpadding="0" cellspacing="0" border="0">
-<tr>
-   <td bgcolor="#000000"><img src="/images/pixel.gif" width="1" height="1" alt=""
- border="0"></td>
-</tr>
-</table>
-<table width="100%" cellpadding="2" cellspacing="0" border="0">
-<tr>
-   <td height="20" bgcolor="#FFBA58" background="/images/topmenu_BG.gif" width="10%" class="footer">
-     &nbsp;
-   </td>
-   <td height="20" bgcolor="#FFBA58" background="/images/topmenu_BG.gif" width="15%" class="footer">
-       <a href="http://www.creativecommons.org">Creative Commons</a>
 
-   </td>
-   <td height="20" bgcolor="#FFBA58" background="/images/topmenu_BG.gif" width="15%" class="footer">
-       <a href="http://www.eff.org">EFF</a>
-   </td>
-   <td height="20" bgcolor="#FFBA58" background="/images/topmenu_BG.gif" width="15%" class="footer">
-       <a href="http://www.gnu.org/copyleft/gpl.html">GPL</a>
-   </td>
-   <td height="20" bgcolor="#FFBA58" background="/images/topmenu_BG.gif" width="15%" class="footer">
-       <a href="http://www.gnu.org/copyleft/lesser.html">LGPL</a>
-   </td>
-   <td height="20" bgcolor="#FFBA58" background="/images/topmenu_BG.gif" width="15%" class="footer">
-       <a href="http://www.freshmeat.net">Freshmeat</a>
-   </td>
-   <td height="20" bgcolor="#FFBA58" background="/images/topmenu_BG.gif" width="10%" class="footer">
-     &nbsp;
-   </td>
+<div id="FooterBar">
+	<table width="100%" cellpadding="2" cellspacing="0" border="0">
+	<tr>
+		<td width="10%">
+			&nbsp;
+		</td>
+		<td width="15%">
+			<a href="http://www.creativecommons.org/">Creative Commons</a>
+		</td>
+		<td width="15%">
+			<a href="http://www.eff.org/"
+				><abbr title="Electronic Frontier Foundation"
+					>EFF</abbr></a>
+		</td>
+		<td width="15%">
+			<a href="http://www.gnu.org/copyleft/gpl.html"
+				><abbr title="General Public License"
+					>GPL</abbr></a>
+		</td>
+		<td width="15%">
+			<a href="http://www.gnu.org/copyleft/lesser.html"
+				><abbr title="Lesser General Public License"
+					>LGPL</abbr></a>
+		</td>
+		<td width="15%">
+			<a href="http://www.freshmeat.net/">Freshmeat</a>
+		</td>
+		<td width="10%">
+			&nbsp;
+		</td>
+	</tr>
+	</table>
+</div>
 
-</tr>
-</table>
-<table width="100%" cellpadding="0" cellspacing="0" border="0">
-<tr>
-   <td bgcolor="#000000"><img src="/images/pixel.gif" width="1" height="1" alt=""
- border="0"></td>
-</tr>
-</table>
+<div id="CreditsBar">
+	<table width="100%" cellpadding="2" cellspacing="0" border="0">
+	<tr>
+		<td width="30%" style="text-align: left">
+			<a href="/support/contact.html">contact details</a>
+		</td>
+		<td width="40%" style="text-align: center">
+			original design|<a href="http://vacubomb.com/">vacubomb.com</a>
+		</td>
+		<td width="30%" style="text-align: right">
+			server version: <% DBDefs::VERSION %>
+		</td>
+	</tr>
+</div>
 
-<br>
-<table width="100%">
-<tr>
-<td class="design" width="15%">
-&nbsp;
-</td>
-<td align=center class="design" width="70%">
-Design|<a href="http://vacubomb.com">vacubomb.com</a>
-</td>
-<td align=right class="design" width="15%">
-  Server version: <% DBDefs::VERSION %>
-</td>
-</tr>
-</table>
 </body>  
 </html>
+%# vi: set ts=4 sw=4 ft=mason :

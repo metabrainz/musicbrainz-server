@@ -37,4 +37,61 @@
 	margin-bottom: 8pt;
 }
 
+#FooterBar
+{
+	width: 100%;
+	border: 1px solid black;
+	border-width: 1px 0;
+	background: #FFBA58;
+	padding: 0.2em 0;
+	text-align: center;
+}
+
+#FooterBar td
+{
+	text-align: center;
+	font-size: 8pt;
+}
+
+#FooterBar a,
+#FooterBar a:link,
+#FooterBar a:visited
+{
+	color: #997035;
+	text-decoration: none;
+	display: block;
+	width: 100%;
+}
+
+#FooterBar a:hover,
+#FooterBar a:active,
+#FooterBar a:focus
+{
+	color: #000;
+}
+
+#CreditsBar td
+{
+	padding: 0.3em;
+	padding-top: 1.5em;
+	color: #bbb;
+	font-size: 8pt;
+}
+
+#CreditsBar a,
+#CreditsBar a:link,
+#CreditsBar a:visited
+{
+	color: #bbb;
+	text-decoration: none;
+	font-weight: bold;
+}
+
+#CreditsBar a:hover,
+#CreditsBar a:active,
+#CreditsBar a:focus
+{
+	color: #555;
+}
+
 /* eof */
