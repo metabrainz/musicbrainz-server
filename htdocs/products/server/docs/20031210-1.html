@@ -1,0 +1,30 @@
+%# vi: set ts=2 sw=2 ft=mason :
+<& /comp/sidebar, title=>'The "Log in permanently" option' &>
+
+<p>
+	When you log in, there is a tick box marked "Log in permanently".&nbsp;
+	By default this box is not ticked, which means then when you successfully
+	log in you'll be sent a single cookie, which will be deleted when you close your
+	browser.&nbsp; This means that if you close and restart your browser and come
+	back to MusicBrainz, you'll have to log in again.
+</p>
+
+<p>
+	On the other hand if you tick the "Log in permanently" box, then when
+	you successfully log in you'll also receive a second cookie, which expires
+	in 1 year (which is the maximum recommended lifetime for cookies).&nbsp;
+	If you then close and restart your browser and return to MusicBrainz, you'll
+	automatically be logged in again.&nbsp; If at any time you click "Logout",
+	then both the session cookie and the "permanent" cookie are deleted, and you
+	must log in again using the normal means.
+</p>
+
+<p>
+	Currently the "permanent" cookie contains your MusicBrainz username
+	and password <em>in plain text</em>.&nbsp; So please <em>don't</em> use
+	this feature if you're logging in from a shared computer (or any other
+	computer which you don't exclusively control and trust),
+	e.g. if you're using a public computer in a library or Internet Caf&eacute;.
+</p>
+
+<& /comp/footer &>
