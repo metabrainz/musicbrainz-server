@@ -138,7 +138,7 @@ sub Cleanup
             if ($fix)
             {
                 $dbh->do("delete from Artist where id = $row[0]"); 
-                $dbh->do("update Changes set Artist = " . ModDefs::DARTIST_ID .
+                $dbh->do("update Moderations set Artist = " . ModDefs::DARTIST_ID .
                          " where artist = $row[0]");
             }
         }
@@ -253,6 +253,29 @@ sub Cleanup
 
     # --------------------------------------------------------------------
     
+    print "Orphaned TOCs: (via Discid)\n";
+    $count = 0;
+    $sth = $dbh->prepare(qq|select TOC.id, TOC.Discid, TOC.Album
+                            from   TOC left join Discid 
+                            on     TOC.discid = Discid.disc 
+                            WHERE  Discid.id IS NULL|);
+    if ($sth->execute() && $sth->rows())
+    {
+        my @row;
+
+        while(@row = $sth->fetchrow_array())
+        {
+            print "  TOC $row[1] references non-existing discid $row[1].\n";
+            $count++;
+
+            $dbh->do("delete from TOC where id = $row[0]") if ($fix);
+        }
+    }
+    $sth->finish;
+    print "Found $count orphaned TOCs.\n\n";
+
+    # --------------------------------------------------------------------
+    
     print "Orphaned albumjoins:\n";
     $count = 0;
     $sth = $dbh->prepare(qq|select AlbumJoin.id, AlbumJoin.album
@@ -348,9 +371,9 @@ sub Cleanup
  
     print "Invalid artists in Moderations:\n";
     $count = 0;
-    $sth = $dbh->prepare(qq|select Changes.id, Changes.artist 
-                              from Changes left join Artist 
-                                on Changes.artist = Artist.id 
+    $sth = $dbh->prepare(qq|select Moderation.id, Moderation.artist 
+                              from Moderation left join Artist 
+                                on Moderation.artist = Artist.id 
                              where Artist.id IS NULL|);
     if ($sth->execute() && $sth->rows())
     {
@@ -361,7 +384,7 @@ sub Cleanup
             print "  Moderation $row[0] references non-existing artist $row[1].\n";
             $count++;
 
-            $dbh->do("update Changes set Artist = " . Artist::DARTIST_ID .
+            $dbh->do("update Moderation set Artist = " . Artist::DARTIST_ID .
                      " where id = $row[0]") if ($fix);
         }
     }

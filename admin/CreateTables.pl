@@ -116,8 +116,8 @@ sub CreateTables
 
         $query = qq|create table TOC (
                        Id serial primary key,
-                       Album int not null references Album,
-                       Discid varchar(28) not null,
+                       Album int not null references (Album),
+                       Discid char(28) references Discid Disc,
                        Tracks int,
                        Leadout int|;
 
@@ -332,7 +332,7 @@ sub CreateIndices
               or die("Could not add indices to AlbumJoin table");
         print "Added indices to AlbumJoin table.\n";
 
-        $sql->Do(qq|create index Discid_DiscIndex on Discid (Disc)|)
+        $sql->Do(qq|create unique index Discid_DiscIndex on Discid (Disc)|)
               or die("Could not add indices to Discid table");
         $sql->Do(qq|create index Discid_AlbumIndex on Discid (Album)|)
               or die("Could not add indices to Discid table");
