@@ -85,6 +85,8 @@ my $can_nominate = (
 	and not MusicBrainz::Server::AutomodElection->is_user_ineligible($user)
 );
 
+my $subscriptions_public = UserPreference::get_for_user("subscriptions_public", $user);
+
 </%perl>
 
 <& /comp/sidebar, title => 'Moderator "' . $user->GetName . '"' &>
@@ -99,6 +101,9 @@ my $can_nominate = (
 	<a href="/mod/search/pre/moderator-failed.html?moderator=<% $uid %>">List Failed Moderations</a>
 % if ($can_nominate) {
 	| <a href="/user/election/propose.html?modname=<% $user->GetName |nuh %>">Nominate for Auto-Mod</a>
+% }
+% if ($subscriptions_public) {
+	| <a href="/user/subscriptions.html?user=<% $uid %>">Subscriptions</a>
 % }
 	]
 </p>
@@ -162,6 +167,14 @@ my $can_nominate = (
 
 			$m->out($bio);
 		</%perl></td>
+	</tr>
+	<tr>
+		<td valign="top" align="right">Subscriptions:</td>
+		<td>
+			<% $is_me ? "Your" : "This user's" %>
+			list of subscribed artists is
+			<% $subscriptions_public ? "public" : "private" %>
+		</td>
 	</tr>
 
 	<tr>
