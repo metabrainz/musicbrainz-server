@@ -39,7 +39,7 @@ else
          <img src="/images/pixel.gif" width="435" height="1" alt="">
 	 <a id="maincontent"></a>
 
-%if($title ne '') {
+%if($title ne '' and not $noh1) {
 	<h1><% $title %></h1>
 %}
 
@@ -47,4 +47,5 @@ else
 $title=>'MusicBrainz'
 $pagetitle=>''
 $expand=>''
+$noh1=>0
 </%args>
