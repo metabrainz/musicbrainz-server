@@ -66,22 +66,18 @@ $more_albums_url = "/showartist.html?artistid=$artist_id" if $artist_id;
 <p>
 
     <table bgcolor="black" cellpadding="5" cellspacing="1">
-% if (scalar(@objs) == 1) {
-    <tr>
-      <td valign="top" bgcolor="#f0efff">
-      Merge albums is not available -- you must select multiple albums to
-	  merge.<br>
-	  <br><a href="<% $more_albums_url %>">Select more albums ...</a>
-      </td>
-      <td valign="top" bgcolor="#f0efff">
-      <font color="red">Merge Album<br>Not available</font>
-      </td>
-    </tr>
-% } else {
     <tr>
       <td valign="top" bgcolor="#f0efff">
       Merge all the selected albums into one album, preserving all
-      TRM ids and CD Index ids.<br>
+      TRM ids and CD Index ids.
+% if (@objs < 2) {
+	  <p>		
+		<span style="color: red">
+		Merge albums is not available - you must select
+		multiple albums to merge.</span>&nbsp;
+  		<a href="<% $more_albums_url %>">Select more albums ...</a>
+	  </p>
+% }
       </td>
       <td valign="top" bgcolor="#f0efff">
 		<form method="post" action="/mod/tag/merge.html">
@@ -89,14 +85,22 @@ $more_albums_url = "/showartist.html?artistid=$artist_id" if $artist_id;
 			<input type="hidden" name="album" value="<% $_ %>">
 % }
 			<input type="hidden" name="mac" value="0">
-			<input type="submit" value="Select">
+			<input type="submit" value="Select" <% (@objs<2) ? "disabled" : "" %>>
 		</form>
       </td>
     </tr>
      <tr>
       <td valign="top" bgcolor="#f0efff">
       Merge all the selected albums into one <b>various artist</b> album, 
-      preserving all TRM ids and CD Index ids.<br>
+      preserving all TRM ids and CD Index ids.
+% if (@objs < 2) {
+	  <p>		
+		<span style="color: red">
+		Merge albums is not available - you must select
+		multiple albums to merge.</span>&nbsp;
+  		<a href="<% $more_albums_url %>">Select more albums ...</a>
+	  </p>
+% }
       </td>
       <td valign="top" bgcolor="#f0efff">
 		<form method="post" action="/mod/tag/merge.html">
@@ -104,11 +108,10 @@ $more_albums_url = "/showartist.html?artistid=$artist_id" if $artist_id;
 			<input type="hidden" name="album" value="<% $_ %>">
 % }
 			<input type="hidden" name="mac" value="1">
-			<input type="submit" value="Select">
+			<input type="submit" value="Select" <% (@objs<2) ? "disabled" : "" %>>
 		</form>
       </td>
     </tr>
-% }
      <tr>
       <td valign="top" bgcolor="#f0efff">
       Remove all the selected albums.<br>
