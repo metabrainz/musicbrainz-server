@@ -13,7 +13,7 @@ my $mb = $m->comp("/comp/dblogin", quiet=>1);
 if (defined $mb)
 {
 	my $mod = Moderation->new($mb->{DBH});
-	my $data = $v->TopModerators(
+	my $data = $mod->TopModerators(
 		namelimit => 11,
 		rowlimit => 5,
 		interval => "1 week",
