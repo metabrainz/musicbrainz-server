@@ -59,6 +59,28 @@ sub Cleanup
 
     # --------------------------------------------------------------------
 
+    print "Empty artists:\n";
+    $sth = $dbh->prepare(qq|select Artist.id, Artist.name
+                            from   Artist left join Track 
+                            on     Artist.id = Track.artist 
+                            WHERE  Track.id IS NULL|);
+    if ($sth->execute() && $sth->rows())
+    {
+        my @row;
+
+        while(@row = $sth->fetchrow_array())
+        {
+            print "  Artist $row[0] has no tracks.\n";
+            $count++;
+
+            $dbh->do("delete from Artist where id = $row[0]") if ($fix);
+        }
+    }
+    $sth->finish;
+    print "Found $count empty artists.\n\n";
+
+    # --------------------------------------------------------------------
+
     print "Empty track names:\n";
     $count = 0;
     $sth = $dbh->prepare(qq|select Track.id, Track.artist
