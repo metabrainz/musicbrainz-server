@@ -65,8 +65,8 @@ function GuessCase2(string, inbrackets)
 
 	// normalise some punctuation and spacing
 	string = string.replace(/\s*:\s*/g, ": ");
-	string = string.replace(/\s*,(?!\d)\s*/g, ", ");
-	string = string.replace(/\s*\.(?!\d)\s*/g, ". ");
+	string = string.replace(/\s*,([^\d])\s*/g, ", $1");
+	string = string.replace(/\s*\.([^\d])\s*/g, ". $1");
 
  	string = string.toLowerCase();
   	var words = string.split(" ");
@@ -95,8 +95,8 @@ function GuessCase2(string, inbrackets)
 			. replace(/^club\b/i, "club")
 			. replace(/^dance\b/i, "dance")
 			. replace(/^dirty\b/i, "dirty")
-			. replace(/^(?:cd|dis[ck])\b/i, "disc")
-			. replace(/^(?:cd|dis[ck])(\d+)\b/i, "disc $1")
+			. replace(/^(cd|dis[ck])\b/i, "disc")
+			. replace(/^(cd|dis[ck])(\d+)\b/i, "disc $2")
 			. replace(/^extended\b/i, "extended")
 			. replace(/^instrumental\b/i, "instrumental")
 			. replace(/^live\b/i, "live")
@@ -106,7 +106,7 @@ function GuessCase2(string, inbrackets)
 			. replace(/^take\b/i, "take")
 			// common last words of bracketed parts
 			. replace(/\bdemo$/i, "demo")
-			. replace(/\b(?:cd|dis[ck])$/i, "disc")
+			. replace(/\b(cd|dis[ck])$/i, "disc")
 			. replace(/\bedit$/i, "edit")
 			. replace(/\bskit$/i, "skit")
 			. replace(/\bmix$/i, "mix")
@@ -164,7 +164,7 @@ function LowercaseCommonWords(string)
 function MiscTransform(string)
 {
 	return string
-		. replace(/ (?:versus|vs\.|vs) /gi, " vs. ")
+		. replace(/ (versus|vs\.|vs) /gi, " vs. ")
 		. replace(/\bfeat(\.|\b|uring\b)/i, "feat.")
 		. replace(/\bft(\.|\b)/i, "feat.")
 		. replace(/\bdj\b/gi, "DJ")
@@ -187,6 +187,7 @@ function MiscTransform(string)
 		. replace(/\bbwv\b/gi, "BWV") // Bach
 		. replace(/\bymca\b/gi, "YMCA")
 		. replace(/\bnyc\b/gi, "NYC")
+		. replace(/\br&b\b/gi, "R&B")
 		// TODO major/minor
 		;
 }
