@@ -18,8 +18,8 @@
 	style="float: left; margin-right: 2em; margin-top: 0"
 	>
 	<div>
-		<input type="hidden" name="artistid" value="<% $ar->GetId %>">
 		<input type="submit" value="&lt;&lt; NO">
+		<input type="hidden" name="artistid" value="<% $ar->GetId %>">
 	</div>
 </form>
 
