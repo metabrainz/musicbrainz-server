@@ -28,6 +28,9 @@ use lib "$FindBin::Bin/../cgi-bin";
 use DBI;
 use DBDefs;
 use MusicBrainz;
+use HTML::Mason::Tools qw( html_escape );
+
+my ($artists, $tracks) = (0, 0);
 
 sub FindDuplicates
 {
@@ -47,6 +50,7 @@ sub FindDuplicates
                               from Track, AlbumJoin, Artist 
                              where AlbumJoin.Track = Track.id and 
                                    Track.Artist = Artist.id 
+			     and track.name ~* 'unknown'
                           order by Artist.name, AlbumJoin.Album, Track.Name\);
     $sth->execute();
     if ($sth->rows)
@@ -61,20 +65,19 @@ sub FindDuplicates
             $num = $row[2];
             $artist = $row[4];
 
-            if ($name =~ /unknown/i)
-            {
                 if ($artist ne $last_artist)
                 {
                    print "<p><a href=\"/showartist.html?artistid=$row[3]\">";
-                   print "<font size=\"+1\">$artist</font></a><br>";
+                   print "<font size=\"+1\">", html_escape($artist), "</font></a><br>";
+		   ++$artists;
                 }
 
                 print "&nbsp;&nbsp;&nbsp;";
                 print "$num: <a href=\"/showtrack.html?trackid=$id\">";
-                print "$name</a><br>\n";
+                print html_escape($name), "</a><br>\n";
 
                 $last_artist = $artist;
-            }
+		++$tracks;
         }
     }
     $sth->finish;
@@ -87,5 +90,8 @@ $mb->Login;
 
 FindDuplicates($mb->{DBH}, $host);
 
-# Disconnect
-$mb->Logout;
+print "<p>End of report; found $tracks 'unknown' tracks by $artists artists.</p>\n\n";
+
+print "<& /comp/footer &>\n";
+
+# eof Unknown.pl
