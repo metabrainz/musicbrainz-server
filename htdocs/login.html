@@ -11,6 +11,7 @@ if ($url eq '')
        $r->headers_in->{'Referer'} ne '')
    {
        $url = $r->headers_in->{'Referer'};
+       $url="/search.html" if ($url eq '/logout.html');
    }
    else
    {

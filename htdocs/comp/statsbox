@@ -1,6 +1,16 @@
 <%perl>
+
+sub StatLine
+{
+    my ($title, $count) = @_;
+
+    my $r = "<tr><TD valign=top align=right class=\"statsb\">$title</TD>";
+    $r .= "<TD valign=top class=\"stats\">$count</td></tr>";
+    return $r;
+}
+
 my $result = $m->cache(action=>'retrieve');
-#$result = undef;
+$result = undef;
 if (!defined($result)) 
 {
     my $mb = mc_comp("/comp/dblogin", quiet=>1);
@@ -16,59 +26,30 @@ if (!defined($result))
              my @row = $sql->NextRow;
              $sql->Finish();
 
-             </%perl>
-<table cellpadding="10" cellspacing="0" border="0">
-<tr> <td>
-<table width=100%>
-<tr>
- <TD valign=top align=right class="statsb">Artists:</TD>
- <TD valign=top class="stats"><% $row[0] %></td>
-</tr>
-<tr>
- <TD valign=top align=right class="statsb">Albums:</TD>
- <TD valign=top class="stats"><% $row[1] %></td>
-</tr>
-<tr>
- <TD valign=top align=right class="statsb">Tracks:</TD>
- <TD valign=top class="stats"><% $row[2] %></td>
-</tr>
-<tr>
- <TD valign=top align=right class="statsb">TRM Ids:</TD>
- <TD valign=top class="stats"><% $row[3] %></td>
-</tr>
-<tr>
- <TD valign=top align=right class="statsb">Discids:</TD>
- <TD valign=top class="stats"><% $row[4] %></td>
-</tr>
-<tr>
- <TD valign=top align=right class="statsb">Mods:</TD>
- <TD valign=top class="stats"><% $row[5] %></td>
-</tr>
-<tr>
- <TD valign=top align=right class="statsb">Users:</TD>
- <TD valign=top class="stats"><% $row[6] %></td>
-</tr>
-</table>
-</td> </tr> </table>
-             <%perl>
+             $result = StatLine("Artists", $row[0]);
+             $result .= StatLine("Albums", $row[1]);
+             $result .= StatLine("Tracks", $row[2]);
+             $result .= StatLine("TRM Ids", $row[3]);
+             $result .= StatLine("Discids", $row[4]);
+             $result .= StatLine("Mods", $row[5]);
+             $result .= StatLine("Users", $row[6]);
              $m->cache(action=>'store', expire_next=>'day', value=>$result);
         }
         else
         {
-             </%perl>
-<table cellpadding="10" cellspacing="0" border="0">
-<tr>
-   <td>
-      <table width=100%>
-        <tr><td align="center" class="statsb">[Updating]</td></tr>
-      </table>
-   </td>
-</tr>
-</table>  
-             <%perl>
+             $result = "[ Updating ]";
         }
         $mb->Logout();
     }
 }
 </%perl>
 
+<table cellpadding="10" cellspacing="0" border="0">
+<tr>
+   <td>
+      <table width=100%>
+        <tr><td align="center" class="statsb"><% $result |n %></td></tr>
+      </table>
+   </td>
+</tr>
+</table>  
