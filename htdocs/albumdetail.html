@@ -1,91 +1,40 @@
+%# vi: set ts=4 sw=4 ft=mason :
+<%args>
+$albumid => ""
+</%args>
 <%perl>
 
-my ($mb); 
-my ($track, $artist, $album, $albumid, @info, $gu, @TRM, $id); 
+$m->comp("/comp/checkloggedin", 0, 1)
+	or return;
 
-# FIXME
-my $hostname = 'musicbrainz.org';
+MusicBrainz::IsNonNegInteger($albumid) && $albumid
+	or return $m->comp("/comp/badargs", 0, 1);
 
-if (!exists $ARGS{albumid} || $ARGS{albumid} eq '')
-{
-    mc_comp("/comp/badargs");
-    return undef;
-}
+my $mb = $m->comp("/comp/dblogin");
 
-$albumid = $ARGS{albumid};
-$mb = mc_comp("/comp/dblogin");
+my $al = Album->new($mb->{DBH});
+$al->SetId($albumid);
+$al->LoadFromId
+	or return $m->comp(
+		"/comp/error",
+		"Album #$albumid not found",
+		0, 1,
+	);
 
-$album = Album->new($mb->{DBH});
-$album->SetId($albumid);
+my $ar = Artist->new($mb->{DBH});
+$ar->SetId($al->GetArtist);
+$ar->LoadFromId
+	or return $m->comp(
+		"/comp/error",
+		"Artist not found",
+		0, 1,
+	);
 
-if (! $album->LoadFromId())
-{
-    mc_comp("/comp/sidebar", title=>"Error");
-    mc_out("This track (ID=$albumid) was not found<br>");
-}
-else
-{
-    $artist = Artist->new($mb->{DBH});
-    $artist->SetId($album->GetArtist());
-    if (!defined $artist->LoadFromId())
-    {
-        mc_comp("/comp/sidebar", title=>"Error");
-        mc_out("Could not load artist.");
-    }
-    else
-    {
-        mc_comp("/comp/sidebar", title=>"Album Details: " . $album->GetName());
-    }
 </%perl>
 
-    <& /comp/tablebegin, title=>'Album Information' &> 
-    <table>
-    <tr>
-    <td valign="top" align="right">Album:</td>
-    <td valign="top"><a href="/showalbum.html?albumid=<% $album->GetId() %>"><% $album->GetName() %></a></td>
-    </tr><tr>
-    <td valign="top" align="right">Album MB Id:</td>
-    <td valign="top"><% $album->GetMBId() %></a></td>
-    </tr><tr>
-    <td valign="top" align="right"><a href="/MM/index.html">MM/RDF</a></td>
-    <td valign="top"><a 
-       href="http://<% $hostname %>/mm-2.1/album/<% $album->GetMBId() %>">
-       http://<% $hostname %>/mm-2.1/album/<% $album->GetMBId() %></a></td>
-    </tr><tr>
-% if (exists $session{user}) {
-    <td valign="top" align="right">Album RowId:</td>
-    <td valign="top"><% $album->GetId() %></a></td>
-    </tr><tr>
-% }
+<& /comp/sidebar, title => "Album Details: " . $al->GetName &>
 
-    </tr>
-    </table>
-    <& /comp/tableend &> 
-
-    <& /comp/tablebegin, title=>'Artist Information' &> 
-    <table>
-    <tr>
-    <td valign="top" align="right">Artist:</td>
-    <td valign="top"><a href="/showartist.html?artistid=<% $artist->GetId() %>"><% $artist->GetName() %></a></td>
-    </tr><tr>
-    <td valign="top" align="right">Artist MB Id:</td>
-    <td valign="top"><% $artist->GetMBId() %></a></td>
-    </tr><tr>
-    <td valign="top" align="right"><a href="/MM/index.html">MM/RDF</a></td>
-    <td valign="top"><a 
-       href="http://<% $hostname %>/mm-2.1/artist/<% $artist->GetMBId() %>">
-       http://<% $hostname %>/mm-2.1/artist/<% $artist->GetMBId() %></a></td>
-    </tr><tr>
-% if (exists $session{user}) {
-    <td valign="top" align="right">Artist RowId:</td>
-    <td valign="top"><% $artist->GetId() %></a></td>
-    </tr><tr>
-% }
-
-    </tr>
-    </table>
-    <& /comp/tableend &> 
-
-% }
+<& /comp/albuminfo, album => $al &>
+<& /comp/artistinfo, artist => $ar &>
 
 <& /comp/footer &>

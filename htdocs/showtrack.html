@@ -1,191 +1,64 @@
+%# vi: set ts=4 sw=4 ft=mason :
+<%args>
+$trackid => ""
+</%args>
 <%perl>
 
-my ($mb); 
-my ($track, $artist, $album, $trackid, @info, $gu, @TRM, $id, $length_in_secs); 
+MusicBrainz::IsNonNegInteger($trackid) && $trackid
+	or return $m->comp("/comp/badargs", 1, 1);
 
-# FIXME
-my $hostname = 'musicbrainz.org';
+my $mb = $m->comp("/comp/dblogin");
 
-if ((!exists $ARGS{trackid} || $ARGS{trackid} eq '') &&
-    (!exists $ARGS{albumjoinid} || $ARGS{albumjoinid} eq ''))
-{
-    mc_comp("/comp/sidebar", title=>"Error");
-    mc_comp("/comp/badargs");
-    return undef;
-}
+my $track = Track->new($mb->{DBH});
+$track->SetId($trackid);
+$track->LoadFromId
+	or return $m->comp(
+		"/comp/error",
+		"Track #$trackid not found in the database.",
+		1, 1,
+	);
 
-$mb = mc_comp("/comp/dblogin");
-$track = Track->new($mb->{DBH});
+my @TRM = TRM->new($mb->{DBH})->GetTRMFromTrackId($track->GetId);
 
-if (exists $ARGS{trackid})
-{
-    $trackid = $ARGS{trackid};
-    $track->SetId($trackid);
-    if (! $track->LoadFromId())
-    {
-        mc_comp("/comp/sidebar", title=>"Error");
-        mc_out("This track (ID=$trackid) was not found<br>");
-        return undef;
-    }
-}
-else
-{
-    if (! $track->LoadFromAlbumJoin($ARGS{albumjoinid}))
-    {
-        mc_comp("/comp/sidebar", title=>"Error");
-        mc_out("This track (AlbumJoinID=$ARGS{albumjoinid}) was not found<br>");
-        return undef;
-    }
-}
-
-$gu = TRM->new($mb->{DBH});
-@TRM = $gu->GetTRMFromTrackId($track->GetId());
-
-$artist = Artist->new($mb->{DBH});
-$artist->SetId($track->GetArtist());
-if (!defined $artist->LoadFromId())
-{
-    mc_comp("/comp/sidebar", title=>"Error");
-    mc_out("Could not load artist.");
-}
-else
-{
-    mc_comp("/comp/sidebar", title=>"Track Details: " . $track->GetName());
-}
-
-$length_in_secs = int($track->GetLength() / 1000);
+my $artist = Artist->new($mb->{DBH});
+$artist->SetId($track->GetArtist);
+$artist->LoadFromId
+	or return $m->comp(
+		"/comp/error",
+		"Artist not found in the database.",
+		1, 1,
+	);
 
 </%perl>
 
-    <& /comp/tablebegin, title=>'Track Information' &> 
-    <table>
-    <tr>
-    <td valign="top" align="right">Title:</td>
-    <td valign="top"><% $track->GetName() %></td>
-    </tr><tr>
-    <td valign="top" align="right">Track MB Id:</td>
-    <td valign="top"><% $track->GetMBId() %></td>
-    </tr><tr>
-    <td valign="top" align="right"><a href="/MM/index.html">MM/RDF</a></td>
-    <td valign="top"><a 
-       href="http://<% $hostname %>/mm-2.1/track/<% $track->GetMBId() %>">
-       http://<% $hostname %>/mm-2.1/track/<% $track->GetMBId() %></a></td>
-    </tr>
-% if (exists $session{user}) {
-    <tr>
-    <td valign="top" align="right">Track RowId:</td>
-    <td valign="top"><% $track->GetId() %></td>
-    </tr>
-% }
-% if ($length_in_secs != 0) {
-    <tr>
-    <td valign="top" align="right">Length:</td>
-    <td valign="top"><% int($length_in_secs / 60) %>:<% sprintf("%02d",($length_in_secs % 60)) %></td>
-    </tr>
-% }
+<& /comp/sidebar, title => "Track Details: " . $track->GetName &>
 
-% if (scalar(@TRM) > 0) {
-    <tr>
-    <td valign="top" align="right">TRM Ids:</td>
-    <td>
-       <table>
-       <tr>
-          <td><img src="/images/trm.gif" align="middle"></td>
-          <td>Lookup count:</td>
-          <td>&nbsp;</td>
-       </tr>
-%      foreach $id (@TRM) {
-          <tr>
-             <td valign="top"><% $id->{TRM} %></td>
-             <td valign="top" align="center"><% $id->{lookupcount} %></td>
-             <td valign="top">
-%            if (exists $session{user}) {
-                <a href="/remtrm.html?TRMjoin=<% $id->{TRMjoinid} %>&amp;trackid=<% $track->GetId() %>&amp;trmid=<% $id->{TRM} %>">Delete</a>
-%            } else {
-                &nbsp;
-%            }
-             </td>
-          </tr>
-%   }
-       </table>
-    </td>
-    </tr>
-% }
+<& /comp/trackinfo, track => $track, TRM => \@TRM &>
 
-    </table>
-    <& /comp/tableend &> 
-
-    <& /comp/tablebegin, title=>'Artist Information' &> 
-    <table>
-    <tr>
-    <td valign="top" align="right">Artist:</td>
-    <td valign="top"><a href="/showartist.html?artistid=<% $artist->GetId() %>"><% $artist->GetName() %></a></td>
-    </tr><tr>
-    <td valign="top" align="right">Artist MB Id:</td>
-    <td valign="top"><% $artist->GetMBId() %></td>
-    </tr><tr>
-    <td valign="top" align="right"><a href="/MM/index.html">MM/RDF</a></td>
-    <td valign="top"><a 
-       href="http://<% $hostname %>/mm-2.1/artist/<% $artist->GetMBId() %>">
-       http://<% $hostname %>/mm-2.1/artist/<% $artist->GetMBId() %></a></td>
-    </tr>
-% if (exists $session{user}) {
-    <tr>
-    <td valign="top" align="right">Artist RowId:</td>
-    <td valign="top"><% $artist->GetId() %></a></td>
-    </tr>
-% }
-
-    </table>
-    <& /comp/tableend &> 
+<& /comp/artistinfo, artist => $artist &>
 
 <%perl>
 
-    @info = $track->GetAlbumInfo();
-    if (scalar(@info) == 0)
-    {
-        mc_out("Could not load albums.");
-    }
-    else
-    {
-        foreach $album (@info)
-        {
-</%perl>
-            <& /comp/tablebegin, title=>"Album: $$album[1]", 
-                                 gattrs=>'width="100%"' &>
-            <table>
-            <tr>
-            <td valign="top" align="right">Title:</td>
-            <td valign="top"><a href="/showalbum.html?albumid=<% $$album[0] %>"><% $$album[1] %></a></td>
-            </tr><tr>
-            <td valign="top" align="right">Album MB Id:</td>
-            <td valign="top"><% $$album[3] %></td>
-            </tr><tr>
+my @info = $track->GetAlbumInfo;
 
-            <td valign="top" align="right"><a 
-                href="/MM/index.html">MM/RDF</a></td>
-            <td valign="top"><a 
-              href="http://<% $hostname %>/mm-2.1/album/<% $$album[3] %>">
-              http://<% $hostname %>/mm-2.1/album/<% $$album[3] %></a></td>
-            </tr>
+if (@info)
+{
+	for (@info)
+	{
+		my $album = Album->new($mb->{DBH});
+		$album->SetId($_->[0]);
+		$album->SetName($_->[1]);
+		$album->SetMBId($_->[3]);
 
-% if (exists $session{user}) {
-            <tr>
-            <td valign="top" align="right">Album RowId:</td>
-            <td valign="top"><% $$album[0] %></td>
-            </tr>
-% }
-
-            </table>
-            <center>
-            This track appears as track number <% $$album[2] %> on this album.
-            </center>
-            <& /comp/tableend &>
-<%perl>
-        }
-    }
-
-$mb->Logout();
+		$m->comp(
+			"/comp/albuminfo",
+			album => $album,
+			track => $_->[2],
+		);
+	}
+} else {
+	$m->out("Could not load albums.");
+}
 
 </%perl>
 
