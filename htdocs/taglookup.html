@@ -10,7 +10,7 @@ $tracknum=>""
 $filename=>""
 $trmid=>""
 $duration=>0
-$mbt=>0
+$mbt=>$session{'mbt'}
 </%args>
 
 %###############################################################################
@@ -129,6 +129,7 @@ $mbt=>0
 <%def .OutputEditForm>
 %	my ($data) = @_;
    <form method="post" action="/taglookup.html"
+		name="TagLookup"
          enctype="application/x-www-form-urlencoded" class="formstyle">
      <table>
      <tr>
@@ -171,6 +172,7 @@ $mbt=>0
      </tr>
    </table>
    </form>
+   <& /comp/movefocus, "TagLookup", "artist" &>
 </%def>
 
 %###############################################################################
@@ -532,6 +534,9 @@ elsif ($flags & TaggerSupport::ALBUMTRACKLIST)
           <tr>
              <td align="center" NOWRAP><b>Album</b></td>
              <td align="center" colspan="3" NOWRAP><b>Album Info</b></td>
+% if ($mbt) {
+             <td align="center" NOWRAP><b>Tag</b></td>
+% }
              <td align="center" NOWRAP><b>Track</b></td>
              <td align="center" NOWRAP><b>Length</b></td>
              <td align="center" NOWRAP><b>Relevance</b></td>
@@ -574,6 +579,13 @@ if ($duration and $id->{tracklen})
                   width="30" height="11"
                   title="This album has <% $id->{album_trmids} %> TRM Ids">&nbsp;
              </td>
+% if ($mbt) {
+			 <td valign="top" align="center" rowspan="2" style="padding: 4px 0.5em 4px 0">
+				 <a href="tag:<% $id->{mbid} %>:<% $id->{albummbid} %>"><img src="/images/mblookup-tag.gif" 
+					alt="Tag" title="Tag the current track" height="13" width="28"
+					align="middle" border="0"></a>
+			 </td>
+% }
              <td valign="top" width="40%" rowspan="2"><a href="/showtrack.html?trackid=<% $id->{id} %>"><% $id->{name} %></a></td>
              <td valign="top" align="center" rowspan="2" class="tlen <% $tracklenclass %>"><% Track::FormatTrackLength($id->{tracklen}) %></td>
              <td valign="top" align="center" rowspan="2"><% int($id->{sim} * 100) %>%</td>
