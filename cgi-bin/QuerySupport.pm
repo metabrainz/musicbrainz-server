@@ -950,11 +950,24 @@ sub CreateTrackRDFSnippet
    return $rdf;
 }
 
+# Check to see if the guid needs to be converted from 38 to 36 chars
+sub ConvertGUID
+{
+    my ($guid) = @_;
+
+    return $guid if (length($guid) != 38);
+
+    $guid =~ /(.{20})..(.*)$/;
+    return $1 . $2;
+}
+
 sub ExchangeMetadata
 {
    my ($cd, $doc, $name, $guid, $artist, $album, $seq,
        $len, $year, $genre, $filename, $comment) = @_;
    my (@ids, $id, $rdf, $r);
+
+   $guid = ConvertGUID($guid);
 
    $r = RDF::new;
 
