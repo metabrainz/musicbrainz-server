@@ -32,7 +32,6 @@ use lib "$FindBin::Bin/../../cgi-bin";
 use Encode qw( decode );
 use Getopt::Long;
 
-use DBI;
 use DBDefs;
 use MusicBrainz;
 use Sql;

@@ -25,7 +25,6 @@
 use FindBin;
 use lib "$FindBin::Bin/../cgi-bin";
 
-use DBI;
 use MusicBrainz;
 use MusicBrainz::Server::ModBot;
 use Apache;

@@ -27,7 +27,6 @@ use FindBin;
 use lib "$FindBin::Bin/../../cgi-bin";
 
 use strict;
-use DBI;
 use DBDefs;
 use Album;
 use MusicBrainz;

@@ -28,7 +28,6 @@ use FindBin;
 use lib "$FindBin::Bin/../cgi-bin";
 
 use Getopt::Long;
-use DBI;
 use MusicBrainz;
 use DBDefs;
 use Sql;

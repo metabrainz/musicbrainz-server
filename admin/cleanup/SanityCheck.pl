@@ -29,7 +29,6 @@ use strict;
 use FindBin;
 use lib "$FindBin::Bin/../../cgi-bin";
 
-use DBI;
 use DBDefs;
 use Artist;
 use ModDefs ':modstatus', 'DARTIST_ID';
