@@ -321,17 +321,20 @@ sub _ProcessUserSubscriptions
 		return;
 	}
 
-	$sql->Do(
-		"DELETE FROM moderator_subscribe_artist
-		WHERE moderator = ? AND (deletedbymod <> 0 OR mergedbymod <> 0)",
-		$self->GetUser,
-	);
-	$sql->Do(
-		"UPDATE moderator_subscribe_artist
-		SET lastmodsent = ? WHERE moderator = ?",
-		$self->{THRESHOLD_MODID},
-		$self->GetUser,
-	);
+	unless ($self->{'dryrun'})
+	{
+		$sql->Do(
+			"DELETE FROM moderator_subscribe_artist
+			WHERE moderator = ? AND (deletedbymod <> 0 OR mergedbymod <> 0)",
+			$self->GetUser,
+		);
+		$sql->Do(
+			"UPDATE moderator_subscribe_artist
+			SET lastmodsent = ? WHERE moderator = ?",
+			$self->{THRESHOLD_MODID},
+			$self->GetUser,
+		);
+	}
 
 	(my $safe_name = $user->GetName) =~ s/\W/?/g;
 
@@ -357,6 +360,14 @@ Please do not reply to this message.  If you need help, please see
 $root/support/contact.html
 
 EOF
+
+	if ($self->{'dryrun'})
+	{
+		printf "The following e-mail would be sent to #%d '%s':\n",
+			$user->GetId, $user->GetName;
+		print $text;
+		return;
+	}
 
 	$user->SendFormattedEmail($text);
 }
