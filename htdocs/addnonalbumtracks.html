@@ -8,7 +8,8 @@
 # $dest_argname is the name of the argument where the sortname of a new
 #               artist should be stored.
 
-my ($mb, $ar, $key, @albums, $found_tracks, $found_id, $num, $num_tracks, $val, $title);
+my ($mb, $ar, $key, @albums, $found_album, $found_tracks, $found_id, $num, 
+    $num_tracks, $val, $title, $trackname);
 
 $title = $ARGS{nonalbum} ? "Add non-album tracks" : "Add Album";
 mc_comp("/comp/sidebar", title=>$title);
@@ -20,6 +21,17 @@ if (!exists $ARGS{key0} || $ARGS{key0} eq '' ||
 {
     mc_comp("/comp/badargs");
     return undef;
+}
+
+if (exists $ARGS{key2} && exists $ARGS{value2})
+{
+    $trackname = $ARGS{value2};
+    delete $ARGS{key2};
+    delete $ARGS{value2};
+}
+else
+{
+    $trackname = "";
 }
 
 $num_tracks = $ARGS{value1};
@@ -43,7 +55,7 @@ if (!defined $ar->LoadFromId())
 @albums = $ar->GetAlbums() if ($ARGS{artist} != ModDefs::VARTIST_ID);
 if (scalar @albums > 0)
 {
-    my ($album);
+    my $album;
 
     foreach $album (@albums)
     {
@@ -51,6 +63,8 @@ if (scalar @albums > 0)
        {
           $found_tracks = $album->GetTrackCount();
           $found_id = $album->GetId();
+          $found_album = $album;
+          last;
        }
     }
 }
@@ -76,8 +90,7 @@ else
 
     <& /comp/stylemenu &>
 
-    <& /comp/tablebegin, gattrs=>"width=\"100%\"", title=>'Enter Tracks' &>
-
+    <table width="420"><tr><td> 
     
     <script LANGUAGE="JavaScript">
     function validate(form)
@@ -102,18 +115,38 @@ else
 % }
           enctype="application/x-www-form-urlencoded" class="formstyle">
     <table>
-% if (defined $found_id) {
 
+% if (defined $found_id) {
       <tr>
         <td colspan="2">
-          The artist <font class="bold"><% $ar->GetName() %></font> already
-          has an album called <font class="bold"><% $ARGS{value0} %></font>
-          which contains <font class="bold"><% $found_tracks %></font> tracks.
-          <p>
-          If you are certain that you need to add another album with the
-          same name, then fill out the form below and click Submit.
-          Otherwise, check out album 
-          <a href="/showalbum.html?albumid=<% $found_id %>"><% $ARGS{value0} %></a>.<p><br>
+%         if ($ARGS{nonalbum}) {
+              The artist <font class="bold"><% $ar->GetName() %></font> already
+              has <font class="bold"><% $found_tracks %></font> non-album tracks.
+%         } else {
+              The artist <font class="bold"><% $ar->GetName() %></font> already
+              has an album called <font class="bold"><% $ARGS{value0} %></font>
+              which contains <font class="bold"><% $found_tracks %></font> tracks.
+%         }
+
+%         if (defined $found_album && defined $ar) {
+             <p>
+             <& /comp/album, album=>$found_album, artist=>$ar, 
+                             showalbumdetail=>1, showids=>1, nomod=>0 &>
+%         }
+
+%         if (!$ARGS{nonalbum}) {
+              <p>
+              If you are certain that you need to add another album with the
+              same name, then fill out the form below and click Submit.
+              <p><br>
+%         } else {
+              Please use the link above to add a new track.
+              </td></tr></table>
+              </td></tr></table>
+%             $mb->Logout();
+              <& /comp/footer &>
+%             return undef;
+%         }
         </td>
       </tr>
 % }
@@ -139,7 +172,7 @@ else
         Track <% $num %>:
         </td>
         <td>
-        <INPUT TYPE="text" NAME="value<% $val %>" SIZE=25>
+        <INPUT TYPE="text" NAME="value<% $val %>" VALUE="<% $trackname %>" SIZE=25>
         <INPUT TYPE="hidden" NAME="key<% $val++ %>" 
                value="Track<% $num %>" SIZE=25>
 
@@ -175,7 +208,7 @@ else
     <input type="hidden" name="value<% $val %>" value="<% $ARGS{nonalbum} %>">
     </form>
 
-    <& /comp/tableend &>
+    </td></tr></table>
 
     <%perl>
 }

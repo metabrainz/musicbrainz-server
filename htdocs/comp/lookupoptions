@@ -3,6 +3,7 @@ $artist=>""
 $album=>""
 $artistobj=>undef
 $albumobj=>undef
+$data=>undef
 </%args>
 
 <%perl>
@@ -35,10 +36,40 @@ you can do the following things:
 
 <ul>
   <li>Import <a href="/freedb/freedb.html?search=<% "$search" |u %>"><% $display %></a> 
-      from FreeDB and then tag your track against the new album.
+      from FreeDB and then tag your track against the new album.<p>
 
-% if ($artist ne '') {
-     <li>Add a non-album track to artist <% $artist %>.
+% if (0) { #$artist ne '' && defined $artistobj) {
+    <li><a href="javascript:submitit()">Add a non-album track</a> to 
+        artist <% $artist %>.
+
+    <FORM METHOD="POST" ACTION="/addnonalbumtracks.html" 
+          NAME="AddNonAlbumTrackForm"
+          ENCTYPE="application/x-www-form-urlencoded">
+
+    <INPUT TYPE="hidden" NAME="value0" value="Non-album tracks">
+    <INPUT TYPE="hidden" NAME="value1" value="1">
+    <INPUT TYPE="hidden" NAME="value2" value="<% $data->{track} %>">
+    <input type="hidden" name="key0" value="AlbumName">
+    <input type="hidden" name="key1" value="NumTracks">
+    <input type="hidden" name="key2" value="TrackName">
+    <input type="hidden" name="artist" value="<% $artistobj->GetId() %>">
+    <input type="hidden" name="type" value="<% ModDefs::MOD_ADD_ALBUM %>">
+    <input type="hidden" name="prev" value="">
+    <input type="hidden" name="table" value="Album">
+    <input type="hidden" name="column" value="Name">
+    <input type="hidden" name="id" value="0">
+    <input type="hidden" name="url" value="/search.html">
+    <input type="hidden" name="nonalbum" value="1">
+    <script language="JavaScript" type="text/javascript">
+    <!--
+    function submitit ( )
+    {
+        document.AddNonAlbumTrackForm.submit() ;
+    }
+    -->
+    </script>
+    </form>
+
 % }
   <li>Use the box below to modify your lookup criteria and try again:
 </ul>

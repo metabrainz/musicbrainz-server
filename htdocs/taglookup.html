@@ -27,7 +27,6 @@ $mbt=>0
 use Data::Dumper;
 use URI::Escape;
 
-# TODO: Add nicer error handling
 sub OutputArtist
 {
    my ($ts, $data) = @_;
@@ -65,7 +64,7 @@ sub OutputAlbum
 sub OutputTrack
 {
    my ($ts, $data) = @_;
-   my ($tr);
+   my ($tr, @albums, $al, $id, $saved);
 
    if (not exists $ts->{artist})
    {
@@ -73,21 +72,45 @@ sub OutputTrack
        $ts->{artist}->SetMBId($data->{artistid});
        $ts->{artist}->LoadFromId()
    }
-   if (not exists $ts->{album})
-   {
-       $ts->{album} = Album->new($ts->{DBH});
-       $ts->{album}->SetMBId($data->{albumid});
-       $ts->{album}->LoadFromId()
-   }
    if (not exists $ts->{track})
    {
        $ts->{track} = Track->new($ts->{DBH});
        $ts->{track}->SetMBId($data->{trackid});
        $ts->{track}->LoadFromId()
    }
+   if (exists $data->{albumid} && $data->{albumid} ne '')
+   {
+       if (not exists $ts->{album})
+       {
+           $ts->{album} = Album->new($ts->{DBH});
+           $ts->{album}->SetMBId($data->{albumid});
+           $ts->{album}->LoadFromId()
+       }
+       $saved = $ts->{album};
+       push @albums, $saved->GetId();
+   }
+   else
+   {
+       $ts->{album} = Album->new($ts->{DBH});
+       @albums = $ts->{album}->GetAlbumIdsFromTrackId($ts->{track}->GetId());
+   }
 
-   mc_comp("/comp/album", artist=>$ts->{artist}, album=>$ts->{album},
-           showalbumdetail=>1, mbtagger=>$data->{mbt}, showids=>1, hilitetrack=>$ts->{track}->GetId());
+   foreach $id (@albums)
+   {
+       if (defined $saved && $id == $saved->GetId())
+       {
+           $al = $saved;
+       }
+       else
+       {
+           $al = Album->new($ts->{DBH});
+           $al->SetId($id);
+           $al->LoadFromId();
+       }
+       mc_comp("/comp/album", artist=>$ts->{artist}, album=>$al,
+               showalbumdetail=>1, mbtagger=>$data->{mbt}, showids=>1, 
+               hilitetrack=>$ts->{track}->GetId());
+   }
 }
 
 sub OutputForm
@@ -158,66 +181,12 @@ sub OutputEditForm
         <INPUT TYPE="hidden" NAME="mbt" SIZE="2" VALUE="$data->{mbt}">
       </td>
      </tr>
-     <tr>
-      <td colspan="2">
-        <b>Debug info:</b>
-      </td>
-     </tr>
-     <tr>
-      <td align="right" valign="top" NOWRAP>
-        Artist Id:
-      </td>
-      <td>
-        $data->{artistid}
-      </td>
-     </tr>
-     <tr>
-      <td align="right" valign="top" NOWRAP>
-        Album Id:
-      </td>
-      <td>
-        $data->{albumid}
-      </td>
-     </tr>
-     <tr>
-      <td align="right" valign="top" NOWRAP>
-        Track Id:
-      </td>
-      <td>
-        $data->{trackid}
-      </td>
-     </tr>
-     <tr>
-      <td align="right" valign="top" NOWRAP>
-        Duration:
-      </td>
-      <td>
-        $data->{duration}
-      </td>
-     </tr>
-     <tr>
-      <td align="right" valign="top" NOWRAP>
-        TRM Id:
-      </td>
-      <td>
-        $data->{trmid}
-      </td>
-     </tr>
-     <tr>
-      <td align="right" valign="top" NOWRAP>
-        MBTagger:
-      </td>
-      <td>
-        $data->{mbt}
-      </td>
-     </tr>
    </table>
    </form>|;
-
    return $ret;
 }
 
-my ($mb, $ts, $result, $flags, $list, $error, $id, %data); 
+my ($mb, $ts, $result, $flags, $list, $error, $id, %data, %orig_data); 
 my $bgcolor= '#ffffff';
 
 $mb = mc_comp("/comp/dblogin");
@@ -235,7 +204,21 @@ $data{duration} = $duration;
 $data{filename} = $filename;
 $data{mbt} = $mbt;
 
+# Save the original data for use in the lookup dialog later
+%orig_data = %data;
+
 ($error, $result, $flags, $list) = $ts->Lookup(\%data, 25);
+#mc_out "Debug: [ ";
+#mc_out "ArtistId " if ($flags & TaggerSupport::ARTISTID);
+#mc_out "ArtistList " if ($flags & TaggerSupport::ARTISTLIST);
+#mc_out "AlbumId " if ($flags & TaggerSupport::ALBUMID);
+#mc_out "AlbumList " if ($flags & TaggerSupport::ALBUMLIST);
+#mc_out "TrackId " if ($flags & TaggerSupport::TRACKID);
+#mc_out "AlbumTrackId " if ($flags & TaggerSupport::ALBUMTRACKID);
+#mc_out "AlbumTrackList " if ($flags & TaggerSupport::ALBUMTRACKLIST);
+#mc_out "Fuzzy " if ($flags & TaggerSupport::FUZZY);
+#mc_out "]<br>";
+
 if ($flags & TaggerSupport::ARTISTLIST)
 {
    OutputArtist($ts, $result);
@@ -279,7 +262,7 @@ if ($flags & TaggerSupport::ARTISTLIST)
    }
 
    mc_comp("/comp/lookupoptions", artist=>$artist, artistobj=>$ts->{artist}, 
-                                  album=>$album, albumobj=>$ts->{album});
+                                  album=>$album, albumobj=>$ts->{album}, data=>\%data);
 }
 elsif ($flags & TaggerSupport::ALBUMLIST)
 {
@@ -323,7 +306,7 @@ elsif ($flags & TaggerSupport::ALBUMLIST)
    }
 
    mc_comp("/comp/lookupoptions", artist=>$artist, artistobj=>$ts->{artist}, 
-                                  album=>$album, albumobj=>$ts->{album});
+                                  album=>$album, albumobj=>$ts->{album}, data=>\%data);
 }
 elsif ($flags & TaggerSupport::ALBUMTRACKLIST)
 {
@@ -362,7 +345,8 @@ elsif ($flags & TaggerSupport::ALBUMTRACKLIST)
        </table>
        <& /comp/framedboxend &>
       
-       <& /comp/lookupoptions, artist=>$artist, artistobj=>$ts->{artist}, album=>$album, albumobj=>$ts->{album} &>
+       <& /comp/lookupoptions, artist=>$artist, artistobj=>$ts->{artist}, 
+                               album=>$album, albumobj=>$ts->{album}, data=>\%data &>
    
        <%perl>
 
@@ -374,6 +358,15 @@ elsif ($flags & TaggerSupport::ALBUMTRACKLIST)
        <b>Found no matching albums or tracks.</b><p>
        <%perl>
    }
+}
+elsif (($flags & TaggerSupport::ARTISTID) && 
+       ($flags & TaggerSupport::TRACKID))
+{
+   </%perl>
+   <b>Found matching track:</b><p>
+   <%perl>
+   OutputArtist($ts, $result);
+   OutputTrack($ts, $result);
 }
 elsif (($flags & TaggerSupport::ARTISTID) && 
        ($flags & TaggerSupport::ALBUMID) && 
@@ -398,7 +391,8 @@ elsif ($flags & TaggerSupport::ARTISTID)
 {
    </%perl>
    <b>Found matching artist:</b><p>
-   <& /comp/lookupoptions, artist=>$artist, artistobj=>$ts->{artist}, album=>$album, albumobj=>$ts->{album} &>
+   <& /comp/lookupoptions, artist=>$artist, artistobj=>$ts->{artist}, 
+                           album=>$album, albumobj=>$ts->{album}, data=>\%data &>
    <%perl>
    OutputArtist($ts, $result);
 }
@@ -406,7 +400,8 @@ else
 {
    </%perl>
    <b>No matching artists found.</b><p>
-   <& /comp/lookupoptions, artist=>$artist, artistobj=>$ts->{artist}, album=>$album, albumobj=>$ts->{album} &>
+   <& /comp/lookupoptions, artist=>$artist, artistobj=>$ts->{artist}, 
+                           album=>$album, albumobj=>$ts->{album}, data=>\%data &>
    <%perl>
 }
 </%perl>
@@ -415,7 +410,7 @@ else
 <p>
 <center>
 <& /comp/tablebegin, title=>'Modify Lookup', bgcolor=>"#f0efff" &>
-<% OutputEditForm($result) |n %>
+<% OutputEditForm(\%orig_data) |n %>
 <& /comp/tableend &>
 </center>
 
