@@ -64,9 +64,13 @@ if (@names and $confirm)
 	) or return;
 
 	my $al = Album->new($mb->{DBH});
-	$al->GetOrInsertNonAlbum($artistid);
-	my $url = "/showalbum.html?albumid=" . $al->GetId;
-	$m->comp("/comp/redirect", $url);
+
+	if (my @non = $al->FindNonAlbum($artistid))
+	{
+		$m->comp("/comp/redirect", "/showalbum.html?albumid=" . $non[0]->GetId);
+	} else {
+		$m->comp("/comp/redirect", "/showartist.html?artistid=$artistid");
+	}
 
 	die "Shouldn't get here";
 }
