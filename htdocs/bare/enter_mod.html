@@ -1,6 +1,6 @@
 <%perl>
 
-my ($mb, $i, $mod);
+my ($mb, $i, $j, $mod, $new);
 
 $mb = new MusicBrainz;
 $mb->Login();
@@ -16,13 +16,26 @@ for($i = 0;; $i++)
     next if ($ARGS{('new' . $i)} eq '');
     next if ($ARGS{('new' . $i)} eq $ARGS{('prev' . $i)});
 
+    $new = $ARGS{'new' . $i}; 
+    for($j = 0; ; $j++)
+    {
+        if (defined($ARGS{"extra$i-$j"}))
+        {
+           $new .= "\n" . $ARGS{"extra$i-$j"};
+        }
+        else
+        {
+           last;
+        }
+    }
+
     $mod->InsertModification($ARGS{table}, 
                              $ARGS{('column' . $i)}, 
                              $ARGS{('artist' . $i)}, 
                              $ARGS{('type' . $i)}, 
                              $ARGS{id},
                              $ARGS{('prev' . $i)}, 
-                             $ARGS{('new' . $i)}, 
+                             $new, 
                              $session{uid});
 }
 $mb->Logout();

@@ -49,7 +49,12 @@ my $modtype = Moderation::GetModificationName($type);
              table=>$table, id=>$rowid, type=>$type &>
    </td>
    <td width=40% valign=top bgcolor=white class="body">
+% if ($type == Moderation::MOD_ADD_TRACK) {
+%    my (@data) = split(/\n/, $new);
+     New: <% $data[0] %> (Track <% $data[1] %>)
+% } else {   
      New: <% $new %>
+% }
    </td>
    <td width=20% align=center valign=top bgcolor=white class="body">
 % if ($mode == Moderation::TYPE_MINE) {

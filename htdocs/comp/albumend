@@ -1,4 +1,6 @@
    </table>
 </td></tr>
 </table> 
+<center>
+<a href="/addtrack.html?album=<% $ARGS{id} %>&artist=<% $ARGS{artist} %>">Add a missing track</a>
 <p>

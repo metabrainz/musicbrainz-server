@@ -26,9 +26,11 @@ for($i = 0;; $i++)
     $track = $info[$i]; 
     last if (!defined $track);
     $lyricspresent=0;
-    if (DBDefs::USE_LYRICS) {
+    if (DBDefs::USE_LYRICS) 
+    {
         if ($ly->GetLyricsIdFromTrackId($track->Value(0))   > 0 ||
-            scalar ($ly->GetSyncTextList($track->Value(0))) > 0) {
+            scalar ($ly->GetSyncTextList($track->Value(0))) > 0) 
+        {
            $lyricspresent=1;
         }
     }
@@ -44,6 +46,5 @@ for($i = 0;; $i++)
             hilitecolor=>$hilitecolor,
             lyricspresent=>$lyricspresent);
 }
-mc_comp("/comp/albumend");
-
+mc_comp("/comp/albumend", id=>$albumid, artist=>$artist);
 </%perl>

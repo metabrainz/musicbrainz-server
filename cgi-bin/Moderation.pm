@@ -34,6 +34,7 @@ use strict;
 use CGI;
 use DBI;
 use DBDefs;
+use Track;
 
 use constant TYPE_NEW                    => 1;
 use constant TYPE_VOTED                  => 2;
@@ -45,6 +46,7 @@ use constant MOD_EDIT_ALBUMNAME          => 3;
 use constant MOD_EDIT_TRACKNAME          => 4;
 use constant MOD_EDIT_TRACKNUM           => 5;
 use constant MOD_MERGE_ARTIST            => 6;
+use constant MOD_ADD_TRACK               => 7;
 
 use constant STATUS_OPEN                 => 1;
 use constant STATUS_APPLIED              => 2;
@@ -58,7 +60,8 @@ my %ModNames = (
     "3" => "Edit Album Name",
     "4" => "Edit Track Name",
     "5" => "Edit Track Number",
-    "6" => "Merge Artist" 
+    "6" => "Merge Artist",
+    "7" => "Add Track"  
 );
 
 my %ChangeNames = (
@@ -340,8 +343,37 @@ sub ApplyModification
    {
        return ApplyMergeArtistModification($this, $rowid);
    }
+   elsif ($type == MOD_ADD_TRACK)
+   {
+       return ApplyAddTrackModification($this, $rowid);
+   }
 
    return STATUS_ERROR;
+}
+
+sub ApplyAddTrackModification
+{
+   my ($this, $id) = @_;
+   my (@data, $tr, $tid, $status, $sth, @row);
+
+   $status = STATUS_ERROR;
+
+   # Pull back all the pertinent info for this mod
+   $sth = $this->{DBH}->prepare(qq/select newvalue, rowid, artist 
+                                from Changes where id = $id/);
+   $sth->execute;
+   if ($sth->rows)
+   {
+        @row = $sth->fetchrow_array;
+        @data = split(/\n/, $row[0]);
+
+        $tr = Track->new($this->{MB});
+        $status = STATUS_APPLIED 
+           if(defined $tr->Insert($data[0], $row[2], $data[2], $data[1]));
+   }
+   $sth->finish;
+
+   return $status;
 }
 
 sub ApplyMergeArtistModification

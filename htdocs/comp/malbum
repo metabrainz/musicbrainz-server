@@ -42,6 +42,6 @@ for($i = 0;; $i++)
             hilitecolor=>$hilitecolor,
             lyricspresent=>$lyricspresent);  
 }
-mc_comp("/comp/albumend");
+mc_comp("/comp/albumend", id=>$albumid, artist=>0);
 
 </%perl>
