@@ -134,20 +134,32 @@ Installation:
         and /home/httpd/musicbrainz/locks. Make sure the selected
         directories exist before you start the server.
 
-2) Create a UNICODE (!) database called 'musicbrainz'. 
-   (postgres: createdb -E UNICODE musicbrainz)
+2) Decide on a name for your database (e.g. musicbrainz) and a database
+   owner (e.g. musicbrainz).
 
 3) In the cgi-bin directory, edit DBDefs.pm. This perl module will keep
    all the information for accesing the database. Follow the instructions
-   in the module.
+   in the module.  In particular you'll want to pay attention to the first
+   few settings (which define how to connect to the database), and the last
+   few (which tell Mason where it can store its files).
 
-4) In the admin directory, run the script CreateTables.pl. This will log
-   into the DB server and create all the necessary tables. If you want to
-   create a blank database for testing, run CreateTables.pl with the 'all'
-   option. However, if you plan to import the data from the MB website,
-   then run 'CreateTables.pl views tables indexes' skipping the insertion
-   of the default rows. The default rows are included in the data dump
-   and would cause problems when trying to import the data dump.
+4) Assuming you want to start off with a fully-populated database, you'll
+   want to download the database dump files from the FTP site:
+       ftp://ftp.musicbrainz.org/pub/musicbrainz/data
+   Currently there are three files: namely "mbdump.tar.bz2",
+   "mbdump-moderation.tar.bz" and "mbdump-derived.tar.bz2".
+
+   Download all three files, double-check your settings in DBDefs.pm, make
+   sure Postgres is running, then run the "InitDb" script, passing
+   it the names of the three "dump" files you just downloaded:
+
+	./admin/InitDb.pl --create --import \
+		mbdump.tar.bz2 \
+		mbdump-moderation.tar.bz2 \
+		mbdump-derived.tar.bz2
+
+   When run in this way, the script should do everything, including creating
+   the database for you.
 
 5) Configure Apache to use Mason. In the admin directory you will find
    a prefab handler.pl to use with the Mason setup and the vh_httpd.conf
@@ -167,32 +179,8 @@ Installation:
    directory that you specified in httpd.conf. Then copy all the files/subdirs
    from the cgi-bin dir into the ScriptAlias directory specified in httpd.conf
 
-7) Now start postgres (if its not already running), and then start Apache and
-   you should be set and ready to roll. Go the the selected URL and you
-   should see a MusicBrainz site without any data.
-
-8) Finally, import some data into the system. Download the data dump from
-       ftp://ftp.musicbrainz.org/pub/musicbrainz/data/mbdump.tar.bz2
-   and then run the data import script in the admin dir:
-
-       ./MBImport.pl mbdump.tar.bz2
-
-   Then, to reset the Postgres sequence counters, run:
-
-       ./SetSequences.pl
-
-   Then, build the keyword indexes for the text searching:
-
-       ./build_words.pl
-
-   If you ever need to rebuild the text indexes after they have existed,
-   make sure to drop the indexes before running build_words -- for some
-   reason Postgress is painfully slow on old indexes. The admin/sql
-   directory has two helper scripts to make this easy:
-
-       psql musicbrainz < sql/DropTextIndexes.pl
-       psql musicbrainz < sql/CreateTextIndexes.pl
-       ./build_words.pl
+7) Now start Apache and you should be set and ready to roll. Go the the
+   selected URL and you should see a MusicBrainz site, complete with data.
 
    This should be it and now you have your very own MusicBrainz server.
 
