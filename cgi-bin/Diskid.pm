@@ -140,7 +140,7 @@ sub GetDiskIdFromAlbum
         {
             push @ret, { id=>$row[0],
                          diskid=>$row[1],
-                         modpending=>$row[1] };
+                         modpending=>$row[2] };
         }
         $sql->Finish();
     }
@@ -159,8 +159,8 @@ sub Insert
     {
         $sql = Sql->new($this->{DBH});
         $temp = $sql->Quote($id);
-        $sql->Do("insert into Diskid (disk,album,toc,timecreated) " .
-                 "values ($temp, $album, '$toc', now())"); 
+        $sql->Do("insert into Diskid (disk,album,toc,timecreated,modpending) " .
+                 "values ($temp, $album, '$toc', now(), 0)"); 
 
         $rowid = $sql->GetLastInsertId;
     }

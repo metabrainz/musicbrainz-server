@@ -32,7 +32,9 @@ if (scalar(@ids) > 0)
        {
           mc_out('<td colspan="2"');
        }
-       mc_out('align="center">');
+       mc_out('align="center"');
+       mc_out($id->{modpending} ? ' bgcolor="#FFFFCC"' : '');
+       mc_out('>');
        mc_out("CD Index Id: $id->{diskid}<br>");
        mc_out("</td><td align=\"center\">");
        if (exists $session{user} && !$nomod) 

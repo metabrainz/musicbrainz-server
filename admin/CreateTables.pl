@@ -28,8 +28,8 @@ use DBDefs;
 use MusicBrainz;
 use Artist;
 
-# alter table Diskid add column ModPending int;
-# update Diskid set ModPending = 0;
+# insert into ModeratorInfo values (9999, "FreeDB", NULL, 0, 0, 0);
+# run modpending cleanup
 
 sub CreateTables
 {

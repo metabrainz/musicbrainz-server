@@ -48,6 +48,9 @@ sub Cleanup
    print("update Album set modpending = 0\n") if (!$quiet);
    $dbh->do("update Album set modpending = 0") if ($fix);
 
+   print("update Diskid set modpending = 0\n") if (!$quiet);
+   $dbh->do("update Diskid set modpending = 0") if ($fix);
+
    print("update AlbumJoin set modpending = 0\n") if (!$quiet);
    $dbh->do("update AlbumJoin set modpending = 0") if ($fix);
 
