@@ -33,6 +33,7 @@ foreach $key (@names)
        last;
     }
 }
+$num_found = scalar(@names);
 </%perl>
 
 A search on <font class="bold"><% $ARGS{new0} %></font>
@@ -53,24 +54,22 @@ move track <span class="bold"><% $ARGS{prev0} %></span> to the selected artist:
 <form method="POST" action="/bare/enter_mod.html"
       enctype="application/x-www-form-urlencoded" class="formstyle">
 
-
 % if (!$found && $mode ne 'merge') {
-<& /comp/tablebegin, title=>'New Artist', gattrs=>'width="100%"' &>
-<table width="100%"> <tr>
-<th width="50%">Artist Sortname</th>
-<th width="50%">Artist Name</th>
-</tr>
-<td>
-<input type="radio" name="new0" 
-       value="<% $ARGS{new0} %>" CHECKED>&nbsp;<% $ARGS{new0} %>
-</td><td>
-Enter artist name if different from sort name:<br>
-<input type="text" name="extra0-0" SIZE=15> 
-</td></tr></table>
-<& /comp/tableend &>
-% }
+   <& /comp/tablebegin, title=>'New Artist', gattrs=>'width="100%"' &>
+   <table width="100%"> <tr>
+   <th width="50%">Artist Sortname</th>
+   <th width="50%">Artist Name</th>
+   </tr>
+   <td>
+   <input type="radio" name="new0" 
+          value="<% $ARGS{new0} %>" CHECKED>&nbsp;<% $ARGS{new0} %>
+   </td><td>
+   Enter artist name if different from sort name:<br>
+   <input type="text" name="extra0-0" SIZE=15> 
+   </td></tr></table>
+   <& /comp/tableend &>
+%}
 
-%$num_found = scalar(@names);
 % if ($num_found > 0) {
 
     <& /comp/tablebegin, title=>'Existing Artists', gattrs=>'width="100%"' &>
@@ -94,16 +93,8 @@ Enter artist name if different from sort name:<br>
     }
     mc_out("</table>");
     mc_comp("/comp/tableend");
-
-    foreach $key (keys %ARGS)
-    {
-        next if ($key eq 'new0');
-
-        mc_out(qq\<input type="hidden" name="$key" value="$ARGS{$key}">\);
-        mc_out("\n");
-    }
-    mc_out('<input type="submit" value="Finish>>" name="Search">');
 }
+
 if ($num_found == 0 && $mode eq 'merge') 
 {
 </%perl>
@@ -111,6 +102,18 @@ if ($num_found == 0 && $mode eq 'merge')
     <br>&nbsp;&nbsp;<span class="bold">No artists found.</span>
     Please <a href="<% $ARGS{referer} %>">try again</a>.<p><br>
     <& /comp/tableend &>
-% }
-</form>
-% $mb->Logout();
+<%perl>
+}
+
+foreach $key (keys %ARGS)
+{
+    next if ($key eq 'new0');
+
+    mc_out(qq\<input type="hidden" name="$key" value="$ARGS{$key}">\);
+    mc_out("\n");
+}
+mc_out('<input type="submit" value="Finish>>" name="Finish">');
+mc_out('</form>');
+$mb->Logout();
+
+</%perl>
