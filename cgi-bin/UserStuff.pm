@@ -652,9 +652,6 @@ sub SendMessageToUser
 	my $subject = $opts{'subject'};
 	my $message = $opts{'body'};
 
-	return $self->SendMessageToUser_unmasked(%opts)
-		if $revealaddress and $self->GetEmail;
-
 	my $fromname = $self->GetName;
 
 	# Collapse onto a single line
@@ -664,20 +661,34 @@ sub SendMessageToUser
 $message
 
 ------------------------------------------------------------------------
-Please do not respond to this email.
 
 EOF
 
-	$body .= <<EOF if $self->GetEmail;
+	$opts{'revealaddress'} = 0 unless $self->GetEmail;
+
+	if ($opts{'revealaddress'})
+	{
+		$body .= <<EOF;
+If you would like to send mail to moderator '$fromname',
+either reply to this e-mail, or use this link:
+http://${\ DBDefs::WEB_SERVER() }/user/mod_email.html?uid=${\ $self->GetId }
+EOF
+	} elsif ($self->GetEmail) {
+		$body .= <<EOF;
+Please do not respond to this email.
+
 If you would like to send mail to moderator '$fromname',
 please use this link:
 http://${\ DBDefs::WEB_SERVER() }/user/mod_email.html?uid=${\ $self->GetId }
 EOF
+	} elsif ($self->GetId != &ModDefs::MODBOT_MODERATOR) {
+		$body .= <<EOF;
+Please do not respond to this email.
 
-	$body .= <<EOF if not $self->GetEmail;
 Unfortunately moderator '$fromname' has not supplied their e-mail address,
 so you can't reply to them.
 EOF
+	}
 
 	require MusicBrainz::Server::Mail;
 	my $mail = MusicBrainz::Server::Mail->new(
@@ -685,57 +696,28 @@ EOF
 		From		=> $self->GetForwardingAddressHeader,
 		# To: $otheruser (automatic)
 		"Reply-To"	=> 'Nobody <noreply@musicbrainz.org>',
-		Subject		=> MusicBrainz::Server::Mail->_quoted_string($subject),
+		Subject		=> MusicBrainz::Server::Mail->_quoted_header($subject),
 		Type		=> "text/plain",
 		Encoding	=> "quoted-printable",
 		Data		=> $body,
 	);
     $mail->attr("content-type.charset" => "utf-8");
 
-	$otheruser->SendFormattedEmail(entity => $mail);
-}
-
-sub SendMessageToUser_unmasked
-{
-	my ($self, %opts) = @_;
-	my $otheruser = $opts{'to'};
-	my $revealaddress = $opts{'revealaddress'};
-	my $subject = $opts{'subject'};
-	my $message = $opts{'body'};
-
-	my $fromname = $self->GetName;
-
-	# Collapse onto a single line
-	$subject =~ s/\s+/ /g;
-
-	my $body = <<EOF;
-$message
-
-------------------------------------------------------------------------
-
-If you would like to send mail to moderator '$fromname',
-either reply to this e-mail, or use this link:
-http://${\ DBDefs::WEB_SERVER() }/user/mod_email.html?uid=${\ $self->GetId }
-EOF
-
-	require MusicBrainz::Server::Mail;
-	my $mail = MusicBrainz::Server::Mail->new(
-		Sender		=> 'Webserver <webserver@musicbrainz.org>',
-		From		=> $self->GetRealAddressHeader,
-		# To: $otheruser (automatic)
-		Subject		=> MusicBrainz::Server::Mail->_quoted_string($subject),
-		Type		=> "text/plain",
-		Encoding	=> "quoted-printable",
-		Data		=> $body,
-	);
-    $mail->attr("content-type.charset" => "utf-8");
+	if ($opts{'revealaddress'})
+	{
+		$mail->replace("From" => $self->GetRealAddressHeader);
+		$mail->delete("Reply-To");
+	}
 
 	$otheruser->SendFormattedEmail(entity => $mail);
 }
 
 sub SendModNoteToUser
 {
-	my ($self, $mod, $notetext, $otheruser) = @_;
+	my ($self, %opts) = @_;
+	my $mod = $opts{'mod'};
+	my $otheruser = $opts{'noteuser'};
+	my $notetext = $opts{'notetext'};
 
 	my $modid = $mod->GetId;
 	my $fromname = $self->GetName;
@@ -748,22 +730,33 @@ $notetext
 Moderation link: http://${\ DBDefs::WEB_SERVER() }/showmod.html?modid=$modid
 
 ------------------------------------------------------------------------
-Please do not respond to this email.
-
 EOF
 
-	$body .= <<EOF if $self->GetEmail;
+	$opts{'revealaddress'} = 0 unless $self->GetEmail;
+
+	if ($opts{'revealaddress'})
+	{
+		$body .= <<EOF;
+If you would like to send mail to moderator '$fromname',
+either reply to this e-mail, or use this link:
+http://${\ DBDefs::WEB_SERVER() }/user/mod_email.html?uid=${\ $self->GetId }
+EOF
+	} elsif ($self->GetEmail) {
+		$body .= <<EOF;
+Please do not respond to this email.
+
 If you would like to send mail to moderator '$fromname',
 please use this link:
 http://${\ DBDefs::WEB_SERVER() }/user/mod_email.html?uid=${\ $self->GetId }
 EOF
+	} elsif ($self->GetId != &ModDefs::MODBOT_MODERATOR) {
+		$body .= <<EOF;
+Please do not respond to this email.
 
-	$body .= <<EOF
 Unfortunately moderator '$fromname' has not supplied their e-mail address,
 so you can't reply to them.
 EOF
-		if not $self->GetEmail
-		and $self->GetId != &ModDefs::MODBOT_MODERATOR;
+	}
 
 	require MusicBrainz::Server::Mail;
 	my $mail = MusicBrainz::Server::Mail->new(
@@ -777,6 +770,12 @@ EOF
 		Data		=> $body,
 	);
     $mail->attr("content-type.charset" => "utf-8");
+
+	if ($opts{'revealaddress'})
+	{
+		$mail->replace("From" => $self->GetRealAddressHeader);
+		$mail->delete("Reply-To");
+	}
 
 	$otheruser->SendFormattedEmail(entity => $mail);
 }
