@@ -20,7 +20,7 @@ if ($style eq "text")
 }
 elsif ($style eq "icon")
 {
-	</%perl><a href="<% $url %>" title="Find this <% $type %> at MusicBrainz"><img src="http://musicbrainz.org/images/<% $icon %>" alt="" style="vertical-align:bottom;border:0;margin-right:2px;"><b><% $name %></b></a><%perl>
+	</%perl><nobr><a href="<% $url %>" title="Find this <% $type %> at MusicBrainz"><img src="http://musicbrainz.org/images/<% $icon %>" alt="" style="vertical-align:bottom;border:0;margin-right:2px;"><b><% $name %></b></a></nobr><%perl>
 }
 elsif ($style eq "linkedurl")
 {
