@@ -8,93 +8,37 @@ $num => UserPreference::get('mods_per_page')
 
 <%perl>
 
-my ($mb, @info, $mod, $offset, $page, $comp, $obj);
-my ($num_mods, $total_mods, %notes);
 my $max_items = $num;
-
-my $allow_skip = 1;
-$allow_skip = 0 if $type == &ModDefs::TYPE_NEW;
-$allow_skip = 0 if $type == &ModDefs::TYPE_FREEDB;
-
-$offset = $ARGS{offset};
-$offset = 0 if not $allow_skip;
-$page = $ARGS{page};
+my $offset = $ARGS{offset};
+my $page = $ARGS{page};
 $offset = ($page-1) * $max_items if not defined $offset and defined $page;
 $offset = 0 if not defined $offset;
 $offset = 0 if $offset < 0;  
 
-$mb = $m->comp("/comp/dblogin");
-$mod = Moderation->new($mb->{DBH});
+my $mb = $m->comp("/comp/dblogin");
+my $mod = Moderation->new($mb->{DBH});
 
+my ($result, $mods, $total_mods) = $mod->GetModerationList(
+	$offset, $max_items,
+);
+
+$m->comp("/comp/redirect", "/mod/filter.html")
+	if $result == &Moderation::SEARCHRESULT_NOQUERY;
+
+return $m->comp(
+	"/comp/error",
+	"Your moderation query was cancelled, because it was taking too
+	long.  Please try to narrow down your search.",
+	1,1,
+) if $result == &Moderation::SEARCHRESULT_TIMEOUT;
+
+$m->comp("/comp/sidebar", title=>'Moderation Search'); 
+
+# Do we show the "vote" button?
+# XXX this is based upon $mod->GetVote, but that might be showing someone
+# else's votes, not ours!
 my $show_button = 0;
-if ($type == &ModDefs::TYPE_NEW)
-{
-    ($num_mods, $total_mods, @info) = 
-           $mod->GetModerationList($offset, $max_items, $session{uid}, $type);
-    $m->comp("/comp/sidebar", title=>'Review Pending Moderations',
-            expand=>"moderate"); 
-}
-elsif ($type == &ModDefs::TYPE_VOTED)
-{
-	my $moderator = $ARGS{"moderator"} || $session{uid};
-    ($num_mods, $total_mods, @info) = 
-           $mod->GetModerationList($offset, $max_items,
-                                   $moderator, $type);
-    $m->comp("/comp/sidebar", title=>'Review Old (Voted) Mods',
-            expand=>"moderate"); 
-}
-elsif ($type == &ModDefs::TYPE_MODERATOR)
-{
-	my $moderator = $ARGS{"moderator"} || $session{uid};
-	$moderator = 0 + $moderator;
-    ($num_mods, $total_mods, @info) = 
-           $mod->GetModerationList($offset, $max_items,
-                                   $session{uid}, $type, $moderator);
-    $m->comp("/comp/sidebar", title=>'Review Moderation By Moderator',
-            expand=>"moderate"); 
-}
-elsif ($type == &ModDefs::TYPE_ARTIST)
-{
-    ($num_mods, $total_mods, @info) = 
-           $mod->GetModerationList($offset, $max_items,
-                                   $session{uid}, $type, $artistid);
-    $m->comp("/comp/sidebar", title=>'Moderations by Artist',
-            expand=>"moderate"); 
-}
-elsif ($type == &ModDefs::TYPE_FREEDB)
-{
-    ($num_mods, $total_mods, @info) = 
-           $mod->GetModerationList($offset, $max_items, $session{uid}, $type);
-    $m->comp("/comp/sidebar", title=>'Moderations from FreeDB',
-            expand=>"moderate"); 
-}
-elsif ($type == &ModDefs::TYPE_ALBUM)
-{
-    ($num_mods, $total_mods, @info) = 
-           $mod->GetModerationList($offset, $max_items,
-                                   $session{uid}, $type, $albumid);
-    $m->comp("/comp/sidebar", title=>'Moderations by Album',
-            expand=>"moderate"); 
-}
-elsif ($type == &ModDefs::TYPE_MODERATOR_FAILED)
-{
-	my $moderator = $ARGS{"moderator"} || $session{uid};
-	$moderator = 0 + $moderator;
-    ($num_mods, $total_mods, @info) = 
-           $mod->GetModerationList($offset, $max_items,
-                                   $session{uid}, $type, $moderator);
-    $m->comp("/comp/sidebar", title=>'Review Failed Moderations By Moderator',
-            expand=>"moderate"); 
-}
-else
-{
-    $m->comp("/comp/sidebar", title=>'Error', expand=>"moderate"); 
-    $m->comp("/comp/badargs");
-    $mb->Logout();
-    return undef;
-}
-
-foreach $obj (@info)
+foreach my $obj (@$mods)
 {
     if ($obj->GetModerator() != $session{uid} &&
         $obj->GetVote() == &ModDefs::VOTE_NOTVOTED &&
@@ -105,12 +49,12 @@ foreach $obj (@info)
     }
 }
 
-if ($num_mods > 0)
+my %notes;
+if (@$mods)
 {
 	my $notes = MusicBrainz::Server::ModerationNote->new($mb->{DBH});
 	my @notes = $notes->newFromModerationIds(
-		$info[0]->GetId,
-		$info[-1]->GetId,
+		map { $_->GetId } @$mods
 	);
 	push @{ $notes{ $_->GetModerationId } }, $_
 		for @notes;
@@ -120,8 +64,7 @@ if ($num_mods > 0)
 <table width="100%">
 <tr>
 <td width="20%" align="center" nowrap>
-<% $total_mods + $offset %> mods 
-<% $type == &ModDefs::TYPE_NEW ? 'pending' : 'total' %>
+<% $total_mods %> matching mods 
 </td>
 <td width="80%" align="center" NOWRAP>
 [ <a href="moderate.html?type=1">New Mods</a> |
@@ -129,38 +72,21 @@ if ($num_mods > 0)
 <a href="moderate.html?type=3">My Mods</a> |
 <a href="moderate.html?type=7">My Failed Mods</a> |
 <a href="moderate.html?type=2">My Votes</a> |
+<a href="/mod/filter.html">Advanced Search</a> |
 <a href="jumpmod.html">Jump</a> |
 <a href="mod_intro.html">Help</a> ]
 </td>
 </tr>
 </table>
 
-% if ($num_mods == 0) {
+% if (not @$mods) {
    <center>
    <br><br>
-%  if ($type == &ModDefs::TYPE_NEW) {
-   There are no new moderations pending. <br>Please
-   consider moderating the <a href="/moderate.html?type=5">FreeDB 
-   moderations</a>.
-%  } elsif ($type == &ModDefs::TYPE_VOTED) {
-   There are no old (voted on) moderations.
-%  } elsif ($type == &ModDefs::TYPE_ARTIST) {
-   There are no moderations for this artist.
-%  } elsif ($type == &ModDefs::TYPE_FREEDB) {
-   There are no freedb moderations pending.
-%  } elsif ($type == &ModDefs::TYPE_ARTIST) {
-   There are no moderations for this album.
-%  } elsif ($type == &ModDefs::TYPE_MODERATOR_FAILED) {
-   There are no failed moderations.
-%  } else {
-   You have not entered any moderations.
-%  }
+   No moderations found.
    </center>
-%  $mb->Logout();
-%  return undef;
 %}
 
-% if ($allow_skip and ($total_mods > $max_items || $offset > 0)) {
+% if ($total_mods-$offset > $max_items || $offset > 0) {
 <& /comp/framedboxbegin, width=>"100%", style=>"margin: 1em 0" &>
 <& /comp/pageselector, 
    url=>"moderate.html?type=$type"
@@ -168,11 +94,12 @@ if ($num_mods > 0)
 	. (($artistid > 0) ? "&artistid=$artistid" : ""),
    offset=>$offset,
    pagesize=>$max_items,
-   numitems=>$total_mods+$offset,
+   numitems=>$total_mods,
 &>
 <& /comp/framedboxend &>
 % }
 
+% if (@$mods) {
 <form method="POST" action="/bare/vote.html"
       enctype="application/x-www-form-urlencoded" class="formstyle"> 
 
@@ -182,7 +109,7 @@ if ($num_mods > 0)
 <TABLE WIDTH="100%" BORDER="0" CELLSPACING="1" CELLPADDING="3">
 
 <%perl>
-for my $obj (@info)
+for my $obj (@$mods)
 {
 	my $n = $notes{ $obj->GetId } || [];
    $m->comp("/comp/showmod", mod=>$obj, notes=>$n);
@@ -193,7 +120,7 @@ for my $obj (@info)
 </td></tr>
 </table>
 
-% if ($num_mods > 0 && $show_button) {
+% if (@$mods and $show_button) {
 <table width="100%">
 <tr>
   <td width="20%">
@@ -210,8 +137,9 @@ for my $obj (@info)
 %}
 
 </form>
+% }
 
-% if ($allow_skip and ($total_mods > $max_items || $offset > 0)) {
+% if (($total_mods-$offset > $max_items || $offset > 0) and @$mods) {
 <& /comp/framedboxbegin, width=>"100%", style=>"margin: 1em 0" &>
 <& /comp/pageselector, 
    url=>"moderate.html?type=$type"
@@ -219,7 +147,7 @@ for my $obj (@info)
 	. (($artistid > 0) ? "&artistid=$artistid" : ""),
    offset=>$offset,
    pagesize=>$max_items,
-   numitems=>$total_mods+$offset,
+   numitems=>$total_mods,
 &>
 <& /comp/framedboxend &>
 % }
