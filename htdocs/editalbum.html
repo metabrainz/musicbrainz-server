@@ -2,13 +2,13 @@
 
 <%perl>
 
-my ($mb, $id, $albumname, $referer); 
+my ($mb, $id, $albumname, $referer, $modpending); 
 
 $referer = $r->headers_in->{'Referer'};
 $mb = new MusicBrainz;
 $mb->Login();
 $id = $ARGS{id};
-$albumname = $mb->GetAlbumName($id);
+($albumname, $modpending) = $mb->GetAlbumName($id);
 
 </%perl>
 
@@ -20,6 +20,10 @@ $albumname = $mb->GetAlbumName($id);
 % } else {
 
     <& /comp/tablebegin, title=>'Edit Album Name' &>
+
+% if ($modpending) {
+    <& /comp/modpending &>
+% } 
 
     <FORM METHOD="POST" ACTION="/bare/enter_mod.html"
           ENCTYPE="application/x-www-form-urlencoded">  

@@ -2,7 +2,10 @@
 
 my ($i, $trackinfo, @info);
 
-mc_comp("/comp/albumbegin", albumid=>$ARGS{albumid}, title=>$ARGS{albumname});
+mc_comp("/comp/albumbegin", 
+        albumid=>$ARGS{albumid}, 
+        title=>$ARGS{albumname},
+        modpending=>$ARGS{modpending});
 @info = $ARGS{mb}->GetAlbumInfo($ARGS{albumid});
 for($i = 0;; $i++)
 {

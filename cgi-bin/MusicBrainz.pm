@@ -472,20 +472,18 @@ sub GetArtistList
 sub GetAlbumName
 {
    my ($this, $albumid) = @_;
-   my ($sth, $rv);
+   my ($sth, @row);
 
-   $sth = $this->{DBH}->prepare("select name from Album where id=$albumid");
+   $sth = $this->{DBH}->prepare(qq/select name, modpending from Album 
+                                where id=$albumid/);
    $sth->execute;
    if ($sth->rows)
    {
-        my @row;
-
         @row = $sth->fetchrow_array;
-        $rv = $row[0];
    }
    $sth->finish;
 
-   return $rv;
+   return @row;
 }
 
 sub GetArtistInfoFromAlbumId

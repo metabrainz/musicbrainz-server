@@ -1,14 +1,19 @@
 <%args>
 $albumid
 $title
+$modpending
 </%args>
 
 <table bgcolor="#643b99" cellspacing=0 cellpadding=0 width=100%>
    <tr><td>
    <table width=100%>
       <tr>
-        <td width=92%>
-          <font color=white><b><% $title  %></b></font>
+% if ($modpending) {
+        <td width=92% bgcolor="#FFFFCC">
+% } else {
+        <td width=92%><font color=white>
+% }
+          <b><% $title  %></b></font>
         </td>
 % if (exists $session{user}) {
         <td width=8%>
