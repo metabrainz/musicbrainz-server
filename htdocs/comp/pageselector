@@ -26,8 +26,8 @@ my $offset = $ARGS{offset};
 my $pagesize = $ARGS{pagesize};
 my $url = $ARGS{url};
 my $numitems = $ARGS{numitems};
-my $numlinks = $ARGS{numlinks};
-my $snaptoend = $ARGS{snaptoend};
+my $numlinks = $ARGS{numlinks} || 6;
+my $snaptoend = $ARGS{snaptoend} || 2;
 
 my $index = int($offset / $pagesize);
 my $pagecount = int(($numitems+$pagesize-1) / $pagesize);
@@ -41,14 +41,18 @@ if ($end > $pagecount-1-$snaptoend) { $end = $pagecount-1 }
 
 </%perl>
 
-<table width="100%"><tr>
+<table width="100%" style="margin: 0.2em 0"><tr>
 <td align="center" valign="absmiddle" NOWRAP>
-<form method="post" action="<% $url %>" style="padding-top: 0.5em">
+<form method="post" action="<% $url %>">
 	[ Page
 	<input type="text" name="page" value="<% $index+1 %>"
 		style="
-			width: 2em; margin-left: 0.5em; margin-right: 0.5em;
+			width: 2em;
 			border: 0;
+			color: #534D8B;
+			text-align: center;
+			padding: 0;
+			vertical-align: middle;
 		">
 	of <% $pagecount %> ]
 </form>
