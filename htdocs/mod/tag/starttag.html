@@ -34,11 +34,12 @@ $session{tagged_albums} = "";
      If you want to stop tagging albums, click on the Cancel Tagging link.
  
      <br><p>
+
+     <& /comp/tablebegin, title=>'Search', attrs=>"align=left" &>
+     <br>
+     <& /comp/textsearch, default=>'Artist' &>
+     <br>
+     <& /comp/tableend &>
 % }
 % $mb->Logout();
 
-<& /comp/tablebegin, title=>'Search', attrs=>"align=left" &>
-<br>
-<& /comp/textsearch, default=>'Artist' &>
-<br>
-<& /comp/tableend &>
