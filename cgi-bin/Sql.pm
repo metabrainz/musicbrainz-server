@@ -31,6 +31,7 @@ use strict;
 use DBI;
 use DBDefs;
 use Carp qw(cluck);
+use utf8 ();
 
 sub new
 {
@@ -63,7 +64,6 @@ sub Quote
 {
     my ($this, $data) = @_;
     my $r = $this->{DBH}->quote($data);
-    use utf8;
     utf8::downgrade($r);
     $r;
 }
@@ -153,7 +153,9 @@ sub Do
     $ret = eval
     {
        my $tt = Sql::Timer->new($query, \@params);
+        utf8::downgrade($query);
         my $sth = $this->{DBH}->$prepare($query);
+        utf8::downgrade($_) for @params;
         $sth->execute(@params);
     };
     if ($@)
