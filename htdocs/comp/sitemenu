@@ -41,13 +41,6 @@ use Scalar::Util qw( reftype weaken );
 	{ name => "Products",				url => "/download.html" },
 	[
 		{ name => "Download",				url => "/download.html" },
-		[
-			{ name => "Tagger",					url => "/tagger/download.html" },
-			{ name => "CD Lookup",				url => "/products/cdlookup/download.html" },
-			{ name => "TRM Generator",			url => "/products/trmgen/download.html" },
-			{ name => "Client / SDK",			url => "/products/client/download.html" },
-			{ name => "Server / Data",			url => "/products/server/download.html" },
-		],
 		{ name => "Tagger",					url => "/tagger/index.html" },
 		[
 			{ name => "Introduction",			url => "/tagger/index.html", preferred => 1 },
