@@ -61,13 +61,13 @@ $artist->LoadFromId
 
 <& /comp/sidebar, title => "Track Details: " . $track->GetName &>
 
-%# show any related moderations so people can vote on them
-<& /comp/relmods, artistid=>$artist->GetId() &>
-
 <div class="LinksRow"> [
 	<& /comp/googlelink, search => [ $artist->GetName, $track->GetName ], text => "Search Google" &>
 	| <a href="/mod/search/pre/track.html?trackid=<% $track->GetId %>">View track mods</a>
 ] </div>
+
+%# show any related moderations so people can vote on them
+<& /comp/relmods, artistid => $artist->GetId &>
 
 <& /comp/trackinfo, track => $track, TRM => \@TRM &>
 
