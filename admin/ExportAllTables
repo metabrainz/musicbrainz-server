@@ -27,7 +27,6 @@ use FindBin;
 use lib "$FindBin::Bin/../cgi-bin";
 
 use strict;
-use DBI;
 use DBDefs;
 use integer;
 
@@ -139,7 +138,7 @@ my @tables = qw(
 
 my @replication_tables = qw(
 	Pending
-    PendingData
+	PendingData
 );
 
 @tables = @tablelist if @tablelist;
@@ -294,9 +293,7 @@ if ($fDoReplication)
 			# In this case we may as well ditch any pending
 			# replication data; no-one can ever load and apply packet #0, so it
 			# will effectively just be there for cosmetic reasons.
-
-			# TODO check the efficiency of using ON DELETE CASCADE
-			$sql->Do("DELETE FROM \"$_\"") for @replication_tables;
+			empty_replication_tables();
 		} else {
 			# Otherwise, we're moving on to the next replication sequence
 			# number.
@@ -323,8 +320,7 @@ if ($fDoReplication)
 		dumplucene();
 
 		# Remove the rows we just dumped
-		# TODO check the efficiency of using ON DELETE CASCADE
-      $sql->Do("DELETE FROM \"$_\"") for @replication_tables;
+		empty_replication_tables();
 
 		writefile("REPLICATION_SEQUENCE", "$iReplicationSequence\n");
 	} elsif (defined $iReplicationSequence and not $fAnyReplicationData) {
@@ -434,10 +430,7 @@ if ($fCompress and $fDoReplication)
 	{
 		# Go for the "most restrictive" license
 		copy("$FindBin::Bin/COPYING-CCShareAlike", "$dir/COPYING") or die $!;
-
-      # These two lines feel kinda hacky
-		unshift @replication_tables, "lucene_dump.xml";
-		make_tar($tarfile, @replication_tables);
+		make_tar($tarfile, "lucene_dump.xml", @replication_tables);
 	}
 }
 
@@ -476,95 +469,54 @@ sub writefile
 	close $fh or die $!;
 }
 
+sub empty_replication_tables
+{
+	# TRUNCATE is generally more efficient than DELETE
+	$sql->Do("TRUNCATE TABLE \"PendingData\"");
+	# but we can't TRUNCATE this, 'cos it's a parent to PendingData (FK).
+	$sql->Do("DELETE FROM \"Pending\"");
+}
+
 sub dumplucene
 {
-   my ($file) = @_;
-   my ($element, $rel, $row, %args);
-   my $count = 0;
+	print localtime() . " : Performing Lucene XML export\n";
 
-   my $sql = Sql->new($mb->{DBH});
+	my $xmlfile = "$dir/mbdump/lucene_dump.xml";
+	open(my $xml, ">$xmlfile")
+		or die $!;
 
-   if ($sql->Select(qq|select p."TableName", p."Op", p."XID", pd."Data" 
-                     from "PendingData" as pd, "Pending" as p 
-                    where p."SeqId" = pd."SeqId" and 
-                          pd."IsKey" = false and
-                          (p."TableName" = '"public"."album"' or
-                           p."TableName" = '"public"."artist"' or
-                           p."TableName" = '"public"."track"' or
-                           p."TableName" = '"public"."albumjoin"')
-                    order by "XID"|))
-   {
-       print "Dumping lucene text index update...";
-       open(my $fh, ">$dir/mbdump/lucene_dump.xml") or die $!;
-       while($row = $sql->NextRowRef)
-       {
-           $rel = undef;
-           $rel = $2 if ($row->[0] =~ /"(\w+)"."(\w+)"/);
-           %args = ();
-           while($row->[3] =~ s/"(\w+)"='([^']*)'//)
-           {
-               my $key = $1;
-               my $value = $2;
+	defined(my $pid = fork) or die $!;
+	if ($pid == 0)
+	{
+		open(STDOUT, ">&".fileno($xml)) or die $!;
+		exec &DBDefs::MB_SERVER_ROOT."/admin/replication/ConvertReplicationPacketToXML",
+			"$dir/mbdump/Pending",
+			"$dir/mbdump/PendingData",
+			;
+		die $!;
+	}
 
-               $value =~ s/&/&amp;/g;
-               $value =~ s/</&lt;/g;
-               $value =~ s/>/&gt;/g;
+	close $xml;
+	waitpid $pid, 0;
+	my $rc = $?;
 
-               $args{$key} = $value;
-           }
+	if ($rc == 256)
+	{
+		print localtime() . " : No Lucene XML output produced\n";
+		unlink $xmlfile;
+	} elsif ($rc) {
+		unlink $xmlfile;
+		print localtime() . " : Lucene XML output failed!\n";
+		exit 1;
+	}
 
-           if ($count == 0)
-           {
-               print $fh '<?xml version="1.0" encoding="UTF-8"?>' . 
-                         "\n<!DOCTYPE changes SYSTEM \"changes.dtd\">" .
-                         "\n<changes xid_start=\"$row->[2]\">\n" 
-           }
+	printf "%s : Lucene XML dump completed (%d bytes output)\n",
+		scalar localtime,
+		-s $xmlfile,
+		;
 
-           $element = "update" if ($row->[1] eq 'u');
-           $element = "insert" if ($row->[1] eq 'i');
-           $element = "delete" if ($row->[1] eq 'd');
-
-           $count++;
-           if ($element eq 'delete')
-           {
-               print $fh "   <$element relation=\"$rel\" xid=\"$row->[2]\" id=\"$args{'id'}\"/>\n";
-           }
-           else
-           {
-               print $fh "   <$element relation=\"$rel\" xid=\"$row->[2]\" id=\"$args{'id'}\">\n";
-               if ($rel eq 'artist')
-               {
-                   print $fh "    <attribute name=\"name\">$args{name}</attribute>\n";
-                   print $fh "    <attribute name=\"sortname\">$args{sortname}</attribute>\n";
-                   print $fh "    <attribute name=\"gid\">$args{gid}</attribute>\n";
-               }
-               elsif ($rel eq 'album')
-               {
-                   print $fh "    <attribute name=\"name\">$args{name}</attribute>\n";
-                   print $fh "    <attribute name=\"gid\">$args{gid}</attribute>\n";
-               }
-               elsif ($rel eq 'albumjoin')
-               {
-                   print $fh "    <attribute name=\"album\">$args{album}</attribute>\n";
-                   print $fh "    <attribute name=\"track\">$args{track}</attribute>\n";
-                   print $fh "    <attribute name=\"sequence\">$args{sequence}</attribute>\n";
-               }
-               elsif ($rel eq 'track')
-               {
-                   print $fh "    <attribute name=\"name\">$args{name}</attribute>\n";
-                   print $fh "    <attribute name=\"gid\">$args{gid}</attribute>\n";
-                   print $fh "    <attribute name=\"artist\">$args{artist}</attribute>\n";
-               }
-
-               print $fh "   </$element>\n";
-           }
-       }
-       $sql->Finish();
-       print $fh "</changes>\n";
-       $rowcounts{"lucene_dump.xml"} = $count;
-       close $fh or die $!;
-       print "done.\n";
-   }
+	# Set "rowcounts" to ensure this file gets included in the archives
+	$rowcounts{"lucene_dump.xml"} = 1;
 }
 
 # eof ExportAllTables
