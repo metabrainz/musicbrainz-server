@@ -527,8 +527,11 @@ sub InsertModeration
     # Check to see if this moderation should get automod approval
     my $automod = $this->IsAutoMod;
 
+	my $ui = UserStuff->new($this->{DBH});
+	$automod = 0 if $ui->IsUntrusted($privs)
+		and $this->GetType != &ModDefs::MOD_ADD_TRMS;
+
 	$automod ||= do {
-		my $ui = UserStuff->new($this->{DBH});
 		$ui->IsAutoMod($privs)
 		and $this->IsAutoModType($this->GetType);
     };
