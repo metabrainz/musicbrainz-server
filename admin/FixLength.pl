@@ -31,7 +31,7 @@ use Album;
 my $dbh = DBDefs->Connect || die "Cannot connect to database";
 
 # select all albums
-my $sth = $dbh->prepare('SELECT DISTINCT(Album.Id) FROM Album, TOC WHERE Album.Id = TOC.Album ');
+my $sth = $dbh->prepare('SELECT DISTINCT(Album.Id) FROM Album, TOC WHERE Album.Id = TOC.Album and Album.id = 33564');
 $sth->execute();
 
 # for each album 
@@ -52,7 +52,23 @@ while ( my $row = $sth->fetchrow_hashref )
     # select the first TOC
     my $sth2 = $dbh->prepare("SELECT * FROM TOC WHERE Album = '$row->{'Id'}'");
     $sth2->execute();
-    my $toc = $sth2->fetchrow_hashref;
+    my $toc;
+    for(;;)
+    {
+        $toc = $sth2->fetchrow_hashref;
+        if (!defined $toc)
+        {
+           last;
+        }
+        last if ($toc->{'Tracks'} == scalar(@tracks));
+    }
+    $sth2->finish();
+
+    if (!defined $toc)
+    {
+        print "No valid id found.\n";
+        next;
+    }
 
     # Compute and update the length of each track
     my $ii;
@@ -71,7 +87,6 @@ while ( my $row = $sth->fetchrow_hashref )
         }
     }
 
-    $sth2->finish();
     print "ok\n";
 }
 

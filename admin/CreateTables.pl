@@ -28,25 +28,6 @@ use DBDefs;
 use MusicBrainz;
 use Artist;
 
-# Changes needed to bring the database up to 255 chars for artist/album/track
-# titles
-# alter table Changes add column (AutoMod tinyint);
-# update Changes set AutoMod = 0;
-# update ModeratorInfo set privs = 2 where id = 1;
-# update ModeratorInfo set privs = 1 where id = 2;
-# update ModeratorInfo set privs = 2 where id = 9999;
-# update ModeratorInfo set privs = 1 where name="jmurphy";
-# update ModeratorInfo set privs = 1 where name="lukeh";
-# update ModeratorInfo set privs = 1 where name="neil";
-# update ModeratorInfo set privs = 1 where name="dekarl";
-# update ModeratorInfo set privs = 1 where name="rjmunro";
-
-# Changes needed for the user config stuff
-# alter table ModeratorInfo add column EMail varchar(64);
-# alter table ModeratorInfo add column WebUrl varchar(255);
-# alter table ModeratorInfo add column MemberSince datetime not null;
-# alter table ModeratorInfo add column Bio text;
-
 sub CreateTables
 {
     my ($dbh) = @_;
