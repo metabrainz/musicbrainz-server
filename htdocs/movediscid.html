@@ -113,12 +113,12 @@ my @albums = $ar->GetAlbums
 	my $t = $_;
 
 	$t->GetId != $al->GetId
+	and not $t->IsNonAlbumTracks
 	and $t->GetArtist != &ModDefs::VARTIST_ID
 	and do {
 		# TODO is this really a good way of checking the number of tracks?
 		# Shouldn't we test the album's TOC, not the number of defined tracks?
-		my @tracks = $t->LoadTracks;
-		scalar @tracks;
+		scalar $t->LoadTracks;
 	} == $numtracks
 } @albums;
 
