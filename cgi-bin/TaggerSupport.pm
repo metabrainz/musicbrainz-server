@@ -130,7 +130,7 @@ sub Lookup
        $this->ParseFileName($data->{filename}, $data);
    }
 
-   if ($data->{artistid} eq '')
+   if ($data->{artistid} eq '' && $data->{trackid} eq '')
    {
        my ($list, $flags);
 

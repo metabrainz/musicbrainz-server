@@ -34,9 +34,9 @@ CREATE TRIGGER b_upd_moderation BEFORE UPDATE ON moderation
 
 UPDATE moderation SET opentime = expiretime - INTERVAL '2 days';
 UPDATE moderation SET closetime = expiretime WHERE status > 1;
-UPDATE votes v SET votetime = m.opentime + INTERVAL '1 second'
-  FROM moderation m
-  WHERE m.id = v.rowid;
+UPDATE votes SET votetime = moderation.opentime + INTERVAL '1 second'
+  FROM moderation 
+  WHERE moderation.id = votes.rowid;
 
 COMMIT;
 

@@ -520,6 +520,14 @@ elsif (($flags & TaggerSupport::ARTISTID) &&
    OutputArtist($ts, $result);
    OutputTrack($ts, $result);
 }
+elsif ($flags & TaggerSupport::TRACKID)
+{
+   </%perl>
+   <b>Found matching track:</b><p>
+   <%perl>
+   OutputArtist($ts, $result);
+   OutputTrack($ts, $result);
+}
 elsif (($flags & TaggerSupport::ARTISTID) && 
        ($flags & TaggerSupport::ALBUMID))
 {
