@@ -70,7 +70,8 @@ if ($num_mods > 0)
 <table width=100%>
 <tr>
   <td width="25%" align="center" valign="top">
-      <% $total_mods + $offset %> mods total
+      <% $total_mods + $offset %> mods 
+      <% $type == ModDefs::TYPE_NEW ? 'pending' : 'total' %>
   </td>
   <td width="25%" align="center" valign="top">
 %    mc_out($option1);

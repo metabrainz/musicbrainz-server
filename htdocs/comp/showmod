@@ -6,7 +6,7 @@ $notes
 
 <%perl>
 
-my ($ref, $obj, $color);
+my ($ref, $obj, $bold);
 my $voted = $mod->GetVoteId();
 my $text = "(Your change)";
 if ($voted)
@@ -73,8 +73,8 @@ my $time = sprintf "%d-%02d-%02d %02d:%02d",
      Notes:<br>
 %    foreach $obj (@$ref) {
         &nbsp;&nbsp;&nbsp;&nbsp;
-%       $color = ($obj->{user} eq $mod->GetModeratorName()) ? 'red' : 'black';
-        <font color="<% $color %>"><% $obj->{user} %></font>:
+%       $bold = ($obj->{user} eq $mod->GetModeratorName()) ? 'bold' : 'body';
+        <font class="<% $bold %>"><% $obj->{user} %></font>:
         <% $obj->{text} %><br> 
 %    }
    </td>
