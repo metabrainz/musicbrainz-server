@@ -48,6 +48,13 @@ my @objs = map {
 	$al;
 } @albums;
 
+my %artist_ids;
+++$artist_ids{$_->GetArtist} for @objs;
+my $artist_id = ((keys(%artist_ids) == 1) ? $objs[0]->GetArtist : undef);
+
+my $more_albums_url = "/search.html";
+$more_albums_url = "/showartist.html?artistid=$artist_id" if $artist_id;
+
 </%perl>
 
 <& /comp/sidebar, title => 'Batch Operation on Albums' &>
@@ -63,7 +70,8 @@ my @objs = map {
     <tr>
       <td valign="top" bgcolor="#f0efff">
       Merge albums is not available -- you must select multiple albums to
-      merge.<br>
+	  merge.<br>
+	  <br><a href="<% $more_albums_url %>">Select more albums ...</a>
       </td>
       <td valign="top" bgcolor="#f0efff">
       <font color="red">Merge Album<br>Not available</font>
@@ -145,7 +153,8 @@ my @objs = map {
 
 <p>
 	Alternatively, you don't have to do anything yet.&nbsp; You can
-	go and tag more albums and then return here to perform
+	<a href="<% $more_albums_url %>">go and tag more albums</a>
+	and then return here to perform
 	one of the operations above on all the selected albums.
 <p>
 
