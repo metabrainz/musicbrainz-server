@@ -1,37 +1,36 @@
 \set ON_ERROR_STOP 1
 
-create unique index Artist_NameIndex on Artist (Name);
-create index Artist_SortNameIndex on Artist (SortName);
-create unique index Artist_GIDIndex on Artist (GID);
-create index Artist_PageIndex on Artist (Page);
+CREATE UNIQUE INDEX artist_nameindex ON artist (name);
+CREATE INDEX artist_sortnameindex ON artist (sortname);
+CREATE UNIQUE INDEX artist_gidindex ON artist (gid);
+CREATE INDEX artist_pageindex ON artist (page);
 
-create index Album_NameIndex on Album (Name);
-create unique index Album_GIDIndex on Album (GID);
-create index Album_ArtistIndex on Album (Artist);
-create index Album_PageIndex on Album (Page);
+CREATE INDEX album_nameindex ON album (name);
+CREATE UNIQUE INDEX album_gidindex ON album (gid);
+CREATE INDEX album_artistindex ON album (artist);
+CREATE INDEX album_pageindex ON album (page);
 
-create index Track_NameIndex on Track (Name);
-create unique index Track_GIDIndex on Track (GID);
-create index Track_ArtistIndex on Track (Artist);
+CREATE INDEX track_nameindex ON track (name);
+CREATE UNIQUE INDEX track_gidindex ON track (gid);
+CREATE INDEX track_artistindex ON track (artist);
 
-create unique index TRM_TRMIndex on TRM (TRM);
+CREATE UNIQUE INDEX trm_trmindex ON trm (trm);
 
-create index TRMJoin_TRMIndex on TRMJoin (TRM);
-create index TRMJoin_TrackIndex on TRMJoin (Track);
+CREATE INDEX trmjoin_trmindex ON trmjoin (trm);
+CREATE INDEX trmjoin_trackindex ON trmjoin (track);
 CREATE UNIQUE INDEX trmjoin_trmtrack ON trmjoin (trm, track);
 
-create index AlbumJoin_AlbumIndex on AlbumJoin (Album);
-create index AlbumJoin_TrackIndex on AlbumJoin (Track);
+CREATE INDEX albumjoin_albumindex ON albumjoin (album);
+CREATE INDEX albumjoin_trackindex ON albumjoin (track);
 CREATE UNIQUE INDEX albumjoin_albumtrack ON albumjoin (album, track);
 
-CREATE UNIQUE INDEX discid_disc_key
-    ON discid (disc);
-create index Discid_AlbumIndex on Discid (Album);
+CREATE UNIQUE INDEX discid_disc_key ON discid (disc);
+CREATE INDEX discid_albumindex ON discid (album);
 
-create unique index TOC_DiscIndex on TOC (Discid);
-create index TOC_AlbumIndex on TOC (Album);
+CREATE UNIQUE INDEX toc_discindex ON toc (discid);
+CREATE INDEX toc_albumindex ON toc (album);
 
-create index Moderator_NameIndex on Moderator (Name);
+CREATE INDEX moderator_nameindex ON moderator (name);
 
 CREATE INDEX moderation_open_idx_moderator ON moderation_open (moderator);
 CREATE INDEX moderation_open_idx_expiretime ON moderation_open (expiretime);
@@ -55,35 +54,33 @@ CREATE INDEX moderation_note_closed_idx_moderation ON moderation_note_closed (mo
 CREATE INDEX vote_closed_idx_moderator ON vote_closed (moderator);
 CREATE INDEX vote_closed_idx_moderation ON vote_closed (moderation);
 
-create unique index ArtistAlias_NameIndex on ArtistAlias (Name);
-create index ArtistAlias_RefIndex on ArtistAlias (Ref);
+CREATE UNIQUE INDEX artistalias_nameindex ON artistalias (name);
+CREATE INDEX artistalias_refindex ON artistalias (ref);
 
-create unique index WordList_WordIndex on WordList (Word);
+CREATE UNIQUE INDEX wordlist_wordindex ON wordlist (word);
 
-create index AlbumWords_AlbumidIndex on AlbumWords (Albumid);
-create unique index AlbumWords_AlbumWordIndex on AlbumWords (Wordid,Albumid);
+CREATE INDEX albumwords_albumidindex ON albumwords (albumid);
+CREATE UNIQUE INDEX albumwords_albumwordindex ON albumwords (wordid,albumid);
 
-create index ArtistWords_ArtistidIndex on ArtistWords (Artistid);
-create unique index ArtistWords_ArtistWordIndex  on ArtistWords (Wordid,Artistid);
+CREATE INDEX artistwords_artistidindex ON artistwords (artistid);
+CREATE UNIQUE INDEX artistwords_artistwordindex ON artistwords (wordid,artistid);
 
-create index TrackWords_TrackidIndex on TrackWords (Trackid);
-create unique index TrackWords_TrackWordIndex on TrackWords (Wordid,Trackid);
+CREATE INDEX trackwords_trackidindex ON trackwords (trackid);
+CREATE UNIQUE INDEX trackwords_trackwordindex ON trackwords (wordid,trackid);
 
-create unique index Stats_TimestampIndex on Stats (timestamp);
+CREATE UNIQUE INDEX stats_timestampindex ON stats (timestamp);
 
-create unique index ClientVersion_Version on ClientVersion (version);
+CREATE UNIQUE INDEX clientversion_version ON clientversion (version);
 
-CREATE INDEX historicalstat_date on historicalstat (snapshotdate);
-CREATE UNIQUE INDEX historicalstat_namedate on historicalstat (name, snapshotdate);
+CREATE INDEX historicalstat_date ON historicalstat (snapshotdate);
+CREATE UNIQUE INDEX historicalstat_namedate ON historicalstat (name, snapshotdate);
 
-create index artist_relation_artist  on artist_relation (artist);
-create index artist_relation_ref  on artist_relation (ref);
+CREATE INDEX artist_relation_artist ON artist_relation (artist);
+CREATE INDEX artist_relation_ref ON artist_relation (ref);
 
-CREATE UNIQUE INDEX moderator_preference_moderator_key
-    ON moderator_preference (moderator, name);
+CREATE UNIQUE INDEX moderator_preference_moderator_key ON moderator_preference (moderator, name);
 
-CREATE UNIQUE INDEX moderator_subscribe_artist_moderator_key
-    ON moderator_subscribe_artist (moderator, artist);
+CREATE UNIQUE INDEX moderator_subscribe_artist_moderator_key ON moderator_subscribe_artist (moderator, artist);
 
 CREATE UNIQUE INDEX country_isocode ON country (isocode);
 CREATE UNIQUE INDEX country_name ON country (name);
