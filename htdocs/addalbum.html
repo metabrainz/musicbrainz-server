@@ -42,7 +42,7 @@ $ar->LoadFromId();
           ENCTYPE="application/x-www-form-urlencoded">  
     <table>
       <tr>
-        <td valign="top" align="right">
+        <td align="right">
         Album Name:<br>
         </td>
         <td>
@@ -51,11 +51,11 @@ $ar->LoadFromId();
         </td>
       </tr>
       <tr>
-        <td valign="top" align="right">
+        <td align="right">
         Number of tracks on this album:
         </td>
         <td>
-        <INPUT TYPE="text" NAME="value1" SIZE=25 value=""> 
+        <INPUT TYPE="text" NAME="value1" SIZE=25 value=""> (1 - 99)
         </td>
       </tr>
       <tr>
@@ -68,13 +68,13 @@ $ar->LoadFromId();
     <input type="hidden" name="key0" value="AlbumName">
     <input type="hidden" name="key1" value="NumTracks">
 
-    <input type="hidden" name="artist0" value="<% $artist %>">
-    <input type="hidden" name="type0" 
+    <input type="hidden" name="artist" value="<% $artist %>">
+    <input type="hidden" name="type" 
            value="<% Moderation::MOD_ADD_ALBUM %>">
-    <input type="hidden" name="prev0" value="">
-    <input type="hidden" name="table0" value="Artist">
-    <input type="hidden" name="column0" value="Name">
-    <input type="hidden" name="id0" value="<% $artist %>">
+    <input type="hidden" name="prev" value="">
+    <input type="hidden" name="table" value="Artist">
+    <input type="hidden" name="column" value="Name">
+    <input type="hidden" name="id" value="<% $artist %>">
     <input type="hidden" name="referer" value="<% $referer %>">
     </form>
       

@@ -6,6 +6,7 @@ $tindex
 $lyricspresent
 $hilitetrack
 $hilitecolor
+$nomod
 </%args>
 
 <%perl>
@@ -40,7 +41,7 @@ $tr_bgcolor = ($track->GetAlbumJoinModPending()) ? 'bgcolor="#FFFFCC"' : '';
 % }
     </td>
 % }
-% if (exists $session{user}) {
+% if (exists $session{user} && !$nomod) {
     <td width="15%" align=center>
        <a href="/edittrack.html?id=<% $track->GetId() %>&album=<% $album->GetId() %>&artist=<% $artist->GetId() %>">Edit</a>
        | <a href="/remtrack.html?id=<% $track->GetId() %>&album=<% $album->GetId() %>&artist=<% $artist->GetId() %>">Del</a>

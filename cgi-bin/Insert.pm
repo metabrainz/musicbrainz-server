@@ -270,7 +270,7 @@ sub Insert
     {
         if (!exists $track->{track} || $track->{track} eq '')
         {
-            $this->{error} = "Skipped Insert: Cannot insert blank tack name\n";
+            $this->{error} = "Skipped Insert: Cannot insert blank track name\n";
             next;
         }
         if (!exists $track->{tracknum} || $track->{tracknum} <= 0)

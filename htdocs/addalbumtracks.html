@@ -8,7 +8,7 @@
 # $dest_argname is the name of the argument where the sortname of a new
 #               artist should be stored.
 
-my ($mb, $ar, $key, @albums, $found_tracks, $found_id, $num);
+my ($mb, $ar, $key, @albums, $found_tracks, $found_id, $num, $num_tracks);
 
 mc_comp("/comp/sidebar", title=>'Add Album');
 
@@ -21,12 +21,19 @@ if (!exists $ARGS{key0} || $ARGS{key0} eq '' ||
     return;
 }
 
+$num_tracks = $ARGS{value1};
+if (!Moderation::IsNumber($num_tracks) || $num_tracks < 1 || $num_tracks > 99)
+{
+    mc_out(qq|You've entered an invalid number of tracks. Please
+              go back and try again.|);
+    return;
+}
 
 $mb = new MusicBrainz;
 $mb->Login();
 
 $ar = Artist->new($mb->{DBH});
-$ar->SetId($ARGS{artist0});
+$ar->SetId($ARGS{artist});
 if (!defined $ar->LoadFromId())
 {
     mc_comp("/comp/badargs");
@@ -59,7 +66,7 @@ if (scalar @albums > 0)
 
     <& /comp/tablebegin, gattrs=>"width=\"100%\"", title=>'Add Tracks' &>
 
-    <form method="POST" action="/bare/enter_mod.html" NAME="AddAlbumTracks"
+    <form method="POST" action="/bare/enter_kv_mod.html" NAME="AddAlbumTracks"
           enctype="application/x-www-form-urlencoded" class="formstyle">
 
 
@@ -75,7 +82,7 @@ if (scalar @albums > 0)
           If you are certain that you need to add another album with the
           same name, then fill out the form below and click Finish &gt;&gt;.
           Otherwise, check out album 
-          <a href="/showalbum.html?albumid=<% $found_id %>"><% $ARGS{value0} %></a>.<p>
+          <a href="/showalbum.html?albumid=<% $found_id %>"><% $ARGS{value0} %></a>.<p><br>
         </td>
       </tr>
 % }
@@ -95,7 +102,7 @@ if (scalar @albums > 0)
         <% $ARGS{value0} %>
         </td>
       </tr>
-% for($num = 1; $num <= $ARGS{value1}; $num++) {
+% for($num = 1; $num <= $num_tracks; $num++) {
       <tr>
         <td align="right" valign="top">
         Track <% $num %>:
@@ -117,7 +124,6 @@ if (scalar @albums > 0)
       </tr>
     </table>
 
-    </form>
     <& /comp/tableend &>
     <%perl>
 
@@ -127,6 +133,7 @@ if (scalar @albums > 0)
         <input type="hidden" name="<% $key %>" value="<% $ARGS{$key} %>">
     <%perl>
     }
+    mc_out("</form>");
 }
 
 $mb->Logout();

@@ -2,13 +2,14 @@
 $artist
 $album
 $showdel
+$nomod
 </%args>
 
 <%perl>
 my $check_box = "";
 my $albumid = $album->GetId();
 
-#if (exists $session{user}) 
+#if (exists $session{user} && !$nomod) 
 #{
 #   if (exists $session{tagged_albums} && 
 #       $session{tagged_albums} =~ m/\b$albumid\b/)
@@ -37,7 +38,7 @@ my $albumid = $album->GetId();
 %#        <td width="10" bgcolor="#FFBA58" valign="center" align="center">
 %#           <% $check_box |n %>
 %#        </td>
-% if (exists $session{user}) {
+% if (exists $session{user} && !$nomod) {
         <td width=15% bgcolor="#FFBA58" align=center>
           <a href="/editalbum.html?id=<% $albumid %>&artist=<% $artist->GetId() %>">Edit</a>
 %       if ($showdel) {

@@ -3,6 +3,7 @@ $album
 $artist
 $hilitetrack=>-1
 $hilitecolor=>""
+$nomod=>0
 </%args>
 
 <%perl>
@@ -24,7 +25,8 @@ else
 mc_comp("/comp/albumbegin", 
         artist=>$artist, 
         album=>$album, 
-        showdel=>(scalar(@info) == 0));
+        showdel=>(scalar(@info) == 0),
+        nomod=>$nomod);
 for($i = 0;; $i++)
 {
     $track = $info[$i]; 
@@ -41,7 +43,7 @@ for($i = 0;; $i++)
     mc_comp("/comp/albumtrack", track=>$track, album=>$album, 
             artist=>$artist, lyricspresent=>$lyricspresent,
             tindex=>$i, hilitetrack=>$hilitetrack, 
-            hilitecolor=>$hilitecolor);
+            hilitecolor=>$hilitecolor, nomod=>$nomod);
 }
-mc_comp("/comp/albumend", album=>$album, artist=>$artist);
+mc_comp("/comp/albumend", album=>$album, artist=>$artist, nomod=>$nomod);
 </%perl>

@@ -1,66 +1,29 @@
-#!/usr/bin/perl -w
-#____________________________________________________________________________
-#
-#   CD Index - The Internet CD Index
-#
-#   Copyright (C) 1998 Robert Kaye
-#
-#   This program is free software; you can redistribute it and/or modify
-#   it under the terms of the GNU General Public License as published by
-#   the Free Software Foundation; either version 2 of the License, or
-#   (at your option) any later version.
-#
-#   This program is distributed in the hope that it will be useful,
-#   but WITHOUT ANY WARRANTY; without even the implied warranty of
-#   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-#   GNU General Public License for more details.
-#
-#   You should have received a copy of the GNU General Public License
-#   along with this program; if not, write to the Free Software
-#   Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
-#
-#   $Id$
-#____________________________________________________________________________
-                                                                               
-use CGI;
-use DBI;
-use DBDefs; 
-use strict;
-use MusicBrainz;
+<%args>
+$id
+$toc
+$search
+$tracks
+</%args>
+<%perl>
 
-my $o; 
-my $num_tracks;
-my $i;
-my ($sth, $sql, $cd, $dbh); 
-my ($search, $toc, $id, $tracks);
+my ($mb, $ar, $al, $album, @albums, $num); 
+$mb = new MusicBrainz;
 
-$o = new CGI;
-$cd = new MusicBrainz;
+mc_comp('/comp/sidebar', title=>'Submit CD: Select Album');
 
-mc_comp("/comp/sidebar");
-#Johan: What is the header function? Should it not use the title field?
-$cd->Header('Submit CD: CD Search Results');
-
-$search = $o->param('search');
-$toc = $o->param('toc');
-$id = $o->param('id');
-$tracks = $o->param('tracks');
-
-$cd->CheckArgs('toc', 'id', 'tracks');
 if (!defined $search || $search eq '')
 {
-print <<END;
+    mc_comp("Please enter the CD name. Click on the " .
+            "Back button in your browser and try again.");
+    return;
+}
 
-	 <FONT COLOR=RED>
-	 Note:
-	 </FONT>
-   Please enter a CD name into the search field. Click on the
-   Back button in your browser and try again.
-	 <p>
-   </td></tr></table>
-END
-   print $o->end_html;
-   exit;
+if (!exists $ARGS{toc} || $ARGS{toc} eq '' ||
+    !exists $ARGS{id} || $ARGS{id} eq '' ||
+    !exists $ARGS{tracks} || $ARGS{tracks} eq '')
+{
+    mc_comp("/comp/badargs");
+    return;
 }
 
 my (@row, @ids, %labels);
@@ -69,116 +32,122 @@ my (%unused, $first, $found);
 $first = 1;
 $found = 0;
 
-$cd->Login;
-$dbh = $cd->{DBH};
+$mb->Login;
 
-$sql = $cd->AppendWhereClause($search, "select id, name from Album where Artist = 0 and ", "name") . " order by name";
-$sth = $dbh->prepare($sql);
-$sth->execute();
-if ($sth->rows > 0)
+$ar = Artist->new($mb->{DBH});
+$ar->SetId(Artist::VARTIST_ID);
+$ar->LoadFromId();
+
+$al = Album->new($mb->{DBH});
+@albums = $al->SearchByName($search, 1);
+
+if (scalar(@albums) > 0)
 {
     my @row;
     my $i;
 
-    for(;@row = $sth->fetchrow_array;) 
+    foreach $album (@albums)
     {
-        my ($sth2, @row2);
-        $sth2 = $dbh->prepare("select Track.id, Track.name, Sequence, Artist.name from Track, Artist where Album = $row[0] and Track.Artist = Artist.id order by Sequence ");
-        $sth2->execute();
-        if ($sth2->rows == $tracks)
+        $al->SetId($$album[0]);
+
+        next if (!defined $al->LoadFromId());
+        
+        delete $al->{trackcount};
+        $num = $al->GetTrackCount();
+        if ($num == $tracks)
         {
             if ($first)
             {
                $first = 0;
                $found = 1;
-               print("Please examine the CDs listed below. If one of ");
-               print("the track listings matches the CD that you are ");
-               print("submitting, click on <b>Select CD</b> next to ");
-               print("the matching album. If none of the listed CD ");
-               print("match, click on <b>CD not listed</b>:<br>");
+               mc_out(qq|Please examine the CDs listed below. If one of 
+                         the track listings matches the CD that you are 
+                         submitting, click on <font class="bold">Select 
+                         CD</font> next to 
+                         the matching album. If none of the listed CD 
+                         match, click on <font class="bold">CD not 
+                         listed</font>:<br>|);
             }
 
-            print $o->start_form(-action=>'found.pl');
-            print "<table width=100%><tr><td><b>",$o->escapeHTML($row[1]);
-            print "<b></td><td align=right>";
-            print $o->p,$o->submit('Select CD>>');
-            print "</td></tr></table>";
+</%perl>
+            <form method="POST" action="found.html" 
+                  enctype="application/x-www-form-urlencoded">
+               <table width="100%"><tr><td align=right>
+                  <input type="submit" name="Submit" value="Select CD>>">
+               </td></tr></table>
+               <input type="hidden" name="id" value="<% $id %>">
+               <input type="hidden" name="album" value="<% $al->GetId() %>">
+               <input type="hidden" name="toc" value="<% $toc %>">
 
-            print "<p><table><tr><td></td><td>Track No:</td>";
-            print "<td>Track Title</td><td>Artist:</td></tr>\n";
-
-            while(@row2 = $sth2->fetchrow_array)
-            {
-                print "<tr><td>&nbsp;&nbsp;</td><td align=center>";
-                print $row2[2]+1;
-                print "</td><td>",$o->escapeHTML($row2[1]),"</td>\n";
-                print "<td>",$o->escapeHTML($row2[3]),"</td></tr>\n";
-            }
-            print '</table><p>';
-
-            print $o->hidden(-name=>'id',-default=>'$id');
-            print $o->hidden(-name=>'album',-default=>"$row[0]");
-            print $o->hidden(-name=>'toc',-default=>$o->param('toc'));
-            print $o->end_form;
+               <& /comp/album, artist=>$ar, album=>$al, nomod=>1 &>
+            </form>
+<%perl>
         }
         else
         {
-            $unused{"$row[1]"}=$sth2->rows;
-        }
-        $sth2->finish();
+            my $key = $al->GetId();
 
+            $unused{$key} = { name => $al->GetName(), tracks => $num };
+        }
     }
 
-    if (scalar(%unused) > 0)
-    {
-        print("The following CDs in the CD Index are not applicable ");
-        print("because they have a different number of tracks than ");
-        print("than the CD you are submitting:<p>");
-        foreach $i (keys(%unused))
-        {
-            print "CD <b>",$o->escapeHTML($i);
-            print "</b> has " . $unused{"$i"} . " tracks.<br>";
-        }
-        print("<p>Even though there may be a CD listed with the same ");
-        print("name as you are submitting, there sometimes are different ");
-        print("editions of the same CD that have a different number ");
-        print("of tracks.");
-    }
+</%perl>
+%   if (scalar(%unused) > 0) {
 
-    print("<p>If the CD is not listed above ");
-    print("you may either try the search again, ");
-    print("or click on 'New CD' to enter the information for this ");
-    print("CD. Please make sure to search carefully before you go ");
-    print("through the effort to add a new CD.");
-}
-else
-{
-    print("There were no CDs found given the keywords ");
-    print("<b>'$search'</b>. You may either try again, ");
-    print("or click on 'New CD' to enter the information for this ");
-    print("CD. Please make sure to search carefully before you go ");
-    print("through the effort to add a new CD.");
-}
+        The following CDs are not applicable 
+        because they have a different number of tracks than 
+        than the CD you are submitting:<p>
 
-print $o->start_form(-action=>'menter.pl');
-print $o->hidden(-name=>'id',-default=>'$id');
-print $o->hidden(-name=>'toc',-default=>$toc);
-print $o->hidden(-name=>'tracks',-default=>'$tracks');
-print $o->p,$o->submit('New CD>>');
-print $o->end_form;
+%       foreach $i (keys(%unused)) {
+           <a href="/showalbum.html?albumid=<% $i %>">
+           <% $unused{$i}->{name} %></a> has 
+           <% $unused{$i}->{tracks} %> tracks.<br>
+%       }
 
-print("<hr><b>Start another CD search:</b><p>\n");
+        <p>Even though there may be a CD listed with the same
+        name as you are submitting, there sometimes are different
+        editions of the same CD that have a different number
+        of tracks.
+%   }
 
-print $o->start_form(-action=>'malbum.pl');
-print "CD Name:<br>\n";
-print $o->textfield(-name=>'search',size=>'30');
-print $o->hidden(-name=>'id',-default=>'$id');
-print $o->hidden(-name=>'toc',-default=>$toc);
-print $o->hidden(-name=>'tracks',-default=>'$tracks');
-print $o->p,$o->submit('Search');
-print $o->end_form;
+    <p>If the CD is not listed above 
+    you may either try the search again, 
+    or click on <font class="bold">New CD</font> to enter the information 
+    for this 
+    CD. Please make sure to search carefully before you go 
+    through the effort to add a new CD.
 
-$sth->finish;
+% } else {
 
-$cd->Logout;
-$cd->Footer; 
+    There were no CDs found given the keywords 
+    <font class="bold"><% $search %></font>. You may either try again, 
+    or click on <font class="bold">New CD</font> to enter the information 
+    for this 
+    CD. Please make sure to search carefully before you go 
+    through the effort to add a new CD.
+
+% }
+
+<p>
+<form method="POST" action="menter.html" 
+   enctype="application/x-www-form-urlencoded">
+    <table width="100%"><tr><td align=right>
+        <input type="submit" name="Submit" value="New CD>>">
+    </td></tr></table>
+    <input type="hidden" name="id" value="<% $id %>">
+    <input type="hidden" name="tracks" value="<% $tracks %>">
+    <input type="hidden" name="toc" value="<% $toc %>">
+</form>
+
+<hr><b>Start another CD search:</b><p>
+
+<form method="POST" action="malbum.html" 
+   enctype="application/x-www-form-urlencoded">
+    <input type="submit" name="Submit" value="Search >>">
+    <input type="text" name="search" size="25">
+    <input type="hidden" name="id" value="<% $id %>">
+    <input type="hidden" name="tracks" value="<% $tracks %>">
+    <input type="hidden" name="toc" value="<% $toc %>">
+</form>
+
+% $mb->Logout;

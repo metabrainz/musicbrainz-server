@@ -35,7 +35,7 @@ else
     @albumlist = $ar->GetAlbums();
     for(;;)
     {
-        my ($trackid, $albumid, $name, $seq, $num_tracks, $albumname);
+        my ($trackid, $name, $seq, $num_tracks, $albumname);
        
         $al = shift @albumlist;
         last if (!defined $al);
@@ -51,21 +51,8 @@ else
                the track listings matches the CD that you are
                submitting, click on <b>Select Album</b> next to
                the matching album. If none of the listed albums
-               match, click on <b>Album not listed</b>.<br>
-
-               <form method="POST" action="/cdi/enter.html"
-                  enctype="application/x-www-form-urlencoded" class="formstyle">
-               <input type="hidden" name="artist" value="<% $artist %>">
-               <input type="hidden" name="id" value="<% $id %>">
-               <input type="hidden" name="toc" value="<% $toc %>">
-               <input type="hidden" name="tracks" value="<% $tracks %>">
-               <table width="100%"><tr><td align=right>
-               <input type="submit" value="Album not listed>>" name="Select">
-               </td></tr></table>
-               </form>
+               match, click on <b>Album not listed</b>.<p>
 %           }    
-
-            <& /comp/album, album=>$al, artist=>$ar &>
 
             <form method="POST" action="/cdi/found.html"
                   enctype="application/x-www-form-urlencoded" class="formstyle">
@@ -75,28 +62,44 @@ else
             </td>
             </tr></table>
 
-            <input type="hidden" name="album" value="<% $albumid %>">
+            <input type="hidden" name="album" value="<% $al->GetId() %>">
             <input type="hidden" name="id" value="<% $id %>">
             <input type="hidden" name="toc" value="<% $toc %>">
             <input type="hidden" name="tracks" value="<% $tracks %>">
             </form>
+
+            <& /comp/album, album=>$al, artist=>$ar, nomod=>1 &>
 <%perl>
         }
         else
         {
-            $unused{$al->GetName()}=$num_tracks;
+            my $key = $al->GetId();
+
+            $unused{$key} = { name => $al->GetName(), tracks => $num_tracks };
         }
     }
-    
-    if (scalar(keys(%unused)) > 0)
-    {
 </%perl>
+    
+    <form method="POST" action="/cdi/enter.html"
+       enctype="application/x-www-form-urlencoded" class="formstyle">
+    <input type="hidden" name="artist" value="<% $artist %>">
+    <input type="hidden" name="id" value="<% $id %>">
+    <input type="hidden" name="toc" value="<% $toc %>">
+    <input type="hidden" name="tracks" value="<% $tracks %>">
+    <table width="100%"><tr><td align=right>
+    <input type="submit" value="Album not listed>>" name="Select">
+    </td></tr></table>
+    </form>
+
+%   if (scalar(keys(%unused)) > 0) {
         The following albums in MusicBrainz are not applicable
         because they have a different number of tracks than
         than the album you are submitting:<p>
 %       foreach $i (keys(%unused))
 %       {
-            Album <span class="bold"> <% $i %> </span> has <% $unused{"$i"} %> tracks.<br>
+           <a href="/showalbum.html?albumid=<% $i %>">
+           <% $unused{$i}->{name} %></a> has
+           <% $unused{$i}->{tracks} %> tracks.<br>
 %       }
         <p>Even though there may be an album listed with the same 
         name as you are submitting, there sometimes are different
@@ -106,18 +109,8 @@ else
     
 %   if (!$found) {
         There were no albums with <% $tracks %> tracks found. Please click 
-        <b>Album not listed</b>:
-
-        <form method="POST" action="/cdi/enter.html"
-           enctype="application/x-www-form-urlencoded" class="formstyle">
-        <input type="hidden" name="artist" value="<% $artist %>">
-        <input type="hidden" name="id" value="<% $id %>">
-        <input type="hidden" name="toc" value="<% $toc %>">
-        <input type="hidden" name="tracks" value="<% $tracks %>">
-        <table width="100%"><tr><td align=right>
-        <input type="submit" value="Album not listed>>" name="Select">
-        </td></tr></table>
-        </form>
+        <font class="bold">Album not listed</font>.
 %   }
+
 %   $mb->Logout;
 % }

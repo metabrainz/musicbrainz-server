@@ -28,28 +28,6 @@ use DBDefs;
 use MusicBrainz;
 use Artist;
 
-# Artist alias stuff
-# alter table ArtistAlias add ModPending int;
-# update ArtistAlias set lastused = "0000-00-00 00:00:00"; 
-
-
-# To convert to the new UUIDs:
-# alter table Artist drop index GIDIndex;
-# alter table Album drop index GIDIndex;
-# alter table Track drop index GIDIndex;
-# alter table Artist change column GID GID char(36) NOT NULL;
-# alter table Album change column GID GID char(36) NOT NULL;
-# alter table Track change column GID GID char(36) NOT NULL;
-# alter table Artist add index GIDIndex (GID);
-# alter table Album add index GIDIndex (GID);
-# alter table Track add index GIDIndex (GID);
-
-# To convert on fatman:
-# alter table Diskid drop index DiskIndex;
-# alter table Diskid add unique index DiskIndex (Disk);
-# alter table TOC drop index DiskIndex;
-# alter table TOC add unique index DiskIndex (Diskid);
-
 sub CreateTables
 {
     my ($dbh) = @_;

@@ -24,7 +24,7 @@ $error = 1 if (!defined $toc || $toc eq '');
 $error = 1 if (!defined $tracks || $tracks eq 0);
 for($i = 0; $i < $tracks && !$error; $i++)
 {
-    if (!exists $ARGS{"track$i"})
+    if (!exists $ARGS{"track$i"} || $ARGS{"track$i"} eq '')
     {
        $error = 1;
     }
@@ -43,68 +43,41 @@ if ($error)
 }
 else
 {
-    $mb->Login();
-    $ar = Artist->new($mb->{DBH});
-    $al = Album->new($mb->{DBH});
-    $tr = Track->new($mb->{DBH});
-    $di = Diskid->new($mb->{DBH});
+    my (%info, @track_list, $in);
 
+    $mb->Login();
     if (defined $artistname)
     {
-        $ar->SetName($artistname);
-        $ar->SetSortName($sortname);
-        $artist = $ar->Insert();
-        if (not defined $artist)
-        {
-            mc_out("Failed to insert a new artist into the database.<br>");
-        }
+        $info{artist} = $artistname;
+        $info{sortname} = $sortname;
     }
-
-    if (defined $artist)
+    else
     {
-        my @albums;
-
-        @albums = $ar->GetAlbumsByName($title);
-        for(;;)
-        {
-            $album = shift @albums;
-            last if (!defined $album);
-            if ($album->GetTrackCount() == $tracks)
-            {
-                mc_out(qq/That CD already exists in the CD Index. 
-                          <p>If this is a different CD, please vary the 
-                          title of the CD slightly to indicate how this CD 
-                          is different from the existing CD./);
-                last;
-            }
-        }
-
-        if (!defined $album)
-        {
-            $al->SetName($title);
-            $al->SetArtist($artist);
-            $album = $al->Insert();
-            if (!defined $album)
-            {
-                mc_out("Failed to insert a new album into the database.<br>");
-            }
-            else
-            {
-               for($i = 0; $i < $tracks; $i++)
-               {
-                   $tr->SetId(0);
-                   $tr->SetName($ARGS{"track$i"});
-                   $tr->SetSequence($i + 1);
-                   $tr->Insert($al, $ar);
-               }
-    
-               $di->Insert($id, $album, $toc);
-        
-               mc_out(qq/Thank you for your submission.<p> You will
-                         now be able to request the information for this CD./);
-            }
-         }
+        $info{artistid} = $artist;
     }
+    $info{album} = $title;
+
+    for($i = 0; $i < $tracks; $i++)
+    {
+        push @track_list, { track=>$ARGS{"track$i"}, tracknum=>($i +1) };
+    }
+
+    $info{tracks} = \@track_list;
+    $info{cdindexid} = $id;
+    $info{toc} = $toc;
+
+    $in = Insert->new($mb->{DBH});
+    if (!defined $in->Insert(\%info))
+    {
+        mc_out(qq/The insertion into the database failed. The reason given
+                  was: / . $in->GetError());
+    }
+    else
+    {
+        mc_out(qq/Thank you for your submission.<p> You will
+                  now be able to request the information for this CD./);
+    }
+
     $mb->Logout;
 }
 </%perl>

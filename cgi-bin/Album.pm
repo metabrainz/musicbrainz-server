@@ -264,21 +264,25 @@ sub LoadTracksFromMultipleArtistAlbum
 # error
 sub SearchByName
 {
-   my ($this, $search) = @_;
+   my ($this, $search, $martist_only) = @_;
    my (@info, $query, $sql, @row);
-
-   # Search for single artist albums
-   $query = $this->AppendWhereClause($search, qq/select Album.id, Album.name,
-               Artist.name, Artist.id from Album,Artist where Album.artist = 
-               Artist.id and /, "Album.Name") . " order by Album.name";
+ 
    $sql = Sql->new($this->{DBH});
-   if ($sql->Select($query))
+   if (!defined $martist_only || !$martist_only)
    {
-       for(;@row = $sql->NextRow();)
-       {  
-           push @info, [$row[0], $row[1], $row[2], $row[3]];
+       # Search for single artist albums
+       $query = $this->AppendWhereClause($search, qq/select Album.id, 
+                      Album.name, Artist.name, Artist.id from Album,Artist 
+                      where Album.artist = Artist.id and /, "Album.Name") . 
+                      " order by Album.name";
+       if ($sql->Select($query))
+       {
+           for(;@row = $sql->NextRow();)
+           {  
+               push @info, [$row[0], $row[1], $row[2], $row[3]];
+           }
+           $sql->Finish;
        }
-       $sql->Finish;
    }
 
    # Now search for multiple artist albums

@@ -2,6 +2,7 @@
 $artist
 $album
 $showids=>1
+$nomod
 </%args>
 
 <%perl>
@@ -14,7 +15,7 @@ if ($showids)
    @ids = $di->GetDiskIdFromAlbum($album->GetId());
 }
 
-if (exists $session{user} && scalar(@ids) > 0) 
+if (exists $session{user} && !$nomod && scalar(@ids) > 0) 
 {
     if ($album->GetArtist() == Artist::VARTIST_ID) 
     {
@@ -38,7 +39,7 @@ if (exists $session{user} && scalar(@ids) > 0)
   </table>
 </td></tr>
 </table> 
-% if (exists $session{user}) {
+% if (exists $session{user} && !$nomod) {
    <center>
    [ <a href="/addtrack.html?album=<% $album->GetId() %>&artist=<% $album->GetArtist() %>">Add a missing track</a> | 
    <a href="/movealbum.html?album=<% $album->GetId() %>&artist=<% $album->GetArtist() %>">Move</a> 
@@ -49,5 +50,6 @@ if (exists $session{user} && scalar(@ids) > 0)
       | <a href="/tosac.html?album=<% $album->GetId() %>&artist=<% $album->GetArtist() %>&track=1">Convert to single artist</a>
 %    }
    ]
+   </center>
 % }
 <p>
