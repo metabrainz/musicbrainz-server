@@ -360,6 +360,32 @@ sub Insert
     return $track;
 }
 
+sub UpdateName
+{
+	my $self = shift;
+
+	my $id = $self->GetId
+		or croak "Missing track ID in UpdateName";
+	my $name = $self->GetName;
+	defined($name) && $name ne ""
+		or croak "Missing track name in UpdateName";
+
+    MusicBrainz::TrimInPlace($name);
+
+	my $sql = Sql->new($self->{DBH});
+	$sql->Do(
+		"UPDATE track SET name = ? WHERE id = ?",
+		$name,
+		$id,
+	);
+
+	# Now remove the old name from the word index, and then
+	# add the new name to the index
+	my $engine = SearchEngine->new($self->{DBH}, { Table => 'Track' });
+	$engine->RemoveObjectRefs($id);
+	$engine->AddWordRefs($id, $name);
+}
+
 sub UpdateArtist
 {
 	my $self = shift;

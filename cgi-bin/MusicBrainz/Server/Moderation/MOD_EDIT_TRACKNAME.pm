@@ -78,6 +78,9 @@ sub CheckPrerequisites
 		return STATUS_FAILEDPREREQ;
 	}
 
+	# Save for ApprovedAction
+	$self->{_track} = $tr;
+
 	undef;
 }
 
@@ -89,17 +92,11 @@ sub ApprovedAction
 	my $status = $this->CheckPrerequisites;
 	return $status if $status;
 
-	$sql->Do(
-		"UPDATE track SET name = ? WHERE id = ?",
-		$this->GetNew,
-		$this->GetRowId,
-	) or die "Failed to update track in MOD_EDIT_TRACKNAME";
+	my $tr = $this->{_track}
+		or die;
 
-	# Now remove the old name from the word index, and then
-	# add the new name to the index
-	my $engine = SearchEngine->new($this->{DBH}, { Table => 'Track' });
-	$engine->RemoveObjectRefs($this->GetRowId);
-	$engine->AddWordRefs($this->GetRowId, $this->GetNew);
+	$tr->SetName($this->GetNew);
+	$tr->UpdateName;
 
 	STATUS_APPLIED;
 }
