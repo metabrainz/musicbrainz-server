@@ -7,7 +7,7 @@ $method=>'POST'
 @hidden=>''
 </%args>
 % my $hide;
-<FORM METHOD="<% $method %>" ACTION="<% $scripturl %>"
+<FORM METHOD="<% $method %>" ACTION="<% $scripturl |n%>"
       ENCTYPE="application/x-www-form-urlencoded" class="formstyle">
 <img src="/images/pixel.gif" width="20" height="1" alt="" border="0">
 % if ($nameurl ne '') {

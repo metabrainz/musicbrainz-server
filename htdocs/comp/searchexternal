@@ -1,4 +1,3 @@
-
 <%perl>
 #This varable contain the form values to search the aria database
 #at location www.aria-database.com
@@ -42,32 +41,17 @@ my @site_musica = (
 &nbsp;
 </td>
 <td width="48%" valign="top">
-  <& /comp/tablebegin, title=>'Search', attrs=>"align=left",
-     gattrs=>"width=100%" &>
-    <br>
-    For each of these searches, you may enter a few keywords that
-    appear in the title of the artist, album or track. The search
-    is case insensitive and partial keywords are ok. (e.g. 'Port' 
-    will match 'Portishead')
-%#
-%#  JOHAN: Deleted all special purpose search scripts and made 1 general one
-%#
-    <& /comp/searchbox, name=>'Artist Search',
-                        scripturl=>'/search_art.html',
-                        searchfield=>'artist' &>
-    <& /comp/searchbox, name=>'Album Search',
-                        scripturl=>'/search_alb.html',
-                        searchfield=>'album' &>
-    <& /comp/searchbox, name=>'Track Search',
-                        scripturl=>'/search_trk.html',
-                        searchfield=>'track' &>
-    <br>
-    &nbsp;
-  <& /comp/tableend &>
 
 % if (DBDefs::SEARCH_LYRICS_OFFSITE) {
-  <& /comp/tablebegin, title=>'Other sites', attrs=>"align=left",
+  <& /comp/tablebegin, title=>'Classical music sites', attrs=>"align=left",
      gattrs=>"width=100%" &>
+    For each of these searches please enter the name of the composer to search.
+    
+    <& /comp/searchbox, name=>'allclassical.com',
+                        nameurl=>'http://allclassical.com',
+                        scripturl=>'http://allclassical.com/cg/x.dll',
+                        hidden=>['P','ACG', 'Type','1'],
+                        searchfield=>'Pattern' &>
     <& /comp/searchbox, name=>'www.aria-database.com',
                         nameurl=>'http://www.aria-database.com',
                         scripturl=>'http://www.aria-database.com/cgibin/aria-search.pl',
@@ -85,6 +69,36 @@ my @site_musica = (
                         hidden=>['querytemplate', 'Test'],
                         searchfield=>'E3' &>
   <& /comp/tableend &>
+
+  <& /comp/tablebegin, title=>'Other music sites', attrs=>"align=left",
+     gattrs=>"width=100%" &>
+    Please enter the name of the artist to search.
+    
+    <& /comp/searchbox, name=>'www.allmusic.com',
+                        nameurl=>'http://www.allmusic.com',
+                        scripturl=>'http://allmusic.com/cg/x.dll',
+                        hidden=>['P','amg', 'opt1','1'],
+                        searchfield=>'sql' &>
+    <& /comp/searchbox, name=>'www.listen.com',
+                        nameurl=>'http://www.listen.com',
+                        scripturl=>'http://www.listen.com/results.jsp',
+                        method=>'get',
+                        searchfield=>'artist' &>
+    <& /comp/searchbox, name=>'www.cddb.com',
+                        nameurl=>'http://www.cddb.com',
+                        scripturl=>'http://www.cddb.com/xm/search',
+                        method=>'get',
+                        hidden=>['f','artist','f','disc','f','track'],
+                        searchfield=>'q' &>
+    <& /comp/searchbox, name=>'www.juno.co.uk',
+                        nameurl=>'http://www.juno.co.uk',
+                        scripturl=>'http://209.207.190.80/search.asp',
+                        hidden=>['page','sall.htm'],
+                        searchfield=>'search' &>
+  <& /comp/tableend &>
+% } else {
+This server is configured without search engine support.<p>
+Please contact the system administrator with any questions about this policy.
 % }
 
 </td>
@@ -92,47 +106,10 @@ my @site_musica = (
 &nbsp;
 </td>
 <td width="48%" valign="top">
-  <& /comp/tablebegin, title=>'Browse', attrs=>"align=center", 
-     gattrs=>"width=100%" &>
-    <br>
-    To browse the database alphabetically,<br>
-    select a letter below:<p>
-    <& /comp/artistbrowsebox &>
-    <br>
-    &nbsp;
-  <& /comp/tableend &>
-
-% if ($session{user} ne "") {
-  <& /comp/tablebegin, title=>'Login', attrs=>"align=center",
-     gattrs=>"width=100%" &>
-    <br>
-    You are logged in as <b><% $session{user} %></b>.<br>
-    <a href="/logout.html">Logout</a> from MusicBrainz.
-    <br>
-    &nbsp;
-  </center>
-  <& /comp/tableend &>
-
-  <& /comp/tablebegin, title=>'Moderate', attrs=>"align=center",
-     gattrs=>"width=100% cellpadding=50 " &>
-    <br>
-    <a href="/moderate.html">Vote/Moderate</a> MusicBrainz.
-    <br>
-    &nbsp;
-  <& /comp/tableend &>
-% } else {
-  <& /comp/tablebegin, title=>'Login', attrs=>"align=center", 
-     gattrs=>"width=100%" &>
-    <br>
-    <& /comp/loginbox &>
-    <br>
-    &nbsp;
-  <& /comp/tableend &>
-% }
-
 % if (DBDefs::SEARCH_LYRICS_OFFSITE) {
   <& /comp/tablebegin, title=>'Lyrics sites', attrs=>"align=left",
      gattrs=>"width=100%" &>
+    For each of these searches please enter the name of the artist, album or track to search.
     <& /comp/searchbox, name=>'www.lyricfind.com',
                         nameurl=>'http://www.lyricfind.com',
                         scripturl=>'http://www.lyricfind.com/search.php3',

@@ -10,6 +10,7 @@
 the last one =] -->
 
          <a href="/search.html">Search</a> |
+         <a href="/engine.html">Links</a> |
 % if (!defined $session{user} || $session{user} eq '') {
          <a href="/login.html">Login</a> |
 % } else {
