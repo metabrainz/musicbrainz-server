@@ -1,3 +1,5 @@
+#!/usr/bin/perl -w
+# vi: set ts=8 sw=4 :
 #____________________________________________________________________________
 #
 #   MusicBrainz -- the open internet music database
@@ -142,6 +144,33 @@ sub Remove
     $sql->Do("delete from Artist where id = " . $this->GetId());
 
     return 1;
+}
+
+sub MergeInto
+{
+    my ($old, $new, $mod) = @_;
+    my $sql = Sql->new($old->{DBH});
+
+    require UserSubscription;
+    my $subs = UserSubscription->new($old->{DBH});
+    $subs->ArtistBeingMerged($old, $mod);
+
+    my $o = $old->GetId;
+    my $n = $new->GetId;
+
+    $sql->Do("UPDATE artist_relation SET artist = ? WHERE artist = ?", $n, $o);
+    $sql->Do("UPDATE artist_relation SET ref    = ? WHERE ref    = ?", $n, $o);
+    $sql->Do("UPDATE album           SET artist = ? WHERE artist = ?", $n, $o);
+    $sql->Do("UPDATE track           SET artist = ? WHERE artist = ?", $n, $o);
+    $sql->Do("UPDATE moderation      SET artist = ? WHERE artist = ?", $n, $o);
+    $sql->Do("UPDATE artistalias     SET ref    = ? WHERE ref    = ?", $n, $o);
+    $sql->Do("DELETE FROM artist     WHERE id   = ?", $o);
+
+    # Insert the old name as an alias for the new one
+    # TODO this is often a bad idea - remove this code?
+    my $al = Alias->new($old->{DBH});
+    $al->SetTable("ArtistAlias");
+    $al->Insert($n, $o->GetName);
 }
 
 # The artist name has changed, or an alias has been removed
