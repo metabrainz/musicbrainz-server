@@ -170,7 +170,7 @@ else
     foreach $key (keys %ARGS)
     {
     </%perl>
-        <input type="hidden" name="<% $key %>" value="<% $ARGS{$key} %>">
+        <input type="hidden" name="<% $key %>" value="<% $ARGS{$key} |h %>">
     <%perl>
     }
     mc_out("</form>");

@@ -87,7 +87,7 @@ move track <span class="bold"><% $ARGS{prev0} %></span> to the selected artist:
    </tr>
    <td>
    <input type="radio" name="<% $argname %>" 
-          value="<% $arg %>" CHECKED>&nbsp;<% $arg %>
+          value="<% $arg |h %>" CHECKED>&nbsp;<% $arg %>
    </td><td>
    Enter artist name if different from sort name:<br>
    <input type="text" name="<% $dest_argname %>" SIZE=15> 
@@ -103,17 +103,17 @@ move track <span class="bold"><% $ARGS{prev0} %></span> to the selected artist:
     <th width="50%">Artist Name</th>
     </tr>
 
+%   $i = 0;
+%   foreach $name (@names) {
+        <tr><td>
+        <input type="radio" name="<% $argname %>" value="<% $name->{name} |h %>"
+%       if ($i == 0 && $found) {
+           CHECKED
+%       }
+        >&nbsp;<% $name->{sortname} %></td><td><% $name->{name} %></td></tr>
+%       $i++;
+%   }
 <%perl>
-    $i = 0;
-    foreach $name (@names)
-    {
-        mc_out("<tr><td>");
-        mc_out(qq\<input type="radio" name="$argname" 
-               value="$name->{name}"\);
-        mc_out(" CHECKED") if ($i == 0 && $found);
-        mc_out(">&nbsp;$name->{sortname}</td><td>$name->{name}</td></tr>");
-        $i++;
-    }
     mc_out("</table>");
     mc_comp("/comp/tableend");
 }
@@ -133,7 +133,7 @@ foreach $key (keys %ARGS)
     next if ($key eq $argname);
 
 </%perl>
-    <input type="hidden" name="<% $key %>" value="<% $ARGS{$key} %>">
+    <input type="hidden" name="<% $key %>" value="<% $ARGS{$key} |h %>">
 <%perl>
 }
 $mb->Logout();
