@@ -32,6 +32,9 @@ use vars qw(@ISA @EXPORT);
 use strict;
 use DBI;
 use DBDefs;
+use Artist;
+use Album;
+use Track;
 
 sub new
 {
@@ -99,6 +102,44 @@ sub Insert
     } 
     return $id;
 }
+
+sub InsertIntoBitziArchive
+{
+    my ($this, @data) = @_;
+    my (@ids, $id, $sql, $query);
+
+    $sql = Sql->new($this->{DBH});
+    # Strip out the path of the filename
+    if ($data[5] =~ /\\/)
+    {
+       $data[5] =~ s/^.*\\//;
+    }
+    else
+    {
+       $data[5] =~ s/^.*\///;
+    }
+    $sql = Sql->new($this->{DBH});
+    $data[0] = $sql->Quote($data[0]);
+    $data[1] = $sql->Quote($data[1]);
+    $data[2] = $sql->Quote($data[2]);
+    $data[4] = $sql->Quote($data[4]);
+    $data[5] = $sql->Quote($data[5]);
+    $data[6] = $sql->Quote($data[6]);
+    $data[7] = $sql->Quote($data[7]);
+    $data[8] = $sql->Quote($data[8]);
+    $data[9] = $sql->Quote($data[9]);
+    $data[10] = $sql->Quote($data[10]);
+    $data[12] = $sql->Quote($data[12]);
+
+    $query = "insert into BitziArchive (Name, Artist, Album, Sequence, GUID, Filename, Year, Genre, Comment, Bitprint, First20, Length, AudioSha1, Duration, Samplerate, Bitrate, Stereo, VBR) values (";
+    $query .= join ", ", @data;
+    $query .= ")";
+    $sql->Do($query);
+    $id = $sql->GetLastInsertId;
+ 
+    return $id;
+}
+
 
 sub GetPendingList
 {

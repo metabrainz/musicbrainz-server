@@ -108,7 +108,6 @@ if (exists $ENV{"MOD_PERL"})
    $r = Apache->request();
    my $size = $r->header_in("Content-length");
    $r->read($xml, $size);
- #print "perl code\n";
 }
 else
 {
@@ -125,7 +124,6 @@ else
        }
        $xml .= $line;
    }
- #print "manual code\n";
 }
 
 $rdf = RDFOutput->new(0);

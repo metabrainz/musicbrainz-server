@@ -202,6 +202,6 @@ sub GetSingleColumn
 
         return @col;
     }
-    return undef;
+    return ();
 }
 

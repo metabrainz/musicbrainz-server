@@ -511,20 +511,30 @@ sub ExchangeMetadata
        $tr = Track->new($dbh);
 
        # has this data been accepted into the database?
-       $id = $gu->GetTrackIdsFromGUID($data[4]);
-       $id = $ids[0];
-       if (!defined $id || $id < 0)
+       @ids = $gu->GetTrackIdsFromGUID($data[4]);
+       if (scalar(@ids) == 0)
        {
            # No it has not.
            @ids = $pe->GetIdsFromGUID($data[4]);
-           if (!defined $ids[0])
+           if (scalar(@ids) == 0)
            {
                if (defined $data[0] && $data[0] ne '' &&
                    defined $data[4] && $data[4] ne '' &&
                    defined $data[1] && $data[1] ne '' &&
                    defined $data[2] && $data[2] ne '')
                {
-                   $pe->Insert(@data);
+                   # Check to see if this track already exits, but we do
+                   # not have a GUID for it. If so, associate the GUID,
+                   # otherwise insert into the pending table
+                   if (!$gu->AssociateGUID($data[4], $data[0], 
+                                           $data[1], $data[2]))
+                   {
+                      $pe->Insert(@data);
+                   }
+                   else
+                   {
+                      $pe->InsertIntoBitziArchive(@data);
+                   }
                }
            }
            else
@@ -538,13 +548,16 @@ sub ExchangeMetadata
            my (@db_data, $i);
 
            # @db_data will contain 5 items, in the same order as shown above
-           @db_data = $tr->GetMetadataFromIdAndAlbum($id, $data[2]);
-           for($i = 0; $i < 5;  $i++)
+           @db_data = $tr->GetMetadataFromIdAndAlbum($ids[0], $data[2]);
+           if (scalar(@db_data) > 0)
            {
-              if ((!defined $data[$i] || $data[$i] eq "") && 
-                  defined $db_data[$i])
+              for($i = 0; $i < 5;  $i++)
               {
-                  $data[$i] = $db_data[$i] 
+                 if ((!defined $data[$i] || $data[$i] eq "") && 
+                     defined $db_data[$i])
+                 {
+                     $data[$i] = $db_data[$i] 
+                 }
               }
            }
            #PrintData("Matched database (outgoing):", @data);
@@ -615,6 +628,7 @@ sub CheckMetadata
            {
                $gu->Insert($$data[4], $trackid);
            }
+           $pe->InsertIntoBitziArchive(@$data);
            $pe->DeleteByGUID($$data[4]);
            return;
        }

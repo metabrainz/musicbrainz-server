@@ -50,7 +50,7 @@ my $time = sprintf "%d-%d %02d:%02d", $entered[4]+1, $entered[3],
 %          DBDefs::ALLOW_SELF_VOTE) {
      Yes <input type="radio" name="rowid<% $mod->GetId() %>" value="yes">
      No <input type="radio" name="rowid<% $mod->GetId() %>" value="no">
-     Abs <input type="radio" name="rowid<% $mod->GetId() %>" value="abs" CHECKED>
+     Abst <input type="radio" name="rowid<% $mod->GetId() %>" value="abs" CHECKED>
 % } else {
      <% $text %> 
 % }

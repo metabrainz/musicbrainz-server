@@ -25,7 +25,7 @@ else
        $gu = GUID->new($mb->{DBH});
     
        @ids = $gu->GetTrackIdsFromGUID($ARGS{guid});
-       if (!defined $ids[0])
+       if (scalar(@ids) == 0)
        {
            mc_out("<p>This GUID was not found in the main database.<p>");
        }

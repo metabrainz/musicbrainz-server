@@ -160,6 +160,29 @@ sub LoadFromId
    return undef;
 }
 
+# Load an album record. Set the album name via the SetName accessor
+# returns 1 on success, undef otherwise. Access the Album info via the
+# accessor functions.
+sub LoadFromName
+{
+   my ($this) = @_;
+   my ($sth, $sql, @row);
+
+   $sql = Sql->new($this->{DBH});
+   @row = $sql->GetSingleRow("Album", [qw(id name GID modpending artist)],
+                             ["name", $sql->Quote($this->{name})]);
+   if (defined $row[0])
+   {
+        $this->{id} = $row[0];
+        $this->{name} = $row[1];
+        $this->{mbid} = $row[2];
+        $this->{modpending} = $row[3];
+        $this->{artist} = $row[4]; 
+        return 1;
+   }
+   return undef;
+}
+
 # Load tracks for current album. Returns an array of Track references
 # The array is empty if there are no tracks or on error
 sub LoadTracks

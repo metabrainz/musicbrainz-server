@@ -98,4 +98,29 @@ sub Insert
     }
     return $id;
 }
-1;
+
+sub AssociateGUID
+{
+    my ($this, $guid, $name, $artist, $album) = @_;
+    my ($id, $sql, @row);
+
+    $sql = Sql->new($this->{DBH});
+    $artist = $sql->Quote($artist);
+    $album = $sql->Quote($album);
+    $name = $sql->Quote($name);
+    if ($sql->Select(qq\select Track.id from Artist, Album, Track, AlbumJoin
+                        where Artist.name = $artist and Album.name = $album and
+                        Track.name = $name and Track.artist = Artist.id and
+                        Track.id = AlbumJoin.track and AlbumJoin.album =
+                        Album.id\))
+    {
+       while(@row = $sql->NextRow())
+       {
+           $this->Insert($guid, $row[0]);
+       }
+       $sql->Finish();
+       
+       return 1;
+    }
+    return 0;
+}

@@ -136,6 +136,30 @@ sub CreateTables
 
     print "Created Pending table.\n";
 
+    $dbh->do("create table BitziArchive (" .
+             "   Id int auto_increment primary key," .
+             "   Name varchar(255)," .
+             "   Artist varchar(100)," .
+             "   Album varchar(100)," .
+             "   Sequence int," .
+             "   GUID varchar(64) not null," . 
+             "   Filename varchar(255)," .
+             "   Year int," .
+             "   Genre varchar(64)," .
+             "   Comment text," .
+             "   Bitprint char(88) not null," . 
+             "   First20 char(40) not null," . 
+             "   Length int," .
+             "   AudioSha1 char(40)," . 
+             "   Duration int," .
+             "   Samplerate int," .
+             "   Bitrate smallint," .
+             "   Stereo tinyint," .
+             "   VBR tinyint)")
+          or die("Cannot create BitziArchive table");
+
+    print "Created BitziArchive table.\n";
+
     $dbh->do("create table Diskid (" .
              "   Id int auto_increment primary key," .
              "   Disk char(32) not null ," .
@@ -338,6 +362,10 @@ sub CreateIndices
     $dbh->do(qq/alter table Pending add index GUIDIndex (GUID)/)
           or die("Could not add indices to Pending table");
     print "Added indices to Pending table.\n";
+
+    $dbh->do(qq/alter table BitziArchive add index GUIDIndex (GUID)/)
+          or die("Could not add indices to BitziArchive table");
+    print "Added indices to BitziArchive table.\n";
 
     $dbh->do(qq/alter table Diskid add index AlbumIndex (Album), 
                                    add index DiskIndex (Disk)/)

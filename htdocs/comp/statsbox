@@ -20,6 +20,10 @@ if (!defined($result))
                        title=>"Tracks:");
     $result .= mc_comp("/comp/calcstat", 
                        mb=>$mb,
+                       query=>"select count(*) from GUID", 
+                       title=>"TRM Ids:");
+    $result .= mc_comp("/comp/calcstat", 
+                       mb=>$mb,
                        query=>"select count(*) from Diskid", 
                        title=>"DiskIds:");
     $result .= mc_comp("/comp/calcstat", 
