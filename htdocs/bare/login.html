@@ -29,6 +29,7 @@ elsif (defined $ARGS{User} && $ARGS{User} ne '' &&
         $session{user} = $user;
         $session{privs} = $privs;
         $session{uid} = $uid;  
+        $session{expire} = time() + UserStuff::SESSION_SECONDS_TO_LIVE;  
     }
     $mb->Logout();
 }    

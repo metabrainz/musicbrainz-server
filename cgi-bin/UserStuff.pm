@@ -36,6 +36,7 @@ use MusicBrainz;
 
 use constant AUTOMOD_FLAG => 1;
 use constant BOT_FLAG => 2;
+use constant SESSION_SECONDS_TO_LIVE => 86400;
 
 sub new
 {
