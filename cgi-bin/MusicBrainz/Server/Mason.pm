@@ -10,6 +10,56 @@ package MusicBrainz::Server::Mason;
 
 use Apache::Constants qw( DECLINED NOT_FOUND );
 
+sub preload_files
+{
+	my %files;
+
+	use File::Find qw( find );
+	my $len = length(&DBDefs::HTDOCS_ROOT);
+	my $recurse = sub {
+		my ($dir, $patt, $norec) = @_;
+		$dir = &DBDefs::HTDOCS_ROOT . $dir;
+		find(
+			{
+				no_chdir => 1,
+				wanted => sub {
+					if (-d $_)
+					{
+						$File::Find::prune = 1, return
+							if $_ =~ /\/CVS$/
+							or ($norec and $_ ne $dir);
+					} elsif (-f _) {
+						my $path = substr($_, $len);
+						$files{$path} = 1 if $path =~ /$patt/;
+					}
+				},
+			},
+			$dir,
+		);
+	};
+
+	&$recurse("", qr/\.(html|inc)$/, 1);
+	&$recurse("/comp", qr/^/);
+
+	for my $t (qw(
+		/bare
+		/cdi
+		/development
+		/freedb
+		/mod
+		/news
+		/popup
+		/products
+		/support
+		/tagger
+		/user
+	)) {
+		&$recurse($t,  qr/\.(html|inc)$/);
+	}
+
+	[ sort keys %files ];
+}
+
 sub get_handler
 {
 	# The in_package value here is the default, but it's worth
@@ -24,6 +74,7 @@ sub get_handler
 		comp_root			=> &DBDefs::HTDOCS_ROOT,
 		data_dir			=> &DBDefs::MASON_DIR,
 		allow_recursive_autohandlers => undef,
+		preloads			=> preload_files(),
 	);
 
 	my $handler = HTML::Mason::ApacheHandler->new(
