@@ -139,9 +139,9 @@ sub GetAttributes
 sub GetReleaseTypeAndStatus
 {
 	my $self = shift;
-	my @attrs = $self->GetAttributes;
+	my $attrs = shift || [ $self->GetAttributes ];
 	my ($type, $status);
-	for ($self->GetAttributes)
+	for (@$attrs)
 	{
 		return () if $_ == ALBUM_ATTR_NONALBUMTRACKS;
 		$type   = $_ if $_ >= ALBUM_ATTR_SECTION_TYPE_START   and $_ <= ALBUM_ATTR_SECTION_TYPE_END;
