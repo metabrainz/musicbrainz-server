@@ -74,7 +74,7 @@ else
 
         if ($artist->GetId() != ModDefs::VARTIST_ID)
         {
-            mc_out("<a href=\"/moderate.html?type=4&artistid=" .
+            mc_out("<a href=\"/moderate.html?type=4&amp;artistid=" .
                    $artist->GetId()."\">");
             mc_out("View mods</a> | ");
         }

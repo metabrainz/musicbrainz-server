@@ -56,7 +56,7 @@ $length_in_secs = int((defined $track->GetLength()) ?
     <td width="30%" bgcolor="white">
        <a href="/showartist.html?artistid=<% $track->GetArtist() %>"><% $track->GetArtistName() |h  %></a>
 % if (exists $session{user}) {
-          (<a href="/changetrack.html?album=<% $album->GetId() %>&artist=<% $track->GetArtist() %>&tindex=<% $tindex %>&solo=1">Change</a>)
+          (<a href="/changetrack.html?album=<% $album->GetId() %>&amp;artist=<% $track->GetArtist() %>&amp;tindex=<% $tindex %>&amp;solo=1">Change</a>)
 % }
     </td>
 % }
@@ -67,8 +67,8 @@ $length_in_secs = int((defined $track->GetLength()) ?
     </td>
 % if (exists $session{user} && !$nomod) {
     <td width="15%" align=center bgcolor="white" nowrap>
-       <a href="/edittrack.html?id=<% $track->GetId() %>&album=<% $album->GetId() %>&artist=<% $artist->GetId() %>&nonalbum=<% $nonalbum %>">Edit</a>
-       | <a href="/remtrack.html?id=<% $track->GetId() %>&album=<% $album->GetId() %>&artist=<% $artist->GetId() %>">Del</a>
+       <a href="/edittrack.html?id=<% $track->GetId() %>&amp;album=<% $album->GetId() %>&amp;artist=<% $artist->GetId() %>&amp;nonalbum=<% $nonalbum %>">Edit</a>
+       | <a href="/remtrack.html?id=<% $track->GetId() %>&amp;album=<% $album->GetId() %>&amp;artist=<% $artist->GetId() %>">Del</a>
     </td>
 % }
 </tr>

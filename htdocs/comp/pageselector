@@ -9,7 +9,7 @@ sub PageNumbers
     {
         if ($i != $index)
         {
-            $out .= "<a href=\"$url&offset=" . ($i * $pagesize) .  "\">" . ($i + 1) .
+            $out .= "<a href=\"$url&amp;offset=" . ($i * $pagesize) .  "\">" . ($i + 1) .
                     "</a>&nbsp;";
         }
         else
@@ -59,10 +59,10 @@ if ($end > $pagecount-1-$snaptoend) { $end = $pagecount-1 }
 </td>
 <td align="center" valign="center">
 % if ($index > 0) {
-    <a href="<% $url %>&offset=0"
+    <a href="<% $url %>&amp;offset=0"
     	title="first page"
     	>&lt;&lt;</a>&nbsp;
-    <a href="<% $url %>&offset=<% ($index - 1) * $pagesize %>"
+    <a href="<% $url %>&amp;offset=<% ($index - 1) * $pagesize %>"
     	title="previous page"
     	>&lt;</a>&nbsp;
 % } else {
@@ -83,10 +83,10 @@ if ($end > $pagecount-1-$snaptoend) { $end = $pagecount-1 }
 % }
 
 % if ($index < $pagecount - 1) {
-    <a href="<% $url %>&offset=<% ($index + 1) * $pagesize %>"
+    <a href="<% $url %>&amp;offset=<% ($index + 1) * $pagesize %>"
     	title="next page"
     	>&gt;</a>&nbsp;
-    <a href="<% $url %>&offset=<% ($pagecount - 1) * $pagesize %>"
+    <a href="<% $url %>&amp;offset=<% ($pagecount - 1) * $pagesize %>"
     	title="last page"
     	>&gt;&gt;</a>&nbsp;
 % } else {

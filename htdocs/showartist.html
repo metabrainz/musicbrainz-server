@@ -114,7 +114,7 @@ else
         if (exists $session{uid})
         {
             </%perl>
-            | <a href="/moderate.html?type=4&artistid=<% $artist->GetId() %>"
+            | <a href="/moderate.html?type=4&amp;artistid=<% $artist->GetId() %>"
                >View mods</a>
             <%perl>
         }
@@ -179,7 +179,7 @@ else
             <tr>
             <td align="center">
 
-            <a href="/showartist.html?artistid=<% $artist->GetId() %>&ex=<% $exall %>">
+            <a href="/showartist.html?artistid=<% $artist->GetId() %>&amp;ex=<% $exall %>">
             <img src="/images/plus.gif" align="center"
                  alt="Expand" title="Expand All Albums"
                  height="13" width="13" border="0"> Expand All</a>
@@ -256,7 +256,7 @@ else
             {
                 </%perl>
                 <table width="100%"><tr><td align="center">[ 
-                <a href="/addalbum.html?artistid=<% $artist->GetId() %>&nonalbum=1">Add non-album 
+                <a href="/addalbum.html?artistid=<% $artist->GetId() %>&amp;nonalbum=1">Add non-album 
                 tracks</a> ]</td></tr></table>
                 <%perl>
             }
