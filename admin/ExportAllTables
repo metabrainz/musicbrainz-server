@@ -103,7 +103,6 @@ my $dbh = $mb->{DBH};
 my @tables = qw(
 	album
 	album_amazon_asin
-	album_amazon_asin_sanitised
 	album_cdtoc
 	albumjoin
 	albummeta
@@ -193,12 +192,6 @@ $iSchemaSequence == &DBDefs::DB_SCHEMA_SEQUENCE
 writefile("SCHEMA_SEQUENCE", "$iSchemaSequence\n");
 
 # Sanitise various things for public consumption
-
-if (grep { $_ eq "album_amazon_asin_sanitised" } @tables)
-{
-	$sql->Do("SELECT * INTO TEMPORARY TABLE album_amazon_asin_sanitised FROM album_amazon_asin");
-	$sql->Do("UPDATE album_amazon_asin_sanitised SET coverarturl = ''");
-}
 
 if (grep { $_ eq "moderator_sanitised" } @tables)
 {
@@ -391,7 +384,7 @@ my @group_core = qw(
 	);
 
 my @group_derived = qw(
-	album_amazon_asin_sanitised
+	album_amazon_asin
 	albummeta
 	albumwords
 	artistwords
