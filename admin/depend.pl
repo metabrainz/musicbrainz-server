@@ -46,7 +46,7 @@ eval { require POSIX; new LocaleSaver(&POSIX::LC_CTYPE, "en_US.UTF-8"); 1 }
 
 use Text::Unaccent;
 unac_string("UTF-8", "test");
-unac_string("UTF-8", undef) eq ""
+do { no warnings; unac_string("UTF-8", undef) eq "" }
 	or die "Text::Unaccent can't handle 'undef'";
 
 1;
