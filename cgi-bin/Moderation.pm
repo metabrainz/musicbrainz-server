@@ -585,15 +585,8 @@ SUPPRESS_INSERT:
 	wantarray ? @inserted_moderations : pop @inserted_moderations;
 }
 
-# This function is designed to return the list of moderations to
-# be shown on one moderation page. This function returns an array
-# of references to Moderation objects.
-# Rowid will not be defined for TYPE_NEW or TYPE_VOTED. 
-# Rowid is used only for TYPE_ARTIST and TYPE_MODERATOR, and it specifies 
-# the rowid of the artist/moderator for which to return moderations. 
-
-# This function is used within GetModerationList to optimise the
-# "new moderations" queries (types TYPE_NEW and TYPE_FREEDB).
+# This function is used by htdocs/mod/setquery.inc to optimise the
+# queries that select only mods of status STATUS_OPEN.
 
 sub GetMinOpenModID
 {
@@ -634,6 +627,10 @@ sub GetMinOpenModID
 
 	$v;
 }
+
+# This function returns the list of moderations to
+# be shown on one moderation page.  It returns an array
+# of references to Moderation objects.
 
 sub GetModerationList
 {
