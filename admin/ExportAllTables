@@ -480,7 +480,6 @@ sub dumplucene
 {
    my ($file) = @_;
    my ($element, $rel, $row, %args);
-   my $xml = "";
    my $count = 0;
 
    my $sql = Sql->new($mb->{DBH});
@@ -496,6 +495,7 @@ sub dumplucene
                     order by "XID"|))
    {
        print "Dumping lucene text index update...";
+       open(my $fh, ">$dir/mbdump/lucene_dump.xml") or die $!;
        while($row = $sql->NextRowRef)
        {
            $rel = undef;
@@ -503,13 +503,20 @@ sub dumplucene
            %args = ();
            while($row->[3] =~ s/"(\w+)"='([^']*)'//)
            {
-               $args{$1} = $2;
+               my $key = $1;
+               my $value = $2;
+
+               $value =~ s/&/&amp;/g;
+               $value =~ s/</&lt;/g;
+               $value =~ s/>/&gt;/g;
+
+               $args{$key} = $value;
            }
 
-           if ($xml eq '')
+           if ($count == 0)
            {
-               $xml = '<?xml version="1.0" encoding="UTF-8"?>' . 
-                      "\n<changes xid_start=\"$row->[2]\">\n" 
+               print $fh '<?xml version="1.0" encoding="UTF-8"?>' . 
+                         "\n<changes xid_start=\"$row->[2]\">\n" 
            }
 
            $element = "update" if ($row->[1] eq 'u');
@@ -519,42 +526,42 @@ sub dumplucene
            $count++;
            if ($element eq 'delete')
            {
-               $xml .= "   <$element relation=\"$rel\" xid=\"$row->[2]\" id=\"$args{'id'}\"/>\n";
+               print $fh "   <$element relation=\"$rel\" xid=\"$row->[2]\" id=\"$args{'id'}\"/>\n";
            }
            else
            {
-               $xml .= "   <$element relation=\"$rel\" xid=\"$row->[2]\" id=\"$args{'id'}\">\n";
+               print $fh "   <$element relation=\"$rel\" xid=\"$row->[2]\" id=\"$args{'id'}\">\n";
                if ($rel eq 'artist')
                {
-                   $xml .= "    <attribute name=\"name\">$args{name}</attribute>\n";
-                   $xml .= "    <attribute name=\"sortname\">$args{sortname}</attribute>\n";
-                   $xml .= "    <attribute name=\"gid\">$args{gid}</attribute>\n";
+                   print $fh "    <attribute name=\"name\">$args{name}</attribute>\n";
+                   print $fh "    <attribute name=\"sortname\">$args{sortname}</attribute>\n";
+                   print $fh "    <attribute name=\"gid\">$args{gid}</attribute>\n";
                }
                elsif ($rel eq 'album')
                {
-                   $xml .= "    <attribute name=\"name\">$args{name}</attribute>\n";
-                   $xml .= "    <attribute name=\"gid\">$args{gid}</attribute>\n";
+                   print $fh "    <attribute name=\"name\">$args{name}</attribute>\n";
+                   print $fh "    <attribute name=\"gid\">$args{gid}</attribute>\n";
                }
                elsif ($rel eq 'albumjoin')
                {
-                   $xml .= "    <attribute name=\"album\">$args{album}</attribute>\n";
-                   $xml .= "    <attribute name=\"track\">$args{track}</attribute>\n";
-                   $xml .= "    <attribute name=\"sequence\">$args{sequence}</attribute>\n";
+                   print $fh "    <attribute name=\"album\">$args{album}</attribute>\n";
+                   print $fh "    <attribute name=\"track\">$args{track}</attribute>\n";
+                   print $fh "    <attribute name=\"sequence\">$args{sequence}</attribute>\n";
                }
                elsif ($rel eq 'track')
                {
-                   $xml .= "    <attribute name=\"name\">$args{name}</attribute>\n";
-                   $xml .= "    <attribute name=\"gid\">$args{gid}</attribute>\n";
-                   $xml .= "    <attribute name=\"artist\">$args{artist}</attribute>\n";
+                   print $fh "    <attribute name=\"name\">$args{name}</attribute>\n";
+                   print $fh "    <attribute name=\"gid\">$args{gid}</attribute>\n";
+                   print $fh "    <attribute name=\"artist\">$args{artist}</attribute>\n";
                }
 
-               $xml .= "   </$element>\n";
+               print $fh "   </$element>\n";
            }
        }
        $sql->Finish();
-       $xml .= "</changes>\n";
-		 writefile("mbdump/lucene_dump.xml", $xml);
+       print $fh "</changes>\n";
        $rowcounts{"lucene_dump.xml"} = $count;
+       close $fh or die $!;
        print "done.\n";
    }
 }
