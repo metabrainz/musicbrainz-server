@@ -31,7 +31,7 @@ use vars qw(@ISA @EXPORT);
 @EXPORT = @EXPORT = '';
 
 use strict;
-use Carp qw( cluck croak );
+use Carp qw( carp cluck croak );
 use DBI;
 use DBDefs;
 use Alias;
@@ -283,24 +283,38 @@ sub RebuildWordList
 # accessor functions.
 sub LoadFromName
 {
-   my ($this, $artistname) = @_;
-   my ($sql, @row);
+    my ($this, $artistname) = @_;
 
-   # First try to find the artist by name
-   $sql = Sql->new($this->{DBH});
-
-    # Search using 'ilike' is expensive, so try the usual capitalisations
-    # first using the index.
-    # TODO a much better long-term solution would be to have a "searchname"
-    # column on the table which is effectively "lc unac artist.name", then
-    # search on that.
+    MusicBrainz::TrimInPlace($artistname) if defined $artistname;
+    if (not defined $artistname or $artistname eq "")
     {
+	carp "Missing artistname in LoadFromName";
+	return undef;
+    }
+
+    my $sql = Sql->new($this->{DBH});
+
+    my $row;
+    {
+	# First, try exact match on name
+	$row = $sql->SelectSingleRowArray(
+	    "SELECT id, name, gid, modpending, sortname
+	    FROM artist WHERE name = ?",
+	    $artistname,
+	);
+	last if $row;
+
+	# Search using 'ilike' is expensive, so try the usual capitalisations
+	# first using the index.
+	# TODO a much better long-term solution would be to have a "searchname"
+	# column on the table which is effectively "lc unac artist.name", then
+	# search on that.
 	my $lc = lc decode "utf-8", $artistname;
 	my $uc = uc $lc;
 	(my $tc = $lc) =~ s/\b(\w)/uc $1/eg;
 	(my $fwu = $lc) =~ s/\A(\S+)/uc $1/e;
 
-	my $row = $sql->SelectSingleRowArray(
+	$row = $sql->SelectSingleRowArray(
 	    "SELECT id, name, gid, modpending, sortname
 	    FROM artist WHERE name IN (?, ?, ?, ?)
 	    LIMIT 1",
@@ -309,48 +323,42 @@ sub LoadFromName
 	    encode("utf-8", $tc),
 	    encode("utf-8", $fwu),
 	);
+	last if $row;
 
-	@row = @$row if $row;
-    }
+	# Next, try a full case-insensitive search
+	$row = $sql->SelectSingleRowArray(
+	    "SELECT id, name, gid, modpending, sortname
+	    FROM artist WHERE LOWER(name) = LOWER(?)
+	    LIMIT 1",
+	    $artistname,
+	);
+	last if $row;
 
-   not(@row) and
-   @row = $sql->GetSingleRowLike("Artist", 
-                                 [qw(id name GID modpending sortname)],
-                                 ["name", $sql->Quote($artistname)]);
-   if (!defined $row[0])
-   {
         # If that failed, then try to find the artist by sortname
-        @row = $sql->GetSingleRowLike("Artist", 
-                                      [qw(id name GID modpending sortname)],
-                                      ["sortname", $sql->Quote($artistname)]);
-   }
-   if (!defined $row[0])
-   {
-        my ($artist, $alias);
+	$this->LoadFromSortname($artistname)
+		and return 1;
 
         # If that failed too, then try the artist aliases
-        $alias = Alias->new($this->{DBH});
+        my $alias = Alias->new($this->{DBH}, "artistalias");
 
-        # Check to see if the artist has an alias.
-        $alias->{table} = "ArtistAlias";
-        $artist = $alias->Resolve($artistname);
-        if (defined $artist)
-        {
-            @row = $sql->GetSingleRow("Artist", 
-                           [qw(id name GID modpending sortname)],
-                           ["id", $artist]);
-        }
-   }
-   if (defined $row[0])
-   {
-        $this->{id} = $row[0];
-        $this->{name} = $row[1];
-        $this->{mbid} = $row[2];
-        $this->{modpending} = $row[3];
-        $this->{sortname} = $row[4];
-        return 1;
-   }
-   return undef;
+        if (my $artist = $alias->Resolve($artistname))
+	{
+	    $this->SetId($artist);
+	    $this->LoadFromId
+		and return 1;
+	}
+    }
+    $row or return undef;
+
+    @$this{qw(
+	id
+	name
+	mbid
+	modpending
+	sortname
+    )} = @$row;
+
+    return 1;
 }
 
 # Load an artist record given a sortname. The name must match exactly.
@@ -358,23 +366,33 @@ sub LoadFromName
 # accessor functions.
 sub LoadFromSortname
 {
-   my ($this, $sortname) = @_;
-   my ($sql, @row);
+    my ($this, $sortname) = @_;
 
-   $sql = Sql->new($this->{DBH});
-   @row = $sql->GetSingleRowLike("Artist", 
-                                 [qw(id name GID modpending sortname)],
-                                 ["sortname", $sql->Quote($sortname)]);
-   if (defined $row[0])
-   {
-        $this->{id} = $row[0];
-        $this->{name} = $row[1];
-        $this->{mbid} = $row[2];
-        $this->{modpending} = $row[3];
-        $this->{sortname} = $row[4];
-        return 1;
-   }
-   return undef;
+    MusicBrainz::TrimInPlace($sortname) if defined $sortname;
+    if (not defined $sortname or $sortname eq "")
+    {
+	carp "Missing sortname in LoadFromSortname";
+	return undef;
+    }
+
+    my $sql = Sql->new($this->{DBH});
+
+    my $row = $sql->SelectSingleRowArray(
+	"SELECT	id, name, gid, modpending, sortname
+	FROM	artist
+	WHERE	LOWER(sortname) = LOWER(?) LIMIT 1",
+	$sortname,
+    ) or return undef;
+
+    @$this{qw(
+	id
+	name
+	mbid
+	modpending
+	sortname
+    )} = @$row;
+
+    return 1;
 }
 
 # Load an artist record given an artist id, or an MB Id
