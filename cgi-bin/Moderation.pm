@@ -28,6 +28,7 @@ use vars qw(@ISA @EXPORT);
 @ISA       = 'TableBase';
 
 use strict;
+use Carp;
 use DBI;
 use DBDefs;
 use Track;
@@ -331,7 +332,9 @@ sub GetAutomoderationList
    my ($this) = @_;
    my ($type, %temp, @list);
 
-   foreach $type (1..&ModDefs::MOD_LAST)
+   my $types = ModDefs->type_as_hashref;
+
+   foreach $type (values %$types)
    {
        if ($this->IsAutoModType($type))
        {
@@ -1150,8 +1153,10 @@ sub ConvertHashToNew
 {
 	my ($this, $kv) = @_;
 
-	# TODO warnings caused by "undefs" in here - maybe
-	# carp() if there are undefined values?
+	my @undef_keys = grep { not defined $kv->{$_} } keys %$kv;
+	carp "Uninitialized value(s) @undef_keys passed to ConvertHashToNew"
+		if @undef_keys;
+
 	join "", map {
 		"$_=$kv->{$_}\n"
 	} sort keys %$kv;
