@@ -68,7 +68,7 @@ for (@ids)
 print localtime() . " : Deleted $del rows\n";
 
 $sql->Do("CREATE TRIGGER a_del_trmjoin AFTER DELETE ON trmjoin
-	FOR EACH ROW EXECUTE PROCEDURE delete_album_meta()");
+	FOR EACH ROW EXECUTE PROCEDURE decrement_trmid_count()");
 
 $sql->Commit;
 
