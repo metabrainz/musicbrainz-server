@@ -91,6 +91,11 @@ sub EnterRecord
     for(;defined($album = shift @ids);)
     {
         $num = $al->GetTrackCountFromAlbum($album);
+        if ($num < 0)
+        {
+            undef $album;
+            last;
+        }
         last if ($num == $tracks);
     }
     if (!defined $album)
