@@ -4,12 +4,14 @@ $bgcolor=>"white"
 </%args>
 <%perl>
 $r->content_type('text/html; charset=UTF-8');
+my $brainz_css = &DBDefs::HTDOCS_ROOT . "/brainz.css";
+my $mtime = (stat $brainz_css)[9] || 0;
 </%perl>
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
 <html>
 <head>
    <title><% $title %></title>
-   <link rel="stylesheet" type="text/css" href="/brainz.css">
+   <link rel="stylesheet" type="text/css" href="/brainz.css?t=<% $mtime %>">
    <meta http-equiv="expires" content="1">
    <meta http-equiv="Content-Type" CONTENT="text/html; charset=UTF-8">
 </head>
