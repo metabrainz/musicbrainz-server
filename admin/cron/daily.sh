@@ -5,7 +5,6 @@ eval `$mb_server/admin/ShowDBDefs`
 
 # TODO: If you are installing a main server, you need to update the paths below
 ftpdir=/var/ftp/pub/musicbrainz/data
-reportdir=/var/website/musicbrainz/prod/mb_server/htdocs/reports
 imagedir=/var/website/musicbrainz/prod/mb_server/htdocs/generated
 backupdir=/home/backup
 backupuser=backup
@@ -71,26 +70,8 @@ nice ./RDFDump.pl /tmp/mbdump.rdf.bz2
 mv /tmp/mbdump.rdf.bz2 $ftpdir
 
 # Create the reports
-echo `date`" : Running report 'caps'"
-nice ./Caps.pl > $reportdir/caps.html
-echo `date`" : Running report 'caps2'"
-nice ./Caps2.pl > $reportdir/caps2.html
-echo `date`" : Running report 'bad_entries'"
-nice ./BadEntries.pl > $reportdir/bad_entries.html
-echo `date`" : Running report 'unknown'"
-nice ./Unknown.pl > $reportdir/unknown.html
-echo `date`" : Running report 'wrong_charset'"
-nice ./WrongCharset.pl > $reportdir/wrong_charset.html
-echo `date`" : Running report 'DuplicateArtists'"
-nice ./reports/DuplicateArtists.pl > $reportdir/DuplicateArtists.html
-echo `date`" : Running report 'AlbumsToConvert'"
-nice ./reports/AlbumsToConvert.pl > $reportdir/AlbumsToConvert.html
-echo `date`" : Running report 'TRMsWithManyTracks'"
-nice ./reports/TRMsWithManyTracks.pl > $reportdir/TRMsWithManyTracks.html
-echo `date`" : Running report 'TracksWithManyTRMs'"
-nice ./reports/TracksWithManyTRMs.pl > $reportdir/TracksWithManyTRMs.html
-echo `date`" : Running report 'TracksNamedWithSequence'"
-nice ./reports/TracksNamedWithSequence.pl > $reportdir/TracksNamedWithSequence.html
+echo `date`" : Running reports"
+nice ./reports/RunReports
 
 # Process subscriptions
 echo `date`" : Processing subscriptions"
