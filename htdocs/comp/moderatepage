@@ -36,9 +36,10 @@ if ($type == &ModDefs::TYPE_NEW)
 }
 elsif ($type == &ModDefs::TYPE_VOTED)
 {
+	my $moderator = $ARGS{"moderator"} || $session{uid};
     ($num_mods, $total_mods, @info) = 
            $mod->GetModerationList($offset, $max_items,
-                                   $session{uid}, $type);
+                                   $moderator, $type);
     $m->comp("/comp/sidebar", title=>'Review Old (Voted) Mods',
             expand=>"moderate"); 
 }
