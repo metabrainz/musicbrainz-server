@@ -54,9 +54,9 @@ sub ImportAllTables
     ImportTable("Diskid", $dir) or return 0;
     ImportTable("TOC", $dir) or return 0;
 
-    ImportTable("ModeratorInfo", $dir) or return 0;
-    ImportTable("Changes", $dir) or return 0;
-    ImportTable("Votes", $dir) or return 0;
+    #ImportTable("ModeratorInfo", $dir) or return 0;
+    #ImportTable("Changes", $dir) or return 0;
+    #ImportTable("Votes", $dir) or return 0;
 
     if (DBDefs->USE_LYRICS)
     {

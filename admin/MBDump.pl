@@ -54,9 +54,9 @@ sub DumpAllTables
     DumpTable("Diskid", $dir) or return 0;
     DumpTable("TOC", $dir) or return 0;
     
-    DumpTable("ModeratorInfo", $dir) or return 0;
-    DumpTable("Changes", $dir) or return 0;
-    DumpTable("Votes", $dir) or return 0;
+    #DumpTable("ModeratorInfo", $dir) or return 0;
+    #DumpTable("Changes", $dir) or return 0;
+    #DumpTable("Votes", $dir) or return 0;
 
     if (DBDefs->USE_LYRICS)
     {
