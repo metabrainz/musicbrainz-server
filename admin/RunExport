@@ -92,9 +92,7 @@ then
 	# Dump the RDF data
 	echo `date`" : Making RDF export"
 
-	#nice ./admin/RDFDump.pl "$TEMP_DIR"/mbdump.rdf.bz2 || exit $?
-	# FIXME
-	> "$TEMP_DIR"/mbdump.rdf.bz2
+	nice ./admin/RDFDump.pl "$TEMP_DIR"/mbdump.rdf.bz2 || exit $?
 
 	# Move it to the FTP directory (and not to the backup directory)
 	chown "$FTP_USER:$FTP_GROUP" "$TEMP_DIR"/mbdump.rdf.bz2
