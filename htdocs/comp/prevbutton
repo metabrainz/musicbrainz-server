@@ -1,8 +1,10 @@
+% my $sep = ($ARGS{url} =~ /\?/) ? '&' : '?';
+
 <td width="20%">
-% if ($ARGS{offset} > 0) {
-   <a href="/<% $ARGS{url} %>?offset=<% $ARGS{offset} - $ARGS{num} %>">
+% if ($ARGS{offset} >= $ARGS{num} ) {
+   <a href="/<% $ARGS{url} %><% $sep %>offset=<% $ARGS{offset} - $ARGS{num} %>">
    <% $ARGS{text}  %></a>
 % } else {
-   <% $ARGS{text}  %></a>
+   &nbsp;
 % }
 </td>

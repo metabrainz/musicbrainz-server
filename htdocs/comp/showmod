@@ -12,6 +12,8 @@ $yesvotes
 $novotes
 $voted
 $artistname
+$status
+$mode
 </%args>
 
 <%perl>
@@ -50,10 +52,15 @@ my $modtype = Moderation::GetModificationName($type);
      New: <% $new %>
    </td>
    <td width=20% align=center valign=top bgcolor=white class="body">
-% if (($session{user} ne $moderator && !$voted) || DBDefs::ALLOW_SELF_VOTE) {
+% if ($mode == Moderation::TYPE_MINE) {
+     <% Moderation::GetChangeName($status) %>
+% } elsif ($mode == Moderation::TYPE_VOTED) {
+     <% Moderation::GetVoteText($voted) %>
+% } elsif (($session{user} ne $moderator && !$voted) || 
+%          DBDefs::ALLOW_SELF_VOTE) {
      Yes <input type="radio" name="rowid<% $id %>" value="yes">
      No <input type="radio" name="rowid<% $id %>" value="no">
-     Abs <input type="radio" name="rowid<% $id %>" value="abstain" CHECKED>
+     Abs <input type="radio" name="rowid<% $id %>" value="abs" CHECKED>
 % } else {
      <% $text %> 
 % }

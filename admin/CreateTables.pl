@@ -205,6 +205,7 @@ sub CreateTables
              "   Col varchar(64) not null, ".
              "   Artist int not null, ".
              "   Type tinyint not null, ".
+             "   Status tinyint not null, ".
              "   Rowid int not null, ".
              "   PrevValue varchar(255), ".
              "   NewValue varchar(255), ".

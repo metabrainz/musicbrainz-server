@@ -1,6 +1,6 @@
 <%perl>
 
-my ($mb, $mod, $key, @yeslist, @nolist);
+my ($mb, $mod, $key, @yeslist, @nolist, @abslist);
 my $referer = $r->headers_in->{'Referer'};
 
 foreach $key (keys %ARGS)
@@ -9,13 +9,14 @@ foreach $key (keys %ARGS)
     {
        push @yeslist, $1 if ($ARGS{$key} eq 'yes');
        push @nolist, $1 if ($ARGS{$key} eq 'no');
+       push @abslist, $1 if ($ARGS{$key} eq 'abs');
     }
 }
 
 $mb = new MusicBrainz;
 $mb->Login();
 $mod = Moderation->new($mb);
-$mod->InsertVotes($session{uid}, \@yeslist, \@nolist);
+$mod->InsertVotes($session{uid}, \@yeslist, \@nolist, \@abslist);
 $mb->Logout();
 
 $r->method('GET');

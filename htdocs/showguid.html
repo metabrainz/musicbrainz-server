@@ -10,32 +10,41 @@ if (!exists $ARGS{guid})
 else
 {
    mc_out("<font size=+1><b>Guid: $ARGS{guid}</b></font><p>");
-   
-   $mb = new MusicBrainz;
-   $mb->Login();
-   $al = Album->new($mb);
-   $gu = GUID->new($mb);
 
-   $trackid = $gu->GetTrackIdFromGUID($ARGS{guid});
-   if ($trackid <= 0)
+   if ($ARGS{guid} eq "3ab1d2ba-ca38-47d8-b8cc-49f3ced39895")
    {
-       mc_out("<p>This GUID was not found in the main database.<p>");
+       mc_out("<p><br>This GUID represents silence.<p>");
    }
    else
    {
-       $albumid = $al->GetIdFromTrackId($trackid);
-       mc_comp("comp/showalbum", 
-          mb=>$mb, 
-          albumid=>$albumid,
-          hilitetrack=>$trackid,
-          hilitecolor=>"#CCFFFF");
-   }
-   mc_comp("/comp/title", title=>'Pending Metadata');
-   mc_comp("/comp/showpendingpage", offset=>0, guid=>$ARGS{guid});
-   mc_comp("/comp/title", title=>'Pending Archive Metadata');
-   mc_comp("/comp/showpendingpage", offset=>0, guid=>$ARGS{guid}, archive=>1);
+       $mb = new MusicBrainz;
+       $mb->Login();
+       $al = Album->new($mb);
+       $gu = GUID->new($mb);
+    
+       $trackid = $gu->GetTrackIdFromGUID($ARGS{guid});
+       if ($trackid <= 0)
+       {
+           mc_out("<p>This GUID was not found in the main database.<p>");
+       }
+       else
+       {
+           $albumid = $al->GetIdFromTrackId($trackid);
+           mc_comp("comp/showalbum", 
+              mb=>$mb, 
+              albumid=>$albumid,
+              hilitetrack=>$trackid,
+              hilitecolor=>"#CCFFFF");
+       }
 
-   $mb->Logout;
+       mc_comp("/comp/title", title=>'Pending Metadata');
+       mc_comp("/comp/showpendingpage", offset=>0, guid=>$ARGS{guid});
+       mc_comp("/comp/title", title=>'Pending Archive Metadata');
+       mc_comp("/comp/showpendingpage", offset=>0, 
+               guid=>$ARGS{guid}, archive=>1);
+
+       $mb->Logout;
+   }
 }
 
 </%perl>

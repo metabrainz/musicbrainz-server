@@ -1,3 +1,7 @@
+<%args>
+$type=>1
+</%args>
+
 % if (!defined $session{user} || $session{user} eq '') {
     <center>
     <span class="bold">
@@ -14,5 +18,5 @@
     </td></tr></table>
     </center>
 % } else {
-    <& /comp/moderatepage, offset=>$ARGS{offset} &>
+    <& /comp/moderatepage, offset=>$ARGS{offset}, type=>$type &>
 % }

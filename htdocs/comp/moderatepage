@@ -1,11 +1,14 @@
+<%args>
+$type
+</%args>
+
 <%perl>
 
-my ($mb, @info, $row, $offset, $i, $num_mods, $comp, $mod);
-my $max_items = 15;
+my ($mb, @info, $row, $offset, $i, $comp, $mod);
+my ($option1, $option2, $num_mods);
+my $max_items = 10;
 
 $mb = new MusicBrainz;  
-
-mc_comp("/comp/title", title=>'Review Pending Moderations'); 
 
 $offset = $ARGS{offset};
 $offset = 0 if not defined $offset;
@@ -13,37 +16,69 @@ $offset = 0 if $offset < 0;
 
 $mb->Login();
 $mod = Moderation->new($mb);
-($num_mods, @info) = $mod->GetModerationList($offset, $max_items, $session{uid});
-$mb->Logout();
 
+if ($type == Moderation::TYPE_NEW)
+{
+    ($num_mods, @info) = $mod->GetModerationList($offset, $max_items, 
+                                                 $session{uid}, $type);
+    mc_comp("/comp/title", title=>'Review Pending Moderations'); 
+    $option1 = '<a href="moderate.html?type=2">Old Moderations</a>';
+    $option2 = '<a href="moderate.html?type=3">My Moderations</a>';
+}
+elsif ($type == Moderation::TYPE_VOTED)
+{
+    ($num_mods, @info) = $mod->GetModerationList($offset, ($max_items * 2)+1, 
+                                                 $session{uid}, $type);
+    mc_comp("/comp/title", title=>'Review Old (Voted) Moderations'); 
+    $option1 = '<a href="moderate.html?type=1">New Moderations</a>';
+    $option2 = '<a href="moderate.html?type=3">My Moderations</a>';
+}
+else
+{
+    ($num_mods, @info) = $mod->GetModerationList($offset, ($max_items * 2)+1, 
+                                                 $session{uid}, $type);
+    mc_comp("/comp/title", title=>'Review My Moderations'); 
+    $option1 = '<a href="moderate.html?type=1">New Moderations</a>';
+    $option2 = '<a href="moderate.html?type=2">Old Moderations</a>';
+}
+$mb->Logout();
 </%perl>
 
 <form method="POST" action="/bare/vote.html"
       enctype="application/x-www-form-urlencoded" class="formstyle"> 
 
-% if (scalar(@info) > 0) {
 <table width=100%>
 <tr>
-  <td>
-     <a href="mod_intro.html">Moderation questions</a>?
+  <td width="33%" align="center" valign="top">
+%    mc_out($option1);
   </td>
-  <td align=right>
-     Click here to vote on the items on this page:
-     <INPUT TYPE="submit" NAME="Submit" VALUE="Submit">
+  <td width="33%" align="center" valign="top">
+%    mc_out($option2);
+  </td>
+  <td width="33%" align="center" valign="top">
+     <a href="mod_intro.html">Moderation questions?</a>
   </td>
 </tr>
 </table>
-% } else {
+
+% if ($num_mods == 0) {
    <center>
-   There are no modifcations pending.
+   <br><br>
+%  if ($type == Moderation::TYPE_NEW) {
+   There are no new modifcations pending.
+%  } elsif ($type == Moderation::TYPE_VOTED) {
+   There are new old (voted on) modifcations.
+%  } else {
+   You do not have any modifications.
+%  }
    </center>
 %}
 
-% if ($num_mods > $max_items) {
+% if ($num_mods > $max_items || $offset > 0) {
 <table width="100%">
 <tr><td bgcolor=white class="body">
 <& /comp/prevnextbuttons, 
-   url=>"moderate.html",
+   url=>"moderate.html?type=$type",
    offset=>$offset,
    itemsperpage=>$max_items,
    totalitems=>$num_mods
@@ -57,7 +92,7 @@ $mb->Logout();
 <TABLE WIDTH="100%" BORDER="0" CELLSPACING="1" CELLPADDING="3">
 
 <%perl>
-for($i = 0; ; $i++) 
+for($i = 0; $i < $max_items; $i++) 
 {
    $row = $info[$i];
    last if (!defined $row);
@@ -76,7 +111,9 @@ for($i = 0; ; $i++)
            yesvotes=>($$row[10]),
            novotes=>($$row[11]),
            artistname=>($$row[12]),
-           voted=>($$row[13]));
+           status=>($$row[13]),
+           voted=>($$row[14]),
+           mode=>$type);
 }
 </%perl>
 
@@ -84,11 +121,11 @@ for($i = 0; ; $i++)
 </td></tr>
 </table>
 
-% if ($num_mods > $max_items) {
+% if ($num_mods > $max_items || $offset > 0) {
 <table width="100%">
 <tr><td bgcolor=white class="body">
 <& /comp/prevnextbuttons, 
-   url=>"moderate.html",
+   url=>"moderate.html?type=$type",
    offset=>$offset,
    itemsperpage=>$max_items,
    totalitems=>$num_mods
@@ -96,5 +133,18 @@ for($i = 0; ; $i++)
 </td></tr></table>
 % }
 
+% if ($num_mods > 0 && $type == Moderation::TYPE_NEW) {
+<table width=100%>
+<tr>
+  <td width=20%>
+     &nbsp;
+  </td>
+  <td align=right>
+     Click here to vote on the items on this page:
+     <INPUT TYPE="submit" NAME="Submit" VALUE="Submit">
+  </td>
+</tr>
+</table>
+%}
 
 </form>

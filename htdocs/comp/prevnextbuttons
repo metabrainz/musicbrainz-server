@@ -5,8 +5,7 @@ $itemsperpage
 $totalitems
 </%args>
 
-% if ($totalitems > $itemsperpage) {
-
+% if ($totalitems > $itemsperpage || $offset > 0) {
 <table width="100%"><tr>
 <& /comp/prevbutton,
    url=>$url,
@@ -17,7 +16,7 @@ $totalitems
    url=>$url,
    offset=>$offset,
    text=>"<< Prev",
-   num=>($itemsperpage * 2) &>
+   num=>($itemsperpage * 2)&>
 <td width=\"20%\">&nbsp;</td>
 <& /comp/nextbutton,
    url=>$url,
