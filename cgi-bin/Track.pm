@@ -100,26 +100,6 @@ sub SetLength
    $_[0]->{length} = $_[1];
 }
 
-sub GetComment
-{
-   return $_[0]->{comment};
-}
-
-sub SetComment
-{
-   $_[0]->{comment} = $_[1];
-}
-
-sub GetGenre
-{
-   return $_[0]->{genre};
-}
-
-sub SetGenre
-{
-   $_[0]->{genre} = $_[1];
-}
-
 sub GetModPending
 {
    return $_[0]->{modpending};
@@ -337,21 +317,6 @@ sub Insert
         {
             $query .= ",year";
             $values .= ", $this->{year}";
-        }
-        if (exists $this->{genre} && $this->{genre} ne '')
-        {
-            $query .= ",genre";
-            $values .= ", " . $sql->Quote($this->{genre});
-        }
-        if (exists $this->{filename} && $this->{filename} ne '')
-        {
-            $query .= ",filename";
-            $values .= ", " . $sql->Quote($this->{filename});
-        }
-        if (exists $this->{comment} && $this->{comment} ne '')
-        {
-            $query .= ",comment";
-            $values .= ", " . $sql->Quote($this->{comment});
         }
 
         $sql->Do("$query) $values)");
