@@ -1,0 +1,93 @@
+<& /comp/sidebar, title=>'June 6th, 2003: Server Updates' &>
+
+<pre>
+Change Log for mb_server
+========================
+
+The bulk of the work this time was a series of changes which are actually
+invisible to end-users of the system:
+
+- Each of the 27 moderation types has been re-implemented using a dedicated
+  "handler" module, conforming to a single moderation handler API.
+
+- Moderations are inserted using a more Perl-like "named parameters" style of
+  calling.  Instead of passing cryptic parameter combinations off to a POST
+  to /bare/enter_*mod.html, each web page for editing the data (e.g.
+  "editartist.html", "remdiscid.html") now call the "insert moderation" API
+  itself.
+
+The main effects of those changes are:
+
+- It will now be much easier to add new types of moderations, which in turn
+  means that it will be much easier to extend MusicBrainz to handle new types
+  of data.
+
+- It will also be much easier to adjust the behaviour of the existing
+  moderation types, e.g. to change what is shown as "old" and "new" values for
+  a given mod type, perhaps to make voting easier.
+
+Although all of those changes should be mostly invisible to the end-user, a
+number of other changes relating to the moderation system were also
+introduced:
+
+- It's now possible to see a list of moderations entered by any given
+  moderator.  Previously it was possible to see "My Mods"; now "My Mods" is
+  just a special case of "View Mods by Moderator".  To see a moderator's list
+  of moderations, go to the moderator's profile page (/moderator.html) and
+  follow the "List Moderations" link.
+
+- The "artist filter" system used in some moderations (e.g. move album, merge
+  artist) is now much improved.  Instead of entering the artist sortname
+  first, then perhaps having to enter the artist name on the next page (where
+  you can't edit the sortname), you can now just search for the artist however
+  you like, then enter both the artist name and sortname together if required.
+  You can also "search again".  Anyway, try it and see.  It's much nicer.
+
+- The "change track name and artist" page (changetrack.html) is improved.  Bug
+  #736075 has been fixed.  You're now given buttons to flick between the
+  current track/artist names and the guessed (split) names, in case it guessed
+  wrong.  Also the order of track/artist for this album (i.e. does this album go
+  "track - artist" or "artist - track" ?) is remembered, so you should only
+  have to click "Swap" up to once per album.
+
+- It's easier to enter "non-album tracks" than before; there's also a link for
+  entering a non-album track for the artist when you do a tag lookup.
+
+- The "moderation pending" flag is now correctly set in a few places where it
+  never was before (e.g. for "merge albums", all the albums in question are
+  marked as "mod pending").
+
+- When viewing moderations, the "old" and "new" values have changed in minor
+  ways for some moderation types.  For example, the tagger version is shown
+  for "Add TRMs" mods.  Bug #738587 has been fixed.
+
+- Previously, certain "edit" moderations were only auto-moderated if the only
+  change was upper/lower case.  Now, more things can be auto-moderated,
+  including changing the amount of space (e.g. changing two spaces to one),
+  and changing types of quotes (e.g. single quotes (apostrophes), double
+  quotes, and so-called "smart quotes").
+
+- The "merge albums" page has become fractionally easier to use
+
+- Certain moderations (including "add album" and "add track") now insert
+  potentially much faster than before.
+
+- Security holes relating to removing moderations and adding notes to
+  moderations have been fixed.
+
+- Bugs fixed in this release:
+    #660921 Redundant sortname changes
+    #736075 Convert to MAC, Change Track Artist doesn't "guess" any more
+    #738587 Bad links in "Edit Track Number" mods
+    #749901 ModBot on top moderators lists
+
+There's also one little feature for MusicBrainz developers running "staging"
+servers (e.g. test.musicbrainz.org):
+
+- On the "view moderation" page (/showmod.html), there are now buttons for
+  accepting and rejecting open mods (so you don't have to vote on them).  This
+  feature only appears if DB_STAGING_SERVER is true.
+
+Dave Evans
+</pre>
+<& /comp/footer &>
