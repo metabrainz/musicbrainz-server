@@ -324,7 +324,8 @@ sub GetAlbums
 
    # then, pull in the multiple artist albums
    if ($sql->Select(qq/select distinct AlbumJoin.album, Album.name, 
-       Album.modpending from Track, Album, AlbumJoin where Track.Artist = 
+       Album.modpending, Album.gid from Track, Album, AlbumJoin 
+       where Track.Artist = 
        $this->{id} and AlbumJoin.track = Track.id and AlbumJoin.album = 
        Album.id and Album.artist = / . Artist::VARTIST_ID ." order by 
        Album.name"))
@@ -336,6 +337,7 @@ sub GetAlbums
             $album->SetName($row[1]);
             $album->SetModPending($row[2]);
             $album->SetArtist(Artist::VARTIST_ID);
+            $album->SetMBId($row[3]);
             push @albums, $album;
             undef $album;
         }
