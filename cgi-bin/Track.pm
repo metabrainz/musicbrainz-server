@@ -281,6 +281,8 @@ sub Insert
 {   
     my ($this, $al, $ar) = @_;
     my ($track, $id, $query, $values, $sql, $artist, $album, $name);
+
+    return undef if ($this->GetName() eq '');
   
     $this->{new_insert} = 0;
     $album = $al->GetId();
