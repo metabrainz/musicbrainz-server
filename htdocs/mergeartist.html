@@ -8,78 +8,75 @@ $id => ""
 $m->comp("/comp/checkloggedin", 0, 1)
 	or return;
 
-($id || "") =~ /\A(\d{1,20})\z/
+MusicBrainz::IsNonNegInteger($id) && $id
 	or return $m->comp("/comp/badargs", 0, 1);
 
-$id == ModDefs::DARTIST_ID
+$id == ModDefs::VARTIST_ID || $id == ModDefs::DARTIST_ID
 	and return $m->comp("/comp/badargs", 0, 1);
 
-my $mb = mc_comp("/comp/dblogin");
+my $mb = $m->comp("/comp/dblogin");
 
 my $ar = Artist->new($mb->{DBH});
 $ar->SetId($id);
-$ar->LoadFromId()
-	or return $m->comp("/comp/badargs", 0, 1);
-
-my $artistname = $ar->GetName();
-my $sortname = $ar->GetSortName();
-my $modpending = $ar->GetModPending();
+$ar->LoadFromId
+	or return $m->comp(
+		"/comp/error",
+		"Artist #$id not found.",
+		0, 1,
+	);
 
 </%perl>
 
-    <& /comp/stylemenu &>
+<& /comp/stylemenu &>
 
-    <& /comp/tablebegin, title=>'Merge Artist' &>
+<h2>Merge Artist '<% $ar->GetName %>'</h2>
 
-% if ($modpending) {
+% if ($ar->GetModPending) {
     <& /comp/modpending &>
 % }
 
+<p>
     Use the field below to enter the artist <span class="bold">sortname</span>
-    with whom to merge the current artist, then click Next &gt;&gt;.
+		with whom to merge the current artist, then click Next &gt;&gt;.
+</p>
 
-    <FORM METHOD="POST" ACTION="/artistfilter.html" NAME="MergeArtistForm"
-          ENCTYPE="application/x-www-form-urlencoded">  
-    <table>
+<form method="post" action="/artistfilter.html" name="MergeArtistForm"
+	enctype="application/x-www-form-urlencoded">
+
+		<table class="SpacedColumns">
       <tr>
         <td>
-        Artist:
+					Artist:
         </td>
         <td>
-        <% $artistname  %>
+					<% $ar->GetName  %>
         </td>
       </tr>
       <tr>
         <td>
-        Sortname of Artist<br> to Merge with:
+					Sortname of Artist<br> to Merge with:
         </td>
         <td>
-        <INPUT TYPE="text" NAME="new0" SIZE=25 value="<% $artistname %>"> 
+					<input type="text" name="new0" size="40" value="<% $ar->GetName %>">
         </td>
       </tr>
-      <tr>
-        <td>
-        <INPUT TYPE="submit" NAME="Submit" VALUE="Next &gt;&gt;">    
-        </td>
-        <td>
-        &nbsp;
-        </td>
-      </tr>
-    </table>
+		</table>
+
+		<p>
+			<input type="submit" value="Next &gt;&gt;">
+		</p>
+
     <input type="hidden" name="mode" value="merge">
-    <input type="hidden" name="artist0" value="<% $id  %>">
-    <input type="hidden" name="type0" 
-           value="<% ModDefs::MOD_MERGE_ARTIST  %>">
-    <input type="hidden" name="prev0" value="<% $artistname %>">
+		<input type="hidden" name="artist0" value="<% $ar->GetId %>">
+    <input type="hidden" name="type0" value="<% ModDefs::MOD_MERGE_ARTIST  %>">
+		<input type="hidden" name="prev0" value="<% $ar->GetName %>">
     <input type="hidden" name="table0" value="Artist">
     <input type="hidden" name="column0" value="Name">
-    <input type="hidden" name="id0" value="<% $id %>">
-    <input type="hidden" name="url" value="/showartist.html?artistid=<% $id %>">
-    <input type="hidden" name="artistfilter_dontshow" value="<% $id %>">
-    </form>
-    <& /comp/tableend &>
+		<input type="hidden" name="id0" value="<% $ar->GetId %>">
+		<input type="hidden" name="url" value="/showartist.html?artistid=<% $ar->GetId %>">
+		<input type="hidden" name="artistfilter_dontshow" value="<% $ar->GetId %>">
 
-% $mb->Logout();
+</form>
 
 <& /comp/movefocus, "MergeArtistForm", "new0" &>
 <& /comp/footer &>
