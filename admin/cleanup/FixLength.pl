@@ -1,4 +1,5 @@
 #!/usr/bin/perl -w
+# vi: set ts=4 sw=4 :
 #____________________________________________________________________________
 #
 #   MusicBrainz -- the open internet music database
@@ -31,74 +32,274 @@ use DBDefs;
 use Album;
 use MusicBrainz;
 
+use Getopt::Long;
+my $debug = 0;
+my $dry_run = 0;
+my $verbose = -t;
+my $help = 0;
+GetOptions(
+	"debug!"			=> \$debug,
+	"dry-run|dryrun!"	=> \$dry_run,
+	"verbose!"			=> \$verbose,
+	"help"				=> \$help,
+) or exit 2;
+$help = 1 if @ARGV;
+
+die <<EOF if $help;
+Usage: FixLength.pl [OPTIONS]
+
+Allowed options are:
+        --[no]dry-run     don't actually make any changes (best used with
+                          --verbose) (default is to make the changes)
+        --[no]verbose     show the changes as they are made
+        --[no]debug       show lots of debugging information
+        --help            show this help
+
+EOF
+
 my $mb = MusicBrainz->new;
 $mb->Login;
-my $dbh = $mb->{DBH};
+my $sql = Sql->new($mb->{DBH});
+$| = 1;
 
-# select all albums
-my $sth = $dbh->prepare('SELECT DISTINCT(Album.Id) FROM Album, AlbumJoin, Track, TOC WHERE album.id = albumjoin.album and albumjoin.track = track.id and track.length <= 0 and Album.Id = TOC.Album');
-$sth->execute();
+# Find albums with at least one track to fix
+print localtime() . " : Finding candidate albums\n" if $verbose;
+my $albums = $sql->SelectSingleColumnArray(
+	"SELECT DISTINCT a.id
+	FROM album a, albumjoin j, track t, toc
+	WHERE a.id = j.album
+	AND t.id = j.track
+	AND toc.album = a.id
+	AND t.length <= 0",
+);
+printf localtime() . " : Found %d album%s\n",
+	scalar(@$albums), (@$albums==1 ? "" : "s"),
+	if $verbose;
 
-# for each album 
-while ( my $row = $sth->fetchrow_hashref )
+my $tracks_fixed = 0;
+my $tracks_set = 0;
+my $albums_fixed = 0;
+
+for my $id (@$albums)
 {
+    print localtime() . " : Fixing album #$id\n" if $verbose;
 
-    print "Fixing length for all tracks in Album Id '".$row->{'id'}."'...";
-    
-    my $alb = Album->new($dbh);
-    $alb->SetId($row->{'id'});
-    if(!$alb->LoadFromId()) {
-        printf("Can't loadfrom id.\n");
-        exit(0);
-    }    
-    
-    my @tracks = $alb->LoadTracks();
-    
-    # select the first TOC
-    my $sth2 = $dbh->prepare("SELECT * FROM TOC WHERE Album = '$row->{'id'}'");
-    $sth2->execute();
-    my ($toc, $lastnum);
-    for(;;)
-    {
-        $toc = $sth2->fetchrow_hashref;
-        if (!defined $toc)
-        {
-           last;
-        }
-        $lastnum = $toc->{'tracks'};
-        last if ($toc->{'tracks'} == scalar(@tracks));
-    }
+	my $tocs = $sql->SelectListOfHashes(
+		"SELECT * FROM toc WHERE album = ?", $id,
+	);
 
-    if (!defined $toc)
-    {
-        print "No valid id found.\n";
-        print "$lastnum == " . scalar(@tracks) . "\n";
-        $sth2->finish();
-        next;
-    }
-    $sth2->finish();
+	if ($debug)
+	{
+		print "TOCs:\n";
+		for my $t (@$tocs)
+		{
+			print "  $t->{tracks} -";
+			print " ", $t->{"track$_"} for 1 .. $t->{tracks};
+			print "\n";
 
-    # Compute and update the length of each track
-    my $ii;
-    my @lengths;
-    for($ii = 1; $ii < $toc->{'tracks'}; $ii++) {
-        $lengths[$ii] = int((($toc->{'track'.($ii+1)} - $toc->{'track'.$ii})*1000)/75);
-        #print "length[$ii]: $lengths[$ii]\n";
-    }
-    $lengths[$ii] =  int((($toc->{'leadout'} - $toc->{'track'.$ii})*1000)/75);
-    #print "length[$ii]: $lengths[$ii]\n\n";
+			require Track;
+			my @l = TrackLengthsFromTOC($t);
+			@l = map { Track::FormatTrackLength($_) } @l;
+			print "    (@l)\n";
+		}
+	}
 
-    foreach(@tracks) {
-        if(defined($lengths[$_->GetSequence()])) {
-            my $q = "UPDATE Track SET Length = '".$lengths[$_->GetSequence()]."' WHERE Id = '".$_->GetId()."'\n";
-            my $sth3 = $dbh->prepare($q);
-            $sth3->execute();
-            $sth3->finish();
-        }
-    }
+	my $tracks = $sql->SelectListOfHashes(
+		"SELECT t.id, t.length, j.sequence
+		FROM track t, albumjoin j
+		WHERE t.id = j.track
+		AND j.album = ?
+		ORDER BY j.sequence",
+		$id,
+	);
 
-    print "ok\n";
+	if ($debug)
+	{
+		print "Tracks:\n";
+		printf "  #%02d : %10d %-8s  %12d\n",
+			$_->{sequence},
+			$_->{length},
+			(($_->{length} > 0) ? Track::FormatTrackLength($_->{length}) : ""),
+			$_->{id},
+			for @$tracks;
+	}
+
+	# Easy case: there is one disc ID, we have exactly the correct set of
+	# tracks, and all the tracks have no length.
+	if (@$tocs == 1)
+	{
+		my $ideal_tracks = $tocs->[0]{tracks};
+		my $want_tracks = join ",", 1 .. $ideal_tracks;
+		my $have_tracks = join ",", sort { $a<=>$b } map { $_->{sequence} } @$tracks;
+
+		if ($want_tracks eq $have_tracks)
+		{
+			# Check that each track either has no length, or its length seems
+			# to match that given in the TOC
+
+			my @want = TrackLengthsFromTOC($tocs->[0]);
+			my @got = map { $_->{length} } @$tracks;
+			my $bad = 0;
+
+			for (1 .. $ideal_tracks)
+			{
+				my $got_l = $got[$_-1];
+				my $want_l = $want[$_-1];
+
+				next if $got_l <= 0;
+				my $diff = abs($got_l - $want_l);
+				next if $diff < 5000;
+
+				++$bad;
+			}
+
+			if ($bad == 0)
+			{
+				# For each track with no length, set the length as indicated
+				# by the TOC
+
+				$sql->Begin;
+
+				for my $t (@$tracks)
+				{
+					# TODO? next if $t->{length} > 0;
+					my $id = $t->{id};
+					my $l = $want[$t->{sequence}-1];
+					print "UPDATE track SET length = $l WHERE id = $id\n"
+						if $verbose;
+					$sql->Do("UPDATE track SET length = ? WHERE id = ?", $l, $id)
+						unless $dry_run;
+					++$tracks_fixed;
+					++$tracks_set unless $t->{length} > 0;
+				}
+
+				$sql->Commit;
+
+				++$albums_fixed;
+				next;
+			}
+		}
+	}
+
+	# Probably the next case to handle is any combination of:
+	# - multiple TOCs, but where they are all "close enough"
+	# - tracks already have length, but all those tracks match the TOC "well enough"
+	my %c; ++$c{ $_->{tracks} } for @$tocs;
+
+	if (keys(%c) == 1)
+	{
+		# OK, one or more TOCs where the track counts match at least.
+		# How do the track lengths compare?
+
+		my @parsed_tocs = map { [TrackLengthsFromTOC($_)] } @$tocs;
+		my $num_tracks = (keys %c)[0];
+
+		# Calculate the average track lengths
+		my @average_toc;
+		for my $n (0 .. $num_tracks-1)
+		{
+			my @l = map { $_->[$n] } @parsed_tocs;
+			my $avg = 0;
+			$avg += $_ for @l;
+			$avg /= @l;
+			push @average_toc, $avg;
+		}
+
+		# See how far off each TOC is from the average
+		my @skew;
+		for my $p (@parsed_tocs)
+		{
+			my $sqdiff = 0;
+			for my $n (0 .. $num_tracks-1)
+			{
+				my $diff = $p->[$n] - $average_toc[$n];
+				$sqdiff += $diff*$diff;
+			}
+			$sqdiff /= $num_tracks;
+			$sqdiff = sqrt($sqdiff) / 1000;
+
+			print "Skew for @$p = $sqdiff\n" if $debug;
+			push @skew, $sqdiff;
+		}
+
+		if (not grep { $_ > 5 } @skew)
+		{
+			# Good, the TOC track lengths agree (clearly, if there's only one
+			# TOC).
+			# For each track which has length already, let's see how
+			# closely it matches the average TOC.
+			my $sqdiff = 0;
+			for my $t (@$tracks)
+			{
+				my $l = $t->{length};
+				$l > 0 or next;
+				my $diff = $l - $average_toc[$t->{sequence}-1];
+				$sqdiff += $diff*$diff;
+			}
+			$sqdiff /= $num_tracks;
+			$sqdiff = sqrt($sqdiff) / 1000;
+
+			print "Skew for existing tracks = $sqdiff\n" if $debug;
+
+			if ($sqdiff < 5)
+			{
+				$sql->Begin;
+
+				for my $t (@$tracks)
+				{
+					# TODO? next if $t->{length} > 0;
+					my $id = $t->{id};
+					my $l = $average_toc[$t->{sequence}-1];
+					print "UPDATE track SET length = $l WHERE id = $id\n"
+						if $verbose;
+					$sql->Do("UPDATE track SET length = ? WHERE id = ?", $l, $id)
+						unless $dry_run;
+					++$tracks_fixed;
+					++$tracks_set unless $t->{length} > 0;
+				}
+
+				$sql->Commit;
+
+				++$albums_fixed;
+				next;
+			}
+		}
+	}
+
+	print "Don't know what to do about this album\n";
+
+	print " - multiple TOCs\n" if @$tocs > 1 and keys(%c)==1;
+	print " - multiple conflicting TOCs\n" if @$tocs > 1 and keys(%c)>1;
+
+	if (keys(%c)==1)
+	{
+		my $ideal_tracks = $tocs->[0]{tracks};
+		my $want_tracks = join ",", 1 .. $ideal_tracks;
+		my $have_tracks = join ",", sort { $a<=>$b } map { $_->{sequence} } @$tracks;
+		print " - got tracks $have_tracks\n" if $want_tracks ne $have_tracks;
+	}
+
+	my $withlength = grep { $_->{length}>0 } @$tracks;
+	print " - $withlength tracks have length\n" if $withlength;
 }
 
-$sth->finish();
-$mb->Logout;
+print localtime() . " : Fixed $tracks_fixed tracks on $albums_fixed albums\n";
+print localtime() . " : ($tracks_set had no previous length)\n";
+
+sub TrackLengthsFromTOC
+{
+	my $toc = shift;
+    my @l;
+
+	$toc->{"track".($toc->{"tracks"}+1)} = $toc->{"leadout"};
+
+    for (my $i = 1; $i <= $toc->{'tracks'}; $i++)
+	{
+		my $frames = $toc->{'track'.($i+1)} - $toc->{'track'.$i};
+        push @l, int($frames/75*1000);
+    }
+
+	@l;
+}
+
+# eof FixLength.pl
