@@ -50,10 +50,10 @@ sub DumpAllTables
     return 0 if not DumpTable("trm");
     return 0 if not DumpTable("trmjoin");
 
-    return 0 if not DumpTable("votes");
-    return 0 if not DumpTable("moderator");
-    return 0 if not DumpTable("moderation");
-    return 0 if not DumpTable("moderationnote");
+    #return 0 if not DumpTable("votes");
+    #return 0 if not DumpTable("moderator");
+    #return 0 if not DumpTable("moderation");
+    #return 0 if not DumpTable("moderationnote");
 
     return 1;
 }

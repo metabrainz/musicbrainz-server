@@ -54,10 +54,10 @@ sub ImportAllTables
     ImportTable("discid", $dir) or return 0;
     ImportTable("toc", $dir) or return 0;
 
-    ImportTable("moderator", $dir) or return 0;
-    ImportTable("moderation", $dir) or return 0;
-    ImportTable("moderationnote", $dir) or return 0;
-    ImportTable("votes", $dir) or return 0;
+    #ImportTable("moderator", $dir) or return 0;
+    #ImportTable("moderation", $dir) or return 0;
+    #ImportTable("moderationnote", $dir) or return 0;
+    #ImportTable("votes", $dir) or return 0;
 
     if (DBDefs->USE_LYRICS)
     {
