@@ -60,5 +60,9 @@
 
 <li> Some Audio CDs contain extra data tracks. Enter
   <b>[data track]</b> as the name for these tracks.
+<p>
+<li> Some Audio CDs contain silent tracks. Enter
+  <b>[silence]</b> as the name for these tracks.
+
 </ol>
 

@@ -2,54 +2,104 @@
 
 <p>
 
-Sort Name is the name that will be used when the artist is listed in a 
+Sort name is the name that will be used when the artist is listed in a 
 list with other artists, so that all the artists that start with <i>The</i>
 will not end up under T. This also applies to artists who have a regular
 names like <i>Eric Clapton</i> but not bands that have
-ficticious names like <i>Cypress Hill</i>.
+ficticious names like <i>Cypress Hill</i>. Sort names should contain all 
+the accented characters that are present in the name of the artist.
+
 <p>
-<center>
+Non-english articles like <i>La</i>, <i>El</i>, <i>Los</i>, <i>Le</i>
+should be treated like the english aritcle <i>The</i>. Artists with
+the letters <i>DJ</i> (for Disc Jockey) should not include any
+periods for the <i>DJ</i> portion in the name or sort name. Prefix titles like
+<i>Dr.</i> should be treated as if they were first names. 
+
+<p>
 <b>Sort Name Examples:</b><br>
-<table width=75%>
+<blockquote>
+<table width="100%">
       <tr>
-         <th width=50%>
-         Name
-         </th>
-         <th width=50%>
-         Sort Name
-         </th>
+         <td width=50%>
+         <b>Name</b>
+         </td>
+         <td width=50%>
+         <b>Sort Name</b>
+         </td>
       </tr>
       <tr>
-         <td align=center valign=top>
+         <td valign=top>
          The Beatles
          </td>
-         <td align=center valign=top>
+         <td valign=top>
          Beatles, The
          </td>
       </tr>
       <tr>
-         <td align=center valign=top>
+         <td valign=top>
          Eric Clapton 
          </td>
-         <td align=center valign=top>
+         <td valign=top>
          Clapton, Eric
          </td>
       </tr>
       <tr>
-         <td align=center valign=top>
+         <td valign=top>
          Cypress Hill 
          </td>
-         <td align=center valign=top>
+         <td valign=top>
          Cypress Hill
          </td>
       </tr>
       <tr>
-         <td align=center valign=top>
+         <td valign=top>
          Bob Marley and the Wailers
          </td>
-         <td align=center valign=top>
+         <td valign=top>
          Marley, Bob and the Wailers
          </td>
       </tr>
+      <tr>
+         <td valign=top>
+         DJ Tiesto
+         </td>
+         <td  valign=top>
+         Tiesto, DJ
+         </td>
+      </tr>
+      <tr>
+         <td valign=top>
+         Los Lobos
+         </td>
+         <td valign=top>
+         Lobos, Los
+         </td>
+      </tr>
+      <tr>
+         <td valign=top>
+         Dr. Demento
+         </td>
+         <td valign=top>
+         Demento, Dr.
+         </td>
+      </tr>
+      <tr>
+         <td valign=top>
+         Jim McNally
+         </td>
+         <td valign=top>
+         McNally, Jim
+         </td>
+      </tr>
+      <tr>
+         <td valign=top>
+         Saint Joe j O'Mally, Sr.
+         </td>
+         <td valign=top>
+         O'Mally, Saint Joe j, Sr. 
+         </td>
+      </tr>
+      
 </table> 
-</center>
+</blockquote>
