@@ -1,0 +1,58 @@
+%# vi: set ts=4 sw=4 ft=mason :
+<%args>
+$modname => undef
+</%args>
+<%perl>
+
+MusicBrainz::IsSingleLineString($modname)
+	or return $m->comp("/comp/redirect", "/user/election/");
+
+UserStuff->IsAutoMod($session{privs})
+	or return $m->comp(
+		"/comp/error",
+		"Only existing automoderators can propose new automoderators",
+		1, 1,
+	);
+
+my $mb = $m->comp("/comp/dblogin");
+my $sql = Sql->new($mb->{DBH});
+my $el = MusicBrainz::Server::AutomodElection->new($mb->{DBH});
+# $el->DoCloseElections;
+
+my $error = undef;
+my $new_election = undef;
+
+eval {
+	$sql->AutoTransaction(
+		sub {
+			my $us = UserStuff->new($mb->{DBH});
+			my $candidate = $us->newFromName($modname)
+				or $error = "NO_SUCH_CANDIDATE", return;
+			$new_election = $el->Propose($session{uid}, $candidate)
+				or $error = $@;
+		},
+	);
+};
+return $m->comp("/comp/error", "Error: $@", 1, 1)
+	if $@;
+
+return $m->comp("/comp/redirect", "/user/election/show.html?id=" . $new_election->GetId)
+	if not $error;
+
+return $m->comp("/comp/error", "No such moderator '$modname'", 1, 1)
+	if $error eq "NO_SUCH_CANDIDATE";
+
+return $m->comp("/comp/error", "'$modname' is already an auto-moderator", 1, 1)
+	if $error eq "ALREADY_AN_AUTOMOD";
+
+my ($id) = $error =~ /^EXISTING_ELECTION (\d+)$/ or die;
+
+</%perl>
+<& /comp/sidebar, title => "Propose an Auto-Moderator" &>
+
+<p>
+	There is already an election open for this candidate.&nbsp;
+	<a href="show.html?id=<% $id %>">Show details</a>.
+</p>
+
+<& /comp/footer &>

@@ -1,0 +1,64 @@
+%# vi: set ts=4 sw=4 ft=mason :
+<%args>
+$id => undef
+</%args>
+<%perl>
+
+MusicBrainz::IsNonNegInteger($id)
+	or return $m->comp("/comp/redirect", "/user/election/");
+
+UserStuff->IsAutoMod($session{privs})
+	or return $m->comp(
+		"/comp/error",
+		"Only existing automoderators can second new automoderators",
+		1, 1,
+	);
+
+my $mb = $m->comp("/comp/dblogin");
+my $sql = Sql->new($mb->{DBH});
+my $el = MusicBrainz::Server::AutomodElection->new($mb->{DBH});
+$el->DoCloseElections;
+
+# Lazy shortcut: set up an object containing just an ID, since the class will
+# re-read the election data anyway
+my $election = $el;
+$el->SetId($id);
+
+my $error = undef;
+
+eval {
+	$sql->AutoTransaction(
+		sub {
+			$election->Second($session{uid})
+				or $error = $@;
+		},
+	);
+};
+return $m->comp("/comp/error", "Error: $@", 1, 1)
+	if $@;
+
+return $m->comp("/comp/redirect", "/user/election/show.html?id=$id")
+	if not $error;
+
+return $m->comp("/comp/error", "No such election #$id", 1, 1)
+	if $error eq "NO_SUCH_ELECTION";
+
+return $m->comp("/comp/error", "This election is closed", 1, 1)
+	if $error eq "ELECTION_CLOSED";
+
+$error =~ /^(ALREADY_SECONDED|INELIGIBLE)$/ or die;
+
+</%perl>
+<& /comp/sidebar, title => "Second a Proposed Auto-Moderator" &>
+
+<p>
+% if ($error eq "ALREADY_SECONDED") {
+	This candidate already has two seconders.&nbsp;
+% } elsif ($error eq "INELIGIBLE") {
+	You cannot second this candidate, because you have already
+	proposed / seconded them.
+% }
+	<a href="show.html?id=<% $id %>">Show details</a>.
+</p>
+
+<& /comp/footer &>

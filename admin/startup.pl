@@ -41,6 +41,7 @@ use LocaleSaver;
 # use MM_2_1;
 use Moderation;
 use MusicBrainz;
+use MusicBrainz::Server::AutomodElection;
 use MusicBrainz::Server::Cache;
 use MusicBrainz::Server::Country;
 use MusicBrainz::Server::DeferredUpdate;

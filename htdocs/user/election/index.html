@@ -1,0 +1,57 @@
+%# vi: set ts=4 sw=4 ft=mason :
+<& /comp/sidebar, title => "Auto-Moderator Elections" &>
+
+<%perl>
+my $mb = $m->comp("/comp/dblogin");
+my $el = MusicBrainz::Server::AutomodElection->new($mb->{DBH});
+# $el->DoCloseElections;
+
+my $elections = $el->GetElections;
+
+my %c;
+my $us = UserStuff->new($mb->{DBH});
+
+my $drawuser = sub {
+	my $uid = shift;
+	my $obj = $c{$uid} ||= $us->newFromId($uid);
+	$obj or return;
+	</%perl><a href="/user/view.html?uid=<% $uid %>"><% $obj->GetName %></a><%perl>
+	"";
+};
+
+</%perl>
+
+% if (@$elections) {
+
+<table class="SpacedColumns">
+	<tr>
+		<th>Candidate</th>
+		<th>Status</th>
+		<th>Proposed</th>
+	</tr>
+% for my $election (@$elections) {
+	<tr>
+		<td><% &$drawuser($election->GetCandidate) %></td>
+		<td><% $election->GetStatusName %></td>
+		<td><% $m->comp("/comp/datetime", $election->GetProposeTime) %></td>
+		<td><a href="show.html?id=<% $election->GetId %>">Details...</a></td>
+	</tr>
+% }
+</table>
+
+% } else {
+<p>There are no elections to display.</p>
+% }
+
+% if (UserStuff->IsAutoMod($session{privs})) {
+<h2>Propose a Candidate</h2>
+<form method="post" action="propose.html">
+	<p>
+		Candidate Name:
+		<input type="text" name="modname">
+		<input type="submit" value="Propose">
+	</p>
+</form>
+% }
+
+<& /comp/footer &>

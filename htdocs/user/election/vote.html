@@ -1,0 +1,81 @@
+%# vi: set ts=4 sw=4 ft=mason :
+<%args>
+$id => undef
+$vote => undef
+</%args>
+<%perl>
+
+MusicBrainz::IsNonNegInteger($id)
+	or return $m->comp("/comp/redirect", "/user/election/");
+
+defined($vote)
+	or return $m->comp("/comp/redirect", "/user/election/");
+
+my $new_vote = (
+	$vote =~ /\bYES\b/i ? &ModDefs::VOTE_YES
+	: $vote =~ /\bNO\b/i ? &ModDefs::VOTE_NO
+	: $vote =~ /\bABSTAIN\b/i ? &ModDefs::VOTE_ABS
+	: return $m->comp("/comp/redirect", "/user/election/")
+);
+
+UserStuff->IsAutoMod($session{privs})
+	or return $m->comp(
+		"/comp/error",
+		"Only existing automoderators can vote on new automoderators",
+		1, 1,
+	);
+
+my $mb = $m->comp("/comp/dblogin");
+my $sql = Sql->new($mb->{DBH});
+my $el = MusicBrainz::Server::AutomodElection->new($mb->{DBH});
+$el->DoCloseElections;
+
+# Lazy shortcut: set up an object containing just an ID, since the class will
+# re-read the election data anyway
+my $election = $el;
+$el->SetId($id);
+
+my $ok;
+my $error = undef;
+
+eval {
+	$sql->AutoTransaction(
+		sub {
+			$ok = $el->CastVote($session{uid}, $new_vote);
+			warn($error = "$@");
+		},
+	);	
+};
+return $m->comp("/comp/error", "Error: $@", 1, 1)
+	if $@;
+
+return $m->comp("/comp/redirect", "/user/election/show.html?id=$id")
+	if $ok; # NO_CHANGE or VOTE_CAST or VOTE_CHANGED
+
+return $m->comp("/comp/error", "No such election #$id", 1, 1)
+	if $error eq "NO_SUCH_ELECTION";
+
+return $m->comp("/comp/error", "This election is closed", 1, 1)
+	if $error eq "VOTING_CLOSED";
+
+return $m->comp("/comp/error", "You cannot vote in this election", 1, 1)
+	if $error eq "INELIGIBLE";
+
+$error eq "VOTING_NOT_YET_OPEN"
+	or die "? error=$error";
+
+</%perl>
+<& /comp/sidebar, title => "Vote on a Proposed Auto-Moderator" &>
+
+<p>
+% if ($new_vote == &ModDefs::VOTE_YES) {
+	If you would like to support this candidate, you can second their
+	nomination.&nbsp;
+% } else {
+	You cannot vote against (nor abstain on) this candidate until voting is open,
+	which will not happen until there are two seconders.&nbsp;
+% }
+	<a href="show.html?id=<% $id %>">Show details</a>.
+</p>
+
+<& /comp/footer &>

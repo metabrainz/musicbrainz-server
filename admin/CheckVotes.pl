@@ -22,6 +22,8 @@
 #   $Id$
 #____________________________________________________________________________
 
+use strict;
+
 use FindBin;
 use lib "$FindBin::Bin/../cgi-bin";
 
@@ -30,11 +32,13 @@ use MusicBrainz::Server::ModBot;
 use Apache;
 
 my $mb = MusicBrainz->new();
+$mb->Login;
 
-$mb->Login();
-$mod = MusicBrainz::Server::ModBot->new($mb->{DBH});
+my $el = MusicBrainz::Server::AutomodElection->new($mb->{DBH});
+$el->DoCloseElections;
+
+my $mod = MusicBrainz::Server::ModBot->new($mb->{DBH});
 my $r = $mod->CheckModerations(@_);
-$mb->Logout();
 
 exit $r;
 

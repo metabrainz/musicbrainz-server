@@ -90,6 +90,9 @@ my $is_me = ($uid == $my_uid);
     <a href="/mod/search/pre/voted.html?moderator=<% $uid %>">List Votes</a> |
 	<a href="/mod/search/pre/moderator.html?moderator=<% $uid %>">List Moderations</a> |
 	<a href="/mod/search/pre/moderator-failed.html?moderator=<% $uid %>">List Failed Moderations</a>
+% if (not $is_me and UserStuff->IsAutoMod($session{privs}) and not UserStuff->IsAutoMod($user->GetPrivs)) {
+	| <a href="/user/election/propose.html?modname=<% $user->GetName |nuh %>">Nominate for Auto-Mod</a>
+% }
 	]
 </p>
 

@@ -1,0 +1,186 @@
+%# vi: set ts=4 sw=4 ft=mason :
+<%args>
+$id => undef
+</%args>
+<%perl>
+
+MusicBrainz::IsNonNegInteger($id)
+	or return $m->comp("/comp/redirect", "/user/election/");
+
+my $mb = $m->comp("/comp/dblogin");
+my $el = MusicBrainz::Server::AutomodElection->new($mb->{DBH});
+# $el->DoCloseElections;
+
+my $election = $el->newFromId($id)
+	or return $m->comp(
+		"/comp/error",
+		"No such election",
+		1, 1,
+	);
+
+my %c;
+my $us = UserStuff->new($mb->{DBH});
+
+my $drawuser = sub {
+	my $uid = shift;
+	my $obj = $c{$uid} ||= $us->newFromId($uid);
+	$obj or return;
+	</%perl><a href="/user/view.html?uid=<% $uid %>"><% $obj->GetName %></a><%perl>
+	"";
+};
+
+my $propsec = grep { (($election->$_)||0) == $session{uid} }
+	qw( GetProposer GetSeconder1 GetSeconder2 );
+
+my $do_seconder = sub {
+	my ($key, $status) = @_;
+
+	if (my $uid = $election->$key)
+	{
+		&$drawuser($uid);
+	} elsif ($election->GetStatus == $status and not $propsec) {
+		</%perl>
+		<form method="post" action="second.html">
+			<input type="hidden" name="id" value="<% $id %>">
+			<input type="submit" value="Second this candidate">
+		</form>
+		<%perl>
+	} else {
+		$m->out("-");
+	}
+
+	"";
+};
+
+</%perl>
+<& /comp/sidebar, title => "Auto-Moderator Election Details" &>
+
+<p>
+	<a href=".">&lt;&lt; back to List of Elections</a>
+</p>
+
+<h2>Summary</h2>
+
+<table>
+	<tr>
+		<td>Candidate:</td>
+		<td><% &$drawuser($election->GetCandidate) %></td>
+	</tr>
+	<tr>
+		<td>Proposer:</td>
+		<td>
+			<form method="post" action="cancel.html">
+				<% &$drawuser($election->GetProposer) %>
+% if ($session{uid} == $election->GetProposer and $election->GetStatus =~ /[123]/) {
+				&nbsp; &nbsp; &nbsp; &nbsp;
+				<input type="hidden" name="id" value="<% $id %>">
+				<input type="submit" value="Cancel the Election">
+% }
+			</form>
+		</td>
+	</tr>
+	<tr>
+		<td>Proposal Submitted:</td>
+		<td><% $m->comp("/comp/datetime", $election->GetProposeTime) %></td>
+	</tr>
+	<tr>
+		<td>1st Seconder:</td>
+		<td><% &$do_seconder('GetSeconder1', '1') %></td>
+	</tr>
+	<tr>
+		<td>2nd Seconder:</td>
+		<td><% &$do_seconder('GetSeconder2', '2') %></td>
+	</tr>
+	<tr>
+		<td>Votes For:</td>
+		<td><% $election->GetYesVotes %></td>
+	</tr>
+	<tr>
+		<td>Votes Against:</td>
+		<td><% $election->GetNoVotes %></td>
+	</tr>
+	<tr>
+		<td>Status:</td>
+		<td>
+			<% $election->GetStatusName %>
+% if ($election->GetStatus == 3) {
+			since <% $m->comp("/comp/datetime", $election->GetOpenTime) %>
+% } elsif ($election->GetStatus =~ /[456]/) {
+			at <% $m->comp("/comp/datetime", $election->GetCloseTime) %>
+% }
+		</td>
+	</tr>
+</table>
+
+<h2>Voting Information</h2>
+
+% if ($election->GetStatus =~ /[12]/) {
+<p>
+	Voting is not yet open.&nbsp;
+	If you would like to support this candidate, you can second their
+	nomination.&nbsp;
+	If you do not support this candidate, please note that you cannot cast a
+	"No" vote (or abstain) until two seconders have been found.
+</p>
+% } elsif ($election->GetStatus == 3) {
+
+% if (UserStuff->IsAutoMod($session{privs})) {
+
+% if (not $propsec) {
+
+<p>You may vote for this candidate.</p>
+
+<form method="post" action="vote.html">
+	<p>
+		<input type="hidden" name="id" value="<% $id %>">
+		<input type="submit" name="vote" value="Vote YES">
+		&nbsp; &nbsp; &nbsp; &nbsp;
+		<input type="submit" name="vote" value="Vote NO">
+		&nbsp; &nbsp; &nbsp; &nbsp;
+		<input type="submit" name="vote" value="Abstain">
+	</p>
+</form>
+
+% } else {
+<p>You cannot vote for this candidate, because you proposed / seconded them.</p>
+% }
+
+% } else {
+<p>You cannot vote for this candidate, because you are not an auto-moderator.</p>
+% }
+
+% } else {
+<p>Voting is closed.</p>
+% }
+
+% if ($election->GetStatus =~ /[3456]/) {
+
+% # show voting history
+% my $votes = $election->GetVotes;
+
+<h2>Votes Cast</h2>
+
+% if (@$votes) {
+
+<table class="SpacedColumns">
+	<tr>
+		<th>Voter</th>
+		<th>Vote</th>
+		<th>Date/Time</th>
+	</tr>
+% for my $vote (@$votes) {
+	<tr>
+		<td><% &$drawuser($vote->GetVoter) %></td>
+		<td><% $vote->GetVoter == $session{uid} ? $vote->GetVoteName : "(private)" %></td>
+		<td><% $m->comp("/comp/datetime", $vote->GetVoteTime) %></td>
+	</tr>
+% }
+</table>
+
+% } else {
+<p>No votes <% $election->GetStatus == 3 ? "have been" : "were" %> cast.</p>
+% }
+
+% }
+
+<& /comp/footer &>
