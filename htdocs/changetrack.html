@@ -87,6 +87,8 @@ if ($search =~ /\S/ and $trackname =~ /\S/)
 	$url .= "&solo=1" if $ARGS{solo};
 	$url .= "&firsttime=1"
 		unless $trackname eq $track->GetName;
+	$url .= "&notetext=" . uri_escape($notetext)
+		if $notetext =~ /\S/;
 	
 	return $m->comp("/comp/redirect", $url)
 		if $trackname eq $track->GetName;
