@@ -29,7 +29,7 @@ else
    
     $ar->SetId($artist);
     $ar->LoadFromId();
-    mc_comp("/comp/artisttitle", artistname=>($ar->Value(1)), 
+    mc_comp("/comp/artisttitle", artistname=>($ar->GetName()), 
             artist=>$ar, modpending=>0);
     
     @albumlist = $ar->GetAlbums();

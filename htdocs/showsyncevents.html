@@ -26,8 +26,8 @@ if (DBDefs::USE_LYRICS) {
   $ar->LoadFromId();
   if ((scalar(@syncevents) > 0)) {
   </%perl>
-      <& /comp/syncevents, trackname=>$tr->Value(1),
-                    artistname=>$ar->Value(1),
+      <& /comp/syncevents, trackname=>$tr->GetName(),
+                    artistname=>$ar->GetName(),
                     syncevents=>\@syncevents &>
 % } else {
       There were no items found. Please try again.<p>

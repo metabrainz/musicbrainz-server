@@ -6,7 +6,7 @@ $title
 <head>
    <title><% $title %></title>
    <link rel="stylesheet" type="text/css" href="/brainz.css">
-   <meta http-equiv="expires" content="0">
+   <meta http-equiv="expires" content="1">
 </head>
 <body marginheight="0" marginwidth="0" topmargin="0" leftmargin="0" rightmargin="0" bottommargin="0" bgcolor=white>
 

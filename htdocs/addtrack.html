@@ -77,7 +77,7 @@ $al->LoadFromId();
     <input type="hidden" name="type0"
            value="<% Moderation::MOD_ADD_TRACK %>">
     <input type="hidden" name="id0" value="<% $album %>">
-    <input type="hidden" name="prev0" value="<% $al->Value(1) %>">
+    <input type="hidden" name="prev0" value="<% $al->GetName() %>">
     <input type="hidden" name="table0" value="Track">
     <input type="hidden" name="column0" value="Name">
     <input type="hidden" name="referer" value="<% $referer %>">

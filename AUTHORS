@@ -10,6 +10,6 @@ The following people have contributed to the MusicBrainz server:
   - Most of the lyrics support in the server
 
   Luke Harless <luke_harless@attglobal.net> 
-  - improved the db import/export scripts
+  - improved the db import/export scripts and submitted db cleanup scripts
 
 (please send change requests to rob@musicbrainz.org or maintainer)

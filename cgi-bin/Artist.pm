@@ -254,7 +254,7 @@ sub GetAlbumsByName
             $album->SetId($row[0]);
             $album->SetName($row[1]);
             $album->SetModPending($row[2]);
-            $album->SetArtist($this->{artist});
+            $album->SetArtist($this->{id});
             push @albums, $album;
             undef $album;
         }
