@@ -32,11 +32,11 @@ use Album;
 use Artist;
 use DBDefs;
 use Discid;
-use Insert;  
+use Insert;
 use Moderation;
 use MusicBrainz;
-use SearchEngine;  
-use TRM;  
+use SearchEngine;
+use TRM;
 use TaggerSupport;
 use Track;
 use UserStuff;
@@ -68,7 +68,7 @@ sub GetCDInfoMM2
 
    return $rdf->ErrorRDF("No Discid given.") if (!defined $id);
 
-   my $ns = $rdf->GetMMNamespace(); 
+   my $ns = $rdf->GetMMNamespace();
    my $query = EXTRACT_TOC_QUERY;
    $query =~ s/!mm!/$ns/g;
    if (defined $numtracks)
@@ -93,8 +93,8 @@ sub AssociateCDMM2
    my ($numtracks, $di, $toc, $i, $currentURI);
 
    return $rdf->ErrorRDF("No Discid given.") if (!defined $Discid);
-   
-   my $ns = $rdf->GetMMNamespace(); 
+
+   my $ns = $rdf->GetMMNamespace();
    my $toc_query = EXTRACT_TOC_QUERY;
    $toc_query =~ s/!mm!/$ns/g;
    my $num_query = EXTRACT_NUMTRACKS_QUERY;
@@ -119,7 +119,7 @@ sub FindArtistByName
    my ($dbh, $parser, $rdf, $search, $limit) = @_;
    my ($sql, @ids);
 
-   return $rdf->ErrorRDF("No artist search criteria given.") 
+   return $rdf->ErrorRDF("No artist search criteria given.")
       if (!defined $search);
    return undef if (!defined $dbh);
 
@@ -133,7 +133,7 @@ sub FindArtistByName
 	limit => $limit,
     );
 
-   while (my $row = $engine->NextRow) 
+   while (my $row = $engine->NextRow)
    {
        push @ids, $row->{'artistid'};
    }
@@ -147,7 +147,7 @@ sub FindAlbumByName
    my ($dbh, $parser, $rdf, $search, $limit) = @_;
    my ($sql, @ids);
 
-   return $rdf->ErrorRDF("No album search criteria given.") 
+   return $rdf->ErrorRDF("No album search criteria given.")
       if (!defined $search);
    return undef if (!defined $dbh);
 
@@ -161,7 +161,7 @@ sub FindAlbumByName
 	limit => $limit,
     );
 
-   while (my $row = $engine->NextRow) 
+   while (my $row = $engine->NextRow)
    {
        push @ids, $row->{'albumid'};
    }
@@ -175,7 +175,7 @@ sub FindTrackByName
    my ($dbh, $parser, $rdf, $search, $limit) = @_;
    my ($sql, @ids);
 
-   return $rdf->ErrorRDF("No track search criteria given.") 
+   return $rdf->ErrorRDF("No track search criteria given.")
       if (!defined $search);
    return undef if (!defined $dbh);
 
@@ -189,7 +189,7 @@ sub FindTrackByName
 	limit => $limit,
     );
 
-   while (my $row = $engine->NextRow) 
+   while (my $row = $engine->NextRow)
    {
        push @ids, $row->{'trackid'};
    }
@@ -216,12 +216,6 @@ sub FindDistinctTRM
 	return $rdf->ErrorRDF("No name or artist search criteria given.");
     }
 
-    if (not $dbh)
-    {
-	carp "No dbh in FindDistinctTRM";
-	return undef;
-    }
-
     my $sql = Sql->new($dbh);
 
     # This query finds single track id by name and artist
@@ -243,76 +237,84 @@ sub FindDistinctTRM
 # returns artistList
 sub GetArtistByGlobalId
 {
-   my ($dbh, $parser, $rdf, $id) = @_;
-   my ($sql, $artist);
+    my ($dbh, $parser, $rdf, $id) = @_;
 
-   return $rdf->ErrorRDF("No artist id given.") 
-      if (!defined $id);
-   return undef if (!defined $dbh);
-   
-   $sql = Sql->new($dbh);
-   $id = $sql->Quote($id);
-   ($artist) = $sql->GetSingleRow("Artist", ["id"], ["gid", lc($id)]);
+    if (not defined $id or $id eq "")
+    {
+	carp "Missing artist GUID in GetArtistByGlobalId";
+	return $rdf->ErrorRDF("No artist GUID given");
+    }
 
-   return $rdf->CreateArtistList($parser, $artist);
+    my $sql = Sql->new($dbh);
+    my $artist = $sql->SelectSingleValue(
+	"SELECT id FROM artist WHERE gid = ?",
+	lc $id,
+    );
+
+    return $rdf->CreateArtistList($parser, $artist);
 }
 
 # returns album
 sub GetAlbumByGlobalId
 {
-   my ($dbh, $parser, $rdf, $id) = @_;
-   my ($sql, @row, $album);
+    my ($dbh, $parser, $rdf, $id) = @_;
 
-   return $rdf->ErrorRDF("No album id given.") 
-      if (!defined $id || $id eq '');
-   return undef if (!defined $dbh);
+    if (not defined $id or $id eq "")
+    {
+	carp "Missing album GUID in GetAlbumByGlobalId";
+	return $rdf->ErrorRDF("No album GUID given");
+    }
 
-   $sql = Sql->new($dbh);
-   $id = $sql->Quote($id);
-   ($album) = $sql->GetSingleRow("Album", ["id"], ["gid", lc($id)]);
+    my $sql = Sql->new($dbh);
+    my $album = $sql->SelectSingleValue(
+	"SELECT id FROM album WHERE gid = ?",
+	lc $id,
+    );
 
-   return $rdf->CreateAlbum(0, $album);
+    return $rdf->CreateAlbum(0, $album);
 }
 
 # returns trackList
 sub GetTrackByGlobalId
 {
-   my ($dbh, $parser, $rdf, $id) = @_;
-   my ($sql, $query, @row, @ids);
+    my ($dbh, $parser, $rdf, $id) = @_;
 
-   return $rdf->ErrorRDF("No track id given.") 
-      if (!defined $id || $id eq '');
-   return undef if (!defined $dbh);
+    if (not defined $id or $id eq "")
+    {
+	carp "Missing track GUID in GetTrackByGlobalId";
+	return $rdf->ErrorRDF("No track GUID given");
+    }
 
-   $sql = Sql->new($dbh);
-   $id = $sql->Quote($id);
-   @ids = $sql->GetSingleRow("Album, Track, AlbumJoin", 
-                             ["Track.id"], 
-                             ["Track.gid", lc($id),
-                              "AlbumJoin.track", "Track.id",
-                              "AlbumJoin.album", "Album.id"]);
+    my $sql = Sql->new($dbh);
+    my $ids = $sql->SelectSingleColumnArray(
+	"SELECT id FROM track WHERE gid = ?",
+	lc $id,
+    );
 
-   return $rdf->CreateTrackList(@ids);
+    return $rdf->CreateTrackList(@$ids);
 }
 
 # returns trackList
 sub GetTrackByTRM
 {
-   my ($dbh, $parser, $rdf, $id) = @_;
-   my ($sql, @ids);
+    my ($dbh, $parser, $rdf, $id) = @_;
 
-   return $rdf->ErrorRDF("No track id given.") 
-      if (!defined $id || $id eq '');
-   return undef if (!defined $dbh);
+    if (not defined $id or $id eq "")
+    {
+	carp "Missing TRM ID in GetTrackByTRM";
+	return $rdf->ErrorRDF("No TRM ID given");
+    }
 
-   $sql = Sql->new($dbh);
-   $id = $sql->Quote($id);
-   @ids = $sql->GetSingleRow("TRM, TRMJoin",
-                             ["Track"], 
-                             ["TRM.TRM", lc($id),
-                             "TRMJoin.TRM", "TRM.id"]);
+    my $sql = Sql->new($dbh);
+    my $ids = $sql->SelectSingleColumnArray(
+	"SELECT	trmjoin.track
+	FROM	trm, trmjoin
+	WHERE	trm.trm = ?
+	AND	trmjoin.trm = trm.id",
+	lc $id,
+    );
 
-   return $rdf->CreateTrackList(@ids);
+    return $rdf->CreateTrackList(@$ids);
 }
 
 sub LookupMetadata
@@ -412,10 +414,10 @@ sub ExchangeMetadata
            {
               for($i = 0; $i < 5;  $i++)
               {
-                 if (defined $db_data[$i] && 
+                 if (defined $db_data[$i] &&
                     (!defined $data[$i] || $data[$i] eq ''))
                  {
-                     $data[$i] = $db_data[$i] 
+                     $data[$i] = $db_data[$i]
                  }
               }
            }
@@ -438,12 +440,12 @@ sub SubmitTrack
        !defined $seq || $seq eq '' ||
        !defined $artist || $artist eq '')
    {
-       return $rdf->ErrorRDF("Incomplete track information submitted.") 
+       return $rdf->ErrorRDF("Incomplete track information submitted.")
    }
 
    if (&DBDefs::DB_READ_ONLY)
    {
-       return $rdf->ErrorRDF(&DBDefs::DB_READ_ONLY_MESSAGE) 
+       return $rdf->ErrorRDF(&DBDefs::DB_READ_ONLY_MESSAGE)
    }
 
    $in = Insert->new($dbh);
@@ -451,18 +453,18 @@ sub SubmitTrack
    $info{artist} = $artist;
    $info{sortname} = $artist;
    $info{album} = $album;
-   $info{tracks} = 
+   $info{tracks} =
      [
        {
           track => $name,
           tracknum => $seq,
-          duration => $len, 
+          duration => $len,
           trmid => $TRM
        }
      ];
 
    $ret = $in->Insert(\%info);
-   return $rdf->ErrorRDF($in->GetError()) 
+   return $rdf->ErrorRDF($in->GetError())
       if (!defined $ret);
 
    return $rdf->CreateStatus(0);
@@ -478,13 +480,13 @@ sub SubmitTRMList
 
    if (&DBDefs::DB_READ_ONLY)
    {
-       return $rdf->ErrorRDF(&DBDefs::DB_READ_ONLY_MESSAGE) 
+       return $rdf->ErrorRDF(&DBDefs::DB_READ_ONLY_MESSAGE)
    }
 
    $sql = Sql->new($dbh);
    $gu = TRM->new($dbh);
 
-   my $ns = $rdf->GetMQNamespace(); 
+   my $ns = $rdf->GetMQNamespace();
    my $query = EXTRACT_CLIENT_VERSION;
    $query =~ s/!mq!/$ns/g;
 
@@ -493,7 +495,7 @@ sub SubmitTRMList
    if (not defined $clientVer)
    {
        return $rdf->ErrorRDF("Your MusicBrainz client must provide its version " .
-                             "id string when submitting data to MusicBrainz.") 
+                             "id string when submitting data to MusicBrainz.")
    }
 
    my @links;
@@ -505,22 +507,22 @@ sub SubmitTRMList
            !defined $trmid || $trmid eq '')
        {
             last if ($i > 1);
-            return $rdf->ErrorRDF("Incomplete trackid and trmid submitted.") 
-       } 
+            return $rdf->ErrorRDF("Incomplete trackid and trmid submitted.")
+       }
        if (!MusicBrainz::IsGUID($trmid) || !MusicBrainz::IsGUID($trackid))
        {
            print STDERR "Invalid track/trm combination:\n";
            print STDERR "trackid: $trackid\n";
            print STDERR "trmid: $trmid\n\n";
-           return $rdf->ErrorRDF("Invalid trackid or trmid submitted.") 
-       } 
+           return $rdf->ErrorRDF("Invalid trackid or trmid submitted.")
+       }
 
        $trackid =~ tr/A-Z/a-z/;
        $trackid = $sql->Quote($trackid);
 
        #lookup the IDs associated with the $trackGID
-       @ids = $sql->GetSingleRow("Album, Track, AlbumJoin", 
-                                 ["Track.id"], 
+       @ids = $sql->GetSingleRow("Album, Track, AlbumJoin",
+                                 ["Track.id"],
                                  ["Track.gid", $trackid,
                                   "AlbumJoin.track", "Track.id",
                                   "AlbumJoin.album", "Album.id"]);
@@ -556,12 +558,12 @@ sub SubmitTRMList
        {
            print STDERR "Cannot insert TRM: $@\n";
            $sql->Rollback;
-           return $rdf->ErrorRDF("Cannot write TRM Ids to database.") 
+           return $rdf->ErrorRDF("Cannot write TRM Ids to database.")
        }
        return $rdf->CreateStatus(0);
    }
 
-   return $rdf->ErrorRDF("No valid TRM ids were submitted.") 
+   return $rdf->ErrorRDF("No valid TRM ids were submitted.")
 }
 
 
@@ -573,19 +575,19 @@ sub AuthenticateQuery
 
    if (!defined $username || $username eq '')
    {
-       return $rdf->ErrorRDF("Invalid/missing user name.") 
+       return $rdf->ErrorRDF("Invalid/missing user name.")
    }
 
    if (&DBDefs::DB_READ_ONLY)
    {
-       return $rdf->ErrorRDF(&DBDefs::DB_READ_ONLY_MESSAGE) 
+       return $rdf->ErrorRDF(&DBDefs::DB_READ_ONLY_MESSAGE)
    }
 
    $us = UserStuff->new($dbh);
    ($pass, $uid) = $us->GetUserPasswordAndId($username);
    if (!defined $pass)
    {
-       return $rdf->ErrorRDF("Unknown user.") 
+       return $rdf->ErrorRDF("Unknown user.")
    }
 
    srand;
@@ -617,11 +619,11 @@ sub AuthenticateQuery
 
 sub TrackInfoFromTRMId
 {
-   my ($dbh, $parser, $rdf, $id, $artist, $album, $track, 
+   my ($dbh, $parser, $rdf, $id, $artist, $album, $track,
        $tracknum, $duration, $filename)=@_;
    my ($sql, @ids, $qid, $query);
 
-   return $rdf->ErrorRDF("No trm id given.") 
+   return $rdf->ErrorRDF("No trm id given.")
       if (!defined $id || $id eq '');
    return undef if (!defined $dbh);
 
@@ -665,12 +667,12 @@ sub TrackInfoFromTRMId
 
        my (%lookup, $ts);
 
-       $lookup{artist} = $artist; 
-       $lookup{album} = $album; 
-       $lookup{track} = $track; 
-       $lookup{tracknum} = $tracknum; 
-       $lookup{filename} = $filename; 
-       $lookup{duration} = $duration; 
+       $lookup{artist} = $artist;
+       $lookup{album} = $album;
+       $lookup{track} = $track;
+       $lookup{tracknum} = $tracknum;
+       $lookup{filename} = $filename;
+       $lookup{duration} = $duration;
 
        $ts = TaggerSupport->new($dbh);
        my ($error, $result, $flags, $list) = $ts->Lookup(\%lookup, 3);
@@ -706,11 +708,11 @@ sub TrackInfoFromTRMId
 # This method is now deprecated
 sub QuickTrackInfoFromTRMId
 {
-   my ($dbh, $parser, $rdf, $id, $artist, $album, $track, 
+   my ($dbh, $parser, $rdf, $id, $artist, $album, $track,
        $tracknum, $duration, $filename)=@_;
    my ($sql, @data, $out, $qid);
 
-   return $rdf->ErrorRDF("No trm id given.") 
+   return $rdf->ErrorRDF("No trm id given.")
       if (!defined $id || $id eq '');
    return undef if (!defined $dbh);
 
@@ -718,7 +720,7 @@ sub QuickTrackInfoFromTRMId
    $id =~ tr/A-Z/a-z/;
    $qid = $sql->Quote($id);
 
-   my $query = qq|select Track.name, Artist.name, Album.name, 
+   my $query = qq|select Track.name, Artist.name, Album.name,
                          AlbumJoin.sequence, Track.GID, Track.Length
                     from TRM, TRMJoin, Track, AlbumJoin, Album, Artist
                    where TRM.TRM = | . $qid . qq| and
@@ -744,12 +746,12 @@ sub QuickTrackInfoFromTRMId
    {
        my (%lookup, $ts);
 
-       $lookup{artist} = $artist; 
-       $lookup{album} = $album; 
-       $lookup{track} = $track; 
-       $lookup{tracknum} = $tracknum; 
-       $lookup{filename} = $filename; 
-       $lookup{duration} = $duration; 
+       $lookup{artist} = $artist;
+       $lookup{album} = $album;
+       $lookup{track} = $track;
+       $lookup{tracknum} = $tracknum;
+       $lookup{filename} = $filename;
+       $lookup{duration} = $duration;
 
        $ts = TaggerSupport->new($dbh);
        my ($error, $result, $flags, $list) = $ts->Lookup(\%lookup, 3);
@@ -804,7 +806,7 @@ sub QuickTrackInfoFromTrackId
    my ($dbh, $parser, $rdf, $tid, $aid) = @_;
    my ($sql, @data, $out, $album);
 
-   return $rdf->ErrorRDF("No track id given.") 
+   return $rdf->ErrorRDF("No track id given.")
       if (!defined $tid || $tid eq '' || !defined $aid || $aid eq '');
    return undef if (!defined $dbh);
 
@@ -814,8 +816,8 @@ sub QuickTrackInfoFromTrackId
    $tid = $sql->Quote($tid);
    $aid = $sql->Quote($aid);
    @data = $sql->GetSingleRow(
-       "Track, AlbumJoin, Album, Artist", 
-      ["Track.name", "Artist.name", "Album.name", 
+       "Track, AlbumJoin, Album, Artist",
+      ["Track.name", "Artist.name", "Album.name",
        "AlbumJoin.sequence", "Track.Length", "Album.artist",
        "Artist.gid", "Artist.sortname", "Album.attributes"],
       ["Track.gid", $tid,
@@ -827,7 +829,7 @@ sub QuickTrackInfoFromTrackId
 
    if (!defined $data[0] || $data[0] eq '' || !$album->LoadFromId())
    {
-        return $rdf->ErrorRDF("Cannot load given album.") 
+        return $rdf->ErrorRDF("Cannot load given album.")
    }
 
    my @attrs = ( $data[8] =~ /(\d+)/g );
@@ -842,7 +844,7 @@ sub QuickTrackInfoFromTrackId
    $out .= $rdf->Element("mq:albumName", $data[2]);
    $out .= $rdf->Element("mq:trackName", $data[0]);
    $out .= $rdf->Element("mm:trackNum", $data[3]);
-   if ($data[4] != 0) 
+   if ($data[4] != 0)
    {
         $out .= $rdf->Element("mm:duration", $data[4]);
    }
@@ -850,23 +852,23 @@ sub QuickTrackInfoFromTrackId
    # This is a total hack, RDF wise speaking. This is to bridge the gap
    # for the MB Tagger 0.10.0 series. Once the new cross platform tagger
    # is out, this function will go away.
-   if ($data[5] == &ModDefs::VARTIST_ID) 
+   if ($data[5] == &ModDefs::VARTIST_ID)
    {
         $out .= $rdf->Element("mm:albumArtist", &ModDefs::VARTIST_MBID);
    }
 
    foreach my $attr (@attrs)
    {
-       if ($attr >= Album::ALBUM_ATTR_SECTION_TYPE_START && 
+       if ($attr >= Album::ALBUM_ATTR_SECTION_TYPE_START &&
            $attr <= Album::ALBUM_ATTR_SECTION_TYPE_END)
        {
-          $out .= $rdf->Element("mm:releaseType", "", "rdf:resource", $rdf->GetMMNamespace() . 
+          $out .= $rdf->Element("mm:releaseType", "", "rdf:resource", $rdf->GetMMNamespace() .
                                  "Type" . $album->GetAttributeName($attr));
        }
        elsif ($attr >= Album::ALBUM_ATTR_SECTION_STATUS_START &&
               $attr <= Album::ALBUM_ATTR_SECTION_STATUS_END)
        {
-          $out .= $rdf->Element("mm:releaseStatus", "", "rdf:resource", $rdf->GetMMNamespace() . 
+          $out .= $rdf->Element("mm:releaseStatus", "", "rdf:resource", $rdf->GetMMNamespace() .
                                  "Status" . $album->GetAttributeName($attr));
        }
    }
@@ -884,7 +886,7 @@ sub QuickTrackInfoFromTrackId
             my $cid = $rel->GetCountry;
             my $c = $country_obj->newFromId($cid);
             my ($year, $month, $day) = $rel->GetYMD();
-      
+
             $releasedate = $year;
             $releasedate .= sprintf "-%02d", $month if ($month != 0);
             $releasedate .= sprintf "-%02d", $day if ($day != 0);
