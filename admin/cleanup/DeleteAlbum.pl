@@ -33,20 +33,42 @@ require "Main.pl";
 #       list of albums at once
 sub Arguments
 {
-    return "<album id>";
+    return "<album id> | <album id file>";
 }
 
 sub Cleanup
 {
-    my ($dbh, $fix, $quiet, $thenum) = @_;
+    my ($dbh, $fix, $quiet, $arg) = @_;
     my ($id, $name, $album);
 
-    if (!defined $thenum)
+    if (!defined $arg)
     {
-        print "Incorrect number orguments given.\n\n";
+        print "Incorrect number arguments given.\n\n";
         Usage();
         return;
     }
+
+    if (-e $arg)
+    {
+        open FILE, "< $arg"
+           or die "Cannot open file $arg.\n";
+ 
+        while(defined($id = <FILE>))
+        {
+            DeleteAlbum($dbh, $fix, $quiet, $id);
+        }
+        close(FILE);
+    }
+    else
+    {
+        DeleteAlbum($dbh, $fix, $quiet, $arg);
+    }
+}
+
+sub DeleteAlbum
+{
+    my ($dbh, $fix, $quiet, $thenum) = @_;
+    my ($id, $name, $album);
 
     # RAK: If the fix flag is not given, we should really print out
     #      human understandable output. 
