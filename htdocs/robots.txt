@@ -1,6 +1,7 @@
 User-agent: *
 Disallow: /addtrack.html
 Disallow: /artistfilter.html
+Disallow: /artistrel.html
 Disallow: /browseartists.html
 Disallow: /browsevarious.html
 Disallow: /changetrack.html
