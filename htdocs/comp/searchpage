@@ -1,21 +1,91 @@
+
+<%perl>
+#This varable contain the form values to search the aria database
+#at location www.aria-database.com
+my @site_aria = (
+  "numbers", "1|20",
+  "all-or-results", "all",
+  "aria", "",
+  "language", "All",
+  "detail", "yes",
+  "composer", "",
+  "role", "",
+  "opera", "",
+  "low", "A",
+  "below", "2",
+  "high", "A",
+  "above", "3",
+  "pointless", "yes",
+  "database-select", "aria");
+
+#This varable contain the form values to search the database
+#at location www.musicnet.org
+my @site_musica = (
+  "n0", "0",
+  "n1", "1",
+  "n2", "2",
+  "n3", "3",
+  "n4", "4",
+  "n5", "5",
+  "n6", "6",
+  "n7", "8",
+  "c7_0", "in",
+  'as.x', '',
+  'gs', 'MUSICA - CHORAL MUSIC DATABASE',
+  'gi', 'Simplified search',
+  'go', 'Presentation with tool bar');
+
+</%perl>
 <table width="100%">
 <tr>
 <td width="2%" valign="top">
 &nbsp;
 </td>
 <td width="48%" valign="top">
-  <& /comp/tablebegin, title=>'Search' &>
+  <& /comp/tablebegin, title=>'Search', attrs=>"align=left",
+     gattrs=>"width=100%" &>
     <br>
     For each of these searches, you may enter a few keywords that
     appear in the title of the artist, album or track. The search
     is case insensitive and partial keywords are ok. (e.g. 'Port' 
     will match 'Portishead')
-    <& /comp/artistsearchbox &>
-    <& /comp/albumsearchbox &>
-    <& /comp/tracksearchbox &>
+%#
+%#  JOHAN: Deleted all special purpose search scripts and made 1 general one
+%#
+    <& /comp/searchbox, name=>'Artist Search',
+                        scripturl=>'/search_art.html',
+                        searchfield=>'artist' &>
+    <& /comp/searchbox, name=>'Album Search',
+                        scripturl=>'/search_alb.html',
+                        searchfield=>'album' &>
+    <& /comp/searchbox, name=>'Track Search',
+                        scripturl=>'/search_trk.html',
+                        searchfield=>'track' &>
     <br>
     &nbsp;
   <& /comp/tableend &>
+
+% if (DBDefs::SEARCH_LYRICS_OFFSITE) {
+  <& /comp/tablebegin, title=>'Other sites', attrs=>"align=left",
+     gattrs=>"width=100%" &>
+    <& /comp/searchbox, name=>'www.aria-database.com',
+                        nameurl=>'http://www.aria-database.com',
+                        scripturl=>'http://www.aria-database.com/cgibin/aria-search.pl',
+                        hidden=>\@site_aria,
+                        searchfield=>'keyword' &>
+    <& /comp/searchbox, name=>'www.musicnet.org',
+                        method=>'get',
+                        nameurl=>'http://www.musicnet.org',
+                        scripturl=>'http://www.musicanet.org/cgi-musica/musica.cgi',
+                        hidden=>\@site_musica,
+                        searchfield=>'v0_0' &>
+    <& /comp/searchbox, name=>'www.gramophone.co.uk',
+                        nameurl=>'http://www.gramophone.co.uk',
+                        scripturl=>'http://www.gramofile.co.uk/folio/om_isapi.dll?&amp;infobase=Gramofile.nfo&amp;softpage=All_Frame_Pg42&amp;record=dochitfirst',
+                        hidden=>['querytemplate', 'Test'],
+                        searchfield=>'E3' &>
+  <& /comp/tableend &>
+% }
 
 </td>
 <td width="2%" valign="top">
@@ -59,36 +129,38 @@
     &nbsp;
   <& /comp/tableend &>
 % }
-</td>
-</tr>
-</table>
+
 % if (DBDefs::SEARCH_LYRICS_OFFSITE) {
-<table width="100%">
-<tr>
-  <td width="2%" valign="top">
-  &nbsp;
-  </td>
-<td width="48%" valign="top">
-  <& /comp/tablebegin, title=>'Lyrics Sites' &>
-  <table width=100%>
-    <tr><td align=right>
-    <& /comp/searchlyricslyrichound  &>
-    <& /comp/searchlyricslyricspost  &>
-    <& /comp/searchlyricslyricfind   &>
-    <& /comp/searchlyricslyricsworld &>
-    <& /comp/searchlyricsastraweb    &>
-    </td></tr>
-  </table>
+  <& /comp/tablebegin, title=>'Lyrics sites', attrs=>"align=left",
+     gattrs=>"width=100%" &>
+    <& /comp/searchbox, name=>'www.lyricfind.com',
+                        nameurl=>'http://www.lyricfind.com',
+                        scripturl=>'http://www.lyricfind.com/search.php3',
+                        method=>'get',
+                        hidden=>['ssongtitle','1','ssartist','1'],
+                        searchfield=>'search' &>
+    <& /comp/searchbox, name=>'www.lyrichound.com',
+                        nameurl=>'http://www.lyrichound.com',
+                        scripturl=>'http://www.lyrichound.com/cgiwrap/search.cgi',
+                        hidden=>['boolean','AND'],
+                        searchfield=>'terms' &>
+    <& /comp/searchbox, name=>'www.lyricspost.com',
+                        nameurl=>'http://www.lyricspost.com',
+                        scripturl=>'http://www.lyricspost.com/lp/find.php3',
+                        searchfield=>'q' &>
+    <& /comp/searchbox, name=>'www.lyricsworld.com',
+                        nameurl=>'http://www.lyricsworld.com',
+                        scripturl=>'http://www.lyricsworld.com/cgi-bin/search',
+                        hidden=>['method','and'],
+                        searchfield=>'words' &>
+    <& /comp/searchbox, name=>'lyrics.astraweb.com',
+                        nameurl=>'http://lyrics.astraweb.com',
+                        scripturl=>'http://lyrics.astraweb.com/search.cgi',
+                        method=>'get',
+                        searchfield=>'word' &>
   <& /comp/tableend &>
+% }
+
 </td>
-  <td width="2%" valign="top">
-  &nbsp;
-  </td>
-<td width="48%" valign="top">
-  <& /comp/tablebegin, title=>'Other Sites' &>
-    <& /comp/searchlyricsastraweb    &>
-  <& /comp/tableend &>
-  </td>
 </tr>
 </table>
-% }

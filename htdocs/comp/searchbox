@@ -1,0 +1,32 @@
+<%args>
+$name
+$nameurl=>''
+$scripturl
+$searchfield
+$method=>'POST'
+@hidden=>''
+</%args>
+% my $hide;
+<FORM METHOD="<% $method %>" ACTION="<% $scripturl %>"
+      ENCTYPE="application/x-www-form-urlencoded" class="formstyle">
+<img src="/images/pixel.gif" width="20" height="1" alt="" border="0">
+% if ($nameurl ne '') {
+<b><a href="<% $nameurl %>"><% $name %></a></b><br>
+% } else {
+<b><% $name %></b><br>
+% }
+
+<img src="/images/pixel.gif" width="20" height="1" alt="" border="0">
+<INPUT TYPE="text" NAME="<% $searchfield %>" SIZE=15>
+<img src="/images/pixel.gif" width="8" height="1" alt="" border="0">
+<INPUT TYPE="submit" NAME="Search" VALUE="Search"><br>
+
+% while( $hide = shift(@hidden) ) {
+<INPUT TYPE="hidden" NAME="<% $hide %>" 
+% $hide=shift(@hidden); if ($hide ne '') {
+   VALUE="<% $hide %>">
+%  } else {
+                      >
+%  }
+% }
+</form>
