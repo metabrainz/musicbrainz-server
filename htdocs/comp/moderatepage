@@ -1,3 +1,4 @@
+%# vi: set ts=4 sw=4 ft=mason :
 <%args>
 $type
 $artistid=>0
@@ -74,6 +75,16 @@ elsif ($type == ModDefs::TYPE_ALBUM)
     $m->comp("/comp/sidebar", title=>'Moderations by Album',
             expand=>"moderate"); 
 }
+elsif ($type == &ModDefs::TYPE_MODERATOR_FAILED)
+{
+	my $moderator = $ARGS{"moderator"} || $session{uid};
+	$moderator = 0 + $moderator;
+    ($num_mods, $total_mods, @info) = 
+           $mod->GetModerationList($offset, $max_items,
+                                   $session{uid}, $type, $moderator);
+    $m->comp("/comp/sidebar", title=>'Review Failed Moderations By Moderator',
+            expand=>"moderate"); 
+}
 else
 {
     $m->comp("/comp/sidebar", title=>'Error', expand=>"moderate"); 
@@ -110,6 +121,7 @@ if ($num_mods > 0)
 [ <a href="moderate.html?type=1">New Mods</a> |
 <a href="moderate.html?type=5">New FreeDB Mods</a> |
 <a href="moderate.html?type=3">My Mods</a> |
+<a href="moderate.html?type=7">My Failed Mods</a> |
 <a href="moderate.html?type=2">My Votes</a> |
 <a href="jumpmod.html">Jump</a> |
 <a href="mod_intro.html">Help</a> ]
@@ -130,6 +142,10 @@ if ($num_mods > 0)
    There are no moderations for this artist.
 %  } elsif ($type == ModDefs::TYPE_FREEDB) {
    There are no freedb moderations pending.
+%  } elsif ($type == ModDefs::TYPE_ARTIST) {
+   There are no moderations for this album.
+%  } elsif ($type == ModDefs::TYPE_MODERATOR_FAILED) {
+   There are no failed moderations.
 %  } else {
    You have not entered any moderations.
 %  }
