@@ -1,0 +1,44 @@
+%# vi: set ts=2 sw=2 ft=mason :
+<%args>
+$file => '/dev/null'
+</%args>
+<%perl>
+
+if (-f($file) and open(my $fh, "<", $file))
+{
+	my $all = do { local $/; <$fh> };
+	close $fh;
+
+	use File::Basename qw( basename );
+	my $name = basename($file);
+
+	my $size = -s $file;
+
+	my $mtime = (stat $file)[9];
+	my $time = $m->comp("/comp/datetime", $mtime);
+
+	</%perl>
+
+	<p>
+		"<% $name %>";
+		<% $size %> bytes;
+		last modified <% $time %>
+	</p>
+
+	<hr>
+	
+	<pre style="font-size: 10pt"><% $all %></pre>
+
+	<%perl>
+	
+} else {
+
+	</%perl>
+	<p>
+		Sorry, this page is currently not available.
+	</p>
+	<%perl>
+
+}
+
+</%perl>
