@@ -1,9 +1,9 @@
 <%args>
 $type=>1
 </%args>
-<& /comp/sidebar, expand=>'moderate' &>
 
 % if (!defined $session{user} || $session{user} eq '') {
+    <& /comp/sidebar, title=>'Login Required', expand=>'moderate' &>
     <center>
     <span class="bold">
        You must be logged in to edit/moderate the database.

@@ -1,5 +1,5 @@
 <%args>
-$title=>'MusicBrainz'
+$title
 </%args>
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
 <html>

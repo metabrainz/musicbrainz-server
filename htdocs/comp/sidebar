@@ -1,8 +1,9 @@
 <%args>
-$title=>''
+$title=>'MusicBrainz'
 $expand=>''
 </%args>
 
+<& /comp/header, title=>$title &>
 <& /comp/sidebarsectiontop, title=>'Jump To' &>
 <& /comp/navbox, expand=>$expand &>
 
