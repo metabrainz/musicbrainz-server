@@ -1,5 +1,6 @@
 <%args>
 $ind=>""
+$page=>"/browseartists.html"
 </%args>
 <%perl>
 
@@ -39,16 +40,16 @@ mc_out("&nbsp;&nbsp;</td><td>");
 
 if (length($ind) > 0)
 {
-    mc_out("<a href=\"/browseartists.html?index=$t\">Back</a><br>");
-    mc_out("<a href=\"/browseartists.html\">Top</a>");
+    mc_out("<a href=\"$page?index=$t\">Back</a><br>");
+    mc_out("<a href=\"$page\">Top</a>");
 }
 mc_out("</td><td>");
 mc_out("&nbsp;&nbsp;</td><td>");
 
-mc_out('<a href="/browseartists.html?index='.$ind.'_">?</a> ');
+mc_out('<a href="$page?index='.$ind.'_">?</a> ');
 for($i = 0; $i < 26; $i++)
 {
-    $p .= '<a href="/browseartists.html?index='. $ind . chr($i + 65) . '">' .
+    $p .= '<a href="$page?index='. $ind . chr($i + 65) . '">' .
            chr($i + 65) . "</a> ";
     if (($i + 1) % 13 == 0)
     {

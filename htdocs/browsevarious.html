@@ -1,10 +1,10 @@
 <%perl>
 
-my ($mb, @info, $row, $ind, $i, $offset, $num_artists, $ar, $rows);
+my ($mb, @info, $row, $ind, $i, $offset, $num_albums, $ar, $rows);
 my $max_items = 50;
 
 $mb = new MusicBrainz;
-mc_comp("/comp/sidebar", title=>'Browse Artists');
+mc_comp("/comp/sidebar", title=>'Browse Various Artist Albums');
 
 
 $ind = $ARGS{index};
@@ -16,7 +16,7 @@ $offset = $ARGS{offset};
 $offset = 0 if not defined $offset;
 $offset = 0 if $offset < 0;
 
-mc_comp("/comp/browsebox", ind=>$ind);
+mc_comp("/comp/variousbrowsebox", ind=>$ind);
 
 if (!defined $ind || $ind eq '')
 {
@@ -24,7 +24,7 @@ if (!defined $ind || $ind eq '')
     mc_out("alpha characters.<p>");
 }
 
-mc_out("<p>[ <a href=\"/addartist.html\">Add New Artist</a> ]<p>");
+mc_out("<p>[ <a href=\"/addalbum.html?artistid=1\">Add New Album</a> ]<p>");
 
 if (!defined $ind || $ind eq '')
 {
@@ -34,7 +34,7 @@ if (!defined $ind || $ind eq '')
 $mb->Login();
 $ar = Artist->new($mb->{DBH});
 
-($num_artists, @info) = $ar->GetArtistDisplayList($ind, $offset, $max_items);
+($num_artists, @info) = $al->GetVariousDisplayList($ind, $offset, $max_items);
 
 mc_out('<table width="100%"><tr>');
 mc_comp("/comp/listprevbutton", offset=>$offset, ind=>$ind, 
@@ -66,7 +66,7 @@ mc_out('</tr></table>');
 % } else {
       <td valign=top width="50%">
 % }
-        <a href="/showartist.html?artistid=<% $$row[0] %>">
+        <a href="/showalbum.html?albumid=<% $$row[0] %>">
         <% $$row[1]  %>
       </td>
       <td valign=top>
@@ -79,7 +79,7 @@ mc_out('</tr></table>');
 % } else {
          <td valign=top width="50%">
 % }
-            <a href="/showartist.html?artistid=<% $$row[0] %>">
+            <a href="/showalbum.html?albumid=<% $$row[0] %>">
             <% $$row[1]  %>
 %     } else {
          &nbsp;</td><td>&nbsp;

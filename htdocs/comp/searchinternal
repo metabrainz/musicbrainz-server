@@ -62,7 +62,7 @@
     <br>
     To browse the database alphabetically,<br>
     select a letter below:<p>
-    <& /comp/artistbrowsebox &>
+    <& /comp/browsebox &>
     <br>
     &nbsp;
   <& /comp/tableend &>

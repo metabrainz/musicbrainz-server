@@ -54,7 +54,7 @@ else
            album</a> | 
         <a href="/freedb/freedb.html?search=<% $artist->GetName() |u %>">Import
            album</a> |
-        <a href="/mod/tag/starttag.html">Merge albums</a> |
+        <a href="/mod/tag/starttag.html">Merge albums</a>
         <%perl>
     }
 
@@ -66,12 +66,12 @@ else
         if (exists $session{uid})
         {
             </%perl>
-            <a href="/moderate.html?type=4&artistid=<% $artist->GetId() %>"
-               >View mods</a> | 
+            | <a href="/moderate.html?type=4&artistid=<% $artist->GetId() %>"
+               >View mods</a>
             <%perl>
         }
 
-        mc_out("<a href=\"/showaliases.html?artistid=");
+        mc_out("| <a href=\"/showaliases.html?artistid=");
         mc_out($artist->GetId());
         mc_out("\">View aliases</a> | ");
         mc_comp("/comp/googlelink", search=>($artist->GetName()), 
@@ -85,6 +85,7 @@ else
         mc_out("<font size=\"+1\">There are too many albums to list.</font>");
         mc_out("<br>Please use the <a href=\"search.html\">Search Page</a>");
         mc_out(" to look for a specific album.");
+        mc_comp("/comp/browsebox", $page=>"/browsevarious.html");
         mc_out("</td></tr></table>");
     }
     else
