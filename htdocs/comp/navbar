@@ -5,13 +5,12 @@
       <span class="topmenu">
          <a href="/search.html">Search</a> |
 % if (!defined $session{user} || $session{user} eq '') {
-         <a href="/engine.html">Links</a> |
          <a href="/login.html">Login</a> |
 % } else {
          <a href="/moderator.html?uid=<% $session{uid} %>">Profile</a> |
          <a href="/logout.html">Logout</a> |
 % }
-         <a href="/prefs.html">Preferences</a> |
+         <a href="/prefs.html">Prefs</a> |
          <a href="/moderate.html">Moderate</a> |
          <a href="/download.html">Download</a> |
          <a href="/faq.html">FAQ</a> |

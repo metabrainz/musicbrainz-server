@@ -626,6 +626,8 @@ sub DeniedAction
             " where Discid = $quote");
 }
 
+# TODO: The DeniedAction currently fails because the versions string is
+# not being restored when the moderation fails.
 package RemoveTRMIdModeration;
 use vars qw(@ISA);
 @ISA = 'Moderation';
