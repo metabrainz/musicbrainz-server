@@ -6,110 +6,64 @@ $m->comp("/comp/checkloggedin", 1, 1,
 	)
 	or return;
 
-my @allowed_formats = (
-'%Y-%m-%d %H:%M:%S %Z',
-	'%A %B %e %Y, %H:%M',
-	'%d %B %Y %H:%M:%S',
-	'%a %b %e %Y, %H:%M',
-	'%d %b %Y %H:%M:%S',
-	'%d/%m/%Y %H:%M:%S',
-	'%m/%d/%Y %H:%M:%S',
-	'%d.%m.%Y %H:%M:%S',
-	'%m.%d.%Y %H:%M:%S',
-);
-
-my @allowed_timezones = (
-	[ "IDLW12"			=> "-1200 International Date Line West" ],
-	#[ "NT"	=> "-1100 Nome" ],
-	[ "HAST10HADT"		=> "-1000 Hawaii-Aleutian" ],
-	[ "AKST9AKDT"		=> "-0900 Alaska" ],
-	[ "PST8PDT"			=> "-0800 Pacific" ],
-	[ "MST7MDT"			=> "-0700 Mountain" ],
-	[ "CST6CDT"			=> "-0600 Central" ],
-	[ "EST5EDT"			=> "-0500 Eastern" ],
-	[ "AST4ADT"			=> "-0400 Atlantic" ],
-	[ "NST03:30NDT"		=> "-0330 Newfoundland" ],
-	[ "GST3GDT"			=> "-0300 Greenland" ],
-	[ "AZOT2AZOST"		=> "-0200 Azores" ],
-	[ "WAT1WAST"		=> "-0100 West Africa" ],
-	[ "WET0WEST"		=> "+0000 Western European" ],
-	[ "UTC"				=> "+0000 Universal Coordinated" ],
-	[ "GMT0BST"			=> "+0000 Greenwich Mean (UK)" ],
-	[ "CET-1CEST"		=> "+0100 Central European" ],
-	[ "EET-2EEST"		=> "+0200 Eastern European" ],
-	#[ "BT"				=> "+0300 Baghdad, USSR Zone 2" ],
-	#[ "IT"				=> "+0330 Iran" ],
-	#[ "ZP4"			=> "+0400 USSR Zone 3" ],
-	#[ "ZP5"			=> "+0500 USSR Zone 4" ],
-	[ "IST-05:30IDT"	=> "+0530 Indian" ],
-	#[ "ZP6"			=> "+0600 USSR Zone 5" ],
-	#[ "ZP7"			=> "+0700 USSR Zone 6" ],
-	#[ "JT"				=> "+0730 Java" ],
-	[ "AWST-8AWDT"		=> "+0800 Western Australian" ],
-	#[ "CCT"			=> "+0800 China Coast, USSR Zone 7" ],
-	[ "KST-9KDT"		=> "+0900 Korean" ],
-	[ "JST-9JDT"		=> "+0900 Japan, USSR Zone 8" ],
-	[ "ACST-09:30ACDT"	=> "+0930 Central Australian" ],
-	[ "AEST-10AEDT"		=> "+1000 Eastern Australian" ],
-	[ "IDLE-12"			=> "+1200 International Date Line East" ],
-	[ "NZST-12NZDT"		=> "+1200 New Zealand" ],
-);
+my $saved = 0;
 
 if ($ARGS{"SavePrefs"})
 {
-	my $datetimeformat = $ARGS{'datetimeformat'};
-	$session{"datetimeformat"} = $datetimeformat
-		if grep { $datetimeformat eq $_ } @allowed_formats;
+	# Insert zeroes for checkboxes which weren't submitted
+	for (qw(
+		mod_add_album_inline
+		JSMoveFocus
+		sitemenu_heavy
+		no_sidebar_panels
+		nosidebar
+	)) {
+		$ARGS{$_} = 0 if not defined $ARGS{$_};
+	}
 
-	my $tz = $ARGS{'timezone'};
-	$session{"tz"} = $tz
-	if grep { $tz eq $_->[0] } @allowed_timezones;
+	for my $key (UserPreference::valid_keys())
+	{
+		UserPreference::set($key, $ARGS{$key})
+			if defined $ARGS{$key};
+	}
 
-	$session{"JSMoveFocus"} = ($ARGS{"JSMoveFocus"} ? 1 : 0);
+	my $mb = $m->comp("/comp/dblogin");
+	my $ui = UserStuff->new($mb->{DBH});
 
-	$session{"sitemenu_heavy"} = ($ARGS{"sitemenu_heavy"} ? 1 : 0);
+	$saved = eval { UserPreference::SaveForUser($ui->Current) };
 
-	$session{"no_sidebar_panels"} = ($ARGS{"no_sidebar_panels"} ? 1 : 0);
-	$session{"nosidebar"} = ($ARGS{"nosidebar"} ? 1 : 0);
-
-	$session{"mod_add_album_inline"} = ($ARGS{"mod_add_album_inline"} ? 1 : 0);
-
-	my $mpp = $ARGS{"mods_per_page"};
-	MusicBrainz::IsNonNegInteger($mpp) or $mpp = 0;
-	$mpp = 25 if $mpp > 25;
-	$session{"mods_per_page"} = $mpp if $mpp;
-} else {
-	$session{"JSMoveFocus"} = 1
-		unless defined $session{"JSMoveFocus"};
+	if (not $saved)
+	{
+		my $err = $@;
+		</%perl>
+		<& /comp/sidebar, title => "Error Saving Preferences" &>
+		<p>
+			An error occurred while trying to save your preferences.&nbsp;
+			Sorry about that.
+		</p>
+		<& /comp/footer &>
+		<%perl>
+	}
 }
-
-my $datetimeformat = $session{"datetimeformat"} || $allowed_formats[0];
-my $timezone = $session{"tz"} || 'UTC';
 
 require POSIX;
 my $time = POSIX::mktime(24,56,13,31,11,101,0,0,0);
 
 my @format_list = map {
 	[ $_, $m->comp("/comp/datetime", { datetimeformat=> $_, tz=>'UTC' }, $time) ]
-} @allowed_formats;
+} UserPreference::allowed_datetime_formats();
 
 $time = time();
-
-$session{mod_add_album_inline} ||= 0;
-$session{mods_per_page} ||= 10;
 
 </%perl>
 
 <& /comp/sidebar, title=>'Preferences' &>
 
-<h2>Notice</h2>
-
-<p>
-	Currently these settings are lost at the end of each session.&nbsp;
-	Sometime soon we'll make it so that your preferences will be saved
-	against your moderator profile
-	so you won't have to come back to this page every time you log in.
+% if ($saved) {
+<p class="notice">
+	Your preferences have been saved.
 </p>
+% }
 
 <form method="post" action="/prefs.html" name="Preferences">
 	<input type="hidden" name="SavePrefs" value="1">
@@ -118,7 +72,7 @@ $session{mods_per_page} ||= 10;
 
 	<p>
 		<input type="checkbox" name="mod_add_album_inline"
-			<% $session{mod_add_album_inline} ? "checked" : "" %>
+			<% UserPreference::get('mod_add_album_inline') ? "checked" : "" %>
 			>
 		For "Add Album" mods, show the whole album
 	</p>
@@ -127,7 +81,7 @@ $session{mods_per_page} ||= 10;
 		Show up to
 		<input type="text" name="mods_per_page"
 			size=3
-			value="<% $session{mods_per_page} %>"
+			value="<% UserPreference::get('mods_per_page') %>"
 			>
 		mods per page (max: 25)
 	</p>
@@ -137,13 +91,15 @@ $session{mods_per_page} ||= 10;
 	<p>
 		Your preferred date/time format:
 		<select name="datetimeformat">
-			<& /comp/options, \@format_list, $datetimeformat &>
+			<& /comp/options, \@format_list,
+			UserPreference::get('datetimeformat') &>
 		</select>
 	</p>
 	<p>
 		Your preferred time zone:
 		<select name="timezone">
-			<& /comp/options, \@allowed_timezones, $timezone &>
+			<& /comp/options, [ UserPreference::allowed_timezones() ],
+			UserPreference::get('timezone') &>
 		</select>
 	</p>
 
@@ -158,7 +114,7 @@ $session{mods_per_page} ||= 10;
 
 	<p>
 		<input type="checkbox" name="JSMoveFocus"
-			<% $session{JSMoveFocus} ? "checked" : "" %>
+			<% UserPreference::get('JSMoveFocus') ? "checked" : "" %>
 			>
 		Use Javascript to move the input focus when the page loads
 	</p>
@@ -167,21 +123,21 @@ $session{mods_per_page} ||= 10;
 
 	<p>
 		<input type="checkbox" name="sitemenu_heavy"
-			<% $session{sitemenu_heavy} ? "checked" : "" %>
+			<% UserPreference::get('sitemenu_heavy') ? "checked" : "" %>
 			>
 		Load the full version of the "site menu" (more dynamic, but slower page loads)
 	</p>
 
 	<p>
 		<input type="checkbox" name="no_sidebar_panels"
-			<% $session{no_sidebar_panels} ? "checked" : "" %>
+			<% UserPreference::get('no_sidebar_panels') ? "checked" : "" %>
 			>
 		Don't show sidebar panels (faster page loads)
 	</p>
 
 	<p>
 		<input type="checkbox" name="nosidebar"
-			<% $session{nosidebar} ? "checked" : "" %>
+			<% UserPreference::get('nosidebar') ? "checked" : "" %>
 			>
 		Don't show the sidebar at all (even faster, but it makes it
 		rather hard to navigate the site)
