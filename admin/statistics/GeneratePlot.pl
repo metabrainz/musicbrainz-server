@@ -69,16 +69,15 @@ set xdata time
 set timefmt "%d %m %Y"
 set xlabel "Date"
 set xrange ["$from_date" : "$to_date"]
-set yrange [80000:600000]
+set yrange [75000:400000]
 set format x "%m/%d"
 set key left
-set ylabel "Number of entries in MusicBrainz"
+set ylabel "Moderations/Votes in MusicBrainz"
 
 set output "$outfile"
 
 plot "$datfile" using 1:(\$7) title "Moderations" with linespoints, \\
-     "$datfile" using 1:(\$8) title "Tracks" with linespoints, \\
-     "$datfile" using 1:(\$6) title "TRM Ids" with linespoints
+     "$datfile" using 1:(\$8) title "Votes" with linespoints
 END
 
     close PLOT;
@@ -103,7 +102,7 @@ sub DumpStats
             {
                 $start = "$3 $2 $1" if ($count == 0);
                 $end = "$3 $2 $1";
-                print STATS "$3 $2 $1 $row[4] $row[2] $row[1] $row[6] $row[5] $row[3]\n";
+                print STATS "$3 $2 $1 $row[4] $row[2] $row[1] $row[6] $row[7]\n";
                 $count++;
             }
         }

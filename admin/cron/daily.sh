@@ -17,7 +17,7 @@ cd ..
 # Collect stats
 ./CollectStats.pl
 cd statistics
-./GeneratePlot.pl $imagedir/basic_stats.pnp $imagedir/mod_stats.png
+./GeneratePlot.pl $imagedir/basic_stats.png $imagedir/mod_stats.png
 chmod a+r $imagedir/basic_stats.png
 chmod a+r $imagedir/mod_stats.png
 cd ..
