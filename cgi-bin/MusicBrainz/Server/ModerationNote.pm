@@ -27,11 +27,9 @@ use strict;
 
 package MusicBrainz::Server::ModerationNote;
 
-use base qw( TableBase );
-use Carp;
-
 require Exporter;
-{ our @ISA = qw( Exporter ); our @EXPORT_OK = qw( mark_up_text_as_html ) }
+{ our @ISA = qw( Exporter TableBase ); our @EXPORT_OK = qw( mark_up_text_as_html ) }
+use Carp;
 
 # GetId / SetId - see TableBase
 sub GetModerationId	{ $_[0]{moderation} }
