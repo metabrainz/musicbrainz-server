@@ -299,7 +299,7 @@ sub RebuildIndex
                     #print STDERR "Adding words for $self->{Table} $row->[0]: $row->[1]\n";
                     $self->AddWordRefs(@$row);
 
-                    if (($written % 100) == 0 && $written > 0)
+                    if ($written > 0 && ($written % 100) == 0)
                     {
                          print STDERR $self->{Table} . " index added " . 
                               ($written + $count) . " of $total_rows. (".
@@ -325,8 +325,9 @@ sub RebuildIndex
         };
         if ($@)
         {
+            my $err = $@;
             $sql->Rollback;
-            print STDERR "\nIndex insert: $@\n";
+            print STDERR "\nIndex insert: $err";
         }
 
         # Make postgres analyze its foo to speed up the insertion
