@@ -85,7 +85,7 @@ sub CheckModerations
 		WHERE status = " . STATUS_OPEN
 		. " OR status = " . STATUS_TOBEDELETED
 		. " ORDER BY id",
-	) or return 2;
+	);
 
 
 
@@ -388,6 +388,9 @@ sub CheckModerations
 
 			print "\n";
 		}
+
+		print localtime() . " :   There were no moderations!\n"
+			if not keys %count;
 	}
 
 	print localtime() . " : ModBot completed\n"
