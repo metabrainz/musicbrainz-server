@@ -90,14 +90,18 @@ sub allowed_timezones { @allowed_timezones }
 
 our %prefs = ();
 
+# Alphabetical order please
 addpref('datetimeformat', $allowed_datetime_formats[0], \&check_datetimeformat);
-addpref('timezone', 'UTC', \&check_timezone);
 addpref('JSMoveFocus', '1', \&check_bool);
-addpref('sitemenu_heavy', 0, \&check_bool);
-addpref('no_sidebar_panels', 0, \&check_bool);
-addpref('nosidebar', 0, \&check_bool);
 addpref('mod_add_album_inline', 0, \&check_bool);
 addpref('mods_per_page', 10, sub { check_int(1,25,@_) });
+addpref('nosidebar', 0, \&check_bool);
+addpref('no_sidebar_panels', 0, \&check_bool);
+addpref('sidebar_panel_search', 1, \&check_bool);
+addpref('sidebar_panel_stats', 1, \&check_bool);
+addpref('sidebar_panel_topmods', 1, \&check_bool);
+addpref('sitemenu_heavy', 0, \&check_bool);
+addpref('timezone', 'UTC', \&check_timezone);
 
 sub addpref
 {
