@@ -2,7 +2,7 @@
 
 <%perl>
 my $result = $m->cache(action=>'retrieve');
-#$result = undef;
+$result = undef;
 if (!defined($result)) 
 {
     my $mb = mc_comp("/comp/dblogin");
@@ -133,7 +133,6 @@ if (!defined($result))
                        title=>"&nbsp;&nbsp;&nbsp;Abstain Votes:");
     $result .= '<tr><td>&nbsp;<br><font class="bold">';
     $result .= 'Last 30 Days Graph</font></td></tr>';
-    $result .= '<tr><td><br><img src="/images/stats_30_days.png"></td></tr>';
 
     $mb->Logout();
     $m->cache(action=>'store', expire_next=>'hour', value=>$result);
@@ -147,6 +146,11 @@ if (!defined($result))
       <% $result |n %>
       </table>
    </td>
+</tr>
+</table>  
+<table cellpadding="10" cellspacing="0" border="0">
+<tr>
+   <td><img src="/images/stats_30_days.png"></td>
 </tr>
 </table>  
 <& /comp/footer &>

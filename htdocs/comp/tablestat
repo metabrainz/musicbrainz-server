@@ -10,6 +10,8 @@ $coltitles
 
 my ($sth, $result, $i, $bgcolor);
 
+$bgcolor = "#ffffff";
+
 $sth = $mb->{DBH}->prepare($query);
 if ($sth->execute)
 {
