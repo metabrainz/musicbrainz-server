@@ -1,0 +1,342 @@
+%# vi: set ts=2 sw=2 ft=mason :
+<& /comp/sidebar, title=>'MusicBrainz Database Structure', head =>
+'<style type="text/css">
+
+.diagram
+{
+	display: block;
+	text-align: center;
+	border: 1px dotted #999;
+	margin: 2em;
+	margin-left: auto;
+	margin-right: auto;
+}
+
+</style>' &>
+
+<p>
+	This document describes the database structure of MusicBrainz,
+	as of the CVS copy at 20<sup>th</sup> August 2003.&nbsp;
+	It's not meant to be a complete definition or any kind of definitive
+	reference; it's just a series of pictures with some narrative, intended to
+	be helpful to people trying to understand the overall form of the
+	database.&nbsp;
+	Also the diagrams weren't produced automatically or anything; they
+	were done by hand, so many contain errors.&nbsp; Please be forgiving if this
+	is the case.
+</p>
+
+<h2>The Whole Database in Miniature</h2>
+
+<p>
+	Firstly let's just take a quick look at the whole database,
+	in all its glory, all twenty-five tables of it:
+</p>
+
+<img class="diagram" src="database-20030820-small.png">
+
+<p>
+	In order to more easily understand it all, I'll now break it down
+	into eight more digestible chunks:
+</p>
+
+<ul>
+	<li><a href="#DBPartArtists">Artists</a></li>
+	<li><a href="#DBPartAlbums">Albums</a></li>
+	<li><a href="#DBPartTracks">Tracks</a></li>
+	<li><a href="#DBPartTRMs">TRMs</a></li>
+	<li><a href="#DBPartSearch">The search tables</a></li>
+	<li><a href="#DBPartModerator">Moderators (Users)</a></li>
+	<li><a href="#DBPartModeration">The moderation system</a></li>
+	<li><a href="#DBPartStats">Statistics</a></li>
+</ul>
+
+<p>
+	Finally there's a more readable
+	<a href="#DBWholeDiagram">whole database diagram</a>
+	at the bottom of this page.
+</p>
+
+<h2 id="DBPartArtists">Artists</h2>
+
+<p>
+	Each artist has one row in the "artist" table.&nbsp; There are two "special"
+	artists: the "Various Artists" artist (id = ModDefs::VARTIST_ID), which
+	is used to represent an album by more than one artist; and the "Deleted
+	Artist" (id = ModDefs::DARTIST_ID), which is used to maintain referential
+	integrity when an artist is deleted (the links get moved to the "deleted
+	artist").&nbsp;
+</p>
+	
+<p>
+	"artistalias" stores one row for each entered alias (most artists don't have
+	aliases).&nbsp; Each alias references a particular artist.&nbsp;
+</p>
+
+<img class="diagram" src="part-artist.png">
+
+<p>
+	"artist_relation" relates pairs of artists together with a "weight" factor
+	(where a larger weight indicates that the artists are more closely
+	related).&nbsp; The relationships described by artist_relation are
+	symmetrical.&nbsp;
+</p>
+
+<h2 id="DBPartAlbums">Albums</h2>
+
+<p>
+	Each album lives in the "album" table, and is linked back to its parent
+	artist (see also "VARTIST_ID", above).&nbsp;
+</p>
+
+<p>
+	For efficiency reasons, a few tidbits of information are kept in
+	de-normalised form in the "albummeta" table.&nbsp; This rows in this table
+	normally correspond one-to-one with those in the "album" table - in other
+	words, the "id" used is exactly the same as that in the "album" table.&nbsp;
+	If the albummeta row is missing, it is re-calculated and inserted.&nbsp;
+	For each album the information held is simply the number of
+	tracks, disc ids and TRM ids on that album.
+</p>
+
+<img class="diagram" src="part-album.png">
+
+<p>
+	TODO discid &amp; toc
+</p>
+
+<h2 id="DBPartTracks">Tracks</h2>
+
+<p>
+	Tracks are held in the "track" and "albumjoin" tables.&nbsp;
+	The design of these tables is as follows (but, as we'll see in a minute,
+	the full design isn't used yet).&nbsp;
+</p>
+
+<p>
+	The idea is that a track can appear on several different albums;
+	the information that is the same each time (name, artist, ID, length)
+	is on the "track" table; the information that changes for each album
+	(mainly, what track number it is) is on the "albumjoin" table.&nbsp;
+	Hence broadly speaking, "track" represents a particular recording of
+	a song, and "albumjoin" represents the inclusion of that recording
+	on each album.&nbsp;
+</p>
+
+<img class="diagram" src="part-track.png">
+
+<p>
+	In MusicBrainz data so far, however, tracks are not re-used across different
+	albums, so basically for every "track" row there is exactly one "albumjoin"
+	row.&nbsp;
+</p>
+
+<h2 id="DBPartTRMs">TRMs</h2>
+
+<p>
+	TRMs identify tracks.&nbsp;
+	Each time a new TRM is submitted to the server, it is lookup up in the "trm"
+	table; if it's not there, then it is added.&nbsp; Each TRM submission also
+	includes the version string of the client software submitting it.&nbsp;
+	Those version strings are stored in "clientversion", and each TRM is linked
+	to the client version which (first) submitted it.&nbsp;
+</p>
+
+<img class="diagram" src="part-trm.png">
+
+<p>
+	Whenever a new association between a track and a TRM is submitted,
+	the relevant row is added to the "trmjoin" table (if it is not already
+	there).&nbsp; Finally, whenever a TRM lookup is performed, the "lookupcount"
+	value is incremented for that trm.
+</p>
+
+<h2 id="DBPartSearch">The Search Tables</h2>
+
+<p>
+	Each of the search indexes for artists, albums and tracks works in exactly the
+	same way (err, almost.  See below).&nbsp;
+	We'll just consider tracks for now, to keep things simple.&nbsp;
+	The name of track is read in and "tokenized" - broadly speaking this means
+	that it has its accents removed, is converted to lower case, then split
+	up into separate words.
+</p>
+
+<p>
+	To store a single track's name in the search index, each word is either
+	looked up in the "wordlist", or it is added there.&nbsp; Then a row is added
+	to "trackwords" for each word in the tokenized name.
+</p>
+
+<img class="diagram" src="part-search.png">
+
+<p>
+	Albums are dealt with in exactly the same way as tracks.&nbsp;
+	Artists are only fractionally different, in that the aliases for each artist
+	are indexed too.&nbsp; (The words used in the alias link back to the main
+	artist record).&nbsp;
+</p>
+
+<p>
+	Finally, from time to time (currently it's once a week) the number of times
+	each word (in "wordlist") is used by artists, albums, and tracks is counted,
+	and the results stored in the "artistusecount", "albumusecount" and
+	"trackusecount" columns.&nbsp; This is used to optimize the search function,
+	by looking for the less common words first, then successively filtering on
+	the more common words.&nbsp;
+</p>
+
+<h2 id="DBPartModerator">Moderators (Users)</h2>
+
+<p>
+	Moderators' (i.e. registered users') details are held in the "moderator"
+	table; the main things of interest are the ID, login name, password, and
+	e-mail address.&nbsp; Each moderator can also store their
+	<a href="/prefs.html">preferences</a> for various things, such as their
+	preferred date/time display format, and their time zone.&nbsp; Such
+	information is held in the "moderator_preference" table, where each
+	preference simply as a textual "key", and a textual "value" (although the
+	interpretation of that value isn't specified here; for example, for some
+	preferences, it might have to be a number).&nbsp;
+</p>
+
+<img class="diagram" src="part-moderator.png">
+
+<p>
+	Moderators can also "subscribe" to artists, which means that they get sent
+	an e-mail once a day when one of their subscribed artists has some new
+	moderations (if no new moderations have been entered for their artists, then
+	no e-mail is sent).&nbsp; For each artist to which a moderator subscribes,
+	a row is added to the "moderator_subscribe_artist" table.&nbsp;
+	</p>
+	
+<p>
+	Each row includes the last moderation ID which was processed by the
+	subscription system for this moderator/artist pair - in other words, only
+	moderations after this "lastmodsent" will be considered.&nbsp; "lastmodsent"
+	is updated each time the subscription process runs.&nbsp;
+	Finally, if one of a moderator's subscribed artists is deleted, or merged
+	into another artist, then the "mergedbymod" or "deletedbymod" values are
+	used; when the subscription process next runs, the user is told that one of
+	their subscribed artists has been removed, and is given a link to the
+	moderation which did it.&nbsp; Then, the moderator_subscribe_artist row is
+	removed.
+</p>
+
+<h2 id="DBPartModeration">The Moderation System</h2>
+
+<p>
+	Moderators enter moderations (no surprises there, I hope :-)&nbsp;
+	Those moderations are stored in the "moderation" table.&nbsp;
+	The "moderator" column indicates who added the moderation; "type" indicates
+	what type of moderation it is (Add Album, Edit Track Name, etc).&nbsp;
+</p>
+
+<p>
+	Several of the columns have vague, fuzzy definitions, but the interpretation
+	of their contents is really governed by first looking at the "type".&nbsp;
+	Each moderation type has a "handler" (see
+	<a href="http://cvs.musicbrainz.org/cvs/mb_server/cgi-bin/MusicBrainz/Server/Moderation/"
+		>the MusicBrainz::Server::Moderation::* modules</a>)
+	which determines what goes into these columns, and how data extracted from
+	them should be handled.&nbsp;
+</p>
+
+<p>
+	The "fuzzy" columns, and their "definitions", are:
+</p>
+
+<ul>
+	<li>
+		"artist" - the artist this moderation is for (though this is a bit of a
+		grey area; some moderations affect more than one artist, and maybe some
+		don't really belong to any artist at all.&nbsp; Nevertheless, an artist ID
+		is chosen and stored in the "artist" column).
+	</li>
+	<li>"tab" - the table being modified (e.g. artist, track etc)</li>
+	<li>"col" - the column within that table being modified (e.g. name)</li>
+	<li>"rowid" - the primary key value of the row (in "tab") being changed</li>
+	<li>"prevvalue" - the previous value of the thing being changed</li>
+	<li>"newvalue" - the new value of the thing being changed</li>
+</ul>
+
+<p>
+	In practice, "prevvalue" is often unused and "newvalue" often contains a
+	whole series of data items relevant to the moderation.&nbsp;
+</p>
+
+<img class="diagram" src="part-moderation.png">
+
+<p>
+	The "status" column describes the status of the moderation (see the
+	ModDefs::STATUS_* constants) - for example "Open", "Deleted", "Applied",
+	"Failed vote" etc.&nbsp;
+	"yesvotes" and "novotes" count the number of "yes" and "no" votes for this
+	moderation, respectively.&nbsp;
+	"depmod" is meant to indicate the ID of another moderation on which this one
+	depends, but this is generally unreliable and is being phased out.&nbsp;
+	"automod" indicates whether this moderation was automatically applied (i.e.
+	was never put to the vote first).&nbsp;
+	Finally "opentime" is when the moderation was entered into the system,
+	"expiretime" is the time at which voting closes (assuming votes have been
+	cast), and "closetime" (which starts out as NULL) is the time at which
+	the moderation was actually closed (i.e. either applied or rejected).
+</p>
+	
+<p>
+	The other two tables are rather simpler.&nbsp;
+	"moderationnote" stores notes entered against moderations (the moderator who
+	entered the note, the text of the note, and which moderation it is
+	for).&nbsp;
+	"votes" stores each vote cast on each moderation - who voted, on which
+	moderation, what their vote was (yes / no / abstain), and at what time they
+	voted.
+</p>
+
+<h2 id="DBPartStats">Statistics</h2>
+
+<p>
+	Every night certain measurements are taken and stored in the statistics
+	tables.&nbsp; These statistics are used to generate
+	<a href="/stats.html">the database statistics page</a>.&nbsp;
+</p>
+
+<p>
+	Originally there was just the "stats" table; it just kept, for each day,
+	just a simple count of how many artists, albums, tracks, disc IDs, TRMs,
+	moderations, votes and moderators there were.&nbsp;
+</p>
+
+<p>
+	These days however the "stats" table isn't used - it's been superseded by
+	the "currentstat" and "historicalstat" tables.&nbsp; Each night various
+	things are counted, and those counts are stored in both tables -
+	"currentstat" always keeps just the most up-to-date value of each
+	measurement, and "historicalstat" keeps all of them.&nbsp;
+	Each stat has a textual "name" (e.g. "count.album.has_discid" is how many
+	albums there are which have at least one disc id).&nbsp;
+	See <a href="http://cvs.musicbrainz.org/cvs/mb_server/cgi-bin/Statistic.pm"
+		>Statistic.pm</a> to understand what stats there are, and what names they
+	have.
+</p>
+
+<img class="diagram" src="part-stats.png">
+
+<h2 id="DBWholeDiagram">The Whole Database (again)</h2>
+
+<p>
+	So here we are again, the whole database in one diagram.&nbsp;
+	Click on the diagram above to see the whole thing at a more readable
+	scale.&nbsp;
+</p>
+
+<a href="database-20030820-60.png"
+	><img class="diagram" src="database-20030820-small.png"></a>
+
+<p>
+	Alternatively, there's also a
+	<a href="database-20030820.png">full-size version</a>
+	of the whole diagram (67% bigger!).
+</p>
+
+<& /comp/footer &>
