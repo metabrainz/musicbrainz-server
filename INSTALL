@@ -6,13 +6,7 @@ Requirements:
 
 The MusicBrainz server requires the following items:
 
-1) A real SQL server, like postgres. MySQL won't work.
-   The scripts use the perl DBI interface to talk to the server. It should
-   work with other servers as well, but that has not been tested.
-
-   You need at least version 7.3 of Postgres!
-
-   PostgreSQL notes:
+1) PostgreSQL 7.3 or later
 
       - Configure the server with: configure --enable-multibyte=UNICODE
         to enable UTF-8 support. THIS IS IMPORTANT!!
@@ -24,8 +18,25 @@ The MusicBrainz server requires the following items:
         If it doesn't return "--enable-multibyte" at all, you'll have to
         recompile it from source
 
-   PostgreSQL authentication and Security
+   Replication
    
+   For replication we use the "dbmirror" code from the "contributed" part of
+   the postgres codebase.  In particular you'll need the "pending.so" file
+   (we've only tested this on Linux).  Before installing, check the file
+   ./admin/sql/ReplicationSetup.sql to ensure that the path to "pending.so" is
+   correct.
+
+   If you don't want to be a replication master and you don't have
+   "pending.so",  you can delete the "CREATE FUNCTION" statement from
+   ReplicationSetup.sql.
+
+   If you *do* want to be a replication master, be sure to add the
+   "--with-replication" option to InitDB.pl.  (And be sure to run
+   ExportAllTables regularly, otherwise your Pending and PendingData tables
+   may grow out of control).
+
+   PostgreSQL authentication and Security
+ 
    (Read the Postgres documentation ("Client Authentication") for details).
 
    For normal operation, MusicBrainz only needs to connect from one or two OS

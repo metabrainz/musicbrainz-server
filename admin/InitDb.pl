@@ -33,6 +33,7 @@ my $dbuser = &DBDefs::DB_USER;
 my $opts = &DBDefs::DB_PGOPTS;
 my $psql = "psql";
 my $postgres = "postgres";
+my $with_replication = 0;
 
 use Getopt::Long;
 use strict;
@@ -94,6 +95,7 @@ sub Create
 
 sub Import
 {
+	RunSQLScript("ReplicationSetup.sql", "Setting up replication ...");
 	RunSQLScript("CreateTables.sql", "Creating tables ...");
 
     {
@@ -114,6 +116,9 @@ sub Import
 	RunSQLScript("CreateFunctions.sql", "Creating functions ...");
 	RunSQLScript("CreateTriggers.sql", "Creating triggers ...");
 
+	RunSQLScript("CreateReplicationTriggers.sql", "Creating replication triggers ...")
+		if $with_replication;
+
     print localtime() . " : Optimizing database ...\n";
     system("echo \"vacuum analyze\" | $psql $opts -U $dbuser $dbname");
     die "\nFailed to optimize database\n" if ($? >> 8);
@@ -125,6 +130,7 @@ sub Clean
 {
     my $ret;
     
+	RunSQLScript("ReplicationSetup.sql", "Setting up replication ...");
 	RunSQLScript("CreateTables.sql", "Creating tables ...");
 
 	RunSQLScript("CreatePrimaryKeys.sql", "Creating primary keys ...");
@@ -134,6 +140,9 @@ sub Clean
 	RunSQLScript("CreateViews.sql", "Creating views ...");
 	RunSQLScript("CreateFunctions.sql", "Creating functions ...");
 	RunSQLScript("CreateTriggers.sql", "Creating triggers ...");
+
+	RunSQLScript("CreateReplicationTriggers.sql", "Creating replication triggers ...")
+		if $with_replication;
 
 	RunSQLScript("InsertDefaultRows.sql", "Adding default rows ...");
 
@@ -161,6 +170,8 @@ Options are:
      --[no]echo       When running the various SQL scripts, echo the commands
                       as they are run
   -h --help           This help
+     --with-replication  Activate the replication triggers (if you want to
+                         be a master database to someone else's slave)
 
 After the import option, you may specify one or more MusicBrainz data dump
 files for importing into the database. Once this script runs to completion
@@ -183,6 +194,7 @@ GetOptions(
 	"createdb"	=> \$fCreateDB,
 	"import|i"	=> \$fImport,
 	"clean|c"	=> \$fClean,
+	"with-replication!"	=> \$with_replication,
 	"echo!"		=> \$fEcho,
 	"help|h"	=> \&Usage,
 ) or exit 2;
