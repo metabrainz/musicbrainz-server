@@ -28,6 +28,7 @@ use lib "$FindBin::Bin/../cgi-bin";
 use DBI;
 use DBDefs;
 use MusicBrainz;
+use HTML::Mason::Tools qw( html_escape );
 
 sub FindBadEntries
 {
@@ -66,12 +67,12 @@ sub FindBadEntries
                 if ($artist ne $last_artist)
                 {
                    print "<p><a href=\"/showartist.html?artistid=$row[3]\">";
-                   print "<font size=\"+1\">$artist</font></a><br>";
+                   print "<font size=\"+1\">" . html_escape($artist) . "</font></a><br>";
                 }
 
                 print "&nbsp;&nbsp;&nbsp;";
                 print "$num: <a href=\"/showtrack.html?trackid=$id\">";
-                print "$name</a><br>\n";
+                print html_escape($name) . "</a><br>\n";
 
                 $last_artist = $artist;
             }
