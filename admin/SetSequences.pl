@@ -67,21 +67,23 @@ $sql = Sql->new($mb->{DBH});
 
 print "Connected to database.\n";
 
-SetSequence($sql, "artist");
-SetSequence($sql, "artistalias");
 SetSequence($sql, "album");
-SetSequence($sql, "track");
 SetSequence($sql, "albumjoin");
+SetSequence($sql, "artist");
+# artist_relation
+SetSequence($sql, "artistalias");
+SetSequence($sql, "clientversion");
 SetSequence($sql, "discid");
-SetSequence($sql, "toc");
-SetSequence($sql, "trm");
-SetSequence($sql, "trmjoin");
-SetSequence($sql, "moderator");
 SetSequence($sql, "moderation");
 SetSequence($sql, "moderationnote");
-SetSequence($sql, "votes");
+SetSequence($sql, "moderator");
 SetSequence($sql, "stats");
-SetSequence($sql, "clientversion");
+SetSequence($sql, "toc");
+SetSequence($sql, "track");
+SetSequence($sql, "trm");
+SetSequence($sql, "trmjoin");
+SetSequence($sql, "votes");
+SetSequence($sql, "wordlist");
 
 # Disconnect
 $mb->Logout;
