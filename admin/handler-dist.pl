@@ -79,7 +79,15 @@ sub handler
         };
 
         my $err = $@;
+
+	my $user = $HTML::Mason::Commands::session{user};
+	if (not $err and defined $user and $user ne "")
+	{
+	    $r->connection->user($user);
+	}
+
         $ah->handle_request($r);
+
         if (! $err) 
         {   
              # only untie if you've managed to create a tie in the first place
