@@ -152,13 +152,15 @@ sub FindArtistByName
 
    my $engine = SearchEngine->new($dbh);
    $engine->Table('Artist');
-   $engine->AllWords(1);
-   $engine->Limit($limit);
-   $engine->Search($search);
+
+    $engine->Search(
+	query => $search,
+	limit => $limit,
+    );
 
    while (my $row = $engine->NextRow) 
    {
-       push @ids, $row->[0];
+       push @ids, $row->{'artistid'};
    }
 
    return $rdf->CreateArtistList($parser, @ids);
@@ -178,13 +180,15 @@ sub FindAlbumByName
 
    my $engine = SearchEngine->new($dbh);
    $engine->Table('Album');
-   $engine->AllWords(1);
-   $engine->Limit($limit);
-   $engine->Search($search);
+
+    $engine->Search(
+	query => $search,
+	limit => $limit,
+    );
 
    while (my $row = $engine->NextRow) 
    {
-       push @ids, $row->[0];
+       push @ids, $row->{'albumid'};
    }
 
    return $rdf->CreateAlbumList(@ids);
@@ -204,13 +208,15 @@ sub FindTrackByName
 
    my $engine = SearchEngine->new($dbh);
    $engine->Table('Track');
-   $engine->AllWords(1);
-   $engine->Limit($limit);
-   $engine->Search($search);
+
+    $engine->Search(
+	query => $search,
+	limit => $limit,
+    );
 
    while (my $row = $engine->NextRow) 
    {
-       push @ids, $row->[0];
+       push @ids, $row->{'trackid'};
    }
 
    return $rdf->CreateTrackList(@ids);

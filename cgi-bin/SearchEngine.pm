@@ -23,9 +23,30 @@
 
 package SearchEngine;
 
-use vars qw(@ISA @EXPORT);
-@ISA    = @ISA    = '';
-@EXPORT = @EXPORT = '';
+use vars qw(@ISA @EXPORT @EXPORT_OK %EXPORT_TAGS);
+
+{
+    @ISA = qw( Exporter );
+    @EXPORT = ();
+
+    my @constants = qw(
+	SEARCHRESULT_SUCCESS
+	SEARCHRESULT_NOQUERY
+	SEARCHRESULT_TIMEOUT
+    );
+
+    @EXPORT_OK = (@constants);
+
+    %EXPORT_TAGS = (
+	constants => \@constants,
+    );
+
+    my %all;
+    @all{@$_} = () for values %EXPORT_TAGS;
+    $EXPORT_TAGS{'all'} = [ keys %all ];
+
+    () = (@ISA, @EXPORT, @EXPORT_OK, %EXPORT_OK);
+}
 
 use strict;
 use DBDefs;
@@ -34,6 +55,16 @@ use MusicBrainz;
 use Sql;
 use Text::Unaccent;
 use Encode qw( encode decode );
+use Carp qw( croak );
+
+use constant SEARCHRESULT_SUCCESS => 1;
+use constant SEARCHRESULT_NOQUERY => 2;
+use constant SEARCHRESULT_TIMEOUT => 3;
+
+use constant MAX_ANALYZE_WORDS => 20;
+use constant MAX_QUERY_WORDS => 8;
+use constant DEFAULT_SEARCH_TIMEOUT => 30;
+use constant DEFAULT_SEARCH_LIMIT => 0;
 
 sub new
 {
@@ -43,12 +74,8 @@ sub new
     bless $self, $class;
 
     $self->{DBH}          = $dbh;
-    $self->{STH}          = undef;
     $self->{ValidTables}  = ['Album','Artist','Track'];
     $self->{Table}      ||= 'Artist';
-    $self->{AllWords}   ||= 0;
-    $self->{Limit}      ||= 0;
-    $self->{BGColor}    ||= "#ffffff";
 
     my $sql = Sql->new($self->{DBH});
     $self->{SQL} = $sql;
@@ -63,51 +90,40 @@ sub Table
     return $self->{Table};
 }
 
-sub AllWords
-{
-    my ($self,$allwords) = @_;
-    $self->{AllWords} = $allwords if defined $allwords;
-    return $self->{AllWords};
-}
-
-sub Limit
-{
-    my ($self,$limit) = @_;
-    $self->{Limit} = $limit if defined $limit;
-    return $self->{Limit};
-}
-
 sub Tokenize
 {
     my $self  = shift;
     my $str = shift;
 
-    # This used to be "use locale", apparently so that '\w' et al
-    # would translate to known things.  But is "use locale" actually
-    # required here?
-    
+    # Note that tokenization is script-neutral (e.g. Latin, Arabic, Cyrillic
+    # etc) apart from the treatment of apostrophes.  Non-Latin scripts are
+    # /bound/ to have some equivalent to our apostrophe (i.e. a non-letter,
+    # non-number character in the middle of a word).  These can be added
+    # as we understand more about the generalised problem.
+
     $str = unac_string('UTF-8', $str);
-    $str = decode("utf-8", $str);
+    # Always case insensitive
+    $str = lc decode("utf-8", $str);
 
-    my @words = split /\s/, $str;
+    # Apostrophes are removed; hence:
+    # don't => dont
+    # 'n' => n
+    # 'quoted bit' => quoted,bit
+    $str =~ tr/'//d;
 
-    my %seen =  ();
-    foreach (@words) 
-    {
-        s/[^a-zA-Z]//g; # strip non words
-        tr/A-Z/a-z/;
-        next if $_ eq '';
+    # Look for chains of letters/numbers
+    my @words = $str =~ /([\pL\pN]+)/g;
+    $_ = encode("utf-8", $_) for @words;
 
-        $seen{$_}++;
-    }
-
-    #uniqify the word list
-    @words = keys %seen;
-
-    @words = map { encode("utf-8", $_) } @words;
-
-    return @words;
+    my %seen = ();
+    ++$seen{$_} for @words;
+    return(\%seen, \@words) if wantarray;
+    \%seen;
 }
+
+################################################################################
+# Maintain the search engine indices.
+################################################################################
 
 sub AddWord
 {
@@ -123,11 +139,11 @@ sub AddWord
     return $self->{SQL}->GetLastInsertId('WordList');
 }
 
-sub AddWordRefs 
+sub AddWordRefs
 {
     my $self = shift;
     my ($object_id,$name) = @_;
-    my @words = $self->Tokenize($name);
+    my @words = keys %{ $self->Tokenize($name) };
 
     foreach (@words)
     {
@@ -140,11 +156,11 @@ sub AddWordRefs
 	    AND WordId = ?",
 	    $object_id,
 	    $word_id,
-	) and next;	
+	) and next;
 
 	$self->{SQL}->Do(
 	    "INSERT INTO $self->{Table}Words
-    		($self->{Table}id, Wordid) 
+    		($self->{Table}id, Wordid)
      		VALUES (?,?)",
 	    $object_id,
 	    $word_id,
@@ -162,96 +178,11 @@ sub RemoveObjectRefs
     );
 }
 
-sub GetQuery
-{
-    my $self = shift;
-    my $search = shift;
-    my ($query, $conditions);
-    my @words = $self->Tokenize($search);
-
-    my $where_clause = $self->GetWhereClause(@words);
-    
-    $conditions .= ("HAVING count(WordList.Id) = " . (scalar @words)) if $self->AllWords;
-
-    if ($self->{Table} eq 'Album')
-    {
-        $query = "
-        SELECT Album.id, Album.name, Artist.id, Artist.name, Album.gid, 
-               count(WordList.Id), lower(Album.name)
-        FROM Album, AlbumWords, WordList, Artist
-        WHERE $where_clause
-        and AlbumWords.Wordid = WordList.Id
-        and AlbumWords.Albumid = Album.Id
-        and Artist.Id = Album.Artist
-        GROUP BY Album.Id, Album.name, Artist.id, Artist.name, Album.gid
-        $conditions
-        ORDER BY count(WordList.Id) desc, lower(Album.name), Album.name";
-    }
-    elsif ($self->{Table} eq 'Artist')
-    {
-        $query = "
-        SELECT Artist.id, Artist.name, Artist.sortname, Artist.gid, 
-               count(WordList.Id), lower(Artist.sortname)
-        FROM Artist, ArtistWords, WordList
-        WHERE $where_clause
-        and ArtistWords.Wordid = WordList.Id
-        and ArtistWords.Artistid = Artist.Id
-        GROUP BY Artist.id, Artist.name, Artist.sortname, Artist.gid
-        $conditions
-        ORDER BY count(WordList.Id) desc, lower(Artist.sortname), Artist.sortname";
-    }
-    elsif ($self->{Table} eq 'Track')
-    {
-        $query = "
-        SELECT Track.id, Track.name, Artist.id, Artist.name, AlbumJoin.album, 
-               Track.gid, count(WordList.Id), lower(Track.name)
-        FROM Track, TrackWords, WordList, Artist, AlbumJoin
-        WHERE $where_clause
-        and TrackWords.Wordid = WordList.Id
-        and TrackWords.Trackid = Track.Id
-        and Track.Artist = Artist.id
-        and AlbumJoin.Track = Track.Id
-        GROUP BY Track.Id, Track.name, Artist.id, Artist.name, AlbumJoin.album, Track.gid
-        $conditions
-        ORDER BY count(WordList.Id) desc, lower(Track.name), Track.name";
-    }
-    $query .= (" LIMIT " . $self->Limit) if  $self->Limit;
-    return $query;
-}
-        
-sub Search {
-    my $self = shift;
-    my $search = shift;
-
-    $search =~ s/^\s+//;
-
-    my $query = $self->GetQuery($search);
-
-    $self->{STH} = Sql->new($self->{DBH});
-    $self->{STH}->Select($query);
-}
-
-sub GetWhereClause
-{
-    my $self = shift;
-    my @words = @_;
-    my $where_clause = "WordList.Word ";
-    if (scalar @words == 1)
-    {
-        $where_clause .= " = '" . $words[0] . "'";
-    }
-    else
-    {
-        $where_clause .= "IN ( '" . (join "','", @words) . "')";
-    }
-    return $where_clause;
-}
-
 sub RebuildIndex
 {
     my $self = shift;
     my ($count, $written, $query, $total_rows, $start_time);
-    
+
     $self->{SQL}->Begin();
     $self->{SQL}->Do("DELETE FROM " . $self->{Table} . "Words");
     $self->{SQL}->Commit();
@@ -272,11 +203,11 @@ sub RebuildIndex
         {
             print STDERR "Start transaction for $count -> " . ($count + $block_size) . "\n";
             $self->{SQL}->Begin;
-       
+
             $query = qq|SELECT Id, Name FROM $self->{Table} |;
             if ($self->{Table} eq 'Artist')
             {
-                  $query .= qq|union select artistalias.ref, artistalias.name 
+                  $query .= qq|union select artistalias.ref, artistalias.name
                                        from ArtistAlias |;
             }
             $query .= qq|LIMIT $block_size OFFSET $count|;
@@ -292,10 +223,10 @@ sub RebuildIndex
                     if ($written > 0 && time() > $start_time &&
                        ($written % 100) == 0)
                     {
-                         print STDERR $self->{Table} . " index added " . 
+                         print STDERR $self->{Table} . " index added " .
                               ($written + $count) . " of $total_rows. (".
-                              int(($written + $count) * 100 / $total_rows) . 
-                              "%, " .  int($written / (time() - $start_time)) . 
+                              int(($written + $count) * 100 / $total_rows) .
+                              "%, " .  int($written / (time() - $start_time)) .
                               " rows/sec)                \r";
                     }
 
@@ -304,10 +235,10 @@ sub RebuildIndex
                 $self->{SQL}->Finish;
             }
 
-            print STDERR $self->{Table} . " index added " . 
+            print STDERR $self->{Table} . " index added " .
                          ($written + $count) . " of $total_rows. (".
-                         int(($written + $count) * 100 / $total_rows) . 
-                         "%, " .  int($written / (time() - $start_time)) . 
+                         int(($written + $count) * 100 / $total_rows) .
+                         "%, " .  int($written / (time() - $start_time)) .
                          " rows/sec)                \r";
 
             # And commit all the changes
@@ -337,47 +268,556 @@ sub RebuildIndex
     }
 }
 
-sub RebuildAllIndices
+################################################################################
+# Perform a search
+################################################################################
+
+# Do the search!
+
+sub coalesce
+{
+    my $t = shift;
+
+    while (not defined $t and @_)
+    {
+	$t = shift;
+    }
+
+    $t;
+}
+
+sub Search
+{
+    my ($self, %opts) = @_;
+    
+    my $search = coalesce($opts{'query'}, "");
+    $self->{'limit'} = coalesce($opts{'limit'}, DEFAULT_SEARCH_LIMIT, 0);
+    $self->{'timeout'} = coalesce($opts{'timeout'}, DEFAULT_SEARCH_TIMEOUT, 0);
+
+    $self->{RESULTTYPE} = undef;
+    $self->{RESULTS} = [];
+    $self->{RESIDX} = 0;
+
+    my ($words, $wordchain) = $self->Tokenize($search);
+
+    unless (keys %$words)
+    {
+	$self->{RESULTTYPE} = SEARCHRESULT_NOQUERY;
+	return;
+    }
+
+    use DebugLog;
+    if (my $d = DebugLog->open)
+    {
+        $d->stamp;
+	$d->print(
+	    "Tokenized query: "
+	    . join(" ", map { "$_=$words->{$_}" } keys %$words)
+	    . "\n"
+	);
+        $d->close;
+    }
+
+    my $sqlwords = $words;
+
+    # If there are too many words, we'll search on only a few of them.
+    if (keys(%$sqlwords) > MAX_ANALYZE_WORDS)
+    {
+	# Pick the longest words; they tend to be less common.
+	my @w = sort { length($b) <=> length($a) } keys %$sqlwords;
+	$sqlwords = +{
+	    map {
+		$w[$_] => $words->{ $w[$_] }
+	    } 0 .. MAX_ANALYZE_WORDS-1
+	};
+    }
+
+    if (my $d = DebugLog->open)
+    {
+        $d->stamp;
+	$d->print(
+	    "Analze words: "
+	    . join(" ", map { "$_=$sqlwords->{$_}" } keys %$sqlwords)
+	    . "\n"
+	);
+        $d->close;
+    }
+
+    my $table = lc $self->Table;
+
+    my $sql = Sql->new($self->{DBH});
+    my $counts = $sql->SelectListOfLists(
+	"SELECT id, word, ${table}usecount
+	FROM wordlist WHERE
+	word IN (" . join(",", ("?") x scalar keys %$sqlwords) . ")",
+	keys(%$sqlwords),
+    );
+
+    if (my $d = DebugLog->open)
+    {
+        $d->stamp;
+	$d->printf("Word analysis: %12d  %6d  %s\n", @$_[0,2,1]) for @$counts;
+	$d->close;
+    }
+
+    # If any words are missing, return an empty result set straight away.
+
+    for my $word (keys %$sqlwords)
+    {
+	next if grep { $_->[1] eq $word } @$counts;
+
+	$self->{RESULTTYPE} = SEARCHRESULT_SUCCESS;
+
+	return;
+    }
+
+    # Now on to do the actual searching!
+
+    @$counts = sort {
+	$a->[2] <=> $b->[2]
+    } @$counts;
+
+    # Search on ay most this many words (least common first)
+    splice(@$counts, MAX_QUERY_WORDS)
+	if @$counts > MAX_QUERY_WORDS;
+
+    if (my $d = DebugLog->open)
+    {
+        $d->stamp;
+	$d->printf("Query for words: %12d  %6d  %s\n", @$_[0,2,1]) for @$counts;
+	$d->close;
+    }
+
+    $sql->AutoCommit;
+    $sql->Do("SET SESSION STATEMENT_TIMEOUT = " . int($self->{timeout}*1000))
+    	if $self->{timeout};
+
+    my $results = eval {
+	local $sql->{Quiet} = 1;
+	$sql->SelectListOfHashes(
+	    $self->_GetQuery(scalar @$counts),
+	    (map { $_->[0] } @$counts),
+	)
+    };
+
+    my $err = $@;
+    my $sqlerr = $sql->GetError;
+
+    $sql->AutoCommit;
+    $sql->Do("SET SESSION STATEMENT_TIMEOUT = DEFAULT");
+
+    unless ($results)
+    {
+	if ($sqlerr =~ /Query was cancelled/i)
+	{
+	    $self->{RESULTTYPE} = SEARCHRESULT_TIMEOUT;
+	    return;
+	}
+
+	die $err;
+    }
+
+    # Now we need to filter those results to check that they match all of the
+    # other search terms
+    my $namecol = $table . "name";
+
+    @$results = grep {
+	my $r = $_;
+	my @t;
+
+	my ($tokens, $c1) = $self->Tokenize($r->{$namecol});
+	push @t, [ $tokens, $c1 ];
+	my $fOK = not grep { ($tokens->{$_}||0) < $words->{$_} } keys %$words;
+
+	# For artist search: if the artist name didn't match, also try the
+	# sortname and any aliases.
+	if ($table eq "artist")
+	{
+	    {
+		($tokens, $c1) = $self->Tokenize($r->{'artistsortname'});
+		push @t, [ $tokens, $c1 ];
+		$fOK ||= not grep { ($tokens->{$_}||0) < $words->{$_} } keys %$words;
+	    }
+
+	    if ($r->{'numartistaliases'})
+	    {
+		my $al = Alias->new($self->{DBH}, "ArtistAlias");
+		my $aliases = $al->LoadFull($r->{'artistid'});
+
+		for my $alias (@$aliases)
+		{
+		    ($tokens, $c1) = $self->Tokenize($alias->GetName);
+		    push @t, [ $tokens, $c1 ];
+		    $fOK ||= not grep { ($tokens->{$_}||0) < $words->{$_} } keys %$words;
+		}
+	    }
+	}
+
+	$r->{'tokens'} = \@t if $fOK;
+
+	$fOK;
+    } @$results;
+
+    # OK, that's got all the results matching all the search terms.
+    # Now we need to order them.
+
+    # Basically if we queried for "a b c" then "a b c" is the ideal match.
+    # Having words in the title that we didn't query for should drop us down
+    # the list.
+    # Having the words not together in the specified order should drop us down
+    # the list.
+
+    # Interesting hack: munge the encoded word IDs into 4-byte ints, and
+    # use String::Unicode::Similarity to compare the chains of ints.
+    require String::Unicode::Similarity;
+
+    my %wordids = map { $_->[1] => $_->[0] } @$counts;
+    my $s0 = pack "l*", @wordids{ @$wordchain };
+
+    for my $r (@$results)
+    {
+	my $q = $r->{'tokens'};
+	my $bestsim = 0;
+
+	for my $pair (@$q)
+	{
+	    my ($tokens, $chain) = @$pair;
+	    my $s1 = pack "l*", @wordids{ @$chain };
+	    my $sim = String::Unicode::Similarity::fstrcmp($s0, $s1, length($s0)/4, length($s1)/4);
+	    $bestsim = $sim if $sim > $bestsim;
+	}
+
+	$r->{'_similarity'} = $bestsim;
+    }
+
+    # Decode some strings into Unicode for sorting
+    my @string_cols;
+    $table eq "artist" and @string_cols = qw( artistsortname );
+    $table eq "album" and @string_cols = qw( albumname artistsortname );
+    $table eq "track" and @string_cols = qw( trackname artistsortname albumname );
+    $self->_DecodeStringColumns($results, \@string_cols);
+
+    if ($table eq "artist")
+    {
+	@$results = sort {
+	    $b->{'_similarity'} <=> $a->{'_similarity'}
+		or
+	    $a->{'_artistsortname_decoded'} cmp $b->{'_artistsortname_decoded'}
+	} @$results;
+    }
+    elsif ($table eq "album")
+    {
+	@$results = sort {
+	    $b->{'_similarity'} <=> $a->{'_similarity'}
+		or
+	    $a->{'_albumname_decoded'} cmp $b->{'_albumname_decoded'}
+		or
+	    $a->{'_artistsortname_decoded'} cmp $b->{'_artistsortname_decoded'}
+	} @$results;
+    }
+    elsif ($table eq "track")
+    {
+	@$results = sort {
+	    $b->{'_similarity'} <=> $a->{'_similarity'}
+		or
+	    $a->{'_trackname_decoded'} cmp $b->{'_trackname_decoded'}
+		or
+	    $a->{'_artistsortname_decoded'} cmp $b->{'_artistsortname_decoded'}
+		or
+	    $a->{'_albumname_decoded'} cmp $b->{'_albumname_decoded'}
+	} @$results;
+    }
+
+    # Finally, limit the results if so requested.
+    my $lim = $self->{'limit'};
+    splice(@$results, $lim) if $lim;
+
+    # Return the results
+    $self->{RESULTTYPE} = SEARCHRESULT_SUCCESS;
+    $self->{RESULTS} = $results;
+}
+
+sub _GetQuery
 {
     my $self = shift;
-    my $orig_table = $self->{Table};
-   
-    $| = 1;
-    $self->{SQL}->Begin();
-    $self->{SQL}->Do("DELETE FROM WordList");
-    $self->{SQL}->Commit();
+    my $numwords = shift;
+    my $table = lc $self->Table;
+    my $wtable = $table . "words";
+    my $idcol = $table . "id";
 
-    # Make postgres analyze its foo to speed up the insertion
-    print STDERR "Postgres: vacuum analyze\n";
-    $self->{SQL}->AutoCommit();
-    $self->{SQL}->Do("VACUUM ANALYZE");
+    my $where = join " AND ", map {
+	"w$_.wordid = ?"
+    } 1 .. $numwords;
 
-    foreach my $table ( @{$self->{ValidTables}} )
+    my $from = "$wtable w1";
+    $from .= "\n INNER JOIN $wtable w$_ ON w$_.$idcol = w${\($_-1)}.$idcol"
+    	for 2 .. $numwords;
+    $from .= "\n INNER JOIN $table t ON t.id = w$numwords.$idcol";
+
+    # The second column in each case must be the name,
+    # which will be re-tokenized and checked.
+
+    return "
+        SELECT	t.id		AS artistid,
+		t.gid		AS artistgid,
+		t.name		AS artistname,
+		t.sortname	AS artistsortname,
+		COUNT(aa.id)	AS numartistaliases
+        FROM	$from
+	    LEFT JOIN artistalias aa ON aa.ref = t.id
+	WHERE	$where
+	GROUP BY t.id, t.name, t.sortname, t.gid
+    " if $table eq "artist";
+
+    return "
+        SELECT	t.id		AS albumid,
+		t.gid		AS albumgid,
+		t.name		AS albumname,
+		a.id		AS artistid,
+		a.gid		AS artistgid,
+		a.name		AS artistname,
+		a.sortname	AS artistsortname
+        FROM	$from
+	    INNER JOIN artist a ON a.id = t.artist
+        WHERE	$where
+    " if $table eq 'album';
+
+    return "
+        SELECT	t.id		AS trackid,
+		t.gid		AS trackgid,
+		t.name		AS trackname,
+		a.id		AS artistid,
+		a.name		AS artistname,
+		a.sortname	AS artistsortname,
+		al.id		AS albumid,
+		al.gid		AS albumgid,
+		al.name		AS albumname
+        FROM	$from
+	    INNER JOIN artist a ON a.id = t.artist
+	    INNER JOIN albumjoin j ON j.track = t.id
+	    INNER JOIN album al ON al.id = j.album
+        WHERE	$where
+    " if $table eq "track";
+
+    die;
+}
+
+sub _DecodeStringColumns
+{
+    my ($self, $data, $cols) = @_;
+
+    my $eval = ' for my $row (@$data) { ';
+
+    for my $col (@$cols)
     {
-        $self->{'Table'} = $table;
-        $self->RebuildIndex;
+	$eval .= "
+	\$row->{'_${col}_decoded'} = lc decode('utf-8', unac_string('UTF-8', \$row->{'$col'}));
+	";
     }
-    $self->{'Table'} = $orig_table;
-    $| = 0;
+
+    $eval .= ' } ';
+
+    eval "$eval ; 1" or die $@;
+}
+
+# Methods to iterate over the found results, etc
+
+sub Result
+{
+    my $self = shift;
+    $self->{RESULTTYPE};
 }
 
 sub Finish
 {
     my $self = shift;
-    $self->{STH}->Finish;
-    $self->{STH} = undef;
+    delete @$self{qw( RESULTTYPE RESULTS RESIDX )};
 }
 
 sub Rows
 {
     my $self = shift;
-    $self->{STH}->Rows;
+    scalar @{ $self->{RESULTS} };
 }
 
 sub NextRow
 {
     my $self = shift;
-    return $self->{STH}->NextRowRef;
+    $self->{RESULTS}[ $self->{RESIDX}++ ];
+}
+
+################################################################################
+# Re-implementation of RebuildAllIndices.  Much much faster, but can only be
+# used if there are no other writes (of artists/albums/tracks) being made to
+# the database.  Also doesn't work solely within one transaction, so if
+# interrupted you'll have only a partial search index.
+################################################################################
+
+sub RebuildAllIndices
+{
+    my $self = shift;
+    my $sql = $self->{SQL};
+    my $dbh = $sql->{DBH};
+
+    require IO::File;
+    my $fh_wordlist = IO::File->new_tmpfile or die $!;
+    my $fh_artistwords = IO::File->new_tmpfile or die $!;
+    my $fh_albumwords = IO::File->new_tmpfile or die $!;
+    my $fh_trackwords = IO::File->new_tmpfile or die $!;
+
+    # This will become a weakness at some point: cache the whole wordlist
+    # in memory.  Maybe this will eventually become a DB_File or
+    # something.
+    my %words;
+    my $nextwordid = 0;
+
+    my $sub = sub {
+	my ($query, $table, $fh_tablewords, $useindex) = @_;
+
+	print localtime() . " : Processing query: $query\n";
+	$sql->Select($query) or die;
+
+	my $lastid = 0;
+	my @tokens;
+
+	my $flush = sub {
+	    # @tokens is a list of hash references (tokenized names)
+	    # $lastid is the ID to which they belong
+
+	    # Unique list of words
+	    my @words = keys %{ +{ map { %$_ } @tokens } };
+
+	    # For each word, create an ID for it if necessary, then write
+	    # its ID into $fh_tablewords
+
+	    for my $word (@words)
+	    {
+		my $wordentry = $words{$word};
+
+		unless ($wordentry)
+		{
+		    $wordentry = $words{$word} = [ ++$nextwordid, 0, 0, 0 ];
+		    #print $fh_wordlist "$wordid\t$word\t0\t0\t0\n";
+		}
+
+		++$wordentry->[$useindex];
+
+		print $fh_tablewords "$wordentry->[0]\t$lastid\n";
+	    }
+	};
+
+	while (my $row = $sql->NextRowRef)
+	{
+	    my $id = $row->[0];
+
+	    if ($id != $lastid)
+	    {
+		$flush->() if @tokens;
+		$lastid = $id;
+		@tokens = ();
+	    }
+
+	    push @tokens, map { scalar $self->Tokenize($_) }
+		grep { defined }
+		@$row[1..$#$row];
+	}
+
+	$flush->() if @tokens;
+	$sql->Finish;
+
+	print localtime() . " : Query completed.\n";
+    };
+
+    $sub->(
+	"SELECT id, name, sortname FROM artist
+	UNION
+	SELECT ref, name, NULL FROM artistalias
+	ORDER BY 1",
+	"artist",
+	$fh_artistwords,
+	1,
+    );
+
+    $sub->("SELECT id, name FROM album", "album", $fh_albumwords, 2);
+    $sub->("SELECT id, name FROM track", "track", $fh_trackwords, 3);
+
+    while (my ($word, $e) = each %words)
+    {
+	# Don't overflow the 'smallint' columns
+	$e->[1] = 32767 if $e->[1] > 32767;
+	$e->[2] = 32767 if $e->[2] > 32767;
+	$e->[3] = 32767 if $e->[3] > 32767;
+
+	print $fh_wordlist "$e->[0]\t$word\t$e->[1]\t$e->[2]\t$e->[3]\n";
+    }
+
+    my $drop = sub {
+	$sql->AutoCommit;
+	eval { $sql->Do(@_); 1 } or warn $@;
+    };
+
+    $drop->("ALTER TABLE wordlist DROP CONSTRAINT wordlist_pkey");
+    $drop->("ALTER TABLE wordlist DROP CONSTRAINT wordlist_word_key");
+
+    for my $table (qw( artist album track ))
+    {
+	$drop->("DROP INDEX ${table}words_${table}wordindex");
+	$drop->("DROP INDEX ${table}words_${table}idindex");
+    }
+
+    my $load = sub {
+	my ($fh, $table) = @_;
+
+	seek($fh, 0, 0) or die;
+
+	print localtime() . " : Loading into table $table\n";
+
+	$sql->AutoCommit;
+	$sql->Do("TRUNCATE TABLE $table");
+	$sql->AutoCommit;
+	$sql->Do("COPY $table FROM stdin");
+
+	while (<$fh>)
+	{
+	    $dbh->func($_, "putline")
+		or die "putline '$_' failed";
+	}
+
+	$dbh->func("\\.\n", "putline") or die;
+	$dbh->func("endcopy") or die;
+
+	print localtime() . " : vacuuming...\n";
+	$sql->AutoCommit;
+	$sql->Do("VACUUM ANALYZE $table");
+
+	print localtime() . " : done!\n";
+    };
+
+    $load->($fh_wordlist, "wordlist");
+    $load->($fh_artistwords, "artistwords");
+    $load->($fh_albumwords, "albumwords");
+    $load->($fh_trackwords, "trackwords");
+
+    $sql->Begin;
+    $sql->Do("ALTER TABLE wordlist ADD PRIMARY KEY (id)");
+    $sql->Do("ALTER TABLE wordlist ADD UNIQUE (word)");
+
+    for my $table (qw( artist album track ))
+    {
+	$sql->Do("CREATE UNIQUE INDEX ${table}words_${table}wordindex ON
+	    ${table}words (wordid, ${table}id)");
+	$sql->Do("CREATE INDEX ${table}words_${table}idindex ON
+	    ${table}words (${table}id)");
+    }
+
+    $sql->SelectSingleValue(
+	"SELECT SETVAL('wordlist_id_seq', ?)",
+	++$nextwordid,
+    );
+
+    $sql->Commit;
 }
 
 1;
+# vi: set ts=8 sw=4 :
+# eof SearchEngine.pm

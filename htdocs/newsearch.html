@@ -1,24 +1,26 @@
+%# vi: set ts=4 sw=4 ft=mason :
 <%args>
 $table => undef
 $search => undef
 $limit => undef
-$all_words => undef
 </%args>
 
 <%perl>
 
-use Data::Dumper;
+use SearchEngine qw( :constants );
 
-use SearchEngine;
 if ( defined $table && defined $search)
 {
-    my $bgcolor= '#ffffff';
-    my $mb = mc_comp("/comp/dblogin");
+	my $mb = $m->comp("/comp/dblogin");
+
     my $engine = SearchEngine->new($mb->{DBH});
-    $engine->Table($table);
-    $engine->AllWords($all_words);
-    $engine->Limit($limit) if $limit;
-    $engine->Search($search);
+	$engine->Table($table);
+
+	$engine->Search(
+		query => $search,
+		limit => $limit,
+	);
+
     if ($engine->Rows == 1) 
     {
         my ($row, $url);
@@ -26,15 +28,15 @@ if ( defined $table && defined $search)
         $row = $engine->NextRow;
         if ($engine->Table eq 'Album') 
         {
-           $url = "/showalbum.html?albumid=" . $row->[0];
+			$url = "/showalbum.html?albumid=$row->{'albumid'}";
         }
         elsif ($engine->Table eq 'Artist') 
         {
-           $url = "/showartist.html?artistid=" . $row->[0];
+			$url = "/showartist.html?artistid=$row->{'artistid'}";
         }
         elsif ($engine->Table eq 'Track') 
         {
-           $url = "/showtrack.html?trackid=" . $row->[0];
+			$url = "/showtrack.html?trackid=$row->{'trackid'}";
         }
         if (defined $url)
         {
@@ -58,11 +60,30 @@ if ( defined $table && defined $search)
 %    } elsif ($table eq 'Artist') {
         <th>Artist Name</th>
 %    } elsif ($table eq 'Track') {
-        <th>Track Title</th><th>Artist Name</th>
+		<th>Track Title</th>
+		<th>Artist Name</th>
+		<th>Album</th>
 %    }
         </tr>
 
-%    if ($engine->Rows == 0) {
+%	if ($engine->Result == SEARCHRESULT_NOQUERY) {
+
+		<tr><td align="center"><font class="bold"><p>Nothing to search for!</font><p></td></tr>
+		<tr><td>
+			Please enter a search phrase including
+			letters and/or numbers.
+		</td></tr>
+
+%	} elsif ($engine->Result == SEARCHRESULT_TIMEOUT) {
+
+		<tr><td align="center"><font class="bold"><p>Your search has been cancelled</font><p></td></tr>
+		<tr><td>
+			Your search has been cancelled because it was taking too
+			long.&nbsp;
+			Please try changing your search criteria, or try again later.
+		</td></tr>
+
+%   } elsif ($engine->Rows == 0) {
 
         <tr><td align="center"><font class="bold"><p>No matching <% $table %>s found.</font><p></td></tr>
 
@@ -74,16 +95,18 @@ if ( defined $table && defined $search)
 
 %    }
 
+%   my $bgcolor= '#ffffff';
 %   while ( my $row = $engine->NextRow ) {
         <tr bgcolor="<% $bgcolor = ( $bgcolor eq '#ffffff' ? '#ffe1b7' : '#ffffff' ) %>">
 %       if ($engine->Table eq 'Album') {
-            <td><a href="/showalbum.html?albumid=<% $row->[0] %>"><% $row->[1] %></a></td> 
-            <td><a href="/showartist.html?artistid=<% $row->[2] %>"><% $row->[3] %></a></td> 
+            <td><a href="/showalbum.html?albumid=<% $row->{'albumid'} %>"><% $row->{'albumname'} %></a></td> 
+            <td><a href="/showartist.html?artistid=<% $row->{'artistid'} %>"><% $row->{'artistname'} %></a></td> 
 %       } elsif ($engine->Table eq 'Artist') {
-            <td><a href="/showartist.html?artistid=<% $row->[0] %>"><% $row->[1] %></a></td> 
+            <td><a href="/showartist.html?artistid=<% $row->{'artistid'} %>"><% $row->{'artistname'} %></a></td> 
 %       } elsif ($engine->Table eq 'Track') {
-            <td><a href="/showtrack.html?trackid=<% $row->[0] %>"><% $row->[1] %></a></td> 
-            <td><a href="/showartist.html?artistid=<% $row->[2] %>"><% $row->[3] %></a></td> 
+            <td><a href="/showtrack.html?trackid=<% $row->{'trackid'} %>"><% $row->{'trackname'} %></a></td> 
+            <td><a href="/showartist.html?artistid=<% $row->{'artistid'} %>"><% $row->{'artistname'} %></a></td> 
+            <td><a href="/showalbum.html?albumid=<% $row->{'albumid'} %>"><% $row->{'albumname'} %></a></td> 
 %       }
         </tr>
 %   }
@@ -97,7 +120,7 @@ if ( defined $table && defined $search)
                          attrs=>'width="300"' &>
 % }
     <br>
-    <& /comp/textsearch, default=>$table, text=>$search &>
+    <& /comp/textsearch, default=>$table, text=>$search, limit => $limit &>
     <br>
     &nbsp;
   <& /comp/tableend &>

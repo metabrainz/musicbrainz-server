@@ -38,8 +38,6 @@ use vars qw(@ISA @EXPORT);
 @ISA    = @ISA    = 'TableBase';
 @EXPORT = @EXPORT = '';
 
-use constant ALL_WORDS              => 1;
-
 # These are the status flags that Lookup returns for the results
 use constant ARTISTID               => 1; 
 use constant ARTISTLIST             => 2;
@@ -338,9 +336,11 @@ sub ArtistSearch
 
    my $engine = SearchEngine->new($this->{DBH});
    $engine->Table('Artist');
-   $engine->AllWords(ALL_WORDS);
-   $engine->Limit($this->{maxitems});
-   $engine->Search($name);
+
+   $engine->Search(
+	query => $name,
+	limit => $this->{maxitems},
+   );
 
    $name = lc(decode "utf-8", $name);
 
@@ -348,7 +348,7 @@ sub ArtistSearch
    {
        my $row = $engine->NextRow;
 
-       $ar->SetId($row->[0]);
+       $ar->SetId($row->{'artistid'});
        if (defined $ar->LoadFromId())
        {
            $this->{artist} = $ar;     
@@ -372,12 +372,12 @@ sub ArtistSearch
        
        while($row = $engine->NextRow)
        {
-           my $thisname = lc(decode "utf-8", $row->[1]);
+           my $thisname = lc(decode "utf-8", $row->{'artistname'});
 
-           push @ids, $this->SetSim({ id=>$row->[0],
-                        name=>$row->[1],
-                        sortname=>$row->[2],
-                        mbid=>$row->[3], 
+           push @ids, $this->SetSim({ id=>$row->{'artistid'},
+                        name=>$row->{'artistname'},
+                        sortname=>$row->{'artistsortname'},
+                        mbid=>$row->{'artistgid'}, 
                         sim_artist=>similarity($thisname, $name) });
        }
 

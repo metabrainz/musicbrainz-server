@@ -1,3 +1,4 @@
+%# vi: set ts=4 sw=4 ft=mason :
 <%args>
 $id
 $toc
@@ -8,21 +9,26 @@ $search
 my ($mb, $ar, $eng, $num_tracks, $i, $sth, $sql); 
 my (@row, $artist, @artists);
 
-mc_comp("/comp/sidebar", title=>'Submit CD: Artist Search Results');
+$m->comp("/comp/sidebar", title=>'Submit CD: Artist Search Results');
   
 if ($search eq '')
 {
-    mc_out("Please enter an artist name into the search field. " .
+	$m->out("Please enter an artist name into the search field. " .
            "Click on the Back button in your browser and try again.");
 }
 else
 {
-    $mb = mc_comp("/comp/dblogin");
+	$mb = $m->comp("/comp/dblogin");
     $ar = Artist->new($mb->{DBH});
+
     $eng = SearchEngine->new($mb->{DBH});
     $eng->Table("Artist");
-    $eng->AllWords(1);
-    $eng->Search($search);
+
+	$eng->Search(
+		query => $search,
+		limit => 0,
+	);
+
     if ($eng->Rows > 0)
     {
         my ($artistid, $artistname, $artistsortname);
@@ -35,7 +41,7 @@ else
 %       while (my $row = $eng->NextRow) 
 %       {
             <input type="radio" name="artist" 
-                   value="<% $row->[0] %>">&nbsp;<% $row->[1] %><br>
+                   value="<% $row->{'artistid'} %>">&nbsp;<% $row->{'artistname'} %><br>
 %       }
 
         <input type="hidden" name="id" value="<% $id %>">

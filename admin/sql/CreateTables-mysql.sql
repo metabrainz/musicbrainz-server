@@ -156,7 +156,11 @@ create table votes (
 drop table if exists wordlist;
 create table wordlist(
    Id bigint auto_increment primary key,
-   Word varchar(255) not null);
+   Word varchar(255) not null,
+   artistusecount SMALLINT NOT NULL DEFAULT 0,
+   albumusecount SMALLINT NOT NULL DEFAULT 0,
+   trackusecount SMALLINT NOT NULL DEFAULT 0
+);
 
 drop table if exists artistwords;
 create table artistwords(

@@ -143,7 +143,11 @@ create table Votes (
 
 create table WordList(
    Id serial primary key,
-   Word varchar(255) not null);
+   Word varchar(255) not null,
+   artistusecount SMALLINT NOT NULL DEFAULT 0,
+   albumusecount SMALLINT NOT NULL DEFAULT 0,
+   trackusecount SMALLINT NOT NULL DEFAULT 0
+);
 
 create table ArtistWords(
    Wordid int not null,

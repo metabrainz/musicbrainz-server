@@ -1,3 +1,4 @@
+%# vi: set ts=4 sw=4 ft=mason :
 <%perl>
 
 # This script is designed as a pass-through script. All the data passed
@@ -51,12 +52,19 @@ else
 
     $eng = SearchEngine->new($mb->{DBH});
     $eng->Table("Artist");
-    $eng->AllWords(1);
-    $eng->Search($name);
+
+    $eng->Search(
+		query => $name,
+		limit => 0,
+    );
 
     while (my $row = $eng->NextRow)
     {
-        push @names, { name=>$row->[1], sortname=>$row->[2], id=>$row->[0] };
+		push @names, {
+			id		=> $row->{'artistid'},
+			name	=> $row->{'artistname'},
+			sortname=> $row->{'artistsortname'},
+		};
     }
 }
 

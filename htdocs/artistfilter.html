@@ -61,14 +61,21 @@ if ($ar->LoadFromName($arg))
 {
     $eng = SearchEngine->new($mb->{DBH});
     $eng->Table("Artist");
-    $eng->AllWords(1);
-    $eng->Search($arg);
+
+    $eng->Search(
+	query => $arg,
+	limit => 0,
+    );
     
     while (my $row = $eng->NextRow)
     {
-	next if $dontshow{ $row->[0] };
-	next if $artist and $row->[0] eq $artist->{id};
-        push @names, { name=>$row->[1], sortname=>$row->[2], id=>$row->[0] };
+	next if $dontshow{ $row->{artistid} };
+	next if $artist and $row->{artistid} eq $artist->{id};
+	push @names, {
+	    id		=> $row->{'artistid'},
+	    name	=> $row->{'artistname'},
+	    sortname	=> $row->{'artistsortname'},
+	};
     }
 }
 

@@ -1,0 +1,115 @@
+#!/usr/bin/perl -w
+#____________________________________________________________________________
+#
+#   MusicBrainz -- the open internet music database
+#
+#   Copyright (C) 2002 Robert Kaye
+#
+#   This program is free software; you can redistribute it and/or modify
+#   it under the terms of the GNU General Public License as published by
+#   the Free Software Foundation; either version 2 of the License, or
+#   (at your option) any later version.
+#
+#   This program is distributed in the hope that it will be useful,
+#   but WITHOUT ANY WARRANTY; without even the implied warranty of
+#   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+#   GNU General Public License for more details.
+#
+#   You should have received a copy of the GNU General Public License
+#   along with this program; if not, write to the Free Software
+#   Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
+#
+#   $Id$
+#____________________________________________________________________________
+
+use strict;
+
+use FindBin;
+use lib "$FindBin::Bin/../cgi-bin";
+
+use MusicBrainz;
+use Sql;
+
+(my $mb1 = MusicBrainz->new)->Login;
+(my $mb2 = MusicBrainz->new)->Login;
+my $sqlRead = Sql->new($mb1->{DBH});
+my $sqlWrite = Sql->new($mb2->{DBH});
+
+my $sth = $sqlWrite->{DBH}->prepare(
+	"UPDATE wordlist
+	SET artistusecount = ?, albumusecount = ?, trackusecount = ?
+	WHERE id = ?",
+) or die;
+
+$| = 1;
+
+for my $what (qw( artist album track ))
+{
+	$sqlRead->AutoCommit;
+	print localtime() . " : Creating t_$what\n";
+	$sqlRead->Do("
+		SELECT wordid AS id, COUNT(*) AS freq
+		INTO TEMPORARY TABLE t_$what
+		FROM ${what}words
+		GROUP BY wordid
+	");
+}
+
+print localtime() . " : Selecting word counts\n";
+
+$sqlRead->Select("
+	SELECT	w.id, a.freq, b.freq, c.freq
+	FROM wordlist w
+		LEFT join t_artist a ON a.id = w.id
+		LEFT join t_album b ON b.id = w.id
+		LEFT join t_track c ON c.id = w.id
+") or die;
+
+my @updates;
+my $row;
+my $i = 0;
+my $j = 0;
+
+use Time::HiRes qw( gettimeofday tv_interval );
+my $t0 = [gettimeofday];
+
+my $flush = sub {
+	$sqlWrite->Begin;
+
+	for my $row (@updates)
+	{
+		$sth->execute(@$row[1,2,3,0]);
+	}
+
+	$sqlWrite->Commit;
+	@updates = ();
+
+	my $int = tv_interval($t0);
+	printf "%s : %d rows %d rows/sec\n",
+		scalar(localtime),
+		$j, $j/($int||1),
+		if -t;
+};
+
+while ($row = $sqlRead->NextRowRef)
+{
+	for (@$row[1,2,3])
+	{
+		$_ ||= 0;
+		$_ = 32767 if $_ > 32767;
+	}
+
+	push @updates, [@$row];
+
+	++$j;
+	$flush->(), $i=0 if ++$i >= 50;
+}
+
+$flush->() if $i;
+$sqlRead->Finish;
+
+my $int = tv_interval($t0);
+print localtime() . " : Updated $j rows, $int sec\n";
+
+# vi: set ts=4 sw=4 :
+# eof UpdateWordCounts

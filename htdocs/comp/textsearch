@@ -1,57 +1,42 @@
 <%args>
 $default=>'Artist'
+$limit => 25
 $text=>''
 </%args>
 
 <FORM METHOD="GET" ACTION="/newsearch.html" ENCTYPE="application/x-www-form-urlencoded" class="formstyle"
 	NAME="TextSearchForm"
 	>
-<center>
-<table width="250">
-  <tr>
-  <td colspan="2">
+
+<div style="margin: 0.3em">
   <b>Artist/Album/Track Search</b>
-  </td>
-  </tr>
-  <tr>
-  <td width="20%" align="right">
-    <img src="/images/pixel.gif" width="20" height="1" alt="" border="0">
+</div>
+
+<center>
+
+  <div class="CenterChildren" style="margin: 0.3em">
     Find 
-  </td>
-  <td width="80%">
     <SELECT NAME="limit">
-        <OPTION VALUE="25">up to 25</OPTION>
-        <OPTION VALUE="50">up to 50</OPTION>
-        <OPTION VALUE="100">up to 100</OPTION>
-        <OPTION VALUE="">all</OPTION>
+        <OPTION VALUE="25" <% ($limit eq 25) ? 'selected' : '' %>>up to 25</OPTION>
+        <OPTION VALUE="50" <% ($limit eq 50) ? 'selected' : '' %>>up to 50</OPTION>
+        <OPTION VALUE="100" <% ($limit eq 100) ? 'selected' : '' %>>up to 100</OPTION>
+        <OPTION VALUE="0" <% ($limit eq '0') ? 'selected' : '' %>>all</OPTION>
     </SELECT>
     <SELECT NAME="table">
         <OPTION VALUE="Artist" <% ($default eq 'Artist') ? 'SELECTED' : '' %>>artists</OPTION>
         <OPTION VALUE="Album" <% ($default eq 'Album') ? 'SELECTED' : '' %>>albums</OPTION>
         <OPTION VALUE="Track" <% ($default eq 'Track') ? 'SELECTED' : '' %>>tracks</OPTION>
     </SELECT>
-  </td>
-  </tr>
+  </div>
 
-  <tr>
-  <td width="20%" align="right">
-    <img src="/images/pixel.gif" width="20" height="1" alt="" border="0">
-    containing
-  </td>
-  <td width="80%">
-    <SELECT NAME="all_words">
-        <OPTION VALUE="1">all the words</OPTION>
-        <OPTION VALUE="0">any of the words</OPTION>
-    </SELECT>
-  </td>
-  </tr>
-  <tr>
-  <td colspan="2" align="center">
+  <div class="CenterChildren" style="margin: 0.3em">
     <INPUT TYPE="text" NAME="search" VALUE="<% $text %>" SIZE=30>
+  </div>
+
+  <div class="CenterChildren" style="margin: 0.3em">
     <INPUT TYPE="submit" VALUE="Search"><br>
-  </td>
-  </tr>
-</table>
+  </div>
+
 </center>
 
 </FORM>

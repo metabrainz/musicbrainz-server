@@ -1,3 +1,4 @@
+%# vi: set ts=4 sw=4 ft=mason :
 <%args>
 $id
 $toc
@@ -41,8 +42,12 @@ $al = Album->new($mb->{DBH});
 
 my $eng = SearchEngine->new($mb->{DBH});
 $eng->Table("Album");
-$eng->AllWords(1);
-$eng->Search($search);
+
+$eng->Search(
+	query => $search,
+	limit => 0,
+);
+
 if ($eng->Rows > 0)
 {
     my @row;
@@ -50,7 +55,7 @@ if ($eng->Rows > 0)
 
     while (my $row = $eng->NextRow)
     {
-        $al->SetId($row->[0]);
+        $al->SetId($row->{'albumid'});
 
         next if (!defined $al->LoadFromId());
         
