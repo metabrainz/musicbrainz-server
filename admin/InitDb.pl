@@ -36,6 +36,8 @@ my $psql = "psql";
 use Getopt::Long;
 use strict;
 
+my $fEcho = 0;
+
 my $sqldir = "$FindBin::Bin/sql";
 -d $sqldir or die "Couldn't find SQL script directory";
 
@@ -43,8 +45,18 @@ sub RunSQLScript
 {
 	my ($file, $startmessage) = @_;
 	$startmessage ||= "Running sql/$file";
-	print localtime() . " : $startmessage\n";
-	system("$psql $opts -U $dbuser -f $sqldir/$file $dbname");
+	print localtime() . " : $startmessage ($file)\n";
+
+	my $echo = ($fEcho ? "-e" : "");
+
+	open(PIPE, "$psql $echo $opts -U $dbuser -f $sqldir/$file $dbname |")
+		or die "exec '$psql': $!";
+	while (<PIPE>)
+	{
+		print localtime() . " : " . $_;
+	}
+	close PIPE;
+
 	die "Error during sql/$file" if ($? >> 8);
 }
 
@@ -122,12 +134,16 @@ sub Usage
 Usage: InitDb.pl [options] [file] ...
 
 Options are:
+     --psql=PATH  Specify the path to the "psql" utility
      --createdb   Create the database, PL/PGSQL language and user
   -i --import     Prepare the database and then import the data from 
                   the given files
   -c --clean      Prepare a ready to use empty database
   -t --build-text Build (or rebuild) text indexes for text searching
   -o --build-opt  Build (or rebuild) optimization tables (e.g. albummeta table)
+  -a --build-all  Equivalent to --build-text --build-opt
+     --[no]echo   When running the various SQL scripts, echo the commands
+                  as they are run
   -h --help       This help
 
 After the import option, you may specify one or more MusicBrainz data dump
@@ -148,6 +164,7 @@ GetOptions(
 	"build-text|t" => \$fBuildText,
 	"build-opt|o"  => \$fBuildOpt,
 	"build-all|a"  => \$fBuildAll,
+	"echo!"        => \$fEcho,
 	"help|h"       => \$fHelp,
 );
 
