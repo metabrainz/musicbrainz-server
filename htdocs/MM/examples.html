@@ -20,22 +20,22 @@
 <h2>Simple audio track example</h2><p>
 
 <pre>
-&lt;?xml version="1.0"?&gt;
+&lt;?xml version="1.0" encoding="ISO-8859-1"?&gt;
 &lt;rdf:RDF xmlns = "http://w3.org/TR/1999/PR-rdf-syntax-19990105#"
-         xmlns:DC = "http://purl.org/DC#" 
-         xmlns:MM = "http://cdindex.org/MM#" &gt;
+         xmlns:DC = "http://purl.org/DC#"
+         xmlns:MM = "http://musicbrainz.org/MM#"&gt;
 
-  &lt;rdf:Description 
-       about = "http://www.cdindex.org/cgi-bin/cdi/xget.pl?albumid=3"&gt;
+  &lt;rdf:Description&gt;
     &lt;DC:Title&gt;Strangers&lt;/DC:Title&gt;
     &lt;DC:Creator&gt;Portishead&lt;/DC:Creator&gt;
-    &lt;MM:Album&gt;Dummy&lt;/MM:Album&gt;
-    &lt;DC:Relation track="3"/&gt;
-    &lt;DC:Format duration="195000"/&gt;
-    &lt;DC:Description remixInfo="Airbus Reconstruction"
-                    recordedAt="Performed live at CCH 3, Hamburg"/&gt;
-    &lt;DC:Contributor role="Performer" 
-                    roleDetail="Lead Vocals"&gt;Beth Gibbons&lt;/DC:Contributor&gt;
+    &lt;DC:Identifier artistId="00003C7D@fuss@39A2D955"/&gt;
+    &lt;MM:TrackNum&gt;5&lt;/MM:TrackNum&gt;
+    &lt;DC:Relation type="album"&gt;
+      &lt;rdf:Description&gt;
+        &lt;DC:Title&gt;Dummy&lt;/DC:Title&gt;
+        &lt;DC:Identifier albumId="00003C7E@fuss@39A2D955"/&gt;
+      &lt;/rdf:Description&gt;
+    &lt;/DC:Relation&gt;
   &lt;/rdf:Description&gt;
 &lt;/rdf:RDF&gt;
 </pre>
@@ -46,14 +46,18 @@
 &lt;?xml version="1.0"?&gt;
 &lt;rdf:RDF xmlns = "http://w3.org/TR/1999/PR-rdf-syntax-19990105#"
          xmlns:DC = "http://purl.org/DC#" 
-         xmlns:MM = "http://cdindex.org/MM#" &gt;
+         xmlns:MM = "http://musicbrainz.org/MM#" &gt;
 
-  &lt;rdf:Description about = 
-       "http://www.cdindex.org/cgi-bin/cdi/xget.pl?albumid=512"&gt;
+  &lt;rdf:Description&gt;
     &lt;DC:Title&gt;Big Time&lt;/DC:Title&gt;
     &lt;DC:Creator&gt;Peter Gabriel&lt;/DC:Creator&gt;
-    &lt;MM:Album&gt;So&lt;/MM:Album&gt;
-    &lt;DC:Relation track="7"/&gt;
+    &lt;DC:Relation type="album"&gt;So&lt;/MM:Album&gt;
+      &lt;rdf:Description&gt;
+        &lt;DC:Title&gt;So&lt;/DC:Title&gt;
+        &lt;DC:Identifier albumId="000036F4@fatman.freeamp.org@39CCBC7E"/&gt;
+      &lt;/rdf:Description&gt;
+    &lt;/DC:Relation&gt;
+    &lt;MM:TrackNum track="7"/&gt;
     &lt;MM:SyncEvents&gt;
        &lt;rdf:Seq&gt;
           &lt;rdf:li&gt;
@@ -83,10 +87,9 @@
 &lt;?xml version="1.0"?&gt;
 &lt;rdf:RDF xmlns = "http://w3.org/TR/1999/PR-rdf-syntax-19990105#"
          xmlns:DC = "http://purl.org/DC#" 
-         xmlns:MM = "http://cdindex.org/MM#" &gt;
+         xmlns:MM = "http://musicbrainz.org/MM#" &gt;
 
-  &lt;rdf:Description about=
-       "http://www.cdindex.org/cgi-bin/cdi/xget.pl?albumid=7664"&gt;
+  &lt;rdf:Description&gt;
     &lt;DC:Title&gt;Tristan Und Isolde&lt;/DC:Title&gt;
     &lt;DC:Description primaryKey="B Major" 
            recordedAt="Recorded at Theatre Royal, Glasgow, Scotland"
@@ -95,7 +98,7 @@
        &lt;rdf:Bag&gt;
           &lt;rdf:li&gt;
              &lt;rdf:Description&gt;
-                &lt;DC:Contributor role="Composer"&gt;Richard Wagner&lt;/DC:Contributor&gt;
+                &lt;DC:Contributor role="Composer"&gt;Richard Wagner&lt;/DC:Contributor&gt&gt;
              &lt;/rdf:Description&gt;
           &lt;/rdf:li&gt;
           &lt;rdf:li&gt;
@@ -128,7 +131,7 @@
 &lt;?xml version="1.0"?&gt;
 &lt;rdf:RDF xmlns = "http://w3.org/TR/1999/PR-rdf-syntax-19990105#"
          xmlns:DC = "http://purl.org/DC#" 
-         xmlns:MM = "http://cdindex.org/MM#" &gt;
+         xmlns:MM = "http://musicbrainz.org/MM#" &gt;
 
   &lt;rdf:Description about = "http://us.imdb.com/Title?0169547" &gt;
     &lt;DC:Title&gt;American Beauty&lt;/DC:Title&gt;
@@ -154,6 +157,71 @@
           &lt;/rdf:li&gt;
        &lt;/rdf:Bag&gt;
     &lt;/MM:Contributors&gt;
+  &lt;/rdf:Description&gt;
+&lt;/rdf:RDF&gt;
+</pre>
+
+<h2>Album example</h2><p>
+
+<pre>
+&lt;?xml version="1.0" encoding="ISO-8859-1"?&gt;
+&lt;rdf:RDF xmlns = "http://w3.org/TR/1999/PR-rdf-syntax-19990105#"
+         xmlns:DC = "http://purl.org/DC#"
+         xmlns:MM = "http://musicbrainz.org/MM#"&gt;
+
+  &lt;rdf:Description&gt;
+    &lt;MM:Collection type="album" numParts="1"&gt;
+      &lt;rdf:Description&gt;
+        &lt;DC:Title&gt;Corroded Path&lt;/DC:Title&gt;
+        &lt;DC:Creator&gt;Network&lt;/DC:Creator&gt;
+        &lt;DC:Identifier albumId="00003C7E@fuss@39A2D955"
+                       artistId="00003C7D@fuss@39A2D955"/&gt;
+        &lt;rdf:Seq&gt;
+          &lt;rdf:li&gt;
+            &lt;rdf:Description&gt;
+              &lt;DC:Title&gt;Hyperventilation&lt;/DC:Title&gt;
+              &lt;DC:Identifier trackId="00003C7F@fuss@39A2D955"/&gt;
+              &lt;MM:TrackNum&gt;1&lt;/MM:TrackNum&gt;
+            &lt;/rdf:Description&gt;
+          &lt;/rdf:li&gt;
+        &lt;/rdf:Seq&gt;
+      &lt;/rdf:Description&gt;
+    &lt;/MM:Collection&gt;
+  &lt;/rdf:Description&gt;
+&lt;/rdf:RDF&gt;
+</pre>
+
+<h2>Playlist example</h2><p>
+
+<pre>
+&lt;?xml version="1.0" encoding="ISO-8859-1"?&gt;
+&lt;rdf:RDF xmlns = "http://w3.org/TR/1999/PR-rdf-syntax-19990105#"
+         xmlns:DC = "http://purl.org/DC#"
+         xmlns:MM = "http://musicbrainz.org/MM#"&gt;
+
+  &lt;rdf:Description&gt;
+    &lt;MM:Collection type="playlist" numParts="8"&gt;
+      &lt;rdf:Description&gt;
+        &lt;DC:Title&gt;Robert's Favorite Playlist&lt;/DC:Title&gt;
+        &lt;DC:Creator&gt;Robert Kaye&lt;/DC:Creator&gt;
+        &lt;rdf:Seq&gt;
+          &lt;rdf:li&gt;
+            &lt;rdf:Description&gt;
+              &lt;DC:Identifier artistId="00003C7D@fuss@39A2D955"
+                             trackId="00003C7F@fuss@39A2D955"/&gt;
+              &lt;DC:Title&gt;Hyperventilation&lt;/DC:Title&gt;
+              &lt;DC:Creator&gt;Network&lt;/DC:Creator&gt;
+              &lt;DC:Relation type="album"&gt;
+                &lt;rdf:Description&gt;
+                   &lt;DC:Creator&gt;Network&lt;/DC:Creator&gt;
+                   &lt;DC:Identifier albumId="00003C7E@fuss@39A2D955"/&gt;
+                &lt;/rdf:Description&gt;
+              &lt;/DC:Relation&gt;
+            &lt;/rdf:Description&gt;
+          &lt;/rdf:li&gt;
+        &lt;/rdf:Seq&gt;
+      &lt;/rdf:Description&gt;
+    &lt;/MM:Collection&gt;
   &lt;/rdf:Description&gt;
 &lt;/rdf:RDF&gt;
 </pre>

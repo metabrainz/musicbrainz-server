@@ -72,16 +72,15 @@ The following six attributes are common to all the elements:
    Maximum Occurrence:     Unlimited
 </pre>
 
-[Used from Dublin core: Contributor, Format, Relation, Description,
-                        Identifier, Rights]<br>
 <b>Note:</b> The Album element has been removed. Instead a DC:Relation
-element should be used in its place.<p>
+element should be used in its place. Please check out the 
+<a href="examples.html">examples</a> for an example.<p>
 
 <h3>Element: Comment</h3><p>
 <pre>
    Name:        Comment
    Identifier:  Comment
-   Definition:  Any comments that relate to this track.
+   Definition:  Any comments that relate to this resource.
    Comment:     
 </pre>
 
@@ -125,8 +124,9 @@ element should be used in its place.<p>
 <pre>
    Name:        Link 
    Identifier:  Link 
-   Definition:  Contains a URI to the Creator's web page.
-   Comment:     
+   Definition:  Contains a URI to a web page that relates to this resource.
+   Comment:     There are a number of qualifiers that further refine what
+                the type of Link. 
 </pre>
 
 <h3>Element: PurchaseInfo</h3><p>
@@ -172,10 +172,11 @@ The qualifiers below are recommended for the Contributor element.</p>
     <p><b>Name:</b> Role<br>
     <b>Label:</b> role<br>
     <b>Definition:</b>
-    Defines a role carried out by a contributor. See the <a href="#roles">
-    suggested role list</a> for a list of available roles.
-    <br>
+    Defines a broad role carried out by a contributor. Use the Role Detail
+    qualifier to further refine this broad role.<br>
     <b>Comment:</b>
+    See the <a href="#roles">
+    suggested role list</a> for a list of available roles and role details.
     
     </p>
   </blockquote>
@@ -186,11 +187,10 @@ The qualifiers below are recommended for the Contributor element.</p>
     <b>Label:</b> roleDetail<br>
     <b>Definition:</b>
     This qualifier gives more detail for a role.
-    used by the Performer and the part that was played by the Actor.
     <br>
     <b>Comment:</b>
-    For Performer and Actor
-    roles, the roleDetail qualifier can be used to specify the instrument(s)
+    See the <a href="#roles">
+    suggested role list</a> for a list of available roles and role details.
     </p>
   </blockquote>
 </blockquote>
@@ -307,19 +307,12 @@ The qualifiers below are recommended for the Relation element.</p>
   <blockquote> 
     <p><b>Name:</b> Album<br>
     <b>Label:</b> album<br>
-    <b>Definition:</b> Specifies a relation to MM:Collection (album) 
+    <b>Definition:</b> Specifies a relation to MM:Collection (album/playlist) 
                        information about this track.
     <b>Comment:</b> This Relation should be used when making a reference
                     to an album. Use MM:Collection to actually define an
-                    album.
-    </p>
-  </blockquote>
-
-  <p><b>Track Number</b></p>
-  <blockquote> 
-    <p><b>Name:</b> Track<br>
-    <b>Label:</b> track<br>
-    <b>Comment:</b>
+                    album. This element can be used to define a rich
+                    playlist as well.
     </p>
   </blockquote>
 
@@ -341,7 +334,7 @@ The qualifiers below are recommended for the Relation element.</p>
   <blockquote> 
     <p><b>Name:</b> Biography<br>
     <b>Label:</b> biography<br>
-    <b>Definition:</b> Specifies a relation to a Creator biography.
+    <b>Definition:</b> Specifies a relation to a Creator biography.<br>
     <b>Comment:</b> A separate RDF description should be used 
     </p>
   </blockquote>
@@ -359,7 +352,8 @@ The qualifiers below are recommended for the Identifier element.</p>
     <p><b>Name:</b> GUID<br>
     <b>Label:</b> guid<br>
     <b>Definition:</b>The global unique identifier assigned to this
-       track by the Relatable audio signature server.
+       track by the <a href="http://www.relatable.com">Relatable</a> 
+       audio signature server.
     <br>
     <b>Comment:</b>
     </p>
@@ -431,6 +425,18 @@ The qualifiers below are recommended for the Identifier element.</p>
     <b>Comment:</b>
     </p>
   </blockquote>
+
+  <p><b>Label Album ID</b></p>
+  <blockquote> 
+    <p><b>Name:</b> Label Album ID<br>
+    <b>Label:</b> labelAlbumId<br>
+    <b>Definition:</b>
+    This qualifier contains a label (recording company) specific album identifier.
+    <br>
+    <b>Comment:</b>
+    </p>
+  </blockquote>
+
 </blockquote>
 
 
@@ -505,6 +511,17 @@ The qualifiers below are recommended for the Rights element.</p>
     <b>Comment:</b>
     </p>
   </blockquote>
+
+  <p><b>Publisher</b></p>
+  <blockquote> 
+    <p><b>Name:</b> Publisher<br>
+    <b>Label:</b> publisher<br>
+    <b>Definition:</b>
+    Contains publisher information about this track.
+    <br>
+    <b>Comment:</b>
+    </p>
+  </blockquote>
 </blockquote>
 
 <p>
@@ -516,8 +533,8 @@ The following list of qualifiers defines the qualifiers to be used with
 the Musicbrainz Metadata elements:
 
 
-<p><b><font color="#003366">Link</font></b><br>
-The qualifiers below are recommended for the Link element.</p>
+<p><b><font color="#003366">Collection</font></b><br>
+The qualifiers below are recommended for the Collection element.</p>
 
 <p><b>Qualifiers that refine <i>Collection</i>:</b></p>
 <blockquote> 
@@ -541,7 +558,22 @@ The qualifiers below are recommended for the Link element.</p>
     <b>Comment:</b>
     </p>
   </blockquote>
+
+  <p><b>Label</b></p>
+  <blockquote> 
+    <p><b>Name:</b> Label<br>
+    <b>Label:</b> label<br>
+    <b>Definition:</b>Indicates the label (recoding company) that released
+        this collection (album).
+    <br>
+    <b>Comment:</b>
+    </p>
+  </blockquote>
+
 </blockquote>
+
+<p><b><font color="#003366">Link</font></b><br>
+The qualifiers below are recommended for the Link element.</p>
 
 <p><b>Qualifiers that refine <i>Link</i>:</b></p>
 <blockquote> 
@@ -591,6 +623,18 @@ The qualifiers below are recommended for the Link element.</p>
     </p>
   </blockquote>
 
+  <p><b>Purchase</b></p>
+  <blockquote> 
+    <p><b>Name:</b> Purchase<br>
+    <b>Label:</b> purchase<br>
+    <b>Definition:</b>
+    This qualifier specifies a URI to a web page where this resource can
+    be purchased.
+    <br>
+    <b>Comment:</b>
+    </p>
+  </blockquote>
+
   <p><b>Cover</b></p>
   <blockquote> 
     <p><b>Name:</b> Cover<br>
@@ -610,6 +654,50 @@ The qualifiers below are recommended for the Link element.</p>
     <b>Definition:</b>
     This qualifier specifies a URI to the metadata that relates to the
     track that is being remixed.
+    <br>
+    <b>Comment:</b>
+    </p>
+  </blockquote>
+
+  <p><b>AlbumArt</b></p>
+  <blockquote> 
+    <p><b>Name:</b> AlbumArt<br>
+    <b>Label:</b> albumArt<br>
+    <b>Definition:</b>
+    This qualifier specifies a URI to the cover art for this album.
+    <br>
+    <b>Comment:</b>
+    </p>
+  </blockquote>
+
+  <p><b>ArtistArt</b></p>
+  <blockquote> 
+    <p><b>Name:</b> ArtistArt<br>
+    <b>Label:</b> artistArt<br>
+    <b>Definition:</b>
+    This qualifier specifies a URI to the cover art for this artist.
+    <br>
+    <b>Comment:</b>
+    </p>
+  </blockquote>
+
+  <p><b>TrackArt</b></p>
+  <blockquote> 
+    <p><b>Name:</b> TrackArt<br>
+    <b>Label:</b> trackArt<br>
+    <b>Definition:</b>
+    This qualifier specifies a URI to the cover art for this track.
+    <br>
+    <b>Comment:</b>
+    </p>
+  </blockquote>
+
+  <p><b>TrackVideo</b></p>
+  <blockquote> 
+    <p><b>Name:</b> TrackVideo<br>
+    <b>Label:</b> trackVideo<br>
+    <b>Definition:</b>
+    This qualifier specifies a URI to the video for this track.
     <br>
     <b>Comment:</b>
     </p>
@@ -754,6 +842,11 @@ and roleDetail="Assistant, Manhattan".
 <td>Technician</td>
 <td>Who was a technician on this track</td>
 <td>Refinement examples: Instrument, Lighting</td>
+</tr>
+<tr>
+<td>Mixer</td>
+<td>Who mixed this track</td>
+<td></td>
 </tr>
 </table>
 
