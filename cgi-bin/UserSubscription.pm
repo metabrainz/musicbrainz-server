@@ -69,6 +69,7 @@ sub SubscribeArtists
 	my $sql = Sql->new($self->{DBH});
 
 	$sql->AutoTransaction(sub {
+		require Moderation;
 		my $mod = Moderation->new($self->{DBH});
 		my $modid = 0;
 
@@ -170,6 +171,7 @@ sub ProcessAllSubscriptions
 	my $sql = Sql->new($self->{DBH});
 
 	$self->{THRESHOLD_MODID} = do {
+		require Moderation;
 		my $mod = Moderation->new($self->{DBH});
 		$mod->GetMaxModID;
 	};
