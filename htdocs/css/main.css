@@ -157,4 +157,11 @@ kbd.KbdBlock
 	list-style-image: url(/images/download.gif);
 }
 
+.LinksRow
+{
+	text-align: center;
+	margin-top: 0.7em;
+	margin-bottom: 0.7em;
+}
+
 /* eof */
