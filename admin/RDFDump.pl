@@ -59,32 +59,21 @@ $mb->Login;
 $rdfout = RDFOutput2->new($mb->{DBH});
 $rdfout->SetBaseURI("http://mm.musicbrainz.org");
 $rdfout->SetDepth(1);
-
-$sql = Sql->new($mb->{DBH});
-if ($sql->Select("select gid from Artist order by sortname"))
-{
-    for(;@row = $sql->NextRow;)
-    {
-       push @ids, $row[0];
-    }
-}
-$sql->Finish;
-
 $rdfout->SetOutputFile(\*RDF);
 
-print "Dumping Artist list.\n";
-$rdfout->DumpBegin('artist', @ids);
-@ids = ();
+$sql = Sql->new($mb->{DBH});
+
+$rdfout->DumpBegin();
 
 $| = 1;
-print "Dumping artists.\n";
+print "\nDumping artists.\n";
 Dump($sql, $rdfout, 'Artist');
-print "Dumping albums.\n";
+print "\nDumping albums.\n";
 Dump($sql, $rdfout, 'Album');
-print "Dumping tracks.\n";
+print "\nDumping tracks.\n";
 Dump($sql, $rdfout, 'Track');
 
-print "Dump finished.\n";
+print "\nDump finished.\n";
 
 $rdfout->DumpEnd();
 
@@ -100,14 +89,16 @@ sub Dump
     my $lctype = $type;
     $lctype =~ tr/A-Z/a-z/;
 
+    my $sname = ($type eq 'Artist') ? "sortname" : "name";
+
     my ($start, $nw, $count, $mx, $spr, $left, $mins, $hours, $secs);
-    if ($sql->Select("select id from Artist order by sortname"))
+    if ($sql->Select("select id from $type order by $sname limit 100"))
     {
         $start = time;
         $mx = $sql->Rows();
         for($count = 1;@row = $sql->NextRow; $count++)
         {
-            $rdfout->DumpArtist($lctype, $row[0]);
+            $rdfout->DumpItem($lctype, $row[0]);
     
             $nw = time;
             $spr = ($nw - $start) / $count;

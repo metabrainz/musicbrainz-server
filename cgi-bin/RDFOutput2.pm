@@ -649,17 +649,16 @@ sub CreateFreeDBLookup
 
 sub DumpBegin
 {
-   my ($this, $type, @gids) = @_;
+   my ($this) = @_;
 
    return undef if (!exists $this->{file});
 
    print {$this->{file}} $this->BeginRDFObject(1);
-   print {$this->{file}} $this->OutputList($type, \@gids);
 
    return 1;
 }
 
-sub DumpArtist
+sub DumpItem
 {
    my ($this, $type, $id) = @_;
    my (@cache, %obj, $ref, @newrefs, $i, $total, @gids, $out, $depth); 
@@ -685,7 +684,6 @@ sub DumpArtist
    $total = scalar(@cache);
    for($i = 0; $i < $total; $i++)
    {
-      #print STDERR "Cache: $cache[$i]->{type} $cache[$i]->{id} dep: $cache[$i]->{depth}\n";
       next if (!defined $cache[$i]->{depth} || $cache[$i]->{depth} > $depth);
 
       print {$this->{file}} $this->OutputRDF(\@cache, $cache[$i]) . "\n";
