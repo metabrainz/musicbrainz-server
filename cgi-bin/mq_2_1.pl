@@ -5,7 +5,6 @@ use strict;
 use QuerySupport;
 use TaggerSupport;
 use Parser;
-use DBI;
 use DBDefs;
 use MM_2_1;
 use Apache;
@@ -172,6 +171,7 @@ sub Authenticate
    }
 }
 
+require MM_2_1;
 $rdf = MM_2_1->new(0);
 $rdf->SetBaseURI("http://" . $ENV{SERVER_NAME});
 if (exists $ENV{"MOD_PERL"})
@@ -197,6 +197,7 @@ if (!defined $rdf)
     exit(0);
 }
 
+require Parser;
 $parser = Parser->new();
 if (!$parser->Parse($rdfinput))
 {

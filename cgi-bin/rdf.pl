@@ -3,7 +3,6 @@
 no warnings qw( portable );
 use strict;
 use QuerySupport;
-use DBI;
 use DBDefs;
 use Apache;
 use Apache::Request;
@@ -19,6 +18,7 @@ my %Queries =
 );
 
 $depth = 2;
+require MM_2_0;
 $rdf = MM_2_0->new(0);
 
 $rdf->SetBaseURI("http://" . $ENV{SERVER_NAME});
