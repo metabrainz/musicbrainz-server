@@ -51,6 +51,7 @@ sub UpperLowercaseCheck
     $text = $textarg;
     $text =~ tr/\n\t\r //d;
     $len = length($text);
+    return 0 if ($len == 0);
 
     $temp = $text;
     $temp =~ tr/A-Z//d;
