@@ -3,7 +3,7 @@
 # TODO: If you are installing a main server, you need to update the paths below
 ftpdir=/var/ftp/pub/musicbrainz/data
 reportdir=/var/website/musicbrainz/prod/htdocs/reports
-imagedir=/var/website/musicbrainz/prod/htdocs/images
+imagedir=/var/website/musicbrainz/prod/htdocs/generated
 backupdir=/home/backup
 backupuser=backup
 backupgroup=users
@@ -17,9 +17,8 @@ cd ..
 # Collect stats
 ./CollectStats.pl
 cd statistics
-./GeneratePlot.pl $imagedir/basic_stats.png $imagedir/mod_stats.png
-chmod a+r $imagedir/basic_stats.png
-chmod a+r $imagedir/mod_stats.png
+./GeneratePlot.pl $imagedir
+chmod a+r $imagedir/plot*.png
 cd ..
 
 # Backup CVS
