@@ -154,8 +154,15 @@ sub PreVoteAction
    }
    else
    {
-       my @attr = split ',', $nw->{Attributes};
-       $info{attrs} = [ @attr ];
+       if (exists $nw->{Attributes})
+       {
+           my @attr = split ',', $nw->{Attributes};
+           $info{attrs} = [ @attr ];
+       }
+       else
+       {
+           $info{attrs} = [ 0 ];
+       }
    }
 
    for($i = 1;; $i++)
