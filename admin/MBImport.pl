@@ -128,10 +128,10 @@ if ($SCHEMA_SEQUENCE != &DBDefs::DB_SCHEMA_SEQUENCE)
 # We should have REPLICATION_SEQUENCE files, and they should all match too.
 my $iReplicationSequence = read_all_and_check("REPLICATION_SEQUENCE");
 print localtime() . " : This snapshot corresponds to replication sequence #$iReplicationSequence\n"
-	if $iReplicationSequence;
+	if $iReplicationSequence ne "";
 print localtime() . " : This snapshot does not correspond to any replication sequence"
 	. " - you will not be able to update this database using replication\n"
-	if not $iReplicationSequence;
+	if $iReplicationSequence eq "";
 
 use Time::HiRes qw( gettimeofday tv_interval );
 my $t0 = [gettimeofday];
@@ -163,7 +163,7 @@ printf "Loaded %d tables (%d rows) in %d seconds\n",
 $sql->AutoCommit;
 $sql->Do(
 	"UPDATE replication_control SET current_replication_sequence = ?",
-	$iReplicationSequence || 0,
+	($iReplicationSequence eq "" ? undef : $iReplicationSequence),
 );
 
 exit($errors ? 1 : 0);
