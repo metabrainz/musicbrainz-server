@@ -77,6 +77,15 @@ sub SetEmailConfirmDate	{ $_[0]{emailconfirmdate} = $_[1] }
 sub GetLastLoginDate	{ $_[0]{lastlogindate} }
 sub SetLastLoginDate	{ $_[0]{lastlogindate} = $_[1] }
 
+sub GetEmailStatus
+{
+	my $self = shift;
+	my ($e, $d) = @$self{qw( email emailconfirmdate )};
+	return "confirmed" if $e and $d;
+	return "pending" if $e and not $d;
+	return "missing";
+}
+
 sub GetWebURLComplete
 {
 	local $_ = $_[0]{weburl}
@@ -89,17 +98,40 @@ sub GetWebURLComplete
 	$_;
 }
 
-sub _GetCacheKey
+sub _GetIdCacheKey
 {
 	my ($class, $id) = @_;
 	"moderator-id-" . int($id);
 }
 
+sub _GetNameCacheKey
+{
+	my ($class, $name) = @_;
+	"moderator-name-" . $name;
+}
+
+sub InvalidateCache
+{
+	my $self = shift;
+	MusicBrainz::Server::Cache->delete($self->_GetIdCacheKey($self->GetId));
+	MusicBrainz::Server::Cache->delete($self->_GetNameCacheKey($self->GetName));
+}
+
+sub Refresh
+{
+	my $self = shift;
+	my $newself = $self->newFromId($self->GetId)
+		or return;
+	%$self = %$newself;
+}
+
 sub newFromId
 {
-	my ($this, $uid) = @_;
+	my $this = shift;
+	$this = $this->new(shift) if not ref $this;
+	my $uid = shift;
 
-	my $key = $this->_GetCacheKey($uid);
+	my $key = $this->_GetIdCacheKey($uid);
 	my $obj = MusicBrainz::Server::Cache->get($key);
 
 	if ($obj)
@@ -117,24 +149,47 @@ sub newFromId
 		),
 	);
 
+	# We can't store DBH in the cache...
 	delete $obj->{DBH} if $obj;
 	MusicBrainz::Server::Cache->set($key, \$obj);
+	MusicBrainz::Server::Cache->set($obj->_GetNameCacheKey($obj->GetName), \$obj)
+		if $obj;
 	$obj->{DBH} = $this->{DBH} if $obj;
 
-	$obj;
+	return $obj;
 }
 
 sub newFromName
 {
-	my ($this, $name) = @_;
+	my $this = shift;
+	$this = $this->new(shift) if not ref $this;
+	my $name = shift;
+
+	my $key = $this->_GetNameCacheKey($name);
+	my $obj = MusicBrainz::Server::Cache->get($key);
+
+	if ($obj)
+	{
+		$$obj->{DBH} = $this->{DBH} if $$obj;
+		return $$obj;
+	}
+
 	my $sql = Sql->new($this->{DBH});
 
-	$this->_new_from_row(
+	$obj = $this->_new_from_row(
 		$sql->SelectSingleRowHash(
 			"SELECT * FROM moderator WHERE name = ? LIMIT 1",
 			$name,
 		),
 	);
+
+	# We can't store DBH in the cache...
+	delete $obj->{DBH} if $obj;
+	MusicBrainz::Server::Cache->set($key, \$obj);
+	MusicBrainz::Server::Cache->set($obj->_GetIdCacheKey($obj->GetId), \$obj) if $obj;
+	$obj->{DBH} = $this->{DBH} if $obj;
+
+	return $obj;
 }
 
 sub coalesce
@@ -143,7 +198,7 @@ sub coalesce
 
     while (not defined $t and @_)
     {
-	$t = shift;
+		$t = shift;
     }
 
     $t;
@@ -210,29 +265,30 @@ sub Current
 	$this->_new_from_row(\%u);
 }
 
+# Called by UserStuff->TryAutoLogin and bare/login.html.
+# The RDF stuff uses a different mechanism.
+
 sub Login
 {
-	my ($this, $user, $pwd) = @_;
+	my $this = shift;
+	$this = $this->new(shift) if not ref $this;
+	my ($user, $pwd) = @_;
 
 	my $sql = Sql->new($this->{DBH});
 
-	my $row = $sql->SelectSingleRowHash(
-		"SELECT * FROM moderator WHERE name = ?",
-		$user,
-	);
+	my $self = $this->newFromName($user)
+		or return;
 
-	return unless $row;
-
-	return if $row->{id} == &ModDefs::ANON_MODERATOR;
-	return if $row->{id} == &ModDefs::FREEDB_MODERATOR;
-	return if $row->{id} == &ModDefs::MODBOT_MODERATOR;
+	my $id = $self->GetId;
+	return if $id == &ModDefs::ANON_MODERATOR;
+	return if $id == &ModDefs::FREEDB_MODERATOR;
+	return if $id == &ModDefs::MODBOT_MODERATOR;
 
 	# Maybe this should be unicode, but a byte-by-byte comparison of passwords
 	# is probably not a bad thing.
-	return unless $row->{password} eq $pwd;
+	return unless $self->GetPassword eq $pwd;
 
-	return (1, $row->{name}, $row->{privs}, $row->{id}, $row->{email},
-			$row->{email} && !$row->{emailconfirmdate});
+	return $self;
 }
 
 sub Logout
@@ -245,7 +301,7 @@ sub Logout
 sub CreateLogin
 {
 	my ($this, $user, $pwd, $pwd2) = @_;
-	my ($sql, $uid);
+	my ($sql, $uid, $newuser);
 
 	$sql = Sql->new($this->{DBH});
 
@@ -282,7 +338,12 @@ sub CreateLogin
 			$user, $pwd,
 		);
 
-		$uid = $sql->GetLastInsertId("Moderator");
+		my $uid = $sql->GetLastInsertId("Moderator");
+		MusicBrainz::Server::Cache->delete($this->_GetIdCacheKey($uid));
+		# No need to flush the by-name cache: this newFromId call will fill in
+		# the correct value
+		$newuser = $this->newFromId($uid) or die "Failed to retrieve new user record";
+
 		$sql->Commit;
 
 		return "";
@@ -297,8 +358,8 @@ sub CreateLogin
 		return $msg; 
 	}
 
-	return ("", $user, 0, $uid);
-} 
+	return ("", $newuser);
+}
 
 sub GetUserPasswordAndId
 {
@@ -322,33 +383,6 @@ sub GetUserPasswordAndId
 
 	@$row;
 } 
-
-sub GetUserInfo
-{
-	my ($this, $uid) = @_;
-	$uid or return undef;
-
-	my $sql = Sql->new($this->{DBH});
-
-	$sql->SelectSingleRowHash(
-		"SELECT	id AS uid,
-				name,
-				email,
-				password AS passwd,
-				privs,
-				modsaccepted,
-				automodsaccepted,
-				modsrejected,
-				modsfailed,
-				weburl,
-				membersince,
-				bio,
-				emailconfirmdate
-		FROM	moderator
-		WHERE	id = ?",
-		$uid,
-	);
-}
 
 # Used by /login.html, /user/edit.html and /user/confirmaddress.html
 sub SetUserInfo
@@ -374,6 +408,12 @@ sub SetUserInfo
 		if exists $opts{email}
 		and not $opts{email};
 
+	# Not for general usage; but this provides us with a clean way to rename a
+	# user, which handles the cache, etc
+	$query .= " name = ?,",
+		push @args, $opts{name}
+		if defined $opts{name};
+
 	$query .= " weburl = ?,",
 		push @args, $opts{weburl}
 		if defined $opts{weburl};
@@ -396,7 +436,10 @@ sub SetUserInfo
 		sub { $sql->Do($query, @args); 1 },
 	);
 
-	MusicBrainz::Server::Cache->delete($self->_GetCacheKey($uid));
+	# This clears the cache for the ID, and the (old) name
+	$self->InvalidateCache if $ok;
+	# This also refreshes the cache for the ID, and for the (new) name
+	$self->Refresh if $ok;
 
 	$ok;
 }
@@ -423,6 +466,9 @@ sub CreditModerator
 {
   	my ($this, $uid, $status, $isautomod) = @_;
 
+	my $self = $this->newFromId($uid)
+		or die;
+
 	use ModDefs qw( STATUS_FAILEDVOTE STATUS_APPLIED );
 
 	my $column = (
@@ -438,7 +484,8 @@ sub CreditModerator
 		"UPDATE moderator SET $column = $column + 1 WHERE id = ?",
 		$uid,
 	);
-	MusicBrainz::Server::Cache->delete($this->_GetCacheKey($uid));
+	
+	$self->InvalidateCache;
 }
 
 # Change a user's password.  The old password must be given.
@@ -486,14 +533,13 @@ sub ChangePassword
 		},
 	);
 
-	MusicBrainz::Server::Cache->delete($self->_GetCacheKey($self->GetId));
-
 	unless ($ok)
 	{
 		$@ = "Password changed failed - please check the old password and try again.";
 		return;
 	}
 
+	$self->InvalidateCache;
 	$@ = "";
 	1;
 }
@@ -1036,25 +1082,30 @@ sub ClearSessionCookie
 
 sub SetSession
 {
-	my ($this, $user, $privs, $uid, $email_nag) = @_;
+	my ($self, %opts) = @_;
+
+	my $email_nag = $opts{email_nag};
+	$email_nag = ($self->GetEmailStatus eq "missing")
+		unless exists $opts{email_nag};
+
 	my $session = GetSession();
 
-	$this->EnsureSessionOpen;
+	$self->EnsureSessionOpen;
 
-	$session->{user} = $user;
-	$session->{privs} = $privs;
-	$session->{uid} = $uid;
+	$session->{user} = $self->GetName;
+	$session->{privs} = $self->GetPrivs;
+	$session->{uid} = $self->GetId;
 	$session->{expire} = time() + &DBDefs::WEB_SESSION_SECONDS_TO_LIVE;
 	$session->{email_nag} = $email_nag;
 
 	require Moderation;
-	my $mod = Moderation->new($this->{DBH});
+	my $mod = Moderation->new($self->{DBH});
 	$session->{moderation_id_start} = $mod->GetMaxModID;
 
 	require UserPreference;
-	UserPreference::LoadForUser($this->Current);
+	UserPreference::LoadForUser($self->Current);
 
-	eval { $this->_SetLastLoginDate($uid) };
+	eval { $self->_SetLastLoginDate($self->GetId) };
 }
 
 # Given that we've just successfully logged in, set a non-session cookie
@@ -1063,8 +1114,10 @@ sub SetSession
 
 sub SetPermanentCookie
 {
-	my ($this, $username, $password, $only_this_ip) = @_;
+	my ($this, %opts) = @_;
 	my $r = Apache->request;
+
+	my ($username, $password) = ($this->GetName, $this->GetPassword);
 
 	# There are (will be) multiple formats to this cookie.  This is format #2.
 	# See TryAutoLogin.
@@ -1073,7 +1126,7 @@ sub SetPermanentCookie
 
 	my $ipmask = "";
 	$ipmask = $r->connection->remote_ip
-		if $only_this_ip;
+		if $opts{only_this_ip};
 
 	my $value = "2\t$username\t$pass_sha1\t$expirytime\t$ipmask";
 	$value .= "\t" . sha1_base64($value . &DBDefs::SMTP_SECRET_CHECKSUM);
@@ -1193,11 +1246,10 @@ sub TryAutoLogin
 		}
 
 		# Try logging in with these credentials
-		my ($ok, $username, $privs, $uid, $email, $confirm)
-			= $self->Login($user, $password)
+		my $userobj = $self->Login($user, $password)
 			or $delete_cookie = 1, last;
 
-        $self->SetSession($username, $privs, $uid, !$email || $confirm);
+		$userobj->SetSession;
 		my $session = GetSession();
 		$session->{'ipmask'} = $ipmask;
 	}
@@ -1214,17 +1266,17 @@ sub TryAutoLogin
 
 sub _SetLastLoginDate
 {
-	my ($this, $uid) = @_;
-	my $sql = Sql->new($this->{DBH});
+	my ($self, $uid) = @_;
+	my $sql = Sql->new($self->{DBH});
 
 	$sql->AutoTransaction(sub {
 		$sql->Do(
 			"UPDATE moderator SET lastlogindate = NOW() WHERE id = ?",
 			$uid,
 		);
-		# We don't invalidate the cache for this write, since we never show
-		# lastlogindate anyway.
 	});
+
+	$self->InvalidateCache;
 }
 
 1;
