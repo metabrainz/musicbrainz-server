@@ -133,11 +133,28 @@ my $subscriptions_public = UserPreference::get_for_user("subscriptions_public", 
 	</tr>
 	<tr>
 		<td valign="top" align="right">EMail:</td>
-% if ($is_me) {
-		<td><% $user->GetEmail || "[none]" %></td>
-% } else {
-		<td><% $user->GetEmail ne '' ? "[email address stored, but not shown]" : "[none]" %></td>
-% }
+% my ($addr, $date) = ($user->GetEmail, $user->GetEmailConfirmDate);
+		<td>
+%	if (defined($addr) and $addr =~ /\S/) {
+%		# Show the e-mail address (for yourself), or "[hidden]" (for others)
+			<% $is_me ? $addr : "[hidden]" %>
+%		# Show the "confirmed" date, if there is one
+%		if ($date) {
+			<br>confirmed on <% $m->comp("/comp/datetime", $date) %>.&nbsp;
+%		} else {
+			<br>this e-mail has never been confirmed.&nbsp;
+%		}
+%		# If you're looking at your own profile, you can send yourself a
+%		# (re-)confirmation link
+%		if ($is_me) {
+			<a href="/user/send-email-confirmation.html?email=<% uri_escape($addr) %>"
+				><% $date ? "Re-confirm" : "Confirm" %> it now!</a>
+%		}
+%	} else {
+%		# There is no e-mail address at all
+			[none]
+%	}
+		</td>
 	</tr>
 
 	<tr>

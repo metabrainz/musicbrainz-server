@@ -1,0 +1,37 @@
+%# vi: set ts=4 sw=4 ft=mason :
+<%args>
+$email => undef
+</%args>
+<%perl>
+
+MusicBrainz::IsSingleLineString($email)
+	or return $m->comp("/comp/badargs", 1, 1);
+
+$m->comp("/comp/checkloggedin", 1, 1) or return;
+my $uid = $session{uid} or return;
+
+my $mb = $m->comp("/comp/dblogin");
+my $ui = UserStuff->new($mb->{DBH});
+
+my $info = $ui->newFromId($uid)
+	or return;
+
+my $ret = $info->SendVerificationEmail($email);
+
+</%perl>
+<& /comp/sidebar, title => "Confirm E-mail Address" &>
+
+% if (my $ret = $info->SendVerificationEmail($email)) {
+				<p class="error">
+					The email verification mail could not be sent: <b><% $ret %></b>.&nbsp;
+					Please check the address, or try again later.
+				</p>
+% } else {
+				<p class="notice">
+					The email verification mail has been sent to <b><% $email %></b>.&nbsp;
+					Please check your mailbox and click on the link in the email to 
+					verify this address.
+				</p>
+% }
+
+<& /comp/movefocus, "EditUser", "email" &>
