@@ -337,13 +337,13 @@ sub OutputList
    $rdf  =   $this->BeginDesc("mq:Result");
    $rdf .=   $this->Element("mq:status", $this->{status});
    $rdf .=     $this->BeginDesc("mm:" . $type . "List");
-   $rdf .=       $this->BeginSeq();
+   $rdf .=       $this->BeginBag();
    foreach $item (@$list)
    {
       next if (!defined $item);
       $rdf .=      $this->Li($this->{baseuri}. "/$type/$item");
    }
-   $rdf .=       $this->EndSeq();
+   $rdf .=       $this->EndBag();
    $rdf .=     $this->EndDesc("mm:" . $type . "List");
    $rdf .=   $this->EndDesc("mq:Result");
    $rdf .= "\n";
@@ -452,6 +452,7 @@ sub GetTrackReferences
 
    $info{type} = 'artist';
    $info{id} = $track->GetArtist();
+   $info{tracknum} = $track->GetSequence();
    $info{obj} = undef;
    push @ret, {%info};
    #print STDERR "track " .$track->GetId() . " needs artist: $info{id}\n";
@@ -504,14 +505,14 @@ sub OutputArtistRDF
     $out .=   $this->Element("dc:title", $artist->GetName());
     $out .=   $this->Element("mm:sortName", $artist->GetSortName());
     $out .=   $this->BeginDesc("mm:albumList");
-    $out .=   $this->BeginSeq();
+    $out .=   $this->BeginBag();
     $ids = $ref->{_artist};
     foreach $album (@$ids)
     {
        next if not defined $album;
        $out .=      $this->Li($this->{baseuri}. "/album/$album");
     }
-    $out .=   $this->EndSeq();
+    $out .=   $this->EndBag();
     $out .=   $this->EndDesc("mm:albumList");
     $out .= $this->EndDesc("mm:Artist");
 
@@ -556,8 +557,8 @@ sub OutputAlbumRDF
     foreach $track (@$ids)
     {
        $out .= $this->Element("rdf:li", "", "rdf:resource", 
-                              $this->{baseuri} . "/track/" . $track->{id},
-                              "mm:trackNum", $track->{tracknum});
+                              $this->{baseuri} . "/track/" . $track->{id});
+                              #"mm:trackNum", $track->{tracknum});
     }
     $out .=   $this->EndSeq();
     $out .=   $this->EndDesc("mm:trackList");
@@ -585,6 +586,7 @@ sub OutputTrackRDF
     $out .=   $this->Element("dc:title", $track->GetName());
     $out .=   $this->Element("dc:creator", "", "rdf:resource",
               $this->{baseuri}. "/artist/" . $artist->GetMBId());
+    $out .=   $this->Element("mm:trackNum", $track->GetSequence());
     $out .=   $this->Element("mm:trmid", $guid[0]) if scalar(@guid);
     $out .= $this->EndDesc("mm:Track");
 
