@@ -46,15 +46,6 @@ use constant EXTRACT_CLIENT_VERSION => "!mq!clientVersion";
 
 use constant DEBUG_TRM_LOOKUP => 0;
 
-sub AssociateCDFromAlbumId
-{
-   my ($dbh, $doc, $rdf, $Discid, $toc, $albumid) = @_;
-
-   require Discid;
-   my $di = Discid->new($dbh);
-   $di->Insert($Discid, $albumid, $toc);
-}
-
 sub GetCDInfoMM2
 {
    my ($dbh, $parser, $rdf, $id, $numtracks) = @_;
