@@ -1,8 +1,11 @@
 <& /comp/sidebar,  title=>'Database license white paper', expand=>'documentation' &>
 
-This document examines the issues involved in applying the ideas of
-Free Software and Open Souce to the realm of relational databases. The
-focus is on the requirements of a copyleft database license, called
+One of the most important philosophical and social issues confronting
+humanity in the beginning of the 21st century is the sharing of
+information.  This document examines the issues involved in applying
+the ideas of Free Software and Open Source to the realm of databases.
+A database is a highly structured collection of digital information.
+The focus is on the requirements of a copyleft database license, called
 GPL Data License (GDL). Readers are assumed to be familiar with
 topics such as <a href="http://www.fsf.org">Free software</a>, 
 <a href="http://www.gnu.org/licenses/licenses.html#WhatIsCopyleft">CopyLeft</a>,
@@ -10,46 +13,62 @@ topics such as <a href="http://www.fsf.org">Free software</a>,
 and the difference with 
 <a href="http://www.opensource.org">Open Source</a> in general.<p>
 
-If you think copyleft databases are not an issue, skip to the <a href="#4.">case study</a> section and see the example projects that already gathered millions of records and thousends of users.
-
 <a name="1.">
 <& /comp/section, title=>'1. Do we need a new license?' &>  
 </a>
 
 First we define the license problem involving databases. Kernels,
 compilers, web servers, database servers form the heart of the Free
-Software world, the usage of Free Software ideas outside the source code
-realm is still somewhat limited. The Free Content License exists now
-for a while, as well as the GNU Documentation license. However these
+Software world. The use of Free Software ideas outside the source code
+realm is still somewhat limited. The Free Content License exists now for
+a while, as well as the GNU Free Documentation license. However these
 licenses do not properly describe the unique world of databases. Free
-Software licenses speak of librairies, linking, binairies, etc. where
+Software licenses speak of libraries, linking, binaries, etc. where
 as the database world speaks of record selection, database linking,
-data-mining and many other terms.  Because the OpenContent license
-and GNU documentation license also contain terms that do not translate
-to the database domain, it is impossible to define what constitutes a
-derived work and re-publication. Those terms are essential to upholding
-the spirit of copyleft.  Database content is much more dynamic when
-compared to source code and can be republished in various forms on the
-Internet. Source code behaves much more like a binairy functions: you
-either used GPL code or not. For database content you can copy a few
-records or all, link to non-free database records with a URL, create
-scripts that combine content within the browser, etc.  We will conclude
-this paragraph with examples that should indicate the limits of the
-licenses written outside the database domain. If people think the existing
-licenses translated OK towards database <a href="mailto:license@mp3.nl">we
-will gladely hear</a> for each example below if they are allowed or not.<BR>
+data-mining and many other terms. We now quote a part of the copyrighted
+GNU Free Documentation License for explanatory purposes.
+
+<pre>The "Cover Texts" are certain short passages of text that are listed,
+as Front-Cover Texts or Back-Cover Texts, in the notice that says that
+the Document is released under this License.</pre>
+
+Were is the location of the cover text when gazing at a MySQL database
+table? Other examples of problematic terms are: document, title page,
+secondary section, and invariant sections.<p>
+
+Because the OpenContent license and GNU Free documentation license
+also contain terms that do not translate to the database domain,
+it is impossible to define what constitutes a derived work and
+re-publication. Those terms are essential to upholding the spirit of
+copyleft.  Database content is much more dynamic when compared to source
+code and can be republished in various forms on the Internet. Source
+code behaves much more like a binary functions: you either used GPL
+code or not. For database content you can copy a few records or all,
+link to non-free database records with a URL, create scripts that combine
+content within the browser, etc.  We will conclude this paragraph with
+examples that should indicate the limits of the licenses written outside
+the database domain. If people think the existing licenses translated OK
+towards database <a href="mailto:license@mp3.nl">we will gladly hear</a>
+for each example below if they are allowed or not.<BR>
+
+Some (business) people feel the copyleft idea as to restrictive. We even
+feel the the GNU Free documentation license is not strong enough to protect
+the Freedom of users. You probably thought that this was not possible did ya?
+We feel a strong need for regulating of the right to destroy and to censor
+information. Both points are lacking in the GNU Free documentation license,
+we specifically include them. 
 
 The examples below might seem far fetched to some people, but they have all
 already presented themselves in practice. For music information there are two GPL friendly
-projects, <a href="http://www.musicbrainz.org">musicbrainz</a>, 
+projects, <a href="http://www.MusicBrainz.org">MusicBrainz</a>, 
 <a href="http://www.freedb.org">FreeDB</a> versus for-profit companies and their 
-databases: <a href="http://www.cddb.com">CDDB</a>, <a href="http://www.allmusic.com">Allmusic</a>, <a href="http://www.muze.com">Muze</a>, <a href="http://www.rollingstone.com">Rollingstone</a>, but also projects in the middle <a href="http://dmoz.org/Arts/Music/Bands_and_Artists/">such as DMOZ.org</a> with almost 45.000 artists. The big question is, to what level is it allowed to combine the information of these projects or is the listing of copyleft and non-free URLs already a violation:-)<p>
+databases: <a href="http://www.cddb.com">CDDB</a>, <a href="http://www.allmusic.com">Allmusic</a>, <a href="http://www.muze.com">Muze</a>, <a href="http://www.rollingstone.com">Rollingstone</a>, but also projects in the middle <a href="http://dmoz.org/Arts/Music/Bands_and_Artists/">such as DMOZ.org</a> with almost 45.000 artists. The big question is, to what level is it allowed to combine the information of these projects or is the mixed listing of copyleft and non-free URLs already a violation:-)<p>
 
 <UL>
 <LI>Is an Open Source MP3 ripping program allowed to lookup an Audio CD at both the
 non-free database (CDDB.com) with a _very_ restrictive license, the Public Domain licensed database (FreeDB.org), and the Copyleft database (MusicBrainz.org)?</LI>
 <LI>Same as above, but now the Copyleft database also has non-factual copyrighted information such as biographies of the artists on the Audio CD?</LI>
-<LI>Can I copy eight/all/a few thousand/a hundred/N records from a copyleft database and put them on my homepage with links to similair non-free databases?</LI>
+<LI>Can I copy two/all/a hundred/a few thousand/N records from a copyleft database and put them on my homepage with links to similar non-free databases?</LI>
 <LI>Can I copy a few records from a copyleft database and put
 them on my copyrighted non-copyleft homepage?</LI>
 <LI>May I copy a full copyleft database, run a database server behind my web server and extend it with links to a search script for a non-free database, filled with overlapping information?</LI>
@@ -74,7 +93,7 @@ general public of the Free Software. The direct benefit is that the
 user obtains a good product, for which he may not be charged. Only
 the service of providing means to access that data may come at a cost,
 the data itself may not be sold. The OPL user must have the freedom to
-download the entire database at resonable cost and use it for private
+download the entire database at reasonable cost and use it for private
 purposes as he or she pleases.<p>
 
 The indirect benefit of freedom is that people may choose to increase the
@@ -83,7 +102,7 @@ the database increase in both size and reach it attracts more developers
 willing to use this information within application or web sites. With
 free access user are also more motivated to correct errors and keep
 the information current. This upward spiral of positivity creates a
-powerfull force. Companies with a competing for-profit database may find
+powerful force. Companies with a competing for-profit database may find
 it difficult or impossible to follow this upwards spiral, leaving them
 the option to join or to struggle.<p>
 
@@ -111,7 +130,7 @@ The three golden rules of Freedom must be obeyed for a new Free Data license:
 There is currently no general license for Free Data. For-profit databases
 are protected with custom contracts or copyright law. Databases licensed
 under a Public Domain (PD) license have no restrictions on re-publication
-or derived works. Companies can take a PB licensed database, extend
+or derived works. Companies can take a PD licensed database, extend
 it and ask money for the content. For a Free Data license such as the
 LGPL for databases there are restrictions on re-publication of derived
 works. Asking money for the content is not allowed, a small fee for
@@ -120,7 +139,7 @@ is permitted as long as the whole new database is made available to
 the public.  The LGPL license for software is often used for libraries
 to increase the popularity with users or usage by companies. Using
 the LGPL license for Free Data instead of the GPL could be motivated
-by similair reasons.  The GPL database license places further rules
+by similar reasons.  The GPL database license places further rules
 on using Open Data. The GPL license has strongest focus on freedom, it
 requires that the Free Data is not mixed with a for-profit database when
 re-published.<p>
@@ -135,7 +154,7 @@ non-commercial users/companies. We also avoid making this distinction
 because it conflicts with the copyleft principles.<p>
 
 A translation of the BSD license towards to context of databases would
-probably be that the BSD license is similair to the PD license, except
+probably be that the BSD license is similar to the PD license, except
 the original creator keeps the copyright, the database needs to carry the
 text of the BSD license, and proper acknowledgements must be made. For
 the remainder of this document we do not consider the BSD license any
@@ -148,7 +167,7 @@ similarity in database context of the PD license and the BSD license.
 
 When companies use Free Data it always implies that the data will be used
 to support their process for generating revenues. This can have both a
-possitive, negative, or neutral impact on the freedom of users. Revenues
+positive, negative, or neutral impact on the freedom of users. Revenues
 may be obtained from consultancy work that is required to enhance a
 web site with Free Data. Companies may get paid to add a non-existing
 feature to Free Data. Companies with an overlapping for-profit database
@@ -204,16 +223,16 @@ company has now, the top row indicates the future data license. The row
 named 'PD' (Public Domain) has a '-/+' sign in the colom 'for-profit',
 meaning that a switch type from PD to for-profit is neutral to the Free
 Data principles. The above devision is in most cases purely theoretical
-as Free Data is scarse. However for license issues the difference
-is crusial. The biggest win are companies that switch from for-profit databases towards GPL Free Data.<p>
+as Free Data is scarce. However for license issues the difference
+is crucial. The biggest win are companies that switch from for-profit databases towards GPL Free Data.<p>
 
-Software is sometimes released under the LGPL to increase populairty,
+Software is sometimes released under the LGPL to increase popularity,
 likewise a database can be released under LGPL or even PD. A reason for
 not using the GPL is the notion that more companies will use the Free
 Data if the LGPL is used, or a PD license is used to obtain a maximum
-amount of industry support at the expense of all copyleft ideas.
+amount of industry support at the expense of all copyleft ideas.<p>
 
-<& /comp/tablebegin, title=>'Company behavious names', attrs=>'' &>  
+<& /comp/tablebegin, title=>'Company behaviors names', attrs=>'' &>  
    <table><tr>
        <th>&nbsp;Class&nbsp;</th>
        <th>&nbsp;Description&nbsp;</th>
@@ -237,24 +256,24 @@ The first company type, data-freebies, does not want to use the data if
 it comes with any strings attached. Data-freebies will only use database
 under the PB license that can be extended and charged money for. This
 company type does not want to contribute their extensions back to the
-community. A BSD like requirement of proper credit might even go to far
+community. A BSD like requirement of proper credit might even go too far
 for them. The second type, data-mixers, what to copy and use the database,
-but want to integrate it with their own database. All modifications
-they make to the original database, such as inserts or record updates,
-will be contributed back to the community. However the record in their
-own private database will not be shared with the community and remains
-off-limits. The third class are the data-winners, they are fully compliant
-with the idea of copyleft, they are the RedHat of databases. They will
-always contribute things back to the community and keep all extensions
-copyleft. They fully understand the value of copyleft. The final type
-of company, data-losers, do not appriciate copyleft. They will use the
-databases which are available to them. They do not have the time or
-interest to read the license and will just download it, if available.<p>
+but want to integrate it with their own database. All modifications they
+make to the original database, such as inserts or record updates, will be
+contributed back to the community. However the record in their own private
+database will not be shared with the community and remains off-limits. The
+third class are the data-winners, they are fully compliant with the idea
+of copyleft, they are the RedHat of databases. They will always contribute
+things back to the community and keep all extensions copyleft. They
+fully understand the value of copyleft. The final type of company,
+data-losers, do not appreciate copyleft. They will use the databases
+which are available to them. They do not have the time or interest to
+read the license and will just download the data, if available on-line.<p>
 
 When looking for a license of your database you might consider picking
-the LGPL license to bing in the data-mixer companies. These companies
+the LGPL license to bring in the data-mixer companies. These companies
 will use your data, but a license for data-winners would give the true
-spirit of copyleft. For a database license it might be important to
+spirit of Copyleft. For a database license it might be important to
 gather more users and companies, but what is the added value of pleasing
 data-freebie companies? Data-freebie companies will maybe extend your
 user-base, they will not extend your database. Are the extra users worth
@@ -264,10 +283,10 @@ the loss of Freedom for your users?
 <& /comp/section, title=>'5. Users and Free Data' &>  
 </a>
 
-If Free Data gains momentum with users, it can grow into a powerfull
+If Free Data gains momentum with users, it can grow into a powerful
 force.  The copyleft feature of the Free Data would result in a strict
-division of the Free world and the for-profit world. In the long term this
-could result in a deminished role of for-profit databases in areas where
+division of the Free world and the non-free world. In the long term this
+could result in a diminished role of non-free databases in areas where
 users can create and maintain the Free Data themselves. For example,
 a Free music database with artists and their albums has a large user
 interest, a Free database of ocean water levels and temperatures will
@@ -279,27 +298,112 @@ For example when Free Data is expensive to collect, time consuming
 to collect, or need frequent updates the user group is strained and
 Free Data might not be viable. For the context of this license a very
 important property of the user group is their understanding of the Free
-Software principles and their appriciation of the freedom that comes
+Software principles and their appreciation of the freedom that comes
 with the Free Data.
 
-<a name="4.">
-<& /comp/section, title=>'4. Derived works and fair use' &>  
+<a name="6.">
+<& /comp/section, title=>'6. Copyright law' &>  
 </a>
 
-A very difficult issue is were do we place the border between a derived work and a new work that was only inspired by Free Data.<p>
+Some database content is protected by law, others is not and may be
+freely copied and licenses enforcing Copyleft do not apply.
+The amount of legal protection is determined by
+the type of content and the country in which the database is located.
+The European Community provides protection to original and creative
+database using copyright law. Under European Community directive 96/9/EC
+protection is also given to databases of numbers and facts. To receive
+this kind of protection the maker of the non-creative database must show
+that in the obtaining, verification or presentation of the contents,
+a substantial investment has been made, be it qualitatively and/or
+quantitatively.<p>
 
+The European protection is fundamentally different then the US.  In the
+US Supreme Court ruling, Feist Publishing, Inc.  v. Rural Telephone
+Service Co., it was established that mere "sweat of the brow" did not
+provide collections of information with copyright protection. Some form
+of "creativity in selection or arrangement" was required. Non-creative
+databases of facts and numbers cannot be protected under current US law.
+Until 2001 four bills have been proposed to extend copyright law in
+the US.  A proposed U.S. Congressional bill (H.R. 354) called for even
+greater protection of database then already present in the Europe. This
+bill even protects the owner of the database against people that have
+done an independent discovery of facts in an existing database. Thank God
+this bill did not make it into law, as the free flow of information would
+be crippled by it.
+
+<a name="7.">
+<& /comp/section, title=>'7. Derived works and fair use' &>  
+</a>
+
+A very difficult issue is were do we place the border between a derived
+work and a new work that was only inspired by Free Data.<p>
+
+The crucial idea behind Free Software is that everybody has permission
+to modify the program and distributed modified versions, but it
+is _not_ allowed to add restrictions. The Freedom of users must
+be protected. Likewise, for Free Data it is not allowed to add any
+restrictions. We interpret the term 'fair use' as meaning usage of data
+for personal consumption. The copyleft ideas fully promote fair use,
+as long as no additional restrictions are added. <p>
+
+Defining a derived work for data is different then a derived work for
+source code because data is more dynamic. Defining a derived work for
+data is difficult because it has a higher diversity, more formats,
+and less coherence. For example, source code sits inside .c, .cpp,
+or .pl files waiting for the editor or compiler. Data resides in many
+different places such as a simple .txt file, inside a database management
+system, or on static HTML page. Source code has a human-readably format,
+defined by the code style. For data there is a wide variety of formats,
+from unreadable binary to structured XML. All these different formats
+are equal in a sense. Source code has a high degree of integration,
+modification in one file affect others. For data it is possible to drop
+a few tables in the database, add fields with additional information
+and the consistency is still there. Tables may refer to each other,
+but the connection is much looser when compared to the coupling that
+can be found in source code.<p>
+
+For some derived works such as data statistics people might feel that a
+different license is required. For example, within a music encyclopedia
+database the average number of albums per artist for every genre (blues,
+rock, country, ) is not directly listed inside the database, but can
+be easily derived with some data mining.  We feel that the freedom of
+the user is best served if these 'data mining derived works' would be
+distributed under the same terms as the Free Data. This mean that they
+can be used freely as long as they are not mixed with non-free data.
+The alternative is to create an exception clause for data mining
+statistics derived from Free Data. Data mining from Free Data would then
+be licensed under the PD license. This path is a slippery slope because
+it is difficult to make a distinction between original data and the
+extracted data mining statistics. It is impossible to make an unambiguous
+distinction were data modification ends and data mining starts.  We feel
+it is not required to include a data mining copyleft relaxation
+as the copyleft clause only ensures freedom.<p>
+
+The slippery slope for data mining is also present for derived works for
+Free Data.  Only respecting the Copyleft clause gives you the legal right
+to use Free Data.  Modification to the Free Data must not be kept private
+when re-publishing.  For GPLed source code it would be unthinkable to
+suggest that using only 3% or 3 functions() of the source code is still
+OK. The freedom of the Free Data users is also not served by such a
+clause. For databases the non-free usage of a single field within a
+table should not be allowed.  For GPLed program it is also unthinkable
+to suggest that only using three functions from a non-free binary only
+library is still OK. Likewise, using JavaScript to fetch records from
+both a non-free and Free database, combining them within the browser of
+the user is a violation of copyleft principles because it constitutes
+re-publishing a derived work were the result is not Free.<p>
+
+<!
 In the examples we have seen a few parameters that play a role in the derived work.
 For example, if the database is copied in full, or that only a limited number of records are copied.
-
-type of copy
- Re-publication or not
- next medium
+Re-publication or not
+next medium of derived work
  -database
  -static HTML
  -paper printout form
  -direct fetch of the web site(on-demand-copy)
  -other?
- amount of information copied
+amount of information copied
  -a number of records
  -a number of tables
  -a mix of records and tables
@@ -309,46 +413,152 @@ level of integration
  -link to record
  -link to script that searches
  -JavaScript fetches info in other frame
- other medium
+other medium
  -database
  -static html
  -pictures/text/audio
- location
+location
  -at the browser
  -at copyleft location
  -for-profit location
- compare
+compare free / non-free db
  -side by side
  -1 on 1000
- -1000 on 1
+ -1000 on 1 !>
  
-<a name="5.">
-<& /comp/section, title=>'5. Case studies' &>  
+<a name="8.">
+<& /comp/section, title=>'8. The right to destroy' &>  
 </a>
 
--sell-out
--not realy free
--compete with Free Data
+In the past the regulation of the right to destroy was not an issue
+and not addressed by Copyleft-type licenses for source code or content
+in general.  Several incidents such as the downfall of numerous .com
+companies and their databases, loss of tens of thousands of wiki web pages
+due to technical incompetence have shown that both data and organizations
+are volatile.<p>
 
-It is very 
-Merging databases, creating a derived work, data-mining When extending a copyleft database with private information concerning individuals such as passwords, this information 
-Public domain
+We feel that this volatility in some cases is reason to add a new
+requirement to protect Freedom, with only a minor inconvenience to people.
+A large numbers of Free databases will probably be on-line and consist
+at least partially of user contributed content. The user community that
+(partly) created this content has protection that this content remains
+Free due to the already discussed Copyleft requirements.  However, it
+is difficult to backup databases for users when they only have access
+to the Free data using a web interface. If the both the database and
+the web site have a complex structure, this is certainly not a trivial
+task. Thus if organizations go down and backups were not created, then
+the user contributed Free Data may die with them.<p>
 
-genre for track
-layered genre graph
+We therefore ask of the people that combine Free user contributions to
+create at least weekly backups. The most recent backup of the Free Data
+should be put on-line or send by express mail towards interested people
+at reasonable cost. The database should be in a common readable database
+format. This requirement should solve the problem that Free Data can
+be destroyed at any moment, without much options to users that (partly)
+created it.<p>
 
-case studies:
--non free imdb
--dmoz
--
-The information in the database is free to be used, and even incorporated in a derived work, as long as that work is also covered by the same license.
-The hosting service is not charging for the data, but rather for the service of providing a means to access that data.
-The original owner(s) of any data, which requires that no one else's data was used to create the data, may release the data under any other license(s) they so desire.
+The GNU Free Documentation License has a somewhat similar condition as
+the one stated above, but this condition is motivated by the need for a
+standard documentation format. To preserve freedom, derived works must
+be in a standard format that can be edited by everybody. The GNU license
+makes a distinction between documents in a ''transparent'' format and in
+a ''opaque'' format. A transparent format is an common standard such as
+Latex, plain ASCII, simple HTML, XML or SGML with a public DTD. An opaque
+format is a Postscript file, PDF file, proprietary file format such as
+word.doc, and HTML produced by many HTML editors, and formats that have
+been deliberately ''mangled''.  When creating a derived work of a document
+released under the GNU Free Documentation License a copy in a transparent
+format should be made available on-line. Due to several recent incidents
+we need to extend the GNU Free documentation requirements for the field
+of Free Data. The HTML web pages also contain the Free Data in a open
+format, but technically this is not the same as a single tar.gz file
+that contains each database table in the comma separated value format.
 
--slight increase in example extrimity.
-CD lookup tool that combines MB.org+cddb.com is that allowed?
-same as using dual boot with W95+copyleft OS
+<a name="9.">
+<& /comp/section, title=>'9. The right to censor' &>  
+</a>
 
+A collection of Free Data might contain information on subjects such as
+drugs, abortion, democracy, bomb making, copyright circumvention, adult
+content, or Nike/Shell/McDonald's conduct. Such subjects are not always
+popular and could be removed from derived works to make the Free Data
+more 'suitable' for use. For example, a large collection of URLs towards the
+most interesting web sites of the world might get stripped of its more 
+controversial links. Is a copyright license the proper instrument
+to prevent censorship? It would be great if we could save the day and 
+put an end to censorship, but this requirement may be too complex to
+describe in the Copyleft license. This is still an open issue.
+
+<a name="10.">
+<& /comp/section, title=>'10. Case studies' &>  
+</a>
+
+Several databases exist on the Internet that use volunteers to submit content
+and have a restrictive non-free license.
+Examples include: <a href="http://www.imdb.com">Internet Movie DB</a>, 
+<a href="http://www.ubl.com">Ultimate Band List</a>, 
+<a href="http://www.CDDB.com">Compact Disc DB</a>, and even 
+<a href="http://www.dmoz.org">DMOZ.org</a>.<p>
+
+We will now re-visit the different databases around music.  
+There are two companies with commercial
+databases, <a href="http://www.allmusic.com">AllMusic</a> and <a
+href="http://www.muze.com">Muze</a>. These companies build their music
+databases with a large staff of editors. Access to these databases starts
+from $25,000 per year. Companies like Amazon use these databases for their
+on-line album sales. The music databases consist of information such as
+album/artist info, pictures, and sometimes a biography. Besides these two
+players a company called <a href="http://www.gracenote.com">gracenote</a>
+also offers a database. The gracenote database is different because it
+consists of user submissions, its history goes back to 1996.<p>
+
+In 1996 things the Internet <a href="http://www.CDDB.com">Compact Disc
+DataBase</a> was created. A single central server called "CDDB.com" could
+be used to access the information of Audio CDs. This server accepted new
+submissions of Audio CD information. During '98 - '00 the information
+was growing at 800 Audio CDs/day. But these numbers say nothing about the
+quality of the submissions.  The number of duplicate Audio CDs is high,
+5 entries of the same Audio CD under a different number or name is not
+uncommon. Entries also contain numerous spelling errors.  CDDB.com has
+no mechanism to correct spelling errors.  Things changed dramatically
+when the non-profit CDDB.com server was bought by a company that wanted
+to make money of the contributions that users had made. The database
+created by the Internet community could no longer be copied. Patents
+were obtained and granted.  A large public outcry resulted into the
+start of several projects to create an Open Source competitor for the
+now commercial CDDB.com.<p>
+
+From the five originally started projects, two project are still
+active. The <a href="http://www.FreeDB.org">FreeDB.org</a> project was
+very quick in duplicating the functionality of the commercial CDDB.com
+server.  This project has a very large collection of Audio CDs, more then
+440.000 entries. A large group of users query this information at a rate
+of more then 100.000/day.  The FreeDB.org server and CDDB.com server do
+not use a relational database. The servers use a very large collection
+of files, one for each entered Audio CDs. The second replacement called
+the <a href="http://www.musicbrainz.org">MusicBrainz</a> project is far
+more advanced then CDDB or FreeDB and uses a relational database with
+over 20 different tables, a working moderation system to correct errors,
+and audio signature software for recognition of audio track by acoustic
+properties.  The author of this paper is co-founder of this project.<p>
+
+The <a href="http://www.dmoz.org">DMOZ</a> project uses user contributions
+but does not have an open organization and no Copyleft license for
+the data.  The project is a collection of millions of web links, sorted
+and organized by web volunteers. The organization is mostly run by big
+cooperations and commercial interest are high because this database is
+used by all major Internet providers in the world. The only exception
+is Yahoo, that has its own competing list or interesting links.<p>
+
+<a href="http://www.wikipedia.com">WikiPedia</a> has collected over
+190,000 encyclopedia entries. This is one of the few projects that has
+useful content that is released under the GNU Documentation license. This
+project does not use a database, but a collection of web pages.<p>
+
+As illustrated by the case studies, there are several projects out there
+that have non-free data, and a few that have Free Data. We hope that
+more projects will join the Free world.
+<p>
 &nbsp;
 <p>
-Johan.
+Johan. (j@mp3.nl)
