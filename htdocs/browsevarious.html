@@ -1,6 +1,6 @@
 <%perl>
 
-my ($mb, @info, $row, $ind, $i, $offset, $num_albums, $al, $rows);
+my ($mb, @info, $row, $ind, $i, $offset, $page, $num_albums, $al, $rows);
 my $max_items = 50;
 
 mc_comp("/comp/sidebar", title=>'Browse Various Artist Albums');
@@ -12,6 +12,8 @@ if (!defined $ind || $ind eq '')
     mc_out(qq/Pick a letter to start browsing:<p>/);
 }
 $offset = $ARGS{offset};
+$page = $ARGS{page};
+$offset = ($page-1) * $max_items if not defined $offset and defined $page;
 $offset = 0 if not defined $offset;
 $offset = 0 if $offset < 0;
 
@@ -36,9 +38,10 @@ if ($num_albums > 0)
 {
     </%perl>
     <& /comp/pageselector, numitems=>$num_albums,
-                           numlinks=>18,
+                           numlinks=>10,
+                           snaptoend=>2,
                            offset=>$offset,
-                           pagesize=>50,
+                           pagesize=>$max_items,
                            url=>"/browsevarious.html?index=$ind" &>
     <& /comp/modnotice &>
 

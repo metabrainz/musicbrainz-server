@@ -1,6 +1,6 @@
 <%perl>
 
-my ($mb, @info, $row, $ind, $i, $offset, $ar, $rows, $num_artists);
+my ($mb, @info, $row, $ind, $i, $offset, $page, $ar, $rows, $num_artists);
 my $max_items = 50;
 
 mc_comp("/comp/sidebar", title=>'Browse Artists');
@@ -13,9 +13,10 @@ if (!defined $ind || $ind eq '')
     mc_out(qq/Pick a letter to start browsing:<p>/);
 }
 $offset = $ARGS{offset};
+$page = $ARGS{page};
+$offset = ($page-1) * $max_items if not defined $offset and defined $page;
 $offset = 0 if not defined $offset;
 $offset = 0 if $offset < 0;
-
 
 mc_comp("/comp/framedboxbegin", width=>"100%");
 mc_comp("/comp/browsebox", ind=>$ind);
@@ -38,8 +39,9 @@ if ($num_artists > 0)
 {
     </%perl>
     <& /comp/pageselector, numitems=>$num_artists, 
-                           numlinks=>18,
-                           pagesize=>50,
+                           numlinks=>10,
+                           snaptoend=>2,
+                           pagesize=>$max_items,
                            offset=>$offset,
                            url=>"/browseartists.html?index=$ind" &>
     <& /comp/modnotice &>

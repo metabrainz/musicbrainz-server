@@ -2,11 +2,10 @@
 
 sub PageNumbers
 {
-    my ($start, $num, $url, $index, $pagesize) = @_;
-    my ($i, $max, $out);
+    my ($start, $end, $url, $index, $pagesize) = @_;
+    my $out = "";
 
-    $max = $start + $num;
-    for($i = $start; $i < $max; $i++) 
+    for my $i ($start .. $end)
     {
         if ($i != $index)
         {
@@ -28,64 +27,66 @@ my $pagesize = $ARGS{pagesize};
 my $url = $ARGS{url};
 my $numitems = $ARGS{numitems};
 my $numlinks = $ARGS{numlinks};
-
-my ($front, $back, $center);
-my ($frontnum, $backnum, $centernum);
+my $snaptoend = $ARGS{snaptoend};
 
 my $index = int($offset / $pagesize);
-my $total = int($numitems / $pagesize);
-$total++ unless (($numitems % $pagesize) == 0);
-return undef if ($total < 1);
+my $pagecount = int(($numitems+$pagesize-1) / $pagesize);
+return undef if ($pagecount <= 1);
 
-$front = $back = $center = 0;
-$frontnum = $backnum = $centernum = 0;
+my $start = $index - $numlinks;
+if ($start < $snaptoend) { $start = 0 }
 
-if ($total < $numlinks)
-{
-   $frontnum = $total;
-}
-else
-{
-   $frontnum = $backnum = int($numlinks / 2);
-   $back = $total - int($numlinks / 2);
-
-   if ($index >= $frontnum && $index < $back)
-   {
-       $frontnum = $backnum = $centernum = int($numlinks / 3);
-       $back = $total - int($numlinks / 3);
-       $center = $index - int($centernum / 2);
-       $centernum++;
-   }
-}
+my $end = $index + $numlinks;
+if ($end > $pagecount-1-$snaptoend) { $end = $pagecount-1 }
 
 </%perl>
 
+<center>
+<form method="post" action="<% $url %>" style="padding-top: 0.5em">
+	Page
+	<input type="text" name="page" value="<% $index+1 %>"
+		style="
+			width: 2em; margin-left: 0.5em; margin-right: 0.5em;
+			border: 0;
+		">
+	of <% $pagecount %>
+</form>
+</center>
+
 <table width="100%"><tr><td align="center">
 % if ($index > 0) {
-    <a href="<% $url %>&offset=<% ($index - 1) * $pagesize %>">&lt;&lt;</a>&nbsp;
+    <a href="<% $url %>&offset=0"
+    	title="first page"
+    	>&lt;&lt;</a>&nbsp;
+    <a href="<% $url %>&offset=<% ($index - 1) * $pagesize %>"
+    	title="previous page"
+    	>&lt;</a>&nbsp;
 % } else {
     &lt;&lt;
+    &lt;
 % }
 
   &nbsp;
 
-  <% PageNumbers($front, $frontnum, $url, $index, $pagesize) |n %>
-
-% if ($centernum > 0) {
-      ... &nbsp;
-      <% PageNumbers($center, $centernum, $url, $index, $pagesize) |n %> 
+% if ($start > 0) {
+	...
 % }
 
-% if ($backnum > 0) {
-      ... &nbsp;
-      <% PageNumbers($back, $backnum, $url, $index, $pagesize) |n %>
+  <% PageNumbers($start, $end, $url, $index, $pagesize) |n %>
+
+% if ($end < $pagecount-1) {
+	...
 % }
 
-  &nbsp;
-
-% if ($index < $total - 1) {
-    <a href="<% $url %>&offset=<% ($index + 1) * $pagesize %>">&gt;&gt;</a>&nbsp;
+% if ($index < $pagecount - 1) {
+    <a href="<% $url %>&offset=<% ($index + 1) * $pagesize %>"
+    	title="next page"
+    	>&gt;</a>&nbsp;
+    <a href="<% $url %>&offset=<% ($pagecount - 1) * $pagesize %>"
+    	title="last page"
+    	>&gt;&gt;</a>&nbsp;
 % } else {
+    &gt;
     &gt;&gt;
 % }
 
