@@ -3,6 +3,7 @@
 
 use strict;
 use warnings;
+eval 'require Devel::SawAmpersand';
 
 # TODO: Check to make sure this path points to where the cgi-bin stuff is
 use lib "/home/httpd/musicbrainz/mb_server/cgi-bin";
@@ -10,6 +11,7 @@ use lib "/home/httpd/musicbrainz/mb_server/cgi-bin";
 # Make sure we are in a sane environment.
 $ENV{GATEWAY_INTERFACE} =~ /^CGI-Perl/
 	or die "GATEWAY_INTERFACE not Perl!";
+
 
 # cgi-bin/*.pl is run via Apache::Registry
 require Apache::Registry;
@@ -21,9 +23,11 @@ require DBD::Pg;
 # Some of the MB modules defer loading ("require" instead of "use") for some
 # modules.  If we know we're likely to want some module eventually, load it
 # now.
+require POSIX;
 require IO::Socket::INET; # FreeDB
 require UUID; # TableBase
 require Net::SMTP; # MusicBrainz::Server::Mail
+require Time::ParseDate;
 
 # Alphabetical order, for ease of maintenance
 # (apart from DBDefs and ModDefs, which we'll load first, just to make sure)
@@ -48,6 +52,7 @@ require MusicBrainz::Server::AlbumCDTOC;
 require MusicBrainz::Server::Cache;
 require MusicBrainz::Server::CDTOC;
 require MusicBrainz::Server::Country;
+require MusicBrainz::Server::DateTime;
 require MusicBrainz::Server::DeferredUpdate;
 require MusicBrainz::Server::Handlers;
 require MusicBrainz::Server::LogFile;
