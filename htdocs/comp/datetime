@@ -52,7 +52,14 @@ my @r = eval
 	$ENV{TZ} = $tz;
 	POSIX::tzset();
 
-	map { POSIX::strftime($fmt, localtime($_)) } @_;
+	my @tzn = POSIX::tzname();
+	my @fmt = ($fmt, $fmt);
+	for (0,1) { $fmt[$_] =~ s/%Z/$tzn[$_]/g }
+
+	map {
+		my @l = localtime $_;
+		POSIX::strftime($fmt[$l[8]], localtime($_));
+	} @_;
 };
 
 my $err = $@;
