@@ -2,6 +2,7 @@
 $mb
 $albumid
 $albumname
+$artist
 $modpending=>0
 $hilitetrack=>-1
 $hilitecolor=>""
@@ -14,6 +15,7 @@ my ($i, $track, @info, $tr, $ly, $lyricspresent);
 mc_comp("/comp/albumbegin", 
         albumid=>$albumid, 
         title=>$albumname,
+        artist=>$artist,
         modpending=>$modpending);
 $tr = Track->new($mb);
 $ly = Lyrics->new($mb);
@@ -35,6 +37,7 @@ for($i = 0;; $i++)
             tracknum=>$track->Value(3),
             name=>$track->Value(1),
             artistname=>'',
+            artistid=>$artist,
             album=>$albumid,
             modpending=>$track->Value(9),
             hilitetrack=>$hilitetrack,

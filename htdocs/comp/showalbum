@@ -44,6 +44,7 @@ else
             mb=>$mb,
             albumid=>($al->Value(0)),
             albumname=>($al->Value(1)),
+            artist=>$artistid,
             modpending=>($al->Value(2)),
             hilitetrack=>$hilitetrack,
             hilitecolor=>$hilitecolor);

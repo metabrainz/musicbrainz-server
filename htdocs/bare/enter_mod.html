@@ -11,11 +11,15 @@ for($i = 0;; $i++)
     last if (!defined($ARGS{('column' . $i)}));
     last if (!defined($ARGS{('new' . $i)}));
     last if (!defined($ARGS{('prev' . $i)}));
+    last if (!defined($ARGS{('artist' . $i)}));
+    last if (!defined($ARGS{('type' . $i)}));
     next if ($ARGS{('new' . $i)} eq '');
     next if ($ARGS{('new' . $i)} eq $ARGS{('prev' . $i)});
 
     $mod->InsertModification($ARGS{table}, 
                              $ARGS{('column' . $i)}, 
+                             $ARGS{('artist' . $i)}, 
+                             $ARGS{('type' . $i)}, 
                              $ARGS{id},
                              $ARGS{('prev' . $i)}, 
                              $ARGS{('new' . $i)}, 

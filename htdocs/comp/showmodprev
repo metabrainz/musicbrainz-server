@@ -2,6 +2,7 @@
 $prev
 $table
 $id
+$type
 </%args>
 
 <%perl>

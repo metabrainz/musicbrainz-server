@@ -1,8 +1,9 @@
 <%args>
 $id
 $table
-$column
 $rowid
+$artist
+$type
 $prev
 $new
 $time
@@ -10,57 +11,55 @@ $moderator
 $yesvotes
 $novotes
 $voted
+$artistname
 </%args>
 
 <%perl>
 
-my $text = "n/a";
+my $text = "(Your vote)";
 if ($voted)
 {
-   $text = "--";
+   $text = "(Already voted)";
 }
+my $modtype = Moderation::GetModificationName($type);
 
 </%perl>
 
+<TABLE BORDER="0" CELLPADDING="0" CELLSPACING="0"
+       BGCOLOR="#000000" WIDTH="100%">
+<TR><TD>
+<TABLE WIDTH="100%" BORDER="0" CELLSPACING="1" CELLPADDING="3">
 <tr>
-   <td width=10% valign=top bgcolor=white>
-     <% $table %>/<% $column %>
+   <td width=40% valign=top bgcolor=white>
+     Type: <% $modtype %>
+     (<a href="/showartist.html?artistid=<% $artist %>"><% $artistname %></a>)
    </td>
-   <td width=35% valign=top bgcolor=white>
-     <& /comp/showmodprev, prev=>$prev, table=>$table, id=>$rowid &>
+   <td width=40% valign=top bgcolor=white>
+     Moderator: <% $moderator %>
    </td>
-   <td width=35% valign=top bgcolor=white>
-     <% $new %>
+   <td width=20% align=center valign=top valign=top bgcolor=white>
+     <% $yesvotes %> yes,
+     <% $novotes %> no
    </td>
-   <td width=5% align=center valign=top bgcolor=white>
-     <% $yesvotes %>,
-     <% $novotes %>
-   </td>
-% if ($session{uid} != $moderator && !$voted) {
-   <td width=5% align=center valign=top bgcolor=white>
-     <input type="radio" name="rowid<% $id %>" value="yes">
-   </td>
-% } else {
-   <td width=5% align=center valign=top bgcolor=white>
-     <% $text %> 
-   </td>
-% }
-% if ($session{uid} != $moderator && !$voted) {
-   <td width=5% align=center valign=top bgcolor=white>
-     <input type="radio" name="rowid<% $id %>" value="no">
-   </td>
-% } else {
-   <td width=5% align=center valign=top bgcolor=white>
-     <% $text %> 
-   </td>
-% }
-% if ($session{uid} != $moderator && !$voted) {
-   <td width=5% align=center valign=top bgcolor=white>
-     <input type="radio" name="rowid<% $id %>" value="abstain" CHECKED>
-   </td>
-% } else {
-   <td width=5% align=center valign=top bgcolor=white>
-     <% $text %> 
-   </td>
-% }
 </tr>
+<tr>
+   <td width=40% valign=top bgcolor=white>
+     Old: <& /comp/showmodprev, prev=>$prev, 
+             table=>$table, id=>$rowid, type=>$type &>
+   </td>
+   <td width=40% valign=top bgcolor=white>
+     New: <% $new %>
+   </td>
+   <td width=20% valign=top valign=top bgcolor=white>
+% if (($session{uid} != $moderator && !$voted) || DBDefs::ALLOW_SELF_VOTE) {
+     Yes <input type="radio" name="rowid<% $id %>" value="yes">
+     No <input type="radio" name="rowid<% $id %>" value="no">
+     Abs <input type="radio" name="rowid<% $id %>" value="abstain" CHECKED>
+% } else {
+     <% $text %> 
+% }
+   </td>
+</tr>
+</table>
+</td></tr>
+</table>

@@ -38,6 +38,7 @@ else
         mc_comp("/comp/album", 
                 albumid=>$al->Value(0), 
                 albumname=>$al->Value(1), 
+                artist=>$artistid,
                 mb=>$mb,
                 modpending=>$al->Value(2));
     }

@@ -203,6 +203,8 @@ sub CreateTables
              "   Id int auto_increment primary key," .
              "   Tab varchar(32) not null," .
              "   Col varchar(64) not null, ".
+             "   Artist int not null, ".
+             "   Type tinyint not null, ".
              "   Rowid int not null, ".
              "   PrevValue varchar(255), ".
              "   NewValue varchar(255), ".

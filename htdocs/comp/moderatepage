@@ -21,6 +21,7 @@ $mb->Logout();
 <form method="POST" action="/bare/vote.html"
       enctype="application/x-www-form-urlencoded" class="formstyle"> 
 
+% if (scalar(@info) > 0) {
 <table width=100%>
 <tr>
   <td align=right>
@@ -29,21 +30,11 @@ $mb->Logout();
   </td>
 </tr>
 </table>
-
-<TABLE BORDER="0" CELLPADDING="0" CELLSPACING="0"
-       BGCOLOR="#000000" WIDTH="100%">
-<TR><TD>
-  <TABLE WIDTH="100%" BORDER="0" CELLSPACING="1" CELLPADDING="3">
-  <TR>
-    <& /comp/thcell, text=>'Field' &>
-    <& /comp/thcell, text=>'Old Value' &>
-    <& /comp/thcell, text=>'New Value' &>
-    <& /comp/thcell, text=>'Votes Yes/No' &>
-    <& /comp/thcell, text=>'Vote Yes' &>
-    <& /comp/thcell, text=>'Vote No' &>
-    <& /comp/thcell, text=>'Abstain' &>
-  </TR>
-
+% } else {
+   <center>
+   There are no modifcations pending.
+   </center>
+%}
 <%perl>
 for($i = 0; ; $i++) 
 {
@@ -55,50 +46,31 @@ for($i = 0; ; $i++)
            table=>($$row[1]),
            column=>($$row[2]),
            rowid=>($$row[3]),
-           prev=>($$row[4]),
-           new=>($$row[5]),
-           time=>($$row[6]),
-           moderator=>($$row[7]),
-           yesvotes=>($$row[8]),
-           novotes=>($$row[9]),
-           voted=>($$row[10]));
+           artist=>($$row[4]),
+           type=>($$row[5]),
+           prev=>($$row[6]),
+           new=>($$row[7]),
+           time=>($$row[8]),
+           moderator=>($$row[9]),
+           yesvotes=>($$row[10]),
+           novotes=>($$row[11]),
+           artistname=>($$row[12]),
+           voted=>($$row[13]));
+   mc_out("<br>");
 }
+
+#% if ($num_mods > $max_items) {
+#<tr><td colspan=7 bgcolor=white>
+#
+#<& /comp/prevnextbuttons, 
+#   url=>"moderate.html",
+#   offset=>$offset,
+#   itemsperpage=>$max_items,
+#   totalitems=>$num_mods
+#&>
+#</td></tr>
+#% }
+#
 </%perl>
 
-% if ($num_mods > $max_items) {
-<tr><td colspan=7 bgcolor=white>
-
-<& /comp/prevnextbuttons, 
-   url=>"moderate.html",
-   offset=>$offset,
-   itemsperpage=>$max_items,
-   totalitems=>$num_mods
-&>
-</td></tr>
-% }
-
-</table>
-
-</TD></TR>
-</TABLE><BR><P> 
-
 </form>
-
-<table>
-<tr><td colspan=2>
-  Legend:
-</td></tr>
-
-<tr><td align=center width="10%">
-<b>N/A</b>
-</td><td>
-Vote not allowed. (You're not allowed to vote on your own mods).
-</td></tr>
-
-<tr><td align=center>
-<b>--</b>
-</td><td>
-Already voted.
-</td></tr>
-</table>
-

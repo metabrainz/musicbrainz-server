@@ -1,6 +1,7 @@
 <%args>
 $albumid
 $title
+$artist
 $modpending
 </%args>
 
@@ -19,7 +20,7 @@ $modpending
         </td>
 % if (exists $session{user}) {
         <td width=10% bgcolor="#FFBA58" align=center>
-          <a href="/editalbum.html?id=<% $albumid %>">
+          <a href="/editalbum.html?id=<% $albumid %>&artist=<% $artist %>">
           <B><FONT color=black>Edit</FONT></B></a>
         </td>
 % }

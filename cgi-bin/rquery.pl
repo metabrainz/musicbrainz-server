@@ -177,6 +177,7 @@ if (!defined $xml)
     exit(0);
 }
 
+#print STDERR "$xml\n";
 if (defined $r)
 {
    $r->status(200);

@@ -3,6 +3,7 @@ $id
 $tracknum
 $name
 $artistname
+$artistid
 $album
 $modpending
 $hilitetrack
@@ -40,7 +41,7 @@ $bgcolor = ($hilitetrack == $id) ? 'bgcolor="#FFCCFF"' : $bgcolor;
 % }
 % if (exists $session{user}) {
     <td width="10%" align=center>
-       <a href="/edittrack.html?id=<% $id %>&album=<% $album %>">Edit</a>
+       <a href="/edittrack.html?id=<% $id %>&album=<% $album %>&artist=<% $artistid %>">Edit</a>
     </td>
 % }
 </tr>

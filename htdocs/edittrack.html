@@ -2,7 +2,7 @@
 
 <%perl>
 
-my ($mb, $id, $trackname, $referer, $tr, $tracknum, $album); 
+my ($mb, $id, $trackname, $referer, $tr, $tracknum, $album, $artist); 
 
 $referer = $r->headers_in->{'Referer'};
 $mb = new MusicBrainz;
@@ -11,6 +11,7 @@ $tr = Track->new($mb);
 
 $id = $ARGS{id};
 $album = $ARGS{album};
+$artist = $ARGS{artist};
 $tr->LoadFromId($id, $album);
 $trackname = $tr->Value(1);
 $tracknum = $tr->Value(3);
@@ -66,6 +67,12 @@ $tracknum = $tr->Value(3);
         </td>
       </tr>
     </table>
+    <input type="hidden" name="artist0" value="<% $artist %>">
+    <input type="hidden" name="artist1" value="<% $artist %>">
+    <input type="hidden" name="type0"
+           value="<% Moderation::MOD_EDIT_TRACKNAME %>">
+    <input type="hidden" name="type1"
+           value="<% Moderation::MOD_EDIT_TRACKNUM %>">
     <input type="hidden" name="prev0" value="<% $trackname %>">
     <input type="hidden" name="prev1" value="<% $tracknum %>">
     <input type="hidden" name="table" value="Track">

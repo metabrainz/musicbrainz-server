@@ -2,12 +2,13 @@
 
 <%perl>
 
-my ($mb, $id, $albumname, $referer, $modpending, $al); 
+my ($mb, $id, $albumname, $referer, $modpending, $al, $artist); 
 
 $referer = $r->headers_in->{'Referer'};
 $mb = new MusicBrainz;
 $mb->Login();
 $id = $ARGS{id};
+$artist = $ARGS{artist};
 
 $al = Album->new($mb);
 $al->LoadFromId($id);
@@ -55,6 +56,9 @@ $modpending = $al->Value(2);
         </td>
       </tr>
     </table>
+    <input type="hidden" name="artist0" value="<% $artist  %>">
+    <input type="hidden" name="type0" 
+           value="<% Moderation::MOD_EDIT_ALBUMNAME %>">
     <input type="hidden" name="prev0" value="<% $albumname  %>">
     <input type="hidden" name="table" value="Album">
     <input type="hidden" name="column0" value="Name">

@@ -35,6 +35,20 @@ use CGI;
 use DBI;
 use DBDefs;
 
+use constant MOD_EDIT_ARTISTNAME         => 1;
+use constant MOD_EDIT_ARTISTSORTNAME     => 2;
+use constant MOD_EDIT_ALBUMNAME          => 3;
+use constant MOD_EDIT_TRACKNAME          => 4;
+use constant MOD_EDIT_TRACKNUM           => 5;
+
+my %ModNames = (
+    "1" => "Edit Artist Name",
+    "2" => "Edit Artist Sortname",
+    "3" => "Edit Album Name",
+    "4" => "Edit Track Name",
+    "5" => "Edit Track Number" 
+);
+
 sub new
 {
    my ($type, $mb) = @_;
@@ -43,9 +57,14 @@ sub new
    return bless $this, $type;
 }
 
+sub GetModificationName
+{
+   return $ModNames{$_[0]};
+}
+
 sub InsertModification
 {
-    my ($this, $table, $column, $id, $prev, $new, $uid) = @_;
+    my ($this, $table, $column, $artist, $type, $id, $prev, $new, $uid) = @_;
 
     $this->{DBH}->do(qq/update $table set modpending = modpending + 1  
                         where id = $id/);
@@ -55,8 +74,9 @@ sub InsertModification
     $prev = $this->{DBH}->quote($prev);
     $new = $this->{DBH}->quote($new);
     $this->{DBH}->do(qq/insert into Changes (tab, col, rowid, prevvalue, 
-           newvalue, timesubmitted, moderator, yesvotes, novotes) values 
-           ($table, $column, $id, $prev, $new, now(), $uid, 0, 0)/);
+           newvalue, timesubmitted, moderator, yesvotes, novotes, artist, 
+           type) values ($table, $column, $id, $prev, $new, now(), $uid, 0, 0,
+           $artist, $type)/);
 }
 
 sub GetModerationList
@@ -81,9 +101,13 @@ sub GetModerationList
    }
    $sth->finish;   
 
-   $sth = $this->{DBH}->prepare(qq/select id, tab, col, rowid, prevvalue, 
-               newvalue, UNIX_TIMESTAMP(TimeSubmitted), moderator, yesvotes, 
-               novotes from Changes limit $index, $num/);
+   $sth = $this->{DBH}->prepare(qq/select Changes.id, tab, col, rowid, 
+         Changes.artist, type, prevvalue, newvalue, 
+         UNIX_TIMESTAMP(TimeSubmitted), 
+         ModeratorInfo.name, yesvotes, novotes, Artist.name 
+         from Changes, ModeratorInfo, 
+         Artist where ModeratorInfo.id = moderator and Changes.artist = 
+         Artist.id order by artist, type limit $index, $num/);
    $sth->execute;
    if ($sth->rows)
    {
@@ -98,7 +122,7 @@ sub GetModerationList
                    last;
                }
             }
-            $row[6] += DBDefs::MOD_PERIOD;
+            $row[8] += DBDefs::MOD_PERIOD;
             push @data, [@row, $voted];
         }
    }

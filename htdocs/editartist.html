@@ -75,6 +75,12 @@ $modpending = $ar->Value(3);
         </td>
       </tr>
     </table>
+    <input type="hidden" name="artist0" value="<% $id  %>">
+    <input type="hidden" name="artist1" value="<% $id  %>">
+    <input type="hidden" name="type0" 
+           value="<% Moderation::MOD_EDIT_ARTISTNAME  %>">
+    <input type="hidden" name="type1" 
+           value="<% Moderation::MOD_EDIT_ARTISTSORTNAME  %>">
     <input type="hidden" name="prev0" value="<% $artistname  %>">
     <input type="hidden" name="prev1" value="<% $sortname  %>">
     <input type="hidden" name="table" value="Artist">

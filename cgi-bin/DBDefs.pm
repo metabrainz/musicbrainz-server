@@ -64,4 +64,9 @@ use constant VERSION => "1.0.0-pre3";
 use constant MOD_PERIOD => 172800;   # 2 days
 
 # Defines the number of unanimous votes required to pass a mod early
-use constant NUM_UNANIMOUS_VOTES => 5;
+use constant NUM_UNANIMOUS_VOTES => 1;
+
+# Do not set this unless you are running on a test server. This setting
+# Allows a person to vote on ther own modifications. It should be used
+# for testing purposes only.
+use constant ALLOW_SELF_VOTE => 1;
