@@ -319,9 +319,12 @@ if ($fDoReplication)
 		# Dump 'em
 		dumptable($_) for @replication_tables;
 
+		# Dump lucene text index bits
+		dumplucene();
+
 		# Remove the rows we just dumped
 		# TODO check the efficiency of using ON DELETE CASCADE
-		$sql->Do("DELETE FROM \"$_\"") for @replication_tables;
+      $sql->Do("DELETE FROM \"$_\"") for @replication_tables;
 
 		writefile("REPLICATION_SEQUENCE", "$iReplicationSequence\n");
 	} elsif (defined $iReplicationSequence and not $fAnyReplicationData) {
@@ -429,8 +432,11 @@ if ($fCompress and $fDoReplication)
 
 	if (grep { $rowcounts{$_} } @replication_tables)
 	{
-		# Go for the "most restrictive" licence
-		copy("$FindBin::Bin/COPYING-PublicDomain", "$dir/COPYING") or die $!;
+		# Go for the "most restrictive" license
+		copy("$FindBin::Bin/COPYING-CCShareAlike", "$dir/COPYING") or die $!;
+
+      # These two lines feel kinda hacky
+		unshift @replication_tables, "lucene_dump.xml";
 		make_tar($tarfile, @replication_tables);
 	}
 }
@@ -468,6 +474,89 @@ sub writefile
 	open(my $fh, ">$dir/$file") or die $!;
 	print $fh $contents or die $!;
 	close $fh or die $!;
+}
+
+sub dumplucene
+{
+   my ($file) = @_;
+   my ($element, $rel, $row, %args);
+   my $xml = "";
+   my $count = 0;
+
+   my $sql = Sql->new($mb->{DBH});
+
+   if ($sql->Select(qq|select p."TableName", p."Op", p."XID", pd."Data" 
+                     from "PendingData" as pd, "Pending" as p 
+                    where p."SeqId" = pd."SeqId" and 
+                          pd."IsKey" = false and
+                          (p."TableName" = '"public"."album"' or
+                           p."TableName" = '"public"."artist"' or
+                           p."TableName" = '"public"."track"' or
+                           p."TableName" = '"public"."albumjoin"')
+                    order by "XID"|))
+   {
+       print "Dumping lucene text index update...";
+       while($row = $sql->NextRowRef)
+       {
+           $rel = undef;
+           $rel = $2 if ($row->[0] =~ /"(\w+)"."(\w+)"/);
+           %args = ();
+           while($row->[3] =~ s/"(\w+)"='([^']*)'//)
+           {
+               $args{$1} = $2;
+           }
+
+           if ($xml eq '')
+           {
+               $xml = '<?xml version="1.0" encoding="UTF-8"?>' . 
+                      "\n<changes xid_start=\"$row->[2]\">\n" 
+           }
+
+           $element = "update" if ($row->[1] eq 'u');
+           $element = "insert" if ($row->[1] eq 'i');
+           $element = "delete" if ($row->[1] eq 'd');
+
+           $count++;
+           if ($element eq 'delete')
+           {
+               $xml .= "   <$element relation=\"$rel\" xid=\"$row->[2]\" id=\"$args{'id'}\"/>\n";
+           }
+           else
+           {
+               $xml .= "   <$element relation=\"$rel\" xid=\"$row->[2]\" id=\"$args{'id'}\">\n";
+               if ($rel eq 'artist')
+               {
+                   $xml .= "    <attribute name=\"name\">$args{name}</attribute>\n";
+                   $xml .= "    <attribute name=\"sortname\">$args{sortname}</attribute>\n";
+                   $xml .= "    <attribute name=\"gid\">$args{gid}</attribute>\n";
+               }
+               elsif ($rel eq 'album')
+               {
+                   $xml .= "    <attribute name=\"name\">$args{name}</attribute>\n";
+                   $xml .= "    <attribute name=\"gid\">$args{gid}</attribute>\n";
+               }
+               elsif ($rel eq 'albumjoin')
+               {
+                   $xml .= "    <attribute name=\"album\">$args{album}</attribute>\n";
+                   $xml .= "    <attribute name=\"track\">$args{track}</attribute>\n";
+                   $xml .= "    <attribute name=\"sequence\">$args{sequence}</attribute>\n";
+               }
+               elsif ($rel eq 'track')
+               {
+                   $xml .= "    <attribute name=\"name\">$args{name}</attribute>\n";
+                   $xml .= "    <attribute name=\"gid\">$args{gid}</attribute>\n";
+                   $xml .= "    <attribute name=\"artist\">$args{artist}</attribute>\n";
+               }
+
+               $xml .= "   </$element>\n";
+           }
+       }
+       $sql->Finish();
+       $xml .= "</changes>\n";
+		 writefile("mbdump/lucene_dump.xml", $xml);
+       $rowcounts{"lucene_dump.xml"} = $count;
+       print "done.\n";
+   }
 }
 
 # eof ExportAllTables
