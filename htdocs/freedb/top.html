@@ -3,9 +3,11 @@
 Use the frame below to search for the CD you want to import.<br>
 Then cut and paste the category and id (e.g. <b>rock / 940d8b0c</b>) into the 
 text field below:<br>
+
 <form method="POST" action="/freedb/import.html" target="_parent"
       enctype="application/x-www-form-urlencoded">
-category / freedb id: <input type="text" name="catid" size="30">
+category / freedb id: <input type="text" name="catid" size="20">
+<input type="checkbox" name="mac">CD has multiple artists
 <input type="submit" value="Import">
 </form>
 
