@@ -66,12 +66,12 @@ sub SetOutputFile
 
 sub ErrorRDF
 {
-   my ($this, $text) = @_;
+   my ($this, @text) = @_;
    my ($rdf);
 
    $rdf = $this->BeginRDFObject;
    $rdf .= $this->BeginDesc("mq:Result");
-   $rdf .= $this->Element("mq:error", $text);
+   $rdf .= $this->Element("mq:error", "@text");
    $rdf .= $this->EndDesc("mq:Result");
    $rdf .= $this->EndRDFObject;
 
