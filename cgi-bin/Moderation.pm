@@ -717,8 +717,7 @@ SUPPRESS_INSERT:
 sub GetMaxModID
 {
 	my $self = shift;
-	my $sql = Sql->new($self->{DBH});
-	$sql->SelectSingleValue("SELECT NEXTVAL('moderation_open_id_seq')");
+	($self->iiMinMaxID)[1];
 }
 
 sub OpenModsByType_as_hashref
