@@ -54,19 +54,19 @@ print <<EOF;
 
 EOF
 
-$sql->Select("SELECT id, name, sortname FROM artist")
+$sql->Select("SELECT id, name, sortname, modpending FROM artist")
     or die "sql error";
 
 while (my @row = $sql->NextRow)
 {
-	addartist(\@row, $row[0], $row[1]);
-	addartist(\@row, $row[0], $row[2]);
+	addartist(\@row, $row[0], $row[1], $row[3]);
+	addartist(\@row, $row[0], $row[2], $row[3]);
 }
 
 $sql->Finish;
 
 $sql->Select("
-	SELECT l.ref, l.name, '[alias for ' || r.name || ']'
+	SELECT l.ref, l.name, '[alias for ' || r.name || ']', l.modpending
 	FROM artistalias l, artist r
 	WHERE r.id = l.ref
 	")
@@ -74,7 +74,7 @@ $sql->Select("
 
 while (my @row = $sql->NextRow)
 {
-	addartist(\@row, $row[0], $row[1]);
+	addartist(\@row, $row[0], $row[1], $row[2]);
 }
 
 $sql->Finish;
@@ -83,7 +83,7 @@ my %a;
 
 sub addartist
 {
-	my ($row, $id, $name) = @_;
+	my ($row, $id, $name, $modpending) = @_;
 
     my $n = unac_string('UTF-8', $name);
     $n = uc decode("utf-8", $n);
@@ -116,10 +116,13 @@ while (my ($k, $v) = each %a)
 	{
 		my $na = $sql->SelectSingleValue("SELECT COUNT(*) FROM album WHERE artist = ?", $_->[0]);
 		my $nt = $sql->SelectSingleValue("SELECT COUNT(*) FROM track WHERE artist = ?", $_->[0]);
+
+		my $style = "";
+		$style = 'style="background: #FFC"' if $_->[-1];
 		
 		print <<EOF;
 	<tr>
-		<td>
+		<td $style>
 			<a href='/showartist.html?artistid=$_->[0]'
 				>${\ html_escape($_->[1]) }</a>
 		</td>
