@@ -39,8 +39,7 @@ if (scalar(@ids) > 0)
           $id_numtracks = undef;
        }
 
-       mc_out('align="center" ');
-       mc_out($id->{modpending} ? ' bgcolor="#FFFFCC"' : '');
+       mc_out($id->{modpending} ? ' bgcolor="#FFFFCC"' : ' bgcolor="#ffecd6"');
        mc_out('>');
        mc_out("CD Index Id: ");
 
@@ -55,20 +54,18 @@ if (scalar(@ids) > 0)
                   "has $id_numtracks tracks.");
        }
 
-       mc_out("<br></td><td nowrap align=\"center\">");
+       mc_out("</td>");
        if (exists $session{user} && !$nomod) 
        {
+           mc_out("<td nowrap align=\"center\" bgcolor=\"#ffecd6\">");
            mc_out("<a href=\"/movediscid.html?discid=$id->{discid}&albumid=");
            mc_out($album->GetId() . "&artistid=");
            mc_out($artist->GetId() . "\">Move</a> | ");
            mc_out("<a href=\"/remdiscid.html?discid=$id->{discid}&albumid=");
            mc_out($album->GetId() . "\">Del</a>");
+           mc_out("</td>");
        }
-       else
-       {
-           mc_out("&nbsp;");
-       }
-       mc_out("</td></tr>");
+       mc_out("</tr>");
 
        $rows++;
     }

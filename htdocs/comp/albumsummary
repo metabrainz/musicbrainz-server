@@ -1,0 +1,33 @@
+<%args>
+$album
+$artist
+</%args>
+
+<%perl>
+
+my ($trackcount, $trmids, @ids, $di);
+
+$trackcount = $album->GetTrackCount();
+$trmids = $album->GetTRMCount();
+$di = Discid->new($album->{DBH});
+@ids = $di->GetDiscidFromAlbum($album->GetId());
+
+</%perl>
+
+<% $trackcount %> 
+<img src="/images/notes.gif" align="center" alt="Tracks" 
+         width="13" height="13"
+         title="This album has <% $trackcount %> Tracks">
+
+% if (scalar(@ids) > 0) {
+    &nbsp; &nbsp; &nbsp;<% scalar(@ids) %>
+    <img src="/images/cd.gif" align="center" alt="CD" 
+               width="13" height="13"
+               title="This album has <% scalar(@ids) %> CD Index Ids">
+% }
+% if ($trmids > 0) {
+    &nbsp; &nbsp; &nbsp;<% $trmids %>
+    <img src="/images/trm.gif" align="center" alt="TRM" 
+               width="30" height="11"
+               title="This album has <% $trmids %> TRM Ids">&nbsp;
+% }

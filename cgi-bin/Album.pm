@@ -39,6 +39,36 @@ use TRM;
 use SearchEngine;
 use ModDefs;
 
+use constant ALBUM_TYPE_ALBUM          => 1;
+use constant ALBUM_TYPE_NONALBUMTRACKS => 2;
+use constant ALBUM_TYPE_SINGLE         => 3;
+use constant ALBUM_TYPE_EP             => 4;
+use constant ALBUM_TYPE_COMPILATION    => 5;
+use constant ALBUM_TYPE_BOOTLEG        => 6;
+use constant ALBUM_TYPE_SOUNDTRACK     => 7;
+use constant ALBUM_TYPE_SPOKENWORD     => 8;
+use constant ALBUM_TYPE_AUDIOBOOK      => 9;
+use constant ALBUM_TYPE_INTERVIEW      => 10;
+use constant ALBUM_TYPE_CONCERT        => 11;
+use constant ALBUM_TYPE_LIVE           => 12;
+use constant ALBUM_TYPE_PROMOTION      => 13;
+
+my %AlbumTypeNames = (
+    ALBUM_TYPE_ALBUM          => "Album",
+    ALBUM_TYPE_NONALBUMTRACKS => "Non Album Tracks",
+    ALBUM_TYPE_SINGLE         => "Single",
+    ALBUM_TYPE_EP             => "EP",
+    ALBUM_TYPE_COMPILATION    => "Compilation",
+    ALBUM_TYPE_BOOTLEG        => "Bootleg",
+    ALBUM_TYPE_SOUNDTRACK     => "Soundtrack",
+    ALBUM_TYPE_SPOKENWORD     => "Spokenword",
+    ALBUM_TYPE_AUDIOBOOK      => "Audiobook",
+    ALBUM_TYPE_INTERVIEW      => "Interview",
+    ALBUM_TYPE_CONCERT        => "Concert",
+    ALBUM_TYPE_LIVE           => "Live",
+    ALBUM_TYPE_PROMOTION      => "Promotion"
+);
+
 sub new
 {
    my ($type, $dbh) = @_;
@@ -56,6 +86,11 @@ sub GetArtist
 sub SetArtist
 {
    $_[0]->{artist} = $_[1];
+}
+
+sub GetAlbumTypeName
+{
+   return $AlbumTypeNames{$_[1]};
 }
 
 # Insert an album that belongs to this artist. The Artist object should've

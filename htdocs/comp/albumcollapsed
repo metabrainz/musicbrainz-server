@@ -5,12 +5,10 @@ $ex=>""
 </%args>
 
 <%perl>
-my ($trackcount, $trmcount, @ids, $di, $link);
+
+my ($trackcount, $link);
 
 $trackcount = $album->GetTrackCount();
-$trmcount = $album->GetTRMCount();
-$di = Discid->new($album->{DBH});
-@ids = $di->GetDiscidFromAlbum($album->GetId());
 $link = "/showartist.html?artistid=" . $artist->GetId() . "&ex=";
 
 $ex .= "," . $album->GetId();
@@ -22,25 +20,9 @@ mc_comp("/comp/albumbegin",
             link=>$link);
 
 </%perl>
-<tr><td>
-<% $trackcount %> 
-<img src="/images/notes.gif" align="center" alt="Tracks" 
-         width="13" height="13"
-         title="This album has <% $trackcount %> Tracks">
 
-% if (scalar(@ids) > 0) {
-    &nbsp; &nbsp; &nbsp;<% scalar(@ids) %>
-    <img src="/images/cd.gif" align="center" alt="CD" 
-               width="13" height="13"
-               title="This album has <% scalar(@ids) %> CD Index Ids">
-% }
-% if ($trmcount > 0) {
-    &nbsp; &nbsp; &nbsp;<% $trmcount %>
-    <img src="/images/trm.gif" align="center" alt="TRM" 
-               width="30" height="11"
-               title="This album has <% $trmcount %> TRM Ids">&nbsp;
-% }
+<tr bgcolor="#f0efff"><td bgcolor="#f0efff">
+<& /comp/albumsummary, album=>$album, artist=>$artist &>
 </td></tr>
-
 <& /comp/albumend, showids=>0, album=>$album, artist=>$artist, 
                    nomod=>1, numtracks=>$trackcount &>

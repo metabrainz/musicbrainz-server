@@ -30,6 +30,9 @@ use Artist;
 use ModDefs;
 use Sql;
 
+# create table AlbumAttributeJoin ( Id serial primary key, Album int not null references Album, Attr int not null); 
+# create index AlbumAttributeJoin_AlbumIndex on AlbumAttributeJoin (Album);
+
 sub CreateTables
 {
     my ($sql) = @_;
@@ -88,6 +91,14 @@ sub CreateTables
               or die("Cannot create AlbumJoin table");
 
         print "Created AlbumJoin table.\n";
+
+        $sql->Do(qq|create table AlbumAttributeJoin (
+                       Id serial primary key,
+                       Album int not null references Album,
+                       Attr int not null)|)
+              or die("Cannot create AlbumAttributeJoin table");
+
+        print "Created AlbumAttributeJoin table.\n";
 
         $sql->Do(qq|create table TRM (
                        Id serial primary key,
@@ -331,6 +342,11 @@ sub CreateIndices
         $sql->Do(qq|create index AlbumJoin_TrackIndex on AlbumJoin (Track)|)
               or die("Could not add indices to AlbumJoin table");
         print "Added indices to AlbumJoin table.\n";
+
+        $sql->Do(qq|create index AlbumAttributeJoin_AlbumIndex on 
+                                 AlbumAttributeJoin (Album)|)
+              or die("Could not add indices to AlbumAttributeJoin table");
+        print "Added indices to AlbumAttributeJoin table.\n";
 
         $sql->Do(qq|create unique index Discid_DiscIndex on Discid (Disc)|)
               or die("Could not add indices to Discid table");

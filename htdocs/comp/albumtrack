@@ -14,9 +14,9 @@ $mbtagger=>0
 <%perl>
 
 my ($bgcolor, $tr_bgcolor, $length_in_secs);
-$bgcolor = ($track->GetModPending()) ? 'bgcolor="#FFFFCC"' : '';
+$bgcolor = ($track->GetModPending()) ? 'bgcolor="#FFFFCC"' : 'bgcolor="#FFFFFF"';
 $bgcolor = ($hilitetrack == $track->GetId()) ? 'bgcolor="#FFCCFF"' : $bgcolor;
-$tr_bgcolor = ($track->GetAlbumJoinModPending()) ? 'bgcolor="#FFFFCC"' : '';
+$tr_bgcolor = ($track->GetAlbumJoinModPending()) ? 'bgcolor="#FFFFCC"' : 'bgcolor="#FFFFFF"';
 $length_in_secs = int((defined $track->GetLength()) ? 
                       $track->GetLength() / 1000 : 0);
 
@@ -47,7 +47,7 @@ $length_in_secs = int((defined $track->GetLength()) ?
 % }
     </td>
 % if ($album->GetArtist() == ModDefs::VARTIST_ID) {
-    <td width="30%">
+    <td width="30%" bgcolor="white">
        <a href="/showartist.html?artistid=<% $track->GetArtist() %>"><% $track->GetArtistName() |h  %></a>
 % if (exists $session{user}) {
           (<a href="/changetrack.html?album=<% $album->GetId() %>&artist=<% $track->GetArtist() %>&tindex=<% $tindex %>&solo=1">Change</a>)
@@ -60,7 +60,7 @@ $length_in_secs = int((defined $track->GetLength()) ?
 % }
     </td>
 % if (exists $session{user} && !$nomod) {
-    <td width="15%" align=center nowrap>
+    <td width="15%" align=center bgcolor="white" nowrap>
        <a href="/edittrack.html?id=<% $track->GetId() %>&album=<% $album->GetId() %>&artist=<% $artist->GetId() %>">Edit</a>
        | <a href="/remtrack.html?id=<% $track->GetId() %>&album=<% $album->GetId() %>&artist=<% $artist->GetId() %>">Del</a>
     </td>

@@ -8,6 +8,7 @@ $showalbumdetail=>0
 $showcollapsed=>0
 $ex=>""
 $mbtagger=>0
+$showids=>0
 </%args>
 
 <%perl>
@@ -81,6 +82,14 @@ for($i = 0;; $i++)
             hilitecolor=>$hilitecolor, nomod=>$nomod, 
             trmcount=>$tcount, mbtagger=>$mbtagger);
 }
+
+my $colspan = 3;
+$colspan++ if (exists $session{user}  && !$nomod);
+$colspan++ if ($album->GetArtist() == ModDefs::VARTIST_ID);
+
+mc_out('<tr bgcolor="white"><td bgcolor="#f0efff" colspan="' . $colspan . '">');
+mc_comp("/comp/albumsummary", album=>$album, artist=>$artist);
+mc_out('</td></tr>');
 mc_comp("/comp/albumend", album=>$album, artist=>$artist, 
-                          numtracks=>$i, nomod=>$nomod);
+                          numtracks=>$i, nomod=>$nomod, showids=>$showids);
 </%perl>

@@ -37,8 +37,7 @@ if ($link ne '')
 
 </%perl>
 <a name="al<% $album->GetId() %>">
-<table border="0" cellpadding="0" cellspacing="0"
-       bgcolor="#000000" width="100%">
+<table border="0" cellpadding="0" cellspacing="0" bgcolor="#000000" width="100%">
 <tr><td bgcolor="#000000">
   <table width="100%" border="0" cellspacing="1" cellpadding="2">
   <tr>
@@ -59,9 +58,6 @@ if ($link ne '')
            <a href="/<% $script %>.html?albumid=<% $album->GetId() %>"><% $album->GetName() |h %></a>
 % }
         </td>
-%#        <td width="10" bgcolor="#FFBA58" valign="center" align="center">
-%#           <% $check_box |n %>
-%#        </td>
 % if (exists $session{user} && !$nomod) {
         <td width=15% bgcolor="#FFBA58" align=center nowrap>
           <a href="/editalbum.html?id=<% $albumid %>&artist=<% $artist->GetId() %>">Edit</a>
@@ -70,5 +66,5 @@ if ($link ne '')
 % }
   </tr>
   </table>
-  <TABLE WIDTH="100%" bgcolor=white BORDER="0" CELLSPACING="1" CELLPADDING="3">
+  <TABLE WIDTH="100%" bgcolor=black BORDER="0" CELLSPACING="1" CELLPADDING="3">
 
