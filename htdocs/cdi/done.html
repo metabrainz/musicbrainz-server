@@ -24,6 +24,7 @@ $error = 2 if ($id eq '' && $freedbid eq '');
 $error = 3 if ($toc eq '' && $freedbid eq '');
 $error = 4 if ($freedbid ne '' && $durations eq '');
 $error = 5 if ($tracks eq 0);
+$error = 6 if (!defined $artist && $artistname =~ /various artists/i);
 for($i = 0; $i < $tracks && !$error; $i++)
 {
     if (!exists $ARGS{"track$i"} || $ARGS{"track$i"} eq '')
@@ -43,7 +44,7 @@ if ($id ne '' && defined $di->GetAlbumFromDiscid($id))
     </TD></TR></TABLE>
 <%perl>
 }
-elsif ($error)
+elsif ($error > 0 && $error != 6)
 {
 </%perl>
     <FONT SIZE=+1 COLOR=RED>
@@ -51,6 +52,15 @@ elsif ($error)
     </FONT>
     Please make sure that you fill out all the fields in the form.
     Please press the Back button in your Browser and try again.
+    </TD></TR></TABLE>
+<%perl>
+}
+elsif ($error == 6)
+{
+</%perl>
+    You cannot insert a Various Artists albums using the single artist
+    submission form. Please go back to the beginning of the submission
+    process and choose a Multiple Artist CD.
     </TD></TR></TABLE>
 <%perl>
 }

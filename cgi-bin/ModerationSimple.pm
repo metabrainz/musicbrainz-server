@@ -280,19 +280,34 @@ sub ApprovedAction
        @row = $sql->NextRow;
        if ($row[0] eq $prevval)
        {
-           # Check to make sure that applying this edit won't cause an error!
-           my $sql2 = Sql->new($this->{DBH});
-           if ($sql2->Select(qq/select id from $table where $column = $newval/) &&
-               $sql2->Rows > 0)
-           {
-               $sql->Finish;
-               $status = ModDefs::STATUS_ERROR;
+           my $ok = 0;
 
-               $this->InsertModerationNote($this->GetId(), ModDefs::MODBOT_MODERATOR, 
-                         "This edit moderation clashes with an existing item in " .
-                         "the database.");
+           # Special case: If this edit is an artist edit, make sure that we
+           # don't attempt to insert a duplicate artist. So, search for the artist
+           # and use its it, if found. Otherwise edit the artist.
+           if ($table =~ /^artist$/i && $column =~ /^name$/i)
+           {
+               my $ar = Artist->new($this->{DBH});
+               if (defined $ar->LoadFromName($this->GetNew()))
+               {
+                   $status = ModDefs::STATUS_ERROR;
+    
+                   $this->InsertModerationNote($this->GetId(), ModDefs::MODBOT_MODERATOR, 
+                             "This edit moderation clashes with the existing artist " .
+                             "<a href=\"/showartist.html?artistid=" . $ar->GetId() . 
+                             "\">" .  $ar->GetName() . "</a>");
+               }
+               else
+               {
+                   $ok = 1;
+               }
            }
            else
+           {
+               $ok = 1;
+           }
+
+           if ($ok)
            {
                $sql->Do(qq/update $table set $column = $newval  
                                    where id = $datarowid/); 
@@ -801,13 +816,10 @@ sub ApprovedAction
 
    $status = ModDefs::STATUS_ERROR;
 
-   print STDERR "AA: AC: $this->{DBH}->{AutoCommit}\n";
    $al = Alias->new($this->{DBH});
    $al->SetTable("ArtistAlias");
-   print STDERR "AA: AC: $this->{DBH}->{AutoCommit}\n";
    $status = ModDefs::STATUS_APPLIED
         if (defined $al->Insert($this->GetRowId(), $this->GetNew()));
-   print STDERR "AA: AC: $this->{DBH}->{AutoCommit}\n";
 
    return $status;
 }
