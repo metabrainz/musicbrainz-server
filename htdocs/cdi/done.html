@@ -22,7 +22,7 @@ mc_comp("/comp/sidebar", title=>'New CD Submission');
 use DebugLog;
 if (my $d = DebugLog->open)
 {
-    $d->stamp("enter_mod.html");
+    $d->stamp("cdi/done.html");
     $d->dumper([\%ARGS], ['*ARGS']);
     $d->dumpstring($toc, '$toc') if $toc;
     $d->close;
