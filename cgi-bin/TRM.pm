@@ -224,38 +224,6 @@ sub RemoveTRMByTRMJoin
     return 1;
 }
 
-# Load all the trms for a given track and return an array of references to trms
-# objects. Returns undef if error occurs
-# TODO should this ever return undef?
-sub LoadFull
-{
-   my ($this, $track) = @_;
-   my (@info, $query, $sql, @row, $trm);
-
-   $sql = Sql->new($this->{DBH});
-   $query = qq|select trm.id, trm.trm
-                 from trm, trmjoin
-                where trmjoin.track = $track and
-                      trmjoin.trm = trm.id|;
-   if ($sql->Select($query) && $sql->Rows)
-   {
-       for(;@row = $sql->NextRow();)
-       {
-		   require TRM;
-           $trm = TRM->new($this->{DBH});
-           $trm->SetId($row[0]);
-           $trm->SetTRM($row[1]);
-           push @info, $trm;
-       }
-       $sql->Finish;
-
-       return \@info;
-   }
-
-	$sql->Finish;
-   return undef;
-}
-
 sub IncrementLookupCount
 {
 	my ($class, $trm) = @_;
