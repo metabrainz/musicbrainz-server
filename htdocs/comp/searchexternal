@@ -43,7 +43,7 @@ my @site_musica = (
 <td width="48%" valign="top">
 
   <& /comp/tablebegin, title=>'CD shopping sites', attrs=>"align=left",
-     gattrs=>"width=100%" &>
+     gattrs=>"width='100%'" &>
     Please enter the name of the artist to search.<br>
     &nbsp<br>
     <& /comp/searchbox, name=>'www.amazon.com',
@@ -77,7 +77,7 @@ my @site_musica = (
   <& /comp/tableend &>
 
   <& /comp/tablebegin, title=>'Info sites', attrs=>"align=left",
-     gattrs=>"width=100%" &>
+     gattrs=>"width='100%'" &>
     Please enter the name of the artist to search.
     
     <& /comp/searchbox, name=>'www.rollingstone.com',
@@ -110,7 +110,7 @@ my @site_musica = (
   <& /comp/tableend &>
 
   <& /comp/tablebegin, title=>'Classical music sites', attrs=>"align=left",
-     gattrs=>"width=100%" &>
+     gattrs=>"width='100%'" &>
     For each of these searches please enter the name of the composer to search.
     
     <& /comp/searchbox, name=>'allclassical.com',
@@ -144,7 +144,7 @@ my @site_musica = (
 <td width="48%" valign="top">
 % if (DBDefs::SEARCH_LYRICS_OFFSITE) {
   <& /comp/tablebegin, title=>'Lyrics sites', attrs=>"align=left",
-     gattrs=>"width=100%" &>
+     gattrs=>"width='100%'" &>
     For each of these searches please enter the name of the artist, album or track to search.
     <& /comp/searchbox, name=>'www.lyricfind.com',
                         nameurl=>'http://www.lyricfind.com',
@@ -174,7 +174,7 @@ my @site_musica = (
   <& /comp/tableend &>
 
   <& /comp/tablebegin, title=>'CD Cover art sites', attrs=>"align=left",
-     gattrs=>"width=100%" &>
+     gattrs=>"width='100%'" &>
     Please enter the name of the artist to search.
     <& /comp/searchbox, name=>'www.cdcovercentral.com',
                         nameurl=>'http://www.cdcovercentral.com',

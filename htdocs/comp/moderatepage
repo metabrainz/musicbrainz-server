@@ -87,7 +87,7 @@ if ($num_mods > 0)
 }
 </%perl>
 
-<table width=100%>
+<table width="100%">
 <tr>
 <td width="20%" align="center">
 <% $total_mods + $offset %> mods 
@@ -161,9 +161,9 @@ $mb->Logout();
 </table>
 
 % if ($num_mods > 0 && $show_button) {
-<table width=100%>
+<table width="100%">
 <tr>
-  <td width=20%>
+  <td width="20%">
      &nbsp;
   </td>
   <td align=right>
