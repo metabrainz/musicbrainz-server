@@ -4,11 +4,15 @@ $albumid => ""
 $discid => ""
 $mbid => ""
 $mbt=>$session{'mbt'}
+$tport=>$session{'tport'}
 </%args>
 <%perl>
 
 UserStuff::EnsureSessionOpen(), $session{mbt} = 1
 	if $mbt;
+
+UserStuff::EnsureSessionOpen(), $session{tport} = $tport
+   if $tport;
 
 if ($mbid ne "")
 {

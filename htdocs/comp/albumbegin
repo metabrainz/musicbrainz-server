@@ -108,6 +108,10 @@ if ($asin)
 % if ($session{uid}) {
 	| <a href="/mod/search/pre/album.html?albumid=<% $albumid %>">View album mods</a>
 % }
+% if ($session{tport}) {
+   | <a href="http://127.0.0.1:<% $session{tport} %>/openalbum?id=<% $album->GetMBId %>&amp;t=<% time %>"
+        target="hiddeniframe" title="Open in Tagger">Open in tagger</a>
+% }
 ]</div>
 % }
 </div> 

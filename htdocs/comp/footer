@@ -60,7 +60,7 @@ return $m->comp('/comp/footer_small')
 	</tr>
 	</table>
 </div>
-
+<iframe name="hiddeniframe" height="0" width="0" frameborder="0"></iframe>
 </body>
 </html>
 %# vi: set ts=4 sw=4 ft=mason :
