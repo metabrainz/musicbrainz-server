@@ -41,6 +41,7 @@ use TaggerSupport;
 use Track;
 use UserStuff;
 
+use Carp qw( carp );
 use Digest::SHA1 qw(sha1_hex);
 use Apache::Session::File;
 
@@ -199,43 +200,44 @@ sub FindTrackByName
 # returns TRMList
 sub FindDistinctTRM
 {
-   my ($dbh, $parser, $rdf, $name, $artist) = @_;
-   my ($sql, $query, @ids, @row);
+    my ($dbh, $parser, $rdf, $name, $artist) = @_;
 
-   return $rdf->ErrorRDF("No name or artist search criteria given.")
-      if (!defined $name && !define $artist);
-   return undef if (!defined $dbh);
+    MusicBrainz::TrimInPlace($name) if defined $name;
+    if (not defined $name or $name eq "")
+    {
+	carp "Missing name in FindDistinctTRM";
+	return $rdf->ErrorRDF("No name or artist search criteria given.");
+    }
 
-   if ((defined $name && $name ne '') && 
-       (defined $artist && $artist ne '') )
-   {
-      $sql = Sql->new($dbh);
+    MusicBrainz::TrimInPlace($artist) if defined $artist;
+    if (not defined $artist or $artist eq "")
+    {
+	carp "Missing artist in FindDistinctTRM";
+	return $rdf->ErrorRDF("No name or artist search criteria given.");
+    }
 
-      # This query finds single track id by name and artist
-      $name = $sql->Quote($name);
-      $artist = $sql->Quote($artist);
-      $query = qq/select distinct TRM.TRM from Track, Artist, TRMJoin, TRM 
-                   where Track.artist = Artist.id and 
-                         TRMJoin.track = Track.id and
-                         TRM.id = TRMJoin.TRM and
-                         Artist.name ilike $artist and 
-                         Track.Name ilike $name/;
+    if (not $dbh)
+    {
+	carp "No dbh in FindDistinctTRM";
+	return undef;
+    }
 
-      if ($sql->Select($query))
-      {
-         for(; @row = $sql->NextRow();)
-         {
-             if (!defined $row[0] || $row[0] eq '')
-             {
-                 next;
-             }
-             push @ids, $row[0];
-         }
-         $sql->Finish;
-      }
-   }
+    my $sql = Sql->new($dbh);
 
-   return $rdf->CreateTRMList(@ids);
+    # This query finds single track id by name and artist
+    my $ids = $sql->SelectSingleColumnArray(
+	"SELECT	trm.trm
+	FROM	track, artist, trmjoin, trm
+	WHERE	LOWER(track.name) = LOWER(?)
+	AND	LOWER(artist.name) = LOWER(?)
+	AND	track.artist = artist.id
+	AND	trmjoin.track = track.id
+	AND	trm.id = trmjoin.trm",
+	$name,
+	$artist,
+    );
+
+    $rdf->CreateTRMList(@$ids);
 }
 
 # returns artistList
