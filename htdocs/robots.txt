@@ -2,6 +2,7 @@ User-agent: *
 Disallow: /addtrack.html
 Disallow: /artistfilter.html
 Disallow: /browseartists.html
+Disallow: /browsevarious.html
 Disallow: /changetrack.html
 Disallow: /createlogin.html
 Disallow: /editalbum.html
