@@ -163,7 +163,7 @@ sub GetModerationList
             UNIX_TIMESTAMP(TimeSubmitted), ModeratorInfo.name, yesvotes, 
             novotes, Artist.name, status, 0 from Changes, ModeratorInfo, Artist 
             where ModeratorInfo.id = moderator and Changes.artist = 
-            Artist.id and moderator = $uid order by TimeSubmitted limit 
+            Artist.id and moderator = $uid order by TimeSubmitted desc limit 
             $index, $num/;
    }
    else
@@ -175,7 +175,7 @@ sub GetModerationList
             ModeratorInfo, Artist,
             Votes where ModeratorInfo.id = moderator and Changes.artist = 
             Artist.id and Votes.rowid = Changes.id and Votes.uid = $uid 
-            order by TimeSubmitted limit $index, $num/;
+            order by TimeSubmitted desc limit $index, $num/;
    }
 
    $sth = $this->{DBH}->prepare($sql);
