@@ -31,6 +31,10 @@ my $url = $ARGS{url};
 $url = "/search.html"
 	unless defined $url;
 
+# The MB Tagger still uses its own made-up encoding mechanism...
+$url =~ s/\@Q\@/?/g;
+$url =~ s/\@A\@/&/g;
+
 # Prevent confusing redirect loops
 $url = "/search.html"
 	if $url =~ m[/(login|logout)\.html];
