@@ -27,6 +27,7 @@ chown $backupuser:$backupgroup /tmp/cvs-backup.tar.bz2
 mv /tmp/cvs-backup.tar.bz2 $backupdir
 
 # Vacuum and analyze the database for peak performance
+# FIXME use DB_USER, DB_NAME
 echo "VACUUM ANALYZE;" | psql musicbrainz
 
 # Dump the main data
@@ -56,6 +57,7 @@ mv /tmp/mbdump.rdf.bz2 $ftpdir
 
 # Create the reports
 nice ./Caps.pl > $reportdir/caps.html
+nice ./Caps2.pl > $reportdir/caps2.html
 nice ./BadEntries.pl > $reportdir/bad_entries.html
 nice ./Unknown.pl > $reportdir/unknown.html
 nice ./WrongCharset.pl > $reportdir/wrong_charset.html
