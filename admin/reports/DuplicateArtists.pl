@@ -57,21 +57,44 @@ EOF
 $sql->Select("SELECT id, name, sortname FROM artist")
     or die "sql error";
 
-my %a;
+while (my @row = $sql->NextRow)
+{
+	addartist(\@row, $row[0], $row[1]);
+	addartist(\@row, $row[0], $row[2]);
+}
+
+$sql->Finish;
+
+$sql->Select("
+	SELECT l.ref, l.name, '[alias for ' || r.name || ']'
+	FROM artistalias l, artist r
+	WHERE r.id = l.ref
+	")
+    or die "sql error";
 
 while (my @row = $sql->NextRow)
 {
-    my $n = unac_string('UTF-8', $row[1]);
+	addartist(\@row, $row[0], $row[1]);
+}
+
+$sql->Finish;
+
+my %a;
+
+sub addartist
+{
+	my ($row, $id, $name) = @_;
+
+    my $n = unac_string('UTF-8', $name);
     $n = uc decode("utf-8", $n);
     $n =~ s/[\p{Punctuation}]//g;
+	$n =~ s/\bAND\b/&/g;
 
     my @words = sort $n =~ /(\w+)/g;
     my $key = "@words";
 
-    push @{ $a{$key} }, \@row;
+    $a{$key}{$id} ||= $row;
 }
-
-$sql->Finish;
 
 my $dupes = my $dupes2 = 0;
 
@@ -87,9 +110,9 @@ EOF
 
 while (my ($k, $v) = each %a)
 {
-    next unless @$v >= 2;
+    next unless keys(%$v) >= 2;
 
-	for (@$v)
+	for (values %$v)
 	{
 		my $na = $sql->SelectSingleValue("SELECT COUNT(*) FROM album WHERE artist = ?", $_->[0]);
 		my $nt = $sql->SelectSingleValue("SELECT COUNT(*) FROM track WHERE artist = ?", $_->[0]);
@@ -112,7 +135,7 @@ EOF
     print "<tr><td>&nbsp;</td></tr>\n";
 
     ++$dupes;
-    $dupes2 += @$v;
+    $dupes2 += keys %$v;
 }
 
 print "</table>\n\n";
