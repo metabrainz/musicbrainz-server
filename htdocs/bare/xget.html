@@ -1,3 +1,4 @@
+%# vi: set ts=2 sw=2 ft=mason :
 <%args>
 $id=>""
 </%args>
@@ -10,7 +11,7 @@ $id=>""
 
 <%perl>
 
-sub MakeCDInfo
+my $MakeCDInfo = sub
 {
     my ($mb, $id) = @_;
     my ($ar, $al, $di);
@@ -124,12 +125,11 @@ sub MakeCDInfo
     $out .= "</CDInfo>";
 
     return $out;
-}
-
+};
 
 my $mb = $m->comp("/comp/dblogin");
 
-$m->out(MakeCDInfo($mb, $id));
+$m->out(&$MakeCDInfo($mb, $id));
 
 $mb->Logout();
 
