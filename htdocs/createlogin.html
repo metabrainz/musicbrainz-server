@@ -36,6 +36,21 @@ $m->comp('/comp/sidebar', title => "MusicBrainz account created!");
     now logged into MusicBrainz!
 </p>
 
+% if ($session{mbt}) {
+<div class="notice">
+	<p>To use the Tagger, you must now:</p>
+	<ol>
+		<li>Open the "Options" window</li>
+		<li>Go to the "Login" tab</li>
+		<li>Enter your MusicBrainz username and password there.</li>
+	</ol>
+	<p>
+		The Tagger will not work until you have done this.&nbsp;
+		<b><a href="#mbt_login">Set your login options now!</b>
+	</a>
+</div>
+% }
+
     <%perl>
     if ($email) 
     {
@@ -69,18 +84,6 @@ $m->comp('/comp/sidebar', title => "MusicBrainz account created!");
     to let the other users know a little bit about you.
 </p>
 
-% if (exists $ARGS{mbt} && $ARGS{mbt}) {
-
-<p style="font-weight: bold">
-	<a href="#mbt_login">Click here</a>
-	to enter your login information
-	into the Options Dialog.
-</p>
-
-% } else {
-
 <p><a href="<% $url %>">Click here to continue</a>.</p>
-
-% }
 
 <& /comp/footer &>
