@@ -1,11 +1,26 @@
 <%perl>
 
-my ($mb);
+my ($mb, $i, $mod);
 
 $mb = new MusicBrainz;
 $mb->Login();
-$mb->InsertModification($ARGS{table}, $ARGS{column}, $ARGS{id},
-                        $ARGS{prev}, $ARGS{new}, $session{uid});
+$mod = Moderation->new($mb);
+
+for($i = 0;; $i++)
+{
+    last if (!defined($ARGS{('column' . $i)}));
+    last if (!defined($ARGS{('new' . $i)}));
+    last if (!defined($ARGS{('prev' . $i)}));
+    next if ($ARGS{('new' . $i)} eq '');
+    next if ($ARGS{('new' . $i)} eq $ARGS{('prev' . $i)});
+
+    $mod->InsertModification($ARGS{table}, 
+                             $ARGS{('column' . $i)}, 
+                             $ARGS{id},
+                             $ARGS{('prev' . $i)}, 
+                             $ARGS{('new' . $i)}, 
+                             $session{uid});
+}
 $mb->Logout();
 
 $r->method('GET');

@@ -1,8 +1,7 @@
 <%perl>
 
-my ($mb); 
+my ($mb, $gu, $al); 
 my ($albumid, $trackid); 
-
 
 if (!exists $ARGS{guid})
 {
@@ -14,15 +13,17 @@ else
    
    $mb = new MusicBrainz;
    $mb->Login();
+   $al = Album->new($mb);
+   $gu = GUID->new($mb);
 
-   $trackid = $mb->GetTrackIdFromGUID($ARGS{guid});
+   $trackid = $gu->GetTrackIdFromGUID($ARGS{guid});
    if ($trackid <= 0)
    {
        mc_out("<p>This GUID was not found in the main database.<p>");
    }
    else
    {
-       $albumid = $mb->GetAlbumFromTrackId($trackid);
+       $albumid = $al->GetIdFromTrackId($trackid);
        mc_comp("comp/showalbum", 
           mb=>$mb, 
           albumid=>$albumid,

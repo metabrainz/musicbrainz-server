@@ -6,7 +6,7 @@ $archive=>0
 
 <%perl>
 
-my ($mb, @info, $row, $i, $num_mods, $comp);
+my ($mb, @info, $row, $i, $num_mods, $comp, $pe);
 my $max_items = 25;
 
 $mb = new MusicBrainz;  
@@ -16,7 +16,8 @@ $offset = 0 if not defined $offset;
 $offset = 0 if $offset < 0;  
 
 $mb->Login();
-($num_mods, @info) = $mb->GetPendingList($offset, $max_items, $guid, $archive);
+$pe = Pending->new($mb);
+($num_mods, @info) = $pe->GetPendingList($offset, $max_items, $guid, $archive);
 $mb->Logout();
 
 </%perl>

@@ -1,12 +1,25 @@
 <%perl>
-my $ok = UserStuff::Login($ARGS{User}, $ARGS{Password}, \%session);
-$session{user} = $ARGS{User} if ($ok);
-$session{user} = "" if (!$ok);
 
+my ($mb, $user, $ok);
+
+$ok = undef;
+if (defined $ARGS{User} && $ARGS{User} ne '' &&
+    defined $ARGS{Password} && $ARGS{Password} ne '')
+{
+    $mb = MusicBrainz->new();
+    $mb->Login();
+    $user = UserStuff->new($mb);
+    
+    $ok = $user->Login($ARGS{User}, $ARGS{Password}, \%session);
+    $session{user} = $ARGS{User} if ($ok);
+    $session{user} = "" if (!$ok);
+    $mb->Logout();
+    
+}    
 </%perl>
 
 % if ($ok) {
-
+    
    <center><b>You are now logged into MusicBrainz!</b></center>
    <br><p>
    <& /comp/searchpage &>
@@ -14,7 +27,9 @@ $session{user} = "" if (!$ok);
 % } else {
 
    <center>
-   <b>Invalid Login. Please try again:</b><p>
+%  if (defined $ok) {
+     <b>Invalid Login. Please try again:</b><p>
+%  }
    <table width=50%><tr><td>
    <& /comp/tablebegin, title=>'Moderator Login' &>
    <& /comp/loginbox &>

@@ -1,0 +1,69 @@
+<%args>
+$tracks
+$id
+$toc
+$artist=>0
+</%args>
+<%perl>
+
+my ($mb); 
+my ($i, $artistname, $modpending, $ar);
+my ($dbh, $sth, $rv);
+
+$mb = new MusicBrainz;
+mc_comp("/comp/title", title=>'Enter CD Information');
+
+
+if ($artist > 0)
+{
+   $mb->Login();
+   $ar = Artist->new($mb);
+   $ar->LoadFromId($artist);
+   $artistname = $ar->Value(1);
+   if (!defined $artistname)
+   {
+       $artistname = 'Tabasco bondage action';
+   } 
+   $mb->Logout;
+}
+
+mc_comp("/comp/stylenotes");
+if ($artist <= 0) {
+    mc_comp("/comp/artiststylenotes");
+}
+
+</%perl>
+
+<form method="POST" action="/cdi/done.html"
+      enctype="application/x-www-form-urlencoded" class="formstyle">
+
+Please enter the CD information below:<p>
+
+<table>
+% if ($artist <= 0) {
+    <tr><td>Artist:</td><td>
+    <input type="text" name="artistname" size="30"></td></tr>
+    </tr>
+    <tr><td>SortName:</td><td>
+    <input type="text" name="sortname" size="30"></td></tr>
+% } else {
+    <b><% $artistname %></b>
+    <input type="hidden" name="artist" value="<% $artist %>"></td></tr>
+% }
+
+<tr><td>CD Title:</td><td>
+<input type="text" name="title" size="30"></td></tr>
+
+% for($i = 0; $i < $tracks; $i++) {
+    <tr><td>Track <% $i + 1 %>:</td><td>
+    <input type="text" name="track<% $i %>" size="30"></td></tr>
+% }
+</table>
+
+<input type="hidden" name="id" value="<% $id %>">
+<input type="hidden" name="toc" value="<% $toc %>">
+<input type="hidden" name="tracks" value="<% $tracks %>">
+<input type="submit" value="Next>>" name="Next">
+</form>
+
+

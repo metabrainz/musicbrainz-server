@@ -1,6 +1,6 @@
 <%perl>
 
-my ($mb, @info, $row, $offset, $i, $num_mods, $comp);
+my ($mb, @info, $row, $offset, $i, $num_mods, $comp, $mod);
 my $max_items = 25;
 
 $mb = new MusicBrainz;  
@@ -12,27 +12,26 @@ $offset = 0 if not defined $offset;
 $offset = 0 if $offset < 0;  
 
 $mb->Login();
-($num_mods, @info) = $mb->GetModerationList($offset, $max_items, $session{uid});
+$mod = Moderation->new($mb);
+($num_mods, @info) = $mod->GetModerationList($offset, $max_items, $session{uid});
 $mb->Logout();
 
 </%perl>
 
 <form method="POST" action="/bare/vote.html"
-      enctype="application/x-www-form-urlencoded"> 
+      enctype="application/x-www-form-urlencoded" class="formstyle"> 
 
-<table>
+<table width=100%>
 <tr>
-  <td width=100% align=right>
+  <td align=right>
      Click here to vote on the items on this page:
-  </td>
-  <td>
      <INPUT TYPE="submit" NAME="Submit" VALUE="Submit">
   </td>
 </tr>
 </table>
 
-<TABLE BORDER="0" CELLPADDING="1" CELLSPACING="0"
-       BGCOLOR="#000000" WIDTH="97%">
+<TABLE BORDER="0" CELLPADDING="0" CELLSPACING="0"
+       BGCOLOR="#000000" WIDTH="100%">
 <TR><TD>
   <TABLE WIDTH="100%" BORDER="0" CELLSPACING="1" CELLPADDING="3">
   <TR>

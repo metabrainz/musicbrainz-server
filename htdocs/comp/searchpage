@@ -1,8 +1,11 @@
 <table width="100%">
 <tr>
-<td width="49%" valign="top">
-  <& /comp/tablebegin, title=>'Search MusicBrainz' &>
-    <center>
+<td width="2%" valign="top">
+&nbsp;
+</td>
+<td width="48%" valign="top">
+  <& /comp/tablebegin, title=>'Search' &>
+    <br>
     For each of these searches, you may enter a few keywords that
     appear in the title of the artist, album or track. The search
     is case insensitive and partial keywords are ok. (e.g. 'Port' 
@@ -10,43 +13,50 @@
     <& /comp/artistsearchbox &>
     <& /comp/albumsearchbox &>
     <& /comp/tracksearchbox &>
-    </center>
+    <br>
+    &nbsp;
   <& /comp/tableend &>
 
 </td>
-<td width="2%">&nbsp;</td>
-<td width="49%" valign="top">
-  <& /comp/tablebegin, title=>'Browse MusicBrainz' &>
-    <center>
+<td width="2%" valign="top">
+&nbsp;
+</td>
+<td width="48%" valign="top">
+  <& /comp/tablebegin, title=>'Browse', attrs=>"align=center", 
+     gattrs=>"width=100%" &>
+    <br>
     To browse the database alphabetically,<br>
     select a letter below:<p>
-    </center>
     <& /comp/artistbrowsebox &>
     <br>
+    &nbsp;
   <& /comp/tableend &>
 
 % if ($session{user} ne "") {
-  <& /comp/tablebegin, title=>'Change Login' &>
-  <table width=100%>
-  <tr><td align=center>
-    You are logged in as <b><% $session{user} %></b>.
-  </td></tr>
-  <tr><td align=center>
+  <& /comp/tablebegin, title=>'Login', attrs=>"align=center",
+     gattrs=>"width=100%" &>
+    <br>
+    You are logged in as <b><% $session{user} %></b>.<br>
     <a href="/logout.html">Logout</a> from MusicBrainz.
-  </td></tr>
-  </table>
+    <br>
+    &nbsp;
+  </center>
   <& /comp/tableend &>
 
-  <& /comp/tablebegin, title=>'Moderate/Vote' &>
-  <table width=100%>
-  <tr><td align=center>
+  <& /comp/tablebegin, title=>'Moderate', attrs=>"align=center",
+     gattrs=>"width=100% cellpadding=50 " &>
+    <br>
     <a href="/moderate.html">Vote/Moderate</a> MusicBrainz.
-  </td></tr>
-  </table>
+    <br>
+    &nbsp;
   <& /comp/tableend &>
 % } else {
-  <& /comp/tablebegin, title=>'Moderator Login' &>
+  <& /comp/tablebegin, title=>'Login', attrs=>"align=center", 
+     gattrs=>"width=100%" &>
+    <br>
     <& /comp/loginbox &>
+    <br>
+    &nbsp;
   <& /comp/tableend &>
 % }
 

@@ -17,7 +17,7 @@ $bgcolor = ($hilitetrack == $id) ? 'bgcolor="#FFCCFF"' : $bgcolor;
 </%perl>
 
 <tr>
-    <td width="10%" align=center>
+    <td width="10%" align=center <% $bgcolor |n %>>
        <% $tracknum %>
     </td>
 % if ($artistname ne '') {

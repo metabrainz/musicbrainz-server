@@ -1,0 +1,104 @@
+<%perl>
+my ($o, $mb, $di, $num_tracks, $i, $sth, $album, $valid, $id, $tracks, $toc); 
+
+$mb = new MusicBrainz;
+mc_comp("/comp/title", title=>"Submit a New CD");
+
+$id = $ARGS{'id'};
+$tracks = $ARGS{'tracks'};
+$toc = $ARGS{'toc'};
+
+$valid = $id;
+$valid =~ tr/_.\-A-Za-z0-9//d;
+
+if (!defined $id || $id eq '' ||
+    !defined $tracks || $tracks eq '' ||
+    !defined $toc || $toc eq '')
+{
+    mc_out("This page needs the id, tracks and toc arguments.");
+}
+elsif (length($id) == 32 || !defined $toc || $toc eq '')
+{
+    mc_out('Please <a href="/download.html">download</a> the latest client software.');
+}
+elsif (length($id) != 28 || substr($id, -1, 1) ne "-" || $valid ne "")
+{
+    mc_out("The disk id you are trying to submit ($id) is invalid.");
+}
+else
+{
+    $mb->Login();
+    $di = Diskid->new($mb);
+    $album = $di->GetAlbumFromDiskId($id);
+    if ($album >= 0)
+    {
+</%perl>
+        Thank you for your submission, but this CD is already in the index. 
+        <p>If you cannot retrieve this
+        CD for some reason, please <a href="mailto:rob\@emusic.com">
+        send</a> me some mail.
+        </TD></TR></TABLE>
+%   } else {
+        Please follow the instructions below:
+        <p>
+        <center>
+        Does the CD have a single artist or multiple artists?
+        </center>
+        <p>
+        
+        <table cellspacing=0 width=100%>
+        <tr>
+        <th bgcolor="#643b99" valign=top>
+        <font color="#FFFFFF">
+        Single Artist CDs
+        </font>
+        </th>
+        <th bgcolor="#643b99" valign=top>
+        &nbsp;
+        </th>
+        <th bgcolor="#643b99">
+            <font color="#FFFFFF">
+        Multiple Artists CDs
+        </font>
+        </th>
+        </tr>
+        <td align=center>
+                                 
+        <form method="POST" action="/cdi/artist.html"
+              enctype="application/x-www-form-urlencoded" class="formstyle">
+        
+        <br>Enter the name of the <font color=red>Artist</font><br> and
+        click on <b>search</b>:<p>
+        
+        <input type="text" name="search" size="30">
+        <input type="hidden" name="id" value="<% $id %>">
+        <input type="hidden" name="toc" value="<% $toc %>">
+        <input type="hidden" name="tracks" value="<% $tracks %>">
+        <input type="submit" name="Search" value="Search">
+        </form>
+        
+        </td><td bgcolor="#643b99">&nbsp;</td><td align=center valign=top>
+        
+        <form method="POST" action="/cdi/malbum.html"
+              enctype="application/x-www-form-urlencoded" class="formstyle">
+        
+            <br>Enter the name of the <font color=red>CD</font><br> and
+        click on <b>search</b>:<p>
+        
+        <input type="text" name="search" size="30">
+        <input type="hidden" name="id" value="<% $id %>">
+        <input type="hidden" name="toc" value="<% $toc %>">
+        <input type="hidden" name="tracks" value="<% $tracks %>">
+        <input type="submit" name="Search" value="Search">
+        </form>
+        
+        </td></tr></table>
+    
+        <center>
+        <br><br>
+        All data submitted to MusicBrainz will be covered by the 
+        <a href="http://opencontent.org/opl.shtml">OpenContent</a> license.
+        </center>
+%   }
+%   $mb->Logout;
+% }

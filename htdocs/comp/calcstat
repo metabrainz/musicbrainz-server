@@ -1,0 +1,22 @@
+<%args>
+$mb
+$query
+$title
+</%args>
+
+<%perl>
+
+my ($sth, $result);
+
+$sth = $mb->{DBH}->prepare($query);
+if ($sth->execute)
+{
+   my @row;
+ 
+   @row = $sth->fetchrow_array;
+   $result = '<tr><TD valign=top align=right class="statsb">' . $title . '</TD>';
+   $result .= '<TD valign=top class="stats">' . $row[0]. '</td></tr>';
+}
+$sth->finish;
+return $result;
+</%perl>

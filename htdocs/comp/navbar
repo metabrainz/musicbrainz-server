@@ -1,26 +1,31 @@
-<table width="100%">
+<!-- Orange Bar/Menu -->
+<table width="100%" cellpadding="0" cellspacing="0" border="0">
 <tr>
-  <td>
-    <a href="/search.html">Search</a>
-  </td>
-  <td>
-    <a href="/moderate.html">Moderate</a>
-  </td>
-  <td>
-    <a href="/download.html">Download</a>
-  </td>
-  <td>
-    <a href="/faq.html">FAQ</a>
-  </td>
-  <td>
-    <a href="/how.html">How?</a>
-  </td>
-  <td>
-    <a href="/todo.html">To Do</a>
-  </td>
-  <td>
-    <a href="/list.html">Mail List</a>
-  </td>
+   <td bgcolor="#FFBA58" background="/images/topmenu_BG.gif"><img src="/images/header_logo_b.gif" width="98" height="21" alt="" border="0" align="absmiddle"></td>
+   <td bgcolor="#FFBA58" background="/images/topmenu_BG.gif" align="right" valign="middle">
+      <span class="topmenu">
+
+
+   <!-- Menu Items For Top Level Nav (IN-site), use a | after each line, except
+the last one =] -->
+
+         <a href="/search.html">Search</a> |
+% if (!defined $session{user} || $session{user} eq '') {
+         <a href="/login.html">Login</a> |
+% } else {
+         <a href="/logout.html">Logout</a> |
+% }
+         <a href="/moderate.html">Moderate</a> |
+         <a href="/download.html">Download</a> |
+         <a href="/faq.html">FAQ</a> |
+         <a href="/how.html">How?</a> |
+         <a href="/todo.html">To Do</a> |
+         <a href="/list.html">Mail List</a>
+
+   <!-- End Menu Items-->
+
+      </span>&nbsp;
+   </td>
 </tr>
 </table>
-<p>
+<!-- Orange Bar/Menu -->  

@@ -4,10 +4,22 @@
 package HTML::Mason;
 use strict;
 use HTML::Mason;    # brings in subpackages: Parser, Interp, etc.
+
 # TODO: Check to make sure this path points to where the cgi-bin stuff is
 use lib "/home/robert/musicbrainz/mb_server/cgi-bin";
 use MusicBrainz;  
 use UserStuff;  
+use Album;
+use Diskid;
+use TableBase;
+use Artist;
+use Genre;
+use Pending;
+use Track;
+use Lyrics;
+use UserStuff;
+use Moderation;
+use GUID;
 
 {  
    package HTML::Mason::Commands;

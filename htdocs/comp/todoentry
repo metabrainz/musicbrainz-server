@@ -4,7 +4,7 @@ $skills
 $desc
 </%args>
 
-<& /comp/tablebegin, title=>$task &>
+<& /comp/tablebegin, title=>$task, gattrs=>'width=100%' &>
 <b>Skills needed:</b> <% $skills |n %><p>
 <% $desc |n %>
 <& /comp/tableend &>

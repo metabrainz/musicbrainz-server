@@ -24,7 +24,7 @@ if ($voted)
 
 <tr>
    <td width=10% valign=top bgcolor=white>
-     <% $table %>
+     <% $table %>/<% $column %>
    </td>
    <td width=35% valign=top bgcolor=white>
      <& /comp/showmodprev, prev=>$prev, table=>$table, id=>$rowid &>
@@ -45,7 +45,6 @@ if ($voted)
      <% $text %> 
    </td>
 % }
-   </td>
 % if ($session{uid} != $moderator && !$voted) {
    <td width=5% align=center valign=top bgcolor=white>
      <input type="radio" name="rowid<% $id %>" value="no">
@@ -64,5 +63,4 @@ if ($voted)
      <% $text %> 
    </td>
 % }
-</tr>
 </tr>

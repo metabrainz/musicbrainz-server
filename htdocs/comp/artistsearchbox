@@ -1,13 +1,9 @@
 <FORM METHOD="POST" ACTION="/search_art.html"
-      ENCTYPE="application/x-www-form-urlencoded">
-<table>
-<tr><td>
-<b>Artist Search</b>
-</td></tr>
-<tr><td colspan=2>
-<INPUT TYPE="text" NAME="artist" SIZE=15>
-</td><td>
-<INPUT TYPE="submit" NAME="Search" VALUE="Search">
-</td></tr>
-</table>
+      ENCTYPE="application/x-www-form-urlencoded" class="formstyle">
+<img src="/images/pixel.gif" width="20" height="1" alt="" border="0">
+<b>Artist Search</b><br>
+<img src="/images/pixel.gif" width="20" height="1" alt="" border="0">
+<INPUT TYPE="text" NAME="artist" SIZE=15><br>
+<img src="/images/pixel.gif" width="20" height="1" alt="" border="0">
+<INPUT TYPE="submit" NAME="Search" VALUE="Search"><br>
 </form>  

@@ -1,0 +1,83 @@
+<%args>
+$id
+$toc
+$tracks
+$search
+</%args>
+<%perl>
+my ($mb, $ar, $num_tracks, $i, $sth, $sql); 
+my (@row, @ids, %labels, @idslabels);
+
+$mb = new MusicBrainz;
+
+mc_comp("/comp/title", title=>'Submit CD: Artist Search Results');
+  
+if ($search eq '')
+{
+    mc_out("Please enter an artist name into the search field. " .
+           "Click on the Back button in your browser and try again.");
+}
+else
+{
+    $mb->Login();
+    $ar = Artist->new($mb);
+    @idslabels = $ar->FindTextInColumn("Artist", "Name", $search);
+    if (defined @idslabels)
+    {
+        my ($artistid, $artistname);
+</%perl>    
+        Click on the artist name to display all the albums by that artist:<p>
+
+        <form method="POST" action="/cdi/album.html"
+              enctype="application/x-www-form-urlencoded" class="formstyle">
+
+%       for($i = 0; $i < scalar(@idslabels); $i++)
+%       {
+%           $artistid = shift @idslabels;
+%           $artistname = shift @idslabels;
+            <input type="radio" name="artist" 
+                   value="<% $artistid %>">&nbsp;<% $artistname %><br>
+%       }
+
+        <input type="hidden" name="id" value="<% $id %>">
+        <input type="hidden" name="toc" value="<% $toc %>">
+        <input type="hidden" name="tracks" value="<% $tracks %>">
+        <input type="submit" value="Select Artist>>" name="Search">
+        </form>
+    
+        <p>If the artist is not listed above 
+        you may either try the search again, 
+        or click on 'New Artist' to enter the information for this
+        CD. Please make sure to search carefully before you go 
+        through the effort to add a new CD.
+%   } else {
+        There were no artists found given the keywords 
+        <b>'<% $search %>'</b>. You may either try again, 
+        or click on 'New Artist' to enter the information for this 
+        CD. Please make sure to search carefully before you go 
+        through the effort to add a new CD.
+%   }
+    
+    <form method="POST" action="/cdi/enter.html"
+          enctype="application/x-www-form-urlencoded" class="formstyle">
+    <input type="hidden" name="id" value="<% $id %>">
+    <input type="hidden" name="toc" value="<% $toc %>">
+    <input type="hidden" name="tracks" value="<% $tracks %>">
+    <input type="submit" value="New Artist>>" name="Search">
+    </form>
+
+    <hr><b>Start another artist search:</b><p>
+    
+    <form method="POST" action="/cdi/artist.html"
+          enctype="application/x-www-form-urlencoded" class="formstyle">
+
+    Artist Name:<br>
+    <input type="text" name="search" size="30">
+    <input type="hidden" name="id" value="<% $id %>">
+    <input type="hidden" name="toc" value="<% $toc %>">
+    <input type="hidden" name="tracks" value="<% $tracks %>">
+    <input type="submit" name="Search" value="Search">
+    </form>
+    
+%   $mb->Logout;
+% }

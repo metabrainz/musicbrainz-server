@@ -1,0 +1,46 @@
+    <& /comp/tablebegin, title=>'Style Notes for Sort Names' &>
+
+    Sort Name is the name that will be used when the artist is listed in a 
+    list with other artists, so that all the artists that start with <i>The</i>
+    will not end up under T. This also applies to artists who have a regular
+    names like <i>Eric Clapton</i> but not bands that have
+    ficticious names like <i>Cypress Hill</i>.
+    <p>
+    <center>
+    <b>Sort Name Examples:</b><br>
+    <table width=75%>
+      <tr>
+         <th width=50%>
+         Name
+         </th>
+         <th width=50%>
+         Sort Name
+         </th>
+      </tr>
+      <tr>
+         <td align=center valign=top>
+         The Beatles
+         </td>
+         <td align=center valign=top>
+         Beatles, The
+         </td>
+      </tr>
+      <tr>
+         <td align=center valign=top>
+         Eric Clapton 
+         </td>
+         <td align=center valign=top>
+         Clapton, Eric
+         </td>
+      </tr>
+      <tr>
+         <td align=center valign=top>
+         Cypress Hill 
+         </td>
+         <td align=center valign=top>
+         Cypress Hill
+         </td>
+      </tr>
+    </table> 
+    </center>
+    <& /comp/tableend &>

@@ -1,18 +1,72 @@
-<!doctype html public "-//w3c//dtd html 4.0 transitional//en">
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
 <html>
 <head>
-   <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
-   <meta name="Author" content="Robert Kaye">
    <title>MusicBrainz</title>
+
+   <style type="text/css">
+   <!--
+
+      body, p, td         {font : normal 10pt Verdana, Geneva, Arial, Helvetica, sans-serif; color : #000000; text-decoration : none;}
+      .footer             {font : Normal 8pt Verdana, Geneva, Arial, Helvetica, sans-serif; color : #000000; text-decoration : none;}
+      .footer a           {font : Normal 8pt Verdana, Geneva, Arial, Helvetica, sans-serif; color : #997035; text-decoration : none;}
+      .footer a:hover     {font : Normal 8pt Verdana, Geneva, Arial, Helvetica, sans-serif; color : #000000; text-decoration : none;}
+
+      .topmenu            {font : Normal 10pt Verdana, Geneva, Arial, Helvetica, sans-serif; color : #000000; text-decoration : none;}
+      .topmenu a          {font : Bold 10pt Verdana, Geneva, Arial, Helvetica, sans-serif; color : #997035; text-decoration : none;}
+      .topmenu a:hover    {font : Bold 10pt Verdana, Geneva, Arial, Helvetica, sans-serif; color : #000000; text-decoration : none;}
+
+      .sidemenu           {font : Bold 10pt Verdana, Geneva, Arial, Helvetica, sans-serif; color : #000000; text-decoration : none;}
+      .sidemenu a         {font : Bold 10pt Verdana, Geneva, Arial, Helvetica, sans-serif; color : #555555; text-decoration : none;}
+      .sidemenu a:hover   {font : Bold 10pt Verdana, Geneva, Arial, Helvetica, sans-serif; color : #000000; text-decoration : none;}
+
+      .title              {font : Bold 12pt Verdana, Geneva, Arial, Helvetica, sans-serif; color : #000000; text-decoration : none;}
+      .stats           {font : Normal 8pt Verdana, Geneva, Arial, Helvetica, sans-serif; color : #000000; text-decoration : none;}
+      .statsb           {font : Bold 8pt Verdana, Geneva, Arial, Helvetica, sans-serif; color : #000000; text-decoration : none;}
+      .stats a         {font : Normal 8pt Verdana, Geneva, Arial, Helvetica, sans-serif; color : #555555; text-decoration : none;}
+      .stats a:hover   {font : Normal 8pt Verdana, Geneva, Arial, Helvetica, sans-serif; color : #000000; text-decoration : none;}
+
+      .section            {font : Normal 10pt Verdana, Geneva, Arial, Helvetica, sans-serif; color : #000000; text-decoration : none;}
+      .divider            {font : Bold 10pt Verdana, Geneva, Arial, Helvetica, sans-serif; color : #000000; text-decoration : none;}
+
+      .mbtable            {font : Bold 10pt Verdana, Geneva, Arial, Helvetica, sans-serif; color : #997035; text-decoration : none;}
+      .formstyle input    {font : Normal 8pt Verdana, Geneva, Arial, Helvetica, sans-serif; color : #000000; text-decoration : none;}
+
+      .design             {font : Normal 8pt Verdana, Geneva, Arial, Helvetica, sans-serif; color : #BBBBBB; text-decoration : none;}
+      .design a           {font : Normal 8pt Verdana, Geneva, Arial, Helvetica, sans-serif; color : #BBBBBB; text-decoration : none;}
+      .design a:hover     {font : Normal 8pt Verdana, Geneva, Arial, Helvetica, sans-serif; color : #555555; text-decoration : none;}
+
+      .body               {font : normal 10pt Verdana, Geneva, Arial, Helvetica, sans-serif; color : #000000; text-decoration : none;}
+      .body a             {font : normal 10pt Verdana, Geneva, Arial, Helvetica, sans-serif; color : #534D8B; text-decoration : none;}
+      .body a:hover       {font : normal 10pt Verdana, Geneva, Arial, Helvetica, sans-serif; color : #736DAB; text-decoration : underline;}
+
+   -->
+   </style>
+
 </head>
-<body text="#000000" bgcolor="#FFFFFF" link="#744bA9" vlink="#542b89" 
-      alink="C0C000" background="/images/background.gif">
+<body marginheight="0" marginwidth="0" topmargin="0" leftmargin="0" rightmargin="0" bottommargin="0" bgcolor=white>
 
 
-<table width="100%" border="0">
+<!-- Purple Logo -->
+<table width="100%" cellpadding="0" cellspacing="0" border="0">
 <tr>
+   <td bgcolor="#736DAB" background="/images/header_BG.gif"><img src="/images/header_logo_a.gif" width="614" height="67" alt="" border="0"></td>
+</tr>
+</table>
+<!-- Purple Logo --> 
 
-<& /comp/sidebar &>
-<td width="100%" valign="top">
 <& /comp/navbar &>
 
+<!-- Main Table -->
+<table cellpadding="0" cellspacing="0" border="0">
+<tr>
+   <td width="141" bgcolor="#DDDDDD" background="/images/sidemenu_BG.gif" valign="top">
+           
+<& /comp/sidebar &>
+
+
+   </td>
+   <td bgcolor="FFFFFF" align="left" valign="top">
+
+      <table cellpadding="15" cellspacing="0" border="0" width="100%">
+      <tr>
+         <td align="left" valign="top" class="body">  

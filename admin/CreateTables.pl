@@ -25,16 +25,17 @@
 use lib "../cgi-bin";
 use DBI;
 use DBDefs;
-
+use MusicBrainz;
 
 sub CreateTables
 {
-    my ($dbh) = @_;
+    my ($dbh, $host) = @_;
 
     # create the tables
     $dbh->do("create table Artist (" .
              "   Id int auto_increment primary key," .
              "   Name varchar(100) NOT NULL," . 
+             "   SortName varchar(100) NOT NULL," . 
              "   GID varchar(64) NOT NULL," . 
              "   WebPage blob," . 
              "   AuxPage blob," .
@@ -61,9 +62,7 @@ sub CreateTables
              "   Id int auto_increment primary key," .
              "   Name varchar(255) not null ," .
              "   GID varchar(64) not null," . 
-             "   GUID varchar(64)," . 
              "   Artist int not null," .
-             "   Album int not null," .
              "   Sequence int," .
              "   Length int," .
              "   Year int," .
@@ -77,6 +76,29 @@ sub CreateTables
           or die("Cannot create Track table");
 
     print "Created Track table.\n";
+
+    $dbh->do("create table GUID (" .
+             "   Id int auto_increment primary key," .
+             "   GUID char(36) NOT NULL)")
+          or die("Cannot create GUID table");
+
+    print "Created GUID table.\n";
+
+    $dbh->do("create table AlbumJoin (" .
+             "   Id int auto_increment primary key," .
+             "   Album int NOT NULL," .
+             "   Track int NOT NULL)")
+          or die("Cannot create AlbumJoin table");
+
+    print "Created AlbumJoin table.\n";
+
+    $dbh->do("create table GUIDJoin (" .
+             "   Id int auto_increment primary key," .
+             "   GUID int NOT NULL," . 
+             "   Track int NOT NULL)")
+          or die("Cannot create GUIDJoin table");
+
+    print "Created GUIDJoin table.\n";
 
     $dbh->do("create table Genre (" .
              "   Id int auto_increment primary key," .
@@ -150,7 +172,6 @@ sub CreateTables
 
     print "Created TOC table.\n";
 
-    $host = shift;
     if (!defined $host)
     {
        $host = `hostname`;
@@ -249,6 +270,7 @@ sub CreateIndices
     my ($dbh) = @_;
 
     $dbh->do(qq/alter table Artist add unique index NameIndex (Name), 
+                                   add unique index SortNameIndex (SortName), 
                                    add unique index GIDIndex (GID)/)
           or die("Could not add indices to Artist table");
     print "Added indices to Artist table.\n";
@@ -260,11 +282,23 @@ sub CreateIndices
 
     $dbh->do(qq/alter table Track add index NameIndex (Name), 
                                   add unique index GIDIndex (GID), 
-#                                  add index GUIDIndex (GUID), 
-                                  add index ArtistIndex (Artist), 
-                                  add index AlbumIndex (Album)/)
+                                  add index ArtistIndex (Artist)/)
           or die("Could not add indices to Track table");
     print "Added indices to Track table.\n";
+
+    $dbh->do(qq/alter table GUID add unique index GUIDIndex (GUID)/)
+          or die("Could not add indices to GUID table");
+    print "Added indices to GUID table.\n";
+
+    $dbh->do(qq/alter table AlbumJoin add index AlbumIndex (Album), 
+                                      add index TrackIndex (Track)/)
+          or die("Could not add indices to AlbumJoin table");
+    print "Added indices to AlbumJoin table.\n";
+
+    $dbh->do(qq/alter table GUIDJoin add index GUIDIndex (GUID), 
+                                     add index TrackIndex (Track)/)
+          or die("Could not add indices to GUIDJoin table");
+    print "Added indices to GUIDJoin table.\n";
 
     $dbh->do(qq/alter table Genre add unique index NameIndex (Name)/)
           or die("Could not add indices to Genre table");
@@ -319,41 +353,51 @@ sub CreateIndices
     print "\nCreated indices successfully.\n";
 }
 
-my ($indices, $tables, $arg);
+my ($indices, $tables, $arg, $mb, $host);
 
 $indices = 0;
 $tables = 0;
 
 while(defined($arg = shift))
 {
-    $tables = 1 if ($arg eq '-t');
-    $indices = 1 if ($arg eq '-i');
+    if ($arg eq '-t')
+    {
+        $tables = 1 
+    }
+    elsif ($arg eq '-i')
+    {
+        $indices = 1 
+    }
+    else
+    {
+        $host = $arg;
+    }
 }
 
 if ($indices == 0 && $tables == 0)
 {
-    print "Usage: CreateTables.pl <options>\n\n";
+    print "Usage: CreateTables.pl <options> [hostname]\n\n";
     print "Options:\n";
     print "   -t   Create database tables\n";
     print "   -i   Create database indices\n";
     exit(0);
 }
 
-# Make the connection to the database
-$dbh = DBI->connect(DBDefs->DSN,DBDefs->DB_USER,DBDefs->DB_PASSWD)
-       or die "Cannot connect to database";
+$mb = MusicBrainz->new;
+$mb->Login;
+
 print "Connected to database.\n";
 
 if ($tables)
 {
     print "Creating MusicBrainz Tables.\n\n";
-    CreateTables($dbh);
+    CreateTables($mb->{DBH}, $host);
 }
 if ($indices)
 {
     print "Adding indices to MusicBrainz Tables.\n\n";
-    CreateIndices($dbh);
+    CreateIndices($mb->{DBH});
 }
 
 # Disconnect
-$dbh->disconnect();
+$mb->Logout;

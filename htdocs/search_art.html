@@ -5,12 +5,13 @@
 # TODO: The data in the rows is not escaped!
 
 my ($mb); 
-my (@data, $i, $row);
+my (@data, $i, $row, $ar);
 
 $mb = new MusicBrainz;
 $mb->Login();
+$ar = Artist->new($mb);
 
-@data = $mb->ArtistSearch($ARGS{artist});
+@data = $ar->SearchByName($ARGS{artist});
 if (scalar(@data) > 0)
 {
 </%perl>

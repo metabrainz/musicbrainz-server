@@ -1,7 +1,13 @@
 <%perl>
 
-my $err = UserStuff::CreateLogin($ARGS{User}, $ARGS{Password}, 
-                                 $ARGS{RetypePassword}, \%session);
+my ($mb, $user);
+
+$mb = MusicBrainz::new();
+$mb->Login();
+$user = UserStuff->new($mb);
+
+my $err = $user->CreateLogin($ARGS{User}, $ARGS{Password}, 
+                             $ARGS{RetypePassword}, \%session);
 if ($err ne "")
 {
     mc_out($err);
@@ -13,5 +19,6 @@ else
               now logged into MusicBrainz!/);
     mc_comp('/comp/searchpage');
 }
+$mb->Logout();
 
 </%perl>

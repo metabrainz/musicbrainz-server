@@ -1,0 +1,16 @@
+<& /comp/tablebegin, title=>'Style Notes for Submitting/Editing Database Entries' &>
+
+Please use the following guidelines for editing data in MusicBrainz. 
+This style guideline is designed to get the data in the database as
+consistent as possible.
+<p>
+<ul>
+<li>Use mixed case names. <b>Do not</b> use 'PORTISHEAD'. Use 'Portishead'.
+<li>Type in the field values <b>exactly</b> as shown on the source CD or
+    artist web page. 
+<li>Be aware and careful of punctuation. If the artist name is listed as 
+    <b>M.C. Hawking</b> with the periods, please type in the periods after 
+    the M and the C as well. Conversely, do not add extra punctuation.
+
+</ul>
+<& /comp/tableend &>

@@ -1,0 +1,14 @@
+<table cellpadding="10" cellspacing="0" border="0">
+  <tr>
+    <td>
+      <span class="sidemenu"> 
+         <a href="/index.html">Home</a><br>
+         <a href="/what.html">What is it?</a><br>
+         <a href="/search.html">Search/Browse</a><br>
+         <a href="/moderate.html">Vote/Moderate</a><br>
+         <a href="http://www.freeamp.org/bugzilla">Report a bug</a><br>
+         <a href="http://www.freeamp.org">FreeAmp</a><br>
+         </span>
+     </td>
+  </tr>
+</table>

@@ -1,10 +1,11 @@
 <%perl>
 
-my ($mb, $album);
+my ($mb, $al, $album);
 
 $mb = new MusicBrainz;
 $mb->Login();
-$album = $mb->GetAlbumFromTrackId($ARGS{trackid});
+$al = Album->new($mb);
+$album = $al->GetIdFromTrackId($ARGS{trackid});
 $mb->Logout();
 
 $r->method('GET');

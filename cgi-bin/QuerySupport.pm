@@ -3,6 +3,7 @@
 #   CD Index - The Internet CD Index
 #
 #   Copyright (C) 2000 Robert Kaye
+#   Portions  (C) 2000 Benjamin Holzman
 #
 #   This program is free software; you can redistribute it and/or modify
 #   it under the terms of the GNU General Public License as published by
@@ -27,10 +28,10 @@ use strict;
 use XML::Parser;
 use XML::DOM;
 use XML::XQL;
-use CGI;
 use XMLParse;
 use RDF;
 use DBDefs;
+use TableBase;
 
 BEGIN { require 5.003 }
 use vars qw(@ISA @EXPORT);
@@ -83,7 +84,6 @@ sub SolveXQL
     return $data;
 }
 
-
 sub EmitErrorRDF
 {
     my ($rdf, $r, $len);
@@ -103,34 +103,45 @@ sub EmitErrorRDF
     return $rdf;
 }
 
+# This function was taken from XML::Generator and is 
+# Copyright (C) 2000 Benjamin Holzman
+sub escape 
+{
+  $_[0] =~ s/&/&amp;/g;  # & first of course
+  $_[0] =~ s/</&lt;/g;
+  $_[0] =~ s/>/&gt;/g;
+  return $_[0];
+}
+
 sub GenerateCDInfoObjectFromDiskId
 {
-   my ($cd, $doc, $id, $numtracks, $toc) = @_;
-   my ($sth, @row, $rdf, $album);
+   my ($mb, $doc, $id, $numtracks, $toc) = @_;
+   my ($sth, @row, $rdf, $album, $di);
 
    return EmitErrorRDF("No DiskId given.") if (!defined $id);
 
-   $sth = $cd->{DBH}->prepare("select Album from Diskid where disk='$id'");
+   $di = Diskid->new($mb);
+   $sth = $mb->{DBH}->prepare("select Album from Diskid where disk='$id'");
    if ($sth->execute && $sth->rows)
    {
         @row =  $sth->fetchrow_array;
-        $rdf = CreateAlbum($cd, 0, $row[0]);
+        $rdf = CreateAlbum($mb, 0, $row[0]);
    }
    else
    {
-        $album = $cd->FindFreeDBEntry($numtracks, $toc, $id);
+        $album = $di->FindFreeDBEntry($numtracks, $toc, $id);
         if (defined $album)
         {
-            $rdf = CreateAlbum($cd, 0, $album);
+            $rdf = $mb->CreateAlbum($mb, 0, $album);
         }
         else
         {
             my (@albums, $album, $disk);
-
-            @albums = $cd->FindFuzzy($numtracks, $toc);
+    
+            @albums = $di->FindFuzzy($numtracks, $toc);
             if (scalar(@albums) > 0)
             {
-                $rdf = CreateAlbum($cd, 1, @albums);
+                $rdf = CreateAlbum($mb, 1, @albums);
             }
             else
             {
@@ -151,23 +162,22 @@ sub GenerateCDInfoObjectFromDiskId
 
 sub AssociateCDFromAlbumId
 {
-   my ($cd, $query, $diskid, $toc, $albumid) = @_;
+   my ($mb, $query, $diskid, $toc, $albumid) = @_;
 
-   $cd->InsertDiskId($diskid, $albumid, $toc);
+   my $di = Diskid->new($mb);
+   $di->InsertDiskId($diskid, $albumid, $toc);
 }
 
 sub GenerateCDInfoObjectFromAlbumId
 {
-   my ($cd, $albumid, $fuzzy, $o) = @_;
+   my ($mb, $albumid, $fuzzy) = @_;
    my ($sth, $xml, $i, $query);
    my ($artistid, $albumname, $artistname, $numtracks);
 
-   $o = CGI::new if (!defined $o);
-
    return EmitErrorRDF("No album id given.") if (!defined $albumid);
-   return undef if (!defined $cd);
+   return undef if (!defined $mb);
 
-   $sth = $cd->{DBH}->prepare("select name,artist from Album where id='$albumid'");
+   $sth = $mb->{DBH}->prepare("select name,artist from Album where id='$albumid'");
    if ($sth->execute)
    {
        my @row;
@@ -180,7 +190,7 @@ sub GenerateCDInfoObjectFromAlbumId
 
        if ($artistid)
        {
-           $sth = $cd->{DBH}->prepare("select name from Artist where id='$artistid'");
+           $sth = $mb->{DBH}->prepare("select name from Artist where id='$artistid'");
            $sth->execute;
            if ($sth->rows)
            {
@@ -203,12 +213,12 @@ sub GenerateCDInfoObjectFromAlbumId
        $xml .= "<!DOCTYPE CDInfo SYSTEM \"http://www.cdindex.org";
        $xml .= "/dtd/CDInfo.dtd\">\n\n";
        $xml .= "<CDInfo>\n\n";  
-       $xml .= "   <Title>".$o->escapeHTML($albumname)."</Title>\n";
+       $xml .= "   <Title>".escape($albumname)."</Title>\n";
 
        # --------------------------------------------------------------
        # Collect track info 
        # --------------------------------------------------------------
-       $sth = $cd->{DBH}->prepare("select count(*) from Track where " . 
+       $sth = $mb->{DBH}->prepare("select count(*) from Track where " . 
                             "album='$albumid'");
        if ($sth->execute)
        {
@@ -231,7 +241,7 @@ sub GenerateCDInfoObjectFromAlbumId
            $query .= "album=$albumid";
        }
 
-       $sth = $cd->{DBH}->prepare($query);
+       $sth = $mb->{DBH}->prepare($query);
        if ($sth->execute)
        {
            my @Offsets;
@@ -282,7 +292,7 @@ sub GenerateCDInfoObjectFromAlbumId
        if ($artistid == 0)
        {
            $xml .= "   <MultipleArtistCD>\n";
-           $sth = $cd->{DBH}->prepare("select Track.Name, Artist.Name from Track," .
+           $sth = $mb->{DBH}->prepare("select Track.Name, Artist.Name from Track," .
                                 " Artist where Track.album = $albumid and " .
                                 "Track.Artist = Artist.id order by sequence");
            if ($sth->execute)
@@ -290,8 +300,8 @@ sub GenerateCDInfoObjectFromAlbumId
                for($i = 0; @row = $sth->fetchrow_array; $i++)
                {
                    $xml .= "      <Track Num=\"" . ($i + 1) . "\">\n";
-                   $xml .= "         <Artist>".$o->escapeHTML($row[1])."</Artist>\n";
-                   $xml .= "         <Name>".$o->escapeHTML($row[0])."</Name>\n";
+                   $xml .= "         <Artist>".escape($row[1])."</Artist>\n";
+                   $xml .= "         <Name>".escape($row[0])."</Name>\n";
                    $xml .= "      </Track>\n";
                }
            }
@@ -301,15 +311,15 @@ sub GenerateCDInfoObjectFromAlbumId
        else
        {
            $xml .= "   <SingleArtistCD>\n";
-           $xml .= "      <Artist>".$o->escapeHTML($artistname)."</Artist>\n";
-           $sth = $cd->{DBH}->prepare("select Name from Track where " .
+           $xml .= "      <Artist>".escape($artistname)."</Artist>\n";
+           $sth = $mb->{DBH}->prepare("select Name from Track where " .
                                 "Track.album = $albumid order by sequence");
            if ($sth->execute)
            {
                for($i = 0; @row = $sth->fetchrow_array; $i++)
                {
                    $xml .= "      <Track Num=\"" . ($i + 1) . "\">\n";
-                   $xml .= "         <Name>".$o->escapeHTML($row[0])."</Name>\n";
+                   $xml .= "         <Name>".escape($row[0])."</Name>\n";
                    $xml .= "      </Track>\n";
                }
            }
@@ -326,56 +336,22 @@ sub GenerateCDInfoObjectFromAlbumId
    return $xml;
 }
 
-sub AppendWhereClause
-{
-    my ($search, $sql, $col) = @_;
-    my (@words, $i);
-
-    $search =~ tr/A-Za-z0-9/ /cs;
-    $search =~ tr/A-Z/a-z/;
-    @words = split / /, $search;
-
-    $i = 0;
-    foreach (@words)
-    {
-       if (length($_) > 1)
-       {
-          if ($i++ > 0)
-          {
-             $sql .= " and ";
-          }
-          $sql .= "instr(lower($col), '" . $_ . "') <> 0";
-       }
-       else
-       {
-          if ($i++ > 0)
-          {
-             $sql .= " and ";
-          }
-          $sql .= "lower($col) regexp  '([[:<:]]+|[[:punct:]]+)" .
-                  $_ . "([[:punct:]]+|[[:>:]]+)'";
-       }
-    }
-
-    return $sql;
-} 
-
 # returns artistList
 sub FindArtistByName
 {
-   my ($cd, $doc, $search) = @_;
-   my ($sth, $sql, @row, @ids);
-
-   my $o = $cd->GetCGI; 
+   my ($mb, $doc, $search) = @_;
+   my ($sth, $sql, @row, @ids, $tb);
 
    return EmitErrorRDF("No artist search criteria given.") 
       if (!defined $search);
-   return undef if (!defined $cd);
+   return undef if (!defined $mb);
 
-   $sql = AppendWhereClause($search, "select id from Artist where ", "Name");
+   $tb = TableBase->new($mb);
+   $sql = $tb->AppendWhereClause($search, "select id from Artist where ", 
+                                 "Name");
    $sql .= " order by name";
 
-   $sth = $cd->{DBH}->prepare($sql);
+   $sth = $mb->{DBH}->prepare($sql);
    if ($sth->execute() && $sth->rows)
    {
         while(@row = $sth->fetchrow_array)
@@ -385,25 +361,26 @@ sub FindArtistByName
    }
    $sth->finish;
 
-   return CreateArtistList($cd, $doc, @ids);
+   return CreateArtistList($mb, $doc, @ids);
 }
 
 # returns an albumList
 sub FindAlbumsByArtistName
 {
-   my ($cd, $doc, $search) = @_;
+   my ($mb, $doc, $search) = @_;
    my ($sth, $sql, @row, @ids);
-   my $o = $cd->GetCGI; 
 
    return EmitErrorRDF("No artist search criteria given.") 
       if (!defined $search);
-   return undef if (!defined $cd);
+   return undef if (!defined $mb);
 
    # This query finds single artist albums
-   $sql = AppendWhereClause($search, "select Album.id from Album, Artist where Album.artist = Artist.id and ", "Artist.Name");
+   my $tb = TableBase->new($mb);
+   $sql = $tb->AppendWhereClause($search, qq/select Album.id from Album, 
+                  Artist where Album.artist = Artist.id and /, "Artist.Name");
    $sql .= " order by Album.name";
 
-   $sth = $cd->{DBH}->prepare($sql);
+   $sth = $mb->{DBH}->prepare($sql);
    if ($sth->execute() && $sth->rows)
    {
         while(@row = $sth->fetchrow_array)
@@ -414,10 +391,13 @@ sub FindAlbumsByArtistName
    $sth->finish;
 
    # This query finds multiple artist albums
-   $sql = AppendWhereClause($search, "select Album.id from Artist, Album, Track where Album.artist = 0 and Track.artist = Artist.id and Track.album = Album.id and ", "Artist.name");
+   $sql = $tb->AppendWhereClause($search, qq/select Album.id from Album, 
+          Artist,Track,AlbumJoin where Album.artist = 0 and Track.Artist = 
+          Artist.id and AlbumJoin.track = Track.id and AlbumJoin.album = 
+          Album.id and Artist.name and /, "Artist.name");
    $sql .= " order by Album.name";
 
-   $sth = $cd->{DBH}->prepare($sql);
+   $sth = $mb->{DBH}->prepare($sql);
    if ($sth->execute() && $sth->rows)
    {
         while(@row = $sth->fetchrow_array)
@@ -427,28 +407,28 @@ sub FindAlbumsByArtistName
    }
    $sth->finish;
 
-   return CreateAlbumList($cd, @ids);
+   return CreateAlbumList($mb, @ids);
 }
 
 # returns albumList
 sub FindAlbumByName
 {
-   my ($cd, $doc, $search, $artist) = @_;
+   my ($mb, $doc, $search, $artist) = @_;
    my ($sth, $rdf, $sql, @row, @ids);
 
-   my $o = $cd->GetCGI;
    my $r = RDF::new;
 
    return EmitErrorRDF("No album search criteria given.") 
       if (!defined $search && !defined $artist);
-   return undef if (!defined $cd);
+   return undef if (!defined $mb);
 
+   my $tb = TableBase->new($mb);
    if (defined $artist && $artist ne '')
    {
-       $artist = $cd->{DBH}->quote($artist);
+       $artist = $mb->{DBH}->quote($artist);
        if (defined $search)
        {
-           $sql = AppendWhereClause($search, "select Album.id from Album, Artist where Artist.name = $artist and Artist.id = Album.artist and " , "Album.Name");
+           $sql = $tb->AppendWhereClause($search, "select Album.id from Album, Artist where Artist.name = $artist and Artist.id = Album.artist and " , "Album.Name");
        }
        else
        {
@@ -458,12 +438,12 @@ sub FindAlbumByName
    }
    else
    {
-       $sql = AppendWhereClause($search, "select Album.id from Album, Artist where Album.artist = Artist.id and ", "Album.Name");
+       $sql = $tb->AppendWhereClause($search, "select Album.id from Album, Artist where Album.artist = Artist.id and ", "Album.Name");
    }
 
    $sql .= " order by Album.name";   
 
-   $sth = $cd->{DBH}->prepare($sql);
+   $sth = $mb->{DBH}->prepare($sql);
    if ($sth->execute() && $sth->rows)
    {
         while(@row = $sth->fetchrow_array)
@@ -473,45 +453,52 @@ sub FindAlbumByName
    }
    $sth->finish;
 
-   return CreateAlbumList($cd, @ids);
+   return CreateAlbumList($mb, @ids);
 }
 
 # returns trackList
 sub FindTrackByName
 {
-   my ($cd, $doc, $search, $album, $artist) = @_;
+   my ($mb, $doc, $search, $album, $artist) = @_;
    my ($sth, $rdf, $sql, @row, $count);
 
-   my $o = $cd->GetCGI;
    my $r = RDF::new;
 
    return EmitErrorRDF("No track search criteria given.") 
       if (!defined $search && !defined $artist && !defined $album);
-   return undef if (!defined $cd);
+   return undef if (!defined $mb);
 
+   my $tb = TableBase->new($mb);
    if (defined $search)
    {
        if (!defined $album && !defined $artist)
        {
-           $sql = AppendWhereClause($search,
-             "select Track.id from Track, Album, " .
-             "Artist where Track.artist = Artist.id and Track.album = Album.id".
-             " and ", "Track.Name") .  " order by Track.name";
+           $sql = $tb->AppendWhereClause($search,
+             qq/select Track.id from Track, Album, Artist, AlbumJoin where 
+                Track.artist = Artist.id and AlbumJoin.track = Track.id 
+                and AlbumJoin.album = Album.id and /,
+                "Track.Name") .  " order by Track.name";
        }
        else
        {
            if (defined $artist  && !defined $album)
            {
-               $artist = $cd->{DBH}->quote($artist);
-               $sql = AppendWhereClause($search,
-                 "select Track.id from Track, Album, Artist where Track.artist = Artist.id and Track.album = Album.id and Artist.name = $artist and ", "Track.Name") .  " order by Track.name";
+               $artist = $mb->{DBH}->quote($artist);
+               $sql = $tb->AppendWhereClause($search,
+                 qq/select Track.id from Track, Album, Artist, AlbumJoin 
+                    where Track.artist = Artist.id and AlbumJoin.track = 
+                    Track.id and AlbumJoin.album = Album.id and Artist.name = 
+                    $artist and /, "Track.Name") . " order by Track.name";
 
            }
            else
            {
-               $album = $cd->{DBH}->quote($album);
-               $sql = AppendWhereClause($search,
-                 "select Track.id from Track, Album, Artist where Track.artist = Artist.id and Track.album = Album.id and Album.name = $album and ", "Track.Name") .  " order by Track.name";
+               $album = $mb->{DBH}->quote($album);
+               $sql = $tb->AppendWhereClause($search,
+                 qq/select Track.id from Track, Album, Artist, AlbumJoin
+                 where Track.artist = Artist.id and AlbumJoin.track = 
+                 Track.id and AlbumJoin.album = Album.id and Album.name = 
+                 $album and /, "Track.Name") .  " order by Track.name";
            }
        }
    }
@@ -519,9 +506,12 @@ sub FindTrackByName
    {
        if (defined $album && defined $artist)
        {
-           $artist = $cd->{DBH}->quote($artist);
-           $album = $cd->{DBH}->quote($album);
-           $sql = "select Track.id from Track, Album, Artist where Track.Artist = Artist.id and Track.album = Album.id and Album.name = $album and Artist.name = $artist";
+           $artist = $mb->{DBH}->quote($artist);
+           $album = $mb->{DBH}->quote($album);
+           $sql = qq/select Track.id from Track, Album, Artist where 
+                     Track.Artist = Artist.id and AlbumJoin.track = Track.id 
+                     and AlbumJoin.album = Album.id and Album.name = $album 
+                     and Artist.name = $artist/;
        }
        else
        {
@@ -534,13 +524,13 @@ sub FindTrackByName
    $rdf .= $r->BeginElement("MC:Collection", 'type'=>'trackList');
    $rdf .= $r->BeginBag();
 
-   $sth = $cd->{DBH}->prepare($sql);
+   $sth = $mb->{DBH}->prepare($sql);
    if ($sth->execute())
    {
         for($count = 0; @row = $sth->fetchrow_array; $count++)
         {
             $rdf .= $r->BeginLi;
-            $rdf .=   CreateTrackRDFSnippet($cd, $r, $row[0]);
+            $rdf .=   CreateTrackRDFSnippet($mb, $r, $row[0]);
             $rdf .= $r->EndLi;
         }
    }
@@ -558,16 +548,15 @@ sub FindTrackByName
 # returns GUIDList
 sub FindDistinctGUID
 {
-   my ($cd, $doc, $name, $artist) = @_;
+   my ($mb, $doc, $name, $artist) = @_;
    my ($sql, $sth, $r, @row, $rdf, $count);
 
-   my $o = $cd->GetCGI;
    $r = RDF::new;
    $count = 0;
 
    return EmitErrorRDF("No name or artist search criteria given.")
       if (!defined $name && !define $artist);
-   return undef if (!defined $cd);
+   return undef if (!defined $mb);
 
    $rdf = $r->BeginRDFObject;
    $rdf .= $r->BeginDesc;
@@ -578,11 +567,16 @@ sub FindDistinctGUID
        (defined $artist && $artist ne '') )
    {
       # This query finds single track id by name and artist
-      $name = $cd->{DBH}->quote($name);
-      $artist = $cd->{DBH}->quote($artist);
-      $sql = "select distinct Track.guid from Track, Artist where Track.artist = Artist.id and lower(Artist.name) = lower($artist) and lower(Track.Name) = lower($name)";
+      $name = $mb->{DBH}->quote($name);
+      $artist = $mb->{DBH}->quote($artist);
+      $sql = qq/select distinct GUID.guid from Track, Artist, GUIDJoin, GUID 
+                where Track.artist = Artist.id and 
+                GUIDJoin.track = Track.id and
+                GUID.id = GUIDJoin.guid and
+                lower(Artist.name) = lower($artist) and 
+                lower(Track.Name) = lower($name)/;
 
-      $sth = $cd->{DBH}->prepare($sql);
+      $sth = $mb->{DBH}->prepare($sql);
       if ($sth->execute() && $sth->rows)
       {
          for($count = 0; @row = $sth->fetchrow_array; $count++)
@@ -613,15 +607,15 @@ sub FindDistinctGUID
 # returns artistList
 sub GetArtistByGlobalId
 {
-   my ($cd, $doc, $id) = @_;
+   my ($mb, $doc, $id) = @_;
    my ($sth, $sql, @row, $artist);
 
    return EmitErrorRDF("No artist id given.") 
       if (!defined $id);
-   return undef if (!defined $cd);
+   return undef if (!defined $mb);
 
-   $id = $cd->{DBH}->quote($id);
-   $sth = $cd->{DBH}->prepare("select id from Artist where gid = $id");
+   $id = $mb->{DBH}->quote($id);
+   $sth = $mb->{DBH}->prepare("select id from Artist where gid = $id");
    if ($sth->execute && $sth->rows)
    {
         @row = $sth->fetchrow_array;
@@ -629,22 +623,22 @@ sub GetArtistByGlobalId
    }
    $sth->finish;
 
-   return CreateArtistList($cd, $doc, $artist);
+   return CreateArtistList($mb, $doc, $artist);
 }
 
 # returns album
 sub GetAlbumByGlobalId
 {
-   my ($cd, $doc, $id) = @_;
+   my ($mb, $doc, $id) = @_;
    my ($sth, $sql, @row, $album);
 
    return EmitErrorRDF("No album id given.") 
       if (!defined $id);
-   return undef if (!defined $cd);
+   return undef if (!defined $mb);
 
 
-   $id = $cd->{DBH}->quote($id);
-   $sth = $cd->{DBH}->prepare("select id from Album where gid = $id");
+   $id = $mb->{DBH}->quote($id);
+   $sth = $mb->{DBH}->prepare("select id from Album where gid = $id");
    if ($sth->execute() && $sth->rows)
    {
         @row = $sth->fetchrow_array;
@@ -652,35 +646,35 @@ sub GetAlbumByGlobalId
    }
    $sth->finish;
 
-   return CreateAlbum($cd, 0, $album);
+   return CreateAlbum($mb, 0, $album);
 }
 
 # returns trackList
 sub GetTrackByGlobalId
 {
-   my ($cd, $doc, $id) = @_;
+   my ($mb, $doc, $id) = @_;
    my ($sth, $rdf, $sql, @row, $count);
 
-   my $o = $cd->GetCGI; 
    my $r = RDF::new; 
    $count = 0;
 
    return EmitErrorRDF("No track id given.") 
       if (!defined $id);
-   return undef if (!defined $cd);
+   return undef if (!defined $mb);
 
    $rdf = $r->BeginRDFObject;
    $rdf .= $r->BeginDesc;
 
-   $id = $cd->{DBH}->quote($id);
-   $sth = $cd->{DBH}->prepare("select Track.id from " .
-              "Track, Album where Track.gid = $id and Track.album = Album.id");
+   $id = $mb->{DBH}->quote($id);
+   $sth = $mb->{DBH}->prepare(qq/select Track.id from Track, Album, AlbumJoin
+              where Track.gid = $id and AlbumJoin.track = Track.id and 
+              AlbumJoin.album = Album.id/);
    if ($sth->execute())
    {
         @row = $sth->fetchrow_array;
 
         $rdf .=   $r->BeginLi;
-        $rdf .=      CreateTrackRDFSnippet($cd, $r, $row[0]);
+        $rdf .=      CreateTrackRDFSnippet($mb, $r, $row[0]);
         $rdf .=   $r->EndLi;
         $count++;
    }
@@ -696,15 +690,15 @@ sub GetTrackByGlobalId
 # returns albumList
 sub GetAlbumsByArtistGlobalId
 {
-   my ($cd, $doc, $id) = @_;
+   my ($mb, $doc, $id) = @_;
    my ($sth, $sql, @row, @ids);
 
    return EmitErrorRDF("No album id given.") 
       if (!defined $id);
-   return undef if (!defined $cd);
+   return undef if (!defined $mb);
 
-   $id = $cd->{DBH}->quote($id);
-   $sth = $cd->{DBH}->prepare("select Album.id from Album, Artist where Artist.gid = $id and Album.artist = Artist.id");
+   $id = $mb->{DBH}->quote($id);
+   $sth = $mb->{DBH}->prepare("select Album.id from Album, Artist where Artist.gid = $id and Album.artist = Artist.id");
    if ($sth->execute() && $sth->rows)
    {
         while(@row = $sth->fetchrow_array)
@@ -714,18 +708,17 @@ sub GetAlbumsByArtistGlobalId
    }
    $sth->finish;
 
-   return CreateAlbumList($cd, @ids);
+   return CreateAlbumList($mb, @ids);
 }
 
 # returns an artistList
 sub CreateArtistList
 {
-   my ($cd, $doc);
-   my ($sth, $rdf, $sql, @row, $id, $o, $r, $count);
+   my ($mb, $doc);
+   my ($sth, $rdf, $sql, @row, $id, $r, $count);
 
-   $cd = shift @_; 
+   $mb = shift @_; 
    $doc = shift @_;
-   $o = $cd->GetCGI; 
    $r = RDF::new;
    $count = 0;
 
@@ -738,14 +731,14 @@ sub CreateArtistList
        $id = shift @_;
        last if !defined $id;
 
-       $sth = $cd->{DBH}->prepare("select name, gid from Artist where id = $id");
+       $sth = $mb->{DBH}->prepare("select name, gid from Artist where id = $id");
        if ($sth->execute())
        {
             for(; @row = $sth->fetchrow_array; $count++)
             {
                 $rdf .= $r->BeginLi();
                 $rdf .=   $r->Element("DC:Identifier", "", 'artistId'=>$row[1]);
-                $rdf .=   $r->Element("DC:Creator", $o->escapeHTML($row[0]));
+                $rdf .=   $r->Element("DC:Creator", escape($row[0]));
                 $rdf .= $r->EndLi();
             }
        }
@@ -763,11 +756,10 @@ sub CreateArtistList
 # returns an albumList
 sub CreateAlbumList
 {
-   my ($cd);
-   my ($sth, $rdf, $sql, @row, $id, $o, $r, $count);
+   my ($mb);
+   my ($sth, $rdf, $sql, @row, $id, $r, $count);
 
-   $cd = shift @_; 
-   $o = $cd->GetCGI; 
+   $mb = shift @_; 
    $r = RDF::new;
 
    $count = 0;
@@ -781,7 +773,7 @@ sub CreateAlbumList
        $id = shift @_;
        last if !defined $id;
 
-       $sth = $cd->{DBH}->prepare("select Album.name, Album.gid, Artist.name, Artist.gid from Album, Artist where Album.artist = Artist.id and Album.id = $id");
+       $sth = $mb->{DBH}->prepare("select Album.name, Album.gid, Artist.name, Artist.gid from Album, Artist where Album.artist = Artist.id and Album.id = $id");
        if ($sth->execute() && $sth->rows > 0)
        {
             for(;@row = $sth->fetchrow_array; $count++)
@@ -790,8 +782,8 @@ sub CreateAlbumList
                 $rdf .=   $r->Element("DC:Identifier", "", 
                               'artistId'=>$row[3],
                               'albumId'=>$row[1]);
-                $rdf .=   $r->Element("DC:Creator", $o->escapeHTML($row[2]));
-                $rdf .=   $r->Element("MM:Album", $o->escapeHTML($row[0]));
+                $rdf .=   $r->Element("DC:Creator", escape($row[2]));
+                $rdf .=   $r->Element("MM:Album", escape($row[0]));
                 $rdf .= $r->EndLi();
             }
        }
@@ -799,7 +791,7 @@ sub CreateAlbumList
        {
             $sth->finish;
 
-            $sth = $cd->{DBH}->prepare("select Album.name, Album.gid from Album where Album.id = $id");
+            $sth = $mb->{DBH}->prepare("select Album.name, Album.gid from Album where Album.id = $id");
             if ($sth->execute())
             {
                  for(;@row = $sth->fetchrow_array; $count++)
@@ -808,7 +800,7 @@ sub CreateAlbumList
                      $rdf .=   $r->Element("DC:Identifier", "", 
                                    'albumId'=>$row[1]);
                      $rdf .=   $r->Element("DC:Creator", "[Multiple Artists]");
-                     $rdf .=   $r->Element("MM:Album", $o->escapeHTML($row[0]));
+                     $rdf .=   $r->Element("MM:Album", escape($row[0]));
                      $rdf .= $r->EndLi();
                  }
             }
@@ -827,13 +819,12 @@ sub CreateAlbumList
 # returns album
 sub CreateAlbum
 {
-   my ($cd, $fuzzy);
+   my ($mb, $fuzzy);
    my ($sth, $rdf, $sth2, @row, @row2);
    my ($artist, $id, $count, $trdf, $numtracks);
 
-   $cd = shift @_; 
+   $mb = shift @_; 
    $fuzzy = shift @_; 
-   my $o = $cd->GetCGI; 
    my $r = RDF::new;
    $count = 0;
 
@@ -847,14 +838,14 @@ sub CreateAlbum
        last if !defined $id;
 
        $artist = "";
-       $sth = $cd->{DBH}->prepare("select Album.name, Album.gid, Album.id " .
+       $sth = $mb->{DBH}->prepare("select Album.name, Album.gid, Album.id " .
                                   "from Album where Album.id = $id");
        if ($sth->execute() && $sth->rows)
        {
             while(@row = $sth->fetchrow_array)
             {
                 $trdf = "";
-                $sth2 = $cd->{DBH}->prepare("select Track.id, Artist.id, Artist.name from Track, Artist where album = $row[2] and Track.artist = Artist.id order by sequence");
+                $sth2 = $mb->{DBH}->prepare("select Track.id, Artist.id, Artist.name from Track, Artist, AlbumJoin where AlbumJoin.track = Track.id and AlbumJoin.album = $row[2] and Track.artist = Artist.id order by sequence");
                 if ($sth2->execute() && $sth2->rows)
                 {
                     $numtracks = $sth2->rows;
@@ -863,7 +854,7 @@ sub CreateAlbum
                     while(@row2 = $sth2->fetchrow_array)
                     {
                          $trdf .= $r->BeginLi();
-                         $trdf .=   CreateTrackRDFSnippet($cd, $r, $row2[0]);
+                         $trdf .=   CreateTrackRDFSnippet($mb, $r, $row2[0]);
                          $trdf .= $r->EndLi();
                     
                          $artist = $row2[2] if ($row2[1] != 0);
@@ -876,9 +867,9 @@ sub CreateAlbum
                 $count++;
                 $rdf .= $r->BeginLi();
                 $rdf .= $r->Element("DC:Identifier", "",
-                                    'albumId'=>$o->escapeHTML($row[1]));
+                                    'albumId'=>escape($row[1]));
                 $rdf .= $r->Element("MM:Album", 
-                                    $o->escapeHTML($row[0]),
+                                    escape($row[0]),
                                     'numTracks'=>$numtracks);
                 if ($artist ne "")
                 {
@@ -912,36 +903,52 @@ sub CreateAlbum
 # returns single track description
 sub CreateTrackRDFSnippet
 {
-   my ($cd);
-   my ($sth, $rdf, @row, $id, $r);
+   my ($mb);
+   my ($sth, $rdf, @row, $id, $r, $guid, $gu);
 
-   $cd = shift @_; 
+   $mb = shift @_; 
    $r = shift @_; 
-   my $o = $cd->GetCGI; 
+   $gu = GUID->new($mb);
 
    for(;;)
    {
        $id = shift @_;
        last if !defined $id;
 
-       $sth = $cd->{DBH}->prepare("select Track.name, Track.gid, Track.sequence, Artist.name, Artist.gid, Album.name, Album.gid, Track.guid from Track, Artist,Album where Track.id = $id and Track.artist = Artist.id and Track.album = Album.id order by sequence");
+       $sth = $mb->{DBH}->prepare(qq/select Track.name, Track.gid, 
+                Track.sequence, Artist.name, Artist.gid, Album.name, 
+                Album.gid from Track, Artist,Album, AlbumJoin where 
+                Track.id = $id and Track.artist = Artist.id and 
+                AlbumJoin.album = Album.id and AlbumJoin.track = 
+                Track.id order by sequence/);
        if ($sth->execute() && $sth->rows)
        {
             while(@row = $sth->fetchrow_array)
             {
-                $rdf .= $r->Element("DC:Identifier", "",
-                            'artistId'=>$o->escapeHTML($row[4]),
-                            'albumId'=>$o->escapeHTML($row[6]),
-                            'trackId'=>$o->escapeHTML($row[1]),
-                            'trackGUID'=>$o->escapeHTML($row[7]));
+                $guid = $gu->GetGUIDFromTrackId($id);
+                if (defined $guid)
+                {
+                    $rdf .= $r->Element("DC:Identifier", "",
+                                'artistId'=>escape($row[4]),
+                                'albumId'=>escape($row[6]),
+                                'trackId'=>escape($row[1]),
+                                'trackGUID'=>escape($guid));
+                }
+                else
+                {
+                    $rdf .= $r->Element("DC:Identifier", "",
+                                'artistId'=>escape($row[4]),
+                                'albumId'=>escape($row[6]),
+                                'trackId'=>escape($row[1]));
+                }
                 $rdf .= $r->Element("DC:Relation", "",
                             'track'=>($row[2]+1));
                 $rdf .= $r->Element("DC:Creator", 
-                            $o->escapeHTML($row[3]));
+                            escape($row[3]));
                 $rdf .= $r->Element("DC:Title", 
-                            $o->escapeHTML($row[0]));
+                            escape($row[0]));
                 $rdf .= $r->Element("MM:Album", 
-                            $o->escapeHTML($row[5]));
+                            escape($row[5]));
             }     
        }
        $sth->finish;
@@ -963,29 +970,32 @@ sub ConvertGUID
 
 sub ExchangeMetadata
 {
-   my ($cd, $doc, $name, $guid, $artist, $album, $seq,
+   my ($mb, $doc, $name, $guid, $artist, $album, $seq,
        $len, $year, $genre, $filename, $comment) = @_;
-   my (@ids, $id, $rdf, $r);
+   my (@ids, $id, $rdf, $r, $gu, $pe, $tr);
 
    $guid = ConvertGUID($guid);
 
    $r = RDF::new;
 
+   $gu = GUID->new($mb);
+   $pe = Pending->new($mb);
+   $tr = Track->new($mb);
    # has this data been accepted into the database?
-   $id = $cd->GetTrackIdFromGUID($guid);
+   $id = $gu->GetTrackIdFromGUID($guid);
    if ($id < 0)
    {
        # No it has not.
-       @ids = $cd->GetPendingIdsFromGUID($guid);
+       @ids = $pe->GetIdsFromGUID($guid);
        if (scalar(@ids) == 0)
        {
-            $cd->InsertPendingData($name, $guid, $artist, $album, $seq,
-                              $len, $year, $genre, $filename, $comment);
+            $pe->Insert($name, $guid, $artist, $album, $seq,
+                        $len, $year, $genre, $filename, $comment);
        }
        else
        {
             # Do the metadata glom
-            CheckMetadata($cd, $name, $guid, $artist, $album, $seq,
+            CheckMetadata($mb, $pe, $name, $guid, $artist, $album, $seq,
                           $len, $year, $genre, $filename, $comment, @ids);
        }
    }
@@ -997,7 +1007,7 @@ sub ExchangeMetadata
        # Yes, it has. Retrieve the data and return it
        # Fill in, don't override...
        ($db_name, $db_guid, $db_artist, $db_album, $db_seq, $db_len, $db_year, 
-        $db_genre, $db_filename, $db_comment) = $cd->GetTrackData($id);
+        $db_genre, $db_filename, $db_comment) = $tr->GetFromId($id);
 
        $name = $db_name 
            if (!defined $name || $name eq "") && defined $db_name;
@@ -1044,31 +1054,48 @@ sub ExchangeMetadata
 
 sub CheckMetadata
 {
-   my ($id, $cd, $artistid, $albumid);
+   my ($id, $mb, $pe, $artistid, $albumid);
    my ($name, $guid, $artist, $album, $seq,
        $len, $year, $genre, $filename, $comment);
    my ($db_name, $db_guid, $db_artist, $db_album, $db_seq,
        $db_len, $db_year, $db_genre, $db_filename, $db_comment);
+   my ($ar, $al, $tr, $gu, $trackid);
 
-   $cd = shift; $name = shift; $guid = shift; $artist = shift;
+   $mb = shift; $pe = shift; $name = shift; $guid = shift; $artist = shift;
    $album = shift; $seq = shift; $len = shift; $year = shift;
    $genre = shift; $filename = shift; $comment = shift;
 
+   $ar = Artist->new($mb);
+   $al = Album->new($mb);
+   $tr = Track->new($mb);
+   $gu = GUID->new($mb);
    for(;;)
    {
        $id = shift;
        return if !defined $id;
+
        
        ($db_name, $db_guid, $db_artist, $db_album, $db_seq,
         $db_len, $db_year, $db_genre, $db_filename, $db_comment) =
-         $cd->GetPendingData($id);
+         $pe->GetData($id);
 
        if (defined $db_name && defined $name && $name eq $db_name && 
            defined $db_artist && defined $artist && $artist eq $db_artist &&
            defined $db_album && defined $album && $album eq $db_album)
-       {
-           $artistid = $cd->InsertArtist($artist);
-           $albumid = $cd->InsertAlbum($album, $artistid, -1);
+       { 
+           my @albumids;
+
+           $artistid = $ar->Insert($artist, $artist);
+
+           @albumids = $al->FindFromNameAndArtistId($album, $artistid);
+           if (defined @albumids)
+           {
+               $albumid = $albumids[0];
+           }
+           else
+           {
+               $albumid = $al->Insert($album, $artistid);
+           }
 
            $seq = 0 unless 
                defined $seq && defined $db_seq && $seq == $db_seq;
@@ -1082,10 +1109,13 @@ sub CheckMetadata
                defined $comment && defined $db_comment && 
                $comment eq $db_comment;
 
-           $cd->InsertTrack($name, $artistid, $albumid, $seq, $guid, 
-                            $len, $year, $genre, $comment);
-
-           $cd->DeletePendingData($guid);
+           $trackid = $tr->Insert($name, $artistid, $albumid, $seq,  
+                                  $len, $year, $genre, $comment);
+           if (defined $trackid)
+           {
+               $gu->Insert($guid, $trackid);
+           }
+           $pe->DeleteByGUID($guid);
            return;
        }
    }
@@ -1093,20 +1123,25 @@ sub CheckMetadata
 
 sub SubmitTrack
 {
-   my ($cd, $doc, $name, $guid, $artist, $album, $seq,
+   my ($mb, $doc, $name, $guid, $artist, $album, $seq,
        $len, $year, $genre, $comment, $sync_url, $sync_contrib,
        $sync_type, $sync_date) = @_;
    my ($rdf, $r, $i, $ts, $text, $artistid, $albumid, $trackid, $type, $id);
+   my ($al, $ar, $tr, $ly);
 
-   $artistid = $cd->InsertArtist($artist);
+   $ar = Artist->new($mb);
+   $al = Album->new($mb);
+   $tr = Track->new($mb);
+   $ly = Lyrics->new($mb);
+   $artistid = $ar->Insert($artist, $artist);
    return EmitErrorRDF("Cannot insert artist into database.") 
       if ($artistid < 0);
-   $albumid = $cd->InsertAlbum($album, $artistid, -1);
+   $albumid = $al->Insert($album, $artistid, -1);
    return EmitErrorRDF("Cannot insert album into database.") 
       if ($albumid < 0);
 
-   $trackid = $cd->InsertTrack($name, $artistid, $albumid, $seq, $guid, 
-                               $len, $year, $genre, $comment);
+   $trackid = $tr->Insert($name, $artistid, $albumid, $seq, $guid, 
+                          $len, $year, $genre, $comment);
    return EmitErrorRDF("Cannot insert track into database.") 
       if ($trackid < 0);
 
@@ -1126,10 +1161,10 @@ sub SubmitTrack
            $type = $LyricTypes{$sync_type};
        }
 
-       $id = $cd->GetLyricId($trackid);
+       $id = $ly->GetLyricId($trackid);
        if ($id < 0)
        {
-           $id = $cd->InsertLyrics($trackid, $type, $sync_url, $sync_contrib);
+           $id = $ly->InsertLyrics($trackid, $type, $sync_url, $sync_contrib);
            for($i = 0;; $i++)
            {
                $ts = SolveXQL($doc, "/rdf:RDF/rdf:Description/MM:SyncEvents/rdf:Description/rdf:Seq/rdf:li[$i]" . '/rdf:Description/MM:SyncText/@ts');
@@ -1144,7 +1179,7 @@ sub SubmitTrack
                        if ($ts =~ /(\d*):(\d*)\.(\d*)/);
                }
         
-               $id = $cd->InsertSyncEvent($trackid, $ts, $text);
+               $id = $ly->InsertSyncEvent($trackid, $ts, $text);
            }
        }
    }
@@ -1162,10 +1197,9 @@ sub SubmitTrack
 # returns lyrics
 sub GetLyricsByGlobalId
 {
-   my ($cd, $doc, $id) = @_;
+   my ($mb, $doc, $id) = @_;
    my ($sth, $rdf, $sql, @row, $count, $trackid);
 
-   my $o = $cd->GetCGI; 
    my $r = RDF::new; 
    $count = 0;
 
@@ -1176,27 +1210,27 @@ sub GetLyricsByGlobalId
 
    return EmitErrorRDF("No track id given.") 
       if (!defined $id);
-   return undef if (!defined $cd);
+   return undef if (!defined $mb);
 
    $rdf = $r->BeginRDFObject;
    $rdf .= $r->BeginDesc;
 
-   $id = $cd->{DBH}->quote($id);
-   $sth = $cd->{DBH}->prepare("select Track.id from Track where Track.gid = $id");
+   $id = $mb->{DBH}->quote($id);
+   $sth = $mb->{DBH}->prepare("select Track.id from Track where Track.gid = $id");
    if ($sth->execute())
    {
         @row = $sth->fetchrow_array;
         $trackid = $row[0];
         $sth->finish;
 
-        $sth = $cd->{DBH}->prepare("select type, url, submittor, submitted, id from SyncLyrics where id = $trackid");
+        $sth = $mb->{DBH}->prepare("select type, url, submittor, submitted, id from SyncLyrics where id = $trackid");
         if ($sth->execute())
         {
             @row = $sth->fetchrow_array;
             $trackid = $row[0];
             $sth->finish;
     
-            $rdf .= CreateTrackRDFSnippet($cd, $r, $trackid);
+            $rdf .= CreateTrackRDFSnippet($mb, $r, $trackid);
             $rdf .= $r->BeginElement("MM:SyncEvents");
             $rdf .= $r->BeginDesc($row[1]);
             $rdf .= $r->Element("DC:Contributor", $row[2]); 
@@ -1204,7 +1238,7 @@ sub GetLyricsByGlobalId
             $rdf .= $r->Element("DC:Date", $row[3]);
             $rdf .= $r->BeginSeq;
     
-            $sth = $cd->{DBH}->prepare("select ts, text from SyncEvent where SyncText = $row[4]");
+            $sth = $mb->{DBH}->prepare("select ts, text from SyncEvent where SyncText = $row[4]");
             if ($sth->execute())
             {
                 while(@row = $sth->fetchrow_array)

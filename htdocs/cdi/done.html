@@ -1,0 +1,103 @@
+<%perl>
+
+my ($o, $mb, $error, $ar, $al, $tr, $di); 
+my ($tracks, $i, $artistname, $sortname);
+my ($toc, $title, $album, $id, $artist);
+my ($sth, $rv);
+
+$mb = new MusicBrainz;
+mc_comp("/comp/title", title=>'New CD Submission Completed');
+
+# Do a bunch of error checking
+$id = $ARGS{'id'};
+$tracks = $ARGS{'tracks'};
+$toc = $ARGS{'toc'};
+$artist = $ARGS{'artist'};
+$artistname = $ARGS{'artistname'};
+$sortname = $ARGS{'sortname'};
+$title = $ARGS{'title'};
+
+$error = 0;
+$error = 1 if (!defined $artist && !defined $artistname);
+$error = 1 if (!defined $id || $id eq '');
+$error = 1 if (!defined $toc || $toc eq '');
+$error = 1 if (!defined $tracks || $tracks eq 0);
+for($i = 0; $i < $tracks && !$error; $i++)
+{
+    if (!exists $ARGS{"track$i"})
+    {
+       $error = 1;
+    }
+}
+
+if ($error)
+{
+</%perl>
+    <FONT SIZE=+1 COLOR=RED>
+    Error:
+    </FONT>
+    Please make sure that you fill out all the fields in the form.
+    Please press the Back button in your Browser and try again.
+    </TD></TR></TABLE>
+<%perl>
+}
+else
+{
+    $mb->Login();
+    $ar = Artist->new($mb);
+    $al = Album->new($mb);
+    $tr = Track->new($mb);
+    $di = Diskid->new($mb);
+
+    if (defined $artistname)
+    {
+        $artist = $ar->Insert($artistname, $sortname);
+        if ($artist < 0)
+        {
+            mc_out("Failed to insert a new artist into the database.<br>");
+        }
+    }
+
+    if ($artist >= 0)
+    {
+        my @ids;
+
+        @ids = $al->FindFromNameAndArtistId($title, $artist);
+        for(;;)
+        {
+            $album = shift @ids;
+            last if (!defined $album);
+            if ($al->GetTrackCountFromAlbum($id) == $tracks)
+            {
+                mc_out(qq/That CD already exists in the CD Index. 
+                          <p>If this is a different CD, please vary the 
+                          title of the CD slightly to indicate how this CD 
+                          is different from the existing CD./);
+                last;
+            }
+        }
+
+        if (!defined $album)
+        {
+            $album = $al->Insert($title, $artist, $tracks);
+            if ($album < 0)
+            {
+                mc_out("Failed to insert a new album into the database.<br>");
+            }
+            else
+            {
+               for($i = 0; $i < $tracks; $i++)
+               {
+                   $tr->Insert($ARGS{"track$i"}, $artist, $album, $i + 1);
+               }
+    
+               $di->Insert($id, $album, $toc);
+        
+               mc_out(qq/Thank you for your submission.<p> You will
+                         now be able to request the information for this CD./);
+            }
+         }
+    }
+    $mb->Logout;
+}
+</%perl>

@@ -2,13 +2,17 @@
 
 <%perl>
 
-my ($mb, $id, $trackname, $referer); 
+my ($mb, $id, $trackname, $referer, $tr, $tracknum); 
 
 $referer = $r->headers_in->{'Referer'};
 $mb = new MusicBrainz;
 $mb->Login();
+$tr = Track->new($mb);
+
 $id = $ARGS{id};
-$trackname = $mb->GetTrackName($id);
+$tr->LoadFromId($id);
+$trackname = $tr->Value(1);
+$tracknum = $tr->Value(3);
 
 </%perl>
 
@@ -37,22 +41,41 @@ $trackname = $mb->GetTrackName($id);
         New Name:
         </td>
         <td>
-        <INPUT TYPE="text" NAME="new" SIZE=25> 
+        <INPUT TYPE="text" NAME="new0" SIZE=25 value="<% $trackname %>"> 
         </td>
       </tr>
+      <tr>
+        <td>
+        Current Track Number:
+        </td>
+        <td>
+        <% $tracknum %>
+        </td>
+      </tr>
+      <tr>
+        <td>
+        New Track Number:
+        </td>
+        <td>
+        <INPUT TYPE="text" NAME="new1" SIZE=25 value="<% $tracknum %>"> 
+        </td>
       <tr>
         <td colspan=2>
         <INPUT TYPE="submit" NAME="Submit" VALUE="Submit">    
         </td>
       </tr>
     </table>
-    <input type="hidden" name="prev" value="<% $trackname  %>">
+    <input type="hidden" name="prev0" value="<% $trackname %>">
+    <input type="hidden" name="prev1" value="<% $tracknum %>">
     <input type="hidden" name="table" value="Track">
-    <input type="hidden" name="column" value="Name">
+    <input type="hidden" name="column0" value="Name">
+    <input type="hidden" name="column1" value="Sequence">
     <input type="hidden" name="id" value="<% $id %>">
     <input type="hidden" name="referer" value="<% $referer %>">
     </form>
       
     <& /comp/tableend &>
+
+    <& /comp/stylenotes &>
 % }
 % $mb->Logout();

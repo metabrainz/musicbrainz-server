@@ -3,13 +3,21 @@ $mb
 $albumid 
 $hilitetrack=>-1
 $hilitecolor=>""
+$showedits=>1
 </%args>
 
 <%perl>
 
+my ($ar, $al);
 my ($artistname, $artistid, $albumname, $modpending);
 
-($artistid, $artistname, $modpending) = $mb->GetArtistInfoFromAlbumId($albumid);
+$ar = Artist->new($mb);
+$al = Album->new($mb);
+
+$ar->LoadFromAlbumId($albumid);
+$artistid = $ar->Value(0);
+$artistname = $ar->Value(1);
+$modpending = $ar->Value(3);
 
 mc_comp("/comp/artisttitle",
         artistname=>$artistname,
@@ -18,15 +26,15 @@ mc_comp("/comp/artisttitle",
 
 mc_comp("/comp/modnotice");
 
-($albumname, $modpending) = $mb->GetAlbumName($albumid);
+$al->LoadFromId($albumid);
 
 if ($artistid == 0)
 {
     mc_comp("/comp/malbum",
             mb=>$mb,
-            albumid=>$albumid,
-            albumname=>$albumname,
-            modpending=>$modpending,
+            albumid=>($al->Value(0)),
+            albumname=>($al->Value(1)),
+            modpending=>($al->Value(2)),
             hilitetrack=>$hilitetrack,
             hilitecolor=>$hilitecolor);
 }
@@ -34,9 +42,9 @@ else
 {
     mc_comp("/comp/album",
             mb=>$mb,
-            albumid=>$albumid,
-            albumname=>$albumname,
-            modpending=>$modpending,
+            albumid=>($al->Value(0)),
+            albumname=>($al->Value(1)),
+            modpending=>($al->Value(2)),
             hilitetrack=>$hilitetrack,
             hilitecolor=>$hilitecolor);
 }

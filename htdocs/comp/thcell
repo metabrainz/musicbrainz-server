@@ -1,5 +1,6 @@
-<TD BGCOLOR="#643b99" align=center>
-   <B><font color=white>
+<TD BGCOLOR="#FFBA58" align=center>
+   <B><font color=black>
    <% $ARGS{text} %>
    </FONT></B>
 </TD>
+    

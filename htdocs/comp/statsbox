@@ -1,0 +1,42 @@
+<%perl>
+my $result = $m->cache(action=>'retrieve');
+$result = undef;
+if (!defined($result)) 
+{
+    my $mb = MusicBrainz->new();  
+    $mb->Login();
+
+    $result .= mc_comp("/comp/calcstat", 
+                       mb=>$mb,
+                       query=>"select count(*) from Artist", 
+                       title=>"Artists:");
+    $result .= mc_comp("/comp/calcstat", 
+                       mb=>$mb,
+                       query=>"select count(*) from Album", 
+                       title=>"Albums:");
+    $result .= mc_comp("/comp/calcstat", 
+                       mb=>$mb,
+                       query=>"select count(*) from Track", 
+                       title=>"Tracks:");
+    $result .= mc_comp("/comp/calcstat", 
+                       mb=>$mb,
+                       query=>"select count(*) from Pending", 
+                       title=>"Pending:");
+    $result .= mc_comp("/comp/calcstat", 
+                       mb=>$mb,
+                       query=>"select count(*) from Diskid", 
+                       title=>"DiskIds:");
+    $mb->Logout();
+    $m->cache(action=>'store', expire_next=>'hour', value=>$result);
+}
+</%perl>
+
+<table cellpadding="10" cellspacing="0" border="0">
+<tr>
+   <td>
+      <table width=100%>
+      <% $result |n %>
+      </table>
+   </td>
+</tr>
+</table>  

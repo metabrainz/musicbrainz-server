@@ -1,4 +1,11 @@
-<%perl>
-my $sidebar = MusicBrainz::SideBar();
-</%perl>
-<% $sidebar |n %>
+<& /comp/sidebarsectiontop, title=>'Jump To' &>
+<& /comp/navbox &>
+
+<& /comp/sidebarsection, title=>'Top Moderators' &>
+<& /comp/topmodsbox &>
+
+<& /comp/sidebarsection, title=>'Server Stats' &>
+<& /comp/statsbox &>
+
+<& /comp/sidebarsection, title=>'Sponsors' &>
+<& /comp/sponsors &>

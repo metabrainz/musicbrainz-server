@@ -2,13 +2,18 @@
 
 my ($mb); 
 my (@info, $artistname, $albumname, $modpending);
-my ($trackinfo, $albumid, @idsalbums, $i, $j); 
+my ($trackinfo, $albumid, @idsalbums, $i, $j, $ar, $al); 
 
 $mb = new MusicBrainz;
 $mb->Login();
+$ar = Artist->new($mb);
+$al = Album->new($mb);
 
-($artistname, $modpending) = $mb->GetArtistName($ARGS{artistid});
-@idsalbums = $mb->GetAlbumList($ARGS{artistid});
+$ar->LoadFromId($ARGS{artistid});
+$artistname = $ar->Value(1);
+$modpending = $ar->Value(3);
+
+@idsalbums = $ar->GetAlbumList($ARGS{artistid});
 
 mc_comp("/comp/artisttitle", 
         artistname=>$artistname, 
@@ -21,14 +26,15 @@ for(;;)
     $albumid = shift @idsalbums;
     last if (! defined $albumid);
     $albumname = shift @idsalbums;
+    $modpending = shift @idsalbums;
 
     mc_comp("/comp/album", 
             mb=>$mb,
             albumid=>$albumid, 
-            albumname=>$albumname);
+            albumname=>$albumname,
+            modpending=>$modpending);
 }
 
 $mb->Logout();
 
 </%perl>
-

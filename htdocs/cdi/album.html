@@ -1,0 +1,125 @@
+<%args>
+$id
+$toc
+$tracks
+$artist
+</%args>
+<%perl>
+
+my ($num_tracks, $i, $mb, $ar, $al, $modpending); 
+
+$mb = new MusicBrainz;
+
+mc_comp('/comp/title', title=>'Submit CD: Select Album');
+
+if (!defined $artist || $artist eq '')
+{
+    mc_comp("Please select an artist name. Click on the " . 
+            "Back button in your browser and try again.");
+}
+else
+{
+    $mb->Login();
+    $ar = Artist->new($mb);
+    $al = Album->new($mb);
+
+    my (%unused, $first, $found, $artistname, @ids_tracks_seqs, @idsalbums);
+    
+    $first = 1;
+    $found = 0;
+    
+    $ar->LoadFromId($artist);
+    mc_comp("/comp/artisttitle", artistname=>($ar->Value(1)), 
+            artistid=>$artist, modpending=>0);
+    
+    @idsalbums = $ar->GetAlbumList($artist);
+    while(defined @idsalbums)
+    {
+        my ($trackid, $albumid, $name, $seq, $num_tracks, $albumname);
+       
+        $albumid = shift @idsalbums;
+        $albumname = shift @idsalbums;
+        $modpending = shift @idsalbums;
+        $num_tracks = $al->GetTrackCountFromAlbum($albumid);
+        if ($num_tracks == $tracks)
+        {
+            if ($first)
+            {
+               $first = 0;
+               $found = 1;
+</%perl>
+               Please examine the albums listed below. If one of
+               the track listings matches the CD that you are
+               submitting, click on <b>Select Album</b> next to
+               the matching album. If none of the listed albums
+               match, click on <b>Album not listed</b>.<br>
+
+               <form method="POST" action="/cdi/found.html"
+                  enctype="application/x-www-form-urlencoded" class="formstyle">
+               <input type="hidden" name="artist" value="<% $artist %>">
+               <input type="hidden" name="id" value="<% $id %>">
+               <input type="hidden" name="toc" value="<% $toc %>">
+               <input type="hidden" name="tracks" value="<% $tracks %>">
+               <table width="100%"><tr><td align=right>
+               <input type="submit" value="Album not listed>>" name="Select">
+               </td></tr></table>
+               </form>
+%           }    
+
+            <& /comp/album, mb=>$mb, albumid=>$albumid,
+                            albumname=>$albumname, modpending=>0 &>
+
+            <form method="POST" action="/cdi/found.html"
+                  enctype="application/x-www-form-urlencoded" class="formstyle">
+            <table width=100%><tr>
+            <td align=right>
+               <input type="submit" value="Select <% $albumname %>>>" name="Select">
+            </td>
+            </tr></table>
+
+            <input type="hidden" name="album" value="<% $albumid %>">
+            <input type="hidden" name="id" value="<% $id %>">
+            <input type="hidden" name="toc" value="<% $toc %>">
+            <input type="hidden" name="tracks" value="<% $tracks %>">
+            </form>
+<%perl>
+        }
+        else
+        {
+            $unused{"$albumname"}=$num_tracks;
+        }
+    }
+    
+    if (scalar(keys(%unused)) > 0)
+    {
+</%perl>
+        The following albums in the CD Index are not applicable
+        because they have a different number of tracks than
+        than the album you are submitting:<p>
+%       foreach $i (keys(%unused))
+%       {
+            Album <b> <% $i %> </b> has <% $unused{"$i"} %> tracks.<br>
+%       }
+        <p>Even though there may be an album listed with the same 
+        name as you are submitting, there sometimes are different
+        editions of the same album that have a different number 
+        of tracks.
+%   }
+    
+%   if (!$found) {
+        There were no albums with <% $tracks %> tracks found. Please click 
+        <b>Album not listed</b>:
+
+        <form method="POST" action="/cdi/enter.html"
+           enctype="application/x-www-form-urlencoded" class="formstyle">
+        <input type="hidden" name="artist" value="<% $artist %>">
+        <input type="hidden" name="id" value="<% $id %>">
+        <input type="hidden" name="toc" value="<% $toc %>">
+        <input type="hidden" name="tracks" value="<% $tracks %>">
+        <table width="100%"><tr><td align=right>
+        <input type="submit" value="Album not listed>>" name="Select">
+        </td></tr></table>
+        </form>
+%   }
+%   $mb->Logout;
+% }

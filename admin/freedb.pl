@@ -5,6 +5,10 @@ use strict;
 use DBI;
 use DBDefs;
 use MusicBrainz;
+use Artist;
+use Album;
+use Track;
+use Diskid;
 
 my $line;
 my $tracks;
@@ -13,7 +17,7 @@ my $title;
 my @ttitles;
 my $arg;
 my $file;
-my $cd;
+my $mb;
 my $crc;
 my $toc;
 
@@ -163,7 +167,7 @@ sub ProcessFile
               @ttitles = ReadTitles($tracks, $line);
               if (scalar(@ttitles) > 0)
               {   
-                  @data = ($cd, $tracks, $title, $artist, $toc);
+                  @data = ($mb, $tracks, $title, $artist, $toc);
                   push @data, @ttitles;
                   EnterRecord(@data);
                   $i++;
@@ -179,7 +183,7 @@ sub ProcessFile
 
 sub EnterRecord
 {
-    my $cd = shift @_;
+    my $mb = shift @_;
     my $tracks = shift @_;
     my $title = shift @_;
     my $artistname = shift @_;
@@ -187,33 +191,46 @@ sub EnterRecord
     my $artist;
     my ($sql, $sql2);
     my $album;
-    my $i;
+    my ($i, $a, $al, $d, @ids, $num, $t);
 
     if ($artistname eq '')
     {
         $artistname = "Unknown";
     }
 
-    $artist = $cd->InsertArtist($artistname);
+    $a = Artist->new($mb);
+    $artist = $a->Insert($artistname);
     if ($artist < 0)
     {
         print "Cannot insert artist.\n";
         exit 0;
     }
 
-    $album = $cd->InsertAlbum($title, $artist, $tracks);
-    if ($album < 0)
+    $al = Album->new($mb);
+    @ids = $al->FindFromNameAndArtistId($title, $artist);
+    for(;defined($album = shift @ids);)
     {
-        print "Cannot insert album.\n";
-        exit 0;
+        $num = $al->GetTrackCountFromAlbum($album); 
+        last if ($num == $tracks);
+    }
+    if (!defined $album)
+    {
+        $album = $al->Insert($title, $artist, $tracks);
+        if ($album < 0)
+        {
+            print "Cannot insert album.\n";
+            exit 0;
+        }
     }
     for($i = 0; $i < $tracks; $i++)
     {
         $title = shift @_;
         $title = "Unknown" if $title eq '';
 
-        $cd->InsertTrack($title, $artist, $album, $i);
-        $cd->InsertDiskId("", $album, $toc);
+        $t = Track->new($mb);
+        $t->Insert($title, $artist, $album, $i + 1);
+        $d = Diskid->new($mb);
+        $d->Insert("", $album, $toc);
     }
 }
 
@@ -246,8 +263,8 @@ sub Recurse
 
 my $count = 0;
 
-$cd = new MusicBrainz;
-if (!$cd->Login(1))
+$mb = MusicBrainz->new;
+if (!$mb->Login)
 {
     printf("Cannot log into database.\n");
     exit(0);
@@ -258,4 +275,4 @@ while($arg = shift)
    print "Processing dir $arg\n";
    $count += Recurse($arg);
 }
-$cd->Logout;
+$mb->Logout;

@@ -1,6 +1,6 @@
 <%perl>
 
-my ($mb, $key, @yeslist, @nolist);
+my ($mb, $mod, $key, @yeslist, @nolist);
 my $referer = $r->headers_in->{'Referer'};
 
 foreach $key (keys %ARGS)
@@ -14,7 +14,8 @@ foreach $key (keys %ARGS)
 
 $mb = new MusicBrainz;
 $mb->Login();
-$mb->InsertVotes($session{uid}, \@yeslist, \@nolist);
+$mod = Moderation->new($mb);
+$mod->InsertVotes($session{uid}, \@yeslist, \@nolist);
 $mb->Logout();
 
 $r->method('GET');

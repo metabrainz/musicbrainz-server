@@ -9,23 +9,25 @@ $hilitecolor=>""
 
 <%perl>
 
-my ($i, $trackinfo, @info);
+my ($i, $track, @info, $tr);
 
 mc_comp("/comp/albumbegin", 
         albumid=>$albumid, 
         title=>$albumname,
         modpending=>$modpending);
-@info = $mb->GetAlbumInfo($albumid);
+$tr = Track->new($mb);
+
+@info = $tr->GetTracksFromAlbumId($albumid);
 for($i = 0;; $i++)
 {
-    $trackinfo = $info[$i]; 
-    last if (!defined $trackinfo);
+    $track = $info[$i]; 
+    last if (!defined $track);
     mc_comp("/comp/albumtrack", 
-            id=>$$trackinfo[0],
-            tracknum=>($$trackinfo[1] + 1), 
-            name=>$$trackinfo[2],
+            id=>$track->Value(0),
+            tracknum=>$track->Value(3),
+            name=>$track->Value(1),
             artistname=>'',
-            modpending=>$$trackinfo[3],
+            modpending=>$track->Value(9),
             hilitetrack=>$hilitetrack,
             hilitecolor=>$hilitecolor);
 }

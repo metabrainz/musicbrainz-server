@@ -6,8 +6,9 @@ use QuerySupport;
 use XMLParse;
 use DBI;
 use DBDefs;
+use Apache;
 
-my ($i, $line, $xml, $supp_xml);
+my ($i, $line, $xml, $supp_xml, $r);
 my ($parser, $doc, $queryname, $querydata, $data);
 my ($function, $xqlquery, @queryargs, $cd);
 
@@ -86,19 +87,28 @@ my %Queries =
         '/rdf:RDF/rdf:Description/MQ:Args/@id']
 );  
 
-for($i = 0; defined($line = <>); $i++)
+if (exists $ENV{"MOD_PERL"})
 {
-    if ($i > 0 && $line =~ /^<\?xml/)
-    {
-       $supp_xml = $line;
-       while(defined($line = <>))
+   $r = Apache->request();
+   my $size = $r->header_in("Content-length");
+   $r->read($xml, $size);
+}
+else
+{
+   for($i = 0; defined($line = <>); $i++)
+   {
+       if ($i > 0 && $line =~ /^<\?xml/)
        {
-           $supp_xml .= $line;
+          $supp_xml = $line;
+          while(defined($line = <>))
+          {
+              $supp_xml .= $line;
+          }
+          last;
        }
-       last;
-    }
-    $xml .= $line;
-} 
+       $xml .= $line;
+   }
+}
 
 if (!defined $xml)
 {
@@ -168,6 +178,18 @@ if (!defined $xml)
     exit(0);
 }
 
-print "Content-type: text/plain\n";
-print "Content-Length: " . length($xml) . "\n\r\n";
-print $xml;
+if (defined $r)
+{
+   $r->status(200);
+   $r->content_type("text/plain");
+   $r->header_out('Content-Length', length($xml));
+   $r->send_http_header();
+   print($xml);
+   return 200;
+}
+else
+{
+   print "Content-type: text/plain\n";
+   print "Content-Length: " . length($xml) . "\n\r\n";
+   print $xml;
+}

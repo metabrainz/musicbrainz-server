@@ -1,6 +1,6 @@
 <%perl>
 
-my ($mb, @info, $row, $ind, $i, $offset, $num_artists);
+my ($mb, @info, $row, $ind, $i, $offset, $num_artists, $ar);
 my $max_items = 50;
 
 $mb = new MusicBrainz;
@@ -27,8 +27,9 @@ if (!defined $ind || $ind eq '')
 }
 
 $mb->Login();
+$ar = Artist->new($mb);
 
-($num_artists, @info) = $mb->GetArtistList($ind, $offset, $max_items);
+($num_artists, @info) = $ar->GetArtistDisplayList($ind, $offset, $max_items);
 
 mc_out('<table width="100%"><tr>');
 mc_comp("/comp/artistlistprevbutton", offset=>$offset, ind=>$ind, 

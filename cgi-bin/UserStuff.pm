@@ -22,10 +22,11 @@
 #____________________________________________________________________________
                                                                                
 package UserStuff;
+use TableBase;
 
 BEGIN { require 5.003 }
 use vars qw(@ISA @EXPORT);
-@ISA    = @ISA    = '';
+@ISA    = @ISA    = 'TableBase';
 @EXPORT = @EXPORT = '';
 
 use strict;
@@ -33,17 +34,23 @@ use DBI;
 use DBDefs;
 use MusicBrainz;
 
+sub new
+{
+   my ($type, $mb) = @_;
+
+   my $this = TableBase->new($mb);
+   return bless $this, $type;
+}
+
 sub Login
 {
-   my ($user, $pwd, $sess) = @_;
-   my ($mb, $ok, $sth);
+   my ($this, $user, $pwd, $sess) = @_;
+   my ($ok, $sth);
 
-   $mb = MusicBrainz::new();
-   $mb->Login();
    $ok = 0;
 
-   $user = $mb->{DBH}->quote($user);
-   $sth = $mb->{DBH}->prepare(qq/
+   $user = $this->{DBH}->quote($user);
+   $sth = $this->{DBH}->prepare(qq/
           select name,password,privs,id from ModeratorInfo where name = $user/);
    if ($sth->execute && $sth->rows)
    {
@@ -59,17 +66,14 @@ sub Login
        }
    }
    $sth->finish;   
-   $mb->Logout();
 
    return $ok;
 }
 
 sub CreateLogin
 {
-   my ($user, $pwd, $pwd2, $sess) = @_;
-   my ($mb, $sth);
-
-   $mb = MusicBrainz::new();
+   my ($this, $user, $pwd, $pwd2, $sess) = @_;
+   my ($sth);
 
    if ($pwd ne $pwd2)
    {
@@ -84,30 +88,27 @@ sub CreateLogin
        return "You cannot leave the user name blank. Please try again."
    }
 
-   $mb->Login();
-   $user = $mb->{DBH}->quote($user);
-   $pwd = $mb->{DBH}->quote($pwd);
-   $sth = $mb->{DBH}->prepare(qq/
+   $user = $this->{DBH}->quote($user);
+   $pwd = $this->{DBH}->quote($pwd);
+   $sth = $this->{DBH}->prepare(qq/
                          select id from ModeratorInfo where name = $user
                          /);
    if ($sth->execute && $sth->rows)
    {
        $sth->finish;
-       $mb->Logout();
        return "That login already exists. Please choose another login name."
    }
    $sth->finish;
 
-   $mb->{DBH}->do(qq/
+   $this->{DBH}->do(qq/
             insert into ModeratorInfo (Name, Password, Privs, ModsAccepted, 
             ModsRejected) values ($user, $pwd, 0, 0, 0)
             /);
 
    $sess->{user} = $user;
    $sess->{privs} = 0;
-   $sess->{uid} = $mb->GetLastInsertId();
+   $sess->{uid} = $this->GetLastInsertId();
    $sth->finish;
-   $mb->Logout();
 
    return "";
 } 

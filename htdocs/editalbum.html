@@ -2,13 +2,18 @@
 
 <%perl>
 
-my ($mb, $id, $albumname, $referer, $modpending); 
+my ($mb, $id, $albumname, $referer, $modpending, $al); 
 
 $referer = $r->headers_in->{'Referer'};
 $mb = new MusicBrainz;
 $mb->Login();
 $id = $ARGS{id};
-($albumname, $modpending) = $mb->GetAlbumName($id);
+
+$al = Album->new($mb);
+$al->LoadFromId($id);
+
+$albumname = $al->Value(1);
+$modpending = $al->Value(2);
 
 </%perl>
 
@@ -41,7 +46,7 @@ $id = $ARGS{id};
         New Name:
         </td>
         <td>
-        <INPUT TYPE="text" NAME="new" SIZE=25> 
+        <INPUT TYPE="text" NAME="new0" SIZE=25 value="<% $albumname %>"> 
         </td>
       </tr>
       <tr>
@@ -50,13 +55,15 @@ $id = $ARGS{id};
         </td>
       </tr>
     </table>
-    <input type="hidden" name="prev" value="<% $albumname  %>">
+    <input type="hidden" name="prev0" value="<% $albumname  %>">
     <input type="hidden" name="table" value="Album">
-    <input type="hidden" name="column" value="Name">
+    <input type="hidden" name="column0" value="Name">
     <input type="hidden" name="id" value="<% $id %>">
     <input type="hidden" name="referer" value="<% $referer %>">
     </form>
       
     <& /comp/tableend &>
+
+    <& /comp/stylenotes &>
 % }
 % $mb->Logout();

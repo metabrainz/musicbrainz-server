@@ -2,15 +2,14 @@
 
 <%perl>
 
-# TODO: The data in the rows is not escaped!
-
 my ($mb); 
-my (@data, $i, $row);
+my (@data, $i, $row, $al);
 
 $mb = new MusicBrainz;
 $mb->Login();
 
-@data = $mb->AlbumSearch($ARGS{album});
+$al = Album->new($mb);
+@data = $al->SearchByName($ARGS{album});
 if (scalar(@data) > 0)
 {
 </%perl>

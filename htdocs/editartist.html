@@ -2,13 +2,19 @@
 
 <%perl>
 
-my ($mb, $id, $artistname, $referer, $modpending); 
+my ($mb, $id, $ar); 
+my ($artistname, $referer, $modpending, $sortname); 
 
 $referer = $r->headers_in->{'Referer'};
 $mb = new MusicBrainz;
 $mb->Login();
 $id = $ARGS{id};
-($artistname, $modpending) = $mb->GetArtistName($id);
+
+$ar = Artist->new($mb);
+$ar->LoadFromId($id);
+$artistname = $ar->Value(1);
+$sortname = $ar->Value(2);
+$modpending = $ar->Value(3);
 
 </%perl>
 
@@ -41,22 +47,45 @@ $id = $ARGS{id};
         New Name:
         </td>
         <td>
-        <INPUT TYPE="text" NAME="new" SIZE=25> 
+        <INPUT TYPE="text" NAME="new0" SIZE=25 value="<% $artistname %>"> 
         </td>
       </tr>
       <tr>
-        <td colspan=2>
+        <td>
+        Current Sort Name:
+        </td>
+        <td>
+        <% $sortname  %>
+        </td>
+      </tr>
+      <tr>
+        <td>
+        New Sort Name:
+        </td>
+        <td>
+        <INPUT TYPE="text" NAME="new1" SIZE=25 value="<% $sortname %>"> 
+        </td>
+      </tr>
+      <tr>
+        <td>
         <INPUT TYPE="submit" NAME="Submit" VALUE="Submit">    
+        </td>
+        <td>
+        <b>Note</b>: Please see below for an explanation of Sort Name.
         </td>
       </tr>
     </table>
-    <input type="hidden" name="prev" value="<% $artistname  %>">
+    <input type="hidden" name="prev0" value="<% $artistname  %>">
+    <input type="hidden" name="prev1" value="<% $sortname  %>">
     <input type="hidden" name="table" value="Artist">
-    <input type="hidden" name="column" value="Name">
+    <input type="hidden" name="column0" value="Name">
+    <input type="hidden" name="column1" value="SortName">
     <input type="hidden" name="id" value="<% $id %>">
     <input type="hidden" name="referer" value="<% $referer %>">
     </form>
-      
     <& /comp/tableend &>
+
+    <& /comp/stylenotes &>
+    <& /comp/artiststylenotes &>
 % }
 % $mb->Logout();

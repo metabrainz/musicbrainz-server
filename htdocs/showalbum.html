@@ -1,40 +1,47 @@
 <%perl>
 
 my ($mb); 
-my (@info, $artistname, $artistid, $albumname, $modpending);
-my ($trackinfo, $albumid, @idsalbums, $i, $j); 
+my ($artistid, $albumid, $ar, $al); 
 
 $mb = new MusicBrainz;
 $mb->Login();
 $albumid = $ARGS{albumid};
 
-($artistid, $artistname, $modpending) = $mb->GetArtistInfoFromAlbumId($albumid);
-
-mc_comp("/comp/artisttitle", 
-        artistname=>$artistname, 
-        artistid=>$artistid,
-        modpending=>$modpending);
-
-mc_comp("/comp/modnotice");
-
-($albumname, $modpending) = $mb->GetAlbumName($albumid);
-
-if ($artistid == 0)
+$ar = Artist->new($mb);
+if (! $ar->LoadFromAlbumId($albumid))
 {
-    mc_comp("/comp/malbum", 
-            albumid=>$albumid, 
-            albumname=>$albumname, 
-            mb=>$mb,
-            modpending=>$modpending);
+    print("That Album was not found<br>");
 }
 else
 {
-    mc_comp("/comp/album", 
-            albumid=>$albumid, 
-            albumname=>$albumname, 
-            mb=>$mb,
-            modpending=>$modpending);
-}
+    $artistid = $ar->Value('id');
+    
+    mc_comp("/comp/artisttitle", 
+            artistname=>$ar->Value(1), 
+            artistid=>$ar->Value(0),
+            modpending=>$ar->Value(3));
+    
+    mc_comp("/comp/modnotice");
+    
+    $al = Album->new($mb);
+    $al->LoadFromId($albumid);
+    if ($artistid == 0)
+    {
+        mc_comp("/comp/malbum", 
+                albumid=>$al->Value(0), 
+                albumname=>$al->Value(1), 
+                mb=>$mb,
+                modpending=>$al->Value(2));
+    }
+    else
+    {
+        mc_comp("/comp/album", 
+                albumid=>$al->Value(0), 
+                albumname=>$al->Value(1), 
+                mb=>$mb,
+                modpending=>$al->Value(2));
+    }
+ }
 $mb->Logout();
 
 </%perl>
