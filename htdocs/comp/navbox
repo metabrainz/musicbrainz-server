@@ -65,7 +65,7 @@ my @main = (
    expand=>'moderate',                     array=>\@moderate },
   {url=>'/list.html',                      name=>'Mailing&nbsp;List'},
   {url=>'/MM/',                            name=>'Metadata&nbsp;Init.'},
-  {url=>'http://sourceforge.net/tracker/?atid=119506&group_id=19506&func=browse', name=>'Report&nbsp;a&nbsp;Bug'},
+  {url=>'http://sourceforge.net/tracker/?func=add&group_id=19506&atid=119506', name=>'Report&nbsp;a&nbsp;Bug'},
 );
 
 </%perl>
