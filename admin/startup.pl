@@ -55,6 +55,7 @@ use MusicBrainz;
 use MusicBrainz::Server::DeferredUpdate;
 use MusicBrainz::Server::Handlers;
 use MusicBrainz::Server::Mason;
+use MusicBrainz::Server::ModerationNote;
 # Don't load MusicBrainz::Server::Moderation::* - Moderation.pm does that
 use Parser;
 use QuerySupport;
