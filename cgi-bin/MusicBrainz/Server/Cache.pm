@@ -27,6 +27,10 @@ use strict;
 
 package MusicBrainz::Server::Cache;
 
+use Carp qw( carp );
+
+use constant DEBUG => 0;
+
 our $cache;
 
 # Preload if possible
@@ -63,9 +67,33 @@ sub get
 	my $class = shift;
 	my $cache = $class->_new
 		or return undef;
-	my $data = $cache->get(@_)
-		or return undef;
+
+	my $data = $cache->get(@_);
+	if (not $data)
+	{
+		carp "Cache MISS on $_[0]" if DEBUG;
+		return undef;
+	}
+
 	$data = thaw($data);
+	if (DEBUG)
+	{
+		#use Data::Dumper;
+		#local $Data::Dumper::Terse = 1;
+		#my $d = Data::Dumper->Dump([ $data ],[ 'd' ]);
+		#carp "Cache HIT ($d) on $_[0]";
+
+		if (not defined $data)
+		{
+			carp "Cache HIT (undef) on $_[0]";
+		} elsif (not ref $data) {
+			carp "Cache HIT ($data) on $_[0]";
+		} elsif (ref($data) eq "REF") {
+			carp "Cache HIT (\\$$data) on $_[0]";
+		} else {
+			carp "Cache HIT ($data) on $_[0]";
+		}
+	}
 	$data;
 }
 
@@ -74,15 +102,53 @@ sub set
 	my ($class, $key, $data, @opts) = @_;
 	my $cache = $class->_new
 		or return undef;
+
+	if (DEBUG)
+	{
+		#use Data::Dumper;
+		#local $Data::Dumper::Terse = 1;
+		#my $d = Data::Dumper->Dump([ $data ],[ 'd' ]);
+		#carp "Cache HIT ($d) on $_[0]";
+
+		if (not defined $data)
+		{
+			carp "Cache SET (undef) on $_[0]";
+		} elsif (not ref $data) {
+			carp "Cache SET ($data) on $_[0]";
+		} elsif (ref($data) eq "REF") {
+			carp "Cache SET (\\$$data) on $_[0]";
+		} else {
+			carp "Cache SET ($data) on $_[0]";
+		}
+	}
+
 	$data = freeze($data);
 	$cache->set($key, $data, @opts);
+}
+
+sub remove
+{
+	my ($class, $key) = @_;
+	my $cache = $class->_new
+		or return undef;
+	carp "Cache REMOVE $key" if DEBUG;
+	$cache->remove($key);
+}
+
+# Only for debugging
+sub get_keys
+{
+	my $class = shift;
+	my $cache = $class->_new
+		or return;
+	$cache->get_keys(@_);
 }
 
 =pod
 
 This module implements a Cache::Cache layer for MusicBrainz.  The layer implementing
 the cache (e.g. File, MemCached, etc) is not known to the caller.  This layer only
-supports get / set so far.
+supports get / set / remove / get_keys so far.
 
 =cut
 
