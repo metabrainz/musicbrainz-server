@@ -11,6 +11,7 @@ $mbtagger=>$session{'mbt'}
 $showids=>0
 $showtag=>0
 $tagchecked=>0
+$tracks => undef
 </%args>
 
 <%perl>
@@ -19,7 +20,11 @@ my ($i, $track, @info, $trmcounts, $tcount);
 
 #$nomod = 1 if (exists $session{tagged_albums});
 
-if ($album->GetArtist() == &ModDefs::VARTIST_ID)
+if ($tracks)
+{
+    @info = @$tracks;
+}
+elsif ($album->GetArtist() == &ModDefs::VARTIST_ID)
 {
     @info = $album->LoadTracksFromMultipleArtistAlbum();
 }

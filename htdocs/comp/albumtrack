@@ -30,12 +30,16 @@ my $colspan = ($nonalbum ? 'colspan="2"' : '');
 % } else {
     <td width="75%" <% $bgcolor |n %> <% $colspan %>>
 % }
-% if ($mbtagger && !$nomod) {
+% if ($mbtagger && !$nomod and $track->GetId) {
     <a href="tag:<% $track->GetMBId() %>:<% $album->GetMBId() %>"><img src="/images/mblookup-tag.gif" 
        alt="Tag" title="Tag the current track" height="13" width="28"
        align="middle" border="0"></a>
 % }
+% if ($track->GetId) {
        <a href="/showtrack.html?trackid=<% $track->GetId %>"><% $track->GetName %></a>
+% } else {
+       <% $track->GetName %>
+% }
 % if ($trmcount > 0) {
        &nbsp;<img src="/images/trm.gif" align="middle" alt="TRM" width="30" 
                   height="11" title="<% $trmcount %> TRM Ids">&nbsp;
