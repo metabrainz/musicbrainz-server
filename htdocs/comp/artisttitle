@@ -16,7 +16,7 @@ $sortname = $artist->GetSortName();
 <table>
   <tr>
     <td <% $bgcolor |n %> valign="top">
-      <span style="title"><font size=+2><% $name |h %><font></span>
+      <span style="title"><font size="+2"><% $name |h %></font></span>
 %     if ($name ne $sortname) {
           <br>(<% $sortname |h %>)
 %     }
@@ -30,7 +30,8 @@ $sortname = $artist->GetSortName();
       <a href="/showartist.html?artistid=<% $artist->GetId() %>">View albums</a> |
 % }
       <a href="/editartist.html?id=<% $artist->GetId() %>">Edit</a> |
-      <a href="/mergeartist.html?id=<% $artist->GetId() %>">Merge</a>]
+      <a href="/mergeartist.html?id=<% $artist->GetId() %>">Merge</a>
+      ]
 % } else {
       &nbsp;
 % }
