@@ -1,3 +1,7 @@
+<%perl>
+return $m->comp('/comp/footer_small')
+	if $pnotes{'ispopup'};
+</%perl>
 			<div style="margin-top: 1em">&nbsp;</div>
          </td>
       </tr>

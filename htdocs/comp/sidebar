@@ -1,6 +1,9 @@
 %# vi: set ts=4 sw=4 ft=mason :
 <%perl>
 
+return $m->comp("/comp/header_small", title => $pagetitle || $title)
+	if $pnotes{'ispopup'};
+
 my $nosidebar = UserPreference::get('nosidebar');
 
 $m->comp(
