@@ -23,5 +23,5 @@ FOREIGN KEY ("SeqId") REFERENCES "Pending" ("SeqId") ON UPDATE CASCADE  ON DELET
 CREATE FUNCTION "recordchange" () RETURNS trigger AS
 '/usr/local/pgsql/lib/pending.so', 'recordchange' LANGUAGE 'C';
 
-+-- Reconnect as ourselves
-+\c -
+-- Reconnect as ourselves
+\c -
