@@ -1,8 +1,7 @@
 <%perl>
 # vi: set ts=4 sw=4 ft=mason :
 
-my $JSMoveFocus = $session{"JSMoveFocus"};
-return if defined $JSMoveFocus and not $JSMoveFocus;
+return unless UserPreference::get('JSMoveFocus');
 
 my ($form, $field, $index) = @_;
 

@@ -8,14 +8,14 @@ $m->comp(
 	nosidebar => $session{'nosidebar'},
 );
 
-unless ($session{'nosidebar'})
+unless (UserPreference::get('nosidebar'))
 {
 
 </%perl>
 <& /comp/sidebarsectiontop, title=>'Site Menu' &>
 <& /comp/sitemenu &>
 
-% unless ($session{'no_sidebar_panels'}) {
+% unless (UserPreference::get('no_sidebar_panels')) {
 <& /comp/sidebarsection, title=>'Top Moderators' &>
 <& /comp/sidebarareabegin &>
 <& /comp/topmodsbox &>

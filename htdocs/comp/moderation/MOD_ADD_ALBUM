@@ -16,7 +16,7 @@ my $al = Album->new($this->{DBH});
 $al->SetId($id);
 my $exists = $al->LoadFromId;
 
-if ($exists and $session{'mod_add_album_inline'})
+if ($exists and UserPreference::get('mod_add_album_inline'))
 {
 	my $ar = Artist->new($this->{DBH});
 	$ar->SetId($al->GetArtist);

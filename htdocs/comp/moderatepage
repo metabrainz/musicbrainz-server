@@ -3,7 +3,7 @@
 $type
 $artistid=>0
 $albumid=>0
-$num=>($session{'mods_per_page'} || 10)
+$num => UserPreference::get('mods_per_page')
 </%args>
 
 <%perl>

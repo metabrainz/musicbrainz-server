@@ -10,15 +10,10 @@
 # ignored).  So in this case, make sure that the time values you're passing in
 # are in UTC.
 
-# Defaults
-my $fmt = '%Y-%m-%d %H:%M:%S %Z';
-my $tz = 'UTC';
+my $fmt = UserPreference::get('datetimeformat');
+my $tz = UserPreference::get('timezone');
 
-# Use the session settings if available
-$fmt = $session{"datetimeformat"} if $session{"datetimeformat"};
-$tz = $session{"tz"} if $session{"tz"};
-
-# Also allow overrides by passing a hash reference as the first parameter.
+# Allow overrides by passing a hash reference as the first parameter.
 if (@_ and ref($_[0]) eq "HASH")
 {
 	my $opts = shift;
