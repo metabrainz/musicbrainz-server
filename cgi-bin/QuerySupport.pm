@@ -754,7 +754,7 @@ sub CheckMetadata
                print STDERR "Inserted $$data[0] by $$data[1] on $$data[2]\n";
 
                $arr = $info{tracks};
-               $pe->InsertIntoTrackHistory($$arr[0]->{track_insertid});
+               $pe->InsertIntoInsertHistory($$arr[0]->{track_insertid});
            }
            $pe->DeleteByGUID($$data[4]);
            return;
