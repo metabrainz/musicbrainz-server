@@ -42,13 +42,15 @@ sub Usage
 
 sub Main
 {
+    my ($argsneeded) = @_;
     my ($arg, $mb, $host);
     my ($quiet, $fix);
 
+    $argsneeded = 1 if (!defined $argsneeded);
     $quiet = 0;
     $fix = 0;
 
-    if (scalar(@ARGV) == 0)
+    if (scalar(@ARGV) < $argsneeded)
     {
         Usage();
         exit(0);

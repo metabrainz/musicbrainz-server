@@ -86,4 +86,4 @@ sub Cleanup
     print "Albums converted.\n" if (!$quiet);
 }
 
-Main();
+Main(1);

@@ -88,4 +88,4 @@ sub Cleanup
     print "\nAlbum deleted.\n" if ($fix);
 }
 
-Main();
+Main(1);

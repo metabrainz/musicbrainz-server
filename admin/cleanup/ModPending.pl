@@ -22,46 +22,50 @@
 #   $Id$
 #____________________________________________________________________________
 
-use lib "../cgi-bin";
+use lib "../../cgi-bin";
 use DBI;
 use DBDefs;
 use MusicBrainz;
 use Moderation;
+require "Main.pl";
 
 my $count = 0;
 
-sub Clean
+sub Arguments
 {
-   my ($dbh, $al) = @_;
-   my ($sth, @row, $guid, $id, $sth2, @row2);
+   return "";
+}
 
-   $dbh->do("update Artist set modpending = 0");
-   $dbh->do("update Album set modpending = 0");
-   $dbh->do("update AlbumJoin set modpending = 0");
-   $dbh->do("update Track set modpending = 0");
-   $dbh->do("update Genre set modpending = 0");
+sub Cleanup
+{
+   my ($dbh, $fix) = @_;
+   my ($sth, @row);
+
+   print("update Artist set modpending = 0\n") if (!$quiet);
+   $dbh->do("update Artist set modpending = 0") if ($fix);
+   print("update Album set modpending = 0\n") if (!$quiet);
+   $dbh->do("update Album set modpending = 0") if ($fix);
+   print("update AlbumJoin set modpending = 0\n") if (!$quiet);
+   $dbh->do("update Track set modpending = 0") if ($fix);
+   print("update Track set modpending = 0\n") if (!$quiet);
+   $dbh->do("update Genre set modpending = 0") if ($fix);
+   print("update Genre set modpending = 0\n") if (!$quiet);
+   $dbh->do("update AlbumJoin set modpending = 0") if ($fix);
+
    $sth = $dbh->prepare("select rowid, tab from Changes where status = " .
                         Moderation::STATUS_OPEN);
    if ($sth->execute && $sth->rows > 0)
    {
        while(@row = $sth->fetchrow_array)
        {
-          $dbh->do("update $row[1] set modpending = modpending + 1 where id = $row[0]");
+          print("update $row[1] set modpending = modpending + 1 where " .
+                "id = $row[0]\n") if (!$quiet);
+          $dbh->do(qq\update $row[1] set modpending = modpending + 1 where 
+                      id = $row[0]\) if ($fix);
           $count++;
        }
    }
    $sth->finish;
 }
 
-$mb = MusicBrainz->new;
-$mb->Login;
-$al = Album->new($mb);
-
-print "Connected to database.\n";
-
-Clean($mb->{DBH}, $al);
-
-print "Set $count modpending indicators.\n";
-
-# Disconnect
-$mb->Logout;
+Main(0);

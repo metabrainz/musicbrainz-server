@@ -36,6 +36,10 @@ else
         return;
     }
     
+    mc_out("[ <a href=\"/showartist.html?artistid=");
+    mc_out($artist->GetId());
+    mc_out("\">View albums</a> ]<p>");
+
     mc_comp("/comp/tablebegin", title=>"Aliases"); 
     mc_out("<table><tr><th>Alias</th><th>Times Used</th><th>Last Used</th></tr>");
     for(;;)
