@@ -1,6 +1,7 @@
 %# vi: set ts=4 sw=4 ft=mason :
 <%args>
 @album => ()
+$notetext => ""
 </%args>
 <%perl>
 
@@ -57,6 +58,8 @@ for my $album (@album)
 }
 
 my $url = "/search.html";
+$url = "/showartist.html?artistid=" . (keys %artists)[0]
+	if keys(%artists) == 1;
 
 if ($ARGS{confirm})
 {
@@ -72,6 +75,10 @@ if ($ARGS{confirm})
 				# --
 				albums => \@objs,
 			);
+
+			$mods[0]->InsertNote($session{'uid'}, $notetext)
+				if $mods[0]
+				and $notetext =~ /\S/;
 
 			delete $session{'tagged_albums'};
 		},
@@ -144,6 +151,15 @@ for my $ar (sort { $a->{_name_} cmp $b->{_name_} } values %artists)
 		<input type="hidden" name="confirm" value="1">
 		<input type="submit" value="YES &gt;&gt;">
 	</div>
+
+	<p>
+		If YES, enter moderation note (optional):
+	</p>
+
+	<p>
+		<textarea name="notetext" rows="3" cols="60"></textarea>
+	</p>
+
 </form>
 
 <& /comp/movefocus, "ModFormNo", 0 &>
