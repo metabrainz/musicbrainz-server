@@ -110,6 +110,7 @@ sub GenerateAlbumFromDiscid
 
                 # No fuzzy matches either. Let's pull the records
                 # from freedb.org and insert it into the db if we find it.
+		require FreeDB;
                 $fd = FreeDB->new($this->{DBH});
                 $ref = $fd->Lookup($id, $toc);
                 if (defined $ref)
