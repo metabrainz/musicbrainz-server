@@ -51,6 +51,13 @@ sub new
     return $this;
 }  
 
+sub GetError
+{
+    my ($this) = @_;
+
+    return $this->{error};
+}
+
 # %info hash needs to have the following keys defined
 #  (artist (name) and sortname) or artistid                [required]
 #  album name or albumid                                   [required]
@@ -58,8 +65,8 @@ sub new
 #  forcenewalbum (defaults to no)                          [optional]
 #  cdindexid and toc                                       [optional]
 #  tracks -> array of hash refs:                           [required]
-#    track title                                           [required]
-#    sequence                                              [required]
+#    track    title                                        [required]
+#    tracknum                                              [required]
 #    trmid                                                 [optional]
 #    duration                                              [optional]
 #    year                                                  [optional]
@@ -75,42 +82,40 @@ sub Insert
     my ($artist, $album, $sortname, $artistid, $albumid, $trackid);
     my ($forcenewalbum, @albumtracks, $albumtrack, $track, $found);
 
-    print Dumper($info);
-
     # Sanity check all the insert values
     if (!exists $info->{artist} && !exists $info->{artistid})
     {
-        print STDERR "Insert failed: no artist or artistid given.\n";
+        $this->{error} = "Insert failed: no artist or artistid given.\n";
         return undef;
     }
     if (!exists $info->{album} && !exists $info->{albumid})
     {
-        print STDERR "Insert failed: no album or albumid given.\n";
+        $this->{error} = "Insert failed: no album or albumid given.\n";
         return undef;
     }
     if (!exists $info->{tracks})
     {
-        print STDERR "Insert failed: no tracks given.\n";
+        $this->{error} = "Insert failed: no tracks given.\n";
         return undef;
     }
     if (exists $info->{cdindexid} && 
         (length($info->{cdindexid}) != 28 || 
          substr($info->{cdindexid}, -1, 1) ne '-'))
     {
-        print STDERR "Skipped failed: invalid cdindex id given.\n";
+        $this->{error} = "Skipped failed: invalid cdindex id given.\n";
         delete $info->{cdindexid};
     }
     if (exists $info->{toc} && $info->{toc} eq '')
     {
-        print STDERR "Skipped failed: invalid toc given.\n";
+        $this->{error} = "Skipped failed: invalid toc given.\n";
         delete $info->{toc};
     }
 
     $forcenewalbum = (exists $info->{forcenewalbum} && $info->{forcenewalbum});
     if ($forcenewalbum && exists $info->{albumid})
     {
-        print STDERR "Insert failed: you cannot force a new album and ";
-        print STDERR "provide an albumid.\n";
+        $this->{error} = "Insert failed: you cannot force a new album and ";
+        $this->{error} = "provide an albumid.\n";
         return undef;
     }
 
@@ -127,7 +132,7 @@ sub Insert
         $ar->SetId($info->{artistid});
         if (!defined $ar->LoadFromId())
         {
-            print STDERR "Insert failed: Could not load artist: $info->{artistid}\n";
+            $this->{error} = "Insert failed: Could not load artist: $info->{artistid}\n";
             return undef;
         }
 
@@ -141,7 +146,7 @@ sub Insert
 
         if ($info->{artist} eq '')
         {
-            print STDERR "Insert failed: no artist given.\n";
+            $this->{error} = "Insert failed: no artist given.\n";
             return undef;
         }
         if (!exists $info->{sortname} || $info->{sortname} eq '')
@@ -157,7 +162,8 @@ sub Insert
            $ar->SetId($newartistid);
            if (!defined $ar->LoadFromId())
            {
-               print STDERR "Insert failed: Could not load aliased artist $newartistid.\n";
+               $this->{error} = "Insert failed: Could not load aliased " .
+                                "artist $newartistid.\n";
            }
 
            $artistid = $newartistid;
@@ -178,7 +184,7 @@ sub Insert
         $al->SetId($info->{albumid});
         if (!defined $al->LoadFromId())
         {
-            print STDERR "Insert failed: Could not load given albumid.\n";
+            $this->{error} = "Insert failed: Could not load given albumid.\n";
             return undef;
         }
 
@@ -189,16 +195,16 @@ sub Insert
     {
         if ($info->{album} eq '')
         {
-            print STDERR "Insert failed: No album name given.\n";
+            $this->{error} = "Insert failed: No album name given.\n";
             return undef;
         }
 
         $album = $info->{album};
     }
 
-    print STDERR "  Artist: '$artist'\n";
-    print STDERR "Sortname: '$sortname'\n";
-    print STDERR "   Album: '$album'\n";
+    #print STDERR = "  Artist: '$artist'\n";
+    #print STDERR = "Sortname: '$sortname'\n";
+    #print STDERR = "   Album: '$album'\n";
 
     # TODO: BEGIN a DB transaction here
 
@@ -210,7 +216,7 @@ sub Insert
         $artistid = $ar->Insert();
         if (!defined $artistid)
         {
-            print STDERR "Insert failed: Cannot insert artist.\n";
+            $this->{error} = "Insert failed: Cannot insert artist.\n";
             return undef;
         }
     }
@@ -224,7 +230,7 @@ sub Insert
         # album does indeed go to the correct artist.
         if ($artistid != $al->GetArtist())
         {
-            print STDERR "Insert failed: Artist/Album id clash.\n";
+            $this->{error} = "Insert failed: Artist/Album id clash.\n";
             return undef;
         }
     }
@@ -240,7 +246,7 @@ sub Insert
            $albumid = $al->Insert;
            if (!defined $albumid)
            {
-               print STDERR "Insert failed: cannot insert new album.\n";
+               $this->{error} = "Insert failed: cannot insert new album.\n";
                return undef;
            }
         }
@@ -253,7 +259,7 @@ sub Insert
                $albumid = $al->Insert;
                if (!defined $albumid)
                {
-                   print STDERR "Insert failed: cannot insert new album.\n";
+                   $this->{error} = "Insert failed: cannot insert new album.\n";
                    return undef;
                }
            }
@@ -280,22 +286,22 @@ sub Insert
     {
         if (!exists $track->{track} || $track->{track} eq '')
         {
-            print STDERR "Skipped Insert: Cannot insert blank tack name\n";
+            $this->{error} = "Skipped Insert: Cannot insert blank tack name\n";
             next;
         }
         if (!exists $track->{tracknum} || $track->{tracknum} <= 0)
         {
-            print STDERR "Skipped Insert: Invalid track number\n";
+            $this->{error} = "Skipped Insert: Invalid track number\n";
             next;
         }
         if (exists $track->{trmid} && length($track->{trmid}) != 36)
         {
-            print STDERR "Skipped Insert: Invalid trmid\n";
+            $this->{error} = "Skipped Insert: Invalid trmid\n";
             delete $track->{trmid};
         }
-        print "$track->{track}\n";
-        print "$track->{tracknum}\n";
-        print "$track->{trmid}\n" if (exists $track->{trmid});
+        #print STDERR "$track->{track}\n";
+        #print STDERR "$track->{tracknum}\n";
+        #print STDERR "$track->{trmid}\n" if (exists $track->{trmid});
 
         $found = 0;
         foreach $albumtrack (@albumtracks)
@@ -308,8 +314,8 @@ sub Insert
                 exists $track->{trmid} && $track->{trmid} ne '')
             {
                 $gu->Insert($track->{trmid}, $albumtrack->GetId());
-
-                print STDERR "Insert GUID.\n";
+                
+                #$print STDERR "Insert GUID.\n";
 
                 $found = 1;
                 last;
@@ -324,7 +330,7 @@ sub Insert
         }
         if ($found)
         {
-            printf("Track found. Skipping.\n\n");
+            #print STDERR ("Track found. Skipping.\n\n");
             next;
         }
 
@@ -333,16 +339,19 @@ sub Insert
         $tr->SetSequence($track->{tracknum});
         if (exists $track->{year} && $track->{year} != 0)
         {
-            $tr->SetYear($track->{year})
+            $tr->SetYear($track->{year});
         }
         if (exists $track->{duration} && $track->{duration} != 0)
         {
-            $tr->SetDuration($track->{duration})
+            $tr->SetDuration($track->{duration});
         }
+
+        #if (exists $track->{artistid}
+
         $trackid = $tr->Insert($al, $ar);
         if (!defined $trackid)
         {
-            printf STDERR "Insert failed: Cannot insert track.\n";
+            $this->{error} = "Insert failed: Cannot insert track.\n";
             last;
         }
 
@@ -352,9 +361,11 @@ sub Insert
             $gu->Insert($track->{trmid}, $trackid);
         }
 
-        printf("Inserted track $track->{tracknum} $track->{track}.\n\n");
+        #print STDERR "Inserted track $track->{tracknum} $track->{track}.\n\n";
     }
 
     # TODO: Commit a transaction here
+
+    return 1;
 }
 

@@ -3,7 +3,6 @@
 #   MusicBrainz -- the open internet music database
 #
 #   Copyright (C) 2000 Robert Kaye
-#   Portions  (C) 1998 Rocco Caputo <troc@netrus.net>
 #
 #   This program is free software; you can redistribute it and/or modify
 #   it under the terms of the GNU General Public License as published by
@@ -139,83 +138,33 @@ sub Lookup
 {
     my ($this, $diskid, $toc) = @_;
     my ($i, $first, $last, $leadout, @cddb_toc);
-    my ($m, $s, $f, $cddb, @cd_data);
-    my ($id, $query, $trackoffsets, $offset, @id_data);
+    my ($m, $s, $f, @cd_data);
+    my ($id, $query, $trackoffsets, $offset, $sum, $total_seconds);
 
     my @toc = split / /, $toc;
     $first = shift @toc;
     $last = shift @toc;
     $leadout = shift @toc;
 
-    for($i = $first; $i <= $last; $i++)
+    $trackoffsets = join(" ", @toc);
+    $toc[$last] = $leadout - $toc[0];
+    for($i = $last - 1; $i >= 0; $i--)
     {
-        $offset = shift @toc;
-        $trackoffsets .= "$offset ";
-        ($m, $s, $f) = _lba_to_msf($offset);
-        push @cddb_toc, "$i $m $s $f"; 
+        $toc[$i] -= $toc[0];
     }
+
+    for($i = 0; $i < $last; $i++)
+    {
+        $offset = int($toc[$i] / 75 + 2);
+        map { $sum += $_; } split(//, $offset);
+        $total_seconds += int($toc[$i + 1] / 75) - int($toc[$i] / 75);
+    }
+    $id = sprintf("%08x", (($sum % 255) << 24) | ($total_seconds << 8) | $last);
     ($m, $s, $f) = _lba_to_msf($leadout);
-    push @cddb_toc, "999 $m $s $f"; 
+    $total_seconds = $m * 60 + $s;
+    $query = "cddb query $id $last $trackoffsets $total_seconds\n";
 
-    @id_data = $cddb->calculate_id(@cddb_toc);
-    $query = "cddb query $id_data[0] $last $trackoffsets $id_data[4]\n";
- 
     return $this->Retrieve("www.freedb.org", 888, $query, $last);
-}
-
-sub CalculateId 
-{
-  my $this = shift;
-  my @toc = @_;
- 
-  my ($seconds_previous, $seconds_first, $seconds_last, $cddb_sum,
-      @track_numbers, @track_lengths, @track_offsets,
-     );
- 
-  foreach my $line (@toc) {
-    my ($track, $mm_begin, $ss_begin, $ff_begin) = split(/\s+/, $line, 4);
-    my $seconds_begin = ($mm_begin * 60) + $ss_begin;
- 
-    if (defined $seconds_previous) {
-      my $elapsed = $seconds_begin - $seconds_previous;
-      push( @track_lengths,
-            sprintf("%02d:%02d", int($elapsed / 60), $elapsed % 60)
-          );
-    }
-    else {
-      $seconds_first = $seconds_begin;
-    }
-                                        # virtual track: lead-out information
-    if ($track == 999) {
-      $seconds_last = $seconds_begin;
-      last;
-    }
-                                        # virtual track: get-toc error code
-    if ($track == 1000) {
-      print STDERR "error in TOC: $ff_begin";
-      return undef;
-    }
- 
-    map { $cddb_sum += $_; } split(//, $seconds_begin);
-    push @track_offsets, ($mm_begin * 60 + $ss_begin) * 75 + $ff_begin;
-    push @track_numbers, sprintf("%03d", $track);
-    $seconds_previous = $seconds_begin;
-  }
- 
-  my $total_seconds = $seconds_last - $seconds_first;
-  my $id = sprintf
-    ( "%08x",
-      (($cddb_sum % 255) << 24)
-      | ($total_seconds << 8)
-      | scalar(@track_offsets)
-    );
-                                        # return things cddb needs
-  if (wantarray()) {
-    ($id, \@track_numbers, \@track_lengths, \@track_offsets, $total_seconds);
-  }
-  else {
-    $id;
-  }
 }
 
 sub Strip
@@ -231,12 +180,12 @@ sub Strip
 
 sub Retrieve
 {
-    my ($remote, $port, $query, $last_track) = @_;
+    my ($this, $remote, $port, $query, $last_track) = @_;
     my ($iaddr, $paddr, $proto, $line);
-    my (@response, $category, $query, $i);
+    my (@response, $category, $i);
     my (@selection, @chars, @parts, @subparts);
     my ($aritst, $title, %info, @track_titles, @tracks, @query);
-    my ($disc_id, $first_track, $last_track, @track_offsets, $seconds_in_cd); 
+    my ($disc_id, $first_track, @track_offsets, $seconds_in_cd); 
 
     if ($remote eq '' || $port == 0)
     {

@@ -773,7 +773,7 @@ sub ApplyModification
 sub ApplyAddTrackModification
 {
    my ($this, $id) = @_;
-   my (@data, $tr, $ar, $al, $tid, $status, $sql, @row);
+   my (@data, $in, $tid, $status, $sql, @row, %info);
 
    $status = STATUS_ERROR;
    $sql = Sql->new($this->{DBH});
@@ -782,9 +782,7 @@ sub ApplyAddTrackModification
    if ($sql->Select(qq/select newvalue, rowid, artist 
                     from Changes where id = $id/))
    {
-        $tr = Track->new($this->{DBH});
-        $ar = Artist->new($this->{DBH});
-        $al = Album->new($this->{DBH});
+        $in = Insert->new($this->{DBH});
         @row = $sql->NextRow();
         $sql->Finish();
 
@@ -794,13 +792,18 @@ sub ApplyAddTrackModification
             my ($trackname, $tracknum, $album) = split(/\n/, $row[0]);
 
             # Single artist album
-            $ar->SetId($row[2]);
-            $al->SetId($album);
-            $al->SetArtist($row[2]);
-            $tr->SetName($trackname);
-            $tr->SetSequence($tracknum);
+            $info{artistid} = $row[2];
+            $info{albumid} = $album;
+            $info{tracks} =
+              [
+                 {
+                    track => $trackname,
+                    tracknum => $tracknum
+                 }
+              ];
+
             $status = STATUS_APPLIED 
-               if(defined $tr->Insert($al, $ar));
+                if (defined $in->Insert(\%info));
         }
         else
         {
@@ -810,25 +813,19 @@ sub ApplyAddTrackModification
                   split(/\n/, $row[0]);
 
             # Multiple artist album
-            $artistname = $data[3];
-            if (!defined $sortname)
-            {
-                $sortname = $artistname;
-            }
+            $info{artistid} = Artist::VARTIST_ID;
+            $info{albumid} = $album;
+            $info{tracks} =
+              [
+                 {
+                    track => $trackname,
+                    tracknum => $tracknum,
+                    artist => $data[3]
+                 }
+              ];
 
-            $ar->SetName($artistname);
-            $ar->SetSortName($sortname);
-            $newartistid = $ar->Insert();
-            if (defined $newartistid)
-            {
-               $al->SetId($album);
-               $al->SetArtist($newartistid);
-               $tr->SetName($trackname);
-               $tr->SetSequence($tracknum);
-               $tr->SetArtist($newartistid);
-               $status = STATUS_APPLIED 
-                   if(defined $tr->Insert($al, $ar));
-            }
+            $status = STATUS_APPLIED 
+                if (defined $in->Insert(\%info));
         }
    }
 

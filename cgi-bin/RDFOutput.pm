@@ -87,6 +87,13 @@ sub CreateStatus
    return $rdf;
 }
 
+sub CreateFreeDBLookup
+{
+   my ($this, $info) = @_;
+
+   return $this->CreateStatus(0);
+}
+
 sub CreateTrackList
 {
    my ($this, @ids) = @_;

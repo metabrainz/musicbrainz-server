@@ -45,6 +45,7 @@ use UserStuff;
 use Moderation;
 use GUID;  
 use FreeDB;  
+use Insert;  
 use RDFStore::Parser::SiRPAC;  
 
 BEGIN { require 5.003 }
@@ -168,7 +169,7 @@ sub GetCDInfoMM2
    $currentURI = $$triples[0]->subject->getLabel;
    for($i = 1; $i <= $numtracks + 1; $i++)
    {
-       $toc .= Extract($triples, $currentURI, $i, EXTRACT_TOC_QUERY) . " ";
+       $toc .= QuerySupport::Extract($triples, $currentURI, $i, EXTRACT_TOC_QUERY) . " ";
    }
    # Check to see if the album is in the main database
    $di = Diskid->new($dbh);
@@ -183,11 +184,11 @@ sub AssociateCDMM2
    return $rdf->EmitErrorRDF("No DiskId given.") if (!defined $diskid);
    
    $currentURI = $$triples[0]->subject->getLabel;
-   $numtracks = Extract($triples, $currentURI, $i, EXTRACT_NUMTRACKS_QUERY);
+   $numtracks = QuerySupport::Extract($triples, $currentURI, $i, EXTRACT_NUMTRACKS_QUERY);
    $toc = "1 $numtracks ";
    for($i = 1; $i <= $numtracks + 1; $i++)
    {
-       $toc .= Extract($triples, $currentURI, $i, EXTRACT_TOC_QUERY) . " ";
+       $toc .= QuerySupport::Extract($triples, $currentURI, $i, EXTRACT_TOC_QUERY) . " ";
    }
 
    # Check to see if the album is in the main database
@@ -669,12 +670,9 @@ sub CheckMetadata
 {
    my ($dbh, $rdf, $pe, $data, $ids) = @_;
    my ($artistid, $albumid, @db_data);
-   my ($ar, $al, $tr, $gu, $trackid, $id);
+   my ($in, $trackid, $id);
 
-   $ar = Artist->new($dbh);
-   $al = Album->new($dbh);
-   $tr = Track->new($dbh);
-   $gu = GUID->new($dbh);
+   $in = Insert->new($dbh);
    for(;;)
    {
        $id = shift @$ids;
@@ -699,34 +697,21 @@ sub CheckMetadata
            defined $db_data[9] && defined $$data[9] && 
            $$data[9] ne $db_data[9])
        { 
-           my @albumids;
+           my (@albumids, %info);
 
-           $ar->SetName($$data[1]);
-           $ar->SetSortName($$data[1]);
-           $artistid = $ar->Insert();
-           $al->SetArtist($artistid);
+           $info{artist} = $$data[1];
+           $info{sortname} = $$data[1];
+           $info{album} = $$data[2];
+           $info{tracks} = 
+             [
+               {
+                  track => $$data[0],
+                  tracknum => $$data[3],
+                  duration => $$data[11],
+                  trmid => $$data[4]
+               }
+             ];
 
-           @albumids = $ar->GetAlbumsByName($$data[2]);
-           if (defined $albumids[0])
-           {
-               $albumid = $albumids[0]->GetId();
-           }
-           else
-           {
-               $al->SetName($$data[2]);
-               $albumid = $al->Insert();
-           }
-           $al->SetId($albumid);
-
-           $tr->SetName($$data[0]);
-           $tr->SetSequence($$data[3]);
-           $tr->SetLength($$data[11]);
-           $trackid = $tr->Insert($al, $ar);
-           if (defined $trackid)
-           {
-               $gu->Insert($$data[4], $trackid);
-           }
-           $pe->InsertIntoBitziArchive(@$data);
            $pe->DeleteByGUID($$data[4]);
            return;
        }
@@ -737,9 +722,7 @@ sub SubmitTrack
 {
    my ($dbh, $doc, $rdf, $name, $guid, $artist, $album, $seq,
        $len, $year, $genre, $comment) = @_;
-   my ($i, $ts, $text, $artistid, $albumid, $trackid, $type, $id);
-   my ($al, $ar, $tr, $ly, $gu, @albums);
-   my ($gen, $genid);
+   my (@albumids, %info, $in, $ret);
 
    if (!defined $name || $name eq '' ||
        !defined $album || $album eq '' ||
@@ -754,83 +737,24 @@ sub SubmitTrack
        return $rdf->EmitErrorRDF(DBDefs::DB_READ_ONLY_MESSAGE) 
    }
 
-   $ar = Artist->new($dbh);
-   $al = Album->new($dbh);
-   $tr = Track->new($dbh);
-   $ly = Lyrics->new($dbh);
-   $gu = GUID->new($dbh);
+   $in = Insert->new($dbh);
 
-   $ar->SetName($artist);
-   $ar->SetSortName($artist);
-   $artistid = $ar->Insert();
-
-   return $rdf->EmitErrorRDF("Cannot insert artist into database.") 
-      if (!defined $artistid);
-
-   $al->SetArtist($artistid);
-
-   @albums = $ar->GetAlbumsByName($album);
-   if (defined $albums[0])
-   {
-      $albumid = $albums[0]->GetId();
-      $al->SetId($albumid);
-   }
-   else
-   {
-      $al->SetName($album);
-      $albumid = $al->Insert();
-   }
-   print STDERR "Insert album failed!!!!!!!!!!!\n"
-      if (!defined $albumid || $albumid < 0);
-   
-   return $rdf->EmitErrorRDF("Cannot insert album into database.") 
-      if (!defined $albumid || $albumid < 0);
-
-   if (defined $genre && $genre ne '')
-   {
-
-       $gen = Genre->new($dbh);
-       $genid = $gen->InsertGenre($genre, "");
-       if (defined $genid)
+   $info{artist} = $artist;
+   $info{sortname} = $artist;
+   $info{album} = $album;
+   $info{tracks} = 
+     [
        {
-          $tr->SetGenre($genid);
+          track => $name,
+          tracknum => $seq,
+          duration => $len, 
+          trmid => $guid
        }
-   }
+     ];
 
-   $tr->SetName($name);
-   $tr->SetSequence($seq);
-   $tr->SetLength($len);
-   $tr->SetComment($comment);
-   $trackid = $tr->Insert($al, $ar);
-   return $rdf->EmitErrorRDF("Cannot insert track into database.") 
-      if (!defined $trackid || $trackid < 0);
-
-   # I need to clean up this hack!
-   my ($sql, @row);
-   $sql = Sql->new($dbh);
-   @row = $sql->GetSingleRow('Track', ['genre', 'comment', 'length'],
-                             ['id', $trackid]);
-   if (scalar(@row) > 0)
-   {
-      if ((!defined $row[0] || $row[0] == 0) && defined $genid)
-      {
-         $sql->Do("update Track set genre = $genid where id = $trackid");
-      }
-      if ((!defined $row[1] || $row[1] eq '') && defined $comment)
-      {
-         $comment = $sql->Quote($comment);
-         $sql->Do("update Track set comment = $comment where id = $trackid");
-      }
-      if ((!defined $row[2] || $row[2] == 0) && defined $len)
-      {
-         $sql->Do("update Track set length = $len where id = $trackid");
-      }
-   }
-
-   if (defined $trackid && (defined $guid && $guid ne ''))
-   {
-       $gu->Insert($guid, $trackid);
-   }
+   $ret = $in->Insert(\%info);
+   return $rdf->EmitErrorRDF($in->GetError()) 
+      if (!defined $ret);
 
    return $rdf->CreateStatus(0);
 }

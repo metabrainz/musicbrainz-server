@@ -79,15 +79,15 @@ sub GenerateAlbumFromDiskId
             }
             else
             {
-                my $fd;
+                my ($fd, $ref);
 
                 # No fuzzy matches either. Let's pull the records
                 # from freedb.org and insert it into the db if we find it.
                 $fd = FreeDB->new($this->{DBH});
-                $album = $fd->Lookup($id, $toc);
-                if (defined $album && $album > 0)
+                $ref = $fd->Lookup($id, $toc);
+                if (defined $ref)
                 {
-                    return $rdf->CreateAlbum(0, $album);
+                    return $rdf->CreateFreeDBLookup($ref);
                 }
                 else
                 {

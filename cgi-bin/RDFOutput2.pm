@@ -546,14 +546,14 @@ sub CreateMetadataExchange
    return $rdf;
 }
 
-sub OutputFreeDBLookup
+sub CreateFreeDBLookup
 {
    my ($this, $info) = @_;
    my ($item, $rdf, $tracks, $track, $i);
 
    $rdf  = $this->BeginRDFObject;
    $rdf .=   $this->BeginDesc("mq:Result");
-   $rdf .=   $this->Element("mq:status", $this->{status});
+   $rdf .=   $this->Element("mq:status", "OK");
    $rdf .=     $this->BeginDesc("mm:albumList");
    $rdf .=       $this->BeginSeq();
    $rdf .=         $this->Li("freedb:genid1");
