@@ -143,6 +143,9 @@ sub Lookup
     my ($m, $s, $f, @cd_data, $ret);
     my ($id, $query, $trackoffsets, $offset, $sum, $total_seconds);
 
+$diskid = "XJgBHo4imv0fqcAhaNsc.81oV2k-";
+$toc = "1 11 214835 150 21562 42777 63812 81192 103622 123145 142450 161685 179340 195122";
+
     my @toc = split / /, $toc;
     $first = shift @toc;
     $last = shift @toc;
@@ -373,7 +376,7 @@ sub Retrieve
 sub InsertForModeration
 {
     my ($this, $info) = @_;
-    my ($new, $track, $in);
+    my ($new, $track, $in, $u);
     my $ref = $info->{tracks};
 
     # Don't insert CDs that have only one track.
@@ -382,6 +385,16 @@ sub InsertForModeration
     # Don't insert albums by the name of 'various' or 'various artists'
     return if ($info->{artist} =~ /^various$/i ||
                $info->{artist} =~ /^various artists$/i); 
+
+    print STDERR "Before: $info->{artist}\n";
+    $u = Unicode::String::utf7($info->{artist});
+    $info->{artist} = $u->latin1;
+    print STDERR " After: $info->{artist}\n";
+
+    print STDERR "Before: $info->{album}\n";
+    $u = Unicode::String::utf7($info->{album});
+    $info->{album} = $u->latin1;
+    print STDERR " After: $info->{album}\n";
 
     $new = "Artist=$info->{artist}\n";
     $new .= "Sortname=$info->{artist}\n";
@@ -392,6 +405,11 @@ sub InsertForModeration
 
     foreach $track (@$ref)
     {
+        print STDERR "Before: $track->{track}\n";
+        $u = Unicode::String::utf7($track->{track});
+        $track->{track} = $u->latin1;
+        print STDERR " After: $track->{track}\n\n";
+
         $new .= "Track" . $track->{tracknum} . "=" . $track->{track} . "\n";
     }
 

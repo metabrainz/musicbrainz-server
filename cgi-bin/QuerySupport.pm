@@ -608,7 +608,7 @@ sub ExchangeMetadata
    my ($dbh, $doc, $rdf, @data) = @_;
    my (@ids, $id, $gu, $pe, $tr, $rv, $ar);
 
-   PrintData("Incoming:", @data);
+   #PrintData("Incoming:", @data);
 
    if (!DBDefs::DB_READ_ONLY)
    {
@@ -730,6 +730,12 @@ sub CheckMetadata
        { 
            my (@albumids, %info);
 
+           if ($$data[2] =~ /^unknown$/i)
+           {
+               print STDERR "Skipping insert of $$data[0] by $$data[1] on $$data[2]\n";
+               next;
+           }
+
            $info{artist} = $$data[1];
            $info{sortname} = $$data[1];
            $info{album} = $$data[2];
@@ -751,7 +757,7 @@ sub CheckMetadata
            {
                my ($ref, $ref2);
 
-               print STDERR "Inserted $$data[0] by $$data[1] on $$data[2]\n";
+               #print STDERR "Inserted $$data[0] by $$data[1] on $$data[2]\n";
 
                $ref = $info{tracks};
                $ref2 = $$ref[0];

@@ -136,7 +136,8 @@ sub Remove
                      ". $refcount albums still depend on it.\n";
         return undef;
     }
-  
+
+    print STDERR "DELETE: Removed artist " . $this->GetId() . "\n";
     $sql->Do("delete from Artist where id = " . $this->GetId());
     $sql->Do("update Changes set Artist = " . Artist::DARTIST_ID . 
              "where artist = " . $this->GetId());

@@ -377,11 +377,17 @@ sub Remove
     $sql = Sql->new($this->{DBH});
     ($refcount) = $sql->GetSingleRow("AlbumJoin", ["count(*)"],
                                      [ "AlbumJoin.track", $this->GetId()]);
-    return undef if ($refcount > 0);
+    if ($refcount > 0)
+    {
+        print STDERR "DELETE: refcount = $refcount on track delete " .
+                     this->GetId() . "\n";
+        return undef 
+    }
 
     $gu = GUID->new($this->{DBH});
     $gu->RemoveByTrackId($this->GetId());
 
+    print STDERR "DELETE: Remove track " . $this->GetId() . "\n";
     $sql->Do("delete from Track where id = " . $this->GetId());
 
     # Remove references from track words table
