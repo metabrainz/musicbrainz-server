@@ -71,6 +71,7 @@ sub PreInsert
 
 	# This is one of those mods where we give the user instant gratification,
 	# then undo the mod later if it's rejected.
+	require Discid;
 	my $di = Discid->new($self->{DBH});
 	$di->SetDiscid($discid);
 	$di->SetAlbum($newal->GetId);
@@ -94,6 +95,7 @@ sub DeniedAction
 	my $self = shift;
 	my $new = $self->{'new_unpacked'};
 	
+	require Discid;
 	my $di = Discid->new($self->{DBH});
 	$di->SetDiscid($new->{'DiscId'});
 	$di->SetAlbum($self->GetPrev);

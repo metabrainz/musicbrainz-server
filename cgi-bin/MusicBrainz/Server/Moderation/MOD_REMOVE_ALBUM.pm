@@ -50,6 +50,7 @@ sub ApprovedAction
 {
 	my $this = shift;
 
+	require Album;
 	my $al = Album->new($this->{DBH});
 	$al->SetId($this->GetRowId);
 	

@@ -1,6 +1,5 @@
 #!/home/httpd/musicbrainz/mb_server/cgi-bin/perl -w
 # vi: set ts=8 sw=4 :
-
 #____________________________________________________________________________
 #
 #   MusicBrainz -- the internet music database
@@ -28,18 +27,10 @@ package QuerySupport;
 
 use strict;
 
-use Album;
-use Artist;
+use Album; # for constants
 use DBDefs;
-use Discid;
-use Insert;
-use Moderation;
 use MusicBrainz;
-use SearchEngine;
-use TRM;
-use TaggerSupport;
-use Track;
-use UserStuff;
+use TaggerSupport; # for constants
 
 use Carp qw( carp );
 use Digest::SHA1 qw(sha1_hex);
@@ -57,6 +48,7 @@ sub AssociateCDFromAlbumId
 {
    my ($dbh, $doc, $rdf, $Discid, $toc, $albumid) = @_;
 
+   require Discid;
    my $di = Discid->new($dbh);
    $di->Insert($Discid, $albumid, $toc);
 }
@@ -82,6 +74,7 @@ sub GetCDInfoMM2
    }
 
    # Check to see if the album is in the main database
+   require Discid;
    $di = Discid->new($dbh);
    $rdf->SetDepth(5);
    return $di->GenerateAlbumFromDiscid($rdf, $id, $numtracks, $toc);
@@ -109,6 +102,7 @@ sub AssociateCDMM2
    }
 
    # Check to see if the album is in the main database
+   require Discid;
    $di = Discid->new($dbh);
    $di->Insert($Discid, $albumid, $toc);
 }
@@ -125,8 +119,8 @@ sub FindArtistByName
 
    $limit = 15 if not defined $limit;
 
-   my $engine = SearchEngine->new($dbh);
-   $engine->Table('Artist');
+   require SearchEngine;
+   my $engine = SearchEngine->new($dbh, 'artist');
 
     $engine->Search(
 	query => $search,
@@ -153,8 +147,8 @@ sub FindAlbumByName
 
    $limit = 25 if not defined $limit;
 
-   my $engine = SearchEngine->new($dbh);
-   $engine->Table('Album');
+   require SearchEngine;
+   my $engine = SearchEngine->new($dbh, 'album');
 
     $engine->Search(
 	query => $search,
@@ -181,8 +175,8 @@ sub FindTrackByName
 
    $limit = 25 if not defined $limit;
 
-   my $engine = SearchEngine->new($dbh);
-   $engine->Table('Track');
+   require SearchEngine;
+   my $engine = SearchEngine->new($dbh, 'track');
 
     $engine->Search(
 	query => $search,
@@ -324,7 +318,9 @@ sub LookupMetadata
 
    #PrintData("Lookup:", $id);
 
+   require TRM;
    $gu = TRM->new($dbh);
+   require Track;
    $tr = Track->new($dbh);
 
    # has this data been accepted into the database?
@@ -398,8 +394,11 @@ sub ExchangeMetadata
 
    if (!&DBDefs::DB_READ_ONLY)
    {
+       require Artist;
        $ar = Artist->new($dbh);
+       require TRM;
        $gu = TRM->new($dbh);
+       require Track;
        $tr = Track->new($dbh);
 
        # has this data been accepted into the database?
@@ -448,6 +447,7 @@ sub SubmitTrack
        return $rdf->ErrorRDF(&DBDefs::DB_READ_ONLY_MESSAGE)
    }
 
+   require Insert;
    $in = Insert->new($dbh);
 
    $info{artist} = $artist;
@@ -515,6 +515,7 @@ sub SubmitTRMList
        }
 
 	#lookup the IDs associated with the $trackGID
+	require Track;
 	my $trackobj = Track->new($sql->{DBH});
 	$trackobj->SetMBId($trackid);
 	unless ($trackobj->LoadFromId)
@@ -531,6 +532,7 @@ sub SubmitTRMList
        {
            $sql->Begin;
 
+	   require Moderation;
 	    my @mods = Moderation->InsertModeration(
 		DBH => $dbh,
 		uid => $session->{'uid'},
@@ -572,6 +574,7 @@ sub AuthenticateQuery
        return $rdf->ErrorRDF(&DBDefs::DB_READ_ONLY_MESSAGE)
    }
 
+   require UserStuff;
    $us = UserStuff->new($dbh);
    ($pass, $uid) = $us->GetUserPasswordAndId($username);
    if (!defined $pass)
@@ -633,6 +636,7 @@ sub TrackInfoFromTRMId
        # If this TRM generated any hits, update the lookup count
        if ($sql->Rows >= 1)
        {
+	   require TRM;
            TRM->IncrementLookupCount($id);
        }
        while(@row = $sql->NextRow())
@@ -663,6 +667,7 @@ sub TrackInfoFromTRMId
        $lookup{filename} = $filename;
        $lookup{duration} = $duration;
 
+       require TaggerSupport;
        $ts = TaggerSupport->new($dbh);
        my ($error, $result, $flags, $list) = $ts->Lookup(\%lookup, 3);
 	my $t2 = [ gettimeofday ];
@@ -722,6 +727,7 @@ sub QuickTrackInfoFromTRMId
        if ($sql->Rows == 1)
        {
            @data = $sql->NextRow();
+	   require TRM;
            TRM->IncrementLookupCount($id);
        }
        else
@@ -741,6 +747,7 @@ sub QuickTrackInfoFromTRMId
        $lookup{filename} = $filename;
        $lookup{duration} = $duration;
 
+       require TaggerSupport;
        $ts = TaggerSupport->new($dbh);
        my ($error, $result, $flags, $list) = $ts->Lookup(\%lookup, 3);
        if ($flags & TaggerSupport::ALBUMTRACKLIST)
@@ -797,6 +804,7 @@ sub QuickTrackInfoFromTrackId
       if (!defined $tid || $tid eq '' || !defined $aid || $aid eq '');
    return undef if (!defined $dbh);
 
+    require Album;
     my $album = Album->new($dbh);
     $album->SetMBId($aid);
     unless ($album->LoadFromId)
@@ -876,6 +884,7 @@ sub QuickTrackInfoFromTrackId
    @releases = $album->Releases;
    if (@releases)
    {
+       require MusicBrainz::Server::Country;
        my $country_obj = MusicBrainz::Server::Country->new($album->{DBH});
 
        $out .= $rdf->BeginDesc("mm:releaseDateList");

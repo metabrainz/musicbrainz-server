@@ -52,6 +52,7 @@ sub ApprovedAction
 {
 	my $this = shift;
 
+	require Track;
 	my $tr = Track->new($this->{DBH});
 	unless ($tr->LoadFromAlbumJoin($this->GetRowId))
 	{

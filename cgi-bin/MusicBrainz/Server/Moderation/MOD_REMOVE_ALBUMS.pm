@@ -94,6 +94,7 @@ sub PostLoad
 sub AdjustModPending
 {
 	my ($self, $adjust) = @_;
+	require Album;
 	my $al = Album->new($self->{DBH});
 
 	for my $t (@{ $self->{'new_albums'} })
@@ -106,6 +107,7 @@ sub AdjustModPending
 sub ApprovedAction
 {
 	my $self = shift;
+	require Album;
  	my $al = Album->new($self->{DBH});
 
 	for my $t (@{ $self->{'new_albums'} })

@@ -49,6 +49,7 @@ sub PreInsert
 	if ($nonalbum)
 	{
 		$ar or die;
+		require Album;
 		$al = Album->new($self->{DBH});
 		$al = $al->GetOrInsertNonAlbum($ar->GetId);
 		$nonalbum = 1;
@@ -109,6 +110,7 @@ sub PreInsert
 		tracks	=> [ \%trackinfo ],
 	);
 
+	require Insert;
 	my $in = Insert->new($self->{DBH});
 
 	unless (defined $in->Insert(\%info))
@@ -167,6 +169,7 @@ sub DeniedAction
 	my $album = $new->{"AlbumId"}
 		or croak "Missing AlbumId";
 
+	require Track;
 	my $tr = Track->new($self->{DBH});
 	$tr->SetId($track);
 	$tr->SetAlbum($album);
@@ -187,6 +190,7 @@ sub DeniedAction
 	$tr->Remove;
 
 	# Try to remove the album if it's a "non-album" album
+	require Album;
 	my $al = Album->new($self->{DBH});
 	$al->SetId($album);
 	if ($al->LoadFromId)
@@ -198,6 +202,7 @@ sub DeniedAction
 
 	if (my $artist = $new->{"ArtistId"})
 	{
+		require Artist;
 		my $ar = Artist->new($self->{DBH});
 		$ar->SetId($artist);
 		$ar->Remove;

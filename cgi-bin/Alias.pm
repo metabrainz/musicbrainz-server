@@ -27,7 +27,6 @@ use TableBase;
 { our @ISA = qw( TableBase ) }
 
 use strict;
-use DBI;
 use DBDefs;
 use Carp qw( carp croak );
 
@@ -120,7 +119,7 @@ sub Insert
    if (lc($this->{table}) eq 'artistalias')
    {
        require SearchEngine;
-       my $engine = SearchEngine->new($this->{DBH}, { Table => 'Artist' } );
+       my $engine = SearchEngine->new($this->{DBH}, 'artist');
        $engine->AddWordRefs($id,$name);
    }
 }
@@ -257,6 +256,7 @@ sub LoadFull
    {
        for(;@row = $sql->NextRow();)
        {
+           require Alias;
            $alias = Alias->new($this->{DBH});
            $alias->{table} = "artistalias";
            $alias->SetId($row[0]);

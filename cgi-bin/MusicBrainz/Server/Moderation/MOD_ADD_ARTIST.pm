@@ -61,6 +61,7 @@ sub PreInsert
 		artist_only	=> 1,
 	);
 
+	require Insert;
 	my $in = Insert->new($self->{DBH});
 	my $ans = $in->Insert(\%info);
 
@@ -100,6 +101,7 @@ sub DeniedAction
 
 	if (my $artist = $newval->{'ArtistId'})
 	{
+		require Artist;
 		my $ar = Artist->new($self->{DBH});
 		$ar->SetId($artist);
 		$ar->Remove;

@@ -29,12 +29,10 @@ use TableBase;
 { our @ISA = qw( TableBase ) }
 
 use strict;
-use DBI;
 use DBDefs;
 use MusicBrainz;
 use Apache;
-use Net::SMTP;
-use URI::Escape;
+use URI::Escape qw( uri_escape );
 use CGI::Cookie;
 use Digest::SHA1 qw(sha1_base64);
 use Carp;
@@ -1027,6 +1025,7 @@ sub SetSession
 	$session->{expire} = time() + &DBDefs::WEB_SESSION_SECONDS_TO_LIVE;
 	$session->{email_nag} = $email_nag;
 
+	require Moderation;
 	my $mod = Moderation->new($this->{DBH});
 	$session->{moderation_id_start} = $mod->GetMaxModID;
 

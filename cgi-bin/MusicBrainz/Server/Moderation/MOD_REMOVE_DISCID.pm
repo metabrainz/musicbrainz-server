@@ -52,6 +52,7 @@ sub ApprovedAction
 {
 	my $this = shift;
 
+	require Discid;
 	my $di = Discid->new($this->{DBH});
 
 	unless ($di->Remove($this->GetPrev))

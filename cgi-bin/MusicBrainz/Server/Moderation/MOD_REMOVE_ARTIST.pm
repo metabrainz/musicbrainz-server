@@ -64,6 +64,7 @@ sub ApprovedAction
    
 	# Now remove the Artist. The Artist will only be removed
 	# if there are not more references to it.
+	require Artist;
 	my $ar = Artist->new($this->{DBH});
 	$ar->SetId($rowid);
 

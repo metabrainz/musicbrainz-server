@@ -23,21 +23,14 @@
 
 package MM_2_1;
 
-use TableBase;
-use strict;
-use RDF2;
-use TRM;
-use DBDefs;
-use Discid;
-use Artist;
 use MM;
-use TaggerSupport;
-use MusicBrainz::Server::Release;
-use Carp qw( carp cluck croak confess );
+use RDF2;
+{ our @ISA = qw( MM RDF2 ) }
 
-use vars qw(@ISA @EXPORT);
-@ISA    = @ISA    = qw(MM RDF2);
-@EXPORT = @EXPORT = '';
+use strict;
+use DBDefs;
+use TaggerSupport; # for constants
+use Carp qw( carp cluck croak confess );
 
 sub GetMQNamespace
 {
@@ -106,6 +99,7 @@ sub OutputAlbumRDF
     $artist = $this->GetFromCache('artist', $album->GetArtist()); 
 
     @releases = $album->Releases;
+    require MusicBrainz::Server::Country;
     my $country_obj = MusicBrainz::Server::Country->new($album->{DBH})
        if @releases;
 
@@ -249,6 +243,7 @@ sub OutputTrackRDF
     }
 
     $track = $ref->{obj};
+    require TRM;
     $gu = TRM->new($this->{DBH});
     @TRM = $gu->GetTRMFromTrackId($track->GetId());
 
@@ -544,6 +539,7 @@ sub CreateFileLookup
                {
                    my $artist;
 
+		   require Artist;
                    $artist = Artist->new($this->{DBH});
                    $artist->SetId($tr->GetArtist());
                    $artist->LoadFromId();

@@ -30,7 +30,6 @@ use TableBase;
 
 use strict;
 use Carp qw( croak );
-use DBI;
 use DBDefs;
 
 # Accessor functions
@@ -84,6 +83,7 @@ sub GenerateAlbumFromDiscid
 	}
 
 	# Ok, no freedb entries were found. Can we find a fuzzy match?
+	require Discid;
 	my $di = Discid->new($this->{DBH});
 	my @albums = $di->_FindFuzzy($numtracks, $toc);
 	if (@albums)
@@ -268,6 +268,7 @@ sub LoadFull
    {
        for(;@row = $sql->NextRow();)
        {
+		   require Discid;
            $disc = Discid->new($this->{DBH});
            $disc->SetId($row[0]);
            $disc->SetAlbum($row[1]);

@@ -60,6 +60,7 @@ sub CheckPrerequisites
 	my $rowid = $self->GetRowId;
 
 	# Load the album by ID
+	require Album;
 	my $al = Album->new($self->{DBH});
 	$al->SetId($rowid);
 	unless ($al->LoadFromId)

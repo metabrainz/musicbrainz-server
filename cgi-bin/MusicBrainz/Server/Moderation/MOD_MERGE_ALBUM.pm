@@ -102,6 +102,7 @@ sub PostLoad
 sub AdjustModPending
 {
 	my ($self, $adjust) = @_;
+	require Album;
 	my $al = Album->new($self->{DBH});
 
 	# Prior to the ModerationClasses2 branch, the "mod pending" change would
@@ -120,6 +121,7 @@ sub ApprovedAction
 {
  	my $self = shift;
 
+	require Album;
 	my $al = Album->new($self->{DBH});
 	$al->SetId($self->{'new_into'}{'id'});
 

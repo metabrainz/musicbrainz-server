@@ -53,6 +53,7 @@ sub PreInsert
 
 	# Check to see if we already have the artist that we're supposed
 	# to edit to. If so, change this mod to a MERGE_ARTISTNAME.
+	require Artist;
 	my $newar = Artist->new($self->{DBH});
 
 	if ($newar->LoadFromName($newname))
@@ -89,6 +90,7 @@ sub CheckPrerequisites
 	}
 
 	# Load the artist by ID
+	require Artist;
 	my $ar = Artist->new($self->{DBH});
 	$ar->SetId($rowid);
 	unless ($ar->LoadFromId)
@@ -105,6 +107,7 @@ sub CheckPrerequisites
 	}
 
 	# Avert duplicate index entries: check for this name already existing
+	require Artist;
 	my $dupar = Artist->new($self->{DBH});
 	if ($dupar->LoadFromName($self->GetNew))
 	{

@@ -152,6 +152,7 @@ sub IsAutoMod
 sub AdjustModPending
 {
 	my ($self, $adjust) = @_;
+	require MusicBrainz::Server::Release;
 	my $rel = MusicBrainz::Server::Release->new($self->{DBH});
 
 	for my $list (qw( adds edits removes ))

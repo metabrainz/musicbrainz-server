@@ -22,14 +22,11 @@
 #____________________________________________________________________________
 
 package TRM;
-use TableBase;
 
-use vars qw(@ISA @EXPORT);
-@ISA    = (TableBase);
-@EXPORT = '';
+use TableBase;
+{ our @ISA = qw( TableBase ) }
 
 use strict;
-use DBI;
 use DBDefs;
 use Carp qw( carp croak );
 
@@ -243,6 +240,7 @@ sub LoadFull
    {
        for(;@row = $sql->NextRow();)
        {
+		   require TRM;
            $trm = TRM->new($this->{DBH});
            $trm->SetId($row[0]);
            $trm->SetTRM($row[1]);

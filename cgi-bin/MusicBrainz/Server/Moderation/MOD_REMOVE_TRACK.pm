@@ -58,6 +58,7 @@ sub ApprovedAction
 {
 	my $this = shift;
 
+	require Track;
   	my $tr = Track->new($this->{DBH});
  	$tr->SetId($this->GetRowId);
 	$tr->SetAlbum($this->{'prev.albumid'});
@@ -76,6 +77,7 @@ sub ApprovedAction
 	}
 
 	# Try to remove the album if it's a "non-album" album
+	require Album;
 	my $al = Album->new($this->{DBH});
 	$al->SetId($this->{'prev.albumid'});
 	if ($al->LoadFromId)

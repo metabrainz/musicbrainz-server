@@ -91,6 +91,7 @@ sub ApprovedAction
 	if (not defined $newid)
 	{
 		# No such artist, so create one
+		require Artist;
 		my $ar = Artist->new($this->{DBH});
 		$ar->SetName($name);
 		$ar->SetSortName($this->{'new.sortname'});

@@ -24,12 +24,7 @@
 package Parser;
 
 use strict;
-use QuerySupport;
-use TaggerSupport;
-use DBI;
 use DBDefs;
-use MM_2_1;
-use Apache;
 
 # Normally these modules generate warnings as they compile.  We suppress those
 # warnings.

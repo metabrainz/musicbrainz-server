@@ -23,10 +23,6 @@
 
 package Style;
 
-use vars qw(@ISA @EXPORT);
-@ISA    = @ISA    = '';
-@EXPORT = @EXPORT = '';
-
 use strict;
 
 use Encode qw( encode decode );

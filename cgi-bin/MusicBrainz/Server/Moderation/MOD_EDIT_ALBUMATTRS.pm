@@ -151,6 +151,7 @@ sub PostLoad
 sub ConvertToText
 {
 	my $self = shift;
+	require Album;
 	my $al = Album->new($self->{DBH});
 
 	join ", ",
@@ -169,6 +170,7 @@ sub AdjustModPending
 	# for them was zero).
 	# Now though we apply the modpending change to all affected albums.
 
+	require Album;
 	my $al = Album->new($self->{DBH});
 
 	for my $album (@{ $self->{'new_albums'} })
@@ -186,6 +188,7 @@ sub ApprovedAction
 sub DeniedAction
 {
 	my $self = shift;
+	require Album;
 	my $al = Album->new($self->{DBH});
 
  	for my $t (@{ $self->{'new_albums'} })

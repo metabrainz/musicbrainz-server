@@ -136,6 +136,7 @@ sub PreInsert
 	# Now we actually insert the album and tracks,
 	# and maybe also some artists, a disc ID, TRMs etc.
 	{
+		require Insert;
 		my $in = Insert->new($self->{DBH});
 
 		if (my $d = DebugLog->open)
@@ -238,6 +239,7 @@ sub DeniedAction
 
 	if (my $album = $new->{'AlbumId'})
 	{
+		require Album;
 		my $al = Album->new($self->{DBH});
 		$al->SetId($album);
 		$al->Remove;
@@ -246,6 +248,7 @@ sub DeniedAction
 		{
 			if ($artist != &ModDefs::VARTIST_ID)
 			{
+				require Artist;
 				my $ar = Artist->new($self->{DBH});
 				$ar->SetId($artist);
 				$ar->Remove;

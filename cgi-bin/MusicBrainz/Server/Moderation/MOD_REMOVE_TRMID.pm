@@ -48,6 +48,7 @@ sub PreInsert
 	$self->SetPrev($trm);
 
 	# Save the TRM's clientversion in case we need to re-add it
+	require TRM;
 	my $trmobj = TRM->new($self->{DBH});
 	my $clientversion = $trmobj->FindTRMClientVersion($trm);
 
@@ -60,6 +61,7 @@ sub PreInsert
 
 	# This is one of those mods where we give the user instant gratification,
 	# then undo the mod later if it's rejected.
+	require TRM;
 	my $t = TRM->new($self->{DBH});
 	$t->RemoveTRMByTRMJoin($self->GetRowId);
 }
@@ -86,6 +88,7 @@ sub DeniedAction
 	my $trackid = $nw->{'TrackId'}
 		or return;
 
+	require Track;
 	my $tr = Track->new($self->{DBH});
 	$tr->SetId($trackid);
 	unless ($tr->LoadFromId)
@@ -97,6 +100,7 @@ sub DeniedAction
 		return;
 	}
 
+	require TRM;
 	my $t = TRM->new($self->{DBH});
 	my $id = $t->Insert($self->GetPrev, $trackid, $nw->{'ClientVersion'});
 

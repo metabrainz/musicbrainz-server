@@ -26,7 +26,9 @@
 use strict;
 
 package UserSubscription;
-use base qw( TableBase );
+
+use TableBase;
+{ our @ISA = qw( TableBase ) }
 
 sub GetUser	{ $_[0]{moderator} }
 sub SetUser	{ $_[0]{moderator} = $_[1] }

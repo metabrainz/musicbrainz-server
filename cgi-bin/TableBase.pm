@@ -23,15 +23,9 @@
 
 package TableBase;
 
-use vars qw(@ISA @EXPORT);
-@ISA    = @ISA    = '';
-@EXPORT = @EXPORT = '';
-
 use strict;
-use DBI;
 use DBDefs;
 use Sql;
-use UUID;
 use Text::Unaccent;
 use LocaleSaver;
 use POSIX qw(:locale_h);
@@ -117,6 +111,7 @@ sub CreateNewGlobalId
     my ($this) = @_;
     my ($uuid, $id);
 
+    require UUID;
     UUID::generate($uuid);
     UUID::unparse($uuid, $id);
 

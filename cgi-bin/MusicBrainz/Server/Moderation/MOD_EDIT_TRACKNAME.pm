@@ -63,6 +63,7 @@ sub CheckPrerequisites
 	my $rowid = $self->GetRowId;
 
 	# Load the track by ID
+	require Track;
 	my $tr = Track->new($self->{DBH});
 	$tr->SetId($rowid);
 	unless ($tr->LoadFromId)

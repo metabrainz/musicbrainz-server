@@ -42,6 +42,7 @@ sub PreInsert
 	defined $newalias or die;
 
 	# Check that the alias $self->GetNew does not exist
+	require Alias;
 	my $al = Alias->new($self->{DBH});
 	$al->SetTable("ArtistAlias");
 
@@ -72,6 +73,7 @@ sub CheckPrerequisites
 	my $self = shift;
 
 	# Check that the referenced artist is still around
+	require Artist;
 	my $ar = Artist->new($self->{DBH});
 	$ar->SetId($self->GetRowId);
 	unless ($ar->LoadFromId)
@@ -84,6 +86,7 @@ sub CheckPrerequisites
 	}
 
 	# Check that the alias $self->GetNew does not exist
+	require Alias;
 	my $al = Alias->new($self->{DBH});
 	$al->SetTable("ArtistAlias");
 
@@ -111,6 +114,7 @@ sub ApprovedAction
 	my $status = $self->CheckPrerequisites;
 	return $status if $status;
 
+	require Alias;
 	my $al = Alias->new($self->{DBH});
 	$al->SetTable("ArtistAlias");
 	$al->Insert($self->GetRowId, $self->GetNew);

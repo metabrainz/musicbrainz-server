@@ -71,6 +71,7 @@ sub ApprovedAction
 		return STATUS_ERROR;
 	}
 
+	require Artist;
 	my $artist = Artist->new($this->{DBH});
 	$artist->SetId($rowid);
 

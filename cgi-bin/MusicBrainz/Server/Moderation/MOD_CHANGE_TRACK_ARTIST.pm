@@ -67,6 +67,7 @@ sub CheckPrerequisites
 	my $rowid = $self->GetRowId;
 
 	# Load the track by ID
+	require Track;
 	my $tr = Track->new($self->{DBH});
 	$tr->SetId($rowid);
 	unless ($tr->LoadFromId)
@@ -94,11 +95,13 @@ sub ApprovedAction
 	my $status = $this->CheckPrerequisites;
 	return $status if $status;
 
+	require Artist;
 	my $ar = Artist->new($this->{DBH});
 	$ar->SetName($name);
 	$ar->SetSortName($sortname);
 	my $artistid = $ar->Insert(no_alias => 1);
 
+	require Track;
 	my $tr = Track->new($this->{DBH});
 	$tr->SetId($this->GetRowId);
 	$tr->SetArtist($artistid);

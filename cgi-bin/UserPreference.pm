@@ -25,8 +25,6 @@
 
 use strict;
 
-use UserStuff;
-
 package UserPreference;
 
 use Carp qw( carp );
@@ -340,6 +338,7 @@ sub get
 	my $info = $prefs{$key}
 		or carp("UserPreference::get called with invalid key '$key'"), return undef;
 
+	require UserStuff;
 	my $s = UserStuff->GetSession;
 	my $value = $s->{"PREF_$key"};
 	defined($value) or return $info->{DEFAULT};
@@ -355,6 +354,7 @@ sub set
 	defined $newvalue
 		or carp("UserPreference::set called with invalid value '$value' for key '$key'"), return;
 
+	require UserStuff;
 	my $s = UserStuff->GetSession;
 	tied %$s
 		or carp("UserPreference::set called, but %session is not tied"), return;
@@ -369,6 +369,7 @@ sub LoadForUser
 	my $uid = $user->GetId
 		or return;
 
+	require UserStuff;
 	my $s = UserStuff->GetSession;
 	tied %$s
 		or carp("UserPreference::LoadFromUser called, but %session is not tied"), return;
@@ -400,6 +401,7 @@ sub SaveForUser
 	my $uid = $user->GetId
 		or return;
 
+	require UserStuff;
 	my $s = UserStuff->GetSession;
 	tied %$s
 		or carp("UserPreference::SaveForUser called, but %session is not tied"), return;

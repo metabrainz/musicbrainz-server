@@ -27,10 +27,6 @@ package RDF2;
 
 use strict;
 
-use vars qw(@ISA @EXPORT);
-@ISA    = @ISA    = '';
-@EXPORT = @EXPORT = '';
-
 sub new
 {
     my $class = shift;

@@ -22,21 +22,14 @@
 #____________________________________________________________________________
 
 package Moderation;
-use TableBase;
 
-use vars qw(@ISA @EXPORT);
-@ISA       = 'TableBase';
+use TableBase;
+{ our @ISA = qw( TableBase ) }
 
 use strict;
 use Carp;
-use DBI;
 use DBDefs;
-use Track;
-use Artist;
-use Album;
-use Insert;
 use ModDefs ':all';
-use UserStuff;
 use Text::Unaccent;
 use Encode qw( encode decode );
 use utf8;
@@ -368,8 +361,9 @@ sub GetAutomoderatorList
    my ($sql);
 
    $sql = Sql->new($this->{DBH});
+   require UserStuff;
    return $sql->SelectSingleColumnArray("select name from moderator where privs & " .
-                                        UserStuff::AUTOMOD_FLAG . " > 0 order by name");
+                                        &UserStuff::AUTOMOD_FLAG . " > 0 order by name");
 }
 
 # This function will load a change from the database and return
@@ -541,6 +535,7 @@ sub InsertModeration
 	$this->SetId($insertid);
 
     # Check to see if this moderation should get automod approval
+	require UserStuff;
 	my $ui = UserStuff->new($this->{DBH});
 	my $user_is_automod = $ui->IsAutoMod($privs);
 
@@ -564,6 +559,7 @@ sub InsertModeration
 			$insertid,
 		);
 
+		require UserStuff;
 		my $user = UserStuff->new($this->{DBH});
         $user->CreditModerator($this->{moderator}, $status, $automod);
     }
@@ -698,8 +694,11 @@ sub GetModerationList
 	# Fetch mod name and artist name for each mod
 	my %moderator_cache;
 	my %artist_cache;
+	require UserStuff;
 	my $user = UserStuff->new($this->{DBH});
+	require Artist;
 	my $artist = Artist->new($this->{DBH});
+	require MusicBrainz::Server::Vote;
 	my $vote = MusicBrainz::Server::Vote->new($this->{DBH});
 	for my $mod (@mods)
 	{

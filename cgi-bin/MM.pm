@@ -24,16 +24,11 @@
 package MM;
 
 use TableBase;
-use strict;
 use RDF2;
-use TRM;
-use DBDefs;
-use Discid;
-use Artist;
+{ our @ISA = qw( TableBase RDF2 ) }
 
-use vars qw(@ISA @EXPORT);
-@ISA    = @ISA    = qw(TableBase RDF2);
-@EXPORT = @EXPORT = '';
+use strict;
+use DBDefs;
 
 sub SetBaseURI
 {
@@ -140,15 +135,18 @@ sub CreateDenseTrackList
    $this->{cache} = [];
    foreach $id (@{$gids})
    {
+	require Track;
        $tr = Track->new($this->{DBH});
        $tr->SetMBId($id);
        $tr->LoadFromId();
 
+       require Artist;
        $ar = Artist->new($this->{DBH});
        $ar->SetId($tr->GetArtist());
        # TODO This is complaining about the ID being undef
        $ar->LoadFromId();
 
+       require Album;
        $al = Album->new($this->{DBH});
        @ids = $al->GetAlbumIdsFromTrackId($tr->GetId());
        $al->SetId($ids[0]);
@@ -189,6 +187,7 @@ sub CreateDumpRDF
 
    $this->{cache} = [];
 
+   require Artist;
    $ar = Artist->new($this->{DBH});
    $ar->SetId($artistid);
    if (not defined $ar->LoadFromId())
@@ -416,6 +415,7 @@ sub LoadObject
 
    if ($type eq "trmid")
    {
+	require TRM;
 	$obj = TRM->new($this->{DBH});
 	$obj->SetTRM($id);
 	# Most of the code around here assumes that "GetId" or "GetMBId"
@@ -429,14 +429,17 @@ sub LoadObject
 
    if ($type eq 'artist')
    {
+      require Artist;
       $obj = Artist->new($this->{DBH});
    }
    elsif ($type eq 'album')
    {
+      require Album;
       $obj = Album->new($this->{DBH});
    }
    elsif ($type eq 'track')
    {
+      require Track;
       $obj = Track->new($this->{DBH});
    }
    elsif ($type eq 'trmid')
@@ -465,6 +468,7 @@ sub LoadObject
    {
        my ($di, $index, @albumrefs, $aref);
 
+       require Discid;
        $di = Discid->new($this->{DBH});
        $index = 0;
        @albumrefs = $di->GetDiscidFromAlbum($obj->GetId());

@@ -25,17 +25,9 @@ package TaggerSupport;
 
 use strict;
 use MusicBrainz;
-use TableBase;
-use Album;
-use Discid;
-use Artist;
-use Track;
+use Album; # for constants
 use String::Unicode::Similarity;
 use Encode qw( encode decode );
-
-use vars qw(@ISA @EXPORT);
-@ISA    = @ISA    = 'TableBase';
-@EXPORT = @EXPORT = '';
 
 # These are the status flags that Lookup returns for the results
 use constant ARTISTID               => 1; 
@@ -66,6 +58,7 @@ sub FileInfoLookup
    $data{duration} = $duration;
    $data{filename} = $fileName;
 
+   require TaggerSupport;
    my $ts = TaggerSupport->new($dbh);
    return $rdf->CreateFileLookup($ts, $ts->Lookup(\%data, $maxItems));
 }
@@ -328,6 +321,7 @@ sub ArtistSearch
    my ($this, $name) = @_;
    my ($ar, @ids);
 
+   require Artist;
    $ar = Artist->new($this->{DBH});
    if (defined $ar->LoadFromName($name))
    {
@@ -341,8 +335,8 @@ sub ArtistSearch
                          ]);
    }
 
-   my $engine = SearchEngine->new($this->{DBH});
-   $engine->Table('Artist');
+   require SearchEngine;
+   my $engine = SearchEngine->new($this->{DBH}, 'artist');
 
    $engine->Search(
 	query => $name,
@@ -407,6 +401,7 @@ sub AlbumSearch
    }
    else
    {
+	require Artist;
        $ar = Artist->new($this->{DBH});
        $ar->SetMBId($artistId);
        if (!defined $ar->LoadFromId())
@@ -416,6 +411,7 @@ sub AlbumSearch
        $this->{artist} = $ar;     
    }
 
+   require Album;
    $al = Album->new($this->{DBH});
    $al->SetArtist($ar->GetId());
    my (@aids) = $al->GetAlbumListFromName($name);
@@ -536,6 +532,7 @@ sub AlbumTrackSearch
    }
    else
    {
+	require Artist;
        $ar = Artist->new($this->{DBH});
        $ar->SetMBId($artistId);
        if (!defined $ar->LoadFromId())
@@ -673,6 +670,7 @@ sub TrackSearch
    }
    else
    {
+	require Artist;
        $ar = Artist->new($this->{DBH});
        $ar->SetMBId($artistId);
        if (!defined $ar->LoadFromId())
@@ -688,6 +686,7 @@ sub TrackSearch
    }
    else
    {
+	require Album;
        $al = Album->new($this->{DBH});
        $al->SetMBId($albumId);
        if (!defined $al->LoadFromId())
@@ -759,15 +758,17 @@ sub VariousArtistSearch
    my ($this, $name) = @_;
    my ($al, @ids, $ar);
 
+   require Artist;
    $ar = Artist->new($this->{DBH});
    $ar->SetId(&ModDefs::VARTIST_ID);
    $ar->LoadFromId();
    $this->{artist} = $ar;     
 
+   require Album;
    $al = Album->new($this->{DBH});
 
-   my $engine = SearchEngine->new($this->{DBH});
-   $engine->Table('Album');
+   require SearchEngine;
+   my $engine = SearchEngine->new($this->{DBH}, 'album');
 
    $engine->Search(
 	query => $name,

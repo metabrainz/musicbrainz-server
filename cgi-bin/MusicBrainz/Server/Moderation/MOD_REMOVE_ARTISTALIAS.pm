@@ -51,6 +51,7 @@ sub ApprovedAction
 {
 	my $this = shift;
 
+	require Alias;
 	my $al = Alias->new($this->{DBH});
 	$al->SetTable("ArtistAlias");
 	$al->SetId($this->GetRowId);

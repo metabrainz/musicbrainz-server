@@ -50,6 +50,7 @@ sub PreInsert
 
 	# Currently there's a unique index on artistalias.name.
 	# Refuse to insert the mod if that index would be violated.
+	require Alias;
 	my $test = Alias->new($self->{DBH}, 'artistalias');
 
 	if (my $id = $test->Resolve($newname))
@@ -76,6 +77,7 @@ sub CheckPrerequisites
 {
 	my $self = shift;
 
+	require Alias;
 	my $alias = Alias->new($self->{DBH}, "artistalias");
 	$alias->SetId($self->GetRowId);
 
@@ -111,6 +113,7 @@ sub ApprovedAction
 	# Try to detect likely violations of that index, and gracefully
 	# add a note to offending moderations.
 
+	require Alias;
 	my $test = Alias->new($self->{DBH}, 'artistalias');
 	my $newname = $self->GetNew;
 

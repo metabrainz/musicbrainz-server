@@ -23,18 +23,12 @@
 
 package MM_2_0;
 
-use TableBase;
-use strict;
-use RDF2;
-use TRM;
-use DBDefs;
-use Discid;
-use Artist;
 use MM;
+use RDF2;
+{ our @ISA = qw( MM RDF2 ) }
 
-use vars qw(@ISA @EXPORT);
-@ISA    = @ISA    = qw(MM RDF2);
-@EXPORT = @EXPORT = '';
+use strict;
+use DBDefs;
 
 sub GetMQNamespace
 {
@@ -167,6 +161,7 @@ sub OutputTrackRDF
     }
 
     $track = $ref->{obj};
+    require TRM;
     $gu = TRM->new($this->{DBH});
     @TRM = $gu->GetTRMFromTrackId($track->GetId());
 

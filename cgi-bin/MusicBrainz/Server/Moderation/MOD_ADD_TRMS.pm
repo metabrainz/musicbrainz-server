@@ -83,6 +83,7 @@ sub ApprovedAction
 {
 	my $self = shift;
 
+	require TRM;
 	my $TRM = TRM->new($self->{DBH});
 	my $clientVersion = $self->{'new_unpacked'}{'ClientVersion'};
 
