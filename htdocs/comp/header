@@ -25,8 +25,11 @@ my $mtime = (stat $brainz_css)[9] || 0;
 <table width="100%" cellpadding="0" cellspacing="0" border="0">
 <tr>
    <td class="LogoBarCell"
+% if (&DBDefs::DB_STAGING_SERVER) {
+	><span class="LogoBarStagingText"><% uc(&DBDefs::DB_STAGING_SERVER) %> SERVER</span
+% }
 	><a href="/"
-	><img src="/images/header_logo_a<% &DBDefs::DB_STAGING_SERVER ? "_ss" : "" %>.gif"
+	><img src="/images/header_logo_a.gif"
 		width="614" height="67"
 		alt=""
 		border="0"

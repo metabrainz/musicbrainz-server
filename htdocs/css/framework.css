@@ -3,6 +3,16 @@
 .LogoBarCell
 {
 	background: #736DAB url(/images/header_BG.gif) bottom left repeat-x;
+	position: relative;
+}
+
+.LogoBarStagingText
+{
+	position: absolute;
+	top: 20px;
+	right: 0.3em;
+	color: #FFBA58;
+	font-size: 35px;
 }
 
 .NavBarCell

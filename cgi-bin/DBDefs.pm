@@ -23,12 +23,6 @@
 
 package DBDefs;
 
-use vars qw(@ISA @EXPORT);
-@ISA    = @ISA    = '';
-@EXPORT = @EXPORT = '';
-
-
-
 ################################################################################
 # Directories
 ################################################################################
@@ -96,7 +90,9 @@ sub EMAIL_VERIFICATION_TIMEOUT { 604800 } # one week
 # Other Settings
 ################################################################################
 
-# Set this value to something true (e.g. 1) to set the server to read-only
+# Set this value to something true (e.g. 1) to set the server to read-only.
+# To date, this option is widely ignored in the code; don't be surprised if you
+# set it to true and find that writes are still possible.
 sub DB_READ_ONLY { 0 }
 
 # Set this value to a message that you'd like to display to users when
@@ -107,10 +103,13 @@ This server is temporarily in read-only mode
 for database maintainance.
 EOF
 
-# Set this to true if this is a staging server (i.e. if you want the page banner
-# and the front page to declare that this is the staging server.  It doesn't
-# affect much else).
-sub DB_STAGING_SERVER { 1 }
+# If this is the live MusicBrainz server, change this to 'undef'.
+# If it's not, set it to some word describing the type of server; e.g.
+# "development", "test", etc.
+# Mainly this option just affects the banner across the top of each page;
+# also there are a couple of "debug" type features which are only active
+# when not on the live server.
+sub DB_STAGING_SERVER { "development" }
 
 # This defines the version of the server.  Only used by things which display
 # the server version, e.g. at the foot of each web page.  Basically it can be
