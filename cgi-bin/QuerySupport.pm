@@ -531,7 +531,7 @@ sub FindTrackByName
 
    $rdf = $r->BeginRDFObject;
    $rdf .= $r->BeginDesc;
-   $rdf .= $r->BeginElement("MQ:Collection", 'type'=>'trackList');
+   $rdf .= $r->BeginElement("MC:Collection", 'type'=>'trackList');
    $rdf .= $r->BeginBag();
 
    $sth = $cd->{DBH}->prepare($sql);
@@ -547,7 +547,7 @@ sub FindTrackByName
    $sth->finish;
 
    $rdf .= $r->EndBag();
-   $rdf .= $r->EndElement("MQ:Collection");
+   $rdf .= $r->EndElement("MC:Collection");
    $rdf .= $r->Element("MQ:Status", "OK", items=>$count);
    $rdf .= $r->EndDesc;
    $rdf .= $r->EndRDFObject;
@@ -555,7 +555,7 @@ sub FindTrackByName
    return $rdf
 }
 
-# returns trackList
+# returns GUIDList
 sub FindDistinctGUID
 {
    my ($cd, $doc, $name, $artist) = @_;
@@ -571,7 +571,7 @@ sub FindDistinctGUID
 
    $rdf = $r->BeginRDFObject;
    $rdf .= $r->BeginDesc;
-   $rdf .= $r->BeginElement("MQ:Collection", 'type'=>'trackList');
+   $rdf .= $r->BeginElement("MC:Collection", 'type'=>'guidList');
    $rdf .= $r->BeginBag();
 
    if ((defined $name && $name ne '') && 
@@ -580,16 +580,21 @@ sub FindDistinctGUID
       # This query finds single track id by name and artist
       $name = $cd->{DBH}->quote($name);
       $artist = $cd->{DBH}->quote($artist);
-      $sql = "select Track.id from Track, Artist where Track.artist = Artist.id and Artist.name = $artist and Track.Name = $name";
+      $sql = "select distinct Track.guid from Track, Artist where Track.artist = Artist.id and lower(Artist.name) = lower($artist) and lower(Track.Name) = lower($name)";
 
-      print STDERR "$sql\n";
       $sth = $cd->{DBH}->prepare($sql);
       if ($sth->execute() && $sth->rows)
       {
          for($count = 0; @row = $sth->fetchrow_array; $count++)
          {
+             if (!defined $row[0] || $row[0] eq '')
+             {
+                 $count--;
+                 next;
+             }
+
              $rdf .= $r->BeginLi();
-             $rdf .= CreateTrackRDFSnippet($cd, $r, $row[0]);
+             $rdf .= $r->Element("DC:Identifier", "", guid=>($row[0]));
              $rdf .= $r->EndLi();
          }
       }
@@ -597,7 +602,7 @@ sub FindDistinctGUID
    }
 
    $rdf .= $r->EndBag();
-   $rdf .= $r->EndElement("MQ:Collection");
+   $rdf .= $r->EndElement("MC:Collection");
    $rdf .= $r->Element("MQ:Status", "OK", items=>$count);
    $rdf .= $r->EndDesc;
    $rdf .= $r->EndRDFObject;
@@ -726,7 +731,7 @@ sub CreateArtistList
 
    $rdf = $r->BeginRDFObject();
    $rdf .= $r->BeginDesc; 
-   $rdf .= $r->BeginElement("MQ:Collection", 'type'=>'artistList'); 
+   $rdf .= $r->BeginElement("MC:Collection", 'type'=>'artistList'); 
    $rdf .= $r->BeginBag();
    for(;;)
    {
@@ -747,7 +752,7 @@ sub CreateArtistList
        $sth->finish;
    }
    $rdf .= $r->EndBag();
-   $rdf .= $r->EndElement("MQ:Collection"); 
+   $rdf .= $r->EndElement("MC:Collection"); 
    $rdf .= $r->Element("MQ:Status", "OK", items=>$count);
    $rdf .= $r->EndDesc();
    $rdf .= $r->EndRDFObject();  
@@ -769,7 +774,7 @@ sub CreateAlbumList
 
    $rdf = $r->BeginRDFObject();
    $rdf .= $r->BeginDesc; 
-   $rdf .= $r->BeginElement("MQ:Collection", 'type'=>'albumList'); 
+   $rdf .= $r->BeginElement("MC:Collection", 'type'=>'albumList'); 
    $rdf .= $r->BeginBag();
    for(;;)
    {
@@ -811,7 +816,7 @@ sub CreateAlbumList
        $sth->finish;
    }
    $rdf .= $r->EndBag();
-   $rdf .= $r->EndElement("MQ:Collection"); 
+   $rdf .= $r->EndElement("MC:Collection"); 
    $rdf .= $r->Element("MQ:Status", "OK", items=>$count);
    $rdf .= $r->EndDesc();
    $rdf .= $r->EndRDFObject();  
@@ -834,7 +839,7 @@ sub CreateAlbum
 
    $rdf = $r->BeginRDFObject();
    $rdf .= $r->BeginDesc; 
-   $rdf .= $r->BeginElement("MQ:Collection", 'type'=>'album'); 
+   $rdf .= $r->BeginElement("MC:Collection", 'type'=>'album'); 
    $rdf .= $r->BeginBag();
    for(;;)
    {
@@ -889,7 +894,7 @@ sub CreateAlbum
    }
 
    $rdf .= $r->EndBag();
-   $rdf .= $r->EndElement("MQ:Collection"); 
+   $rdf .= $r->EndElement("MC:Collection"); 
    if ($fuzzy)
    {
       $rdf .= $r->Element("MQ:Status", "Fuzzy", items=>$count);
