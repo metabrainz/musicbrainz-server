@@ -38,9 +38,10 @@ sub Arguments
 sub Cleanup
 {
     my ($dbh, $fix, $quiet, $arg1, $arg2) = @_;
-    my $count = 0;
+    my $count;
 
-    print "Missing artists:\n";
+    print "Missing artists: (from album)\n";
+    $count = 0;
     $sth = $dbh->prepare(qq|select Album.id, Album.Artist 
                             from   Album left join Artist 
                             on     Album.artist = Artist.id 
@@ -53,6 +54,37 @@ sub Cleanup
         {
             print "  Album $row[0] references non-existing artist $row[1].\n";
             $count++;
+
+            if ($fix)
+            {
+                $dbh->do("delete from Album where id = $row[0]"); 
+            }
+        }
+    }
+    $sth->finish;
+    print "Found $count missing artists.\n\n";
+
+    # --------------------------------------------------------------------
+
+    print "Missing artists: (from track)\n";
+    $count = 0;
+    $sth = $dbh->prepare(qq|select Track.id, Track.Artist 
+                            from   Track left join Artist 
+                            on     Track.artist = Artist.id 
+                            WHERE  Artist.id IS NULL|);
+    if ($sth->execute() && $sth->rows())
+    {
+        my @row;
+
+        while(@row = $sth->fetchrow_array())
+        {
+            print "  Track $row[0] references non-existing artist $row[1].\n";
+            $count++;
+
+            if ($fix)
+            {
+                $dbh->do("delete from Track where id = $row[0]"); 
+            }
         }
     }
     $sth->finish;
@@ -61,6 +93,7 @@ sub Cleanup
     # --------------------------------------------------------------------
 
     print "Empty artists:\n";
+    $count = 0;
     $sth = $dbh->prepare(qq|select Artist.id, Artist.name
                             from   Artist left join Track 
                             on     Artist.id = Track.artist 
