@@ -347,6 +347,9 @@ whom you subscribed on the MusicBrainz web site.  To view or edit your
 subscription list, please use the following link:
 $root/user/subscriptions.html
 
+To see all open moderations for your subscribed artists, see this link:
+$root/mod/preset-subscriptions.html
+
 The changes to your subscribed artists are as follows:
 ------------------------------------------------------------------------
 

@@ -136,6 +136,7 @@ use Scalar::Util qw( reftype weaken );
         [
             { name => "New",					url => "/moderate.html?type=1" },
             { name => "New (FreeDB)",			url => "/moderate.html?type=5" },
+            { name => "New (Subscribed)",		url => "/mod/preset-subscriptions.html" },
             { name => "My Mods",				url => "/moderate.html?type=3" },
             { name => "My Votes",				url => "/moderate.html?type=2" },
             { name => "Failed Mods",			url => "/moderate.html?type=7" },
