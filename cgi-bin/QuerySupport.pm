@@ -178,6 +178,7 @@ sub GetCDInfoMM2
 
    # Check to see if the album is in the main database
    $di = Discid->new($dbh);
+   $rdf->SetDepth(5);
    return $di->GenerateAlbumFromDiscid($rdf, $id, $numtracks, $toc);
 }
 
