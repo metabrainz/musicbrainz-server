@@ -866,7 +866,7 @@ sub CreateAlbum
             while(@row = $sth->fetchrow_array)
             {
                 $trdf = "";
-                $sth2 = $mb->{DBH}->prepare("select Track.id, Artist.id, Artist.name from Track, Artist, AlbumJoin where AlbumJoin.track = Track.id and AlbumJoin.album = $row[2] and Track.artist = Artist.id order by sequence");
+                $sth2 = $mb->{DBH}->prepare("select Track.id, Artist.id, Artist.name from Track, Artist, AlbumJoin where AlbumJoin.track = Track.id and AlbumJoin.album = $row[2] and Track.artist = Artist.id order by AlbumJoin.sequence");
                 if ($sth2->execute() && $sth2->rows)
                 {
                     $numtracks = $sth2->rows;
@@ -937,11 +937,11 @@ sub CreateTrackRDFSnippet
        last if !defined $id;
 
        $sth = $mb->{DBH}->prepare(qq/select Track.name, Track.gid, 
-                Track.sequence, Artist.name, Artist.gid, Album.name, 
+                AlbumJoin.sequence, Artist.name, Artist.gid, Album.name, 
                 Album.gid from Track, Artist,Album, AlbumJoin where 
                 Track.id = $id and Track.artist = Artist.id and 
                 AlbumJoin.album = Album.id and AlbumJoin.track = 
-                Track.id order by sequence/);
+                Track.id order by AlbumJoin.sequence/);
        if ($sth->execute() && $sth->rows)
        {
             while(@row = $sth->fetchrow_array)

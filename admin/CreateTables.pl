@@ -61,9 +61,7 @@ sub CreateTables
     $dbh->do("create table Track (" .
              "   Id int auto_increment primary key," .
              "   Name varchar(255) not null ," .
-             "   GID varchar(64) not null," . 
              "   Artist int not null," .
-             "   Sequence int," .
              "   Length int," .
              "   Year int," .
              "   Genre int," .
@@ -87,7 +85,8 @@ sub CreateTables
     $dbh->do("create table AlbumJoin (" .
              "   Id int auto_increment primary key," .
              "   Album int NOT NULL," .
-             "   Track int NOT NULL)")
+             "   Track int NOT NULL," .
+             "   Sequence int)")
           or die("Cannot create AlbumJoin table");
 
     print "Created AlbumJoin table.\n";

@@ -42,7 +42,7 @@ sub new
 }
 
 my $load_columns =  qq/Track.id, Track.name, Track.artist, 
-                       Track.sequence, Track.length, 
+                       AlbumJoin.sequence, Track.length, 
                        Track.year, Track.genre, Track.filename, 
                        Track.comment, Track.modpending/;
 
@@ -57,7 +57,7 @@ sub GetIdFromNameAlbumAndSeq
    $sth = $this->{DBH}->prepare(qq/select Track.id from Track, AlbumJoin 
                                    where name=$name and AlbumJoin.track = 
                                    Track.id and AlbumJoin.album = $album and 
-                                   sequence=$seq/);
+                                   AlbumJoin.sequence=$seq/);
    $sth->execute;
    if ($sth->rows)
    {
@@ -82,7 +82,8 @@ sub GetTracksFromAlbumId
 
    $sth = $this->{DBH}->prepare(qq/select $load_columns from 
                          Track, AlbumJoin where AlbumJoin.track = Track.id
-                         and AlbumJoin.album = $albumid order by sequence/);
+                         and AlbumJoin.album = $albumid order by 
+                         AlbumJoin.sequence/);
    if ($sth->execute())
    {
        for(;$ref = $sth->fetchrow_arrayref;)
@@ -105,7 +106,7 @@ sub GetTracksFromMultipleArtistAlbumId
    $sth = $this->{DBH}->prepare(qq/select $load_columns, Artist.name from 
                 Track, AlbumJoin, Artist where AlbumJoin.track = Track.id 
                 and AlbumJoin.album = $albumid and Track.Artist = Artist.id 
-                order by sequence/);
+                order by AlbumJoin.sequence/);
    if ($sth->execute())
    {
        my @row;
@@ -181,8 +182,8 @@ sub Insert
     {
         $name = $this->{DBH}->quote($name);
         $id = $this->{DBH}->quote(($this->CreateNewGlobalId()));
-        $query = "insert into Track (name,gid,artist,sequence,modpending";
-        $values = "values ($name, $id, $artist, $seq,0";
+        $query = "insert into Track (name,gid,artist,modpending";
+        $values = "values ($name, $id, $artist, 0";
 
         if (defined $length && $length != 0)
         {
@@ -213,8 +214,8 @@ sub Insert
         $this->{DBH}->do("$query) $values)");
         $track = $this->GetLastInsertId();
 
-        $this->{DBH}->do(qq/insert into AlbumJoin (album, track) values
-                         ($album, $track)/);
+        $this->{DBH}->do(qq/insert into AlbumJoin (album, track, sequence) 
+                            values ($album, $track, $seq)/);
     }
 
     return $track;
@@ -228,7 +229,7 @@ sub GetFromId
     $artist = "Unknown";
     $album = "Unknown";
 
-    $sth = $this->{DBH}->prepare("select name, guid, artist, album, sequence, length, year, genre, filename, comment from Track where id=$id");
+    $sth = $this->{DBH}->prepare("select name, guid, artist, album, length, year, genre, filename, comment from Track where id=$id");
     $sth->execute;
     if ($sth->rows)
     {
@@ -252,8 +253,8 @@ sub GetFromId
     }
     $sth->finish;
 
-    return ($row[0], $row[1], $artist, $album, $row[4], $row[5],
-            $row[6], $row[7], $row[8]);
+    return ($row[0], $row[1], $artist, $album, $seq, $row[4],
+            $row[5], $row[6], $row[7]);
 }
 
 1;
