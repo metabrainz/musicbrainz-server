@@ -28,6 +28,11 @@
     e.g. ".", "?", "???" etc.)
 </p>
 
+<p>
+	For more information, please read
+	<a href="http://wiki.musicbrainz.org/wiki.pl?MisencodingFAQ">the
+		Mis-encoding FAQ</a>.
+</p>
 
 <& /reports/show_tracks.inc, %ARGS &>
 
