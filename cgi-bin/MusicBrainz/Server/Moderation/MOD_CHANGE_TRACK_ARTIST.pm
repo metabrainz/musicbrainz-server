@@ -94,24 +94,12 @@ sub ApprovedAction
 	my $status = $this->CheckPrerequisites;
 	return $status if $status;
 
-	# If there's an artist with this name, use them.
+	my $ar = Artist->new($this->{DBH});
+	$ar->SetName($name);
+	$ar->SetSortName($sortname);
+	my $artistid = $ar->Insert(no_alias => 1);
 
 	my $sql = Sql->new($this->{DBH});
-	my $artistid = $sql->SelectSingleValue(
-		"SELECT id FROM artist WHERE name = ?",
-		$name,
-	);
-
-	# No artist with that name - add one.
-
-	if (not $artistid)
-	{
-	  	my $ar = Artist->new($this->{DBH});
-	   	$ar->SetName($name);
-		$ar->SetSortName($sortname);
-		$artistid = $ar->Insert;
-	}
-
 	$sql->Do(
 		"UPDATE track SET artist = ? WHERE id = ?",
 		$artistid,
