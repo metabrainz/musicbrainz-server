@@ -925,7 +925,7 @@ sub SendModNoteToFellowNoter
 	my $fromname = $self->GetName;
 
 	my $body = <<EOF;
-Moderator '$fromname' has attached a note moderation #$modid:
+Moderator '$fromname' has attached a note to moderation #$modid:
 
 $note_text
 
