@@ -130,7 +130,7 @@ sub Do
         return $ret;
     }
     $this->{ERR} = $this->{DBH}->errstr;
-    cluck("$prefix Failed query:\n  '$query' -> " . $this->{DBH}->errstr . "\n");
+    cluck("Failed query:\n  '$query' -> " . $this->{DBH}->errstr . "\n");
 
     return undef;
 }
