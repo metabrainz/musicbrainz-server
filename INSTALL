@@ -206,7 +206,7 @@ The server also uses a modified version of String::Similarity from CPAN,
 patched to be able to deal with Unicode data.  Download both the original
 code and the patch:
 
-  http://search.cpan.org/CPAN/authors/id/M/ML/MLEHMANN/String-Similarity-0.02.tar.gz
+  ftp://musicbrainz.org/pub/musicbrainz/misc/String-Similarity-0.02.tar.gz
   ftp://ftp.musicbrainz.org/pub/musicbrainz/misc/String-Unicode-Similarity.patch
 
 then build with:
