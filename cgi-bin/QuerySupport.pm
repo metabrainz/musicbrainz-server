@@ -713,13 +713,7 @@ sub TrackInfoFromTRMId
 
            foreach $id (@$list)
            {
-               my $sim;
-
-	       # TODO undef warnings here
-               $sim = ($id->{sim_track} * .5) +
-                      ($id->{sim_album} * .5);
-
-               if ($sim >= .9)
+               if ($id->{sim} >= .9)
                {
                    return $rdf->CreateDenseTrackList(1, [$id->{mbid}]);
                }
