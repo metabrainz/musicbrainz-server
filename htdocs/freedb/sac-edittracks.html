@@ -66,6 +66,7 @@ my $t = $session{"freedb_tracks"};
 		<tr>
 			<td>Track <% $i+1 %>:</td>
 			<td><input type="text" name="track<% $i %>" style="width: 100%"
+				maxlength="255"
 				value="<% $session{"freedb_track$i"} %>"></td>
 			<td align="center"><input type="button" value="Guess Case"
 				onclick="this.form.track<% $i %>.value = GuessCase(this.form.track<% $i %>.value)"
