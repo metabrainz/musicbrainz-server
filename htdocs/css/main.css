@@ -21,8 +21,9 @@ h1
 /* This is equivalent to /comp/section */
 h2
 {
-	background-color: #ffba58;
-	border: 1px solid black;
+	background: #fff url(/images/header-bg-orangefade.gif) repeat-y;
+	border: 0 solid #ffecac;
+	border-width: 0px 0 1px 1px;
 	font-size: 100%;
 	font-weight: bold;
 	padding: 0.1em 0.3em;
@@ -42,6 +43,13 @@ ul, ol
 {
 	margin-left: 1em;
 	margin-right: 2em;
+}
+
+ul.SpacedList li,
+ol.SpacedList li
+{
+	margin-top: 0.5em;
+	margin-bottom: 0.5em;
 }
 
 kbd
@@ -89,6 +97,11 @@ kbd.KbdBlock
 	font-size: 10pt;
 }
 
+.DownloadLink
+{
+	margin-left: 2em;
+}
+
 .DownloadLink *
 {
 	vertical-align: middle;
@@ -97,6 +110,11 @@ kbd.KbdBlock
 .DownloadLink img
 {
 	margin-right: 1em;
+}
+
+.DownloadList
+{
+	list-style-image: url(/images/download.gif);
 }
 
 /* eof */
