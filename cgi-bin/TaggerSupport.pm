@@ -37,10 +37,7 @@ use vars qw(@ISA @EXPORT);
 @ISA    = @ISA    = 'TableBase';
 @EXPORT = @EXPORT = '';
 
-use constant FUZZY_THRESHOLD_ALBUM  => .5;
-use constant FUZZY_THRESHOLD_TRACK  => .5;
 use constant ALL_WORDS              => 1;
-use constant ALBUM_TRACK_THRESHOLD  => .25;
 
 # These are the status flags that Lookup returns for the results
 use constant ARTISTID               => 1; 
@@ -94,8 +91,6 @@ sub RDFLookup
    return $rdf->CreateFileLookup($this, $status);
 }
 
-       use Data::Dumper;
-# fix users of lensim and namesim for track matches
 sub SetSim
 {
    my ($this, $ref) = @_;

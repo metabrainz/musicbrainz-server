@@ -1,9 +1,4 @@
-<html>
-<head>
-  <title>MusicBrainz Metadata Initiative 2.0</title></head>
-</head>
-
-<body BGCOLOR="#FFFFE7">
+<& /comp/sidebar, title=>'MusicBrainz Metadata Initiative 2.0' &>
 
 <TABLE ALIGN="CENTER" BORDER="0" WIDTH="86%" CELLSPACING="0" CELLPADDING="0">
 <tr><td>
@@ -14,26 +9,16 @@
 
 <center>
 <font size="+2">MusicBrainz Metadata Initiative 2.0</font><br>
-Last revision: 9-21-2001 by <a href="mailto:rob@eorbit.net">Mayhem &amp; 
+Last revision: 2003-01-11 by <a href="mailto:rob@eorbit.net">Mayhem &amp; 
 Chaos</a>
 </center>
 <p>
-
-<table>
-<tr><td>&nbsp;&nbsp;&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; </td><td>
-<font size="+1" color="red">NOTE:</font> If you're from the RDF/DC community
-and would like to help out with the MusicBrainz specification, please
-<a href="http://musicbrainz.org/pipermail/musicbrainz/2001-May/000871.html">read this post</a> for some background information and the current issues at hand.
-<tr><td>&nbsp;&nbsp;&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; </td><td>
-</tr>
-</table>
 
 <font size="+2" color=990000>Table of Contents</font><p>
 
 <ul>
 <li><a href="#intro">Introduction</a>
 <li><a href="#protocol">General Protocol Definition</a>
-<li><a href="#cdmp">Compact Disk Lookup Namespace</a>
 <li><a href="#mm">MusicBrainz Metadata Namespace</a>
 <li><a href="#mq">MusicBrainz Query Namespace</a>
 <li><a href="#mem">MusicBrainz Extended Metadata Namespace</a>
@@ -68,8 +53,6 @@ Vorbis</a> to store audio/video metadata with the audio/video tracks.
 <table border="1">
 <tr><th>Namespace</th>
 <th>Namespace URI</th></tr>
-<tr><td>cdmp</td>
-<td>http://musicbrainz.org/mm/cdmp-1.0#</td></tr>
 <tr><td>mm</td>
 <td>http://musicbrainz.org/mm/mm-2.0#</td></tr>
 <tr><td>mq</td>
@@ -79,7 +62,7 @@ Vorbis</a> to store audio/video metadata with the audio/video tracks.
 </table>
 </center>
 
-<p>The namespace abbreviations (cdmp, mm, mq, mem) will be used throughout
+<p>The namespace abbreviations (mm, mq, mem) will be used throughout
 the remainder of this document, to refer to the namespaces defined above.
 
 
@@ -88,7 +71,6 @@ proposal, please join the <a href="http://www.freeamp.org/mailman/listinfo/mm">M
 
 <p>
 [<a href="mm2_examples.html">MusicBrainz RDF Examples</a> |
-<a href="cdmp_examples.html">Compact Disk Lookup RDF Examples</a> |
 <a href="http://www.w3.org/RDF">RDF Information</a> |
 <a href="http://www.purl.org/DC">Dublin Core Home Page</a>]
 <p>
@@ -189,179 +171,6 @@ try another MM server if this message is received.
 not supporting persistent connections, as in HTTP/1.1.
 </ul>
 
-
-<a name="cdmp"></a>
-<font size="+2" color=990000>cdmp: Compact Disk Lookup Namespace</font><p>
-
-The cdmp namespace defines RDF classes and properties that facilitate
-CD-ROM lookups between an RDF enabled client and an RDF/cdmp compatible
-metadata server.
-
-<p> <font size="+1"><b>Classes</b></font> <p>
-
-<table>
-<tr><td valign="top" align="right">
-<b>LookupCD</b><br>
-[<a href="cdmp_examples.html#lookup">Example</a>]
-</td><td valign="top">
-This class is used to create a CD-ROM lookup query. Include the offsets or
-cdmpId properties as arguments to this query. Optionally you may also
-include a threshold property to indicate that this search should be 
-carried as an inexact match. Include the maxreturn property to indicate the
-maximum number of CD-ROM metadata items to return.
-</td></tr>
-
-<tr><td valign="top" align="right">
-<b>SearchCD</b><br>
-[<a href="cdmp_examples.html#searchcd">Example</a>]
-</td><td valign="top">
-This class is used to create a CD-ROM search query. Include the 
-mm:Artist/dc:creator, contributor, modifyDate, label, offset or 
-source properties.
-</td></tr>
-
-<tr><td valign="top" align="right">
-<b>SubmitCD</b><br>
-[<a href="cdmp_examples.html#submitcd">Example</a>]
-</td><td valign="top">
-This class is used to submit a CD-ROM to the server. Include the 
-dc:title, mm:Artist, mm:tracklist properties to describe the CD-ROM.
-</td></tr>
-
-<tr><td valign="top" align="right">
-<b>CDMetadata</b><br>
-[<a href="cdmp_examples.html#resultcd">Example</a>]
-</td><td valign="top">
-CDMetadata defines the metadata for a given CD-ROM. Inside of this
-class, use dc:title, mm:Artist, and mm:trackList properties to describe
-the CD-ROM.
-</td></tr>
-
-<tr><td valign="top" align="right">
-<b>ResultCD</b><br>
-[<a href="cdmp_examples.html#resultcd">Example</a>]
-</td><td valign="top">
-The ResultCD class is used to contain the description of one CD. A server
-query response should contain a ResultCD element if only one CD
-was found. For a response with multiple CDs, the server should respond
-with ResultCDList element.
-</td></tr>
-
-<tr><td valign="top" align="right">
-<b>ResultCDList</b><br>
-[<a href="cdmp_examples.html#resultcdlist">Example</a>]
-</td><td valign="top">
-The ResultCDList class contains the description of multiple CDs. This
-class should contain one cdList property, which in turn defines
-a Bag of CDMetadata elements.
-</td></tr>
-
-</table>
-
-
-<p> <font size="+1"><b>Properties</b></font> <p>
-
-<table>
-
-<tr><td valign="top" align="right">
-<b>cd</b>
-</td><td valign="top">
-This property will contain one CDMetadata element to describe one CD.
-</td></tr>
-
-<tr><td valign="top" align="right">
-<b>cdList</b>
-</td><td valign="top">
-This property will contain a bag of CDMetadata elements to describe a list 
-of CDs.
-</td></tr>
-
-<tr><td valign="top" align="right">
-<b>cdmpId</b>
-</td><td valign="top">
-The cdmpId calculated for a CD-ROM. The exact algorithm for calculating this
-Id will still need to get nailed down.
-</td></tr>
-
-<tr><td valign="top" align="right">
-<b>threshold</b>
-</td><td valign="top">
-A number from 0 to 100 giving the near match threshold. The higher the number, the more exact the match must be. The algorithm for this threshold will be documented as well. 
-</td></tr>
-
-<tr><td valign="top" align="right">
-<b>offsets</b>
-</td><td valign="top">
-The track offsets for the CD, each separated by '-'.
-</td></tr>
-
-<tr><td valign="top" align="right">
-<b>maxReturn</b>
-</td><td valign="top">
-The maximum number of near matches to return.
-</td></tr>
-
-<tr><td valign="top" align="right">
-<b>freeDBId</b>
-</td><td valign="top">
-Specifies a backward compatible FreeDBId.
-</td></tr>
-
-<tr><td valign="top" align="right">
-<b>contributor</b>
-</td><td valign="top">
-Email address or name of person who contributed information
-</td></tr>
-
-<tr><td valign="top" align="right">
-<b>modifyDate</b>
-</td><td valign="top">
-When this record was last modified. The format is the suggested 
-<a href="http://www.w3.org/TR/NOTE-datetime">W3 Date/Time</a> which
-is a subset of the ISO 8601 date format standard.
-</td></tr>
-
-<tr><td valign="top" align="right">
-<b>label</b>
-</td><td valign="top">
-Optional record label for use with SearchCD
-</td></tr>
-
-<tr><td valign="top" align="right">
-<b>source</b>
-</td><td valign="top">
-The name of the program that submitted the CD.
-</td></tr>
-
-</table>
-
-<p>
-To specify the name of an artist for searching for a CD, use the
-MM:Artist/dc:title class/property combination. 
-[<a href="cdmp_examples.html#searchcd">Example</a>]
-
-<p> <font size="+1"><b>HTTP Command Details</b></font> <p>
-
-All POST commands should be posted to: <b>http://[servername]/cdmp</b><p>
-Also, the following GET shortcuts have been defined:
-<table>
-
-<tr><td valign="top" align="right">
-<b>lookupcd</b>
-</td><td valign="top">
-GET /cdmp/lookupcd?offsets=150-77950-2093
-</td></tr>
-
-<tr><td valign="top" align="right">
-<b>lookupcd<br>(inexact)</b>
-</td><td valign="top">
-GET /cdmp/lookupcd?offsets=150-77950-2093&amp;threshold=90&amp;maxreturns=50
-</td></tr>
-
-</table>
-
-<p>
-
 <a name="mm"></a>
 <font size="+2" color=990000>mm: MusicBrainz Metadata Namespace</font><p>
 
@@ -458,25 +267,10 @@ This property is used to convey a list of tracks.
 Used to indicate the duration of a track in milliseconds.
 </td></tr>
 
-<tr><td valign="top" align="right">
-<b>genre</b>
-</td><td valign="top">
-This is a free-form text field that indicates the genre for a given track.
-</td></tr>
-
 </table>
-
-<p> <font size="+1"><b>HTTP Command Details</b></font> <p>
-
-There are no command details defined for this namespace. This namespace
-serves as a helper namespace for the <a href="#cdmp">cdmp</a> and
-<a href="#mq">mq</a> namespaces.
 
 <p><a name="mq"></a>
 <font size="+2" color=990000>mq: MusicBrainz Query Namespace</font><p>
-
-[ <font color="red">ed:</font> This section is incomplete -- however this
-namespace is not required for use with the cdmp namespace. ]
 
 <p>
 The mq namespace defines RDF classes and properties that facilitate
@@ -628,53 +422,12 @@ higher value of depth will return
 <p><a name="mem"></a>
 <font size="+2" color=990000>mem: MusicBrainz Extended Metadata Namespace</font><p>
 
-[ <font color="red">ed:</font> This section is incomplete -- however this
-namespace is not required for use with the cdmp namespace. ]
-
 <p>
-The mem namespace defines RDF classes and properties for expressing extended
+The mem namespace is reserved for future use in expressing extended
 music related metadata that is not covered by the <a href="#mm">MusicBrainz 
-Metadata Namespace</a>. This namespace focuses on the more detailed
+Metadata Namespace</a>. This namespace will focus on the more detailed
 metadata such as contributors, roles, lyrics, release dates, remix/cover 
 information, etc. 
-
-<p> <font size="+1"><b>Classes</b></font> <p>
-
-<table>
-<tr><td valign="top" align="right">
-<b>Lyrics</b>
-</td><td valign="top">
-To be completed.
-</td></tr>
-
-<tr><td valign="top" align="right">
-<b>Role</b>
-</td><td valign="top">
-</td></tr>
-
-<tr><td valign="top" align="right">
-<b>Contributor</b>
-</td><td valign="top">
-</td></tr>
-
-</table>
-
-
-<p> <font size="+1"><b>Properties</b></font> <p>
-
-<table>
-<tr><td valign="top" align="right">
-<b>remixInfo</b>
-</td><td valign="top">
-To be completed.
-</td></tr>
-
-<tr><td valign="top" align="right">
-<b>coverInfo</b>
-</td><td valign="top">
-</td></tr>
-
-</table>
 
 
 <br> <br> <br> <br>
@@ -684,5 +437,4 @@ To be completed.
 
 </td></tr></table>
 
-</body>
-</html>
+<& /comp/footer &>

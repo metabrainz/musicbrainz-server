@@ -22,6 +22,7 @@ use ModDefs;
 use FreeDB;
 use Moderation;
 use ModerationSimple;
+use ModerationKeyValue;
 use TRM;
 use Sql;
 use Style;
