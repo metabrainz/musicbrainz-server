@@ -20,17 +20,17 @@ $time =~ s/:\d\d\..*$//;
 <td bgcolor="#FFBA58" colspan=3><img src="/images/pixel.gif" width="1" height="1" alt="" border=""></td>
 </tr>
 <tr>
-   <td width=37% valign=top bgcolor=white class="body">
+   <td width="37%" valign=top bgcolor=white class="body">
      By: <a href="/moderator.html?uid=<% $mod->GetModerator() %>"><span class="bold"><% $mod->GetModeratorName() |n %></span></a>
      &nbsp;&nbsp;&nbsp;
      <a href="/showmod.html?modid=<% $mod->GetId() %>"
         title="View moderation detail">Id: <% $mod->GetId() %></a><br> 
      Expires: <% $time |n %>
    </td>
-   <td width=37% valign=top bgcolor=white class="body">
+   <td width="37%" valign=top bgcolor=white class="body">
      <% $mod->ShowModType() |n %> 
    </td>
-   <td width=30% align=center valign=top valign=top bgcolor=white class="body" NOWRAP>
+   <td width="30%" align=center valign=top valign=top bgcolor=white class="body" NOWRAP>
 %    if ($session{uid} == $mod->GetModerator() || 
 %        $mod->GetStatus() != ModDefs::STATUS_OPEN ||
 %        $voted != ModDefs::VOTE_NOTVOTED) {
@@ -38,7 +38,7 @@ $time =~ s/:\d\d\..*$//;
            <% $mod->GetNoVotes() |n %> no
            &nbsp;&nbsp; 
 %    }
-     [ <a href="#" onClick="MyWindow=window.open('mod/addnote.html?modid=<% $mod->GetId() %>&uid=<% $session{uid} %>','AddNote','toolbar=no,location=no,directories=no,status=no,menubar=no,scrollbars=yes,resizable=yes,width=400,height=150'); return false;">Add note</a> ]
+     [ <a href="#" onClick="MyWindow=window.open('mod/addnote.html?modid=<% $mod->GetId() %>&amp;uid=<% $session{uid} %>','AddNote','toolbar=no,location=no,directories=no,status=no,menubar=no,scrollbars=yes,resizable=yes,width=400,height=150'); return false;">Add note</a> ]
 % if ($session{uid} == $mod->GetModerator() &&
 %     $mod->GetStatus() == ModDefs::STATUS_OPEN) {
      <a href="/removemod.html?modid=<% $mod->GetId() %>"><img 
@@ -54,15 +54,15 @@ $time =~ s/:\d\d\..*$//;
 </tr>
 <tr>
 
-   <td width=37% valign=top bgcolor="#ffecd6" class="body">
+   <td width="37%" valign=top bgcolor="#ffecd6" class="body">
      <% $mod->ShowPreviousValue() |n %> 
    </td>
 
-   <td width=37% valign=top bgcolor="#f0efff" class="body">
+   <td width="37%" valign=top bgcolor="#f0efff" class="body">
      <% $mod->ShowNewValue() |n %> 
    </td>
 
-   <td width=30% align=center valign=top bgcolor=white class="body" nowrap>
+   <td width="30%" align=center valign=top bgcolor=white class="body" nowrap>
 
 % if ($session{uid} == $mod->GetModerator()) {
      <% $mod->GetChangeName() |n %>
