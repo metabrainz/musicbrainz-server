@@ -25,6 +25,7 @@ eval
 if ($@)
 {
    $m->out("A database error occurred: $@");
+	 eval { $sql->Rollback() };
    $mb->Logout;
    return undef;
 }
