@@ -38,19 +38,28 @@ If the artist/album/track you are looking for was not found,
 you can do the following things: 
 
 <ul>
-  <li>Import <a href="/freedb/freedb.html?search=<% uri_escape($search) %>"><% $display %></a> 
-      from FreeDB and then tag your track against the new album.</li>
+  <li>
+    <p>
+      Import <a href="/freedb/freedb.html?search=<% uri_escape($search) %>"><% $display %></a>
+      from FreeDB and then tag your track against the new album.
+    </p>
+  </li>
 
 % if ($artist ne '' && defined $artistobj) {
     <li>
+      <p>
     	<a href="/addnonalbumtracks.html?artistid=<% $artistobj->GetId %>"
 		onclick="document.forms.AddNonAlbumTrack.submit(); return false"
 		>Add a non-album track</a>
-	to artist '<% $artist %>'.
+	to artist '<% $artist %>'.&nbsp;
+	<b>Only do this if you know that the track has never been released
+	on any album</b> (or single, etc).&nbsp; Don't use this simply
+	because you can't find which album it's on (or haven't looked).
+      </p>
     </li>
 % }
 
-  <li>Use the box below to modify your lookup criteria and try again:</li>
+  <li><p>Use the box below to modify your lookup criteria and try again:</p></li>
 </ul>
 
 </td></tr></table>
