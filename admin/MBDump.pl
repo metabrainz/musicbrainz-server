@@ -29,14 +29,14 @@ use DBDefs;
 sub DumpTable
 {
     my ($name, $dir) = @_;
-    my ($cmd, $dsn);
+    my ($cmd, $dsn, $ret);
 
     print "Dumping table $name..\n";
 
     $dsn = DBDefs->DSN;
     $dsn =~ s/^dbi://;
 
-    $cmd = "sql2xml.pl -sn localhost -driver ";
+    $cmd = "./sql2xml.pl -sn localhost -driver ";
     $cmd .= $dsn;
     $cmd .= " -uid ";
     $cmd .= DBDefs->DB_USER;
@@ -46,9 +46,9 @@ sub DumpTable
         $cmd .= DBDefs->DB_PASSWD;
     }
     $cmd .= " -table $name -output $dir/$name.xml"; 
-    system($cmd);
+    $ret = system($cmd) >>8;
 
-    return 1;
+    return !$ret;
 }
 
 sub DumpAllTables
@@ -65,7 +65,6 @@ sub DumpAllTables
     DumpTable("Pending", $dir) or return 0;
     DumpTable("Diskid", $dir) or return 0;
     DumpTable("TOC", $dir) or return 0;
-    DumpTable("GlobalId", $dir) or return 0; 
     if (DBDefs->USE_LYRICS)
     {
        DumpTable("Lyrics", $dir) or return 0;
@@ -90,7 +89,7 @@ $timestring = "mbdump-" . (1900 + $tinfo[5]) . "-".($tinfo[4]+1)."-$tinfo[3]";
 $outfile = shift;
 if (defined $outfile && ($outfile eq "-h" || $outfile eq "--help"))
 {
-    print "Usage: Dump.pl <dumpfile>\n\n";
+    print "Usage: MBDump.pl <dumpfile>\n\n";
     print "Make sure to have plenty of diskspace on /tmp!\n";
     exit(0);
 }

@@ -52,38 +52,8 @@ sub execute {
 
 sub Init {
 	my $expat = shift;
-
-	# OK, here we setup the insert statement.
-	# We use the prepare method because it offers us _very_ fast inserts.
-
-	$sth = $dbh->prepare("select * from $table where 1=2") || die $dbh->errstr;
-	$sth->execute() || die $dbh->errstr; # Get column names
-	my $names = $sth->{NAME};
-
-	my $sql = "insert into $table ( " . (join ", ", @$names) . " ) values ( ";
-	my $colnum = 1;
-	eval {
-		$sql .= (join ", ",
-					(map {
-							$expat->{ __PACKAGE__ . "columns"}->{uc($_)} = $colnum++;
-							'?';
-						} @{$names})
-				);
-		};
-	if ($@) {
-		die $@;
-	}
-
-	$sql .= " )";
-print $sql, "\n\n";
-	$sth = $dbh->prepare($sql) || die;
-
-#	my $count = 1;
-#	foreach my $f (keys(%{$expat->{ __PACKAGE__ . "columns"}})) {
-#		$sth->bind_param( $count++ , undef );
-#	}
-
-	# Possibly add begin transaction code here.
+   $expat->{__PACKAGE__ . "values"} = "";
+   $expat->{__PACKAGE__ . "query"} = "insert into $table (";
 }
 
 sub Start {
@@ -99,30 +69,35 @@ sub End {
 	my ($expat, $element) = @_;
 	if ($element eq "ROW") {
 		# Found the end of a row
-		print "Inserting a row...\n";
-		$sth->execute() || die;
+      $expat->{__PACKAGE__ . "query"} =~ s/,$//;
+      $expat->{__PACKAGE__ . "values"} =~ s/,$//;
 
-		# Re-bind to undef (makes sure things are NULL)
-		my $count = 1;
-		foreach my $f (keys(%{$expat->{ __PACKAGE__ . "columns"}})) {
-			$sth->bind_param( $count++ , undef );
-		}
+      $sql = $expat->{__PACKAGE__ . "query"} . ") values (" .
+             $expat->{__PACKAGE__ . "values"} . ")";
+
+		$dbh->do($sql) || die;
+
+      $expat->{__PACKAGE__ . "values"} = "";
+      $expat->{__PACKAGE__ . "query"} = "insert into $table (";
 	}
 	elsif ($expat->within_element("ROW")) {
 		# A column
 		$element = uc($element);
-		return unless $expat->{ __PACKAGE__ . "columns"}->{$element};
-		if (IsNumber($expat->{ __PACKAGE__ . "currentData"})) {
-			if( $expat->{ __PACKAGE__ . "currentData"} =~ /\./ ) {
-				$sth->bind_param($expat->{ __PACKAGE__ . "columns"}->{$element}, $expat->{ __PACKAGE__ . "currentData"}, SQL_FLOAT);
-			}
-			else {
-				$sth->bind_param($expat->{ __PACKAGE__ . "columns"}->{$element}, $expat->{ __PACKAGE__ . "currentData"}, SQL_INTEGER);
-			}
-		}
-		else {
-			$sth->bind_param($expat->{ __PACKAGE__ . "columns"}->{$element}, $expat->{ __PACKAGE__ . "currentData"}, SQL_VARCHAR);
-		}
+
+      if (!defined $expat->{ __PACKAGE__ . "currentData"}) 
+      {
+          $expat->{ __PACKAGE__ . "currentData"} = '';
+      }
+
+      if (IsNumber($expat->{ __PACKAGE__ . "currentData"})) 
+      {
+          $expat->{__PACKAGE__ . "values"} .= $expat->{ __PACKAGE__ . "currentData"};
+      } else {
+          $expat->{__PACKAGE__ . "values"} .= $dbh->quote($expat->{ __PACKAGE__ . "currentData"});
+      }
+
+      $expat->{__PACKAGE__ . "query"} .= "$element,";
+      $expat->{__PACKAGE__ . "values"} .= ",";
 	}
 }
 
@@ -132,7 +107,7 @@ sub Char {
 	my @context = $expat->context;
 	my $column = pop @context;
 	my $curtable = pop @context;
-	if ($curtable eq "ROW") {
+	if (defined $curtable && $curtable eq "ROW") {
 		$expat->{ __PACKAGE__ . "currentData"} .= $string;
 	}
 }

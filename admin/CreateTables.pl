@@ -87,7 +87,7 @@ sub CreateTables
              "   Id int auto_increment primary key," .
              "   Album int NOT NULL," .
              "   Track int NOT NULL," .
-             "   Sequence int)")
+             "   Sequence int NOT NULL)")
           or die("Cannot create AlbumJoin table");
 
     print "Created AlbumJoin table.\n";
