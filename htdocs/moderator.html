@@ -35,16 +35,16 @@ if (!defined $uid || $uid == 0)
     </form>
     <& /comp/footer &>
     <%perl>
+    $mb->Logout();
     return undef;
 }
 
 if ($update && $session{uid} != $uid)
 {
     mc_out("You can't update someone else's configuration, smartass!");
+    $mb->Logout();
     return undef;
 }
-
-
 
 if ($update > 1)
 { 
@@ -58,6 +58,7 @@ if ($update > 1)
         the passwords.
         <& /comp/footer &>
         <%perl>
+        $mb->Logout();
         return undef;
     }
     $ui->SetUserInfo($uid, $email, $password1, $weburl, $bio);
@@ -71,6 +72,7 @@ if (!defined $info)
 {
      mc_out("User $uid was not found.");
      mc_comp("/comp/footer");
+     $mb->Logout();
      return undef;
 }
 
@@ -82,6 +84,7 @@ if ($info->{name} eq "rob")
 {
     $info->{membersince} = '<font class="bold">the dawn of this project</font>';
 } 
+$mb->Logout();
 
 </%perl>
 
