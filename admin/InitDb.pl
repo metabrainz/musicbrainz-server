@@ -109,6 +109,11 @@ sub Clean
     system("$psql -U $dbuser -f sql/CreateTables.sql $dbname");
     die "\nFailed to create tables.\n" if ($? >> 8);
 
+    system("$psql -U $dbuser -f sql/tables/currentstat.sql $dbname");
+    die "\nFailed to create tables.\n" if ($? >> 8);
+    system("$psql -U $dbuser -f sql/tables/historicalstat.sql $dbname");
+    die "\nFailed to create tables.\n" if ($? >> 8);
+
     system("$psql -U $dbuser -f sql/CreateIndexes.sql $dbname");
     die "\nFailed to create indexes.\n" if ($? >> 8);
 
@@ -146,9 +151,10 @@ sub SanityCheck
 sub Usage
 {
    die <<EOF;
-Usage: InitDb.pl [options] <file> [file] ...
+Usage: InitDb.pl [options] [file] ...
 
 Options are:
+     --createdb   Create the database, PL/PGSQL language and user
   -i --import     Prepare the database and then import the data from 
                   the given files
   -c --clean      Prepare a ready to use empty database
@@ -160,12 +166,6 @@ After the import option, you may specify one or more MusicBrainz data dump
 files for importing into the database. Once this script runs to completion
 without errors, the database will be ready to use. Or it *should* at least.
 
-Before you use this script, you must create a database with the name 
-'musicbrainz'. To do this, execute the following commands from an account
-that has postgres privledges to create databases:
-
-   > createdb -E UNICODE musicbrainz
-   > createlang plpgsql musicbrainz
 EOF
 }
 
