@@ -54,6 +54,8 @@ sub Login
    my $sql = Sql->new($this->{DBH});
    $sql->AutoCommit(1);
    $sql->Do("SET TIME ZONE 'UTC'");
+   $sql->AutoCommit(1);
+   $sql->Do("SET CLIENT_ENCODING = 'UNICODE'");
 
    return 1;
 }
