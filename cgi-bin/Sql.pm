@@ -599,7 +599,7 @@ sub DESTROY
 		my @c = caller($i)
 			or return warn $msg;
 		++$i, redo if $c[0] =~ /^Sql($|::Timer$)/;
-		return lprintf "sql", "$msg at $c[1] line $c[2]\n";
+		return lprint "sql", "$msg at $c[1] line $c[2]\n";
 	}
 }
 
