@@ -668,7 +668,6 @@ sub GetModerationList
                           on Votes.uid = $uid and Votes.rowid=moderation.id 
                     where Moderator.id = moderation.moderator and 
                           Moderation.artist = Artist.id and 
-                          Votes.rowid = Moderation.id and 
                           moderation.artist = $rowid
                  order by ExpireTime desc 
                           offset $index|;
