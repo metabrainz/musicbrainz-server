@@ -377,7 +377,7 @@ sub InsertForModeration
     my $ref = $info->{tracks};
 
     # Don't insert CDs that have only one track.
-    return if (scalar($info->{tracks}) < 2);
+    return if (scalar(@$ref) < 2);
 
     # Don't insert albums by the name of 'various' or 'various artists'
     return if ($info->{artist} =~ /^various$/i ||
