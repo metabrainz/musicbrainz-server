@@ -4,6 +4,12 @@ $modid
 
 <& /comp/header_small, title=>'Add moderation note' &>  
 
+% if (!defined $session{uid}) {
+   <font size="+1" color="red">Login Error detected!</font><br>
+   Please log out and log back in and then add a note.
+   <& /comp/footer_small &>  
+%  return undef;
+% }
 
 <center>
 <FORM METHOD="POST" ACTION="/bare/enter_note.html" 
