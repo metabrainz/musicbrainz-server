@@ -1,6 +1,7 @@
 <%args>
 $sidebar=>'1'
 $url=>""
+$mbt=>0
 </%args>
 
 %if ($sidebar == 1) {
@@ -37,6 +38,7 @@ Please fill out the form below to create a new MusicBrainz account:
 <tr>
    <td>
    <INPUT TYPE="submit" NAME="Create" VALUE="Create Account">
+   <INPUT TYPE="hidden" NAME="mbt" VALUE="<% $mbt %>">
    </td>
 </tr>
 </table>

@@ -46,7 +46,16 @@ else
     <br><br>
     <%perl>
 
-    if (exists $ARGS{url})
+    if (exists $ARGS{mbt})
+    {
+        </%perl>
+        <center><b>Click <a href="#mbt_login">here</a> to enter login 
+        information into the Options Dialog.
+        </center>
+        <%perl>
+
+    }
+    elsif (exists $ARGS{url})
     {
         my $url;
         $url = $ARGS{url};
