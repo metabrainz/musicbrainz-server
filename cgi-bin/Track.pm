@@ -441,4 +441,18 @@ sub RDF_URL
 	;
 }
 
+sub FormatTrackLength
+{
+	my $ms = shift;
+
+	$ms or return "?:??";
+	$ms >= 1000 or return "$ms ms";
+
+	my $length_in_secs = $ms / 1000;
+	sprintf "%d:%02d",
+		int($length_in_secs / 60),
+		($length_in_secs % 60),
+		;
+}
+
 1;
