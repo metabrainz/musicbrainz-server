@@ -9,7 +9,7 @@ $attrlist = $al->GetAttributeList();
 </%perl>
 
 <%def .StyleGuideLink>
-<a id="albumattrguide-<% $_[0] %>" href="#albumattrguide-<% $_[0] %>"><b>&bull;</b></a>
+<a id="albumattrguide-<% $_[0] %>" href="#albumattrguide-<% $_[0] %>"><b>&lowast;</b></a>
 </%def>
 
 <p><b>Album Attribute Definitions</b></p>

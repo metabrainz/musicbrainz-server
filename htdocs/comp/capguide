@@ -1,6 +1,6 @@
 %# vi: set ts=2 sw=2 ft=mason :
 <%def .StyleGuideLink>
-<a id="capguide-<% $_[0] %>" href="#capguide-<% $_[0] %>"><b>&bull;</b></a>
+<a id="capguide-<% $_[0] %>" href="#capguide-<% $_[0] %>"><b>&lowast;</b></a>
 </%def>
 
 <p><b>Capitalization Guide for Submitting/Editing Data</b></p>

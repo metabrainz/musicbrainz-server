@@ -1,6 +1,6 @@
 %# vi: set ts=2 sw=2 ft=mason :
 <%def .StyleGuideLink>
-<a id="sortnameguide-<% $_[0] %>" href="#sortnameguide-<% $_[0] %>"><b>&bull;</b></a>
+<a id="sortnameguide-<% $_[0] %>" href="#sortnameguide-<% $_[0] %>"><b>&lowast;</b></a>
 </%def>
 
 <p><b>Style Notes for Sort Names</b></p>
