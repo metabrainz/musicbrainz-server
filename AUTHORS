@@ -51,5 +51,7 @@ The following people have contributed to the MusicBrainz server:
 
   Duncan Findlay <duncf@rogers.com>
   - Submitted a patch for adding the TYPE_MODERATOR_FAILED mod list
+  - Submitted a patch for saving preferences (which became the UserPreference
+    module)
 
 (please send change requests to rob@musicbrainz.org or maintainer)
