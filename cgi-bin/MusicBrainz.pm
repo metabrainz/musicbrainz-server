@@ -29,13 +29,9 @@ no warnings qw( portable );
 package MusicBrainz;
 
 require Exporter;
-use vars qw(@ISA @EXPORT);
-@ISA    = @ISA    = qw( Exporter );
-@EXPORT = @EXPORT = qw( );
-@EXPORT_OK = @EXPORT_OK = qw( encode_entities );
+{ our @ISA = qw( Exporter ); our @EXPORT_OK = qw( encode_entities ) }
 
 use strict;
-use DBI;
 use DBDefs;
 use MusicBrainz::Server::Cache;
 use Carp qw( carp cluck );
@@ -56,8 +52,9 @@ sub Login
 {
    my ($this, $quiet, $dsn) = @_;
 
-   $dsn = DBDefs->DSN if (!defined $dsn);
-   $this->{DBH} = DBI->connect($dsn,DBDefs->DB_USER,DBDefs->DB_PASSWD,
+   $dsn = &DBDefs::DSN if (!defined $dsn);
+   require DBI;
+   $this->{DBH} = DBI->connect($dsn, &DBDefs::DB_USER, &DBDefs::DB_PASSWD,
                                { RaiseError => 1, PrintError => 0, AutoCommit => 1 });
    return 0 if (!$this->{DBH});
 
