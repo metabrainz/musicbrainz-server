@@ -4,11 +4,8 @@ $albumid => ""
 </%args>
 <%perl>
 
-$m->comp("/comp/checkloggedin", 0, 1)
-	or return;
-
 MusicBrainz::IsNonNegInteger($albumid) && $albumid
-	or return $m->comp("/comp/badargs", 0, 1);
+	or return $m->comp("/comp/badargs", 1, 1);
 
 my $mb = $m->comp("/comp/dblogin");
 
@@ -18,7 +15,7 @@ $al->LoadFromId
 	or return $m->comp(
 		"/comp/error",
 		"Album #$albumid not found",
-		0, 1,
+		1, 1,
 	);
 
 my $ar = Artist->new($mb->{DBH});
@@ -27,7 +24,7 @@ $ar->LoadFromId
 	or return $m->comp(
 		"/comp/error",
 		"Artist not found",
-		0, 1,
+		1, 1,
 	);
 
 </%perl>
