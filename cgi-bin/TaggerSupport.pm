@@ -86,17 +86,14 @@ sub Lookup
    $data->{albumid} ||= '';
    $data->{trackid} ||= '';
    $data->{filename} ||= '';
-   $data->{duration} ||= 0;
+   $data->{albumtype} ||= '';
+   $data->{duration} = 0 if (!defined $data->{duration} || 
+                             !($data->{duration} =~ /^\d+$/));
    $data->{tracknum} = 0 if (!defined $data->{tracknum} || 
                              !($data->{tracknum} =~ /^\d+$/));
 
    # Make sure to clean out any old similarity ratings
    delete $data->{sim};
-   delete $data->{sim_artist};
-   delete $data->{sim_album};
-   delete $data->{sim_track};
-   delete $data->{sim_tracknum};
-   delete $data->{sim_duration};
 
    foreach (values %$data)
    {
@@ -106,6 +103,7 @@ sub Lookup
    $this->{fuzzy} = 0;
    $maxItems = 15 if not defined $maxItems;
    $this->{maxitems} = $maxItems;
+   $this->{data} = $data;  # Add a ref so that SetSim can access it
 
    if ($data->{artist} eq "Various Artists")
    {
@@ -187,6 +185,7 @@ sub Lookup
    $flags |= ALBUMID if ($data->{albumid} ne '');
    $flags |= TRACKID if ($data->{trackid} ne '');
 
+
    return ("", $data, $flags, undef);
 }
 
@@ -211,52 +210,60 @@ sub LookupTRMCollisions
    @$data;
 }
 
-# fix users of lensim and namesim for track matches
 sub SetSim
 {
-   my ($this, $ref) = @_;
+   my ($this, $type, $ref) = @_;
+   my (%match);
 
-   if (exists $ref->{sim_album} &&
-       exists $ref->{sim_track} &&
-       exists $ref->{sim_tracklen} &&
-       exists $ref->{sim_tracknum})
+
+   $match{artist} = '';
+   $match{album} = '';
+   $match{track} = '';
+   $match{duration} = 0;
+   $match{tracknum} = 0;
+   $match{albumtype} = -1;
+
+   if ($type == ARTISTID)
    {
-       $ref->{sim} = ($ref->{sim_album} * .3) + 
-                     ($ref->{sim_track} * .3) + 
-                     ($ref->{sim_tracklen} * .3) +
-                     ($ref->{sim_tracknum} * .1);
-       return $ref;
+       $match{artist} = $ref->{name};
+   }
+   elsif ($type == ALBUMID)
+   {
+       $match{artist} = $ref->{name};
+       $match{album} = $ref->{name};
+       $match{albumtype} = $ref->{albumtype};
+   }
+   elsif ($type == ALBUMTRACKID)
+   {
+       $match{artist} = $ref->{artist};
+       $match{album} = $ref->{album};
+       $match{track} = $ref->{name};
+       $match{duration} = $ref->{tracklen};
+       $match{tracknum} = $ref->{tracknum};
+       $match{albumtype} = $ref->{albumtype};
+   }
+   elsif ($type == TRACKID)
+   {
+       $match{artist} = $ref->{artist};
+       $match{album} = $ref->{album};
+       $match{track} = $ref->{name};
+       $match{duration} = $ref->{tracklen};
+       $match{tracknum} = $ref->{tracknum};
+   }
+   else
+   {
+       $ref->{sim} = 0;
+       return 0;
    }
 
-   if (exists $ref->{sim_track} &&
-       exists $ref->{sim_tracklen})
-   {
-       $ref->{sim} = ($ref->{sim_track} * .5) + 
-                     ($ref->{sim_tracklen} * .5);
-      return $ref;
-   }
-
-   if (exists $ref->{sim_artist})
-   {
-      $ref->{sim} = $ref->{sim_artist};
-      return $ref;
-   }
-
-   if (exists $ref->{sim_album})
-   {
-      $ref->{sim} = $ref->{sim_album};
-      return $ref;
-   }
-
-   # Ooops, something went wrong
-   $ref->{sim} = -1;
+   $ref->{sim} = $this->MetadataCompare(\%match, $this->{data});
 
    return $ref;
 }
+
 # Internal method: given a filename, try to extract artist/album/track etc
 # from it.  Stash the results in $data.
 # NOTE: I *think* this is unicode-safe.  Not sure about the use of \s and \d.
-
 sub ParseFileName
 {
    my ($this, $fileName, $data) = @_;
@@ -326,13 +333,11 @@ sub ArtistSearch
    {
        $this->{artist} = $ar;     
        return (ARTISTID, [ 
-                           $this->SetSim({
+                           $this->SetSim(ARTISTID, {
                              id=>$ar->GetId(),
                              mbid=>$ar->GetMBId(), 
                              name=>$ar->GetName(),
-                             sortname=>$ar->GetSortName(),
-                             sim_artist=>1
-                           })
+                             sortname=>$ar->GetSortName() })
                          ]);
    }
 
@@ -358,13 +363,11 @@ sub ArtistSearch
            my $thisname = lc(decode "utf-8", $ar->GetName);
            return (ARTISTID | FUZZY, 
                              [ 
-                              $this->SetSim({ 
+                              $this->SetSim(ARTISTID, { 
                                  id=>$ar->GetId(),
                                  mbid=>$ar->GetMBId(), 
                                  name=>$ar->GetName(),
-                                 sortname=>$ar->GetSortName(),
-                                 sim_artist=>similarity($thisname, $name)
-                               })
+                                 sortname=>$ar->GetSortName()})
                              ]);
        }
    }
@@ -376,11 +379,10 @@ sub ArtistSearch
        {
            my $thisname = lc(decode "utf-8", $row->{'artistname'});
 
-           push @ids, $this->SetSim({ id=>$row->{'artistid'},
+           push @ids, $this->SetSim(ARTISTID, { id=>$row->{'artistid'},
                         name=>$row->{'artistname'},
                         sortname=>$row->{'artistsortname'},
-                        mbid=>$row->{'artistgid'}, 
-                        sim_artist=>similarity($thisname, $name) });
+                        mbid=>$row->{'artistgid'}});
        }
 
        @ids = sort { $b->{sim} <=> $a->{sim} } @ids;
@@ -437,13 +439,27 @@ sub AlbumSearch
 
        if ($thisname eq $name)
        {
-           push @ids, $this->SetSim({ id=>$al->GetId(),
+           my $albumtype = -1;
+           my $attr;
+           my @attrs = $al->GetAttributes();
+           foreach $attr (@attrs)
+           {
+               if ($attr >= Album::ALBUM_ATTR_SECTION_TYPE_START &&
+                   $attr <= Album::ALBUM_ATTR_SECTION_TYPE_END)
+               {
+                   $albumtype = $attr;
+                   last;
+               }
+           }
+           push @ids, $this->SetSim(ALBUMID, { 
+                        artist=>$ar->GetName(),
+                        id=>$al->GetId(),
                         name=>$al->GetName(),
                         mbid=>$al->GetMBId(),
                         album_tracks=>$al->GetTrackCount(),
                         album_discids=>$al->GetDiscidCount(),
                         album_trmids=>$al->GetTrmidCount(),
-                        sim_album=>1 });
+                        albumtype=>$albumtype});
            $this->{album} = $al;
        }
    }
@@ -468,13 +484,27 @@ sub AlbumSearch
 
            next if ($sim < .5);
 
-           push @ids, $this->SetSim({ id=>$al->GetId(),
+           my $albumtype = -1;
+           my $attr;
+           my @attrs = $al->GetAttributes();
+           foreach $attr (@attrs)
+           {
+               if ($attr >= Album::ALBUM_ATTR_SECTION_TYPE_START &&
+                   $attr <= Album::ALBUM_ATTR_SECTION_TYPE_END)
+               {
+                   $albumtype = $attr;
+                   last;
+               }
+           }
+           push @ids, $this->SetSim(ALBUMID, { 
+                        artist=>$ar->GetName(),
+                        id=>$al->GetId(),
                         name=>$al->GetName(),
                         mbid=>$al->GetMBId(),
                         album_tracks=>$al->GetTrackCount(),
                         album_discids=>$al->GetDiscidCount(),
                         album_trmids=>$al->GetTrmidCount(),
-                        sim_album=>$sim});
+                        albumtype=>$albumtype});
            $this->{fuzzy} = 1;
        }
    }
@@ -548,19 +578,10 @@ sub AlbumTrackSearch
 
            next if ($namesim < .5);
 
-	   # TODO non-numeric warnings from here
-           if ($duration > 0 && $row[3] > 0)
-           {
-               $lensim = 1 - (int(abs($duration - $row[3]) / 2000) * .25);
-               $lensim = ($lensim < 0) ? 0 : $lensim;
-           }
-
-           push @ids, $this->SetSim({ id=>$row[0],
+           push @ids, $this->SetSim(ALBUMTRACKID, { id=>$row[0],
                         name=>$row[2], 
                         mbid=>$row[1],
-                        tracklen=>$row[3],
-                        sim_track=>$namesim,
-                        sim_tracklen=>$lensim,
+                        tracklen=>$row[3]
                       });
        }
        $sql->Finish;
@@ -613,10 +634,8 @@ sub AlbumTrackSearch
            $id = $result{$row[4]};
            next if not defined $id;
 
-# TODO: Use album type to order the albums
+           # TODO: Use album type to order the albums
            # Update the entry with the info for the album
-           $id->{sim_album} = $namesim;
-           $id->{sim_tracknum} = $numsim;
            $id->{tracknum} = $row[3];
            $id->{album} = $row[1];
            $id->{albummbid} = $row[2];
@@ -629,7 +648,7 @@ sub AlbumTrackSearch
            $id->{albumid} = $row[0];
            $id->{artist} = $ar->GetName();
            $id->{artistmbid} = $ar->GetMBId();
-           $this->SetSim($id);
+           $this->SetSim(ALBUMTRACKID, $id);
        }
        $sql->Finish;
    }
@@ -684,7 +703,7 @@ sub TrackSearch
    }
 
    $sql = Sql->new($this->{DBH});
-   if ($sql->Select(qq|select track.id, track.gid, track.name, track.length
+   if ($sql->Select(qq|select track.id, track.gid, track.name, track.length, albumjoin.sequence
                          from Track, AlbumJoin 
                         where albumjoin.album = | . $al->GetId() . qq| and
                               albumjoin.track = track.id|))
@@ -712,19 +731,14 @@ sub TrackSearch
 
            next if ($namesim < .35);
 
-           if ($duration > 0 && $row[3] > 0)
-           {
-               $lensim = 1 - (int(abs($duration - $row[3]) / 2000) * .25);
-               $lensim = ($lensim < 0) ? 0 : $lensim;
-           }
-
-           push @ids, $this->SetSim({ id=>$row[0],
+           push @ids, $this->SetSim(TRACKID, { id=>$row[0],
+                        artist=>$ar->GetName(),
                         albumid=>$al->GetId(),
+                        album=>$al->GetName(),
                         name=>$row[2], 
                         mbid=>$row[1],
                         tracklen=>$row[3],
-                        sim_track=>$namesim,
-                        sim_tracklen=>$lensim,
+                        tracknum=>$row[4]
                       });
        }
        $sql->Finish;
@@ -774,11 +788,12 @@ sub VariousArtistSearch
            my $thisname = lc(decode "utf-8", $al->GetName);
            return (ALBUMID, 
                              [ 
-                              $this->SetSim({ 
+                              $this->SetSim(ALBUMID, { 
                                  id=>$al->GetId(),
+                                 artist=>$ar->GetName(),
                                  mbid=>$al->GetMBId(), 
                                  name=>$al->GetName(),
-                                 sim_album=>similarity($thisname, $name)
+                                 albumtype=>Album::ALBUM_ATTR_COMPILATION
                                })
                              ]);
        }
@@ -791,10 +806,10 @@ sub VariousArtistSearch
        {
            my $thisname = lc(decode "utf-8", $row->{'albumname'});
 
-           push @ids, $this->SetSim({ id=>$row->{'albumid'},
+           push @ids, $this->SetSim(ALBUMID, { id=>$row->{'albumid'},
                         name=>$row->{'albumname'},
-                        mbid=>$row->{'albumgid'}, 
-                        sim_album=>similarity($thisname, $name) });
+                        mbid=>$row->{'albumgid'},
+                        albumtype=>Album::ALBUM_ATTR_COMPILATION });
        }
 
        @ids = sort { $b->{sim} <=> $a->{sim} } @ids;
@@ -805,4 +820,105 @@ sub VariousArtistSearch
 
    return (0, []);
 }
+
+my @weights = (
+#     ar    al    tr    tn     du         ar  al  tr  tn  du
+    [ 0.00, 0.00, 0.00, 0.00,  0.00 ], #  0   0   0   0   0
+    [ 0.00, 0.00, 0.00, 0.00,  0.95 ], #  0   0   0   0   1
+    [ 0.00, 0.00, 0.00, 0.95,  0.00 ], #  0   0   0   1   0
+    [ 0.00, 0.00, 0.00, 0.25,  0.70 ], #  0   0   0   1   1
+    [ 0.00, 0.00, 0.95, 0.00,  0.00 ], #  0   0   1   0   0
+    [ 0.00, 0.00, 0.75, 0.00,  0.20 ], #  0   0   1   0   1
+    [ 0.00, 0.00, 0.75, 0.20,  0.00 ], #  0   0   1   1   0
+    [ 0.00, 0.00, 0.65, 0.10,  0.20 ], #  0   0   1   1   1
+    [ 0.00, 1.00, 0.00, 0.00,  0.00 ], #  0   1   0   0   0
+    [ 0.00, 0.80, 0.00, 0.00,  0.20 ], #  0   1   0   0   1
+    [ 0.00, 0.80, 0.00, 0.20,  0.00 ], #  0   1   0   1   0
+    [ 0.00, 0.70, 0.00, 0.10,  0.20 ], #  0   1   0   1   1
+    [ 0.00, 0.50, 0.50, 0.00,  0.00 ], #  0   1   1   0   0
+    [ 0.00, 0.40, 0.40, 0.00,  0.20 ], #  0   1   1   0   1
+    [ 0.00, 0.45, 0.45, 0.10,  0.00 ], #  0   1   1   1   0
+    [ 0.00, 0.35, 0.35, 0.15,  0.15 ], #  0   1   1   1   1
+
+    [ 0.95, 0.00, 0.00, 0.00,  0.00 ], #  1   0   0   0   0
+    [ 0.75, 0.00, 0.00, 0.00,  0.20 ], #  1   0   0   0   1
+    [ 0.85, 0.00, 0.00, 0.10,  0.00 ], #  1   0   0   1   0
+    [ 0.60, 0.00, 0.00, 0.10,  0.25 ], #  1   0   0   1   1
+    [ 0.48, 0.00, 0.47, 0.00,  0.00 ], #  1   0   1   0   0
+    [ 0.43, 0.00, 0.42, 0.00,  0.10 ], #  1   0   1   0   1
+    [ 0.43, 0.00, 0.42, 0.10,  0.00 ], #  1   0   1   1   0
+    [ 0.38, 0.00, 0.37, 0.10,  0.10 ], #  1   0   1   1   1
+    [ 0.50, 0.50, 0.00, 0.00,  0.00 ], #  1   1   0   0   0
+    [ 0.45, 0.45, 0.00, 0.00,  0.10 ], #  1   1   0   0   1
+    [ 0.45, 0.45, 0.00, 0.10,  0.00 ], #  1   1   0   1   0
+    [ 0.40, 0.40, 0.00, 0.10,  0.10 ], #  1   1   0   1   1
+    [ 0.33, 0.33, 0.34, 0.00,  0.00 ], #  1   1   1   0   0
+    [ 0.30, 0.30, 0.30, 0.00,  0.10 ], #  1   1   1   0   1
+    [ 0.30, 0.30, 0.30, 0.10,  0.00 ], #  1   1   1   1   0
+    [ 0.25, 0.25, 0.25, 0.125, 0.125]  #  1   1   1   1   1
+);
+
+sub DurationSim
+{
+    my ($this, $trackA, $trackB) = @_;
+    my $diff;
+
+    $diff = abs($trackA - $trackB);
+    if ($diff > 30000)
+    {
+       return 0;
+    }
+
+    return 1.0 - ($diff / 30000);
+}
+
+sub MetadataCompare
+{
+    my ($this, $trackA, $trackB) = @_;
+    my $index = 0;
+    my %A = %{ $trackA };
+    my %B = %{ $trackB };
+
+    foreach (values %A)
+    {
+        $_ = lc(decode "utf-8", $_);
+    }
+    foreach (values %B)
+    {
+        $_ = lc(decode "utf-8", $_);
+    }
+ 
+    # If one of the two is completely empty of meaningful info, just return 0
+    return 0 if (($A{artist} eq '' && $A{album} eq '' && $A{track} eq '') ||
+                ($B{artist} eq '' && $B{album} eq '' && $B{track} eq ''));
+
+    $index |= 16 if ($A{artist} ne '' && $B{artist} ne '');
+
+    # If one album is blank, and the other is an album, copy it over to favor it.
+    $A{album} = $B{album} if ($A{album} eq '' && $B{album} ne '' && 
+                              $B{albumtype} == Album::ALBUM_ATTR_ALBUM);
+
+    # Now check the reverse case as well.
+    $B{album} = $A{album} if ($B{album} eq '' && $A{album} ne '' && 
+                              $A{albumtype} == Album::ALBUM_ATTR_ALBUM);
+
+    $index |= 8 if ($A{album} ne '' && $B{album} ne '');
+
+    $index |= 4 if ($A{track} ne '' && $B{track} ne '');
+
+    $index |= 2 if ($A{tracknum} != 0 && $B{tracknum} != 0);
+
+    $index |= 1 if ($A{duration} != 0 && $B{duration} != 0);
+
+    return 0 if ($index == 0);
+
+    my $w = $weights[$index];    
+
+    return (($$w[0] && $$w[0] * similarity($A{artist}, $B{artist}))      
+            + ($$w[1] && $$w[1] * similarity($A{album}, $B{album}))      
+            + ($$w[2] && $$w[2] * similarity($A{track}, $B{track}))      
+            + (($A{tracknum} == $B{tracknum}) ? $$w[3] : 0)      
+            + ($$w[4] && $$w[4] * DurationSim($A{duration}, $B{duration})));
+}
+
 1;

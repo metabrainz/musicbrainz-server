@@ -394,7 +394,7 @@ if ($flags & TaggerSupport::ARTISTLIST)
           <tr bgcolor="<% $bgcolor = ( $bgcolor eq '#ffffff' ? '#ffe1b7' : '#ffffff' ) %>">
              <td valign="top">&nbsp;<a href="/showartist.html?artistid=<% $id->{id} %>"
                  ><% $id->{name} %></a></td>
-             <td valign="top" align="center"><% int($id->{sim} * 100) %>%</td>
+             <td valign="top" align="center"><% int(($id->{sim} * 100) + .5) %>%</td>
              <td valign="top" align="right">
 %               $copy{artistid} = $id->{mbid};
 %               $copy{artist} = $id->{name};
@@ -464,7 +464,7 @@ elsif ($flags & TaggerSupport::ALBUMLIST)
                   width="30" height="11"
                   title="This album has <% $id->{album_trmids} %> TRM Ids">&nbsp;
              </td>
-             <td valign="top" align="center"><% int($id->{sim} * 100) %>%</td>
+             <td valign="top" align="center"><% int(($id->{sim} * 100) + .5) %>%</td>
              <td valign="top" align="right">
 %               $copy{albumid} = $id->{mbid};
 %               $copy{album} = $id->{name};
@@ -588,7 +588,7 @@ if ($duration and $id->{tracklen})
 % }
              <td valign="top" width="40%" rowspan="2"><a href="/showtrack.html?trackid=<% $id->{id} %>"><% $id->{name} %></a></td>
              <td valign="top" align="center" rowspan="2" class="tlen <% $tracklenclass %>"><% Track::FormatTrackLength($id->{tracklen}) %></td>
-             <td valign="top" align="center" rowspan="2"><% int($id->{sim} * 100) %>%</td>
+             <td valign="top" align="center" rowspan="2"><% int(($id->{sim}*100) + .5) %>%</td>
              <td valign="top" align="right" rowspan="2">
 %               $copy{trackid} = $id->{mbid};
 %               $copy{albumid} = $id->{albummbid};
