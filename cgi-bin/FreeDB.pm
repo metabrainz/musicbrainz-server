@@ -213,7 +213,7 @@ sub Retrieve
 {
     my ($this, $remote, $port, $query) = @_;
     my ($iaddr, $paddr, $proto, $line);
-    my (@response, $category, $i);
+    my (@response, $category, $i, $temp);
     my (@selection, @chars, @parts, @subparts);
     my ($artist, $title, %info, @track_titles, @tracks, @query);
     my ($disc_id, $first_track, @track_offsets, $seconds_in_cd); 
@@ -344,12 +344,14 @@ sub Retrieve
         {
             if ($artist eq "")
             {
-                ($artist, $title) = split '\/', $parts[1];
+                ($artist, $temp) = split '\/', $parts[1];
             }
             else
             {
-                $title = $parts[1];
+                $temp = $parts[1];
             }
+            $temp =~ s/^\s*(.*?)\s*$/$1/;
+            $title .= ($title eq '') ? $temp : " $temp";
             next;
         }
         @subparts = split '([0-9]+)', $parts[0];
