@@ -92,6 +92,7 @@ my @core = qw(
 	track
 	trm
 	trmjoin
+    clientversion
 	);
 
 my @derived = qw(
