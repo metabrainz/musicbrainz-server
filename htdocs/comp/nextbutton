@@ -1,7 +1,7 @@
 <td width="10%" align=right>
 
 % if ($ARGS{offset} + $ARGS{num} < $ARGS{rows}) {
-    <a href="/moderate.html?offset=<% $ARGS{offset} + $ARGS{num} %>">
+    <a href="/<% $ARGS{url} %>?offset=<% $ARGS{offset} + $ARGS{num} %>">
     <% $ARGS{text} %></a>
 % } else {
     <% $ARGS{text} %></a>

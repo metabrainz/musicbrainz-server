@@ -3,25 +3,36 @@
 my ($mb); 
 my ($albumid, $trackid); 
 
-$mb = new MusicBrainz;
-$mb->Login();
 
-mc_out("<font size=+1><b>Guid: $ARGS{guid}</b></font><p>");
-
-$trackid = $mb->GetTrackIdFromGUID($ARGS{guid});
-if ($trackid <= 0)
+if (!exists $ARGS{guid})
 {
-    mc_out("<p><b>This GUID was not found.</b><p>");
+    mc_out("This page needs a guid argument.");
 }
 else
 {
-    $albumid = $mb->GetAlbumFromTrackId($trackid);
-    mc_comp("comp/showalbum", 
-       mb=>$mb, 
-       albumid=>$albumid,
-       hilitetrack=>$trackid,
-       hilitecolor=>"#CCFFFF");
+   mc_out("<font size=+1><b>Guid: $ARGS{guid}</b></font><p>");
+   
+   $mb = new MusicBrainz;
+   $mb->Login();
+
+   $trackid = $mb->GetTrackIdFromGUID($ARGS{guid});
+   if ($trackid <= 0)
+   {
+       mc_out("<p>This GUID was not found in the main database.<p>");
+   }
+   else
+   {
+       $albumid = $mb->GetAlbumFromTrackId($trackid);
+       mc_comp("comp/showalbum", 
+          mb=>$mb, 
+          albumid=>$albumid,
+          hilitetrack=>$trackid,
+          hilitecolor=>"#CCFFFF");
+   }
+   mc_comp("/comp/title", title=>'Pending Metadata');
+   mc_comp("/comp/showpendingpage", offset=>0, guid=>$ARGS{guid});
+
+   $mb->Logout;
 }
 
 </%perl>
-

@@ -67,21 +67,15 @@ for($i = 0; ; $i++)
 </%perl>
 
 % if ($num_mods > $max_items) {
-
 <tr><td colspan=7 bgcolor=white>
-<table width="100%"><tr>
-<%perl>
-mc_comp("/comp/modlistprevbutton", offset=>$offset, 
-        text=>"< Prev", num=>$max_items);
-mc_comp("/comp/modlistprevbutton", offset=>$offset, 
-        text=>"<< Prev", num=>($max_items * 2));
-mc_out("<td width=\"40%\">&nbsp;</td>");
-mc_comp("/comp/modlistnextbutton", offset=>$offset,
-        text=>"Next >>", num=>($max_items * 2), rows=>$num_mods);
-mc_comp("/comp/modlistnextbutton", offset=>$offset,
-        text=>"Next >", num=>$max_items, rows=>$num_mods);
-</%perl>
-</tr></table>
+
+<& /comp/prevnextbuttons, 
+   url=>"moderate.html",
+   offset=>$offset,
+   itemsperpage=>$max_items,
+   totalitems=>$num_mods
+&>
+</td></tr>
 % }
 
 </table>

@@ -1,0 +1,27 @@
+<%args>
+$row
+</%args>
+
+<tr>
+   <td valign=top bgcolor=white>
+     <a href="/showguid.html?guid=<% $$row[0] %>"><% $$row[0] %></a>
+   </td>
+   <td valign=top bgcolor=white>
+     <% $$row[1] %>
+   </td>
+   <td valign=top bgcolor=white>
+     <% $$row[2] %>
+   </td>
+   <td valign=top bgcolor=white>
+     <% $$row[3] %>
+   </td>
+   <td valign=top bgcolor=white>
+     <% $$row[4] %>
+   </td>
+   <td valign=top bgcolor=white>
+     <% $$row[5] %>
+   </td>
+   <td valign=top bgcolor=white>
+     <% $$row[6] %>
+   </td>
+</tr>
