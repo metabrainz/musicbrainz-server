@@ -39,7 +39,7 @@ $ar->LoadFromId();
 
 $al = Album->new($mb->{DBH});
 
-my $eng = SearchEngine->new();
+my $eng = SearchEngine->new($mb->{DBH});
 $eng->Table("Album");
 $eng->AllWords(1);
 $eng->Search($search);

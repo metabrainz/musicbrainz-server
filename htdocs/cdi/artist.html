@@ -19,7 +19,7 @@ else
 {
     $mb = mc_comp("/comp/dblogin");
     $ar = Artist->new($mb->{DBH});
-    $eng = SearchEngine->new();
+    $eng = SearchEngine->new($mb->{DBH});
     $eng->Table("Artist");
     $eng->AllWords(1);
     $eng->Search($search);
