@@ -9,6 +9,9 @@ $url=>""
 
 <%perl>
 
+return $m->comp("/comp/redirect", "/search.html")
+	if $session{uid};
+
 if ($url eq '')
 {
    if (defined $r->headers_in->{'Referer'} &&
