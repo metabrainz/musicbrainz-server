@@ -97,6 +97,13 @@ sub Insert
          }
     } 
     $this->{id} = $artist;
+
+    # Add search engine tokens.
+    # TODO This should be in a trigger if we ever get a real DB.
+
+    my $engine = SearchEngine->new( { Table => 'Artist' } );
+    $engine->AddWordRefs($artist,$this->{name});
+
     return $artist;
 }
 
@@ -131,6 +138,8 @@ sub Remove
     }
   
     $sql->Do("delete from Artist where id = " . $this->GetId());
+
+    # TODO: Add code to remove references from artist words table
 
     return 1;
 }

@@ -25,4 +25,7 @@ The following people have contributed to the MusicBrainz server:
   Cedric Tefft <cedric@earthling.net>
   - some minor cleanup/install/doc changes
 
+  Kevin Murphy <kevin@eorbit.net>
+  - Wrote the new spiffy text search routines
+
 (please send change requests to rob@musicbrainz.org or maintainer)

@@ -7,29 +7,17 @@
   <& /comp/tablebegin, title=>'Search', attrs=>"align=left",
      gattrs=>"width=100%" &>
     <br>
-    For each of these searches, you may enter a few keywords that
-    appear in the title of the artist, album or track. The search
-    is case insensitive and partial keywords are ok. (e.g. 'Port' 
-    will match 'Portishead')
-%#
-%#  JOHAN: Deleted all special purpose search scripts and made 1 general one
-%#
-    <& /comp/searchbox, name=>'Artist Search',
-                        scripturl=>'/search_art.html',
-                        searchfield=>'artist' &>
-    <& /comp/searchbox, name=>'Album Search',
-                        scripturl=>'/search_alb.html',
-                        searchfield=>'album' &>
-    <& /comp/searchbox, name=>'Track Search',
-                        scripturl=>'/search_trk.html',
-                        searchfield=>'track' &>
+
+    <& /comp/textsearch, default=>'Artist' &>
+    <center>
+    <img src="/images/black_pixel.gif" width="250" height="1" alt="" border="0">
+    </center>
     <& /comp/searchbox, name=>'CD Index Id Lookup',
                         scripturl=>'/showalbum.html',
                         searchfield=>'diskid',
                         method=>'GET' &>
-    <br>
-    <br>
     &nbsp;
+    <br>
   <& /comp/tableend &>
 
   <& /comp/tablebegin, title=>'Site Search', attrs=>"align=left",
@@ -37,7 +25,7 @@
 
     <center>
     <FORM method=GET action=http://www.google.com/custom>
-    <TABLE bgcolor=#FFFFFF cellspacing=0 border=0>
+    <TABLE bgcolor=#FFFFFF cellspacing=0 border=0 width="200">
     <tr valign=top><td>
     <A HREF=http://www.google.com/search>
     <IMG SRC=http://www.google.com/logos/Logo_40wht.gif border=0 ALT=Google align=middle></A>

@@ -1,0 +1,57 @@
+<%args>
+$table => undef
+$search => undef
+$limit => undef
+$all_words => undef
+</%args>
+
+<%perl>
+use SearchEngine;
+if ( defined $table && defined $search)
+{
+    my $bgcolor= '#ffffff';
+    my $engine = SearchEngine->new;
+    $engine->Table($table);
+    $engine->AllWords($all_words);
+    $engine->Limit($limit) if $limit;
+    $engine->Search($search);
+</%perl>
+<& /comp/sidebar, title=>'Search Results' &>
+    <& /comp/tablebegin, title=>"Found" &>
+
+    <table border="0" cellspacing="0" cellpadding="4">
+        <tr>
+%    if ($table eq 'Album') {
+        <th>Album Title</th> <th>Artist</th>
+%    } elsif ($table eq 'Artist') {
+        <th>Artist Name</th>
+%    } elsif ($table eq 'Track') {
+        <th>Track Title</th><th>Artist Name</th>
+%    }
+        </tr>
+
+%   while ( my $row = $engine->NextRow ) {
+        <tr bgcolor="<% $bgcolor = ( $bgcolor eq '#ffffff' ? '#ffe1b7' : '#ffffff' ) %>">
+%       if ($engine->Table eq 'Album') {
+            <td><a href="/showalbum.html?albumid=<% $row->[0] %>"><% $row->[1] %></a></td> 
+            <td><a href="/showartist.html?artistid=<% $row->[2] %>"><% $row->[3] %></a></td> 
+%       } elsif ($engine->Table eq 'Artist') {
+            <td><a href="/showartist.html?artistid=<% $row->[0] %>"><% $row->[1] %></a></td> 
+%       } elsif ($engine->Table eq 'Track') {
+            <td><a href="/showtrack.html?trackid=<% $row->[0] %>"><% $row->[1] %></a></td> 
+            <td><a href="/showartist.html?artistid=<% $row->[2] %>"><% $row->[3] %></a></td> 
+%       }
+        </tr>
+%   }
+    </table>
+    <& /comp/tableend &>
+    <& /comp/tablebegin, title=>'Search Again', attrs=>"align=left", gattrs=>"width=100%" &>
+% } else {
+<& /comp/sidebar, title=>'Search' &>
+    <& /comp/tablebegin, title=>'Search', attrs=>"align=left", gattrs=>"width=100%" &>
+% }
+    <br>
+    <& /comp/textsearch &>
+    <br>
+    &nbsp;
+  <& /comp/tableend &>

@@ -339,6 +339,13 @@ sub Insert
     }
 
     $this->{id} = $track;
+
+    # Add search engine tokens.
+    # TODO This should be in a trigger if we ever get a real DB.
+
+    my $engine = SearchEngine->new( { Table => 'Track' } );
+    $engine->AddWordRefs($track,$this->{name});
+
     return $track;
 }
 
@@ -359,6 +366,8 @@ sub Remove
     $gu->RemoveByTrackId($this->GetId());
 
     $sql->Do("delete from Track where id = " . $this->GetId());
+
+    # TODO: Remove keywords from the keyword index
 
     return 1;
 }

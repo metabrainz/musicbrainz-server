@@ -1,0 +1,55 @@
+<FORM METHOD="GET" ACTION="/newsearch.html" ENCTYPE="application/x-www-form-urlencoded" class="formstyle">
+<center>
+<table border=0 width="250">
+  <tr>
+  <td colspan="2">
+  <b>Artist/Album/Track Search</b>
+  </td>
+  </tr>
+  <tr>
+  <td width="20%" align="right">
+    <img src="/images/pixel.gif" width="20" height="1" alt="" border="0">
+    Find 
+  </td>
+  <td width="80%">
+    <SELECT NAME="limit">
+        <OPTION VALUE="25">up to 25</OPTION>
+        <OPTION VALUE="50">up to 50</OPTION>
+        <OPTION VALUE="100">up to 100</OPTION>
+        <OPTION VALUE="">all</OPTION>
+    </SELECT>
+    <SELECT NAME="table">
+        <OPTION VALUE="Artist">artists</OPTION>
+        <OPTION VALUE="Album">albums</OPTION>
+        <OPTION VALUE="Track">tracks</OPTION>
+    </SELECT>
+  </td>
+  </tr>
+
+  <tr>
+  <td width="20%" align="right">
+    <img src="/images/pixel.gif" width="20" height="1" alt="" border="0">
+    containing
+  </td>
+  <td width="80%">
+    <SELECT NAME="all_words">
+        <OPTION VALUE="1">all the words</OPTION>
+        <OPTION VALUE="0">any of the words</OPTION>
+    </SELECT>
+  </td>
+  </tr>
+  <tr>
+  <td colspan="2">
+    <img src="/images/pixel.gif" width="20" height="1" alt="" border="0">
+    <INPUT TYPE="text" NAME="search" SIZE=30>
+  </td>
+  </tr>
+  <tr>
+  <td colspan="2" align="right">
+    <img src="/images/pixel.gif" width="20" height="1" alt="" border="0">
+    <INPUT TYPE="submit" NAME="Search" VALUE="Search"><br>
+  </td>
+</table>
+</center>
+
+</FORM>

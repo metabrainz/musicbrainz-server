@@ -34,6 +34,7 @@ use DBI;
 use DBDefs;
 use Artist;
 use Track;
+use SearchEngine;
 
 sub new
 {
@@ -77,6 +78,13 @@ sub Insert
     }
 
     $this->{id} = $album;
+
+    # Add search engine tokens.
+    # TODO This should be in a trigger if we ever get a real DB.
+
+    my $engine = SearchEngine->new( { Table => 'Album' } );
+    $engine->AddWordRefs($album,$this->{name});
+
     return $album;
 }
 
@@ -105,6 +113,8 @@ sub Remove
          }
          $sql->Finish;
     }
+
+    # TODO: Remove keywords from the keyword index
 
     return 1;
 }

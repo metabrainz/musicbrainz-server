@@ -238,6 +238,34 @@ sub CreateTables
     
     print "Created ArtistAlias table.\n";    
 
+    $dbh->do(qq| create table WordList (
+                   Id int auto_increment primary key,
+                   Word varchar(255) NOT NULL) |)
+       or die("Cannot create WordList table");
+    
+    print "Created WordList table.\n";    
+    
+    $dbh->do(qq| create table ArtistWords (
+                   Wordid int NOT NULL,
+                   Artistid int NOT NULL) |)
+          or die("Cannot create ArtistWords table");
+
+    print "Created ArtistWords table.\n";    
+    
+    $dbh->do(qq| create table AlbumWords (
+                   Wordid int NOT NULL,
+                   Albumid int NOT NULL) |)
+          or die("Cannot create AlbumWords table");
+
+    print "Created AlbumWords table.\n";    
+    
+    $dbh->do(qq| create table TrackWords (
+                   Wordid int NOT NULL,
+                   Trackid int NOT NULL) |)
+          or die("Cannot create TrackWords table");
+
+    print "Created TrackWords table.\n";    
+
     if (DBDefs->USE_LYRICS)
     {
        # create the Lyrics table.
@@ -381,13 +409,35 @@ sub CreateIndices
     $dbh->do(qq/alter table Votes add index UidIndex (Uid),
                                   add index RowidIndex (Rowid)/)
           or die("Could not add indices to Votes table");
+    print "Added indices to Votes table.\n";
 
     $dbh->do(qq/alter table ArtistAlias add unique index NameIndex (Name), 
                                          add index RefIndex (Ref)/)
           or die("Could not add indices to ArtistAlias table");
     print "Added indices to ArtistAlias table.\n";
+    
+    $dbh->do(qq/alter table WordList add unique index WordIndex (Word)/) 
+          or die("Could not add indices to WordList table");
+    print "Added indices to WordList table.\n";
 
-    print "Added indices to Votes table.\n";
+    $dbh->do(qq/alter table AlbumWords add index WordidIndex (Wordid),
+                                       add index AlbumidIndex (Albumid),
+                                       add unique index AlbumWordIndex (Wordid,Albumid)/)
+          or die("Could not add indices to AlbumWords table");
+    print "Added indices to AlbumWords table.\n";
+
+    $dbh->do(qq/alter table ArtistWords add index WordidIndex (Wordid),
+                                        add index ArtistidIndex (Artistid),
+                                        add unique index ArtistWordIndex (Wordid,Artistid)/)
+          or die("Could not add indices to ArtistWords table");
+    print "Added indices to ArtistWords table.\n";
+
+    $dbh->do(qq/alter table TrackWords  add index WordidIndex (Wordid),
+                                        add index TrackidIndex (Trackid),
+                                        add unique index TrackWordIndex (Wordid,Trackid)/)
+          or die("Could not add indices to TrackWords table");
+    print "Added indices to TrackWords table.\n";
+
 
     if (DBDefs->USE_LYRICS)
     {

@@ -1,9 +1,0 @@
-<FORM METHOD="POST" ACTION="/search_trk.html"
-      ENCTYPE="application/x-www-form-urlencoded" class="formstyle">
-<img src="/images/pixel.gif" width="20" height="1" alt="" border="0">
-<b>Track Search</b><br>
-<img src="/images/pixel.gif" width="20" height="1" alt="" border="0">
-<INPUT TYPE="text" NAME="track" SIZE=15><br>
-<img src="/images/pixel.gif" width="20" height="1" alt="" border="0">
-<INPUT TYPE="submit" NAME="Search" VALUE="Search"><br>
-</form>  
