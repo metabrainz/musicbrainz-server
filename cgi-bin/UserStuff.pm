@@ -40,10 +40,19 @@ use URI::Escape;
 use CGI::Cookie;
 use Digest::SHA1 qw(sha1_base64);
 use Carp;
+use String::Unicode::Similarity;
+use Encode qw( decode );
 
 use constant AUTOMOD_FLAG => 1;
 use constant BOT_FLAG => 2;
 use constant UNTRUSTED_FLAG => 4;
+
+use constant SEARCHRESULT_SUCCESS => 1;
+use constant SEARCHRESULT_NOQUERY => 2;
+use constant SEARCHRESULT_TIMEOUT => 3;
+
+use constant DEFAULT_SEARCH_TIMEOUT => 30;
+use constant DEFAULT_SEARCH_LIMIT => 0;
 
 sub GetPassword			{ $_[0]{password} }
 sub SetPassword			{ $_[0]{password} = $_[1] }
@@ -106,6 +115,55 @@ sub newFromName
 			$name,
 		),
 	);
+}
+
+sub coalesce
+{
+    my $t = shift;
+
+    while (not defined $t and @_)
+    {
+	$t = shift;
+    }
+
+    $t;
+}
+
+sub search
+{
+	my ($this, %opts) = @_;
+	my $sql = Sql->new($this->{DBH});
+
+    my $query = coalesce($opts{'query'}, "");
+    my $limit = coalesce($opts{'limit'}, DEFAULT_SEARCH_LIMIT, 0);
+
+	$query =~ /\S/ or return SEARCHRESULT_NOQUERY;
+
+	my @u = map { $this->_new_from_row($_) }
+		@{
+			$sql->SelectListOfHashes(
+				"SELECT * FROM moderator WHERE name ILIKE ?"
+					. " ORDER BY name"
+					. ($limit ? " LIMIT $limit" : ""),
+				'%'.$query.'%',
+			),
+		};
+
+	return (SEARCHRESULT_SUCCESS, [])
+		unless @u;
+	
+	$query = lc(decode "utf-8", $query);
+
+	@u = map { $_->[0] }
+		sort { $b->[2] <=> $a->[2] or $a->[1] cmp $b->[1] }
+		map {
+			my $u = $_;
+			my $name = lc(decode "utf-8", $u->GetName);
+			my $sim = similarity($name, $query);
+			[ $u, $name, $sim ];
+		} @u;
+
+	(SEARCHRESULT_SUCCESS, \@u);
 }
 
 sub Current
