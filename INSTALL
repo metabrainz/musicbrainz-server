@@ -185,12 +185,14 @@ Installation:
    sure Postgres is running, then run the "InitDb" script, passing
    it the names of the "dump" files you just downloaded:
 
-	./admin/InitDb.pl --createdb --import mbdump*.tar.bz2
+	./admin/InitDb.pl --createdb --echo --import mbdump*.tar.bz2
 
    When run in this way, the script should do everything, including creating
-   the database for you.  As a rough guide, on my Athlon 800MHz box it takes
-   about 2 hours to run this step, creating and loading a full database.
-   Don't be surprised if this takes a while.
+   the database for you.  As a rough guide, on my Athlon 2500+ box it takes
+   about 90 minutes to run this step, creating and loading a full database.
+   Recent tests suggest that on Postgres 7.4.1 it's MUCH faster - about 35
+   minutes for me.  Of course, if you don't need to import all the data (say,
+   only need the core tables), then that'll help too.
 
 6) Configure Apache to use Mason.  In the admin directory you will find
    the vh_httpd.conf file, which is a VirtualHost fragment for Apache's
