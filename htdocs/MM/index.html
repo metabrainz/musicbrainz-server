@@ -1,6 +1,6 @@
 <html>
 <head>
-  <title>MusicBrainz Metadata Initiative</title></head>
+  <title>MusicBrainz Metadata Initiative 2.0</title></head>
 </head>
 
 <body BGCOLOR="#FFFFE7">
@@ -12,41 +12,39 @@
 <TR><TD WIDTH="2%" BGCOLOR="#FFFFCC">&nbsp;</TD>
 <TD WIDTH="96%" VALIGN="TOP" BGCOLOR="#FFFFCC"><BR>
 
-<font size=+2><center>MusicBrainz Metadata Initiative</center></font>
+<center>
+<font size=+2>MusicBrainz Metadata Initiative 2.0</font><br>
+Last revision: 9-21-2001 by <a href="mailto:rob@eorbit.net">Mayhem &amp; 
+Chaos</a>
+</center>
 <p>
+
+<table>
+<tr><td>&nbsp;&nbsp;&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; </td><td>
+<font size=+1 color="red">NOTE:</font> If you're from the RDF/DC community
+and would like to help out with the MusicBrainz specification, please
+<a href="http://www.freeamp.org/pipermail/musicbrainz/2001-May/000871.html">read this post</a> for some background information and the current issues at hand.
+<tr><td>&nbsp;&nbsp;&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; </td><td>
+</tr>
+</table>
 
 <font size=+2 color=990000>Table of Contents</font><p>
 
 <ul>
 <li><a href="#intro">Introduction</a>
-<li><a href="#elements">MusicBrainz Elements</a>
-<li><a href="#dcqualifiers">MusicBrainz Qualifiers for Dublin Core Elements</a>
-<li><a href="#mmqualifiers">MusicBrainz Qualifiers</a>
-<li><a href="#roles">Suggested list of roles for Role qualifier</a>
-<li><a href="#id3">ID3 to MusicBrainz Metadata Quick Reference</a>
+<li><a href="#protocol">General Protocol Definition</a>
+<li><a href="#cdmp">Compact Disk Lookup Namespace</a>
+<li><a href="#mm">MusicBrainz Metadata Namespace</a>
+<li><a href="#mq">MusicBrainz Query Namespace</a>
+<li><a href="#mem">MusicBrainz Extended Metadata Namespace</a>
 </ul>
 
 <a name="intro"></a>
 <font size=+2 color=990000>Introduction</font><p>
 
-<table>
-<tr><td> &nbsp; &nbsp; &nbsp;</td><td>
-<font size=+1 color="red">IMPORTANT NOTE:</font> It has been pointed out
-that this specification has some RDF compatibility issues. A new mailing
-list has been formed to discuss what changes need to be made in order for
-this initiative to be completely RDF compliant.  If you are interested in
-using MM for your project, please consider joining the 
-<a href="/list.html">mailing list</a>. The <a href="/list.html">mailing
-list archive</a> may also be useful.<br>
-Check out the <a href="/MM/mm2.html">_rough_ draft of the MM version 2</a>. If you're with the RDF/DC
-community and would like to help out, please start here!
-</td><td> &nbsp; &nbsp; &nbsp;</td>
-</tr>
-</table>
-
 <p>
 
-The MusicBrainz Metadata initiative is designed to create a portable
+The MusicBrainz Metadata Initiative is designed to create a portable
 and flexible means of storing and exchanging metadata related to digital
 audio and video tracks. The MusicBrainz Metadata Initiative is a content 
 description model for audio and video tracks on the Internet.
@@ -64,836 +62,620 @@ be in the MM/Dublin Core RDF format. Furthermore, this format will hopefully
 be used by the Open Source audio codec <a href="http://www.vorbis.com">
 Vorbis</a> to store audio/video metadata with the audio/video tracks.
 
+<p>This initiative defines the following four namespaces:
+
+<center>
+<table border="1">
+<tr><th>Namespace</th>
+<th>Namespace URI</th></tr>
+<tr><td>cdmp</td>
+<td>http://musicbrainz.org/mm/cdmp-1.0#</td></tr>
+<tr><td>mm</td>
+<td>http://musicbrainz.org/mm/mm-2.0#</td></tr>
+<tr><td>mq</td>
+<td>http://musicbrainz.org/mm/mq-1.0#</td></tr>
+<tr><td>mem</td>
+<td>http://musicbrainz.org/mm/mem-1.0#</td></tr>
+</table>
+</center>
+
+<p>The namespace abbreviations (cdmp, mm, mq, mem) will be used throughout
+the remainder of this document, to refer to the namespaces defined above.
+
+
 <p>If you have any feedback/comments/gripes/requests regarding this
-proposal, please <a href="mailto:rob@emusic.com">let me know</a>.
+proposal, please join the <a href="http://www.freeamp.org/mailman/listinfo/mm">MM Mailing list</a> and post your feedback.
 
 <p>
-[<a href="examples.html">MusicBrainz RDF Examples</a>]
-[<a href="http://www.w3.org/RDF">RDF Information</a>]
-[<a href="http://www.purl.org/DC">Dublin Core Home Page</a>]
-[<a href="http://purl.org/DC/documents/rec/dcmes-qualifiers-20000711.htm">
-Dublin Core Qualifiers</a>]
+[<a href="mm2_examples.html">MusicBrainz RDF Examples</a> |
+<a href="cdmp_examples.html">Compact Disk Lookup RDF Examples</a> |
+<a href="http://www.w3.org/RDF">RDF Information</a> |
+<a href="http://www.purl.org/DC">Dublin Core Home Page</a>]
 <p>
 
-<a name="elements"></a>
-<font size=+2 color=990000>MusicBrainz Elements</font>
-<p>
-The following six attributes are common to all the elements:
+<a name="protocol"></a>
+<font size=+2 color=990000>General Protocol Definition</font><p>
 
-<pre>
-   Version:                1.0-pre3 
-   Registration Authority: MusicBrainz Metadata Initiative
-   Language:               en
-   Obligation:             Optional
-   Datatype:               Character String
-   Maximum Occurrence:     Unlimited
-</pre>
-
-<b>Note:</b> The Album element has been removed. Instead a DC:Relation
-element should be used in its place. Please check out the 
-<a href="examples.html">examples</a> for an example.<p>
-
-<h3>Element: Comment</h3><p>
-<pre>
-   Name:        Comment
-   Identifier:  Comment
-   Definition:  Any comments that relate to this resource.
-   Comment:     
-</pre>
-
-<h3>Element: Lyrics</h3><p>
-<pre>
-   Name:        Lyrics
-   Identifier:  Lyrics
-   Definition:  Used to store the complete text lyrics to a track.
-   Comment:     This should not be used for time sync lyrics.
-</pre>
-
-<h3>Element: SyncEvents</h3> <p>
-<pre>
-   Name:        SyncEvents
-   Identifier:  SyncEvents
-   Definition:  Used to create time synchronized events
-   Comment:     SyncEvents should use a Sequence of SyncText property types
-                to create time synced lyrics.
-</pre>
-
-<h3>Element: SyncText</h3> <p>
-<pre>
-   Name:        SyncText
-   Identifier:  SyncText
-   Definition:  Used to specify a piece of text as part of a stream of 
-                synchronized lyrics.
-   Comment:     SyncEvents should use a Sequence of SyncText property types
-                to create time synced lyrics.
-</pre>
-
-<h3>Element: Signature</h3><p>
-<pre>
-   Name:        Signature 
-   Identifier:  Signature 
-   Definition:  Contains a digital signature that establishes the authenticity
-                of this track.
-   Comment:     
-</pre>
-
-<h3>Element: Link</h3><p>
-<pre>
-   Name:        Link 
-   Identifier:  Link 
-   Definition:  Contains a URI to a web page that relates to this resource.
-   Comment:     There are a number of qualifiers that further refine what
-                the type of Link. 
-</pre>
-
-<h3>Element: PurchaseInfo</h3><p>
-<pre>
-   Name:        PurchaseInfo 
-   Identifier:  PurchaseInfo 
-   Definition:  Contains a URI to a page where this track can be purchased.
-   Comment:     
-</pre>
-
-<h3>Element: Genre</h3><p>
-<pre>
-   Name:        Genre 
-   Identifier:  Genre 
-   Definition:  Contains the musical Genre that applies to an audio track
-   Comment:     
-</pre>
-
-<h3>Element: TrackNum</h3><p>
-<pre>
-   Name:        Track Number
-   Identifier:  TrackNum 
-   Definition:  Identifies the track sequence number. 
-   Comment:     Applicable to tracks that are published as parts of a collection.
-</pre>
+The metadata queries defined here are carried over the <a
+href="http://www.w3.org/Protocols/rfc2616/rfc2616.html">HTTP/1.1</a>
+protocol. By using the HTTP/1.1 protocol, the metadata query system
+can take advantage of existing HTTP implementations and pass
+through firewalls without any special considerations. 
 
 <p>
-<a name="dcqualifiers"></a>
-<font size=+2 color=990000>MusicBrainz Qualifiers for Dublin Core Elements</font>
-<p>
-The following list of qualifiers defines a custom set of qualifiers which
-extends the base set of qualifiers defined in the
-<a href="http://purl.org/DC/documents/rec/dcmes-qualifiers-20000711.htm">
-Dublin Core Qualifiers</a> recommendation.
-
-<p><b><font color="#003366">Contributor</font></b><br>
-The qualifiers below are recommended for the Contributor element.</p>
-
-<p><b>Qualifiers that refine <i>Contributor</i>:</b></p>
-<blockquote> 
-  <p><b>Role</b></p>
-  <blockquote> 
-    <p><b>Name:</b> Role<br>
-    <b>Label:</b> role<br>
-    <b>Definition:</b>
-    Defines a broad role carried out by a contributor. Use the Role Detail
-    qualifier to further refine this broad role.<br>
-    <b>Comment:</b>
-    See the <a href="#roles">
-    suggested role list</a> for a list of available roles and role details.
-    
-    </p>
-  </blockquote>
-
-  <p><b>Role Detail</b></p>
-  <blockquote> 
-    <p><b>Name:</b> Role Detail<br>
-    <b>Label:</b> roleDetail<br>
-    <b>Definition:</b>
-    This qualifier gives more detail for a role.
-    <br>
-    <b>Comment:</b>
-    See the <a href="#roles">
-    suggested role list</a> for a list of available roles and role details.
-    </p>
-  </blockquote>
-</blockquote>
-<p><b><font color="#003366">Description</font></b><br>
-The qualifiers below are recommended for the Description element.</p>
-
-<p><b>Qualifiers that refine <i>Description</i>:</b></p>
-<blockquote> 
-  <p><b>Cover Information</b></p>
-  <blockquote> 
-    <p><b>Name:</b> Cover Information<br>
-    <b>Label:</b> coverInfo<br>
-    <b>Definition:</b>If this track is a cover of another song, this qualifier
-    should specify the name of the covered song.
-    <br>
-    <b>Comment:</b>
-    </p>
-  </blockquote>
-
-  <p><b>Remix Information</b></p>
-  <blockquote> 
-    <p><b>Name:</b> Remix Information<br>
-    <b>Label:</b> remixInfo<br>
-    <b>Definition:</b>If this track is a remix of another song, this qualifier
-    should specifiy the name of the remix.
-    <br>
-    <b>Comment:</b>Example: DJ Moodswing Remix
-    </p>
-  </blockquote>
-
-  <p><b>Recorded At</b></p>
-  <blockquote> 
-    <p><b>Name:</b> Recorded At<br>
-    <b>Label:</b> recordedAt<br>
-    <b>Definition:</b>Defines where this track was recorded. 
-    <br>
-    <b>Comment:</b>
-    This should usually specify a recoding studio or a concert venue.
-    </p>
-  </blockquote>
-
-  <p><b>Mastered At</b></p>
-  <blockquote> 
-    <P><b>Name:</b> Mastered At<br>
-    <b>Label:</b> masteredAt<br>
-    <b>Definition:</b> Defines where this track was mastered.
-    <br>
-    <b>Comment:</b>
-    This should usually specify a recoding studio.
-    </p>
-  </blockquote>
-
-  <p><b>Primary Key</b></p>
-  <blockquote> 
-    <p><b>Name:</b> Primary Key<br>
-    <b>Label:</b> primaryKey<br>
-    <b>Definition:</b>Indicates the primary key used for this piece of
-                      classical music.
-    <br>
-    <b>Comment:</b>
-    </p>
-  </blockquote>
-
-  <p><b>Member Of Subpart</b></p>
-  <blockquote> 
-    <p><b>Name:</b> Member Of Subpart<br>
-    <b>Label:</b> memberOfSubpart<br>
-    <b>Definition:</b>This indicates that this track belongs to a collection 
-                      of related tracks.
-    <br>
-    <b>Comment:</b> In Wagner's 'Tristan und Isolde' several tracks make up Act I and memberOfSubpart can be used to indicate to which act this track belongs.
-    </p>
-  </blockquote>
-
-  <p><b>Opus</b></p>
-  <blockquote> 
-    <p><b>Name:</b> Opus<br>
-    <b>Label:</b> opus<br>
-    <b>Definition:</b>Indicates the Opus number for this classical work.
-    <br>
-    <b>Comment:</b>This field should also be used for non-opus serialilization
-    schemes used by other composers.
-    </p>
-  </blockquote>
-</blockquote>
-
-
-
-<p><b><font color="#003366">Format</font></b><br>
-The qualifiers below are recommended for the Format element.</p>
-
-<p><b>Qualifiers that refine <i>Format</i>:</b></p>
-<blockquote> 
-
-  <p><b>Duration</b></p>
-  <blockquote> 
-    <p><b>Name:</b> Duration<br>
-    <b>Label:</b> duration<br>
-    <b>Definition:</b>The duration of this track in milliseconds.
-    <br>
-    <b>Comment:</b>Use the DC:Format qualifier extent to define the
-                   size of the file in bytes.
-    </a>
-  </blockquote>
-</blockquote>
-
-<p><b><font color="#003366">Relation</font></b><br>
-The qualifiers below are recommended for the Relation element.</p>
-
-<p><b>Qualifiers that refine <i>Relation</i>:</b></p>
-<blockquote> 
-
-  <p><b>Album</b></p>
-  <blockquote> 
-    <p><b>Name:</b> Album<br>
-    <b>Label:</b> album<br>
-    <b>Definition:</b> Specifies a relation to MM:Collection (album/playlist) 
-                       information about this track.
-    <b>Comment:</b> This Relation should be used when making a reference
-                    to an album. Use MM:Collection to actually define an
-                    album. This element can be used to define a rich
-                    playlist as well.
-    </p>
-  </blockquote>
-
-  <p><b>Parts In Set</b></p>
-  <blockquote> 
-    <p><b>Name:</b> Parts In Set<br>
-    <b>Label:</b> partsInSet<br>
-    <b>Definition:</b>This qualifier specifies the number of parts in a
-    set of music. To specify a set that has 5 parts, this qualifier 
-    should contain the digit 5.
-    <br>
-    <b>Comment:</b>To specify the part of set number, use the DC:Relation
-    Part Of Set qualifier. To specify a CD that is part 2 of 5 use:
-      <DC:Relation isPartOf="2" partsInSet="5"/>
-    </p>
-  </blockquote>
-
-  <p><b>Biography</b></p>
-  <blockquote> 
-    <p><b>Name:</b> Biography<br>
-    <b>Label:</b> biography<br>
-    <b>Definition:</b> Specifies a relation to a Creator biography.<br>
-    <b>Comment:</b> A separate RDF description should be used 
-    </p>
-  </blockquote>
-
-</blockquote>
-
-
-<p><b><font color="#003366">Identifier</font></b><br>
-The qualifiers below are recommended for the Identifier element.</p>
-
-<p><b>Qualifiers that refine <i>Identifier</i>:</b></p>
-<blockquote> 
-  <p><b>GUID</b></p>
-  <blockquote> 
-    <p><b>Name:</b> GUID<br>
-    <b>Label:</b> guid<br>
-    <b>Definition:</b>The global unique identifier assigned to this
-       track by the <a href="http://www.relatable.com">Relatable</a> 
-       audio signature server.
-    <br>
-    <b>Comment:</b>
-    </p>
-  </blockquote>
-
-  <p><b>CD ID</b></p>
-  <blockquote> 
-    <p><b>Name:</b> CD Id<br>
-    <b>Label:</b> cdid<br>
-    <b>Definition:</b>
-    The ID of the source CD as defined by the CDIndex or CDDB.
-    <br>
-    <b>Comment:</b>
-    This applies only to Audio CDs.
-    </p>
-  </blockquote>
-
-  <p><b>ISRC</b></p>
-  <blockquote> 
-    <p><b>Name:</b> ISRC<br>
-    <b>Label:</b> isrc<br>
-    <b>Definition:</b>
-    Contains the International Standard Recording Code for this audio track.
-    <br>
-    <b>Comment:</b>
-    </p>
-  </blockquote>
-
-  <p><b>UPC</b></p>
-  <blockquote> 
-    <p><b>Name:</b> UPC<br>
-    <b>Label:</b> upc<br>
-    <b>Definition:</b>
-    This is used to define the UPC code for this physical piece of media.
-    <br>
-    <b>Comment:</b>
-    </p>
-  </blockquote>
-
-  <p><b>Artist ID</b></p>
-  <blockquote> 
-    <p><b>Name:</b> Artist ID<br>
-    <b>Label:</b> artistId<br>
-    <b>Definition:</b>
-    This qualifier contains the CD Index/MusicBrainz unique Artist Id.
-    <br>
-    <b>Comment:</b>
-    </p>
-  </blockquote>
-
-  <p><b>Album ID</b></p>
-  <blockquote> 
-    <p><b>Name:</b> Album ID<br>
-    <b>Label:</b> albumId<br>
-    <b>Definition:</b>
-    This qualifier contains the CD Index/MusicBrainz unique Album Id.
-    <br>
-    <b>Comment:</b>
-    </p>
-  </blockquote>
-
-  <p><b>Track ID</b></p>
-  <blockquote> 
-    <p><b>Name:</b> Track ID<br>
-    <b>Label:</b> trackId<br>
-    <b>Definition:</b>
-    This qualifier contains the CD Index/MusicBrainz unique Track Id.
-    <br>
-    <b>Comment:</b>
-    </p>
-  </blockquote>
-
-  <p><b>Label Album ID</b></p>
-  <blockquote> 
-    <p><b>Name:</b> Label Album ID<br>
-    <b>Label:</b> labelAlbumId<br>
-    <b>Definition:</b>
-    This qualifier contains a label (recording company) specific album identifier.
-    <br>
-    <b>Comment:</b>
-    </p>
-  </blockquote>
-
-</blockquote>
-
-
-<p><b><font color="#003366">Rights</font></b><br>
-The qualifiers below are recommended for the Rights element.</p>
-
-<p><b>Qualifiers that refine <i>Rights</i>:</b></p>
-<blockquote> 
-  <p><b>Trademark</b></p>
-  <blockquote> 
-    <p><b>Name:</b> Trademark<br>
-    <b>Label:</b> trademark<br>
-    <b>Definition:</b>
-    Contains rights information relating to any trademarks associated with
-    the track.
-    <br>
-    <b>Comment:</b>
-    </p>
-  </blockquote>
-
-  <p><b>Licensee</b></p>
-  <blockquote> 
-    <p><b>Name:</b> Licensee<br>
-    <b>Label:</b> licensee<br>
-    <b>Definition:</b>
-    Contains licensee related rights information.
-    <br>
-    <b>Comment:</b>
-    </p>
-  </blockquote>
-
-  <p><b>Terms Of Use</b></p>
-  <blockquote> 
-    <p><b>Name:</b> Terms Of Use<br>
-    <b>Label:</b> termsOfUse<br>
-    <b>Definition:</b>
-    Contains a terms of use description for this track.
-    <br>
-    <b>Comment:</b>
-    </p>
-  </blockquote>
-
-  <p><b>Lyrics</b></p>
-  <blockquote> 
-    <p><b>Name:</b> Lyrics<br>
-    <b>Label:</b> lyrics<br>
-    <b>Definition:</b>
-    Contains lyrical rights information about this track.
-    <br>
-    <b>Comment:</b>
-    </p>
-  </blockquote>
-
-  <p><b>Mechanical</b></p>
-  <blockquote> 
-    <p><b>Name:</b> Mechanical<br>
-    <b>Label:</b> mechanical<br>
-    <b>Definition:</b>
-    Contains mechanical rights information about this track.
-    <br>
-    <b>Comment:</b>
-    </p>
-  </blockquote>
-
-  <p><b>Performance</b></p>
-  <blockquote> 
-    <p><b>Name:</b> Performance<br>
-    <b>Label:</b> performance<br>
-    <b>Definition:</b>
-    Contains performance rights information about this track.
-    <br>
-    <b>Comment:</b>
-    </p>
-  </blockquote>
-
-  <p><b>Publisher</b></p>
-  <blockquote> 
-    <p><b>Name:</b> Publisher<br>
-    <b>Label:</b> publisher<br>
-    <b>Definition:</b>
-    Contains publisher information about this track.
-    <br>
-    <b>Comment:</b>
-    </p>
-  </blockquote>
-</blockquote>
+A MM enabled server must implement HTTP/1.1 fully, unless otherwise
+noted in this document. Furthermore, an MM server should listen for 
+requests on port 80, following the standard HTTP convention to allow the 
+metadata requests to flow across firewalls unhindered.
 
 <p>
-<a name="mmqualifiers"></a>
-<font size=+2 color=990000>MusicBrainz Qualifiers</font>
+<font size="+1">Character Encodings</font>
 <p>
 
-The following list of qualifiers defines the qualifiers to be used with
-the Musicbrainz Metadata elements:
-
-
-<p><b><font color="#003366">Collection</font></b><br>
-The qualifiers below are recommended for the Collection element.</p>
-
-<p><b>Qualifiers that refine <i>Collection</i>:</b></p>
-<blockquote> 
-  <p><b>Type</b></p>
-  <blockquote> 
-    <p><b>Name:</b> Type<br>
-    <b>Label:</b> type<br>
-    <b>Definition:</b>This defines the type of collection that is being
-    defined.
-    <br>
-    <b>Comment:</b>Predefined values include: album and playlist
-    </p>
-  </blockquote>
-
-  <p><b>NumParts</b></p>
-  <blockquote> 
-    <p><b>Name:</b> NumParts<br>
-    <b>Label:</b> numParts<br>
-    <b>Definition:</b>Qualifies the number of items in the collection.
-    <br>
-    <b>Comment:</b>
-    </p>
-  </blockquote>
-
-  <p><b>Label</b></p>
-  <blockquote> 
-    <p><b>Name:</b> Label<br>
-    <b>Label:</b> label<br>
-    <b>Definition:</b>Indicates the label (recoding company) that released
-        this collection (album).
-    <br>
-    <b>Comment:</b>
-    </p>
-  </blockquote>
-
-</blockquote>
-
-<p><b><font color="#003366">Link</font></b><br>
-The qualifiers below are recommended for the Link element.</p>
-
-<p><b>Qualifiers that refine <i>Link</i>:</b></p>
-<blockquote> 
-  <p><b>Creator</b></p>
-  <blockquote> 
-    <p><b>Name:</b> Creator<br>
-    <b>Label:</b> creator<br>
-    <b>Definition:</b>
-    This qualifier specifies a URI to the Creators web page.
-    <br>
-    <b>Comment:</b>
-    </p>
-  </blockquote>
-
-  <p><b>Copyright</b></p>
-  <blockquote> 
-    <p><b>Name:</b> Copyright<br>
-    <b>Label:</b> copyright<br>
-    <b>Definition:</b>
-    This qualifier specifies a URI to the copyright holder's web page. 
-    <br>
-    <b>Comment:</b>
-    </p>
-  </blockquote>
-
-  <p><b>Album</b></p>
-  <blockquote> 
-    <p><b>Name:</b> Album<br>
-    <b>Label:</b> album<br>
-    <b>Definition:</b>
-    This qualifier specifies a URI to a web page that has details about
-    this album.
-    <br>
-    <b>Comment:</b>
-    </p>
-  </blockquote>
-
-  <p><b>Track</b></p>
-  <blockquote> 
-    <p><b>Name:</b> Track<br>
-    <b>Label:</b> track<br>
-    <b>Definition:</b>
-    This qualifier specifies a URI to a web page that has details about
-    this track.
-    <br>
-    <b>Comment:</b>
-    </p>
-  </blockquote>
-
-  <p><b>Purchase</b></p>
-  <blockquote> 
-    <p><b>Name:</b> Purchase<br>
-    <b>Label:</b> purchase<br>
-    <b>Definition:</b>
-    This qualifier specifies a URI to a web page where this resource can
-    be purchased.
-    <br>
-    <b>Comment:</b>
-    </p>
-  </blockquote>
-
-  <p><b>Cover</b></p>
-  <blockquote> 
-    <p><b>Name:</b> Cover<br>
-    <b>Label:</b> cover<br>
-    <b>Definition:</b>
-    This qualifier specifies a URI to the metadata that relates to the
-    track that is being covered.
-    <br>
-    <b>Comment:</b>
-    </p>
-  </blockquote>
-
-  <p><b>Remix</b></p>
-  <blockquote> 
-    <p><b>Name:</b> Remix<br>
-    <b>Label:</b> remix<br>
-    <b>Definition:</b>
-    This qualifier specifies a URI to the metadata that relates to the
-    track that is being remixed.
-    <br>
-    <b>Comment:</b>
-    </p>
-  </blockquote>
-
-  <p><b>AlbumArt</b></p>
-  <blockquote> 
-    <p><b>Name:</b> AlbumArt<br>
-    <b>Label:</b> albumArt<br>
-    <b>Definition:</b>
-    This qualifier specifies a URI to the cover art for this album.
-    <br>
-    <b>Comment:</b>
-    </p>
-  </blockquote>
-
-  <p><b>ArtistArt</b></p>
-  <blockquote> 
-    <p><b>Name:</b> ArtistArt<br>
-    <b>Label:</b> artistArt<br>
-    <b>Definition:</b>
-    This qualifier specifies a URI to the cover art for this artist.
-    <br>
-    <b>Comment:</b>
-    </p>
-  </blockquote>
-
-  <p><b>TrackArt</b></p>
-  <blockquote> 
-    <p><b>Name:</b> TrackArt<br>
-    <b>Label:</b> trackArt<br>
-    <b>Definition:</b>
-    This qualifier specifies a URI to the cover art for this track.
-    <br>
-    <b>Comment:</b>
-    </p>
-  </blockquote>
-
-  <p><b>TrackVideo</b></p>
-  <blockquote> 
-    <p><b>Name:</b> TrackVideo<br>
-    <b>Label:</b> trackVideo<br>
-    <b>Definition:</b>
-    This qualifier specifies a URI to the video for this track.
-    <br>
-    <b>Comment:</b>
-    </p>
-  </blockquote>
-</blockquote>
-
-<p><b><font color="#003366">PurchaseInfo</font></b><br>
-The qualifiers below are recommended for the PurchaseInfo element.</p>
-
-<p><b>Qualifiers that refine <i>PurchaseInfo</i>:</b></p>
-<blockquote> 
-  <p><b>Price</b></p>
-  <blockquote> 
-    <p><b>Name:</b> Price<br>
-    <b>Label:</b> price<br>
-    <b>Definition:</b>
-    Specifies the price for this track. The data in this field should
-    be a number with two decimal places followed by a three letter 
-    currency code as specified by ISO 4217.
-    <br>
-    <b>Comment:</b>
-    Example: "1.29 USD" or "7.99 NLG"
-    </p>
-  </blockquote>
-
-  <p><b>PaymentTerms</b></p>
-  <blockquote> 
-    <p><b>Name:</b> PaymentTerms<br>
-    <b>Label:</b> paymentTerms<br>
-    <b>Definition:</b>
-    Specifies what forms of payment the the terms of payment that
-    accepted by the seller of this track.
-    <br>
-    <b>Comment:</b>
-    </p>
-  </blockquote>
-</blockquote>
-
-<p><b><font color="#003366">SyncText</font></b><br>
-The qualifiers below are recommended for the SyncText element.</p>
-
-<p><b>Qualifiers that refine <i>SyncText</i>:</b></p>
-<blockquote> 
-  <p><b>Timestamp</b></p>
-  <blockquote> 
-    <p><b>Name:</b> Timestamp<br>
-    <b>Label:</b> ts<br>
-    <b>Definition:</b>
-    This field carries a timestamp value specified in milliseconds or in 
-    SMPTE time codes.
-    <br>
-    <b>Comment:</b>
-    Timestamp values specified as a single number or millisecond timestamps.
-    Timestamps in the format ##:##:##:## are in the SMPTE format.
-    </p>
-  </blockquote>
-</blockquote>
-
-<p><a name="roles"></a>
-<font size=+2 color=990000>Suggested list of roles for role qualifier</font>
-<p>
-
-The following table defines the base roles that should be used in the
-role qualifier for the Creator element. The role should be a fairly
-general classification, and the roleDetail qualifier should be used
-to further refine the role.
+In order to achieve the most versatile international support in this
+protocol, the recommended encoding for use with this protocol is <a
+href="ftp://ftp.isi.edu/in-notes/rfc2279.txt">UTF-8</a>. However, the
+XML/RDF that is POSTed to the server by a client can be in any XML
+compliant character encoding. The server will convert any incoming
+data to UTF-8 and process it in UTF-8 and respond to the client
+using the UTF-8 encoding. 
 
 <p>
-For instance, to descibe an audio engineer, you would use role="Engineer" and
-roleDetail="Audio". If more refinements are necessary, seperate the
-refinements with commas. Example: To describe an assistant producer for
-a particular geographic location you might use the follwing: role="Producer"
-and roleDetail="Assistant, Manhattan".
+<font size="+1">Client Requests</font>
 
 <p>
+Client requests may either use the HTTP GET or POST commands. All of
+the functions provided by the server are accessible via POSTing
+query/submission data in RDF format to the MM capable server.
+Other methods (OPTIONS, HEAD, PUT, DELETE, TRACE, CONNECT) will 
+receive an error response.  
+
+<p>
+Some functions may have GET command shortcuts to ease the implementation
+on the client side. However, any functions that must pass data to the server
+that may not be encodable into a compliant URL, do not have GET functions
+defined, and the POST functions should be used instead. 
+
+<p>
+For example, the searching functions require that a search string be 
+passed to the server. However, using a GET function requires the
+search string to be encoded into a valid URL, which must be encoded
+in the ISO-8859-1 character encoding. Thus, search functions using the
+GET command cannot correctly search all of the data available on the
+server.
+
+<p>
+The specific details for accessing the server features with GET and POST
+commands are described in the following namespace definitions. For
+each RDF examples given in the sections below, the client can POST
+that RDF document to the server. 
+
+<p>
+<font size="+1">Server Responses</font>
+
+<p>
+Server responses are compliant with the HTTP/1.1 protocol, and
+the data returned in the body of the response is in XML/RDF format
+described in the following sections.
+
+<p>Only the following status codes and reason phrases are valid:
+<ul>
+<li>200 OK - Successful query and normal response.
+<li>202 Accepted - Submission accepted and batched for review or merge.
+<li>204 No Content - Query was understood but there is no content. As 
+in HTTP/1.1, there must not be a message body following this status code.
+<li>400 Bad Request - There was an error processing the request. This
+may also be used for 405 Method Not Allowed since only one method is
+allowed.
+<li>403 Forbidden - The server refuses to process the request. Used
+for refusal to accept metadata submissions.
+<li>500 Internal Server Error - Random catch-all for server errors.
+This indicates a bug in the server software, otherwise pass a status 503.
+<li>503 Service Unavailable - The server is temporarily unable to service
+this request, although it may have been valid. Clients are advised to
+try another MM server if this message is received.
+</ul>
+
+<p>Required headers:
+<ul>
+<li>Server: - Server name and version number.
+<li>Date: - Server date, as per HTTP/1.1.
+<li>Content-type: - "text/xml" is the only valid return content type.
+</ul>
+
+<p>Optional headers:
+<ul>
+<li>Connection: - The "close" value is required here for implementations
+not supporting persistent connections, as in HTTP/1.1.
+</ul>
 
 
-<table border=1 cellpadding="2" align=center width=90%>
-<tr>
-<th>Role Name</th><th>Description</th><th>Role Detail/Refinement</th>
-</tr>
-<tr>
-<td>Performer</td>
-<td>An individual performer in a band</td>
-<td>The instrument performed. Example: Keyboards, drums, vocals, etc</td>
-</tr>
-<tr>
-<td>Orchestra</td>
-<td>The name of the orchestra that performed this piece of music</td>
-<td>Refinement example: Stings, percussion, woodwinds</td>
-</tr>
-<tr>
-<td>Composer</td>
-<td>Who composed this musical score</td>
-<td>&nbsp;</td>
-</tr>
-<tr>
-<td>Conductor</td>
-<td>Who conducted the performance of this track</td>
-<td>&nbsp;</td>
-</tr>
-<tr>
-<td>Soloist</td>
-<td>Who performed the solo</td>
-<td>&nbsp;</td>
-</tr>
-<tr>
-<td>Actor</td>
-<td>Who acted out the role</td>
-<td>The person portrayed. Example: Lester Burnham</td>
-</tr>
-<tr>
-<td>Writer</td>
-<td>Who wrote the original story</td>
-<td>&nbsp;</td>
-</tr>
-<tr>
-<td>Lyricist</td>
-<td>Who wrote the lyrics</td>
-<td>Also appropriate for librettist.</td>
-</tr>
-<tr>
-<td>Arranger</td>
-<td>Who arranged this track</td>
-<td>&nbsp;</td>
-</tr>
-<tr>
-<td>Director</td>
-<td>Who directed this track</td>
-<td>Refinement examples: Executive, Assistant, Location</td>
-</tr>
-<tr>
-<td>Producer</td>
-<td>Who produced this track</td>
-<td>Refinement examples: Executive, Assistant, Location</td>
-</tr>
-<td>Engineer</td>
-<td>Who engineered this recording</td>
-<td>Refinement examples: Audio, Recoding, Assistant, Mastering</td>
-</tr>
-<tr>
-<td>Technician</td>
-<td>Who was a technician on this track</td>
-<td>Refinement examples: Instrument, Lighting</td>
-</tr>
-<tr>
-<td>Mixer</td>
-<td>Who mixed this track</td>
-<td></td>
-</tr>
+<a name="cdmp"></a>
+<font size=+2 color=990000>cdmp: Compact Disk Lookup Namespace</font><p>
+
+The cdmp namespace defines RDF classes and properties that facilitate
+CD-ROM lookups between an RDF enabled client and an RDF/cdmp compatible
+metadata server.
+
+<p> <font size="+1"><b>Classes</b></font> <p>
+
+<table>
+<tr><td valign="top" align="right">
+<b>LookupCD</b><br>
+[<a href="cdmp_examples.html#lookup">Example</a>]
+</td><td valign="top">
+This class is used to create a CD-ROM lookup query. Include the offsets or
+cdmpId properties as arguments to this query. Optionally you may also
+include a threshold property to indicate that this search should be 
+carried as an inexact match. Include the maxreturn property to indicate the
+maximum number of CD-ROM metadata items to return.
+</td></tr>
+
+<tr><td valign="top" align="right">
+<b>SearchCD</b><br>
+[<a href="cdmp_examples.html#searchcd">Example</a>]
+</td><td valign="top">
+This class is used to create a CD-ROM search query. Include the 
+mm:Artist/dc:creator, contributor, modifyDate, label, offset or 
+source properties.
+</td></tr>
+
+<tr><td valign="top" align="right">
+<b>SubmitCD</b><br>
+[<a href="cdmp_examples.html#submitcd">Example</a>]
+</td><td valign="top">
+This class is used to submit a CD-ROM to the server. Include the 
+dc:title, mm:Artist, mm:tracklist properties to describe the CD-ROM.
+</td></tr>
+
+<tr><td valign="top" align="right">
+<b>CDMetadata</b><br>
+[<a href="cdmp_examples.html#resultcd">Example</a>]
+</td><td valign="top">
+CDMetadata defines the metadata for a given CD-ROM. Inside of this
+class, use dc:title, mm:Artist, and mm:trackList properties to describe
+the CD-ROM.
+</td></tr>
+
+<tr><td valign="top" align="right">
+<b>ResultCD</b><br>
+[<a href="cdmp_examples.html#resultcd">Example</a>]
+</td><td valign="top">
+The ResultCD class is used to contain the description of one CD. A server
+query response should contain a ResultCD element if only one CD
+was found. For a response with multiple CDs, the server should respond
+with ResultCDList element.
+</td></tr>
+
+<tr><td valign="top" align="right">
+<b>ResultCDList</b><br>
+[<a href="cdmp_examples.html#resultcdlist">Example</a>]
+</td><td valign="top">
+The ResultCDList class contains the description of multiple CDs. This
+class should contain one cdList property, which in turn defines
+a Bag of CDMetadata elements.
+</td></tr>
+
+</table>
+
+
+<p> <font size="+1"><b>Properties</b></font> <p>
+
+<table>
+
+<tr><td valign="top" align="right">
+<b>cd</b>
+</td><td valign="top">
+This property will contain one CDMetadata element to describe one CD.
+</td></tr>
+
+<tr><td valign="top" align="right">
+<b>cdList</b>
+</td><td valign="top">
+This property will contain a bag of CDMetadata elements to describe a list 
+of CDs.
+</td></tr>
+
+<tr><td valign="top" align="right">
+<b>cdmpId</b>
+</td><td valign="top">
+The cdmpId calculated for a CD-ROM. The exact algorithm for calculating this
+Id will still need to get nailed down.
+</td></tr>
+
+<tr><td valign="top" align="right">
+<b>threshold</b>
+</td><td valign="top">
+A number from 0 to 100 giving the near match threshold. The higher the number, the more exact the match must be. The algorithm for this threshold will be documented as well. 
+</td></tr>
+
+<tr><td valign="top" align="right">
+<b>offsets</b>
+</td><td valign="top">
+The track offsets for the CD, each separated by '-'.
+</td></tr>
+
+<tr><td valign="top" align="right">
+<b>maxReturn</b>
+</td><td valign="top">
+The maximum number of near matches to return.
+</td></tr>
+
+<tr><td valign="top" align="right">
+<b>freeDBId</b>
+</td><td valign="top">
+Specifies a backward compatible FreeDBId.
+</td></tr>
+
+<tr><td valign="top" align="right">
+<b>contributor</b>
+</td><td valign="top">
+Email address or name of person who contributed information
+</td></tr>
+
+<tr><td valign="top" align="right">
+<b>modifyDate</b>
+</td><td valign="top">
+When this record was last modified. The format is the suggested 
+<a href="http://www.w3.org/TR/NOTE-datetime">W3 Date/Time</a> which
+is a subset of the ISO 8601 date format standard.
+</td></tr>
+
+<tr><td valign="top" align="right">
+<b>label</b>
+</td><td valign="top">
+Optional record label for use with SearchCD
+</td></tr>
+
+<tr><td valign="top" align="right">
+<b>source</b>
+</td><td valign="top">
+The name of the program that submitted the CD.
+</td></tr>
+
 </table>
 
 <p>
-This table is not likely to be complete. If there are other roles that should
-be added to this list, please <a href="mailto:rob@emusic.com">let me know</a>.
+To specify the name of an artist for searching for a CD, use the
+MM:Artist/dc:title class/property combination. 
+[<a href="cdmp_examples.html#searchcd">Example</a>]
 
-<p><a name="id3"></a>
-<font size=+2 color=990000>ID3 to MusicBrainz Metadata Quick Reference</font>
-<p>
+<p> <font size="+1"><b>HTTP Command Details</b></font> <p>
 
-In the ID3 (both v1 and v2) world the most important metadata constructs
-are artist, album, track title and track number. Using RDF it may not
-be clear right away where these simple contructs belong and how they
-should be used.
+All POST commands should be posted to: <b>http://[servername]/cdmp</b><p>
+Also, the following GET shortcuts have been defined:
+<table>
 
-<p>
-Here are some of the ID3 constructs listed with their respective MM/DC constructs:<p>
-<table border=1 cellpadding="2" align=center>
-<tr><th>ID3 Construct</th><th>MM/DC Construct</th></tr>
-<tr><td>Artist</td><td>DC::Creator</td></tr>
-<tr><td>Album</td><td>DC:Relation album qualifier</td></tr>
-<tr><td>Track title</td><td>DC:Title</td></tr>
-<tr><td>Track number</td><td>MM:TrackNum</td></tr>
-<tr><td>Track size</td><td>DC:Format extent qualifier</td></tr>
-<tr><td>Track duration</td><td>DC:Format duration qualifier</td></tr>
-<tr><td>ReleaseDate</td><td>DC:Date issued qualifier</td></tr>
-<tr><td>CreationDate</td><td>DC:Date created qualifier</td></tr>
-<tr><td>Copyright</td><td>DC:Rights copyright qualifier</td></tr>
+<tr><td valign="top" align="right">
+<b>lookupcd</b>
+</td><td valign="top">
+GET /cdmp/lookupcd?offsets=150-77950-2093
+</td></tr>
+
+<tr><td valign="top" align="right">
+<b>lookupcd<br>(inexact)</b>
+</td><td valign="top">
+GET /cdmp/lookupcd?offsets=150-77950-2093&amp;threshold=90&amp;maxreturns=50
+</td></tr>
+
 </table>
+
+<p>
+
+<a name="mm"></a>
+<font size=+2 color=990000>mm: MusicBrainz Metadata Namespace</font><p>
+
+The mm namespace defines RDF classes and properties for expressing basic
+music related metadata. This namespace intentionally focuses on the primitives
+for metadata; more detailed metadata will be supported in the 
+<a href="#mem">MusicBrainz Extended Metadata Namespace</a>.
+
+<p> <font size="+1"><b>Classes</b></font> <p>
+
+<table>
+<tr><td valign="top" align="right">
+<b>Artist</b><br>
+[<a href="mm_examples.html#artist">Example</a>]
+</td><td valign="top">
+This class is used to describe an Artist. Inside of Artist, use dc:title,
+mm:sortName, and mm:albumList to describe the name and sortname of the artist
+as well as a list of albums available by that artist.
+</td></tr>
+
+<tr><td valign="top" align="right">
+<b>Album</b><br>
+[<a href="mm_examples.html#artist">Example</a>]
+</td><td valign="top">
+Use this to describe an Album. The dc:title, dc:creator and mm:trackList
+properties should be used to describe the album.
+</td></tr>
+
+<tr><td valign="top" align="right">
+<b>Track</b><br>
+[<a href="mm_examples.html#artist">Example</a>]
+</td><td valign="top">
+Use Track to describe one audio track. Use the dc:title, mm:trackNum, 
+dc:creator, mm:trmId properties to descibe a track.
+</td></tr>
+
+</table>
+
+
+<p> <font size="+1"><b>Properties</b></font> <p>
+
+<table>
+<tr><td valign="top" align="right">
+<b>sortName</b>
+</td><td valign="top">
+Use this to indicate the name of an artist for use in an alphabetically
+sorted list. If the dc:title field for an Artist contains "The Beatles",
+this field should contain "Beatles, The".
+</td></tr>
+
+<tr><td valign="top" align="right">
+<b>trackNum</b>
+</td><td valign="top">
+This indicates the sequence number for a track in a given album. Tracknumbers
+start with 1.
+</td></tr>
+
+<tr><td valign="top" align="right">
+<b>trmId</b>
+</td><td valign="top">
+This property is used to indicate a Relatable TRM Id for an audio track.
+</td></tr>
+
+<tr><td valign="top" align="right">
+<b>cdindexId</b>
+</td><td valign="top">
+Used to convey a CD Index Disk Id for a CD-ROM.
+</td></tr>
+
+<tr><td valign="top" align="right">
+<b>artistList</b>
+[<a href="mq_examples.html#artist">Example</a>]
+</td><td valign="top">
+This property is used to convey a list of artists.
+</td></tr>
+
+<tr><td valign="top" align="right">
+<b>albumList</b><br>
+[<a href="mq_examples.html#album">Example</a>]
+</td><td valign="top">
+This property is used to convey a list of albums.
+</td></tr>
+
+<tr><td valign="top" align="right">
+<b>trackList</b><br>
+[<a href="mq_examples.html#track">Example</a>]
+</td><td valign="top">
+This property is used to convey a list of tracks.
+</td></tr>
+
+<tr><td valign="top" align="right">
+<b>duration</b>
+</td><td valign="top">
+Used to indicate the duration of a track in milliseconds.
+</td></tr>
+
+<tr><td valign="top" align="right">
+<b>genre</b>
+</td><td valign="top">
+This is a free-form text field that indicates the genre for a given track.
+</td></tr>
+
+</table>
+
+<p> <font size="+1"><b>HTTP Command Details</b></font> <p>
+
+There are no command details defined for this namespace. This namespace
+serves as a helper namespace for the <a href="#cdmp">cdmp</a> and
+<a href="#mq">mq</a> namespaces.
+
+<p><a name="mq"></a>
+<font size=+2 color=990000>mq: MusicBrainz Query Namespace</font><p>
+
+[ <font color="red">ed:</font> This section is incomplete -- however this
+namespace is not required for use with the cdmp namespace. ]
+
+<p>
+The mq namespace defines RDF classes and properties that facilitate
+metadata lookups between an RDF enabled client and a MusicBrainz 
+metadata server.
+
+<p> <font size="+1"><b>Classes</b></font> <p>
+
+<table>
+<tr><td valign="top" align="right">
+<b>Result</b><br>
+[<a href="mq_examples.html#artist">Example</a>]
+</td><td valign="top">
+The Result class is used to encapsulate all of the server responses. It
+will contain a mq:status property which contains a query status code from
+the server. Currently only OK is defined as a valid value. The Result
+class will also contain one artistList, albumList or trackList, depending 
+on what type of query was executed by the server.
+</td></tr>
+
+<tr><td valign="top" align="right">
+<b>SubmitTrack</b><br>
+[<a href="mq_examples.html#submit">Example</a>]
+</td><td valign="top">
+This class is used to submit metadata for one track.
+</td></tr>
+
+<tr><td valign="top" align="right">
+<b>LookupMetadata</b><br>
+[<a href="mq_examples.html#lookup">Example</a>]
+</td><td valign="top">
+This class is used to lookup metadata for one track. This query returns
+the same data that ExchangeMetadata returns, but no metadata is sent to
+the server.  Please consider using ExchangeMetadata whenever possible in
+order to contribute metadata back to the server.
+</td></tr>
+
+<tr><td valign="top" align="right">
+<b>ExchangeMetadata</b><br>
+[<a href="mq_examples.html#exchange">Example</a>]
+</td><td valign="top">
+The ExchangeMetadata class is used to send known metadata about one
+track to the server. The server will then respond with known metadata
+about this track. If this track has never been seen before, the server
+will return the exact data that was sent to the server. If that track 
+has been seen before, the metadata for that track is returned by the
+server. Please note that ExchangeMetadata also sends instance specific 
+metadata (Bitprint, file size, bitrate, etc) to the server for inclusion
+in the Bitzi community metadatabase. For more details about this, 
+please visit <a href="http://bitzi.com">Bitzi's website</a>. If you do
+not wish to contribute to the Bitzi metadatabase, then use 
+ExchangeMetadataLite.
+</td></tr>
+
+<tr><td valign="top" align="right">
+<b>ExchangeMetadataLite</b><br>
+[<a href="mq_examples.html#exchangelite">Example</a>]
+</td><td valign="top">
+This class is used in the same manner as ExchangeMetadata, but no instance
+specific metadata is sent to the server.
+</td></tr>
+
+<tr><td valign="top" align="right">
+<b>FindDisctinctTrmId</b><br>
+[<a href="mq_examples.html#finddistinct">Example</a>]
+</td><td valign="top">
+Use the FindDistinctTrmId class to query the server about a trmid. Given
+mq:artistName and mq:trackName the server will find a track that matches
+the two criteria and return one track in a trmidList.
+</td></tr>
+
+<tr><td valign="top" align="right">
+<b>FindArtist</b><br>
+[<a href="mq_examples.html#findartist">Example</a>]
+</td><td valign="top">
+The FindArtist class can be used to query the server for artists that
+match a given search string. Use mq:artistName to specify the search
+string.
+</td></tr>
+
+<tr><td valign="top" align="right">
+<b>FindAlbum</b><br>
+[<a href="mq_examples.html#findalbum">Example</a>]
+</td><td valign="top">
+The FindAlbum class can be used to query the server for albums that
+match a given artist and album search strings. Use mq:artistName and 
+mq:albumName to specify the search strings.
+</td></tr>
+
+<tr><td valign="top" align="right">
+<b>FindTrack</b><br>
+[<a href="mq_examples.html#findtrack">Example</a>]
+</td><td valign="top">
+The FindTrack class can be used to query the server for tracks that
+match a given artist, album and track search strings. Use mq:artistName,
+mq:albumName, and mq:trackName to specify the search strings.
+</td></tr>
+
+<tr><td valign="top" align="right">
+<b>GetCDInfo</b><br>
+[<a href="mq_examples.html#getcd">Example</a>]
+</td><td valign="top">
+Use the GetCDInfo to retrieve metadata for a given CD. Use the mm:cdindexId
+property to specify the CD Index disk id.
+</td></tr>
+</table>
+
+<p> <font size="+1"><b>Properties</b></font> <p>
+
+<table>
+<tr><td valign="top" align="right">
+<b>status</b>
+</td><td valign="top">
+This property specifies the result status of the query. Currently the
+only valid value is OK.
+</td></tr>
+
+<tr><td valign="top" align="right">
+<b>depth</b>
+</td><td valign="top">
+The depth property allows the client to set the level of information
+that is returned by the server. Using a depth of 1 will only return
+the topmost list of resources. Using a depth of 2 will return all of the 
+resources referenced by the topmost list of resources. Each subsequently
+higher value of depth will return 
+
+</td></tr>
+
+<tr><td valign="top" align="right">
+<b>artistName</b>
+</td><td valign="top">
+</td></tr>
+
+<tr><td valign="top" align="right">
+<b>albumName</b>
+</td><td valign="top">
+</td></tr>
+
+<tr><td valign="top" align="right">
+<b>trackName</b>
+</td><td valign="top">
+</td></tr>
+
+</table>
+
+
+
+
+<p><a name="mem"></a>
+<font size=+2 color=990000>mem: MusicBrainz Extended Metadata Namespace</font><p>
+
+[ <font color="red">ed:</font> This section is incomplete -- however this
+namespace is not required for use with the cdmp namespace. ]
+
+<p>
+The mem namespace defines RDF classes and properties for expressing extended
+music related metadata that is not covered by the <a href="#mm">MusicBrainz 
+Metadata Namespace</a>. This namespace focuses on the more detailed
+metadata such as contributors, roles, lyrics, release dates, remix/cover 
+information, etc. 
+
+<p> <font size="+1"><b>Classes</b></font> <p>
+
+<table>
+<tr><td valign="top" align="right">
+<b>Lyrics</b>
+</td><td valign="top">
+To be completed.
+</td></tr>
+
+<tr><td valign="top" align="right">
+<b>Role</b>
+</td><td valign="top">
+</td></tr>
+
+<tr><td valign="top" align="right">
+<b>Contributor</b>
+</td><td valign="top">
+</td></tr>
+
+</table>
+
+
+<p> <font size="+1"><b>Properties</b></font> <p>
+
+<table>
+<tr><td valign="top" align="right">
+<b>remixInfo</b>
+</td><td valign="top">
+To be completed.
+</td></tr>
+
+<tr><td valign="top" align="right">
+<b>coverInfo</b>
+</td><td valign="top">
+</td></tr>
+
+</table>
+
 
 <br> <br> <br> <br>
 
