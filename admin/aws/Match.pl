@@ -507,8 +507,8 @@ Match MusicBrainz albums with Amazon albums and store ASINS and cover art URLs
 in the database.
 
 Options are:
-      --[no]verbose    [Don't] describe each artist processed (default: true
-                       if at a terminal)
+  -v, --[no]verbose    [Don't] describe each artist processed (default: true
+                       if at a terminal).  Use multiple times for more verbosity.
       --[no]summary    [Don't] show a summary on exit (default: true if at a
                        terminal)
       --debugfd=N      Log extra debugging info to file description N
@@ -536,7 +536,8 @@ my $debugfd;
 my @artist;
 
 GetOptions(
-	"verbose!"		=> \$verbose,
+	"verbose|v+"	=> \$verbose,
+	"noverbose"		=> sub { undef $verbose },
 	"summary!"		=> \$summary,
 	"find|f"		=> sub { $mode = MODE_FIND },
 	"update|u"		=> sub { $mode = MODE_UPDATE },
