@@ -137,6 +137,29 @@ sub Cleanup
     }
     $sth->finish;
     print "Found $count orphaned diskids.\n\n";
+
+    # --------------------------------------------------------------------
+    
+    print "Orphaned albumjoins:\n";
+    $count = 0;
+    $sth = $dbh->prepare(qq|select AlbumJoin.id, AlbumJoin.album
+                            from   AlbumJoin left join Album 
+                            on     AlbumJoin.album = Album.id 
+                            WHERE  Album.id IS NULL|);
+    if ($sth->execute() && $sth->rows())
+    {
+        my @row;
+
+        while(@row = $sth->fetchrow_array())
+        {
+            print "  AlbumJoin $row[0] references non-existing album $row[1].\n";
+            $count++;
+
+            $dbh->do("delete from AlbumJoin where id = $row[0]") if ($fix);
+        }
+    }
+    $sth->finish;
+    print "Found $count orphaned albumjoins.\n\n";
 }
 
 # Call main with the number of arguments that you are expecting
