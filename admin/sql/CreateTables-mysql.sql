@@ -111,7 +111,9 @@ create table moderator (
    EMail varchar(64) default null, 
    WebUrl varchar(255) default null, 
    Bio text default null,
-   membersince datetime not null
+   membersince datetime not null,
+   emailconfirmdate datetime,
+   lastlogindate datetime
    );
 
 drop table if exists moderation;

@@ -15,6 +15,8 @@ create trigger a_upd_discid_2 after update on discid
 
 (Ideally albummeta should be re-calculated)
 
+alter table moderator add column lastlogindate timestamp with time zone;
+
 Old notes:
 ----------
 

@@ -396,7 +396,20 @@ sub SetSession
 	$session->{expire} = time() + &DBDefs::WEB_SESSION_SECONDS_TO_LIVE;
 	$session->{email_nag} = $email_nag;
 
-	#untie %HTML::Mason::Commands::session;
+	eval { $this->_SetLastLoginDate($uid) };
+}
+
+sub _SetLastLoginDate
+{
+	my ($this, $uid) = @_;
+	my $sql = Sql->new($this->{DBH});
+
+	$sql->Begin;
+	$sql->Do(
+		"UPDATE moderator SET lastlogindate = NOW() WHERE id = ?",
+		$uid,
+	);
+	$sql->Commit;
 }
 
 1;

@@ -103,7 +103,8 @@ create table Moderator (
    WebUrl varchar(255) default null, 
    Bio text default null,
    membersince timestamp with time zone default now(),
-   emailconfirmdate timestamp with time zone
+   emailconfirmdate timestamp with time zone,
+   lastlogindate timestamp with time zone
    );
 
 create table Moderation (
