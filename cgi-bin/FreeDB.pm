@@ -161,11 +161,10 @@ sub Lookup
        $title = $2;
     }
 
-    return 0;
-    #return $this->EnterRecord($last, 
-    #                          $title,
-    #                          $artist,
-    #                          $diskid,
-    #                          $toc,
-    #                          @{$details->{ttitles}});
+    return $this->EnterRecord($last, 
+                              $title,
+                              $artist,
+                              $diskid,
+                              $toc,
+                              @{$details->{ttitles}});
 }
