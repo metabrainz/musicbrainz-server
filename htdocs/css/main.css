@@ -7,6 +7,9 @@ body
 	color: #000;
 }
 
+a img { border: 0 }
+form { margin: 0 }
+
 /* This is equivalent to /comp/title, i.e. class "title" in brainz.css */
 h1
 {
@@ -23,6 +26,39 @@ h2
 	font-size: 100%;
 	font-weight: bold;
 	padding: 0.1em 0.3em;
+	margin-top: 2em;
+	margin-bottom: 2em;
+}
+
+h3
+{
+	font-weight: bold;
+	font-size: 100%;
+	text-decoration: underline;
+	margin-top: 1.5em;
+}
+
+ul, ol
+{
+	margin-left: 1em;
+	margin-right: 2em;
+}
+
+kbd.KbdBlock
+{
+	margin: 1em 2em;
+	padding: 0.5em;
+	background: #efefff;
+	color: #000;
+	font-family: monospace;
+	display: block;
+}
+
+/* Useful rules */
+
+.CenterChildren *
+{
+	vertical-align: middle;
 }
 
 /* page-specific things */
@@ -44,6 +80,16 @@ h2
 {
 	text-align: right;
 	font-size: 10pt;
+}
+
+.DownloadLink *
+{
+	vertical-align: middle;
+}
+
+.DownloadLink img
+{
+	margin-right: 1em;
 }
 
 /* eof */

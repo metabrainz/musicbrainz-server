@@ -38,8 +38,9 @@ else
          <td align="left" valign="top" class="body" width="100%">  
          <img src="/images/pixel.gif" width="435" height="1" alt="">
 	 <a id="maincontent"></a>
+
 %if($title ne '') {
-<& /comp/title, title=>$title &>
+	<h1><% $title %></h1>
 %}
 
 <%args>
