@@ -38,7 +38,7 @@ if (!exists $ARGS{confirm0} || $ARGS{confirm0} eq 'yes')
            last if (!exists $ARGS{"key$i"} || !exists $ARGS{"value$i"});
 
            $value = $ARGS{"value$i"};
-           $value =~ /^\s*(.*?)\s*$/$1/;
+           $value =~ s/^\s*(.*?)\s*$/$1/;
            $new .= $ARGS{"key$i"} . "=$value\n";
        }
 
