@@ -10,7 +10,7 @@ sub StatLine
 }
 
 my $result = $m->cache(action=>'retrieve');
-$result = undef;
+#$result = undef;
 if (!defined($result)) 
 {
     my $mb = mc_comp("/comp/dblogin", quiet=>1);
