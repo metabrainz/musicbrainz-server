@@ -1,3 +1,5 @@
+#!/usr/bin/perl -w
+# vi: set ts=4 sw=4 :
 #____________________________________________________________________________
 #
 #   MusicBrainz -- the open internet music database
@@ -90,7 +92,7 @@ sub GenerateAlbumFromDiscid
         }
 
         # Ok, no freedb entries were found. Can we find a fuzzy match?
-        @albums = $di->FindFuzzy($numtracks, $toc);
+        @albums = $di->_FindFuzzy($numtracks, $toc);
         if (scalar(@albums) > 0)
         {
             return $rdf->CreateAlbum(1, @albums);
@@ -99,7 +101,7 @@ sub GenerateAlbumFromDiscid
         {
             # Ok, its not in the main db. Do we have a freedb entry that
             # matches, but has no Discid?
-            $album = $di->FindFreeDBEntry($numtracks, $toc, $id);
+            $album = $di->_FindFreeDBEntry($numtracks, $toc, $id);
             if (defined $album)
             {
                 return $rdf->CreateAlbum(0, $album);
@@ -110,7 +112,7 @@ sub GenerateAlbumFromDiscid
 
                 # No fuzzy matches either. Let's pull the records
                 # from freedb.org and insert it into the db if we find it.
-		require FreeDB;
+				require FreeDB;
                 $fd = FreeDB->new($this->{DBH});
                 $ref = $fd->Lookup($id, $toc);
                 if (defined $ref)
@@ -190,12 +192,12 @@ sub Insert
         $rowid = $sql->GetLastInsertId("Discid");
     }
 
-    $this->InsertTOC($id, $album, $toc);
+    $this->_InsertTOC($id, $album, $toc);
 
     return $rowid;
 }
  
-sub InsertTOC
+sub _InsertTOC
 {
     my ($this, $Discid, $album, $toc) = @_;
     my (@offsets, $query, $i, $sql, $id);
@@ -245,7 +247,7 @@ sub Remove
     $sql->Do("delete from Discid where disc = '$id'");
 }
 
-sub FindFreeDBEntry
+sub _FindFreeDBEntry
 {
    my ($this, $tracks, $toc, $id) = @_;
    my ($i, $query, @list, $album, @row, $sql);
@@ -292,7 +294,7 @@ sub FindFreeDBEntry
    return $album;
 }
 
-sub FindFuzzy
+sub _FindFuzzy
 {
    my ($this, $tracks, $toc) = @_;
    my ($i, $query, @list, @albums, @row, $sth, $sql);
@@ -354,3 +356,4 @@ sub LoadFull
 }
 
 1;
+# eof Discid.pm
