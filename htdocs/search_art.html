@@ -1,0 +1,40 @@
+<& /comp/title, title=>'Artist Search Results' &>
+
+<%perl>
+
+# TODO: The data in the rows is not escaped!
+
+my ($mb); 
+my (@row, $sql, $sth, $i);
+
+$mb = new MusicBrainz;
+$mb->Login();
+
+$sql = $mb->AppendWhereClause($ARGS{artist}, 
+           "select id, name from Artist where ", "Name") . " order by name";
+
+$sth = $mb->{DBH}->prepare($sql);
+$sth->execute();
+if ($sth->rows > 0)
+{
+    mc_out("Click on the artist name to see all the albums for that artist.");
+    mc_comp("/comp/tablebegin", title=>'Found Artists');
+    mc_out("<table>");
+    for($i = 0; @row = $sth->fetchrow_array; $i++)
+    {
+       mc_out("<tr><td><a href=\"/showartist.html?artistid=$row[0]\">");
+       mc_out("$row[1]</a></td><tr>");
+    }
+    mc_out("</table>");
+    mc_comp("/comp/tableend");
+}
+else
+{
+    mc_out("There were no items found. Please try again:<p>");
+    mc_comp("/comp/artistsearchbox");
+}
+
+$mb->Logout();
+
+</%perl>
+

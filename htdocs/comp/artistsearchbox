@@ -1,4 +1,4 @@
-<FORM METHOD="POST" ACTION="/cgi-bin/search_art.pl"
+<FORM METHOD="POST" ACTION="/search_art.html"
       ENCTYPE="application/x-www-form-urlencoded">
 <table>
 <tr><td>
