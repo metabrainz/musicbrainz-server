@@ -114,9 +114,14 @@ print localtime() . " : Snapshot timestamp is $timestamp\n";
 
 # We should also have SCHEMA_SEQUENCE files, which match.  Plus they must
 # match DBDefs::DB_SCHEMA_SEQUENCE.
-my $SCHEMA_SEQUENCE = read_all_and_check("SCHEMA_SEQUENCE") || 0;
-if ($SCHEMA_SEQUENCE != &DBDefs::DB_SCHEMA_SEQUENCE)
+my $SCHEMA_SEQUENCE = read_all_and_check("SCHEMA_SEQUENCE");
+if (not defined $SCHEMA_SEQUENCE)
 {
+	print STDERR localtime() . " : No SCHEMA_SEQUENCE in import files - continuing anyway\n";
+	print STDERR localtime() . " : Don't be surprised if this import fails\n";
+	$| = 1, print(chr(7)), sleep 5
+		if -t STDOUT;
+} elsif ($SCHEMA_SEQUENCE != &DBDefs::DB_SCHEMA_SEQUENCE) {
 	printf STDERR "%s : Schema sequence mismatch - codebase is %d, snapshot files are %d\n",
 		scalar localtime,
 		&DBDefs::DB_SCHEMA_SEQUENCE,
@@ -127,6 +132,7 @@ if ($SCHEMA_SEQUENCE != &DBDefs::DB_SCHEMA_SEQUENCE)
 
 # We should have REPLICATION_SEQUENCE files, and they should all match too.
 my $iReplicationSequence = read_all_and_check("REPLICATION_SEQUENCE");
+$iReplicationSequence = "" if not defined $iReplicationSequence;
 print localtime() . " : This snapshot corresponds to replication sequence #$iReplicationSequence\n"
 	if $iReplicationSequence ne "";
 print localtime() . " : This snapshot does not correspond to any replication sequence"
@@ -292,6 +298,7 @@ sub ImportAllTables
 		moderator_preference
 		moderator_subscribe_artist
 		release
+		replication_control
 		stats
 		toc
 		track
