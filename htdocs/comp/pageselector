@@ -29,6 +29,8 @@ my $numitems = $ARGS{numitems};
 my $numlinks = $ARGS{numlinks};
 my $snaptoend = $ARGS{snaptoend};
 
+print STDERR "$numlinks\n";
+
 my $index = int($offset / $pagesize);
 my $pagecount = int(($numitems+$pagesize-1) / $pagesize);
 return undef if ($pagecount <= 1);
@@ -41,19 +43,19 @@ if ($end > $pagecount-1-$snaptoend) { $end = $pagecount-1 }
 
 </%perl>
 
-<center>
+<table width="100%"><tr>
+<td align="center" valign="absmiddle" NOWRAP>
 <form method="post" action="<% $url %>" style="padding-top: 0.5em">
-	Page
+	[ Page
 	<input type="text" name="page" value="<% $index+1 %>"
 		style="
 			width: 2em; margin-left: 0.5em; margin-right: 0.5em;
 			border: 0;
 		">
-	of <% $pagecount %>
+	of <% $pagecount %> ]
 </form>
-</center>
-
-<table width="100%"><tr><td align="center">
+</td>
+<td align="center" valign="center">
 % if ($index > 0) {
     <a href="<% $url %>&offset=0"
     	title="first page"
