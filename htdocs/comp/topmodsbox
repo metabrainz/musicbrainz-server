@@ -17,6 +17,8 @@ if (!defined($result))
     
            while(@row = $sth->fetchrow_array)
            {
+							$row[0] = substr($row[0], 0, 8)."..."
+								if length($row[0]) > 11;
               $result .=qq\<tr>
                              <td align=right valign=top width="50%" class="statsb">
                                  $row[0]
