@@ -43,10 +43,12 @@ merge artist <% $ARGS{prev0} %> with the selected artist:
 % }
 
 <%perl>
-for($i = 0; $i < scalar(@idslabels); $i++)
+for(;;)
 {
     $artistid = shift @idslabels;
+    last if not defined $artistid;
     $artistname = shift @idslabels;
+    last if not defined $artistname;
     mc_out(qq\<input type="radio" name="new0" 
            value="$artistname">&nbsp;$artistname<br>\);
 }
