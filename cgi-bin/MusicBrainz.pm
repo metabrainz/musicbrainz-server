@@ -41,9 +41,10 @@ sub new
 
 sub Login
 {
-   my ($this, $quiet) = @_;
+   my ($this, $quiet, $dsn) = @_;
 
-   $this->{DBH} = DBI->connect(DBDefs->DSN,DBDefs->DB_USER,DBDefs->DB_PASSWD);
+   $dsn = DBDefs->DSN if (!defined $dsn);
+   $this->{DBH} = DBI->connect($dsn,DBDefs->DB_USER,DBDefs->DB_PASSWD);
    if (!$this->{DBH})
    {
        return 0 if (defined $quiet);

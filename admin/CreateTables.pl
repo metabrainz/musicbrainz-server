@@ -34,7 +34,7 @@ sub CreateTables
     # create the tables
     $dbh->do("create table Artist (" .
              "   Id int auto_increment primary key," .
-             "   Name varchar(100) NOT NULL," . 
+             "   Name varchar(255) NOT NULL," . 
              "   SortName varchar(100) NOT NULL," . 
              "   GID varchar(64) NOT NULL," . 
              "   WebPage blob," . 
@@ -47,7 +47,7 @@ sub CreateTables
 
     $dbh->do("create table Album (" .
              "   Id int auto_increment primary key," .
-             "   Name varchar(100) NOT NULL," .
+             "   Name varchar(255) NOT NULL," .
              "   GID varchar(64) NOT NULL," . 
              "   Artist int NOT NULL," .
              "   WebPage blob," .

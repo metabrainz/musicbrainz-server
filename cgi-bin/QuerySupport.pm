@@ -1057,7 +1057,6 @@ sub ExchangeMetadata
        my ($db_name, $db_guid, $db_artist, $db_album, $db_seq,
            $db_len, $db_year, $db_genre, $db_filename, $db_comment);
 
-       print STDERR "Found in database.\n";
        # Yes, it has. Retrieve the data and return it
        # Fill in, don't override...
        ($db_name, $db_guid, $db_artist, $db_album, $db_seq, $db_len, $db_year, 
@@ -1199,7 +1198,7 @@ sub SubmitTrack
        return EmitErrorRDF("Incomplete track information submitted.") 
    }
 
-   print STDERR "T: '$name' a: '$artist' l: '$album'\n";
+   #print STDERR "T: '$name' a: '$artist' l: '$album'\n";
 
    $ar = Artist->new($mb);
    $al = Album->new($mb);
