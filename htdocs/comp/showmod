@@ -30,7 +30,7 @@ my $modtype = Moderation::GetModificationName($type);
 </tr>
 <tr>
    <td width=38% valign=top bgcolor=white class="body">
-     Type: <% $modtype %>
+     <% $modtype %>
      (<a href="/showartist.html?artistid=<% $artist %>"><% $artistname %></a>)
    </td>
    <td width=38% valign=top bgcolor=white class="body">
@@ -49,7 +49,7 @@ my $modtype = Moderation::GetModificationName($type);
    <td width=40% valign=top bgcolor=white class="body">
      New: <% $new %>
    </td>
-   <td width=20% valign=top valign=top bgcolor=white class="body">
+   <td width=20% align=center valign=top bgcolor=white class="body">
 % if (($session{uid} != $moderator && !$voted) || DBDefs::ALLOW_SELF_VOTE) {
      Yes <input type="radio" name="rowid<% $id %>" value="yes">
      No <input type="radio" name="rowid<% $id %>" value="no">

@@ -38,7 +38,7 @@ $mb->Logout();
 
 % if ($num_mods > $max_items) {
 <table width="100%">
-<tr><td bgcolor=white>
+<tr><td bgcolor=white class="body">
 <& /comp/prevnextbuttons, 
    url=>"moderate.html",
    offset=>$offset,
@@ -83,7 +83,7 @@ for($i = 0; ; $i++)
 
 % if ($num_mods > $max_items) {
 <table width="100%">
-<tr><td bgcolor=white>
+<tr><td bgcolor=white class="body">
 <& /comp/prevnextbuttons, 
    url=>"moderate.html",
    offset=>$offset,
