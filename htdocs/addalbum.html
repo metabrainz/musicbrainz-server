@@ -1,56 +1,71 @@
+%# vi: set ts=2 sw=2 ft=mason :
 <%args>
-$artistid=>undef
-$nonalbum=>0
+$artistid => undef
+$nonalbum => undef
 </%args>
 <%perl>
 
-my ($mb, $id, $ar, $title); 
+my $title = $nonalbum ? "Add non-album tracks" : "Add Album";
+$m->comp("/comp/sidebar", title => $title);
 
-if (not defined $artistid)
+unless ($artistid)
 {
-    mc_comp("/comp/sidebar", title=>'Add Album', expand=>'moderate');
-    mc_comp("/comp/badargs");
-    return undef;
+	</%perl>
+
+	<table width="100%">
+		<tr>
+			<td align="center">
+
+				<p>
+					To add an album, please go to that artist's main page,
+					and click on the <b>Add Album</b> link.
+				</p>
+
+				<& /comp/tablebegin, title=>"Artist Search" &>
+				<& /comp/textsearch &>
+				<& /comp/tableend &>
+
+			</td>
+		</tr>
+	</table>
+
+	<& /comp/movefocus, "TextSearchForm", "search" &>
+	<& /comp/footer &>
+
+	<%perl>
+	return;
 }
 
-$mb = mc_comp("/comp/dblogin");
+$m->comp("/comp/checkloggedin", 0, 1)
+	or return;
 
-$ar = Artist->new($mb->{DBH});
+MusicBrainz::IsNonNegInteger($artistid)
+	or return $m->comp("/comp/badargs", 0, 1);
+
+$artistid != ModDefs::DARTIST_ID
+	or return $m->comp(
+		"/comp/error",
+		"You cannot add an alias to this artist.",
+		0, 1,
+	);
+
+my $mb = mc_comp("/comp/dblogin");
+
+my $ar = Artist->new($mb->{DBH});
 $ar->SetId($artistid);
-$ar->LoadFromId();
-
-$title = $nonalbum ? "Add non-album tracks" : "Add Album";
-mc_comp("/comp/sidebar", title=>$title, expand=>'moderate');
+$ar->LoadFromId
+	or return $m->comp(
+		"/comp/error",
+		"Artist #$artistid does not exist",
+		0, 1,
+	);
 
 </%perl>
 
-%if ($artistid == 0)
-%{
-    <table width="100%"><tr><td align="center">
-    To add an album, please go to that artist's main page,
-    and click on the <font style="bold">Add Album</font> link. <p>
+<& /comp/stylemenu &>
 
-    <& /comp/tablebegin, title=>"Artist Search" &>
-    <& /comp/textsearch &>
-    <& /comp/tableend &>
-
-    </td></tr></table>
-
-%   return undef;
-%}
-
-
-% if (!defined $session{user} || $session{user} eq '') {
-    You must be logged in to edit the database.<p>
-    <& /comp/tablebegin, title=>'Login' &>
-    <& /comp/loginbox &>
-    <& /comp/tableend &>
-% } else {
-
-    <& /comp/stylemenu &>
-
-    <& /comp/tablebegin, gattrs=>"width=\"100%\"",
-       title=>$title &>
+<& /comp/tablebegin, gattrs => "width='100%'",
+	title => $title &>
 
 % if ($nonalbum) {
 
@@ -58,78 +73,87 @@ mc_comp("/comp/sidebar", title=>$title, expand=>'moderate');
     <span class="bold"><% $ar->GetName %></span>.<br>
     Please enter the number of non-album tracks you would like to add and then
     click next.
-    <FORM METHOD="POST" ACTION="/addnonalbumtracks.html" NAME="AddAlbumForm"
-          ENCTYPE="application/x-www-form-urlencoded">  
+
+	<form method="post" action="/addnonalbumtracks.html" name="AddAlbumForm"
+		enctype="application/x-www-form-urlencoded">
+
     <table>
       <tr>
         <td colspan="2">
-        <INPUT TYPE="hidden" NAME="value0" value="Non-album tracks">
+					<input type="hidden" name="value0" value="Non-album tracks">
         </td>
       </tr>
       <tr>
         <td align="right">
-        Number of non album tracks to add:
+					Number of non album tracks to add:
         </td>
         <td>
-        <INPUT TYPE="text" NAME="value1" SIZE=25 value=""> (1 - 99)
+					<input type="text" name="value1" size="25" value=""> (1 - 99)
         </td>
       </tr>
       <tr>
         <td colspan=2>
-        <INPUT TYPE="submit" NAME="Submit" VALUE="Next &gt;&gt;">    
+					<input type="submit" value="Next &gt;&gt;">
         </td>
       </tr>
     </table>
 
     <input type="hidden" name="key0" value="AlbumName">
     <input type="hidden" name="key1" value="NumTracks">
-
     <input type="hidden" name="artist" value="<% $artistid %>">
-    <input type="hidden" name="type" 
-           value="<% ModDefs::MOD_ADD_ALBUM %>">
+    <input type="hidden" name="type" value="<% ModDefs::MOD_ADD_ALBUM %>">
     <input type="hidden" name="prev" value="">
     <input type="hidden" name="table" value="Album">
     <input type="hidden" name="column" value="Name">
     <input type="hidden" name="id" value="0">
     <input type="hidden" name="url" value="/search.html">
     <input type="hidden" name="nonalbum" value="<% $nonalbum %>">
-    </form>
+	</form>
 
-%   } else { 
+	<& /comp/movefocus, "AddAlbumForm", "value1" &>
 
-    You are about to add an album to the artist 
-    <span class="bold"><% $ar->GetName %></span>.<p>
-    Please read the style notes (see links above) 
-    and enter the number of tracks on this Album below:
-%   if ($artistid == ModDefs::VARTIST_ID) {
-        <FORM METHOD="POST" ACTION="/cdi/menter.html" NAME="AddAlbumForm"
 %   } else {
-        <FORM METHOD="POST" ACTION="/cdi/enter.html" NAME="AddAlbumForm"
-%   } 
-          ENCTYPE="application/x-www-form-urlencoded">  
+
+    You are about to add an album to the artist
+    <span class="bold"><% $ar->GetName %></span>.<p>
+    Please read the style notes (see links above)
+		and enter the number of tracks on this Album below:
+
+		<form method="post" name="AddAlbumForm"
+%   if ($artistid == ModDefs::VARTIST_ID) {
+			action="/cdi/menter.html"
+%   } else {
+			action="/cdi/enter.html"
+%   }
+			enctype="application/x-www-form-urlencoded">
+
     <table>
       <tr>
         <td align="right">
-        Number of tracks on this album:
+					Number of tracks on this album:
         </td>
         <td>
-        <INPUT TYPE="text" NAME="tracks" SIZE=25 value=""> (1 - 99)
+					<input type="text" name="tracks" size="25" value=""> (1 - 99)
         </td>
       </tr>
       <tr>
         <td colspan=2>
-        <INPUT TYPE="submit" NAME="Submit" VALUE="Next &gt;&gt;">    
+					<input type="submit" value="Next &gt;&gt;">
         </td>
       </tr>
-    </table>
-    <INPUT TYPE="hidden" NAME="noncd" value="1">
-    <INPUT TYPE="hidden" NAME="id" value="">
-    <INPUT TYPE="hidden" NAME="toc" value="">
-    <INPUT TYPE="hidden" NAME="artist" value="<% $artistid %>">
-    </form>
-% } 
-    <& /comp/tableend &>
+		</table>
+
+    <input type="hidden" name="noncd" value="1">
+    <input type="hidden" name="id" value="">
+    <input type="hidden" name="toc" value="">
+    <input type="hidden" name="artist" value="<% $artistid %>">
+	</form>
+
+	<& /comp/movefocus, "AddAlbumForm", "tracks" &>
 % }
-% $mb->Logout();
+
+<& /comp/tableend &>
+
+% $mb->Logout;
 
 <& /comp/footer &>
