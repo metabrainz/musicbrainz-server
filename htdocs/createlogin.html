@@ -1,37 +1,46 @@
 %# vi: set ts=4 sw=4 ft=mason :
+<%args>
+$url => "/search.html"
+</%args>
 <%perl>
 
-my ($mb, $cookie);
-my ($err, $user, $privs, $uid, $email, $ui);
+# Prevent confusing redirect loops
+$url = "/search.html"
+	if $url =~ m[/(login|logout)\.html];
 
-$m->comp('/comp/sidebar');
+my $mb = $m->comp("/comp/dblogin");
+my $ui = UserStuff->new($mb->{DBH});
+my $email = $ARGS{EMail};
 
-$mb = $m->comp("/comp/dblogin");
-$ui = UserStuff->new($mb->{DBH});
-$email = $ARGS{EMail};
-
-($err, $user, $privs, $uid) = $ui->CreateLogin($ARGS{User}, $ARGS{Password}, 
-                                        $ARGS{RetypePassword});
+my ($err, $user, $privs, $uid) = $ui->CreateLogin(
+	$ARGS{User}, $ARGS{Password}, $ARGS{RetypePassword},
+);
+	
 if ($err ne "")
 {
+	$m->comp('/comp/sidebar');
     $m->out("<b>$err</b><p>");
     #this html displays the sidebar, the new_login should not do it again
-    $m->comp('/newlogin.html', sidebar=>'0', url=>$ARGS{url});
+    $m->comp('/newlogin.html', sidebar=>'0', url => $url);
+	return;
 }
-else
-{
-    $ui->SetSession(\%session, $user, $privs, $uid, !$email);
+
+$ui->SetSession(\%session, $user, $privs, $uid, !$email);
     
-    </%perl>
+$m->comp('/comp/sidebar', title => "MusicBrainz account created!");
+
+</%perl>
     
+<p>
     A new account has been created and you are 
-    now logged into MusicBrainz!<p><br>
+    now logged into MusicBrainz!
+</p>
 
     <%perl>
     if ($email) 
     {
-        my $info = $ui->GetUserInfo($uid);
-        my $ret = $ui->SendVerificationEmail($info, $email);
+		my $me = $ui->newFromId($uid) or die;
+        my $ret = $me->SendVerificationEmail($email);
         if ($ret)
         {
             </%perl>
@@ -55,37 +64,23 @@ else
     }
     </%perl>
     
-    Please update your <a href="/moderator.html?uid=<% $uid %>">profile</a>
+<p>
+    Please <a href="/moderator.html?uid=<% $uid %>">update your profile</a>
     to let the other users know a little bit about you.
-    <br><br>
-    <%perl>
+</p>
 
-    if (exists $ARGS{mbt} && $ARGS{mbt})
-    {
-        </%perl>
-        <b>Click <a href="#mbt_login">here</a> to enter login 
-        information into the Options Dialog.
-        <%perl>
+% if (exists $ARGS{mbt} && $ARGS{mbt}) {
 
-    }
-    elsif (exists $ARGS{url})
-    {
-        my $url;
-        $url = $ARGS{url};
+<p style="font-weight: bold">
+	<a href="#mbt_login">Click here</a>
+	to enter your login information
+	into the Options Dialog.
+</p>
 
-		# Prevent confusing redirect loops
-		$url = "/search.html"
-			if $url =~ m[/(login|logout)\.html];
+% } else {
 
-		</%perl>
-		<p>Click <a href="<% $url %>">here</a> to continue.</p>
-		<%perl>
-    }
-    else
-    {
-        $m->comp('/comp/searchinternal');
-    }
-}
-$mb->Logout();
+<p><a href="<% $url %>">Click here to continue</a>.</p>
 
-</%perl>
+% }
+
+<& /comp/footer &>
