@@ -324,6 +324,7 @@ use Scalar::Util qw( reftype weaken );
 		{ name => "Report a Bug",			url => "http://www.musicbrainz.org/bug" },
 	],
 	{ name => "Wiki",					url => "http://wiki.musicbrainz.org/" },
+	{ name => "Weblog",					url => "http://blog.musicbrainz.org/" },
 );
 
 %urlmap = ();
