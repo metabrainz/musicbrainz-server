@@ -194,9 +194,9 @@ if (!defined $rdf)
 $parser = Parser->new();
 if (!$parser->Parse($rdfinput))
 {
-    $@ =~ tr/\n\r/  /;
-    $@ =~ s/at \/.*$//;
-    $out = $rdf->ErrorRDF("Cannot parse query: $@");
+    $parser->{error} =~ tr/\n\r/  /;
+    $parser->{error} =~ s/at \/.*$//;
+    $out = $rdf->ErrorRDF("Cannot parse query: ", $parser->{error});
     Output($r, \$out);
     exit(0);
 }
