@@ -348,6 +348,9 @@ READQUERY:
 
     close $sock;
 
+    $info{freedbid} = $disc_id;
+    $info{freedbcat} = $category;
+
     return \%info;
 }
 
@@ -456,6 +459,8 @@ sub InsertForModeration
     $new .= "NumTracks=" . scalar(@$ref) . "\n";
     $new .= "CDIndexId=$info->{cdindexid}\n";
     $new .= "TOC=$info->{toc}\n";
+    $new .= "FreedbId=$info->{freedbid}\n" if $info->{freedbid};
+    $new .= "FreedbCat=$info->{freedbcat}\n" if $info->{freedbcat};
 
     my @durations = split ' ', $info->{durations};
 
