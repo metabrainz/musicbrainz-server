@@ -913,15 +913,15 @@ sub ShowModType
 {
 	my ($this, $mason) = splice(@_, 0, 2);
 
-	use HTML::Mason::Tools qw( html_escape );
+	use MusicBrainz qw( encode_entities );
 
 	$mason->out("
 		Type:
-		<span class='bold'>${\ html_escape($this->Name) }</span>
+		<span class='bold'>${\ encode_entities($this->Name) }</span>
 		<br>
 		Artist:
 		<a href='/showartist.html?artistid=${\ $this->GetArtist }'
-			>${\ html_escape($this->GetArtistName) }</a>
+			>${\ encode_entities($this->GetArtistName) }</a>
 	");
 }
 

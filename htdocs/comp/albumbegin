@@ -47,7 +47,7 @@ if ($link)
 		type	=> "album",
 		style	=> "url",
 	&>">Permanent link</a>
-	| <a href="/perm_links.html?name=<% url_escape($name) %>&amp;id=<% $mbid %>&amp;type=album">Link to this</a>
+	| <a href="/perm_links.html?name=<% uri_escape($name) %>&amp;id=<% $mbid %>&amp;type=album">Link to this</a>
 	| <a href="/albumdetail.html?albumid=<% $albumid %>">View info</a>
 	| <& /comp/googlelink, search => [ $artist->GetName, $name ], text => "Search Google" &>
 % if ($session{uid}) {

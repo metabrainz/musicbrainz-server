@@ -83,7 +83,7 @@ $session{'changetrack_splitorder'} = not $session{'changetrack_splitorder'}
 if ($search =~ /\S/ and $trackname =~ /\S/)
 {
 	my $url = "/changetrackartist.html?album=$album&tindex=$tindex&modid=$modid";
-	$url .= "&search=" . url_escape($search);
+	$url .= "&search=" . uri_escape($search);
 	$url .= "&solo=1" if $ARGS{solo};
 	$url .= "&firsttime=1"
 		unless $trackname eq $track->GetName;

@@ -2,7 +2,7 @@
 
 <%perl>
 
-my $result = $m->cache(action=>'retrieve');
+my $result = $m->cache->get("anyoldkey");
 
 if (!defined($result)) 
 {
@@ -72,7 +72,7 @@ if (!defined($result))
 
 		$result = { HTML=>$result, TIME=>time() };
 
-    $m->cache(action=>'store', expire_in=>'3hours', value=>$result);
+		$m->cache->set('anyoldkey', $result, '3 hours');
 }
 
 </%perl>

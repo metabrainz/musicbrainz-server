@@ -26,7 +26,7 @@ $track => undef
 		</tr>
 		<tr>
 			<td valign="top" align="right">Fancy Link:</td>
- 			<td valign="top"><a href="/perm_links.html?name=<% url_escape($album->GetName) %>&amp;id=<% $album->GetMBId %>&amp;type=album">Click here for a fancy link to this album</a></td>
+ 			<td valign="top"><a href="/perm_links.html?name=<% uri_escape($album->GetName) %>&amp;id=<% $album->GetMBId %>&amp;type=album">Click here for a fancy link to this album</a></td>
 		</tr>
 		<tr>
 			<td valign="top" align="right"><a href="/MM/index.html">MM/RDF</a>:</td>

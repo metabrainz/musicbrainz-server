@@ -385,12 +385,12 @@ else
 	<p>These statistics were last refreshed <% $time %></p>
 	<%perl>
 
-	my $result = $m->cache(action=>'retrieve');
+	my $result = $m->cache->get("anyoldkey");
 
 	if (!$result)
 	{
 		$result = $m->scomp("stats.html", $sMagicWord);
-		$m->cache(action=>'store', expire_in=>'1hour', value=>$result);
+		$m->cache->set('anyoldkey', $result, '1 hour');
 	}
 
 	$m->out($result);

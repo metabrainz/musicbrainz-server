@@ -5,9 +5,9 @@ my $qs = "";
 while (my ($k, $v) = each %ARGS)
 {
 	defined($v) or next;
-	$k = url_escape($k);
+	$k = uri_escape($k);
 	my @v = (ref($v) ? @$v : $v);
-	$qs .= "&$k=" . url_escape($_)
+	$qs .= "&$k=" . uri_escape($_)
 		for @v;
 }
 

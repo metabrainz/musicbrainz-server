@@ -26,7 +26,7 @@ if (MusicBrainz::IsSingleLineString($trackname)
 	return $m->comp(
 		"/comp/redirect",
 		"/freedb/mac-selecttrackartist.html"
-			. "?search=" . url_escape($search)
+			. "?search=" . uri_escape($search)
 			. "&t=$t"
 			. "&auto=" . ($auto ? 1 : 0)
 	);

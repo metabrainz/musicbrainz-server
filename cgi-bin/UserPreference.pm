@@ -25,6 +25,8 @@
 
 use strict;
 
+use UserStuff;
+
 package UserPreference;
 
 use Carp qw( carp );
@@ -181,7 +183,8 @@ sub get
 	my $info = $prefs{$key}
 		or carp("UserPreference::get called with invalid key '$key'"), return undef;
 
-	my $value = $HTML::Mason::Commands::session{"PREF_$key"};
+	my $s = UserStuff->GetSession;
+	my $value = $s->{"PREF_$key"};
 	defined($value) or return $info->{DEFAULT};
 	$value;
 }
@@ -195,7 +198,7 @@ sub set
 	defined $newvalue
 		or carp("UserPreference::set called with invalid value '$value' for key '$key'"), return;
 
-	my $s = \%HTML::Mason::Commands::session;
+	my $s = UserStuff->GetSession;
 	tied %$s
 		or carp("UserPreference::set called, but %session is not tied"), return;
 
@@ -209,7 +212,7 @@ sub LoadForUser
 	my $uid = $user->GetId
 		or return;
 
-	my $s = \%HTML::Mason::Commands::session;
+	my $s = UserStuff->GetSession;
 	tied %$s
 		or carp("UserPreference::LoadFromUser called, but %session is not tied"), return;
 
@@ -240,7 +243,7 @@ sub SaveForUser
 	my $uid = $user->GetId
 		or return;
 
-	my $s = \%HTML::Mason::Commands::session;
+	my $s = UserStuff->GetSession;
 	tied %$s
 		or carp("UserPreference::SaveForUser called, but %session is not tied"), return;
 

@@ -29,13 +29,13 @@
 
 <%def .HttpRequest>
 % (my $t = $_[0]) =~ s/\s+\z//;
-% $t = html_escape($t) if $_[1];
+% $t = encode_entities($t) if $_[1];
 <div class="HttpRequest"><pre><% $t |n %></pre></div>
 </%def>
 
 <%def .HttpResponse>
 % (my $t = $_[0]) =~ s/\s+\z//;
-% $t = html_escape($t) if $_[1];
+% $t = encode_entities($t) if $_[1];
 <div class="HttpResponse"><pre><% $t |n %></pre></div>
 </%def>
 

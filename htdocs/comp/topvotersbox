@@ -1,59 +1,55 @@
 %# vi: set ts=2 sw=2 ft=mason :
+<%init>
+return if $m->cache_self(
+	busy_lock		=> "1min",
+	expire_next	=> "day",
+);
+</%init>
+<table cellpadding="2" cellspacing="0" border="0" class="SideBarStatsBox" width="110px">
 <%perl>
 
-my $result = $m->cache(
-	action		=> 'retrieve',
-	busy_lock => "1min",
-);
+my $mb = $m->comp("/comp/dblogin", quiet=>1);
 
-if (!defined($result)) 
+if (defined $mb)
 {
-		$result = "[error]";
+	my $sql = Sql->new($mb->{DBH});
 
-    my $mb = $m->comp("/comp/dblogin", quiet=>1);
+	my $data = $sql->SelectListOfLists(
+		q"
+		SELECT	m.id, m.name,
+						CASE WHEN LENGTH(name)<=11 THEN name ELSE SUBSTR(name, 1, 8) || '...' END
+							AS nametrunc,
+						COUNT(*) AS num
+		FROM		vote_all v, moderator m
+		WHERE		v.moderator = m.id
+		AND 		v.vote != " . &ModDefs::VOTE_ABS . q"
+		AND			votetime > NOW() - INTERVAL '1 week' 
+		GROUP BY m.id, m.name
+		ORDER BY num DESC
+		LIMIT 5
+		"
+	);
 
-    if (defined $mb)
-    {
-        my $sth = $mb->{DBH}->prepare(qq|select Moderator.name, count(v.id) as num
-                                           from vote_all v, Moderator
-                                          where v.moderator = Moderator.id and 
-                                                (v.vote = 0 or v.vote = 1) and
-                                                votetime > now() - interval '1 week' 
-                                       group by Moderator.id, Moderator.name
-                                       order by num desc limit 5|);
+	for my $row (@$data)
+	{
+		my ($id, $name, $nametrunc, $count) = @$row;
+		</%perl>
+		<tr>
+			<td class="SideBarStatsBoxName"
+				<% ($name eq $nametrunc) ? "" : 'title="'.html_escape($name).'"' |n %>
+				><a href="/user/view.html?uid=<% $id %>"><% $nametrunc %></a></td>
+			<td class="SideBarStatsBoxCount"><% $count %></td>
+		</tr>
+		<%perl>
+	}
 
-        if ($sth->execute)
-        {
-           my @row;
-					 $result = "";
-    
-           while(@row = $sth->fetchrow_array)
-           {
-							$row[0] = substr($row[0], 0, 8)."..."
-								if length($row[0]) > 11;
-              $result .=qq\<tr>
-                             <td align=right valign=top width="50%" class="statsb">
-                                 $row[0]
-                             </td>
-                             <td align=left valign=top width="50%" class="stats">
-                                 $row[1]
-                             </td>
-                               </tr>\;
-           }
-        }
-
-				$sth->finish;
-				$result ||= "<tr><td>no-one!</td></tr>";
+	$m->out("<tr><td>no-one!</td></tr>")
+		if not @$data;
 				
-        $mb->Logout();
-    }
-
-    $m->cache(action=>'store', expire_next=>'day', value=>$result);
+} else {
+	$m->out("[error]");
 }
 </%perl>
-
-<table cellpadding="2" cellspacing="0" border="0" class="statsb" width="110px">
-        <% $result |n %>
 </table>
 
 	<div class="SideBarMoreLink">

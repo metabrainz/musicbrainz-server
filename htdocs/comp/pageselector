@@ -74,7 +74,7 @@ for my $i ($start .. $end)
 	if ($i != $index)
 	{
 		$m->out("<a href='"
-			. html_escape($urlqs)
+			. encode_entities($urlqs)
 			. "offset=" . ($i * $pagesize)
 			. "'>" . ($i + 1) . "</a>&nbsp;");
 	}

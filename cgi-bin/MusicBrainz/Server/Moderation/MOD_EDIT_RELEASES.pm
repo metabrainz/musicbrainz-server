@@ -246,13 +246,13 @@ sub ShowModType
 	my ($this, $mason) = (shift, shift);
 	$this->SUPER::ShowModType($mason, @_);
 
-	use HTML::Mason::Tools qw( html_escape );
+	use MusicBrainz qw( encode_entities );
 
 	$mason->out("
 		<br>
 		Album:
 		<a href='/showalbum.html?albumid=${\ $this->{albumid} }'
-			>${\ html_escape($this->{albumname}) }</a>
+			>${\ encode_entities($this->{albumname}) }</a>
 	");
 }
 

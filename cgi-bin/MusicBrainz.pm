@@ -28,9 +28,11 @@ no warnings qw( portable );
 
 package MusicBrainz;
 
+require Exporter;
 use vars qw(@ISA @EXPORT);
-@ISA    = @ISA    = '';
-@EXPORT = @EXPORT = '';
+@ISA    = @ISA    = qw( Exporter );
+@EXPORT = @EXPORT = qw( );
+@EXPORT_OK = @EXPORT_OK = qw( encode_entities );
 
 use strict;
 use DBI;
@@ -132,6 +134,14 @@ sub NormaliseSortText
 	lc decode('utf-8', unac_string('UTF-8', shift));
 }
 *NormalizeSortText = \&NormaliseSortText;
+
+# HTML-encoding, but only on the listed "unsafe" characters.  Specifically,
+# don't (incorrectly) encode top-bit-set characters as &Atilde; and the like.
+sub encode_entities
+{
+	use HTML::Entities ();
+	HTML::Entities::encode_entities($_[0], "<>&\"'");
+}
 
 1;
 # eof MusicBrainz.pm

@@ -87,7 +87,7 @@ my $mb = $m->comp('/comp/dblogin');
 				><% $row->{track_name} %></a></td>
 		<td class="link">[
 %			my $url = "/edittrack.html?album=$row->{album_id}&track=$row->{track_id}";
-%			$url .= "&defaultname=" . url_escape($row->{new_name})
+%			$url .= "&defaultname=" . uri_escape($row->{new_name})
 %				if defined $row->{new_name};
 %			my $word = (defined($row->{new_name}) ? "Suggest" : "Edit");
 				<a href="<% $url %>" onclick="

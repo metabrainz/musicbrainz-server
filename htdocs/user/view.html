@@ -107,7 +107,7 @@ my $is_me = ($uid == $my_uid);
 <p class="LinksRow">
 	[
 % unless ($is_me) {
-	<a href="/user/mod_email.html?uid=<% $uid %>&url=<% url_escape("/user/view.html?uid=$uid") %>">Send email</a> | 
+	<a href="/user/mod_email.html?uid=<% $uid %>&amp;url=<% uri_escape("/user/view.html?uid=$uid") %>">Send email</a> | 
 % }
     <a href="/mod/search/pre/voted.html?moderator=<% $uid %>">List Votes</a> |
 	<a href="/mod/search/pre/moderator.html?moderator=<% $uid %>">List Moderations</a> |
@@ -164,7 +164,7 @@ my $is_me = ($uid == $my_uid);
 			if ($bio)
 			{
 				$bio =~ s/<p>/\n/g;
-				$bio = html_escape($bio);
+				$bio = encode_entities($bio);
 				$bio = join "",
 					map { "<p>$_</p>" }
 					split /\n/, $bio;

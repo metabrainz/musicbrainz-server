@@ -115,7 +115,7 @@ if ($showreleases and not $album->IsNonAlbumTracks)
 		my $date = $m->scomp("/comp/releasedate", $rel);
 
 		my $mp = ($rel->GetModPending ? " class='mp'" : "");
-		$m->out("<tr$mp><td>$date</td><td>-</td><td>".html_escape($name)."</td></tr>");
+		$m->out("<tr$mp><td>$date</td><td>-</td><td>".encode_entities($name)."</td></tr>");
 	}
 
 	$m->out("<tr><td colspan=2>No release information available</td></tr>")

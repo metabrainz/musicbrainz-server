@@ -24,7 +24,7 @@ $artist
 		</tr>
 		<tr>
 			<td valign="top" align="right">Fancy Link:</td>
- 			<td valign="top"><a href="/perm_links.html?name=<% url_escape($artist->GetName) %>&amp;id=<% $artist->GetMBId %>&amp;type=artist">Click here for a fancy link to this artist</a></td>
+ 			<td valign="top"><a href="/perm_links.html?name=<% uri_escape($artist->GetName) %>&amp;id=<% $artist->GetMBId %>&amp;type=artist">Click here for a fancy link to this artist</a></td>
 		</tr>
 		<tr>
 			<td valign="top" align="right"><a href="/MM/index.html">MM/RDF</a>:</td>

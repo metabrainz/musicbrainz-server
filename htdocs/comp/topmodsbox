@@ -1,19 +1,15 @@
 %# vi: set ts=2 sw=2 ft=mason :
-<%perl>
-
-my $result = $m->cache(
-	action		=> 'retrieve',
-	busy_lock => "1min",
+<%init>
+return if $m->cache_self(
+	busy_lock		=> "1min",
+	expire_next	=> "day",
 );
-
-if (!defined($result)) 
-{
-		$result = "[error]";
+</%init>
+<table cellpadding="2" cellspacing="0" border="0" class="statsb" width="110px">
+<%perl>
 
     my $mb = $m->comp("/comp/dblogin", quiet=>1);
 
-    if (defined $mb)
-    {
         my $sth = $mb->{DBH}->prepare(qq|select Moderator.name, count(Moderator.id) as num
                                         from moderation_all m,Moderator
                                        where m.Moderator = Moderator.id
@@ -23,38 +19,34 @@ if (!defined($result))
                                     group by Moderator.name
                                     order by num desc limit 5|);
 
+				 my $rows = 0;
         if ($sth->execute)
         {
            my @row;
-					 $result = "";
     
            while(@row = $sth->fetchrow_array)
            {
 							$row[0] = substr($row[0], 0, 8)."..."
 								if length($row[0]) > 11;
-              $result .=qq\<tr>
+							</%perl>
+              <tr>
                              <td align=right valign=top width="50%" class="statsb">
-                                 $row[0]
+                                 <% $row[0] %>
                              </td>
                              <td align=left valign=top width="50%" class="stats">
-                                 $row[1]
+                                 <% $row[1] %>
                              </td>
-                               </tr>\;
+							</tr>
+							<%perl>
+							++$rows;
            }
         }
 
 				$sth->finish;
-				$result ||= "<tr><td>no-one!</td></tr>";
-				
-        $mb->Logout();
-    }
+				$m->out("<tr><td>no-one!</td></tr>")
+					if not $rows;
 
-    $m->cache(action=>'store', expire_next=>'day', value=>$result);
-}
 </%perl>
-
-<table cellpadding="2" cellspacing="0" border="0" class="statsb" width="110px">
-        <% $result |n %>
 </table>
 
 	<div class="SideBarMoreLink">

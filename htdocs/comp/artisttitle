@@ -31,7 +31,7 @@ my $sortname = $artist->GetSortName;
 				type => "artist",
 				style => "url",
 			&>">Permanent link</a>
-			| <a href="/perm_links.html?name=<% url_escape($name) %>&amp;id=<% $mbid %>&amp;type=artist">Link to this</a>
+			| <a href="/perm_links.html?name=<% uri_escape($name) %>&amp;id=<% $mbid %>&amp;type=artist">Link to this</a>
 			| <a href="/artistinfo.html?artistid=<% $id %>">View info</a>
 			| <a href="/showaliases.html?artistid=<% $id %>">Aliases</a>
 % if ($id != &ModDefs::VARTIST_ID) {
@@ -58,7 +58,7 @@ my $sortname = $artist->GetSortName;
 				|
 % }
         <a href="/addalbum.html?artistid=<% $id %>">Add album</a>
-        | <a href="/freedb/freedb.html?search=<% url_escape($name) %>">Import album</a>
+        | <a href="/freedb/freedb.html?search=<% uri_escape($name) %>">Import album</a>
 				| <a href="/addnonalbumtracks.html?artistid=<% $id %>">Add non-album tracks</a>
 		]</div>
 % } elsif ($showmodlinks) {

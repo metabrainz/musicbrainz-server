@@ -124,7 +124,7 @@ The following moderators are automoderators:
 % my @users = @{ $mod->GetAutomoderatorList };
 % $m->out("No-one!") if not @users;
 % while (defined(my $user = shift @users)) {
-	<a href="/user/view.html?modname=<% url_escape($user) %>"><% $user %></a><% (@users ? ", " : "") %>
+	<a href="/user/view.html?modname=<% uri_escape($user) %>"><% $user %></a><% (@users ? ", " : "") %>
 % }
 </blockquote>
 

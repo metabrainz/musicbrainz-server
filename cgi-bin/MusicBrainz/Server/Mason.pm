@@ -3,8 +3,8 @@
 
 use strict;
 
-use HTML::Mason::ApacheHandler ( args_method => 'mod_perl' );
-use HTML::Mason; # brings in subpackages: Parser, Interp, etc.
+use HTML::Mason::ApacheHandler;
+use HTML::Mason;
 
 package MusicBrainz::Server::Mason;
 
@@ -64,38 +64,23 @@ sub get_handler
 {
 	# The in_package value here is the default, but it's worth
 	# stating that we *depend* upon that default.
-	my $parser = HTML::Mason::Parser->new(
+	my $compiler = HTML::Mason::Compiler::ToObject->new(
 		default_escape_flags=> 'h',
-		in_package			=> 'HTML::Mason::Commands',
-	);
-
-	my $interp = HTML::Mason::Interp->new(
-		parser				=> $parser,
-		comp_root			=> &DBDefs::HTDOCS_ROOT,
-		data_dir			=> &DBDefs::MASON_DIR,
-		allow_recursive_autohandlers => undef,
-		preloads			=> preload_files(),
+		in_package			=> "MusicBrainz::Server::ComponentPackage",
 	);
 
 	my $handler = HTML::Mason::ApacheHandler->new(
-		interp				=> $interp,
+		compiler			=> $compiler,
+		comp_root			=> &DBDefs::HTDOCS_ROOT,
+		data_dir			=> &DBDefs::MASON_DIR,
+		preloads			=> preload_files(),
 		apache_status_title	=> __PACKAGE__." status",
-		error_mode			=> (&DBDefs::DB_STAGING_SERVER ? "html" : "fatal"),
+		error_mode			=> (&DBDefs::DB_STAGING_SERVER ? "output" : "fatal"),
 	);
 
-	my ($user, $group) = (&DBDefs::APACHE_USER, &DBDefs::APACHE_GROUP);
-
-	my $uid = (getpwnam $user)[2];
-	defined($uid) or die "No such user '$user'";
-
-	my $gid = (getgrnam $group)[2];
-	defined($gid) or die "No such group '$group'";
-
-	if (my @files = $interp->files_written)
-	{
-		my $n = chown($uid, $gid, @files);
-		warn "chown: $!" if $n != @files;
-	}
+	# Install our minimal HTML encoder as the default.  This leaves
+	# top-bit-set characters alone.
+	$handler->interp->set_escape( h => \&MusicBrainz::encode_entities );
 
 	$handler;
 }
@@ -115,19 +100,21 @@ sub handler
     return DECLINED if (!defined $r->content_type);
     return DECLINED if $r->content_type && $r->content_type !~ m[^text/html\b]io;
 
-    package HTML::Mason::Commands;
+    package MusicBrainz::Server::ComponentPackage;
 
 	# Make these available to all components:
-	use HTML::Mason::Tools qw( html_escape url_escape );
+	use MusicBrainz qw( encode_entities );
+	use URI::Escape qw( uri_escape );
 
     use vars qw(%session %pnotes);
     untie %session;
     %session = ();
     %pnotes = ();
 
-	$r = Apache::Request->new($r)
-		unless UNIVERSAL::isa($r, 'Apache::Request');
-	$pnotes{'ispopup'} = ($r->param("ispopup") ? 1 : "");
+	{
+		my $req = Apache::Request->instance($r);
+		$pnotes{'ispopup'} = ($req->param("ispopup") ? 1 : "");
+	}
 
     use CGI::Cookie ();
     my %cookies = CGI::Cookie->parse($r->header_in('Cookie'));

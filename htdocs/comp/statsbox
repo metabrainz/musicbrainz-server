@@ -1,16 +1,19 @@
+%# vi: set ts=2 sw=2 ft=mason :
+<%init>
+return if $m->cache_self(
+	busy_lock		=> "1min",
+	expire_next	=> "day",
+);
+</%init>
+<table cellpadding="2" cellspacing="0" border="0" class="statsb" width="110px">
+	<col style="width: 50%">
+	<col style="width: 50%">
 <%perl>
 
-my $result = $m->cache(action=>'retrieve');
-if (!defined($result)) 
-{
     my $mb = $m->comp("/comp/dblogin", quiet=>1);
 
-    if (defined $mb)
-    {
 			my $stat = Statistic->new($mb->{DBH});
 			my %stats = %{ $stat->FetchAllAsHashRef };
-
-			$result = "";
 
 			for (
 				[ "Artists", $stats{'count.artist'} ],
@@ -22,23 +25,14 @@ if (!defined($result))
 				[ "Users", $stats{'count.moderator'} ],
 			) {
 				my ($title, $count) = @$_;
-				$result .=
-					"\n<tr>"
-						. "<td valign='top' align='right' class='statsb'>$title</td>"
-						. "<td valign='top' class='stats'>$count</td>"
-					. "</tr>";
+				</%perl>
+					<tr>
+						<td valign='top' align='right' class='statsb'><% $title %></td>
+						<td valign='top' class='stats'><% $count %></td>
+					</tr>
+				<%perl>
 			}
-
-			$m->cache(action=>'store', expire_next=>'hour', value=>$result);
-			$mb->Logout();
-		}
-}
 </%perl>
-
-<table cellpadding="2" cellspacing="0" border="0" class="statsb" width="110px">
-	<col style="width: 50%">
-	<col style="width: 50%">
-	<% $result |n %>
 </table>  
 
 <div class="SideBarMoreLink">

@@ -4,9 +4,9 @@
 while (my ($k, $v) = each %ARGS)
 {
 	defined($v) or next;
-	$k = html_escape($k);
+	$k = encode_entities($k);
 	my @v = (ref($v) ? @$v : $v);
-	$m->out(qq[<input type="hidden" name="$k" value="].html_escape($_).qq[">])
+	$m->out(qq[<input type="hidden" name="$k" value="].encode_entities($_).qq[">])
 		for @v;
 }
 

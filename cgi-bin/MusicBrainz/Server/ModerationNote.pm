@@ -43,8 +43,8 @@ sub GetUserName		{ $_[0]{user} }
 sub GetTextAsHTML
 {
 	my $self = shift;
-	use HTML::Mason::Tools qw( html_escape );
-	my $html = html_escape($self->GetText);
+	use MusicBrainz qw( encode_entities );
+	my $html = encode_entities($self->GetText);
 
 	my @site_names = (qw(
 		musicbrainz.org

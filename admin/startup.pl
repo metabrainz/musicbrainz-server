@@ -16,25 +16,6 @@ use Apache::Session;
 use DBI;
 use DBD::Pg;
 
-BEGIN
-{
-	require HTML::Mason::Config;
-
-	my $c = \%HTML::Mason::Config;
-
-	die "Too late to configure Mason!"
-	    if $INC{'HTML/Mason/Utils.pm'}
-	    and (
-			$c->{mldbm_serializer} ne "Storable"
-			or $c->{mldbm_use_db} ne "DB_File"
-	    );
-
-	$HTML::Mason::Config{default_cache_tie_class} = "MLDBM";
-	$HTML::Mason::Config{mldbm_serializer} = "Storable";
-	$HTML::Mason::Config{mldbm_use_db} = "DB_File";
-	$HTML::Mason::Config{use_time_hires} = 1;
-}
-
 # Alphabetical order, for ease of maintenance
 # (apart from DBDefs and ModDefs, which we'll load first, just to make sure)
 use DBDefs;

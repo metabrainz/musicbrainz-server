@@ -824,7 +824,7 @@ sub SendFormattedEmail
 # Logging in
 ################################################################################
 
-sub GetSession { \%HTML::Mason::Commands::session }
+sub GetSession { \%MusicBrainz::Server::ComponentPackage::session }
 
 sub EnsureSessionOpen
 {

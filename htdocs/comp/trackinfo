@@ -26,7 +26,7 @@ $track
 	</tr>
 	<tr>
 		<td valign="top" align="right">Fancy Link:</td>
- 		<td valign="top"><a href="/perm_links.html?name=<% url_escape($track->GetName) %>&amp;id=<% $track->GetMBId %>&amp;type=track">Click here for a fancy link to this track</a></td>
+ 		<td valign="top"><a href="/perm_links.html?name=<% uri_escape($track->GetName) %>&amp;id=<% $track->GetMBId %>&amp;type=track">Click here for a fancy link to this track</a></td>
 	</tr>
 	<tr>
 		<td valign="top" align="right"><a href="/MM/index.html">MM/RDF</a>:</td>

@@ -47,14 +47,14 @@ $url = "/search.html"
 if (!$ok)
 {
 	$url = "/login.html?badlogin=1"
-		. "&url=" . url_escape($url)
+		. "&url=" . uri_escape($url)
 		;
 }
 else
 {
 	$url = "/login.html?confirm=1"
-		. "&email=" . url_escape($email)
-		. "&url=" . url_escape($url)
+		. "&email=" . uri_escape($email)
+		. "&url=" . uri_escape($url)
 		if $confirm;
 }
 
