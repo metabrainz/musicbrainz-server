@@ -1,0 +1,14 @@
+%# vi: set ts=4 sw=4 ft=mason :
+<%perl>
+my ($sError, $fHeader, $fFooter) = @_;
+
+$m->comp("/comp/sidebar", title => "Error")
+	if $fHeader;
+</%perl>
+
+<p><% $sError %></p>
+
+<%perl>
+$m->comp("/comp/footer")
+	if $fFooter;
+</%perl>
