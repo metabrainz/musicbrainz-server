@@ -1,0 +1,28 @@
+#The GNUPLOT statistics file
+#
+# use 'gnuplot <this file name>'
+#
+# to create two graphs indicating the growth of MusicBrainz
+#  - stats_30_dats.gif   shown the number of albums, moderations, and TRMIds in time
+#                   Muze in time.
+#                   
+# Created in Dec 2001 by Johan Pouwelse
+
+GraceNoteDups=3
+FreeDBDups=2
+
+set terminal gif
+set xdata time
+set timefmt "%d %m %Y"
+set xlabel "Time"
+set xrange ["01 10 2000" : "1 6 2002"]
+set format x "%m/%Y"
+set key left
+set ylabel "Number of entries in MusicBrainz"
+
+set output "stats_30_days.gif"
+
+plot "mb.dat" using 1:($5) title "Albums" with linespoints, \
+     "mb.dat"    using 1:($6) title "Artists" with linespoints, \
+     "mb.dat"    using 1:($7) title "Moderations" with linespoints, \
+     "mb.dat"    using 1:($8) title "TRM Ids" with linespoints
