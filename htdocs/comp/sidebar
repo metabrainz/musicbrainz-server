@@ -11,6 +11,7 @@ $m->comp(
 <& /comp/sidebarsectiontop, title=>'Site Menu' &>
 <& /comp/sitemenu &>
 
+% unless ($session{'no_sidebar_panels'}) {
 <& /comp/sidebarsection, title=>'Top Moderators' &>
 <& /comp/sidebarareabegin &>
 <& /comp/topmodsbox &>
@@ -20,6 +21,7 @@ $m->comp(
 <& /comp/sidebarareabegin &>
 <& /comp/statsbox &>
 <& /comp/sidebarareaend &>
+% }
 
 <& /comp/sidebarsection, title=>'Sponsors' &>
 <& /comp/sidebarareabegin &>
