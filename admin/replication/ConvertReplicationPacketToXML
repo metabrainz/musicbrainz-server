@@ -81,7 +81,7 @@ while (my $p_line = shift_p())
 	my $op = $p_row->{"Op"} or die "No Op in $p_line";
 
 	my $expect_d = $op_expect{$op} or die "Unknown op '$op'";
-	die "Wrong number of PendingData lines" unless @d_lines == $expect_d;
+	die "Wrong number of PendingData lines ($p_line)" unless @d_lines == $expect_d;
 
 	my $table = $p_row->{"TableName"};
 	$want_table{$table} or next;
