@@ -43,14 +43,21 @@
 </tr>
 </table>
 
-
-<!-- if you could leave this it would be appreciated... =] -->
 <br>
-<div class="design" align="center">
+<table width=100%>
+<tr>
+<td class="design" width="15%">
+&nbsp;
+</td>
+<td align=center class="design" width="70%">
 Design|<a href="http://syndicategrafix.com">syndicategrafix.com</a>
-</div>
+</td>
+<td align=right class="design" width="15%">
+  Server version: <% DBDefs::VERSION %>
+</td>
+</tr>
+</table>
 <br>
-<!-- if you could leave this it would be appreciated... =] -->
 
 </body>  
 </html>

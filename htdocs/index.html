@@ -1,41 +1,27 @@
 <& /comp/title, title=>'Welcome to MusicBrainz!' &>  
 
-<font color=red><b>News:</b></font> Version 1.0.0-pre3 of the client
-library us now available and a data dump from this server is also
-available at the <a href="/download.html">download</a> page.
 
 <p>
-   This is the musicbrainz.org test server.  MusicBrainz is the 
-   second generation incarnation of the <a href="http://www.cdindex.org">
-   CD Index</a>. This server is designed to enable Audio CD and MP3/Vorbis
-   players to download metadata about the music they are playing.
-
-   <p>
-   Recently <a href="http://beta.relatable.com">Relatable</a> has started 
-   supporting the <a href="http://www.freeamp.org">FreeAmp</a> MP3/Vorbis
-   player and they have Open Sourced their audio data signature generation
-   code. This code identifies an audio track based on its audio signature,
-   and if a track contains any metadata, this metadata and the audio track
-   signature are sent to this MusicBrainz server if you have the Relatable
-   features enabled in FreeAmp.
-
-   <p>Once the MusicBrainz service goes live, the server will contain
-   the data from the CD Index, the data from 
-   <a href="http://www.freedb.org">freedb.org</a>, and all the metadata
-   from the <a href="http://www.emusic.com">EMusic.com</a> MP3 database.
-   This should bring the total number of albums in MusicBrainz to well
-   over 250,000 albums!
+   MusicBrainz is the second generation incarnation of the 
+   <a href="http://www.cdindex.org"> CD Index</a>. This server is designed 
+   to enable Audio CD and MP3/Vorbis players to download metadata about the 
+   music they are playing. All of the data collected on this server 
+   is made available to the public under the 
+   <a href="www.opencontent.com">OpenContent</a> license. 
 
    <p>
    Over the next few weeks the FreeAmp, MusicBrainz, Relatable.com and 
    EMusic.com teams will continue to work out the kinks in the system and 
-   fine-tune the data collection
+   fine-tune the data collection and maintenance
    algorithms. This server should be fully active and ready for the general
-   public to participate this fall. There is a client library that 
+   public to participate this fall. In the meantime, please feel free
+   to look around and see what MusicBrainz has to offer.
+   There is a client library that 
    application authors can incorporate into their applictions to quickly
    and easily add MusicBrainz support. The source code for the client library
    and the server source code can be obtained 
    <a href="/download.html">here</a>.
+
 
    <p>
    If you have any questions or comments about this server, please
@@ -44,19 +30,40 @@ available at the <a href="/download.html">download</a> page.
    <p>
    <br>
    <center>
-   <font size=+1><b>This server is beta software!</b></font><p>
-   <font size=+1><b>All data on this server is subject to go away!</b></font><br>
-   (No loss, since it was automatically collected)<p>
-   </center>
 
+<& /comp/tablebegin, title=>"Recent News Items" &>
+<table border="0" cellpadding="3">
+<tr>
+   <td>
+   10-17-2000
+   </td>
+   <td>
+   The <a href="/MM">MusicBrainz Metadata Initiative</a> specification has been updated.
+   </td>
+</tr>
+<tr>
+   <td>
+   10-13-2000
+   </td>
+   <td>
+   Version <a href="download.html">1.0.0-pre3</a> of the client library is now available
+   </td>
+</table>
+<& /comp/tableend &>
+
+   <p>
+   <br>
+   <br>
+   <font size="+1" class="title">This server is beta software!</font><br>
+   If you encounter strange behaviour or missing pages, please
+   <a href="http://www.freeamp.org/bugzilla">report a bug</a>.
+   <br>
    <br>
    <br>
    <br>
    <br>
    Space for this page and the MusicBrainz server is provided by 
-   <a href="http://www.emusic.com">EMusic Corporation</a> and
+   <a href="http://www.emusic.com">EMusic Corporation</a><br> and
    audio track signature technology provided by 
    <a href="http://www.relatable.com">Relatable.com</a>.
-   <table width=100%><tr><td align=right>
-   Server version: <% DBDefs::VERSION %>
-   </td></tr></table>
+   </center>

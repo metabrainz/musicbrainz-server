@@ -3,13 +3,14 @@
     <td>
       <span class="sidemenu"> 
          <a href="/index.html">Home</a><br>
-         <a href="/what.html">What is it?</a><br>
+         <a href="/introduction.html">Introduction</a><br>
          <a href="/search.html">Search/Browse</a><br>
          <a href="/engine.html">Search engine</a><br>
          <a href="/moderate.html">Vote/Moderate</a><br>
          <a href="/how.html">How?</a><br>
          <a href="/todo.html">To Do List</a><br>
          <a href="/list.html">Mailing List</a><br>
+         <a href="/MM">Metadata Initiative</a><br>
          <a href="http://www.freeamp.org/bugzilla">Report a bug</a><br>
          <a href="http://www.freeamp.org">FreeAmp</a><br>
          </span>
