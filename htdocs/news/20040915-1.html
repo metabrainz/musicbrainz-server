@@ -59,26 +59,49 @@
 <h3>Other Changes</h3>
 
 <p>
-	<b>Artist Search</b>: a bug was causing the artist search index to become
+	A bug was causing the artist search index to become
 	corrupted.&nbsp; The bug has been fixed and the index has been rebuilt.
 </p>
 
 <p>
-	<b>FreeDB Imports</b>: the notes added by the ModBot, giving the URL of the
-	original FreeDB data, are no longer mailed to the original moderator.
+	When albums are imported from FreeDB, and the ModBot adds a note
+	giving the URL of the original FreeDB data, that note is no longer
+	mailed to the original moderator.
 </p>
 
 <p>
-	<b>Add Album</b>: when adding an album, both album attributes now default
+	When adding an album, both album attributes now default
 	to "not known" instead of "Album, Official".
 </p>
 
 <p>
-	<b>Miscellany</b>: a "Copy" button has been added to the "edit artist"
-	page.&nbsp; The instructions for anonymous CVS access have been fixed.&nbsp;
-	"Guess Case" has been tweaked again.
-%# TODO describe
+	You can now make a case-change edit on artist aliases
+	(previously it erroneously complained that there was a conflicting
+	alias).&nbsp; The code which adds and renames aliases has been made more
+	robust.
+</p>
+
+<p>
+	The edit artist page now includes a "copy" button (copies the name
+	into the sortname field).
+</p>
+
+<p>
+	"Guess Case" has been tweaked again: it no longer adds a space
+	after "." if the next character is "." (because we don't want "..." to
+	become ". ..").&nbsp; It doesn't check for a sub-title split when
+	inside parentheses (fixes "Album Title (Disc 1: Disc Name) bug).&nbsp;
+	It converts "reprise" to lower case when within parentheses.&nbsp;
+	It strips spaces after "(" or "[", and before "]" or ")".
+</p>
+
+<p>
 	The MusicBrainz data dumps now include Amazon cover art URLs.
+</p>
+
+<p>
+	The tagger search page is no longer fooled by extra whitespace
+	around your search query.
 </p>
 
 <h2>New and Changed Documentation</h2>
@@ -88,6 +111,8 @@
 	<li><a href="/products/picard/index.html">Picard</a>,
 		and a <a href="/products/picard/tutorial/index.html">Picard Tutorial</a></li>
 	<li>New Q/A's have been added to <a href="/tagger/faq.html">the Tagger FAQ</a></li>
+	<li>The <a href="/development/cvs.html">instructions for anonymous CVS access</a>
+		have been fixed</li>
 </ul>
 
 <h2>Changes mainly of interest to MusicBrainz Server Programmers</h2>
@@ -140,6 +165,7 @@
 999708	FreeDB imports get ?s for non-8859-1 characters
 1009101	Add a link to MisencodingFAQ wiki page
 1015759	Improvements to automoderation election scripts (partially implemented)
+1021955	Can't change case of alias
 1024226	Missing TRIM of searchengine-entries
 
 EOF
