@@ -27,7 +27,6 @@ use strict;
 use XML::Parser;
 use XML::DOM;
 use DBDefs;
-use Encode qw( from_to );
 use TableBase;
 use MusicBrainz;
 use UserStuff;
