@@ -99,6 +99,7 @@
     <br>
     You are logged in as <b><% $session{user} %></b>.<br>
     View/update your <a href="/moderator.html?uid=<% $session{uid} %>">profile</a><br>
+    or your <a href="/prefs.html">preferences</a>.<br>
     <a href="/logout.html">Logout</a> from MusicBrainz.
     <br>
     &nbsp;
@@ -115,10 +116,7 @@
 % } else {
   <& /comp/tablebegin, title=>'Login', attrs=>"align=center", 
      gattrs=>"width='100%'" &>
-    <br>
     <& /comp/loginbox &>
-    <br>
-    &nbsp;
   <& /comp/tableend &>
 % }
 </td>
