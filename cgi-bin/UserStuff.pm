@@ -99,8 +99,8 @@ sub CreateLogin
    $sth->finish;
 
    $mb->{DBH}->do(qq/
-            insert into ModeratorInfo (Name, Password, Privs) 
-            values ($user, $pwd, 0)
+            insert into ModeratorInfo (Name, Password, Privs, ModsAccepted, 
+            ModsRejected) values ($user, $pwd, 0, 0, 0)
             /);
 
    $sess->{user} = $user;

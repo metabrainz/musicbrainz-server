@@ -1304,7 +1304,7 @@ sub CheckModifications
    {
        $sth = $this->{DBH}->prepare(qq/select yesvotes, novotes,
               UNIX_TIMESTAMP(now()) - UNIX_TIMESTAMP(TimeSubmitted),
-              tab, rowid from Changes where id = $rowid/);
+              tab, rowid, moderator from Changes where id = $rowid/);
        $sth->execute;
        if ($sth->rows)
        {
@@ -1317,6 +1317,11 @@ sub CheckModifications
                 if ($row[0] > $row[1])
                 {
                     $this->ApplyModification($rowid);
+                    $this->CreditModerator($row[5], 1);
+                }
+                else
+                {
+                    $this->CreditModerator($row[5], 0);
                 }
                 $this->RemoveModification($rowid, $row[3], $row[4]);
             }
@@ -1325,15 +1330,33 @@ sub CheckModifications
             {
                 # A unanimous yes. Apply and the remove from db
                 $this->ApplyModification($rowid);
+                $this->CreditModerator($row[5], 1);
                 $this->RemoveModification($rowid, $row[3], $row[4]);
             }
             elsif ($row[1] == DBDefs::NUM_UNANIMOUS_VOTES && $row[0] == 0)
             {
                 # A unanimous no. Remove from db
+                $this->CreditModerator($row[5], 0);
                 $this->RemoveModification($rowid, $row[3], $row[4]);
             }
        }
        $sth->finish;
+   }
+}
+
+sub CreditModerator
+{
+   my ($this, $uid, $yes) = @_;
+
+   if ($yes)
+   {
+       $this->{DBH}->do(qq/update ModeratorInfo set 
+                       modsaccepted = modsaccepted+1 where id = $uid/);
+   }
+   else
+   {
+       $this->{DBH}->do(qq/update ModeratorInfo set 
+                       modsrejected = modsrejected+1 where id = $uid/);
    }
 }
 
