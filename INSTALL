@@ -198,7 +198,7 @@ However, we need at least 1.05, which you can get from http://www.senga.org/
    
 Additionally, we also require that the "unac_string" routine it provides be
 able to handle non-string values, like "undef".  There's a patch to achieve
-this at http://www.musicbrainz.org/~dave/Text-Unaccent-1.07-svrok.patch/
+this at http://www.musicbrainz.org/~dave/Text-Unaccent-1.07-svrok.patch
 
 10) Other dependencies
 
