@@ -386,16 +386,6 @@ sub InsertForModeration
     return if ($info->{artist} =~ /^various$/i ||
                $info->{artist} =~ /^various artists$/i); 
 
-    print STDERR "Before: $info->{artist}\n";
-    $u = Unicode::String::utf7($info->{artist});
-    $info->{artist} = $u->latin1;
-    print STDERR " After: $info->{artist}\n";
-
-    print STDERR "Before: $info->{album}\n";
-    $u = Unicode::String::utf7($info->{album});
-    $info->{album} = $u->latin1;
-    print STDERR " After: $info->{album}\n";
-
     $new = "Artist=$info->{artist}\n";
     $new .= "Sortname=$info->{artist}\n";
     $new .= "AlbumName=$info->{album}\n";
@@ -405,11 +395,6 @@ sub InsertForModeration
 
     foreach $track (@$ref)
     {
-        print STDERR "Before: $track->{track}\n";
-        $u = Unicode::String::utf7($track->{track});
-        $track->{track} = $u->latin1;
-        print STDERR " After: $track->{track}\n\n";
-
         $new .= "Track" . $track->{tracknum} . "=" . $track->{track} . "\n";
     }
 
