@@ -70,7 +70,7 @@ sub GetTextAsHTML
 
 sub Insert
 {
-	my ($self, $moderation, $noteuid, $text, $nosend) = @_;
+	my ($self, $moderation, $noteuid, $text, %opts) = @_;
    	my $sql = Sql->new($self->{DBH});
 
 	my $modid = $moderation->GetId;
@@ -96,7 +96,7 @@ sub Insert
 	);
 
 	# Should we e-mail the added note to the original moderator?
-	return if $nosend;
+	return if $opts{'nosend'};
 	# Not if it's them that just added the note.
 	return if $noteuid == $moderation->GetModerator;
 
@@ -109,7 +109,12 @@ sub Insert
 	my $note_user = $ui->newFromId($noteuid)
 		or die;
 
-	$note_user->SendModNoteToUser($moderation, $text, $mod_user);
+	$note_user->SendModNoteToUser(
+		mod			=> $moderation,
+		noteuser	=> $mod_user,
+		notetext	=> $text,
+		revealaddress=> $opts{'revealaddress'},
+	);
 }
 
 *newFromModerationId = \&newFromModerationIds;
