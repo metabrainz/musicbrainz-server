@@ -1,0 +1,124 @@
+#!/usr/bin/perl -w
+# vi: set ts=4 sw=4 :
+#____________________________________________________________________________
+#
+#   MusicBrainz -- the open internet music database
+#
+#   Copyright (C) 1998 Robert Kaye
+#
+#   This program is free software; you can redistribute it and/or modify
+#   it under the terms of the GNU General Public License as published by
+#   the Free Software Foundation; either version 2 of the License, or
+#   (at your option) any later version.
+#
+#   This program is distributed in the hope that it will be useful,
+#   but WITHOUT ANY WARRANTY; without even the implied warranty of
+#   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+#   GNU General Public License for more details.
+#
+#   You should have received a copy of the GNU General Public License
+#   along with this program; if not, write to the Free Software
+#   Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
+#
+#   $Id$
+#____________________________________________________________________________
+
+use FindBin;
+use lib "$FindBin::Bin/../../cgi-bin";
+
+use strict;
+use DBDefs;
+$| = 1;
+
+@ARGV = "^" if not @ARGV;
+
+my $outputdir = &DBDefs::MB_SERVER_ROOT . "/htdocs/reports";
+
+my @all = (
+	[ "admin/BadEntries.pl"						=> "bad_entries.html"			],
+	[ "admin/Caps2.pl"							=> "caps2.html"					],
+	[ "admin/Caps.pl"							=> "caps.html"					],
+	[ "admin/reports/AlbumsToConvert.pl"		=> "AlbumsToConvert.html"		],
+	[ "admin/reports/DuplicateArtists.pl"		=> "DuplicateArtists.html"		],
+	[ "admin/reports/DuplicateTrackNumbers"		=> "DuplicateTrackNumbers.html"	],
+	[ "admin/reports/TracksNamedWithSequence.pl"=> "TracksNamedWithSequence.html" ],
+	[ "admin/reports/TracksWithManyTRMs.pl"		=> "TracksWithManyTRMs.html"	],
+	[ "admin/reports/TRMsWithManyTracks.pl"		=> "TRMsWithManyTracks.html"	],
+	[ "admin/Unknown.pl"						=> "unknown.html"				],
+	[ "admin/WrongCharset.pl"					=> "wrong_charset.html"			],
+);
+
+# The primary purpose of this script is to be able to run the reports, saving
+# the output to a temporary file, then instantaneously switching the new
+# report into the place of the old one.  Thus there is no window during which
+# the report is unavailable or corrupted.
+
+my $errors = 0;
+
+printf "%-30.30s  exit  time  %7s\n", "Report", "Size";
+
+for (@all)
+{
+	my ($script, $output) = @$_;
+
+	use File::Basename qw( basename );
+	my $scriptname = basename($script);
+
+	unless (grep { $scriptname =~ /$_/i } @ARGV)
+	{
+		print "Not running $script\n";
+		next;
+	}
+
+	use File::Temp qw( tempfile );
+	my (undef, $tempfile) = tempfile(DIR => $outputdir, UNLINK => 0);
+
+	if (not $tempfile)
+	{
+		warn "tempfile: $!\n";
+		++$errors;
+		next;
+	}
+
+	$script = &DBDefs::MB_SERVER_ROOT . "/" . $script;
+	
+	printf "%-30.30s", $scriptname;
+	my $t0 = time;
+	system "$script > $tempfile";
+	my $t = time() - $t0;
+
+	my $size = -s $tempfile;
+	$size = "unknown" if not defined $size;
+	printf "  %4d  %4d  %7d\n",
+		$?, $t, $size;
+
+	if ($? != 0)
+	{
+		warn "$scriptname exited with $?\n";
+		++$errors;
+		unlink $tempfile;
+		next;
+	}
+
+	unless (chmod 0644, $tempfile)
+	{
+		warn "chmod $tempfile: $!\n";
+		++$errors;
+		unlink $tempfile;
+		next;
+	}
+
+	unless (rename $tempfile, "$outputdir/$output")
+	{
+		warn "rename $tempfile: $!\n";
+		++$errors;
+		unlink $tempfile;
+		next;
+	}
+
+	# Hooray!
+}
+
+exit($errors ? 1 : 0);
+
+# eof RunReports
