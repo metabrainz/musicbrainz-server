@@ -791,41 +791,40 @@ sub ApplyAddTrackModification
         # Is this a single artist that we're adding a track to?
         if ($row[2] != Artist::VARTIST_ID)
         {
-            @data = split(/\n/, $row[0]);
+            my ($trackname, $tracknum, $album) = split(/\n/, $row[0]);
 
             # Single artist album
-            $al->SetId($row[1]);
-            $al->SetArtist(Artist::VARTIST_ID);
-            $tr->SetName($data[0]);
-            $tr->SetSequence($data[1]);
-            $tr->SetArtist(Artist::VARTIST_ID);
+            $ar->SetId($row[2]);
+            $al->SetId($album);
+            $al->SetArtist($row[2]);
+            $tr->SetName($trackname);
+            $tr->SetSequence($tracknum);
             $status = STATUS_APPLIED 
                if(defined $tr->Insert($al, $ar));
         }
         else
         {
-            my ($artistname, $sortname, $newartistid);
+            my ($newartistid);
             @data = split(/\n/, $row[0]);
+            my ($trackname, $tracknum, $album, $artistname, $sortname) = 
+                  split(/\n/, $row[0]);
 
             # Multiple artist album
             $artistname = $data[3];
-            if (defined $data[4])
-            {
-                $sortname = $data[4];
-            }
-            else
+            if (!defined $sortname)
             {
                 $sortname = $artistname;
             }
 
-            $newartistid = $ar->Insert($artistname, $sortname);
+            $ar->SetName($artistname);
+            $ar->SetSortName($sortname);
+            $newartistid = $ar->Insert();
             if (defined $newartistid)
             {
-               $ar->SetId($newartistid);
-               $al->SetId($row[1]);
+               $al->SetId($album);
                $al->SetArtist($newartistid);
-               $tr->SetName($data[0]);
-               $tr->SetSequence($data[1]);
+               $tr->SetName($trackname);
+               $tr->SetSequence($tracknum);
                $tr->SetArtist($newartistid);
                $status = STATUS_APPLIED 
                    if(defined $tr->Insert($al, $ar));

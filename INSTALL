@@ -35,11 +35,13 @@ The MusicBrainz server requires the following items:
    DBI          
    DBD::mysql  
    HTML::Mason
-   Unicode::String;
+   Unicode::String
    XML::DOM   
    XML::Parser 
    XML::XQL  
-   XML::XQL::DOM;
+   XML::XQL::DOM
+   RDFStore
+   Digest::SHA1
 
    These probably come standard with Perl:
    IO::Socket     

@@ -12,7 +12,7 @@ $sidebar=>'1'
 Please fill out the form below to create a new MusicBrainz account:
 <br>
 
-<FORM METHOD="POST" ACTION="/createlogin.html" 
+<FORM METHOD="POST" ACTION="/createlogin.html" NAME="LoginForm"
       ENCTYPE="application/x-www-form-urlencoded">
 <table>
 <tr>
@@ -40,5 +40,6 @@ Please fill out the form below to create a new MusicBrainz account:
 </tr>
 </table>
 </form>
+<script language="JavaScript">document.LoginForm.User.focus();</script>
 
 <& /comp/tableend &>

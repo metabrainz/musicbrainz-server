@@ -40,7 +40,7 @@ $modpending = $al->GetModPending();
     <& /comp/modpending &>
 % } 
 
-    <FORM METHOD="POST" ACTION="/bare/enter_mod.html"
+    <FORM METHOD="POST" ACTION="/bare/enter_mod.html" NAME="EditAlbumForm"
           ENCTYPE="application/x-www-form-urlencoded">  
     <table>
       <tr>
@@ -74,6 +74,7 @@ $modpending = $al->GetModPending();
     <input type="hidden" name="id0" value="<% $id %>">
     <input type="hidden" name="referer" value="<% $referer %>">
     </form>
+    <script language="JavaScript">document.EditAlbumForm.User.focus();</script>
       
     <& /comp/tableend &>
 

@@ -38,10 +38,10 @@ $modpending = $ar->GetModPending();
     <& /comp/modpending &>
 % }
 
-    Use the field below to enter the artist <span class="bold">sortname</a>
+    Use the field below to enter the artist <span class="bold">sortname</span>
     with whom to merge the current artist, then click Next &gt;&gt;.
 
-    <FORM METHOD="POST" ACTION="/artistfilter.html"
+    <FORM METHOD="POST" ACTION="/artistfilter.html" NAME="MergeArtistForm"
           ENCTYPE="application/x-www-form-urlencoded">  
     <table>
       <tr>
@@ -73,12 +73,13 @@ $modpending = $ar->GetModPending();
     <input type="hidden" name="artist0" value="<% $id  %>">
     <input type="hidden" name="type0" 
            value="<% Moderation::MOD_MERGE_ARTIST  %>">
-    <input type="hidden" name="prev0" value="<% $artistname  %>">
+    <input type="hidden" name="prev0" value="<% $artistname %>">
     <input type="hidden" name="table0" value="Artist">
     <input type="hidden" name="column0" value="Name">
     <input type="hidden" name="id0" value="<% $id %>">
     <input type="hidden" name="referer" value="<% $referer %>">
     </form>
+    <script language="JavaScript">document.MergeArtistForm.User.focus();</script>
     <& /comp/tableend &>
 
     <& /comp/stylenotes &>

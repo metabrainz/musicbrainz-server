@@ -51,7 +51,7 @@ $modpending = $ar->GetModPending();
     old artist name to get merged in with the Albums for the new artist
     name.<p>
 
-    <FORM METHOD="POST" ACTION="/bare/enter_mod.html"
+    <FORM METHOD="POST" ACTION="/bare/enter_mod.html" NAME="EditArtistForm"
           ENCTYPE="application/x-www-form-urlencoded">  
     <table>
       <tr>
@@ -111,6 +111,7 @@ $modpending = $ar->GetModPending();
     <input type="hidden" name="id1" value="<% $id %>">
     <input type="hidden" name="referer" value="<% $referer %>">
     </form>
+    <script language="JavaScript">document.EditArtistForm.User.focus();</script>
     <& /comp/tableend &>
 
     <& /comp/stylenotes &>

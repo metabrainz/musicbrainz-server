@@ -100,7 +100,7 @@ else
        Enter the artist <span class="bold">sortname</span> to 
        whom you'd like to move track <% $trackname %>:
 
-       <FORM METHOD="POST" ACTION="/artistfilter.html"
+       <FORM METHOD="POST" ACTION="/artistfilter.html" NAME="ChangeTrackForm"
              ENCTYPE="application/x-www-form-urlencoded">  
        <table>
          <tr>
@@ -164,6 +164,7 @@ else
        <input type="hidden" name="referer" value="/changetrack.html?album=<% $id %>&artist=<% $artist %>&tindex=<% $tindex + 1 %>">
 % }
        </form>
+       <script language="JavaScript">document.ChangeTrackForm.User.focus();</script>
          
        <& /comp/tableend &>
    

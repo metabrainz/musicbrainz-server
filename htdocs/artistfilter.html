@@ -76,7 +76,7 @@ Please choose one of the artists below, and click Finish>> to
 move track <span class="bold"><% $ARGS{prev0} %></span> to the selected artist:
 % }
 
-<form method="POST" action="/bare/enter_mod.html"
+<form method="POST" action="/bare/enter_mod.html" NAME="ArtistFilter"
       enctype="application/x-www-form-urlencoded" class="formstyle">
 
 % if (!$found && $mode ne 'merge') {
@@ -136,11 +136,14 @@ foreach $key (keys %ARGS)
 {
     next if ($key eq $argname);
 
-    mc_out(qq\<input type="hidden" name="$key" value="$ARGS{$key}">\);
-    mc_out("\n");
-}
-mc_out('<input type="submit" value="Finish>>" name="Finish">');
-mc_out('</form>');
-$mb->Logout();
-
 </%perl>
+    <input type="hidden" name="<% $key %>" value="<% $ARGS{$key} %>">
+<%perl>
+}
+$mb->Logout();
+</%perl>
+
+<input type="submit" value="Finish>>" name="Finish">
+</form>
+<script language="JavaScript">document.ArtistFilter.User.focus();</script>
+

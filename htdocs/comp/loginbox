@@ -16,7 +16,7 @@
 
 % } else {
 
-<FORM METHOD="POST" ACTION="/login.html" 
+<FORM METHOD="POST" ACTION="/login.html" NAME="LoginForm"
       ENCTYPE="application/x-www-form-urlencoded" class="formstyle">
 <table>
 <tr>
@@ -40,5 +40,6 @@
 </tr>
 </table>
 </form>
+<script language="JavaScript">document.LoginForm.User.focus();</script>
 
 % }

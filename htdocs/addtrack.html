@@ -38,7 +38,7 @@ $al->LoadFromId();
 % } else {
     <FORM METHOD="POST" ACTION="/bare/enter_mod.html"
 % }
-          ENCTYPE="application/x-www-form-urlencoded">  
+          ENCTYPE="application/x-www-form-urlencoded" NAME="AddTrackForm">  
     <table>
       <tr>
         <td>
@@ -85,6 +85,7 @@ $al->LoadFromId();
     <input type="hidden" name="mode" value="addtrack">
 % }
     </form>
+    <script language="JavaScript">document.AddTrackForm.User.focus();</script>
       
     <& /comp/tableend &>
 

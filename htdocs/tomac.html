@@ -48,7 +48,7 @@ $artistname = $ar->GetName();
     A single artist to multiple artist moderation will be entered
     into the database for album <% $albumname %>.
 
-    <FORM METHOD="POST" ACTION="/bare/enter_mod.html"
+    <FORM METHOD="POST" ACTION="/bare/enter_mod.html" NAME="ToMacForm"
           ENCTYPE="application/x-www-form-urlencoded">  
     <table>
       <tr>
@@ -86,6 +86,7 @@ $artistname = $ar->GetName();
     <input type="hidden" name="referer" value="/changetrack.html?album=<% $id %>&artist=<% $artist %>&tindex=0">
     <input type="hidden" name="altreferer" value="<% $referer %>">
     </form>
+    <script language="JavaScript">document.ToMacForm.User.focus();</script>
       
     <& /comp/tableend &>
 % }

@@ -1,0 +1,24 @@
+<%args>
+$id
+$toc
+$album
+$tracks
+</%args>
+
+<%perl>
+
+my ($mb, $di); 
+
+mc_comp("/comp/sidebar", title=>'Found CD');
+
+$mb = MusicBrainz->new();
+$mb->Login();
+$di = Diskid->new($mb->{DBH});
+$di->Insert($id, $album, $toc);
+$mb->Logout;
+</%perl>
+ 
+Thank you for your submission.
+A new association has been entered into the database. You will
+now be able to request the information for this CD.
+

@@ -41,7 +41,7 @@ $seq_id = $tr->GetSequenceId();
     <& /comp/tablebegin, gattrs=>"width=\"100%\"",
        title=>'Remove Track' &>
 
-    <FORM METHOD="POST" ACTION="/bare/enter_mod.html"
+    <FORM METHOD="POST" ACTION="/bare/enter_mod.html" NAME="RemoveTrackForm"
           ENCTYPE="application/x-www-form-urlencoded">  
 
     <table>
@@ -83,6 +83,7 @@ $seq_id = $tr->GetSequenceId();
     <input type="hidden" name="id0" value="<% $id %>">
     <input type="hidden" name="referer" value="<% $referer %>">
     </form>
+    <script language="JavaScript">document.RemoveTrackForm.User.focus();</script>
       
     <& /comp/tableend &>
 

@@ -22,7 +22,7 @@ else
     $mb->Login();
     $ar = Artist->new($mb->{DBH});
     @idslabels = $ar->FindArtist($search);
-    if (defined @idslabels)
+    if (@idslabels)
     {
         my ($artistid, $artistname, $artistsortname);
 </%perl>    

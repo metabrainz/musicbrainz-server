@@ -51,7 +51,7 @@ $sortname = $ar->GetSortName();
     Enter the artist <span class="bold">sortname</span> to 
     whom you'd like to change the album <% $albumname %>:
 
-    <FORM METHOD="POST" ACTION="/artistfilter.html"
+    <FORM METHOD="POST" ACTION="/artistfilter.html" NAME="ToSacForm"
           ENCTYPE="application/x-www-form-urlencoded">  
     <table>
       <tr>
@@ -79,6 +79,7 @@ $sortname = $ar->GetSortName();
     <input type="hidden" name="id0" value="<% $id %>">
     <input type="hidden" name="referer" value="<% $referer %>">
     </form>
+    <script language="JavaScript">document.ToSacForm.User.focus();</script>
       
     <& /comp/tableend &>
 
