@@ -149,6 +149,17 @@ my $t0 = [gettimeofday];
 my $totalrows = 0;
 my $tables = 0;
 
+# A quick discussion of the "Can't serialize access due to concurrent update"
+# problem.  See "transaction-iso.html" in the Postgres documentation.
+# Basically the problem is this: export "A" starts; export "B" starts; export
+# "B" updates replication_control; export "A" then can't update
+# replication_control, failing with the above error.
+# The solution is to get a lock (outside of the database) before we start the
+# serializable transaction.
+open(my $lockfh, ">>/tmp/.mb-export-lock") or die $!;
+use Fcntl qw( LOCK_EX );
+flock($lockfh, LOCK_EX) or die $!;
+
 $sql->AutoCommit;
 $sql->Do("SET SESSION CHARACTERISTICS AS TRANSACTION ISOLATION LEVEL SERIALIZABLE");
 $sql->Begin;
@@ -357,6 +368,9 @@ printf "%s : Dumped %d tables (%d rows) in %d seconds\n",
 # This also drops the _sanitised temporary tables.
 undef $sql;
 undef $mb;
+
+# We can release the lock, allowing other exports to run if they wish.
+close $lockfh;
 
 my @group_core = qw(
 	album
