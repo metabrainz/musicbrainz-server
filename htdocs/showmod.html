@@ -36,6 +36,7 @@ if (!defined $session{user} || $session{user} eq '' ||
     return undef;
 } 
 
+
 $mb = mc_comp("/comp/dblogin");
 
 $mod = Moderation->new($mb->{DBH});
@@ -56,11 +57,13 @@ if ($session{user} eq $mod->GetModeratorName())
 }
 elsif (defined($voted = $mod->GetUserVote($session{uid})))
 {
-   $text = Moderation::GetVoteText($voted);
+   $text = $mod->GetVoteText($voted);
+   $text =~ s/^Your vote: //;
 }
 else
 {
    $text = "You didn't vote.";
+   $voted = ModDefs::VOTE_NOTVOTED;
 }
 
 my $time = $mod->GetExpireTime();
@@ -92,20 +95,6 @@ my $expired = ($mod->GetExpireTime() > time()) ? "s" : "d";
 
    <tr><td colspan="2"><hr></td></tr>
 
-   <& /comp/tableline, name=>"Your vote:", 
-                       text=>$text,
-                       bold=>0 &>
-
-   <& /comp/tableline, name=>"Yes Votes:", 
-                       text=>$mod->GetYesVotes(),
-                       bold=>0 &>
-
-   <& /comp/tableline, name=>"No Votes:", 
-                       text=>$mod->GetNoVotes(),
-                       bold=>0 &>
-
-   <tr><td colspan="2"><hr></td></tr>
-
    <& /comp/tableline, name=>"Type:", 
                        text=>$mod->ShowModType(),
                        bold=>0 &>
@@ -118,6 +107,22 @@ my $expired = ($mod->GetExpireTime() > time()) ? "s" : "d";
                        text=>$mod->ShowNewValue(),
                        bold=>0 &>
 
+   <tr><td colspan="2"><hr></td></tr>
+
+   <& /comp/tableline, name=>"Your vote:", 
+                       text=>$text,
+                       bold=>0 &>
+%    if ($session{uid} == $mod->GetModerator() ||
+%        $mod->GetStatus() != ModDefs::STATUS_OPEN ||
+%        $voted != ModDefs::VOTE_NOTVOTED) {
+       <& /comp/tableline, name=>"Yes Votes:", 
+                           text=>$mod->GetYesVotes(),
+                           bold=>0 &>
+
+       <& /comp/tableline, name=>"No Votes:", 
+                           text=>$mod->GetNoVotes(),
+                           bold=>0 &>
+%  }
    <tr><td colspan="2"><hr></td></tr>
 
 %  my $notes = $mod->LoadModerationNotes($modid, $modid);

@@ -31,9 +31,13 @@ $time =~ s/:\d\d\..*$//;
      <% $mod->ShowModType() |n %> 
    </td>
    <td width=30% align=center valign=top valign=top bgcolor=white class="body" NOWRAP>
-     <% $mod->GetYesVotes() |n %> yes,
-     <% $mod->GetNoVotes() |n %> no
-     &nbsp;&nbsp; 
+%    if ($session{uid} == $mod->GetModerator() || 
+%        $mod->GetStatus() != ModDefs::STATUS_OPEN ||
+%        $voted != ModDefs::VOTE_NOTVOTED) {
+           <% $mod->GetYesVotes() |n %> yes,
+           <% $mod->GetNoVotes() |n %> no
+           &nbsp;&nbsp; 
+%    }
      [ <a href="#" onClick="MyWindow=window.open('mod/addnote.html?modid=<% $mod->GetId() %>&uid=<% $session{uid} %>','AddNote','toolbar=no,location=no,directories=no,status=no,menubar=no,scrollbars=yes,resizable=yes,width=400,height=150'); return false;">Add note</a> ]
 % if ($session{uid} == $mod->GetModerator() &&
 %     $mod->GetStatus() == ModDefs::STATUS_OPEN) {
@@ -65,6 +69,7 @@ $time =~ s/:\d\d\..*$//;
 % } elsif ($voted == ModDefs::VOTE_YES || $voted == ModDefs::VOTE_NO ||
 %          $voted == ModDefs::VOTE_ABS) {
      <% $mod->GetVoteText($voted) |n %><br>
+
      <% $mod->GetChangeName() |n %>
 % } elsif ($session{uid} != $mod->GetModerator() && 
 %          $mod->GetStatus() == ModDefs::STATUS_OPEN &&
