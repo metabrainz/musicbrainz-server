@@ -184,7 +184,7 @@ $mbt=>$session{'mbt'}
 if ($ARGS{"embedded_form"})
 {
 	</%perl>
-	<& /comp/tablebegin, title => 'Advanced Search' &>
+	<& /comp/tablebegin, title => 'Advanced Search', gattrs=>'width="100%"' &>
 	<& .OutputEditForm, +{} &>
     <& /comp/tableend &>
 	<%perl>
