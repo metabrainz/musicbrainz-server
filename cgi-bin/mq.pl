@@ -76,6 +76,39 @@ my %Queries =
         'http://purl.org/dc/elements/1.1/description',
         'http://musicbrainz.org/mm/mm-2.0#duration',
         'http://musicbrainz.org/mm/mm-2.0#sha1'],
+   SubmitAndLookupMetadata =>
+      [\&QuerySupport::ExchangeMetadata, 
+        'http://musicbrainz.org/mm/mq-1.0#trackName',
+        'http://musicbrainz.org/mm/mq-1.0#artistName',
+        'http://musicbrainz.org/mm/mq-1.0#albumName',
+        'http://musicbrainz.org/mm/mm-2.0#trackNum',
+        'http://musicbrainz.org/mm/mm-2.0#trmid',
+        'http://musicbrainz.org/mm/mm-2.0#fileName',
+        'http://musicbrainz.org/mm/mm-2.0#issued',
+        'http://musicbrainz.org/mm/mm-2.0#genre',
+        'http://purl.org/dc/elements/1.1/description',
+        'http://musicbrainz.org/mm/mm-2.0#duration',
+        'http://musicbrainz.org/mm/mm-2.0#bitprint',
+        'http://musicbrainz.org/mm/mm-2.0#first20',
+        'http://musicbrainz.org/mm/mm-2.0#fileSize',
+        'http://musicbrainz.org/mm/mm-2.0#audioSha1',
+        'http://musicbrainz.org/mm/mm-2.0#sampleRate',
+        'http://musicbrainz.org/mm/mm-2.0#bitRate',
+        'http://musicbrainz.org/mm/mm-2.0#channels',
+        'http://musicbrainz.org/mm/mm-2.0#vbr'],
+   SubmitAndLookupMetadataLite =>
+      [\&QuerySupport::ExchangeMetadata, 
+        'http://musicbrainz.org/mm/mq-1.0#trackName',
+        'http://musicbrainz.org/mm/mq-1.0#artistName',
+        'http://musicbrainz.org/mm/mq-1.0#albumName',
+        'http://musicbrainz.org/mm/mm-2.0#trackNum',
+        'http://musicbrainz.org/mm/mm-2.0#trmid',
+        'http://musicbrainz.org/mm/mm-2.0#fileName',
+        'http://musicbrainz.org/mm/mm-2.0#issued',
+        'http://musicbrainz.org/mm/mm-2.0#genre',
+        'http://purl.org/dc/elements/1.1/description',
+        'http://musicbrainz.org/mm/mm-2.0#duration',
+        'http://musicbrainz.org/mm/mm-2.0#sha1'],
    LookupMetadata =>
       [\&QuerySupport::LookupMetadata, 
         'http://musicbrainz.org/mm/mm-2.0#trmid'],
@@ -175,6 +208,7 @@ $parser=new RDFStore::Parser::SiRPAC(
 $parser->{__mbtriples} = \@triples;
 eval
 {
+    print STDERR "$rdfinput\n";
     $parser->parse($rdfinput);
 };
 if ($@)

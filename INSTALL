@@ -56,6 +56,7 @@ The MusicBrainz server requires the following items:
    Digest::SHA1
    UUID (requires e2fsprogs)
    Digest:SHA1
+   String::CRC32
 
    These probably come standard with Perl:
    IO::Socket     

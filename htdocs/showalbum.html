@@ -36,6 +36,7 @@ if (! $album->LoadFromId())
 {
     mc_comp("/comp/sidebar", title=>"Error");
     mc_out("This Album (ID=$albumid) was not found<br>");
+    return;
 }
 else
 {

@@ -5,6 +5,7 @@ my (@albums, $artist, $album);
 
 if (!exists $ARGS{artistid} || $ARGS{artistid} eq '')
 {
+    mc_comp("/comp/sidebar", title=>"Error");
     mc_comp("/comp/badargs");
     return;
 }

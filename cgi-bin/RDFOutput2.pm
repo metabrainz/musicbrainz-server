@@ -616,8 +616,8 @@ sub CreateMetadataExchange
        unless !defined $data[7] || $data[7] eq '';
    $rdf .= $this->Element("dc:description", $data[8])
        unless !defined $data[8] || $data[8] eq '';
-   $rdf .= $this->Element("mm:duration", $data[13])
-       unless !defined $data[13] || $data[13] == 0;
+   $rdf .= $this->Element("mm:duration", $data[9])
+       unless !defined $data[9] || $data[9] == 0;
    $rdf .= $this->EndDesc("mq:Result");
    $rdf .= $this->EndRDFObject();
 
