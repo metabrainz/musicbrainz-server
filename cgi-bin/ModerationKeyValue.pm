@@ -144,6 +144,9 @@ sub PreVoteAction
        $info{toc} = $nw->{TOC};
    }
 
+   # Prevent name clashes with existing albums
+   $info{forcenewalbum} = 1;
+
    for($i = 1;; $i++)
    {
       last if (!exists $nw->{"Track$i"});
