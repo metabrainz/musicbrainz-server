@@ -21,9 +21,9 @@
 % }
          <a href="/prefs.html">Prefs</a> |
 % if (UserPreference::get('navbar_mod_show_select_page')) {
-         <a href="/mod/select-filter.html">Moderate</a> |
+         <a href="/mod/search/select-filter.html">Moderate</a> |
 % } else {
-         <a href="/mod/preset-new.html">Moderate</a> |
+         <a href="/mod/search/pre/new.html">Moderate</a> |
 % }
          <a href="/download.html">Download</a> |
          <a href="/faq.html">FAQ</a> |

@@ -63,7 +63,7 @@ $artist->LoadFromId
 
 <div class="LinksRow"> [
 	<& /comp/googlelink, search => [ $artist->GetName, $track->GetName ], text => "Search Google" &>
-	| <a href="/mod/preset-track.html?trackid=<% $track->GetId %>">View track mods</a>
+	| <a href="/mod/search/pre/track.html?trackid=<% $track->GetId %>">View track mods</a>
 ] </div>
 
 <& /comp/trackinfo, track => $track, TRM => \@TRM &>

@@ -93,7 +93,7 @@ $artist->LoadFromId
 	[ <a href="/albumdetail.html?albumid=<% $album->GetId %>">View Info</a>
 	| <& /comp/googlelink, search => [ $artist->GetName, $album->GetName ], text => "Search Google" &>
 % if ($session{uid}) {
-	| <a href="/moderate.html?type=<% &ModDefs::TYPE_ALBUM %>&amp;albumid=<% $album->GetId %>">View album mods</a>
+	| <a href="/mod/search/pre/album.html?albumid=<% $album->GetId %>">View album mods</a>
 	| <a href="/mod/tag/donetag.html?AlbumId<% $album->GetId %>=1">Merge this album ...</a>
 % }
 	]

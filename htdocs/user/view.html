@@ -109,10 +109,9 @@ my $is_me = ($uid == $my_uid);
 % unless ($is_me) {
 	<a href="/user/mod_email.html?uid=<% $uid %>&url=<% url_escape("/user/view.html?uid=$uid") %>">Send email</a> | 
 % }
-    <a href="/moderate.html?type=<% &ModDefs::TYPE_VOTED %>&amp;moderator=<% $uid %>">List Votes</a> |
-    <a href="/moderate.html?type=<% &ModDefs::TYPE_MODERATOR %>&amp;moderator=<% $uid %>">List Moderations</a> |
-	<a href="/moderate.html?type=<% &ModDefs::TYPE_MODERATOR_FAILED %>&amp;moderator=<% $uid %>">List Failed Moderations</a> |
-	<a href="/mod/filter.html?moderator_id=<% $uid %>&amp;moderator_name=<% url_escape($user->GetName) %>&amp;edit=1">Set Mod Filter</a>
+    <a href="/mod/search/pre/voted.html?moderator=<% $uid %>">List Votes</a> |
+	<a href="/mod/search/pre/moderator.html?moderator=<% $uid %>">List Moderations</a> |
+	<a href="/mod/search/pre/moderator-failed.html?moderator=<% $uid %>">List Failed Moderations</a>
 	]
 </p>
 

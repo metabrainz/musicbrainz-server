@@ -315,8 +315,8 @@ sub _ProcessUserSubscriptions
 			if $self->{'verbose'};
 		
 		$text .= "$sub->{'name'} ($open open, $applied applied)\n"
-			. "$root/moderate.html?type=" . &ModDefs::TYPE_ARTIST
-			. "&artistid=$sub->{'artist'}\n\n";
+			. "$root/mod/search/pre/artist.html"
+			. "?artistid=$sub->{'artist'}\n\n";
 	}
 
 	unless ($self->{'dryrun'})
@@ -348,7 +348,7 @@ subscription list, please use the following link:
 $root/user/subscriptions.html
 
 To see all open moderations for your subscribed artists, see this link:
-$root/mod/preset-subscriptions.html
+$root/mod/search/pre/subscriptions.html
 
 The changes to your subscribed artists are as follows:
 ------------------------------------------------------------------------

@@ -132,20 +132,24 @@ use Scalar::Util qw( reftype weaken );
         ],
         { name => "FAQ",					url => "/mod_faq.html" },
         { name => "Style",					url => "/style.html" },
-        { name => "Moderations",			url => "/mod/select-filter.html" },
+        { name => "Moderations",			url => "/mod/search/select-filter.html" },
         [
-            { name => "New",					url => "/moderate.html?type=1" },
-            { name => "New (FreeDB)",			url => "/moderate.html?type=5" },
-            { name => "New (Subscribed)",		url => "/mod/preset-subscriptions.html" },
-            { name => "My Mods",				url => "/moderate.html?type=3" },
-            { name => "My Votes",				url => "/moderate.html?type=2" },
-            { name => "Failed Mods",			url => "/moderate.html?type=7" },
-            { name => "Advanced",				url => "/mod/filter.html" },
+            { name => "New",					url => "/mod/search/pre/new.html" },
+            { name => "New (Subscribed)",		url => "/mod/search/pre/subscriptions.html" },
+            { name => "New (FreeDB)",			url => "/mod/search/pre/freedb.html" },
+            { name => "My Mods",				url => "/mod/search/pre/moderator.html" },
+            { name => "Failed Mods",			url => "/mod/search/pre/moderator-failed.html" },
+            { name => "My Votes",				url => "/mod/search/pre/voted.html" },
+            { name => "Advanced",				url => "/mod/search/index.html" },
+			[
+				{ url => "/mod/search/select-artist.html" },
+				{ url => "/mod/search/select-moderator.html" },
+			],
             { name => "Jump to ID",				url => "/jumpmod.html" },
 			[
 				{ url => "/showmod.html" },
 			],
-			{ url => "/moderate.html" },
+			{ url => "/mod/search/results.html" },
         ],
 
 		# XXX Should this be here?  Currently this means that even logged-in
