@@ -452,11 +452,29 @@ $filter{"orderby"} = $orderby;
 # All done.  Construct the SQL, and return.
 ################################################################################
 
-my $query = "SELECT m.*, NOW()>m.expiretime AS expired"
-	. $vote
-	. " FROM moderation_$table_suffix m" . $vote_join . $subs_join;
-$query .= " WHERE " . join(" AND ", @where) if @where;
-$query .= " ORDER BY m.id ".uc($orderby);
+my $query;
+
+if ($table_suffix ne "all")
+{
+	$query = "SELECT m.*, NOW()>m.expiretime AS expired"
+		. $vote
+		. " FROM moderation_$table_suffix m" . $vote_join . $subs_join;
+	$query .= " WHERE " . join(" AND ", @where) if @where;
+	$query .= " ORDER BY m.id ".uc($orderby);
+} else {
+	# To help along (i.e. work around) the Postgres optimiser, we'll UNION
+	# together an "open" and a "closed" query.
+	$query = "SELECT m.*, NOW()>m.expiretime AS expired"
+		. $vote
+		. " FROM moderation_$table_suffix m" . $vote_join . $subs_join;
+	$query .= " WHERE " . join(" AND ", @where) if @where;
+
+	(my $open = $query) =~ s/_all\b/_open/g;
+	(my $closed = $query) =~ s/_all\b/_closed/g;
+
+	# XXX: this assumes that moderation.id is the first column
+	$query = "$open UNION ALL $closed ORDER BY 1 ".uc($orderby);
+}
 
 # Is this the default result?
 # If so, refuse to run - you've got to filter on /something/.
