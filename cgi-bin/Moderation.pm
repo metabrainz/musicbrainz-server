@@ -628,6 +628,13 @@ sub GetMinOpenModID
 	$v;
 }
 
+sub GetMaxModID
+{
+	my $self = shift;
+	my $sql = Sql->new($self->{DBH});
+	$sql->SelectSingleValue("SELECT NEXTVAL('moderation_id_seq')");
+}
+
 # This function returns the list of moderations to
 # be shown on one moderation page.  It returns an array
 # of references to Moderation objects.
