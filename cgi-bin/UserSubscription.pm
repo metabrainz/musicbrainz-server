@@ -341,12 +341,9 @@ sub _ProcessUserSubscriptions
 		return;
 	}
 
-	(my $safe_name = $user->GetName) =~ s/\W/?/g;
-
 	use MIME::QuotedPrint qw( encode_qp );
 
 	$text = <<EOF
-To: $safe_name
 From: MusicBrainz Subscription Robot <noreply\@musicbrainz.org>
 Reply-To: MusicBrainz Support <support\@musicbrainz.org>
 Subject: Moderations for your subscribed artists
