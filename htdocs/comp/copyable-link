@@ -1,0 +1,36 @@
+%# vi: set ts=4 sw=4 ft=mason :
+<%args>
+$id
+$name
+$type
+$style => "icon"
+</%args>
+<%perl>
+
+my $icon;
+$icon = "aicon.png" if ($type eq 'artist');
+$icon = "licon.png" if ($type eq 'album');
+$icon = "ticon.png" if ($type eq 'track');
+
+my $url = "http://musicbrainz.org/$type/$id.html";
+
+if ($style eq "text")
+{
+	</%perl><a href="<% $url %>" title="Find this <% $type %> at MusicBrainz"><% $name %></a><%perl>
+}
+elsif ($style eq "icon")
+{
+	</%perl><a href="<% $url %>" title="Find this <% $type %> at MusicBrainz"><img src="http://musicbrainz.org/images/<% $icon %>" alt="" style="vertical-align:bottom;border:0;margin-right:2px;"><b><% $name %></b></a><%perl>
+}
+elsif ($style eq "linkedurl")
+{
+	$m->out("<a href='$url'>$url</a>");
+}
+elsif ($style eq "url")
+{
+	$m->out($url);
+}
+
+return;
+
+</%perl>
