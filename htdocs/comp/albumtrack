@@ -60,7 +60,7 @@ elsif ($ms > 0)
 % if ($album->GetArtist() == ModDefs::VARTIST_ID) {
     <td width="30%" bgcolor="white">
        <a href="/showartist.html?artistid=<% $track->GetArtist() %>"><% $track->GetArtistName() |h  %></a>
-% if (exists $session{user}) {
+% if (exists $session{user} and not $nomod) {
           (<a href="/changetrack.html?album=<% $album->GetId() %>&amp;tindex=<% $tindex %>&amp;solo=1">Change</a>)
 % }
     </td>
