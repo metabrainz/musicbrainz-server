@@ -1,12 +1,14 @@
+%# vi: set ts=2 sw=2 ft=mason :
 <& /comp/sidebar, title=>"Jump to a specific moderation", 
                   expand=>'moderate' &>
-<p>
-<br>
 
 % if (&DBDefs::DB_IS_REPLICATED) {
 
-	 Moderations are not available on this mirror server. To view moderations go to the <a 
-    href="http://musicbrainz.org/jumpmod.html">main server</a>.
+<p>
+	Moderations are not available on this mirror server.&nbsp;
+	To view moderations go to the
+	<a href="http://musicbrainz.org/jumpmod.html">main server</a>.
+</p>
 
 % } else { 
 
