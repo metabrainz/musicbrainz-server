@@ -4,6 +4,7 @@ $artistid => undef
 $numtracks => 1
 @trackname => ()
 $confirm => 0
+$notetext => ""
 </%args>
 <%perl>
 
@@ -39,13 +40,13 @@ $numtracks = @names if $numtracks < @names;
 
 if (@names and $confirm)
 {
-	my $ret = $m->comp(
+	$m->comp(
 		"/comp/entermods",
 		DBH => $mb->{DBH},
 		sub => sub {
 			for my $name (@names)
 			{
-				Moderation->InsertModeration(
+				my @mods = Moderation->InsertModeration(
 					DBH	=> $mb->{DBH},
 					uid	=> $session{uid},
 					privs => $session{privs},
@@ -54,6 +55,10 @@ if (@names and $confirm)
 					artist => $artist,
 					trackname => $name,
 				);
+
+				$mods[0]->InsertNote($session{'uid'}, $notetext)
+					if $mods[0]
+					and $notetext =~ /\S/;
 			}
 		},
 	) or return;
@@ -111,15 +116,21 @@ for (@names[0..$numtracks-1])
 				Track Name:
 			</td>
 			<td>
-				<input type="text" name="trackname" size="40" value="<% $names[$_-1] %>">
+				<input type="text" name="trackname" size="40" value="<% $names[$_-1] %>" style="width: 100%">
 			</td>
 		</tr>
 % }
 		<tr>
-			<td>
-				&nbsp;
+			<td colspan="2">
+				<p style="margin: 1em 0">
+					Enter moderation note (optional):
+				<br>
+					<textarea name="notetext" rows="3" cols="60"></textarea>
+				</p>
 			</td>
-			<td>
+		</tr>
+		<tr>
+			<td colspan="2" align="center">
 				<input type="hidden" name="artistid" value="<% $artistid %>">
 				<input type="hidden" name="confirm" value="1">
 				<input type="submit" value="Submit">

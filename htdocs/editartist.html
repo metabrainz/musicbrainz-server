@@ -3,6 +3,7 @@
 $id => ""
 $newname => ""
 $newsortname => ""
+$notetext => ""
 </%args>
 <%perl>
 
@@ -58,6 +59,10 @@ if (MusicBrainz::IsSingleLineString($newname)
 			# mod.
 			return if grep { $_->Type == &ModDefs::MOD_MERGE_ARTIST } @mods;
 
+			$mods[0]->InsertNote($session{'uid'}, $notetext)
+				if $mods[0]
+				and $notetext =~ /\S/;
+
 			my @mods2 = Moderation->InsertModeration(
 				DBH	=> $mb->{DBH},
 				uid	=> $session{uid},
@@ -67,6 +72,11 @@ if (MusicBrainz::IsSingleLineString($newname)
 				artist => $ar,
 				newname => $newsortname,
 			) if $newsortname ne $ar->GetSortName;
+
+			$mods2[0]->InsertNote($session{'uid'}, $notetext)
+				if $mods2[0]
+				and not @mods
+				and $notetext =~ /\S/;
 		},
 		success_url => $url,
 	) or return;
@@ -152,13 +162,20 @@ if (MusicBrainz::IsSingleLineString($newname)
 				for more information on the artist sortname.
 			</td>
 		</tr>
-		<tr>
-			<td></td>
-			<td>
-				<input type="hidden" name="id" value="<% $id %>">    
-				<input type="submit" value="Submit">    
-			</td>
 	</table>
+
+	<p>
+		Enter moderation note (optional):
+	</p>
+
+	<p>
+		<textarea name="notetext" rows="3" cols="60"></textarea>
+	</p>
+
+	<p>
+		<input type="hidden" name="id" value="<% $id %>">    
+		<input type="submit" value="Submit">    
+	</p>
 
 </form>
 

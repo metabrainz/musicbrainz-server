@@ -2,6 +2,7 @@
 <%args>
 $name => ""
 $sortname => ""
+$notetext => ""
 </%args>
 <%perl>
 
@@ -31,6 +32,12 @@ if ($name =~ /\S/)
 				name => $name,
 				sortname => $sortname,
 			);
+
+			$mods[0]->InsertNote($session{'uid'}, $notetext)
+				if $mods[0]
+				and $notetext =~ /\S/;
+
+			# Return the mods inserted - see below
 			@mods;
 		},
 	) or return;
@@ -99,6 +106,16 @@ if ($name =~ /\S/)
 					</script>
         </td>
       </tr>
+			<tr>
+				<td></td>
+				<td>
+					<p>
+						Enter moderation note (optional):
+					<br>
+						<textarea name="notetext" rows="3" cols="60"></textarea>
+					</p>
+				</td>
+			</tr>
       <tr>
 				<td></td>
 				<td>

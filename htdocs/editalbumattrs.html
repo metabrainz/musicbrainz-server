@@ -4,6 +4,7 @@
 $untag => 0
 $attr_type => &Album::ALBUM_ATTR_ALBUM
 $attr_status => &Album::ALBUM_ATTR_OFFICIAL
+$notetext => ""
 </%args>
 <%perl>
 
@@ -64,6 +65,10 @@ if ($ARGS{confirm})
 				attrs => [ $attr_type, $attr_status ],
 			);
 
+			$mods[0]->InsertNote($session{'uid'}, $notetext)
+				if $mods[0]
+				and $notetext =~ /\S/;
+
 			delete $session{'tagged_albums'}
 				if $untag;
 		},
@@ -104,11 +109,23 @@ my @attrs = sort { $a<=>$b } keys %attrs;
 		selindex	=> \$selected_index,
 	&>
 
+	<p>
+		Enter moderation note (optional):
+	</p>
+
+	<p>
+		<textarea name="notetext" rows="3" cols="60"></textarea>
+	</p>
+
+	<p>
 % for (@id) {
-	<input type="hidden" name="id" value="<% $_ %>">
+		<input type="hidden" name="id" value="<% $_ %>">
 % }
-	<input type="hidden" name="untag" value="<% $untag %>">
-	<input type="hidden" name="confirm" value="1">
+		<input type="hidden" name="untag" value="<% $untag %>">
+		<input type="hidden" name="confirm" value="1">
+		<input type="submit" value="Submit">
+	</p>
+
 </form>
 
 <& /comp/movefocus, "EditAlbumAttrsForm", "value0", $selected_index &>

@@ -5,6 +5,7 @@ $tindex => 0
 $modid => 0
 $trackname => ""
 $search => ""
+$notetext => ""
 </%args>
 <%perl>
 
@@ -87,6 +88,9 @@ if ($search =~ /\S/ and $trackname =~ /\S/)
 	$url .= "&solo=1" if $ARGS{solo};
 	$url .= "&firsttime=1"
 		unless $trackname eq $track->GetName;
+	
+	return $m->comp("/comp/redirect", $url)
+		if $trackname eq $track->GetName;
 
 	$m->comp(
 		"/comp/entermods",
@@ -101,7 +105,11 @@ if ($search =~ /\S/ and $trackname =~ /\S/)
 				track => $track,
 				newname => $trackname,
 				# TODO depmod on $modid ?
-			) unless $trackname eq $track->GetName;
+			);
+
+			$mods[0]->InsertNote($session{'uid'}, $notetext)
+				if $mods[0]
+				and $notetext =~ /\S/;
 		},
 		success_url => $url,
 	) or return;
@@ -148,7 +156,7 @@ for ($oldtrackname, $oldartistname, $splittrackname, $splitartistname)
 {
 	s/\A\s+//;
 	s/\s+\z//;
-	s/\s\s+/ /g;
+	s/\s\s+/ /g;		#/# for vim
 }
 
 # Now work out what we think is the more likely - use the split values,
@@ -286,10 +294,18 @@ function UseSplit()
 			</td>
 		</tr>
 		<tr>
-			<td></td>
-			<td>
+			<td colspan="2">
+				<p style="margin: 1em 0">
+					Enter note: (optional):
+					<br>
+					<textarea name="notetext" rows="3" cols="60" style="width: 100%"></textarea>
+				</p>
+			</td>
+		</tr>
+		<tr>
+			<td colspan="2" align="center">
 				<input type="hidden" name="swapped" value="0">    
-				<input type="submit" name="Submit" value="Submit">    
+				<input type="submit" value="Submit">    
 			</td>
 		</tr>
 	</table>

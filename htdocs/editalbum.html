@@ -2,6 +2,7 @@
 <%args>
 $album => undef
 $newname => ""
+$notetext => ""
 </%args>
 <%perl>
 
@@ -50,6 +51,10 @@ if (MusicBrainz::IsSingleLineString($newname)
 				album => $al,
 				newname => $newname,
 			);
+
+			$mods[0]->InsertNote($session{'uid'}, $notetext)
+				if $mods[0]
+				and $notetext =~ /\S/;
 		},
 		success_url => $url,
 	) or return;
@@ -91,18 +96,28 @@ if (MusicBrainz::IsSingleLineString($newname)
 			</td>
 			<td width="75%">
 				<input type="text" name="newname" size="50" value="<% $al->GetName %>">
+		<script type="text/javascript"><!--
+		document.write(
+			"<\/td><\/tr>"
+			+ "<tr><td><\/td><td>"
+			+ "<input type='button' value='Guess Case' "
+			+ "onclick='this.form.newname.value = GuessCase(this.form.newname.value)'>"
+		);
+		//--></script>
 			</td>
 		</tr>
 	</table>
 
+
 	<p>
-		<script type="text/javascript"><!--
-		document.write(
-			"<input type='button' value='Guess Case' " +
-			"onclick='this.form.newname.value = GuessCase(this.form.newname.value)'>"
-		);
-		document.write(" &nbsp; ");
-		//--></script>
+		Enter moderation note (optional):
+	</p>
+
+	<p>
+		<textarea name="notetext" rows="3" cols="60"></textarea>
+	</p>
+
+	<p align="center">
 		<input type="hidden" name="album" value="<% $al->GetId %>">
 		<input type="submit" value="Submit">
 	</p>

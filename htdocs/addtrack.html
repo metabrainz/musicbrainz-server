@@ -7,6 +7,7 @@ $search => ""
 $selectedartist => ""
 $newartistname => ""
 $newartistsortname => ""
+$notetext => ""
 </%args>
 <%perl>
 
@@ -87,6 +88,10 @@ if ($newartistname =~ /\S/ and $newartistsortname =~ /\S/
 				artistname => $newartistname,
 				artistsortname => $newartistsortname,
 			);
+
+			$mods[0]->InsertNote($session{'uid'}, $notetext)
+				if $mods[0]
+				and $notetext =~ /\S/;
 		},
 		success_url => $url,
 	) or return;
@@ -114,7 +119,7 @@ if ($newartistname =~ /\S/ and $newartistsortname =~ /\S/
 					Track Name:
         </td>
         <td>
-					<input type="text" name="trackname" size="40">
+					<input type="text" name="trackname" size="40" style="width: 100%">
         </td>
       </tr>
       <tr>
@@ -132,13 +137,22 @@ if ($newartistname =~ /\S/ and $newartistsortname =~ /\S/
 					Search for Track Artist:
         </td>
         <td>
-					<input type="text" name="search" size="40">
+					<input type="text" name="search" size="40" style="width: 100%">
         </td>
       </tr>
 % }
 
+			<tr>
+				<td colspan="2">
+					<p style="margin: 1em 0">
+						Enter moderation note (optional):
+					<br>
+						<textarea name="notetext" rows="3" cols="60"></textarea>
+					</p>
+				</td>
+			</tr>
       <tr>
-        <td colspan=2>
+				<td colspan="2" align="center">
 					<input type="hidden" name="album" value="<% $album %>">
 					<input type="submit" value="Submit">
         </td>

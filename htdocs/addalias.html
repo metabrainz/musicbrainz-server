@@ -2,6 +2,7 @@
 <%args>
 $id => ""
 $newalias => undef
+$notetext => ""
 </%args>
 <%perl>
 
@@ -50,6 +51,10 @@ if ($newalias =~ /\S/ and MusicBrainz::IsSingleLineString($newalias))
 				artist => $ar,
 				newalias => $newalias,
 			);
+
+			$mods[0]->InsertNote($session{'uid'}, $notetext)
+				if $mods[0]
+				and $notetext =~ /\S/;
 		},
 		success_url => $url,
 	) or return;
@@ -76,7 +81,16 @@ if ($newalias =~ /\S/ and MusicBrainz::IsSingleLineString($newalias))
 	<p>
 		Enter new artist alias:
 		<input type="text" name="newalias" size="40" value="<% $artistname %>">
-		<input type="submit" value="Add">
+		&nbsp;
+		<input type="submit" value="Submit">
+	</p>
+
+	<p>
+		Enter moderation note (optional):
+	</p>
+
+	<p>
+		<textarea name="notetext" rows="3" cols="60"></textarea>
 	</p>
 
 </form>

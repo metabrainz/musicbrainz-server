@@ -8,6 +8,7 @@ $newartistname => ""
 $newartistsortname => ""
 $search => ""
 $firsttime => 0
+$notetext => ""
 </%args>
 <%perl>
 
@@ -72,6 +73,10 @@ if ($newartistname =~ /\S/ and $newartistsortname =~ /\S/)
 			1, 1,
 		);
 
+	return $m->comp("/comp/redirect", $url)
+		if $newartistname eq $ar->GetName
+		and $newartistsortname eq $ar->GetSortName;
+
 	$m->comp(
 		"/comp/entermods",
 		DBH => $mb->{DBH},
@@ -87,8 +92,12 @@ if ($newartistname =~ /\S/ and $newartistsortname =~ /\S/)
 				artistname => $newartistname,
 				artistsortname => $newartistsortname,
 				# TODO depmod on $modid ?
-			) unless $newartistname eq $ar->GetName
-				and $newartistsortname eq $ar->GetSortName;
+			);
+
+			# TODO no UI to enter $notetext yet
+			$mods[0]->InsertNote($session{'uid'}, $notetext)
+				if $mods[0]
+				and $notetext =~ /\S/;
 		},
 		success_url => $url,
 	) or return;
