@@ -419,6 +419,7 @@ sub AlbumSearch
    $al = Album->new($this->{DBH});
    $al->SetArtist($ar->GetId());
    my (@aids) = $al->GetAlbumListFromName($name);
+   # FIXME what if @aids == 1
    if (scalar(@aids) > 1)
    {
        return (ALBUMLIST, \@aids);

@@ -181,7 +181,7 @@ sub CreateTRMList
    return $this->CreateOutputRDF('trmid', @ids);
 }
 
-
+# TODO delete me!
 sub CreateDumpRDF
 {
    my ($this, $artistid) = @_;
