@@ -31,7 +31,7 @@ $time = $m->comp("/comp/datetime", $time);
      Expire<% $expired %>: <% $time %>
    </td>
    <td width="37%" valign=top bgcolor=white class="body">
-     <% $mod->ShowModType($m), "" %> 
+     <% do { $mod->ShowModType($m); "" } %> 
    </td>
    <td width="30%" align=center valign=top valign=top bgcolor=white class="body" NOWRAP>
 %    if ($session{uid} == $mod->GetModerator() || 
@@ -59,11 +59,11 @@ $time = $m->comp("/comp/datetime", $time);
 <tr>
 
    <td width="37%" valign=top bgcolor="#ffecd6" class="body">
-     <% $mod->ShowPreviousValue($m), "" %> 
+     <% do { $mod->ShowPreviousValue($m); "" } %> 
    </td>
 
    <td width="37%" valign=top bgcolor="#f0efff" class="body">
-     <% $mod->ShowNewValue($m), "" %> 
+     <% do { $mod->ShowNewValue($m); "" } %> 
    </td>
 
    <td width="30%" align=center valign=top bgcolor=white class="body" nowrap>
