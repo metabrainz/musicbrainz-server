@@ -47,8 +47,13 @@ sub PreInsert
 	$self->SetArtist($tr->GetArtist);
 	$self->SetPrev($trm);
 
+	# Save the TRM's clientversion in case we need to re-add it
+	my $trmobj = TRM->new($self->{DBH});
+	my $clientversion = $trmobj->FindTRMClientVersion($trm);
+
 	my %new = (
 		TrackId => $tr->GetId,
+		ClientVersion => $clientversion,
 	);
 
 	$self->SetNew($self->ConvertHashToNew(\%new));
@@ -73,23 +78,27 @@ sub ApprovedAction
 	&ModDefs::STATUS_APPLIED;
 }
 
-# FIXME Currently DeniedAction fails because the "client version" is missing
-# from the $trm->Insert call (and it's mandatory).  But we can't insert it,
-# because we didn't save it...
-# TODO save clientversion when we insert the mod (and delete the TRM), so we
-# can undo the mod here.
-# (p.s. it only fails if the TRM needs to be re-inserted, i.e. if no other
-# tracks have this TRM)
-
 sub DeniedAction
 {
-	my $this = shift;
-	my $nw = $this->{'new_unpacked'};
+	my $self = shift;
+	my $nw = $self->{'new_unpacked'};
 
 	if (my $trackid = $nw->{'TrackId'})
 	{
-	  	my $t = TRM->new($this->{DBH});
-	   	$t->Insert($this->GetPrev, $trackid);
+	  	my $t = TRM->new($self->{DBH});
+	   	my $id = $t->Insert($self->GetPrev, $trackid, $nw->{'ClientVersion'});
+
+		# The above Insert can fail, usually if the row in the "trm" table
+		# needed to be re-inserted but we neglected to save the clientversion
+		# before it was deleted (i.e. mods inserted before this bug was
+		# fixed).
+		if (not $id)
+		{
+		 	$self->InsertNote(
+				&ModDefs::MODBOT_MODERATOR,
+				"Unable to re-insert TRM",
+			);
+		}
 	}
 }
 
