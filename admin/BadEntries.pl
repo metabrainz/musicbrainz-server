@@ -43,12 +43,17 @@ sub FindBadEntries
     print 'All tracks which contain *, %, $, @, {, }, [, ], ;, ", <, or > are';
     print "listed below:<p><br>\n";
 
-    $sth = $dbh->prepare(qq\select track.id, track.name, sequence, 
-                                   track.artist, artist.name 
-                              from Track, AlbumJoin, Artist 
-                             where AlbumJoin.Track = Track.id and 
-                                   Track.Artist = Artist.id 
-                          order by Artist.name, AlbumJoin.Album, Track.Name\);
+    $sth = $dbh->prepare(<<'EOF');
+                       select track.id, track.name, sequence, 
+                              track.artist, artist.name 
+                         from Track, AlbumJoin, Artist 
+                        where AlbumJoin.Track = Track.id and 
+                              Track.Artist = Artist.id and
+                              Track.name ~ '[][*%$@{};"><]' and
+			      Track.name !~ '^\\[(untitled|unknown|silence|data track)\\]$'
+                     order by Artist.name, AlbumJoin.Album, Track.Name
+EOF
+
     $sth->execute();
     if ($sth->rows)
     {
@@ -62,20 +67,17 @@ sub FindBadEntries
             $num = $row[2];
             $artist = $row[4];
 
-            if ($name =~ /\*|%|\$|@|\{|\}|\[|\]|;|"|>|</)
+            if ($artist ne $last_artist)
             {
-                if ($artist ne $last_artist)
-                {
-                   print "<p><a href=\"/showartist.html?artistid=$row[3]\">";
-                   print "<font size=\"+1\">" . html_escape($artist) . "</font></a><br>";
-                }
-
-                print "&nbsp;&nbsp;&nbsp;";
-                print "$num: <a href=\"/showtrack.html?trackid=$id\">";
-                print html_escape($name) . "</a><br>\n";
-
-                $last_artist = $artist;
+               print "<p><a href=\"/showartist.html?artistid=$row[3]\">";
+               print "<font size=\"+1\">" . html_escape($artist) . "</font></a><br>";
             }
+
+            print "&nbsp;&nbsp;&nbsp;";
+            print "$num: <a href=\"/showtrack.html?trackid=$id\">";
+            print html_escape($name) . "</a><br>\n";
+
+            $last_artist = $artist;
         }
     }
     $sth->finish;
