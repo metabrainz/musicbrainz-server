@@ -10,8 +10,8 @@ use Apache;
 
 my ($i, $line, $xml, $supp_xml, $r);
 my ($parser, $doc, $queryname, $querydata, $data);
-my ($function, $xqlquery, @queryargs, $cd);
-my ($use_old_style);
+my ($function, $xqlquery, @queryargs, $cd, $version);
+my $use_old_style = 0;
 
 my %Queries = 
 (
@@ -116,7 +116,7 @@ if (!defined $xml)
     exit(0);
 }
 
-($use_old_style, $xml) = UpdateQuery($xml);
+print STDERR "$xml\n";
 
 $parser = new XML::DOM::Parser;
 eval
@@ -130,6 +130,18 @@ if ($@)
     print STDERR QuerySupport::EmitErrorRDF("Cannot parse query: $@");
     print STDERR "$xml\n";
     exit(0);
+}
+
+$version = QuerySupport::SolveXQL($doc, "/rdf:RDF/rdf:Description/MQ:Version");
+if (!defined $version || $version eq '')
+{
+    print STDERR "Old version\n";
+    $use_old_style = 1;
+    $xml = UpdateQuery($xml);
+}
+else
+{
+    print STDERR "new version\n";
 }
 
 $queryname = QuerySupport::SolveXQL($doc, "/rdf:RDF/rdf:Description/MQ:Query");
@@ -206,14 +218,13 @@ else
 sub UpdateQuery
 {
    my ($xml) = @_;
-   my $ret = 0;
 
-   $ret = ($xml =~ s/DC:Relation track=\"(\d+)\"\/>/MM:TrackNum>$1<\/MM:TrackNum>/gs);
-   $ret += ($xml =~ s/MC:Collection/MM:Collection/gs);
-   $ret += ($xml =~ s/<MM:Album>(.*)<\/MM:Album>/<DC:Relation>\n  <rdf:Description>\n    <DC:Title>$1<\/DC:Title>\n  <\/rdf:Description>\n<\/DC:Relation>/gs);
-   $ret += ($xml =~ s/<DC:Identifier\s+guid=\"(.*)\"\s+fileName=\"(.*?)\"\/>/<DC:Identifier guid=\"$1\"\/>\n<MQ:Filename>$2<\/MQ:Filename>/gs);
+   $xml =~ s/DC:Relation track=\"(\d+)\"\/>/MM:TrackNum>$1<\/MM:TrackNum>/gs;
+   $xml =~ s/MC:Collection/MM:Collection/gs;
+   $xml =~ s/<MM:Album>(.*)<\/MM:Album>/<DC:Relation>\n  <rdf:Description>\n    <DC:Title>$1<\/DC:Title>\n  <\/rdf:Description>\n<\/DC:Relation>/gs;
+   $xml =~ s/<DC:Identifier\s+guid=\"(.*)\"\s+fileName=\"(.*?)\"\/>/<DC:Identifier guid=\"$1\"\/>\n<MQ:Filename>$2<\/MQ:Filename>/gs;
 
-   return ($ret, $xml);
+   return $xml;
 }
 
 # This function will take a new style response and convert it to a old
@@ -221,6 +232,16 @@ sub UpdateQuery
 sub RevertResponse
 {
    my ($xml) = @_;
+
+   if ($xml =~ /MM:Collection numParts=\"(\d+)\" type=\"album\">/)
+   {
+       my $numTracks = $1;
+
+       $xml =~ s/Collection numParts=\"(\d+)\" type=\"album\">(\s+)/Collection type=\"album\">\n      <rdf:Bag>\n      <rdf:li>$2/gs;
+       $xml =~ s/DC:Title>(.*?)<\/DC:Title/MM:Album numTracks=\"$numTracks\">$1<\/MM:Album/s;
+       $xml =~ s/\/MM:Collection/\/rdf:li>\n    <\/rdf:Bag>\n    <\/MM:Collection/s;
+
+   }
 
    $xml =~ s/MM:TrackNum>(\d+)<\/MM:TrackNum/DC:Relation track=\"$1\"\//gs;
    $xml =~ s/MM:Collection/MC:Collection/gs;
