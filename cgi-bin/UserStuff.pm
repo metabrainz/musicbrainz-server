@@ -395,6 +395,42 @@ sub GetEmailActivationLink
 		;
 }
 
+# Send a user their password.
+
+sub SendPasswordReminder
+{
+	my $self = shift;
+
+	my $pass = $self->GetPassword;
+
+	$self->SendFormattedEmail(
+		<<EOF
+From: MusicBrainz <webserver\@musicbrainz.org>
+Reply-To: MusicBrainz Support <support\@musicbrainz.org>
+Subject: Your MusicBrainz account
+MIME-Version: 1.0
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+
+EOF
+		. encode_qp(<<EOF)
+Hello.  Someone, probably you, asked that your MusicBrainz password be sent
+to you via e-mail.
+
+Your MusicBrainz password is "$pass"
+
+To log in to MusicBrainz, please use this link:
+http://${\ DBDefs::WEB_SERVER() }/login.html
+
+If you still have problems logging, please drop us a line - see
+http://${\ DBDefs::WEB_SERVER() }/support/contact.html
+for details.
+
+-- The MusicBrainz Team
+EOF
+	);
+}
+
 # Send an address verification e-mail for a user to the specified address.
 # Used by htdocs/(createlogin|login|moderator).html
 
