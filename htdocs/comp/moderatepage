@@ -98,6 +98,7 @@ for($i = 0; $i < $max_items; $i++)
    last if (!defined $row);
 
    mc_comp("/comp/showmod",
+           mb=>$mb,
            id=>($$row[0]),
            table=>($$row[1]),
            column=>($$row[2]),
@@ -113,8 +114,7 @@ for($i = 0; $i < $max_items; $i++)
            artistname=>($$row[12]),
            status=>($$row[13]),
            voted=>($$row[14]),
-           mode=>$type,
-           mb=>$mb);
+           mode=>$type);
 }
 </%perl>
 

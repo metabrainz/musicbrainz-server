@@ -1,10 +1,10 @@
 <%args>
+$mb
 $id
 $type
 $prev
 $artist
 $artistname
-$mb
 </%args>
 
 <%perl>
