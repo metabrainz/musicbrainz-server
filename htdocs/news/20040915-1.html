@@ -1,0 +1,149 @@
+%# vi: set ts=2 sw=2 ft=mason :
+<& /comp/sidebar, title => 'September 30th, 2004: Server Updates' &>
+
+<h2>Changes mainly of interest to MusicBrainz Users</h2>
+
+<h3>Revamped Support for Disc IDs</h3>
+
+<p>
+	Duplicate disc IDs are now allowed.&nbsp; As a pleasant
+	side-effect you can now
+	<a href="/bare/cdlookup.html?id=a70de90c">search for albums based on FreeDB ID</a>
+	as well as <a href="/bare/cdlookup.html?id=N0PIEPQKetVqSGHUzm8S.mKeUoI-">by disc ID</a>.&nbsp;
+	You can also inspect the disc ID details much more closely than before.
+</p>
+
+<h3>FreeDB</h3>
+
+<p>
+	<b>FreeDB Moderations</b>, (the mechanism whereby MusicBrainz automatically
+	imports data from FreeDB with no human intervention),
+	has been <b>turned off</b> - no more "FreeDB mods".&nbsp;
+	You can still do a <a href="/freedb/freedb.html">manual FreeDB import</a>
+	if you like.
+</p>
+
+<p>
+	Also, MusicBrainz now uses "FreeDB protocol 6", which means much better
+	Unicode support when importing albums.
+</p>
+
+<h3>Automoderator Elections</h3>
+
+<p>
+	At the end of an election, if the nominee was accepted, the system can now
+	make the successful candidate into an Automod without needing manual
+	intervention from the server administrators.&nbsp; It can't yet subscribe
+	the new auto-moderator to the "mb-automods" mailing list, however.
+</p>
+
+<p>
+	While voting is open, the tally of votes cast so far is now hidden to all
+	apart from the proposer, the seconders and the candidate.
+</p>
+
+<p>
+	If you are not logged in, the automod voting page now displays a more
+	helpful message than before.
+</p>
+
+<p>
+	Special "system" users (ModBot etc) can no longer be nominated for
+	auto-moderator status.
+</p>
+
+<p>
+	A small typo was fixed in the e-mails sent by The Returning Officer.
+</p>
+
+<h3>Other Changes</h3>
+
+<p>
+	<b>Artist Search</b>: a bug was causing the artist search index to become
+	corrupted.&nbsp; The bug has been fixed and the index has been rebuilt.
+</p>
+
+<p>
+	<b>FreeDB Imports</b>: the notes added by the ModBot, giving the URL of the
+	original FreeDB data, are no longer mailed to the original moderator.
+</p>
+
+<p>
+	<b>Add Album</b>: when adding an album, both album attributes now default
+	to "not known" instead of "Album, Official".
+</p>
+
+<p>
+	<b>Miscellany</b>: a "Copy" button has been added to the "edit artist"
+	page.&nbsp; The instructions for anonymous CVS access have been fixed.&nbsp;
+	"Guess Case" has been tweaked again.
+%# TODO describe
+	The MusicBrainz data dumps now include Amazon cover art URLs.
+</p>
+
+<h2>New and Changed Documentation</h2>
+
+<ul>
+	<li><a href="/about/mirrors.html">MusicBrainz Mirrors</a></li>
+	<li><a href="/products/picard/index.html">Picard</a>,
+		and a <a href="/products/picard/tutorial/index.html">Picard Tutorial</a></li>
+	<li>New Q/A's have been added to <a href="/tagger/faq.html">the Tagger FAQ</a></li>
+</ul>
+
+<h2>Changes mainly of interest to MusicBrainz Server Programmers</h2>
+
+<p>
+	The <& cvslink.inc, "mb_server/INSTALL" &> file has been further updated,
+	describing the installation process more fully and more helpfully than ever
+	before :-)
+</p>
+
+<p>
+	<& cvslink.inc, "mb_server/admin/InitDb.pl" &> now does a much better job
+	of creating the replication function.&nbsp; You can use
+	<kbd>--with-pending=FILE</kbd> to tell it where to find <tt>pending.so</tt>.
+</p>
+
+<p>
+	Various scripts (MBImport.pl, ImportReplicationChanges,
+	LoadReplicationChanges) now check the status of completed sub-processes more
+	carefully.
+</p>
+
+<p>
+	<& cvslink.inc, "mb_server/admin/cleanup/FixLength.pl" &> now runs every
+	night.&nbsp; It has been made more robust too - it reports any errors it
+	encounters and keeps running, and it also shows the IDs of any albums it
+	can't fix.
+</p>
+
+<p>
+	Only one instance of <& cvslink.inc, "mb_server/admin/replication/LoadReplicationChanges" &>
+	is now allowed at a time.
+</p>
+
+<p>
+	<& cvslink.inc, "mb_server/admin/replication/ProcessReplicationChanges" &>
+	now deletes "pending" data as it is processed, which means that if the
+	script is stopped (or crashes) we can safely restart where we left
+	off.&nbsp; Several options have also been added to help with
+	troubleshooting.
+</p>
+
+<h2>Bugs and RFEs Closed</h2>
+
+<%perl> $m->comp("buglist.inc", <<'EOF' =~ m/(.+)/mg);
+
+666016	Handle (allow) discid collisions
+949728	Move Search for Moderator to Search page
+980332	No default album attributes
+999708	FreeDB imports get ?s for non-8859-1 characters
+1009101	Add a link to MisencodingFAQ wiki page
+1015759	Improvements to automoderation election scripts (partially implemented)
+
+EOF
+</%perl>
+
+<p style="margin-top: 3em"><a href="/support/contact.html">Dave Evans</a></p>
+
+<& /comp/footer &>
