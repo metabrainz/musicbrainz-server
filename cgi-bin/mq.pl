@@ -103,7 +103,11 @@ sub Output
       $r->content_type("text/plain");
       $r->header_out('Content-Length', length($$out));
       $r->send_http_header();
-      print($$out);
+
+      if (! $r->header_only)
+      {
+         print($$out);
+      }
       return 200;
    }
    else

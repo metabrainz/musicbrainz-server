@@ -72,7 +72,10 @@ if (defined $r)
    $r->content_type("text/xml");
    $r->header_out('Content-Length', length($out));
    $r->send_http_header();
-   print($out);
+   if (! $r->header_only)
+   {
+      print($out);
+   }
    return 200;
 }
 else
