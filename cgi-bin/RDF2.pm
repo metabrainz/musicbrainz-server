@@ -109,6 +109,8 @@ sub Element
     my ($this, $name, $data, @attrs) = @_;
     my ($rdf, $key, $cols, $pair, $ind);
 
+    return "" if (not defined $data || $data eq "" && not defined $attrs[0]);
+
     $rdf = $this->_indent() . "<$name";
     $cols = length($rdf);
 
