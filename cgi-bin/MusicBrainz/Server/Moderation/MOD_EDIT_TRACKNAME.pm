@@ -27,7 +27,7 @@ use strict;
 
 package MusicBrainz::Server::Moderation::MOD_EDIT_TRACKNAME;
 
-use ModDefs;
+use ModDefs qw( :modstatus MODBOT_MODERATOR );
 use base 'Moderation';
 
 sub Name { "Edit Track Name" }
@@ -56,27 +56,44 @@ sub IsAutoMod
 	$old eq $new;
 }
 
+sub CheckPrerequisites
+{
+	my $self = shift;
+
+	my $rowid = $self->GetRowId;
+
+	# Load the track by ID
+	my $tr = Track->new($self->{DBH});
+	$tr->SetId($rowid);
+	unless ($tr->LoadFromId)
+	{
+		$self->InsertNote(MODBOT_MODERATOR, "Track #$rowid has been deleted");
+		return STATUS_FAILEDDEP;
+	}
+
+	# Check that its name has not changed
+	if ($tr->GetName ne $self->GetPrev)
+	{
+		$self->InsertNote(MODBOT_MODERATOR, "Track #$rowid has already been renamed");
+		return STATUS_FAILEDPREREQ;
+	}
+
+	undef;
+}
+
 sub ApprovedAction
 {
 	my $this = shift;
 	my $sql = Sql->new($this->{DBH});
 
-	my $current = $sql->SelectSingleValue(
-		"SELECT name FROM track WHERE id = ?",
-		$this->GetRowId,
-	);
+	my $status = $this->CheckPrerequisites;
+	return $status if $status;
 
-	defined($current)
-		or return &ModDefs::STATUS_ERROR;
-	
-	$current eq $this->GetPrev
-		or return &ModDefs::STATUS_FAILEDDEP;
-	
 	$sql->Do(
 		"UPDATE track SET name = ? WHERE id = ?",
 		$this->GetNew,
 		$this->GetRowId,
-	);
+	) or die "Failed to update track in MOD_EDIT_TRACKNAME";
 
 	# Now remove the old name from the word index, and then
 	# add the new name to the index
@@ -84,7 +101,7 @@ sub ApprovedAction
 	$engine->RemoveObjectRefs($this->GetRowId);
 	$engine->AddWordRefs($this->GetRowId, $this->GetNew);
 
-	&ModDefs::STATUS_APPLIED;
+	STATUS_APPLIED;
 }
 
 1;

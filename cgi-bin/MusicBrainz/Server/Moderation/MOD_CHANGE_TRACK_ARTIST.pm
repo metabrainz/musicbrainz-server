@@ -27,7 +27,7 @@ use strict;
 
 package MusicBrainz::Server::Moderation::MOD_CHANGE_TRACK_ARTIST;
 
-use ModDefs;
+use ModDefs qw( :artistid :modstatus MODBOT_MODERATOR );
 use base 'Moderation';
 
 sub Name { "Change Track Artist" }
@@ -61,11 +61,39 @@ sub PostLoad
 	@$this{qw( new.sortname new.name )} = ($sortname, $name);
 }
 
+sub CheckPrerequisites
+{
+	my $self = shift;
+
+	my $rowid = $self->GetRowId;
+
+	# Load the track by ID
+	my $tr = Track->new($self->{DBH});
+	$tr->SetId($rowid);
+	unless ($tr->LoadFromId)
+	{
+		$self->InsertNote(MODBOT_MODERATOR, "Track #$rowid has been deleted");
+		return STATUS_FAILEDDEP;
+	}
+
+	# Check that its artist has not changed
+	if ($tr->GetArtist != $self->GetArtist)
+	{
+		$self->InsertNote(MODBOT_MODERATOR, "Track #$rowid has already been moved to another artist");
+		return STATUS_FAILEDPREREQ;
+	}
+
+	undef;
+}
+
 sub ApprovedAction
 {
  	my ($this, $id) = @_;
 
 	my ($sortname, $name) = @$this{qw( new.sortname new.name )};
+
+	my $status = $this->CheckPrerequisites;
+	return $status if $status;
 
 	# If there's an artist with this name, use them.
 
@@ -89,7 +117,7 @@ sub ApprovedAction
 		"UPDATE track SET artist = ? WHERE id = ?",
 		$artistid,
 		$this->GetRowId,
-	);
+	) or die "Failed to update track in MOD_CHANGE_TRACK_ARTIST";
 
 	&ModDefs::STATUS_APPLIED;
 }

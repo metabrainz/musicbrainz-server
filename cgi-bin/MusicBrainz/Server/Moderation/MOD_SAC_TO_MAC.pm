@@ -27,7 +27,7 @@ use strict;
 
 package MusicBrainz::Server::Moderation::MOD_SAC_TO_MAC;
 
-use ModDefs;
+use ModDefs qw( :artistid :modstatus MODBOT_MODERATOR );
 use base 'Moderation';
 
 sub Name { "Convert Album to Multiple Artists" }
@@ -40,6 +40,12 @@ sub PreInsert
 	my $al = $opts{album} or die;
 	my $ar = $opts{artist} or die;
 
+	if ($al->GetArtist == VARTIST_ID)
+	{
+		$self->SetError("This is already a 'Various Artists' release");
+		die $self;
+	}
+
 	$self->SetTable("album");
 	$self->SetColumn("artist");
 	$self->SetArtist($al->GetArtist);
@@ -47,17 +53,50 @@ sub PreInsert
 	$self->SetPrev($ar->GetName);
 }
 
+sub CheckPrerequisites
+{
+	my $self = shift;
+
+	my $rowid = $self->GetRowId;
+
+	# Load the album by ID
+	my $al = Album->new($self->{DBH});
+	$al->SetId($rowid);
+	unless ($al->LoadFromId)
+	{
+		$self->InsertNote(MODBOT_MODERATOR, "Album #$rowid has been deleted");
+		return STATUS_FAILEDDEP;
+	}
+
+	# Check that its artist has not changed
+	if ($al->GetArtist == VARTIST_ID)
+	{
+		$self->InsertNote(MODBOT_MODERATOR, "Album #$rowid has already been converted to multiple artists");
+		return STATUS_FAILEDPREREQ;
+	}
+	if ($al->GetArtist != $self->GetArtist)
+	{
+		$self->InsertNote(MODBOT_MODERATOR, "Album #$rowid is no longer associated with this artist");
+		return STATUS_FAILEDDEP;
+	}
+
+	undef;
+}
+
 sub ApprovedAction
 {
  	my $self = shift;
 	my $sql = Sql->new($self->{DBH});
+
+	my $status = $self->CheckPrerequisites;
+	return $status if $status;
 
  	$sql->Do(
 		"UPDATE album SET artist = ? WHERE id = ? AND artist = ?",
 		&ModDefs::VARTIST_ID,
 		$self->GetRowId,
 		$self->GetArtist,
-	) or return &ModDefs::STATUS_FAILEDPREREQ;
+	) or die "Failed to update album in MOD_SAC_TO_MAC";
 
 	&ModDefs::STATUS_APPLIED;
 }
