@@ -58,7 +58,7 @@ function GuessCase2(string, inbrackets)
 	// stuff: more stuff
 	m = string.match(/^([^:]*):\s*(.*)$/);
 
-	if (m != null)
+	if (m != null && inbrackets == false)
 	{
 		return GuessCase2(m[1], false) + ": " + GuessCase2(m[2], false);
 	}
@@ -66,7 +66,7 @@ function GuessCase2(string, inbrackets)
 	// normalise some punctuation and spacing
 	string = string.replace(/\s*:\s*/g, ": ");
 	string = string.replace(/\s*,([^\d])\s*/g, ", $1");
-	string = string.replace(/\s*\.([^\d])\s*/g, ". $1");
+	string = string.replace(/\s*\.([^\d\.])\s*/g, ". $1");
 
  	string = string.toLowerCase();
   	var words = string.split(" ");
@@ -114,6 +114,7 @@ function GuessCase2(string, inbrackets)
 			. replace(/\brmx$/i, "remix")
 			. replace(/\btake$/i, "take")
 			. replace(/\bversion$/i, "version")
+			. replace(/\breprise$/i, "reprise")
 			;
 	}
 
@@ -197,6 +198,8 @@ function TrimSquash(s)
 	return s
 		. replace(/^\s\s*/, "")
 		. replace(/\s\s*$/, "")
+		. replace(/([\(\[])\s+/, "$1")
+		. replace(/\s+([\)\]])/, "$1")
 		. replace(/\s\s*/g, " ")
 		;
 }

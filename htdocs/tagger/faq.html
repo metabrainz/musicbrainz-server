@@ -13,6 +13,18 @@
 <& /comp/faqheader, title=>'General Questions' &>
 
 <& /comp/faqentry,
+   question=>'The Tagger says the TRM server is too busy at the moment. What does that mean?',
+   answer=>'This means that the server that calculates and looks up TRM ids is overloaded with too many users using it at this time. We\'re aiming to deploy a dedicated TRM server sometime in the fall of 2004 to help get us more throughput on TRM lookups. Please <a href="/contribute.html">donate</a> some money to help us purchase a new server.',
+   name=>''
+&>
+
+<& /comp/faqentry,
+   question=>'I switched the tagger to use one of the mirror servers and it still says the TRM server is too busy. What gives?',
+   answer=>'There is only on TRM server right now and if you use a mirror server, you will still end up using the same central TRM server as everyone else.',
+   name=>''
+&>
+
+<& /comp/faqentry,
    question=>'The Tagger has identified a track even though the server does not have a TRM id for that track. How does that work?',
    answer=>'If the server does not know anything about a given TRM, it will attempt to look up the track from the metadata from the ID3/Vorbiscomment tags and the name of the file. If the data matches a track in the database, the tagger will use this data and consider the track identified.',
    name=>'notrm'
@@ -37,7 +49,6 @@
 &>
 
 <& /comp/faqfooter &>
-
 
 
 <& /comp/faqheader, title=>'Support Questions' &>

@@ -37,7 +37,7 @@ MAILMAN_DIR=usr/local/mailman
 
 # All executables are assumed to be on your PATH, so add any unusual
 # requirements in here.
-PATH=/usr/local/pgsql/bin:$PATH
+PATH=/usr/local/pgsql/bin:/usr/local/bin:$PATH
 export PATH
 
 # eof

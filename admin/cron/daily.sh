@@ -88,6 +88,9 @@ echo `date`" : Processing subscriptions"
 echo `date`" : Processing Amazon matches"
 ./admin/aws/Match.pl --daily --noverbose --summary
 
+# Add missing track lengths
+./admin/cleanup/FixLength.pl
+
 echo `date`" : Nightly jobs complete!"
 
 # eof

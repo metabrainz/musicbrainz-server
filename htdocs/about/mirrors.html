@@ -1,0 +1,55 @@
+%# vi: set ts=2 sw=2 ft=mason :
+<& /comp/sidebar, title => 'MusicBrainz Mirrors' &>
+
+<table width="420"><tr><td>
+
+<h2>MusicBrainz Mirrors</h2>
+
+<p>
+After several years of discussing how to mirror MusicBrainz to the far corners of the world,
+we finally have a replication system in place. Since we're just getting started, we only have one 
+mirror to start with for our users in Europe:
+</p>
+
+<ul>
+<li><a href="http://nl.musicbrainz.org">Netherlands Mirror (nl.musicbrainz.org)</a></li>
+</ul>
+
+<p>
+We're also working on an east coast US and a United Kingdom (.uk) mirror server.
+</p>
+
+<p>
+<span style="color: red">Note to Tagger users</span>: Switching your classic MusicBrainz Tagger
+(0.10.x) to use the mirror server <b>will not improve your TRM lookups</b>. If you are getting
+messages from the tagger stating that the TRM server is too busy, using a mirror server will <b>not</b>
+help you. There is currently only one TRM server located in the US, and that cannot be replicated
+currently. For more information see our <a href="/tagger/faq.html">Tagger FAQ</a>.
+</p>
+
+<h2>Setting up your own mirror</h2>
+
+<p>
+To set up your own mirror for private or public use, you will need the following:
+</p>
+
+<blockquote>
+<p>
+A linux machine, (recent distributions work best) with at least 2-3 Gigs of available hard drive space. For a private mirror (read: used by only a few people) a 1Ghz processor with 256MB of RAM will suffice. If you plan to make the mirror available to the public, you should have at least a 2Ghz processor with 512MB of RAM. The more RAM, the better!
+</p>
+
+<p>
+Bandwidth requirements for a mirror are currently hard to judge -- we're just getting started setting up
+mirrors and our client software is not fully ready to take advantage of our mirrors yet. Take a look
+at our <a href="/usage/www">web usage statistics</a> to get an idea how much traffic the main server gets.
+A mirror server would surely use less bandwidth, so this should give you an idea of a reasonable upper bound.
+</p>
+</blockquote>
+
+<p>
+To install the mirror, you will need to check out the <b>mb_server</b> project from <a href="/development/cvs.html">CVS</a> and the follow the instructions in the INSTALL file. If you have any trouble setting up the server (it's a fair amount of work, so be warned!) post your questions to the musicbrainz-devel <a href="/list.html">mailing list</a> and we'll try and help you out.
+</p>
+
+</td></tr></table>
+
+<& /comp/footer &>

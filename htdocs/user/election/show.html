@@ -52,6 +52,20 @@ my $do_seconder = sub {
 	"";
 };
 
+# Do we show the tally of votes cast so far?
+my $show_vote_count;
+
+if ($election->GetStatus =~ /[456]/
+	or $propsec
+	or $session{uid} == $election->GetCandidate
+) {
+	$show_vote_count = "YES";
+} elsif ($election->GetStatus == 3) {
+	$show_vote_count = "LATER";
+} else {
+	$show_vote_count = 0;
+}
+
 </%perl>
 <& /comp/sidebar, title => "Auto-Moderator Election Details" &>
 
@@ -91,6 +105,11 @@ my $do_seconder = sub {
 		<td>2nd Seconder:</td>
 		<td><% &$do_seconder('GetSeconder2', '2') %></td>
 	</tr>
+% if ($show_vote_count eq "LATER") {
+	<tr>
+		<td>Votes For/Against:</td>
+		<td>The tally of votes cast will only be shown when the election is complete</td>
+% } elsif ($show_vote_count eq "YES") {
 	<tr>
 		<td>Votes For:</td>
 		<td><% $election->GetYesVotes %></td>
@@ -99,6 +118,7 @@ my $do_seconder = sub {
 		<td>Votes Against:</td>
 		<td><% $election->GetNoVotes %></td>
 	</tr>
+% }
 	<tr>
 		<td>Status:</td>
 		<td>
@@ -145,6 +165,8 @@ my $do_seconder = sub {
 <p>You cannot vote for this candidate, because you proposed / seconded them.</p>
 % }
 
+% } elsif (not $session{uid}) {
+<p>To find out if you can vote for this candidate, please <a href="/login.html">log in</a>.</p>
 % } else {
 <p>You cannot vote for this candidate, because you are not an auto-moderator.</p>
 % }

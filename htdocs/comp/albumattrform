@@ -99,7 +99,7 @@ push @$pushindex, $i;
 %		for my $v (@valuelist)
 %		{
         <tr>
-			<td valign="top" NOWRAP>
+			<td valign="top" nowrap>
 				<input type="radio"
 					style="position: relative; top: -4px"
 					name="<% $fieldname %>"
@@ -109,7 +109,7 @@ push @$pushindex, $i;
 %					}
 					ondblclick="this.form.submit()"
 				></td>
-			<td valign="top"><% $v->[1] %></td>
+			<td valign="top" nowrap><% $v->[1] %></td>
 			<td valign="top">&nbsp;</td>
 			<td valign="top"><% $v->[2] %></td>
 		</tr>

@@ -382,6 +382,10 @@ sub SetUserInfo
 		push @args, $opts{bio}
 		if defined $opts{bio};
 
+	$query .= " privs = ?,",
+		push @args, $opts{privs}
+		if defined $opts{privs};
+
 	$query =~ s/,$//
 		or return; # no changed fields
 
@@ -395,6 +399,24 @@ sub SetUserInfo
 	MusicBrainz::Server::Cache->delete($self->_GetCacheKey($uid));
 
 	$ok;
+}
+
+sub MakeAutoModerator
+{
+	my $self = shift;
+
+	return if $self->IsAutoMod($self->GetPrivs);
+
+	my $sql = Sql->new($self->{DBH});
+	$sql->AutoTransaction(
+		sub {
+			$self->SetUserInfo(privs => $self->GetPrivs | AUTOMOD_FLAG);
+
+			require MusicBrainz::Server::ModBot;
+			my $bot = MusicBrainz::Server::ModBot->new($self->{DBH});
+			$bot->UserGrantedAutoModerator($self);
+		},
+	);
 }
 
 sub CreditModerator

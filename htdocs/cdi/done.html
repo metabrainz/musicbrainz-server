@@ -40,7 +40,6 @@ $error = 3 if ($toc eq '' && $freedbid eq '' && $noncd == 0);
 $error = 4 if ($freedbid ne '' && $durations eq '');
 $error = 5 if ($tracks eq 0);
 $error = 6 if (!defined $artist && $artistname =~ /various artists/i);
-$error = 7 if ($attrtype == 0 || $attrstatus == 0);
 for (my $i = 0; $i < $tracks && !$error; $i++)
 {
     if (!exists $ARGS{"track$i"} || $ARGS{"track$i"} eq '')

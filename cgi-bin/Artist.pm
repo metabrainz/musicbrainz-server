@@ -219,9 +219,9 @@ sub UpdateName
     ) or return 0;
 
     # Update the search engine
+    $this->SetName($name);
     $this->RebuildWordList;
 
-    $this->SetName($name);
     1;
 }
 
@@ -241,9 +241,9 @@ sub UpdateSortName
     ) or return 0;
 
     # Update the search engine
+    $this->SetSortName($name);
     $this->RebuildWordList;
 
-    $this->SetSortName($name);
     1;
 }
 
@@ -282,9 +282,81 @@ sub RebuildWordList
     my $engine = SearchEngine->new($this->{DBH}, 'artist');
     $engine->AddWordRefs(
 	$this->GetId,
-	[ $this->{name}, @aliases ],
+	[ $this->GetName, @aliases ],
 	1, # remove other words
     );
+}
+
+sub RebuildWordListForAll
+{
+    my $class = shift;
+
+    my $mb_r = MusicBrainz->new; $mb_r->Login; my $sql_r = Sql->new($mb_r->{DBH});
+    my $mb_w = MusicBrainz->new; $mb_w->Login; my $sql_w = Sql->new($mb_w->{DBH});
+
+    $sql_r->Select("SELECT id FROM artist");
+    my $rows = $sql_r->Rows;
+
+    my @notloaded;
+    my @failed;
+    my $noerrcount = 0;
+    my $n = 0;
+    $| = 1;
+
+    use Time::HiRes qw( gettimeofday tv_interval );
+    my $fProgress = 1;
+    my $t1 = [gettimeofday];
+    my $interval;
+
+    my $p = sub {
+    	my ($pre, $post) = @_;
+	no integer;
+	printf $pre."%9d %3d%% %9d".$post,
+    	    $n, int(100 * $n / $rows),
+	    $n / ($interval||1);
+    };
+
+    $p->("", "") if $fProgress;
+
+    while ((my $id) = $sql_r->NextRow)
+    {
+	$sql_w->Begin;
+
+	eval {
+	    my $ar = Artist->new($mb_w->{DBH});
+	    $ar->SetId($id);
+	    if ($ar->LoadFromId)
+	    {
+		$ar->RebuildWordList;
+	    } else {
+		push @notloaded, $id;
+	    }
+	    $sql_w->Commit;
+	};
+
+	if (my $err = $@)
+	{
+	    eval { $sql_w->Rollback };
+	    push @failed, $id;
+	    warn "$err\n";
+	} else {
+	    ++$noerrcount;
+	}
+
+	++$n;
+	unless ($n & 0x3F)
+	{
+    	    $interval = tv_interval($t1);
+	    $p->("\r", "") if $fProgress;
+	}
+    }
+
+    $sql_r->Finish;
+    $interval = tv_interval($t1);
+    $p->(($fProgress ? "\r" : ""), sprintf(" %.2f sec\n", $interval));
+
+    printf "Total: %d  Errors: %d  Not loaded: %d  Success: %d\n",
+	$n, 0+@failed, 0+@notloaded, $noerrcount-@notloaded;
 }
 
 # Load an artist record given a name. The name must match exactly.

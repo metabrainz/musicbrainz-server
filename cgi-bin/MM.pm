@@ -355,7 +355,8 @@ sub CreateOutputRDF
     # TODO sometimes $depth is not defined
     return $this->ErrorRDF("Invalid search depth specified.") if ($depth < 1);
 
-    $this->{cache} = \(my @cache);
+    my @cache;
+    $this->{cache} = \@cache;
 
     # Create a cache of objects and add the passed object ids without
     # loading the actual objects

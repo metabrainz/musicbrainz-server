@@ -192,6 +192,11 @@ sub _Close
 
 	if ($self->{status} == $STATUS_ACCEPTED)
 	{
+		# Calling _PrepareMail fills in candidate_user
+		$self->_PrepareMail;
+		my $candidate = $self->{"candidate_user"};
+		$candidate->MakeAutoModerator;
+		# Now the database has been updated, send the e-mail
 		$self->SendAcceptedEmail;
 	} else {
 		$self->SendRejectedEmail;
@@ -202,6 +207,18 @@ sub _Close
 # The guts of the system: propose, second, cast vote, cancel
 ################################################################################
 
+# Some users can never take part in any way
+use ModDefs ':userid';
+sub is_user_ineligible
+{
+	my ($self, $user) = @_;
+	my $uid = $user->GetId;
+	return 1 if $uid == ANON_MODERATOR
+		or $uid == FREEDB_MODERATOR
+		or $uid == MODBOT_MODERATOR;
+	0;
+}
+
 sub Propose
 {
 	my ($self, $proposer, $candidate) = @_;
@@ -209,6 +226,9 @@ sub Propose
 
 	$@ = "ALREADY_AN_AUTOMOD", return
 		if $candidate->IsAutoMod($candidate->GetPrivs);
+
+	$@ = "INELIGIBLE", return
+		if $self->is_user_ineligible($candidate);
 
 	$sql->Do("LOCK TABLE automod_election IN EXCLUSIVE MODE");
 
@@ -380,11 +400,13 @@ sub Cancel
 sub _PrepareMail
 {
 	my $self = shift;
+	return if $self->{"_email_prepared"};
 
 	(my $nums = $self->{proposetime}) =~ tr/0-9//cd;
 	my $id = $self->GetId;
 	$self->{message_id} = "<automod-election-$id-$nums\@musicbrainz.org>";
 
+	require UserStuff;
 	my $us = UserStuff->new($self->{DBH});
 	for my $key (qw( candidate proposer seconder_1 seconder_2 ))
 	{
@@ -401,6 +423,8 @@ sub _PrepareMail
 	$self->{subject} = "Automod Election: $self->{candidate_name}";
 	$self->{election_link} = sprintf "http://%s/user/election/show.html?id=%d",
 		&DBDefs::WEB_SERVER, $self->GetId;
+
+	$self->{"_email_prepared"} = 1;
 }
 
 sub SendProposalEmail
@@ -422,7 +446,7 @@ Proposer:  $self->{proposer_name}
 
 * If two seconders are found within $timeout, voting will begin
 * Otherwise, the proposal will automatically be rejected
-* Alternatively, the $self->{proposer_name} may withdraw the proposal
+* Alternatively, $self->{proposer_name} may withdraw the proposal
 
 Please participate:
 $self->{election_link}
@@ -453,7 +477,7 @@ Seconder:  $self->{seconder_2_name}
            $self->{seconder_2_link}
 
 * Voting will now remain open for the next $timeout
-* Alternatively, the $self->{proposer_name} may withdraw the proposal
+* Alternatively, $self->{proposer_name} may withdraw the proposal
 
 Please participate:
 $self->{election_link}

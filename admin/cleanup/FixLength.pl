@@ -34,12 +34,12 @@ use MusicBrainz;
 use Getopt::Long;
 my $debug = 0;
 my $dry_run = 0;
-my $verbose = -t;
+my $verbose = 0;
 my $help = 0;
 GetOptions(
 	"debug!"			=> \$debug,
 	"dry-run|dryrun!"	=> \$dry_run,
-	"verbose!"			=> \$verbose,
+	"verbose|v"			=> \$verbose,
 	"help"				=> \$help,
 ) or exit 2;
 $help = 1 if @ARGV;
@@ -50,7 +50,7 @@ Usage: FixLength.pl [OPTIONS]
 Allowed options are:
         --[no]dry-run     don't actually make any changes (best used with
                           --verbose) (default is to make the changes)
-        --[no]verbose     show the changes as they are made
+    -v, --verbose         show the changes as they are made
         --[no]debug       show lots of debugging information
         --help            show this help
 
@@ -82,6 +82,8 @@ my $albums_fixed = 0;
 for my $id (@$albums)
 {
     print localtime() . " : Fixing album #$id\n" if $verbose;
+
+	eval {
 
 	require Musicbrainz::Server::AlbumCDTOC;
 	my $tocs = Musicbrainz::Server::AlbumCDTOC->newFromAlbum($mb->{DBH}, $id);
@@ -246,7 +248,7 @@ for my $id (@$albums)
 				{
 					# TODO? next if $t->{length} > 0;
 					my $id = $t->{id};
-					my $l = $average_toc[$t->{sequence}-1];
+					my $l = int($average_toc[$t->{sequence}-1]);
 					print "UPDATE track SET length = $l WHERE id = $id\n"
 						if $verbose;
 					$sql->Do("UPDATE track SET length = ? WHERE id = ?", $l, $id)
@@ -263,7 +265,7 @@ for my $id (@$albums)
 		}
 	}
 
-	print "Don't know what to do about this album\n";
+	print "Don't know what to do about album #$id\n";
 
 	print " - multiple TOCs\n" if @$tocs > 1 and keys(%c)==1;
 	print " - multiple conflicting TOCs\n" if @$tocs > 1 and keys(%c)>1;
@@ -278,6 +280,14 @@ for my $id (@$albums)
 
 	my $withlength = grep { $_->{length}>0 } @$tracks;
 	print " - $withlength tracks have length\n" if $withlength;
+
+	};
+
+	if (my $err = $@)
+	{
+		warn $err;
+		eval { $sql->Rollback };
+	}
 }
 
 print localtime() . " : Fixed $tracks_fixed tracks on $albums_fixed albums\n";

@@ -101,7 +101,7 @@ sub PreInsert
 	{
 		my $attrs = $new{'Attributes'};
 		$attrs = "" unless defined $attrs;
-	 	$info{'attrs'} = [ split /,/, $attrs ];
+	 	$info{'attrs'} = [ grep { $_ } split /,/, $attrs ];
 	}
 
 	my @tracks;

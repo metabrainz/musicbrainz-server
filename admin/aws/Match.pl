@@ -31,26 +31,21 @@ use DBDefs;
 use Getopt::Long;
 use String::Unicode::Similarity;
 use Time::HiRes qw( usleep gettimeofday tv_interval );
+use URI::Escape;
 use LWP::UserAgent;
+use XML::Parser;
 use MusicBrainz;
 use Artist;
 use Album;
 use SearchEngine;
 use Text::Unaccent;
-use Image::Info qw( image_info );
-use Net::Amazon;
 
-# This is a fairly important value, set it too low and you won't match all albums when an artist
-# has 10 * pages albums.  Set it too high and it can take a long time to go through all the pages 
-# for an artist with lots of matches, i.e. Artist = "W"
-# I'm picking 25 because of artists like Tangerine Dream who have a ton of albums (205 results)
-use constant MAX_PAGES_PER_ARTIST => 25;
+use constant MAX_PAGES_PER_ARTIST => 100;
 
 use constant MODE_FIND       => 1;
 use constant MODE_UPDATE     => 2;
 use constant MODE_DAILY      => 3;
 use constant MODE_SINGLE     => 4;
-use constant MODE_ALL		 => 5;
 
 my $verbose = -t;
 my $summary = -t;
@@ -60,19 +55,11 @@ my $mode = MODE_FIND;
 # How much of that set to process
 my $percent = undef;
 my $limit = undef;
-my $various = undef;
 
 # Summary fields
 my $start_time = time;
 my $artists_processed = 0;
-my $va_processed = 0;
 my $queries_sent = 0;
-
-# Amazon query object
-my $am = Net::Amazon->new( 
-	token => &DBDefs::AWS_DEVELOPER_ID,
-	max_pages => MAX_PAGES_PER_ARTIST,
-);
 
 sub IsValidImage
 {
@@ -84,16 +71,144 @@ sub IsValidImage
     my $response = $ua->get($url);
     if ($response->is_success)
     {
-    	my $content = $response->content;
-    	my $info = image_info(\$content);
-    	if ($info->{file_ext} =~ /jpg|gif|png/)
-    	{
-            return 0 if ($info->{width} <= 1 || $info->{height} <= 1);
+        if ($response->content =~ /JFIF/ ||
+            $response->content =~ /GIF87a/ ||
+            $response->content =~ /GIF89a/)
+        {
+            return 0 if (length($response->content) < 1024);
             return 1;
         }
     } 
 
     return 0;
+}
+
+sub HandleStart
+{
+    my ($expat, $element, @attrs) = @_;
+
+    $expat->{__mbnode} .= "/$element";
+
+    if ($expat->{__mbnode} eq '/ProductInfo/Details/Artists')
+    {
+        $expat->{__mbdata}->{artistCount} = 0;
+        return;
+    }
+    if ($expat->{__mbnode} eq '/ProductInfo/Details/Artists/Artist')
+    {
+        $expat->{__mbdata}->{artistCount}++;
+        return;
+    }
+}
+
+sub HandleEnd
+{
+    my ($expat) = @_;
+
+    if ($expat->{__mbnode} eq '/ProductInfo/Details')
+    {
+        if ($expat->{__mbdata}->{artistCount} == 1 &&
+            similarity($expat->{__mbdata}->{artist}, $expat->{__mbartist}) > .5)
+        {
+            if (!IsValidImage("http://images.amazon.com" . $expat->{__mbdata}->{url}))
+            { 
+                $expat->{__mbdata}->{url} = '';
+            }
+
+            if (!exists $expat->{__mbalbums}->{$expat->{__mbdata}->{album}} || 
+                (defined $expat->{__mbalbums}->{$expat->{__mbdata}->{url}} &&
+                $expat->{__mbalbums}->{$expat->{__mbdata}->{url}} eq ''))
+            {
+                $expat->{__mbalbums}->{$expat->{__mbdata}->{album}} = 
+                {
+                     asin    => $expat->{__mbdata}->{asin},
+                     album   => $expat->{__mbdata}->{album},
+                     url     => $expat->{__mbdata}->{url},
+                     matched => 0
+                };
+            }
+        }
+        else
+        {
+            printf("Skipping album %s by %s (%d artists)\n", 
+                    $expat->{__mbdata}->{album},
+                    $expat->{__mbdata}->{artist},
+                    $expat->{__mbdata}->{artistCount})
+				if 0;
+        }
+
+        $expat->{__mbdata}->{asin} = '';
+        $expat->{__mbdata}->{album} = '';
+        $expat->{__mbdata}->{url} = '';
+        $expat->{__mbdata}->{artist} = '';
+        $expat->{__mbdata}->{artistCount} = 0;
+        $expat->{__mbdata}->{pages} = 0;
+    }
+
+    $expat->{__mbnode} =~ s-/\w+$--;
+}
+
+sub HandleChar
+{
+    my ($expat, $char) = @_;
+
+    if ($expat->{__mbnode} eq '/ProductInfo/TotalPages')
+    {
+        $expat->{__mbdata}->{pages} = $char;
+        return;
+    }
+
+    if ($expat->{__mbnode} eq '/ProductInfo/Details/Asin')
+    {
+        $expat->{__mbdata}->{asin} = $char;
+        return;
+    }
+
+    if ($expat->{__mbnode} eq '/ProductInfo/Details/ProductName')
+    {
+        $expat->{__mbdata}->{album} .= $char;
+        return;
+    }
+
+    if ($expat->{__mbnode} eq '/ProductInfo/Details/ImageUrlMedium')
+    {
+        $char =~ s/^http:\/\/images.amazon.com//;
+        $expat->{__mbdata}->{url} .= $char;
+        return;
+    }
+
+    if ($expat->{__mbnode} eq '/ProductInfo/Details/Artists/Artist')
+    {
+        $expat->{__mbdata}->{artist} .= $char;
+        return;
+    }
+}
+
+sub ParseXML
+{
+    my ($artist, $album_asins, $album_urls, $xml) = @_;
+    my ($expat, %data);
+
+	# TODO handle ErrorMsg in the response: /ProductInfo/ErrorMsg/(text)
+
+    $expat = new XML::Parser(Handlers => {Start => \&HandleStart,
+                                          End   => \&HandleEnd,
+                                          Char  => \&HandleChar});
+    $data{artistCount} = 0;
+    $expat->{__mbnode} = '';
+    $expat->{__mbdata} = \%data;
+    $expat->{__mbalbums} = $album_asins;
+    $expat->{__mburls} = $album_urls;
+    $expat->{__mbartist} = $artist;
+    eval
+    {
+        $expat->parse($xml);
+    };
+    if ($@)
+    {
+        return (0, $@);
+    }
+    return ($data{pages}, "");
 }
 
 sub CompareName
@@ -122,202 +237,24 @@ sub CompareAlbumName
     return CompareName($search, $amazon, $mb);
 }
 
-sub CompareTrackNames
-{
-	my ($search, $amTracks, $mbTracks, $va) = @_;
-	my ($allAm, $allMb, $tokb, $toka);
-	
-	# Sometimes we get no track results
-	# Net::Amazon sometimes puts an undef value in an array (bug?) so check every item
-	foreach (@{$amTracks})
-	{
-		return 0 unless defined;
-	}
-	
-	# We assume that if the number of tracks doesn't match, it's not a match
-	return 0 unless (scalar @{$amTracks} == scalar @{$mbTracks});
-	
-	foreach my $track (@{$mbTracks}) {
-		if ($va)
-		{
-			# Amazon VA listings appear to be in "name - artist" format
-			$allMb .= $track->GetName() . " - " . $track->GetArtistName();
-		}
-		else
-		{
-			$allMb .= $track->GetName();
-		}
-	}
-	$allAm = join '', @{$amTracks} if (scalar @{$amTracks});
-
-	return CompareName($search, $allAm, $allMb);
-}
-
-# MatchVariousArtists is a bit of duplicated code, but keeps %album_data from containing
-# thousands of albums which would greatly slow down the track name matching process
-sub MatchVariousArtists
-{
-	my ($search, $albums) = @_;
-	my ($album, %matched);
-	my (%album_data, %potential_matches);
-	my ($response, $prop, $url);
-	
-	print "\n" if ($verbose > 2);
-	
-	# For VA albums, we do a keyword search, 1 per album name
-	foreach my $album (@{$albums}) {
-		if ($album->GetArtist() == &ModDefs::VARTIST_ID)
-		{
-			++$va_processed;
-			print "  VA Album " . $album->GetName() . ": \n" if ($verbose > 2);
-			my $albumName = $album->GetName();
-			$albumName =~ s/\s*\(.+?\)\s*$//;
-			
-			my $t0 = [gettimeofday];
-			$response = $am->search(
-	    		keyword => unac_string('UTF-8', $albumName),
-	    		mode => 'music',
-	    	);
-	    	++$queries_sent;
-
-			# This is to prevent sending more than 1 query per second to Amazon, as per their TOS
-            my $t1 = [gettimeofday];
-            my $dur = (1.0 -  tv_interval($t0, $t1)) * 1000000;
-            usleep($dur) unless $dur < 0;
-	    	
-	    	if (!$response->is_success())
-	    	{
-	    		# print "    Error: " . $response->message() . "\n" if ($verbose > 2);
-	    		next;
-	    	} 
-	    		    	
-	    	# Convert returned Amazon data into hash
-	    	# We need to keep a counter to use in the hash, because it's possible
-			# to have multiple VA albums with the same name, so using the name as the hash key won't work
-	    	my $count = 0;
-	    	foreach $prop ($response->properties())
-	    	{
-	    		next unless ($prop->Catalog() =~ /Music|Classical/);
-	    	
-			    $url = (IsValidImage($prop->ImageUrlMedium())) ? $prop->ImageUrlMedium() : "";
-		    	$url =~ s/^http:\/\/images.amazon.com//;
-		    	
-		    	# upc, release_date are for future use
-			    my $key = ++$count . "=" . $prop->album();
-		    	$album_data{$key} = {
-		    		artist => $prop->artist(),
-		    		album => $key,
-		    		asin => $prop->Asin(),
-		    		url => $url,
-		    		upc => $prop->upc(),
-		    		release_date => $prop->ReleaseDate(),
-					tracks => [ $prop->tracks() ],
-		    		matched => 0,
-		    	};
-		    }
-		    
-            my ($best, $bestalbum, $tokam, $tokmb);
-			my $sim = 0;
-			
-            # VA albums only use track-level matching
-
-            $best = 0;
-            $bestalbum = 0;
-            foreach my $amAlbum (keys %album_data)
-            {
-            	# VA keys have numbers in front, so strip them out
-            	my $amAlbumName = $amAlbum;
-            	$amAlbumName =~ s/^\d+=//;
-            	
-        		$sim = CompareTrackNames(
-        			$search,
-        			$album_data{$amAlbum}->{tracks},
-        			[ $album->LoadTracksFromMultipleArtistAlbum() ],
-        			1,
-        		);
-
-                if ($sim >= $best)
-                {
-                    $best = $sim;
-                    $bestalbum = $amAlbum;
-                }
-				
-				# Store all possible >80% Amazon matches for an MB album.  This will let us
-                # choose the match with an image if we get more than 1 match.
-				if ($sim > .8)
-				{
-					$album_data{$amAlbum}->{sim} = $sim;
-					push @{$potential_matches{$album}}, $album_data{$amAlbum};
-				}
-            }
-            if ($best > .8)
-            {
-            	# if the best match doesn't have an image, check through the other possible matches
-            	unless ($album_data{$bestalbum}->{url} ne '')
-            	{
-            		my $oldBest = $best;
-            		$best = 0;
-					foreach my $possible (@{$potential_matches{$album}})
-					{
-	            		if (exists $possible->{url} && $possible->{url} ne '') {
-	            			if ($possible->{sim} >= $best)
-	            			{
-            					$bestalbum = $possible->{album};
-            					$best = $possible->{sim};
-            				}
-            			}
-            		}
-            		# if we didn't find anything, reset the best value
-            		$best = $oldBest unless ($best);
-            	}
-            	
-            	my $bestAlbumName = $bestalbum;
-            	$bestAlbumName =~ s/^\d+=//;
-                $matched{$album} = [ $bestAlbumName, $best, $album_data{$bestalbum}->{asin},
-                                     $album_data{$bestalbum}->{url} ];
-                $album_data{$bestalbum}->{matched}++;
-			}
-
-			if ($verbose > 2)
-			{
-				if (exists $matched{$album})
-				{
-				   printf "    OK: %3d%% %s (%d) -- %s (%s) %s\n", 
-				       $matched{$album}->[1] * 100, 
-				       $album->GetName(), $album->GetId(), 
-				       $matched{$album}->[0], $matched{$album}->[2],
-				       ($matched{$album}->[3] eq '') ? "no image" : "";
-				}
-			}
-		}
-	}
-	
-	return %matched;
-}
-
 sub MatchArtist
 {
     my ($dbh, $artist, $artistid) = @_;
-    my ($album, $count, %matched);
-	my ($ar, @albums, $search, %album_data, %potential_matches);
+    my ($pages, %album_asins, %album_urls, $album, $xml);
+    my ($error, $i, %matched, $count);
 
     print localtime() . " : Matching $artist ($artistid): "
 		if $verbose;
 	++$artists_processed;
 
+    my ($ar, @albums, $aalbum, $search);
+
     $search = SearchEngine->new($dbh);
     $ar = Artist->new($dbh);
     $ar->SetId($artistid);
 
-    if ($various)
-	{
-		@albums = $ar->GetAlbums();
-	}
-	else
-	{   
-    	@albums = $ar->GetAlbums(1);
-    }
-    
+    @albums = $ar->GetAlbums(1);
+
 	# If invoked via --single we need to check that the artist has at least
 	# one album
 	if (not @albums)
@@ -326,147 +263,96 @@ sub MatchArtist
 			if $verbose;
 		return (0, "");
 	}
-	
-    %matched = MatchVariousArtists($search, \@albums) if ($various);
 
     $count = 0;
-    
-    ++$queries_sent;
-
-	# For Non-VA albums, we do an artist search
-    my $response = $am->search( 
-    	artist => unac_string('UTF-8', $artist),
-    );
-    
-    if (!$response->is_success())
+    for($pages = 1, $i = 0; $i < $pages; $i++)
     {
-		# print "  Error: " . $response->message() . "\n" if ($verbose > 2);
-		
-		# Only return if VA match didn't find anything too
-		unless (scalar keys %matched)
-		{
-			print "no Amazon albums found\n" if ($verbose);
-			return (0, "");
+        last if ($i >= MAX_PAGES_PER_ARTIST);
+
+        my $url = qq|http://xml.amazon.com/onca/xml3?t=| . &DBDefs::AWS_ASSOCIATE_ID('amazon.com') .
+                  qq|&dev-t=| . &DBDefs::AWS_DEVELOPER_ID . 
+                  qq|&ArtistSearch=| . uri_escape(unac_string('UTF-8', $artist)) .
+                  qq|&mode=music&type=lite&page=| . ($i+1) . 
+                  qq|&f=xml|;    
+
+        my $ua = LWP::UserAgent->new;
+        $ua->timeout(10);
+
+        my $t0 = [gettimeofday];
+        print "." if $verbose and -t STDOUT;
+
+		print DEBUG "GET $url\n";
+        my $response = $ua->get($url);
+		++$queries_sent;
+		print DEBUG $response->as_string, "\n";
+
+        if ($response->is_success)
+        {
+            ($pages, $error) = ParseXML($artist, \%album_asins, \%album_urls, $response->content);
+            if ($error)
+            {
+                return (0, $error);
+            }
+        } else {
+			warn "Failed to retrieve $url\n";
+			print STDERR $response->as_string;
 		}
-    }
-    
-    # Convert returned Amazon data into a hash data format we can use
-    foreach my $prop ($response->properties())
-    {
-    	
-    	# Sometimes Amazon will return book results even though we are searching in music, so let's skip them
-    	# This happens for example on Jeffrey Foucault
-    	next unless ($prop->Catalog() =~ /Music|Classical/);
-    	
-    	my $url = (IsValidImage($prop->ImageUrlMedium())) ? $prop->ImageUrlMedium() : "";
-    	$url =~ s/^http:\/\/images.amazon.com//;
-    	
-    	# upc, release_date are for future use
-    	$album_data{$prop->album()} = {
-    		album => $prop->album(),
-    		asin => $prop->Asin(),
-    		url => $url,
-    		upc => $prop->upc(),
-    		release_date => $prop->ReleaseDate(),
-			tracks => [ $prop->tracks() ],
-    		matched => 0,
-    	};
+
+        my $t1 = [gettimeofday];
+        my $dur = (1.0 -  tv_interval($t0, $t1)) * 1000000;
+        usleep($dur) unless $dur < 0;
+
+        if (!defined $pages || $pages < 1)
+        {
+            $pages = 1;
+            last;
+        }
     }
 
-    for(my $chop = 0; $chop < 3; $chop++)
+	# Erase the dots we printed just now
+	print "\b" x $pages if $verbose and -t STDOUT;
+
+    for(my $chop = 0; $chop < 2; $chop++)
     {
         foreach $album (@albums)
         {
-            my ($best, $bestalbum, $tokam, $tokmb);
-			my $sim = 0;
-			
-			# Skip all VA albums, they are handled in MatchVariousArtists
-			next if ($album->GetArtist() == &ModDefs::VARTIST_ID);
-			
+            my ($best, $sim, $bestalbum, $tokam, $tokmb);
+
             # If this album had already been matched, skip it
-            # The exception to this rule is if we got a match without an image.  In this case
-            # we want to run a deeper match to see if there are multiple copies of an album and
-            # one has an image.  Ex: Tangerine Dream - Miracle Mile has 2 listings in Amazon, 
-            # the better match has no image, and the other one does have an image.
-            next if (exists $matched{$album} && $matched{$album}->[3] ne '');
+            next if (exists $matched{$album});
             
             $best = 0;
             $bestalbum = 0;
-            foreach my $amAlbum (keys %album_data)
+            foreach $aalbum (keys %album_asins)
             {
-            	# VA keys have numbers in front, so strip them out
-            	my $amAlbumName = $amAlbum;
-            	$amAlbumName =~ s/^\d+=//;
-            	
-            	if ($chop == 2)
-            	{
-            		$sim = CompareTrackNames(
-            			$search,
-            			$album_data{$amAlbum}->{tracks},
-            			$album->GetTracks(),
-            			"",
-            		);
-            	}
-            	else
-            	{
-					$sim = CompareAlbumName($search, $amAlbumName, $album->GetName(), $chop);
-				}
+                $sim = CompareAlbumName($search, $aalbum, $album->GetName(), $chop);
                 if ($sim >= $best)
                 {
                     $best = $sim;
-                    $bestalbum = $amAlbum;
+                    $bestalbum = $aalbum;
                 }
-				
-				# Store all possible >80% Amazon matches for an MB album.  This will let us
-                # choose the match with an image if we get more than 1 match.
-				if ($sim > .8)
-				{
-					$album_data{$amAlbum}->{sim} = $sim;
-					push @{$potential_matches{$album}}, $album_data{$amAlbum};
-				}
             }
             if ($best > .8)
             {
-            	# if the best match doesn't have an image, check through the other possible matches
-            	unless ($album_data{$bestalbum}->{url} ne '')
-            	{
-            		my $oldBest = $best;
-            		$best = 0;
-					foreach my $possible (@{$potential_matches{$album}})
-					{
-	            		if (exists $possible->{url} && $possible->{url} ne '') {
-	            			if ($possible->{sim} >= $best)
-	            			{
-            					$bestalbum = $possible->{album};
-            					$best = $possible->{sim};
-            				}
-            			}
-            		}
-            		# if we didn't find anything, reset the best value
-            		$best = $oldBest unless ($best);
-            	}
-            	
-                $matched{$album} = [ $bestalbum, $best, $album_data{$bestalbum}->{asin},
-                                     $album_data{$bestalbum}->{url} ];
-                $album_data{$bestalbum}->{matched}++;
+                $matched{$album} = [ $bestalbum, $best, $album_asins{$bestalbum}->{asin},
+                                     $album_asins{$bestalbum}->{url} ];
+                $album_asins{$bestalbum}->{matched}++; 
             }
         }
 
-		if ($verbose > 2)
-		{
-	       print "Pass $chop: " . scalar(keys %matched) . " matches:\n";
-	       foreach $album (@albums)
-	       {
-	           if (exists $matched{$album})
-	           {
-	               printf "   OK: %3d%% %s (%d) -- %s (%s) %s\n", 
-	                   $matched{$album}->[1] * 100, 
-	                   $album->GetName(), $album->GetId(), 
-	                   $matched{$album}->[0], $matched{$album}->[2],
-	                   ($matched{$album}->[3] eq '') ? "no image" : "";
-	           }
-	       }
-		}
+#       print "Pass $chop: " . scalar(keys %matched) . " matches:\n";
+#       foreach $album (@albums)
+#       {
+#           if (exists $matched{$album})
+#           {
+#               printf "   OK: %3d%% %s (%d) -- %s (%s) %s\n", 
+#                   $matched{$album}->[1] * 100, 
+#                   $album->GetName(), $album->GetId(), 
+#                   $matched{$album}->[0], $matched{$album}->[2],
+#                   ($matched{$album}->[3] eq '') ? "no image" : "";
+#           }
+#       }
+#       print "\n";
     }
 
 	# print "MB albums not matched:\n";
@@ -484,7 +370,7 @@ sub MatchArtist
             $count++ 
         }
     }
-    if (scalar(keys %album_data) == 0)
+    if (scalar(keys %album_asins) == 0)
     {
         print "Zero albums returned\n"
 			if $verbose;
@@ -498,26 +384,23 @@ sub MatchArtist
  
 	# print "Amazon albums not matched:\n";
     $count = 0;
-    foreach $album (keys %album_data)
+    foreach $album (keys %album_asins)
     {
-        if ($album_data{$album}->{matched})
+        if ($album_asins{$album}->{matched})
         {
            $count++ 
         }
         else
         {
-			# printf "  %s %s\n", $album_data{$album}->{asin}, $album;
+			# printf "  %s %s\n", $album_asins{$album}->{asin}, $album;
         }
     }
-    # This AM number is not accurate with VA matches
-#    if (scalar(keys %album_data) != 0)
-#    {
-#        printf " AM: %d of %d (%.2f%%)\n",
-#            $count, scalar(keys %album_data), $count * 100 / scalar(keys %album_data),
-#			if $verbose;
-#    }
-
-	print "\n";
+    if (scalar(keys %album_asins) != 0)
+    {
+        printf " AM: %d of %d (%.2f%%)\n",
+            $count, scalar(keys %album_asins), $count * 100 / scalar(keys %album_asins),
+			if $verbose;
+    }
 
     my ($sql);
    
@@ -596,10 +479,6 @@ sub MatchAlbums
                                  where aaa.album = al.id and al.artist = ar.id 
                                  order by aaa.lastupdate asc, ar.id|);
     }
-    elsif ($mode == MODE_ALL)
-    {
-    	$sth = $dbh->prepare(qq|select ar.id, ar.name from artist ar|);
-    }
     else
     {
         die "Invalid Mode.\n";
@@ -626,15 +505,7 @@ sub MatchAlbums
 			my ($ret, $error);
             for(;;)
             {
-            	my $t0 = [gettimeofday];
-            	
                 ($ret, $error) = MatchArtist($dbh, $row[1], $row[0]);
-                
-                # This is to prevent sending more than 1 query per second to Amazon, as per their TOS
-                my $t1 = [gettimeofday];
-                my $dur = (1.0 -  tv_interval($t0, $t1)) * 1000000;
-                usleep($dur) unless $dur < 0;
-                
                 if ($ret == 0 && $error eq '')
                 {
                     next if ($row[1] =~ s/\sand\s/ & /i);
@@ -690,8 +561,8 @@ Match MusicBrainz albums with Amazon albums and store ASINS and cover art URLs
 in the database.
 
 Options are:
-  -v, --[no]verbose    [Don't] describe each artist processed (default: true
-                       if at a terminal).  Use multiple times for more verbosity.
+      --[no]verbose    [Don't] describe each artist processed (default: true
+                       if at a terminal)
       --[no]summary    [Don't] show a summary on exit (default: true if at a
                        terminal)
       --debugfd=N      Log extra debugging info to file description N
@@ -702,8 +573,6 @@ Select which artists to process:
   -u, --update         Match only artists who have no Amazon matches at all
   -d, --daily          Match 1/30th of the artists that have the oldest asin
                        pairings
-  -a, --all            Match all artists.  This can take a LONG time!
-      --various        Include Various Artists albums in the search
   -s, --single         Match only the artist(s) given by "--artist"
       --artist=ARTIST  Specify artist IDs or names for --single to process
 
@@ -720,15 +589,12 @@ my $debugfd;
 my @artist;
 
 GetOptions(
-	"verbose|v+"	=> \$verbose,
-	"noverbose"		=> sub { undef $verbose },
+	"verbose!"		=> \$verbose,
 	"summary!"		=> \$summary,
 	"find|f"		=> sub { $mode = MODE_FIND },
 	"update|u"		=> sub { $mode = MODE_UPDATE },
 	"daily|d"		=> sub { $mode = MODE_DAILY },
-	"all|a"			=> sub { $mode = MODE_ALL },
 	"single|s"		=> sub { $mode = MODE_SINGLE },
-	"various"		=> \$various,
 	"artist=s"		=> \@artist,
 	"debugfd=i"		=> \$debugfd,
 	"percentage=f"	=> sub {
@@ -774,10 +640,9 @@ if ($mode == MODE_SINGLE)
 if ($summary)
 {
 	my $end_time = time;
-	printf "%s : Artists processed: %d; VA Albums processed: %d; queries sent: %d; time taken: %d sec\n",
+	printf "%s : Artists processed: %d; queries sent: %d; time taken: %d sec\n",
 		scalar(localtime),
 		$artists_processed,
-		$va_processed,
 		$queries_sent,
 		$end_time - $start_time,
 		;

@@ -29,6 +29,7 @@ use lib "$FindBin::Bin/../cgi-bin";
 
 use MusicBrainz;
 use MusicBrainz::Server::ModBot;
+use MusicBrainz::Server::AutomodElection;
 use Apache;
 
 my $mb = MusicBrainz->new();

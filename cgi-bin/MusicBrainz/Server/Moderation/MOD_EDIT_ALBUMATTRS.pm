@@ -59,10 +59,10 @@ sub PreInsert
 	my ($self, %opts) = @_;
 
 	my $albums = $opts{'albums'} or die;
-	my $type = $opts{'attr_type'} || &Album::ALBUM_ATTR_ALBUM;
-	my $status = $opts{'attr_status'} || &Album::ALBUM_ATTR_OFFICIAL;
+	my $type = $opts{'attr_type'} || 0;
+	my $status = $opts{'attr_status'} || 0;
 
-	my $attrs = [ $type, $status ];
+	my $attrs = [ grep { $_ } ($type, $status) ];
 
 	my %new;
 	my %artists;

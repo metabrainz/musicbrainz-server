@@ -151,6 +151,8 @@ if (MusicBrainz::IsSingleLineString($newname)
         document.write(
           "&nbsp; <input type='button' value='Guess' " +
           "onclick='this.form.newsortname.value = GuessSortname(this.form.newname.value)'>"
+					+ "&nbsp; <input type='button' value='Copy' " +
+					"onclick='this.form.newsortname.value = this.form.newname.value'>"
         )
 				</script>
 			</td>

@@ -44,8 +44,9 @@
 >CVSROOT=:ext:cvs@cvs.musicbrainz.org:/var/cvs
 export CVSROOT
 wget ftp://ftp.musicbrainz.org/pub/musicbrainz/misc/musicbrainz_anoncvs
-chmod 700 musicbrainz_sshanoncvs
-CVS_RSH=musicbrainz_sshanoncvs
+chmod 700 musicbrainz_anoncvs
+mv musicbrainz_anoncvs ~/
+CVS_RSH=~/musicbrainz_anoncvs
 export CVS_RSH
 </kbd></pre>
 

@@ -37,9 +37,11 @@ my $fProgress = -t STDOUT;
 my $tmpdir = "/tmp";
 my $fKeepFiles = 0;
 my $baseuri = "http://ftp.musicbrainz.org/pub/musicbrainz/data/replication";
+my $lockfile = my $deflockfile = "/tmp/.mb-LoadReplicationChanges";
 
 GetOptions(
 	"help"				=> \$fHelp,
+	"lockfile=s"		=> \$lockfile,
 	"base-uri=s"		=> \$baseuri,
 ) or exit 2;
 
@@ -51,6 +53,8 @@ sub usage
 Usage: LoadReplicationChanges [options]
 
         --help            show this help
+        --lockfile=FILE   use FILE as the lock file to prevent us running in
+                          parallel (default: $deflockfile)
         --base-uri=URI    load the replication data from this location
                           (default: from musicbrainz.org via HTTP)
 
@@ -61,6 +65,20 @@ usage(), exit if $fHelp;
 usage(), exit 2 if @ARGV;
 
 $SIG{'INT'} = sub { die "SIGINT\n" };
+
+# Get a lock so we don't run multiple instances in parallel
+my $lockfh;
+{
+	use Fcntl qw( LOCK_EX LOCK_NB O_CREAT O_WRONLY );
+	sysopen($lockfh, $lockfile, O_CREAT|O_WRONLY, 0600)
+		or die "open >$lockfile: $!";
+	flock($lockfh, LOCK_EX|LOCK_NB)
+		and last;
+	$!{EWOULDBLOCK}
+		or die "flock $lockfile: $!";
+	print localtime() . " : There is already an instance of LoadReplicationChanges running - aborting\n";
+	exit;
+}
 
 use MusicBrainz;
 my $mb = new MusicBrainz;
@@ -159,7 +177,7 @@ system "/bin/tar",
 	"-xvf",
 	$localfile,
 	;
-exit $? if $? >> 8;
+exit $? if $?;
 
 unlink $localfile
 	or warn "unlink $localfile: $!\n";
@@ -233,7 +251,7 @@ system "$FindBin::Bin/ImportReplicationChanges",
 	"$mydir/mbdump/Pending",
 	"$mydir/mbdump/PendingData",
 	;
-exit $? if $? >> 8;
+exit $? if $?;
 
 # Wipe the temporary directory
 print localtime() . " : Removing $mydir\n";
@@ -244,7 +262,7 @@ rmtree($mydir);
 APPLY_CHANGES:
 # Apply the changes (ProcessReplicationChanges)
 system "$FindBin::Bin/ProcessReplicationChanges";
-exit $? if $? >> 8;
+exit $? if $?;
 
 # Empty the tables
 print localtime() . " : Emptying the Pending and PendingData tables\n";

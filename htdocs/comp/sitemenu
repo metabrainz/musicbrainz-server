@@ -6,6 +6,7 @@ use Scalar::Util qw( reftype weaken );
 
 @main = (
 	{ name => "Home",					url => "/index.html" },
+	{ name => "Mirrors",				url => "/about/mirrors.html" },
 	{ name => "About",					url => "/introduction.html" },
 	[
 		{ name => "Introduction",			url => "/introduction.html" },
@@ -50,11 +51,10 @@ use Scalar::Util qw( reftype weaken );
 		],
 		{ name => "Server Updates",			url => "/news/server.html" },
 		[
+			{ name => "2004-08-09",				url => "/news/20040809-1.html" },
+			{ name => "2004-07-24",				url => "/news/20040724-1.html" },
 			{ name => "2004-05-09",				url => "/news/20040412-1.html" },
 			{ name => "2004-03-09",				url => "/news/20040305-1.html" },
-			{ name => "2004-02-24",				url => "/news/20040215-1.html" },
-			{ name => "2004-01-19",				url => "/news/20040119-1.html" },
-			{ name => "2004-01-17",				url => "/news/20040110-1.html" },
 		],
 		{ name => "Client Updates",			url => "/news/client.html" },
 		[
@@ -109,6 +109,10 @@ use Scalar::Util qw( reftype weaken );
 				{ url => "/products/server/docs/20030820-1/index.html" },
 				{ url => "/products/server/docs/20040215-1.html" },
 			],
+		],
+		{ name => "Picard",					url => "/products/picard/index.html" },
+		[
+			{ name => "Tutorial",				url => "/products/picard/tutorial/index.html" },
 		],
 	],
 	{ name => "Search/Browse",			url => "/search.html" },

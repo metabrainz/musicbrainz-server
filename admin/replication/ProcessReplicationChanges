@@ -48,6 +48,31 @@ use MusicBrainz;
 use DBDefs;
 use Sql;
 
+my $help = <<EOF;
+Usage: ProcessReplicationChanges [OPTIONS]
+
+Options are:
+        --short-sql     Show a summary of each "write" statement executed
+        --long-sql      Show the full text of each "write" statement executed
+        --debug-xact    Show when each transaction starts / ends
+    -s, --skip-seqid=N  Ignore SeqId's up to and including SeqId N
+    -h, --help          Show this help
+
+EOF
+
+my $long_sql = 0;
+my $short_sql = 0;
+my $debug_xact = 0;
+my $skip_seqid;
+GetOptions(
+	"short-sql"		=> \$short_sql,
+	"long-sql"		=> \$long_sql,
+	"debug-xact"	=> \$debug_xact,
+	"skip-seqid|s=i"=> \$skip_seqid,
+	"help|h"		=> sub { print $help; exit },
+) or exit 2;
+print($help), exit 2 if @ARGV;
+
 $| = 1;
 print localtime() . " : Processing replication changes\n";
 
@@ -99,6 +124,9 @@ if (my $totalrows = $sql->Select($query))
 		$lasttime = time;
 	};
 
+	$p = sub { $lasttime = time }
+		if $short_sql or $long_sql or $debug_xact;
+
 		$p->("", "");
 
 	while(@row = $sql->NextRow)
@@ -106,6 +134,12 @@ if (my $totalrows = $sql->Select($query))
 		my $XID = $row[0];
 		my $maxSeqId = $row[1];
 		my $seqId;
+
+		if ($skip_seqid and $maxSeqId <= $skip_seqid)
+		{
+			print localtime() . " : Ignoring SeqId #$maxSeqId\n";
+			next;
+		}
 
 		my $query = qq|
 			SELECT	pnd."SeqId", pnd."TableName", pnd."Op", pnddata."IsKey", pnddata."Data" AS "Data"
@@ -119,6 +153,7 @@ if (my $totalrows = $sql->Select($query))
 		{
 			my (@row2, $curTuple);
 
+			print localtime() . " : BEGIN XID #$XID (max seq #$maxSeqId)\n" if $debug_xact;
 			$slave->Begin;
 			while(@row2 = $sql2->NextRow)
 			{
@@ -129,6 +164,7 @@ if (my $totalrows = $sql->Select($query))
 				}
 			}
 			$slave->Do(qq[DELETE FROM "Pending" WHERE "XID" = ?], $XID);
+			print localtime() . " : COMMIT XID #$XID\n" if $debug_xact;
 			$slave->Commit;
 		}
 
@@ -217,6 +253,9 @@ sub mirrorInsert
 		$firstIteration=0;
 	}
 	$valuesQuery .= ")";
+
+	print localtime() . " : INSERT INTO $tableName\n" if $short_sql;
+	print localtime() . " : $insertQuery$valuesQuery\n" if $long_sql;
 	$slave->Do($insertQuery . $valuesQuery);
 
 	return 1;
@@ -253,6 +292,8 @@ sub mirrorDelete
 		$firstField=0;
 	}
 
+	print localtime() . " : DELETE FROM $tableName\n" if $short_sql;
+	print localtime() . " : $deleteQuery\n" if $long_sql;
 	$slave->Do($deleteQuery);
 
 	return 1;
@@ -324,6 +365,8 @@ sub mirrorUpdate
 	  $firstIteration=0;
 	}
 
+	print localtime() . " : UPDATE $tableName\n" if $short_sql;
+	print localtime() . " : $updateQuery\n" if $long_sql;
 	$slave->Do($updateQuery);
 
 	return 1;

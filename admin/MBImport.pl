@@ -99,7 +99,7 @@ for my $arg (@ARGV)
 
 	print localtime() . " : tar -C $dir --$mode -xvf $arg\n";
 	system "tar -C $dir --$mode -xvf $arg";
-	exit $? if $? >> 8;
+	exit $? if $?;
 	$arg = $dir;
 }
 

@@ -35,8 +35,8 @@ my $READONLY = MusicBrainz::Server::Database->get("READONLY");
 my $isrep = &DBDefs::DB_IS_REPLICATED;
 my $opts = $READWRITE->shell_args;
 my $psql = "psql";
-my $postgres = "postgres";
 my $with_replication = 0;
+my $path_to_pending_so;
 
 use Getopt::Long;
 use strict;
@@ -63,6 +63,28 @@ sub RunSQLScript
 	close PIPE;
 
 	die "Error during sql/$file" if ($? >> 8);
+}
+
+sub CreateReplicationFunction
+{
+	# Register a new database connection as the system user, but to the MB
+	# database
+	my $sys_db = MusicBrainz::Server::Database->get("SYSTEM");
+	my $wr_db = MusicBrainz::Server::Database->get("READWRITE");
+	my $sysmb_mb = $sys_db->modify(database => $wr_db->database);
+	MusicBrainz::Server::Database->register("SYSMB", $sysmb_mb);
+
+	# Now connect to that database
+	my $mb = MusicBrainz->new;
+	$mb->Login(db => "SYSMB");
+	my $sql = Sql->new($mb->{DBH});
+
+	$sql->AutoCommit;
+	$sql->Do(
+		"CREATE FUNCTION \"recordchange\" () RETURNS trigger
+		AS ?, 'recordchange' LANGUAGE 'C'",
+		$path_to_pending_so,
+	);
 }
 
 {
@@ -142,6 +164,9 @@ sub Import
 {
 	RunSQLScript("ReplicationSetup.sql", "Setting up replication ...")
 		if $with_replication || &DBDefs::DB_IS_REPLICATED;
+	CreateReplicationFunction()
+		if $with_replication;
+
 	RunSQLScript("CreateTables.sql", "Creating tables ...");
 
     {
@@ -180,6 +205,9 @@ sub Clean
     
 	RunSQLScript("ReplicationSetup.sql", "Setting up replication ...")
 		if $with_replication || &DBDefs::DB_IS_REPLICATED;
+	CreateReplicationFunction()
+		if $with_replication;
+
 	RunSQLScript("CreateTables.sql", "Creating tables ...");
 
 	RunSQLScript("CreatePrimaryKeys.sql", "Creating primary keys ...");
@@ -224,6 +252,22 @@ sub SanityCheck
 {
     die "The postgres psql application must be on your path for this script to work.\n"
        if not -x $psql and (`which psql` eq '');
+
+	if ($with_replication)
+	{
+		defined($path_to_pending_so) or die <<EOF;
+If you specify --with-replication, you must also specify the path to "pending.so"
+using --with-pending=PATH
+EOF
+		if (not -f $path_to_pending_so)
+		{
+			warn <<EOF;
+Warning: $path_to_pending_so not found.
+This might be OK for example if you simply don't have permission to see that
+file, or if the database server is on a remote host.
+EOF
+		}
+	}
 }
 
 sub Usage
@@ -246,6 +290,9 @@ Options are:
                         This option cannot be used if this database is being
                         up to be a replication slave by setting 
                         DB_IS_REPLICATED to 1 in DBDefs.pm.
+  --with-pending=PATH   If you specify --with-replication, you MUST also specify
+                        this option, where PATH is the path to "pending.so"
+                        (on the database server).
 
 After the import option, you may specify one or more MusicBrainz data dump
 files for importing into the database. Once this script runs to completion
@@ -264,11 +311,11 @@ my ($fImport, $fClean) = (0, 0);
 
 GetOptions(
 	"psql=s"	=> \$psql,
-	"postgres=s"=> \$postgres,
 	"createdb"	=> \$fCreateDB,
 	"import|i"	=> \$fImport,
 	"clean|c"	=> \$fClean,
 	"with-replication!"	=> \$with_replication,
+	"with-pending=s"	=> \$path_to_pending_so,
 	"echo!"		=> \$fEcho,
 	"help|h"	=> \&Usage,
 ) or exit 2;

@@ -797,9 +797,9 @@ sub RebuildAllIndices
     };
 
     $sub->(
-	"SELECT id, name, sortname FROM artist
+	"SELECT id, name FROM artist
 	UNION
-	SELECT ref, name, NULL FROM artistalias
+	SELECT ref, name FROM artistalias
 	ORDER BY 1",
 	"artist",
 	$fh_artistwords,

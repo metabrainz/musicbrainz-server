@@ -41,7 +41,7 @@ use Exporter;
 
 %EXPORT_TAGS = (
 	artistid	=> &$get(qr/^[VD]ARTIST_(MB)?ID$/),
-	userid		=> &$get(qr/^(?!TYPE)\w+_MODERATOR$/),
+	userid		=> &$get(qr/^\w+_MODERATOR$/),
 	modtype		=> &$get(qr/^MOD_/),
 	modstatus	=> &$get(qr/^STATUS_/),
 	vote		=> &$get(qr/^VOTE_/),

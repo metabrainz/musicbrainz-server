@@ -54,7 +54,7 @@ if (!$nonalbum)
     {
         foreach $attr (@attrs) 
         {
-            $m->out(", ") if ($count > 0);
+            $m->out(",&nbsp;") if ($count > 0);
             $m->out($album->GetAttributeName($attr));
             $count++;
         }
@@ -63,7 +63,7 @@ if (!$nonalbum)
     {
         $m->out("None");
     }
-    $m->out("</a></td><td NOWRAP>&nbsp;] ");
+    $m->out("</a>&nbsp;] ");
 
     if ($session{uid} and $showmodlinks) 
     {

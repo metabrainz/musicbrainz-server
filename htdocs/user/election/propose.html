@@ -45,6 +45,9 @@ return $m->comp("/comp/error", "No such moderator '$modname'", 1, 1)
 return $m->comp("/comp/error", "'$modname' is already an auto-moderator", 1, 1)
 	if $error eq "ALREADY_AN_AUTOMOD";
 
+return $m->comp("/comp/error", "'$modname' is ineligible for auto-moderator status", 1, 1)
+	if $error eq "INELIGIBLE";
+
 my ($id) = $error =~ /^EXISTING_ELECTION (\d+)$/ or die;
 
 </%perl>

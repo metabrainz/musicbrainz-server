@@ -1,0 +1,242 @@
+%# vi: set ts=2 sw=2 ft=mason :
+<& /comp/sidebar, title => 'July 24th, 2004: Server Updates' &>
+
+<h2>Changes mainly of interest to MusicBrainz Users</h2>
+
+<h3>Changes to How Votes Work</h3>
+
+<p>
+	Previously if a moderation expired
+	(<% &DBDefs::MOD_PERIOD %> after it was entered) and no-one had voted
+	on it (not counting abstentions), the moderation would simply stay open
+	until someone <i>did</i> vote on it.&nbsp; We all know where that got us
+	- a rather huge backlog of moderations waiting for votes. :-(
+</p>
+
+<p>
+	Now, the behaviour is a little different: once a moderation has expired
+	and there are no non-abstaining votes, then the system checks to see if
+	there are any moderators who are subscribed to the moderation's artist
+	(not counting the original moderator).&nbsp; If there are none, then the
+	moderation is accepted.&nbsp; If there are subscribers, then the
+	moderation may stay open for up to a further
+	<% &DBDefs::MOD_PERIOD_GRACE %>.&nbsp; (If a vote is cast within that time,
+	the usual rules apply).&nbsp; If after that extra time there are
+	<i>still</i> no votes, then the moderation is accepted.
+</p>
+
+<p>
+	This therefore differs from the old behaviour in two ways: (1) The default
+	state for a moderation with no votes is to be accepted (instead of
+	languishing in an "open" state).&nbsp; (2) The length of time that the
+	system will wait before doing so depends on whether or not the moderation's
+	artist has any subscribers (not counting the original moderator).
+</p>
+
+<p>
+	Thanks to Matthias Friedrich for implementing this!
+</p>
+
+<h3>Web-Based Automoderator Elections</h3>
+
+<p>
+	After several rather disorganised and confusing Automoderator elections,
+	it was decided that something more formal, controlled and automated was
+	probably a good idea.&nbsp; Hence, the AutoTransaction elections are now
+	<a href="/user/election/">held via this web site</a>.&nbsp; If you're an
+	Automoderator, you can nominate someone for Automod status by clicking on
+	the "Nominate" link on their profile page.&nbsp; Anyone may examine the
+	election information, but it is a private ballot and only Automods may
+	vote.&nbsp; The system posts automated messages to the
+	<a href="http://lists.musicbrainz.org/pipermail/musicbrainz-automods/"
+		>mb-automods mailing list</a>.
+</p>
+
+<h3>MusicBrainz Mirror Servers</h3>
+
+<p>
+	Rob has done lots of work to ensure that the system is more "replication
+	aware".&nbsp; There are various things that MusicBrainz mirror servers can't
+	do - for example, they do not store any moderator / moderation data.&nbsp;
+	Hence, you can't log in to a mirror server, and you can't submit TRMs to one
+	either.&nbsp; So when you're on a mirror server, at various times you'll see
+	messages to the effect that what you're looking for is only available or
+	possible on the main server.
+</p>
+
+<h3>Other Changes</h3>
+
+<p>
+	<b>Moderator Names</b>: previously the system accidentally allowed
+	non-unique moderator names.&nbsp; Obviously this was not a good thing,
+	so moderator names must now be unique.&nbsp; Any duplicate moderators
+	have been merged together.
+</p>
+
+<p>
+	<b>FreeDB Imports</b>: MusicBrainz now remembers the FreeDB category/id
+	and stores that information in the moderation data as the album is
+	added.&nbsp; The ModBot will also a note citing the URL of the FreeDB source
+	data, like this: "Imported from
+	<a href="http://www.freedb.org/freedb_search_fmt.php?cat=rock&amp;id=710aca08"
+		>http://www.freedb.org/freedb_search_fmt.php?cat=rock&amp;id=710aca08</a>".
+</p>
+
+<p>
+	<b>Voting</b>: There was a bug whereby if two votes were cast on the same
+	moderation at the same time, then the "yes/no" totals could become
+	wrong.&nbsp; This has now been fixed.
+</p>
+
+<p>
+	<b>Error Messages</b>: Errors thrown up by the database were often
+	not reported to the user.&nbsp; For example, you may have seen a page which
+	simply said "Error:" (without giving an error message).&nbsp; This has now
+	been fixed.
+</p>
+
+<p>
+	<b>Disc ID Detail</b>: On the Album Info page, you can now choose to examine
+	the details of any Disc IDs attached to this album, including the length of
+	each track (according to each Disc ID), in seconds or sectors.&nbsp;
+	<a href="/albumdetail.html?albumid=116025&amp;disciddetail=times">Example 1</a>;
+	<a href="/albumdetail.html?albumid=116025&amp;disciddetail=sectors">Example 2</a>;
+	<a href="/albumdetail.html?albumid=116025&amp;disciddetail=both">Example 3</a>.
+</p>
+
+<p>
+	<b>Album Attributes</b>: When adding albums, the release type/status now both
+	default to "I don't know" (i.e. "None").&nbsp; Also, on the "Edit album attributes"
+	page, you can now remove album attributes (set them back to "None").
+</p>
+
+<p>
+	<b>Guess Case</b>: "Guess Case" now recognises
+	[untitled], [unknown] and [no artist]; it also no longer adds spaces
+	to punctuated numbers (e.g. 1,234.56)&nbsp; It more correctly capitalises
+	hyphenated words "Like-This".&nbsp; It no longer capitalises "disc 1" (and
+	so on), nor various common non-English articles of speech
+	(der, und, de, du, les, et, &hellip;).&nbsp;
+	It knows to capitalise YMCA, NYC and R&amp;B.&nbsp; (all changes by Rob
+	Rowe).
+</p>
+
+<p>
+	<b>Release Editor</b>: If there are no releases, you now immediately get a
+	blank row so you can add a release.&nbsp; On the "review changes" page which
+	follows, the album name is now shown.
+</p>
+
+<p>
+	<b>Miscellany</b>:
+	Adding a moderation note to "change track name"
+	now also adds that note to the "change track artist" mod.&nbsp;
+	The "Add to Cart" (Amazon) button has been fixed (by Andy Grundman).&nbsp;
+	There is now a link to <a href="/style.html">the Style page</a> at the top
+	of the "list of moderations" pages.&nbsp;
+	You can look up a moderator name on the main <a href="/search.html">Search page</a>.&nbsp;
+	The section headings in the bar on left (e.g. Quick Search) are now
+	hyperlinks.&nbsp;
+</p>
+
+<h2>Changes mainly of interest to MusicBrainz Server Programmers</h2>
+
+<h3>Replication</h3>
+
+<p>
+	As part of the work to improve the support for mirror servers, the way that
+	database connections are configured has completely changed: see the section
+	entitled "The Database" in
+	<& cvslink.inc, "mb_server/cgi-bin/DBDefs.pm" &>, and see also
+	<& cvslink.inc, "mb_server/cgi-bin/MusicBrainz/Server/Database.pm" &>.&nbsp;
+	Additionally, <& cvslink.inc, "mb_server/admin/InitDb.pl" &> now checks your
+	Postgres locale settings, and can take care of more of the configuration for
+	you.&nbsp; "InitDb.pl --clean" now runs the scripts in the right order.
+</p>
+
+<p>
+	The <& cvslink.inc, "mb_server/INSTALL" &> file and the
+	<a href="/products/server/import_howto.html">Import HOWTO</a> have
+	been updated to reflect the new way of doing things.&nbsp; A couple of
+	errors in INSTALL have also been fixed.
+</p>
+
+<p>
+	<& cvslink.inc, "mb_server/admin/replication/LoadReplicationChanges" &>
+	now shows a message if we're continuing to process a packet
+	part-way through.&nbsp; As soon as the downloaded replication packet
+	has been decompressed, it is deleted.&nbsp; The sanity checks on
+	schema_sequence and replication_sequence have been fixed.&nbsp;
+	In <& cvslink.inc, "mb_server/admin/replication/ProcessReplicationChanges" &>,
+	the progress meter has been tweaked to be more useful.  Also, as
+	each replication transaction is processed, the packet data is deleted,
+	so that we can safely stop and restart, and be sure that we restart exactly
+	where we left off.
+</p>
+
+<h3>Miscellany</h3>
+
+<p>
+	<& cvslink.inc, "mb_server/admin/UpdateWordCounts" &> now only writes to
+	the database if the numbers are currently wrong, to avoid creating
+	unnecessarily large replication packets.&nbsp;
+	<& cvslink.inc, "mb_server/admin/cron/daily.sh" &> now only show the
+	output of <& cvslink.inc, "mb_server/admin/reports/RunReports" &> if
+	there was an error.&nbsp;
+	<code>QuerySupport::AssociateCDFromAlbumId</code> was unused, and has
+	been removed.&nbsp;
+	Mason 1.26 compatibility has been achieved by not using newlines between
+	<b>&lt;&amp;</b> and the component name (fixed by Matthias).
+</p>
+
+<p>
+	CreateTables.sql has been tidied up.&nbsp;
+	An error has been fixed in InsertDefaultRows.sql.&nbsp;
+	<code>$trm-&gt;LoadFull</code> was unused, and has been removed.&nbsp;
+	Many instances of <code>$sql-&gt;Finish</code> have been moved to the
+	correct place in the code, or added where missing.&nbsp;
+	<code>$discid-&gt;LoadFull</code> now always returns a reference to
+	an array, instead of sometimes returning undef.&nbsp;
+</p>
+
+<p>
+	Variables in MM.pm have been tidied up, and some TODO comments have been
+	added.&nbsp; <code>MM::CreateDumpRDF</code> was unused, and has been
+	removed.&nbsp;
+	The RDF parser module (Parser.pm) has been rewritten, and is much more
+	maintanable.&nbsp; Additionally we can now handle multiple ordinals per
+	query (in case we should ever need to do that).&nbsp;
+	In Mail.pm, error checking has been added to the code which actually sends
+	e-mails.&nbsp;  <code>DEBUG_MAIL_SPOOL</code> has been added (handy for
+	testing).
+</p>
+
+<h2>Bugs and RFEs Closed</h2>
+
+<%perl> $m->comp("buglist.inc", <<'EOF' =~ m/(.+)/mg);
+
+966915 	Amazon 'Buy' link is broken
+963559 	'feat. tracks' runtime errors
+966082 	No vote from one person counted twice
+953061 	Moderation never expires.
+926699 	Add Track to middle of existing album fails
+931511 	Inconsistent hiding of votes
+927663 	Guess-case changes [untitled] & other [ ] styleguide items
+
+963570 	`Guess case` and R&B
+967584 	"Guess Case" changes CD1 -> disc 1
+966207 	Link to FreeDB source on FreeDB imports
+958346 	URL Quick Search mbz.com/artist
+754309 	More Guess Case buttons
+954652 	Link Style Guide on mod pages
+905758 	Quick Search -> link to search page?
+883966 	When changing track/artist, add comment to both mods
+852664 	Detection of singles when release added
+950990 	Note OS version by iEatBrainz download
+
+EOF
+	</%perl>
+
+<p style="margin-top: 3em"><a href="/support/contact.html">Dave Evans</a></p>
+
+<& /comp/footer &>
