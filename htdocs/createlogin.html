@@ -1,6 +1,6 @@
 <%perl>
 
-my ($mb, $user);
+my ($mb, $cookie);
 my ($err, $user, $privs, $uid);
 
 $mb = MusicBrainz::new();
@@ -34,6 +34,7 @@ else
     mc_out(qq/A new account has been created and you are 
               now logged into MusicBrainz!/);
     mc_comp('/comp/searchinternal');
+    untie %HTML::Mason::Commands::session;
 }
 $mb->Logout();
 
