@@ -35,8 +35,13 @@ use DBDefs;
 
 sub new
 {
+    my ($nocgi) = @_;
+
     my $this = {};
-    $this->{CGI} = new CGI;
+    if (!defined $nocgi || $nocgi == 0)
+    {
+       $this->{CGI} = new CGI;
+    }
     bless $this;
     return $this;
 }  
@@ -1161,7 +1166,8 @@ sub InsertModification
 {
     my ($this, $table, $column, $id, $prev, $new, $uid) = @_;
 
-    $this->{DBH}->do(qq/update $table set modpending = 1 where id = $id/);
+    $this->{DBH}->do(qq/update $table set modpending = modpending + 1  
+                        where id = $id/);
 
     $table = $this->{DBH}->quote($table);
     $column = $this->{DBH}->quote($column);
@@ -1217,7 +1223,6 @@ sub GetModerationList
    return ($num_mods, @data);
 }
 
-
 sub InsertVotes
 {
    my ($this, $uid, $yeslist, $nolist) = @_;
@@ -1268,6 +1273,121 @@ sub InsertVotes
       }
       $i++;
    }
+
+   $this->CheckModifications((@{$yeslist}, @{$nolist}))
+}
+
+sub CheckModificationsForExpiredItems
+{
+   my ($this) = @_;
+   my ($sth, @ids, @row); 
+
+   $sth = $this->{DBH}->prepare(qq/select id from Changes where 
+              TIME_TO_SEC(now()) - TIME_TO_SEC(TimeSubmitted) > / 
+              . DBDefs::MOD_PERIOD);
+   $sth->execute;
+   if ($sth->rows)
+   {
+       while(@row = $sth->fetchrow_array)
+       {
+          push @ids, $row[0];
+       }
+   }
+   $sth->finish;
+
+   $this->CheckModifications(@ids);
+}
+
+sub CheckModifications
+{
+   my ($this, @ids) = @_;
+   my ($sth, $rowid, @row); 
+
+   while(defined($rowid = shift @ids))
+   {
+       $sth = $this->{DBH}->prepare(qq/select yesvotes, novotes,
+              TIME_TO_SEC(now()) - TIME_TO_SEC(TimeSubmitted),
+              tab, rowid from Changes where id = $rowid/);
+       $sth->execute;
+       if ($sth->rows)
+       {
+            @row = $sth->fetchrow_array;
+
+            # Has the vote period expired?
+            if ($row[2] >= DBDefs::MOD_PERIOD)
+            {
+                # Are there more yes votes than no votes?
+                if ($row[0] > $row[1])
+                {
+                    $this->ApplyModification($rowid);
+                }
+                $this->RemoveModification($rowid, $row[3], $row[4]);
+            }
+            # Are the number of required unanimous votes present?
+            elsif ($row[0] == DBDefs::NUM_UNANIMOUS_VOTES && $row[1] == 0)
+            {
+                # A unanimous yes. Apply and the remove from db
+                $this->ApplyModification($rowid);
+                $this->RemoveModification($rowid, $row[3], $row[4]);
+            }
+            elsif ($row[1] == DBDefs::NUM_UNANIMOUS_VOTES && $row[0] == 0)
+            {
+                # A unanimous no. Remove from db
+                $this->RemoveModification($rowid, $row[3], $row[4]);
+            }
+       }
+       $sth->finish;
+   }
+}
+
+sub RemoveModification
+{
+   my ($this, $rowid, $table, $datarowid) = @_;
+
+   # Decrement the mod count in the data row
+   $this->{DBH}->do(qq/update $table set modpending = modpending - 1
+                       where id = $datarowid/);
+
+   # Remove the row from Changes
+   $this->{DBH}->do(qq/delete from Changes where id = $rowid/);
+
+   # Remove the votes that correspond to the Changes
+   $this->{DBH}->do(qq/delete from Votes where rowid = $rowid/);
+}
+
+sub ApplyModification
+{
+   my ($this, $rowid) = @_;
+   my ($sth, @row, $prevval, $newval, $table, $column, $datarowid);
+
+   $sth = $this->{DBH}->prepare(qq/select tab, col, prevvalue, newvalue, 
+                                rowid from Changes where id = $rowid/);
+   $sth->execute;
+   if ($sth->rows)
+   {
+        @row = $sth->fetchrow_array;
+        $table = $row[0];
+        $column = $row[1];
+        $prevval = $row[2];
+        $newval = $this->{DBH}->quote($row[3]);
+        $datarowid = $row[4];
+
+        $sth->finish;
+        $sth = $this->{DBH}->prepare(qq/select $column from $table where id =
+                                     $datarowid/);
+        $sth->execute;
+        if ($sth->rows)
+        {
+            @row = $sth->fetchrow_array;
+
+            if ($row[0] eq $prevval)
+            {
+                $this->{DBH}->do(qq/update $table set $column = $newval  
+                                    where id = $datarowid/); 
+            }
+        }
+   }
+   $sth->finish;
 }
 
 1;
