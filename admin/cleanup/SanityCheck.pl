@@ -342,6 +342,29 @@ sub Cleanup
     $sth->finish;
     print "Found $count invalid guidjoins.\n\n";
 
+    # --------------------------------------------------------------------
+ 
+    print "Invalid artists in Moderations:\n";
+    $count = 0;
+    $sth = $dbh->prepare(qq|select Changes.id, Changes.artist 
+                              from Changes left join Artist 
+                                on Changes.artist = Artist.id 
+                             where Artist.id IS NULL|);
+    if ($sth->execute() && $sth->rows())
+    {
+        my @row;
+
+        while(@row = $sth->fetchrow_array())
+        {
+            print "  Moderation $row[0] references non-existing artist $row[1].\n";
+            $count++;
+
+            $dbh->do("update Changes set Artist = " . Artist::DARTIST_ID .
+                     " where id = $row[0]") if ($fix);
+        }
+    }
+    $sth->finish;
+    print "Found $count invalid moderations.\n\n";
 }
 
 # Call main with the number of arguments that you are expecting
