@@ -67,6 +67,7 @@ use TableBase;
 use TaggerSupport;
 use Track;
 use TRM;
+use UserPreference;
 use UserStuff;
 
 1;
