@@ -1,0 +1,18 @@
+<%args>
+$name
+$text
+$bold=>0
+</%args>
+
+<tr>
+   <td valign=top bgcolor=white class="body"><% $name %></td>
+   <td valign=top bgcolor=white class="body">
+%    if ($bold) {
+        <span class="bold">
+        <% $text |n %>
+        </span>
+% } else {
+        <% $text |n %>
+% }
+   </td>
+</tr>

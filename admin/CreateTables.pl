@@ -199,7 +199,7 @@ sub CreateTables
              "   ModsRejected int, ".
              "   EMail varchar(64), ".
              "   WebUrl varchar(255), ".
-             "   MemberSince timedate not null,".
+             "   MemberSince datetime not null,".
              "   Bio text)")
           or die("Cannot create ModeratorInfo table");
     

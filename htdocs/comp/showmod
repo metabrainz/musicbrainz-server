@@ -29,7 +29,8 @@ my $time = sprintf "%d-%02d-%02d %02d:%02d",
    <td width=37% valign=top bgcolor=white class="body">
      By: <span class="bold"><% $mod->GetModeratorName() |n %></span>
      &nbsp;&nbsp;&nbsp;
-     Id: <% $mod->GetId() %><br> 
+     <a href="/showmod.html?modid=<% $mod->GetId() %>"
+        title="View moderation detail">Id: <% $mod->GetId() %></a><br> 
      Expires: <% $time |n %>
    </td>
    <td width=37% valign=top bgcolor=white class="body">
@@ -38,10 +39,8 @@ my $time = sprintf "%d-%02d-%02d %02d:%02d",
    <td width=30% align=center valign=top valign=top bgcolor=white class="body">
      <% $mod->GetYesVotes() |n %> yes,
      <% $mod->GetNoVotes() |n %> no
-% if ($mode == ModDefs::TYPE_NEW || $mode == ModDefs::TYPE_MINE) {
      &nbsp;&nbsp; 
      <a href="#" onClick="MyWindow=window.open('mod/addnote.html?modid=<% $mod->GetId() %>','AddNote','toolbar=no,location=no,directories=no,status=no,menubar=no,scrollbars=yes,resizable=yes,width=400,height=150'); return false;"><img align="center" src="/images/note.gif" border="0" alt="Add a note"></a>
-% }
    </td>
 </tr>
 <tr>

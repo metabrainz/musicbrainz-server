@@ -900,3 +900,16 @@ sub LoadModerationNotes
 
    return \%ret;
 }
+
+sub GetUserVote
+{
+   my ($this, $uid) = @_;
+   my ($sql, $vote);
+   
+   $sql = Sql->new($this->{DBH});
+
+   ($vote) = $sql->GetSingleRow("Votes", ["vote"], 
+                                ["uid", $uid, "rowid", $this->GetId()]);
+
+   return $vote;
+}

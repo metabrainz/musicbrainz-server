@@ -3,7 +3,7 @@ Credits
 
 The following people have contributed to the MusicBrainz server:
 
-  Robert Kaye <rob@emusic.com>
+  Robert Kaye <rob@eorbit.net>
   - Wrote most of it.
 
   Johan Pouwelse <j.a.pouwelse@its.tudelft.nl>
@@ -30,4 +30,5 @@ The following people have contributed to the MusicBrainz server:
 
   Ian Thompson <disarray@wacko.trickster.net>
   - Created the TRM and CD icons
+
 (please send change requests to rob@musicbrainz.org or maintainer)

@@ -1,0 +1,134 @@
+<%args>
+$modid=>0
+</%args>
+
+<%perl>
+
+my ($mb); 
+my ($mod); 
+
+if ($modid == 0) 
+{
+    mc_comp("/comp/sidebar", title=>"Error");
+    mc_comp("/comp/badargs");
+    return undef;
+}
+
+$mb = new MusicBrainz;
+$mb->Login();
+
+$mod = Moderation->new($mb->{DBH});
+$mod = $mod->CreateFromId($modid);
+if (!defined $mod)
+{
+    mc_comp("/comp/sidebar", title=>"Error");
+    mc_out("Invalid moderation id (modid=$modid) given.\n");
+    return undef;
+}
+
+my ($ref, $obj, $bold, $text, $voted);
+
+if ($session{user} eq $mod->GetModeratorName()) 
+{
+   $text = "Your Moderation. Thanks!";
+}
+elsif (defined($voted = $mod->GetUserVote($session{uid})))
+{
+   $text = Moderation::GetVoteText($voted);
+}
+else
+{
+   $text = "You didn't vote.";
+}
+
+my @entered = gmtime($mod->GetExpireTime());
+my $time = sprintf "%d-%02d-%02d %02d:%02d", 
+              $entered[5] + 1900,
+              $entered[4]+1, 
+              $entered[3], 
+              $entered[2], $entered[1];
+
+mc_comp("/comp/sidebar", title=>"Moderation $modid");
+
+my $expired = ($mod->GetExpireTime() > time()) ? "s" : "d";
+
+</%perl>
+
+
+<& /comp/tablebegin, title=>'Moderation Information' &> 
+<table>
+
+<tr>
+   <& /comp/tableline, name=>"Moderator:", 
+                       text=>($mod->GetModeratorName()),
+                       bold=>1 &>
+   <& /comp/tableline, name=>"MB Id:", 
+                       text=>$mod->GetId(),
+                       bold=>0 &>
+   <& /comp/tableline, name=>"Status:", 
+                       text=>$mod->GetChangeName(),
+                       bold=>0 &>
+   <& /comp/tableline, name=>"Expire$expired:", 
+                       text=>$time,
+                       bold=>0 &>
+
+   <tr><td colspan="2"><hr></td></tr>
+
+   <& /comp/tableline, name=>"Your vote:", 
+                       text=>$text,
+                       bold=>0 &>
+
+   <& /comp/tableline, name=>"Yes Votes:", 
+                       text=>$mod->GetYesVotes(),
+                       bold=>0 &>
+
+   <& /comp/tableline, name=>"No Votes:", 
+                       text=>$mod->GetNoVotes(),
+                       bold=>0 &>
+
+   <tr><td colspan="2"><hr></td></tr>
+
+   <& /comp/tableline, name=>"Type:", 
+                       text=>$mod->ShowModType(),
+                       bold=>0 &>
+
+   <& /comp/tableline, name=>"Previous Value:", 
+                       text=>$mod->ShowPreviousValue(),
+                       bold=>0 &>
+
+   <& /comp/tableline, name=>"New Value:", 
+                       text=>$mod->ShowNewValue(),
+                       bold=>0 &>
+
+   <tr><td colspan="2"><hr></td></tr>
+
+%  my $notes = $mod->LoadModerationNotes($modid, $modid);
+     <tr>
+        <td valign=top bgcolor=white class="body">
+          Notes:
+        </td>
+        <td valign=top bgcolor=white class="body">
+           <a href="#" onClick="MyWindow=window.open('mod/addnote.html?modid=<% $mod->GetId() %>','AddNote','toolbar=no,location=no,directories=no,status=no,menubar=no,scrollbars=yes,resizable=yes,width=400,height=150'); return false;">Add note</a>
+        </td>
+     </tr>
+     <tr>
+        <td colspan="2" valign=top bgcolor=white class="body">
+%  if (exists $notes->{ $mod->GetId() }) {
+%         $ref = $notes->{ $mod->GetId() };
+%         foreach $obj (@$ref) {
+             &nbsp;&nbsp;&nbsp;&nbsp;
+%            $bold = ($obj->{user} eq $mod->GetModeratorName()) ?  'bold' : 'body';
+             <font class="<% $bold %>"><% $obj->{user} %></font>:
+             <% $obj->{text} |n %><br> 
+%         }
+%   } else {
+          &nbsp;&nbsp;&nbsp;&nbsp; No notes.
+%   }
+        </td>
+     </tr>
+
+    </table>
+    <& /comp/tableend &> 
+
+% $mb->Logout();
+
