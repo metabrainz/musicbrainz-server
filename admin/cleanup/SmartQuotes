@@ -242,7 +242,7 @@ for (
 
 					if (1)
 					{
-						warn "Rolling back Merge Artist mod\n";
+						warn "Rolling back Merge Artist mod for $oname => $name\n";
 						eval { $sqlWrite->Rollback };
 						next; # "Exiting eval via next"
 					}
