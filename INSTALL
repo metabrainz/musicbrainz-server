@@ -185,7 +185,7 @@ specific notes about a server type, the instructions apply to all server types.
    RDFStore
    Storable
    String::CRC32
-   String::Unicode::Similiarity (see notes below)
+   String::Unicode::Similarity (see notes below)
    Text::Unaccent (see notes below)
    UUID (requires e2fsprogs)
    Unicode::String
@@ -223,7 +223,7 @@ Since this patch was created, String-Similarity-1 has now been released
 (http://search.cpan.org/~mlehmann/String-Similarity-1/).  This takes care of
 comparing Unicode strings, which is what the patch was originally for.
 However the "SearchEngine.pm" file uses the patched version of the module in
-an "unofficial" way, which String-Similiarity-1 doesn't support - so for now,
+an "unofficial" way, which String-Similarity-1 doesn't support - so for now,
 we have to stick with the patched version of 0.02.
 
 9) Text::Unaccent
