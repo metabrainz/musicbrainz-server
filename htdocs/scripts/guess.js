@@ -76,12 +76,15 @@ function GuessCase2(string, inbrackets)
 	{
 		string = string
 			// common first words of bracketed parts
+			. replace(/^album\b/i, "album")
 			. replace(/^clean\b/i, "clean")
 			. replace(/^club\b/i, "club")
 			. replace(/^dance\b/i, "dance")
 			. replace(/^dirty\b/i, "dirty")
 			. replace(/^dis[ck]\b/i, "disc")
+			. replace(/^original\b/i, "original")
 			. replace(/^radio\b/i, "radio")
+			. replace(/^single\b/i, "single")
 			// common last words of bracketed parts
 			. replace(/\bedit$/i, "edit")
 			. replace(/\bmix$/i, "mix")
@@ -115,6 +118,12 @@ function LowercaseCommonWords(string)
 		. replace(/ or /gi, " or ")
 		. replace(/ the /gi, " the ")
 		. replace(/ to /gi, " to ")
+		// TODO .de: der und
+		// TODO .fr: de du et la le les un une
+		// TODO .es: y
+		// TODO .it: con di
+		// TODO .??: da do del
+		// TODO op? (opus)
 		;
 }
 
@@ -123,10 +132,26 @@ function MiscTransform(string)
 	return string
 		. replace(/ (versus|vs\.|vs) /gi, " vs. ")
 		. replace(/\bfeat(\.|\b|uring\b)/i, "feat.")
+		. replace(/\bft(\.|\b)/i, "feat.")
 		. replace(/\bdj\b/gi, "DJ")
 		. replace(/\bmc\b/gi, "MC")
 		. replace(/\btv\b/gi, "TV")
 		. replace(/\bmtv\b/gi, "MTV")
+		. replace(/\bep\b/gi, "EP")
+		. replace(/\blp\b/gi, "LP")
+		. replace(/\bi\b/gi, "I") // What have the Romans ever done for us?
+		. replace(/\bii\b/gi, "II")
+		. replace(/\biii\b/gi, "III")
+		. replace(/\biiii\b/gi, "IIII")
+		. replace(/\biv\b/gi, "IV")
+		. replace(/\bv\b/gi, "V")
+		. replace(/\bvi\b/gi, "VI")
+		. replace(/\bvii\b/gi, "VII")
+		. replace(/\bviii\b/gi, "VIII")
+		. replace(/\bix\b/gi, "IX")
+		. replace(/\bx\b/gi, "X")
+		. replace(/\bbwv\b/gi, "BWV") // Bach
+		// TODO major/minor
 		;
 }
 
