@@ -80,20 +80,18 @@ sub EnterRecord
     }
 
     $a = Artist->new($this->{DBH});
-    $artist = $a->SetName($artistname);
-    $artist = $a->SetSortName($artistname);
+    $a->SetName($artistname);
+    $a->SetSortName($artistname);
     $artist = $a->Insert();
     if (not defined $artist)
     {
         return 0;
     }
 
-    $al = Album->new($this->{DBH});
     @ids = $a->GetAlbumsByName($title);
     for(;defined($album = shift @ids);)
     {
-        $al->SetId($album);
-        $num = $al->GetTrackCount();
+        $num = $album->GetTrackCount();
         if (!defined $num || $num < 0)
         {
             undef $album;
@@ -102,13 +100,13 @@ sub EnterRecord
         last if ($num == $tracks);
     }
 
+    $al = Album->new($this->{DBH});
     $al->SetArtist($artist);
     if (!defined $album)
     {
         $al->SetName($title);
-        $al->SetArtist($artist);
         $album = $al->Insert();
-        if ($album < 0)
+        if (!defined $album)
         {
             return 0;
         }
