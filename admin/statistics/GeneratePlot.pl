@@ -145,7 +145,7 @@ sub plot
 	open(GNUPLOT, "| gnuplot") or die $!;
 	print GNUPLOT <<EOF;
 
-set terminal png small color
+set terminal png small notransparent
 set xdata time
 set timefmt "%Y-%m-%d"
 set xlabel "Date"
@@ -163,7 +163,7 @@ set ylabel "$title"
 
 set output "$ImageDir/$file"
 
-plot	"$tmpfile" using 1:(\$2) title "$title" with linespoints
+plot	"$tmpfile" using 1:(\$2) title "$title" with lines
 
 EOF
 	close GNUPLOT;

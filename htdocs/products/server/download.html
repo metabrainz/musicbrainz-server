@@ -1,4 +1,20 @@
 %# vi: set ts=2 sw=2 ft=mason :
+% if (&DBDefs::DB_IS_REPLICATED) {
+%		my $url = "http://musicbrainz.org/products/server/download.html";
+%		$r->header_out("Refresh", "3; url=$url");
+<& /comp/sidebar, title=>'MusicBrainz Server / Database - Download' &>
+<p>
+	Please wait while we redirect you to
+	<a href="<% $url %>">the download page on the main server</a>.
+</p>
+<& /comp/footer &>
+%		return;
+% }
+<%perl>
+my @latest = glob("/var/ftp/pub/musicbrainz/data/fullexport/latest-is-*");
+my $latest;
+$latest = $1 if @latest==1 and $latest[0] =~ /latest-is-(\d{8}-\d{6})$/;
+</%perl>
 <& /comp/sidebar, title=>'MusicBrainz Server / Database - Download' &>
 
 <h2>Introduction</h2>
@@ -39,7 +55,7 @@
 			alt="Creative Commons: no rights reserved"
 			title="Creative Commons: no rights reserved"
 			></a>
-	<a href="http://musicbrainz.org/ftpmirror/pub/musicbrainz/data/mbdump.tar.bz2"
+	<a href="/ftpmirror/pub/musicbrainz/data/fullexport/<% $latest %>/mbdump.tar.bz2"
 		class="DownloadLink"
 		style="margin-left: 0em"
 		><img src="/images/download.gif"
@@ -64,7 +80,7 @@
 			alt="Creative Commons: some rights reserved"
 			title="Creative Commons: some rights reserved"
 			></a>
-	<a href="http://musicbrainz.org/ftpmirror/pub/musicbrainz/data/mbdump-derived.tar.bz2"
+	<a href="/ftpmirror/pub/musicbrainz/data/fullexport/<% $latest %>/mbdump-derived.tar.bz2"
 		class="DownloadLink"
 		style="margin-left: 0em"
 		><img src="/images/download.gif"
@@ -81,7 +97,7 @@
 			alt="Creative Commons: some rights reserved"
 			title="Creative Commons: some rights reserved"
 			></a>
-	<a href="http://musicbrainz.org/ftpmirror/pub/musicbrainz/data/mbdump-moderation.tar.bz2"
+	<a href="/ftpmirror/pub/musicbrainz/data/fullexport/<% $latest %>/mbdump-moderation.tar.bz2"
 		class="DownloadLink"
 		style="margin-left: 0em"
 		><img src="/images/download.gif"
@@ -98,7 +114,7 @@
 			alt="Creative Commons: some rights reserved"
 			title="Creative Commons: some rights reserved"
 			></a>
-	<a href="http://musicbrainz.org/ftpmirror/pub/musicbrainz/data/mbdump-closedmoderation.tar.bz2"
+	<a href="/ftpmirror/pub/musicbrainz/data/fullexport/<% $latest %>/mbdump-closedmoderation.tar.bz2"
 		class="DownloadLink"
 		style="margin-left: 0em"
 		><img src="/images/download.gif"
@@ -115,7 +131,7 @@
 			alt="Creative Commons: some rights reserved"
 			title="Creative Commons: some rights reserved"
 			></a>
-	<a href="http://musicbrainz.org/ftpmirror/pub/musicbrainz/data/mbdump-artistrelation.tar.bz2"
+	<a href="/ftpmirror/pub/musicbrainz/data/fullexport/<% $latest %>/mbdump-artistrelation.tar.bz2"
 		class="DownloadLink"
 		style="margin-left: 0em"
 		><img src="/images/download.gif"

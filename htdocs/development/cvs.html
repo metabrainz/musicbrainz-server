@@ -41,12 +41,13 @@
 </p>
 
 <pre><kbd class="KbdBlock"
->CVSROOT=:pserver:musicbrainz@cvs.musicbrainz.org:/var/cvs
+>CVSROOT=:ext:cvs@cvs.musicbrainz.org:/var/cvs
 export CVSROOT
-
-cvs login</kbd></pre>
-
-<p>(here you'll be asked for the password, which is "musicbrainz")</p>
+wget ftp://ftp.musicbrainz.org/pub/musicbrainz/misc/musicbrainz_anoncvs
+chmod 700 musicbrainz_sshanoncvs
+CVS_RSH=musicbrainz_sshanoncvs
+export CVS_RSH
+</kbd></pre>
 
 <p>Now check out whichever <a href="cvs-modules.html">modules</a> you want:</p>
 
@@ -68,8 +69,10 @@ cvs -z3 update</kbd></pre>
 <h3>Preparation</h3>
 
 <p>
-	Before you can access the CVS server you need to set up an
-	environment variable.
+	Before you can access the CVS server you need to download a setup file and set up two
+	environment variables. We apologize if this process is a bit different from other
+	open source projects, but we got hacked through a CVS pserver vulnerability and
+	thus we no longer offer CVS access through the traditional access methods.
 </p>
 
 <p>
@@ -78,13 +81,14 @@ cvs -z3 update</kbd></pre>
 </p>
 
 <pre><kbd class="KbdBlock"
->CVSROOT=:pserver:musicbrainz@cvs.musicbrainz.org:/var/cvs
-export CVSROOT</kbd></pre>
+>CVSROOT=:ext:cvs@cvs.musicbrainz.org:/var/cvs
+export CVSROOT
+</kbd></pre>
 
 <p>or</p>
 
 <pre><kbd class="KbdBlock"
->setenv CVSROOT :pserver:musicbrainz@cvs.musicbrainz.org:/var/cvs</kbd></pre>
+>setenv CVSROOT :ext:cvs@cvs.musicbrainz.org:/var/cvs</kbd></pre>
 
 <p>
 	if you work under a C shell (<tt>csh</tt>, <tt>tcsh</tt> etc).
@@ -95,33 +99,40 @@ export CVSROOT</kbd></pre>
 </p>
 
 <pre><kbd class="KbdBlock"
->set CVSROOT=:pserver:musicbrainz@cvs.musicbrainz.org:/var/cvs</kbd></pre>
+>set CVSROOT=:ext:cvs@cvs.musicbrainz.org:/var/cvs</kbd></pre>
 
 <p>
-	Alternately you can specify the <tt>CVSROOT</tt> when you give a CVS command
-	by using the <tt>-d</tt> flag.&nbsp; While this allows you to access
-	multiple CVS servers at a time, it does require you to specify the server
-	each time you login to or checkout from the repository.&nbsp;
+(Use the appropriate forms mentioned above for the following steps as well.)
+Next, you need to download a small setup script that will make it easy for you to access our CVS
+respository. Using wget (or a web browser) download the following script:
 </p>
 
 <pre><kbd class="KbdBlock"
->cvs -d :pserver:musicbrainz@cvs.musicbrainz.org:/var/cvs <em>command</em></kbd></pre>
-
-<h3>Login</h3>
+>wget ftp://ftp.musicbrainz.org/pub/musicbrainz/misc/musicbrainz_anoncvs
+</kbd></pre>
 
 <p>
-	In order to login to the server type: 
+Then, move this file to some safe place (your home directory should be good) and make the
+script executable:
 </p>
 
-<pre><kbd class="KbdBlock">cvs login</kbd></pre>
+<pre><kbd class="KbdBlock"
+>mv musicbrainz_anoncvs ~/
+chmod 700 ~/musicbrainz_anoncvs 
+</kbd></pre>
 
 <p>
-	When prompted, use the password "musicbrainz". 
+The last chmod command is only needed under Linux/Unix. Finally, set the CVS_RSH environment
+variable to point to this script:
 </p>
 
+<pre><kbd class="KbdBlock"
+>CVS_RSH=~/musicbrainz_anoncvs
+export CVS_RSH
+</kbd></pre>
+
 <p>
-	Under UNIX, after the first time you log into the CVS server the
-	password should be saved in <tt>~/.cvspass</tt>.&nbsp;
+Now you're ready to check out source code from the MusicBrainz CVS respository!
 </p>
 
 <h3>Getting the source trees</h3>

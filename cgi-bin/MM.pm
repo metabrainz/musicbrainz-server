@@ -177,6 +177,76 @@ sub CreateDenseTrackList
     return $out;
 }
 
+sub CreateDenseAlbum
+{
+    my ($this, $fuzzy, $gids) = @_;
+
+    $this->{status} = "OK";
+
+    my $out;
+    $out  = $this->BeginRDFObject;
+    $out .= $this->BeginDesc("mq:Result");
+    $out .= $this->Element("mq:status", $fuzzy ? "Fuzzy" : "OK");
+    $out .= $this->OutputList('album', $gids);
+    $out .= $this->EndDesc("mq:Result");
+
+    my @ids;
+    my %artists;
+    $this->{cache} = [];
+
+    for my $id (@$gids)
+    {
+	require Album;
+	my $al = Album->new($this->{DBH});
+	$al->SetMBId($id);
+	$al->LoadFromId;
+
+	require Artist;
+	my $ar = Artist->new($this->{DBH});
+	$ar->SetId($al->GetArtist);
+	$ar->LoadFromId;
+	$this->AddToCache(0, 'artist', $ar);
+
+	require Track;
+	my @tracks = $al->LoadTracks;
+
+	for my $tr (@tracks)
+	{
+	    if ($al->GetArtist eq &ModDefs::VARTIST_ID)
+	    {
+		my $var = Artist->new($this->{DBH});
+		$var->SetId($tr->GetArtist);
+		if ($var->LoadFromId)
+		{
+		    $this->AddToCache(0, 'artist', $var);
+		    $artists{$var->GetId} = $var;
+		}
+	    }
+	    push @ids, { id=>$tr->GetMBId, tracknum=>$tr->GetSequence };
+	}
+
+	$out .= $this->OutputAlbumRDF({ obj=>$al, _album=>\@ids });
+	$out .= $this->OutputArtistRDF({ obj=>$ar });
+	for my $tr (@tracks)
+	{
+	    $out .= $this->OutputTrackRDF({ obj=>$tr }, $al);
+	}
+	foreach $id (keys %artists)
+	{
+	    $out .= $this->OutputArtistRDF({ obj=>$artists{$id} });
+	}
+    }
+    $out .= $this->EndRDFObject;
+
+    if (exists $this->{file})
+    {
+	print {$this->{file}} $out;
+	$out = "";
+    }
+
+    return $out;
+}
+
 sub CreateTRMList
 {
     my ($this, @ids) = @_;

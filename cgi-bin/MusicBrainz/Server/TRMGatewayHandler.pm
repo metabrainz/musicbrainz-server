@@ -7,6 +7,7 @@ package MusicBrainz::Server::TRMGatewayHandler;
 
 use MusicBrainz::Server::TRMGateway;
 use Apache::Constants qw( :http M_POST OK );
+use Time::HiRes qw( gettimeofday tv_interval );
 
 use constant REQ_CONTENT_TYPE => "application/octet-stream";
 use constant REQ_BODY_SIZE => 566;
@@ -20,6 +21,7 @@ sub handler
 
 	my $MAX_SIGSERVERS = $r->dir_config('MaxSigServers') || 10;
 	my $LOOKUP_TIMEOUT = $r->dir_config('LookupTimeout') || 10;
+	my $COLLECT_STATS = $r->dir_config('CollectSigserverStats');
 
 	$r->method_number == M_POST
 		or return fail($r);
@@ -57,7 +59,8 @@ sub handler
 
 	if (-f "/tmp/disable-trm-gateway")
 	{
-		print STDERR "All TRM requests are currently disabled\n";
+		print STDERR "All TRM requests are currently disabled\n"
+			if $r->dir_config('WarnIfSigserverDisabled');
 		if ($memc) { $memc->add("trm-disabled", 0); $memc->incr("trm-disabled", 1); }
 		$r->status(HTTP_SERVICE_UNAVAILABLE);
 		$r->send_http_header;
@@ -76,7 +79,8 @@ sub handler
 			defined($memc->decr($key, 1))
 				or warn "Failed to decrement $key key";
 			$memc->add("trm-busy", 0); $memc->incr("trm-busy", 1);
-			print STDERR "Too many sigservers ($newcount > $MAX_SIGSERVERS)\n";
+			print STDERR "Too many sigservers ($newcount > $MAX_SIGSERVERS)\n"
+				if $r->dir_config('WarnIfSigserverBusy');
 			$r->status(HTTP_SERVICE_UNAVAILABLE);
 			$r->send_http_header;
 			return OK;
@@ -98,6 +102,7 @@ sub handler
 		return OK;
 	}
 
+	my $t0 = [ gettimeofday ] if $COLLECT_STATS;
 	my $bytes;
 	#eval {
 	#	local $SIG{__DIE__} = sub { "alarm\n" };
@@ -106,6 +111,7 @@ sub handler
 	#	alarm;
 	#	sleep 1;
 	#};
+	my $took = tv_interval($t0) if $COLLECT_STATS;
 
 	not($memc)
     	or defined($memc->decr($key, 1))
@@ -123,7 +129,17 @@ sub handler
 		return OK;
 	}
 
-	if ($memc) { $memc->add("trm-ok", 0); $memc->incr("trm-ok", 1); }
+	printf STDERR "sigserver took %.4fs\n", $took if $COLLECT_STATS;
+
+	if ($memc)
+	{
+		$memc->add("trm-ok", 0);
+		$memc->incr("trm-ok", 1);
+		$memc->add("trm-taken", 0);
+		$memc->incr("trm-taken", $took * 1E6) if $took;
+		$memc->add("trm-taken-count", 0);
+		$memc->incr("trm-taken-count", 1) if $took;
+	}
 
 	$r->status(HTTP_OK);
 	$r->send_http_header(RESP_CONTENT_TYPE);

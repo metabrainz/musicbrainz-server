@@ -44,26 +44,32 @@ sub GetTextAsHTML
 {
 	my $self = shift;
 	use MusicBrainz qw( encode_entities );
-	my $html = encode_entities($self->GetText);
 
-	my @site_names = (qw(
-		musicbrainz.org
-		www.musicbrainz.org
-	), &DBDefs::WEB_SERVER);
-	
-	my $site_names = "(?:" . join("|", map { quotemeta($_) } @site_names) . ")";
-	$html =~ s[
-		\b
-		http://$site_names/
-		(?:
-			showalbum\.html\?albumid=\d+
-			| showartist\.html\?artistid=\d+
-			| showaliases\.html\?artistid=\d+
-			| showtrack\.html\?trackid=\d+
-			| showmod\.html\?modid=\d+
+	my $is_url = 1;
+
+	my $html = join "", map {
+		my $enc = encode_entities($_);
+		($is_url = not $is_url)
+			? qq[<a href="$enc">$enc</a>]
+			: $enc;
+	} split /
+		(
+			# Something that looks like the start of a URL
+			\b
+			(?:https?|ftp)
+			:\/\/
+			.*?
+			# Stop at one of these sequences:
+			(?=
+				\z # end of string
+				| \s # any space
+				| [,\.!\?](?:\s|\z) # punctuation then space or end
+				| [\x29"'>] # any of these characters
+			)
 		)
-		\b
-	][<a href="$&">$&</a>]ix;
+		/six, $self->GetText, -1;
+		
+		#"# Vim catch-up
 
 	$html;
 }
@@ -140,6 +146,7 @@ sub Insert
 
 		next unless $other_user->GetEmail and $other_user->GetEmailConfirmDate;
 
+		require UserPreference;
 		UserPreference::get_for_user("mail_notes_if_i_noted", $other_user)
 			or next;
 

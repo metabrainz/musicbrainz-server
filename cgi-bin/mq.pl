@@ -223,7 +223,7 @@ sub Authenticate
 	   $session->{expire} = time() + &DBDefs::RDF_SESSION_SECONDS_TO_LIVE;
 
 	   use URI::Escape qw( uri_escape );
-	   $r->connection->user(uri_escape($session->{moderator}))
+	   $r->connection->user(uri_escape($session->{moderator}, '^A-Za-z0-9._-'))
 	   	if $r;
 
            return "";

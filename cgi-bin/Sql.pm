@@ -311,6 +311,13 @@ sub AutoTransaction
 	($w ? @r : $r);
 }
 
+# Given an error message possibly thrown by DBI, does it represent a query
+# timeout?
+sub is_timeout
+{
+	$_[1] =~ /(?:Query was cancelled|canceling query)/i;
+}
+
 # The "Select*" methods.  All these methods accept ($query, @args) parameters,
 # run the given SELECT query using prepare_cached, retrieve the required data,
 # and then "finish" the statement handle.

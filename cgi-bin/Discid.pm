@@ -74,7 +74,10 @@ sub GenerateAlbumFromDiscid
 	# Check to see if the album is in the main database
 	if (my $album = $this->GetAlbumFromDiscid($id))
 	{
-		return $rdf->CreateAlbum(0, $album);
+		my $al = Album->new($this->{DBH});
+		$al->SetId($album);
+		$al->LoadFromId();
+		return $rdf->CreateDenseAlbum(0, [$al->GetMBId()]);
 	}
 
 	if (!defined $toc || !defined $numtracks)

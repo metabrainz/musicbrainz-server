@@ -492,6 +492,11 @@ sub SubmitTRMList
             last if ($i > 1);
             return $rdf->ErrorRDF("Incomplete trackid and trmid submitted.")
        }
+       # Check to see if these trms represent silence or too short TRMs. If so, skip them.
+       if ($trmid eq &ModDefs::TRM_TOO_SHORT || $trmid eq &ModDefs::TRM_SIGSERVER_BUSY)
+       {
+	   next;
+       }
        if (!MusicBrainz::IsGUID($trmid) || !MusicBrainz::IsGUID($trackid))
        {
            # print STDERR "Invalid track/trm combination:\n";
@@ -604,6 +609,14 @@ sub TrackInfoFromTRMId
    return $rdf->ErrorRDF("No trm id given.")
       if (!defined $id || $id eq '');
    return undef if (!defined $dbh);
+
+   printf(STDERR "TRM lookup, TRM_SIGSERVER_BUSY\n"),
+   return $rdf->ErrorRDF("This special TRM indicates the TRM server is too busy and cannot be looked up.")
+       if ($id eq &ModDefs::TRM_SIGSERVER_BUSY);
+
+   printf(STDERR "TRM lookup, TRM_TOO_SHORT\n"),
+   return $rdf->ErrorRDF("This is a special TRM Id associated to files that are too short for a full TRM.")
+       if ($id eq &ModDefs::TRM_TOO_SHORT);
 
     use Time::HiRes qw( gettimeofday tv_interval );
     my $t0 = [ gettimeofday ];

@@ -445,7 +445,7 @@ sub Search
 
     unless ($results)
     {
-	if ($sqlerr =~ /(?:Query was cancelled|canceling query)/i)
+	if ($sql->is_timeout($sqlerr))
 	{
 	    $self->{RESULTTYPE} = SEARCHRESULT_TIMEOUT;
 	    return;

@@ -11,7 +11,11 @@ $filename=>""
 $trmid=>""
 $duration=>0
 $mbt=>$session{'mbt'}
+$tport=>$session{'tport'}
 </%args>
+
+% UserStuff::EnsureSessionOpen(), $session{tport} = $tport
+%   if $tport;
 
 %###############################################################################
 %# Subcomponents for displaying matches & forms

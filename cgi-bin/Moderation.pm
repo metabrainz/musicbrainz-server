@@ -651,7 +651,7 @@ sub GetModerationList
 
 	if (not $ok)
 	{
-		if ($err =~ /query.*cancel/i)
+		if ($sql->is_timeout($err))
 		{
 			warn "Moderation search timed out.  The query was: $query\n";
 			return SEARCHRESULT_TIMEOUT;

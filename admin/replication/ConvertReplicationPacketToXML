@@ -188,7 +188,19 @@ sub write_xml_fragment
 
 sub sort_xml_fragments
 {
-	die "TODO can't handle out-of-order XIDs yet";
+	open(my $newfh, "+>", undef) or die $!;
+
+	@xml_frags = sort { $a->[0] <=> $b->[0] } @xml_frags;
+
+	for (@xml_frags)
+	{
+		my ($XID, $pos, $length) = @$_;
+		seek($xmlfh, $pos, 0) or die "seek to $pos: $!";
+		read($xmlfh, my $data, $length) or die "read $length at $pos: $!";
+		print $newfh $data or die "write: $!";
+	}
+
+	$xmlfh = $newfh;
 }
 
 sub output_xml

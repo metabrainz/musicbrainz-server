@@ -3,9 +3,13 @@
 $table => undef
 $search => undef
 $limit => 25
+$tport=>$session{'tport'}
 </%args>
 
 <%perl>
+
+UserStuff::EnsureSessionOpen(), $session{tport} = $tport
+  if $tport;
 
 use SearchEngine qw( :constants );
 

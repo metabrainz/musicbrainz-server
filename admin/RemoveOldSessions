@@ -71,6 +71,9 @@ EOF
 	exit 1;
 }
 
+my $removed = 0;
+my $failed = 0;
+
 if (@ARGV)
 {
 	my ($ddev, $dinode) = (stat $sessdir)[0,1];
@@ -100,6 +103,8 @@ else
 
 	closedir DIR;
 }
+
+printf "Removed:%d  Failed:%d\n", $removed, $failed if -t STDOUT;
 
 exit;
 
@@ -144,7 +149,12 @@ sub process_file
 
 	if ($has_expired and $expire)
 	{
-		tied(%session)->delete;
+		my $ok = eval {
+			tied(%session)->delete;
+			1;
+		};
+		print "Failed to remove session $sess ($@)\n" if not $ok;
+		$ok ? ++$removed : ++$failed;
 	}
 
 	untie %session;

@@ -44,6 +44,21 @@
 	Server in order to find out what track it is.
 </p>
 
+<p>
+  If the TRM ID returned is one of these special TRMs, do not look these TRM
+	up on the server:
+</p>
+
+<ul>
+<li>f9809ab1-2b0f-4d78-8862-fb425ade8ab9: File is too short to calculate a TRM for.</li>
+<li>c457a4a8-b342-4ec9-8f13-b6bd26c0e400: The TRM server is too busy at the moment. Please retry again later.</li>
+</ul>
+
+<p>
+  The last special TRM is reserved for silence: 7d154f52-b536-4fae-b58b-0666826c2bac. It is OK to look
+	up this track in MB, but be warned: there will be many hits for this one.
+</p>
+
 <h2>Further Reading</h2>
 
 <p>

@@ -33,6 +33,7 @@ BACKUP_FILE_MODE=600
 CVS_DIR=var/cvs
 WIKI_DIR=var/mbwiki
 APACHE_CONFIG_DIRS="usr/local/perl58/apache/conf usr/local/perl58/apache2/conf"
+MAILMAN_DIR=usr/local/mailman
 
 # All executables are assumed to be on your PATH, so add any unusual
 # requirements in here.

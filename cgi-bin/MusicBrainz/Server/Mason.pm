@@ -197,7 +197,7 @@ sub handler
 		if (defined $user and $user ne "")
 		{
 			use URI::Escape qw( uri_escape );
-			$r->connection->user(uri_escape($user));
+			$r->connection->user(uri_escape($user, '^A-Za-z0-9._-'));
 		}
 
 		$tied = undef;
