@@ -91,10 +91,6 @@ use Scalar::Util qw( reftype weaken );
 		#],
 		{ url => "/newsearch.html" },
 	],
-	{ name => "Tag",					url => "/tagger/index.html" },
-	[
-		{ url => "/tagger/intro.html" },
-	],
     { name => "Edit the Data",			url => "/mod_intro.html" },
     [
         { name => "About",					url => "/mod_intro.html" },
@@ -182,6 +178,10 @@ use Scalar::Util qw( reftype weaken );
 	{ name => "Help Us",				url => "/contribute.html" },
 	[
 		{ name => "Contribute",				url => "/contribute.html", preferred=>1 },
+        { name => "Tag",					url => "/tagger/index.html" },
+        [
+            { url => "/tagger/intro.html" },
+        ],
 		{ name => "Development",			url => "/development/index.html" },
 		[
 			{ name => "Introduction",			url => "/development/index.html" },
