@@ -1,6 +1,6 @@
 <%perl>
 my $result = $m->cache(action=>'retrieve');
-$result = undef;
+#$result = undef;
 if (!defined($result)) 
 {
     my $mb = mc_comp("/comp/dblogin", quiet=>1);
@@ -14,6 +14,7 @@ if (!defined($result))
                              where timestamp = current_date()|))
         {
              my @row = $sql->NextRow;
+             $sql->Finish();
 
              </%perl>
 <table cellpadding="10" cellspacing="0" border="0">
