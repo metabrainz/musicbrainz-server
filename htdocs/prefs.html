@@ -1,4 +1,21 @@
 %# vi: set ts=4 sw=4 ft=mason :
+
+% if (!defined $session{user} || $session{user} eq '' || 
+%     !defined $session{uid} || $session{uid} == 0) {
+	<& /comp/sidebar, title=>'Login Required' &>
+    <center>
+    <span class="bold">
+       You must be logged in to set your preferences.
+    </span>
+    <p>
+    <& /comp/tablebegin, title=>'Login' &>
+    <& /comp/loginbox &>
+    <& /comp/tableend &>
+    </center>
+	<& /comp/footer &>
+% return;
+% } 
+
 <& /comp/sidebar, title=>'Preferences' &>
 
 <%perl>
@@ -52,22 +69,16 @@ my @allowed_timezones = (
 	#[ "NZST"	=> "+1200 New Zealand" ],
 );
 
-# FIXME create a session if we haven't got one yet
-
-if (my $format = $ARGS{'format'})
+if ($ARGS{"SavePrefs"})
 {
+	my $format = $ARGS{'format'};
 	$session{"datetimeformat"} = $format
 		if grep { $format eq $_ } @allowed_formats;
-}
 
-if (my $tz = $ARGS{'zone'})
-{
+	my $tz = $ARGS{'zone'};
 	$session{"tz"} = $tz
 	if grep { $tz eq $_->[0] } @allowed_timezones;
-}
 
-if (keys %ARGS)
-{
 	$session{"JSMoveFocus"} = ($ARGS{"JSMoveFocus"} ? 1 : 0);
 } else {
 	$session{"JSMoveFocus"} = 1
@@ -98,6 +109,7 @@ $time = time();
 </p>
 
 <form method="post" action="/prefs.html" name="Preferences">
+	<input type="hidden" name="SavePrefs" value="1">
 
 	<h2>Date/Time Display</h2>
 
