@@ -1,26 +1,6 @@
 %# vi: set ts=4 sw=4 ft=mason :
 <%perl>
 
-my $CheckTOC = sub
-{
-   my ($toc) = @_;
-
-   my @parts = split / /, $toc;
-
-   return 0 if $parts[0] != 1;
-   return 0 if $parts[1] < 1;
-   return 0 if $parts[1] > 99;
-   return 0 if $parts[1] != scalar(@parts) - 3;
-   return 0 if $parts[2] <= $parts[scalar(@parts) - 1]; 
-
-   for (3 .. (scalar(@parts) - 2))
-   {
-       return 0 if ($parts[$_] >= $parts[$_ + 1]);
-   }
-
-   return 1;
-};
-
 my ($o, $mb, $di, $num_tracks, $notfound);
 my ($i, $sth, $album, $valid, $id, $tracks, $toc); 
 
@@ -52,7 +32,7 @@ elsif (length($id) != 28 || substr($id, -1, 1) ne "-" || $valid ne "")
 {
     $m->out("The disk id you are trying to submit ($id) is invalid.");
 }
-elsif (!&$CheckTOC($toc))
+elsif (not Discid->ParseTOC($toc))
 {
     $m->out("The TOC (table of contents) you are trying to submit ($toc) is invalid.");
 }
