@@ -64,6 +64,13 @@ return $m->comp('/comp/footer_small')
 			server version: <% &DBDefs::VERSION %>
 		</td>
 	</tr>
+% if (&DBDefs::DB_STAGING_SERVER) {
+	<tr>
+		<td colspan="3" style="text-align: center; padding: 0.5em">
+			<a href="/perl-status">Served by child pid <% $$ %></a>
+		</td>
+	</tr>
+% }
 	</table>
 </div>
 <iframe name="hiddeniframe" height="0" width="0" frameborder="0"></iframe>
