@@ -14,6 +14,6 @@
 
 <& /comp/sidebar &>
 <td width="100%" valign="top">
-<small><font face="Lucida,Verdana,Helvetica,Arial">
+<font face="Lucida,Verdana,Helvetica,Arial">
 <& /comp/navbar &>
 

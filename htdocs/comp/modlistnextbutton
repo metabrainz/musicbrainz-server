@@ -2,9 +2,9 @@
 
 % if ($ARGS{offset} + $ARGS{num} < $ARGS{rows}) {
     <a href="/moderate.html?offset=<% $ARGS{offset} + $ARGS{num} %>">
-    <small><font face="Lucida,Verdana,Helvetica,Arial"><% $ARGS{text}  %></font></small></a>
+    <font face="Lucida,Verdana,Helvetica,Arial"><% $ARGS{text}  %></font></a>
 % } else {
-    <small><font face="Lucida,Verdana,Helvetica,Arial"><% $ARGS{text}  %></font></small></a>
+    <font face="Lucida,Verdana,Helvetica,Arial"><% $ARGS{text}  %></font></a>
 % }
 
 </td>

@@ -15,31 +15,31 @@ $bgcolor = $modpending ? 'bgcolor="#FFFFCC"' : '';
 
 <tr>
     <td width="10%" align=center>
-       <small><font face="Lucida,Verdana,Helvetica,Arial">
+       <font face="Lucida,Verdana,Helvetica,Arial">
        <% $tracknum %>
-       </font></small>
+       </font>
     </td>
 % if ($artistname ne '') {
     <td width="50%" <% $bgcolor |n %>>
 % } else {
     <td width="80%" <% $bgcolor |n %>>
 % }
-       <small><font face="Lucida,Verdana,Helvetica,Arial">
+       <font face="Lucida,Verdana,Helvetica,Arial">
        <% $name  %>
-       </font></small>
+       </font>
     </td>
 % if ($artistname ne '') {
     <td width="30%">
-       <small><font face="Lucida,Verdana,Helvetica,Arial">
+       <font face="Lucida,Verdana,Helvetica,Arial">
        <% $artistname  %>
-       </font></small>
+       </font>
     </td>
 % }
 % if (exists $session{user}) {
     <td width="10%" align=center>
-       <small><font face="Lucida,Verdana,Helvetica,Arial">
+       <font face="Lucida,Verdana,Helvetica,Arial">
        <a href="/edittrack.html?id=<% $id %>">Edit</a>
-       </font></small>
+       </font>
     </td>
 % }
 </tr>
