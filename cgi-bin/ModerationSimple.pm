@@ -73,61 +73,51 @@ sub DeniedAction
 sub ApprovedAction
 {
    my ($this, $id) = @_;
-   my (@data, $in, $tid, $status, $sql, @row, %info);
+   my (@data, $in, $tid, $status, %info);
 
    $status = ModDefs::STATUS_ERROR;
-   $sql = Sql->new($this->{DBH});
+   $in = Insert->new($this->{DBH});
 
-   # Pull back all the pertinent info for this mod
-   if ($sql->Select(qq/select newvalue, rowid, artist 
-                    from Changes where id = $id/))
+   # Is this a single artist that we're adding a track to?
+   if ($this->GetArtist() != Artist::VARTIST_ID)
    {
-        $in = Insert->new($this->{DBH});
-        @row = $sql->NextRow();
-        $sql->Finish();
+       my ($trackname, $tracknum, $album) = split(/\n/, $this->GetNew());
 
-        # Is this a single artist that we're adding a track to?
-        if ($row[2] != Artist::VARTIST_ID)
-        {
-            my ($trackname, $tracknum, $album) = split(/\n/, $row[0]);
+       # Single artist album
+       $info{artistid} = $this->GetArtist();
+       $info{albumid} = $album;
+       $info{tracks} =
+         [
+            {
+               track => $trackname,
+               tracknum => $tracknum
+            }
+         ];
 
-            # Single artist album
-            $info{artistid} = $row[2];
-            $info{albumid} = $album;
-            $info{tracks} =
-              [
-                 {
-                    track => $trackname,
-                    tracknum => $tracknum
-                 }
-              ];
+       $status = ModDefs::STATUS_APPLIED 
+           if (defined $in->Insert(\%info));
+   }
+   else
+   {
+       my ($newartistid);
+       my ($trackname, $tracknum, $album, $artistname, $sortname) = 
+             split(/\n/, $this->GetNew());
 
-            $status = ModDefs::STATUS_APPLIED 
-                if (defined $in->Insert(\%info));
-        }
-        else
-        {
-            my ($newartistid);
-            @data = split(/\n/, $row[0]);
-            my ($trackname, $tracknum, $album, $artistname, $sortname) = 
-                  split(/\n/, $row[0]);
+       # Multiple artist album
+       $info{artistid} = Artist::VARTIST_ID;
+       $info{albumid} = $album;
+       $info{tracks} =
+         [
+            {
+               track => $trackname,
+               tracknum => $tracknum,
+               artist => $artistname,
+               sortname => $sortname
+            }
+         ];
 
-            # Multiple artist album
-            $info{artistid} = Artist::VARTIST_ID;
-            $info{albumid} = $album;
-            $info{tracks} =
-              [
-                 {
-                    track => $trackname,
-                    tracknum => $tracknum,
-                    artist => $data[3],
-                    sortname => $data[4]
-                 }
-              ];
-
-            $status = ModDefs::STATUS_APPLIED 
-                if (defined $in->Insert(\%info));
-        }
+       $status = ModDefs::STATUS_APPLIED 
+           if (defined $in->Insert(\%info));
    }
 
    return $status;
@@ -178,45 +168,39 @@ sub ApprovedAction
    $status = ModDefs::STATUS_ERROR;
    my $sql = Sql->new($this->{DBH});
 
-   # Pull back all the pertinent info for this mod
-   if ($sql->Select(qq/select prevvalue, newvalue, rowid 
-                    from Changes where id = $id/))
+   $prevval = $this->GetPrev();
+   $rowid = $this->GetRowId();
+   $name = $this->GetNew();
+   if ($name =~ /\n/)
    {
-        @row = $sql->NextRow();
-        $prevval = $row[0];
-        $rowid = $row[2];
-        $name = $row[1];
-        if ($name =~ /\n/)
-        {
-           ($sortname, $name) = split /\n/, $name;
-        }
-        $sql->Finish;
-        # Check to see that the old value is still what we think it is
-        if ($sql->Select(qq/select name from Artist where id = $rowid/))
-        {
-            @row = $sql->NextRow();
-            $sql->Finish;
-            if ($row[0] eq $prevval)
-            {
-               $name = $sql->Quote($name);
-               # Check to see that the new artist is still around 
-               if ($sql->Select(qq/select id from Artist where name = $name/))
-               {
-                   @row = $sql->NextRow();
-                   $newid = $row[0];
-                   $status = ModDefs::STATUS_APPLIED;
-                   $sql->Finish;
-               }
-               else
-               {
-                   $status = ModDefs::STATUS_FAILEDDEP;
-               }
-            }
-            else
-            {
-               $status = ModDefs::STATUS_FAILEDDEP;
-            }
-        }
+      ($sortname, $name) = split /\n/, $name;
+   }
+
+   # Check to see that the old value is still what we think it is
+   if ($sql->Select(qq/select name from Artist where id = $rowid/))
+   {
+       @row = $sql->NextRow();
+       $sql->Finish;
+       if ($row[0] eq $prevval)
+       {
+          $name = $sql->Quote($name);
+          # Check to see that the new artist is still around 
+          if ($sql->Select(qq/select id from Artist where name = $name/))
+          {
+              @row = $sql->NextRow();
+              $newid = $row[0];
+              $status = ModDefs::STATUS_APPLIED;
+              $sql->Finish;
+          }
+          else
+          {
+              $status = ModDefs::STATUS_FAILEDDEP;
+          }
+       }
+       else
+       {
+          $status = ModDefs::STATUS_FAILEDDEP;
+       }
    }
 
    if ($status == ModDefs::STATUS_APPLIED)
@@ -283,38 +267,34 @@ sub ApprovedAction
 
    $status = ModDefs::STATUS_ERROR;
    $sql = Sql->new($this->{DBH});
-   if ($sql->Select(qq/select tab, col, prevvalue, newvalue, 
-                    rowid from Changes where id = $rowid/))
-   {
-        @row = $sql->NextRow();
-        $table = $row[0];
-        $column = $row[1];
-        $prevval = $row[2];
-        $newval = $sql->Quote($row[3]);
-        $datarowid = $row[4];
+   
+   @row = $sql->NextRow();
+   $table = $this->GetTable();
+   $column = $this->GetCol();
+   $prevval = $this->GetPrev();
+   $newval = $sql->Quote($this->GetNew());
+   $datarowid = $this->GetRowId();
 
-        $sql->Finish;
-        if ($sql->Select(qq/select $column from $table where id = $datarowid/))
-        {
-            @row = $sql->NextRow;
-            if ($row[0] eq $prevval)
-            {
-                $sql->Do(qq/update $table set $column = $newval  
-                                    where id = $datarowid/); 
-                if ($table eq 'Artist' && $column eq 'Name')
-                {
-                    my $al = Alias->new($this->{DBH});
-                    $al->SetTable("ArtistAlias");
-                    $al->Insert($datarowid, $prevval);
-                }
-                $status = ModDefs::STATUS_APPLIED;
-            }
-            else
-            {
-                $status = ModDefs::STATUS_FAILEDDEP;
-            }
-            $sql->Finish;
-        }
+   if ($sql->Select(qq/select $column from $table where id = $datarowid/))
+   {
+       @row = $sql->NextRow;
+       if ($row[0] eq $prevval)
+       {
+           $sql->Do(qq/update $table set $column = $newval  
+                               where id = $datarowid/); 
+           if ($table eq 'Artist' && $column eq 'Name')
+           {
+               my $al = Alias->new($this->{DBH});
+               $al->SetTable("ArtistAlias");
+               $al->Insert($datarowid, $prevval);
+           }
+           $status = ModDefs::STATUS_APPLIED;
+       }
+       else
+       {
+           $status = ModDefs::STATUS_FAILEDDEP;
+       }
+       $sql->Finish;
    }
 
    return $status;
@@ -373,49 +353,42 @@ sub ApprovedAction
    $status = ModDefs::STATUS_ERROR;
    $sql = Sql->new($this->{DBH});
 
-   # Pull back all the pertinent info for this mod
-   if ($sql->Select(qq/select newvalue, rowid from Changes where id = $id/))
+   $name = $this->GetNew();
+   if ($name =~ /\n/)
    {
-        @row = $sql->NextRow;
-        $sql->Finish;
+      ($sortname, $name) = split /\n/, $name;
+   }
+   else
+   {
+      $sortname = $name;
+   }
+   $qname = $sql->Quote($name);
+   $rowid = $this->GetRowId();
 
-        $name = $row[0];
-        if ($name =~ /\n/)
-        {
-           ($sortname, $name) = split /\n/, $name;
-        }
-        else
-        {
-           $sortname = $name;
-        }
-        $qname = $sql->Quote($name);
-        $rowid = $row[1];
+   if ($sql->Select(qq/select id from Artist where name = $qname/))
+   {
+       @row = $sql->NextRow;
+       $newid = $row[0];
+       $sql->Finish;
+   }
+   else
+   {
+       $ar = Artist->new($this->{DBH});
+       $ar->SetName($name);
+       $ar->SetSortName($sortname);
+       $newid = $ar->Insert();
+   }
+   if ($sql->Select(qq/select track from AlbumJoin where Album = $rowid/))
+   {
+       while(@row = $sql->NextRow)
+       {
+           $sql->Do(qq/update Track set artist = $newid 
+                       where id = $row[0]/);
+       }
 
-        if ($sql->Select(qq/select id from Artist where name = $qname/))
-        {
-            @row = $sql->NextRow;
-            $newid = $row[0];
-            $sql->Finish;
-        }
-        else
-        {
-            $ar = Artist->new($this->{DBH});
-            $ar->SetName($name);
-            $ar->SetSortName($sortname);
-            $newid = $ar->Insert();
-        }
-        if ($sql->Select(qq/select track from AlbumJoin where Album = $rowid/))
-        {
-            while(@row = $sql->NextRow)
-            {
-                $sql->Do(qq/update Track set artist = $newid 
-                            where id = $row[0]/);
-            }
-
-            $sql->Do(qq/update Album set artist = $newid where id = $rowid/);
-            $status = ModDefs::STATUS_APPLIED;
-            $sql->Finish;
-        }
+       $sql->Do(qq/update Album set artist = $newid where id = $rowid/);
+       $status = ModDefs::STATUS_APPLIED;
+       $sql->Finish;
    }
 
    return $status;
@@ -447,21 +420,14 @@ sub DeniedAction
 sub ApprovedAction
 {
    my ($this, $id) = @_;
-   my ($status, $sql, @row);
+   my ($status, $sql);
 
    $status = ModDefs::STATUS_ERROR;
    $sql = Sql->new($this->{DBH});
 
-   # Pull back all the pertinent info for this mod
-   if ($sql->Select(qq/select rowid from Changes where id = $id/))
-   {
-        @row = $sql->NextRow();
-
-        $sql->Do("update Album set Artist = " . 
-                         Artist::VARTIST_ID . "  where id = $row[0]");
-        $status = ModDefs::STATUS_APPLIED; 
-        $sql->Finish;
-   }
+   $sql->Do("update Album set Artist = " . 
+                    Artist::VARTIST_ID . "  where id = " . $this->GetRowId());
+   $status = ModDefs::STATUS_APPLIED; 
 
    return $status;
 }
@@ -578,41 +544,33 @@ sub DeniedAction
 sub ApprovedAction
 {
    my ($this, $rowid) = @_;
-   my ($sql, @row, $trackid);
-   my ($status);
+   my ($sql, $trackid);
+   my ($status, $album);
 
    $status = ModDefs::STATUS_ERROR;
    $sql = Sql->new($this->{DBH});
-   if ($sql->Select(qq/select rowid, prevvalue from Changes 
-                                   where id = $rowid/))
-   {
-        my $album;
 
-        if (@row = $sql->NextRow)
-        {
-            $trackid = $row[0];
-            $album = $row[1];
-            $album =~ s/^.*?\n//s;
-    
-            # Remove the album join for this track
-            $sql->Do(qq/delete from AlbumJoin where Album = $album and
-                             track = $row[0]/);
-    
-            # Now remove the track. The track will only be removed
-            # if there are not more references to it.
-            my $tr = Track->new($this->{DBH});
-            $tr->SetId($trackid);
-            if ($tr->Remove())
-            {
-                $status = ModDefs::STATUS_APPLIED;
-            }
-            else
-            {
-                $status = ModDefs::STATUS_FAILEDDEP;
-            }
-        }
-        $sql->Finish;
+   $trackid = $this->GetRowId();
+   $album = $this->GetPrev();
+   $album =~ s/^.*?\n//s;
+
+   # Remove the album join for this track
+   $sql->Do(qq/delete from AlbumJoin where Album = $album and
+                    track = / . $this->GetRowId());
+
+   # Now remove the track. The track will only be removed
+   # if there are not more references to it.
+   my $tr = Track->new($this->{DBH});
+   $tr->SetId($trackid);
+   if ($tr->Remove())
+   {
+       $status = ModDefs::STATUS_APPLIED;
    }
+   else
+   {
+       $status = ModDefs::STATUS_FAILEDDEP;
+   }
+
 
    return $status;
 }
@@ -643,31 +601,23 @@ sub DeniedAction
 sub ApprovedAction
 {
    my ($this, $rowid) = @_;
-   my ($sql, @row, $trackid);
-   my ($status);
+   my ($sql, $trackid);
+   my ($status, $album);
 
    $status = ModDefs::STATUS_ERROR;
    $sql = Sql->new($this->{DBH});
-   if ($sql->Select(qq/select rowid from Changes where id = $rowid/))
-   {
-        my $album;
 
-        if (@row = $sql->NextRow)
-        {
-            $album = $row[0];
-    
-            my $al = Album->new($this->{DBH});
-            $al->SetId($album);
-            if ($al->Remove())
-            {
-                $status = ModDefs::STATUS_APPLIED;
-            }
-            else
-            {
-                $status = ModDefs::STATUS_FAILEDDEP;
-            }
-        }
-        $sql->Finish;
+   $album = $this->GetRowId();
+
+   my $al = Album->new($this->{DBH});
+   $al->SetId($album);
+   if ($al->Remove())
+   {
+       $status = ModDefs::STATUS_APPLIED;
+   }
+   else
+   {
+       $status = ModDefs::STATUS_FAILEDDEP;
    }
 
    return $status;
@@ -707,31 +657,23 @@ sub DeniedAction
 sub ApprovedAction
 {
    my ($this, $rowid) = @_;
-   my ($sql, @row, $trackid);
+   my ($sql, $trackid);
    my ($status);
 
    $status = ModDefs::STATUS_ERROR;
    $sql = Sql->new($this->{DBH});
-   if ($sql->Select(qq/select rowid from Changes where id = $rowid/))
+   
+   # Now remove the Artist. The Artist will only be removed
+   # if there are not more references to it.
+   my $ar = Artist->new($this->{DBH});
+   $ar->SetId($this->GetRowId());
+   if ($ar->Remove())
    {
-        my $album;
-
-        if (@row = $sql->NextRow)
-        {
-            # Now remove the Artist. The Artist will only be removed
-            # if there are not more references to it.
-            my $ar = Artist->new($this->{DBH});
-            $ar->SetId($row[0]);
-            if ($ar->Remove())
-            {
-                $status = ModDefs::STATUS_APPLIED;
-            }
-            else
-            {
-                $status = ModDefs::STATUS_FAILEDDEP;
-            }
-        }
-        $sql->Finish;
+       $status = ModDefs::STATUS_APPLIED;
+   }
+   else
+   {
+       $status = ModDefs::STATUS_FAILEDDEP;
    }
 
    return $status;
@@ -763,28 +705,19 @@ sub DeniedAction
 sub ApprovedAction
 {
    my ($this, $rowid) = @_;
-   my ($sql, @row, $al);
-   my ($status);
+   my ($al, $status);
 
    $status = ModDefs::STATUS_ERROR;
-   $sql = Sql->new($this->{DBH});
-   if ($sql->Select(qq/select rowid from Changes where id = $rowid/))
-   {
-        if (@row = $sql->NextRow)
-        {
-            $sql->Finish;
 
-            $al = Alias->new($this->{DBH});
-            $al->SetTable("ArtistAlias");
-            if ($al->Remove($row[0]))
-            {
-                $status = ModDefs::STATUS_APPLIED;
-            }
-            else
-            {
-                $status = ModDefs::STATUS_FAILEDDEP;
-            }
-        }
+   $al = Alias->new($this->{DBH});
+   $al->SetTable("ArtistAlias");
+   if ($al->Remove($this->GetRowId()))
+   {
+       $status = ModDefs::STATUS_APPLIED;
+   }
+   else
+   {
+       $status = ModDefs::STATUS_FAILEDDEP;
    }
 
    return $status;
@@ -816,21 +749,14 @@ sub DeniedAction
 sub ApprovedAction
 {
    my ($this, $rowid) = @_;
-   my ($sql, @row, $al);
-   my ($status);
+   my ($al, $status);
 
    $status = ModDefs::STATUS_ERROR;
-   $sql = Sql->new($this->{DBH});
-   if ($sql->Select(qq/select rowid, newvalue from Changes where id = $rowid/))
-   {
-        @row = $sql->NextRow;
-        $sql->Finish;
 
-        $al = Alias->new($this->{DBH});
-        $al->SetTable("ArtistAlias");
-        $status = ModDefs::STATUS_APPLIED
-            if (defined $al->Insert($row[0], $row[1]));
-   }
+   $al = Alias->new($this->{DBH});
+   $al->SetTable("ArtistAlias");
+   $status = ModDefs::STATUS_APPLIED
+        if (defined $al->Insert($this->GetRowId(), $this->GetNew()));
 
    return $status;
 }
@@ -873,7 +799,7 @@ sub ApprovedAction
    $status = ModDefs::STATUS_ERROR;
 
    my $di = Diskid->new($this->{DBH});
-   if ($di->Remove($this->{prev}))
+   if ($di->Remove($this->GetPrev()))
    {
       $status = ModDefs::STATUS_APPLIED;
    }
