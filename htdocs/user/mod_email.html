@@ -57,7 +57,7 @@ else
         if ($url)
         {
             </%perl>
-            <p>[ <a href="<% $url |n %>">Continue</a> ]</p>
+            <p>[ <a href="<% $url %>">Continue</a> ]</p>
             <%perl>
         }
         $m->comp("/comp/footer");
@@ -87,7 +87,7 @@ else
             if ($url)
             {
                 </%perl>
-                <p>[ <a href="<% $url |n %>">Continue</a> ]</p>
+                <p>[ <a href="<% $url %>">Continue</a> ]</p>
                 <%perl>
             }
         }

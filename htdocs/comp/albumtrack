@@ -51,7 +51,7 @@ elsif ($ms > 0)
        alt="Tag" title="Tag the current track" height="13" width="28"
        align="middle" border="0"></a>
 % }
-       <a href="/showtrack.html?trackid=<% $track->GetId() %>"><% $track->GetName() |h %></a>
+       <a href="/showtrack.html?trackid=<% $track->GetId %>"><% $track->GetName %></a>
 % if ($trmcount > 0) {
        &nbsp;<img src="/images/trm.gif" align="middle" alt="TRM" width="30" 
                   height="11" title="<% $trmcount %> TRM Ids">&nbsp;
@@ -59,7 +59,7 @@ elsif ($ms > 0)
     </td>
 % if ($album->GetArtist() == &ModDefs::VARTIST_ID) {
     <td width="30%" bgcolor="white">
-       <a href="/showartist.html?artistid=<% $track->GetArtist() %>"><% $track->GetArtistName() |h  %></a>
+       <a href="/showartist.html?artistid=<% $track->GetArtist %>"><% $track->GetArtistName %></a>
 % if (exists $session{user} and not $nomod) {
           (<a href="/changetrack.html?album=<% $album->GetId() %>&amp;tindex=<% $tindex %>&amp;solo=1">Change</a>)
 % }

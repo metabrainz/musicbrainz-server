@@ -49,14 +49,14 @@ if ($link ne '')
                   alt="<% $alt %>"
                   src="<% $image %>" align="middle" border="0"></a>
 %          }
-           <a href="/<% $script %>.html?albumid=<% $album->GetId() %>"><% $name |h %></a>
+           <a href="/<% $script %>.html?albumid=<% $album->GetId %>"><% $name %></a>
 % } else {
         <td width="85%" bgcolor="#FFBA58" valign="middle">
 %          if ($image ne '') {
                <a href="<% $link %>"><img alt="<% $alt %>" title="<% $title %>"
                   src="<% $image %>" align="middle" border="0"></a>
 %          }
-           <a href="/<% $script %>.html?albumid=<% $album->GetId() %>"><% $name |h %></a>
+           <a href="/<% $script %>.html?albumid=<% $album->GetId %>"><% $name %></a>
 % }
         </td>
 % if (exists $session{user} && !$nomod) {

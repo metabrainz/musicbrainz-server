@@ -20,7 +20,7 @@ $m->comp("/comp/checkloggedin", 1, 1)
 % if ($search eq '') {
 			src="http://www.freedb.org/freedb_search.php"
 % } else {
-			src="http://www.freedb.org/freedb_search.php?words=<% $search |u %>&amp;allfields=NO&amp;fields=artist&amp;fields=title&amp;allcats=YES&amp;grouping=none"
+			src="http://www.freedb.org/freedb_search.php?words=<% url_escape($search) %>&amp;allfields=NO&amp;fields=artist&amp;fields=title&amp;allcats=YES&amp;grouping=none"
 % }
 			>
 	</frameset>

@@ -88,7 +88,7 @@ if ( defined $table && defined $search)
         <tr><td align="center"><font class="bold"><p>No matching <% $table %>s found.</font><p></td></tr>
 
         <tr><td>Please consider 
-        <a href="/freedb/freedb.html?search=<% $search |u %>">importing</a> 
+        <a href="/freedb/freedb.html?search=<% url_escape($search) %>">importing</a> 
         the artist/album/track(s) 
         you are looking for from freedb for insertion into MusicBrainz.
         </a></td></tr>

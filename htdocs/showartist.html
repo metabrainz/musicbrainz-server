@@ -126,10 +126,8 @@ EOF
     if ($session{uid})
     {
         </%perl>
-        <a href="/addalbum.html?artistid=<% $artist->GetId() %>">Add
-           album</a> |
-        <a href="/freedb/freedb.html?search=<% $artist->GetName() |u %>">Import
-           album</a> |
+        <a href="/addalbum.html?artistid=<% $artist->GetId() %>">Add album</a> |
+        <a href="/freedb/freedb.html?search=<% url_escape($artist->GetName) %>">Import album</a> |
         <%perl>
 		if ($artistid != &ModDefs::VARTIST_ID and $artistid != &ModDefs::DARTIST_ID)
 		{
@@ -297,7 +295,7 @@ EOF
             <td align="center">
 				<a href="?artistid=<% $artistid %>&amp;compact=<%
 					$fCompact ?  0 : 1
-					%>&amp;mbt=<% $mbt?1:0 %>&amp;mbid=<% $mbid |uh %>"
+					%>&amp;mbt=<% $mbt?1:0 %>&amp;mbid=<% url_escape($mbid) %>"
 					>Change to <% $fCompact ? "full" : "compact" %> listing</a>
 			</td>
 

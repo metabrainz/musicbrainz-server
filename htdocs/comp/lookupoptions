@@ -38,7 +38,7 @@ If the artist/album/track you are looking for was not found,
 you can do the following things: 
 
 <ul>
-  <li>Import <a href="/freedb/freedb.html?search=<% "$search" |u %>"><% $display %></a> 
+  <li>Import <a href="/freedb/freedb.html?search=<% url_escape($search) %>"><% $display %></a> 
       from FreeDB and then tag your track against the new album.</li>
 
 % if ($artist ne '' && defined $artistobj) {

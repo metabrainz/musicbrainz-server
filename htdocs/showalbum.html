@@ -82,7 +82,7 @@ $artist->LoadFromId
 	<a href="/addalbum.html?artistid=<% $artist->GetId %>"
 		>Add album</a>
 	|
-	<a href="/freedb/freedb.html?search=<% $artist->GetName() |u %>"
+	<a href="/freedb/freedb.html?search=<% url_escape($artist->GetName) %>"
 		>Import album</a>
 % if ($session{uid}) {
 	|

@@ -16,9 +16,9 @@ $sortname = $artist->GetSortName();
 <table>
   <tr>
     <td <% $bgcolor |n %> valign="top">
-      <span style="title"><font size="+2"><% $name |h %></font></span>
+      <span style="title"><font size="+2"><% $name %></font></span>
 %     if ($name ne $sortname) {
-          <br>(<% $sortname |h %>)
+          <br>(<% $sortname %>)
 %     }
     </td>
     <td>

@@ -24,7 +24,7 @@ $time = $m->comp("/comp/datetime", $time);
 </tr>
 <tr>
    <td width="37%" valign=top bgcolor=white class="body" nowrap>
-     By: <a href="/moderator.html?uid=<% $mod->GetModerator() %>"><span class="bold"><% $mod->GetModeratorName() |n %></span></a>
+     By: <a href="/moderator.html?uid=<% $mod->GetModerator %>"><span class="bold"><% $mod->GetModeratorName %></span></a>
      &nbsp;&nbsp;&nbsp;
      <a href="/showmod.html?modid=<% $mod->GetId() %>"
         title="View moderation detail">Id: <% $mod->GetId() %></a><br> 
@@ -37,8 +37,8 @@ $time = $m->comp("/comp/datetime", $time);
 %    if ($session{uid} == $mod->GetModerator() || 
 %        $mod->GetStatus() != &ModDefs::STATUS_OPEN ||
 %        $voted != &ModDefs::VOTE_NOTVOTED) {
-           <% $mod->GetYesVotes() |n %> yes,
-           <% $mod->GetNoVotes() |n %> no
+           <% $mod->GetYesVotes %> yes,
+           <% $mod->GetNoVotes %> no
            &nbsp;&nbsp; 
 %    }
      <br>[ <a href="/mod/addnote.html?modid=<% $mod->GetId %>" onclick="MyWindow=window.open('mod/addnote.html?modid=<% $mod->GetId %>','AddNote','toolbar=no,location=no,directories=no,status=no,menubar=no,scrollbars=yes,resizable=yes,width=400,height=150'); return false;">Add note</a> |
@@ -69,12 +69,12 @@ $time = $m->comp("/comp/datetime", $time);
    <td width="30%" align=center valign=top bgcolor=white class="body" nowrap>
 
 % if ($session{uid} == $mod->GetModerator()) {
-     <% $mod->GetChangeName() |n %>
+     <% $mod->GetChangeName %>
 % } elsif ($voted == &ModDefs::VOTE_YES || $voted == &ModDefs::VOTE_NO ||
 %          $voted == &ModDefs::VOTE_ABS) {
-     Your vote: <% MusicBrainz::Server::Vote->GetVoteName($voted) |n %><br>
+     Your vote: <% MusicBrainz::Server::Vote->GetVoteName($voted) %><br>
 
-     <% $mod->GetChangeName() |n %>
+     <% $mod->GetChangeName %>
 % } elsif ($session{uid} != $mod->GetModerator() && 
 %          $mod->GetStatus() == &ModDefs::STATUS_OPEN &&
 %          $voted == &ModDefs::VOTE_NOTVOTED) {
@@ -82,7 +82,7 @@ $time = $m->comp("/comp/datetime", $time);
      <label for="rowid<% $mod->GetId() %>-no">No</label>&nbsp;<input type="radio" name="rowid<% $mod->GetId() %>"  id="rowid<% $mod->GetId() %>-no" value="no">&nbsp;
      <label for="rowid<% $mod->GetId() %>-abst">Abst</label>&nbsp;<input type="radio" name="rowid<% $mod->GetId() %>" id="rowid<% $mod->GetId() %>-abst" value="abs" CHECKED>
 % } else {
-     <% $mod->GetChangeName() |n %>
+     <% $mod->GetChangeName %>
 % }
    </td>
 
