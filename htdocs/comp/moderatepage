@@ -29,7 +29,7 @@ if ($type == ModDefs::TYPE_NEW)
 
     foreach $obj (@info)
     {
-        if ($obj->GetModeratorName() == "FreeDB")
+        if ($obj->GetModeratorName() eq "FreeDB")
         {
             $freedb_note = 1;
             last;
