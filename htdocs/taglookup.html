@@ -207,6 +207,41 @@ $data{mbt} = $mbt;
 # Save the original data for use in the lookup dialog later
 %orig_data = %data;
 
+if ($artist eq '' && $artistid eq '' && $album eq '' && $albumid eq '' && 
+    $track eq '' && $trackid eq '')
+{
+    </%perl>
+
+    <table width="420"><tr><td>
+    Fill out as much as you know about the track in the box below:<p>
+
+    <& /comp/tablebegin, title=>'Tag Lookup', bgcolor=>"#f0efff" &>
+    <% OutputEditForm(\%orig_data) |n %>
+    <& /comp/tableend &>
+    </td></tr></table>
+    <%perl>
+    return undef;
+}
+
+if ($artist eq '' && $artistid eq '' && 
+    ($album ne '' || $albumid ne '' || $track ne '' || $trackid ne ''))
+{
+    </%perl>
+
+    <table width="420"><tr><td>
+    <font color="red">Error:</font> You need to provide an artist name
+    in order to lookup a track. Please enter the artist name below and
+    try the lookup again: <p>
+
+    <& /comp/tablebegin, title=>'Modify Lookup', bgcolor=>"#f0efff" &>
+    <% OutputEditForm(\%orig_data) |n %>
+    <& /comp/tableend &>
+    </td></tr></table>
+    <%perl>
+    return undef;
+}
+
+
 ($error, $result, $flags, $list) = $ts->Lookup(\%data, 25);
 #mc_out "Debug: [ ";
 #mc_out "ArtistId " if ($flags & TaggerSupport::ARTISTID);
@@ -436,10 +471,10 @@ elsif ($flags & TaggerSupport::ARTISTID)
 {
    </%perl>
    <b>Found matching artist:</b><p>
+%  OutputArtist($ts, $result);
    <& /comp/lookupoptions, artist=>$artist, artistobj=>$ts->{artist}, 
                            album=>$album, albumobj=>$ts->{album}, data=>\%data &>
    <%perl>
-   OutputArtist($ts, $result);
 }
 else
 {
