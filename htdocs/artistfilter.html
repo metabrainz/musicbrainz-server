@@ -64,9 +64,11 @@ else
 }
 </%perl>
 
+<p>
 A search on <font class="bold"><% $arg %></font>
 has turned up the following matching artists that are similar to the 
 artist name that you just entered. 
+</p>
 
 <%perl>
 # If we're merging an album, and we didn't find any matches, complain.
@@ -75,30 +77,35 @@ if (!defined $artist && scalar(@names) == 0 &&
 {
     </%perl>
     <& /comp/tablebegin, title=>'No Artists Found', gattrs=>'width="100%"' &>
-    <br>&nbsp;&nbsp;<span class="bold">No artists found.</span>
-    Please <a href="<% $ARGS{url} %>">try again</a>.<p><br>
+    <p style="margin: 1em">
+	<span class="bold">No artists found.</span>&nbsp;
+	Please <a href="<% $ARGS{url} %>">try again</a>.
+    </p>
     <& /comp/tableend &>
 %   return undef;
     <%perl>
 }
 
 </%perl>
+
+<p>
 % if ($mode eq 'move') {
-Please choose one of the artists below, and click Finish>> to
+Please choose one of the artists below, and click Finish &gt;&gt; to
 move album <span class="bold"><% $ARGS{album} %></span> to the selected artist:
 % } elsif ($mode eq 'tosac') {
-Please choose one of the artists below, and click Finish>> to
+Please choose one of the artists below, and click Finish &gt;&gt; to
 change the multiple artist album <span class="bold"><% $ARGS{album} %></span> to the selected single artist:
 % } elsif ($mode eq 'merge') {
-Please choose one of the artists below, and click Finish>> to
+Please choose one of the artists below, and click Finish &gt;&gt; to
 merge artist <span class="bold"><% $ARGS{prev0} %></span> with the selected artist:
 % } elsif ($mode eq 'addtrack') {
-Please choose one of the artists below, and click Finish>> to
+Please choose one of the artists below, and click Finish &gt;&gt; to
 add this track to album <span class="bold"><% $ARGS{prev0} %></span> with the selected artist:
 % } else {
-Please choose one of the artists below, and click Finish>> to
+Please choose one of the artists below, and click Finish &gt;&gt; to
 move track <span class="bold"><% $ARGS{prev0} %></span> to the selected artist:
 % }
+</p>
 
 <form method="POST" action="/bare/enter_mod.html" NAME="ArtistFilter"
       enctype="application/x-www-form-urlencoded" class="formstyle">
@@ -118,7 +125,6 @@ move track <span class="bold"><% $ARGS{prev0} %></span> to the selected artist:
 %   }
 %   $i = 0;
 %   foreach $name (@names) {
-%       next if (!defined $name);
         <tr><td>
         <input type="radio" name="<% $argname %>" value="<% $name->{name} |h %>"
 %       if ($i == 0 && !defined $artist) {
@@ -144,10 +150,15 @@ if (!defined $artist && $mode ne 'merge')
    </tr>
    <td>
    <input type="radio" name="<% $argname %>" 
+%       if (not defined($artist) and not @names) {
+           checked
+%       }
           value="<% $arg |h %>">&nbsp;<% $arg %>
    </td><td>
    Enter artist name if different from sort name:<br>
-   <input type="text" name="<% $dest_argname %>" SIZE=15> 
+   <input type="text" name="<% $dest_argname %>"
+	style="width: 100%"
+	> 
    </td></tr></table>
    <& /comp/tableend &>
    <%perl>
@@ -164,7 +175,7 @@ foreach $key (keys %ARGS)
 $mb->Logout();
 </%perl>
 
-<input type="submit" value="Finish>>" name="Finish">
+<input type="submit" value="Finish &gt;&gt;" name="Finish">
 </form>
 
 <& /comp/footer &>
