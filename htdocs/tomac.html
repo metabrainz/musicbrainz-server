@@ -77,7 +77,7 @@ $artistname = $ar->GetName();
     <input type="hidden" name="type0" 
            value="<% ModDefs::MOD_SAC_TO_MAC %>">
     <input type="hidden" name="new0" value="Various Artists">
-    <input type="hidden" name="prev0" value="<% $albumname  %>">
+    <input type="hidden" name="prev0" value="<% $ar->GetName() %>">
     <input type="hidden" name="table0" value="Album">
     <input type="hidden" name="column0" value="Artist">
     <input type="hidden" name="id0" value="<% $id %>">
