@@ -1,5 +1,12 @@
 #!/bin/sh
 
 cd ..
-./CheckVotes.pl "rob@eorbit.net djce" 2>&1 | grep 'Sent mail'
+
+# Hmmm, ugly.  Alternatively, just add a crontab entry like so:
+# 0 * * * * MAILTO="rob@eorbit.net,djce@musicbrainz.org" ./CheckVotes.pl
+ADMINS="rob@eorbit.net djce@musicbrainz.org"
+
+OUTPUT=`./CheckVotes.pl 2>&1`
+[ "$OUTPUT" == "" ] || ( echo "$OUTPUT" | mail -s "ModBot output" $ADMINS )
+
 ./RemoveOldSessions > /dev/null
