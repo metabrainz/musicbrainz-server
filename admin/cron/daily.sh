@@ -2,8 +2,8 @@
 
 # TODO: If you are installing a main server, you need to update the paths below
 ftpdir=/var/ftp/pub/musicbrainz/data
-reportdir=/var/website/musicbrainz/prod/htdocs/reports
-imagedir=/var/website/musicbrainz/prod/htdocs/generated
+reportdir=/var/website/musicbrainz/prod/mb_server/htdocs/reports
+imagedir=/var/website/musicbrainz/prod/mb_server/htdocs/generated
 backupdir=/home/backup
 backupuser=backup
 backupgroup=users
