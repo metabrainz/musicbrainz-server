@@ -86,10 +86,12 @@ if ( defined $table && defined $search)
 %	} elsif ($engine->Result == SEARCHRESULT_TIMEOUT) {
 
 		<tr><td align="center"><font class="bold"><p>Your search has been cancelled</font><p></td></tr>
-		<tr><td>
+		<tr><td colspan="3">
 			Your search has been cancelled because it was taking too
-			long.&nbsp;
-			Please try changing your search criteria, or try again later.
+			long.&nbsp; Sorry.&nbsp;
+			Please try changing your search criteria - try using just the most
+			distinctive words and leaving out the more common ones.&nbsp;
+			Or just try again later.
 		</td></tr>
 
 %   } elsif ($engine->Rows == 0) {
