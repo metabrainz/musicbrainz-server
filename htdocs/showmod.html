@@ -14,6 +14,28 @@ if ($modid == 0)
     return undef;
 }
 
+if (!defined $session{user} || $session{user} eq '' || 
+    !defined $session{uid} || $session{uid} == 0) {
+    </%perl>
+    <& /comp/sidebar, title=>'Login Required', expand=>'moderate' &>
+    <center>
+    <span class="bold">
+       You must be logged in to edit/moderate the database.
+    </span>
+    <p>
+    If you are new to the MusicBrainz moderation<br> 
+    system, you may want to check out the check out<br>
+    the <a href="mod_intro.html">Moderation Introduction</a>.<p>
+    <table width=50%><tr><td>
+    <& /comp/tablebegin, title=>'Login' &>
+    <& /comp/loginbox &>
+    <& /comp/tableend &>
+    </td></tr></table>
+    </center>
+    <%perl>
+    return undef;
+} 
+
 $mb = mc_comp("/comp/dblogin");
 
 $mod = Moderation->new($mb->{DBH});
@@ -115,7 +137,7 @@ my $expired = ($mod->GetExpireTime() > time()) ? "s" : "d";
              &nbsp;&nbsp;&nbsp;&nbsp;
 %            $bold = ($obj->{user} eq $mod->GetModeratorName()) ?  'bold' : 'body';
              <font class="<% $bold %>"><% $obj->{user} %></font>:
-             <% $obj->{text} |h %><br> 
+             <% $obj->{text} |n %><br> 
 %         }
 %   } else {
           &nbsp;&nbsp;&nbsp;&nbsp; No notes.
