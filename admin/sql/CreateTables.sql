@@ -182,9 +182,9 @@ create table vote_closed (
    superseded BOOLEAN NOT NULL DEFAULT FALSE
    );
 
-create table WordList(
-   Id serial,
-   Word varchar(255) not null,
+create table wordlist(
+   id serial,
+   word varchar(255) not null,
    artistusecount SMALLINT NOT NULL DEFAULT 0,
    albumusecount SMALLINT NOT NULL DEFAULT 0,
    trackusecount SMALLINT NOT NULL DEFAULT 0
