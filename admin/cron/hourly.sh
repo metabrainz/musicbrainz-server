@@ -1,4 +1,4 @@
 #!/bin/sh
 
 cd ..
-./CheckVotes.pl rob@eorbit.net
+./CheckVotes.pl rob@eorbit.net djce
