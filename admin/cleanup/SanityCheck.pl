@@ -160,6 +160,30 @@ sub Cleanup
     }
     $sth->finish;
     print "Found $count orphaned albumjoins.\n\n";
+
+    # --------------------------------------------------------------------
+    
+    print "Orphaned trmids:\n";
+    $count = 0;
+    $sth = $dbh->prepare(qq|select GUIDJoin.id, GUIDJoin.guid, GUIDJoin.track
+                            from   GUIDJoin left join Track 
+                            on     GUIDJoin.track = Track.id 
+                            WHERE  Track.id IS NULL|);
+    if ($sth->execute() && $sth->rows())
+    {
+        my @row;
+
+        while(@row = $sth->fetchrow_array())
+        {
+            print "  TRM Id $row[0] references non-existing track $row[2].\n";
+            $count++;
+
+            $dbh->do("delete from GUIDJoin where id = $row[0]") if ($fix);
+            $dbh->do("delete from GUID where id = $row[1]") if ($fix);
+        }
+    }
+    $sth->finish;
+    print "Found $count orphaned trmids.\n\n";
 }
 
 # Call main with the number of arguments that you are expecting
