@@ -20,12 +20,12 @@ if (!defined($result))
                        title=>"Tracks:");
     $result .= mc_comp("/comp/calcstat", 
                        mb=>$mb,
-                       query=>"select count(*) from Pending", 
-                       title=>"Pending:");
-    $result .= mc_comp("/comp/calcstat", 
-                       mb=>$mb,
                        query=>"select count(*) from Diskid", 
                        title=>"DiskIds:");
+    $result .= mc_comp("/comp/calcstat", 
+                       mb=>$mb,
+                       query=>"select count(*) from Changes", 
+                       title=>"Moderations:");
     $mb->Logout();
     $m->cache(action=>'store', expire_next=>'hour', value=>$result);
 }

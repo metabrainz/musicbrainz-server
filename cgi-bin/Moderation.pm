@@ -462,7 +462,8 @@ sub ApplyAddTrackModification
 sub ApplyMergeArtistModification
 {
    my ($this, $id) = @_;
-   my ($sth, @row, $prevval, $newval, $rowid, $status, $newid);
+   my ($sth, @row, $prevval, $rowid, $status, $newid);
+   my ($name, $sortname);
 
    $status = STATUS_ERROR;
 
@@ -474,9 +475,12 @@ sub ApplyMergeArtistModification
    {
         @row = $sth->fetchrow_array;
         $prevval = $row[0];
-        $newval = $row[1];
         $rowid = $row[2];
-
+        $name = $row[1];
+        if ($name =~ /\n/)
+        {
+           ($sortname, $name) = split /\n/, $name;
+        }
         $sth->finish;
         # Check to see that the old value is still what we think it is
         $sth = $this->{DBH}->prepare(qq/select name from Artist where 
@@ -488,10 +492,10 @@ sub ApplyMergeArtistModification
             if ($row[0] eq $prevval)
             {
                $sth->finish;
-               $newval = $this->{DBH}->quote($newval);
+               $name = $this->{DBH}->quote($name);
                # Check to see that the new artist is still around 
                $sth = $this->{DBH}->prepare(qq/select id from Artist where 
-                                            name = $newval/);
+                                            name = $name/);
                $sth->execute;
                if ($sth->rows)
                {
@@ -572,7 +576,8 @@ sub ApplyEditModification
 sub ApplyMoveAlbumModification
 {
    my ($this, $id) = @_;
-   my ($sth, @row, $newval, $rowid, $status, $ar, $newid);
+   my ($sth, @row, $rowid, $status, $ar, $newid);
+   my ($name, $sortname, $qname);
 
    $status = STATUS_ERROR;
 
@@ -583,12 +588,21 @@ sub ApplyMoveAlbumModification
    if ($sth->rows)
    {
         @row = $sth->fetchrow_array;
-        $newval = $this->{DBH}->quote($row[0]);
+        $name = $row[0];
+        if ($name =~ /\n/)
+        {
+           ($sortname, $name) = split /\n/, $name;
+        }
+        else
+        {
+           $sortname = $name;
+        }
+        $qname = $this->{DBH}->quote($name);
         $rowid = $row[1];
 
         $sth->finish;
         $sth = $this->{DBH}->prepare(qq/select id from Artist where 
-                                     name = $newval/);
+                                     name = $qname/);
         $sth->execute;
         if ($sth->rows)
         {
@@ -598,9 +612,8 @@ sub ApplyMoveAlbumModification
         else
         {
             $ar = Artist->new($this->{MB});
-            $newid = $ar->Insert($row[0], $row[0]);
+            $newid = $ar->Insert($name, $sortname);
         }
-
         $sth->finish;
         $sth = $this->{DBH}->prepare(qq/select track from AlbumJoin where 
                                      Album = $rowid/);
@@ -648,7 +661,8 @@ sub ApplySACToMACModification
 sub ApplyChangeTrackArtistModification
 {
    my ($this, $id) = @_;
-   my ($sth, @row, $newval, $rowid, $status, $ar, $newid, $al, $album);
+   my ($sth, @row, $rowid, $status, $ar, $newid, $al, $album);
+   my ($name, $sortname, $qname);
 
    $status = STATUS_ERROR;
 
@@ -659,12 +673,21 @@ sub ApplyChangeTrackArtistModification
    if ($sth->rows)
    {
         @row = $sth->fetchrow_array;
-        $newval = $this->{DBH}->quote($row[0]);
+        $name = $row[0];
+        if ($name =~ /\n/)
+        {
+           ($sortname, $name) = split /\n/, $name;
+        }
+        else
+        {
+           $sortname = $name;
+        }
+        $qname = $this->{DBH}->quote($name);
         $rowid = $row[1];
 
         $sth->finish;
         $sth = $this->{DBH}->prepare(qq/select id from Artist where 
-                                     name = $newval/);
+                                     name = $qname/);
         $sth->execute;
         if ($sth->rows)
         {
@@ -674,7 +697,7 @@ sub ApplyChangeTrackArtistModification
         else
         {
             $ar = Artist->new($this->{MB});
-            $newid = $ar->Insert($row[0], $row[0]);
+            $newid = $ar->Insert($name, $sortname);
         }
         $al = Album->new($this->{MB});
         $album = $al->GetIdFromTrackId($row[0]);

@@ -26,7 +26,8 @@ for($i = 0;; $i++)
     $new = $ARGS{'new' . $i}; 
     for($j = 0; ; $j++)
     {
-        if (defined($ARGS{"extra$i-$j"}))
+        if (defined($ARGS{"extra$i-$j"}) && 
+            $ARGS{"extra$i-$j"} ne '')
         {
            $new .= "\n" . $ARGS{"extra$i-$j"};
         }

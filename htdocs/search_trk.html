@@ -3,6 +3,11 @@
 <%perl>
 
 # TODO: The data in the rows is not escaped!
+if (!exists $ARGS{track} || $ARGS{track} eq '')
+{
+    mc_comp("/comp/badargs");
+    return;
+}
 
 my ($mb); 
 my (@data, $i, $row, $tr);

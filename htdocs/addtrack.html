@@ -9,6 +9,13 @@ $mb = new MusicBrainz;
 $mb->Login();
 $al = Album->new($mb);
 
+if (!exists $ARGS{album} || $ARGS{album} eq '' ||
+    !exists $ARGS{artist} || $ARGS{artist} eq '')
+{
+    mc_comp("/comp/badargs");
+    return;
+}
+
 $album = $ARGS{album};
 $artist = $ARGS{artist};
 $al->LoadFromId($album);

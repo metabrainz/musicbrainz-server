@@ -5,6 +5,14 @@
 my ($mb, $id, $trackname, $referer, $tr);
 my ($seq_id, $tracknum, $album, $artist); 
 
+if (!exists $ARGS{album} || $ARGS{album} eq '' ||
+    !exists $ARGS{artist} || $ARGS{artist} eq '' ||
+    !exists $ARGS{id} || $ARGS{id} eq '')
+{
+    mc_comp("/comp/badargs");
+    return;
+}
+
 $referer = $r->headers_in->{'Referer'};
 $mb = new MusicBrainz;
 $mb->Login();

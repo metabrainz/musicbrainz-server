@@ -3,6 +3,12 @@ if (DBDefs::USE_LYRICS) {
   my ($mb, $ly, $tr, $ar); 
   my ($trackid, @trackdata, @syncevents);
 
+  if (!exists $ARGS{id} || $ARGS{id} eq '')
+  {
+      mc_comp("/comp/badargs");
+      return;
+  }
+  
   $mb = new MusicBrainz;
   $mb->Login();
 

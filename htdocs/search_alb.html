@@ -5,6 +5,12 @@
 my ($mb); 
 my (@data, $i, $row, $al);
 
+if (!exists $ARGS{album} || $ARGS{album} eq '')
+{
+    mc_comp("/comp/badargs");
+    return;
+}
+
 $mb = new MusicBrainz;
 $mb->Login();
 

@@ -5,6 +5,12 @@ my ($mb);
 my (@info, $artistname, $albumname, $modpending);
 my ($trackinfo, $albumid, @idsalbums, $i, $j, $ar, $al); 
 
+if (!exists $ARGS{artistid} || $ARGS{artistid} eq '')
+{
+    mc_comp("/comp/badargs");
+    return;
+}
+
 $mb = new MusicBrainz;
 $mb->Login();
 $ar = Artist->new($mb);

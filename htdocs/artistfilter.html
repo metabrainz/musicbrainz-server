@@ -1,9 +1,22 @@
 <%perl>
 
 my ($mb, $i, $j, $mod, $new, @names, $ar);
-my ($sortname, $name, $key, $found);
+my ($sortname, $name, $key, $found, $mode, $num_found);
 
-mc_comp("/comp/sidebar", title=>'Select Artist');
+if (!exists $ARGS{new0} || $ARGS{new0} eq '' ||
+    !exists $ARGS{mode} || $ARGS{mode} eq '')
+{
+    mc_comp("/comp/badargs");
+    return;
+}
+$mode = $ARGS{mode};
+
+mc_comp("/comp/sidebar", title=>'Select Artist for Album Move') 
+    if ($mode eq 'move');
+mc_comp("/comp/sidebar", title=>'Select Artist for Album Merge') 
+    if ($mode eq 'merge');
+mc_comp("/comp/sidebar", title=>'Select Artist for Track Change') 
+    if ($mode eq 'track');
 
 $mb = new MusicBrainz;
 $mb->Login();
@@ -26,10 +39,10 @@ A search on <font class="bold"><% $ARGS{new0} %></font>
 has turned up the following matching artists that are similar to the 
 artist name that you just entered. 
 
-% if ($ARGS{mode} eq 'move') {
+% if ($mode eq 'move') {
 Please choose one of the artists below, and click Finish>> to
-move album <span class="bold"><% $ARGS{prev0} %></span> to the selected artist:
-% } elsif ($ARGS{mode} eq 'merge') {
+move album <span class="bold"><% $ARGS{album} %></span> to the selected artist:
+% } elsif ($mode eq 'merge') {
 Please choose one of the artists below, and click Finish>> to
 merge artist <span class="bold"><% $ARGS{prev0} %></span> with the selected artist:
 % } else {
@@ -41,7 +54,7 @@ move track <span class="bold"><% $ARGS{prev0} %></span> to the selected artist:
       enctype="application/x-www-form-urlencoded" class="formstyle">
 
 
-% if (!$found) {
+% if (!$found && $mode ne 'merge') {
 <& /comp/tablebegin, title=>'New Artist', gattrs=>'width="100%"' &>
 <table width="100%"> <tr>
 <th width="50%">Artist Sortname</th>
@@ -52,12 +65,13 @@ move track <span class="bold"><% $ARGS{prev0} %></span> to the selected artist:
        value="<% $ARGS{new0} %>" CHECKED>&nbsp;<% $ARGS{new0} %>
 </td><td>
 Enter artist name if different from sort name:<br>
-<input type="text" name="new1" value="<% $ARGS{new0} %>" SIZE=15> 
+<input type="text" name="extra0-0" SIZE=15> 
 </td></tr></table>
 <& /comp/tableend &>
 % }
 
-% if (scalar(@names) > 0) {
+%$num_found = scalar(@names);
+% if ($num_found > 0) {
 
     <& /comp/tablebegin, title=>'Existing Artists', gattrs=>'width="100%"' &>
     <table width="100%"> <tr>
@@ -79,22 +93,24 @@ Enter artist name if different from sort name:<br>
         mc_out(">&nbsp;$sortname</td><td>$name</td></tr>");
     }
     mc_out("</table>");
-    mc_comp("/comp/tableend", title=>'Existing Artists');
-}
+    mc_comp("/comp/tableend");
 
-foreach $key (keys %ARGS)
+    foreach $key (keys %ARGS)
+    {
+        next if ($key eq 'new0');
+
+        mc_out(qq\<input type="hidden" name="$key" value="$ARGS{$key}">\);
+        mc_out("\n");
+    }
+    mc_out('<input type="submit" value="Finish>>" name="Search">');
+}
+if ($num_found == 0 && $mode eq 'merge') 
 {
-    next if ($key eq 'new0');
-
-    mc_out(qq\<input type="hidden" name="$key" value="$ARGS{$key}">\);
-    mc_out("\n");
-}
-
 </%perl>
-<input type="submit" value="Finish>>" name="Search">
+    <& /comp/tablebegin, title=>'No Artists Found', gattrs=>'width="100%"' &>
+    <br>&nbsp;&nbsp;<span class="bold">No artists found.</span>
+    Please <a href="<% $ARGS{referer} %>">try again</a>.<p><br>
+    <& /comp/tableend &>
+% }
 </form>
-<%perl>
-
-$mb->Logout();
-
-</%perl>
+% $mb->Logout();

@@ -4,6 +4,12 @@
 
 # TODO: The data in the rows is not escaped!
 
+if (!exists $ARGS{artist} || $ARGS{artist} eq '')
+{
+    mc_comp("/comp/badargs");
+    return;
+}
+
 my ($mb); 
 my (@data, $i, $row, $ar);
 

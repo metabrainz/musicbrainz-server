@@ -5,6 +5,12 @@
 my ($mb, $id, $ar); 
 my ($artistname, $referer, $modpending, $sortname); 
 
+if (!exists $ARGS{id} || $ARGS{id} eq '')
+{
+    mc_comp("/comp/badargs");
+    return;
+}
+
 $referer = $r->headers_in->{'Referer'};
 $mb = new MusicBrainz;
 $mb->Login();
@@ -31,9 +37,8 @@ $modpending = $ar->Value(3);
     <& /comp/modpending &>
 % }
 
-    Use the field below to enter the name of the artist with whom to
-    merge the current artist, then click Next &gt;&gt;.
-
+    Use the field below to enter the artist <span class="bold">sortname</a>
+    with whom to merge the current artist, then click Next &gt;&gt;.
 
     <FORM METHOD="POST" ACTION="/artistfilter.html"
           ENCTYPE="application/x-www-form-urlencoded">  
@@ -48,7 +53,7 @@ $modpending = $ar->Value(3);
       </tr>
       <tr>
         <td>
-        Artist to Merge with:
+        Sortname of Artist<br> to Merge with:
         </td>
         <td>
         <INPUT TYPE="text" NAME="new0" SIZE=25 value="<% $artistname %>"> 
@@ -75,5 +80,7 @@ $modpending = $ar->Value(3);
     </form>
     <& /comp/tableend &>
 
+    <& /comp/stylenotes &>
+    <& /comp/artiststylenotes &>
 % }
 % $mb->Logout();

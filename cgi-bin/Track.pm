@@ -249,6 +249,10 @@ sub GetFromIdAndAlbum
     {
          @row = $sth->fetchrow_array;
     }
+    else
+    {
+         return ();
+    }
     $sth->finish;
 
     $sth = $this->{DBH}->prepare("select name from Artist where id=$row[1]");
@@ -256,6 +260,10 @@ sub GetFromIdAndAlbum
     if ($sth->rows)
     {
          $artist = ($sth->fetchrow_array)[0];
+    }
+    else
+    {
+         return ();
     }
     $sth->finish;
 

@@ -4,6 +4,13 @@
 
 my ($mb, $id, $albumname, $referer, $modpending, $al, $artist); 
 
+if (!exists $ARGS{id} || $ARGS{id} eq '' ||
+    !exists $ARGS{artist} || $ARGS{artist} eq '')
+{
+    mc_comp("/comp/badargs");
+    return;
+}
+
 $referer = $r->headers_in->{'Referer'};
 $mb = new MusicBrainz;
 $mb->Login();

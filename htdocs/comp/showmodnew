@@ -9,6 +9,16 @@ $type
 %    my (@data) = split(/\n/, $new);
      Name: <span class="bold"><% $data[0] %></span> 
      Track: <span class="bold"><% $data[1] %></span>
+% } elsif ($type == Moderation::MOD_MERGE_ARTIST ||
+%          $type == Moderation::MOD_MOVE_ALBUM ||
+%          $type == Moderation::MOD_CHANGE_TRACK_ARTIST) {
+%    if ($new =~ /\n/) {
+%        my (@data) = split(/\n/, $new);
+         Artist: <span class="bold"><% $data[1] %></span> 
+         (<span class="bold"><% $data[0] %></span>)
+%    } else {
+     Artist: <span class="bold"><% $new %></span> 
+%    }
 % } else {   
      New: <span class="bold"><% $new %></span> 
 % }

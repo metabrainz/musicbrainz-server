@@ -4,6 +4,12 @@
 my ($mb); 
 my ($artistid, $albumid, $ar, $al); 
 
+if (!exists $ARGS{albumid} || $ARGS{albumid} eq '')
+{
+    mc_comp("/comp/badargs");
+    return;
+}
+
 $mb = new MusicBrainz;
 $mb->Login();
 $albumid = $ARGS{albumid};

@@ -162,7 +162,7 @@ sub GenerateCDInfoObjectFromDiskId
         $album = $di->FindFreeDBEntry($numtracks, $toc, $id);
         if (defined $album)
         {
-            $rdf = $mb->CreateAlbum($mb, 0, $album);
+            $rdf = CreateAlbum($mb, 0, $album);
         }
         else
         {

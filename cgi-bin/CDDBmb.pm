@@ -15,9 +15,7 @@ use Sys::Hostname;
 # list of known cddb servers
 
 my @cddb_hosts =
-  ( [ 'cddb.cddb.com'     => 8880 ],
-    [ 'sj.ca.us.cddb.com' => 8880 ],
-    [ 'sc.ca.us.cddb.com' => 8880 ],
+  ( [ 'www.freedb.org'     => 8880 ],
   );
 
 #------------------------------------------------------------------------------
@@ -232,7 +230,6 @@ HOST:
       die "ran out of CDDB hosts to query today\n"
         unless ($cddb_host);
       ($self->{host}, $self->{port}) = @$cddb_host;
-      warn "trying $self->{host}:$self->{port}...\n";
     }
 
     $self->{handle} = new IO::Socket::INET( PeerAddr => $self->{host},
@@ -244,7 +241,6 @@ HOST:
     # The host could not connect.  Clean up after the failed attempt
     # and cycle to the next host.
     unless (defined $self->{handle}) {
-      warn "could not connect to $self->{host} $self->{port}: $!\n";
       delete $self->{handle};
       $self->{host} = $self->{port} = '';
       next HOST;

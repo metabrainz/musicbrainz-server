@@ -3,8 +3,16 @@
 <%perl>
 
 my ($mb, $id, $albumname, $referer, $modpending);
-my ($artistname, $al, $artist, $ar, $newtrackname, $newartistname);
+my ($artistname, $al, $artist, $ar, $newtrackname, $newartistname, $sortname);
 my ($track, @tracks, $tr, $trackname, $tindex, $depmod, $trackid); 
+
+if (!exists $ARGS{album} || $ARGS{album} eq '' ||
+    !exists $ARGS{artist} || $ARGS{artist} eq '' ||
+    !exists $ARGS{tindex} || $ARGS{tindex} eq '')
+{
+    mc_comp("/comp/badargs");
+    return;
+}
 
 $referer = $r->headers_in->{'Referer'};
 $mb = new MusicBrainz;
@@ -30,10 +38,12 @@ if ($artist > 0)
    $ar = Artist->new($mb);
    $ar->LoadFromId($artist);
    $artistname = $ar->Value(1);
+   $sortname = $ar->Value(2);
 }
 else
 {
    $artistname = "Various Artists";
+   $sortname = "Various Artists";
 }
 
 
@@ -59,15 +69,15 @@ else
    $newartistname = $trackname;
    if ($trackname =~ /^(.*)\s*-\s*(.*)$/)
    {
-      $newtrackname = $1;
-      $newartistname = $2;
+      $newartistname = $1;
+      $newtrackname = $2;
    }
    else
    {
       if ($trackname =~ /^(.*)\s*\/\s*(.*)$/)
       {
-          $newtrackname = $1;
-          $newartistname = $2;
+          $newartistname = $1;
+          $newtrackname = $2;
       }
    }
    
@@ -87,8 +97,8 @@ else
        <& /comp/modpending &>
 %  } 
   
-       Enter the name of the artist to whom you'd like to move 
-       track <% $trackname %>:
+       Enter the artist <span class="bold">sortname</span> to 
+       whom you'd like to move track <% $trackname %>:
 
        <FORM METHOD="POST" ACTION="/artistfilter.html"
              ENCTYPE="application/x-www-form-urlencoded">  
@@ -103,10 +113,10 @@ else
          </tr>
          <tr>
            <td>
-           Current Artist:
+           Current Artist Sortname:
            </td>
            <td>
-           <% $artistname  %>
+           <% $sortname  %>
            </td>
          </tr>
          <tr>
@@ -119,7 +129,7 @@ else
          </tr>
          <tr>
            <td>
-           New Artist:
+           New Artist Sortname:
            </td>
            <td>
            <INPUT TYPE="text" NAME="new0" SIZE=25 value="<% $newartistname %>"> 
@@ -158,6 +168,7 @@ else
        <& /comp/tableend &>
    
        <& /comp/stylenotes &>
+       <& /comp/artiststylenotes &>
 %    }
 % }
 % $mb->Logout();

@@ -5,6 +5,12 @@ $guid=>""
 
 <& /comp/sidebar, title=>'View Pending Metadata' &>
 
+if (!exists $ARGS{guid} || $ARGS{guid} eq '')
+{
+    mc_comp("/comp/badargs");
+    return;
+}
+
 <font size=+1><b>Guid: <% $ARGS{guid} %></b></font><p>
 
 <& /comp/showpendingpage, offset=>$offset, guid=>$guid &>
