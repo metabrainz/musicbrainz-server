@@ -87,6 +87,7 @@ The MusicBrainz server requires the following items:
    Carp;
    Tie::STDERR
    Time::HiRes
+   String::ShellQuote
 
 7) String::Unicode::Similarity
 
