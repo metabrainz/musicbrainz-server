@@ -94,12 +94,44 @@ for my $arg (@ARGV)
 
 	my $mode = ($1 eq "gz" ? "gzip" : "bzip2");
 
-	my $dir = make_tmp_dir();
+	use File::Temp qw( tempdir );
+	my $dir = tempdir("MBImport-XXXXXXXX", DIR => $tmpdir, CLEANUP => 1)
+		or die $!;
+
 	print localtime() . " : tar -C $dir --$mode -xvf $arg\n";
 	system "tar -C $dir --$mode -xvf $arg";
 	exit $? if $? >> 8;
 	$arg = $dir;
 }
+
+print localtime() . " : Validating snapshot\n";
+
+# We should have TIMESTAMP files, and they should all match.
+my $timestamp = read_all_and_check("TIMESTAMP") || "";
+# Old TIMESTAMP files used to have some blurb in front
+$timestamp =~ s/^This snapshot was taken at //;
+print localtime() . " : Snapshot timestamp is $timestamp\n";
+
+# We should also have SCHEMA_SEQUENCE files, which match.  Plus they must
+# match DBDefs::DB_SCHEMA_SEQUENCE.
+my $SCHEMA_SEQUENCE = read_all_and_check("SCHEMA_SEQUENCE") || 0;
+if ($SCHEMA_SEQUENCE != &DBDefs::DB_SCHEMA_SEQUENCE)
+{
+	printf STDERR "%s : Schema sequence mismatch - codebase is %d, snapshot files are %d\n",
+		scalar localtime,
+		&DBDefs::DB_SCHEMA_SEQUENCE,
+		$SCHEMA_SEQUENCE,
+		;
+	exit 1;
+}
+
+# We should have REPLICATION_SEQUENCE files, and they should all match too.
+my $iReplicationSequence = read_all_and_check("REPLICATION_SEQUENCE");
+print localtime() . " : This snapshot corresponds to replication sequence #$iReplicationSequence\n"
+	if $iReplicationSequence;
+print localtime() . " : This snapshot does not correspond to any replication sequence"
+	. " - you will not be able to update this database using replication\n"
+	if not $iReplicationSequence;
 
 use Time::HiRes qw( gettimeofday tv_interval );
 my $t0 = [gettimeofday];
@@ -120,6 +152,19 @@ print localtime() . " : import finished\n";
 my $dumptime = tv_interval($t0);
 printf "Loaded %d tables (%d rows) in %d seconds\n",
 	$tables, $totalrows, $dumptime;
+
+
+# Set replication_control.current_replication_sequence according to
+# REPLICATION_SEQUENCE.
+# This is necessary because if the server did an export --with-full-export
+# --without-replication, then replication_control.current_replication_sequence
+# would be invalid - we should trust the REPLICATION_SEQUENCE file instead.
+# The current_schema_sequence /is/ valid, however.
+$sql->AutoCommit;
+$sql->Do(
+	"UPDATE replication_control SET current_replication_sequence = ?",
+	$iReplicationSequence || 0,
+);
 
 exit($errors ? 1 : 0);
 
@@ -254,7 +299,7 @@ sub ImportAllTables
 		vote_open
 		wordlist
 	)) {
-		my $file = find_file($table);
+		my $file = (find_file($table))[0];
 		$file or print("No data file found for '$table', skipping\n"), next;
 
 		if ($table =~ /^(.*)_sanitised$/)
@@ -287,45 +332,47 @@ sub ImportAllTables
 sub find_file
 {
 	my $table = shift;
+	my @r;
 
 	for my $arg (@ARGV)
 	{
 		use File::Basename;
-		return $arg if -f $arg and basename($arg) eq $table;
-		return "$arg/$table" if -f "$arg/$table";
-		return "$arg/mbdump/$table" if -f "$arg/mbdump/$table";
+		push(@r, $arg), next if -f $arg and basename($arg) eq $table;
+		push(@r, "$arg/$table"), next if -f "$arg/$table";
+		push(@r, "$arg/mbdump/$table"), next if -f "$arg/mbdump/$table";
 	}
 
-	undef;
+	@r;
 }
 
+sub read_all_and_check
 {
-	my @tmpdirs;
+	my $file = shift;
 
-	END
+	my @files = find_file($file);
+	my %contents;
+	my %uniq;
+
+	for my $foundfile (@files)
 	{
-		use File::Path;
-		rmtree(\@tmpdirs);
+		open(my $fh, "<$foundfile") or die $!;
+		my $contents = do { local $/; <$fh> };
+		close $fh;
+		$contents{$foundfile} = $contents;
+		++$uniq{$contents};
 	}
 
-	sub make_tmp_dir
+	chomp(my @v = sort keys %uniq);
+
+	if (@v > 1)
 	{
-		for (my $i = 0; ; ++$i)
-		{
-			my $dir = "$tmpdir/mbimport-$$-$i";
-
-			if (mkdir $dir)
-			{
-				push @tmpdirs, $dir;
-				return $dir;
-			}
-			
-			use Errno 'EEXIST';
-			next if $! == EEXIST;
-
-			die "Error creating temporary directory ($!)";
-		}
+		print STDERR localtime(). " : Aborting import - your $file files don't match!\n";
+		print STDERR localtime(). " : The different $file files follow:\n";
+		print STDERR " $_\n" for @v;
+		exit 1;
 	}
+
+	$v[0];
 }
 
 # vi: set ts=4 sw=4 :
