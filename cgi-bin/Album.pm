@@ -294,9 +294,9 @@ sub GetAlbumIdsFromTrackId
    $sql = Sql->new($this->{DBH});
    if ($sql->Select(qq|select album.id
                          from AlbumJoin, Album 
-                        where track=$trackid and 
+                        where track=? and 
                               albumjoin.album = album.id
-                     order by album.attributes[1]|))
+                     order by album.attributes[1]|, $trackid))
    {
         while(@row = $sql->NextRow)
         {
@@ -316,8 +316,8 @@ sub GetAlbumIdsFromAlbumJoinId
    my (@albums, $sql, @row);
 
    $sql = Sql->new($this->{DBH});
-   if ($sql->Select(qq\select distinct album from AlbumJoin where 
-                       id=$joinid\))
+   if ($sql->Select("select distinct album from AlbumJoin where 
+                       id=?", $joinid))
    {
         while(@row = $sql->NextRow)
         {
@@ -396,10 +396,12 @@ sub GetAlbumListFromName
    return undef if (!exists $this->{artist} || $this->{artist} eq '');
 
    $sql = Sql->new($this->{DBH});
-   if ($sql->Select(qq|select gid, name
+   if ($sql->Select("select gid, name
                          from Album
-                        where name = | . $sql->Quote($name) . qq| and
-                              artist = | . $this->{artist}))
+                        where name = ? and
+                              artist = ?",
+		$name, $this->{artist},
+    ))
    {
        while(@row = $sql->NextRow())
        {
@@ -425,10 +427,10 @@ sub LoadTracks
                       Track.modpending, AlbumJoin.modpending, Track.GID 
                from   Track, AlbumJoin 
                where  AlbumJoin.track = Track.id
-                      and AlbumJoin.album = $this->{id} 
+                      and AlbumJoin.album = ?
              order by AlbumJoin.sequence|;
 
-   if ($sql->Select($query))
+   if ($sql->Select($query, $this->{id}))
    {
        for(;@row = $sql->NextRow();)
        {
@@ -470,9 +472,9 @@ sub LoadFull
    $di = Discid->new($this->{DBH});
    $query = qq|select id, name, artist, gid 
                  from Album 
-                where artist = $artist 
+                where artist = ?
                 order by lower(name), name|;
-   if ($sql->Select($query) && $sql->Rows)
+   if ($sql->Select($query, $artist) && $sql->Rows)
    {
        for(;@row = $sql->NextRow();)
        {
@@ -513,10 +515,10 @@ sub LoadTracksFromMultipleArtistAlbum
                       Artist.name, Track.gid 
                  from Track, AlbumJoin, Artist 
                 where AlbumJoin.track = Track.id and 
-                      AlbumJoin.album = $this->{id} and 
+                      AlbumJoin.album = ? and 
                       Track.Artist = Artist.id
              order by AlbumJoin.sequence/;
-   if ($sql->Select($query))
+   if ($sql->Select($query, $this->{id}))
    {
        for(;@row = $sql->NextRow();)
        {
@@ -548,12 +550,12 @@ sub LoadTRMCount
    $sql = Sql->new($this->{DBH});
    $query = qq|select AlbumJoin.track, count(TRMJoin.track) as num_trm 
                  from AlbumJoin, TRMJoin 
-                where AlbumJoin.album = $this->{id} and 
+                where AlbumJoin.album = ? and 
                       AlbumJoin.track = TRMJoin.track 
              group by AlbumJoin.track, AlbumJoin.sequence, albumjoin.id 
              order by AlbumJoin.sequence, AlbumJoin.id|;
 
-   if ($sql->Select($query))
+   if ($sql->Select($query, $this->{id}))
    {
        for(;@row = $sql->NextRow();)
        {
@@ -587,8 +589,8 @@ sub MergeAlbums
    # If we're merging into a MAC, then set this album to a MAC album
    if ($intoMAC)
    {
-      $sql->Do("update Album set artist = " . ModDefs::VARTIST_ID . 
-               " where id = " . $this->GetId());
+      $sql->Do("update Album set artist = ? WHERE id = ?",
+	&ModDefs::VARTIST_ID, $this->GetId);
    }
 
    $al = Album->new($this->{DBH});
@@ -636,7 +638,6 @@ sub MergeAlbums
 
    return 1;
 }
-
 
 # Pull back a section of various artist albums for the browse various display.
 # Given an index character ($ind), a page offset ($offset) and a page length
