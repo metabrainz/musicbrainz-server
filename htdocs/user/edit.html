@@ -82,7 +82,11 @@ if ($update)
 		}
     }
 
-    $ui->SetUserInfo($uid, $email, $weburl, $bio);
+    $info->SetUserInfo(
+		email => $email,
+		weburl => $weburl,
+		bio => $bio,
+	);
 
 	</%perl>
 

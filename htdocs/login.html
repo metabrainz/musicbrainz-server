@@ -77,11 +77,10 @@ if ($url eq '')
 
        if ($email eq '') 
        {
-           $me->SetUserInfo($session{uid}, $email);
+           $me->SetUserInfo(email => "");
            </%perl>
            <p>Your email address has been removed.</p>
            <%perl>
-
        } 
        else 
        {

@@ -53,8 +53,8 @@ if ($time + &DBDefs::EMAIL_VERIFICATION_TIMEOUT() < time())
     return undef;
 }
 
-my $info = $ui->GetUserInfo($uid);
-if (not defined $info)
+my $me = $ui->newFromId($uid);
+if (not $me)
 {
     $m->comp("/comp/sidebar", title => 'Verify EMail Address');
     </%perl>
@@ -64,9 +64,9 @@ if (not defined $info)
     return undef;
 }
 
-if ($ui->SetUserInfo($uid, $email))
+if ($me->SetUserInfo(email => $email))
 {
-    $ui->SetSession($info->{name}, $info->{privs}, $info->{uid}, 0);
+    $ui->SetSession($me->GetName, $me->GetPrivs, $uid, 0);
     $m->comp("/comp/sidebar", title => 'Verify EMail Address');
     </%perl>
     Your new email address has been saved. Thank you!<p>
