@@ -161,7 +161,7 @@ sub AllVotesForUser_as_hashref
 	$data = +{
 		map { $_->[0] => $_->[1] } @$rows
 	};
-	MusicBrainz::Server::Cache->set($key, $data, "1 hour");
+	MusicBrainz::Server::Cache->set($key, $data, 3600);
 	$data;
 }
 
@@ -185,7 +185,7 @@ sub RecentVotesForUser_as_hashref
 	$data = +{
 		map { $_->[0] => $_->[1] } @$rows
 	};
-	MusicBrainz::Server::Cache->set($key, $data, "1 hour");
+	MusicBrainz::Server::Cache->set($key, $data, 3600);
 	$data;
 }
 
