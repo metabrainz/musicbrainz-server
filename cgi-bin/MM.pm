@@ -146,6 +146,7 @@ sub CreateDenseTrackList
 
        $ar = Artist->new($this->{DBH});
        $ar->SetId($tr->GetArtist());
+       # TODO This is complaining about the ID being undef
        $ar->LoadFromId();
 
        $al = Album->new($this->{DBH});
