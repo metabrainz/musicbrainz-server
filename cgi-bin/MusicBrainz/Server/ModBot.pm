@@ -352,9 +352,10 @@ sub CheckModerations
 			{
 				$sql->Begin;
 
-				$mod->SetStatus(STATUS_DELETED);
+				$mod->SetStatus($newstate);
 				$mod->DeniedAction;
-				$mod->CloseModeration(STATUS_DELETED);
+				$newstate = $mod->GetStatus;
+				$mod->CloseModeration($newstate);
 
 				$sql->Commit;
 			};
@@ -374,7 +375,9 @@ sub CheckModerations
 			{
 				$sql->Begin;
 
+				$mod->SetStatus($newstate);
 				$mod->DeniedAction;
+				$newstate = $mod->GetStatus;
 				$user->CreditModerator($mod->GetModerator, $newstate);
 				$mod->CloseModeration($newstate);
 
@@ -403,9 +406,12 @@ sub CheckModerations
 					print localtime() . " : Closing mod #" . $mod->GetId()
 						. " (" . $status_name_from_number{$status} . ")\n";
 
-					++$count{$status};
+					$mod->SetStatus($status);
 					$mod->DeniedAction;
+					$status = $mod->GetStatus;
 					$mod->CloseModeration($status);
+					# FIXME missing CreditModerator call here?
+					++$count{$status};
 				}
 
 				$sql->Commit;
