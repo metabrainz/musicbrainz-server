@@ -870,6 +870,13 @@ sub GetModerationList
 sub CloseModeration
 {
 	my ($this, $status) = @_;
+	use Carp qw( confess );
+	confess "CloseModeration called where status is false"
+		if not $status;
+	confess "CloseModeration called where status is STATUS_OPEN"
+		if $status == STATUS_OPEN;
+	confess "CloseModeration called where status is STATUS_TOBEDELETED"
+		if $status == STATUS_TOBEDELETED;
 
 	# Decrement the mod count in the data row
 	$this->AdjustModPending(-1);
