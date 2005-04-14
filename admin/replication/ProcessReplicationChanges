@@ -208,6 +208,7 @@ sub mirrorCommand
 	my ($op, $result, $slave, $row, $transId)  = @_;
 
 	my $table = $row->[1];
+	$table =~ s/^"public"\.//;
 	my $t = ($bytable{$table} ||= [0,0,0]);
 
 	if($op eq 'i')
@@ -254,7 +255,7 @@ sub mirrorInsert
 		if(defined $recordValues{$column}) {
 			my $quotedValue = $recordValues{$column};
 			$quotedValue =~ s/\\/\\\\/g;
-			$quotedValue =~ s/'/\\'/g;
+			$quotedValue =~ s/'/\\047/g;
 			$valuesQuery .= "'$quotedValue'";
 		} else {
 			$valuesQuery .= "null";
@@ -344,7 +345,7 @@ sub mirrorUpdate
 	  if(defined $currentValue ) {
 	$quotedValue = $currentValue;
 	$quotedValue =~ s/\\/\\\\/g;
-	$quotedValue =~ s/'/\\'/g;
+	$quotedValue =~ s/'/\\047/g;
 	$updateQuery .= "'$quotedValue'";
 	}
 	  else {
@@ -365,7 +366,7 @@ sub mirrorUpdate
 	  if(defined $currentValue) {
 	$quotedValue = $currentValue;
 	$quotedValue =~ s/\\/\\\\/g;
-		$quotedValue =~ s/'/\\'/g;
+		$quotedValue =~ s/'/\\047/g;
 	$updateQuery .= "'$quotedValue'";
 	  }
 	  else {
