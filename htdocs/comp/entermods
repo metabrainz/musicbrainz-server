@@ -10,7 +10,7 @@ $show_failure_message => 1
 ref($DBH) or die;
 ref($sub) eq "CODE" or die;
 
-unless ($session{has_confirmed_email})
+if ($session{email_nag}) 
 {
     $m->comp("/comp/sidebar", title => "Moderation Error");
     $m->comp("/comp/stylemenu");

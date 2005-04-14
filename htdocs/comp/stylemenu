@@ -14,7 +14,7 @@
 </tr>
 </table>
 <& /comp/framedboxend &>
-% unless ($session{has_confirmed_email}) {
+% if ($session{email_nag}) {
 
 	<p class="notice">
 		<span style="color: red">You have not provided an email address!</span>

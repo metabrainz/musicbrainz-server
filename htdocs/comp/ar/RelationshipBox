@@ -134,11 +134,11 @@ else
 	   if ($item->{begindate} =~ /\S/ || $item->{enddate} =~ /\S/) 
 	   {
 			$m->out(' from '); 
-			if ($item->{begindate} =~ /\S/) 
+			if ($item->{begindate}) 
 			{
 				$m->out($item->{begindate});
 			}
-			if ($item->{enddate} =~ /\S/) 
+			if ($item->{enddate}) 
 			{
  			    $m->out(' until ' . $item->{enddate});
 			} 
@@ -177,7 +177,7 @@ elsif (scalar(@$recent_links) == 1)
 	 Create a relationship with:
 	 </p>
 	 <ul>
-	 <li><& /comp/ar/ShowEntityLink, simple=>0,
+	 <li><& /comp/ar/ShowEntityLink, 
 		    id=>$recent_links->[0][1],
 		    type=>$recent_links->[0][0],
 		    name=>$recent_links->[0][2] &>
@@ -213,7 +213,7 @@ elsif (scalar(@$recent_links) == 2)
 	 Create a relationship between:
 	 </p>
 	 <ul>
-	 <li><& /comp/ar/ShowEntityLink, simple=>0,
+	 <li><& /comp/ar/ShowEntityLink, 
 		    id=>$recent_links->[1][1],
 		    type=>$recent_links->[1][0],
 		    name=>$recent_links->[1][2] &>
@@ -224,7 +224,7 @@ elsif (scalar(@$recent_links) == 2)
 		    type=>$recent_links->[1][0],
 		    name=>$recent_links->[1][2],
 			isrelpage=>$isrelpage &> ]</li>
-	 <li><& /comp/ar/ShowEntityLink, simple=>0,
+	 <li><& /comp/ar/ShowEntityLink, 
 		    id=>$recent_links->[0][1],
 		    type=>$recent_links->[0][0],
 		    name=>$recent_links->[0][2] &>
@@ -259,7 +259,7 @@ else
 	 You have selected more than two elements. The last two elements are:
 	 </p>
 	 <ul>
-	 <li><& /comp/ar/ShowEntityLink, simple=>0,
+	 <li><& /comp/ar/ShowEntityLink, 
 		    id=>$recent_links->[1][1],
 		    type=>$recent_links->[1][0],
 		    name=>$recent_links->[1][2] &>
@@ -270,7 +270,7 @@ else
 		    type=>$recent_links->[1][0],
 		    name=>$recent_links->[1][2],
 			isrelpage=>$isrelpage &> ]</li>
-	 <li><& /comp/ar/ShowEntityLink, simple=>0,
+	 <li><& /comp/ar/ShowEntityLink, 
 		    id=>$recent_links->[0][1],
 		    type=>$recent_links->[0][0],
 		    name=>$recent_links->[0][2] &>

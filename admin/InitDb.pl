@@ -38,9 +38,6 @@ my $psql = "psql";
 my $with_replication = 0;
 my $path_to_pending_so;
 
-warn "Warning: DB_IS_REPLICATED is true, but there is no READONLY connection defined\n"
-	if $isrep and not $READONLY;
-
 use Getopt::Long;
 use strict;
 
@@ -209,8 +206,6 @@ sub CreateRelations
 
 sub GrantSelect
 {
-	return unless $READONLY;
-
 	my $mb = MusicBrainz->new;
 	$mb->Login(db => "READWRITE");
 	my $dbh = $mb->{DBH};
@@ -304,8 +299,7 @@ GetOptions(
 	"help|h"			=> \&Usage,
 ) or exit 2;
 
-die("Error: DB_IS_REPLICATED is true, and --with-replication specified\n")
-	if $isrep and $with_replication;
+Usage() if $isrep and $with_replication;
 
 SanityCheck();
 

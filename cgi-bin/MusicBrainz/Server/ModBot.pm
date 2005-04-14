@@ -223,7 +223,7 @@ sub CheckModerations
 			my $subscribers = $artist_subscribers{$mod->GetArtist} ||= do {
 				require UserSubscription;
 				my $us = UserSubscription->new($this->{DBH});
-				[ $us->GetSubscribersForArtist($mod->GetArtist) ];
+				$us->GetSubscribersForArtist($mod->GetArtist);
 			};
 
 			# Any subscribers other than the original moderator?
@@ -352,10 +352,9 @@ sub CheckModerations
 			{
 				$sql->Begin;
 
-				$mod->SetStatus($newstate);
+				$mod->SetStatus(STATUS_DELETED);
 				$mod->DeniedAction;
-				$newstate = $mod->GetStatus;
-				$mod->CloseModeration($newstate);
+				$mod->CloseModeration(STATUS_DELETED);
 
 				$sql->Commit;
 			};
@@ -375,9 +374,7 @@ sub CheckModerations
 			{
 				$sql->Begin;
 
-				$mod->SetStatus($newstate);
 				$mod->DeniedAction;
-				$newstate = $mod->GetStatus;
 				$user->CreditModerator($mod->GetModerator, $newstate);
 				$mod->CloseModeration($newstate);
 
@@ -406,12 +403,9 @@ sub CheckModerations
 					print localtime() . " : Closing mod #" . $mod->GetId()
 						. " (" . $status_name_from_number{$status} . ")\n";
 
-					$mod->SetStatus($status);
-					$mod->DeniedAction;
-					$status = $mod->GetStatus;
-					$mod->CloseModeration($status);
-					# FIXME missing CreditModerator call here?
 					++$count{$status};
+					$mod->DeniedAction;
+					$mod->CloseModeration($status);
 				}
 
 				$sql->Commit;

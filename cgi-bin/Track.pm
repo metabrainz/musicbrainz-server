@@ -469,11 +469,6 @@ sub Remove
     $trm->RemoveByTrackId($this->GetId());
 
     print STDERR "DELETE: Remove track " . $this->GetId() . "\n";
-    $sql->Do("DELETE FROM l_artist_track WHERE link1 = ?", $this->GetId);
-    $sql->Do("DELETE FROM l_album_track WHERE link1 = ?", $this->GetId);
-    $sql->Do("DELETE FROM l_track_track WHERE link0 = ?", $this->GetId);
-    $sql->Do("DELETE FROM l_track_track WHERE link1 = ?", $this->GetId);
-    $sql->Do("DELETE FROM l_track_url WHERE link0 = ?", $this->GetId);
     $sql->Do("DELETE FROM track WHERE id = ?", $this->GetId);
 
     # Remove references from track words table

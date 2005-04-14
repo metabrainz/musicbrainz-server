@@ -11,7 +11,6 @@ $enddate => [ ]
 $typechanged => 0
 $notetext => ""
 $confirm => 0
-$showres => 0
 </%args>
 <%perl>
 my $begindate_str = Artist::GetBeginDateName($type);
@@ -91,7 +90,7 @@ my $enddate_str = Artist::GetEndDateName($type);
 					</script>
         </td>
       </tr>
-% if ( $showres || $resolution ) {
+% if ( $confirm || $resolution ) {
 			<tr>
 				<td style="padding: 2ex 0" colspan="2">
 					<p>

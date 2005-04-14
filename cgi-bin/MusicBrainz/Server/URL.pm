@@ -46,36 +46,22 @@ sub SetDesc { $_[0]->{desc} = $_[1]; }
 sub GetDesc { return $_[0]->{desc}; }
 sub GetName { return $_[0]->GetURL; }
 
-sub newFromId
-{
-	my $self = shift;
-	$self = $self->new(shift) if not ref $self;
-	my $id = shift;
-
-	my $sql = Sql->new($self->{DBH});
-
-	my $row = $sql->SelectSingleRowHash(
-		"SELECT id, gid AS mbid, url, description, refcount, modpending
-		   FROM url
-		  WHERE id = ?",
-		$id,
-	) or return undef;
-
-	$row->{'desc'} = delete $row->{'description'};
-
-	$row->{DBH} = $self->{DBH};
-	bless $row, ref($self);
-	return $row;
-}
-
 sub LoadFromId
 {
 	my ($self) = @_;
+	my $sql = Sql->new($self->{DBH});
+   
+	my $row = $sql->SelectSingleRowArray(
+		"SELECT id, gid AS mbid, url, description, refcount, modpending
+		   FROM URL
+		  WHERE id = ?",
+		$self->GetId,
+	) or return undef;
 
-	my $obj = $self->newFromId($self->GetId)
-		or return undef;
+	@$self{qw(
+		id mbid url desc refcount modpending
+	)} = @$row;
 
-	%$self = %$obj;
 	return 1;
 }
 

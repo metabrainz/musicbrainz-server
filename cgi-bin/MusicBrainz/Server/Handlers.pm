@@ -79,13 +79,6 @@ sub TransHandler
 		my $depth = (defined($3) ? "&depth=$3" : "");
 		return use_new_uri($r, "/cgi-bin/rdf_2_1.pl?query=$what&id=$guid$depth");
 	}
-	# /mm-2.1/(artistrel|albumrel|trackrel)/$GUID
-	if ($uri =~ m[^/mm-2.1/(artistrel|albumrel|trackrel)/($GUID)\z])
-	{
-		my $what = $1;
-		my $guid = $2;
-		return use_new_uri($r, "/cgi-bin/rdf_2_1.pl?query=$what&id=$guid");
-	}
 
 	# /(artist|album|track)/$GUID [/$depth] [?query...]
 	# Includes mm-2.0 (RDF) and also can negotiate to HTML.

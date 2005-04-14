@@ -1,5 +1,5 @@
 %# vi: set ts=4 sw=4 ft=mason :
-% my ($al, $ar, $name, $sortname, $artistid) = @_ or return;
+% my ($al, $ar, $name, $sortname) = @_ or return;
 <& /comp/sidebar, title => 'Move Album' &>
 
 <h2>Confirm Move Album</h2>
@@ -33,7 +33,6 @@
 		<input type="hidden" name="album" value="<% $al->GetId %>">
 		<input type="hidden" name="newartistname" value="<% $name %>">
 		<input type="hidden" name="newartistsortname" value="<% $sortname %>">
-		<input type="hidden" name="newartistid" value="<% $artistid %>">
 		<input type="submit" value="YES &gt;&gt;">
 	</div>
 

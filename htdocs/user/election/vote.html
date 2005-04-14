@@ -42,7 +42,7 @@ eval {
 	$sql->AutoTransaction(
 		sub {
 			$ok = $el->CastVote($session{uid}, $new_vote);
-			$error = $@;
+			warn($error = "$@");
 		},
 	);	
 };

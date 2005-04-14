@@ -25,7 +25,9 @@ if ($err ne "")
 	return;
 }
 
-$userobj->SetSession;
+# Suppress the e-mail nag; the account is always created without the e-mail
+# address (it's added further down this page).
+$userobj->SetSession(email_nag => 0);
 
 $m->comp('/comp/sidebar', title => "MusicBrainz account created!");
 

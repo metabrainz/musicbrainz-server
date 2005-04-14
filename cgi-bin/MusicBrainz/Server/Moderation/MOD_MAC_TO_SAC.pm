@@ -42,11 +42,9 @@ sub PreInsert
 	my $al = $opts{album} or die;
 	my $sortname = $opts{artistsortname} or die;
 	my $name = $opts{artistname};
-    my $artistid = $opts{artistid};
 
 	my $new = $sortname;
 	$new .= "\n$name" if defined $name and $name =~ /\S/;
-    $new .= "\n$artistid";
 
 	$self->SetTable("album");
 	$self->SetColumn("artist");
@@ -60,14 +58,7 @@ sub PostLoad
 	my $this = shift;
 
 	# new.name might be undef (in which case, name==sortname)
-  	@$this{qw( new.sortname new.name new.artistid)} = split /\n/, $this->GetNew;
-
-    # If the name was blank and the new artist id ended up in its slot, swap the two values
-    if ($this->{'new.name'} =~ /\d+/ && !defined $this->{'new.artistid'})
-    {
-        $this->{'new.artistid'} = $this->{'new.name'};
-        $this->{'new.name'} = undef;
-    }
+  	@$this{qw( new.sortname new.name )} = split /\n/, $this->GetNew;
 }
 
 sub CheckPrerequisites
@@ -104,27 +95,15 @@ sub ApprovedAction
 	my $status = $this->CheckPrerequisites;
 	return $status if $status;
 
-    my $newid;
-    my $name = $this->{'new.name'};
-    if (defined $this->{'new.artistid'})
-    {
-        $newid = $this->{'new.artistid'};
-    }
-    else
-    {
-        # Find the ID of the named artist
-        $name = $this->{'new.sortname'}
-            unless defined $name;
+	# Find the ID of the named artist
+	my $name = $this->{'new.name'};
+	$name = $this->{'new.sortname'}
+		unless defined $name;
 
-        # This is for old (open) moderations before the AR release move album fix goes int.
-        # The idea is to prefer artists with lower ids, since they were added first (when
-        # artist names were still unique.
-        my $ids = $sql->SelectSingleColumnArray(
-            "SELECT id FROM artist WHERE name = ? order by artist.id",
-            $name,
-        );
-        $newid = $ids->[0];
-    }
+	my $newid = $sql->SelectSingleValue(
+		"SELECT id FROM artist WHERE name = ?",
+		$name,
+	);
 
 	if (not defined $newid)
 	{

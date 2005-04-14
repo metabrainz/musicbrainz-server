@@ -199,7 +199,7 @@ sub CreateDenseAlbum
 	require Album;
 	my $al = Album->new($this->{DBH});
 	$al->SetMBId($id);
-	$al->LoadFromId(1);
+	$al->LoadFromId;
 
 	require Artist;
 	my $ar = Artist->new($this->{DBH});

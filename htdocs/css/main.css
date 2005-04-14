@@ -492,12 +492,12 @@ table.votechoice label
 	display: block;
 	text-weight: bold;
 	padding: 3px;
-	border: thin solid transparent;
+	border: 1px transparent;
 }
 
 table.votechoice label:hover
 {
-	border: thin dotted #999;
+	border: 1px #999 dotted;
 }
 
 /* eof */

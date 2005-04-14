@@ -96,7 +96,7 @@ sub Insert
 
 	# Make sure we have the most up-to-date status, so we get the correct
 	# table (open/closed)
-	$moderation = $moderation->CreateFromId($moderation->GetId);
+	$moderation->Refresh;
 	my $openclosed = ($moderation->IsOpen ? "open" : "closed");
 
 	# For moderation and vote, rows only ever get added to _open, then moved

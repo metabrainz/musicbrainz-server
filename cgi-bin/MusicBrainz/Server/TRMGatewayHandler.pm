@@ -43,11 +43,6 @@ sub handler
 {
 	my $r = shift;
 
-	my $SIGSERVER_HOST = $r->dir_config('TRMServerHost');
-	my $SIGSERVER_PORT = $r->dir_config('TRMServerPort');
-	return server_error($r, "TRM server host/port not configured")
-		unless $SIGSERVER_HOST and $SIGSERVER_PORT;
-
 	my $MAX_SIGSERVERS = $r->dir_config('MaxSigServers') || 10;
 	my $LOOKUP_TIMEOUT = $r->dir_config('LookupTimeout') || 10;
 	my $COLLECT_STATS = $r->dir_config('CollectSigserverStats');
@@ -118,7 +113,7 @@ sub handler
 		# lprint "TRMGatewayHandler" "$newcount sigservers";
 	}
 
-	my $gateway = get_gateway($SIGSERVER_HOST, $SIGSERVER_PORT);
+	my $gateway = get_gateway();
 	unless ($gateway)
 	{
 		not($memc)
@@ -206,19 +201,6 @@ sub handler
 	OK;
 }
 
-sub server_error
-{
-	my $r = shift;
-	my $msg = shift;
-	$r->status(HTTP_INTERNAL_SERVER_ERROR);
-	$r->send_http_header("text/plain");
-
-	$r->print($msg || "Unspecified internal server error\n")
-		unless $r->header_only;
-
-	OK;
-}
-
 sub fail
 {
 	my $r = shift;
@@ -235,44 +217,42 @@ sub fail
 
 {
 	our $gateway;
-	our $localport;
+	our $port;
 
 	sub get_gateway
 	{
-		my ($host, $port) = @_;
-
 		if ($gateway)
 		{
 			return $gateway unless $gateway->has_disconnected;
-			lprint "TRMGatewayHandler", "Gateway to $host:$port on local port $localport has become disconnected - reconnecting";
-			$gateway = $localport = undef;
+			lprint "TRMGatewayHandler", "Gateway on local port $port has become disconnected - reconnecting";
+			$gateway = $port = undef;
 		} else {
-			lprint "TRMGatewayHandler", "Attempting to connect to gateway $host:$port ...";
+			lprint "TRMGatewayHandler", "Attempting to connect to gateway ...";
 		}
 		
 		alarm 0;
 		$SIG{ALRM} = sub { die "ALARM\n" };
 		alarm 10;
-		eval { $gateway = MusicBrainz::Server::TRMGateway->new($host, $port) };
+		eval { $gateway = MusicBrainz::Server::TRMGateway->new("10.1.1.2", 4447) };
 		my $err = $@;
 		$SIG{ALRM} = 'IGNORE';
 		alarm 0;
 
 		if ($err eq "ALARM\n")
 		{
-			lprint "TRMGatewayHandler", "Timeout connecting to gateway $host:$port";
+			lprint "TRMGatewayHandler", "Timeout connecting to gateway";
 			return($gateway = undef);
 		}
 
 		if ($err)
 		{
 			chomp $err;
-			lprint "TRMGatewayHandler", "Error connecting to gateway $host:$port ($err)";
+			lprint "TRMGatewayHandler", "Error connecting to gateway ($err)";
 			return($gateway = undef);
 		}
 
-		$localport = $gateway->{SOCK}->sockport;
-		lprint "TRMGatewayHandler", "Connected to gateway $host:$port (local port $localport)";
+		$port = $gateway->{SOCK}->sockport;
+		lprint "TRMGatewayHandler", "Connected to gateway (local port $port)";
 		return $gateway;
 	}
 
@@ -280,9 +260,9 @@ sub fail
 	{
 		if ($gateway)
 		{
-			lprint "TRMGatewayHandler", "Disconnecting from gateway (local port $localport)";
+			lprint "TRMGatewayHandler", "Disconnecting from gateway (local port $port)";
 		}
-		$gateway = $localport = undef;
+		$gateway = $port = undef;
 	}
 }
 

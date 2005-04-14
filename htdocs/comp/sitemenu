@@ -55,8 +55,6 @@ use Scalar::Util qw( reftype weaken );
 		],
 		{ name => "Server Updates",			url => "/news/server.html" },
 		[
-			{ name => "2005-04-10",				url => "/news/20050410-1.html" },
-			{ name => "2005-02-27",				url => "/news/20050227-1.html" },
 			{ name => "2005-02-13",				url => "/news/20050205-1.html" },
 			{ name => "2005-01-25",				url => "/news/20050125-1.html" },
 			{ name => "2004-12-22",				url => "/news/20041222-1.html" },

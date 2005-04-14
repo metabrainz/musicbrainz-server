@@ -3,13 +3,14 @@
 $id
 $name
 $type
-$simple=>1
+$simple=>0
 $url=>""
 </%args>
 
-% if (!$simple) {
-    <% ucfirst($type) . ":" %>
-% } 
+%my $label = $type;
+%$label = ucfirst($type) . ":" if (!$simple);
+
+<% $label %>
 % if ($type eq 'artist') {
     <a href="/showartist.html?artistid=<% $id %>"><% $name %></a> 
 % } elsif ($type eq 'album') {

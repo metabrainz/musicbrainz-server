@@ -19,10 +19,10 @@ $m->comp("/comp/checkloggedin", 1, 1)
 	 	<frame name="mb" src="top.html">
 		<frame name="freedb"
 % if ($search eq '') {
-      			src="http://www.freedb.org/freedb_search.php"
+		  src="http://search.musicbrainz.org/cgi-bin/freedbsearch.py"
 % } else {
-		    		src="http://www.freedb.org/freedb_search.php?words=<% uri_escape($search) %>&amp;allfields=NO&amp;fields=artist&amp;fields=title&amp;allcats=YES&amp;grouping=none"
+		  src="http://search.musicbrainz.org/cgi-bin/freedbsearch.py?limit=25&search=<% uri_escape($search) %>"
 % }
-		>
+			>
 	</frameset>
 </html>

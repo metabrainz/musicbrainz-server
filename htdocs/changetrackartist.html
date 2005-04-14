@@ -37,7 +37,6 @@ $al->LoadFromId
 
 my @tracks = $al->LoadTracks();
 my $track = $tracks[$tindex];
-my $newartistid = -1;
 
 my $url = (
 	$ARGS{solo}
@@ -61,7 +60,6 @@ if ($selectedartist ne "")
 
 	$newartistname = $target->GetName;
 	$newartistsortname = $target->GetSortName;
-	$newartistid = $target->GetId;
 }
 
 if ($newartistname =~ /\S/ and $newartistsortname =~ /\S/)
@@ -76,7 +74,8 @@ if ($newartistname =~ /\S/ and $newartistsortname =~ /\S/)
 		);
 
 	return $m->comp("/comp/redirect", $url)
-		if $newartistid == $ar->GetId;
+		if $newartistname eq $ar->GetName
+		and $newartistsortname eq $ar->GetSortName;
 
 	$m->comp(
 		"/comp/entermods",
@@ -90,7 +89,6 @@ if ($newartistname =~ /\S/ and $newartistsortname =~ /\S/)
 				# --
 				track => $track,
 				oldartist => $ar,
-				artistid => $newartistid,
 				artistname => $newartistname,
 				artistsortname => $newartistsortname,
 				# TODO depmod on $modid ?

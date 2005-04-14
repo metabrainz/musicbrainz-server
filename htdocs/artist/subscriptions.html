@@ -9,8 +9,7 @@ if (MusicBrainz::IsNonNegInteger($artist)) { $id = $artist }
 elsif (MusicBrainz::IsGUID($artist)) { $mbid = $artist }
 else { return $m->comp("/comp/badargs", 1, 1) }
 
-return $m->comp("/comp/error", "Public subscription lists are not released until Tue Mar 15 20:30:00 2005 UTC", 1, 1)
-	unless time() >= 1110918600;
+return $m->comp("/comp/error", "Public subscription lists are not yet released", 1, 1);
 
 my $mb = $m->comp("/comp/dblogin");
 
@@ -32,60 +31,6 @@ $m->comp(
 
 $m->comp("/comp/artisttitle", artist=>$artist);
 
-my @uids = $artist->GetSubscribers;
-
-my $my_uid = $session{uid} || 0;
-my @public;
-my $private = 0;
-
-for my $uid (@uids)
-{
-	my $user = UserStuff->newFromId($mb->{DBH}, $uid)
-		or next;
-
-	my $is_me = ($uid == $my_uid);
-	my $is_public = ($is_me or UserPreference::get_for_user("subscriptions_public", $user));
-
-	if ($is_public)
-	{
-		my $n = MusicBrainz::NormaliseSortText($user->GetName);
-		push @public, [$user->GetId, $user->GetName, $n];
-	}
-	else
-	{
-		++$private;
-	}
-}
-
-@public = sort { $a->[2] cmp $b->[2] } @public;
-
-my $private_str = sprintf "%d anonymous subscriber%s",
-	$private, $private==1 ? "" : "s";
-
 </%perl>
-
-<h2>Editors subscribed to this artist</h2>
-
-% if (@public) {
-
-<p>
-<%perl>
-my $i = 0;
-for (@public)
-{
-	my ($uid, $name) = @$_;
-	$m->out(", ") if $i;
-	</%perl><a href="/user/view.html?uid=<% $uid %>"><% $name %></a><%perl>
-	++$i;
-}
-$m->out(" plus $private_str") if $private;
-</%perl>
-.</p>
-
-% } elsif ($private) {
-<p><% $private_str %></p>
-% } else {
-<p>None</p>
-% }
 
 <& /comp/footer &>
