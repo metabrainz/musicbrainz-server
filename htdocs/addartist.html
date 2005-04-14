@@ -37,30 +37,23 @@ my $mb = $m->comp("/comp/dblogin");
 
 # Try to load the named artist by name. If an artist comes up, give the user a stern warning
 # about adding a duplicate artist.
-my ($samecheck, $same) = (1,0);
-my $ar = Artist->new($mb->{DBH});
-if ($name)
+my @dupes;
+
+if ($name ne "")
 {
+		my $ar = Artist->new($mb->{DBH});
 	  my $artists = $ar->GetArtistsFromName($name);
-		if (scalar(@$artists))
-		{
-			  foreach my $item (@$artists)
-				{
-						$same = lc($item->GetName) eq lc($name);
-						$samecheck = ($same && $resolution ne '' && $confirm ne '') ? 1 : 0 if ($same);
-						if ($same)
-						{
-							 $ar = $item;
-							 last;
-						}
-				}
-		}
+
+		my $norm_name = MusicBrainz::NormaliseSortText($name);
+		@dupes = grep {
+			MusicBrainz::NormaliseSortText($_->GetName) eq $norm_name
+		} @$artists;
 }
 
 # If anything has been filled in, the user has clicked 'submit'.
 # We only accept valid dates or no dates at all.
 if ($name =~ m/\S/ 
-    and $samecheck
+		and (not(@dupes) or ($resolution ne "" and $confirm ne ""))
 		and not $typechanged
 	  and MusicBrainz::IsValidDateOrEmpty($begindate_y, $begindate_m, $begindate_d)
 	  and MusicBrainz::IsValidDateOrEmpty($enddate_y, $enddate_m, $enddate_d)
@@ -69,7 +62,7 @@ if ($name =~ m/\S/
   	and Artist::IsValidType($type) )
 {
   # If the artist is not deemed to be the same as another artist, don't save the comment
-  $resolution = "" if (!$same);
+  $resolution = "" if not @dupes;
 
 	my $ret = $m->comp(
 		"/comp/entermods",
@@ -131,23 +124,48 @@ unless (
 	</p>
 % }
 
-% if ($ar->GetId) {
+<%def .ShowArtistLink>
+<a href="/artist/<% $_[0]->GetMBId %>.html"><% $_[0]->GetName %></a>\
+</%def>
+
+% if (@dupes) {
 	<div style="border-width: 2px; border-style: dotted; border-color: red; margin: 1em; padding: 1em;">
   <p>
   <span style="color: red; font-weight: bold;">Warning!</span> You are attempting to add the artist "<% $name %>"
-	which is very similar, if not exactly the same as the existing artist <a href="/artist/<% $ar->GetMBId %>.html"><% $ar->GetName %></a>.
+	which is very similar, if not exactly the same as
+	<span id="AddArtistExistingList">existing
+% if (@dupes == 1) {
+		another artist called <& .ShowArtistLink, $dupes[0] &>.
+% } else {
+		these artists called
+	<%perl>
+	for my $i (0..$#dupes) {
+		$m->out(", ") if $i;
+		$m->out("and ") if $i == $#dupes;
+		$m->comp(".ShowArtistLink", $dupes[$i]);
+	}
+	</%perl>.
+% }
+		</span>
 	</p>
 
 	<p>
-	If you are certain that you want to add this artist, please check the <b>confirm</b> checkbox below,
-	and submit this page again.
-  </p>
+	If you are certain that you want to add this artist, then:
+	</p>
 
-% if (!$resolution && lc($ar->GetName) eq lc($name)) {
-     <p>
-     You <b>must</b> provide a comment to distinguish this new artist from artist <a href="/artist/<% $ar->GetMBId %>.html"><% $ar->GetName %></a>.
-     </p>
+	<ul>
+		<li> 
+			you <b>must</b> provide a comment to distinguish this new artist from
+% if (@dupes == 1) {
+			the other artist called <& .ShowArtistLink, $dupes[0] &>;
+% } else {
+			the other similarly-named artists;
 % }
+		</li>
+		<li>
+			you must also check the <b>confirm</b> checkbox below.
+		</li>
+	</ul>
 	</div>
 % }
 
@@ -164,7 +182,8 @@ unless (
 		begindate		=> [ $begindate_y, $begindate_m, $begindate_d ],
 		enddate			=> [ $enddate_y, $enddate_m, $enddate_d ],
 		notetext		=> $notetext,
-		confirm     => $same,
+		confirm     => (@dupes > 0),
+		showres     => (@dupes > 0),
 &>
 
 <& /comp/footer &>

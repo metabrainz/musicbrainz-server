@@ -19,6 +19,7 @@ return if $m->cache_self(
 				[ "Artists", $stats{'count.artist'} ],
 				[ "Albums", $stats{'count.album'} ],
 				[ "Tracks", $stats{'count.track'} ],
+				[ "Links", $stats{'count.ar.links'} ],
 				[ "Discids", $stats{'count.discid'} ],
 				[ "TRM Ids", $stats{'count.trm'} ],
 				[ "Mods", $stats{'count.moderation'} ],

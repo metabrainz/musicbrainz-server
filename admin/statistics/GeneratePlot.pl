@@ -175,6 +175,7 @@ EOF
 count_and_delta("count.artist");
 count_and_delta("count.album");
 count_and_delta("count.track");
+count_and_delta("count.ar.links");
 count_and_delta("count.trm");
 count_and_delta("count.discid");
 count_and_delta("count.moderator");

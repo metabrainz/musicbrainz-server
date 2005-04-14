@@ -142,6 +142,7 @@ $ar->SetSortName($edit->{"artist"}{"sortname"});
 		<tr>
 			<td><a href="/showalbum.html?albumid=<% $edit->{'id'} %>">Album</a>:</td>
 			<td><input type="text" name="album" style="width: 100%"
+				maxlength="255"
 				value="<% $edit->{'name'} %>"></td>
 			<td></td>
 			<td align="center"><input type="button" value="Guess Case"

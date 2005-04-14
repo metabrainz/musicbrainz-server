@@ -95,6 +95,25 @@ sub Transform
 }
 
 ################################################################################
+
+sub AllLinkTypes
+{
+	my $class = shift;
+	my @all;
+
+	for my $l0 ($class->Types)
+	{
+		for my $l1 ($class->Types)
+		{
+			next if $l1 lt $l0;
+			push @all, [ $l0, $l1 ];
+		}
+	}
+
+	return \@all;
+}
+
+################################################################################
 package MusicBrainz::Server::LinkEntity::Album;
 MusicBrainz::Server::LinkEntity->Register(__PACKAGE__);
 ################################################################################

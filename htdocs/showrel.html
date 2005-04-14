@@ -1,7 +1,7 @@
 %# vi: set ts=4 sw=4 ft=mason :
 <%args>
-$id
-$type
+$id=>-1
+$type=>''
 $addrel=>0
 $remrel=>-1
 $remtype=>""
@@ -12,6 +12,8 @@ $expanded=>0
 
 MusicBrainz::IsNonNegInteger($id) && $id
 	or return $m->comp("/comp/badargs", 1, 1);
+
+return $m->comp("/comp/badargs", 1, 1) if ($type eq '');
 
 my $mb = $m->comp("/comp/dblogin");
 my $obj;
@@ -27,6 +29,10 @@ elsif ($type eq 'album')
 elsif ($type eq 'track')
 {
    $obj = Track->new($mb->{DBH});
+}
+elsif ($type eq 'url')
+{
+   $obj = MusicBrainz::Server::URL->new($mb->{DBH});
 }
 else
 {
@@ -44,6 +50,12 @@ $obj->LoadFromId(1)
 		"$type not found in the database.",
 		1, 1,
 	);
+
+if ($type eq 'url')
+{
+    $m->comp("/comp/redirect", $obj->GetURL);
+	return;
+}
 
 my $title = ("Relationships for $type " . $obj->GetName());
 $m->comp("/comp/sidebar", pagetitle => $title, title => $title);

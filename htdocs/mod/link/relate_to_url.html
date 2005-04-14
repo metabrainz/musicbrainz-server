@@ -164,7 +164,6 @@ my $root = $link->Root;
 %             while (my $l = shift @q) {
 %                 unshift @q, map { [$_,$l->[1]+1] } $l->[0]->Children;
 %                 next if ($l->[0]->GetName eq 'ROOT');
-% print STDERR $l->[0]->GetId ." - ". $linktype . "\n";
                  <option value="<% $l->[0]->GetId %>|<% $l->[0]->GetAttributes() %>|<% $l->[0]->GetDescription() %>" <% $l->[0]->GetId eq $linktype ? 'selected=""' : '' %>
 %                my $text = $l->[0]->GetLinkPhrase;
 %                $text =~ s/\{(\w+:)/{/;

@@ -383,6 +383,11 @@ sub Remove
     MusicBrainz::Server::Annotation->DeleteAlbum($this->{DBH}, $album);
 
     print STDERR "DELETE: Removed Album " . $album . "\n";
+    $sql->Do("DELETE FROM l_album_artist WHERE link0 = ?", $album);
+    $sql->Do("DELETE FROM l_album_album WHERE link0 = ?", $album);
+    $sql->Do("DELETE FROM l_album_album WHERE link1 = ?", $album);
+    $sql->Do("DELETE FROM l_album_track WHERE link0 = ?", $album);
+    $sql->Do("DELETE FROM l_album_url WHERE link0 = ?", $album);
     $sql->Do("DELETE FROM album WHERE id = ?", $album);
 
     return 1;

@@ -631,7 +631,7 @@ sub AuthenticateQuery
    require UserStuff;
    $us = UserStuff->new($dbh);
    ($pass, $uid) = $us->GetUserPasswordAndId($username);
-   if (!defined $pass)
+   if (not defined($pass) or $pass eq UserStuff->LOCKED_OUT_PASSWORD)
    {
        return $rdf->ErrorRDF("Unknown user.")
    }

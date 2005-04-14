@@ -493,6 +493,78 @@ my %stats = (
 	#   - open and accepted last week
 	#   - accepted all time
 	# Top 10 voters all time
+
+	"count.ar.links" => {
+		DESC => "Count of all Advanced Relationships links",
+		CALC => sub {
+			my ($self, $sql) = @_;
+			my %r;
+			$r{'count.ar.links'} = 0;
+
+			require MusicBrainz::Server::LinkEntity;
+
+			for my $t (@{ MusicBrainz::Server::LinkEntity->AllLinkTypes })
+			{
+				require MusicBrainz::Server::Link;
+				my $l = MusicBrainz::Server::Link->new($sql->{DBH}, $t);
+				my $n = $l->CountLinksByType;
+				$r{"count.ar.links.".$l->Table} = $n;
+				$r{'count.ar.links'} += $n;
+			}
+
+			return \%r;
+		},
+	},
+	"count.ar.links.l_album_album" => {
+		DESC => "Count of album-album Advanced Relationships links",
+		PREREQ => [qw[ count.ar.links ]],
+		PREREQ_ONLY => 1,
+	},
+	"count.ar.links.l_album_artist" => {
+		DESC => "Count of album-artist Advanced Relationships links",
+		PREREQ => [qw[ count.ar.links ]],
+		PREREQ_ONLY => 1,
+	},
+	"count.ar.links.l_album_track" => {
+		DESC => "Count of album-track Advanced Relationships links",
+		PREREQ => [qw[ count.ar.links ]],
+		PREREQ_ONLY => 1,
+	},
+	"count.ar.links.l_album_url" => {
+		DESC => "Count of album-url Advanced Relationships links",
+		PREREQ => [qw[ count.ar.links ]],
+		PREREQ_ONLY => 1,
+	},
+	"count.ar.links.l_artist_artist" => {
+		DESC => "Count of artist-artist Advanced Relationships links",
+		PREREQ => [qw[ count.ar.links ]],
+		PREREQ_ONLY => 1,
+	},
+	"count.ar.links.l_artist_track" => {
+		DESC => "Count of artist-track Advanced Relationships links",
+		PREREQ => [qw[ count.ar.links ]],
+		PREREQ_ONLY => 1,
+	},
+	"count.ar.links.l_artist_url" => {
+		DESC => "Count of artist-url Advanced Relationships links",
+		PREREQ => [qw[ count.ar.links ]],
+		PREREQ_ONLY => 1,
+	},
+	"count.ar.links.l_track_track" => {
+		DESC => "Count of track-track Advanced Relationships links",
+		PREREQ => [qw[ count.ar.links ]],
+		PREREQ_ONLY => 1,
+	},
+	"count.ar.links.l_track_url" => {
+		DESC => "Count of track-url Advanced Relationships links",
+		PREREQ => [qw[ count.ar.links ]],
+		PREREQ_ONLY => 1,
+	},
+	"count.ar.links.l_url_url" => {
+		DESC => "Count of url-url Advanced Relationships links",
+		PREREQ => [qw[ count.ar.links ]],
+		PREREQ_ONLY => 1,
+	},
 );
 
 sub RecalculateStat

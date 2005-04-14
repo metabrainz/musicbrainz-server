@@ -90,8 +90,12 @@ sub PreInsert
 sub PostLoad
 {
 	my $self = shift;
+	# The "new" column has three versions:
+	# 1. the word "DELETE"
+	# 2. blank
+	# 3. a hash of AlbumName,AlbumId,FullTOC,CDTOCId.
 	$self->{'new_unpacked'} = $self->ConvertNewToHash($self->GetNew)
-		or die;
+		|| {};
 }
 
 # This implementation is required (instead of the default) because old rows

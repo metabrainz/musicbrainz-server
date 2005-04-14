@@ -27,7 +27,7 @@ use strict;
 
 package MusicBrainz::Server::Moderation::MOD_MOVE_DISCID;
 
-use ModDefs;
+use ModDefs qw( :modstatus MODBOT_MODERATOR );
 use base 'Moderation';
 
 sub Name { "Move Disc ID" }
@@ -145,6 +145,34 @@ sub DeniedAction
 {
 	my $self = shift;
 	my $new = $self->{'new_unpacked'};
+
+	# Check that the album_cdtoc row still exists
+	require MusicBrainz::Server::AlbumCDTOC;
+	my $album_cdtoc = MusicBrainz::Server::AlbumCDTOC->newFromId($self->{DBH}, $self->GetRowId)
+		or do {
+			$self->InsertNote(MODBOT_MODERATOR, "This disc ID has been deleted");
+			$self->SetStatus(STATUS_FAILEDDEP);
+			return;
+		};
+
+	# Check that the album_cdtoc row still points to the old album
+	unless ($album_cdtoc->GetAlbumId == $self->GetPrev)
+	{
+		$self->InsertNote(MODBOT_MODERATOR, "The source album has been deleted");
+		$self->SetStatus(STATUS_FAILEDDEP);
+		return;
+	}
+
+	# Check that the new album still exists
+	require Album;
+	my $al = Album->new($self->{DBH});
+	$al->SetId($new->{NewAlbumId});
+	unless ($al->LoadFromId)
+	{
+		$self->InsertNote(MODBOT_MODERATOR, "The destination album has been deleted");
+		$self->SetStatus(STATUS_FAILEDDEP);
+		return;
+	}
 
 	require MusicBrainz::Server::AlbumCDTOC;
 

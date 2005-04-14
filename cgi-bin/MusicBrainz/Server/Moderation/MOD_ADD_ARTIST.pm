@@ -134,13 +134,7 @@ sub DeniedAction
   	my $self = shift;
 	my $newval = $self->{'new_unpacked'};
 
-	if (my $artist = $newval->{'ArtistId'})
-	{
-		require Artist;
-		my $ar = Artist->new($self->{DBH});
-		$ar->SetId($artist);
-		$ar->Remove;
-   }
+	# Do nothing - the cleanup script will handle this
 }
 
 1;

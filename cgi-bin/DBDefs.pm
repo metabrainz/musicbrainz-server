@@ -76,7 +76,7 @@ MusicBrainz::Server::Database->register_all(
 
 # The schema sequence number.  Must match the value in
 # replication_control.current_schema_sequence.
-sub DB_SCHEMA_SEQUENCE { 4 }
+sub DB_SCHEMA_SEQUENCE { 5 }
 
 # Replication slaves should prevent users from making any changes to the
 # database.  Note that this setting is closely tied to the "READONLY" key,

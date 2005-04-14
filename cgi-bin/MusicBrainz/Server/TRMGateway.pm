@@ -87,7 +87,7 @@ sub request
 
 	local $/ = \64;
 	my $response = <$sock>;
-	length($response) == 64 or die;
+	length($response) == 64 or die "Expected 64 bytes, got ".length($response);
 
 	$response;
 }

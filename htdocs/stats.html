@@ -59,6 +59,10 @@ my $pc = sub
 		<td class="NumberCell"><% $stats{"count.track"} %></td>
 	</tr>
 	<tr>
+		<th class="StatName">Links</th>
+		<td class="NumberCell"><% $stats{"count.ar.links"} %></td>
+	</tr>
+	<tr>
 		<th class="StatName">TRMs</th>
 		<td class="NumberCell"><% $stats{"count.trm"} %></td>
 	</tr>
@@ -375,6 +379,7 @@ for my $n (qw(
 	count.track
 	count.trm
 	count.discid
+	count.ar.links
 	count.moderator
 	count.moderation
 	count.vote

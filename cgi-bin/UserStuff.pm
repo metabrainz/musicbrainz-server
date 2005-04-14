@@ -39,6 +39,8 @@ use Carp;
 use String::Unicode::Similarity;
 use Encode qw( decode );
 
+use constant LOCKED_OUT_PASSWORD => "";
+
 use constant AUTOMOD_FLAG => 1;
 use constant BOT_FLAG => 2;
 use constant UNTRUSTED_FLAG => 4;
@@ -285,6 +287,8 @@ sub Login
 	return if $id == &ModDefs::FREEDB_MODERATOR;
 	return if $id == &ModDefs::MODBOT_MODERATOR;
 
+	return if $self->GetPassword eq LOCKED_OUT_PASSWORD;
+
 	# Maybe this should be unicode, but a byte-by-byte comparison of passwords
 	# is probably not a bad thing.
 	return unless $self->GetPassword eq $pwd;
@@ -454,6 +458,10 @@ sub SetUserInfo
 	$self->InvalidateCache if $ok;
 	# This also refreshes the cache for the ID, and for the (new) name
 	$self->Refresh if $ok;
+
+	my $session = $self->GetSession;
+	$session->{has_confirmed_email} = ($self->GetEmail ? 1 : 0)
+		if exists $session->{has_confirmed_email};
 
 	$ok;
 }
@@ -1109,10 +1117,6 @@ sub SetSession
 {
 	my ($self, %opts) = @_;
 
-	my $email_nag = $opts{email_nag};
-	$email_nag = ($self->GetEmailStatus eq "missing")
-		unless exists $opts{email_nag};
-
 	my $session = GetSession();
 
 	$self->EnsureSessionOpen;
@@ -1121,7 +1125,7 @@ sub SetSession
 	$session->{privs} = $self->GetPrivs;
 	$session->{uid} = $self->GetId;
 	$session->{expire} = time() + &DBDefs::WEB_SESSION_SECONDS_TO_LIVE;
-	$session->{email_nag} = $email_nag;
+	$session->{has_confirmed_email} = ($self->GetEmail ? 1 : 0);
 
 	require Moderation;
 	my $mod = Moderation->new($self->{DBH});
@@ -1246,6 +1250,8 @@ sub TryAutoLogin
 				$self = $self->new($mb->{DBH});
 			}
 			my ($correct_password, $userid) = $self->GetUserPasswordAndId($user);
+			$delete_cookie = 1, last
+				if $correct_password eq LOCKED_OUT_PASSWORD;
 
 			my $correct_pass_sha1 = sha1_base64($correct_password . "\t" . &DBDefs::SMTP_SECRET_CHECKSUM);
 			$delete_cookie = 1, last

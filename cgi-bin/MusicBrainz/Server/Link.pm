@@ -437,5 +437,15 @@ sub _link_type_matches_entities
 	croak "Entity types ($b) do not match link type ($a)";
 }
 
+# Used for stats
+sub CountLinksByType
+{
+	my $self = shift;
+	my $sql = Sql->new($self->{DBH});
+	return $sql->SelectSingleValue(
+		"SELECT COUNT(*) FROM ".$self->Table
+	);
+}
+
 1;
 # eof Link.pm

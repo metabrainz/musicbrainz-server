@@ -31,8 +31,10 @@ package DebugLog;
 sub open
 {
 	my $class = shift;
+	my $log = &DBDefs::DEBUG_LOG
+		or return undef;
 	use IO::File;
-	my $fh = IO::File->new(&DBDefs::DEBUG_LOG, &O_WRONLY|&O_APPEND)
+	my $fh = IO::File->new($log, &O_WRONLY|&O_APPEND)
 		or return undef;
 	#use Fcntl qw( :flock );
 	#flock($fh, LOCK_EX);

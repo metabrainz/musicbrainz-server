@@ -52,10 +52,11 @@ sub GetSubscribersForArtist
 		$artist,
     ) if not wantarray;
 
-    $sql->SelectSingleColumnArray(
+    my $user_ids = $sql->SelectSingleColumnArray(
 		"SELECT DISTINCT moderator FROM moderator_subscribe_artist WHERE artist = ?",
 		$artist,
     );
+	return @$user_ids;
 }
 
 ################################################################################

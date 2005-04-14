@@ -202,6 +202,7 @@ sub ImportTable
 	my $interval;
 
 	my $size = -s($file) || 1;
+    return 1 if $size <= 1;
 
 	my $p = sub {
 		my ($pre, $post) = @_;
