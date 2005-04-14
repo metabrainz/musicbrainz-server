@@ -79,6 +79,13 @@ sub CheckPrerequisites
 		return STATUS_FAILEDPREREQ;
 	}
 
+	# FIXME utf-8 length required
+	if (length($self->GetNew) > 255)
+	{
+		$self->InsertNote(MODBOT_MODERATOR, "This name is too long - the maximum allowed length is 255 characters");
+		return STATUS_ERROR;
+	}
+
 	# Save for ApprovedAction
 	$self->{_album} = $al;
 

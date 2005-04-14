@@ -40,6 +40,8 @@ if ($update)
         return undef;
     }
 
+	my %opts;
+
 	if ($info->GetEmail ne $email)
     {
 		if ($email =~ /\S/)
@@ -70,8 +72,7 @@ if ($update)
 			$email = $info->GetEmail;
 		} else {
 			# The user wants to blank out their email address.
-			$email = "";
-			$session{email_nag} = 1;
+			$opts{email} = "";
 
 			</%perl>
 			<p class="notice">
@@ -84,7 +85,7 @@ if ($update)
     }
 
     $info->SetUserInfo(
-		email => $email,
+		%opts,
 		weburl => $weburl,
 		bio => $bio,
 	);

@@ -36,6 +36,7 @@ if ($ARGS{"SavePrefs"})
 		vote_show_novote
 		mail_notes_if_i_noted
 		mail_notes_if_i_voted
+		remove_recent_link_on_add
 		show_inline_mods
 		subscriptions_public
 	)) {
@@ -190,6 +191,15 @@ $time = time();
 		Show 'inline' moderations
 	</p>
 % }
+
+	<p>
+		<label for="pref_remove_recent_link_on_add"><input type="checkbox" name="remove_recent_link_on_add" id="pref_remove_recent_link_on_add"
+			<% UserPreference::get('remove_recent_link_on_add') ? "checked" : "" %>
+			>
+		After creating a new relationship, remove the linked items from my
+		"recently used" list
+	</p>
+
 	<h2>E-Mailing Other Moderators</h2>
 
 	<p>

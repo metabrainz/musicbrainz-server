@@ -34,23 +34,29 @@ use Text::Unaccent;
 use Encode qw( encode decode );
 use utf8;
 
-# Load all the moderation handlers
+# Load all the moderation handlers (sorted please)
 require MusicBrainz::Server::Moderation::MOD_ADD_ALBUM;
 require MusicBrainz::Server::Moderation::MOD_ADD_ALBUM_ANNOTATION;
-require MusicBrainz::Server::Moderation::MOD_ADD_ARTIST_ANNOTATION;
 require MusicBrainz::Server::Moderation::MOD_ADD_ARTIST;
 require MusicBrainz::Server::Moderation::MOD_ADD_ARTISTALIAS;
+require MusicBrainz::Server::Moderation::MOD_ADD_ARTIST_ANNOTATION;
 require MusicBrainz::Server::Moderation::MOD_ADD_DISCID;
+require MusicBrainz::Server::Moderation::MOD_ADD_LINK;
+require MusicBrainz::Server::Moderation::MOD_ADD_LINK_ATTR;
+require MusicBrainz::Server::Moderation::MOD_ADD_LINK_TYPE;
 require MusicBrainz::Server::Moderation::MOD_ADD_TRACK;
 require MusicBrainz::Server::Moderation::MOD_ADD_TRACK_KV;
 require MusicBrainz::Server::Moderation::MOD_ADD_TRMS;
 require MusicBrainz::Server::Moderation::MOD_CHANGE_TRACK_ARTIST;
 require MusicBrainz::Server::Moderation::MOD_EDIT_ALBUMATTRS;
 require MusicBrainz::Server::Moderation::MOD_EDIT_ALBUMNAME;
+require MusicBrainz::Server::Moderation::MOD_EDIT_ARTIST;
 require MusicBrainz::Server::Moderation::MOD_EDIT_ARTISTALIAS;
 require MusicBrainz::Server::Moderation::MOD_EDIT_ARTISTNAME;
 require MusicBrainz::Server::Moderation::MOD_EDIT_ARTISTSORTNAME;
-require MusicBrainz::Server::Moderation::MOD_EDIT_ARTIST;
+require MusicBrainz::Server::Moderation::MOD_EDIT_LINK;
+require MusicBrainz::Server::Moderation::MOD_EDIT_LINK_ATTR;
+require MusicBrainz::Server::Moderation::MOD_EDIT_LINK_TYPE;
 require MusicBrainz::Server::Moderation::MOD_EDIT_RELEASES;
 require MusicBrainz::Server::Moderation::MOD_EDIT_TRACKNAME;
 require MusicBrainz::Server::Moderation::MOD_EDIT_TRACKNUM;
@@ -58,6 +64,7 @@ require MusicBrainz::Server::Moderation::MOD_MAC_TO_SAC;
 require MusicBrainz::Server::Moderation::MOD_MERGE_ALBUM;
 require MusicBrainz::Server::Moderation::MOD_MERGE_ALBUM_MAC;
 require MusicBrainz::Server::Moderation::MOD_MERGE_ARTIST;
+# require MusicBrainz::Server::Moderation::MOD_MERGE_LINK_TYPE; -- not implemented
 require MusicBrainz::Server::Moderation::MOD_MOVE_ALBUM;
 require MusicBrainz::Server::Moderation::MOD_MOVE_DISCID;
 require MusicBrainz::Server::Moderation::MOD_REMOVE_ALBUM;
@@ -65,18 +72,12 @@ require MusicBrainz::Server::Moderation::MOD_REMOVE_ALBUMS;
 require MusicBrainz::Server::Moderation::MOD_REMOVE_ARTIST;
 require MusicBrainz::Server::Moderation::MOD_REMOVE_ARTISTALIAS;
 require MusicBrainz::Server::Moderation::MOD_REMOVE_DISCID;
+require MusicBrainz::Server::Moderation::MOD_REMOVE_LINK;
+require MusicBrainz::Server::Moderation::MOD_REMOVE_LINK_ATTR;
+require MusicBrainz::Server::Moderation::MOD_REMOVE_LINK_TYPE;
 require MusicBrainz::Server::Moderation::MOD_REMOVE_TRACK;
 require MusicBrainz::Server::Moderation::MOD_REMOVE_TRMID;
 require MusicBrainz::Server::Moderation::MOD_SAC_TO_MAC;
-require MusicBrainz::Server::Moderation::MOD_ADD_LINK;
-require MusicBrainz::Server::Moderation::MOD_EDIT_LINK;
-require MusicBrainz::Server::Moderation::MOD_REMOVE_LINK;
-require MusicBrainz::Server::Moderation::MOD_ADD_LINK_TYPE;
-require MusicBrainz::Server::Moderation::MOD_EDIT_LINK_TYPE;
-require MusicBrainz::Server::Moderation::MOD_REMOVE_LINK_TYPE;
-require MusicBrainz::Server::Moderation::MOD_ADD_LINK_ATTR;
-require MusicBrainz::Server::Moderation::MOD_EDIT_LINK_ATTR;
-require MusicBrainz::Server::Moderation::MOD_REMOVE_LINK_ATTR;
 
 use constant SEARCHRESULT_SUCCESS => 1;
 use constant SEARCHRESULT_NOQUERY => 2;
@@ -355,7 +356,9 @@ sub IsAutoModType
 		$type == &ModDefs::MOD_REMOVE_LINK_TYPE ||
 		$type == &ModDefs::MOD_ADD_LINK_ATTR ||
 		$type == &ModDefs::MOD_EDIT_LINK_ATTR ||
-		$type == &ModDefs::MOD_REMOVE_LINK_ATTR)
+		$type == &ModDefs::MOD_REMOVE_LINK_ATTR ||
+		$type == &ModDefs::MOD_ADD_LINK ||
+		$type == &ModDefs::MOD_EDIT_LINK)
     {
         return 1;
     }

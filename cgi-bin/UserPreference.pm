@@ -241,6 +241,7 @@ addpref('navbar_mod_show_select_page', 0, \&check_bool);
 addpref('nosidebar', 0, \&check_bool);
 addpref('no_sidebar_panels', 0, \&check_bool);
 addpref('releases_show_compact', 50, sub { check_int(1,100,@_) });
+addpref('remove_recent_link_on_add', 1, \&check_bool);
 addpref('reveal_address_when_mailing', 0, \&check_bool);
 addpref('show_amazon_coverart', 1, \&check_bool);
 addpref('sidebar_panel_search', 1, \&check_bool);

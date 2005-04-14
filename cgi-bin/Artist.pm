@@ -187,6 +187,19 @@ sub Insert
     my $sql = Sql->new($this->{DBH});
     my $artist;
 
+    if (!$this->GetResolution())
+    {
+        my $ar_list = $this->GetArtistsFromName($name);
+	foreach my $ar (@$ar_list)
+	{
+	    return $ar->GetId if ($ar->GetName() eq $name);
+        }
+	foreach my $ar (@$ar_list)
+	{
+	    return $ar->GetId if (lc($ar->GetName()) eq lc($name));
+        }
+    }
+
     unless ($opts{no_alias})
     {
 	# Check to see if the artist has an alias.
@@ -290,6 +303,11 @@ sub Remove
     require MusicBrainz::Server::Annotation;
     MusicBrainz::Server::Annotation->DeleteArtist($this->{DBH}, $this->GetId);
 
+    $sql->Do("DELETE FROM l_artist_artist WHERE link0 = ?", $this->GetId);
+    $sql->Do("DELETE FROM l_artist_artist WHERE link1 = ?", $this->GetId);
+    $sql->Do("DELETE FROM l_album_artist WHERE link1 = ?", $this->GetId);
+    $sql->Do("DELETE FROM l_artist_track WHERE link0 = ?", $this->GetId);
+    $sql->Do("DELETE FROM l_artist_url WHERE link0 = ?", $this->GetId);
     $sql->Do("DELETE FROM artist WHERE id = ?", $this->GetId);
     $this->InvalidateCache;
 
@@ -318,6 +336,12 @@ sub MergeInto
     $sql->Do("UPDATE moderation_closed SET artist = ? WHERE artist = ?", $n, $o);
     $sql->Do("UPDATE moderation_open SET artist = ? WHERE artist = ?", $n, $o);
     $sql->Do("UPDATE artistalias     SET ref    = ? WHERE ref    = ?", $n, $o);
+    $sql->Do("UPDATE l_artist_artist SET link0  = ? WHERE link0 = ?", $n, $o);
+    $sql->Do("UPDATE l_artist_artist SET link1  = ? WHERE link1 = ?", $n, $o);
+    $sql->Do("UPDATE l_album_artist  SET link1  = ? WHERE link1 = ?", $n, $o);
+    $sql->Do("UPDATE l_artist_track  SET link0  = ? WHERE link0 = ?", $n, $o);
+    $sql->Do("UPDATE l_artist_url    SET link0  = ? WHERE link0 = ?", $n, $o);
+    # TODO: Ensure that we don't have an AR dups here
     $sql->Do("DELETE FROM artist     WHERE id   = ?", $o);
     $old->InvalidateCache;
 
@@ -418,6 +442,7 @@ sub Update
 
     $sql->Do("UPDATE artist SET $attrlist WHERE id = ?", @values, $this->GetId)
 	or return 0;
+    $this->InvalidateCache;
 
     # Update the search engine
     $this->SetName($name) if exists $update{name};

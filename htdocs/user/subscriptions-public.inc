@@ -5,7 +5,8 @@ $info
 </%args>
 <%perl>
 
-return $m->comp("/comp/error", "Public subscription lists are not yet released", 1, 1);
+return $m->comp("/comp/error", "Public subscription lists are not released until Tue Mar 15 20:30:00 2005 UTC", 1, 1)
+	unless time() >= 1110918600;
 
 my $uid = $user->GetId;
 my $name = $user->GetName;

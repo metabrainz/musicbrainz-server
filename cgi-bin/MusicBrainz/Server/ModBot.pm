@@ -223,7 +223,7 @@ sub CheckModerations
 			my $subscribers = $artist_subscribers{$mod->GetArtist} ||= do {
 				require UserSubscription;
 				my $us = UserSubscription->new($this->{DBH});
-				$us->GetSubscribersForArtist($mod->GetArtist);
+				[ $us->GetSubscribersForArtist($mod->GetArtist) ];
 			};
 
 			# Any subscribers other than the original moderator?

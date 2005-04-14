@@ -21,6 +21,8 @@ if ($tr->LoadFromAlbumJoin($this->GetRowId))
 			><% $al->GetName %></a>
 		<%perl>
 	}
+} else {
+	$m->out("This track has been deleted");
 }
 
 </%perl>

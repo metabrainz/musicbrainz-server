@@ -5,6 +5,7 @@ $album => ""
 $selectedartist => ""
 $newartistname => ""
 $newartistsortname => ""
+$newartistid=>-1
 $search => ""
 $notetext => undef
 </%args>
@@ -62,14 +63,15 @@ if ($selectedartist ne "")
 
 	$newartistname = $target->GetName;
 	$newartistsortname = $target->GetSortName;
+  $newartistid = $target->GetId;
 }
 
-if ($newartistname =~ /\S/ and $newartistsortname =~ /\S/)
+if ($newartistname =~ /\S/ and $newartistsortname =~ /\S/ and $newartistid =~ /\d+/)
 {
 	defined $notetext
 		or return $m->comp(
 			"movealbum-confirm",
-			$al, $ar, $newartistname, $newartistsortname,
+			$al, $ar, $newartistname, $newartistsortname, $newartistid
 		);
 
 	$m->comp(
@@ -86,6 +88,7 @@ if ($newartistname =~ /\S/ and $newartistsortname =~ /\S/)
 				oldartist => $ar,
 				artistname => $newartistname,
 				artistsortname => $newartistsortname,
+				artistid => $newartistid,
 			);
 
 			$mods[0]->InsertNote($session{'uid'}, $notetext)

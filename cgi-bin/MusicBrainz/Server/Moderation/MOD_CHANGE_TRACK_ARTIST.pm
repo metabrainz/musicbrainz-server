@@ -41,23 +41,24 @@ sub PreInsert
 	my $ar = $opts{'oldartist'} or die;
 	my $name = $opts{'artistname'} or die;
 	my $sortname = $opts{'artistsortname'} or die;
+	my $newartistid = $opts{'artistid'} or die;
 
 	$self->SetTable("track");
 	$self->SetColumn("artist");
 	$self->SetRowId($tr->GetId);
 	$self->SetArtist($ar->GetId);
 	$self->SetPrev($ar->GetName);
-	$self->SetNew($sortname . "\n" . $name);
+	$self->SetNew($sortname . "\n" . $name . "\n" . $newartistid);
 }
 
 sub PostLoad
 {
 	my $this = shift;
 	
-	my ($sortname, $name) = split /\n/, $this->GetNew;
+	my ($sortname, $name, $newid) = split /\n/, $this->GetNew;
 	$name = $sortname if not defined $name;
 
-	@$this{qw( new.sortname new.name )} = ($sortname, $name);
+	@$this{qw( new.sortname new.name new.id )} = ($sortname, $name, $newid);
 }
 
 sub CheckPrerequisites
@@ -90,16 +91,24 @@ sub ApprovedAction
 {
  	my ($this, $id) = @_;
 
-	my ($sortname, $name) = @$this{qw( new.sortname new.name )};
+	my ($sortname, $name, $newid) = @$this{qw( new.sortname new.name new.id )};
 
 	my $status = $this->CheckPrerequisites;
 	return $status if $status;
 
-	require Artist;
-	my $ar = Artist->new($this->{DBH});
-	$ar->SetName($name);
-	$ar->SetSortName($sortname);
-	my $artistid = $ar->Insert(no_alias => 1);
+	my $artistid;
+	if (defined $newid && $newid > 0)
+	{
+        $artistid = $newid;
+	}
+	else
+	{
+		require Artist;
+		my $ar = Artist->new($this->{DBH});
+		$ar->SetName($name);
+		$ar->SetSortName($sortname);
+		$artistid = $ar->Insert(no_alias => 1);
+	}
 
 	require Track;
 	my $tr = Track->new($this->{DBH});
