@@ -5,7 +5,7 @@ my $fCallingSelf = ($_[0] and $_[0] eq $sMagicWord);
 
 if (&DBDefs::DB_IS_REPLICATED) 
 {
-	  $m->comp("/comp/sidebar", title=>'Database Stats', expand=>'information');
+	  $m->comp("/comp/sidebar", title=>'Database Stats', expand=>'about');
 	  </%perl>
 	  The statistics are available only on the <a 
     href="http://musicbrainz.org/stats.html">main server</a>.
@@ -415,7 +415,7 @@ $mb->Logout();
 }
 else
 {
-	$m->comp("/comp/sidebar", title=>'Database Stats', expand=>'information');
+	$m->comp("/comp/sidebar", title=>'Database Stats', expand=>'about');
 
 	my $time = $m->comp("/comp/datetime", $stat->LastRefreshed);
 	</%perl>
@@ -425,8 +425,8 @@ else
 	 	MusicBrainz database.&nbsp; They were last refreshed <% $time %>.
 	</p>
 	<p>
-		See also our <a href="/usage/">Web Stats</a> pages, and our
-		<a href="/mrtg/">system monitoring</a> pages.
+		See also our <a href="http://musicbrainz.org/usage/">Web Stats</a> pages, and our
+		<a href="http://musicbrainz.org/mrtg/">system monitoring</a> pages.
 	</p>
 	<%perl>
 

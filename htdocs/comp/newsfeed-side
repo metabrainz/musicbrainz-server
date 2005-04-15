@@ -22,7 +22,7 @@ $categories => [ ]
 	<div class="SideNewsArticle">
 		<h3><% $item->GetTitle() %></h3>
 
-		<p><% $item->GetDateTimeString() %> &mdash; <% $item->GetDescription() %>
+    <p><% $item->GetDateTimeString() %> &mdash; <% $item->GetDescription() %>
 
 		<a href="<% $item->GetLink() %>">read more</a></p>
 	</div>

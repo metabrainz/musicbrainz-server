@@ -9,28 +9,18 @@ use Scalar::Util qw( reftype weaken );
 	{ name => "Mirrors",				url => "/about/mirrors.html" },
 	{ name => "About",					url => "/introduction.html" },
 	[
-		{ name => "Introduction",			url => "/introduction.html" },
 		{ name => "Privacy",				url => "/privacy" },
 		[
 			{ url => "/docs/20040922-1.html" },
 		],
 		{ name => "History",				url => "/history.html" },
 		{ name => "People",					url => "/bio.html" },
-		[
-			{ name => "Moderators",				url => "/user/view.html" },
-			{ name => "Top Mods",				url => "/topmods.html" },
-			{ name => "Elections",				url => "/user/election/index.html" },
-			[
-				{ url => "/user/election/show.html" },
-			]
-		],
-		{ name => "The Future",				url => "/future.html" },
 		{ name => "Licenses",               url => "/about/licenses.html" },
 		{ name => "Contract",				url => "/contract.html" },
-		{ name => "Related Projects",		url => "/about/relatedprojects.html" },
+		{ name => "Applications",		url => "/wd/MusicBrainzEnabledApplications" },
 		{ name => "Help Wanted",		url => "/about/helpwanted.html" },
 		{ name => "Logos",		         url => "/about/logos.html" },
-		{ url => "/freeamp/index.html" },
+		{ name => "Stats",					url => "/about/stats.html" },
 	],
 	{ name => "News",					url => "/news/index.html" },
 	[
@@ -40,12 +30,7 @@ use Scalar::Util qw( reftype weaken );
 		{ name => "libtunepimp",		url => "/news/tunepimp.html" },
 		{ name => "WindowsTagger",		url => "/news/tagger.html" },
 		{ name => "Picard",				url => "/news/picard.html" },
-		{ name => "In The Press",		url => "/press.html" },
-		{ name => "White Papers",		url => "/papers/index.html" },
-		[
-			{ name => "Non-Profit",				url => "/papers/mb_nonprofit.html" },
-			{ name => "Licensing",				url => "/papers/mb_license.html" },
-		],
+		{ name => "In The Press",		url => "/wd/MusicBrainzPress" },
 	],
 	{ name => "Products",				url => "/download.html" },
 	[
@@ -254,9 +239,6 @@ use Scalar::Util qw( reftype weaken );
 			{ name => "About MB IDs",			url => "/tagger/id-intro.html" },
 			{ name => "About Disc IDs",			url => "/disc.html" },
 			{ name => "ID3 Tags",				url => "/docs/specs/metadata_tags.html" },
-			{ name => "Stats",					url => "/stats.html" },
-            (!&DBDefs::DB_IS_REPLICATED) ? { name => "Web Stats", url => "/usage/" } : undef,
-            (!&DBDefs::DB_IS_REPLICATED) ? { name => "System Stats", url => "/mrtg/" } : undef 
 		],
 		{ name => "Contact Us",				url => "/support/contact.html" },
 		{ name => "Mailing Lists",			url => "/list.html" },
