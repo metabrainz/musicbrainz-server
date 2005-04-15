@@ -25,12 +25,6 @@ use Scalar::Util qw( reftype weaken );
 			]
 		],
 		{ name => "The Future",				url => "/future.html" },
-		{ name => "Finance",				url => "/sponsors.html" },
-		[
-			{ name => "Sponsors",				url => "/sponsors.html" },
-			{ name => "Finances",				url => "/finances.html" },
-			{ name => "Contribute",				url => "/contribute.html"},
-		],
 		{ name => "Licenses",               url => "/about/licenses.html" },
 		{ name => "Contract",				url => "/contract.html" },
 		{ name => "Related Projects",		url => "/about/relatedprojects.html" },
