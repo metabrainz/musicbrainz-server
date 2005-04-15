@@ -1,44 +1,14 @@
-%# vi: set ts=4 sw=4 ft=mason :
-<& /comp/sidebar, title => 'MusicBrainz Client Library Change Log' &>  
+%# vi: set ts=2 sw=2 ft=mason :
+<& /comp/sidebar, title => 'MusicBrainz Client Library News' &>  
 
 <p>
-	This page describes the changes made to the MusicBrainz
-    Client library (libmusicbrainz).
+	This page describes the changes made to the
+	<a href="/tagger/index.html">MusicBrainz Client library (libmusicbrainz)</a>.
 </p>
 
-<div class="TopAlignCells">
-<table class="SpacedColumns" width="500" cellspacing="5">
-	<tr>
-		<th style="width: 5em">Date</th>
-		<th>Summary</th>
-		<th>Link</th>
-	</tr>
-	<tr>
-		<td>
-			2004-03-16
-		</td>
-		<td>
-            The 2.1.1 version of libmusicbrainz improves support for dealing with
-            and overloaded TRM server that occaisonally returns 503 Resource Busy
-            to prevent the sigserver from taking over the entire site.
-		</td>
-		<td align="center">
-			<a href="/news/20040316-1.html">&gt;&gt;</a>
-		</td>
-	</tr>
-	<tr>
-		<td>
-			2004-02-24
-		</td>
-		<td>
-            The 2.1.0 version of libmusicbrainz improves mp3 duration checking,
-            adds query strings for release dates and amazon asins.
-		</td>
-		<td align="center">
-			<a href="/news/20040215-2.html">&gt;&gt;</a>
-		</td>
-	</tr>
-</table>
-</div>
+<& /comp/newsfeed,
+	url =>
+		'http://blog.musicbrainz.org/archives/categories/libmusicbrainz/index.xml',
+&>
 
 <& /comp/footer &>

@@ -1,67 +1,14 @@
-%# vi: set ts=4 sw=4 ft=mason :
-<& /comp/sidebar, title => 'MusicBrainz Tagger Change Log' &>  
+%# vi: set ts=2 sw=2 ft=mason :
+<& /comp/sidebar, title => 'MusicBrainz Windows Tagger News' &>  
 
 <p>
-	This page describes the changes made to the MusicBrainz
-    Tagger application.
+	This page describes the changes made to the
+	<a href="/tagger/index.html">MusicBrainz Tagger application</a>.
 </p>
 
-<div class="TopAlignCells">
-<table class="SpacedColumns" width="500" cellspacing="5">
-	<tr>
-		<th style="width: 5em">Date</th>
-		<th>Summary</th>
-		<th>Link</th>
-	</tr>
-	<tr>
-		<td>
-			2004-05-14
-		</td>
-		<td>
-            The 0.10.5 version of the tagger three minor bugs.
-		</td>
-		<td align="center">
-			<a href="/news/20040514-1.html">&gt;&gt;</a>
-		</td>
-	</tr>
-	<tr>
-		<td>
-			2004-04-24
-		</td>
-		<td>
-            The 0.10.4 version of the tagger fixes a number of
-            problems related to saving tracks.
-		</td>
-		<td align="center">
-			<a href="/news/20040424-1.html">&gt;&gt;</a>
-		</td>
-	</tr>
-	<tr>
-		<td>
-			2003-10-27
-		</td>
-		<td>
-            The 0.10.1 version of the tagger fixed a number of
-            problems from the 0.10.0 version.
-		</td>
-		<td align="center">
-			<a href="/news/20031027-1.html">&gt;&gt;</a>
-		</td>
-	</tr>
-	<tr>
-		<td>
-			2003-10-13
-		</td>
-		<td>
-            The 0.10.0 version of the tagger sports a new cross
-            platform core with many new features, bugfixes
-            and general stability enhancements.
-		</td>
-		<td align="center">
-			<a href="/news/20031013-2.html">&gt;&gt;</a>
-		</td>
-	</tr>
-</table>
-</div>
+<& /comp/newsfeed,
+	url =>
+		'http://blog.musicbrainz.org/archives/categories/windowstagger/index.xml',
+&>
 
 <& /comp/footer &>

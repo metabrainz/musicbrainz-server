@@ -1,29 +1,14 @@
 %# vi: set ts=4 sw=4 ft=mason :
-<& /comp/sidebar, title => 'TunePimp Change Log' &>  
+<& /comp/sidebar, title => 'TunePimp News' &>  
 
 <p>
-	This page describes the changes made to the TunePimp library:
+	This page describes the changes made to the
+	<a href="/products/tunepimp/index.html">TunePimp library (libtunepimp)</a>.
 </p>
 
-<div class="TopAlignCells">
-<table class="SpacedColumns" width="500" cellspacing="5">
-	<tr>
-		<th style="width: 5em">Date</th>
-		<th>Summary</th>
-		<th>Link</th>
-	</tr>
-	<tr>
-		<td>
-			2004-03-30
-		</td>
-		<td>
-            The 0.3.0 version of libtunpimp is essentially the first public release of this library.
-		</td>
-		<td align="center">
-			<a href="/news/20040330-1.html">&gt;&gt;</a>
-		</td>
-	</tr>
-</table>
-</div>
+<& /comp/newsfeed,
+	url =>
+		'http://blog.musicbrainz.org/archives/categories/libtunepimp/index.xml',
+&>
 
 <& /comp/footer &>

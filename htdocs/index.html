@@ -51,75 +51,12 @@
 	<div class="SideArticle">
 		<h2>Latest News</h2>
 
-		<div class="SideNewsArticle">
-			<h3>Latest Server Updates</h3>
-			<p>
-				Apr 10, 2130 GMT &mdash;
-				Advanced Relationships, duplicate artists,
-				artist person/group support&nbsp;&hellip;
-			</p>
-			<a href="/news/20050410-1.html"
-				class="PressReleaseLink"
-				>Change log &gt;&gt;</a>
-		</div>
-
-		<div class="SideNewsArticle">
-			<h3>TRM Database Pruned</h3>
-			<p>
-				Jan 25 2005, 2300 GMT &mdash;
-				The TRM database has been pruned again&nbsp;&hellip;
-			</p>
-			<a href="/news/20050125-1.html"
-				class="PressReleaseLink"
-				>Read more &gt;&gt;</a>
-		</div>
-
-		<div class="SideNewsArticle">
-			<h3>MusicBrainz weblog</h3>
-			<p>
-        Oct 13 2004, 2330 GMT (1530 PST) &mdash;
-				MusicBrainz now has a community weblog
-				for contributors to keep users informed of
-				their progress
-				&nbsp;&hellip;
-			</p>
-			<a href="http://blog.musicbrainz.org"
-				class="PressReleaseLink"
-				>View &gt;&gt;</a>
-		</div>
-
-		<div class="SideNewsArticle">
-			<h3>MusicBrainz Tagger 0.10.5 released</h3>
-			<p>
-        May 14 2004, 2215 GMT (1415 PST) &mdash;
-        Version 0.10.5 of the MusicBrainz Tagger has
-        been released.&nbsp; This version fixes a
-        file naming and a date tag bug. 
-			</p>
-			<a href="/tagger/download.html"
-				class="PressReleaseLink"
-				>Download &gt;&gt;</a>
-			<a href="/news/20040514-1.html"
-				class="PressReleaseLink"
-				>Change log &gt;&gt;</a>
-		</div>
-
-		<div class="SideNewsArticle">
-			<h3>TunePimp 0.3.0 released</h3>
-			<p>
-        Mar 30 2004, 0630 GMT (2230 PST) &mdash;
-        The first official release of TunePimp,
-        the cross platform brainz behind the MB Tagger,
-        has been released!
-			</p>
-			<a href="/products/tunepimp/download.html"
-				class="PressReleaseLink"
-				>Download &gt;&gt;</a>
-			<a href="/news/20040330-1.html"
-				class="PressReleaseLink"
-				>Release Info &gt;&gt;</a>
-		</div>
-
+		<& /comp/newsfeed-side,
+			url => 'http://blog.musicbrainz.org/index-excerpt.xml',
+			max_items => 4,
+			categories => [ ], # all categories
+			update_interval => 5*60,
+		&>
 	</div>
 
 </div>

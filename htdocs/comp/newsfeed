@@ -1,0 +1,34 @@
+<%args>
+$url
+$max_items => undef
+$update_interval => 5*60
+$categories => [ ]
+$read_more => 1
+</%args>
+<%perl>
+	my $feed = MusicBrainz::Server::NewsFeed->new(
+		url => $url,
+		update_interval => $update_interval,
+		max_items => $max_items,
+		categories => $categories,
+	);
+
+	$feed->Load();
+</%perl>
+
+
+<hr />
+
+% foreach my $item ( $feed->GetItems() ) {
+
+	<h3><% $item->GetCategory() %>: <% $item->GetTitle() %>
+		(<% $item->GetDateString() %>)</h3>
+
+	<p><% $item->GetDescription() |n %>
+
+%	if ( $read_more ) {
+	<a href="<% $item->GetLink() %>">read more</a>
+%	}
+	</p>
+	<hr />
+% }
