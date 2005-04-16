@@ -13,7 +13,7 @@ $expanded=>0
 
 	my $prefix = "link" . $index . "_";
 
-    $m->out('<span class="mp">') 
+	$m->out('<span class="mp">') 
 		if $item->{modpending};
 
 	if ($isrel)
@@ -31,7 +31,7 @@ $expanded=>0
 	}
 	my $text = $item->{$prefix . "name"} eq '' ? $name : $item->{$prefix . "name"};
 	$m->out(encode_entities($text));
-    $m->out("</a></b>");
+	$m->out("</a></b>");
 
 	$m->out('</span>') 
 		if $item->{modpending};
@@ -45,9 +45,9 @@ $expanded=>0
 my $_isEqual = sub {
 	my ($a, $b) = @_;
 
-    return ($a->{link_phrase} eq $b->{link_phrase} &&
-		    $a->{begindate} eq $b->{begindate} &&
-		    $a->{enddate} eq $b->{enddate});
+	return ($a->{link_phrase} eq $b->{link_phrase} &&
+			$a->{begindate} eq $b->{begindate} &&
+			$a->{enddate} eq $b->{enddate});
 };
 
 my $mb = $m->comp("/comp/dblogin");
@@ -55,18 +55,18 @@ my @links = MusicBrainz::Server::Link->FindLinkedEntities($mb->{DBH}, $id, $type
 
 if (@links == 0) 
 {
-   $m->out("This $type has no relationships.<br>");
+	$m->out("This $type has no relationships.<br>");
 } 
 else 
 {
-   my $max = scalar(@links);
-   my (@coll, $item, $i, $count, $lines);
+	my $max = scalar(@links);
+	my (@coll, $item, $i, $count, $lines);
 
-   for($i = 0; $i < $max; $i++)
-   {
-	   $item = $links[$i];
-	   if ($item->{link0_type} ne $type || $item->{link0_id} != $id)
-	   {
+	for($i = 0; $i < $max; $i++)
+	{
+		$item = $links[$i];
+		if ($item->{link0_type} ne $type || $item->{link0_id} != $id)
+		{
 			@$item{qw(
 				link0_type		link1_type
 				link0_id		link1_id
@@ -78,91 +78,91 @@ else
 				link1_name		link0_name
 				rlink_phrase	link_phrase
 			)};
-	   }
-   }
+		}
+	}
 
-   @links = sort 
-   { 
-	   my $c = $a->{link_name} cmp $b->{link_name};
-	   return $c if ($c);
-	   $c = $a->{enddate} cmp $b->{enddate};
-	   return $c if ($c);
-	   return $a->{begindate} cmp $b->{begindate};
-   } @links;
+	@links = sort 
+	{ 
+		my $c = $a->{link_name} cmp $b->{link_name};
+		return $c if ($c);
+		$c = $a->{enddate} cmp $b->{enddate};
+		return $c if ($c);
+		return $a->{begindate} cmp $b->{begindate};
+	} @links;
 
-   $item = $links[0];
-   $m->out('<span class="mp">') 
-	   if ($max == 1 && $item->{modpending});
-   $m->comp(".OutputEntity", { link0_id=>$id, link0_type=>$type }, 0, $name, $isrelpage);
-   $m->out(($max > 1) ? ':<table width="100%">' : ' ');
-   for($i = 0, $count = 0, $lines = 0; $i < $max; $i++, $lines++)
-   {
-	   if ($lines >= 3 && !$isrelpage)
-	   {
-	       $m->out(qq!<tr><td colspan="3">!); 
-	       $m->out(($max - $count) . " relationships not shown. ");
-	       $m->out(qq!<a href="/showrel.html?id=$id&amp;type=$type">View all relationships ...</a></td></tr>!);
-		   last;
-	   }
-	   $item = $links[$i];
-       $m->out('<tr><td valign="top" align="center" width="5%">&bull;</td><td width="99%">') if ($max > 1);
-	   $m->out($item->{link_phrase} . " ");
-       $m->comp(".OutputEntity", $item, 1, $name, $isrelpage);
-	   $count++;
+	$item = $links[0];
+	$m->out('<span class="mp">') 
+		if ($max == 1 && $item->{modpending});
+	$m->comp(".OutputEntity", { link0_id=>$id, link0_type=>$type }, 0, $name, $isrelpage);
+	$m->out(($max > 1) ? ':<table width="100%">' : ' ');
+	for($i = 0, $count = 0, $lines = 0; $i < $max; $i++, $lines++)
+	{
+		if ($lines >= 3 && !$isrelpage)
+		{
+			$m->out(qq!<tr><td colspan="3">!); 
+			$m->out(($max - $count) . " relationships not shown. ");
+			$m->out(qq!<a href="/showrel.html?id=$id&amp;type=$type">View all relationships ...</a></td></tr>!);
+			last;
+		}
+		$item = $links[$i];
+		$m->out('<tr><td valign="top" align="center" width="5%">&bull;</td><td width="99%">') if ($max > 1);
+		$m->out($item->{link_phrase} . " ");
+		$m->comp(".OutputEntity", $item, 1, $name, $isrelpage);
+		$count++;
 
-       if (!$expanded)
-	   {
-		   for(my $j = $i + 1; $j < $max; $j++)
-		   {
-			   my $nextitem = $links[$j];
-			   if (&$_isEqual($item, $nextitem))
-			   {
-				   my $and = 1;
-				   if ($j < $max - 1)
-				   {
-					   my $nextnextitem = $links[$j + 1];
-					   $and = 0 if (&$_isEqual($nextitem, $nextnextitem));
-				   }
-				   $and ? $m->out(' and ') : $m->out(', ');
-				   $m->comp(".OutputEntity", $nextitem, 1, $name, $isrelpage);
-				   $i = $j;
-				   $count++;
-			   }
-		   } 
-       }
+		if (!$expanded)
+		{
+			for(my $j = $i + 1; $j < $max; $j++)
+			{
+				my $nextitem = $links[$j];
+				if (&$_isEqual($item, $nextitem))
+				{
+					my $and = 1;
+					if ($j < $max - 1)
+					{
+						my $nextnextitem = $links[$j + 1];
+						$and = 0 if (&$_isEqual($nextitem, $nextnextitem));
+					}
+					$and ? $m->out(' and ') : $m->out(', ');
+					$m->comp(".OutputEntity", $nextitem, 1, $name, $isrelpage);
+					$i = $j;
+					$count++;
+				}
+			} 
+		}
 
-	   if ($item->{begindate} =~ /\S/ || $item->{enddate} =~ /\S/) 
-	   {
+		if ($item->{begindate} =~ /\S/ || $item->{enddate} =~ /\S/) 
+		{
 			if ($item->{begindate} =~ /\S/) 
 			{
 				$m->out(' from ' . $item->{begindate});
 			}
 			if ($item->{enddate} =~ /\S/) 
 			{
- 			    $m->out(' until ' . $item->{enddate});
+				$m->out(' until ' . $item->{enddate});
 			} 
 			else 
 			{
 				$m->out(' to present');
 			}
-	   }
-       $m->out('</span>') 
-	       if ($max == 1 && $item->{modpending});
-       if ($session{uid} && $modlinks && $expanded) 
-	   {
-           $m->out(($max > 1) ? '</td><td align="right" valign="top">' : '');
-		   $m->out('<nobr> [ <a href="/mod/link/remove_link.html?type=' . $item->{link0_type} . '-' .
-				   $item->{link1_type} . '&amp;id='.$item->{link_id}.'">Del</a> ');
-		   $m->out('| <a href="/mod/link/edit_link.html?type=' . $item->{link0_type} . '-' .
-				   $item->{link1_type} . '&amp;id='.$item->{link_id}.'">Edit</a> ] </nobr>');
-	   }
-       $m->out(($max > 1) ? '</td></tr>' : '<br>');
-    }
-    $m->out('</table>') if ($max > 1);
-    $m->out('<br>');
+		}
+		$m->out('</span>') 
+			if ($max == 1 && $item->{modpending});
+		if ($session{uid} && $modlinks && $expanded) 
+		{
+			$m->out(($max > 1) ? '</td><td align="right" valign="top">' : '');
+			$m->out('<nobr> [ <a href="/mod/link/remove_link.html?type=' . $item->{link0_type} . '-' .
+					$item->{link1_type} . '&amp;id='.$item->{link_id}.'">Del</a> ');
+			$m->out('| <a href="/mod/link/edit_link.html?type=' . $item->{link0_type} . '-' .
+					$item->{link1_type} . '&amp;id='.$item->{link_id}.'">Edit</a> ] </nobr>');
+		}
+		$m->out(($max > 1) ? '</td></tr>' : '<br>');
+	}
+	$m->out('</table>') if ($max > 1);
+	$m->out('<br>');
 }
 $m->comp('/comp/ar/ShowARLinks', id=>$id, type=>$type, isrelpage=>$isrelpage, 
-		                         expanded=>$expanded, count=>scalar(@links));
+								 expanded=>$expanded, count=>scalar(@links));
 
 my $recent_links = ($session{recent_links} ||= []);
 if (scalar(@$recent_links) == 0)
@@ -170,131 +170,131 @@ if (scalar(@$recent_links) == 0)
 }
 elsif (scalar(@$recent_links) == 1)
 {
-	 </%perl>
-     <hr>
-	 <p>
-	 Create a relationship with:
-	 </p>
-	 <ul>
-	 <li><& /comp/ar/ShowEntityLink, simple=>0,
-		    id=>$recent_links->[0][1],
-		    type=>$recent_links->[0][0],
-		    name=>$recent_links->[0][2] &>
-	     [ <& /comp/ar/ShowRemoveLink, 
+	</%perl>
+	<hr>
+	<p>
+		Create a relationship with:
+	</p>
+	<ul>
+		<li><& /comp/ar/ShowEntityLink, simple=>0,
+			id=>$recent_links->[0][1],
+			type=>$recent_links->[0][0],
+			name=>$recent_links->[0][2] &>
+		 [ <& /comp/ar/ShowRemoveLink, 
 			targetid=>$id,
 			targettype=>$type,
-		    id=>$recent_links->[0][1],
-		    type=>$recent_links->[0][0],
-		    name=>$recent_links->[0][2],
+			id=>$recent_links->[0][1],
+			type=>$recent_links->[0][0],
+			name=>$recent_links->[0][2],
 			isrelpage=>$isrelpage&> ]</li>
-	 </ul>
+	</ul>
 
-	 <p>
-	 You have only selected one element. Please select another element 
-	 that you want to relate to <b><% $recent_links->[0][2] %></b> by clicking on the 
-     <em>Use this <% $type %> in a relationship</em> link next to it.
-	 </p>
+	<p>
+	You have only selected one element. Please select another element 
+	that you want to relate to <b><% $recent_links->[0][2] %></b> by clicking on the 
+	<em>Use this <% $type %> in a relationship</em> link next to it.
+	</p>
 
-	 <p>
-	 [ <a href="/mod/link/relate_to_url.html?id=<% $recent_links->[0][1] %>&amp;type=<% $recent_links->[0][0] 
-	                                            %>&amp;name=<% $recent_links->[0][2] %>">Relate to URL</a>
-	 | <& /comp/ar/ShowCancelLink, targetid=>$id, targettype=>$type, isrelpage=>$isrelpage &>
-	 | <a href="/addartist.html">Add new artist</a>
-	 ]
+	<p>
+		[ <a href="/mod/link/relate_to_url.html?id=<% $recent_links->[0][1] %>&amp;type=<% $recent_links->[0][0] 
+			%>&amp;name=<% $recent_links->[0][2] %>">Relate to URL</a>
+		| <& /comp/ar/ShowCancelLink, targetid=>$id, targettype=>$type, isrelpage=>$isrelpage &>
+		| <a href="/addartist.html">Add new artist</a>
+		]
 
-	 <%perl>
+		<%perl>
 }
 elsif (scalar(@$recent_links) == 2)
 {
-	 </%perl>
-     <hr>
-	 <p>
-	 Create a relationship between:
-	 </p>
-	 <ul>
-	 <li><& /comp/ar/ShowEntityLink, simple=>0,
-		    id=>$recent_links->[1][1],
-		    type=>$recent_links->[1][0],
-		    name=>$recent_links->[1][2] &>
-	     [ <& /comp/ar/ShowRemoveLink, 
-			targetid=>$id,
-			targettype=>$type,
-		    id=>$recent_links->[1][1],
-		    type=>$recent_links->[1][0],
-		    name=>$recent_links->[1][2],
-			isrelpage=>$isrelpage &> ]</li>
-	 <li><& /comp/ar/ShowEntityLink, simple=>0,
-		    id=>$recent_links->[0][1],
-		    type=>$recent_links->[0][0],
-		    name=>$recent_links->[0][2] &>
-	     [ <& /comp/ar/ShowRemoveLink, 
-			targetid=>$id,
-			targettype=>$type,
-		    id=>$recent_links->[0][1],
-		    type=>$recent_links->[0][0],
-		    name=>$recent_links->[0][2],
-			isrelpage=>$isrelpage &> ]</li>
-	 </ul>
+	</%perl>
+	<hr>
+	<p>
+		Create a relationship between:
+	</p>
+	<ul>
+		<li><& /comp/ar/ShowEntityLink, simple=>0,
+			id=>$recent_links->[1][1],
+			type=>$recent_links->[1][0],
+			name=>$recent_links->[1][2] &>
+			[ <& /comp/ar/ShowRemoveLink, 
+				targetid=>$id,
+				targettype=>$type,
+				id=>$recent_links->[1][1],
+				type=>$recent_links->[1][0],
+				name=>$recent_links->[1][2],
+				isrelpage=>$isrelpage &> ]</li>
+		<li><& /comp/ar/ShowEntityLink, simple=>0,
+			id=>$recent_links->[0][1],
+			type=>$recent_links->[0][0],
+			name=>$recent_links->[0][2] &>
+			[ <& /comp/ar/ShowRemoveLink, 
+				targetid=>$id,
+				targettype=>$type,
+				id=>$recent_links->[0][1],
+				type=>$recent_links->[0][0],
+				name=>$recent_links->[0][2],
+				isrelpage=>$isrelpage &> ]</li>
+	</ul>
 
-	 <p>
-	 [ <a href="/mod/link/newlink-selecttype.html?link0=<% 
-	            $recent_links->[1][0] %>=<% $recent_links->[1][1] %>&amp;link1=<%
-				$recent_links->[0][0] %>=<% $recent_links->[0][1] %>">Create relationship</a>
-	 | <& /comp/ar/ShowCancelLink, targetid=>$id, targettype=>$type, isrelpage=>$isrelpage &>
-%    if (UserStuff->IsLinkModerator($session{privs})) {
-	     | <a href="/mod/link/link_type_roots.html">Edit link types</a>
-%    }
-	 | <a href="/addartist.html">Add new artist</a>
-	 ]
-	 </p>
-	 <%perl>
+	<p>
+		[ <a href="/mod/link/newlink-selecttype.html?link0=<% 
+			$recent_links->[1][0] %>=<% $recent_links->[1][1] %>&amp;link1=<%
+			$recent_links->[0][0] %>=<% $recent_links->[0][1] %>">Create relationship</a>
+		| <& /comp/ar/ShowCancelLink, targetid=>$id, targettype=>$type, isrelpage=>$isrelpage &>
+%	if (UserStuff->IsLinkModerator($session{privs})) {
+		| <a href="/mod/link/link_type_roots.html">Edit link types</a>
+%	}
+		| <a href="/addartist.html">Add new artist</a>
+		]
+	</p>
+	<%perl>
 }
-else	 
+else
 {
-	 my $hi = @$recent_links - 1;
-	 </%perl>
-     <hr>
-	 <p>
-	 You have selected more than two elements. The last two elements are:
-	 </p>
-	 <ul>
-	 <li><& /comp/ar/ShowEntityLink, simple=>0,
-		    id=>$recent_links->[1][1],
-		    type=>$recent_links->[1][0],
-		    name=>$recent_links->[1][2] &>
-	     [ <& /comp/ar/ShowRemoveLink, 
-			targetid=>$id,
-			targettype=>$type,
-		    id=>$recent_links->[1][1],
-		    type=>$recent_links->[1][0],
-		    name=>$recent_links->[1][2],
-			isrelpage=>$isrelpage &> ]</li>
-	 <li><& /comp/ar/ShowEntityLink, simple=>0,
-		    id=>$recent_links->[0][1],
-		    type=>$recent_links->[0][0],
-		    name=>$recent_links->[0][2] &>
-	     [ <& /comp/ar/ShowRemoveLink, 
-			targetid=>$id,
-			targettype=>$type,
-		    id=>$recent_links->[0][1],
-		    type=>$recent_links->[0][0],
-		    name=>$recent_links->[0][2],
-			isrelpage=>$isrelpage &> ]</li>
-	 </ul>
+	my $hi = @$recent_links - 1;
+	</%perl>
+	<hr>
+	<p>
+		You have selected more than two elements. The last two elements are:
+	</p>
+	<ul>
+		<li><& /comp/ar/ShowEntityLink, simple=>0,
+			id=>$recent_links->[1][1],
+			type=>$recent_links->[1][0],
+			name=>$recent_links->[1][2] &>
+			[ <& /comp/ar/ShowRemoveLink, 
+				targetid=>$id,
+				targettype=>$type,
+				id=>$recent_links->[1][1],
+				type=>$recent_links->[1][0],
+				name=>$recent_links->[1][2],
+				isrelpage=>$isrelpage &> ]</li>
+		<li><& /comp/ar/ShowEntityLink, simple=>0,
+			id=>$recent_links->[0][1],
+			type=>$recent_links->[0][0],
+			name=>$recent_links->[0][2] &>
+			[ <& /comp/ar/ShowRemoveLink, 
+				targetid=>$id,
+				targettype=>$type,
+				id=>$recent_links->[0][1],
+				type=>$recent_links->[0][0],
+				name=>$recent_links->[0][2],
+				isrelpage=>$isrelpage &> ]</li>
+	</ul>
 
-	 <p>
-	 [ <a href="/mod/link/newlink-selecttype.html?link0=<% 
-	            $recent_links->[1][0] %>=<% $recent_links->[1][1] %>&amp;link1=<%
-				$recent_links->[0][0] %>=<% $recent_links->[0][1] %>">Create relationship</a>
-	 | <a href="/mod/link/selectlink.html">Show all elements</a>
-	 | <& /comp/ar/ShowCancelLink, targetid=>$id, targettype=>$type, isrelpage=>$isrelpage &>
-%    if (UserStuff->IsLinkModerator($session{privs})) {
-	     | <a href="/mod/link/link_type_roots.html">Edit link types</a>
-%    }
-	 | <a href="/addartist.html">Add new artist</a>
-	 ]
-	 </p>
-	 <%perl>
+	<p>
+		[ <a href="/mod/link/newlink-selecttype.html?link0=<% 
+			$recent_links->[1][0] %>=<% $recent_links->[1][1] %>&amp;link1=<%
+			$recent_links->[0][0] %>=<% $recent_links->[0][1] %>">Create relationship</a>
+		| <a href="/mod/link/selectlink.html">Show all elements</a>
+		| <& /comp/ar/ShowCancelLink, targetid=>$id, targettype=>$type, isrelpage=>$isrelpage &>
+%	if (UserStuff->IsLinkModerator($session{privs})) {
+		 | <a href="/mod/link/link_type_roots.html">Edit link types</a>
+%	}
+		| <a href="/addartist.html">Add new artist</a>
+		]
+	</p>
+	<%perl>
 }
 
 </%perl>
