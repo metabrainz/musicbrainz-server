@@ -87,7 +87,7 @@ sub DB_SCHEMA_SEQUENCE { 5 }
 # * RT_STANDALONE - this server neither generates nor uses replication
 #               packets.  Changes to the database are allowed.
 use MusicBrainz::Server::Replication ':replication_type';
-sub REPLICATION_TYPE { RT_SLAVE }
+sub REPLICATION_TYPE { RT_STANDALONE }
 
 ################################################################################
 # HTTP Server Names
