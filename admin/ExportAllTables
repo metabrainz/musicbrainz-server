@@ -94,7 +94,7 @@ print localtime() . " : Exporting to $dir\n" if $fKeepFiles;
 
 use MusicBrainz;
 my $mb = new MusicBrainz;
-$mb->Login;
+$mb->Login(db => 'READWRITE');
 
 use Sql;
 my $sql = Sql->new($mb->{DBH});
