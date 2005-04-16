@@ -36,6 +36,9 @@ require MusicBrainz::Server::LinkEntity;
 
 sub InsertDefaultRows
 {
+	use MusicBrainz::Server::Replication 'RT_SLAVE';
+	return if &DBDefs::REPLICATION_TYPE == RT_SLAVE;
+
 	require MusicBrainz;
 	my $mb = MusicBrainz->new;
 	$mb->Login;
