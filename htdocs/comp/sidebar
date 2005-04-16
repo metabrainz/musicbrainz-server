@@ -15,10 +15,9 @@ $m->comp(
 
 unless ($nosidebar)
 {
-
 </%perl>
 <& /comp/sidebarsectiontop, title=>'Site Menu' &>
-<& /comp/sitemenu &>
+<& /comp/sitemenu, $uri &>
 
 % if (UserPreference::get('sidebar_panel_search')) {
 <& /comp/sidebarsection, title=>'Quick Search', link => "/search.html" &>
@@ -68,4 +67,5 @@ $title=>'MusicBrainz'
 $pagetitle=>''
 $noh1=>0
 $head=>undef
+$uri=>''
 </%args>

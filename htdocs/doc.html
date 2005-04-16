@@ -1,0 +1,11 @@
+%# vi: set ts=4 sw=4 ft=mason :
+<%args>
+$id
+</%args>
+% my $pagetitle = "MusicBrainz" . (( $id ) ? ": $id" : ": Documentation");
+
+<& /comp/sidebar, pagetitle => $pagetitle, title => '', uri=>"/wd/$id" &>
+
+<& /comp/wikipage, id => $id &>
+
+<& /comp/footer &>
