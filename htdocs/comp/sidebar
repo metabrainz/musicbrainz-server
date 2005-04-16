@@ -27,14 +27,14 @@ unless ($nosidebar)
 <& /comp/sidebarareaend &>
 % }
 
-% if (UserPreference::get('sidebar_panel_topmods') && !&DBDefs::DB_IS_REPLICATED) {
+% if (UserPreference::get('sidebar_panel_topmods') && &DBDefs::REPLICATION_TYPE != RT_SLAVE) {
 <& /comp/sidebarsection, title=>'Top Voters', link => "/topmods.html" &>
 <& /comp/sidebarareabegin &>
 <& /comp/topvotersbox &>
 <& /comp/sidebarareaend &>
 % }
 
-% if (UserPreference::get('sidebar_panel_stats') && !&DBDefs::DB_IS_REPLICATED) {
+% if (UserPreference::get('sidebar_panel_stats') && &DBDefs::REPLICATION_TYPE != RT_SLAVE) {
 <& /comp/sidebarsection, title=>'Server Stats', link => "/stats.html" &>
 <& /comp/sidebarareabegin &>
 <& /comp/statsbox &>

@@ -31,6 +31,7 @@ use Getopt::Long;
 use MusicBrainz;
 use DBDefs;
 use Sql;
+use MusicBrainz::Server::Replication qw( :replication_type NON_REPLICATED_TABLES );
 
 my ($fHelp, $fIgnoreErrors);
 my $tmpdir = "/tmp";
@@ -351,6 +352,18 @@ sub ImportAllTables
 	)) {
 		my $file = (find_file($table))[0];
 		$file or print("No data file found for '$table', skipping\n"), next;
+
+		if (&DBDefs::REPLICATION_TYPE == RT_SLAVE)
+		{
+			my $basetable = $table;
+			$basetable =~ s/_sanitised$//;
+
+			if (grep { $basetable eq $_ } NON_REPLICATED_TABLES)
+			{
+				warn "Skipping non-replicated table $basetable\n";
+				next;
+			}
+		}
 
 		if ($table =~ /^(.*)_sanitised$/)
 		{

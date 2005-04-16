@@ -31,6 +31,10 @@ use DBDefs;
 use integer;
 
 use Getopt::Long;
+use MusicBrainz::Server::Replication qw( :replication_type NON_REPLICATED_TABLES );
+
+&DBDefs::REPLICATION_TYPE == RT_SLAVE
+	or die "This is not a slave server!\n";
 
 my $fHelp;
 my $fProgress = -t STDOUT;
@@ -307,28 +311,9 @@ sub empty_replication_tables
 # tables to replicated ones.  The existence of such contraints would almost
 # certainly cause the processing of replication data to fail.
 
-sub non_replicated_tables
-{
-	qw(
-		automod_election
-		automod_election_vote
-		moderation_closed
-		moderation_note_closed
-		moderation_note_open
-		moderation_open
-		moderator
-		moderator_preference
-		moderator_subscribe_artist
-		trmjoin_stat
-		trm_stat
-		vote_closed
-		vote_open
-	)
-}
-
 sub check_foreign_keys
 {
-	my %non_rep = map { $_ => 1 } non_replicated_tables();
+	my %non_rep = map { $_ => 1 } NON_REPLICATED_TABLES;
 
 	my $fks = $sql->SelectListOfHashes("
 		SELECT	c.conname, a.relname AS fk_table, b.relname AS pk_table

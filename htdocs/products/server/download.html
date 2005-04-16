@@ -1,5 +1,5 @@
 %# vi: set ts=2 sw=2 ft=mason :
-% if (&DBDefs::DB_IS_REPLICATED) {
+% if (&DBDefs::REPLICATION_TYPE == RT_SLAVE) {
 %		my $url = "http://musicbrainz.org/products/server/download.html";
 %		$r->header_out("Refresh", "3; url=$url");
 <& /comp/sidebar, title=>'MusicBrainz Server / Database - Download' &>

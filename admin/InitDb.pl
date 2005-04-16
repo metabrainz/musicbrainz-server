@@ -27,19 +27,20 @@ use lib "$FindBin::Bin/../cgi-bin";
 
 use MusicBrainz;
 use DBDefs;
+use MusicBrainz::Server::Replication ':replication_type';
 
 my $SYSTEM = MusicBrainz::Server::Database->get("SYSTEM");
 my $READWRITE = MusicBrainz::Server::Database->get("READWRITE");
 my $READONLY = MusicBrainz::Server::Database->get("READONLY");
 
-my $isrep = &DBDefs::DB_IS_REPLICATED;
+my $REPTYPE = &DBDefs::REPLICATION_TYPE;
+
 my $opts = $READWRITE->shell_args;
 my $psql = "psql";
-my $with_replication = 0;
 my $path_to_pending_so;
 
-warn "Warning: DB_IS_REPLICATED is true, but there is no READONLY connection defined\n"
-	if $isrep and not $READONLY;
+warn "Warning: this is a slave replication server, but there is no READONLY connection defined\n"
+	if $REPTYPE == RT_SLAVE and not $READONLY;
 
 use Getopt::Long;
 use strict;
@@ -183,7 +184,7 @@ sub CreateRelations
 	RunSQLScript("CreatePrimaryKeys.sql", "Creating primary keys ...");
 	RunSQLScript("CreateIndexes.sql", "Creating indexes ...");
 	RunSQLScript("CreateFKConstraints.sql", "Adding foreign key constraints ...")
-	    if ! &DBDefs::DB_IS_REPLICATED;
+	    unless $REPTYPE == RT_SLAVE;
 
     print localtime() . " : Setting initial sequence values ...\n";
     system($^X, "$FindBin::Bin/SetSequences.pl");
@@ -192,9 +193,9 @@ sub CreateRelations
 	RunSQLScript("CreateViews.sql", "Creating views ...");
 	RunSQLScript("CreateFunctions.sql", "Creating functions ...");
 	RunSQLScript("CreateTriggers.sql", "Creating triggers ...")
-	    if ! &DBDefs::DB_IS_REPLICATED;
+	    unless $REPTYPE == RT_SLAVE;
 
-	if ($with_replication)
+	if ($REPTYPE == RT_MASTER)
 	{
 		CreateReplicationFunction();
 		RunSQLScript("CreateReplicationTriggers.sql", "Creating replication triggers ...");
@@ -217,6 +218,7 @@ sub GrantSelect
 	$dbh->{AutoCommit} = 1;
 
 	my $username = $READONLY->username;
+	return if $username eq $READWRITE->username;
 
 	my $sth = $dbh->table_info("", "public") or die;
 	while (my $row = $sth->fetchrow_arrayref)
@@ -234,11 +236,11 @@ sub SanityCheck
     die "The postgres psql application must be on your path for this script to work.\n"
        if not -x $psql and (`which psql` eq '');
 
-	if ($with_replication)
+	if ($REPTYPE == RT_MASTER)
 	{
 		defined($path_to_pending_so) or die <<EOF;
-If you specify --with-replication, you must also specify the path to "pending.so"
-using --with-pending=PATH
+Error: this is a master replication server, but you did not specify
+the path to "pending.so" (i.e. --with-pending=PATH)
 EOF
 		if (not -f $path_to_pending_so)
 		{
@@ -248,6 +250,11 @@ This might be OK for example if you simply don't have permission to see that
 file, or if the database server is on a remote host.
 EOF
 		}
+	} else {
+		defined($path_to_pending_so) and die <<EOF;
+Error: this is not a master replication server, but you specified
+the path to "pending.so" (--with-pending=PATH), which makes no sense.
+EOF
 	}
 }
 
@@ -267,14 +274,9 @@ Options are:
                         as they are run
   -q, --quiet           Don't show the output of any SQL scripts
   -h --help             This help
-     --with-replication Activate the replication triggers (if you want to
-                        be a master database to someone else's slave).
-                        This option cannot be used if this database is being
-                        up to be a replication slave by setting 
-                        DB_IS_REPLICATED to 1 in DBDefs.pm.
-  --with-pending=PATH   If you specify --with-replication, you MUST also specify
-                        this option, where PATH is the path to "pending.so"
-                        (on the database server).
+  --with-pending=PATH   For use only if this is a master replication server
+                        (DBDefs::REPLICATION_TYPE==RT_MASTER).  PATH specifies
+                        the path to "pending.so" (on the database server).
 
 After the import option, you may specify one or more MusicBrainz data dump
 files for importing into the database. Once this script runs to completion
@@ -297,15 +299,11 @@ GetOptions(
 	"empty-database"	=> sub { $mode = "MODE_NO_TABLES" },
 	"import|i"			=> sub { $mode = "MODE_IMPORT" },
 	"clean|c"			=> sub { $mode = "MODE_NO_DATA" },
-	"with-replication!"	=> \$with_replication,
 	"with-pending=s"	=> \$path_to_pending_so,
 	"echo!"				=> \$fEcho,
 	"quiet|q"			=> \$fQuiet,
 	"help|h"			=> \&Usage,
 ) or exit 2;
-
-die("Error: DB_IS_REPLICATED is true, and --with-replication specified\n")
-	if $isrep and $with_replication;
 
 SanityCheck();
 
@@ -318,7 +316,7 @@ if ($mode eq "MODE_NO_TABLES") { } # nothing to do
 elsif ($mode eq "MODE_NO_DATA") { CreateRelations() }
 elsif ($mode eq "MODE_IMPORT") { CreateRelations(\@ARGV) }
 
-GrantSelect() if $isrep;
+GrantSelect();
 
 END {
 	print localtime() . " : InitDb.pl "

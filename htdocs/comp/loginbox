@@ -5,7 +5,7 @@ $url => (join "?", grep { $_ } ($r->uri, scalar $r->args))
 <%perl>
 return if $m->comp("/comp/dbreadonly", 0, 0);
 
-if (&DBDefs::DB_IS_REPLICATED)
+if (&DBDefs::REPLICATION_TYPE == RT_SLAVE)
 {
 	</%perl>
 	<p style="margin: 1em">

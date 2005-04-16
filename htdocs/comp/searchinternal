@@ -69,7 +69,7 @@ with the <a href="/search/plugins/firefox/install.html">Firefox search plugins</
     <br>
   <& /comp/tableend &>
 
-% if (! &DBDefs::DB_IS_REPLICATED) {
+% if (&DBDefs::REPLICATION_TYPE != RT_SLAVE) {
     <& /comp/tablebegin, title=>'Contribute', attrs=>"align=center", 
        gattrs=>"width='100%'" &>
       <br>

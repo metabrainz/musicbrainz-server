@@ -67,6 +67,7 @@ require MusicBrainz::Server::ModerationNote;
 require MusicBrainz::Server::NewsFeed;
 require MusicBrainz::Server::PagedReport;
 require MusicBrainz::Server::Release;
+require MusicBrainz::Server::Replication;
 require MusicBrainz::Server::TRMGateway;
 require MusicBrainz::Server::TRMGatewayHandler;
 require MusicBrainz::Server::URL;

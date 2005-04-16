@@ -3,7 +3,7 @@
 my $sMagicWord = "CacheMe!";
 my $fCallingSelf = ($_[0] and $_[0] eq $sMagicWord);
 
-if (&DBDefs::DB_IS_REPLICATED) 
+if (&DBDefs::REPLICATION_TYPE == RT_SLAVE) 
 {
 	  $m->comp("/comp/sidebar", title=>'Database Stats', expand=>'about');
 	  </%perl>

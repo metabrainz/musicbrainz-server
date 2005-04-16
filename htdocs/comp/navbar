@@ -13,7 +13,7 @@
          <a href="/user/debug.html">Debug</a> |
 % }
          <a href="/search.html">Search</a> |
-% if (!&DBDefs::DB_IS_REPLICATED) {
+% if (&DBDefs::REPLICATION_TYPE != RT_SLAVE) {
 %    if (!defined $session{user} || $session{user} eq '') {
          <a href="/login.html">Login</a> |
 %    } else {

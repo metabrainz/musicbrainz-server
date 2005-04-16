@@ -82,7 +82,7 @@ use Scalar::Util qw( reftype weaken );
     [
         { name => "About",					url => "/mod_intro.html" },
         { name => "Suggestions",			url => "/reports/index.html" },
-        (! &DBDefs::DB_IS_REPLICATED) ? [
+        (&DBDefs::REPLICATION_TYPE != RT_SLAVE) ? [
             { url => "/reports/generated/SuspectTrackCharacters/index.html" },
             { url => "/reports/generated/TooManyCapitals/index.html" },
             { url => "/reports/generated/NoUpperCase/index.html" },

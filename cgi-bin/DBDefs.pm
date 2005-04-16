@@ -61,7 +61,7 @@ MusicBrainz::Server::Database->register_all(
 	    host	=> "",
 	    port	=> "",
 	},
-	# How to connect for read-only access.  See "DB_IS_REPLICATED" (below)
+	# How to connect for read-only access.  See "REPLICATION_TYPE" (below)
 	READONLY => undef,
 	# How to connect for administrative access
 	SYSTEM	=> {
@@ -78,10 +78,16 @@ MusicBrainz::Server::Database->register_all(
 # replication_control.current_schema_sequence.
 sub DB_SCHEMA_SEQUENCE { 5 }
 
-# Replication slaves should prevent users from making any changes to the
-# database.  Note that this setting is closely tied to the "READONLY" key,
-# above.  See the INSTALL file for more information.
-sub DB_IS_REPLICATED { 0 }
+# What type of server is this?
+# * RT_MASTER - this is a master replication server.  Changes are allowed, and
+#               they result in replication packets being produced.
+# * RT_SLAVE  - this is a slave replication server.  After loading a snapshot
+#               produced by a master, the only changes allowed are those made
+#               by applying the next replication packet in turn.
+# * RT_STANDALONE - this server neither generates nor uses replication
+#               packets.  Changes to the database are allowed.
+use MusicBrainz::Server::Replication ':replication_type';
+sub REPLICATION_TYPE { RT_SLAVE }
 
 ################################################################################
 # HTTP Server Names

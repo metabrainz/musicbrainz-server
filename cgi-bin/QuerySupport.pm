@@ -34,6 +34,7 @@ use Album; # for constants
 use DBDefs;
 use MusicBrainz;
 use MusicBrainz::Server::LogFile qw( lprint lprintf );
+use MusicBrainz::Server::Replication ':replication_type';
 use TaggerSupport; # for constants
 
 use Carp qw( carp );
@@ -467,7 +468,7 @@ sub SubmitTRMList
     {
       	return $rdf->ErrorRDF(&DBDefs::DB_READ_ONLY_MESSAGE)
     }
-    if (&DBDefs::DB_IS_REPLICATED)
+    if (&DBDefs::REPLICATION_TYPE == RT_SLAVE)
     {
       	return $rdf->ErrorRDF("You cannot submit TRM identifiers to a mirror server. Please submit them" .
 		              " to the main server at http://musicbrainz.org")
@@ -562,7 +563,7 @@ sub SubmitTRMFeedback
     {
       	return $rdf->ErrorRDF(&DBDefs::DB_READ_ONLY_MESSAGE)
     }
-    if (&DBDefs::DB_IS_REPLICATED)
+    if (&DBDefs::REPLICATION_TYPE == RT_SLAVE)
     {
       	return $rdf->ErrorRDF("You cannot submit TRM feedback to a mirror server. Please submit them" .
 		              " to the main server at http://musicbrainz.org")

@@ -34,6 +34,7 @@ require Exporter;
 use strict;
 use DBDefs;
 use MusicBrainz::Server::Cache;
+use MusicBrainz::Server::Replication ':replication_type';
 use Carp qw( carp cluck croak );
 use Encode qw( decode );
 use Text::Unaccent qw( unac_string );
@@ -54,7 +55,7 @@ sub Login
 	my ($this, %opts) = @_;
 
 	my $db = $opts{'db'};
-	$db = (&DBDefs::DB_IS_REPLICATED ? "READONLY" : "READWRITE")
+	$db = (&DBDefs::REPLICATION_TYPE == RT_SLAVE ? "READONLY" : "READWRITE")
 		if not defined $db;
 	unless (ref $db)
 	{

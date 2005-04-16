@@ -164,6 +164,7 @@ sub handler
 	# Make these available to all components:
 	use MusicBrainz qw( encode_entities );
 	use URI::Escape qw( uri_escape );
+	use MusicBrainz::Server::Replication ':replication_type';
 
     use vars qw(%session %pnotes);
     untie %session;

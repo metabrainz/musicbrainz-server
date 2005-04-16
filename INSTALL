@@ -13,25 +13,8 @@ New (Jan 2005):
 	might find the above document a useful source of reference.
 
 These instructions are general instructions for setting up MusicBrainz server.
-There are three different types of MusicBrainz server setups that you could
-install:
-
-1. Master server - Currently there is only one master server and that is
-musicbrainz.org itself. Unless you are testing/playing with the replication
-system, you will never need to setup a master replication server.
-
-2. Slave server - If you want to install a MusicBrainz slave server, follow
-these instructions and whenever replication is mentioned, make sure to follow
-the instructions for setting up a slave. If you want to set up a database only
-slave (without the web site portions), you will still need to install most of
-the perl modules. You can skip the Apache (and related) and Mason modules for
-a database only slave. There is also a special section for replicated servers
-at the bottom of this file that summarizes the changes needed to setup a slave
-server.
-
-3. Independent/development server - If you want to tinker with your own server
-that does not get automatic data updates, then choose this option. If you're
-considering helping with server development, you'd want to choose this option.
+If you want to set up a "slave" replication server (to use the data feed
+provided by the master server), please read htdocs/docs/Replication.
 
 Requirements:
 =============
@@ -60,25 +43,9 @@ specific notes about a server type, the instructions apply to all server types.
    Your mileage may vary.
 
    Replication Master
-   
-   For replication we use the "dbmirror" code from the "contributed" part of
-   the postgres codebase.  In particular you'll need the "pending.so" file
-   (we've only tested this on Linux).  When you run "InitDb.pl", you'll need
-   to add "--with-replication" and "--with-pending=/path/to/pending.so",
-   to tell the database server where to find that file.  For example:
 
-     ./admin/InitDb.pl \
-	--echo \
-	--createdb \
-	--import \
-	--with-replication \
-	--with-pending=/usr/lib/postgresql/lib/pending.so \
-	~/mbdump*.tar.bz2
-   
-   Be sure to run ExportAllTables regularly, otherwise your Pending and
-   PendingData tables may grow out of control). Note, that this is mutually
-   exclusive of being a replication slave (which is what most people will want
-   to do).
+   Please read htdocs/docs/Replication if you want your server to be able to
+   export replication data for use by others.
 
    PostgreSQL authentication and Security
  
@@ -322,14 +289,6 @@ Installation:
      which MUST be changed for you to run a server (SMTP_SECRET_CHECKSUM);
      most of the settings you can probably leave unchanged if you wish.
 
-	  If you are running a slave server, set the DB_IS_REPLICATED setting
-	  to 1 and the READONLY setting in the register_all section to 1.
-	  This indicates that you wish to run a database slave and that the
-	  web site should be accessing the DB in a READONLY fashion to avoid
-	  making changes to the database. The only changes applied to a
-	  database should come from the replication packets downloaded from
-	  the main server.  More about that later!
-
    admin/startup.pl
      There's only one thing to change here, namely the "use lib" line,
      which is marked with a "TODO" comment.
@@ -395,75 +354,13 @@ NOTE: Steps 6 - 8 are optional for database only slaves!
    particular is heavily geared towards the configuration of the main
    MusicBrainz server; you probably will want to modify it in some way.
 
-	For slave servers, you need to add an hourly cron job (that runs 
+   For slave servers, you need to add an hourly cron job (that runs 
    about 15 - 20 minutes after each hour) that runs the admin/cron/slave.sh
-	file to download and apply replication packets from the main server.
+   file to download and apply replication packets from the main server.
 
    This should be it and now you have your very own MusicBrainz server.
 
 Good luck!
-
-
-
-Setting up a replication slave
-------------------------------
-
-If you want to maintain an up-to-date copy of all the latest data from the
-main MusicBrainz server, you can set up your MusicBrainz server to be a
-"replication slave".  In this mode you can use your server to examine the
-data using the usual web pages, but you won't be able to modify the data at
-all - to do that, you go back to the main server and modify the data there.
-Later on, that change will make its way back to your server as you retrieve
-the latest data updates.
-
-To do this you'll need a slightly different set-up.  Firstly you'll need two
-Postgres users - one which has permission to write to the database (so it can
-apply the data updates retrieved from the main server), and another user who
-only read the data, not modify it.  For example, you might choose
-"write_user" for the former and "read_user" for the latter.  In DBDefs.pm
-you'll need to enter three sets of database connection details:
-
-* READWRITE - the user who has permission to write to the database
-* READONLY - the user who only has permission to read it
-* SYSTEM - the "Postgres" user (only used by "InitDb.pl", when you're first
-           creating the database)
-
-The database name for READWRITE and READONLY should usually be the same.  For
-SYSTEM, the database name should always be "template1".  Usually, the "host"
-and "port" values for all three connections should be the same.
-
-Finally, ensure that DB_IS_REPLICATED is set to "1".
-
-For example:
-
-	# How to connect when we need read-write access to the database
-	READWRITE => {
-	    database	=> "mydatabase",
-	    username	=> "write_user",
-	    password	=> "",
-	    host	=> "",
-	    port	=> "",
-	},
-	# How to connect for read-only access.  See "DB_IS_REPLICATED" (below)
-	READONLY => {
-	    database	=> "mydatabase",
-	    username	=> "read_user",
-	    password	=> "",
-	    host	=> "",
-	    port	=> "",
-	},
-	# How to connect for administrative access
-	SYSTEM	=> {
-	    database	=> "template1",
-	    username	=> "postgres",
-	    password	=> "",
-	    host	=> "",
-	    port	=> "",
-	},
-
-...
-
-sub DB_IS_REPLICATED { 1 }
 
 
 

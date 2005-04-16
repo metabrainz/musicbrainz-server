@@ -1,7 +1,7 @@
 %# vi: set ts=2 sw=2 ft=mason :
 <& /comp/sidebar, title => 'Moderate - Select Moderations' &>
 
-% if (&DBDefs::DB_IS_REPLICATED) {
+% if (&DBDefs::REPLICATION_TYPE == RT_SLAVE) {
 
 <p>
 	Data editing (moderating) is only available on the <a 

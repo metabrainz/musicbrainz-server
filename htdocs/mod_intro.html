@@ -119,7 +119,7 @@ are automoderations:
 	<% join ", ", @{ $mod->GetAutomoderationList } %>
 </blockquote>
 
-% if (&DBDefs::DB_IS_REPLICATED) {
+% if (&DBDefs::REPLICATION_TYPE == RT_SLAVE) {
 
 	The list of automoderators is available on the <a 
   href="http://musicbrainz.org/mod_intro.html">main server</a>.

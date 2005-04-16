@@ -11,7 +11,7 @@
 			you probably want to <a href="http://musicbrainz.org/">go&nbsp;here</a>.
 		</p>
 	</div>
-% } elsif (&DBDefs::DB_IS_REPLICATED) {
+% } elsif (&DBDefs::REPLICATION_TYPE == RT_SLAVE) {
 	<div class="SideArticle">
 		<h1>You are using a MusicBrainz Mirror</h1>
 		<p>
