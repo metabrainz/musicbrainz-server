@@ -72,7 +72,6 @@ sub preload_files
 		/news
 		/popup
 		/products
-		/support
 		/tagger
 		/user
 	)) {
