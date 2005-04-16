@@ -198,7 +198,7 @@ sub empty
 sub ImportReplicationTables
 {
 	$sql->AutoCommit;
-	eval { $sql->Do('ALTER TABLE "PendingData" DROP CONSTRAINT "$1"') };
+	eval { $sql->Do('ALTER TABLE "PendingData" DROP CONSTRAINT "PendingData_SeqId"') };
 	$sql->AutoCommit;
 	eval { $sql->Do('ALTER TABLE "Pending" DROP CONSTRAINT "Pending_pkey"') };
 	$sql->AutoCommit;
@@ -221,7 +221,7 @@ sub ImportReplicationTables
 	$sql->Begin;
 	$sql->Do('ALTER TABLE "Pending" ADD CONSTRAINT "Pending_pkey" PRIMARY KEY ("SeqId")');
 	$sql->Do('ALTER TABLE "PendingData" ADD CONSTRAINT "PendingData_pkey" PRIMARY KEY ("SeqId", "IsKey")');
-	$sql->Do('ALTER TABLE "PendingData" ADD CONSTRAINT "$1" FOREIGN KEY ("SeqId") REFERENCES "Pending" ("SeqId") ON UPDATE CASCADE ON DELETE CASCADE');
+	$sql->Do('ALTER TABLE "PendingData" ADD CONSTRAINT "PendingData_SeqId" FOREIGN KEY ("SeqId") REFERENCES "Pending" ("SeqId") ON UPDATE CASCADE ON DELETE CASCADE');
 	$sql->Commit;
 
     return 1;
