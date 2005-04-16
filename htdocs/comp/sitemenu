@@ -7,13 +7,13 @@ use Scalar::Util qw( reftype weaken );
 @main = (
 	{ name => "Home",					url => "/index.html" },
 	{ name => "Mirrors",				url => "/about/mirrors.html" },
-	{ name => "About",					url => "/introduction.html" },
+	{ name => "About",					url => "/wd/AboutMusicBrainz" },
 	[
 		{ name => "Privacy",				url => "/privacy" },
 		[
 			{ url => "/docs/20040922-1.html" },
 		],
-		{ name => "History",				url => "/history.html" },
+		{ name => "History",				url => "/wd/MusicBrainzHistory" },
 		{ name => "People",					url => "/bio.html" },
 		{ name => "Licenses",               url => "/about/licenses.html" },
 		{ name => "Contract",				url => "/contract.html" },
@@ -101,7 +101,7 @@ use Scalar::Util qw( reftype weaken );
             { url => "/reports/generated/DuplicateAlbums/index.html" },
             { url => "/reports/generated/DuplicateArtists2/index.html" },
         ] : [],
-        { name => "FAQ",					url => "/mod_faq.html" },
+        { name => "FAQ",					url => "/wd/ModerationFAQ" },
         { name => "Style",					url => "/style.html" },
         { name => "Moderations",			url => "/mod/search/select-filter.html" },
         [
@@ -218,10 +218,10 @@ use Scalar::Util qw( reftype weaken );
 		{ name => "CVS Modules",		    url => "/development/cvs-modules.html" },
 		{ name => "CVS Viewer",		        url => "http://cvs.musicbrainz.org/" },
 	],
-	{ name => "Support",				url => "/information.html" },
+	{ name => "Support",				url => "/wd/ContactUs" },
 	[
 		{ name => "FAQ Index",				url => "/wd/FAQIndex" },
-		{ name => "Contact Us",				url => "/support/contact.html" },
+		{ name => "Contact Us",				url => "/wd/ContactUs" },
 		{ name => "Mailing Lists",			url => "/list.html" },
 		{ name => "Bugs / RFEs",			url => "/support/contact.html#report-a-bug" },
 	],
