@@ -184,6 +184,7 @@ specific notes about a server type, the instructions apply to all server types.
    Text::Unaccent (see notes below)
    UUID (requires e2fsprogs)
    XML::Parser
+   XML::RSS
 
    These probably come standard with Perl:
    Carp
