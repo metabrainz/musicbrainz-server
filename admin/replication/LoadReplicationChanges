@@ -42,11 +42,13 @@ my $tmpdir = "/tmp";
 my $fKeepFiles = 0;
 my $baseuri = "http://ftp.musicbrainz.org/pub/musicbrainz/data/replication";
 my $lockfile = my $deflockfile = "/tmp/.mb-LoadReplicationChanges";
+my @process_opts;
 
 GetOptions(
 	"help"				=> \$fHelp,
 	"lockfile=s"		=> \$lockfile,
 	"base-uri=s"		=> \$baseuri,
+	"process-arg=s"		=> \@process_opts,
 ) or exit 2;
 
 $baseuri =~ s/\/$//;
@@ -56,11 +58,15 @@ sub usage
 	print <<EOF;
 Usage: LoadReplicationChanges [options]
 
-        --help            show this help
-        --lockfile=FILE   use FILE as the lock file to prevent us running in
-                          parallel (default: $deflockfile)
-        --base-uri=URI    load the replication data from this location
-                          (default: from musicbrainz.org via HTTP)
+    --help            show this help
+    --lockfile=FILE   use FILE as the lock file to prevent us running in
+                      parallel (default: $deflockfile)
+    --base-uri=URI    load the replication data from this location
+                      (default: from musicbrainz.org via HTTP)
+    --process-arg=ARG Add ARG to each invocation of ProcessReplicationChanges.
+                      If required, ARG can be an option (e.g.
+                      --process-arg=--debug-xact).  Add --process-arg=ARG
+                      again to specify additional arguments.
 
 EOF
 }
@@ -265,7 +271,7 @@ rmtree($mydir);
 # If we had some data leftover in the tables, we jump straight in here:
 APPLY_CHANGES:
 # Apply the changes (ProcessReplicationChanges)
-system "$FindBin::Bin/ProcessReplicationChanges";
+system "$FindBin::Bin/ProcessReplicationChanges", @process_opts;
 exit $? if $?;
 
 # Empty the tables
