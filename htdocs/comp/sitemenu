@@ -40,7 +40,6 @@ use Scalar::Util qw( reftype weaken );
 			{ url => "/tagger/download.html" },
 			{ url => "/tagger/tutorial.html" },
 			{ url => "/tagger/intro.html" },
-			{ url => "/tagger/faq.html" },
 		],
 		{ name => "Client / SDK",			url => "/products/client/index.html" },
 		[
@@ -221,6 +220,12 @@ use Scalar::Util qw( reftype weaken );
 	{ name => "Support",				url => "/wd/ContactUs" },
 	[
 		{ name => "FAQ Index",				url => "/wd/FAQIndex" },
+		[
+			{ url => "/wd/GeneralFAQ" },
+			{ url => "/wd/AccountFAQ" },
+			{ url => "/wd/ModerationFAQ" },
+			{ url => "/wd/WindowsTaggerFAQ" },
+		],
 		{ name => "Contact Us",				url => "/wd/ContactUs" },
 		{ name => "Mailing Lists",			url => "/list.html" },
 		{ name => "Bugs / RFEs",			url => "/support/contact.html#report-a-bug" },
