@@ -55,7 +55,7 @@ return $m->comp('/comp/footer_small')
 	<table width="100%" cellpadding="2" cellspacing="0" border="0">
 	<tr>
 		<td width="30%" style="text-align: left">
-			<a href="/support/contact.html">contact details</a>
+			<a href="/wd/ContactUs">contact details</a>
 		</td>
 		<td width="40%" style="text-align: center">
 			original design|<a href="http://vacubomb.com/">vacubomb.com</a>

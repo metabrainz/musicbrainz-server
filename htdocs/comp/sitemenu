@@ -228,9 +228,9 @@ use Scalar::Util qw( reftype weaken );
 		],
 		{ name => "Contact Us",				url => "/wd/ContactUs" },
 		{ name => "Mailing Lists",			url => "/list.html" },
-		{ name => "Bugs / RFEs",			url => "/support/contact.html#report-a-bug" },
+		{ name => "Bugs / RFEs",			url => "/wd/ContactUs#report-a-bug" },
 	],
-	{ name => "Contribute",				url => "/contribute.html", preferred=>1 },
+	{ name => "Contribute",				url => "/wd/Contribute" },
 	{ name => "Wiki",					url => "http://wiki.musicbrainz.org/" },
 	{ name => "Store",					url => "http://cafepress.com/musicbrainz" },
 );

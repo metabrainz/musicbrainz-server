@@ -31,7 +31,7 @@
 %        if (UserStuff->IsLinkModerator($session{privs})) {
             <a href="/mod/link/link_type_roots.html">AR</a> |
 % } else {
-            <a href="/faq.html">FAQ</a> |
+            <a href="/wd/GeneralFAQ">FAQ</a> |
 % }
          <a href="http://wiki.musicbrainz.org/">Wiki</a>
       </span>&nbsp;
