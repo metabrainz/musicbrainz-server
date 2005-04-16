@@ -11,7 +11,6 @@ $begindate_d => ""
 $enddate_y => ""
 $enddate_m => ""
 $enddate_d => ""
-$typechanged => 0
 $notetext => ""
 </%args>
 <%perl>
@@ -69,10 +68,7 @@ if (defined $artists && scalar(@$artists))
 
 # If anything has been filled in, the user has clicked 'submit'.
 # We only accept valid dates or no dates at all.
-if (not $typechanged 
-		and $name =~ m/\S/ 
-		and $sortname =~ m/\S/
-    and $samecheck
+if ( $name =~ m/\S/ and $sortname =~ m/\S/ and $samecheck
 	  and MusicBrainz::IsValidDateOrEmpty($begindate_y, $begindate_m, $begindate_d)
 	  and MusicBrainz::IsValidDateOrEmpty($enddate_y, $enddate_m, $enddate_d)
 	  and MusicBrainz::IsDateEarlierThan($begindate_y, $begindate_m, $begindate_d, $enddate_y, $enddate_m, $enddate_d)

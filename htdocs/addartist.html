@@ -10,7 +10,6 @@ $begindate_d => ""
 $enddate_y => ""
 $enddate_m => ""
 $enddate_d => ""
-$typechanged => 0
 $notetext => ""
 $initial_name => ""
 $confirm => ""
@@ -54,7 +53,6 @@ if ($name ne "")
 # We only accept valid dates or no dates at all.
 if ($name =~ m/\S/ 
 		and (not(@dupes) or ($resolution ne "" and $confirm ne ""))
-		and not $typechanged
 	  and MusicBrainz::IsValidDateOrEmpty($begindate_y, $begindate_m, $begindate_d)
 	  and MusicBrainz::IsValidDateOrEmpty($enddate_y, $enddate_m, $enddate_d)
 	  and MusicBrainz::IsDateEarlierThan($begindate_y, $begindate_m, $begindate_d,

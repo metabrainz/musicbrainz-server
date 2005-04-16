@@ -8,7 +8,6 @@ $type => 0
 $resolution => ""
 $begindate => [ ]
 $enddate => [ ]
-$typechanged => 0
 $notetext => ""
 $confirm => 0
 $showres => 0
@@ -19,6 +18,7 @@ my $enddate_str = Artist::GetEndDateName($type);
 </%perl>
 
 <script type="text/javascript" src="scripts/guess.js"></script>
+<script type="text/javascript" src="scripts/artistform.js"></script>
 
 	<form method="POST" action="<% $action %>" name="EditArtist">
 
@@ -36,8 +36,7 @@ my $enddate_str = Artist::GetEndDateName($type);
 					Type:
 				</td>
 				<td>
-					<select name="type"
-							onChange="EditArtist.typechanged.value = 1; EditArtist.submit();">
+					<select name="type" onchange="artistTypeChanged(this.value);">
 						<& /comp/options,
 								[[0, 'Unknown'], [1, 'Person'], [2, 'Group']], $type &>
 					</select>
@@ -128,7 +127,7 @@ my $enddate_str = Artist::GetEndDateName($type);
 			</tr>
 			<tr>
 				<td align="right">
-					<% $begindate_str %>:
+					<span id="begindate_text"><% $begindate_str %></span>:
 				</td>
         <td>
 					<& /comp/dateinput, name_prefix => 'begindate', value => $begindate &>
@@ -137,7 +136,7 @@ my $enddate_str = Artist::GetEndDateName($type);
 			</tr>
 			<tr>
 				<td align="right">
-					<% $enddate_str %>:
+					<span id="enddate_text"><% $enddate_str %></span>:
 				</td>
         <td>
 					<& /comp/dateinput, name_prefix => 'enddate', value => $enddate &>
@@ -178,7 +177,6 @@ my $enddate_str = Artist::GetEndDateName($type);
 % if ( defined $artist ) {
 					<input type="hidden" name="id" value="<% $artist->GetId() %>">
 % }
-					<input type="hidden" name="typechanged" value="0">
 	 				<input type="submit" value="Submit">
         </td>
       </tr>
