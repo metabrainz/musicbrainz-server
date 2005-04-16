@@ -209,6 +209,7 @@ sub mirrorCommand
 
 	my $table = $row->[1];
 	$table =~ s/^"public"\.//;
+	$row->[1] = $table;
 	my $t = ($bytable{$table} ||= [0,0,0]);
 
 	if($op eq 'i')
@@ -232,41 +233,22 @@ sub mirrorCommand
 	return 0;
 }
 
+use MusicBrainz::Server::dbmirror;
+
 sub mirrorInsert
 {
 	my ($result, $slave, $row, $transId)  = @_;
 	my $seqId = $row->[0];
 	my $tableName = $row->[1];
-	my $counter;
-	my $column;
 
-	my $firstIteration=1;
-	my %recordValues = extractData($row);
+	my $valuepairs = MusicBrainz::Server::dbmirror::unpack_data($row->[4])
+		or die;
 
-	#Now build the insert query.
-	my $insertQuery = "INSERT INTO $tableName (";
-	my $valuesQuery = ") VALUES (";
-	foreach $column (keys (%recordValues)) {
-		if($firstIteration==0) {
-			$insertQuery .= " ,";
-			$valuesQuery .= " ,";
-		}
-		$insertQuery .= "\"$column\"";
-		if(defined $recordValues{$column}) {
-			my $quotedValue = $recordValues{$column};
-			$quotedValue =~ s/\\/\\\\/g;
-			$quotedValue =~ s/'/\\047/g;
-			$valuesQuery .= "'$quotedValue'";
-		} else {
-			$valuesQuery .= "null";
-		}
-		$firstIteration=0;
-	}
-	$valuesQuery .= ")";
+	my ($statement, $args) = MusicBrainz::Server::dbmirror::prepare_insert($tableName, $valuepairs);
 
 	print localtime() . " : INSERT INTO $tableName\n" if $short_sql;
-	print localtime() . " : $insertQuery$valuesQuery\n" if $long_sql;
-	$slave->Do($insertQuery . $valuesQuery);
+	show_long_sql($statement, $args) if $long_sql;
+	$slave->Do($statement, @$args);
 
 	return 1;
 }
@@ -276,35 +258,15 @@ sub mirrorDelete
 	my ($result, $slave, $row, $transId) = @_;
 	my $seqId = $row->[0];
 	my $tableName = $row->[1];
-	my %dataHash;
-	my $currentField;
-	my $firstField=1;
 
-	%dataHash = extractData($row);
-	my $counter=0;
-	my $deleteQuery = "DELETE FROM $tableName WHERE ";
-	foreach $currentField (keys %dataHash)
-	{
-		if($firstField==0) {
-			$deleteQuery .= " AND ";
-		}
-		my $currentValue = $dataHash{$currentField};
-		$deleteQuery .= "\"";
-		$deleteQuery .= $currentField;
-		if(defined $currentValue) {
-			$deleteQuery .= "\"='";
-			$deleteQuery .= $currentValue;
-			$deleteQuery .= "'";
-		} else {
-			$deleteQuery .= " is null ";
-		}
-		$counter++;
-		$firstField=0;
-	}
+	my $keypairs = MusicBrainz::Server::dbmirror::unpack_data($row->[4])
+		or die;
+
+	my ($statement, $args) = MusicBrainz::Server::dbmirror::prepare_delete($tableName, $keypairs);
 
 	print localtime() . " : DELETE FROM $tableName\n" if $short_sql;
-	print localtime() . " : $deleteQuery\n" if $long_sql;
-	$slave->Do($deleteQuery);
+	show_long_sql($statement, $args) if $long_sql;
+	$slave->Do($statement, @$args);
 
 	return 1;
 }
@@ -315,138 +277,29 @@ sub mirrorUpdate
 	my $seqId = $row->[0];
 	my $tableName = $row->[1];
 
-	my $counter;
-	my $quotedValue;
-	my $updateQuery = "UPDATE $tableName SET ";
-	my $currentField;
-
-	my %keyValueHash;
-	my %dataValueHash;
-	my $firstIteration=1;
-
-	#Extract the Key values. This row contains the values of the
-	# key fields before the update occours(the WHERE clause)
-	%keyValueHash = extractData($row);
+	my $keypairs = MusicBrainz::Server::dbmirror::unpack_data($row->[4])
+		or die;
 
 	my @row2 = $result->NextRow;
+	my $valuepairs = MusicBrainz::Server::dbmirror::unpack_data($row2[4]);
 
-	#Extract the data values.  This is a SET clause that contains
-	#values for the entire row AFTER the update.
-	%dataValueHash = extractData(\@row2);
-
-	$firstIteration=1;
-	foreach $currentField (keys (%dataValueHash))
-	{
-	  if($firstIteration==0) {
-	$updateQuery .= ", ";
-	  }
-	  $updateQuery .= " \"$currentField\"=";
-	  my $currentValue = $dataValueHash{$currentField};
-	  if(defined $currentValue ) {
-	$quotedValue = $currentValue;
-	$quotedValue =~ s/\\/\\\\/g;
-	$quotedValue =~ s/'/\\047/g;
-	$updateQuery .= "'$quotedValue'";
-	}
-	  else {
-	$updateQuery .= "null ";
-	  }
-	  $firstIteration=0;
-	}
-
-	$updateQuery .= " WHERE ";
-	$firstIteration=1;
-	foreach $currentField (keys (%keyValueHash)) {
-	  my $currentValue;
-	  if($firstIteration==0) {
-	$updateQuery .= " AND ";
-	  }
-	  $updateQuery .= "\"$currentField\"=";
-	  $currentValue = $keyValueHash{$currentField};
-	  if(defined $currentValue) {
-	$quotedValue = $currentValue;
-	$quotedValue =~ s/\\/\\\\/g;
-		$quotedValue =~ s/'/\\047/g;
-	$updateQuery .= "'$quotedValue'";
-	  }
-	  else {
-	$updateQuery .= " null ";
-	  }
-	  $firstIteration=0;
-	}
+	my ($statement, $args) = MusicBrainz::Server::dbmirror::prepare_update($tableName, $valuepairs, $keypairs);
 
 	print localtime() . " : UPDATE $tableName\n" if $short_sql;
-	print localtime() . " : $updateQuery\n" if $long_sql;
-	$slave->Do($updateQuery);
+	show_long_sql($statement, $args) if $long_sql;
+	$slave->Do($statement, @$args);
 
 	return 1;
 }
 
-sub extractData
+sub show_long_sql
 {
-  my ($row) = @_;
-  my $fnumber;
-  my %valuesHash;
-  my $dataField = $row->[4];
-
-  while(length($dataField)>0)
-  {
-	# Extract the field name that is surronded by double quotes
-	$dataField =~ m/(\".*?\")/s;
-	my $fieldName = $1;
-	$dataField = substr $dataField ,length($fieldName);
-	$fieldName =~ s/\"//g; #Remove the surronding " signs.
-
-	if($dataField =~ m/(^= )/s)
-	{
-	  #Matched null
-	$dataField = substr $dataField , length($1);
-	  $valuesHash{$fieldName}=undef;
-	}
-	elsif ($dataField =~ m/(^=\')/s)
-	{
-	  #Has data.
-	  my $value;
-	  $dataField = substr $dataField ,2; #Skip the ='
-
-	  LOOP:
-	  {  #This is to allow us to use last from a do loop.
-		 #Recommended in perlsyn manpage.
-		  do
-		  {
-			  my $matchString;
-
-			  #Find the substring ending with the first ' or first \
-			  $dataField =~ m/(.*?[\'\\])?/s;
-			  $matchString = $1;
-			  $value .= substr $matchString,0,length($matchString)-1;
-
-			  if($matchString =~ m/(\'$)/s)
-			  {
-				   # $1 runs to the end of the field value.
-				  $dataField = substr $dataField,length($matchString)+1;
-				  last;
-			  }
-			  else
-			  {
-				  #deal with the escape character.
-				  #It The character following the escape gets appended.
-				  $dataField = substr $dataField,length($matchString);
-				  $dataField =~ s/(^.)//s;
-				  $value .=  $1;
-			  }
-		  } until(length($dataField)==0);
-	  }
-	  $valuesHash{$fieldName} = $value;
-	}
-	else
-	{
-	  print STDERR "Error in PendingData Sequence Id " . $row->[0];
-	  die;
-	}
-  }
-
-  return %valuesHash;
+	my ($statement, $args) = @_;
+	printf "%s : %s (%s)\n",
+		scalar(localtime),
+		$statement,
+		join(" ", map { defined() ? $_ : "NULL" } @$args),
+		;
 }
 
 1;
