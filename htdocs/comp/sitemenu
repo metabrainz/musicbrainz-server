@@ -212,6 +212,14 @@ use Scalar::Util qw( reftype weaken );
 	[
 		{ name => "Contact Us",				url => "/wd/ContactUs" },
 		{ name => "FAQ Index",				url => "/wd/FAQIndex" },
+    	[ 	 
+            { url => "/wd/GeneralFAQ" }, 	 
+            { url => "/wd/AccountFAQ" }, 	 
+            { url => "/wd/ModerationFAQ" }, 	 
+            { url => "/wd/WindowsTaggerFAQ" }, 	 
+            { url => "/wd/ClassicalMusicFAQ" }, 	 
+            { url => "/wd/AnnotationFAQ" }, 	 
+        ],
 		{ name => "Mailing Lists",			url => "/list.html" },
 		{ name => "Bugs / RFEs",			url => "/wd/ContactUs#report-a-bug" },
 	],
