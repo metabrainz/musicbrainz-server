@@ -583,7 +583,8 @@ sub GetArtistsFromName
     {
 	# First, try exact match on name
 	$artists = $sql->SelectListOfHashes(
-	    "SELECT id, name, gid, modpending, sortname, resolution
+	    "SELECT id, name, gid, modpending, sortname,
+			resolution, begindate, enddate
 	    FROM artist WHERE name = ?",
 	    $artistname,
 	);
@@ -600,7 +601,8 @@ sub GetArtistsFromName
 	(my $fwu = $lc) =~ s/\A(\S+)/uc $1/e;
 
 	$artists = $sql->SelectListOfHashes(
-	    "SELECT id, name, gid, modpending, sortname, resolution
+	    "SELECT id, name, gid, modpending, sortname,
+			resolution, begindate, enddate
 	    FROM artist WHERE name IN (?, ?, ?, ?)",
 	    encode("utf-8", $uc),
 	    encode("utf-8", $lc),
@@ -611,7 +613,8 @@ sub GetArtistsFromName
 
 	# Next, try a full case-insensitive search
 	$artists = $sql->SelectListOfHashes(
-	    "SELECT id, name, gid, modpending, sortname, resolution
+	    "SELECT id, name, gid, modpending, sortname,
+			resolution, begindate, enddate
 	    FROM artist WHERE LOWER(name) = LOWER(?)",
 	    $artistname,
 	);
@@ -628,7 +631,8 @@ sub GetArtistsFromName
         if (my $artist = $alias->Resolve($artistname))
 	{
 	    $artists = $sql->SelectListOfHashes(
-		"SELECT id, name, gid, modpending, sortname, resolution
+		"SELECT id, name, gid, modpending, sortname, 
+			resolution, begindate, enddate
 		FROM artist WHERE id = ?",
 		$artist,
 	    );
@@ -647,6 +651,8 @@ sub GetArtistsFromName
 	$ar->SetSortName($row->{sortname});
 	$ar->SetModPending($row->{modpending});
 	$ar->SetResolution($row->{resolution});
+	$ar->SetBeginDate($row->{begindate});
+	$ar->SetEndDate($row->{enddate});
 
         push @results, $ar;
     }
@@ -668,7 +674,8 @@ sub GetArtistsFromSortname
     my $sql = Sql->new($this->{DBH});
 
     my $artists = $sql->SelectListOfHashes(
-	"SELECT	id, name, gid, modpending, sortname, resolution
+	"SELECT	id, name, gid, modpending, sortname,
+		resolution, begindate, enddate
 	FROM	artist
 	WHERE	LOWER(sortname) = LOWER(?)",
 	$sortname,
@@ -685,6 +692,8 @@ sub GetArtistsFromSortname
 	$ar->SetName($row->{name});
 	$ar->SetSortName($row->{sortname});
 	$ar->SetResolution($row->{resolution});
+	$ar->SetBeginDate($row->{begindate});
+	$ar->SetEndDate($row->{enddate});
 	$ar->SetModPending($row->{modpending});
 
         push @results, $ar;
