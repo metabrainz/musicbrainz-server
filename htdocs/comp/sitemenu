@@ -7,6 +7,7 @@ use Scalar::Util qw( reftype weaken );
 @main = (
 	{ name => "Home",					url => "/index.html" },
 	{ name => "Mirrors",				url => "/about/mirrors.html" },
+	{ name => "MetaBrainz",				url => "http://metabrainz.org" },
 	{ name => "About",					url => "/wd/AboutMusicBrainz" },
 	[
 		{ name => "Privacy",				url => "/privacy" },
