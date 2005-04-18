@@ -191,7 +191,7 @@ use Scalar::Util qw( reftype weaken );
 	[
 		{ name => "Docs",					url => "/documentation.html" },
 		[
-			{ url => "/how.html" },
+			{ url => "/wd/HowMusicBrainzWorks" },
 			{ url => "/client_howto.html" },
 			{ url => "/docs/mb_client/2.1.0" },
 			{ url => "/docs/tunepimp/index.html" },
