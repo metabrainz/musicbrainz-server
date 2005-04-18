@@ -1,0 +1,11 @@
+%# vi: set ts=2 sw=2 ft=mason :
+<%args>
+$id
+$name
+$resolution => undef
+$showresolution => 1
+</%args>
+<a href="/showartist.html?artistid=<% $id %>"><% $name %></a>
+% if ( $showresolution and defined $resolution ) {
+	(<% $resolution %>)
+% }

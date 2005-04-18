@@ -37,8 +37,13 @@ else
 
 %       while (my $row = $eng->NextRow) 
 %       {
-            <input type="radio" name="artist" 
-                   value="<% $row->{'artistid'} %>">&nbsp;<% $row->{'artistname'} %><br>
+            <input type="radio" name="artist" value="<% $row->{'artistid'} %>">
+				<& /comp/artist-link,
+						id			=> $row->{'artistid'},
+						name		=> $row->{'artistname'},
+						resolution	=> $row->{'artistresolution'},
+				&>
+				<br>
 %       }
 
         <input type="hidden" name="id" value="<% $id %>">
