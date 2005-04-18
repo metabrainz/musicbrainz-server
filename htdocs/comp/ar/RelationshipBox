@@ -83,7 +83,7 @@ else
 
 	@links = sort 
 	{ 
-		my $c = $a->{link_name} cmp $b->{link_name};
+		my $c = $a->{link_phrase} cmp $b->{link_phrase};
 		return $c if ($c);
 		$c = $a->{enddate} cmp $b->{enddate};
 		return $c if ($c);
@@ -123,6 +123,8 @@ else
 						my $nextnextitem = $links[$j + 1];
 						$and = 0 if (&$_isEqual($nextitem, $nextnextitem));
 					}
+					print STDERR $and ? ' and ' : ', ';
+					print STDERR "\n";
 					$and ? $m->out(' and ') : $m->out(', ');
 					$m->comp(".OutputEntity", $nextitem, 1, $name, $isrelpage);
 					$i = $j;
