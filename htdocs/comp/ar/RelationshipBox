@@ -95,8 +95,10 @@ else
 		if ($max == 1 && $item->{modpending});
 	$m->comp(".OutputEntity", { link0_id=>$id, link0_type=>$type }, 0, $name, $isrelpage);
 	$m->out(($max > 1) ? ':<table width="100%">' : ' ');
+
 	for($i = 0, $count = 0, $lines = 0; $i < $max; $i++, $lines++)
 	{
+	    my $itemsperline = 0;
 		if ($lines >= 3 && !$isrelpage)
 		{
 			$m->out(qq!<tr><td colspan="3">!); 
@@ -117,14 +119,19 @@ else
 				my $nextitem = $links[$j];
 				if (&$_isEqual($item, $nextitem))
 				{
-					my $and = 1;
-					if ($j < $max - 1)
+					if ($itemsperline <= 4 || $isrelpage)
 					{
-						my $nextnextitem = $links[$j + 1];
-						$and = 0 if (&$_isEqual($nextitem, $nextnextitem));
+						my $and = 1;
+						if ($j < $max - 1)
+						{
+							my $nextnextitem = $links[$j + 1];
+							$and = 0 if (&$_isEqual($nextitem, $nextnextitem));
+						}
+						$and ? $m->out(' and ') : $m->out(', ');
+						$m->comp(".OutputEntity", $nextitem, 1, $name, $isrelpage);
+						$m->out(" ... ") if ($itemsperline == 4);
+						$itemsperline++;
 					}
-					$and ? $m->out(' and ') : $m->out(', ');
-					$m->comp(".OutputEntity", $nextitem, 1, $name, $isrelpage);
 					$i = $j;
 					$count++;
 				}

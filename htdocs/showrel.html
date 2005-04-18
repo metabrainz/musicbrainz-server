@@ -89,6 +89,10 @@ if ($type eq 'album')
 if ($type eq 'track')
 {
    $m->comp("/comp/trackinfo", track=>$obj);
+   my $ar = Artist->new($mb->{DBH});
+   $ar->SetId($obj->GetArtist());
+   $m->comp("/comp/artistinfo", artist=>$ar)
+       if ($ar->LoadFromId());
 }
 
 </%perl>
