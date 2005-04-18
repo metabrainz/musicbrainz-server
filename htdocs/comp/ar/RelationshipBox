@@ -123,8 +123,6 @@ else
 						my $nextnextitem = $links[$j + 1];
 						$and = 0 if (&$_isEqual($nextitem, $nextnextitem));
 					}
-					print STDERR $and ? ' and ' : ', ';
-					print STDERR "\n";
 					$and ? $m->out(' and ') : $m->out(', ');
 					$m->comp(".OutputEntity", $nextitem, 1, $name, $isrelpage);
 					$i = $j;
