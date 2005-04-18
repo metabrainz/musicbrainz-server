@@ -1,0 +1,15 @@
+<%args>
+$id
+</%args>
+<%perl>
+use LWP::Simple;
+my $page = get( 'http://' . &DBDefs::WIKIDOC_SERVER . '/read/' . $id . '?action=content');
+
+if ( defined $page ) {
+        $m->print($page);
+}
+else {
+        $m->comp('/comp/error',
+                "Could not connect to documentation server.", 0, 0);
+}
+</%perl>
