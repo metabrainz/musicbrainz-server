@@ -330,10 +330,25 @@ sub CheckModerations
 
 				$sql->Begin;
 
-				$status = $mod->ApprovedAction;
-				$mod->SetStatus($status);
-				$user->CreditModerator($mod->GetModerator, $status);
-				$mod->CloseModeration($status);
+				$status = $mod->CheckPrerequisites;
+				if (defined $status)
+				{
+					print localtime() . " : Closing mod #" . $mod->GetId()
+						. " (" . $status_name_from_number{$status} . ")\n";
+
+					$mod->SetStatus($status);
+					$mod->DeniedAction;
+					$status = $mod->GetStatus;
+					$mod->CloseModeration($status);
+					# FIXME missing CreditModerator call here?
+					--$count{STATUS_APPLIED};
+					++$count{$status};
+				} else {
+					$status = $mod->ApprovedAction;
+					$mod->SetStatus($status);
+					$user->CreditModerator($mod->GetModerator, $status);
+					$mod->CloseModeration($status);
+				}
 
 				$sql->Commit;
 			};

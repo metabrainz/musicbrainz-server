@@ -173,6 +173,9 @@ sub _new_from_row
 	}
 	$self->{DBH} = $this->{DBH};
 
+	my $n = scalar @{ $self->{_types} };
+	$self->{_links} = [ map { $self->{"link$_"} } 0..$n-1 ];
+
 	bless $self, ref($this) || $this;
 }
 

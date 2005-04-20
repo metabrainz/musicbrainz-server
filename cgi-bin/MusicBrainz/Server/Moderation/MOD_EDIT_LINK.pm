@@ -103,6 +103,38 @@ sub PostLoad
 		or die;
 }
 
+sub CheckPrerequisites
+{
+	my $self = shift;
+	my $new = $self->{'new_unpacked'};
+
+	# Does the link still exist?
+	my $link = MusicBrainz::Server::Link->new($self->{DBH}, [$new->{oldentity0type}, $new->{oldentity1type}]);
+	$link = $link->newFromId($new->{linkid});
+
+	if (not $link)
+	{
+		$self->InsertNote(MODBOT_MODERATOR, "This link has been deleted.");
+		return STATUS_FAILEDDEP;
+	}
+
+	# Has it already been modified?
+	my $n = $link->GetNumberOfLinks;
+	my $old_ids = join " ", map { $new->{"oldentity${_}id"} } 0..$n-1;
+	my $new_ids = join " ", $link->Links;
+
+	if ($link->GetLinkType != $new->{oldlinktypeid}
+		or $link->GetBeginDate ne $new->{oldbegindate}
+		or $link->GetEndDate ne $new->{oldenddate}
+		or $old_ids ne $new_ids
+	) {
+		$self->InsertNote(MODBOT_MODERATOR, "This link has already been modified.");
+		return STATUS_FAILEDDEP;
+	}
+
+	return undef; # undef means no error
+}
+
 sub ApprovedAction
 {
   	my $self = shift;
