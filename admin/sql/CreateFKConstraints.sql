@@ -235,7 +235,7 @@ ALTER TABLE l_url_url
     REFERENCES url(id);
 
 ALTER TABLE link_attribute
-    ADD CONSTRAINT fk_link_attribute_type_id
+    ADD CONSTRAINT fk_link_attribute_type
     FOREIGN KEY (attribute_type)
     REFERENCES link_attribute_type(id);
 

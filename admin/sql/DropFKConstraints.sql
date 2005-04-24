@@ -48,7 +48,7 @@ ALTER TABLE l_track_url DROP CONSTRAINT fk_l_track_url_link_type;
 ALTER TABLE l_url_url DROP CONSTRAINT fk_l_url_url_link0;
 ALTER TABLE l_url_url DROP CONSTRAINT fk_l_url_url_link1;
 ALTER TABLE l_url_url DROP CONSTRAINT fk_l_url_url_link_type;
-ALTER TABLE link_attribute DROP CONSTRAINT fk_link_attribute;
+ALTER TABLE link_attribute DROP CONSTRAINT fk_link_attribute_type;
 ALTER TABLE lt_album_album DROP CONSTRAINT fk_lt_album_album_parent;
 ALTER TABLE lt_album_artist DROP CONSTRAINT fk_lt_album_artist_parent;
 ALTER TABLE lt_album_track DROP CONSTRAINT fk_lt_album_track_parent;
