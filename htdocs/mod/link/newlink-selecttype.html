@@ -219,9 +219,9 @@ my %seen_attrs;
         <table>
         <tr>
 %          if ($rev) {
-               <td><% $links[1]{type} %> <a href="/show<% $links[1]{type} %>.html?<% $links[1]{type} %>id=<% $links[1]{id} %>"><b><% $links[1]{name} %></b></a></td>
+               <td id="arlinkswap-link0-td"><% $links[1]{type} %> <a href="/show<% $links[1]{type} %>.html?<% $links[1]{type} %>id=<% $links[1]{id} %>"><b><% $links[1]{name} %></b></a></td>
 %          } else {
-               <td><% $links[0]{type} %> <a href="/show<% $links[0]{type} %>.html?<% $links[0]{type} %>id=<% $links[0]{id} %>"><b><% $links[0]{name} %></b></a></td>
+               <td id="arlinkswap-link0-td"><% $links[0]{type} %> <a href="/show<% $links[0]{type} %>.html?<% $links[0]{type} %>id=<% $links[0]{id} %>"><b><% $links[0]{name} %></b></a></td>
 %          }
            <td>
             <select name="linktypeid" onchange="linkTypeChanged()">
@@ -252,16 +252,22 @@ my %seen_attrs;
             </select>
           </td>
 %          if ($rev) {
-               <td><% $links[0]{type} %> <a href="/show<% $links[0]{type} %>.html?<% $links[0]{type} %>id=<% $links[0]{id} %>"><b><% $links[0]{name} %></b></a></td>
+               <td id="arlinkswap-link1-td"><% $links[0]{type} %> <a href="/show<% $links[0]{type} %>.html?<% $links[0]{type} %>id=<% $links[0]{id} %>"><b><% $links[0]{name} %></b></a></td>
 %          } else {
-               <td><% $links[1]{type} %> <a href="/show<% $links[1]{type} %>.html?<% $links[1]{type} %>id=<% $links[1]{id} %>"><b><% $links[1]{name} %></b></a></td>
+               <td id="arlinkswap-link1-td"><% $links[1]{type} %> <a href="/show<% $links[1]{type} %>.html?<% $links[1]{type} %>id=<% $links[1]{id} %>"><b><% $links[1]{name} %></b></a></td>
 %          }
         </tr>
 %       if ($links[0]{type} eq $links[1]{type}) {
         <tr>
-            <td>&nbsp;</td>
-            <td align="center"><input type="submit" name="swap" value="Swap left <% $links[0]{type} %> &lt;=&gt; right <% $links[0]{type} %>"></td>
-            <td>&nbsp;</td>
+			 <td colspan="3"><table align="center"><tr><td>
+				<div id="swap-clientside" style="display: none">
+					<input type="button" onclick="SwapARLinks(this)" name="swapJS" value="Swap left <% $links[0]{type} %> &lt;=&gt; right <% $links[0]{type} %>">
+				</div>
+				<div id="swap-serverside" style="display: block">
+					<input type="submit" name="swap" value="Swap left <% $links[0]{type} %> &lt;=&gt; right <% $links[0]{type} %>">
+				</div>
+				<script type="text/javascript" language="javascript" src="/scripts/ar-linkswap.js"></script>
+			</td></tr></table></td>
         </tr>
 %       }
         </table>
