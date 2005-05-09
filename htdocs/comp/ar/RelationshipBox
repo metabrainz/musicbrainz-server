@@ -204,7 +204,7 @@ elsif (scalar(@$recent_links) == 1)
 
 	<p>
 		[ <a href="/mod/link/relate_to_url.html?id=<% $recent_links->[0][1] %>&amp;type=<% $recent_links->[0][0] 
-			%>&amp;name=<% $recent_links->[0][2] %>">Relate to URL</a>
+			%>&amp;name=<% uri_escape($recent_links->[0][2]) %>">Relate to URL</a>
 		| <& /comp/ar/ShowCancelLink, targetid=>$id, targettype=>$type, isrelpage=>$isrelpage &>
 		| <a href="/addartist.html">Add new artist</a>
 		]

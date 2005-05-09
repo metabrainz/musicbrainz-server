@@ -119,19 +119,19 @@ sub open
 
 	require Net::SMTP;
 	my $smtp = Net::SMTP->new(&DBDefs::SMTP_SERVER)
-		or return warn "Failed to open SMTP connection: $!";
+		or warn("Failed to open SMTP connection: $!"), return;
 
 	$smtp->mail($from)
-		or return warn "SMTP 'mail' error: " . $smtp->message;
+		or warn("SMTP 'mail' error: " . $smtp->message), return;
 
 	for (@$to)
 	{
 		$smtp->to($_)
-			or return warn "SMTP 'rcpt' ($_) error: " . $smtp->message;
+			or warn("SMTP 'rcpt' ($_) error: " . $smtp->message), return;
 	}
 
 	$smtp->data
-		or return warn "SMTP 'data' error: " . $smtp->message;
+		or warn("SMTP 'data' error: " . $smtp->message), return;
 
 	use Symbol qw( gensym );
 	my $fh = gensym;

@@ -24,11 +24,11 @@ $read_more => 1
 	<h3><% $item->GetCategory() %>: <% $item->GetTitle() %>
 		(<% $item->GetDateString() %>)</h3>
 
-	<p><% $item->GetDescription() |n %>
+	<div><% $item->GetDescription() |n %>
 
 %	if ( $read_more ) {
 	<a href="<% $item->GetLink() %>">read more</a>
 %	}
-	</p>
+	</div>
 	<hr />
 % }

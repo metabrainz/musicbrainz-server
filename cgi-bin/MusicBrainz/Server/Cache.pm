@@ -27,6 +27,9 @@ use strict;
 
 package MusicBrainz::Server::Cache;
 
+# Try to preload
+eval 'require Cache::Memcached';
+
 use Carp qw( carp );
 
 use constant CACHE_TIMER => 0;

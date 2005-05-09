@@ -27,7 +27,7 @@ $ar->LoadFromId
 		1, 1,
 	);
 
-my $ret = $m->comp(
+my @ret = $m->comp(
 	"/comp/entermods",
 	DBH => $mb->{DBH},
 	sub => sub {
@@ -49,7 +49,7 @@ $m->comp("/comp/sidebar", title => 'CD TOC Added');
  
 <p>
 	Thank you for your submission.&nbsp;
-% if (@$ret) {
+% if (@ret) {
 	A new association has been entered into the database.
 % }
 </p>

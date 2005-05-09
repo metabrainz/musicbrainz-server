@@ -84,6 +84,20 @@ sub CheckPrerequisites
 		return STATUS_FAILEDPREREQ;
 	}
 
+    # Check to make sure that the destination artist still exists
+    my ($sortname, $name, $newid) = @$self{qw( new.sortname new.name new.id )};
+	if (defined $newid && $newid > 0)
+	{
+		require Artist;
+		my $ar = Artist->new($self->{DBH});
+		$ar->SetId($newid);
+		unless ($ar->LoadFromId)
+		{
+			$self->InsertNote(MODBOT_MODERATOR, "The target artist has been deleted");
+			return STATUS_FAILEDDEP;
+		}
+    }
+
 	undef;
 }
 

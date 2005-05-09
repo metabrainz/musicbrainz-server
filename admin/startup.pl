@@ -1,6 +1,17 @@
 #!/home/httpd/musicbrainz/mb_server/cgi-bin/perl -w
 # vi: set ts=4 sw=4 :
 
+unshift @INC, sub {
+	my $file = $_[1];
+	my $msg = "require $file";
+	for (my $i = 0; my @c = caller($i); ++$i)
+	{
+		$msg .= "\n\tcalled from $c[0] ($c[1] line $c[2])";
+	}
+	print STDERR $msg."\n";
+	return undef;
+} if 0; # set to 1 if you want to trace when modules are loaded
+
 use strict;
 use warnings;
 eval 'require Devel::SawAmpersand';
@@ -12,13 +23,12 @@ use lib "/home/httpd/musicbrainz/mb_server/cgi-bin";
 $ENV{GATEWAY_INTERFACE} =~ /^CGI-Perl/
 	or die "GATEWAY_INTERFACE not Perl!";
 
-
 # cgi-bin/*.pl is run via Apache::Registry
 require Apache::Registry;
 
 require Apache::Session;
 require DBI;
-require DBD::Pg;
+DBI->install_driver("Pg");
 
 # Some of the MB modules defer loading ("require" instead of "use") for some
 # modules.  If we know we're likely to want some module eventually, load it
@@ -93,6 +103,19 @@ require &DBDefs::MB_SERVER_ROOT . "/admin/depend.pl";
 # Loading the Mason handler preloads the pages, so the other MusicBrainz
 # modules must be ready by this point.
 require MusicBrainz::Server::Mason;
+
+# Preload Apache::Registry scripts
+{
+	use Apache::RegistryLoader ();
+	my $r = Apache::RegistryLoader->new;
+	$r->handler("/cgi-bin/$_", &DBDefs::MB_SERVER_ROOT."/cgi-bin/$_")
+		for qw( mq.pl mq_2_1.pl rdf.pl rdf_2_1.pl );
+}
+
+# Mason will try to load these later, when $m->cache->... is used.
+# Preload them.
+require Cache::FileCache;
+require HTML::Mason::Cache::BaseCache;
 
 1;
 # eof startup.pl

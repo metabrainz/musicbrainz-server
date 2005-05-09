@@ -36,28 +36,27 @@ sub preload_files
 {
 	my %files;
 
-	use File::Find qw( find );
 	my $len = length(&DBDefs::HTDOCS_ROOT);
 	my $recurse = sub {
 		my ($dir, $patt, $norec) = @_;
-		$dir = &DBDefs::HTDOCS_ROOT . $dir;
-		find(
-			{
-				no_chdir => 1,
-				wanted => sub {
-					if (-d $_)
-					{
-						$File::Find::prune = 1, return
-							if $_ =~ /\/CVS$/
-							or ($norec and $_ ne $dir);
-					} elsif (-f _) {
-						my $path = substr($_, $len);
-						$files{$path} = 1 if $path =~ /$patt/;
-					}
-				},
-			},
-			$dir,
-		);
+		my $fulldir = &DBDefs::HTDOCS_ROOT . $dir;
+
+		# Find files using the shell.  This is to avoid loading File::Find,
+		# which seems to be a "fat" module.
+		my $maxdepth = ($norec ? "-maxdepth 1" : "");
+		open(my $pipe, "cd $fulldir && find . $maxdepth -type f -print0 |") or die $!;
+		local $/ = chr(0);
+
+		while (<$pipe>)
+		{
+			next if m[/CVS/];
+			next unless m[^\./htdocs/comp/] or m[\.(html|inc)\x00];
+			chomp;
+			s[^\./][];
+			$files{"$_[0]/$_"} = 1;
+		}
+
+		close $pipe;
 	};
 
 	&$recurse("", qr/\.(html|inc)$/, 1);
@@ -86,6 +85,7 @@ sub preload_files
 		use vars '$r';
 	}
 
+	printf STDERR "Preloading %d components\n", scalar keys %files;
 	[ sort keys %files ];
 }
 
@@ -110,6 +110,9 @@ sub get_handler
 	# Install our minimal HTML encoder as the default.  This leaves
 	# top-bit-set characters alone.
 	$handler->interp->set_escape( h => \&MusicBrainz::encode_entities );
+	# Mason's handling of multiple escapes in ambiguous, so |uh and |hu are
+	# out.  And |u on its own is usually the wrong thing to do.
+	$handler->interp->remove_escape('u');
 
 	my $u = Apache->server->uid;
 	my $g = Apache->server->gid;
@@ -120,24 +123,10 @@ sub get_handler
 		# we're going to be serving requests under.
 		# Mason claims to do this itself, but it doesn't seem to work :-(
 
-		my @chown;
-		use File::Find qw( find );
-		find(
-			{
-				no_chdir => 1,
-				follow => 0,
-				wanted => sub {
-					my @s = stat $_;
-					push @chown, $_
-						unless $s[4]==$u and $s[5]==$g;
-				},
-			},
-			&DBDefs::MASON_DIR,
-		);
-
-		my $changed = chown $u, $g, @chown;
-		warn "chown (".@chown." files): only changed $changed files ($!)\n"
-			if $changed != @chown;
+		# This used to be done all in-process using File::Find; but doing it
+		# this way is actually more efficient, because then we don't have to
+		# bloat ourselves up with File::Find.
+		system "chown", "-R", "$u:$g", &DBDefs::MASON_DIR;
 	}
 
 	$handler;

@@ -108,14 +108,18 @@ sub CheckPrerequisites
 	my $self = shift;
 	my $new = $self->{'new_unpacked'};
 
-	# Does the link still exist?
-	my $link = MusicBrainz::Server::Link->new($self->{DBH}, [$new->{oldentity0type}, $new->{oldentity1type}]);
-	$link = $link->newFromId($new->{linkid});
+	my @types = @$new{qw( newentity0type newentity1type )};
 
-	if (not $link)
+	# Does the link being edited still exist?
+	my $link;
 	{
+		require MusicBrainz::Server::Link;
+		my $l = MusicBrainz::Server::Link->new($self->{DBH}, \@types);
+		$l = $l->newFromId($new->{"linkid"});
+		$link = $l, last if $l;
+
 		$self->InsertNote(MODBOT_MODERATOR, "This link has been deleted.");
-		return STATUS_FAILEDDEP;
+		return STATUS_FAILEDPREREQ;
 	}
 
 	# Has it already been modified?
@@ -130,6 +134,36 @@ sub CheckPrerequisites
 	) {
 		$self->InsertNote(MODBOT_MODERATOR, "This link has already been modified.");
 		return STATUS_FAILEDDEP;
+	}
+
+	# Do all target entities exist?
+	for my $i (0,1)
+	{
+		# If the entity is unchanged, it must still exist (because of the foreign key)
+		my $oldid = $new->{"oldentity".$i."id"};
+		my $newid = $new->{"newentity".$i."id"};
+		last if $oldid == $newid;
+
+		my $type = $types[$i];
+		require MusicBrainz::Server::LinkEntity;
+		my $ent = MusicBrainz::Server::LinkEntity->newFromTypeAndId(
+			$self->{DBH}, $type, $newid,
+		);
+		last if $ent;
+
+		$self->InsertNote(MODBOT_MODERATOR, "This $type has been deleted.");
+		return STATUS_FAILEDPREREQ;
+	}
+
+	# Does the target link type exist?
+	{
+		require MusicBrainz::Server::LinkType;
+		my $lt = MusicBrainz::Server::LinkType->new($self->{DBH}, \@types);
+		$lt = $lt->newFromId($new->{"newlinktypeid"});
+		last if $lt;
+
+		$self->InsertNote(MODBOT_MODERATOR, "This link type has been deleted.");
+		return STATUS_FAILEDPREREQ;
 	}
 
 	return undef; # undef means no error

@@ -101,15 +101,26 @@ our @allowed_timezones = (
 		my $offset = ""; # " ????";
 		(my $name = $_) =~ tr/_/ /;
 		$name =~ s/^posix\///;
-		$name =~ s/\bEtc\b/etc/g;
 		$name =~ s[\s*/\s*][ / ]g;
 
 		push @posix_zones, [ $_, $offset ? "$offset $name" : $name ];
 	};
 
-	use File::Find qw( find );
-	find({ wanted => $sub, no_chdir => 1 }, "$tzdir/posix")
-		if -d $tzdir;
+	# Find files using the shell.  This is to avoid loading File::Find,
+	# which seems to be a "fat" module.
+	if (open(my $pipe, "-|", "find", $tzdir."/posix", "-print0"))
+	{
+		local $/ = chr(0);
+		while(defined(my $found = <$pipe>))
+		{
+			chomp $found;
+			local $_ = $found;
+			lstat $_;
+			&$sub($found);
+		}
+		close $pipe;
+	}
+
 	push @allowed_timezones, sort { $a->[1] cmp $b->[1] } @posix_zones;
 }
 

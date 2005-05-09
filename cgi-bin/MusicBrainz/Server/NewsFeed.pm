@@ -32,6 +32,11 @@ use MusicBrainz::Server::Cache;
 use XML::RSS;
 use LWP::UserAgent;
 
+# Preload required modules
+{
+	my $ua = LWP::UserAgent->new(timeout => 1);
+	scalar $ua->get("http://0.0.0.0/dummy");
+}
 
 # News feeds are cached to avoid downloading them too often.
 # The value is in seconds.

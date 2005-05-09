@@ -10,6 +10,7 @@ use Scalar::Util qw( reftype weaken );
 	{ name => "MetaBrainz",				url => "http://metabrainz.org" },
 	{ name => "About",					url => "/wd/AboutMusicBrainz" },
 	[
+		{ name => "Sponsors",				url => "/wd/CorporateSponsors" },
 		{ name => "Privacy",				url => "/privacy" },
 		[
 			{ url => "/docs/20040922-1.html" },

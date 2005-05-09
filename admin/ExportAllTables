@@ -276,15 +276,17 @@ sub dumptable
 
 	# This has to be at least as large as the longest line given
 	# by "copy table to stdout".
-	# Currently the largest value I can see is a row in the moderation
-	# table which is approx 215,000 bytes.
-	my $max = 250_000; my $maxline = __LINE__;
+	# Currently the largest value is moderation #2575726 at approx
+	# 312,851 bytes.
+	my $max = 315_000; my $maxline = __LINE__;
+	my $longest = 0;
 
 	while ($dbh->func($buffer, $max, "getline"))
 	{
 		die "\nProbable data truncation!  See $0 line $maxline"
 			if length($buffer) >= $max-1;
 
+		$longest = length($buffer) if length($buffer) > $longest;
 		print DUMP $buffer, "\n"
 			or die $!;
 
@@ -302,6 +304,7 @@ sub dumptable
 
 	$interval = tv_interval($t1);
 	$p->(($fProgress ? "\r" : ""), sprintf(" %.2f sec\n", $interval));
+	print "Longest buffer used: $longest\n" if $ENV{SHOW_BUFFER_SIZE};
 
 	++$tables;
 	$totalrows += $rows;

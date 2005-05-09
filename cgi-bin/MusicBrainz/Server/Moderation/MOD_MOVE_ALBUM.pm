@@ -72,6 +72,25 @@ sub PostLoad
 	}
 }
 
+sub CheckPrerequisites
+{
+	my $self = shift;
+
+	if (my $id = $self->{'new.artistid'})
+	{
+		require Artist;
+		my $ar = Artist->new($self->{DBH});
+		$ar->SetId($id);
+		unless ($ar->LoadFromId)
+		{
+			$self->InsertNote(MODBOT_MODERATOR, "This artist has been deleted");
+			return STATUS_FAILEDPREREQ;
+		}
+	}
+
+	return undef;
+}
+
 sub ApprovedAction
 {
 	my $this = shift;
@@ -108,7 +127,7 @@ sub ApprovedAction
 		);
 		$newid = $ids->[0];
     }
-	if (not defined $newid)
+	if (not defined($newid) or $newid == -1) # huh?
 	{
 		# No such artist, so create one
 		require Artist;

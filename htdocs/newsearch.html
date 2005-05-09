@@ -13,14 +13,22 @@ UserStuff::EnsureSessionOpen(), $session{tport} = $tport
 
 use SearchEngine qw( :constants );
 
+$table = (
+	(defined($table) and $table =~ /\A(artist|album|track)\z/)
+	? $1 : undef
+);
+
+$limit = (
+	(defined($limit) and MusicBrainz::IsNonNegInteger($limit))
+	? 0+$limit : undef
+);
+
 if ( defined $table && defined $search)
 {
 	$table = lc $table;
 	my $mb = $m->comp("/comp/dblogin");
 
     my $engine = SearchEngine->new($mb->{DBH}, $table);
-
-	# TODO validate $limit
 
 	$engine->Search(
 		query => $search,
@@ -105,7 +113,7 @@ if ( defined $table && defined $search)
         </a>
 
 %       if ($table eq 'artist') {
-	        Alternatively, <a href="/addartist.html?initial_name=<% $search |u %>">add a new artist</a>.
+	        Alternatively, <a href="/addartist.html?initial_name=<% uri_escape($search) %>">add a new artist</a>.
 %       } elsif ($table eq 'album') {
 	        Alternatively, <a href="/addalbum.html?artistid=0">add a new album</a>.
 %       }

@@ -1,11 +1,23 @@
 <%args>
-$id
+$id => undef
 </%args>
 <%perl>
+
+MusicBrainz::IsSingleLineString($id) and $id =~ /\A\w+\z/
+	or return $m->comp("/comp/badargs", 1, 1);
+
 use LWP::Simple;
 my $page = get( 'http://' . &DBDefs::WIKIDOC_SERVER . '/read/' . $id . '?action=content');
 
 if ( defined $page ) {
+	# Some pages in the Wiki use URLs of the form: http:/page.html .
+	# This works in some browsers (it's taken as relative to
+	# http://www.musicbrainz.org/ ..., so resolves to
+	# http://www.musicbrainz.org/page.html).  However I can't tell
+	# for certain whether or not the RFCs define this to be correct.
+	# So for now, rewrite those URLs to their canonical form.
+	$page =~ s[href="http:/(\w)]['href="http://' . &DBDefs::WEB_SERVER . "/$1"]eg;
+
         $m->print($page);
 }
 else {

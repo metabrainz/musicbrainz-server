@@ -497,6 +497,15 @@ sub SubmitTRMList
             last if ($i > 1);
             return $rdf->ErrorRDF("Incomplete trackid and trmid submitted.")
        }
+
+       # We have to have a limit, I think.  It's only sensible.
+       # So far I've not seen anyone submit more that about 4,500 TRMs at once,
+       # so this limit won't affect anyone in a hurry.
+       if ($i > 5000)
+       {
+            return $rdf->ErrorRDF("Too many TRMs submitted at once - the limit is 5000.  Sorry.")
+       }
+
        # Check to see if these trms represent silence or too short TRMs. If so, skip them.
        if ($trmid eq &ModDefs::TRM_TOO_SHORT || $trmid eq &ModDefs::TRM_SIGSERVER_BUSY)
        {
@@ -528,16 +537,27 @@ sub SubmitTRMList
        {
            $sql->Begin;
 
-	   require Moderation;
-	    my @mods = Moderation->InsertModeration(
-		DBH => $dbh,
-		uid => $session->{'uid'},
-		privs => 0, # TODO
-		type => &ModDefs::MOD_ADD_TRMS,
-		# --
-		client => $clientVer,
-		links => \@links,
-	    );
+	    require Moderation;
+	    my @mods;
+
+	    # Break the list of TRMs up into 100 TRMs at a time.
+	    # This is so that each moderation is manageably small.
+	    while (@links)
+	    {
+	    	my @thistime;
+		if (@links > 100) { @thistime = splice(@links, 0, 100) }
+		else { @thistime = @links; @links = () }
+
+		my @mods = Moderation->InsertModeration(
+		    DBH => $dbh,
+		    uid => $session->{'uid'},
+		    privs => 0, # TODO
+		    type => &ModDefs::MOD_ADD_TRMS,
+		    # --
+		    client => $clientVer,
+		    links => \@thistime,
+		);
+	    }
 
            $sql->Commit;
        };
