@@ -84,10 +84,14 @@ $search = $ar->GetName
     <& /comp/modpending &>
 % }
 
-<p>
-	Please search for the artist into which
-	you want to merge <b><% $ar->GetName %></b>.
-</p>
+
+<fieldset>
+	<legend>Select other artist </legend>
+	<div class="padleft">
+		Please search for the artist into which you want to merge 
+		<b><% $ar->GetName %></b> into.
+	</div>
+</fieldset>
 
 <& /comp/artistfilter,
 	search => $search,

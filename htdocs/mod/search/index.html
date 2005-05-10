@@ -4,6 +4,8 @@
 $m->comp("/comp/checkloggedin", 1, 1)
 	or return;
 
+my $mb = $m->comp("/comp/dblogin");
+
 my (undef, undef, $filter) = $m->comp("setquery.inc", %ARGS);
 
 my %all_status = reverse %{ ModDefs->status_as_hashref };
@@ -12,6 +14,11 @@ my %all_votes = reverse %{ ModDefs->vote_as_hashref };
 delete $all_votes{&ModDefs::VOTE_UNKNOWN};
 
 my %all_types = reverse %{ ModDefs->type_as_hashref };
+
+my @all_languages = MusicBrainz::Server::Language->Menu(
+	$mb->{DBH}, minimum_frequency => 1);
+# replace the "Unknown language"
+$all_languages[0] = [0, '[unset language]'] if @all_languages;
 
 </%perl>
 <& /comp/sidebar, title => "Search Moderations" &>
@@ -199,6 +206,20 @@ my %all_types = reverse %{ ModDefs->type_as_hashref };
 		</tr>
 % }
 
+		<tr>
+			<td colspan="2">
+				<h2>Limit by Language</h2>
+				<p>
+					Limit your search by language. This only works for add album
+					moderations with a set language field and edit language moderations.
+				</p>
+				<p>
+					<select name="mod_language" size="10" multiple>
+						<& /comp/options, \@all_languages, $filter->{"mod_language"} &>
+					</select>
+				</p>
+			</td>
+		</tr>
 		<tr>
 			<td colspan="2">
 				<h2>Limit by Moderation ID</h2>

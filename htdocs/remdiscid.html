@@ -67,55 +67,47 @@ if ($confirm)
 
 </%perl>
 
-<& /comp/sidebar, title =>' Remove Discid' &>
+<& /comp/sidebar, title => 'Confirm CD Index Id Removal' &>
 
-<h2>Remove Disc ID</h2>
-
-<p>
-	Are you sure you want to remove
-	<a href="/showcdtoc.html?id=<% $cdtoc->GetId %>"
-		>disc ID '<% $cdtoc->GetDiscID %>'</a>
-	from album <a href="/showalbum.html?albumid=<% $albumid %>"><% $al->GetName %></a>?
-</p>
-
-<p>
-	Please be sure you are certain that this CD Index Id is an error,
-	since an album can have multiple valid CD Index Ids, and each CD Index Id
-	can belong to more than one album.&nbsp;
-	For more info, please see our
-	<a href="/cd_submission.html">CD Submission</a> document.
-</p>
-
-<form method="get" action="<% $url %>"
-	name="ModFormNo"
-	onsubmit="history.go(-1); return false"
-	style="float: left; margin-right: 2em; margin-top: 0"
-	>
-	<div>
-		<input type="submit" value="&lt;&lt; NO">
+<fieldset>
+	<legend>Confirm CD Index Id Removal</legend>
+	<div class="padleft">
+		Are you sure you want to remove	CD Index Id 
+		<a href="/showcdtoc.html?id=<% $cdtoc->GetId %>"><% $cdtoc->GetDiscID %></a>
+		from album <a href="/showalbum.html?albumid=<% $albumid %>"><% $al->GetName %></a>?
 	</div>
-</form>
-
-<form method="post" action="/remdiscid.html"
-	name="ModFormYes"
-	style="margin: 0"
-	>
-	<div>
-		<input type="hidden" name="tocid" value="<% $tocid %>">
-		<input type="hidden" name="albumid" value="<% $albumid %>">
-		<input type="hidden" name="confirm" value="1">
-		<input type="submit" value="YES &gt;&gt;">
+	<div class="padlefttop">
+		Please be sure you are certain that this CD Index Id is an error,
+		since an album can have multiple valid CD Index Ids, and each CD Index Id
+		can belong to more than one album.&nbsp; For more in-depth information about
+		this topic, please see our <a href="/cd_submission.html">CD Submission</a> document.
 	</div>
+	<div class="padlefttop">
+		<table>
+			<tr>
+				<td>
+					<form 	method="GET" action="<% $url %>"
+							name="ModFormNo" 
+							onsubmit="history.go(-1); return false">
+						<input name="btnNo" type="submit" class="button" value="&laquo; NO">
+					</form></td>
+				<td> &nbsp; </td>
+				<td>
+					<form 	method="POST" action="/remdiscid.html"
+							name="ModFormYes">
+						<input type="hidden" name="tocid" value="<% $tocid %>">
+						<input type="hidden" name="albumid" value="<% $albumid %>">
+						<input type="hidden" name="confirm" value="1">
+						<input name="btnYes" type="submit" class="button" value="YES &raquo;">
+					</td>
+			</tr>
+		</table>
+	</div>
+	<div class="padlefttop">
+		<& /comp/notetext &>
+	</div>
+	</form>
+</fieldset>
 
-	<p>
-		If YES, enter moderation note (optional):
-	</p>
-
-	<p>
-		<textarea name="notetext" rows="3" cols="60"></textarea>
-	</p>
-
-</form>
-
-<& /comp/movefocus, "ModFormNo", 0 &>
+<& /comp/movefocus, "ModFormYes", "btnYes" &>
 <& /comp/footer &>

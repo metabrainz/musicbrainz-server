@@ -27,71 +27,79 @@ $ar->SetSortName($session{'freedb_sortname'});
 my $t = $session{"freedb_tracks"};
 
 </%perl>
-<& /comp/sidebar, title => "FreeDB Import - Edit Track Names" &>
+<& /comp/sidebar, title => "FreeDB Import: Edit Album and Track Names" &>
 
 <& /comp/stylemenu &>
 
-<script type="text/javascript" src="/scripts/guess.js"></script>
-
 <form method="post" action="/freedb/sac-edittracks.html">
 
-	<table>
-		<col>
-		<col style="width: 0.5em">
-		<col style="width: 20em">
-		<col style="width: 0.5em">
-		<col style="width: 6em">
-		<tr>
-			<td>Artist:</td>
-			<td rowspan="<% $t+3 %>">
-			<td>
-% if ($ar->GetId) {
-				<a href="/showartist.html?artistid=<% $ar->GetId %>"
-					><% $ar->GetName %></a>
-% } else {
-				<% $ar->GetName %>
-				(<% $ar->GetSortName %>)
-% }
-			</td>
-			<td rowspan="<% $t+3 %>">
-			<td nowrap align="center">[ <a href="/freedb/select-macsac.html">Change</a> ]</td>
-		</tr>
-		<tr>
-			<td>Album:</td>
-			<td><input type="text" name="album" style="width: 100%"
-				value="<% $session{'freedb_album'} %>"></td>
-			<td align="center"><input type="button" value="Guess Case"
-				onclick="this.form.album.value = GuessCase(this.form.album.value)"
-				></td>
-		</tr>
-% for my $i (0 .. $t-1) {
-		<tr>
-			<td>Track <% $i+1 %>:</td>
-			<td><input type="text" name="track<% $i %>" style="width: 100%"
-				maxlength="255"
-				value="<% $session{"freedb_track$i"} %>"></td>
-			<td align="center"><input type="button" value="Guess Case"
-				onclick="this.form.track<% $i %>.value = GuessCase(this.form.track<% $i %>.value)"
-				></td>
-		</tr>
-% }
-		<tr>
-			<td></td>
-			<td></td>
-			<td align="center"><input type="button" value="Guess All"
-				onclick="
-					this.form.album.value = GuessCase(this.form.album.value);
-					for (var i=0; i &lt; <% $t %>; ++i) {
-						this.form['track'+i].value = GuessCase(this.form['track'+i].value);
-					}
-				"></td>
-		</tr>
-	</table>
+	<& /comp/autofixmenu &>
 
-	<p style="text-align: center">
-		<input type="submit" value="Continue">
-		<input type="hidden" name="continue" value="1">
-	</p>
+	<fieldset>
+		<legend>Edit Album and Track Names</legend>
+
+		<table>
+			<tr>
+				<td><label for="artist">Artist:</label></td>
+				<td>
+% if ($ar->GetId) {
+				<a href="/showartist.html?artistid=<% $ar->GetId %>"><% $ar->GetName %></a>
+% } else {
+					<% $ar->GetName %>
+					(<% $ar->GetSortName %>)
+% }
+				</td>
+				<td rowspan="<% $t+4 %>">
+				<td nowrap align="center">[ <a href="/freedb/select-macsac.html">Change</a> ]</td>
+			</tr>
+			<tr>
+				<td><label for="album">Album:</label></td>
+				<td><input 	type="text" name="album" class="textfield"
+							onFocus="myOnFocus(this)" onBlur="myOnBlur(this)"
+							size="50" 
+							value="<% $session{'freedb_album'} %>"></td>
+				<td><script language="javascript">
+					<!--
+						af_writeButton(AF_BTN_ALBUM, 'album');
+					-->
+					</script></td>
+			</tr>
+% for my $i (0 .. $t-1) {
+			<tr>
+				<td><label for="track<% $i %>"><% $i+1 %>:</label></td>
+				<td><input 	type="text" name="track<% $i %>" class="textfield"
+							onFocus="myOnFocus(this)" onBlur="myOnBlur(this)"
+							size="50"  
+							value="<% $session{"freedb_track$i"} %>"></td>
+				<td><script language="javascript">
+					<!--
+						af_writeButton(AF_BTN_TRACK, 'track<% $i %>');
+					-->
+					</script></td>
+			</tr>
+% }
+			<tr>
+				<td>&nbsp;</td>
+				<td>&nbsp;</td>
+				<td><script language="javascript">
+					<!--
+						function doGuessAll(theForm) {
+							doAlbumName(theForm, 'album');
+							for (var i=0; i < <% $t %>; i++) {
+								doTrackName(theForm, 'track'+i);
+							}
+						}
+						af_writeButton(AF_BTN_ALL, AF_BTNTEXT_ALBUMANDTRACKS);
+					-->
+					</script></td>
+			</tr>
+			<tr>
+				<td>&nbsp;</td>
+				<td colspan="2">
+					<input type="submit" class="button" value="Continue">
+					<input type="hidden" name="continue" value="1"></td>
+		</table>
+	</fieldset>
 </form>
 
 <& /comp/footer &>

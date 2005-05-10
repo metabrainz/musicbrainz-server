@@ -126,17 +126,17 @@ if ($url
 my $root = $link->Root;
 
 </%perl>
-<& /comp/sidebar, title => 'Relate to URL' &>
+<& /comp/sidebar, title => 'Create Relationship: Relate to URL' &>
 
 % if ($submit) {
 %      if (!$linktype) {
-         <p style="color: red;">Error: You must select a link type from the list below.</p>
+         <div class="linkerror">Error: You must select a link type from the list below.</div>
 %      }
 %      if (!defined $url || !MusicBrainz::Server::URL->IsLegalURL($url)) {
-         <p style="color: red;">Error: You must enter a valid URL below.</p>
+         <div class="linkerror">Error: You must enter a valid URL below.</div>
 %      }
 %      if (!defined $desc || $desc eq '') {
-         <p style="color: red;">Error: You must enter description for the URL below.</p>
+         <div class="linkerror">Error: You must enter description for the URL below.</div>
 %      }
 % }
 
@@ -151,93 +151,55 @@ my $root = $link->Root;
 	track, please ensure that the music is licensed under some free license like the 
 	<a href="http://creativecommons.org">Creative Commons licenses</a>, 
 	<a href="http://www.eff.org/IP/Open_licenses/eff_oal.php">EFF's 
-	Open Audio license</a> or are otherwise legally downloadable for free. 
+	Open Audio license</a> or is otherwise legally downloadable for free. 
 </p>
 
 <form name="linktype" method="post" action="/mod/link/relate_to_url.html">
+	<fieldset>
+		<legend>Relate <% ucfirst($type) %> to URL</legend>
 
-	<p>
-		<% $type %> <b><% $name %></b> 
-        <select name="linktype" onchange="linkTypeChanged()">
-           <option value="||">[select a link type]</option>
+		<div class="padleft">
+			<% ucfirst($type) %> <b><% $name %></b> 
+			<select name="linktype" onchange="linkTypeChanged()">
+				<option value="||">[select a link type]</option>
 %             my @q = map { [$_,0] } $root;
 %             while (my $l = shift @q) {
 %                 unshift @q, map { [$_,$l->[1]+1] } $l->[0]->Children;
 %                 next if ($l->[0]->GetName eq 'ROOT');
-                 <option value="<% $l->[0]->GetId %>|<% $l->[0]->GetAttributes() %>|<% $l->[0]->GetDescription() %>" <% $l->[0]->GetId eq $linktype ? 'selected=""' : '' %>
+				<option value="<% $l->[0]->GetId %>|<% $l->[0]->GetAttributes() %>|<% $l->[0]->GetDescription() %>" <% $l->[0]->GetId eq $linktype ? 'selected=""' : '' %>
 %                my $text = $l->[0]->GetLinkPhrase;
 %                $text =~ s/\{(\w+:)/{/;
                   ><% ("&nbsp;&nbsp;" x $l->[1]) |n %><% $text %></option>
 %            }
-        </select>
-		URL:
-	</p>
+			</select> URL:
 
-    <p id="link_desc">&nbsp;</p>
+    		<span id="link_desc">&nbsp;</span>
+		</div>
 
-	<p>
-        <input type="text" name="url" size="40" value="<% $url or 'http://' %>">
-	</p>
+		<div class="padlefttop">
+			Enter URL (<b>required</b>): <br/>
+        	<input type="text" name="url" size="40" value="<% $url or 'http://' %>">
+		</div>
+		
+		<div class="padlefttop">
+			Enter description for this URL (<b>required</b>): <br/>
+			<textarea name="desc" rows="3" cols="60"><% $desc %></textarea>
+		</div>
 
-	<p>
-		Enter description for this URL (required):
-	</p>
-
-	<p>
-		<textarea name="desc" rows="3" cols="60"><% $desc %></textarea>
-	</p>
-
-
-	<p>
-		Enter moderation note (optional):
-	</p>
-
-	<p>
-		<textarea name="notetext" rows="3" cols="60"><% $notetext %></textarea>
-	</p>
-
-	<p>
-		<input type="hidden" name="id" value="<% $id %>">
-		<input type="hidden" name="type" value="<% $type %>">
-		<input type="hidden" name="name" value="<% $name %>">
-		<input type="hidden" name="submit" value="1">
-		<input type="submit" value="Submit">
-	</p>
+		<div class="padleft">
+			<p/>
+			<& /comp/notetext, text => $notetext &>
+		</div>
+		<div class="padlefttop">
+			<input type="hidden" name="id" value="<% $id %>">
+			<input type="hidden" name="type" value="<% $type %>">
+			<input type="hidden" name="name" value="<% $name %>">
+			<input type="hidden" name="submit" value="1">
+			<input type="submit" class="button" value="Submit">
+		</div>
+	</fieldset>
 </form>
 
-<script language="javascript" type="text/javascript">
-<!--
-function linkTypeChanged()
-{
-    var selection = document.linktype.linktype.value;
-    var sp = selection.split("|");
+<script language="javascript" src="relate_to_url.js"></script>
 
-    var link_desc = document.getElementById('link_desc');
-	if (link_desc)
-	{
-		var textNode = link_desc.firstChild;
-		if (sp[2] != "")
-		{
-		    textNode.data = "Description: " + sp[2];
-			link_desc.setAttribute("style", "");
-		}
-		else
-		{
-			if (sp[0] != "")
-			{
-				textNode.data = "Error: Please select a subtype of the currently selected link type. The selected link type is only used for grouping sub-types.";
-				link_desc.setAttribute("style", "color: red;");
-			}
-			else
-			{
-				textNode.data = "";
-				link_desc.setAttribute("style", "");
-			}
-		}
-	}
-}
-
-linkTypeChanged();
--->
-</script>
 <& /comp/footer &>

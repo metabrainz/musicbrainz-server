@@ -30,52 +30,47 @@ my $trackphrase = "$n tracks";
 $trackphrase = "one track" if $n == 1;
 
 </%perl>
-<& /comp/sidebar, title => "FreeDB Import - Similar Albums Found" &>
+<& /comp/sidebar, title => "FreeDB Import: Similar Albums Found" &>
 
-<p>
-	MusicBrainz already contains the following 
-	releases that have the same or a similar title
-	to the CD that you'd like to import:
-</p>
+<fieldset>
+	<legend>Similar Albums Found</legend>
+	<div class="padleft">
+		MusicBrainz already contains the some releases that have 
+		the same or a similar title to the CD that you'd like to import
+	</div>	
 
-<ul>
 % for my $al (@similar) {
-	<li>
-		<% int $al->{_pct_match_} %>% match
-		<br>
+	<div class="padlefttop" style="width: 600px">
+		<b><% int $al->{_pct_match_} %>% match</b><br/>
 		<%perl>
-		$m->comp("/comp/album", artist=>$ar, album=>$al, showmodlinks=>0, showids=>1);
+			$m->comp("/comp/album", artist=>$ar, album=>$al, showmodlinks=>0, showids=>1);
 		</%perl>
-	</li>
-% }
-</ul>
+	</div>
+% }		
 
-<center>
+</fieldset>
 
-<p style="color: red; font-size: 150%">
-	Please do not import releases that are already present
-	in the database!
-</p>
-
-<p>
-	Are you sure you want to continue importing this CD?
-</p>
-
-<table>
-	<td width="40%">
-		<form method="get" action="/freedb/cancel.html">
-			<input type="submit" value="No">
-		</form>
-	</td>
-	<td></td>
-	<td width="40%">
-		<form method="post" action="<% $nextpage %>">
-			<input type="submit" value="Yes">
-		</form>
-	</td>
-</table>
-
-</center>
+<fieldset>
+	<legend>Confirm Import</legend>
+	<div class="padleft" style="color: red; font-size: 150%">
+		Please do not import releases that are already present
+		in the database!
+	</div>
+	<div class="padlefttop"> 
+		Are you sure you want to continue importing this CD?
+		<table>
+			<td>
+				<form method="get" action="/freedb/cancel.html">
+					<input type="submit" class="button" value="&nbsp; No &nbsp;">
+				</form></td>
+			<td> &nbsp; </td>
+			<td>
+				<form method="post" action="<% $nextpage %>">
+					<input type="submit" class="button" value="&nbsp; Yes &nbsp;">
+				</form></td>
+		</table>
+	</div>
+</fieldset>
 
 <& /comp/footer &>
 % return 1;

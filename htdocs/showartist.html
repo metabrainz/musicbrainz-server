@@ -358,8 +358,11 @@ $m->comp(
 							} %><%
 								$amp ? "</span>" : "" |n
 						%></td>
-						<td class="rdate">
+						<td class="rdate"><nobr>
 %							$m->comp('/comp/releasedate', $album->GetFirstReleaseDateYMD);
+						</td>
+						<td class="lang">
+%							$m->comp('/comp/language', $album->GetLanguage, $album->GetScript);
 						</td>
 % if ($session{uid}) {
 						<td class="rtag">

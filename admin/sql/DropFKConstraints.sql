@@ -3,6 +3,8 @@
 -- Alphabetical order by table
 
 ALTER TABLE album DROP CONSTRAINT album_fk_artist;
+ALTER TABLE album DROP CONSTRAINT album_fk_language;
+ALTER TABLE album DROP CONSTRAINT album_fk_script;
 ALTER TABLE album_amazon_asin DROP CONSTRAINT album_amazon_asin_fk_album;
 ALTER TABLE album_cdtoc DROP CONSTRAINT album_cdtoc_fk_album;
 ALTER TABLE album_cdtoc DROP CONSTRAINT album_cdtoc_fk_cdtoc;
@@ -61,17 +63,21 @@ ALTER TABLE lt_track_url DROP CONSTRAINT fk_lt_track_url_parent;
 ALTER TABLE lt_url_url DROP CONSTRAINT fk_lt_url_url_parent;
 ALTER TABLE moderation_closed DROP CONSTRAINT moderation_closed_fk_artist;
 ALTER TABLE moderation_closed DROP CONSTRAINT moderation_closed_fk_moderator;
+ALTER TABLE moderation_closed DROP CONSTRAINT moderation_closed_fk_language;
 ALTER TABLE moderation_note_closed DROP CONSTRAINT moderation_note_closed_fk_moderation;
 ALTER TABLE moderation_note_closed DROP CONSTRAINT moderation_note_closed_fk_moderator;
 ALTER TABLE moderation_note_open DROP CONSTRAINT moderation_note_open_fk_moderation;
 ALTER TABLE moderation_note_open DROP CONSTRAINT moderation_note_open_fk_moderator;
 ALTER TABLE moderation_open DROP CONSTRAINT moderation_open_fk_artist;
 ALTER TABLE moderation_open DROP CONSTRAINT moderation_open_fk_moderator;
+ALTER TABLE moderation_open DROP CONSTRAINT moderation_open_fk_language;
 ALTER TABLE moderator_preference DROP CONSTRAINT moderator_preference_fk_moderator;
 ALTER TABLE moderator_subscribe_artist DROP CONSTRAINT modsubartist_fk_moderator;
 ALTER TABLE "PendingData" DROP CONSTRAINT "PendingData_SeqId";
 ALTER TABLE release DROP CONSTRAINT release_fk_album;
 ALTER TABLE release DROP CONSTRAINT release_fk_country;
+ALTER TABLE script_language DROP CONSTRAINT script_language_fk_language;
+ALTER TABLE script_language DROP CONSTRAINT script_language_fk_script;
 ALTER TABLE track DROP CONSTRAINT track_fk_artist;
 ALTER TABLE trm DROP CONSTRAINT trm_fk_clientversion;
 ALTER TABLE trm_stat DROP CONSTRAINT trm_stat_fk_trm;

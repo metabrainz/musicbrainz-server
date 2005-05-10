@@ -9,6 +9,8 @@ $m->comp("check-TracksNamedWithSequence", %ARGS) or return
 $m->comp("check-macsac", %ARGS) or return
 	unless $ARGS{"force-macsac"};
 
+$m->comp("check-language-and-script", %ARGS) or return;
+
 my $mb = $m->comp("/comp/dblogin");
 $m->comp("/comp/sidebar", title=>'Select Album Attributes');
 
@@ -48,12 +50,13 @@ my $selected_index = 0;
 
 <form method="POST" action="/cdi/done.html" Name="SelectAttrs"
       enctype="application/x-www-form-urlencoded" class="formstyle">
-
+	
 % my @focus_to;
 	<& /comp/albumattrform,
 		adding				=> 1,
 		albumname			=> $ARGS{'title'},
 		multi_album			=> undef,
+		disclength			=> Track::FormatTrackLength($disclength),
 		type_value			=> undef,
 		status_value		=> undef,
 		type_fieldname		=> "attrtype",
@@ -61,25 +64,9 @@ my $selected_index = 0;
 		focus_to			=> \@focus_to,
 	&>
 
-	<p>
-		Disc length: <% Track::FormatTrackLength($disclength) %>
-	</p>
-
-	<p>
-		Enter moderation note (optional):
-	</p>
-
-	<p>
-		<textarea name="notetext" rows="3" cols="60"></textarea>
-	</p>
-
-	<p>
 % for my $key (keys %ARGS) {
-		<input type="hidden" name="<% $key %>" value="<% $ARGS{$key} %>">
+	<input type="hidden" name="<% $key %>" value="<% $ARGS{$key} %>">
 % }
-		<input type="submit" value="Submit">
-	</p>
-
 </form>
 
 <& /comp/movefocus, "SelectAttrs", @focus_to &>

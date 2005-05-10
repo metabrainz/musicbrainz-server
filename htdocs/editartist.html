@@ -133,8 +133,6 @@ unless (
 
 <& /comp/stylemenu &>
 
-<h2>Edit Artist</h2>
-
 % if ($ar->GetModPending) {
     <& /comp/modpending &>
 % }
@@ -145,27 +143,31 @@ unless (
 	</p>
 % }
 
-% if ($dupar->GetId) {
-	<div style="border-width: 2px; border-style: dotted; border-color: red; margin: 1em; padding: 1em;">
-  <p>
-  <span style="color: red; font-weight: bold;">Warning!</span> You are attempting to edit the artist "<% $ar->GetName %>"
-	to be very similar, if not exactly the same as the existing artist <a href="/artist/<% $dupar->GetMBId %>.html"><% $dupar->GetName %></a>.
-	</p>
-
-% if (!$resolution && lc($dupar->GetName) eq lc($name)) {
-     <p>
-     You <b>must</b> provide a comment to distinguish the edited artist from artist <a href="/artist/<% $dupar->GetMBId %>.html"><% $dupar->GetName %></a>.
-     </p>
-% }
-	</div>
-% }
-
 <p>
 	Use the fields below to enter a corrected name and/or sort name for
 	this artist.&nbsp; If the the new artist name already exists in the database,
-	the 'Edit Artist' modification will result in the albums from the
-	old artist name being merged in with the albums for the new artist.
+	the <b>Edit Artist</b> modification will result in a <b>Merge Artists</b>
+	modification, which has to be voted on. If successful, the albums of this
+	artist will be merged with the albums of the artist which already existed
+	in the database.
 <p>
+
+% if ($dupar->GetId) {
+	<div class="similarartist">
+		<span class="warning">Warning!</span> You are currently editing 
+		the artist "<% $ar->GetName %>" which appears to be very 
+		similar, if not exactly the same as the existing artist 
+		<a href="/artist/<% $dupar->GetMBId %>.html"><% $dupar->GetName %></a>.
+
+% if (!$resolution && lc($dupar->GetName) eq lc($name)) {
+		<ul>
+			<li>You <b>must</b> provide a comment which allows to distinguish 
+				this artist from the other artist <a href="/artist/<% $dupar->GetMBId %>.html"><% $dupar->GetName %></a>.
+			</li>
+		</ul>
+% }
+	</div>
+% }
 
 <& /mod/edit-artist/main-form,
 		action			=> '/editartist.html',

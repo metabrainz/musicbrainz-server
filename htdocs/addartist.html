@@ -114,62 +114,52 @@ unless (
 
 <& /comp/stylemenu &>
 
-<h2>Add Artist</h2>
-
 % if (defined $error_msg) {
 	<p style="color: red">
 		<% $error_msg %>
 	</p>
 % }
 
+<p>
+	You are about to add an artist to MusicBrainz.&nbsp;
+</p>
+
 <%def .ShowArtistLink>
 <a href="/artist/<% $_[0]->GetMBId %>.html"><% $_[0]->GetName %></a>\
 </%def>
 
 % if (@dupes) {
-	<div style="border-width: 2px; border-style: dotted; border-color: red; margin: 1em; padding: 1em;">
-  <p>
-  <span style="color: red; font-weight: bold;">Warning!</span> You are attempting to add the artist "<% $name %>"
-	which is very similar, if not exactly the same as
-	<span id="AddArtistExistingList">existing
+	<div class="similarartist">
+		<span class="warning">Warning!</span> You are attempting to add the 
+		artist "<% $name %>" to MusicBrainz, which appears to be very similar, 
+		if not exactly the same as
 % if (@dupes == 1) {
-		another artist called <& .ShowArtistLink, $dupes[0] &>.
+		the <span id="AddArtistExistingList">existing artist called <& .ShowArtistLink, $dupes[0] &>.
 % } else {
-		these artists called
-	<%perl>
-	for my $i (0..$#dupes) {
-		$m->out(", ") if $i;
-		$m->out("and ") if $i == $#dupes;
-		$m->comp(".ShowArtistLink", $dupes[$i]);
-	}
-	</%perl>.
+		these <span id="AddArtistExistingList">existing artists called
+		<%perl>
+			for my $i (0..$#dupes) {
+				$m->out(", ") if ($i != 0 && $i < $#dupes);
+				$m->out("and ") if ($i == $#dupes);
+				$m->comp(".ShowArtistLink", $dupes[$i]);
+			}
+		</%perl>.
 % }
 		</span>
-	</p>
-
-	<p>
-	If you are certain that you want to add this artist, then:
-	</p>
-
-	<ul>
-		<li> 
-			you <b>must</b> provide a comment to distinguish this new artist from
+		<p>If you are certain that you want to add this artist, then:</p>
+		<ul>
+			<li>You <b>must</b> provide a comment which allows to distinguish 
+			this new artist from
 % if (@dupes == 1) {
 			the other artist called <& .ShowArtistLink, $dupes[0] &>;
 % } else {
 			the other similarly-named artists;
 % }
-		</li>
-		<li>
-			you must also check the <b>confirm</b> checkbox below.
-		</li>
-	</ul>
+			</li>
+			<li>You must also check the <b>confirm</b> checkbox below.</li>
+		</ul>
 	</div>
 % }
-
-<p>
-	You are about to add an artist to MusicBrainz.&nbsp;
-</p>
 
 <& /mod/edit-artist/main-form,
 		action			=> '/addartist.html',

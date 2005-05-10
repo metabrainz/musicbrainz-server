@@ -299,6 +299,11 @@ ALTER TABLE moderation_closed
     FOREIGN KEY (moderator)
     REFERENCES moderator(id);
 
+ALTER TABLE moderation_closed
+    ADD CONSTRAINT moderation_closed_fk_language
+    FOREIGN KEY (language)
+    REFERENCES language(id);
+
 ALTER TABLE moderation_note_closed
     ADD CONSTRAINT moderation_note_closed_fk_moderation
     FOREIGN KEY (moderation)
@@ -318,6 +323,11 @@ ALTER TABLE moderation_open
     ADD CONSTRAINT moderation_open_fk_moderator
     FOREIGN KEY (moderator)
     REFERENCES moderator(id);
+
+ALTER TABLE moderation_open
+    ADD CONSTRAINT moderation_open_fk_language
+    FOREIGN KEY (language)
+    REFERENCES language(id);
 
 ALTER TABLE moderation_note_open
     ADD CONSTRAINT moderation_note_open_fk_moderation
@@ -406,5 +416,25 @@ ALTER TABLE vote_open
     ADD CONSTRAINT vote_open_fk_moderator
     FOREIGN KEY (moderator)
     REFERENCES moderator(id);
+
+ALTER TABLE album
+    ADD CONSTRAINT album_fk_language
+    FOREIGN KEY (language)
+    REFERENCES language(id);
+
+ALTER TABLE album
+    ADD CONSTRAINT album_fk_script
+    FOREIGN KEY (script)
+    REFERENCES script(id);
+
+ALTER TABLE script_language
+    ADD CONSTRAINT script_language_fk_language
+    FOREIGN KEY (language)
+    REFERENCES language(id);
+
+ALTER TABLE script_language
+    ADD CONSTRAINT script_language_fk_script
+    FOREIGN KEY (script)
+    REFERENCES script(id);
 
 -- vi: set ts=4 sw=4 et :

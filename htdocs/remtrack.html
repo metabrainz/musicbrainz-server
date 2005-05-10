@@ -66,48 +66,43 @@ if ($ARGS{confirm})
 
 </%perl>
 
-<& /comp/sidebar, title => 'Remove Track' &>
+<& /comp/sidebar, title => 'Confirm Track Removal' &>
 
-<h2>Remove Track</h2>
-
-<p>
-	Are you sure you want to remove track
-	#<% $tr->GetSequence %>
-	<span class="bold"><% $tr->GetName %></span>
-	from album
-	<a href="<% $url %>"><% $al->GetName %></a>?
-</p>
-
-<form method="get" action="<% $url %>"
-	name="ModFormNo"
-	onsubmit="history.go(-1); return false"
-	style="float: left; margin-right: 2em; margin-top: 0"
-	>
-	<div>
-		<input type="submit" value="&lt;&lt; NO">
+<fieldset>
+	<legend>Confirm Track Removal</legend>
+	<div class="padleft">
+		Are you sure you want to remove track
+		#<% $tr->GetSequence %>
+		<span class="bold"><% $tr->GetName %></span>
+		from album
+		<a href="<% $url %>"><% $al->GetName %></a>?
 	</div>
-</form>
-
-<form method="post" action="/remtrack.html"
-	name="ModFormYes"
-	style="margin: 0"
-	>
-	<div>
-		<input type="hidden" name="id" value="<% $id %>">
-		<input type="hidden" name="album" value="<% $album %>">
-		<input type="hidden" name="confirm" value="1">
-		<input type="submit" value="YES &gt;&gt;">
+	<div class="padlefttop">
+		<table>
+			<tr>
+				<td>
+					<form 	method="GET" action="<% $url %>"
+							name="ModFormNo" 
+							onsubmit="history.go(-1); return false">
+						<input name="btnNo" type="submit" class="button" value="&laquo; NO">
+					</form></td>
+				<td> &nbsp; </td>
+				<td>
+					<form 	method="POST" action="/remtrack.html"
+							name="ModFormYes">
+						<input type="hidden" name="id" value="<% $id %>">
+						<input type="hidden" name="album" value="<% $album %>">
+						<input type="hidden" name="confirm" value="1">
+						<input name="btnYes" type="submit" class="button" value="YES &raquo;">
+					</td>
+			</tr>
+		</table>
 	</div>
+	<div class="padlefttop">
+		<& /comp/notetext &>
+	</div>
+	</form>
+</fieldset>
 
-	<p>
-		If YES, enter moderation note (optional):
-	</p>
-
-	<p>
-		<textarea name="notetext" rows="3" cols="60"></textarea>
-	</p>
-
-</form>
-
-<& /comp/movefocus, "ModFormNo", 0 &>
+<& /comp/movefocus, "ModFormYes", "btnYes" &>
 <& /comp/footer &>

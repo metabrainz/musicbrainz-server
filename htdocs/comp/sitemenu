@@ -23,6 +23,7 @@ use Scalar::Util qw( reftype weaken );
 		{ name => "Help Wanted",		url => "/about/helpwanted.html" },
 		{ name => "Logos",		         url => "/about/logos.html" },
 		{ name => "Stats",					url => "/about/stats.html" },
+		{ name => "Elections",			url => "/user/election/" },
 	],
 	{ name => "News",					url => "/news/index.html" },
 	[

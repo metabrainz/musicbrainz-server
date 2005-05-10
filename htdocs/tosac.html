@@ -86,11 +86,14 @@ if ($newartistname =~ /\S/ and $newartistsortname =~ /\S/)
     <& /comp/modpending &>
 % }
 
-<p>
-	Please search for the artist to which
-	you want to move the album
-	<a href="/showalbum.html?albumid=<% $album %>"><% $al->GetName %></a>.
-</p>
+<fieldset>
+	<legend>Change Album to single Artist</legend>
+	<div class="padleft">
+		Please search for the artist to which
+		you want to move the album
+		<a href="/showalbum.html?albumid=<% $album %>"><% $al->GetName %></a>.
+	</div>
+</fieldset>
 
 <& /comp/artistfilter,
 	search => $ARGS{'search'},

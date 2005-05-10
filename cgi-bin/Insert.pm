@@ -90,7 +90,7 @@ sub Insert
 #		OPTIONAL cdindexid => ..., toc => ...
 #		forcenewalbum => 1
 #		attrs => [ possibly empty list of attrs ]
-#		tracks [
+#		tracks => [
 #			{
 #				OPTIONAL artist (iff artistid == 1)
 #				OPTIONAL duration =>
@@ -98,6 +98,8 @@ sub Insert
 #				tracknum => seq
 #			}
 #		]
+#		languageid => id
+#		scriptid => id
 #	MOD_ADD_ARTIST PreInsert
 #		artist => ArtistName
 #		sortname => SortName
@@ -128,6 +130,8 @@ sub Insert
 #  artist_enddate                                          [optional]
 #  album name or albumid                                   [required]
 #  attributes -> ref to array                              [optional]
+#  languageid                                              [optional]
+#  scriptid                                                [optional]
 #  forcenewalbum (defaults to no)                          [optional]
 #  cdindexid and toc                                       [optional]
 #  tracks -> array of hash refs:                           [required]
@@ -309,6 +313,29 @@ sub _Insert
         }
     }
 
+	my $language = $info->{languageid};
+	my $script = $info->{scriptid};
+
+	# Check if we have a vaild language id. If we don't discard it.
+	if ($language)
+	{
+		require MusicBrainz::Server::Language;
+		my $l = MusicBrainz::Server::Language->newFromId(
+													$this->{DBH}, $language);
+
+		$language = undef unless defined $l;
+	}
+
+	# Check if we have a vaild script id. Again, if we don't discard it.
+	if ($script)
+	{
+		require MusicBrainz::Server::Script;
+		my $s = MusicBrainz::Server::Script->newFromId(
+													$this->{DBH}, $script);
+
+		$script = undef unless defined $s;
+	}
+
     # No album id at this point means that we need to lookup/insert the album
     if (!defined $albumid)
     {
@@ -320,6 +347,8 @@ sub _Insert
            {
                $al->SetAttributes(@{ $info->{attrs} });
            }
+           $al->SetLanguageId($language) if $language;
+           $al->SetScriptId($script) if $script;
            $albumid = $al->Insert;
            if (!defined $albumid)
            {
@@ -339,6 +368,8 @@ sub _Insert
                {
                    $al->SetAttributes(@{ $info->{attrs} });
                }
+               $al->SetLanguageId($language) if $language;
+               $al->SetScriptId($script) if $script;
                $albumid = $al->Insert;
                if (!defined $albumid)
                {

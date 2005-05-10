@@ -64,6 +64,10 @@ CREATE UNIQUE INDEX l_track_track_idx_uniq ON l_track_track (link0, link1, link_
 CREATE UNIQUE INDEX l_track_url_idx_uniq ON l_track_url (link0, link1, link_type, begindate, enddate);
 CREATE UNIQUE INDEX l_url_url_idx_uniq ON l_url_url (link0, link1, link_type, begindate, enddate);
 
+CREATE UNIQUE INDEX language_isocode_3b ON language (isocode_3b);
+CREATE UNIQUE INDEX language_isocode_3t ON language (isocode_3t);
+CREATE UNIQUE INDEX language_isocode_2 ON language (isocode_2);
+
 CREATE INDEX link_attribute_idx_link_type ON link_attribute (link, link_type);
 CREATE UNIQUE INDEX link_attribute_type_idx_parent_name ON link_attribute_type (parent, name);
 CREATE INDEX link_attribute_type_idx_name ON link_attribute_type (name);
@@ -94,6 +98,7 @@ CREATE INDEX moderation_closed_idx_expiretime ON moderation_closed (expiretime);
 CREATE INDEX moderation_closed_idx_moderator ON moderation_closed (moderator);
 CREATE INDEX moderation_closed_idx_rowid ON moderation_closed (rowid);
 CREATE INDEX moderation_closed_idx_status ON moderation_closed (status);
+CREATE INDEX moderation_closed_idx_language ON moderation_closed (language);
 
 CREATE INDEX moderation_note_closed_idx_moderation ON moderation_note_closed (moderation);
 
@@ -104,6 +109,7 @@ CREATE INDEX moderation_open_idx_expiretime ON moderation_open (expiretime);
 CREATE INDEX moderation_open_idx_moderator ON moderation_open (moderator);
 CREATE INDEX moderation_open_idx_rowid ON moderation_open (rowid);
 CREATE INDEX moderation_open_idx_status ON moderation_open (status);
+CREATE INDEX moderation_open_idx_language ON moderation_open (language);
 
 CREATE UNIQUE INDEX moderator_nameindex ON moderator (name);
 
@@ -114,6 +120,11 @@ CREATE UNIQUE INDEX moderator_subscribe_artist_moderator_key ON moderator_subscr
 CREATE INDEX "Pending_XID_Index" ON "Pending" ("XID");
 
 CREATE INDEX release_album ON release (album);
+
+CREATE UNIQUE INDEX script_isocode ON script (isocode);
+CREATE UNIQUE INDEX script_isonumber ON script (isonumber);
+
+CREATE UNIQUE INDEX script_language_sl ON script_language (script, language);
 
 CREATE UNIQUE INDEX stats_timestampindex ON stats (timestamp);
 

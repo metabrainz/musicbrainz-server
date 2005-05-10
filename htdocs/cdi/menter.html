@@ -26,15 +26,11 @@ if ($freedb)
 }
 
 </%perl>
-<& /comp/sidebar, title=>'Enter Information', head => '
-<style type="text/css">
-.GuessCase, .GuessSort, .GuessAll { width: 100% }
-</style>
-' &>
+<& /comp/sidebar, title=>'Enter Release Information' &>
+
 <& /comp/stylemenu &>
 
 <script type="text/javascript" src="/scripts/entervalidate.js"></script>
-<script type="text/javascript" src="/scripts/guess.js"></script>
 
 % if (defined $lookup) {
      Found CD <font class="bold"><% $lookup->{album} %></font>
@@ -45,7 +41,7 @@ if ($freedb)
          This CD was not found at FreeDB.<p>
 %    } else {
 %        if ($noncd) {
-            Please enter the album information below:
+            Please enter the album information below:<p>
 %        } else {
             Please enter the CD information below, or
             click on FreeDB lookup to attempt to load the data for
@@ -73,14 +69,14 @@ if ($freedb)
      buttons below to reload this page.<p>
 
      Choose which way to display the artist and track names, and also
-     select a character that is used to separate the artist from the 
+     select a character that is used to separate the artist from the
      track names in this album.<p>
 
      Current settings: <span class="bold">
 %    if ($parse_artist_track ne "") {
-        Artist/Track</span>, separated by 
+        Artist/Track</span>, separated by
 %    } else {
-        Track/Artist</span>, separated by 
+        Track/Artist</span>, separated by
 %    }
      <span class="bold"><% $sep %></span><p>
 
@@ -123,32 +119,39 @@ if ($freedb)
 % }
 
 <form method="POST" action="/cdi/selectattr.html"
-      enctype="application/x-www-form-urlencoded" class="formstyle"
-      onsubmit="return validate(this);">
-      
-<table>
-<tr>
+	enctype="application/x-www-form-urlencoded"
+	onsubmit="return validate(this);">
+
+	<& /comp/autofixmenu &>
+
+	<fieldset>
+		<legend>Enter Release Information</legend>
+		<table>
+			<tr>
 %  if ($noncd) {
-      <td colspan="2" align="right" valign="top">Album Title:</td>
+      			<td colspan="2"><label for="title"><b>Album Title:</label></td>
 %  } else {
-      <td colspan="2" align="right" valign="top">CD Title:</td>
-%  } 
-   <td>
+      			<td colspan="2"><label for="title"><b>CD Title:</label></td>
+%  }				
 %    if (!defined $lookup) {
-          <input type="text" name="title" size="50" maxlength="255"><p>
+				<td><input 	type="text" name="title" class="textfield"
+						onFocus="myOnFocus(this)" onBlur="myOnBlur(this)"
+						size="50" maxlength="255"></td>
 %    } else {
-          <input type="text" name="title" size="50" maxlength="255"
-                value="<% $lookup->{album} %>"><p>
+				<td><input 	type="text" name="title" class="textfield"
+						onFocus="myOnFocus(this)" onBlur="myOnBlur(this)"
+						size="50" maxlength="255"
+						value="<% $lookup->{album} %>"></td>
 %    }
-   </td>
-   <td>
-       <input type="button" class="GuessCase" value="Guess Case"
-           onclick="this.form.title.value = GuessCase(this.form.title.value)">
-   </td>
-</tr>
+				<td>
+					<script language="javascript">
+					<!--
+						af_writeButton(AF_BTN_ALBUM, 'title');
+					-->
+					</script></td>
+			</tr>
 
 <%perl>
-
 for my $i ( 0 .. $tracks-1 )
 {
 	my ($artistname, $sortname, $trackname) = ("", "", "");
@@ -168,71 +171,84 @@ for my $i ( 0 .. $tracks-1 )
 
 	   MusicBrainz::TrimInPlace($artistname, $trackname);
        my $st = Style->new;
-       $sortname = $st->MakeDefaultSortname($artistname); 
+       $sortname = $st->MakeDefaultSortname($artistname);
    }
-   
 </%perl>
 
-	<tr><td>&nbsp;</td></tr>
-
-    <tr>
-       <td valign="top"><font class="bold">Track <% $i + 1 %>:</font></td>
-      <td align="right" valign="top">Track Name:</td>
-      <td>
-         <input type="text" name="track<% $i %>" size="50" maxlength="255"
-                value="<% $trackname %>">
-      </td>
-      <td>
-         <input type="button" class="GuessCase" value="Guess Case"
-           onclick="this.form['track<% $i %>'].value
-					  = GuessCase(this.form['track<% $i %>'].value)">
-      </td>
-    </tr>
-
-    <tr>
-      <td colspan="2" align="right" valign="top">Artist Name:</td>
-      <td><input type="text" name="artistname<% $i %>" size="50" maxlength="255"
-                value="<% $artistname %>"></td>
-      <td>
-         <input type="button" class="GuessCase" value="Guess Case"
-           onclick="this.form['artistname<% $i %>'].value
-					  = GuessCase(this.form['artistname<% $i %>'].value)">
-    </tr>
-
-    <tr>
-      <td colspan="2" align="right" valign="top">Sort Name:</td>
-      <td><input type="text" name="sortname<% $i %>" size="50" maxlength="255"
-                value="<% $sortname %>"><p></td>
-      <td>
-         <input type="button" class="GuessSortname" value="Guess Sort Name"
-           onclick="this.form['sortname<% $i %>'].value
-					  = GuessSortname(this.form['artistname<% $i %>'].value)">
-      </td>
-    </tr>
+			<tr><td>&nbsp;</td></tr>
+			<tr>
+				<td valign="top"><label for="track<% $i %>"><b><% $i + 1 %></label></td>
+				<td align="right" valign="top">Track Name:</td>
+				<td>
+					<input	type="text" name="track<% $i %>" class="textfield"
+							onFocus="myOnFocus(this)" onBlur="myOnBlur(this)"
+							size="50" maxlength="255"
+							value="<% $trackname %>">
+				</td>
+				<td>
+					<script language="javascript">
+					<!--
+						af_writeButton(AF_BTN_TRACK, 'track<% $i %>');
+					-->
+					</script></td>
+			</tr>
+			<tr>
+				<td colspan="2" align="right" valign="top">Artist Name:</td>
+				<td><input	type="text" name="artistname<% $i %>" class="textfield"
+							onFocus="myOnFocus(this)" onBlur="myOnBlur(this)"
+							size="50" maxlength="255"
+							value="<% $artistname %>"></td>
+				<td>
+					<script language="javascript">
+					<!--
+						af_writeButton(AF_BTN_ARTIST, 'artistname<% $i %>');
+					-->
+					</script></td>
+			</tr>
+			<tr>
+				<td colspan="2" align="right" valign="top">Sort Name:</td>
+				<td><input	type="text" name="sortname<% $i %>" class="textfield"
+							onFocus="myOnFocus(this)" onBlur="myOnBlur(this)"
+							size="50" maxlength="255"
+							value="<% $sortname %>"></td>
+				<td>
+					<script language="javascript">
+					<!--
+						af_writeButton(AF_BTN_SORTGUESS, 'artistname<% $i %>', 'sortname<% $i %>');
+						af_writeButton(AF_BTN_SORTCOPY, 'artistname<% $i %>', 'sortname<% $i %>');
+					-->
+					</script></td>
+			</tr>
 % }
-
-    <tr>
-	  <td colspan="3"></td>
-	  <td><input type="button" class="GuessAll" value="Guess All" onclick="
-				 this.form.title.value = GuessCase(this.form.title.value);
+			<tr>
+				<td colspan="3"></td>
+				<td>
+					<script language="javascript">
+					<!--
+						function doGuessAll(theForm) {
+							doAlbumName(theForm, 'title');
 % for my $i ( 0 .. $tracks-1 ) {
-           this.form['track<% $i %>'].value
-					  = GuessCase(this.form['track<% $i %>'].value);
-           this.form['artistname<% $i %>'].value
-					  = GuessCase(this.form['artistname<% $i %>'].value);
-           this.form['sortname<% $i %>'].value
-					  = GuessSortname(this.form['artistname<% $i %>'].value);
+							doTrackName(theForm, 'track<% $i %>');
+							doArtistName(theForm, 'artistname<% $i %>');
+							doSortNameGuess(theForm, 'artistname<% $i %>', 'sortname<% $i %>');
 % }
-	  "></td>
-	</tr>
-</table>
+						}
+						af_writeButton(AF_BTN_ALL, AF_BTNTEXT_ALBUMARTISTSORTNAMEANDTRACKS);
+					-->
+					</script></td>
+			</tr>
+			<tr>
+				<td colspan="2"></td>
+				<td colspan="2"><input type="submit" class="button" value="Next &raquo;"></td>
+			</tr>
+		</table>
+	</fieldset>
 
-<input type="hidden" name="artist" value="<% &ModDefs::VARTIST_ID %>">
-<input type="hidden" name="id" value="<% $id %>">
-<input type="hidden" name="toc" value="<% $toc %>">
-<input type="hidden" name="tracks" value="<% $tracks %>">
-<input type="hidden" name="noncd" value="<% $noncd %>">
-<input type="submit" value="Next &gt;&gt;">
+	<input type="hidden" name="artist" value="<% &ModDefs::VARTIST_ID %>">
+	<input type="hidden" name="id" value="<% $id %>">
+	<input type="hidden" name="toc" value="<% $toc %>">
+	<input type="hidden" name="tracks" value="<% $tracks %>">
+	<input type="hidden" name="noncd" value="<% $noncd %>">
 </form>
 
 <& /comp/footer &>

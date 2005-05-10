@@ -3,18 +3,18 @@ $album
 $artist
 $showmodlinks=>1
 </%args>
-
 <%perl>
 
-my ($count, $trackcount, $trmids, $discids, $di, 
-    @attrs, $attr, $modpend, $nonalbum);
+my $trackcount = $album->GetTrackCount();
+my $trmids = $album->GetTrmidCount();
+my $discids = $album->GetDiscidCount();
+my @attrs = $album->GetAttributes();
+my $modpend = $album->GetAttributeModPending();
+my $lang_mod_pending = $album->GetLanguageModPending();
+my $nonalbum = $album->IsNonAlbumTracks();
 
-$trackcount = $album->GetTrackCount();
-$trmids = $album->GetTrmidCount();
-$discids = $album->GetDiscidCount();
-@attrs = $album->GetAttributes();
-$modpend = $album->GetAttributeModPending();
-$nonalbum = $album->IsNonAlbumTracks();
+my $language = $album->GetLanguage;
+my $script = $album->GetScript;
 
 </%perl>
 
@@ -37,27 +37,51 @@ $nonalbum = $album->IsNonAlbumTracks();
                width="30" height="11" style="vertical-align:bottom;border:0;"
                title="This album has <% $trmids %> TRM Ids">&nbsp;
 % }
+
+% if (!$nonalbum) {
+
+%   if ($language or $script) {
+
+	<td NOWRAP>
+[
+	<span style="<% $lang_mod_pending ? 'background-color: #FFFFCC' : '' %>"><%
+		$language ? $language->GetName() : "?" %>, <%
+		$script ?  $script->GetName() : "?" %></span>
+]
+
+%				if ( $session{uid} and $showmodlinks ) {
+  <a href="/mod/edit-language/editlanguage.html?id=<% $album->GetId() %>"
+   >Edit</a>&nbsp;|&nbsp;
+%				}
+
+%     } else {
+
+%				if ( $session{uid} and $showmodlinks ) {
+<td NOWRAP><a href="/mod/edit-language/editlanguage.html?id=<% $album->GetId %>"
+   >Edit language</a>&nbsp;
+%				}
+
+%     }
+
+% }
+
 <%perl>
 if (!$nonalbum)
 {
     $m->out("</td><td NOWRAP>[</td>");
-    if ($modpend)
-    {
-        $m->out("<td bgcolor=\"#FFFFCC\" NOWRAP>") 
-    }
-    else
-    {
-        $m->out("<td NOWRAP>") 
-    }
+    $m->out("<td NOWRAP>");
     $m->out("&nbsp;<a href=\"/popup/attrguide.html\" onclick=\"MyWindow=window.open('/popup/attrguide.html','AlbumAttributeGuide','toolbar=no,location=no,directories=no,status=no,menubar=no,scrollbars=yes,resizable=yes,width=400,height=275'); return false;\">");
     if (scalar(@attrs) > 0) 
     {
-        foreach $attr (@attrs) 
+	      $m->out('<span style="background-color: #FFFFCC">') if $modpend;
+	      my $count = 0;
+        for my $attr (@attrs) 
         {
             $m->out(",&nbsp;") if ($count > 0);
             $m->out($album->GetAttributeName($attr));
             $count++;
         }
+	      $m->out('</span>') if $modpend;
     }
     else
     {

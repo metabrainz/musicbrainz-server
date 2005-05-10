@@ -103,6 +103,7 @@ my $subscriptions_public = UserPreference::get_for_user("subscriptions_public", 
 % }
     <a href="/mod/search/pre/voted.html?moderator=<% $uid %>">Votes</a> |
 	<a href="/mod/search/pre/moderator.html?moderator=<% $uid %>">Moderations</a> |
+	<a href="/mod/search/pre/moderator-open.html?moderator=<% $uid %>">Open Moderations</a> |
 	<a href="/mod/search/pre/moderator-failed.html?moderator=<% $uid %>">Failed Moderations</a> |
 	<a href="/mod/search/pre/moderator-deleted.html?moderator=<% $uid %>">Deleted Moderations</a>
 % if ($can_nominate) {

@@ -1,0 +1,10 @@
+%# vi: set ts=2 sw=2 ft=mason :
+<%perl>
+	my ($formurl) = @_;
+</%perl>
+
+<div class="backtolisting">
+	<form method="GET" action="<% $formurl %>">
+		<input type="submit" class="button" value="&laquo; Back to track listing">
+	</form>
+</div>

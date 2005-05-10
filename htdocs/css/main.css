@@ -339,6 +339,7 @@ td.trk *, td.did *, td.trm *, td.rdate * { vertical-align: middle }
 #CompactReleaseList td.rtag { padding: 0 1em; text-align: center } /* tag box */
 #CompactReleaseList td.rdate { padding: 0 1em; text-align: center } /* date */
 #CompactReleaseList td.rname { padding: 0 1em } /* release name */
+#CompactReleaseList td.lang { padding: 0 1em; text-align: center }
 
 #CompactReleaseList tr.ev { background-color: #eee } /* 'even' rows */
 

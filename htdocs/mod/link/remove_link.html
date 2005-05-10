@@ -72,28 +72,41 @@ if ($confirm)
 </%perl>
 <& /comp/sidebar, title => 'Remove Link' &>
 
-<form method="post" action="/mod/link/remove_link.html" name="RemoveLinkForm">
-	<p>
-	Are you sure you want to remove the <% $type %> link from 
-	<a href="/show<% $types[0] %>.html?<% $types[0] %>id=<% $ents[0]->GetId %>"><% $ents[0]->GetName() %></a>
-	to
-	<a href="/show<% $types[1] %>.html?<% $types[1] %>id=<% $ents[1]->GetId %>"><% $ents[1]->GetName() %></a>?
-	</p>
+<fieldset>
+	<legend>Confirm Link Removal</legend>
+	<div class="padleft">
+		Are you sure you want to remove the <% ucfirst($type) %> link from 
+		<a href="/show<% $types[0] %>.html?<% $types[0] %>id=<% $ents[0]->GetId %>"><% $ents[0]->GetName() %></a>
+		to
+		<a href="/show<% $types[1] %>.html?<% $types[1] %>id=<% $ents[1]->GetId %>"><% $ents[1]->GetName() %></a>?
+	</div>
+	<div class="padlefttop">
+		<table>
+			<tr>
+				<td>
+					<form 	method="GET" action="/show<% $types[0] %>.html"
+							name="ModFormNo" 
+							onsubmit="history.go(-1); return false">
+						<input type="hidden" name="<% $types[0] %>id" value="<% $ents[0]->GetId %>">
+						<input name="btnNo" type="submit" class="button" value="&laquo; NO">
+					</form></td>
+				<td> &nbsp; </td>
+				<td>
+					<form 	method="POST" action="/mod/link/remove_link.html"
+							name="ModFormYes">
+						<input type="hidden" name="type" value="<% $type %>">
+						<input type="hidden" name="id" value="<% $id %>">
+						<input type="hidden" name="confirm" value="1">
+						<input name="btnYes" type="submit" class="button" value="YES &raquo;">
+					</td>
+			</tr>
+		</table>
+	</div>
+	<div class="padlefttop">
+		<& /comp/notetext &>
+	</div>
+	</form>
+</fieldset>
 
-    <p>
-        Enter moderation note (optional):
-    </p>
-    <p>
-        <textarea name="notetext" rows="3" cols="60"></textarea>
-    </p>
-
-    <p>
-		<input type="hidden" name="type" value="<% $type %>">
-		<input type="hidden" name="id" value="<% $id %>">
-		<input type="hidden" name="confirm" value="1">
-		<input type="submit" value="Confirm">
-    </p>
-</form>
-
-<& /comp/movefocus, "RemoveLinkForm", "linktypename" &>
+<& /comp/movefocus, "ModFormYes", "btnYes" &>
 <& /comp/footer &>

@@ -58,44 +58,39 @@ if ($ARGS{confirm})
 
 </%perl>
 
-<& /comp/sidebar, title => 'Remove Artist' &>
+<& /comp/sidebar, title => 'Confirm Artist Removal' &>
 
-<h2>Confirm Artist Removal</h2>
-
-<p>
-	Are you sure you want to remove artist
-	<span class="bold"><% $ar->GetName %></span>?
-</p>
-
-<form method="get" action="<% $url %>"
-	name="ModFormNo"
-	onsubmit="history.go(-1); return false"
-	style="float: left; margin-right: 2em; margin-top: 0"
-	>
-	<div>
-		<input type="submit" value="&lt;&lt; NO">
+<fieldset>
+	<legend>Confirm Artist Removal</legend>
+	<div class="padleft">
+		Are you sure you want to remove artist
+		<span class="bold"><% $ar->GetName %></span>?
 	</div>
-</form>
-
-<form method="post" action="/remartist.html"
-	name="ModFormYes"
-	style="margin: 0"
-	>
-	<div>
-		<input type="hidden" name="artist" value="<% $artist %>">
-		<input type="hidden" name="confirm" value="1">
-		<input type="submit" value="YES &gt;&gt;">
+	<div class="padlefttop">
+		<table>
+			<tr>
+				<td>
+					<form 	method="GET" action="<% $url %>"
+							name="ModFormNo" 
+							onsubmit="history.go(-1); return false">
+						<input name="btnNo" type="submit" class="button" value="&laquo; NO">
+					</form></td>
+				<td> &nbsp; </td>
+				<td>
+					<form 	method="POST" action="/remartist.html"
+							name="ModFormYes">
+						<input type="hidden" name="artist" value="<% $artist %>">
+						<input type="hidden" name="confirm" value="1">
+						<input name="btnYes" type="submit" class="button" value="YES &raquo;">
+					</td>
+			</tr>
+		</table>
 	</div>
-
-	<p>
-		If YES, enter moderation note (optional):
-	</p>
-
-	<p>
-		<textarea name="notetext" rows="3" cols="60"></textarea>
-	</p>
-
-</form>
+	<div class="padlefttop">
+		<& /comp/notetext &>
+	</div>
+	</form>
+</fieldset>
 
 <& /comp/movefocus, "ModFormNo", 0 &>
 <& /comp/footer &>

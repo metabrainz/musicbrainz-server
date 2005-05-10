@@ -68,7 +68,7 @@ if ($newartistname =~ /\S/ and $newartistsortname =~ /\S/
 {
 	MusicBrainz::IsNonNegInteger($tracknum) && $tracknum >= 1 && $tracknum <= 99
 		or return $m->comp("/comp/badargs", 1, 1);
-	
+
 	$al->CanAddTrack($tracknum)
 		or return $m->comp("/comp/error", "$@", 1, 1); # take safe copy of $@
 
@@ -105,87 +105,110 @@ if ($newartistname =~ /\S/ and $newartistsortname =~ /\S/
 
 <& /comp/stylemenu &>
 
-<h2>Add Track to '<% $al->GetName %>'</h2>
-
 % unless ($search =~ /\S/) {
 
-	<form method="post" action="/addtrack.html"
-		name="AddTrackForm"
-		>
+<form method="post" action="/addtrack.html"
+	name="AddTrackForm">
 
-    <table>
-      <tr>
-        <td>
-					Track Name:
-        </td>
-        <td>
-					<input type="text" name="trackname" size="40" style="width: 100%">
-        </td>
-      </tr>
-      <tr>
-        <td>
-					Track Number:
-        </td>
-        <td>
-					<input type="text" name="tracknum" size="3"> (1 - 99)
-        </td>
-      </tr>
+	<& /comp/autofixmenu &>
+
+	<fieldset>
+		<legend>Add Track</legend>
+
+		<table>
+			<tr>
+				<td nowrap><label>Album:</label></td>
+				<td rowspan="100"> &nbsp; </td>
+				<td colspan="3"><a href="/showalbum.html?albumid=<% $album %>"><% $al->GetName %></a></td>
+			</tr>
+			<tr>
+				<td>&nbsp;</td>
+				<td><b>#:</b></td>
+				<td colspan="3"><b>Name:</b></td>
+			</tr>
+
+			<tr>
+				<td nowrap>
+					<label for="newname">New Track Name:</label></td>	
+				<td>
+					<input 	type="text" name="tracknum" class="textfield" 
+							onFocus="myOnFocus(this)" onBlur="myOnBlur(this)"
+							size="2" value=""></td>
+				<td>
+					<input 	type="text" name="trackname" class="textfield"
+						 	onFocus="myOnFocus(this)" onBlur="myOnBlur(this)"
+						 	size="41" maxlength="255"
+						 	value=""></td>
+				<td>
+					<script language="javascript">
+					<!--
+						af_writeButton(AF_BTN_TRACK, 'trackname');
+					-->
+					</script></td>
+			</tr>
+			<tr>
+				<td>&nbsp;</td>
+				<td colspan="3"><small>Valid Track Numbers: 1-99</small></td>
+			</tr>
 
 % if ($ar->GetId == &ModDefs::VARTIST_ID) {
-      <tr>
-        <td>
-					Search for Track Artist:
-        </td>
-        <td>
-					<input type="text" name="search" size="40" style="width: 100%">
-        </td>
-      </tr>
+
+			<tr>
+				<td nowrap>
+					<label for="search">Search for Artist:</label></td>
+				<td colspan="2">
+					<input  type="text" name="search" class="textfield"
+							onFocus="myOnFocus(this)" onBlur="myOnBlur(this)"
+							size="50"></td>
+				<td>
+					<script language="javascript">
+					<!--
+						af_writeButton(AF_BTN_ARTIST, 'search');
+					-->
+					</script></td>
+			</tr>
 % }
 
 			<tr>
-				<td colspan="2">
-					<p style="margin: 1em 0">
-						Enter moderation note (optional):
-					<br>
-						<textarea name="notetext" rows="3" cols="60"></textarea>
-					</p>
+				<td>&nbsp;</td>
+				<td class="padtop" colspan="3">
+					<& /comp/notetext &></td>
+			</tr>
+			<tr>
+				<td>&nbsp;</td>
+				<td class="padtop" colspan="3">
+					<input type="hidden" name="album" value="<% $album %>">
+					<input type="submit" class="button" value="Submit">
 				</td>
 			</tr>
-      <tr>
-				<td colspan="2" align="center">
-					<input type="hidden" name="album" value="<% $album %>">
-					<input type="submit" value="Submit">
-        </td>
-      </tr>
-    </table>
-
-	</form>
-
-<& /comp/tableend &>
+		</table>
+	</fieldset>
+</form>
 
 <& /comp/movefocus, "AddTrackForm", "trackname" &>
 
 % } else {
 
-<p>
-	You have selected to add track
-	#<% $tracknum %> '<% $trackname %>'
-	to album
-	<a href="/showalbum.html?albumid=<% $album %>"><% $al->GetName %></a>.&nbsp;
-	Please search for this track's artist.
-</p>
+	<fieldset>
+		<legend>Select Artist for Add Track Moderation (VA)</legend>
+		<div class="padleft">
+			You have selected to add track
+			#<% $tracknum %> '<% $trackname %>'
+			to album <a href="/showalbum.html?albumid=<% $album %>"><% $al->GetName %></a>.&nbsp;
+			Please search for this track's artist.
+		</div>
+	</fieldset>
 
-<& /comp/artistfilter,
-	search => $ARGS{'search'},
-	allowcreate => 1,
-	url => "/addtrack.html",
-	arglist => {
-		album => $album,
-		trackname => $trackname,
-		tracknum => $tracknum,
-	},
-	&>
-
+	<& /comp/artistfilter,
+		search => $ARGS{'search'},
+		allowcreate => 1,
+		url => "/addtrack.html",
+		arglist => {
+			album => $album,
+			trackname => $trackname,
+			tracknum => $tracknum,
+		},
+		&>
 % }
 
 <& /comp/footer &>

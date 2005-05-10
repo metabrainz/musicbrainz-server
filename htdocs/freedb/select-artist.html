@@ -40,13 +40,14 @@ if (defined(my $name = $ARGS{'newartistname'}))
 }
 
 </%perl>
-<& /comp/sidebar, title => "FreeDB Import - Select Artist" &>
+<& /comp/sidebar, title => "FreeDB Import: Select Artist" &>
 
-<h2>Select Artist</h2>
-
-<p>
-	Please search for this release's artist:
-</p>
+<fieldset>
+	<legend>Select Artist for current release</legend>
+	<div class="padleft">
+		Please search for the artist to whom you'd like to import this release
+	</div>
+</fieldset>
 
 <& /comp/artistfilter,
 	search => $ARGS{'search'},

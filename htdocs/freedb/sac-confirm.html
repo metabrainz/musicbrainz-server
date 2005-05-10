@@ -12,65 +12,59 @@ $ar->SetSortName($session{'freedb_sortname'});
 my $t = $session{"freedb_tracks"};
 
 </%perl>
-<& /comp/sidebar, title => "FreeDB Import - Confirm Import" &>
+<& /comp/sidebar, title => "FreeDB Import: Confirm Import" &>
 
-<p>
-	You are about to add the following release to MusicBrainz:
-</p>
+<fieldset>
+	<legend>Review Artist and Track Names</legend>
 
-	<table>
-		<col>
-		<col style="width: 0.5em">
-		<col style="width: 20em">
-		<tr>
-			<td>Artist:</td>
-			<td rowspan="<% $t+2 %>">
-			<td>
+	<div class="padleft">
+		You are about to add the following release to MusicBrainz:
+	</div>
+
+	<div class="padlefttop">
+		<table>
+			<tr>
+				<td><b>Artist:</td>
+				<td rowspan="<% $t+2 %>">&nbsp;</td>
+				<td>
 % if ($ar->GetId) {
-				<a href="/showartist.html?artistid=<% $ar->GetId %>"
-					><% $ar->GetName %></a>
+					<a href="/showartist.html?artistid=<% $ar->GetId %>"><% $ar->GetName %></a></td>
 % } else {
-				<% $ar->GetName %>
-				(<% $ar->GetSortName %>)
+					<% $ar->GetName %>
+					(<% $ar->GetSortName %>)</td>
 % }
-			</td>
-		</tr>
-		<tr>
-			<td>Album:</td>
-			<td><% $session{'freedb_album'} %></td>
-		</tr>
+			</tr>
+			<tr>
+				<td><b>Album:</b></td>
+				<td><% $session{'freedb_album'} %></td>
+			</tr>
 % for my $i (0 .. $t-1) {
-		<tr>
-			<td>Track <% $i+1 %>:</td>
-			<td><% $session{"freedb_track$i"} %></td>
-		</tr>
+			<tr>
+				<td><b><% $i+1 %>:</b></td>
+				<td><% $session{"freedb_track$i"} %></td>
+			</tr>
 % }
-	</table>
+		</table>
+	</div>
 
-<table>
-	<tr>
-		<td style="padding: 1em">
-			<form method="post" action="/freedb/sac-edittracks.html">
-				<p>
-					<input type="submit" value="Keep Editing">
-				</p>
-			</form>
-		</td>
-		<td style="padding: 1em">
-			<form method="post" action="/freedb/cancel.html">
-				<p>
-					<input type="submit" value="Abandon Import">
-				</p>
-			</form>
-		</td>
-		<td style="padding: 1em">
-			<form method="post" action="/freedb/final.html">
-				<p>
-					<input type="submit" value="Continue">
-				</p>
-			</form>
-		</td>
-	</tr>
-</table>
+	<div class="padlefttop">
+		<table>
+			<tr>
+				<td>
+					<form method="post" action="/freedb/sac-edittracks.html">
+						<input type="submit" class="button" value="Keep Editing">
+					</form></td>
+				<td>
+					<form method="post" action="/freedb/cancel.html">
+						<input type="submit" class="button" value="Abandon Import">
+					</form></td>
+				<td>
+					<form method="post" action="/freedb/final.html">
+						<input type="submit" class="button" value="Continue">
+					</form></td>
+			</tr>
+		</table>
+	</div>
+</fieldset>
 
 <& /comp/footer &>

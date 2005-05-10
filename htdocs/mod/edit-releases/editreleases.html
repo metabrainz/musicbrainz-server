@@ -125,7 +125,7 @@ $ar->SetName($edit->{"artist"}{"name"});
 $ar->SetSortName($edit->{"artist"}{"sortname"});
 
 </%perl>
-<& /comp/sidebar, title => "Album Editor - Edit Releases" &>
+<& /comp/sidebar, title => "Releases Editor: Add and Edit Releases" &>
 
 <& /comp/stylemenu &>
 
@@ -153,76 +153,82 @@ $ar->SetSortName($edit->{"artist"}{"sortname"});
 
 <script type="text/javascript" src="validate.js"></script>
 
-<form method="post" action="/mod/edit-releases/editreleases.html"
-	id="EditReleasesForm"
-	onsubmit="return CheckEditReleasesForm(this)">
+<form 	method="post" 
+		action="/mod/edit-releases/editreleases.html"
+		id="EditReleasesForm"
+		onSubmit="return checkEditReleasesForm(this)">
 
-	<table class="SpacedColumns TopAlignCells">
-		<tr>
-			<td>Artist:</td>
-			<td colspan="3"><a href="/showartist.html?artistid=<% $ar->GetId %>"><% $ar->GetName %></a></td>
-			<td></td>
-		</tr>
-		<tr>
-			<td>Album:</td>
-			<td colspan="3"><a href="/showalbum.html?albumid=<% $edit->{'id'} %>"><% $edit->{'name'} %></a></td>
-			<td></td>
-		</tr>
-		<tr><td>&nbsp;</td></tr>
-		<tr>
-			<td>Year</td>
-			<td>Month</td>
-			<td>Day</td>
-			<td>Country</td>
-			<td align="center"><img src="/images/remove.gif"
-				title="Tick the boxes above to remove releases"></td>
-		</tr>
+	<fieldset>
+		<legend>Add and Edit Releases</legend>
+		<table>
+			<tr>
+				<td><label>Artist:</label></td>
+				<td colspan="5"><a href="/showartist.html?artistid=<% $ar->GetId %>"><% $ar->GetName %></a></td>
+			</tr>
+			<tr>
+				<td><label>Album:</label></td>
+				<td colspan="5"><a href="/showalbum.html?albumid=<% $edit->{'id'} %>"><% $edit->{'name'} %></a></td>
+			</tr>
+			<tr>
+				<td>&nbsp;</td>
+				<td class="padtop">Year</td>
+				<td class="padtop">Month</td>
+				<td class="padtop">Day</td>
+				<td class="padtop">Country</td>
+				<td  class="padtop" align="center">
+					<img src="/images/remove.gif" title="Tick the boxes above to remove releases"></td>
+			</tr>
 % for my $rel (@$releases) {
-		<tr <% $rel->{modpending} ? "class='mp'" : "" %>>
-			<td nowrap>
-				<input type="text" name="y<% $rel->{"id"} %>"
-				value="<% $rel->{year}||'' %>" size="4" maxlength="4"
-				style="text-align: center"></td>
-			<td nowrap>
-				<input type="text" name="m<% $rel->{"id"} %>"
-				value="<% $rel->{month}||'' %>" size="2" maxlength="2"
-				style="text-align: center"></td>
-			<td nowrap>
-				<input type="text" name="d<% $rel->{"id"} %>"
-				value="<% $rel->{day}||'' %>" size="2" maxlength="2"
-				style="text-align: center"></td>
-			<td><select name="country<% $rel->{"id"} %>"
-				><& /comp/options, ($rel->{country} ? $countries_menu : $countries_menu_2), $rel->{country}
-					&></select></td>
-			<td align="center"><input type="checkbox" name="releasedel<% $rel->{"id"} %>"
-				value="1" <% $rel->{'delete'} ? "checked" : "" %>
-				title="Remove this release?"></td>
-		</tr>
+				<tr <% $rel->{modpending} ? "class='mp'" : "" %>>
+					<td>&nbsp;</td>
+					<td nowrap>
+						<input 	type="text" class="textfield" name="y<% $rel->{"id"} %>"
+								value="<% $rel->{year}||'' %>" 
+								size="4" maxlength="4"
+								style="text-align: center"></td>
+					<td nowrap>
+						<input 	type="text" class="textfield" name="m<% $rel->{"id"} %>"
+								value="<% $rel->{month}||'' %>" 
+								size="2" maxlength="2"
+								style="text-align: center"></td>
+					<td nowrap>
+						<input 	type="text" class="textfield" name="d<% $rel->{"id"} %>" 
+								value="<% $rel->{day}||'' %>" 
+								size="2" maxlength="2"
+								style="text-align: center"></td>
+					<td>
+						<select name="country<% $rel->{"id"} %>">
+							<& /comp/options, ($rel->{country} ? $countries_menu : $countries_menu_2), $rel->{country} &>
+						</select></td>
+					<td align="center">
+						<input 	type="checkbox" name="releasedel<% $rel->{"id"} %>"
+								value="1" <% $rel->{'delete'} ? "checked" : "" %>
+								title="Remove this release?"></td>
+				</tr>
 % }
 % if (not @$releases) {
-		<tr>
-			<td colspan="5" style="padding: 1em">
-				No release information available.&nbsp;
-				Click "Add a release" and "Continue" to add a release.
-			</td>
-		</tr>
+				<tr>
+					<td>&nbsp;</td>
+					<td colspan="5">
+						No release information available.&nbsp;
+						Click "Add a release" and "Continue" to add a release.</td>
+				</tr>
 % }
-		<tr><td>&nbsp;</td></tr>
-		<tr>
-			<td></td>
-			<td colspan="3">
-				<input type="checkbox" name="AddARelease" value="1">
-				Add a release ...
-			</td>
-		</tr>
-		<tr><td>&nbsp;</td></tr>
-		<tr>
-			<td colspan="5" align="center">
-				<input type="submit" value="Continue">
-				<input type="hidden" name="continue" value="1">
-			</td>
-		</tr>
-	</table>
+				<tr>
+					<td>&nbsp;</td>
+					<td colspan="5" class="padtop">
+						<input type="checkbox" name="AddARelease" value="1">
+						Add a release ...</td>
+				</tr>
+				<tr>
+					<td></td>
+					<td colspan="5" class="padtop">
+						<input type="submit" class="button" value="Continue">
+						<input type="hidden" name="continue" value="1"></td>
+				</tr>
+			</table>
+		</div>
+	</fieldset>
 </form>
 
 <& /comp/movefocus, "EditReleasesForm", $focusfield &>

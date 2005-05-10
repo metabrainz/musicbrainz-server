@@ -5,6 +5,7 @@ $dbh => undef
 # have to do: ref($foo) ? @$foo : $foo
 @mod_status => ()
 @mod_type => ()
+@mod_language => ()
 @vote_cast => ()
 # All the others are single-value, so using $ARGS{key} is OK
 $voter_type => 0
@@ -148,6 +149,30 @@ push @where, $m->comp(
 	"m.type",
 	\@mod_type,
 	[keys %allowed_type],
+);
+
+# Silly Vim hack:
+</%perl>
+<%perl>
+
+################################################################################
+# mod_language - multi-select of languages
+################################################################################
+
+my %allowed_language = map {
+	$_->GetId(), $_->GetName()
+} MusicBrainz::Server::Language->All($dbh);
+$allowed_language{0} = '[unset language]';
+
+@mod_language = grep { exists $allowed_language{$_} } @mod_language;
+@mod_language = $m->comp(".SortUnique", @mod_language);
+$filter{"mod_language"} = \@mod_language;
+
+push @where, $m->comp(
+	".SetClause",
+	"COALESCE(m.language, 0)",
+	\@mod_language,
+	[keys %allowed_language],
 );
 
 # Silly Vim hack:

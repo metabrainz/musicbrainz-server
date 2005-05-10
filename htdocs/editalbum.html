@@ -68,60 +68,54 @@ if (MusicBrainz::IsSingleLineString($newname)
 
 <& /comp/stylemenu &>
 
-<h2>Edit Album Name</h2>
-
 % if ($al->GetModPending) {
 	<& /comp/modpending &>
 % }
 
-<script type="text/javascript" src="scripts/guess.js"></script>
 
-<form method="post" action="/editalbum.html"
-	name="EditAlbumForm"
-	enctype="application/x-www-form-urlencoded"
-	>
+<form method="post" 
+		action="/editalbum.html"
+		name="EditAlbumForm"
+		enctype="application/x-www-form-urlencoded">
 
-	<table width="100%">
-		<tr>
-			<td align="right">
-				Current Name:
-			</td>
-			<td width="75%">
-				<% $al->GetName %>
-			</td>
-		</tr>
-		<tr>
-			<td align="right">
-				New Name:
-			</td>
-			<td width="75%">
-				<input type="text" name="newname" size="50" maxlength="255" value="<% $al->GetName %>">
-		<script type="text/javascript"><!--
-		document.write(
-			"<\/td><\/tr>"
-			+ "<tr><td><\/td><td>"
-			+ "<input type='button' value='Guess Case' "
-			+ "onclick='this.form.newname.value = GuessCase(this.form.newname.value)'>"
-		);
-		//--></script>
-			</td>
-		</tr>
-	</table>
+	<& /comp/autofixmenu &>
 
-
-	<p>
-		Enter moderation note (optional):
-	</p>
-
-	<p>
-		<textarea name="notetext" rows="3" cols="60"></textarea>
-	</p>
-
-	<p align="center">
-		<input type="hidden" name="album" value="<% $al->GetId %>">
-		<input type="submit" value="Submit">
-	</p>
-
+	<fieldset>
+		<legend>Edit Album Name</legend>
+		<table>
+			<tr>
+				<td><label for="oldname">Current&nbsp;Name:</label></td>
+				<td>
+					<input 	type="text" name="oldname" class="oldtextfield" 
+							size="50" readonly="readonly"
+							value="<% $al->GetName %>" /></td>
+			</tr>
+			<tr>
+				<td><label for="newname">New Name:</label></td>
+				<td>
+					<input type="text" name="newname" class="textfield"
+						onFocus="myOnFocus(this)" onBlur="myOnBlur(this)"
+						size="50"
+						value="<% $al->GetName %>">
+					<script language="javascript">
+					<!--
+						af_writeButton(AF_BTN_ALBUM, 'newname');
+					-->
+					</script></td>
+			</tr>
+			<tr>
+				<td>&nbsp;</td>
+				<td class="padtop">
+					<& /comp/notetext &></td>
+			</tr>
+			<tr>
+				<td>&nbsp;</td>
+				<td class="padtop">
+					<input type="hidden" name="album" value="<% $al->GetId %>">
+					<input type="submit" class="button" value="Submit"></td>
+			</tr>
+		</table>
+	</fieldset>
 </form>
 
 <& /comp/movefocus, "EditAlbumForm", "newname" &>

@@ -1,0 +1,31 @@
+%# vi: set ts=2 sw=2 ft=mason :
+<%args>
+$moderator => $session{uid}
+</%args>
+<%perl>
+
+$m->comp("/comp/checkloggedin", 1, 1)
+	or return;
+
+my %filter = (
+	mod_status				=> &ModDefs::STATUS_OPEN,
+	(
+		($moderator == $session{uid})
+		? (
+			moderator_type	=> 4, # Me
+		) : (
+			moderator_type	=> 3, # only this person ...
+			moderator_id		=> $moderator,
+		)
+	),
+	vote_cast       => &ModDefs::VOTE_NOTVOTED,
+	orderby					=> "desc",
+);
+
+$m->comp(
+	"/comp/redirect",
+	"/mod/search/results.html?" . $m->comp("/comp/args-to-querystring.inc", %filter)
+	#"/user/debug.html?" . $m->comp("/comp/args-to-querystring.inc", %filter)
+);
+
+</%perl>

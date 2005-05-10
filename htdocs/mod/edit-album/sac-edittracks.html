@@ -98,7 +98,7 @@ $ar->SetName($edit->{"artist"}{"name"});
 $ar->SetSortName($edit->{"artist"}{"sortname"});
 
 </%perl>
-<& /comp/sidebar, title => "Album Editor - Edit Track Names" &>
+<& /comp/sidebar, title => "Album Editor: Edit Album and Track Names" &>
 
 <& /comp/stylemenu &>
 
@@ -120,123 +120,150 @@ $ar->SetSortName($edit->{"artist"}{"sortname"});
 	possible that some, but not all, of your changes will get voted in.
 </p>
 
-% if (not $edit->{"can_add_remove"}) {
-<p><b>Adding, removing and renumbering tracks disabled because of valid Disc ID(s)</b></p>
-% }
-
-<script type="text/javascript" src="/scripts/guess.js"></script>
-
 <form method="post" action="/mod/edit-album/sac-edittracks.html">
 
-	<table class="SpacedColumns TopAlignCells">
-		<col style="width: 4em">
-		<col style="width: 20em">
-		<col style="width: 1em">
-		<col style="width: 6em">
-		<tr>
-			<td><a href="/showartist.html?artistid=<% $ar->GetId %>">Artist</a>:</td>
-			<td><% $ar->GetName %></td>
-			<td></td>
-			<td></td>
-		</tr>
-		<tr>
-			<td><a href="/showalbum.html?albumid=<% $edit->{'id'} %>">Album</a>:</td>
-			<td><input type="text" name="album" style="width: 100%"
-				maxlength="255"
-				value="<% $edit->{'name'} %>"></td>
-			<td></td>
-			<td align="center"><input type="button" value="Guess Case"
-				onclick="this.form.album.value = GuessCase(this.form.album.value)"
-				></td>
-		</tr>
+	<& /comp/autofixmenu &>
+
+	<fieldset>
+		<legend>Edit Album and Track Names</legend>
+
+% if (not $edit->{"can_add_remove"}) {
+		<div class="discidmessage">
+			Adding, removing and renumbering of tracks disabled because of valid Disc ID(s)
+		</div>
+% }
+
+		<table class="SpacedColumns TopAlignCells">
+			<col style="width: 4em">
+			<col style="width: 20em">
+			<col style="width: 1em">
+			<col style="width: 6em">
+			<tr>
+				<td><a href="/showartist.html?artistid=<% $ar->GetId %>">Artist</a>:</td>
+				<td><% $ar->GetName %></td>
+				<td></td>
+				<td>
+					<script language="javascript">
+					<!--
+					af_writeButton(AF_BTN_ALL, AF_BTNTEXT_ALBUMANDTRACKS);
+					-->
+					</script></td>
+			</tr>
+			<tr>
+				<td><a href="/showalbum.html?albumid=<% $edit->{'id'} %>">Album</a>:</td>
+				<td><input type="text" name="album" class="textfield"
+					size="50"
+					onFocus="myOnFocus(this)" onBlur="myOnBlur(this)"
+					value="<% $edit->{'name'} %>"></td>
+				<td></td>
+				<td>
+					<script language="javascript">
+					<!--
+						af_writeButton(AF_BTN_ALBUM, 'album');
+					-->
+					</script></td>
+			</tr>
 % for my $t (@$tracks) {
-		<tr>
-			<td nowrap>
+  			<tr>
+				<td nowrap>
 % unless ($t->{"new"}) {
 				<a href="/showtrack.html?trackid=<% $t->{'id'} %>">Track</a>
 % } else {
 				Track
 % }
-				<input type="text" name="trackseq<% $t->{"id"} %>"
-				<% $edit->{can_add_remove} ? "" : "readonly" %>
-				value="<% $t->{seq} %>" size="2" maxlength="2"
-				style="text-align: center"></td>
-			<td><input type="text" name="track<% $t->{"id"} %>" style="width: 100%"
-				maxlength="255"
-				value="<% $t->{"name"} %>"></td>
-			<td align="center"><input type="checkbox" name="trackdel<% $t->{"id"} %>"
-				value="1" <% $t->{'delete'} ? "checked" : "" %>
-				<% $edit->{can_add_remove} ? "" : "disabled" %>
-				title="Remove this track?"></td>
-			<td align="center"><input type="button" value="Guess Case"
-				onclick="this.form['track<% $t->{'id'} %>'].value = GuessCase(this.form['track<% $t->{'id'} %>'].value)"
-				></td>
-		</tr>
+					<input type="text" name="trackseq<% $t->{"id"} %>" class="textfield"
+						<% $edit->{can_add_remove} ? "" : "readonly" %>
+						onFocus="myOnFocus(this)" onBlur="myOnBlur(this)"
+						value="<% $t->{seq} %>" size="2" maxlength="2"
+						style="text-align: center"></td>
+				<td><input type="text" name="track<% $t->{"id"} %>" class="textfield"
+						onFocus="myOnFocus(this)" onBlur="myOnBlur(this)"
+						size="50" maxlength="255"
+						value="<% $t->{"name"} %>"></td>
+				<td align="center">
+					<input type="checkbox" name="trackdel<% $t->{"id"} %>"
+						value="1" <% $t->{'delete'} ? "checked" : "" %>
+						<% $edit->{can_add_remove} ? "" : "disabled" %>
+						title="Remove this track?"></td>
+				<td>
+					<script language="javascript">
+					<!--
+						af_writeButton(AF_BTN_TRACK, 'track<% $t->{'id'} %>');
+					-->
+					</script></td>
+			</tr>
 % }
-		<tr>
-			<td></td>
-			<td>
-				<input type="checkbox" name="AddATrack" value="1"
-					<% $edit->{can_add_remove} ? "" : "disabled" %>>
-				Add a track ...
-			</td>
-			<td align="center"><img src="/images/remove.gif"
-				title="Tick the boxes above to remove tracks"></td>
-			<td align="center"><input type="button" value="Guess All"
-				onclick="
-					this.form.album.value = GuessCase(this.form.album.value);
+			<tr>
+				<td></td>
+				<td>
+					<input type="checkbox" name="AddATrack" value="1"
+						<% $edit->{can_add_remove} ? "" : "disabled" %>>
+					Add a track ...
+				</td>
+				<td align="center"><img src="/images/remove.gif"
+					title="Tick the boxes above to remove tracks"></td>
+				<td>
+					<script language="javascript">
+					<!--
+						function doGuessAll(theForm) {
+							doAlbumName(theForm, 'album');
 % for my $t (@$tracks) {
-					this.form['track<% $t->{'id'} %>'].value = GuessCase(this.form['track<% $t->{'id'} %>'].value);
+							doTrackName(theForm, 'track<% $t->{'id'} %>');
 % }
-				"></td>
-		</tr>
-		<tr><td>&nbsp;</td></tr>
-		<tr>
-			<td>Type/Status:</td>
-			<td>
-				<select name="release_type">
-				<& /comp/options,
-					do {
-						[
-							[ "", "[none]" ],
-							map {
-								[ $_, Album->GetAttributeName($_) ]
-							} &Album::ALBUM_ATTR_SECTION_TYPE_START
-								.. &Album::ALBUM_ATTR_SECTION_TYPE_END
-						]
-					},
-					$edit->{"type"}
-				&>
-				</select>
-				&nbsp;
-				<select name="release_status">
-				<& /comp/options,
-					do {
-						[
-							[ "", "[none]" ],
-							map {
-								[ $_, Album->GetAttributeName($_) ]
-							} &Album::ALBUM_ATTR_SECTION_STATUS_START
-								.. &Album::ALBUM_ATTR_SECTION_STATUS_END
-						]
-					},
-					$edit->{"status"}
-				&>
-				</select>
-				&nbsp;
-				[ <a href="/popup/attrguide.html"
-					onclick="MyWindow=window.open('/popup/attrguide.html','AlbumAttributeGuide','toolbar=no,location=no,directories=no,status=no,menubar=no,scrollbars=yes,resizable=yes,width=400,height=275'); return false;"
-					>help</a> ]
-			</td>
-		</tr>
-		<tr><td>&nbsp;</td></tr>
-		<tr>
-			<td colspan="8" align="center">
-				<input type="submit" value="Continue">
-				<input type="hidden" name="continue" value="1">
-			</td>
-		</tr>
-	</table>
+					}
+					af_writeButton(AF_BTN_ALL, AF_BTNTEXT_ALBUMANDTRACKS);
+				-->
+				</script></td>
+			</tr>
+			<tr><td>&nbsp;</td></tr>
+			<tr>
+				<td>Type/Status:</td>
+				<td>
+					<select name="release_type">
+					<& /comp/options,
+						do {
+							[
+								[ "", "[none]" ],
+								map {
+									[ $_, Album->GetAttributeName($_) ]
+								} &Album::ALBUM_ATTR_SECTION_TYPE_START
+									.. &Album::ALBUM_ATTR_SECTION_TYPE_END
+							]
+						},
+						$edit->{"type"}
+					&>
+					</select>
+					&nbsp;
+					<select name="release_status">
+					<& /comp/options,
+						do {
+							[
+								[ "", "[none]" ],
+								map {
+									[ $_, Album->GetAttributeName($_) ]
+								} &Album::ALBUM_ATTR_SECTION_STATUS_START
+									.. &Album::ALBUM_ATTR_SECTION_STATUS_END
+							]
+						},
+						$edit->{"status"}
+					&>
+					</select>
+					&nbsp;
+					[ <a href="/popup/attrguide.html"
+						onclick="MyWindow=window.open('/popup/attrguide.html','AlbumAttributeGuide','toolbar=no,location=no,directories=no,status=no,menubar=no,scrollbars=yes,resizable=yes,width=400,height=275'); return false;"
+						>help</a> ]
+				</td>
+			</tr>
+			<tr><td>&nbsp;</td></tr>
+			<tr>
+				<td>&nbsp;</td>
+				<td colspan="8">
+					<input type="submit" value="Continue" class="button">
+					<input type="hidden" name="continue" value="1">
+				</td>
+			</tr>
+		</table>
+	</fieldset>
 </form>
 
 <& /comp/footer &>

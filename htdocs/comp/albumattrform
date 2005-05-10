@@ -3,11 +3,13 @@
 $adding => 0
 $albumname => ""
 $multi_album => 0
+$disclength => 0
 $type_value
 $status_value
 $type_fieldname
 $status_fieldname
 $focus_to => undef
+$notetext => ""
 </%args>
 
 <%perl>
@@ -29,17 +31,32 @@ my @indexes;
 <p>
 	Select the appropriate album attributes below and then 
 	click on Submit: 
-</p>
 
-<p>
-% if ($albumname eq '') {
-    All tagged albums:
+<fieldset>
+% if ($adding != 0) {
+	<legend>Select Album Attributes</legend>
 % } else {
-    Album <b><% $albumname %></b>:
+	<legend>Edit Album Attributes</legend>
 % }
-</p>
 
-<table width="75%" style="margin-left: 3em">
+	<table>
+		<tr>
+			<td><label for="album"><b>Album:</album></td>
+			<td>
+% if ($albumname eq '') {
+				All selected albums
+% } else {
+				<b><% $albumname %></b>
+% }
+			</td>
+		</tr>
+% if ($adding != 0) {
+		<tr>
+			<td><label for="disclength"><b>Disc length:</label></td>
+			<td> <% $disclength %></td>
+		</tr>
+% }
+		<tr><td colspan="2" class="padtop"></td></tr>
 
 		<& .DoAttribute,
 			label => "Release type",
@@ -59,10 +76,23 @@ my @indexes;
 			pushindex => \@indexes,
 			&>
 
-</table>
+		<tr>
+			<td>&nbsp;</td>
+			<td class="padtop">
+				<& /comp/notetext, text => $notetext &></td>
+		</tr>
+		<tr>
+			<td>&nbsp;</td>
+			<td class="padtop">
+				<input 	type="submit" class="button" 
+						value="Submit"></td>
+		</tr>
+	</table>
+</fieldset>
+
 <%perl>
-@$focus_to = ($type_fieldname, $indexes[0]) if $focus_to;
-return;
+	@$focus_to = ($type_fieldname, $indexes[0]) if $focus_to;
+	return;
 </%perl>
 
 <%def .DoAttribute>
@@ -93,26 +123,26 @@ $i = 0, $value = "" unless defined $i;
 push @$pushindex, $i;
 
 </%perl>
-
-		<tr><td colspan="3" style="padding: 1em 0"><b><% $label %>:</b></td></tr>
-
-%		for my $v (@valuelist)
-%		{
-        <tr>
-			<td valign="top" nowrap>
-				<input type="radio"
-					style="position: relative; top: -4px"
-					name="<% $fieldname %>"
-					value="<% $v->[0] %>"
-%					if ($v->[0] eq $value) {
-					checked
-%					}
-					ondblclick="this.form.submit()"
-				></td>
-			<td valign="top" nowrap><% $v->[1] %></td>
-			<td valign="top">&nbsp;</td>
-			<td valign="top"><% $v->[2] %></td>
+		<tr valign="top">
+			<td nowrap><label for="<% $fieldname %>"><b><% $label %>:</label></td>
+			<td>
+				<table cellspacing="0" cellpadding="0" border="0">
+					<tr>
+						<td>
+							<select name="<% $fieldname %>" style="width: 200px">
+%	for my $v (@valuelist)
+%	{
+								<option value="<% $v->[0] %>" <% $v->[0] eq $value ? "selected" : "" %>
+								><% $v->[1] %></option>
+%	}
+							</select>&nbsp;</td>
+						<td>
+							[ <a href="/popup/attrguide.html"
+								onclick="MyWindow=window.open('/popup/attrguide.html','AlbumAttributeGuide','toolbar=no,location=no,directories=no,status=no,menubar=no,scrollbars=yes,resizable=yes,width=400,height=275'); return false;"
+								>help</a> ]
+						</td>
+					</tr>
+				</table>
+			</td>
 		</tr>
-%		}
-
 </%def>

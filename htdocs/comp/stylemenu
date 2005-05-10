@@ -1,25 +1,7 @@
-<& /comp/framedboxbegin &>
-<table>
-<tr>
-   <td>Style guides:</td>
-   <td>&nbsp;</td>
-   <td><a href="/popup/styleguide.html" onClick="MyWindow=window.open('/popup/styleguide.html','StyleGuide','toolbar=no,location=no,directories=no,status=no,menubar=no,scrollbars=yes,resizable=yes,width=400,height=450'); return false;">General Style</a></td>
-   <td>|</td>
-   <td><a href="/popup/capguide.html" onClick="MyWindow=window.open('/popup/capguide.html','CapitalizationGuide','toolbar=no,location=no,directories=no,status=no,menubar=no,scrollbars=yes,resizable=yes,width=400,height=500'); return false;">Capitalization</a></td>
-   <td>|</td>
-   <td><a href="/popup/sortnameguide.html" onClick="MyWindow=window.open('/popup/sortnameguide.html','SortnameGuide','toolbar=no,location=no,directories=no,status=no,menubar=no,scrollbars=yes,resizable=yes,width=400,height=275'); return false;">Sortname</a></td>
-   <td>|</td>
-   <td><a href="/popup/attrguide.html" onClick="MyWindow=window.open('/popup/attrguide.html','AlbumAttributeGuide','toolbar=no,location=no,directories=no,status=no,menubar=no,scrollbars=yes,resizable=yes,width=400,height=275'); return false;">Album Attributes</a></td>
-   <td>&nbsp;</td>
-</tr>
-</table>
-<& /comp/framedboxend &>
 % unless ($session{has_confirmed_email}) {
-
 	<p class="notice">
 		<span style="color: red">You have not provided an email address!</span>
-   To edit the database, you MUST provide a verified email address.
-   <a href="/user/edit.html">Edit your profile to provide an email address</a>
+		To edit the database, you MUST provide a verified email address.
+		<a href="/user/edit.html">Edit your profile to provide an email address</a>.
 	</p>
 % }
-<p>

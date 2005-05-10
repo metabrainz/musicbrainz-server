@@ -23,6 +23,7 @@ $expiretime = $m->comp("/comp/datetime", $expiretime);
 
 my $expire_verb = ($mod->GetExpired ? "Expired" : "Expires");
 
+my $language = $mod->GetLanguage;
 </%perl>
 
 <& /comp/tablebegin, title=>'Moderation Information' &> 
@@ -42,6 +43,12 @@ my $expire_verb = ($mod->GetExpired ? "Expired" : "Expires");
 		<td>Status:</td>
 		<td><% $mod->GetChangeName %></td>
 	</tr>
+% if ( $language ) {
+	<tr>
+		<td>Language:</td>
+		<td><% $language->GetName %></td>
+	</tr>
+% }
 	<tr>
 		<td>Opened:</td>
 		<td><% $opentime %></td>

@@ -132,59 +132,71 @@ my $trackdesc = (
 
 </%perl>
 
-<& /comp/sidebar, title => 'Move Discid' &>
+<& /comp/sidebar, title => 'Move CD Index Id' &>
 
 % if (@albums) {
 
-<p>
-	Select a new album for
-	<a href="/showcdtoc.html?id=<% $cdtoc->GetId %>"
-		>disc ID '<% $cdtoc->GetDiscID %>'</a>.&nbsp;
-	(NOTE: Only albums with <% $trackdesc %> have been shown).
-<p>
-
-<table>
-
+<fieldset>
+	<legend>Move CD Index Id to another Album</legend>
+	<div class="padleft">
+		Select an album to which CD Index Id  
+		<a href="/showcdtoc.html?id=<% $cdtoc->GetId %>"><% $cdtoc->GetDiscID %></a> 
+		should be moved.<br/>
+		NOTE: Only albums with <% $trackdesc %> have been shown.
+	</div>
+	<div class="padleft">
+		<ul>
 %     for my $ref (@albums) {
-	<tr>
-		<td>
-			<& /comp/album, artist=>$ar, album=>$ref, showmodlinks => 0 &>
-		</td>
-		<td>
-            <form method="post" action="/movediscid.html"
-				style="margin: 1em"
-				enctype="application/x-www-form-urlencoded"
-				class="formstyle"
-				>
-				<p>
-					<input type="hidden" name="tocid" value="<% $tocid %>">
-					<input type="hidden" name="albumid" value="<% $albumid %>">
-					<input type="hidden" name="newalbumid" value="<% $ref->GetId %>">
-					<input type="submit" value="Select &gt;&gt;">
-				</p>
-			</form>
-		</td>
-	</tr>
-
-	<tr><td>&nbsp;</td></tr>
-
+			<li><a href="#<% $ref->GetId %>"><% $ref->GetName %></a>
 % }
-</table>
+		<ul>
+	</div>
+
+	<p></p>
+	<div class="padleft">
+		<table width="600">
+% for my $ref (@albums) {
+			<tr valign="bottom">
+				<td>
+					<a name="#<% $ref->GetId %>"></a>
+					<& /comp/album, artist=>$ar, album=>$ref, showmodlinks => 0 &>
+				</td>
+				<td>
+
+					<form 	method="post" action="/movediscid.html"
+							style="margin: 1em">
+							<input type="hidden" name="tocid" value="<% $tocid %>">
+							<input type="hidden" name="albumid" value="<% $albumid %>">
+							<input type="hidden" name="newalbumid" value="<% $ref->GetId %>">
+							<input type="submit" class="button" value="Select &raquo;">
+					</form>
+				</td>
+			</tr>
+			<tr><td>&nbsp;</td></tr>
+% }
+		</table>
+	</div>
+</fieldset>
 
 % } else {
 
-	<p>
-		Disc IDs can only be moved to albums with the same number
-		of tracks.&nbsp;
+<fieldset>
+	<legend>Move CD Index Id to another Album</legend>
+	<div class="padleft">
+		CD Index Ids can only be moved to albums with the same number of tracks.&nbsp;
 		Since this artist does not have any other albums with <% $trackdesc %>,
-		<a href="/showcdtoc.html?id=<% $cdtoc->GetId %>">disc ID '<%
-			$cdtoc->GetDiscID %>'</a> cannot be moved.
-	</p>
-	<p>
-		<a href="/showalbum.html?albumid=<% $al->GetId %>">Back</a>
-		to album
-		'<% $al->GetName() %>'.
-	</p>
+		CD Index Id <a href="/showcdtoc.html?id=<% $cdtoc->GetId %>"><% $cdtoc->GetDiscID %></a> 
+		cannot be moved.
+	</div>
+
+	<div class="padlefttop">
+		<form 	method="GET" action="/showalbum.html"
+				name="ModFormNo">
+			<input type="hidden" name="albumid" value="<% $al->GetId %>">
+			<input name="btnBack" type="submit" class="button" value="&laquo; Back">
+		</form>
+	</div>
+</fieldset>
 
 % }
 

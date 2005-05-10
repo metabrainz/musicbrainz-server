@@ -129,6 +129,7 @@ my @tables = qw(
 	l_track_track
 	l_track_url
 	l_url_url
+	language
 	link_attribute
 	link_attribute_type
 	lt_album_album
@@ -150,6 +151,8 @@ my @tables = qw(
 	moderator_subscribe_artist
 	moderator_sanitised
 	release
+	script
+	script_language
 	stats
 	track
 	trackwords
@@ -415,6 +418,7 @@ my @group_core = qw(
 	l_track_track
 	l_track_url
 	l_url_url
+	language
 	link_attribute
 	link_attribute_type
 	lt_album_album
@@ -429,6 +433,8 @@ my @group_core = qw(
 	lt_url_url
 	release
 	replication_control
+	script
+	script_language
 	track
 	trm
 	trmjoin

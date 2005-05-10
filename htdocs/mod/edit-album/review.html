@@ -38,27 +38,36 @@ my $orig = $m->scomp(
 #$al->{attrs} = [ 0, &Album::ALBUM_ATTR_ALBUM, &Album::ALBUM_ATTR_BOOTLEG ];
 
 </%perl>
-<& /comp/sidebar, title => "Album Editor - Review Changes" &>
+<& /comp/sidebar, title => "Album Editor: Review Changes" &>
 
-<h2>Changes</h2>
+<fieldset>
+	<legend>Review Changes</legend>
 
-<table class="SpacedColumns TopAlignCells">
-	<tr>
-		<th>Change</th>
-		<th>Old</th>
-		<th>New</th>
-	</tr>
+	<div class="padleft">
+		These are the moderations that will be entered into
+		the system when you click "Enter Moderations":
+	</div>
+
+	<div class="padlefttop">
+		<table border="0" cellspacing="0">
+			<tr valign="top">
+				<td><b>Moderation</td>
+				<td rowspan="200">&nbsp;&nbsp;</td>
+				<td><b>Old Value</td>
+				<td rowspan="200">&nbsp;&nbsp;</td>
+				<td><b>New Value</td>
+			</tr>
 
 <%perl>
 
 if ($edit->{name} ne $edit->{orig_name})
 {
 	</%perl>
-	<tr>
-		<td>Edit Album Name</td>
-		<td><a href="/showalbum.html?albumid=<% $edit->{'id'} %>"><% $edit->{orig_name} %></a></td>
-		<td><b><% $edit->{name} %></b></td>
-	</tr>
+			<tr valign="top">
+				<td>Edit Album Name</td>
+				<td><a href="/showalbum.html?albumid=<% $edit->{'id'} %>"><% $edit->{orig_name} %></a></td>
+				<td><b><% $edit->{name} %></b></td>
+			</tr>
 	<%perl>
 	$al->SetName($edit->{name});
 	++$changes;
@@ -69,8 +78,8 @@ my $new_attrs = join " ", sort grep { defined } @$edit{qw( type status )};
 if ($old_attrs ne $new_attrs)
 {
 	</%perl>
-	<tr>
-		<td>Edit Album Attributes</td>
+			<tr valign="top">
+				<td>Edit Album Attributes</td>
 	<%perl>
 	for ($old_attrs, $new_attrs)
 	{
@@ -78,9 +87,9 @@ if ($old_attrs ne $new_attrs)
 			Album->GetAttributeName($_) || "#$_"
 		} split ' ', $_;
 		</%perl>
-		<td><% @names ? join ", ", @names : "None" %></td>
+				<td><% @names ? join ", ", @names : "None" %></td>
 %	}
-	</tr>
+			</tr>
 	<%perl>
 	$al->SetAttributes(split ' ', $new_attrs);
 	++$changes;
@@ -92,11 +101,11 @@ for my $t (@{ $edit->{tracks} })
 	{
 		next if $t->{"name"} eq "";
 		</%perl>
-		<tr>
-			<td>Add Track</td>
-			<td></td>
-			<td>Name: <% $t->{name} %><br>Track: <% $t->{seq} %></td>
-		</tr>
+			<tr valign="top">
+				<td>Add Track</td>
+				<td>-</td>
+				<td><b><% $t->{seq} %>: <% $t->{name} %></b></td>
+			</tr>
 		<%perl>
 		# push Track object
 		my $tr = Track->new($mb->{DBH});
@@ -114,12 +123,12 @@ for my $t (@{ $edit->{tracks} })
 	if ($t->{'delete'})
 	{
 		</%perl>
-		<tr>
-			<td>Remove Track</td>
-			<td>Name: <a href="/showtrack.html?trackid=<% $t->{'id'} %>"><% $t->{orig_name} %></a>
-				<br>Track: <% $t->{orig_seq} %></td>
-			<td></td>
-		</tr>
+			<tr valign="top">
+				<td>Remove Track</td>
+				<td><% $t->{orig_seq} %>: <a href="/showtrack.html?trackid=<% $t->{'id'} %>"><% $t->{orig_name} %></a>
+					</td>
+				<td>-</td>
+			</tr>
 		<%perl>
 		$tr->{"_delete"} = 1;
 		++$changes;
@@ -129,11 +138,11 @@ for my $t (@{ $edit->{tracks} })
 	if ($t->{name} ne $t->{orig_name})
 	{
 		</%perl>
-		<tr>
-			<td>Edit Track Name</td>
-			<td><a href="/showtrack.html?trackid=<% $t->{'id'} %>"><% $t->{orig_name} %></a></td>
-			<td><b><% $t->{name} %></b></td>
-		</tr>
+			<tr>
+				<td>Edit Track Name</td>
+				<td><a href="/showtrack.html?trackid=<% $t->{'id'} %>"><% $t->{orig_name} %></a></td>
+				<td><b><% $t->{name} %></b></td>
+			</tr>
 		<%perl>
 		$tr->SetName($t->{name});
 		++$changes;
@@ -142,12 +151,11 @@ for my $t (@{ $edit->{tracks} })
 	if ($t->{seq} != $t->{orig_seq})
 	{
 		</%perl>
-		<tr>
-			<td>Edit Track Number</td>
-			<td><b><% $t->{orig_seq} %></b><br>
-				<a href="/showtrack.html?trackid=<% $t->{'id'} %>"><% $t->{name} %></a></td>
-			<td><b><% $t->{seq} %></b></td>
-		</tr>
+			<tr>
+				<td>Edit Track Number</td>
+				<td><b><% $t->{orig_seq} %></b>: <a href="/showtrack.html?trackid=<% $t->{'id'} %>"><% $t->{name} %></a></td>
+				<td><b><% $t->{seq} %></b></td>
+			</tr>
 		<%perl>
 		$tr->SetSequence($t->{seq});
 		++$changes;
@@ -157,66 +165,70 @@ for my $t (@{ $edit->{tracks} })
 </%perl>
 
 % if (not $changes) {
-	<tr><td colspan="3">You have not made any changes!</td></tr>
+			<tr><td colspan="3">You have not made any changes!</td></tr>
 % }
-
-</table>
+		</table>
+	</div>
+	<div class="padlefttop">
+		<table>
+			<tr>
+				<td>
+					<form method="GET" action="sac-edittracks.html">
+						<input type="submit" class="button" value="Keep Editing">
+					</form></td>
+				<td>
+					<form method="GET" action="index.html">
+						<input type="hidden" name="album" value="<% $edit->{'id'} %>">
+						<input type="submit" class="button" value="Start Over">
+					</form></td>
+				<td>
+					<form method="GET" action="cancel.html">
+						<input type="submit" class="button" value="Abandon">
+					</form></td>
+			</tr>
+		</table>
+	</div>
+</fieldset>
 
 % if ($changes) {
+<fieldset>
+	<legend>Preview</legend>
+	<div class="padlefttop">
+		<font size="+2">
+			<a href="/showartist.html?artistid=<% $ar->GetId %>"><% $ar->GetName %></a>
+		</font>
+	</div>
+	<div class="padlefttop">
+		<%perl>
+			@tracks = sort {
+				$a->GetSequence <=> $b->GetSequence
+				or
+				$a->GetName cmp $b->GetName
+			} grep {
+				not $_->{"_delete"}
+			} @tracks;
+		</%perl>
 
-<h2>Preview</h2>
-
-<p><font size="+2">
-	<a href="/showartist.html?artistid=<% $ar->GetId %>"
-		><% $ar->GetName %></a>
-</font></p>
-
-<%perl>
-
-@tracks = sort {
-	$a->GetSequence <=> $b->GetSequence
-	or
-	$a->GetName cmp $b->GetName
-} grep {
-	not $_->{"_delete"}
-} @tracks;
-
-</%perl>
-
-<& "/comp/album",
-	album => $al,
-	artist => $ar,
-	showmodlinks => 0,
-	tracks => \@tracks,
-	&>
-% }
-
-<hr style="clear: both; margin: 2em 0">
-
-<form method="get" action="sac-edittracks.html"
-	style="float: left; margin-right: 2em">
-	<input type="submit" value="Keep Editing">
-</form>
-<form method="get" action="index.html"
-	style="float: left; margin-right: 2em">
-	<input type="hidden" name="album" value="<% $edit->{'id'} %>">
-	<input type="submit" value="Start Over">
-</form>
-<form method="get" action="cancel.html"
-	style="float: left; margin-right: 2em">
-	<input type="submit" value="Abandon">
-</form>
-
-% if ($changes) {
-<form method="post" action="enter.html">
-	<input type="submit" value="Enter Moderations">
-	<p>
-		If entering moderations, enter moderation note (optional):
-	</p>
-
-	<p>
-		<textarea name="notetext" rows="3" cols="60"></textarea>
-	</p>
+		<table width="600"><tr><td>
+		<& "/comp/album",
+			album => $al,
+			artist => $ar,
+			showmodlinks => 0,
+			tracks => \@tracks,
+			&>
+		</td></tr></table>
+	</div>
+	
+	<form method="post" action="enter.html">
+		<div class="padlefttop">
+			<& /comp/notetext &>
+		</div>
+		<div class="padlefttop">
+			<input type="hidden" name="album" value="<% $al->GetId %>">
+			<input type="submit" class="button" value="Enter Moderations">
+		</div>
+	</form>
+</fieldset>
 % }
 
 <& /comp/footer &>

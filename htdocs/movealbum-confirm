@@ -1,51 +1,48 @@
 %# vi: set ts=4 sw=4 ft=mason :
-% my ($al, $ar, $name, $sortname, $artistid) = @_ or return;
-<& /comp/sidebar, title => 'Move Album' &>
+% my ($al, $ar, $name, $sortname, $artistid, $resolution) = @_ or return;
+<& /comp/sidebar, title => 'Move Album to another Artist' &>
 
-<h2>Confirm Move Album</h2>
-
-<p>
-	Are you sure you want to move album
-	<a href="/showalbum.html?albumid=<% $al->GetId %>"
-		class="bold"><% $al->GetName %></a>
-	from artist
-	<a href="/showartist.html?artistid=<% $ar->GetId %>"
-		class="bold"><% $ar->GetName %></a>
-	to artist
-	<span class="bold"><% $name %></span>?
-</p>
-
-<form method="get" action="/showalbum.html"
-	name="ModFormNo"
-	style="float: left; margin-right: 2em; margin-top: 0"
-	>
-	<div>
-		<input type="submit" value="&lt;&lt; NO">
-		<input type="hidden" name="albumid" value="<% $al->GetId %>">
-	</div>
-</form>
-
-<form method="post" action="/movealbum.html"
-	name="ModFormYes"
-	style="margin: 0"
-	>
-	<div>
-		<input type="hidden" name="album" value="<% $al->GetId %>">
-		<input type="hidden" name="newartistname" value="<% $name %>">
-		<input type="hidden" name="newartistsortname" value="<% $sortname %>">
-		<input type="hidden" name="newartistid" value="<% $artistid %>">
-		<input type="submit" value="YES &gt;&gt;">
+<fieldset>
+	<legend>Confirm Move Album</legend>
+	<div class="padleft">
+		Are you sure you want to move album
+		<a href="/showalbum.html?albumid=<% $al->GetId %>" class="bold"><% $al->GetName %></a>
+		from artist
+		<a href="/showartist.html?artistid=<% $ar->GetId %>" class="bold"><% $ar->GetName %></a>
+		to artist <a href="/showartist.html?artistid=<% $artistid %>" class="bold"><% $name %></a> 
+		<% $resolution ? "($resolution)" : "" %>?
 	</div>
 
-	<p>
-		If YES, enter moderation note (optional):
-	</p>
+	<div class="padlefttop">
+		<table>
+			<tr>
+				<td>
+					<form 	method="GET" action="/showalbum.html"
+							name="ModFormNo">
+						<input type="hidden" name="albumid" value="<% $al->GetId %>">
+						<input name="btnNo" type="submit" class="button" value="&laquo; NO">
+					</form></td>
+				<td> &nbsp; </td>
+				<td>
+					<form 	method="POST" action="/movealbum.html"
+							name="ModFormYes">
+						<input name="btnYes" type="submit" class="button" value="YES &raquo;">
+						<input type="hidden" name="album" value="<% $al->GetId %>">
+						<input type="hidden" name="newartistname" value="<% $name %>">
+						<input type="hidden" name="newartistsortname" value="<% $sortname %>">
+						<input type="hidden" name="newartistid" value="<% $artistid %>">
+					</td>
+				<td> &nbsp; </td>
+				<td><small> Please enter a moderation note. If you do so, moderations are<br/>
+							more likely to be accepted by our voters.</small></td>
+			</tr>
+		</table>
+	</div>
+	<div class="padlefttop">
+		<& /comp/notetext &>
+	</div>
+	</form>
+</fieldset>
 
-	<p>
-		<textarea name="notetext" rows="3" cols="60"></textarea>
-	</p>
-
-</form>
-
-<& /comp/movefocus, "ModFormNo", 0 &>
+<& /comp/movefocus, "ModFormYes", "btnYes" &>
 <& /comp/footer &>

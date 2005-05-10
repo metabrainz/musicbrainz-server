@@ -5,6 +5,7 @@ $album => ""
 $selectedartist => ""
 $newartistname => ""
 $newartistsortname => ""
+$newartistresolution => ""
 $newartistid=>-1
 $search => ""
 $notetext => undef
@@ -63,7 +64,8 @@ if ($selectedartist ne "")
 
 	$newartistname = $target->GetName;
 	$newartistsortname = $target->GetSortName;
-  $newartistid = $target->GetId;
+	$newartistid = $target->GetId;
+	$newartistresolution = $target->GetResolution;
 }
 
 if ($newartistname =~ /\S/ and $newartistsortname =~ /\S/ and $newartistid =~ /\d+/)
@@ -71,7 +73,7 @@ if ($newartistname =~ /\S/ and $newartistsortname =~ /\S/ and $newartistid =~ /\
 	defined $notetext
 		or return $m->comp(
 			"movealbum-confirm",
-			$al, $ar, $newartistname, $newartistsortname, $newartistid
+			$al, $ar, $newartistname, $newartistsortname, $newartistid, $newartistresolution
 		);
 
 	$m->comp(
@@ -103,17 +105,20 @@ if ($newartistname =~ /\S/ and $newartistsortname =~ /\S/ and $newartistid =~ /\
 	
 </%perl>
 
-<& /comp/sidebar, title => "Move Album '${\ $al->GetName }' to Another Artist" &>
+<& /comp/sidebar, title => "Move Album '${\ $al->GetName }' to another Artist" &>
 
 % if ($al->GetModPending) {
     <& /comp/modpending &>
 % }
 
-<p>
-	Please search for the artist to which
-	you want to move the album
-	<a href="/showalbum.html?albumid=<% $album %>"><% $al->GetName %></a>.
-</p>
+<fieldset>
+	<legend>Move Album to another Artist</legend>
+	<div class="padleft">
+		Please search for the artist to which
+		you want to move the album
+		<a href="/showalbum.html?albumid=<% $album %>"><% $al->GetName %></a>.
+	</div>
+</fieldset>
 
 <& /comp/artistfilter,
 	search => $ARGS{'search'},

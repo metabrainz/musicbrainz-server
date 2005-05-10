@@ -92,6 +92,7 @@ SetSequence($sql, "l_artist_url");
 SetSequence($sql, "l_track_track");
 SetSequence($sql, "l_track_url");
 SetSequence($sql, "l_url_url");
+SetSequence($sql, "language");
 SetSequence($sql, "link_attribute");
 SetSequence($sql, "link_attribute_type");
 SetSequence($sql, "lt_album_album");
@@ -113,6 +114,8 @@ SetSequence($sql, "moderator_preference");
 SetSequence($sql, "moderator_subscribe_artist");
 SetSequence($sql, "release");
 SetSequence($sql, "replication_control");
+SetSequence($sql, "script");
+SetSequence($sql, "script_language");
 SetSequence($sql, "stats");
 SetSequence($sql, "track");
 # trackwords - no unique column

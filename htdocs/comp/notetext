@@ -1,0 +1,14 @@
+%# vi: set ts=2 sw=2 ft=mason :
+<%args>
+$required => 0
+$text => ''
+</%args>
+Enter moderation note 
+% if ( $required ) {
+	(<strong>required</strong>):
+% } else {
+	(optional):
+% }
+<br/>
+<textarea name="notetext" class="textarea" rows="3" cols="52"><%
+	$text %></textarea>

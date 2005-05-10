@@ -94,123 +94,91 @@ if ($did_split
 }
 
 </%perl>
-<& /comp/sidebar, title => "FreeDB Import - Edit Track Name & Search for Artist" &>
+<& /comp/sidebar, title => "FreeDB Import: Enter Track Name" &>
 
 <& /comp/stylemenu &>
 
-<script type="text/javascript" src="/scripts/guess.js"></script>
-
 <form method="post" action="/freedb/mac-edittrack.html?t=<% $t %>&amp;auto=<% $a?1:0 %>"
-	name="ChangeTrackForm"
-	>
-	
-	<table>
-   		<tr>
-			<td>
-		 		Current Track Name:
-		  	</td>
-		   	<td>
-				<% $oldtrackname %>
-			</td>
-		</tr>
-		<tr>
-			<td>
-				Current Artist Name:
-			</td>
-			<td>
-				<% $oldartistname %>
+	name="ChangeTrackForm">
+
+	<& /comp/autofixmenu &>
+	<fieldset>
+		<legend>Enter Track Name</legend>
+		<table>
+			<tr>
+				<td><label>Current Track Name:</label></td>
+				<td><% $oldtrackname %></td>
+			</tr>
+			<tr>
+				<td><label>Current Artist Name:</label></td>
+				<td>
+					<% $oldartistname %>
 % if ($oldartistsortname ne $oldartistname) {
-				(<% $oldartistsortname %>)
+					(<% $oldartistsortname %>)
 % }
-			</td>
-		</tr>
-		<tr><td>&nbsp;</td></tr>
-		<tr>
-			<td>
-				New Track Name:
-			</td>
-			<td>
-				<input type="text" name="trackname" size="40" maxlength="255" value="<% $newtrackname %>">
-				<script type="text/javascript"><!--
-				document.write(
-					"<input type='button' value='Guess Case' " +
-					"onclick='this.form.trackname.value = GuessCase(this.form.trackname.value)'>"
-				);
-				document.write(" &nbsp; ");
-				//--></script>
-			</td>
-		</tr>
-		<tr>
-			<td></td>
-			<td>
-				<script type="text/javascript">
-
-function SwapFields() 
-{
-	var f = document.forms.ChangeTrackForm;
-	var tmp = f.trackname.value;
-	f.trackname.value = f.search.value;
-	f.search.value = tmp;
-	f.swapped.value = 1 - f.swapped.value;
-}
-
-function UseCurrent() 
-{
-	var f = document.forms.ChangeTrackForm;
-	f.search.value = f.orig_artname.value;
-	f.trackname.value= f.orig_track.value;
-}
-
+				</td>
+			</tr>
+			<tr>
+				<td class="padtop"><label>New Track Name:</label></td>
+				<td class="padtop">
+					<input type="text" name="trackname" class="textfield"
+						onFocus="myOnFocus(this)" onBlur="myOnBlur(this)"
+						size="40" maxlength="255"
+						value="<% $newtrackname %>">
+					<script language="javascript">
+					<!--
+						af_writeButton(AF_BTN_TRACK, 'trackname');
+					-->
+					</script></td>
+			</tr>
+			<tr>
+				<td></td>
+				<td>
+					<script language="javascript">
+					<!--
+						af_writeButton(AF_BTN_USESWAP);
+						af_writeButton(AF_BTN_USECURRENT);
 % if ($did_split) {
-function UseSplit() 
-{
-	var f = document.forms.ChangeTrackForm;
-	f.search.value = f.split_artname.value;
-	f.trackname.value= f.split_track.value;
-}
+						af_writeButton(AF_BTN_USESPLIT);
 % }
+						af_writeButton(AF_BTN_GUESSBOTH);
+					-->
+					</script></td>
+					<noscript>
+						<input type="reset" class="button" value="Use Guessed">
+					</noscript></td>
+			</tr>
+			<tr>
+				<td><label>Search for New Artist:</label></td>
+				<td>
+					<input  type="text" name="search" class="textfield"
+							onFocus="myOnFocus(this)" onBlur="myOnBlur(this)"
+							size="40" value="<% $newartistname %>">
+					<script language="javascript">
+					<!--
+						af_writeButton(AF_BTN_ARTIST, 'search');
+					-->
+					</script></td>
+			</tr>
+			<tr>
+				<td></td>
+				<td class="padtop">
+					<input type="hidden" name="swapped" value="0">
+					<input type="submit" class="button" name="Submit" value="Submit">
+				</td>
+			</tr>
+		</table>
+	</fieldset>
 
-	document.writeln('<input type="button" value="Swap" onclick="return SwapFields(this)">');
-	document.writeln(' ');
-	document.writeln('<input type="button" value="Use Current" onclick="return UseCurrent(this)">');
-% if ($did_split) {
-	document.writeln(' ');
-	document.writeln('<input type="button" value="Use Split" onclick="return UseSplit(this)">');
-% }
-				</script>
-				<noscript>
-				<input type="reset" value="Use Guessed">
-				</noscript>
-			</td>
-		</tr>
-		<tr>
-			<td>
-				Search for New Artist:
-			</td>
-			<td>
-				<input type="text" name="search" size="40" value="<% $newartistname %>"> 
-			</td>
-		</tr>
-		<tr>
-			<td></td>
-			<td>
-				<input type="hidden" name="swapped" value="0">    
-				<input type="submit" name="Submit" value="Submit">    
-			</td>
-		</tr>
-	</table>
-	
 	<input type="hidden" name="orig_artname" value="<% $oldartistname %>">
 	<input type="hidden" name="orig_track" value="<% $oldtrackname %>">
 % if ($did_split) {
 	<input type="hidden" name="split_artname" value="<% $splitartistname %>">
 	<input type="hidden" name="split_track" value="<% $splittrackname %>">
 % }
-
 </form>
-         
-<p>(<a href="/freedb/mac-edittracks.html">Back to track listing</a>)</p>
 
+<& /comp/backtolisting, "/freedb/mac-edittracks.html" &>
 <& /comp/movefocus, "ChangeTrackForm", "trackname" &>
 <& /comp/footer &>
 

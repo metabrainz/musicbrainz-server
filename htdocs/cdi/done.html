@@ -12,6 +12,8 @@ $title=>""
 $durations=>""
 $attrtype=>0
 $attrstatus=>0
+$language=>undef
+$script=>undef
 $noncd=>0
 $notetext => ""
 </%args>
@@ -98,6 +100,7 @@ else
 
     $new .= "AlbumName=$title\nNumTracks=$tracks\n";
     $new .= "Attributes=$attrtype,$attrstatus\n";
+    $new .= "Language=$language,$script\n";
     $new .= "CDIndexId=$id\n" if ($id ne '');
     $new .= "TOC=$toc\n" if ($toc ne '');
     $new .= "FreedbId=$freedbid\n" if ($freedbid ne '');

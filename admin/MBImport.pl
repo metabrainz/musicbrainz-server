@@ -316,6 +316,7 @@ sub ImportAllTables
 		l_track_track
 		l_track_url
 		l_url_url
+		language
 		link_attribute
 		link_attribute_type
 		lt_album_album
@@ -338,6 +339,8 @@ sub ImportAllTables
 		moderator_subscribe_artist
 		release
 		replication_control
+		script
+		script_language
 		stats
 		track
 		trackwords

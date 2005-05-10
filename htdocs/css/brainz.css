@@ -40,7 +40,7 @@ body, p, td         {font : normal 10pt Verdana, Geneva, Arial, Helvetica, sans-
 .section a { color: inherit }
 
 .mbtable            {font : Bold 10pt Verdana, Geneva, Arial, Helvetica, sans-serif; color : #997035; text-decoration : none;}
-.formstyle input    {font : Normal 10pt Verdana, Geneva, Arial, Helvetica, sans-serif; color : #000000; text-decoration : none;}
+.formstyle input    {font : Normal 10pt Verdana, Geneva, Arial, Helvetica, sans-serif; text-decoration : none;}
 
 .bold               {font : Bold 10pt Verdana, Geneva, Arial, Helvetica, sans-serif; color : #000000; text-decoration : none;}
 

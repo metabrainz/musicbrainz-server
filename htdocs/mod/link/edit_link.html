@@ -220,22 +220,23 @@ my %seen_attrs;
 
 % if ($submit && !$swap) {
 %     if (!$linktypeid) {
-          <p style="color: red;">Error: You must select a link type.</p>
+          <div class="linkerror">Error: You must select a link type.</div>
 %     }
 %     if (!MusicBrainz::IsValidDateOrEmpty($begindate_y, $begindate_m, $begindate_d)) {
-          <p style="color: red;">Error: You entered an invalid start date.</p>
+          <div class="linkerror">Error: You entered an invalid start date.</div>
 %     }
 %     if (!MusicBrainz::IsValidDateOrEmpty($enddate_y, $enddate_m, $enddate_d)) {
-          <p style="color: red;">Error: You entered an invalid end date.</p>
+          <div class="linkerror">Error: You entered an invalid end date.</div>
 %     }
 %     if (!MusicBrainz::IsDateEarlierThan($begindate_y, $begindate_m, $begindate_d, $enddate_y, $enddate_m, $enddate_d)) {
-          <p style="color: red;">Error: Your end date is before your begin date.</p>
+          <div class="linkerror">Error: Your end date is before your begin date.</div>
 %     }
 %     if ($attr_error) {
-          <p style="color: red;">Error: <% $attr_error |n %></p>
+          <div class="linkerror">Error: <% $attr_error |n %></div>
 %     }
 %     if (!$desc && $linktypeid) {
-          <p style="color: red;">Error: Please select a subtype of the currently selected link type. The selected link type is only used for grouping sub-types.</p>
+          <div class="linkerror">Error: Please select a subtype of the currently 
+          	selected link type. The selected link type is only used for grouping sub-types.</div>
 %     }
 % }
 % if (!$submit && !$swap) {
@@ -243,291 +244,187 @@ my %seen_attrs;
 %     ($enddate_y, $enddate_m, $enddate_d) = $node->GetEndDateYMD();
 % }
 
-<p>
-
-% if ($rev) {
-    Select the link type for a <% $links[1]->{type} %>-<% $links[0]->{type} %> link:
-% } else {
-    Select the link type for a <% $links[0]->{type} %>-<% $links[1]->{type} %> link:
-% }
-</p>
 
 <form method="post" name="linkselect" action="/mod/link/edit_link.html">
-<table width="100%">
-    <tr>
-        <td>
-        <table>
-        <tr>
+	<fieldset>
+% if ($rev) {
+    	<legend>Select the link type for a <% ucfirst($links[1]->{type}) %>-<% ucfirst($links[0]->{type}) %> link</legend>
+% } else {
+    	<legend>Select the link type for a <% ucfirst($links[0]->{type}) %>-<% ucfirst($links[1]->{type}) %> link</legend>
+% }
+
+		<table>
+        	<tr>
 %          if ($rev) {
-               <td><b><% $links[1]{name} %></b></td>
+				<td width="150"><label><b><% $links[1]{name} %></b></label></td>
 %          } else {
-               <td><b><% $links[0]{name} %></b></td>
+				<td width="150"><label><b><% $links[0]{name} %></b></label></td>
 %          }
-           <td>
-            <select name="linktypeid" onchange="linkTypeChanged()">
-               <option value="||">[select a link type]</option>
-               <%perl>
-                 my @q = map { [$_,0] } $root;
-                 while (my $l = shift @q) 
-                 {
-                     unshift @q, map { [$_,$l->[1]+1] } $l->[0]->Children;
-                     next if ($l->[0]->GetName eq 'ROOT');
-                     if ($l->[0]->GetAttributes()) 
-                     {
-                         my @at = split ' ', $l->[0]->GetAttributes();
-                         foreach my $a (@at)
-                         {
-                             my ($key, $value) = split '=', $a;
-	                         my ($mn, $mx) = split '-', $value;
-	                         $mx = -1 if (!defined $mx or $mx eq '');
-                             $seen_attrs{$key} = $mx;
-                         }
-                     }
-                     </%perl>
-                     <option value="<% $l->[0]->GetId %>|<% $l->[0]->GetAttributes() %>|<% $l->[0]->GetDescription() %>" <% $l->[0]->GetId eq $linktypeid ? 'selected=""' : '' %>
-%                    my $text = $rev ? $l->[0]->GetReverseLinkPhrase : $l->[0]->GetLinkPhrase;
-%                    $text =~ s/\{(\w+:)/{/;
-                     ><% ("&nbsp;&nbsp;" x $l->[1]) |n %><% $text %></option>
-%                }
-            </select>
-          </td>
-%          if ($rev) {
-               <td><b><% $links[0]{name} %></b></td>
-%          } else {
-               <td><b><% $links[1]{name} %></b></td>
-%          }
-        </tr>
-%       if ($links[0]{type} eq $links[1]{type}) {
-        <tr>
-            <td>&nbsp;</td>
-            <td align="center">
-			    <input type="submit" name="swap" value="Swap left <% $links[0]{type} %> &lt;=&gt; right <% $links[0]{type} %>"></td>
-            <td>&nbsp;</td>
-        </tr>
-%       }
-        </table>
-        </td>
-    </tr>
-    <tr>
-        <td>
-		<p id="link_desc">&nbsp;</p>
-        </td>
-    </tr>
-    <tr>
-        <td>
-        <br>
-        <p>
-           If the link type you selected indicates a temporal link (e.g. <i>was a member of</i>), then enter
-           the begin and/or end dates below. These dates are optional, and leaving the end date blank
-           indicates that this relationship is still active today:
-        </p>
-        </td>
-    </tr>
-</table>
-<table width="100%">
-    <tr>
-      <td align="right" width="15%">
-         Begin date:
-      </td>
-      <td width="80%">
-        <& /comp/dateinput, name_prefix => 'begindate', value=> [$begindate_y, $begindate_m, $begindate_d] &>
-        Year/Month/Day
-      </td>
-    </tr>
-    <tr>
-      <td align="right">
-         End date:
-      </td>
-      <td>
-        <& /comp/dateinput, name_prefix => 'enddate', value=>[$enddate_y, $enddate_m, $enddate_d] &>
-        Year/Month/Day
-      </td>
-    </tr>
-</table>
-<div id="attributes">
-<p/>
-<table width="100%">
-    <tr>
-        <td valign="top" align="right" width="15%">
-         Attributes:
-        </td>
-        <td>
-           <%perl>
-           foreach my $sec (keys %seen_attrs) 
-           {
-              my ($desc, $isSimple, $tree);
+				<td>
+					<select name="linktypeid" onKeyDown="handleKeyDown()" onChange="linkTypeChanged()">
+						<option value="||">[select a link type]</option>
+						<%perl>
+						my @q = map { [$_,0] } $root;
+						while (my $l = shift @q) 
+						{
+							unshift @q, map { [$_,$l->[1]+1] } $l->[0]->Children;
+							next if ($l->[0]->GetName eq 'ROOT');
+							if ($l->[0]->GetAttributes()) 
+							{
+								my @at = split ' ', $l->[0]->GetAttributes();
+								foreach my $a (@at)
+								{
+									my ($key, $value) = split '=', $a;
+									my ($mn, $mx) = split '-', $value;
+									$mx = -1 if (!defined $mx or $mx eq '');
+									$seen_attrs{$key} = $mx;
+								}
+							}
+						</%perl>
+						<option value="<% $l->[0]->GetId %>|<% $l->[0]->GetAttributes() %>|<% $l->[0]->GetDescription() %>" <% $l->[0]->GetId eq $linktypeid ? 'selected=""' : '' %>
+%							my $text = $rev ? $l->[0]->GetReverseLinkPhrase : $l->[0]->GetLinkPhrase;
+%							$text =~ s/\{(\w+:)/{/;
+							><% ("&nbsp;&nbsp;" x $l->[1]) |n %><% $text %></option>
+%						}
+					</select></td>
+% if ($rev) {
+				<td><b><% $links[0]{name} %></b></td>
+% } else {
+				<td><b><% $links[1]{name} %></b></td>
+% }
+			</tr>
+% if ($links[0]{type} eq $links[1]{type}) {
+			<tr>
+				<td>&nbsp;</td>
+				<td colspan="2">
+					<input type="submit" class="button" name="swap" value="Swap left <% $links[0]{type} %> &lt;=&gt; right <% $links[0]{type} %>"></td>
+			</tr>
+% }
+		</table>
 
-              foreach my $child (@children) 
-              {
-                  if ($child->GetName eq $sec) 
-                  {
-                      $desc = $child->GetDescription; 
-                      $isSimple = !$child->HasChildren;
-		    		  $tree = $child;
-                  }
-              }
-              $m->out(qq|<div id="$sec">$desc|);
-              $m->out(qq| <a href="javascript:addAttribute('$sec')">Add another $sec</a>|) if ($seen_attrs{$sec} < 0 || $seen_attrs{$sec} > 1);
-              $m->out(qq|<br/>|);
-			  for(my $index = 0;; $index++)
-			  {
-				  last if ($index > 0 && !exists $ARGS{"attr_". $sec . "_$index"});
-				  if ($isSimple) 
-				  {
-					  $m->out(qq|<input type="checkbox" name="attr_|. $sec . qq|_$index" value="| . $tree->GetId . "\"");
-					  $m->out(qq| checked=""|) if ($ARGS{"attr_$sec"."_$index"});
-					  $m->out(qq|> <i>$sec</i>|);
-				  }
-				  else
-				  {
-					  $m->out(qq|<select name="attr_|.$sec."_$index\">");
-					  $m->out(qq|<option value="">[select $sec]</option>|);
-					  my @q = map { [$_,0] } $tree->Children;
-					  while (my $l = shift @q) 
-					  {
-						  unshift @q, map { [$_,$l->[1]+1] } $l->[0]->Children;
-						  next if ($l->[0]->GetName eq 'ROOT');
-						  $m->out("<option value=\"".$l->[0]->GetId.'" ');
-						  $m->out($l->[0]->GetId eq $ARGS{"attr_".$sec."_$index"} ? 'selected=""' : '');
-						  $m->out(">" . ("&nbsp;&nbsp;" x $l->[1]) . $l->[0]->GetName . "</option>\n");
-					  }
-					  $m->out("</select><br/>\n");
-				  }
-			  }
-              $m->out("</div>");
-		   }
-     	   </%perl>
-           <noscript>
-		      NOTE: You do not have JavaScript enabled. Not all of the attributes shown above apply
-			  to all relationship types and without JavaScript we cannot selectively display
-			  the appropriate attributes. We recommend that you turn on JavaScript in your browser.
-           </noscript>
-        </td>
-    </tr>
-</table>
-</div>
+		<table>
+			<tr>
+				<td valign="top" width="150"><label>Description:</label></td>
+				<td>
+					<span id="link_desc" class="linkdesc">&nbsp;</span></td>
+			</tr>
+		</table>
 
-<table width="100%">
-    <tr>
-        <td colspan="2">
-       <br>
-        <p>
-            Enter moderation note (optional):
-        </p>
-        <p>
-            <textarea name="notetext" rows="3" cols="60"><% $notetext %></textarea>
-        </p>
-        </td>
-    </tr>
+		
+		<div id="attributes">
+			<div class="padtop"></div>
+			<table>
+				<tr>
+					<td valign="top" width="150">
+					 	<label>Attributes:</label></td>
+					<td>
+						<%perl>
+						foreach my $sec (keys %seen_attrs) 
+						{
+							my $desc;
+							my $isSimple;
+							my $tree;
+							foreach my $child (@children) 
+							{
+								if ($child->GetName eq $sec) 
+								{
+									$desc = $child->GetDescription; 
+									$isSimple = !$child->HasChildren;
+									$tree = $child;
+								}
+							}
+							$m->out(qq|<div id="$sec" class="ar-attribute">|);
+							for(my $index = 0;; $index++)
+							{
+								last if ($index > 0 && !exists $ARGS{"attr_". $sec . "_$index"});
+								if ($isSimple)
+								{
+									$m->out(qq|<input type="checkbox" name="attr_|. $sec . qq|_$index" value="| . $tree->GetId . "\"");
+									$m->out(qq| checked=""|) if ($ARGS{"attr_$sec"."_$index"});
+									$m->out(qq|> <i>$sec</i>|);
+								}
+								else
+								{
+									$m->out(qq|<select name="attr_|.$sec."_$index\">");
+									$m->out(qq|<option value="">[select $sec]</option>|);
+									my @q = map { [$_,0] } $tree->Children;
+									while (my $l = shift @q)
+									{
+										unshift @q, map { [$_,$l->[1]+1] } $l->[0]->Children;
+										next if ($l->[0]->GetName eq 'ROOT');
+										$m->out("<option value=\"".$l->[0]->GetId.'" ');
+										$m->out($l->[0]->GetId eq $ARGS{"attr_".$sec."_$index"} ? 'selected=""' : '');
+										$m->out(">" . ("&nbsp;&nbsp;" x $l->[1]) . $l->[0]->GetName . "</option>\n");
+									}
+									$m->out("</select>\n");
+								}
+								$m->out(qq|<a href="javascript: addAttribute('$sec')">Add another $sec</a>|) if ($index == 0 && ($seen_attrs{$sec} < 0 || $seen_attrs{$sec} > 1));
+								$m->out("<br/>");
+							}
+							$m->out("</div>");
+							$m->out(qq|<div id="$sec-desc" class="ar-attribute-description">$desc</div>|);
+						}
+						</%perl>
+						<noscript>
+							NOTE: You do not have JavaScript enabled. Not all of the attributes shown above apply
+							to all relationship types and without JavaScript we cannot selectively display
+							the appropriate attributes. We recommend that you turn on JavaScript in your browser.
+						</noscript>
+					</td>
+				</tr>
+			</table>
+		</div>
 
-    </tr>
-        <td>
-        &nbsp;
-        </td>
-        <td>
-        <input type="hidden" name="id" value="<% $id %>"> 
-        <input type="hidden" name="type" value="<% $type %>"> 
-        <input type="hidden" name="submit" value="1">
-     	<input type="hidden" name="swapval" value="<% $swapval %>">
-        <input type="submit" value="Submit">
-        </td>
-    </tr>
-</table>
+		<div class="padtop"></div>
+		<table>
+			<tr>
+				<td width="150"><label for="begindate">Begin date:</label></td>
+				<td>
+					<& /comp/dateinput, name_prefix => 'begindate', value=> [$begindate_y, $begindate_m, $begindate_d] &>
+					Year-Month-Day</td>
+			</tr>
+			<tr>
+				<td><label for="enddate">End date:</label></td>
+				<td>
+					<& /comp/dateinput, name_prefix => 'enddate', value=>[$enddate_y, $enddate_m, $enddate_d] &>
+					Year-Month-Day</td>
+			</tr>
+			<tr>
+				<td></td>
+				<td>
+					<div class="ar-attribute-description">
+					If the link type you selected indicates a temporal link (e.g. <i>was a member of</i>), then enter
+					the begin and/or end dates above. These dates are optional, and leaving the end date blank
+					indicates that this relationship is still active today:</div></td>
+			</tr>
+		</table>
+
+		<div class="padleft">
+			<p/>
+			<& /comp/notetext, text => $notetext &>
+		</div>
+		<div class="padlefttop">
+			<input type="hidden" name="id" value="<% $id %>"> 
+			<input type="hidden" name="type" value="<% $type %>"> 
+			<input type="hidden" name="submit" value="1">
+			<input type="hidden" name="swapval" value="<% $swapval %>">
+			<input type="submit" class="button" value="Submit">
+		</div>
+	</fieldset>
 </form>
 
-<script language="javascript" type="text/javascript">
+<script language="javascript">
 <!--
-function showDiv(id,show)
-{
-    var obj = document.getElementById(id);
-    if (obj) obj.style.display = (show == 1 ? "block" : "none");
-}
-function hideAll()
-{
-%   foreach my $sec (keys %seen_attrs) {
-        showDiv('<% $sec %>', 0);
-%   }
-}
-function linkTypeChanged()
-{
-    var selection = document.linkselect.linktypeid.value;
-    var sp = selection.split("|");
-    var attrs = sp[1];
-    var p;
-
-    hideAll();
-    if (attrs == "")
-    {
-        showDiv('attributes', 0);
-    }
-	else
-	{
-		showDiv('attributes', 1);
-
-		var pairs = attrs.split(" ");
-		for(p in pairs)
-		{
-			var kv = pairs[p].split('=');
-			if (kv[0] != "")
-			{
-				showDiv(kv[0], 1);
-			}
+	var wasFormSubmitted = <% $submit %>;
+	<%perl>
+		print "var attributeDivs = new Array(";
+		foreach my $sec (keys %seen_attrs) {
+			print "'".$sec."',";
 		}
-    }
-
-    var link_desc = document.getElementById('link_desc');
-	if (link_desc)
-	{
-		var textNode = link_desc.firstChild;
-		if (sp[2] != "")
-		{
-		    textNode.data = "Description: " + sp[2];
-			link_desc.setAttribute("style", "");
-		}
-		else
-		{
-		    textNode.data = "Error: Please select a subtype of the currently selected link type. The selected link type is only used for grouping sub-types.";
-			link_desc.setAttribute("style", "color: red;");
-		}
-	}
-}
-
-function findAttrIndex(attr)
-{
-    var elements, index;
-
-	for(index = 1;; index++)
-	{
-		elements = document.getElementsByName('attr_' + attr + "_" + index);
-		if (elements.length > 0)
-    		continue;
-		else
-			return index;
-	}
-}
-
-function addAttribute(attr)
-{
-    var elements = document.getElementsByName('attr_' + attr + "_0");
-	if (elements)
-	{
-		var attrElement = elements[0];
-		if (attrElement)
-		{
-            var index = findAttrIndex(attr);
-			var newNode = attrElement.cloneNode(true);
-			newNode.setAttribute("name", "attr_" + attr + "_" + index);
-            var parent = document.getElementById(attr);
-			if (parent)
-			{
-				parent.appendChild(newNode);	
-				parent.appendChild(document.createElement("BR"));	
-			} 
-		} 
-    }
-}
-
-linkTypeChanged();
+		print "null);\n";
+	</%perl>
 -->
 </script>
+<script language="javascript" src="link-selecttype.js"></script>
+
 <& /comp/footer &>

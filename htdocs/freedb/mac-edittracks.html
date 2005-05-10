@@ -21,79 +21,85 @@ return $m->comp("/comp/redirect", "/freedb/mac-confirm.html")
 my $t = $session{"freedb_tracks"};
 
 </%perl>
-<& /comp/sidebar, title => "FreeDB Import - Edit Tracks & Artists" &>
+<& /comp/sidebar, title => "FreeDB Import: Edit Album Name" &>
 
 <& /comp/stylemenu &>
 
-<script type="text/javascript" src="/scripts/guess.js"></script>
-
 <form method="post" action="/freedb/mac-edittracks.html">
 
-	<table>
-		<col>
-		<col style="width: 0.5em">
-		<col style="width: 15em">
-		<col style="width: 0.5em">
-		<col style="width: 15em">
-		<col style="width: 0.5em">
-		<col style="width: 6em">
-		<tr>
-			<td>Artist:</td>
-			<td rowspan="<% $t+5 %>">
-			<td>
-				<a href="/showartist.html?artistid=<% &ModDefs::VARTIST_ID %>"
-					>Various Artists</a>
-			</td>
-			<td rowspan="<% $t+5 %>">
-			<td></td>
-			<td rowspan="<% $t+5 %>">
-			<td nowrap align="center">[ <a href="/freedb/select-artist.html">Change</a> ]</td>
-		</tr>
-		<tr>
-			<td nowrap>FreeDB Artist:</td>
-			<td><% $session{"freedb_default_artist"} %></td>
-		</tr>
-		<tr>
-			<td>Album:</td>
-			<td><input type="text" name="album" style="width: 100%"
-				value="<% $session{'freedb_album'} %>"></td>
-			<td></td>
-			<td align="center"><input type="button" value="Guess Case"
-				onclick="this.form.album.value = GuessCase(this.form.album.value)"
-				></td>
-		</tr>
-		<tr><td>&nbsp;</td></tr>
-		<tr>
-			<th></th>
-			<th>Track Name</th>
-			<th>Artist Name</th>
-			<th></th>
-		</tr>
+	<& /comp/autofixmenu &>
+
+	<fieldset>
+		<legend>Edit Album Name</legend>
+		<table>
+			<tr>
+				<td><label for="album">Album:</label></td>
+				<td><input type="text" name="album" class="textfield"
+					onFocus="myOnFocus(this)" onBlur="myOnBlur(this)"
+					style="width: 100%"
+					size="50"
+					value="<% $session{'freedb_album'} %>">
+				</td>
+				<td><script language="javascript">
+					<!--
+						af_writeButton(AF_BTN_ALBUM, 'album');
+					-->
+					</script></td>
+			</tr>
+			<tr>
+				<td><label>Artist:</label></td>
+				<td><a href="/showartist.html?artistid=<% &ModDefs::VARTIST_ID %>">Various Artists</a> [ <a href="/freedb/select-artist.html">Change</a> ]</td>
+			</tr>
+			<tr>
+				<td nowrap><label>FreeDB Artist:</label></td>
+				<td><% $session{"freedb_default_artist"} %></td>
+			</tr>
+		</table>
+	</fieldset>
+
+	<fieldset>
+		<legend>Review Artist and Track Names</legend>
+		<table border="0" cellspacing="0" cellpadding="2">
+			<tr>
+				<td><b>#</td>
+				<td>&nbsp;</td>
+				<td><b>Artist Name:</td>
+				<td>&nbsp;</td>
+				<td><b>Track Name:</td>
+				<td>&nbsp;</td>
+				<td>&nbsp;</td>
+			</tr>
 % for my $i (0 .. $t-1) {
 %# TODO shaded rows
-		<tr bgcolor="<% ($i%2) ? '#ffe1b7' : '#ffffff' %>">
-			<td valign="top" nowrap>Track <% $i+1 %>:</td>
-			<td valign="top"><% $session{"freedb_track$i"} %></td>
-			<td valign="top">
+			<tr bgcolor="<% ($i%2) ? '#ffe1b7' : '#ffffff' %>">
+				<td valign="top"><b><% $i+1 %></td>
+				<td>&nbsp;</td>
+				<td valign="top">
 % if (my $id = $session{"freedb_artistid$i"}) {
-				<a href="/showartist.html?artistid=<% $id %>"
-					><% $session{"freedb_artistname$i"} %></a>
+					<a href="/showartist.html?artistid=<% $id %>"
+						><% $session{"freedb_artistname$i"} %></a>
 % } else {
-					<% $session{"freedb_artistname$i"} %>
+						<% $session{"freedb_artistname$i"} %>
 % if ($session{"freedb_artistname$i"} ne $session{"freedb_sortname$i"}) {
-					(<% $session{"freedb_sortname$i"} %>)
+						(<% $session{"freedb_sortname$i"} %>)
 % }
 % }
-			</td>
-			<td valign="top" nowrap align="center">[ <a href="/freedb/mac-edittrack.html?t=<% $i %>">Change</a> ]</td>
-		</tr>
+				</td>
+				<td>&nbsp;</td>
+				<td valign="top"><% $session{"freedb_track$i"} %></td>
+				<td>&nbsp;</td>
+				<td valign="top" nowrap align="center">[ <a href="/freedb/mac-edittrack.html?t=<% $i %>">Change</a> ]</td>
+			</tr>
 % }
-	</table>
 
-	<p style="text-align: center">
-		<input type="submit" value="Continue">
-		<input type="hidden" name="continue" value="1">
-	</p>
+			<tr>
+				<td>&nbsp;</td>
+				<td colspan="3" class="padtop">
+					<input type="submit" class="button" value="Continue">
+					<input type="hidden" name="continue" value="1">
+				</td>
+		</table>   
+	</fieldset>
 </form>
 
 <& /comp/footer &>

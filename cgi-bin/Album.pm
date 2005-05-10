@@ -102,6 +102,21 @@ sub SetArtist
    $_[0]->{artist} = $_[1];
 }
 
+sub SetLanguageId
+{
+   $_[0]->{language} = $_[1];
+}
+
+sub SetScriptId
+{
+   $_[0]->{script} = $_[1];
+}
+
+sub SetLanguageModPeding
+{
+   $_[0]->{modpending_lang} = $_[1];
+}
+
 sub GetCoverartURL
 {
    return "/images/no_coverart.png" unless $_[0]->{coverarturl};
@@ -111,6 +126,37 @@ sub GetCoverartURL
 sub GetAsin
 {
    return ($_[0]{asin}||"") =~ /(\S+)/ ? $1 : ""
+}
+
+sub GetLanguageId
+{
+	return $_[0]{language};
+}
+
+sub GetLanguage
+{
+	my $self = shift;
+	my $id = $self->GetLanguageId or return undef;
+	require MusicBrainz::Server::Language;
+	return MusicBrainz::Server::Language->newFromId($self->{DBH}, $id);
+}
+
+sub GetScriptId
+{
+	return $_[0]{script};
+}
+
+sub GetScript
+{
+	my $self = shift;
+	my $id = $self->GetScriptId or return undef;
+	require MusicBrainz::Server::Script;
+	return MusicBrainz::Server::Script->newFromId($self->{DBH}, $id);
+}
+
+sub GetLanguageModPending
+{
+	return $_[0]->{modpending_lang} || 0;
 }
 
 sub GetAttributeName
@@ -313,16 +359,19 @@ sub Insert
     my $id = $this->CreateNewGlobalId();
     my $attrs = "{" . join(',', @{ $this->{attrs} }) . "}";
     my $page = $this->CalculatePageIndex($this->{name});
+    my $lang = $this->GetLanguageId();
+    my $script = $this->GetScriptId();
 
-    # No need to check for an insert clash here since album name is not unique
-    $sql->Do(
-		"INSERT INTO album (name, artist, gid, modpending, attributes, page)
-			VALUES (?, ?, ?, 0, ?, ?)",
+	$sql->Do(qq|INSERT INTO album
+			(name, artist, gid, modpending, attributes, page, language, script)
+			VALUES (?, ?, ?, 0, ?, ?, ?, ?)|,
 		$this->{name},
 		$this->{artist},
 		$id,
 		$attrs,
 		$page,
+		$lang, # can be undef
+		$script, # can be undef
 	);
 
     my $album = $sql->GetLastInsertId('Album');
@@ -527,7 +576,8 @@ sub LoadFromId
 
 	my $sql = Sql->new($this->{DBH});
 	my $row = $sql->SelectSingleRowArray(
-		"SELECT	a.id, name, gid, modpending, artist, attributes"
+		"SELECT	a.id, name, gid, modpending, artist, attributes, "
+		. "       language, script, modpending_lang"
 		. ($loadmeta ? ", tracks, discids, trmids, firstreleasedate,coverarturl,asin" : "")
 		. " FROM album a"
 		. ($loadmeta ? " INNER JOIN albummeta m ON m.id = a.id" : "")
@@ -535,24 +585,27 @@ sub LoadFromId
 		$idval,
 	) or return undef;
 
-	$this->{id}			= $row->[0];
-	$this->{name}		= $row->[1];
-	$this->{mbid}		= $row->[2];
-	$this->{modpending}	= $row->[3];
-	$this->{artist}		= $row->[4]; 
-	$this->{attrs}		= [ $row->[5] =~ /(\d+)/g ];
+	$this->{id}					= $row->[0];
+	$this->{name}				= $row->[1];
+	$this->{mbid}				= $row->[2];
+	$this->{modpending}			= $row->[3];
+	$this->{artist}				= $row->[4]; 
+	$this->{attrs}				= [ $row->[5] =~ /(\d+)/g ];
+	$this->{language}			= $row->[6];
+	$this->{script}				= $row->[7];
+	$this->{modpending_lang}	= $row->[8];
 
 	delete @$this{qw( trackcount discidcount trmidcount firstreleasedate asin coverarturl )};
 	delete @$this{qw( _discids _tracks )};
 
 	if ($loadmeta)
 	{
-		$this->{trackcount}		= $row->[6];
-		$this->{discidcount}	= $row->[7];
-		$this->{trmidcount}		= $row->[8];
-		$this->{firstreleasedate}=$row->[9] || "";
-		$this->{coverarturl}=$row->[10] || "";
-		$this->{asin}=$row->[11] || "";
+		$this->{trackcount}		= $row->[9];
+		$this->{discidcount}	= $row->[10];
+		$this->{trmidcount}		= $row->[11];
+		$this->{firstreleasedate}=$row->[12] || "";
+		$this->{coverarturl}=$row->[13] || "";
+		$this->{asin}=$row->[14] || "";
 	}
 
 	1;
@@ -832,7 +885,8 @@ sub GetVariousDisplayList
 	# Build a query to fetch the things we need
 	my ($page_min, $page_max) = $this->CalculatePageIndex($ind);
 	my $query = "
-		SELECT	a.id, name, gid, modpending, artist, attributes,
+		SELECT	a.id, name, gid, modpending, artist,
+                attributes, language, script, modpending_lang,
 				tracks, discids, trmids, firstreleasedate, coverarturl, asin
    		FROM	album a, albummeta m
 	  	WHERE	a.page BETWEEN $page_min AND $page_max
@@ -889,19 +943,22 @@ sub GetVariousDisplayList
 
 		$al->{_debug_sortname} = shift @$row;
 
-		$al->{id}			= $row->[0];
-		$al->{name}			= $row->[1];
-		$al->{mbid}			= $row->[2];
-		$al->{modpending}	= $row->[3];
-		$al->{artist}		= $row->[4]; 
-		$al->{attrs}		= [ $row->[5] =~ /(\d+)/g ];
+		$al->{id}				= $row->[0];
+		$al->{name}				= $row->[1];
+		$al->{mbid}				= $row->[2];
+		$al->{modpending}		= $row->[3];
+		$al->{artist}			= $row->[4]; 
+		$al->{attrs}			= [ $row->[5] =~ /(\d+)/g ];
+		$al->{language}			= $row->[6];
+		$al->{script}			= $row->[7];
+		$al->{modpending_lang}	= $row->[8];
 
-		$al->{trackcount}		= $row->[6];
-		$al->{discidcount}		= $row->[7];
-		$al->{trmidcount}		= $row->[8];
-		$al->{firstreleasedate}	= $row->[9] || "";
-		$al->{coverarturl}		= $row->[10] || "";
-		$al->{asin}				= $row->[11] || "";
+		$al->{trackcount}		= $row->[9];
+		$al->{discidcount}		= $row->[10];
+		$al->{trmidcount}		= $row->[11];
+		$al->{firstreleasedate}	= $row->[12] || "";
+		$al->{coverarturl}		= $row->[13] || "";
+		$al->{asin}				= $row->[14] || "";
 
 		$al;
 	} @$rows;
@@ -963,6 +1020,29 @@ sub UpdateAttributes
 	);
 }
 
+sub UpdateLanguageAndScript
+{
+	my $this = shift;
+
+	my $sql = Sql->new($this->{DBH});
+	$sql->Do(
+		"UPDATE album SET language = ?, script = ? WHERE id = ?",
+		$this->GetLanguageId || undef,
+		$this->GetScriptId || undef,
+		$this->GetId,
+	);
+
+	# also adjust the language of all pending moderations for this album
+	# current only add album mods
+	$sql->Do(
+		"UPDATE moderation_open SET language = ? "
+		. "WHERE tab = 'album' AND rowid = ? AND type = ? ",
+		$this->GetLanguageId || undef,
+		$this->GetId,
+		&ModDefs::MOD_ADD_ALBUM, 
+	);
+}
+
 sub UpdateModPending
 {
 	my ($self, $adjust) = @_;
@@ -995,6 +1075,24 @@ sub UpdateAttributesModPending
 		$adjust,
 		$id,
 	);
+}
+
+sub UpdateLanguageModPending
+{
+	my ($self, $adjust) = @_;
+
+	my $id = $self->GetId
+		or croak "Missing album ID in UpdateLanguageModPending";
+	defined($adjust)
+		or croak "Missing adjustment in UpdateLanguageModPending";
+
+	my $sql = Sql->new($self->{DBH});
+	$sql->Do(<<'EOF', $adjust, $id);
+		UPDATE	album
+		SET		modpending_lang
+					= NUMERIC_LARGER(COALESCE(modpending_lang,0)+?, 0)
+		WHERE	id = ?
+EOF
 }
 
 sub GetTrackSequence

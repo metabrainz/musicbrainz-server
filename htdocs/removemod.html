@@ -5,115 +5,86 @@ $confirm=>0
 $url=>""
 </%args>
 
-<& /comp/sidebar, title=>'Remove Moderation', expand=>'moderate' &>
+<& /comp/sidebar, title=>'Confirm Moderation Removal', expand=>'moderate' &>
 
 <%perl>
+	if ($modid == 0)
+	{
+		$m->comp("/comp/badargs");
+		return undef;
+	}
 
-if ($modid == 0)
-{
-    $m->comp("/comp/badargs");
-    return undef;
-}
+	my $mb = $m->comp("/comp/dblogin");
+	my $mod = Moderation->new($mb->{DBH});
+	$mod = $mod->CreateFromId($modid);
 
-
-my $mb = $m->comp("/comp/dblogin");
-my $mod = Moderation->new($mb->{DBH});
-$mod = $mod->CreateFromId($modid);
-
-$mb->Logout();
-
+	$mb->Logout();
 </%perl>
 
-<& /comp/tablebegin, gattrs=>"width=\"100%\"", title=>"Remove moderation" &>
-
-    <FORM METHOD="POST" ACTION="/bare/remove_mod.html"
-			NAME="RemoveModForm"
-          ENCTYPE="application/x-www-form-urlencoded">  
-
-    <table width="100%">
-      <tr>
-        <td colspan="2">
-        Moderation:
-        </td>
-      </tr>
-
-      <tr>
-        <td>
-        &nbsp;
-        </td>
-        <td>
+<fieldset>
+	<legend>Confirm Moderation Removal</legend>
+	<div class="padleft">
+		<table>
+			<tr>
+				<td colspan="2">Do you want to remove this moderation?</td>
+			</tr>
+			<tr>
+				<td> &nbsp; </td>
+				<td>
 					<%perl>
-					$mod->ShowModType($m);
-					</%perl>
-        </td>
-      </tr>
-        
-      <tr>
-        <td>
-        &nbsp;
-        </td>
-        <td>
-					<%perl>
+						$mod->ShowModType($m);
+					</%perl></td>
+			</tr>
+			<tr>
+				<td>&nbsp;</td>			
+				<td>
+				<%perl>
 					$mod->ShowPreviousValue($m);
-					</%perl>
-        </td>
-      </tr>
-        
-      <tr>
-        <td>
-        &nbsp;
-        </td>
-        <td>
-					<%perl>
+				</%perl></td>
+			</tr>
+			<tr>
+				<td>&nbsp;</td>			
+				<td>
+				<%perl>
 					$mod->ShowNewValue($m);
-					</%perl>
-        </td>
-      </tr>
-        
-      <tr>
-        <td colspan="2">
-        Do you want to remove this moderation?<p>
-        </td>
-      </tr>
+				</%perl></td>
+			</tr>
+		</table>
+	</div>
 
-      <tr>
-        <td>
-        &nbsp;
-        </td>
-        <td>
-        <INPUT TYPE="radio" NAME="confirm" SIZE=25 value="yes"
-            ondblclick="this.form.submit()"
-            > Yes
-        </td>
-      </tr>
-      <tr>
-        <td>
-        &nbsp;
-        </td>
-        <td>
-        <INPUT TYPE="radio" NAME="confirm" SIZE=25 value="no" CHECKED
-            ondblclick="this.form.submit()"
-            > No
-        </td>
-      </tr>
-      <tr>
-        <td colspan=2>
-        <INPUT TYPE="submit" NAME="Submit" VALUE="Submit">    
-        </td>
-      </tr>
-    </table>
-<%perl>
+	<div class="padlefttop">
+		<table>
+			<tr>
+				<td>
+					<form 	method="POST" action="/bare/remove_mod.html"
+							name="ModFormNo">
+						<%perl>
+						my $arg;
+							for $arg (keys %ARGS)
+							{
+								$m->out("<input type=\"hidden\" name=\"$arg\" value=\"$ARGS{$arg}\">\n");
+							}
+						</%perl>
+						<input type="hidden" name="confirm" value="no">
+						<input name="btnNo" type="submit" class="button" value="&laquo; NO">
+					</form></td>
+				<td> &nbsp; </td>
+				<td>
+					<form 	method="POST" action="/bare/remove_mod.html"
+							name="ModFormYes">
+						<%perl>
+							for $arg (keys %ARGS)
+							{
+								$m->out("<input type=\"hidden\" name=\"$arg\" value=\"$ARGS{$arg}\">\n");
+							}
+						</%perl>
+						<input type="hidden" name="confirm" value="yes">
+						<input name="btnYes" type="submit" class="button" value="YES &raquo;">
+					</form></td>
+			</tr>
+		</table>
+	</div>
+</fieldset>
 
-my $arg;
-
-for $arg (keys %ARGS)
-{
-    $m->out("<input type=\"hidden\" name=\"$arg\" value=\"$ARGS{$arg}\">\n");
-}
-</%perl>
-
-</form>
-<& /comp/tableend &>
-
-<& /comp/movefocus, "RemoveModForm", "confirm", 0 &>
+<& /comp/movefocus, "ModFormNo" &>
 <& /comp/footer &>

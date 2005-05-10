@@ -1,0 +1,74 @@
+%# vi: set ts=4 sw=4 ft=mason :
+<%perl>
+
+# Check we have chosen a language and a script (or that we have chosen
+# "I don't know").
+# If all OK, return true.
+
+my $show_full_lists = $ARGS{'show_full_lists'} || 0;
+if ( $ARGS{'button_toggle_lists'} )
+{
+	$show_full_lists = ! $show_full_lists;
+	$ARGS{'show_full_lists'} = $show_full_lists;
+}
+
+my $language = $ARGS{"language"};
+my $script = $ARGS{"script"};
+
+{
+	last if defined $ARGS{'button_toggle_lists'};
+	last if not defined $language;
+	last unless $language eq "" or MusicBrainz::IsNonNegInteger($language);
+	last if not defined $script;
+	last unless $script eq "" or MusicBrainz::IsNonNegInteger($script);
+	return 1;
+}
+
+my $mb = $m->comp("/comp/dblogin");
+my $dbh = $mb->{DBH};
+
+my $NumTracks = $ARGS{tracks};
+my @text = map { $ARGS{"track$_"} } (0..$NumTracks-1);
+unshift @text, $ARGS{"title"};
+
+unless (MusicBrainz::IsNonNegInteger($script))
+{
+	$script = MusicBrainz::Server::Script->GuessFromText($dbh, \@text);
+	$script = ($script ? $script->GetId : "");
+}
+
+unless (MusicBrainz::IsNonNegInteger($language))
+{
+	$language = MusicBrainz::Server::Language->GuessFromTextAndScript($dbh, \@text, $script);
+	$language = ($language ? $language->GetId : "");
+}
+
+</%perl>
+
+<& /comp/sidebar, title => "Select Album Script and Language" &>
+
+<p>
+	Please choose the <a href="/wd/AlbumLanguage">script and language</a>
+	of the track names.
+</p>
+
+<form method="post" action="/cdi/selectattr.html" name="AutoChange">
+
+	<fieldset>
+		<legend>Select Album Language</legend>
+		<& /mod/edit-language/form,
+			add_language		=> 1,
+			language_value		=> $language,
+			script_value		=> $script,
+			show_full_lists		=> $show_full_lists,
+		&>
+	</fieldset>
+% for (keys %ARGS) {
+% next if $_ eq "language" or $_ eq "script" or $_ eq "button_toggle_lists";
+	<input type="hidden" name="<% $_ %>" value="<% $ARGS{$_} %>">
+% }
+</form>
+
+<& /comp/movefocus, "AutoChange", 0 &>
+<& /comp/footer &>
+% return 0;

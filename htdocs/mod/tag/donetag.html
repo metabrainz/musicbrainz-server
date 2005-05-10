@@ -165,6 +165,20 @@ $more_albums_url = "/showartist.html?artistid=$artist_id" if $artist_id;
     </tr>
     <tr>
       <td valign="top" bgcolor="#f0efff">
+      Change the language and/or script of all selected albums.<br>
+      </td>
+      <td valign="top" bgcolor="#f0efff">
+         <form method="post" action="/mod/edit-language/editlanguage.html">
+% for (@albums) {
+			<input type="hidden" name="id" value="<% $_ %>">
+% }
+			<input type="hidden" name="untag" value="1">
+			<input type="submit" value="Select">
+         </form>
+      </td>
+    </tr>
+    <tr>
+      <td valign="top" bgcolor="#f0efff">
       Change your mind and deselect all albums.<br>
       </td>
       <td valign="top" align="center" bgcolor="#f0efff">

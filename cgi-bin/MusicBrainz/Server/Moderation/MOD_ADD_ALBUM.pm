@@ -52,6 +52,8 @@ sub PreInsert
 	# EITHER both CDIndexId and TOC OR neither
 	# NonAlbum (flag)
 	# OPTIONAL Attributes (default: none)
+	# OPTIONAL Language
+	# OPTIONAL Script
 	# Then for 1..n tracks:
 	# Track/n/ - name
 	# Artist/n/ - ??? id or name ???
@@ -93,6 +95,8 @@ sub PreInsert
 	   	$info{'toc'} = $new{'TOC'};
 	}
 
+	my ($language, $script) = split(',', $new{'Language'} || '');
+
 	if ($new{'NonAlbum'})
 	{
 	  	$info{'attrs'} = [ 0 ];
@@ -102,6 +106,9 @@ sub PreInsert
 		my $attrs = $new{'Attributes'};
 		$attrs = "" unless defined $attrs;
 	 	$info{'attrs'} = [ grep { $_ } split /,/, $attrs ];
+
+		$info{'languageid'} = $language if defined $language;
+		$info{'scriptid'} = $script if defined $script;
 	}
 
 	my @tracks;
@@ -215,6 +222,9 @@ sub PreInsert
 
 	$new{"Dep0"} = $artistmodid
 		if $artistmodid;
+
+
+	$self->SetLanguageId($language) if $language;
 
 	# Only one thing left to do...
 	$self->SetNew($self->ConvertHashToNew(\%new));

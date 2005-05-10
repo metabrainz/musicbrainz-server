@@ -5,59 +5,58 @@ $session{"freedb_ready"}
 	or return $m->comp("/comp/redirect", "/freedb/freedb.html");
 
 </%perl>
-<& /comp/sidebar, title => "FreeDB Import - Select Import Type" &>
+<& /comp/sidebar, title => "FreeDB Import: Select Album Type" &>
 
-<p>
-	Is this release by only one artist, or by more than one?
-</p>
 
-<table>
-	<tr>
-		<td style="width: 50%">
 
-<form method="post" action="/freedb/select-artist.html">
-	<p>
-		<input type="submit" value="Only one artist">
-		<input type="hidden" name="search" value="<% $session{'freedb_artist'} %>">
-	</p>
-</form>
+	<fieldset>
+		<legend>Select Album Type</legend>
+		<div class="padleft">
+			Is this release by only one artist, or by more than one? <br/>
+			Please note: If it was mixed by a certain artist, it has
+			to be entered as Various Artists!
+		</div>
+		<div class="padlefttop">
+			<table>
+				<tr>
+					<td>
+						<form method="post" action="/freedb/select-artist.html">
+							<input type="submit" class="button" value="Only one artist">
+							<input type="hidden" name="search" value="<% $session{'freedb_artist'} %>">
+						</form></td>
 
-		</td>
-		<td style="width: 50%">
+					<td>
+						<form method="post" action="/freedb/mac-check-similar.html">
+							<input type="submit" class="button" value="More than one artist">
+						</form></td>
+				</tr>
+			</table>
+	</fieldset>
 
-<form method="post" action="/freedb/mac-check-similar.html">
-	<p>
-		<input type="submit" value="More than one artist">
-	</p>
-</form>
-
-		</td>
-	</tr>
-</table>
-
-<p>
-	<b><% $session{"freedb_album"} %></b>
-	by
-	<b><% $session{"freedb_artist"} %></b>
-</p>
-
-<ol>
+	<fieldset>
+		<legend>FreeDB Album</legend>
+			<div class="padleft">
+				<b><% $session{"freedb_album"} %></b>
+				by
+				<b><% $session{"freedb_artist"} %></b>
+			</div>
+			<ol style="padding-left: 30px">
 % for my $i (0 .. $session{"freedb_tracks"}-1) {
-	<li><% $session{"freedb_track$i"} %></li>
+					<li><% $session{"freedb_track$i"} %></li>
 % }
-</ol>
+			</ol>
 
 % if ($session{"freedb_offer_charset"}) {
-
-<h2>Garbled Data</h2>
-
-<form method="post" action="charset.html">
-	<p>
-		Does the data above look garbled?&nbsp;
-		<input type="submit" value="Change character set">
-	</p>
-</form>
-
+			<form method="post" action="charset.html">
+				<div class="padlefttop">
+					<b>Does the data above look garbled?&nbsp;</b>
+				</div>
+				<div class="padlefttop">
+					<input type="submit" class="button" value="Change character set">
+				</div>
+			</form>
 % }
+
+	</fieldset>
 
 <& /comp/footer &>

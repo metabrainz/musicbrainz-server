@@ -64,48 +64,42 @@ if ($ARGS{confirm})
 
 </%perl>
 
-<& /comp/sidebar, title => 'Remove Artist Alias' &>
+<& /comp/sidebar, title => 'Confirm Artist Alias Removal' &>
 
-<h2>Remove Artist Alias</h2>
-
-<p>
-	<input type="hidden" name="alias" value="<% $alias %>">
-	<input type="hidden" name="confirm" value="1">
-	Are you sure you want to remove the alias 
-	<span class="bold"><% $al->GetName %></span>
-	which points to artist
-	<span class="bold"><% $ar->GetName %></span>?
-</p>
-
-<form method="get" action="<% $url %>"
-	name="ModFormNo"
-	onsubmit="history.go(-1); return false"
-	style="float: left; margin-right: 2em; margin-top: 0"
-	>
-	<div>
-		<input type="submit" value="&lt;&lt; NO">
-	</div>
-</form>
-
-<form method="post" action="/remartistalias.html"
-	name="ModFormYes"
-	style="margin: 0"
-	>
-	<div>
-		<input type="hidden" name="alias" value="<% $alias %>">
-		<input type="hidden" name="confirm" value="1">
-		<input type="submit" value="YES &gt;&gt;">
+<fieldset>
+	<legend>Confirm Artist Alias Removal</legend>
+	<div class="padleft">
+		Are you sure you want to remove the alias 
+		<span class="bold"><% $al->GetName %></span>
+		which points to artist
+		<span class="bold"><% $ar->GetName %></span>?
 	</div>
 
-	<p>
-		If YES, enter moderation note (optional):
-	</p>
-
-	<p>
-		<textarea name="notetext" rows="3" cols="60"></textarea>
-	</p>
-
-</form>
+	<div class="padlefttop">
+		<table>
+			<tr>
+				<td>
+					<form 	method="GET" action="<% $url %>"
+							name="ModFormNo" 
+							onsubmit="history.go(-1); return false">
+						<input name="btnNo" type="submit" class="button" value="&laquo; NO">
+					</form></td>
+				<td> &nbsp; </td>
+				<td>
+					<form 	method="POST" action="/remartistalias.html"
+							name="ModFormYes">
+						<input type="hidden" name="alias" value="<% $alias %>">
+						<input type="hidden" name="confirm" value="1">
+						<input name="btnYes" type="submit" class="button" value="YES &raquo;">
+					</td>
+			</tr>
+		</table>
+	</div>
+	<div class="padlefttop">
+		<& /comp/notetext &>
+	</div>
+	</form>
+</fieldset>
 
 <& /comp/movefocus, "ModFormNo", 0 &>
 <& /comp/footer &>

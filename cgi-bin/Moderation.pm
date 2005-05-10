@@ -48,6 +48,7 @@ require MusicBrainz::Server::Moderation::MOD_ADD_TRACK;
 require MusicBrainz::Server::Moderation::MOD_ADD_TRACK_KV;
 require MusicBrainz::Server::Moderation::MOD_ADD_TRMS;
 require MusicBrainz::Server::Moderation::MOD_CHANGE_TRACK_ARTIST;
+require MusicBrainz::Server::Moderation::MOD_EDIT_ALBUM_LANGUAGE;
 require MusicBrainz::Server::Moderation::MOD_EDIT_ALBUMATTRS;
 require MusicBrainz::Server::Moderation::MOD_EDIT_ALBUMNAME;
 require MusicBrainz::Server::Moderation::MOD_EDIT_ARTIST;
@@ -181,6 +182,24 @@ sub GetStatus
 sub SetStatus
 {
    $_[0]->{status} = $_[1];
+}
+
+sub GetLanguageId
+{
+   return $_[0]->{language};
+}
+
+sub GetLanguage
+{
+	my $self = shift;
+	my $id = $self->GetLanguageId or return undef;
+	require MusicBrainz::Server::Language;
+	return MusicBrainz::Server::Language->newFromId($self->{DBH}, $id);
+}
+
+sub SetLanguageId
+{
+   $_[0]->{language} = $_[1];
 }
 
 sub IsOpen { $_[0]{status} == STATUS_OPEN or $_[0]{status} == STATUS_TOBEDELETED }
@@ -335,6 +354,7 @@ sub IsAutoModType
         $type == &ModDefs::MOD_EDIT_ARTISTALIAS ||
         $type == &ModDefs::MOD_EDIT_ARTIST ||
         $type == &ModDefs::MOD_EDIT_ALBUMNAME ||
+        $type == &ModDefs::MOD_EDIT_ALBUM_LANGUAGE ||
         $type == &ModDefs::MOD_EDIT_TRACKNAME ||
         $type == &ModDefs::MOD_EDIT_TRACKNUM ||
         $type == &ModDefs::MOD_ADD_TRACK ||
@@ -412,7 +432,7 @@ sub CreateFromId
                       m.artist, m.type, prevvalue, newvalue, 
                       ExpireTime, Moderator.name, 
                       yesvotes, novotes, Artist.name, status, 0, depmod,
-                      Moderator.id, m.automod,
+                      Moderator.id, m.automod, m.language,
                       opentime, closetime,
                       ExpireTime < now(), ExpireTime + INTERVAL ? < now()
                from   moderation_all m, Moderator, Artist 
@@ -444,10 +464,11 @@ sub CreateFromId
            $mod->SetDepMod($row[15]);
            $mod->SetModerator($row[16]);
            $mod->SetAutomod($row[17]);
-           $mod->SetOpenTime($row[18]);
-           $mod->SetCloseTime($row[19]);
-           $mod->SetExpired($row[20]);
-           $mod->SetGracePeriodExpired($row[21]);
+           $mod->SetLanguageId($row[18]);
+           $mod->SetOpenTime($row[19]);
+           $mod->SetCloseTime($row[20]);
+           $mod->SetExpired($row[21]);
+           $mod->SetGracePeriodExpired($row[22]);
 			$mod->PostLoad;
        }
    }
@@ -648,19 +669,20 @@ sub InsertModeration
 			prevvalue, newvalue,
 			moderator, artist, type,
 			depmod,
-			status, expiretime, yesvotes, novotes, automod
+			status, expiretime, yesvotes, novotes, automod, language
 		) VALUES (
 			?, ?, ?,
 			?, ?,
 			?, ?, ?,
 			?,
-			?, NOW() + INTERVAL ?, 0, 0, 0
+			?, NOW() + INTERVAL ?, 0, 0, 0, ?
 		)",
 		$this->GetTable, $this->GetColumn, $this->GetRowId,
 		$this->GetPrev, $this->GetNew,
 		$this->GetModerator, $this->GetArtist, $this->GetType,
 		$this->GetDepMod,
 		&ModDefs::STATUS_OPEN, &DBDefs::MOD_PERIOD,
+		$this->GetLanguageId,
 	);
 
     my $insertid = $sql->GetLastInsertId("moderation_open");
@@ -816,6 +838,7 @@ sub GetModerationList
 		$mod->SetOpenTime($r->{opentime});
 		$mod->SetCloseTime($r->{closetime});
 		$mod->SetExpireTime($r->{expiretime});
+		$mod->SetLanguageId($r->{language});
 
 		$mod->SetExpired($r->{expired});
 		$mod->SetVote($r->{vote});

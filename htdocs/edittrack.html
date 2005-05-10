@@ -123,88 +123,92 @@ if (MusicBrainz::IsSingleLineString($newname)
 
 </%perl>
 
-<& /comp/sidebar, title => 'Edit Track Name' &>
+<& /comp/sidebar, title => 'Edit Track Number and Name' &>
 
 <& /comp/stylemenu &>
-
-<h2>Edit Track Name</h2>
 
 % if ($tr->GetModPending) {
 	<& /comp/modpending &>
 % }
 
-<script type="text/javascript" src="scripts/guess.js"></script>
+<form 	method="post" 
+		action="/edittrack.html"
+		name="EditTrackForm"
+		enctype="application/x-www-form-urlencoded">
 
-<form method="post" action="/edittrack.html"
-	name="EditTrackForm"
-	enctype="application/x-www-form-urlencoded"
-	>
+	<& /comp/autofixmenu &>
 
-	<table width="100%">
-		<tr>
-			<td>
-				Current Name:
-			</td>
-			<td>
-				<% $tr->GetName  %>
-			</td>
-		</tr>
-		<tr>
-			<td>
-				New Name:
-			</td>
-			<td>
-				<input type="text" name="newname" size="50" maxlength="255" value="<% $defaultname || $tr->GetName %>">
-				<script type="text/javascript"><!--
-				document.write(
-					"<\/td><\/tr>"
-					+ "<tr><td><\/td>"
-					+ "<td>"
-					+ "<input type='button' value='Guess Case' " +
-					"onclick='this.form.newname.value = GuessCase(this.form.newname.value)'>"
-				);
-				document.write(" &nbsp; ");
-				//--></script>
-			</td>
-		</tr>
+	<fieldset>
+		<legend>Edit Track Number and Name</legend>
 
+		<table>
+			<tr>
+				<td>&nbsp;</td>
+				<td><b>#:</b></td>
+				<td colspan="2"><b>Track Name:</b></td>
+			</tr>
+			<tr>
+				<td nowrap>
+					<label for="oldname">Current:</label></td>
 % unless ($al->IsNonAlbumTracks) {
-		<tr>
-			<td>
-				Current Track Number:
-			</td>
-			<td>
-				<% $tr->GetSequence %>
-			</td>
-		</tr>
-		<tr>
-			<td>
-				New Track Number:
-			</td>
-			<td>
-				<input type="text" name="newseq" size="5" value="<% $defaultseq || $tr->GetSequence %>">
-				(1-<% $last_seq %>)
-			</td>
-		</tr>
+				<td>
+					<input 	type="text" name="oldseq" class="oldtextfield"
+							size="2" readonly
+							value="<% $tr->GetSequence %>" /></td>
+% }	else {
+				<td>&nbsp;</td>
 % }
-
-	</table>
-
-	<p>
-		Enter moderation note (optional):
-	</p>
-
-	<p>
-		<textarea name="notetext" rows="3" cols="60"></textarea>
-	</p>
-
-	<p align="center">
-		<input type="hidden" name="album" value="<% $album %>">
-		<input type="hidden" name="track" value="<% $track %>">
-		<input type="hidden" name="ispopup" value="<% $pnotes{'ispopup'} %>">
-		<input type="submit" value="Submit">
-	</p>
-
+				<td colspan="2">
+					<input 	type="text" name="oldname" class="oldtextfield"
+							size="50" readonly
+							value="<% $tr->GetName  %>" /></td>
+			</tr>
+			<tr>
+				<td nowrap>
+					<label for="newname">New:</label></td>	
+% unless ($al->IsNonAlbumTracks) {
+				<td>
+					<input 	type="text" name="newseq" class="textfield" 
+							onFocus="myOnFocus(this)" onBlur="myOnBlur(this)"
+							title="You can set a new track number here, possible values are: (1-<% $last_seq %>)"
+							size="2" value="<% $defaultseq || $tr->GetSequence %>"></td>
+% }	else {
+				<td>&nbsp;</td>
+% }
+				<td>
+					<input 	type="text" name="newname" class="textfield"
+						 	onFocus="myOnFocus(this)" onBlur="myOnBlur(this)"
+						 	size="50" maxlength="255"
+						 	value="<% $defaultname || $tr->GetName %>">
+				</td>
+				<td>
+					<script language="javascript">
+					<!--
+						af_writeButton(AF_BTN_TRACK, 'newname');
+					-->
+					</script></td>
+			</tr>
+% unless ($al->IsNonAlbumTracks) {
+			<tr>
+				<td>&nbsp;</td>
+				<td colspan="3"><small>Valid Track Numbers: 1-<% $last_seq %></small></td>
+			</tr>
+% }	
+			<tr>
+				<td>&nbsp;</td>
+				<td class="padtop" colspan="3">
+					<& /comp/notetext, text => $notetext &></td>
+			</tr>
+			<tr>
+				<td>&nbsp;</td>
+				<td class="padtop" colspan="3">
+					<input type="submit" class="button" value="Submit"></td>
+			</tr>
+		</table>
+	</fieldset>
+	<input type="hidden" name="album" value="<% $album %>">
+	<input type="hidden" name="track" value="<% $track %>">
+	<input type="hidden" name="ispopup" value="<% $pnotes{'ispopup'} %>">
 </form>
 
 <& /comp/movefocus, "EditTrackForm", "newname" &>

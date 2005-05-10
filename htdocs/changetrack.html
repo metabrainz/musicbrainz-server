@@ -89,7 +89,7 @@ if ($search =~ /\S/ and $trackname =~ /\S/)
 		unless $trackname eq $track->GetName;
 	$url .= "&notetext=" . uri_escape($notetext)
 		if $notetext =~ /\S/;
-	
+
 	return $m->comp("/comp/redirect", $url)
 		if $trackname eq $track->GetName;
 
@@ -186,135 +186,102 @@ if ($did_split
 
 <& /comp/stylemenu &>
 
-<h2>Change Name and Artist for track '<% $track->GetName %>'</h2>
-
 % unless ($ARGS{solo}) {
 <p>
 	Track <% $tindex+1 %> of <% scalar @tracks %>
 </p>
 % }
-   
+
 %  if ($track->GetModPending) {
 <& /comp/modpending &>
-%  } 
-  
-<p>
-	Enter the new name of the track, and search for the
-	artist to
-	whom you'd like to move track
-	'<% $track->GetName %>':
-</p>
+%  }
 
-<script type="text/javascript" src="scripts/guess.js"></script>
+<form 	method="post" 
+		action="/changetrack.html"
+		name="ChangeTrackForm">
 
-<form method="post" action="/changetrack.html"
-	name="ChangeTrackForm"
-	>
-	
-	<table>
-   		<tr>
-			<td>
-		 		Current Track Name:
-		  	</td>
-		   	<td>
-				<% $oldtrackname %>
-			</td>
-		</tr>
-		<tr>
-			<td>
-				Current Artist Name:
-			</td>
-			<td>
-				<% $oldartistname %>
+	<& /comp/autofixmenu &>
+
+	<fieldset>
+		<legend>Change Track Name and Artist</legend>
+
+		<div class="padleft">
+			Enter the new name of the track, and search for the
+			artist to
+			whom you'd like to move track
+			'<% $track->GetName %>':
+		</div>
+		<div class="padtop"></div>
+		<table>
+			<tr>
+				<td><label>Current Track Name:</label></td>
+				<td><% $oldtrackname %></td>
+			</tr>
+			<tr>
+				<td><label>Current Artist Name:</label></td>
+				<td><% $oldartistname %>
 % if ($tar->GetSortName ne $oldartistname) {
 				(<% $tar->GetSortName %>)
 % }
-			</td>
-		</tr>
-		<tr><td>&nbsp;</td></tr>
-		<tr>
-			<td>
-				New Track Name:
-			</td>
-			<td>
-				<input type="text" name="trackname" size="40" maxlength="255" value="<% $newtrackname %>">
-				<script type="text/javascript"><!--
-				document.write(
-					"<input type='button' value='Guess Case' " +
-					"onclick='this.form.trackname.value = GuessCase(this.form.trackname.value)'>"
-				);
-				document.write(" &nbsp; ");
-				//--></script>
-			</td>
-		</tr>
-		<tr>
-			<td></td>
-			<td>
-				<script type="text/javascript">
-
-function SwapFields() 
-{
-	var f = document.forms.ChangeTrackForm;
-	var tmp = f.trackname.value;
-	f.trackname.value = f.search.value;
-	f.search.value = tmp;
-	f.swapped.value = 1 - f.swapped.value;
-}
-
-function UseCurrent() 
-{
-	var f = document.forms.ChangeTrackForm;
-	f.search.value = f.orig_artname.value;
-	f.trackname.value= f.orig_track.value;
-}
-
+				</td>
+			</tr>
+			<tr>
+				<td class="padtop"><label for="trackname">New Track Name:</label></td>
+				<td class="padtop">
+					<input type="text" name="trackname"	class="textfield"
+						 onFocus="myOnFocus(this)" onBlur="myOnBlur(this)"
+						 size="50" maxlength="255"
+						 value="<% $newtrackname %>">
+					<script language="javascript">
+					<!--
+						af_writeButton(AF_BTN_TRACK, 'trackname');
+					-->
+					</script></td>
+			</tr>
+			<tr>
+				<td>&nbsp;</td>
+				<td>
+					<script language="javascript">
+					<!--
+						af_writeButton(AF_BTN_USESWAP);
+						af_writeButton(AF_BTN_USECURRENT);
 % if ($did_split) {
-function UseSplit() 
-{
-	var f = document.forms.ChangeTrackForm;
-	f.search.value = f.split_artname.value;
-	f.trackname.value= f.split_track.value;
-}
+						af_writeButton(AF_BTN_USESPLIT);
 % }
-
-	document.writeln('<input type="button" value="Swap" onclick="return SwapFields(this)">');
-	document.writeln(' ');
-	document.writeln('<input type="button" value="Use Current" onclick="return UseCurrent(this)">');
-% if ($did_split) {
-	document.writeln(' ');
-	document.writeln('<input type="button" value="Use Split" onclick="return UseSplit(this)">');
-% }
-				</script>
+					af_writeButton(AF_BTN_GUESSBOTH);
+				-->
+				</script></td>
 				<noscript>
-				<input type="reset" value="Use Guessed">
-				</noscript>
-			</td>
-		</tr>
-		<tr>
-			<td>
-				Search for New Artist:
-			</td>
-			<td>
-				<input type="text" name="search" size="40" value="<% $newartistname %>"> 
-			</td>
-		</tr>
-		<tr>
-			<td colspan="2">
-				<p style="margin: 1em 0">
-					Enter note: (optional):
-					<br>
-					<textarea name="notetext" rows="3" cols="60" style="width: 100%"></textarea>
-				</p>
-			</td>
-		</tr>
-		<tr>
-			<td colspan="2" align="center">
-				<input type="hidden" name="swapped" value="0">    
-				<input type="submit" value="Submit">    
-			</td>
-		</tr>
-	</table>
-	
+					<input type="reset" value="Use Guessed">
+				</noscript></td>
+			</tr>
+			<tr>
+				<td><label for="search">Search for New Artist:</label></td>
+				<td>
+					<input  type="text" name="search" class="textfield"
+							onFocus="myOnFocus(this)" onBlur="myOnBlur(this)"
+							size="50"
+							value="<% $newartistname %>">
+					<script language="javascript">
+					<!--
+						af_writeButton(AF_BTN_ARTIST, 'search');
+					-->
+					</script></td>
+			</tr>
+			<tr>
+				<td>&nbsp;</td>
+				<td class="padtop">
+					<& /comp/notetext &></td>
+			</tr>
+			<tr>
+				<td>&nbsp;</td>
+				<td class="padtop">
+					<input type="hidden" name="swapped" value="0">
+					<input type="submit" class="button" value="Submit"></td>
+			</tr>
+		</table>
+	</fieldset>
+
 	<input type="hidden" name="album" value="<% $album %>">
 	<input type="hidden" name="tindex" value="<% $tindex %>">
 	<input type="hidden" name="modid" value="<% $modid %>">
@@ -327,6 +294,6 @@ function UseSplit()
 % }
 
 </form>
-         
+
 <& /comp/movefocus, "ChangeTrackForm", "trackname" &>
 <& /comp/footer &>

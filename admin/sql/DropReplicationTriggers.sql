@@ -29,6 +29,7 @@ DROP TRIGGER "reptg_l_artist_url" ON "l_artist_url";
 DROP TRIGGER "reptg_l_track_track" ON "l_track_track";
 DROP TRIGGER "reptg_l_track_url" ON "l_track_url";
 DROP TRIGGER "reptg_l_url_url" ON "l_url_url";
+DROP TRIGGER "reptg_language" ON "language";
 DROP TRIGGER "reptg_link_attribute" ON "link_attribute";
 DROP TRIGGER "reptg_link_attribute_type" ON "link_attribute_type";
 DROP TRIGGER "reptg_lt_album_album" ON "lt_album_album";
@@ -48,6 +49,8 @@ DROP TRIGGER "reptg_lt_url_url" ON "lt_url_url";
 -- Not replicated: moderator_subscribe_artist
 DROP TRIGGER "reptg_release" ON "release";
 DROP TRIGGER "reptg_replication_control" ON "replication_control";
+DROP TRIGGER "reptg_script" ON "script";
+DROP TRIGGER "reptg_script_language" ON "script_language";
 DROP TRIGGER "reptg_stats" ON "stats";
 DROP TRIGGER "reptg_track" ON "track";
 DROP TRIGGER "reptg_trackwords" ON "trackwords";

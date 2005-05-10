@@ -1,0 +1,75 @@
+%# vi: set ts=4 sw=4 ft=mason :
+<%args>
+$add_language => 0
+$language_value
+$script_value
+$language_fieldname => 'language'
+$script_fieldname => 'script'
+$show_full_lists => undef
+$notetext => ""
+</%args>
+<%perl>
+
+my $mb = $m->comp("/comp/dblogin");
+
+my @languages_menu = MusicBrainz::Server::Language->Menu($mb->{DBH},
+	minimum_frequency => ( $show_full_lists ? 1 : 2 ),
+	include => $language_value
+);
+
+my @scripts_menu = MusicBrainz::Server::Script->Menu($mb->{DBH},
+	minimum_frequency => ( $show_full_lists ? 0 : 4 ),
+	include => $script_value
+);
+
+</%perl>
+
+<table>
+	<tr>
+		<td><label for="<% $language_fieldname %>">Language:</label></td>
+		<td>
+			<select name="<% $language_fieldname %>" style="<% $show_full_lists ? "" : "width: 200px" %>">
+				<& /comp/options, \@languages_menu, $language_value &>
+			</select>
+		</td>
+	</tr>
+	<tr>
+		<td><label for="<% $script_fieldname %>">Script:</label></td>
+		<td>
+			<select name="<% $script_fieldname %>"style="<% $show_full_lists ? "" : "width: 200px" %>">
+				<& /comp/options, \@scripts_menu, $script_value &>
+			</select>
+		</td>
+	</tr>
+	<tr>
+		<td></td>
+		<td>
+% if ( $show_full_lists ) {
+			<input type="submit" class="button" name="button_toggle_lists" value="Show Reduced Lists">
+% } else {
+			<input type="submit" class="button" name="button_toggle_lists" value="Show Full Lists">
+% }
+	</tr>
+
+% if ( $add_language == 1 ) {
+	<tr>
+		<td>&nbsp;</td>
+		<td class="padtop">
+			<input 	type="submit" class="button" 
+					name="button_next" value="Next &raquo;"></td>
+	</tr>
+% } else {
+	<tr>
+		<td>&nbsp;</td>
+		<td class="padtop">
+			<& /comp/notetext, text => $notetext &></td>
+	</tr>
+	<tr>
+		<td>&nbsp;</td>
+		<td class="padtop">
+			<input 	type="submit" class="button" 
+					name="button_submit" value="Submit"></td>
+	</tr>
+% }
+</table>
+

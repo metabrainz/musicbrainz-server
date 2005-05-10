@@ -86,6 +86,10 @@ $time = $m->comp("/comp/datetime", $time);
 	   <span style="font-size: x-small">(<a href="/mod_intro.html#automod">automod</a>)</span>
 % }
   <br>
+% if ( $mod->GetLanguageId ) {
+     Language: <% $mod->GetLanguage->GetName %>
+  <br>
+% }
 % if ($is_open) {
      <% $mod->GetExpired ? "Expired" : "Expires" %>: <% $time %>
 % } else {

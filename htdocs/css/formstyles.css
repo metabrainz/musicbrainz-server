@@ -1,0 +1,122 @@
+h1 {
+	text-align: left;
+	margin-bottom: 20px;
+	border-bottom: 1px solid #ccc;
+}
+
+.formstyle input {
+	font-weight: normal; font-size: 10pt; 
+	font-family: Arial, Geneva, Helvetica, Verdana, sans-serif;  
+	text-decoration : none;
+}
+fieldset {
+	border: #ccc solid 1px;
+	padding: 10px;
+	width: 100%;
+}
+fieldset legend {
+	padding: 10px 10px;
+	background: #fff;
+	font-weight: bold;
+	color: black;
+} 
+fieldset label {
+	text-align: right;
+	margin-left: 15px;
+	margin-right: 10px;
+}
+fieldset .textfield,
+fieldset .textfieldfocus {
+	color: #000;
+	padding-left: 2px;
+	/*border-style: solid;
+	border-width: 1px;
+	border-color: #999;*/ 
+}
+fieldset .textfieldfocus {
+	/*border-color: #fb0;*/
+	background: #f0efff;
+}
+fieldset .textarea {
+	/* border: 1px solid #000; */
+}
+.backtolisting .button,
+fieldset .button {
+	/* font-weight: bold; font-size: 9pt; 
+	font-family: Arial, Geneva, Helvetica, Verdana, sans-serif; 
+	background: #ffba58; color: #000; */ 
+}
+fieldset .oldtextfield {
+	border: none;
+}
+.discidmessage {
+	color: red;	font-weight: bold;
+	padding: 10px; 0px; 0px; 10px; 	
+}
+fieldset .padleft {	
+	padding-left: 20px;
+}
+fieldset .padlefttop {
+	padding-left: 20px;	padding-top: 10px;
+}
+fieldset .padtop {	
+	padding-top: 10px;
+}
+.modnotearea { /* doesnt like 100% in IE because its in a fieldset */ 
+}
+
+.backtolisting {
+	padding-top: 20px;
+}
+
+.similarartist {
+	border-width: 2px; border-style: dotted; border-color: red; 
+	margin: 10px 0px 20px 0px ; 
+	padding: 5px;
+}
+.similarartist .warning {
+	color: red; font-weight: bold;
+}
+.similarartist ul {
+	margin: 0px; margin-left: 20px; margin-top: 5px;
+}
+.similarartist p {
+	margin: 0px; margin-top: 10px;
+}
+
+.linkerror {
+	font-weight: bold; color: #f00; padding-top: 4px;
+}
+.linkerrorslim {
+	font-weight: slim; color: #f00; padding-top: 4px;
+}
+.linkdesc {
+	font-weight: normal; color: #000; padding-top: 4px;
+}
+
+.helptext {
+	font-size: 11px;
+}
+.ar-attribute {
+}
+.ar-attribute-description {
+	margin-left: 25px;
+	margin-bottom: 5px;
+	width: 450px;
+	font-size: 11px;
+}
+
+.autofixmenu {
+}
+.autofixmenu .button,
+.autofixmenu .buttondisabled {
+	 font-size: 11px;
+	/*font-weight: normal;
+	background: #ffba58; color: #000;*/
+}
+.autofixmenu .buttondisabled {
+	/*background: #f0efff; color: #000;
+	font-weight: normal;*/ 
+}
+
+

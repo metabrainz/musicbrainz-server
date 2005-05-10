@@ -111,6 +111,10 @@ CREATE TRIGGER "reptg_l_url_url"
 AFTER INSERT OR DELETE OR UPDATE ON "l_url_url"
 FOR EACH ROW EXECUTE PROCEDURE "recordchange" ();
 
+CREATE TRIGGER "reptg_language" 
+AFTER INSERT OR DELETE OR UPDATE ON "language"
+FOR EACH ROW EXECUTE PROCEDURE "recordchange" ();
+
 CREATE TRIGGER "reptg_link_attribute"
 AFTER INSERT OR DELETE OR UPDATE ON "link_attribute"
 FOR EACH ROW EXECUTE PROCEDURE "recordchange" ();
@@ -171,6 +175,14 @@ FOR EACH ROW EXECUTE PROCEDURE "recordchange" ();
 
 CREATE TRIGGER "reptg_replication_control" 
 AFTER INSERT OR DELETE OR UPDATE ON "replication_control"
+FOR EACH ROW EXECUTE PROCEDURE "recordchange" ();
+
+CREATE TRIGGER "reptg_script" 
+AFTER INSERT OR DELETE OR UPDATE ON "script"
+FOR EACH ROW EXECUTE PROCEDURE "recordchange" ();
+
+CREATE TRIGGER "reptg_script_language" 
+AFTER INSERT OR DELETE OR UPDATE ON "script_language"
 FOR EACH ROW EXECUTE PROCEDURE "recordchange" ();
 
 CREATE TRIGGER "reptg_stats" 

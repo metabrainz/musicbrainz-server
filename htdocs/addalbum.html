@@ -62,47 +62,47 @@ $ar->LoadFromId
 
 <& /comp/stylemenu &>
 
-<h2>Add Album</h2>
-
 <p>
-	You are about to add an album to the artist
-	<b><% $ar->GetName %></b>.
+	You are about to manually add an album to the artist
+	<b><% $ar->GetName %></b>. Did you know that you can
+	<a href="/freedb/freedb.html?search=<% uri_escape($ar->GetName()) %>">import
+	albums from the FreeDB database</a>?
 </p>
 
-<p>
-	Please read the style notes (see links above)
-	and enter the number of tracks on this album:
-</p>
-
-		<form method="post" name="AddAlbumForm"
+<form 	method="post" name="AddAlbumForm"
 %   if ($artistid == &ModDefs::VARTIST_ID) {
-			action="/cdi/menter.html"
+		action="/cdi/menter.html">
 %   } else {
-			action="/cdi/enter.html"
+		action="/cdi/enter.html">
 %   }
-			enctype="application/x-www-form-urlencoded">
-
-    <table>
-      <tr>
-        <td align="right">
-					Number of tracks on this album:
-        </td>
-        <td>
-					<input type="text" name="tracks" size="3" value=""> (1 - 99)
-        </td>
-      </tr>
-      <tr>
-        <td colspan=2>
-					<input type="submit" value="Next &gt;&gt;">
-        </td>
-      </tr>
+		
+	<fieldset>
+		<legend>Manually Add Album</legend>
+		<div class="padleft">
+			Please read the <a href="/style.html">style notes</a>
+			first, then enter the number of tracks on this album:
+		</div>
+		<table>
+			<tr>
+				<td>
+					<label for="tracks">Number of tracks:</label></td>
+				<td>
+					<input 	type="text" name="tracks" class="textfield" 
+							size="3" value=""> (1 - 99)</td>
+			</tr>
+			<tr>
+				<td>&nbsp;</td>
+				<td>
+					<input type="submit" class="button" value="Next &raquo;"></td>
+			</tr>
 		</table>
+	</fieldset>
 
     <input type="hidden" name="noncd" value="1">
     <input type="hidden" name="id" value="">
     <input type="hidden" name="toc" value="">
     <input type="hidden" name="artist" value="<% $artistid %>">
-	</form>
+</form>
 
 <& /comp/movefocus, "AddAlbumForm", "tracks" &>
 <& /comp/footer &>

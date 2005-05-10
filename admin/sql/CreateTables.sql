@@ -24,7 +24,10 @@ CREATE TABLE album
     gid                 CHAR(36) NOT NULL, 
     modpending          INTEGER DEFAULT 0,
     attributes          INTEGER[] DEFAULT '{0}',
-    page                INTEGER NOT NULL
+    page                INTEGER NOT NULL,
+    language            INTEGER, -- references language
+    script              INTEGER, -- references script
+    modpending_lang     INTEGER
 );
 
 CREATE TABLE album_amazon_asin
@@ -301,6 +304,17 @@ CREATE TABLE l_url_url
     modpending          INTEGER NOT NULL DEFAULT 0
 );
 
+CREATE TABLE language
+(
+     id                 SERIAL,
+     isocode_3t         CHAR(3) NOT NULL, -- ISO 639-2 (T)
+     isocode_3b         CHAR(3) NOT NULL, -- ISO 639-2 (B)
+     isocode_2          CHAR(2), -- ISO 639
+     name               VARCHAR(100) NOT NULL,
+     french_name        VARCHAR(100) NOT NULL,
+     frequency          INTEGER NOT NULL DEFAULT 0
+);
+
 CREATE TABLE link_attribute
 (
     id                  SERIAL,
@@ -488,6 +502,7 @@ CREATE TABLE moderation_closed
     rowid               INTEGER NOT NULL, 
     prevvalue           VARCHAR(255) NOT NULL, 
     newvalue            TEXT NOT NULL, 
+    language            INTEGER, -- references language
     yesvotes            INTEGER DEFAULT 0, 
     novotes             INTEGER DEFAULT 0,
     depmod              INTEGER DEFAULT 0,
@@ -509,6 +524,7 @@ CREATE TABLE moderation_open
     rowid               INTEGER NOT NULL, 
     prevvalue           VARCHAR(255) NOT NULL, 
     newvalue            TEXT NOT NULL, 
+    language            INTEGER, -- references language
     yesvotes            INTEGER DEFAULT 0, 
     novotes             INTEGER DEFAULT 0,
     depmod              INTEGER DEFAULT 0,
@@ -584,6 +600,24 @@ CREATE TABLE replication_control
     current_schema_sequence         INTEGER NOT NULL,
     current_replication_sequence    INTEGER,
     last_replication_date           TIMESTAMP WITH TIME ZONE
+);
+
+CREATE TABLE script
+(
+     id                 SERIAL,
+     isocode            CHAR(4) NOT NULL, -- ISO 15924
+     isonumber          CHAR(3) NOT NULL, -- ISO 15924
+     name               VARCHAR(100) NOT NULL,
+     french_name        VARCHAR(100) NOT NULL,
+     frequency          INTEGER NOT NULL DEFAULT 0
+);
+
+CREATE TABLE script_language
+(
+     id                 SERIAL,
+     script		        INTEGER,
+     language           INTEGER NOT NULL,
+     frequency          INTEGER NOT NULL DEFAULT 0
 );
 
 CREATE TABLE stats

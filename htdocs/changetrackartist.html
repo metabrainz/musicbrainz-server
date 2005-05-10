@@ -118,18 +118,24 @@ if ($newartistname =~ /\S/ and $newartistsortname =~ /\S/)
 % }
 
 <& /comp/stylemenu &>
-
-<h2>Change Artist For Track '<% $track->GetName %>'</h2>
-   
+  
 %  if ($track->GetModPending) {
 <& /comp/modpending &>
 %  } 
-  
-<p>
-	Please search for the artist to
-	whom you'd like to move track
-	'<% $track->GetName %>':
-</p>
+
+<fieldset>
+	<legend>Change Artist for current track</legend>
+	<div class="padleft">
+		Please search for the artist to whom you'd like to move this track:
+	</div>
+	<div class="padlefttop">
+		<form name="trackname">
+			<input 	type="text" size="50" class="oldtextfield" 
+					style="width: 100%" readonly 
+					value="<% $track->GetName %>">
+		</form>
+	</div>
+</fieldset>
 
 <& /comp/artistfilter,
 	search => $ARGS{'search'},
