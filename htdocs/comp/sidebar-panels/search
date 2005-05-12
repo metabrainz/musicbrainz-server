@@ -16,7 +16,7 @@
 	<& .QuickSearchForm,
 		label => "Track",
 		action => "/newsearch.html",
-		hidden_args => { table => "Track" },
+		hidden_args => { table => "track" },
 		textname => "search",
 		&>
 	<& .QuickSearchForm,
