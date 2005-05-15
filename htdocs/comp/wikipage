@@ -18,6 +18,10 @@ if ( defined $page ) {
 	# So for now, rewrite those URLs to their canonical form.
 	$page =~ s[href="http:/(\w)]['href="http://' . &DBDefs::WEB_SERVER . "/$1"]eg;
 
+	# Obfuscate e-mail addresses
+	$page =~ s/(\w+)\@(\w+)/$1&#x0040;$2/g;
+	$page =~ s/mailto:/mailto&#x3a;/g;
+
         $m->print($page);
 }
 else {
