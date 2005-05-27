@@ -51,12 +51,6 @@ $obj->LoadFromId(1)
 		1, 1,
 	);
 
-if ($type eq 'url')
-{
-    $m->comp("/comp/redirect", $obj->GetURL);
-	return;
-}
-
 my $title = ("Relationships for $type " . $obj->GetName());
 $m->comp("/comp/sidebar", pagetitle => $title, title => $title);
 
