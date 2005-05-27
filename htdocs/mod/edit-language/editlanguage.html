@@ -4,8 +4,8 @@
 $untag => 0
 $confirm => 0
 $album => undef
-$newlanguage => ""
-$newscript => ""
+$newlanguage => undef
+$newscript => undef
 $notetext => ""
 $show_full_lists => 0
 $button_toggle_lists => undef
@@ -49,9 +49,8 @@ my $url =
 			? "/showartist.html?artistid=" . $objs[0]->GetArtist
 			: "/search.html";
 
-
-$newscript ||= 0;
-$newlanguage ||= 0;
+$newscript = 0 if defined $newscript and $newscript eq '';
+$newlanguage = 0 if defined $newlanguage and $newlanguage eq '';
 
 my @text;
 if ( @objs )
@@ -61,13 +60,13 @@ if ( @objs )
 	push @text, $_->GetName() foreach $al->LoadTracks();
 }
 
-if ( $newscript == 0 )
+if ( not defined $newscript )
 {
 	$newscript = MusicBrainz::Server::Script->GuessFromText($mb->{DBH}, \@text);
 	$newscript = ($newscript ? $newscript->GetId : 0);
 }
 
-if ( $newlanguage == 0 )
+if ( not defined $newlanguage )
 {
 	$newlanguage = MusicBrainz::Server::Language->GuessFromTextAndScript(
 												$mb->{DBH}, \@text, $newscript);

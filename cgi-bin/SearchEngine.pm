@@ -504,15 +504,19 @@ sub Search
     # Having the words not together in the specified order should drop us down
     # the list.
 
-    # Interesting hack: munge the encoded word IDs into 4-byte ints, and
-    # use String::Unicode::Similarity to compare the chains of ints.
-    require String::Unicode::Similarity;
+    # Interesting hack: map the encoded word IDs into characters (it doesn't
+    # matter which ones exactly), then use String::Similarity to compare them
+    require String::Similarity;
+
+    my %used_char; my $next_char = 32;
+    my $map_word_to_char = sub {
+	my $word = $_[0];
+	return $used_char{$word} if defined $used_char{$word};
+	return($used_char{$word} = chr($next_char++));
+    };
 
     my %wordids = map { $_->[1] => $_->[0] } @$counts;
-    my $s0 = do {
-	no warnings 'uninitialized';
-	pack "l*", @wordids{ @$wordchain };
-    };
+    my $s0 = join "", map { &$map_word_to_char($_) } @$wordchain;
 
     for my $r (@$results)
     {
@@ -522,11 +526,8 @@ sub Search
 	for my $pair (@$q)
 	{
 	    my ($tokens, $chain) = @$pair;
-	    my $s1 = do {
-		no warnings 'uninitialized';
-		pack "l*", @wordids{ @$chain };
-	    };
-	    my $sim = String::Unicode::Similarity::fstrcmp($s0, $s1, length($s0)/4, length($s1)/4);
+	    my $s1 = join "", map { &$map_word_to_char($_) } @$chain;
+	    my $sim = String::Similarity::fstrcmp($s0, $s1);
 	    $bestsim = $sim if $sim > $bestsim;
 	}
 

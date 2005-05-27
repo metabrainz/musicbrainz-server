@@ -11,6 +11,11 @@ var AF_OP_LOWERCASE = 'lowercase';
 var AF_OP_TITLED = 'titled';
 var AF_OP_ROUNDBRACKETS = 'roundbrackets';
 var AF_OP_SQUAREBRACKETS = 'squarebrackets';
+var AF_OP_REMOVEBRACKETS = 'removebrackets';
+var AF_OP_CONVERTROUNDSQUARE = 'convertroundsquare';
+var AF_OP_CONVERTSQUAREROUND = 'convertsquareround';
+
+
 
 var AF_COOKIE_MODE = "afmode";
 var AF_COOKIE_TABLE = "aftable";
@@ -41,10 +46,10 @@ function doArtistName(theForm, theID) {
 	var newvalue = af_artistNameFix(oldvalue);
 	if (newvalue != oldvalue) {
 		theField.value = newvalue;
-		af_undoStack.push(new Array(theField, af_mode, oldvalue, newvalue));
-		af_undoIndex = af_undoStack.length;
+		af_addUndo(theForm,
+				   new Array(theField, af_mode, oldvalue, newvalue)
+				   );
 	}
-	af_setUndoRedoState(theForm);
 	af_resetSelection();
 }
 
@@ -58,10 +63,10 @@ function doAlbumName(theForm, theID) {
 	var newvalue = af_albumNameFix(theField.value);
 	if (newvalue != oldvalue) {
 		theField.value = newvalue;
-		af_undoStack.push(new Array(theField, af_mode, oldvalue, newvalue));
-		af_undoIndex = af_undoStack.length;
+		af_addUndo(theForm,
+				   new Array(theField, af_mode, oldvalue, newvalue)
+				  );
 	}
-	af_setUndoRedoState(theForm);
 	af_resetSelection();
 }
 
@@ -74,10 +79,10 @@ function doTrackName(theForm, theID) {
 	var newvalue = af_trackNameFix(theField.value);
 	if (newvalue != oldvalue) {
 		theField.value = newvalue;
-		af_undoStack.push(new Array(theField, af_mode, oldvalue, newvalue));
-		af_undoIndex = af_undoStack.length;
+		af_addUndo(theForm,
+				   new Array(theField, af_mode, oldvalue, newvalue)
+				   );
 	}
-	af_setUndoRedoState(theForm);
 	af_resetSelection();
 }
 
@@ -91,10 +96,10 @@ function doSortNameCopy(theForm, theArtistID, theSortID) {
 	var newvalue = theArtistField.value;
 	if (newvalue != oldvalue) {
 		theSortnameField.value = newvalue;
-		af_undoStack.push(new Array(theSortnameField, 'sortnamecopy', oldvalue, newvalue));
-		af_undoIndex = af_undoStack.length;
+		af_addUndo(theForm,
+				   new Array(theSortnameField, 'sortnamecopy', oldvalue, newvalue)
+				   );
 	}
-	af_setUndoRedoState(theForm);
 	af_resetSelection();
 }
 
@@ -109,10 +114,10 @@ function doSortNameGuess(theForm, theArtistID, theSortID) {
 	newvalue = artistNameGuessSortName(artistValue);
 	if (newvalue != oldvalue) {
 		theSortnameField.value = newvalue;
-		af_undoStack.push(new Array(theSortnameField, 'sortname', oldvalue, newvalue));
-		af_undoIndex = af_undoStack.length;
+		af_addUndo(theForm,
+				   new Array(theSortnameField, 'sortname', oldvalue, newvalue)
+				   );
 	}
-	af_setUndoRedoState(theForm);
 	af_resetSelection();
 }
 
@@ -124,18 +129,15 @@ function doSwapFields(theForm) {
 		if (theForm.search && theForm.trackname && theForm.swapped) {
 			var newSwapped = 1 - theForm.swapped.value; // hidden var which holds if fields were swapped
 			var switchTempVar = theForm.search.value; // remember field for swap operation
-			af_undoStack.push(
-				new Array(AF_UNDOLIST,
-					new Array(theForm.trackname, 'swap', theForm.trackname.value, theForm.search.value),
-					new Array(theForm.search, 'swap', theForm.search.value, theForm.trackname.value),
-					new Array(theForm.swapped, 'swap', theForm.swapped.value, newSwapped)
-				)
-			);
+			af_addUndo(theForm,
+					   new Array(AF_UNDOLIST,
+						   new Array(theForm.trackname, 'swap', theForm.trackname.value, theForm.search.value),
+						   new Array(theForm.search, 'swap', theForm.search.value, theForm.trackname.value),
+						   new Array(theForm.swapped, 'swap', theForm.swapped.value, newSwapped)
+					   ));
 			theForm.search.value = theForm.trackname.value;
 			theForm.trackname.value = switchTempVar;
 			theForm.swapped.value = newSwapped;
-			af_undoIndex = af_undoStack.length;
-			af_setUndoRedoState(theForm);
 		}
 	}
 }
@@ -147,16 +149,13 @@ function doUseCurrent(theForm) {
 	if (theForm != null) {
 		if (theForm.search != null && theForm.orig_artname != null &&
 			theForm.trackname != null && theForm.orig_track != null) {
-			af_undoStack.push(
-				new Array(AF_UNDOLIST,
-					new Array(theForm.trackname, 'usecurrent', theForm.trackname.value, theForm.orig_track.value),
-					new Array(theForm.search, 'usecurrent', theForm.search.value, theForm.orig_artname.value)
-				)
-			);
+			af_addUndo(theForm,
+					   new Array(AF_UNDOLIST,
+					       new Array(theForm.trackname, 'usecurrent', theForm.trackname.value, theForm.orig_track.value),
+					       new Array(theForm.search, 'usecurrent', theForm.search.value, theForm.orig_artname.value)
+					   ));
 			theForm.trackname.value = theForm.orig_track.value;
 			theForm.search.value = theForm.orig_artname.value;
-			af_undoIndex = af_undoStack.length;
-			af_setUndoRedoState(theForm);
 		}
 	}
 }
@@ -168,16 +167,13 @@ function doUseSplit(theForm) {
 	if (theForm != null) {
 		if (theForm.split_artname != null &&
 			theForm.split_track != null) {
-			af_undoStack.push(
-				new Array(AF_UNDOLIST,
-					new Array(theForm.trackname, 'usesplit', theForm.trackname.value, theForm.split_track.value),
-					new Array(theForm.search, 'usesplit', theForm.search.value, theForm.split_artname.value)
-				)
-			);
+			af_addUndo(theForm,
+					   new Array(AF_UNDOLIST,
+					       new Array(theForm.trackname, 'usesplit', theForm.trackname.value, theForm.split_track.value),
+					       new Array(theForm.search, 'usesplit', theForm.search.value, theForm.split_artname.value)
+					   ));
 			theForm.search.value = theForm.split_artname.value;
 			theForm.trackname.value= theForm.split_track.value;
-			af_undoIndex = af_undoStack.length;
-			af_setUndoRedoState(theForm);
 		}
 	}
 }
@@ -224,14 +220,12 @@ function doArtistAndTrackName(theForm) {
 	var tnUndo = new Array(theForm.trackname, 'guessboth', tnOldValue, tnValueFixed);
 	var snUndo = new Array(theForm.search, 'guessboth', snOldValue, snValueFixed);
 	if (tnChanged && snChanged) { // Artist Name and Track Name have changed
-		af_undoStack.push(new Array(AF_UNDOLIST, tnUndo, snUndo));
+		af_addUndo(theForm, new Array(AF_UNDOLIST, tnUndo, snUndo));
 	} else if (tnChanged) { // Track Name has changed
-		af_undoStack.push(tnUndo);
+		af_addUndo(theForm, tnUndo);
 	} else if (snChanged) { // Artist Name has changed
-		af_undoStack.push(snUndo);
+		af_addUndo(theForm, snUndo);
 	}
-	af_undoIndex = af_undoStack.length;
-	af_setUndoRedoState(theForm);
 }
 
 
@@ -287,6 +281,16 @@ function af_upperCaseFirst(theValue) {
 // --
 function af_getField(theForm, theID) {
 	return theForm[theID];
+}
+
+// ----------------------------------------------------------------------------
+// af_addUndo()
+// -- Track back one step in the changelog
+function af_addUndo(theForm, undoOp) {
+	af_undoStack = af_undoStack.slice(0, af_undoIndex); 
+	af_undoStack.push(undoOp);
+	af_undoIndex = af_undoStack.length;
+	af_setUndoRedoState(theForm);
 }
 
 // ----------------------------------------------------------------------------
@@ -385,9 +389,9 @@ function myOnBlur(theField) {
 	var newvalue = theField.value;
 	var oldvalue = af_onFocusFieldState[1];
 	if (af_onFocusFieldState[0] == theField && oldvalue != theField.value) {
-		af_undoStack.push(new Array(theField, 'manual', oldvalue, newvalue));
-		af_undoIndex = af_undoStack.length;
-		af_setUndoRedoState(theField.form);
+		af_addUndo(theField.form, 
+		           new Array(theField, 'manual', oldvalue, newvalue)
+		           );
 	}
 }
 
@@ -454,6 +458,31 @@ function doFormatText(fText, op) {
 }
 
 // ----------------------------------------------------------------------------
+// doRemoveBrackets()
+// -- remove all the brackets from a string
+function doRemoveBrackets(fText) {
+	fText = fText.split("(").join("");
+	fText = fText.split(")").join("");
+	fText = fText.split("[").join("");
+	fText = fText.split("]").join("");
+	return fText;
+}
+
+// ----------------------------------------------------------------------------
+// doReplaceBrackets()
+// -- remove all the brackets from a string
+function doReplaceBrackets(fText, op) {
+	if (op == AF_OP_CONVERTROUNDSQUARE) {
+		fText = fText.split("(").join("[");
+		fText = fText.split(")").join("]");
+	} else if (op == AF_OP_CONVERTSQUAREROUND ) {
+		fText = fText.split("[").join("(");
+		fText = fText.split("]").join(")");
+	}
+	return fText;
+}
+
+// ----------------------------------------------------------------------------
 // doApplyOperation()
 // -- applies the current operation to the selected text
 //    in the field the cursor was last placed in.
@@ -475,9 +504,12 @@ function doApplyOperation(op) {
 				switch (op) {
 					case AF_OP_UPPERCASE:
 					case AF_OP_LOWERCASE:
-					case AF_OP_TITLED:			formattedText = doFormatText(fText, op); break;
-					case AF_OP_ROUNDBRACKETS:	formattedText = "("+fText+")"; break;
-					case AF_OP_SQUAREBRACKETS:	formattedText = "["+fText+"]"; break;
+					case AF_OP_TITLED:				formattedText = doFormatText(fText, op); break;
+					case AF_OP_ROUNDBRACKETS:		formattedText = "("+fText+")"; break;
+					case AF_OP_SQUAREBRACKETS:		formattedText = "["+fText+"]"; break;
+					case AF_OP_REMOVEBRACKETS:		formattedText = doRemoveBrackets(fText); break;
+					case AF_OP_CONVERTROUNDSQUARE:	
+					case AF_OP_CONVERTSQUAREROUND:	formattedText = doReplaceBrackets(fText, op); break;
 				}
 				if (fText == af_onFocusField.value) af_onFocusField.value = formattedText;
 				else fRange.text = formattedText;
@@ -494,9 +526,12 @@ function doApplyOperation(op) {
 			switch (op) {
 				case AF_OP_UPPERCASE:
 				case AF_OP_LOWERCASE:
-				case AF_OP_TITLED:			formattedText = doFormatText(fText, op); break;
-				case AF_OP_ROUNDBRACKETS:	formattedText = "("+fText+")"; break;
-				case AF_OP_SQUAREBRACKETS:	formattedText = "["+fText+"]"; break;
+				case AF_OP_TITLED:				formattedText = doFormatText(fText, op); break;
+				case AF_OP_ROUNDBRACKETS:		formattedText = "("+fText+")"; break;
+				case AF_OP_SQUAREBRACKETS:		formattedText = "["+fText+"]"; break;
+				case AF_OP_REMOVEBRACKETS:		formattedText = doRemoveBrackets(fText); break;
+				case AF_OP_CONVERTROUNDSQUARE:	
+				case AF_OP_CONVERTSQUAREROUND:	formattedText = doReplaceBrackets(fText, op); break;
 			}
 			if (sPos == ePos) af_onFocusField.value = formattedText;
 			else af_onFocusField.value = fFullText.substring(0, sPos) + formattedText + fFullText.substring(ePos, fFullText.length);
@@ -505,9 +540,10 @@ function doApplyOperation(op) {
 		}
 		var newvalue = af_onFocusField.value;
 		if (newvalue != oldvalue) {
-			af_undoStack.push(new Array(af_onFocusField, 'changecase', oldvalue, newvalue));
-			af_undoIndex = af_undoStack.length;
-			af_setUndoRedoState(af_onFocusField.form);
+			af_addUndo(af_onFocusField.form, 
+					   new Array(af_onFocusField, 'changecase', oldvalue, newvalue)
+					   );
+			af_onFocusFieldState[1] = af_onFocusFieldState[0].value; // updated remembered value (such that leaving the field does not add another UNDO step)
 		}
 	}
 }

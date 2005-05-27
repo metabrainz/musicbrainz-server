@@ -30,7 +30,7 @@ package MusicBrainz::Server::Moderation::MOD_ADD_LINK_TYPE;
 use ModDefs qw( :modstatus DARTIST_ID MODBOT_MODERATOR );
 use base 'Moderation';
 
-sub Name { "Add Link Type" }
+sub Name { "Add Relationship Type" }
 (__PACKAGE__)->RegisterHandler;
 
 sub PreInsert

@@ -49,11 +49,9 @@ my $enddate_str = Artist::GetEndDateName($type);
 
 % if ( defined $artist ) {
 				<tr>
-					<td nowrap><label for="oldname">Current Name:</label></td>
+					<td nowrap><label>Current Name:</label></td>
 					<td>
-						<input 	type="text" name="oldname" class="oldtextfield"
-								size="50" readonly
-								value="<% $artist->GetName() %>" /></td>
+						<div class="oldtextfield"><% $artist->GetName() %></div></td>
 				</tr>
 % }
 				<tr>
@@ -72,11 +70,9 @@ my $enddate_str = Artist::GetEndDateName($type);
 
 % if ( defined $artist ) {
 				<tr>
-					<td nowrap><label for="oldsortname">Current Sort Name:</label></td>
+					<td nowrap><label>Current Sort Name:</label></td>
 					<td>
-						<input 	type="text" name="oldsortname" class="oldtextfield"
-								size="50" readonly
-								value="<% $artist->GetSortName() %>" /></td>
+						<div class="oldtextfield"><% $artist->GetSortName()  %></div></td>
 				</tr>
 % }
 				<tr>
@@ -97,19 +93,18 @@ my $enddate_str = Artist::GetEndDateName($type);
 				<tr><td colspan="2">&nbsp;</td></tr>
 				<tr>
 					<td>&nbsp;</td>
-					<td><p>
-						<small>The comment field is used to differentiate between artists with the same, <br/> 
-						or confusingly similar, names. Please leave this blank if this artist does <br/> 
-						not conflict with an artist of a similar name.
-						</p></td>
+					<td>
+						<div class="helptext">
+							The comment field is used to differentiate between artists with the same, <br/> 
+							or confusingly similar, names. Please leave this blank if this artist does <br/> 
+							not conflict with an artist of a similar name.
+						</div></td>
 				</tr>
 % if ( defined $artist ) {
 				<tr>
-					<td nowrap><label for="oldcomment">Current Comment:</label></td>
+					<td nowrap><label>Current Comment:</label></td>
 					<td>
-						<input 	type="text" name="oldcomment" class="oldtextfield"
-								size="50" readonly
-								value="<% $artist->GetResolution() || "(none)" %>" /></td>
+						<div class="oldtextfield"><% $artist->GetResolution() || "(none)" %></div></td>
 				</tr>
 % }
 				<tr>
@@ -126,8 +121,11 @@ my $enddate_str = Artist::GetEndDateName($type);
 				<tr><td colspan="2">&nbsp;</td></tr>
 				<tr>
 					<td>&nbsp;</td>
-					<td><p><small>Dates are in the format <i>YYYY-MM-DD</i>. Partial dates <br/>
-						<i>YYYY-MM</i> or just <i>YYYY</i> are OK, or you can omit the date entirely.</p></td>
+					<td>
+						<div class="helptext">
+							Dates are in the format <i>YYYY-MM-DD</i>. Partial dates <br/>
+							<i>YYYY-MM</i> or just <i>YYYY</i> are OK, or you can omit the date entirely.
+						</div></td>
 				</tr>
 				<tr>
 					<td nowrap>

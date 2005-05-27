@@ -54,6 +54,18 @@ $artistid
         orderby         => "desc"
 	) and return ($result, "Please vote on this moderation by a related artist:");
 
+    # Return now if the user hasn't selected to show random inline mods
+    return if !$session{PREF_show_inline_mods_random};
+
+    # Now look for any open moderation 	 
+	$result = &$try_search( 	 
+			moderator_type  => 5, 	 
+			voter_id        => $uid, 	 
+			vote_cast       => [ &ModDefs::VOTE_NOTVOTED ], 	 
+			mod_status      => [ &ModDefs::STATUS_OPEN ], 	 
+			orderby         => "desc" 	 
+    ) and return ($result, "Please vote on this random moderation:");
+
 	return;
 </%perl>
 </%def>

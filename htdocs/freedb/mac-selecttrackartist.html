@@ -67,11 +67,7 @@ if ($newartistname =~ /\S/ and $newartistsortname =~ /\S/)
 		Please search for the artist to whom you'd like to move the current track:
 	</div>
 	<div class="padlefttop">
-		<form name="trackname">
-			<input 	type="text" size="50" class="oldtextfield"
-					style="width: 100%" readonly 
-					value="<% $session{"freedb_track$t"} %>">
-		</form>
+		<div class="oldtextfield"><% $session{"freedb_track$t"} %></div>
 	</div>
 </fieldset>
 

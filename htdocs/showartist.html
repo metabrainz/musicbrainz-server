@@ -290,10 +290,13 @@ $m->comp(
 					<col style="width: 3em; text-align: right">
 					<col style="width: 3em; text-align: right">
 					<col style="width: 5em; text-align: right">
-					<col>
+					<col style="text-align: center">
+					<col style="text-align: center">
+					<col style="text-align: center">
 % if ($session{uid}) {
 					<col style="width: 3em">
 % }
+					<col>
 				<%perl>
 			}
 
@@ -314,7 +317,7 @@ $m->comp(
 
 					if ($fCompact)
 					{
-						my $s = 6;
+						my $s = 7;
 						++$s if $session{'uid'};
 						</%perl>
 						<tr><th colspan='<% $s %>' align="left"><h2><% $desc %></h2></th></tr>

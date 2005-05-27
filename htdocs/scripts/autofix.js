@@ -1,60 +1,81 @@
-// TODO:
-//
-// Blabla (disc 1: disc a) -> Blabla (disc 1: Disc a) because of last_word_was_colon.
 // http://ioctl.org/jan/test/regexp.htm
-
-
-
 
 // Words which are always written lowercase.
 // change log (who, when, what)
 // -------------------------------------------------------
 // tma			2004-01-29		first version
 // g0llum		2004-04-17		added french lowercase characters
-var lowercase_words = [
+var word_arr = [
 	 "a", "and", "n", "an", "as", "at", "but",
 	 "by", "for", "in", "nor", "of", "o", "on",
 	 "or", "the", "to", "der", "und", "de", "du",
 	 "et", "la", "le", "les", "un", "une", "y",
-	 "con", "di", "da", "do", "del",
-	 "à", "â", "ç", "è", "é", "ê", "ô",
-	 "ù", "û", "aux"
+	 "con", "di", "da", "del", "à", "â", "ç", "è", 
+	 "é", "ê", "ô", "ù", "û", "aux"
 ];
-lowercase_words = toAssociativeArray(lowercase_words);
+lowercase_words = toAssociativeArray(word_arr);
 
 // Words which are written lowercase if in brackets
 // change log (who, when, what)
 // -------------------------------------------------------
 // tma			2004-01-29		first version
 // g0llum		2004-01-29		added dub, megamix, maxi
-var lowercase_bracket_words = [
+// .various		2005-05-09		karaoke, acapella
+word_arr = [
 	 "acoustic", "album", "alternate", "bonus", "clean",
 	 "club", "dance", "dirty", "disc", "extended",
 	 "instrumental", "live", "original", "radio",
 	 "single", "take", "demo", "disc", "edit",
 	 "skit", "mix", "remix", "take", "version",
 	 "reprise", "dub", "megamix", "maxi", "feat",
-	 "interlude", "dialogue"
+	 "interlude", "dialogue", "cut", "karaoke",
+	 "acapella", "vs", "vocal", "trance", "techno", 
+	 "house", "alternative",
 ];
-lowercase_bracket_words = toAssociativeArray(lowercase_bracket_words);
+var lowercase_bracket_words = toAssociativeArray(word_arr);
+
+// Words which the pre-processor looks for and puts them
+// into brackets if they arent yet.
+// change log (who, when, what)
+// -------------------------------------------------------
+// g0llum		2004-05-25		first version
+var preprocessor_bracket_words = [
+	 "cd", "disk", '12"', '7"'
+]
+preprocessor_bracket_words = toAssociativeArray(
+	preprocessor_bracket_words.concat(word_arr)
+);
+
 
 // Words which are always written UPPERCASE.
 // change log (who, when, what)
 // -------------------------------------------------------
 // g0llum		2004-01-31		first version
-var uppercase_words = [
+// .various		2004-05-05		added "FM...PM"
+// g0llum		2004-05-24		removed AM,PM because it yielded false positives e.g. "I AM stupid"
+word_arr = [
 	"DJ", "MC", "TV", "MTV", "EP", "LP", "I",
 	"II", "III", "IIII", "IV", "V", "VI", "VII",
 	"VIII", "IX", "X", "BWV", "YMCA", "NYC", "R&B",
-	"BBC"
+	"BBC", "FM", "BC", "AD", "AC", "DC"
 ];
-uppercase_words = toAssociativeArray(uppercase_words);
+uppercase_words = toAssociativeArray(word_arr);
 
-// Contradictions http://englishplus.com/grammar/00000136.htm
+// Punctuation characters
+// change log (who, when, what)
+// -------------------------------------------------------
+// g0llum		2004-05-24		first version
+word_arr = [
+	":", ".", ",", ";", "?", "!"
+];
+punctuation_chars = toAssociativeArray(word_arr);
+
+// Contractions http://englishplus.com/grammar/00000136.htm
 // change log (who, when, what)
 // -------------------------------------------------------
 // g0llum		2004-04-19		first version
-var contradiction_words = [
+// g0llum		2004-05-25		added that'll, ain't
+word_arr = [
 	"aren't", "can't", "couldn't", "doesn't", "don't", "hadn't", "hasn't",
 	"haven't", "he'd", "he'll", "here's", "he's", "i'd", "i'll", "i'm",
 	"isn't", "it'd", "it'll", "it's", "i've", "let's", "mustn't", "she'd",
@@ -62,9 +83,14 @@ var contradiction_words = [
 	"there'll", "there's", "they'd", "they'll", "they're", "they've",
 	"wasn't", "we'd", "we're", "weren't", "we've", "what's", "who'd",
 	"who's", "won't", "wouldn't", "you'd", "you'll", "you're", "you've",
+	"ain't", "that'll", 
 	"10's", "20's", "30's", "40's", "50's", "60's", "70's", "80's", "90's", "00's"
 ];
-contradiction_words = toContradictionWords(contradiction_words);
+contraction_words = toContractionWords(word_arr);
+
+
+
+
 
 // define matching characters for opening parantheses
 var parenthesis = new Array();
@@ -79,6 +105,7 @@ var last_char_was_open_parenthesis	= false;
 var last_char_was_hyphen			= false;
 var last_word_was_colon				= false;
 var last_char_was_acronym_split		= false;
+var last_char_was_singlequote		= false;
 var ellipsis						= false;
 
 // holds the splitted words for processing.
@@ -93,18 +120,13 @@ var words_number					= new Array();
 var fixed_name						= new Array();
 
 // used to keep track of levels of parenthesis
-var open_bracket					= new Array();
-var open_bracket_count				= 0;	 
+var open_bracket					= new Array();	 
 var current_open_bracket			= "";
 var current_close_bracket			= "";
 
-// used to keep track of whether we're inside double quotes or not
-var open_doublequote				= false;
-var open_singlequote				= false;
-
 // flag to force next to caps first letter
 // seeded true because the first word should be capped
-var force_caps_next_word			= true;
+var force_capitalize_next_word			= true;
 
 // flag to force a space before the next word
 var space_next_word					= false;
@@ -173,10 +195,10 @@ function toAssociativeArray(thearray) {
 
 
 // ----------------------------------------------------------------------------
-// toContradictionWords()
-// -- Renders the contradiction words into an array which supports
-//    lookup with the left part of the contradition like Isn't = array['Isn'] = 't';
-function toContradictionWords(thearray) {
+// toContractionWords()
+// -- Renders the contraction words into an array which supports
+//    lookup with the left part of the contraction like Isn't = array['Isn'] = 't';
+function toContractionWords(thearray) {
 	var temp = [];
 	try {
 		for (var i=0; i<thearray.length; i++) {
@@ -203,6 +225,7 @@ function resetContextFlags() {
 	last_char_was_hyphen = false;
 	last_word_was_colon = false;
 	last_char_was_acronym_split = false;
+	last_char_was_singlequote = false;
 	ellipsis = false;
 }
 
@@ -213,8 +236,7 @@ function resetContextFlags() {
 function resetGlobals() {
 	fixed_name = new Array();
 	open_bracket = new Array();
-	open_doublequote = false;
-	force_caps_next_word = true;
+	force_capitalize_next_word = true;
 	space_next_word = false;
 	last_word_was_an_acronym = false;
 	last_word_was_a_number = false;
@@ -236,9 +258,8 @@ function capitalizeLastWord() {
 	var after = fixed_name[lastpos];
 	if (fixed_name[lastpos].match(/^\w\..*/) == null) { // check that last word was not an acronym
 		var probe = trim(fixed_name[lastpos].toLowerCase()); // some words that were manipulated might have space padding
-		if (open_bracket.length > 0 &&
-			lowercase_bracket_words[probe] != null) {
-			// If inside brackets, do nothing.
+		if (isInsideBrackets() && lowercase_bracket_words[probe] != null) { // If inside brackets, do nothing.
+		} else if (uppercase_words[probe] != null) { // If it is an UPPERCASE word, do nothing.
 		} else {
 			var titledString = titleCaseWithExceptions(probe);
 			fixed_name[lastpos] = titledString;
@@ -311,6 +332,7 @@ function splitWordsAndPunctuation(input_string) {
 // --  take care of "RMX", "alt. take" "alt take"
 function replaceAbbreviations(input_string) {
 	var searchlist = new Array(
+		new Array(/(\s|\()re-mix((\s|\))|$)/i, "remix"),
 		new Array(/(\s|\()RMX((\s|\))|$)/i, "remix"),
 		new Array(/(\s|\()alt[\.]? take((\s|\))|$)/i, "alternate take")
 	);
@@ -328,6 +350,83 @@ function replaceAbbreviations(input_string) {
 }
 
 // ----------------------------------------------------------------------------
+// handleVinylExpressions()
+// --
+// * look only at substrings which start with ' '  OR '('
+// * convert 7', 7'', 7", 7in, 7inch TO '7"_' (with a following SPACE)
+// * convert 12', 12'', 12", 12in, 12inch TO '12"_' (with a following SPACE)
+// * do NOT handle strings like 80's	
+// Examples:
+//  Original string: "Fine Day (Mike Koglin 12' mix)"
+//  	Last matched portion: " 12' "
+//  	Matched portion 1 = " "
+//  	Matched portion 2 = "12'"
+//  	Matched portion 3 = "12"
+//  	Matched portion 4 = "'"
+//  	Matched portion 5 = " "
+//  Original string: "Where Love Lives (Come on In) (12"Classic mix)"
+//  	Last matched portion: "(12"C"
+//  	Matched portion 1 = "("
+//  	Matched portion 2 = "12""
+//  	Matched portion 3 = "12"
+//  	Matched portion 4 = """
+//  	Matched portion 5 = "C"
+//  Original string: "greatest 80's hits"
+//		Match failed.
+function handleVinylExpressions(return_string) {
+	var re = /(\s+|\()((\d+)(inch\b|in\b|'+|"))([^s])/i;
+	var m = return_string.match(re);
+	if (m) {
+		var mindex = m.index;
+		var mlenght  = m[1].length + m[2].length + m[5].length; // calculate the length of the expression
+		var firstPart = return_string.substring(0, mindex);
+		var lastPart = return_string.substring(mindex+mlenght, return_string.length); // add number
+		var parts = new Array(); // compile the vinyl designation.
+		parts[parts.length] = firstPart;
+		parts[parts.length] = m[1]; // add matched first expression (either ' ' or '('
+		parts[parts.length] = m[3]; // add matched number, but skip the in,inch,'' part
+		parts[parts.length] = '"'; // add vinyl doubleqoute
+		parts[parts.length] = (m[5] != " " ? " " : ""); // add space after ", if none is present
+		parts[parts.length] = m[5]; // add number
+		parts[parts.length] = lastPart;
+		return_string = parts.join("");
+	}
+	return return_string;
+}
+
+// ----------------------------------------------------------------------------
+// preProcessTrackNameWords()
+// --
+// pre-process to find any lowercase_bracket word that needs to be put into parantheses.
+// starts from the back and collects words that belong into
+// the brackets: e.g.
+// My Track Extended Dub remix => My Track (extended dub remix)
+// My Track 12" remix => My Track (12" remix)
+function preprocessTrackNameWords(tnwords) {
+	var wi = tnwords.length-1;
+	var handlePreProcess = false;
+	var isDoubleQuote = false;
+	while (((tnwords[wi] == " ") || // skip whitespace
+		   (tnwords[wi] == '"' && (tnwords[wi-1] == "7" || tnwords[wi-1] == "12")) || // vinyl 7" or 12"
+		   (tnwords[wi+1] == '"' && (tnwords[wi] == "7" || tnwords[wi] == "12")) || 
+		   (preprocessor_bracket_words[tnwords[wi].toLowerCase()] != null)) && 
+		    wi >= 0) {
+		handlePreProcess = true;
+		wi--;
+	}
+	if (handlePreProcess && wi !=  tnwords.length-1) {
+		wi++; // increment to last word that matched.
+		var newwords = tnwords.slice(0, wi);
+		newwords[newwords.length] = "(";
+		newwords = newwords.concat(tnwords.slice(wi, tnwords.length));
+		newwords[newwords.length] = ")";
+		tnwords = newwords;
+		addMessage('preprocessTrackNameWords() :: after pre-process <span class="mbword">'+tnwords.join("").replace(" ", "&nbsp")+'</span>');
+	}
+	return tnwords;
+}
+
+// ----------------------------------------------------------------------------
 // titleCase()
 // --  Upper case first letter of word unless it's one of lowercase_words[]
 // @param input_string	the un-processed input string
@@ -336,10 +435,6 @@ function replaceAbbreviations(input_string) {
 // change log (who, when, what)
 // -------------------------------------------------------
 // tma			2004-01-29		first version
-// g0llum		2004-01-29		added open_bracket_count section.
-// 								because without the "force_caps_next_word"
-// 								did convert the 1. word after "("
-// 								to uppercase, e.g "(Disc 1)"
 // g0llum		2004-01-30		added cases for McTitled, MacTitled, O'Titled
 // g0llum		2004-01-31		converted loops to associative arrays.
 //
@@ -350,26 +445,28 @@ function titleCase(input_string) {
 	var return_string = input_string.toLowerCase();
 	if (return_string == null) return "";
 	if (return_string == "") return return_string;
-	if (return_string.length == 1 && words_index > 1 && words[words_index - 1] == "'") { // we got an 'x (apostrophe), keep the text lowercased
+	if (return_string.length == 1 && words_index > 1 && words[words_index - 1] == "'") { 
+		// we got an 'x (apostrophe), keep the text lowercased
+	} else if (return_string == "round" && words[words_index - 1] == "'") { 
+		// we got an 'round (apostrophed Around), keep the text lowercased
+	} else if (return_string == "o" && words[words_index + 1] == "'") { 
+		// Make it O'Titled
+		return_string = input_string.toUpperCase(); 
 	} else {
 		return_string = titleCaseWithExceptions(return_string);
 		var probe = return_string.toLowerCase(); // prepare probe to lookup entries of the wordlists.
-		if (lowercase_words[probe] != null) { // Test if it's one of the lowercase_words
-			if (!force_caps_next_word) { // Only if force_caps_next_word is not set.
-				return_string = input_string.toLowerCase();
-			}
-		}
-		if (uppercase_words[probe] != null) { // Test if it's one of the uppercase_words
+		if (lowercase_words[probe] != null && !force_capitalize_next_word) { // Test if it's one of the lowercase_words  but if force_capitalize_next_word is not set,
+			return_string = input_string.toLowerCase();
+		} else if (uppercase_words[probe] != null) { // Test if it's one of the uppercase_words
 			return_string = input_string.toUpperCase();
-		}
-		if (open_bracket.length > 0) { // If inside brackets
+		} else if (isInsideBrackets()) { // If inside brackets
 			if (lowercase_bracket_words[probe] != null) { // Test if it's one of the lowercase_bracket_words
 				if (last_word_was_colon && probe == "disc") { // handle special case: (disc 1: Disc x)
 				} else return_string = input_string.toLowerCase();
 			}
 		}
 	}
-	addMessage('titleCase(input=<span class="mbword">'+input_string.replace(' ', '&nbsp;')+'</span>, force_caps='+force_caps_next_word+') OUT: <span class="mbword">'+return_string.replace(' ', '&nbsp;')+'</span>');
+	addMessage('titleCase(input=<span class="mbword">'+input_string.replace(' ', '&nbsp;')+'</span>, force_caps='+force_capitalize_next_word+') OUT: <span class="mbword">'+return_string.replace(' ', '&nbsp;')+'</span>');
 	return return_string;
 }
 
@@ -448,7 +545,7 @@ function handleColons() {
 	if (words_candidate.match(/\:/) != null) {
 		addMessage('handleColons() :: "'+words_candidate+'"');
 		resetContextFlags();
-		force_caps_next_word = true;
+		force_capitalize_next_word = true;
 		last_word_was_colon = true;
 		space_next_word = true;
 		appendWordToFixedName(words_candidate);
@@ -465,7 +562,7 @@ function handleAmpersands() {
 	if (words_candidate.match(/\&/) != null) {
 		addMessage('handleAmpersands() :: "'+words_candidate+'"');
 		resetContextFlags();
-		force_caps_next_word = true;
+		force_capitalize_next_word = true;
 		appendSpaceToFixedName(); // add a space, and remember to
 		space_next_word = true; // add one before the next word
 		appendWordToFixedName(words_candidate);
@@ -483,7 +580,7 @@ function handleLineTerminators() {
 	if (words_candidate.match(/[\?\!\;]/) != null) {
 		addMessage('handleLineTerminators() :: "'+words_candidate+'"');
 		resetContextFlags();
-		force_caps_next_word = true;
+		force_capitalize_next_word = true;
 		space_next_word = true;
 		appendWordToFixedName(words_candidate);
 		return true;
@@ -513,7 +610,7 @@ function handleHypens() {
 			words_index++; // fix case where 95- 96, e.g. skip trailing whitespace if there was none before the hyphen
 		}
 		resetContextFlags();
-		force_caps_next_word = true;
+		force_capitalize_next_word = true;
 		last_char_was_hyphen = true;
 		return true;
 	}
@@ -535,7 +632,7 @@ function handlePlus() {
 		}
 		appendWordToFixedName(words_candidate);
 		resetContextFlags();
-		force_caps_next_word = true;
+		force_capitalize_next_word = true;
 		return true;
 	}
 	return false;
@@ -556,7 +653,7 @@ function handleSlashes() {
 			appendSpaceToFixedName(); // keep whitespace before "/"
 		}
 		appendWordToFixedName(words_candidate);
-		force_caps_next_word = true;
+		force_capitalize_next_word = true;
 		space_next_word = false;
 		resetContextFlags();
 		return true;
@@ -568,27 +665,16 @@ function handleSlashes() {
 // ----------------------------------------------------------------------------
 // handleDoubleQuotes()
 // -- Deal with double quotes (")
-//    need to keep context on whether we're inside quotes or not.
-//    @flags:
-//      * Toggle open_doublequote
-//      * Capitalize next word in any case
-//      * Do not add space if opened quotes
 function handleDoubleQuotes() {
 	if (words_candidate.match(/\"/) != null) {
-		addMessage("handleDoubleQuotes() :: double quotes opened? "+open_doublequote);
-		if (!open_doublequote) {
-			appendSpaceToFixedNameIfNeeded();
-			appendWordToFixedName(words_candidate);
-			open_doublequote = true;
-			force_caps_next_word = true;
-			space_next_word = false;
-		} else {
-			appendWordToFixedName(words_candidate);
-			open_doublequote = false;
-			force_caps_next_word = true;
-			space_next_word = true;
+		addMessage("handleDoubleQuotes() :: ");
+		if (last_char_was_whitespace) {
+			appendSpaceToFixedName(); // keep whitespace before "/"
 		}
+		appendWordToFixedName(words_candidate);
+		force_capitalize_next_word = true;
 		resetContextFlags();
+		space_next_word = (words[words_index + 1 == " "]); // keep whitespace intact
 		return true;
 	}
 	return false;
@@ -599,8 +685,8 @@ function handleDoubleQuotes() {
 // handleSingleQuotes()
 // -- Deal with single quotes (')
 //    * need to keep context on whether we're inside quotes or not.
-//    * Look for contradictions (see contractions_words for a list of
-// 	    Contradictions that are handled, and format the right part (after)
+//    * Look for contractions (see contractions_words for a list of
+// 	    Contractions that are handled, and format the right part (after)
 //      the (') as lowercase.
 //    @flags:
 //      * Toggle open_doublequote
@@ -608,40 +694,31 @@ function handleDoubleQuotes() {
 //      * Do not add space if opened quotes
 function handleSingleQuotes() {
 	if (words_candidate.match(/'/) != null) {
-		addMessage("handleSingleQuotes() :: single quotes opened="+open_singlequote);
-		var foundcontradition = false;
+		addMessage("handleSingleQuotes() :: ");
+		var foundcontraction = false;
 		if (!last_char_was_whitespace && words_index > 0 && words_index < words.length-1) {
 			var left_part = words[words_index-1].toLowerCase();
 			var right_part = words[words_index+1].toLowerCase();
-			var haystack = contradiction_words[left_part];
+			var haystack = contraction_words[left_part];
 			if (haystack != null && right_part != " ") {
 				for (var cwi=0; cwi<haystack.length; cwi++) {
 					if (haystack[cwi] == right_part) {
-						addMessage("handleSingleQuotes() :: Found contradiction="+left_part+"'"+right_part);
-						foundcontradition = true;
+						addMessage("handleSingleQuotes() :: Found contraction="+left_part+"'"+right_part);
+						foundcontraction = true;
 						appendWordToFixedName(words_candidate+""+right_part);
 						words_index++;
 					}
 				}
 			}
 		}
-		if (!foundcontradition) {
-			if (!open_singlequote) {
-				if (last_char_was_whitespace) {
-					appendSpaceToFixedName(); // we have something like "Yada '..."
-					open_singlequote = true; // open double quotes.
-				}
-				appendWordToFixedName(words_candidate);
-				force_caps_next_word = false;
-				space_next_word = false;
-			} else {
-				appendWordToFixedName(words_candidate);
-				open_singlequote = false;
-				force_caps_next_word = true;
-				space_next_word = true;
-			}
+		if (!foundcontraction) {
+			if (last_char_was_whitespace) appendSpaceToFixedName();
+			appendWordToFixedName(words_candidate);
+			force_capitalize_next_word = true;
+			space_next_word = false;
 		}
 		resetContextFlags();
+		last_char_was_singlequote = true;
 		return true;
 	}
 	return false;
@@ -674,7 +751,7 @@ function handleOpeningParenthesis() {
 		resetContextFlags();
 		space_next_word = false;
 		last_char_was_open_parenthesis = true;
-		force_caps_next_word = true;
+		force_capitalize_next_word = true;
 		appendWordToFixedName(words_candidate);
 		return true;
 	}
@@ -695,7 +772,7 @@ function handleClosingParenthesis() {
 	if (words_candidate.match(/[\)\]\}\>]/) != null) {
 		addMessage('handleClosingParenthesis() :: "'+words_candidate+'", stack: ('+open_bracket+')');
 		capitalizeLastWord(); // capitalize the last word
-		if (open_bracket.length > 0) {
+		if (isInsideBrackets()) {
 			current_close_bracket = words_candidate;
 			current_open_bracket = parenthesis[current_close_bracket];
 			if (current_open_bracket == open_bracket[open_bracket.length - 1]) {
@@ -703,12 +780,19 @@ function handleClosingParenthesis() {
 			}
 		}
 		resetContextFlags();
-		force_caps_next_word = true;
+		force_capitalize_next_word = true;
 		space_next_word = true;
 		appendWordToFixedName(words_candidate);
 		return true;
 	}
 	return false;
+}
+
+// ----------------------------------------------------------------------------
+// isInsideBrackets()
+//
+function isInsideBrackets() {
+	return (open_bracket.length > 0);
 }
 
 // ----------------------------------------------------------------------------
@@ -718,7 +802,7 @@ function handleClosingParenthesis() {
 function closeOpenParentheses() {
 	addMessage('closeOpenParentheses() :: [' + open_bracket + ']');
 	var parts = new Array();
-	while (open_bracket.length > 0) { // close brackets that were opened before
+	while (isInsideBrackets()) { // close brackets that were opened before
 		current_open_bracket = open_bracket[open_bracket.length-1];
 		current_close_bracket = parenthesis[current_open_bracket];
 		parts[parts.length] = current_close_bracket;
@@ -743,7 +827,7 @@ function handleCommas() {
 			addMessage('handleCommas() :: "'+words_candidate+'"');
 			resetContextFlags();
 			space_next_word = true;
-			force_caps_next_word = false;
+			force_capitalize_next_word = false;
 			appendWordToFixedName(words_candidate);
 		}
 		return true;
@@ -773,12 +857,12 @@ function handlePeriods() {
 				fixed_name[fixed_name.length] = ".";
 				fixed_name[fixed_name.length] = ".";
 			}
-			force_caps_next_word = !ellipsis; // if ellipsis true => caps false, else true.
+			force_capitalize_next_word = !ellipsis; // if ellipsis true => caps false, else true.
 			space_next_word = true;
 		} else {
 			resetContextFlags();
 			capitalizeLastWord(); // just a normal, boring old period
-			force_caps_next_word = true; // force caps on last word
+			force_capitalize_next_word = true; // force caps on last word
 			space_next_word = true;
 			fixed_name[fixed_name.length] = ".";
 		}
@@ -797,8 +881,14 @@ function handleAcronym() {
 	if (words_candidate.match(/^\w$/) != null) {
 		words_acronym[0] = words_candidate.toUpperCase();
 		var expect_word = false;
-		acronymloop:
-		while (words_index+words_subindex < words.length) {
+		var consumed_dot = false;   
+		// acronym handling was made less strict to 
+		// fix broken acronyms which look like this: "A. B. C."
+		// the variable consumed_dot, is used such that such
+		// cases do not yield false positives:
+		// A D.J. -> which should be handled as 2 separate
+		// words "a", and the acronym "D.J."
+		while (words_index + words_subindex < words.length) {
 			var cw = words[words_index+words_subindex];
 			if (expect_word && cw.match(/^\w$/) != null) {
 				words_acronym[words_acronym.length] = cw.toUpperCase(); // consume dot
@@ -806,9 +896,10 @@ function handleAcronym() {
 			} else {
 				if (cw == ".") {
 					words_acronym[words_acronym.length] = "."; // consume dot
+					consumed_dot = true;
 					expect_word = true;
-				} else if (cw == " ") expect_word = true; // consume a single whitespace 
-				else break acronymloop; // found something which is not part of the acronym
+				} else if (consumed_dot && cw == " ") expect_word = true; // consume a single whitespace 
+				else break; // found something which is not part of the acronym
 			}
 			words_subindex++;
 		}
@@ -820,7 +911,7 @@ function handleAcronym() {
 		appendSpaceToFixedNameIfNeeded();
 		appendWordToFixedName(tempStr);
 		last_word_was_an_acronym = true;
-		force_caps_next_word = false;
+		force_capitalize_next_word = false;
 		words_index	= words_index+words_subindex - 1; // set pointer to after acronym
 		return true;
 	}
@@ -882,7 +973,7 @@ function lookForAndProcessDigitOnlyString() {
 			words_subindex++;
 		}
 		last_word_was_a_number = true;
-		force_caps_next_word = false;
+		force_capitalize_next_word = false;
 		words_index = words_index + words_subindex - 1 ;
 		// add : after disc with number, with more words following
 		// only if there is a string which is assumed to be the
@@ -894,11 +985,11 @@ function lookForAndProcessDigitOnlyString() {
 				words[words_index + 1] != ")" && // if next character is *not* closing parenthesis
 				words[words_index + 1] != ":") {
 				words_number[words_number.length] = ":"; // if there is no colon already present, add a colon
-				force_caps_next_word = true;
+				force_capitalize_next_word = true;
 				last_word_was_colon = true;
 			}
 			space_next_word = false;
-			force_caps_next_word = true;
+			force_capitalize_next_word = true;
 			last_word_was_disc = false;
 		}
 		addMessage('lookForAndProcessDigitOnlyString() :: <span class="mbword">"'+words_number.join('')+'"</span>, next word='+words[words_index+1]);
@@ -916,24 +1007,16 @@ function lookForAndProcessDigitOnlyString() {
 function handleArtistNameWord() {
 	addMessage('handleArtistNameWord() :: Candidate=<span class="mbword">'+words_candidate+'</span>');
 	words_candidate = titleCase(words_candidate);
-	if (words_candidate.match(/Cd|Dis[kc]\w+\d+/)) {
-		words_candidate = words_candidate.replace(/Cd|Dis[kc]\w+/, "disc ");
-		if (open_bracket.length == 0) {
-			words_candidate = "(" + words_candidate;
-			open_bracket[open_bracket.length] = "(";
-		}
-	} else if (words_candidate == "Vol") {
-		if (words_index >= 2 && fixed_name[fixed_name.length-1] != ",") {
-			fixed_name[fixed_name.length] = ",";
-		}
-		words_candidate = "Volume";
-		if (words[words_index+1] == ".") words_index++;
-	} else if (words_candidate == "Pres" || words_candidate == "Presents") {
+	if (handleVersus()) {
+	} else if (words_candidate.match(/^(pres|presents)$/i)) {
 		words_candidate = "presents";
+		appendSpaceToFixedName();
+		appendWordToFixedName(words_candidate);
 		if (words[words_index+1] == ".") words_index++;
+	} else {
+		appendSpaceToFixedNameIfNeeded();
+		appendWordToFixedName(words_candidate);
 	}
-	appendSpaceToFixedNameIfNeeded();
-	appendWordToFixedName(words_candidate);
 	last_word_was_a_number = false;
 	return true;
 }
@@ -944,42 +1027,38 @@ function handleArtistNameWord() {
 // -- Album name specific processing of words
 function handleAlbumNameWord() {
 	words_candidate = titleCase(words_candidate);
+	var matcher = null;
 	if (!last_word_was_colon && words_index > 0 && 
-		words_candidate.match(/^(Cd|Disk|Disc)\s*\d*/i)) { // test for disc/disk and variants
-		words_candidate = words_candidate.replace(/^(Cd|Disk|Disc)\s*/i, "disc ");
-		if (open_bracket.length == 0) {
-			words_candidate = "(" + words_candidate;
-			open_bracket[open_bracket.length] = "(";
+		(matcher = words_candidate.match(/^(Cd|Disk|Disc)(\s*)(\d*)/i)) != null) { // test for disc/disk and variants
+		if (fixed_name[fixed_name.length-1] == "-") {
+			fixed_name.pop(); // delete hypen if one occurs before disc. eg. Albumname - Disk1
 		}
-		// if there are more words after the current
-		// and next character is *not* closing parenthesis, add a disc separator (":")
-		// TODO: messes up disc titles which are formatted already.
-		// if (words_index < words.length-1 && words[words_index + 1] != ")")
-		//	 words_candidate += ":";
-		if (fixed_name[fixed_name.length-1] == "-") fixed_name.pop(); // delete hypen if one occurs before disc. eg. Albumname - Disk1
 		appendSpaceToFixedNameIfNeeded();
-		appendWordToFixedName(words_candidate);
+		if (open_bracket.length == 0) { //if we're not inside brackets, open up a new pair.
+			words_candidate = "(";
+			words[words.length] = ")";
+			handleOpeningParenthesis();
+		}
+		appendWordToFixedName("disc");
 		last_word_was_disc = true;
 		last_word_was_a_number = false;
-		force_caps_next_word = false;
+		force_capitalize_next_word = false;
 		space_next_word = false;
-	} else if (handleFeaturingArtist()) {
-	} else if (words_candidate == "Vol") { // replace Vol[.] with VOlume
-		if (words_index >= 2 && fixed_name[fixed_name.length-1] != ",") {
-			fixed_name[fixed_name.length] = ",";
+		if (matcher[3] != "") { // check if a number is part of the disc title.
+			appendSpaceToFixedName(); // add space before the number
+			appendWordToFixedName(matcher[3]); // add numeric part
+			last_word_was_disc = false;
+			last_word_was_a_number = true;
 		}
-		words_candidate = "Volume";
-		if (words[words_index+1] == ".") words_index++;
-		appendSpaceToFixedNameIfNeeded();
-		appendWordToFixedName(words_candidate);
-		last_word_was_a_number = false;
-		force_caps_next_word = false;
-		 space_next_word = true;
+	} else if (handleFeaturingArtist()) {
+	} else if (handleVersus()) {
+	} else if (handleVolume()) {
+	} else if (handlePart()) {
 	} else { // handle normal word.
 		appendSpaceToFixedNameIfNeeded();
 		appendWordToFixedName(words_candidate);
 		last_word_was_a_number = false;
-		force_caps_next_word = false;
+		force_capitalize_next_word = false;
 		space_next_word = true;
 	}
 }
@@ -1003,27 +1082,88 @@ function handleTrackNameWord() {
 	
 	words_candidate = titleCase(words_candidate);
 	if (handleFeaturingArtist()) {
+	} else if (handleVersus()) {
+	} else if (handleVolume()) {
+	} else if (handlePart()) {
 	} else {
 		if (words_candidate == "7in") { // check vinyl abreviations
 			appendSpaceToFixedNameIfNeeded();
 			words_candidate = "7\"";
 			space_next_word = false;
-			force_caps_next_word = false;
+			force_capitalize_next_word = false;
 		} else if (words_candidate == "12in") { // check vinyl abreviations
 			appendSpaceToFixedNameIfNeeded();
 			words_candidate = "12\"";
 			space_next_word = false;
-			force_caps_next_word = false;
+			force_capitalize_next_word = false;
 		} else { // handle other cases (e.g. normal words)
 			appendSpaceToFixedNameIfNeeded();
 			space_next_word = true;
-			force_caps_next_word = false;
+			force_capitalize_next_word = false;
 		}
 		appendWordToFixedName(words_candidate);
 	}	
 	last_word_was_a_number = false;
 }
 
+// ----------------------------------------------------------------------------
+// handleVersus()
+// -- Correct vs.
+function handleVersus() {
+	if (words_candidate.match(/^vs$/i)) {
+		addMessage('handleVersus() :: <span class="mbword">'+words_candidate+'</span>');
+		capitalizeLastWord();
+		if (!last_char_was_open_parenthesis) appendSpaceToFixedName();
+		appendWordToFixedName(words_candidate.toLowerCase());
+		appendWordToFixedName(".");
+		if (words[words_index + 1] == ".") words_index += 1; // skip trailing (.)
+		force_capitalize_next_word = true;
+		space_next_word = true;
+		return true;
+	}
+	return false;
+}
+
+// ----------------------------------------------------------------------------
+// handleVolume()
+// -- Handle "Vol", "Vol.", "Volume" -> ", Volume"
+function handleVolume() {
+	if (words_candidate.match(/^(vol|volume)$/i)) {
+		if (words_index >= 2 && 
+			punctuation_chars[fixed_name[fixed_name.length-1]] == null) { // if no other punctuation char present
+			fixed_name[fixed_name.length] = ","; // add a comma
+		}
+		words_candidate = "Volume";
+		if (words[words_index+1] == ".") words_index++;
+		appendSpaceToFixedNameIfNeeded();
+		appendWordToFixedName(words_candidate);
+		last_word_was_a_number = false;
+		force_capitalize_next_word = false;
+		space_next_word = true;
+		return true;
+	}
+	return false;
+}
+
+// ----------------------------------------------------------------------------
+// handlePart()
+// -- Handle "Pt", "Pt.", "Part" -> ", Part"
+function handlePart() {
+	if (!isInsideBrackets() && words_candidate.match(/^pt|part$/i)) {
+		if (words_index >= 2 && fixed_name[fixed_name.length-1] != ",") {
+			fixed_name[fixed_name.length] = ",";
+		}
+		words_candidate = "Part";
+		if (words[words_index+1] == ".") words_index++;
+		appendSpaceToFixedNameIfNeeded();
+		appendWordToFixedName(words_candidate);
+		last_word_was_a_number = false;
+		force_capitalize_next_word = false;
+		space_next_word = true;
+		return true;
+	}
+	return false;
+}
 
 // ----------------------------------------------------------------------------
 // handleFeaturingArtist()
@@ -1055,11 +1195,11 @@ function handleFeaturingArtist() {
 		}
 		var featStr = featparts.join("");
 		appendWordToFixedName(featStr);
-		force_caps_next_word = true;
+		force_capitalize_next_word = true;
 		space_next_word = true;
 		last_word_was_feat = true;
 		if (words[words_index + 1] == ".") words_index += 1; // skip trailing (.)
-		featDebug = featStr + featDebug;
+		featDebug = "result: "+featStr+" debug: "+featDebug;
 		addMessage('handleFeaturingArtist() :: <span class="mbword">'+featDebug.replace(" ", "&nbsp")+'</span>');
 		return true;
 	}
@@ -1086,41 +1226,26 @@ function handleFeaturingArtist() {
 // @param input_string				the un-processed input string
 // @returns							the processed string
 function trackNameFix(input_string) {
-	if (input_string.match(/^[\(\[]?\s*data(\s+track)?\s*[\)\]]?$/i))
+	if (input_string.match(/^([\(\[]?\s*data(\s+track)?\s*[\)\]]?$)/i))
 		return "[data track]";
-	if (input_string.match(/^[\(\[]?\s*silen(t|ce)(\s+track)?\s*[\)\]]?$/i))
+	if (input_string.match(/^([\(\[]?\s*silen(t|ce)(\s+track)?\s*[\)\]]?)$/i))
 		return "[silence]";
-	if (input_string.match(/^[\(\[]?\s*untitled(\s+track)?\s*[\)\]]?$/i))
+	if (input_string.match(/^([\(\[]?\s*untitled(\s+track)?\s*[\)\]]?)$/i))
 		return "[untitled]";
-	if (input_string.match(/^[\(\[]?\s*unknown|bonus(\s+track)?\s*[\)\]]?$/i))
+	if (input_string.match(/^([\(\[]?\s*unknown|bonus(\s+track)?\s*[\)\]]?)$/i))
+		return "[unknown]";
+	if (input_string.match(/^\?+$/i))
 		return "[unknown]";
 	resetMessages();
 	resetGlobals();
 	resetContextFlags();
 	
 	input_string = replaceAbbreviations(input_string);
+	input_string = handleVinylExpressions(input_string);
 	words = splitWordsAndPunctuation(input_string);
+	words = preprocessTrackNameWords(words);
 
-	// pre-process to find any lowercase_bracket word that needs to be put into parantheses.
-	// starts from the back and collects words that belong into
-	// the brackets: e.g.
-	// My Track Extended Dub remix => My Track (extended dub remix)
-	words_index = words.length-1;
-	var handlePreProcess = false;
-	while (words[words_index] == " " || // skip whitespace
-		  (lowercase_bracket_words[words[words_index].toLowerCase()] != null && words_index >= 0)) {
-		handlePreProcess = true;
-		words_index--;
-	}
-	if (handlePreProcess && words_index !=  words.length-1) {
-		words_index++; // increment to last word that matched.
-		var newwords = words.slice(0, words_index);
-		newwords[newwords.length] = "(";
-		newwords = newwords.concat(words.slice(words_index, words.length));
-		newwords[newwords.length] = ")";
-		words = newwords;
-		addMessage('trackNameFix() :: after pre-process <span class="mbword">'+words.join("").replace(" ", "&nbsp")+'</span>');
-	}
+	// loop through all the words
 	for (words_index = 0; words_index < words.length; words_index++) { // not i, but words_index anymore
 		words_candidate = words[words_index];
 		if (handleWhiteSpace()) {
@@ -1187,6 +1312,8 @@ function artistNameFix(input_string) {
 	resetGlobals();
 	resetContextFlags();
 	words = splitWordsAndPunctuation(input_string);
+
+	// loop through all the words
 	for (words_index = 0; words_index < words.length; words_index++) { // not i, but words_index anymore
 		words_candidate = words[words_index];
 		if (handleWhiteSpace()) {
@@ -1213,7 +1340,7 @@ function artistNameFix(input_string) {
 				} else if (handleAcronym()) {
 				} else handleArtistNameWord();
 				resetContextFlags();
-				force_caps_next_word = false;
+				force_capitalize_next_word = false;
 				space_next_word = true;
 			}
 		}
@@ -1236,6 +1363,29 @@ function albumNameFix(input_string) {
 	resetGlobals();
 	resetContextFlags();
 	words = splitWordsAndPunctuation(input_string);
+
+	// pre-process to find any lowercase_bracket word that needs to be put into parantheses.
+	// starts from the back and collects words that belong into
+	// the brackets: e.g.
+	// My Track Extended Dub remix => My Track (extended dub remix)
+	words_index = words.length-1;
+	var handlePreProcess = false;
+	while (words[words_index] == " " || // skip whitespace
+		  (preprocessor_bracket_words[words[words_index].toLowerCase()] != null && words_index >= 0)) {
+		handlePreProcess = true;
+		words_index--;
+	}
+	if (handlePreProcess && words_index !=  words.length-1) {
+		words_index++; // increment to last word that matched.
+		var newwords = words.slice(0, words_index);
+		newwords[newwords.length] = "(";
+		newwords = newwords.concat(words.slice(words_index, words.length));
+		newwords[newwords.length] = ")";
+		words = newwords;
+		addMessage('albumNameFix() :: after pre-process <span class="mbword">'+words.join("").replace(" ", "&nbsp")+'</span>');
+	}
+
+	// loop through all the words
 	for (words_index = 0; words_index < words.length; words_index++) { // not i, but words_index anymore
 		words_candidate = words[words_index];
 		if (handleWhiteSpace()) {
@@ -1288,17 +1438,48 @@ function getAndCheckFixedName() {
 			return_string = return_string.replace(searchlist[i][0], searchlist[i][1]);
 		}
 	}
-	// handle 7', 7'', 7", 7in, 7inch, 12', 12'', 12", 12in, 12inch etc.
-	// but not 80's
-	var vinylRegex = /((\d+)(inch\b|in\b|'+|"))[^s]/i;
-	var vinylMatch = return_string.match(vinylRegex);
-	if (vinylMatch) {
-		var index = vinylMatch.index;
-		var len = vinylMatch[0].length;
-		return_string =
-			return_string.substring(0, index) +
-			vinylMatch[2]+'"'+ // number + "
-			return_string.substring(index+len, return_string.length);
+
+	// vinyl expression
+	// * look only at substrings which start with ' '  OR '('
+	// * convert 7', 7'', 7", 7in, 7inch TO '7"_' (with a following SPACE)
+	// * convert 12', 12'', 12", 12in, 12inch TO '12"_' (with a following SPACE)
+	// * do NOT handle strings like 80's	
+	//
+	// Examples:
+	//  Original string: "Fine Day (Mike Koglin 12' mix)"
+	//  	Last matched portion: " 12' "
+	//  	Matched portion 1 = " "
+	//  	Matched portion 2 = "12'"
+	//  	Matched portion 3 = "12"
+	//  	Matched portion 4 = "'"
+	//  	Matched portion 5 = " "
+	//  Original string: "Where Love Lives (Come on In) (12"Classic mix)"
+	//  	Last matched portion: "(12"C"
+	//  	Matched portion 1 = "("
+	//  	Matched portion 2 = "12""
+	//  	Matched portion 3 = "12"
+	//  	Matched portion 4 = """
+	//  	Matched portion 5 = "C"
+	//  Original string: "greatest 80's hits"
+	//		Match failed.
+	var re = /(\s+|\()((\d+)(inch\b|in\b|'+|"))([^s])/i;
+	var matcher = return_string.match(re);
+	if (matcher) {
+		var mindex = matcher.index;
+		var mlenght  = matcher[1].length + matcher[2].length + matcher[5].length; // calculate the length of the expression
+		var firstPart = return_string.substring(0, mindex);
+		var lastPart = return_string.substring(mindex+mlenght, return_string.length); // add number
+
+		// compile the proper vinyl designation.
+		var parts = new Array();
+		parts[parts.length] = firstPart;
+		parts[parts.length] = matcher[1]; // first part (either ' ' or '('
+		parts[parts.length] = matcher[3]; // add number
+		parts[parts.length] = '"'; // add vinyl doubleqoute
+		parts[parts.length] = (matcher[5] != " " ? " " : ""); // add space after ", if none is present
+		parts[parts.length] = matcher[5]; // add number
+		parts[parts.length] = lastPart;
+		return_string = parts.join("");
 	}
 	return return_string;
 }

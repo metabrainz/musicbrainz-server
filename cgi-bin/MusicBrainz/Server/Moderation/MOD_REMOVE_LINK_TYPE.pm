@@ -30,7 +30,7 @@ package MusicBrainz::Server::Moderation::MOD_REMOVE_LINK_TYPE;
 use ModDefs qw( :modstatus DARTIST_ID MODBOT_MODERATOR );
 use base 'Moderation';
 
-sub Name { "Remove Link Type" }
+sub Name { "Remove Relationship Type" }
 (__PACKAGE__)->RegisterHandler;
 
 sub PreInsert

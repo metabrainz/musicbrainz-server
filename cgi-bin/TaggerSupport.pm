@@ -28,7 +28,7 @@ package TaggerSupport;
 use strict;
 use MusicBrainz;
 use Album; # for constants
-use String::Unicode::Similarity;
+use String::Similarity;
 use Encode qw( encode decode );
 
 # These are the status flags that Lookup returns for the results

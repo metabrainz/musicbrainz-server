@@ -31,7 +31,7 @@ use TableBase;
 use strict;
 use Carp qw( carp cluck croak );
 use DBDefs;
-use String::Unicode::Similarity;
+use String::Similarity;
 use Text::Unaccent;
 use LocaleSaver;
 use POSIX qw(:locale_h);
@@ -423,6 +423,12 @@ sub Update
     $update{begindate} = $new->{BeginDate} if exists $new->{BeginDate};
     $update{enddate} = $new->{EndDate} if exists $new->{EndDate};
 
+    if (exists $update{'sortname'})
+    {
+	my $page = $this->CalculatePageIndex($update{'sortname'});
+	$update{'page'} = $page;
+    }
+
     # We map the following attributes to NULL
     $update{type} = undef if exists $update{type} and $update{type} == 0;
     $update{resolution} = undef
@@ -431,7 +437,6 @@ sub Update
 	if exists $update{begindate} and $update{begindate} eq '';
     $update{enddate} = undef
 	if exists $update{enddate} and $update{enddate} eq '';
-
 
     my $attrlist = join ', ', map { "$_ = ?" } sort keys %update;
 

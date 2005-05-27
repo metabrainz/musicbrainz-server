@@ -169,19 +169,23 @@ specific notes about a server type, the instructions apply to all server types.
    Apache::Session
    Apache::Session::File
    Bundle::Apache
+   Bundle::Mason
    Cache::Memcached
    Date::Calc
-   DBD::Pg
+   DBD::Pg (version 1.32 recommended - see admin/depend.pl)
    DBI
+   Devel::Peek
    Digest::SHA1
-   HTML::Mason
    HTTP::Negotiate
+   Language::Guess (see notes below about seed data for this module)
    MIME::Lite
    Net::Amazon
    RDFStore
    Storable
-   String::Unicode::Similarity (see notes below)
+   String::ShellQuote
+   String::Similarity
    Text::Unaccent (see notes below)
+   Time::ParseDate
    UUID (requires e2fsprogs)
    XML::Parser
    XML::RSS
@@ -191,38 +195,10 @@ specific notes about a server type, the instructions apply to all server types.
    IO::Socket
    MIME::Base64
    Net::SMTP
-   String::ShellQuote
-   Tie::STDERR
    Time::HiRes
    URI::Escape
 
-8) String::Unicode::Similarity
-
-The server also uses a modified version of String::Similarity from CPAN,
-patched to be able to deal with Unicode data.  Download both the original
-code and the patch:
-
-  ftp://musicbrainz.org/pub/musicbrainz/misc/String-Similarity-0.02.tar.gz
-  ftp://ftp.musicbrainz.org/pub/musicbrainz/misc/String-Unicode-Similarity.patch
-
-then build with:
-
-	tar zfx String-Similarity-0.02.tar.gz
-	patch -p1 < String-Unicode-Similarity.patch
-	cd String-Similarity-0.02
-	perl Makefile.PL
-	make
-	make test
-	make install
-
-Since this patch was created, String-Similarity-1 has now been released
-(http://search.cpan.org/~mlehmann/String-Similarity-1/).  This takes care of
-comparing Unicode strings, which is what the patch was originally for.
-However the "SearchEngine.pm" file uses the patched version of the module in
-an "unofficial" way, which String-Similarity-1 doesn't support - so for now,
-we have to stick with the patched version of 0.02.
-
-9) Text::Unaccent
+8) Text::Unaccent
 
 The latest version of Text::Unaccent on CPAN is, at the time of writing, 1.01.
 However, we need at least 1.05, which you can get from http://www.senga.org/
@@ -231,6 +207,13 @@ However, we need at least 1.05, which you can get from http://www.senga.org/
 Additionally, we also require that the "unac_string" routine it provides be
 able to handle non-string values, like "undef".  There's a patch to achieve
 this at http://www.musicbrainz.org/~dave/Text-Unaccent-1.07-svrok.patch
+
+9) Language::Guess
+
+Please download
+ftp://ftp.musicbrainz.org/pub/musicbrainz/data/language-guess.tar.gz
+and unpack it into your mb_server directory (i.e.
+mb_server/data/language-guess/...)
 
 10) Other dependencies
 

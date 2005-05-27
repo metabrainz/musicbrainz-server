@@ -12,7 +12,7 @@ h1 {
 fieldset {
 	border: #ccc solid 1px;
 	padding: 10px;
-	width: 100%;
+	width: 95%; /* some browser do not like 100%, scrollbar appears */
 }
 fieldset legend {
 	padding: 10px 10px;
@@ -25,20 +25,17 @@ fieldset label {
 	margin-left: 15px;
 	margin-right: 10px;
 }
-fieldset .textfield,
+fieldset .textfield {
+	color: #000;
+	background: #fff;
+	padding-left: 2px;
+}
 fieldset .textfieldfocus {
 	color: #000;
-	padding-left: 2px;
-	/*border-style: solid;
-	border-width: 1px;
-	border-color: #999;*/ 
-}
-fieldset .textfieldfocus {
-	/*border-color: #fb0;*/
 	background: #f0efff;
+	padding-left: 2px;
 }
 fieldset .textarea {
-	/* border: 1px solid #000; */
 }
 .backtolisting .button,
 fieldset .button {
@@ -47,7 +44,7 @@ fieldset .button {
 	background: #ffba58; color: #000; */ 
 }
 fieldset .oldtextfield {
-	border: none;
+	padding-left: 2px; font-size: 9pt;
 }
 .discidmessage {
 	color: red;	font-weight: bold;
@@ -62,7 +59,7 @@ fieldset .padlefttop {
 fieldset .padtop {	
 	padding-top: 10px;
 }
-.modnotearea { /* doesnt like 100% in IE because its in a fieldset */ 
+.modnotearea {
 }
 
 .backtolisting {
@@ -111,12 +108,41 @@ fieldset .padtop {
 .autofixmenu .button,
 .autofixmenu .buttondisabled {
 	 font-size: 11px;
-	/*font-weight: normal;
-	background: #ffba58; color: #000;*/
 }
 .autofixmenu .buttondisabled {
-	/*background: #f0efff; color: #000;
-	font-weight: normal;*/ 
 }
 
+/* styles for the help box. */ 
+.ar-instrument-helpbox {
+	margin-top: 5px;
+}
+.ar-instrument-help {
+	font-family: Arial; font-size: 12px; margin-left: 10px; margin-bottom: 10px;
+}
+.ar-instrument-help p {
+	margin: 0px; padding: 0px; padding-top: 5px;
+}
+.ar-instrument-help ul {
+	margin: 0px; margin-left: 20px; padding: 0px;
+}
+.ar-instrument-help li {
+	margin: 0px; padding: 0px;
+}
+.ar-instrument-help code {
+	margin-left: 10px; margin-right: 10px; background-color: #eee;
+}
 
+/* styles for the dropdown, searchfield, and button */ 
+.ar-dropdown {
+	margin-bottom: 1px; margin-right: 5px; /* formats for the <select> dropdown element */ 
+}
+.ar-attr-textfield {}
+.ar-attr-button {
+	padding: 0px; margin-left: 4px; margin-right: 4px;
+}
+.ar-attribute-item {
+	margin: 0px; padding: 0px;  /* is used to group multiple instrument/vocal dropdown boxes */
+}
+.ar-attribute-description input {
+	margin: 0px; margin-left: 0px; padding: 0px;  /* add instrument/vocal button */ 
+}

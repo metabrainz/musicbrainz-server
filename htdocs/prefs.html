@@ -38,6 +38,7 @@ if ($ARGS{"SavePrefs"})
 		mail_notes_if_i_voted
 		remove_recent_link_on_add
 		show_inline_mods
+		show_inline_mods_random
 		subscriptions_public
 	)) {
 		$ARGS{$_} = 0 if not defined $ARGS{$_};
@@ -188,7 +189,15 @@ $time = time();
 		<label for="pref_show_inline_mods"><input type="checkbox" name="show_inline_mods" id="pref_show_inline_mods"
 			<% UserPreference::get('show_inline_mods') ? "checked" : "" %>
 			>
-		Show 'inline' moderations
+		Show 'inline' moderations</label>
+
+%       if (UserStuff->IsAutoMod($session{orig_privs})) {
+     		<br>&nbsp; &nbsp;
+			<label for="pref_show_inline_mods_random"><input type="checkbox" name="show_inline_mods_random" id="pref_show_inline_mods_random"
+				<% UserPreference::get('show_inline_mods_random') ? "checked" : "" %>
+				>
+			Show random 'inline' moderations</label>
+%       }
 	</p>
 % }
 
@@ -197,7 +206,7 @@ $time = time();
 			<% UserPreference::get('remove_recent_link_on_add') ? "checked" : "" %>
 			>
 		After creating a new relationship, remove the linked items from my
-		"recently used" list
+		"recently used" list</label>
 	</p>
 
 	<h2>E-Mailing Other Moderators</h2>

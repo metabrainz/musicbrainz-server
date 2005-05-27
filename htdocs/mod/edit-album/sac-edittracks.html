@@ -120,7 +120,7 @@ $ar->SetSortName($edit->{"artist"}{"sortname"});
 	possible that some, but not all, of your changes will get voted in.
 </p>
 
-<form method="post" action="/mod/edit-album/sac-edittracks.html">
+<form method="post" name="EditAlbum" action="/mod/edit-album/sac-edittracks.html">
 
 	<& /comp/autofixmenu &>
 
@@ -265,5 +265,7 @@ $ar->SetSortName($edit->{"artist"}{"sortname"});
 		</table>
 	</fieldset>
 </form>
+
+<& /comp/movefocus, "EditAlbum", "album" &>
 
 <& /comp/footer &>

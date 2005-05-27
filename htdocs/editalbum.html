@@ -84,11 +84,9 @@ if (MusicBrainz::IsSingleLineString($newname)
 		<legend>Edit Album Name</legend>
 		<table>
 			<tr>
-				<td><label for="oldname">Current&nbsp;Name:</label></td>
+				<td><label >Current&nbsp;Name:</label></td>
 				<td>
-					<input 	type="text" name="oldname" class="oldtextfield" 
-							size="50" readonly="readonly"
-							value="<% $al->GetName %>" /></td>
+					<div class="oldtextfield"><% $al->GetName  %></div></td>
 			</tr>
 			<tr>
 				<td><label for="newname">New Name:</label></td>

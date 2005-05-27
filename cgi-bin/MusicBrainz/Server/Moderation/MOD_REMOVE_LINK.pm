@@ -31,7 +31,7 @@ use ModDefs qw( :modstatus MODBOT_MODERATOR );
 use base 'Moderation';
 use MusicBrainz::Server::Link;
 
-sub Name { "Remove Link" }
+sub Name { "Remove Relationship" }
 (__PACKAGE__)->RegisterHandler;
 
 sub PreInsert
@@ -84,13 +84,21 @@ sub ApprovedAction
 	require MusicBrainz::Server::Link;
 
 	my $link = MusicBrainz::Server::Link->new($self->{DBH}, [$new->{entity0type}, $new->{entity1type}]);
-	if (!$link || !($link = $link->newFromId($new->{linkid})) || !$link->Delete)
+	$link or return STATUS_ERROR;
+
+	unless ($link = $link->newFromId($new->{linkid}))
+	{
+		$self->InsertNote(MODBOT_MODERATOR, "This link has already been removed");
+		return STATUS_APPLIED;
+	}
+
+	if (not $link->Delete)
 	{
 		$self->InsertNote(MODBOT_MODERATOR, "This link could not be removed");
 		return STATUS_ERROR;
 	}
-   
-	STATUS_APPLIED;
+
+	return STATUS_APPLIED;
 }
 
 sub PostLoad

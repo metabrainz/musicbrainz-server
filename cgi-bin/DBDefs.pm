@@ -76,7 +76,7 @@ MusicBrainz::Server::Database->register_all(
 
 # The schema sequence number.  Must match the value in
 # replication_control.current_schema_sequence.
-sub DB_SCHEMA_SEQUENCE { 5 }
+sub DB_SCHEMA_SEQUENCE { 6 }
 
 # What type of server is this?
 # * RT_MASTER - this is a master replication server.  Changes are allowed, and

@@ -16,7 +16,7 @@ use Scalar::Util qw( reftype weaken );
 			{ url => "/docs/20040922-1.html" },
 		],
 		{ name => "History",				url => "/wd/MusicBrainzHistory" },
-		{ name => "People",					url => "/bio.html" },
+		{ name => "People",					url => "/wd/MusicBrainzBio" },
 		{ name => "Licenses",               url => "/about/licenses.html" },
 		{ name => "Contract",				url => "/contract.html" },
 		{ name => "Applications",		url => "/wd/MusicBrainzEnabledApplications" },

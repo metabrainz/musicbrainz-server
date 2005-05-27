@@ -86,11 +86,9 @@ if (MusicBrainz::IsSingleLineString($newname)
 					<a href="/artist/<% $ar->GetMBId %>.html"><% $ar->GetName %></a></td>
 			</tr>
 			<tr>
-				<td><label for="oldname">Current Value:</label></td>
+				<td><label>Current Value:</label></td>
 				<td>
-					<input 	type="text" name="oldname" class="oldtextfield"
-							size="40" readonly
-							value="<% $al->GetName  %>" /></td>
+					<div class="oldtextfield"><% $al->GetName  %></div></td>
 			</tr>
 			<tr>
 				<td><label for="newname">New Value:</label></td>

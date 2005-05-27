@@ -30,7 +30,7 @@ package MusicBrainz::Server::Moderation::MOD_REMOVE_LINK_ATTR;
 use ModDefs qw( :modstatus DARTIST_ID MODBOT_MODERATOR );
 use base 'Moderation';
 
-sub Name { "Remove Link Attribute" }
+sub Name { "Remove Relationship Attribute" }
 (__PACKAGE__)->RegisterHandler;
 
 sub PreInsert

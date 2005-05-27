@@ -123,14 +123,7 @@ sub Element
 
     for(;defined $attrs[0] && defined $attrs[1];)
     {
-        $pair = " " . (shift @attrs) . "=\"" . (shift @attrs) . "\"";
-#        print "$pair\n";
-#        if (length($pair) + $cols > 80)
-#        {
-#            $ind = $this->_indent();
-#            $cols = length($ind);
-#            $rdf .= "\n$ind"; 
-#        }
+        $pair = " " . (shift @attrs) . "=\"" . escape(shift @attrs) . "\"";
         $rdf .= $pair;
         $cols += length($pair);
     }

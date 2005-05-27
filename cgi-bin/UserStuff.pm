@@ -36,7 +36,7 @@ use URI::Escape qw( uri_escape );
 use CGI::Cookie;
 use Digest::SHA1 qw(sha1_base64);
 use Carp;
-use String::Unicode::Similarity;
+use String::Similarity;
 use Encode qw( decode );
 
 use constant LOCKED_OUT_PASSWORD => "";

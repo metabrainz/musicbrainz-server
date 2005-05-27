@@ -44,10 +44,27 @@ require LocaleSaver;
 eval { require POSIX; new LocaleSaver(&POSIX::LC_CTYPE, "en_US.UTF-8"); 1 }
 	or die "setlocale() failed ($@).  Is the en_US.UTF-8 locale installed?";
 
+# Check that Text::Unaccent doesn't segfault on non-stringy values
 use Text::Unaccent ();
 Text::Unaccent::unac_string("UTF-8", "test");
 do { no warnings; Text::Unaccent::unac_string("UTF-8", undef) eq "" }
 	or die "Text::Unaccent can't handle 'undef'";
+
+# String::Similarity 1.0 was the first version to support Unicode strings
+use String::Similarity 1.0;
+
+# DBD::Pg >= 1.40 seems to have introduced bugs
+require DBD::Pg;
+warn <<EOF if $DBD::Pg::VERSION >= 1.40;
+You are using DBD::Pg version $DBD::Pg::VERSION.  We recommend DBD::Pg version 1.32.
+
+Some people have reported issues with versions of DBD::Pg of 1.40 or later,
+especially if they are running a replication slave server.  In each case
+those issues were resolved by using DBD::Pg version 1.32.  (After version
+1.32, DBD::Pg was taken on by a new maintainer, rewritten, and released as
+version 1.40).
+
+EOF
 
 1;
 # eof depend.pl

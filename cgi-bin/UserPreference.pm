@@ -260,6 +260,7 @@ addpref('sidebar_panel_stats', 1, \&check_bool);
 addpref('sidebar_panel_topmods', 1, \&check_bool);
 addpref('sitemenu_heavy', 0, \&check_bool);
 addpref('show_inline_mods', 0, \&check_bool);
+addpref('show_inline_mods_random', 0, \&check_bool);
 addpref('subscriptions_public', 1, \&check_bool);
 addpref('timezone', 'UTC', \&check_timezone);
 addpref('use_amazon_store', 'amazon.com', \&check_amazon_store);

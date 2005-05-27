@@ -149,19 +149,15 @@ if (MusicBrainz::IsSingleLineString($newname)
 			</tr>
 			<tr>
 				<td nowrap>
-					<label for="oldname">Current:</label></td>
+					<label>Current:</label></td>
 % unless ($al->IsNonAlbumTracks) {
 				<td>
-					<input 	type="text" name="oldseq" class="oldtextfield"
-							size="2" readonly
-							value="<% $tr->GetSequence %>" /></td>
+					<div class="oldtextfield"><% $tr->GetSequence  %></div></td>
 % }	else {
 				<td>&nbsp;</td>
 % }
 				<td colspan="2">
-					<input 	type="text" name="oldname" class="oldtextfield"
-							size="50" readonly
-							value="<% $tr->GetName  %>" /></td>
+					<div class="oldtextfield"><% $tr->GetName  %></div></td>
 			</tr>
 			<tr>
 				<td nowrap>

@@ -29,6 +29,7 @@ package MusicBrainz::Server::Moderation::MOD_MAC_TO_SAC;
 
 use ModDefs qw( :modstatus MODBOT_MODERATOR VARTIST_ID );
 use base 'Moderation';
+use Carp;
 
 sub Name { "Convert Album to Single Artist" }
 (__PACKAGE__)->RegisterHandler;
@@ -63,7 +64,7 @@ sub PostLoad
   	@$this{qw( new.sortname new.name new.artistid)} = split /\n/, $this->GetNew;
 
     # If the name was blank and the new artist id ended up in its slot, swap the two values
-    if ($this->{'new.name'} =~ /\d+/ && !defined $this->{'new.artistid'})
+    if ($this->{'new.name'} =~ /\A\d+\z/ && !defined $this->{'new.artistid'})
     {
         $this->{'new.artistid'} = $this->{'new.name'};
         $this->{'new.name'} = undef;
@@ -134,6 +135,7 @@ sub ApprovedAction
 		$ar->SetName($name);
 		$ar->SetSortName($this->{'new.sortname'});
 		$newid = $ar->Insert(no_alias => 1);
+		$newid or croak "Failed to create artist $name / $this->{'new.sortname'}";
 	}
 
 	# Move each track on the album

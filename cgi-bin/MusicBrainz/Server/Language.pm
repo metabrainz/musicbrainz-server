@@ -218,7 +218,7 @@ nor	norwegian
 cpe	pidgin
 	pig_latin
 pol	polish
-pon	portuguese
+por	portuguese
 ron	romanian
 rus	russian
 srp	serbian

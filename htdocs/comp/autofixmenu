@@ -58,6 +58,9 @@
 										<input type="button" class="button" value="lower" title="convert characters to lowercase" onClick="doApplyOperation(AF_OP_LOWERCASE)">
 										<input type="button" class="button" value="Add ()" title="Add round parentheses () around selection" onClick="doApplyOperation(AF_OP_ROUNDBRACKETS)">
 										<input type="button" class="button" value="Add []" title="Add square brackets [] around selection" onClick="doApplyOperation(AF_OP_SQUAREBRACKETS)">
+										<input type="button" class="button" value="Rem ([])" title="Remove all brackets/parentheses from the selection" onClick="doApplyOperation(AF_OP_REMOVEBRACKETS)">
+										<input type="button" class="button" value="() to []" title="Replace round parantheses () with square brackets [] in the selection" onClick="doApplyOperation(AF_OP_CONVERTROUNDSQUARE)">
+										<input type="button" class="button" value="[] to ()" title="Replace square brackets [] with round parantheses () in the selection" onClick="doApplyOperation(AF_OP_CONVERTSQUAREROUND)">
 										</td><td>&nbsp;&nbsp;&nbsp;</td><td>
 											[ <a href="/wd/GuessCaseTool" target="_blank" title="Select text in titles, then press one of the buttons at left. Click on this link if you want to know more...">help</a> ] <br/></td>
 										</tr></table>

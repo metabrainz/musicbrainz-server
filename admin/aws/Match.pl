@@ -29,7 +29,7 @@ use lib "$FindBin::Bin/../../cgi-bin";
 use strict;
 use DBDefs;
 use Getopt::Long;
-use String::Unicode::Similarity;
+use String::Similarity;
 use Time::HiRes qw( usleep gettimeofday tv_interval );
 use URI::Escape;
 use LWP::UserAgent;
@@ -216,6 +216,7 @@ sub CompareName
     my ($search, $A, $B) = @_;
     my ($tokb, $toka);
 
+	# FIXME: Tokenize returns UTF-8 bytes, similarity needs Unicode strings
     $tokb = join '', @{($search->Tokenize($B))[1]};
     $toka = join '', @{($search->Tokenize($A))[1]};
 

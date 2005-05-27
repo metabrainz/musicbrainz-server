@@ -30,7 +30,7 @@ package MusicBrainz::Server::Moderation::MOD_EDIT_LINK_ATTR;
 use ModDefs qw( :modstatus DARTIST_ID MODBOT_MODERATOR );
 use base 'Moderation';
 
-sub Name { "Edit Link Attribute" }
+sub Name { "Edit Relationship Attribute" }
 (__PACKAGE__)->RegisterHandler;
 
 sub PreInsert

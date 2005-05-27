@@ -1,4 +1,5 @@
 #!/home/httpd/musicbrainz/mb_server/cgi-bin/perl -w
+# vi: set ts=4 sw=4 :
 #____________________________________________________________________________
 #
 #   MusicBrainz -- The community music metadata project.
@@ -106,8 +107,8 @@ sub Process
 		eval {
 			$sqlWrite->Begin;
 			$sqlWrite->Do(
-				"UPDATE $table SET page = ? WHERE id = ? AND page = ?",
-				$correctpage, $id, $page,
+				"UPDATE $table SET page = ? WHERE id = ? AND page = ? AND $namecol = ?",
+				$correctpage, $id, $page, $name,
 			) or die "Failed to update $table #$id";
 			$sqlWrite->Commit;
 		};
@@ -117,7 +118,11 @@ sub Process
 		printf STDERR "Error fixing %s #%d: %s\n",
 			$table, $id, $@;
 
-		eval { $sqlWrite->Rollback };
+		if (not $sqlWrite->{DBH}->{AutoCommit})
+		{
+			$sqlWrite->Rollback;
+		}
+
 		++$failed;
 	}
 
