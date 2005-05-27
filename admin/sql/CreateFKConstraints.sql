@@ -39,6 +39,12 @@ ALTER TABLE albumjoin
     FOREIGN KEY (track)
     REFERENCES track(id);
 
+ALTER TABLE albumwords
+    ADD CONSTRAINT albumwords_fk_albumid
+    FOREIGN KEY (albumid)
+    REFERENCES album (id)
+    ON DELETE CASCADE;
+
 ALTER TABLE artistalias
     ADD CONSTRAINT artistalias_fk_ref
     FOREIGN KEY (ref)
@@ -53,6 +59,12 @@ ALTER TABLE artist_relation
     ADD CONSTRAINT artist_relation_fk_artist2
     FOREIGN KEY (ref)
     REFERENCES artist(id);
+
+ALTER TABLE artistwords
+    ADD CONSTRAINT artistwords_fk_artistid
+    FOREIGN KEY (artistid)
+    REFERENCES artist (id)
+    ON DELETE CASCADE;
 
 ALTER TABLE automod_election
     ADD CONSTRAINT automod_election_fk_candidate
@@ -369,6 +381,12 @@ ALTER TABLE track
     ADD CONSTRAINT track_fk_artist
     FOREIGN KEY (artist)
     REFERENCES artist(id);
+
+ALTER TABLE trackwords
+    ADD CONSTRAINT trackwords_fk_trackid
+    FOREIGN KEY (trackid)
+    REFERENCES track (id)
+    ON DELETE CASCADE;
 
 ALTER TABLE trm
     ADD CONSTRAINT trm_fk_clientversion
