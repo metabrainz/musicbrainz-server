@@ -197,15 +197,18 @@ elsif (scalar(@$recent_links) == 1)
 	</ul>
 
 	<p>
-	You have only selected one element. Please select another element 
-	that you want to relate to <b><% $recent_links->[0][2] %></b> by clicking on the 
-	<em>Use this <% $type %> in a relationship</em> link next to it.
+	You have only selected one element.&nbsp; Please select another element 
+	that you want to relate to <b><% $recent_links->[0][2] %></b> by navigating to
+	its page, then clicking on the <em>Use this ... in a relationship</em> link.
 	</p>
 
 	<p>
-		[ <a href="/mod/link/relate_to_url.html?id=<% $recent_links->[0][1] %>&amp;type=<% $recent_links->[0][0] 
-			%>&amp;name=<% uri_escape($recent_links->[0][2]) %>">Relate to URL</a>
-		| <& /comp/ar/ShowCancelLink, targetid=>$id, targettype=>$type, isrelpage=>$isrelpage &>
+		[
+% unless ($type eq "url") {
+		<a href="/mod/link/relate_to_url.html?id=<% $recent_links->[0][1] %>&amp;type=<% $recent_links->[0][0] 
+			%>&amp;name=<% uri_escape($recent_links->[0][2]) %>">Relate to URL</a> |
+% }
+		<& /comp/ar/ShowCancelLink, targetid=>$id, targettype=>$type, isrelpage=>$isrelpage &>
 		| <a href="/addartist.html">Add new artist</a>
 		]
 
