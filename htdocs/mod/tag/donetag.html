@@ -138,6 +138,19 @@ $more_albums_url = "/showartist.html?artistid=$artist_id" if $artist_id;
     </tr>
      <tr>
       <td valign="top" bgcolor="#f0efff">
+      Move all the selected albums to a different artist.<br>
+      </td>
+      <td valign="top" bgcolor="#f0efff">
+		<form method="post" action="/mod/tag/move.html">
+% for (@albums) {
+			<input type="hidden" name="album" value="<% $_ %>">
+% }
+			<input type="submit" value="Select">
+		</form>
+      </td>
+    </tr>
+     <tr>
+      <td valign="top" bgcolor="#f0efff">
       Remove all the selected albums.<br>
       </td>
       <td valign="top" bgcolor="#f0efff">

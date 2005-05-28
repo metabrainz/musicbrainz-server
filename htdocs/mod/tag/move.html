@@ -1,0 +1,111 @@
+%# vi: set ts=2 sw=2 ft=mason :
+<%args>
+$selectedartist => ""
+$search => ""
+$notetext => undef
+@album => ()
+</%args>
+<%perl>
+
+$m->comp("/comp/checkloggedin", 1, 1)
+	or return;
+
+my $mb = $m->comp("/comp/dblogin");
+
+if ($selectedartist ne "")
+{
+	MusicBrainz::IsNonNegInteger($selectedartist) && $selectedartist
+		or return $m->comp("/comp/badargs", 1, 1);
+
+	my $get_artist = do {
+		my %cache;
+		sub {
+			my ($id) = @_;
+			return $cache{$id} if exists $cache{$id};
+			my $ar = Artist->newFromId($mb->{DBH}, $id);
+			return($cache{$id} = $ar);
+		};
+	};
+
+	my $target = &$get_artist($selectedartist)
+		or return $m->comp(
+			"/comp/error",
+			"Artist #$selectedartist not found.",
+			1, 1,
+		);
+
+	defined $notetext
+		or return $m->comp(
+			"move-confirm",
+			$target,
+			{ album => \@album },
+		);
+
+	my $url = "/showartist.html?artistid=" . $target->GetId;
+
+	$m->comp(
+		"/comp/entermods",
+		DBH => $mb->{DBH},
+		sub => sub {
+			my @mods;
+
+			for my $albumid (@album)
+			{
+				my $al = Album->new($mb->{DBH});
+				$al->SetId($albumid);
+				$al->LoadFromId
+					or warn("Failed to load album #$albumid"), next;
+				next if $al->GetArtist == &ModDefs::VARTIST_ID;
+				next if $al->GetArtist == $target->GetId;
+				my $oldar = &$get_artist($al->GetArtist);
+
+				my @push = Moderation->InsertModeration(
+					DBH	=> $mb->{DBH},
+					uid	=> $session{uid},
+					privs => $session{privs},
+					type => &ModDefs::MOD_MOVE_ALBUM,
+					# --
+					album => $al,
+					oldartist => $oldar,
+					artistsortname => $target->GetSortName,
+					artistname => $target->GetName,
+					artistid => $target->GetId,
+				);
+
+				$push[0]->InsertNote($session{'uid'}, $notetext) if @push;
+
+				push @mods, @push;
+			}
+
+			return @mods;
+		},
+		success_url => $url,
+	) or return;
+
+	die "Shouldn't get here";
+}
+
+$search = ""
+	unless defined $search and $search =~ /\S/;
+
+</%perl>
+
+<& /comp/sidebar, title => "Move albums to another artist" &>
+
+<fieldset>
+	<legend>Select destination artist </legend>
+	<div class="padleft">
+		Please search for the artist to which you want to move
+		the selected albums.
+	</div>
+</fieldset>
+
+<& /comp/artistfilter,
+	search => $search,
+	dontshow => [],
+	allowcreate => 0,
+	url => "/mod/tag/move.html",
+	arglist => { album => \@album },
+	&>
+
+<& /comp/footer &>
