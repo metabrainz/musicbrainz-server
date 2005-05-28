@@ -25,26 +25,15 @@ $url->LoadFromId(1)
 my $title = ("URL Information");
 $m->comp("/comp/sidebar", pagetitle => $title, title => $title);
 
+</%perl>
+<& /comp/urlinfo, url => $url &>
+<br>
+<%perl>
+
 $m->comp("/comp/framedboxbegin", width=>"100%");
 $m->comp("/comp/modnotice");
 $m->comp("/comp/framedboxend");
 $m->out("<br>");
-
-</%perl>
-<& /comp/framedboxbegin, width=>"100%" &>
-<table>
-<tr>
-  <td align="right">URL:</td>
-  <td><a href="<% $url->GetName %>"><% $url->GetName %></a></td>
-</tr>
-<tr>
-  <td align="right">Description:</td>
-  <td><% $url->GetDesc %></a></td>
-</tr>
-</table>
-<& /comp/framedboxend &>
-<br>
-<%perl>
 
 $m->comp("/comp/ar/AddRelationship", id=>$urlid, type=>'url', name=>$url->GetName) 
     if ($addrel);

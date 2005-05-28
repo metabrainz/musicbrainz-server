@@ -1,0 +1,32 @@
+%# vi: set ts=2 sw=2 ft=mason :
+<%args>
+$url
+</%args>
+
+<& /comp/framedboxbegin, width=>"100%" &>
+<table>
+	<tr>
+    <td valign="top" align="right">URL:</td>
+    <td valign="top"><a href="<% $url->GetName %>"><% $url->GetName %></a></td>
+	</tr>
+	<tr>
+		<td align="right">Description:</td>
+		<td><% $url->GetDesc %></a></td>
+	</tr>
+	<tr>
+		<td align="right">URL MB Id:</td>
+    <td><% $url->GetMBId %></td>
+	</tr>
+% if ($session{uid}) {
+	<tr>
+    <td valign="top" align="right">URL RowId:</td>
+    <td valign="top"><% $url->GetId %></td>
+	</tr>
+% }
+% my $meta = "/showurl.html?urlid=" . $url->GetId;
+	<tr>
+		<td align="right">MB Info:</td>
+		<td><a href="<% $meta %>">http://<% &DBDefs::WEB_SERVER %><% $meta %></a></td>
+	</tr>
+</table>
+<& /comp/framedboxend &>

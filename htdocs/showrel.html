@@ -55,6 +55,7 @@ my $title = ("Relationships for $type " . $obj->GetName());
 $m->comp("/comp/sidebar", pagetitle => $title, title => $title);
 
 $m->comp("/comp/artisttitle", artist=>$obj) if ($type eq 'artist');
+$m->comp("/comp/urlinfo", url=>$obj),$m->out("<br>") if ($type eq 'url');
 
 $m->comp("/comp/framedboxbegin", width=>"100%");
 $m->comp("/comp/modnotice");
@@ -88,6 +89,5 @@ if ($type eq 'track')
    $m->comp("/comp/artistinfo", artist=>$ar)
        if ($ar->LoadFromId());
 }
-
 </%perl>
 <& /comp/footer &>
