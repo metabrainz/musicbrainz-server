@@ -4,10 +4,13 @@
 % my $this = shift;
 % my $new = $this->{'new_unpacked'};
 
+%# TODO show track name.  (We used to show the TRM ID, but that's pretty
+%# useless to look at).
 % if ($new->{'TrackId'}) {
 	Old:
-	<a href="/showtrack.html?trackid=<% $new->{'TrackId'} %>"
-		><% $this->GetPrev %></a>
+	<a href="/trm/<% $this->GetPrev %>">This TRM</a>
+	was removed from
+	<a href="/showtrack.html?trackid=<% $new->{'TrackId'} %>">this track</a>
 % } else {
 	[error]
 % }
