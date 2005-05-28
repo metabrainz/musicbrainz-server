@@ -121,7 +121,7 @@ for my $kvpair (split ' ', $attributes)
 
 if (!$swap 
     and !$attr_error
-	and $desc
+		and $desc
     and ($linktypeid =~ /^\d+$/)
     and MusicBrainz::IsValidDateOrEmpty($begindate_y, $begindate_m, $begindate_d)
     and MusicBrainz::IsValidDateOrEmpty($enddate_y, $enddate_m, $enddate_d)
@@ -132,17 +132,19 @@ if (!$swap
     if ($linktype)
     {
         # Remove the two entities being linked from recent_links
-		if (UserPreference::get('remove_recent_link_on_add'))
-		{
-			my $recent_links = ($session{recent_links} ||= []);
-			@$recent_links = grep {
-					($_->[0] != $links[0]{type} || $_->[1] != $links[0]{id}) &&
-					($_->[0] != $links[1]{type} || $_->[1] != $links[1]{id})
-			} @$recent_links;
-			$session{recent_links} = $recent_links;
-		}
+				if (UserPreference::get('remove_recent_link_on_add'))
+				{
+					my $recent_links = ($session{recent_links} ||= []);
+					@$recent_links = grep {
+							($_->[0] != $links[0]{type} || $_->[1] != $links[0]{id}) &&
+							($_->[0] != $links[1]{type} || $_->[1] != $links[1]{id})
+					} @$recent_links;
+					$session{recent_links} = $recent_links;
+				}
 
-        my $url = "/show" . $links[0]{type} . ".html?" . $links[0]{type} . "id=" . $links[0]{id};
+				# So far, always redirects back to the "first" link
+        my $url = "/showrel.html?type=" . $links[0]{type} . "&id=" . $links[0]{id};
+
         $m->comp(
             "/comp/entermods",
             DBH => $mb->{DBH},
@@ -157,7 +159,7 @@ if (!$swap
                     linktype  => $linktype,
                     begindate => [ $begindate_y, $begindate_m, $begindate_d ],
                     enddate   => [ $enddate_y, $enddate_m, $enddate_d ],
-					attributes=> \@submit_attr,
+										attributes=> \@submit_attr,
                 );
 
                 $mods[0]->InsertNote($session{'uid'}, $notetext)
