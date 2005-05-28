@@ -65,7 +65,7 @@ if ($ARGS{"SavePrefs"})
 	{
 		my $p = 0 + $session{privs};
 
-		if ($ARGS{enable_automod_privs}) { $p ||= UserStuff->AUTOMOD_FLAG }
+		if ($ARGS{enable_automod_privs}) { $p |= UserStuff->AUTOMOD_FLAG }
 		else { $p &= ~(UserStuff->AUTOMOD_FLAG) }
 
 		$session{privs} = $p;
