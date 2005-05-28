@@ -88,7 +88,7 @@ if ($url
 	my $linktype = $link->newFromId($linktype);
 	if ($linktype)
 	{
-		my $success_url = "/show$type.html?" . $type . "id=$id";
+		my $success_url = "/showrel.html?id=$id&type=$type";
 
         # Remove the two entities being linked from recent_links
 		my $recent_links = ($session{recent_links} ||= []);
