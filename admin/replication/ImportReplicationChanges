@@ -188,11 +188,11 @@ sub empty
 {
 	my $table = shift;
 
-	my $oid = $sql->SelectSingleValue(
-		"SELECT oid FROM \"$table\" LIMIT 1",
+	my $any = $sql->SelectSingleValue(
+		"SELECT 1 FROM \"$table\" LIMIT 1",
 	);
 
-	not defined $oid;
+	not defined $any;
 }
 
 sub ImportReplicationTables
