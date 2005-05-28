@@ -346,7 +346,7 @@ sub Insert
 	_link_type_matches_entities($link_type, $entities);
 
     # If the latter entity is a URL, then insert the URL and fix up the entity data
-	if ($$entities[1]->{type} eq 'url')
+	if ($$entities[1]->{type} eq 'url' and not $entities->[1]{'id'})
 	{
 	     my $urlobj = MusicBrainz::Server::URL->new($self->{DBH});
 		 
