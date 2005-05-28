@@ -22,9 +22,11 @@ $root = $root->Root
 </%perl>
 <%def .ShowList>
 % my ($type, $new, $node) = @_;
+% my @children = $node->Children;
 	<li>
 		<div>
 			<input type="radio" name="id" value="<% $node->GetMBId %>"
+				onclick="setCanDelete(this, <% @children ? 'false' : 'true' %>)"
 				<% ($new and $new == $node->GetId) ? "checked" : "" %>>
 			<span <% $node->GetModPending ? "class='mp'" : "" %>>
 				<b><% $node->GetName %></b> 
@@ -43,7 +45,7 @@ $root = $root->Root
 		</div>
 		<ul class="linktype">
 %			$m->comp(".ShowList", $type, $new, $_)
-%				 for $node->Children;
+%				 for @children;
 		</ul>
 	</li>
 </%def>
@@ -57,6 +59,10 @@ ul.linktype { list-style: none; padding-left: 1em }
 	<a href="/mod/link/link_type_roots.html">Edit link types</a>
 	| <a href="/mod/link/selectlink.html">Create a link</a>
 ] </div>
+
+<script type="text/javascript">
+function setCanDelete(ele, flag) { ele.form.DeleteLink.disabled = !flag; }
+</script>
 
 <form method="post" action="do_link_type.html">
 <p>Link type: <b><% $type %></b></p>

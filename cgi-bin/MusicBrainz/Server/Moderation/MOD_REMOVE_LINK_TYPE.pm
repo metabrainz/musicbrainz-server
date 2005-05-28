@@ -47,6 +47,13 @@ sub PreInsert
 		die $self;
 	}
 
+	if ($node->Children)
+	{
+		my $note = "This link type has child link types - you must delete those first.";
+		$self->SetError($note);
+		die $self;
+	}
+
 	$self->SetArtist(DARTIST_ID);
 	$self->SetTable($node->{_table}); # FIXME internal field
 	$self->SetColumn("name");
