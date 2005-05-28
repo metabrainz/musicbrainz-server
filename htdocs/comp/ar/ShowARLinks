@@ -11,7 +11,8 @@ $count=>0
 
 return undef if (!$session{uid} && $isrelpage);
 
-my $link = $short ? "Add relationship" : "Use this $type in a relationship";
+my $typename = ($type eq "url" ? "URL" : $type);
+my $link = $short ? "Add relationship" : "Use this $typename in a relationship";
 
 $m->out("[ ");
 if ($session{uid}) 
