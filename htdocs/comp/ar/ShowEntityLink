@@ -8,7 +8,7 @@ $url=>""
 </%args>
 
 % if (!$simple) {
-    <% ucfirst($type) . ":" %>
+    <% $type eq "url" ? "URL:" : ucfirst($type) . ":" %>
 % } 
 % if ($type eq 'artist') {
     <a href="/showartist.html?artistid=<% $id %>"><% $name %></a> 
