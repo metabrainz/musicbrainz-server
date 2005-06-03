@@ -36,6 +36,18 @@ use ModDefs;
 
 sub LinkEntityName { "track" }
 
+sub _GetIdCacheKey
+{
+    my ($class, $id) = @_;
+    "track-id-" . int($id);
+}
+
+sub _GetMBIDCacheKey
+{
+    my ($class, $mbid) = @_;
+    "track-mbid-" . lc $mbid;
+}
+
 # Accessor functions to set/get the artist id of this album
 sub GetArtist
 {
