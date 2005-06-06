@@ -9,6 +9,12 @@ $noncd=>0
 </%args>
 <%perl>
 
+unless (MusicBrainz::IsNonNegInteger($tracks) and $tracks >= 1 and $tracks <= 99)
+{
+	$m->comp("/comp/redirect", '/addalbum.html?artistid=' . $artist . '&error=1');
+	return;
+}
+
 my ($mb);
 my ($i, $artistname, $modpending, $ar);
 my ($dbh, $sth, $rv);

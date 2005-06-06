@@ -1,6 +1,7 @@
 %# vi: set ts=2 sw=2 ft=mason :
 <%args>
 $artistid => undef
+$error => undef
 </%args>
 <%perl>
 
@@ -68,6 +69,12 @@ $ar->LoadFromId
 	<a href="/freedb/freedb.html?search=<% uri_escape($ar->GetName()) %>">import
 	albums from the FreeDB database</a>?
 </p>
+
+%	if ($error == 1) {
+	<div class="similarartist">
+		<span class="warning">Error!</span> Please enter number of tracks between 1 and 99.
+	</div>
+%	}
 
 <form 	method="post" name="AddAlbumForm"
 %   if ($artistid == &ModDefs::VARTIST_ID) {
