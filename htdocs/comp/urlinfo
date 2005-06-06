@@ -28,5 +28,15 @@ $url
 		<td align="right">MB Info:</td>
 		<td><a href="<% $meta %>">http://<% &DBDefs::WEB_SERVER %><% $meta %></a></td>
 	</tr>
+	<tr>
+		<td></td>
+		<td>
+			<div style="font-weight: bold; margin-top: 1em; margin-bottom: 1em">
+	<a href="<% $url->GetName %>">Click here to go to <% $url->GetName %></a>
+	</div>
+		</td>
+	</tr>
+</p>
+
 </table>
 <& /comp/framedboxend &>
