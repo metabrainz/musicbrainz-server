@@ -43,10 +43,10 @@ $tr->LoadFromId
 # Allow the track number to be set as high as either the highest track number,
 # or the number of tracks on the album, whichever is the greater.
 my $last_seq = 0;
-if (my $tracks = $al->GetTracks and @$tracks)
+if (my $tracks = $al->GetTracks)
 {
 	my $track_cnt = $al->GetTrackCount;
-	$last_seq = $tracks->[-1]->GetSequence;
+	$last_seq = (@$tracks ? $tracks->[-1]->GetSequence : 1);
 	if ($track_cnt > $last_seq) 
 	{
 		$last_seq = $track_cnt;
