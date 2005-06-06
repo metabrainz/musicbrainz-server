@@ -3,14 +3,14 @@
 
 $m->comp("/comp/checkloggedin", 1, 1)
 	or return;
-$m->comp("/comp/ar/CheckLinkModerator", 1, 1)
-	or return;
 
 my @types = MusicBrainz::Server::LinkEntity->Types;
 
 my %n = map {
 	$_, MusicBrainz::Server::LinkEntity->NameFromType($_)
 } @types;
+
+my $is_link_mod = UserStuff->IsLinkModerator($session{privs});
 
 </%perl>
 <& /comp/sidebar, title => 'Link Types', head => '
@@ -65,7 +65,11 @@ my %n = map {
 <h3>Link Attributes</h3>
 
 <p>
+%if ($is_link_mod) {
 <a href="/mod/link/link_attrs.html">Edit link attributes</a>
+%} else {
+<a href="/mod/link/link_attrs.html">View link attributes</a>
+%}
 </p>
 
 <& /comp/footer &>
