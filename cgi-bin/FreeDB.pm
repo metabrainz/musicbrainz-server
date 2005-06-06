@@ -459,6 +459,7 @@ sub InsertForModeration
                 if ($al->GetTrackCount() == scalar(@$ref))
                 {
 		    return unless AUTO_ADD_DISCID;
+		    return if $al->IsNonAlbumTracks;
 
 		    require Sql;
                     my $sql = Sql->new($this->{DBH});

@@ -37,6 +37,7 @@ else
        
         $al = shift @albumlist;
         last if (!defined $al);
+        next if $al->IsNonAlbumTracks;
         $num_tracks = $al->GetTrackCount();
         if ($num_tracks == $tracks)
         {

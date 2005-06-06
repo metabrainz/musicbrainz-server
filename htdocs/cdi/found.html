@@ -17,6 +17,11 @@ $al->LoadFromId
 		"Album #$album not found in the database.",
 		1, 1,
 	);
+	
+return $m->comp("/comp/error",
+	"Disc IDs can't be added to $al->{name} albums.",
+	1, 1,
+	) if $al->IsNonAlbumTracks;
 
 my $ar = Artist->new($mb->{DBH});
 $ar->SetId($al->GetArtist);

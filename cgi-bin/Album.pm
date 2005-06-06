@@ -217,7 +217,7 @@ sub GetAttributeModPending
 sub IsNonAlbumTracks
 {
    my @attrs = @{$_[0]->{attrs}};
-   return (scalar(@attrs) == 2 && $attrs[1] == 0);
+   return (scalar(@attrs) == 2 && $attrs[1] == ALBUM_ATTR_NONALBUMTRACKS);
 }
 
 sub FindNonAlbum
