@@ -29,6 +29,12 @@ $ar->LoadFromId
 		1, 1,
 	);
 
+return $m->comp(
+	"/comp/error",
+	"This artist cannot be deleted - it is in use",
+	1, 1,
+) if $ar->InUse;
+
 my $url = "/search.html";
 
 if ($ARGS{confirm})

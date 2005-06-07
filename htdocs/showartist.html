@@ -179,9 +179,11 @@ $m->comp(
 				<p>This artist has no albums.</p>
 				<p>
 					[
+% unless ($artist->InUse) {
 					<a href="/remartist.html?artist=<% $artist->GetId %>"
 						>Remove this artist</a>
 					|
+% }
 					<a href="/addnonalbumtracks.html?artistid=<% $artist->GetId() %>"
 						>Add non-album tracks</a>
 					]

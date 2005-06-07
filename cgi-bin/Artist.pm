@@ -1091,4 +1091,41 @@ sub GetSubscribers
     return UserSubscription->GetSubscribersForArtist($self->{DBH}, $self->GetId);
 }
 
+sub InUse
+{
+    my ($self) = @_;
+    my $sql = Sql->new($self->{DBH});
+
+    return 1 if $sql->SelectSingleValue(
+	"SELECT 1 FROM album WHERE artist = ? LIMIT 1",
+	$self->GetId,
+    );
+    return 1 if $sql->SelectSingleValue(
+	"SELECT 1 FROM track WHERE artist = ? LIMIT 1",
+	$self->GetId,
+    );
+    return 1 if $sql->SelectSingleValue(
+	"SELECT 1 FROM l_album_artist WHERE link1 = ? LIMIT 1",
+	$self->GetId,
+    );
+    return 1 if $sql->SelectSingleValue(
+	"SELECT 1 FROM l_artist_artist WHERE link1 = ? LIMIT 1",
+	$self->GetId,
+    );
+    return 1 if $sql->SelectSingleValue(
+	"SELECT 1 FROM l_artist_artist WHERE link0 = ? LIMIT 1",
+	$self->GetId,
+    );
+    return 1 if $sql->SelectSingleValue(
+	"SELECT 1 FROM l_artist_track WHERE link0 = ? LIMIT 1",
+	$self->GetId,
+    );
+    return 1 if $sql->SelectSingleValue(
+	"SELECT 1 FROM l_artist_url WHERE link0 = ? LIMIT 1",
+	$self->GetId,
+    );
+    return 0;
+}
+
 1;
+# eof Artist.pm
