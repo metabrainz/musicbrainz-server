@@ -811,6 +811,8 @@ sub MergeAlbums
 		);
    }
 
+   my $old_attrs = join " ", $this->GetAttributes;
+
    require Album;
    $al = Album->new($this->{DBH});
    foreach $id (@list)
@@ -854,6 +856,8 @@ sub MergeAlbums
            }                
        }
 
+		$this->MergeAttributesFrom($al);
+
 		# Also merge the Discids
 		require MusicBrainz::Server::AlbumCDTOC;
 		MusicBrainz::Server::AlbumCDTOC->MergeAlbums($this->{DBH}, $id, $this->GetId);
@@ -871,7 +875,26 @@ sub MergeAlbums
        $al->Remove();
    }
 
+   my $new_attrs = join " ", $this->GetAttributes;
+   $this->UpdateAttributes if $new_attrs ne $old_attrs;
+
    return 1;
+}
+
+sub MergeAttributesFrom
+{
+	my ($self, $from) = @_;
+	return if $self->IsNonAlbumTracks or $from->IsNonAlbumTracks;
+
+	my @got = $self->GetReleaseTypeAndStatus;
+	my @from = $from->GetReleaseTypeAndStatus;
+
+	for (0..$#got)
+	{
+		$got[$_] ||= $from[$_];
+	}
+
+	$self->SetAttributes(@got);
 }
 
 # Pull back a section of various artist albums for the browse various display.
