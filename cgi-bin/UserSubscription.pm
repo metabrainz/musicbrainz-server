@@ -69,7 +69,7 @@ sub GetSubscribedArtists
 	my $uid = $self->GetUser or die;
 	my $sql = Sql->new($self->{DBH});
 
-	$sql->SelectListOfHashes(
+	my $rows = $sql->SelectListOfHashes(
 		"SELECT s.*, a.name, a.sortname, a.resolution
 		FROM moderator_subscribe_artist s
 		LEFT JOIN artist a ON a.id = s.artist
@@ -77,6 +77,16 @@ sub GetSubscribedArtists
 		ORDER BY a.sortname, s.artist",
 		$uid,
 	);
+
+	@$rows = map { $_->[0] }
+		sort { $a->[1] cmp $b->[1] }
+		map {
+			my $row = $_;
+			my $name = MusicBrainz::NormaliseSortText($row->{'sortname'});
+			[ $row, $name ];
+		} @$rows;
+
+	return $rows;
 }
 
 sub SubscribeArtists
