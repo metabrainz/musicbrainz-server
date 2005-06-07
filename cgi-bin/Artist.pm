@@ -257,6 +257,10 @@ sub Remove
     my $sql = Sql->new($this->{DBH});
     my $refcount;
 
+    # XXX: When are we allowed to delete an artist?  See also $artist->InUse.
+    # It seems inconsistent to have the presence of tracks or albums cause
+    # the delete to fail, but the presence of AR links can be trampled over.
+
     # See if there are any tracks that needs this artist
     $refcount = $sql->SelectSingleValue(
 	"SELECT COUNT(*) FROM track WHERE artist = ?",
