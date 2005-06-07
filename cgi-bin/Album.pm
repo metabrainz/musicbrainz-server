@@ -812,6 +812,7 @@ sub MergeAlbums
    }
 
    my $old_attrs = join " ", $this->GetAttributes;
+   my $old_langscript = join " ", ($this->GetLanguageId||0), ($this->GetScriptId||0);
 
    require Album;
    $al = Album->new($this->{DBH});
@@ -857,6 +858,7 @@ sub MergeAlbums
        }
 
 		$this->MergeAttributesFrom($al);
+		$this->MergeLanguageAndScriptFrom($al);
 
 		# Also merge the Discids
 		require MusicBrainz::Server::AlbumCDTOC;
@@ -878,6 +880,9 @@ sub MergeAlbums
    my $new_attrs = join " ", $this->GetAttributes;
    $this->UpdateAttributes if $new_attrs ne $old_attrs;
 
+   my $new_langscript = join " ", ($this->GetLanguageId||0), ($this->GetScriptId||0);
+   $this->UpdateLanguageAndScript if $new_langscript ne $old_langscript;
+
    return 1;
 }
 
@@ -895,6 +900,17 @@ sub MergeAttributesFrom
 	}
 
 	$self->SetAttributes(@got);
+}
+
+sub MergeLanguageAndScriptFrom
+{
+	my ($self, $from) = @_;
+	# There's some disagreement as to whether or not this is a good idea:
+	$self->SetLanguageId($from->GetLanguageId)
+		unless $self->GetLanguageId;
+	$self->SetScriptId($from->GetScriptId)
+		unless $self->GetScriptId;
+	# See http://chatlogs.musicbrainz.org/2005/2005-06/2005-06-07.html
 }
 
 # Pull back a section of various artist albums for the browse various display.
