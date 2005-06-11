@@ -62,6 +62,9 @@ sub PreInsert
 		} 0 .. $#albums
 	);
 
+	$new{"merge_attributes"} = 1 if $opts{"merge_attributes"};
+	$new{"merge_langscript"} = 1 if $opts{"merge_langscript"};
+
 	$self->SetArtist($into->GetArtist);
 	$self->SetTable("album");
 	$self->SetColumn("id");
@@ -96,6 +99,8 @@ sub PostLoad
 	}
 
 	$self->{'new_albums'} = \@albums;
+	$self->{'merge_attributes'} = $new->{'merge_attributes'};
+	$self->{'merge_langscript'} = $new->{'merge_langscript'};
 	@albums or die;
 }
 
@@ -131,10 +136,12 @@ sub ApprovedAction
 		return STATUS_FAILEDPREREQ;
 	}
 	
-	$al->MergeAlbums(
-		($self->GetType == MOD_MERGE_ALBUM_MAC),
-		map { $_->{'id'} } @{ $self->{'new_albums'} },
-	);
+	$al->MergeAlbums({
+		mac => ($self->GetType == MOD_MERGE_ALBUM_MAC),
+		albumids => [ map { $_->{'id'} } @{ $self->{'new_albums'} } ],
+		merge_attributes => $self->{'merge_attributes'},
+		merge_langscript => $self->{'merge_langscript'},
+	});
 					
 	STATUS_APPLIED;
 }

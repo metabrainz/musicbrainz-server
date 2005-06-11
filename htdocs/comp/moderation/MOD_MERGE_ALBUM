@@ -28,6 +28,8 @@
 	Merged into:
 	<a href="/showalbum.html?albumid=<% $into->{'id'} %>"
 		><% $into->{'name'} %></a>
+	<br>Merge attributes: <% $this->{'merge_attributes'} ? "yes" : "no" %>
+	<br>Merge language/script: <% $this->{'merge_langscript'} ? "yes" : "no" %>
 
 </%method>
 

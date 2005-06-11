@@ -4,6 +4,8 @@ $mac
 @album => ()
 $confirm => 0
 $notetext => ""
+$merge_attributes => ""
+$merge_langscript => ""
 </%args>
 <%perl>
 
@@ -45,6 +47,9 @@ my $url =
 		? "/showartist.html?artistid=".$objs[0]->GetArtist
 		: "/search.html";
 
+$merge_attributes = "", $confirm = 0 unless $merge_attributes =~ /\A[01]\z/;
+$merge_langscript = "", $confirm = 0 unless $merge_langscript =~ /\A[01]\z/;
+
 if ($confirm)
 {
 	delete $session{tagged_albums};
@@ -66,6 +71,8 @@ if ($confirm)
 				# --
 				albums => \@objs,
 				into => $into,
+				merge_attributes => $merge_attributes,
+				merge_langscript => $merge_langscript,
 			);
 
 			$mods[0]->InsertNote($session{'uid'}, $notetext)
@@ -223,17 +230,34 @@ foreach (@id_numtracks)
 <p>
 	To complete the merge of the above albums into one
 	<% $mac ? "'Various Artists'" : "" %>
-	album, press this button:
+	album, click the "Merge" button below.
 </p>
 
-<form method="post" action="/mod/tag/merge.html" name="MergeConfirm">
+<script type="text/javascript" src="/scripts/formutil.js"></script>
+<script type="text/javascript" src="/scripts/mod-tag-merge.js"></script>
+
+<form method="post" action="/mod/tag/merge.html" name="MergeConfirm"
+	onsubmit="return check_merge_form(this)">
 	<p>
-		<input type="submit" value="Merge!">
-% for (@objs) {
-		<input type="hidden" name="album" value="<% $_->GetId %>">
-% }
-		<input type="hidden" name="mac" value="<% $mac %>">
-		<input type="hidden" name="confirm" value="1">
+		How should the album attributes be handled? (<b>required</b>)
+		<br>
+		<input type="radio" name="merge_attributes" value="1" <% $merge_attributes eq "1" ? "checked" : "" %>>
+		Merge album attributes
+		<br>
+		<input type="radio" name="merge_attributes" value="0" <% $merge_attributes eq "0" ? "checked" : "" %>>
+		Leave attributes unchanged; the attributes of all but
+		the top album will be discarded
+	</p>
+
+	<p>
+		How should the album language / script be handled? (<b>required</b>)
+		<br>
+		<input type="radio" name="merge_langscript" value="1" <% $merge_langscript eq "1" ? "checked" : "" %>>
+		Merge language and script
+		<br>
+		<input type="radio" name="merge_langscript" value="0" <% $merge_langscript eq "0" ? "checked" : "" %>>
+		Leave language and script unchanged; the language / script of all but
+		the top album will be discarded
 	</p>
 
 	<p>
@@ -244,6 +268,14 @@ foreach (@id_numtracks)
 		<textarea name="notetext" rows="3" cols="60"></textarea>
 	</p>
 
+	<p>
+		<input type="submit" value="Merge!">
+% for (@objs) {
+		<input type="hidden" name="album" value="<% $_->GetId %>">
+% }
+		<input type="hidden" name="mac" value="<% $mac %>">
+		<input type="hidden" name="confirm" value="1">
+	</p>
 </form>
 
 <& /comp/movefocus, "MergeConfirm", 0 &>

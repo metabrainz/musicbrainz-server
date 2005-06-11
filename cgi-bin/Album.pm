@@ -786,7 +786,12 @@ sub LoadTRMCount
 # the current album. All Discids and TRM Ids are preserved in the process
 sub MergeAlbums
 {
-   my ($this, $intoMAC, @list) = @_;
+   my ($this, $opts) = @_;
+   my $intoMAC = $opts->{'mac'};
+   my @list = @{ $opts->{'albumids'} };
+   my $merge_attributes = $opts->{'merge_attributes'};
+   my $merge_langscript = $opts->{'merge_langscript'};
+
    my ($al, $ar, $tr, @tracks, %merged, $id, $sql);
    
    return undef if (scalar(@list) < 1);
@@ -857,8 +862,8 @@ sub MergeAlbums
            }                
        }
 
-		$this->MergeAttributesFrom($al);
-		$this->MergeLanguageAndScriptFrom($al);
+		$this->MergeAttributesFrom($al) if $merge_attributes;
+		$this->MergeLanguageAndScriptFrom($al) if $merge_langscript;
 
 		# Also merge the Discids
 		require MusicBrainz::Server::AlbumCDTOC;
@@ -905,12 +910,10 @@ sub MergeAttributesFrom
 sub MergeLanguageAndScriptFrom
 {
 	my ($self, $from) = @_;
-	# There's some disagreement as to whether or not this is a good idea:
 	$self->SetLanguageId($from->GetLanguageId)
 		unless $self->GetLanguageId;
 	$self->SetScriptId($from->GetScriptId)
 		unless $self->GetScriptId;
-	# See http://chatlogs.musicbrainz.org/2005/2005-06/2005-06-07.html
 }
 
 # Pull back a section of various artist albums for the browse various display.
