@@ -55,14 +55,17 @@ sub new
 sub CheckModerations
 {
 	my $this = shift;
+	local @ARGV = @_;
 
+	my $fIgnoreDeadlocks;
 	use Getopt::Long;
 	GetOptions(
 		"dryrun|d"	=> \$fDryRun,
 		"debug"		=> \$fDebug,
 		"summary|s"	=> \$fSummary,
 		"verbose|v"	=> \$fVerbose,
-	) or return 1;
+		"ignore-deadlocks" => \$fIgnoreDeadlocks,
+	) or return 2;
 
 	die "Unknown arguments passed to ModBot" if @ARGV;
 
@@ -279,6 +282,7 @@ sub CheckModerations
 	my %failedcount;
 	my %status_name_from_number = reverse %{ ModDefs::status_as_hashref() };
 	my $errors = 0;
+	my $deadlocks = 0;
 
 	# This sub will be used to report any errors we encounter.
 	my $report_error = sub {
@@ -302,7 +306,9 @@ sub CheckModerations
 		print STDERR localtime() . " : The moderation will remain open.\n";
 
 		++$failedcount{ $mod->{__eval__} };
-		++$errors;
+		($err =~ /deadlock detected/i)
+			? ++$deadlocks
+			: ++$errors;
 	};
 
 	# Now run through each mod and do whatever's necessary; namely, nothing,
@@ -465,7 +471,9 @@ sub CheckModerations
 		if $fVerbose;
 
 	# Exit with a failure code if any errors were encountered
-	($errors ? 3 : 0);
+	return 3 if $errors;
+	return 4 if $deadlocks and not $fIgnoreDeadlocks;
+	return 0;
 }
 
 # Check a given moderation for any dependencies that may have not been met

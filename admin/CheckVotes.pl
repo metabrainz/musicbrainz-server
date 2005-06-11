@@ -39,7 +39,7 @@ my $el = MusicBrainz::Server::AutomodElection->new($mb->{DBH});
 $el->DoCloseElections;
 
 my $mod = MusicBrainz::Server::ModBot->new($mb->{DBH});
-my $r = $mod->CheckModerations(@_);
+my $r = $mod->CheckModerations(@ARGV);
 
 exit $r;
 
