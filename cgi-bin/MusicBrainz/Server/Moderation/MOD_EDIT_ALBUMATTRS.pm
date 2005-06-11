@@ -108,6 +108,7 @@ sub PreInsert
 	);
 	$self->SetTable("album");
 	$self->SetColumn("id");
+	$self->SetRowId($albums->[0]->GetId);
 	$self->SetNew($self->ConvertHashToNew(\%new));
 
 	# This mod is immediately applied, and undone later if rejected.
