@@ -3,8 +3,7 @@ $track
 $album
 $artist
 $tindex
-$hilitetrack
-$hilitecolor
+$highlight
 $showmodlinks
 $trmcount=>0
 $mbtagger=>$session{'mbt'}
@@ -12,9 +11,7 @@ $mbtagger=>$session{'mbt'}
 <%perl>
 
 my $bgcolor = ($track->GetModPending ? 'bgcolor="#FFFFCC"' : 'bgcolor="#FFFFFF"');
-$bgcolor = 'bgcolor="#FFCCFF"'
-	if (ref($hilitetrack) and $hilitetrack->{$track->GetId})
-	or (not ref($hilitetrack) and $hilitetrack == $track->GetId);
+$bgcolor = 'bgcolor="#FFCCFF"' if $highlight;
 my $tr_bgcolor = ($track->GetAlbumJoinModPending ? 'bgcolor="#FFFFCC"' : 'bgcolor="#FFFFFF"');
 
 my $nonalbum = $album->IsNonAlbumTracks;
@@ -24,7 +21,8 @@ my $colspan = ($nonalbum ? 'colspan="2"' : '');
 <tr>
 % unless ($nonalbum) {
     <td width="10%" align=center <% $tr_bgcolor |n %>>
-       <% $track->GetSequence() %>
+%# Accessibility: if highlighting the track, don't /just/ use colours
+       <% ($highlight ? "**" : "") . $track->GetSequence . ($highlight ? "**" : "") %>
     </td>
 % }
 % if ($album->GetArtist() == &ModDefs::VARTIST_ID) {

@@ -1,8 +1,7 @@
 <%args>
 $album
 $artist
-$hilitetrack=>-1
-$hilitecolor=>""
+$highlighttracks=>+{}
 $link => 1
 $showmodlinks=>1
 $showcollapsed=>0
@@ -76,8 +75,8 @@ for($i = 0;; $i++)
     }
     $m->comp("/comp/albumtrack", track=>$track, album=>$album, 
             artist=>$artist,
-            tindex=>$i, hilitetrack=>$hilitetrack, 
-            hilitecolor=>$hilitecolor,
+            tindex=>$i,
+	    highlight=>$highlighttracks->{$track->GetId},
 	    showmodlinks=>$showmodlinks, 
             trmcount=>$tcount, mbtagger=>$mbtagger);
 }

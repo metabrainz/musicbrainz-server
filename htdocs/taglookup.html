@@ -130,7 +130,7 @@ MusicBrainz::TrimInPlace(
 			album		=> $al,
 			mbtagger	=> $data->{mbt},
 			showids		=> 1,
-			hilitetrack	=> $ts->{track}->GetId,
+			highlighttracks	=> { $ts->{track}->GetId => 1 },
 		);
    }
 </%perl>
@@ -316,7 +316,7 @@ if (scalar(@coll_list) > 1)
 			"/comp/album",
 			album		=> $ref->{al},
 			artist		=> $ref->{ar},
-			hilitetrack	=> $ref->{track},
+			highlighttracks	=> { $ref->{track} => 1 },
 			mbtagger	=> $mbt,
 		);
 	}
