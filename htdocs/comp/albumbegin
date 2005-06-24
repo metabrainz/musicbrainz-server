@@ -88,8 +88,10 @@ if ($asin)
 <a href="/misc/redirects/amazon-album-info.html?album=<% $album->GetMBId %>&amp;store=<% $store %>&amp;asin=<% $asin %>"><img 
    src="<% $coverart_url %>" height="130" width="130" 
    style="float: right; border: 1px solid black; padding: 1px;" 
-   border="0" alt="[cover art]"></a>
-<div class="AlbumInfo">
+	 class="amazon_coverart"
+   border="0" alt="[cover art]"></a
+% # note, no space between "a" and "div" - see global.js find_coverart_div
+><div class="AlbumInfo">
 % }
 
 % if ($showlinks or $showmodlinks) {

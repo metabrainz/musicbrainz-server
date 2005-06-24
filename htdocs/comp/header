@@ -24,7 +24,7 @@ my $mtime_print = (stat(&DBDefs::HTDOCS_ROOT . "/css/print.css"))[9] || 0;
 % &$head() if ref($head) eq "CODE";
 % $m->out($head) if defined $head and not ref $head;
 </head>
-<body>
+<body onload="scale_coverart()">
 
 % unless ($notopbar) {
 
