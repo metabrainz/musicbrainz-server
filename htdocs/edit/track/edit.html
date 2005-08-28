@@ -1,0 +1,221 @@
+%# vi: set ts=2 sw=2 ft=mason :
+<%args>
+$album => undef
+$track => undef
+$newname => ""
+$newseq => ""
+$notetext => ""
+$defaultname => undef
+$defaultseq => undef
+</%args>
+<%perl>
+
+$m->comp("/comp/checkloggedin", 1, 1)
+	or return;
+
+MusicBrainz::IsNonNegInteger($album) && $album
+	or return $m->comp("/comp/badargs", 1, 1);
+
+MusicBrainz::IsNonNegInteger($track) && $track
+	or return $m->comp("/comp/badargs", 1, 1);
+
+my $mb = $m->comp("/comp/dblogin");
+
+my $al = Album->new($mb->{DBH});
+$al->SetId($album);
+$al->LoadFromId
+	or return $m->comp(
+		"/comp/error",
+		"Album #$album does not exist",
+		1, 1,
+	);
+
+my $tr = Track->new($mb->{DBH});
+$tr->SetId($track);
+$tr->SetAlbum($album);
+$tr->LoadFromId
+	or return $m->comp(
+		"/comp/error",
+		"Track #$track on album #$album does not exist",
+		1, 1,
+	);
+
+# Allow the track number to be set as high as either the highest track number,
+# or the number of tracks on the album, whichever is the greater.
+my $last_seq = 0;
+if (my $tracks = $al->GetTracks)
+{
+	my $track_cnt = $al->GetTrackCount;
+	$last_seq = (@$tracks ? $tracks->[-1]->GetSequence : 1);
+	if ($track_cnt > $last_seq) 
+	{
+		$last_seq = $track_cnt;
+	}
+}
+
+if (MusicBrainz::IsNonNegInteger($newseq))
+{
+	return $m->comp("/comp/error", "New track number too low (lowest allowed track number is 1)", 1, 1)
+		if $newseq == 0;
+
+	return $m->comp("/comp/error", "New track number too high (highest allowed track number is $last_seq)", 1, 1)
+		if $newseq > $last_seq;
+}
+
+my $ar = Artist->new($mb->{DBH});
+$ar->SetId($al->GetArtist);
+$ar->LoadFromId
+	or return $m->comp(
+		"/comp/error",
+		"Artist does not exist",
+		1, 1,
+	);
+
+my $url = "/showalbum.html?albumid=$album";
+
+if (MusicBrainz::IsSingleLineString($newname)
+	and $newname =~ /\S/
+	and (MusicBrainz::IsNonNegInteger($newseq) or $al->IsNonAlbumTracks))
+{
+	# Don't redirect if we're in a popup window.
+	#
+	my %redirect;
+	$redirect{success_url} = $url unless $pnotes{'ispopup'};
+
+	$m->comp(
+		"/comp/entermods",
+		DBH => $mb->{DBH},
+		sub => sub {
+			my @mods = Moderation->InsertModeration(
+				DBH	=> $mb->{DBH},
+				uid	=> $session{uid},
+				privs => $session{privs},
+				type => &ModDefs::MOD_EDIT_TRACKNAME,
+				# --
+				track => $tr,
+				newname => $newname,
+			) if $newname ne $tr->GetName;
+
+			$mods[0]->InsertNote($session{'uid'}, $notetext)
+				if $mods[0]
+				and $notetext =~ /\S/;
+
+			my @mods2 = Moderation->InsertModeration(
+				DBH	=> $mb->{DBH},
+				uid	=> $session{uid},
+				privs => $session{privs},
+				type => &ModDefs::MOD_EDIT_TRACKNUM,
+				# --
+				track => $tr,
+				newseq => $newseq,
+			) if not $al->IsNonAlbumTracks
+				and $newseq != $tr->GetSequence;
+
+			$mods2[0]->InsertNote($session{'uid'}, $notetext)
+				if $mods2[0]
+				and $notetext =~ /\S/;
+		},
+		%redirect,
+	) or return;
+
+	die "Shouldn't get here" unless $pnotes{'ispopup'};
+
+        </%perl>
+        <& /comp/header_small, title => 'Moderation entered' &>
+        <script type="text/javascript"> window.close(); </script>
+        <p>Moderation entered successfully.</p>
+        <p><a href="/">Continue</a></p>
+        <& /comp/footer_small &>
+        <%perl>
+
+	return;
+}
+
+</%perl>
+
+<& /comp/sidebar, title => 'Edit Track Number and Name' &>
+
+<& /comp/stylemenu &>
+
+% if ($tr->GetModPending) {
+	<& /comp/modpending &>
+% }
+
+<form 	method="post" 
+		action="/edit/track/edit.html"
+		name="EditTrackForm"
+		enctype="application/x-www-form-urlencoded">
+
+	<& /comp/autofixmenu &>
+
+	<fieldset>
+		<legend>Edit Track Number and Name</legend>
+
+		<table>
+			<tr>
+				<td>&nbsp;</td>
+				<td><b>#:</b></td>
+				<td colspan="2"><b>Track Name:</b></td>
+			</tr>
+			<tr>
+				<td nowrap>
+					<label>Current:</label></td>
+% unless ($al->IsNonAlbumTracks) {
+				<td>
+					<div class="oldtextfield"><% $tr->GetSequence  %></div></td>
+% }	else {
+				<td>&nbsp;</td>
+% }
+				<td colspan="2">
+					<div class="oldtextfield"><% $tr->GetName  %></div></td>
+			</tr>
+			<tr>
+				<td nowrap>
+					<label for="newname">New:</label></td>	
+% unless ($al->IsNonAlbumTracks) {
+				<td>
+					<input 	type="text" name="newseq" class="textfield" 
+							onFocus="myOnFocus(this)" onBlur="myOnBlur(this)"
+							title="You can set a new track number here, possible values are: (1-<% $last_seq %>)"
+							size="2" value="<% $defaultseq || $tr->GetSequence %>"></td>
+% }	else {
+				<td>&nbsp;</td>
+% }
+				<td>
+					<input 	type="text" name="newname" class="textfield"
+						 	onFocus="myOnFocus(this)" onBlur="myOnBlur(this)"
+						 	size="50" maxlength="255"
+						 	value="<% $defaultname || $tr->GetName %>">
+				</td>
+				<td>
+					<script language="javascript">
+					<!--
+						af_writeButton(AF_BTN_TRACK, 'newname');
+					-->
+					</script></td>
+			</tr>
+% unless ($al->IsNonAlbumTracks) {
+			<tr>
+				<td>&nbsp;</td>
+				<td colspan="3"><small>Valid Track Numbers: 1-<% $last_seq %></small></td>
+			</tr>
+% }	
+			<tr>
+				<td>&nbsp;</td>
+				<td class="padtop" colspan="3">
+					<& /comp/notetext, text => $notetext &></td>
+			</tr>
+			<tr>
+				<td>&nbsp;</td>
+				<td class="padtop" colspan="3">
+					<input type="submit" class="button" value="Submit"></td>
+			</tr>
+		</table>
+	</fieldset>
+	<input type="hidden" name="album" value="<% $album %>">
+	<input type="hidden" name="track" value="<% $track %>">
+	<input type="hidden" name="ispopup" value="<% $pnotes{'ispopup'} %>">
+</form>
+
+<& /comp/movefocus, "EditTrackForm", "newname" &>
+<& /comp/footer &>

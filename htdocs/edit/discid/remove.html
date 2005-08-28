@@ -1,0 +1,113 @@
+%# vi: set ts=4 sw=4 ft=mason :
+<%args>
+$tocid => ""
+$albumid => ""
+$confirm => 0
+$notetext => ""
+</%args>
+<%perl>
+
+MusicBrainz::IsNonNegInteger($tocid) && $tocid
+	or return $m->comp("/comp/badargs", 1, 1);
+
+MusicBrainz::IsNonNegInteger($albumid) && $albumid
+	or return $m->comp("/comp/badargs", 1, 1);
+
+$m->comp("/comp/checkloggedin", 1, 1)
+	or return;
+
+my $mb = $m->comp("/comp/dblogin");
+
+my $al = Album->new($mb->{DBH});
+$al->SetId($albumid);
+$al->LoadFromId
+	or return $m->comp(
+		"/comp/error",
+		"Album not found in the database.",
+		1, 1,
+	);
+
+# Get the cdtoc / album_cdtoc
+
+my $alcdtoc = MusicBrainz::Server::AlbumCDTOC->newFromAlbumAndCDTOC($mb->{DBH}, $al, $tocid)
+	or return $m->comp(
+		"/comp/error",
+		"No such CDTOC #$tocid, or it is not linked to album #$albumid",
+		1, 1,
+	);
+
+my $cdtoc = $alcdtoc->GetCDTOC;
+my $url = "/showalbum.html?albumid=$albumid";
+
+if ($confirm)
+{
+	$m->comp(
+		"/comp/entermods",
+		DBH => $mb->{DBH},
+		sub => sub {
+			my @mods = Moderation->InsertModeration(
+				DBH	=> $mb->{DBH},
+				uid	=> $session{uid},
+				privs => $session{privs},
+				type => &ModDefs::MOD_REMOVE_DISCID,
+				# --
+				cdtoc => $cdtoc,
+				album => $al,
+			);
+
+			$mods[0]->InsertNote($session{'uid'}, $notetext)
+				if $mods[0]
+				and $notetext =~ /\S/;
+		},
+		success_url => $url,
+	) or return;
+
+	die "Shouldn't get here";
+}
+
+</%perl>
+
+<& /comp/sidebar, title => 'Confirm CD Index Id Removal' &>
+
+<fieldset>
+	<legend>Confirm CD Index Id Removal</legend>
+	<div class="padleft">
+		Are you sure you want to remove	CD Index Id 
+		<a href="/showcdtoc.html?id=<% $cdtoc->GetId %>"><% $cdtoc->GetDiscID %></a>
+		from album <a href="/showalbum.html?albumid=<% $albumid %>"><% $al->GetName %></a>?
+	</div>
+	<div class="padlefttop">
+		Please be sure you are certain that this CD Index Id is an error,
+		since an album can have multiple valid CD Index Ids, and each CD Index Id
+		can belong to more than one album.&nbsp; For more in-depth information about
+		this topic, please see our <a href="/cd_submission.html">CD Submission</a> document.
+	</div>
+	<div class="padlefttop">
+		<table>
+			<tr>
+				<td>
+					<form 	method="GET" action="<% $url %>"
+							name="ModFormNo" 
+							onsubmit="history.go(-1); return false">
+						<input name="btnNo" type="submit" class="button" value="&laquo; NO">
+					</form></td>
+				<td> &nbsp; </td>
+				<td>
+					<form 	method="POST" action="/edit/discid/remove.html"
+							name="ModFormYes">
+						<input type="hidden" name="tocid" value="<% $tocid %>">
+						<input type="hidden" name="albumid" value="<% $albumid %>">
+						<input type="hidden" name="confirm" value="1">
+						<input name="btnYes" type="submit" class="button" value="YES &raquo;">
+					</td>
+			</tr>
+		</table>
+	</div>
+	<div class="padlefttop">
+		<& /comp/notetext &>
+	</div>
+	</form>
+</fieldset>
+
+<& /comp/movefocus, "ModFormYes", "btnYes" &>
+<& /comp/footer &>

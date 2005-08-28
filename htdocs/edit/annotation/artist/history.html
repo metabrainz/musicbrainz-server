@@ -1,0 +1,94 @@
+%# vi: set ts=2 sw=2 ft=mason :
+<%args>
+$artistid
+$expandids => undef
+$expand_all => undef
+$show_mods => undef
+</%args>
+<%perl>
+
+$m->comp("/comp/checkloggedin", 1, 1)
+	or return;
+
+if ($show_mods)
+{
+	my %filter = (
+		mod_type				=> [ &ModDefs::MOD_ADD_ARTIST_ANNOTATION ],
+		artist_type			=> 3, # single artist
+		artist_id				=> $artistid,
+		orderby					=> "desc",
+	);
+
+	return $m->comp(
+		"/comp/redirect",
+		"/mod/search/results.html?" . $m->comp("/comp/args-to-querystring.inc", %filter)
+	);
+}
+
+MusicBrainz::IsNonNegInteger($artistid) && $artistid
+	or return $m->comp("/comp/badargs", 1, 1);
+
+my $mb = $m->comp("/comp/dblogin");
+
+my $ar = Artist->new($mb->{DBH});
+$ar->SetId($artistid);
+$ar->LoadFromId
+	or return $m->comp(
+		"/comp/error",
+		"Artist #$artistid does not exist",
+		1, 1,
+	);
+
+# Load annotations.
+
+my %expand = map { $_ => 1 } split(' ', $expandids);
+my $annotations = MusicBrainz::Server::Annotation->GetAnnotationIDsForArtist($ar);
+#$expand{$annotations->[0]} = 1 unless defined $expandids;
+
+</%perl>
+
+<& /comp/sidebar, title => 'Annotation History for ' . $ar->GetName() &>
+
+<p>Annotations for <& /edit/annotation/subject, artist => $ar &></p>
+
+<p> [
+% if ($expand_all) {
+	<a href="/edit/annotation/artist/history.html?artistid=<% $artistid %>">Collapse list</a>
+% } else {
+	<a href="/edit/annotation/artist/history.html?artistid=<% $artistid %>&amp;expand_all=1">Expand list</a>
+% }
+	| <a href="/edit/annotation/artist/history.html?artistid=<% $artistid %>&amp;show_mods=1">Show moderations</a>
+] </p>
+
+% unless ( @$annotations ) {
+	<p>
+		No annotations available.&nbsp;
+		<a href="/edit/annotation/artist/edit.html?artistid=<% $artistid
+				%>">Add an annotation.</a>
+	</p>
+% }
+
+<%perl>
+while (@$annotations)
+{
+	my $annotation = shift @$annotations;
+
+	my $an = MusicBrainz::Server::Annotation->new($mb->{DBH});
+	$an->SetId($annotation);
+	$an->LoadFromId()
+		or next;
+
+	my $prev_id = $annotations->[0];
+
+	$m->comp(
+		"/edit/annotation/show",
+		annotation => $an,
+		show_log => 1,
+		expand => $expand{$annotation} || $expand_all,
+		show_diff => $prev_id,
+	);
+	$m->out("<br>");
+}
+</%perl>
+
+<& /comp/footer &>

@@ -50,14 +50,14 @@ my $script = $album->GetScript;
 ]
 
 %				if ( $session{uid} and $showmodlinks ) {
-  <a href="/mod/edit-language/editlanguage.html?id=<% $album->GetId() %>"
+  <a href="/edit/albumlanguage/edit.html?id=<% $album->GetId() %>"
    >Edit</a>&nbsp;|&nbsp;
 %				}
 
 %     } else {
 
 %				if ( $session{uid} and $showmodlinks ) {
-<td NOWRAP><a href="/mod/edit-language/editlanguage.html?id=<% $album->GetId %>"
+<td NOWRAP><a href="/edit/albumlanguage/edit.html?id=<% $album->GetId %>"
    >Edit language</a>&nbsp;
 %				}
 
@@ -91,7 +91,7 @@ if (!$nonalbum)
 
     if ($session{uid} and $showmodlinks) 
     {
-        $m->out("<a href=\"/editalbumattrs.html?id=" . $album->GetId());
+        $m->out("<a href=\"/edit/album/editattributes.html?id=" . $album->GetId());
         $m->out("\">Edit</a>");
     }
 }

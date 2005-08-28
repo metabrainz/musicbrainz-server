@@ -57,9 +57,9 @@ if (scalar(@ids) > 0)
        {
 	   my $tocid = $cdtoc->GetId;
            $m->out("<td nowrap align=\"center\" bgcolor=\"#ffecd6\">");
-           $m->out("<a href=\"/movediscid.html?tocid=$tocid&amp;albumid=");
+           $m->out("<a href=\"/edit/discid/move.html?tocid=$tocid&amp;albumid=");
            $m->out($album->GetId() . "\">Move</a> | ");
-           $m->out("<a href=\"/remdiscid.html?tocid=$tocid&amp;albumid=");
+           $m->out("<a href=\"/edit/discid/remove.html?tocid=$tocid&amp;albumid=");
            $m->out($album->GetId() . "\">Del</a>");
            $m->out("</td>");
        }
@@ -81,7 +81,7 @@ if ($showreleases and not $album->IsNonAlbumTracks)
 
 	$m->out("<tr bgcolor='#ffffff'><td colspan=$span>");
 	$m->out("<p style='float: right; padding: 2px'>"
-		. "<a href='/mod/edit-releases/index.html?album=" . $album->GetId . "'>"
+		. "<a href='/edit/albumreleases/index.html?album=" . $album->GetId . "'>"
 		. "Edit releases</a></p>");
 	$m->out("<table>");
 

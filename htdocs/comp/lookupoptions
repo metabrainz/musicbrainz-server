@@ -48,7 +48,7 @@ you can do the following things:
 % if ($artist ne '' && defined $artistobj) {
     <li>
       <p>
-    	<a href="/addnonalbumtracks.html?artistid=<% $artistobj->GetId %>"
+    	<a href="/edit/track/addnonalbum.html?artistid=<% $artistobj->GetId %>"
 		onclick="document.forms.AddNonAlbumTrack.submit(); return false"
 		>Add a non-album track</a>
 	to artist '<% $artist %>'.&nbsp;
@@ -64,7 +64,7 @@ you can do the following things:
 
 </td></tr></table>
 
-<form method="post" action="/addnonalbumtracks.html" id="AddNonAlbumTrack">
+<form method="post" action="/edit/track/addnonalbum.html" id="AddNonAlbumTrack">
 	<input type="hidden" name="artistid" value="<% $artistobj ? $artistobj->GetId : '' %>">
 	<input type="hidden" name="trackname" value="<% $data->{track} %>">
 </form>

@@ -102,7 +102,7 @@ my $mb = $m->comp('/comp/dblogin');
 						<a href="/album/<% $al->GetMBId %>.html"
 							><% $al->GetName %></a></td>
 				<td style="text-align: right"><% $al->GetTrackCount %></td>
-				<td><a href="/mod/tag/merge.html?album=<% $al->GetId %>&amp;album=<%
+				<td><a href="/edit/albumbatch/merge.html?album=<% $al->GetId %>&amp;album=<%
 							join('&album=', @{ $entry->{others} }) %>&amp;mac=<% $entry->{mac} %>"
 				>Merge into this</a></td>
 	</tr>

@@ -66,7 +66,7 @@ $track
 						<td valign="top" align="center"><% $id->{usecount} %></td>
 						<td valign="top">
 %							if (exists $session{user}) {
-				 				[ <a href="/remtrm.html?TRMjoin=<% $id->{TRMjoinid} %>&amp;trackid=<% $track->GetId %>&amp;trmid=<% $id->{TRM} %>">Delete</a> ]
+				 				[ <a href="/edit/trm/remove.html?TRMjoin=<% $id->{TRMjoinid} %>&amp;trackid=<% $track->GetId %>&amp;trmid=<% $id->{TRM} %>">Delete</a> ]
 %							} else {
 								&nbsp;
 %							}

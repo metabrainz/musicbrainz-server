@@ -1,0 +1,89 @@
+%# vi: set ts=2 sw=2 ft=mason :
+<%args>
+$album => undef
+$notetext => ""
+</%args>
+<%perl>
+
+$m->comp("/comp/checkloggedin", 1, 1)
+	or return;
+
+MusicBrainz::IsNonNegInteger($album) && $album
+	or return $m->comp("/comp/badargs", 1, 1);
+
+my $mb = $m->comp("/comp/dblogin");
+
+my $al = Album->new($mb->{DBH});
+$al->SetId($album);
+$al->LoadFromId
+	or return $m->comp(
+		"/comp/error",
+		"Album #$album does not exist",
+		1, 1,
+	);
+
+my $url = "/showalbum.html?albumid=$album";
+
+if ($ARGS{confirm})
+{
+	$m->comp(
+		"/comp/entermods",
+		DBH => $mb->{DBH},
+		sub => sub {
+			my @mods = Moderation->InsertModeration(
+				DBH	=> $mb->{DBH},
+				uid	=> $session{uid},
+				privs => $session{privs},
+				type => &ModDefs::MOD_REMOVE_ALBUM,
+				# --
+				album => $al,
+			);
+
+			$mods[0]->InsertNote($session{'uid'}, $notetext)
+				if $mods[0]
+				and $notetext =~ /\S/;
+		},
+		success_url => $url,
+	) or return;
+
+	die "Shouldn't get here";
+}
+
+</%perl>
+
+<& /comp/sidebar, title => 'Confirm Album Removal' &>
+
+<fieldset>
+	<legend>Confirm Album Removal</legend>
+	<div class="padleft">
+		Are you sure you want to remove album
+		<a href="<% $url %>"><% $al->GetName %></a>?
+	</div>
+	<div class="padlefttop">
+		<table>
+			<tr>
+				<td>
+					<form 	method="GET" action="<% $url %>"
+							name="ModFormNo" 
+							onsubmit="history.go(-1); return false">
+						<input name="btnNo" type="submit" class="button" value="&laquo; NO">
+					</form></td>
+				<td> &nbsp; </td>
+				<td>
+					<form 	method="POST" action="/edit/album/remove.html"
+							name="ModFormYes">
+						<input type="hidden" name="album" value="<% $album %>">
+						<input type="hidden" name="confirm" value="1">
+						<input name="btnYes" type="submit" class="button" value="YES &raquo;">
+					</td>
+			</tr>
+		</table>
+	</div>
+	<div class="padlefttop">
+		<& /comp/notetext &>
+	</div>
+	</form>
+</fieldset>
+
+<& /comp/movefocus, "ModFormNo", 0 &>
+<& /comp/footer &>

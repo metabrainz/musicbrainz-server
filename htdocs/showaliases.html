@@ -61,9 +61,9 @@ if (!defined $list[0])
 % if (exists $session{user}) {
 			<td>
 				[
-				<a href="/editartistalias.html?id=<% $item->[0] %>">Edit</a>
+				<a href="/edit/artistalias/edit.html?id=<% $item->[0] %>">Edit</a>
 				|
-				<a href="/remartistalias.html?alias=<% $item->[0] %>">Del</a>
+				<a href="/edit/artistalias/remove.html?alias=<% $item->[0] %>">Del</a>
 				]
 			</td>
 % }
@@ -78,7 +78,7 @@ if (!defined $list[0])
 
 % if ($session{uid}) {
 <p style="margin-top: 2em">
-	[ <a href="/addalias.html?id=<% $artist->GetId %>">Add alias</a> ]
+	[ <a href="/edit/artistalias/add.html?id=<% $artist->GetId %>">Add alias</a> ]
 </p>
 % }
 

@@ -2,7 +2,7 @@
 
 <%def .ShowCountryName>
 <%perl>
-my $c = $m->comp("/mod/edit-releases/countries-menu.inc");
+my $c = $m->comp("/edit/albumreleases/countries-menu.inc");
 my $name = "?";
 for (@$c) { $name = $_->[1], last if $_->[0] == $_[0] }
 </%perl>

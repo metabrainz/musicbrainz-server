@@ -1,0 +1,205 @@
+%# vi: set ts=4 sw=4 ft=mason :
+<%args>
+$id => ''
+$type => ''
+$name => ''
+$url => undef
+$desc => undef
+$notetext => undef
+$linktype => undef
+$submit => 0
+</%args>
+<%perl>
+
+$url = undef if ($url eq 'http://' || $url eq '');
+
+$m->comp("/comp/checkloggedin", 1, 1)
+	or return;
+
+my $mb = $m->comp("/comp/dblogin");
+
+if (!$type || !$id || !$name)
+{
+	</%perl>
+    <& /comp/sidebar, title => 'Error' &>
+    The id, type and name parameters must be provided to this page.
+	<& /comp/footer &>
+	<%perl>
+	return undef;
+}
+
+if (!MusicBrainz::Server::LinkEntity->IsValidType($type))
+{
+	</%perl>
+    <& /comp/sidebar, title => 'Error' &>
+    <% $type %> is not a valid link type.
+	<& /comp/footer &>
+	<%perl>
+	return undef;
+}
+
+my $obj;
+$obj = MusicBrainz::Server::LinkEntity->newFromTypeAndId(
+    $mb->{DBH},
+    $type, $id
+) or $obj = undef;
+if (!defined $obj)
+{
+	</%perl>
+	<& /comp/sidebar, title => 'Error' &>
+	<% $type %> and id <% $id %> does not specify a valid entity.
+	<& /comp/footer &>
+	<%perl>
+	return undef;
+}
+
+my @links;
+push @links, {
+        type => $type,
+        id => $id,
+        obj => $obj,
+        name => $obj->GetName,
+    };
+push @links, {
+        type => 'url',
+        id => undef,
+        obj => undef,
+        name => $url,
+		url => $url,
+		desc => $desc,
+    };
+
+my @types = ($type, 'url');
+
+# Sanity check... this should be fine
+MusicBrainz::Server::LinkEntity->ValidateTypes(\@types)
+	or die;
+
+my ($dummy);
+($linktype, $dummy, $dummy) = split '\|', $linktype if ($linktype);
+
+my $link = MusicBrainz::Server::LinkType->new($mb->{DBH}, \@types);
+
+if ($url 
+	and $desc
+    and ($linktype =~ /^\d+$/)
+	and MusicBrainz::Server::URL->IsLegalURL($url))
+{
+	my $linktype = $link->newFromId($linktype);
+	if ($linktype)
+	{
+		my $success_url = "/showrel.html?id=$id&type=$type";
+
+        # Remove the two entities being linked from recent_links
+		my $recent_links = ($session{recent_links} ||= []);
+		@$recent_links = grep {
+                ($_->[0] != $links[0]{type} || $_->[1] != $links[0]{id}) &&
+                ($_->[0] != $links[1]{type} || $_->[1] != $links[1]{id})
+		} @$recent_links;
+		$session{recent_links} = $recent_links;
+
+		$m->comp(
+			"/comp/entermods",
+			DBH => $mb->{DBH},
+			sub => sub {
+				my @mods = Moderation->InsertModeration(
+					DBH		=> $mb->{DBH},
+					uid		=> $session{uid},
+					privs	=> $session{privs},
+					type	=> &ModDefs::MOD_ADD_LINK,
+					# --
+					entities=> \@links,
+					linktype=> $linktype,
+					url     => $url,
+				);
+
+				$mods[0]->InsertNote($session{'uid'}, $notetext)
+					if $mods[0]
+					and $notetext =~ /\S/;
+			},
+			success_url => $success_url,
+		) or return; 
+
+		die "Shouldn't get here";
+	}
+}
+my $root = $link->Root;
+
+</%perl>
+<& /comp/sidebar, title => 'Create Relationship: Relate to URL' &>
+
+% if ($submit) {
+%      if (!$linktype) {
+         <div class="linkerror">Error: You must select a link type from the list below.</div>
+%      }
+%      if (!defined $url || !MusicBrainz::Server::URL->IsLegalURL($url)) {
+         <div class="linkerror">Error: You must enter a valid URL below.</div>
+%      }
+%      if (!defined $desc || $desc eq '') {
+         <div class="linkerror">Error: You must enter description for the URL below.</div>
+%      }
+% }
+
+<p>
+	Select the URL link type and enter the URL below. Please note that the URL must be a valid
+	URL, including the http:// or ftp:// protocol portion of the URL.
+</p>
+
+<p>
+	<b>You may not link to digital audio files or sites where unauthorized copies of copyrighted works
+	can be downloaded.</b> If you would like to link directly to a downloadable music
+	track, please ensure that the music is licensed under some free license like the 
+	<a href="http://creativecommons.org">Creative Commons licenses</a>, 
+	<a href="http://www.eff.org/IP/Open_licenses/eff_oal.php">EFF's 
+	Open Audio license</a> or is otherwise legally downloadable for free. 
+</p>
+
+<form name="linktype" method="post" action="/edit/relationship/addurl.html">
+	<fieldset>
+		<legend>Relate <% ucfirst($type) %> to URL</legend>
+
+		<div class="padleft">
+			<% ucfirst($type) %> <b><% $name %></b> 
+			<select name="linktype" onchange="linkTypeChanged()">
+				<option value="||">[select a link type]</option>
+%             my @q = map { [$_,0] } $root;
+%             while (my $l = shift @q) {
+%                 unshift @q, map { [$_,$l->[1]+1] } $l->[0]->Children;
+%                 next if ($l->[0]->GetName eq 'ROOT');
+				<option value="<% $l->[0]->GetId %>|<% $l->[0]->GetAttributes() %>|<% $l->[0]->GetDescription() %>" <% $l->[0]->GetId eq $linktype ? 'selected=""' : '' %>
+%                my $text = $l->[0]->GetLinkPhrase;
+%                $text =~ s/\{(\w+:)/{/;
+                  ><% ("&nbsp;&nbsp;" x $l->[1]) |n %><% $text %></option>
+%            }
+			</select> URL:
+
+    		<span id="link_desc">&nbsp;</span>
+		</div>
+
+		<div class="padlefttop">
+			Enter URL (<b>required</b>): <br/>
+        	<input type="text" name="url" size="40" value="<% $url or 'http://' %>">
+		</div>
+		
+		<div class="padlefttop">
+			Enter description for this URL (<b>required</b>): <br/>
+			<textarea name="desc" rows="3" cols="60"><% $desc %></textarea>
+		</div>
+
+		<div class="padleft">
+			<p/>
+			<& /comp/notetext, text => $notetext &>
+		</div>
+		<div class="padlefttop">
+			<input type="hidden" name="id" value="<% $id %>">
+			<input type="hidden" name="type" value="<% $type %>">
+			<input type="hidden" name="name" value="<% $name %>">
+			<input type="hidden" name="submit" value="1">
+			<input type="submit" class="button" value="Submit">
+		</div>
+	</fieldset>
+</form>
+
+<script language="javascript" src="addurl.js"></script>
+
+<& /comp/footer &>

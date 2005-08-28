@@ -29,7 +29,7 @@
 % }
          <a href="/download.html">Download</a> |
 %        if (UserStuff->IsLinkModerator($session{privs})) {
-            <a href="/mod/link/link_type_roots.html">AR</a> |
+            <a href="/edit/relationships/link_type_roots.html">AR</a> |
 % } else {
             <a href="/wd/GeneralFAQ">FAQ</a> |
 % }

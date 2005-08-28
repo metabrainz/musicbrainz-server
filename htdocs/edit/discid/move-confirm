@@ -1,0 +1,46 @@
+%# vi: set ts=4 sw=4 ft=mason :
+% my ($cdtoc, $al, $newal) = @_ or return;
+<& /comp/sidebar, title => 'Move CD Index Id' &>
+
+<fieldset>
+	<legend>Confirm Move CD Index Id</legend>
+	<div class="padleft">
+		Are you sure you want to move CD Index Id
+		<a href="/showcdtoc.html?id=<% $cdtoc->GetId %>"><% $cdtoc->GetDiscID %></a>
+		from album <a href="/showalbum.html?albumid=<% $al->GetId %>"><% $al->GetName %></a>
+		to album <a href="/showalbum.html?albumid=<% $newal->GetId %>"><% $newal->GetName %></a>?
+	</div>
+
+	<div class="padlefttop">
+		<table>
+			<tr>
+				<td>
+					<form 	method="GET" action="/showalbum.html"
+							name="ModFormNo">
+						<input type="hidden" name="albumid" value="<% $al->GetId %>">
+						<input name="btnNo" type="submit" class="button" value="&laquo; NO">
+					</form></td>
+				<td> &nbsp; </td>
+				<td>
+					<form 	method="POST" action="/edit/discid/move.html"
+							name="ModFormYes">
+						<input name="btnYes" type="submit" class="button" value="YES &raquo;">
+						<input type="hidden" name="tocid" value="<% $cdtoc->GetId %>">
+						<input type="hidden" name="albumid" value="<% $al->GetId %>">
+						<input type="hidden" name="newalbumid" value="<% $newal->GetId %>">
+						<input type="hidden" name="confirm" value="1">
+					</td>
+				<td> &nbsp; </td>
+				<td><small> Please enter a moderation note. If you do so, moderations are<br/>
+							more likely to be accepted by our voters.</small></td>
+			</tr>
+		</table>
+	</div>
+	<div class="padlefttop">
+		<& /comp/notetext &>
+	</div>
+	</form>
+</fieldset>
+
+<& /comp/movefocus, "ModFormYes", "btnYes" &>
+<& /comp/footer &>

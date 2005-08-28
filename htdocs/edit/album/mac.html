@@ -1,0 +1,109 @@
+%# vi: set ts=2 sw=2 ft=mason :
+<%args>
+$album => undef
+$notetext => ""
+</%args>
+<%perl>
+
+$m->comp("/comp/checkloggedin", 1, 1)
+	or return;
+
+MusicBrainz::IsNonNegInteger($album) && $album
+	or return $m->comp("/comp/badargs", 1, 1);
+
+my $mb = $m->comp("/comp/dblogin");
+
+my $al = Album->new($mb->{DBH});
+$al->SetId($album);
+$al->LoadFromId
+	or return $m->comp(
+		"/comp/error",
+		"Album #$album does not exist",
+		1, 1,
+	);
+
+my $ar = Artist->new($mb->{DBH});
+$ar->SetId($al->GetArtist);
+$ar->LoadFromId
+	or return $m->comp(
+		"/comp/error",
+		"Artist does not exist",
+		1, 1,
+	);
+
+my $url = (
+	$ARGS{'movetracks'}
+		? "/edit/track/change.html?album=" . $al->GetId
+		: "/showalbum.html?albumid=" . $al->GetId
+);
+
+if ($ARGS{confirm})
+{
+	$m->comp(
+		"/comp/entermods",
+		DBH => $mb->{DBH},
+		sub => sub {
+			my @mods = Moderation->InsertModeration(
+				DBH	=> $mb->{DBH},
+				uid	=> $session{uid},
+				privs => $session{privs},
+				type => &ModDefs::MOD_SAC_TO_MAC,
+				# --
+				album => $al,
+				artist => $ar,
+			);
+
+			$mods[0]->InsertNote($session{'uid'}, $notetext)
+				if $mods[0]
+				and $notetext =~ /\S/;
+		},
+		success_url => $url,
+	) or return;
+
+	die "Shouldn't get here";
+}
+
+</%perl>
+
+<& /comp/sidebar, title => 'Convert Album to Multiple Artists' &>
+
+<fieldset>
+	<legend>Convert Album <% $al->GetName %> to Multiple Artists</legend>
+	<div class="padleft">
+		Are you sure you want to convert the album
+		<a href="/showalbum.html?albumid=<% $al->GetId %>"><% $al->GetName %></a>,
+		currently by
+		<a href="/showartist.html?artistid=<% $ar->GetId %>"><% $ar->GetName %></a>,
+		to multiple artists?
+	</div>
+	<div class="padlefttop">
+		<table>
+			<tr>
+				<td>
+					<form 	method="GET" action="<% $url %>"
+							name="ModFormNo" 
+							onsubmit="history.go(-1); return false">
+						<input name="btnNo" type="submit" class="button" value="&laquo; NO">
+					</form></td>
+				<td> &nbsp; </td>
+				<td>
+					<form 	method="POST" action="/edit/album/mac.html"
+							name="ModFormYes">
+						<input type="hidden" name="album" value="<% $al->GetId %>">
+						<input type="hidden" name="confirm" value="1">
+						<input name="btnYes" type="submit" class="button" value="YES &raquo;">
+						&nbsp;
+						<input type="checkbox" name="movetracks" value="1" checked>
+						Move tracks to new artists
+					</td>
+			</tr>
+		</table>
+	</div>
+	<div class="padlefttop">
+		<& /comp/notetext &>
+	</div>
+	</form>
+</fieldset>
+
+<& /comp/movefocus, "ModFormYes", "btnYes" &>
+<& /comp/footer &>

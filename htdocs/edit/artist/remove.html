@@ -1,0 +1,102 @@
+%# vi: set ts=4 sw=4 ft=mason :
+<%args>
+$artist => ""
+$notetext => ""
+</%args>
+<%perl>
+
+$m->comp("/comp/checkloggedin", 1, 1)
+	or return;
+
+MusicBrainz::IsNonNegInteger($artist) && $artist
+	or return $m->comp("/comp/badargs", 1, 1);
+
+$artist != &ModDefs::VARTIST_ID && $artist != &ModDefs::DARTIST_ID
+	or return $m->comp(
+		"/comp/error",
+		"This artist cannot be deleted.",
+		1, 1,
+	);
+
+my $mb = $m->comp("/comp/dblogin");
+
+my $ar = Artist->new($mb->{DBH});
+$ar->SetId($artist);
+$ar->LoadFromId
+	or return $m->comp(
+		"/comp/error",
+		"Artist #$artist does not exist",
+		1, 1,
+	);
+
+return $m->comp(
+	"/comp/error",
+	"This artist cannot be deleted - it is in use",
+	1, 1,
+) if $ar->InUse;
+
+my $url = "/search.html";
+
+if ($ARGS{confirm})
+{
+	$m->comp(
+		"/comp/entermods",
+		DBH => $mb->{DBH},
+		sub => sub {
+			my @mods = Moderation->InsertModeration(
+				DBH	=> $mb->{DBH},
+				uid	=> $session{uid},
+				privs => $session{privs},
+				type => &ModDefs::MOD_REMOVE_ARTIST,
+				# --
+				artist => $ar,
+			);
+
+			$mods[0]->InsertNote($session{'uid'}, $notetext)
+				if $mods[0]
+				and $notetext =~ /\S/;
+		},
+		success_url => $url,
+	) or return;
+
+	die "Shouldn't get here";
+}
+
+</%perl>
+
+<& /comp/sidebar, title => 'Confirm Artist Removal' &>
+
+<fieldset>
+	<legend>Confirm Artist Removal</legend>
+	<div class="padleft">
+		Are you sure you want to remove artist
+		<span class="bold"><% $ar->GetName %></span>?
+	</div>
+	<div class="padlefttop">
+		<table>
+			<tr>
+				<td>
+					<form 	method="GET" action="<% $url %>"
+							name="ModFormNo" 
+							onsubmit="history.go(-1); return false">
+						<input name="btnNo" type="submit" class="button" value="&laquo; NO">
+					</form></td>
+				<td> &nbsp; </td>
+				<td>
+					<form 	method="POST" action="/edit/artist/remove.html"
+							name="ModFormYes">
+						<input type="hidden" name="artist" value="<% $artist %>">
+						<input type="hidden" name="confirm" value="1">
+						<input name="btnYes" type="submit" class="button" value="YES &raquo;">
+					</td>
+			</tr>
+		</table>
+	</div>
+	<div class="padlefttop">
+		<& /comp/notetext &>
+	</div>
+	</form>
+</fieldset>
+
+<& /comp/movefocus, "ModFormNo", 0 &>
+<& /comp/footer &>

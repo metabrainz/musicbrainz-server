@@ -73,9 +73,9 @@ with the <a href="/search/plugins/firefox/install.html">Firefox search plugins</
     <& /comp/tablebegin, title=>'Contribute', attrs=>"align=center", 
        gattrs=>"width='100%'" &>
       <br>
-      <a href="/addartist.html">Add artist</a> | 
-      <a href="/addalbum.html?artistid=0">Add  album</a><br>
-      <a href="/addalbum.html?artistid=1">Add various artist album</a><br>
+      <a href="/edit/artist/add.html">Add artist</a> | 
+      <a href="/edit/album/add.html?artistid=0">Add  album</a><br>
+      <a href="/edit/album/add.html?artistid=1">Add various artist album</a><br>
       <a href="/freedb/freedb.html">Freedb Import</a> 
       <br>
       &nbsp;

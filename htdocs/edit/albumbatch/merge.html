@@ -1,0 +1,282 @@
+%# vi: set ts=4 sw=4 ft=mason :
+<%args>
+$mac
+@album => ()
+$confirm => 0
+$notetext => ""
+$merge_attributes => ""
+$merge_langscript => ""
+</%args>
+<%perl>
+
+$m->comp("/comp/checkloggedin", 1, 1)
+	or return;
+
+my $mb = $m->comp("/comp/dblogin");
+
+if (@album < 2)
+{
+	return $m->comp(
+		"/comp/error",
+		"You have not selected any albums. Please go back"
+		. " to the artist page and select some albums by clicking"
+		. " on the checkbox on the right hand side in the album title.",
+		1, 1,
+	);
+}
+
+my %artists;
+my @objs = map {
+	my $albumid = $_;
+	my $al = Album->new($mb->{DBH});
+ 	$al->SetId($albumid);
+
+	$al->LoadFromId
+		or return $m->comp(
+			"/comp/error",
+			"Album #$albumid not found.",
+			1, 1,
+		);
+
+	++$artists{$al->GetArtist};
+	$al;
+} @album;
+
+my $url =
+	(keys(%artists) == 1 and not $artists{&ModDefs::VARTIST_ID})
+		? "/showartist.html?artistid=".$objs[0]->GetArtist
+		: "/search.html";
+
+$merge_attributes = "", $confirm = 0 unless $merge_attributes =~ /\A[01]\z/;
+$merge_langscript = "", $confirm = 0 unless $merge_langscript =~ /\A[01]\z/;
+
+if ($confirm)
+{
+	delete $session{tagged_albums};
+	my $into = shift @objs;
+
+	$m->comp(
+		"/comp/entermods",
+		DBH => $mb->{DBH},
+		sub => sub {
+			my @mods = Moderation->InsertModeration(
+				DBH	=> $mb->{DBH},
+				uid	=> $session{uid},
+				privs => $session{privs},
+				type => (
+					$mac
+					? &ModDefs::MOD_MERGE_ALBUM_MAC
+					: &ModDefs::MOD_MERGE_ALBUM
+				),
+				# --
+				albums => \@objs,
+				into => $into,
+				merge_attributes => $merge_attributes,
+				merge_langscript => $merge_langscript,
+			);
+
+			$mods[0]->InsertNote($session{'uid'}, $notetext)
+				if $mods[0]
+				and $notetext =~ /\S/;
+		},
+		success_url => $url,
+	) or return;
+
+	die "Shouldn't get here";
+}
+
+</%perl>
+
+% if (not $mac) {
+    <& /comp/sidebar, title=>'Confirm Merging Albums', expand=>'moderate' &>
+% } else {
+    <& /comp/sidebar, title=>'Confirm Merging Albums into Various Artist Album', expand=>'moderate' &>
+% }
+
+<%def drawform>
+<%perl>
+	my ($mac, $objs, $text, $thisalbum) = @_;
+	</%perl>
+	<form method="post" action="/edit/albumbatch/merge.html#albumrow<% $thisalbum->GetId %>"
+		style="margin-bottom: 1em">
+% for (@$objs) {
+		<input type="hidden" name="album" value="<% $_->GetId %>">
+% }
+		<input type="hidden" name="mac" value="<% $mac %>">
+		<input type="submit" value="<% $text %>">
+	</form>
+	<%perl>
+</%perl>
+</%def>
+
+<%perl>
+
+my ($id, $ar, $artist); 
+my (%merged, @id_numtracks);
+my ($i, $al, @tracks, $tr, @ids);
+
+    $ar = Artist->new($mb->{DBH});
+    $i = 0;
+    foreach $al (@objs)
+    {
+       @tracks = $al->LoadTracks();
+       foreach $tr (@tracks)
+       {
+           $merged{$tr->GetSequence()}++;
+       }
+
+		for (@{ $al->GetDiscIDs })
+		{
+			my $num = $_->GetCDTOC->GetTrackCount;
+	  		push @id_numtracks, $num;
+		}
+
+       if ($i == 0)
+       {
+           </%perl>
+           Please review the proposed album merge moderation and then
+           confirm this moderation at the bottom of this page.<p>
+           All of the albums below this one will be merged into this album:<p>
+           <%perl>
+       }
+       if ($i == 1)
+       {
+           </%perl>
+           All of the albums below will be merged into the above album:<p>
+           <%perl>
+       }
+       if ($ar->GetId() != $al->GetArtist())
+       {
+           $ar->SetId($al->GetArtist());
+           if (not defined $ar->LoadFromId())
+           {
+              $m->out("Could not load artist " . $ar->GetId() . ".");
+              next;
+           }
+		   $m->comp("/comp/artisttitle", artist=>$ar, showmodlinks=>0);
+       }
+
+       </%perl>
+       <table>
+		<tr id="albumrow<% $al->GetId %>">
+		<td width="420" style="padding-bottom: 2em">
+			<& /comp/album, album=>$al, artist=>$ar, showmodlinks=>0 &>
+		</td>
+         <td valign="top" align="left" style="padding-left: 1em">
+			<%perl>
+			$m->comp(
+				"drawform",
+				$mac,
+				[ @objs[$i, 0..$i-1, $i+1..$#objs ] ],
+				"Move to Top",
+				$al,
+			) if $i > 0;
+			$m->comp(
+				"drawform",
+				$mac,
+				[ @objs[0..$i-2, $i, $i-1, $i+1..$#objs ] ],
+				"Move Up",
+				$al,
+			) if $i > 0;
+			$m->comp(
+				"drawform",
+				$mac,
+				[ @objs[0..$i-1, $i+1, $i, $i+2..$#objs ] ],
+				"Move Down",
+				$al,
+			) if $i < $#objs;
+			$m->comp(
+				"drawform",
+				$mac,
+				[ @objs[0..$i-1, $i+1..$#objs, $i ] ],
+				"Move to Bottom",
+				$al,
+			) if $i < $#objs;
+			</%perl>
+          </td>
+       </tr>
+       </table>
+       <%perl>
+
+       $i++;
+    }
+
+my $final = scalar(keys %merged);
+my $merge_ok = 1;
+
+foreach (@id_numtracks)
+{
+   if ($_ != $final)
+   {   
+      $merge_ok = 0;
+      last;
+   }
+}
+</%perl>
+
+<br>
+<p>
+% if (!$merge_ok) {
+      <font size="+1" color="red">Error:</font> these albums cannot be merged together, 
+      since they have CD Index ids that belong to albums that have more or fewer than
+      the <% $final %> tracks that the merged album would have.
+%     $mb->Logout();
+      <& /comp/footer &>
+%     return undef;
+% }
+
+<h2>Confirm Merge</h2>
+
+<p>
+	To complete the merge of the above albums into one
+	<% $mac ? "'Various Artists'" : "" %>
+	album, click the "Merge" button below.
+</p>
+
+<script type="text/javascript" src="/scripts/formutil.js"></script>
+<script type="text/javascript" src="/scripts/mod-tag-merge.js"></script>
+
+<form method="post" action="/edit/albumbatch/merge.html" name="MergeConfirm"
+	onsubmit="return check_merge_form(this)">
+	<p>
+		How should the album attributes be handled? (<b>required</b>)
+		<br>
+		<input type="radio" name="merge_attributes" value="1" <% $merge_attributes eq "1" ? "checked" : "" %>>
+		Merge album attributes
+		<br>
+		<input type="radio" name="merge_attributes" value="0" <% $merge_attributes eq "0" ? "checked" : "" %>>
+		Leave attributes unchanged; the attributes of all but
+		the top album will be discarded
+	</p>
+
+	<p>
+		How should the album language / script be handled? (<b>required</b>)
+		<br>
+		<input type="radio" name="merge_langscript" value="1" <% $merge_langscript eq "1" ? "checked" : "" %>>
+		Merge language and script
+		<br>
+		<input type="radio" name="merge_langscript" value="0" <% $merge_langscript eq "0" ? "checked" : "" %>>
+		Leave language and script unchanged; the language / script of all but
+		the top album will be discarded
+	</p>
+
+	<p>
+		Enter moderation note (optional):
+	</p>
+
+	<p>
+		<textarea name="notetext" rows="3" cols="60"></textarea>
+	</p>
+
+	<p>
+		<input type="submit" value="Merge!">
+% for (@objs) {
+		<input type="hidden" name="album" value="<% $_->GetId %>">
+% }
+		<input type="hidden" name="mac" value="<% $mac %>">
+		<input type="hidden" name="confirm" value="1">
+	</p>
+</form>
+
+<& /comp/movefocus, "MergeConfirm", 0 &>
+<& /comp/footer &>

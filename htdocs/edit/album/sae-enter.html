@@ -1,0 +1,145 @@
+%# vi: set ts=4 sw=4 ft=mason :
+<%args>
+$notetext => ""
+</%args>
+<%perl>
+
+my $edit = $session{"editalbum"}
+	or return $m->comp("/comp/redirect", "/search.html");
+
+my $mb = $m->comp("/comp/dblogin");
+my $url = "/showalbum.html?albumid=" . $edit->{"id"};
+
+$m->comp(
+	"/comp/entermods",
+	DBH => $mb->{DBH},
+	sub => sub {
+		my @mods;
+
+		my $al = Album->new($mb->{DBH});
+		$al->SetId($edit->{"id"});
+		$al->LoadFromId
+			or die "Error loading album\n";
+
+		if ($edit->{"name"} ne $edit->{"orig_name"})
+		{
+			push @mods, Moderation->InsertModeration(
+				DBH	=> $mb->{DBH},
+				uid	=> $session{uid},
+				privs => $session{privs},
+				type => &ModDefs::MOD_EDIT_ALBUMNAME,
+				# --
+				album => $al,
+				newname => $edit->{"name"},
+			);
+		}
+
+		my $old_attrs = join " ", sort grep { defined } @$edit{qw( orig_type orig_status )};
+		my $new_attrs = join " ", sort grep { defined } @$edit{qw( type status )};
+		if ($old_attrs ne $new_attrs)
+		{
+			push @mods, Moderation->InsertModeration(
+				DBH	=> $mb->{DBH},
+				uid	=> $session{uid},
+				privs => $session{privs},
+				type => &ModDefs::MOD_EDIT_ALBUMATTRS,
+				# --
+				albums => [ $al ],
+				attr_type => $edit->{"type"},
+				attr_status => $edit->{"status"},
+			);
+		}
+
+		for my $t (@{ $edit->{"tracks"} })
+		{
+			if ($t->{"new"})
+			{
+				next if $t->{"name"} eq "";
+				push @mods, Moderation->InsertModeration(
+					DBH	=> $mb->{DBH},
+					uid	=> $session{uid},
+					privs => $session{privs},
+					type => &ModDefs::MOD_ADD_TRACK_KV,
+					# --
+					album => $al,
+					trackname => $t->{"name"},
+					tracknum => $t->{"seq"},
+					#artistname => $newartistname,
+					#artistsortname => $newartistsortname,
+				);
+				next;
+			}
+			
+			my $tr = Track->new($mb->{DBH});
+			$tr->SetId($t->{"id"});
+			$tr->SetAlbum($edit->{"id"});
+			$tr->LoadFromId
+				or die "Error loading track\n";
+
+			if ($t->{"delete"})
+			{
+				push @mods, Moderation->InsertModeration(
+					DBH	=> $mb->{DBH},
+					uid	=> $session{uid},
+					privs => $session{privs},
+					type => &ModDefs::MOD_REMOVE_TRACK,
+					# --
+					track => $tr,
+					album => $al,
+				);
+				next;
+			}
+
+			if ($t->{"name"} ne $t->{"orig_name"})
+			{
+				push @mods, Moderation->InsertModeration(
+					DBH	=> $mb->{DBH},
+					uid	=> $session{uid},
+					privs => $session{privs},
+					type => &ModDefs::MOD_EDIT_TRACKNAME,
+					# --
+					track => $tr,
+					newname => $t->{"name"},
+				);
+			}
+
+			if ($t->{"seq"} != $t->{"orig_seq"})
+			{
+				push @mods, Moderation->InsertModeration(
+					DBH	=> $mb->{DBH},
+					uid	=> $session{uid},
+					privs => $session{privs},
+					type => &ModDefs::MOD_EDIT_TRACKNUM,
+					# --
+					track => $tr,
+					newseq => $t->{"seq"},
+				);
+			}
+		}
+
+		if (@mods > 1)
+		{
+			my $num = @mods;
+			$mods[0]->InsertNote(
+				&ModDefs::MODBOT_MODERATOR,
+				"The first of a set of $num moderations",
+				nosend => 1,
+			);
+			$mods[-1]->InsertNote(
+				&ModDefs::MODBOT_MODERATOR,
+				"The last of a set of $num moderations",
+				nosend => 1,
+			);
+		}
+
+		$mods[0]->InsertNote($session{'uid'}, $notetext)
+			if $mods[0]
+			and $notetext =~ /\S/;
+	},
+	#success_url => $url,
+) or return;
+
+$m->comp("sae-cancel.html", "true");
+$m->comp("/comp/redirect", $url);
+
+</%perl>

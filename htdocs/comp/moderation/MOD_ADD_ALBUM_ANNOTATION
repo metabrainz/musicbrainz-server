@@ -15,9 +15,9 @@
 
 % if ( $success ) {
 	New:
-	<span class="bold"><a href="/mod/annotation/show.html?annotationid=<%
+	<span class="bold"><a href="/edit/annotation/show.html?annotationid=<%
 		$an->GetId() %>"><% $log %></a></span>
-	(<a href="/mod/annotation/diff-to-previous.html?id=<% $an->GetId %>"
+	(<a href="/edit/annotation/diff-to-previous.html?id=<% $an->GetId %>"
 		>Diff</a>)
 % }
 

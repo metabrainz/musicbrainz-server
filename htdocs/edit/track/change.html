@@ -1,0 +1,299 @@
+%# vi: set ts=4 sw=4 ft=mason :
+<%args>
+$album => ""
+$tindex => 0
+$modid => 0
+$trackname => ""
+$search => ""
+$notetext => ""
+</%args>
+<%perl>
+
+$m->comp("/comp/checkloggedin", 1, 1)
+	or return;
+
+MusicBrainz::IsNonNegInteger($album) && $album
+	or return $m->comp("/comp/badargs", 1, 1);
+
+MusicBrainz::IsNonNegInteger($tindex)
+	or return $m->comp("/comp/badargs", 1, 1);
+
+MusicBrainz::IsNonNegInteger($modid)
+	or return $m->comp("/comp/badargs", 1, 1);
+
+my $mb = $m->comp("/comp/dblogin");
+
+my $al = Album->new($mb->{DBH});
+$al->SetId($album);
+$al->LoadFromId
+	or return $m->comp(
+		"/comp/error",
+		"Album #$album not found in the database.",
+		1, 1,
+	);
+
+my $ar = Artist->new($mb->{DBH});
+$ar->SetId($al->GetArtist);
+$ar->LoadFromId
+	or return $m->comp(
+		"/comp/error",
+		"Artist not found in the database.",
+		1, 1,
+	);
+
+my @tracks = $al->LoadTracks();
+
+# Check if we've done all the tracks on this album
+
+if ($tindex >= scalar(@tracks))
+{
+	</%perl>
+	<& /comp/sidebar, title => 'Album Conversion Complete' &>
+	<p>
+		The moderations for changing album
+		<a href="/showalbum.html?albumid=<% $album %>"
+			><% $al->GetName %></a>
+		by
+		<a href="/showartist.html?artistid=<% $ar->GetId %>"
+			><% $ar->GetName %></a>
+		to a multiple artist album have been entered.&nbsp;
+		Thanks!
+	</p>
+	<& /comp/footer &>
+	<%perl>
+	return;
+}
+
+my $track = $tracks[$tindex];
+
+my $tar = Artist->new($mb->{DBH});
+$tar->SetId($track->GetArtist);
+$tar->LoadFromId
+	or return $m->comp(
+		"/comp/error",
+		"Artist not found in the database.",
+		1, 1,
+	);
+
+# If the user had to click "swap", flip our "split order" flag
+$session{'changetrack_splitorder'} = not $session{'changetrack_splitorder'}
+	if $ARGS{'swapped'};
+
+# Enter the mod and move on to the artist filter if the form is submitted OK
+if ($search =~ /\S/ and $trackname =~ /\S/)
+{
+	my $url = "/edit/track/changeartist.html?album=$album&tindex=$tindex&modid=$modid";
+	$url .= "&search=" . uri_escape($search);
+	$url .= "&solo=1" if $ARGS{solo};
+	$url .= "&firsttime=1"
+		unless $trackname eq $track->GetName;
+	$url .= "&notetext=" . uri_escape($notetext)
+		if $notetext =~ /\S/;
+
+	return $m->comp("/comp/redirect", $url)
+		if $trackname eq $track->GetName;
+
+	$m->comp(
+		"/comp/entermods",
+		DBH => $mb->{DBH},
+		sub => sub {
+			my @mods = Moderation->InsertModeration(
+				DBH	=> $mb->{DBH},
+				uid	=> $session{uid},
+				privs => $session{privs},
+				type => &ModDefs::MOD_EDIT_TRACKNAME,
+				# --
+				track => $track,
+				newname => $trackname,
+				# TODO depmod on $modid ?
+			);
+
+			$mods[0]->InsertNote($session{'uid'}, $notetext)
+				if $mods[0]
+				and $notetext =~ /\S/;
+		},
+		success_url => $url,
+	) or return;
+
+	die "Shouldn't get here";
+}
+
+# Scan through the track names and artists, and work out what the likely
+# "split" sequence is, and what the most common track artist is.
+my %trackartists;
+my %split = map { $_ => 0 } (" - ", "-", " / ", "/", ": ", ":");
+
+for my $t (@tracks)
+{
+	for my $split (keys %split)
+	{
+		++$split{$split} if index($t->GetName, $split) >= 0;
+		++$trackartists{$t->GetArtist};
+	}
+}
+
+# Prefer longer split sequences (e.g. " - " over "-")
+# then sort by frequency.  e.g. one " - " beats three "-".
+my $split = do {
+	my @k = sort {
+		length($a) <=> length($b)
+		or
+		$split{$a} <=> $split{$b}
+	} grep {
+		$split{$_}
+	} keys %split;
+	$k[-1];
+};
+my $oldartist = (sort { $trackartists{$a} <=> $trackartists{$b} } keys %trackartists)[-1];
+
+# These are the existing values
+my ($oldtrackname, $oldartistname) = ($track->GetName, $tar->GetName);
+
+# Do a split on the track name
+my ($splittrackname, $splitartistname) = split($split, $oldtrackname, 2)
+	if defined $split;
+my $did_split = defined $splitartistname;
+($splittrackname, $splitartistname) = ($splitartistname, $splittrackname)
+	if $session{'changetrack_splitorder'};
+
+# Trim everything
+for ($oldtrackname, $oldartistname, $splittrackname, $splitartistname)
+{
+	s/\A\s+//;
+	s/\s+\z//;
+	s/\s\s+/ /g;		#/# for vim
+}
+
+# Now work out what we think is the more likely - use the split values,
+# or use the current values.
+my ($newtrackname, $newartistname) = ($oldtrackname, $oldartistname);
+
+if ($did_split
+	and (
+		$track->GetName eq $ar->GetName
+		or $track->GetName eq $tar->GetName
+		or $track->GetArtist == $al->GetArtist
+		or $track->GetArtist == $oldartist
+	))
+{
+	$newtrackname = $splittrackname;
+	$newartistname = $splitartistname;
+}
+
+</%perl>
+
+<& /comp/sidebar, title => 'Change Track Name and Artist' &>
+
+<& /comp/stylemenu &>
+
+% unless ($ARGS{solo}) {
+<p>
+	Track <% $tindex+1 %> of <% scalar @tracks %>
+</p>
+% }
+
+%  if ($track->GetModPending) {
+<& /comp/modpending &>
+%  }
+
+<form 	method="post" 
+		action="/edit/track/change.html"
+		name="ChangeTrackForm">
+
+	<& /comp/autofixmenu &>
+
+	<fieldset>
+		<legend>Change Track Name and Artist</legend>
+
+		<div class="padleft">
+			Enter the new name of the track, and search for the
+			artist to
+			whom you'd like to move track
+			'<% $track->GetName %>':
+		</div>
+		<div class="padtop"></div>
+		<table>
+			<tr>
+				<td><label>Current Track Name:</label></td>
+				<td><% $oldtrackname %></td>
+			</tr>
+			<tr>
+				<td><label>Current Artist Name:</label></td>
+				<td><% $oldartistname %>
+% if ($tar->GetSortName ne $oldartistname) {
+				(<% $tar->GetSortName %>)
+% }
+				</td>
+			</tr>
+			<tr>
+				<td class="padtop"><label for="trackname">New Track Name:</label></td>
+				<td class="padtop">
+					<input type="text" name="trackname"	class="textfield"
+						 onFocus="myOnFocus(this)" onBlur="myOnBlur(this)"
+						 size="50" maxlength="255"
+						 value="<% $newtrackname %>">
+					<script language="javascript">
+					<!--
+						af_writeButton(AF_BTN_TRACK, 'trackname');
+					-->
+					</script></td>
+			</tr>
+			<tr>
+				<td>&nbsp;</td>
+				<td>
+					<script language="javascript">
+					<!--
+						af_writeButton(AF_BTN_USESWAP);
+						af_writeButton(AF_BTN_USECURRENT);
+% if ($did_split) {
+						af_writeButton(AF_BTN_USESPLIT);
+% }
+					af_writeButton(AF_BTN_GUESSBOTH);
+				-->
+				</script></td>
+				<noscript>
+					<input type="reset" value="Use Guessed">
+				</noscript></td>
+			</tr>
+			<tr>
+				<td><label for="search">Search for New Artist:</label></td>
+				<td>
+					<input  type="text" name="search" class="textfield"
+							onFocus="myOnFocus(this)" onBlur="myOnBlur(this)"
+							size="50"
+							value="<% $newartistname %>">
+					<script language="javascript">
+					<!--
+						af_writeButton(AF_BTN_ARTIST, 'search');
+					-->
+					</script></td>
+			</tr>
+			<tr>
+				<td>&nbsp;</td>
+				<td class="padtop">
+					<& /comp/notetext &></td>
+			</tr>
+			<tr>
+				<td>&nbsp;</td>
+				<td class="padtop">
+					<input type="hidden" name="swapped" value="0">
+					<input type="submit" class="button" value="Submit"></td>
+			</tr>
+		</table>
+	</fieldset>
+
+	<input type="hidden" name="album" value="<% $album %>">
+	<input type="hidden" name="tindex" value="<% $tindex %>">
+	<input type="hidden" name="modid" value="<% $modid %>">
+	<input type="hidden" name="solo" value="<% $ARGS{solo} ? 1 : 0 %>">
+	<input type="hidden" name="orig_artname" value="<% $tar->GetName %>">
+	<input type="hidden" name="orig_track" value="<% $track->GetName %>">
+% if ($did_split) {
+	<input type="hidden" name="split_artname" value="<% $splitartistname %>">
+	<input type="hidden" name="split_track" value="<% $splittrackname %>">
+% }
+
+</form>
+
+<& /comp/movefocus, "ChangeTrackForm", "trackname" &>
+<& /comp/footer &>

@@ -101,7 +101,7 @@ my $mb = $m->comp('/comp/dblogin');
 		<td style="text-align: right"><% $ar->{num_albums} %></td>
 		<td style="text-align: right"><% $ar->{num_tracks} %></td>
 % if ( defined $ar->{merge_into} ) {
-		<td><a href="/mergeartist.html?id=<% $ar->{merge_into} %>&amp;selectedartist=<% $ar->{obj}->GetId %>">Merge into this</a></td>
+		<td><a href="/edit/artist/merge.html?id=<% $ar->{merge_into} %>&amp;selectedartist=<% $ar->{obj}->GetId %>">Merge into this</a></td>
 % } else {
 		<td></td>
 % }

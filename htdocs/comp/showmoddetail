@@ -169,7 +169,7 @@ $mostrecent{ $_->GetUserId } = $_->GetId
 % }
 % if ($session{uid} == $mod->GetModerator and
 %     $mod->GetStatus == &ModDefs::STATUS_OPEN) {
-		   | <a href="/removemod.html?modid=<% $mod->GetId %>">Delete mod</a>
+		   | <a href="/mod/remove.html?modid=<% $mod->GetId %>">Delete mod</a>
 % }
 		   ]
         </td>

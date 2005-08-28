@@ -56,7 +56,7 @@ unless (MusicBrainz::IsNonNegInteger($language))
 
 	<fieldset>
 		<legend>Select Album Language</legend>
-		<& /mod/edit-language/form,
+		<& /edit/albumlanguage/form,
 			add_language		=> 1,
 			language_value		=> $language,
 			script_value		=> $script,

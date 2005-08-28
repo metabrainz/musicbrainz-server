@@ -1,0 +1,70 @@
+%# vi: set ts=2 sw=2 ft=mason :
+<%args>
+$annotation
+$history_link => 0
+$show_log => 0
+$expand => 1
+$explain => 0
+$short => 0
+$show_diff => 0
+</%args>
+
+<table class="Annotation">
+
+% if ($expand and not $annotation->IsBlank) {
+	<tr class="AnnotationText">
+% if ($short) {
+% my $url = "/edit/annotation/show.html?annotationid=".$annotation->GetId;
+		<td><% $annotation->GetShortTextAsHTML(
+			qq[(<a href="$url">Read&nbsp;more&hellip;</a>)]
+		) |n %></td>
+% } else {
+		<td><% $annotation->GetTextAsHTML() |n %></td>
+% }
+	</tr>
+% }
+
+% if ($show_log and $session{uid}) {
+% my $log = $annotation->GetChangeLog;
+% $log = "(no change log)" unless $log =~ /\S/;
+	<tr class="AnnotationLog">
+		<td>Summary: <% $log %></td>
+	</tr>
+% }
+
+	<tr class="AnnotationInfo">
+		<td>
+
+			<span class="AnnotationInfoText">
+% if ($explain) {
+				Annotation last modified by
+% } else {
+				Last modified by
+% }
+				<a href="/user/view.html?uid=<%
+					$annotation->GetModerator()%>"><% $annotation->GetModeratorName %></a>
+				on <% $m->comp('/comp/datetime', $annotation->GetCreationTime()) %>
+		</span>
+
+% if ($session{uid}) {
+		<span class="AnnotationInfoLinks">
+			[
+% if ($history_link) {
+				<& /edit/annotation/history-link, annotation => $annotation &>
+% }
+% if ($show_diff) {
+				<& /edit/annotation/diff-link, new => $annotation->GetId, old => $show_diff &>
+% }
+% if ($expand) {
+				<& /edit/annotation/edit-link, annotation => $annotation &>
+% } else {
+				<a href="/edit/annotation/show.html?annotationid=<% $annotation->GetId() %>">Show</a>
+% }
+			]
+		</span>
+% }
+
+    </td>
+  </tr>
+
+</table>

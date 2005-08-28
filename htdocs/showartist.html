@@ -113,7 +113,7 @@ $m->comp(
     $m->comp("/comp/artisttitle", artist=>$artist);
 
 	$m->comp(
-		"/mod/annotation/latest",
+		"/edit/annotation/latest",
 		artist => $artist,
 		explain => 1,
 	), $m->out("<br>")
@@ -180,11 +180,11 @@ $m->comp(
 				<p>
 					[
 % unless ($artist->InUse) {
-					<a href="/remartist.html?artist=<% $artist->GetId %>"
+					<a href="/edit/artist/remove.html?artist=<% $artist->GetId %>"
 						>Remove this artist</a>
 					|
 % }
-					<a href="/addnonalbumtracks.html?artistid=<% $artist->GetId() %>"
+					<a href="/edit/track/addnonalbum.html?artistid=<% $artist->GetId() %>"
 						>Add non-album tracks</a>
 					]
 				</p>
@@ -264,7 +264,7 @@ $m->comp(
 %           if ($session{uid}) {
     	    <td align="center">
 
-            <form method="post" action="/mod/tag/donetag.html"
+            <form method="post" action="/edit/albumbatch/done.html"
                   id="BatchOp"
                   enctype="application/x-www-form-urlencoded">
 %            for my $album (@albums) {
@@ -371,7 +371,7 @@ $m->comp(
 						</td>
 % if ($session{uid}) {
 						<td class="rtag">
-						  <form method="post" action="/mod/tag/donetag.html" 
+						  <form method="post" action="/edit/albumbatch/done.html" 
 								enctype="application/x-www-form-urlencoded">
 							  <script type="text/javascript">
 								  document.writeln('<\input type="checkbox" name="check" onchange="document.forms.BatchOp.AlbumId<% $album->GetId %>.value = this.form.check.checked ? \'on\' : \'\';">');

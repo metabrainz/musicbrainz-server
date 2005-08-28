@@ -1,0 +1,203 @@
+%# vi: set ts=4 sw=4 ft=mason :
+<%args>
+$tocid => ""
+$albumid => ""
+$newalbumid => ""
+$confirm => 0
+$notetext => ""
+</%args>
+<%perl>
+
+MusicBrainz::IsNonNegInteger($tocid) && $tocid
+	or return $m->comp("/comp/badargs", 1, 1);
+
+MusicBrainz::IsNonNegInteger($albumid) && $albumid
+	or return $m->comp("/comp/badargs", 1, 1);
+
+$m->comp("/comp/checkloggedin", 1, 1)
+	or return;
+
+my $mb = $m->comp("/comp/dblogin");
+
+my $al = Album->new($mb->{DBH});
+$al->SetId($albumid);
+$al->LoadFromId
+	or return $m->comp(
+		"/comp/error",
+		"Album not found in the database.",
+		1, 1,
+	);
+
+# Get the cdtoc / album_cdtoc
+
+my $alcdtoc = MusicBrainz::Server::AlbumCDTOC->newFromAlbumAndCDTOC($mb->{DBH}, $al, $tocid)
+	or return $m->comp(
+		"/comp/error",
+		"No such CDTOC #$tocid, or it is not linked to album #$albumid",
+		1, 1,
+	);
+
+my $cdtoc = $alcdtoc->GetCDTOC;
+my $numtracks = $cdtoc->GetTrackCount;
+
+if ($newalbumid ne "")
+{
+	MusicBrainz::IsNonNegInteger($newalbumid) && $newalbumid
+		or return $m->comp("/comp/badargs", 1, 1);
+	
+	my $newal = Album->new($mb->{DBH});
+	$newal->SetId($newalbumid);
+	$newal->LoadFromId
+		or return $m->comp(
+			"/comp/error",
+			"Album not found in the database.",
+			1, 1,
+		);
+
+	# TODO verify same artist
+	# TODO verify same number of tracks
+
+	my $url = "/showalbum.html?albumid=$albumid";
+
+	return $m->comp("move-confirm", $cdtoc, $al, $newal)
+		if not $confirm;
+
+	$m->comp(
+		"/comp/entermods",
+		DBH => $mb->{DBH},
+		sub => sub {
+			my @mods = Moderation->InsertModeration(
+				DBH	=> $mb->{DBH},
+				uid	=> $session{uid},
+				privs => $session{privs},
+				type => &ModDefs::MOD_MOVE_DISCID,
+				# --
+				cdtoc => $cdtoc,
+				oldalbum => $al,
+				newalbum => $newal,
+			);
+
+			$mods[0]->InsertNote($session{'uid'}, $notetext)
+				if $mods[0]
+				and $notetext =~ /\S/;
+		},
+		success_url => $url,
+	) or return;
+
+	die "Shouldn't get here";
+}
+
+# Build a list of possible target albums
+
+my $ar = Artist->new($mb->{DBH});
+$ar->SetId($al->GetArtist);
+
+my @albums = $ar->GetAlbums
+	or return $m->comp(
+		"/comp/error",
+		"Cannot load albums for artist.",
+		1, 1,
+	);
+
+@albums = grep {
+	my $t = $_;
+
+	$t->GetId != $al->GetId
+	and not $t->IsNonAlbumTracks
+	and $t->GetArtist != &ModDefs::VARTIST_ID
+	and do {
+		# TODO is this really a good way of checking the number of tracks?
+		# Shouldn't we test the album's TOC, not the number of defined tracks?
+		scalar $t->LoadTracks;
+	} == $numtracks
+} @albums;
+
+# Sort albums by name
+@albums = map { $_->[0] }
+	sort { $a->[1] cmp $b->[1] }
+	map {
+		my $t = $_;
+		use Encode qw( decode );
+		use Text::Unaccent qw( unac_string );
+		my $n = lc decode "utf-8", unac_string('UTF-8', $t->GetName);
+		[ $t, $n ];
+	} @albums;
+
+# Prepare a string to describe "n tracks"
+my $trackdesc = (
+	$numtracks == 1
+		? "1 track"
+		: "$numtracks tracks"
+);
+
+</%perl>
+
+<& /comp/sidebar, title => 'Move CD Index Id' &>
+
+% if (@albums) {
+
+<fieldset>
+	<legend>Move CD Index Id to another Album</legend>
+	<div class="padleft">
+		Select an album to which CD Index Id  
+		<a href="/showcdtoc.html?id=<% $cdtoc->GetId %>"><% $cdtoc->GetDiscID %></a> 
+		should be moved.<br/>
+		NOTE: Only albums with <% $trackdesc %> have been shown.
+	</div>
+	<div class="padleft">
+		<ul>
+%     for my $ref (@albums) {
+			<li><a href="#<% $ref->GetId %>"><% $ref->GetName %></a>
+% }
+		<ul>
+	</div>
+
+	<p></p>
+	<div class="padleft">
+		<table width="600">
+% for my $ref (@albums) {
+			<tr valign="bottom">
+				<td>
+					<a name="#<% $ref->GetId %>"></a>
+					<& /comp/album, artist=>$ar, album=>$ref, showmodlinks => 0 &>
+				</td>
+				<td>
+
+					<form 	method="post" action="/edit/discid/move.html"
+							style="margin: 1em">
+							<input type="hidden" name="tocid" value="<% $tocid %>">
+							<input type="hidden" name="albumid" value="<% $albumid %>">
+							<input type="hidden" name="newalbumid" value="<% $ref->GetId %>">
+							<input type="submit" class="button" value="Select &raquo;">
+					</form>
+				</td>
+			</tr>
+			<tr><td>&nbsp;</td></tr>
+% }
+		</table>
+	</div>
+</fieldset>
+
+% } else {
+
+<fieldset>
+	<legend>Move CD Index Id to another Album</legend>
+	<div class="padleft">
+		CD Index Ids can only be moved to albums with the same number of tracks.&nbsp;
+		Since this artist does not have any other albums with <% $trackdesc %>,
+		CD Index Id <a href="/showcdtoc.html?id=<% $cdtoc->GetId %>"><% $cdtoc->GetDiscID %></a> 
+		cannot be moved.
+	</div>
+
+	<div class="padlefttop">
+		<form 	method="GET" action="/showalbum.html"
+				name="ModFormNo">
+			<input type="hidden" name="albumid" value="<% $al->GetId %>">
+			<input name="btnBack" type="submit" class="button" value="&laquo; Back">
+		</form>
+	</div>
+</fieldset>
+
+% }
+
+<& /comp/footer &>

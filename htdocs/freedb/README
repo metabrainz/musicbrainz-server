@@ -20,7 +20,7 @@ VARIOUS ARTISTS
 - "VA" - button to change to SINGLE ARTIST
 - first time in, try to guess split format
 - run through "edit track name / search for artist / select/add artist" loop
-  like changetrack.html
+  like edit/track/change.html
 - links back to "show album so far"
 - when done, return to album
 - continue button

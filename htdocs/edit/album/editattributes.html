@@ -1,0 +1,122 @@
+%# vi: set ts=4 sw=4 ft=mason :
+<%args>
+@id => ()
+$untag => 0
+$attr_type => 0
+$attr_status => 0
+$notetext => ""
+</%args>
+<%perl>
+
+$m->comp("/comp/checkloggedin", 1, 1)
+	or return;
+
+for my $album (@id)
+{
+	MusicBrainz::IsNonNegInteger($album) && $album
+		or return $m->comp("/comp/badargs", 1, 1);
+}
+
+my $mb = $m->comp("/comp/dblogin");
+
+my @objs;
+my %artists;
+
+for my $album (@id)
+{
+	my $al = Album->new($mb->{DBH});
+	$al->SetId($album);
+
+	$al->LoadFromId
+		or return $m->comp(
+			"/comp/error",
+			"Album #$album does not exist",
+			1, 1,
+		);
+
+	push @objs, $al;
+	++$artists{$al->GetArtist};
+}
+
+my $modpending = grep { $_->GetAttributeModPending } @objs;
+
+my $url =
+	@id == 1
+		? "/showalbum.html?albumid=$id[0]"
+		: keys(%artists) == 1
+			? "/showartist.html?artistid=".$objs[0]->GetArtist
+			: "/search.html";
+
+if ($ARGS{confirm})
+{
+	$m->comp(
+		"/comp/entermods",
+		DBH => $mb->{DBH},
+		sub => sub {
+			my @mods = Moderation->InsertModeration(
+				DBH	=> $mb->{DBH},
+				uid	=> $session{uid},
+				privs => $session{privs},
+				type => &ModDefs::MOD_EDIT_ALBUMATTRS,
+				# --
+				albums => \@objs,
+				attr_type => $attr_type,
+				attr_status => $attr_status,
+			);
+
+			$mods[0]->InsertNote($session{'uid'}, $notetext)
+				if $mods[0]
+				and $notetext =~ /\S/;
+
+			delete $session{'tagged_albums'}
+				if $untag;
+		},
+		success_url => $url,
+	) or return;
+
+	die "Shouldn't get here";
+}
+
+my %attrs;
+
+for my $al (@objs)
+{
+	++$attrs{$_}
+		for $al->GetAttributes;
+}
+
+my @attrs = sort { $a<=>$b } keys %attrs;
+my ($type, $status) = Album->GetReleaseTypeAndStatus(\@attrs);
+
+</%perl>
+
+<& /comp/sidebar, title => 'Edit Album Attributes' &>
+
+% if ($modpending) {
+    <& /comp/modpending &>
+% } 
+
+<form method="post" action="/edit/album/editattributes.html"
+	name="EditAlbumAttrsForm">
+
+% my @focus_to;
+	<& /comp/albumattrform,
+		adding				=> undef,
+		albumname			=> (@objs > 1 ? "" : $objs[0]->GetName),
+		multi_album			=> (@objs > 1),
+		type_value			=> $type,
+		status_value		=> $status,
+		type_fieldname		=> "attr_type",
+		status_fieldname	=> "attr_status",
+		focus_to	=> \@focus_to,
+	&>
+
+% for (@id) {
+	<input type="hidden" name="id" value="<% $_ %>">
+% }
+	<input type="hidden" name="untag" value="<% $untag %>">
+	<input type="hidden" name="confirm" value="1">
+</form>
+
+<& /comp/movefocus, "EditAlbumAttrsForm", @focus_to &>
+<& /comp/footer &>

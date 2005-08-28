@@ -1,0 +1,234 @@
+%# vi: set ts=4 sw=4 ft=mason :
+<%perl>
+
+my $edit = $session{"editalbum"}
+	or return $m->comp("/comp/redirect", "/search.html");
+
+my $mb = $m->comp("/comp/dblogin");
+my $changes = 0;
+
+my $al = Album->new($mb->{DBH});
+$al->SetId($edit->{"id"});
+$al->LoadFromId
+	or return $m->comp(
+		"/comp/error",
+		"Album not found in the database.",
+		1, 1,
+	);
+
+my $ar = Artist->new($mb->{DBH});
+$ar->SetId($al->GetArtist);
+$ar->LoadFromId
+	or return $m->comp(
+		"/comp/error",
+		"Artist not found in the database.",
+		1, 1,
+	);
+
+my @tracks = $al->LoadTracks;
+
+my $orig = $m->scomp(
+	"/comp/album",
+	album => $al,
+	artist => $ar,
+	showmodlinks => 0,
+	tracks => \@tracks,
+);
+
+#$al->{attrs} = [ 0, &Album::ALBUM_ATTR_ALBUM, &Album::ALBUM_ATTR_BOOTLEG ];
+
+</%perl>
+<& /comp/sidebar, title => "Album Editor: Review Changes" &>
+
+<fieldset>
+	<legend>Review Changes</legend>
+
+	<div class="padleft">
+		These are the moderations that will be entered into
+		the system when you click "Enter Moderations":
+	</div>
+
+	<div class="padlefttop">
+		<table border="0" cellspacing="0">
+			<tr valign="top">
+				<td><b>Moderation</td>
+				<td rowspan="200">&nbsp;&nbsp;</td>
+				<td><b>Old Value</td>
+				<td rowspan="200">&nbsp;&nbsp;</td>
+				<td><b>New Value</td>
+			</tr>
+
+<%perl>
+
+if ($edit->{name} ne $edit->{orig_name})
+{
+	</%perl>
+			<tr valign="top">
+				<td>Edit Album Name</td>
+				<td><a href="/showalbum.html?albumid=<% $edit->{'id'} %>"><% $edit->{orig_name} %></a></td>
+				<td><b><% $edit->{name} %></b></td>
+			</tr>
+	<%perl>
+	$al->SetName($edit->{name});
+	++$changes;
+}
+
+my $old_attrs = join " ", sort grep { defined } @$edit{qw( orig_type orig_status )};
+my $new_attrs = join " ", sort grep { defined } @$edit{qw( type status )};
+if ($old_attrs ne $new_attrs)
+{
+	</%perl>
+			<tr valign="top">
+				<td>Edit Album Attributes</td>
+	<%perl>
+	for ($old_attrs, $new_attrs)
+	{
+		my @names = map {
+			Album->GetAttributeName($_) || "#$_"
+		} split ' ', $_;
+		</%perl>
+				<td><% @names ? join ", ", @names : "None" %></td>
+%	}
+			</tr>
+	<%perl>
+	$al->SetAttributes(split ' ', $new_attrs);
+	++$changes;
+}
+
+for my $t (@{ $edit->{tracks} })
+{
+	if ($t->{"new"})
+	{
+		next if $t->{"name"} eq "";
+		</%perl>
+			<tr valign="top">
+				<td>Add Track</td>
+				<td>-</td>
+				<td><b><% $t->{seq} %>: <% $t->{name} %></b></td>
+			</tr>
+		<%perl>
+		# push Track object
+		my $tr = Track->new($mb->{DBH});
+		$tr->SetId(0);
+		$tr->SetName($t->{name});
+		$tr->SetSequence($t->{seq});
+		push @tracks, $tr;
+		++$changes;
+		next;
+	}
+		
+	(my $tr) = grep { $_->GetId == $t->{"id"} } @tracks
+		or next;
+
+	if ($t->{'delete'})
+	{
+		</%perl>
+			<tr valign="top">
+				<td>Remove Track</td>
+				<td><% $t->{orig_seq} %>: <a href="/showtrack.html?trackid=<% $t->{'id'} %>"><% $t->{orig_name} %></a>
+					</td>
+				<td>-</td>
+			</tr>
+		<%perl>
+		$tr->{"_delete"} = 1;
+		++$changes;
+		next;
+	}
+
+	if ($t->{name} ne $t->{orig_name})
+	{
+		</%perl>
+			<tr>
+				<td>Edit Track Name</td>
+				<td><a href="/showtrack.html?trackid=<% $t->{'id'} %>"><% $t->{orig_name} %></a></td>
+				<td><b><% $t->{name} %></b></td>
+			</tr>
+		<%perl>
+		$tr->SetName($t->{name});
+		++$changes;
+	}
+
+	if ($t->{seq} != $t->{orig_seq})
+	{
+		</%perl>
+			<tr>
+				<td>Edit Track Number</td>
+				<td><b><% $t->{orig_seq} %></b>: <a href="/showtrack.html?trackid=<% $t->{'id'} %>"><% $t->{name} %></a></td>
+				<td><b><% $t->{seq} %></b></td>
+			</tr>
+		<%perl>
+		$tr->SetSequence($t->{seq});
+		++$changes;
+	}
+}
+
+</%perl>
+
+% if (not $changes) {
+			<tr><td colspan="3">You have not made any changes!</td></tr>
+% }
+		</table>
+	</div>
+	<div class="padlefttop">
+		<table>
+			<tr>
+				<td>
+					<form method="GET" action="sae-edittracks.html">
+						<input type="submit" class="button" value="Keep Editing">
+					</form></td>
+				<td>
+					<form method="GET" action="editall.html">
+						<input type="hidden" name="album" value="<% $edit->{'id'} %>">
+						<input type="submit" class="button" value="Start Over">
+					</form></td>
+				<td>
+					<form method="GET" action="sae-cancel.html">
+						<input type="submit" class="button" value="Abandon">
+					</form></td>
+			</tr>
+		</table>
+	</div>
+</fieldset>
+
+% if ($changes) {
+<fieldset>
+	<legend>Preview</legend>
+	<div class="padlefttop">
+		<font size="+2">
+			<a href="/showartist.html?artistid=<% $ar->GetId %>"><% $ar->GetName %></a>
+		</font>
+	</div>
+	<div class="padlefttop">
+		<%perl>
+			@tracks = sort {
+				$a->GetSequence <=> $b->GetSequence
+				or
+				$a->GetName cmp $b->GetName
+			} grep {
+				not $_->{"_delete"}
+			} @tracks;
+		</%perl>
+
+		<table width="600"><tr><td>
+		<& "/comp/album",
+			album => $al,
+			artist => $ar,
+			showmodlinks => 0,
+			tracks => \@tracks,
+			&>
+		</td></tr></table>
+	</div>
+	
+	<form method="post" action="sae-enter.html">
+		<div class="padlefttop">
+			<& /comp/notetext &>
+		</div>
+		<div class="padlefttop">
+			<input type="hidden" name="album" value="<% $al->GetId %>">
+			<input type="submit" class="button" value="Enter Moderations">
+		</div>
+	</form>
+</fieldset>
+% }
+
+<& /comp/footer &>

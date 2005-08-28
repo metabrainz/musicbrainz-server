@@ -6,7 +6,7 @@ my $max_items = 50;
 
 $m->comp("/comp/sidebar", title=>'Browse Artists');
 
-$m->out("<p>[ <a href=\"/addartist.html\">Add New Artist</a> ]<p>");
+$m->out("<p>[ <a href=\"/edit/artist/add.html\">Add New Artist</a> ]<p>");
 
 $ind = $ARGS{index};
 if (!defined $ind || $ind eq '')

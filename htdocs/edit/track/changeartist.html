@@ -1,0 +1,149 @@
+%# vi: set ts=4 sw=4 ft=mason :
+<%args>
+$album => ""
+$tindex => 0
+$modid => 0
+$selectedartist => ""
+$newartistname => ""
+$newartistsortname => ""
+$search => ""
+$firsttime => 0
+$notetext => ""
+</%args>
+<%perl>
+
+$m->comp("/comp/checkloggedin", 1, 1)
+	or return;
+
+MusicBrainz::IsNonNegInteger($album) && $album
+	or return $m->comp("/comp/badargs", 1, 1);
+
+MusicBrainz::IsNonNegInteger($tindex)
+	or return $m->comp("/comp/badargs", 1, 1);
+
+MusicBrainz::IsNonNegInteger($modid)
+	or return $m->comp("/comp/badargs", 1, 1);
+
+my $mb = $m->comp("/comp/dblogin");
+
+my $al = Album->new($mb->{DBH});
+$al->SetId($album);
+$al->LoadFromId
+	or return $m->comp(
+		"/comp/error",
+		"Album #$album not found in the database.",
+		1, 1,
+	);
+
+my @tracks = $al->LoadTracks();
+my $track = $tracks[$tindex];
+my $newartistid = -1;
+
+my $url = (
+	$ARGS{solo}
+		? "/showalbum.html?albumid=$album"
+		: "/edit/track/change.html?album=$album&tindex=${\ ($tindex + 1) }&modid=$modid"
+);
+
+if ($selectedartist ne "")
+{
+	MusicBrainz::IsNonNegInteger($selectedartist) && $selectedartist
+		or return $m->comp("/comp/badargs", 1, 1);
+	
+	my $target = Artist->new($mb->{DBH});
+	$target->SetId($selectedartist);
+	$target->LoadFromId
+		or return $m->comp(
+			"/comp/error",
+			"Artist #$selectedartist not found.",
+			1, 1,
+		);
+
+	$newartistname = $target->GetName;
+	$newartistsortname = $target->GetSortName;
+	$newartistid = $target->GetId;
+}
+
+if ($newartistname =~ /\S/ and $newartistsortname =~ /\S/)
+{
+	my $ar = Artist->new($mb->{DBH});
+	$ar->SetId($track->GetArtist);
+	$ar->LoadFromId
+		or return $m->comp(
+			"/comp/error",
+			"Artist not found in the database.",
+			1, 1,
+		);
+
+	return $m->comp("/comp/redirect", $url)
+		if $newartistid == $ar->GetId;
+
+	$m->comp(
+		"/comp/entermods",
+		DBH => $mb->{DBH},
+		sub => sub {
+			my @mods = Moderation->InsertModeration(
+				DBH	=> $mb->{DBH},
+				uid	=> $session{uid},
+				privs => $session{privs},
+				type => &ModDefs::MOD_CHANGE_TRACK_ARTIST,
+				# --
+				track => $track,
+				oldartist => $ar,
+				artistid => $newartistid,
+				artistname => $newartistname,
+				artistsortname => $newartistsortname,
+				# TODO depmod on $modid ?
+			);
+
+			# TODO no UI to enter $notetext yet
+			$mods[0]->InsertNote($session{'uid'}, $notetext)
+				if $mods[0]
+				and $notetext =~ /\S/;
+		},
+		success_url => $url,
+	) or return;
+
+	die "Shouldn't get here";
+}
+
+</%perl>
+
+<& /comp/sidebar, title => 'Change Track Artist' &>
+
+% if ($firsttime) {
+<p style="font-weight: bold">
+	NOTE: The track name moderation has now been entered.
+</p>
+% }
+
+<& /comp/stylemenu &>
+  
+%  if ($track->GetModPending) {
+<& /comp/modpending &>
+%  } 
+
+<fieldset>
+	<legend>Change Artist for current track</legend>
+	<div class="padleft">
+		Please search for the artist to whom you'd like to move this track:
+	</div>
+	<div class="padlefttop">
+		<div class="oldtextfield"><% $track->GetName  %></div>
+	</div>
+</fieldset>
+
+<& /comp/artistfilter,
+	search => $ARGS{'search'},
+	allowcreate => 1,
+	url => "/edit/track/changeartist.html",
+	arglist => {
+		album => $album,
+		tindex => $tindex,
+		modid => $modid,
+		solo => ($ARGS{solo} ? 1 : 0),
+		notetext => $notetext,
+	},
+	&>
+
+<& /comp/footer &>

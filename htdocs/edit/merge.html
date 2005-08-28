@@ -1,0 +1,104 @@
+%# vi: set ts=2 sw=2 ft=mason :
+<%args>
+$id => ""
+$selectedartist => ""
+$search => ""
+$notetext => undef
+</%args>
+<%perl>
+
+$m->comp("/comp/checkloggedin", 1, 1)
+	or return;
+
+MusicBrainz::IsNonNegInteger($id) && $id
+	or return $m->comp("/comp/badargs", 1, 1);
+
+$id == &ModDefs::VARTIST_ID || $id == &ModDefs::DARTIST_ID
+	and return $m->comp("/comp/badargs", 1, 1);
+
+my $mb = $m->comp("/comp/dblogin");
+
+my $ar = Artist->new($mb->{DBH});
+$ar->SetId($id);
+$ar->LoadFromId
+	or return $m->comp(
+		"/comp/error",
+		"Artist #$id not found.",
+		1, 1,
+	);
+
+my $url = "/showartist.html?artistid=$id";
+
+if ($selectedartist ne "")
+{
+	MusicBrainz::IsNonNegInteger($selectedartist) && $selectedartist
+		or return $m->comp("/comp/badargs", 1, 1);
+
+	my $target = Artist->new($mb->{DBH});
+	$target->SetId($selectedartist);
+	$target->LoadFromId
+		or return $m->comp(
+			"/comp/error",
+			"Artist #$selectedartist not found.",
+			1, 1,
+		);
+
+	defined $notetext
+		or return $m->comp(
+			"merge-confirm",
+			$ar, $target,
+		);
+
+	$m->comp(
+		"/comp/entermods",
+		DBH => $mb->{DBH},
+		sub => sub {
+			my @mods = Moderation->InsertModeration(
+				DBH	=> $mb->{DBH},
+				uid	=> $session{uid},
+				privs => $session{privs},
+				type => &ModDefs::MOD_MERGE_ARTIST,
+				# --
+				source => $ar,
+				target => $target,
+			);
+
+			$mods[0]->InsertNote($session{'uid'}, $notetext)
+				if $mods[0]
+				and $notetext =~ /\S/;
+		},
+		success_url => $url,
+	) or return;
+
+	die "Shouldn't get here";
+}
+
+$search = $ar->GetName
+	unless defined $search and $search =~ /\S/;
+
+</%perl>
+
+<& /comp/sidebar, title => "Merge artist '${\ $ar->GetName }' into another artist" &>
+
+% if ($ar->GetModPending) {
+    <& /comp/modpending &>
+% }
+
+
+<fieldset>
+	<legend>Select other artist </legend>
+	<div class="padleft">
+		Please search for the artist into which you want to merge 
+		<b><% $ar->GetName %></b> into.
+	</div>
+</fieldset>
+
+<& /comp/artistfilter,
+	search => $search,
+	dontshow => [$id],
+	allowcreate => 0,
+	url => "/edit/artist/merge.html",
+	arglist => { id => $id },
+	&>
+
+<& /comp/footer &>

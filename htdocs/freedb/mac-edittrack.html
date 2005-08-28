@@ -13,7 +13,7 @@ $session{"freedb_ready"}
 MusicBrainz::IsNonNegInteger($t) and $t < $session{"freedb_tracks"}
 	or return $m->comp("/comp/redirect", "/freedb/mac-edittracks.html");
 
-# Chunks of code copied from changetrack.html :
+# Chunks of code copied from edit/track/change.html :
 
 # If the user had to click "swap", flip our "split order" flag
 $session{'changetrack_splitorder'} = not $session{'changetrack_splitorder'}

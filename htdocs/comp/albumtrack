@@ -49,7 +49,7 @@ my $colspan = ($nonalbum ? 'colspan="2"' : '');
     <td width="30%" bgcolor="white">
        <a href="/showartist.html?artistid=<% $track->GetArtist %>"><% $track->GetArtistName %></a>
 % if (exists $session{user} and $showmodlinks) {
-          (<a href="/changetrack.html?album=<% $album->GetId() %>&amp;tindex=<% $tindex %>&amp;solo=1">Change</a>)
+          (<a href="/edit/track/change.html?album=<% $album->GetId() %>&amp;tindex=<% $tindex %>&amp;solo=1">Change</a>)
 % }
     </td>
 % }
@@ -60,9 +60,9 @@ my $colspan = ($nonalbum ? 'colspan="2"' : '');
     <td width="15%" bgcolor="white" nowrap
     	class="CenterChildren" style="text-align: center"
 	>
-       <a href="/edittrack.html?track=<% $track->GetId() %>&amp;album=<% $album->GetId() %>">Edit</a>
+       <a href="/edit/track/edit.html?track=<% $track->GetId() %>&amp;album=<% $album->GetId() %>">Edit</a>
 % if ($album->CanRemoveTrack($track->GetSequence)) {
-       | <a href="/remtrack.html?id=<% $track->GetId() %>&amp;album=<% $album->GetId() %>&amp;artist=<% $artist->GetId() %>">Del</a>
+       | <a href="/edit/track/remove.html?id=<% $track->GetId() %>&amp;album=<% $album->GetId() %>&amp;artist=<% $artist->GetId() %>">Del</a>
 % }
     </td>
 % }

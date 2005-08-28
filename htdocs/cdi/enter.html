@@ -11,7 +11,7 @@ $noncd=>0
 
 unless (MusicBrainz::IsNonNegInteger($tracks) and $tracks >= 1 and $tracks <= 99)
 {
-	$m->comp("/comp/redirect", '/addalbum.html?artistid=' . $artist . '&error=1');
+	$m->comp("/comp/redirect", '/edit/album/add.html?artistid=' . $artist . '&error=1');
 	return;
 }
 

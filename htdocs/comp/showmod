@@ -112,7 +112,7 @@ $time = $m->comp("/comp/datetime", $time);
 					&><% $send_email_target |n %>>Send email</a>
 % }
 % if ($is_mine and $is_open) {
-			| <a href="/removemod.html?modid=<% $mod->GetId %>">Delete mod</a>
+			| <a href="/mod/remove.html?modid=<% $mod->GetId %>">Delete mod</a>
 % }
 			]
    </td>

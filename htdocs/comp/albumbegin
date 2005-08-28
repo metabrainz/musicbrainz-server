@@ -62,7 +62,7 @@ if ($asin)
 %       }
 %       if ($session{uid} && !$nonalbum && $showtag) {
             <td width="1%" bgcolor="#FFBA58" align=center valign=top nowrap>
-              <form method="post" action="/mod/tag/donetag.html" 
+              <form method="post" action="/edit/albumbatch/done.html" 
                     enctype="application/x-www-form-urlencoded">
               <script type="text/javascript">
               document.writeln('<\input type="checkbox" name="check" onchange="document.forms.BatchOp.AlbumId<% $albumid %>.value = this.form.check.checked ? \'on\' : \'\';" <% $tagchecked ? " CHECKED" : "" %>\>');
@@ -130,27 +130,27 @@ Relationships:
 <div class="AlbumTitleMod">
 <div class="AlbumTitleLinks">Edit: [
 %		if (!$nonalbum) {
-	<a href="/editalbum.html?album=<% $albumid %>">Edit name</a> |
+	<a href="/edit/album/edit.html?album=<% $albumid %>">Edit name</a> |
 %			unless ($artist->GetId == &ModDefs::VARTIST_ID) {
-	<a href="/mod/edit-album/index.html?album=<% $albumid %>">Edit all</a> |
-  <a href="/mod/link/selectlink.html?type=album&amp;id=<% $albumid %>&amp;name=<% uri_escape($name) %>">Link</a> |
+	<a href="/edit/album/editall.html?album=<% $albumid %>">Edit all</a> |
+  <a href="/edit/relationship/showelements.html?type=album&amp;id=<% $albumid %>&amp;name=<% uri_escape($name) %>">Link</a> |
 %			}
 %		}
-	<a href="/remalbum.html?album=<% $albumid %>&amp;artist=<% $artist->GetId %>">Delete</a>
+	<a href="/edit/album/remove.html?album=<% $albumid %>&amp;artist=<% $artist->GetId %>">Delete</a>
 %		if ($nonalbum) {
-	| <a href="/addnonalbumtracks.html?artistid=<% $album->GetArtist %>">Add&nbsp;a&nbsp;non-album&nbsp;track</a>&nbsp;]
+	| <a href="/edit/track/addnonalbum.html?artistid=<% $album->GetArtist %>">Add&nbsp;a&nbsp;non-album&nbsp;track</a>&nbsp;]
 %		} else {
-	| <a href="/mod/edit-releases/index.html?album=<% $albumid %>">Edit&nbsp;releases</a>
+	| <a href="/edit/albumreleases/index.html?album=<% $albumid %>">Edit&nbsp;releases</a>
 %			if ($album->CanAddTrack) {
-	| <a href="/addtrack.html?album=<% $albumid %>">Add&nbsp;track</a>
+	| <a href="/edit/track/add.html?album=<% $albumid %>">Add&nbsp;track</a>
 %			}
-	| <a href="/movealbum.html?album=<% $albumid %>">Move</a>
+	| <a href="/edit/album/move.html?album=<% $albumid %>">Move</a>
 %			if ($album->GetArtist != &ModDefs::VARTIST_ID) {
-	| <a href="/tomac.html?album=<% $albumid %>">Convert&nbsp;to&nbsp;multiple&nbsp;artists</a>
+	| <a href="/edit/album/mac.html?album=<% $albumid %>">Convert&nbsp;to&nbsp;multiple&nbsp;artists</a>
 %			} else {
-	| <a href="/tosac.html?album=<% $albumid %>">Convert&nbsp;to&nbsp;single&nbsp;artist</a>
+	| <a href="/edit/album/sac.html?album=<% $albumid %>">Convert&nbsp;to&nbsp;single&nbsp;artist</a>
 %			}
-	| <a href="/mod/tag/donetag.html?AlbumId<% $albumid %>=on">Merge&nbsp;with&nbsp;...</a>&nbsp;]
+	| <a href="/edit/albumbatch/done.html?AlbumId<% $albumid %>=on">Merge&nbsp;with&nbsp;...</a>&nbsp;]
 %		}
 </div> 
 </div> 

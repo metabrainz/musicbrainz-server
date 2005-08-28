@@ -158,9 +158,9 @@ else
 		if ($session{uid} && $modlinks && $expanded) 
 		{
 			$m->out(($max > 1) ? '</td><td align="right" valign="top">' : '');
-			$m->out('<nobr> [ <a href="/mod/link/remove_link.html?type=' . $item->{link0_type} . '-' .
+			$m->out('<nobr> [ <a href="/edit/relationship/remove.html?type=' . $item->{link0_type} . '-' .
 					$item->{link1_type} . '&amp;id='.$item->{link_id}.'">Del</a> ');
-			$m->out('| <a href="/mod/link/edit_link.html?type=' . $item->{link0_type} . '-' .
+			$m->out('| <a href="/edit/relationship/edit.html?type=' . $item->{link0_type} . '-' .
 					$item->{link1_type} . '&amp;id='.$item->{link_id}.'">Edit</a> ] </nobr>');
 		}
 		$m->out(($max > 1) ? '</td></tr>' : '<br>');
@@ -205,11 +205,11 @@ elsif (scalar(@$recent_links) == 1)
 	<p>
 		[
 % unless ($type eq "url") {
-		<a href="/mod/link/relate_to_url.html?id=<% $recent_links->[0][1] %>&amp;type=<% $recent_links->[0][0] 
+		<a href="/edit/relationship/addurl.html?id=<% $recent_links->[0][1] %>&amp;type=<% $recent_links->[0][0] 
 			%>&amp;name=<% uri_escape($recent_links->[0][2]) %>">Relate to URL</a> |
 % }
 		<& /comp/ar/ShowCancelLink, targetid=>$id, targettype=>$type, isrelpage=>$isrelpage &>
-		| <a href="/addartist.html">Add new artist</a>
+		| <a href="/edit/artist/add.html">Add new artist</a>
 		]
 
 		<%perl>
@@ -247,14 +247,14 @@ elsif (scalar(@$recent_links) == 2)
 	</ul>
 
 	<p>
-		[ <a href="/mod/link/newlink-selecttype.html?link0=<% 
+		[ <a href="/edit/relationship/add.html?link0=<% 
 			$recent_links->[1][0] %>=<% $recent_links->[1][1] %>&amp;link1=<%
 			$recent_links->[0][0] %>=<% $recent_links->[0][1] %>">Create relationship</a>
 		| <& /comp/ar/ShowCancelLink, targetid=>$id, targettype=>$type, isrelpage=>$isrelpage &>
 %	if (UserStuff->IsLinkModerator($session{privs})) {
-		| <a href="/mod/link/link_type_roots.html">Edit link types</a>
+		| <a href="/edit/relationships/link_type_roots.html">Edit link types</a>
 %	}
-		| <a href="/addartist.html">Add new artist</a>
+		| <a href="/edit/artist/add.html">Add new artist</a>
 		]
 	</p>
 	<%perl>
@@ -293,15 +293,15 @@ else
 	</ul>
 
 	<p>
-		[ <a href="/mod/link/newlink-selecttype.html?link0=<% 
+		[ <a href="/edit/relationship/add.html?link0=<% 
 			$recent_links->[1][0] %>=<% $recent_links->[1][1] %>&amp;link1=<%
 			$recent_links->[0][0] %>=<% $recent_links->[0][1] %>">Create relationship</a>
-		| <a href="/mod/link/selectlink.html">Show all elements</a>
+		| <a href="/edit/relationship/showelements.html">Show all elements</a>
 		| <& /comp/ar/ShowCancelLink, targetid=>$id, targettype=>$type, isrelpage=>$isrelpage &>
 %	if (UserStuff->IsLinkModerator($session{privs})) {
-		 | <a href="/mod/link/link_type_roots.html">Edit link types</a>
+		 | <a href="/edit/relationships/link_type_roots.html">Edit link types</a>
 %	}
-		| <a href="/addartist.html">Add new artist</a>
+		| <a href="/edit/artist/add.html">Add new artist</a>
 		]
 	</p>
 	<%perl>

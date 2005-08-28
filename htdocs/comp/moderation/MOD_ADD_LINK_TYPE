@@ -9,7 +9,7 @@
 % my $new = $self->{'new_unpacked'};
 
 	New:
-	<span class="bold"><a href="/mod/link/link_types.html?type=<% $new->{'types'} %>&amp;new=<% $self->GetRowId %>"
+	<span class="bold"><a href="/edit/relationships/link_types.html?type=<% $new->{'types'} %>&amp;new=<% $self->GetRowId %>"
 		><% $new->{'name'} %></a></span><br>
 	Link Type: <% $new->{'types'} %><br>
 	Link Phrase: <% $new->{'linkphrase'} %><br>

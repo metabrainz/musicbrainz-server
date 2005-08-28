@@ -52,7 +52,7 @@ else
 }
 if (UserStuff->IsLinkModerator($session{privs}))
 {
-	$m->out(qq! | <a href="/mod/link/link_type_roots.html">Edit link types</a> !);
+	$m->out(qq! | <a href="/edit/relationships/link_type_roots.html">Edit link types</a> !);
 }
 $m->out(" ]");
 </%perl>

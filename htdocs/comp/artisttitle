@@ -89,15 +89,15 @@ elsif ( $end )
 % if ($id != &ModDefs::VARTIST_ID
 %			and $name !~ /^\[(unknown|data track|silence|no artist)\]$/
 %	) {
-				<a href="/editartist.html?id=<% $id %>">Edit artist</a>
-				| <a href="/mergeartist.html?id=<% $id %>">Merge into ...</a>
+				<a href="/edit/artist/edit.html?id=<% $id %>">Edit artist</a>
+				| <a href="/edit/artist/merge.html?id=<% $id %>">Merge into ...</a>
 				| <a href="/user/subscribe.html?artistid=<% $id %>">Subscribe</a>
 				|
 % }
-        <a href="/addalbum.html?artistid=<% $id %>">Add album</a>
+        <a href="/edit/album/add.html?artistid=<% $id %>">Add album</a>
         | <a href="/freedb/freedb.html?search=<% uri_escape($name) %>">Import album</a>
 % if ($id != &ModDefs::VARTIST_ID) {
-				| <a href="/addnonalbumtracks.html?artistid=<% $id %>">Add non-album tracks</a>
+				| <a href="/edit/track/addnonalbum.html?artistid=<% $id %>">Add non-album tracks</a>
 % }
 		]</div>
 </div>

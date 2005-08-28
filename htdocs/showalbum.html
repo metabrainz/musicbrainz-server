@@ -93,7 +93,7 @@ if (!$album->IsNonAlbumTracks)
 %		       if ($session{uid}) {
 					<td align="center">
 
-               <form method="post" action="/mod/tag/donetag.html" id="BatchOp"
+               <form method="post" action="/edit/albumbatch/done.html" id="BatchOp"
                    	enctype="application/x-www-form-urlencoded">
 
                <input type="hidden" name="AlbumId<% $album->GetId() %>" value="">
@@ -111,7 +111,7 @@ if (!$album->IsNonAlbumTracks)
 
 	<br>
 
-	<& /mod/annotation/latest, album => $album, explain => 1 &>
+	<& /edit/annotation/latest, album => $album, explain => 1 &>
 	<br>
 
 	<& /comp/album, album => $album, artist => $artist,
