@@ -67,18 +67,18 @@ if ($confirm)
 
 </%perl>
 
-<& /comp/sidebar, title => 'Confirm CD Index Id Removal' &>
+<& /comp/sidebar, title => 'Confirm Disc ID Removal' &>
 
 <fieldset>
-	<legend>Confirm CD Index Id Removal</legend>
+	<legend>Confirm Disc ID Removal</legend>
 	<div class="padleft">
-		Are you sure you want to remove	CD Index Id 
+		Are you sure you want to remove	Disc ID 
 		<a href="/showcdtoc.html?id=<% $cdtoc->GetId %>"><% $cdtoc->GetDiscID %></a>
 		from album <a href="/showalbum.html?albumid=<% $albumid %>"><% $al->GetName %></a>?
 	</div>
 	<div class="padlefttop">
-		Please be sure you are certain that this CD Index Id is an error,
-		since an album can have multiple valid CD Index Ids, and each CD Index Id
+		Please be sure you are certain that this Disc ID is an error,
+		since an album can have multiple valid Disc IDs, and each Disc ID
 		can belong to more than one album.&nbsp; For more in-depth information about
 		this topic, please see our <a href="/cd_submission.html">CD Submission</a> document.
 	</div>

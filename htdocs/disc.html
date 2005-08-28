@@ -1,5 +1,5 @@
 <& /comp/sidebar, 
-   title=>'How does the MusicBrainz calculate CD Index Disc Ids?',
+   title=>'How does the MusicBrainz calculate Disc IDs?',
    expand=>'documentation' &>
 
 <p>
@@ -93,7 +93,7 @@ of the leadout track, consisting of the remaining blocks on the CD.
 </p>
 
 <p>
-The CD Index algorithm simply takes the following pieces of data
+The Disc ID algorithm simply takes the following pieces of data
 and runs them through the
 <a href="http://www.w3.org/TR/1998/REC-DSig-label/SHA1-1_0">SHA-1</a>
 hash function:
@@ -146,13 +146,13 @@ for 32 bit integer values.
 
 <p>
 Code is a better definition than English, so here is the code
-that calculates the disc Id:
+that calculates the Disc ID:
 </p>
 
 <center>
 <table width="95%" cellspacing="0" cellpadding="10" border="0"
        bgcolor="#efefff"
-       summary="CD Index Id algorithm">
+       summary="Disc ID algorithm">
 <tr>
 <td>
 <pre>
@@ -184,7 +184,7 @@ Note that the leadout track is stored in <tt>pCDInfo-&gt;FrameOffset[0]</tt>.
 
 <p>
 The resulting 20 byte SHA-1 signature is converted to a base 64
-encoded character ASCII string that is the disc Id.
+encoded character ASCII string that is the Disc ID.
 </p>
 
 <p>
@@ -217,9 +217,9 @@ understand, simple to implement) and it is not ambiguous.
 </p>
 
 <p>
-However, two CDs pressings may not have the same Ids.
+However, two CDs pressings may not have the same IDs.
 
-To handle this case, the CD Index system will let a user check to
+To handle this case, the Disc ID system will let a user check to
 see if the CD already exists in the system under a different Id.
 If so, the system creates a new association for the different pressing
 of the same CD.
@@ -232,8 +232,8 @@ the client source code and check it out.
 
 The code is clean and self documenting.
 
-If you are interested in creating other CD Index clients and need the SHA-1
-source code, you can either dig through the CD Index source, or check the
+If you are interested in creating other Disc ID clients and need the SHA-1
+source code, you can either dig through the Disc ID source, or check the
 <a href="http://www.w3.org/tr/1998/rec-dsig-label/sha1-1_0">W3C page</a> 
 on SHA-1.
 </p>

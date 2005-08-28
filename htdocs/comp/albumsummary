@@ -29,13 +29,13 @@ my $script = $album->GetScript;
     &nbsp; &nbsp; &nbsp;<% $discids %>
     <img src="/images/cd.gif" align="middle" alt="CD" 
                width="13" height="13" style="vertical-align:bottom;border:0;"
-               title="This album has <% $discids %> CD Index Ids">
+               title="This album has <% $discids %> disc IDs">
 % }
 % if ($trmids > 0) {
     &nbsp; &nbsp; &nbsp;<% $trmids %>
     <img src="/images/trm.gif" align="middle" alt="TRM" 
                width="30" height="11" style="vertical-align:bottom;border:0;"
-               title="This album has <% $trmids %> TRM Ids">&nbsp;
+               title="This album has <% $trmids %> TRM IDs">&nbsp;
 % }
 
 % if (!$nonalbum) {

@@ -132,14 +132,14 @@ my $trackdesc = (
 
 </%perl>
 
-<& /comp/sidebar, title => 'Move CD Index Id' &>
+<& /comp/sidebar, title => 'Move Disc ID' &>
 
 % if (@albums) {
 
 <fieldset>
-	<legend>Move CD Index Id to another Album</legend>
+	<legend>Move Disc ID to another Album</legend>
 	<div class="padleft">
-		Select an album to which CD Index Id  
+		Select an album to which disc ID
 		<a href="/showcdtoc.html?id=<% $cdtoc->GetId %>"><% $cdtoc->GetDiscID %></a> 
 		should be moved.<br/>
 		NOTE: Only albums with <% $trackdesc %> have been shown.
@@ -181,11 +181,11 @@ my $trackdesc = (
 % } else {
 
 <fieldset>
-	<legend>Move CD Index Id to another Album</legend>
+	<legend>Move disc ID to another Album</legend>
 	<div class="padleft">
-		CD Index Ids can only be moved to albums with the same number of tracks.&nbsp;
+		Disc IDs can only be moved to albums with the same number of tracks.&nbsp;
 		Since this artist does not have any other albums with <% $trackdesc %>,
-		CD Index Id <a href="/showcdtoc.html?id=<% $cdtoc->GetId %>"><% $cdtoc->GetDiscID %></a> 
+		disc ID <a href="/showcdtoc.html?id=<% $cdtoc->GetId %>"><% $cdtoc->GetDiscID %></a> 
 		cannot be moved.
 	</div>
 

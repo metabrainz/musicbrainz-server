@@ -258,9 +258,9 @@ my @coll_list;
 if (scalar(@coll_list) > 1)
 {
     </%perl>
-    TRM Id: <b><% $data{trmid} %></b><p> 
+    TRM ID: <b><% $data{trmid} %></b><p> 
     <table width="420"><tr><td>
-    More than one track has the same TRM Id shown above. The highlighted tracks
+    More than one track has the same TRM ID shown above. The highlighted tracks
     shown in the albums below are the possible matches for the track
     you're matching. If none of the tracks below apply, click on 
     the lookup button at the bottom of this page:
@@ -507,14 +507,14 @@ elsif ($flags & TaggerSupport::ALBUMLIST)
              <% $id->{album_discids} %>
              <img src="/images/cd.png" align="middle" alt="CD" 
                   width="13" height="13"
-                  title="This album has <% $id->{album_discids} %> CD Index Ids">
+                  title="This album has <% $id->{album_discids} %> Disc IDs">
              </td>
              <td valign="top" NOWRAP>
              &nbsp;
              <% $id->{album_trmids} %>
              <img src="/images/trm.gif" align="middle" alt="TRM" 
                   width="30" height="11"
-                  title="This album has <% $id->{album_trmids} %> TRM Ids">&nbsp;
+                  title="This album has <% $id->{album_trmids} %> TRM IDs">&nbsp;
              </td>
              <td valign="top" align="center"><% int(($id->{sim} * 100) + .5) %>%</td>
 %            if ($session{tport}) {
@@ -628,14 +628,14 @@ if ($duration and $id->{tracklen})
              <% $id->{album_discids} %>
              <img src="/images/cd.png" align="middle" alt="CD" 
                   width="13" height="13"
-                  title="This album has <% $id->{album_discids} %> CD Index Ids">
+                  title="This album has <% $id->{album_discids} %> Disc IDs">
              </td>
              <td valign="top" align="right" style="padding-right: 1em" NOWRAP>
              &nbsp;
              <% $id->{album_trmids} %>
              <img src="/images/trm.gif" align="middle" alt="TRM" 
                   width="30" height="11"
-                  title="This album has <% $id->{album_trmids} %> TRM Ids">&nbsp;
+                  title="This album has <% $id->{album_trmids} %> TRM IDs">&nbsp;
              </td>
 % if ($mbt) {
 			 <td valign="top" align="center" rowspan="2" style="padding: 4px 0.5em 4px 0">

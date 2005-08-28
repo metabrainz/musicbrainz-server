@@ -222,13 +222,13 @@ the track number implicitly. Track numbers start with 1.
 <tr><td valign="top" align="right">
 <b>trmid</b>
 </td><td valign="top">
-This property is used to indicate a Relatable TRM Id for an audio track.
+This property is used to indicate a Relatable TRM ID for an audio track.
 </td></tr>
 
 <tr><td valign="top" align="right">
 <b>cdindexid</b>
 </td><td valign="top">
-Used to describe a CD Index Disk Id for a CD-ROM.
+Used to describe a Disc ID for a CD-ROM.
 </td></tr>
 
 <tr><td valign="top" align="right">
@@ -274,14 +274,14 @@ This property is used to convey a list of tracks.
 <b>cdindexidList</b><br>
 [<a href="mq_examples.html#album">Example</a>]
 </td><td valign="top">
-This property is used to describe a list of CD Index ids in an album.
+This property is used to describe a list of Disc IDs in an album.
 </td></tr>
 
 <tr><td valign="top" align="right">
 <b>trmidList</b><br>
 [<a href="mq_examples.html#track">Example</a>]
 </td><td valign="top">
-This property is used to describe a list of TRM ids in a track.
+This property is used to describe a list of TRM IDs in a track.
 </td></tr>
 
 </table>
@@ -367,14 +367,14 @@ mq:albumName, and mq:trackName to specify the search strings.
 [<a href="mq_examples.html#getcd">Example</a>]
 </td><td valign="top">
 Use the GetCDInfo to retrieve metadata for a given CD. Use the mm:cdindexId
-property to specify the CD Index disk id.
+property to specify the Disc ID.
 </td></tr>
 
 <tr><td valign="top" align="right">
 <b>SubmitTRMList</b><br>
 [<a href="mq_examples.html#submittrm">Example</a>]
 </td><td valign="top">
-Use this query to submit a list of TRM id and track id pairs. The pairs
+Use this query to submit a list of TRM ID and track id pairs. The pairs
 must be submitted in a mq:trmTrackPair inside of a mm:trmidList Sequence.
 </td></tr>
 </table>

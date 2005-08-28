@@ -49,7 +49,7 @@ $track
 
 % if (scalar(@TRM) > 0) {
 	<tr>
-    <td valign="top" align="right">TRM Ids:</td>
+    <td valign="top" align="right">TRM IDs:</td>
     <td>
 			<table>
 		 		<tr>

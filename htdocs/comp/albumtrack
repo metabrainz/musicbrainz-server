@@ -42,7 +42,7 @@ my $colspan = ($nonalbum ? 'colspan="2"' : '');
 % }
 % if ($trmcount > 0) {
        &nbsp;<img src="/images/trm.gif" align="middle" alt="TRM" width="30" 
-                  height="11" title="<% $trmcount %> TRM Ids">&nbsp;
+                  height="11" title="<% $trmcount %> TRM IDs">&nbsp;
 % }
     </td>
 % if ($album->GetArtist() == &ModDefs::VARTIST_ID) {

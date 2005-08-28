@@ -1,11 +1,11 @@
 %# vi: set ts=4 sw=4 ft=mason :
 % my ($cdtoc, $al, $newal) = @_ or return;
-<& /comp/sidebar, title => 'Move CD Index Id' &>
+<& /comp/sidebar, title => 'Move Disc ID' &>
 
 <fieldset>
-	<legend>Confirm Move CD Index Id</legend>
+	<legend>Confirm Move Disc ID</legend>
 	<div class="padleft">
-		Are you sure you want to move CD Index Id
+		Are you sure you want to move Disc ID
 		<a href="/showcdtoc.html?id=<% $cdtoc->GetId %>"><% $cdtoc->GetDiscID %></a>
 		from album <a href="/showalbum.html?albumid=<% $al->GetId %>"><% $al->GetName %></a>
 		to album <a href="/showalbum.html?albumid=<% $newal->GetId %>"><% $newal->GetName %></a>?

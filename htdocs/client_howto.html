@@ -13,11 +13,11 @@ their applications.
 The client library includes the following features:
 
 <ul>
-<li>Lookup Audio CD metadata using CD Index Discids
+<li>Lookup Audio CD metadata using Disc IDs
 <li>Calculate <a href="http://www.relatable.com">Relatable TRM</a> acoustic 
     fingerprints
 <li>Search for artist/album/track titles
-<li>Lookup metadata by name, TRM ids or MusicBrainz Ids
+<li>Lookup metadata by name, TRM IDs or MusicBrainz IDs
 </ul>
 
 <p> 
@@ -152,12 +152,12 @@ server only supports ISO 8859-1 right now.
 
 <p>
 The MusicBrainz client library can also be used to create Relatable TRM 
-acoustic fingerprints for audio files. In order to generate a TRM id, you
+acoustic fingerprints for audio files. In order to generate a TRM ID, you
 will need to feed the client library the first 30 seconds worth of PCM
 data from your audio stream. Once you've fed it the 30 seconds of data,
 the client library will send the acoustic fingerprint information to the
 Relatable server and the server will assign and return a TRM ID to the given
-song. You can then use the TRM id to look up metadata for the song,
+song. You can then use the TRM ID to look up metadata for the song,
 and fill out the ID3 tags (or equivalent) automatically! 
 
 
@@ -320,7 +320,7 @@ graph above, there is a column that shows depth. The depth of the query
 determines the amount of data returned by the server. If you set the 
 depth to 1, the server will only return the list of IDs to artists,
 but not the artists themselves. A depth of 2 will return the list,
-and all of the artists, but not the list of ids to the next albums.
+and all of the artists, but not the list of IDs to the next albums.
 A depth of 3 will return all of the above and the albums that may be 
 referenced in the artist. When you write code to access the server you should 
 carefully select the depth of your query to make sure that you only retrieve 
@@ -344,18 +344,18 @@ functions.
 <p>
 Your tagging application should carry out the following steps:
 <ol>
-<li>Generate a TRM Id for the file you are looking up. (see below)
+<li>Generate a TRM ID for the file you are looking up. (see below)
 <li>Read the metadata from the file (e.g. ID3 or Vorbiscomment)
 <li>Use <a href="/docs/mb_client/queries_h.html#a72">MBQ_TrackInfoFromTRMId</a> to
-    see if that TRM id is known to MusicBrainz. If so, all the relevant metadata
+    see if that TRM ID is known to MusicBrainz. If so, all the relevant metadata
     will be returned by the server and that metadata can be written to the file
     in question. Note: This function may return more than one track, and the tagger
     application must let the user choose which is the correct track.
 <li>If the track is not known to MusicBrainz, the tagger must use the 
     <a href="/docs/mb_client/queries_h.html#a84">MBQ_FileInfoLookup</a> function
     to attempt to match the file with its appropriate metadata in the server.
-<li>Once the tagger has made a match between a TRM id and a track on the server,
-    the tagger should keep a list of TRM Id, Track Id pairs for submission to
+<li>Once the tagger has made a match between a TRM ID and a track on the server,
+    the tagger should keep a list of TRM ID, Track Id pairs for submission to
     the server with <a href="/docs/mb_client/queries_h.html#a83">MBQ_SubmitTrackTRMId</a>. These pairs should be batched for a one-time submission to
     the server in order keep down the number of requests made to the server.
 </ol>
@@ -364,7 +364,7 @@ Your tagging application should carry out the following steps:
 The <a href="/docs/mb_client/queries_h.html#a84">MBQ_FileInfoLookup</a> function
 should be explained in a bit more detail. In order to use this function, you need
 to provide the server with all the relevant metadata for the given track. This
-includes TRM Id, artist name, album name, track name, track number, duration 
+includes TRM ID, artist name, album name, track name, track number, duration 
 (in milliseconds), file name, artist id, album id, and track id.
 
 <p>
@@ -393,13 +393,13 @@ large chunk of the tagger work for you. You should be able to grab large chunks 
 that code and use it in our application (provided your app is LGPL/GPL compatible).
 
 
-<& /comp/section, title=>'Generating TRM Ids' &>
+<& /comp/section, title=>'Generating TRM IDs' &>
 
-To create a TRM id, you should use the <a href="/download.html">TRM application/library</a>. Why write new code if you can use a library?
+To create a TRM ID, you should use the <a href="/download.html">TRM application/library</a>. Why write new code if you can use a library?
 
 <p>
 
 
-And if for some reason you do not want to use the library, go read the code to figure out how to create TRM ids. :-)
+And if for some reason you do not want to use the library, go read the code to figure out how to create TRM IDs. :-)
 
 <& /comp/footer &>

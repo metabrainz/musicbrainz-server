@@ -1549,7 +1549,7 @@ This select requires one ordinal argument to select an album </td></tr>
     <font class="stringliteral">"   &lt;mm:trackid&gt;@10@&lt;/mm:trackid&gt;\n"</font> \
     <font class="stringliteral">"   &lt;mq:maxItems&gt;@MAX_ITEMS@&lt;/mq:maxItems&gt;\n"</font> \
     <font class="stringliteral">"&lt;/mq:FileInfoLookup&gt;\n"</font> 
-</pre></div>Lookup metadata for one file. This function can be used by tagging applications to attempt to match a given track with a track in the database. The server will attempt to match an artist, album and track during three phases. If  at any one lookup phase the server finds ONE item only, it will move on to to the next phase. If no items are returned, an error message is returned. If  more then one item is returned, the end-user will have to choose one from the returned list and then make another call to the server. To express the choice made by a user, the client should leave the artistName/albumName empty and  provide the artistId and/or albumId empty on the subsequent call. Once an artistId or albumId is provided the server will pick up from the given Ids and attempt to resolve the next phase. <dl compact><dt>
+</pre></div>Lookup metadata for one file. This function can be used by tagging applications to attempt to match a given track with a track in the database. The server will attempt to match an artist, album and track during three phases. If  at any one lookup phase the server finds ONE item only, it will move on to to the next phase. If no items are returned, an error message is returned. If  more then one item is returned, the end-user will have to choose one from the returned list and then make another call to the server. To express the choice made by a user, the client should leave the artistName/albumName empty and  provide the artistId and/or albumId empty on the subsequent call. Once an artistId or albumId is provided the server will pick up from the given IDs and attempt to resolve the next phase. <dl compact><dt>
 <b>Parameters: </b><dd>
 <table border=0 cellspacing=2 cellpadding=0>
 <tr><td valign=top><em>ArtistName</em>
@@ -1678,7 +1678,7 @@ The name of the artist to find. </td></tr>
     <font class="stringliteral">"   &lt;mq:artistName&gt;@1@&lt;/mq:artistName&gt;\n"</font> \
     <font class="stringliteral">"   &lt;mq:trackName&gt;@2@&lt;/mq:trackName&gt;\n"</font> \
     <font class="stringliteral">"&lt;/mq:FindDistinctTRMID&gt;\n"</font> 
-</pre></div>Use this function to find TRM Ids that match a given artistName and trackName, This query returns a trmidList. <dl compact><dt>
+</pre></div>Use this function to find TRM IDs that match a given artistName and trackName, This query returns a trmidList. <dl compact><dt>
 <b>Parameters: </b><dd>
 <table border=0 cellspacing=2 cellpadding=0>
 <tr><td valign=top><em>artistName</em>
@@ -1822,7 +1822,7 @@ The name of the track to find. </td></tr>
     <font class="stringliteral">"   &lt;mq:depth&gt;@DEPTH@&lt;/mq:depth&gt;\n"</font> \
     <font class="stringliteral">"   &lt;mm:cdindexid&gt;@1@&lt;/mm:cdindexid&gt;\n"</font> \
     <font class="stringliteral">"&lt;/mq:GetCDInfo&gt;\n"</font> 
-</pre></div>Use this query to return an albumList for the given CD Index Id <dl compact><dt>
+</pre></div>Use this query to return an albumList for the given Disc ID <dl compact><dt>
 <b>Parameters: </b><dd>
 <table border=0 cellspacing=2 cellpadding=0>
 <tr><td valign=top><em>cdindexid</em>
@@ -1901,7 +1901,7 @@ The cdindex id to look up at the remote server. </td></tr>
 
 <p>
 <b>Value:</b><div class="fragment"><pre>    <font class="stringliteral">"http://@URL@/mm-2.1/trmid/@1@/@DEPTH@"</font> 
-</pre></div>Retrieve an trackList from a given TRM Id     </td>
+</pre></div>Retrieve an trackList from a given TRM ID     </td>
   </tr>
 </table>
 <a name="a73" doxytag="queries.h::MBQ_QuickTrackInfoFromTrackId"></a><p>
@@ -2010,7 +2010,7 @@ The MB track id for the track to be looked up </td></tr>
     <font class="stringliteral">" &lt;mq:sessionKey&gt;@SESSKEY@&lt;/mq:sessionKey&gt;\n"</font> \
     <font class="stringliteral">" &lt;mq:clientVersion&gt;@CLIENTVER@&lt;/mq:clientVersion&gt;\n"</font> \
     <font class="stringliteral">"&lt;/mq:SubmitTRMList&gt;\n"</font> 
-</pre></div>Submit a single TrackId, TRM Id pair to <a class="el" href="class_MusicBrainz.html">MusicBrainz</a>. This query can handle only one pair at a time, which is inefficient. The user may wish to create the query RDF text by hand and provide more than one pair in the rdf:Bag, since the server can handle up to 1000 pairs in one query. <dl compact><dt>
+</pre></div>Submit a single TrackId, TRM ID pair to <a class="el" href="class_MusicBrainz.html">MusicBrainz</a>. This query can handle only one pair at a time, which is inefficient. The user may wish to create the query RDF text by hand and provide more than one pair in the rdf:Bag, since the server can handle up to 1000 pairs in one query. <dl compact><dt>
 <b>Parameters: </b><dd>
 <table border=0 cellspacing=2 cellpadding=0>
 <tr><td valign=top><em>TrackGID</em>
@@ -2018,7 +2018,7 @@ The MB track id for the track to be looked up </td></tr>
 The Global ID field of the track </td></tr>
 <tr><td valign=top><em>trmid</em>
 &nbsp;</td><td>
-The TRM Id of the track. </td></tr>
+The TRM ID of the track. </td></tr>
 </table>
 </dl>    </td>
   </tr>
@@ -2051,12 +2051,12 @@ The TRM Id of the track. </td></tr>
     <font class="stringliteral">"   &lt;mm:trackNum&gt;@5@&lt;/mm:trackNum&gt;\n"</font> \
     <font class="stringliteral">"   &lt;mm:duration&gt;@6@&lt;/mm:duration&gt;\n"</font> \
     <font class="stringliteral">"&lt;/mq:TrackInfoFromTRMId&gt;\n"</font> 
-</pre></div>Use this query to return the metadata information (artistname, albumname, trackname, tracknumber) for a given trm id. Optionally,  you can also specifiy the basic artist metadata, so that if the server cannot match on the TRM id, it will attempt to match based on the basic metadata. In case of a TRM collision (where one TRM may point to more than one track) this function will return more than on track. The user (or tagging app) must decide which track information is correct. <dl compact><dt>
+</pre></div>Use this query to return the metadata information (artistname, albumname, trackname, tracknumber) for a given TRM ID. Optionally,  you can also specifiy the basic artist metadata, so that if the server cannot match on the TRM ID, it will attempt to match based on the basic metadata. In case of a TRM collision (where one TRM may point to more than one track) this function will return more than on track. The user (or tagging app) must decide which track information is correct. <dl compact><dt>
 <b>Parameters: </b><dd>
 <table border=0 cellspacing=2 cellpadding=0>
 <tr><td valign=top><em>trmid</em>
 &nbsp;</td><td>
-The TRM id for the track to be looked up </td></tr>
+The TRM ID for the track to be looked up </td></tr>
 <tr><td valign=top><em>artistName</em>
 &nbsp;</td><td>
 The name of the artist </td></tr>
@@ -2204,7 +2204,7 @@ This select requires one ordinal argument </td></tr>
 
 <p>
 <b>Value:</b><div class="fragment"><pre>        <font class="stringliteral">"http://musicbrainz.org/mm/mm-2.1#cdindexidList []"</font>
-</pre></div>Use this Select Query to select a CD Index id from the list.  <dl compact><dt>
+</pre></div>Use this Select Query to select a Disc ID from the list.  <dl compact><dt>
 <b>Parameters: </b><dd>
 <table border=0 cellspacing=2 cellpadding=0>
 <tr><td valign=top><em>ordinal</em>

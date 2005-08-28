@@ -36,7 +36,7 @@ if (scalar(@ids) > 0)
 
        $m->out($id->GetModPending ? ' bgcolor="#FFFFCC"' : ' bgcolor="#ffecd6"');
        $m->out('>');
-       $m->out("CD Index Id: ");
+       $m->out("Disc ID: ");
 
        if (defined $id_numtracks && $id_numtracks != $numtracks)
        {

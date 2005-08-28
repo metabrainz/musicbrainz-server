@@ -21,7 +21,7 @@ return if $m->cache_self(
 				[ "Tracks", $stats{'count.track'} ],
 				[ "Links", $stats{'count.ar.links'} ],
 				[ "Discids", $stats{'count.discid'} ],
-				[ "TRM Ids", $stats{'count.trm'} ],
+				[ "TRM IDs", $stats{'count.trm'} ],
 				[ "Mods", $stats{'count.moderation'} ],
 				[ "Users", $stats{'count.moderator'} ],
 			) {

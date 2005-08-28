@@ -17,7 +17,7 @@ the following features:
 </p>
 
 <ul>
-<li>Create TRMs ids from WAV, MP3, Ogg/Vorbis and FLAC files
+<li>Create TRM IDs from WAV, MP3, Ogg/Vorbis and FLAC files
 <li>Automatically lookup files by TRM or by metadata
 <li>Read and write metadata from the music files
 <li>Optionally rename files according to a user specified file mask
@@ -37,10 +37,10 @@ The TunePimp library source distribution comes with two example programs:
     the TunePimp library.</li>
 <li>perl/tunepimp-perl/examples/tp_tagger.pl: This example implements the tp_tagger using
     the perl bindings.</li>
-<li>examples/trm.c: This example shows how to use TunePimp to calculate TRM ids for
+<li>examples/trm.c: This example shows how to use TunePimp to calculate TRM IDs for
     music files from the command line.</li>
 <li>python/examples/trm.py: The same application, but it uses the python bindings to 
-    create TRM ids.</li>
+    create TRM IDs.</li>
 </ul>
 
 <p>
@@ -111,8 +111,8 @@ If a track was wrongly identified, call <a href="http://musicbrainz.org/docs/tun
 </p>
 
 <p>
-During the tagging process TunePimp will automatically collect TRM ids for each of the tracks that were
-matched. If any of the TRM ids need to be submitted to the MusicBrainz server, call <a href="http://musicbrainz.org/docs/tunepimp/0.3.0/tp__c_8h.html#a41">tp_GetNumUnsubmitted()</a>. If that returns a value greater than 0, you need to call <a href="http://musicbrainz.org/docs/tunepimp/0.3.0/tp__c_8h.html#a54">tp_SubmitTRMs()</a> to submit the TRMs to the server. Before your call can succeed, make sure to call <a href="http://musicbrainz.org/docs/tunepimp/0.3.0/tp__c_8h.html#a14">tp_SetUserInfo()</a> with the users MusicBrainz login information.
+During the tagging process TunePimp will automatically collect TRM IDs for each of the tracks that were
+matched. If any of the TRM IDs need to be submitted to the MusicBrainz server, call <a href="http://musicbrainz.org/docs/tunepimp/0.3.0/tp__c_8h.html#a41">tp_GetNumUnsubmitted()</a>. If that returns a value greater than 0, you need to call <a href="http://musicbrainz.org/docs/tunepimp/0.3.0/tp__c_8h.html#a54">tp_SubmitTRMs()</a> to submit the TRMs to the server. Before your call can succeed, make sure to call <a href="http://musicbrainz.org/docs/tunepimp/0.3.0/tp__c_8h.html#a14">tp_SetUserInfo()</a> with the users MusicBrainz login information.
 </p>
 
 <p>

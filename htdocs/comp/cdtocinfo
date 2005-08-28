@@ -10,7 +10,7 @@ $cdtoc
 			<td valign="top"><% $cdtoc->GetTOC %></td>
     </tr>
 		<tr>
-			<td valign="top" align="right">CD Index ID:</td>
+			<td valign="top" align="right">Disc ID:</td>
 			<td valign="top"><% $cdtoc->GetDiscID %></td>
     </tr>
 		<tr>
