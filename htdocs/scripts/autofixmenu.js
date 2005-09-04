@@ -525,13 +525,9 @@ function doApplyOperation(op) {
 }
 
 // ----------------------------------------------------------------------------
-// af_writeGui()
+// af_writeGui(fOpen)
 //
-function af_writeGUI() {
-	var temp = null;
-	if ((temp = document.getElementById("autofix-box-jsdiabled")) != null) {
-		temp.style.display = "none"; // toggle the JS enabled/disabled box.
-	}
+function af_writeGUI(fOpen) {
 	var cMode = getCookie(AF_COOKIE_MODE); // get autofix mode from cookie.
 	if (cMode) af_mode = cMode;
 
@@ -644,8 +640,10 @@ function af_writeGUI() {
 	document.writeln('        </div>');
 
 	af_modeSet(); // update description texts.
-	var cTable = getCookie(AF_COOKIE_TABLE); // restore previous expand/collapsed state from cookie.
-	if (cTable) { af_ShowTable(cTable == "1"); }
+
+	// Show the table or not?
+	if (fOpen == null) fOpen = getCookie(AF_COOKIE_TABLE);
+	af_ShowTable(fOpen == "1");
 }
 
 // ----------------------------------------------------------------------------

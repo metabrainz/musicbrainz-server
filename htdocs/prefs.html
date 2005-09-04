@@ -297,6 +297,19 @@ $time = time();
 	<h2>Use of Javascript</h2>
 
 	<p>
+		On each page which uses it, the "Guess Case" box should initially be
+		<select name="autofix_open">
+			<& /comp/options,
+				[
+					[ "remember", "how I last left it" ],
+					[ "1", "open" ],
+					[ "0", "closed" ],
+				],
+				UserPreference::get('autofix_open') &>
+		</select>
+	</p>
+
+	<p>
 		<label for="pref_JSMoveFocus"><input type="checkbox" name="JSMoveFocus" id="pref_JSMoveFocus"
 			<% UserPreference::get('JSMoveFocus') ? "checked" : "" %>
 			>

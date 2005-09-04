@@ -239,6 +239,7 @@ www.google.vg
 our %prefs = ();
 
 # Alphabetical order please
+addpref('autofix_open', "remember", sub { check_in([qw( remember 1 0 )], @_) });
 addpref('datetimeformat', $allowed_datetime_formats[0], \&check_datetimeformat);
 addpref('default_country', 0, sub { check_int(0,undef,@_) });
 addpref('google_domain', "www.google.com", \&check_google_domain);
@@ -341,6 +342,14 @@ sub check_google_domain
 
 	$_ eq $value and return $value
 		for allowed_google_domains();
+	undef;
+}
+
+sub check_in
+{
+	my ($values, $value) = @_;
+	$_ eq $value and return $value
+		for @$values;
 	undef;
 }
 
