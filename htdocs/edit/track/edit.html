@@ -174,7 +174,7 @@ if (MusicBrainz::IsSingleLineString($newname)
 					<label for="newname">New:</label></td>	
 % unless ($al->IsNonAlbumTracks) {
 				<td>
-					<input 	type="text" name="newseq" class="textfield" 
+					<input 	type="text" name="newseq" class="numberfield" 
 							onFocus="myOnFocus(this)" onBlur="myOnBlur(this)"
 							title="You can set a new track number here, possible values are: (1-<% $last_seq %>)"
 							size="2" value="<% $defaultseq || $tr->GetSequence %>"></td>

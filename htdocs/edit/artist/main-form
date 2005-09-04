@@ -1,4 +1,3 @@
-%# vi: set ts=2 sw=2 ft=mason :
 <%args>
 $action
 $artist => undef
@@ -19,160 +18,160 @@ my $enddate_str = Artist::GetEndDateName($type);
 
 <script type="text/javascript" src="scripts/artistform.js"></script>
 
-	<form method="POST" action="<% $action %>" name="EditArtist">
-	
-		<& /comp/autofixmenu &>
+    <form method="POST" action="<% $action %>" name="EditArtist">
+    
+        <& /comp/autofixmenu &>
 
-		<fieldset>
+        <fieldset>
 % if ( defined $artist ) {
-			<legend>Edit Artist</legend>
-% }	else {
-			<legend>Add Artist</legend>
-% }
-			<div class="padleft">
-				Please <a href="/style.html">read the style guidelines</a>,
-				then enter the new Artist name and Sort name below.
-			</div>
-
-			<div class="padtop"></div>
-			<table border="0" cellspacing="0">
-				<tr>
-					<td nowrap><label for="type">Type:</label></td>
-					<td rowspan="50">&nbsp;</td>
-					<td>
-						<select name="type" onchange="artistTypeChanged(this.value);">
-							<& /comp/options,
-							[[0, 'Unknown'], [1, 'Person'], [2, 'Group']], $type &>
-						</select></td>
-				</tr>
-				<tr><td colspan="2" class"padtop"/></tr>
-
-% if ( defined $artist ) {
-				<tr>
-					<td nowrap><label>Current Name:</label></td>
-					<td>
-						<div class="oldtextfield"><% $artist->GetName() %></div></td>
-				</tr>
-% }
-				<tr>
-					<td nowrap><label for="name">Artist Name:</label></td>
-					<td>
-						<input 	type="text" name="name" class="textfield" 
-								onFocus="myOnFocus(this)" onBlur="myOnBlur(this)"
-								size="50" value="<% $name %>">
-						<script language="javascript">
-						<!--
-							af_writeButton(AF_BTN_ARTIST, 'name');
-						-->
-						</script></td>
-				</tr>
-				<tr><td colspan="2" class"padtop"/></tr>
-
-% if ( defined $artist ) {
-				<tr>
-					<td nowrap><label>Current Sort Name:</label></td>
-					<td>
-						<div class="oldtextfield"><% $artist->GetSortName()  %></div></td>
-				</tr>
-% }
-				<tr>
-					<td nowrap><label for="sortname">Sort Name:</label></td>
-					<td>
-						<input 	type="text" name="sortname" class="textfield" 
-								onFocus="myOnFocus(this)" onBlur="myOnBlur(this)"
-								size="50" value="<% $sortname %>">
-						<script language="javascript">
-						<!--
-							af_writeButton(AF_BTN_SORTGUESS, 'name', 'sortname');
-							af_writeButton(AF_BTN_SORTCOPY, 'name', 'sortname');
-						-->
-						</script></td>
-				</tr>
-			
-% if ( $showres || $resolution ) {
-				<tr><td colspan="2">&nbsp;</td></tr>
-				<tr>
-					<td>&nbsp;</td>
-					<td>
-						<div class="helptext">
-							The comment field is used to differentiate between artists with the same, <br/> 
-							or confusingly similar, names. Please leave this blank if this artist does <br/> 
-							not conflict with an artist of a similar name.
-						</div></td>
-				</tr>
-% if ( defined $artist ) {
-				<tr>
-					<td nowrap><label>Current Comment:</label></td>
-					<td>
-						<div class="oldtextfield"><% $artist->GetResolution() || "(none)" %></div></td>
-				</tr>
-% }
-				<tr>
-					<td nowrap><label for="resolution">Comment:</label></td>
-					<td>
-						<input 	type="text" name="resolution" class="textfield"
-								onFocus="myOnFocus(this)" onBlur="myOnBlur(this)"
-								size="50" maxlength="64"
-								value="<% $resolution %>"></td>
-				</tr>
-% }
-
-
-				<tr><td colspan="2">&nbsp;</td></tr>
-				<tr>
-					<td>&nbsp;</td>
-					<td>
-						<div class="helptext">
-							Dates are in the format <i>YYYY-MM-DD</i>. Partial dates <br/>
-							<i>YYYY-MM</i> or just <i>YYYY</i> are OK, or you can omit the date entirely.
-						</div></td>
-				</tr>
-				<tr>
-					<td nowrap>
-						<label for="begindate"><span id="begindate_text"><% $begindate_str %></span>:</label></td>
-					<td>
-						<& /comp/dateinput, name_prefix => 'begindate', value => $begindate &>
-						Year-Month-Day</td>
-				</tr>
-				<tr>
-					<td nowrap>
-						<label for="enddate"><span id="enddate_text"><% $enddate_str %></span>:</label></td>
-        			<td>
-						<& /comp/dateinput, name_prefix => 'enddate', value => $enddate &>
-						Year-Month-Day</td>
-				</tr>
-
-				
-
-				<tr><td colspan="2">&nbsp;</td></tr>
-				<tr>
-					<td>&nbsp;</td>
-					<td>
-						<& /comp/notetext, text => $notetext &></td>
-				</tr>
-% if ( $confirm ) {
-				<tr>
-					<td align="right">Confirm:</td>
-					<td>
-% if ($action =~ /edit/) {
-				    	<input type="checkbox" name="confirm"> I <b>really</b> do want to edit this artist.
+            <legend>Edit Artist</legend>
 % } else {
-				    	<input type="checkbox" name="confirm"> I <b>really</b> do want to add a duplicate artist.
+            <legend>Add Artist</legend>
 % }
-					</td>
-				</tr>
-% }
-      			<tr>
-					<td>&nbsp;</td>
-					<td class="padtop">
+            <div class="padleft">
+                Please <a href="/style.html">read the style guidelines</a>,
+                then enter the new Artist name and Sort name below.
+            </div>
+
+            <div class="padtop"></div>
+            <table border="0" cellspacing="0">
+                <tr>
+                    <td nowrap><label for="type">Type:</label></td>
+                    <td rowspan="50">&nbsp;</td>
+                    <td>
+                        <select name="type" onchange="artistTypeChanged(this.value);">
+                            <& /comp/options,
+                            [[0, 'Unknown'], [1, 'Person'], [2, 'Group']], $type &>
+                        </select></td>
+                </tr>
+                <tr><td colspan="2" class"padtop"/></tr>
+
 % if ( defined $artist ) {
-						<input type="hidden" name="id" value="<% $artist->GetId() %>">
+                <tr>
+                    <td nowrap><label>Current Name:</label></td>
+                    <td>
+                        <div class="oldtextfield"><% $artist->GetName() %></div></td>
+                </tr>
 % }
-	 					<input type="submit" class="button" value="Submit"></td>
-        			
-				</tr>
-			</table>
-		</fieldset>
-	</form>
+                <tr>
+                    <td nowrap><label for="name">Artist Name:</label></td>
+                    <td>
+                        <input  type="text" name="name" class="textfield" 
+                                onFocus="myOnFocus(this)" onBlur="myOnBlur(this)"
+                                size="50" value="<% $name %>">
+                        <script language="javascript">
+                        <!--
+                            af_writeButton(AF_BTN_ARTIST, 'name');
+                        -->
+                        </script></td>
+                </tr>
+                <tr><td colspan="2" class"padtop"/></tr>
+
+% if ( defined $artist ) {
+                <tr>
+                    <td nowrap><label>Current Sort Name:</label></td>
+                    <td>
+                        <div class="oldtextfield"><% $artist->GetSortName()  %></div></td>
+                </tr>
+% }
+                <tr>
+                    <td nowrap><label for="sortname">Sort Name:</label></td>
+                    <td>
+                        <input  type="text" name="sortname" class="textfield" 
+                                onFocus="myOnFocus(this)" onBlur="myOnBlur(this)"
+                                size="50" value="<% $sortname %>">
+                        <script language="javascript">
+                        <!--
+                            af_writeButton(AF_BTN_SORTGUESS, 'name', 'sortname');
+                            af_writeButton(AF_BTN_SORTCOPY, 'name', 'sortname');
+                        -->
+                        </script></td>
+                </tr>
+            
+% if ( $showres || $resolution ) {
+                <tr><td colspan="2">&nbsp;</td></tr>
+                <tr>
+                    <td>&nbsp;</td>
+                    <td>
+                        <div class="helptext">
+                            The comment field is used to differentiate between artists with the same, <br/> 
+                            or confusingly similar, names. Please leave this blank if this artist does <br/> 
+                            not conflict with an artist of a similar name.
+                        </div></td>
+                </tr>
+% if ( defined $artist ) {
+                <tr>
+                    <td nowrap><label>Current Comment:</label></td>
+                    <td>
+                        <div class="oldtextfield"><% $artist->GetResolution() || "(none)" %></div></td>
+                </tr>
+% }
+                <tr>
+                    <td nowrap><label for="resolution">Comment:</label></td>
+                    <td>
+                        <input  type="text" name="resolution" class="textfield"
+                                onFocus="myOnFocus(this)" onBlur="myOnBlur(this)"
+                                size="50" maxlength="64"
+                                value="<% $resolution %>"></td>
+                </tr>
+% }
+
+
+                <tr><td colspan="2">&nbsp;</td></tr>
+                <tr>
+                    <td>&nbsp;</td>
+                    <td>
+                        <div class="helptext">
+                            Dates are in the format <i>YYYY-MM-DD</i>. Partial dates <br/>
+                            <i>YYYY-MM</i> or just <i>YYYY</i> are OK, or you can omit the date entirely.
+                        </div></td>
+                </tr>
+                <tr>
+                    <td nowrap>
+                        <label for="begindate"><span id="begindate_text"><% $begindate_str %></span>:</label></td>
+                    <td>
+                        <& /comp/dateinput, name_prefix => 'begindate', value => $begindate &>
+                        Year-Month-Day</td>
+                </tr>
+                <tr>
+                    <td nowrap>
+                        <label for="enddate"><span id="enddate_text"><% $enddate_str %></span>:</label></td>
+                    <td>
+                        <& /comp/dateinput, name_prefix => 'enddate', value => $enddate &>
+                        Year-Month-Day</td>
+                </tr>
+
+                
+
+                <tr><td colspan="2">&nbsp;</td></tr>
+                <tr>
+                    <td>&nbsp;</td>
+                    <td>
+                        <& /comp/notetext, text => $notetext &></td>
+                </tr>
+% if ( $confirm ) {
+                <tr>
+                    <td align="right">Confirm:</td>
+                    <td>
+% if ($action =~ /edit/) {
+                        <input type="checkbox" name="confirm"> I <b>really</b> do want to edit this artist.
+% } else {
+                        <input type="checkbox" name="confirm"> I <b>really</b> do want to add a duplicate artist.
+% }
+                    </td>
+                </tr>
+% }
+                <tr>
+                    <td>&nbsp;</td>
+                    <td class="padtop">
+% if ( defined $artist ) {
+                        <input type="hidden" name="id" value="<% $artist->GetId() %>">
+% }
+                        <input type="submit" class="button" value="Submit"></td>
+                    
+                </tr>
+            </table>
+        </fieldset>
+    </form>
 
 <& /comp/movefocus, "EditArtist", "name" &>

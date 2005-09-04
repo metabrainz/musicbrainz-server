@@ -1,5 +1,78 @@
 ////////////////////////////////////////////////////////////////////////////////
 
+var OnLoadActions = [];
+
+function AddOnLoadAction(func) {
+	OnLoadActions[OnLoadActions.length] = func;
+}
+
+function OnPageLoad() {
+	for (var i=0; i<OnLoadActions.length; ++i)
+	{
+		var f = OnLoadActions[i];
+		f();
+	}
+}
+
+////////////////////////////////////////////////////////////////////////////////
+
+// ----------------------------------------------------------------------------
+// setCookie()
+// -- Sets a Cookie with the given name and value.
+// @param 		name       	Name of the cookie
+// @param 		value      	Value of the cookie
+// @param 		[expires]  	Expiration date of the cookie (default: end of current session)
+// @param 		[path]     	Path where the cookie is valid (default: path of calling document)
+// @param 		[domain]   	Domain where the cookie is valid
+//            				(default: domain of calling document)
+// @param 		[secure]   	Boolean value indicating if the cookie
+//							transmission requires a	secure transmission
+function setCookie(name, value, expires, path, domain, secure) {
+	document.cookie= name + "=" + escape(value) +
+		((expires) ? "; expires=" + expires.toGMTString() : "") +
+		((path) ? "; path=" + path : "") +
+		((domain) ? "; domain=" + domain : "") +
+		((secure) ? "; secure" : "");
+}
+
+// ----------------------------------------------------------------------------
+// getCookie()
+// -- Gets the value of the specified cookie.
+// @param 		name  		Name of the desired cookie.
+// @returns 				a string containing value of specified cookie,
+// 							or null if cookie does not exist.
+function getCookie(name) {
+	var dc = document.cookie;
+	var prefix = name + "=";
+	var begin = dc.indexOf("; " + prefix);
+	if (begin == -1) {
+		begin = dc.indexOf(prefix);
+		if (begin != 0) return null;
+	} else begin += 2;
+	var end = document.cookie.indexOf(";", begin);
+	if (end == -1) end = dc.length;
+	return unescape(dc.substring(begin + prefix.length, end));
+}
+
+// ----------------------------------------------------------------------------
+// deleteCookie()
+// -- Deletes the specified cookie.
+// @param 		name      	name of the cookie
+// @param 		[path]    	path of the cookie (must be same as path
+//							used to create cookie)
+// @param 		[domain]  	domain of the cookie (must be same as domain
+// 							used to create cookie)
+function deleteCookie(name, path, domain) {
+	if (getCookie(name)) {
+		document.cookie = name + "=" +
+			((path) ? "; path=" + path : "") +
+			((domain) ? "; domain=" + domain : "") +
+			"; expires=Thu, 01-Jan-70 00:00:01 GMT";
+	}
+}
+
+////////////////////////////////////////////////////////////////////////////////
+
 // The purpose of this code is to resize Amazon cover art so that, if
 // possible, it isn't scaled (it's displayed at its "natural" size).
 
@@ -53,5 +126,6 @@ function scale_coverart()
 		if (img.complete) unscale_amazon_image(img);
 	}
 }
+AddOnLoadAction(scale_coverart);
 
-////////////////////////////////////////////////////////////////////////////////
+// eof

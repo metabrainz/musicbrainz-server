@@ -1,0 +1,19 @@
+%# vi: set ts=4 sw=4 ft=mason :
+<%args>
+	$title
+	$link 	=> undef
+</%args>
+
+
+<div class="sidemenu-box">
+	<table border="0" cellspacing="0" cellpadding="0"><tr>
+		<td width="131" class="title"><span class="section">
+% if ($link) {
+            <a href="<% $link %>"><% $title %></a>
+% } else {
+            <% $title %>
+% }
+			</span></td>
+		<td width="10" class="arrow"><img src="/images/sidemenu_end.gif" width="10" height="20" alt="" border="0"></td>
+	</tr></table>
+</div>

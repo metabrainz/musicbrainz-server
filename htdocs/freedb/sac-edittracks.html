@@ -67,7 +67,7 @@ my $t = $session{"freedb_tracks"};
 % for my $i (0 .. $t-1) {
 			<tr>
 				<td><label for="track<% $i %>"><% $i+1 %>:</label></td>
-				<td><input 	type="text" name="track<% $i %>" class="textfield"
+				<td><input 	type="text" name="track<% $i %>" class="numberfield"
 							onFocus="myOnFocus(this)" onBlur="myOnBlur(this)"
 							size="50"  
 							value="<% $session{"freedb_track$i"} %>"></td>

@@ -35,7 +35,7 @@
 									<td width="100%">
 										<small><span id="autofix-mode-text-collapsed"></span></small></td>
 									<td>&nbsp;</td>
-									<td><a href="javascript: void(0)" title="Expand table" onFocus="this.blur()" onClick="af_ShowTable(true); return false;"><img src="/images/plus.gif" width="13" height="13" alt="Expand Guess Case panel" border="0"></a></td>
+									<td><a href="javascript: // expand table" title="Expand table" onFocus="this.blur()" onClick="af_ShowTable(true); return false;"><img src="/images/plus.gif" width="13" height="13" alt="Expand Guess Case panel" border="0"></a></td>
 								</tr>
 							</table>
 						</div>
@@ -45,7 +45,7 @@
 									<td width="120" nowrap><b>Guess Case:<br><img src="/images/spacer.gif" alt="" height="1" width="120"/></td>
 									<td width="100%" id="autofix-mode-cell"></td>
 									<td>&nbsp;</td>
-									<td width="10"><a href="javascript: void(0)" title="Collapse table" onFocus="this.blur()" onClick="af_ShowTable(false); return false;"><img src="/images/minus.gif" width="13" height="13" alt="Collapse Guess Case panel" border="0"></a></td>
+									<td width="10"><a href="javascript: // collapse table" title="Collapse table" onFocus="this.blur()" onClick="af_ShowTable(false); return false;"><img src="/images/minus.gif" width="13" height="13" alt="Collapse Guess Case panel" border="0"></a></td>
 								</tr>
 								<tr><td colspan="4"><img src="/images/spacer.gif" height="2" alt="" /></td></tr>
 								<tr valign="middle">

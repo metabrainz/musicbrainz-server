@@ -1,0 +1,11 @@
+%# vi: set ts=4 sw=4 ft=mason tw=0 :
+
+<div class="sidemenu">
+	<a title="Return to the Start Page" href="/">Home</a>
+	<a title="Get in contact" href="/wd/ContactUs">Contact Us</a>
+	<a title="Where to find MusicBrainz mirrors near you" href="/about/mirrors.html">Mirrors</a>
+	<a title="The MetaBrainz Foundation (new window)" target="_blank" href="http://metabrainz.org/">Metabrainz<img src="/images/icon/extlink.gif" border="0" alt=""></a>
+	<a title="Frequently Asked Questions" href="/wd/GeneralFAQ">FAQ</a>
+	<a title="MusicBrainz documentation on the public Wiki" href="http://wiki.musicbrainz.org/">Wiki</a>
+	<a title="Buy MusicBrainz apparel (new window)" target="_blank" href="http://cafepress.com/musicbrainz">Store<img src="/images/icon/extlink.gif" border="0" alt=""></a>
+</div>

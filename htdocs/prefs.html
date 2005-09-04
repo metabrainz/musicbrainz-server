@@ -27,7 +27,6 @@ if ($ARGS{"SavePrefs"})
 		JSMoveFocus
 		reveal_address_when_mailing
 		show_amazon_coverart
-		sitemenu_heavy
 		sidebar_panel_search
 		sidebar_panel_stats
 		sidebar_panel_topmods
@@ -305,13 +304,6 @@ $time = time();
 	</p>
 
 	<h2>HTML Features</h2>
-
-	<p>
-		<label for="pref_sitemenu_heavy"><input type="checkbox" name="sitemenu_heavy" id="pref_sitemenu_heavy"
-			<% UserPreference::get('sitemenu_heavy') ? "checked" : "" %>
-			>
-		Load the full version of the "site menu" (more dynamic, but slower page loads)</label>
-	</p>
 
 	<p>
 		Sidebar panels:

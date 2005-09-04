@@ -25,17 +25,22 @@ fieldset label {
 	margin-left: 15px;
 	margin-right: 10px;
 }
-fieldset .textfield {
+fieldset .textfield,
+fieldset .numberfield,
+fieldset .datefield {
 	color: #000;
 	background: #fff;
 	padding-left: 2px;
 }
-fieldset .textfieldfocus {
+fieldset .textfieldfocus,
+fieldset .numberfieldfocus,
+fieldset .datefieldfocus {
 	color: #000;
 	background: #f0efff;
 	padding-left: 2px;
 }
 fieldset .textarea {
+	width: 100%;
 }
 .backtolisting .button,
 fieldset .button {

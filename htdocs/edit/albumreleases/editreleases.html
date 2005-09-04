@@ -182,17 +182,17 @@ $ar->SetSortName($edit->{"artist"}{"sortname"});
 				<tr <% $rel->{modpending} ? "class='mp'" : "" %>>
 					<td>&nbsp;</td>
 					<td nowrap>
-						<input 	type="text" class="textfield" name="y<% $rel->{"id"} %>"
+						<input 	type="text" class="numberfield" name="y<% $rel->{"id"} %>"
 								value="<% $rel->{year}||'' %>" 
 								size="4" maxlength="4"
 								style="text-align: center"></td>
 					<td nowrap>
-						<input 	type="text" class="textfield" name="m<% $rel->{"id"} %>"
+						<input 	type="text" class="numberfield" name="m<% $rel->{"id"} %>"
 								value="<% $rel->{month}||'' %>" 
 								size="2" maxlength="2"
 								style="text-align: center"></td>
 					<td nowrap>
-						<input 	type="text" class="textfield" name="d<% $rel->{"id"} %>" 
+						<input 	type="text" class="numberfield" name="d<% $rel->{"id"} %>" 
 								value="<% $rel->{day}||'' %>" 
 								size="2" maxlength="2"
 								style="text-align: center"></td>

@@ -16,43 +16,54 @@ $m->comp(
 unless ($nosidebar)
 {
 </%perl>
-<& /comp/sidebarsectiontop, title=>'Site Menu' &>
-<& /comp/sitemenu, $uri &>
+
+<& /comp/layout/sidebar-sectiontop, title=>'Site Menu' &>
+<& /comp/layout/sidemenu-panel-main &>
+
+%    if (!defined $session{user} || $session{user} eq '') {
+	<& /comp/layout/sidebar-section, title=>'Not logged in', link => "/login.html" &>
+	<& /comp/layout/sidemenu-panel-userguest &>
+%    } else {
+	<& /comp/layout/sidebar-section, title=>$session{user}, link => "/user/view.html" &>
+	<& /comp/layout/sidemenu-panel-userloggedin &>
+%    }
 
 % if (UserPreference::get('sidebar_panel_search')) {
-<& /comp/sidebarsection, title=>'Quick Search', link => "/search.html" &>
-<& /comp/sidebarareabegin &>
-<& /comp/sidebar-panels/search &>
-<& /comp/sidebarareaend &>
+	<& /comp/layout/sidebar-section, title=>'Quick Search', link => "/search.html" &>
+	<& /comp/layout/sidemenu-panel-search &>
 % }
 
 % if (UserPreference::get('sidebar_panel_topmods') && &DBDefs::REPLICATION_TYPE != RT_SLAVE) {
-<& /comp/sidebarsection, title=>'Top Voters', link => "/topmods.html" &>
-<& /comp/sidebarareabegin &>
-<& /comp/topvotersbox &>
-<& /comp/sidebarareaend &>
+	<& /comp/layout/sidebar-section, title=>'Top Voters', link => "/topmods.html" &>
+	<& /comp/layout/sidemenu-panel-topvoters &>
 % }
 
 % if (UserPreference::get('sidebar_panel_stats') && &DBDefs::REPLICATION_TYPE != RT_SLAVE) {
-<& /comp/sidebarsection, title=>'Server Stats', link => "/stats.html" &>
-<& /comp/sidebarareabegin &>
-<& /comp/statsbox &>
-<& /comp/sidebarareaend &>
+	<& /comp/layout/sidebar-section, title=>'Server Stats', link => "/stats.html" &>
+	<& /comp/layout/sidemenu-panel-stats &>
 % }
 
 %# if (UserPreference::get('sidebar_panel_sponsors')) {
-<& /comp/sidebarsection, title=>'Sponsors', link => "/sponsors.html" &>
-<& /comp/sidebarareabegin &>
-<& /comp/sponsors &>
-<& /comp/sidebarareaend &>
+	<& /comp/layout/sidebar-section, title=>'Sponsors', link => "/sponsors.html" &>
+	<& /comp/layout/sidemenu-panel-sponsors &>
 %# }
 
    </td>
 % }
-   <td bgcolor="FFFFFF" align="left" valign="top">
-      <table cellpadding="15" cellspacing="0" border="0" width="100%" >
-      <tr>
-         <td align="left" valign="top" class="body" width="100%">
+
+
+	<td bgcolor="FFFFFF" align="left" valign="top" width="100%">
+		<div id="sidemenu-coll" style="display: none">
+			<a 	href="javascript: // show side bar" onFocus="this.blur()" 
+				onClick="mm_toggleSideMenu(true)" title="Show the side bar">Show sidebar<img src="/images/icon/maximize.gif" alt=""></a>
+		</div>
+%# See comments in topmenu.js near "mm_onPageLoad"
+		<script type="text/javascript"> mm_onPageLoad(); </script>
+
+		<table cellpadding="15" cellspacing="0" border="0" width="100%">
+			<tr>
+				<td align="left" valign="top" class="body" width="100%">
+
 % if ($session{tport}) {
 <iframe name="hiddeniframe" height="0" width="0" frameborder="0"></iframe>
 % }

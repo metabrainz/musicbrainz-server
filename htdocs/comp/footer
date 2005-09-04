@@ -1,8 +1,8 @@
 <%perl>
 return $m->comp('/comp/footer_small')
-	if $pnotes{'ispopup'};
+    if $pnotes{'ispopup'};
 </%perl>
-			<div style="margin-top: 1em">&nbsp;</div>
+            <div style="margin-top: 1em">&nbsp;</div>
          </td>
       </tr>
       </table>
@@ -12,37 +12,37 @@ return $m->comp('/comp/footer_small')
 </table>
 
 <div id="FooterBar">
-	<table width="100%" cellpadding="2" cellspacing="0" border="0">
-	<tr>
-		<td width="10%">
-			&nbsp;
-		</td>
-		<td width="15%">
-			<a href="http://www.creativecommons.org/">Creative Commons</a>
-		</td>
-		<td width="15%">
-			<a href="http://www.eff.org/"
-				><abbr title="Electronic Frontier Foundation"
-					>EFF</abbr></a>
-		</td>
-		<td width="15%">
-			<a href="http://www.gnu.org/copyleft/gpl.html"
-				><abbr title="General Public License"
-					>GPL</abbr></a>
-		</td>
-		<td width="15%">
-			<a href="http://www.gnu.org/copyleft/lesser.html"
-				><abbr title="Lesser General Public License"
-					>LGPL</abbr></a>
-		</td>
-		<td width="15%">
-			<a href="http://www.freshmeat.net/">Freshmeat</a>
-		</td>
-		<td width="10%">
-			&nbsp;
-		</td>
-	</tr>
-	</table>
+    <table width="100%" cellpadding="2" cellspacing="0" border="0">
+    <tr>
+        <td width="10%">
+            &nbsp;
+        </td>
+        <td width="15%">
+            <a href="http://www.creativecommons.org/">Creative Commons</a>
+        </td>
+        <td width="15%">
+            <a href="http://www.eff.org/"
+                ><abbr title="Electronic Frontier Foundation"
+                    >EFF</abbr></a>
+        </td>
+        <td width="15%">
+            <a href="http://www.gnu.org/copyleft/gpl.html"
+                ><abbr title="General Public License"
+                    >GPL</abbr></a>
+        </td>
+        <td width="15%">
+            <a href="http://www.gnu.org/copyleft/lesser.html"
+                ><abbr title="Lesser General Public License"
+                    >LGPL</abbr></a>
+        </td>
+        <td width="15%">
+            <a href="http://www.freshmeat.net/">Freshmeat</a>
+        </td>
+        <td width="10%">
+            &nbsp;
+        </td>
+    </tr>
+    </table>
 </div>
 
 % if ($session{'mbt'}) {
@@ -52,28 +52,27 @@ return $m->comp('/comp/footer_small')
 % }
 
 <div id="CreditsBar">
-	<table width="100%" cellpadding="2" cellspacing="0" border="0">
-	<tr>
-		<td width="30%" style="text-align: left">
-			<a href="/wd/ContactUs">contact details</a>
-		</td>
-		<td width="40%" style="text-align: center">
-			original design|<a href="http://vacubomb.com/">vacubomb.com</a>
-		</td>
-		<td width="30%" style="text-align: right">
-			server version: <% &DBDefs::VERSION %>
-		</td>
-	</tr>
+    <table width="100%" cellpadding="2" cellspacing="0" border="0">
+    <tr>
+        <td width="30%" style="text-align: left">
+            <a href="/wd/ContactUs">contact details</a>
+        </td>
+        <td width="40%" style="text-align: center">
+            original design|<a href="http://vacubomb.com/">vacubomb.com</a>
+        </td>
+        <td width="30%" style="text-align: right">
+            server version: <% &DBDefs::VERSION %>
+        </td>
+    </tr>
 % if (&DBDefs::DB_STAGING_SERVER) {
-	<tr>
-		<td colspan="3" style="text-align: center; padding: 0.5em">
-			<a href="/perl-status">Served by child pid <% $$ %></a>
-		</td>
-	</tr>
+    <tr>
+        <td colspan="3" style="text-align: center; padding: 0.5em">
+            <a href="/perl-status">Served by child pid <% $$ %></a>
+        </td>
+    </tr>
 % }
-	</table>
+    </table>
 </div>
-   <script type="text/javascript" src="/scripts/global.js"></script>
 </body>
 </html>
 %# vi: set ts=4 sw=4 ft=mason :

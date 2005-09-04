@@ -1,39 +1,34 @@
 %# vi: set ts=4 sw=4 ft=mason tw=0 :
 <%once>
-use vars qw( @main %urlmap %urlmap2 $render_all );
+use vars qw( @main %urlmap %urlmap2 );
 
 use Scalar::Util qw( reftype weaken );
 
 @main = (
-	{ name => "Home",					url => "/index.html" },
-	{ name => "Mirrors",				url => "/about/mirrors.html" },
-	{ name => "MetaBrainz",				url => "http://metabrainz.org" },
 	{ name => "About",					url => "/wd/AboutMusicBrainz" },
 	[
-		{ name => "Sponsors",				url => "/wd/CorporateSponsors" },
 		{ name => "Privacy",				url => "/privacy" },
 		[
 			{ url => "/docs/20040922-1.html" },
 		],
 		{ name => "History",				url => "/wd/MusicBrainzHistory" },
 		{ name => "People",					url => "/wd/MusicBrainzBio" },
-		{ name => "Licenses",               url => "/about/licenses.html" },
+		{ name => "Licenses",				url => "/about/licenses.html" },
 		{ name => "Contract",				url => "/contract.html" },
-		{ name => "Applications",		url => "/wd/MusicBrainzEnabledApplications" },
-		{ name => "Help Wanted",		url => "/about/helpwanted.html" },
-		{ name => "Logos",		         url => "/about/logos.html" },
+		{ name => "Applications",			url => "/wd/MusicBrainzEnabledApplications" },
+		{ name => "Logos",					url => "/about/logos.html" },
 		{ name => "Stats",					url => "/about/stats.html" },
-		{ name => "Elections",			url => "/user/election/" },
+		{ name => "Elections",				url => "/user/election/" },
 	],
 	{ name => "News",					url => "/news/index.html" },
 	[
-		{ name => "Blog",				url => "http://blog.musicbrainz.org/" },
-		{ name => "Server",				url => "/news/server.html" },
-		{ name => "libmusicbrainz",		url => "/news/client.html" },
-		{ name => "libtunepimp",		url => "/news/tunepimp.html" },
-		{ name => "WindowsTagger",		url => "/news/tagger.html" },
-		{ name => "Picard",				url => "/news/picard.html" },
-		{ name => "In The Press",		url => "/wd/MusicBrainzPress" },
+		{ name => "Blog",					url => "http://blog.musicbrainz.org/" },
+		{ name => "Server",					url => "/news/server.html" },
+		{ name => "libmusicbrainz",			url => "/news/client.html" },
+		{ name => "libtunepimp",			url => "/news/tunepimp.html" },
+		{ name => "WindowsTagger",			url => "/news/tagger.html" },
+		{ name => "Picard",					url => "/news/picard.html" },
+		{ name => "In The Press",			url => "/wd/MusicBrainzPress" },
 	],
 	{ name => "Products",				url => "/download.html" },
 	[
@@ -62,7 +57,7 @@ use Scalar::Util qw( reftype weaken );
 		],
 		{ name => "Picard",					url => "/wd/PicardDocumentation" },
 	],
-	{ name => "Search/Browse",			url => "/search.html" },
+	{ name => "Browse",					url => "/search.html" },
 	[
 		{ name => "Search",					url => "/search.html" },
 		{ name => "Browse Artists",			url => "/browseartists.html" },
@@ -71,7 +66,7 @@ use Scalar::Util qw( reftype weaken );
 		{ name => "Search Plugins",			url => "/search/plugins/firefox/install.html" },
 		{ url => "/newsearch.html" },
 	],
-    { name => "Edit the Data",			url => "/mod_intro.html" },
+    { name => "Edit",					url => "/mod_intro.html" },
     [
         { name => "About",					url => "/mod_intro.html" },
         { name => "Suggestions",			url => "/reports/index.html" },
@@ -211,7 +206,12 @@ use Scalar::Util qw( reftype weaken );
 		{ name => "CVS Modules",		    url => "/development/cvs-modules.html" },
 		{ name => "CVS Viewer",		        url => "http://cvs.musicbrainz.org/" },
 	],
-	{ name => "Support",				url => "/wd/ContactUs" },
+	{ name => "Contribute",				url => "/wd/Contribute" },
+	[
+		{ name => "Sponsors",				url => "/wd/CorporateSponsors" },
+		{ name => "Help Wanted",			url => "/about/helpwanted.html" },
+	],
+	{ name => "Help",					url => "/wd/ContactUs" },
 	[
 		{ name => "Contact Us",				url => "/wd/ContactUs" },
 		{ name => "FAQ Index",				url => "/wd/FAQIndex" },
@@ -226,9 +226,6 @@ use Scalar::Util qw( reftype weaken );
 		{ name => "Mailing Lists",			url => "/list.html" },
 		{ name => "Bugs / RFEs",			url => "/wd/ContactUs#report-a-bug" },
 	],
-	{ name => "Contribute",				url => "/wd/Contribute" },
-	{ name => "Wiki",					url => "http://wiki.musicbrainz.org/" },
-	{ name => "Store",					url => "http://cafepress.com/musicbrainz" },
 );
 
 %urlmap = ();
@@ -264,136 +261,138 @@ $transform = sub
 	}
 };
 &$transform(\@main, \(my $tmp = 0));
-
 </%once>
-<%def .drawmenu>
+
+
+
+
+<%def .drawmainmenu>
 <%perl>
+	# draw the main menu buttons.
+	# - javascript support
+	# - static menu for browsers with disabled javascript
 	my ($rarhMenu, $iLevel) = @_;
 
-	$m->out("<div class='sitemenu$iLevel'>\n");
+	$m->out("		<script type=\"text/javascript\" language=\"javascript\"> \n");
+	$m->out("		<!--  \n");
+	$m->out("			var mm_items = new Array(  \n");
+	my $selName = "";
+	my $drawcomma = 0; # js is picky about commas after last array element.
+	my ($scriptmenu, $noscriptmenu)  = "";
+	for my $rhItem (@$rarhMenu)
+	{
+		$rhItem->{name} or next;
+		my $rarhChildren = $rhItem->{children};
+		my $fSel = $rhItem->{expand};
+		$selName = ($fSel ? $rhItem->{name} : $selName);
+		$scriptmenu 	.= ($drawcomma == 1 ? ", \n" : ""); # only add comma before subsequent items.
+		$scriptmenu 	.= "\t\t\t\t\"mm_".$rhItem->{name}."\"";
+		$noscriptmenu 	.= "\t\t\t\t<a ".($fSel ? "class=\"selected\"" : '')." href=\"".$rhItem->{url}."\">".$rhItem->{name}."</a>\n";
+		$drawcomma = 1;
+	}
 
+	$m->out("${scriptmenu}");
+	$m->out("\n\t\t); \n");
+	$m->out("\t\tmm_buildMainMenu(\"mm_".$selName."\"); \n");
+	$m->out("\t\t--> \n");
+	$m->out("\t\t</script> \n");
+	$m->out("\t\t<noscript> \n");
+	$m->out("\t\t\t<div> \n");
+	$m->out("${noscriptmenu}");
+	$m->out("\t\t\t</div> \n");
+	$m->out("\t\t</noscript> \n");
+</%perl>
+</%def>
+
+
+<%def .drawsubmenus>
+<%perl>
+	my ($rarhMenu, $iLevel) = @_;
 	for my $rhItem (@$rarhMenu)
 	{
 		$rhItem->{name} or next;
 
-		my $rarhChildren = $rhItem->{children};
-		my $fSel = $rhItem->{expand};
+		my $rarhChildrens = $rhItem->{children};
+		$rarhChildrens = undef
+			if $rarhChildrens
+			and not grep { $_->{name} } @$rarhChildrens;
 
-		my $state = $fSel ? "_o" : "_c";
-		my $id = $rhItem->{id};
+		if ($rarhChildrens)
+		{  
+			$m->out("<div id=\"mm_".$rhItem->{name}."_sub\" class=\"submenu\" ");
+			$m->out("onMouseOver=\"mm_sub_onMouseOver()\" ");
+			$m->out("onMouseOut=\"mm_sub_onMouseOut()\">");
+			$m->out("<table border=\"0\" cellspacing=\"0\" cellpadding=\"0\">");
 
-		$m->out("<div class='menuitem' id='${id}item'>\n");
-		$m->out("<div class='menurow$state' id='${id}row'>\n");
+            # add a submenu item with same name
+            # as the category (topmenu item)
+            $m->out("<tr><td>");
+            $m->out("<a href=\"".$rhItem->{url}."\" title=\"".$rhItem->{name}."\">");
+            $m->out("".$rhItem->{name}."</a></td></tr>");
 
-		$rarhChildren = undef
-			if $rarhChildren
-			and not grep { $_->{name} } @$rarhChildren;
+			for my $rhChild (@$rarhChildrens)
+			{
+		        $rhChild->{name} or next;
+				$m->out("<tr><td>");
+				$m->out("<a href=\"".$rhChild->{url}."\" title=\"".$rhChild->{name}."\">");
+				$m->out("".$rhChild->{name}."</a></td></tr>");
+				# todo: add class bottom to last element.
 
-		if ($rarhChildren and ($render_all or $fSel))
-		{
-			$m->out("<a class='menucontrol$state'"
-				. " id='${id}control'"
-				. " href='$rhItem->{url}'"
-				. " onclick='return smt(\"$rhItem->{id}\")'"
-				. ">&nbsp;</a>");
-		} elsif ($rarhChildren) {
-			$m->out("<span class='menucontrol$state'"
-				. " id='${id}control'"
-				. ">&nbsp;</span>");
-		} else {
-			$m->out("<a class='menunocontrol$state'"
-				. " id='${id}control'"
-				. ">&nbsp;</a>");
-		}
-		
-		$m->out("<a class='menulink' href='$rhItem->{url}'>$rhItem->{name}</a>");
-		$m->out("</div>"); # menurow
-
-		if ($rarhChildren and ($render_all or $fSel))
-		{
-			$m->out("<div class='submenu$state' id='${id}sub'>\n");
-			$m->comp(".drawmenu", $rarhChildren, $iLevel+1);
-			$m->out("</div>\n");
-		}
-
-		$m->out("</div>\n"); # menuitem
+			}
+			$m->out("</table>");
+			$m->out("</div>");
+		}									   
 	}
-
-	$m->out("</div>\n"); # level
 </%perl>
 </%def>
+
 <%perl>
+	my $uri = shift() || $r->uri;
+	my $args = shift() || $r->args;
 
-my $uri = shift() || $r->uri;
-my $args = shift() || $r->args;
-
-$render_all = UserPreference::get('sitemenu_heavy');
-
-my $identify_selected = sub
-{
-	my ($uri, $args) = @_;
-	my @sel;
-
-	my $rhSelItem = $urlmap{$uri . "?" . $args};
-	$rhSelItem ||= $urlmap{$uri};
-
-	while ($rhSelItem)
+	my $identify_selected = sub
 	{
-		$rhSelItem->{expand} = 1;
-		unshift @sel, $rhSelItem;
-		$rhSelItem = $rhSelItem->{parent};
-	}
+		my ($uri, $args) = @_;
+		my @sel;
 
-	\@sel;
-};
+		my $rhSelItem = $urlmap{$uri . "?" . $args};
+		$rhSelItem ||= $urlmap{$uri};
 
-my $disable_selected = sub
-{
-	my $rarhSel = shift;
-	
-	for (@$rarhSel)
+		while ($rhSelItem)
+		{
+			$rhSelItem->{expand} = 1;
+			unshift @sel, $rhSelItem;
+			$rhSelItem = $rhSelItem->{parent};
+		}
+
+		\@sel;
+	};
+
+	my $disable_selected = sub
 	{
-		$_->{expand} = 0;
-	}
-};
+		my $rarhSel = shift;
 
+		for (@$rarhSel)
+		{
+			$_->{expand} = 0;
+		}
+	};
 </%perl>
 
-<table cellpadding="3" cellspacing="0" border="0" width="131px">
-  <tr>
-    <td>
-		<script type="text/javascript" src="/scripts/sitemenu.js"></script>
-		<div id="sitemenu">
-		<%perl>
-		my $t = &$identify_selected($uri ,$args);
-		$m->comp(".drawmenu", \@main, 0);
-		&$disable_selected($t);
-		</%perl>
-		</div>
-    </td>
-  </tr>
+
+
+<!-- main menu table -->
+<table width="100%" cellpadding="0" cellspacing="0" border="0" class="mainmenutable">
+	<tr valign="top">
+		<td width="142"><a href="/"><img src="/images/header_logo_b.gif" width="142" height="21" alt="" border="0"></a></td>
+		<td class="mainmenu" nowrap>
+			<script type="text/javascript" language="javascript" src="/scripts/topmenu.js"></script>
+			<%perl>
+				my $t = &$identify_selected($uri ,$args);
+				$m->comp(".drawmainmenu", \@main, $t);
+				&$disable_selected($t);
+			</%perl>
+		</td>
+	</tr>
 </table>
-
-<%perl>
-
-return;
-
-my $links = $urlmap2{$uri . "?" . $args};
-$links ||= $urlmap2{$uri};
-
-if ($links and @$links > 1)
-{
-	$m->comp("sidebarsection", title => 'Related Links');
-	$m->comp("sidebarareabegin");
-	</%perl>
-	<p>This page appears in these sections:</p>
-	<ul class="RelatedLinksList">
-% for (@$links) {
-		<li><a href="<% $_->{parent}{url} %>"><% $_->{parent}{name} %></a></li>
-% }
-	</ul>
-	<%perl>
-	$m->comp("sidebarareaend");
-}
-
-</%perl>
+% $m->comp(".drawsubmenus", \@main);

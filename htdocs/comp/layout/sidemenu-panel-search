@@ -1,0 +1,72 @@
+<div class="sidemenu">
+	<table class="sidemenusearch">
+		<tr>
+			<td width="40"><label for="qsArtist_text" title="Search for an artist (hint: use ALT-a to move the keyboard focus to this field, and ENTER to start the search)"><u>A</u>rtist</label></td>
+			<td>
+				<form method="GET" action="/newsearch.html">
+					<div>
+% # I hate accesskeys.  Mostly since they're not used very often, they
+% # interfere with the normal browser function (e.g. open browser menu).
+% # I can feel a preference coming on to disable these.
+						<input class="textfield" accesskey="a" type="text" name="search" id="qsArtist_text" value=""
+% # What is the official position on forms with no submit button?
+% # Normally they're OK, and you can press "return" and the form is submitted.
+% # Can we rely on this, always?
+% # Anyway within the Tagger this fails, so we detect "return" ourselves.
+% if ($session{mbt}) {
+							onkeydown="if (event.keyCode==13) this.form.submit()"
+% }
+						>									
+						<input type="hidden" name="table" value="artist">
+					</div>
+				</form></td>
+		</tr>
+		<tr>
+			<td><label for="qsAlbum_text" title="Search for an album (hint: use ALT-b to move the keyboard focus to this field, and ENTER to start the search)">Al<u>b</u>um</label></td>
+			<td>
+				<form method="GET" action="/newsearch.html">
+					<div>
+						<input class="textfield" accesskey="b" type="text" name="search" id="qsAlbum_text" value=""
+% if ($session{mbt}) {
+							onkeydown="if (event.keyCode==13) this.form.submit()"
+% }
+						>
+						<input type="hidden" name="table" value="album">
+					</div>
+				</form></td>
+		</tr>
+		<tr>
+			<td><label for="qsTrack_text" title="Search for a track (hint: use ALT-t to move the keyboard focus to this field, and ENTER to start the search)"><u>T</u>rack</label></td>
+			<td>
+				<form method="GET" action="/newsearch.html">
+					<div>
+						<input class="textfield" accesskey="t" type="text" name="search" id="qsTrack_text" value=""
+% if ($session{mbt}) {
+							onkeydown="if (event.keyCode==13) this.form.submit()"
+% }
+						>
+						<input type="hidden" name="table" value="Track">
+					</div>
+				</form></td>
+		</tr>
+		<tr>
+			<td><label for="qsEditor_text" title="Search for an MusicBrainz editor (hint: use ALT-e to move the keyboard focus to this field, and ENTER to start the search)"><u>E</u>ditor</label></td>
+			<td>
+				<form method="GET" action="/user/view.html">
+					<div>
+						<input class="textfield"  accesskey="E" type="text" name="modname" id="qsEditor_text" value=""
+% if ($session{mbt}) {
+							onkeydown="if (event.keyCode==13) this.form.submit()"
+% }
+						>
+					</div>
+				</form></td>
+		</tr>
+	</table>
+	<div class="morelink">
+		<a href="/search.html">more &raquo;</a>
+	</div>
+</div>
+
+
+%# vi: set ts=2 sw=2 ft=mason :

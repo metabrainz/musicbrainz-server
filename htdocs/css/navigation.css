@@ -1,0 +1,359 @@
+.section { 
+	font: Normal 11px Verdana, Geneva, Arial, Helvetica, sans-serif; 
+	color: #000000; text-decoration : none; font-weight: 600;
+}
+.section a,
+.section a:visited,
+.section a:hover { 
+	color: #000000; font-size: 11px;
+}
+td.borderbottom {
+	border-bottom: 1px solid #999;
+}
+td.modpending {
+	width: 1%; white-space: nowrap;
+	border-left: 1px solid #999;
+	border-bottom: 1px solid #999;
+	background: #FFFFCC; padding: 0px; 
+	font-size: 11px; text-align: right;
+}
+
+
+/* ********************************************** */
+/* ********************************************** */
+/* ********************************************** */
+.sidemenu-box {
+	height: 20px; width: 140px;
+	background: #DDDDDD; background-image: url(/images/sidemenu_BG.gif);
+}
+.sidemenu-box .title {
+	width: 130px; height: 20px; padding-top: 1px; padding-left: 10px;
+	background: #AAAAAA; border-bottom: 1px solid black; 
+}
+.sidemenu-box .arrow {
+	width: 10px; height: 20px; padding: 0px;
+	background: #DDDDDD url(/images/sidemenu_end.gif);
+}
+
+
+
+/* ********************************************** */
+/* ********************************************** */
+/* ********************************************** */
+.sidemenu {
+	width: 130px;
+	background: #ddd;
+	border-right: 1px solid #000; border-bottom: 1px solid #000;
+	padding: 0px; padding-left: 0px; padding-top: 2px; padding-bottom: 6px;
+}
+.sidemenu a:link,
+.sidemenu a:active,
+.sidemenu a:visited,
+.sidemenu a:hover {
+	display: block;
+	padding-left: 10px;
+	font-weight: normal;
+	border: 0px;
+}
+.sidemenu a:hover {
+	text-decoration: underline;
+	border: 0px;
+}
+.sidemenu form, .sidemenu input {
+	margin: 0px; font-size: 11px;
+}
+
+
+
+/* ********************************************** */
+/* ********************************************** */
+/* ********************************************** */
+.sidemenusearch {
+	width: 115px; margin-left: 10px; border-collapse: collapse;
+}
+.sidemenusearch th {
+	margin: 0px;
+	text-decoration: none;
+	font-weight: normal;
+	text-align: left;
+	font-size: 10pt;
+	width: 1em;
+}
+.sidemenusearch input.checkbox {
+	margin: -2px;
+}
+.sidemenusearch input.textfield {
+	width: 100%;
+	background-color: #eee;
+	border: 1px inset;
+	font-size: 11px;
+	padding: 1pt;
+}
+
+.morelink,
+.morelink a:link,
+.morelink a:active, 
+.morelink a:visited, 
+.morelink a:hover {
+	font-size: 10px; color: #000; 
+	text-align: right; padding-right: 2px;
+	white-space: nowrap;
+}
+
+
+/* ********************************************** */
+/* ********************************************** */
+/* ********************************************** */
+.sidemenustats {
+	width: 100%; border-collapse: collapse;
+}
+.sidemenustats .name {
+	width: 50%; 
+	font-size: 8pt; color: #000; text-align: right; font-weight: bold; 
+	padding-right: 2px;
+}
+.sidemenustats .name a,
+.sidemenustats .name a:visited,
+.sidemenustats .name a:active,
+.sidemenustats .name a:hover {
+	color: #000; font-size: 8pt; font-weight: bold;
+}
+.sidemenustats .name a:hover {
+	text-decoration: underline;
+}
+.sidemenustats .count {
+	width: 50%; 
+	font-size: 7pt; color: #000; text-align: left; 
+	padding-left: 2px;
+}
+.sidemenustats .sponsors {
+	width: 100%; text-align: left; padding: 0px;
+	padding-right: 2px; padding-top: 10px;
+}
+
+#sidemenu-td {
+	display: none;
+}
+#sidemenu-coll {
+	position: absolute; top: 88px;
+	width: 130px;
+	background: #fff;
+	border-right: 1px solid #000; border-bottom: 1px solid #000;
+}
+#sidemenu-exp {
+	width: 130px;
+	background: #fff;
+	border-right: 1px solid #000; border-bottom: 1px solid #000;
+	display: block;
+}
+#sidemenu-coll a,
+#sidemenu-exp a {
+	margin-left: 10px;
+	font-size: 11px;
+}
+
+
+/* ********************************************** */
+/* ********************************************** */
+/* ********************************************** */
+.mainmenutable {
+	width: 100%; background: #fb5; 
+}
+.mainmenu {
+	background: #fb5;
+	border-bottom: 1px solid black; 
+}
+.mainmenu a, 
+.mainmenu a:hover, 
+.mainmenu a:active, 
+.mainmenu a:visited {
+	float: left; display: block; text-align: center;
+	border-left: 1px solid black; background: #fb5; 
+	padding: 2px; padding-left: 8px; padding-right: 8px; 
+	white-space: nowrap; font-weight: bold; color: #000000;
+	border-bottom: 0px solid #fff;
+}
+.mainmenu a:hover {
+	background: #77a; color: white;
+	border-bottom: 0px solid #fff;
+}
+
+.mainmenu a.selected, 
+.mainmenu a.selected:hover, 
+.mainmenu a.selected:active, 
+.mainmenu a.selected:visited,
+.mainmenu a.rightselected,
+.mainmenu a.rightselected:active,
+.mainmenu a.rightselected:visited,
+.mainmenu a.rightselected:hover {
+	background: #77a; color: white;
+}
+
+.mainmenu a.right, 
+.mainmenu a.right:active,
+.mainmenu a.right:visited, 
+.mainmenu a.right:hover,
+.mainmenu a.rightselected,
+.mainmenu a.rightselected:active,
+.mainmenu a.rightselected:visited,
+.mainmenu a.rightselected:hover {
+	border-right: 1px solid black; 
+}
+
+
+/* ********************************************** */
+/* ********************************************** */
+/* ********************************************** */
+.submenu {
+	position: absolute; top: 87px; left: 142px;
+	background: #fff; display: none; padding-right: 2px;
+	border: 1px solid black;
+	background: #fff url(/images/header-bg-lightpurplefade.gif) right repeat-y;
+	z-index: 1001;
+}
+.submenu a, 
+.submenu a:visited, 
+.submenu a:active, 
+.submenu a:hover {
+	float: left; display: block; text-align: left;  width: 150px;
+	padding: 3px; padding-left: 7px; padding-right: 7px; 
+	white-space: nowrap; color: #000; 
+	font-size: 11px; font-weight: bold;
+	border-bottom: 1px dotted #ddd;
+}
+.submenu a:hover {
+	color: #000;
+	text-decoration: underline;
+	border-bottom: 1px dotted #ddd;
+}
+.submenu a.bottom,
+.submenu a.bottom:visited,
+.submenu a.bottom:active,
+.submenu a.bottom:hover {
+	border-bottom: none;
+}
+
+
+
+/* ********************************************** */
+/* ********************************************** */
+/* ********************************************** */
+.submenustatic {
+	position: absolute; top: 88px; left: 140px;
+	margin-left: 2px;
+	height: 17px; background: #fff; 
+	border: 1px solid black; border-width: 0px 1px 1px 1px;
+	z-index: 1000;
+}
+.submenustatic a, 
+.submenustatic a:visited, 
+.submenustatic a:active, 
+.submenustatic a:hover {
+	float: left; display: block; text-align: center;
+	border-right: 1px dotted #666; background: #fff; 
+	padding: 1px; padding-left: 7px; padding-right: 7px; 
+	white-space: nowrap; color: #000; 
+	font-size: 10px; font-weight: bold;
+	border-bottom: 0px solid #fff;
+}
+.submenustatic a:hover {
+	background: #fff; color: #000;
+	text-decoration: underline;
+	border-bottom: 0px solid #fff;
+}
+.submenustatic a.right, 
+.submenustatic a.right:visited, 
+.submenustatic a.right:active, 
+.submenustatic a.right:hover {
+	border-right: none;
+}
+
+
+
+
+/* ********************************************** */
+/* ********************************************** */
+/* ********************************************** */
+.home_mainpanel {
+	padding-right: 30px;
+}
+.home_mainpanel h1,
+.home_rightpanel h1 {
+	margin-bottom: 20px; margin-top: 10px;
+	border: none;
+}
+.home_mainpanel .header {
+	border: 1px solid #fb5; width: 100%;
+	background: #fff url(/images/header-bg-orangefade.gif) left repeat-y;
+	margin: 0px; padding: 0px;
+	font-weight: bold;
+}
+.home_rightpanel .header {
+	border: 1px solid #736DAB; width: 100%;
+	background: #fff url(/images/header-bg-lightpurplefade.gif) right repeat-y;
+	margin: 0px; padding: 0px;
+	font-weight: bold;
+}
+.home_rightpanel .header .inner,
+.home_mainpanel .header .inner {
+	margin: 0px; padding: 2px;
+}
+
+.home_rightpanel .content,
+.home_mainpanel .content {
+	border: 1px solid #ddd; width: 100%;
+	border-width: 0px 1px 1px 1px;
+	margin: 0px; padding: 0px;
+	margin-bottom: 15px;
+}
+.home_rightpanel .content .inner,
+.home_mainpanel .content .inner {
+	margin: 0px; padding: 8px;
+}
+.home_rightpanel .content .inner ul,
+.home_mainpanel .content .inner ul {
+	margin-top: 10px; margin-bottom: 0px; margin-left: 20px; padding: 0px;
+}
+.home_rightpanel .content .inner li,
+.home_mainpanel .content .inner li {
+	margin: 0px; padding-bottom: 10px;
+}
+.home_rightpanel .content .inner p,
+.home_mainpanel .content .inner p {
+	margin: 0px; padding-bottom: 15px;
+}
+.home_rightpanel .content .inner p.important {
+	color: #fc0; padding-bottom: 6px;
+}
+.home_rightpanel .content .inner p.important a {
+	font-weight: bold; 
+}
+
+.home_rightpanel {
+	float: right; width: 250px;
+	padding: 0px;
+}
+.home_rightpanel h2 {
+	margin-top: 0; margin-bottom: 10px;
+	background: #fff url(/images/header-bg-lightpurplefade.gif) right repeat-y;
+	border: 1px solid #736DAB;
+}
+
+.sidenewsarticle {
+	margin-bottom: 10px;
+}
+.sidenewsarticle .datetime {
+	text-align: right; font-size: 11px; color: #999;
+}
+.sidenewsarticle .readmore {
+	text-align: right; font-size: 11px; 
+}
+
+.NewsLink,
+.PressReleaseLink,
+.WhitePaperLink
+{
+	display: block;
+	text-align: right;
+}
+
