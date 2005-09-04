@@ -10,5 +10,6 @@ Enter moderation note
 	(optional):
 % }
 <br/>
-<textarea name="notetext" class="textarea" rows="3" cols="52"><%
+<textarea name="notetext" id="notetext" class="textarea" rows="3" cols="52"><%
 	$text %></textarea>
+<script type="text/javascript" src="/scripts/addmodnote.js"></script>
