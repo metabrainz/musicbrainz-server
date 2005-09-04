@@ -83,5 +83,7 @@ The following people have contributed to the MusicBrainz server:
   Stefan Kestenholz
   - contributed a patch to make better use of client-side Javascript
     (when adding AR links)
+  - completely redeveloped the artist pages, both in appearance and
+    implementation.  Also redeveloped the site navigation menus and much more.
 
 (please send change requests to rob@musicbrainz.org or maintainer)
