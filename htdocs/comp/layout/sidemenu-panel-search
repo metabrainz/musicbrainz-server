@@ -45,7 +45,7 @@
 							onkeydown="if (event.keyCode==13) this.form.submit()"
 % }
 						>
-						<input type="hidden" name="table" value="Track">
+						<input type="hidden" name="table" value="track">
 					</div>
 				</form></td>
 		</tr>
