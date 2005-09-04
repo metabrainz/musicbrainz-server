@@ -1216,14 +1216,14 @@ sub TryAutoLogin
 		my ($my_ip, $ipmask);
 
 		# Format 1: plaintext user + password
-		if ($c->value =~ /^1\t(.*?)\t(.*)$/)
+		if ($c =~ /^1\t(.*?)\t(.*)$/)
 		{
 			$user = $1;
 			$password = $2;
 		}
 		# Format 2: username, sha1(password + secret), expiry time,
 		# IP address mask, sha1(previous fields + secret)
-		elsif ($c->value =~ /^2\t(.*?)\t(\S+)\t(\d+)\t(\S*)\t(\S+)$/)
+		elsif ($c =~ /^2\t(.*?)\t(\S+)\t(\d+)\t(\S*)\t(\S+)$/)
 		{
 			($user, my $pass_sha1, my $expiry, $ipmask, my $sha1)
 				= ($1, $2, $3, $4, $5);

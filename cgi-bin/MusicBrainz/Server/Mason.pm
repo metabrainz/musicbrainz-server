@@ -154,10 +154,11 @@ sub handler
 	use URI::Escape qw( uri_escape );
 	use MusicBrainz::Server::Replication ':replication_type';
 
-    use vars qw(%session %pnotes);
+    use vars qw(%session %pnotes %cookies);
     untie %session;
     %session = ();
     %pnotes = ();
+    %cookies = ();
 
 	{
 		my $req = Apache::Request->instance($r);
@@ -165,7 +166,8 @@ sub handler
 	}
 
     use CGI::Cookie ();
-    my %cookies = CGI::Cookie->parse($r->header_in('Cookie'));
+    %cookies = CGI::Cookie->parse($r->header_in('Cookie'));
+	$_ = $_->value for values %cookies;
 
     my $tied = undef;
 
@@ -176,12 +178,12 @@ sub handler
 			use Apache::Session::File ();
 			tie %session,
 				'Apache::Session::File',
-				$c->value,
+				$c,
 			{
 				Directory => &DBDefs::SESSION_DIR,
 				LockDirectory => &DBDefs::LOCK_DIR,
 			};
-		} if $c->value;
+		};
     }
 
 	# Drop the session if expired

@@ -54,13 +54,7 @@ for my $mirror (@mirrors)
 $default_mirror ||= $mirrors[0];
 
 # Work out which mirror is selected
-
-my %cookies = parse CGI::Cookie($r->header_in('Cookie'));
-my $c = $cookies{$pref_cookie_name};
-
-$site ||= $c->value
-	if $c and $c->value;
-
+$site ||= $cookies{$pref_cookie_name};
 my $selected_mirror = $mirrors_by_key{$site};
 
 # If we've got all the info we need, go ahead and redirect to the file
