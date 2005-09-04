@@ -1,0 +1,167 @@
+<& /comp/sidebar, title=>'Guess Case Sandbox' &>
+
+	<script type="text/javascript" src="/scripts/autofix.js"></script>
+	<script type="text/javascript" src="/scripts/autofixmenu.js"></script>
+
+	<link type="text/css" rel="stylesheet" href="css/sandbox.css" />
+	<script type="text/javascript" src="sandbox.js"></script>
+
+	<form method="post" action="" id="sandbox" name="EditSandboxForm" enctype="application/x-www-form-urlencoded">
+		<a href="index.html">&laquo; Back</a>
+		<br/>&nbsp;
+
+		<& /comp/autofixmenu &>
+
+		<div class="tab-pane" id="tabPane1">
+			<script type="text/javascript">
+			<!--
+				var tp1 = new WebFXTabPane(document.getElementById("tabPane1"));
+			-->
+			</script>
+			<div class="tab-page" id="tabPage1">
+				<h2 class="tab">Artist</h2>
+				<script type="text/javascript">
+				<!--
+					tp1.addTabPage(document.getElementById("tabPage1"));
+				-->
+				</script>
+				<table border="0">
+					<tr>
+						<td>Artist name</td>
+						<td>&nbsp;<input type="text" name="newartistname" class="textfield"
+							 onFocus="myOnFocus(this)" onBlur="myOnBlur(this)"
+							 size="60" maxlength="255"
+							 value="a.f artist"></td>
+						<td><script language="javascript">
+							<!--
+								sb_writeButton(AF_BTN_ARTIST, 'newartistname');
+							-->
+							</script>
+						</td>
+						<td><input type="reset" value="Reset"></td>
+					</tr>
+					<tr>
+						<td>Sortname</td>
+						<td>&nbsp;<input type="text" name="newartistsortname" class="textfield"
+							 onFocus="myOnFocus(this)" onBlur="myOnBlur(this)"
+							 size="60" maxlength="255"
+							 value="a.f artist"></td>
+						<td><script language="javascript">
+							<!--
+								sb_writeButton(AF_BTN_SORTGUESS, 'newartistname', 'newartistsortname');
+								sb_writeButton(AF_BTN_SORTCOPY, 'newartistname', 'newartistsortname');
+							-->
+							</script>
+						</td>
+						<td><input type="reset" value="Reset"></td>
+					</tr>
+				</table>
+			</div>
+			<div class="tab-page" id="tabPage2">
+				<h2 class="tab">Album</h2>
+				<script type="text/javascript">
+				<!--
+					tp1.addTabPage(document.getElementById("tabPage2"));
+				-->
+				</script>				
+				<table border="0">
+					<tr>
+						<td>Album name</td>
+						<td>&nbsp;<input type="text" name="newalbumname" class="textfield"
+							 onFocus="myOnFocus(this)" onBlur="myOnBlur(this)"
+							 size="60" maxlength="255"
+							 value="selected ambient works: subtitle 85-92 cd1"></td>							
+						<td><script language="javascript">
+							<!--
+								sb_writeButton(AF_BTN_ALBUM, 'newalbumname');
+							-->
+							</script></td>
+						<td><input type="reset" value="Reset"></td>
+					</tr>
+				</table>
+			</div>
+			<div class="tab-page" id="tabPage3">
+				<h2 class="tab">Track</h2>
+				<script type="text/javascript">
+				<!--
+					tp1.addTabPage(document.getElementById("tabPage3"));
+				-->
+				</script>
+				<table border="0">
+					<tr><td>Track name</td>
+						<td>&nbsp;<input type="text" name="newtrackname" class="textfield"
+							 onFocus="myOnFocus(this)" onBlur="myOnBlur(this)"
+							 size="60" maxlength="255"
+							 value="This is my track name ft. erroll flynn RemixNAME RMX"></td>							
+						<td><script language="javascript">
+							<!--
+								sb_writeButton(AF_BTN_TRACK, 'newtrackname');
+							-->
+							</script></td>
+						<td><input type="reset" value="Reset"></td>
+					</tr>
+				</table>
+			</div>
+
+			<div class="tab-page" id="tabPage10">
+				<h2 class="tab">Artist&Track</h2>
+				<script type="text/javascript">
+				<!--
+					tp1.addTabPage(document.getElementById("tabPage10"));
+				-->
+				</script>
+				<table border="0">
+					<tr><td>Artist name</td>
+						<td>&nbsp;<input type="text" name="search" class="textfield"
+							 onFocus="myOnFocus(this)" onBlur="myOnBlur(this)"
+							 size="60" maxlength="255"
+							 value="Maxi Priest Feat. Elisha La'Verne"></td>							
+					</tr>
+					<tr><td>Track name</td>
+						<td>&nbsp;<input type="text" name="trackname" class="textfield"
+							 onFocus="myOnFocus(this)" onBlur="myOnBlur(this)"
+							 size="60" maxlength="255"
+							 value="Back Together Again RMX"></td>
+					</tr>
+					<tr><td></td>
+						<td>
+							<script language="javascript">
+							<!--
+								sb_writeButton(AF_BTN_GUESSBOTH);
+							-->
+						</script>
+						<input type="reset" value="Reset"></td>
+					</tr>
+				</table>
+			</div>
+
+			<div class="tab-page" id="tabPage90">
+				<h2 class="tab">Split words</h2>
+				<script type="text/javascript">
+				<!--
+					tp1.addTabPage(document.getElementById("tabPage90"));
+				-->
+				</script>
+				<table border="0">
+					<tr>
+						<td><input type="text" id="splittesttext" size="60" value="Selected Ambient Works 85-92"></td>
+						<td><input type='button' value='Split' onclick='sb_testSplit()'></td>
+					</tr>
+				</table>
+			</div>
+		</div>
+		<br/>
+		<div style="border: 1px dotted #000; padding: 5px">
+			Log Messages:
+			<div id="messages" name="messages" style="margin: 0px; font-family: Arial; font-size: 11px; width: 100%; height: 100%; overflow-y: none"></div>
+		</div>
+	</form>
+
+	<script type="text/javascript">
+	<!--
+		af_ShowTable(true);
+	-->
+	</script>
+
+
+<& /comp/footer &>

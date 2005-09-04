@@ -1,0 +1,49 @@
+<html>
+	<head>
+		<title>Test Page for AlbumNameFix(title)</title>
+		<link rel="stylesheet" type="text/css" href="../css/jsUnitStyle.css">
+		<script language="javascript" src="../app/jsUnitCore.js"></script>
+		<script language="javascript" src="/scripts/autofix.js"></script>
+	</head>
+	<body>
+		<script language="javascript">
+			function launchTitleCaseTest(_testname, _message, _sinput, _sexpect) {
+			  var _sreturn = "";
+			  try {
+				_sreturn = titleCase(_sinput);
+				assertEquals(_message, _sexpect, _sreturn);
+				info("<span style=\"background-color: #aaffaa\">"+_testname+" OK</span><br><span class=\"mbinput\">IN: &nbsp;"+_sinput+"</span><br><span class=\"mbexpect\">EXP: "+_sexpect+"</span>");
+			  } catch (ex) {
+				warn("<span style=\"background-color: #ffaaaa\">"+_testname+" FAIL</span><br><span class=\"mbinput\">IN: &nbsp;"+_sinput+"</span><br><span class=\"mbexpect\">EXP: "+_sexpect+"</span><br><span class=\"mberror\">RET: "+_sreturn+"</span>"+getMessages());
+				throw ex;
+			  }
+			}
+			function testTitleCase1() {
+			  var _sinput  = "titledword";
+			  var _sexpect = "Titledword";
+			  launchTitleCaseTest("testTitleCase1", "Expect titled", _sinput, _sexpect);
+			}
+			function testTitleCase2() {
+			  var _sinput  = "The";
+			  var _sexpect = "The";
+			  launchTitleCaseTest("testTitleCase2", "Expect uppercase, because first word is always capsed", _sinput, _sexpect);
+			}
+			function testTitleCase4() {
+			  var _sinput  = "McDonalds";
+			  var _sexpect = "McDonalds";
+			  launchTitleCaseTest("testTitleCase4", "Special case McTitled", _sinput, _sexpect);
+			}
+			function testTitleCase5() {
+			  var _sinput  = "MacNeill";
+			  var _sexpect = "MacNeill";
+			  launchTitleCaseTest("testTitleCase5", "Special case MacTitled word", _sinput, _sexpect);
+			}
+			function testTitleCase6() {
+			  var _sinput  = "Macceroni";
+			  var _sexpect = "Macceroni";
+			  launchTitleCaseTest("testTitleCase6", "Special case *not* MacTitled word", _sinput, _sexpect);
+			}
+		</script>
+	</body>
+</html>
+

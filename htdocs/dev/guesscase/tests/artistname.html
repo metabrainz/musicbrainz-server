@@ -1,0 +1,58 @@
+<html>
+ <head>
+  <title>Test Page for artistNameFix(string)</title>
+  <link rel="stylesheet" type="text/css" href="../css/jsUnitStyle.css">
+  <script language="javascript" src="../app/jsUnitCore.js"></script>
+<script language="javascript" src="/scripts/autofix.js"></script>
+
+ </head>
+ <body>
+  <script language="javascript">
+
+
+    function runTest(_testname, _message, _sinput, _sexpect) {
+      var _sreturn = "";
+      try {
+        _sreturn = artistNameFix(_sinput);
+        assertEquals(_message, _sexpect, _sreturn);
+        info("<span style=\"background-color: #aaffaa\">"+_testname+" OK</span><br><span class=\"mbinput\">IN: &nbsp;"+_sinput+"</span><br><span class=\"mbexpect\">EXP: "+_sexpect+"</span>");
+      } catch (ex) {
+        warn("<span style=\"background-color: #ffaaaa\">"+_testname+" FAIL</span><br><span class=\"mbinput\">IN: &nbsp;"+_sinput+"</span><br><span class=\"mbexpect\">EXP: "+_sexpect+"</span><br><span class=\"mberror\">RET: "+_sreturn+"</span><br><span class=\"mberror\">EXCEPTION: "+ex.message+"</span><br>"+getMessages());
+        throw ex;
+      }
+    }
+
+    // check if force caps works on the subtitle
+    function testArtistCapitalization1() {
+      var _sinput  = "MY ARTIST THE NAME";
+      var _sexpect = "My Artist the Name";
+      runTest("testArtistCapitalization1", "Expect capitalization", _sinput, _sexpect);
+    }
+
+    // check if force caps works on the subtitle
+    function testArtistCapitalization2() {
+      var _sinput  = "Dj someDjname";
+      var _sexpect  = "DJ Somedjname";
+      runTest("testArtistCapitalization2", "Expect capitalization", _sinput, _sexpect);
+    }
+
+    // check if force caps works on the subtitle
+    function testArtistCapitalization3() {
+      var _sinput  = "Dj someDjname & Mc SomeMcName";
+      var _sexpect  = "DJ Somedjname & MC Somemcname";
+      runTest("testArtistCapitalization3", "Expect capitalization", _sinput, _sexpect);
+    }
+
+
+    // check if force caps works on the subtitle
+    function testArtistAcronym1() {
+      var _sinput  = "A.B. Artistlastname";
+      var _sexpect  = "A.B. Artistlastname";
+      runTest("testArtistAcronym1", "Expect capitalization", _sinput, _sexpect);
+    }
+
+
+  </script>
+ </body>
+</html>
+
