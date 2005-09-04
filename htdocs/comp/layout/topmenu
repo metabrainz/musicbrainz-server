@@ -30,7 +30,7 @@ use Scalar::Util qw( reftype weaken );
 		{ name => "Picard",					url => "/news/picard.html" },
 		{ name => "In The Press",			url => "/wd/MusicBrainzPress" },
 	],
-	{ name => "Products",				url => "/download.html" },
+	{ name => "Products",				url => "/download.html", nosub => 1 },
 	[
 		{ name => "Download",				url => "/download.html" },
 		{ name => "Tagger",					url => "/tagger/index.html" },
@@ -57,16 +57,16 @@ use Scalar::Util qw( reftype weaken );
 		],
 		{ name => "Picard",					url => "/wd/PicardDocumentation" },
 	],
-	{ name => "Browse",					url => "/search.html" },
+	{ name => "Browse", 				url => "/search.html", nosub => 1 },
 	[
-		{ name => "Search",					url => "/search.html" },
+		{ name => "Search / Browse",		url => "/search.html" },
 		{ name => "Browse Artists",			url => "/browseartists.html" },
 		{ name => "Browse Releases",		url => "/browsevarious.html" },
 		{ name => "Search Links",			url => "/engine.html" },
 		{ name => "Search Plugins",			url => "/search/plugins/firefox/install.html" },
 		{ url => "/newsearch.html" },
 	],
-    { name => "Edit",					url => "/mod_intro.html" },
+    { name => "Edit",					url => "/mod_intro.html", nosub => 1 },
     [
         { name => "About",					url => "/mod_intro.html" },
         { name => "Suggestions",			url => "/reports/index.html" },
@@ -211,7 +211,7 @@ use Scalar::Util qw( reftype weaken );
 		{ name => "Sponsors",				url => "/wd/CorporateSponsors" },
 		{ name => "Help Wanted",			url => "/about/helpwanted.html" },
 	],
-	{ name => "Help",					url => "/wd/ContactUs" },
+	{ name => "Help",					url => "/wd/ContactUs", nosub => 1 },
 	[
 		{ name => "Contact Us",				url => "/wd/ContactUs" },
 		{ name => "FAQ Index",				url => "/wd/FAQIndex" },
@@ -324,11 +324,14 @@ $transform = sub
 			$m->out("onMouseOut=\"mm_sub_onMouseOut()\">");
 			$m->out("<table border=\"0\" cellspacing=\"0\" cellpadding=\"0\">");
 
-            # add a submenu item with same name
-            # as the category (topmenu item)
-            $m->out("<tr><td>");
-            $m->out("<a href=\"".$rhItem->{url}."\" title=\"".$rhItem->{name}."\">");
-            $m->out("".$rhItem->{name}."</a></td></tr>");
+			unless ($rhItem->{'nosub'})
+			{
+				# add a submenu item with same name
+				# as the category (topmenu item)
+				$m->out("<tr><td>");
+				$m->out("<a href=\"".$rhItem->{url}."\" title=\"".$rhItem->{name}."\">");
+				$m->out("".$rhItem->{name}."</a></td></tr>");
+			}
 
 			for my $rhChild (@$rarhChildrens)
 			{
