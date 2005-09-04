@@ -2,7 +2,7 @@
 	<script type="text/javascript" src="/scripts/autofixmenu.js"></script>
 	
 	<& /comp/framedboxbegin &>
-	<div class="autofixmenu">
+	<div id="autofixmenu" class="autofixmenu">
 		<table>
 			<tr>
 				<td>
@@ -26,60 +26,12 @@
 						<p><b>You have Javascript disabled, please turn it on to use the Guess Case feature.</b></p>
 					</div>
 
-					<!-- this able is shown when JS is enabled -->
-					<div id="autofix-box-jsenabled" style="display: none">
-						<div id="autofix-table-collapsed" style="display: block">
-							<table width="100%" border="0" cellspacing="0" cellpadding="0">
-								<tr valign="middle">
-									<td width="120" nowrap><b>Guess Case:<br><img src="/images/spacer.gif" alt="" height="1" width="120"/></td>
-									<td width="100%">
-										<small><span id="autofix-mode-text-collapsed"></span></small></td>
-									<td>&nbsp;</td>
-									<td><a href="javascript: // expand table" title="Expand table" onFocus="this.blur()" onClick="af_ShowTable(true); return false;"><img src="/images/plus.gif" width="13" height="13" alt="Expand Guess Case panel" border="0"></a></td>
-								</tr>
-							</table>
-						</div>
-						<div id="autofix-table-expanded" style="display: none">
-							<table width="100%" border="0" cellspacing="0" cellpadding="0">
-								<tr valign="middle">
-									<td width="120" nowrap><b>Guess Case:<br><img src="/images/spacer.gif" alt="" height="1" width="120"/></td>
-									<td width="100%" id="autofix-mode-cell"></td>
-									<td>&nbsp;</td>
-									<td width="10"><a href="javascript: // collapse table" title="Collapse table" onFocus="this.blur()" onClick="af_ShowTable(false); return false;"><img src="/images/minus.gif" width="13" height="13" alt="Collapse Guess Case panel" border="0"></a></td>
-								</tr>
-								<tr><td colspan="4"><img src="/images/spacer.gif" height="2" alt="" /></td></tr>
-								<tr valign="middle">
-									<td nowrap><b>Selected Text:</td>
-									<td>
-										<table cellspacing="0" cellpadding="0" border="0">
-										<tr valign="top"><td nowrap>
-										<input type="button" class="button" value="Capital" title="Capitalize first character only" onClick="doApplyOperation(AF_OP_TITLED)">
-										<input type="button" class="button" value="UPPER" title="CONVERT CHARACTERS TO UPPERCASE" onClick="doApplyOperation(AF_OP_UPPERCASE)">
-										<input type="button" class="button" value="lower" title="convert characters to lowercase" onClick="doApplyOperation(AF_OP_LOWERCASE)">
-										<input type="button" class="button" value="Add ()" title="Add round parentheses () around selection" onClick="doApplyOperation(AF_OP_ROUNDBRACKETS)">
-										<input type="button" class="button" value="Add []" title="Add square brackets [] around selection" onClick="doApplyOperation(AF_OP_SQUAREBRACKETS)">
-										<input type="button" class="button" value="Rem ([])" title="Remove all brackets/parentheses from the selection" onClick="doApplyOperation(AF_OP_REMOVEBRACKETS)">
-										<input type="button" class="button" value="() to []" title="Replace round parantheses () with square brackets [] in the selection" onClick="doApplyOperation(AF_OP_CONVERTROUNDSQUARE)">
-										<input type="button" class="button" value="[] to ()" title="Replace square brackets [] with round parantheses () in the selection" onClick="doApplyOperation(AF_OP_CONVERTSQUAREROUND)">
-										</td><td>&nbsp;&nbsp;&nbsp;</td><td>
-											[ <a href="/wd/GuessCaseTool" target="_blank" title="Select text in titles, then press one of the buttons at left. Click on this link if you want to know more...">help</a> ] <br/></td>
-										</tr></table>
-									</td>
-								</tr>
-								<tr><td colspan="4"><img src="/images/spacer.gif" height="2" alt="" /></td></tr>
-								<tr valign="middle">
-									<td nowrap><b>Undo/Redo:</td>
-									<td>
-										<input disabled type="button" class="buttondisabled" name="undoAllButton" onclick="af_undoAll(this.form)" value="Undo All">
-										<input disabled type="button" class="buttondisabled" name="undoButton" onclick="af_doUndo(this.form)" value="Undo">
-										<input disabled type="button" class="buttondisabled" name="redoButton" onclick="af_doRedo(this.form)" value="Redo">
-										<input disabled type="button" class="buttondisabled" name="redoAllButton" onclick="af_doRedoAll(this.form)" value="Redo All">
-										<small>&nbsp;&nbsp;&nbsp;Steps:<span id="autofix-text">0/0</span><small>
-									</td>		    
-								</tr>
-							</table>
-						</div>
-					</div>
+                    <!-- this table is shown when JS is enabled -->
+                    <script language="javascript">
+                    <!--
+                        af_writeGUI();
+                    -->
+                    </script>
 				</td>
 			</tr>
 		</table>
@@ -87,8 +39,4 @@
 
 	<& /comp/framedboxend &>
 
-	<script language="javascript">
-	<!--
-		af_onPageLoad();
-	-->
-	</script>
+
