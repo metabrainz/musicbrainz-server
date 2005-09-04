@@ -131,8 +131,8 @@ Relationships:
 <div class="AlbumTitleLinks">Edit: [
 %		if (!$nonalbum) {
 	<a href="/edit/album/edit.html?album=<% $albumid %>">Edit name</a> |
+	<a href="/edit/album/editall.html?albumid=<% $albumid %>">Edit all</a> |
 %			unless ($artist->GetId == &ModDefs::VARTIST_ID) {
-	<a href="/edit/album/editall.html?album=<% $albumid %>">Edit all</a> |
   <a href="/edit/relationship/showelements.html?type=album&amp;id=<% $albumid %>&amp;name=<% uri_escape($name) %>">Link</a> |
 %			}
 %		}

@@ -139,7 +139,7 @@ $m->comp(
 	#success_url => $url,
 ) or return;
 
-$m->comp("sae-cancel.html", "true");
+$m->comp("/edit/album/sae-cancel.html", "true");
 $m->comp("/comp/redirect", $url);
 
 </%perl>

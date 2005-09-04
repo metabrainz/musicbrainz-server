@@ -1,9 +1,11 @@
 %# vi: set ts=4 sw=4 ft=mason :
 <%perl>
 
+# Abort if session variable is missing
 my $edit = $session{"editalbum"}
 	or return $m->comp("/comp/redirect", "/search.html");
 
+# Grab all attributes into the $ARGS array
 while (my ($k, $v) = each %ARGS)
 {
 	delete $ARGS{$k}, next
@@ -14,11 +16,15 @@ while (my ($k, $v) = each %ARGS)
 	$ARGS{$k} = $v;
 }
 
-# Update track names
+# Update album name
+# attention: property "name" in session variable, but
+# "albumname" in form fields. this was added to allow
+# carrying the albumid over in the URL (to avoid some
+# level of proxy caching)
+$edit->{"name"} = $ARGS{"albumname"}
+	if exists $ARGS{"albumname"};
 
-$edit->{"name"} = $ARGS{"album"}
-	if exists $ARGS{"album"};
-
+# Update release status
 for (qw( type status ))
 {
 	my $v = $ARGS{"release_$_"};
@@ -33,6 +39,8 @@ for (qw( type status ))
 	$edit->{$_} = $v;
 }
 
+# update tracklist with information from the formfields
+# (reorder, edit)
 my $tracks = $edit->{"tracks"};
 for my $t (@$tracks)
 {
@@ -56,10 +64,12 @@ for my $t (@$tracks)
 	}
 }
 
+# strip 'new and 'to be deleted' tracks from tracklist
 @$tracks = grep {
 	not $_->{'new'} or not $_->{"delete"}
 } @$tracks;
 
+# if a new track was added.
 if ($ARGS{"AddATrack"} and $edit->{"can_add_remove"})
 {
 	my $new_id = 0;
@@ -80,17 +90,23 @@ if ($ARGS{"AddATrack"} and $edit->{"can_add_remove"})
 	delete $ARGS{'continue'};
 }
 
+# sort track listing
 @$tracks = sort {
 	$a->{seq} <=> $b->{seq}
 	or
 	$a->{name} cmp $b->{name}
 } @$tracks;
 
-$session{"editalbum"} = $edit; # write
+# update session variable
+$session{"editalbum"} = $edit; 
 
-return $m->comp("/comp/redirect", "/edit/album/sae-review.html")
-	if $ARGS{"continue"};
+# forward to review page if form was submitted
+return $m->comp(
+	"/comp/redirect", 
+	"/edit/album/sae-review.html?albumid=" . $edit->{"id"}
+) if $ARGS{"continue"};
 
+# prepare artist object
 my $ar = Artist->new(undef);
 
 $ar->SetId($edit->{"artist"}{"id"});
@@ -138,6 +154,7 @@ $ar->SetSortName($edit->{"artist"}{"sortname"});
 			<col style="width: 20em">
 			<col style="width: 1em">
 			<col style="width: 6em">
+% if (!$edit->{"is_various"}) {
 			<tr>
 				<td><a href="/showartist.html?artistid=<% $ar->GetId %>">Artist</a>:</td>
 				<td><% $ar->GetName %></td>
@@ -149,9 +166,10 @@ $ar->SetSortName($edit->{"artist"}{"sortname"});
 					-->
 					</script></td>
 			</tr>
+% }
 			<tr>
 				<td><a href="/showalbum.html?albumid=<% $edit->{'id'} %>">Album</a>:</td>
-				<td><input type="text" name="album" class="textfield"
+				<td><input type="text" name="albumname" class="textfield"
 					size="50"
 					onFocus="myOnFocus(this)" onBlur="myOnBlur(this)"
 					value="<% $edit->{'name'} %>"></td>
@@ -159,11 +177,17 @@ $ar->SetSortName($edit->{"artist"}{"sortname"});
 				<td>
 					<script language="javascript">
 					<!--
-						af_writeButton(AF_BTN_ALBUM, 'album');
+						af_writeButton(AF_BTN_ALBUM, 'albumname');
 					-->
 					</script></td>
 			</tr>
 % for my $t (@$tracks) {
+%	if ($edit->{is_various}) {
+			<tr>
+				<td>&nbsp;</td>
+				<td colspan="3">Artist: <a href="/showartist.html?artistid=<% $t->{artist} %>"><% $t->{artist_name} %></a></td>
+			</tr>
+%	}
   			<tr>
 				<td nowrap>
 % unless ($t->{"new"}) {
@@ -171,7 +195,7 @@ $ar->SetSortName($edit->{"artist"}{"sortname"});
 % } else {
 				Track
 % }
-					<input type="text" name="trackseq<% $t->{"id"} %>" class="textfield"
+				<input type="text" name="trackseq<% $t->{"id"} %>" class="numberfield"
 						<% $edit->{can_add_remove} ? "" : "readonly" %>
 						onFocus="myOnFocus(this)" onBlur="myOnBlur(this)"
 						value="<% $t->{seq} %>" size="2" maxlength="2"
@@ -196,9 +220,11 @@ $ar->SetSortName($edit->{"artist"}{"sortname"});
 			<tr>
 				<td></td>
 				<td>
+% if (!$edit->{is_various}) { # can't add track for VA album
 					<input type="checkbox" name="AddATrack" value="1"
 						<% $edit->{can_add_remove} ? "" : "disabled" %>>
 					Add a track ...
+% }					
 				</td>
 				<td align="center"><img src="/images/remove.gif"
 					title="Tick the boxes above to remove tracks"></td>
@@ -206,7 +232,7 @@ $ar->SetSortName($edit->{"artist"}{"sortname"});
 					<script language="javascript">
 					<!--
 						function doGuessAll(theForm) {
-							doAlbumName(theForm, 'album');
+							doAlbumName(theForm, 'albumname');
 % for my $t (@$tracks) {
 							doTrackName(theForm, 'track<% $t->{'id'} %>');
 % }
@@ -266,6 +292,6 @@ $ar->SetSortName($edit->{"artist"}{"sortname"});
 	</fieldset>
 </form>
 
-<& /comp/movefocus, "EditAlbum", "album" &>
+<& /comp/movefocus, "EditAlbum", "albumname" &>
 
 <& /comp/footer &>

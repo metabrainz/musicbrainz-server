@@ -25,7 +25,13 @@ $ar->LoadFromId
 		1, 1,
 	);
 
-my @tracks = $al->LoadTracks;
+my @tracks;
+if ($edit->{is_various}) {
+	@tracks = $al->LoadTracksFromMultipleArtistAlbum;
+}
+else {
+	@tracks = $al->LoadTracks;
+}
 
 my $orig = $m->scomp(
 	"/comp/album",
@@ -173,16 +179,17 @@ for my $t (@{ $edit->{tracks} })
 		<table>
 			<tr>
 				<td>
-					<form method="GET" action="sae-edittracks.html">
+					<form method="GET" action="/edit/album/sae-edittracks.html">
+						<input type="hidden" name="albumid" value="<% $edit->{'id'} %>">
 						<input type="submit" class="button" value="Keep Editing">
 					</form></td>
 				<td>
-					<form method="GET" action="editall.html">
-						<input type="hidden" name="album" value="<% $edit->{'id'} %>">
+					<form method="GET" action="/edit/album/editall.html">
+						<input type="hidden" name="albumid" value="<% $edit->{'id'} %>">
 						<input type="submit" class="button" value="Start Over">
 					</form></td>
 				<td>
-					<form method="GET" action="sae-cancel.html">
+					<form method="GET" action="/edit/album/sae-cancel.html">
 						<input type="submit" class="button" value="Abandon">
 					</form></td>
 			</tr>
@@ -219,7 +226,7 @@ for my $t (@{ $edit->{tracks} })
 		</td></tr></table>
 	</div>
 	
-	<form method="post" action="sae-enter.html">
+	<form method="post" action="/edit/album/sae-enter.html">
 		<div class="padlefttop">
 			<& /comp/notetext &>
 		</div>

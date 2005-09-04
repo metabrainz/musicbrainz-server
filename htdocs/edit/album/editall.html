@@ -1,84 +1,103 @@
 %# vi: set ts=2 sw=2 ft=mason :
 <%args>
-$album => undef
+	$mbid => ""
+	$albumid => ""
 </%args>
 <%perl>
-
+# needs to be logged in for this
 $m->comp("/comp/checkloggedin", 1, 1)
 	or return;
 
-MusicBrainz::IsNonNegInteger($album) && $album
-	or return $m->comp("/comp/badargs", 1, 1);
+# check if a valid mbid/albumid was given.
+if ($mbid ne "") {
+	MusicBrainz::IsGUID($mbid)
+		or return $m->comp("/comp/badargs", 1, 1);
+} else {
+	MusicBrainz::IsNonNegInteger($albumid) && $albumid
+		or return $m->comp("/comp/badargs", 1, 1);
+}
 
+# load album from database
 my $mb = $m->comp("/comp/dblogin");
-
-my $al = Album->new($mb->{DBH});
-$al->SetId($album);
-$al->LoadFromId
+my $album = Album->new($mb->{DBH});
+if ($mbid ne "") {
+	$album->SetMBId($mbid);
+} else {
+	$album->SetId($albumid);
+}
+$album->LoadFromId(1)
 	or return $m->comp(
 		"/comp/error",
-		"Album #$album does not exist",
+		"Album #".$album->GetId." not found in the database.",
 		1, 1,
 	);
 
-$al->GetArtist == &ModDefs::VARTIST_ID
-	and return $m->comp(
-		"/comp/error",
-		"Sorry - so far, the 'Edit Album' feature does not work for Various Artist albums.",
-		1, 1,
-	);
-
-$al->IsNonAlbumTracks
+# disallow editing the NAT-album
+$album->IsNonAlbumTracks
 	and return $m->comp(
 		"/comp/error",
 		"The 'Edit Album' feature cannot edit '".&Album::NONALBUMTRACKS_NAME."'",
 		1, 1,
 	);
 
-my $ar = Artist->new($mb->{DBH});
-$ar->SetId($al->GetArtist);
-$ar->LoadFromId
+# load album artist from database
+my $artist = Artist->new($mb->{DBH});
+$artist->SetId($album->GetArtist);
+$artist->LoadFromId
 	or return $m->comp(
 		"/comp/error",
 		"Artist does not exist",
 		1, 1,
 	);
 
-my @t = $al->LoadTracks;
-
+# load tracks, and add into @t list.
+my @t;
+if ($album->GetArtist == &ModDefs::VARTIST_ID) {
+	@t = $album->LoadTracksFromMultipleArtistAlbum;
+}
+else {
+	@t = $album->LoadTracks;
+}
 @t = map {
 	+{
-		id				=> $_->GetId,
-		name			=> $_->GetName,
-		seq				=> $_->GetSequence,
-		orig_name	=> $_->GetName,
-		orig_seq	=> $_->GetSequence,
+		id					=> $_->GetId,
+		name				=> $_->GetName,
+		artist			=> $_->GetArtist,
+		artist_name	=> $_->GetArtistName,
+		seq					=> $_->GetSequence,
+		orig_name		=> $_->GetName,
+		orig_seq		=> $_->GetSequence,
 	},
 } @t;
 
-my ($type, $status) = $al->GetReleaseTypeAndStatus;
+# load releasetype, status
+my ($type, $status) = $album->GetReleaseTypeAndStatus;
 
+# compile information into session variable.
 my %edit = (
-	id				=> $al->GetId,
-	name			=> $al->GetName,
-	type			=> $type,
-	status		=> $status,
-	orig_name	=> $al->GetName,
-	orig_type	=> $type,
-	orig_status=> $status,
-	artist		=> {
-		id				=> $ar->GetId,
-		name			=> $ar->GetName,
-		sortname	=> $ar->GetName,
+	id					=> $album->GetId,
+	name				=> $album->GetName,
+	type				=> $type,
+	status			=> $status,
+	orig_name		=> $album->GetName,
+	orig_type		=> $type,
+	orig_status	=> $status,
+	artist			=> {
+		id				=> $artist->GetId,
+		name			=> $artist->GetName,
+		sortname	=> $artist->GetName,
 	},
-	tracks		=> \@t,
-	can_add_remove => ($al->CanAddTrack or $al->CanRemoveTrack),
+	tracks			=> \@t,
+	can_add_remove 	=> ($album->CanAddTrack or $album->CanRemoveTrack),
+	is_various		=> ($album->GetArtist == &ModDefs::VARTIST_ID),
 );
 
 $session{editalbum} = \%edit;
 
-#$m->comp("/user/debug.html");
-
-return $m->comp("/comp/redirect", "/edit/album/sae-edittracks.html");
+# forward to form
+return $m->comp(
+	"/comp/redirect", 
+	"/edit/album/sae-edittracks.html?albumid=" . $album->GetId
+);
 
 </%perl>
