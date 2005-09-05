@@ -169,7 +169,7 @@ td.modpending {
 .mainmenu a:visited {
 	float: left; display: block; text-align: center;
 	border-left: 1px solid black; background: #fb5; 
-	padding: 2px; padding-left: 8px; padding-right: 8px; 
+	padding: 2px; padding-left: 6px; padding-right: 6px; 
 	white-space: nowrap; font-weight: bold; color: #000000;
 	border-bottom: 0px solid #fff;
 }

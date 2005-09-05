@@ -91,7 +91,9 @@ function mm_buildMainMenu(selmenu) {
 		document.write('onDblClick="return mm_onDoubleClick(this)" onMouseOver="mm_onMouseOver(this)" ');
 		document.write('onClick="return mm_onClick(this)" onFocus="this.blur()" ');
 		document.write('title="'+t+' - Click here to open submenu" id="'+mm+'" ');
-		document.write('href="javascript: // open sub-menu">'+t+' <img src="/images/dropdown.gif" alt="*" border=""></a>');
+		document.write('href="javascript: // open sub-menu">'+t
+			// +' <img src="/images/dropdown.gif" alt="*" border="">'
+			+ '</a>');
 	}
 }
 
