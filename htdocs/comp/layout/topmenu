@@ -415,7 +415,9 @@ $m->out(
 			<script type="text/javascript" language="javascript" src="/scripts/topmenu.js"></script>
 			<%perl>
 				$m->comp(".drawmainmenu", \@main);
+				$m->out("<noscript>");
 				$m->comp(".drawstatic");
+				$m->out("</noscript>");
 			</%perl>
 		</td>
 	</tr>
