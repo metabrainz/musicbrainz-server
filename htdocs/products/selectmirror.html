@@ -67,9 +67,6 @@ my $dontask = 0;
 
 if ($path and $selected_mirror and ($ARGS{'go'} or $dontask))
 {
-	unless ($c and $c->value and $mirrors_by_key{$c->value}
-		and $mirrors_by_key{$c->value}{URL} eq $selected_mirror->{URL}
-	)
 	{
 		my $cookie = new CGI::Cookie (
 			-name			=> $pref_cookie_name,
