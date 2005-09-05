@@ -208,8 +208,9 @@ td.modpending {
 	position: absolute; top: 87px; left: 142px;
 	background: #fff; display: none; padding-right: 2px;
 	border: 1px solid black;
-	background: #fff url(/images/header-bg-lightpurplefade.gif) right repeat-y;
+	background: #fff url(/images/header-bg-lightpurplefade.gif) repeat-y right;
 	z-index: 1001;
+	display: none;
 }
 .submenu a, 
 .submenu a:visited, 
@@ -242,7 +243,7 @@ td.modpending {
 	position: absolute; top: 88px; left: 140px;
 	margin-left: 2px;
 	height: 17px; background: #fff; 
-	border: 1px solid black; border-width: 0px 1px 1px 1px;
+	border: 1px solid black; border-width: 1px 1px 1px 1px;
 	z-index: 1000;
 }
 .submenustatic a, 
