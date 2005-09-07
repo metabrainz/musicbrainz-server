@@ -41,7 +41,7 @@ fieldset .datefieldfocus {
 	padding-left: 2px;
 }
 fieldset .textarea {
-	width: 100%;
+	/* width: 100%; handled with js now */
 }
 .backtolisting .button,
 fieldset .button {
