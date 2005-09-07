@@ -240,33 +240,44 @@ td.modpending {
 /* ********************************************** */
 /* ********************************************** */
 .submenustatic {
-	position: absolute; top: 88px; left: 140px;
-	margin-left: 2px;
-	height: 17px; background: #fff; 
-	border: 1px solid black; border-width: 1px 1px 1px 1px;
+	position: absolute; 
+	top: 87px; left: 0px; 
+	height: 17px; width: 800px; /* 800px hack for IE, else elements get squished */
+	margin: 0px; padding: 0px;
 	z-index: 1000;
+}
+.submenustatic table {
+	margin-left: 142px;
+}	 
+.submenustatic a:hover {
+	text-decoration: underline;
 }
 .submenustatic a, 
 .submenustatic a:visited, 
 .submenustatic a:active, 
 .submenustatic a:hover {
-	float: left; display: block; text-align: center;
-	border-right: 1px dotted #666; background: #fff; 
+	display: block; text-align: center;
+	background: #fff;
 	padding: 1px; padding-left: 7px; padding-right: 7px; 
 	white-space: nowrap; color: #000; 
 	font-size: 10px; font-weight: bold;
-	border-bottom: 0px solid #fff;
+	border-width: 0px;
+	border-top: 1px solid #000; 
+	border-bottom: 1px solid #000;
+	border-left: 1px solid #fff;
+	border-right: 1px dotted #666; 		 
 }
-.submenustatic a:hover {
-	background: #fff; color: #000;
-	text-decoration: underline;
-	border-bottom: 0px solid #fff;
+.submenustatic a.left, 
+.submenustatic a.left:visited, 
+.submenustatic a.left:active, 
+.submenustatic a.left:hover {
+	border-left: 1px solid #000;
 }
 .submenustatic a.right, 
 .submenustatic a.right:visited, 
 .submenustatic a.right:active, 
 .submenustatic a.right:hover {
-	border-right: none;
+	border-right: 1px solid #000;
 }
 
 

@@ -129,4 +129,86 @@ function scale_coverart()
 }
 AddOnLoadAction(scale_coverart);
 
+
+// ----------------------------------------------------------------------------
+// userAgent()
+//
+// stores most important user agent types into
+// the ua object.
+function userAgent() {
+    var id = navigator.userAgent.toLowerCase();
+    this.major = stringToNumber(navigator.appVersion);
+    this.minor = parseFloat(navigator.appVersion);
+    this.nav  = (
+      			 (id.indexOf('mozilla') != -1) && 
+      			 (
+      			  (id.indexOf('spoofer')==-1) && 
+      			  (id.indexOf('compatible') == -1)
+      			 )
+      			);
+
+    this.nav2 = (this.nav && (this.major == 2));
+    this.nav3 = (this.nav && (this.major == 3));
+    this.nav4 = (this.nav && (this.major == 4));
+	
+	this.nav5 =	(this.nav && (this.major == 5));
+	this.nav6 = (this.nav && (this.major == 5));
+	this.gecko = (this.nav && (this.major >= 5));
+
+    this.ie   = (id.indexOf("msie") != -1);
+    this.ie3  = (this.ie && (this.major == 2));
+    this.ie4  = (this.ie && (this.major == 3));
+    this.ie5  = (this.ie && (this.major == 4));
+
+    this.opera = (id.indexOf("opera") != -1);
+    this.nav4up = this.nav && (this.major >= 4);
+    this.ie4up  = this.ie  && (this.major >= 4);
+}
+var ua = new userAgent();
+
+// getElementPageTop() --
+// because of different dom implementations
+// this is needed to get the exact pixel
+// location of an element
+function getElementPageTop(el) {
+	var y = 0;
+	if (ua.nav4) return el.pageY;
+	if (ua.ie4up) {
+		while (el.offsetParent != null) {
+			y += el.offsetTop;
+			el = el.offsetParent;
+		}
+		y += el.offsetTop;
+		return y;
+	}
+	if (ua.mac && ua.ie5) {
+		return stringToNumber(document.body.currentStyle.marginTop);
+	}
+	if (ua.gecko) {
+		while (el.offsetParent != null) {
+			y += el.offsetTop;
+			el = el.offsetParent;
+		}
+		y += el.offsetTop;
+		return y;							    
+	}
+	return -1;
+}
+
+// getElementLeft() --
+function getElementLeft(el) {
+	if (ua.nav4) return (el.left);
+	else if (ua.ie4up) return (el.style.pixelLeft);
+	else if (ua.gecko) return stringToNumber(el.style.left);
+}
+
+
+// stringToNumber() --
+// A version of parseInt that returns 0 if there is 
+// NaN returned, or number is part of a string, like 100px.
+function stringToNumber(s) {
+	return parseInt(("0" + s), 10);
+}
+
+
 // eof
