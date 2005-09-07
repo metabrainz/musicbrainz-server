@@ -12,71 +12,70 @@ use vars qw( @main %urlmap %urlmap2 );
 use Scalar::Util qw( reftype weaken );
 
 @main = (
-	{ name => "About",					url => "/wd/AboutMusicBrainz" },
-	[
-		{ name => "Privacy",				url => "/privacy" },
-		[
-			{ url => "/docs/20040922-1.html" },
-		],
-		{ name => "History",				url => "/wd/MusicBrainzHistory" },
-		{ name => "People",					url => "/wd/MusicBrainzBio" },
-		{ name => "Licenses",				url => "/about/licenses.html" },
-		{ name => "Contract",				url => "/contract.html" },
-		{ name => "Applications",			url => "/wd/MusicBrainzEnabledApplications" },
-		{ name => "Logos",					url => "/about/logos.html" },
-		{ name => "Stats",					url => "/about/stats.html" },
-		{ name => "Elections",				url => "/user/election/" },
-	],
-	{ name => "News",					url => "/news/index.html" },
-	[
-		{ name => "Blog",					url => "http://blog.musicbrainz.org/" },
-		{ name => "Server",					url => "/news/server.html" },
-		{ name => "libmusicbrainz",			url => "/news/client.html" },
-		{ name => "libtunepimp",			url => "/news/tunepimp.html" },
-		{ name => "WindowsTagger",			url => "/news/tagger.html" },
-		{ name => "Picard",					url => "/news/picard.html" },
-		{ name => "In The Press",			url => "/wd/MusicBrainzPress" },
-	],
-	{ name => "Download",				url => "/download.html", nosub => 1 },
-	[
-		{ name => "Download",				url => "/download.html" },
-		{ name => "Tagger",					url => "/tagger/index.html" },
-		[
-			{ url => "/tagger/download.html" },
-			{ url => "/tagger/tutorial.html" },
-			{ url => "/tagger/intro.html" },
-		],
-		{ name => "Client / SDK",			url => "/products/client/index.html" },
-		[
-			{ url => "/products/client/download.html" },
-		],
-		{ name => "TunePimp",				url => "/products/tunepimp/index.html" },
-		[
-			{ url => "/products/tunepimp/download.html" },
-		],
-		{ name => "Server / Data",			url => "/products/server/index.html" },
-		[
-			{ url => "/products/server/download.html" },
-			{ url => "/db_structure.html" },
-			{ url => "/products/server/import_howto.html" },
-			{ url => "/products/server/docs/20030820-1/index.html" },
-			{ url => "/products/server/docs/20040215-1.html" },
-		],
-		{ name => "Picard",					url => "/wd/PicardDocumentation" },
-	],
-	{ name => "Browse", 				url => "/search.html", nosub => 1 },
-	[
-		{ name => "Search / Browse",		url => "/search.html" },
-		{ name => "Browse Artists",			url => "/browseartists.html" },
-		{ name => "Browse Releases",		url => "/browsevarious.html" },
-		{ name => "Search Links",			url => "/engine.html" },
-		{ name => "Search Plugins",			url => "/search/plugins/firefox/install.html" },
-		{ url => "/newsearch.html" },
-	],
-    { name => "Edit",					url => "/mod_intro.html", nosub => 1 },
+    { name => "About",                  url => "/wd/AboutMusicBrainz" },
     [
-        { name => "About",					url => "/mod_intro.html" },
-        { name => "Suggestions",			url => "/reports/index.html" },
+        { name => "Privacy",                url => "/privacy" },
+        [
+            { url => "/docs/20040922-1.html" },
+        ],
+        { name => "History",                url => "/wd/MusicBrainzHistory" },
+        { name => "People",                 url => "/wd/MusicBrainzBio" },
+        { name => "Licenses",               url => "/about/licenses.html" },
+        { name => "Contract",               url => "/contract.html" },
+        { name => "Applications",           url => "/wd/MusicBrainzEnabledApplications" },
+        { name => "Logos",                  url => "/about/logos.html" },
+        { name => "Stats",                  url => "/about/stats.html" },
+        { name => "Elections",              url => "/user/election/" },
+    ],
+    { name => "News",                   url => "/news/index.html" },
+    [
+        { name => "Blog",                   url => "http://blog.musicbrainz.org/" },
+        { name => "Server",                 url => "/news/server.html" },
+        { name => "libmusicbrainz",         url => "/news/client.html" },
+        { name => "libtunepimp",            url => "/news/tunepimp.html" },
+        { name => "WindowsTagger",          url => "/news/tagger.html" },
+        { name => "Picard",                 url => "/news/picard.html" },
+        { name => "In The Press",           url => "/wd/MusicBrainzPress" },
+    ],
+    { name => "Download",               url => "/download.html" },
+    [
+        { name => "Tagger",                 url => "/tagger/index.html" },
+        [
+            { url => "/tagger/download.html" },
+            { url => "/tagger/tutorial.html" },
+            { url => "/tagger/intro.html" },
+        ],
+        { name => "Client / SDK",           url => "/products/client/index.html" },
+        [
+            { url => "/products/client/download.html" },
+        ],
+        { name => "TunePimp",               url => "/products/tunepimp/index.html" },
+        [
+            { url => "/products/tunepimp/download.html" },
+        ],
+        { name => "Server / Data",          url => "/products/server/index.html" },
+        [
+            { url => "/products/server/download.html" },
+            { url => "/db_structure.html" },
+            { url => "/products/server/import_howto.html" },
+            { url => "/products/server/docs/20030820-1/index.html" },
+            { url => "/products/server/docs/20040215-1.html" },
+        ],
+        { name => "Picard",                 url => "/wd/PicardDocumentation" },
+    ],
+    { name => "Browse",                 url => "/search.html" },
+    [
+        { name => "Search",                 url => "/search.html" },
+        { name => "Browse Artists",         url => "/browseartists.html" },
+        { name => "Browse Releases",        url => "/browsevarious.html" },
+        { name => "Search Links",           url => "/engine.html" },
+        { name => "Search Plugins",         url => "/search/plugins/firefox/install.html" },
+        { url => "/newsearch.html" },
+    ],
+    { name => "Edit",                   url => "/mod_intro.html" },
+    [
+        { name => "About",                  url => "/mod_intro.html" },
+        { name => "Suggestions",            url => "/reports/index.html" },
         (&DBDefs::REPLICATION_TYPE != RT_SLAVE) ? [
             { url => "/reports/generated/SuspectTrackCharacters/index.html" },
             { url => "/reports/generated/TooManyCapitals/index.html" },
@@ -96,9 +95,9 @@ use Scalar::Util qw( reftype weaken );
             { url => "/reports/generated/DuplicateAlbums/index.html" },
             { url => "/reports/generated/DuplicateArtists2/index.html" },
         ] : [],
-        { name => "FAQ",					url => "/wd/ModerationFAQ" },
-        { name => "Style",					url => "/style.html" },
-        { name => "Moderations",			url => "/mod/search/select-filter.html" },
+        { name => "FAQ",                    url => "/wd/ModerationFAQ" },
+        { name => "Style",                  url => "/style.html" },
+        { name => "Moderations",            url => "/mod/search/select-filter.html" },
         [
             { url => "/mod/search/pre/new.html" },
             { url => "/mod/search/pre/subscriptions.html" },
@@ -109,49 +108,49 @@ use Scalar::Util qw( reftype weaken );
             { url => "/mod/search/pre/moderator-failed.html" },
             { url => "/mod/search/pre/voted.html" },
             { url => "/mod/search/index.html" },
-			[
-				{ url => "/mod/search/select-artist.html" },
-				{ url => "/mod/search/select-moderator.html" },
-			],
+            [
+                { url => "/mod/search/select-artist.html" },
+                { url => "/mod/search/select-moderator.html" },
+            ],
             { url => "/jumpmod.html" },
-			[
-				{ url => "/showmod.html" },
-			],
-			{ url => "/mod/search/results.html" },
+            [
+                { url => "/showmod.html" },
+            ],
+            { url => "/mod/search/results.html" },
         ],
 
-        { name => "Add Artist",				url => "/edit/artist/add.html" },
-        { name => "Add Album",				url => "/edit/album/add.html?artistid=0" },
-		[
-			{ url => "/edit/album/add.html" },
-			{ url => "/cdi/album.html" },
-			{ url => "/cdi/artist.html" },
-			{ url => "/cdi/done.html" },
-			{ url => "/cdi/enter.html" },
-			{ url => "/cdi/found.html" },
-			{ url => "/cdi/selectattr.html" },
-			{ url => "/cdi/submit.html" },
-		],
-        { name => "Add Album (VA)",			url => "/edit/album/add.html?artistid=1" },
-		[
-			{ url => "/cdi/malbum.html" },
-			{ url => "/cdi/menter.html" },
-		],
-        { name => "FreeDB Import",			url => "/freedb/freedb.html" },
-		[
-			{ url => "/freedb/final.html" },
-			{ url => "/freedb/import.html" },
-			{ url => "/freedb/mac-check-similar.html" },
-			{ url => "/freedb/mac-confirm.html" },
-			{ url => "/freedb/mac-edittrack.html" },
-			{ url => "/freedb/mac-edittracks.html" },
-			{ url => "/freedb/mac-selecttrackartist.html" },
-			{ url => "/freedb/sac-check-similar.html" },
-			{ url => "/freedb/sac-confirm.html" },
-			{ url => "/freedb/sac-edittracks.html" },
-			{ url => "/freedb/select-artist.html" },
-			{ url => "/freedb/select-macsac.html" },
-		],
+        { name => "Add Artist",             url => "/edit/artist/add.html" },
+        { name => "Add Album",              url => "/edit/album/add.html?artistid=0" },
+        [
+            { url => "/edit/album/add.html" },
+            { url => "/cdi/album.html" },
+            { url => "/cdi/artist.html" },
+            { url => "/cdi/done.html" },
+            { url => "/cdi/enter.html" },
+            { url => "/cdi/found.html" },
+            { url => "/cdi/selectattr.html" },
+            { url => "/cdi/submit.html" },
+        ],
+        { name => "Add Album (VA)",         url => "/edit/album/add.html?artistid=1" },
+        [
+            { url => "/cdi/malbum.html" },
+            { url => "/cdi/menter.html" },
+        ],
+        { name => "FreeDB Import",          url => "/freedb/freedb.html" },
+        [
+            { url => "/freedb/final.html" },
+            { url => "/freedb/import.html" },
+            { url => "/freedb/mac-check-similar.html" },
+            { url => "/freedb/mac-confirm.html" },
+            { url => "/freedb/mac-edittrack.html" },
+            { url => "/freedb/mac-edittracks.html" },
+            { url => "/freedb/mac-selecttrackartist.html" },
+            { url => "/freedb/sac-check-similar.html" },
+            { url => "/freedb/sac-confirm.html" },
+            { url => "/freedb/sac-edittracks.html" },
+            { url => "/freedb/select-artist.html" },
+            { url => "/freedb/select-macsac.html" },
+        ],
 
         { url => "/edit/artistalias/add.html" },
         { url => "/edit/track/addnonalbum.html" },
@@ -192,45 +191,45 @@ use Scalar::Util qw( reftype weaken );
         { url => "/edit/albumbatch/merge.html" },
         { url => "/edit/albumbatch/remove.html" },
     ],
-	{ name => "Contribute",				url => "/wd/Contribute" },
-	[
-		{ name => "Sponsors",				url => "/wd/CorporateSponsors" },
-		{ name => "Help Wanted",			url => "/about/helpwanted.html" },
-		{ name => "Development",			url => "/development/index.html" },
-		{ name => "Docs",					url => "/documentation.html" },
-		[
-			{ url => "/wd/HowMusicBrainzWorks" },
-			{ url => "/client_howto.html" },
-			{ url => "/docs/mb_client/2.1.0" },
-			{ url => "/docs/tunepimp/index.html" },
-			{ url => "/products/server/docs/index.html" },
-			{ url => "/cd_submission.html" },
-			{ url => "/docs/20031108-2.html" },
-			{ url => "/docs/20031108-1.html" },
-			{ url => "/tagger/id-intro.html" },
-			{ url => "/disc.html" },
-			{ url => "/docs/specs/metadata_tags.html" },
-		],
-		{ name => "Metadata 2.1",			url => "/MM/index.html" },
-		{ name => "CVS Access",		        url => "/development/cvs.html" },
-		{ name => "CVS Modules",		    url => "/development/cvs-modules.html" },
-		{ name => "CVS Viewer",		        url => "http://cvs.musicbrainz.org/" },
-	],
-	{ name => "Help",					url => "/wd/ContactUs", nosub => 1 },
-	[
-		{ name => "Contact Us",				url => "/wd/ContactUs" },
-		{ name => "FAQ Index",				url => "/wd/FAQIndex" },
-    	[ 	 
-            { url => "/wd/GeneralFAQ" }, 	 
-            { url => "/wd/AccountFAQ" }, 	 
-            { url => "/wd/ModerationFAQ" }, 	 
-            { url => "/wd/WindowsTaggerFAQ" }, 	 
-            { url => "/wd/ClassicalMusicFAQ" }, 	 
-            { url => "/wd/AnnotationFAQ" }, 	 
+    { name => "Contribute",             url => "/wd/Contribute" },
+    [
+        { name => "Sponsors",               url => "/wd/CorporateSponsors" },
+        { name => "Help Wanted",            url => "/about/helpwanted.html" },
+        { name => "Development",            url => "/development/index.html" },
+        { name => "Docs",                   url => "/documentation.html" },
+        [
+            { url => "/wd/HowMusicBrainzWorks" },
+            { url => "/client_howto.html" },
+            { url => "/docs/mb_client/2.1.0" },
+            { url => "/docs/tunepimp/index.html" },
+            { url => "/products/server/docs/index.html" },
+            { url => "/cd_submission.html" },
+            { url => "/docs/20031108-2.html" },
+            { url => "/docs/20031108-1.html" },
+            { url => "/tagger/id-intro.html" },
+            { url => "/disc.html" },
+            { url => "/docs/specs/metadata_tags.html" },
         ],
-		{ name => "Mailing Lists",			url => "/list.html" },
-		{ name => "Bugs / RFEs",			url => "/wd/ContactUs#report-a-bug" },
-	],
+        { name => "Metadata 2.1",           url => "/MM/index.html" },
+        { name => "CVS Access",             url => "/development/cvs.html" },
+        { name => "CVS Modules",            url => "/development/cvs-modules.html" },
+        { name => "CVS Viewer",             url => "http://cvs.musicbrainz.org/" },
+    ],
+    { name => "Help",                   url => "/wd/ContactUs" },
+    [
+        { name => "Contact Us",             url => "/wd/ContactUs" },
+        { name => "FAQ Index",              url => "/wd/FAQIndex" },
+        [    
+            { url => "/wd/GeneralFAQ" },     
+            { url => "/wd/AccountFAQ" },     
+            { url => "/wd/ModerationFAQ" },      
+            { url => "/wd/WindowsTaggerFAQ" },   
+            { url => "/wd/ClassicalMusicFAQ" },      
+            { url => "/wd/AnnotationFAQ" },      
+        ],
+        { name => "Mailing Lists",          url => "/list.html" },
+        { name => "Bugs / RFEs",            url => "/wd/ContactUs#report-a-bug" },
+    ],
 );
 
 %urlmap = ();
@@ -239,31 +238,31 @@ use Scalar::Util qw( reftype weaken );
 my $transform;
 $transform = sub
 {
-	my ($rarhMenu, $riNextIndex, $rhParentItem) = @_;
+    my ($rarhMenu, $riNextIndex, $rhParentItem) = @_;
 
-	for (my $i = 0; $i < @$rarhMenu; ++$i)
-	{
-		my $rhItem = $rarhMenu->[$i];
+    for (my $i = 0; $i < @$rarhMenu; ++$i)
+    {
+        my $rhItem = $rarhMenu->[$i];
 
-		next if (!defined $rhItem);
+        next if (!defined $rhItem);
 
-		$rhItem->{expand} = 0;
-		$rhItem->{id} = "sitemenu" . (++$$riNextIndex);
-		weaken($rhItem->{parent} = $rhParentItem);
+        $rhItem->{expand} = 0;
+        $rhItem->{id} = "sitemenu" . (++$$riNextIndex);
+        weaken($rhItem->{parent} = $rhParentItem);
 
-		my $u = $rhItem->{url};
-		$urlmap{$u} = $rhItem
-			unless $urlmap{$u} and $urlmap{$u}{preferred};
-		push @{ $urlmap2{$u} }, $rhItem;
+        my $u = $rhItem->{url};
+        $urlmap{$u} = $rhItem
+            unless $urlmap{$u} and $urlmap{$u}{preferred};
+        push @{ $urlmap2{$u} }, $rhItem;
 
-		my $raNext = $rarhMenu->[$i+1];
-		if ($raNext and reftype($raNext) eq "ARRAY")
-		{
-			$rhItem->{children} = $raNext;
-			splice(@$rarhMenu, $i+1, 1);
-			&$transform($rhItem->{children}, $riNextIndex, $rhItem);
-		}
-	}
+        my $raNext = $rarhMenu->[$i+1];
+        if ($raNext and reftype($raNext) eq "ARRAY")
+        {
+            $rhItem->{children} = $raNext;
+            splice(@$rarhMenu, $i+1, 1);
+            &$transform($rhItem->{children}, $riNextIndex, $rhItem);
+        }
+    }
 };
 &$transform(\@main, \(my $tmp = 0));
 </%once>
@@ -272,41 +271,54 @@ $transform = sub
 %
 <%def .drawmainmenu>
 <%perl>
-	# draw the main menu buttons.
-	# - javascript support
-	# - static menu for browsers with disabled javascript
-	my ($rarhMenu, $iLevel) = @_;
+    # draw the main menu buttons.
+    # - javascript support
+    # - static menu for browsers with disabled javascript
+    my ($rarhMenu, $iLevel) = @_;
 
-	$m->out("		<script type=\"text/javascript\" language=\"javascript\"> \n");
-	$m->out("		<!--  \n");
-	$m->out("			var mm_items = new Array(  \n");
-	my $selName = "";
-	my $drawcomma = 0; # js is picky about commas after last array element.
-	my ($scriptmenu, $noscriptmenu)  = "";
-	for my $rhItem (@$rarhMenu)
-	{
-		$rhItem->{name} or next;
-		my $rarhChildren = $rhItem->{children};
-		my $fSel = $rhItem->{expand};
-		$selName = ($fSel ? $rhItem->{name} : $selName);
-		# FIXME no Javascript string encoding
-		$scriptmenu 	.= ($drawcomma == 1 ? ", \n" : ""); # only add comma before subsequent items.
-		$scriptmenu 	.= "\t\t\t\t\"mm_".$rhItem->{name}."\"";
-		# FIXME no HTML encoding
-		$noscriptmenu 	.= "\t\t\t\t<a ".($fSel ? "class=\"selected\"" : '')." href=\"".$rhItem->{url}."\">".$rhItem->{name}."</a>\n";
-		$drawcomma = 1;
-	}
+    $m->out('<script type="text/javascript" language="javascript">');
+    $m->out('var mm_items = new Array(');
+    my $selName = '';
+    my ($scriptmenu, $noscriptmenu);
+    
+    my @named_children = grep { defined $_->{'name'} } @$rarhMenu;
+    my $ca = scalar(@named_children)-1;
+    my $ci = 0;
 
-	$m->out("${scriptmenu}");
-	$m->out("\n\t\t); \n");
-	$m->out("\t\tmm_buildMainMenu(\"mm_".$selName."\"); \n");
-	$m->out("\t\t--> \n");
-	$m->out("\t\t</script> \n");
-	$m->out("\t\t<noscript> \n");
-	$m->out("\t\t\t<div> \n");
-	$m->out("${noscriptmenu}");
-	$m->out("\t\t\t</div> \n");
-	$m->out("\t\t</noscript> \n");
+    $scriptmenu = '';
+
+    for my $rhItem (@named_children)
+    {
+        my $rarhChildren = $rhItem->{children};
+        my $fSel = $rhItem->{expand};
+        $selName = lc($fSel ? $rhItem->{name} : $selName);
+        # FIXME no Javascript string encoding
+        $scriptmenu .= ($ci > 0 ? ', ' : ''); 
+        $scriptmenu .= '["mm_' . lc($rhItem->{name}) . '", "' . $rhItem->{url} . '"]';
+        $scriptmenu .= ($ci == $ca ? '); ' : '');
+
+        # FIXME no HTML encoding
+        # compile css class (none, selected, right)
+        my $cssClass = ($fSel ? 'selected' : '');
+        $cssClass .= 'right' if ($ci == $ca);
+        $noscriptmenu .= '<a ';
+        $noscriptmenu .= ('class="'.$cssClass.'" ') if ($cssClass ne "");
+        $noscriptmenu .= 'href="'. $rhItem->{url} . '">';
+        $noscriptmenu .= $rhItem->{name}. '</a>';
+
+        # DEBUG
+        # print $ci . ' ' . $ca . ' ' . $rhItem->{name} . ' ' . $cssClass;
+        $ci++;
+    }
+
+    $m->out($scriptmenu);
+    $m->out('mm_buildMainMenu("mm_'.lc($selName).'");');
+    $m->out('</script> ');
+    $m->out('<noscript>');
+    $m->out('<div> ');
+    $m->out($noscriptmenu);
+    $m->out('</div> ');
+    $m->out('</noscript> ');
 </%perl>
 </%def>
 %
@@ -314,47 +326,38 @@ $transform = sub
 %
 <%def .drawsubmenus>
 <%perl>
-	my ($rarhMenu, $iLevel) = @_;
-	for my $rhItem (@$rarhMenu)
-	{
-		$rhItem->{name} or next;
+    my ($rarhMenu, $iLevel) = @_;
+    for my $rhItem (@$rarhMenu)
+    {
+        $rhItem->{name} or next;
 
-		my $rarhChildren = $rhItem->{children};
-		$rarhChildren = undef
-			if $rarhChildren
-			and not grep { $_->{name} } @$rarhChildren;
+        my $rarhChildren = $rhItem->{children};
+        $rarhChildren = undef
+            if $rarhChildren
+            and not grep { $_->{name} } @$rarhChildren;
 
-		if ($rarhChildren)
-		{  
-			$m->out("<div id=\"mm_".$rhItem->{name}."_sub\" class=\"submenu\" ");
-			$m->out("onMouseOver=\"mm_sub_onMouseOver()\" ");
-			$m->out("onMouseOut=\"mm_sub_onMouseOut()\">");
-			$m->out("<table border=\"0\" cellspacing=\"0\" cellpadding=\"0\">");
+        if ($rarhChildren)
+        {  
+            $m->out('<div id="mm_'.lc($rhItem->{name}).'_sub" class="submenu" ');
+            $m->out('onMouseOver="mm_sub_onMouseOver()" ');
+            $m->out('onMouseOut="mm_sub_onMouseOut()">');
+            $m->out('<table border="0" cellspacing="0" cellpadding="0">');
 
-			unless ($rhItem->{'nosub'})
-			{
-				# add a submenu item with same name
-				# as the category (topmenu item)
-				$m->out("<tr><td>");
-				# FIXME no HTML encoding
-				$m->out("<a href=\"".$rhItem->{url}."\" title=\"".$rhItem->{name}."\">");
-				$m->out("".$rhItem->{name}."</a></td></tr>");
-			}
-
-			for my $rhChild (@$rarhChildren)
-			{
-		        $rhChild->{name} or next;
-				$m->out("<tr><td>");
-				# FIXME no HTML encoding
-				$m->out("<a href=\"".$rhChild->{url}."\" title=\"".$rhChild->{name}."\">");
-				$m->out("".$rhChild->{name}."</a></td></tr>");
-				# todo: add class bottom to last element.
-
-			}
-			$m->out("</table>");
-			$m->out("</div>");
-		}									   
-	}
+            (my @named_children) = grep { defined $_->{'name'} } @$rarhChildren;
+            (my $ca) = scalar(@named_children);
+            (my $ci) = 0;
+            for my $rhChild (@named_children)
+            {
+                $m->out('<tr><td>');
+                $m->out('<a href="'. $rhChild->{url}. '" title="'. $rhChild->{name}. '"');
+                $m->out('class="bottom"') if ($ci == $ca);
+                $m->out('>'.$rhChild->{name}.'</a></td></tr>');
+                $ci++;
+            }
+            $m->out('</table>');
+            $m->out('</div>');
+        }                                      
+    }
 </%perl>
 </%def>
 %
@@ -367,21 +370,27 @@ $transform = sub
 $top or return;
 
 $m->out(
-	'<div class="submenustatic">'
-	. '<table border="0" cellspacing="0" cellpadding="0">'
-	. '<tr>'
+    '<div class="submenustatic">'
+    . '<table border="0" cellspacing="0" cellpadding="0">'
+    . '<tr>'
 );
 
-for my $c (@{ $top->{children} })
+(my @named_children) = grep { defined $_->{'name'} }  @{ $top->{children} };
+(my $ca) = scalar(@named_children);
+(my $ci) = 0;
+for my $c (@named_children)
 {
-	defined $c->{'name'} or next;
-	</%perl><td><a href="<% $c->{url} %>"><% $c->{name} %></a></td><%perl>
+    $m->out('<td>');
+    $m->out('<a href="'. $c->{url} .'" ');
+    $m->out('class="left"') if ($ci == 0);      # add special classes to first
+    $m->out('class="right"') if ($ci == $ca-1); # and last item.
+    $m->out('>'. $c->{name} .'</a></td>');    # (no dotted border)
+    $ci++;
 }
-
 $m->out(
-	'</tr>'
-	. '</table>'
-	. '</div>'
+    '</tr>'
+    . '</table>'
+    . '</div>'
 );
 
 </%perl>
@@ -390,37 +399,37 @@ $m->out(
 %
 %
 <%perl>
-	# Work out which items are "selected"
-	my @sel;
-	{
-		my $rhSelItem = $urlmap{$uri . "?" . $args};
-		$rhSelItem ||= $urlmap{$uri};
+    # Work out which items are "selected"
+    my @sel;
+    {
+        my $rhSelItem = $urlmap{$uri . "?" . $args};
+        $rhSelItem ||= $urlmap{$uri};
 
-		while ($rhSelItem)
-		{
-			$rhSelItem->{expand} = 1;
-			unshift @sel, $rhSelItem;
-			$rhSelItem = $rhSelItem->{parent};
-		}
-	}
+        while ($rhSelItem)
+        {
+            $rhSelItem->{expand} = 1;
+            unshift @sel, $rhSelItem;
+            $rhSelItem = $rhSelItem->{parent};
+        }
+    }
 </%perl>
 %
 %
 %
 <!-- main menu table -->
 <table width="100%" cellpadding="0" cellspacing="0" border="0" class="mainmenutable">
-	<tr valign="top">
-		<td width="142"><a href="/"><img src="/images/header_logo_b.gif" width="142" height="21" alt="" border="0"></a></td>
-		<td class="mainmenu" nowrap>
-			<script type="text/javascript" language="javascript" src="/scripts/topmenu.js"></script>
-			<%perl>
-				$m->comp(".drawmainmenu", \@main);
-				$m->out("<noscript>");
-				$m->comp(".drawstatic");
-				$m->out("</noscript>");
-			</%perl>
-		</td>
-	</tr>
+    <tr valign="top">
+        <td width="142"><a href="/"><img src="/images/header_logo_b.gif" width="142" height="21" alt="" border="0"></a></td>
+        <td class="mainmenu" nowrap>
+            <script type="text/javascript" language="javascript" src="/scripts/topmenu.js"></script>
+            <%perl>
+                $m->comp(".drawmainmenu", \@main);
+                #$m->out("<noscript>");
+                $m->comp(".drawstatic");
+                #$m->out("</noscript>");
+            </%perl>
+        </td>
+    </tr>
 </table>
 %
 % $m->comp(".drawsubmenus", \@main);
