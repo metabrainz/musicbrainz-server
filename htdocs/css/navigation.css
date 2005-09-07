@@ -241,13 +241,13 @@ td.modpending {
 /* ********************************************** */
 .submenustatic {
 	position: absolute; 
-	top: 87px; left: 0px; 
-	height: 17px; width: 800px; /* 800px hack for IE, else elements get squished */
+	top: 87px; left: 142px; 
+	height: 17px; width: 650px; /* 800px hack for IE, else elements get squished */
 	margin: 0px; padding: 0px;
 	z-index: 1000;
 }
 .submenustatic table {
-	margin-left: 142px;
+	margin-left: 0px;
 }	 
 .submenustatic a:hover {
 	text-decoration: underline;
