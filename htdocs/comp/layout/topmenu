@@ -283,51 +283,67 @@ $transform = sub
     # draw the main menu buttons.
     # - javascript support
     # - static menu for browsers with disabled javascript
-    my ($rarhMenu, $iLevel) = @_;
+    my ($rarhMenu) = @_;
 
-    $m->out('<script type="text/javascript" language="javascript">');
-    $m->out('var mm_items = new Array(');
     my $selName = '';
-    my ($scriptmenu, $noscriptmenu);
-    
+    my $noscriptmenu = '';
+    my @mm_items;
+
     my @named_children = grep { defined $_->{'name'} } @$rarhMenu;
-    my $ca = scalar(@named_children)-1;
-    my $ci = 0;
 
-    $scriptmenu = '';
+	# FIXME dummy JS string encoding
+	my $js_string = sub { return '"' . $_[0] . '"' };
 
-    for my $rhItem (@named_children)
+    for my $i (0 .. $#named_children)
     {
+		my $rhItem = $named_children[$i];
+		my $is_first = ($i == 0);
+		my $is_last = ($i == $#named_children);
+
         my $rarhChildren = $rhItem->{children};
         my $fSel = $rhItem->{expand};
-        $selName = lc($fSel ? $rhItem->{name} : $selName);
-        # FIXME no Javascript string encoding
-        $scriptmenu .= ($ci > 0 ? ', ' : ''); 
-        $scriptmenu .= '["mm_' . lc($rhItem->{name}) . '", "' . $rhItem->{url} . '"]';
-        $scriptmenu .= ($ci == $ca ? '); ' : '');
+        $selName = $rhItem->{id} if $fSel;
 
-        # FIXME no HTML encoding
+        push @mm_items, [ $rhItem->{id}, $rhItem->{url}, $rhItem->{name} ];
+
         # compile css class (none, selected, right)
-        my $cssClass = ($fSel ? 'selected' : '');
-        $cssClass .= 'right' if ($ci == $ca);
-        $noscriptmenu .= '<a ';
-        $noscriptmenu .= ('class="'.$cssClass.'" ') if ($cssClass ne "");
-        $noscriptmenu .= 'href="'. $rhItem->{url} . '">';
-        $noscriptmenu .= $rhItem->{name}. '</a>';
+		my $cssClass = "";
+        $cssClass .= 'right' if $is_last;
+        $cssClass .= 'selected' if $fSel;
 
-        # DEBUG
-        # print $ci . ' ' . $ca . ' ' . $rhItem->{name} . ' ' . $cssClass;
-        $ci++;
+		$noscriptmenu .=
+			'<a'
+				. ($cssClass ? ' class="' . encode_entities($cssClass) . '"' : "")
+				. ' href="' . encode_entities($rhItem->{url}) . '"'
+			. '>'
+			. encode_entities($rhItem->{name})
+			. '</a>'
+			;
     }
 
-    $m->out($scriptmenu);
-    $m->out('mm_buildMainMenu("mm_'.lc($selName).'");');
-    $m->out('</script> ');
-    $m->out('<noscript>');
-    $m->out('<div> ');
-    $m->out($noscriptmenu);
-    $m->out('</div> ');
-    $m->out('</noscript> ');
+	@mm_items = map {
+		"["
+		. &$js_string($_->[0])
+		. ","
+		. &$js_string($_->[1])
+		. ","
+		. &$js_string($_->[2])
+		. "]"
+	} @mm_items;
+	my $mm_items = "[" . join(",", @mm_items) . "]";
+
+    $m->out('<script type="text/javascript" language="javascript">');
+    $m->out("var mm_items = $mm_items;");
+    $m->out("mm_buildMainMenu('$selName');");
+    $m->out('</script>');
+
+    $m->out(
+		'<noscript>'
+		. '<div>'
+		. $noscriptmenu
+		. '</div>'
+		. '</noscript>'
+	);
 </%perl>
 </%def>
 %
@@ -335,34 +351,48 @@ $transform = sub
 %
 <%def .drawsubmenus>
 <%perl>
-    my ($rarhMenu, $iLevel) = @_;
+    my ($rarhMenu) = @_;
+
     for my $rhItem (@$rarhMenu)
     {
-        $rhItem->{name} or next;
+        defined($rhItem->{name}) or next;
 
         my $rarhChildren = $rhItem->{children};
         $rarhChildren = undef
             if $rarhChildren
-            and not grep { $_->{name} } @$rarhChildren;
+            and not grep { defined $_->{name} } @$rarhChildren;
 
         if ($rarhChildren)
         {  
-            $m->out('<div id="mm_'.lc($rhItem->{name}).'_sub" class="submenu" ');
+            $m->out('<div id="'.$rhItem->{id}.'_sub" class="submenu" ');
             $m->out('onMouseOver="mm_sub_onMouseOver()" ');
             $m->out('onMouseOut="mm_sub_onMouseOut()">');
             $m->out('<table border="0" cellspacing="0" cellpadding="0">');
 
-            (my @named_children) = grep { defined $_->{'name'} } @$rarhChildren;
-            (my $ca) = scalar(@named_children);
-            (my $ci) = 0;
-            for my $rhChild (@named_children)
+            my @named_children = grep { defined $_->{'name'} } @$rarhChildren;
+
+            for my $i (0 .. $#named_children)
             {
-                $m->out('<tr><td>');
-                $m->out('<a href="'. $rhChild->{url}. '" title="'. $rhChild->{name}. '"');
-                $m->out('class="bottom"') if ($ci == $ca);
-                $m->out('>'.$rhChild->{name}.'</a></td></tr>');
-                $ci++;
+				my $rhChild = $named_children[$i];
+				my $is_first = ($i == 0);
+				my $is_last = ($i == $#named_children);
+
+				my $class = ($is_last ? " class='bottom'" : "");
+
+				$m->out(
+					'<tr>'
+					. '<td>'
+					. '<a'
+						. ' href="' . encode_entities($rhChild->{url}) . '"'
+						. $class
+					. '>'
+					. encode_entities($rhChild->{name})
+					. '</a>'
+					. '</td>'
+					. '</tr>'
+				);
             }
+
             $m->out('</table>');
             $m->out('</div>');
         }                                      
@@ -384,18 +414,31 @@ $m->out(
     . '<tr>'
 );
 
-(my @named_children) = grep { defined $_->{'name'} }  @{ $top->{children} };
-(my $ca) = scalar(@named_children);
-(my $ci) = 0;
-for my $c (@named_children)
+my @named_children = grep { defined $_->{'name'} }  @{ $top->{children} };
+
+for my $i (0 .. $#named_children)
 {
-    $m->out('<td>');
-    $m->out('<a href="'. $c->{url} .'" ');
-    $m->out('class="left"') if ($ci == 0);      # add special classes to first
-    $m->out('class="right"') if ($ci == $ca-1); # and last item.
-    $m->out('>'. $c->{name} .'</a></td>');    # (no dotted border)
-    $ci++;
+	my $c = $named_children[$i];
+	my $is_first = ($i == 0);
+	my $is_last = ($i == $#named_children);
+
+	my $class = "";
+	$class .= " left" if $is_first;
+	$class .= " right" if $is_last;
+	$class =~ s/^ (.*)$/ class="$1"/;
+
+	$m->out(
+		'<td>'
+		. '<a'
+			. ' href="' . encode_entities($c->{url}) . '"'
+			. $class
+		. '>'
+		. encode_entities($c->{name})
+		. '</a>'
+		. '</td>'
+	);
 }
+
 $m->out(
     '</tr>'
     . '</table>'
@@ -432,9 +475,7 @@ $m->out(
         <td class="mainmenu" nowrap>
             <%perl>
                 $m->comp(".drawmainmenu", \@main);
-                #$m->out("<noscript>");
                 $m->comp(".drawstatic");
-                #$m->out("</noscript>");
             </%perl>
         </td>
     </tr>

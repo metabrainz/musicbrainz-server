@@ -33,9 +33,10 @@ function mm_showSubmenu(theID, waited) {
 				}
 			}
 		}
+		id += "_sub";
 		for (var i=0; i<mm_sublist.length; i++) {
 			var slID = mm_sublist[i].id;
-			var found = (id != "" && slID.indexOf(id) != -1);
+			var found = (id == slID);
 			mm_sublist[i].style.display = (found ? "block" : "none");
 		}
 	}
@@ -80,11 +81,11 @@ function mm_onPageLoad() {
 // mm_buildMainMenu()
 // - triggered when mouse enters a main menu item
 function mm_buildMainMenu(selmenu) {
-	document.writeln('<div class="inner" onMouseOut="mm_onMouseOut()">');
+	document.writeln('<div class="inner" onmouseout="mm_onMouseOut()">');
 	for (var i=0; i<mm_items.length; i++) {
 		var mName = mm_items[i][0];
 		var mURL = mm_items[i][1];
-		var mTitle = mm_getTitle(mName);
+		var mTitle = mm_items[i][2];
 
 		// compile css-class
 		// * rightmost item gets class "right"
@@ -94,9 +95,8 @@ function mm_buildMainMenu(selmenu) {
 		cssClass += (selmenu == mName ? 'selected' : ''); 
 		cssClass = (cssClass != "" ? 'class="'+cssClass+' "' : '');
 		document.write('<a ' + cssClass);
-		document.write('onMouseOver="mm_onMouseOver(this)" ');
-		document.write('onMouseOut="mm_onMouseOut(this)" ');
-		document.write('onFocus="this.blur()" ');
+		document.write('onmouseover="mm_onMouseOver(this)" ');
+		document.write('onmouseout="mm_onMouseOut(this)" ');
 		document.write('title="'+mTitle+'" id="'+mName+'" ');
 		document.write('href="'+mURL+'">'+mTitle+'</a>');
 
@@ -104,16 +104,6 @@ function mm_buildMainMenu(selmenu) {
 		// screen estate. ' <img src="/images/dropdown.gif" alt="*" border="">'
 	}
 	document.writeln('</div>');
-}
-
-// mm_getTitle()
-// @param  mName mm_About
-// @return the titled and cleaned name for display 'About'
-function mm_getTitle(mName) {
-	var t = mName.replace("mm_", "");
-	var tArr = t.toLowerCase().split("");
-	tArr [0] = tArr[0].toUpperCase();
-	return tArr.join("");
 }
 
 // mm_onMouseOver()
