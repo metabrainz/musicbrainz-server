@@ -25,7 +25,16 @@ use Scalar::Util qw( reftype weaken );
         { name => "Applications",           url => "/wd/MusicBrainzEnabledApplications" },
         { name => "Logos",                  url => "/about/logos.html" },
         { name => "Stats",                  url => "/about/stats.html" },
+        { name => "Mirrors",                url => "/about/mirrors.html" },
         { name => "Elections",              url => "/user/election/" },
+        [
+            { url => "/user/election/cancel.html" },
+            { url => "/user/election/index.html" },
+            { url => "/user/election/propose.html" },
+            { url => "/user/election/second.html" },
+            { url => "/user/election/show.html" },
+            { url => "/user/election/vote.html" },
+        ],
     ],
     { name => "News",                   url => "/news/index.html" },
     [
@@ -421,7 +430,6 @@ $m->out(
     <tr valign="top">
         <td width="142"><a href="/"><img src="/images/header_logo_b.gif" width="142" height="21" alt="" border="0"></a></td>
         <td class="mainmenu" nowrap>
-            <script type="text/javascript" language="javascript" src="/scripts/topmenu.js"></script>
             <%perl>
                 $m->comp(".drawmainmenu", \@main);
                 #$m->out("<noscript>");
