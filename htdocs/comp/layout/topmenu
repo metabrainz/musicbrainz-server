@@ -457,6 +457,18 @@ $m->out(
         my $rhSelItem = $urlmap{$uri . "?" . $args};
         $rhSelItem ||= $urlmap{$uri};
 
+		if (not $rhSelItem and $uri eq $r->uri)
+		{
+			# Odd: it seems that sometimes a RewriteRule causes $r->uri to
+			# return the original URI, and sometimes the rewritten URI.  In
+			# the latter case, REQUEST_URI can be used to find the original.
+			# On Zim this hack doesn't seem to be necessary; on our dev boxes,
+			# it is.  mod_rewrite versions maybe?  <shrug>
+			$uri = $r->subprocess_env('REQUEST_URI') || "";
+			$rhSelItem = $urlmap{$uri . "?" . $args};
+			$rhSelItem ||= $urlmap{$uri};
+		}
+
         while ($rhSelItem)
         {
             $rhSelItem->{expand} = 1;
