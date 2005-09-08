@@ -1,17 +1,11 @@
 <div class="sidemenu">
     <table class="sidemenusearch">
         <tr>
-            <td width="40"><label for="qsArtist_text" title="Search for an artist (hint: use ALT-a to move the keyboard focus to this field, and ENTER to start the search)">Artist</label></td>
+            <td width="40"><label for="qsArtist_text" title="Search for an artist">Artist</label></td>
             <td>
                 <form method="GET" action="/newsearch.html">
                     <div>
-% # I hate accesskeys.  Mostly since they're not used very often, they
-% # interfere with the normal browser function (e.g. open browser menu).
-% # I can feel a preference coming on to disable these.
-% #    yes, they are even deprecated in html 4.0 (removed them)
-
                         <input class="textfield" type="text" name="search" id="qsArtist_text" value=""
-
 % # What is the official position on forms with no submit button?
 % # Normally they're OK, and you can press "return" and the form is submitted.
 % # Can we rely on this, always?
@@ -25,7 +19,7 @@
                 </form></td>
         </tr>
         <tr>
-            <td><label for="qsAlbum_text" title="Search for an album (hint: use ALT-b to move the keyboard focus to this field, and ENTER to start the search)">Album</label></td>
+            <td><label for="qsAlbum_text" title="Search for an album">Album</label></td>
             <td>
                 <form method="GET" action="/newsearch.html">
                     <div>
@@ -39,7 +33,7 @@
                 </form></td>
         </tr>
         <tr>
-            <td><label for="qsTrack_text" title="Search for a track (hint: use ALT-t to move the keyboard focus to this field, and ENTER to start the search)">Track</label></td>
+            <td><label for="qsTrack_text" title="Search for a track">Track</label></td>
             <td>
                 <form method="GET" action="/newsearch.html">
                     <div>
@@ -53,7 +47,7 @@
                 </form></td>
         </tr>
         <tr>
-            <td><label for="qsEditor_text" title="Search for an MusicBrainz editor (hint: use ALT-e to move the keyboard focus to this field, and ENTER to start the search)">Editor</label></td>
+            <td><label for="qsEditor_text" title="Search for an MusicBrainz editor">Editor</label></td>
             <td>
                 <form method="GET" action="/user/view.html">
                     <div>
@@ -70,6 +64,5 @@
         <a href="/search.html">more &raquo;</a>
     </div>
 </div>
-
 
 %# vi: set ts=2 sw=2 ft=mason :
