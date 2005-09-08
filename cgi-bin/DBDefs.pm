@@ -97,6 +97,7 @@ sub REPLICATION_TYPE { RT_STANDALONE }
 # To use a port number other than 80, add it like so: "myhost:8000"
 sub WEB_SERVER	{ "www.musicbrainz.example.com" }
 sub RDF_SERVER	{ "rdf.musicbrainz.example.com" }
+sub WIKIDOC_SERVER	{ "wikidocs.musicbrainz.org" }
 
 
 
