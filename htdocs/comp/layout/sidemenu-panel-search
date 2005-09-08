@@ -1,7 +1,7 @@
 <div class="sidemenu">
     <table class="sidemenusearch">
         <tr>
-            <td width="40"><label for="qsArtist_text" title="Search for an artist (hint: use ALT-a to move the keyboard focus to this field, and ENTER to start the search)"><u>A</u>rtist</label></td>
+            <td width="40"><label for="qsArtist_text" title="Search for an artist (hint: use ALT-a to move the keyboard focus to this field, and ENTER to start the search)">Artist</label></td>
             <td>
                 <form method="GET" action="/newsearch.html">
                     <div>
@@ -25,7 +25,7 @@
                 </form></td>
         </tr>
         <tr>
-            <td><label for="qsAlbum_text" title="Search for an album (hint: use ALT-b to move the keyboard focus to this field, and ENTER to start the search)">Al<u>b</u>um</label></td>
+            <td><label for="qsAlbum_text" title="Search for an album (hint: use ALT-b to move the keyboard focus to this field, and ENTER to start the search)">Album</label></td>
             <td>
                 <form method="GET" action="/newsearch.html">
                     <div>
@@ -39,7 +39,7 @@
                 </form></td>
         </tr>
         <tr>
-            <td><label for="qsTrack_text" title="Search for a track (hint: use ALT-t to move the keyboard focus to this field, and ENTER to start the search)"><u>T</u>rack</label></td>
+            <td><label for="qsTrack_text" title="Search for a track (hint: use ALT-t to move the keyboard focus to this field, and ENTER to start the search)">Track</label></td>
             <td>
                 <form method="GET" action="/newsearch.html">
                     <div>
@@ -53,7 +53,7 @@
                 </form></td>
         </tr>
         <tr>
-            <td><label for="qsEditor_text" title="Search for an MusicBrainz editor (hint: use ALT-e to move the keyboard focus to this field, and ENTER to start the search)"><u>E</u>ditor</label></td>
+            <td><label for="qsEditor_text" title="Search for an MusicBrainz editor (hint: use ALT-e to move the keyboard focus to this field, and ENTER to start the search)">Editor</label></td>
             <td>
                 <form method="GET" action="/user/view.html">
                     <div>
