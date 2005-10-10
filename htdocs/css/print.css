@@ -1,8 +1,8 @@
 .LogoBarCell { display: none }
 .NavBarCell { display: none }
-.SideBarCell { display: none }
 #FooterBar { display: none }
 #CreditsBar { display: none }
+#HeaderGroup { display: none }
 
 h2
 {
@@ -10,3 +10,7 @@ h2
 	border: none;
 	border-bottom: 1px solid black;
 }
+
+#mainmenu-table { display: none }
+#submenu-table { display: none }
+#sidebar-td { display: none }

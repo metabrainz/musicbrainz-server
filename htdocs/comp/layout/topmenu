@@ -2,6 +2,7 @@
 <%args>
 $uri => $r->uri
 $args => $r->args
+$staticref => undef
 </%args>
 %
 %
@@ -14,6 +15,7 @@ use Scalar::Util qw( reftype weaken );
 @main = (
     { name => "About",                  url => "/wd/AboutMusicBrainz" },
     [
+		{ name => "About MusicBrainz",      url => "/wd/AboutMusicBrainz" },
         { name => "Privacy",                url => "/privacy" },
         [
             { url => "/docs/20040922-1.html" },
@@ -21,10 +23,10 @@ use Scalar::Util qw( reftype weaken );
         { name => "History",                url => "/wd/MusicBrainzHistory" },
         { name => "People",                 url => "/wd/MusicBrainzBio" },
         { name => "Licenses",               url => "/about/licenses.html" },
-        { name => "Contract",               url => "/contract.html" },
-        { name => "Applications",           url => "/wd/MusicBrainzEnabledApplications" },
+        { name => "Social Contract",        url => "/contract.html" },
+        { name => "Software",               url => "/wd/MusicBrainzEnabledApplications" },
         { name => "Logos",                  url => "/about/logos.html" },
-        { name => "Stats",                  url => "/about/stats.html" },
+        { name => "Statistics",             url => "/about/stats.html" },
         { name => "Mirrors",                url => "/about/mirrors.html" },
         { name => "Elections",              url => "/user/election/" },
         [
@@ -38,16 +40,18 @@ use Scalar::Util qw( reftype weaken );
     ],
     { name => "News",                   url => "/news/index.html" },
     [
+		{ name => "General News",           url => "/news/index.html" },
         { name => "Blog",                   url => "http://blog.musicbrainz.org/" },
         { name => "Server",                 url => "/news/server.html" },
         { name => "libmusicbrainz",         url => "/news/client.html" },
         { name => "libtunepimp",            url => "/news/tunepimp.html" },
         { name => "WindowsTagger",          url => "/news/tagger.html" },
         { name => "Picard",                 url => "/news/picard.html" },
-        { name => "In The Press",           url => "/wd/MusicBrainzPress" },
+        { name => "In the Press",           url => "/wd/MusicBrainzPress" },
     ],
     { name => "Download",               url => "/download.html" },
     [
+		{ name => "Download",               url => "/download.html" },
         { name => "Tagger",                 url => "/tagger/index.html" },
         [
             { url => "/tagger/download.html" },
@@ -72,7 +76,7 @@ use Scalar::Util qw( reftype weaken );
         ],
         { name => "Picard",                 url => "/wd/PicardDocumentation" },
     ],
-    { name => "Browse",                 url => "/search.html" },
+    { name => "Search",                 url => "/search.html" },
     [
         { name => "Search",                 url => "/search.html" },
         { name => "Browse Artists",         url => "/browseartists.html" },
@@ -83,8 +87,8 @@ use Scalar::Util qw( reftype weaken );
     ],
     { name => "Edit",                   url => "/mod_intro.html" },
     [
-        { name => "About",                  url => "/mod_intro.html" },
-        { name => "Suggestions",            url => "/reports/index.html" },
+        { name => "About Editing",          url => "/mod_intro.html" },
+        { name => "Editing Suggestions",    url => "/reports/index.html" },
         (&DBDefs::REPLICATION_TYPE != RT_SLAVE) ? [
             { url => "/reports/generated/SuspectTrackCharacters/index.html" },
             { url => "/reports/generated/TooManyCapitals/index.html" },
@@ -104,9 +108,9 @@ use Scalar::Util qw( reftype weaken );
             { url => "/reports/generated/DuplicateAlbums/index.html" },
             { url => "/reports/generated/DuplicateArtists2/index.html" },
         ] : [],
-        { name => "FAQ",                    url => "/wd/ModerationFAQ" },
-        { name => "Style",                  url => "/style.html" },
-        { name => "Moderations",            url => "/mod/search/select-filter.html" },
+        { name => "Editing FAQ",            url => "/wd/ModerationFAQ" },
+        { name => "Editing Style",          url => "/style.html" },
+        { name => "Show Edits",             url => "/mod/search/select-filter.html" },
         [
             { url => "/mod/search/pre/new.html" },
             { url => "/mod/search/pre/subscriptions.html" },
@@ -202,6 +206,7 @@ use Scalar::Util qw( reftype weaken );
     ],
     { name => "Contribute",             url => "/wd/Contribute" },
     [
+		{ name => "How to Contribute",      url => "/wd/Contribute" },
         { name => "Sponsors",               url => "/wd/CorporateSponsors" },
         { name => "Help Wanted",            url => "/about/helpwanted.html" },
         { name => "Development",            url => "/development/index.html" },
@@ -231,7 +236,6 @@ use Scalar::Util qw( reftype weaken );
         [    
             { url => "/wd/GeneralFAQ" },     
             { url => "/wd/AccountFAQ" },     
-            { url => "/wd/ModerationFAQ" },      
             { url => "/wd/WindowsTaggerFAQ" },   
             { url => "/wd/ClassicalMusicFAQ" },      
             { url => "/wd/AnnotationFAQ" },      
@@ -311,14 +315,15 @@ $transform = sub
         $cssClass .= 'right' if $is_last;
         $cssClass .= 'selected' if $fSel;
 
-		$noscriptmenu .=
-			'<a'
-				. ($cssClass ? ' class="' . encode_entities($cssClass) . '"' : "")
-				. ' href="' . encode_entities($rhItem->{url}) . '"'
-			. '>'
-			. encode_entities($rhItem->{name})
-			. '</a>'
-			;
+  		$noscriptmenu .=
+			'<td'
+ 		 	. ($cssClass ? ' class="' . encode_entities($cssClass) . '"' : "") 
+  			. '>'
+ 		 	. '<a href="' . encode_entities($rhItem->{url}) . '"'
+ 		 	. '>'
+ 		 	. encode_entities($rhItem->{name})
+ 		 	. '</a>'
+ 		 	;
     }
 
 	@mm_items = map {
@@ -339,9 +344,9 @@ $transform = sub
 
     $m->out(
 		'<noscript>'
-		. '<div>'
+ 		. '<table cellspacing="0" cellpadding="0" border="0">'
 		. $noscriptmenu
-		. '</div>'
+ 		. '</table>'
 		. '</noscript>'
 	);
 </%perl>
@@ -402,17 +407,11 @@ $transform = sub
 %
 %
 %
-<%def .drawstatic>
+<%def .drawstatic>\
 <%perl>
 
 (my $top) = grep { $_->{'expand'} } @main;
 $top or return;
-
-$m->out(
-    '<div class="submenustatic">'
-    . '<table border="0" cellspacing="0" cellpadding="0">'
-    . '<tr>'
-);
 
 my @named_children = grep { defined $_->{'name'} }  @{ $top->{children} };
 
@@ -428,24 +427,17 @@ for my $i (0 .. $#named_children)
 	$class =~ s/^ (.*)$/ class="$1"/;
 
 	$m->out(
-		'<td>'
-		. '<a'
+		'<a'
 			. ' href="' . encode_entities($c->{url}) . '"'
 			. $class
 		. '>'
 		. encode_entities($c->{name})
 		. '</a>'
-		. '</td>'
+		. ($is_last ? '' : ' | ')
 	);
 }
 
-$m->out(
-    '</tr>'
-    . '</table>'
-    . '</div>'
-);
-
-</%perl>
+</%perl>\
 </%def>
 %
 %
@@ -481,17 +473,12 @@ $m->out(
 %
 %
 <!-- main menu table -->
-<table width="100%" cellpadding="0" cellspacing="0" border="0" class="mainmenutable">
-    <tr valign="top">
-        <td width="142"><a href="/"><img src="/images/header_logo_b.gif" width="142" height="21" alt="" border="0"></a></td>
-        <td class="mainmenu" nowrap>
+<div class="mainmenu">
             <%perl>
                 $m->comp(".drawmainmenu", \@main);
-                $m->comp(".drawstatic");
+				$$staticref = $m->scomp(".drawstatic") if $staticref;
             </%perl>
-        </td>
-    </tr>
-</table>
+</div>
 %
 % $m->comp(".drawsubmenus", \@main);
 %

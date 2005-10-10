@@ -40,7 +40,7 @@ my $t = $session{"freedb_tracks"};
 
 		<table>
 			<tr>
-				<td><label for="artist">Artist:</label></td>
+				<td>Artist:</td>
 				<td>
 % if ($ar->GetId) {
 				<a href="/showartist.html?artistid=<% $ar->GetId %>"><% $ar->GetName %></a>
@@ -53,12 +53,13 @@ my $t = $session{"freedb_tracks"};
 				<td nowrap align="center">[ <a href="/freedb/select-macsac.html">Change</a> ]</td>
 			</tr>
 			<tr>
-				<td><label for="album">Album:</label></td>
+				<td><label for="fdbsac_album">Album:</label></td>
 				<td><input 	type="text" name="album" class="textfield"
+							id="fdbsac_album"
 							onFocus="myOnFocus(this)" onBlur="myOnBlur(this)"
 							size="50" 
 							value="<% $session{'freedb_album'} %>"></td>
-				<td><script language="javascript">
+				<td><script type="text/javascript">
 					<!--
 						af_writeButton(AF_BTN_ALBUM, 'album');
 					-->
@@ -66,12 +67,13 @@ my $t = $session{"freedb_tracks"};
 			</tr>
 % for my $i (0 .. $t-1) {
 			<tr>
-				<td><label for="track<% $i %>"><% $i+1 %>:</label></td>
+				<td><label for="fdbsac_track<% $i %>"><% $i+1 %>:</label></td>
 				<td><input 	type="text" name="track<% $i %>" class="numberfield"
+							id="fdbsac_track<% $i %>"
 							onFocus="myOnFocus(this)" onBlur="myOnBlur(this)"
 							size="50"  
 							value="<% $session{"freedb_track$i"} %>"></td>
-				<td><script language="javascript">
+				<td><script type="text/javascript">
 					<!--
 						af_writeButton(AF_BTN_TRACK, 'track<% $i %>');
 					-->
@@ -81,7 +83,7 @@ my $t = $session{"freedb_tracks"};
 			<tr>
 				<td>&nbsp;</td>
 				<td>&nbsp;</td>
-				<td><script language="javascript">
+				<td><script type="text/javascript">
 					<!--
 						function doGuessAll(theForm) {
 							doAlbumName(theForm, 'album');

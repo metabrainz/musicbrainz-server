@@ -28,8 +28,10 @@ if ($ARGS{"SavePrefs"})
 		reveal_address_when_mailing
 		show_amazon_coverart
 		sidebar_panel_search
+		sidebar_panel_sites
 		sidebar_panel_stats
 		sidebar_panel_topmods
+		sidebar_panel_user
 		nosidebar
 		vote_abs_default
 		vote_show_novote
@@ -323,6 +325,16 @@ $time = time();
 	</p>
 
 	<ul style="list-style: none">
+		<li>
+			<label for="pref_sidebar_panel_sites"><input type="checkbox" name="sidebar_panel_sites" id="pref_sidebar_panel_sites"
+				<% UserPreference::get('sidebar_panel_sites') ? "checked" : "" %>
+				> MusicBrainz Sites</label>
+		</li>
+		<li>
+			<label for="pref_sidebar_panel_user"><input type="checkbox" name="sidebar_panel_user" id="pref_sidebar_panel_user"
+				<% UserPreference::get('sidebar_panel_user') ? "checked" : "" %>
+				> Your Account</label>
+		</li>
 		<li>
 			<label for="pref_sidebar_panel_search"><input type="checkbox" name="sidebar_panel_search" id="pref_sidebar_panel_search"
 				<% UserPreference::get('sidebar_panel_search') ? "checked" : "" %>

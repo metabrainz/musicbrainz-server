@@ -19,7 +19,7 @@
 
 % foreach my $item ( $feed->GetItems() ) {
 
-					<div class="sidenewsarticle">
+					<div class="newsarticle">
 						<b><% $item->GetTitle() %></b> &mdash;  
 						<% $item->GetDescription() %>
 						<div class="datetime">Posted: <% $item->GetDateTimeString() %></div>

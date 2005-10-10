@@ -1,11 +1,18 @@
 %# vi: set ts=2 sw=2 ft=mason :
 <& /comp/sidebar, title=>'MusicBrainz News' &>  
 
-<p>
-	For news about changes to the server software,
-	please see the <a href="/news/server.html">server updates</a>
-	page.
-</p>
+<!-- server news (?) start -->
+<div class="blueheaderwide">
+	<div class="inner">Server Updates</div>
+</div>
+<div class="boxcontent">
+	<div class="inner">
+		For news about changes to the server software,
+		please see the <a href="/news/server.html">server updates</a>
+		page.
+	</div>
+</div>
+<!-- server news (?) end -->
 
 <& /comp/newsfeed,
 	url => 'http://blog.musicbrainz.org/index.xml',
@@ -13,7 +20,16 @@
 	read_more => 0,
 &>
 
-<p>More news including the news archives can be found on
-<a href="http://blog.musicbrainz.org/">the blog page</a>.</p>
+<!-- more news start -->
+<div class="blueheaderwide">
+	<div class="inner">More News</div>
+</div>
+<div class="boxcontent">
+	<div class="inner">
+		More news including the news archives can be found on
+		<a href="http://blog.musicbrainz.org/">the blog page</a>.
+	</div>
+</div>
+<!-- more news end -->
 
 <& /comp/footer &>

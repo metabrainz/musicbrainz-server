@@ -1,12 +1,12 @@
 %# vi: set ts=2 sw=2 ft=mason :
 <& /comp/sidebar, title=>'Welcome to MusicBrainz!', noh1 => 1 &>  
 
-
-
 <table width="100%" cellspacing="0" cellpadding="0">
 	<tr valign="top">
-		<td class="home_mainpanel">
-		<!-- content panel start -->
+		<td class="boxeslist">
+			<h1>Welcome to MusicBrainz!</h1>
+
+			<!-- content panel start -->
 
 % if (0) { # Insert news here....
 		  <p style="border: 2px dotted red; padding: 1em; margin: 1em">
@@ -16,15 +16,13 @@
 			</p>
 % }
 
-			<h1>Welcome to MusicBrainz!</h1>
-
 
 % if (&DBDefs::DB_STAGING_SERVER) {
 			<!-- article start -->
-			<div class="header">
+			<div class="orangeheader">
 				<div class="inner">You are using a MusicBrainz <% lc(&DBDefs::DB_STAGING_SERVER) %> server!</div>
 			</div>
-			<div class="content">
+			<div class="boxcontent">
 				<div class="inner">
 					Unless you want to be testing the latest and greatest MusicBrainz features
 					you probably want to the <img src="/images/icon/extlink.gif" alt="" width="12">
@@ -33,10 +31,10 @@
 			</div>
 			
 % } elsif (&DBDefs::REPLICATION_TYPE == RT_SLAVE) {
-			<div class="header">
+			<div class="orangeheader">
 				<div class="inner">You are using a MusicBrainz Mirror</div>
 			</div>
-			<div class="content">
+			<div class="boxcontent">
 				<div class="inner">							 
 					If you want to edit the MusicBrainz data, you will need to go to the 
 					<img src="/images/icon/extlink.gif" alt="" width="12"> 
@@ -46,10 +44,10 @@
 % }
 
 			<!-- article start -->
-			<div class="header">
+			<div class="orangeheader">
 				<div class="inner">What is MusicBrainz?</div>
 			</div>
-			<div class="content">
+			<div class="boxcontent">
 				<div class="inner">
 					MusicBrainz is a community music metadatabase
 					that attempts to create a comprehensive music information site.&nbsp;
@@ -66,10 +64,10 @@
 
 
 			<!-- article start -->
-			<div class="header">
+			<div class="orangeheader">
 				<div class="inner">MetaBrainz Foundation</div>
 			</div>
-			<div class="content">
+			<div class="boxcontent">
 				<div class="inner">
 					The <img src="/images/icon/extlink.gif" alt="" width="12"> 
 					<a href="http://metabrainz.org">MetaBrainz Foundation</a>, 
@@ -82,10 +80,10 @@
 
 
 			<!-- article start -->
-			<div class="header">
+			<div class="orangeheader">
 				<div class="inner">Use MusicBrainz</div>
 			</div>
-			<div class="content">
+			<div class="boxcontent">
 				<div class="inner">
 					You can use Musicbrainz right now to automatically identify and
 					label your music files &mdash; all you have to do is download and run
@@ -127,10 +125,10 @@
 
 
 			<!-- article start -->
-			<div class="header">
+			<div class="orangeheader">
 				<div class="inner">Be a part of MusicBrainz</div>
 			</div>
-			<div class="content">
+			<div class="boxcontent">
 				<div class="inner">
 					Many people are needed to make MusicBrainz work. Come and take part!
 					<ul class="SpacedList">
@@ -164,10 +162,10 @@
 
 
 			<!-- article start -->
-			<div class="header">
+			<div class="orangeheader">
 				<div class="inner">Read more about MusicBrainz</div>
 			</div>
-			<div class="content">
+			<div class="boxcontent">
 				<div class="inner">
 					To learn more about what MusicBrainz is and how it works, read on:
 					<ul class="SpacedList">
@@ -189,13 +187,13 @@
 			</div>
 			<!-- content panel end -->
 		</td>
-		<td class="home_rightpanel"> 
+		<td class="newslist"> 
 			<!-- right panel start -->
-			<h1>What's Up</h1>
-			<div class="header">
+			<h1>News</h1>
+			<div class="blueheader">
 				<div class="inner">MetaBrainz Foundation</div>
 			</div>
-			<div class="content">
+			<div class="boxcontent">
 				<div class="inner">
 					On April 19th 2005 the <a href="http://metabrainz.org">MetaBrainz Foundation</a> was 
 					launched as the legal entity for MusicBrainz!
@@ -208,10 +206,10 @@
 			</div>
 
 % if (0) {
-			<div class="header">
-				<div class="inner">Sponsor Us!<</div>
+			<div class="blueheader">
+				<div class="inner">Sponsor Us!</div>
 			</div>
-			<div class="content">
+			<div class="boxcontent">
 				<div class="inner">
 				<p>
 					<a href="http://mayhem-chaos.net"><i>Robert Kaye</i></a>,<span class="Important"><i> MusicBrainz founder writes:</i>
@@ -238,10 +236,10 @@
 			</div>
 % }
 
-			<div class="header">
+			<div class="blueheader">
 				<div class="inner">MusicBrainz Blog</div>
 			</div>
-			<div class="content">
+			<div class="boxcontent">
 				<div class="inner">
 					<& /comp/newsfeed-side,
 						url => 'http://blog.musicbrainz.org/index-excerpt.xml',

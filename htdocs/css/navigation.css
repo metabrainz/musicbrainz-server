@@ -2,9 +2,7 @@
 	font: Normal 11px Verdana, Geneva, Arial, Helvetica, sans-serif; 
 	color: #000000; text-decoration : none; font-weight: 600;
 }
-.section a,
-.section a:visited,
-.section a:hover { 
+.section a {
 	color: #000000; font-size: 11px;
 }
 td.borderbottom {
@@ -34,7 +32,14 @@ td.modpending {
 	width: 10px; height: 20px; padding: 0px;
 	background: #DDDDDD url(/images/sidemenu_end.gif);
 }
-
+.sidemenu-box .title a,
+.sidemenu-box .title a:active,
+.sidemenu-box .title a:visited {
+	color: #000;
+}
+.sidemenu-box .title a:hover {
+	text-decoration: underline;
+}
 
 
 /* ********************************************** */
@@ -46,18 +51,20 @@ td.modpending {
 	border-right: 1px solid #000; border-bottom: 1px solid #000;
 	padding: 0px; padding-left: 0px; padding-top: 2px; padding-bottom: 6px;
 }
-.sidemenu a:link,
-.sidemenu a:active,
-.sidemenu a:visited,
-.sidemenu a:hover {
+.sidemenu a,
+.sidemenu a:visited {
 	display: block;
 	padding-left: 10px;
 	font-weight: normal;
 	border: 0px;
+	color: #555;
 }
-.sidemenu a:hover {
+.sidemenu a:hover,
+.sidemenu a:active,
+.sidemenu a:focus {
 	text-decoration: underline;
 	border: 0px;
+	color: #000;
 }
 .sidemenu form, .sidemenu input {
 	margin: 0px; font-size: 11px;
@@ -90,14 +97,16 @@ td.modpending {
 	padding: 1pt;
 }
 
-.morelink,
-.morelink a:link,
-.morelink a:active, 
-.morelink a:visited, 
-.morelink a:hover {
+.morelink a,
+.morelink a:visited,
+.morelink a:active
+{
 	font-size: 10px; color: #000; 
 	text-align: right; padding-right: 2px;
 	white-space: nowrap;
+}
+.morelink a:hover {
+	font-decoration: underline;
 }
 
 
@@ -113,12 +122,12 @@ td.modpending {
 	padding-right: 2px;
 }
 .sidemenustats .name a,
-.sidemenustats .name a:visited,
-.sidemenustats .name a:active,
-.sidemenustats .name a:hover {
+.sidemenustats .name a:visited {
 	color: #000; font-size: 8pt; font-weight: bold;
 }
-.sidemenustats .name a:hover {
+.sidemenustats .name a:hover,
+.sidemenustats .name a:active,
+.sidemenustats .name a:focus {
 	text-decoration: underline;
 }
 .sidemenustats .count {
@@ -130,241 +139,236 @@ td.modpending {
 	width: 100%; text-align: left; padding: 0px;
 	padding-right: 2px; padding-top: 10px;
 }
-
-#sidemenu-td {
-	display: none;
+/* removed diplay: none, default=open */ 
+#sidebar-td { 
+	width: 140px;
 }
-#sidemenu-coll {
-	position: absolute; top: 88px;
-	width: 130px;
-	background: #fff;
-	border-right: 1px solid #000; border-bottom: 1px solid #000;
-}
-#sidemenu-exp {
-	width: 130px;
-	background: #fff;
-	border-right: 1px solid #000; border-bottom: 1px solid #000;
-	display: block;
-}
-#sidemenu-coll a,
-#sidemenu-exp a {
-	margin-left: 10px;
-	font-size: 11px;
+#content-td {
+	width: 100%;
+	background-color: #fff;
+	vertical-align: top;
+	padding: 15px;
 }
 
+/* the cell containing the "show/hide" links */
+#sidebar-togglecell {
+	width: 130px; height: 15px;
+	padding: 0px; margin: 0px;
+	background: #dddddd;
+	border-width: 0 1px 1px 0;
+	border-style: solid;
+	border-color: black;
+	text-align: left;
+}
+#sidebar-togglecell a {
+	margin-left: 10px; font-size: 11px;
+}
 
 /* ********************************************** */
 /* ********************************************** */
 /* ********************************************** */
-.mainmenutable {
-	width: 100%; background: #fb5; 
+#mainmenu-table {
+	width: 100%; background: #fb5;
+	border: 0px; border-bottom: 1px solid #000;
 }
 .mainmenu {
 	background: #fb5;
-	border-bottom: 1px solid black; 
 }
-.mainmenu a, 
-.mainmenu a:hover, 
-.mainmenu a:active, 
-.mainmenu a:visited {
-	float: left; display: block; text-align: center;
+.mainmenu table {
+	height: 20px;
+}
+/* define font/wrapping behavior mainmenu TDs */
+.mainmenu td {
+	font-size: 12px; text-align: center;
 	border-left: 1px solid black; background: #fb5; 
-	padding: 2px; padding-left: 6px; padding-right: 6px; 
-	white-space: nowrap; font-weight: bold; color: #000000;
-	border-bottom: 0px solid #fff;
+	padding: 0px 6px; 
+	cursor: hand;
 }
+/* define font/wrapping behavior for all child nodes */
+.mainmenu td * {
+	font-weight: bold; white-space: nowrap; 
+}
+
+/* general link color darkgray, no decoration */
+.mainmenu a,
+.mainmenu a:visited {
+	color: #333;
+	text-decoration: none;
+}
+
+/* active and hovering mouse has a white underline */
+.mainmenu a:active,
 .mainmenu a:hover {
-	background: #77a; color: white;
-	border-bottom: 0px solid #fff;
+	color: #fff;
+	text-decoration: underline;
 }
 
-.mainmenu a.selected, 
-.mainmenu a.selected:hover, 
-.mainmenu a.selected:active, 
-.mainmenu a.selected:visited,
-.mainmenu a.rightselected,
-.mainmenu a.rightselected:active,
-.mainmenu a.rightselected:visited,
-.mainmenu a.rightselected:hover {
-	background: #77a; color: white;
+/* selected item does not have a white underline, unless mouse hovers */
+.mainmenu td.selected a,
+.mainmenu td.selected a:active,
+.mainmenu td.selected a:visited {
+	color: #fff;
+	text-decoration: none;
 }
 
-.mainmenu a.right, 
-.mainmenu a.right:active,
-.mainmenu a.right:visited, 
-.mainmenu a.right:hover,
-.mainmenu a.rightselected,
-.mainmenu a.rightselected:active,
-.mainmenu a.rightselected:visited,
-.mainmenu a.rightselected:hover {
+/* configuration for all the different states possible (selected,right,hover) */
+.mainmenu td.hover a, 
+.mainmenu td.hover a:visited,
+.mainmenu td.selected a:hover,
+.mainmenu td.selectedhover a,
+.mainmenu td.selectedhover a:active,
+.mainmenu td.selectedhover a:visited,
+.mainmenu td.selectedhover a:hover,
+.mainmenu td.righthover a, 
+.mainmenu td.righthover a:visited,
+.mainmenu td.rightselected a, 
+.mainmenu td.rightselected a:visited,
+.mainmenu td.rightselectedhover a, 
+.mainmenu td.rightselectedhover a:visited {
+	color: #fff;
+	text-decoration: underline;
+}
+
+/* rightmost td has an additional black border */
+.mainmenu td.righthover,
+.mainmenu td.rightselectedhover,
+.mainmenu td.right,
+.mainmenu td.rightselected {
 	border-right: 1px solid black; 
 }
 
+/* the selected/hovered td has a violet background */
+.mainmenu td.selected,
+.mainmenu td.selectedhover,
+.mainmenu td.rightselected,
+.mainmenu td.rightselectedhover,
+.mainmenu td.hover,
+.mainmenu td.righthover {
+   background: #77a; 
+}
 
 /* ********************************************** */
 /* ********************************************** */
 /* ********************************************** */
 .submenu {
-	position: absolute; top: 87px; left: 142px;
+	position: absolute;
+	top: 87px; left: 142px;
 	background: #fff; display: none; padding-right: 2px;
 	border: 1px solid black;
 	background: #fff url(/images/header-bg-lightpurplefade.gif) repeat-y right;
 	z-index: 1001;
 	display: none;
 }
-.submenu a, 
-.submenu a:visited, 
-.submenu a:active, 
-.submenu a:hover {
+.submenu a,
+.submenu a:visited,
+.submenu a:active,
+.submenu a:hover,
+.submenu a:focus,
+.submenu a.bottom {
 	float: left; display: block; text-align: left;  width: 150px;
 	padding: 3px; padding-left: 7px; padding-right: 7px; 
-	white-space: nowrap; color: #000; 
+	white-space: nowrap; color: #333; 
 	font-size: 11px; font-weight: bold;
 	border-bottom: 1px dotted #ddd;
 }
-.submenu a:hover {
-	color: #000;
+.submenu a:hover,
+.submenu a:active,
+.submenu a:focus {
 	text-decoration: underline;
-	border-bottom: 1px dotted #ddd;
 }
-.submenu a.bottom,
-.submenu a.bottom:visited,
-.submenu a.bottom:active,
-.submenu a.bottom:hover {
+.submenu a.bottom {
 	border-bottom: none;
 }
-
-
 
 /* ********************************************** */
 /* ********************************************** */
 /* ********************************************** */
 .submenustatic {
-	position: absolute; 
-	top: 87px; left: 142px; 
-	height: 17px; width: 650px; /* 800px hack for IE, else elements get squished */
-	margin: 0px; padding: 0px;
-	z-index: 1000;
+	font-size: 11px;
+	padding: 0px 6px 1px 6px;
+	border: 1px solid #000;
+	border-width: 0px 0px 1px 1px;
 }
-.submenustatic table {
-	margin-left: 0px;
-}	 
-.submenustatic a:hover {
-	text-decoration: underline;
-}
-.submenustatic a, 
-.submenustatic a:visited, 
-.submenustatic a:active, 
-.submenustatic a:hover {
-	display: block; text-align: center;
-	background: #fff;
-	padding: 1px; padding-left: 7px; padding-right: 7px; 
-	white-space: nowrap; color: #000; 
-	font-size: 10px; font-weight: bold;
-	border-width: 0px;
-	border-top: 1px solid #000; 
-	border-bottom: 1px solid #000;
-	border-left: 1px solid #fff;
-	border-right: 1px dotted #666; 		 
-}
-.submenustatic a.left, 
-.submenustatic a.left:visited, 
-.submenustatic a.left:active, 
-.submenustatic a.left:hover {
-	border-left: 1px solid #000;
-}
-.submenustatic a.right, 
-.submenustatic a.right:visited, 
-.submenustatic a.right:active, 
-.submenustatic a.right:hover {
-	border-right: 1px solid #000;
-}
-
-
 
 
 /* ********************************************** */
 /* ********************************************** */
 /* ********************************************** */
-.home_mainpanel {
-	padding-right: 30px;
+.boxeslist {
+	padding-top: 0px; 
 }
-.home_mainpanel h1,
-.home_rightpanel h1 {
-	margin-bottom: 20px; margin-top: 10px;
+.newslist {
+	float: right; width: 250px;
+	padding: 0px; padding-right: 5px; padding-left: 30px; 
+}
+.boxeslist h1,
+.newslist h1 {
+	margin-bottom: 20px; margin-top: 0px;
 	border: none;
 }
-.home_mainpanel .header {
+.newslist h2 {
+	margin-top: 0; margin-bottom: 10px;
+	background: #fff url(/images/header-bg-lightpurplefade.gif) repeat-y right;
+	border: 1px solid #736DAB;
+}
+.orangeheader {	    
 	border: 1px solid #fb5; width: 100%;
-	background: #fff url(/images/header-bg-orangefade.gif) left repeat-y;
+	background: #fff url(/images/header-bg-orangefade.gif) repeat-y left;
 	margin: 0px; padding: 0px;
 	font-weight: bold;
 }
-.home_rightpanel .header {
+.blueheader,
+.blueheaderwide {
 	border: 1px solid #736DAB; width: 100%;
-	background: #fff url(/images/header-bg-lightpurplefade.gif) right repeat-y;
+	background: #fff url(/images/header-bg-lightpurplefade.gif) repeat-y right;
 	margin: 0px; padding: 0px;
 	font-weight: bold;
 }
-.home_rightpanel .header .inner,
-.home_mainpanel .header .inner {
-	margin: 0px; padding: 2px;
+.blueheaderwide {
+	background: #fff url(/images/header-bg-lightpurplefade.gif) repeat-y left;
 }
-
-.home_rightpanel .content,
-.home_mainpanel .content {
+.orangeheader .inner,
+.blueheader .inner,
+.blueheaderwide .inner {
+	margin: 0 0 0 0.5em; padding: 2px;
+}
+.boxcontent {
 	border: 1px solid #ddd; width: 100%;
 	border-width: 0px 1px 1px 1px;
 	margin: 0px; padding: 0px;
 	margin-bottom: 15px;
 }
-.home_rightpanel .content .inner,
-.home_mainpanel .content .inner {
+.boxcontent .inner {
 	margin: 0px; padding: 8px;
 }
-.home_rightpanel .content .inner ul,
-.home_mainpanel .content .inner ul {
+.boxcontent .inner ul {
 	margin-top: 10px; margin-bottom: 0px; margin-left: 20px; padding: 0px;
 }
-.home_rightpanel .content .inner li,
-.home_mainpanel .content .inner li {
+.boxcontent .inner li {
 	margin: 0px; padding-bottom: 10px;
 }
-.home_rightpanel .content .inner p,
-.home_mainpanel .content .inner p {
+.boxcontent .inner p {
 	margin: 0px; padding-bottom: 15px;
 }
-.home_rightpanel .content .inner p.important {
+.boxcontent .inner p.important {
 	color: #fc0; padding-bottom: 6px;
 }
-.home_rightpanel .content .inner p.important a {
+.boxcontent .inner p.important a {
 	font-weight: bold; 
 }
-
-.home_rightpanel {
-	float: right; width: 250px;
-	padding: 0px;
-}
-.home_rightpanel h2 {
-	margin-top: 0; margin-bottom: 10px;
-	background: #fff url(/images/header-bg-lightpurplefade.gif) right repeat-y;
-	border: 1px solid #736DAB;
-}
-
-.sidenewsarticle {
+.newsarticle {
 	margin-bottom: 10px;
 }
-.sidenewsarticle .datetime {
+.datetime {
 	text-align: right; font-size: 11px; color: #999;
 }
-.sidenewsarticle .readmore {
+.readmore {
 	text-align: right; font-size: 11px; 
 }
 
 .NewsLink,
 .PressReleaseLink,
-.WhitePaperLink
-{
+.WhitePaperLink {
 	display: block;
 	text-align: right;
 }

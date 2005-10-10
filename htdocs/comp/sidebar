@@ -13,13 +13,24 @@ $m->comp(
     nosidebar => $nosidebar,
 );
 
-unless ($nosidebar)
-{
 </%perl>
+<table cellspacing="0" cellpadding="0" border="0" width="100%">
+	<tr valign="top">
+% unless ($nosidebar) {
+		<td id="sidebar-td" width="140">
+%# See comments in topmenu.js near "mm_initialiseSideBar"
+        <script type="text/javascript"> 
+        <!--
+            mm_initialiseSideBar(); 
+        -->
+        </script>
 
-<& /comp/layout/sidebar-sectiontop, title=>'Site Menu' &>
+% if (UserPreference::get('sidebar_panel_sites')) {
+<& /comp/layout/sidebar-section, title=>'MusicBrainz Sites' &>
 <& /comp/layout/sidemenu-panel-main &>
+% }
 
+% if (UserPreference::get('sidebar_panel_user')) {
 %    if (!defined $session{user} || $session{user} eq '') {
     <& /comp/layout/sidebar-section, title=>'Not logged in', link => "/login.html" &>
     <& /comp/layout/sidemenu-panel-userguest &>
@@ -27,6 +38,7 @@ unless ($nosidebar)
     <& /comp/layout/sidebar-section, title=>$session{user}, link => "/user/view.html" &>
     <& /comp/layout/sidemenu-panel-userloggedin &>
 %    }
+% }
 
 % if (UserPreference::get('sidebar_panel_search')) {
     <& /comp/layout/sidebar-section, title=>'Quick Search', link => "/search.html" &>
@@ -50,22 +62,8 @@ unless ($nosidebar)
 
    </td>
 % }
-
-
-    <td width="100%" bgcolor="FFFFFF" valign="top">
-        <div id="sidemenu-coll" style="display: none">
-            <a  href="javascript: // show side bar" onFocus="this.blur()" 
-                onClick="mm_toggleSideMenu(true)" title="Show the side bar">Show sidebar<img src="/images/icon/maximize.gif" alt=""></a>
-        </div>
-%# See comments in topmenu.js near "mm_onPageLoad"
-        <script type="text/javascript"> 
-        <!--
-            mm_onPageLoad(); 
-        -->
-        </script>
-        <table cellpadding="15" cellspacing="0" border="0" width="100%">
-            <tr valign="top">
-                <td align="left" width="100%">
+					 
+    <td id="content-td" width="100%">
 
 % if ($session{tport}) {
 <iframe name="hiddeniframe" height="0" width="0" frameborder="0"></iframe>

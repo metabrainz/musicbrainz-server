@@ -26,17 +26,19 @@ my @scripts_menu = MusicBrainz::Server::Script->Menu($mb->{DBH},
 
 <table>
 	<tr>
-		<td><label for="<% $language_fieldname %>">Language:</label></td>
+		<td><label for="id_of_<% $language_fieldname %>">Language:</label></td>
 		<td>
-			<select name="<% $language_fieldname %>" style="<% $show_full_lists ? "" : "width: 200px" %>">
+			<select name="<% $language_fieldname %>" style="<% $show_full_lists ? "" : "width: 200px" %>"
+				id="id_of_<% $language_fieldname %>">
 				<& /comp/options, \@languages_menu, $language_value &>
 			</select>
 		</td>
 	</tr>
 	<tr>
-		<td><label for="<% $script_fieldname %>">Script:</label></td>
+		<td><label for="id_of_<% $script_fieldname %>">Script:</label></td>
 		<td>
-			<select name="<% $script_fieldname %>"style="<% $show_full_lists ? "" : "width: 200px" %>">
+			<select name="<% $script_fieldname %>"style="<% $show_full_lists ? "" : "width: 200px" %>"
+				id="id_of_<% $script_fieldname %>">
 				<& /comp/options, \@scripts_menu, $script_value &>
 			</select>
 		</td>

@@ -404,8 +404,8 @@ function myOnBlur(theField) {
 function af_modeChanged(theSelect) {
 	af_mode = theSelect.options[theSelect.selectedIndex].value;
 	af_modeSet();
-	setCookie(AF_COOKIE_MODE, af_mode);
-	// alert(getCookie(AF_COOKIE_MODE));
+	// set a persistent cookie for the next 365 days.
+	setCookie(AF_COOKIE_MODE, af_mode, 365);
 }
 
 // ----------------------------------------------------------------------------
@@ -423,7 +423,8 @@ function af_modeSet() {
 function af_ShowTable(theFlag) {
 	document.getElementById("autofix-table-collapsed").style.display = (!theFlag ? "block" : "none");
 	document.getElementById("autofix-table-expanded").style.display = (theFlag ? "block" : "none");
-	setCookie(AF_COOKIE_TABLE, (theFlag ? "1" : "0"));
+	// set a persistent cookie for the next 365 days.
+	setCookie(AF_COOKIE_TABLE, (theFlag ? "1" : "0"), 365);
 }
 
 // ----------------------------------------------------------------------------
@@ -539,7 +540,7 @@ function af_writeGUI(fOpen) {
 	document.writeln('              <td width="100%">');
 	document.writeln('                <small><span id="autofix-mode-text-collapsed"></span></small></td>');
 	document.writeln('              <td>&nbsp;</td>');
-	document.writeln('              <td><a href="javascript: void(0)" title="Expand table" onFocus="this.blur()" onClick="af_ShowTable(true); return false;"><img src="/images/plus.gif" width="13" height="13" alt="Expand Guess Case panel" border="0"></a></td>');
+	document.writeln('              <td><a href="javascript: /* Expand table */ void(af_ShowTable(true))" title="Expand table"><img src="/images/plus.gif" width="13" height="13" alt="Expand Guess Case panel" border="0"></a></td>');
 	document.writeln('            </tr>');
 	document.writeln('          </table>');
 	document.writeln('        </div>');
@@ -565,7 +566,7 @@ function af_writeGUI(fOpen) {
 	document.writeln('                </table>');
 	document.writeln('              </td>');
 	document.writeln('              <td>&nbsp;</td>');
-	document.writeln('              <td width="10"><a href="javascript: void(0)" title="Collapse table" onFocus="this.blur()" onClick="af_ShowTable(false); return false;"><img src="/images/minus.gif" width="13" height="13" alt="Collapse Guess Case panel" border="0"></a></td>');
+	document.writeln('              <td width="10"><a href="javascript: /* Collapse table */ void(af_ShowTable(false))" title="Collapse table"><img src="/images/minus.gif" width="13" height="13" alt="Collapse Guess Case panel" border="0"></a></td>');
 	document.writeln('            </tr>');
 	document.writeln('            <tr><td colspan="4"><img src="/images/spacer.gif" height="4" alt="" /></td></tr>');
 	document.writeln('            <tr valign="middle">');
@@ -872,7 +873,7 @@ function af_srWritePresets() {
 	document.writeln('    </tr>');	
 	for (var i=0; i<srPresets.length; i++) {
 		document.writeln('  <tr>');
-		document.writeln('    <td nowrap><a href="javascript: void(0)" onClick="af_srSelectPreset('+i+')">Use</a> &nbsp;</td>');
+		document.writeln('    <td nowrap><a href="javascript: /* select preset */ void(af_srSelectPreset('+i+'))">Use</a> &nbsp;</td>');
 		document.writeln('    <td nowrap>'+(srPresets[i][0])+'</td>');
 		document.writeln('    <td nowrap>'+(srPresets[i][1])+'</td>');
 		document.writeln('    <td nowrap>'+(srPresets[i][2])+'</td>');

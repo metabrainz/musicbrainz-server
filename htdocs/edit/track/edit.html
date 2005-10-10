@@ -171,7 +171,7 @@ if (MusicBrainz::IsSingleLineString($newname)
 			</tr>
 			<tr>
 				<td nowrap>
-					<label for="newname">New:</label></td>	
+					<label for="edittrack_newname">New:</label></td>	
 % unless ($al->IsNonAlbumTracks) {
 				<td>
 					<input 	type="text" name="newseq" class="numberfield" 
@@ -183,12 +183,13 @@ if (MusicBrainz::IsSingleLineString($newname)
 % }
 				<td>
 					<input 	type="text" name="newname" class="textfield"
+							id="edittrack_newname"
 						 	onFocus="myOnFocus(this)" onBlur="myOnBlur(this)"
 						 	size="50" maxlength="255"
 						 	value="<% $defaultname || $tr->GetName %>">
 				</td>
 				<td>
-					<script language="javascript">
+					<script type="text/javascript">
 					<!--
 						af_writeButton(AF_BTN_TRACK, 'newname');
 					-->

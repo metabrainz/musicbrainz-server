@@ -30,7 +30,7 @@ if ($style eq "text")
 }
 elsif ($style eq "icon")
 {
-	</%perl><nobr><a href="<% $url %>" title="<% $title %>"><img src="<% $imghost %>/images/<% $icon %>" alt="" style="vertical-align:bottom;border:0;margin-right:2px;"><b><% $name %></b></a></nobr><%perl>
+	</%perl><a href="<% $url %>" title="<% $title %>"><img src="<% $imghost %>/images/<% $icon %>" alt="" style="vertical-align:bottom;border:0;margin-right:2px;"><b><% $name %></b></a><%perl>
 }
 elsif ($style eq "linkedurl")
 {

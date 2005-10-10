@@ -33,14 +33,15 @@ my $t = $session{"freedb_tracks"};
 		<legend>Edit Album Name</legend>
 		<table>
 			<tr>
-				<td><label for="album">Album:</label></td>
+				<td><label for="fdbmac_album">Album:</label></td>
 				<td><input type="text" name="album" class="textfield"
+					id="fdbmac_album"
 					onFocus="myOnFocus(this)" onBlur="myOnBlur(this)"
 					style="width: 100%"
 					size="50"
 					value="<% $session{'freedb_album'} %>">
 				</td>
-				<td><script language="javascript">
+				<td><script type="text/javascript">
 					<!--
 						af_writeButton(AF_BTN_ALBUM, 'album');
 					-->

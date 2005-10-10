@@ -378,15 +378,17 @@ my %seen_attrs;
 		<div class="padtop"></div>
 		<table>
 			<tr>
-				<td width="150"><label for="begindate">Begin date:</label></td>
+				<td width="150"><label for="editrel_begindate">Begin date:</label></td>
 				<td>
-					<& /comp/dateinput, name_prefix => 'begindate', value=> [$begindate_y, $begindate_m, $begindate_d] &>
+					<& /comp/dateinput, name_prefix => 'begindate', value=> [$begindate_y, $begindate_m, $begindate_d],
+						id => "editrel_begindate" &>
 					Year-Month-Day</td>
 			</tr>
 			<tr>
-				<td><label for="enddate">End date:</label></td>
+				<td><label for="editrel_enddate">End date:</label></td>
 				<td>
-					<& /comp/dateinput, name_prefix => 'enddate', value=>[$enddate_y, $enddate_m, $enddate_d] &>
+					<& /comp/dateinput, name_prefix => 'enddate', value=>[$enddate_y, $enddate_m, $enddate_d],
+						id => "editrel_enddate" &>
 					Year-Month-Day</td>
 			</tr>
 			<tr>
@@ -413,7 +415,7 @@ my %seen_attrs;
 	</fieldset>
 </form>
 
-<script language="javascript">
+<script type="text/javascript">
 <!--
 	var wasFormSubmitted = <% $submit %>;
 	<%perl>
@@ -425,6 +427,6 @@ my %seen_attrs;
 	</%perl>
 -->
 </script>
-<script language="javascript" src="link-selecttype.js"></script>
+<script type="text/javascript" src="link-selecttype.js"></script>
 
 <& /comp/footer &>

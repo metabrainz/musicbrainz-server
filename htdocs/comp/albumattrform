@@ -41,7 +41,7 @@ my @indexes;
 
 	<table>
 		<tr>
-			<td><label for="album"><b>Album:</album></td>
+			<td><b>Album:</b></td>
 			<td>
 % if ($albumname eq '') {
 				All selected albums
@@ -52,7 +52,7 @@ my @indexes;
 		</tr>
 % if ($adding != 0) {
 		<tr>
-			<td><label for="disclength"><b>Disc length:</label></td>
+			<td><b>Disc length:</b></td>
 			<td> <% $disclength %></td>
 		</tr>
 % }
@@ -124,12 +124,13 @@ push @$pushindex, $i;
 
 </%perl>
 		<tr valign="top">
-			<td nowrap><label for="<% $fieldname %>"><b><% $label %>:</label></td>
+			<td nowrap><label for="albumattr_<% $fieldname %>"><b><% $label %>:</b></label></td>
 			<td>
 				<table cellspacing="0" cellpadding="0" border="0">
 					<tr>
 						<td>
-							<select name="<% $fieldname %>" style="width: 200px">
+							<select name="<% $fieldname %>" style="width: 200px"
+								id="albumattr_<% $fieldname %>">
 %	for my $v (@valuelist)
 %	{
 								<option value="<% $v->[0] %>" <% $v->[0] eq $value ? "selected" : "" %>

@@ -135,22 +135,24 @@ if ($freedb)
 		<table>
 			<tr>
 %  if ($noncd) {
-      			<td colspan="2"><label for="title"><b>Album Title:</label></td>
+      			<td colspan="2"><label for="cdi_menter_title"><b>Album Title:</label></td>
 %  } else {
-      			<td colspan="2"><label for="title"><b>CD Title:</label></td>
+      			<td colspan="2"><label for="cdi_menter_title"><b>CD Title:</label></td>
 %  }				
 %    if (!defined $lookup) {
 				<td><input 	type="text" name="title" class="textfield"
+						id="cdi_menter_title"
 						onFocus="myOnFocus(this)" onBlur="myOnBlur(this)"
 						size="50" maxlength="255"></td>
 %    } else {
 				<td><input 	type="text" name="title" class="textfield"
+						id="cdi_menter_title"
 						onFocus="myOnFocus(this)" onBlur="myOnBlur(this)"
 						size="50" maxlength="255"
 						value="<% $lookup->{album} %>"></td>
 %    }
 				<td>
-					<script language="javascript">
+					<script type="text/javascript">
 					<!--
 						af_writeButton(AF_BTN_ALBUM, 'title');
 					-->
@@ -183,16 +185,17 @@ for my $i ( 0 .. $tracks-1 )
 
 			<tr><td>&nbsp;</td></tr>
 			<tr>
-				<td valign="top"><label for="track<% $i %>"><b><% $i + 1 %></label></td>
+				<td valign="top"><label for="cdi_menter_track<% $i %>"><b><% $i + 1 %></label></td>
 				<td align="right" valign="top">Track Name:</td>
 				<td>
 					<input	type="text" name="track<% $i %>" class="textfield"
+							id="cdi_menter_track<% $i %>"
 							onFocus="myOnFocus(this)" onBlur="myOnBlur(this)"
 							size="50" maxlength="255"
 							value="<% $trackname %>">
 				</td>
 				<td>
-					<script language="javascript">
+					<script type="text/javascript">
 					<!--
 						af_writeButton(AF_BTN_TRACK, 'track<% $i %>');
 					-->
@@ -205,7 +208,7 @@ for my $i ( 0 .. $tracks-1 )
 							size="50" maxlength="255"
 							value="<% $artistname %>"></td>
 				<td>
-					<script language="javascript">
+					<script type="text/javascript">
 					<!--
 						af_writeButton(AF_BTN_ARTIST, 'artistname<% $i %>');
 					-->
@@ -218,7 +221,7 @@ for my $i ( 0 .. $tracks-1 )
 							size="50" maxlength="255"
 							value="<% $sortname %>"></td>
 				<td>
-					<script language="javascript">
+					<script type="text/javascript">
 					<!--
 						af_writeButton(AF_BTN_SORTGUESS, 'artistname<% $i %>', 'sortname<% $i %>');
 						af_writeButton(AF_BTN_SORTCOPY, 'artistname<% $i %>', 'sortname<% $i %>');
@@ -229,7 +232,7 @@ for my $i ( 0 .. $tracks-1 )
 			<tr>
 				<td colspan="3"></td>
 				<td>
-					<script language="javascript">
+					<script type="text/javascript">
 					<!--
 						function doGuessAll(theForm) {
 							doAlbumName(theForm, 'title');

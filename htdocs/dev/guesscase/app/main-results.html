@@ -8,7 +8,7 @@
     <link rel="stylesheet" type="text/css" href="../css/jsUnitStyle.css">
   </head>
   <body>
-  	<script language="javascript" type="text/javascript">
+  	<script type="text/javascript">
   	  var url="http://";
   	  if (top.wasResultUrlSpecified()) {
 		  url += top.getSpecifiedResultUrl();
@@ -31,7 +31,7 @@
       <input type="hidden" name="baseURL">
       <select size="5" name="testCases" multiple></select>      
     </form>
-    <script language="javascript" type="text/javascript">
+    <script type="text/javascript">
 		function populateHeaderFields(id, userAgent, jsUnitVersion, baseURL) {
 	    	document.resultsForm.id.value=id;
 	    	document.resultsForm.userAgent.value=userAgent;

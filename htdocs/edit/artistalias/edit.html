@@ -91,13 +91,13 @@ if (MusicBrainz::IsSingleLineString($newname)
 					<div class="oldtextfield"><% $al->GetName  %></div></td>
 			</tr>
 			<tr>
-				<td><label for="newname">New Value:</label></td>
+				<td><label for="editalias_newname">New Value:</label></td>
 				<td>
-					<input type="text" name="newname" class="textfield"
+					<input type="text" name="newname" class="textfield" id="editalias_newname"
 						 onFocus="myOnFocus(this)" onBlur="myOnBlur(this)"
 						 size="40" maxlength="255"
 						 value="<% $al->GetName %>">
-					<script language="javascript">
+					<script type="text/javascript">
 					<!--
 						af_writeButton(AF_BTN_ALIAS, 'newname');
 					-->

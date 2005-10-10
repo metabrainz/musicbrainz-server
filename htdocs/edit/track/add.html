@@ -129,18 +129,19 @@ if ($newartistname =~ /\S/ and $newartistsortname =~ /\S/
 
 			<tr>
 				<td nowrap>
-					<label for="newname">New Track Name:</label></td>	
+					<label for="edittrack_trackname">New Track Name:</label></td>	
 				<td>
 					<input 	type="text" name="tracknum" class="numberfield" 
 							onFocus="myOnFocus(this)" onBlur="myOnBlur(this)"
 							size="2" value=""></td>
 				<td>
 					<input 	type="text" name="trackname" class="textfield"
+							id="edittrack_trackname"
 						 	onFocus="myOnFocus(this)" onBlur="myOnBlur(this)"
 						 	size="41" maxlength="255"
 						 	value=""></td>
 				<td>
-					<script language="javascript">
+					<script type="text/javascript">
 					<!--
 						af_writeButton(AF_BTN_TRACK, 'trackname');
 					-->
@@ -155,13 +156,14 @@ if ($newartistname =~ /\S/ and $newartistsortname =~ /\S/
 
 			<tr>
 				<td nowrap>
-					<label for="search">Search for Artist:</label></td>
+					<label for="edittrack_search">Search for Artist:</label></td>
 				<td colspan="2">
 					<input  type="text" name="search" class="textfield"
+							id="edittrack_search"
 							onFocus="myOnFocus(this)" onBlur="myOnBlur(this)"
 							size="50"></td>
 				<td>
-					<script language="javascript">
+					<script type="text/javascript">
 					<!--
 						af_writeButton(AF_BTN_ARTIST, 'search');
 					-->

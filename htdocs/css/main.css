@@ -40,7 +40,7 @@ h1
 /* This is equivalent to /comp/section */
 h2
 {
-	background: #fff url(/images/header-bg-orangefade.gif) repeat-y;
+	background: #fff url(/images/header-bg-orangefade.gif) repeat-y left;
 	border: 0 solid #ffecac;
 	border-width: 0px 0 1px 1px;
 	font-size: 100%;
@@ -499,6 +499,12 @@ table.votechoice label
 table.votechoice label:hover
 {
 	border: thin dotted #999;
+}
+
+#RelatedModsBox
+{
+	margin: 1em 0;
+	width: 100%;
 }
 
 /* eof */

@@ -88,13 +88,13 @@ if ($newalias =~ /\S/ and MusicBrainz::IsSingleLineString($newalias))
 				<td><label>Artist:</label></td>
 				<td><a href="/artist/<% $ar->GetMBId %>.html"><% $ar->GetName %></a></td>
 			<tr>
-				<td><label for="newalias">New Alias:</label></td>
+				<td><label for="editalias_newalias">New Alias:</label></td>
 				<td>
-					<input type="text" name="newalias"
+					<input type="text" name="newalias" id="editalias_newalias"
 						 onFocus="myOnFocus(this)" onBlur="myOnBlur(this)"
 						 size="40" maxlength="255"
 						 value="<% $artistname %>">
-					<script language="javascript">
+					<script type="text/javascript">
 					<!--
 						af_writeButton(AF_BTN_ALIAS, 'newalias');
 					-->

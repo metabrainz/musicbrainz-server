@@ -21,14 +21,20 @@ function OnPageLoad() {
 // -- Sets a Cookie with the given name and value.
 // @param 		name       	Name of the cookie
 // @param 		value      	Value of the cookie
-// @param 		[expires]  	Expiration date of the cookie (default: end of current session)
+// @param 		[lifetime]  Number of days the cookie expires (null: end of current session)
 // @param 		[path]     	Path where the cookie is valid (default: "/")
 // @param 		[domain]   	Domain where the cookie is valid
 //            				(default: domain of calling document)
 // @param 		[secure]   	Boolean value indicating if the cookie
 //							transmission requires a	secure transmission
-function setCookie(name, value, expires, path, domain, secure) {
+function setCookie(name, value, lifetime, path, domain, secure) {
 	if (path == null) path = "/";
+    var expires = null;
+	if (lifetime) {
+		var endtimeMillis = new Date().getTime();
+		endtimeMillis += parseInt(lifetime)*24*60*60*1000;
+		expires = new Date(endtimeMillis);
+	}
 	document.cookie= name + "=" + escape(value) +
 		((expires) ? "; expires=" + expires.toGMTString() : "") +
 		((path) ? "; path=" + path : "") +

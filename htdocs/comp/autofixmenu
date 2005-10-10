@@ -9,7 +9,7 @@
 				<td>
 					<table cellspacing="0" cellpadding="0" border="0">
 						<tr>
-							<td width="120"><b>Style guides:&nbsp;<br><img src="/images/spacer.gif" alt="" height="1" width="120"/></td>
+							<td width="120"><b>Style guides:</b></td>
 							<td nowrap><a href="/popup/styleguide.html" onClick="MyWindow=window.open('/popup/styleguide.html','StyleGuide','toolbar=no,location=no,directories=no,status=no,menubar=no,scrollbars=yes,resizable=yes,width=400,height=450'); return false;">General Style</a></td>
 							<td>&nbsp;|&nbsp;</td>
 							<td nowrap><a href="/popup/capguide.html" onClick="MyWindow=window.open('/popup/capguide.html','CapitalizationGuide','toolbar=no,location=no,directories=no,status=no,menubar=no,scrollbars=yes,resizable=yes,width=400,height=500'); return false;">Capitalization</a></td>
@@ -22,12 +22,8 @@
 			</tr>
 			<tr>
 				<td>
-					<noscript>
-						<p><b>You have Javascript disabled, please turn it on to use the Guess Case feature.</b></p>
-					</noscript>
-
                     <!-- this table is shown when JS is enabled -->
-                    <script language="javascript">
+                    <script type="text/javascript">
                     <!--
 % my $fOpen = UserPreference::get("autofix_open");
 % $fOpen =~ s/^([10])$/"$1"/ or $fOpen = 'null';

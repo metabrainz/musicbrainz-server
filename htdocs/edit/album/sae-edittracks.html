@@ -160,7 +160,7 @@ $ar->SetSortName($edit->{"artist"}{"sortname"});
 				<td><% $ar->GetName %></td>
 				<td></td>
 				<td>
-					<script language="javascript">
+					<script type="text/javascript">
 					<!--
 					af_writeButton(AF_BTN_ALL, AF_BTNTEXT_ALBUMANDTRACKS);
 					-->
@@ -175,7 +175,7 @@ $ar->SetSortName($edit->{"artist"}{"sortname"});
 					value="<% $edit->{'name'} %>"></td>
 				<td></td>
 				<td>
-					<script language="javascript">
+					<script type="text/javascript">
 					<!--
 						af_writeButton(AF_BTN_ALBUM, 'albumname');
 					-->
@@ -210,7 +210,7 @@ $ar->SetSortName($edit->{"artist"}{"sortname"});
 						<% $edit->{can_add_remove} ? "" : "disabled" %>
 						title="Remove this track?"></td>
 				<td>
-					<script language="javascript">
+					<script type="text/javascript">
 					<!--
 						af_writeButton(AF_BTN_TRACK, 'track<% $t->{'id'} %>');
 					-->
@@ -226,10 +226,10 @@ $ar->SetSortName($edit->{"artist"}{"sortname"});
 					Add a track ...
 % }					
 				</td>
-				<td align="center"><img src="/images/remove.gif"
+				<td align="center"><img src="/images/remove.gif" alt="X"
 					title="Tick the boxes above to remove tracks"></td>
 				<td>
-					<script language="javascript">
+					<script type="text/javascript">
 					<!--
 						function doGuessAll(theForm) {
 							doAlbumName(theForm, 'albumname');

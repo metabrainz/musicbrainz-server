@@ -98,25 +98,28 @@ if ($freedb)
 		<legend>Enter Release Information</legend>
 		<table>
 			<tr>
-				<td><label for="artistname">Artist:</label></td>
+				<td><label for="cdi_enter_artistname">Artist:</label></td>
 				<td>
 % if ($artist <= 0) {
 %    if (!defined $lookup) {
 				<input 	type="text" name="artistname" class="textfield"
+						id="cdi_enter_artistname"
 						onFocus="myOnFocus(this)" onBlur="myOnBlur(this)"
 						size="50" maxlength="255"></td>
 %    } else {
 				<input	type="text" name="artistname" class="textfield"
+						id="cdi_enter_artistname"
 						onFocus="myOnFocus(this)" onBlur="myOnBlur(this)"
 						size="50" maxlength="255"
 						value="<% $lookup->{artist} %>"></td>
 %    }
 			</tr>
 			<tr>
-				<td><label for="sortname">Sort Name:</label></td>
+				<td><label for="cdi_enter_sortname">Sort Name:</label></td>
 				<td>
 %    if (!defined $lookup) {
 				<input 	type="text" name="sortname" class="textfield"
+						id="cdi_enter_sortname"
 						onFocus="myOnFocus(this)" onBlur="myOnBlur(this)"
 						size="50" maxlength="255">
 %    } else {
@@ -124,6 +127,7 @@ if ($freedb)
 %        $st = Style->new;
 %        $sortname = $st->MakeDefaultSortname($lookup->{artist});
 				 <input type="text" name="sortname" class="textfield" 
+						id="cdi_enter_sortname"
 						onFocus="myOnFocus(this)" onBlur="myOnBlur(this)"
 						size="50" maxlength="255"
 						value="<% $sortname %>"></td>
@@ -136,26 +140,28 @@ if ($freedb)
 
 % if ($noncd) {
 			<tr>
-				<td><label for="title">Album Title:</label></td>
+				<td><label for="cdi_enter_title">Album Title:</label></td>
 				<td>
 % } else {
 			<tr>
-				<td><label for="title">CD Title:</label></td>
+				<td><label for="cdi_enter_title">CD Title:</label></td>
 				<td>
 % }
 % if (!defined $lookup) {
 				<input  type="text" name="title" class="textfield"
+						id="cdi_enter_title"
 						onFocus="myOnFocus(this)" onBlur="myOnBlur(this)"
 						size="50" maxlength="255"></td>
 % } else {
 				<input  type="text" name="title" class="textfield"
+						id="cdi_enter_title"
 						onFocus="myOnFocus(this)" onBlur="myOnBlur(this)"
 						size="50" maxlength="255"
 						value="<% $lookup->{album} %>"></td>
 % }
 				
 				<td>
-					<script language="javascript">
+					<script type="text/javascript">
 					<!--
 						af_writeButton(AF_BTN_ALBUM, 'title<% $i %>');
 					-->
@@ -164,21 +170,23 @@ if ($freedb)
 
 % for($i = 0; $i < $tracks; $i++) {
     		<tr>
-				<td><label for="track<% $i %>">Track <% $i + 1 %>:</label></td>
+				<td><label for="cdi_enter_track<% $i %>">Track <% $i + 1 %>:</label></td>
 				<td>
 %     if (!defined $lookup) {
 					 <input type="text" name="track<% $i %>" class="textfield"
+					 		id="cdi_enter_track<% $i %>"
 							onFocus="myOnFocus(this)" onBlur="myOnBlur(this)"
 							size="50" maxlength="255"></td>
 %     } else {
 %        my $ar = $lookup->{tracks};
 					 <input type="text" name="track<% $i %>" class="textfield"
+					 		id="cdi_enter_track<% $i %>"
 							onFocus="myOnFocus(this)" onBlur="myOnBlur(this)"
 							size="50" maxlength="255"
 							value="<% $$ar[$i]->{track} %>"></td>
 %     }
 				<td>
-					<script language="javascript">
+					<script type="text/javascript">
 					<!--
 						af_writeButton(AF_BTN_TRACK, 'track<% $i %>');
 					-->
@@ -189,7 +197,7 @@ if ($freedb)
 				<td>&nbsp;</td>
 				<td>&nbsp;</td>
 				<td>
-					<script language="javascript">
+					<script type="text/javascript">
 					<!--
 						function doGuessAll(theForm) {
 							doAlbumName(theForm, 'title');

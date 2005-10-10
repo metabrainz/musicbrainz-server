@@ -2,7 +2,7 @@
 
 .LogoBarCell
 {
-	background: #736DAB url(/images/header_BG.gif) bottom left repeat-x;
+	background: #736DAB url(/images/header_BG.gif) repeat-x bottom;
 	position: relative;
 	height: 67px;
 	font-size: 35px;
@@ -18,18 +18,9 @@
 
 .NavBarCell
 {
-	background: #FFBA58 url(/images/topmenu_BG.gif) bottom left repeat-x;
-}
-
-.SideBarCell
-{
-	background: #DDDDDD url(/images/sidemenu_BG.gif) top left repeat-y;
-}
-
-.footer
-{
-	background: #FFBA58 url(/images/topmenu_BG.gif) top left repeat-x;
-	text-align: center;
+	background: #FFBA58;
+	width: 157px;
+	text-align: left;
 }
 
 .SideBarContentArea

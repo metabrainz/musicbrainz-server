@@ -158,10 +158,10 @@ else
 		if ($session{uid} && $modlinks && $expanded) 
 		{
 			$m->out(($max > 1) ? '</td><td align="right" valign="top">' : '');
-			$m->out('<nobr> [ <a href="/edit/relationship/remove.html?type=' . $item->{link0_type} . '-' .
-					$item->{link1_type} . '&amp;id='.$item->{link_id}.'">Del</a> ');
-			$m->out('| <a href="/edit/relationship/edit.html?type=' . $item->{link0_type} . '-' .
-					$item->{link1_type} . '&amp;id='.$item->{link_id}.'">Edit</a> ] </nobr>');
+			$m->out('[&nbsp;<a href="/edit/relationship/remove.html?type=' . $item->{link0_type} . '-' .
+					$item->{link1_type} . '&amp;id='.$item->{link_id}.'">Del</a>&nbsp;');
+			$m->out('|&nbsp;<a href="/edit/relationship/edit.html?type=' . $item->{link0_type} . '-' .
+					$item->{link1_type} . '&amp;id='.$item->{link_id}.'">Edit</a>&nbsp;]');
 		}
 		$m->out(($max > 1) ? '</td></tr>' : '<br>');
 	}

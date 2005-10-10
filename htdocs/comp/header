@@ -12,9 +12,11 @@ my $mtime = (stat $brainz_css)[9] || 0;
 my $mtime_print = (stat(&DBDefs::HTDOCS_ROOT . "/css/print.css"))[9] || 0;
 my $mtime_globaljs = (stat(&DBDefs::HTDOCS_ROOT . "/scripts/global.js"))[9] || 0;
 my $mtime_topmenujs = (stat(&DBDefs::HTDOCS_ROOT . "/scripts/topmenu.js"))[9] || 0;
+my $staticmenus = "";
 </%perl>
 % $m->clear_buffer;
-<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+        "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
    <title><% $title %> - MusicBrainz.org</title>
@@ -33,6 +35,7 @@ my $mtime_topmenujs = (stat(&DBDefs::HTDOCS_ROOT . "/scripts/topmenu.js"))[9] ||
 
 % unless ($notopbar) {
 
+<div id="HeaderGroup">
     <table width="100%" cellpadding="0" cellspacing="0" border="0">
         <tr>
             <td class="LogoBarCell">
@@ -45,26 +48,41 @@ my $mtime_topmenujs = (stat(&DBDefs::HTDOCS_ROOT . "/scripts/topmenu.js"))[9] ||
     </table>
 
     <p style="display: none"><a href="#maincontent">Skip to main content &gt;&gt;</a></p>
-    <& /comp/layout/topmenu &>
+
+	<table width="100%" cellpadding="0" cellspacing="0" border="0" id="mainmenu-table">
+		<tr style="height: 20px">
+			<td class="NavBarCell" valign="top">
+				<a href="/"><img src="/images/header_logo_b.gif"
+					width="142" height="20"
+					alt=""
+					border="0"></a></td>
+			<td id="mainmenucell"><& /comp/layout/topmenu, staticref => \$staticmenus &></td>
+		</tr>
+	</table>
 
 % }
+</div>
 
+    <table width="100%" cellpadding="0" cellspacing="0" border="0" id="submenu-table">
+        <tr>
 % unless ($nosidebar) {
-
-    <!-- main content table -->
-    <table cellspacing="0" cellpadding="0" border="0" width="100%">
-        <tr valign="top">
-            <td id="sidemenu-td" style="display: block">
-                <script type="text/javascript">
-                <!--
-                    document.write('<div id="sidemenu-exp">');
-                    document.write('<a href="javascript: // hide side bar"');
-                    document.write('onFocus="this.blur()" ');
-                    document.write('onClick="mm_toggleSideMenu(false)" ');
-                    document.write('title="Hide the side bar, you can always ');
-                    document.write('switch it back on">Hide sidebar<img ');
-                    document.write('src="/images/icon/minimize.gif" alt=""></a>');
-                    document.write('</div>');
-                -->
-                </script>
+			<td id="sidebar-togglecell">
+				<script type="text/javascript">
+				<!-- // hide from older browsers 
+					mm_DrawToggle();
+				-->
+				</script>
+				<noscript>&nbsp;</noscript>
+			</td>
+			<td style="width: 26px"></td>
+%           # &nbsp; required for Firefox at least to avoid layout errors
 % }
+
+% if ($staticmenus) {
+			<td class="submenustatic"><% $staticmenus || '&nbsp;' |n %></td>
+% } else {
+			<td>&nbsp;</td>
+% }
+		</tr>
+	</table>
+

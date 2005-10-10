@@ -1,11 +1,15 @@
 %# vi: set ts=4 sw=4 ft=mason tw=0 :
+% my $ext = '<img src="/images/icon/extlink.gif" border="0" alt="">';
+% $ext = '';
 
 <div class="sidemenu">
-	<a title="Return to the Start Page" href="/">Home</a>
-	<a title="Get in contact" href="/wd/ContactUs">Contact Us</a>
-	<a title="Where to find MusicBrainz mirrors near you" href="/about/mirrors.html">Mirrors</a>
-	<a title="The MetaBrainz Foundation (new window)" target="_blank" href="http://metabrainz.org/">Metabrainz<img src="/images/icon/extlink.gif" border="0" alt=""></a>
-	<a title="Frequently Asked Questions" href="/wd/GeneralFAQ">FAQ</a>
-	<a title="MusicBrainz documentation on the public Wiki" href="http://wiki.musicbrainz.org/">Wiki</a>
-	<a title="Buy MusicBrainz apparel (new window)" target="_blank" href="http://cafepress.com/musicbrainz">Store<img src="/images/icon/extlink.gif" border="0" alt=""></a>
+	<a href="/" title="MusicBrainz Home Page">MusicBrainz</a>
+	<a href="http://musicbrainz.org/" title="Go to the master MusicBrainz server"><b>&middot;</b> Master Server</a>
+	<a href="/about/mirrors.html" title="Find a mirror site"><b>&middot;</b> Find a Mirror</a>
+	<a href="http://metabrainz.org/" title="The MetaBrainz Foundation">MetaBrainz<% $ext |n %></a>
+	<a href="http://blog.musicbrainz.org/" title="News from the people behind MusicBrainz">Brainz Blog<% $ext |n %></a>
+	<a href="http://lists.musicbrainz.org/" title="Get help or just talk to others via our mailing lists">Mailing Lists<% $ext |n %></a>
+	<a href="http://chatlogs.musicbrainz.org/" title="Logs from our chat room">Chat Logs<% $ext |n %></a>
+	<a href="http://wiki.musicbrainz.org/" title="MusicBrainz documentation">Wiki<% $ext |n %></a>
+	<a href="http://cafepress.com/musicbrainz" title="Buy MusicBrainz apparel">Stuff to Buy<% $ext |n %></a>
 </div>

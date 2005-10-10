@@ -2,9 +2,11 @@
 <%args>
 $name_prefix
 $value => [ ]
+$id => undef
 </%args>
 
 <input type="text" name="<% $name_prefix %>_y" class="datefield" 
+% $m->out('id="' . encode_entities($id) . '"') if defined $id;
 		onFocus="myOnFocus(this)" onBlur="myOnBlur(this)"
 		size="4" maxlength="4"
 		value="<% $value->[0] %>" style="text-align: center;">

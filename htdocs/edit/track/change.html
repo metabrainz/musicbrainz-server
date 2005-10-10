@@ -226,13 +226,14 @@ if ($did_split
 				</td>
 			</tr>
 			<tr>
-				<td class="padtop"><label for="trackname">New Track Name:</label></td>
+				<td class="padtop"><label for="changetrack_trackname">New Track Name:</label></td>
 				<td class="padtop">
 					<input type="text" name="trackname"	class="textfield"
+						id="changetrack_trackname"
 						 onFocus="myOnFocus(this)" onBlur="myOnBlur(this)"
 						 size="50" maxlength="255"
 						 value="<% $newtrackname %>">
-					<script language="javascript">
+					<script type="text/javascript">
 					<!--
 						af_writeButton(AF_BTN_TRACK, 'trackname');
 					-->
@@ -256,13 +257,14 @@ if ($did_split
 				</noscript></td>
 			</tr>
 			<tr>
-				<td><label for="search">Search for New Artist:</label></td>
+				<td><label for="changetrack_search">Search for New Artist:</label></td>
 				<td>
 					<input  type="text" name="search" class="textfield"
+							id="changetrack_search"
 							onFocus="myOnFocus(this)" onBlur="myOnBlur(this)"
 							size="50"
 							value="<% $newartistname %>">
-					<script language="javascript">
+					<script type="text/javascript">
 					<!--
 						af_writeButton(AF_BTN_ARTIST, 'search');
 					-->

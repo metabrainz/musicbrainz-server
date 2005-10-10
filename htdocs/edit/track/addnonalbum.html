@@ -157,14 +157,15 @@ for (@names[0..$numtracks-1])
 % for (1 .. $numtracks) {
 		<tr>
 			<td>
-				<label for="trackname<% $_ %>">Track Name:</label></td>
+				<label for="addnat_trackname<% $_ %>">Track Name:</label></td>
 			<td>
 				<input type="text" name="trackname<% $_ %>" class="textfield"
+					id="addnat_trackname"
 					onFocus="myOnFocus(this)" onBlur="myOnBlur(this)"
 					size="50"
 					value="<% $names[$_-1] %>">
 			</td>
-			<td><script language="javascript">
+			<td><script type="text/javascript">
 				<!--
 					af_writeButton(AF_BTN_TRACK, 'trackname<% $_ %>');
 				-->
@@ -180,7 +181,7 @@ for (@names[0..$numtracks-1])
 			</td>
 			<td>
 % if ($numtracks != 1) {
-				<script language="javascript">
+				<script type="text/javascript">
 					<!--
 						function doGuessAll(theForm) {
 %	for (1 .. $numtracks) {

@@ -36,15 +36,16 @@ my $enddate_str = Artist::GetEndDateName($type);
             <div class="padtop"></div>
             <table border="0" cellspacing="0">
                 <tr>
-                    <td nowrap><label for="type">Type:</label></td>
+                    <td nowrap><label for="editartist_type">Type:</label></td>
                     <td rowspan="50">&nbsp;</td>
                     <td>
-                        <select name="type" onchange="artistTypeChanged(this.value);">
+                        <select name="type" onchange="artistTypeChanged(this.value);"
+			    id="editartist_type">
                             <& /comp/options,
                             [[0, 'Unknown'], [1, 'Person'], [2, 'Group']], $type &>
                         </select></td>
                 </tr>
-                <tr><td colspan="2" class"padtop"/></tr>
+                <tr><td colspan="2" class="padtop"/></tr>
 
 % if ( defined $artist ) {
                 <tr>
@@ -54,18 +55,19 @@ my $enddate_str = Artist::GetEndDateName($type);
                 </tr>
 % }
                 <tr>
-                    <td nowrap><label for="name">Artist Name:</label></td>
+                    <td nowrap><label for="editartist_name">Artist Name:</label></td>
                     <td>
                         <input  type="text" name="name" class="textfield" 
+				id="editartist_name"
                                 onFocus="myOnFocus(this)" onBlur="myOnBlur(this)"
                                 size="50" value="<% $name %>">
-                        <script language="javascript">
+                        <script type="text/javascript">
                         <!--
                             af_writeButton(AF_BTN_ARTIST, 'name');
                         -->
                         </script></td>
                 </tr>
-                <tr><td colspan="2" class"padtop"/></tr>
+                <tr><td colspan="2" class="padtop"/></tr>
 
 % if ( defined $artist ) {
                 <tr>
@@ -75,12 +77,13 @@ my $enddate_str = Artist::GetEndDateName($type);
                 </tr>
 % }
                 <tr>
-                    <td nowrap><label for="sortname">Sort Name:</label></td>
+                    <td nowrap><label for="editartist_sortname">Sort Name:</label></td>
                     <td>
                         <input  type="text" name="sortname" class="textfield" 
+				id="editartist_sortname"
                                 onFocus="myOnFocus(this)" onBlur="myOnBlur(this)"
                                 size="50" value="<% $sortname %>">
-                        <script language="javascript">
+                        <script type="text/javascript">
                         <!--
                             af_writeButton(AF_BTN_SORTGUESS, 'name', 'sortname');
                             af_writeButton(AF_BTN_SORTCOPY, 'name', 'sortname');
@@ -107,9 +110,10 @@ my $enddate_str = Artist::GetEndDateName($type);
                 </tr>
 % }
                 <tr>
-                    <td nowrap><label for="resolution">Comment:</label></td>
+                    <td nowrap><label for="editartist_resolution">Comment:</label></td>
                     <td>
                         <input  type="text" name="resolution" class="textfield"
+				id="editartist_resolution"
                                 onFocus="myOnFocus(this)" onBlur="myOnBlur(this)"
                                 size="50" maxlength="64"
                                 value="<% $resolution %>"></td>
@@ -128,16 +132,18 @@ my $enddate_str = Artist::GetEndDateName($type);
                 </tr>
                 <tr>
                     <td nowrap>
-                        <label for="begindate"><span id="begindate_text"><% $begindate_str %></span>:</label></td>
+                        <label for="editartist_begindate"><span id="begindate_text"><% $begindate_str %></span>:</label></td>
                     <td>
-                        <& /comp/dateinput, name_prefix => 'begindate', value => $begindate &>
+                        <& /comp/dateinput, name_prefix => 'begindate', value => $begindate,
+			       id => "editartist_begindate" &>
                         Year-Month-Day</td>
                 </tr>
                 <tr>
                     <td nowrap>
-                        <label for="enddate"><span id="enddate_text"><% $enddate_str %></span>:</label></td>
+                        <label for="editartist_enddate"><span id="enddate_text"><% $enddate_str %></span>:</label></td>
                     <td>
-                        <& /comp/dateinput, name_prefix => 'enddate', value => $enddate &>
+                        <& /comp/dateinput, name_prefix => 'enddate', value => $enddate,
+			       id => "editartist_enddate" &>
                         Year-Month-Day</td>
                 </tr>
 
