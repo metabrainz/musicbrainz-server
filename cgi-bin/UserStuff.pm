@@ -181,8 +181,8 @@ sub newFromName
 
 	$obj = $this->_new_from_row(
 		$sql->SelectSingleRowHash(
-			"SELECT * FROM moderator WHERE name = ? LIMIT 1",
-			$name,
+			"SELECT * FROM moderator WHERE lower(name) = ? LIMIT 1",
+			lc($name),
 		),
 	);
 
