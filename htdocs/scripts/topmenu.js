@@ -107,10 +107,10 @@ function mm_toggleSideBar(show) {
 		elem.style.width = "100%";
 	}
 	if ((elem = document.getElementById("sidebar-toggle-show")) != null) {
-		elem.style.display = (show ? "inline" : "none");
+		elem.style.display = (show ? "none" : "inline");
 	}
 	if ((elem = document.getElementById("sidebar-toggle-hide")) != null) {
-		elem.style.display = (show ? "none" : "inline");
+		elem.style.display = (show ? "inline": "none");
 	}
 	// set a persistent cookie for the next 365 days.
 	setCookie(MM_COOKIE_SIDEBAR, (show ? "1" : "0"), 365);
