@@ -30,10 +30,10 @@ $rep->Seek($offset);
 
 </%perl>
 
-<& /comp/sidebar, title => "TRMs with at least 5 tracks" &>
+<& /comp/sidebar, title => "TRMs with at least 10 tracks" &>
 
 <p>
-    This report lists TRMs which resolve to at least 5 tracks.
+    This report lists TRMs which resolve to at least 10 tracks.
 </p>
 
 <p>Total TRMs found: <% $rep->Records %></p>
