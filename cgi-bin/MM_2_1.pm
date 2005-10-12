@@ -727,6 +727,8 @@ sub CreateRelationshipList
 {
     my ($this, $parser, $obj, $type, $links) = @_;
 
+    $this->{status} = "OK";
+
     my $out;
     $out  = $this->BeginRDFObject();
     $out .= $this->BeginDesc("mq:Result");
