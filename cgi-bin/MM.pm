@@ -190,8 +190,6 @@ sub CreateDenseAlbum
     $out .= $this->OutputList('album', $gids);
     $out .= $this->EndDesc("mq:Result");
 
-    my @ids;
-    my %artists;
     $this->{cache} = [];
 
     for my $id (@$gids)
@@ -209,6 +207,9 @@ sub CreateDenseAlbum
 
 	require Track;
 	my @tracks = $al->LoadTracks;
+
+	my @ids;
+	my %artists;
 
 	for my $tr (@tracks)
 	{
