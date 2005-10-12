@@ -236,7 +236,7 @@ sub FindLinkedEntities
             $rows = $sql->SelectListOfHashes(
 		        "SELECT ".$entities[0]->{type} .".id AS link0_id, '".$entities[0]->{type} ."' AS link0_type, ".$entities[0]->{type} .".gid AS link0_mbid, ". 
 				          $entities[0]->{type} .".name AS link0_name, $link_table.name AS link_name, $link_table.linkphrase AS link_phrase, $link_table.rlinkphrase AS rlink_phrase, ". 
-				          $entities[1]->{type} .".id AS link1_id, '".$entities[1]->{type} ."' AS link1_type, ".
+				          $entities[1]->{type} .".id AS link1_id, '".$entities[1]->{type} ."' AS link1_type, ".$entities[1]->{type} .".gid AS link1_mbid,  ".
 				          $entities[1]->{type} .".". $url_name . " AS link1_name, $table.begindate AS begindate, $table.enddate AS enddate, ".$table.".id AS link_id, ".$table.".modpending
 					 FROM $table, $link_table, ".  $entities[0]->{type} .", ". $entities[1]->{type} ." 
 				    WHERE $link = ? AND link0 = ". $entities[0]->{type} .".id AND link1 = ". $entities[1]->{type}.".id AND $link_table.id = $table.link_type",
