@@ -127,12 +127,11 @@ sub CreateDenseTrackList
 {
     my ($this, $fuzzy, $gids) = @_;
 
-    $this->{status} = "OK";
+    $this->{status} = $fuzzy ? "Fuzzy" : "OK";
 
     my $out;
     $out  = $this->BeginRDFObject();
     $out .= $this->BeginDesc("mq:Result");
-    $out .= $this->Element("mq:status", $fuzzy  ? "Fuzzy" : "OK");
     $out .= $this->OutputList('track', $gids);
     $out .= $this->EndDesc("mq:Result") . "\n";
 
@@ -181,12 +180,11 @@ sub CreateDenseAlbum
 {
     my ($this, $fuzzy, $gids) = @_;
 
-    $this->{status} = "OK";
+    $this->{status} = $fuzzy ? "Fuzzy" : "OK";
 
     my $out;
     $out  = $this->BeginRDFObject;
     $out .= $this->BeginDesc("mq:Result");
-    $out .= $this->Element("mq:status", $fuzzy ? "Fuzzy" : "OK");
     $out .= $this->OutputList('album', $gids);
     $out .= $this->EndDesc("mq:Result");
 
