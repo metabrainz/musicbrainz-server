@@ -272,17 +272,17 @@ sub OutputTrackRDF
     }
 
     $track = $ref->{obj};
-
     $artist = $this->GetFromCache('artist', $track->GetArtist()); 
-    return "" if (!defined $artist);
 
     $out  = $this->BeginDesc("mm:Track", $this->GetBaseURI() .
                             "/track/" . $track->GetMBId());
     $out .=   $this->Element("dc:title", $track->GetName());
 
-    $out .=   $this->Element("dc:creator", "", "rdf:resource",
-              $this->{baseuri}. "/artist/" . $artist->GetMBId());
-
+    if (defined $artist)
+    {
+    	$out .= $this->Element("dc:creator", "", "rdf:resource",
+		        $this->{baseuri}. "/artist/" . $artist->GetMBId())
+	}
     if ($track->GetLength() != 0) 
     {
         $out .=   $this->Element("mm:duration", $track->GetLength());
