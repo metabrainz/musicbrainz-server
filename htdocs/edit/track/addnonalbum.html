@@ -66,6 +66,21 @@ if (@names and $confirm)
 
       return;
   }
+  my $us = UserStuff->newFromId($mb->{DBH}, $session{uid});
+  if (($us && $us->IsNewbie()) || UserStuff->IsUntrusted($session{privs}))
+  {
+      </%perl>
+      <& /comp/sidebar, title => "Add Non-Album Tracks - Error" &>
+
+      <p class="error">
+      You are not allowed to enter non-album tracks. 
+      </p>
+
+      <& /comp/footer &>
+      <%perl>
+
+      return;
+  }
 
 	$m->comp(
 		"/comp/entermods",
