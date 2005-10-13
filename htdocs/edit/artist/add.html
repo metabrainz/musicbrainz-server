@@ -140,7 +140,7 @@ unless (
 		<%perl>
 			for my $i (0..$#dupes) {
 				$m->out(", ") if ($i != 0 && $i < $#dupes);
-				$m->out("and ") if ($i == $#dupes);
+				$m->out(" and ") if ($i == $#dupes);
 				$m->comp(".ShowArtistLink", $dupes[$i]);
 			}
 		</%perl>.
