@@ -155,8 +155,12 @@ sub DeniedAction
 			return;
 		};
 
-	# Check that the album_cdtoc row still points to the old album
-	unless ($album_cdtoc->GetAlbumId == $self->GetPrev)
+	# Check that the old album still exists
+	# (the mod is applied, we need to revert it when it is voted down)
+	require Album;
+	my $oldal = Album->new($self->{DBH});
+	$oldal->SetId($self->GetPrev);
+	unless ($oldal->LoadFromId)
 	{
 		$self->InsertNote(MODBOT_MODERATOR, "The source album has been deleted");
 		$self->SetStatus(STATUS_FAILEDDEP);
