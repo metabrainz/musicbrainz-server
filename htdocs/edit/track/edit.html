@@ -4,9 +4,11 @@ $album => undef
 $track => undef
 $newname => ""
 $newseq => ""
+$newlength => ""
 $notetext => ""
 $defaultname => undef
 $defaultseq => undef
+$defaultlength => undef
 </%args>
 <%perl>
 
@@ -73,9 +75,12 @@ $ar->LoadFromId
 
 my $url = "/showalbum.html?albumid=$album";
 
+$newlength = Track::UnformatTrackLength($newlength);
+
 if (MusicBrainz::IsSingleLineString($newname)
 	and $newname =~ /\S/
-	and (MusicBrainz::IsNonNegInteger($newseq) or $al->IsNonAlbumTracks))
+	and (MusicBrainz::IsNonNegInteger($newseq) or $al->IsNonAlbumTracks)
+	and (MusicBrainz::IsNonNegInteger($newlength)))
 {
 	# Don't redirect if we're in a popup window.
 	#
@@ -114,6 +119,21 @@ if (MusicBrainz::IsSingleLineString($newname)
 			$mods2[0]->InsertNote($session{'uid'}, $notetext)
 				if $mods2[0]
 				and $notetext =~ /\S/;
+
+			my @mods3 = Moderation->InsertModeration(
+				DBH	=> $mb->{DBH},
+				uid	=> $session{uid},
+				privs => $session{privs},
+				type => &ModDefs::MOD_EDIT_TRACKTIME,
+				# --
+				track => $tr,
+				newlength => $newlength,
+			) if Track::FormatTrackLength($newlength)
+				ne Track::FormatTrackLength($tr->GetLength);
+
+			$mods3[0]->InsertNote($session{'uid'}, $notetext)
+				if $mods3[0]
+				and $notetext =~ /\S/;
 		},
 		%redirect,
 	) or return;
@@ -131,9 +151,11 @@ if (MusicBrainz::IsSingleLineString($newname)
 	return;
 }
 
+my $can_add_remove = ($al->CanAddTrack or $al->CanRemoveTrack);
+
 </%perl>
 
-<& /comp/sidebar, title => 'Edit Track Number and Name' &>
+<& /comp/sidebar, title => 'Edit Track Number, Name and Time' &>
 
 <& /comp/stylemenu &>
 
@@ -149,13 +171,14 @@ if (MusicBrainz::IsSingleLineString($newname)
 	<& /comp/autofixmenu &>
 
 	<fieldset>
-		<legend>Edit Track Number and Name</legend>
+		<legend>Edit Track Number, Name and Time</legend>
 
 		<table>
 			<tr>
 				<td>&nbsp;</td>
 				<td><b>#:</b></td>
 				<td colspan="2"><b>Track Name:</b></td>
+				<td><b>Track Time:</b></td>
 			</tr>
 			<tr>
 				<td nowrap>
@@ -168,6 +191,8 @@ if (MusicBrainz::IsSingleLineString($newname)
 % }
 				<td colspan="2">
 					<div class="oldtextfield"><% $tr->GetName  %></div></td>
+				<td>
+					<div class="oldlength"><% Track::FormatTrackLength($tr->GetLength) %></div></td>
 			</tr>
 			<tr>
 				<td nowrap>
@@ -175,6 +200,7 @@ if (MusicBrainz::IsSingleLineString($newname)
 % unless ($al->IsNonAlbumTracks) {
 				<td>
 					<input 	type="text" name="newseq" class="numberfield" 
+							<% $can_add_remove ? "" : "readonly" %>
 							onFocus="myOnFocus(this)" onBlur="myOnBlur(this)"
 							title="You can set a new track number here, possible values are: (1-<% $last_seq %>)"
 							size="2" value="<% $defaultseq || $tr->GetSequence %>"></td>
@@ -194,21 +220,28 @@ if (MusicBrainz::IsSingleLineString($newname)
 						af_writeButton(AF_BTN_TRACK, 'newname');
 					-->
 					</script></td>
+				<td>
+				        <input type="text" size="4" class="numberfield"
+						<% $can_add_remove ? "" : "readonly" %>
+					        name="newlength"
+					        onFocus="myOnFocus(this)" onBlur="myOnBlur(this)"
+						value="<% $defaultlength || Track::FormatTrackLength($tr->GetLength) %>" />
+				</td>
 			</tr>
 % unless ($al->IsNonAlbumTracks) {
 			<tr>
 				<td>&nbsp;</td>
-				<td colspan="3"><small>Valid Track Numbers: 1-<% $last_seq %></small></td>
+				<td colspan="4"><small>Valid Track Numbers: 1-<% $last_seq %></small></td>
 			</tr>
 % }	
 			<tr>
 				<td>&nbsp;</td>
-				<td class="padtop" colspan="3">
+				<td class="padtop" colspan="4">
 					<& /comp/notetext, text => $notetext &></td>
 			</tr>
 			<tr>
 				<td>&nbsp;</td>
-				<td class="padtop" colspan="3">
+				<td class="padtop" colspan="4">
 					<input type="submit" class="button" value="Submit"></td>
 			</tr>
 		</table>

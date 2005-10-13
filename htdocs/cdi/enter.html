@@ -159,7 +159,9 @@ if ($freedb)
 						size="50" maxlength="255"
 						value="<% $lookup->{album} %>"></td>
 % }
-				
+% if (!$toc) {
+				<td>&nbsp;</td>
+% }
 				<td>
 					<script type="text/javascript">
 					<!--
@@ -185,6 +187,13 @@ if ($freedb)
 							size="50" maxlength="255"
 							value="<% $$ar[$i]->{track} %>"></td>
 %     }
+%     if (!$toc) {
+				<td>
+  				<input type="text" name="tracklength<% $i %>" class="textfield"
+							onFocus="myOnFocus(this)" onBlur="myOnBlur(this)"
+							style="text-align: center;"
+							size="4" value="?:??"></td>
+%     }
 				<td>
 					<script type="text/javascript">
 					<!--
@@ -194,8 +203,11 @@ if ($freedb)
 			</tr>
 % }
 			<tr>
-				<td>&nbsp;</td>
-				<td>&nbsp;</td>
+% if (!$toc) {
+				<td colspan="3">&nbsp;</td>
+% } else {
+				<td colspan="2">&nbsp;</td>
+% }
 				<td>
 					<script type="text/javascript">
 					<!--
@@ -211,7 +223,11 @@ if ($freedb)
 			</tr>
 			<tr>
 				<td>&nbsp;</td>
+% if (!$toc) {
+				<td colspan="3"><input type="submit" class="button" value="Next &raquo;"></td>
+% } else {
 				<td colspan="2"><input type="submit" class="button" value="Next &raquo;"></td>
+% }
 			</tr>
 		</table>
 		<input type="hidden" name="id" value="<% $id %>">

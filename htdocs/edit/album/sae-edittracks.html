@@ -56,6 +56,10 @@ for my $t (@$tracks)
 			if $edit->{"can_add_remove"};
 	}
 
+	my $length = Track::UnformatTrackLength($ARGS{"tracklength".$t->{id}});
+  $t->{"length"} = $length
+    if $length >= 0;
+	
 	if (%ARGS and $edit->{"can_add_remove"})
 	{
 		$ARGS{"trackdel".$t->{id}}
@@ -106,6 +110,7 @@ return $m->comp(
 	"/edit/album/sae-review.html?albumid=" . $edit->{"id"}
 ) if $ARGS{"continue"};
 
+
 # prepare artist object
 my $ar = Artist->new(undef);
 
@@ -152,13 +157,14 @@ $ar->SetSortName($edit->{"artist"}{"sortname"});
 		<table class="SpacedColumns TopAlignCells">
 			<col style="width: 4em">
 			<col style="width: 20em">
+			<col style="width: 4em">
 			<col style="width: 1em">
 			<col style="width: 6em">
 % if (!$edit->{"is_various"}) {
 			<tr>
 				<td><a href="/showartist.html?artistid=<% $ar->GetId %>">Artist</a>:</td>
 				<td><% $ar->GetName %></td>
-				<td></td>
+				<td colspan="2"></td>
 				<td>
 					<script type="text/javascript">
 					<!--
@@ -173,7 +179,7 @@ $ar->SetSortName($edit->{"artist"}{"sortname"});
 					size="50"
 					onFocus="myOnFocus(this)" onBlur="myOnBlur(this)"
 					value="<% $edit->{'name'} %>"></td>
-				<td></td>
+				<td colspan="2"></td>
 				<td>
 					<script type="text/javascript">
 					<!--
@@ -204,6 +210,11 @@ $ar->SetSortName($edit->{"artist"}{"sortname"});
 						onFocus="myOnFocus(this)" onBlur="myOnBlur(this)"
 						size="50" maxlength="255"
 						value="<% $t->{"name"} %>"></td>
+				<td><input type="text" name="tracklength<% $t->{"id"} %>" class="numberfield"
+						<% $edit->{can_add_remove} ? "" : "readonly" %>
+						onFocus="myOnFocus(this)" onBlur="myOnBlur(this)"
+						value="<% Track::FormatTrackLength($t->{length}) %>" size="4"
+						style="text-align: center"></td>
 				<td align="center">
 					<input type="checkbox" name="trackdel<% $t->{"id"} %>"
 						value="1" <% $t->{'delete'} ? "checked" : "" %>
@@ -219,7 +230,7 @@ $ar->SetSortName($edit->{"artist"}{"sortname"});
 % }
 			<tr>
 				<td></td>
-				<td>
+				<td colspan="2">
 % if (!$edit->{is_various}) { # can't add track for VA album
 					<input type="checkbox" name="AddATrack" value="1"
 						<% $edit->{can_add_remove} ? "" : "disabled" %>>

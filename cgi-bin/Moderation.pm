@@ -61,6 +61,7 @@ require MusicBrainz::Server::Moderation::MOD_EDIT_LINK_TYPE;
 require MusicBrainz::Server::Moderation::MOD_EDIT_RELEASES;
 require MusicBrainz::Server::Moderation::MOD_EDIT_TRACKNAME;
 require MusicBrainz::Server::Moderation::MOD_EDIT_TRACKNUM;
+require MusicBrainz::Server::Moderation::MOD_EDIT_TRACKTIME;
 require MusicBrainz::Server::Moderation::MOD_MAC_TO_SAC;
 require MusicBrainz::Server::Moderation::MOD_MERGE_ALBUM;
 require MusicBrainz::Server::Moderation::MOD_MERGE_ALBUM_MAC;
@@ -357,6 +358,7 @@ sub IsAutoModType
         $type == &ModDefs::MOD_EDIT_ALBUM_LANGUAGE ||
         $type == &ModDefs::MOD_EDIT_TRACKNAME ||
         $type == &ModDefs::MOD_EDIT_TRACKNUM ||
+        $type == &ModDefs::MOD_EDIT_TRACKTIME ||
         $type == &ModDefs::MOD_ADD_TRACK ||
         $type == &ModDefs::MOD_MOVE_ALBUM ||
         $type == &ModDefs::MOD_SAC_TO_MAC ||

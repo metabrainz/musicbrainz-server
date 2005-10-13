@@ -115,6 +115,21 @@ $m->comp(
 					newseq => $t->{"seq"},
 				);
 			}
+			
+			my $length = Track::FormatTrackLength($t->{"length"});
+			my $orig_length = Track::FormatTrackLength($t->{"orig_length"});
+			if ($length ne $orig_length)
+			{
+				push @mods, Moderation->InsertModeration(
+					DBH	=> $mb->{DBH},
+					uid	=> $session{uid},
+					privs => $session{privs},
+					type => &ModDefs::MOD_EDIT_TRACKTIME,
+					# --
+					track => $tr,
+					newlength => $t->{"length"},
+				);
+	    }
 		}
 
 		if (@mods > 1)

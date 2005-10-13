@@ -427,6 +427,18 @@ sub UpdateArtist
 	);
 }
 
+sub UpdateLength
+{
+        my $self = shift;
+	my $sql = Sql->new($self->{DBH});
+
+	$sql->Do(
+		"UPDATE track SET length = ? WHERE id = ?",
+		$self->GetLength,
+		$self->GetId,
+	);
+} 
+
 sub UpdateSequence
 {
 	my $self = shift;
@@ -538,6 +550,32 @@ sub FormatTrackLength
 		int($length_in_secs / 60),
 		($length_in_secs % 60),
 		;
+}
+
+sub UnformatTrackLength
+{
+	my $length = shift;
+	my $ms = -1;
+	
+	if ($length =~ /^\?:\?\?$/)
+	{
+		$ms = 0;
+	}
+	elsif ($length =~ /^(\d{1,3}):(\d{1,2})$/ && $2 < 60)
+	{
+		$ms = ($1 * 60 + $2) * 1000;
+	}
+	elsif ($length =~ /^(\d+) ms$/)
+	{
+		$ms = $1;
+	}
+	else
+	{
+		$ms = -1;
+	}
+	
+	return $ms;
+
 }
 
 1;

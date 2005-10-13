@@ -463,7 +463,7 @@ TRACK:
         {
             $tr->SetYear($track->{year});
         }
-        if (exists $track->{duration} && $track->{duration} != 0)
+        if (exists $track->{duration})
         {
             $tr->SetLength($track->{duration});
         }

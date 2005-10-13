@@ -166,6 +166,21 @@ for my $t (@{ $edit->{tracks} })
 		$tr->SetSequence($t->{seq});
 		++$changes;
 	}
+	
+	my $length = Track::FormatTrackLength($t->{length});
+	my $orig_length = Track::FormatTrackLength($t->{orig_length});
+	if ($length ne $orig_length)
+	{
+		</%perl>
+			<tr>
+				<td>Edit Track Time</td>
+				<td><a href="/showtrack.html?trackid=<% $t->{'id'} %>"><% $t->{name} %></a> (<b><% $orig_length %></b>)</td>
+				<td><b><% $length %></b></td>
+			</tr>
+		<%perl>
+		$tr->SetLength($t->{length});
+		++$changes;
+	}
 }
 
 </%perl>

@@ -151,6 +151,9 @@ if ($freedb)
 						size="50" maxlength="255"
 						value="<% $lookup->{album} %>"></td>
 %    }
+%    if (!$toc) {
+				<td>&nbsp;</td>
+%    }
 				<td>
 					<script type="text/javascript">
 					<!--
@@ -194,6 +197,14 @@ for my $i ( 0 .. $tracks-1 )
 							size="50" maxlength="255"
 							value="<% $trackname %>">
 				</td>
+% if (!$toc) {
+				<td>
+					<input	type="text" name="tracklength<% $i %>" class="textfield"
+							onFocus="myOnFocus(this)" onBlur="myOnBlur(this)"
+							size="4"
+							value="?:??">
+% }
+				</td>
 				<td>
 					<script type="text/javascript">
 					<!--
@@ -207,6 +218,9 @@ for my $i ( 0 .. $tracks-1 )
 							onFocus="myOnFocus(this)" onBlur="myOnBlur(this)"
 							size="50" maxlength="255"
 							value="<% $artistname %>"></td>
+% if (!$toc) {
+				<td>&nbsp;</td>
+% }
 				<td>
 					<script type="text/javascript">
 					<!--
@@ -220,6 +234,9 @@ for my $i ( 0 .. $tracks-1 )
 							onFocus="myOnFocus(this)" onBlur="myOnBlur(this)"
 							size="50" maxlength="255"
 							value="<% $sortname %>"></td>
+% if (!$toc) {
+				<td>&nbsp;</td>
+% }
 				<td>
 					<script type="text/javascript">
 					<!--
@@ -230,7 +247,11 @@ for my $i ( 0 .. $tracks-1 )
 			</tr>
 % }
 			<tr>
+% if (!$toc) {
+				<td colspan="4"></td>
+% } else {
 				<td colspan="3"></td>
+% }
 				<td>
 					<script type="text/javascript">
 					<!--

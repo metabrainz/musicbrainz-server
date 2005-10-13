@@ -27,6 +27,15 @@ elsif (my $toc = $ARGS{toc})
 	my %p = MusicBrainz::Server::CDTOC->ParseTOC($toc);
 	$disclength = $p{leadoutoffset} / 75 * 1000 if %p;
 }
+else
+{
+	$disclength = 0;
+	for(my $i = 0; $i < $ARGS{"tracks"}; $i++)
+	{
+		my $length = Track::UnformatTrackLength($ARGS{"tracklength$i"});
+		$disclength += $length if $length > 0;
+	}
+}
 
 # Always default to not selecting any attributes
 my @attr = (0,0);

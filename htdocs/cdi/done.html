@@ -115,9 +115,15 @@ else
            my $dur = int((($offsets[$i+1] - $offsets[$i])*1000)/75);
            $new .= "TrackDur" . ($i + 1) . "=" . $dur . "\n";
         }
-        if ($durations ne '')
+        elsif ($durations ne '')
         {
            $new .= "TrackDur" . ($i + 1) . "=" . $durations[$i] . "\n";
+        }
+        else
+        {
+  	   my $length = Track::UnformatTrackLength($ARGS{"tracklength$i"});
+  	   $length = 0 if $length < 0;
+           $new .= "TrackDur" . ($i + 1) . "=" . $length . "\n";
         }
         if ($artist == &ModDefs::VARTIST_ID)
         {
