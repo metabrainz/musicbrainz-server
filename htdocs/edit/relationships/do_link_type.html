@@ -15,7 +15,6 @@ my $page;
 
 $page = "/edit/relationships/add_link_type.html$args" if $ARGS{'AddChild'};
 $page = "/edit/relationships/edit_link_type.html$args" if $ARGS{'EditLink'};
-$page = "/edit/relationships/reorder_link_type.html$args" if $ARGS{'Reorder'};
 $page = "/edit/relationships/delete_link_type.html$args" if $ARGS{'DeleteLink'};
 $page ||= "/edit/relationships/link_types.html?type=$type";
 

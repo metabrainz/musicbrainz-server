@@ -6,6 +6,8 @@ $id
 
 $m->comp("/comp/checkloggedin", 1, 1)
 	or return;
+$m->comp("/comp/ar/CheckLinkModerator", 1, 1)
+	or return;
 
 my $mb = $m->comp("/comp/dblogin");
 
