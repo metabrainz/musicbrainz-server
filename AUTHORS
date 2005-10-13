@@ -86,4 +86,7 @@ The following people have contributed to the MusicBrainz server:
   - completely redeveloped the artist pages, both in appearance and
     implementation.  Also redeveloped the site navigation menus and much more.
 
+  Björn Krombhol (moderator fuchs)
+  - Fixed bug [ 1239431 ] Move Disc ID: Failed dependency
+
 (please send change requests to rob@musicbrainz.org or maintainer)
