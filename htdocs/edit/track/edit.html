@@ -49,7 +49,7 @@ if (my $tracks = $al->GetTracks)
 {
 	my $track_cnt = $al->GetTrackCount;
 	$last_seq = (@$tracks ? $tracks->[-1]->GetSequence : 1);
-	if ($track_cnt > $last_seq) 
+	if ($track_cnt > $last_seq)
 	{
 		$last_seq = $track_cnt;
 	}
@@ -163,7 +163,7 @@ my $can_add_remove = ($al->CanAddTrack or $al->CanRemoveTrack);
 	<& /comp/modpending &>
 % }
 
-<form 	method="post" 
+<form 	method="post"
 		action="/edit/track/edit.html"
 		name="EditTrackForm"
 		enctype="application/x-www-form-urlencoded">
@@ -177,8 +177,9 @@ my $can_add_remove = ($al->CanAddTrack or $al->CanRemoveTrack);
 			<tr>
 				<td>&nbsp;</td>
 				<td><b>#:</b></td>
-				<td colspan="2"><b>Track Name:</b></td>
-				<td><b>Track Time:</b></td>
+				<td><b>Name:</b></td>
+				<td><b>Time:</b></td>
+				<td>&nbsp;</td>
 			</tr>
 			<tr>
 				<td nowrap>
@@ -189,17 +190,19 @@ my $can_add_remove = ($al->CanAddTrack or $al->CanRemoveTrack);
 % }	else {
 				<td>&nbsp;</td>
 % }
-				<td colspan="2">
+				<td>
 					<div class="oldtextfield"><% $tr->GetName  %></div></td>
 				<td>
 					<div class="oldlength"><% Track::FormatTrackLength($tr->GetLength) %></div></td>
+
+				<td>&nbsp;</td>
 			</tr>
 			<tr>
 				<td nowrap>
-					<label for="edittrack_newname">New:</label></td>	
+					<label for="edittrack_newname">New:</label></td>
 % unless ($al->IsNonAlbumTracks) {
 				<td>
-					<input 	type="text" name="newseq" class="numberfield" 
+					<input 	type="text" name="newseq" class="numberfield"
 							<% $can_add_remove ? "" : "readonly" %>
 							onFocus="myOnFocus(this)" onBlur="myOnBlur(this)"
 							title="You can set a new track number here, possible values are: (1-<% $last_seq %>)"
@@ -215,25 +218,25 @@ my $can_add_remove = ($al->CanAddTrack or $al->CanRemoveTrack);
 						 	value="<% $defaultname || $tr->GetName %>">
 				</td>
 				<td>
-					<script type="text/javascript">
-					<!--
-						af_writeButton(AF_BTN_TRACK, 'newname');
-					-->
-					</script></td>
-				<td>
 				        <input type="text" size="4" class="numberfield"
 						<% $can_add_remove ? "" : "readonly" %>
 					        name="newlength"
 					        onFocus="myOnFocus(this)" onBlur="myOnBlur(this)"
 						value="<% $defaultlength || Track::FormatTrackLength($tr->GetLength) %>" />
 				</td>
+				<td>
+					<script type="text/javascript">
+					<!--
+						af_writeButton(AF_BTN_TRACK, 'newname');
+					-->
+					</script></td>
 			</tr>
 % unless ($al->IsNonAlbumTracks) {
 			<tr>
 				<td>&nbsp;</td>
 				<td colspan="4"><small>Valid Track Numbers: 1-<% $last_seq %></small></td>
 			</tr>
-% }	
+% }
 			<tr>
 				<td>&nbsp;</td>
 				<td class="padtop" colspan="4">

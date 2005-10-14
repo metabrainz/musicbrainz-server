@@ -59,7 +59,7 @@ for my $t (@$tracks)
 	my $length = Track::UnformatTrackLength($ARGS{"tracklength".$t->{id}});
   $t->{"length"} = $length
     if $length >= 0;
-	
+
 	if (%ARGS and $edit->{"can_add_remove"})
 	{
 		$ARGS{"trackdel".$t->{id}}
@@ -102,11 +102,11 @@ if ($ARGS{"AddATrack"} and $edit->{"can_add_remove"})
 } @$tracks;
 
 # update session variable
-$session{"editalbum"} = $edit; 
+$session{"editalbum"} = $edit;
 
 # forward to review page if form was submitted
 return $m->comp(
-	"/comp/redirect", 
+	"/comp/redirect",
 	"/edit/album/sae-review.html?albumid=" . $edit->{"id"}
 ) if $ARGS{"continue"};
 
@@ -155,14 +155,16 @@ $ar->SetSortName($edit->{"artist"}{"sortname"});
 % }
 
 		<table class="SpacedColumns TopAlignCells">
+			<col style="width: 2em">
 			<col style="width: 4em">
 			<col style="width: 20em">
 			<col style="width: 4em">
 			<col style="width: 1em">
 			<col style="width: 6em">
+
 % if (!$edit->{"is_various"}) {
 			<tr>
-				<td><a href="/showartist.html?artistid=<% $ar->GetId %>">Artist</a>:</td>
+				<td colspan="2" align="right"><a href="/showartist.html?artistid=<% $ar->GetId %>">Artist</a>:</td>
 				<td><% $ar->GetName %></td>
 				<td colspan="2"></td>
 				<td>
@@ -174,7 +176,7 @@ $ar->SetSortName($edit->{"artist"}{"sortname"});
 			</tr>
 % }
 			<tr>
-				<td><a href="/showalbum.html?albumid=<% $edit->{'id'} %>">Album</a>:</td>
+				<td colspan="2" align="right"><a href="/showalbum.html?albumid=<% $edit->{'id'} %>">Album</a>:</td>
 				<td><input type="text" name="albumname" class="textfield"
 					size="50"
 					onFocus="myOnFocus(this)" onBlur="myOnBlur(this)"
@@ -187,10 +189,21 @@ $ar->SetSortName($edit->{"artist"}{"sortname"});
 					-->
 					</script></td>
 			</tr>
+
+			<tr><td colspan="6">&nbsp;</td></tr>
+			<tr>
+				<td>&nbsp;</td>
+				<td><b>#:</b></td>
+				<td><b>Name:</b></td>
+				<td><b>Time:</b></td>
+				<td colspan="2"></td>
+			</tr>
+
+
 % for my $t (@$tracks) {
 %	if ($edit->{is_various}) {
 			<tr>
-				<td>&nbsp;</td>
+				<td colspan="2">&nbsp;</td>
 				<td colspan="3">Artist: <a href="/showartist.html?artistid=<% $t->{artist} %>"><% $t->{artist_name} %></a></td>
 			</tr>
 %	}
@@ -201,8 +214,9 @@ $ar->SetSortName($edit->{"artist"}{"sortname"});
 % } else {
 				Track
 % }
-				<input type="text" name="trackseq<% $t->{"id"} %>" class="numberfield"
-						<% $edit->{can_add_remove} ? "" : "readonly" %>
+				</td>
+				<td><input type="text" name="trackseq<% $t->{"id"} %>" class="numberfield"
+						<% $edit->{can_add_remove} ? '' : 'readonly="readonly" disabled' %>
 						onFocus="myOnFocus(this)" onBlur="myOnBlur(this)"
 						value="<% $t->{seq} %>" size="2" maxlength="2"
 						style="text-align: center"></td>
@@ -211,14 +225,14 @@ $ar->SetSortName($edit->{"artist"}{"sortname"});
 						size="50" maxlength="255"
 						value="<% $t->{"name"} %>"></td>
 				<td><input type="text" name="tracklength<% $t->{"id"} %>" class="numberfield"
-						<% $edit->{can_add_remove} ? "" : "readonly" %>
+						<% $edit->{can_add_remove} ? '' : 'readonly="readonly" disabled' %>
 						onFocus="myOnFocus(this)" onBlur="myOnBlur(this)"
 						value="<% Track::FormatTrackLength($t->{length}) %>" size="4"
 						style="text-align: center"></td>
 				<td align="center">
 					<input type="checkbox" name="trackdel<% $t->{"id"} %>"
 						value="1" <% $t->{'delete'} ? "checked" : "" %>
-						<% $edit->{can_add_remove} ? "" : "disabled" %>
+						<% $edit->{can_add_remove} ? '' : 'readonly="readonly" disabled' %>
 						title="Remove this track?"></td>
 				<td>
 					<script type="text/javascript">
@@ -229,13 +243,13 @@ $ar->SetSortName($edit->{"artist"}{"sortname"});
 			</tr>
 % }
 			<tr>
-				<td></td>
+				<td colspan="2"></td>
 				<td colspan="2">
 % if (!$edit->{is_various}) { # can't add track for VA album
 					<input type="checkbox" name="AddATrack" value="1"
 						<% $edit->{can_add_remove} ? "" : "disabled" %>>
 					Add a track ...
-% }					
+% }
 				</td>
 				<td align="center"><img src="/images/remove.gif" alt="X"
 					title="Tick the boxes above to remove tracks"></td>
@@ -252,9 +266,9 @@ $ar->SetSortName($edit->{"artist"}{"sortname"});
 				-->
 				</script></td>
 			</tr>
-			<tr><td>&nbsp;</td></tr>
+			<tr><td colspan="6">&nbsp;</td></tr>
 			<tr>
-				<td>Type/Status:</td>
+				<td colspan="2">Type/Status:</td>
 				<td>
 					<select name="release_type">
 					<& /comp/options,
@@ -291,10 +305,10 @@ $ar->SetSortName($edit->{"artist"}{"sortname"});
 						>help</a> ]
 				</td>
 			</tr>
-			<tr><td>&nbsp;</td></tr>
+			<tr><td colspan="6">&nbsp;</td></tr>
 			<tr>
-				<td>&nbsp;</td>
-				<td colspan="8">
+				<td colspan="2">&nbsp;</td>
+				<td colspan="4">
 					<input type="submit" value="Continue" class="button">
 					<input type="hidden" name="continue" value="1">
 				</td>

@@ -380,6 +380,13 @@ function myOnFocus(theField) {
 		}
 		af_onFocusField = theField;
 		af_onFocusFieldState = new Array(theField, theField.value);
+		
+		// if we are editing a tracktime field, and the value is the
+		// default NULL value, clear the field for editing.
+		if (theField.value == "?:??") {
+			theField.value = "";
+			
+		}
 	}
 }
 
@@ -391,6 +398,12 @@ function myOnFocus(theField) {
 function myOnBlur(theField) {
 	var newvalue = theField.value;
 	var oldvalue = af_onFocusFieldState[1];
+	
+	// check if we are editing a tracktime field. if no changes were made,
+	// reset to "?:??"
+	if (oldvalue == "?:??" && newvalue == "") theField.value = oldvalue;
+	
+	// handle normal blur event (if value changed, add to undo stack)
 	if (af_onFocusFieldState[0] == theField && oldvalue != theField.value) {
 		af_addUndo(theField.form, 
 			new Array(theField, 'manual', oldvalue, newvalue)
