@@ -1,0 +1,34 @@
+%# vi: set ts=4 sw=4 ft=mason :
+
+<%method ShowPreviousValue>
+<%perl>
+my $this = shift;
+
+my $tr = Track->new($this->{DBH});
+$tr->SetId($this->GetRowId); 
+if ($tr->LoadFromId)
+{
+	</%perl>
+	Track:
+	<a href="/showtrack.html?trackid=<% $tr->GetId %>"
+		><% $tr->GetName %></a>
+	<br />
+	Old track time: <b><% Track::FormatTrackLength($this->GetPrev) %></b>
+	<%perl>
+}
+else
+{
+	$m->out("This track has been deleted");
+}
+
+</%perl>
+</%method>
+
+<%method ShowNewValue>
+% my $this = shift;
+
+	New track time: <b><% Track::FormatTrackLength($this->GetNew) %></b>
+ 
+</%method>
+
+%# eof
