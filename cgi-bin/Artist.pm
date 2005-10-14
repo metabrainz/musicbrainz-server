@@ -593,7 +593,7 @@ sub GetArtistsFromName
 	# First, try exact match on name
 	$artists = $sql->SelectListOfHashes(
 	    "SELECT id, name, gid, modpending, sortname,
-			resolution, begindate, enddate
+			resolution, begindate, enddate, type
 	    FROM artist WHERE name = ?",
 	    $artistname,
 	);
@@ -611,7 +611,7 @@ sub GetArtistsFromName
 
 	$artists = $sql->SelectListOfHashes(
 	    "SELECT id, name, gid, modpending, sortname,
-			resolution, begindate, enddate
+			resolution, begindate, enddate, type
 	    FROM artist WHERE name IN (?, ?, ?, ?)",
 	    encode("utf-8", $uc),
 	    encode("utf-8", $lc),
@@ -623,7 +623,7 @@ sub GetArtistsFromName
 	# Next, try a full case-insensitive search
 	$artists = $sql->SelectListOfHashes(
 	    "SELECT id, name, gid, modpending, sortname,
-			resolution, begindate, enddate
+			resolution, begindate, enddate, type
 	    FROM artist WHERE LOWER(name) = LOWER(?)",
 	    $artistname,
 	);
@@ -641,7 +641,7 @@ sub GetArtistsFromName
 	{
 	    $artists = $sql->SelectListOfHashes(
 		"SELECT id, name, gid, modpending, sortname, 
-			resolution, begindate, enddate
+			resolution, begindate, enddate, type
 		FROM artist WHERE id = ?",
 		$artist,
 	    );
@@ -662,6 +662,7 @@ sub GetArtistsFromName
 	$ar->SetResolution($row->{resolution});
 	$ar->SetBeginDate($row->{begindate});
 	$ar->SetEndDate($row->{enddate});
+	$ar->SetType($row->{type});
 
         push @results, $ar;
     }
@@ -684,7 +685,7 @@ sub GetArtistsFromSortname
 
     my $artists = $sql->SelectListOfHashes(
 	"SELECT	id, name, gid, modpending, sortname,
-		resolution, begindate, enddate
+		resolution, begindate, enddate, type
 	FROM	artist
 	WHERE	LOWER(sortname) = LOWER(?)",
 	$sortname,
@@ -704,6 +705,7 @@ sub GetArtistsFromSortname
 	$ar->SetBeginDate($row->{begindate});
 	$ar->SetEndDate($row->{enddate});
 	$ar->SetModPending($row->{modpending});
+	$ar->SetType($row->{type});
 
         push @results, $ar;
     }
