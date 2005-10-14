@@ -11,6 +11,8 @@ var mm_ddLeaveTimeout = 500; // the time that elapses until the dropdown is
 							 // timeout gets reset when re-entering another
 							 // dropdown.
 var MM_COOKIE_SIDEBAR = "sidebar"; // side bar cookie name
+var mm_baseURL = "http://g0llum.dyndns.org:9999";
+
 
 // mm_activateDropdown()
 // ------------------------------------------------------------------
@@ -135,7 +137,7 @@ function mm_DrawToggle() {
 		document.write('    catch (e) { /* fail quietly */ }" ');
 		document.write('  title="'+_text+'">'+_text+'<\/a>');
 		document.write('<\/td><td>');
-		document.write('<img src="/images/icon/'+_icon+'" alt="">');
+		document.write('<img src="'+mm_baseURL+'/images/icon/'+_icon+'" alt="">');
 		document.write('<\/td><\/tr><\/table>');
 	}
 }

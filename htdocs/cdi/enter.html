@@ -171,28 +171,27 @@ if ($freedb)
 			</tr>
 
 % for($i = 0; $i < $tracks; $i++) {
-    		<tr>
+			<tr>
 				<td><label for="cdi_enter_track<% $i %>">Track <% $i + 1 %>:</label></td>
 				<td>
 %     if (!defined $lookup) {
-					 <input type="text" name="track<% $i %>" class="textfield"
-					 		id="cdi_enter_track<% $i %>"
+					<input type="text" name="track<% $i %>" class="textfield"
+							id="cdi_enter_track<% $i %>"
 							onFocus="myOnFocus(this)" onBlur="myOnBlur(this)"
 							size="50" maxlength="255"></td>
 %     } else {
 %        my $ar = $lookup->{tracks};
-					 <input type="text" name="track<% $i %>" class="textfield"
-					 		id="cdi_enter_track<% $i %>"
+					<input type="text" name="track<% $i %>" class="textfield"
+							id="cdi_enter_track<% $i %>"
 							onFocus="myOnFocus(this)" onBlur="myOnBlur(this)"
 							size="50" maxlength="255"
 							value="<% $$ar[$i]->{track} %>"></td>
 %     }
 %     if (!$toc) {
 				<td>
-  				<input type="text" name="tracklength<% $i %>" class="textfield"
-							onFocus="myOnFocus(this)" onBlur="myOnBlur(this)"
-							style="text-align: center;"
-							size="4" value="?:??"></td>
+					<input type="text" name="tracklength<% $i %>" class="numberfield"  
+								onFocus="myOnFocus(this)" onBlur="myOnBlur(this)"
+								size="4" value="?:??"></td>
 %     }
 				<td>
 					<script type="text/javascript">

@@ -40,6 +40,10 @@ fieldset .datefieldfocus {
 	background: #f0efff;
 	padding-left: 2px;
 }
+fieldset .numberfield,
+fieldset .numberfieldfocus {
+	text-align: center;
+}
 fieldset .textarea {
 	/* width: 100%; handled with js now */
 }

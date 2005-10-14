@@ -14,6 +14,7 @@ var AF_OP_SQUAREBRACKETS = 'squarebrackets';
 
 var AF_COOKIE_MODE = "afmode";
 var AF_COOKIE_TABLE = "aftable";
+var AF_COOKIE_FINDEXPANDED = "af_find_expanded";
 
 var af_undoStack = new Array();
 var af_undoIndex = 0;
@@ -546,14 +547,14 @@ function af_writeGUI(fOpen) {
 	if (cMode) af_mode = cMode;
 
 	document.writeln('      <div id="autofix-box-jsenabled">');
-	document.writeln('        <div id="autofix-table-collapsed" style="display: block">');
+	document.writeln('        <div id="autofix-table-collapsed">');
 	document.writeln('          <table width="600" border="0" cellspacing="0" cellpadding="0">');
 	document.writeln('            <tr valign="top">');
 	document.writeln('              <td width="120" nowrap><b>Guess Case:<br><img src="/images/spacer.gif" alt="" height="1" width="120"/></td>');
 	document.writeln('              <td width="100%">');
 	document.writeln('                <small><span id="autofix-mode-text-collapsed"></span></small></td>');
 	document.writeln('              <td>&nbsp;</td>');
-	document.writeln('              <td><a href="javascript: /* Expand table */ void(af_ShowTable(true))" title="Expand table"><img src="/images/plus.gif" width="13" height="13" alt="Expand Guess Case panel" border="0"></a></td>');
+	document.writeln('              <td><a href="javascript:; // expand table" onClick="af_ShowTable(true)" title="Expand table"><img src="/images/plus.gif" width="13" height="13" alt="Expand Guess Case panel" border="0"></a></td>');
 	document.writeln('            </tr>');
 	document.writeln('          </table>');
 	document.writeln('        </div>');
@@ -562,8 +563,6 @@ function af_writeGUI(fOpen) {
 	document.writeln('            <tr valign="top">');
 	document.writeln('              <td width="120" nowrap><b>Guess Case:<br><img src="/images/spacer.gif" alt="" height="1" width="120"/></td>');
 	document.writeln('              <td width="100%" id="autofix-mode-cell">');
-
-	// write out current state.
 	document.writeln('                <table cellspacing="0" cellpadding="0" border="0" width="100%">');
 	document.writeln('                  <tr valign="top">');
 	document.writeln('                    <td width="10">');
@@ -579,12 +578,12 @@ function af_writeGUI(fOpen) {
 	document.writeln('                </table>');
 	document.writeln('              </td>');
 	document.writeln('              <td>&nbsp;</td>');
-	document.writeln('              <td width="10"><a href="javascript: /* Collapse table */ void(af_ShowTable(false))" title="Collapse table"><img src="/images/minus.gif" width="13" height="13" alt="Collapse Guess Case panel" border="0"></a></td>');
+	document.writeln('              <td width="10"><a href="javascript:; // collapse table" onClick="af_ShowTable(false)" title="Collapse table"><img src="/images/minus.gif" width="13" height="13" alt="Collapse Guess Case panel" border="0"></a></td>');
 	document.writeln('            </tr>');
 	document.writeln('            <tr><td colspan="4"><img src="/images/spacer.gif" height="4" alt="" /></td></tr>');
 	document.writeln('            <tr valign="middle">');
 	document.writeln('              <td nowrap><b>Selected Text:</td>');
-	document.writeln('              <td>');
+	document.writeln('              <td colspan="3">');
 	document.writeln('                <table cellspacing="0" cellpadding="0" border="0">');
 	document.writeln('                <tr valign="top"><td nowrap>');
 	document.writeln('                <input type="button" class="button" value="Capital" title="Capitalize first character only" onClick="doApplyOperation(AF_OP_TITLED)">');
@@ -600,7 +599,7 @@ function af_writeGUI(fOpen) {
 	document.writeln('            <tr><td colspan="4"><img src="/images/spacer.gif" height="4" alt="" /></td></tr>');
 	document.writeln('            <tr valign="middle">');
 	document.writeln('              <td nowrap><b>Undo/Redo:</td>');
-	document.writeln('              <td>');
+	document.writeln('              <td colspan="3">');
 	document.writeln('                <input disabled type="button" class="buttondisabled" name="undoAllButton" onclick="af_undoAll(this.form)" value="Undo All">');
 	document.writeln('                <input disabled type="button" class="buttondisabled" name="undoButton" onclick="af_doUndo(this.form)" value="Undo">');
 	document.writeln('                <input disabled type="button" class="buttondisabled" name="redoButton" onclick="af_doRedo(this.form)" value="Redo">');
@@ -608,48 +607,27 @@ function af_writeGUI(fOpen) {
 	document.writeln('                <small>&nbsp;&nbsp;&nbsp;Steps:<span id="autofix-text">0/0</span><small>');
 	document.writeln('              </td>');
 	document.writeln('            </tr>');
-	document.writeln('            <tr><td colspan="4"><img src="/images/spacer.gif" height="4" alt="" /></td></tr>');
-	document.writeln('            <tr><td colspan="4" bgcolor="1"><img src="/images/spacer.gif" height="1" alt="" /></td></tr>');
-	document.writeln('            <tr><td colspan="4"><img src="/images/spacer.gif" height="4" alt="" /></td></tr>');
+
+	// write input fields resizer GUI
+	af_writeGUIRuler();
 	document.writeln('            <tr valign="middle">');
-	document.writeln('              <td nowrap><b>Textfields:</td>');
-	document.writeln('              <td>');
-	document.writeln(' 				  <input type="hidden" name="jsProxy" id="jsFormField" value="">');
-	document.writeln(' 				  <a href="javascript:;" onClick="af_resizeTextFields(-20)">Make smaller</a> | ');
-	document.writeln(' 				  <a href="javascript:;" onClick="af_resizeTextFields(20)">Make bigger</a> | ');
-	document.writeln(' 				  <a href="javascript:;" onClick="af_resizeTextFields()">Fit all text</a>');
+	document.writeln('              <td nowrap><b>Input fields:</td>');
+	document.writeln('              <td colspan="3">');
+	document.writeln('                <input type="hidden" name="jsProxy" id="jsFormField" value="">');
+	document.writeln('                <a href="javascript:; // make narrower" onClick="af_resizeTextFields(-20)">Make narrower</a> | ');
+	document.writeln('                <a href="javascript:; // make wider" onClick="af_resizeTextFields(20)">Make wider</a> | ');
+	document.writeln('                <a href="javascript:; // fit text" onClick="af_resizeTextFields()">Try to fit text</a>');
 	document.writeln('              </td>');
 	document.writeln('            </tr>');
-	document.writeln('            <tr><td colspan="4"><img src="/images/spacer.gif" height="4" alt="" /></td></tr>');
-	document.writeln('            <tr valign="top">');
-	document.writeln('            <td nowrap><b>Find/Replace:</td>');
-	document.writeln('            <td>');
-	document.writeln('              <table cellspacing="0" cellpadding="0" border="0">');
-	document.writeln('              <tr>');
-	document.writeln('                <td class="small">Find what? &nbsp;</td>');
-	document.writeln('                <td><input type="input" size="30" value="my" name="srSearch">');
-	af_writeButton(AF_BTN_SR_SWAP); 
-	document.writeln('                </td>');
-	document.writeln('              </tr>');
-	document.writeln('              <tr>');
-	document.writeln('                <td class="small">Replace with: &nbsp;</td>');
-	document.writeln('                <td><input type="input" size="30" value="your" name="srReplace"></td>');
-	document.writeln('              </tr>');
-	document.writeln('              <tr>');
-	document.writeln('                <td></td>');
-	document.writeln('                <td class="small">');
-	// af_writeButton(AF_BTN_SR_FIND);
-	af_writeButton(AF_BTN_SR_REPLACE);
-	af_writeButton(AF_BTN_SR_LOADPRESET);
-	document.writeln('                <br/>');
-	document.writeln('                <input type="checkbox" name="srRegex" value="true"><small>Regular expression</small>');
-	document.writeln('                <input type="checkbox" name="srCaseSensitive" value="true"><small>Case sensitive</small>');
-	document.writeln('                <input type="checkbox" name="srAllFields" value="true" checked><small>All textfields</small>');
-	document.writeln('              </tr>');
-	document.writeln('              </table>');
-	af_srWritePresets();
-	document.writeln('            </td>');
-	document.writeln('            </tr>');
+
+	// write search/replace GUI
+	af_writeGUIRuler();
+	af_srWriteGUI();
+
+	// write trackparser GUI
+	af_writeGUIRuler();
+	trackParser.writeGUI();
+
 	document.writeln('          </table>');
 	document.writeln('        </div>');
 
@@ -658,6 +636,34 @@ function af_writeGUI(fOpen) {
 	// Show the table or not?
 	if (fOpen == null) fOpen = getCookie(AF_COOKIE_TABLE);
 	af_ShowTable(fOpen == "1");
+}
+
+// af_writeGUIRuler()
+// -- write HTML for a horizontal black ruler
+function af_writeGUIRuler() {
+	document.writeln('            <tr><td colspan="4"><img src="/images/spacer.gif" height="2" alt="" /></td></tr>');
+	document.writeln('            <tr><td colspan="4" bgcolor="black"><img src="/images/spacer.gif" height="1" alt="" /></td></tr>');
+	document.writeln('            <tr><td colspan="4"><img src="/images/spacer.gif" height="2" alt="" /></td></tr>');
+}
+
+// ----------------------------------------------------------------------------
+// af_getEditTextFields()
+// -- returns all the edit text fields (class="textfield")
+//    of the current form.
+function af_getEditTextFields(f) {
+	var fields = new Array();
+	if (f) {
+		var tfRE = /textfield(focus)?/i;
+		for (var i=0; i<f.elements.length; i++) {
+			if (el = f.elements[i]) {
+				if ((el.type == "text") && 
+					(el.className == null ? "" : el.className).match(tfRE)) {
+					fields.push(el);
+				}
+			}
+		}
+	}  
+	return fields;
 }
 
 // ----------------------------------------------------------------------------
@@ -684,26 +690,6 @@ function af_resizeTextFields(amount) {
 			}
 		}
 	}		
-}
-
-// ----------------------------------------------------------------------------
-// af_getEditTextFields()
-// -- returns all the edit text fields (class="textfield")
-//    of the current form.
-function af_getEditTextFields(f) {
-	var fields = new Array();
-	if (f) {
-		var tfRE = /textfield(focus)?/i;
-		for (var i=0; i<f.elements.length; i++) {
-			if (el = f.elements[i]) {
-				if ((el.type == "text") && 
-					(el.className == null ? "" : el.className).match(tfRE)) {
-					fields.push(el);
-				}
-			}
-		}
-	}  
-	return fields;
 }
 
 
@@ -817,195 +803,6 @@ function af_writeButton(theType, theID, theID2) {
 	// alert(bHTML);
 }
 
-
-
-
-
-
-var srPresets = new Array(
-	new Array("Remove all round parantheses ()", "\\(|\\)", "", 1),
-	new Array("Remove all square parantheses []", "\\[|\\]", "", 1),
-	new Array("Remove all curly parantheses {}", "\\{|\\}", "", 1),
-	new Array("Remove all types parantheses ()[]{}", "\\(|\\)|\\[|\\]|\\{|\\}", "", 1),
-	new Array("Replace [] with ()", "\\[([^\\]]*)\\]", "($1)", 1),
-	new Array("Replace () with []", "\\(([^\\)]*)\\)", "[$1]", 1),
-	new Array("Replace #1 with No. 1 for any number", "#(\\d*)", "No. $1", 1)
-);
-var srForm = null;
-
-// ----------------------------------------------------------------------------
-// af_srShowPresets()
-// -- Is called from the ">> Load Preset" button
-//    reference to the form is saved for later use.
-function af_srShowPresets(b) {
-	if (b && b.form) {
-		srForm = b.form;
-		af_srSetVisible();
-	}
-}
-
-// ----------------------------------------------------------------------------
-// af_srSetVisible()
-// -- Shows/Hides the presets overlay visible, according to
-//    the flag.
-function af_srSetVisible(flag) {
-	var obj;
-	if ((obj = document.getElementById("srPresetsTable")) != null) {
-		if (flag) {
-			obj.style.display = flag ? "block" : "none";
-		} else {
-			obj.style.display = (obj.style.display == "none" ? "block" : "none");
-		}
-	}
-}
-
-// ----------------------------------------------------------------------------
-// af_srWritePresets()
-// -- Creates the presets div.
-function af_srWritePresets() {
-	document.writeln('<style type="text/css">');
-	document.writeln('  #srPresetsTable * { font-size: 10px }');
-	document.writeln('</style>');
-	document.writeln('  <table id="srPresetsTable" style="display: none" border="0" cellpadding="0" cellspacing="0">');
-	document.writeln('    <tr>');
-	document.writeln('      <td rowspan="100"><img src="/images/spacer.gif" alt="" width="2" height="1"></td>');
-	document.writeln('      <td>&nbsp;</td>');
-	document.writeln('      <td nowrap><b>Description</b> &nbsp;</td>');
-	document.writeln('      <td rowspan="100"><img src="/images/spacer.gif" alt="" width="10" height="1"></td>');
-	document.writeln('      <td nowrap><b>Find</b> &nbsp;</td>');
-	document.writeln('      <td rowspan="100"><img src="/images/spacer.gif" alt="" width="10" height="1"></td>');
-	document.writeln('      <td nowrap><b>Replace</b> &nbsp;</td>');
-	document.writeln('      <td nowrap><b>Regex</b> &nbsp;</td>');
-	document.writeln('    </tr>');
-	document.writeln('    <tr>');
-	document.writeln('      <td></td>');
-	document.writeln('      <td colspan="6" bgcolor="black"><img src="/images/spacer.gif" alt="" height="1" width="1"></td>');
-	document.writeln('    </tr>');
-	document.writeln('    <tr>');
-	document.writeln('      <td colspan="5"><img src="/images/spacer.gif" alt="" height="3" width="1"></td>');
-	document.writeln('    </tr>');	
-	for (var i=0; i<srPresets.length; i++) {
-		document.writeln('  <tr>');
-		document.writeln('    <td nowrap><a href="javascript: /* select preset */ void(af_srSelectPreset('+i+'))">Use</a> &nbsp;</td>');
-		document.writeln('    <td nowrap>'+(srPresets[i][0])+'</td>');
-		document.writeln('    <td nowrap>'+(srPresets[i][1])+'</td>');
-		document.writeln('    <td nowrap>'+(srPresets[i][2])+'</td>');
-		document.writeln('    <td align="center">'+(srPresets[i][3]==1?'yes':'no')+'</td>');
-		document.writeln('  </tr>');
-	}
-	document.writeln('    <tr>');
-	document.writeln('    <tr>');
-	document.writeln('      <td colspan="5"><img src="/images/spacer.gif" alt="" height="1" width="3"></td>');
-	document.writeln('    </tr>');	
-	document.writeln('    <tr>');
-	document.writeln('      <td></td>');
-	document.writeln('      <td colspan="7" bgcolor="black"><img src="/images/spacer.gif" alt="" height="1" width="1"></td>');
-	document.writeln('    </tr>');
-	document.writeln('      <td></td>');
-	document.writeln('      <td colspan="5"><input type="checkbox" name="srApplyPreset" value="1" checked>Apply pattern directly after pressing \'use\'.</td>');
-	document.writeln('    </tr>');	
-	document.writeln('    <tr>');
-	document.writeln('      <td colspan="5"><img src="/images/spacer.gif" alt="" height="1" width="2"></td>');
-	document.writeln('    </tr>');
-	document.writeln('</table>');
-}
-
-// ----------------------------------------------------------------------------
-// af_srSelectPreset()
-// -- Is called from the "Use" links. The index
-//    refers to the offset in the srPresets array
-//    which was selected. If the srApplyPreset
-//    checkbox is checked, the function is executed
-//    immediately.
-function af_srSelectPreset(index) {
-	af_srSetVisible(false);
-	if (srForm != null) {
-		srForm.srSearch.value = srPresets[index][1];
-		srForm.srReplace.value = srPresets[index][2];
-		srForm.srRegex.checked = (srPresets[index][3]==1);
-		if (srForm.srApplyPreset.checked) af_srReplace(srForm);
-	}
-}
-
-// ----------------------------------------------------------------------------
-// af_srSwapFields()
-// -- swaps the contents of the search and the replace field.
-function af_srSwapFields(srForm) {
-	var temp = srForm.srReplace.value;
-	srForm.srReplace.value = srForm.srSearch.value;
-	srForm.srSearch.value = temp;
-}
-
-// ----------------------------------------------------------------------------
-// af_srReplace()
-// -- Creates a regular expression from the
-//    contents of the srSearch field, and
-//    replaces the occurences in the currently
-//    focussed field.
-function af_srReplace(theForm) {
-	resetMessages();
-	var sv = theForm.srSearch.value;
-	var rv = theForm.srReplace.value;
-	var useRegex = theForm.srRegex.checked;
-	var useCase = theForm.srCaseSensitive.checked;
-	var allFields = theForm.srAllFields.checked;
-	if (sv == "") {
-		addMessage('af_srReplace() :: Search is empty, aborting.');	
-		return;
-	}
-	if (allFields) {
-		var fields = af_getEditTextFields(theForm);
-		for (fi in fields) {
-			af_srDoReplace(fields[fi], sv, rv, useCase, useRegex);
-		}
-	} else if (af_onFocusField) {
-		af_srDoReplace(af_onFocusField, sv, rv, useCase, useRegex);
-	}
-}
-
-function af_srDoReplace(f, sv, rv, useCase, useRegex) { 
-	if (f) {
-		var currvalue = f.value;
-		var newvalue = currvalue;
-		addMessage('af_srDoStringReplace() :: Current value @@@'+currvalue+'###');	
-		addMessage('af_srDoStringReplace() :: search=@@@'+sv+'###, replace=@@@'+rv+'###');
-		addMessage('af_srDoStringReplace() ::   flags: case sensitive='+useCase+', regular expressions='+useRegex+'');
-		if (useRegex) {
-			try {
-				var re = new RegExp(sv, "g"+(useCase ? "":"i"));
-				newvalue = currvalue.replace(re, rv);
-			} catch (e) {
-				addMessage('af_srDoStringReplace() :: Caught error while executing Regex re=@@@'+re+'###, e=@@@'+e+'###');
-			}
-		} else {
-			var vi = -1;
-			var replaced = new Array();
-			var needle = (useCase ? sv : sv.toLowerCase());
-			while ((vi = (useCase ? newvalue : newvalue.toLowerCase()).indexOf(needle)) != -1) {
-				newvalue = newvalue.substring(0, vi) + rv +
-						   newvalue.substring(vi + sv.length, newvalue.length);
-				replaced.push(vi);
-			}
-			if (replaced.length < 1) addMessage('af_srDoStringReplace() :: search @@@'+sv+'### was not found');
-			else addMessage('af_srDoStringReplace() :: search @@@'+sv+'### replaced with @@@'+rv+'### at index(es) ['+replaced.join(",")+']');
-		}
-		if (newvalue != currvalue) {
-			addMessage('af_srDoStringReplace() :: New value @@@'+newvalue+'###');	
-			f.value = newvalue;
-			af_addUndo(
-				f.form, 
-				new Array(f, 'replace', currvalue, newvalue)
-			);
-			if (f == af_onFocusField) {
-				af_onFocusFieldState[1] = af_onFocusFieldState[0].value; 
-				// updated remembered value (such that leaving the field does 
-				// not add another UNDO step)
-			}
-			return true;
-		}
-	}
-	return false;
-}
 
 
 
