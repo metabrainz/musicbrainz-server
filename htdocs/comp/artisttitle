@@ -41,7 +41,7 @@ elsif ( $end )
 %# Row 1: the artist name (link) and sortname
 		<p class='ArtistTitleNameSortname<% $artist->GetModPending ? " mp" : "" %>'
 			style="margin-left: 48px; text-indent: -48px">
-			<a class="ArtistTitleName" href="/artist/<% $mbid %>.html"><img src="/images/aicon_lg.png" alt="" class="ArtistTitleIcon"><% $name %></a><br>
+			<a class="ArtistTitleName" href="/artist/<% $mbid %>.html"><img src="/images/aicon_lg.png" alt="" class="ArtistTitleIcon"><% $name %></a>&#8206;<br>
 %     if ($resolution) {
     			<% $resolution %><br>
 %			}
