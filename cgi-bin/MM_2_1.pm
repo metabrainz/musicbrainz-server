@@ -694,6 +694,8 @@ sub OutputRelationships
 	else
 	{
 	    $out .= $this->Element("ar:to".ucfirst($item->{type}), "", "rdf:resource", $this->{baseuri} . '/' . $item->{type} .'/' . $item->{id});
+	    $out .= $this->Element("ar:direction", "", "rdf:resource", $this->GetARNamespace . "Direction" . $item->{direction})
+	    	if $item->{direction};
 	    if (exists $item->{"_attrs"})
 	    {
                 my $attrs = $item->{"_attrs"}->GetAttributes();
@@ -756,6 +758,7 @@ sub CreateRelationshipList
 		         begindate => $item->{"begindate"},
 		         enddate => $item->{"enddate"},
                        };
+	     $ref->{direction} = "Forward" if $item->{link0_type} eq $item->{link1_type};
 	     $ref->{_attrs} = $item->{"_attrs"} if (exists $item->{"_attrs"});
 	     push @rels, $ref;
 	     push @entities, $item->{"link1_type"} ."-". $item->{"link1_id"};
@@ -770,6 +773,7 @@ sub CreateRelationshipList
 			 begindate => $item->{"begindate"},
 			 enddate => $item->{"enddate"},
 	               };
+	     $ref->{direction} = "Backward" if $item->{link0_type} eq $item->{link1_type};
 	     $ref->{_attrs} = $item->{"_attrs"} if (exists $item->{"_attrs"});
 	     push @rels, $ref;
 	     push @entities, $item->{"link0_type"} ."-". $item->{"link0_id"};
