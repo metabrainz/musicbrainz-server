@@ -1,4 +1,4 @@
-trackParser = {
+var trackParser = {
 	config : new Array(),
 		// configuration member variable
 	configCheckBoxes : [
@@ -144,7 +144,7 @@ trackParser = {
 					sTitle = sTitle.replace(/\s\s*(listen|\s)+$/gi, ""); // remove trailing "Listen"
 
 					// if VA, get artist from string, and remove from title
-					var sArtist = null;
+					sArtist = null;
 					if (this.isVA) {
 						if (! (this.getConf("tp_hasTrackNumber") && !startsWithNumber)) {
 							// we want to look for extratitleinformation, if
@@ -195,7 +195,7 @@ trackParser = {
 				}
 			}
 			this.log("-----------------------");
-			for (var i=0; i<tracks.length; i++) {
+			for (i=0; i<tracks.length; i++) {
 				var track = tracks[i];
 				if (track.feat.length>0) track.title += " (feat. "+track.feat.join(", ")+")";
 				this.log("no="+(this.leadZero(i+1))
@@ -261,7 +261,8 @@ trackParser = {
 	fieldsWalker : function(f, cnRE, nameRE) {
 		var fields = new Array();
 		for (var i=0; i<f.elements.length; i++) { 
-			if (el = f.elements[i]) {
+			var el = f.elements[i];
+			if (el) {
 				if ( (el.type == "text") && 
 					 (el.className == null ? "" : el.className).match(cnRE) && 
 					 (el.name.match(nameRE)) ) {
@@ -318,7 +319,7 @@ trackParser = {
 		for (fi in fields) {
 			field = fields[fi];
 			if (doAlbumTitle) {	 
-				if (field.id.match(/cdi_m?enter_title/i)) {
+				if (field.id.match(/cdi_enter_title|cdi_menter_title/i)) {
 					this.fillField(field, albumtitle);
 				}
 				doAlbumTitle = false;
@@ -383,19 +384,19 @@ trackParser = {
 		document.writeln('              </td>');
 		document.writeln('              <td>&nbsp;</td>');
 		document.writeln('              <td align="right">');
-		document.writeln('                <a href="javascript:; // hide" onClick="trackParser.setExpanded(false)" ');
-		document.writeln('                ><img src="/images/minus.gif" width="13" height="13" alt="Collapse Find & Replace function" border="0"></a>');
+		document.writeln('                <a href="javascript:; // collapse" onClick="trackParser.setExpanded(false)" ');
+		document.writeln('                ><img src="/images/minus.gif" width="13" height="13" alt="Collapse Track parser function" border="0"></a>');
 		document.writeln('              </td>');
 		document.writeln('            </tr>');
 		document.writeln('            <tr valign="top" id="trackparser-tr-collapsed">');
 		document.writeln('              <td nowrap><b>Track parser:</td>');
 		document.writeln('              <td width="100%">');
-		document.writeln('                <small>Currently in collapsed mode</small>');
+		document.writeln('                <small>Currently in collapsed mode, press [+] to access functions</small>');
 		document.writeln('              </td>');
 		document.writeln('              <td>&nbsp;</td>');
 		document.writeln('              <td align="right">');
-		document.writeln('                <a href="javascript:; // show" onClick="trackParser.setExpanded(true)"');
-		document.writeln('                ><img src="/images/plus.gif" width="13" height="13" alt="Expand Find & Replace function" border="0"></a>');
+		document.writeln('                <a href="javascript:; // expand" onClick="trackParser.setExpanded(true)"');
+		document.writeln('                ><img src="/images/plus.gif" width="13" height="13" alt="Expand Track parser function" border="0"></a>');
 		document.writeln('              </td>');
 		document.writeln('            </tr>');
 

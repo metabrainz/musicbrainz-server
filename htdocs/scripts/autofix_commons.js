@@ -14,7 +14,6 @@ var AF_OP_SQUAREBRACKETS = 'squarebrackets';
 
 var AF_COOKIE_MODE = "afmode";
 var AF_COOKIE_TABLE = "aftable";
-var AF_COOKIE_FINDEXPANDED = "af_find_expanded";
 
 var af_undoStack = new Array();
 var af_undoIndex = 0;
@@ -554,7 +553,7 @@ function af_writeGUI(fOpen) {
 	document.writeln('              <td width="100%">');
 	document.writeln('                <small><span id="autofix-mode-text-collapsed"></span></small></td>');
 	document.writeln('              <td>&nbsp;</td>');
-	document.writeln('              <td><a href="javascript:; // expand table" onClick="af_ShowTable(true)" title="Expand table"><img src="/images/plus.gif" width="13" height="13" alt="Expand Guess Case panel" border="0"></a></td>');
+	document.writeln('              <td><a href="javascript:; // expand" onClick="af_ShowTable(true)" title="Expand table"><img src="/images/plus.gif" width="13" height="13" alt="Expand Guess Case panel" border="0"></a></td>');
 	document.writeln('            </tr>');
 	document.writeln('          </table>');
 	document.writeln('        </div>');
@@ -578,7 +577,7 @@ function af_writeGUI(fOpen) {
 	document.writeln('                </table>');
 	document.writeln('              </td>');
 	document.writeln('              <td>&nbsp;</td>');
-	document.writeln('              <td width="10"><a href="javascript:; // collapse table" onClick="af_ShowTable(false)" title="Collapse table"><img src="/images/minus.gif" width="13" height="13" alt="Collapse Guess Case panel" border="0"></a></td>');
+	document.writeln('              <td width="10"><a href="javascript:; // collapse" onClick="af_ShowTable(false)" title="Collapse table"><img src="/images/minus.gif" width="13" height="13" alt="Collapse Guess Case panel" border="0"></a></td>');
 	document.writeln('            </tr>');
 	document.writeln('            <tr><td colspan="4"><img src="/images/spacer.gif" height="4" alt="" /></td></tr>');
 	document.writeln('            <tr valign="middle">');
@@ -622,7 +621,7 @@ function af_writeGUI(fOpen) {
 
 	// write search/replace GUI
 	af_writeGUIRuler();
-	af_srWriteGUI();
+	searchReplace.writeGUI();
 
 	// write trackparser GUI
 	af_writeGUIRuler();
@@ -655,7 +654,8 @@ function af_getEditTextFields(f) {
 	if (f) {
 		var tfRE = /textfield(focus)?/i;
 		for (var i=0; i<f.elements.length; i++) {
-			if (el = f.elements[i]) {
+			var el = f.elements[i];
+			if (el) {
 				if ((el.type == "text") && 
 					(el.className == null ? "" : el.className).match(tfRE)) {
 					fields.push(el);
@@ -771,26 +771,6 @@ function af_writeButton(theType, theID, theID2) {
 			theButtonText = "Guess Both";
 			theTitle = "Guess both Artist Name and Track Name";
 			theFunction = 'doArtistAndTrackName(this.form)';
-			break;
-		case AF_BTN_SR_FIND:
-			theButtonText = "Find";
-			theTitle = "";
-			theFunction = 'af_srFind(this.form)';
-			break;		
-		case AF_BTN_SR_REPLACE:
-			theButtonText = "Replace";
-			theTitle = "";
-			theFunction = 'af_srReplace(this.form)';
-			break;
-		case AF_BTN_SR_LOADPRESET:
-			theButtonText = "Show/Hide Presets";
-			theTitle = "";
-			theFunction = 'af_srShowPresets(this)';
-			break;
-		case AF_BTN_SR_SWAP:
-			theButtonText = "Swap fields";
-			theTitle = "";
-			theFunction = 'af_srSwapFields(this.form)';
 			break;
 		default:
 			alert("af_writeButton() :: unhandled type!");

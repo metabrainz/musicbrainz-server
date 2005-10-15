@@ -32,6 +32,7 @@ function mm_activateDropdown(dd, waited) {
 		mm_openTO = setTimeout("mm_activateDropdown('"+id+"', true)", 20);
 	} else {
 		clearTimeout(mm_openTO);
+		var j,mName = null;	// declaration of variables outside of the loops (=re-use)
 		if (mm_status == "load") {
 			mm_status = "init";
 			mm_sublist = new Array();
@@ -39,8 +40,8 @@ function mm_activateDropdown(dd, waited) {
 			// for all items of the mainmenu, find the offsetLeft
 			// position (origin + x pixels) and move the dropdown
 			// menu's to the same location.
-			for (var j=0; j<mm_items.length; j++) { 
-				var mName = mm_items[j][0];
+			for (j=0; j<mm_items.length; j++) { 
+				mName = mm_items[j][0];
 				if ((obj = document.getElementById(mName)) != null) {
 					mm_items[j][3] = obj;
 					var mPos = mm_offsetLeft + obj.offsetLeft;
@@ -63,8 +64,8 @@ function mm_activateDropdown(dd, waited) {
 		if (e) e.style.display = (id == "" ? "block" : "none")
 
 		// update display (mainmenu item css / dropdown menu)
-		for (var j=0; j<mm_items.length; j++) { 
-			var mName = mm_items[j][0];
+		for (j=0; j<mm_items.length; j++) { 
+			mName = mm_items[j][0];
 			var isCurr = (mName == id);
 
 			// set the correct hover class 
