@@ -243,7 +243,7 @@ var trackParser = {
 							// alert(sTitle+" --- "+sTitle.match(vaRE));
 							if (sTitle.match(this.RE_VariousSeparator)) {			
 								var parts = sTitle.split(this.RE_VariousSeparator);
-								sArtist = parts[0];
+								sArtist = this.trim(parts[0]);
 								if (swapArtistTrackWarning && sArtist.match(/\(|\)|remix/gi)) {
 									this.showWarning("Track "+trackCounter+": Possibly Artist/Tracknames swapped: Parantheses in Artist name!");
 									swapArtistTrackWarning = false;
