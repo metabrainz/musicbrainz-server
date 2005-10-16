@@ -3,14 +3,31 @@ var trackParser = {
 		// configuration member variable
 	configCheckBoxes : [
 					["tp_hasAlbumTitle", 0, 
-					 "First line is the album title", 
-					 "First line is not parsed for a track title"],
+					 "First line is album title", 
+					 "The First line is handled as the album title, which is filled into the "+
+					 "album title field. The tracks start are expected to start from line 2"],
+					
 					["tp_hasTrackNumber", 1, 
-					 "Track titles start with a number",
-					 "Lines which do not start with a number are skipped"],
+					 "All tracknames start with a number",
+					 "Lines which do not start with a number are inspected for usable "+
+					 "information, which is added to the previous track (this allows to import "+
+					 "ExtraTitleInformation from discogs)"],
+					
+					["tp_hasVinylNumbering", 0, 
+					 "Detect Vinyl track numbers",
+					 "Characters which are used for numbering of the tracks may include "+
+					 "alphanummeric characters (0-9,a-z) (A1,A2,...C,D...)"],
+					
 					["tp_hasTrackTimes",  1, 
-					 "Find track times (?:??)", 
-					 "Round parantheses with numbers, : and ? in it get replaced"]
+					 "Detect track times ?:??", 
+					 "The line is inspected for an occurence of numbers separated by a "+
+					 "colon. If such a value is found the track time is read and removed "+
+					 "from the track title. Round parantheses surrounding the tracktime "+
+					 "are removed as well."],
+
+					["tp_stripSquareBrackets", 0,
+					 "Remove text in square brackets [...]",
+					 "Text in square brackets (usually links to other pages) is removed"] 
 				],
 		// config GUI values
 	testCases : [
@@ -38,6 +55,20 @@ var trackParser = {
 		// name,id of trackParser textarea
 	TP_COOKIE_EXPANDED : "TP_COOKIE_EXPANDED",
 		// name of cookie value for the expanded/collapsed setting
+	TP_BTN_SWAP : "TP_BTN_SWAP",
+	TP_BTN_PARSE : "TP_BTN_PARSE",
+
+	TP_WARNINGTR : "TP_WARNINGTR",
+	TP_WARNINGTD : "TP_WARNINGTD",
+
+
+	RE_TrackNumber : /^\s?[0-9\.]+[\.\s]+/g,
+	RE_TrackNumberVinyl : /^\s?[0-9a-z]+[\.\s]+/gi,
+	RE_TrackTimes : /\(?[0-9]+:[0-9]+\)?/gi,
+	RE_RemoveParens : /\(|\)/g,
+	RE_StripSquareBrackets : /\[.*\]/gi,
+	RE_StripTrailingListen : /\s\s*(listen(music)?|\s)+$/gi,
+	RE_VariousSeparator : /  |\s+-\s+|\t/gi,
 
 	// getConfiguration() -
 	// Get values from the config checkboxes
@@ -81,6 +112,29 @@ var trackParser = {
 	onParseClicked : function() {
 		this.log("onParseClicked()", true);
 		this.parseNow();
+		var obj = null;
+		if ((obj = document.getElementById(this.TP_BTN_SWAP)) != null) {
+			obj.disabled = false;
+		}
+	},
+
+	// ----------------------------------------------------------------------------
+	// getTrackTimeFields()
+	// -- returns all the time edit fields (class="numberfield")
+	//    of the current form.
+	onSwapArtistTrackClicked : function() {
+		this.getConfiguration();
+		if (this.isVA) {
+			var aArr = this.getArtistFields();
+			var tArr = this.getTrackNameFields();
+			if (aArr && tArr && aArr.length == tArr.length) {
+				for (var i=0; i<aArr.length; i++) {
+					var temp = aArr[i].value;
+					aArr[i].value = tArr[i].value;
+					tArr[i].value = temp;
+				}
+			}
+		}
 	},
 
 	// setVA() -
@@ -88,13 +142,35 @@ var trackParser = {
 	setVA : function(flag) {
 		this.isVA = flag;
 	},
-										   
+					
+	// setVA() -
+	// set VA mode (true|false)
+	showWarning : function(sWarning) {
+		var obj;
+		if (sWarning) {
+			if ((obj = document.getElementById(this.TP_WARNINGTR)) != null) {
+				obj.style.display = "";
+			}
+			if ((obj = document.getElementById(this.TP_WARNINGTD)) != null) {
+				obj.innerHTML += "<b>&middot;</b> " + sWarning + "<br/>"; 
+			}
+		} else {
+			if ((obj = document.getElementById(this.TP_WARNINGTR)) != null) {
+				obj.style.display = "none";
+			}
+			if ((obj = document.getElementById(this.TP_WARNINGTD)) != null) {
+				obj.innerHTML = "";
+			}
+		}
+	},
+
 	// parseNow() -
 	// Parse the track titles out of the textarea
 	parseNow : function() {
 		this.getConfiguration(); // get current settings from checkboxes
 		var obj = null;
 		var tracks = new Array();
+		this.showWarning();
 		if ((obj = document.getElementById(this.TP_TRACKSAREA)) != null) {
 			var text = obj.value;
 			var lines = text.split("\n");
@@ -107,6 +183,7 @@ var trackParser = {
 				si++;
 			}
 			var trackCounter = 1;
+			var swapArtistTrackWarning = true;
 			for (var i=si; i<lines.length; i++) {
 				sTitle = lines[i];
 
@@ -116,48 +193,67 @@ var trackParser = {
 
 					// get track number from string, and replace
 					var startsWithNumber = false;
-					trackNumber = (sTitle.match(/^[0-9\.\s]+/g));
+					trackNumber = sTitle.match(
+						(this.getConf("tp_hasVinylNumbering")
+							? this.RE_TrackNumberVinyl
+							: this.RE_TrackNumber
+						)
+					);
 					if (trackNumber != null) {
 						startsWithNumber = true;
 						if (this.getConf("tp_hasTrackNumber")) {
 							// only replace leading number if user configured
 							// to do so. we need the startWithNumber flag
 							// to check for extratitleinformation though
-							sTitle = sTitle.replace(/^[0-9\.\s]+/, "");
+							sTitle = sTitle.replace(
+								(this.getConf("tp_hasVinylNumbering")
+									? this.RE_TrackNumberVinyl
+									: this.RE_TrackNumber
+								), "");
 						}
 					}
-					trackNumber = trackCounter;
+					trackNumber = trackCounter; // use internal counter value.
 
 					// get track time from string, and replace
 					var trackTime = "";
 					if (this.getConf("tp_hasTrackTimes")) {
-						trackTime = sTitle.match(/\(?[0-9]+:[0-9]+\)?/gi);
+						trackTime = sTitle.match(this.RE_TrackTimes);
 						if (trackTime != null) {
 							trackTime = this.trim(trackTime);
-							trackTime = trackTime.replace(/\(|\)/g, "");
+							trackTime = trackTime.replace(this.RE_RemoveParens, "");
 						}
-						sTitle = sTitle.replace(/\(?[0-9]+:[0-9]+\)?/, "");
+						sTitle = sTitle.replace(this.RE_TrackTimes, "");
+					}
+
+					if (this.getConf("tp_stripSquareBrackets")) {
+						sTitle = sTitle.replace(this.RE_StripSquareBrackets, ""); // remove [*]
 					}
 
 					// amazon specific tweaks
-					sTitle = sTitle.replace(/\[\*\]?/gi, ""); // remove [*]
-					sTitle = sTitle.replace(/\s\s*(listen|\s)+$/gi, ""); // remove trailing "Listen"
+					sTitle = sTitle.replace(this.RE_StripTrailingListen, ""); // remove trailing "Listen"
 
 					// if VA, get artist from string, and remove from title
-					sArtist = null;
+					sArtist = "";
 					if (this.isVA) {
 						if (! (this.getConf("tp_hasTrackNumber") && !startsWithNumber)) {
 							// we want to look for extratitleinformation, if
 							// * is configured that tracks start with numbers
 							// * and current line does not start with a number.
 
-							var vaRE = /  |\s+-\s+|\t/gi;
 							// alert(sTitle+" --- "+sTitle.match(vaRE));
-							if (sTitle.match(vaRE)) {			
-								var parts = sTitle.split(vaRE);
+							if (sTitle.match(this.RE_VariousSeparator)) {			
+								var parts = sTitle.split(this.RE_VariousSeparator);
 								sArtist = parts[0];
-								parts.splice(0,1);
-								sTitle = parts.join(" - ");
+								if (swapArtistTrackWarning && sArtist.match(/\(|\)|remix/gi)) {
+									this.showWarning("Track "+trackCounter+": Possibly Artist/Tracknames swapped: Parantheses in Artist name!");
+									swapArtistTrackWarning = false;
+								}
+								parts[0] = ""; // set artist element empty, such that first iteration is run in the loop.
+								while (!parts[0].match(/\S/g)) parts.splice(0,1); // remove all empty elements
+								if (parts.length > 1) {
+									this.showWarning("Track "+trackCounter+": Possibly wrong split of Artist and Trackname:<br/>&nbsp; ["+parts.join(",")+"]");
+								}
+								sTitle = parts.join(" ");
 							}
 						}
 					}
@@ -181,11 +277,11 @@ var trackParser = {
 						// else try to analyze current information to
 						// add to track per SG5 (discogs parsing)
 						var  x = sTitle.split(" - ");
-						if (x[0].match(/remix/i) == null) {
+						if (x[0].match(/remix|producer|mixed/i) == null) {
 							if (x.length > 1) {
 								x.splice(0,1);
 								sTitle = x.join("");
-								sTitle = sTitle.replace(/\s*,/g, ",");
+								sTitle = sTitle.replace(/\s*,/g, ","); // remove spaces before ","
 								sTitle = sTitle.replace(/^\s*/g, ""); // remove leading
 								sTitle = sTitle.replace(/[ \s\r\n]*$/g, ""); // remove trailing
 								if (sTitle != "") tracks[tracks.length-1].feat.push(sTitle);
@@ -216,57 +312,73 @@ var trackParser = {
 	},
 
 	// ----------------------------------------------------------------------------
-	// getTextFields()
-	// -- returns all the edit text fields (class="textfield")
-	//    of the current form.
-	getTextFields : function(f) {
-		var fields = new Array();
-		if (f) {
-			var cnRE = /textfield(focus)?/i;
-			var nameRE = /track\d+|title\d+/i;
-			return this.fieldsWalker(f, cnRE, nameRE);
-		}  
-		return fields;
-	},
-
-	// ----------------------------------------------------------------------------
 	// getArtistFields()
 	// -- returns all the artist fields (class="textfield")
 	//    of the current form.
-	getArtistFields : function(f) {
+	getArtistFields : function() {
 		var fields = new Array();
-		if (f) {
+		if (this.formRef) {
 			var cnRE   = /textfield(focus)?/i;
 			var nameRE = /artistname\d+/i;
-			return this.fieldsWalker(f, cnRE, nameRE);
+			return this.fieldsWalker(cnRE, nameRE);
 		}  
 		return fields;
 	},
 
 	// ----------------------------------------------------------------------------
-	// getTimeFields()
+	// getAlbumNameField()
+	// -- returns the album name field (class="textfield")
+	getAlbumNameField : function() {
+		var fields = new Array();
+		if (this.formRef) {
+			var cnRE   = /textfield(focus)?/i;
+			var nameRE = /title|albumname|album/i;
+			return this.fieldsWalker(cnRE, nameRE);
+		}  
+		return fields[0];
+	},
+
+	// ----------------------------------------------------------------------------
+	// getTrackNameFields()
+	// -- returns all the edit text fields (class="textfield")
+	//    of the current form.
+	getTrackNameFields : function() {
+		var fields = new Array();
+		if (this.formRef) {
+			var cnRE = /textfield(focus)?/i;
+			var nameRE = /track\d+/i;
+			return this.fieldsWalker(cnRE, nameRE);
+		}  
+		return fields;
+	},
+
+	// ----------------------------------------------------------------------------
+	// getTrackTimeFields()
 	// -- returns all the time edit fields (class="numberfield")
 	//    of the current form.
-	getTimeFields : function(f) {
-		if (f) {
+	getTrackTimeFields : function() {
+		if (this.formRef) {
 			var cnRE = /numberfield(focus)?/i;
 			var nameRE = /tracklength\d+/i;
-			return this.fieldsWalker(f, cnRE, nameRE);
+			return this.fieldsWalker(cnRE, nameRE);
 		}  
 	},
 
 	// ----------------------------------------------------------------------------
 	// fieldsWalker()
 	// -- 
-	fieldsWalker : function(f, cnRE, nameRE) {
+	fieldsWalker : function(cnRE, nameRE) {
 		var fields = new Array();
-		for (var i=0; i<f.elements.length; i++) { 
-			var el = f.elements[i];
-			if (el) {
-				if ( (el.type == "text") && 
-					 (el.className == null ? "" : el.className).match(cnRE) && 
-					 (el.name.match(nameRE)) ) {
-					fields.push(el);
+		if (this.formRef) {
+			var f = this.formRef;
+			for (var i=0; i<f.elements.length; i++) { 
+				var el = f.elements[i];
+				if (el) {
+					if ( (el.type == "text") && 
+						 (el.className == null ? "" : el.className).match(cnRE) && 
+						 (el.name.match(nameRE)) ) {
+						fields.push(el);
+					}
 				}
 			}
 		}
@@ -276,12 +388,14 @@ var trackParser = {
 	// ----------------------------------------------------------------------------
 	// fillField() -
 	fillField : function(field, newvalue) {
-		af_addUndo(
-			field.form, 
-			new Array(field, 'parsetext', field.value, newvalue)
-		);
-		if (field == af_onFocusField) af_onFocusFieldState[1] = newvalue; 
-		field.value = newvalue;
+		if (field != null && newvalue != null) {
+			af_addUndo(
+				field.form, 
+				new Array(field, 'parsetext', field.value, newvalue)
+			);
+			if (field == af_onFocusField) af_onFocusFieldState[1] = newvalue; 
+			field.value = newvalue;
+		}
 	},
 
 	// ----------------------------------------------------------------------------
@@ -290,9 +404,15 @@ var trackParser = {
 	fillFields : function(albumtitle, tracks) {
 		var i,field,fields,newvalue;
 
-		// loop through all artist fields
+		// find, and fill albumname field
+		if (this.getConf("tp_hasAlbumTitle")) {
+			field = this.getAlbumNameField();
+			this.fillField(field, albumtitle);
+		}
+
+		// find, and fill all artistname fields
 		i=0;
-		fields = this.getArtistFields(this.formRef);
+		fields = this.getArtistFields();
 		for (fi in fields) {
 			field = fields[fi];
 			if (tracks[i] && tracks[i].artist) {
@@ -301,9 +421,9 @@ var trackParser = {
 			}
 		}
 
-		// loop through all time fields
+		// find, and fill all track time fields
 		i=0;
-		fields = this.getTimeFields(this.formRef);
+		fields = this.getTrackTimeFields();
 		for (fi in fields) {
 			field = fields[fi];
 			if (tracks[i] && tracks[i].time) {
@@ -312,18 +432,11 @@ var trackParser = {
 			}
 		}
 
-		// loop through track/albumname fields
+		// find, and fill all track name fields
 		i=0;
-		var doAlbumTitle = this.getConf("tp_hasAlbumTitle");
-		fields = this.getTextFields(this.formRef);
+		fields = this.getTrackNameFields();
 		for (fi in fields) {
 			field = fields[fi];
-			if (doAlbumTitle) {	 
-				if (field.id.match(/cdi_enter_title|cdi_menter_title/i)) {
-					this.fillField(field, albumtitle);
-				}
-				doAlbumTitle = false;
-			}
 			if (field.id.match(/track[0-9]+/gi)) {
 				if (tracks[i] && tracks[i].title) {
 					this.fillField(field, tracks[i].title);
@@ -339,10 +452,16 @@ var trackParser = {
 	writeConfiguration: function() {
 		for (var i=0; i<this.configCheckBoxes.length; i++) {
 			var cb = this.configCheckBoxes[i];
-			document.writeln('<input type="checkbox" name="' + this.TP_CHECKBOX_CONF
-						   + '" id="' + cb[0] + '" value="on" '
-						   + (cb[1]?'checked':'') + '>' + cb[2]
-						   + '<br/>');
+			var helpText = cb[3];
+			helpText = helpText.replace("'", "´"); // make sure overlib does not choke on single-quotes.
+			var _html = '<input type="checkbox" name="' + this.TP_CHECKBOX_CONF
+					  + '" id="' + cb[0] + '" value="on" '
+					  + (cb[1]?'checked':'') + '>' + cb[2]
+					  + '&nbsp; ' 
+					  + '[ <a href="javascript:; // help" '
+					  + 'onmouseover="return overlib(\''+helpText+'\');"'
+					  + 'onmouseout="return nd();">help</a> ]<br/>';
+			document.writeln(_html);	 
 		}
 	},
 
@@ -357,8 +476,13 @@ var trackParser = {
 			else document.writeln('-  <a href="javascript: ;" onClick="trackParser.onRunTest('+i+');">'+tc[1]+'</a><br/>');
 		}
 		document.writeln("</small>");
-		document.writeln('<textarea id="logArea" rows="20" cols="90" style="width: 100%; font-family: Arial,Helvetica; font-size: 11px; "></textarea>');
+	},
 
+	// ----------------------------------------------------------------------------
+	// writeLogArea() -
+	// print the different test cases
+	writeLogArea : function() {
+		document.writeln('<textarea id="logArea" rows="10" cols="90" style="width: 100%; font-family: Arial,Helvetica; font-size: 11px; "></textarea>');
 	},
 
 	// ----------------------------------------------------------------------------
@@ -371,16 +495,21 @@ var trackParser = {
 		document.writeln('                <table border="0" cellspacing="0" cellpadding="0" width="100%">');
 		document.writeln('                  <tr>');
 		document.writeln('                    <td colspan="2">');
-		document.writeln('                      <textarea name="'+this.TP_TRACKSAREA+'" rows="10" cols="90" id="'+this.TP_TRACKSAREA+'" style="width: 95%" style="font-family: Arial,Helvetica; font-size: 11px; overflow-y: scroll"></textarea>');
+		document.writeln('                      <textarea name="'+this.TP_TRACKSAREA+'" rows="10" cols="90" id="'+this.TP_TRACKSAREA+'" wrap="off" style="width: 97%; font-family: Arial,Helvetica, Verdana; font-size: 11px; overflow: auto"></textarea>');
 		document.writeln('                  </td></tr>');
+		document.writeln('                  <tr valign="top" id="'+this.TP_WARNINGTR+'" style="display: none">');
+		document.writeln('                    <td colspan="2" style="padding: 2px; color: red; font-size: 11px" id="'+this.TP_WARNINGTD+'"><small>');
+		document.writeln('                    </small></td></tr>');
 		document.writeln('                  <tr valign="top">');
-		document.writeln('                    <td>');
-		document.writeln('                      <input type="button" onclick="trackParser.onParseClicked()" value="Parse">');
+		document.writeln('                    <td nowrap>');
+		document.writeln('                      <input type="button" id="'+this.TP_BTN_PARSE+'" onclick="trackParser.onParseClicked()" value="Parse" title="Fill in the track titles with values parsed from this field">');
+		document.writeln('                      <input type="button" id="'+this.TP_BTN_SWAP+'" disabled onclick="trackParser.onSwapArtistTrackClicked()" value="Swap titles" title="If the Artist and Track titles are mixed up, click here to swap the fields">');
 		document.writeln('                    </td><td><small>');
 		this.writeConfiguration();
-		// this.writeTests();
 		document.writeln('                    </small></td>');
 		document.writeln('                  </tr></table>');
+		// this.writeTests();
+		// this.writeLogArea();
 		document.writeln('              </td>');
 		document.writeln('              <td>&nbsp;</td>');
 		document.writeln('              <td align="right">');

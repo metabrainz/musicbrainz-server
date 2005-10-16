@@ -236,7 +236,8 @@ var preprocess_searchterms = new Array(
 	new Array(/(\b|^)orig\.?(\s|\)|$)/i, "original"), 		
 	new Array(/(\b|^)Extendet(\b)/i, "extended"),
 	new Array(/(\b|^)ext[d]?\.?(\s|\)|$)/i, "extended"),
-	new Array(/(\b|^)aka(\b)/i, "a.k.a.")
+	new Array(/(\b|^)aka(\b)/i, "a.k.a."),
+	new Array(/(.)´|`(.)/i, "'")
 );
 
 // Stuff that needs to be "corrected" after
@@ -1707,7 +1708,7 @@ function titleCase(strIn, mode) {
 		// we got an 's (apostrophed ...'s), keep the text lowercased
 		// we got an 'round (apostrophed Around), keep the text lowercased
 		// we got an 'em (shortened Them), keep lowercase.
-	} else if (rs6.match(/^o|y$/i) && words[words_index + 1] == "'") { 
+	} else if (rs6.match(/^(o|y)$/i) && words[words_index + 1] == "'") { 
 		// Make it O'Titled, Y'All
 		rs6 = strIn.toUpperCase(); 
 	} else {
@@ -1807,8 +1808,11 @@ function toAssociativeArray(theArray) {
 // 					(accounts for array methods push, pop etc.)
 function inArray(theArray, theKey) {
 	theKey = (theKey != null ? theKey.toLowerCase() : null);
-	return (theKey != null && theArray != null &&  
-			theArray[theKey] != null && theArray[theKey] == theKey); 
+	return (theKey != null && 
+			theArray != null &&  
+			theArray[theKey] != null && 
+			theArray[theKey] == theKey &&
+			typeof(theArray[theKey]) == 'string'); 
 }
 
 // ----------------------------------------------------------------------------
