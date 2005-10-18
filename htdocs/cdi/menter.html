@@ -228,25 +228,6 @@ for my $i ( 0 .. $tracks-1 )
 					-->
 					</script></td>
 			</tr>
-% if (0) { # REMOVE ME
- 			<tr>
-				<td colspan="2" align="right" valign="top">Sort Name:</td>
-				<td><input	type="text" name="sortname<% $i %>" class="textfield"
-							onFocus="myOnFocus(this)" onBlur="myOnBlur(this)"
-							size="50" maxlength="255"
-							value="<% $sortname %>"></td>
-% if (!$toc) {
-				<td>&nbsp;</td>
-% }
-				<td>
-					<script type="text/javascript">
-					<!--
-						af_writeButton(AF_BTN_SORTGUESS, 'artistname<% $i %>', 'sortname<% $i %>');
-						af_writeButton(AF_BTN_SORTCOPY, 'artistname<% $i %>', 'sortname<% $i %>');
-					-->
-					</script></td>
-			</tr>
-% }
 % }
 			<tr>
 % if (!$toc) {
@@ -262,7 +243,6 @@ for my $i ( 0 .. $tracks-1 )
 % for my $i ( 0 .. $tracks-1 ) {
 							doTrackName(theForm, 'track<% $i %>');
 							doArtistName(theForm, 'artistname<% $i %>');
-							doSortNameGuess(theForm, 'artistname<% $i %>', 'sortname<% $i %>');
 % }
 						}
 						af_writeButton(AF_BTN_ALL, AF_BTNTEXT_ALBUMARTISTSORTNAMEANDTRACKS);
