@@ -37,7 +37,7 @@ use Sql;
 $| = 1 if -t STDOUT;
 $SIG{INT} = sub { die "Interrupt\n" };
 
-my $mb = MusicBrainz->new; $mb->Login;
+my $mb = MusicBrainz->new; $mb->Login(db => "READWRITE");
 my $sql = Sql->new($mb->{DBH});
 
 process("artist");

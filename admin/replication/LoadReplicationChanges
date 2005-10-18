@@ -274,12 +274,6 @@ APPLY_CHANGES:
 system "$FindBin::Bin/ProcessReplicationChanges", @process_opts;
 exit $? if $?;
 
-# Empty the tables
-print localtime() . " : Emptying the Pending and PendingData tables\n";
-$sql->Begin;
-empty_replication_tables();
-$sql->Commit;
-
 # Check that current_replication_sequence has gone up by one
 # Also last_replication_date should match TIMESTAMP
 $iNextReplicationSequence = $iReplicationSequence + 1
@@ -305,12 +299,6 @@ sub read_file
 		or return undef;
 	local $/;
 	<$fh>;
-}
-
-sub empty_replication_tables
-{
-	$sql->Do("DELETE FROM \"PendingData\"");
-	$sql->Do("DELETE FROM \"Pending\"");
 }
 
 # Check that there are no foreign key contraints which link non-replicated

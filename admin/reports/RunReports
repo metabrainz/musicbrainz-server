@@ -49,6 +49,7 @@ my @all = qw(
 	admin/reports/DuplicateArtists.pl
 	admin/reports/DuplicateArtists2
 	admin/reports/DuplicateTrackNumbers
+	admin/reports/DuplicateTRMsPerAlbum
  	admin/reports/FeaturingArtists
 	admin/reports/NoUpperCase
 	admin/reports/SuperfluousDataTracks

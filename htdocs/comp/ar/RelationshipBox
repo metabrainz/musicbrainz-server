@@ -16,7 +16,11 @@ $expanded=>0
 	$m->out('<span class="mp">') 
 		if $item->{modpending};
 
-	if ($isrel)
+	if ($item->{$prefix . "type"} eq 'url')
+	{
+		$m->out('<b><a href="'.$item->{$prefix . "name"}.'">');
+	}
+	elsif ($isrel)
 	{
 		$m->out('<b><a href="/showrel.html?type='.
 				$item->{$prefix . "type"} . '&amp;id='.
@@ -93,7 +97,9 @@ else
 	$item = $links[0];
 	$m->out('<span class="mp">') 
 		if ($max == 1 && $item->{modpending});
-	$m->comp(".OutputEntity", { link0_id=>$id, link0_type=>$type }, 0, $name, $isrelpage);
+	$m->comp(".OutputEntity", $item, 0, $name, $isrelpage);
+	# RUAOK: Why was a new hash constructed here and not $item passed in??
+	#$m->comp(".OutputEntity", { link0_id=>$id, link0_type=>$type, link0_name=> $item->{link0_name} }, 0, $name, $isrelpage);
 	$m->out(($max > 1) ? ':<table width="100%">' : ' ');
 
 	for($i = 0, $count = 0, $lines = 0; $i < $max; $i++, $lines++)

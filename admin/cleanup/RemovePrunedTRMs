@@ -33,10 +33,15 @@ use Getopt::Long qw( GetOptions );
 my $chunk = 1000;
 my $commit = 0;
 my $full = 0;
+my ($la_lwm, $la_hwm) = (1, 2);
+my $sleep;
 GetOptions(
 	"chunk=i"	=> \$chunk,
 	"commit=i"	=> \$commit,
 	"full"		=> \$full,
+	"la-hwm=f"	=> \$la_hwm,
+	"la-lwm=f"	=> \$la_lwm,
+	"sleep=i"	=> \$sleep,
 ) or exit 2;
 
 use DBDefs;
@@ -80,10 +85,19 @@ sub nibble
 
 	my $done = 0;
 	my ($min, $max) = (1, $chunk);
+	my $lastmin = 0;
 	while ($min <= $maxid)
 	{
 		$min = $sql->SelectSingleValue("SELECT MIN($idcol) FROM $table") || 0;
+		if ($min == $lastmin)
+		{
+			print localtime() . " : Nibble failed - stuck at min=$min\n";
+			return;
+		}
+		$lastmin = $min;
+
 		$max = $min + $chunk - 1;
+		check_loadavg();
 		eval {
 			$sql->Begin;
 			$sql->Do("LOCK TABLE $list IN EXCLUSIVE MODE");
@@ -110,11 +124,37 @@ sub nibble
 			}
 			$done = 0;
 		}
+		sleep $sleep if defined $sleep;
 	}
 
 	print localtime() . " : Nibble complete\n";
 }
 
 exit 0;
+
+sub check_loadavg
+{
+	my $la = loadavg();
+	return if $la < $la_hwm;
+	local $| = 1;
+	print localtime() . " : Waiting for load average ($la) to fall ...";
+	while (1)
+	{
+		sleep 10;
+		$la = loadavg();
+		print " $la";
+		last if $la < $la_lwm;
+	}
+	print "\n";
+	print localtime() . " : Continuing\n";
+}
+
+sub loadavg
+{
+	open(my $fh, "<", "/proc/loadavg") or return undef;
+	my $line = <$fh>;
+	close $fh;
+	return (split ' ', $line)[0];
+}
 
 # eof RemovePrunedTRMs

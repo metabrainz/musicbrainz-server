@@ -228,6 +228,7 @@ sub OutputAlbumRDF
 	if (scalar(@$ids))
 	{
 	    $complete = $$ids[scalar(@$ids) - 1]->{tracknum} != (scalar(@$ids) + 1);
+            $complete = 1 if (!$complete && $album->GetName() eq &Album::NONALBUMTRACKS_NAME);
 	    foreach $track (@$ids)
 	    {
 		my $li = $complete ? "rdf:li" : ("rdf:_" . $track->{tracknum});

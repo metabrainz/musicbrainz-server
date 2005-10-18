@@ -697,23 +697,54 @@ sub TrackInfoFromTRMId
       if (!defined $id || $id eq '');
    return undef if (!defined $dbh);
 
-   lprintf("trmlookup", "TRM lookup, TRM_SIGSERVER_BUSY"),
+   lprintf("trmlookup", "TRM lookup, ip=$ip, TRM_SIGSERVER_BUSY"),
    return $rdf->ErrorRDF("This special TRM indicates the TRM server is too busy and cannot be looked up.")
        if ($id eq &ModDefs::TRM_SIGSERVER_BUSY);
 
-   lprintf("trmlookup", "TRM lookup, TRM_TOO_SHORT"),
+   lprintf("trmlookup", "TRM lookup, ip=$ip, TRM_TOO_SHORT"),
    return $rdf->ErrorRDF("This is a special TRM Id associated to files that are too short for a full TRM.")
        if ($id eq &ModDefs::TRM_TOO_SHORT);
 
-   lprintf("trmlookup", "TRM lookup, TRM_ID_SILENCE"),
+   lprintf("trmlookup", "TRM lookup, ip=$ip, TRM_ID_SILENCE"),
    return $rdf->ErrorRDF("This TRM represents silence.  Sorry, you cannot look up this TRM.")
        if ($id eq &ModDefs::TRM_ID_SILENCE);
+
+    # Analysis of recent log files shows that:
+    # - 44% of all requests to mb_server are for the TRM gateway.  However
+    # these don't hit the database so we'll ignore them.
+    # - 43% are for /mm-2.1/TrackInfoFromTRMId (i.e. this subroutine).  So
+    # that's approx 90% of all database sessions are handled by this code.
+
+    # This sub has three paths:
+    # - HIT: the trm given matches one or more tracks
+    # - MISS/HIT: the trm given did not match any tracks, but a TaggerSupport lookup found some tracks
+    # - MISS: the trm given did not match any tracks, and a TaggerSupport lookup didn't find anything either
+
+    # Of the calls made to this sub, 80% are "HIT", and approx 80% of all
+    # elapsed time in this sub is on the "HIT" path.  So we'll optimise that
+    # path.
 
     use Time::HiRes qw( gettimeofday tv_interval );
     my $t0 = [ gettimeofday ];
 
    $sql = Sql->new($dbh);
    $id =~ tr/A-Z/a-z/;
+
+    my $selmode;
+
+    if (my $r = Apache->request)
+    {
+	if ($r->pnotes("is-mbtagger") and $r->the_request =~ m/^POST \/mm-2.1\//)
+	{
+	    my $answer = run_optimised_trmlookup($sql, $id, $t0, $ip);
+	    return $answer if $answer;
+	    $selmode = "fast";
+	    goto DO_TSLOOKUP;
+	}
+    }
+    
+    $selmode = "slow";
+
    $query = qq|select track.gid
                  from TRM, TRMJoin, track
                 where TRM.TRM = ? and
@@ -743,16 +774,17 @@ sub TrackInfoFromTRMId
 
 	my $t1 = [ gettimeofday ];
 	my $out = $rdf->CreateDenseTrackList(0, \@ids);
-	lprintf "trmlookup", "TRM lookup, select=%.3f, HIT, RDF=%.3f, tracks=%d",
+	lprintf "trmlookup", "TRM lookup, ip=%s, slow select=%.3f, HIT, RDF=%.3f, tracks=%d",
+		$ip,
 		tv_interval($t0, $t1),
 		tv_interval($t1),
 		scalar @ids,
 		if DEBUG_TRM_LOOKUP;
 	return $out;
    }
-   else
-   {
+
 	$sql->Finish;
+DO_TSLOOKUP:
 	my $t1 = [ gettimeofday ];
 
        my (%lookup, $ts);
@@ -778,7 +810,8 @@ sub TrackInfoFromTRMId
                if ($id->{sim} >= .9)
                {
 		    my $out = $rdf->CreateDenseTrackList(1, [$id->{mbid}]);
-		    lprintf "trmlookup", "TRM lookup, select=%.3f, MISS, TSLookup=%.3f, HIT, RDF=%.3f",
+		    lprintf "trmlookup", "TRM lookup, ip=%s, $selmode select=%.3f, MISS, TSLookup=%.3f, HIT, RDF=%.3f",
+			    $ip,
 			    tv_interval($t0, $t1),
 			    tv_interval($t1, $t2),
 			    tv_interval($t2),
@@ -788,12 +821,171 @@ sub TrackInfoFromTRMId
            }
        }
 
-	lprintf "trmlookup", "TRM lookup, select=%.3f, MISS, TSLookup=%.3f, MISS",
+	lprintf "trmlookup", "TRM lookup, ip=%s, $selmode select=%.3f, MISS, TSLookup=%.3f, MISS",
+		$ip,
 		tv_interval($t0, $t1),
 		tv_interval($t1, $t2),
 		if DEBUG_TRM_LOOKUP;
        return $rdf->CreateStatus(0);
-   }
+}
+
+# This method is the on the optimised TrackInfoFromTRMId path, and is only
+# used if the client is (probably) MB Tagger 0.10.x
+sub run_optimised_trmlookup
+{
+    my ($sql, $trmid, $t0, $ip) = @_;
+    my $server = &DBDefs::RDF_SERVER;
+
+    my $rows = $sql->SelectListOfLists(
+	<<EOF,
+	    SELECT	t.gid, t.name, t.length, t.artist, j.sequence,
+			a.gid, a.name, a.attributes, a.artist
+	    FROM	trm, trmjoin tj, track t, albumjoin j, album a
+	    WHERE	trm.trm = ?
+	    AND	tj.trm = trm.id
+	    AND	t.id = tj.track
+	    AND	j.track = t.id
+	    AND	a.id = j.album
+	    LIMIT 101
+EOF
+	$trmid,
+    );
+    @$rows or return undef;
+
+    if (@$rows > 100)
+    {
+	lprint "trmlookup", "TRM $trmid matches many tracks - results truncated";
+    }
+
+    require TRM;
+    TRM->IncrementLookupCount($trmid);
+ 
+    my %artists;
+    for my $artistid (map { $_->[3], $_->[8] } @$rows)
+    {
+	next if $artists{$artistid};
+	require Artist;
+	my $ar = Artist->newFromId($sql->{DBH}, $artistid);
+	$artists{$artistid} = $ar;
+    }
+
+    my $out = <<'EOF';
+<?xml version="1.0" encoding="UTF-8"?>
+<rdf:RDF xmlns:rdf = "http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+         xmlns:dc  = "http://purl.org/dc/elements/1.1/"
+         xmlns:mq  = "http://musicbrainz.org/mm/mq-1.1#"
+         xmlns:mm  = "http://musicbrainz.org/mm/mm-2.1#"
+         xmlns:ar  = "http://musicbrainz.org/ar/ar-1.0#"
+         xmlns:az  = "http://www.amazon.com/gp/aws/landing.html#">
+  <mq:Result>
+    <mq:status>OK</mq:status>
+    <mm:trackList>
+      <rdf:Bag>
+EOF
+	$out .= <<EOF
+        <rdf:li rdf:resource="http://$server/mm-2.1/track/$_->[0]"/>
+EOF
+	    for @$rows;
+	$out .= <<'EOF';
+      </rdf:Bag>
+    </mm:trackList>
+  </mq:Result>
+EOF
+
+    my %albums;
+
+    for my $row (@$rows)
+    {
+	my $ar = $artists{ $row->[3] }
+	    or next;
+	my $trackname = $row->[1]; RDF2::escape($trackname);
+	my $artistgid = $ar->GetMBId;
+
+	# Cheat: this is missing the trmidList
+	$out .= <<EOF;
+  <mm:Track rdf:about="http://$server/mm-2.1/track/$row->[0]">
+    <dc:title>$trackname</dc:title>
+    <dc:creator rdf:resource="http://$server/mm-2.1/artist/$artistgid"/>
+    <mm:duration>$row->[2]</mm:duration>
+    <mq:album rdf:resource="http://$server/mm-2.1/album/$row->[5]"/>
+  </mm:Track>
+EOF
+
+	push @{ $albums{ $row->[5] } }, $row;
+    }
+
+    for my $album (values %albums)
+    {
+	my $row = $album->[0];
+	my $ar = $artists{ $row->[8] }
+	    or next;
+	my $albumname = $row->[6]; RDF2::escape($albumname);
+	my $artistgid = $ar->GetMBId;
+
+	my $typehash = "";
+	my $statushash = "";
+
+	{
+	    my @attrs = $row->[7] =~ /(\d+)/g;
+	    shift @attrs;
+	    my ($type, $status) = Album->GetReleaseTypeAndStatus(\@attrs);
+	    $typehash = "Type" . Album->GetAttributeName($type) if $type;
+	    $statushash = "Status" . Album->GetAttributeName($status) if $status;
+	}
+
+	# Cheat: this is missing the releaseDateList
+	$out .= <<EOF;
+  <mm:Album rdf:about="http://$server/mm-2.1/album/$row->[5]">
+    <dc:title>$albumname</dc:title>
+    <dc:creator rdf:resource="http://$server/mm-2.1/artist/$artistgid"/>
+EOF
+	$out .= <<EOF if $typehash;
+    <mm:releaseType rdf:resource="http://musicbrainz.org/mm/mm-2.1#$typehash"/>
+EOF
+	$out .= <<EOF if $statushash;
+    <mm:releaseStatus rdf:resource="http://musicbrainz.org/mm/mm-2.1#$statushash"/>
+EOF
+	$out .= <<EOF;
+    <mm:trackList>
+      <rdf:Seq>
+EOF
+	$out .= <<EOF for @$album;
+        <rdf:_$_->[4] rdf:resource="http://$server/mm-2.1/track/$_->[0]"/>
+EOF
+	$out .= <<EOF;
+      </rdf:Seq>
+    </mm:trackList>
+  </mm:Album>
+EOF
+    }
+
+    for my $ar (values %artists)
+    {
+	$ar or next;
+	# The "full" RDF code doesn't seem to spit out VARTIST_ID
+	my $artistname = $ar->GetName; RDF2::escape($artistname);
+	my $sortname = $ar->GetSortName; RDF2::escape($sortname);
+	my $artistgid = $ar->GetMBId;
+
+	# Cheat: this is missing artistType and beginDate
+	$out .= <<EOF;
+  <mm:Artist rdf:about="http://$server/mm-2.1/artist/$artistgid">
+    <dc:title>$artistname</dc:title>
+    <mm:sortName>$sortname</mm:sortName>
+  </mm:Artist>
+EOF
+    }
+
+    $out .= <<EOF;
+</rdf:RDF>
+EOF
+
+    lprintf "trmlookup", "TRM lookup, ip=%s, fast select=%.3f, HIT, tracks=%d",
+    	$ip,
+	tv_interval($t0),
+	scalar @$rows,
+	if DEBUG_TRM_LOOKUP;
+    return $out;
 }
 
 # This method is now deprecated

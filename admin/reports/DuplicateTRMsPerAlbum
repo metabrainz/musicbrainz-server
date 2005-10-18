@@ -1,0 +1,84 @@
+#!/home/httpd/musicbrainz/mb_server/cgi-bin/perl -w
+# vi: set ts=4 sw=4 :
+#____________________________________________________________________________
+#
+#   MusicBrainz -- the open internet music database
+#
+#   Copyright (C) 2005 Björn Krombholz
+#
+#   This program is free software; you can redistribute it and/or modify
+#   it under the terms of the GNU General Public License as published by
+#   the Free Software Foundation; either version 2 of the License, or
+#   (at your option) any later version.
+#
+#   This program is distributed in the hope that it will be useful,
+#   but WITHOUT ANY WARRANTY; without even the implied warranty of
+#   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+#   GNU General Public License for more details.
+#
+#   You should have received a copy of the GNU General Public License
+#   along with this program; if not, write to the Free Software
+#   Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
+#
+#   $Id$
+#____________________________________________________________________________
+
+use FindBin;
+use lib "$FindBin::Bin/../../cgi-bin";
+
+use strict;
+use warnings;
+
+package DuplicateTRMsPerAlbum;
+use base qw( MusicBrainz::Server::ReportScript );
+
+sub GatherData
+{
+	my $self = shift;
+
+	$self->Log("Querying database");
+	my $sql = $self->SqlObj;
+
+	$sql->AutoCommit;
+	$sql->Do(<<'EOF');
+		SELECT album, trm, COUNT(*) AS freq
+		INTO TEMPORARY TABLE tmp_dupalbtrm
+		FROM albumjoin INNER JOIN trmjoin USING (track)
+		GROUP BY album, trm
+		HAVING COUNT(*) > 1;
+EOF
+	$self->Log("TEMPORARY TABLE created");
+	my $rows = $sql->SelectListOfHashes(<<'EOF');
+	SELECT  artist.id AS artist_id, artist.name AS artist_name,
+		album.id AS album_id, album.name AS album_name,
+		trm.id AS trm_id, trm.trm
+	FROM    trm
+		INNER JOIN tmp_dupalbtrm tmp ON tmp.trm = trm.id
+		INNER JOIN album ON tmp.album = album.id
+		INNER JOIN artist ON album.artist = artist.id
+	ORDER BY artist.sortname, album.name asc;
+EOF
+
+	$self->Log("Saving results");
+	my $report = $self->PagedReport;
+
+	for my $row (@$rows)
+	{
+		$row->{'tracks'} = $sql->SelectListOfHashes("
+			SELECT 	aj.track AS track_id, t.name AS track_name, sequence, length
+			FROM 	albumjoin aj 
+				INNER JOIN track t ON aj.track = t.id 
+				INNER JOIN trmjoin tj ON t.id = tj.track 
+			WHERE aj.album = ? AND tj.trm = ?
+			ORDER BY sequence
+			",
+			$row->{'album_id'}, $row->{'trm_id'},
+		);
+
+		$report->Print($row);
+	}
+}
+
+__PACKAGE__->new->RunReport;
+
+# eof TRMsWithManyTracks.pl

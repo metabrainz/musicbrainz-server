@@ -18,6 +18,10 @@ if ( defined $page ) {
 	# So for now, rewrite those URLs to their canonical form.
 	$page =~ s[href="http:/(\w)]['href="http://' . &DBDefs::WEB_SERVER . "/$1"]eg;
 
+	# Hack.  I've broken ruaok's wiki patches, so this works around them for now.
+	$page =~ s[<a class="nonexistent" href="/read/\w+">(.*?)</a>][$1]sg;
+	$page =~ s[<a href="/read/(\w+)">][<a href="/wd/$1">]g;
+
 	# Obfuscate e-mail addresses
 	$page =~ s/(\w+)\@(\w+)/$1&#x0040;$2/g;
 	$page =~ s/mailto:/mailto&#x3a;/g;

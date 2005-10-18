@@ -203,6 +203,25 @@ printf "%7d  %7d  %7d  %s\n", $ins, $upd, $del, "(total)";
 
 print localtime() . " : Replication changes applied\n";
 
+{
+	for my $table (qw( PendingData Pending ))
+	{
+		print localtime() . " : Checking that $table is empty\n";
+
+		my $n = $sql->SelectSingleValue(
+			"SELECT COUNT(*) FROM \"$table\"",
+		);
+		die "$table still contains data (rows=$n)!" if $n;
+
+		print localtime() . " : Optimising $table\n";
+		$sql->AutoCommit;
+		$sql->Do("VACUUM ANALYZE \"$table\"");
+	}
+}
+
+print localtime() . " : ProcessReplicationChanges complete\n";
+exit;
+
 sub mirrorCommand
 {
 	my ($op, $result, $slave, $row, $transId)  = @_;

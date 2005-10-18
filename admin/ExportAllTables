@@ -391,6 +391,8 @@ printf "%s : Dumped %d tables (%d rows) in %d seconds\n",
 	scalar localtime,
 	$tables, $totalrows, $dumptime;
 
+optimise_replication_tables() if $fDoReplication;
+
 # Now we have all the files; disconnect from the database.
 # This also drops the _sanitised temporary tables.
 undef $sql;
@@ -554,6 +556,15 @@ sub empty_replication_tables
 {
 	$sql->Do("DELETE FROM \"PendingData\"");
 	$sql->Do("DELETE FROM \"Pending\"");
+}
+
+sub optimise_replication_tables
+{
+	print localtime() . " : Optimising replication tables\n";
+	$sql->AutoCommit;
+	$sql->Do("VACUUM FULL ANALYZE \"PendingData\"");
+	$sql->AutoCommit;
+	$sql->Do("VACUUM FULL ANALYZE \"Pending\"");
 }
 
 sub dumplucene

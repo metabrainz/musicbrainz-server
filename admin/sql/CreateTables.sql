@@ -502,14 +502,14 @@ CREATE TABLE moderation_closed
     rowid               INTEGER NOT NULL, 
     prevvalue           VARCHAR(255) NOT NULL, 
     newvalue            TEXT NOT NULL, 
-    language            INTEGER, -- references language
     yesvotes            INTEGER DEFAULT 0, 
     novotes             INTEGER DEFAULT 0,
     depmod              INTEGER DEFAULT 0,
     automod             SMALLINT DEFAULT 0,
     opentime            TIMESTAMP WITH TIME ZONE DEFAULT NOW(),
     closetime           TIMESTAMP WITH TIME ZONE,
-    expiretime          TIMESTAMP WITH TIME ZONE NOT NULL
+    expiretime          TIMESTAMP WITH TIME ZONE NOT NULL,
+    language            INTEGER -- references language
 );
 
 CREATE TABLE moderation_open
@@ -524,14 +524,14 @@ CREATE TABLE moderation_open
     rowid               INTEGER NOT NULL, 
     prevvalue           VARCHAR(255) NOT NULL, 
     newvalue            TEXT NOT NULL, 
-    language            INTEGER, -- references language
     yesvotes            INTEGER DEFAULT 0, 
     novotes             INTEGER DEFAULT 0,
     depmod              INTEGER DEFAULT 0,
     automod             SMALLINT DEFAULT 0,
     opentime            TIMESTAMP WITH TIME ZONE DEFAULT NOW(),
     closetime           TIMESTAMP WITH TIME ZONE,
-    expiretime          TIMESTAMP WITH TIME ZONE NOT NULL
+    expiretime          TIMESTAMP WITH TIME ZONE NOT NULL,
+    language            INTEGER -- references language
 );
 
 CREATE TABLE moderator

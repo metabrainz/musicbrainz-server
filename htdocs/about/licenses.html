@@ -1,6 +1,12 @@
 %# vi: set ts=2 sw=2 ft=mason :
 <& /comp/sidebar, title => 'MusicBrainz Data Licenses' &>
 
+<p style="border: 2px dotted red; padding: 1em; margin: 2em">
+Please note that the recent creation of the <a href="http://metabrainz.org">MetaBrainz
+Foundation</a> does not change <b>any</b> of our licenses. MetaBrainz was founded
+on the premise of keeping the data open and available to the public. 
+</p>
+
 <p>
 The data collected by the MusicBrainz project falls into two categories explained below.
 Any user that contributes to MusicBrainz should be aware that their contributions will
@@ -78,13 +84,41 @@ after the description of the data)
 <li>Statistics (currentstat, historicalstat, stats, trmjoin_stat, trm_stat)</li>
 <li>Moderations (automod_election, moderation_note_open, moderation_open, moderator, vote_open)</li>
 <li>Closed moderations (moderation_closed, moderation_note_closed, vote_closed)</li>
-<li>Live data-feed -- see notes above</li>
+<li>Live data-feed -- see section below</li>
 <li>Artist relationships (artist_relation) (data provided by Agent Arts)</li>
 </ul>
 
 <p>
 To get the Creative Commons licensed data, please download a data snapshot from
 the <a href="/products/server/download.html">download</a> page.
+</p>
+
+<h2>Live data-feed</h2>
+
+<p>
+MusicBrainz has been offering its live data-feed since spring 2004. This live data-feed enables a server 
+running a PostgreSQL database in conjunction with the MusicBrainz server software to automatically stay
+in synch with the main server. A mirror (slave) server downloads replication packets from the main
+MusicBrainz FTP site at hourly intervals and applies them to the local database. This enables the mirror
+server to never be more than about an hour of sync with the main server.
+</p>
+
+<p>
+As mentioned above, the replication packets contain both Public Domain and Creative Commons licensed
+data. The Creative Commons <a href="http://creativecommons.org/licenses/by-nc-sa/2.0/">Attribution-NonCommercial-ShareAlike 2.0</a>
+license allows anyone in a non-commercial setting to use this live data feed. However, if you would
+like to use this live-data feed in a commerical setting, you will need to obtain a commercial
+data license from the MetaBrainz Foundation. For information on what entails commercial use and how
+to obtain a commercial use license for the live data feed, please visit the <a 
+href="http://metabrainz.org/about/license.html">MetaBrainz data license page</a>.
+</p>
+
+<p>
+<b>Please note that MusicBrainz is <b>not</b> charging for access to the data!</b> Anyone can
+download the data snapshots that are at most a few days old (which is better than our closest
+competitors) or use our web service to access the data <b>now</b>. 
+We are charging for <b>timely and convenient access</b> to the data for commercial users so
+that we can fund the operation of the non-profit foundation and in turn develop new features.
 </p>
 
 <& /comp/footer &>

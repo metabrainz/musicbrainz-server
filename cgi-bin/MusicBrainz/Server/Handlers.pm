@@ -55,6 +55,9 @@ sub TransHandler
 		}
 	}
 
+	# Temporary hack: keep track of which IPs are running MB Taggers
+	track_mb_taggers($r);
+
 	# These ones are the "permanent URLs" to HTML pages
 	# /(artist|album|track)/$GUID.html
 	if ($uri =~ m[^/(artist|album|track)/($GUID)\.html\z])
@@ -216,6 +219,64 @@ sub best_type
 	}
 
 	scalar HTTP::Negotiate::choose(\@variants, $headers);
+}
+
+################################################################################
+
+sub track_mb_taggers
+{
+	my ($r) = @_;
+
+	require MusicBrainz::Server::Cache;
+	my $key = "istagger-" . $r->connection->remote_ip;
+	my $is_tagger;
+
+	# See http://wiki.musicbrainz.org/ServerAccessPaths?highlight=mbt=1
+	# "mbt=0" is a debugging mechanism - a way of resetting mbt=1.
+	if ($r->args =~ /\bmbt=([01])\b/) {
+		MusicBrainz::Server::Cache->set($key, $is_tagger = $1, 3600);
+	} else {
+		$is_tagger = MusicBrainz::Server::Cache->get($key);
+	}
+
+	$r->pnotes("is-mbtagger", $is_tagger||"");
+}
+
+sub LogHandler
+{
+	my ($r) = @_;
+	return &Apache::Constants::DECLINED unless $r->is_main;
+	eval {auto_detect_taggers($r) };
+	return &Apache::Constants::DECLINED;
+}
+
+sub auto_detect_taggers
+{
+	my ($r) = @_;
+	my $req = $r->the_request;
+	my $ip = $r->connection->remote_ip;
+	my $ua = $r->header_in("User-Agent") || "";
+
+	my $tag = (
+		$ua !~ m/^libmusicbrainz\/2\.1\.[01]$/ ? "O"
+		: $req =~ m/^POST \/cgi-bin\/gateway/ ? "T"
+		: $req =~ m/^POST \/mm-2.1\/TrackInfoFromTRMId\?/ ? "I"
+		: "O"
+	);
+
+	my $key = "autotagger-" . $ip;
+	my $recent = MusicBrainz::Server::Cache->get($key) || "";
+	{ no warnings; $recent = $tag . substr($recent, 0, 49) };
+	MusicBrainz::Server::Cache->set($key, $recent, 3600);
+	print "history for $ip = $recent\n";
+
+	if ($recent =~ /^[IT]{32}/
+		and $recent =~ tr/I// >= 10
+		and $recent =~ tr/T// >= 10
+	) {
+		$key = "istagger-" . $ip;
+		MusicBrainz::Server::Cache->set($key, 1, 3600);
+	}
 }
 
 1;
