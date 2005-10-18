@@ -373,6 +373,11 @@ function myOnFocus(theField) {
 		if (cn.indexOf("focus") != -1) {
 			af_onFocusField.className = cn.replace(/focus/i, "");
 		} 
+		var ubDiv = af_onFocusField.name + "_btn";
+		var obj;
+		if ((obj = document.getElementById(ubDiv)) != null) {
+			af_onFocusField.parentNode.removeChild(obj);
+		}
 	}
 	if (theField && theField.className) {
 		if (theField.className.indexOf("focus") == -1) {
@@ -384,8 +389,31 @@ function myOnFocus(theField) {
 		// if we are editing a tracktime field, and the value is the
 		// default NULL value, clear the field for editing.
 		if (theField.value == "?:??") {
-			theField.value = "";
-			
+			theField.value = "";	
+		}
+
+		// only add utility buttons on textfields
+		if (theField.className.match("textfieldfocus")) {
+			var ubDiv = theField.name + "_btn";
+			var obj;
+			if ((obj = document.getElementById(ubDiv)) == null) {
+				var x = document.createElement("div");
+				x.id = ubDiv;
+				x.style.marginTop = "2px";
+				x.style.padding = "2px";
+				x.style.border = "1px dotted black";
+				x.style.paddingTop = "0px";
+				x.style.borderRight = "none";
+				x.style.borderTop = "none";
+				theField.parentNode.appendChild(x);
+				x.innerHTML = 	'<small>Change case:&nbsp;'
+							  + '   <a style="font-size: 11px" href="javascript:;" title="Capitalize first character only" onClick="doApplyOperation(AF_OP_TITLED)">Titled</a>'
+							  + ' | <a style="font-size: 11px" href="javascript:;" title="Convert characters to UPPERCASE" onClick="doApplyOperation(AF_OP_UPPERCASE)">UPPERCASE</a>'
+							  + ' | <a style="font-size: 11px" href="javascript:;" title="Convert characters to lowercase" onClick="doApplyOperation(AF_OP_LOWERCASE)">lowercase</a>'
+							  + ' | <a style="font-size: 11px" href="javascript:;" title="Add round parentheses () around selection/field" onClick="doApplyOperation(AF_OP_ROUNDBRACKETS)">Add ()</a>'
+							  + ' | <a style="font-size: 11px" href="javascript:;" title="Add square brackets [] around selection/field" onClick="doApplyOperation(AF_OP_SQUAREBRACKETS)">Add []</a>'
+							  + '</small>';
+			}
 		}
 	}
 }
@@ -583,16 +611,15 @@ function af_writeGUI(fOpen) {
 	document.writeln('            <tr valign="middle">');
 	document.writeln('              <td nowrap><b>Selected Text:</td>');
 	document.writeln('              <td colspan="3">');
-	document.writeln('                <table cellspacing="0" cellpadding="0" border="0">');
-	document.writeln('                <tr valign="top"><td nowrap>');
-	document.writeln('                <input type="button" class="button" value="Capital" title="Capitalize first character only" onClick="doApplyOperation(AF_OP_TITLED)">');
-	document.writeln('                <input type="button" class="button" value="UPPER" title="CONVERT CHARACTERS TO UPPERCASE" onClick="doApplyOperation(AF_OP_UPPERCASE)">');
-	document.writeln('                <input type="button" class="button" value="lower" title="convert characters to lowercase" onClick="doApplyOperation(AF_OP_LOWERCASE)">');
-	document.writeln('                <input type="button" class="button" value="Add ()" title="Add round parentheses () around selection" onClick="doApplyOperation(AF_OP_ROUNDBRACKETS)">');
-	document.writeln('                <input type="button" class="button" value="Add []" title="Add square brackets [] around selection" onClick="doApplyOperation(AF_OP_SQUAREBRACKETS)">');
-	document.writeln('                </td><td>&nbsp;&nbsp;&nbsp;</td><td>');
-	document.writeln('                  [ <a href="/wd/GuessCaseTool" target="_blank" title="Select text in titles, then press one of the buttons at left. Click on this link if you want to know more...">help</a> ] <br/></td>');
-	document.writeln('                </tr></table>');
+	
+	document.writeln('<input type="button" class="button" value="Capital" title="Capitalize first character only" onClick="doApplyOperation(AF_OP_TITLED)">');
+	document.writeln('<input type="button" class="button" value="UPPER" title="CONVERT CHARACTERS TO UPPERCASE" onClick="doApplyOperation(AF_OP_UPPERCASE)">');
+	document.writeln('<input type="button" class="button" value="lower" title="convert characters to lowercase" onClick="doApplyOperation(AF_OP_LOWERCASE)">');
+	document.writeln('<input type="button" class="button" value="Add ()" title="Add round parentheses () around selection" onClick="doApplyOperation(AF_OP_ROUNDBRACKETS)">');
+	document.writeln('<input type="button" class="button" value="Add []" title="Add square brackets [] around selection" onClick="doApplyOperation(AF_OP_SQUAREBRACKETS)">');
+	document.writeln('&nbsp;&nbsp;&nbsp;');
+	document.writeln('[ <a href="/wd/GuessCaseTool" target="_blank" title="Select text in titles, then press one of the buttons at left. Click on this link if you want to know more...">help</a> ]');
+
 	document.writeln('              </td>');
 	document.writeln('            </tr>');
 	document.writeln('            <tr><td colspan="4"><img src="/images/spacer.gif" height="4" alt="" /></td></tr>');
@@ -706,7 +733,6 @@ var AF_BTN_USECURRENT  = "usecurrent";
 var AF_BTN_GUESSBOTH = "guessboth";
 var AF_BTNTEXT_NONALBUMTRACKS = 'Guess All Track Names according to Guess Case settings';
 var AF_BTNTEXT_ALBUMANDTRACKS = 'Guess Album Name and Track Names according to Guess Case settings';
-var AF_BTNTEXT_ALBUMARTISTSORTNAMEANDTRACKS = 'Guess Album Name, Artist Names, Artist Sortnames and Track Names according to Guess Case settings';
 
 var AF_BTN_SR_FIND = "srfind";
 var AF_BTN_SR_REPLACE = "srreplace";
