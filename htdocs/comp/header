@@ -12,6 +12,7 @@ my $mtime = (stat $brainz_css)[9] || 0;
 my $mtime_print = (stat(&DBDefs::HTDOCS_ROOT . "/css/print.css"))[9] || 0;
 my $mtime_globaljs = (stat(&DBDefs::HTDOCS_ROOT . "/scripts/global.js"))[9] || 0;
 my $mtime_topmenujs = (stat(&DBDefs::HTDOCS_ROOT . "/scripts/topmenu.js"))[9] || 0;
+my $mtime_overlibjs = (stat(&DBDefs::HTDOCS_ROOT . "/scripts/overlib.js"))[9] || 0;
 my $staticmenus = "";
 </%perl>
 % $m->clear_buffer;
@@ -29,9 +30,11 @@ my $staticmenus = "";
 % $m->out($head) if defined $head and not ref $head;
    <script type="text/javascript" src="/scripts/global.js?t=<% $mtime_globaljs %>"></script>
    <script type="text/javascript" src="/scripts/topmenu.js?t=<% $mtime_topmenujs %>"></script>
+   <script type="text/javascript" src="/scripts/overlib.js?t=<% $mtime_overlibjs %>"></script>
 
 </head>
 <body onload="OnPageLoad()">
+	<div id="overDiv" style="position:absolute; visibility:hidden; z-index:1000;"></div>
 
 % unless ($notopbar) {
 
