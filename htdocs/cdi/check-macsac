@@ -18,13 +18,16 @@ if ($ARGS{artist} == &ModDefs::VARTIST_ID)
 	return 1 if $NumTracks <= 1;
 
 	my %names;
+	my %ids;
 	
 	for my $seq (0 .. $NumTracks-1)
 	{
 		++$names{ $ARGS{"artistname$seq"} };
+		++$ids{ $ARGS{"artist$seq"} };
 	}
 
 	return 1 if keys(%names) > 1;
+	return 1 if keys(%ids) > 1;
 
 	</%perl>
 

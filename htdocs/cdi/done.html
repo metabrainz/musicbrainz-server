@@ -127,12 +127,16 @@ else
         }
         if ($artist == &ModDefs::VARTIST_ID)
         {
-			MusicBrainz::TrimInPlace(
-				$ARGS{"artistname$i"},
-				$ARGS{"sortname$i"},
-			);
-            $new .= "Artist" . ($i + 1) . "=" . $ARGS{"artistname$i"} . "\n";
-            $new .= "Sortname" . ($i + 1) . "=" . $ARGS{"sortname$i"} . "\n";
+	    if (exists $ARGS{"artist$i"} && $ARGS{"artist$i"} != 0)
+	    {
+		$new .= "ArtistID" . ($i + 1) . "=" . $ARGS{"artist$i"} . "\n";
+	    }
+	    else {
+		MusicBrainz::TrimInPlace($ARGS{"artistname$i"},
+					 $ARGS{"sortname$i"});
+		$new .= "Artist" . ($i + 1) . "=" . $ARGS{"artistname$i"} . "\n";
+		$new .= "Sortname" . ($i + 1) . "=" . $ARGS{"sortname$i"} . "\n";
+	    }
         }
     }
 

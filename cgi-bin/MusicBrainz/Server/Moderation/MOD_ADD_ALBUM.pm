@@ -1,4 +1,4 @@
-#!/home/httpd/musicbrainz/mb_server/cgi-bin/perl -w
+#!/home/mbserver/cvs/mb_server/cgi-bin/perl -w
 # vi: set ts=4 sw=4 :
 #____________________________________________________________________________
 #
@@ -126,8 +126,15 @@ sub PreInsert
 		
 		if ($is_various)
 		{
-		   	$tmp{'artist'} = $new{"Artist$i"};
-		   	$tmp{'sortname'} = $new{"Sortname$i"};
+		        if (exists $new{"ArtistID$i"} && $new{"ArtistID$i"} != 0)
+			{
+			    $tmp{'artistid'} = $new{"ArtistID$i"};
+			}
+			else
+			{
+			    $tmp{'artist'} = $new{"Artist$i"};
+			    $tmp{'sortname'} = $new{"Sortname$i"};
+			}
 		}
 
 		if (exists $new{"TrackDur$i"})

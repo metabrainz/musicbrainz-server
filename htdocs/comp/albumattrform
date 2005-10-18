@@ -41,7 +41,7 @@ my @indexes;
 
 	<table>
 		<tr>
-			<td><b>Album:</b></td>
+			<td><label><b>Album:</b></label></td>
 			<td>
 % if ($albumname eq '') {
 				All selected albums
@@ -52,7 +52,7 @@ my @indexes;
 		</tr>
 % if ($adding != 0) {
 		<tr>
-			<td><b>Disc length:</b></td>
+			<td><label><b>Disc length:</b></label></td>
 			<td> <% $disclength %></td>
 		</tr>
 % }
