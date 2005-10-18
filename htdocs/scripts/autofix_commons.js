@@ -1,724 +1,3 @@
-var AF_MODE_AUTOFIX = 'autofix';
-var AF_MODE_SENTENCECAPS = 'ucfirst';
-var af_mode = AF_MODE_AUTOFIX;
-
-var af_modeDescription = new Array();
-af_modeDescription[AF_MODE_AUTOFIX] = 'Standard Guess Case mode, according to the <a target="_blank" href="http://www.musicbrainz.org/style.html">Style Guidelines</a>';
-af_modeDescription[AF_MODE_SENTENCECAPS] = 'First word uppercase, rest lowercase for non-English languages. Read the capitalization guides here: <a target="_blank" href="http://wiki.musicbrainz.org/wiki.pl?CapitalizationStandard">CapitalizationStandard</a>';
-
-var AF_OP_UPPERCASE = 'uppercase';
-var AF_OP_LOWERCASE = 'lowercase';
-var AF_OP_TITLED = 'titled';
-var AF_OP_ROUNDBRACKETS = 'roundbrackets';
-var AF_OP_SQUAREBRACKETS = 'squarebrackets';
-
-var AF_COOKIE_MODE = "afmode";
-var AF_COOKIE_TABLE = "aftable";
-
-var af_undoStack = new Array();
-var af_undoIndex = 0;
-var af_onFocusFieldState = new Array(null, null);
-var af_onFocusField = null;
-var AF_UNDOLIST = "list";
-
-
-// ***********************************************************************
-// handler functions for all the different kind of
-// and permutation of fields.
-//   * artist
-//   * album
-//   * artist, track
-//   * artist, sortname
-// ***********************************************************************
-
-// ----------------------------------------------------------------------------
-// doArtistName()
-// -- Apply fix to the Artist Name field with name=theID
-function doArtistName(theForm, theID) {
-	if (theID == null) theID = 'artist';
-	var theField = af_getField(theForm, theID);
-	var oldvalue = theField.value;
-	var newvalue = af_artistNameFix(oldvalue);
-	if (newvalue != oldvalue) {
-		theField.value = newvalue;
-		af_addUndo(theForm,
-				   new Array(theField, af_mode, oldvalue, newvalue)
-				   );
-	}
-	af_resetSelection();
-}
-
-// ----------------------------------------------------------------------------
-// doAlbumName()
-// -- Apply fix to the Album Name field with name=theID
-function doAlbumName(theForm, theID) {
-	if (theID == null) theID = 'album';
-	var theField = af_getField(theForm, theID);
-	var oldvalue = theField.value;
-	var newvalue = af_albumNameFix(theField.value);
-	if (newvalue != oldvalue) {
-		theField.value = newvalue;
-		af_addUndo(theForm,
-				   new Array(theField, af_mode, oldvalue, newvalue)
-				  );
-	}
-	af_resetSelection();
-}
-
-// ----------------------------------------------------------------------------
-// doTrackName()
-// -- Apply fix to the Track Name field with name=theID
-function doTrackName(theForm, theID) {
-	var theField = af_getField(theForm, theID);
-	var oldvalue = theField.value;
-	var newvalue = af_trackNameFix(theField.value);
-	if (newvalue != oldvalue) {
-		theField.value = newvalue;
-		af_addUndo(theForm,
-				   new Array(theField, af_mode, oldvalue, newvalue)
-				   );
-	}
-	af_resetSelection();
-}
-
-// ----------------------------------------------------------------------------
-// doSortNameCopy()
-// -- Copy value from the artist field to the sortname field
-function doSortNameCopy(theForm, theArtistID, theSortID) {
-	var theArtistField = af_getField(theForm, theArtistID);
-	var theSortnameField = af_getField(theForm, theSortID);
-	var oldvalue = theSortnameField.value;
-	var newvalue = theArtistField.value;
-	if (newvalue != oldvalue) {
-		theSortnameField.value = newvalue;
-		af_addUndo(theForm,
-				   new Array(theSortnameField, 'sortnamecopy', oldvalue, newvalue)
-				   );
-	}
-	af_resetSelection();
-}
-
-// ----------------------------------------------------------------------------
-// doSortNameGuess()
-//  -- Guess artist sortname using the artistNameGuessSortName routine in autofix.js
-function doSortNameGuess(theForm, theArtistID, theSortID) {
-	var theArtistField = af_getField(theForm, theArtistID);
-	var theSortnameField = af_getField(theForm, theSortID);
-	var artistValue = theArtistField.value;
-	var newvalue = theSortnameField.value; var oldvalue = theSortnameField.value;
-	newvalue = artistNameGuessSortName(artistValue);
-	if (newvalue != oldvalue) {
-		theSortnameField.value = newvalue;
-		af_addUndo(theForm,
-				   new Array(theSortnameField, 'sortname', oldvalue, newvalue)
-				   );
-	}
-	af_resetSelection();
-}
-
-// ----------------------------------------------------------------------------
-// doSwapFields()
-// -- Swap artist name and track name fields
-function doSwapFields(theForm) {
-	if (theForm != null) {
-		if (theForm.search && theForm.trackname && theForm.swapped) {
-			var newSwapped = 1 - theForm.swapped.value; // hidden var which holds if fields were swapped
-			var switchTempVar = theForm.search.value; // remember field for swap operation
-			af_addUndo(theForm,
-					   new Array(AF_UNDOLIST,
-						   new Array(theForm.trackname, 'swap', theForm.trackname.value, theForm.search.value),
-						   new Array(theForm.search, 'swap', theForm.search.value, theForm.trackname.value),
-						   new Array(theForm.swapped, 'swap', theForm.swapped.value, newSwapped)
-					   ));
-			theForm.search.value = theForm.trackname.value;
-			theForm.trackname.value = switchTempVar;
-			theForm.swapped.value = newSwapped;
-		}
-	}
-}
-
-// ----------------------------------------------------------------------------
-// doUseCurrent()
-// -- Use the initial value (reset)
-function doUseCurrent(theForm) {
-	if (theForm != null) {
-		if (theForm.search != null && theForm.orig_artname != null &&
-			theForm.trackname != null && theForm.orig_track != null) {
-			af_addUndo(theForm,
-					   new Array(AF_UNDOLIST,
-					       new Array(theForm.trackname, 'usecurrent', theForm.trackname.value, theForm.orig_track.value),
-					       new Array(theForm.search, 'usecurrent', theForm.search.value, theForm.orig_artname.value)
-					   ));
-			theForm.trackname.value = theForm.orig_track.value;
-			theForm.search.value = theForm.orig_artname.value;
-		}
-	}
-}
-
-// ----------------------------------------------------------------------------
-// doUseSplit()
-// -- Use the split that was guessed on the server side
-function doUseSplit(theForm) {
-	if (theForm != null) {
-		if (theForm.split_artname != null &&
-			theForm.split_track != null) {
-			af_addUndo(theForm,
-					   new Array(AF_UNDOLIST,
-					       new Array(theForm.trackname, 'usesplit', theForm.trackname.value, theForm.split_track.value),
-					       new Array(theForm.search, 'usesplit', theForm.search.value, theForm.split_artname.value)
-					   ));
-			theForm.search.value = theForm.split_artname.value;
-			theForm.trackname.value= theForm.split_track.value;
-		}
-	}
-}
-
-// ----------------------------------------------------------------------------
-// doArtistAndTrackName()
-//  -- Guess artist and trackname first, and try to identify
-//     common freedb mistakes and fix them
-var changeTrackWarningString = "";
-function doArtistAndTrackName(theForm) {
-	var tnOldValue = theForm.trackname.value;
-	var snOldValue = theForm.search.value;
-	var tnValue = tnOldValue;
-	var snValue = snOldValue;
-	if (tnValue.match(/\sfeat/i) && snValue.match(/\smix/i)) {
-		if (changeTrackWarningString != tnValue+"|"+snValue) {
-			alert("Please swap artist / trackname fields. they are most likely wrong.");
-			changeTrackWarningString = tnValue+"|"+snValue;
-			return;
-		}
-	}
-	var tnValueFixed = af_trackNameFix(tnValue);
-	var snValueFixed = af_artistNameFix(snValue );
-	var featIndex = -1;
-	var haystack = snValue.toLowerCase();
-	// match ft, featuring feat if not last word of searchname.
-	featIndex = (snValue.match(/\s\(feat[\.]?[^$]?/i) ? haystack.indexOf("(feat") : featIndex);
-	featIndex = (snValue.match(/\sFeat[\.]?[^$]?/i) ? haystack.indexOf("feat") : featIndex);
-	featIndex = (snValue.match(/\sFt[\.]?[^$]/i) ? haystack.indexOf("ft") : featIndex);
-	featIndex = (snValue.match(/\sFeaturing[^$]/i) ? haystack.indexOf("featuring") : featIndex);
-	if (featIndex != -1) {
-		var addParens = (snValue.charAt(featIndex) != "(");
-		tnValue = tnValue + (addParens ? " (" : "") +
-				  snValue.substring(featIndex, snValue.length) +
-				  (addParens ? ")" : "");
-		snValue = snValue.substring(0, featIndex);
-		tnValueFixed = af_trackNameFix(tnValue);
-		snValueFixed = af_artistNameFix(snValue);
-	}
-	theForm.trackname.value = tnValueFixed;
-	theForm.search.value = snValueFixed;
-	var tnChanged = (tnValueFixed != tnOldValue);
-	var snChanged = (snValueFixed != snOldValue);
-	var tnUndo = new Array(theForm.trackname, 'guessboth', tnOldValue, tnValueFixed);
-	var snUndo = new Array(theForm.search, 'guessboth', snOldValue, snValueFixed);
-	if (tnChanged && snChanged) { // Artist Name and Track Name have changed
-		af_addUndo(theForm, new Array(AF_UNDOLIST, tnUndo, snUndo));
-	} else if (tnChanged) { // Track Name has changed
-		af_addUndo(theForm, tnUndo);
-	} else if (snChanged) { // Artist Name has changed
-		af_addUndo(theForm, snUndo);
-	}
-}
-
-
-
-
-
-
-// ***********************************************************************
-// autofix helper functions
-// -- should not be called outside of this script
-// ***********************************************************************
-
-
-// ----------------------------------------------------------------------------
-// af_artistNameFix()
-// -- Atomic operation, which take the value and applies
-//    the current selected autofix operation
-// 	  af_mode is ignored, because artistname is not sentence capsed
-function af_artistNameFix(theValue) {
-	return artistNameFix(theValue);
-}
-
-// ----------------------------------------------------------------------------
-// af_albumNameFix()
-// -- Atomic operation, which take the value and applies
-//    the current selected autofix operation
-function af_albumNameFix(theValue) {
-	if (af_mode == AF_MODE_AUTOFIX) return albumNameFix(theValue);
-	else if (af_mode == AF_MODE_SENTENCECAPS) return af_upperCaseFirst(theValue);
-}
-
-// ----------------------------------------------------------------------------
-// af_trackNameFix()
-// -- Atomic operation, which take the value and applies
-//    the current selected autofix operation
-function af_trackNameFix(theValue) {
-	if (af_mode == AF_MODE_AUTOFIX) return trackNameFix(theValue);
-	else if (af_mode == AF_MODE_SENTENCECAPS) return af_upperCaseFirst(theValue);
-}
-
-// ----------------------------------------------------------------------------
-// af_upperCaseFirst()
-// -- Uppercases the first character, rest lowercase
-function af_upperCaseFirst(theValue) {
-	var input_string = trim(theValue.toLowerCase());
-	var chars = input_string.split("");
-	chars[0] = chars[0].toUpperCase();
-	return chars.join("");
-}
-
-// ----------------------------------------------------------------------------
-// af_getField()
-// --
-function af_getField(theForm, theID) {
-	return theForm[theID];
-}
-
-// ----------------------------------------------------------------------------
-// af_addUndo()
-// -- Track back one step in the changelog
-function af_addUndo(theForm, undoOp) {
-	af_undoStack = af_undoStack.slice(0, af_undoIndex); 
-	af_undoStack.push(undoOp);
-	af_undoIndex = af_undoStack.length;
-	af_setUndoRedoState(theForm);
-}
-
-// ----------------------------------------------------------------------------
-// af_doUndo()
-// -- Track back one step in the changelog
-function af_doUndo(theForm) {
-	if (af_undoStack.length > 0) {
-		if (af_undoIndex > 0) {
-			af_undoIndex--;
-			if (af_undoStack[af_undoIndex][0] == AF_UNDOLIST) {
-				var list = af_undoStack[af_undoIndex];
-				for (var i=1; i<list.length; i++) // undo list of changes
-					list[i][0].value = list[i][2]; // set field = oldvalue
-			} else {
-				af_undoStack[af_undoIndex][0].value = af_undoStack[af_undoIndex][2]; // undo single change
-			}
-		}
-		af_setUndoRedoState(theForm);
-	}
-	af_resetSelection();
-}
-
-// ----------------------------------------------------------------------------
-// af_doRedo()
-// -- Re-apply one step which was undone previously
-function af_doRedo(theForm) {
-	if (af_undoIndex < af_undoStack.length) {
-		if (af_undoStack[af_undoIndex][0] == AF_UNDOLIST) {
-			var list = af_undoStack[af_undoIndex];
-			for (var i=1; i<list.length; i++) // re-apply list of changes
-				list[i][0].value = list[i][3]; // set field = newvalue
-		} else {
-			af_undoStack[af_undoIndex][0].value = af_undoStack[af_undoIndex][3]; // undo single change
-		}
-		af_undoIndex++;
-		af_setUndoRedoState(theForm);
-	}
-	af_resetSelection();
-}
-
-// ----------------------------------------------------------------------------
-// af_undoAll()
-// -- Track back one step in the changelog
-function af_undoAll(theForm) {
-	if (af_undoStack.length > 0)
-		while(af_undoIndex > 0) af_doUndo(theForm);
-}
-
-// ----------------------------------------------------------------------------
-// af_doRedoAll()
-// -- Re-apply one step which was undone previously
-function af_doRedoAll(theForm) {
-	while (af_undoIndex < af_undoStack.length) af_doRedo(theForm);
-}
-
-// ----------------------------------------------------------------------------
-// af_setUndoRedoState()
-// -- Set the state of the buttons and display
-//    where in the changelog the pointer is.
-function af_setUndoRedoState(theForm) {
-	var flag = (af_undoIndex == 0);
-	af_setButtonState(theForm.undoButton, (af_undoIndex == 0));
-	af_setButtonState(theForm.redoButton, (af_undoIndex == af_undoStack.length));
-	af_setButtonState(theForm.undoAllButton, (af_undoIndex == 0));
-	af_setButtonState(theForm.redoAllButton, (af_undoIndex == af_undoStack.length));
-	document.getElementById("autofix-text").innerHTML = af_undoIndex+"/"+af_undoStack.length;
-}
-
-// ----------------------------------------------------------------------------
-// af_setUndoRedoState()
-// -- Set css class to disabled/enabeled and disabled attribute as well
-function af_setButtonState(theButton, isDisabled) {
-	theButton.disabled = isDisabled; 
-	theButton.className = "button"+(isDisabled? "disabled" : "");
-}
-
-// ----------------------------------------------------------------------------
-// myOnFocus()
-// -- remembers the current field the user clicked into
-//    and the value when editing started
-function myOnFocus(theField) {
-	var cn = null;
-	if (af_onFocusField) {
-		cn = ((cn = af_onFocusField.className) != null ? cn : "");
-		if (cn.indexOf("focus") != -1) {
-			af_onFocusField.className = cn.replace(/focus/i, "");
-		} 
-		var ubDiv = af_onFocusField.name + "_btn";
-		var obj;
-		if ((obj = document.getElementById(ubDiv)) != null) {
-			af_onFocusField.parentNode.removeChild(obj);
-		}
-	}
-	if (theField && theField.className) {
-		if (theField.className.indexOf("focus") == -1) {
-			theField.className += "focus";
-		}
-		af_onFocusField = theField;
-		af_onFocusFieldState = new Array(theField, theField.value);
-		
-		// if we are editing a tracktime field, and the value is the
-		// default NULL value, clear the field for editing.
-		if (theField.value == "?:??") {
-			theField.value = "";	
-		}
-
-		// only add utility buttons on textfields
-		if (theField.className.match("textfieldfocus")) {
-			var ubDiv = theField.name + "_btn";
-			var obj;
-			if ((obj = document.getElementById(ubDiv)) == null) {
-				var x = document.createElement("div");
-				x.id = ubDiv;
-				x.style.marginTop = "2px";
-				x.style.padding = "2px";
-				x.style.border = "1px dotted black";
-				x.style.paddingTop = "0px";
-				x.style.borderRight = "none";
-				x.style.borderTop = "none";
-				theField.parentNode.appendChild(x);
-				x.innerHTML = 	'<small>Change case:&nbsp;'
-							  + '   <a style="font-size: 11px" href="javascript:;" title="Capitalize first character only" onClick="doApplyOperation(AF_OP_TITLED)">Titled</a>'
-							  + ' | <a style="font-size: 11px" href="javascript:;" title="Convert characters to UPPERCASE" onClick="doApplyOperation(AF_OP_UPPERCASE)">UPPERCASE</a>'
-							  + ' | <a style="font-size: 11px" href="javascript:;" title="Convert characters to lowercase" onClick="doApplyOperation(AF_OP_LOWERCASE)">lowercase</a>'
-							  + ' | <a style="font-size: 11px" href="javascript:;" title="Add round parentheses () around selection/field" onClick="doApplyOperation(AF_OP_ROUNDBRACKETS)">Add ()</a>'
-							  + ' | <a style="font-size: 11px" href="javascript:;" title="Add square brackets [] around selection/field" onClick="doApplyOperation(AF_OP_SQUAREBRACKETS)">Add []</a>'
-							  + '</small>';
-			}
-		}
-	}
-}
-
-// ----------------------------------------------------------------------------
-// myOnBlur()
-// -- checks if its the same field the user started
-//    editing and checks for changes. if the value
-//    was changed the edit is saved into the changelog.
-function myOnBlur(theField) {
-	var newvalue = theField.value;
-	var oldvalue = af_onFocusFieldState[1];
-	
-	// check if we are editing a tracktime field. if no changes were made,
-	// reset to "?:??"
-	if (oldvalue == "?:??" && newvalue == "") theField.value = oldvalue;
-	
-	// handle normal blur event (if value changed, add to undo stack)
-	if (af_onFocusFieldState[0] == theField && oldvalue != theField.value) {
-		af_addUndo(theField.form, 
-			new Array(theField, 'manual', oldvalue, newvalue)
-		);
-	}
-}
-
-// ----------------------------------------------------------------------------
-// af_modeChanged()
-// -- set the autofixmode to theMode
-function af_modeChanged(theSelect) {
-	af_mode = theSelect.options[theSelect.selectedIndex].value;
-	af_modeSet();
-	// set a persistent cookie for the next 365 days.
-	setCookie(AF_COOKIE_MODE, af_mode, 365);
-}
-
-// ----------------------------------------------------------------------------
-// af_modeSet()
-// -- set the text explaining the current mode, once for the expanded and
-//    for the collapsed af_mode
-function af_modeSet() {
-	document.getElementById("autofix-mode-text-collapsed").innerHTML = af_modeDescription[af_mode];
-	document.getElementById("autofix-mode-text-expanded").innerHTML = af_modeDescription[af_mode];
-}
-
-// ----------------------------------------------------------------------------
-// af_ShowTable()
-// -- toggle display of the autofix table
-function af_ShowTable(theFlag) {
-	document.getElementById("autofix-table-collapsed").style.display = (!theFlag ? "block" : "none");
-	document.getElementById("autofix-table-expanded").style.display = (theFlag ? "block" : "none");
-	// set a persistent cookie for the next 365 days.
-	setCookie(AF_COOKIE_TABLE, (theFlag ? "1" : "0"), 365);
-}
-
-// ----------------------------------------------------------------------------
-// af_resetSelection()
-// -- resets the selection on the field currently
-//    having an active selection
-function af_resetSelection() {
-	if(typeof document.selection != 'undefined') { // ie support
-		try {
-			document.selection.empty();
-		} catch (e) {}
-	} else {
-		try {
-			if (af_onFocusField != null &&
-			   af_onFocusField.selectionStart != 'undefined') { 
-			   // mozilla, and other gecko-based browsers.
-				af_onFocusField.selectionStart = 0; // set cursor at pos 0
-				af_onFocusField.selectionEnd = 0;
-			}
-		} catch (e) {}
-	}
-}
-
-// ----------------------------------------------------------------------------
-// doFormatText()
-// -- returns the text formatted depending
-//    on the op parameter
-function doFormatText(fText, op) {
-	if (op == AF_OP_UPPERCASE) fText = fText.toUpperCase();
-	if (op == AF_OP_LOWERCASE) fText = fText.toLowerCase();
-	if (op == AF_OP_TITLED) {
-		fText = fText.toLowerCase();
-		var tArr = fText.split("");
-		tArr[0] = tArr[0].toUpperCase();
-		fText = tArr.join("");
-	}
-	return fText;
-}
-
-
-// ----------------------------------------------------------------------------
-// doApplyOperation()
-// -- applies the current operation to the selected text
-//    in the field the cursor was last placed in.
-// -- djce suggested, that the method should work on the full text of the
-// 	  field the cursor is currently placed in if nothing is selected
-// -- adapted code from: http://www.quirksmode.org/js/selected.html
-// 	  http://www.scriptygoddess.com/archives/2004/06/08/mozilla-and-ie-decoder
-// -- IE document.selection object API: http://www.html-world.de/program/js_o_sel.php
-function doApplyOperation(op) {
-	if (af_onFocusField != null) {
-		var oldvalue = af_onFocusField.value;
-		var formattedText = ""; var fText = "";
-		if(typeof document.selection != 'undefined') { // ie support
-			try {
-				var fRange = document.selection.createRange();
-				fText = fRange.text;
-				if (fText == '') fText = af_onFocusField.value;
-				formattedText = fText;
-				switch (op) {
-					case AF_OP_UPPERCASE:
-					case AF_OP_LOWERCASE:
-					case AF_OP_TITLED:				formattedText = doFormatText(fText, op); break;
-					case AF_OP_ROUNDBRACKETS:		formattedText = "("+fText+")"; break;
-					case AF_OP_SQUAREBRACKETS:		formattedText = "["+fText+"]"; break;
-				}
-				if (fText == af_onFocusField.value) af_onFocusField.value = formattedText;
-				else fRange.text = formattedText;
-			} catch (e) {}
-
-		} else if ( af_onFocusField != null &&
-					typeof af_onFocusField.selectionStart != 'undefined') { // MOZILLA/NETSCAPE support
-			af_onFocusField.focus();
-			var fFullText = af_onFocusField.value;
-			var sPos = af_onFocusField.selectionStart;
-			var ePos = af_onFocusField.selectionEnd;
-			fText = (sPos == ePos ? fFullText : fFullText.substring(sPos, ePos));
-			formattedText = fText;
-			switch (op) {
-				case AF_OP_UPPERCASE:
-				case AF_OP_LOWERCASE:
-				case AF_OP_TITLED:				formattedText = doFormatText(fText, op); break;
-				case AF_OP_ROUNDBRACKETS:		formattedText = "("+fText+")"; break;
-				case AF_OP_SQUAREBRACKETS:		formattedText = "["+fText+"]"; break;
-			}
-			if (sPos == ePos) af_onFocusField.value = formattedText;
-			else af_onFocusField.value = fFullText.substring(0, sPos) + formattedText + fFullText.substring(ePos, fFullText.length);
-			af_onFocusField.selectionStart = sPos;
-			af_onFocusField.selectionEnd = ePos;
-		}
-		var newvalue = af_onFocusField.value;
-		if (newvalue != oldvalue) {
-			af_addUndo(af_onFocusField.form, 
-					   new Array(af_onFocusField, 'changecase', oldvalue, newvalue)
-					   );
-			af_onFocusFieldState[1] = af_onFocusFieldState[0].value; // updated remembered value (such that leaving the field does not add another UNDO step)
-		}
-	}
-}
-
-// ----------------------------------------------------------------------------
-// af_writeGui(fOpen)
-//
-function af_writeGUI(fOpen) {
-	var cMode = getCookie(AF_COOKIE_MODE); // get autofix mode from cookie.
-	if (cMode) af_mode = cMode;
-
-	document.writeln('      <div id="autofix-box-jsenabled">');
-	document.writeln('        <div id="autofix-table-collapsed">');
-	document.writeln('          <table width="600" border="0" cellspacing="0" cellpadding="0">');
-	document.writeln('            <tr valign="top">');
-	document.writeln('              <td width="120" nowrap><b>Guess Case:<br><img src="/images/spacer.gif" alt="" height="1" width="120"/></td>');
-	document.writeln('              <td width="100%">');
-	document.writeln('                <small><span id="autofix-mode-text-collapsed"></span></small></td>');
-	document.writeln('              <td>&nbsp;</td>');
-	document.writeln('              <td><a href="javascript:; // expand" onClick="af_ShowTable(true)" title="Expand table"><img src="/images/plus.gif" width="13" height="13" alt="Expand Guess Case panel" border="0"></a></td>');
-	document.writeln('            </tr>');
-	document.writeln('          </table>');
-	document.writeln('        </div>');
-	document.writeln('        <div id="autofix-table-expanded" style="display: none">');
-	document.writeln('          <table width="600" border="0" cellspacing="0" cellpadding="0">');
-	document.writeln('            <tr valign="top">');
-	document.writeln('              <td width="120" nowrap><b>Guess Case:<br><img src="/images/spacer.gif" alt="" height="1" width="120"/></td>');
-	document.writeln('              <td width="100%" id="autofix-mode-cell">');
-	document.writeln('                <table cellspacing="0" cellpadding="0" border="0" width="100%">');
-	document.writeln('                  <tr valign="top">');
-	document.writeln('                    <td width="10">');
-	document.writeln('                      <select name="autofix-mode" onchange="af_modeChanged(this)">');
-	document.writeln('                        <option value="' + AF_MODE_AUTOFIX + '" ' + (af_mode == AF_MODE_AUTOFIX ? 'selected' : '') + '>Title Capitalization</option>');
-	document.writeln('                        <option value="' + AF_MODE_SENTENCECAPS + '" ' + (af_mode == AF_MODE_SENTENCECAPS ? 'selected' : '') + '>Sentence Capitalization</option>');
-	document.writeln('                      </select></td>');
-	document.writeln('                    <td width="10">&nbsp;</td>');
-	document.writeln('                    <td width="100%">');
-	document.writeln('                      <small><span id="autofix-mode-text-expanded"></span></small>');
-	document.writeln('                    </td>');
-	document.writeln('                  </tr>');
-	document.writeln('                </table>');
-	document.writeln('              </td>');
-	document.writeln('              <td>&nbsp;</td>');
-	document.writeln('              <td width="10"><a href="javascript:; // collapse" onClick="af_ShowTable(false)" title="Collapse table"><img src="/images/minus.gif" width="13" height="13" alt="Collapse Guess Case panel" border="0"></a></td>');
-	document.writeln('            </tr>');
-	document.writeln('            <tr><td colspan="4"><img src="/images/spacer.gif" height="4" alt="" /></td></tr>');
-	document.writeln('            <tr valign="middle">');
-	document.writeln('              <td nowrap><b>Selected Text:</td>');
-	document.writeln('              <td colspan="3">');
-	
-	document.writeln('<input type="button" class="button" value="Capital" title="Capitalize first character only" onClick="doApplyOperation(AF_OP_TITLED)">');
-	document.writeln('<input type="button" class="button" value="UPPER" title="CONVERT CHARACTERS TO UPPERCASE" onClick="doApplyOperation(AF_OP_UPPERCASE)">');
-	document.writeln('<input type="button" class="button" value="lower" title="convert characters to lowercase" onClick="doApplyOperation(AF_OP_LOWERCASE)">');
-	document.writeln('<input type="button" class="button" value="Add ()" title="Add round parentheses () around selection" onClick="doApplyOperation(AF_OP_ROUNDBRACKETS)">');
-	document.writeln('<input type="button" class="button" value="Add []" title="Add square brackets [] around selection" onClick="doApplyOperation(AF_OP_SQUAREBRACKETS)">');
-	document.writeln('&nbsp;&nbsp;&nbsp;');
-	document.writeln('[ <a href="/wd/GuessCaseTool" target="_blank" title="Select text in titles, then press one of the buttons at left. Click on this link if you want to know more...">help</a> ]');
-
-	document.writeln('              </td>');
-	document.writeln('            </tr>');
-	document.writeln('            <tr><td colspan="4"><img src="/images/spacer.gif" height="4" alt="" /></td></tr>');
-	document.writeln('            <tr valign="middle">');
-	document.writeln('              <td nowrap><b>Undo/Redo:</td>');
-	document.writeln('              <td colspan="3">');
-	document.writeln('                <input disabled type="button" class="buttondisabled" name="undoAllButton" onclick="af_undoAll(this.form)" value="Undo All">');
-	document.writeln('                <input disabled type="button" class="buttondisabled" name="undoButton" onclick="af_doUndo(this.form)" value="Undo">');
-	document.writeln('                <input disabled type="button" class="buttondisabled" name="redoButton" onclick="af_doRedo(this.form)" value="Redo">');
-	document.writeln('                <input disabled type="button" class="buttondisabled" name="redoAllButton" onclick="af_doRedoAll(this.form)" value="Redo All">');
-	document.writeln('                <small>&nbsp;&nbsp;&nbsp;Steps:<span id="autofix-text">0/0</span><small>');
-	document.writeln('              </td>');
-	document.writeln('            </tr>');
-
-	// write input fields resizer GUI
-	af_writeGUIRuler();
-	document.writeln('            <tr valign="middle">');
-	document.writeln('              <td nowrap><b>Input fields:</td>');
-	document.writeln('              <td colspan="3">');
-	document.writeln('                <input type="hidden" name="jsProxy" id="jsFormField" value="">');
-	document.writeln('                <a href="javascript:; // make narrower" onClick="af_resizeTextFields(-20)">Make narrower</a> | ');
-	document.writeln('                <a href="javascript:; // make wider" onClick="af_resizeTextFields(20)">Make wider</a> | ');
-	document.writeln('                <a href="javascript:; // fit text" onClick="af_resizeTextFields()">Try to fit text</a>');
-	document.writeln('              </td>');
-	document.writeln('            </tr>');
-
-	// write search/replace GUI
-	af_writeGUIRuler();
-	searchReplace.writeGUI();
-
-	// write trackparser GUI
-	af_writeGUIRuler();
-	trackParser.writeGUI();
-
-	document.writeln('          </table>');
-	document.writeln('        </div>');
-
-	af_modeSet(); // update description texts.
-
-	// Show the table or not?
-	if (fOpen == null) fOpen = getCookie(AF_COOKIE_TABLE);
-	af_ShowTable(fOpen == "1");
-}
-
-// af_writeGUIRuler()
-// -- write HTML for a horizontal black ruler
-function af_writeGUIRuler() {
-	document.writeln('            <tr><td colspan="4"><img src="/images/spacer.gif" height="2" alt="" /></td></tr>');
-	document.writeln('            <tr><td colspan="4" bgcolor="black"><img src="/images/spacer.gif" height="1" alt="" /></td></tr>');
-	document.writeln('            <tr><td colspan="4"><img src="/images/spacer.gif" height="2" alt="" /></td></tr>');
-}
-
-// ----------------------------------------------------------------------------
-// af_getEditTextFields()
-// -- returns all the edit text fields (class="textfield")
-//    of the current form.
-function af_getEditTextFields(f) {
-	var fields = new Array();
-	if (f) {
-		var tfRE = /textfield(focus)?/i;
-		for (var i=0; i<f.elements.length; i++) {
-			var el = f.elements[i];
-			if (el) {
-				if ((el.type == "text") && 
-					(el.className == null ? "" : el.className).match(tfRE)) {
-					fields.push(el);
-				}
-			}
-		}
-	}  
-	return fields;
-}
-
-// ----------------------------------------------------------------------------
-// af_resizeTextFields()
-// -- add/remove amount from size attribute on edit fields in
-//    the form.
-function af_resizeTextFields(amount) {
-	var obj, el;
-	if ((obj = document.getElementById("jsFormField")) != null) {
-		var f = obj.form;
-		var fields = af_getEditTextFields(f);
-		if (amount == null || amount == 'undefined') {
-			var max = 0;
-			for (fi in fields) {
-				var lx = fields[fi].value.length;
-				if (lx > max) max = lx;
-			}
-			for (fi in fields) {
-				fields[fi].size = (max < 50 ? 50 : max); // + parseInt((max/50.0)*20);
-			}
-		} else {
-			for (fi in fields) {
-				fields[fi].size += amount;
-			}
-		}
-	}		
-}
-
 
 var AF_BTN_ALIAS = "alias";
 var AF_BTN_ARTIST = "artist";
@@ -733,158 +12,927 @@ var AF_BTN_USECURRENT  = "usecurrent";
 var AF_BTN_GUESSBOTH = "guessboth";
 var AF_BTNTEXT_NONALBUMTRACKS = 'Guess All Track Names according to Guess Case settings';
 var AF_BTNTEXT_ALBUMANDTRACKS = 'Guess Album Name and Track Names according to Guess Case settings';
+var AF_BTNTEXT_ALBUMARTISTANDTRACKS = 'Guess Album, Artist and Track Names according to Guess Case settings';
 
 var AF_BTN_SR_FIND = "srfind";
 var AF_BTN_SR_REPLACE = "srreplace";
 var AF_BTN_SR_LOADPRESET = "srloadpreset";
 var AF_BTN_SR_SWAP = "srswap";
 
+
+var AF_MODE_AUTOFIX = 'autofix';
+var AF_MODE_SENTENCECAPS = 'ucfirst';
+var af_mode = AF_MODE_AUTOFIX;
+
+
+
+
+
+
+
+
+
+
+
+// AutoFixCommons afc
+var afCommons = {
+	FORMFIELD_ID 	: "AUTOFIX_FORMFIELD_ID",
+	focusField 		: null,
+	focusValue		: null,
+	formRef 		: null,
+		// holds a reference to the form which the autofix framework is in.
+
+	// ----------------------------------------------------------------------------
+	// getFocusField()
+	// -- returns the field which currently has focus.
+	getFocusField : function() {
+		return this.focusField;
+	},
+
+	// ----------------------------------------------------------------------------
+	// setFocusField()
+	// -- sets the field which currently has focus.
+	setFocusField : function(field) {
+		this.focusField = field;
+	},
+
+	// ----------------------------------------------------------------------------
+	// getFocusValue()
+	// -- returns the (stored) field value of the focussed field.
+	getFocusValue : function() {
+		return this.focusValue;
+	},
+
+	// ----------------------------------------------------------------------------
+	// setFocusValue()
+	// -- sets the (stored) field value of the focussed field.
+	setFocusValue : function(v) {
+		this.focusValue = v;
+	},
+
+
+	// ----------------------------------------------------------------------------
+	// getForm()
+	// -- Return the form the autofix function is working on.
+	getForm : function() {
+		if (!this.formRef) {
+			var obj;
+			if ((obj = document.getElementById(this.FORMFIELD_ID)) != null) {
+				this.formRef = obj.form;
+			}
+		}
+		return this.formRef;
+	},
+
+	// ----------------------------------------------------------------------------
+	// getField()
+	// -- returns the field named fid in the current form, if
+	getField : function(fid) {
+		var f;
+		if ((f = this.getForm()) != null) {
+			return f[fid];
+		}
+		return null;
+	},
+
+	// ----------------------------------------------------------------------------
+	// resetSelection()
+	// -- resets the selection on the field currently
+	//    having an active selection
+	resetSelection : function() {
+		if(typeof document.selection != 'undefined') {
+			// ie support
+			try {
+				document.selection.empty();
+			} catch (e) {}
+		} else {
+			try {
+				if ((this.focusField != null) &&
+					(this.focusField.selectionStart != 'undefined')) {
+					this.focusField.selectionStart = 0; // mozilla, and other gecko-based browsers.
+					this.focusField.selectionEnd = 0; // set cursor at pos 0
+				}
+			} catch (e) {}
+		}
+	},
+
+	// ----------------------------------------------------------------------------
+	// myOnFocus()
+	// -- remembers the current field the user clicked into
+	//    and the value when editing started
+	onFocusHandler : function(field) {
+		var cn = null;
+		if (this.focusField) {
+			cn = ((cn = this.focusField.className) != null ? cn : "");
+			if (cn.indexOf("focus") != -1) {
+				this.focusField.className = cn.replace(/focus/i, "");
+			}
+			// see if we have to remove quick functions
+			afQuickOps.removeQuickFuncs(this.focusField);
+		}
+		if (field && field.className) {
+			if (field.className.indexOf("focus") == -1) {
+				field.className += "focus";
+			}
+			this.setFocusField(field);
+			this.setFocusValue(field.value);
+
+			// if we are editing a tracktime field, and the value is the
+			// default NULL value, clear the field for editing.
+			if (field.value == "?:??") field.value = "";
+
+			// see if we have to add quick functions
+			afQuickOps.addQuickFuncs(field);
+		}
+	},
+
+	// ----------------------------------------------------------------------------
+	// onBlurHandler()
+	// -- checks if its the same field the user started
+	//    editing and checks for changes. if the value
+	//    was changed the edit is saved into the changelog.
+	onBlurHandler : function(field) {
+		var newvalue = field.value;
+		var oldvalue = this.getFocusValue();
+
+		// check if we are editing a tracktime field. if no changes were made,
+		// reset to "?:??"
+		if (oldvalue == "?:??" && newvalue == "") field.value = oldvalue;
+
+		// handle normal blur event (if value changed, add to undo stack)
+		if (this.isFocusField(field) && oldvalue != field.value) {
+			afUndo.addUndo([field, 'manual', oldvalue, newvalue]);
+		}
+	},
+
+	// ----------------------------------------------------------------------------
+	// isFocusField()
+	// -- returns true if the given parameter is equal to the focussed field.
+	isFocusField : function(field) {
+		return (this.getFocusField() == field);
+	},
+
+	// ----------------------------------------------------------------------------
+	// getEditTextFields()
+	// -- returns all the edit text fields (class="textfield")
+	//    of the current form.
+	getEditTextFields : function() {
+		var fields = [];
+		if (this.getForm()) {
+			var cnRE = /textfield(focus)?/i;
+			return this.getFieldsWalker(cnRE, null);
+		}
+		return [];
+	},
+
+	// ----------------------------------------------------------------------------
+	// getArtistFields()
+	// -- returns all the artist fields (class="textfield")
+	//    of the current form.
+	getArtistFields : function() {
+		if (this.getForm()) {
+			var cnRE   = /textfield(focus)?/i;
+			var nameRE = /artistname\d+/i;
+			return this.getFieldsWalker(cnRE, nameRE);
+		}
+		return [];
+	},
+
+	// ----------------------------------------------------------------------------
+	// getAlbumNameField()
+	// -- returns the album name field (class="textfield")
+	getAlbumNameField : function() {
+		var fields = [];
+		if (this.getForm()) {
+			var cnRE   = /textfield(focus)?/i;
+			var nameRE = /title|albumname|album/i;
+			fields = this.getFieldsWalker(cnRE, nameRE);
+		}
+		return fields[0];
+	},
+
+	// ----------------------------------------------------------------------------
+	// getTrackNameFields()
+	// -- returns all the edit text fields (class="textfield")
+	//    of the current form.
+	getTrackNameFields : function() {
+		if (this.getForm()) {
+			var cnRE = /textfield(focus)?/i;
+			var nameRE = /track\d+/i;
+			return this.getFieldsWalker(cnRE, nameRE);
+		}
+		return [];
+	},
+
+	// ----------------------------------------------------------------------------
+	// getTrackTimeFields()
+	// -- returns all the time edit fields (class="numberfield")
+	//    of the current form.
+	getTrackTimeFields : function() {
+		if (this.getForm()) {
+			var cnRE = /numberfield(focus)?/i;
+			var nameRE = /tracklength\d+/i;
+			return this.getFieldsWalker(cnRE, nameRE);
+		}
+		return [];
+	},
+
+	// ----------------------------------------------------------------------------
+	// getFieldsWalker()
+	// -- Iterate over all fields of the form and collect
+	//    the items matching the selection criteria.
+	getFieldsWalker : function(cnRE, nameRE) {
+		var fields = [];
+		if (this.getForm()) {
+			var f = this.getForm();
+			for (var i=0; i<f.elements.length; i++) {
+				var el = f.elements[i];
+				if (el) {
+					// get classname from element, and match against RE (if RE is set)
+					var className = (el.className ? el.className : "");
+					var bCN = (cnRE == null || (cnRE != null && className.match(cnRE)));
+
+					// get element name, and match against RE (if RE is set)
+					var elName = (el.name ? el.name : "");
+					var bName = (nameRE == null || (nameRE != null && elName.match(nameRE))); // if set, must match
+					if ((el.type == "text") && bCN && bName) {
+						fields.push(el);
+					}
+				}
+			}
+		}
+		return fields;
+	}
+};
+function myOnFocus(field) { afCommons.onFocusHandler(field); } // for backwards compatibility
+function myOnBlur(field) { afCommons.onBlurHandler(field); } // for backwards compatibility
+
+
 // ----------------------------------------------------------------------------
-// af_writeButton()
-// -- write a guess case button to the document.
-function af_writeButton(theType, theID, theID2) {
-	var theTitle = '';
-	var theFunction = '';
-	var theButtonText = 'Guess Case';
-	switch (theType) {
-		case AF_BTN_ALIAS:
-			theTitle = "Guess Artist Alias according to MusicBrainz Artist Name Guidelines";
-			theFunction = 'doArtistName(this.form, \''+theID+'\')';
-			break;
-		case AF_BTN_ARTIST:
-			theTitle = "Guess Artist Name according to MusicBrainz Artist Name Guidelines";
-			theFunction = 'doArtistName(this.form, \''+theID+'\')';
-			break;
-		case AF_BTN_SORTGUESS:
-			theButtonText = "Guess";
-			theTitle = "Guess Sort Name from Artist Name field";
-			theFunction = 'doSortNameGuess(this.form, \''+theID+'\', \''+theID2+'\')';
-			break;
-		case AF_BTN_SORTCOPY:
-			theButtonText = "Copy";
-			theTitle = "Copy Sort Name from Artist Name field";
-			theFunction = 'doSortNameCopy(this.form, \''+theID+'\', \''+theID2+'\')';
-			break;
-		case AF_BTN_ALBUM:
-			theTitle = "Guess Album Name according to Guess Case settings";
-			theFunction = 'doAlbumName(this.form, \''+theID+'\')';
-			break;
-		case AF_BTN_TRACK:
-			theTitle = "Guess Track Name according to Guess Case settings";
-			theFunction = 'doTrackName(this.form, \''+theID+'\')';
-			break;
-		case AF_BTN_ALL:
-			theTitle = theID;
-			theButtonText = 'Guess All';
-			theFunction = 'doGuessAll(this.form)';
-			break;
-		case AF_BTN_USESWAP:
-			theButtonText = "Swap";
-			theTitle = "Swap Artist Name and Track Name fields";
-			theFunction = 'doSwapFields(this.form)';
-			break;
-		case AF_BTN_USECURRENT:
-			theButtonText = "Use Current";
-			theTitle = "Reset to current Artist Name and Track Name";
-			theFunction = 'doUseCurrent(this.form)';
-			break;
-		case AF_BTN_USESPLIT:
-			theButtonText = "Split";
-			theTitle = "Use Artist Name and Track Name from split function";
-			theFunction = 'doUseSplit(this.form)';
-			break;
-		case AF_BTN_GUESSBOTH:
-			theButtonText = "Guess Both";
-			theTitle = "Guess both Artist Name and Track Name";
-			theFunction = 'doArtistAndTrackName(this.form)';
-			break;
-		default:
-			alert("af_writeButton() :: unhandled type!");
-			return;
-	}
-	var btnHTML = ('<input type="button" class="button" value="'+theButtonText+'" ');
-	btnHTML += ('title="'+theTitle+'" ');
-	btnHTML += ('onclick="'+theFunction+'">');
-	document.writeln(btnHTML);
-	// alert(bHTML);
-}
+// AutoFixUndoRedo afUndo
+// ----------------------------------------------------------------------------
+var afUndo = {
+	stack : [],
+	index : 0,
+	UNDO_LIST : "UNDO_LIST",
+	SPAN_UNDOSTATUS : "AFUR_SPAN_UNDOSTATUS",
+	BTN_UNDO_ALL : "AFUR_BTN_UNDO_ALL",
+	BTN_UNDO_ONE : "AFUR_BTN_UNDO_ONE",
+	BTN_REDO_ONE : "AFUR_BTN_REDO_ONE",
+	BTN_REDO_ALL : "AFUR_BTN_REDO_ALL",
 
+	// ----------------------------------------------------------------------------
+	// addUndo()
+	// -- Track back one step in the changelog
+	addUndo : function(undoOp, isList) {
+		this.stack = this.stack.slice(0, this.index);
+		this.stack.push(undoOp);
+		this.index = this.stack.length;
 
-
-
-
-/*
-<script>
-if (!document.layers)
-document.write('<div id="divStayTopLeft" style="position:absolute">')
-</script>
-
-<layer id="divStayTopLeft">
-
-<!--EDIT BELOW CODE TO YOUR OWN MENU-->
-<table border="1" width="130" cellspacing="0" cellpadding="0">
-  <tr>
-    <td width="100%" bgcolor="#FFFFCC">
-      <p align="center"><b><font size="4">Menu</font></b></td>
-  </tr>
-  <tr>
-    <td width="100%" bgcolor="#FFFFFF">
-      <p align="left"> <a href="http://www.dynamicdrive.com">Dynamic Drive</a><br>
-       <a href="http://www.dynamicdrive.com/new.htm">What's New</a><br>
-       <a href="http://www.dynamicdrive.com/hot.htm">What's Hot</a><br>
-       <a href="http://www.dynamicdrive.com/faqs.htm">FAQs</a><br>
-       <a href="http://www.dynamicdrive.com/morezone/">More Zone</a></td>
-  </tr>
-</table>
-<!--END OF EDIT-->
-
-</layer>
-
-
-<script type="text/javascript">
-
-//Enter "frombottom" or "fromtop"
-var verticalpos="frombottom"
-
-if (!document.layers)
-document.write('</div>')
-
-function JSFX_FloatTopDiv()
-{
-	var startX = 3,
-	startY = 150;
-	var ns = (navigator.appName.indexOf("Netscape") != -1);
-	var d = document;
-	function ml(id)
-	{
-		var el=d.getElementById?d.getElementById(id):d.all?d.all[id]:d.layers[id];
-		if(d.layers)el.style=el;
-		el.sP=function(x,y){this.style.left=x;this.style.top=y;};
-		el.x = startX;
-		if (verticalpos=="fromtop")
-		el.y = startY;
-		else{
-		el.y = ns ? pageYOffset + innerHeight : document.body.scrollTop + document.body.clientHeight;
-		el.y -= startY;
+		// updated remembered value (such that leaving the field does
+		// not add another UNDO step)
+		var f = null;
+		var ff = afCommons.getFocusField();
+		var a = undoOp[0];
+		if (this.isUndoList(a)) {
+			// we have multiple undo steps combined
+			for (var i=0;i<a.length; i++) {
+				f = a[i][0]; // check field
+				if (f == ff) afCommons.setFocusValue(f.value);
+			}
+		} else {
+			// we have a single undo step
+			if (a == ff) afCommons.setFocusValue(a.value);
 		}
-		return el;
-	}
-	window.stayTopLeft=function()
-	{
-		if (verticalpos=="fromtop"){
-		var pY = ns ? pageYOffset : document.body.scrollTop;
-		ftlObj.y += (pY + startY - ftlObj.y)/8;
+		this.updateGUI();
+	},
+
+	// ----------------------------------------------------------------------------
+	// isUndoList()
+	// -- returns if the current item on the stack is a multiple-undo
+	isUndoList : function(x) {
+		return (x instanceof Array || typeof x == "array");
+	},
+
+	// ----------------------------------------------------------------------------
+	// undoOne()
+	// -- Track back one step in the changelog
+	undoOne : function() {
+		if (this.stack.length > 0) {
+			if (this.index > 0) {
+				this.index--;
+				if (this.isUndoList(this.stack[this.index][0])) {
+					var list = this.stack[this.index];
+					for (var i=1; i<list.length; i++) // undo list of changes
+						list[i][0].value = list[i][2]; // set field = oldvalue
+				} else {
+					this.stack[this.index][0].value = this.stack[this.index][2]; // undo single change
+				}
+			}
+			this.updateGUI();
 		}
-		else{
-		var pY = ns ? pageYOffset + innerHeight : document.body.scrollTop + document.body.clientHeight;
-		ftlObj.y += (pY - startY - ftlObj.y)/8;
+		afCommons.resetSelection();
+	},
+
+	// ----------------------------------------------------------------------------
+	// redoOne()
+	// -- Re-apply one step which was undone previously
+	redoOne : function() {
+		if (this.index < this.stack.length) {
+			if (this.isUndoList(this.stack[this.index][0])) {
+				var list = this.stack[this.index];
+				for (var i=1; i<list.length; i++) // re-apply list of changes
+					list[i][0].value = list[i][3]; // set field = newvalue
+			} else {
+				this.stack[this.index][0].value = this.stack[this.index][3]; // undo single change
+			}
+			this.index++;
+			this.updateGUI();
 		}
-		ftlObj.sP(ftlObj.x, ftlObj.y);
-		setTimeout("stayTopLeft()", 10);
+		afCommons.resetSelection();
+	},
+
+	// ----------------------------------------------------------------------------
+	// undoAll()
+	// -- Track back one step in the changelog
+	undoAll : function() {
+		if (this.stack.length > 0)
+			while(this.index > 0) this.undoOne();
+	},
+
+	// ----------------------------------------------------------------------------
+	// redoAll()
+	// -- Re-apply one step which was undone previously
+	redoAll : function() {
+		while (this.index < this.stack.length) this.redoOne();
+	},
+
+	// ----------------------------------------------------------------------------
+	// writeGUI()
+	writeGUI : function() {
+		document.writeln('<tr valign="middle">');
+		document.writeln('  <td nowrap><b>Undo/Redo:</td>');
+		document.writeln('  <td colspan="3">');
+		document.writeln('    <input disabled type="button" class="buttondisabled" name="'+this.BTN_UNDO_ALL+'" onclick="afUndo.undoAll(this.form)" value="Undo All">');
+		document.writeln('    <input disabled type="button" class="buttondisabled" name="'+this.BTN_UNDO_ONE+'" onclick="afUndo.undoOne(this.form)" value="Undo">');
+		document.writeln('    <input disabled type="button" class="buttondisabled" name="'+this.BTN_REDO_ONE+'" onclick="afUndo.redoOne(this.form)" value="Redo">');
+		document.writeln('    <input disabled type="button" class="buttondisabled" name="'+this.BTN_REDO_ALL+'" onclick="afUndo.redoAll(this.form)" value="Redo All">');
+		document.writeln('    <small>&nbsp;&nbsp;&nbsp;Steps:<span id="'+this.SPAN_UNDOSTATUS+'">0/0</span><small>');
+		document.writeln('  </td>');
+		document.writeln('</tr>');
+	},
+
+	// ----------------------------------------------------------------------------
+	// updateGUI()
+	// -- Set the state of the buttons and display
+	//    where in the changelog the pointer is.
+	updateGUI : function() {
+		var theForm;
+		if ((theForm = afCommons.getForm()) != null) {
+			this.setBtnState(theForm[this.BTN_UNDO_ONE], (this.index == 0));
+			this.setBtnState(theForm[this.BTN_REDO_ONE], (this.index == this.stack.length));
+			this.setBtnState(theForm[this.BTN_UNDO_ALL], (this.index == 0));
+			this.setBtnState(theForm[this.BTN_REDO_ALL], (this.index == this.stack.length));
+			var obj = null;
+			if ((obj = document.getElementById(this.SPAN_UNDOSTATUS)) != null) {
+				obj.innerHTML = this.index+"/"+this.stack.length;
+			}
+		}
+	},
+
+	// ----------------------------------------------------------------------------
+	// setBtnState()
+	// -- Set css class to disabled/enabeled and disabled attribute as well
+	setBtnState : function(theButton, isDisabled) {
+		if (theButton) {
+			theButton.disabled = isDisabled;
+			theButton.className = "button"+(isDisabled? "disabled" : "");
+		}
 	}
-	ftlObj = ml("divStayTopLeft");
-	stayTopLeft();
-}
-JSFX_FloatTopDiv();
-</script>
-*/
+};
+
+// AutoFixUtilityFunctions
+var afQuickOps = {
+
+	AF_QOPS_UPPERCASE 			: 'AF_QOPS_UPPERCASE',
+	AF_QOPS_LOWERCASE 			: 'AF_QOPS_LOWERCASE',
+	AF_QOPS_TITLED 				: 'AF_QOPS_TILED',
+	AF_QOPS_ADD_ROUNDBRACKETS 	: 'AF_QOPS_ADD_ROUNDBRACKETS',
+	AF_QOPS_ADD_SQUAREBRACKETS 	: 'AF_QOPS_ADD_SQUAREBRACKETS',
+	AF_QOPS_REM_ROUNDBRACKETS 	: 'AF_QOPS_REM_ROUNDBRACKETS',
+	AF_QOPS_REM_SQUAREBRACKETS 	: 'AF_QOPS_REM_SQUAREBRACKETS',
+
+	UF_CHECKBOX_CONF	: "UF_CHECKBOX_CONF",
+	UF_COOKIE_EXPANDED 	: "UF_COOKIE_EXPANDED",
+
+	configCheckBoxes : [
+						["uf_addQuickFuncs", 0,
+						 "Show per-input field util functions",
+						 "Add Titlecase, Uppercase, Lowercase, Brackets manipulation and Undo/Redo functions near the form field when it gets the focus."]
+					   ],
+	config : [],
+
+	// ----------------------------------------------------------------------------
+	// writeGUI()
+	// -- Write HTML
+	writeGUI : function() {
+		document.writeln('            <tr valign="top" id="quickops-tr-expanded" style="display: none">');
+		document.writeln('              <td nowrap><b>Util functions:</td>');
+		document.writeln('              <td width="100%">');
+		document.writeln('<input type="button" class="button" value="Capital" title="Capitalize first character only" onClick="afQuickOps.runOp(\''+this.AF_QOPS_TITLED+'\')">');
+		document.writeln('<input type="button" class="button" value="UPPER" title="CONVERT CHARACTERS TO UPPERCASE" onClick="afQuickOps.runOp(\''+this.AF_QOPS_UPPERCASE+'\')">');
+		document.writeln('<input type="button" class="button" value="lower" title="convert characters to lowercase" onClick="afQuickOps.runOp(\''+this.AF_QOPS_LOWERCASE+'\')">');
+		document.writeln('<input type="button" class="button" value="Add ()" title="Add round parentheses () around selection" onClick="afQuickOps.runOp(\''+this.AF_QOPS_ADD_ROUNDBRACKETS+'\')">');
+		document.writeln('<input type="button" class="button" value="Add []" title="Add square brackets [] around selection" onClick="afQuickOps.runOp(\''+this.AF_QOPS_ADD_SQUAREBRACKETS+'\')">');
+		//document.writeln('&nbsp;&nbsp;&nbsp;');
+		//document.writeln('[ <a href="/wd/GuessCaseTool" target="_blank" title="Select text in titles, then press one of the buttons at left. Click on this link if you want to know more...">help</a> ]');
+		document.writeln('              <br/><small>');
+		this.writeConfiguration();
+		document.writeln('              </small>');
+		document.writeln('              </td>');
+		document.writeln('              <td>&nbsp;</td>');
+		document.writeln('              <td align="right">');
+		document.writeln('                <a href="javascript:; // collapse" onClick="afQuickOps.setExpanded(false)" ');
+		document.writeln('                ><img src="/images/minus.gif" width="13" height="13" alt="Collapse Util functions" border="0"></a>');
+		document.writeln('              </td>');
+		document.writeln('            </tr>');
+		document.writeln('            </tr>');
+		document.writeln('            <tr valign="top" id="quickops-tr-collapsed">');
+		document.writeln('              <td nowrap><b>Util functions:</td>');
+		document.writeln('              <td width="100%">');
+		document.writeln('                <small>Currently in collapsed mode, press [+] to access functions</small>');
+		document.writeln('              </td>');
+		document.writeln('              <td>&nbsp;</td>');
+		document.writeln('              <td align="right">');
+		document.writeln('                <a href="javascript:; // expand" onClick="afQuickOps.setExpanded(true)"');
+		document.writeln('                ><img src="/images/plus.gif" width="13" height="13" alt="Expand Util functions" border="0"></a>');
+		document.writeln('              </td>');
+		document.writeln('            </tr>');
+
+		var ex = getCookie(this.UF_COOKIE_EXPANDED);
+		if (ex == "1") this.setExpanded(true);
+	},
+
+	// ----------------------------------------------------------------------------
+	// setExpanded()
+	// -- toggle the GUI (collapsed|expanded)
+	setExpanded : function(flag) {
+		document.getElementById("quickops-tr-collapsed").style.display = (!flag ? "" : "none");
+		document.getElementById("quickops-tr-expanded").style.display = (flag ? "" : "none");
+		setCookie(this.UF_COOKIE_EXPANDED, (flag ? "1" : "0"), 365); // persistent 365 days.
+	},
+
+
+	// ----------------------------------------------------------------------------
+	// writeConfiguration() -
+	// write the different checkboxes
+	writeConfiguration : function() {
+		for (var i=0; i<this.configCheckBoxes.length; i++) {
+			var cb = this.configCheckBoxes[i];
+			var helpText = cb[3];
+			helpText = helpText.replace("'", "´"); // make sure overlib does not choke on single-quotes.
+			var _html = '<input type="checkbox" name="' + this.UF_CHECKBOX_CONF
+					  + '" id="' + cb[0] + '" value="on" '
+					  + (getCookie(cb[0]) == "1" ? " checked " : "")
+					  + ' onChange="afQuickOps.onConfigurationChange(this)" '
+					  + (cb[1]?'checked':'') + '>' + cb[2]
+					  + '&nbsp; '
+					  + '[ <a href="javascript:; // help" '
+					  + 'onmouseover="return overlib(\''+helpText+'\');"'
+					  + 'onmouseout="return nd();">help</a> ]<br/>';
+			document.writeln(_html);
+		}
+	},
+
+	// ----------------------------------------------------------------------------
+	// writeConfiguration() -
+	// write the different checkboxes
+	onConfigurationChange : function(el) {
+		setCookie(el.id, (el.checked ? "1" : "0"), 365);
+	},
+
+	// ----------------------------------------------------------------------------
+	// getConfiguration() -
+	// Get values from the config checkboxes
+	getConfiguration : function() {
+		var obj = null;
+		if ((obj = document.getElementsByName(this.UF_CHECKBOX_CONF)) != null) {
+			this.formRef = obj[0].form;
+			for (var i=0; i<obj.length; i++) {
+				var el = obj[i];
+				this.config[el.id] = el.checked;
+			}
+		}
+	},
+
+	// ----------------------------------------------------------------------------
+	// getConf() -
+	// Get value for a specific configuration
+	getConf : function(key) {
+		return (this.config[key] == true);
+	},
+
+	// ----------------------------------------------------------------------------
+	// addQuickFuncs() -
+	// Get value for a specific configuration
+	addQuickFuncs : function(field) {
+		this.getConfiguration();
+		if (this.getConf("uf_addQuickFuncs")) {
+			if (field.className.match("textfieldfocus")) {
+				var divName = field.name + "_quickfuncs";
+				var obj;
+				if ((obj = document.getElementById(divName)) == null) {
+					var _div = document.createElement("div");
+					_div.id = divName;
+					_div.style.marginTop = "2px";
+					_div.style.padding = "2px";
+					_div.style.border = "1px dotted black";
+					_div.style.paddingTop = "0px";
+					_div.style.borderRight = "none";
+					_div.style.borderTop = "none";
+					field.parentNode.appendChild(_div);
+					_div.innerHTML = afQuickOps.getTextFieldUtilityFuncs();
+
+					try {
+						// alert(field.parentNode.parentNode.nodeName);
+						field.parentNode.parentNode.style.verticalAlign = "top";
+						field.parentNode.parentNode.setAttribute("valign", "top");
+					} catch (e) {}
+				}
+			}
+		}
+	},
+
+	// ----------------------------------------------------------------------------
+	// removeQuickFuncs() -
+	// Get value for a specific configuration
+	removeQuickFuncs : function(field) {
+		var divName = field.name + "_quickfuncs";
+		var obj;
+		if ((obj = document.getElementById(divName)) != null) {
+			field.parentNode.removeChild(obj);
+			try {
+				field.parentNode.parentNode.setAttribute("valign", "");
+			} catch (e) {}
+		}
+	},
+
+	// ----------------------------------------------------------------------------
+	// getTextFieldUtilityFuncs()
+	// -- HTML for the individual AF functionalities
+	//    per input field.
+	getTextFieldUtilityFuncs : function() {
+		var writeFunc = function(title, helpText, op) {
+			helpText = helpText.replace("'", "´"); // make sure overlib does not choke on single-quotes.
+			var _html = '<a href="javascript:; // '+title+'" '
+					  + 'onClick="afQuickOps.runOp(\''+op+'\')"'
+					  + 'onFocus="this.blur()"'
+					  + 'tabindex = "10000" '
+					  + 'onMouseOver="return overlib(\''+helpText+'\');"'
+					  + 'onMouseOut="return nd();">'+title+'</a>';
+			return _html;
+		};
+
+		var func = '<table cellspacing="0" cellpadding="0" border="0"><tr>'
+			  + '<td rowspan="3">&nbsp;</td>'
+			  + '<td nowrap style="font-size: 11px">Change case:&nbsp;&nbsp;</td>'
+			  + '<td nowrap style="font-size: 11px">'
+			  + '   ' + writeFunc('Titled', 'All characters of selection/field are made lowercase but the first', this.AF_QOPS_TITLED)
+			  + ' | ' + writeFunc('Uppercase', 'Convert all characters of the selection/field to UPPERCASE', this.AF_QOPS_UPPERCASE)
+			  + ' | ' + writeFunc('Lowercase', 'Convert all characters of the selection/field to lowercase', this.AF_QOPS_LOWERCASE)
+			  + '</td></tr><tr>'
+			  + '<td nowrap style="font-size: 11px">Modify:&nbsp;&nbsp;</td>'
+			  + '<td nowrap style="font-size: 11px">'
+			  + '   ' + writeFunc('Add ()', 'Add round parentheses () around selection/field', this.AF_QOPS_ADD_ROUNDBRACKETS)
+			  + ' | ' + writeFunc('Rem ()', 'Remove round parentheses () from selection/field', this.AF_QOPS_REM_ROUNDBRACKETS)
+			  + ' | ' + writeFunc('Add []', 'Add square brackets [] around selection/field', this.AF_QOPS_ADD_SQUAREBRACKETS)
+			  + ' | ' + writeFunc('Rem []', 'Remove square brackets [] from selection/field', this.AF_QOPS_REM_SQUAREBRACKETS)
+			  + '</td></tr><tr>'
+			  + '<td nowrap style="font-size: 11px">Undo/Redo:&nbsp;&nbsp;</td>'
+			  + '<td nowrap style="font-size: 11px">'
+			  + '   <a href="javascript:; // Undo" onMouseOver="return overlib(\'Undo the last change (Attention: Not only the selected field)\');" onMouseOut="return nd();" onFocus="this.blur()" onClick="afUndo.undoOne()">Undo</a>'
+			  + ' | <a href="javascript:; // Redo" onMouseOver="return overlib(\'Redo the last undo step (Attention: Not only the selected field)\');" onMouseOut="return nd();"  onFocus="this.blur()" onClick="afUndo.redoOne()">Redo</a>'
+			  + '</td></tr></table>';
+		return func;
+	},
+
+	// ----------------------------------------------------------------------------
+	// formatText()
+	// -- returns the text formatted depending on the op parameter
+	formatText : function(fText, op) {
+		if (op == this.AF_QOPS_UPPERCASE) fText = fText.toUpperCase();
+		if (op == this.AF_QOPS_LOWERCASE) fText = fText.toLowerCase();
+		if (op == this.AF_QOPS_TITLED) {
+			fText = fText.toLowerCase();
+			var tArr = fText.split("");
+			tArr[0] = tArr[0].toUpperCase();
+			fText = tArr.join("");
+		}
+		return fText;
+	},
+
+	// ----------------------------------------------------------------------------
+	// runOp()
+	// -- applies the current operation to the selected text
+	//    in the field the cursor was last placed in.
+	// -- djce suggested, that the method should work on the full text of the
+	// 	  field the cursor is currently placed in if nothing is selected
+	// -- adapted code from: http://www.quirksmode.org/js/selected.html
+	// 	  http://www.scriptygoddess.com/archives/2004/06/08/mozilla-and-ie-decoder
+	// -- IE document.selection object API: http://www.html-world.de/program/js_o_sel.php
+	runOp : function(op) {
+		var f = null;
+		if ((f = afCommons.getFocusField()) != null) {
+			var oldvalue = f.value;
+			var after,before = "";
+			if(typeof document.selection != 'undefined') {
+				// ie support
+				try {
+					var fRange = document.selection.createRange();
+					before = (fRange.text == '' ? f.value : fRange.text);
+					after = before;
+						// initialise test- and result string to
+						// full string if selection is empty
+					switch (op) {
+						case this.AF_QOPS_UPPERCASE:
+						case this.AF_QOPS_LOWERCASE:
+						case this.AF_QOPS_TITLED:
+							after = this.formatText(before, op);
+							break;
+						case this.AF_QOPS_ADD_ROUNDBRACKETS:
+							after = "("+before+")";
+							break;
+						case this.AF_QOPS_ADD_SQUAREBRACKETS:
+							after = "["+before+"]";
+							break;
+						case this.AF_QOPS_REM_ROUNDBRACKETS:
+							after = after.replace(/\(|\)/g, "");
+							break;
+						case this.AF_QOPS_REM_SQUAREBRACKETS:
+							after = after.replace(/\[|\]/g, "");
+							break;
+					}
+					if (before == f.value) f.value = after;
+					else fRange.text = after;
+				} catch (e) {}
+
+			} else if (typeof f.selectionStart != 'undefined') {
+				// MOZILLA/NETSCAPE support
+				f.focus();
+				var fFullText = f.value;
+				var sPos = f.selectionStart;
+				var ePos = f.selectionEnd;
+				before = (sPos == ePos ? fFullText : fFullText.substring(sPos, ePos));
+				after = before;
+				switch (op) {
+					case this.AF_QOPS_UPPERCASE:
+					case this.AF_QOPS_LOWERCASE:
+					case this.AF_QOPS_TITLED:
+						after = this.formatText(before, op);
+						break;
+					case this.AF_QOPS_ADD_ROUNDBRACKETS:
+						after = "("+before+")";
+						break;
+					case this.AF_QOPS_ADD_SQUAREBRACKETS:
+						after = "["+before+"]";
+						break;
+					case this.AF_QOPS_REM_ROUNDBRACKETS:
+						after = after.replace(/\(|\)/g, "");
+						break;
+					case this.AF_QOPS_REM_SQUAREBRACKETS:
+						after = after.replace(/\[|\]/g, "");
+						break;
+				}
+				if (sPos == ePos) f.value = after; // e.g. no selection
+				else {
+					f.value = fFullText.substring(0, sPos) + after +
+							  fFullText.substring(ePos, fFullText.length);
+					f.selectionStart = sPos;
+					f.selectionEnd = sPos + after.length;
+				}
+			}
+			var newvalue = f.value;
+			if (newvalue != oldvalue) {
+				afUndo.addUndo([f, 'changecase', oldvalue, newvalue]);
+			}
+		}
+	}
+};
+
+
+
+
+
+// ----------------------------------------------------------------------------
+// AutoFixMenu
+// ----------------------------------------------------------------------------
+var afMenu = {
+
+	AF_COOKIE_MODE 			: "AF_COOKIE_MODE",
+	AF_COOKIE_TABLE 		: "AF_COOKIE_TABLE",
+
+
+	// ----------------------------------------------------------------------------
+	// onAutoFixModeChanged()
+	// -- set the autofixmode to the selected mode from the dropdown box.
+	onAutoFixModeChanged : function(el) {
+		if (el && el.options) {
+			af_mode = el.options[el.selectedIndex].value;
+			this.updateAutoFixModeText();
+			setCookie(this.AF_COOKIE_MODE, af_mode, 365); // persistent 365 days.
+		}
+	},
+
+	// ----------------------------------------------------------------------------
+	// updateAutoFixModeText()
+	// -- set the text explaining the current mode, once for the expanded and
+	//    for the collapsed mode
+	updateAutoFixModeText : function() {
+		var t = "";
+		if (af_mode == AF_MODE_AUTOFIX) {
+			t = 'Standard Guess Case mode, according to the <a target="_blank" href="http://www.musicbrainz.org/style.html">Style Guidelines</a>';
+		} else if (af_mode == AF_MODE_SENTENCECAPS) {
+			t = 'First word uppercase, rest lowercase for non-English languages. Read the capitalization guides here: <a target="_blank" href="http://wiki.musicbrainz.org/wiki.pl?CapitalizationStandard">CapitalizationStandard</a>';
+		}
+		document.getElementById("autofix-mode-text-collapsed").innerHTML = t;
+		document.getElementById("autofix-mode-text-expanded").innerHTML = t;
+	},
+
+	// ----------------------------------------------------------------------------
+	// setExpanded()
+	// -- toggle display of the autofix table
+	setExpanded : function(flag) {
+		document.getElementById("autofix-table-collapsed").style.display = (!flag ? "block" : "none");
+		document.getElementById("autofix-table-expanded").style.display = (flag ? "block" : "none");
+		setCookie(this.AF_COOKIE_TABLE, (flag ? "1" : "0"), 365); // persistent 365 days.
+	},
+
+	// writeGUISpacer()
+	// -- write HTML for a horizontal spacer gif
+	writeGUISpacer : function() {
+		document.writeln('            <tr><td colspan="4"><img src="/images/spacer.gif" height="4" alt="" /></td></tr>');
+	},
+
+	// writeGUIRuler()
+	// -- write HTML for a horizontal black ruler
+	writeGUIRuler : function() {
+		document.writeln('            <tr><td colspan="4"><img src="/images/spacer.gif" height="2" alt="" /></td></tr>');
+		document.writeln('            <tr><td colspan="4" bgcolor="black"><img src="/images/spacer.gif" height="1" alt="" /></td></tr>');
+		document.writeln('            <tr><td colspan="4"><img src="/images/spacer.gif" height="2" alt="" /></td></tr>');
+	},
+
+	// ----------------------------------------------------------------------------
+	// writeGUI(fOpen)
+	//
+	writeGUI : function(fOpen) {
+		var cMode = getCookie(this.AF_COOKIE_MODE); // get autofix mode from cookie.
+		if (cMode) af_mode = cMode;
+
+		// this line is very important. it writes out the hidden field which is used
+		// to get a reference to the form the autofix function is placed in.
+		document.writeln('      <input type="hidden" name="jsProxy" id="'+afCommons.FORMFIELD_ID+'" value="">');
+
+		// write autofix HTML
+		document.writeln('      <div id="autofix-box-jsenabled">');
+		document.writeln('        <div id="autofix-table-collapsed">');
+		document.writeln('          <table width="600" border="0" cellspacing="0" cellpadding="0">');
+		document.writeln('            <tr valign="top">');
+		document.writeln('              <td width="120" nowrap><b>Guess Case:<br><img src="/images/spacer.gif" alt="" height="1" width="120"/></td>');
+		document.writeln('              <td width="100%">');
+		document.writeln('                <small><span id="autofix-mode-text-collapsed"></span></small></td>');
+		document.writeln('              <td>&nbsp;</td>');
+		document.writeln('              <td><a href="javascript:; // expand" onClick="afMenu.setExpanded(true)" title="Expand table"><img src="/images/plus.gif" width="13" height="13" alt="Expand Guess Case panel" border="0"></a></td>');
+		document.writeln('            </tr>');
+		document.writeln('          </table>');
+		document.writeln('        </div>');
+		document.writeln('        <div id="autofix-table-expanded" style="display: none">');
+		document.writeln('          <table width="600" border="0" cellspacing="0" cellpadding="0">');
+		document.writeln('            <tr valign="top">');
+		document.writeln('              <td width="120" nowrap><b>Guess Case:<br><img src="/images/spacer.gif" alt="" height="1" width="120"/></td>');
+		document.writeln('              <td width="100%" id="autofix-mode-cell">');
+		document.writeln('                <table cellspacing="0" cellpadding="0" border="0" width="100%">');
+		document.writeln('                  <tr valign="top">');
+		document.writeln('                    <td width="10">');
+		document.writeln('                      <select name="autofix-mode" onchange="afMenu.onAutoFixModeChanged(this)">');
+		document.writeln('                        <option value="' + AF_MODE_AUTOFIX + '" ' + (af_mode == AF_MODE_AUTOFIX ? 'selected' : '') + '>Title Capitalization</option>');
+		document.writeln('                        <option value="' + AF_MODE_SENTENCECAPS + '" ' + (af_mode == AF_MODE_SENTENCECAPS ? 'selected' : '') + '>Sentence Capitalization</option>');
+		document.writeln('                      </select></td>');
+		document.writeln('                    <td width="10">&nbsp;</td>');
+		document.writeln('                    <td width="100%">');
+		document.writeln('                      <small><span id="autofix-mode-text-expanded"></span></small>');
+		document.writeln('                    </td>');
+		document.writeln('                  </tr>');
+		document.writeln('                </table>');
+		document.writeln('              </td>');
+		document.writeln('              <td>&nbsp;</td>');
+		document.writeln('              <td width="10"><a href="javascript:; // collapse" onClick="afMenu.setExpanded(false)" title="Collapse table"><img src="/images/minus.gif" width="13" height="13" alt="Collapse Guess Case panel" border="0"></a></td>');
+		document.writeln('            </tr>');
+
+		afMenu.writeGUISpacer();
+		afUndo.writeGUI();
+
+		// write input fields resizer GUI
+		afMenu.writeGUIRuler();
+		document.writeln('            <tr valign="middle">');
+		document.writeln('              <td nowrap><b>Input fields:</td>');
+		document.writeln('              <td colspan="3">');
+		document.writeln('                <a href="javascript: void(0); // make narrower" onClick="afFunc.resizeTextFields(-20)">Make narrower</a> | ');
+		document.writeln('                <a href="javascript: void(0); // make wider" onClick="afFunc.resizeTextFields(20)">Make wider</a> | ');
+		document.writeln('                <a href="javascript: void(0); // fit text" onClick="afFunc.resizeTextFields()">Try to fit text</a>');
+		document.writeln('              </td>');
+		document.writeln('            </tr>');
+
+		// write utility functions GUI
+		afMenu.writeGUIRuler();
+		afQuickOps.writeGUI();
+
+		// write search/replace GUI
+		afMenu.writeGUIRuler();
+		afFindReplace.writeGUI();
+
+		// write trackparser GUI
+		afMenu.writeGUIRuler();
+		afTrackParser.writeGUI();
+
+		document.writeln('          </table>');
+		document.writeln('        </div>');
+
+		this.updateAutoFixModeText(); // update description texts.
+
+		// Show the table or not?
+		if (fOpen == null) fOpen = getCookie(this.AF_COOKIE_TABLE);
+		this.setExpanded(fOpen == "1");
+	},
+
+
+	// ----------------------------------------------------------------------------
+	// writeButton()
+	// -- write a guess case button to the document.
+	writeButton : function(type, bid, bid2) {
+		var theTitle = '';
+		var theFunction = '';
+		var theButtonText = 'Guess Case';
+		switch (type) {
+			case AF_BTN_ALIAS:
+				theTitle = "Guess Artist Alias according to MusicBrainz Artist Name Guidelines";
+				theFunction = 'doArtistName(this.form, \''+bid+'\')';
+				break;
+			case AF_BTN_ARTIST:
+				theTitle = "Guess Artist Name according to MusicBrainz Artist Name Guidelines";
+				theFunction = 'doArtistName(this.form, \''+bid+'\')';
+				break;
+			case AF_BTN_SORTGUESS:
+				theButtonText = "Guess";
+				theTitle = "Guess Sort Name from Artist Name field";
+				theFunction = 'doSortNameGuess(this.form, \''+bid+'\', \''+bid2+'\')';
+				break;
+			case AF_BTN_SORTCOPY:
+				theButtonText = "Copy";
+				theTitle = "Copy Sort Name from Artist Name field";
+				theFunction = 'doSortNameCopy(this.form, \''+bid+'\', \''+bid2+'\')';
+				break;
+			case AF_BTN_ALBUM:
+				theTitle = "Guess Album Name according to Guess Case settings";
+				theFunction = 'doAlbumName(this.form, \''+bid+'\')';
+				break;
+			case AF_BTN_TRACK:
+				theTitle = "Guess Track Name according to Guess Case settings";
+				theFunction = 'doTrackName(this.form, \''+bid+'\')';
+				break;
+			case AF_BTN_ALL:
+				theTitle = bid;
+				theButtonText = 'Guess All';
+				theFunction = 'doGuessAll(this.form)';
+				break;
+			case AF_BTN_USESWAP:
+				theButtonText = "Swap";
+				theTitle = "Swap Artist Name and Track Name fields";
+				theFunction = 'doSwapFields(this.form)';
+				break;
+			case AF_BTN_USECURRENT:
+				theButtonText = "Use Current";
+				theTitle = "Reset to current Artist Name and Track Name";
+				theFunction = 'doUseCurrent(this.form)';
+				break;
+			case AF_BTN_USESPLIT:
+				theButtonText = "Split";
+				theTitle = "Use Artist Name and Track Name from split function";
+				theFunction = 'doUseSplit(this.form)';
+				break;
+			case AF_BTN_GUESSBOTH:
+				theButtonText = "Guess Both";
+				theTitle = "Guess both Artist Name and Track Name";
+				theFunction = 'doArtistAndTrackName(this.form)';
+				break;
+			default:
+				alert("af_writeButton() :: unhandled type!");
+				return;
+		}
+		var btnHTML = ('<input type="button" class="button" value="'+theButtonText+'" ');
+		btnHTML += ('title="'+theTitle+'" ');
+		btnHTML += ('onclick="'+theFunction+'">');
+		document.writeln(btnHTML);
+	}
+};
+function af_writeGUI(fOpen) { afMenu.writeGUI(fOpen); }
+function af_writeButton(type, bid, bid2) { afMenu.writeButton(type, bid, bid2); }

@@ -1,5 +1,5 @@
-			  
-var searchReplace = {
+
+var afFindReplace = {
 	presets : [
 		["Remove all round parantheses ()", "\\(|\\)", "", 1],
 		["Remove all square brackets []", "\\[|\\]", "", 1],
@@ -31,22 +31,22 @@ var searchReplace = {
 			case this.BTN_FIND:
 				sBtnText = "Find";
 				sTitle = "";
-				sFunc = 'searchReplace.find(this.form)';
-				break;		
+				sFunc = 'afFindReplace.find(this.form)';
+				break;
 			case this.BTN_REPLACE:
 				sBtnText = "Replace";
 				sTitle = "";
-				sFunc = 'searchReplace.replace(this.form)';
+				sFunc = 'afFindReplace.doReplace(this.form)';
 				break;
 			case this.BTN_LOADPRESET:
 				sBtnText = "Show/Hide Presets";
 				sTitle = "";
-				sFunc = 'searchReplace.showPresets(this)';
+				sFunc = 'afFindReplace.showPresets(this)';
 				break;
 			case this.BTN_SWAP:
 				sBtnText = "Swap fields";
 				sTitle = "";
-				sFunc = 'searchReplace.swapFields(this.form)';
+				sFunc = 'afFindReplace.swapFields(this.form)';
 				break;
 			default:
 				alert("af_writeButton() :: unhandled type!");
@@ -69,7 +69,7 @@ var searchReplace = {
 		document.writeln('                  <tr>');
 		document.writeln('                    <td>Find: &nbsp;</td>');
 		document.writeln('                    <td><input type="input" size="30" value="my" name="srSearch">');
-		this.writeButton(this.BTN_SWAP); 
+		this.writeButton(this.BTN_SWAP);
 		document.writeln('                    </td>');
 		document.writeln('                  </tr>');
 		document.writeln('                  <tr>');
@@ -84,7 +84,7 @@ var searchReplace = {
 		this.writeButton(this.BTN_LOADPRESET);
 		document.writeln('                    <br/>');
 		document.writeln('                    <input type="checkbox" name="srRegex" value="true"><small>Regular expression</small>');
-		document.writeln('                    <input type="checkbox" name="srCaseSensitive" value="true"><small>Match case</small>'); 
+		document.writeln('                    <input type="checkbox" name="srCaseSensitive" value="true"><small>Match case</small>');
 		document.writeln('                    <input type="checkbox" name="srAllFields" value="true" checked><small>For all fields</small>');
 		document.writeln('                  </tr>');
 		document.writeln('                </table>');
@@ -92,7 +92,7 @@ var searchReplace = {
 		document.writeln('              </td>');
 		document.writeln('              <td>&nbsp;</td>');
 		document.writeln('              <td align="right">');
-		document.writeln('                <a href="javascript:; // collapse" onClick="searchReplace.setExpanded(false)" title="Hide Find & Replace"><img src="/images/minus.gif" width="13" height="13" alt="Collapse Find & Replace function" border="0"></a>');
+		document.writeln('                <a href="javascript:; // collapse" onClick="afFindReplace.setExpanded(false)" title="Hide Find & Replace"><img src="/images/minus.gif" width="13" height="13" alt="Collapse Find & Replace function" border="0"></a>');
 		document.writeln('              </td>');
 		document.writeln('            </tr>');
 		document.writeln('            <tr valign="top" id="findreplace-tr-collapsed">');
@@ -102,7 +102,7 @@ var searchReplace = {
 		document.writeln('              </td>');
 		document.writeln('              <td>&nbsp;</td>');
 		document.writeln('              <td align="right">');
-		document.writeln('                <a href="javascript:; // expand" onClick="searchReplace.setExpanded(true)"><img src="/images/plus.gif" width="13" height="13" alt="Expand Find & Replace function" border="0"></a>');
+		document.writeln('                <a href="javascript:; // expand" onClick="afFindReplace.setExpanded(true)"><img src="/images/plus.gif" width="13" height="13" alt="Expand Find & Replace function" border="0"></a>');
 		document.writeln('              </td>');
 		document.writeln('            </tr>');
 
@@ -131,10 +131,10 @@ var searchReplace = {
 		document.writeln('    </tr>');
 		document.writeln('    <tr>');
 		document.writeln('      <td colspan="6"><img src="/images/spacer.gif" alt="" height="3" width="1"></td>');
-		document.writeln('    </tr>');	
+		document.writeln('    </tr>');
 		for (var i=0; i<this.presets.length; i++) {
 			document.writeln('  <tr>');
-			document.writeln('    <td style="font-size: 11px"><a href="javascript: // select preset" onClick="searchReplace.selectPreset('+i+')">'+(this.presets[i][0])+'</td>');
+			document.writeln('    <td style="font-size: 11px"><a href="javascript: // select preset" onClick="afFindReplace.selectPreset('+i+')">'+(this.presets[i][0])+'</td>');
 			document.writeln('    <td style="font-size: 11px">'+(this.presets[i][1])+'</td>');
 			document.writeln('    <td style="font-size: 11px">'+(this.presets[i][2])+'</td>');
 			document.writeln('    <td style="font-size: 11px; text-align: center">'+(this.presets[i][3]==1?'yes':'no')+'</td>');
@@ -143,12 +143,12 @@ var searchReplace = {
 		document.writeln('    <tr>');
 		document.writeln('    <tr>');
 		document.writeln('      <td colspan="6"><img src="/images/spacer.gif" alt="" height="1" width="3"></td>');
-		document.writeln('    </tr>');	
+		document.writeln('    </tr>');
 		document.writeln('    <tr>');
 		document.writeln('      <td colspan="6" bgcolor="#999999"><img src="/images/spacer.gif" alt="" height="1" width="1"></td>');
 		document.writeln('    </tr>');
 		document.writeln('      <td colspan="6"><input type="checkbox" name="srApplyPreset" value="1" checked>Execute Search & Replace when selected.</td>');
-		document.writeln('    </tr>');	
+		document.writeln('    </tr>');
 		document.writeln('    <tr>');
 		document.writeln('      <td colspan="6"><img src="/images/spacer.gif" alt="" height="1" width="2"></td>');
 		document.writeln('    </tr>');
@@ -163,10 +163,7 @@ var searchReplace = {
 	// -- Is called from the ">> Load Preset" button
 	//    reference to the form is saved for later use.
 	showPresets : function(btn) {
-		if (btn && btn.form) {
-			this.formRef = btn.form;
-			this.setPresetsVisible();
-		}			
+		this.setPresetsVisible();
 	},
 
 	// ----------------------------------------------------------------------------
@@ -176,8 +173,7 @@ var searchReplace = {
 	setExpanded : function(flag) {
 		document.getElementById("findreplace-tr-collapsed").style.display = (!flag ? "" : "none");
 		document.getElementById("findreplace-tr-expanded").style.display = (flag ? "" : "none");
-		// set a persistent cookie for the next 365 days.
-		setCookie(this.SR_COOKIE_EXPANDED, (flag ? "1" : "0"), 365);
+		setCookie(this.SR_COOKIE_EXPANDED, (flag ? "1" : "0"), 365); // persistent 365 days.
 	},
 
 	// ----------------------------------------------------------------------------
@@ -193,8 +189,7 @@ var searchReplace = {
 			}
 			obj.style.display = flag ? "block" : "none";
 		}
-		// set a persistent cookie for the next 365 days.
-		setCookie(this.SR_COOKIE_PRESETEXPANDED, (flag ? "1" : "0"), 365);
+		setCookie(this.SR_COOKIE_PRESETEXPANDED, (flag ? "1" : "0"), 365); // persistent 365 days.
 	},
 
 	// ----------------------------------------------------------------------------
@@ -205,11 +200,12 @@ var searchReplace = {
 	//    checkbox is checked, the function is executed
 	//    immediately.
 	selectPreset : function(index) {
-		if (this.formRef != null) {
-			this.formRef.srSearch.value = this.presets[index][1];
-			this.formRef.srReplace.value = this.presets[index][2];
-			this.formRef.srRegex.checked = (this.presets[index][3]==1);
-			if (this.formRef.srApplyPreset.checked) this.replace(this.formRef);
+		var f;
+		if ((f = afCommons.getForm()) != null) {
+			f.srSearch.value = this.presets[index][1];
+			f.srReplace.value = this.presets[index][2];
+			f.srRegex.checked = (this.presets[index][3]==1);
+			if (f.srApplyPreset.checked) this.doReplace(f);
 		}
 	},
 
@@ -224,12 +220,12 @@ var searchReplace = {
 	},
 
 	// ----------------------------------------------------------------------------
-	// replace()
+	// doReplace()
 	// -- Creates a regular expression from the
 	//    contents of the srSearch field, and
 	//    replaces the occurences in the currently
 	//    focussed field.
-	replace : function(theForm) {
+	doReplace : function(theForm) {
 		resetMessages();
 		var sv = theForm.srSearch.value;
 		var rv = theForm.srReplace.value;
@@ -237,11 +233,11 @@ var searchReplace = {
 		var useCase = theForm.srCaseSensitive.checked;
 		var allFields = theForm.srAllFields.checked;
 		if (sv == "") {
-			addMessage('af_srReplace() :: Search is empty, aborting.');	
+			addMessage('af_srReplace() :: Search is empty, aborting.');
 			return;
 		}
 		if (allFields) {
-			var fields = af_getEditTextFields(theForm);
+			var fields = afCommons.getEditTextFields();
 			for (fi in fields) {
 				this.replaceField(fields[fi], sv, rv, useCase, useRegex);
 			}
@@ -250,11 +246,11 @@ var searchReplace = {
 		}
 	},
 
-	replaceField : function(f, sv, rv, useCase, useRegex) { 
+	replaceField : function(f, sv, rv, useCase, useRegex) {
 		if (f) {
 			var currvalue = f.value;
 			var newvalue = currvalue;
-			addMessage('af_srDoStringReplace() :: Current value @@@'+currvalue+'###');	
+			addMessage('af_srDoStringReplace() :: Current value @@@'+currvalue+'###');
 			addMessage('af_srDoStringReplace() :: search=@@@'+sv+'###, replace=@@@'+rv+'###');
 			addMessage('af_srDoStringReplace() ::   flags: case sensitive='+useCase+', regular expressions='+useRegex+'');
 			if (useRegex) {
@@ -277,17 +273,9 @@ var searchReplace = {
 				else addMessage('af_srDoStringReplace() :: search @@@'+sv+'### replaced with @@@'+rv+'### at index(es) ['+replaced.join(",")+']');
 			}
 			if (newvalue != currvalue) {
-				addMessage('af_srDoStringReplace() :: New value @@@'+newvalue+'###');	
+				addMessage('af_srDoStringReplace() :: New value @@@'+newvalue+'###');
 				f.value = newvalue;
-				af_addUndo(
-					f.form, 
-					new Array(f, 'replace', currvalue, newvalue)
-				);
-				if (f == af_onFocusField) {
-					af_onFocusFieldState[1] = af_onFocusFieldState[0].value; 
-					// updated remembered value (such that leaving the field does 
-					// not add another UNDO step)
-				}
+				afUndo.addUndo([f, 'replace', currvalue, newvalue]);
 				return true;
 			}
 		}
