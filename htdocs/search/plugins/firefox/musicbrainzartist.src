@@ -33,7 +33,7 @@
 </search>
 
 <browser
- update="http://musicbrainz.org/search/plugins/musicbrainzartist.src" 
- updateIcon="http://musicbrainz.org/search/plugins/musicbrainzartist.gif"
+ update="http://musicbrainz.org/search/plugins/firefox/musicbrainzartist.src" 
+ updateIcon="http://musicbrainz.org/search/plugins/firefox/musicbrainzartist.gif"
  updateCheckDays="14"
 >

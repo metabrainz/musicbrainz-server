@@ -702,19 +702,23 @@ sub OutputRelationships
                 my $attrs = $item->{"_attrs"}->GetAttributes();
 		if ($attrs)
 		{
+	            $out .= $this->BeginElement("ar:attributeList");
+                    $out .= $this->BeginBag();
 		    foreach my $ref (@$attrs)
 		    {
 			my $text = ucfirst($ref->{value_text});
 	                $text =~ s/[^A-Za-z0-9]+([A-Za-z0-9]?)/uc $1/eg;
 			if ($ref->{name} eq $ref->{value_text})
 			{
-     			    $out .= $this->Element("ar:hasAttribute", "", "rdf:resource", $this->GetARNamespace . ucfirst($ref->{name}));
+     			    $out .= $this->Element("rdf:li", "", "rdf:resource", $this->GetARNamespace . ucfirst($ref->{name}));
 			}
 			else
 			{
-     			    $out .= $this->Element("ar:hasAttribute", "", "rdf:resource", $this->GetARNamespace . $text);
+     			    $out .= $this->Element("rdf:li", "", "rdf:resource", $this->GetARNamespace . $text);
 			}
 		    }
+                    $out .= $this->EndBag();
+	            $out .= $this->EndElement("ar:attributeList");
 	        }
 	    }
 	}

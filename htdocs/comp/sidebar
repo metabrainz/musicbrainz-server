@@ -18,10 +18,10 @@ $m->comp(
 	<tr valign="top">
 % unless ($nosidebar) {
 		<td id="sidebar-td" width="140">
-%# See comments in topmenu.js near "mm_initialiseSideBar"
+%# See comments in topmenu.js near method initialise() of object sideBar
         <script type="text/javascript"> 
-        <!--
-            mm_initialiseSideBar(); 
+        <!-- // hide from older browsers
+        	sideBar.initialise(); 
         -->
         </script>
 

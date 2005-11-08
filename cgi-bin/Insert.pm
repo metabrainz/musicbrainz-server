@@ -1,4 +1,4 @@
-#!/home/httpd/musicbrainz/mb_server/cgi-bin/perl -w
+#!/home/httpd/musicbrainz/mb_server/cgi-bin/perl -w                           
 # vi: set ts=4 sw=4 :
 #____________________________________________________________________________
 #
@@ -28,6 +28,7 @@ use strict;
 package Insert;
 
 use ModDefs qw( VARTIST_ID ANON_MODERATOR MODBOT_MODERATOR MOD_ADD_ALBUM );
+use MusicBrainz;
 
 sub new
 {
@@ -100,6 +101,14 @@ sub Insert
 #		]
 #		languageid => id
 #		scriptid => id
+#		releases => [
+#			{
+#				year => year, numeric, YYYY
+#				OPTIONAL month => number of month
+#				OPTIONAL day => number of day
+#				country => country-id (not ISO code)
+#			}
+#		]
 #	MOD_ADD_ARTIST PreInsert
 #		artist => ArtistName
 #		sortname => SortName
@@ -142,6 +151,11 @@ sub Insert
 #    trmid                                                 [optional]
 #    duration                                              [optional]
 #    year                                                  [optional]
+#  releases -> array of hash refs:                         [required]
+#    year                                                  [required]
+#    month                                                 [optional]
+#    day                                                   [optional]
+#    country                                               [required]
 #  artist_only                                             [optional]
 #
 # Notes: If more than one album by the same artist and same album name 
@@ -198,6 +212,8 @@ sub _Insert
     my $tr = Track->new($this->{DBH});
 	require TRM;
     my $trm = TRM->new($this->{DBH});
+	require MusicBrainz::Server::Release;
+	my $rel = MusicBrainz::Server::Release->new($this->{DBH});
 
 	my $artist;
 	my $artistid;
@@ -485,6 +501,7 @@ TRACK:
             # Load/insert artist
             $ar->SetName($track->{artist});
             $ar->SetSortName($track->{sortname});
+            $ar->SetResolution("");
             $track_artistid = $ar->Insert();
             if (!defined $track_artistid)
             {
@@ -535,6 +552,27 @@ TRACK:
             }
         }
     }
+
+	for my $release ( @{ $info->{releases} } )
+	{
+		delete $release->{release_insertid};
+
+		my @ymd = MusicBrainz::IsValidDate(
+					@$release{qw( year month day )})
+			or die "Skipped Insert: Invalid release date\n";
+
+		if (!exists $release->{country} || $release->{country} eq '')
+		{
+			die "Skipped Insert: Release country is required\n";
+		}
+
+		$rel->SetAlbum($albumid);
+		$rel->SetYMD(@ymd);
+		$rel->SetCountry($release->{country});
+		$rel->InsertSelf();
+
+		$release->{release_insertid} = $rel->GetId();
+	}
 
     return 1;
 }

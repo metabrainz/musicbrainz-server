@@ -312,7 +312,7 @@ var afTrackParser = {
 	// fillField() -
 	fillField : function(field, newvalue) {
 		if (field != null && newvalue != null) {
-			afUndo.addUndo([field, 'parsetext', field.value, newvalue]);
+			afUndo.addUndo(new UndoItem(field, 'trackparser', field.value, newvalue));
 			field.value = newvalue;
 		}
 	},

@@ -17,13 +17,11 @@ if (
 	and $id
 	and $name =~ /\S/
 ) {
-	# Put ($type, $id) at top of recently linked things
-
+	# Put ($type, $id) at top of recently related elements
 	@$recent_links = grep {
 		$_->[0] != $type or $_->[1] != $id
 	} @$recent_links;
 	unshift @$recent_links, [ $type, $id, $name ];
-
 	splice(@$recent_links, 25) if @$recent_links > 25;
 
 	# Force session save
@@ -31,12 +29,12 @@ if (
 }
 
 </%perl>
-<& /comp/sidebar, title => 'Create a Link' &>
+<& /comp/sidebar, title => 'Your selected elements' &>
 
 % if (UserStuff->IsLinkModerator($session{privs}) or @$recent_links == 1) {
 <div class="LinksRow"> [
 %	if (UserStuff->IsLinkModerator($session{privs})) {
-	    <a href="/edit/relationships/link_type_roots.html">Edit link types</a> 
+	    <a href="/edit/relationships/link_type_roots.html">Edit relationship types</a> 
 %    }
 %	if (UserStuff->IsLinkModerator($session{privs}) and @$recent_links == 1) {
 	     |
@@ -67,8 +65,8 @@ if (
 % }
 
 <p>
-	To create a new link, select the two things you want to link
-	together (one in the left column and one in the right),
+	To create a new relationship, select the two elements you want to 
+	relate to each other (one in the left column and one in the right),
 	then click "Next".
 </p>
 

@@ -1,9 +1,9 @@
 %# vi: set ts=4 sw=4 ft=mason :
 <%args>
-$type => ""
-$id => ""
-$confirm=>0
-$notetext=>""
+	$type 		=> ""
+	$id 		=> ""
+	$confirm	=> 0
+	$notetext	=> ""
 </%args>
 <%perl>
 
@@ -17,9 +17,10 @@ my $link = MusicBrainz::Server::Link->new($mb->{DBH}, \@types);
 if (!$link)
 {
 	</%perl>
-    <& /comp/sidebar, title => 'Remove Link: error' &>
+    <& /comp/sidebar, title => 'Remove Relationship: error' &>
 	<p>
-	This page was passed invalid arguments. The type and id arguments need to be passed to this page.
+	This page was passed invalid arguments. The type and id arguments 
+	need to be passed to this page.
 	</p>
     <& /comp/footer &>
 	<%perl>
@@ -30,9 +31,9 @@ my $node = $link->newFromId($id);
 if (!$node)
 {
 	</%perl>
-    <& /comp/sidebar, title => 'Remove Link: error' &>
+    <& /comp/sidebar, title => 'Remove Relationship: error' &>
 	<p>
-	The link you selected for removal no longer exists.
+	The relationship you selected for removal no longer exists.
 	</p>
     <& /comp/footer &>
 	<%perl>
@@ -70,12 +71,12 @@ if ($confirm)
 }
 
 </%perl>
-<& /comp/sidebar, title => 'Remove Link' &>
+<& /comp/sidebar, title => 'Remove Relationship' &>
 
 <fieldset>
-	<legend>Confirm Link Removal</legend>
+	<legend>Confirm Relationship Removal</legend>
 	<div class="padleft">
-		Are you sure you want to remove the <% ucfirst($type) %> link from 
+		Are you sure you want to remove the <% $type %> relationship from 
 		<a href="/show<% $types[0] %>.html?<% $types[0] %>id=<% $ents[0]->GetId %>"><% $ents[0]->GetName() %></a>
 		to
 		<a href="/show<% $types[1] %>.html?<% $types[1] %>id=<% $ents[1]->GetId %>"><% $ents[1]->GetName() %></a>?

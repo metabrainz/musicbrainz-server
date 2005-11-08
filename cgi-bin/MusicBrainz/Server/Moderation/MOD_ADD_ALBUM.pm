@@ -58,6 +58,8 @@ sub PreInsert
 	# Track/n/ - name
 	# Artist/n/ - ??? id or name ???
 	# TrackDur/n/ - duration in ms?
+	# Then for 1..m release dates:
+	# Release/n/ - CountryId,Year-Month-Day
 
 	# The following keys are added to %new after the insert:
 	# AlbumId
@@ -147,6 +149,23 @@ sub PreInsert
    
 	$info{'tracks'} = \@tracks;
 
+	my @releases;
+	for my $i (sort map { /^Release(\d+)$/ ? ($1) : () } keys %new)
+	{
+		my $release = $new{"Release$i"};
+		my ($country, $date) = split m/,/, $release;
+		my ($year, $month, $day) = split m/-/, $date;
+
+		push @releases, {
+			year	=> $year,
+			month	=> $month,
+			day		=> $day,
+			country	=> $country,
+		};
+	}
+
+	$info{'releases'} = \@releases;
+
 	# Now we actually insert the album and tracks,
 	# and maybe also some artists, a disc ID, TRMs etc.
 	{
@@ -213,6 +232,16 @@ sub PreInsert
 	  	{
 	 		$new{"Artist${seq}Id"} = $id;
 	 	}
+	}
+
+	for my $seq (1 .. @releases)
+	{
+		my $release = $releases[$seq-1];
+
+		if (my $id = $release->{release_insertid})
+		{
+			$new{"Release${seq}Id"} = $id;
+		}
 	}
 
 	$self->SetArtist($new{_artistid} = $info{_artistid} or die);

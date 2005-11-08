@@ -200,8 +200,8 @@ sub GetReleaseTypeAndStatus
 
 sub SetAttributes
 {
-   my $this = shift @_;
-   $this->{attrs} = [ ${ $this->{attrs}}[0], @_ ];
+   my $this = shift;
+   $this->{attrs} = [ ${ $this->{attrs}}[0], grep { defined } @_ ];
 }
 
 sub GetAttributeList

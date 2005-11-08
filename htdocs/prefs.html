@@ -296,6 +296,36 @@ $time = time();
 		<b><% $m->comp("/comp/datetime", $time+180*86400) %></b>
 	</p>
 
+
+	<h2>Topmenu Configuration</h2>
+	<p>									 
+		The menu which is placed on top of the pages features multiple ways of 
+		navigating the site. You can choose which menu type (or both) you'd like to
+		see if you are logged in:
+		<select name="topmenu_submenu_types">
+			<& /comp/options,
+				[
+					[ "both", "Both" ],
+					[ "dropdownonly", "Dropdown menus only (vertical)" ],
+					[ "staticonly", "Static submenus only (horizontal)" ],
+				],
+				UserPreference::get('topmenu_submenu_types') &>
+		</select>
+	</p>
+	<p>					 
+		If you selected an option which includes the <i> Dropdown menus</i> 
+		above, you can choose how they get activated: 
+		<select name="topmenu_dropdown_trigger">
+			<& /comp/options,
+				[
+					[ "mouseover", "When I move the mouse over the item" ],
+					[ "click", "When I click the open submenu icon" ]
+				],
+				UserPreference::get('topmenu_dropdown_trigger') &>
+		</select>
+	</p>
+
+
 	<h2>Use of Javascript</h2>
 
 	<p>

@@ -1,13 +1,13 @@
 %# vi: set ts=4 sw=4 ft=mason :
 <%args>
-$id => ''
-$type => ''
-$name => ''
-$url => undef
-$desc => undef
-$notetext => undef
-$linktype => undef
-$submit => 0
+	$id 		=> ''
+	$type 		=> ''
+	$name 		=> ''
+	$url 		=> undef
+	$desc 		=> undef
+	$notetext 	=> undef
+	$linktype 	=> undef
+	$submit 	=> 0
 </%args>
 <%perl>
 
@@ -130,7 +130,7 @@ my $root = $link->Root;
 
 % if ($submit) {
 %      if (!$linktype) {
-         <div class="linkerror">Error: You must select a link type from the list below.</div>
+         <div class="linkerror">Error: You must select a relationship type from the list below.</div>
 %      }
 %      if (!defined $url || !MusicBrainz::Server::URL->IsLegalURL($url)) {
          <div class="linkerror">Error: You must enter a valid URL below.</div>
@@ -141,7 +141,7 @@ my $root = $link->Root;
 % }
 
 <p>
-	Select the URL link type and enter the URL below. Please note that the URL must be a valid
+	Select the URL relationship type and enter the URL below. Please note that the URL must be a valid
 	URL, including the http:// or ftp:// protocol portion of the URL.
 </p>
 
@@ -154,36 +154,50 @@ my $root = $link->Root;
 	Open Audio license</a> or is otherwise legally downloadable for free. 
 </p>
 
-<form name="linktype" method="post" action="/edit/relationship/addurl.html">
+<form name="linkselect" method="post" action="/edit/relationship/addurl.html">
 	<fieldset>
 		<legend>Relate <% ucfirst($type) %> to URL</legend>
 
-		<div class="padleft">
-			<% ucfirst($type) %> <b><% $name %></b> 
-			<select name="linktype" onchange="linkTypeChanged()">
-				<option value="||">[select a link type]</option>
+		<table>
+			<tr>
+				<td width="150"><label><% ucfirst($type) %>: </label></td>
+				<td><b><% $name %></b></td>
+			</tr>
+			<tr>
+				<td></td>
+				<td><select name="linktype" onchange="ar_typeChangedURL()">
+						<option value="||">[select a link type]</option>
 %             my @q = map { [$_,0] } $root;
 %             while (my $l = shift @q) {
 %                 unshift @q, map { [$_,$l->[1]+1] } $l->[0]->Children;
 %                 next if ($l->[0]->GetName eq 'ROOT');
-				<option value="<% $l->[0]->GetId %>|<% $l->[0]->GetAttributes() %>|<% $l->[0]->GetDescription() %>" <% $l->[0]->GetId eq $linktype ? 'selected=""' : '' %>
+						<option value="<% $l->[0]->GetId %>|<% $l->[0]->GetAttributes() %>|<% $l->[0]->GetDescription() %>" <% $l->[0]->GetId eq $linktype ? 'selected=""' : '' %>
 %                my $text = $l->[0]->GetLinkPhrase;
 %                $text =~ s/\{(\w+:)/{/;
-                  ><% ("&nbsp;&nbsp;" x $l->[1]) |n %><% $text %></option>
+                  		><% ("&nbsp;&nbsp;" x $l->[1]) |n %><% $text %>&nbsp;&nbsp;</option>
 %            }
-			</select> URL:
+					</select></td>
+			</tr>
+			<tr>
+				<td><label>Url: </label></td>
+				<td><input type="text" name="url" size="40" value="<% $url or 'http://' %>"> (<b>required</b>)</td>
+			</tr>
+		</table>
 
-    		<span id="link_desc">&nbsp;</span>
-		</div>
+		<table>
+			<tr valign="top">
+				<td valign="top" width="150"><label>Description:</label></td>
+				<td>
+					<span id="relationship_desc" class="linkdesc">&nbsp;</span></td>
+			</tr>
+		</table>
 
 		<div class="padlefttop">
-			Enter URL (<b>required</b>): <br/>
-        	<input type="text" name="url" size="40" value="<% $url or 'http://' %>">
 		</div>
 		
 		<div class="padlefttop">
 			Enter description for this URL (<b>required</b>): <br/>
-			<textarea name="desc" rows="3" cols="60"><% $desc %></textarea>
+			<textarea name="desc" rows="3" cols="52"><% $desc %></textarea>
 		</div>
 
 		<div class="padleft">
@@ -195,11 +209,17 @@ my $root = $link->Root;
 			<input type="hidden" name="type" value="<% $type %>">
 			<input type="hidden" name="name" value="<% $name %>">
 			<input type="hidden" name="submit" value="1">
+			<input type="hidden" name="isurlform" value="1">
 			<input type="submit" class="button" value="Submit">
 		</div>
 	</fieldset>
 </form>
 
-<script type="text/javascript" src="addurl.js"></script>
+<script language="javascript">
+<!--
+	var wasFormSubmitted = <% $submit %>;
+-->
+</script>
+<script language="javascript" src="/scripts/ar-frontend.js"></script>
 
 <& /comp/footer &>

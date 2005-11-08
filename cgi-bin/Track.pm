@@ -557,15 +557,15 @@ sub UnformatTrackLength
 	my $length = shift;
 	my $ms = -1;
 	
-	if ($length =~ /^\?:\?\?$/)
+	if ($length =~ /^\s*\?:\?\?\s*$/)
 	{
 		$ms = 0;
 	}
-	elsif ($length =~ /^(\d{1,3}):(\d{1,2})$/ && $2 < 60)
+	elsif ($length =~ /^\s*(\d{1,3}):(\d{1,2})\s*$/ && $2 < 60)
 	{
 		$ms = ($1 * 60 + $2) * 1000;
 	}
-	elsif ($length =~ /^(\d+) ms$/)
+	elsif ($length =~ /^\s*(\d+)\s+ms\s*$/)
 	{
 		$ms = $1;
 	}

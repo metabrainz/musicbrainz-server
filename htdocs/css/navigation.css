@@ -90,10 +90,10 @@ td.modpending {
 	margin: -2px;
 }
 .sidemenusearch input.textfield {
-	width: 100%;
 	background-color: #eee;
 	border: 1px inset;
-	font-size: 11px;
+	width: 65px;
+	font-size: 12px;
 	padding: 1pt;
 }
 
@@ -169,18 +169,19 @@ td.modpending {
 /* ********************************************** */
 #mainmenu-table {
 	width: 100%; background: #fb5;
-	border: 0px; border-bottom: 1px solid #000;
+	border: 0px; border-bottom: 0px solid #000;
 }
 .mainmenu {
 	background: #fb5;
 }
 .mainmenu table {
-	height: 20px;
+	height: 21px;
 }
 /* define font/wrapping behavior mainmenu TDs */
 .mainmenu td {
 	font-size: 12px; text-align: center;
-	border-left: 1px solid black; background: #fb5; 
+	border-right: 1px solid black; background: #fb5; 
+	border-bottom: 1px solid black;
 	padding: 0px 6px; 
 	cursor: hand;
 }
@@ -199,7 +200,7 @@ td.modpending {
 /* active and hovering mouse has a white underline */
 .mainmenu a:active,
 .mainmenu a:hover {
-	color: #fff;
+	color: #000;
 	text-decoration: underline;
 }
 
@@ -211,6 +212,23 @@ td.modpending {
 	text-decoration: none;
 }
 
+.mainmenu td.selected {
+	border-bottom: 0px solid #fb5;
+}
+
+/* the empty cell on the right of the mainmenu */
+.mainmenu td.mainmenuright {
+	width: 100%;
+	border-right: 0px;
+}
+
+/* the cell above the side-menu-toggler */
+.NavBarCell {
+    width: 157px; height: 20px;
+    border-right: 1px solid black;
+    border-bottom: 1px solid black;
+}
+
 /* configuration for all the different states possible (selected,right,hover) */
 .mainmenu td.hover a, 
 .mainmenu td.hover a:visited,
@@ -218,33 +236,16 @@ td.modpending {
 .mainmenu td.selectedhover a,
 .mainmenu td.selectedhover a:active,
 .mainmenu td.selectedhover a:visited,
-.mainmenu td.selectedhover a:hover,
-.mainmenu td.righthover a, 
-.mainmenu td.righthover a:visited,
-.mainmenu td.rightselected a, 
-.mainmenu td.rightselected a:visited,
-.mainmenu td.rightselectedhover a, 
-.mainmenu td.rightselectedhover a:visited {
+.mainmenu td.selectedhover a:hover {
 	color: #fff;
 	text-decoration: underline;
-}
-
-/* rightmost td has an additional black border */
-.mainmenu td.righthover,
-.mainmenu td.rightselectedhover,
-.mainmenu td.right,
-.mainmenu td.rightselected {
-	border-right: 1px solid black; 
 }
 
 /* the selected/hovered td has a violet background */
 .mainmenu td.selected,
 .mainmenu td.selectedhover,
-.mainmenu td.rightselected,
-.mainmenu td.rightselectedhover,
-.mainmenu td.hover,
-.mainmenu td.righthover {
-   background: #77a; 
+.mainmenu td.hover {
+   background: #77a;
 }
 
 /* ********************************************** */
@@ -253,9 +254,9 @@ td.modpending {
 .submenu {
 	position: absolute;
 	top: 87px; left: 142px;
-	background: #fff; display: none; padding-right: 2px;
+	display: none; padding-right: 2px;
 	border: 1px solid black;
-	background: #fff url(/images/header-bg-lightpurplefade.gif) repeat-y right;
+	background: #f0efff; /* darker purple: #E0DDF8; fuchs: #FFEED4 */
 	z-index: 1001;
 	display: none;
 }
@@ -269,7 +270,7 @@ td.modpending {
 	padding: 3px; padding-left: 7px; padding-right: 7px; 
 	white-space: nowrap; color: #333; 
 	font-size: 11px; font-weight: bold;
-	border-bottom: 1px dotted #ddd;
+	border-bottom: 1px dotted #bbb;
 }
 .submenu a:hover,
 .submenu a:active,
@@ -287,9 +288,24 @@ td.modpending {
 	font-size: 11px;
 	padding: 0px 6px 1px 6px;
 	border: 1px solid #000;
-	border-width: 0px 0px 1px 1px;
+	background: #f0efff; /* darker purple: #E0DDF8; fuchs: #FFEED4 */
+	border-width: 0px 1px 1px 1px;
+}
+.submenustatic a,
+.submenustatic a:visited {
+	color: #000;
+}
+.submenustatic a:hover,
+.submenustatic a:active,
+.submenustatic a:focus {
+	text-decoration: underline;
 }
 
+.submenu-leftspace {
+	width: 26px;
+	padding: 0px;
+	margin: 0px;
+}
 
 /* ********************************************** */
 /* ********************************************** */
@@ -312,14 +328,14 @@ td.modpending {
 	border: 1px solid #736DAB;
 }
 .orangeheader {	    
-	border: 1px solid #fb5; width: 100%;
+	border: 1px solid #fb5;
 	background: #fff url(/images/header-bg-orangefade.gif) repeat-y left;
 	margin: 0px; padding: 0px;
 	font-weight: bold;
 }
 .blueheader,
 .blueheaderwide {
-	border: 1px solid #736DAB; width: 100%;
+	border: 1px solid #736DAB;
 	background: #fff url(/images/header-bg-lightpurplefade.gif) repeat-y right;
 	margin: 0px; padding: 0px;
 	font-weight: bold;
@@ -333,7 +349,7 @@ td.modpending {
 	margin: 0 0 0 0.5em; padding: 2px;
 }
 .boxcontent {
-	border: 1px solid #ddd; width: 100%;
+	border: 1px solid #ddd;
 	border-width: 0px 1px 1px 1px;
 	margin: 0px; padding: 0px;
 	margin-bottom: 15px;

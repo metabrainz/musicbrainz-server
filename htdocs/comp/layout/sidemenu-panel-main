@@ -3,8 +3,7 @@
 % $ext = '';
 
 <div class="sidemenu">
-	<a href="/" title="MusicBrainz Home Page">MusicBrainz</a>
-	<a href="http://musicbrainz.org/" title="Go to the master MusicBrainz server"><b>&middot;</b> Master Server</a>
+	<a href="http://musicbrainz.org/" title="Go to the master MusicBrainz server"><b></b> Master Server</a>
 	<a href="/about/mirrors.html" title="Find a mirror site"><b>&middot;</b> Find a Mirror</a>
 	<a href="http://metabrainz.org/" title="The MetaBrainz Foundation">MetaBrainz<% $ext |n %></a>
 	<a href="http://blog.musicbrainz.org/" title="News from the people behind MusicBrainz">Brainz Blog<% $ext |n %></a>

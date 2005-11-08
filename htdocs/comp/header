@@ -53,7 +53,7 @@ my $staticmenus = "";
     <p style="display: none"><a href="#maincontent">Skip to main content &gt;&gt;</a></p>
 
 	<table width="100%" cellpadding="0" cellspacing="0" border="0" id="mainmenu-table">
-		<tr style="height: 20px">
+		<tr style="height: 21px">
 			<td class="NavBarCell" valign="top">
 				<a href="/"><img src="/images/header_logo_b.gif"
 					width="142" height="20"
@@ -66,26 +66,27 @@ my $staticmenus = "";
 % }
 </div>
 
-    <table width="100%" cellpadding="0" cellspacing="0" border="0" id="submenu-table">
+    <table width="" cellpadding="0" cellspacing="0" border="0" id="submenu-table">
         <tr>
 % unless ($nosidebar) {
 			<td id="sidebar-togglecell">
 				<script type="text/javascript">
 				<!-- // hide from older browsers 
-					mm_DrawToggle();
+					sideBar.writeHtml();
 				-->
 				</script>
 				<noscript>&nbsp;</noscript>
 			</td>
-			<td style="width: 26px"></td>
+			<td class="submenu-leftspace">&nbsp;</td>
 %           # &nbsp; required for Firefox at least to avoid layout errors
 % }
 
-% if ($staticmenus) {
+% if ($staticmenus && (UserPreference::get('topmenu_submenu_types') ne "dropdownonly")) {
 			<td class="submenustatic"><% $staticmenus || '&nbsp;' |n %></td>
 % } else {
 			<td>&nbsp;</td>
 % }
+			<td>&nbsp;</td>
 		</tr>
 	</table>
 

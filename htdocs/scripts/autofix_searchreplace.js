@@ -275,7 +275,7 @@ var afFindReplace = {
 			if (newvalue != currvalue) {
 				addMessage('af_srDoStringReplace() :: New value @@@'+newvalue+'###');
 				f.value = newvalue;
-				afUndo.addUndo([f, 'replace', currvalue, newvalue]);
+				afUndo.addUndo(new UndoItem(f, 'searchreplace', currvalue, newvalue));
 				return true;
 			}
 		}

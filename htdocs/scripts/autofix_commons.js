@@ -161,7 +161,7 @@ var afCommons = {
 
 		// handle normal blur event (if value changed, add to undo stack)
 		if (this.isFocusField(field) && oldvalue != field.value) {
-			afUndo.addUndo([field, 'manual', oldvalue, newvalue]);
+			afUndo.addUndo(new UndoItem(field, 'manual', oldvalue, newvalue));
 		}
 	},
 
@@ -271,6 +271,51 @@ function myOnBlur(field) { afCommons.onBlurHandler(field); } // for backwards co
 // ----------------------------------------------------------------------------
 // AutoFixUndoRedo afUndo
 // ----------------------------------------------------------------------------
+
+// ----------------------------------------------------------------------------
+// class UndoItem
+// - Models one step of the Undo/Redo stack
+// ----------------------------------------------------------------------------
+function UndoItem(_field, _op, _old, _new) {
+	this._field = _field;
+	this._op = _op;
+	this._old = _old;
+	this._new = _new;
+	this.getField = function() { return this._field; };
+	this.getOp = function() { return this._op; };
+	this.getOld = function() { return this._old; };
+	this.getNew = function() { return this._new; };
+	this.setField = function(v) { this._field = v; };
+	this.setOp = function(v) { this._op = v; };
+	this.setOld = function(v) { this._old = v; };
+	this.setNew = function(v) { this._new = v; };
+	this.toString = function() { return  "UndoItem [field="+this.getField()
+										+", op="+this.getOp()
+										+", old="+this.getOld()
+										+", new="+this.getNew()+"]"; };
+}
+
+// ----------------------------------------------------------------------------
+// class UndoItemList
+// - Models a multiple-part step of the Undo/Redo stack
+// ----------------------------------------------------------------------------
+function UndoItemList() {
+	this._list = [];
+	for (var i=0;i<arguments.length; i++) {
+		if (arguments[i] instanceof UndoItem) {
+			this._list[this._list.length] = arguments[i];
+		}
+	}
+	this.getList = function() { return this._list; };
+	this.iterate = function() { this._cnt = 0; };
+	this.getNext = function() { return this._list[this._cnt++]; };
+	this.hasNext = function() { return this._cnt < this._list.length; };
+}
+
+// ----------------------------------------------------------------------------
+// class afUndo
+// - Handles the undo/redo functionality of the autofix box.
+// ----------------------------------------------------------------------------
 var afUndo = {
 	stack : [],
 	index : 0,
@@ -284,34 +329,33 @@ var afUndo = {
 	// ----------------------------------------------------------------------------
 	// addUndo()
 	// -- Track back one step in the changelog
-	addUndo : function(undoOp, isList) {
+	addUndo : function(undoObj) {
 		this.stack = this.stack.slice(0, this.index);
-		this.stack.push(undoOp);
+		this.stack.push(undoObj);
 		this.index = this.stack.length;
 
 		// updated remembered value (such that leaving the field does
 		// not add another UNDO step)
 		var f = null;
 		var ff = afCommons.getFocusField();
-		var a = undoOp[0];
-		if (this.isUndoList(a)) {
+		if (undoObj instanceof UndoItemList) {
 			// we have multiple undo steps combined
-			for (var i=0;i<a.length; i++) {
-				f = a[i][0]; // check field
-				if (f == ff) afCommons.setFocusValue(f.value);
+			var undoList = undoObj;
+			for (undoList.iterate(); undoList.hasNext();) {
+				undoObj = undoList.getNext();
+				if (undoObj.getField() == ff) {
+					// update remembered value for the focussed field
+					afCommons.setFocusValue(undoObj.getNew());
+				}
 			}
 		} else {
 			// we have a single undo step
-			if (a == ff) afCommons.setFocusValue(a.value);
+			if (undoObj.getField() == ff) {
+				// update remembered value for the focussed field
+				afCommons.setFocusValue(undoObj.getNew());
+			}
 		}
 		this.updateGUI();
-	},
-
-	// ----------------------------------------------------------------------------
-	// isUndoList()
-	// -- returns if the current item on the stack is a multiple-undo
-	isUndoList : function(x) {
-		return (x instanceof Array || typeof x == "array");
 	},
 
 	// ----------------------------------------------------------------------------
@@ -320,13 +364,15 @@ var afUndo = {
 	undoOne : function() {
 		if (this.stack.length > 0) {
 			if (this.index > 0) {
-				this.index--;
-				if (this.isUndoList(this.stack[this.index][0])) {
-					var list = this.stack[this.index];
-					for (var i=1; i<list.length; i++) // undo list of changes
-						list[i][0].value = list[i][2]; // set field = oldvalue
+				var undoObj = this.stack[--this.index]; // move pointer, get item
+				if (undoObj instanceof UndoItemList) {
+					// we have multiple undo steps combined
+					for (undoObj.iterate(); undoObj.hasNext();) {
+						var o = undoObj.getNext(); // undo step of each of the items
+						o.getField().value = o.getOld();
+					}
 				} else {
-					this.stack[this.index][0].value = this.stack[this.index][2]; // undo single change
+					undoObj.getField().value = undoObj.getOld(); // undo single change
 				}
 			}
 			this.updateGUI();
@@ -339,12 +385,15 @@ var afUndo = {
 	// -- Re-apply one step which was undone previously
 	redoOne : function() {
 		if (this.index < this.stack.length) {
-			if (this.isUndoList(this.stack[this.index][0])) {
-				var list = this.stack[this.index];
-				for (var i=1; i<list.length; i++) // re-apply list of changes
-					list[i][0].value = list[i][3]; // set field = newvalue
+			var undoObj = this.stack[this.index]; // move pointer, get item
+			if (undoObj instanceof UndoItemList) {
+				// we have multiple undo steps combined
+				for (undoObj.iterate(); undoObj.hasNext();) {
+					var o = undoObj.getNext(); // redo step of each of the items
+					o.getField().value = o.getNew();
+				}
 			} else {
-				this.stack[this.index][0].value = this.stack[this.index][3]; // undo single change
+				undoObj.getField().value = undoObj.getNew(); // redo single change
 			}
 			this.index++;
 			this.updateGUI();
@@ -713,7 +762,7 @@ var afQuickOps = {
 			}
 			var newvalue = f.value;
 			if (newvalue != oldvalue) {
-				afUndo.addUndo([f, 'changecase', oldvalue, newvalue]);
+				afUndo.addUndo(new UndoItem(f, 'changecase', oldvalue, newvalue));
 			}
 		}
 	}

@@ -4,8 +4,7 @@
             <td width="40"><label for="qsArtist_text" title="Search for an artist">Artist</label></td>
             <td>
                 <form method="GET" action="/newsearch.html">
-                    <div>
-                        <input class="textfield" type="text" name="search" id="qsArtist_text" value=""
+					<input class="textfield" type="text" name="search" id="qsArtist_text" value=""
 % # What is the official position on forms with no submit button?
 % # Normally they're OK, and you can press "return" and the form is submitted.
 % # Can we rely on this, always?
@@ -13,50 +12,43 @@
 % if ($session{mbt}) {
                             onkeydown="if (event.keyCode==13) this.form.submit()"
 % }
-                        >                                   
-                        <input type="hidden" name="table" value="artist">
-                    </div>
+					>                                   
+					<input type="hidden" name="table" value="artist">
                 </form></td>
         </tr>
         <tr>
             <td><label for="qsAlbum_text" title="Search for an album">Album</label></td>
             <td>
                 <form method="GET" action="/newsearch.html">
-                    <div>
-                        <input class="textfield" type="text" name="search" id="qsAlbum_text" value=""
+					<input class="textfield" type="text" name="search" id="qsAlbum_text" value=""
 % if ($session{mbt}) {
-                            onkeydown="if (event.keyCode==13) this.form.submit()"
+						onKeyDown="if (event.keyCode==13) this.form.submit()"
 % }
-                        >
-                        <input type="hidden" name="table" value="album">
-                    </div>
+					>
+					<input type="hidden" name="table" value="album">
                 </form></td>
         </tr>
         <tr>
             <td><label for="qsTrack_text" title="Search for a track">Track</label></td>
             <td>
                 <form method="GET" action="/newsearch.html">
-                    <div>
-                        <input class="textfield" type="text" name="search" id="qsTrack_text" value=""
+					<input class="textfield" type="text" name="search" id="qsTrack_text" value=""
 % if ($session{mbt}) {
-                            onkeydown="if (event.keyCode==13) this.form.submit()"
+						onKeyDown="if (event.keyCode==13) this.form.submit()"
 % }
                         >
-                        <input type="hidden" name="table" value="track">
-                    </div>
+					<input type="hidden" name="table" value="track">
                 </form></td>
         </tr>
         <tr>
             <td><label for="qsEditor_text" title="Search for an MusicBrainz editor">Editor</label></td>
             <td>
                 <form method="GET" action="/user/view.html">
-                    <div>
-                        <input class="textfield" type="text" name="modname" id="qsEditor_text" value=""
+					<input class="textfield" type="text" name="modname" id="qsEditor_text" value=""
 % if ($session{mbt}) {
-                            onkeydown="if (event.keyCode==13) this.form.submit()"
+						onKeyDown="if (event.keyCode==13) this.form.submit()"
 % }
-                        >
-                    </div>
+					>
                 </form></td>
         </tr>
     </table>

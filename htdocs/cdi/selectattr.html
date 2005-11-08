@@ -11,6 +11,8 @@ $m->comp("check-macsac", %ARGS) or return
 
 $m->comp("check-language-and-script", %ARGS) or return;
 
+$m->comp("check-releases", %ARGS) or return;
+
 my $mb = $m->comp("/comp/dblogin");
 $m->comp("/comp/sidebar", title=>'Select Album Attributes');
 

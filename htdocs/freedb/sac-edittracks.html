@@ -57,7 +57,7 @@ my $t = $session{"freedb_tracks"};
 				<td><input 	type="text" name="album" class="textfield"
 							id="fdbsac_album"
 							onFocus="myOnFocus(this)" onBlur="myOnBlur(this)"
-							size="50" 
+							size="50"
 							value="<% $session{'freedb_album'} %>"></td>
 				<td><script type="text/javascript">
 					<!--
@@ -68,10 +68,10 @@ my $t = $session{"freedb_tracks"};
 % for my $i (0 .. $t-1) {
 			<tr>
 				<td><label for="fdbsac_track<% $i %>"><% $i+1 %>:</label></td>
-				<td><input 	type="text" name="track<% $i %>" class="numberfield"
+				<td><input 	type="text" name="track<% $i %>" class="textfield"
 							id="fdbsac_track<% $i %>"
 							onFocus="myOnFocus(this)" onBlur="myOnBlur(this)"
-							size="50"  
+							size="50"
 							value="<% $session{"freedb_track$i"} %>"></td>
 				<td><script type="text/javascript">
 					<!--

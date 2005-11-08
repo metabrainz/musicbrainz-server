@@ -141,15 +141,15 @@ $m->comp(
 		<%perl>
 	}
 
-    $m->comp("/comp/ar/AddRelationship", id=>$artist->GetId, type=>'artist', name=>$artist->GetName) 
+    $m->comp("/comp/ar/AddRelationship", id=>$artist->GetId, type=>'artist', name=>$artist->GetName)
 	    if ($addrel);
-    $m->comp("/comp/ar/ClearRelationships") 
+    $m->comp("/comp/ar/ClearRelationships")
 	    if ($arcancel);
 
-    $m->comp("/comp/ar/RemoveRelationship", id=>$remrel, type=>$remtype) 
+    $m->comp("/comp/ar/RemoveRelationship", id=>$remrel, type=>$remtype)
 	    if ($remrel >= 0);
 
-    $m->comp("/comp/ar/RelationshipBox", id=>$artist->GetId, type=>'artist', 
+    $m->comp("/comp/ar/RelationshipBox", id=>$artist->GetId, type=>'artist',
 			                             name=>$artist->GetName);
 
 	if ($artist->GetId == &ModDefs::VARTIST_ID)
@@ -225,7 +225,7 @@ $m->comp(
 				# Sort albums with no release last
 				$album->{_firstreleasedate_} = ($album->GetFirstReleaseDate || "9999-99-99");
             }
-			
+
             @albums = sort $SortAlbums @albums;
 
             </%perl>
@@ -341,17 +341,17 @@ $m->comp(
 					</%perl>
 					<tr class="<% ('ev', 'od')[$rownum % 2] %>">
 % if ($album->GetTrackCount) {
-						<td class="trk"><% $album->GetTrackCount %>&nbsp;<img src="/images/notes.gif" alt="Tracks"></td>
+						<td class="trk" nowrap><% $album->GetTrackCount %><img src="/images/notes.gif" hspace="3" alt="Tracks"></td>
 % } else {
 						<td></td>
 % }
 % if ($album->GetDiscidCount) {
-						<td class="did"><% $album->GetDiscidCount %>&nbsp;<img src="/images/cd.gif" alt="disc IDs"></td>
+						<td class="did" nowrap><% $album->GetDiscidCount %><img src="/images/cd.gif" hspace="3" alt="disc IDs"></td>
 % } else {
 						<td></td>
 % }
 % if ($album->GetTrmidCount) {
-						<td class="trm"><% $album->GetTrmidCount %>&nbsp;<img src="/images/trm.gif" alt="TRM IDs"></td>
+						<td class="trm" nowrap><% $album->GetTrmidCount %><img src="/images/trm.gif" hspace="3" alt="TRM IDs"></td>
 % } else {
 						<td></td>
 % }
@@ -371,7 +371,7 @@ $m->comp(
 						</td>
 % if ($session{uid}) {
 						<td class="rtag">
-						  <form method="post" action="/edit/albumbatch/done.html" 
+						  <form method="post" action="/edit/albumbatch/done.html"
 								enctype="application/x-www-form-urlencoded">
 							  <script type="text/javascript">
 								  document.writeln('<\input type="checkbox" name="check" onchange="document.forms.BatchOp.AlbumId<% $album->GetId %>.value = this.form.check.checked ? \'on\' : \'\';">');
@@ -387,7 +387,7 @@ $m->comp(
 %            if ($session{tport}) {
 						<a href="http://127.0.0.1:<% $session{tport} %>/openalbum?id=<% $album->GetMBId %>&amp;t=<% time %>"
 							style="margin-right: 1ex"
-							target="hiddeniframe" title="Open in Tagger" border="0"><img 
+							target="hiddeniframe" title="Open in Tagger" border="0"><img
 								src="/images/mblookup-tagger.png" border="0" alt="Open in tagger"></a>
 %            }
 						<% $nmp ? "<span class='mp'>" : "" |n

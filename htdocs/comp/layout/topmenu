@@ -108,8 +108,6 @@ use Scalar::Util qw( reftype weaken );
             { url => "/reports/generated/DuplicateAlbums/index.html" },
             { url => "/reports/generated/DuplicateArtists2/index.html" },
         ] : [],
-        { name => "Editing FAQ",            url => "/wd/ModerationFAQ" },
-        { name => "Editing Style",          url => "/style.html" },
         { name => "Show Edits",             url => "/mod/search/select-filter.html" },
         [
             { url => "/mod/search/pre/new.html" },
@@ -240,6 +238,8 @@ use Scalar::Util qw( reftype weaken );
             { url => "/wd/ClassicalMusicFAQ" },      
             { url => "/wd/AnnotationFAQ" },      
         ],
+        { name => "Editing FAQ",            url => "/wd/ModerationFAQ" },
+        { name => "Editing Style",          url => "/style.html" },
         { name => "Mailing Lists",          url => "/list.html" },
         { name => "Bugs / RFEs",            url => "/wd/ContactUs#report-a-bug" },
     ],
@@ -290,7 +290,7 @@ $transform = sub
     my ($rarhMenu) = @_;
 
     my $selName = '';
-    my $noscriptmenu = '';
+    my $noscriptmenu = '<tr>';
     my @mm_items;
 
     my @named_children = grep { defined $_->{'name'} } @$rarhMenu;
@@ -312,7 +312,6 @@ $transform = sub
 
         # compile css class (none, selected, right)
 		my $cssClass = "";
-        $cssClass .= 'right' if $is_last;
         $cssClass .= 'selected' if $fSel;
 
   		$noscriptmenu .=
@@ -322,9 +321,10 @@ $transform = sub
  		 	. '<a href="' . encode_entities($rhItem->{url}) . '"'
  		 	. '>'
  		 	. encode_entities($rhItem->{name})
- 		 	. '</a>'
+ 		 	. '</a></td>'
  		 	;
     }
+	$noscriptmenu .= '<td class="mainmenuright">&nbsp;</td></tr>';
 
 	@mm_items = map {
 		"["
@@ -337,9 +337,11 @@ $transform = sub
 	} @mm_items;
 	my $mm_items = "[" . join(",", @mm_items) . "]";
 
-    $m->out('<script type="text/javascript" language="javascript">');
-    $m->out("var mm_items = $mm_items;");
-    $m->out("mm_buildMainMenu('$selName');");
+    $m->out('<script type="text/javascript">');
+    $m->out("topMenu.setConfigType('" . UserPreference::get('topmenu_submenu_types') . "');");
+    $m->out("topMenu.setConfigTrigger('" . UserPreference::get('topmenu_dropdown_trigger') . "');");
+    $m->out("topMenu.setItems($mm_items);");
+    $m->out("topMenu.writeHtml('$selName');");
     $m->out('</script>');
 
     $m->out(
@@ -369,9 +371,9 @@ $transform = sub
 
         if ($rarhChildren)
         {  
-            $m->out('<div id="'.$rhItem->{id}.'_sub" class="submenu" ');
-            $m->out('onMouseOver="mm_sub_onMouseOver()" ');
-            $m->out('onMouseOut="mm_sub_onMouseOut()">');
+            $m->out('<div id="'.$rhItem->{id}.'_sub" style="display: none" class="submenu" ');
+            $m->out('onMouseOver="topMenu.handleEvent(this, topMenu.EV_DROPDOWN_OVER)" ');
+            $m->out('onMouseOut="topMenu.handleEvent(this, topMenu.EV_DROPDOWN_OUT)">');
             $m->out('<table border="0" cellspacing="0" cellpadding="0">');
 
             my @named_children = grep { defined $_->{'name'} } @$rarhChildren;
@@ -383,7 +385,7 @@ $transform = sub
 				my $is_last = ($i == $#named_children);
 
 				my $class = ($is_last ? " class='bottom'" : "");
-
+				
 				$m->out(
 					'<tr>'
 					. '<td>'

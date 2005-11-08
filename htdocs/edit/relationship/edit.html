@@ -26,9 +26,10 @@ my $link = MusicBrainz::Server::Link->new($mb->{DBH}, \@types);
 if (!$link)
 {
     </%perl>
-    <& /comp/sidebar, title => 'Edit Link: error' &>
+    <& /comp/sidebar, title => 'Edit Relationship: Error' &>
     <p>
-    This page was passed invalid arguments. The type and id arguments need to be passed to this page.
+    This page was passed invalid arguments. The type and id arguments
+    need to be passed to this page.
     </p>
     <& /comp/footer &>
     <%perl>
@@ -39,21 +40,21 @@ my $node = $link->newFromId($id);
 if (!$node)
 {
     </%perl>
-    <& /comp/sidebar, title => 'Edit Link: error' &>
+    <& /comp/sidebar, title => 'Edit Relationship: Error' &>
     <p>
-    The link you selected no longer exists.
+    The relationship you selected no longer exists.
     </p>
     <& /comp/footer &>
     <%perl>
     return;
 }
 
-# Load the link type and entities
+# Load the relationship type and entities
 my $lt = $node->LinkType();
 my @entities = $node->Entities();
 my @links;
 
-# Load the top level link attributes
+# Load the top level relationship attributes
 my $attrType = MusicBrainz::Server::LinkAttr->new($mb->{DBH});
 my $attr_root = $attrType->Root;
 my @children = $attr_root->Children;
@@ -69,7 +70,8 @@ if ($links[0]->{type} ne $links[1]->{type})
 }
 my @oldlinks = @links;
 
-# swapval indicates if the current entities should be reversed (because the user hit the reverse button)
+# swapval indicates if the current entities should be reversed
+# (because the user hit the reverse button)
 $swapval = !$swapval if ($swap);
 if ($swapval)
 {
@@ -78,7 +80,8 @@ if ($swapval)
     $links[1] = $temp;
 }
 
-# avail_attrs contains the available attributes for the current link type. (.e.g. additional=0-1)
+# avail_attrs contains the available attributes for the current relationship type.
+# (.e.g. additional=0-1)
 my ($avail_attrs);
 
 # These contain the list of attributes
@@ -137,12 +140,12 @@ for my $kvpair (split ' ', $avail_attrs)
 				$value = ($lookupAttr) ?  $lookupAttr->GetId() : 0;
 			}
 			$total++;
-			push @new_attr_list, { value=>$value, name=>$name } 
+			push @new_attr_list, { value=>$value, name=>$name }
 		}
 	}
 
 	if ($total > $mx)
-	{ 
+	{
         # This should never happen
 	    $attr_error .= "Too many selections made for attribute '$name'.<br/>";
     }
@@ -159,7 +162,7 @@ for my $kvpair (split ' ', $avail_attrs)
 ($begindate_y, $begindate_m, $begindate_d, $enddate_y, $enddate_m, $enddate_d) = map { s/\s*(.*?)\s*/$1/; $_ }
 ($begindate_y, $begindate_m, $begindate_d, $enddate_y, $enddate_m, $enddate_d);
 
-if (!$swap 
+if (!$swap
     and $submit
     and !$attr_error
 	and $desc
@@ -210,17 +213,17 @@ my $rev = ($links[0]->{type} eq 'album' && $links[1]->{type} eq 'artist') ? 1 : 
 my %seen_attrs;
 
 </%perl>
-<& /comp/sidebar, title => 'Edit Link' &>
+<& /comp/sidebar, title => 'Edit Relationship' &>
 
 % if (UserStuff->IsLinkModerator($session{privs})) {
     <div class="LinksRow"> [
-        <a href="/edit/relationships/link_type_roots.html">Edit link types</a>
+        <a href="/edit/relationships/link_type_roots.html">Edit relationship types</a>
     ] </div>
 % }
 
 % if ($submit && !$swap) {
 %     if (!$linktypeid) {
-          <div class="linkerror">Error: You must select a link type.</div>
+          <div class="linkerror">Error: You must select a relationship type.</div>
 %     }
 %     if (!MusicBrainz::IsValidDateOrEmpty($begindate_y, $begindate_m, $begindate_d)) {
           <div class="linkerror">Error: You entered an invalid start date.</div>
@@ -235,8 +238,9 @@ my %seen_attrs;
           <div class="linkerror">Error: <% $attr_error |n %></div>
 %     }
 %     if (!$desc && $linktypeid) {
-          <div class="linkerror">Error: Please select a subtype of the currently 
-          	selected link type. The selected link type is only used for grouping sub-types.</div>
+          <div class="linkerror">Error: Please select a subtype of the currently
+          	selected relationship type. The selected relationship type is only used
+          	for grouping sub-types.</div>
 %     }
 % }
 % if (!$submit && !$swap) {
@@ -245,31 +249,27 @@ my %seen_attrs;
 % }
 
 
+<script language="javascript" src="/scripts/ar-attributesearch.js"></script>
 <form method="post" name="linkselect" action="/edit/relationship/edit.html">
 	<fieldset>
-% if ($rev) {
-    	<legend>Select the link type for a <% ucfirst($links[1]->{type}) %>-<% ucfirst($links[0]->{type}) %> link</legend>
-% } else {
-    	<legend>Select the link type for a <% ucfirst($links[0]->{type}) %>-<% ucfirst($links[1]->{type}) %> link</legend>
-% }
-
+    	<legend>Select the relationship type for a <% $links[$rev?1:0]->{type} %>-<% $links[$rev?0:1]->{type} %> relationship</legend>
 		<table>
-        	<tr>
-%          if ($rev) {
-				<td width="150"><label><b><% $links[1]{name} %></b></label></td>
-%          } else {
-				<td width="150"><label><b><% $links[0]{name} %></b></label></td>
-%          }
+			<tr>
+				<td width="150"><label><% ucfirst($links[$rev?1:0]{type}) %>: </label></td>
+				<td colspan="2"><a href="/show<% $links[$rev?1:0]{type} %>.html?<% $links[$rev?1:0]{type} %>id=<% $links[$rev?1:0]{id} %>"><b><% $links[$rev?1:0]{name} %></b></a></td>
+			</tr>
+			<tr>
+				<td>&nbsp;</td>
 				<td>
-					<select name="linktypeid" onKeyDown="handleKeyDown()" onChange="linkTypeChanged()">
-						<option value="||">[select a link type]</option>
+					<select name="linktypeid" onKeyDown="ar_typeChanged()" onChange="ar_typeChanged()">
+						<option value="||">[select a relationship type]</option>
 						<%perl>
 						my @q = map { [$_,0] } $root;
-						while (my $l = shift @q) 
+						while (my $l = shift @q)
 						{
 							unshift @q, map { [$_,$l->[1]+1] } $l->[0]->Children;
 							next if ($l->[0]->GetName eq 'ROOT');
-							if ($l->[0]->GetAttributes()) 
+							if ($l->[0]->GetAttributes())
 							{
 								my @at = split ' ', $l->[0]->GetAttributes();
 								foreach my $a (@at)
@@ -284,33 +284,28 @@ my %seen_attrs;
 						<option value="<% $l->[0]->GetId %>|<% $l->[0]->GetAttributes() %>|<% $l->[0]->GetDescription() %>" <% $l->[0]->GetId eq $linktypeid ? 'selected=""' : '' %>
 %							my $text = $rev ? $l->[0]->GetReverseLinkPhrase : $l->[0]->GetLinkPhrase;
 %							$text =~ s/\{(\w+:)/{/;
-							><% ("&nbsp;&nbsp;" x $l->[1]) |n %><% $text %></option>
+							><% ("&nbsp;&nbsp;" x $l->[1]) |n %><% $text %>&nbsp;&nbsp;</option>
 %						}
 					</select></td>
-% if ($rev) {
-				<td><b><% $links[0]{name} %></b></td>
-% } else {
-				<td><b><% $links[1]{name} %></b></td>
-% }
-			</tr>
+					<td>
 % if ($links[0]{type} eq $links[1]{type}) {
-			<tr>
-				<td>&nbsp;</td>
-				<td colspan="2">
-					<input type="submit" class="button" name="swap" value="Swap left <% $links[0]{type} %> &lt;=&gt; right <% $links[0]{type} %>"></td>
-			</tr>
+						<input type="submit" class="button" name="swap" value="Change direction">
 % }
+					</td>
+			</tr>
+			<tr>
+				<td><label><% ucfirst($links[$rev?0:1]{type}) %>: </label></td>
+				<td colspan="2"><a href="/show<% $links[$rev?0:1]{type} %>.html?<% $links[$rev?0:1]{type} %>id=<% $links[$rev?0:1]{id} %>"><b><% $links[$rev?0:1]{name} %></b></a></td>
+			</tr>
 		</table>
 
 		<table>
-			<tr>
+			<tr valign="top">
 				<td valign="top" width="150"><label>Description:</label></td>
-				<td>
-					<span id="link_desc" class="linkdesc">&nbsp;</span></td>
+				<td><span id="relationship_desc" class="linkdesc">&nbsp;</span></td>
 			</tr>
 		</table>
 
-		
 		<div id="attributes">
 			<div class="padtop"></div>
 			<table>
@@ -319,16 +314,16 @@ my %seen_attrs;
 					 	<label>Attributes:</label></td>
 					<td>
 						<%perl>
-						foreach my $sec (keys %seen_attrs) 
+						foreach my $sec (keys %seen_attrs)
 						{
 							my $desc;
 							my $isSimple;
 							my $tree;
-							foreach my $child (@children) 
+							foreach my $child (@children)
 							{
-								if ($child->GetName eq $sec) 
+								if ($child->GetName eq $sec)
 								{
-									$desc = $child->GetDescription; 
+									$desc = $child->GetDescription;
 									$isSimple = !$child->HasChildren;
 									$tree = $child;
 								}
@@ -339,14 +334,15 @@ my %seen_attrs;
 								last if ($index > 0 && !exists $ARGS{"attr_". $sec . "_$index"});
 								if ($isSimple)
 								{
-									$m->out(qq|<input type="checkbox" name="attr_|. $sec . qq|_$index" value="| . $tree->GetId . "\"");
+									$m->out(qq|<input type="checkbox" name="attr_|. $sec . "_" . qq|$index" value="| . $tree->GetId . "\"");
 									$m->out(qq| checked=""|) if ($ARGS{"attr_$sec"."_$index"});
 									$m->out(qq|> <i>$sec</i>|);
 								}
 								else
 								{
-									$m->out(qq|<select name="attr_|.$sec."_$index\">");
-									$m->out(qq|<option value="">[select $sec]</option>|);
+									$m->out(qq|<div id="attr_|. $sec . "_" . $index . qq|_item" class="ar-attribute-item">\n|);
+									$m->out(qq|<select name="attr_|. $sec . "_" . qq|$index" id="attr_|. $sec . "_" . qq|$index" class="ar-dropdown" onFocus="dds_onFocus(this)">\n|);
+									$m->out(qq|<option value="">&nbsp;[select $sec]</option>\n|);
 									my @q = map { [$_,0] } $tree->Children;
 									while (my $l = shift @q)
 									{
@@ -354,15 +350,17 @@ my %seen_attrs;
 										next if ($l->[0]->GetName eq 'ROOT');
 										$m->out("<option value=\"".$l->[0]->GetId.'" ');
 										$m->out($l->[0]->GetId eq $ARGS{"attr_".$sec."_$index"} ? 'selected=""' : '');
-										$m->out(">" . ("&nbsp;&nbsp;" x $l->[1]) . $l->[0]->GetName . "</option>\n");
+										$m->out(">&nbsp;" . ("&nbsp;&nbsp;" x $l->[1]) . $l->[0]->GetName . "</option>\n");
 									}
-									$m->out("</select>\n");
+									$m->out("</select>");
+									$m->out(qq|<script language="javascript"> dds_writeUI('$sec', '$index') </script>\n|);
+									$m->out("</div>");
 								}
-								$m->out(qq|<a href="javascript: addAttribute('$sec')">Add another $sec</a>|) if ($index == 0 && ($seen_attrs{$sec} < 0 || $seen_attrs{$sec} > 1));
-								$m->out("<br/>");
 							}
-							$m->out("</div>");
-							$m->out(qq|<div id="$sec-desc" class="ar-attribute-description">$desc</div>|);
+							$m->out(qq|</div>\n|);
+							$m->out(qq|<div id="$sec-desc" class="ar-attribute-description">$desc\n|);
+							$m->out(qq|<p style="margin: 0"><input type="button" onClick="dds_addAttribute('$sec')" value="Add another $sec" />\n|)  if ($seen_attrs{$sec} < 0 || $seen_attrs{$sec} > 1);
+							$m->out(qq|</div>\n|);
 						}
 						</%perl>
 						<noscript>
@@ -395,7 +393,7 @@ my %seen_attrs;
 				<td></td>
 				<td>
 					<div class="ar-attribute-description">
-					If the link type you selected indicates a temporal link (e.g. <i>was a member of</i>), then enter
+					If the relationship type you selected indicates a temporal relationship (e.g. <i>was a member of</i>), then enter
 					the begin and/or end dates above. These dates are optional, and leaving the end date blank
 					indicates that this relationship is still active today:</div></td>
 			</tr>
@@ -406,9 +404,10 @@ my %seen_attrs;
 			<& /comp/notetext, text => $notetext &>
 		</div>
 		<div class="padlefttop">
-			<input type="hidden" name="id" value="<% $id %>"> 
-			<input type="hidden" name="type" value="<% $type %>"> 
+			<input type="hidden" name="id" value="<% $id %>">
+			<input type="hidden" name="type" value="<% $type %>">
 			<input type="hidden" name="submit" value="1">
+			<input type="hidden" name="isurlform" value="0">
 			<input type="hidden" name="swapval" value="<% $swapval %>">
 			<input type="submit" class="button" value="Submit">
 		</div>
@@ -427,6 +426,6 @@ my %seen_attrs;
 	</%perl>
 -->
 </script>
-<script type="text/javascript" src="link-selecttype.js"></script>
+<script language="javascript" src="/scripts/ar-frontend.js"></script>
 
 <& /comp/footer &>

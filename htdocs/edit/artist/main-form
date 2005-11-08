@@ -16,7 +16,7 @@ my $begindate_str = Artist::GetBeginDateName($type);
 my $enddate_str = Artist::GetEndDateName($type);
 </%perl>
 
-<script type="text/javascript" src="scripts/artistform.js"></script>
+<script type="text/javascript" src="/scripts/artistform.js"></script>
 
     <form method="POST" action="<% $action %>" name="EditArtist">
     

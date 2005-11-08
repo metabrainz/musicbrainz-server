@@ -140,6 +140,36 @@ else
         }
     }
 
+    for my $j (sort map { /^y-(\d+)$/ ? ($1) : () } keys %ARGS)
+    {
+		my $y = $ARGS{"y-$j"};
+		my $mon = $ARGS{"m-$j"};
+		my $d = $ARGS{"d-$j"};
+		my $country = $ARGS{"country-$j"};
+
+		# Skip if all blank
+		next unless do { no warnings; "$country $y $mon $d" =~ /\S/ };
+
+		# Otherwise, we insist on a valid country and a valid date
+		MusicBrainz::IsNonNegInteger($country)
+			or return $m->comp(
+				"/comp/error",
+				"Error: invalid release country entered",
+				0, 1,
+			);
+
+		my @ymd = MusicBrainz::IsValidDate($y, $mon, $d)
+			or return $m->comp(
+				"/comp/error",
+				"'$y $mon $d' is not a valid release date. "
+				. ' Please go back and try again.',
+				0, 1,
+			);
+
+		no warnings;
+		$new .= sprintf("Release%d=%d,%s-%s-%s\n", $j, $country, @ymd);
+    }
+
     my $in = Insert->new($mb->{DBH});
 	my ($artistid, $albumid, $mods) = $in->InsertAlbumModeration(
 		$new, $session{uid}, $session{privs}, $artist,
@@ -180,6 +210,7 @@ else
 					album => $al,
 					artist => $ar,
 					showids => 1,
+					showreleases => 1,
 					mbtagger => $session{mbt},
 				);
             }
@@ -188,7 +219,8 @@ else
     else
     {
         $m->out("An error occurred during the data insertion:<br>");
-        $m->out("<pre>" . $in->GetError() . "</pre>");
+        my $msg = $in->GetError() || "(no error message returned)";
+		$m->out("<pre>" . encode_entities($msg) . "</pre>"); # TODO: test
     }
 }
 
