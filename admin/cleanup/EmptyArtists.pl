@@ -140,12 +140,23 @@ $sql->Select(<<EOF) or die;
 	) t6
         ON a.id = t6.artist
 
+    -- Look for pending 'Move Album', 'Change Track Artist' and SAC moderations
+	LEFT JOIN (
+        SELECT 
+	  CASE split_part(newvalue, '\\n', 3)
+	    WHEN '' THEN split_part(newvalue, '\\n', 2)
+	    ELSE         split_part(newvalue, '\\n', 3)
+	  END AS artist, COUNT(*) AS mods FROM moderation_open WHERE type=8 OR type=10 OR type=13 GROUP BY newvalue
+	) t7
+        ON a.id = t7.artist
+
 	WHERE	t1.albums IS NULL
 	AND		t2.tracks IS NULL
 	AND		t3.arar_links IS NULL
 	AND		t4.alar_links IS NULL
 	AND		t5.artr_links IS NULL
 	AND		t6.arur_links IS NULL
+	AND		t7.mods IS NULL
 	AND		a.modpending = 0
 	ORDER BY sortname
 
