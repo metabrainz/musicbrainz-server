@@ -1,7 +1,25 @@
 %# vi: set ts=4 sw=4 ft=mason :
 
 <%method ShowPreviousValue>
-% my $this = shift;
+<%perl>
+my $this = shift;
+
+my $al = Album->new($this->{DBH});
+$al->SetId($this->GetRowId);
+if ($al->LoadFromId) 
+{
+	</%perl>
+	Album:
+	<a href="/showalbum.html?albumid=<% $this->GetRowId %>">
+	    <% $al->GetName %>
+	</a>
+	<%perl>
+}
+else
+{
+	$m->out("This album has been deleted");
+}
+</%perl>
 </%method>
 
 <%method ShowNewValue>
