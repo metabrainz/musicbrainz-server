@@ -501,7 +501,10 @@ TRACK:
             # Load/insert artist
             $ar->SetName($track->{artist});
             $ar->SetSortName($track->{sortname});
+            $ar->SetType(0);
             $ar->SetResolution("");
+            $ar->SetBeginDate("");
+            $ar->SetEndDate("");
             $track_artistid = $ar->Insert();
             if (!defined $track_artistid)
             {
