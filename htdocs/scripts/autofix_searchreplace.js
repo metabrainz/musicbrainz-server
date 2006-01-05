@@ -238,8 +238,8 @@ var afFindReplace = {
 		}
 		if (allFields) {
 			var fields = afCommons.getEditTextFields();
-			for (fi in fields) {
-				this.replaceField(fields[fi], sv, rv, useCase, useRegex);
+			for (var i=0;i<fields.length; i++) {
+				this.replaceField(fields[i], sv, rv, useCase, useRegex);
 			}
 		} else if (af_onFocusField) {
 			this.replaceField(af_onFocusField, sv, rv, useCase, useRegex);

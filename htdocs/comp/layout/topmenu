@@ -74,7 +74,7 @@ use Scalar::Util qw( reftype weaken );
             { url => "/products/server/docs/20030820-1/index.html" },
             { url => "/products/server/docs/20040215-1.html" },
         ],
-        { name => "Picard",                 url => "/wd/PicardDocumentation" },
+        { name => "Picard",                 url => "/wd/PicardDownload" },
     ],
     { name => "Search",                 url => "/search.html" },
     [

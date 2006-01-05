@@ -354,7 +354,8 @@ sub _ProcessUserSubscriptions
 			$open, $applied,
 			if $self->{'verbose'};
 		
-		$text .= "$sub->{'name'} ($open open, $applied applied)\n"
+		my $res = $sub->{'resolution'} ? " ($sub->{'resolution'})" : "";
+		$text .= "$sub->{'name'}$res ($open open, $applied applied)\n"
 			. "$root/mod/search/pre/artist.html"
 			. "?artistid=$sub->{'artist'}\n\n";
 	}

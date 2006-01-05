@@ -7,19 +7,20 @@ var afFunc = {
 	//    the form.
 	resizeTextFields : function(amount) {
 		var fields = afCommons.getEditTextFields();
+		var i;
 		if (amount == null || amount == 'undefined') {
 			var max = 0;
-			for (fi in fields) {
-				var lx = fields[fi].value.length;
+			for (i=0;i<fields.length; i++) {
+				var lx = fields[i].value.length;
 				if (lx > max) max = lx;
 			}
-			for (fi in fields) {
-				fields[fi].size = (max < 50 ? 50 : max); // + parseInt((max/50.0)*20);
+			for (i=0;i<fields.length; i++) {
+				fields[i].size = (max < 50 ? 50 : max); // + parseInt((max/50.0)*20);
 			}
 		} else {
-			for (fi in fields) {
-				if (fields[fi].size + amount > 1) {
-					fields[fi].size += amount;
+			for (i=0;i<fields.length; i++) {
+				if (fields[i].size + amount > 1) {
+					fields[i].size += amount;
 				}
 			}
 		}

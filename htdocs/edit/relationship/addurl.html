@@ -75,13 +75,14 @@ my @types = ($type, 'url');
 MusicBrainz::Server::LinkEntity->ValidateTypes(\@types)
 	or die;
 
-my ($dummy);
-($linktype, $dummy, $dummy) = split '\|', $linktype if ($linktype);
+my ($dummy, $linkdesc);
+($linktype, $dummy, $linkdesc) = split '\|', $linktype if ($linktype);
 
 my $link = MusicBrainz::Server::LinkType->new($mb->{DBH}, \@types);
 
 if ($url 
 	and $desc
+	and $linkdesc
     and ($linktype =~ /^\d+$/)
 	and MusicBrainz::Server::URL->IsLegalURL($url))
 {
@@ -138,6 +139,11 @@ my $root = $link->Root;
 %      if (!defined $desc || $desc eq '') {
          <div class="linkerror">Error: You must enter description for the URL below.</div>
 %      }
+%     if (!$linkdesc && $linktype) {
+          <div class="linkerror">Error: Please select a subtype of the currently
+          	selected relationship type. The selected relationship type is only used
+          	for grouping sub-types.</div>
+%     }
 % }
 
 <p>

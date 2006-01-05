@@ -25,10 +25,11 @@ if (ntObj) {
 		var lines = strText.split(ntSplitRE);
 		ntRows = 1+lines.length;
 		var lineLength;
-		for (line in lines) {
+		
+		for (var i=0;i<lines.length; i++) {
 			// iterate through all the lines and see
 			// if we have to add virtual linewraps
-			if ((lineLength = lines[line].length) > cols) {
+			if ((lineLength = lines[i].length) > cols) {
 				ntRows += Math.floor(lineLength*parseFloat(1/cols));
 			}
 		}

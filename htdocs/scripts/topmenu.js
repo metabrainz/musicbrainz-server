@@ -318,10 +318,10 @@ var sideBar = {
 			["hide", "Hide side bar", "minimize.gif"], 
 			["show", "Show side bar", "maximize.gif"]
 		];
-		for (si in states) {
-			var _id = states[si][0];
-			var _text = states[si][1];
-			var _icon = states[si][2];
+		for (var i=0; i<states.length; i++) {
+			var _id = states[i][0];
+			var _text = states[i][1];
+			var _icon = states[i][2];
 			document.write('<table id="sidebar-toggle-'+_id+'" border="0" cellspacing="0" cellpadding="0">');
 			document.write('<tr><td>');
 			document.write('<a href="javascript: /* toggle side bar */" ');

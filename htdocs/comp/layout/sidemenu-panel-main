@@ -11,4 +11,5 @@
 	<a href="http://chatlogs.musicbrainz.org/" title="Logs from our chat room">Chat Logs<% $ext |n %></a>
 	<a href="http://wiki.musicbrainz.org/" title="MusicBrainz documentation">Wiki<% $ext |n %></a>
 	<a href="http://cafepress.com/musicbrainz" title="Buy MusicBrainz apparel">Stuff to Buy<% $ext |n %></a>
+	<a href="http://musicbrainz.org/bugs" title="Report a bug">Bugs<% $ext |n %></a>
 </div>

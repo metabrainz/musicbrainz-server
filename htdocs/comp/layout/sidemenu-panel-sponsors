@@ -2,12 +2,6 @@
 	<table class="sidemenustats">
 		<tr>
 			<td class="sponsors">
-				<a href="http://www.virtuosa.com/musicbrainz"><img 
-					src="/images/sponsors/virtuosa.png" width="110" height="35" border=0
-					alt="Virtuosa" title="Virtuosa"></a></td>
-		</tr>
-		<tr>
-			<td class="sponsors">
 				<a href="http://www.relatable.com"><img 
 					src="/images/sponsors/relatable.png" width="110" height="35" border=0
 					alt="Relatable" title="Relatable"></a></td>

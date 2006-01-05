@@ -321,7 +321,7 @@ var afTrackParser = {
 	// fillFields() -
 	// write
 	fillFields : function(albumtitle, tracks) {
-		var i,field,fields,newvalue;
+		var j,i,field,fields,newvalue;
 
 		// find, and fill albumname field
 		if (this.getConf("tp_hasAlbumTitle")) {
@@ -332,8 +332,8 @@ var afTrackParser = {
 		// find, and fill all artistname fields
 		i=0;
 		fields = afCommons.getArtistFields();
-		for (fi in fields) {
-			field = fields[fi];
+		for (j=0;j<fields.length;j++) {
+			field = fields[j];
 			if (tracks[i] && tracks[i].artist) {
 				this.fillField(field, tracks[i].artist);
 				i++;
@@ -343,8 +343,8 @@ var afTrackParser = {
 		// find, and fill all track time fields
 		i=0;
 		fields = afCommons.getTrackTimeFields();
-		for (fi in fields) {
-			field = fields[fi];
+		for (j=0;j<fields.length;j++) {
+			field = fields[j];
 			if (tracks[i] && tracks[i].time) {
 				this.fillField(field, tracks[i].time);
 				i++;
@@ -354,8 +354,8 @@ var afTrackParser = {
 		// find, and fill all track name fields
 		i=0;
 		fields = afCommons.getTrackNameFields();
-		for (fi in fields) {
-			field = fields[fi];
+		for (j=0;j<fields.length;j++) {
+			field = fields[j];
 			if (field.id.match(/track[0-9]+/gi)) {
 				if (tracks[i] && tracks[i].title) {
 					this.fillField(field, tracks[i].title);

@@ -84,7 +84,7 @@ begin
     -- asin stays "WITH NULL"
     -- coverarturl stays "WITH NULL"
 
-   create unique index albummeta_id on albummeta(id);
+   ALTER TABLE albummeta ADD CONSTRAINT albummeta_pkey PRIMARY KEY (id);
 
    drop table albummeta_tracks;
    drop table albummeta_discids;
