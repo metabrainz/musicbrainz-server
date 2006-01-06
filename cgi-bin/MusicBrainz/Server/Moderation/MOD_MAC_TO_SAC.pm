@@ -44,10 +44,12 @@ sub PreInsert
 	my $sortname = $opts{artistsortname} or die;
 	my $name = $opts{artistname};
     my $artistid = $opts{artistid};
+    my $movetracks = $opts{movetracks};
 
 	my $new = $sortname;
 	$new .= "\n$name" if defined $name and $name =~ /\S/;
     $new .= "\n$artistid";
+    $new .= "\n$movetracks";
 
 	$self->SetTable("album");
 	$self->SetColumn("artist");
@@ -61,11 +63,12 @@ sub PostLoad
 	my $this = shift;
 
 	# new.name might be undef (in which case, name==sortname)
-  	@$this{qw( new.sortname new.name new.artistid)} = split /\n/, $this->GetNew;
+  	@$this{qw( new.sortname new.name new.artistid new.movetracks)} = split /\n/, $this->GetNew;
 
     # If the name was blank and the new artist id ended up in its slot, swap the two values
     if ($this->{'new.name'} =~ /\A\d+\z/ && !defined $this->{'new.artistid'})
     {
+        $this->{'new.movetracks'} = $this->{'new.artistid'};
         $this->{'new.artistid'} = $this->{'new.name'};
         $this->{'new.name'} = undef;
     }
@@ -87,8 +90,10 @@ sub CheckPrerequisites
 		return STATUS_FAILEDDEP;
 	}
 
-	# Check that its artist has not changed
-	if ($al->GetArtist != VARTIST_ID)
+	# album needs to have more than one track artist
+	# if it is not VA to allow a SA-conversion
+	if ($al->GetArtist != VARTIST_ID and 
+		not $al->HasMultipleTrackArtists)
 	{
 		$self->InsertNote(MODBOT_MODERATOR, "This album has already been converted to a single artist");
 		return STATUS_FAILEDPREREQ;
@@ -107,6 +112,7 @@ sub ApprovedAction
 
     my $newid;
     my $name = $this->{'new.name'};
+    my $movetracks = $this->{'new.movetracks'};
     if (defined $this->{'new.artistid'})
     {
         $newid = $this->{'new.artistid'};
@@ -139,24 +145,25 @@ sub ApprovedAction
 	}
 
 	# Move each track on the album
+    if ($movetracks)
+    {
+        if ($sql->Select("SELECT track FROM albumjoin WHERE album = ?",
+                $this->GetRowId))
+        {
+            while (my @row = $sql->NextRow)
+            {
+                $sql->Do(
+                    "UPDATE track SET artist = ? WHERE id = ?",
+                    $newid,
+                    $row[0],
+                ) or die "Failed to update track #$row[0] in MOD_MAC_TO_SAC";
+            }
 
-	if ($sql->Select("SELECT track FROM albumjoin WHERE album = ?",
-			$this->GetRowId))
-	{
-	 	while (my @row = $sql->NextRow)
-		{
-		 	$sql->Do(
-				"UPDATE track SET artist = ? WHERE id = ?",
-				$newid,
-				$row[0],
-			) or die "Failed to update track #$row[0] in MOD_MAC_TO_SAC";
-		}
-
-	}
-	$sql->Finish;
+        }
+        $sql->Finish;
+    }
 
 	# Move the album itself
-
 	$sql->Do(
 		"UPDATE album SET artist = ? WHERE id = ?",
 		$newid,

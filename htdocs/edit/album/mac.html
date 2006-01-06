@@ -2,6 +2,7 @@
 <%args>
 $album => undef
 $notetext => ""
+$movetova=>0
 </%args>
 <%perl>
 
@@ -39,6 +40,14 @@ my $url = (
 
 if ($ARGS{confirm})
 {
+  if (!$ARGS{'movetova'})
+  {
+    $m->comp(
+      "/comp/redirect",
+      $url
+    );
+    return;
+  }
 	$m->comp(
 		"/comp/entermods",
 		DBH => $mb->{DBH},
@@ -51,6 +60,7 @@ if ($ARGS{confirm})
 				# --
 				album => $al,
 				artist => $ar,
+				movetova => $movetova,
 			);
 
 			$mods[0]->InsertNote($session{'uid'}, $notetext)
@@ -92,12 +102,41 @@ if ($ARGS{confirm})
 						<input type="hidden" name="album" value="<% $al->GetId %>">
 						<input type="hidden" name="confirm" value="1">
 						<input name="btnYes" type="submit" class="button" value="YES &raquo;">
-						&nbsp;
-						<input type="checkbox" name="movetracks" value="1" checked>
-						Move tracks to new artists
 					</td>
 			</tr>
 		</table>
+    <fieldset>
+	    <legend>Album artist</legend>
+      <table>
+        <tr>
+            <td>
+              <input type="radio" name="movetova" value="1" checked>
+              set <a href="/showartist.html?artistid=1">Various Artists</a> as album artist
+              <br/>
+              <input type="radio" name="movetova" value="0">
+              leave <a href="/showartist.html?artistid=<% $ar->GetId %>"><% $ar->GetName %></a> as album artist
+            </td>
+        </tr>
+      </table>
+    </fieldset>
+    <fieldset>
+	    <legend>Track artists</legend>
+      <table>
+        <tr>
+            <td>
+              <input type="radio" name="movetracks" value="0" checked>
+              leave <a href="/showartist.html?artistid=<% $ar->GetId %>"><% $ar->GetName %></a> as track artist for all tracks
+              <br/>
+              <input type="radio" name="movetracks" value="1">
+              move tracks to new artists
+              <br/>
+              <div style="margin-left: 2em">
+              (MusicBrainz will walk you through each track in this album and allow you to move it to a new artist)
+              </div>
+            </td>
+        </tr>
+      </table>
+    </fieldset>
 	</div>
 	<div class="padlefttop">
 		<& /comp/notetext &>

@@ -4,6 +4,7 @@ $album
 $showids=>1
 $showreleases=>0
 $showmodlinks => 1
+$showtrackartists => 0
 </%args>
 <%perl>
 
@@ -15,7 +16,7 @@ if ($showids)
    @ids = @{ $album->GetDiscIDs };
 }
 
-if (scalar(@ids) > 0) 
+if (scalar(@ids) > 0)
 {
     foreach my $id (@ids)
     {
@@ -25,7 +26,7 @@ if (scalar(@ids) > 0)
 	my $discid = $cdtoc->GetDiscID;
 
        $m->out("<tr>");
-       if ($album->GetArtist() == &ModDefs::VARTIST_ID) 
+       if ($album->HasMultipleTrackArtists || $showtrackartists)
        {
           $m->out('<td colspan="3" ');
        }
@@ -53,7 +54,7 @@ if (scalar(@ids) > 0)
        $m->out("$duration");
 
        $m->out("</td>");
-       if ($session{uid} and $showmodlinks) 
+       if ($session{uid} and $showmodlinks)
        {
 	   my $tocid = $cdtoc->GetId;
            $m->out("<td nowrap align=\"center\" bgcolor=\"#ffecd6\">");
@@ -76,7 +77,7 @@ if ($showreleases and not $album->IsNonAlbumTracks)
 		if @releases;
 
 	my $span = 3;
-	++$span if $album->GetArtist == &ModDefs::VARTIST_ID;
+	++$span if ($album->HasMultipleTrackArtists || $showtrackartists);
 	++$span if $showmodlinks;
 
 	$m->out("<tr bgcolor='#ffffff'><td colspan=$span>");

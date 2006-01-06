@@ -25,13 +25,7 @@ $ar->LoadFromId
 		1, 1,
 	);
 
-my @tracks;
-if ($edit->{is_various}) {
-	@tracks = $al->LoadTracksFromMultipleArtistAlbum;
-}
-else {
-	@tracks = $al->LoadTracks;
-}
+my @tracks = $al->LoadTracks;
 
 my $orig = $m->scomp(
 	"/comp/album",
@@ -122,7 +116,7 @@ for my $t (@{ $edit->{tracks} })
 		++$changes;
 		next;
 	}
-		
+
 	(my $tr) = grep { $_->GetId == $t->{"id"} } @tracks
 		or next;
 
@@ -166,7 +160,7 @@ for my $t (@{ $edit->{tracks} })
 		$tr->SetSequence($t->{seq});
 		++$changes;
 	}
-	
+
 	my $length = Track::FormatTrackLength($t->{length});
 	my $orig_length = Track::FormatTrackLength($t->{orig_length});
 	if ($length ne $orig_length)
@@ -240,7 +234,7 @@ for my $t (@{ $edit->{tracks} })
 			&>
 		</td></tr></table>
 	</div>
-	
+
 	<form method="post" action="/edit/album/sae-enter.html">
 		<div class="padlefttop">
 			<& /comp/notetext &>

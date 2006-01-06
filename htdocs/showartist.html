@@ -201,7 +201,11 @@ $m->comp(
                 $hasnonalbum += $album->IsNonAlbumTracks();
                 &$CheckAttributes($album);
 
-				$album->{_is_va_} = ($album->GetArtist == &ModDefs::VARTIST_ID);
+				# todo, what is better - list albums with multiple
+				# tracks per artist which are attributed to this artist
+				# with the various artist appearances or separate?
+				$album->{_is_va_} = ($album->GetArtist == &ModDefs::VARTIST_ID or
+					   				 ($album->HasMultipleTrackArtists and $album->GetArtist != $artist->GetId()));
 				$album->{_is_nonalbum_} = ($album->{_attr_type} == Album::ALBUM_ATTR_NONALBUMTRACKS);
 
 				$album->{_section_key_} = (
@@ -237,24 +241,20 @@ $m->comp(
             <table width="100%">
             <tr>
 % unless ($fCompact) {
-            <td align="center">
-
-            <a href="/showartist.html?artistid=<% $artist->GetId() %>&amp;ex=<% $exall %>&amp;compact=0">
-            <img src="/images/plus.gif" align="middle"
-                 alt="Expand" title="Expand All Albums"
-                 height="13" width="13" border="0"> Expand All</a>
-
+            <td style="padding-right: 1em">
+				<a href="/showartist.html?artistid=<% $artist->GetId() %>&amp;ex=<% $exall %>&amp;compact=0">
+				<img src="/images/plus.gif" align="middle"
+					 alt="Expand" title="Expand All Albums"
+					 height="13" width="13" border="0"> Expand All</a>
             </td>
-
-            <td align="center">
-            <a href="/showartist.html?artistid=<% $artist->GetId() %>&amp;compact=0">
-            <img src="/images/minus.gif" align="middle"
-                 alt="Collapse" title="Collapse All Albums"
-                 height="13" width="13" border="0"> Collapse All</a>
+            <td style="padding-right: 1em">
+				<a href="/showartist.html?artistid=<% $artist->GetId() %>&amp;compact=0">
+				<img src="/images/minus.gif" align="middle"
+					 alt="Collapse" title="Collapse All Albums"
+					 height="13" width="13" border="0"> Collapse All</a>
             </td>
 % }
-
-            <td align="center">
+            <td style="padding-right: 1em">
 				<a href="/artist/<% $artist->GetMBId %>.html?compact=<%
 					$fCompact ?  0 : 1
 					%>&amp;mbt=<% $mbt?1:0 %>"
@@ -272,7 +272,7 @@ $m->comp(
 %            }
 
 	          <script type="text/javascript">
-   			 document.writeln('<\input type="image" alt="Batch Operation" title="Moderate a batch of selected albums" src="/images/batch.gif" style="border: 0; height: 13px; width: 13px"\>');
+   			  document.writeln('<\input type="image" alt="Batch Operation" title="Moderate a batch of selected albums" src="/images/batch.gif" style="border: 0; height: 13px; width: 13px"\>');
 	          document.writeln('<\a href="#" onclick="document.forms.BatchOp.submit(); return false">Batch Operation<\/a>');
       	    </script>
        </form>
@@ -289,9 +289,9 @@ $m->comp(
 			{
 				</%perl>
 				<table id="CompactReleaseList">
-					<col style="width: 3em; text-align: right">
-					<col style="width: 3em; text-align: right">
-					<col style="width: 5em; text-align: right">
+					<col style="text-align: right">
+					<col style="text-align: right">
+					<col style="text-align: right">
 					<col style="text-align: center">
 					<col style="text-align: center">
 					<col style="text-align: center">

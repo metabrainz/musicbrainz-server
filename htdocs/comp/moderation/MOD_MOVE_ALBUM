@@ -14,7 +14,7 @@
 	from
 	<a href="/showartist.html?artistid=<% $this->GetArtist %>"
 		><% $this->GetPrev %></a>
-		
+
 % } else {
 	[album has been deleted]
 % }
@@ -24,6 +24,9 @@
 <%method ShowNewValue>
 % my $this = shift;
 
+% my $movetracks = $this->{'new.movetracks'};
+% $movetracks = 1 if not defined $movetracks;
+
 	New:
 % if (defined $this->{'new.name'}) {
 	<span class="bold"><% $this->{'new.name'} %></span>
@@ -31,6 +34,8 @@
 % } else {
 	<span class="bold"><% $this->{'new.sortname'} %></span>
 % }
+	<br>Move tracks: <% $movetracks ? "yes" : "no" %>
+
 
 </%method>
 

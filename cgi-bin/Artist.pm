@@ -929,22 +929,22 @@ sub GetAlbums
    # then, pull in the multiple artist albums
    if (defined $loadmeta && $loadmeta)
    {
-       $query = qq/select album.id, name, modpending, GID, attributes, language,
+       $query = qq/select album.id, album.artist, name, modpending, GID, attributes, language,
                           script, tracks, discids, trmids, firstreleasedate
                          from album, albummeta 
-                        where album.artist = / . &ModDefs::VARTIST_ID .qq/ and 
+                        where album.artist != $this->{id} and 
                               albummeta.id = album.id and
                               album.id in (select distinct albumjoin.album 
                                        from albumjoin, track 
-                                      where track.artist = $this->{id} and 
+                                       where track.artist = $this->{id} and 
                                             albumjoin.track = track.id)/;
    }
    else
    {
-       $query = qq/select album.id, name, modpending, GID,
+       $query = qq/select album.id, album.artist, name, modpending, GID,
                           attributes, language, script
                          from album
-                        where album.artist = / . &ModDefs::VARTIST_ID .qq/ and 
+                        where album.artist != $this->{id} and 
                               album.id in (select distinct albumjoin.album 
                                        from albumjoin, track 
                                       where track.artist = $this->{id} and 
@@ -958,21 +958,21 @@ sub GetAlbums
 	    require Album;
             $album = Album->new($this->{DBH});
             $album->SetId($row[0]);
-            $album->SetName($row[1]);
-            $album->SetModPending($row[2]);
-            $album->SetArtist(&ModDefs::VARTIST_ID);
-            $album->SetMBId($row[3]);
-            $row[4] =~ s/^\{(.*)\}$/$1/;
-            $album->{attrs} = [ split /,/, $row[4] ];
-	    $album->SetLanguageId($row[5]);
-	    $album->SetScriptId($row[6]);
+            $album->SetArtist($row[1]);
+            $album->SetName($row[2]);
+            $album->SetModPending($row[3]);
+            $album->SetMBId($row[4]);
+            $row[5] =~ s/^\{(.*)\}$/$1/;
+            $album->{attrs} = [ split /,/, $row[5] ];
+	    $album->SetLanguageId($row[6]);
+	    $album->SetScriptId($row[7]);
 
             if (defined $loadmeta && $loadmeta)
             {
-                $album->{trackcount} = $row[7];
-                $album->{discidcount} = $row[8];
-                $album->{trmidcount} = $row[9];
-                $album->{firstreleasedate} = $row[10]||"";
+                $album->{trackcount} = $row[8];
+                $album->{discidcount} = $row[9];
+                $album->{trmidcount} = $row[10];
+                $album->{firstreleasedate} = $row[11]||"";
             }
 
             push @albums, $album;

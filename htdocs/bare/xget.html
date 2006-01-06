@@ -49,7 +49,7 @@ my $MakeCDInfo = sub
     $out .= "<CDInfo>\n  <Title>" . $al->GetName();
     $out .= "</Title>\n  <NumTracks>" . $al->GetTrackCount();
     $out .= "</NumTracks>\n";
-    
+
     $out .= "  <IdInfo>\n";
 		for my $ref ($al->GetDiscIDs)
     {
@@ -64,7 +64,7 @@ my $MakeCDInfo = sub
 						my @toc = ($ref->GetLeadoutOffset, @{ $ref->GetTrackOffsets });
             foreach $sec (@toc)
             {
-                $out .= "        <Offset Num=\"" . $i . "\">" . 
+                $out .= "        <Offset Num=\"" . $i . "\">" .
                         $sec . "</Offset>\n";
                 $i++;
             }
@@ -74,17 +74,16 @@ my $MakeCDInfo = sub
     }
     $out .= "  </IdInfo>\n";
 
-    if ($artist != &ModDefs::VARTIST_ID)
+	my $num = 1;
+	@tracks = $al->LoadTracks();
+	if (scalar(@tracks) == 0)
+	{
+		print STDERR "Cannot load tracks for album $album\n";
+		return "<CDInfo/>";
+	}
+
+    if (!$al->HasMultipleTrackArtists)
     {
-        my $num = 1;
-
-        @tracks = $al->LoadTracks();
-        if (scalar(@tracks) == 0)
-        {
-            print STDERR "Cannot load tracks for album $album\n";
-            return "<CDInfo/>";
-        }
-
         $out .= "  <SingleArtistCD>\n";
         $out .= "    <Artist>" . $ar->GetName() . "</Artist>\n";
 
@@ -95,20 +94,10 @@ my $MakeCDInfo = sub
             $out .= "    </Track>\n";
             $num++;
         }
-
         $out .= "  </SingleArtistCD>\n";
     }
     else
     {
-        my $num = 1;
-
-        @tracks = $al->LoadTracksFromMultipleArtistAlbum();
-        if (scalar(@tracks) == 0)
-        {
-            print STDERR "Cannot load tracks for album $album\n";
-            return "<CDInfo/>";
-        }
-
         $out .= "  <MultipleArtistCD>\n";
 
         for my $ref (@tracks)
@@ -119,10 +108,9 @@ my $MakeCDInfo = sub
             $out .= "    </Track>\n";
             $num++;
         }
-
         $out .= "  </MultipleArtistCD>\n";
     }
-    
+
     $out .= "</CDInfo>";
 
     return $out;

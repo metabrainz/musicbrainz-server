@@ -8,6 +8,7 @@ $link=>""
 $linktype=>""
 $showtag=>0
 $tagchecked=>0
+$showtrackartists=>0
 </%args>
 <%perl>
 
@@ -27,7 +28,7 @@ if ($link)
     }
     if ($linktype eq 'collapse')
     {
-        $image = "/images/minus.gif"; 
+        $image = "/images/minus.gif";
         $title = "Show collapsed album";
         $alt = "Collapse";
     }
@@ -62,7 +63,7 @@ if ($asin)
 %       }
 %       if ($session{uid} && !$nonalbum && $showtag) {
             <td width="1%" bgcolor="#FFBA58" align=center valign=top nowrap>
-              <form method="post" action="/edit/albumbatch/done.html" 
+              <form method="post" action="/edit/albumbatch/done.html"
                     enctype="application/x-www-form-urlencoded">
               <script type="text/javascript">
               document.writeln('<\input type="checkbox" name="check" onchange="document.forms.BatchOp.AlbumId<% $albumid %>.value = this.form.check.checked ? \'on\' : \'\';" <% $tagchecked ? " CHECKED" : "" %>\>');
@@ -85,9 +86,9 @@ if ($asin)
      <table width="100%" bgcolor="white" border="0" cellspacing="0" cellpadding="5">
      <tr><td bgcolor="#dddddd">
 
-<a href="/misc/redirects/amazon-album-info.html?album=<% $album->GetMBId %>&amp;store=<% $store %>&amp;asin=<% $asin %>"><img 
-   src="<% $coverart_url %>" height="130" width="130" 
-   style="float: right; border: 1px solid black; padding: 1px;" 
+<a href="/misc/redirects/amazon-album-info.html?album=<% $album->GetMBId %>&amp;store=<% $store %>&amp;asin=<% $asin %>"><img
+   src="<% $coverart_url %>" height="130" width="130"
+   style="float: right; border: 1px solid black; padding: 1px;"
 	 class="amazon_coverart"
    border="0" alt="[cover art]"></a
 % # note, no space between "a" and "div" - see global.js find_coverart_div
@@ -113,16 +114,16 @@ if ($asin)
 % }
 ]</div>
 % }
-</div> 
+</div>
 
 %# Second row: relationship links
 % if ($session{uid} and $showmodlinks and !$nonalbum) {
 <div class="AlbumTitleRelationships">
 <div class="AlbumTitleLinks">
-Relationships: 
+Relationships:
 <& /comp/ar/ShowARLinks, id=>$albumid, type=>'album' , short=>1 &>
-</div> 
-</div> 
+</div>
+</div>
 %	}
 
 %# Third row: editing links
@@ -132,9 +133,7 @@ Relationships:
 %		if (!$nonalbum) {
 	<a href="/edit/album/edit.html?album=<% $albumid %>">Edit name</a> |
 	<a href="/edit/album/editall.html?albumid=<% $albumid %>">Edit all</a> |
-%			unless ($artist->GetId == &ModDefs::VARTIST_ID) {
-  <a href="/edit/relationship/showelements.html?type=album&amp;id=<% $albumid %>&amp;name=<% uri_escape($name) %>">Link</a> |
-%			}
+	<a href="/edit/relationship/showelements.html?type=album&amp;id=<% $albumid %>&amp;name=<% uri_escape($name) %>">Link</a> |
 %		}
 	<a href="/edit/album/remove.html?album=<% $albumid %>&amp;artist=<% $artist->GetId %>">Delete</a>
 %		if ($nonalbum) {
@@ -145,15 +144,18 @@ Relationships:
 	| <a href="/edit/track/add.html?album=<% $albumid %>">Add&nbsp;track</a>
 %			}
 	| <a href="/edit/album/move.html?album=<% $albumid %>">Move</a>
-%			if ($album->GetArtist != &ModDefs::VARTIST_ID) {
+%			if (!$album->HasMultipleTrackArtists) {
 	| <a href="/edit/album/mac.html?album=<% $albumid %>">Convert&nbsp;to&nbsp;multiple&nbsp;artists</a>
+%        if (!$showtrackartists && !$nonalbum) {
+	|         <a href="/showalbum.html?albumid=<% $albumid %>&showtrackartists=1">Show artists</a>
+%        }
 %			} else {
 	| <a href="/edit/album/sac.html?album=<% $albumid %>">Convert&nbsp;to&nbsp;single&nbsp;artist</a>
 %			}
 	| <a href="/edit/albumbatch/done.html?AlbumId<% $albumid %>=on">Merge&nbsp;with&nbsp;...</a>&nbsp;]
 %		}
-</div> 
-</div> 
+</div>
+</div>
 %	} elsif ($showmodlinks) {
 <div class="AlbumTitleMod">
 		<div>Edit: [
@@ -171,7 +173,7 @@ Relationships:
 		]
     </div>
 </div>
-  </td> </tr> </table> </td> </tr> </table> 
+  </td> </tr> </table> </td> </tr> </table>
 % }
 
   <table width="100%" bgcolor="black" border="0" cellspacing="1" cellpadding="3" style="clear: both;">

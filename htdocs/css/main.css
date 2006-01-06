@@ -330,16 +330,17 @@ h2.AlbumType
 }
 
 /* Album meta, whereever it is shown */
-td.trk, td.did, td.trm, td.rdate { padding: 0.3em 1em; text-align: right }
+td.trk, td.did, td.trm { font-size: 11px; }
+td.trk, td.did, td.trm, td.rdate { padding: 0.3em 0.6em; text-align: right; }
 td.trk *, td.did *, td.trm *, td.rdate * { vertical-align: middle }
 
 /* "Compact" showartist page */
 
-#CompactReleaseList td.rst { padding: 0 1.5em; text-align: center } /* release status */
-#CompactReleaseList td.rtag { padding: 0 1em; text-align: center } /* tag box */
-#CompactReleaseList td.rdate { padding: 0 1em; text-align: center } /* date */
-#CompactReleaseList td.rname { padding: 0 1em } /* release name */
-#CompactReleaseList td.lang { padding: 0 1em; text-align: center }
+#CompactReleaseList td.rst { padding: 0 1em; text-align: center } /* release status */
+#CompactReleaseList td.rtag { padding: 0 0.6em; text-align: center } /* tag box */
+#CompactReleaseList td.rdate { padding: 0 0.6em; text-align: center } /* date */
+#CompactReleaseList td.rname { padding: 0 0.6em } /* release name */
+#CompactReleaseList td.lang { padding: 0 0.6em; text-align: center }
 
 #CompactReleaseList tr.ev { background-color: #eee } /* 'even' rows */
 
@@ -493,7 +494,7 @@ table.votechoice label
 	display: block;
 	text-weight: bold;
 	padding: 3px;
-	border: thin solid transparent;
+	border: 1px solid #fff;
 }
 
 table.votechoice label:hover

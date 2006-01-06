@@ -5,7 +5,11 @@ $album => ""
 $selectedartist => ""
 $newartistname => ""
 $newartistsortname => ""
+$newartistid => ""
 $search => ""
+$confirm => 0
+$movetracks => 0
+$notetext => ""
 </%args>
 <%perl>
 
@@ -53,6 +57,68 @@ if ($selectedartist ne "")
 
 	$newartistname = $target->GetName;
 	$newartistsortname = $target->GetSortName;
+	$newartistid = $target->GetId;
+}
+
+if ($newartistname =~ /\S/ && $newartistsortname =~ /\S/ && !$confirm)
+{
+  </%perl>
+  <& /comp/sidebar, title => 'Confirm Convert Album to Single Artist' &>
+
+  <fieldset>
+    <legend>Convert Album <% $al->GetName %> to single artist</legend>
+    <div class="padleft">
+      Are you sure you want to convert the album
+      <a href="/showalbum.html?albumid=<% $al->GetId %>"><% $al->GetName %></a>,
+      currently by 
+      <a href="/showartist.html?artistid=1">Various Artists</a>,
+      to artist <% $newartistname %>?
+    </div>
+    <div class="padlefttop">
+      <table>
+        <tr>
+          <td>
+            <form 	method="GET" action="<% $url %>"
+                name="ModFormNo" 
+                onsubmit="history.go(-1); return false">
+              <input name="btnNo" type="submit" class="button" value="&laquo; NO">
+            </form></td>
+          <td> &nbsp; </td>
+          <td>
+            <form 	method="POST" action="/edit/album/sac.html"
+                name="ModFormYes">
+              <input type="hidden" name="album" value="<% $al->GetId %>">
+              <input type="hidden" name="confirm" value="1">
+              <input type="hidden" name="newartistname" value="<% $newartistname %>">
+              <input type="hidden" name="newartistsortname" value="<% $newartistsortname %>">
+              <input type="hidden" name="newartistid" value="<% $newartistid %>">
+              <input name="btnYes" type="submit" class="button" value="YES &raquo;">
+            </td>
+        </tr>
+      </table>
+      <table>
+        <tr>
+           <td>
+               <p style="margin: 0 2em 0 2em"><span style="color: red;">Warning:</span> This album contains tracks 
+                   attributed to different artists. This information will be lost and all tracks will have 
+                   the same artist if you choose move the tracks to artist <% $newartistname %>. To retain 
+                   this information, use move album instead.
+               </p>
+           </td>
+        </tr>
+      </table>
+    </div>
+    <div class="padlefttop">
+      <& /comp/notetext &>
+    </div>
+    </form>
+  </fieldset>
+
+  <& /comp/movefocus, "ModFormYes", "btnYes" &>
+  <& /comp/footer &>
+  <%perl>
+
+  return undef;
 }
 
 if ($newartistname =~ /\S/ and $newartistsortname =~ /\S/)
@@ -68,16 +134,21 @@ if ($newartistname =~ /\S/ and $newartistsortname =~ /\S/)
 				type => &ModDefs::MOD_MAC_TO_SAC,
 				# --
 				album => $al,
+        artistid => $newartistid,
 				artistname => $newartistname,
 				artistsortname => $newartistsortname,
+        movetracks => $movetracks,
 			);
+
+			$mods[0]->InsertNote($session{'uid'}, $notetext)
+				if $mods[0]
+				and $notetext =~ /\S/;
 		},
 		success_url => $url,
 	) or return;
 
 	die "Shouldn't get here";
 }
-	
 </%perl>
 
 <& /comp/sidebar, title => "Change Album '${\ $al->GetName }' to Single Artist" &>

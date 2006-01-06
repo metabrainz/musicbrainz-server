@@ -65,7 +65,8 @@ sub PreInsert
 		if $nonalbum;
 	$tracknum or die;
 
-	if ($al->GetArtist == &ModDefs::VARTIST_ID)
+	if ($al->GetArtist == &ModDefs::VARTIST_ID
+		or $al->HasMultipleTrackArtists)
 	{
 		$artistname =~ /\S/ or die;
 		$artistsortname =~ /\S/ or die;
@@ -98,7 +99,8 @@ sub PreInsert
 		tracknum=> $tracknum,
 	);
 
-	if ($al->GetArtist == &ModDefs::VARTIST_ID)
+	if ($al->GetArtist == &ModDefs::VARTIST_ID
+		or $al->HasMultipleTrackArtists)
 	{
 		$trackinfo{'artist'} = $artistname;
 		$trackinfo{'sortname'} = $artistsortname;
@@ -131,7 +133,8 @@ sub PreInsert
 	$new{"TrackId"} = $newtrack;
 	$new{"AlbumId"} = $al->GetId;
 	$new{"ArtistId"} = $newartist if $newartist;
-	if ($al->GetArtist == &ModDefs::VARTIST_ID)
+	if ($al->GetArtist == &ModDefs::VARTIST_ID
+		or $al->HasMultipleTrackArtists)
 	{
 		$new{'ArtistName'} = $artistname;
 		$new{'SortName'} = $artistsortname

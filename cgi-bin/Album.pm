@@ -21,7 +21,11 @@
 #   Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
 #
 #   $Id$
-#____________________________________________________________________________
+#
+# 	The function LoadTracks and LoadTracksFromMultipleArtistAlbum
+# 	has been merged to allow the determination of various artists
+# 	albums by the trackartists, not by using artistid=1
+#___________________________________________________________________________
 
 package Album;
 
@@ -642,8 +646,10 @@ sub GetAlbumListFromName
 sub LoadTracks
 {
 	my ($this) = @_;
-	my $sql = Sql->new($this->{DBH});
-   
+	my (@info, $query, $sql, @row, $track);
+
+	$sql = Sql->new($this->{DBH});
+  
 	if (not wantarray)
 	{
 		return $sql->SelectSingleValue(
@@ -652,41 +658,37 @@ sub LoadTracks
 		);
 	}
 
-   my (@info, $query, $query2, @row, $track, $trm);
+	$query = qq/select Track.id, Track.name, Track.artist, AlbumJoin.sequence, 
+					Track.length, Track.modpending, AlbumJoin.modpending, 
+					Artist.name, Track.gid 
+			from Track, AlbumJoin, Artist 
+			where AlbumJoin.track = Track.id and 
+					AlbumJoin.album = ? and 
+					Track.Artist = Artist.id
+			order by AlbumJoin.sequence/;
+	if ($sql->Select($query, $this->{id}))
+	{
+		for(;@row = $sql->NextRow();)
+		{
+			require Track;
+			$track = Track->new($this->{DBH});
+			$track->SetId($row[0]);
+			$track->SetName($row[1]);
+			$track->SetArtist($row[2]);
+			$track->SetSequence($row[3]);
+			$track->SetLength($row[4]);
+			$track->SetModPending($row[5]);
+			$track->SetAlbumJoinModPending($row[6]);
+			$track->SetArtistName($row[7]);
+			$track->SetMBId($row[8]);
+			push @info, $track;
+		}
+	}
+	$sql->Finish;
 
-   require TRM;
-   $trm = TRM->new($this->{DBH});
-   $query = qq|select Track.id, Track.name, Track.artist,
-                      AlbumJoin.sequence, Track.length,
-                      Track.modpending, AlbumJoin.modpending, Track.GID 
-               from   Track, AlbumJoin 
-               where  AlbumJoin.track = Track.id
-                      and AlbumJoin.album = ?
-             order by AlbumJoin.sequence|;
-
-   if ($sql->Select($query, $this->{id}))
-   {
-       for(;@row = $sql->NextRow();)
-       {
-		   require Track;
-           $track = Track->new($this->{DBH});
-           $track->SetId($row[0]);
-           $track->SetName($row[1]);
-           $track->SetAlbum($this->{id});
-           $track->SetArtist($row[2]);
-           $track->SetSequence($row[3]);
-           $track->SetLength($row[4]);
-           $track->SetModPending($row[5]);
-           $track->SetAlbumJoinModPending($row[6]);
-           $track->SetMBId($row[7]);
-           push @info, $track;
-       }
-   }
-
-   $sql->Finish;
-
-   return @info;
+	return @info;
 }
+
 
 # Find all releases for this album.  Returns a list of M::S::Release objects.
 sub Releases
@@ -721,42 +723,31 @@ sub GetTracks
 	$self->{"_tracks"} || undef;
 }
 
-sub LoadTracksFromMultipleArtistAlbum
+sub HasMultipleTrackArtists
 {
-   my ($this) = @_;
-   my (@info, $query, $sql, @row, $track);
-
-   $sql = Sql->new($this->{DBH});
-   $query = qq/select Track.id, Track.name, Track.artist, AlbumJoin.sequence, 
-                      Track.length, Track.modpending, AlbumJoin.modpending, 
-                      Artist.name, Track.gid 
-                 from Track, AlbumJoin, Artist 
-                where AlbumJoin.track = Track.id and 
-                      AlbumJoin.album = ? and 
-                      Track.Artist = Artist.id
-             order by AlbumJoin.sequence/;
-   if ($sql->Select($query, $this->{id}))
-   {
-       for(;@row = $sql->NextRow();)
-       {
-		   require Track;
-           $track = Track->new($this->{DBH});
-           $track->SetId($row[0]);
-           $track->SetName($row[1]);
-           $track->SetArtist($row[2]);
-           $track->SetSequence($row[3]);
-           $track->SetLength($row[4]);
-           $track->SetModPending($row[5]);
-           $track->SetAlbumJoinModPending($row[6]);
-           $track->SetArtistName($row[7]);
-           $track->SetMBId($row[8]);
-           push @info, $track;
-       }
-   }
-   $sql->Finish;
-
-   return @info;
-}
+	my $self = shift;
+	my ($tracks, %ar);
+	
+	unless (defined $self->{"_isva"})
+	{
+		# use album artist for comparison, for the unlikely
+		# case that all the track artists are the same but
+		# different than the album artist. we still diplay
+		# the track artists in that case.
+		
+		$ar{$self->GetArtist} = 1;
+		
+		# get the list of tracks and get their respective
+		# artistid.
+		$tracks = $self->GetTracks;
+		foreach my $t (@$tracks) 
+		{
+			$ar{$t->GetArtist} = 1;
+		}
+		$self->{"_isva"} = (keys %ar > 1);
+	}
+	$self->{"_isva"} || undef;
+} 
 
 # Fetch TRM counts for each track of the current album.
 # Returns a reference to a hash, where the keys are track IDs and the values

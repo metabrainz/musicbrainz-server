@@ -12,30 +12,31 @@ $showtag=>0
 $showreleases=>0
 $tagchecked=>0
 $tracks => undef
+$showtrackartists => 0
 </%args>
 
 <%perl>
 
 my ($i, $track, @info, $trmcounts, $tcount);
 
+# always load multiple artist tracks
 if ($tracks)
 {
-    @info = @$tracks;
-}
-elsif ($album->GetArtist() == &ModDefs::VARTIST_ID)
-{
-    @info = $album->LoadTracksFromMultipleArtistAlbum();
+     @info = @$tracks;
 }
 else
 {
-    @info = $album->LoadTracks();
+     @info = $album->LoadTracks();
 }
+
+
+
 $trmcounts = $album->LoadTRMCount();
 
 if ($showcollapsed)
 {
     my ($id, $url);
-    
+
     $url = "/showartist.html?artistid=" . $artist->GetId();
     $id = $album->GetId();
     $ex =~ s/(^|\D)$id(\D|$)/$1$2/g;
@@ -43,9 +44,9 @@ if ($showcollapsed)
     $ex =~ s/(,$)|(^,)//g;
     $url .= "&ex=$ex" if ($ex ne '');
     $url .= "&compact=0";
-    $m->comp("/comp/albumbegin", 
-            artist=>$artist, 
-            album=>$album, 
+    $m->comp("/comp/albumbegin",
+            artist=>$artist,
+            album=>$album,
             showmodlinks=>$showmodlinks,
             linktype=>"collapse",
             link=>$url,
@@ -54,16 +55,17 @@ if ($showcollapsed)
 }
 else
 {
-    $m->comp("/comp/albumbegin", 
-            artist=>$artist, 
-            album=>$album, 
+    $m->comp("/comp/albumbegin",
+            artist=>$artist,
+            album=>$album,
             showmodlinks=>$showmodlinks,
             showtag=>$showtag,
-            tagchecked=>$tagchecked);
+            tagchecked=>$tagchecked,
+            showtrackartists=>$showtrackartists);
 }
 for($i = 0;; $i++)
 {
-    $track = $info[$i]; 
+    $track = $info[$i];
     last if (!defined $track);
     if (exists $trmcounts->{$track->GetId()})
     {
@@ -73,25 +75,29 @@ for($i = 0;; $i++)
     {
         $tcount = 0;
     }
-    $m->comp("/comp/albumtrack", track=>$track, album=>$album, 
+    $m->comp("/comp/albumtrack", track=>$track, album=>$album,
             artist=>$artist,
             tindex=>$i,
 	    highlight=>$highlighttracks->{$track->GetId},
-	    showmodlinks=>$showmodlinks, 
-            trmcount=>$tcount, mbtagger=>$mbtagger);
+	    showmodlinks=>$showmodlinks,
+            trmcount=>$tcount, mbtagger=>$mbtagger,
+            showtrackartists=>$showtrackartists);
 }
 
 my $colspan = 3;
 $colspan++ if ($session{uid} and $showmodlinks);
-$colspan++ if ($album->GetArtist() == &ModDefs::VARTIST_ID);
+$colspan++ if ($album->HasMultipleTrackArtists || $showtrackartists);
 
 $m->out('<tr bgcolor="white"><td bgcolor="#f0efff" colspan="' . $colspan . '">');
-$m->comp("/comp/albumsummary", album=>$album, artist=>$artist, showmodlinks=>$showmodlinks);
+$m->comp("/comp/albumsummary", album=>$album, 
+                               artist=>$artist, 
+                               showmodlinks=>$showmodlinks);
 $m->out('</td></tr>');
-$m->comp("/comp/albumend", album=>$album, artist=>$artist, 
+$m->comp("/comp/albumend", album=>$album, artist=>$artist,
                           showmodlinks=>$showmodlinks,
 			  showids=>$showids,
 			  showreleases=>$showreleases,
+                          showtrackartists=>$showtrackartists,
 	link => $link,
 );
 

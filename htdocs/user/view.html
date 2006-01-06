@@ -77,7 +77,7 @@ if ($user->GetId == &ModDefs::ANON_MODERATOR
 } else {
 	$membersince = $m->comp("/comp/datetime", $user->GetMemberSince);
 }
-	
+
 $uid = $user->GetId;
 
 my $my_uid = $session{uid} || 0;
@@ -99,7 +99,7 @@ my $subscriptions_public = UserPreference::get_for_user("subscriptions_public", 
 <p class="LinksRow">
 	[
 % unless ($is_me) {
-	<a href="/user/mod_email.html?uid=<% $uid %>&amp;url=<% uri_escape("/user/view.html?uid=$uid") %>">Send email</a> | 
+	<a href="/user/mod_email.html?uid=<% $uid %>&amp;url=<% uri_escape("/user/view.html?uid=$uid") %>">Send email</a> |
 % }
     <a href="/mod/search/pre/voted.html?moderator=<% $uid %>">Votes</a> |
 	<a href="/mod/search/pre/moderator.html?moderator=<% $uid %>">Moderations</a> |
@@ -135,7 +135,7 @@ my $subscriptions_public = UserPreference::get_for_user("subscriptions_public", 
 	</tr>
 	<tr>
 		<td width="15%" valign="top" align="right">User type:</td>
-		<td><% $user->GetUserType %></td>
+		<td><%perl> $m->out($user->GetUserType); </%perl></td>
 	</tr>
 	<tr>
 		<td valign="top" align="right">EMail:</td>

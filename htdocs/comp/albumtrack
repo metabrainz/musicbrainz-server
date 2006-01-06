@@ -7,6 +7,7 @@ $highlight
 $showmodlinks
 $trmcount=>0
 $mbtagger=>$session{'mbt'}
+$showtrackartists=>0
 </%args>
 <%perl>
 
@@ -14,6 +15,7 @@ my $bgcolor = ($track->GetModPending ? 'bgcolor="#FFFFCC"' : 'bgcolor="#FFFFFF"'
 $bgcolor = 'bgcolor="#FFCCFF"' if $highlight;
 my $tr_bgcolor = ($track->GetAlbumJoinModPending ? 'bgcolor="#FFFFCC"' : 'bgcolor="#FFFFFF"');
 
+my $isva = $album->HasMultipleTrackArtists || $showtrackartists;
 my $nonalbum = $album->IsNonAlbumTracks;
 my $colspan = ($nonalbum ? 'colspan="2"' : '');
 
@@ -25,13 +27,13 @@ my $colspan = ($nonalbum ? 'colspan="2"' : '');
        <% ($highlight ? "**" : "") . $track->GetSequence . ($highlight ? "**" : "") %>
     </td>
 % }
-% if ($album->GetArtist() == &ModDefs::VARTIST_ID) {
+% if ($isva) {
     <td width="45%" <% $bgcolor |n %> <% $colspan %>>
 % } else {
     <td width="75%" <% $bgcolor |n %> <% $colspan %>>
 % }
 % if ($mbtagger && $showmodlinks and $track->GetId) {
-    <a href="tag:<% $track->GetMBId() %>:<% $album->GetMBId() %>"><img src="/images/mblookup-tag.gif" 
+    <a href="tag:<% $track->GetMBId() %>:<% $album->GetMBId() %>"><img src="/images/mblookup-tag.gif"
        alt="Tag" title="Tag the current track" height="13" width="28"
        align="middle" border="0"></a>
 % }
@@ -41,11 +43,11 @@ my $colspan = ($nonalbum ? 'colspan="2"' : '');
        <% $track->GetName %>
 % }
 % if ($trmcount > 0) {
-       &nbsp;<img src="/images/trm.gif" align="middle" alt="TRM" width="30" 
+       &nbsp;<img src="/images/trm.gif" align="middle" alt="TRM" width="30"
                   height="11" title="<% $trmcount %> TRM IDs">&nbsp;
 % }
     </td>
-% if ($album->GetArtist() == &ModDefs::VARTIST_ID) {
+% if ($isva) {
     <td width="30%" bgcolor="white">
        <a href="/showartist.html?artistid=<% $track->GetArtist %>"><% $track->GetArtistName %></a>
 % if (exists $session{user} and $showmodlinks) {

@@ -13,12 +13,13 @@ $expanded=>0
 
 	my $prefix = "link" . $index . "_";
 
-	$m->out('<span class="mp">') 
+	$m->out('<span class="mp">')
 		if $item->{modpending};
 
 	if ($item->{$prefix . "type"} eq 'url')
 	{
-		$m->out('<b><a href="'.$item->{$prefix . "name"}.'">');
+		my $url = $item->{$prefix . "name"};
+		$m->out('<b><a href="'.$url.'" title="'.$url.'">');
 	}
 	elsif ($isrel)
 	{
@@ -34,10 +35,17 @@ $expanded=>0
 				$item->{$prefix . "id"}.'">');
 	}
 	my $text = $item->{$prefix . "name"} eq '' ? $name : $item->{$prefix . "name"};
+
+	# shorten url's that are longer than ~75 chars
+	$text = (length($text) > 75
+				? substr($text, 0, 72) . "..."
+				: $text)
+		if ($item->{$prefix . "type"} eq 'url');
+
 	$m->out(encode_entities($text));
 	$m->out("</a></b>");
 
-	$m->out('</span>') 
+	$m->out('</span>')
 		if $item->{modpending};
 </%perl>
 </%def>
@@ -57,11 +65,11 @@ my $_isEqual = sub {
 my $mb = $m->comp("/comp/dblogin");
 my @links = MusicBrainz::Server::Link->FindLinkedEntities($mb->{DBH}, $id, $type);
 
-if (@links == 0) 
+if (@links == 0)
 {
 	$m->out("This $type has no relationships.<br>");
-} 
-else 
+}
+else
 {
 	my $max = scalar(@links);
 	my (@coll, $item, $i, $count, $lines);
@@ -85,8 +93,8 @@ else
 		}
 	}
 
-	@links = sort 
-	{ 
+	@links = sort
+	{
 		my $c = $a->{link_phrase} cmp $b->{link_phrase};
 		return $c if ($c);
 		$c = $a->{enddate} cmp $b->{enddate};
@@ -95,7 +103,7 @@ else
 	} @links;
 
 	$item = $links[0];
-	$m->out('<span class="mp">') 
+	$m->out('<span class="mp">')
 		if ($max == 1 && $item->{modpending});
 	$m->comp(".OutputEntity", $item, 0, $name, $isrelpage);
 	# RUAOK: Why was a new hash constructed here and not $item passed in??
@@ -107,7 +115,7 @@ else
 	    my $itemsperline = 0;
 		if ($lines >= 3 && !$isrelpage)
 		{
-			$m->out(qq!<tr><td colspan="3">!); 
+			$m->out(qq!<tr><td colspan="3">!);
 			$m->out(($max - $count) . " relationships not shown. ");
 			$m->out(qq!<a href="/showrel.html?id=$id&amp;type=$type">View all relationships ...</a></td></tr>!);
 			last;
@@ -135,33 +143,33 @@ else
 						}
 						$and ? $m->out(' and ') : $m->out(', ');
 						$m->comp(".OutputEntity", $nextitem, 1, $name, $isrelpage);
-						$m->out(" ... ") if ($itemsperline == 4);
+						$m->out(" ... ") if ($itemsperline == 4) && !$isrelpage;
 						$itemsperline++;
 					}
 					$i = $j;
 					$count++;
 				}
-			} 
+			}
 		}
 
-		if ($item->{begindate} =~ /\S/ || $item->{enddate} =~ /\S/) 
+		if ($item->{begindate} =~ /\S/ || $item->{enddate} =~ /\S/)
 		{
-			if ($item->{begindate} =~ /\S/) 
+			if ($item->{begindate} =~ /\S/)
 			{
 				$m->out(' from ' . $item->{begindate});
 			}
-			if ($item->{enddate} =~ /\S/) 
+			if ($item->{enddate} =~ /\S/)
 			{
 				$m->out(' until ' . $item->{enddate});
-			} 
-			else 
+			}
+			else
 			{
 				$m->out(' to present');
 			}
 		}
-		$m->out('</span>') 
+		$m->out('</span>')
 			if ($max == 1 && $item->{modpending});
-		if ($session{uid} && $modlinks && $expanded) 
+		if ($session{uid} && $modlinks && $expanded)
 		{
 			$m->out(($max > 1) ? '</td><td align="right" valign="top">' : '');
 			$m->out('[&nbsp;<a href="/edit/relationship/remove.html?type=' . $item->{link0_type} . '-' .
@@ -174,7 +182,7 @@ else
 	$m->out('</table>') if ($max > 1);
 	$m->out('<br>');
 }
-$m->comp('/comp/ar/ShowARLinks', id=>$id, type=>$type, isrelpage=>$isrelpage, 
+$m->comp('/comp/ar/ShowARLinks', id=>$id, type=>$type, isrelpage=>$isrelpage,
 								 expanded=>$expanded, count=>scalar(@links));
 
 my $recent_links = ($session{recent_links} ||= []);
@@ -193,7 +201,7 @@ elsif (scalar(@$recent_links) == 1)
 			id=>$recent_links->[0][1],
 			type=>$recent_links->[0][0],
 			name=>$recent_links->[0][2] &>
-		 [ <& /comp/ar/ShowRemoveLink, 
+		 [ <& /comp/ar/ShowRemoveLink,
 			targetid=>$id,
 			targettype=>$type,
 			id=>$recent_links->[0][1],
@@ -203,7 +211,7 @@ elsif (scalar(@$recent_links) == 1)
 	</ul>
 
 	<p>
-	You have only selected one element.&nbsp; Please select another element 
+	You have only selected one element.&nbsp; Please select another element
 	that you want to relate to <b><% $recent_links->[0][2] %></b> by navigating to
 	its page, then clicking on the <em>Use this ... in a relationship</em> link.
 	</p>
@@ -211,7 +219,7 @@ elsif (scalar(@$recent_links) == 1)
 	<p>
 		[
 % unless ($type eq "url") {
-		<a href="/edit/relationship/addurl.html?id=<% $recent_links->[0][1] %>&amp;type=<% $recent_links->[0][0] 
+		<a href="/edit/relationship/addurl.html?id=<% $recent_links->[0][1] %>&amp;type=<% $recent_links->[0][0]
 			%>&amp;name=<% uri_escape($recent_links->[0][2]) %>">Relate to URL</a> |
 % }
 		<& /comp/ar/ShowCancelLink, targetid=>$id, targettype=>$type, isrelpage=>$isrelpage &>
@@ -232,7 +240,7 @@ elsif (scalar(@$recent_links) == 2)
 			id=>$recent_links->[1][1],
 			type=>$recent_links->[1][0],
 			name=>$recent_links->[1][2] &>
-			[ <& /comp/ar/ShowRemoveLink, 
+			[ <& /comp/ar/ShowRemoveLink,
 				targetid=>$id,
 				targettype=>$type,
 				id=>$recent_links->[1][1],
@@ -243,7 +251,7 @@ elsif (scalar(@$recent_links) == 2)
 			id=>$recent_links->[0][1],
 			type=>$recent_links->[0][0],
 			name=>$recent_links->[0][2] &>
-			[ <& /comp/ar/ShowRemoveLink, 
+			[ <& /comp/ar/ShowRemoveLink,
 				targetid=>$id,
 				targettype=>$type,
 				id=>$recent_links->[0][1],
@@ -253,7 +261,7 @@ elsif (scalar(@$recent_links) == 2)
 	</ul>
 
 	<p>
-		[ <a href="/edit/relationship/add.html?link0=<% 
+		[ <a href="/edit/relationship/add.html?link0=<%
 			$recent_links->[1][0] %>=<% $recent_links->[1][1] %>&amp;link1=<%
 			$recent_links->[0][0] %>=<% $recent_links->[0][1] %>">Create relationship</a>
 		| <& /comp/ar/ShowCancelLink, targetid=>$id, targettype=>$type, isrelpage=>$isrelpage &>
@@ -278,7 +286,7 @@ else
 			id=>$recent_links->[1][1],
 			type=>$recent_links->[1][0],
 			name=>$recent_links->[1][2] &>
-			[ <& /comp/ar/ShowRemoveLink, 
+			[ <& /comp/ar/ShowRemoveLink,
 				targetid=>$id,
 				targettype=>$type,
 				id=>$recent_links->[1][1],
@@ -289,7 +297,7 @@ else
 			id=>$recent_links->[0][1],
 			type=>$recent_links->[0][0],
 			name=>$recent_links->[0][2] &>
-			[ <& /comp/ar/ShowRemoveLink, 
+			[ <& /comp/ar/ShowRemoveLink,
 				targetid=>$id,
 				targettype=>$type,
 				id=>$recent_links->[0][1],
@@ -299,7 +307,7 @@ else
 	</ul>
 
 	<p>
-		[ <a href="/edit/relationship/add.html?link0=<% 
+		[ <a href="/edit/relationship/add.html?link0=<%
 			$recent_links->[1][0] %>=<% $recent_links->[1][1] %>&amp;link1=<%
 			$recent_links->[0][0] %>=<% $recent_links->[0][1] %>">Create relationship</a>
 		| <a href="/edit/relationship/showelements.html">Show all elements</a>
@@ -314,4 +322,4 @@ else
 }
 
 </%perl>
-</div> 
+</div>

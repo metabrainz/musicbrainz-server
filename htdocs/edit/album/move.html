@@ -7,6 +7,7 @@ $newartistname => ""
 $newartistsortname => ""
 $newartistresolution => ""
 $newartistid=>-1
+$movetracks=>0
 $search => ""
 $notetext => undef
 </%args>
@@ -52,7 +53,7 @@ if ($selectedartist ne "")
 {
 	MusicBrainz::IsNonNegInteger($selectedartist) && $selectedartist
 		or return $m->comp("/comp/badargs", 1, 1);
-	
+
 	my $target = Artist->new($mb->{DBH});
 	$target->SetId($selectedartist);
 	$target->LoadFromId
@@ -91,6 +92,7 @@ if ($newartistname =~ /\S/ and $newartistsortname =~ /\S/ and $newartistid =~ /\
 				artistname => $newartistname,
 				artistsortname => $newartistsortname,
 				artistid => $newartistid,
+				movetracks => $movetracks,
 			);
 
 			$mods[0]->InsertNote($session{'uid'}, $notetext)
@@ -102,7 +104,7 @@ if ($newartistname =~ /\S/ and $newartistsortname =~ /\S/ and $newartistid =~ /\
 
 	die "Shouldn't get here";
 }
-	
+
 </%perl>
 
 <& /comp/sidebar, title => "Move Album '${\ $al->GetName }' to another Artist" &>

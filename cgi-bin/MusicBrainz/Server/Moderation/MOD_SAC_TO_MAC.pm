@@ -39,6 +39,7 @@ sub PreInsert
 
 	my $al = $opts{album} or die;
 	my $ar = $opts{artist} or die;
+	my $movetova = $opts{movetova} or die;
 
 	if ($al->GetArtist == VARTIST_ID)
 	{
@@ -51,6 +52,7 @@ sub PreInsert
 	$self->SetArtist($al->GetArtist);
 	$self->SetRowId($al->GetId);
 	$self->SetPrev($ar->GetName);
+	$self->SetNew($movetova);
 }
 
 sub CheckPrerequisites

@@ -44,12 +44,13 @@ use Exporter;
 use strict;
 use Carp qw( cluck croak );
 use Encode qw( encode decode );
+use Text::WikiFormat;
 use DBDefs;
 use Moderation;
-use MusicBrainz::Server::Markup;
 
 use constant ARTIST_ANNOTATION	=>	1;
 use constant ALBUM_ANNOTATION	=>	2;
+
 
 use constant TRUNC_NONE => 0;
 use constant TRUNC_PARA => 1;
@@ -118,7 +119,12 @@ sub GetTypeWord
 sub GetTextAsHTML
 {
 	my $self = shift;
-	MusicBrainz::Server::Markup->as_html($self->GetText);
+    Text::WikiFormat::format($self->GetText, {}, 
+			                 { prefix=>"http://wiki.musicbrainz.org/",
+        			           extended => 1,
+					   	       absolute_links => 1,
+                               implicit_links => 0
+			    	         });
 }
 
 sub GetShortTextAsHTML
@@ -126,7 +132,12 @@ sub GetShortTextAsHTML
 	my ($self, $morelink) = @_;
 
 	my ($trunc_type, $text) = $self->GetShortText;
-	$text = MusicBrainz::Server::Markup->as_html($text);
+	$text = Text::WikiFormat::format($text, {}, 
+			                 { prefix=>"http://wiki.musicbrainz.org/",
+        			           extended => 1,
+					   	       absolute_links => 1,
+                               implicit_links => 0
+			    	         });
 
 	$text =~ s[(?:</p>\s*)?\z][&nbsp;&hellip;]
 		if $trunc_type == TRUNC_WORD;

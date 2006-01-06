@@ -1,0 +1,22 @@
+<p style="float: right; width: 200px; padding: 1em; margin: 1em; border: 2px dotted red;">
+Please use the wiki formatting sparingly!<br/><br/> The wiki formatting is intended to give a some flexibility for
+annotations and should not interfere with the rest of the page layout.
+</p>
+<h4>Wiki Formatting</h4>
+<p style="margin-left: 2em">
+<b>Emphasis</b>
+<br>
+&nbsp;&nbsp;''italics''; '''bold'''; '''''bold italics'''''; ---- horizontal rule 
+<br>
+<b>Headings</b>
+<br>
+&nbsp;&nbsp;=&nbsp;Title&nbsp;1&nbsp;=; ==&nbsp;Title&nbsp;2&nbsp;==; ===&nbsp;Title&nbsp;3&nbsp;===
+<br>
+<b>Lists</b>
+<br>
+&nbsp;&nbsp;tab or 4 spaces and: * bullets; 1., a., A., i., I. numbered items; spaces alone indent 
+<br>
+<b>Links</b>
+<br>
+&nbsp;&nbsp; url; [url]; [url|label]
+</p>

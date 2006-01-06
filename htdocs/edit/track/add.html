@@ -129,9 +129,9 @@ if ($newartistname =~ /\S/ and $newartistsortname =~ /\S/
 
 			<tr>
 				<td nowrap>
-					<label for="edittrack_trackname">New Track Name:</label></td>	
+					<label for="edittrack_trackname">New Track Name:</label></td>
 				<td>
-					<input 	type="text" name="tracknum" class="numberfield" 
+					<input 	type="text" name="tracknum" class="numberfield"
 							onFocus="myOnFocus(this)" onBlur="myOnBlur(this)"
 							size="2" value=""></td>
 				<td>
@@ -152,7 +152,7 @@ if ($newartistname =~ /\S/ and $newartistsortname =~ /\S/
 				<td colspan="3"><small>Valid Track Numbers: 1-99</small></td>
 			</tr>
 
-% if ($ar->GetId == &ModDefs::VARTIST_ID) {
+% if ($al->HasMultipleTrackArtists) {
 
 			<tr>
 				<td nowrap>

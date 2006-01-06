@@ -51,13 +51,7 @@ $artist->LoadFromId
 	);
 
 # load tracks, and add into @t list.
-my @t;
-if ($album->GetArtist == &ModDefs::VARTIST_ID) {
-	@t = $album->LoadTracksFromMultipleArtistAlbum;
-}
-else {
-	@t = $album->LoadTracks;
-}
+my @t = $album->LoadTracks;
 @t = map {
 	+{
 		id					=> $_->GetId,
@@ -91,14 +85,14 @@ my %edit = (
 	},
 	tracks			=> \@t,
 	can_add_remove 	=> ($album->CanAddTrack or $album->CanRemoveTrack),
-	is_various		=> ($album->GetArtist == &ModDefs::VARTIST_ID),
+	is_various		=> ($album->HasMultipleTrackArtists),
 );
 
 $session{editalbum} = \%edit;
 
 # forward to form
 return $m->comp(
-	"/comp/redirect", 
+	"/comp/redirect",
 	"/edit/album/sae-edittracks.html?albumid=" . $album->GetId
 );
 

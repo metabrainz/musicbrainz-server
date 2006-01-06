@@ -185,6 +185,7 @@ specific notes about a server type, the instructions apply to all server types.
    String::ShellQuote
    String::Similarity
    Text::Unaccent (see notes below)
+   Text::WikiFormat
    Time::ParseDate
    UUID (requires e2fsprogs)
    XML::Parser

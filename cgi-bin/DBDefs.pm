@@ -116,7 +116,7 @@ sub DEBUG_MAIL_SPOOL { undef }
 # passwords.  However you MUST change it from the default
 # value (the empty string).  This is so an attacker can't just look in CVS and
 # see the default secret value, and then use it to attack your server.
-sub SMTP_SECRET_CHECKSUM { "" }
+sub SMTP_SECRET_CHECKSUM { "deeeeznutz" }
 sub EMAIL_VERIFICATION_TIMEOUT { 604800 } # one week
 
 

@@ -93,7 +93,7 @@ sub GatherData
 		$al->{_sort_} = MusicBrainz::NormaliseSortText($al->GetName);
 		#print STDERR "$al->{_sort_} by $ar->{_sort_}\n" if -t;
 
-		my @t = $al->LoadTracksFromMultipleArtistAlbum;
+		my @t = $al->LoadTracks;
 		my $aid = $al->GetArtist;
 		next if grep { $_->GetArtist != $aid } @t;
 		$al->{tracks} = \@t;

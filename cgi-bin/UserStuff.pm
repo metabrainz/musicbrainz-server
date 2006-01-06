@@ -609,13 +609,13 @@ sub GetUserType
 
 	my $type = "";
 
-	$type = "Automatic Moderator"
+	$type = '<a href="http://wiki.musicbrainz.org/AutoModerator">AutoModerator</a>'
 		if ($this->IsAutoMod($privs));
 
 	$type = "Internal/Bot User"
 		if ($this->IsBot($privs));
 
-	$type .= ", Link Moderator"
+	$type .= ', <a href="http://wiki.musicbrainz.org/RelationshipEditor">RelationshipEditor</a>'
 		if ($this->IsLinkModerator($privs));
 
 	$type = "Normal User"

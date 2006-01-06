@@ -205,13 +205,14 @@ sub CreateDenseAlbum
 
 	require Track;
 	my @tracks = $al->LoadTracks;
+	my $is_va = $al->GetArtist == VARTIST_ID || $al->HasMultipleTrackArtists;
 
 	my @ids;
 	my %artists;
 
 	for my $tr (@tracks)
 	{
-	    if ($al->GetArtist eq &ModDefs::VARTIST_ID)
+	    if ($is_va)
 	    {
 		my $var = Artist->new($this->{DBH});
 		$var->SetId($tr->GetArtist);
@@ -581,10 +582,11 @@ sub _GetAlbumReferences
     {
 	my @tracks = $album->LoadTracks();
 	my @trackids;
+	my $is_va = $albumartist == VARTIST_ID || $album->HasMultipleTrackArtists;
 	for my $track (@tracks)
 	{
 	    next if not defined $track;
-	    if ($albumartist == VARTIST_ID)
+	    if ($is_va)
 	    {
 		$info{type} = 'artist';
 		$info{id} = $track->GetArtist();

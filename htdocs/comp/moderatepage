@@ -11,7 +11,7 @@ $args
 my $max_items = UserPreference::get('mods_per_page');
 $offset = ($page-1) * $max_items if not defined $offset and defined $page;
 $offset = 0 if not defined $offset;
-$offset = 0 if $offset < 0;  
+$offset = 0 if $offset < 0;
 
 my $mb = $m->comp("/comp/dblogin");
 my $mod = Moderation->new($mb->{DBH});
@@ -27,7 +27,7 @@ $mods ||= [];
 $m->comp("/comp/redirect", "/mod/search/index.html")
 	if $result == &Moderation::SEARCHRESULT_NOQUERY;
 
-$m->comp("/comp/sidebar", title=>'Moderation Search'); 
+$m->comp("/comp/sidebar", title=>'Moderation Search');
 
 # Do we show the "vote" button?
 # XXX this is based upon $mod->GetVote, but that might be showing someone
@@ -94,7 +94,7 @@ if (@$mods)
 
 % if ($total_mods-$offset > $max_items || $offset > 0) {
 <& /comp/framedboxbegin, width=>"100%", style=>"margin: 1em 0" &>
-<& /comp/pageselector, 
+<& /comp/pageselector,
    url=>"/mod/search/results.html",
    args=>$args,
    offset=>$offset,
@@ -106,12 +106,12 @@ if (@$mods)
 
 % if (@$mods) {
 <form method="POST" action="/bare/vote.html"
-      enctype="application/x-www-form-urlencoded" class="formstyle"> 
+      enctype="application/x-www-form-urlencoded" class="formstyle">
 
-<TABLE BORDER="0" CELLPADDING="0" CELLSPACING="0"
-       BGCOLOR="#000000" WIDTH="100%">
-<TR><TD width="100%">
-<TABLE WIDTH="100%" BORDER="0" CELLSPACING="1" CELLPADDING="3">
+<table border="0" cellpadding="0" cellspacing="0"
+       bgcolor="#000000" width="100%">
+<tr><td width="100%">
+<table width="100%" border="0" cellspacing="1" cellpadding="3">
 
 <%perl>
 for my $obj (@$mods)
@@ -139,7 +139,7 @@ for my $obj (@$mods)
   </td>
   <td align=right>
      Click here to vote on the items on this page:
-     <INPUT TYPE="hidden" NAME="url" 
+     <INPUT TYPE="hidden" NAME="url"
             VALUE="<% $r->uri() . "?" . $r->args() %>">
      <INPUT TYPE="submit" NAME="Submit" VALUE="Submit">
   </td>
@@ -152,7 +152,7 @@ for my $obj (@$mods)
 
 % if (($total_mods-$offset > $max_items || $offset > 0) and @$mods) {
 <& /comp/framedboxbegin, width=>"100%", style=>"margin: 1em 0" &>
-<& /comp/pageselector, 
+<& /comp/pageselector,
    url=>"/mod/search/results.html",
    args=>$args,
    offset=>$offset,

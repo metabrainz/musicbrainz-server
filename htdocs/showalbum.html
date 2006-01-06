@@ -9,6 +9,7 @@ $addrel=>0
 $remrel=>-1
 $remtype=>""
 $arcancel=>0
+$showtrackartists=>0
 </%args>
 <%perl>
 
@@ -119,6 +120,7 @@ if (!$album->IsNonAlbumTracks)
 		showids => 1,
 		showtag => 1,
 		showreleases => 1,
+		showtrackartists => $showtrackartists,
 		&>
 
 <& /comp/footer &>

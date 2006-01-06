@@ -9,7 +9,7 @@
 		<a href="/showalbum.html?albumid=<% $al->GetId %>" class="bold"><% $al->GetName %></a>
 		from artist
 		<a href="/showartist.html?artistid=<% $ar->GetId %>" class="bold"><% $ar->GetName %></a>
-		to artist <a href="/showartist.html?artistid=<% $artistid %>" class="bold"><% $name %></a> 
+		to artist <a href="/showartist.html?artistid=<% $artistid %>" class="bold"><% $name %></a>
 		<% $resolution ? "($resolution)" : "" %>?
 	</div>
 
@@ -32,9 +32,33 @@
 						<input type="hidden" name="newartistsortname" value="<% $sortname %>">
 						<input type="hidden" name="newartistid" value="<% $artistid %>">
 					</td>
-				<td> &nbsp; </td>
-				<td><small> Please enter a moderation note. If you do so, moderations are<br/>
-							more likely to be accepted by our voters.</small></td>
+			</tr>
+		</table>
+		<table>
+			<tr>
+				<td colspan="3">
+                    <fieldset>
+                        <legend>Track artists</legend>
+                      <table>
+                        <tr>
+                            <td>
+                              <input type="radio" name="movetracks" value="0" checked>
+                              don't change track artists
+                              <br/>
+
+                              <input type="radio" name="movetracks" value="1">
+                              move all tracks to artist <a href="/showartist.html?artistid=<% $artistid %>" class="bold"><% $name %></a>
+% if ($al->HasMultipleTrackArtists()) {
+                              <p style="margin-left: 2em;"><span style="color: red;">Warning:</span> This album contains tracks attributed
+                                  to different artists. This information will be lost and all tracks will have
+                                  the <b>same</b> artist if you choose this option!
+                              </p>
+% }
+                            </td>
+                        </tr>
+                      </table>
+                    </fieldset>
+                </td>
 			</tr>
 		</table>
 	</div>

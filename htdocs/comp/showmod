@@ -157,7 +157,7 @@ $time = $m->comp("/comp/datetime", $time);
 %       my $bold = ($note->GetUserId == $mod->GetModerator) ? 'bold' : 'body';
         <a href="/user/view.html?uid=<% $note->GetUserId %>"
 	    ><font class="<% $bold %>"><% $note->GetUserName %></font></a>:
-        <% $note->GetTextAsHTML |n %><br> 
+        <% $note->GetTextAsHTML |n %><br>
 %    }
    </td>
 </tr>

@@ -44,11 +44,13 @@ sub PreInsert
 	my $sortname = $opts{artistsortname} or die;
 	my $name = $opts{artistname};
 	my $artistid = $opts{artistid};
-
+	my $movetracks = $opts{movetracks} || 0;
+	
 	my $new = $sortname;
 	$new .= "\n$name" if defined $name and $name =~ /\S/;
 	$new .= "\n$artistid";
-
+	$new .= "\n$movetracks";
+	
 	$self->SetTable("album");
 	$self->SetColumn("artist");
 	$self->SetArtist($al->GetArtist);
@@ -62,11 +64,12 @@ sub PostLoad
 	my $this = shift;
 
 	# new.name might be undef (in which case, name==sortname)
-  	@$this{qw( new.sortname new.name new.artistid)} = split /\n/, $this->GetNew;
+  	@$this{qw( new.sortname new.name new.artistid new.movetracks)} = split /\n/, $this->GetNew;
 
     # If the name was blank and the new artist id ended up in its slot, swap the two values
 	if ($this->{'new.name'} =~ /\d+/ && !defined $this->{'new.artistid'})
 	{
+		$this->{'new.movetracks'} = $this->{'new.artistid'};
 		$this->{'new.artistid'} = $this->{'new.name'};
 		$this->{'new.name'} = undef;
 	}
@@ -136,23 +139,25 @@ sub ApprovedAction
 		$ar->SetSortName($this->{'new.sortname'});
 		$newid = $ar->Insert(no_alias => 1);
 	}
-    
-	# Move each track on the album
 
-	if ($sql->Select("SELECT track FROM albumjoin WHERE album = ?",
-			$this->GetRowId))
+  	# Move each track on the album, if the user 
+	# choose to do so.
+	if ($this->{'new.movetracks'}) 
 	{
-	 	while (my @row = $sql->NextRow)
+		if ($sql->Select("SELECT track FROM albumjoin WHERE album = ?",
+				$this->GetRowId))
 		{
-		 	$sql->Do(
-				"UPDATE track SET artist = ? WHERE id = ?",
-				$newid,
-				$row[0],
-			);
+			while (my @row = $sql->NextRow)
+			{
+				$sql->Do(
+					"UPDATE track SET artist = ? WHERE id = ?",
+					$newid,
+					$row[0],
+				);
+			}
 		}
-
+		$sql->Finish;
 	}
-	$sql->Finish;
 
 	# Move the album itself
 

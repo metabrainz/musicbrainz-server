@@ -103,9 +103,11 @@ sub deparse
 
 sub normalise
 {
+# TODO: We need to check to see if this needs to be normalized at all. Security issues abound, no doubt.
 	my $class = shift;
-	my $text = $class->deparse($class->parse(@_));
-	$text;
+    return shift;
+    #my $text = $class->deparse($class->parse(@_));
+    #$text;
 }
 
 ################################################################################
@@ -137,7 +139,14 @@ sub as_html
 		{
 			my $sp = $1;
 			my $t = encode_entities($2);
-			$para .= qq[$sp<a href="$t">$t</a>];
+			
+			# shorten url's that are longer than freedb url's (~75 chars)
+			# http://www.freedb.org/freedb_search_fmt.php?cat=misc&id=3a055005
+			my $disp = (length($t) > 75
+				? substr($t, 0, 72) . "..."
+				: $t);
+			
+			$para .= qq[$sp<a href="$t" title="$t">$disp</a>];
 		} else {
 			$para .= encode_entities($_);
 		}
