@@ -51,7 +51,7 @@
 % if ($al->HasMultipleTrackArtists()) {
                               <p style="margin-left: 2em;"><span style="color: red;">Warning:</span> This album contains tracks attributed
                                   to different artists. This information will be lost and all tracks will have
-                                  the <b>same</b> artist if you choose this option!
+                                  the <b>same</b> artist if you choose the <i>move</i> all tracks to artist option!
                               </p>
 % }
                             </td>

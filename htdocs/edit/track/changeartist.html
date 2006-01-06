@@ -67,6 +67,24 @@ if ($selectedartist ne "")
 if ($newartistname =~ /\S/ and $newartistsortname =~ /\S/)
 {
 	my $ar = Artist->new($mb->{DBH});
+    my $list = $ar->GetArtistsFromName($newartistname);
+
+    if (scalar(@$list) > 1)
+    {
+        </%perl>
+        <& /comp/sidebar, title => 'Change Track Artist Error' &>
+		You are attempting to create a new duplicate artist <b><% $newartistname %></b>, which cannot be done 
+        as part of the change track artist moderation. Please add <a href="/edit/artist/add.html?name=<% $newartistname %>&sortname=<% $newartistsortname %>">the 
+        duplicate artist</a> first and then change the track artists.
+        <& /comp/footer &>
+        <%perl>
+        return
+    }
+}
+
+if ($newartistname =~ /\S/ and $newartistsortname =~ /\S/)
+{
+	my $ar = Artist->new($mb->{DBH});
 	$ar->SetId($track->GetArtist);
 	$ar->LoadFromId
 		or return $m->comp(
@@ -137,6 +155,7 @@ if ($newartistname =~ /\S/ and $newartistsortname =~ /\S/)
 	search => $ARGS{'search'},
 	allowcreate => 1,
 	url => "/edit/track/changeartist.html",
+	dontshow => [$al->GetArtist],
 	arglist => {
 		album => $album,
 		tindex => $tindex,

@@ -69,6 +69,23 @@ if ($selectedartist ne "")
 	$newartistresolution = $target->GetResolution;
 }
 
+if ($newartistname =~ /\S/ and $newartistsortname =~ /\S/ and $newartistid == -1)
+{
+	my $ar = Artist->new($mb->{DBH});
+    my $list = $ar->GetArtistsFromName($newartistname);
+
+    if (scalar(@$list) > 1)
+    {
+        </%perl>
+        <& /comp/sidebar, title => 'Move Album Error' &>
+    		You are attempting to create a new duplicate artist <b><% $newartistname %></b>, which cannot be done 
+        as part of the move album moderation. Please add <a href="/edit/artist/add.html?name=<% $newartistname %>&sortname=<% $newartistsortname %>">the 
+        duplicate artist</a> first and then move the album.
+        <& /comp/footer &>
+        <%perl>
+        return
+    }
+}
 if ($newartistname =~ /\S/ and $newartistsortname =~ /\S/ and $newartistid =~ /\d+/)
 {
 	defined $notetext
@@ -123,7 +140,8 @@ if ($newartistname =~ /\S/ and $newartistsortname =~ /\S/ and $newartistid =~ /\
 </fieldset>
 
 <& /comp/artistfilter,
-	search => $ARGS{'search'},
+  search => $ARGS{'search'},
+  defaultquery => $ar->GetName,
 	dontshow => [$al->GetArtist],
 	allowcreate => 1,
 	url => "/edit/album/move.html",
