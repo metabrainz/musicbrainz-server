@@ -1,6 +1,7 @@
 %# vi: set ts=4 sw=4 ft=mason :
 <%args>
 $search => ""
+$defaultquery => ""
 @dontshow => ()
 $allowcreate => 0
 $url
@@ -30,7 +31,7 @@ if ($engine->Result == &SearchEngine::SEARCHRESULT_NOQUERY)
 					<td><label for="artistfilter_search">Search for artist:</label></td>
 					<td><input 	type="text" name="search" class="textfield"
 								id="artistfilter_search"
-								value="<% $search %>">
+								value="<% $search ? $search : $defaultquery %>">
 				</tr>
 				<tr>
 					<td>&nbsp;</td>
@@ -49,12 +50,17 @@ if ($engine->Result == &SearchEngine::SEARCHRESULT_NOQUERY)
 }
 
 # Retrieve all the results and weed out the "don't show" artists
+my @artistsremoved;
 my @r = do {
 	my %dontshow = map { $_=>1 } @dontshow;
 	my @r;
 	while (my $row = $engine->NextRow)
 	{
-		next if $dontshow{ $row->{'artistid'} };
+		if ($dontshow{ $row->{'artistid'} })
+        {
+            push @artistsremoved, $row->{'artistname'};
+            next;
+        }
 		push @r, $row;
 	}
 	@r;
@@ -99,6 +105,11 @@ my @r = do {
 % } else {
 	<div class="padleft">
 		No artists found matching '<% $search %>'.
+%       if (scalar @artistsremoved == 1) {
+           (Artist <% $artistsremoved[0] %> was not shown.)
+% } elsif (scalar @artistsremoved) {
+           (Artists <% join(", ", @artistsremoved) %> were not shown.)
+%       }
 	</div>
 % }
 </fieldset>
