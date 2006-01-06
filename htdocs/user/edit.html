@@ -71,16 +71,33 @@ if ($update)
 			# not been verified yet.
 			$email = $info->GetEmail;
 		} else {
-			# The user wants to blank out their email address.
-			$opts{email} = "";
+            my ($mod, $count);
 
-			</%perl>
-			<p class="notice">
-				Your e-mail address has been removed.&nbsp;
-				Please note that if you add it in again in the future,
-				you will be asked to verify it again.
-			</p>
-			<%perl>
+            $mod = Moderation->new($mb->{DBH});
+            $count = $mod->OpenModCountByModerator($info->GetId);
+            if ($count)
+            {
+                </%perl>
+                <p class="notice">
+                    You have <% $count %> moderations open. You cannot remove your email address
+                    when you have open moderations. Please wait until all these moderations pass or
+                    delete your moderations before you remove your email address.
+                </p>
+                <%perl>
+            } 
+            else
+            {
+                # The user wants to blank out their email address.
+                $opts{email} = "";
+
+                </%perl>
+                <p class="notice">
+                    Your e-mail address has been removed.&nbsp;
+                    Please note that if you add it in again in the future,
+                    you will be asked to verify it again.
+                </p>
+                <%perl>
+            } 
 		}
     }
 
