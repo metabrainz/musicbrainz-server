@@ -72,6 +72,10 @@ elsif ($error == 6)
     </TD></TR></TABLE>
 <%perl>
 }
+elsif (!$session{has_confirmed_email})
+{
+    $m->comp("/comp/stylemenu");
+}
 else
 {
     my (@offsets, @durations);
