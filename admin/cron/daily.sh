@@ -5,6 +5,20 @@ eval `$mb_server/admin/ShowDBDefs`
 . "$MB_SERVER_ROOT"/admin/config.sh
 cd "$MB_SERVER_ROOT"
 
+# Only run one "daily.sh" at a time
+if [ "$1" != "gotlock" ]
+then
+	true ${LOCKFILE:=/tmp/daily.sh.lock}
+	$MB_SERVER_ROOT/bin/runexclusive -f "$LOCKFILE" --no-wait \
+		$MB_SERVER_ROOT/admin/cron/daily.sh gotlock
+	if [ $? = 100 ]
+	then
+		echo "Aborted - there is already another daily.sh running"
+	fi
+	exit
+fi
+# We have the lock - on with the show.
+
 . ./admin/functions.sh
 make_temp_dir
 
@@ -85,8 +99,8 @@ echo `date`" : Processing subscriptions"
 ./admin/ProcessSubscriptions
 
 # Lookup Amazon pairings
-echo `date`" : Processing Amazon matches"
-./admin/aws/Match.pl --daily --noverbose --summary
+#echo `date`" : Processing Amazon matches"
+#./admin/aws/Match.pl --daily --noverbose --summary
 
 # `date`" : Updating language frequencies"
 ./admin/SetLanguageFrequencies

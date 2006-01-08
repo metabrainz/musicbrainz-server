@@ -222,7 +222,7 @@ sub _LoadFromFilehandle
 
 	while (my ($trm, $usecount) = each %trm)
 	{
-		$trmobj->UpdateLookupCount($trm, $usecount);
+		# $trmobj->UpdateLookupCount($trm, $usecount);
 		++$i;
 		$i % 100 or $p->(), print "\r"
 			if -t STDOUT;
@@ -253,7 +253,7 @@ sub _LoadFromFilehandle
 	while (my ($args, $usecount) = each %trmusage)
 	{
 		my ($trm, $trackid) = split /,/, $args;
-		$trmobj->UpdateUsageCount($trm, $trackid, $usecount);
+		# $trmobj->UpdateUsageCount($trm, $trackid, $usecount);
 		++$i;
 		$i % 100 or $p->(), print "\r"
 			if -t STDOUT;
