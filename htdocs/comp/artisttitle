@@ -39,9 +39,11 @@ elsif ( $end )
 </%perl>
 <div class="ArtistTitle">
 %# Row 1: the artist name (link) and sortname
-		<p class='ArtistTitleNameSortname<% $artist->GetModPending ? " mp" : "" %>'
+		<div class='ArtistTitleNameSortname<% $artist->GetModPending ? " mp" : "" %>'
 			style="margin-left: 48px; text-indent: -48px">
-			<a class="ArtistTitleName" href="/artist/<% $mbid %>.html"><img src="/images/aicon_lg.png" alt="" class="ArtistTitleIcon"><% $name %></a>&#8206;<br>
+			<div>
+				<a class="ArtistTitleName" href="/artist/<% $mbid %>.html"><img src="/images/aicon_lg.png" alt="" class="ArtistTitleIcon"><% $name %></a>
+			</div>
 %     if ($resolution) {
     			<% $resolution %><br>
 %			}
@@ -54,7 +56,7 @@ elsif ( $end )
 %			if ($name ne $sortname) {
 					<br><span class="ArtistTitleSortname"><% $sortname %></span>
 %			}
-		</p>
+		</div>
 %# Row 2: non-editing links
 % if ($link) {
 		<div class="ArtistTitleLinks">Info: [
