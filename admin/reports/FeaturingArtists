@@ -133,7 +133,8 @@ sub GatherData
 				WHERE m.rowid = t.id AND m.status = ? AND m.type = ?
 		)
 		  AND ( t.name ~* '[[(]feat[^.]' OR t.name ~* ' feat'
-				OR t.name ~* '[[( ]ft' OR t.name ~* '[[(]with ' )
+				OR t.name ~* '[[( ]ft' OR t.name ~* '[[(]with ' 
+				OR t.name ~* '\Sw/\S')
 		ORDER BY ar.sortname, t.name
 EOF
 		[ STATUS_OPEN, MOD_EDIT_TRACKNAME ],
@@ -148,7 +149,7 @@ sub filter
 
 	# Remove false positives.
 	#
-	return undef if $track_name !~ m/\b(ft|feat|featuring|with)\b/i;
+	return undef if $track_name !~ m/\b(ft|feat|featuring|with|w\/)\b/i;
 
 	my $newname = rewrite_name $track_name;
 	$newname = undef if $newname eq $track_name;
