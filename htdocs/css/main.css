@@ -8,7 +8,11 @@ body
 	color: #000;
 }
 
-a img { border: 0 }
+a img
+{ 
+	border: 0;
+	vertical-align: baseline;
+}
 form { margin: 0 }
 
 label { cursor: pointer; }
@@ -466,6 +470,34 @@ td.discidlength { background-color: #ffecd6; text-align: right }
 	text-decoration: none;
 }
 
+/* List of Moderations */
+.ShowModInfo, .ShowModType, .ShowModVoteHead
+{
+	background: white;	
+	vertical-align: top;
+	white-space: nowrap;
+}
+
+.ShowModVoteHead
+{
+	text-align: center;
+	vertical-align: middle;
+}
+.ShowModOld
+{
+	background: #ffecd6;
+}
+.ShowModNew
+{
+	background: #f0efff;
+	width: 60%;
+}
+.ShowModVote
+{
+	background: white;
+	text-align: center;
+	vertical-align: top;
+}
 /* Voting buttons */
 
 table.votechoice

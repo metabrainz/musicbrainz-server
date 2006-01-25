@@ -76,7 +76,7 @@ $time = $m->comp("/comp/datetime", $time);
 </tr>
 % }
 <tr>
-   <td width="37%" valign=top bgcolor=white class="body" nowrap>
+   <td class="ShowModInfo">
      By: <a href="/user/view.html?uid=<% $mod->GetModerator %>"><% $mod->GetModeratorName %></a>
      &nbsp;&nbsp;&nbsp;
      ID: <a href="/showmod.html?modid=<% $mod->GetId %>"
@@ -96,15 +96,15 @@ $time = $m->comp("/comp/datetime", $time);
      Closed: <% $time %>
 % }
    </td>
-   <td width="37%" valign=top bgcolor=white class="body">
+   <td class="ShowModType">
 %			# This shows the moderation type and artist
 %			$mod->ShowModType($m);
    </td>
-   <td width="30%" align=center valign=top bgcolor=white class="body" NOWRAP>
+   <td class="ShowModVoteHead">
 %    if ($is_mine or not $is_open or $voted != &ModDefs::VOTE_NOTVOTED) {
            <% $mod->GetYesVotes %> yes, <% $mod->GetNoVotes %> no
 %    }
-     <br>[ <a href="/mod/addnote.html?modid=<% $mod->GetId %>" onclick="MyWindow=window.open('/mod/addnote.html?modid=<% $mod->GetId %>','AddNote','toolbar=no,location=no,directories=no,status=no,menubar=no,scrollbars=yes,resizable=yes,width=400,height=150'); return false;">Add note</a>
+     [ <a href="/mod/addnote.html?modid=<% $mod->GetId %>" onclick="MyWindow=window.open('/mod/addnote.html?modid=<% $mod->GetId %>','AddNote','toolbar=no,location=no,directories=no,status=no,menubar=no,scrollbars=yes,resizable=yes,width=400,height=150'); return false;">Add note</a>
 % if (not $is_mine) {
 			| <a <& /comp/auto-popup-link,
 					url => $send_email_url,
@@ -119,15 +119,15 @@ $time = $m->comp("/comp/datetime", $time);
 </tr>
 <tr>
 
-   <td width="37%" valign=top bgcolor="#ffecd6" class="body">
+   <td class="ShowModOld">
 %			$mod->ShowPreviousValue($m, $inline);
    </td>
 
-   <td width="37%" valign=top bgcolor="#f0efff" class="body">
+   <td class="ShowModNew">
 %			$mod->ShowNewValue($m, $inline);
    </td>
 
-   <td width="30%" align=center valign=top bgcolor=white class="body" nowrap>
+   <td class="ShowModVote">
 
 % unless ($voted == &ModDefs::VOTE_NOTVOTED) {
 			<% ($voter == $session{uid}) ? "Your" : "Their" %> vote:
@@ -150,7 +150,7 @@ $time = $m->comp("/comp/datetime", $time);
 
 % if (@$notes) {
 <tr>
-   <td colspan="3" valign=top bgcolor=white class="body">
+   <td colspan="3" valign=top bgcolor=white class="edit_notes">
      Notes:<br>
 %    for my $note (@$notes) {
         &nbsp;&nbsp;&nbsp;&nbsp;
