@@ -236,7 +236,7 @@ sub SetSim
    }
    elsif ($type == ALBUMID)
    {
-       $match{artist} = $ref->{name};
+       $match{artist} = $ref->{artist};
        $match{album} = $ref->{name};
        $match{albumtype} = $ref->{albumtype};
    }
@@ -424,7 +424,6 @@ sub ArtistSearch
 }
 
 # Internal.
-
 sub AlbumSearch
 {
    my ($this, $name, $artistId) = @_;
@@ -436,7 +435,7 @@ sub AlbumSearch
    }
    else
    {
-	require Artist;
+       require Artist;
        $ar = Artist->new($this->{DBH});
        $ar->SetMBId($artistId);
        if (!defined $ar->LoadFromId())
@@ -446,19 +445,34 @@ sub AlbumSearch
        $this->{artist} = $ar;     
    }
 
+   # first check, if there are any exact matches for artist & album
    require Album;
    $al = Album->new($this->{DBH});
    $al->SetArtist($ar->GetId());
    my (@aids) = $al->GetAlbumListFromName($name);
-   # FIXME what if @aids == 1
-   if (scalar(@aids) > 1)
-   {
-       return (ALBUMLIST, \@aids);
-   }
 
-   my @albums = $ar->GetAlbums(0, 1);
+   my @albums;
+   if (scalar(@aids) > 0)
+   {
+       # found exact matches, no need to fetch the complete album list
+       # (just a speed-up)
+       foreach my $aid (@aids)
+       {
+           $al = Album->new($this->{DBH});
+           $al->SetMBId($aid->{mbid});
+           if ($al->LoadFromId)
+           {
+               push @albums, $al;
+           }
+       }
+   } else {
+       # get the complete album list from artist
+       @albums = $ar->GetAlbums(0, 1);
+   }
+   
    if (scalar(@albums) == 0)
    {
+       # artist has no albums, return empty list
        return (0, []);
    }
 
