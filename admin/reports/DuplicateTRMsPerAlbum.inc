@@ -62,34 +62,38 @@ $rep->Seek($offset);
 % if ($rep->Position < $rep->Records) {
 
 <table id="Report" class="SpacedRows SpacedColumns TopAlignCells">
+	<tr>
+		<th colspan="2">Artist</th>
+		<th>Album</th>
+		<th/>
+	</tr>
   <tr>
-    <th>TRM</th>
-    <th>Track</th>
-    <th>Track Name</th>
-    <th>Length</th>
+	  <th>&nbsp;</th>
+    <th colspan="2">TRM</th>
+    <th width="5%">Count</th>
   </tr>
 
 % my $n = 0;
 % for my $i (0 .. $pagesize-1) {
 %   my $row = $rep->Get or last;
   <tr>
-    <td colspan="4" class="head">
-      <a href="/showtrm.html?trm=<% $row->{'trm'} %>"><% $row->{'trm'} %></a><br>
-      &nbsp;[artist: <a href="/showartist.html?artistid=<% $row->{'artist_id'} %>"><% $row->{'artist_name'} %></a> - album:
-      <a href="/showalbum.html?albumid=<% $row->{'album_id'} %>"><% $row->{'album_name'} %></a>]
-    </td>
-  </tr>
+    <td colspan="2" class="head" width="45%">
+			<a href="/showartist.html?artistid=<% $row->{'artist_id'} %>"><% $row->{'artist_name'} %></a>
+		</td>
+		<td colspan="2" class="head">
+			<a href="/showalbum.html?albumid=<% $row->{'album_id'} %>"><% $row->{'album_name'} %></a>
+		</td>
+	</tr>
 
 % $n = 1;
-%   for my $track (@{ $row->{'tracks'} }) {
+%   for my $trm (@{ $row->{'trms'} }) {
   <tr <% (++$n%2) ? 'class="shade"' : '' |n %>>
-    <td></td>
-    <td><% $track->{sequence} %></td>
-    <td><a href="/showtrack.html?trackid=<% $track->{track_id} %>"><% $track->{track_name} %></a></td>
-    <td><% Track::FormatTrackLength($track->{'length'}) %></td>
+    <td width="5%"></td>
+    <td colspan="2" align="center"><a href="/showtrm.html?trm=<% $trm->{'trm'} %>"><% $trm->{'trm'} %></a></td>
+    <td align="center"><% $trm->{'freq'} %></td>
    </tr>
 %   } 
-  <tr><td>&nbsp;</td></tr>
+  <tr><td colspan="4">&nbsp;</td></tr>
 % }
 
 </table>
