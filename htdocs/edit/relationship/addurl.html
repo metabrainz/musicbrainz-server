@@ -81,7 +81,6 @@ my ($dummy, $linkdesc);
 my $link = MusicBrainz::Server::LinkType->new($mb->{DBH}, \@types);
 
 if ($url 
-	and $desc
 	and $linkdesc
     and ($linktype =~ /^\d+$/)
 	and MusicBrainz::Server::URL->IsLegalURL($url))
@@ -135,9 +134,6 @@ my $root = $link->Root;
 %      }
 %      if (!defined $url || !MusicBrainz::Server::URL->IsLegalURL($url)) {
          <div class="linkerror">Error: You must enter a valid URL below.</div>
-%      }
-%      if (!defined $desc || $desc eq '') {
-         <div class="linkerror">Error: You must enter description for the URL below.</div>
 %      }
 %     if (!$linkdesc && $linktype) {
           <div class="linkerror">Error: Please select a subtype of the currently
@@ -202,7 +198,7 @@ my $root = $link->Root;
 		</div>
 		
 		<div class="padlefttop">
-			Enter description for this URL (<b>required</b>): <br/>
+			Enter description for this URL (optional): <br/>
 			<textarea name="desc" rows="3" cols="52"><% $desc %></textarea>
 		</div>
 
