@@ -6,6 +6,7 @@ $linktypename => ""
 $linkphrase => ""
 $rlinkphrase => ""
 $desc => ""
+$parent => ""
 $submit=>0
 </%args>
 <%perl>
@@ -50,6 +51,12 @@ foreach my $key (keys %ARGS)
 
 if ($linktypename =~ /\S/ && $linkphrase =~ /\S/ && $rlinkphrase =~ /\S/ && $attrok)
 {
+	my $parent_node = $link->newFromMBId($parent)
+		or $m->comp(
+			"/comp/redirect",
+			"/edit/relationships/link_types.html?type=$type"
+		);
+ 
 	my $r = $m->comp(
 		"/comp/entermods",
 		DBH => $mb->{DBH},
@@ -60,6 +67,7 @@ if ($linktypename =~ /\S/ && $linkphrase =~ /\S/ && $rlinkphrase =~ /\S/ && $att
 				privs => $session{privs},
 				type => &ModDefs::MOD_EDIT_LINK_TYPE,
 				# --
+				parent      => $parent_node, 
 				node        => $node,
 				name        => $linktypename,
 				linkphrase  => $linkphrase,
@@ -109,6 +117,7 @@ if ($submit)
      $linkphrase = $node->GetLinkPhrase;
      $rlinkphrase = $node->GetReverseLinkPhrase;
      $desc = $node->GetDescription;
+	 $parent = $node->Parent->GetMBId; 
      my @pairs = split ' ', $node->GetAttributes;
 	 foreach my $pair (@pairs)
 	 {
@@ -129,7 +138,32 @@ if ($linktypename eq 'ROOT')
   return undef;
 }
 
+my @types = split /-/, $type, -1;
+MusicBrainz::Server::LinkEntity->ValidateTypes(\@types)
+	or return $m->comp("/comp/redirect", "/edit/relationships/link_type_roots.html");
+
+my $linktypes_root = MusicBrainz::Server::LinkType->new($mb->{DBH}, \@types);
+$linktypes_root = $linktypes_root->Root
+	or die;
+
+my $new = undef; 
+
 </%perl>
+
+<%def .ShowList>
+% my ($level, $id, $parent, $node) = @_;
+% my @children = $node->Children;
+% if ($node->GetMBId ne $id) {
+	<option value="<% $node->GetMBId %>"
+		<% $node->GetMBId eq $parent ? "selected" : "" %>
+		>
+		<% "&nbsp;" x (4 * $level) | n %>
+		<% $node->GetName %></option>
+%		$m->comp(".ShowList", $level + 1, $id, $parent, $_)
+%			for @children;
+	</option>
+% }
+</%def> 
 
 <table>
 <tr>
@@ -163,6 +197,11 @@ if ($linktypename eq 'ROOT')
 	</ul>
 
 	<table>
+	<tr>
+		<td>Parent:</td>
+		<td>&nbsp;</td>
+		<td><select name="parent"><& .ShowList, 0, $id, $parent, $linktypes_root &></select></td>
+	</tr> 
 	<tr>
 	   <td>Name:</td>
 	   <td>&nbsp;</td>

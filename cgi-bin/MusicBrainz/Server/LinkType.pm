@@ -275,7 +275,8 @@ sub Update
 	my $self = shift;
 	my $sql = Sql->new($self->{DBH});
 	$sql->Do(
-		"UPDATE $self->{_table} SET name = ?, linkphrase = ?, rlinkphrase = ?, description = ?, attribute = ? WHERE id = ?",
+		"UPDATE $self->{_table} SET parent = ?, name = ?, linkphrase = ?, rlinkphrase = ?, description = ?, attribute = ? WHERE id = ?",
+		$self->GetParentId, 
 		$self->GetName,
 		$self->GetLinkPhrase,
 		$self->GetReverseLinkPhrase,

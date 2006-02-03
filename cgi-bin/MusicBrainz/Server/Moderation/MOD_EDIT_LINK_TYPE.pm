@@ -37,6 +37,7 @@ sub PreInsert
 {
 	my ($self, %opts) = @_;
 
+	my $parent = $opts{'parent'} or die; # a LinkType object 
 	my $node = $opts{'node'} or die; # a LinkType object
 	my $name = $opts{'name'};
 	my $linkphrase = $opts{'linkphrase'};
@@ -56,7 +57,7 @@ sub PreInsert
 	MusicBrainz::TrimInPlace($description);
 	MusicBrainz::TrimInPlace($attribute);
 
-	my $c = $node->Parent->GetNamedChild($name);
+	my $c = $parent->GetNamedChild($name);
 	if ($c and $c->GetId != $node->GetId)
 	{
 		my $note = "There is already a link type called '$name' here";
@@ -71,12 +72,14 @@ sub PreInsert
 	$self->SetPrev($node->GetName);
 
 	my %new = (
+		parent			=> $parent->GetName, 
 		types	        => $node->PackTypes,
 		name            => $name,
 		linkphrase      => $linkphrase,
 		rlinkphrase     => $rlinkphrase,
 		description     => $description,
 		attribute       => $attribute,
+		old_parent		=> $node->Parent->GetName, 
 		old_name        => $node->GetName(),
 		old_linkphrase  => $node->GetLinkPhrase(),
 		old_rlinkphrase => $node->GetReverseLinkPhrase(),
@@ -84,6 +87,7 @@ sub PreInsert
 		old_attribute   => $node->GetAttributes(),
 	);
 
+	$node->SetParentId($parent->GetId); 
 	$node->SetName($name);
 	$node->SetLinkPhrase($linkphrase);
 	$node->SetReverseLinkPhrase($rlinkphrase);
