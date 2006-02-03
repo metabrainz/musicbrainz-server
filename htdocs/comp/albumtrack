@@ -4,6 +4,7 @@ $album
 $artist
 $tindex
 $highlight
+$highlightonly => 0
 $showmodlinks
 $trmcount=>0
 $mbtagger=>$session{'mbt'}
@@ -12,7 +13,8 @@ $showtrackartists=>0
 <%perl>
 
 my $bgcolor = ($track->GetModPending ? 'bgcolor="#FFFFCC"' : 'bgcolor="#FFFFFF"');
-$bgcolor = 'bgcolor="#FFCCFF"' if $highlight;
+my $hl = ($highlight && ! $highlightonly);
+$bgcolor = 'bgcolor="#FFCCFF"' if $hl;
 my $tr_bgcolor = ($track->GetAlbumJoinModPending ? 'bgcolor="#FFFFCC"' : 'bgcolor="#FFFFFF"');
 
 my $isva = $album->HasMultipleTrackArtists || $showtrackartists;
@@ -24,7 +26,7 @@ my $colspan = ($nonalbum ? 'colspan="2"' : '');
 % unless ($nonalbum) {
     <td width="10%" align=center <% $tr_bgcolor |n %>>
 %# Accessibility: if highlighting the track, don't /just/ use colours
-       <% ($highlight ? "**" : "") . $track->GetSequence . ($highlight ? "**" : "") %>
+       <% ($hl ? "**" : "") . $track->GetSequence . ($hl ? "**" : "") %>
     </td>
 % }
 % if ($isva) {

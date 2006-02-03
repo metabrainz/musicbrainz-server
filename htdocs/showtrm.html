@@ -1,6 +1,7 @@
 %# vi: set ts=4 sw=4 ft=mason :
 <%args>
 $trm => undef
+$matchesonly => 1
 </%args>
 <& /comp/sidebar, title=>'Show TRM Id' &>
 <%perl>
@@ -16,8 +17,14 @@ else
 	</%perl>
 	<h2><b>TRM Id: <% $trm %></b></h2>
 	<%perl>
+	if ($matchesonly)
+	{
+		$m->out("<p>Note, that only tracks with the specified TRM are shown below. ".
+			'<a href="/showtrm.html?trm=' . $trm . '&matchesonly=0">Click here</a> to ' .
+			"get the complete track listings</p>");
+	}
 
-   if ($trm eq &ModDefs::TRM_ID_SILENCE)
+	if ($trm eq &ModDefs::TRM_ID_SILENCE)
    {
        $m->out("<p><br>This TRM Id represents silence.<p>");
    }
@@ -109,6 +116,7 @@ else
 						album		=> $al, 
 						artist		=> $ar,
 						highlighttracks	=> $al->{_my_tracks_},
+						highlightonly => $matchesonly,
 					);
 				}
 			}
