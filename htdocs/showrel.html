@@ -75,19 +75,36 @@ $m->comp("/comp/ar/RelationshipBox", id=>$obj->GetId, type=>$type,
 
 if ($type eq 'album')
 {
-   my $artist = Artist->new($mb->{DBH});
-   $artist->SetId($obj->GetArtist());
-   $artist->LoadFromId();
-
-   $m->comp("/comp/album", artist=>$artist, album=>$obj, showreleases=>1, showlinks=>1);
+	my $artist = Artist->new($mb->{DBH});
+	$artist->SetId($obj->GetArtist());
+	$artist->LoadFromId();
+	$m->comp("/comp/album", artist=>$artist, album=>$obj, showreleases=>1, showlinks=>1);
 }
 if ($type eq 'track')
 {
-   $m->comp("/comp/trackinfo", track=>$obj);
-   my $ar = Artist->new($mb->{DBH});
-   $ar->SetId($obj->GetArtist());
-   $m->comp("/comp/artistinfo", artist=>$ar)
-       if ($ar->LoadFromId());
+	$m->comp("/comp/trackinfo", track=>$obj);
+	my $ar = Artist->new($mb->{DBH});
+	$ar->SetId($obj->GetArtist());
+	$m->comp("/comp/artistinfo", artist=>$ar)
+		if ($ar->LoadFromId());
+	my @info = $obj->GetAlbumInfo;
+	if (@info)
+	{
+		for (@info)
+		{
+			my $al = Album->new($mb->{DBH});
+			$al->SetId($_->[0]);
+			$al->SetName($_->[1]);
+			$al->SetMBId($_->[3]);
+			# FIXME need API in Album.pm
+			$al->{attrs} = [ $_->[4] =~ /(\d+)/g ];
+			$m->comp(
+				"/comp/albuminfo",
+				album => $al,
+				track => $_->[2],
+			);
+		}
+	} 	   
 }
 </%perl>
 <& /comp/footer &>
