@@ -41,6 +41,7 @@ if ($ARGS{"SavePrefs"})
 		show_inline_mods
 		show_inline_mods_random
 		subscriptions_public
+		auto_subscribe
 	)) {
 		$ARGS{$_} = 0 if not defined $ARGS{$_};
 	}
@@ -208,6 +209,13 @@ $time = time();
 			>
 		After creating a new relationship, remove the linked items from my
 		"recently used" list</label>
+	</p>
+
+	<p>
+		<label for="pref_auto_subscribe"><input type="checkbox" name="auto_subscribe" id="pref_auto_subscribe"
+			<% UserPreference::get('auto_subscribe') ? "checked" : "" %>
+			>
+		Automatically subscribe me to artists that I create</label>
 	</p>
 
 	<h2>E-Mailing Other Moderators</h2>

@@ -271,6 +271,7 @@ addpref('topmenu_dropdown_trigger', 'mouseover', sub { check_in([qw( mouseover c
 addpref('use_amazon_store', 'amazon.com', \&check_amazon_store);
 addpref('vote_abs_default', 1, \&check_bool);
 addpref('vote_show_novote', 0, \&check_bool);
+addpref('auto_subscribe', 0, \&check_bool);
 
 sub addpref
 {

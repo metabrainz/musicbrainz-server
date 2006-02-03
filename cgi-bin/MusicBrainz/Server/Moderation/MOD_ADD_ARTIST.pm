@@ -95,6 +95,16 @@ sub PreInsert
 	# The artist has been inserted. Now set up the moderation record
 	# to undo it if the vote fails.
 
+	if (UserPreference::get('auto_subscribe'))
+	{
+		my $subs = UserSubscription->new($self->{DBH}); 
+		$subs->SetUser($self->GetModerator);
+		my $artist = Artist->new($self->{DBH});
+		$artist->SetId($info{'artist_insertid'});
+		$subs->SubscribeArtists(($artist))
+			if ($artist->LoadFromId);
+    }
+    
 	my %new = (
 		ArtistName => $name,
 		SortName => $sortname,
