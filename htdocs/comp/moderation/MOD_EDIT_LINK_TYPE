@@ -6,7 +6,7 @@
 	Old: <% $types %><br>
 	Name: <span class="bold"><% $self->{'new_unpacked'}{'old_name'} %></span><br>
 	Link Phrase: <% $self->{'new_unpacked'}{'old_linkphrase'} %><br>
-	Reverse Link Phrase: <% $self->{'new_unpacked'}{'old_rlinkphrase'} %>
+	Reverse Link Phrase: <% $self->{'new_unpacked'}{'old_rlinkphrase'} %><br>
 	Description: <% $self->{'new_unpacked'}{'old_description'} %>
 %   if ($self->{'new_unpacked'}->{'old_attribute'}) {
     	<br/>Attributes: <% $self->{'new_unpacked'}->{'old_attribute'} %>
@@ -19,7 +19,7 @@
 	New: <% $types %><br>
 	Name: <span class="bold"><% $self->{'new_unpacked'}{'name'} %></span><br>
 	Link Phrase: <% $self->{'new_unpacked'}{'linkphrase'} %><br>
-	Reverse Link Phrase: <% $self->{'new_unpacked'}{'rlinkphrase'} %>
+	Reverse Link Phrase: <% $self->{'new_unpacked'}{'rlinkphrase'} %><br>
 	Description: <% $self->{'new_unpacked'}{'description'} %>
 %   if ($self->{'new_unpacked'}->{'attribute'}) {
     	<br/>Attributes: <% $self->{'new_unpacked'}->{'attribute'} %>
