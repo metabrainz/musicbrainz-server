@@ -2,6 +2,7 @@
 <%args>
 $id
 $type
+$name=>''
 $short=>0
 $isrelpage=>0
 $expanded=>0
@@ -14,12 +15,19 @@ return undef if (!$session{uid} && $isrelpage);
 my $typename = ($type eq "url" ? "URL" : $type);
 my $link = $short ? "Add relationship" : "Use this $typename in a relationship";
 
+my $recent_links = ($session{recent_links} ||= []);
+
 $m->out("[ ");
 if ($session{uid}) 
 {
 	if ($isrelpage)
 	{
         $m->out('<a href="/showrel.html?id='.$id.'&amp;type='.$type.'&amp;addrel=1">'.$link.'</a> ');
+		if (scalar(@$recent_links) == 0 && $name ne '')
+		{
+			$name = uri_escape($name);
+			$m->out(qq! | <a href="/edit/relationship/addurl.html?id=$id&amp;type=$type&amp;name=$name">Relate to URL</a>!);
+		}
 		if ($count)
 		{
 			if ($expanded)
@@ -35,6 +43,11 @@ if ($session{uid})
 	else
 	{
         $m->out('<a href="/show'.$type.'.html?'.$type.'id='.$id.'&amp;addrel=1">'.$link.'</a> ');
+		if (scalar(@$recent_links) == 0 && $name ne '')
+		{
+			$name = uri_escape($name);
+			$m->out(qq! | <a href="/edit/relationship/addurl.html?id=$id&amp;type=$type&amp;name=$name">Relate to URL</a>!);
+		}
 		if ($count)
 		{
 			$m->out(qq! | <a href="/showrel.html?id=$id&amp;type=$type">View all relationships</a>!);
