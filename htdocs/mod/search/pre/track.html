@@ -1,6 +1,7 @@
-%# vi: set ts=2 sw=2 ft=mason :
+%# vi: set ts=4 sw=4 ft=mason :
 <%args>
 $trackid => 0
+$artistid => 0
 </%args>
 <%perl>
 
@@ -8,8 +9,10 @@ $m->comp("/comp/checkloggedin", 1, 1)
 	or return;
 
 my %filter = (
+	artist_type 	=> 3,
+	artist_id 		=> $artistid,  
 	orderby			=> "desc",
-	object_type	=> "track",
+	object_type		=> "track",
 	object_id		=> $trackid,
 );
 
