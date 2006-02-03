@@ -54,7 +54,6 @@ sub PreInsert
 	MusicBrainz::TrimInPlace($rlinkphrase);
 	die if $rlinkphrase eq "";
 	MusicBrainz::TrimInPlace($description);
-	die if $description eq "";
 	MusicBrainz::TrimInPlace($attribute);
 
 	my $c = $node->Parent->GetNamedChild($name);

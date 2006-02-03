@@ -45,7 +45,7 @@ foreach my $key (keys %ARGS)
 	}
 }
 
-if ($linktypename =~ /\S/ && $linkphrase =~ /\S/ && $rlinkphrase =~ /\S/ && $desc =~ /\S/ && $attrok)
+if ($linktypename =~ /\S/ && $linkphrase =~ /\S/ && $rlinkphrase =~ /\S/ && $attrok)
 {
 	my $r = $m->comp(
 		"/comp/entermods",
@@ -96,9 +96,6 @@ my @children = $root->Children;
 %      }
 %      if (!$rlinkphrase) {
          <p style="color: red;">Error: You must provide a reverse link phrase.</p>
-%      }
-%      if (!$desc) {
-         <p style="color: red;">Error: You must provide a description.</p>
 %      }
 %      if (!$attrok) {
          <p style="color: red;">Error: One or more of the given attribute's min/max figures is incorrect. Please make sure that min is smaller or equal to max and that at least a minimum value is given for each attribute.</p>
