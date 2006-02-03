@@ -58,10 +58,13 @@ else
         
         last if ($args{"track"} >= $args{"tracks"});
         
-        my $ar = Artist->new($mb->{DBH}); 
-        my $ar_list = $ar->GetArtistsFromName($search); 
+        my $eng = SearchEngine->new($mb->{DBH}, "artist");
+        $eng->Search(query => $search, limit => 2);
         
-        last if (scalar @$ar_list != 1 || @$ar_list[0]->GetName ne $search);
+        last if $eng->Rows != 1;
+            
+        my $row = $eng->NextRow;
+        last if $row->{'artistname'} ne $search;  
     }
 }
 
