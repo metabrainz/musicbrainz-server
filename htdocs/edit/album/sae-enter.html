@@ -117,7 +117,7 @@ $m->comp(
 			}
 			
 			my $length = Track::FormatTrackLength($t->{"length"});
-			my $orig_length = Track::FormatTrackLength($t->{"orig_length"});
+			my $orig_length = Track::FormatTrackLength($tr->GetLength);
 			if ($length ne $orig_length)
 			{
 				push @mods, Moderation->InsertModeration(
