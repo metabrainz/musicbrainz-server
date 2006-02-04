@@ -9,7 +9,7 @@ $expanded=>0
 </%args>
 <%def .OutputEntity>
 <%perl>
-	my ($item, $index, $name, $isrel) = @_;
+	my ($item, $index, $name) = @_;
 
 	my $prefix = "link" . $index . "_";
 
@@ -20,12 +20,6 @@ $expanded=>0
 	{
 		my $url = $item->{$prefix . "name"};
 		$m->out('<b><a href="'.$url.'" title="'.$url.'">');
-	}
-	elsif ($isrel)
-	{
-		$m->out('<b><a href="/showrel.html?type='.
-				$item->{$prefix . "type"} . '&amp;id='.
-				$item->{$prefix . "id"}.'">');
 	}
 	else
 	{
@@ -105,9 +99,9 @@ else
 	$item = $links[0];
 	$m->out('<span class="mp">')
 		if ($max == 1 && $item->{modpending});
-	$m->comp(".OutputEntity", $item, 0, $name, $isrelpage);
+	$m->comp(".OutputEntity", $item, 0, $name);
 	# RUAOK: Why was a new hash constructed here and not $item passed in??
-	#$m->comp(".OutputEntity", { link0_id=>$id, link0_type=>$type, link0_name=> $item->{link0_name} }, 0, $name, $isrelpage);
+	#$m->comp(".OutputEntity", { link0_id=>$id, link0_type=>$type, link0_name=> $item->{link0_name} }, 0, $name);
 	$m->out(($max > 1) ? ':<table width="100%">' : ' ');
 
 	for($i = 0, $count = 0, $lines = 0; $i < $max; $i++, $lines++)
@@ -123,7 +117,7 @@ else
 		$item = $links[$i];
 		$m->out('<tr><td valign="top" align="center" width="5%">&bull;</td><td width="99%">') if ($max > 1);
 		$m->out($item->{link_phrase} . " ");
-		$m->comp(".OutputEntity", $item, 1, $name, $isrelpage);
+		$m->comp(".OutputEntity", $item, 1, $name);
 		$count++;
 
 		if (!$expanded)
@@ -142,7 +136,7 @@ else
 							$and = 0 if (&$_isEqual($nextitem, $nextnextitem));
 						}
 						$and ? $m->out(' and ') : $m->out(', ');
-						$m->comp(".OutputEntity", $nextitem, 1, $name, $isrelpage);
+						$m->comp(".OutputEntity", $nextitem, 1, $name);
 						$m->out(" ... ") if ($itemsperline == 4) && !$isrelpage;
 						$itemsperline++;
 					}
