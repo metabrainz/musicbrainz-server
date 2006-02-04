@@ -812,6 +812,10 @@ sub MergeAlbums
 
    require Album;
    $al = Album->new($this->{DBH});
+   
+   require MusicBrainz::Server::Link;
+   my $link = MusicBrainz::Server::Link->new($sql->{DBH});
+   
    foreach $id (@list)
    {
        $al->SetId($id);
@@ -830,6 +834,9 @@ sub MergeAlbums
 				require TRM;
 				my $trm = TRM->new($this->{DBH});
 				$trm->MergeTracks($old, $new);
+				
+				# Move relationships
+				$link->MergeTracks($old, $new)
            }
            else
            {
@@ -868,6 +875,9 @@ sub MergeAlbums
 		# And the annotations
 		require MusicBrainz::Server::Annotation;
 		MusicBrainz::Server::Annotation->MergeAlbums($this->{DBH}, $id, $this->GetId, artistid => $this->GetArtist);
+
+		# And the ARs
+		$link->MergeAlbums($id, $this->GetId);
 
        # Then, finally remove what is left of the old album
        $al->Remove();

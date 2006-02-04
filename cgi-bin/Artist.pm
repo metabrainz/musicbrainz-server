@@ -340,12 +340,11 @@ sub MergeInto
     $sql->Do("UPDATE moderation_closed SET artist = ? WHERE artist = ?", $n, $o);
     $sql->Do("UPDATE moderation_open SET artist = ? WHERE artist = ?", $n, $o);
     $sql->Do("UPDATE artistalias     SET ref    = ? WHERE ref    = ?", $n, $o);
-    $sql->Do("UPDATE l_artist_artist SET link0  = ? WHERE link0 = ?", $n, $o);
-    $sql->Do("UPDATE l_artist_artist SET link1  = ? WHERE link1 = ?", $n, $o);
-    $sql->Do("UPDATE l_album_artist  SET link1  = ? WHERE link1 = ?", $n, $o);
-    $sql->Do("UPDATE l_artist_track  SET link0  = ? WHERE link0 = ?", $n, $o);
-    $sql->Do("UPDATE l_artist_url    SET link0  = ? WHERE link0 = ?", $n, $o);
-    # TODO: Ensure that we don't have an AR dups here
+	
+	require MusicBrainz::Server::Link;
+	my $link = MusicBrainz::Server::Link->new($sql->{DBH});
+	$link->MergeArtists($o, $n);
+	
     $sql->Do("DELETE FROM artist     WHERE id   = ?", $o);
     $old->InvalidateCache;
 

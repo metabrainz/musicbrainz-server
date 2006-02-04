@@ -429,6 +429,101 @@ sub Delete
 }
 
 ################################################################################
+# Merging 
+################################################################################
+
+sub MergeAlbums
+{
+	my ($self, $oldid, $newid) = @_;
+	$self->_Merge($oldid, $newid, "album");
+}
+
+sub MergeTracks
+{
+	my ($self, $oldid, $newid) = @_;
+	$self->_Merge($oldid, $newid, "track");
+}
+
+sub MergeArtists
+{
+	my ($self, $oldid, $newid) = @_;
+	$self->_Merge($oldid, $newid, "artist");
+}
+
+sub _Merge
+{
+	my ($self, $oldid, $newid, $type) = @_;
+	
+	my @entity_list = MusicBrainz::Server::LinkEntity->Types;
+	my $sql = Sql->new($self->{DBH});
+
+	# First delete all relationships between both entities.
+	my $table = "l_" . $type . "_" . $type;
+	$sql->Do("DELETE FROM $table WHERE (link0 = ? AND link1 = ?)".
+			 					  " OR (link0 = ? AND link1 = ?)",
+								  $oldid, $newid,
+								  $newid, $oldid);
+
+	# And now merge remaining relationships
+	foreach my $item (@entity_list) 
+	{
+		my ($link0, $link1, $link0_type, $link1_type);
+		if ($type le $item)
+		{
+			$link0_type = $type;
+			$link1_type = $item;
+			$link0 = "link0";
+			$link1 = "link1";
+		}
+		else
+		{
+			$link0_type = $item;
+			$link1_type = $type;
+			$link0 = "link1";
+			$link1 = "link0";
+		}
+		$table = "l_" . $link0_type . "_" . $link1_type;
+		
+		my @delete;
+	
+		# Select all relationships connected to the source entity
+		my $rows = $sql->SelectListOfHashes(
+			"SELECT * FROM $table WHERE $link0 = ?", $oldid);
+
+		foreach my $row (@$rows)
+		{
+			# Select count of the same relationships to the target entity 
+			my $newlinkid = $sql->SelectSingleValue(
+				"SELECT id FROM $table WHERE ".
+				"$link0 = ? AND $link1 = ? AND ".
+				"begindate = ? AND enddate = ? AND ".
+				"link_type = ? LIMIT 1",
+				$newid,	$row->{$link1},
+				$row->{begindate}, $row->{enddate},
+				$row->{link_type});
+			
+			if (defined $newlinkid)
+			{
+				# Merge attributes
+				my $attr = MusicBrainz::Server::Attribute->new($self->{DBH}, [$link0_type, $link1_type]);
+				$attr->MergeLinks($row->{id}, $newlinkid);
+
+				push @delete, $row->{id};
+			}
+			else
+			{
+				# Move relationship
+				$sql->Do("UPDATE $table SET $link0 = ? WHERE id = ?", $newid, $row->{id});
+			}
+		}
+		
+		# Drop unused relationships
+		$sql->Do("DELETE FROM $table WHERE id IN (" . (join ", ", @delete) . ")")
+			if @delete;
+	}
+}
+
+################################################################################
 
 sub _link_type_matches_entities
 {

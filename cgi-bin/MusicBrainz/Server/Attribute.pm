@@ -248,5 +248,45 @@ sub Delete
 	return 1;
 }
 
+################################################################################
+# Merging
+################################################################################
+
+sub MergeLinks
+{
+	my ($self, $oldid, $newid) = @_;
+	
+	my $sql = Sql->new($self->{DBH});
+	my $rows = $sql->SelectListOfHashes(
+		"SELECT * FROM $self->{table} WHERE link = ? AND link_type = ?",
+		$oldid, $self->{type});
+	
+	my @delete;
+	
+	foreach my $row (@$rows)
+	{
+		my $count = $sql->SelectSingleValue(
+			"SELECT COUNT(*) FROM $self->{table} WHERE link = ? AND ".
+			"link_type = ? AND attribute_type = ?",
+			$newid, $self->{type}, $row->{attribute_type});
+		
+		if ($count == 0)
+		{
+			# Move attribute
+			$sql->Do("UPDATE $self->{table} SET link = ? WHERE id = ?", 
+					 $newid, $row->{id});
+		}
+		else
+		{
+			# Delete attribute
+			push @delete, $row->{id};
+		}
+	}
+	
+	# Delete unused attributes
+	$sql->Do("DELETE FROM $self->{table} WHERE id IN (" . (join ", ", @delete) . ")")
+		if @delete;
+}
+
 1;
 # eof Attribute.pm
