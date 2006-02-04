@@ -37,14 +37,15 @@ sub PreInsert
 {
 	my ($self, %opts) = @_;
 
-	my $node = $opts{'node'} or die; # a LinkType object
+	my $parent = $opts{'parent'} or die; # a LinkAttr object
+	my $node = $opts{'node'} or die; # a LinkAttr object
 	my $name = $opts{'name'};
 	my $desc = $opts{'description'};
 
 	MusicBrainz::TrimInPlace($name);
 	die if $name eq "";
 
-	my $c = $node->Parent->GetNamedChild($name);
+	my $c = $parent->GetNamedChild($name);
 	if ($c and $c->GetId != $node->GetId)
 	{
 		my $note = "There is already an attribute called '$name' here";
@@ -61,8 +62,11 @@ sub PreInsert
 	my %new = (
 		name        => $name,
 		desc        => $desc,
+		old_parent	=> $parent->Parent->GetName,
+		parent		=> $parent->GetName,
 	);
 
+	$node->SetParentId($parent->GetId);
 	$node->SetName($name);
 	$node->SetDescription($desc);
 	$node->Update;

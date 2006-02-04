@@ -5,6 +5,7 @@ $attrname => ""
 $linkphrase => ""
 $rlinkphrase => ""
 $desc => ""
+$parent => ""
 $submit=>0
 </%args>
 <%perl>
@@ -28,6 +29,12 @@ my $node = $link->newFromMBId($id)
 
 if ($attrname =~ /\S/ && $desc =~ /\S/)
 {
+	my $parent_node = $link->newFromMBId($parent)
+		or $m->comp(
+			"/comp/redirect",
+			"/edit/relationships/link_attrs.html"
+		);
+ 
 	my $r = $m->comp(
 		"/comp/entermods",
 		DBH => $mb->{DBH},
@@ -38,6 +45,7 @@ if ($attrname =~ /\S/ && $desc =~ /\S/)
 				privs => $session{privs},
 				type => &ModDefs::MOD_EDIT_LINK_ATTR,
 				# --
+				parent      => $parent_node,
 				node        => $node,
 				name        => $attrname,
 				description => $desc,
@@ -56,7 +64,29 @@ if ($attrname =~ /\S/ && $desc =~ /\S/)
 
 my @p = $node->PathFromRoot;
 
+my $linkattrs_root = MusicBrainz::Server::LinkAttr->new($mb->{DBH});
+$linkattrs_root = $linkattrs_root->Root
+	or die;
+
+my $new = undef; 
+
 </%perl>
+
+<%def .ShowList>
+% my ($level, $id, $parent, $node) = @_;
+% my @children = $node->Children;
+% if ($node->GetMBId ne $id) {
+	<option value="<% $node->GetMBId %>"
+		<% $node->GetMBId eq $parent ? "selected" : "" %>
+		>
+		<% "&nbsp;" x (4 * $level) | n %>
+		<% $node->GetName %></option>
+%		$m->comp(".ShowList", $level + 1, $id, $parent, $_)
+%			for @children;
+	</option>
+% }
+</%def> 
+
 <& /comp/sidebar, title => 'Edit Attribute Type' &>
 
 % if ($submit) {
@@ -70,6 +100,7 @@ my @p = $node->PathFromRoot;
 %      $attrname = $node->GetName;
 %      MusicBrainz::TrimInPlace($attrname);
 %      $desc = $node->GetDescription;
+%      $parent = $node->Parent->GetMBId;
 % }
 
 % if ($attrname eq 'ROOT') {
@@ -91,6 +122,10 @@ my @p = $node->PathFromRoot;
        Enter the name of this link attribute:
     </p>
 	<table>
+	<tr>
+		<td>Parent:</td>
+		<td><select name="parent"><& .ShowList, 0, $id, $parent, $linkattrs_root &></select></td>
+	</tr> 
 	<tr>
 	   <td>Name:</td>
 	   <td>

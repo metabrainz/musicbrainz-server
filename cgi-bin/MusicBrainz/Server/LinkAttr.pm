@@ -231,7 +231,8 @@ sub Update
 	my $self = shift;
 	my $sql = Sql->new($self->{DBH});
 	$sql->Do(
-		"UPDATE link_attribute_type SET name = ?, description = ? WHERE id = ?",
+		"UPDATE link_attribute_type SET parent = ?, name = ?, description = ? WHERE id = ?",
+		$self->GetParentId,
 		$self->GetName,
 		$self->GetDescription,
 		$self->GetId,

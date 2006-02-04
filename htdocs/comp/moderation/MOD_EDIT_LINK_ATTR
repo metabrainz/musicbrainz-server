@@ -2,13 +2,15 @@
 
 <%method ShowPreviousValue>
 % my $self = shift;
-	Old: <% $self->GetPrev %>
+	Old: <% $self->GetPrev %><br>
+	Parent: <% $self->{'new_unpacked'}{'old_parent'} %>
 </%method>
 
 <%method ShowNewValue>
 % my $self = shift;
 	New:
-	<span class="bold"><% $self->{'new_unpacked'}{'name'} %></span> (<% $self->{'new_unpacked'}{'desc'} %>)
+	<span class="bold"><% $self->{'new_unpacked'}{'name'} %></span> (<% $self->{'new_unpacked'}{'desc'} %>)<br>
+	Parent: <% $self->{'new_unpacked'}{'parent'} %>
 </%method>
 
 %# eof
