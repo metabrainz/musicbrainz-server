@@ -548,4 +548,55 @@ table.votechoice label:hover
 	width: 100%;
 }
 
+form.Subs {
+  text-align: center;
+}
+
+table.Subs 
+{
+	margin-left: auto;
+	margin-right: auto;
+	margin-top: 1em;
+	margin-bottom: 1em;
+	width: 40em;
+}
+
+table.Subs caption {
+  text-align: center;
+	margin-left: auto;
+	margin-right: auto;
+	margin-top: 1em;
+	font-weight: bold;
+}
+
+table.Subs td
+{
+	text-align: center;
+}
+
+table.Subs td.a
+{
+	padding-left: 0.5em;
+	text-align: left;
+}
+
+table.Subs .c1
+{
+	width: 2em;
+}
+
+table.Subs .c3
+{
+	width: 6em;
+}
+
+table.Subs tr.r1 td {
+	background-color: #ffe1b7;
+
+}
+
+.red {
+  color: red;
+}
+
 /* eof */

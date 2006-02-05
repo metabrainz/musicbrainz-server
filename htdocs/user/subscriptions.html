@@ -54,7 +54,7 @@ $m->comp("/comp/sidebar", title => 'Artist Subscriptions');
 
 % unless ($session{has_confirmed_email}) {
 	<p class="notice">
-		<span style="color: red">You have not provided an email address!</span>
+		<span class="red">You have not provided an email address!</span>
 		<br>
 		To receive notice of when moderations are added to your
 		subscribed artists, please
@@ -86,35 +86,24 @@ $m->comp("/comp/sidebar", title => 'Artist Subscriptions');
 % my $row = 0;
 % my @colours = ('#fff', '#ffe1b7');
 
-	<form method="post" action="/user/subscribe.html">
-		<center>
-		<table class="SpacedColumns" style="width: 30em">
+	<form class="Subs" method="post" action="/user/subscribe.html">
+		<table class="Subs">
 			<caption>Subscribed Artists</caption>
-			<col style="width: 1em">
-			<col>
-			<col style="width: 4em">
+			<col class="c1" />
+			<col class="c2" />
+			<col class="c3" />
 % for my $artist (@$info) {
-			<tr style="background-color: <% $colours[++$row % @colours] %>">
-				<td style="text-align: center"><input type="checkbox" name="artistid" value="<% $artist->{artist} %>"></td>
-				<td style="padding-right: 2em"><a href="/showartist.html?artistid=<% $artist->{artist} %>"
-					><% $artist->{name} %></a>
-%                   if ($artist->{resolution}) {
-	                    (<% $artist->{resolution} %>)
-%                   }
-					</td>
-				<td style="text-align: center" nowrap>[
-					<a href="/mod/search/pre/artist.html?artistid=<% $artist->{artist} %>">Mods</a>
-				]</td>
-			</tr>
+<tr class="r<% $row++ % 2 %>">
+<td><input type="checkbox" name="artistid" value="<% $artist->{artist} %>"></td>
+<td class="a"><a href="/showartist.html?artistid=<% $artist->{artist} %>"><% $artist->{name} %></a> <% $artist->{resolution} ? "($artist->{resolution})" : "" %></td>
+<td>[ <a href="/mod/search/pre/artist.html?artistid=<% $artist->{artist} %>">Mods</a> ]</td>
+</tr>
 % }
 		</table>
-
 		<p>
-			<input type="hidden" name="unsubscribe" value="1">
-			<input type="submit" value="Delete selected subscriptions">
+			<input type="hidden" name="unsubscribe" value="1" />
+			<input type="submit" value="Delete selected subscriptions" />
 		</p>
-
-		</center>
 	</form>
 
 % }
