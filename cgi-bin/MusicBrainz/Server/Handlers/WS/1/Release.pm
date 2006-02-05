@@ -34,27 +34,27 @@ use Data::Dumper;
 #TODO: Change spec to make inc args singluar
 #      change inc discids -> disc to match output xml. Add duration attr to disc
 
-use constant INC_ARTIST      => 0x01;
-use constant INC_COUNT       => 0x02;
-use constant INC_RELEASEINFO => 0x04;
-use constant INC_DISC        => 0x08;
-use constant INC_TRMID       => 0x10;
-use constant INC_TRACKS      => 0x11;
-use constant INC_ARTISTREL   => 0x12;
-use constant INC_RELEASEREL  => 0x14;
-use constant INC_TRACKREL    => 0x18;
-use constant INC_URLREL      => 0x20;
-use constant INC_VA          => 0x21;
+use constant INC_ARTIST      => 0x001;
+use constant INC_COUNTS      => 0x002;
+use constant INC_RELEASEINFO => 0x004;
+use constant INC_DISCS       => 0x008;
+use constant INC_TRMIDS      => 0x010;
+use constant INC_TRACKS      => 0x020;
+use constant INC_ARTISTREL   => 0x040;
+use constant INC_RELEASEREL  => 0x080;
+use constant INC_TRACKREL    => 0x100;
+use constant INC_URLREL      => 0x200;
+use constant INC_VA          => 0x400;
 
 # This hash is used to convert the long form of the args into a short form that can 
 # be used easier and be used as the key modifier for memcached.
 my %incShortcuts = 
 (
     'artist'       => INC_ARTIST,    
-    'count'        => INC_COUNT,
+    'counts'       => INC_COUNTS,
     'release-info' => INC_RELEASEINFO,
-    'disc'         => INC_DISC,
-    'trmid'        => INC_TRMID,
+    'discs'        => INC_DISCS,
+    'trmids'       => INC_TRMIDS,
     'tracks'       => INC_TRACKS,
     'artist-rel'   => INC_ARTISTREL,
     'release-rel'  => INC_RELEASEREL,
@@ -63,14 +63,26 @@ my %incShortcuts =
     'va'           => INC_VA        
 );
 
+# Convert the passed inc argument into a bitflag with the given constants form above
+# Return and array of the bitflag and the arguments that were not used.
 sub convert_inc
 {
     my ($inc, $xref) = @_;
 
     my $shinc = 0;
-    $shinc |= $xref->{$_}
-        foreach (split ' ', $inc);
-    return $shinc;
+    my @bad;
+    foreach (split ' ', $inc)
+    {
+        if (exists $xref->{$_})
+        {
+            $shinc |= $xref->{$_};
+        }
+        else
+        {
+            push @bad, $_;
+        }
+    }
+    return ($shinc, join(' ', @bad));
 }
 
 sub handler
@@ -86,8 +98,12 @@ sub handler
     my $mbid = $1 if ($r->uri =~ /ws\/1\/release\/([a-z0-9-]*)/);
 
 	my %args; { no warnings; %args = $r->args };
-    my $inc = convert_inc($args{inc}, \%incShortcuts);
+    my ($inc, $bad) = convert_inc($args{inc}, \%incShortcuts);
 
+    if ($bad)
+    {
+		return bad_req($r, "Invalid inc options: '$bad'. For usage, please see: http://musicbrainz.org/development/mmd");
+	}
 	if ((!MusicBrainz::IsGUID($mbid) && $mbid ne '') || $inc eq 'error')
 	{
 		return bad_req($r, "Incorrect URI. For usage, please see: http://musicbrainz.org/development/mmd");
@@ -100,10 +116,10 @@ sub handler
 
 	eval {
 		# Try to serve the request from our cached copy
-		{
-			my $status = serve_from_cache($r, $mbid, $inc);
-			return $status if defined $status;
-		}
+#	{
+#		my $status = serve_from_cache($r, $mbid, $inc);
+#		return $status if defined $status;
+#	}
 
 		# Try to serve the request from the database
 		{
@@ -114,15 +130,16 @@ sub handler
 
 	if ($@)
 	{
+        print STDERR "WS Error: $@\n";
 		my $error = "$@";
 		$r->status(Apache::Constants::SERVER_ERROR());
 		$r->send_http_header("text/plain; charset=utf-8");
 		$r->print($error."\015\012") unless $r->header_only;
-		return Apache::Constants::OK();
+		return Apache::Constants::SERVER_ERROR();
 	}
 
-	# Damn.
-	return Apache::Constants::SERVER_ERROR();
+    $r->status(Apache::Constants::OK());
+	return Apache::Constants::OK();
 }
 
 sub bad_req
@@ -266,9 +283,9 @@ sub print_xml
     print "<asin>$asin</asin>" if $asin;
 
     print xml_artist($ar) if ($inc & INC_ARTIST);
-    print xml_releases($al, $inc) if ($inc & INC_RELEASEINFO || $inc & INC_COUNT);
-    print xml_discs($al, $inc) if ($inc & INC_DISC || $inc & INC_COUNT);
-    print xml_tracks($ar, $al, $inc) if ($inc & INC_TRACKS || $inc & INC_COUNT);
+    print xml_releases($al, $inc) if ($inc & INC_RELEASEINFO || $inc & INC_COUNTS);
+    print xml_discs($al, $inc) if ($inc & INC_DISCS || $inc & INC_COUNTS);
+    print xml_tracks($ar, $al, $inc) if ($inc & INC_TRACKS || $inc & INC_COUNTS);
     
 	print '</release></metadata>';
 }
@@ -369,7 +386,7 @@ sub xml_discs
 
 	if (scalar(@ids) > 0) 
 	{		
-        if (($inc & INC_DISC) == 0)
+        if (($inc & INC_DISCS) == 0)
         {
             printf '<disc-list count="%s"/>', scalar(@ids);
             return undef;
@@ -423,10 +440,31 @@ sub xml_tracks
                 $ar->LoadFromId();
                 xml_artist($ar);
             }
+            xml_trm($tr) if ($inc & INC_TRMIDS);
             print '</track>';
         }
         print '</track-list>';
     }
+    return undef;
+}
+
+sub xml_trm
+{
+    require TRM;
+	my ($tr) = @_;
+
+    my $id;
+    my $trm = TRM->new($tr->{DBH});
+    my @TRM = $trm->GetTRMFromTrackId($tr->GetId);
+    return undef if (scalar(@TRM) == 0);
+    print '<trm-list>';
+    foreach $id (@TRM)
+    {
+        print '<trmid id="';
+        print $id->{TRM};
+        print '"/>';
+    }
+    print '</trm-list>';
     return undef;
 }
 
@@ -466,4 +504,4 @@ sub find_data_in_cache
 # - either expire after some time (e.g. 1 hr), or clear when the data changes.
 
 1;
-# eof ArtistAlbums.pm
+# eof Release.pm
