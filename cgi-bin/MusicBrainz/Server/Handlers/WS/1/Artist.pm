@@ -25,7 +25,7 @@
 
 use strict;
 
-package MusicBrainz::Server::Handlers::WS::1::Track;
+package MusicBrainz::Server::Handlers::WS::1::Artist;
 
 use Apache::Constants qw( );
 use Apache::File ();
@@ -35,13 +35,13 @@ sub handler
 {
 	my ($r) = @_;
 	# URLs are of the form:
-	# http://server/ws/1/track or
-	# http://server/ws/1/track/MBID 
+	# http://server/ws/1/artist or
+	# http://server/ws/1/artist/MBID 
 
 	return bad_req($r, "Only GET is acceptable")
 		unless $r->method eq "GET";
 
-    my $mbid = $1 if ($r->uri =~ /ws\/1\/track\/([a-z0-9-]*)/);
+    my $mbid = $1 if ($r->uri =~ /ws\/1\/artist\/([a-z0-9-]*)/);
 
 	my %args; { no warnings; %args = $r->args };
     my ($inc, $bad) = convert_inc($args{inc});
@@ -54,6 +54,10 @@ sub handler
 	{
 		return bad_req($r, "Incorrect URI. For usage, please see: http://musicbrainz.org/development/mmd");
 	}
+    if ($inc & INC_TRACKS)
+	{
+		return bad_req($r, "Cannot use track parameter for artist resources.. For usage, please see: http://musicbrainz.org/development/mmd");
+	}
 
     if (!$mbid)
     {
@@ -63,7 +67,7 @@ sub handler
 	my $status = eval {
 		# Try to serve the request from our cached copy
 #	{
-#		my $status = serve_from_cache($r, $mbid, 'track', $inc);
+#		my $status = serve_from_cache($r, $mbid, 'artist', $inc);
 #		return $status if defined $status;
 #	}
 
@@ -99,26 +103,19 @@ sub serve_from_db
 	my ($r, $mbid, $inc) = @_;
 
 	my $ar;
-	my $tr;
+	my $al;
 
 	require MusicBrainz;
 	my $mb = MusicBrainz->new;
 	$mb->Login;
-	require Track;
+	require Artist;
 
-	$tr = Track->new($mb->{DBH});
-    $tr->SetMBId($mbid);
-	return undef unless $tr->LoadFromId(1);
-
-    if ($inc & INC_ARTIST)
-    {
-        $ar = Artist->new($mb->{DBH});
-        $ar->SetId($tr->GetArtist);
-        $ar = undef unless $ar->LoadFromId(1);
-    }
+	$ar = Artist->new($mb->{DBH});
+    $ar->SetMBId($mbid);
+	return undef unless $ar->LoadFromId(1);
 
 	my $printer = sub {
-		print_xml($mbid, $inc, $ar, $tr);
+		print_xml($mbid, $inc, $ar);
 	};
 
 	my $fixup = sub {
@@ -144,13 +141,18 @@ sub serve_from_db
 
 sub print_xml
 {
-	my ($mbid, $inc, $ar, $tr) = @_;
+	my ($mbid, $inc, $ar) = @_;
 
 	print '<?xml version="1.0" encoding="UTF-8"?>';
 	print '<metadata xmlns="http://musicbrainz.org/ns/mmd-1.0#">';
-    print xml_track($ar, $tr, $inc);
+    print xml_artist($ar);
+    if ($inc & INC_RELEASES|| $inc & INC_VARELEASES)
+    {
+        my @albums = $ar->GetAlbums(($inc & INC_VARELEASES) == 0, 1, ($inc & INC_RELEASES) == 0);
+        xml_release($ar, $_, $inc) foreach @albums;
+    }
 	print '</metadata>';
 }
 
 1;
-# eof Track.pm
+# eof Release.pm

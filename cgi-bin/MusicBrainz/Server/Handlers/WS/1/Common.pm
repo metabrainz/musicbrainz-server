@@ -29,15 +29,15 @@ package MusicBrainz::Server::Handlers::WS::1::Common;
 
 require Exporter;
 our @ISA = qw(Exporter);
-our @EXPORT_OK = qw(convert_inc bad_req serve_from_cache send_response 
-                    xml_artist xml_release_type xml_language xml_releases 
-                    xml_discs xml_tracks xml_trm xml_escape store_in_cache 
-                    find_meta_in_cache find_data_in_cache
+our @EXPORT = qw(convert_inc bad_req serve_from_cache send_response 
+                    xml_artist xml_release_type xml_language xml_release_info
+                    xml_discs xml_track_list xml_track xml_trm xml_escape 
+                    store_in_cache xml_release find_meta_in_cache find_data_in_cache
                     INC_ARTIST INC_COUNTS INC_LIMIT INC_TRACKS INC_RELEASES 
                     INC_VARELEASES INC_DURATION INC_ARTISTREL INC_RELEASEREL 
                     INC_DISCS INC_TRACKREL INC_URLREL INC_RELEASEINFO 
                     INC_ARTISTID INC_RELEASEID INC_TRACKID INC_TITLE 
-                    INC_TRACKNUM INC_TRMIDS)
+                    INC_TRACKNUM INC_TRMIDS);
 
 use Apache::Constants qw( );
 use Apache::File ();
@@ -86,7 +86,7 @@ my %incShortcuts =
     'artistid'     => INC_ARTISTID,
     'releaseid'    => INC_RELEASEID,
     'trackid'      => INC_TRACKID,
-    'title'        => INC_TITLE        
+    'title'        => INC_TITLE,
     'tracknum'     => INC_TRACKNUM,
     'trmids'       => INC_TRMIDS,
 );
@@ -95,15 +95,15 @@ my %incShortcuts =
 # Return and array of the bitflag and the arguments that were not used.
 sub convert_inc
 {
-    my ($inc, $xref) = @_;
+    my ($inc) = @_;
 
     my $shinc = 0;
     my @bad;
     foreach (split ' ', $inc)
     {
-        if (exists $xref->{$_})
+        if (exists $incShortcuts{$_})
         {
-            $shinc |= $xref->{$_};
+            $shinc |= $incShortcuts{$_};
         }
         else
         {
@@ -204,6 +204,36 @@ sub xml_artist
     return undef;
 }
 
+sub xml_release
+{
+	my ($ar, $al, $inc) = @_;
+
+    print '<release id="' . $al->GetMBId . '"';
+    xml_release_type($al);
+    print '><title>' . xml_escape($al->GetName) . '</title>';
+
+    my ($lang, $script);
+    $lang = $al->GetLanguageId;
+    $script = $al->GetScriptId;
+    if ($lang || $script)
+    {
+        print '<text-representation';
+        print ' language="' . uc($al->GetLanguage->GetISOCode3T()) . '"' if ($lang);
+        print ' script="' . $al->GetScript->GetISOCode . '"' if ($script);
+        print '/>';
+    }
+
+    my $asin = $al->GetAsin;
+    print "<asin>$asin</asin>" if $asin;
+
+    print xml_artist($ar) if ($inc & INC_ARTIST);
+    print xml_release_info($al, $inc) if ($inc & INC_RELEASEINFO || $inc & INC_COUNTS);
+    print xml_discs($al, $inc) if ($inc & INC_DISCS || $inc & INC_COUNTS);
+    print xml_track_list($ar, $al, $inc) if ($inc & INC_TRACKS || $inc & INC_COUNTS);
+    
+	print '</release>';
+}
+
 sub xml_release_type
 {
 	my $al = $_[0];
@@ -230,7 +260,7 @@ sub xml_language
 	     . xml_escape($name).'</mm:language>';
 }
 
-sub xml_releases
+sub xml_release_info
 {
     require MusicBrainz::Server::Country;
 
@@ -301,7 +331,7 @@ sub xml_discs
 	return undef;
 }
 
-sub xml_tracks
+sub xml_track_list
 {
 	require Track;
 	my ($ar, $al, $inc) = @_;
@@ -314,28 +344,46 @@ sub xml_tracks
             printf '<track-list count="%s"/>', scalar(@$tracks);
             return undef;
         }
+
         print '<track-list>';
         foreach my $tr (@$tracks)
         {
-	        printf '<track id="%s"', $tr->GetMBId;
-            print '><title>';
-            print xml_escape($tr->GetName());
-            print '</title>';
-            print '<duration>';
-            print xml_escape($tr->GetLength());
-            print '</duration>';
-            if ($tr->GetArtist != $ar->GetId)
+
+            if ($ar->GetId != $tr->GetArtist)
             {
-                my $ar = Artist->new($tr->{DBH});
+                my $ar;
+                $ar = Artist->new($tr->{DBH});
                 $ar->SetId($tr->GetArtist);
                 $ar->LoadFromId();
-                xml_artist($ar);
+                xml_track($ar, $tr, $inc);
             }
-            xml_trm($tr) if ($inc & INC_TRMIDS);
-            print '</track>';
+            else
+            {
+                xml_track(undef, $tr, $inc);
+            }
         }
         print '</track-list>';
     }
+    return undef;
+}
+
+sub xml_track
+{
+	require Track;
+	my ($ar, $tr, $inc) = @_;
+
+
+	printf '<track id="%s"', $tr->GetMBId;
+    print '><title>';
+    print xml_escape($tr->GetName());
+    print '</title>';
+    print '<duration>';
+    print xml_escape($tr->GetLength());
+    print '</duration>';
+    xml_artist($ar) if (defined $ar);
+    xml_trm($tr) if ($inc & INC_TRMIDS);
+    print '</track>';
+
     return undef;
 }
 
