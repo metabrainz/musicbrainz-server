@@ -33,6 +33,10 @@ a:active
 	text-decoration: underline;
 }
 
+p {
+        margin: 0;
+}
+
 /* This is equivalent to /comp/title, i.e. class "title" in brainz.css */
 h1
 {
@@ -257,7 +261,7 @@ kbd.KbdBlock
 
 .AlbumInfo
 {
-	margin-right: 140;
+	margin-right: 140px;
 	background-color: #dddddd;
 }
 
@@ -415,6 +419,11 @@ td.discidlength { background-color: #ffecd6; text-align: right }
 	padding: 0.2em 0.5em;
 }
 
+.AnnotationText p {
+        margin-bottom: 1em;
+}
+
+
 .AnnotationText td
 {
 	background: #fff;
@@ -504,8 +513,8 @@ table.votechoice
 {
 	border: 0px;
 	width: 100%;
-	cellpadding: 0px;
-	cellspacing: 0px;
+	border-collapse: collapse;
+	padding: 0px;
 }
 
 table.votechoice3 td
@@ -524,7 +533,6 @@ table.votechoice label
 {
 	text-align: center;
 	display: block;
-	text-weight: bold;
 	padding: 3px;
 	border: 1px solid #fff;
 }

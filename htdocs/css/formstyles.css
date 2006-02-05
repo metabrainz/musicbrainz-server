@@ -58,7 +58,7 @@ fieldset .oldtextfield {
 }
 .discidmessage {
 	color: red;	font-weight: bold;
-	padding: 10px; 0px; 0px; 10px; 	
+	padding: 10px 0px 0px 10px; 	
 }
 fieldset .padleft {	
 	padding-left: 20px;
@@ -95,7 +95,7 @@ fieldset .padtop {
 	font-weight: bold; color: #f00; padding-top: 4px;
 }
 .linkerrorslim {
-	font-weight: slim; color: #f00; padding-top: 4px;
+	font-weight: lighter; color: #f00; padding-top: 4px;
 }
 .linkdesc {
 	font-weight: normal; color: #000; padding-top: 4px;

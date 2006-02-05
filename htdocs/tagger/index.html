@@ -1,46 +1,50 @@
 %# vi: set ts=2 sw=2 ft=mason :
-<& /comp/sidebar, title=>'About the MusicBrainz Tagger' &>
+<& /comp/sidebar, title=>'About the MusicBrainz tagging applications' &>
 
 <h2>Overview</h2>
 
 <p>
-The MusicBrainz Tagger application allows you to automatically look up the tracks in 
-your music collection and then write clean metadata tags (ID3 tags or Vorbis comment
-fields) to your files. As you tag
-the files in your collection that MusicBrainz didn't recognize, you submit the 
-acoustic fingerprints (<abbr title="TRM Recognizes Music">TRM</abbr> IDs) of your 
-files back to the server. Submitting acoustic fingerprints will allow MusicBrainz
-to automatically identify these tracks in the future,  so that other people using the 
-Tagger can benefit from the work you have done.
-</p>
-
-<p>
-As the community uses the Tagger application, more and more files will be
-automatically recognized. However, as we are just starting to collect the acoustic
-fingerprints, fewer files will be initially recognized. So, please 
-<a href="download.html">download</a> the Tagger and run your music collection
-through it so we can start collecting more acoustic fingerprints. You may also
-want to take a look at our <a href="/stats.html">statistics page</a> to see how many
-TRM IDs we've been collecting recently.
+The MusicBrainz tagger applications allow you to automatically look up the albums/tracks in 
+your music collection and then write clean metadata tags (ID3 tags, Vorbis comment
+fields, etc) to your files. The taggers also allow you to specify how and where
+to write cleanly tagged files to your hard drive. 
 </p>
 
 <p> 
-The Tagger is currently only available for Windows. The MusicBrainz team would love
-to create an iTunes Tagger plugin for Mac OS X, but we haven't had enough time
-to write one yet. It's on our radar -- trust us. We're not intentionally excluding
-the Mac community.
+MusicBrainz supports two tagging applications currently: 
 </p>
 
-<h2>Links</h2>
+<h3>Picard</h3>
 
 <p>
-If you'd like to download the tagger or find out more about how to use it, try
-the following links:
+The new cross platform (Linux and Windows) album oriented tagger 
+supports mp3, wav, vorbis, flac, mpc, mp4 and wma formats. Picard currently does
+not support the acoustic fingerprinting, so using Picard is a little less automatic
+than using the classic MusicBrainz Tagger. However, the album oriented interface makes
+tagging files with Picard faster -- even without acoustic fingerprints. Picard
+has excellent UNICODE support -- if you require non ISO-8859-1 tags in your files,
+use Picard!
 </p>
 
 <ul>
   <li>
-    Download the <a href="download.html">MusicBrainz Tagger</a>.
+    Download <a href="/wd/PicardDownload">Picard</a>.
+  </li>
+  <li>
+    Read the Picard <a href="/wd/PicardQuickStartGuide">Quick Start Guide</a>.
+  </li>
+</ul>
+
+<h3>MusicBrainz Tagger (classic)</h3>
+
+<p>
+This is our classic tagger that supports acoustic fingerprinting, wav, mp3, flac and
+vorbis formats. This tagger is track oriented, has limited UNICODE support and runs on Windows only.
+</ul>
+
+<ul>
+  <li>
+    Download the classic <a href="download.html">MusicBrainz Tagger</a>.
   </li>
   <li>
     Read the Tagger <a href="tutorial.html">Tutorial</a>.
@@ -52,5 +56,11 @@ the following links:
     Read the Tagger <a href="/wd/WindowsTaggerFAQ">Frequently Asked Questions</a>.
   </li>
 </ul>
+
+<h3>Other applications</h3>
+
+<p>
+Take a look at our <a href="/wd/MusicBrainzEnabledApplications">MusicBrainz enabled applications</a> list to see
+other applications that support MusicBrainz.
 
 <& /comp/footer &>

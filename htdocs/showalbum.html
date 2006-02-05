@@ -78,8 +78,14 @@ if (!$album->IsNonAlbumTracks)
 	$m->comp("/comp/ar/RemoveRelationship", id=>$remrel, type=>$remtype)
 		if ($remrel >= 0);
 
+    my $asin = {};
 	$m->comp("/comp/ar/RelationshipBox", id=>$album->GetId, type=>'album',
-										 name=>$album->GetName);
+										 name=>$album->GetName, asinref=>$asin);
+    if (exists $asin->{asin})
+    {
+        $album->{asin} = $asin->{asin};
+        $album->{coverartserver} = $asin->{server};
+    }
 }
 
 </%perl>

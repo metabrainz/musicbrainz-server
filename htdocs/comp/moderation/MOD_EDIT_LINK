@@ -7,10 +7,10 @@
 	Old: 
 % if ($new->{oldentity1type} ne 'url') {
 	<& /comp/ar/ShowEntityLink, id=>$new->{oldentity0id}, type=>$new->{oldentity0type}, 
-	                            name=>$new->{oldentity0name}, simple=>1 &>
+	                            name=>$new->{oldentity0name}, linktypeid=>$new->{oldlinktypeid}, simple=>1 &>
 	<i><% $new->{oldlinktypephrase} %></i>
 	<& /comp/ar/ShowEntityLink, id=>$new->{oldentity1id}, type=>$new->{oldentity1type}, 
-	                            name=>$new->{oldentity1name}, simple=>1 &>
+	                            name=>$new->{oldentity1name}, linktypeid=>$new->{oldlinktypeid}, simple=>1 &>
 %   if ($new->{oldbegindate} =~ /\S/ || $new->{oldenddate} =~ /\S/) {
 	   from 
 %      if ($new->{oldbegindate}) {
@@ -25,10 +25,15 @@
 
 % } else {
 	<& /comp/ar/ShowEntityLink, id=>$new->{oldentity0id}, type=>$new->{oldentity0type}, 
-	                            name=>$new->{oldentity0name}, simple=>1 &>
+	                            name=>$new->{oldentity0name}, linktypeid=>$new->{oldlinktypeid}, simple=>1 &>
 	<i><% $new->{oldlinktypephrase} %></i>
+%   if ($new->{oldlinktypeid} eq &Album::ALBUM_AMAZON_ASIN_LINKID) {
+%   	my $text; $text = $1 if ($new->{oldentity1name} =~ /(B[0-9A-Z]{9})/);
+        <% $text %>
+%   } else {
 	<& /comp/ar/ShowEntityLink, id=>$new->{oldentity1id}, type=>$new->{oldentity1type}, 
 	                            name=>$new->{oldentity1name}, url=>$new->{oldentity1name}, simple=>1 &>
+%   }
 % }
 
 </%method>
@@ -39,10 +44,10 @@
 New:
 % if ($new->{newentity1type} ne 'url') {
 	<& /comp/ar/ShowEntityLink, id=>$new->{newentity0id}, type=>$new->{newentity0type}, 
-	                            name=>$new->{newentity0name}, simple=>1 &>
+	                            name=>$new->{newentity0name}, linktypeid=>$new->{newlinktypeid}, simple=>1 &>
 	<i><% $new->{newlinktypephrase} %></i>
 	<& /comp/ar/ShowEntityLink, id=>$new->{newentity1id}, type=>$new->{newentity1type}, 
-	                            name=>$new->{newentity1name}, simple=>1 &>
+	                            name=>$new->{newentity1name}, linktypeid=>$new->{newlinktypeid}, simple=>1 &>
 %   if ($new->{newbegindate} =~ /\S/ || $new->{newenddate} =~ /\S/) {
 	   from 
 %      if ($new->{newbegindate}) {
@@ -57,10 +62,15 @@ New:
 
 % } else {
 	<& /comp/ar/ShowEntityLink, id=>$new->{newentity0id}, type=>$new->{newentity0type}, 
-	                            name=>$new->{newentity0name}, simple=>1 &>
+	                            name=>$new->{newentity0name}, linktypeid=>$new->{newlinktypeid}, simple=>1 &>
 	<i><% $new->{newlinktypephrase} %></i>
+%   if ($new->{newlinktypeid} eq &Album::ALBUM_AMAZON_ASIN_LINKID) {
+%	my $text; $text = $1 if ($new->{newentity1name} =~ /(B[0-9A-Z]{9})/);
+	<% $text %>
+%   } else {
 	<& /comp/ar/ShowEntityLink, id=>$new->{newentity1id}, type=>$new->{newentity1type}, 
 	                            name=>$new->{newentity1name}, url=>$new->{newentity1name}, simple=>1 &>
+%   }
 % }
 </%method>
 

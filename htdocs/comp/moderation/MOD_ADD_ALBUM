@@ -31,6 +31,7 @@ if (!$inline and $exists and UserPreference::get('mod_add_album_inline'))
 			album	=> $al,
 			showmodlinks=> UserPreference::get('mod_add_album_link'),
 			showids	=> 1,
+			showreleases => 1,
 		);
 	}
 } elsif ($exists) {

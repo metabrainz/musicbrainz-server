@@ -83,18 +83,29 @@
 
 	<li>
 		<& .StyleGuideLink, "feat-artist" &>
-		When two artists collaborate on a track or
-		release, file the track/release under the primary
-		artist, and then append the name of the
-		secondary artist to the name of the track/release
-		as follows:
-
-		<blockquote class="StyleExample">
-			<b>Put Your Lights On (feat. Everlast)</b>
-		</blockquote>
-
-		If neither artist can be considered secondary,
-		choose either artist.
+    When two artists collaborate on a track or
+		release, if one artist can be considered the <em>primary artist</em>,
+    <ul>
+      <li>file the track/release under the primary artist, and add <a
+        href="http://wiki.musicbrainz.org/AdvancedRelationships">AdvancedRelationships</a> of the <a
+        href="http://wiki.musicbrainz.org/PerformanceRelationshipClass">PerformanceRelationshipClass</a> to
+        link to the secondary artists, and append the name of the secondary artists to the 
+      TrackTitle/AlbumTitle as follows:
+    <blockquote class="StyleExample">
+    	<b>Put Your Lights On (feat. Everlast)</b>
+    </blockquote></li>
+    </ul>
+		<& .StyleGuideLink, "feat-artist-sec" &>
+    If no artist can be considered secondary,
+    <ul>
+      <li>Create a new artist in the form:
+    <blockquote class="StyleExample">
+       <b>"Artist 1 &amp; Artist 2"</b>
+    </blockquote>
+        and file the track/release under that artist, and add <a
+        href="http://wiki.musicbrainz.org//AdvancedRelationships">AdvancedRelationships</a> of the <a
+        href="http://wiki.musicbrainz.org//CollaborationRelationshipType">CollaborationRelationshipType</a> to the new artist.<li>
+    </ul>
 		<blockquote style="text-align: right; font-size:smaller">
 			<a href="http://wiki.musicbrainz.org/wiki.pl?FeaturingArtistStyle">More details...</a>
 		</blockquote>

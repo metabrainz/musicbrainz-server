@@ -5,6 +5,7 @@ $name
 $type
 $simple=>1
 $url=>""
+$linktypeid=>0
 </%args>
 
 % if (!$simple) {
@@ -16,8 +17,12 @@ $url=>""
     <a href="/showalbum.html?albumid=<% $id %>"><% $name %></a>
 % } elsif ($type eq 'track') { 
 	<a href="/showtrack.html?trackid=<% $id %>"><% $name %></a>
+% } elsif ($linktypeid eq &Album::ALBUM_AMAZON_ASIN_LINKID && $type eq 'url') { 
+%     my $text = $name;
+%     $text = $1 if ($name =~ /(B[0-9A-Z]{9})/);
+	<% $text %>
 % } elsif ($type eq 'url') { 
-	<a href="<% $url %>"><% $name %></a>
+	<a href="<% $name %>" rel="nofollow"><% $name %></a>
 % } else { 
 	<% $name %>
 % }

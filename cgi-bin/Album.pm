@@ -66,6 +66,8 @@ use constant ALBUM_ATTR_SECTION_TYPE_END     => ALBUM_ATTR_OTHER;
 use constant ALBUM_ATTR_SECTION_STATUS_START => ALBUM_ATTR_OFFICIAL;
 use constant ALBUM_ATTR_SECTION_STATUS_END   => ALBUM_ATTR_BOOTLEG;
 
+use constant ALBUM_AMAZON_ASIN_LINKID   => '28';
+
 my %AlbumAttributeNames = (
     0 => [ "Non-Album Track", "Non-Album Tracks", "(Special case)"],
     1 => [ "Album", "Albums", "An album release primarily consists of previously unreleased material. This includes album re-issues, with or without bonus tracks."],
@@ -83,6 +85,38 @@ my %AlbumAttributeNames = (
     100 => [ "Official", "Official", "Any release officially sanctioned by the artist and/or their record company. (Most releases will fit into this category.)"],
     101 => [ "Promotion", "Promotions", "A giveaway release or a release intended to promote an upcoming official release. (e.g. prerelease albums or releases included with a magazine)"],
     102 => [ "Bootleg", "Bootlegs", "An unofficial/underground release that was not sanctioned by the artist and/or the record company."]
+);
+
+# amazon image file names are unique on all servers and constructed like
+# <ASIN>.<ServerNumber>.[SML]ZZZZZZZ.jpg
+# A release sold on amazon.de has always <ServerNumber> = 03, for example.
+# Releases not sold on amazon.com, don't have a "01"-version of the image,
+# so we need to make sure we grab an existing image.
+my %CoverArtServer = (
+    "amazon.co.jp" => {
+		"server" => "images-jp.amazon.com",
+		"id"     => "09",
+	},
+    "amazon.co.uk" => {
+		"server" => "images-eu.amazon.com",
+		"id"     => "02",
+	},
+    "amazon.de"    => {
+		"server" => "images-eu.amazon.com",
+		"id"     => "03",
+	},
+    "amazon.com"   => {
+		"server" => "images.amazon.com",
+		"id"     => "01",
+	},
+    "amazon.ca"    => {
+		"server" => "images.amazon.com",
+		"id"     => "01",                   # .com and .ca are identical
+	},
+    "amazon.fr"    => {
+		"server" => "images.amazon.com",
+		"id"     => "08"
+	},
 );
 
 sub LinkEntityName { "album" }
@@ -123,6 +157,13 @@ sub SetLanguageModPeding
 
 sub GetCoverartURL
 {
+   my $cas = $_[0]->{coverartserver};
+   $cas =~ s/^www\.//;
+   my $cin = $CoverArtServer{$cas}{"id"};
+   $cas = $CoverArtServer{$cas}{"server"};
+   return sprintf("http://%s/images/P/%s.%s.MZZZZZZZ.jpg", $cas, $_[0]->{asin}, $cin) 
+        if ($cas && $_[0]->{asin});
+
    return "/images/no_coverart.png" unless $_[0]->{coverarturl};
    return "http://images.amazon.com" . $_[0]->{coverarturl};
 }

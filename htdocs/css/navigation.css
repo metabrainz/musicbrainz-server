@@ -90,6 +90,7 @@ td.modpending {
 	margin: -2px;
 }
 .sidemenusearch input.textfield {
+	color: #000;
 	background-color: #eee;
 	border: 1px inset;
 	width: 65px;
@@ -106,7 +107,7 @@ td.modpending {
 	white-space: nowrap;
 }
 .morelink a:hover {
-	font-decoration: underline;
+	text-decoration: underline;
 }
 
 
@@ -183,7 +184,6 @@ td.modpending {
 	border-right: 1px solid black; background: #fb5; 
 	border-bottom: 1px solid black;
 	padding: 0px 6px; 
-	cursor: hand;
 }
 /* define font/wrapping behavior for all child nodes */
 .mainmenu td * {

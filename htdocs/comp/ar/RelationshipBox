@@ -6,6 +6,7 @@ $name
 $modlinks=>0
 $isrelpage=>0
 $expanded=>0
+$asinref=>0
 </%args>
 <%def .OutputEntity>
 <%perl>
@@ -16,10 +17,16 @@ $expanded=>0
 	$m->out('<span class="mp">')
 		if $item->{modpending};
 
-	if ($item->{$prefix . "type"} eq 'url')
+    my $text = "";
+	if ($item->{"link_name"} eq 'amazon asin' && $prefix eq 'link1_')
+	{
+        $text = $1 if ($item->{link1_name} =~ /(B[0-9A-Z]{9})/);
+		$m->out("<b>");
+	}
+	elsif ($item->{$prefix . "type"} eq 'url')
 	{
 		my $url = $item->{$prefix . "name"};
-		$m->out('<b><a href="'.$url.'" title="'.$url.'">');
+		$m->out('<b><a href="'.$url.'" title="'.$url.'" rel="nofollow">');
 	}
 	else
 	{
@@ -28,7 +35,7 @@ $expanded=>0
 				$item->{$prefix . "type"} . 'id=' .
 				$item->{$prefix . "id"}.'">');
 	}
-	my $text = $item->{$prefix . "name"} eq '' ? $name : $item->{$prefix . "name"};
+	$text = $item->{$prefix . "name"} eq '' ? $name : $item->{$prefix . "name"} unless $text;
 
 	# shorten url's that are longer than ~75 chars
 	$text = (length($text) > 75
@@ -85,6 +92,11 @@ else
 				rlink_phrase	link_phrase
 			)};
 		}
+        if ($asinref && $item->{link_name} eq 'amazon asin')
+        {
+            $asinref->{asin} = $1 if ($item->{link1_name} =~ /(B[0-9A-Z]{9})/);
+            $asinref->{server} = $1 if ($item->{link1_name} =~ /http:\/\/(.*?)\//);
+        }
 	}
 
 	@links = sort

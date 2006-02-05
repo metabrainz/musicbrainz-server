@@ -40,7 +40,7 @@ ArchiveOldModerations - save old mods to file, delete them from the database
 
 =head1 DESCRIPTION
 
-Each run of F<ArchiveOldModerations> produces an output file named F<oldmods-YYYYMMDD-HHMMSS-UTC.dat>
+Each run of F<ArchiveOldModerations> produces an output file named F<oldmods-YYYYMMDD-HHMMSS-UTC-N.dat>
 in the current directory
 (where C<YYYYMMDD-HHMMSS> represents the timestamp of the moment the script started).
 
@@ -108,8 +108,18 @@ sub nibble
 
 	require POSIX;
 	my $now = POSIX::strftime('%Y%m%d-%H%M%S-UTC', gmtime);
-	my $filename = "oldmods-$now.dat";
-	open(my $fh, ">", $filename) or die $!;
+
+	my $filename;
+	my $fh;
+	for (my $n=1; ; ++$n)
+	{
+		$filename = "oldmods-$now-$n.dat";
+		use Fcntl qw( O_CREAT O_RDWR O_EXCL );
+		sysopen($fh, $filename, O_CREAT|O_RDWR|O_EXCL) and last;
+		next if $!{EEXIST};
+		die "open >$filename: $!";
+	}
+	print localtime() . " : Saving to $filename\n";
 
 	print $fh "-- schema sequence " . &DBDefs::DB_SCHEMA_SEQUENCE . "\n"
 		or die $!;

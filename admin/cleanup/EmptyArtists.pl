@@ -95,11 +95,13 @@ $verbose = ($remove ? 0 : 1)
 print(STDERR "Running with --noremove --noverbose --nosummary is pointless\n"), exit 1
 	unless $remove or $verbose or $summary;
 
-print localtime() . " : Finding unused artists\n";
+print localtime() . " : Finding unused artists (using album/AR/mod criteria)\n";
 
+$sql->Begin;
 $sql->Select(<<EOF) or die;
 
 	SELECT	a.id, a.name, a.sortname
+    INTO TEMP empty_artist_albums
 	FROM	artist a
 
 	-- Look for albums 
@@ -107,12 +109,6 @@ $sql->Select(<<EOF) or die;
 		SELECT artist, COUNT(*) AS albums FROM album GROUP BY artist
 	) t1
 		ON a.id = t1.artist
-
-	-- Look for tracks 
-	LEFT JOIN (
-        SELECT artist, COUNT(*) AS tracks FROM track GROUP BY artist
-	) t2
-        ON a.id = t2.artist
 
     -- Look for AR artist-artist relationships
 	LEFT JOIN (
@@ -151,7 +147,6 @@ $sql->Select(<<EOF) or die;
         ON a.id = t7.artist
 
 	WHERE	t1.albums IS NULL
-	AND		t2.tracks IS NULL
 	AND		t3.arar_links IS NULL
 	AND		t4.alar_links IS NULL
 	AND		t5.artr_links IS NULL
@@ -159,6 +154,38 @@ $sql->Select(<<EOF) or die;
 	AND		t7.mods IS NULL
 	AND		a.modpending = 0
 	ORDER BY sortname
+
+EOF
+$sql->Finish;
+
+print localtime() . " : Finding unused artists (using track criteria)\n";
+
+$sql->Select(<<EOF) or die;
+
+	SELECT	a.id
+    INTO TEMP empty_artist_tracks
+	FROM	artist a
+
+	-- Look for tracks 
+	LEFT JOIN (
+        SELECT artist, COUNT(*) AS tracks FROM track GROUP BY artist
+	) t2
+        ON a.id = t2.artist
+
+	WHERE   t2.tracks IS NULL
+	AND		a.modpending = 0
+	ORDER BY sortname
+
+EOF
+$sql->Finish;
+
+print localtime() . " : Collating unused artists\n";
+
+$sql->Select(<<EOF) or die;
+
+	SELECT	eaa.id, eaa.name, eaa.sortname
+	FROM	empty_artist_tracks eat, empty_artist_albums eaa
+    WHERE   eat.id = eaa.id 
 
 EOF
 
@@ -227,6 +254,8 @@ while (my ($id, $name, $sortname) = $sql->NextRow)
 	};
 }
 
+# Issue a commit on the main handle to drop the temp tables
+$sql->Commit;
 $sql->Finish;
 
 if ($summary)

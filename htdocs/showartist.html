@@ -184,8 +184,8 @@ $m->comp(
 						>Remove this artist</a>
 					|
 % }
-					<a href="/edit/track/addnonalbum.html?artistid=<% $artist->GetId() %>"
-						>Add non-album tracks</a>
+					<a href="/edit/album/add.html?artistid=<% $artist->GetId() %>"
+						>Add album</a>
 					]
 				</p>
 			</center>
@@ -219,7 +219,17 @@ $m->comp(
 				$album->{_disc_no_} = 0;
 
 				# Attempt to sort "disc x [of y]" correctly
-				if ($album->{_name_sort_} =~ /^(.*)\bdisc (\d+)(?: of (\d+))?\b(?::[^()]*\))?(.*)$/i)
+				if ($album->{_name_sort_} =~ 
+					/^(.*)								# $1 <main title>
+						(?:[(]disc\ (\d+)				# $2 (disc x
+							(?:\ of\ (\d+))?			# $3 [of y]
+							(?::[^()]*					#    [: <disc title>
+								(?:[(][^()]*[)][^()]*)* #     [<1 level of nested par.>]
+							)?                          #    ]
+							[)]							#    )
+						)
+						(.*)$							# $4 [<rest of main title>]
+					/xi)
 				{
 					$album->{_name_sort_} = "$1 $4";
 					$album->{_disc_no_} = $2;
@@ -407,7 +417,8 @@ $m->comp(
                              showids=>0,
                              mbtagger=>$mbt,
                              showtag=>1,
-							 showmodlinks => 0);
+							 showmodlinks => 0,
+							 showreleases => 1);
                 }
                 else
                 {

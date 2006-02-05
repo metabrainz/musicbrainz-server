@@ -64,7 +64,7 @@ if ($selectedartist ne "")
 	$newartistid = $target->GetId;
 }
 
-if ($newartistname =~ /\S/ and $newartistsortname =~ /\S/)
+if ($newartistname =~ /\S/ and $newartistsortname =~ /\S/ and $newartistid < 0)
 {
 	my $ar = Artist->new($mb->{DBH});
     my $list = $ar->GetArtistsFromName($newartistname);
@@ -155,7 +155,6 @@ if ($newartistname =~ /\S/ and $newartistsortname =~ /\S/)
 	search => $ARGS{'search'},
 	allowcreate => 1,
 	url => "/edit/track/changeartist.html",
-	dontshow => [$al->GetArtist],
 	arglist => {
 		album => $album,
 		tindex => $tindex,

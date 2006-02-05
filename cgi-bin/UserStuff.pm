@@ -927,7 +927,7 @@ EOF
 		From		=> $self->GetForwardingAddressHeader,
 		# To: $mod_user (automatic)
 		"Reply-To"	=> 'Nobody <noreply@musicbrainz.org>',
-		Subject		=> "Note added to moderation #$modid",
+		Subject		=> "Note added to your moderation #$modid",
 		Type		=> "text/plain",
 		Encoding	=> "quoted-printable",
 		Data		=> $body,

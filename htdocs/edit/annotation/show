@@ -37,12 +37,14 @@ $show_diff => 0
 
 			<span class="AnnotationInfoText">
 % if ($explain) {
-				Annotation last modified by
+				Annotation last modified
 % } else {
-				Last modified by
+				Last modified
 % }
-				<a href="/user/view.html?uid=<%
+% if ($session{uid}) {
+				by <a href="/user/view.html?uid=<%
 					$annotation->GetModerator()%>"><% $annotation->GetModeratorName %></a>
+% }
 				on <% $m->comp('/comp/datetime', $annotation->GetCreationTime()) %>
 		</span>
 
