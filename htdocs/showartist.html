@@ -381,6 +381,7 @@ $m->comp(
 						</td>
 % if ($session{uid}) {
 						<td class="rtag">
+%	if (!$album->IsNonAlbumTracks) {						
 						  <form method="post" action="/edit/albumbatch/done.html"
 								enctype="application/x-www-form-urlencoded">
 							  <script type="text/javascript">
@@ -391,6 +392,7 @@ $m->comp(
 								  <input type="submit" name="submit" value="Select">
 							  </noscript>
 						  </form>
+%	}						  
 						</td>
 % }
 						<td class="rname">
