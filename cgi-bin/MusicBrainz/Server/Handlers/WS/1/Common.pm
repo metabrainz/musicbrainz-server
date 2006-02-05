@@ -30,7 +30,7 @@ package MusicBrainz::Server::Handlers::WS::1::Common;
 require Exporter;
 our @ISA = qw(Exporter);
 our @EXPORT = qw(convert_inc bad_req serve_from_cache send_response 
-                    xml_artist xml_release_type xml_language xml_release_info
+                    xml_artist xml_release_type xml_language xml_release_events
                     xml_discs xml_track_list xml_track xml_trm xml_escape 
                     store_in_cache xml_release find_meta_in_cache find_data_in_cache
                     INC_ARTIST INC_COUNTS INC_LIMIT INC_TRACKS INC_RELEASES 
@@ -42,9 +42,7 @@ our @EXPORT = qw(convert_inc bad_req serve_from_cache send_response
 use Apache::Constants qw( );
 use Apache::File ();
 
-#TODO: Change spec to make inc args singluar
-#      change inc discids -> disc to match output xml. Add duration attr to disc
-#      how is the limit passed for searches?
+# TODO: how is the limit passed for searches?
 
 use constant INC_ARTIST      => 0x00001;
 use constant INC_COUNTS      => 0x00002;
@@ -70,25 +68,25 @@ use constant INC_TRMIDS      => 0x40000;
 # be used easier and be used as the key modifier for memcached.
 my %incShortcuts = 
 (
-    'artist'       => INC_ARTIST,    
-    'counts'       => INC_COUNTS,
-    'limit'        => INC_LIMIT,
-    'tracks'       => INC_TRACKS,
-    'releases'     => INC_RELEASES,
-    'va-releases'  => INC_VARELEASES,
-    'duration'     => INC_DURATION,
-    'artist-rel'   => INC_ARTISTREL,
-    'release-rel'  => INC_RELEASEREL,
-    'discs'        => INC_DISCS,
-    'track-rel'    => INC_TRACKREL,
-    'url-rel'      => INC_URLREL,
-    'release-info' => INC_RELEASEINFO,
-    'artistid'     => INC_ARTISTID,
-    'releaseid'    => INC_RELEASEID,
-    'trackid'      => INC_TRACKID,
-    'title'        => INC_TITLE,
-    'tracknum'     => INC_TRACKNUM,
-    'trmids'       => INC_TRMIDS,
+    'artist'         => INC_ARTIST,    
+    'counts'         => INC_COUNTS,
+    'limit'          => INC_LIMIT,
+    'tracks'         => INC_TRACKS,
+    'releases'       => INC_RELEASES,
+    'va-releases'    => INC_VARELEASES,
+    'duration'       => INC_DURATION,
+    'artist-rel'     => INC_ARTISTREL,
+    'release-rel'    => INC_RELEASEREL,
+    'discs'          => INC_DISCS,
+    'track-rel'      => INC_TRACKREL,
+    'url-rel'        => INC_URLREL,
+    'release-events' => INC_RELEASEINFO,
+    'artistid'       => INC_ARTISTID,
+    'releaseid'      => INC_RELEASEID,
+    'trackid'        => INC_TRACKID,
+    'title'          => INC_TITLE,
+    'tracknum'       => INC_TRACKNUM,
+    'trmids'         => INC_TRMIDS,
 );
 
 # Convert the passed inc argument into a bitflag with the given constants form above
@@ -227,7 +225,7 @@ sub xml_release
     print "<asin>$asin</asin>" if $asin;
 
     print xml_artist($ar) if ($inc & INC_ARTIST);
-    print xml_release_info($al, $inc) if ($inc & INC_RELEASEINFO || $inc & INC_COUNTS);
+    print xml_release_events($al, $inc) if ($inc & INC_RELEASEINFO || $inc & INC_COUNTS);
     print xml_discs($al, $inc) if ($inc & INC_DISCS || $inc & INC_COUNTS);
     print xml_track_list($ar, $al, $inc) if ($inc & INC_TRACKS || $inc & INC_COUNTS);
     
@@ -260,7 +258,7 @@ sub xml_language
 	     . xml_escape($name).'</mm:language>';
 }
 
-sub xml_release_info
+sub xml_release_events
 {
     require MusicBrainz::Server::Country;
 
@@ -295,7 +293,7 @@ sub xml_release_info
 			print ($c ? $c->GetISOCode : "?");
 			print '"/>';
          }
-         print "</release-info-list>";
+         print "</release-event-list>";
     }
     return undef;
 }
@@ -316,7 +314,7 @@ sub xml_discs
 		foreach my $id (@ids)
 		{
 			my ($cdtoc) = $id->GetCDTOC;
-			my ($duration) = int($cdtoc->GetLeadoutOffset / 75 * 1000);
+			my ($duration) = $cdtoc->GetLeadoutOffset;
 			my ($discid) = $cdtoc->GetDiscID;
 
 			# create a cdindexId element
