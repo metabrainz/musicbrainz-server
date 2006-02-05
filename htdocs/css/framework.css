@@ -8,6 +8,14 @@
 	font-size: 35px;
 }
 
+.LogoBarCell a
+{
+	color: #FFF;
+	position: absolute;
+	left: 0;
+	top: 0;
+}
+
 .LogoBarStagingText
 {
 	position: absolute;
