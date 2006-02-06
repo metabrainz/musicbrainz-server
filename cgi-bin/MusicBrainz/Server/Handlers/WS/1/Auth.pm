@@ -49,12 +49,15 @@ sub handler
     my $us = UserStuff->new($mb->{DBH});
     if (!($us = $us->newFromName($r->user)))
     {
+        #print STDERR "User not found: '$r->user'\n";
         $r->note_digest_auth_failure;
         return AUTH_REQUIRED;
     }
-    my $digest = md5_hex("rob:$realm:".$us->GetPassword);
+    my $digest = md5_hex($r->user.":$realm:".$us->GetPassword);
     if (!$r->compare_digest_response($response, $digest))
     {
+        #print STDERR "Bad password\n";
+        $r->note_digest_auth_failure;
         $r->note_digest_auth_failure;
         return AUTH_REQUIRED;
     }
