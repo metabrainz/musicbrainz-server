@@ -50,18 +50,17 @@ function ar_typeChanged() {
 		}
 		var relationship_desc = document.getElementById('relationship_desc');
 		if (relationship_desc) {
-			var textNode = relationship_desc.firstChild;
 			if (sp[2] != "") {
-				textNode.data = "" + sp[2];
+				relationship_desc.innerHTML = "" + sp[2];
 				relationship_desc.setAttribute("className", "linkdesc");
 			} else if (selection == "||") {
-				textNode.data = "";
+				relationship_desc.innerHTML = "";
 			} else {
 				var tempStr = (wasFormSubmitted ? "Error: " : "") + 
 					"Please select a subtype of the currently selected " +
 					"relationship type. The selected relationship type is " +
 					"only used for grouping sub-types.";
-				textNode.data = tempStr;
+				relationship_desc.innerHTML = tempStr;
 				if (wasFormSubmitted) relationship_desc.setAttribute("className", "linkerrorslim");
 			}
 		}
@@ -78,18 +77,17 @@ function ar_typeChangedURL() {
 		var sp = selection.split("|");
 		var relationship_desc = document.getElementById('relationship_desc');
 		if (relationship_desc) {
-			var textNode = relationship_desc.firstChild;
 			if (sp[2] != "") {
-				textNode.data = "" + sp[2];
+				relationship_desc.innerHTML = "" + sp[2];
 				relationship_desc.setAttribute("className", "linkdesc");
 			} else if (selection == "||") {
-				textNode.data = "";
+				relationship_desc.innerHTML = "";
 			} else {
 				var tempStr = (wasFormSubmitted ? "Error: " : "") + 
 					"Please select a subtype of the currently selected " +
 					"relationship type. The selected relationship type is " +
 					"only used for grouping sub-types.";
-				textNode.data = tempStr;
+				relationship_desc.innerHTML = tempStr;
 				if (wasFormSubmitted) relationship_desc.setAttribute("className", "linkerrorslim");
 			}
 		}
