@@ -36,25 +36,25 @@ sub handler
 {
     my $r = Apache::AuthDigest::API->new(shift);
 
-    my $user = $1 if ($r->uri =~ /ws\/1\/user\/(.*)/);
-	my %args; { no warnings; %args = $r->args };
-    if (!$user)
-    {
-		return bad_req($r, "User (moderator) name must be part of the url: /ws/1/user/<name>.");
-    }
-    my $realm = $r->dir_config("DigestRealm");
-
     my ($status, $response) = $r->get_digest_auth_response;
     return $status unless $status == OK;
 
-    # Ensure that the login name is the same as the resource requested
-#print STDERR "resource: $user auth: ".$r->user."\n";
-#return FORBIDDEN if ($r->user != $user);
+    my $realm = $r->dir_config("DigestRealm");
 
-    my $digest = md5_hex("rob:$realm:password");
+    require MusicBrainz;
+    my $mb = MusicBrainz->new;
+    $mb->Login;
+
+    require UserStuff;
+    my $us = UserStuff->new($mb->{DBH});
+    if (!($us = $us->newFromName($r->user)))
+    {
+        $r->note_digest_auth_failure;
+        return AUTH_REQUIRED;
+    }
+    my $digest = md5_hex("rob:$realm:".$us->GetPassword);
     if (!$r->compare_digest_response($response, $digest))
     {
-        print STDERR "bad password $status\n";
         $r->note_digest_auth_failure;
         return AUTH_REQUIRED;
     }
