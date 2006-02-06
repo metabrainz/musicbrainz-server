@@ -94,6 +94,7 @@ if ($type eq 'album')
 	my $artist = Artist->new($mb->{DBH});
 	$artist->SetId($obj->GetArtist());
 	$artist->LoadFromId();
+	$m->comp("/comp/artisttitle", artist=>$artist, link=>0, showmodlinks=>0);
 	$m->comp("/comp/album", artist=>$artist, album=>$obj, showreleases=>1, showlinks=>1);
 }
 if ($type eq 'track')
