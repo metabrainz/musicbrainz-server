@@ -75,11 +75,11 @@ my %incShortcuts =
     'releases'       => INC_RELEASES,
     'va-releases'    => INC_VARELEASES,
     'duration'       => INC_DURATION,
-    'artist-rel'     => INC_ARTISTREL,
-    'release-rel'    => INC_RELEASEREL,
+    'artist-rels'    => INC_ARTISTREL,
+    'release-rels'   => INC_RELEASEREL,
     'discs'          => INC_DISCS,
-    'track-rel'      => INC_TRACKREL,
-    'url-rel'        => INC_URLREL,
+    'track-rels'     => INC_TRACKREL,
+    'url-rels'       => INC_URLREL,
     'release-events' => INC_RELEASEINFO,
     'artistid'       => INC_ARTISTID,
     'releaseid'      => INC_RELEASEID,
@@ -314,12 +314,12 @@ sub xml_discs
 		foreach my $id (@ids)
 		{
 			my ($cdtoc) = $id->GetCDTOC;
-			my ($duration) = $cdtoc->GetLeadoutOffset;
+			my ($sectors) = $cdtoc->GetLeadoutOffset;
 			my ($discid) = $cdtoc->GetDiscID;
 
 			# create a cdindexId element
-			print '<disc duration="';
-			print $duration;
+			print '<disc sectors="';
+			print $sectors;
 			print '" id="';
 			print $discid;
 			print '"/>';
