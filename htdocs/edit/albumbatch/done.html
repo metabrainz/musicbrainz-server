@@ -141,7 +141,7 @@ $more_albums_url = "/showartist.html?artistid=$artist_id" if $artist_id;
       Move all the selected albums to a different artist.<br>
       </td>
       <td valign="top" bgcolor="#f0efff">
-		<form method="post" action="/edit/albumbatch/move.html">
+		<form method="post" action="/edit/album/move.html">
 % for (@albums) {
 			<input type="hidden" name="album" value="<% $_ %>">
 % }

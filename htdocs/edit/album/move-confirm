@@ -1,67 +1,90 @@
 %# vi: set ts=4 sw=4 ft=mason :
 % my ($al, $ar, $name, $sortname, $artistid, $resolution) = @_ or return;
+% my $_isbatch = scalar(@$al) > 1;
+% my $_last    = scalar(@$al) - 1;
 <& /comp/sidebar, title => 'Move Album to another Artist' &>
 
 <fieldset>
-	<legend>Confirm Move Album</legend>
+<legend>Confirm Move Album</legend>
 	<div class="padleft">
-		Are you sure you want to move album
-		<a href="/showalbum.html?albumid=<% $al->GetId %>" class="bold"><% $al->GetName %></a>
-		from artist
-		<a href="/showartist.html?artistid=<% $ar->GetId %>" class="bold"><% $ar->GetName %></a>
-		to artist <a href="/showartist.html?artistid=<% $artistid %>" class="bold"><% $name %></a>
-		<% $resolution ? "($resolution)" : "" %>?
+		Are you sure you want to move album<% $_isbatch ? "s" : "" %>
+%# show all current artists and albums
+% for (0..($_last)) {
+%		my $_joinstr = $_ < $_last ? ($_ == $_last-1 ? " and " : ", ") : "";
+		<a href="/showalbum.html?albumid=<% $al->[$_]->GetId %>"
+		   class="bold"><% $al->[$_]->GetName %></a> by 
+		<a href="/showartist.html?artistid=<% $ar->[$_]->GetId %>" class="bold">
+		    <% $ar->[$_]->GetName %></a><% $_joinstr %>
+% }
+		to artist
+% if ($artistid < 0) {
+		<span class="bold"><% $name %></span>?
+% } else {
+		<a class="bold" href="/showartist.html?artistid=<% $artistid %>"><% $name %></a>?
+% }
 	</div>
 
 	<div class="padlefttop">
-		<table>
-			<tr>
-				<td>
-					<form 	method="GET" action="/showalbum.html"
-							name="ModFormNo">
-						<input type="hidden" name="albumid" value="<% $al->GetId %>">
-						<input name="btnNo" type="submit" class="button" value="&laquo; NO">
-					</form></td>
-				<td> &nbsp; </td>
-				<td>
-					<form 	method="POST" action="/edit/album/move.html"
-							name="ModFormYes">
-						<input name="btnYes" type="submit" class="button" value="YES &raquo;">
-						<input type="hidden" name="album" value="<% $al->GetId %>">
-						<input type="hidden" name="newartistname" value="<% $name %>">
-						<input type="hidden" name="newartistsortname" value="<% $sortname %>">
-						<input type="hidden" name="newartistid" value="<% $artistid %>">
-					</td>
-			</tr>
-		</table>
-		<table>
-			<tr>
-				<td colspan="3">
-                    <fieldset>
-                        <legend>Track artists</legend>
-                      <table>
-                        <tr>
-                            <td>
-                              <input type="radio" name="movetracks" value="0" checked>
-                              don't change track artists
-                              <br/>
-
-                              <input type="radio" name="movetracks" value="1">
-                              move all tracks to artist <a href="/showartist.html?artistid=<% $artistid %>" class="bold"><% $name %></a>
-% if ($al->HasMultipleTrackArtists()) {
-                              <p style="margin-left: 2em;"><span style="color: red;">Warning:</span> This album contains tracks attributed
-                                  to different artists. This information will be lost and all tracks will have
-                                  the <b>same</b> artist if you choose the <i>move</i> all tracks to artist option!
-                              </p>
+		<table><tr>
+			<td><form method="GET"
+			          action="<% $_isbatch ? "/showartist.html" :"/showalbum.html" %>"
+			          name="ModFormNo">
+				<input type="hidden"
+				       name="<%  $_isbatch ? "artistid" : "albumid" %>"
+				       value="<% $_isbatch ? $artistid  : $al->[0]->GetId %>">
+				<input name="btnNo" type="submit" class="button" value="&laquo; NO">
+			</form></td>
+			<td> &nbsp; </td>
+			<td><form method="POST" action="/edit/album/move.html" name="ModFormYes">
+				<input name="btnYes" type="submit" class="button" value="YES &raquo;">
+% for (@$al) {
+				<input type="hidden" name="album" value="<% $_->GetId %>">
 % }
-                            </td>
-                        </tr>
-                      </table>
-                    </fieldset>
-                </td>
-			</tr>
-		</table>
+				<input type="hidden" name="newartistname" value="<% $name %>">
+				<input type="hidden" name="newartistsortname" value="<% $sortname %>">
+				<input type="hidden" name="newartistid" value="<% $artistid %>">
+			</td>
+		</tr></table>
+
+%		# Move track artists?
+		<table><tr><td colspan="3"><fieldset>
+			<legend>Track artists</legend>
+			<table><tr><td>
+% if (!$_isbatch) {
+% # single album move
+%		my $_isma = $al->[0]->HasMultipleTrackArtists;
+				<input type="radio" name="movetracks" value="0"
+				       <% $_isma ? "checked" : "" %>>
+				 don't change track artists
+				<br/>
+				<input type="radio" name="movetracks" value="1"
+				       <% $_isma ? "" : "checked" %>>
+				move all tracks to artist <span class="bold"><% $name %></span>
+%		if ($_isma) {
+				<p style="margin-left: 2em; margin-top: 1em;">
+				 <span style="color: red;">Warning:</span> This album contains
+				 tracks attributed to different artists. This information will be
+				 lost and all tracks will have the <b>same</b> artist if you choose
+				 the <i>move</i> all tracks to artist option!</p>
+%		} else {
+				<p style="margin-left: 2em; margin-top: 1em;"><b>Note:</b>
+				 If you don't move the tracks of a single artist release to the new
+				 artist, <b>only</b> the album artist will be changed! In most cases
+				 it is safe to keep the default selection.</p>
+%		}
+% } else {
+% # batch album move
+				<p style="margin-left: 2em;"><b>Note:</b> You have chosen to move
+				 more than one album to another artist. In this mode the defaults
+				 for moving track artist are applied. This means, for all albums
+				 with identical track and album artists, the tracks will be moved
+				 to the new artist, too. For albums with more than one artists,
+				 only the album artist will be changed.</p>
+% }
+			</td></tr></table>
+		</fieldset></td></tr></table>
 	</div>
+
 	<div class="padlefttop">
 		<& /comp/notetext &>
 	</div>

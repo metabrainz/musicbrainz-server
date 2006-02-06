@@ -1,7 +1,8 @@
 %# vi: set ts=2 sw=2 ft=mason :
 %# Please note the VERY strong similarity between move.html and sac.html
+%# This handles single as well as batch album moves.
 <%args>
-$album => ""
+@album => ()
 $selectedartist => ""
 $newartistname => ""
 $newartistsortname => ""
@@ -16,47 +17,46 @@ $notetext => undef
 $m->comp("/comp/checkloggedin", 1, 1)
 	or return;
 
-MusicBrainz::IsNonNegInteger($album) && $album
+# make sure we have at least one valid album id
+MusicBrainz::IsNonNegInteger($album[0]) && $album[0]
 	or return $m->comp("/comp/badargs", 1, 1);
 
 my $mb = $m->comp("/comp/dblogin");
 
-my $al = Album->new($mb->{DBH});
-$al->SetId($album);
-$al->LoadFromId
-	or return $m->comp(
-		"/comp/error",
-		"Album #$album not found",
-		1, 1,
-	);
+# flag indicates batch or single album moves
+my $_isbatch = (scalar @album > 1);
 
-# TODO reject if artist == VARTIST_ID ?
-#$al->GetArtist == &ModDefs::VARTIST_ID
-#	and return $m->comp(
-#		"/comp/error",
-#		"You can't move this album.",
-#		1, 1,
-#	);
+# do some artist caching
+my $_getartist = do {
+	my %cache;
+	sub {
+		my ($id) = @_;
+		return $cache{$id} if exists $cache{$id};
+		my $ar = Artist->newFromId($mb->{DBH}, $id);
+		return($cache{$id} = $ar);
+	};
+};
+# and for albums
+my $_getalbum = do {
+	my %cache;
+	sub {
+		my ($id) = @_;
+		return $cache{$id} if exists $cache{$id};
+		my $al = Album->new($mb->{DBH});
+		$al->SetId($id);
+		$al->LoadFromId
+			or warn("Failed to load album #$id"), return undef;
+		return($cache{$id} = $al);
+	};
+};
 
-my $ar = Artist->new($mb->{DBH});
-$ar->SetId($al->GetArtist);
-$ar->LoadFromId
-	or return $m->comp(
-		"/comp/error",
-		"Artist not found",
-		1, 1,
-	);
-
-my $url = "/showalbum.html?albumid=$album";
-
+# if newartist selected, get it's data
 if ($selectedartist ne "")
 {
 	MusicBrainz::IsNonNegInteger($selectedartist) && $selectedartist
 		or return $m->comp("/comp/badargs", 1, 1);
 
-	my $target = Artist->new($mb->{DBH});
-	$target->SetId($selectedartist);
-	$target->LoadFromId
+	my $target = &$_getartist($selectedartist)
 		or return $m->comp(
 			"/comp/error",
 			"Artist #$selectedartist not found.",
@@ -69,52 +69,79 @@ if ($selectedartist ne "")
 	$newartistresolution = $target->GetResolution;
 }
 
+# newartist name not in DB
+# allow creation of new artist only if there is no artist with an identical name in the DB
+# TODO this could be changed in /comp/artistfilter
 if ($newartistname =~ /\S/ and $newartistsortname =~ /\S/ and $newartistid == -1)
 {
 	my $ar = Artist->new($mb->{DBH});
-    my $list = $ar->GetArtistsFromName($newartistname);
+  my $list = $ar->GetArtistsFromName($newartistname);
 
-    if (scalar(@$list) > 1)
-    {
-        </%perl>
-        <& /comp/sidebar, title => 'Move Album Error' &>
-    		You are attempting to create a new duplicate artist <b><% $newartistname %></b>, which cannot be done 
-        as part of the move album moderation. Please add <a href="/edit/artist/add.html?name=<% $newartistname %>&sortname=<% $newartistsortname %>">the 
-        duplicate artist</a> first and then move the album.
-        <& /comp/footer &>
-        <%perl>
-        return
-    }
+  # there's an artist with the same name in the DB
+	if (scalar(@$list) > 0)
+	{
+		</%perl>
+		<& /comp/sidebar, title => 'Move Album Error' &>
+		You are attempting to create a new duplicate artist <b><% $newartistname %></b>, which cannot be done 
+		as part of the move album moderation. Please add <a href="/edit/artist/add.html?name=<% $newartistname %>&sortname=<% $newartistsortname %>">the duplicate artist</a> first and then move the album.
+		<& /comp/footer &>
+		<%perl>
+		return
+	}
 }
+
+# everything seems ok, prepare & insert the move edits
 if ($newartistname =~ /\S/ and $newartistsortname =~ /\S/ and $newartistid =~ /\d+/)
 {
+	my @_al = map(&$_getalbum($_), @album);
+	my @_ar = map(&$_getartist($_->GetArtist), @_al);
+
+	# get confirmation from user
 	defined $notetext
 		or return $m->comp(
 			"move-confirm",
-			$al, $ar, $newartistname, $newartistsortname, $newartistid, $newartistresolution
+			\@_al,
+			\@_ar, $newartistname, $newartistsortname, $newartistid, $newartistresolution
 		);
 
+	# redirect to this URI after everything is done
+	my $url = $_isbatch ? "/showartist.html?artistid=$newartistid" : "/showalbum.html?albumid=$album[0]";
+
+	# prepare mods for each selected album
 	$m->comp(
 		"/comp/entermods",
 		DBH => $mb->{DBH},
 		sub => sub {
-			my @mods = Moderation->InsertModeration(
-				DBH	=> $mb->{DBH},
-				uid	=> $session{uid},
-				privs => $session{privs},
-				type => &ModDefs::MOD_MOVE_ALBUM,
-				# --
-				album => $al,
-				oldartist => $ar,
-				artistname => $newartistname,
-				artistsortname => $newartistsortname,
-				artistid => $newartistid,
-				movetracks => $movetracks,
-			);
+			my @mods;
 
-			$mods[0]->InsertNote($session{'uid'}, $notetext)
-				if $mods[0]
-				and $notetext =~ /\S/;
+			for my $al (@_al)
+			{
+				next if $al->GetArtist == $newartistid;
+				my $oldar = &$_getartist($al->GetArtist);
+				# if in batch mode, always use default (move tracks for SA, don't move for MA albums)
+				my $mt = ($_isbatch ? ($al->HasMultipleTrackArtists ? 0 : 1) : $movetracks );
+
+				my @push = Moderation->InsertModeration(
+					DBH	=> $mb->{DBH},
+					uid	=> $session{uid},
+					privs => $session{privs},
+					type => &ModDefs::MOD_MOVE_ALBUM,
+					# --
+					album => $al,
+					oldartist => $oldar,
+					artistname => $newartistname,
+					artistsortname => $newartistsortname,
+					artistid => $newartistid,
+					movetracks => $mt,
+				);
+
+				$push[0]->InsertNote($session{'uid'}, $notetext)
+					if @push and $notetext =~ /\S/;
+
+				push @mods, @push;
+			}
+
+			return @mods;
 		},
 		success_url => $url,
 	) or return;
@@ -124,28 +151,35 @@ if ($newartistname =~ /\S/ and $newartistsortname =~ /\S/ and $newartistid =~ /\
 
 </%perl>
 
-<& /comp/sidebar, title => "Move Album '${\ $al->GetName }' to another Artist" &>
 
-% if ($al->GetModPending) {
-    <& /comp/modpending &>
+%# --- HTML ---
+% my $tit = "Move Album" . ($_isbatch ? "s" : " '". &$_getalbum($album[0])->GetName ."'") . " to another Artist";
+<& /comp/sidebar, title => $tit &>
+
+% for my $alid (@album) {
+%		if (&$_getalbum($alid)->GetModPending) {
+			<& /comp/modpending &>
+%			last;
+%		}
 % }
 
 <fieldset>
-	<legend>Move Album to another Artist</legend>
+	<legend>Select new artist</legend>
 	<div class="padleft">
 		Please search for the artist to which
-		you want to move the album
-		<a href="/showalbum.html?albumid=<% $album %>"><% $al->GetName %></a>.
+		you want to move the album(s).
 	</div>
 </fieldset>
 
+%# search for target artist
+% my $qar = &$_getalbum($album[0])->GetArtist;
 <& /comp/artistfilter,
-  search => $ARGS{'search'},
-  defaultquery => $ar->GetName,
-	dontshow => [$al->GetArtist],
+	search => $ARGS{'search'},
+	defaultquery => $_isbatch ? "" : (&$_getartist($qar)->GetName),
+	dontshow => $_isbatch ? [] : [ $qar ],
 	allowcreate => 1,
 	url => "/edit/album/move.html",
-	arglist => { album => $album },
+	arglist => { album => \@album },
 	&>
 
 <& /comp/footer &>
