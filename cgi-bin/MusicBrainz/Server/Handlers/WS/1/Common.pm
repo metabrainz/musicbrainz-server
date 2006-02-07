@@ -197,7 +197,7 @@ sub xml_artist
         print " end=\"$e\"" if ($e); 
         print '/>';
     }
-    print '<disambiguation>' . $ar->GetResolution() . '</disambiguation>' if ($ar->GetResolution());
+    print '<disambiguation>' . xml_escape($ar->GetResolution()) . '</disambiguation>' if ($ar->GetResolution());
     print "</artist>";
 
     return undef;
