@@ -37,14 +37,13 @@ sub handler
     my $r = shift;
 
 	# URLs are of the form:
-	# http://server/ws/1/user/user_name
+	# http://server/ws/1/user/?name=<user_name>
 
 	return bad_req($r, "Only GET is acceptable")
 		unless $r->method eq "GET";
 
-    my $user = $1 if ($r->uri =~ /ws\/1\/user\/(.*)/);
-
 	my %args; { no warnings; %args = $r->args };
+    my $user = $args{name};
 
     # Ensure that the login name is the same as the resource requested
     if ($r->user ne $user)
@@ -53,13 +52,8 @@ sub handler
         return FORBIDDEN;
     }
 
-	my $status = eval {
-		# Try to serve the request from our cached copy
-#	{
-#		my $status = serve_from_cache($r, $user, 'user');
-#		return $status if defined $status;
-#	}
-
+	my $status = eval 
+    {
 		# Try to serve the request from the database
 		{
 			my $status = serve_from_db($r, $user);
@@ -91,40 +85,11 @@ sub serve_from_db
 {
 	my ($r, $user) = @_;
 
-	my $ar;
-	my $al;
-
-#	require MusicBrainz;
-#	my $mb = MusicBrainz->new;
-#	$mb->Login;
-#	require Artist;
-#
-#	$ar = Artist->new($mb->{DBH});
-#    $ar->SetMBId($mbid);
-#	return undef unless $ar->LoadFromId(1);
-
 	my $printer = sub {
 		print_xml($user);
 	};
 
-	my $fixup = sub {
-		my ($xmlref) = @_;
-
-		# These form the basis of the HTTP cache control system
-		require String::CRC32;
-		my $length = length($$xmlref);
-		my $checksum = String::CRC32::crc32($$xmlref);
-		my $time = time;
-
-		store_in_cache($user, "", $xmlref, $length, $checksum, $time);
-
-		# Set HTTP cache control headers
-		$r->set_content_length($length);
-		$r->header_out("ETag", "$user-$checksum");
-		$r->set_last_modified($time);
-	};
-
-	send_response($r, $printer, $fixup);
+	send_response($r, $printer);
 	return OK();
 }
 
@@ -132,9 +97,31 @@ sub print_xml
 {
 	my ($user) = @_;
 
+	require MusicBrainz;
+	my $mb = MusicBrainz->new;
+	$mb->Login;
+	require Artist;
+
+    require UserStuff;
+    my $us = UserStuff->new($mb->{DBH});
+    $us = $us->newFromName($user) or die "Cannot load user.\n";
+    my $nag = 1;
+    $nag = 0 if ($us->DontNag($us->GetPrivs) || $us->IsAutoMod($us->GetPrivs) || $us->IsLinkModerator($us->GetPrivs));
+
+    my @types;
+    push @types, "AutoEditor" if ($us->IsAutoMod($us->GetPrivs));
+    push @types, "RelationshipEditor" if $us->IsLinkModerator($us->GetPrivs);
+    push @types, "Bot" if $us->IsBot($us->GetPrivs);
+    push @types, "NotNaggable" if $us->DontNag($us->GetPrivs);
+
+    # TODO: check the current donation level at metabrainz.
+
 	print '<?xml version="1.0" encoding="UTF-8"?>';
-	print '<metadata xmlns="http://musicbrainz.org/ns/mmd-1.0#">';
-    print '<user><fuss/></user>';
+	print '<metadata xmlns="http://musicbrainz.org/ns/mmd-1.0#" xmlns:ext="http://musicbrainz.org/ns/ext-1.0#">';
+    print '<ext:user type="'. join(' ', @types) . '">';
+    print '<name>'.$user.'</name>';
+    print '<ext:nag show="' . ($nag ? 'true' : 'false') . '"/>';
+    print '</ext:user>';
 	print '</metadata>';
 }
 

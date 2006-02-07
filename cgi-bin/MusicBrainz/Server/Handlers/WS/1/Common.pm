@@ -29,10 +29,9 @@ package MusicBrainz::Server::Handlers::WS::1::Common;
 
 require Exporter;
 our @ISA = qw(Exporter);
-our @EXPORT = qw(convert_inc bad_req serve_from_cache send_response 
+our @EXPORT = qw(convert_inc bad_req send_response 
                     xml_artist xml_release_type xml_language xml_release_events
                     xml_discs xml_track_list xml_track xml_trm xml_escape 
-                    store_in_cache xml_release find_meta_in_cache find_data_in_cache
                     INC_ARTIST INC_COUNTS INC_LIMIT INC_TRACKS INC_RELEASES 
                     INC_VARELEASES INC_DURATION INC_ARTISTREL INC_RELEASEREL 
                     INC_DISCS INC_TRACKREL INC_URLREL INC_RELEASEINFO 
@@ -65,7 +64,7 @@ use constant INC_TRACKNUM    => 0x20000;
 use constant INC_TRMIDS      => 0x40000;
 
 # This hash is used to convert the long form of the args into a short form that can 
-# be used easier and be used as the key modifier for memcached.
+# be used easier 
 my %incShortcuts = 
 (
     'artist'         => INC_ARTIST,    
@@ -120,46 +119,6 @@ sub bad_req
 	return Apache::Constants::OK();
 }
 
-sub serve_from_cache
-{
-	my ($r, $mbid, $type, $inc) = @_;
-
-	# If we don't have it cached, return undef.  This means we have to fetch
-	# it from the DB.
-	my ($length, $checksum, $time) = find_meta_in_cache($mbid, $type, $inc)
-		or return undef;
-
-	$r->set_content_length($length);
-	$r->header_out("ETag", "$mbid-$type-$inc-$checksum");
-	$r->set_last_modified($time);
-
-	# Is the user's cached copy up-to-date?
-	{
-		my $rc = $r->meets_conditions;
-		if ($rc != Apache::Constants::OK()) { return $rc }
-	}
-
-	# No - send our copy (from the cache) to the user
-	# First we need to fetch the data itself
-	my $xmlref = find_data_in_cache($mbid, $type, $inc)
-		or return undef;
-
-	# Now send the data
-	$r->send_http_header("text/xml; charset=utf-8");
-	$r->print($xmlref);
-	return Apache::Constants::OK();
-}
-
-# This is a perfectly functional way of sending the response, but it's not
-# cacheable:
-#sub send_response
-#{
-#	my ($r, $printer) = @_;
-#	$r->send_http_header("text/xml; charset=utf-8");
-#	&$printer()
-#		unless $r->header_only;
-#}
-
 sub send_response
 {
 	my ($r, $printer, $fixup) = @_;
@@ -173,8 +132,7 @@ sub send_response
 		&$printer();
 	}
 
-	&$fixup(\$xml);
-
+    $r->set_content_length(length($xml));
 	$r->send_http_header("text/xml; charset=utf-8");
 	$r->print(\$xml) unless $r->header_only;
 }
@@ -414,32 +372,6 @@ sub xml_escape
 	$t =~ s/>/&gt;/g;
 	return $t;
 }
-
-sub store_in_cache
-{
-	my ($mbid, $type, $xmlref, $length, $checksum, $time) = @_;
-	# TODO implement this
-	return;
-}
-
-sub find_meta_in_cache
-{
-	my ($mbid, $type) = @_;
-	# TODO implement this
-	# return ($length, $checksum, $time);
-	return ();
-}
-
-sub find_data_in_cache
-{
-	my ($mbid, $type) = @_;
-	# TODO implement this
-	# return \$xml;
-	return undef;
-}
-
-# TODO of course we also need a cache invalidation policy
-# - either expire after some time (e.g. 1 hr), or clear when the data changes.
 
 1;
 # eof Common.pm

@@ -60,13 +60,8 @@ sub handler
 		return bad_req($r, "Collections not supported yet.");
     }
 
-	my $status = eval {
-		# Try to serve the request from our cached copy
-#	{
-#		my $status = serve_from_cache($r, $mbid, 'release', $inc);
-#		return $status if defined $status;
-#	}
-
+	my $status = eval 
+    {
 		# Try to serve the request from the database
 		{
 			my $status = serve_from_db($r, $mbid, $inc);
@@ -120,24 +115,7 @@ sub serve_from_db
 		print_xml($mbid, $ar, $al, $inc);
 	};
 
-	my $fixup = sub {
-		my ($xmlref) = @_;
-
-		# These form the basis of the HTTP cache control system
-		require String::CRC32;
-		my $length = length($$xmlref);
-		my $checksum = String::CRC32::crc32($$xmlref);
-		my $time = time;
-
-		store_in_cache($mbid, $inc, $xmlref, $length, $checksum, $time);
-
-		# Set HTTP cache control headers
-		$r->set_content_length($length);
-		$r->header_out("ETag", "$mbid-$inc-$checksum");
-		$r->set_last_modified($time);
-	};
-
-	send_response($r, $printer, $fixup);
+	send_response($r, $printer);
 	return Apache::Constants::OK();
 }
 
