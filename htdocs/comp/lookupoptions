@@ -28,44 +28,37 @@ else
 
 </%perl>
 
-<br>
-<p>
-<table width="420"><tr><td>
-<b>Artist/album/track not found?</b>
-<p>
-
-If the artist/album/track you are looking for was not found,
-you can do the following things: 
+<strong>Can't find what you're looking for?</strong><p/>
+If you can't find what you're looking for, it's possible that <strong>your search terms didn't match our data</strong>. Try the following:
 
 <ul>
-  <li>
-    <p>
-      Import <a href="/freedb/freedb.html?search=<% uri_escape($search) %>"><% $display %></a>
-      from FreeDB and then tag your track against the new album.
-    </p>
-  </li>
-
-% if ($artist ne '' && defined $artistobj) {
-    <li>
-      <p>
-    	<a href="/edit/track/addnonalbum.html?artistid=<% $artistobj->GetId %>"
-		onclick="document.forms.AddNonAlbumTrack.submit(); return false"
-		>Add a non-album track</a>
-	to artist '<% $artist %>'.&nbsp;
-	<b>Only do this if you know that the track has never been released
-	on any album</b> (or single, etc).&nbsp; Don't use this simply
-	because you can't find which album it's on (or haven't looked).
-      </p>
-    </li>
+	<li><strong>Modify your search terms in the box below</strong> and search again.<br/>
+Often it helps to remove information such as words that might be misspelled, remix names, featured artists, etc.<br/>
+Your tags may differ considerably from the data in MusicBrainz, as we edit data according to our <a href="http://wiki.musicbrainz.org/OfficialStyleGuideline">Style Guidelines</a>, so less specific searches may find what you are looking for. This is especially true if your tags are inaccurate. There are more searching hints on the <a href="http://wiki.musicbrainz.org/HowToSearch">How to Search</a> page on the wiki.</li>
+% if (defined $artistobj) {
+	<li><strong>Look for the album on the <a href="/showartist.html?id=<% $artistobj->GetId() %>">artist page for <% $artist %></a></strong>. You may find that the album you're looking for is on the artist's page even if the search doesn't find it.</li>
+% } else {
+	<li><strong>Search for the artist and look for the album on the artist page</strong>. You may find that the album you're looking for is on the artist's page even if the search doesn't find it.</li>
 % }
-
-  <li><p>Use the box below to modify your lookup criteria and try again:</p></li>
+    <li><strong>Search for just the artist, album or track using the quick search in the sidebar</strong>. The quick search only tries to match one piece of data, and you're therefore more likely to find what you're looking for.</li>
 </ul>
 
-</td></tr></table>
+<strong>What if I still can't find what I'm looking for?</strong><p/>
+If you've tried all of the above and still can't find what you're looking for, maybe MusicBrainz just doesn't have the information in the database. You can:
+<ul>
+	<li><strong><a href="/freedb/freedb.html?search=<% uri_escape($search) %>">Import a new album from FreeDB</a></strong>. You will need to spend some time cleaning up the data according to the <a href="http://wiki.musicbrainz.org/OfficialStyleGuideline">Style Guidelines</a>, finding release dates, etc. before it gets inserted into MusicBrainz.
+</li>
+% if (defined $artistobj) {
+	<li><strong><a href="/edit/album/add.html?artistid=<% $artistobj->GetId %>">Add an album manually</a></strong>.</li>
+% } else {
+	<li><strong><a href="http://musicbrainz.org/edit/artist/add.html?initial_name=<% $artist %>">Add a new artist</a></strong>.</li>
+% }
+% if ($artist ne '' && defined $artistobj) {
+	<li>If you can't find the track you're looking for and you are <em>sure</em> that the track has never been released on any album or single (including bootlegs), you can <a href="/edit/track/addnonalbum.html?artistid=<% $artistobj->GetId %>" onclick="document.forms.AddNonAlbumTrack.submit(); return false">add a non-album track</a> to the artist '<% $artist %>'. Do <strong>not</strong> use this simply because you can't find which album a track is on (or haven't looked), or your changes will be voted down.</li>
+% }
+</ul>
 
 <form method="post" action="/edit/track/addnonalbum.html" id="AddNonAlbumTrack">
-	<input type="hidden" name="artistid" value="<% $artistobj ? $artistobj->GetId : '' %>">
-	<input type="hidden" name="trackname" value="<% $data->{track} %>">
+	<input type="hidden" name="artistid" value="<% $artistobj ? $artistobj->GetId : '' %>"/>
+	<input type="hidden" name="trackname" value="<% $data->{track} %>"/>
 </form>
-
