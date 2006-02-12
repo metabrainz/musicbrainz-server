@@ -870,59 +870,63 @@ sub GetArtistDisplayList
 # also returned by this query. Use SetId() to set the id of artist
 sub GetAlbums
 {
-   my ($this, $novartist, $loadmeta) = @_;
+   my ($this, $novartist, $loadmeta, $onlyvartist) = @_;
    my (@albums, $sql, @row, $album, $query);
 
-   # First, pull in the single artist albums
+   return @albums if (defined $novartist && $novartist && defined $onlyvartist && $onlyvartist);
+
    $sql = Sql->new($this->{DBH});
-   if (defined $loadmeta && $loadmeta)
+   if (!defined $onlyvartist || !$onlyvartist)
    {
-       $query = qq/select album.id, name, modpending, GID, attributes,
-                          language, script, tracks, discids, trmids,
-                          firstreleasedate, coverarturl, asin
-                   from Album, Albummeta 
-                   where artist=$this->{id} and albummeta.id = album.id/;
-   }
-   else
-   {
-       $query = qq/select album.id, name, modpending, GID,
-                          attributes, language, script 
-                   from Album 
-                   where artist=$this->{id}/;
-   }
-   if ($sql->Select($query))
-   {
-        while(@row = $sql->NextRow)
-        {
-	    require Album;
-            $album = Album->new($this->{DBH});
-            $album->SetId($row[0]);
-            $album->SetName($row[1]);
-            $album->SetModPending($row[2]);
-            $album->SetArtist($this->{id});
-            $album->SetMBId($row[3]);
-            $row[4] =~ s/^\{(.*)\}$/$1/;
-            $album->{attrs} = [ split /,/, $row[4] ];
-            $album->SetLanguageId($row[5]);
-            $album->SetScriptId($row[6]);
-
-            if (defined $loadmeta && $loadmeta)
+       # First, pull in the single artist albums
+       if (defined $loadmeta && $loadmeta)
+       {
+           $query = qq/select album.id, name, modpending, GID, attributes,
+                              language, script, tracks, discids, trmids,
+                              firstreleasedate, coverarturl, asin
+                       from Album, Albummeta 
+                       where artist=$this->{id} and albummeta.id = album.id/;
+       }
+       else
+       {
+           $query = qq/select album.id, name, modpending, GID,
+                              attributes, language, script 
+                       from Album 
+                       where artist=$this->{id}/;
+       }
+       if ($sql->Select($query))
+       {
+            while(@row = $sql->NextRow)
             {
-                $album->{trackcount} = $row[7];
-                $album->{discidcount} = $row[8];
-                $album->{trmidcount} = $row[9];
-                $album->{firstreleasedate} = $row[10]||"";
-                $album->{coverarturl} = $row[11]||"";
-                $album->{asin} = $row[12]||"";
+                require Album;
+                $album = Album->new($this->{DBH});
+                $album->SetId($row[0]);
+                $album->SetName($row[1]);
+                $album->SetModPending($row[2]);
+                $album->SetArtist($this->{id});
+                $album->SetMBId($row[3]);
+                $row[4] =~ s/^\{(.*)\}$/$1/;
+                $album->{attrs} = [ split /,/, $row[4] ];
+                $album->SetLanguageId($row[5]);
+                $album->SetScriptId($row[6]);
+
+                if (defined $loadmeta && $loadmeta)
+                {
+                    $album->{trackcount} = $row[7];
+                    $album->{discidcount} = $row[8];
+                    $album->{trmidcount} = $row[9];
+                    $album->{firstreleasedate} = $row[10]||"";
+                    $album->{coverarturl} = $row[11]||"";
+                    $album->{asin} = $row[12]||"";
+                }
+
+                push @albums, $album;
+                undef $album;
             }
+       }
 
-            push @albums, $album;
-            undef $album;
-        }
+       $sql->Finish;
    }
-
-    $sql->Finish;
-
    return @albums if (defined $novartist && $novartist);
 
    # then, pull in the multiple artist albums
