@@ -66,6 +66,7 @@ ALTER TABLE trmjoin_stat DROP CONSTRAINT trmjoin_stat_pkey;
 ALTER TABLE url DROP CONSTRAINT url_pkey;
 ALTER TABLE vote_closed DROP CONSTRAINT vote_closed_pkey;
 ALTER TABLE vote_open DROP CONSTRAINT vote_open_pkey;
+ALTER TABLE wiki_transclusion DROP CONSTRAINT wiki_transclusion_pkey;
 ALTER TABLE wordlist DROP CONSTRAINT wordlist_pkey;
 
 -- vi: set ts=4 sw=4 et :

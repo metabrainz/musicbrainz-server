@@ -713,6 +713,13 @@ CREATE TABLE vote_open
     superseded          BOOLEAN NOT NULL DEFAULT FALSE
 );
 
+CREATE TABLE wiki_transclusion
+(
+    id                  SERIAL,
+    page                VARCHAR(255) NOT NULL,
+    revision            SMALLINT NOT NULL DEFAULT 1
+);
+
 CREATE TABLE wordlist
 (
     id                  SERIAL,

@@ -12,6 +12,9 @@
 %	if (UserStuff->IsLinkModerator($session{privs})) {
 	<a href="/edit/relationships/link_type_roots.html">Edit Links</a>
 %	}
+%	if (UserStuff->IsWikiTranscluder($session{privs})) {
+	<a href="/edit/wikitransclusion/transclusion.html">Trans. Docs</a>
+%	}
 %	if (&DBDefs::DB_STAGING_SERVER) {
 	<a href="/user/debug.html">Debug</a> 
 %	}

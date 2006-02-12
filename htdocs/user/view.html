@@ -121,6 +121,12 @@ my $subscriptions_public = UserPreference::get_for_user("subscriptions_public", 
 	<a href="/user/edit.html">Edit</a>
 	| <a href="/user/change-password.html">Change Password</a>
 	| <a href="/prefs.html">Preferences</a>
+% if (UserStuff->IsLinkModerator($session{privs})) {
+        | <a href="/edit/relationships/link_type_roots.html">Edit Link Types</a>
+% }
+% if (UserStuff->IsLinkModerator($session{privs})) {
+        | <a href="/edit/wikitransclusion/transclusion.html">Wiki Transclusion</a>
+% }
 	]
 </p>
 % }

@@ -168,6 +168,7 @@ specific notes about a server type, the instructions apply to all server types.
    Algorithm::Diff
    Apache::Session
    Apache::Session::File
+   Apache::AuthDigest
    Bundle::Apache
    Bundle::Mason
    Cache::Memcached
@@ -176,11 +177,12 @@ specific notes about a server type, the instructions apply to all server types.
    DBI
    Devel::Peek
    Digest::SHA1
+   Digest::MD5
    HTTP::Negotiate
    Language::Guess (see notes below about seed data for this module)
    MIME::Lite
    Net::Amazon
-   RDFStore
+   RDFStore (use 0.42 if 0.50 gives you install headaches)
    Storable
    String::ShellQuote
    String::Similarity

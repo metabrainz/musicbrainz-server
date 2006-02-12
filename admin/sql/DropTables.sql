@@ -65,6 +65,7 @@ DROP TABLE trmjoin_stat;
 DROP TABLE url;
 DROP TABLE vote_closed;
 DROP TABLE vote_open;
+DROP TABLE wiki_transclusion;
 DROP TABLE wordlist;
 
 -- Alphabetical order
@@ -120,6 +121,7 @@ DROP SEQUENCE trmjoin_id_seq;
 DROP SEQUENCE trmjoin_stat_id_seq;
 DROP SEQUENCE url_id_seq;
 DROP SEQUENCE vote_open_id_seq;
+DROP SEQUENCE wiki_transclusion_id_seq;
 DROP SEQUENCE wordlist_id_seq;
 
 -- vi: set ts=4 sw=4 et :

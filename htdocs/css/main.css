@@ -598,4 +598,22 @@ table.Subs tr.r1 td {
   color: red;
 }
 
+/* Links to wikidocs or wiki pages */
+.WikiDocsHeader
+{
+        text-align: right;
+}
+.WikiDocsLink
+{
+        font-weight: bold;
+}
+.WikiLink
+{
+}
+.WikiDocsReadOnlyPage
+{
+        border: 2px dotted black;
+        padding: .5em;
+}
+
 /* eof */

@@ -103,6 +103,7 @@ DROP INDEX vote_closed_idx_moderation;
 DROP INDEX vote_closed_idx_moderator;
 DROP INDEX vote_open_idx_moderation;
 DROP INDEX vote_open_idx_moderator;
+DROP INDEX wiki_transclusion_page;
 DROP INDEX wordlist_wordindex;
 
 -- vi: set ts=4 sw=4 et :

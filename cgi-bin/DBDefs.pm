@@ -95,9 +95,10 @@ sub REPLICATION_TYPE { RT_STANDALONE }
 
 # The host names of the HTML / RDF parts of the server
 # To use a port number other than 80, add it like so: "myhost:8000"
-sub WEB_SERVER	{ "www.musicbrainz.example.com" }
-sub RDF_SERVER	{ "rdf.musicbrainz.example.com" }
-sub WIKIDOC_SERVER	{ "wikidocs.musicbrainz.org" }
+sub WEB_SERVER	     { "www.musicbrainz.example.com" }
+sub RDF_SERVER	     { "rdf.musicbrainz.example.com" }
+sub WIKIDOC_SERVER   { "wikidocs.musicbrainz.org" }
+sub WIKITRANS_SERVER { "wiki.musicbrainz.org" }
 
 
 

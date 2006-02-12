@@ -45,6 +45,8 @@ use constant AUTOMOD_FLAG => 1;
 use constant BOT_FLAG => 2;
 use constant UNTRUSTED_FLAG => 4;
 use constant LINK_MODERATOR_FLAG => 8;
+use constant DONT_NAG_FLAG => 16;
+use constant WIKI_TRANSCLUSION_FLAG => 32;
 
 use constant SEARCHRESULT_SUCCESS => 1;
 use constant SEARCHRESULT_NOQUERY => 2;
@@ -650,6 +652,20 @@ sub IsLinkModerator
 	my ($this, $privs) = @_;
 
 	return ($privs & LINK_MODERATOR_FLAG) > 0;
+}
+
+sub DontNag
+{
+	my ($this, $privs) = @_;
+
+	return ($privs & DONT_NAG_FLAG) > 0;
+}
+
+sub IsWikiTranscluder
+{
+	my ($this, $privs) = @_;
+
+	return ($privs & WIKI_TRANSCLUSION_FLAG) > 0;
 }
 
 ################################################################################

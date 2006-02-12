@@ -126,6 +126,7 @@ SetSequence($sql, "trm_stat");
 SetSequence($sql, "url");
 # vote_closed - see below
 # vote_open - see below
+SetSequence($sql, "wiki_transclusion");
 SetSequence($sql, "wordlist");
 
 # For the three pairs of open/closed tables (moderation, moderation_note
