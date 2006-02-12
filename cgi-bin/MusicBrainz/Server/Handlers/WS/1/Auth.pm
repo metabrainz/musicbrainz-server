@@ -36,6 +36,9 @@ sub handler
 {
     my $r = Apache::AuthDigest::API->new(shift);
 
+    # Track GET operations do not need to be auth'ed -- pass em along.
+    return OK if ($r->method eq "GET" && $r->uri =~ /^\/ws\/1\/track/);
+
     my ($status, $response) = $r->get_digest_auth_response;
     return $status unless $status == OK;
 

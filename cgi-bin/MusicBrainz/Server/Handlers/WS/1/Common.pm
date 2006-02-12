@@ -30,7 +30,7 @@ package MusicBrainz::Server::Handlers::WS::1::Common;
 require Exporter;
 our @ISA = qw(Exporter);
 our @EXPORT = qw(convert_inc bad_req send_response 
-                    xml_artist xml_release_type xml_language xml_release_events
+                    xml_artist xml_release xml_language xml_release_events
                     xml_discs xml_track_list xml_track xml_trm xml_escape 
                     INC_ARTIST INC_COUNTS INC_LIMIT INC_TRACKS INC_RELEASES 
                     INC_VARELEASES INC_DURATION INC_ARTISTREL INC_RELEASEREL 
@@ -234,7 +234,7 @@ sub xml_release_events
             printf '<release-info-list count="%s"/>', scalar(@releases);
             return undef;
         }
-        print "<release-info-list>";
+        print "<release-event-list>";
         for my $rel (@releases)
         {
 			my $cid = $rel->GetCountry;
@@ -246,7 +246,7 @@ sub xml_release_events
 			my ($editpending) = ($rel->GetModPending ? 'editpending="1"' : '');
 
 			# create a releasedate element
-			print '<info date="';
+			print '<event date="';
 			print ($releasedate);
 			print '" country="'; 
 			print ($c ? $c->GetISOCode : "?");
