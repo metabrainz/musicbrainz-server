@@ -30,16 +30,17 @@ package MusicBrainz::Server::Handlers::WS::1::Track;
 use Apache::Constants qw( );
 use Apache::File ();
 use MusicBrainz::Server::Handlers::WS::1::Common;
+use Apache::Constants qw( OK BAD_REQUEST DECLINED SERVER_ERROR NOT_FOUND FORBIDDEN);
 
 sub handler
 {
 	my ($r) = @_;
 	# URLs are of the form:
-	# http://server/ws/1/track or
-	# http://server/ws/1/track/MBID 
+	# GET http://server/ws/1/track or
+	# GET http://server/ws/1/track/MBID or
+	# POST http://server/ws/1/trm/?name=<user_name>&client=<client id>&trms=<trackid:trm+trackid:trm>
 
-	return bad_req($r, "Only GET is acceptable")
-		unless $r->method eq "GET";
+    return handler_post($r) if ($r->method eq "POST");
 
     my $mbid = $1 if ($r->uri =~ /ws\/1\/track\/([a-z0-9-]*)/);
 
@@ -128,6 +129,167 @@ sub print_xml
 	print '<metadata xmlns="http://musicbrainz.org/ns/mmd-1.0#">';
     print xml_track($ar, $tr, $inc);
 	print '</metadata>';
+}
+
+sub handler_post
+{
+    my $r = shift;
+
+	# URLs are of the form:
+	# http://server/ws/1/trm/?name=<user_name>&client=<client id>&trms=<trackid:trm+trackid:trm>
+
+    my $apr = Apache::Request->new($r);
+    my $user = $apr->param('name');
+    my $data = $apr->param('trms');
+    my $client = $apr->param('client');
+    my @pairs = split(' ', $data);
+    my @trms;
+    foreach my $pair (@pairs)
+    {
+        my ($trackid, $trmid) = split(':', $pair);
+        if (!MusicBrainz::IsGUID($trmid) || !MusicBrainz::IsGUID($trackid))
+        {
+            $r->status(BAD_REQUEST);
+            return BAD_REQUEST;
+        }
+        push @trms, { trmid => $trmid, trackmbid => $trackid };
+    }
+
+    # We have to have a limit, I think.  It's only sensible.
+    # So far I've not seen anyone submit more that about 4,500 TRMs at once,
+    # so this limit won't affect anyone in a hurry.
+    if (scalar(@trms) > 5000)
+    {
+		$r->status(DECLINED);
+        return DECLINED;
+    }
+
+    # Ensure that the login name is the same as the resource requested 
+    if ($r->user ne $user)
+    {
+		$r->status(FORBIDDEN);
+        return FORBIDDEN;
+    }
+    # Ensure that we're not a replicated server and that we were given a client version
+    if (&DBDefs::REPLICATION_TYPE == &DBDefs::RT_SLAVE || $client eq '')
+    {
+        print STDERR "mipe '$client'\n";
+		$r->status(BAD_REQUEST);
+        return BAD_REQUEST;
+    }
+
+	my $status = eval 
+    {
+		# Try to serve the request from the database
+		{
+			my $status = serve_from_db_post($r, $user, $client, \@trms);
+			return $status if defined $status;
+		}
+        undef;
+	};
+
+	if ($@)
+	{
+		my $error = "$@";
+        print STDERR "WS Error: $error\n";
+		$r->status(SERVER_ERROR);
+		$r->content_type("text/plain; charset=utf-8");
+		$r->print($error."\015\012") unless $r->header_only;
+		return SERVER_ERROR;
+	}
+    if (!defined $status)
+    {
+        $r->status(NOT_FOUND);
+        return NOT_FOUND;
+    }
+
+    $r->status(OK);
+	return OK;
+}
+
+sub serve_from_db_post
+{
+	my ($r, $user, $client, $trms) = @_;
+
+	my $printer = sub {
+		print_xml_post($user, $client, $trms);
+	};
+
+	send_response($r, $printer);
+	return OK();
+}
+
+sub print_xml_post
+{
+	my ($user, $client, $links) = @_;
+
+	require MusicBrainz;
+	my $mb = MusicBrainz->new;
+	$mb->Login;
+
+    require UserStuff;
+    my $us = UserStuff->new($mb->{DBH});
+    $us = $us->newFromName($user) or die "Cannot load user.\n";
+
+    require Sql;
+    my $sql = Sql->new($mb->{DBH});
+
+    # Check each track and then then adjust the list to have the row id of the track
+    require Track;
+    foreach my $pair (@$links)
+    {
+        my $tr = Track->new($sql->{DBH});
+        $tr->SetMBId($pair->{trackmbid});
+        unless ($tr->LoadFromId)
+        {
+            print STDERR "Unknown MB Track Id: " . $pair->{trackmbid} . "\n";
+        } 
+        else 
+        {
+            $pair->{trackid} = $tr->GetId;
+        }
+    }
+
+    if (@$links)
+    {
+        eval
+        {
+            $sql->Begin;
+
+            require Moderation;
+            my @mods;
+
+            # Break the list of TRMs up into 100 TRMs at a time.
+            # This is so that each moderation is manageably small.
+            while (@$links)
+            {
+                my @thistime;
+                if (@$links > 100) { @thistime = splice(@$links, 0, 100) }
+                else { @thistime = @$links; @$links = () }
+
+                my @mods = Moderation->InsertModeration(
+                    DBH => $mb->{DBH},
+                    uid => $us->GetId,
+                    privs => 0, # TODO
+                    type => &ModDefs::MOD_ADD_TRMS,
+                    # --
+                    client => $client,
+                    links => \@thistime,
+                );
+            }
+
+            $sql->Commit;
+        };
+        if ($@)
+        {
+            print STDERR "Cannot insert TRM: $@\n";
+            $sql->Rollback;
+            die("Cannot write TRM Ids to database.\n")
+        }
+    }
+
+	print '<?xml version="1.0" encoding="UTF-8"?>';
+	print '<metadata xmlns="http://musicbrainz.org/ns/mmd-1.0#"/>';
 }
 
 1;
