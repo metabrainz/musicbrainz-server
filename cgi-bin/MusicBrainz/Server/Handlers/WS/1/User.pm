@@ -114,7 +114,14 @@ sub print_xml
     push @types, "Bot" if $us->IsBot($us->GetPrivs);
     push @types, "NotNaggable" if $us->DontNag($us->GetPrivs);
 
-    # TODO: check the current donation level at metabrainz.
+    if ($nag && !$us->DontNag())
+    {
+        use LWP::Simple;
+        use URI::Escape;
+        my $page = get('http://metabrainz.org/cgi-bin/nagcheck?moderator=' . uri_escape($user));
+        $page =~ s/\s*([-01])\s*/$1/;
+        $nag = $page;
+    }
 
 	print '<?xml version="1.0" encoding="UTF-8"?>';
 	print '<metadata xmlns="http://musicbrainz.org/ns/mmd-1.0#" xmlns:ext="http://musicbrainz.org/ns/ext-1.0#">';
@@ -126,4 +133,4 @@ sub print_xml
 }
 
 1;
-# eof Release.pm
+# eof User.pm
