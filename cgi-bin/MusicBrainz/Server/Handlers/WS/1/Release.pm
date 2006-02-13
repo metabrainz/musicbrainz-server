@@ -46,6 +46,12 @@ sub handler
 	my %args; { no warnings; %args = $r->args };
     my ($inc, $bad) = convert_inc($args{inc});
 
+    my $cdid = $args{discid};
+    if ($cdid && length($cdid) != MusicBrainz::Server::CDTOC::CDINDEX_ID_LENGTH)
+    {
+		return bad_req($r, "Invalid cdindex id. For usage, please see: http://musicbrainz.org/development/mmd");
+	}
+
     if ($bad)
     {
 		return bad_req($r, "Invalid inc options: '$bad'. For usage, please see: http://musicbrainz.org/development/mmd");
@@ -55,7 +61,7 @@ sub handler
 		return bad_req($r, "Incorrect URI. For usage, please see: http://musicbrainz.org/development/mmd");
 	}
 
-    if (!$mbid)
+    if (!$mbid && !$cdid)
     {
 		return bad_req($r, "Collections not supported yet.");
     }
@@ -64,7 +70,7 @@ sub handler
     {
 		# Try to serve the request from the database
 		{
-			my $status = serve_from_db($r, $mbid, $inc);
+			my $status = serve_from_db($r, $mbid, $cdid, $inc);
 			return $status if defined $status;
 		}
         undef;
@@ -90,7 +96,7 @@ sub handler
 
 sub serve_from_db
 {
-	my ($r, $mbid, $inc) = @_;
+	my ($r, $mbid, $cdid, $inc) = @_;
 
 	my $ar;
 	my $al;
@@ -101,8 +107,23 @@ sub serve_from_db
 	require Album;
 
 	$al = Album->new($mb->{DBH});
-    $al->SetMBId($mbid);
-	return undef unless $al->LoadFromId(1);
+    if ($mbid)
+    {
+        $al->SetMBId($mbid);
+        return undef unless $al->LoadFromId(1);
+    }
+    else
+    {
+        require MusicBrainz::Server::AlbumCDTOC;
+
+        my $cd = MusicBrainz::Server::AlbumCDTOC->new($mb->{DBH});
+        my $albumids = $cd->GetAlbumIDsFromDiscID($cdid);
+        if (scalar(@$albumids))
+        {
+            $al->SetId($$albumids[0]);
+            return undef unless $al->LoadFromId(1);
+        }
+    }
 
     if ($inc & INC_ARTIST || $inc & INC_TRACKS)
     {
