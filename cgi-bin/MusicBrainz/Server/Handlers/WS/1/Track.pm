@@ -106,7 +106,7 @@ sub serve_from_db
     $tr->SetMBId($mbid);
 	return undef unless $tr->LoadFromId(1);
 
-    if ($inc & INC_ARTIST)
+    if ($inc & INC_ARTIST || $inc & INC_RELEASES)
     {
         $ar = Artist->new($mb->{DBH});
         $ar->SetId($tr->GetArtist);

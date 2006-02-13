@@ -122,12 +122,7 @@ sub print_xml
 
 	print '<?xml version="1.0" encoding="UTF-8"?>';
 	print '<metadata xmlns="http://musicbrainz.org/ns/mmd-1.0#">';
-    print xml_artist($ar);
-    if ($inc & INC_RELEASES|| $inc & INC_VARELEASES)
-    {
-        my @albums = $ar->GetAlbums(($inc & INC_VARELEASES) == 0, 1, ($inc & INC_RELEASES) == 0);
-        xml_release($ar, $_, $inc) foreach @albums;
-    }
+    print xml_artist($ar, $inc);
 	print '</metadata>';
 }
 

@@ -30,8 +30,7 @@ package MusicBrainz::Server::Handlers::WS::1::Common;
 require Exporter;
 our @ISA = qw(Exporter);
 our @EXPORT = qw(convert_inc bad_req send_response 
-                    xml_artist xml_release xml_language xml_release_events
-                    xml_discs xml_track_list xml_track xml_trm xml_escape 
+                    xml_artist xml_release xml_track
                     INC_ARTIST INC_COUNTS INC_LIMIT INC_TRACKS INC_RELEASES 
                     INC_VARELEASES INC_DURATION INC_ARTISTREL INC_RELEASEREL 
                     INC_DISCS INC_TRACKREL INC_URLREL INC_RELEASEINFO 
@@ -139,7 +138,7 @@ sub send_response
 
 sub xml_artist
 {
-	my ($ar) = @_;
+	my ($ar, $inc) = @_;
 
 	printf '<artist id="%s"', $ar->GetMBId;
     printf ' type="%s"', &Artist::GetTypeName($ar->GetType()) if ($ar->GetType);
@@ -156,6 +155,17 @@ sub xml_artist
         print '/>';
     }
     print '<disambiguation>' . xml_escape($ar->GetResolution()) . '</disambiguation>' if ($ar->GetResolution());
+    if ($inc & INC_RELEASES|| $inc & INC_VARELEASES)
+    {
+        my @albums = $ar->GetAlbums(($inc & INC_VARELEASES) == 0, 1, ($inc & INC_RELEASES) == 0);
+        if (scalar(@albums))
+        {
+            print '<release-list>';
+            xml_release($ar, $_, $inc) foreach @albums;
+            print '</release-list>';
+        }
+    }
+    xml_relations($ar, 'artist', $inc) if ($inc & INC_ARTISTREL || $inc & INC_RELEASEREL || $inc & INC_TRACKREL || $inc & INC_URLREL);
     print "</artist>";
 
     return undef;
@@ -183,10 +193,11 @@ sub xml_release
     my $asin = $al->GetAsin;
     print "<asin>$asin</asin>" if $asin;
 
-    print xml_artist($ar) if ($inc & INC_ARTIST);
-    print xml_release_events($al, $inc) if ($inc & INC_RELEASEINFO || $inc & INC_COUNTS);
-    print xml_discs($al, $inc) if ($inc & INC_DISCS || $inc & INC_COUNTS);
-    print xml_track_list($ar, $al, $inc) if ($inc & INC_TRACKS || $inc & INC_COUNTS);
+    xml_artist($ar, $inc) if ($inc & INC_ARTIST && $ar);
+    xml_release_events($al, $inc) if ($inc & INC_RELEASEINFO || $inc & INC_COUNTS);
+    xml_discs($al, $inc) if ($inc & INC_DISCS || $inc & INC_COUNTS);
+    xml_track_list($ar, $al, $inc) if ($inc & INC_TRACKS || $inc & INC_COUNTS && $ar);
+    xml_relations($al, 'album', $inc) if ($inc & INC_ARTISTREL || $inc & INC_RELEASEREL || $inc & INC_TRACKREL || $inc & INC_URLREL);
     
 	print '</release>';
 }
@@ -337,8 +348,28 @@ sub xml_track
     print '<duration>';
     print xml_escape($tr->GetLength());
     print '</duration>';
-    xml_artist($ar) if (defined $ar);
+    xml_artist($ar, 0) if (defined $ar);
+    if ($ar && $inc & INC_RELEASES)
+    {
+        my @albums = $tr->GetAlbumInfo();
+        if (scalar(@albums))
+        {
+            my $al = Album->new($ar->{DBH});
+            print '<release-list>';
+            foreach my $i (@albums)
+            {
+                print STDERR "load: $i->[3]\n";
+                $al->SetMBId($i->[3]);
+                if ($al->LoadFromId())
+                {
+                    xml_release($ar, $al, 0) 
+                }
+            }
+            print '</release-list>';
+        }
+    }
     xml_trm($tr) if ($inc & INC_TRMIDS);
+    xml_relations($tr, 'track', $inc) if ($inc & INC_ARTISTREL || $inc & INC_RELEASEREL || $inc & INC_TRACKREL || $inc & INC_URLREL);
     print '</track>';
 
     return undef;
@@ -363,6 +394,183 @@ sub xml_trm
     print '</trm-list>';
     return undef;
 }
+
+sub load_object
+{
+    my ($cache, $dbh, $id, $type) = @_;
+
+    my ($k, $temp);
+    if ($type eq 'artist')
+    {
+        $k = "artist-$id";
+        if (exists $cache->{$k})
+        {
+            return $cache->{$k};
+        }
+        else
+        {
+            my $temp = Artist->new($dbh);
+            MusicBrainz::IsGUID($id) ? $temp->SetMBId($id) : $temp->SetId($id);
+            die "Could not load artist $id\n" if (!$temp->LoadFromId());
+            $cache->{$k} = $temp;
+            return $temp;
+        }
+    } 
+    elsif ($type eq 'album')
+    {
+        $k = "album-" . $id;
+        if (exists $cache->{$k})
+        {
+            return $cache->{$k};
+        }
+        else
+        {
+            $temp = Album->new($dbh);
+            MusicBrainz::IsGUID($id) ? $temp->SetMBId($id) : $temp->SetId($id);
+            die "Could not load release $id\n" if (!$temp->LoadFromId());
+            $cache->{$k} = $temp;
+            return $temp;
+        }
+    } 
+    elsif ($type eq 'track')
+    {
+        $k = "track-" . $id;
+        if (exists $cache->{$k})
+        {
+            return $cache->{$k};
+        }
+        else
+        {
+            $temp = Track->new($dbh);
+            MusicBrainz::IsGUID($id) ? $temp->SetMBId($id) : $temp->SetId($id);
+            die "Could not load track $id\n" if (!$temp->LoadFromId());
+            $cache->{$k} = $temp;
+            return $temp;
+        }
+    }
+    undef;
+}
+
+sub xml_relations
+{
+    my ($obj, $type, $inc) = @_;
+
+    require MusicBrainz::Server::Link;
+    my @links = MusicBrainz::Server::Link->FindLinkedEntities($obj->{DBH}, $obj->GetId, $type);
+    my (%rels);
+    $rels{artist} = [];
+    $rels{album} = [];
+    $rels{track} = [];
+    foreach my $item (@links)
+    {
+        my $temp;
+
+        my $otype = $item->{"link" . (($item->{link0_id} == $obj->GetId && $item->{link0_type} eq $type) ? 1 : 0) . "_type"};
+        my $oid = $item->{"link" . (($item->{link0_id} == $obj->GetId && $item->{link0_type} eq $type) ? 1 : 0) . "_id"};
+
+        if ($item->{link0_id} == $obj->GetId && $item->{link0_type} eq $type)
+        {
+             if (($inc & INC_ARTISTREL && $item->{link1_type} eq 'artist') ||
+                 ($inc & INC_RELEASEREL && $item->{link1_type} eq 'album') ||
+                 ($inc & INC_TRACKREL && $item->{link1_type} eq 'track') ||
+                 ($inc & INC_URLREL && $item->{link1_type} eq 'url'))
+             {
+                 my $ref = { 
+                             type =>$item->{"link1_type"},
+                             id =>$item->{"link1_mbid"}, 
+                             name => $item->{"link_name"}, 
+                             url => $item->{"link1_name"},
+                             begindate => $item->{"begindate"},
+                             enddate => $item->{"enddate"},
+                           };
+                 $ref->{backward} = 0 if $item->{link0_type} eq $item->{link1_type};
+                 $ref->{_attrs} = $item->{"_attrs"} if (exists $item->{"_attrs"});
+                 push @{$rels{$ref->{type}}}, $ref;
+             }
+        }
+        else
+        {
+             if (($inc & INC_ARTISTREL && $item->{link0_type} eq 'artist') ||
+                 ($inc & INC_RELEASEREL && $item->{link0_type} eq 'album') ||
+                 ($inc & INC_TRACKREL && $item->{link0_type} eq 'track') ||
+                 ($inc & INC_URLREL && $item->{link0_type} eq 'url'))
+             {
+                 my $ref = { 
+                             type =>$item->{"link0_type"},
+                             id =>$item->{"link0_mbid"}, 
+                             name => $item->{"link_name"}, 
+                             url => $item->{"link0_name"},
+                             begindate => $item->{"begindate"},
+                             enddate => $item->{"enddate"},
+                           };
+                 $ref->{backward} = 1 if $item->{link0_type} eq $item->{link1_type};
+                 $ref->{_attrs} = $item->{"_attrs"} if (exists $item->{"_attrs"});
+                 push @{$rels{$ref->{type}}}, $ref;
+            }
+        }
+    }
+
+    return if (!scalar(%rels));
+
+    my (%cache);
+    foreach my $ttype (('artist', 'album', 'track'))
+    {
+        next if (!scalar(@{$rels{$ttype}}));
+        print '<relation-list target-type="' . ucfirst($ttype) . '">';
+        foreach my $rel (@{$rels{$ttype}})
+        {
+            my $name = $rel->{name};
+            $name =~ s/(^|[^A-Za-z0-9])+([A-Za-z0-9]?)/uc $2/eg;
+            print '<relation type="' . $name . '"';
+            print ' direction="backward" ' if (exists $rel->{backward} && $rel->{backward});
+            print ' target="' . ($rel->{type} eq 'url' ? $rel->{url} : $rel->{id}) . '"';
+            print ' begin="' . MusicBrainz::MakeDisplayDateStr($rel->{begindate}) . '"' if ($rel->{begindate} ne '          ');
+            print ' end="' . MusicBrainz::MakeDisplayDateStr($rel->{enddate}) . '"' if ($rel->{enddate}) ne '          ';
+
+            if ($rel->{type} eq 'artist')
+            {
+                print '>';
+                xml_artist(load_object(\%cache, $obj->{DBH}, $rel->{id}, $rel->{type}, 0));
+            } 
+            elsif ($rel->{type} eq 'album')
+            {
+                print '>';
+                my $al = load_object(\%cache, $obj->{DBH}, $rel->{id}, $rel->{type}, 0);
+                my $ar = load_object(\%cache, $obj->{DBH}, $al->GetArtist, 'artist', 0);
+                xml_release($ar, $al, 0);
+            } 
+            elsif ($rel->{type} eq 'track')
+            {
+                print '>';
+                my $tr = load_object(\%cache, $obj->{DBH}, $rel->{id}, $rel->{type}, 0);
+                my $ar = load_object(\%cache, $obj->{DBH}, $tr->GetArtist, 'artist', 0);
+                xml_track($ar, $tr, 0);
+            }
+            else
+            {
+                print '/>';
+                next;
+            }
+            print '</relation>';
+        }
+        print '</relation-list>';
+    }
+}
+
+#	    if (exists $item->{"_attrs"})
+#	    {
+#            my $attrs = $item->{"_attrs"}->GetAttributes();
+#            if ($attrs)
+#            {
+#                $out .= $this->BeginElement("ar:attributeList");
+#                $out .= $this->BeginBag();
+#                foreach my $ref (@$attrs)
+#                {
+#                    my $text = ucfirst($ref->{value_text});
+#                            $text =~ s/[^A-Za-z0-9]+([A-Za-z0-9]?)/uc $1/eg;
+#                    if ($ref->{name} eq $ref->{value_text})
+#                    {
+#                            $out .= $this->Element("rdf:li", "", "rdf:resource", $this->GetARNamespace . ucfirst($ref->{name}));
 
 sub xml_escape
 {
