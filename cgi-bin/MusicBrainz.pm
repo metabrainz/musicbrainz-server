@@ -280,7 +280,7 @@ sub SimpleLog
 # meant to - it just left the string untouched.  So, since we only need a nice
 # simple, fixed, substitution, we'll do it ourselves.  Ugh.
 
-my %ent = qw( > &gt; < &lt; " &quot; ' &#39; & &amp; );
+my %ent = ( '>' =>  '&gt;', '<' => '&lt;', q/"/ => '&quot;', q/'/ => '&#39;', '&' => '&amp;');
 sub encode_entities
 {
 	${ $_[0] } =~ s/([<>"'&])/$ent{$1}/go, return

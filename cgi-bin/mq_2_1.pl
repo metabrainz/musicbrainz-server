@@ -148,7 +148,7 @@ sub Output
 
 sub Authenticate
 {
-   my ($session, $session_id, $session_key) = @_;
+   my ($session, $session_id, $session_key, $r) = @_;
 
    if (defined $session_id && $session_id ne '' &&
        defined $session_key && $session_key ne '')
@@ -263,7 +263,7 @@ if (defined $session_id)
     $session_key = $parser->Extract($currentURI,
                    'http://musicbrainz.org/mm/mq-1.1#sessionKey');
 
-    $error = Authenticate(\%session, $session_id, $session_key);
+    $error = Authenticate(\%session, $session_id, $session_key, $r);
     if ($error ne "")
     {
         $out = $rdf->ErrorRDF($error);
