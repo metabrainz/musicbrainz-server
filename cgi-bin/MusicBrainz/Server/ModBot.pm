@@ -346,7 +346,7 @@ sub CheckModerations
 					$mod->DeniedAction;
 					$status = $mod->GetStatus;
 					$mod->CloseModeration($status);
-					# FIXME missing CreditModerator call here?
+					$user->CreditModerator($mode->GetModerator, $status);
 					--$count{STATUS_APPLIED};
 					++$count{$status};
 				} else {
@@ -431,7 +431,7 @@ sub CheckModerations
 					$mod->DeniedAction;
 					$status = $mod->GetStatus;
 					$mod->CloseModeration($status);
-					# FIXME missing CreditModerator call here?
+					$user->CreditModerator($mod-GetModerator, $status);
 					++$count{$status};
 				}
 
