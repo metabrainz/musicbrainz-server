@@ -163,9 +163,13 @@ $mostrecent{ $_->GetUserId } = $_->GetId
         <td>
            [
 		   <a href="/mod/addnote.html?modid=<% $mod->GetId %>" onclick="MyWindow=window.open('/mod/addnote.html?modid=<% $mod->GetId %>','AddNote','toolbar=no,location=no,directories=no,status=no,menubar=no,scrollbars=yes,resizable=yes,width=400,height=150'); return false;">Add note</a>
-% if ($session{uid} == $mod->GetModerator and
-%     $mod->GetStatus == &ModDefs::STATUS_OPEN) {
-		   | <a href="/mod/remove.html?modid=<% $mod->GetId %>">Delete mod</a>
+% if (!$my_mod and $is_open and
+%	  UserStuff->IsAutoMod($session{privs}) and
+%	  $mod->IsAutoModType($mod->GetType)) {
+		   | <a href="/mod/approve.html?modid=<% $mod->GetId %>">Approve</a>
+% }
+% if ($my_mod and $is_open) {
+		   | <a href="/mod/approve.html?modid=<% $mod->GetId %>">Delete mod</a>
 % }
 		   ]
         </td>

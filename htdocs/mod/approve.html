@@ -1,0 +1,115 @@
+%# vi: set ts=2 sw=2 ft=mason :
+<%args>
+$modid=>0
+$notetext=>""
+$btnNo=>undef
+$btnYes=>undef
+</%args>
+<%perl> 
+
+	$m->comp("/comp/checkloggedin", 1, 1)
+		or return;
+
+	MusicBrainz::IsNonNegInteger($modid) && $modid
+		or $modid = 0;
+ 		
+	return $m->comp("/comp/badargs")
+		if ($modid == 0);
+
+	my $mb = $m->comp("/comp/dblogin");
+	my $mod = Moderation->new($mb->{DBH});
+	$mod = $mod->CreateFromId($modid);
+
+	$mod->IsAutoModType($mod->GetType) or return $m->comp(
+		"/comp/error",
+		"Moderation #$modid is not an auto-moderation.",
+		1, 1,
+	);
+	
+	UserStuff->IsAutoMod($session{privs}) or return $m->comp(
+		"/comp/error",
+		"You must be a auto-moderator to approve this moderation.",
+		1, 1,
+	);
+
+	# Cancel (redirect back to the moderation page)	
+	if (defined $btnNo)
+	{
+		return $m->comp("/comp/redirect", "/showmod.html?modid=$modid"); 
+	}
+	
+	MusicBrainz::TrimInPlace($notetext); 
+	
+	# Approve the moderation
+	if (defined $btnYes and ($mod->GetNoVotes == 0 or $notetext))
+	{
+		my $sql = Sql->new($mb->{DBH});
+		
+		eval {
+			$sql->Begin;
+
+			# Insert a "yes" vote			
+			my %votes = ($modid => &ModDefs::VOTE_YES);
+			my $v = MusicBrainz::Server::Vote->new($mb->{DBH});
+			$v->InsertVotes(\%votes, $session{uid}); 
+			
+			# Approve the moderation
+			my $status = $mod->ApprovedAction;
+			my $user = UserStuff->new($mb->{DBH});
+			$mod->SetStatus($status);
+			$user->CreditModerator($mod->GetModerator, $status);
+			$mod->CloseModeration($status);
+		
+			# Insert a note
+			$mod->InsertNote($session{uid}, $notetext)
+				if ($notetext);
+		
+			$sql->Commit;
+		} or do {
+			my $err = $@;
+			$sql->Rollback;
+			$m->comp("/comp/sidebar", title => "Error");
+			</%perl>
+			<div style="color: red">
+				<p>Error applying moderation:</p>
+				<pre><% $err %></pre>
+			</div>
+			<%perl>
+			$m->comp("/comp/footer");
+			return undef;
+		};
+		
+		return $m->comp("/comp/redirect", "/showmod.html?modid=$modid");
+	}
+
+</%perl>
+
+<& /comp/sidebar, title=>'Confirm Moderation Approval', expand=>'moderate' &>
+
+% if (defined $btnYes) {
+%      if ($mod->GetNoVotes > 0 && !$notetext) {
+         <p class="error">You must provide a moderation note in order to approve this moderation.</p>
+%      }
+% } 
+
+<form method="POST" action="/mod/approve.html">
+	<input type="hidden" name="modid" value="<% $modid %>" />
+	<fieldset>
+		<legend>Confirm Moderation Approval</legend>
+		<div class="padleft">
+			<p>Do you want to approve this moderation?</p>
+			<div style="padding: 1em; line-height: 1.5;">
+				<div><%perl>$mod->ShowModType($m);</%perl></div>
+				<div><%perl>$mod->ShowPreviousValue($m);</%perl></div>
+				<div><%perl>$mod->ShowNewValue($m);</%perl></div>
+			</div>	
+			<p><& /comp/notetext, required => $mod->GetNoVotes > 0 ? 1 : 0 &></p>
+			<p style="padding-top: 1em;">
+				<input name="btnNo" type="submit" class="button" value="&laquo; NO" />
+				<input name="btnYes" type="submit" class="button" value="YES &raquo;" />
+			</p>	
+		</div>
+	</fieldset>
+</form>
+
+<& /comp/footer &>
