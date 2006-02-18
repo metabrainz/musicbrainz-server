@@ -41,6 +41,7 @@ sub PreInsert
 	my $node = $opts{'node'} or die; # a LinkAttr object
 	my $name = $opts{'name'};
 	my $desc = $opts{'description'};
+	my $childorder = $opts{'childorder'};
 
 	MusicBrainz::TrimInPlace($name);
 	die if $name eq "";
@@ -60,15 +61,18 @@ sub PreInsert
 	$self->SetPrev($node->GetName . " (" . $node->GetDescription . ")");
 
 	my %new = (
-		name        => $name,
-		desc        => $desc,
-		old_parent	=> $parent->Parent->GetName,
-		parent		=> $parent->GetName,
+		name        	=> $name,
+		desc        	=> $desc,
+		old_parent		=> $parent->Parent->GetName,
+		parent			=> $parent->GetName,
+		childorder		=> $childorder,
+		old_childorder	=> $node->GetChildOrder,
 	);
 
 	$node->SetParentId($parent->GetId);
 	$node->SetName($name);
 	$node->SetDescription($desc);
+	$node->SetChildOrder($childorder);
 	$node->Update;
 
 	$self->SetNew($self->ConvertHashToNew(\%new));

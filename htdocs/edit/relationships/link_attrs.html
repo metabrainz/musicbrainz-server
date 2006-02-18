@@ -28,6 +28,7 @@ my $is_link_mod = UserStuff->IsLinkModerator($session{privs});
 %               if ($node->GetName ne 'ROOT') { 
 	               (<% $node->GetDescription %>)
 %               }
+                <em><small>(<% $node->GetChildOrder %>)</small></em> 
 			</span>
 		</div>
 		<ul class="linktype">

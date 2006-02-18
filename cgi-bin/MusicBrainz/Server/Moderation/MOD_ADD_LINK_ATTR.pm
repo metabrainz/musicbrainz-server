@@ -40,6 +40,7 @@ sub PreInsert
 	my $parent = $opts{'parent'} or die; # a LinkAttr object
 	my $name = $opts{'name'} or die;
 	my $desc = $opts{'description'} or die;
+	my $childorder = $opts{'childorder'};
 
 	MusicBrainz::TrimInPlace($name);
 	die if $name eq "";
@@ -51,7 +52,7 @@ sub PreInsert
 		die $self;
 	}
 
-	my $child = $parent->AddChild($name, $desc);
+	my $child = $parent->AddChild($name, $desc, $childorder);
 
 	$self->SetArtist(DARTIST_ID);
 	$self->SetTable($parent->{_table});
@@ -63,6 +64,8 @@ sub PreInsert
 		name	   => $child->GetName,
 		gid		   => $child->GetMBId,
 		desc	   => $desc,
+		childorder => $childorder,
+		parent_name => $parent->GetName,
 	);
 
 	$self->SetNew($self->ConvertHashToNew(\%new));

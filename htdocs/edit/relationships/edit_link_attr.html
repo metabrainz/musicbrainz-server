@@ -6,6 +6,7 @@ $linkphrase => ""
 $rlinkphrase => ""
 $desc => ""
 $parent => ""
+$childorder => 0
 $submit=>0
 </%args>
 <%perl>
@@ -49,6 +50,7 @@ if ($attrname =~ /\S/ && $desc =~ /\S/)
 				node        => $node,
 				name        => $attrname,
 				description => $desc,
+				childorder	=> $childorder,
 			);
 		},
 	) or return;
@@ -126,6 +128,15 @@ my $new = undef;
 		<td>Parent:</td>
 		<td><select name="parent"><& .ShowList, 0, $id, $parent, $linkattrs_root &></select></td>
 	</tr> 
+	<tr>
+	   <td>Child order:</td>
+	   <td>
+		<input type="text" name="childorder"
+			maxlength="2" size="2"
+			value="<% $childorder %>"
+			>
+	   </td>
+    </tr>
 	<tr>
 	   <td>Name:</td>
 	   <td>

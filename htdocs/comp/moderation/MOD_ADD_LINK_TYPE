@@ -10,13 +10,14 @@
 
 	New:
 	<span class="bold"><a href="/edit/relationships/link_types.html?type=<% $new->{'types'} %>&amp;new=<% $self->GetRowId %>"
-		><% $new->{'name'} %></a></span><br>
-	Link Type: <% $new->{'types'} %><br>
-	Link Phrase: <% $new->{'linkphrase'} %><br>
-	Reverse Link Phrase: <% $new->{'rlinkphrase'} %>
+		><% $new->{'name'} %></a></span><br />
+	Link Type: <% $new->{'types'} %><br />
+	Link Phrase: <% $new->{'linkphrase'} %><br />
+	Reverse Link Phrase: <% $new->{'rlinkphrase'} %><br />
 %   if ($new->{'attribute'}) {
-    	<br/>Attributes: <% $new->{'attribute'} %>
+    	Attributes: <% $new->{'attribute'} %><br />
 %   }
+	Parent: <% $new->{'parent_name'} %> (<% $new->{'childorder'} %>)<br />
    
 </%method>
 

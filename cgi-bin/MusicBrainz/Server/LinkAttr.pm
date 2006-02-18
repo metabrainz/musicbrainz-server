@@ -76,6 +76,8 @@ sub Parent			{ $_[0]->newFromId($_[0]->GetParentId) }
 sub Children		{ $_[0]->newFromParentId($_[0]->GetId) }
 sub GetDescription	{ return $_[0]->{description}; }
 sub SetDescription	{ $_[0]->{description} = $_[1]; }
+sub GetChildOrder	{ $_[0]->{childorder} }
+sub SetChildOrder	{ $_[0]->{childorder} = $_[1] }
 
 ################################################################################
 # Data Retrieval
@@ -190,14 +192,15 @@ sub HasChildren
 # Always call GetNamedChild first, to check that it doesn't already exist
 sub AddChild
 {
-	my ($self, $childname, $desc) = @_;
+	my ($self, $childname, $desc, $childorder) = @_;
 	my $sql = Sql->new($self->{DBH});
 	$sql->Do(
-		"INSERT INTO link_attribute_type (parent, name, mbid, description) VALUES (?, ?, ?, ?)",
+		"INSERT INTO link_attribute_type (parent, name, mbid, description, childorder) VALUES (?, ?, ?, ?, ?)",
 		$self->GetId,
 		$childname,
 		TableBase::CreateNewGlobalId(),
 		$desc,
+		$childorder,
 	);
 	$self->newFromId($sql->GetLastInsertId('link_attribute_type'));
 }
@@ -231,8 +234,9 @@ sub Update
 	my $self = shift;
 	my $sql = Sql->new($self->{DBH});
 	$sql->Do(
-		"UPDATE link_attribute_type SET parent = ?, name = ?, description = ? WHERE id = ?",
+		"UPDATE link_attribute_type SET parent = ?, childorder = ?, name = ?, description = ? WHERE id = ?",
 		$self->GetParentId,
+		$self->GetChildOrder,
 		$self->GetName,
 		$self->GetDescription,
 		$self->GetId,

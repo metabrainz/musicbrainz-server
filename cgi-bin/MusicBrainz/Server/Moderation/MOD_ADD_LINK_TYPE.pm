@@ -76,6 +76,8 @@ sub PreInsert
 		parent	   => $parent->GetMBId,
 		name	   => $child->GetName,
 		gid		   => $child->GetMBId,
+		parent_name => $parent->GetName,
+		childorder => $child->GetChildOrder,
 		linkphrase => $child->GetLinkPhrase,
 		rlinkphrase => $child->GetReverseLinkPhrase,
 		description => $child->GetDescription,

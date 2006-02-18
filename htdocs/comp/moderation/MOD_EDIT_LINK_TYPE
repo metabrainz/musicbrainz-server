@@ -4,8 +4,7 @@
 % my $self = shift;
 % my $types = $self->{'new_unpacked'}{'types'};
 	Old: <% $types %><br>
-	Parent: <% $self->{'new_unpacked'}{'old_parent'} %><br> 
-	Child order: <% $self->{'new_unpacked'}{'old_childorder'} %><br> 
+	Parent: <% $self->{'new_unpacked'}{'old_parent'} %> (<% $self->{'new_unpacked'}{'old_childorder'} %>)<br> 
 	Name: <span class="bold"><% $self->{'new_unpacked'}{'old_name'} %></span><br>
 	Link Phrase: <% $self->{'new_unpacked'}{'old_linkphrase'} %><br>
 	Reverse Link Phrase: <% $self->{'new_unpacked'}{'old_rlinkphrase'} %><br>
@@ -19,8 +18,7 @@
 % my $self = shift;
 % my $types = $self->{'new_unpacked'}{'types'};
 	New: <% $types %><br>
-	Parent: <% $self->{'new_unpacked'}{'parent'} %><br> 
-	Child order: <% $self->{'new_unpacked'}{'childorder'} %><br> 
+	Parent: <% $self->{'new_unpacked'}{'parent'} %> (<% $self->{'new_unpacked'}{'childorder'} %>)<br> 
 	Name: <span class="bold"><% $self->{'new_unpacked'}{'name'} %></span><br>
 	Link Phrase: <% $self->{'new_unpacked'}{'linkphrase'} %><br>
 	Reverse Link Phrase: <% $self->{'new_unpacked'}{'rlinkphrase'} %><br>

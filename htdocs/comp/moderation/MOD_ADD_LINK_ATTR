@@ -9,7 +9,8 @@
 % my $new = $self->{'new_unpacked'};
 
 	New:
-	<span class="bold"><% $new->{'name'} %></span> (<% $new->{'desc'} %>)
+	<span class="bold"><% $new->{'name'} %></span> (<% $new->{'desc'} %>)<br />
+	Parent: <% $new->{'parent_name'} %> (<% $new->{'childorder'} %>)<br />
    
 </%method>
 

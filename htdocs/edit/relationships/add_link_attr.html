@@ -4,6 +4,7 @@ $id => ""
 $attrname => ""
 $submit=>0
 $desc => ""
+$childorder => 0
 </%args>
 <%perl>
 
@@ -37,6 +38,7 @@ if ($attrname =~ /\S/ && $desc =~ /\S/)
 				parent => $node,
 				name => $attrname,
 				description => $desc,
+				childorder => $childorder,
 			);
 		},
 	) or return;
@@ -80,6 +82,15 @@ my @p = $node->PathFromRoot;
 	</p>
 
 	<table>
+	<tr>
+	   <td>Child order:</td>
+	   <td>
+		<input type="text" name="childorder"
+			maxlength="2" size="2"
+			value="<% $childorder %>"
+			>
+	   </td>
+    </tr>
 	<tr>
 	   <td>Name:</td>
 	   <td>

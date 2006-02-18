@@ -31,7 +31,7 @@ my $is_link_mod = UserStuff->IsLinkModerator($session{privs});
 				<% ($new and $new == $node->GetId) ? "checked" : "" %>>
 %		}
 			<span <% $node->GetModPending ? "class='mp'" : "" %>>
-				<b><% $node->GetName %></b> <i>(<% $node->GetChildOrder %>)</i> 
+				<b><% $node->GetName %></b> <em><small>(<% $node->GetChildOrder %>)</small></em> 
 %               if ($node->GetName ne 'ROOT') { 
 	               <br>
 				   <ul>
