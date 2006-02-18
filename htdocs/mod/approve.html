@@ -2,6 +2,7 @@
 <%args>
 $modid=>0
 $notetext=>""
+$url=>""
 $btnNo=>undef
 $btnYes=>undef
 </%args>
@@ -35,7 +36,9 @@ $btnYes=>undef
 	# Cancel (redirect back to the moderation page)	
 	if (defined $btnNo)
 	{
-		return $m->comp("/comp/redirect", "/showmod.html?modid=$modid"); 
+		$url = "/showmod.html?modid=$modid"
+			if !$url;
+		return $m->comp("/comp/redirect", $url); 
 	}
 	
 	MusicBrainz::TrimInPlace($notetext); 
@@ -79,7 +82,9 @@ $btnYes=>undef
 			return undef;
 		};
 		
-		return $m->comp("/comp/redirect", "/showmod.html?modid=$modid");
+		$url = "/showmod.html?modid=$modid"
+			if !$url;
+		return $m->comp("/comp/redirect", $url);
 	}
 
 </%perl>
@@ -94,6 +99,7 @@ $btnYes=>undef
 
 <form method="POST" action="/mod/approve.html">
 	<input type="hidden" name="modid" value="<% $modid %>" />
+	<input type="hidden" name="url" value="<% $url %>" />
 	<fieldset>
 		<legend>Confirm Moderation Approval</legend>
 		<div class="padleft">

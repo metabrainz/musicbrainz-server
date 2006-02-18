@@ -72,7 +72,8 @@ $time = $m->comp("/comp/datetime", $time);
 % if (!$is_mine and $is_open and
 %	  UserStuff->IsAutoMod($session{privs}) and
 %	  $mod->IsAutoModType($mod->GetType)) {
-		   | <a href="/mod/approve.html?modid=<% $mod->GetId %>">Approve</a>
+%		my $url = $r->uri.'?'.$r->args;	HTML::Mason::Escapes::url_escape(\$url); 
+		   | <a href="/mod/approve.html?modid=<% $mod->GetId %>&amp;url=<% $url %>">Approve</a>
 % }
 % if ($is_mine and $is_open) {
 			| <a href="/mod/remove.html?modid=<% $mod->GetId %>">Delete mod</a>
