@@ -494,11 +494,13 @@ td.discidlength { background-color: #ffecd6; text-align: right }
 .ShowModOld
 {
 	background: #ffecd6;
+	vertical-align: top;
 }
 .ShowModNew
 {
 	background: #f0efff;
 	width: 60%;
+	vertical-align: top;
 }
 .ShowModVote
 {
