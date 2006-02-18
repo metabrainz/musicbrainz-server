@@ -112,6 +112,9 @@ sub SetDescription         { $_[0]->{description} = $_[1]; }
 sub GetAttributes          { $_[0]->{attribute} }
 sub SetAttributes          { $_[0]->{attribute} = $_[1]; }
 
+sub GetChildOrder	{ $_[0]->{childorder} }
+sub SetChildOrder	{ $_[0]->{childorder} = $_[1] }
+
 sub PackTypes
 {
 	my ($self, $types) = @_;
@@ -230,10 +233,10 @@ sub GetNamedChild
 # Always call GetNamedChild first, to check that it doesn't already exist
 sub AddChild
 {
-	my ($self, $childname, $linkphrase, $rlinkphrase, $description, $attribute) = @_;
+	my ($self, $childname, $linkphrase, $rlinkphrase, $description, $attribute, $childorder) = @_;
 	my $sql = Sql->new($self->{DBH});
 	$sql->Do(
-		"INSERT INTO $self->{_table} (parent, name, linkphrase, rlinkphrase, description, attribute, mbid) VALUES (?, ?, ?, ?, ?, ?, ?)",
+		"INSERT INTO $self->{_table} (parent, name, linkphrase, rlinkphrase, description, attribute, mbid, childorder) VALUES (?, ?, ?, ?, ?, ?, ?, ?)",
 		$self->GetId,
 		$childname,
 		$linkphrase,
@@ -241,6 +244,7 @@ sub AddChild
 		$description,
 		$attribute,
 		TableBase::CreateNewGlobalId(),
+		$childorder,
 	);
 	$self->newFromId($sql->GetLastInsertId($self->{_table}));
 }
@@ -275,8 +279,9 @@ sub Update
 	my $self = shift;
 	my $sql = Sql->new($self->{DBH});
 	$sql->Do(
-		"UPDATE $self->{_table} SET parent = ?, name = ?, linkphrase = ?, rlinkphrase = ?, description = ?, attribute = ? WHERE id = ?",
+		"UPDATE $self->{_table} SET parent = ?, childorder = ?, name = ?, linkphrase = ?, rlinkphrase = ?, description = ?, attribute = ? WHERE id = ?",
 		$self->GetParentId, 
+		$self->GetChildOrder, 
 		$self->GetName,
 		$self->GetLinkPhrase,
 		$self->GetReverseLinkPhrase,

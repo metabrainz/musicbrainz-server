@@ -44,6 +44,7 @@ sub PreInsert
 	my $rlinkphrase = $opts{'rlinkphrase'};
 	my $description = $opts{'description'};
 	my $attribute = $opts{'attribute'};
+	my $childorder = $opts{'childorder'};
 
 	defined() or die
 		for $linkphrase, $rlinkphrase, $description, $attribute;
@@ -75,16 +76,18 @@ sub PreInsert
 		parent			=> $parent->GetName, 
 		types	        => $node->PackTypes,
 		name            => $name,
+		childorder		=> $childorder,
 		linkphrase      => $linkphrase,
 		rlinkphrase     => $rlinkphrase,
 		description     => $description,
 		attribute       => $attribute,
 		old_parent		=> $node->Parent->GetName, 
-		old_name        => $node->GetName(),
-		old_linkphrase  => $node->GetLinkPhrase(),
-		old_rlinkphrase => $node->GetReverseLinkPhrase(),
-		old_description => $node->GetDescription(),
-		old_attribute   => $node->GetAttributes(),
+		old_name        => $node->GetName,
+		old_childorder	=> $node->GetChildOrder,
+		old_linkphrase  => $node->GetLinkPhrase,
+		old_rlinkphrase => $node->GetReverseLinkPhrase,
+		old_description => $node->GetDescription,
+		old_attribute   => $node->GetAttributes,
 	);
 
 	$node->SetParentId($parent->GetId); 
@@ -93,6 +96,7 @@ sub PreInsert
 	$node->SetReverseLinkPhrase($rlinkphrase);
 	$node->SetDescription($description);
 	$node->SetAttributes($attribute);
+	$node->SetChildOrder($childorder);
 	$node->Update;
 
 	$self->SetNew($self->ConvertHashToNew(\%new));

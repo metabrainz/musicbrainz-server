@@ -6,6 +6,7 @@ $linktypename => ""
 $linkphrase => ""
 $rlinkphrase => ""
 $desc => ""
+$childorder => 0
 $submit=>0
 </%args>
 <%perl>
@@ -63,6 +64,7 @@ if ($linktypename =~ /\S/ && $linkphrase =~ /\S/ && $rlinkphrase =~ /\S/ && $att
 				rlinkphrase => $rlinkphrase,
 				description => $desc,
 				attribute => $attrtext,
+				childorder  => $childorder, 
 			);
 		},
 	) or return;
@@ -134,6 +136,17 @@ my @children = $root->Children;
 	</ul>
 
 	<table>
+	<tr>
+	   <td>Child order:</td>
+	   <td>&nbsp;</td>
+	   <td>
+		<input type="text" name="childorder"
+			maxlength="2" size="2"
+			value="<% $childorder %>"
+			>
+	   </td>
+	   <td>&nbsp;</td>
+    </tr>
 	<tr>
 	   <td>Name:</td>
 	   <td>&nbsp;</td>

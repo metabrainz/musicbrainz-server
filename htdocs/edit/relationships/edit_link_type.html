@@ -7,6 +7,7 @@ $linkphrase => ""
 $rlinkphrase => ""
 $desc => ""
 $parent => ""
+$childorder => 0
 $submit=>0
 </%args>
 <%perl>
@@ -74,6 +75,7 @@ if ($linktypename =~ /\S/ && $linkphrase =~ /\S/ && $rlinkphrase =~ /\S/ && $att
 				rlinkphrase => $rlinkphrase,
 				description => $desc,
 				attribute   => $attrtext,
+				childorder  => $childorder, 
 			);
 		},
 	) or return;
@@ -118,6 +120,7 @@ if ($submit)
      $rlinkphrase = $node->GetReverseLinkPhrase;
      $desc = $node->GetDescription;
 	 $parent = $node->Parent->GetMBId; 
+     $childorder = $node->GetChildOrder;
      my @pairs = split ' ', $node->GetAttributes;
 	 foreach my $pair (@pairs)
 	 {
@@ -200,8 +203,19 @@ my $new = undef;
 	<tr>
 		<td>Parent:</td>
 		<td>&nbsp;</td>
-		<td><select name="parent"><& .ShowList, 0, $id, $parent, $linktypes_root &></select></td>
+		<td colspan="2"><select name="parent"><& .ShowList, 0, $id, $parent, $linktypes_root &></select></td>
 	</tr> 
+	<tr>
+	   <td>Child order:</td>
+	   <td>&nbsp;</td>
+	   <td>
+		<input type="text" name="childorder"
+			maxlength="2" size="2"
+			value="<% $childorder %>"
+			>
+	   </td>
+	   <td>&nbsp;</td>
+    </tr>
 	<tr>
 	   <td>Name:</td>
 	   <td>&nbsp;</td>

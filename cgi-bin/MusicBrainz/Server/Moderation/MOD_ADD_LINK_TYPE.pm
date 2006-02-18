@@ -43,6 +43,7 @@ sub PreInsert
 	my $rlinkphrase = $opts{'rlinkphrase'};
 	my $description = $opts{'description'};
 	my $attribute = $opts{'attribute'};
+	my $childorder = $opts{'childorder'};
 
 	defined() or die
 		for $linkphrase, $rlinkphrase, $description, $attribute;
@@ -63,7 +64,7 @@ sub PreInsert
 		die $self;
 	}
 
-	my $child = $parent->AddChild($name, $linkphrase, $rlinkphrase, $description, $attribute);
+	my $child = $parent->AddChild($name, $linkphrase, $rlinkphrase, $description, $attribute, $childorder);
 
 	$self->SetArtist(DARTIST_ID);
 	$self->SetTable($parent->{_table}); # FIXME internal field
