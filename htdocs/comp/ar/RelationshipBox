@@ -149,7 +149,7 @@ else
 						}
 						$and ? $m->out(' and ') : $m->out(', ');
 						$m->comp(".OutputEntity", $nextitem, 1, $name);
-						$m->out("&#8230;") if ($itemsperline == 4) && !$and && !$isrelpage;
+						$m->out(" &#8230;") if ($itemsperline == 4) && !$and && !$isrelpage;
 						$itemsperline++;
 					}
 					$i = $j;
