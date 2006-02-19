@@ -41,6 +41,7 @@ use Apache::Constants qw( );
 use Apache::File ();
 
 # TODO: how is the limit passed for searches?
+# TODO: output URL relations and attributes
 
 use constant INC_ARTIST      => 0x00001;
 use constant INC_COUNTS      => 0x00002;
@@ -145,16 +146,16 @@ sub xml_artist
     printf '><name>%s</name><sort-name>%s</sort-name>',
 		xml_escape($ar->GetName),
 		xml_escape($ar->GetSortName);
+    print '<disambiguation>' . xml_escape($ar->GetResolution()) . '</disambiguation>' if ($ar->GetResolution());
 
     my ($b, $e) = ($ar->GetBeginDate, $ar->GetEndDate);
     if ($b|| $e)
     {
         print '<life-span';
-        print " begin=\"$b\"" if ($b); 
-        print " end=\"$e\"" if ($e); 
+        print ' begin="' . MusicBrainz::MakeDisplayDateStr($b) . '"' if ($b); 
+        print ' end="' . MusicBrainz::MakeDisplayDateStr($e) . '"' if ($e); 
         print '/>';
     }
-    print '<disambiguation>' . xml_escape($ar->GetResolution()) . '</disambiguation>' if ($ar->GetResolution());
     if ($inc & INC_RELEASES|| $inc & INC_VARELEASES)
     {
         my @albums = $ar->GetAlbums(($inc & INC_VARELEASES) == 0, 1, ($inc & INC_RELEASES) == 0);
@@ -345,9 +346,12 @@ sub xml_track
     print '><title>';
     print xml_escape($tr->GetName());
     print '</title>';
-    print '<duration>';
-    print xml_escape($tr->GetLength());
-    print '</duration>';
+    if ($tr->GetLength())
+    {
+        print '<duration>';
+        print xml_escape($tr->GetLength());
+        print '</duration>';
+    }
     xml_artist($ar, 0) if (defined $ar);
     if ($ar && $inc & INC_RELEASES)
     {
@@ -516,7 +520,9 @@ sub xml_relations
     foreach my $ttype (('artist', 'album', 'track'))
     {
         next if (!scalar(@{$rels{$ttype}}));
-        print '<relation-list target-type="' . ucfirst($ttype) . '">';
+        my $ttypename = $ttype;
+        $ttypename = 'Release' if $ttype eq 'album';
+        print '<relation-list target-type="' . ucfirst($ttypename) . '">';
         foreach my $rel (@{$rels{$ttype}})
         {
             my $name = $rel->{name};
@@ -543,8 +549,7 @@ sub xml_relations
             {
                 print '>';
                 my $tr = load_object(\%cache, $obj->{DBH}, $rel->{id}, $rel->{type}, 0);
-                my $ar = load_object(\%cache, $obj->{DBH}, $tr->GetArtist, 'artist', 0);
-                xml_track($ar, $tr, 0);
+                xml_track(undef, $tr, 0);
             }
             else
             {

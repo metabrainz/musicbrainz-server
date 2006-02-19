@@ -51,10 +51,13 @@ sub handler
     {
 		return bad_req($r, "Invalid cdindex id. For usage, please see: http://musicbrainz.org/development/mmd");
 	}
-
     if ($bad)
     {
 		return bad_req($r, "Invalid inc options: '$bad'. For usage, please see: http://musicbrainz.org/development/mmd");
+	}
+    if ($inc & INC_RELEASES)
+    {
+		return bad_req($r, "Invalid inc options: 'releases'. For usage, please see: http://musicbrainz.org/development/mmd");
 	}
 	if ((!MusicBrainz::IsGUID($mbid) && $mbid ne '') || $inc eq 'error')
 	{
@@ -65,7 +68,6 @@ sub handler
     {
 		return bad_req($r, "Collections not supported yet.");
     }
-
 	my $status = eval 
     {
 		# Try to serve the request from the database

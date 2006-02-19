@@ -139,14 +139,13 @@ sub handler_post
 	# http://server/ws/1/trm/?name=<user_name>&client=<client id>&trms=<trackid:trm+trackid:trm>
 
     my $apr = Apache::Request->new($r);
-    my $user = $apr->param('name');
-    my $data = $apr->param('trms');
+    my $user = $r->user;
+    my @pairs = $apr->param('trm');
     my $client = $apr->param('client');
-    my @pairs = split(' ', $data);
     my @trms;
     foreach my $pair (@pairs)
     {
-        my ($trackid, $trmid) = split(':', $pair);
+        my ($trackid, $trmid) = split(' ', $pair);
         if (!MusicBrainz::IsGUID($trmid) || !MusicBrainz::IsGUID($trackid))
         {
             $r->status(BAD_REQUEST);
@@ -173,7 +172,6 @@ sub handler_post
     # Ensure that we're not a replicated server and that we were given a client version
     if (&DBDefs::REPLICATION_TYPE == &DBDefs::RT_SLAVE || $client eq '')
     {
-        print STDERR "mipe '$client'\n";
 		$r->status(BAD_REQUEST);
         return BAD_REQUEST;
     }
