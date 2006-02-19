@@ -50,6 +50,11 @@ sub handler
     {
 		return bad_req($r, "Invalid inc options: '$bad'. For usage, please see: http://musicbrainz.org/development/mmd");
 	}
+    my $type = $args{type};
+    if (!defined($type) || $type ne 'xml')
+    {
+		return bad_req($r, "Invalid content type. Must be set to xml.");
+	}
 	if ((!MusicBrainz::IsGUID($mbid) && $mbid ne '') || $inc eq 'error')
 	{
 		return bad_req($r, "Incorrect URI. For usage, please see: http://musicbrainz.org/development/mmd");

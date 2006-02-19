@@ -46,6 +46,11 @@ sub handler
 	my %args; { no warnings; %args = $r->args };
     my ($inc, $bad) = convert_inc($args{inc});
 
+    my $type = $args{type};
+    if (!defined($type) || $type ne 'xml')
+    {
+		return bad_req($r, "Invalid content type. Must be set to xml.");
+	}
     my $cdid = $args{discid};
     if ($cdid && length($cdid) != MusicBrainz::Server::CDTOC::CDINDEX_ID_LENGTH)
     {

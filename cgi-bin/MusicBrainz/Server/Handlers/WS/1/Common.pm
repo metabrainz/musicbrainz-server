@@ -324,11 +324,11 @@ sub xml_track_list
                 $ar = Artist->new($tr->{DBH});
                 $ar->SetId($tr->GetArtist);
                 $ar->LoadFromId();
-                xml_track($ar, $tr, $inc);
+                xml_track($ar, $tr, 0);
             }
             else
             {
-                xml_track(undef, $tr, $inc);
+                xml_track(undef, $tr, 0);
             }
         }
         print '</track-list>';
@@ -517,17 +517,33 @@ sub xml_relations
     return if (!scalar(%rels));
 
     my (%cache);
-    foreach my $ttype (('artist', 'album', 'track'))
+    foreach my $ttype (('artist', 'album', 'track', 'url'))
     {
-        next if (!scalar(@{$rels{$ttype}}));
+        next if (!defined($rels{$ttype}) || !scalar(@{$rels{$ttype}}));
         my $ttypename = $ttype;
         $ttypename = 'Release' if $ttype eq 'album';
         print '<relation-list target-type="' . ucfirst($ttypename) . '">';
         foreach my $rel (@{$rels{$ttype}})
         {
+            # Set up the default attribute name
             my $name = $rel->{name};
             $name =~ s/(^|[^A-Za-z0-9])+([A-Za-z0-9]?)/uc $2/eg;
+            my @attrlist;
+    	    if (exists $rel->{"_attrs"})
+            {
+                # If we have more detailed attributes, collect them
+                my $attrs = $rel->{"_attrs"}->GetAttributes();
+                if ($attrs)
+                {
+                    foreach my $ref (@$attrs)
+                    {
+                        $ref->{value_text} =~ s/^\s*//;
+                        push @attrlist, ucfirst($ref->{value_text});
+                    }
+                }
+            }
             print '<relation type="' . $name . '"';
+            print ' attributes="' . join(' ', @attrlist) . '"' if (scalar(@attrlist));
             print ' direction="backward" ' if (exists $rel->{backward} && $rel->{backward});
             print ' target="' . ($rel->{type} eq 'url' ? $rel->{url} : $rel->{id}) . '"';
             print ' begin="' . MusicBrainz::MakeDisplayDateStr($rel->{begindate}) . '"' if ($rel->{begindate} ne '          ');
@@ -561,21 +577,6 @@ sub xml_relations
         print '</relation-list>';
     }
 }
-
-#	    if (exists $item->{"_attrs"})
-#	    {
-#            my $attrs = $item->{"_attrs"}->GetAttributes();
-#            if ($attrs)
-#            {
-#                $out .= $this->BeginElement("ar:attributeList");
-#                $out .= $this->BeginBag();
-#                foreach my $ref (@$attrs)
-#                {
-#                    my $text = ucfirst($ref->{value_text});
-#                            $text =~ s/[^A-Za-z0-9]+([A-Za-z0-9]?)/uc $1/eg;
-#                    if ($ref->{name} eq $ref->{value_text})
-#                    {
-#                            $out .= $this->Element("rdf:li", "", "rdf:resource", $this->GetARNamespace . ucfirst($ref->{name}));
 
 sub xml_escape
 {
