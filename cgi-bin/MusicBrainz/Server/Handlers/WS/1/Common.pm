@@ -30,7 +30,7 @@ package MusicBrainz::Server::Handlers::WS::1::Common;
 require Exporter;
 our @ISA = qw(Exporter);
 our @EXPORT = qw(convert_inc bad_req send_response 
-                    xml_artist xml_release xml_track
+                    xml_artist xml_release xml_track xml_collection
                     INC_ARTIST INC_COUNTS INC_LIMIT INC_TRACKS INC_RELEASES 
                     INC_VARELEASES INC_DURATION INC_ARTISTREL INC_RELEASEREL 
                     INC_DISCS INC_TRACKREL INC_URLREL INC_RELEASEINFO 
@@ -575,6 +575,37 @@ sub xml_relations
             print '</relation>';
         }
         print '</relation-list>';
+    }
+}
+
+sub xml_collection
+{
+    my ($r, $type, $name, $limit) = @_;
+
+    use URI::Escape qw( uri_escape );
+    my $url = 'http://' . &DBDefs::LUCENE_SERVER . "/ws/1/$type/?query=" .
+               uri_escape($name) . "&max=$limit&type=$type&fmt=xml";
+
+    require LWP::UserAgent;
+    my $ua = LWP::UserAgent->new;
+    my $response = $ua->get($url);
+    if ( $response->is_success )
+    {
+        my $out = '<?xml version="1.0" encoding="UTF-8"?>';
+        $out .= '<metadata xmlns="http://musicbrainz.org/ns/mmd-1.0#">';
+        $out .= $response->content;
+        $out .= '</metadata>';
+   
+        $r->set_content_length(length($out));
+        $r->send_http_header("text/xml; charset=utf-8");
+        $r->print($out) unless $r->header_only;
+        $r->status(Apache::Constants::OK());
+        return Apache::Constants::OK();
+    }
+    else
+    {
+        return bad_req($r, "Could not retrieve sub-document page from search server. Error: " .
+                       $url . " -> " . $response->status_line);
     }
 }
 

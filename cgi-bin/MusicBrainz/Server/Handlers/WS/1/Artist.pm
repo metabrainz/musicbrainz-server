@@ -66,7 +66,11 @@ sub handler
 
     if (!$mbid)
     {
-		return bad_req($r, "Collections not supported yet.");
+        my $name = $args{name} or "";
+        my $limit = $args{limit} or 25;
+
+		return bad_req($r, "Must specify a name argument for artist collections.") if (!$name);
+        return xml_collection($r, 'artist', $name, $limit);
     }
 
 	my $status = eval {
@@ -132,4 +136,4 @@ sub print_xml
 }
 
 1;
-# eof Release.pm
+# eof Artist.pm
