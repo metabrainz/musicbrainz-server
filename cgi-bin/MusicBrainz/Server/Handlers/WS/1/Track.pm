@@ -62,7 +62,11 @@ sub handler
 
     if (!$mbid)
     {
-		return bad_req($r, "Collections not supported yet.");
+        my $query = $args{query} or "";
+        my $limit = $args{limit} or 25;
+
+		return bad_req($r, "Must specify a query argument for track collections.") if (!$query);
+        return xml_collection($r, 'track', $query, $limit);
     }
 
 	my $status = eval 

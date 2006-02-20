@@ -66,11 +66,11 @@ sub handler
 
     if (!$mbid)
     {
-        my $name = $args{name} or "";
+        my $query = $args{query} or "";
         my $limit = $args{limit} or 25;
 
-		return bad_req($r, "Must specify a name argument for artist collections.") if (!$name);
-        return xml_collection($r, 'artist', $name, $limit);
+		return bad_req($r, "Must specify a query argument for artist collections.") if (!$query);
+        return xml_collection($r, 'artist', $query, $limit);
     }
 
 	my $status = eval {

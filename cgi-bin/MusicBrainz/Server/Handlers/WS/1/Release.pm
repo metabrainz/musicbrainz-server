@@ -71,8 +71,13 @@ sub handler
 
     if (!$mbid && !$cdid)
     {
-		return bad_req($r, "Collections not supported yet.");
+        my $query = $args{query} or "";
+        my $limit = $args{limit} or 25;
+
+		return bad_req($r, "Must specify a query argument for release collections.") if (!$query);
+        return xml_collection($r, 'release', $query, $limit);
     }
+
 	my $status = eval 
     {
 		# Try to serve the request from the database
