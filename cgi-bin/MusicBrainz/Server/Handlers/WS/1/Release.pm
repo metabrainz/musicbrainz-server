@@ -112,6 +112,7 @@ sub serve_from_db
 
 	my $ar;
 	my $al;
+    my $is_coll = 0;
 
 	require MusicBrainz;
 	my $mb = MusicBrainz->new;
@@ -130,11 +131,13 @@ sub serve_from_db
 
         my $cd = MusicBrainz::Server::AlbumCDTOC->new($mb->{DBH});
         my $albumids = $cd->GetAlbumIDsFromDiscID($cdid);
+        #TODO: Return the full list
         if (scalar(@$albumids))
         {
             $al->SetId($$albumids[0]);
             return undef unless $al->LoadFromId(1);
         }
+        $is_coll = 1;
     }
 
     if ($inc & INC_ARTIST || $inc & INC_TRACKS)
@@ -145,7 +148,7 @@ sub serve_from_db
     }
 
 	my $printer = sub {
-		print_xml($mbid, $ar, $al, $inc);
+		print_xml($mbid, $ar, $al, $inc, $is_coll);
 	};
 
 	send_response($r, $printer);
@@ -154,11 +157,13 @@ sub serve_from_db
 
 sub print_xml
 {
-	my ($mbid, $ar, $al, $inc) = @_;
+	my ($mbid, $ar, $al, $inc, $is_coll) = @_;
 
 	print '<?xml version="1.0" encoding="UTF-8"?>';
 	print '<metadata xmlns="http://musicbrainz.org/ns/mmd-1.0#">';
+    print '<release-list>' if ($is_coll);
     xml_release($ar, $al, $inc);
+    print '</release-list>' if ($is_coll);
 	print '</metadata>';
 }
 
