@@ -1,0 +1,42 @@
+%# vi: set ts=4 sw=4 ft=mason :
+<%args>
+$query => ""
+$limit => 0
+$type => ""
+</%args>
+<%perl>
+
+$m->comp("/comp/sidebar", title=>'Search Results');
+
+if ($query && $type)
+{
+    use URI::Escape qw( uri_escape );
+    my $docurl = 'http://' . &DBDefs::LUCENE_SERVER . "/ws/1/$type/?query=" . 
+                 uri_escape($query) . "&max=$limit&type=$type";
+
+    require LWP::UserAgent;
+    my $ua = LWP::UserAgent->new;
+    my $response = $ua->get($docurl);
+    if (!$response->is_success) 
+    {
+        $m->comp('/comp/error',
+             "Could not retrieve wiki page from wiki server. ( get $docurl -> " . $response->status_line ." )", 0, 0);
+    }
+    else
+    {
+        $m->print($response->content);
+    }
+}
+else
+{
+    $m->print("<p>Error: You must provide query and type arguments to this page.</p>")
+        if ($query || $type)
+}
+
+</%perl>
+
+<div style="margin-top: 3em; padding: 1em; border: 1px solid #565656;">
+<& /comp/lucenesearch, type=>$type, limit=>$limit, query=>$query &>
+</div>
+
+<& /comp/footer &>

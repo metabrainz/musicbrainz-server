@@ -1,0 +1,37 @@
+<%args>
+$type => 'artist'
+$limit => 25
+$query => ''
+</%args>
+% $type = lc $type;
+
+<form method="get" action="/search/textsearch.html" class="formstyle" id="TextSearchForm">
+
+<div style="margin: 0.3em">
+  <b>Artist/Album/Track Search</b>
+</div>
+
+<div class="CenterChildren" style="margin: 0.3em">
+  Find 
+  <select name="limit">
+      <option value="25" <% ($limit eq 25) ? 'selected' : '' %>>up to 25</option>
+      <option value="50" <% ($limit eq 50) ? 'selected' : '' %>>up to 50</option>
+      <option value="100" <% ($limit eq 100) ? 'selected' : '' %>>up to 100</option>
+      <option value="0" <% ($limit eq '0') ? 'selected' : '' %>>all</option>
+  </select>
+  <select name="type">
+      <option value="artist" <% ($type eq 'artist') ? 'selected' : '' %>>artists</option>
+      <option value="release" <% ($type eq 'release') ? 'selected' : '' %>>releases</option>
+      <option value="track" <% ($type eq 'track') ? 'selected' : '' %>>tracks</option>
+  </select>
+</div>
+
+<div class="CenterChildren" style="margin: 0.3em">
+  <input type="text" name="query" value="<% $query %>" size="30">
+</div>
+
+<div class="CenterChildren" style="margin: 0.3em">
+  <input type="submit" value="Search"><br>
+</div>
+
+</form>
