@@ -5,7 +5,9 @@ $albumid => ""
 $newalbumid => ""
 $confirm => 0
 $notetext => ""
+$search => ""
 </%args>
+
 <%perl>
 
 MusicBrainz::IsNonNegInteger($tocid) && $tocid
@@ -87,30 +89,73 @@ if ($newalbumid ne "")
 	die "Shouldn't get here";
 }
 
-# Build a list of possible target albums
+# Prepare a string to describe "n tracks"
+my $trackdesc = (
+	$numtracks == 1
+		? "1 track"
+		: "$numtracks tracks"
+);
 
+# Load the artist of the old album
 my $ar = Artist->new($mb->{DBH});
 $ar->SetId($al->GetArtist);
-
-my @albums = $ar->GetAlbums
+$ar->LoadFromId
 	or return $m->comp(
 		"/comp/error",
-		"Cannot load albums for artist.",
+		"Atist not found in the database.",
 		1, 1,
 	);
 
-@albums = grep {
-	my $t = $_;
+# Collect the list of albums the user can select the target from
+my @albums;
 
-	$t->GetId != $al->GetId
-	and not $t->IsNonAlbumTracks
-	and $t->GetArtist != &ModDefs::VARTIST_ID
-	and do {
-		# TODO is this really a good way of checking the number of tracks?
-		# Shouldn't we test the album's TOC, not the number of defined tracks?
-		scalar $t->LoadTracks;
-	} == $numtracks
-} @albums;
+if ($search ne '')
+{	
+	# Do the search, limit to 100 results, user should refine query if to many
+	my $eng = SearchEngine->new($mb->{DBH}, "album");
+	$eng->Search(
+		query => $search,
+		limit => 100,
+	);
+
+	# Build the candidate list from search results
+	if ($eng->Rows > 0)
+	{
+		my @row;
+		my $num;
+
+		while (my $row = $eng->NextRow)
+		{
+			my $newal = Album->new($mb->{DBH});
+			$newal->SetId($row->{'albumid'});
+
+			# Get data for the current candidate
+			next if (!defined $newal->LoadFromId());
+			$num = $newal->GetTrackCount();
+
+			# put albums that match the track count into result list
+			if ($num == $numtracks)
+			{
+				push @albums, $newal;
+			}
+		}
+	} # END Build candidate list
+}
+else # No search performed, show albums from artist the DiscID belonged to
+{
+	if ($al->GetArtist != &ModDefs::VARTIST_ID)
+	{
+		my @talbums = $ar->GetAlbums(1, 0);
+		my $newal;
+		while ($newal = shift @talbums)
+		{ 
+			if ($newal->{id} != $albumid && $newal->GetTrackCount() == $numtracks)
+			{
+				push @albums, $newal;
+			}
+		}
+	}
+}
 
 # Sort albums by name
 @albums = map { $_->[0] }
@@ -122,82 +167,90 @@ my @albums = $ar->GetAlbums
 		my $n = lc decode "utf-8", unac_string('UTF-8', $t->GetName);
 		[ $t, $n ];
 	} @albums;
-
-# Prepare a string to describe "n tracks"
-my $trackdesc = (
-	$numtracks == 1
-		? "1 track"
-		: "$numtracks tracks"
-);
-
 </%perl>
+
+
+%############### Page Layout below ###############
 
 <& /comp/sidebar, title => 'Move Disc ID' &>
 
-% if (@albums) {
+%# Build a list of possible target albums
 
 <fieldset>
 	<legend>Move Disc ID to another Album</legend>
-	<div class="padleft">
+	<div class="padleft" style="margin-bottom: 0.5em;">
 		Select an album to which disc ID
 		<a href="/showcdtoc.html?id=<% $cdtoc->GetId %>"><% $cdtoc->GetDiscID %></a> 
 		should be moved.<br/>
-		NOTE: Only albums with <% $trackdesc %> have been shown.
-	</div>
-	<div class="padleft">
-		<ul>
-%     for my $ref (@albums) {
-			<li><a href="#<% $ref->GetId %>"><% $ref->GetName %></a>
-% }
-		<ul>
+		NOTE: Only albums with <% $trackdesc %> are shown.
 	</div>
 
-	<p></p>
-	<div class="padleft">
-		<table width="600">
-% for my $ref (@albums) {
-			<tr valign="bottom">
-				<td>
-					<a name="#<% $ref->GetId %>"></a>
-					<& /comp/album, artist=>$ar, album=>$ref, showmodlinks => 0 &>
-				</td>
-				<td>
-
-					<form 	method="post" action="/edit/discid/move.html"
-							style="margin: 1em">
-							<input type="hidden" name="tocid" value="<% $tocid %>">
-							<input type="hidden" name="albumid" value="<% $albumid %>">
-							<input type="hidden" name="newalbumid" value="<% $ref->GetId %>">
-							<input type="submit" class="button" value="Select &raquo;">
-					</form>
-				</td>
+%# we found some albums
+%if ( scalar(@albums) > 0 )
+%{
+%	my $newal;
+%	while ($newal = shift @albums)
+%	{
+%		my $newar = Artist->new($mb->{DBH});
+%		$newar->SetId($newal->GetArtist);
+%		$newar->LoadFromId();
+		<div class="padleft">
+		<form method="POST" action="move.html"
+			enctype="application/x-www-form-urlencoded">
+			<table width="100%">
+			<tr><td>Artist: 
+			<a href="/showartist.html?id=<% $newal->GetArtist %>">
+			<% $newar->GetName %></a></td><td></td></tr>
+			<tr><td width="100%">
+				<& /comp/album, artist=>$newar, album=>$newal, showmodlinks=>0 &>
+			</td>
+			<td align="right" valign="top">
+				<input type="submit" value="Select CD &gt;&gt;">
+				<input type="hidden" name="albumid" value="<% $albumid %>">
+				<input type="hidden" name="newalbumid" 
+					value="<% $newal->GetId() %>">
+				<input type="hidden" name="tocid" value="<% $tocid %>">
+			</td>
 			</tr>
-			<tr><td>&nbsp;</td></tr>
-% }
-		</table>
-	</div>
-</fieldset>
-
-% } else {
-
-<fieldset>
-	<legend>Move disc ID to another Album</legend>
-	<div class="padleft">
-		Disc IDs can only be moved to albums with the same number of tracks.&nbsp;
-		Since this artist does not have any other albums with <% $trackdesc %>,
-		disc ID <a href="/showcdtoc.html?id=<% $cdtoc->GetId %>"><% $cdtoc->GetDiscID %></a> 
-		cannot be moved.
-	</div>
-
-	<div class="padlefttop">
-		<form 	method="GET" action="/showalbum.html"
-				name="ModFormNo">
-			<input type="hidden" name="albumid" value="<% $al->GetId %>">
-			<input name="btnBack" type="submit" class="button" value="&laquo; Back">
+			</table>
 		</form>
+		</div>
+%	}
+%}
+%else
+%{
+	<div class="padleft">
+%	if ($search eq '' && $al->GetArtist != &ModDefs::VARTIST_ID)
+%	{
+		There were no albums by 
+		<a href="/showartist.html?id=<% $ar->GetId %>"><% $ar->{name} %></a> found
+		this DiscId can be applied to. You may search for albums by different
+		artists below.
+%	} else {
+		There were no albums found. You may refine your search below.
+%	}
+%}
+	</div>
+
+%# Search for possible album candidates
+	<hr>
+	<div class="padleft"><h3>Start another CD search:</h3></div>
+	<div class="padleft">
+		If the album you were looking for is not in the list above, you can 
+		try to search for album titles with this search form.</div>
+	<div class="padleft">
+		NOTE: Only the first 100 results will be shown in the list of results.
+	</div>
+	
+	<div class="padleft" style="margin-top: 0.5em;">
+	<form method="POST" action="move.html" 
+		enctype="application/x-www-form-urlencoded">
+    	<input type="text" name="search" size="25">
+    	<input type="submit" value="Search &gt;&gt;">
+    	<input type="hidden" name="tocid" value="<% $tocid %>">
+    	<input type="hidden" name="albumid" value="<% $albumid %>">
+	</form>
 	</div>
 </fieldset>
-
-% }
 
 <& /comp/footer &>
