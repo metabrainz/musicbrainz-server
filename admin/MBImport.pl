@@ -36,11 +36,13 @@ use MusicBrainz::Server::Replication qw( :replication_type NON_REPLICATED_TABLES
 my ($fHelp, $fIgnoreErrors);
 my $tmpdir = "/tmp";
 my $fProgress = -t STDOUT;
+my $fFixUTF8 = 0;
 
 GetOptions(
 	"help|h"       		=> \$fHelp,
 	"ignore-errors|i!"	=> \$fIgnoreErrors,
 	"tmp-dir|t=s"		=> \$tmpdir,
+	"fix-broken-utf8"  => \$fFixUTF8,
 );
 
 sub usage
@@ -49,6 +51,9 @@ sub usage
 Usage: MBImport.pl [options] FILE ...
 
         --help            show this help
+        --fix-broken-utf8 replace invalid UTF-8 byte sequences with a 
+                          perl \\x{...} notation of the equivalent
+        				  ISO-8859-1 encoding
     -i, --ignore-errors   if a table fails to import, continue anyway
     -t, --tmp-dir DIR     use DIR for temporary storage (default: /tmp)
 
@@ -72,6 +77,14 @@ Then, if the database table is not empty, a warning is generated, and
 processing of this table ends.  Otherwise, the file is loaded into the table.
 (Exception: the "moderator_santised" file, if present, is loaded into the
 "moderator" table).
+
+Note: The --fix-broken-utf8 is usefull when upgrading a database to
+      Postgres 8.1.x and your old database includes byte sequences that are
+      invalid in UTF-8. It does not really fix the data, because the
+      original encoding can't be determined automatically. Instead it
+      replaces the affected byte sequence with a string of the form 
+      "\\x{<bytevals>}", where <bytevals> represent the hex representation 
+      in ISO-8859-1.
 
 EOF
 	exit;
@@ -218,6 +231,7 @@ sub ImportTable
 	eval
 	{
 		open(LOAD, "<", $file) or die "open $file: $!";
+		binmode(LOAD) if $fFixUTF8;
 
 		# If you're looking at this code because your import failed, maybe
 		# with an error like this:
@@ -232,10 +246,23 @@ sub ImportTable
 		my $dbh = $sql->{DBH};
 
 		$p->("", "") if $fProgress;
-
+		my $t;
+		
 		while (<LOAD>)
 		{
-			$dbh->func($_, "putline") or die;
+			if ($fFixUTF8) {
+				require Encode;
+				$t = Encode::decode("UTF-8", $_);
+				if (!Encode::is_utf8($t, 1)) { 
+					my $fixed = Encode::encode("iso-8859-1", $_, Encode::FB_PERLQQ);
+					print "\n!WARNING! Invalid UTF-8 replaced with:\n" . $fixed . "\n";
+					$dbh->func($fixed, "putline") or die;
+				} else {
+					$dbh->func($t, "putline") or die;
+				}
+			} else {
+				$dbh->func($_, "putline") or die;
+			}
 
 			++$rows;
 			unless ($rows & 0xFFF)

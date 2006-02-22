@@ -38,6 +38,7 @@ my $REPTYPE = &DBDefs::REPLICATION_TYPE;
 my $opts = $READWRITE->shell_args;
 my $psql = "psql";
 my $path_to_pending_so;
+my $fFixUTF8 = 0;
 
 warn "Warning: this is a slave replication server, but there is no READONLY connection defined\n"
 	if $REPTYPE == RT_SLAVE and not $READONLY;
@@ -175,7 +176,7 @@ sub CreateRelations
 	if ($import)
     {
 		local $" = " ";
-        system($^X, "$FindBin::Bin/MBImport.pl", "--ignore-errors", @$import);
+        system($^X, "$FindBin::Bin/MBImport.pl", "--ignore-errors", ($fFixUTF8 ? "--fix-broken-utf8" : "" , @$import);
         die "\nFailed to import dataset.\n" if ($? >> 8);
     } else {
 		RunSQLScript("InsertDefaultRows.sql", "Adding default rows ...");
@@ -277,6 +278,11 @@ Options are:
   --with-pending=PATH   For use only if this is a master replication server
                         (DBDefs::REPLICATION_TYPE==RT_MASTER).  PATH specifies
                         the path to "pending.so" (on the database server).
+	 --fix-broken-utf8  replace invalid UTF-8 byte sequences with their
+	                    equivalent perl \x{...} notation in ISO-8859-1.
+						(Should only be used, when an import without the option
+						fails with an "ERROR:  invalid UTF-8 byte sequence detected"!
+						see also MBImport.pl)
 
 After the import option, you may specify one or more MusicBrainz data dump
 files for importing into the database. Once this script runs to completion
@@ -303,6 +309,7 @@ GetOptions(
 	"echo!"				=> \$fEcho,
 	"quiet|q"			=> \$fQuiet,
 	"help|h"			=> \&Usage,
+	"fix-broken-utf8"   => \$fixUTF8
 ) or exit 2;
 
 SanityCheck();
