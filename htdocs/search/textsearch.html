@@ -19,8 +19,21 @@ if ($query && $type)
     my $response = $ua->get($docurl);
     if (!$response->is_success) 
     {
-        $m->comp('/comp/error',
-             "Could not retrieve wiki page from wiki server. ( get $docurl -> " . $response->status_line ." )", 0, 0);
+        if ($response->code == 404)
+        {
+            </%perl>
+            <p><b>Error</b>: Your search query did not contain enough information to carry out a search.
+               If you are attempting to find an artist that contains nothing but punctuation characters
+               (e.g. !!!) then you should <a href="/browseartists.html?index=_">browse</a> for your
+               artist, rather than search for it.
+            </p>
+            <%perl>
+        }
+        else
+        {
+            $m->comp('/comp/error',
+                 "Could not retrieve wiki page from wiki server. ( get $docurl -> " . $response->status_line ." )", 0, 0);
+        }
     }
     else
     {
