@@ -591,28 +591,37 @@ sub xml_collection
     use URI::Escape qw( uri_escape );
     my $url = 'http://' . &DBDefs::LUCENE_SERVER . "/ws/1/$type/?query=" .
                uri_escape($name) . "&max=$limit&type=$type&fmt=xml";
+    my $out;
 
     require LWP::UserAgent;
     my $ua = LWP::UserAgent->new;
     my $response = $ua->get($url);
     if ( $response->is_success )
     {
-        my $out = '<?xml version="1.0" encoding="UTF-8"?>';
+        $out = '<?xml version="1.0" encoding="UTF-8"?>';
         $out .= '<metadata xmlns="http://musicbrainz.org/ns/mmd-1.0#">';
         $out .= $response->content;
         $out .= '</metadata>';
-   
-        $r->set_content_length(length($out));
-        $r->send_http_header("text/xml; charset=utf-8");
-        $r->print($out) unless $r->header_only;
-        $r->status(Apache::Constants::OK());
-        return Apache::Constants::OK();
     }
     else
     {
-        return bad_req($r, "Could not retrieve sub-document page from search server. Error: " .
-                       $url . " -> " . $response->status_line);
+        if ($response->code == Apache::Constants::NOT_FOUND())
+        {
+            $out = '<?xml version="1.0" encoding="UTF-8"?>';
+            $out .= '<metadata xmlns="http://musicbrainz.org/ns/mmd-1.0#"/>';
+        }
+        else
+        {
+            return bad_req($r, "Could not retrieve sub-document page from search server. Error: " .
+                           $url . " -> " . $response->status_line);
+        }
     }
+   
+    $r->set_content_length(length($out));
+    $r->send_http_header("text/xml; charset=utf-8");
+    $r->print($out) unless $r->header_only;
+    $r->status(Apache::Constants::OK());
+    return Apache::Constants::OK();
 }
 
 sub xml_escape
