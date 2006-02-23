@@ -174,7 +174,7 @@ sub xml_artist
 
 sub xml_release
 {
-	my ($ar, $al, $inc) = @_;
+	my ($ar, $al, $inc, $tnum) = @_;
 
     print '<release id="' . $al->GetMBId . '"';
     xml_release_type($al);
@@ -194,10 +194,17 @@ sub xml_release
     my $asin = $al->GetAsin;
     print "<asin>$asin</asin>" if $asin;
 
-    xml_artist($ar, $inc) if ($inc & INC_ARTIST && $ar);
+    xml_artist($ar, 0) if ($inc & INC_ARTIST && $ar);
     xml_release_events($al, $inc) if ($inc & INC_RELEASEINFO || $inc & INC_COUNTS);
     xml_discs($al, $inc) if ($inc & INC_DISCS || $inc & INC_COUNTS);
-    xml_track_list($ar, $al, $inc) if ($inc & INC_TRACKS || $inc & INC_COUNTS && $ar);
+    if ($inc & INC_TRACKS || $inc & INC_COUNTS && $ar)
+    {
+        xml_track_list($ar, $al, $inc) 
+    }
+    elsif (defined $tnum)
+    {
+        print '<track-list offset="' .($tnum - 1) .'"/>';
+    }
     xml_relations($al, 'album', $inc) if ($inc & INC_ARTISTREL || $inc & INC_RELEASEREL || $inc & INC_TRACKREL || $inc & INC_URLREL);
     
 	print '</release>';
@@ -362,11 +369,10 @@ sub xml_track
             print '<release-list>';
             foreach my $i (@albums)
             {
-                print STDERR "load: $i->[3]\n";
                 $al->SetMBId($i->[3]);
                 if ($al->LoadFromId())
                 {
-                    xml_release($ar, $al, 0) 
+                    xml_release($ar, $al, 0, $i->[2]) 
                 }
             }
             print '</release-list>';
