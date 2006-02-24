@@ -61,16 +61,16 @@ sub handler
 	}
     if ($inc & INC_TRACKS)
 	{
-		return bad_req($r, "Cannot use track parameter for artist resources.. For usage, please see: http://musicbrainz.org/development/mmd");
+		return bad_req($r, "Cannot use track parameter for artist resources. For usage, please see: http://musicbrainz.org/development/mmd");
 	}
 
     if (!$mbid)
     {
-        my $query = $args{query} or "";
+        my $name = $args{name} or "";
         my $limit = $args{limit} or 25;
 
-		return bad_req($r, "Must specify a query argument for artist collections.") if (!$query);
-        return xml_collection($r, 'artist', $query, $limit);
+		return bad_req($r, "Must specify a name argument for artist collections.") if (!$name);
+        return xml_search($r, { type => 'artist', name => $name, limit => $limit });
     }
 
 	my $status = eval {

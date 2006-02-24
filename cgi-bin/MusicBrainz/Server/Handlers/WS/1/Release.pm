@@ -43,46 +43,73 @@ sub handler
 
     my $mbid = $1 if ($r->uri =~ /ws\/1\/release\/([a-z0-9-]*)/);
 
+    # Check general arguments
 	my %args; { no warnings; %args = $r->args };
     my ($inc, $bad) = convert_inc($args{inc});
-
+    if ($bad)
+    {
+		return bad_req($r, "Invalid inc options: '$bad'. For usage, please see: http://musicbrainz.org/development/mmd");
+	}
     my $type = $args{type};
     if (!defined($type) || $type ne 'xml')
     {
 		return bad_req($r, "Invalid content type. Must be set to xml.");
 	}
+    if ($inc & INC_RELEASES)
+    {
+		return bad_req($r, "Invalid inc options: 'releases'. For usage, please see: http://musicbrainz.org/development/mmd");
+	}
+
+    # Check for collection arguments
     my $cdid = $args{discid};
     if ($cdid && length($cdid) != MusicBrainz::Server::CDTOC::CDINDEX_ID_LENGTH)
     {
 		return bad_req($r, "Invalid cdindex id. For usage, please see: http://musicbrainz.org/development/mmd");
 	}
-    if ($bad)
+
+    my $artistid = $args{artistid};
+    if ($artistid && !MusicBrainz::IsGUID($artistid))
     {
-		return bad_req($r, "Invalid inc options: '$bad'. For usage, please see: http://musicbrainz.org/development/mmd");
-	}
-    if ($inc & INC_RELEASES)
-    {
-		return bad_req($r, "Invalid inc options: 'releases'. For usage, please see: http://musicbrainz.org/development/mmd");
+		return bad_req($r, "Invalid artist id. For usage, please see: http://musicbrainz.org/development/mmd");
 	}
 	if ((!MusicBrainz::IsGUID($mbid) && $mbid ne '') || $inc eq 'error')
 	{
 		return bad_req($r, "Incorrect URI. For usage, please see: http://musicbrainz.org/development/mmd");
 	}
 
-    if (!$mbid && !$cdid)
-    {
-        my $query = $args{query} or "";
-        my $limit = $args{limit} or 25;
+	if ($artistid && $cdid)
+	{
+		return bad_req($r, "You cannot specify both an artistid and a cdid as a collection argument." .
+                           " For usage, please see: http://musicbrainz.org/development/mmd");
+	}
 
-		return bad_req($r, "Must specify a query argument for release collections.") if (!$query);
-        return xml_collection($r, 'release', $query, $limit);
+    my $status;
+    my $types = $args{releasetypes};
+    if (!$mbid)
+    {
+        $types = "Album Official" if (!$types);
+        ($types, $status, $bad) = convert_types($types);
+        if ($bad || $types < 0 || $status < 0)
+        {
+            return bad_req($r, "Invalid releasetype options: '$bad'. For usage, please see: http://musicbrainz.org/development/mmd");
+        }
+    }
+
+    my $limit = $args{limit} or 25;
+    $limit = 25 if ($limit < 1 || $limit > 25);
+    if (!$mbid && !$cdid && !$artistid)
+    {
+        my $name = $args{release} or "";
+
+		return bad_req($r, "Must specify a release argument for release collections.") if (!$name);
+        return xml_collection($r, { type=>'release', name=>$name, limit=>$limit, types=>$types, status=>$status });
     }
 
 	my $status = eval 
     {
 		# Try to serve the request from the database
 		{
-			my $status = serve_from_db($r, $mbid, $cdid, $inc);
+			my $status = serve_from_db($r, $mbid, $artistid, $cdid, $inc, $types, $status);
 			return $status if defined $status;
 		}
         undef;
@@ -108,7 +135,7 @@ sub handler
 
 sub serve_from_db
 {
-	my ($r, $mbid, $cdid, $inc) = @_;
+	my ($r, $mbid, $artistid, $cdid, $inc, $types, $status) = @_;
 
 	my $ar;
 	my $al;
@@ -119,28 +146,50 @@ sub serve_from_db
 	$mb->Login;
 	require Album;
 
+    my @albums;
 	$al = Album->new($mb->{DBH});
     if ($mbid)
     {
         $al->SetMBId($mbid);
         return undef unless $al->LoadFromId(1);
+        push @albums, $al;
     }
-    else
+    elsif ($cdid)
     {
         require MusicBrainz::Server::AlbumCDTOC;
 
         my $cd = MusicBrainz::Server::AlbumCDTOC->new($mb->{DBH});
         my $albumids = $cd->GetAlbumIDsFromDiscID($cdid);
-        #TODO: Return the full list
         if (scalar(@$albumids))
         {
-            $al->SetId($$albumids[0]);
-            return undef unless $al->LoadFromId(1);
+            foreach my $id (@$albumids)
+            {
+                $al = Album->new($mb->{DBH});
+                $al->SetId($id);
+                return undef unless $al->LoadFromId(1);
+                my ($t, $s) = $al->GetReleaseTypeAndStatus();
+                push @albums, $al if ($types == $t && $s == $status);
+            }
         }
-        $is_coll = 1;
+    }
+    elsif ($artistid)
+    {
+        $ar = Artist->new($mb->{DBH});
+        $ar->SetMBId($artistid);
+        return undef unless $ar->LoadFromId();
+
+        my @albumlist = $ar->GetAlbums(0, 1, 0);
+        if (scalar(@albumlist))
+        {
+            foreach $al (@albumlist)
+            {
+                my ($t, $s) = $al->GetReleaseTypeAndStatus();
+                push @albums, $al if ($types == $t && $s == $status);
+            }
+        }
     }
 
-    if ($inc & INC_ARTIST || $inc & INC_TRACKS)
+    if (!$ar && $inc & INC_ARTIST || $inc & INC_TRACKS)
     {
         $ar = Artist->new($mb->{DBH});
         $ar->SetId($al->GetArtist);
@@ -148,7 +197,7 @@ sub serve_from_db
     }
 
 	my $printer = sub {
-		print_xml($mbid, $ar, $al, $inc, $is_coll);
+		print_xml($mbid, $ar, \@albums, $inc);
 	};
 
 	send_response($r, $printer);
@@ -157,13 +206,13 @@ sub serve_from_db
 
 sub print_xml
 {
-	my ($mbid, $ar, $al, $inc, $is_coll) = @_;
+	my ($mbid, $ar, $albums, $inc, $is_coll) = @_;
 
 	print '<?xml version="1.0" encoding="UTF-8"?>';
 	print '<metadata xmlns="http://musicbrainz.org/ns/mmd-1.0#">';
-    print '<release-list>' if ($is_coll);
-    xml_release($ar, $al, $inc);
-    print '</release-list>' if ($is_coll);
+    print '<release-list>' if (scalar(@$albums));
+    xml_release($ar, $_, $inc) foreach(@$albums);
+    print '</release-list>' if (scalar(@$albums));
 	print '</metadata>';
 }
 

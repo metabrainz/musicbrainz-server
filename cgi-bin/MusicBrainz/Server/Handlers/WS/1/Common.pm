@@ -29,19 +29,17 @@ package MusicBrainz::Server::Handlers::WS::1::Common;
 
 require Exporter;
 our @ISA = qw(Exporter);
-our @EXPORT = qw(convert_inc bad_req send_response 
-                    xml_artist xml_release xml_track xml_collection
-                    INC_ARTIST INC_COUNTS INC_LIMIT INC_TRACKS INC_RELEASES 
-                    INC_VARELEASES INC_DURATION INC_ARTISTREL INC_RELEASEREL 
-                    INC_DISCS INC_TRACKREL INC_URLREL INC_RELEASEINFO 
-                    INC_ARTISTID INC_RELEASEID INC_TRACKID INC_TITLE 
-                    INC_TRACKNUM INC_TRMIDS);
+our @EXPORT = qw(convert_inc bad_req send_response convert_types
+                 xml_artist xml_release xml_track xml_search
+                 INC_ARTIST INC_COUNTS INC_LIMIT INC_TRACKS INC_RELEASES 
+                 INC_VARELEASES INC_DURATION INC_ARTISTREL INC_RELEASEREL 
+                 INC_DISCS INC_TRACKREL INC_URLREL INC_RELEASEINFO 
+                 INC_ARTISTID INC_RELEASEID INC_TRACKID INC_TITLE 
+                 INC_TRACKNUM INC_TRMIDS);
 
 use Apache::Constants qw( );
 use Apache::File ();
-
-# TODO: how is the limit passed for searches?
-# TODO: output URL relations and attributes
+use Album;
 
 use constant INC_ARTIST      => 0x00001;
 use constant INC_COUNTS      => 0x00002;
@@ -88,6 +86,24 @@ my %incShortcuts =
     'trmids'         => INC_TRMIDS,
 );
 
+my %AlbumAttributeXRef = (
+    'Non-Album Track' => 0,
+    'Album'           => 1,
+    "Single"          => 2,
+    "EP"              => 3,
+    "Compilation"     => 4,
+    "Soundtrack"      => 5,
+    "Spokenword"      => 6,
+    "Interview"       => 7,
+    "Audiobook"       => 8,
+    "Live"            => 9,
+    "Remix"           => 10,
+    "Other"           => 11,
+    "Official"        => 100,
+    "Promotion"       => 101,
+    "Bootleg"         => 102,
+);
+
 # Convert the passed inc argument into a bitflag with the given constants form above
 # Return and array of the bitflag and the arguments that were not used.
 sub convert_inc
@@ -108,6 +124,29 @@ sub convert_inc
         }
     }
     return ($shinc, join(' ', @bad));
+}
+
+sub convert_types
+{
+    my ($types) = @_;
+
+    my $type = -1;
+    my $status = -1;
+    my @bad;
+    foreach my $t (split ' ', $types)
+    {
+        if (exists $AlbumAttributeXRef{$t})
+        {
+            my $value = $AlbumAttributeXRef{$t};
+            $type = $value if ($value >= Album::ALBUM_ATTR_SECTION_TYPE_START && $value <= Album::ALBUM_ATTR_SECTION_TYPE_END);
+            $status = $value if ($value >= Album::ALBUM_ATTR_SECTION_STATUS_START && $value <= Album::ALBUM_ATTR_SECTION_STATUS_END);
+        }
+        else
+        {
+            push @bad, $_;
+        }
+    }
+    return ($type, $status, join(' ', @bad));
 }
 
 sub bad_req
@@ -584,7 +623,7 @@ sub xml_relations
     }
 }
 
-sub xml_collection
+sub xml_search
 {
     my ($r, $type, $name, $limit) = @_;
 

@@ -66,7 +66,7 @@ sub handler
         my $limit = $args{limit} or 25;
 
 		return bad_req($r, "Must specify a query argument for track collections.") if (!$query);
-        return xml_collection($r, 'track', $query, $limit);
+        return xml_search($r, 'track', $query, $limit);
     }
 
 	my $status = eval 
