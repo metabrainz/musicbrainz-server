@@ -309,7 +309,7 @@ GetOptions(
 	"echo!"				=> \$fEcho,
 	"quiet|q"			=> \$fQuiet,
 	"help|h"			=> \&Usage,
-	"fix-broken-utf8"   => \$fixUTF8
+	"fix-broken-utf8"   => \$fFixUTF8
 ) or exit 2;
 
 SanityCheck();
