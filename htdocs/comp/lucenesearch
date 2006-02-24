@@ -21,7 +21,7 @@ $query => ''
   </select>
   <select name="type">
       <option value="artist" <% ($type eq 'artist') ? 'selected' : '' %>>artists</option>
-      <option value="release" <% ($type eq 'release') ? 'selected' : '' %>>releases</option>
+      <option value="release" <% ($type eq 'release') ? 'selected' : '' %>>albums</option>
       <option value="track" <% ($type eq 'track') ? 'selected' : '' %>>tracks</option>
   </select>
 </div>

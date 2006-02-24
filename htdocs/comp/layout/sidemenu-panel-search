@@ -3,8 +3,8 @@
         <tr>
             <td width="40"><label for="qsArtist_text" title="Search for an artist">Artist</label></td>
             <td>
-                <form method="GET" action="/newsearch.html">
-					<input class="textfield" type="text" name="search" id="qsArtist_text" value=""
+                <form method="GET" action="/search/textsearch.html">
+					<input class="textfield" type="text" name="query" id="qsArtist_text" value=""
 % # What is the official position on forms with no submit button?
 % # Normally they're OK, and you can press "return" and the form is submitted.
 % # Can we rely on this, always?
@@ -13,31 +13,31 @@
                             onkeydown="if (event.keyCode==13) this.form.submit()"
 % }
 					>                                   
-					<input type="hidden" name="table" value="artist">
+					<input type="hidden" name="type" value="artist">
                 </form></td>
         </tr>
         <tr>
             <td><label for="qsAlbum_text" title="Search for an album">Album</label></td>
             <td>
-                <form method="GET" action="/newsearch.html">
-					<input class="textfield" type="text" name="search" id="qsAlbum_text" value=""
+                <form method="GET" action="/search/textsearch.html">
+					<input class="textfield" type="text" name="query" id="qsAlbum_text" value=""
 % if ($session{mbt}) {
 						onKeyDown="if (event.keyCode==13) this.form.submit()"
 % }
 					>
-					<input type="hidden" name="table" value="album">
+					<input type="hidden" name="type" value="release">
                 </form></td>
         </tr>
         <tr>
             <td><label for="qsTrack_text" title="Search for a track">Track</label></td>
             <td>
-                <form method="GET" action="/newsearch.html">
-					<input class="textfield" type="text" name="search" id="qsTrack_text" value=""
+                <form method="GET" action="/search/textsearch.html">
+					<input class="textfield" type="text" name="query" id="qsTrack_text" value=""
 % if ($session{mbt}) {
 						onKeyDown="if (event.keyCode==13) this.form.submit()"
 % }
                         >
-					<input type="hidden" name="table" value="track">
+					<input type="hidden" name="type" value="track">
                 </form></td>
         </tr>
         <tr>
