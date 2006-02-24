@@ -690,7 +690,6 @@ sub xml_search
         die "Incorrect search type: $type\n";
     }
 
-    print STDERR "query: '$query'\n";
     use URI::Escape qw( uri_escape );
     my $url = 'http://' . &DBDefs::LUCENE_SERVER . "/ws/1/$type/?" .
               "max=" . $args->{limit} . "&type=$type&fmt=xml&query=". uri_escape($query);

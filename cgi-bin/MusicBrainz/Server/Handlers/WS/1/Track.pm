@@ -63,8 +63,8 @@ sub handler
 
     if (!$mbid)
     {
-        my $name = $args{name} or "";
-		return bad_req($r, "Must specify a name argument for track collections.") if (!$name);
+        my $title = $args{title} or "";
+		return bad_req($r, "Must specify a title argument for track collections.") if (!$title);
 
         my $artist = $args{artist} or "";
         my $release = $args{release} or "";
@@ -87,7 +87,7 @@ sub handler
         }
         $release = "" if ($releaseid);
 
-        return xml_search($r, {type=>'track', track=>$name, artist=>$artist, release=>$release, 
+        return xml_search($r, {type=>'track', track=>$title, artist=>$artist, release=>$release, 
                                artistid => $artistid, releaseid=>$releaseid, duration=>$duration,
                                tnum => $tnum, limit => $limit});
     }

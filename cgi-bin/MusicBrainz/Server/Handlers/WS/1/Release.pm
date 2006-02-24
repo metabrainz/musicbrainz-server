@@ -86,8 +86,8 @@ sub handler
     }
     if (!$mbid && !$cdid)
     {
-        my $name = $args{name} or "";
-		return bad_req($r, "Must specify a name argument for release collections.") if (!$name);
+        my $title = $args{title} or "";
+		return bad_req($r, "Must specify a title argument for release collections.") if (!$title);
 
         my $artist = $args{artist} or "";
         my $release = $args{release} or "";
@@ -96,7 +96,7 @@ sub handler
 
         $artist = "" if ($artistid);
 
-        return xml_search($r, {type=>'release', artist=>$artist, release=>$name, 
+        return xml_search($r, {type=>'release', artist=>$artist, release=>$title, 
                                artistid => $artistid, limit => $limit});
     }
 
