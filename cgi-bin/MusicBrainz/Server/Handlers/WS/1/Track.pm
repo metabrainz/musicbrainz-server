@@ -59,9 +59,14 @@ sub handler
 	{
 		return bad_req($r, "Incorrect URI. For usage, please see: http://musicbrainz.org/development/mmd");
 	}
-    # TODO: Search via TRM Id
 
-    if (!$mbid)
+    my $trmid = $args{trmid};
+	if ($trmid && !MusicBrainz::IsGUID($trmid))
+	{
+		return bad_req($r, "Invalid trmid. For usage, please see: http://musicbrainz.org/development/mmd");
+	}
+
+    if (!$mbid && !$trmid)
     {
         my $title = $args{title} or "";
 		return bad_req($r, "Must specify a title argument for track collections.") if (!$title);
@@ -96,7 +101,7 @@ sub handler
     {
 		# Try to serve the request from the database
 		{
-			my $status = serve_from_db($r, $mbid, $inc);
+			my $status = serve_from_db($r, $mbid, $trmid, $inc);
 			return $status if defined $status;
 		}
         undef;
@@ -123,7 +128,18 @@ sub handler
 
 sub serve_from_db
 {
-	my ($r, $mbid, $inc) = @_;
+	my ($r, $mbid, $trmid, $inc) = @_;
+
+    # if this is a trmid request, send it
+    if ($trmid)
+    {
+        my $printer = sub {
+            xml_trm($trmid);
+        };
+
+        send_response($r, $printer);
+        return Apache::Constants::OK();
+    }
 
 	my $ar;
 	my $tr;
@@ -319,6 +335,65 @@ sub print_xml_post
 
 	print '<?xml version="1.0" encoding="UTF-8"?>';
 	print '<metadata xmlns="http://musicbrainz.org/ns/mmd-1.0#"/>';
+}
+
+# This code is duplicated since it is THE MOST CALLED CODE IN ALL OF MUSICBRAINZ.
+# Thus this is optimized to move as fast as possible. Thus everything has been flattened out.
+sub xml_trm
+{
+	require Track;
+	my ($trm) = @_;
+
+	require MusicBrainz;
+	my $mb = MusicBrainz->new;
+	$mb->Login;
+
+    require Sql;
+    my $sql = Sql->new($mb->{DBH});
+
+    my $rows = $sql->SelectListOfLists("SELECT t.gid, t.name, t.length, t.artist, j.sequence,
+                                               a.gid, a.name, a.attributes, a.artist, ar.name, ar.gid, ar.sortname
+                                        FROM   trm, trmjoin tj, track t, albumjoin j, album a, artist ar
+                                        WHERE  trm.trm = ?
+                                        AND    tj.trm = trm.id
+                                        AND    t.id = tj.track
+                                        AND    j.track = t.id
+                                        AND    a.id = j.album
+                                        AND    t.artist = ar.id
+                                        LIMIT  100", $trm);
+    print '<?xml version="1.0" encoding="UTF-8"?>';
+    print '<metadata xmlns="http://musicbrainz.org/ns/mmd-1.0#">';
+    if (!@$rows)
+    {
+        print "</metadata>";
+        return;
+    }
+    print "<track-list>";
+    for my $row (@$rows)
+    {
+        printf '<track id="%s"', $row->[0];
+        print '><title>';
+        print xml_escape($row->[1]);
+        print '</title>';
+        if ($row->[2])
+        {
+            print '<duration>';
+            print $row->[2];
+            print '</duration>';
+        }
+        printf '<artist id="%s"', $row->[10];
+        print '><name>';
+        print xml_escape($row->[9]);
+        print '</name><sortname>';
+        print xml_escape($row->[11]);
+        print '</sortname></artist>';
+        printf '<release-list><release id="%s"><title>', $row->[5];
+        print xml_escape($row->[6]);
+        printf '</title><track-list offset="%d"/>', $row->[4];
+        print '</release></release-list>';
+        print '</track>';
+    }
+    print "</track-list></metadata>";
 }
 
 1;

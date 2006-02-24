@@ -30,7 +30,7 @@ package MusicBrainz::Server::Handlers::WS::1::Common;
 require Exporter;
 our @ISA = qw(Exporter);
 our @EXPORT = qw(convert_inc bad_req send_response convert_types
-                 xml_artist xml_release xml_track xml_search
+                 xml_artist xml_release xml_track xml_search xml_escape
                  INC_ARTIST INC_COUNTS INC_LIMIT INC_TRACKS INC_RELEASES 
                  INC_VARELEASES INC_DURATION INC_ARTISTREL INC_RELEASEREL 
                  INC_DISCS INC_TRACKREL INC_URLREL INC_RELEASEINFO 
