@@ -67,10 +67,11 @@ sub handler
     if (!$mbid)
     {
         my $name = $args{name} or "";
-        my $limit = $args{limit} or 25;
+        my $limit = $args{limit};
+        $limit = 25 if ($limit < 1 || $limit > 25);
 
 		return bad_req($r, "Must specify a name argument for artist collections.") if (!$name);
-        return xml_search($r, { type => 'artist', name => $name, limit => $limit });
+        return xml_search($r, { type => 'artist', artist => $name, limit => $limit });
     }
 
 	my $status = eval {

@@ -59,14 +59,37 @@ sub handler
 	{
 		return bad_req($r, "Incorrect URI. For usage, please see: http://musicbrainz.org/development/mmd");
 	}
+    # TODO: Search via TRM Id
 
     if (!$mbid)
     {
-        my $query = $args{query} or "";
-        my $limit = $args{limit} or 25;
+        my $name = $args{name} or "";
+		return bad_req($r, "Must specify a name argument for track collections.") if (!$name);
 
-		return bad_req($r, "Must specify a query argument for track collections.") if (!$query);
-        return xml_search($r, 'track', $query, $limit);
+        my $artist = $args{artist} or "";
+        my $release = $args{release} or "";
+        my $duration = $args{duration} or 0;
+        my $tnum = $args{tracknum} or 0;
+        my $limit = $args{limit};
+        $limit = 25 if ($limit < 1 || $limit > 25);
+
+        my $artistid = $args{artistid};
+        if ($artistid && !MusicBrainz::IsGUID($artistid))
+        {
+            return bad_req($r, "Invalid artist id. For usage, please see: http://musicbrainz.org/development/mmd");
+        }
+        $artist = "" if ($artistid);
+
+        my $releaseid = $args{releaseid};
+        if ($releaseid && !MusicBrainz::IsGUID($releaseid))
+        {
+            return bad_req($r, "Invalid release id. For usage, please see: http://musicbrainz.org/development/mmd");
+        }
+        $release = "" if ($releaseid);
+
+        return xml_search($r, {type=>'track', track=>$name, artist=>$artist, release=>$release, 
+                               artistid => $artistid, releaseid=>$releaseid, duration=>$duration,
+                               tnum => $tnum, limit => $limit});
     }
 
 	my $status = eval 

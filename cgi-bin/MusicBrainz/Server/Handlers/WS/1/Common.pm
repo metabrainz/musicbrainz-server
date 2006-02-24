@@ -623,13 +623,77 @@ sub xml_relations
     }
 }
 
+sub normalize
+{
+    my $t = $_[0];
+    $t =~ s/[^\w\d ]/ /g;
+    $t =~ s/ +/ /g;
+    $t;
+}
+
 sub xml_search
 {
-    my ($r, $type, $name, $limit) = @_;
+    my ($r, $args) = @_;
 
+    my $type = $args->{type};
+    my $query = "";
+    if ($type eq 'artist')
+    {
+        $query = $args->{artist};
+    }
+    elsif ($type eq 'release')
+    {
+        $query = normalize($args->{release});
+        if ($args->{artistid})
+        { 
+            $args->{artistid} =~ s/-//g;
+            $query .= " arid:" . normalize($args->{artistid});
+        }
+        else
+        { 
+            foreach my $term (split(/\s+/, $args->{artist}))
+            {
+                $query .= " artist:" . $term;
+            }
+        }
+    }
+    elsif ($type eq 'track')
+    {
+        $query = normalize($args->{track});
+        if ($args->{artistid})
+        { 
+            $args->{artistid} =~ s/-//g;
+            $query .= " arid:" . normalize($args->{artistid});
+        }
+        else
+        { 
+            foreach my $term (split(/\s+/, $args->{artist}))
+            {
+                $query .= " artist:" . $term;
+            }
+        }
+        if ($args->{releaseid})
+        { 
+            $args->{releaseid} =~ s/-//g;
+            $query .= " reid:" . normalize($args->{releaseid});
+        }
+        else
+        { 
+            foreach my $term (split(/\s+/, $args->{release}))
+            {
+                $query .= " release:" . $term;
+            }
+        }
+    }
+    else
+    {
+        die "Incorrect search type: $type\n";
+    }
+
+    print STDERR "query: '$query'\n";
     use URI::Escape qw( uri_escape );
-    my $url = 'http://' . &DBDefs::LUCENE_SERVER . "/ws/1/$type/?query=" .
-               uri_escape($name) . "&max=$limit&type=$type&fmt=xml";
+    my $url = 'http://' . &DBDefs::LUCENE_SERVER . "/ws/1/$type/?" .
+              "max=" . $args->{limit} . "&type=$type&fmt=xml&query=". uri_escape($query);
     my $out;
 
     require LWP::UserAgent;

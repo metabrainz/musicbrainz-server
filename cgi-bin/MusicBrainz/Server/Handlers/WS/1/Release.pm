@@ -67,22 +67,6 @@ sub handler
 		return bad_req($r, "Invalid cdindex id. For usage, please see: http://musicbrainz.org/development/mmd");
 	}
 
-    my $artistid = $args{artistid};
-    if ($artistid && !MusicBrainz::IsGUID($artistid))
-    {
-		return bad_req($r, "Invalid artist id. For usage, please see: http://musicbrainz.org/development/mmd");
-	}
-	if ((!MusicBrainz::IsGUID($mbid) && $mbid ne '') || $inc eq 'error')
-	{
-		return bad_req($r, "Incorrect URI. For usage, please see: http://musicbrainz.org/development/mmd");
-	}
-
-	if ($artistid && $cdid)
-	{
-		return bad_req($r, "You cannot specify both an artistid and a cdid as a collection argument." .
-                           " For usage, please see: http://musicbrainz.org/development/mmd");
-	}
-
     my $status;
     my $types = $args{releasetypes};
     if (!$mbid)
@@ -95,14 +79,25 @@ sub handler
         }
     }
 
-    my $limit = $args{limit} or 25;
-    $limit = 25 if ($limit < 1 || $limit > 25);
-    if (!$mbid && !$cdid && !$artistid)
+    my $artistid = $args{artistid};
+    if ($artistid && !MusicBrainz::IsGUID($artistid))
     {
-        my $name = $args{release} or "";
+        return bad_req($r, "Invalid artist id. For usage, please see: http://musicbrainz.org/development/mmd");
+    }
+    if (!$mbid && !$cdid)
+    {
+        my $name = $args{name} or "";
+		return bad_req($r, "Must specify a name argument for release collections.") if (!$name);
 
-		return bad_req($r, "Must specify a release argument for release collections.") if (!$name);
-        return xml_collection($r, { type=>'release', name=>$name, limit=>$limit, types=>$types, status=>$status });
+        my $artist = $args{artist} or "";
+        my $release = $args{release} or "";
+        my $limit = $args{limit};
+        $limit = 25 if ($limit < 1 || $limit > 25);
+
+        $artist = "" if ($artistid);
+
+        return xml_search($r, {type=>'release', artist=>$artist, release=>$name, 
+                               artistid => $artistid, limit => $limit});
     }
 
 	my $status = eval 
