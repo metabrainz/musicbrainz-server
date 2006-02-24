@@ -18,6 +18,7 @@ if ($modid)
 {
 	$mod = Moderation->new($mb->{DBH});
 	$mod = $mod->CreateFromId($modid);
+	$mod->PreDisplay;
 }
 
 if (&DBDefs::DB_STAGING_SERVER and $mod)

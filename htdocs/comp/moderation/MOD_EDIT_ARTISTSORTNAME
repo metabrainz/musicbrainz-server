@@ -3,18 +3,15 @@
 <%method ShowPreviousValue>
 % my $this = shift;
 
-	Old:
-	<a href="/showartist.html?artistid=<% $this->GetRowId %>"
-		><% $this->GetPrev %></a>
-
+Old:
+<a href="/showartist.html?artistid=<% $this->GetRowId %>"
+	class="bold"><% $this->GetPrev %></a>
 </%method>
 
 <%method ShowNewValue>
 % my $this = shift;
-
-	New:
-	<span class="bold"><% $this->GetNew %></span>
-   
+New:
+<span class="bold"><% $this->GetNew %></span>
 </%method>
 
 %# eof

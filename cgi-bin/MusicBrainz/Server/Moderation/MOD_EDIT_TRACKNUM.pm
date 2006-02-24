@@ -48,6 +48,29 @@ sub PreInsert
 	$self->SetRowId($tr->GetSequenceId);
 }
 
+sub PreDisplay
+{
+	my $this = shift;
+	
+	# load track and album data
+	require Track;
+	my $tr = Track->new($this->{DBH});
+	if ($tr->LoadFromAlbumJoin($this->GetRowId))
+	{
+		$this->{'trackid'} = $tr->GetId;
+		$this->{'trackname'} = $tr->GetName;
+
+		require Album;
+		my $al = Album->new($this->{DBH});
+		$al->SetId($tr->GetAlbum);
+		if ($al->LoadFromId)
+		{
+			$this->{'albumid'} = $al->GetId;
+			$this->{'albumname'} = $al->GetName;
+		}
+	}
+}
+
 sub ApprovedAction
 {
 	my $this = shift;

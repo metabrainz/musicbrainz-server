@@ -1,40 +1,29 @@
 %# vi: set ts=4 sw=4 ft=mason :
 
 <%method ShowPreviousValue>
-<%perl>
-my $this = shift;
+% my $this = shift;
 
-my $tr = Track->new($this->{DBH});
-if ($tr->LoadFromAlbumJoin($this->GetRowId))
-{
-	my $al = Album->new($this->{DBH});
-	$al->SetId($tr->GetAlbum);
-	if ($al->LoadFromId)
-	{
-		</%perl>
-		Track:
-		<a href="/showtrack.html?trackid=<% $tr->GetId %>"
-			><% $tr->GetName %></a>
-		<br>
-		Album:
-		<a href="/showalbum.html?albumid=<% $al->GetId %>"
-			><% $al->GetName %></a>
-		<%perl>
-	}
-} else {
-	$m->out("This track has been deleted");
-}
-
-</%perl>
+% if (defined $this->{'trackname'})
+% {
+	Track:
+	<span class="bold"><% $this->GetPrev %></span> - 
+	<a href="/showtrack.html?trackid=<% $this->{'trackid'} %>"
+		><% $this->{'trackname'} %></a>
+	<br>
+	Album:
+	<a href="/showalbum.html?albumid=<% $this->{'albumid'} %>"
+		><% $this->{'albumname'} %></a>
+% }
+% else 
+% {
+	This track has been deleted
+% }
 </%method>
 
 <%method ShowNewValue>
 % my $this = shift;
 
-	Old track number: <b><% $this->GetPrev %></b>
-	<br>
-	New track number: <b><% $this->GetNew %></b>
- 
+New track number: <b><% $this->GetNew %></b>
 </%method>
 
 %# eof

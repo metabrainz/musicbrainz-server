@@ -6,18 +6,12 @@
 
 <%method ShowNewValue>
 % my $this = shift;
-% my $an = MusicBrainz::Server::Annotation->new($this->{DBH});
-% $an->SetModeration($this->GetId());
-% my $success = $an->LoadFromId();
 
-% my $log = $an->GetChangeLog;
-% $log = "(no change log)" unless $log =~ /\S/;
-
-% if ( $success ) {
+% if (defined $this->{'changelog'}) {
 	New:
-	<span class="bold"><a href="/edit/annotation/show.html?annotationid=<%
-		$an->GetId() %>"><% $log %></a></span>
-	(<a href="/edit/annotation/diff-to-previous.html?id=<% $an->GetId %>"
+	<a href="/edit/annotation/show.html?annotationid=<% $this->{'annotid'} %>"
+		class="bold"><% $this->{'changelog'} %></a>
+	(<a href="/edit/annotation/diff-to-previous.html?id=<% $this->{'annotid'} %>"
 		>Diff</a>)
 % }
 

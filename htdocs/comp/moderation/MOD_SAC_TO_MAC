@@ -3,17 +3,26 @@
 <%method ShowPreviousValue>
 % my $this = shift;
 
-	Old:
+Old Artist:
+<span class="bold"><% $this->GetPrev %></span>
+<br />
+% if (defined $this->{'albumname'})
+% {
+	Album:
 	<a href="/showalbum.html?albumid=<% $this->GetRowId %>"
-		><% $this->GetPrev %></a>
-
+		><% $this->{'albumname'} %></a>
+% }
+% else
+% {
+	This album has been deleted
+% }
 </%method>
 
 <%method ShowNewValue>
 % my $this = shift;
-
-	New: Various Artists
-
+New:
+<a href="/showartist.html?artistid=<% $this->{'vaid'} %>"
+	class="bold">Various Artists</a>
 </%method>
 
 %# eof

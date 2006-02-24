@@ -55,10 +55,78 @@ sub PostLoad
 {
 	my $this = shift;
 	
+	# parse new into fields
 	my ($sortname, $name, $newid) = split /\n/, $this->GetNew;
 	$name = $sortname if not defined $name;
 
 	@$this{qw( new.sortname new.name new.id )} = ($sortname, $name, $newid);
+
+}
+
+sub PreDisplay
+{
+	my $this = shift;
+	
+	# flag indicates: new artist already in DB
+	$this->{'new.exists'} = (defined $this->{'new.id'} && $this->{'new.id'} > 0);
+	
+	# old mods had only the name in 'newvalue' which is assigned to new.sortname
+	$this->{'new.name'} = $this->{'new.sortname'}
+		unless (defined $this->{'new.name'});
+
+	my $nar;
+	# load track name
+	require Track;
+	my $tr = Track->new($this->{DBH});
+	$tr->SetId($this->GetRowId);
+	if ($tr->LoadFromId)
+	{
+		$this->{'trackname'} = $tr->GetName;
+
+		# try to guess the artist id for old moderations which only had the
+		# name in 'newvalue'
+		if (!$this->{'new.exists'})
+		{
+			require Artist;
+			$nar = Artist->new($this->{DBH});
+			$nar->SetId($tr->GetArtist);
+			if ($nar->LoadFromId 
+				&& $nar->GetName eq $this->{'new.name'})
+			{
+				$this->{'new.id'} = $nar->GetId;
+				$this->{'new.exists'} = 1;
+				$this->{'new.sortname'} = $nar->GetSortName;
+			}
+		}
+	}
+
+	
+	# load artist resolutions if new artist name = old artist name
+	my $pat = $this->GetPrev;
+	if ($this->{'new.name'} =~ /^\Q$pat\E$/i)
+	{
+		require Artist;
+		my $oar = Artist->new($this->{DBH});
+		# the old one ...
+		$oar->SetId($this->GetArtist);
+		$oar->LoadFromId
+			and $this->{'old.res'} = $oar->GetResolution;
+
+		# ... and the new resolution if artist is in the DB
+		# TODO what if new artist with res is created with this mod?
+		#      (currently not possible, but might be in the future)
+		if ($this->{'new.exists'})
+		{
+			if (!defined $nar)
+			{
+				$nar = Artist->new($this->{DBH});
+				$nar->SetId($this->{'new.id'});
+				$nar->LoadFromId;
+			}
+			my $res = $nar->GetResolution;
+			$this->{'new.res'} = ($res eq '' ? undef : $res);
+		}
+	}
 }
 
 sub CheckPrerequisites

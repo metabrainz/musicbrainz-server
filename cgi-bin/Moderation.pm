@@ -903,7 +903,10 @@ sub GetModerationList
 		}
 	}
 
-	$_->PostLoad for @mods;
+	for (@mods) {
+		$_->PostLoad;
+		$_->PreDisplay;
+	}
 
 	return (SEARCHRESULT_SUCCESS, \@mods, $index+$total_rows);
 }
@@ -1191,6 +1194,15 @@ sub ShowNewValue
 # Arguments: none
 # Called in void context
 sub PostLoad { }
+
+# PreDisplay should be implemented to load additional data that is necessary for
+# displaying the moderation in the web interface, so mason scripts can be kept
+# clean from data gathering statements.
+# It could be used to load the track name that is not stored in moderation tables
+# for moderations modifying the track table, for example.
+# Arguments: none
+# Called in void context
+sub PreDisplay { }
 
 # Should this moderation be automatically applied?  (Based on moderation type
 # and data, not the moderator).

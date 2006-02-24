@@ -1,44 +1,31 @@
 %# vi: set ts=4 sw=4 ft=mason :
 
 <%method ShowPreviousValue>
-<%perl>
-my $this = shift;
+% my $this = shift;
 
-my $al = Album->new($this->{DBH});
-$al->SetId($this->GetRowId);
-if ($al->LoadFromId) 
-{
-	</%perl>
+% if (defined $this->{'albumname'}) 
+% {
 	Album:
-	<a href="/showalbum.html?albumid=<% $this->GetRowId %>">
-	    <% $al->GetName %>
-	</a>
-	<%perl>
-}
-else
-{
-	$m->out("This album has been deleted");
-}
-</%perl>
+	<a href="/showalbum.html?albumid=<% $this->GetRowId %>"
+		><% $this->{'albumname'} %></a>
+% }
+% else
+% {
+	This album has been deleted
+% }
 </%method>
 
 <%method ShowNewValue>
 % my $this = shift;
-% my $an = MusicBrainz::Server::Annotation->new($this->{DBH});
-% $an->SetModeration($this->GetId());
-% my $success = $an->LoadFromId();
 
-% my $log = $an->GetChangeLog;
-% $log = "(no change log)" unless $log =~ /\S/;
-
-% if ( $success ) {
+% if (defined $this->{'changelog'})
+% {
 	New:
-	<span class="bold"><a href="/edit/annotation/show.html?annotationid=<%
-		$an->GetId() %>"><% $log %></a></span>
-	(<a href="/edit/annotation/diff-to-previous.html?id=<% $an->GetId %>"
+	<a href="/edit/annotation/show.html?annotationid=<% $this->{'annotid'} %>"
+		class="bold"><% $this->{'changelog'} %></a>
+	(<a href="/edit/annotation/diff-to-previous.html?id=<% $this->{'annotid'} %>"
 		>Diff</a>)
 % }
-
 </%method>
 
 %# eof

@@ -3,24 +3,46 @@
 <%method ShowPreviousValue>
 % my $this = shift;
 
-	Old:
-	<a href="/showtrack.html?trackid=<% $this->GetRowId %>"
-		><% $this->GetPrev %></a>
-
+Old artist:
+<a href="/showartist.html?artistid=<% $this->GetArtist %>"
+	class="bold"><% $this->GetPrev %></a>
+% if (defined $this->{'old.res'})
+% {
+	<br />
+	<span style="visibility: hidden">Old Artist: </span><% $this->{'old.res'} %>
+% }
+<br />
+Track:
+<a href="/showtrack.html?trackid=<% $this->GetRowId %>"><% $this->{'trackname'} %></a>
 </%method>
+
 
 <%method ShowNewValue>
 % my $this = shift;
-
-	New:
-	<span class="bold"><% $this->{'new.name'} %></span>
-
-% if ($this->{'new.sortname'} ne $this->{'new.name'}) {
-	<br>
-	&nbsp; &nbsp; &nbsp;
-	(<span class="bold"><% $this->{'new.sortname'} %></span>)
+%
+New artist:
+% # print (and link to, if existing) the target artist
+% if ($this->{'new.exists'})
+% {
+	<a href="/showartist.html?artistid=<% $this->{'new.id'} %>"
+		class="bold"><% $this->{'new.name'} %></a>
 % }
-	
+% else
+% {
+	<span class="bold"><% $this->{'new.name'} %></span>
+% }
+%
+% # print sort name if different
+% if ($this->{'new.sortname'} ne $this->{'new.name'})
+% {
+	(<% $this->{'new.sortname'} %>)
+% }
+%
+% # print artist resolution if old and new names are equal
+% if (defined $this->{'new.res'})
+% {
+	<br />
+	<span style="visibility: hidden">New Artist: </span><% $this->{'new.res'} %>
+% }
 </%method>
-
 %# eof

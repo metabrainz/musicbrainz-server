@@ -3,40 +3,53 @@
 <%method ShowPreviousValue>
 % my $this = shift;
 
-% my $al = Album->new($this->{DBH});
-% $al->SetId($this->GetRowId);
-
-% if (defined($al->LoadFromId)) {
-
-	Move Album
-	<a href="/showalbum.html?albumid=<% $al->GetId %>"
-		><% $al->GetName %></a><br>
-	from
-	<a href="/showartist.html?artistid=<% $this->GetArtist %>"
-		><% $this->GetPrev %></a>
-
-% } else {
-	[album has been deleted]
+Old Artist:
+<a href="/showartist.html?artistid=<% $this->GetArtist %>"
+	class="bold"><% $this->GetPrev %></a>
+% if (defined $this->{'old.res'})
+% {
+	<br />
+	<span style="visibility: hidden">Old Artist: </span><% $this->{'old.res'} %>
 % }
-
+<br />
+% if (defined $this->{'albumname'})
+% {
+	Album:
+	<a href="/showalbum.html?albumid=<% $this->GetRowId %>"
+		><% $this->{'albumname'} %></a>
+% }
+% else
+% {
+	This album has been deleted
+% }
 </%method>
 
 <%method ShowNewValue>
 % my $this = shift;
 
-% my $movetracks = $this->{'new.movetracks'};
-% $movetracks = 1 if not defined $movetracks;
-
-	New:
-% if (defined $this->{'new.name'}) {
-	<span class="bold"><% $this->{'new.name'} %></span>
-	(<span class="bold"><% $this->{'new.sortname'} %></span>)
-% } else {
-	<span class="bold"><% $this->{'new.sortname'} %></span>
+New Artist:
+% if ($this->{'new.exists'})
+% {	
+	<a href="/showartist.html?artistid=<% $this->{'new.artistid'} %>"
+		class="bold"><% $this->{'new.name'} %></a>
 % }
-	<br>Move tracks: <% $movetracks ? "yes" : "no" %>
+% else
+% {
+	<span class="bold"><% $this->{'new.name'} %></span>
+% }
 
+% if ($this->{'new.sortname'} ne $this->{'new.name'})
+% {
+	(<% $this->{'new.sortname'} %>)
+% }
 
+% if (defined $this->{'new.res'})
+% {
+	<br />
+	<span style="visibility: hidden">New Artist: </span><% $this->{'new.res'} %>
+% }
+<br />
+Move tracks: <% $this->{'new.movetracks'} ? "yes" : "no" %>
 </%method>
 
 %# eof

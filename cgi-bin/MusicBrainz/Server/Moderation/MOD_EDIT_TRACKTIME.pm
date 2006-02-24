@@ -48,6 +48,18 @@ sub PreInsert
 	$self->SetRowId($tr->GetId);
 }
 
+sub PreDisplay
+{
+	my $this = shift;
+
+	# load track name
+	require Track;
+	my $tr = Track->new($this->{DBH});
+	$tr->SetId($this->GetRowId);
+	$tr->LoadFromId
+		and $this->{'trackname'} = $tr->GetName;
+}
+
 sub IsAutoMod
 {
 	my $self = shift;

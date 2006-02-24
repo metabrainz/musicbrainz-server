@@ -75,6 +75,76 @@ sub PostLoad
 	}
 }
 
+sub PreDisplay
+{
+	my $this = shift;
+
+	# flag indicates: new artist already in DB
+	$this->{'new.exists'} = (defined $this->{'new.artistid'} && $this->{'new.artistid'} > 0);
+
+	# fix unset movetracks flag
+	$this->{'new.movetracks'} = 1 
+		unless (defined $this->{'new.movetracks'});
+		
+
+	my $nar;		
+	# load album name
+	require Album;
+	my $al = Album->new($this->{DBH});
+	$al->SetId($this->GetRowId);
+	if ($al->LoadFromId)
+	{
+		$this->{'albumname'} = $al->GetName;
+
+		# make sure new artist really doesn't exist; old mods only had 
+		# the artist sortname (or name?) in 'prevvalue'
+		if (!$this->{'new.exists'})
+		{
+			require Artist;
+			$nar = Artist->new($this->{DBH});
+			$nar->SetId(defined $this->{'new.artistid'} ? $this->{'new.artistid'} : $al->GetArtist);
+				
+			# FIXME is the name = new.sortname comparison necessary?
+			if ($nar->LoadFromId 
+				&& ($nar->GetName eq $this->{'new.sortname'}
+					|| $nar->GetSortName eq $this->{'new.sortname'}))
+			{
+				# assume we got the right artist, and reset name and sortname
+				# to the correct values
+				$this->{'new.name'} = $nar->GetName;
+				$this->{'new.sortname'} = $nar->GetSortName;
+				$this->{'new.exists'} = 1;
+			}
+		}
+	}
+
+	# load artist resolutions if new and old artist have the same name
+	my $pat = $this->GetPrev;
+	if ($this->{'new.name'} =~ /^\Q$pat\E$/i)
+	{
+		my $oar = Artist->new($this->{DBH});
+		# the old one ...
+		$oar->SetId($this->GetArtist);
+		$oar->LoadFromId
+			and $this->{'old.res'} = $oar->GetResolution;
+
+		# ... and the new resolution if artist is in the DB
+		# TODO what if new artist with res is created with this mod?
+		#      (see also MOD_CHANGE_TRACK_ARTIST)
+		require Artist;
+		if ($this->{'new.exists'})
+		{
+			if (!defined $nar) {
+				$nar = Artist->new($this->{DBH});
+				$nar->SetId($this->{'new.artistid'});
+				$nar->LoadFromId;
+			}
+			my $res = $nar->GetResolution;
+			$this->{'new.res'} = ($res eq '' ? undef : $res);
+		}
+	}
+}
+
 sub CheckPrerequisites
 {
 	my $self = shift;

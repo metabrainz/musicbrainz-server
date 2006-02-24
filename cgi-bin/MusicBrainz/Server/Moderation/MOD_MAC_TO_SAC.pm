@@ -74,6 +74,46 @@ sub PostLoad
     }
 }
 
+sub PreDisplay
+{
+	my $this = shift;
+	
+	# flag indicates: new artist already in DB
+	$this->{'new.exists'} = (defined $this->{'new.artistid'} && $this->{'new.artistid'} > 0);
+
+	# old mods had only the name in 'newvalue' which is assigned to new.sortname
+	$this->{'new.name'} = $this->{'new.sortname'}
+		unless (defined $this->{'new.name'});
+
+	# load album name
+	require Album;
+	my $al = Album->new($this->{DBH});
+	$al->SetId($this->GetRowId);
+	if ($al->LoadFromId)
+	{
+		$this->{'albumname'} = $al->GetName;
+
+		# try to guess the artist id for old moderations which only had the
+		# name in 'newvalue'
+		# if the current artist of the album has the same name as new.name
+		# then assume that it is the artist used in the old moderation
+		# (when this causes false assumptions, remove the followig lines)
+		if (!$this->{'new.exists'})
+		{
+			require Artist;
+			my $ar = Artist->new($this->{DBH});
+			$ar->SetId($al->GetArtist);
+			if ($ar->LoadFromId 
+				&& $ar->GetName eq $this->{'new.name'})
+			{
+				$this->{'new.artistid'} = $ar->GetId;
+				$this->{'new.exists'} = 1;
+				$this->{'new.sortname'} = $ar->GetSortName;
+			}
+		}
+	}
+}
+
 sub CheckPrerequisites
 {
 	my $self = shift;

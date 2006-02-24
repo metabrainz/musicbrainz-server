@@ -54,6 +54,23 @@ sub PreInsert
 	$self->SetRowId($artistid);
 }
 
+sub PreDisplay
+{
+	my $this = shift;
+	
+	# load annotation data
+	my $an = MusicBrainz::Server::Annotation->new($this->{DBH});
+	$an->SetModeration($this->GetId());
+	if ($an->LoadFromId())
+	{
+		my $log = $an->GetChangeLog;
+		$log = "(no change log)"
+			unless ($log =~ /\S/);
+		$this->{'changelog'} = $log;
+		$this->{'annotid'} = $an->GetId;
+	}
+}
+
 sub ApprovedAction
 {
 	my $self = shift;

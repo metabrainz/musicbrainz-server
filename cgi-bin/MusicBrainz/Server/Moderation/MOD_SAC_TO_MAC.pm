@@ -86,6 +86,21 @@ sub CheckPrerequisites
 	undef;
 }
 
+sub PreDisplay
+{
+	my $this = shift;
+	
+	# store the current VA artist id
+	$this->{'vaid'} = VARTIST_ID;
+
+	# check if album still exists and get its name
+	require Album;
+	my $al = Album->new($this->{DBH});
+	$al->SetId($this->GetRowId);
+	$this->{'albumname'} = $al->GetName
+		if ($al->LoadFromId);
+}
+
 sub ApprovedAction
 {
  	my $self = shift;
