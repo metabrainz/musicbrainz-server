@@ -176,7 +176,7 @@ sub CreateRelations
 	if ($import)
     {
 		local $" = " ";
-        system($^X, "$FindBin::Bin/MBImport.pl", "--ignore-errors", ($fFixUTF8 ? "--fix-broken-utf8" : "" , @$import);
+        system($^X, "$FindBin::Bin/MBImport.pl", "--ignore-errors", ($fFixUTF8 ? "--fix-broken-utf8" : "" , @$import));
         die "\nFailed to import dataset.\n" if ($? >> 8);
     } else {
 		RunSQLScript("InsertDefaultRows.sql", "Adding default rows ...");
