@@ -4,6 +4,7 @@ $query => ""
 $limit => 25
 $type => ""
 $tport=>$session{'tport'}
+$dur => 0
 </%args>
 <%perl>
 
@@ -20,6 +21,7 @@ if ($query && $type)
                  uri_escape($query) . "&type=$type";
     $docurl .= "&max=$limit" if $limit > 0;
     $docurl .= "&tport=$tport" if $tport > 0;
+    $docurl .= "&dur=$dur" if $dur > 0;
 
     require LWP::UserAgent;
     my $ua = LWP::UserAgent->new;

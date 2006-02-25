@@ -1,0 +1,55 @@
+<%args>
+$artist => ''
+$release => ''
+$track => ''
+$tracknum => ''
+$duration => ''
+</%args>
+% $duration = sprintf("%d:%02d", ($duration / 1000) / 60, ($duration / 1000) % 60) if $duration;
+
+<form method="post" action="/taglookup.html" id="TagLookupForm"
+      enctype="application/x-www-form-urlencoded" class="formstyle">
+     <table>
+     <tr>
+      <td align="right" NOWRAP>
+        Artist:
+      </td>
+      <td>
+        <INPUT TYPE="text" NAME="artist" SIZE="30" VALUE="<% $artist %>">
+      </td>
+     </tr>
+     <tr>
+      <td align="right" NOWRAP>
+        Album:
+      </td>
+      <td>
+        <INPUT TYPE="text" NAME="album" SIZE="30" VALUE="<% $release %>">
+      </td>
+     </tr>
+     <tr>
+      <td align="right" NOWRAP>
+        Track:
+      </td>
+      <td>
+        <INPUT TYPE="text" NAME="track" SIZE="30" VALUE="<% $track %>">
+      </td>
+     </tr>
+     <tr>
+      <td align="right" NOWRAP>
+        Track Num:
+      </td>
+      <td>
+        <INPUT TYPE="text" NAME="tracknum" SIZE="2" VALUE="<% $tracknum %>">
+
+        Duration:
+        <INPUT TYPE="text" NAME="duration" SIZE="5" VALUE="<% $duration %>">
+      </td>
+     </tr>
+     <tr>
+      <td colspan="2" align="right" NOWRAP>
+        <INPUT TYPE="submit" NAME="submit" SIZE="30" VALUE="Lookup">
+      </td>
+     </tr>
+   </table>
+</form>
+%# vi: set ts=4 sw=4 ft=mason :

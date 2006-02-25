@@ -44,7 +44,12 @@ with the <a href="/search/plugins/firefox/install.html">Firefox search plugins</
     </center>
   <& /comp/tableend &>
 
-  <& /taglookup.html, embedded_form => 1 &>
+  <& /comp/tablebegin, title=>'Advanced Search', attrs=>"align=center", 
+     gattrs=>"width='100%'" &>
+    <br>
+  <& /comp/lookup &>
+    <br>
+  <& /comp/tableend &>
 
   <& /comp/tablebegin, title=>'Site Search', attrs=>"align=left", gattrs=>"width='100%'" &>
     <& /comp/google-site-search &>
