@@ -2,11 +2,12 @@
 <%args>
 $artist=>""
 $release=>""
-$album
+$album=>""
 $track=>""
 $tracknum=>""
 $filename=>""
 $duration=>""
+$trmid=>""
 $tport=>$session{'tport'}
 $mbt=>0
 </%args>
@@ -26,6 +27,19 @@ MusicBrainz::TrimInPlace(
 
 $m->comp("/comp/sidebar", title=>'Lookup Results');
 
+require TaggerSupport;
+my $mb = $m->comp("/comp/dblogin");
+my $ts = TaggerSupport->new($mb->{DBH});
+if ($filename)
+{
+    my %data = (artist=>"", album=>"", track=>"", tracknum => 0);
+    $ts->ParseFileName($filename, \%data);
+    $artist = $data{artist} if (exists $data{artist} && !$artist);
+    $release = $data{album} if (exists $data{album} && !$release);
+    $track = $data{track} if (exists $data{track} && !$track);
+    $tracknum = $data{tracknum} if (exists $data{tracknum} && !$tracknum);
+}
+
 my $_artist = MusicBrainz::normalize($artist);
 my $_release = MusicBrainz::normalize($release);
 my $_track = MusicBrainz::normalize($track);
@@ -39,10 +53,86 @@ elsif ($duration =~ /(\d+)/)
 {
     $_duration = $1;
 }
-
 my $_tracknum = MusicBrainz::normalize($tracknum);
 
-if ($_artist && $_track)
+
+# If a TRM is specified, and if it resolves to multiple tracks, show the
+# matching tracks, and also a "search anyway" form.
+my @coll_list;
+@coll_list = $ts->LookupTRMCollisions($trmid) if $trmid;
+if (scalar(@coll_list) > 1)
+{
+    </%perl>
+    TRM ID: <b><% $trmid %></b><p> 
+    <table width="420"><tr><td>
+    More than one track has the same TRM ID shown above. The highlighted tracks
+    shown in the albums below are the possible matches for the track
+    you're matching. If none of the tracks below apply, click on 
+    the lookup button at the bottom of this page:
+    </td></tr></table>
+    <p>
+    <%perl>
+
+	# Retrieve artist info, then sort on artist
+
+    foreach my $ref (@coll_list)
+    {
+        my $al = Album->new($ts->{DBH});
+        $al->SetId($ref->{album});
+        if ($al->LoadFromId())
+        {
+            my $ar = Artist->new($ts->{DBH});
+            $ar->SetId($al->GetArtist());
+            if ($ar->LoadFromId())
+            {
+				use Encode qw( decode );
+				$ref->{_name1_} = lc decode "utf-8", $ar->GetName;
+				$ref->{_name2_} = lc decode "utf-8", $al->GetName;
+
+				$ref->{al} = $al;
+				$ref->{ar} = $ar;
+			}
+		}
+	}
+
+	@coll_list = grep { $_->{_name1_} } @coll_list;
+	@coll_list = sort {
+		$a->{_name1_} cmp $b->{_name1_}
+		or
+		$a->{_name2_} cmp $b->{_name2_}
+	} @coll_list;
+
+	# Now show albums with tracks highlighted, indicating the artist name
+	# whenever it changes.
+
+	my $last_artist = 0;
+
+	for my $ref (@coll_list)
+	{
+		my $artist_id = $ref->{ar}->GetId;
+
+		unless ($last_artist == $artist_id)
+		{
+			$m->comp("/comp/artisttitle", artist => $ref->{ar}, showmodlinks => 0);
+			$last_artist = $artist_id;
+		}
+
+		$m->comp(
+			"/comp/album",
+			album		=> $ref->{al},
+			artist		=> $ref->{ar},
+			highlighttracks	=> { $ref->{track} => 1 },
+			mbtagger	=> $mbt,
+		);
+	}
+
+    </%perl>
+    <p>
+    If none of the albums above apply, click on lookup to ignore
+    these albums and continue with your lookup:</p>
+    <%perl>
+}
+elsif ($_artist && $_track)
 {
     my $query = "(artist:$artist) (track:$_track)";
     
@@ -70,23 +160,19 @@ if ($_artist && $_track)
         {
             </%perl>
             <p>0 matches.<br/><br/>
-            Your query <b><% $query |h %></b> did not match any tracks. Make sure that all words 
-            are spelled correctly, use fewer words or use different words. For help on writing
-            effective text search queries, please read the  
-            <a href="http://wiki.musicbrainz.org/TextSearchSyntax">text search syntax</a> documentation.
+            Your lookup did not match any tracks. Please make sure that the lookup information
+            is correct and that any unrelated information has been removed from the lookup
+            data. Adjust the data in the lookup box below and try again.
             </p>
             <%perl>
         }
         elsif ($response->code == 403)
         {
             </%perl>
-            <p><b>Error</b>: Your search query <b><% $query |h %></b> did not contain enough information to carry out a search.
-               If you are attempting to find an artist that contains nothing but punctuation characters
-               (e.g. !!!) then you should <a href="/browseartists.html?index=_">browse</a> for your
-               artist, rather than search for it. 
-               <br/><br/>
-            For help on writing effective text search queries, please read the  
-            <a href="http://wiki.musicbrainz.org/TextSearchSyntax">text search syntax</a> documentation.
+            <p><b>Error</b>: Your lookup query did not contain enough information to carry out a lookup.
+            Please make sure that the lookup information
+            is correct and that any unrelated information has been removed from the lookup
+            data. Adjust the data in the lookup box below and try again.
             </p>
             <%perl>
         }
@@ -108,6 +194,13 @@ if ($_artist && $_track)
     {
         $m->print($response->content);
     }
+}
+else
+{
+    </%perl>
+    <p><b>Error</b>: You must provide at least an artist and a track name.
+    </p>
+    <%perl>
 }
 
 </%perl>

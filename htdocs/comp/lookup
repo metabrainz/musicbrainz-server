@@ -46,7 +46,10 @@ $duration => ''
       </td>
      </tr>
      <tr>
-      <td colspan="2" align="right" NOWRAP>
+      <td align="right" NOWRAP>
+         [&nbsp;<a <& /comp/auto-popup-link, url => "/wd/AdvancedSearch", &>>help</a>&nbsp;]
+      </td>
+      <td align="right" NOWRAP>
         <INPUT TYPE="submit" NAME="submit" SIZE="30" VALUE="Lookup">
       </td>
      </tr>
