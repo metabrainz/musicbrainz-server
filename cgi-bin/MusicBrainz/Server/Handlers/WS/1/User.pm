@@ -125,10 +125,10 @@ sub print_xml
 
 	print '<?xml version="1.0" encoding="UTF-8"?>';
 	print '<metadata xmlns="http://musicbrainz.org/ns/mmd-1.0#" xmlns:ext="http://musicbrainz.org/ns/ext-1.0#">';
-    print '<ext:user type="'. join(' ', @types) . '">';
+    print '<ext:user-list><ext:user type="'. join(' ', @types) . '">';
     print '<name>'.$user.'</name>';
     print '<ext:nag show="' . ($nag ? 'true' : 'false') . '"/>';
-    print '</ext:user>';
+    print '</ext:user></ext:user-list>';
 	print '</metadata>';
 }
 
