@@ -351,38 +351,40 @@ sub IsAutoModType
 {
     my ($this, $type) = @_;
 
-    if ($type == &ModDefs::MOD_EDIT_ARTISTNAME ||
-        $type == &ModDefs::MOD_EDIT_ARTISTSORTNAME ||
-        $type == &ModDefs::MOD_EDIT_ARTISTALIAS ||
-        $type == &ModDefs::MOD_EDIT_ARTIST ||
-        $type == &ModDefs::MOD_EDIT_ALBUMNAME ||
+    if ($type == &ModDefs::MOD_ADD_ALBUM ||
+        $type == &ModDefs::MOD_ADD_ALBUM_ANNOTATION ||
+        $type == &ModDefs::MOD_ADD_ARTIST ||
+        $type == &ModDefs::MOD_ADD_ARTIST_ANNOTATION ||
+        $type == &ModDefs::MOD_ADD_ARTISTALIAS ||
+	$type == &ModDefs::MOD_ADD_LINK ||
+	$type == &ModDefs::MOD_ADD_LINK_ATTR ||
+	$type == &ModDefs::MOD_ADD_LINK_TYPE ||
+        $type == &ModDefs::MOD_ADD_TRACK ||
+        $type == &ModDefs::MOD_ADD_TRACK_KV ||
+        $type == &ModDefs::MOD_ADD_TRMS ||
         $type == &ModDefs::MOD_EDIT_ALBUM_LANGUAGE ||
+        $type == &ModDefs::MOD_EDIT_ALBUMATTRS ||
+        $type == &ModDefs::MOD_EDIT_ALBUMNAME ||
+        $type == &ModDefs::MOD_EDIT_ARTIST ||
+        $type == &ModDefs::MOD_EDIT_ARTISTALIAS ||
+        $type == &ModDefs::MOD_EDIT_ARTISTNAME ||
+        $type == &ModDefs::MOD_EDIT_ARTISTSORTNAME ||
+	$type == &ModDefs::MOD_EDIT_LINK ||
+	$type == &ModDefs::MOD_EDIT_LINK_TYPE ||
+	$type == &ModDefs::MOD_EDIT_LINK_ATTR ||
+        $type == &ModDefs::MOD_EDIT_RELEASES ||
         $type == &ModDefs::MOD_EDIT_TRACKNAME ||
         $type == &ModDefs::MOD_EDIT_TRACKNUM ||
         $type == &ModDefs::MOD_EDIT_TRACKTIME ||
-        $type == &ModDefs::MOD_ADD_TRACK ||
-        $type == &ModDefs::MOD_MOVE_ALBUM ||
-        $type == &ModDefs::MOD_SAC_TO_MAC ||
         $type == &ModDefs::MOD_CHANGE_TRACK_ARTIST ||
         $type == &ModDefs::MOD_MAC_TO_SAC ||
-        $type == &ModDefs::MOD_ADD_ARTISTALIAS ||
-        $type == &ModDefs::MOD_ADD_ALBUM ||
-        $type == &ModDefs::MOD_ADD_ARTIST ||
-        $type == &ModDefs::MOD_ADD_TRACK_KV ||
+        $type == &ModDefs::MOD_MOVE_ALBUM ||
         $type == &ModDefs::MOD_MOVE_DISCID ||
+        $type == &ModDefs::MOD_SAC_TO_MAC ||
+        $type == &ModDefs::MOD_REMOVE_ARTIST ||
         $type == &ModDefs::MOD_REMOVE_TRMID ||
-        $type == &ModDefs::MOD_ADD_ARTIST_ANNOTATION ||
-        $type == &ModDefs::MOD_ADD_ALBUM_ANNOTATION ||
-        $type == &ModDefs::MOD_EDIT_ALBUMATTRS ||
-		$type == &ModDefs::MOD_ADD_LINK_TYPE ||
-		$type == &ModDefs::MOD_EDIT_LINK_TYPE ||
-		$type == &ModDefs::MOD_REMOVE_LINK_TYPE ||
-		$type == &ModDefs::MOD_ADD_LINK_ATTR ||
-		$type == &ModDefs::MOD_EDIT_LINK_ATTR ||
-		$type == &ModDefs::MOD_REMOVE_LINK_ATTR ||
-		$type == &ModDefs::MOD_ADD_LINK ||
-		$type == &ModDefs::MOD_EDIT_LINK ||
-		$type == &ModDefs::MOD_EDIT_TRACKTIME)
+	$type == &ModDefs::MOD_REMOVE_LINK_TYPE ||
+	$type == &ModDefs::MOD_REMOVE_LINK_ATTR)
     {
         return 1;
     }
