@@ -15,7 +15,7 @@ with the <a href="/search/plugins/firefox/install.html">Firefox search plugins</
      gattrs=>"width='100%'" &>
     <br>
 
-    <& /comp/textsearch, default=>'Artist' &>
+    <& /comp/lucenesearch, type=>'artist' &>
     <center>
     <img src="/images/black_pixel.gif" width="225" height="1" alt="" border="0">
     </center>

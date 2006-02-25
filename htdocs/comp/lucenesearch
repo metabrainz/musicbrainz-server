@@ -2,10 +2,18 @@
 $type => 'artist'
 $limit => 25
 $query => ''
+$tport=>$session{'tport'}
 </%args>
-% $type = lc $type;
+<%perl>
+$type = lc $type;
 
+UserStuff::EnsureSessionOpen(), $session{tport} = $tport
+  if $tport;
+
+</%perl>
 <form method="get" action="/search/textsearch.html" class="formstyle" id="TextSearchForm">
+
+<center>
 
 <div style="margin: 0.3em">
   <b>Artist/Album/Track Search</b>
@@ -33,5 +41,11 @@ $query => ''
 <div class="CenterChildren" style="margin: 0.3em">
   <input type="submit" value="Search"><br>
 </div>
+
+<div class="CenterChildren" style="margin: 0.3em">
+   [ <a href="/newsearch.html">old search</a> ]&nbsp;&nbsp;[ <a href="http://wiki.musicbrainz.org/TextSearchSyntax">help</a> ]
+</div>
+
+</center>
 
 </form>

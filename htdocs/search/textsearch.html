@@ -3,18 +3,23 @@
 $query => ""
 $limit => 25
 $type => ""
+$tport=>$session{'tport'}
 </%args>
 <%perl>
+
+UserStuff::EnsureSessionOpen(), $session{tport} = $tport
+  if $tport;
 
 $m->comp("/comp/sidebar", title=>'Search Results');
 
 if ($query && $type)
 {
+    print STDERR "$type: $query\n";
     use URI::Escape qw( uri_escape );
     my $docurl = 'http://' . &DBDefs::LUCENE_SERVER . "/ws/1/$type/?query=" . 
                  uri_escape($query) . "&type=$type";
     $docurl .= "&max=$limit" if $limit > 0;
-    print STDERR "$docurl\n";
+    $docurl .= "&tport=$tport" if $tport > 0;
 
     require LWP::UserAgent;
     my $ua = LWP::UserAgent->new;
@@ -24,17 +29,43 @@ if ($query && $type)
         if ($response->code == 404)
         {
             </%perl>
-            <p><b>Error</b>: Your search query did not contain enough information to carry out a search.
+            <p>0 matches.<br/><br/>
+            Your query <b><% $query |h %></b> did not match any <% $type %>s. Make sure that all words 
+            are spelled correctly, use fewer words or use different words. For help on writing
+            effective text search queries, please read the  
+            <a href="http://wiki.musicbrainz.org/TextSearchSyntax">text search syntax</a> documentation.
+
+% if ($type eq 'artist') {
+            Alternatively, <a href="/browseartists.html">browse our list of artists</a>.
+% }
+            </p>
+            <%perl>
+        }
+        elsif ($response->code == 403)
+        {
+            </%perl>
+            <p><b>Error</b>: Your search query <b><% $query |h %></b> did not contain enough information to carry out a search.
                If you are attempting to find an artist that contains nothing but punctuation characters
                (e.g. !!!) then you should <a href="/browseartists.html?index=_">browse</a> for your
-               artist, rather than search for it.
+               artist, rather than search for it. 
+               <br/><br/>
+            For help on writing effective text search queries, please read the  
+            <a href="http://wiki.musicbrainz.org/TextSearchSyntax">text search syntax</a> documentation.
+            </p>
+            <%perl>
+        }
+        elsif ($response->code == 500)
+        {
+            </%perl>
+            <p><b>Error</b>: The search server could not fulfill your request due to an internal error.
             </p>
             <%perl>
         }
         else
         {
             $m->comp('/comp/error',
-                 "Could not retrieve wiki page from wiki server. ( get $docurl -> " . $response->status_line ." )", 0, 0);
+                 "Error: Could not execute search on search server. " .
+                 "(URL $docurl received " . $response->status_line ." )", 0, 0);
         }
     }
     else
