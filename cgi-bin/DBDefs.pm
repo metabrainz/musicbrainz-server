@@ -99,8 +99,7 @@ sub WEB_SERVER	     { "www.musicbrainz.example.com" }
 sub RDF_SERVER	     { "rdf.musicbrainz.example.com" }
 sub WIKIDOC_SERVER   { "wikidocs.musicbrainz.org" }
 sub WIKITRANS_SERVER { "wiki.musicbrainz.org" }
-
-
+sub LUCENE_SERVER    { "search.musicbrainz.org" }
 
 ################################################################################
 # Mail Settings
