@@ -3383,7 +3383,7 @@ var _1c2=gc.i.getWordAtIndex(pos-2);
 var os;
 var LC=is.toLowerCase();
 var UC=is.toUpperCase();
-if((is==UC)&&gc.isConfigTrue(gc.CFG_UC_UPPERCASED)){
+if((is==UC)&&(is.length>1)&&gc.isConfigTrue(gc.CFG_UC_UPPERCASED)){
 mb.log.debug("Respect uppercase word: $",is);
 os=UC;
 }else{

@@ -410,6 +410,7 @@ function GcUtils() {
 		var LC = is.toLowerCase(); // prepare all LC word
 		var UC = is.toUpperCase(); // prepare all UC word	
 		if ((is == UC) && 
+			(is.length > 1) &&
 			gc.isConfigTrue(gc.CFG_UC_UPPERCASED)) {
 			mb.log.debug('Respect uppercase word: $', is);
 			os = UC;
