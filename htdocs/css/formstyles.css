@@ -122,6 +122,9 @@ fieldset .padtop {
 .autofixmenu .buttondisabled {
 }
 
+
+
+
 /* styles for the help box. */ 
 .ar-instrument-helpbox {
 	margin-top: 5px;
@@ -142,6 +145,10 @@ fieldset .padtop {
 	margin-left: 10px; margin-right: 10px; background-color: #eee;
 }
 
+
+
+
+
 /* styles for the dropdown, searchfield, and button */ 
 .ar-dropdown {
 	margin-bottom: 1px; margin-right: 5px; /* formats for the <select> dropdown element */ 
@@ -155,4 +162,259 @@ fieldset .padtop {
 }
 .ar-attribute-description input {
 	margin: 0px; margin-left: 0px; padding: 0px;  /* add instrument/vocal button */ 
+}
+
+
+
+.editsuite {
+	width: 600px;
+	margin-bottom: 20px;
+}
+.editsuite .inner {
+	border: 1px solid #000;
+	border-bottom: 0px;
+	padding: 4px; padding-bottom: 0px;
+	background-color: #f0efff;
+}
+
+.editsuite .inner .links {
+	padding-bottom: 2px;
+}
+.editsuite div.noscript {
+	border-bottom: 1px solid #000;
+}
+.editsuite-table {
+	padding-top: 4px;
+}
+
+
+/* EDITSUITE styles */
+.editsuite-box-tr {
+	vertical-align: top;
+	background: url(/images/es/dotted-horiz.gif);
+}
+.editsuite-box-tr td {
+	padding-top: 2px;
+	padding-bottom: 3px;
+}
+.editsuite-box-tr td.toggle {
+	text-align: right;
+	width: 10px;
+	padding: 0px;
+	padding-top: 4px;
+	padding-bottom: 0px;
+}
+
+/*  EDITSUITE modules styles */
+.editsuite .button,
+.editsuite .buttondisabled {
+	font-size: 11px;
+	font-weight: normal;
+}
+.moduletable {
+	padding-top: 4px;
+	border-width: 0px;
+	border-collapse: collapse;
+	width: 100%;
+}
+.moduletable td {
+	padding: 0px;
+	padding-bottom: 1px;
+	font-size: 11px;
+}
+.moduletable td small {
+	font-size: 10px;
+}
+.moduletable .srfield {
+	color: #000;
+	background: #fff;
+	font-size: 11px;
+}
+
+/* EDITOR TOOLBOX styles */
+.sr-presets-bg {
+	border: 1px solid #000;
+	background: #ccccff;
+	border-collapse: collapse;
+	padding: 0px;
+}
+.sr-presets-fg {
+	background: #fff;
+}
+.sr-presets-bg td {
+	font-size: 11px;
+}
+.sr-presets-caption {
+	font-weight: bold;
+	padding: 2px;
+	color: #000;
+	border: 0px; border-bottom: 1px solid #000;
+}
+.sr-presets-close {
+	text-align: right;
+	padding: 2px;
+	color: #000;
+	border: 0px; border-bottom: 1px solid #000;
+}
+.sr-presets-close a,
+.sr-presets-close a:visited,
+.sr-presets-close a:active,
+.sr-presets-close a:hover {
+	color: #000;
+	text-decoration: underline;
+	font-size: 11px;
+}
+
+
+
+/* EDITOR TOOLBOX styles */
+.editortoolbox {
+	width: 300px;
+	border-collapse: collapse;
+	padding: 0px;
+}
+.editortoolbox .row {
+	vertical-align: middle;
+	padding-top: 2px;
+	padding-bottom: 2px;
+}
+.editortoolbox .row-spacer {
+	vertical-align: middle;
+	background: url(/images/es/dotted-horiz.gif);
+}
+.editortoolbox .label {
+	width: 95px;
+	padding-top: 2px;
+	padding-bottom: 2px;
+	font-size: 11px;
+}
+.editortoolbox .text {
+	width: 200px;
+	padding-top: 2px;
+	padding-bottom: 2px;
+	font-size: 11px;
+}
+.editortoolbox select {
+	font-size: 11px;
+	margin-bottom: 2px;
+}
+.editortoolbox .button {
+	font-size: 11px;
+	margin-bottom: 2px;
+}
+.editor-toolbox-bg {
+	border: 1px solid #000;
+	background: #fb5;
+	border-collapse: collapse;
+	padding: 0px;
+}
+.editor-toolbox-fg {
+	background: #fff;
+}
+.editor-toolbox-caption {
+	font-size: 10px;
+	font-weight: bold;
+	padding: 2px;
+	color: #000;
+	border: 0px; border-bottom: 1px solid #000;
+}
+.editor-toolbox-close {
+	font-size: 10px;
+	text-align: right;
+	padding: 2px;
+	color: #000;
+	border: 0px; border-bottom: 1px solid #000;
+}
+.editor-toolbox-close a,
+.editor-toolbox-close a:visited,
+.editor-toolbox-close a:active,
+.editor-toolbox-close a:hover {
+	color: #000;
+	text-decoration: underline;
+}
+
+
+/* javascript logging facilities */
+.log-messages {
+	border: 1px solid #000;
+	margin: 0; padding: 0;
+	font-family: Arial;
+	font-size: 11px;
+	margin-top: 20px;
+	margin-right: 30px;
+}
+.log-messages .header {
+	margin: 5px; margin-top: 0px;
+	padding: 0px; padding-left: 2px; padding-bottom: 3px;
+	font-family: Arial; font-size: 10px;
+}
+.log-messages .title {
+	margin: 5px;
+	padding-left: 2px;
+	font-family: Arial; font-size: 10px;
+}
+.log-messages .inner {
+	margin: 0px;
+	padding: 5px;
+	margin-top: 5px;
+	font-family: monospace;
+	font-size: 11px;
+	overflow-y: scroll;
+}
+.log-messages .log-scope {
+	background: #f0efff;
+	border: 1px solid #ccc;
+	margin: 5px; margin-left: 0px; margin-right: 10px;
+	padding-left: 0.4em;
+	padding-right: 0.4em;
+	font-size: 11px;
+	font-weight: bold;
+	font-family: Arial;
+}
+.log-messages .log-enter {
+	margin: 0px; margin-left: 112px;
+	padding: 0px;
+	border-left: 1px solid #ddd;
+	color: #88d;
+	font-size: 11px;
+}
+.log-messages .log-exit {
+	margin: 0px; margin-left: 112px;
+	padding: 0px;
+	border-left: 1px solid #ddd;
+	color: #8d8;
+	font-size: 11px;
+}
+.log-messages .log-level-debug {
+	margin: 0px; padding: 0px; border: 1px;
+	font-size: 11px
+}
+.log-messages .log-level-info {
+	margin: 0px; padding: 0px;
+	font-size: 11px
+}
+.log-messages .log-level-warning {
+	margin: 0px; padding: 0px; color: #ff8800; background: #fff;
+	font-size: 11px
+}
+.log-messages .log-level-error {
+	margin: 0px; padding: 0px; color: #ff0000; background: #fff;
+	font-size: 11px
+}
+.log-messages .log-highlight {
+	font-family: monospace;
+	color: #000;
+	background: #f0efff;
+	padding-left: 0.2em;
+	padding-right: 0.2em;
+	font-size: 11px
+}
+
+input.hidden {
+	display: none;
+}
+
+a.toolbox img.toolbox {
+	margin-left: 4px;
+	vertical-align: -10%;
 }

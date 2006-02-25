@@ -1,8 +1,15 @@
 %# vi: set ts=4 sw=4 ft=mason :
+<%args>
+	$title => 'MusicBrainz'
+	$pagetitle => ''
+	$noh1 => 0
+	$head => undef
+	$uri => ''
+</%args>
 <%perl>
 
 return $m->comp("/comp/header_small", title => $pagetitle || $title)
-    if $pnotes{'ispopup'};
+	if $pnotes{'ispopup'};
 
 my $nosidebar = UserPreference::get('nosidebar');
 
@@ -18,66 +25,53 @@ $m->comp(
 	<tr valign="top">
 % unless ($nosidebar) {
 		<td id="sidebar-td" width="140">
-%# See comments in topmenu.js near method initialise() of object sideBar
-        <script type="text/javascript"> 
-        <!-- // hide from older browsers
-        	sideBar.initialise(); 
-        -->
-        </script>
 
 % if (UserPreference::get('sidebar_panel_sites')) {
-<& /comp/layout/sidebar-section, title=>'MusicBrainz Sites' &>
-<& /comp/layout/sidemenu-panel-main &>
+	<& /comp/layout/sidebar-section, title=>'MusicBrainz Sites' &>
+	<& /comp/layout/sidemenu-panel-main &>
 % }
 
 % if (UserPreference::get('sidebar_panel_user')) {
 %    if (!defined $session{user} || $session{user} eq '') {
-    <& /comp/layout/sidebar-section, title=>'Not logged in', link => "/login.html" &>
-    <& /comp/layout/sidemenu-panel-userguest &>
+		<& /comp/layout/sidebar-section, title=>'Not logged in', link => "/login.html" &>
+		<& /comp/layout/sidemenu-panel-userguest &>
 %    } else {
-    <& /comp/layout/sidebar-section, title=>$session{user}, link => "/user/view.html" &>
-    <& /comp/layout/sidemenu-panel-userloggedin &>
+		<& /comp/layout/sidebar-section, title=>$session{user}, link => "/user/view.html" &>
+		<& /comp/layout/sidemenu-panel-userloggedin &>
 %    }
 % }
 
 % if (UserPreference::get('sidebar_panel_search')) {
-    <& /comp/layout/sidebar-section, title=>'Quick Search', link => "/search.html" &>
-    <& /comp/layout/sidemenu-panel-search &>
+	<& /comp/layout/sidebar-section, title=>'Quick Search', link => "/search.html" &>
+	<& /comp/layout/sidemenu-panel-search &>
 % }
 
 % if (UserPreference::get('sidebar_panel_topmods') && &DBDefs::REPLICATION_TYPE != RT_SLAVE) {
-    <& /comp/layout/sidebar-section, title=>'Top Voters', link => "/topmods.html" &>
-    <& /comp/layout/sidemenu-panel-topvoters &>
+	<& /comp/layout/sidebar-section, title=>'Top Voters', link => "/topmods.html" &>
+	<& /comp/layout/sidemenu-panel-topvoters &>
 % }
 
 % if (UserPreference::get('sidebar_panel_stats') && &DBDefs::REPLICATION_TYPE != RT_SLAVE) {
-    <& /comp/layout/sidebar-section, title=>'Server Stats', link => "/stats.html" &>
-    <& /comp/layout/sidemenu-panel-stats &>
+	<& /comp/layout/sidebar-section, title=>'Server Stats', link => "/stats.html" &>
+	<& /comp/layout/sidemenu-panel-stats &>
 % }
 
 %# if (UserPreference::get('sidebar_panel_sponsors')) {
-    <& /comp/layout/sidebar-section, title=>'Sponsors', link => "/sponsors.html" &>
-    <& /comp/layout/sidemenu-panel-sponsors &>
+	<& /comp/layout/sidebar-section, title=>'Sponsors', link => "/sponsors.html" &>
+	<& /comp/layout/sidemenu-panel-sponsors &>
 %# }
-
-   </td>
+%# See comments in topmenu.js near method initialise() of object sideBar
+		<script type="text/javascript" src="/scripts/sidebar.js"></script> 
+	</td>
 % }
 					 
-    <td id="content-td" width="100%">
+	<td id="content-td" width="100%">
 
 % if ($session{tport}) {
-<iframe name="hiddeniframe" height="0" width="0" frameborder="0"></iframe>
+		<iframe name="hiddeniframe" height="0" width="0" frameborder="0"></iframe>
 % }
-     <a id="maincontent"></a>
+		<a id="maincontent"></a>
 
 %if($title ne '' and not $noh1) {
-    <h1><% $title %></h1>
+		<h1><% $title %></h1>
 %}
-
-<%args>
-$title=>'MusicBrainz'
-$pagetitle=>''
-$noh1=>0
-$head=>undef
-$uri=>''
-</%args>

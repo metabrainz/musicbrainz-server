@@ -1,0 +1,10 @@
+<%perl>
+# vi: set ts=4 sw=4 ft=mason :
+	my ($name) = @_;
+
+	return unless UserPreference::get('JSMoveFocus');
+	# TODO find a way to just do nothing (produce no output) if we've already been
+	# called for this page.
+</%perl>
+
+<input type="hidden" id="ONLOAD|focusfield" value="<% $name %>" />

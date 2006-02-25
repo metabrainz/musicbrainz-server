@@ -1,0 +1,153 @@
+/*----------------------------------------------------------------------------\
+|                              Musicbrainz.org                                |
+|                 Copyright (c) 2005 Stefan Kestenholz (g0llum)               |
+|-----------------------------------------------------------------------------|
+| This software is provided "as is", without warranty of any kind, express or |
+| implied, including  but not limited  to the warranties of  merchantability, |
+| fitness for a particular purpose and noninfringement. In no event shall the |
+| authors or  copyright  holders be  liable for any claim,  damages or  other |
+| liability, whether  in an  action of  contract, tort  or otherwise, arising |
+| from,  out of  or in  connection with  the software or  the  use  or  other |
+| dealings in the software.                                                   |
+| - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - |
+| GPL - The GNU General Public License    http://www.gnu.org/licenses/gpl.txt |
+| Permits anyone the right to use and modify the software without limitations |
+| as long as proper  credits are given  and the original  and modified source |
+| code are included. Requires  that the final product, software derivate from |
+| the original  source or any  software  utilizing a GPL  component, such  as |
+| this, is also licensed under the GPL license.                               |
+|-----------------------------------------------------------------------------|
+| 2005-11-10 | First version                                                  |
+\----------------------------------------------------------------------------*/
+
+/**
+ * Track specific GuessCase functionality
+ **/
+function GcTrackHandler() {
+	mb.log.enter("GcTrackHandler", "__constructor");
+
+	// ----------------------------------------------------------------------------
+	// register class/global id
+	// ---------------------------------------------------------------------------
+	this.CN = "GcTrackHandler";
+	this.GID = "gc.track";
+
+	this.DATA_TRACK = "[data track]";
+	this.SILENCE = "[silence]";
+	this.TRACK_UNTITLED = "[untitled]";
+	this.UNKNOWN = "[unknown]";
+
+	// ----------------------------------------------------------------------------
+	// member functions
+	// ---------------------------------------------------------------------------
+
+	/**
+	 * Guess the trackname given in string is, and
+	 * returns the guessed name.
+	 *
+	 * @param	is		the inputstring
+	 * @returns os		the processed string
+	 **/
+	this.process = function(is) {
+		mb.log.enter(this.GID, "process");
+		is = this.stripInformationToOmit(is);
+		is = this.preProcessCommons(is);
+		is = this.preProcessTitles(is);
+		is = this.runVinylChecks(is);
+		var w = gc.i.splitWordsAndPunctuation(is);
+		w = this.prepExtraTitleInfo(w);
+		gc.o.init();
+		gc.i.init(is, w);
+		while (!gc.i.isIndexAtEnd()) {
+			this.processWord();
+		}
+		var os = this.getOutput();
+		return mb.log.exit(os);
+	};
+
+	/**
+	 * Replaces SpecialCaseTracks
+	 * » data [track]			-> [data track]
+	 * » silence|silent [track]	-> [silence]
+	 * » untitled [track]		-> [untitled]
+	 * » unknown|bonus [track]	-> [unknown]
+	 **/
+	this.checkSpecialCases = function(is) {
+		mb.log.enter(this.GID, "checkSpecialCases");
+		if (!gc.re.TRACK_DATATRACK) {
+			// data tracks
+			gc.re.TRACK_DATATRACK = /^([\(\[]?\s*data(\s+track)?\s*[\)\]]?$)/i;
+			// silence
+			gc.re.TRACK_SILENCE = /^([\(\[]?\s*silen(t|ce)(\s+track)?\s*[\)\]]?)$/i;
+			// untitled
+			gc.re.SPECIAL_TRACK3 = /^([\(\[]?\s*untitled(\s+track)?\s*[\)\]]?)$/i;
+			// unknown
+			gc.re.TRACK_UNKNOWN1 = /^([\(\[]?\s*(unknown|bonus)(\s+track)?\s*[\)\]]?)$/i;
+			// any number of question marks
+			gc.re.TRACK_MYSTERY = /^\?+$/i;
+		}
+		var os = is;
+		if (is.match(gc.re.TRACK_DATATRACK)) {
+			return mb.log.exit(this.DATA_TRACK);
+		} else if (is.match(gc.re.TRACK_SILENCE)) {
+			return mb.log.exit(this.SILENCE);
+		} else if (is.match(gc.re.SPECIAL_TRACK3)) {
+			return mb.log.exit(this.TRACK_UNTITLED);
+		} else if (is.match(gc.re.TRACK_UNKNOWN1)) {
+			return mb.log.exit(this.UNKNOWN);
+		} else if (is.match(gc.re.TRACK_MYSTERY)) {
+			return mb.log.exit(this.UNKNOWN);
+		}
+		return mb.log.exit(os);
+	};
+
+	/**
+	 * Delegate function which handles words not handled
+	 * in the common word handlers.
+	 *
+	 * » Handles FeaturingArtistStyle
+	 * » Handles VersusStyle
+	 * » Handles VolumeNumberStyle
+	 * » Handles PartNumberStyle
+	 *
+	 **/
+	this.doWord = function() {
+		mb.log.enter(this.GID, "doWord");
+		var probe = gc.i.getCurrentWord();
+
+		if (this.doFeaturingArtistStyle()) {
+		} else if (this.doVersusStyle()) {
+		} else if (this.doVolumeNumberStyle()) {
+		} else if (this.doPartNumberStyle()) {
+		} else {
+			if (gc.i.matchCurrentWord(/7in/i)) {
+				gc.o.appendSpaceIfNeeded();
+				gc.o.appendWord('7"');
+				gc.f.resetContext();
+				gc.f.spaceNextWord = false;
+				gc.f.forceCaps = false;
+			} else if (gc.i.matchCurrentWord(/12in/i)) {
+				gc.o.appendSpaceIfNeeded();
+				gc.o.appendWord('12"');
+				gc.f.resetContext();
+				gc.f.spaceNextWord = false;
+				gc.f.forceCaps = false;
+			} else {
+				// handle other cases (e.g. normal words)
+				gc.o.appendSpaceIfNeeded();
+				gc.i.capitalizeCurrentWord();
+				mb.log.debug('Plain word: #cw');
+				gc.o.appendCurrentWord();
+				gc.f.resetContext();
+				gc.f.spaceNextWord = true;
+				gc.f.forceCaps = false;
+			}
+		}
+		gc.f.number = false;
+		return mb.log.exit(null);
+	};
+
+	// exit constructor
+	mb.log.exit();
+}
+GcTrackHandler.prototype = new GcHandler;

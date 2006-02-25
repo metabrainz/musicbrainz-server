@@ -8,7 +8,7 @@ $freedbcat=>""
 $artist=>undef
 $artistname=>""
 $sortname=>""
-$title=>""
+$albumname=>""
 $durations=>""
 $attrtype=>0
 $attrstatus=>0
@@ -102,7 +102,7 @@ else
 		$new = "Artist=$artistname\nSortname=$sortname\n";
     }
 
-    $new .= "AlbumName=$title\nNumTracks=$tracks\n";
+    $new .= "AlbumName=$albumname\nNumTracks=$tracks\n";
     $new .= "Attributes=$attrtype,$attrstatus\n";
     $new .= "Language=$language,$script\n";
     $new .= "CDIndexId=$id\n" if ($id ne '');

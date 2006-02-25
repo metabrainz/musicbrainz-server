@@ -73,7 +73,7 @@ if (@names and $confirm)
       <& /comp/sidebar, title => "Add Non-Album Tracks - Error" &>
 
       <p class="error">
-      You are not allowed to enter non-album tracks. 
+      You are not allowed to enter non-album tracks.
       </p>
 
       <& /comp/footer &>
@@ -147,7 +147,7 @@ for (@names[0..$numtracks-1])
 <p>
 	To enter a non-album track you <b>must</b> provide a moderation note that
 	lets the voters know why you think this is a non-album track. You're
-	strongly encouraged to include a URL that will allow the voters to 
+	strongly encouraged to include a URL that will allow the voters to
 	evaluate the correctness of this moderation.
 </p>
 
@@ -176,15 +176,12 @@ for (@names[0..$numtracks-1])
 			<td>
 				<input type="text" name="trackname<% $_ %>" class="textfield"
 					id="addnat_trackname"
-					onFocus="myOnFocus(this)" onBlur="myOnBlur(this)"
 					size="50"
 					value="<% $names[$_-1] %>">
 			</td>
-			<td><script type="text/javascript">
-				<!--
-					af_writeButton(AF_BTN_TRACK, 'trackname<% $_ %>');
-				-->
-				</script></td>
+			<td>
+				<& /comp/form/jsbutton, id=>"BTN_TRACK|trackname".$_ &>
+				</td>
 		</tr>
 
 % }
@@ -196,16 +193,7 @@ for (@names[0..$numtracks-1])
 			</td>
 			<td>
 % if ($numtracks != 1) {
-				<script type="text/javascript">
-					<!--
-						function doGuessAll(theForm) {
-%	for (1 .. $numtracks) {
-							doTrackName(theForm, 'trackname<% $_ %>');
-%   }
-						}
-						af_writeButton(AF_BTN_ALL, AF_BTNTEXT_NONALBUMTRACKS);
-					-->
-				</script>
+				<& /comp/form/jsbutton, id=>"BTN_ALL" &>
 % }
 			</td>
 		</tr>

@@ -89,7 +89,7 @@ td.modpending {
 .sidemenusearch input.checkbox {
 	margin: -2px;
 }
-.sidemenusearch input.textfield {
+.sidemenusearch input.searchfield {
 	color: #000;
 	background-color: #eee;
 	border: 1px inset;

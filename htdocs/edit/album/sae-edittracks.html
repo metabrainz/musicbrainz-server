@@ -157,7 +157,7 @@ $ar->SetSortName($edit->{"artist"}{"sortname"});
 		<table class="SpacedColumns TopAlignCells">
 			<col style="width: 2em">
 			<col style="width: 4em">
-			<col style="width: 20em">
+			<col >
 			<col style="width: 4em">
 			<col style="width: 1em">
 			<col style="width: 6em">
@@ -168,26 +168,19 @@ $ar->SetSortName($edit->{"artist"}{"sortname"});
 				<td><% $ar->GetName %></td>
 				<td colspan="2"></td>
 				<td>
-					<script type="text/javascript">
-					<!--
-					af_writeButton(AF_BTN_ALL, AF_BTNTEXT_ALBUMANDTRACKS);
-					-->
-					</script></td>
+					<& /comp/form/jsbutton, id=>"BTN_ALL" &>
+					</td>
 			</tr>
 % }
 			<tr>
 				<td colspan="2" align="right"><a href="/showalbum.html?albumid=<% $edit->{'id'} %>">Album</a>:</td>
 				<td><input type="text" name="albumname" class="textfield"
 					size="50"
-					onFocus="myOnFocus(this)" onBlur="myOnBlur(this)"
 					value="<% $edit->{'name'} %>"></td>
 				<td colspan="2"></td>
 				<td>
-					<script type="text/javascript">
-					<!--
-						af_writeButton(AF_BTN_ALBUM, 'albumname');
-					-->
-					</script></td>
+					<& /comp/form/jsbutton, id=>"BTN_ALBUM|albumname" &>
+					</td>
 			</tr>
 
 			<tr><td colspan="6">&nbsp;</td></tr>
@@ -217,16 +210,13 @@ $ar->SetSortName($edit->{"artist"}{"sortname"});
 				</td>
 				<td><input type="text" name="trackseq<% $t->{"id"} %>" class="numberfield"
 						<% $edit->{can_add_remove} ? '' : 'readonly="readonly" disabled' %>
-						onFocus="myOnFocus(this)" onBlur="myOnBlur(this)"
 						value="<% $t->{seq} %>" size="2" maxlength="2"
 						style="text-align: center"></td>
 				<td><input type="text" name="track<% $t->{"id"} %>" class="textfield"
-						onFocus="myOnFocus(this)" onBlur="myOnBlur(this)"
 						size="50" maxlength="255"
 						value="<% $t->{"name"} %>"></td>
 				<td><input type="text" name="tracklength<% $t->{"id"} %>" class="numberfield"
 						<% $edit->{can_add_remove} ? '' : 'readonly="readonly" disabled' %>
-						onFocus="myOnFocus(this)" onBlur="myOnBlur(this)"
 						value="<% Track::FormatTrackLength($t->{length}) %>" size="4"
 						style="text-align: center"></td>
 				<td align="center">
@@ -235,11 +225,8 @@ $ar->SetSortName($edit->{"artist"}{"sortname"});
 						<% $edit->{can_add_remove} ? '' : 'readonly="readonly" disabled' %>
 						title="Remove this track?"></td>
 				<td>
-					<script type="text/javascript">
-					<!--
-						af_writeButton(AF_BTN_TRACK, 'track<% $t->{'id'} %>');
-					-->
-					</script></td>
+					<& /comp/form/jsbutton, id=>"BTN_TRACK|track".$t->{'id'} &>
+					</td>
 			</tr>
 % }
 			<tr>
@@ -254,17 +241,8 @@ $ar->SetSortName($edit->{"artist"}{"sortname"});
 				<td align="center"><img src="/images/remove.gif" alt="X"
 					title="Tick the boxes above to remove tracks"></td>
 				<td>
-					<script type="text/javascript">
-					<!--
-						function doGuessAll(theForm) {
-							doAlbumName(theForm, 'albumname');
-% for my $t (@$tracks) {
-							doTrackName(theForm, 'track<% $t->{'id'} %>');
-% }
-					}
-					af_writeButton(AF_BTN_ALL, AF_BTNTEXT_ALBUMANDTRACKS);
-				-->
-				</script></td>
+					<& /comp/form/jsbutton, id=>"BTN_ALL" &>
+					</td>
 			</tr>
 			<tr><td colspan="6">&nbsp;</td></tr>
 			<tr>

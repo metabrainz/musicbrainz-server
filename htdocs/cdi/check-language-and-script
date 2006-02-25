@@ -29,7 +29,7 @@ my $dbh = $mb->{DBH};
 
 my $NumTracks = $ARGS{tracks};
 my @text = map { $ARGS{"track$_"} } (0..$NumTracks-1);
-unshift @text, $ARGS{"title"};
+unshift @text, $ARGS{"albumname"};
 
 unless (MusicBrainz::IsNonNegInteger($script))
 {

@@ -1,105 +1,77 @@
-/* @author Edward Hieatt, edward@jsunit.net */
 
-body 
-{ 
-  margin-top: 0; 
-  margin-bottom: 0; 
-  font-family: Verdana, Arial, Helvetica, sans-serif; 
+body {
+  margin-top: 0;
+  margin-bottom: 0;
+  font-family: Arial, Helvetica, sans-serif;
   color: #000;
-  font-size: 0.8em; 
   background-color: #fff;
+  font-size: 11px
 }
 
-td 
-{ 
-  padding: 0; 
+td {
+  padding: 0;
   margin: 0;
+  font-size: 11px
 }
 
-td img 
-{ 
-  padding: 0; 
-  margin: 0; 
-  vertical-align: baseline; 
+td img {
+  padding: 0;
+  margin: 0;
+  vertical-align: baseline;
   display: block;
 }
 
-input 
-{ 
+input {
+	font-size: 11px
 }
 
-select 
-{ 
+select {
+	font-size: 11px
 }
 
-a:link, a:visited
-{
+a:link, a:visited {
   color : #00F;
 }
 
-a:hover 
-{
+a:hover {
   color : #F00;
 }
 
-.jsUnitDefault 
-{ 
+.jsUnitDefault {
 }
 
-h1, th
-{ 
-  font-size: 1.3em; 
-  font-weight: bold; 
+.jsUnitDefault * {
+	font-size: 9px;
+}
+
+
+h1, th {
+  font-size: 12px;
+  font-weight: bold;
   color: #039;
 }
 
-h2
-{ 
-  font-weight: bold; 
+h2 {
+  font-weight: bold;
   color: #039;
 }
 
-h3
-{ 
-  font-weight: bold; 
-  color: #039; 
+h3 {
+  font-weight: bold;
+  color: #039;
   text-decoration: underline;
 }
 
-h4
-{ 
-  font-weight: bold; 
+h4 {
+  font-weight: bold;
   color: #039;
 }
 
-.jsUnitTestResultSuccess 
-{
+.jsUnitTestResultSuccess {
   color: #000;
 }
 
-.jsUnitTestResultNotSuccess 
-{
+.jsUnitTestResultNotSuccess {
   color: #F00;
 }
 
-.mbword {
-	background-color: #dddddd;
-}
-.mbinput {
-	margin: 0px;
-	margin-left: 20px;
-	font-family: "Courier New";
-	background-color: #FFFFCC;
-}
-.mbexpect {
-	margin: 0px;
-	margin-left: 20px;
-	font-family: "Courier New";
-	background-color: #CCFFCC;
-}
-.mberror {
-	margin: 0px;
-	margin-left: 20px;
-	font-family: "Courier New";
-	background-color: #FFCCCC;
-}

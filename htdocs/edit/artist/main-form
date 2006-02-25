@@ -40,7 +40,7 @@ my $enddate_str = Artist::GetEndDateName($type);
                     <td rowspan="50">&nbsp;</td>
                     <td>
                         <select name="type" onchange="artistTypeChanged(this.value);"
-			    id="editartist_type">
+							id="editartist_type">
                             <& /comp/options,
                             [[0, 'Unknown'], [1, 'Person'], [2, 'Group']], $type &>
                         </select></td>
@@ -58,14 +58,10 @@ my $enddate_str = Artist::GetEndDateName($type);
                     <td nowrap><label for="editartist_name">Artist Name:</label></td>
                     <td>
                         <input  type="text" name="name" class="textfield" 
-				id="editartist_name"
-                                onFocus="myOnFocus(this)" onBlur="myOnBlur(this)"
-                                size="50" value="<% $name %>">
-                        <script type="text/javascript">
-                        <!--
-                            af_writeButton(AF_BTN_ARTIST, 'name');
-                        -->
-                        </script></td>
+							id="editartist_name"
+							size="50" value="<% $name %>">
+						<& /comp/form/jsbutton, id=>"BTN_ARTIST|name" &>
+						</td>
                 </tr>
                 <tr><td colspan="2" class="padtop"/></tr>
 
@@ -80,15 +76,11 @@ my $enddate_str = Artist::GetEndDateName($type);
                     <td nowrap><label for="editartist_sortname">Sort Name:</label></td>
                     <td>
                         <input  type="text" name="sortname" class="textfield" 
-				id="editartist_sortname"
-                                onFocus="myOnFocus(this)" onBlur="myOnBlur(this)"
-                                size="50" value="<% $sortname %>">
-                        <script type="text/javascript">
-                        <!--
-                            af_writeButton(AF_BTN_SORTGUESS, 'name', 'sortname');
-                            af_writeButton(AF_BTN_SORTCOPY, 'name', 'sortname');
-                        -->
-                        </script></td>
+							id="editartist_sortname"
+							size="50" value="<% $sortname %>">
+						<& /comp/form/jsbutton, id=>"BTN_SORTGUESS|name|sortname" &>
+						<& /comp/form/jsbutton, id=>"BTN_SORTCOPY|name|sortname" &>
+						</td>
                 </tr>
             
 % if ( $showres || $resolution ) {
@@ -113,10 +105,9 @@ my $enddate_str = Artist::GetEndDateName($type);
                     <td nowrap><label for="editartist_resolution">Comment:</label></td>
                     <td>
                         <input  type="text" name="resolution" class="textfield"
-				id="editartist_resolution"
-                                onFocus="myOnFocus(this)" onBlur="myOnBlur(this)"
-                                size="50" maxlength="64"
-                                value="<% $resolution %>"></td>
+							id="editartist_resolution"
+							size="50" maxlength="64"
+							value="<% $resolution %>"></td>
                 </tr>
 % }
 
@@ -172,6 +163,7 @@ my $enddate_str = Artist::GetEndDateName($type);
                     <td class="padtop">
 % if ( defined $artist ) {
                         <input type="hidden" name="id" value="<% $artist->GetId() %>">
+                        <& /comp/form/jsbutton, id=>"BTN_CANCEL|/showartist.html?artistid=".$artist->GetId &>
 % }
                         <input type="submit" class="button" value="Submit"></td>
                     

@@ -1,30 +1,6 @@
 <& /comp/sidebar, title=>'Guess Case' &>
 
-	jsunit tests: 
-	<script type="text/javascript">
-	<!--
-		var loc = document.location.href;
-		loc = loc.split("index\.html")[0];
-
-		var tests = [
-			["tests/all.html", "Run All tests"],
-			["tests/artistname.html", "Run Tests for the <b>Artist Name</b> routines"],
-			["tests/artistsortname.html", "Run Tests for the <b>Artist Sortname</b> routines"],
-			["tests/albumname.html", "Run Tests for the <b>Album Name</b> routines"],
-			["tests/trackname.html", "Run Tests for the <b>Track Name</b> routines"],
-			["tests/titlecase.html", "Run Tests for the <b>Word Capitalization</b> routines"]
-		];
-		for (var i=0; i<tests.length; i++) {
-			var t = tests[i];
-			document.write('<br>&nbsp;&nbsp;&nbsp;<a target="_blank" href="');
-			document.write('run.html?testpage='+loc+t[0]+'&autorun=true">'+t[1]+'</a>');
-		}
-	-->
-	</script>
-	<br/><i>You need to disable the pop-up blocker to run the tests!</i>
-	<br/>
-	<br/>
-	Guess Case Sandbox 
+	Guess Case Sandbox
 	<br>&nbsp;&nbsp;&nbsp;<a href="sandbox.html">Edit sandbox</a> <small>(test the guess case functions in a safe environment)</small>
 
 <& /comp/footer &>

@@ -4,7 +4,7 @@
             <td width="40"><label for="qsArtist_text" title="Search for an artist">Artist</label></td>
             <td>
                 <form method="GET" action="/search/textsearch.html">
-					<input class="textfield" type="text" name="query" id="qsArtist_text" value=""
+					<input class="searchfield" type="text" name="query" id="qsArtist_text" value=""
 % # What is the official position on forms with no submit button?
 % # Normally they're OK, and you can press "return" and the form is submitted.
 % # Can we rely on this, always?
@@ -20,7 +20,7 @@
             <td><label for="qsAlbum_text" title="Search for an album">Album</label></td>
             <td>
                 <form method="GET" action="/search/textsearch.html">
-					<input class="textfield" type="text" name="query" id="qsAlbum_text" value=""
+					<input class="searchfield" type="text" name="query" id="qsAlbum_text" value=""
 % if ($session{mbt}) {
 						onKeyDown="if (event.keyCode==13) this.form.submit()"
 % }
@@ -32,7 +32,7 @@
             <td><label for="qsTrack_text" title="Search for a track">Track</label></td>
             <td>
                 <form method="GET" action="/search/textsearch.html">
-					<input class="textfield" type="text" name="query" id="qsTrack_text" value=""
+					<input class="searchfield" type="text" name="query" id="qsTrack_text" value=""
 % if ($session{mbt}) {
 						onKeyDown="if (event.keyCode==13) this.form.submit()"
 % }
@@ -44,7 +44,7 @@
             <td><label for="qsEditor_text" title="Search for an MusicBrainz editor">Editor</label></td>
             <td>
                 <form method="GET" action="/user/view.html">
-					<input class="textfield" type="text" name="modname" id="qsEditor_text" value=""
+					<input class="searchfield" type="text" name="modname" id="qsEditor_text" value=""
 % if ($session{mbt}) {
 						onKeyDown="if (event.keyCode==13) this.form.submit()"
 % }

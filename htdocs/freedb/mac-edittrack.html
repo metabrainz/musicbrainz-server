@@ -122,43 +122,32 @@ if ($did_split
 				<td class="padtop"><label>New Track Name:</label></td>
 				<td class="padtop">
 					<input type="text" name="trackname" class="textfield"
-						onFocus="myOnFocus(this)" onBlur="myOnBlur(this)"
 						size="40" maxlength="255"
 						value="<% $newtrackname %>">
-					<script type="text/javascript">
-					<!--
-						af_writeButton(AF_BTN_TRACK, 'trackname');
-					-->
-					</script></td>
+					<& /comp/form/jsbutton, id=>"BTN_TRACK|trackname" &>
+				</td>
 			</tr>
 			<tr>
 				<td></td>
 				<td>
-					<script type="text/javascript">
-					<!--
-						af_writeButton(AF_BTN_USESWAP);
-						af_writeButton(AF_BTN_USECURRENT);
+					<& /comp/form/jsbutton, id=>"BTN_USESWAP|search|trackname|swapped" &>
+					<& /comp/form/jsbutton, id=>"BTN_USECURRENT" &>
 % if ($did_split) {
-						af_writeButton(AF_BTN_USESPLIT);
+					<& /comp/form/jsbutton, id=>"BTN_USESPLIT" &>
 % }
-						af_writeButton(AF_BTN_GUESSBOTH);
-					-->
-					</script></td>
+					<& /comp/form/jsbutton, id=>"BTN_GUESSBOTH|search|trackname" &>
 					<noscript>
-						<input type="reset" class="button" value="Use Guessed">
-					</noscript></td>
+						<input type="reset" value="Use Guessed">
+					</noscript>
+				</td>
 			</tr>
 			<tr>
 				<td><label>Search for New Artist:</label></td>
 				<td>
 					<input  type="text" name="search" class="textfield"
-							onFocus="myOnFocus(this)" onBlur="myOnBlur(this)"
-							size="40" value="<% $newartistname %>">
-					<script type="text/javascript">
-					<!--
-						af_writeButton(AF_BTN_ARTIST, 'search');
-					-->
-					</script></td>
+						size="40" value="<% $newartistname %>">
+					<& /comp/form/jsbutton, id=>"BTN_ARTIST|search" &>
+				</td>
 			</tr>
 			<tr>
 				<td></td>

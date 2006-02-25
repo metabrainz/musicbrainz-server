@@ -1,7 +1,7 @@
 %# vi: set ts=2 sw=2 ft=mason :
 <%args>
 $album => undef
-$newname => ""
+$newalbumname => ""
 $notetext => ""
 </%args>
 <%perl>
@@ -34,9 +34,9 @@ $ar->LoadFromId
 
 my $url = "/showalbum.html?albumid=$album";
 
-if (MusicBrainz::IsSingleLineString($newname)
-	and $newname =~ /\S/
-	and $newname ne $al->GetName)
+if (MusicBrainz::IsSingleLineString($newalbumname)
+	and $newalbumname =~ /\S/
+	and $newalbumname ne $al->GetName)
 {
 	$m->comp(
 		"/comp/entermods",
@@ -49,7 +49,7 @@ if (MusicBrainz::IsSingleLineString($newname)
 				type => &ModDefs::MOD_EDIT_ALBUMNAME,
 				# --
 				album => $al,
-				newname => $newname,
+				newname => $newalbumname,
 			);
 
 			$mods[0]->InsertNote($session{'uid'}, $notetext)
@@ -73,7 +73,7 @@ if (MusicBrainz::IsSingleLineString($newname)
 % }
 
 
-<form method="post" 
+<form method="post"
 		action="/edit/album/edit.html"
 		name="EditAlbumForm"
 		enctype="application/x-www-form-urlencoded">
@@ -89,17 +89,14 @@ if (MusicBrainz::IsSingleLineString($newname)
 					<div class="oldtextfield"><% $al->GetName  %></div></td>
 			</tr>
 			<tr>
-				<td><label for="editalbum_newname">New Name:</label></td>
+				<td><label for="editalbum_newalbumname">New Name:</label></td>
 				<td>
-					<input type="text" name="newname" class="textfield" id="editalbum_newname"
-						onFocus="myOnFocus(this)" onBlur="myOnBlur(this)"
+					<input type="text" name="newalbumname" class="textfield" id="editalbum_newalbumname"
 						size="50"
 						value="<% $al->GetName %>">
-					<script type="text/javascript">
-					<!--
-						af_writeButton(AF_BTN_ALBUM, 'newname');
-					-->
-					</script></td>
+
+					<& /comp/form/jsbutton, id=>"BTN_ALBUM|newalbumname" &>
+				</td>
 			</tr>
 			<tr>
 				<td>&nbsp;</td>
@@ -109,12 +106,13 @@ if (MusicBrainz::IsSingleLineString($newname)
 			<tr>
 				<td>&nbsp;</td>
 				<td class="padtop">
-					<input type="hidden" name="album" value="<% $al->GetId %>">
+					<& /comp/form/jsbutton, id=>"BTN_CANCEL|/showalbum.html?albumid=".$al->GetId &>
 					<input type="submit" class="button" value="Submit"></td>
+					<input type="hidden" name="album" value="<% $al->GetId %>">
 			</tr>
 		</table>
 	</fieldset>
+	<& /comp/form/focusfield, "newalbumname" &>
 </form>
 
-<& /comp/movefocus, "EditAlbumForm", "newname" &>
 <& /comp/footer &>

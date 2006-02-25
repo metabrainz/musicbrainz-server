@@ -61,11 +61,11 @@ my $selected_index = 0;
 
 <form method="POST" action="/cdi/done.html" Name="SelectAttrs"
       enctype="application/x-www-form-urlencoded" class="formstyle">
-	
+
 % my @focus_to;
 	<& /comp/albumattrform,
 		adding				=> 1,
-		albumname			=> $ARGS{'title'},
+		albumname			=> $ARGS{'albumname'},
 		multi_album			=> undef,
 		disclength			=> Track::FormatTrackLength($disclength),
 		type_value			=> undef,

@@ -10,10 +10,8 @@ $r->content_type('text/html; charset=UTF-8');
 my $brainz_css = &DBDefs::HTDOCS_ROOT . "/brainz.css";
 my $mtime = (stat $brainz_css)[9] || 0;
 my $mtime_print = (stat(&DBDefs::HTDOCS_ROOT . "/css/print.css"))[9] || 0;
-my $mtime_globaljs = (stat(&DBDefs::HTDOCS_ROOT . "/scripts/global.js"))[9] || 0;
-my $mtime_topmenujs = (stat(&DBDefs::HTDOCS_ROOT . "/scripts/topmenu.js"))[9] || 0;
-my $mtime_overlibjs = (stat(&DBDefs::HTDOCS_ROOT . "/scripts/overlib.js"))[9] || 0;
-my $staticmenus = "";
+my $mtime_musicbrainzjs = (stat(&DBDefs::HTDOCS_ROOT . "/scripts/musicbrainz.js"))[9] || 0;
+my $mtime_overlibjs = (stat(&DBDefs::HTDOCS_ROOT . "/scripts/overlib.js"))[9] || 0;my $staticmenus = "";
 </%perl>
 % $m->clear_buffer;
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
@@ -28,12 +26,10 @@ my $staticmenus = "";
    <meta http-equiv="Content-Type" CONTENT="text/html; charset=UTF-8">
 % &$head() if ref($head) eq "CODE";
 % $m->out($head) if defined $head and not ref $head;
-   <script type="text/javascript" src="/scripts/global.js?t=<% $mtime_globaljs %>"></script>
-   <script type="text/javascript" src="/scripts/topmenu.js?t=<% $mtime_topmenujs %>"></script>
+   <script type="text/javascript" src="/scripts/musicbrainz.js?t=<% $mtime_musicbrainzjs %>"></script>
    <script type="text/javascript" src="/scripts/overlib.js?t=<% $mtime_overlibjs %>"></script>
-
 </head>
-<body onload="OnPageLoad()">
+<body>
 	<div id="overDiv" style="position:absolute; visibility:hidden; z-index:1000;"></div>
 
 % unless ($notopbar) {
@@ -69,14 +65,7 @@ my $staticmenus = "";
     <table width="" cellpadding="0" cellspacing="0" border="0" id="submenu-table">
         <tr>
 % unless ($nosidebar) {
-			<td id="sidebar-togglecell">
-				<script type="text/javascript">
-				<!-- // hide from older browsers 
-					sideBar.writeHtml();
-				-->
-				</script>
-				<noscript>&nbsp;</noscript>
-			</td>
+			<td id="sidebar-togglecell"></td>
 			<td class="submenu-leftspace">&nbsp;</td>
 %           # &nbsp; required for Firefox at least to avoid layout errors
 % }

@@ -36,16 +36,11 @@ my $t = $session{"freedb_tracks"};
 				<td><label for="fdbmac_album">Album:</label></td>
 				<td><input type="text" name="album" class="textfield"
 					id="fdbmac_album"
-					onFocus="myOnFocus(this)" onBlur="myOnBlur(this)"
 					style="width: 100%"
 					size="50"
 					value="<% $session{'freedb_album'} %>">
 				</td>
-				<td><script type="text/javascript">
-					<!--
-						af_writeButton(AF_BTN_ALBUM, 'album');
-					-->
-					</script></td>
+				<td><& /comp/form/jsbutton, id=>"BTN_ALBUM|album" &></td>
 			</tr>
 			<tr>
 				<td><label>Artist:</label></td>
@@ -99,7 +94,7 @@ my $t = $session{"freedb_tracks"};
 					<input type="submit" class="button" value="Continue">
 					<input type="hidden" name="continue" value="1">
 				</td>
-		</table>   
+		</table>
 	</fieldset>
 </form>
 

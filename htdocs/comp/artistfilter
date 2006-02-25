@@ -29,7 +29,7 @@ if ($engine->Result == &SearchEngine::SEARCHRESULT_NOQUERY)
 			<table>
 				<tr>
 					<td><label for="artistfilter_search">Search for artist:</label></td>
-					<td><input 	type="text" name="search" class="textfield"
+					<td><input 	type="text" name="search"
 								id="artistfilter_search"
 								value="<% $search ? $search : $defaultquery %>">
 				</tr>
@@ -125,7 +125,7 @@ my @r = do {
 			id="ArtistFilterSearch">
 				<& /comp/args-to-hidden-fields.inc, %arglist &>
 				Search for artist:
-				<input	type="text" name="search" class="textfield"
+				<input	type="text" name="search"
 						size="40" value="<% $search %>">
 				<input type="submit" class="button" value="Search Again">
 		</form>
@@ -155,26 +155,18 @@ my @r = do {
 					<td><label for="artistfilter_newartistname">Artist Name:</label></td>
 					<td><input 	type="text" name="newartistname" class="textfield" 
 								id="artistfilter_newartistname"
-								onFocus="myOnFocus(this)" onBlur="myOnBlur(this)"
 								size="40" value="<% $search %>">
-						<script type="text/javascript">
-						<!--
-							af_writeButton(AF_BTN_ARTIST, 'newartistname');
-						-->
-						</script></td>
+						<& /comp/form/jsbutton, id=>"BTN_ARTIST|newartistname" &>
+						</td>
 				</tr>
 				<tr>
 					<td><label for="artistfilter_newartistsortname">Sort name:</label></td>
 					<td><input 	type="text" name="newartistsortname" class="textfield" 
 								id="artistfilter_newartistsortname"
-								onFocus="myOnFocus(this)" onBlur="myOnBlur(this)"
 								size="40" value="<% $search %>">
-						<script type="text/javascript">
-						<!--
-							af_writeButton(AF_BTN_SORTGUESS, 'newartistname', 'newartistsortname');
-							af_writeButton(AF_BTN_SORTCOPY, 'newartistname', 'newartistsortname');
-						-->
-						</script></td>
+						<& /comp/form/jsbutton, id=>"BTN_SORTGUESS|newartistname|newartistsortname" &>
+						<& /comp/form/jsbutton, id=>"BTN_SORTCOPY|newartistname|newartistsortname" &>
+						</td>
 				</tr>
 				<tr>
 					<td></td>

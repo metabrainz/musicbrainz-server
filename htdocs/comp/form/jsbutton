@@ -1,0 +1,20 @@
+<%args>
+	$id
+	$tabindex => undef
+</%args>
+<%perl>
+
+	# use mason->out to compress whitespace
+	$m->out('<input type="button" class="button hidden"');
+	$m->out(' id="');
+	$m->out($id);
+	$m->out('" ');
+	if ($tabindex)
+	{
+		$m->out('tabindex="');
+		$m->out($tabindex);
+		$m->out('"');
+	}
+	$m->out(' />');
+	$m->out("\n");
+</%perl>

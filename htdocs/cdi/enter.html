@@ -89,7 +89,7 @@ if ($freedb)
 
 <script type="text/javascript" src="/scripts/entervalidate.js"></script>
 <form method="POST" action="/cdi/selectattr.html"
-	enctype="application/x-www-form-urlencoded" 
+	enctype="application/x-www-form-urlencoded"
 	onsubmit="return validate(this);">
 
 	<& /comp/autofixmenu &>
@@ -103,15 +103,13 @@ if ($freedb)
 % if ($artist <= 0) {
 %    if (!defined $lookup) {
 				<input 	type="text" name="artistname" class="textfield"
-						id="cdi_enter_artistname"
-						onFocus="myOnFocus(this)" onBlur="myOnBlur(this)"
-						size="50" maxlength="255"></td>
+					id="cdi_enter_artistname"
+					size="50" maxlength="255"></td>
 %    } else {
 				<input	type="text" name="artistname" class="textfield"
-						id="cdi_enter_artistname"
-						onFocus="myOnFocus(this)" onBlur="myOnBlur(this)"
-						size="50" maxlength="255"
-						value="<% $lookup->{artist} %>"></td>
+					id="cdi_enter_artistname"
+					size="50" maxlength="255"
+					value="<% $lookup->{artist} %>"></td>
 %    }
 			</tr>
 			<tr>
@@ -119,18 +117,16 @@ if ($freedb)
 				<td>
 %    if (!defined $lookup) {
 				<input 	type="text" name="sortname" class="textfield"
-						id="cdi_enter_sortname"
-						onFocus="myOnFocus(this)" onBlur="myOnBlur(this)"
-						size="50" maxlength="255">
+					id="cdi_enter_sortname"
+					size="50" maxlength="255">
 %    } else {
 %        my ($sortname, $st);
 %        $st = Style->new;
 %        $sortname = $st->MakeDefaultSortname($lookup->{artist});
-				 <input type="text" name="sortname" class="textfield" 
-						id="cdi_enter_sortname"
-						onFocus="myOnFocus(this)" onBlur="myOnBlur(this)"
-						size="50" maxlength="255"
-						value="<% $sortname %>"></td>
+				 <input type="text" name="sortname" class="textfield"
+					id="cdi_enter_sortname"
+					size="50" maxlength="255"
+					value="<% $sortname %>"></td>
 %    }
 % } else {
 			<span class="bold"><% $artistname %></span>
@@ -148,26 +144,21 @@ if ($freedb)
 				<td>
 % }
 % if (!defined $lookup) {
-				<input  type="text" name="title" class="textfield"
-						id="cdi_enter_title"
-						onFocus="myOnFocus(this)" onBlur="myOnBlur(this)"
-						size="50" maxlength="255"></td>
+				<input  type="text" name="albumname" class="textfield"
+					id="cdi_enter_albumname"
+					size="50" maxlength="255"></td>
 % } else {
-				<input  type="text" name="title" class="textfield"
-						id="cdi_enter_title"
-						onFocus="myOnFocus(this)" onBlur="myOnBlur(this)"
-						size="50" maxlength="255"
-						value="<% $lookup->{album} %>"></td>
+				<input  type="text" name="albumname" class="textfield"
+					id="cdi_enter_albumname"
+					size="50" maxlength="255"
+					value="<% $lookup->{album} %>"></td>
 % }
 % if (!$toc) {
 				<td>&nbsp;</td>
 % }
 				<td>
-					<script type="text/javascript">
-					<!--
-						af_writeButton(AF_BTN_ALBUM, 'title<% $i %>');
-					-->
-					</script></td>
+					<& /comp/form/jsbutton, id=>"BTN_ALBUM|albumname" &>
+					</td>
 			</tr>
 
 % for($i = 0; $i < $tracks; $i++) {
@@ -176,29 +167,23 @@ if ($freedb)
 				<td>
 %     if (!defined $lookup) {
 					<input type="text" name="track<% $i %>" class="textfield"
-							id="cdi_enter_track<% $i %>"
-							onFocus="myOnFocus(this)" onBlur="myOnBlur(this)"
-							size="50" maxlength="255"></td>
+						id="cdi_enter_track<% $i %>"
+						size="50" maxlength="255"></td>
 %     } else {
 %        my $ar = $lookup->{tracks};
 					<input type="text" name="track<% $i %>" class="textfield"
-							id="cdi_enter_track<% $i %>"
-							onFocus="myOnFocus(this)" onBlur="myOnBlur(this)"
-							size="50" maxlength="255"
-							value="<% $$ar[$i]->{track} %>"></td>
+						id="cdi_enter_track<% $i %>"
+						size="50" maxlength="255"
+						value="<% $$ar[$i]->{track} %>"></td>
 %     }
 %     if (!$toc) {
 				<td>
-					<input type="text" name="tracklength<% $i %>" class="numberfield"  
-								onFocus="myOnFocus(this)" onBlur="myOnBlur(this)"
-								size="4" value="?:??"></td>
+					<input type="text" name="tracklength<% $i %>" class="numberfield"
+						size="4" value="?:??"></td>
 %     }
 				<td>
-					<script type="text/javascript">
-					<!--
-						af_writeButton(AF_BTN_TRACK, 'track<% $i %>');
-					-->
-					</script></td>
+					<& /comp/form/jsbutton, id=>"BTN_TRACK|track".$i &>
+					</td>
 			</tr>
 % }
 			<tr>
@@ -208,17 +193,8 @@ if ($freedb)
 				<td colspan="2">&nbsp;</td>
 % }
 				<td>
-					<script type="text/javascript">
-					<!--
-						function doGuessAll(theForm) {
-							doAlbumName(theForm, 'title');
-% for($i = 0; $i < $tracks; $i++) {
-							doTrackName(theForm, 'track<% $i %>');
-% }
-						}
-						af_writeButton(AF_BTN_ALL, AF_BTNTEXT_ALBUMANDTRACKS);
-					-->
-					</script></td>
+					<& /comp/form/jsbutton, id=>"BTN_ALL" &>
+				</td>
 			</tr>
 			<tr>
 				<td>&nbsp;</td>

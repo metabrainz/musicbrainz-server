@@ -2,7 +2,7 @@
 <%args>
 $album => undef
 $track => undef
-$newname => ""
+$newtrackname => ""
 $newseq => ""
 $newlength => ""
 $notetext => ""
@@ -77,8 +77,8 @@ my $url = "/showalbum.html?albumid=$album";
 
 $newlength = Track::UnformatTrackLength($newlength);
 
-if (MusicBrainz::IsSingleLineString($newname)
-	and $newname =~ /\S/
+if (MusicBrainz::IsSingleLineString($newtrackname)
+	and $newtrackname =~ /\S/
 	and (MusicBrainz::IsNonNegInteger($newseq) or $al->IsNonAlbumTracks)
 	and (MusicBrainz::IsNonNegInteger($newlength)))
 {
@@ -98,8 +98,8 @@ if (MusicBrainz::IsSingleLineString($newname)
 				type => &ModDefs::MOD_EDIT_TRACKNAME,
 				# --
 				track => $tr,
-				newname => $newname,
-			) if $newname ne $tr->GetName;
+				newname => $newtrackname,
+			) if $newtrackname ne $tr->GetName;
 
 			$mods[0]->InsertNote($session{'uid'}, $notetext)
 				if $mods[0]
@@ -199,21 +199,19 @@ my $can_add_remove = ($al->CanAddTrack or $al->CanRemoveTrack);
 			</tr>
 			<tr>
 				<td nowrap>
-					<label for="edittrack_newname">New:</label></td>
+					<label for="edittrack_newtrackname">New:</label></td>
 % unless ($al->IsNonAlbumTracks) {
 				<td>
 					<input 	type="text" name="newseq" class="numberfield"
 							<% $can_add_remove ? "" : "readonly" %>
-							onFocus="myOnFocus(this)" onBlur="myOnBlur(this)"
 							title="You can set a new track number here, possible values are: (1-<% $last_seq %>)"
 							size="2" value="<% $defaultseq || $tr->GetSequence %>"></td>
 % }	else {
 				<td>&nbsp;</td>
 % }
 				<td>
-					<input 	type="text" name="newname" class="textfield"
-							id="edittrack_newname"
-						 	onFocus="myOnFocus(this)" onBlur="myOnBlur(this)"
+					<input 	type="text" name="newtrackname" class="textfield"
+							id="edittrack_newtrackname"
 						 	size="50" maxlength="255"
 						 	value="<% $defaultname || $tr->GetName %>">
 				</td>
@@ -221,15 +219,11 @@ my $can_add_remove = ($al->CanAddTrack or $al->CanRemoveTrack);
 				        <input type="text" size="4" class="numberfield"
 						<% $can_add_remove ? "" : "readonly" %>
 					        name="newlength"
-					        onFocus="myOnFocus(this)" onBlur="myOnBlur(this)"
 						value="<% $defaultlength || Track::FormatTrackLength($tr->GetLength) %>" />
 				</td>
 				<td>
-					<script type="text/javascript">
-					<!--
-						af_writeButton(AF_BTN_TRACK, 'newname');
-					-->
-					</script></td>
+					<& /comp/form/jsbutton, id=>"BTN_TRACK|newtrackname" &>
+					</td>
 			</tr>
 % unless ($al->IsNonAlbumTracks) {
 			<tr>
@@ -254,5 +248,5 @@ my $can_add_remove = ($al->CanAddTrack or $al->CanRemoveTrack);
 	<input type="hidden" name="ispopup" value="<% $pnotes{'ispopup'} %>">
 </form>
 
-<& /comp/movefocus, "EditTrackForm", "newname" &>
+<& /comp/movefocus, "EditTrackForm", "newtrackname" &>
 <& /comp/footer &>

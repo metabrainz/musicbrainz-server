@@ -1,7 +1,7 @@
 %# vi: set ts=2 sw=2 ft=mason :
 <%args>
 $id => ""
-$newalias => undef
+$newartistalias => undef
 $notetext => ""
 </%args>
 <%perl>
@@ -36,7 +36,7 @@ my $modpending = $ar->GetModPending();
 
 my $url = "/showaliases.html?artistid=$id";
 
-if ($newalias =~ /\S/ and MusicBrainz::IsSingleLineString($newalias))
+if ($newartistalias =~ /\S/ and MusicBrainz::IsSingleLineString($newartistalias))
 {
 	$m->comp(
 		"/comp/entermods",
@@ -49,7 +49,7 @@ if ($newalias =~ /\S/ and MusicBrainz::IsSingleLineString($newalias))
 				type => &ModDefs::MOD_ADD_ARTISTALIAS,
 				# --
 				artist => $ar,
-				newalias => $newalias,
+				newalias => $newartistalias,
 			);
 
 			$mods[0]->InsertNote($session{'uid'}, $notetext)
@@ -88,17 +88,13 @@ if ($newalias =~ /\S/ and MusicBrainz::IsSingleLineString($newalias))
 				<td><label>Artist:</label></td>
 				<td><a href="/artist/<% $ar->GetMBId %>.html"><% $ar->GetName %></a></td>
 			<tr>
-				<td><label for="editalias_newalias">New Alias:</label></td>
+				<td><label for="id_newartistalias">New Alias:</label></td>
 				<td>
-					<input type="text" name="newalias" id="editalias_newalias"
-						 onFocus="myOnFocus(this)" onBlur="myOnBlur(this)"
-						 size="40" maxlength="255"
-						 value="<% $artistname %>">
-					<script type="text/javascript">
-					<!--
-						af_writeButton(AF_BTN_ALIAS, 'newalias');
-					-->
-					</script></td>
+					<input type="text" name="newartistalias" id="id_newartistalias"
+						class="textfield" size="40" maxlength="255"
+						value="<% $artistname %>">
+					<& /comp/form/jsbutton, id=>"BTN_ARTIST|newartistalias" &>
+					</td>
 			</tr>
 			<tr>
 				<td>&nbsp;</td>
@@ -113,5 +109,5 @@ if ($newalias =~ /\S/ and MusicBrainz::IsSingleLineString($newalias))
 	</fieldset>
 </form>
 
-<& /comp/movefocus, "AddAliasForm", "newalias" &>
+<& /comp/movefocus, "AddAliasForm", "newartistalias" &>
 <& /comp/footer &>

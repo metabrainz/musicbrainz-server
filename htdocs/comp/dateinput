@@ -7,16 +7,13 @@ $id => undef
 
 <input type="text" name="<% $name_prefix %>_y" class="datefield" 
 % $m->out('id="' . encode_entities($id) . '"') if defined $id;
-		onFocus="myOnFocus(this)" onBlur="myOnBlur(this)"
 		size="4" maxlength="4"
 		value="<% $value->[0] %>" style="text-align: center;">
 
 <input type="text" name="<% $name_prefix %>_m" class="datefield"
-		onFocus="myOnFocus(this)" onBlur="myOnBlur(this)"
 		size="2" maxlength="2"
 		value="<% $value->[1] %>" style="text-align: center;">
 
 <input type="text" name="<% $name_prefix %>_d" class="datefield"
-		onFocus="myOnFocus(this)" onBlur="myOnBlur(this)"
 		size="2" maxlength="2"
 		value="<% $value->[2] %>" style="text-align: center;">

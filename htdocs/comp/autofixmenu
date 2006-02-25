@@ -1,43 +1,20 @@
-%# vi: set ts=2 sw=2 ft=mason :
-	<script type="text/javascript" src="/scripts/autofix.js"></script>
-	<script type="text/javascript" src="/scripts/autofix_commons.js"></script>
-	<script type="text/javascript" src="/scripts/autofix_functions.js"></script>
-	<script type="text/javascript" src="/scripts/autofix_searchreplace.js"></script>
-	<script type="text/javascript" src="/scripts/autofix_trackparser.js"></script>
+%# vi: set ts=4 sw=4 ft=mason :
 
-	<& /comp/framedboxbegin &>
-	<div id="autofixmenu" class="autofixmenu">
-		<table>
-			<tr>
-				<td>
-					<table cellspacing="0" cellpadding="0" border="0">
-						<tr>
-							<td width="120"><b>Style guides:</b></td>
-							<td nowrap><a href="/popup/styleguide.html" onClick="MyWindow=window.open('/popup/styleguide.html','StyleGuide','toolbar=no,location=no,directories=no,status=no,menubar=no,scrollbars=yes,resizable=yes,width=400,height=450'); return false;">General Style</a></td>
-							<td>&nbsp;|&nbsp;</td>
-							<td nowrap><a href="/popup/capguide.html" onClick="MyWindow=window.open('/popup/capguide.html','CapitalizationGuide','toolbar=no,location=no,directories=no,status=no,menubar=no,scrollbars=yes,resizable=yes,width=400,height=500'); return false;">Capitalization</a></td>
-							<td>&nbsp;|&nbsp;</td>
-							<td nowrap><a href="/popup/sortnameguide.html" onClick="MyWindow=window.open('/popup/sortnameguide.html','SortnameGuide','toolbar=no,location=no,directories=no,status=no,menubar=no,scrollbars=yes,resizable=yes,width=400,height=275'); return false;">Sortname</a></td>
-							<td>&nbsp;|&nbsp;</td>
-							<td nowrap><a href="/popup/attrguide.html" onClick="MyWindow=window.open('/popup/attrguide.html','AlbumAttributeGuide','toolbar=no,location=no,directories=no,status=no,menubar=no,scrollbars=yes,resizable=yes,width=400,height=275'); return false;">Album Attributes</a></td>
-						</tr>
-					</table></td>
-			</tr>
-			<tr>
-				<td>
-                    <!-- this table is shown when JS is enabled -->
-                    <script type="text/javascript">
-                    <!--
-% my $fOpen = UserPreference::get("autofix_open");
-% $fOpen =~ s/^([10])$/"$1"/ or $fOpen = 'null';
-                        af_writeGUI(<% $fOpen |n %>);
-                    -->
-                    </script>
-				</td>
-			</tr>
-		</table>
+	<div id="editsuite" class="editsuite">
+		<div id="editsuite-content" class="inner">
+			<table cellspacing="0" cellpadding="0" border="0" class="links">
+				<tr>
+					<td width="130"><b>Style guides:</b></td>
+					<td nowrap="nowrap"><a href="/popup/styleguide.html" id="POPUP|StyleGuide|400|450">General Style</a></td>
+					<td>|&nbsp;</td>
+					<td nowrap="nowrap"><a href="/popup/capguide.html" id="POPUP|CapitalizationGuide|400|500">Capitalization</a></td>
+					<td>|&nbsp;</td>
+					<td nowrap="nowrap"><a href="/popup/sortnameguide.html" id="POPUP|CapitalizationGuide|400|275">Sortname</a></td>
+					<td>|&nbsp;</td>
+					<td nowrap="nowrap"><a href="/popup/attrguide.html" id="POPUP|CapitalizationGuide|400|275">Album Attributes</a></td>
+				</tr>
+			</table>
+		</div>
+		<div id="editsuite-noscript" class="noscript"></div>
 	</div>
-
-	<& /comp/framedboxend &>
-
-
+	<script type="text/javascript" src="/scripts/editsuite.js"></script>

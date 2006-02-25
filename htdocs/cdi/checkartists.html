@@ -12,16 +12,16 @@ $args{"toc"} = $ARGS{"toc"};
 $args{"id"} = $ARGS{"id"};
 $args{"noncd"} = $ARGS{"noncd"};
 $args{"artist"} = $ARGS{"artist"};
-$args{"title"} = $ARGS{"title"};
+$args{"albumname"} = $ARGS{"albumname"};
 
-for (my $i = 0; $i < $ARGS{"tracks"}; $i++) 
+for (my $i = 0; $i < $ARGS{"tracks"}; $i++)
 {
     $args{"track$i"} = $ARGS{"track$i"};
     $args{"tracklength$i"} = $ARGS{"tracklength$i"};
     $args{"artistname$i"} = $ARGS{"artistname$i"};
     $args{"sortname$i"} = $ARGS{"sortname$i"};
     $args{"artist$i"} = $ARGS{"artist$i"};
-} 
+}
 
 if (exists $ARGS{"selectedartist"})
 {
@@ -30,7 +30,7 @@ if (exists $ARGS{"selectedartist"})
     delete $args{"artistname$i"};
     delete $args{"sortname$i"};
     $args{"track"} = ++$ARGS{"track"};
-    
+
 }
 elsif (exists $ARGS{"newartistname"} && exists $ARGS{"newartistsortname"})
 {
@@ -55,23 +55,23 @@ else
         $search = $ARGS{"artistname$i"};
         $track = $ARGS{"track$i"};
         $args{"track"} = $i++;
-        
+
         last if ($args{"track"} >= $args{"tracks"});
-        
+
         my $eng = SearchEngine->new($mb->{DBH}, "artist");
         $eng->Search(query => $search, limit => 2);
-        
+
         last if $eng->Rows != 1;
-            
+
         my $row = $eng->NextRow;
-        last if $row->{'artistname'} ne $search;  
+        last if $row->{'artistname'} ne $search;
     }
 }
 
 if ($args{"track"} >= $args{"tracks"})
 {
     delete $args{"track"};
-    return $m->comp("/cdi/selectattr.html", %args); 
+    return $m->comp("/cdi/selectattr.html", %args);
 }
 
 </%perl>
@@ -81,12 +81,12 @@ if ($args{"track"} >= $args{"tracks"})
 <fieldset>
         <legend>Select Artist for current track</legend>
         <div class="padleft">
-                Please search for the artist to whom you'd like to add the current track: 
+                Please search for the artist to whom you'd like to add the current track:
         </div>
 	<div class="padlefttop">
 		<div class="oldtextfield"><% $args{"track"} + 1 %>. <% $args{"artistname" . $args{"track"}} %> - <strong><% $track %></strong></div>
 	</div>
-</fieldset> 
+</fieldset>
 
 <& /comp/artistfilter,
 	search => $search,

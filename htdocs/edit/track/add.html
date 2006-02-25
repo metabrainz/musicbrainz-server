@@ -107,8 +107,10 @@ if ($newartistname =~ /\S/ and $newartistsortname =~ /\S/
 
 % unless ($search =~ /\S/) {
 
+<script type="text/javascript" src="/scripts/entervalidate.js"></script>
 <form method="post" action="/edit/track/add.html"
-	name="AddTrackForm">
+	name="AddTrackForm"
+	onsubmit="return validate(this);">
 
 	<& /comp/autofixmenu &>
 
@@ -132,20 +134,15 @@ if ($newartistname =~ /\S/ and $newartistsortname =~ /\S/
 					<label for="edittrack_trackname">New Track Name:</label></td>
 				<td>
 					<input 	type="text" name="tracknum" class="numberfield"
-							onFocus="myOnFocus(this)" onBlur="myOnBlur(this)"
 							size="2" value=""></td>
 				<td>
 					<input 	type="text" name="trackname" class="textfield"
 							id="edittrack_trackname"
-						 	onFocus="myOnFocus(this)" onBlur="myOnBlur(this)"
 						 	size="41" maxlength="255"
 						 	value=""></td>
 				<td>
-					<script type="text/javascript">
-					<!--
-						af_writeButton(AF_BTN_TRACK, 'trackname');
-					-->
-					</script></td>
+					<& /comp/form/jsbutton, id=>"BTN_TRACK|trackname" &>
+					</td>
 			</tr>
 			<tr>
 				<td>&nbsp;</td>
@@ -160,14 +157,10 @@ if ($newartistname =~ /\S/ and $newartistsortname =~ /\S/
 				<td colspan="2">
 					<input  type="text" name="search" class="textfield"
 							id="edittrack_search"
-							onFocus="myOnFocus(this)" onBlur="myOnBlur(this)"
 							size="50"></td>
 				<td>
-					<script type="text/javascript">
-					<!--
-						af_writeButton(AF_BTN_ARTIST, 'search');
-					-->
-					</script></td>
+					<& /comp/form/jsbutton, id=>"BTN_ARTIST|search" &>
+					</td>
 			</tr>
 % }
 

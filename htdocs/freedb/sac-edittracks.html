@@ -56,44 +56,26 @@ my $t = $session{"freedb_tracks"};
 				<td><label for="fdbsac_album">Album:</label></td>
 				<td><input 	type="text" name="album" class="textfield"
 							id="fdbsac_album"
-							onFocus="myOnFocus(this)" onBlur="myOnBlur(this)"
 							size="50"
 							value="<% $session{'freedb_album'} %>"></td>
-				<td><script type="text/javascript">
-					<!--
-						af_writeButton(AF_BTN_ALBUM, 'album');
-					-->
-					</script></td>
+				<td>
+					<& /comp/form/jsbutton, id=>"BTN_ALBUM|album" &></td>
 			</tr>
 % for my $i (0 .. $t-1) {
 			<tr>
 				<td><label for="fdbsac_track<% $i %>"><% $i+1 %>:</label></td>
 				<td><input 	type="text" name="track<% $i %>" class="textfield"
 							id="fdbsac_track<% $i %>"
-							onFocus="myOnFocus(this)" onBlur="myOnBlur(this)"
 							size="50"
 							value="<% $session{"freedb_track$i"} %>"></td>
-				<td><script type="text/javascript">
-					<!--
-						af_writeButton(AF_BTN_TRACK, 'track<% $i %>');
-					-->
-					</script></td>
+				<td>
+					<& /comp/form/jsbutton, id=>"BTN_TRACK|track".$i &></td>
 			</tr>
 % }
 			<tr>
 				<td>&nbsp;</td>
 				<td>&nbsp;</td>
-				<td><script type="text/javascript">
-					<!--
-						function doGuessAll(theForm) {
-							doAlbumName(theForm, 'album');
-							for (var i=0; i < <% $t %>; i++) {
-								doTrackName(theForm, 'track'+i);
-							}
-						}
-						af_writeButton(AF_BTN_ALL, AF_BTNTEXT_ALBUMANDTRACKS);
-					-->
-					</script></td>
+				<td><& /comp/form/jsbutton, id=>"BTN_ALL" &></td>
 			</tr>
 			<tr>
 				<td>&nbsp;</td>

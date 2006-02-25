@@ -1,7 +1,7 @@
 %# vi: set ts=2 sw=2 ft=mason :
 <%args>
 $id => ""
-$newname => ""
+$newartistalias => ""
 $notetext => ""
 </%args>
 <%perl>
@@ -26,11 +26,11 @@ $al->LoadFromId
 my $ar = $al->Parent;
 my $url = "/showaliases.html?artistid=" . $ar->GetId;
 
-if (MusicBrainz::IsSingleLineString($newname)
-	and $newname =~ /\S/)
+if (MusicBrainz::IsSingleLineString($newartistalias)
+	and $newartistalias =~ /\S/)
 {
 	return $m->comp("/comp/redirect", $url)
-		if $newname eq $al->GetName;
+		if $newartistalias eq $al->GetName;
 
 	$m->comp(
 		"/comp/entermods",
@@ -43,7 +43,7 @@ if (MusicBrainz::IsSingleLineString($newname)
 				type => &ModDefs::MOD_EDIT_ARTISTALIAS,
 				# --
 				alias => $al,
-				newname => $newname,
+				newname => $newartistalias,
 			);
 
 			$mods[0]->InsertNote($session{'uid'}, $notetext)
@@ -75,7 +75,7 @@ if (MusicBrainz::IsSingleLineString($newname)
 	<fieldset>
 		<legend>Edit Artist Alias</legend>
 		<div class="padleft">
-    		Please enter the corrected alias for this artist.&nbsp; 
+    		Please enter the corrected alias for this artist.&nbsp;
     		Please note that duplicate aliases are currently not allowed.&nbsp;
 		</div>
 		<div class="padtop"></div>
@@ -91,17 +91,13 @@ if (MusicBrainz::IsSingleLineString($newname)
 					<div class="oldtextfield"><% $al->GetName  %></div></td>
 			</tr>
 			<tr>
-				<td><label for="editalias_newname">New Value:</label></td>
+				<td><label for="id_newartistalias">New Value:</label></td>
 				<td>
-					<input type="text" name="newname" class="textfield" id="editalias_newname"
-						 onFocus="myOnFocus(this)" onBlur="myOnBlur(this)"
-						 size="40" maxlength="255"
-						 value="<% $al->GetName %>">
-					<script type="text/javascript">
-					<!--
-						af_writeButton(AF_BTN_ALIAS, 'newname');
-					-->
-					</script></td>
+					<input type="text" name="newartistalias" class="textfield" id="id_newartistalias"
+						class="textfield" size="40" maxlength="255"
+						value="<% $al->GetName %>">
+					<& /comp/form/jsbutton, id=>"BTN_ALIAS|newartistalias" &>
+					</td>
 			</tr>
 			<tr>
 				<td>&nbsp;</td>
@@ -119,5 +115,5 @@ if (MusicBrainz::IsSingleLineString($newname)
 	</fieldset>
 </form>
 
-<& /comp/movefocus, "EditArtistAliasForm", "newname" &>
+<& /comp/movefocus, "EditArtistAliasForm", "newartistalias" &>
 <& /comp/footer &>
