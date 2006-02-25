@@ -205,9 +205,9 @@ sub print_xml
 
 	print '<?xml version="1.0" encoding="UTF-8"?>';
 	print '<metadata xmlns="http://musicbrainz.org/ns/mmd-1.0#">';
-    print '<release-list>' if (scalar(@$albums));
+    print '<release-list>' if (scalar(@$albums) > 1);
     xml_release($ar, $_, $inc) foreach(@$albums);
-    print '</release-list>' if (scalar(@$albums));
+    print '</release-list>' if (scalar(@$albums) > 1);
 	print '</metadata>';
 }
 
