@@ -61,7 +61,7 @@ function EsSearchReplace() {
 
 	// search/replace presets
 	this.PRESETS_LIST = [
-		["Remove all round parantheses ()", "\\(|\\)", "", 1],
+		["Remove all round parentheses ()", "\\(|\\)", "", 1],
 		["Remove all square brackets []", "\\[|\\]", "", 1],
 		["Remove all curly braces {}", "\\{|\\}", "", 1],
 		["Remove all bracketing punctuation ()[]{}", "\\(|\\)|\\[|\\]|\\{|\\}", "", 1],

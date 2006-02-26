@@ -218,7 +218,7 @@ function GcOutput() {
 	};
 
 	/**
-	 * Work through the stack of opened parantheses and close them
+	 * Work through the stack of opened parentheses and close them
 	 **/
 	this.closeOpenBrackets = function() {
 		mb.log.enter(this.GID, "closeOpenBrackets");

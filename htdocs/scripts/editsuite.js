@@ -3736,6 +3736,8 @@ if(this.doAsterix()){
 }else{
 if(this.doDiamond()){
 }else{
+if(this.doPercent()){
+}else{
 if(this.doSlash()){
 }else{
 if(this.doDoubleQuote()){
@@ -3751,6 +3753,7 @@ if(this.doDigits()){
 if(this.doAcronym()){
 }else{
 this.doWord();
+}
 }
 }
 }
@@ -3841,6 +3844,19 @@ if(!gc.re.DIAMOND){
 gc.re.DIAMOND="#";
 }
 if(gc.i.matchCurrentWord(gc.re.DIAMOND)){
+gc.o.appendWordPreserveWhiteSpace({apply:true,capslast:true});
+gc.f.resetContext();
+gc.f.forceCaps=true;
+return mb.log.exit(true);
+}
+return mb.log.exit(false);
+};
+this.doPercent=function(){
+mb.log.enter(this.GID,"doPercent");
+if(!gc.re.PERCENT){
+gc.re.PERCENT="%";
+}
+if(gc.i.matchCurrentWord(gc.re.PERCENT)){
 gc.o.appendWordPreserveWhiteSpace({apply:true,capslast:true});
 gc.f.resetContext();
 gc.f.forceCaps=true;
@@ -4269,7 +4285,7 @@ return mb.log.exit(os);
 this.preProcessTitles=function(is){
 mb.log.enter(this.GID,"preProcessTitles");
 if(!gc.re.PREPROCESS_FIXLIST){
-gc.re.PREPROCESS_FIXLIST=[new GcFix("acapella variants, prepare for postprocess",/(\b|^)a\s?c+ap+el+a(\b)/i,"a_cappella"),new GcFix("re-mix -> remix",/(\b|^)re-mix(\b)/i,"remix"),new GcFix("remx -> remix",/(\b|^)remx(\b)/i,"remix"),new GcFix("re-mixes -> remixes",/(\b|^)re-mixes(\b)/i,"remixes"),new GcFix("re-make -> remake",/(\b|^)re-make(\b)/i,"remake"),new GcFix("re-makes -> remakes",/(\b|^)re-makes(\b)/i,"remakes"),new GcFix("re-edit variants, prepare for postprocess",/(\b|^)re-?edit(\b)/i,"re_edit"),new GcFix("RMX -> remix",/(\b|^)RMX(\b)/i,"remix"),new GcFix("alt.take -> alernate take",/(\b|^)alt[\.]? take(\b)/i,"alternate take"),new GcFix("instr. -> instrumental",/(\b|^)instr\.?(\b)/i,"instrumental"),new GcFix("altern. -> alternate",/(\b|^)altern\.?(\s|\)|$)/i,"alternate"),new GcFix("orig. -> original",/(\b|^)orig\.?(\s|\)|$)/i,"original"),new GcFix("Extendet -> extended",/(\b|^)Extendet(\b)/i,"extended"),new GcFix("extd. -> extended",/(\b|^)ext[d]?\.?(\s|\)|$)/i,"extended"),new GcFix("aka -> a.k.a.",/(\b|^)aka(\b)/i,"a.k.a."),new GcFix("/w -> ft. ",/(\s)[\/]w(\s)/i,"ft."),new GcFix("f. -> ft. ",/(\s)f\.(\s)/i,"ft."),new GcFix("Pt. -> Part",/(\b|^)Pt\.?()/i,"Part"),new GcFix("Pts. -> Parts",/(\b|^)Pts\.()/i,"Parts"),new GcFix("Vol. -> Volume",/(\b|^)Vol\.()/i,"Volume"),new GcFix("(Pt) -> , Part",/((,|\s|:|!)+)([\(\[])?\s*(Part|Pt)[\.\s#]*((\d|[ivx]|[\-&\s])+)([\)\]])?(\s|$)/i,"Part $5"),new GcFix("(Pts) -> , Parts",/((,|\s|:|!)+)([\(\[])?\s*(Parts|Pts)[\.\s#]*((\d|[ivx]|[\-&\s])+)([\)\]])?(\s|$)/i,"Parts $5"),new GcFix("(Vol) -> , Volume",/((,|\s|:|!)+)([\(\[])?\s*(Volume|Vol)[\.\s#]*((\d|[ivx]|[\-&\s])+)([\)\]])?(\s|$)/i,"Volume $5")];
+gc.re.PREPROCESS_FIXLIST=[new GcFix("re-mix -> remix",/(\b|^)re-mix(\b)/i,"remix"),new GcFix("remx -> remix",/(\b|^)remx(\b)/i,"remix"),new GcFix("re-mixes -> remixes",/(\b|^)re-mixes(\b)/i,"remixes"),new GcFix("re-make -> remake",/(\b|^)re-make(\b)/i,"remake"),new GcFix("re-makes -> remakes",/(\b|^)re-makes(\b)/i,"remakes"),new GcFix("re-edit variants, prepare for postprocess",/(\b|^)re-?edit(\b)/i,"re_edit"),new GcFix("RMX -> remix",/(\b|^)RMX(\b)/i,"remix"),new GcFix("alt.take -> alternate take",/(\b|^)alt[\.]? take(\b)/i,"alternate take"),new GcFix("instr. -> instrumental",/(\b|^)instr\.?(\b)/i,"instrumental"),new GcFix("altern. -> alternate",/(\b|^)altern\.?(\s|\)|$)/i,"alternate"),new GcFix("orig. -> original",/(\b|^)orig\.?(\s|\)|$)/i,"original"),new GcFix("vers. -> version",/(\b|^)vers\.(\s|\)|$)/i,"version"),new GcFix("Extendet -> extended",/(\b|^)Extendet(\b)/i,"extended"),new GcFix("extd. -> extended",/(\b|^)ext[d]?\.?(\s|\)|$)/i,"extended"),new GcFix("aka -> a.k.a.",/(\b|^)aka(\b)/i,"a.k.a."),new GcFix("/w -> ft. ",/(\s)[\/]w(\s)/i,"ft."),new GcFix("f. -> ft. ",/(\s)f\.(\s)/i,"ft."),new GcFix("A Capella preprocess",/(\b|^)a\s?c+ap+el+a(\b)/i,"a_cappella"),new GcFix("OC ReMix preprocess",/(\b|^)oc\sremix(\b)/i,"oc_remix"),new GcFix("Pt. -> Part",/(\b|^)Pt\.?()/i,"Part"),new GcFix("Pts. -> Parts",/(\b|^)Pts\.()/i,"Parts"),new GcFix("Vol. -> Volume",/(\b|^)Vol\.()/i,"Volume"),new GcFix("(Pt) -> , Part",/((,|\s|:|!)+)([\(\[])?\s*(Part|Pt)[\.\s#]*((\d|[ivx]|[\-&\s])+)([\)\]])?(\s|$)/i,"Part $5"),new GcFix("(Pts) -> , Parts",/((,|\s|:|!)+)([\(\[])?\s*(Parts|Pts)[\.\s#]*((\d|[ivx]|[\-&\s])+)([\)\]])?(\s|$)/i,"Parts $5"),new GcFix("(Vol) -> , Volume",/((,|\s|:|!)+)([\(\[])?\s*(Volume|Vol)[\.\s#]*((\d|[ivx]|[\-&\s])+)([\)\]])?(\s|$)/i,"Volume $5")];
 }
 var os=this.runFixes(is,gc.re.PREPROCESS_FIXLIST);
 mb.log.debug("After pre: $",os);
@@ -4278,7 +4294,7 @@ return mb.log.exit(os);
 this.runPostProcess=function(is){
 mb.log.enter(this.GID,"runPostProcess");
 if(!gc.re.POSTPROCESS_FIXLIST){
-gc.re.POSTPROCESS_FIXLIST=[new GcFix("a_cappella outside brackets",/(\b|^)A_cappella(\b)/,"A Cappella"),new GcFix("a_cappella inside brackets",/(\b|^)a_cappella(\b)/,"a cappella"),new GcFix("re_edit inside brackets",/(\b|^)Re_edit(\b)/,"re-edit"),new GcFix("whitespace in R&B",/(\b|^)R\s*&\s*B(\b)/i,"R&B"),new GcFix("[live] to (live)",/(\b|^)\[live\](\b)/i,"(live)"),new GcFix("Djs to DJs",/(\b|^)Djs(\b)/i,"DJs"),new GcFix("a.k.a. lowercase",/(\b|^)a.k.a.(\b)/i,"a.k.a.")];
+gc.re.POSTPROCESS_FIXLIST=[new GcFix("a_cappella outside brackets",/(\b|^)A_cappella(\b)/,"A Cappella"),new GcFix("a_cappella inside brackets",/(\b|^)a_cappella(\b)/,"a cappella"),new GcFix("oc_remix",/(\b|^)oc_remix(\b)/i,"OC ReMix"),new GcFix("re_edit inside brackets",/(\b|^)Re_edit(\b)/,"re-edit"),new GcFix("whitespace in R&B",/(\b|^)R\s*&\s*B(\b)/i,"R&B"),new GcFix("[live] to (live)",/(\b|^)\[live\](\b)/i,"(live)"),new GcFix("Djs to DJs",/(\b|^)Djs(\b)/i,"DJs"),new GcFix("a.k.a. lowercase",/(\b|^)a.k.a.(\b)/i,"a.k.a.")];
 }
 var os=this.runFixes(is,gc.re.POSTPROCESS_FIXLIST);
 if(is!=os){

@@ -66,7 +66,7 @@ function EsTrackParser() {
 		new EsModuleConfig(this.CFG_TRACKTIMES,
 						 true,
 						 "Detect track times ?:??",
-						 "The line is inspected for an occurence of numbers separated by a colon. If such a value is found the track time is read and removed from the track title. Round parantheses surrounding the time are removed as well."),
+						 "The line is inspected for an occurence of numbers separated by a colon. If such a value is found the track time is read and removed from the track title. Round parentheses surrounding the time are removed as well."),
 		new EsModuleConfig(this.CFG_STRIPBRACKETS,
 						 true,
 						 "Remove text in brackets [...]",
@@ -329,7 +329,7 @@ function EsTrackParser() {
 								mb.log.debug("Found artist: $", artistName);
 
 								if (swapArtistTrackWarning && artistName.match(/\(|\)|remix/gi)) {
-									this.showWarning("Track "+counter+": Possibly Artist/Tracknames swapped: Parantheses in Artist name!");
+									this.showWarning("Track "+counter+": Possibly Artist/Tracknames swapped: Parentheses in Artist name!");
 									swapArtistTrackWarning = false;
 								}
 								parts[0] = ""; // set artist element empty, such that first iteration is run in the loop.

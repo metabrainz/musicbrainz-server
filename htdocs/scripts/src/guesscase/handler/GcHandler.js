@@ -73,6 +73,7 @@ function GcHandler() {
 			} else if (this.doPeriod()) {
 			} else if (this.doAsterix()) {
 			} else if (this.doDiamond()) {
+			} else if (this.doPercent()) {
 			} else if (this.doSlash()) {
 			} else if (this.doDoubleQuote()) {
 			} else if (this.doSingleQuote()) {
@@ -191,6 +192,24 @@ function GcHandler() {
 		}
 		return mb.log.exit(false);
 	};
+	
+	/**
+	 * Deal with percent signs (%)
+	 * TODO: lots of methods for special chars look the same, combine?
+	 **/
+	this.doPercent = function() {
+		mb.log.enter(this.GID, "doPercent");
+		if (!gc.re.PERCENT) {
+			gc.re.PERCENT = "%";
+		}
+		if (gc.i.matchCurrentWord(gc.re.PERCENT)) {
+			gc.o.appendWordPreserveWhiteSpace({apply: true, capslast: true});
+			gc.f.resetContext();
+			gc.f.forceCaps = true;
+			return mb.log.exit(true);
+		}
+		return mb.log.exit(false);
+	};	
 
 	/**
 	 * Deal with ampersands (&)
@@ -678,7 +697,7 @@ function GcHandler() {
 	};
 
 	/**
-	 * Pre-process to find any lowercase_bracket word that needs to be put into parantheses.
+	 * Pre-process to find any lowercase_bracket word that needs to be put into parentheses.
 	 * starts from the back and collects words that belong into
 	 * the brackets: e.g.
 	 * My Track Extended Dub remix => My Track (extended dub remix)
@@ -779,7 +798,6 @@ function GcHandler() {
 		mb.log.enter(this.GID, "preProcessTitles");
 		if (!gc.re.PREPROCESS_FIXLIST) {
 			gc.re.PREPROCESS_FIXLIST = [
-				new GcFix("acapella variants, prepare for postprocess", /(\b|^)a\s?c+ap+el+a(\b)/i, "a_cappella" ), // make a cappella one word, it is expanded in post-processing
 				new GcFix("re-mix -> remix", /(\b|^)re-mix(\b)/i, "remix" ),
 				new GcFix("remx -> remix", /(\b|^)remx(\b)/i, "remix" ),
 				new GcFix("re-mixes -> remixes", /(\b|^)re-mixes(\b)/i, "remixes" ),
@@ -787,16 +805,23 @@ function GcHandler() {
 				new GcFix("re-makes -> remakes", /(\b|^)re-makes(\b)/i, "remakes" ),
  				new GcFix("re-edit variants, prepare for postprocess", /(\b|^)re-?edit(\b)/i, "re_edit" ),
 				new GcFix("RMX -> remix", /(\b|^)RMX(\b)/i, "remix" ),
-				new GcFix("alt.take -> alernate take", /(\b|^)alt[\.]? take(\b)/i, "alternate take"),
+				new GcFix("alt.take -> alternate take", /(\b|^)alt[\.]? take(\b)/i, "alternate take"),
 				new GcFix("instr. -> instrumental", /(\b|^)instr\.?(\b)/i, "instrumental"),
 				new GcFix("altern. -> alternate", /(\b|^)altern\.?(\s|\)|$)/i, "alternate" ),
 				new GcFix("orig. -> original", /(\b|^)orig\.?(\s|\)|$)/i, "original" ),
+				new GcFix("vers. -> version", /(\b|^)vers\.(\s|\)|$)/i, "version" ),
 				new GcFix("Extendet -> extended", /(\b|^)Extendet(\b)/i, "extended" ),
 				new GcFix("extd. -> extended", /(\b|^)ext[d]?\.?(\s|\)|$)/i, "extended" ),
 				new GcFix("aka -> a.k.a.", /(\b|^)aka(\b)/i, "a.k.a." ),
 				new GcFix("/w -> ft. ", /(\s)[\/]w(\s)/i, "ft." ),
 				new GcFix("f. -> ft. ", /(\s)f\.(\s)/i, "ft." ),
-
+				
+				// combined word hacks, e.g. replace spaces with underscores,
+				// (e.g. "a cappella" -> a_capella), such that it can be handled
+				// correctly in post-processing
+				new GcFix("A Capella preprocess", /(\b|^)a\s?c+ap+el+a(\b)/i, "a_cappella" ), 
+				new GcFix("OC ReMix preprocess", /(\b|^)oc\sremix(\b)/i, "oc_remix" ), 
+				
 				// Handle Part/Volume abbreviations
 				new GcFix("Pt. -> Part", /(\b|^)Pt\.?()/i, "Part" ),
 				new GcFix("Pts. -> Parts", /(\b|^)Pts\.()/i, "Parts" ),
@@ -826,9 +851,14 @@ function GcHandler() {
 		mb.log.enter(this.GID, "runPostProcess");
 		if (!gc.re.POSTPROCESS_FIXLIST) {
 			gc.re.POSTPROCESS_FIXLIST = [
+				
+				// see combined words hack in preProcessTitles
 				new GcFix("a_cappella outside brackets", /(\b|^)A_cappella(\b)/, "A Cappella"),
 				new GcFix("a_cappella inside brackets", /(\b|^)a_cappella(\b)/, "a cappella"),
+				new GcFix("oc_remix", /(\b|^)oc_remix(\b)/i, "OC ReMix"),
 				new GcFix("re_edit inside brackets", /(\b|^)Re_edit(\b)/, "re-edit"),
+
+				// TODO: check if needed?				
 				new GcFix("whitespace in R&B", /(\b|^)R\s*&\s*B(\b)/i, "R&B"),
 				new GcFix("[live] to (live)", /(\b|^)\[live\](\b)/i, "(live)"),
 				new GcFix("Djs to DJs", /(\b|^)Djs(\b)/i, "DJs"),
@@ -864,11 +894,11 @@ function GcHandler() {
 					mb.log.debug('Applying fix: $ (replace: $)', fixName, replace);
 					is = is.replace(find, replace);
 				} else if ((matcher = is.match(find)) != null) {
-					// get reference to first set of parantheses
+					// get reference to first set of parentheses
 					var a = matcher[1]; 
 					a = (mb.utils.isNullOrEmpty(a) ? "" : a);
 
-					// get reference to last set of parantheses
+					// get reference to last set of parentheses
 					var b = matcher[matcher.length-1];  
 					b = (mb.utils.isNullOrEmpty(b) ? "" : b);
 
@@ -1183,7 +1213,7 @@ function GcHandler() {
 	};
 
 	/**
-	 * Detect featuring,f., ft[.], feat[.] and add parantheses as needed.
+	 * Detect featuring,f., ft[.], feat[.] and add parentheses as needed.
 	 * g0llum		2005-11-10		added ^f\.$ to cases
 	 * 								which are added converted to feat.
 	 * ---------------------------------------------------
@@ -1204,7 +1234,7 @@ function GcHandler() {
 			if (!gc.f.openingBracket) {
 				mb.log.debug('Matched feat., but previous word is not a closing bracket.');
 				if (gc.f.isInsideBrackets()) {
-					// close open parantheses before the feat. part.
+					// close open parentheses before the feat. part.
 					var closebrackets = new Array();
 					while (gc.f.isInsideBrackets()) {
 						// close brackets that were opened before
@@ -1220,9 +1250,9 @@ function GcHandler() {
 				}
 				// handle case:
 				// Blah ft. Erroll Flynn Some Remixname remix
-				// -> pre-processor added parantheses such that the string is:
+				// -> pre-processor added parentheses such that the string is:
 				// Blah ft. erroll flynn Some Remixname (remix)
-				// -> now there are parantheses needed before remix, we can't
+				// -> now there are parentheses needed before remix, we can't
 				//    guess where the artist name ends, and the remixname starts
 				//    though :]
 				// Blah (feat. Erroll Flynn Some Remixname) (remix)
