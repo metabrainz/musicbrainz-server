@@ -2896,17 +2896,18 @@ function GcModes(){
 mb.log.enter("GcModes","__constructor");
 this.CN="GcModes";
 this.GID="es.gc.modes";
-this.DE="de";
 this.EN="en";
+this.XX="xx";
+this.DE="de";
 this.ES="es";
 this.FR="fr";
 this.IT="it";
 this.NO="no";
 this.MODES_DROPDOWN="GC_MODES_DROPDOWN";
-this.STANDARD_TEXT="Standard mode, according to the [url]Style Guideline[/url]";
-this.SENTENCECAPS_TEXT="First word titled, lowercase for <i>most</i> of the other words. Read the [url]guideline[/url] for more details.";
+this.DEFAULT_TEXT="Read the [url]description[/url] for more details.";
+this.SENTENCECAPS_TEXT="First word titled, lowercase for <i>most</i> of the other words. Read the [url]description[/url] for more details.";
 this.MODES_INDEX=0;
-this.MODES_LIST=[new GcMode(this,"Standard (English)",this.EN,this.STANDARD_TEXT,"http://wiki.musicbrainz.org/StyleGuideline"),new GcMode(this,"German",this.DE,this.SENTENCECAPS_TEXT,"http://wiki.musicbrainz.org/CapitalizationStandardGerman"),new GcMode(this,"French",this.FR,this.SENTENCECAPS_TEXT,"http://wiki.musicbrainz.org/CapitalizationStandardFrench"),new GcMode(this,"Italian",this.IT,this.SENTENCECAPS_TEXT,"http://wiki.musicbrainz.org/CapitalizationStandardItalian"),new GcMode(this,"Norwegian",this.NO,this.SENTENCECAPS_TEXT,"http://wiki.musicbrainz.org/CapitalizationStandardNorwegian"),new GcMode(this,"Classical mode",this.IT,"Work in progress, will implement [url][/url]","http://wiki.musicbrainz.org/GuessCaseModeClassical")];
+this.MODES_LIST=[new GcMode(this,"Default (English)",this.EN,this.DEFAULT_TEXT,"http://wiki.musicbrainz.org/GuessCaseMode/DefaultMode"),new GcMode(this,"SentenceMode",this.XX,this.SENTENCECAPS_TEXT,"http://wiki.musicbrainz.org/GuessCaseMode/SentenceMode")];
 this.getDefaultMode=function(){
 mb.log.enter(this.GID,"getDefaultMode");
 if(!this.DEFAULT_MODE){
