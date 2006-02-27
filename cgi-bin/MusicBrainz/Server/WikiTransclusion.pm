@@ -25,24 +25,23 @@
 
 package MusicBrainz::Server::WikiTransclusion;
 
-use TableBase;
-{ our @ISA = qw( TableBase Exporter ) }
+{ our @ISA = qw( Exporter ) }
 
 use strict;
 use Carp qw( cluck croak );
 use Encode qw( encode decode );
 use DBDefs;
 use MusicBrainz::Server::Cache;
+use MusicBrainz::Server::Replication ':replication_type';
+use LWP::Simple;
 
 use constant WIKIDOCS_INDEX => "wikidocs-index";
-use constant CACHE_INTERVAL => 10*60;
+use constant CACHE_INTERVAL => 60 * 60;
 
 sub new
 {
 	my $class = shift;
-	my $self = $class->SUPER::new(@_);
-
-	return $self;
+    bless { }, ref($class) || $class;
 }
 
 sub GetPage
@@ -65,27 +64,44 @@ sub SetRevision
 	$_[0]->{revision} = $_[1];
 }
 
-# This function is probably not going to be called anymore
-sub LoadFromName
+sub ParseDocument
 {
-	my $self = shift;
+    my ($self, $data) = @_;
 
-	my $sql = Sql->new($self->{DBH});
+    my $index = { };
+    foreach my $line (split(/\n/, $data))
+    {
+        my ($doc, $rev) = split(/=/, $line);
 
-	my $row = $sql->SelectSingleRowArray(
-		  "SELECT	id, page, revision "
-		. "FROM		wiki_transclusion "
-		. "WHERE	page = ?",
-		$self->{page},
-	) or return undef;
+        $index->{$doc} = $rev;
+    }
+    return $index;
+}
 
-    print STDERR "Found transcluded page\n";
+sub LoadIndexFromDisk
+{
+    my ($self) = @_;
 
-	$self->{id}				= $row->[0];
-	$self->{page}		    = $row->[1];
-	$self->{revision}			= $row->[2];
+    if (!open(FH, &DBDefs::WIKITRANS_INDEX_FILE))
+    {
+        print STDERR "ERROR: Could not open wikitrans index file.\n";
+        # oops, we blew it for this user -- the file is locked
+        return undef;
+    }
 
-	return 1;
+    my $data = <FH>;
+    close FH;
+
+    return $self->ParseDocument($data);
+}
+
+sub LoadIndexFromMaster
+{
+    my ($self) = @_;
+
+    my $data = get(&DBDefs::WIKITRANS_INDEX_URL);
+    return undef if (!defined $data);
+    return $self->ParseDocument($data);
 }
 
 sub GetPageIndex
@@ -93,44 +109,22 @@ sub GetPageIndex
     my $self = shift;
     my $index;
 
-    if ($index = MusicBrainz::Server::Cache->get(WIKIDOCS_INDEX))
+    # Get index from cache, if we have it
+    if (!($index = MusicBrainz::Server::Cache->get(WIKIDOCS_INDEX)))
     {
-        return $index;
+        if (&DBDefs::REPLICATION_TYPE == RT_SLAVE)
+        {
+            $index = $self->LoadIndexFromMaster;
+        }
+        else
+        {
+            $index = $self->LoadIndexFromDisk;
+        }
+        return undef unless $index;
     }
 
-    print STDERR "Reload page index\n";
-	my $sql = Sql->new($self->{DBH});
-	my $list = $sql->SelectListOfHashes(
-		  "SELECT	id, page, revision FROM	wiki_transclusion ORDER BY page "
-	) or return undef;
-
-    $index = {};
-    foreach my $item (@{$list})
-    {
-        $index->{$item->{'page'}} = $item->{'revision'};
-    }
-
-    MusicBrainz::Server::Cache->set(WIKIDOCS_INDEX, $index, CACHE_INTERVAL);
-
+    MusicBrainz::Server::Cache->set(WIKIDOCS_INDEX, $index);
     return $index;
-}
-
-sub Add
-{
-	my $self = shift;
-
-    return 0 if (!defined($self->{page}) || !defined($self->{revision}));
-
-	my $sql = Sql->new($self->{DBH});
-    $sql->AutoCommit();
-	$sql->Do(
-		"INSERT INTO wiki_transclusion (page, revision) values (?, ?)",
-		$self->{page}, $self->{revision}
-    ) or return 0;
-
-    $self->ClearCache();
-
-    1;
 }
 
 sub Update
@@ -139,16 +133,11 @@ sub Update
 
     return 0 if (!defined($self->{page}) || !defined($self->{revision}));
 
-	my $sql = Sql->new($self->{DBH});
-    $sql->AutoCommit();
-	$sql->Do(
-		"UPDATE wiki_transclusion SET revision = ? WHERE page = ?",
-		$self->{revision}, $self->{page}
-    ) or return 0;
+    my $index = $self->GetPageIndex;
+    return 0 if (!defined $index);
 
-    $self->ClearCache();
-
-    1;
+    $index->{$self->{page}} = $self->{revision};
+    return $self->SaveIndex($index);
 }
 
 sub Delete
@@ -157,32 +146,35 @@ sub Delete
 
     return undef if !defined($self->{page});
 
-    # Clear out the cache BEFORE the delete, in case the index cache
-    # entry is out of date and has to be refetched during the cache deletion
-    $self->ClearCache();
+    my $index = $self->GetPageIndex;
+    return 0 if (!defined $index);
 
-	# Delete the data
-	my $sql = Sql->new($self->{DBH});
-    $sql->AutoCommit();
-	$sql->Do(
-		"DELETE FROM wiki_transclusion WHERE page = ?",
-		$self->{page},
-	);
+    delete($index->{$self->{page}});
+    return $self->SaveIndex($index);
 }
 
-sub ClearCache
+sub SaveIndex
 {
-	my $self = shift;
+	my ($self, $index) = @_;
 
-    return undef if !defined($self->{page});
+    return undef if !defined($self->{page} || &DBDefs::REPLICATION_TYPE == RT_SLAVE);
 
-    print STDERR "Clear cache\n";
-    my $list = $self->GetPageIndex();
-    foreach my $page (keys %$list)
+    MusicBrainz::Server::Cache->set(WIKIDOCS_INDEX, $index);
+
+    # TODO: flock this -- it wont be used much and the chances or collisions are slim
+    # Write it to disk
+    if (!open(FH, ">" . &DBDefs::WIKITRANS_INDEX_FILE))
     {
-        MusicBrainz::Server::Cache->delete("wikidocs-".$page);
+        print STDERR "ERROR: Could not open wikitrans index file for writing.\n";
+        # oops, we blew it for this user -- the file is locked
+        return undef;
     }
-    MusicBrainz::Server::Cache->delete(WIKIDOCS_INDEX);
+
+    foreach my $k (keys %$index)
+    {
+        print FH "$k=".$index->{$k}."\n";
+    }
+    close FH;
 }
 
 1;

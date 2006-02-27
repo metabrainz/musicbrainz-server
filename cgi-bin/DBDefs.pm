@@ -97,8 +97,6 @@ sub REPLICATION_TYPE { RT_STANDALONE }
 # To use a port number other than 80, add it like so: "myhost:8000"
 sub WEB_SERVER	     { "www.musicbrainz.example.com" }
 sub RDF_SERVER	     { "rdf.musicbrainz.example.com" }
-sub WIKIDOC_SERVER   { "wikidocs.musicbrainz.org" }
-sub WIKITRANS_SERVER { "wiki.musicbrainz.org" }
 sub LUCENE_SERVER    { "search.musicbrainz.org" }
 
 ################################################################################
@@ -119,7 +117,13 @@ sub DEBUG_MAIL_SPOOL { undef }
 sub SMTP_SECRET_CHECKSUM { "" }
 sub EMAIL_VERIFICATION_TIMEOUT { 604800 } # one week
 
-
+################################################################################
+# Documentation Server Settings
+################################################################################
+sub WIKIDOC_SERVER	 { "wikidocs.musicbrainz.org" }
+sub WIKITRANS_SERVER	 { "wiki.musicbrainz.org" }
+sub WIKITRANS_INDEX_FILE { MB_SERVER_ROOT() . "/htdocs/generated/wikitrans-index" }
+sub WIKITRANS_INDEX_URL  { "http://musicbrainz.org/generated/wikitrans-index" }
 
 ################################################################################
 # Cache Settings
