@@ -211,10 +211,6 @@ FOR EACH ROW EXECUTE PROCEDURE "recordchange" ();
 
 -- Not replicated: vote_closed, vote_open
 
-CREATE TRIGGER "reptg_wiki_transclusion" 
-AFTER INSERT OR DELETE OR UPDATE ON "wiki_transclusion"
-FOR EACH ROW EXECUTE PROCEDURE "recordchange" ();
-
 CREATE TRIGGER "reptg_wordlist" 
 AFTER INSERT OR DELETE OR UPDATE ON "wordlist"
 FOR EACH ROW EXECUTE PROCEDURE "recordchange" ();

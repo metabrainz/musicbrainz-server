@@ -58,7 +58,6 @@ DROP TRIGGER "reptg_trm" ON "trm";
 DROP TRIGGER "reptg_trmjoin" ON "trmjoin";
 DROP TRIGGER "reptg_url" ON "url";
 -- Not replicated: vote_closed, vote_open
-DROP TRIGGER "reptg_wiki_transclusion" ON "wiki_transclusion";
 DROP TRIGGER "reptg_wordlist" ON "wordlist";
 
 -- vi: set ts=4 sw=4 et :

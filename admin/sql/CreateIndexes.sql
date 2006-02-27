@@ -151,8 +151,6 @@ CREATE INDEX vote_closed_idx_moderator ON vote_closed (moderator);
 CREATE INDEX vote_open_idx_moderation ON vote_open (moderation);
 CREATE INDEX vote_open_idx_moderator ON vote_open (moderator);
 
-CREATE UNIQUE INDEX wiki_transclusion_page ON wiki_transclusion (page);
-
 CREATE UNIQUE INDEX wordlist_wordindex ON wordlist (word);
 
 -- vi: set ts=4 sw=4 et :

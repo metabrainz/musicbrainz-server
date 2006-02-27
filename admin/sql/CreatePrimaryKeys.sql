@@ -66,7 +66,6 @@ ALTER TABLE trmjoin_stat ADD CONSTRAINT trmjoin_stat_pkey PRIMARY KEY (id);
 ALTER TABLE url ADD CONSTRAINT url_pkey PRIMARY KEY (id);
 ALTER TABLE vote_closed ADD CONSTRAINT vote_closed_pkey PRIMARY KEY (id);
 ALTER TABLE vote_open ADD CONSTRAINT vote_open_pkey PRIMARY KEY (id);
-ALTER TABLE wiki_transclusion ADD CONSTRAINT wiki_transclusion_pkey PRIMARY KEY (id);
 ALTER TABLE wordlist ADD CONSTRAINT wordlist_pkey PRIMARY KEY (id);
 
 -- vi: set ts=4 sw=4 et :
