@@ -42,7 +42,7 @@ GetOptions(
 	"help|h"       		=> \$fHelp,
 	"ignore-errors|i!"	=> \$fIgnoreErrors,
 	"tmp-dir|t=s"		=> \$tmpdir,
-	"fix-broken-utf8"  => \$fFixUTF8,
+	"fix-broken-utf8"	=> \$fFixUTF8,
 );
 
 sub usage
@@ -231,6 +231,8 @@ sub ImportTable
 	eval
 	{
 		open(LOAD, "<", $file) or die "open $file: $!";
+
+		# Huh?  Surely we want the same mode whatever we're doing?
 		binmode(LOAD) if $fFixUTF8;
 
 		# If you're looking at this code because your import failed, maybe
@@ -250,6 +252,13 @@ sub ImportTable
 		
 		while (<LOAD>)
 		{
+			# Are you sure this works?
+			# If --fix-broken-utf8 is off, we write $_ (which we hope is UTF-8 bytes);
+			# If it's on, then we may write $t (a UTF-8 string, not bytes);
+			# or, we may write $fixed (which is iso-8859-1 bytes).
+			# All seems a bit inconsistent.  Surely the $dbh layer is expecting one
+			# particular thing (which AFAIK is UTF-8 bytes), and we should always send that?
+
 			if ($fFixUTF8) {
 				require Encode;
 				$t = Encode::decode("UTF-8", $_);
