@@ -176,9 +176,9 @@ sub CreateRelations
 	if ($import)
     {
 		local $" = " ";
-        my $opts = "--ignore-errors";
-        $opts .= "--fix-broken-utf8" if ($fFixUTF8);
-        system($^X, "$FindBin::Bin/MBImport.pl", $opts, @$import);
+        my @opts = "--ignore-errors";
+        push @opts, "--fix-broken-utf8" if ($fFixUTF8);
+        system($^X, "$FindBin::Bin/MBImport.pl", @opts, @$import);
         die "\nFailed to import dataset.\n" if ($? >> 8);
     } else {
 		RunSQLScript("InsertDefaultRows.sql", "Adding default rows ...");
@@ -281,7 +281,7 @@ Options are:
                         (DBDefs::REPLICATION_TYPE==RT_MASTER).  PATH specifies
                         the path to "pending.so" (on the database server).
 	 --fix-broken-utf8  replace invalid UTF-8 byte sequences with their
-	                    equivalent perl \x{...} notation in ISO-8859-1.
+	                    equivalent perl \\x{...} notation in ISO-8859-1.
 						(Should only be used, when an import without the option
 						fails with an "ERROR:  invalid UTF-8 byte sequence detected"!
 						see also MBImport.pl)
