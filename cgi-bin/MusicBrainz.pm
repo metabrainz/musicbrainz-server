@@ -256,6 +256,14 @@ sub NormaliseSortText
 }
 *NormalizeSortText = \&NormaliseSortText;
 
+sub normalize
+{
+    my $t = $_[0];
+    $t =~ s/[^\w\d ]/ /g;
+    $t =~ s/ +/ /g;
+    $t;
+}
+
 # Append some data to a file.  Create the file if necessary.
 
 use Fcntl 'LOCK_EX';
