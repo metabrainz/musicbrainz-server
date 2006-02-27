@@ -64,28 +64,46 @@ my $private_str = sprintf "%d anonymous subscriber%s",
 
 </%perl>
 
-<h2>Editors subscribed to this artist</h2>
-
-% if (@public) {
-
-<p>
-<%perl>
-my $i = 0;
-for (@public)
-{
-	my ($uid, $name) = @$_;
-	$m->out(", ") if $i;
-	</%perl><a href="/user/view.html?uid=<% $uid %>"><% $name %></a><%perl>
-	++$i;
-}
-$m->out(" plus $private_str") if $private;
-</%perl>
-.</p>
-
-% } elsif ($private) {
-<p><% $private_str %></p>
-% } else {
-<p>None</p>
-% }
+	<& /comp/tablebegin, title=>'Editors subscribed to this artist', gattrs => "width='100%'" &> 
+	<table width="100%" cellspacing="0" cellpadding="0">
+		<tr>
+			<td style="padding: 0px 4px">
+				<%perl>
+					if (@public) 
+					{
+						my $i = 0;
+						for (@public)
+						{
+							my ($uid, $name) = @$_;
+							$m->out(", ") if $i;
+							$m->out(qq|<a href="/user/view.html?uid=$uid">$name</a>|);
+							++$i;
+						}
+						$m->out(" plus $private_str") if $private;
+						$m->out(".");
+					}
+					elsif ($private) 
+					{
+						$m->out($private_str);
+					} 
+					else 
+					{
+						$m->out("none");
+					}
+				</%perl>
+			</td>
+		</tr>
+		<tr>
+			<td align="center">
+				&nbsp;<br/>
+				<a href="/user/subscribe.html?artistid=<% $artist->GetId %>"
+					>Subscribe to this artist</a> | 
+				<a href="/user/subscribe.html?artistid=<% $artist->GetId %>&unsubscribe=1"
+					>Unsubscribe from this artist</a>
+  
+			</td>
+		</tr>
+	</table>
+	<& /comp/tableend &> 
 
 <& /comp/footer &>

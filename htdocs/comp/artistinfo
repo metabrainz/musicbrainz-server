@@ -48,7 +48,9 @@ $artist
 % if (exists $session{user} and $artist->GetId != &ModDefs::VARTIST_ID and $artist->GetId != &ModDefs::DARTIST_ID) {
     <center>
 			<a href="/user/subscribe.html?artistid=<% $artist->GetId %>"
-				>Subscribe to this artist</a>
+				>Subscribe to this artist</a> | 
+			<a href="/user/subscribe.html?artistid=<% $artist->GetId %>&unsubscribe=1"
+				>Unsubscribe from this artist</a>
     </center>
 % }
 
