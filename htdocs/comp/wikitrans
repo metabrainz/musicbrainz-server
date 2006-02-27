@@ -13,13 +13,21 @@ my $wt = MusicBrainz::Server::WikiTransclusion->new($mb->{DBH});
 #	$page =~ s[<a href="/read/(\w+)">][<a href="/wd/$1">]g;
 
 my $index = $wt->GetPageIndex();
+if (!defined $index)
+{
+    </%perl>
+    <p><b>Error:</b> The documentation index is currently not avilable. Please try again in a moment.</p>
+    <%perl>
+    return;
+}
+
 my $iswd = exists($index->{$id}) ? 1 : 0;
 my $ok = 0;
 
 # Check to see if we have the document in the cache
 my $key = "wikidocs-$id";
 my $page;
-if (0) #$page = MusicBrainz::Server::Cache->get($key))
+if ($page = MusicBrainz::Server::Cache->get($key))
 {
     $m->print($page);
     return undef;
@@ -36,7 +44,6 @@ if ( $response->is_success )
 {
     $page = $response->content;
 
-    print STDERR "$page\n\n";
     if ($page =~ /<!-- Transclusion/)
     {
         $m->comp('/comp/error',

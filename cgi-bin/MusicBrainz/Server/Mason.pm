@@ -102,7 +102,7 @@ sub get_handler
 		compiler			=> $compiler,
 		comp_root			=> &DBDefs::HTDOCS_ROOT,
 		data_dir			=> &DBDefs::MASON_DIR,
-		preloads			=> preload_files(),
+#		preloads			=> preload_files(),
 		apache_status_title	=> __PACKAGE__." status",
 		error_mode			=> (&DBDefs::DB_STAGING_SERVER ? "output" : "fatal"),
 	);

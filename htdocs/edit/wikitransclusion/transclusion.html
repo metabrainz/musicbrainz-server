@@ -9,51 +9,18 @@ $revision=>''
 $m->comp("/comp/checkloggedin", 1, 1)
 	or return;
 
-my $mb = $m->comp("/comp/dblogin");
-
 </%perl>
 <& /comp/sidebar, title => 'Wiki Transclusions' &>
 
-%#% if (!UserStuff->IsWikiTranscluder($session{privs})) {
-%#    <p><span style="color: red;">Error:</span> You must be a wiki transclusion editor to use this page.</p>
-%#    <& /comp/footer &>
-%#%   return undef;
-%#% }
+% if (!UserStuff->IsWikiTranscluder($session{privs})) {
+    <p><span style="color: red;">Error:</span> You must be a wiki transclusion editor to use this page.</p>
+    <& /comp/footer &>
+%   return undef;
+% }
 
 <%perl>
 
-my $wt = MusicBrainz::Server::WikiTransclusion->new($mb->{DBH});
-
-if ($action eq 'add')
-{
-   $m->out('<p class="notice">');
-   if (!$page || !$revision)
-   {
-       $m->out("Error: To add a transclusion page, you must provide the page and the revision.\n\n");
-   }
-   else
-   {
-       $wt->SetPage($page);
-       $wt->SetRevision($revision);
-       if ($wt->LoadFromName())
-       {
-           $m->out("Page $page has already been transcluded.");
-       }
-       else
-       {
-           if ($wt->Add())
-           {
-               $m->out("Added page $page with revision $revision.");
-           }
-           else
-           {
-               $m->out("Could not add new page $page");
-           }
-       }
-   }
-   $m->out('</p>');
-}
-
+my $wt = MusicBrainz::Server::WikiTransclusion->new();
 if ($action eq 'remove')
 {
    $m->out('<p class="notice">');
@@ -70,16 +37,16 @@ if ($action eq 'remove')
        }
        else
        {
-           $m->out("Could not delete page $page");
+           $m->out("Could not delete page $page -- please try again in a moment.");
        }
    }
    $m->out('</p>');
 }
 
-if ($action eq 'edit')
+if ($action eq 'update')
 {
    $m->out('<p class="notice">');
-   if (!$page)
+   if (!$page || !$revision)
    {
        $m->out("Error: To edit a transclusion page, you must provide the page and the revision.\n\n");
    }
@@ -89,11 +56,11 @@ if ($action eq 'edit')
        $wt->SetRevision($revision);
        if ($wt->Update())
        {
-           $m->out("Page $page has been updated to revision $revision and removed from the page cache.");
+           $m->out("Page $page has been set to revision $revision and the index has been reloaded.");
        }
        else
        {
-           $m->out("Could not upate page $page");
+           $m->out("Could not update page $page -- please try again in a moment.");
        }
    }
    $m->out('</p>');
@@ -144,7 +111,7 @@ Enter the name and the revision of the wiki page to transclude:
   <p>
   Page: <input type="text" name="page" size="20">
   Rev: <input type="text" name="revision" size="3">
-  <input type="hidden" name="action" value="add">
+  <input type="hidden" name="action" value="update">
   <input type="submit" name="submit" value="Add">
   </p>
 </form>
