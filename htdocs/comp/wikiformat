@@ -19,4 +19,8 @@ annotations and should not interfere with the rest of the page layout.
 <b>Links</b>
 <br>
 &nbsp;&nbsp; url; [url]; [url|label]
+<br/>
+<b>Misc</b>
+<br>
+To use brackets [] in a name (e.g. [unknown]) without making interwiki links, use &amp;#91; for [ and &amp;#93; for ]"
 </p>
