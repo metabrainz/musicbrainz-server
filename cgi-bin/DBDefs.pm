@@ -186,7 +186,7 @@ sub MOD_PERIOD { '1 week' }
 sub MOD_PERIOD_GRACE { '1 week' }
 
 # Defines the number of unanimous votes required to pass a moderation early
-sub NUM_UNANIMOUS_VOTES { 5 }
+sub NUM_UNANIMOUS_VOTES { 3 }
 
 # If this file exists (and is writeable by the web server), debugging
 # information is logged here.
