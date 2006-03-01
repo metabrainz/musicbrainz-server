@@ -106,6 +106,22 @@ sub PreInsert
 	$new{url} = $url if ($url);
 
 	$self->SetNew($self->ConvertHashToNew(\%new));
+
+	# finally some special ASIN URL handling (update album_amazon_asin table data)
+	if ($linktype->{id} == &Album::GetAsinLinkTypeId &&
+		@$entities[0]->{type} eq 'album' &&
+		@$entities[1]->{type} eq 'url')
+	{
+		my $al = Album->new($self->{DBH});
+		$al->SetId(@$entities[0]->{id});
+		if ($al->LoadFromId(1))
+		{
+			$al->ParseAmazonURL(@$entities[1]->{name});
+			# TODO implement overwriting, if some special flag on the AR edit page is set
+			#      to allow saying "use this as cover image source"
+			$al->UpdateAmazonData(0);
+		}
+	}
 }
 
 sub PostLoad
@@ -125,6 +141,17 @@ sub DeniedAction
 	if ($link)
 	{
 		$link->Delete;
+
+		# remove amazon asin and coverart data as well
+		if ($new->{linktypeid} == &Album::GetAsinLinkTypeId &&
+			$new->{entity0type} eq 'album' &&
+			$new->{entity1type} eq 'url')
+		{
+			my $al = Album->new($self->{DBH});
+			$al->SetId($new->{entity0id});
+			$al->UpdateAmazonData(-1)
+				if ($al->LoadFromId(1));
+		}
 	}
 }
 

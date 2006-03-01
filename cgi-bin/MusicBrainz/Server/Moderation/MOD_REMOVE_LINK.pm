@@ -98,6 +98,17 @@ sub ApprovedAction
 		return STATUS_ERROR;
 	}
 
+	# finally some special ASIN URL handling 
+	if ($new->{linktypeid} == &Album::GetAsinLinkTypeId &&
+		$new->{entity0type} eq 'album' &&
+		$new->{entity1type} eq 'url')
+	{
+		my $al = Album->new($self->{DBH});
+		$al->SetId($new->{entity0id});
+		$al->UpdateAmazonData(-1)
+			if ($al->LoadFromId(1));
+	}
+
 	return STATUS_APPLIED;
 }
 

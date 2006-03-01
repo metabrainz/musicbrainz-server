@@ -27,8 +27,8 @@
 	<& /comp/ar/ShowEntityLink, id=>$new->{oldentity0id}, type=>$new->{oldentity0type}, 
 	                            name=>$new->{oldentity0name}, linktypeid=>$new->{oldlinktypeid}, simple=>1 &>
 	<i><% $new->{oldlinktypephrase} %></i>
-%   if ($new->{oldlinktypeid} eq &Album::ALBUM_AMAZON_ASIN_LINKID) {
-%   	my $text; $text = $1 if ($new->{oldentity1name} =~ /(B[0-9A-Z]{9})/);
+%   if ($new->{oldlinktypeid} eq &Album::GetAsinLinkTypeId) {
+%   	my ($text,) = &Album::ParseAmazonURL($new->{oldentity1name});
         <% $text %>
 %   } else {
 	<& /comp/ar/ShowEntityLink, id=>$new->{oldentity1id}, type=>$new->{oldentity1type}, 
@@ -64,8 +64,8 @@ New:
 	<& /comp/ar/ShowEntityLink, id=>$new->{newentity0id}, type=>$new->{newentity0type}, 
 	                            name=>$new->{newentity0name}, linktypeid=>$new->{newlinktypeid}, simple=>1 &>
 	<i><% $new->{newlinktypephrase} %></i>
-%   if ($new->{newlinktypeid} eq &Album::ALBUM_AMAZON_ASIN_LINKID) {
-%	my $text; $text = $1 if ($new->{newentity1name} =~ /(B[0-9A-Z]{9})/);
+%   if ($new->{newlinktypeid} eq &Album::GetAsinLinkTypeId) {
+%	my ($text, ) = &Album::ParseAmazonURL($new->{newentity1name});
 	<% $text %>
 %   } else {
 	<& /comp/ar/ShowEntityLink, id=>$new->{newentity1id}, type=>$new->{newentity1type}, 

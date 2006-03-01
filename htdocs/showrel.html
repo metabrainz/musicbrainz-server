@@ -72,15 +72,9 @@ $m->comp("/comp/ar/RemoveRelationship", id=>$remrel, type=>$remtype)
 
 if ($type eq 'album')
 {
-    my $asin = {};
     $m->comp("/comp/ar/RelationshipBox", id=>$obj->GetId, type=>$type, 
              name=>$obj->GetName, modlinks=>1, isrelpage=>1, 
-             expanded=>$expanded, asinref=>$asin);
-    if (exists $asin->{asin})
-    {
-        $obj->{asin} = $asin->{asin};
-        $obj->{coverartserver} = $asin->{server};
-    }
+             expanded=>$expanded);
 }
 else
 {

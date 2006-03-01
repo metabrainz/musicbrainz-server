@@ -66,7 +66,8 @@ use constant ALBUM_ATTR_SECTION_TYPE_END     => ALBUM_ATTR_OTHER;
 use constant ALBUM_ATTR_SECTION_STATUS_START => ALBUM_ATTR_OFFICIAL;
 use constant ALBUM_ATTR_SECTION_STATUS_END   => ALBUM_ATTR_BOOTLEG;
 
-use constant ALBUM_AMAZON_ASIN_LINKID   => '28';
+# make this a package/class variable, it can change 
+our $ASIN_LINK_TYPE_ID;
 
 my %AlbumAttributeNames = (
     0 => [ "Non-Album Track", "Non-Album Tracks", "(Special case)"],
@@ -155,18 +156,67 @@ sub SetLanguageModPeding
    $_[0]->{modpending_lang} = $_[1];
 }
 
+# return the url to a coverart image on an amazon image server
 sub GetCoverartURL
 {
-   my $cas = $_[0]->{coverartserver};
-   $cas =~ s/^www\.//;
-   my $cin = $CoverArtServer{$cas}{"id"};
-   $cas = $CoverArtServer{$cas}{"server"};
-   return sprintf("http://%s/images/P/%s.%s.MZZZZZZZ.jpg", $cas, $_[0]->{asin}, $cin) 
-        if ($cas && $_[0]->{asin});
+	my $coverurl = $_[0]->{coverarturl};
 
-   return "/images/no_coverart.png" unless $_[0]->{coverarturl};
-   return "http://images.amazon.com" . $_[0]->{coverarturl};
+	if ($coverurl)
+	{
+		# older entries didn't include the protocol and server parts of the URL
+		$coverurl = ("http://images.amazon.com" . $coverurl)
+			if ($coverurl =~ m{^/});
+	}
+	else
+	{
+		$coverurl = "/images/no_coverart.png";
+	}
+	
+ 	return $coverurl;
 }
+
+# Parse any amazon product URL and set $this->{asin} and $this->{coverarturl}
+# returns (asin, coverarturl) on success, ("", "") otherwise
+sub ParseAmazonURL
+{
+	my ($self, $url) = @_;
+	my ($asin, $coverurl);
+
+	if ($url =~ m{^http://(?:www.)?(.*?)/.*/(B[0-9A-Z]{9})})
+	{
+		$asin = $2;
+		my $cas = $1;
+		my $cin = $CoverArtServer{$cas}{'id'};
+		$cas = $CoverArtServer{$cas}{'server'};
+		$coverurl = sprintf("http://%s/images/P/%s.%s.MZZZZZZZ.jpg", $cas, $asin, $cin)
+			if ($cas && $asin);
+	}
+	else
+	{
+		return ("", "");
+	}
+	
+	# update the object data if called from an instance
+	($self->{asin}, $self->{coverarturl}) = ($asin, $coverurl)
+		if (ref $self);
+	
+	return ($asin, $coverurl);
+}
+
+# Get the current link type id for the amazon asin AR.
+# It should be used for any access to this class variable.
+sub GetAsinLinkTypeId
+{
+	my $self = shift;
+	
+	return $ASIN_LINK_TYPE_ID if (defined $ASIN_LINK_TYPE_ID);
+	
+	my $sql = Sql->new( ref $self ? $self->{DBH} : shift );
+	$ASIN_LINK_TYPE_ID = $sql->SelectSingleValue("SELECT id FROM lt_album_url WHERE name = 'amazon asin'");
+
+	return $ASIN_LINK_TYPE_ID;
+}
+	
 
 sub GetAsin
 {
@@ -503,10 +553,15 @@ sub LoadAlbumMetadata
 		$this->{discidcount} = $row->{discids};
 		$this->{trmidcount} = $row->{trmids};
 		$this->{firstreleasedate} = $row->{firstreleasedate} || "";
+		$this->{coverarturl} = $row->{coverarturl};
+		$this->{asin} = $row->{asin};
 	} else {
 		warn "No albummeta row for album #".$this->GetId."\n";
 		delete @$this{qw( trackcount discidcount trmidcount firstreleasedate )};
+		return 0;
 	}
+
+	return 1;
 }
 
 # Given an album, query the number of tracks present in this album
@@ -1048,6 +1103,105 @@ sub GetVariousDisplayList
 	} @$rows;
 
  	return ($num_albums, \@albums);
+}
+
+# This updates the content of the album_amazon_asin table with the current
+# asin and coverarturl for this album.
+#
+# $mode specifies the operation mode:
+#   <0  delete the current entry
+#    0  insert if not already present
+#    1  insert or update
+# In any case, the album must have a row in the album table, otherwise 0 is
+# returned.
+sub UpdateAmazonData
+{
+	my ($self, $mode) = @_;
+	my ($coverurl, $asin)  = ($self->{coverarturl}, $self->{asin});
+	
+	return 0 unless ($coverurl && $asin && $self->GetId);
+
+	# make sure the album exists and get current asin and cover data	
+	my $sql = Sql->new($self->{DBH});
+	my $old = $sql->SelectSingleRowArray(
+		"SELECT asin, coverarturl FROM album_amazon_asin WHERE album = ?", $self->GetId
+	);
+	my ($oldcoverurl, $oldasin) = (defined $old ? @$old : (undef, undef));
+	
+	# remove mode
+	if ($mode == -1 && $old)
+	{
+		# check if there is another ASIN AR and update the asin and cover data
+		# using this AR
+		my @altlinks = MusicBrainz::Server::Link->FindLinkedEntities(
+			$self->{DBH}, $self->GetId, 'album', { 'to_type' => 'url' }
+		);
+
+		for my $item (@altlinks)
+		{
+			next unless ($item->{linktypeid} == $self->GetAsinLinkTypeId);
+			
+			($asin, $coverurl) = Album->ParseAmazonURL($item->{entity1name});
+			next if ($asin eq $oldasin);
+
+			# change the mode and old data, to allow inserting the alternative data
+			$mode = 1;
+			last;
+		}
+
+		# if there was no alternative ASIN AR, do a delete instead of just overwriting
+		if ($mode == -1)
+		{
+			$sql->AutoCommit;
+			$sql->Do(
+				qq|DELETE FROM album_amazon_asin
+				   WHERE album = ?;|,
+				$self->GetId
+			) unless ($oldcoverurl eq "" && $oldasin eq "");
+			$self->{coverarturl} = "";
+			$self->{asin} = "";
+			
+			return 1;
+		}
+	}
+
+	# insert mode
+	if ($mode >= 0 && !defined $old)
+	{
+		$sql->AutoCommit;
+		# insert new row, if not present
+		$sql->Do(
+			qq|INSERT INTO album_amazon_asin
+			   (album, asin, coverarturl, lastupdate)
+			   VALUES (?, ?, ?, now());|,
+			$self->GetId, $asin, $coverurl,
+		);
+	}
+
+	# update mode
+	# overwrite unconditionally if $mode == 1
+	# overwrite old cover art url or NULL values if $mode == 0
+	if (($mode == 1 && $old && ($oldcoverurl ne $coverurl) && $oldasin && ($oldasin ne $asin))
+		|| ($mode == 0 && (!defined $oldasin || $oldcoverurl =~ m{^/})))
+	{
+		$sql->AutoCommit;
+		$sql->Do(
+			qq|UPDATE album_amazon_asin
+			   SET asin = ?, coverarturl = ?, lastupdate = now()
+			   WHERE album = ?;|,
+			$asin, $coverurl, $self->GetId,
+		);
+	}
+	else
+	{
+		return 0;
+	}
+
+	# reset $self data, to the new values
+	$self->{coverarturl} = $coverurl;
+	$self->{asin} = $asin;
+
+	return 1;
 }
 
 sub UpdateName

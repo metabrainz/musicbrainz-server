@@ -6,7 +6,6 @@ $name
 $modlinks=>0
 $isrelpage=>0
 $expanded=>0
-$asinref=>0
 </%args>
 <%def .OutputEntity>
 <%perl>
@@ -20,7 +19,7 @@ $asinref=>0
     my $text = "";
 	if ($item->{"link_name"} eq 'amazon asin' && $prefix eq 'link1_')
 	{
-        $text = $1 if ($item->{link1_name} =~ /(B[0-9A-Z]{9})/);
+		($text, ) = Album->ParseAmazonURL($item->{link1_name});
 		$m->out("<b>");
 	}
 	elsif ($item->{$prefix . "type"} eq 'url')
@@ -92,11 +91,6 @@ else
 				rlink_phrase	link_phrase
 			)};
 		}
-        if ($asinref && $item->{link_name} eq 'amazon asin')
-        {
-            $asinref->{asin} = $1 if ($item->{link1_name} =~ /(B[0-9A-Z]{9})/);
-            $asinref->{server} = $1 if ($item->{link1_name} =~ /http:\/\/(.*?)\//);
-        }
 	}
 
 	@links = sort

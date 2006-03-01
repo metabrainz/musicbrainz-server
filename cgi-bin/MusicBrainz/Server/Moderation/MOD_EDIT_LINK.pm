@@ -203,6 +203,25 @@ sub ApprovedAction
 			return STATUS_ERROR;
 		}
 	}
+
+	# finally some special ASIN URL handling (update album_amazon_asin table data)
+	if ($new->{oldlinktypeid} == &Album::GetAsinLinkTypeId &&
+		$new->{oldentity0type} eq 'album' &&
+		$new->{oldentity1type} eq 'url')
+	{
+		# link type changed, remove asin + coverart from album meta
+		# currently this is the only way of editing a link, other cases (entity changes, etc.)
+		# must be checked as well when implemented
+		if ($new->{newlinktypeid} != &Album::GetAsinLinkTypeId)
+		{
+			my $al = Album->new($self->{DBH});
+			$al->SetId($new->{oldentity0id});
+
+			$al->UpdateAmazonData(-1)
+				if ($al->LoadFromId(1));
+		}
+	}
+	
 	return STATUS_APPLIED;
 }
 
