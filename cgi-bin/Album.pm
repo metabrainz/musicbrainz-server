@@ -67,7 +67,7 @@ use constant ALBUM_ATTR_SECTION_STATUS_START => ALBUM_ATTR_OFFICIAL;
 use constant ALBUM_ATTR_SECTION_STATUS_END   => ALBUM_ATTR_BOOTLEG;
 
 # make this a package/class variable, it can change 
-our $ASIN_LINK_TYPE_ID;
+our $ASIN_LINK_TYPE_ID = 30;
 
 my %AlbumAttributeNames = (
     0 => [ "Non-Album Track", "Non-Album Tracks", "(Special case)"],
