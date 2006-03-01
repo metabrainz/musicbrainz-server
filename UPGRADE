@@ -1,0 +1,24 @@
+Upgrade Notes
+=============
+
+This file lists necessary steps for upgrades from older server versions.
+
+
+RELEASE 2006-03-05
+------------------
+There are 2 new scripts in admin/update/ that should be run after upgrades
+when you want keep your old database.
+
+a) 20060305_FixFailedModCount
+A bug with the counter for moderations that failed for other reasons than
+failed voting was fixed. To fix the counters in the moderator table, run
+this script ones.
+The server will work fine without running it, but you will see
+inconsitencies in the mentioned counter.
+
+b) 20060305_UpdateAmazonDataFromAsinAR
+ASINs and cover art URLs from the amazon advanced relationship are now pushed
+to the albummeta table. This only works automatically for newly created or 
+modified amazon ARs.
+This script will update albummeta with the amazon AR data that is in the
+DB already. Not running this script will result in missing cover art images.
