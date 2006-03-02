@@ -21,9 +21,9 @@
 #   Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
 #
 #   
-#   This is a simple script that updates the modsfailed counter for
-#   every moderator in the DB. It needs to be run only once (if at all)
-#   to fix results of a bug in server versions < the 20060223 release.
+#   This is a simple script that updates the album_amazon_asin and
+#   albummeta tables with data from the new ASIN advanced relationships.
+#   Required for upgrades to the 20060305 release.
 #
 #   $Id$
 #____________________________________________________________________________
@@ -37,9 +37,7 @@ use lib "$FindBin::Bin/../../cgi-bin";
 require DBDefs;
 require MusicBrainz;
 require Sql;
-require Moderation;
-
-use ModDefs qw( STATUS_FAILEDDEP STATUS_ERROR STATUS_FAILEDPREREQ );
+require Album;
 
 my $verbose = 1;
 
@@ -54,40 +52,34 @@ $verbose
 
 ################################################################################
 
-print LOG localtime() . " : Fixing failed mods counters.\n";
+my $amazon_link_type = $sql->SelectSingleValue("SELECT id FROM lt_album_url WHERE name = 'amazon asin'");
 
+print LOG localtime() . " : Updating old amazon data from ASIN advanced relationships.\n";
+# first get interesting rows from l_album_url
+my $rows = $sql->SelectListOfHashes('
+	SELECT link0 AS alid, url 
+	FROM l_album_url JOIN url ON link1 = url.id
+	WHERE link_type = ?',
+	$amazon_link_type
+);
 
-# define function that loops over all moderators
-$sql->AutoCommit;
-my $func = $sql->Do(<<'EOF');
-CREATE OR REPLACE FUNCTION moderator_fix_failed_count() RETURNS void AS
-'
-	DECLARE
-		i moderator%ROWTYPE;
-		n integer = 0;
-	BEGIN
-		FOR i IN SELECT * FROM moderator ORDER BY id LOOP
-			n := n+1;
-			UPDATE moderator
-			  SET modsfailed = (
-				SELECT COUNT(*) FROM moderation_closed AS mc
-				WHERE mc.moderator = i.id AND status >= 3 AND status <= 5
-			  )
-			  WHERE id = i.id;
-			IF n % 10000 = 0
-			THEN
-				RAISE INFO \'Updated moderators: %\', i.id;
-			END IF;
-		END LOOP;
-	END;
-'
-LANGUAGE plpgsql;
-EOF
+my ($asin, $coverurl);
+my $i = 0;
+for my $link (@$rows)
+{
+	my $al = Album->new($mb->{DBH});
+	$al->SetId($link->{alid});
 
-# run the function
-$sql->AutoCommit;
-$sql->Do('SELECT moderator_fix_failed_count();');
+	if ($al->LoadFromId(1))
+	{
+		($asin, $coverurl) = $al->ParseAmazonURL($link->{url});
+		if ($asin ne "")
+		{
+			$al->UpdateAmazonData(1) and $i++;
+		}
+	}
+}
 
-print LOG localtime() . " : Done!\n";
+print LOG localtime() . " : Done! (Updated " . $i . " row)\n";
 
-# eof FixFailedModCount
+# eof UpdateAmazonDataFromAsinAR
