@@ -6,6 +6,7 @@ $tport=>$session{'tport'}
 </%args>
 <%perl>
 $type = lc $type;
+$limit = 25 if ($limit < 1 || $limit > 100);
 
 UserStuff::EnsureSessionOpen(), $session{tport} = $tport
   if $tport;
@@ -25,7 +26,6 @@ UserStuff::EnsureSessionOpen(), $session{tport} = $tport
       <option value="25" <% ($limit eq 25) ? 'selected' : '' %>>up to 25</option>
       <option value="50" <% ($limit eq 50) ? 'selected' : '' %>>up to 50</option>
       <option value="100" <% ($limit eq 100) ? 'selected' : '' %>>up to 100</option>
-      <option value="0" <% ($limit eq '0') ? 'selected' : '' %>>all</option>
   </select>
   <select name="type">
       <option value="artist" <% ($type eq 'artist') ? 'selected' : '' %>>artists</option>
