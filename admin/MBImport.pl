@@ -230,10 +230,11 @@ sub ImportTable
 
 	eval
 	{
-		open(LOAD, "<", $file) or die "open $file: $!";
-
-		# Huh?  Surely we want the same mode whatever we're doing?
-		binmode(LOAD) if $fFixUTF8;
+		# open in :bytes mode (always keep byte octets), to allow fixing of invalid
+		# UTF-8 byte sequences in --fix-broken-utf8 mode.
+		# in default mode, the Pg driver will take care of the UTF-8 transformation
+		# and croak on any invalid UTF-8 character
+		open(LOAD, "<:bytes", $file) or die "open $file: $!";
 
 		# If you're looking at this code because your import failed, maybe
 		# with an error like this:
@@ -252,25 +253,20 @@ sub ImportTable
 		
 		while (<LOAD>)
 		{
-			# Are you sure this works?
-			# If --fix-broken-utf8 is off, we write $_ (which we hope is UTF-8 bytes);
-			# If it's on, then we may write $t (a UTF-8 string, not bytes);
-			# or, we may write $fixed (which is iso-8859-1 bytes).
-			# All seems a bit inconsistent.  Surely the $dbh layer is expecting one
-			# particular thing (which AFAIK is UTF-8 bytes), and we should always send that?
-
+			require Encode;
+			
 			if ($fFixUTF8) {
 				require Encode;
-				$t = Encode::decode("UTF-8", $_);
-				if (!Encode::is_utf8($t, 1)) { 
-					my $fixed = Encode::encode("iso-8859-1", $_, Encode::FB_PERLQQ);
-					print "\n!WARNING! Invalid UTF-8 replaced with:\n" . $fixed . "\n";
-					$dbh->func($fixed, "putline") or die;
-				} else {
-					$dbh->func($t, "putline") or die;
-				}
+				# replaces any invalid UTF-8 character with special 0xFFFD codepoint
+				# and warn on any such occurence
+				$t = Encode::decode("UTF-8", $_, Encode::FB_DEFAULT | Encode::WARN_ON_ERR);
+				$dbh->func($t, "putline") or die;
 			} else {
-				$dbh->func($_, "putline") or die;
+				if (!$dbh->func($_, "putline"))
+				{
+					print "ERROR while processing: ", $_;
+					die;
+				}
 			}
 
 			++$rows;
@@ -280,10 +276,8 @@ sub ImportTable
 				$p->("\r", "") if $fProgress;
 			}
 		}
-
 		$dbh->func("\\.\n", "putline") or die;
 		$dbh->func("endcopy") or die;
-
 		$interval = tv_interval($t1);
 		$p->(($fProgress ? "\r" : ""), sprintf(" %.2f sec\n", $interval));
 
