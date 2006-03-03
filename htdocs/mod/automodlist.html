@@ -1,0 +1,39 @@
+%# vi: set ts=2 sw=2 ft=mason :
+<& /comp/sidebar, title=>'Current Auto Moderators', expand=>'moderate' &>
+
+<%perl>
+
+my $mb = $m->comp("/comp/dblogin");
+my $mod = Moderation->new($mb->{DBH});
+
+</%perl>
+
+<p>
+Automoderators are moderators who have made a large number of contributions 
+to MusicBrainz, and some basic moderations made by automoderators are not
+required to be voted on by other moderators. The following moderation types
+are automoderations:
+</p>
+
+<blockquote>
+	<% join ", ", @{ $mod->GetAutomoderationList } %>
+</blockquote>
+
+% if (&DBDefs::REPLICATION_TYPE == RT_SLAVE) {
+
+	The list of automoderators is available on the <a 
+  href="http://musicbrainz.org/mod_intro.html">main server</a>.
+
+% } else {
+	The following moderators are automoderators:
+
+	<blockquote>
+%   my @users = @{ $mod->GetAutomoderatorList };
+%   $m->out("No-one!") if not @users;
+%   while (defined(my $user = shift @users)) {
+	    	<a href="/user/view.html?modname=<% uri_escape($user) %>"><% $user %></a><% (@users ? ", " : "") %>
+%   }
+	</blockquote>
+% }
+
+<& /comp/footer &>
