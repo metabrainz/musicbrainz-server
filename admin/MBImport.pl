@@ -52,8 +52,7 @@ Usage: MBImport.pl [options] FILE ...
 
         --help            show this help
         --fix-broken-utf8 replace invalid UTF-8 byte sequences with a 
-                          perl \\x{...} notation of the equivalent
-        				  ISO-8859-1 encoding
+                          special U+FFFD codepoint (UTF-8: 0xEF 0xBF 0xBD)
     -i, --ignore-errors   if a table fails to import, continue anyway
     -t, --tmp-dir DIR     use DIR for temporary storage (default: /tmp)
 
@@ -82,10 +81,8 @@ Note: The --fix-broken-utf8 is usefull when upgrading a database to
       Postgres 8.1.x and your old database includes byte sequences that are
       invalid in UTF-8. It does not really fix the data, because the
       original encoding can't be determined automatically. Instead it
-      replaces the affected byte sequence with a string of the form 
-      "\\x{<bytevals>}", where <bytevals> represent the hex representation 
-      in ISO-8859-1.
-
+      replaces the affected byte sequence with the special Unicode "replacement
+	  character" U+FFFD. A warning is printed on every such replacement.
 EOF
 	exit;
 }

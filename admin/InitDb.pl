@@ -280,11 +280,11 @@ Options are:
   --with-pending=PATH   For use only if this is a master replication server
                         (DBDefs::REPLICATION_TYPE==RT_MASTER).  PATH specifies
                         the path to "pending.so" (on the database server).
-	 --fix-broken-utf8  replace invalid UTF-8 byte sequences with their
-	                    equivalent perl \\x{...} notation in ISO-8859-1.
+	 --fix-broken-utf8  replace invalid UTF-8 byte sequences with the special
+	                    Unicode "replacement character" U+FFFD.
 						(Should only be used, when an import without the option
 						fails with an "ERROR:  invalid UTF-8 byte sequence detected"!
-						see also MBImport.pl)
+						see also `MBImport.pl --help')
 
 After the import option, you may specify one or more MusicBrainz data dump
 files for importing into the database. Once this script runs to completion
