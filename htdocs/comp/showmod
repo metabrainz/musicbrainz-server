@@ -65,9 +65,9 @@ $time = $m->comp("/comp/datetime", $time);
    </td>
    <td class="ShowModVoteHead">
 %    if ($is_mine or not $is_open or $voted != &ModDefs::VOTE_NOTVOTED) {
-           <% $mod->GetYesVotes %> yes, <% $mod->GetNoVotes %> no
-%    }
+		<% $mod->GetYesVotes %> yes, <% $mod->GetNoVotes %> no
 		<br />
+%    }
      [ <a href="/mod/addnote.html?modid=<% $mod->GetId %>" onclick="MyWindow=window.open('/mod/addnote.html?modid=<% $mod->GetId %>','AddNote','toolbar=no,location=no,directories=no,status=no,menubar=no,scrollbars=yes,resizable=yes,width=400,height=150'); return false;">Add note</a>
 % my $url = uri_escape($r->uri.'?'.$r->args);
 % if (!$is_mine and $is_open and
