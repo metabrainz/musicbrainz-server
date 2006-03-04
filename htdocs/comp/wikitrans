@@ -8,10 +8,6 @@ MusicBrainz::IsSingleLineString($id) and $id =~ /\A\w+\z/
 
 my $mb = $m->comp("/comp/dblogin");
 my $wt = MusicBrainz::Server::WikiTransclusion->new($mb->{DBH});
-
-#	# Hack.  I've broken ruaok's wiki patches, so this works around them for now.
-#	$page =~ s[<a href="/read/(\w+)">][<a href="/wd/$1">]g;
-
 my $index = $wt->GetPageIndex();
 if (!defined $index)
 {
@@ -44,7 +40,7 @@ if ( $response->is_success )
 {
     $page = $response->content;
 
-    if ($page =~ /<!-- Transclusion/)
+    if ($page =~ /<a id="top"><\/a>\s+<a id="bottom"><\/a>/s)
     {
         $m->comp('/comp/error',
                 "The wiki page $id does not exist. (404)", 0, 0);
@@ -64,30 +60,32 @@ if ( $response->is_success )
         my $server = &DBDefs::WEB_SERVER;
         my $wdserver = &DBDefs::WIKITRANS_SERVER;
 
-        while(1)
-        {
-            if ($page =~ /href="\/(.*?)"/)
-            {
-                my $rep = $1;
-                my $linktext;
-                if (exists($index->{$rep}))
-                {
-                    $page =~ s[href="/(.*?)"(.*?)>(.*?)<]["class=\"WikiDocsLink\" title=\"Wiki docs link\" href=\"http://$server/doc/$rep\""$2>###LINK###<];
-                                                  $linktext = $3;
-                }
-                else
-                {
-                    $page =~ s[href="/$rep"(.*?)>(.*?)<]["class=\"WikiLink\" title=\"Wiki link\" href=\"http://$server/doc/$rep\""$1>###LINK###<];
-                                                  $linktext = $2;
-                }
-                $linktext =~ s/([a-z])([A-Z])/$1 $2/g;
-                $page =~ s/###LINK###/$linktext/;
-            }
-            else
-            {
-                last;
-            }
-        }
+		  my $temp = "";
+		  while(1)
+		  {
+				if ($page =~ s/(.*?)<a(.*?)href="\/(.*?)"(.*?)<\/a>//s)
+				{
+					 my ($pre, $href, $rep, $post) = ($1, $2, $3, $4);
+
+					 my $linktext;
+					 if (exists($index->{$rep}))
+					 {
+						  #$page =~ s[href="/(.*?)"(.*?)>(.*?)<]["class=\"WikiDocsLink\" title=\"Wiki docs link\" href=\"http://$server/doc/$rep\""$2>###LINK###<];
+						  $temp .= "$pre<a$href class=\"WikiDocsLink\" title=\"Wiki docs link\" href=\"http://$server/doc/$rep\"$post</a>";
+					 }
+					 else
+					 {
+						  #$page =~ s[href="/$rep"(.*?)>(.*?)<]["class=\"WikiLink\" title=\"Wiki link\" href=\"http://$server/doc/$rep\""$1>###LINK###<];
+						  $temp .= "$pre<a$href class=\"WikiLink\" title=\"Wiki link\" href=\"http://$server/doc/$rep\"$post</a>";
+					 }
+				}
+				else
+				{
+					 $temp .= $page;
+					 last;
+				}
+		  }
+		  $page = $temp;
 
         # this fixes image links to point to the wiki
         $page =~ s[src="/-/]['src="http://' . &DBDefs::WIKITRANS_SERVER . "/-/$1"]eg; #' <-- this hack makes vim happy
