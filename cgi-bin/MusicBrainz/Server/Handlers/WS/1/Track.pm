@@ -74,7 +74,7 @@ sub handler
         my $artist = $args{artist} or "";
         my $release = $args{release} or "";
         my $duration = $args{duration} or 0;
-        my $tnum = $args{tracknum} or 0;
+        my $tnum = $args{tracknumber} or 0;
         my $limit = $args{limit};
         $limit = 25 if ($limit < 1 || $limit > 25);
 
@@ -94,7 +94,7 @@ sub handler
 
         return xml_search($r, {type=>'track', track=>$title, artist=>$artist, release=>$release, 
                                artistid => $artistid, releaseid=>$releaseid, duration=>$duration,
-                               tnum => $tnum, limit => $limit});
+                               tracknumber => $tnum, limit => $limit});
     }
 
 	my $status = eval 

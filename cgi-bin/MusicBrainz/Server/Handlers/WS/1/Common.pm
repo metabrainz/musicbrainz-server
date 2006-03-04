@@ -665,6 +665,7 @@ sub xml_search
 
     my $type = $args->{type};
     my $query = "";
+    my $dur = 0;
     if ($type eq 'artist')
     {
         $query = $args->{artist};
@@ -711,6 +712,15 @@ sub xml_search
             {
                 $query .= " release:" . $term;
             }
+        }
+        if ($args->{duration})
+        {
+            my $qdur = $args->{duration} / 2000;
+            $query .= " qdur:$qdur qdur:" . ($qdur - 1) . " qdur:" . ($qdur + 1) if ($qdur);
+        }
+        if ($args->{tracknumber})
+        {
+            $query .= " tnum:" . $args->{tracknumber};
         }
     }
     else
