@@ -29,8 +29,9 @@ package MusicBrainz::Server::Handlers::WS::1::Common;
 
 require Exporter;
 our @ISA = qw(Exporter);
-our @EXPORT = qw(convert_inc bad_req send_response convert_types
+our @EXPORT = qw(convert_inc bad_req send_response check_types
                  xml_artist xml_release xml_track xml_search xml_escape
+                 get_type_and_status_from_inc
                  INC_ARTIST INC_COUNTS INC_LIMIT INC_TRACKS INC_RELEASES 
                  INC_VARELEASES INC_DURATION INC_ARTISTREL INC_RELEASEREL 
                  INC_DISCS INC_TRACKREL INC_URLREL INC_RELEASEINFO 
@@ -45,63 +46,72 @@ use constant INC_ARTIST      => 0x00001;
 use constant INC_COUNTS      => 0x00002;
 use constant INC_LIMIT       => 0x00004;
 use constant INC_TRACKS      => 0x00008;
-use constant INC_RELEASES    => 0x00010;
-use constant INC_VARELEASES  => 0x00020;
-use constant INC_DURATION    => 0x00040;
-use constant INC_ARTISTREL   => 0x00080;
-use constant INC_RELEASEREL  => 0x00100;
-use constant INC_DISCS       => 0x00200;
-use constant INC_TRACKREL    => 0x00400;
-use constant INC_URLREL      => 0x00800;
-use constant INC_RELEASEINFO => 0x01000;
-use constant INC_ARTISTID    => 0x02000;
-use constant INC_RELEASEID   => 0x04000;
-use constant INC_TRACKID     => 0x08000;
-use constant INC_TITLE       => 0x10000;
-use constant INC_TRACKNUM    => 0x20000;
-use constant INC_TRMIDS      => 0x40000;
+use constant INC_DURATION    => 0x00010;
+use constant INC_ARTISTREL   => 0x00020;
+use constant INC_RELEASEREL  => 0x00040;
+use constant INC_DISCS       => 0x00080;
+use constant INC_TRACKREL    => 0x00100;
+use constant INC_URLREL      => 0x00200;
+use constant INC_RELEASEINFO => 0x00400;
+use constant INC_ARTISTID    => 0x00800;
+use constant INC_RELEASEID   => 0x01000;
+use constant INC_TRACKID     => 0x02000;
+use constant INC_TITLE       => 0x04000;
+use constant INC_TRACKNUM    => 0x08000;
+use constant INC_TRMIDS      => 0x10000;
+use constant INC_RELEASES    => 0x20000;
 
 # This hash is used to convert the long form of the args into a short form that can 
 # be used easier 
 my %incShortcuts = 
 (
-    'artist'         => INC_ARTIST,    
-    'counts'         => INC_COUNTS,
-    'limit'          => INC_LIMIT,
-    'tracks'         => INC_TRACKS,
-    'releases'       => INC_RELEASES,
-    'va-releases'    => INC_VARELEASES,
-    'duration'       => INC_DURATION,
-    'artist-rels'    => INC_ARTISTREL,
-    'release-rels'   => INC_RELEASEREL,
-    'discs'          => INC_DISCS,
-    'track-rels'     => INC_TRACKREL,
-    'url-rels'       => INC_URLREL,
-    'release-events' => INC_RELEASEINFO,
-    'artistid'       => INC_ARTISTID,
-    'releaseid'      => INC_RELEASEID,
-    'trackid'        => INC_TRACKID,
-    'title'          => INC_TITLE,
-    'tracknum'       => INC_TRACKNUM,
-    'trmids'         => INC_TRMIDS,
+    'artist'             => INC_ARTIST,    
+    'counts'             => INC_COUNTS,
+    'limit'              => INC_LIMIT,
+    'tracks'             => INC_TRACKS,
+    'duration'           => INC_DURATION,
+    'artist-rels'        => INC_ARTISTREL,
+    'release-rels'       => INC_RELEASEREL,
+    'discs'              => INC_DISCS,
+    'track-rels'         => INC_TRACKREL,
+    'url-rels'           => INC_URLREL,
+    'release-events'     => INC_RELEASEINFO,
+    'artistid'           => INC_ARTISTID,
+    'releaseid'          => INC_RELEASEID,
+    'trackid'            => INC_TRACKID,
+    'title'              => INC_TITLE,
+    'tracknum'           => INC_TRACKNUM,
+    'trmids'             => INC_TRMIDS,
+    'releases'           => INC_RELEASES,
 );
 
-my %AlbumAttributeXRef = (
-    'Non-Album Track' => 0,
-    'Album'           => 1,
-    "Single"          => 2,
-    "EP"              => 3,
-    "Compilation"     => 4,
-    "Soundtrack"      => 5,
-    "Spokenword"      => 6,
-    "Interview"       => 7,
-    "Audiobook"       => 8,
-    "Live"            => 9,
-    "Remix"           => 10,
-    "Other"           => 11,
-    "Official"        => 100,
-    "Promotion"       => 101,
-    "Bootleg"         => 102,
+my %typeShortcuts =
+( 
+    'NonAlbumTrack'   => Album::ALBUM_ATTR_NONALBUMTRACKS,
+    'Album'           => Album::ALBUM_ATTR_ALBUM,
+    'Single'          => Album::ALBUM_ATTR_SINGLE,
+    'EP'              => Album::ALBUM_ATTR_EP,
+    'Compilation'     => Album::ALBUM_ATTR_COMPILATION,
+    'Soundtrack'      => Album::ALBUM_ATTR_SOUNDTRACK,
+    'Spokenword'      => Album::ALBUM_ATTR_SPOKENWORD,
+    'Interview'       => Album::ALBUM_ATTR_INTERVIEW,
+    'Audiobook'       => Album::ALBUM_ATTR_AUDIOBOOK,
+    'Live'            => Album::ALBUM_ATTR_LIVE,
+    'Remix'           => Album::ALBUM_ATTR_REMIX,
+    'Other'           => Album::ALBUM_ATTR_OTHER        
+);
+
+my %statusShortcuts =
+( 
+    'Official'           => Album::ALBUM_ATTR_OFFICIAL,
+    'Promotion'          => Album::ALBUM_ATTR_PROMOTION,
+    'Bootleg'            => Album::ALBUM_ATTR_BOOTLEG,
+    'sa-Official'        => Album::ALBUM_ATTR_OFFICIAL,
+    'sa-Promotion'       => Album::ALBUM_ATTR_PROMOTION,
+    'sa-Bootleg'         => Album::ALBUM_ATTR_BOOTLEG,
+    'va-Official'        => Album::ALBUM_ATTR_OFFICIAL,
+    'va-Promotion'       => Album::ALBUM_ATTR_PROMOTION,
+    'va-Bootleg'         => Album::ALBUM_ATTR_BOOTLEG,
 );
 
 # Convert the passed inc argument into a bitflag with the given constants form above
@@ -126,27 +136,41 @@ sub convert_inc
     return ($shinc, join(' ', @bad));
 }
 
-sub convert_types
+sub get_type_and_status_from_inc
 {
-    my ($types) = @_;
+    my ($inc) = @_;
 
-    my $type = -1;
-    my $status = -1;
+    my $type = 0;
+    my $va = 0;
     my @bad;
-    foreach my $t (split ' ', $types)
+    foreach my $t (split ' ', $inc)
     {
-        if (exists $AlbumAttributeXRef{$t})
+        my $temp = $t;
+        $va = 1 if ($temp =~ s/^va-//);
+        $va = 0 if ($temp =~ s/^sa-//);
+        if (exists $typeShortcuts{$temp})
         {
-            my $value = $AlbumAttributeXRef{$t};
-            $type = $value if ($value >= Album::ALBUM_ATTR_SECTION_TYPE_START && $value <= Album::ALBUM_ATTR_SECTION_TYPE_END);
-            $status = $value if ($value >= Album::ALBUM_ATTR_SECTION_STATUS_START && $value <= Album::ALBUM_ATTR_SECTION_STATUS_END);
+            $type = $typeShortcuts{$temp};
         }
         else
         {
-            push @bad, $_;
+            push @bad, $t;
         }
     }
-    return ($type, $status, join(' ', @bad));
+    my @reallybad;
+    my $status = 0;
+    foreach (@bad)
+    {
+        if (exists $statusShortcuts{$_})
+        {
+            $status = $statusShortcuts{$_};
+        }
+        else
+        {
+            push @reallybad, $_;
+        }
+    }
+    return ({ type=>$type, status=>$status, va=>$va }, join(' ', @reallybad));
 }
 
 sub bad_req
@@ -178,7 +202,7 @@ sub send_response
 
 sub xml_artist
 {
-	my ($ar, $inc) = @_;
+	my ($ar, $inc, $info) = @_;
 
 	printf '<artist id="%s"', $ar->GetMBId;
     printf ' type="%s"', &Artist::GetTypeName($ar->GetType()) if ($ar->GetType);
@@ -195,13 +219,17 @@ sub xml_artist
         print ' end="' . MusicBrainz::MakeDisplayDateStr($e) . '"' if ($e); 
         print '/>';
     }
-    if ($inc & INC_RELEASES|| $inc & INC_VARELEASES)
+    if (defined $info)
     {
-        my @albums = $ar->GetAlbums(($inc & INC_VARELEASES) == 0, 1, ($inc & INC_RELEASES) == 0);
+        my @albums = $ar->GetAlbums(!$info->{va}, 1, $info->{va});
         if (scalar(@albums))
         {
             print '<release-list>';
-            xml_release($ar, $_, $inc) foreach @albums;
+            foreach my $al (@albums)
+            {
+                my ($t, $s) = $al->GetReleaseTypeAndStatus();
+                xml_release($ar, $al, $inc) if ($t == $info->{type} && ($info->{status} == 0 || $info->{status} == $s));
+            }
             print '</release-list>';
         }
     }

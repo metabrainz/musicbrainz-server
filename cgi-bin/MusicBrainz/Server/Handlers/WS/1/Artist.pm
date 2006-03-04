@@ -45,7 +45,7 @@ sub handler
 
 	my %args; { no warnings; %args = $r->args };
     my ($inc, $bad) = convert_inc($args{inc});
-
+    my ($info, $bad) = get_type_and_status_from_inc($bad);
     if ($bad)
     {
 		return bad_req($r, "Invalid inc options: '$bad'. For usage, please see: http://musicbrainz.org/development/mmd");
@@ -63,7 +63,6 @@ sub handler
 	{
 		return bad_req($r, "Cannot use track parameter for artist resources. For usage, please see: http://musicbrainz.org/development/mmd");
 	}
-
     if (!$mbid)
     {
         my $name = $args{name} or "";
@@ -77,7 +76,7 @@ sub handler
 	my $status = eval {
 		# Try to serve the request from the database
 		{
-			my $status = serve_from_db($r, $mbid, $inc);
+			my $status = serve_from_db($r, $mbid, $inc, $info);
 			return $status if defined $status;
 		}
         undef;
@@ -104,7 +103,7 @@ sub handler
 
 sub serve_from_db
 {
-	my ($r, $mbid, $inc) = @_;
+	my ($r, $mbid, $inc, $info) = @_;
 
 	my $ar;
 	my $al;
@@ -119,7 +118,7 @@ sub serve_from_db
 	return undef unless $ar->LoadFromId(1);
 
 	my $printer = sub {
-		print_xml($mbid, $inc, $ar);
+		print_xml($mbid, $inc, $ar, $info);
 	};
 
 	send_response($r, $printer);
@@ -128,11 +127,11 @@ sub serve_from_db
 
 sub print_xml
 {
-	my ($mbid, $inc, $ar) = @_;
+	my ($mbid, $inc, $ar, $info) = @_;
 
 	print '<?xml version="1.0" encoding="UTF-8"?>';
 	print '<metadata xmlns="http://musicbrainz.org/ns/mmd-1.0#">';
-    print xml_artist($ar, $inc);
+    print xml_artist($ar, $inc, $info);
 	print '</metadata>';
 }
 

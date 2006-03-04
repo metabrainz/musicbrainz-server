@@ -67,18 +67,6 @@ sub handler
 		return bad_req($r, "Invalid cdindex id. For usage, please see: http://musicbrainz.org/development/mmd");
 	}
 
-    my $status;
-    my $types = $args{releasetypes};
-    if (!$mbid)
-    {
-        $types = "Album Official" if (!$types);
-        ($types, $status, $bad) = convert_types($types);
-        if ($bad || $types < 0 || $status < 0)
-        {
-            return bad_req($r, "Invalid releasetype options: '$bad'. For usage, please see: http://musicbrainz.org/development/mmd");
-        }
-    }
-
     my $artistid = $args{artistid};
     if ($artistid && !MusicBrainz::IsGUID($artistid))
     {
@@ -104,7 +92,7 @@ sub handler
     {
 		# Try to serve the request from the database
 		{
-			my $status = serve_from_db($r, $mbid, $artistid, $cdid, $inc, $types, $status);
+			my $status = serve_from_db($r, $mbid, $artistid, $cdid, $inc);
 			return $status if defined $status;
 		}
         undef;
@@ -130,7 +118,7 @@ sub handler
 
 sub serve_from_db
 {
-	my ($r, $mbid, $artistid, $cdid, $inc, $types, $status) = @_;
+	my ($r, $mbid, $artistid, $cdid, $inc) = @_;
 
 	my $ar;
 	my $al;
@@ -162,24 +150,7 @@ sub serve_from_db
                 $al = Album->new($mb->{DBH});
                 $al->SetId($id);
                 return undef unless $al->LoadFromId(1);
-                my ($t, $s) = $al->GetReleaseTypeAndStatus();
-                push @albums, $al if ($types == $t && $s == $status);
-            }
-        }
-    }
-    elsif ($artistid)
-    {
-        $ar = Artist->new($mb->{DBH});
-        $ar->SetMBId($artistid);
-        return undef unless $ar->LoadFromId();
-
-        my @albumlist = $ar->GetAlbums(0, 1, 0);
-        if (scalar(@albumlist))
-        {
-            foreach $al (@albumlist)
-            {
-                my ($t, $s) = $al->GetReleaseTypeAndStatus();
-                push @albums, $al if ($types == $t && $s == $status);
+                push @albums, $al;
             }
         }
     }
