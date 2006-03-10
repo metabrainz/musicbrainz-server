@@ -49,9 +49,10 @@ ALTER TABLE puid_stat
 --       CREATE TRIGGER a_idu_puidjoin_stat AFTER INSERT OR DELETE OR UPDATE ON puidjoin_stat
 --       FOR EACH ROW EXECUTE PROCEDURE a_idu_puidjoin_stat();
 
-vacuum analyze puid;
-vacuum analyze puidjoin;
 
 COMMIT;
+
+vacuum analyze puid;
+vacuum analyze puidjoin;
 
 -- vi: set ts=4 sw=4 et :
