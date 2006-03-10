@@ -45,9 +45,9 @@ my $colspan = ($nonalbum ? 'colspan="2"' : '');
 % } else {
        <% $track->GetName %>
 % }
-% if ($puidcount > 0) {
-       &nbsp;<img src="/images/puid.png" align="middle" alt="TRM" width="40"
-                  height="11" title="<% $puidcount %> TRM IDs">&nbsp;
+% if (0 && $puidcount > 0) {
+       &nbsp;<img src="/images/puid.png" align="middle" alt="PUID" width="40"
+                  height="11" title="<% $puidcount %> PUIDs">&nbsp;
 % }
 % if ($trmcount > 0) {
        &nbsp;<img src="/images/trm.gif" align="middle" alt="TRM" width="30"

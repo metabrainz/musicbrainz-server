@@ -48,7 +48,8 @@ $track
 	</tr>
 % }
 
-% if (scalar(@PUID) > 0) {
+%# TODO: Remove for launch
+% if (0) { #scalar(@PUID) > 0) {
 	<tr>
     <td valign="top" align="right">PUID IDs:</td>
     <td>
