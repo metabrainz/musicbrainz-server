@@ -189,12 +189,14 @@ use Scalar::Util qw( reftype weaken );
         { url => "/mod/remove.html" },
         { url => "/edit/track/remove.html" },
         { url => "/edit/trm/remove.html" },
+        { url => "/edit/puid/remove.html" },
 
         { url => "/albumdetail.html" },
         { url => "/showalbum.html" },
         { url => "/showartist.html" },
         { url => "/showtrack.html" },
         { url => "/showtrm.html" },
+        { url => "/showpuid.html" },
 
         { url => "/edit/album/mac.html" },
         { url => "/edit/album/sac.html" },

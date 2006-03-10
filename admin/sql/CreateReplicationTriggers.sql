@@ -169,6 +169,14 @@ FOR EACH ROW EXECUTE PROCEDURE "recordchange" ();
 -- Not replicated: moderator_preference
 -- Not replicated: moderator_subscribe_artist
 
+CREATE TRIGGER "reptg_puid" 
+AFTER INSERT OR DELETE ON "puid"
+FOR EACH ROW EXECUTE PROCEDURE "recordchange" ();
+
+CREATE TRIGGER "reptg_puidjoin" 
+AFTER INSERT OR DELETE ON "puidjoin"
+FOR EACH ROW EXECUTE PROCEDURE "recordchange" ();
+
 CREATE TRIGGER "reptg_release" 
 AFTER INSERT OR DELETE OR UPDATE ON "release"
 FOR EACH ROW EXECUTE PROCEDURE "recordchange" ();

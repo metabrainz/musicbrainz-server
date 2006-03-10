@@ -150,16 +150,20 @@ my @tables = qw(
 	moderator_preference
 	moderator_subscribe_artist
 	moderator_sanitised
+	puid
+	puidjoin
+	puidjoin_stat
+	puid_stat
 	release
 	script
 	script_language
 	stats
 	track
 	trackwords
-	trm
-	trmjoin
-	trmjoin_stat
-	trm_stat
+	puid
+	puidjoin
+	puidjoin_stat
+	puid_stat
 	url
 	vote_closed
 	vote_open
@@ -433,13 +437,15 @@ my @group_core = qw(
 	lt_track_track
 	lt_track_url
 	lt_url_url
+	puid
+	puidjoin
 	release
 	replication_control
 	script
 	script_language
 	track
-	trm
-	trmjoin
+	puid
+	puidjoin
 	url
 	);
 
@@ -457,8 +463,10 @@ my @group_stats = qw(
 	currentstat
 	historicalstat
 	stats
-	trmjoin_stat
-	trm_stat
+	puidjoin_stat
+	puid_stat
+	puidjoin_stat
+	puid_stat
 );
 
 my @group_moderation = qw(

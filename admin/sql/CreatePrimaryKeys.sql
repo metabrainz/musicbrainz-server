@@ -52,6 +52,10 @@ ALTER TABLE moderator_preference ADD CONSTRAINT moderator_preference_pkey PRIMAR
 ALTER TABLE moderator_subscribe_artist ADD CONSTRAINT moderator_subscribe_artist_pkey PRIMARY KEY (id);
 ALTER TABLE "Pending" ADD CONSTRAINT "Pending_pkey" PRIMARY KEY ("SeqId");
 ALTER TABLE "PendingData" ADD CONSTRAINT "PendingData_pkey" PRIMARY KEY ("SeqId", "IsKey");
+ALTER TABLE puid ADD CONSTRAINT puid_pkey PRIMARY KEY (id);
+ALTER TABLE puid_stat ADD CONSTRAINT puid_stat_pkey PRIMARY KEY (id);
+ALTER TABLE puidjoin ADD CONSTRAINT puidjoin_pkey PRIMARY KEY (id);
+ALTER TABLE puidjoin_stat ADD CONSTRAINT puidjoin_stat_pkey PRIMARY KEY (id);
 ALTER TABLE release ADD CONSTRAINT release_pkey PRIMARY KEY (id);
 ALTER TABLE replication_control ADD CONSTRAINT replication_control_pkey PRIMARY KEY (id);
 ALTER TABLE script ADD CONSTRAINT script_pkey PRIMARY KEY (id);

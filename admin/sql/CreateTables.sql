@@ -63,7 +63,8 @@ CREATE TABLE albummeta
     trmids              INTEGER DEFAULT 0,
     firstreleasedate    CHAR(10),
     asin                CHAR(10),
-    coverarturl         VARCHAR(255)
+    coverarturl         VARCHAR(255),
+    puids               INTEGER DEFAULT 0
 );
 
 CREATE TABLE albumwords
@@ -585,6 +586,38 @@ CREATE TABLE "PendingData"
     "Data"              VARCHAR
 );
 
+CREATE TABLE puid
+(
+    id                  SERIAL,
+    puid                CHAR(36) NOT NULL,
+    lookupcount         INTEGER NOT NULL DEFAULT 0, -- updated via trigger
+    version             INTEGER NOT NULL -- references clientversion
+);
+
+CREATE TABLE puid_stat
+(
+    id                  SERIAL,
+    puid_id             INTEGER NOT NULL, -- references puid
+    month_id            INTEGER NOT NULL,
+    lookupcount         INTEGER NOT NULL DEFAULT 0
+);
+
+CREATE TABLE puidjoin
+(
+    id                  SERIAL,
+    puid                INTEGER NOT NULL, -- references puid
+    track               INTEGER NOT NULL, -- references track
+    usecount            INTEGER DEFAULT 0 -- updated via trigger
+);
+
+CREATE TABLE puidjoin_stat
+(
+    id                  SERIAL,
+    puidjoin_id         INTEGER NOT NULL, -- references puidjoin
+    month_id            INTEGER NOT NULL,
+    usecount            INTEGER NOT NULL DEFAULT 0
+);
+
 CREATE TABLE release
 (
     id                  SERIAL,
@@ -628,6 +661,7 @@ CREATE TABLE stats
     tracks              INTEGER NOT NULL, 
     discids             INTEGER NOT NULL, 
     trmids              INTEGER NOT NULL, 
+    puids               INTEGER NOT NULL, 
     moderations         INTEGER NOT NULL, 
     votes               INTEGER NOT NULL, 
     moderators          INTEGER NOT NULL, 

@@ -23,5 +23,9 @@ DROP TRIGGER a_del_release ON release;
 DROP TRIGGER a_ins_album_amazon_asin ON album_amazon_asin;
 DROP TRIGGER a_upd_album_amazon_asin ON album_amazon_asin;
 DROP TRIGGER a_del_album_amazon_asin ON album_amazon_asin;
+DROP TRIGGER a_del_puidjoin ON puidjoin;
+DROP TRIGGER a_ins_puidjoin ON puidjoin;
+DROP TRIGGER a_idu_puid_stat ON puid_stat;
+DROP TRIGGER a_idu_puidjoin_stat ON puidjoin_stat;
 
 -- vi: set ts=4 sw=4 et :

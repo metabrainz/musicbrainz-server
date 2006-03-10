@@ -170,6 +170,14 @@ my %stats = (
 		DESC => "Count of all moderators",
 		SQL => "SELECT COUNT(*) FROM moderator",
 	},
+	"count.puid" => {
+		DESC => "Count of all PUIDs joined to tracks",
+		SQL => "SELECT COUNT(*) FROM puidjoin",
+	},
+	"count.puid.ids" => {
+		DESC => "Count of unique PUIDs",
+		SQL => "SELECT COUNT(DISTINCT puid) FROM puidjoin",
+	},
 	"count.track" => {
 		DESC => "Count of all tracks",
 		SQL => "SELECT COUNT(*) FROM track",
@@ -322,6 +330,86 @@ my %stats = (
 			+{
 				map {
 					"count.track.".$_."trms" => $dist{$_}
+				} keys %dist
+			};
+		},
+	},
+
+	"count.puid.Ntracks" => {
+		DESC => "Distribution of tracks per PUID (collisions)",
+		CALC => sub {
+			my ($self, $sql) = @_;
+
+			my $max_dist_tail = 10;
+
+			my $data = $sql->SelectListOfLists(
+				"SELECT c, COUNT(*) AS freq
+				FROM (
+					SELECT puid, COUNT(*) AS c
+					FROM puidjoin
+					GROUP BY puid
+				) AS t
+				GROUP BY c
+				",
+			);
+
+			my %dist = map { $_ => 0 } 1 .. $max_dist_tail;
+
+			for (@$data)
+			{
+				$dist{ $_->[0] } = $_->[1], next
+					if $_->[0] < $max_dist_tail;
+
+				$dist{$max_dist_tail} += $_->[1];
+			}
+			
+			+{
+				map {
+					"count.puid.".$_."tracks" => $dist{$_}
+				} keys %dist
+			};
+		},
+	},
+
+	"count.track.has_puid" => {
+		DESC => "Count of tracks with at least one PUID",
+		SQL => "SELECT COUNT(DISTINCT track) FROM puidjoin",
+	},
+	"count.track.Npuids" => {
+		DESC => "Distribution of PUIDs per track (varying PUIDs)",
+		PREREQ => [qw[ count.track count.track.has_puid ]],
+		CALC => sub {
+			my ($self, $sql) = @_;
+
+			my $max_dist_tail = 10;
+
+			my $data = $sql->SelectListOfLists(
+				"SELECT c, COUNT(*) AS freq
+				FROM (
+					SELECT track, COUNT(*) AS c
+					FROM puidjoin
+					GROUP BY track
+				) AS t
+				GROUP BY c
+				",
+			);
+
+			my %dist = map { $_ => 0 } 1 .. $max_dist_tail;
+
+			for (@$data)
+			{
+				$dist{ $_->[0] } = $_->[1], next
+					if $_->[0] < $max_dist_tail;
+
+				$dist{$max_dist_tail} += $_->[1];
+			}
+
+			$dist{0} = $self->Fetch("count.track")
+				- $self->Fetch("count.track.has_puid");
+			
+			+{
+				map {
+					"count.track.".$_."puids" => $dist{$_}
 				} keys %dist
 			};
 		},

@@ -119,6 +119,15 @@ CREATE UNIQUE INDEX moderator_subscribe_artist_moderator_key ON moderator_subscr
 
 CREATE INDEX "Pending_XID_Index" ON "Pending" ("XID");
 
+CREATE UNIQUE INDEX puid_puidindex ON puid (puid);
+
+CREATE UNIQUE INDEX puid_stat_puid_idindex ON puid_stat (puid_id, month_id);
+
+CREATE INDEX puidjoin_trackindex ON puidjoin (track);
+CREATE UNIQUE INDEX puidjoin_puidtrack ON puidjoin (puid, track);
+
+CREATE UNIQUE INDEX puidjoin_stat_puidjoin_idindex ON puidjoin_stat (puidjoin_id, month_id);
+
 CREATE INDEX release_album ON release (album);
 
 CREATE UNIQUE INDEX script_isocode ON script (isocode);

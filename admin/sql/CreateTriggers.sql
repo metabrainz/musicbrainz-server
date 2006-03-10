@@ -51,4 +51,14 @@ CREATE TRIGGER a_upd_album_amazon_asin AFTER UPDATE ON album_amazon_asin
 CREATE TRIGGER a_del_album_amazon_asin AFTER DELETE ON album_amazon_asin
     FOR EACH ROW EXECUTE PROCEDURE a_del_album_amazon_asin();
 
+CREATE TRIGGER a_ins_puidjoin AFTER INSERT ON puidjoin
+    FOR EACH ROW EXECUTE PROCEDURE a_ins_puidjoin();
+CREATE TRIGGER a_del_puidjoin AFTER DELETE ON puidjoin
+    FOR EACH ROW EXECUTE PROCEDURE a_del_puidjoin();
+
+CREATE TRIGGER a_idu_puid_stat AFTER INSERT OR DELETE OR UPDATE ON puid_stat
+    FOR EACH ROW EXECUTE PROCEDURE a_idu_puid_stat();
+CREATE TRIGGER a_idu_puidjoin_stat AFTER INSERT OR DELETE OR UPDATE ON puidjoin_stat
+    FOR EACH ROW EXECUTE PROCEDURE a_idu_puidjoin_stat();
+
 -- vi: set ts=4 sw=4 et :

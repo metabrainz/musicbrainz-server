@@ -63,6 +63,10 @@ my $pc = sub
 		<td class="NumberCell"><% $stats{"count.ar.links"} %></td>
 	</tr>
 	<tr>
+		<th class="StatName">PUIDs</th>
+		<td class="NumberCell"><% $stats{"count.puid"} %></td>
+	</tr>
+	<tr>
 		<th class="StatName">TRMs</th>
 		<td class="NumberCell"><% $stats{"count.trm"} %></td>
 	</tr>
@@ -128,6 +132,68 @@ my $pc = sub
 		<th class="StatName">&nbsp; with <% $_ %> <% $_==10 ? "or more" : "" %> Disc ID<% $_==1 ? "" : "s" %></th>
 		<td class="NumberCell"><% $stats{"count.album.${_}discids"} %></td>
 		<td class="NumberCell"><% &$pc(@stats{"count.album.${_}discids", "count.album.has_discid"}) %></td>
+	</tr>
+% }
+</table>
+<& /comp/tableend &>
+
+% $gattrs->{"id"} = "PUIDStats";
+<& /comp/tablebegin, title=>'Track Identifiers', gattrs=>$gattrs &>
+<table class="StatsTable" style="width: 100%">
+	<col>
+	<col style="width: 6em">
+	<col style="width: 4em">
+	<tr>
+		<th class="StatName">Tracks</th>
+		<td class="NumberCell"><% $stats{"count.track"} %></td>
+		<td></td>
+	</tr>
+	<tr>
+		<th class="StatName">Tracks with no PUIDs</th>
+		<td class="NumberCell"><% $stats{"count.track.0puids"} %></td>
+		<td class="NumberCell"><% &$pc(@stats{qw( count.track.0puids count.track )}) %></td>
+	</tr>
+	<tr>
+		<th class="StatName">Tracks with at least one PUID</th>
+		<td class="NumberCell"><% $stats{"count.track.has_puid"} %></td>
+		<td class="NumberCell"><% &$pc(@stats{qw( count.track.has_puid count.track )}) %></td>
+	</tr>
+% for (1 .. 10) {
+	<tr>
+		<th class="StatName">&nbsp; with <% $_ %> <% $_==10 ? "or more" : "" %> PUID<% $_==1 ? "" : "s" %></th>
+		<td class="NumberCell"><% $stats{"count.track.${_}puids"} %></td>
+		<td class="NumberCell"><% &$pc(@stats{"count.track.${_}puids", "count.track.has_puid"}) %></td>
+	</tr>
+% }
+</table>
+<& /comp/tableend &>
+
+% $gattrs->{"id"} = "PUIDCollisionStats";
+<& /comp/tablebegin, title=>'PUID Collisions', gattrs=>$gattrs &>
+<table class="StatsTable" style="width: 100%">
+	<col>
+	<col style="width: 6em">
+	<col style="width: 4em">
+	<tr>
+		<th class="StatName">PUIDs (on tracks)</th>
+		<td class="NumberCell"><% $stats{"count.puid"} %></td>
+		<td></td>
+	</tr>
+	<tr>
+		<th class="StatName">PUIDs (distinct IDs)</th>
+		<td class="NumberCell"><% $stats{"count.puid.ids"} %></td>
+		<td></td>
+	</tr>
+	<tr>
+		<th class="StatName">PUID IDs which identify exactly one track</th>
+		<td class="NumberCell"><% $stats{"count.puid.1tracks"} %></td>
+		<td class="NumberCell"><% &$pc(@stats{qw( count.puid.1tracks count.puid.ids )}) %></td>
+	</tr>
+% for (2 .. 10) {
+	<tr>
+		<th class="StatName">&nbsp; which resolve to <% $_ %> <% $_==10 ? "or more" : "" %> track<% $_==1 ? "" : "s" %></th>
+		<td class="NumberCell"><% $stats{"count.puid.${_}tracks"} %></td>
+		<td class="NumberCell"><% &$pc(@stats{"count.puid.${_}tracks", "count.puid.ids"}) %></td>
 	</tr>
 % }
 </table>
@@ -377,6 +443,7 @@ for my $n (qw(
 	count.artist
 	count.album
 	count.track
+	count.puid
 	count.trm
 	count.discid
 	count.ar.links

@@ -72,6 +72,7 @@ my $CheckAttributes = sub
 # 'Status' (release status)
 # track count
 # TRM count
+# PUID count
 # row id
 
 my $SortAlbums = sub
@@ -97,6 +98,8 @@ my $SortAlbums = sub
 	($a->{trackcount} cmp $b->{trackcount})
 	or
 	($b->{trmidcount} cmp $a->{trmidcount})
+	or
+	($b->{puidcount} cmp $a->{puidcount})
 	or
 	($a->GetId cmp $b->GetId)
 };
@@ -362,6 +365,11 @@ $m->comp(
 % }
 % if ($album->GetTrmidCount) {
 						<td class="trm" nowrap><% $album->GetTrmidCount %><img src="/images/trm.gif" hspace="3" alt="TRM IDs"></td>
+% } else {
+						<td></td>
+% }
+% if ($album->GetPuidCount) {
+						<td class="trm" nowrap><% $album->GetPuidCount %><img src="/images/puid.gif" hspace="3" alt="PUIDs"></td>
 % } else {
 						<td></td>
 % }

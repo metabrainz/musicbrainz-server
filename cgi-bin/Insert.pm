@@ -82,7 +82,8 @@ sub Insert
 #				track => $name,
 #				tracknum => $seq,
 #				duration => $len, 
-#				trmid => $TRM
+#				trmid => $TRM,
+#				puid => $PUID
 #			}
 #		] (always exactly one track)
 #	MOD_ADD_ALBUM PreInsert
@@ -149,6 +150,7 @@ sub Insert
 #    artist or artistid                                    [MACs only]
 #    sortname                                              [MACs only]
 #    trmid                                                 [optional]
+#    puid                                                  [optional]
 #    duration                                              [optional]
 #    year                                                  [optional]
 #  releases -> array of hash refs:                         [required]
@@ -212,6 +214,8 @@ sub _Insert
     my $tr = Track->new($this->{DBH});
 	require TRM;
     my $trm = TRM->new($this->{DBH});
+	require PUID;
+    my $puid = PUID->new($this->{DBH});
 	require MusicBrainz::Server::Release;
 	my $rel = MusicBrainz::Server::Release->new($this->{DBH});
 
@@ -436,8 +440,13 @@ TRACK:
         {
             die "Skipped Insert: Invalid trmid\n";
         }
+        if (exists $track->{puid} && length($track->{puid}) != 36)
+        {
+            die "Skipped Insert: Invalid puid\n";
+        }
         delete $track->{track_insertid};
         delete $track->{trm_insertid};
+        delete $track->{puid_insertid};
         delete $track->{artist_insertid};
 
         #print STDERR "name: $track->{track}\n";
@@ -460,6 +469,20 @@ TRACK:
                 if (defined $newtrm)
                 {
                     $track->{trm_insertid} = $newtrm if ($trm->GetNewInsert());
+                }
+                
+                next TRACK;
+            }
+            if ($albumtrack->GetSequence() == $track->{tracknum} &&
+                $albumtrack->GetName() eq $track->{track} &&
+                exists $track->{puid} && $track->{puid} ne '')
+            {
+                my $newpuid;
+                
+                $newpuid = $puid->Insert($track->{puid}, $albumtrack->GetId());
+                if (defined $newpuid)
+                {
+                    $track->{puid_insertid} = $newpuid if ($puid->GetNewInsert());
                 }
                 
                 next TRACK;
@@ -552,6 +575,15 @@ TRACK:
             if (defined $newtrm)
             {
                 $track->{trm_insertid} = $newtrm if ($trm->GetNewInsert());
+            }
+        }
+        # Now insert the PUID if there is one
+        if (exists $track->{puid} && $track->{puid} ne '')
+        {
+            my $newpuid = $puid->Insert($track->{puid}, $trackid);
+            if (defined $newpuid)
+            {
+                $track->{puid_insertid} = $newpuid if ($puid->GetNewInsert());
             }
         }
     }

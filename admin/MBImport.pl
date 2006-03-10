@@ -364,6 +364,10 @@ sub ImportAllTables
 		moderator_sanitised
 		moderator_preference
 		moderator_subscribe_artist
+		puid
+		puidjoin
+		puidjoin_stat
+		puid_stat
 		release
 		replication_control
 		script

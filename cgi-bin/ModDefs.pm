@@ -115,7 +115,9 @@ use constant MOD_EDIT_LINK_ATTR          => 42;
 use constant MOD_REMOVE_LINK_ATTR        => 43;
 use constant MOD_EDIT_ALBUM_LANGUAGE     => 44;
 use constant MOD_EDIT_TRACKTIME          => 45;
-use constant MOD_LAST                    => 45;
+use constant MOD_REMOVE_PUID             => 46;
+use constant MOD_ADD_PUIDS               => 47;
+use constant MOD_LAST                    => 47;
 
 # The constants below define the state a moderation can have:
 

@@ -54,6 +54,7 @@ if ($trackid) {
 }
 
 my @TRM = TRM->new($mb->{DBH})->GetTRMFromTrackId($track->GetId);
+my @PUID = PUID->new($mb->{DBH})->GetPUIDFromTrackId($track->GetId);
 
 my $artist = Artist->new($mb->{DBH});
 $artist->SetId($track->GetArtist);
@@ -93,7 +94,7 @@ $artist->LoadFromId
 
 <& /comp/ar/RelationshipBox, id=>$track->GetId, type=>'track', name=>$track->GetName &>
 
-<& /comp/trackinfo, track => $track, TRM => \@TRM &>
+<& /comp/trackinfo, track => $track, TRM => \@TRM, PUID => \@PUID &>
 
 <& /comp/artistinfo, artist => $artist &>
 

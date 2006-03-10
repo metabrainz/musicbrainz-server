@@ -36,7 +36,7 @@ our @EXPORT = qw(convert_inc bad_req send_response check_types
                  INC_VARELEASES INC_DURATION INC_ARTISTREL INC_RELEASEREL 
                  INC_DISCS INC_TRACKREL INC_URLREL INC_RELEASEINFO 
                  INC_ARTISTID INC_RELEASEID INC_TRACKID INC_TITLE 
-                 INC_TRACKNUM INC_TRMIDS);
+                 INC_TRACKNUM INC_PUIDS);
 
 use Apache::Constants qw( );
 use Apache::File ();
@@ -60,6 +60,7 @@ use constant INC_TITLE       => 0x04000;
 use constant INC_TRACKNUM    => 0x08000;
 use constant INC_TRMIDS      => 0x10000;
 use constant INC_RELEASES    => 0x20000;
+use constant INC_PUIDS       => 0x40000;
 
 # This hash is used to convert the long form of the args into a short form that can 
 # be used easier 
@@ -83,6 +84,7 @@ my %incShortcuts =
     'tracknum'           => INC_TRACKNUM,
     'trmids'             => INC_TRMIDS,
     'releases'           => INC_RELEASES,
+    'pumids'             => INC_PUIDS,
 );
 
 my %typeShortcuts =
@@ -445,32 +447,33 @@ sub xml_track
             print '</release-list>';
         }
     }
-    xml_trm($tr) if ($inc & INC_TRMIDS);
+    xml_puid($tr) if ($inc & INC_PUIDS);
     xml_relations($tr, 'track', $inc) if ($inc & INC_ARTISTREL || $inc & INC_RELEASEREL || $inc & INC_TRACKREL || $inc & INC_URLREL);
     print '</track>';
 
     return undef;
 }
 
-sub xml_trm
+sub xml_puid
 {
-    require TRM;
+    require PUID;
 	my ($tr) = @_;
 
     my $id;
-    my $trm = TRM->new($tr->{DBH});
-    my @TRM = $trm->GetTRMFromTrackId($tr->GetId);
-    return undef if (scalar(@TRM) == 0);
-    print '<trm-list>';
-    foreach $id (@TRM)
+    my $puid = PUID->new($tr->{DBH});
+    my @PUID = $puid->GetPUIDFromTrackId($tr->GetId);
+    return undef if (scalar(@PUID) == 0);
+    print '<puid-list>';
+    foreach $id (@PUID)
     {
-        print '<trmid id="';
-        print $id->{TRM};
+        print '<puid id="';
+        print $id->{PUID};
         print '"/>';
     }
-    print '</trm-list>';
+    print '</puid-list>';
     return undef;
 }
+
 
 sub load_object
 {

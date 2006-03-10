@@ -555,12 +555,13 @@ sub LoadAlbumMetadata
 		$this->{trackcount} = $row->{tracks};
 		$this->{discidcount} = $row->{discids};
 		$this->{trmidcount} = $row->{trmids};
+		$this->{puidcount} = $row->{puids};
 		$this->{firstreleasedate} = $row->{firstreleasedate} || "";
 		$this->{coverarturl} = $row->{coverarturl};
 		$this->{asin} = $row->{asin};
 	} else {
 		warn "No albummeta row for album #".$this->GetId."\n";
-		delete @$this{qw( trackcount discidcount trmidcount firstreleasedate )};
+		delete @$this{qw( trackcount discidcount trmidcount puidcount firstreleasedate )};
 		return 0;
 	}
 
@@ -598,6 +599,7 @@ sub GetDiscidCount
 
    return $this->{discidcount};
 }
+
 # Returns the number of TRM ids for this album or undef on error
 sub GetTrmidCount
 {
@@ -611,6 +613,20 @@ sub GetTrmidCount
    }
 
    return $this->{trmidcount};
+}
+# Returns the number of PUID ids for this album or undef on error
+sub GetPuidCount
+{
+   my ($this) = @_;
+   my ($sql);
+
+   return undef if (!exists $this->{id});
+   if (!exists $this->{puidcount} || !defined $this->{puidcount})
+   {
+       $this->LoadAlbumMetadata();
+   }
+
+   return $this->{puidcount};
 }
 
 # Returns the first release date for this album or undef on error
@@ -681,7 +697,7 @@ sub LoadFromId
 	my $row = $sql->SelectSingleRowArray(
 		"SELECT	a.id, name, gid, modpending, artist, attributes, "
 		. "       language, script, modpending_lang"
-		. ($loadmeta ? ", tracks, discids, trmids, firstreleasedate,coverarturl,asin" : "")
+		. ($loadmeta ? ", tracks, discids, trmids, firstreleasedate,coverarturl,asin,puids" : "")
 		. " FROM album a"
 		. ($loadmeta ? " INNER JOIN albummeta m ON m.id = a.id" : "")
 		. " WHERE	a.$idcol = ?",
@@ -698,7 +714,7 @@ sub LoadFromId
 	$this->{script}				= $row->[7];
 	$this->{modpending_lang}	= $row->[8];
 
-	delete @$this{qw( trackcount discidcount trmidcount firstreleasedate asin coverarturl )};
+	delete @$this{qw( trackcount discidcount trmidcount firstreleasedate asin coverarturl puidcount )};
 	delete @$this{qw( _discids _tracks )};
 
 	if ($loadmeta)
@@ -709,6 +725,7 @@ sub LoadFromId
 		$this->{firstreleasedate}=$row->[12] || "";
 		$this->{coverarturl}=$row->[13] || "";
 		$this->{asin}=$row->[14] || "";
+		$this->{puidcount}		= $row->[15];
 	}
 
 	1;
@@ -872,8 +889,32 @@ sub LoadTRMCount
 	};
 }
 
+# Fetch PUID counts for each track of the current album.
+# Returns a reference to a hash, where the keys are track IDs and the values
+# are the PUID counts.  Tracks with no PUIDs may or may not be in the hash.
+sub LoadPUIDCount
+{
+ 	my $this = shift;
+	my $sql = Sql->new($this->{DBH});
+
+	my $counts = $sql->SelectListOfLists(
+		"SELECT	albumjoin.track, COUNT(puidjoin.track) AS num_puid
+		FROM	albumjoin, puidjoin
+		WHERE	albumjoin.album = ?
+		AND		albumjoin.track = puidjoin.track
+	   	GROUP BY albumjoin.track",
+		$this->GetId,
+	);
+
+	+{
+		map {
+			$_->[0] => $_->[1]
+		} @$counts
+	};
+}
+
 # Given a list of albums, this function will merge the list of albums into
-# the current album. All Discids and TRM Ids are preserved in the process
+# the current album. All Discids, TRM Ids and PUIDs are preserved in the process
 sub MergeAlbums
 {
    my ($this, $opts) = @_;
@@ -925,7 +966,7 @@ sub MergeAlbums
        {
            if (exists $merged{$tr->GetSequence()})
            {
-                # We already have that track. Move any existing TRMs
+                # We already have that track. Move any existing TRMs/PUIDs
                 # to the existing track
 				my $old = $tr->GetId;
 				my $new = $merged{$tr->GetSequence()}->GetId;
@@ -933,6 +974,10 @@ sub MergeAlbums
 				require TRM;
 				my $trm = TRM->new($this->{DBH});
 				$trm->MergeTracks($old, $new);
+
+				require PUID;
+				my $puid = PUID->new($this->{DBH});
+				$puid->MergeTracks($old, $new);
 				
 				# Move relationships
 				$link->MergeTracks($old, $new)
@@ -1029,7 +1074,7 @@ sub GetVariousDisplayList
 	my $query = "
 		SELECT	a.id, name, gid, modpending, artist,
                 attributes, language, script, modpending_lang,
-				tracks, discids, trmids, firstreleasedate, coverarturl, asin
+				tracks, discids, trmids, firstreleasedate, coverarturl, asin, puids
    		FROM	album a, albummeta m
 	  	WHERE	a.page BETWEEN $page_min AND $page_max
 		AND		m.id = a.id
@@ -1101,6 +1146,7 @@ sub GetVariousDisplayList
 		$al->{firstreleasedate}	= $row->[12] || "";
 		$al->{coverarturl}		= $row->[13] || "";
 		$al->{asin}				= $row->[14] || "";
+		$al->{puidcount}		= $row->[15] || 0;
 
 		$al;
 	} @$rows;

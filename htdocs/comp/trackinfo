@@ -1,6 +1,7 @@
 %# vi: set ts=2 sw=2 ft=mason :
 <%args>
 $track
+@PUID => ()
 @TRM => ()
 </%args>
 
@@ -47,6 +48,33 @@ $track
 	</tr>
 % }
 
+% if (scalar(@PUID) > 0) {
+	<tr>
+    <td valign="top" align="right">PUID IDs:</td>
+    <td>
+			<table>
+		 		<tr>
+		 			<td><img src="/images/puid.png" alt="" align="middle"></td>
+          <td>&nbsp;</td>
+			 	</tr>
+
+%				foreach my $id (@PUID) {
+          <tr>
+					 	<td valign="top"><a href="/showpuid.html?puid=<% $id->{PUID} %>"><% $id->{PUID} %></a></td>
+						<td valign="top">
+%							if (exists $session{user}) {
+				 				[ <a href="/edit/puid/remove.html?PUIDjoin=<% $id->{PUIDjoinid} %>&amp;trackid=<% $track->GetId %>&amp;puid=<% $id->{PUID} %>">Delete</a> ]
+%							} else {
+								&nbsp;
+%							}
+						</td>
+					</tr>
+%				}
+
+			</table>
+		</td>
+	</tr>
+% }
 % if (scalar(@TRM) > 0) {
 	<tr>
     <td valign="top" align="right">TRM IDs:</td>

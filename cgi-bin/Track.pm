@@ -492,6 +492,10 @@ sub Remove
     my $trm = TRM->new($this->{DBH});
     $trm->RemoveByTrackId($this->GetId());
 
+	require PUID;
+    my $puid = PUID->new($this->{DBH});
+    $puid->RemoveByTrackId($this->GetId());
+
     print STDERR "DELETE: Remove track " . $this->GetId() . "\n";
     $sql->Do("DELETE FROM l_artist_track WHERE link1 = ?", $this->GetId);
     $sql->Do("DELETE FROM l_album_track WHERE link1 = ?", $this->GetId);

@@ -44,6 +44,7 @@ require MusicBrainz::Server::Moderation::MOD_ADD_DISCID;
 require MusicBrainz::Server::Moderation::MOD_ADD_LINK;
 require MusicBrainz::Server::Moderation::MOD_ADD_LINK_ATTR;
 require MusicBrainz::Server::Moderation::MOD_ADD_LINK_TYPE;
+require MusicBrainz::Server::Moderation::MOD_ADD_PUIDS;
 require MusicBrainz::Server::Moderation::MOD_ADD_TRACK;
 require MusicBrainz::Server::Moderation::MOD_ADD_TRACK_KV;
 require MusicBrainz::Server::Moderation::MOD_ADD_TRMS;
@@ -77,6 +78,7 @@ require MusicBrainz::Server::Moderation::MOD_REMOVE_DISCID;
 require MusicBrainz::Server::Moderation::MOD_REMOVE_LINK;
 require MusicBrainz::Server::Moderation::MOD_REMOVE_LINK_ATTR;
 require MusicBrainz::Server::Moderation::MOD_REMOVE_LINK_TYPE;
+require MusicBrainz::Server::Moderation::MOD_REMOVE_PUID;
 require MusicBrainz::Server::Moderation::MOD_REMOVE_TRACK;
 require MusicBrainz::Server::Moderation::MOD_REMOVE_TRMID;
 require MusicBrainz::Server::Moderation::MOD_SAC_TO_MAC;
@@ -359,6 +361,7 @@ sub IsAutoModType
 	$type == &ModDefs::MOD_ADD_LINK ||
 	$type == &ModDefs::MOD_ADD_LINK_ATTR ||
 	$type == &ModDefs::MOD_ADD_LINK_TYPE ||
+        $type == &ModDefs::MOD_ADD_PUIDS ||
         $type == &ModDefs::MOD_ADD_TRACK ||
         $type == &ModDefs::MOD_ADD_TRACK_KV ||
         $type == &ModDefs::MOD_ADD_TRMS ||
@@ -383,6 +386,7 @@ sub IsAutoModType
         $type == &ModDefs::MOD_SAC_TO_MAC ||
         $type == &ModDefs::MOD_REMOVE_ARTIST ||
         $type == &ModDefs::MOD_REMOVE_TRMID ||
+        $type == &ModDefs::MOD_REMOVE_PUID ||
 	$type == &ModDefs::MOD_REMOVE_LINK_TYPE ||
 	$type == &ModDefs::MOD_REMOVE_LINK_ATTR)
     {
@@ -704,7 +708,7 @@ sub InsertModeration
 
     my $automod = $this->IsAutoMod($user_is_automod);
 	$automod = 0 if $ui->IsUntrusted($privs)
-		and $this->GetType != &ModDefs::MOD_ADD_TRMS;
+		and ($this->GetType != &ModDefs::MOD_ADD_TRMS or $this->GetType != &ModDefs::MOD_ADD_PUIDS);
 	$automod = 1
 		if not $automod
 		and $user_is_automod

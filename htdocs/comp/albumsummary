@@ -7,6 +7,7 @@ $showmodlinks=>1
 
 my $trackcount = $album->GetTrackCount();
 my $trmids = $album->GetTrmidCount();
+my $puids = $album->GetPuidCount();
 my $discids = $album->GetDiscidCount();
 my @attrs = $album->GetAttributes();
 my $modpend = $album->GetAttributeModPending();
@@ -30,6 +31,12 @@ my $script = $album->GetScript;
     <img src="/images/cd.gif" align="middle" alt="CD" 
                width="13" height="13" style="vertical-align:bottom;border:0;"
                title="This album has <% $discids %> disc IDs">
+% }
+% if ($puids > 0) {
+    &nbsp; &nbsp; &nbsp;<% $puids %>
+    <img src="/images/puid.gif" align="middle" alt="PUID" 
+               width="30" height="11" style="vertical-align:bottom;border:0;"
+               title="This album has <% $puids %> PUIDs">&nbsp;
 % }
 % if ($trmids > 0) {
     &nbsp; &nbsp; &nbsp;<% $trmids %>

@@ -883,7 +883,7 @@ sub GetAlbums
        {
            $query = qq/select album.id, name, modpending, GID, attributes,
                               language, script, tracks, discids, trmids,
-                              firstreleasedate, coverarturl, asin
+                              firstreleasedate, coverarturl, asin, puids
                        from Album, Albummeta 
                        where artist=$this->{id} and albummeta.id = album.id/;
        }
@@ -918,6 +918,7 @@ sub GetAlbums
                     $album->{firstreleasedate} = $row[10]||"";
                     $album->{coverarturl} = $row[11]||"";
                     $album->{asin} = $row[12]||"";
+                    $album->{puidcount} = $row[13]||0;
                 }
 
                 push @albums, $album;
@@ -933,7 +934,7 @@ sub GetAlbums
    if (defined $loadmeta && $loadmeta)
    {
        $query = qq/select album.id, album.artist, name, modpending, GID, attributes, language,
-                          script, tracks, discids, trmids, firstreleasedate
+                          script, tracks, discids, trmids, firstreleasedate, puids
                          from album, albummeta 
                         where album.artist != $this->{id} and 
                               albummeta.id = album.id and
@@ -976,6 +977,7 @@ sub GetAlbums
                 $album->{discidcount} = $row[9];
                 $album->{trmidcount} = $row[10];
                 $album->{firstreleasedate} = $row[11]||"";
+                $album->{puidcount} = $row[12]||0;
             }
 
             push @albums, $album;

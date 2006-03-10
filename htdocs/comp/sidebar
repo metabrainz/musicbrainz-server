@@ -57,8 +57,8 @@ $m->comp(
 % }
 
 %# if (UserPreference::get('sidebar_panel_sponsors')) {
-	<& /comp/layout/sidebar-section, title=>'Sponsors', link => "/sponsors.html" &>
-	<& /comp/layout/sidemenu-panel-sponsors &>
+    <& /comp/layout/sidebar-section, title=>'Partners', link => "/sponsors.html" &>
+    <& /comp/layout/sidemenu-panel-sponsors &>
 %# }
 %# See comments in topmenu.js near method initialise() of object sideBar
 		<script type="text/javascript" src="/scripts/sidebar.js"></script> 

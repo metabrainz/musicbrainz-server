@@ -98,6 +98,7 @@ require TableBase;
 require TaggerSupport;
 require Track;
 require TRM;
+require PUID;
 require UserPreference;
 require UserStuff;
 require UserSubscription;

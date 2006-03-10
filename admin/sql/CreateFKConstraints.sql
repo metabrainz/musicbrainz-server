@@ -367,6 +367,33 @@ ALTER TABLE "PendingData"
     REFERENCES "Pending" ("SeqId")
     ON UPDATE CASCADE ON DELETE CASCADE;
 
+ALTER TABLE puid
+    ADD CONSTRAINT puid_fk_clientversion
+    FOREIGN KEY (version)
+    REFERENCES clientversion(id);
+
+ALTER TABLE puidjoin
+    ADD CONSTRAINT puidjoin_fk_track
+    FOREIGN KEY (track)
+    REFERENCES track(id);
+
+ALTER TABLE puidjoin
+    ADD CONSTRAINT puidjoin_fk_puid
+    FOREIGN KEY (puid)
+    REFERENCES puid(id);
+
+ALTER TABLE puidjoin_stat
+    ADD CONSTRAINT puidjoin_stat_fk_puidjoin
+    FOREIGN KEY (puidjoin_id)
+    REFERENCES puidjoin(id)
+    ON DELETE CASCADE;
+
+ALTER TABLE puid_stat
+    ADD CONSTRAINT puid_stat_fk_puid
+    FOREIGN KEY (puid_id)
+    REFERENCES puid(id)
+    ON DELETE CASCADE;
+
 ALTER TABLE release
     ADD CONSTRAINT release_fk_album
     FOREIGN KEY (album)

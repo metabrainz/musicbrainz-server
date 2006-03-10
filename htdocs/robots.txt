@@ -45,12 +45,14 @@ Disallow: /edit/discid/remove.html
 Disallow: /mod/remove.html
 Disallow: /edit/track/remove.html
 Disallow: /edit/trm/remove.html
+Disallow: /edit/puid/remove.html
 Disallow: /showalbum.html
 Disallow: /showaliases.html
 Disallow: /showartist.html
 Disallow: /showmod.html
 Disallow: /showtrack.html
 Disallow: /showtrm.html
+Disallow: /showpuid.html
 Disallow: /taglookup.html
 Disallow: /edit/album/mac.html
 Disallow: /edit/album/sac.html

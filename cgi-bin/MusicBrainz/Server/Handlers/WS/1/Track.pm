@@ -38,7 +38,7 @@ sub handler
 	# URLs are of the form:
 	# GET http://server/ws/1/track or
 	# GET http://server/ws/1/track/MBID or
-	# POST http://server/ws/1/trm/?name=<user_name>&client=<client id>&trms=<trackid:trm+trackid:trm>
+	# POST http://server/ws/1/puid/?name=<user_name>&client=<client id>&puids=<trackid:puid+trackid:puid>
 
     return handler_post($r) if ($r->method eq "POST");
 
@@ -60,13 +60,13 @@ sub handler
 		return bad_req($r, "Incorrect URI. For usage, please see: http://musicbrainz.org/development/mmd");
 	}
 
-    my $trmid = $args{trmid};
-	if ($trmid && !MusicBrainz::IsGUID($trmid))
+    my $puid = $args{puid};
+	if ($puid && !MusicBrainz::IsGUID($puid))
 	{
-		return bad_req($r, "Invalid trmid. For usage, please see: http://musicbrainz.org/development/mmd");
+		return bad_req($r, "Invalid puid. For usage, please see: http://musicbrainz.org/development/mmd");
 	}
 
-    if (!$mbid && !$trmid)
+    if (!$mbid && !$puid)
     {
         my $title = $args{title} or "";
 		return bad_req($r, "Must specify a title argument for track collections.") if (!$title);
@@ -101,7 +101,7 @@ sub handler
     {
 		# Try to serve the request from the database
 		{
-			my $status = serve_from_db($r, $mbid, $trmid, $inc);
+			my $status = serve_from_db($r, $mbid, $puid, $inc);
 			return $status if defined $status;
 		}
         undef;
@@ -128,13 +128,13 @@ sub handler
 
 sub serve_from_db
 {
-	my ($r, $mbid, $trmid, $inc) = @_;
+	my ($r, $mbid, $puid, $inc) = @_;
 
-    # if this is a trmid request, send it
-    if ($trmid)
+    # if this is a puid request, send it
+    if ($puid)
     {
         my $printer = sub {
-            xml_trm($trmid);
+            xml_puid($puid);
         };
 
         send_response($r, $printer);
@@ -183,28 +183,28 @@ sub handler_post
     my $r = shift;
 
 	# URLs are of the form:
-	# http://server/ws/1/trm/?name=<user_name>&client=<client id>&trms=<trackid:trm+trackid:trm>
+	# http://server/ws/1/puid/?name=<user_name>&client=<client id>&puids=<trackid:puid+trackid:puid>
 
     my $apr = Apache::Request->new($r);
     my $user = $r->user;
-    my @pairs = $apr->param('trm');
+    my @pairs = $apr->param('puid');
     my $client = $apr->param('client');
-    my @trms;
+    my @puids;
     foreach my $pair (@pairs)
     {
-        my ($trackid, $trmid) = split(' ', $pair);
-        if (!MusicBrainz::IsGUID($trmid) || !MusicBrainz::IsGUID($trackid))
+        my ($trackid, $puid) = split(' ', $pair);
+        if (!MusicBrainz::IsGUID($puid) || !MusicBrainz::IsGUID($trackid))
         {
             $r->status(BAD_REQUEST);
             return BAD_REQUEST;
         }
-        push @trms, { trmid => $trmid, trackmbid => $trackid };
+        push @puids, { puid => $puid, trackmbid => $trackid };
     }
 
     # We have to have a limit, I think.  It's only sensible.
-    # So far I've not seen anyone submit more that about 4,500 TRMs at once,
+    # So far I've not seen anyone submit more that about 4,500 PUIDs at once,
     # so this limit won't affect anyone in a hurry.
-    if (scalar(@trms) > 5000)
+    if (scalar(@puids) > 5000)
     {
 		$r->status(DECLINED);
         return DECLINED;
@@ -227,7 +227,7 @@ sub handler_post
     {
 		# Try to serve the request from the database
 		{
-			my $status = serve_from_db_post($r, $user, $client, \@trms);
+			my $status = serve_from_db_post($r, $user, $client, \@puids);
 			return $status if defined $status;
 		}
         undef;
@@ -254,10 +254,10 @@ sub handler_post
 
 sub serve_from_db_post
 {
-	my ($r, $user, $client, $trms) = @_;
+	my ($r, $user, $client, $puids) = @_;
 
 	my $printer = sub {
-		print_xml_post($user, $client, $trms);
+		print_xml_post($user, $client, $puids);
 	};
 
 	send_response($r, $printer);
@@ -304,7 +304,7 @@ sub print_xml_post
             require Moderation;
             my @mods;
 
-            # Break the list of TRMs up into 100 TRMs at a time.
+            # Break the list of PUIDs up into 100 PUIDs at a time.
             # This is so that each moderation is manageably small.
             while (@$links)
             {
@@ -316,7 +316,7 @@ sub print_xml_post
                     DBH => $mb->{DBH},
                     uid => $us->GetId,
                     privs => 0, # TODO
-                    type => &ModDefs::MOD_ADD_TRMS,
+                    type => &ModDefs::MOD_ADD_PUIDS,
                     # --
                     client => $client,
                     links => \@thistime,
@@ -327,9 +327,9 @@ sub print_xml_post
         };
         if ($@)
         {
-            print STDERR "Cannot insert TRM: $@\n";
+            print STDERR "Cannot insert PUID: $@\n";
             $sql->Rollback;
-            die("Cannot write TRM Ids to database.\n")
+            die("Cannot write PUID Ids to database.\n")
         }
     }
 
@@ -339,10 +339,10 @@ sub print_xml_post
 
 # This code is duplicated since it is THE MOST CALLED CODE IN ALL OF MUSICBRAINZ.
 # Thus this is optimized to move as fast as possible. Thus everything has been flattened out.
-sub xml_trm
+sub xml_puid
 {
 	require Track;
-	my ($trm) = @_;
+	my ($puid) = @_;
 
 	require MusicBrainz;
 	my $mb = MusicBrainz->new;
@@ -353,14 +353,14 @@ sub xml_trm
 
     my $rows = $sql->SelectListOfLists("SELECT t.gid, t.name, t.length, t.artist, j.sequence,
                                                a.gid, a.name, a.attributes, a.artist, ar.name, ar.gid, ar.sortname
-                                        FROM   trm, trmjoin tj, track t, albumjoin j, album a, artist ar
-                                        WHERE  trm.trm = ?
-                                        AND    tj.trm = trm.id
+                                        FROM   puid, puidjoin tj, track t, albumjoin j, album a, artist ar
+                                        WHERE  puid.puid = ?
+                                        AND    tj.puid = puid.id
                                         AND    t.id = tj.track
                                         AND    j.track = t.id
                                         AND    a.id = j.album
                                         AND    t.artist = ar.id
-                                        LIMIT  100", $trm);
+                                        LIMIT  100", $puid);
     print '<?xml version="1.0" encoding="UTF-8"?>';
     print '<metadata xmlns="http://musicbrainz.org/ns/mmd-1.0#">';
     if (!@$rows)

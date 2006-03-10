@@ -24,5 +24,8 @@ DROP FUNCTION set_album_asin(INTEGER);
 DROP FUNCTION a_ins_album_amazon_asin ();
 DROP FUNCTION a_upd_album_amazon_asin ();
 DROP FUNCTION a_del_album_amazon_asin ();
+DROP FUNCTION a_ins_puidjoin();
+DROP FUNCTION a_upd_puidjoin();
+DROP FUNCTION a_del_puidjoin();
 
 -- vi: set ts=4 sw=4 et :
