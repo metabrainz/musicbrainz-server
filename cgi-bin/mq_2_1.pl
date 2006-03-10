@@ -117,7 +117,8 @@ my %Queries =
 
 # Map of query name => $MusicBrainz::db value.
 my %QueryDBSwitch = (
-	TrackInfoFromTRMId => 'WSDB1,WSDB2',
+	# Example: send TrackInfoFromTRMId queries to WSDB1 and WSDB2
+	# TrackInfoFromTRMId => 'WSDB1,WSDB2',
 );
 
 sub Output
