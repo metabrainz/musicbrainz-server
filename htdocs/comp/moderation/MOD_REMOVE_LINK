@@ -27,9 +27,10 @@
 		id=>$new->{entity0id}, type=>$new->{entity0type}, 
 		name=>$new->{entity0name}, linktypeid=>$new->{linktypeid}, simple=>1 &>
 	<i><% $new->{linktypephrase} %></i>
-%   my ($url, $name) = ($new->{entity1name}, $new->{entity1name});
+%   my ($url, $name) = ($new->{entity1name}, '');
 %   if ($new->{linktypeid} == Album->GetAsinLinkTypeId($self->{DBH})) {
 %     ($name, ) = Album->ParseAmazonURL($new->{entity1name});
+%   }
 	  <& /comp/ar/ShowEntityLink, 
 		  id=>$new->{entity1id}, type=>$new->{entity1type}, name=>$name,
 		  url=>$url, linktypeid=>$new->{linktypeid}, simple=>1 &>
