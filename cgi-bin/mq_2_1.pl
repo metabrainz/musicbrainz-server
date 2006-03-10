@@ -115,6 +115,11 @@ my %Queries =
         'http://musicbrainz.org/mm/mq-1.1#maxItems']
 );  
 
+# Map of query name => $MusicBrainz::db value.
+my %QueryDBSwitch = (
+	TrackInfoFromTRMId => 'WSDB1,WSDB2',
+);
+
 sub Output
 {
    my ($r, $out) = @_;
@@ -305,6 +310,9 @@ if ($mustauth && !defined $session_id)
     Output($r, \$out);
     exit(0);
 }
+
+# Set the database to use for this query
+local $MusicBrainz::db = $QueryDBSwitch{$queryname};
 
 for(;;)
 {

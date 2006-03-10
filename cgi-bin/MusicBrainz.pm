@@ -55,8 +55,32 @@ sub Login
 	my ($this, %opts) = @_;
 
 	my $db = $opts{'db'};
+
+	{
+		last if $db;
+
+		$db = $MusicBrainz::db;
+		last if $db;
+
+		{
+			$INC{'Apache.pm'} or last;
+			my $r = Apache->request or last;
+			$db = $r->dir_config->get("MBDatabase");
+		}
+		last if $db;
+	}
+
 	$db = (&DBDefs::REPLICATION_TYPE == RT_SLAVE ? "READONLY" : "READWRITE")
 		if not defined $db;
+
+	if (not ref($db) and $db =~ /,/)
+	{
+		our %round_robin;
+		my $arr = ($round_robin{$db} ||= [ split /,/, $db ]);
+		$db = shift @$arr;
+		push @$arr, $db;
+	}
+
 	unless (ref $db)
 	{
 		$db = MusicBrainz::Server::Database->get($db)

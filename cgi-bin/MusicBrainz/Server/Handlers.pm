@@ -246,6 +246,10 @@ sub LogHandler
 {
 	my ($r) = @_;
 	return &Apache::Constants::DECLINED unless $r->is_main;
+
+	# Reset any overridden db, just to make sure
+	$MusicBrainz::db = undef;
+
 	eval {auto_detect_taggers($r) };
 	return &Apache::Constants::DECLINED;
 }
