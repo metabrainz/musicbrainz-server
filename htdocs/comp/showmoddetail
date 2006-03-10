@@ -169,7 +169,7 @@ $mostrecent{ $_->GetUserId } = $_->GetId
 		   | <a href="/mod/approve.html?modid=<% $mod->GetId %>">Approve</a>
 % }
 % if ($my_mod and $is_open) {
-		   | <a href="/mod/approve.html?modid=<% $mod->GetId %>">Delete mod</a>
+		   | <a href="/mod/remove.html?modid=<% $mod->GetId %>">Delete mod</a>
 % }
 		   ]
         </td>

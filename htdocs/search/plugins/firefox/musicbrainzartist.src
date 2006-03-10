@@ -15,14 +15,14 @@
  version="7.1"
  name="Musicbrainz: Artist"
  description="Musicbrainz - Search Musicbrainz music metadatabase for an artist" 
- action="http://www.musicbrainz.org/newsearch.html"
- searchForm="http://www.musicbrainz.org/search.html"
+ action="http://musicbrainz.org/search/textsearch.html"
+ searchForm="http://musicbrainz.org/search.html"
  method="GET" >
 
-<input name="sourceid" value="Mozilla-search">
-<input name="table" value="artist">
-<input name="limit" value="0">
-<input name="search" user="">
+<!--<input name="sourceid" value="Mozilla-search">-->
+<input name="type" value="artist">
+<input name="limit" value="25">
+<input name="query" user="">
 
 <interpret 
  resultListStart="<table border="0" cellspacing="0" cellpadding="4" id="SearchResults">"

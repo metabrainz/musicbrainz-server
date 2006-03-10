@@ -1319,7 +1319,7 @@ this.FIELD_REGEX=this.getModID()+".regex";
 this.FIELD_AUTOAPPLY=this.getModID()+".autoapply";
 this.FIELD_MATCHCASE=this.getModID()+".matchcase";
 this.FIELD_ALLFIELDS=this.getModID()+".allfields";
-this.PRESETS_LIST=[["Remove all round parantheses ()","\\(|\\)","",1],["Remove all square brackets []","\\[|\\]","",1],["Remove all curly braces {}","\\{|\\}","",1],["Remove all bracketing punctuation ()[]{}","\\(|\\)|\\[|\\]|\\{|\\}","",1],["Replace [] with ()","\\[([^\\]]*)\\]","($1)",1],["Replace () with []","\\(([^\\)]*)\\)","[$1]",1],["Replace #1 with No. 1 for any number","#(\\d*)","No. $1",1]];
+this.PRESETS_LIST=[["Remove all round parentheses ()","\\(|\\)","",1],["Remove all square brackets []","\\[|\\]","",1],["Remove all curly braces {}","\\{|\\}","",1],["Remove all bracketing punctuation ()[]{}","\\(|\\)|\\[|\\]|\\{|\\}","",1],["Replace [] with ()","\\[([^\\]]*)\\]","($1)",1],["Replace () with []","\\(([^\\)]*)\\)","[$1]",1],["Replace #1 with No. 1 for any number","#(\\d*)","No. $1",1]];
 this.COOKIE_PRESETEXPANDED="SR_COOKIE_PRESETEXPANDED";
 this.setupModuleDelegate=function(){
 es.ui.registerButtons(new EsButton(this.BTN_SEARCH,"Search","",this.getModID()+".onSearchClicked()"),new EsButton(this.BTN_REPLACE,"Replace","",this.getModID()+".onReplaceClicked()"),new EsButton(this.BTN_LOADPRESET,"Show/Hide Presets","",this.getModID()+".onShowPresetsClicked()"),new EsButton(this.BTN_SWAP,"Swap fields","",this.getModID()+".onSwapFieldsClicked()"),new EsButton(this.BTN_RESET,"Reset","",this.getModID()+".onResetFieldsClicked()"));
@@ -1563,16 +1563,16 @@ this.CFG_TRACKNUMBER=this.getModID()+".tracknumber";
 this.CFG_VINYLNUMBERS=this.getModID()+".vinylnumbers";
 this.CFG_TRACKTIMES=this.getModID()+".tracktimes";
 this.CFG_STRIPBRACKETS=this.getModID()+".stripbrackets";
-this.CONFIG_LIST=[new EsModuleConfig(this.CFG_ALBUMTITLE,false,"First line is album title","The First line is handled as the album title, which is filled into the album title field. The tracks are expected to start from line 2"),new EsModuleConfig(this.CFG_TRACKNUMBER,true,"All tracknames start with a number","Lines which do not start with a number are inspected for usable information, which is added to the previous track (this allows to import ExtraTitleInformation from discogs)"),new EsModuleConfig(this.CFG_VINYLNUMBERS,false,"Detect Vinyl track numbers","Characters which are used for numbering of the tracks may include alphanummeric characters (0-9,a-z) (A1,A2,...C,D...)"),new EsModuleConfig(this.CFG_TRACKTIMES,true,"Detect track times ?:??","The line is inspected for an occurence of numbers separated by a colon. If such a value is found the track time is read and removed from the track title. Round parantheses surrounding the time are removed as well."),new EsModuleConfig(this.CFG_STRIPBRACKETS,true,"Remove text in brackets [...]","Text in square brackets (usually links to other pages) is removed")];
+this.CONFIG_LIST=[new EsModuleConfig(this.CFG_ALBUMTITLE,false,"First line is album title","The First line is handled as the album title, which is filled into the album title field. The tracks are expected to start from line 2"),new EsModuleConfig(this.CFG_TRACKNUMBER,true,"All tracknames start with a number","Lines which do not start with a number are inspected for usable information, which is added to the previous track (this allows to import ExtraTitleInformation from discogs)"),new EsModuleConfig(this.CFG_VINYLNUMBERS,false,"Detect Vinyl track numbers","Characters which are used for numbering of the tracks may include alphanummeric characters (0-9,a-z) (A1,A2,...C,D...)"),new EsModuleConfig(this.CFG_TRACKTIMES,true,"Detect track times ?:??","The line is inspected for an occurence of numbers separated by a colon. If such a value is found the track time is read and removed from the track title. Round parentheses surrounding the time are removed as well."),new EsModuleConfig(this.CFG_STRIPBRACKETS,true,"Remove text in brackets [...]","Text in square brackets (usually links to other pages) is removed")];
 this.TRACKSAREA=this.getModID()+".tracksarea";
 this.BTN_SWAP="BTN_TP_SWAP";
 this.BTN_PARSE="BTN_TP_PARSE";
 this.BTN_PARSETIMES="BTN_TP_PARSETIMES";
 this.WARNINGTR="TP_WARNINGTR";
 this.WARNINGTD="TP_WARNINGTD";
-this.RE_TrackNumber=/^\s?[0-9\.]+[\.\s]+/g;
-this.RE_TrackNumberVinyl=/^\s?[0-9a-z]+[\.\s]+/gi;
-this.RE_TrackTimes=/\(?[0-9]+:[0-9]+\)?/gi;
+this.RE_TrackNumber=/^[\s\(]*[0-9\.]+(-[0-9]+)?[\.\)\s]+/g;
+this.RE_TrackNumberVinyl=/^[\s\(]*[0-9a-z]+[\.\)\s]+/gi;
+this.RE_TrackTimes=/\(?[0-9]+[:,.][0-9]+\)?/gi;
 this.RE_RemoveParens=/\(|\)/g;
 this.RE_StripSquareBrackets=/\[.*\]/gi;
 this.RE_StripTrailingListen=/\s\s*(listen(music)?|\s)+$/gi;
@@ -1610,14 +1610,12 @@ s.push(this.getModuleEndHtml({x:false}));
 return s.join("");
 };
 this.onParseClicked=function(_d4){
-mb.log.scopeStart("Handling click on Parse button");
 mb.log.enter(this.GID,"onParseClicked");
 _d4=(_d4||false);
 this.setConfigValue(this.CFG_PARSETIMESONLY,_d4);
 this.parseNow();
 es.ui.setDisabled(this.BTN_SWAP,false);
 mb.log.exit();
-mb.log.scopeEnd();
 };
 this.onSwapArtistTrackClicked=function(){
 mb.log.scopeStart("Handling click on Swap button");
@@ -1641,7 +1639,7 @@ mb.log.enter(this.GID,"checkVAMode");
 if(this.isUIAvailable()){
 this.setVA(es.ui.getField("artistname0",true)!=null);
 if(!this.isConfigTrue(this.CFG_ISVA)){
-mb.ui.setDisplay(this.BTN_SWAP,false);
+es.ui.setDisabled(this.BTN_SWAP,false);
 }else{
 es.ui.setDisabled(this.BTN_SWAP,true);
 }
@@ -1750,7 +1748,7 @@ var _eb=title.split(this.RE_VariousSeparator);
 artistName=mb.utils.trim(_eb[0]);
 mb.log.debug("Found artist: $",artistName);
 if(_e5&&artistName.match(/\(|\)|remix/gi)){
-this.showWarning("Track "+counter+": Possibly Artist/Tracknames swapped: Parantheses in Artist name!");
+this.showWarning("Track "+counter+": Possibly Artist/Tracknames swapped: Parentheses in Artist name!");
 _e5=false;
 }
 _eb[0]="";
@@ -2195,38 +2193,41 @@ return _120;
 };
 this.getArtistFields=function(){
 mb.log.enter(this.GID,"getArtistFields");
+var _121=[];
 if(this.getForm()){
-fields=this.getFieldsWalker(this.re.TEXTFIELD,this.re.ARTISTFIELD);
+_121=this.getFieldsWalker(this.re.TEXTFIELD,this.re.ARTISTFIELD);
 }
 mb.log.exit();
-return fields;
+return _121;
 };
 this.getAlbumNameField=function(){
 mb.log.enter(this.GID,"getAlbumNameField");
-var _121=[];
+var _122=[];
 if(this.getForm()){
-_121=this.getFieldsWalker(this.re.TEXTFIELD,this.re.ALBUMFIELD);
+_122=this.getFieldsWalker(this.re.TEXTFIELD,this.re.ALBUMFIELD);
 }
-return (_121[0]||null);
+return (_122[0]||null);
 };
 this.getTrackNameFields=function(){
 mb.log.enter(this.GID,"getTrackNameFields");
+var _123=[];
 if(this.getForm()){
-fields=this.getFieldsWalker(this.re.TEXTFIELD,this.re.TRACKFIELD);
+_123=this.getFieldsWalker(this.re.TEXTFIELD,this.re.TRACKFIELD);
 }
 mb.log.exit();
-return fields;
+return _123;
 };
 this.getTrackTimeFields=function(){
 mb.log.enter(this.GID,"getTrackTimeFields");
+var _124=[];
 if(this.getForm()){
-fields=this.getFieldsWalker(this.re.NUMBERFIELD,this.re.TRACKLENGTHFIELD);
+_124=this.getFieldsWalker(this.re.NUMBERFIELD,this.re.TRACKLENGTHFIELD);
 }
 mb.log.exit();
-return fields;
+return _124;
 };
-this.getFieldsWalker=function(cnRE,_123){
-var _124=[];
+this.getFieldsWalker=function(cnRE,_126){
+var _127=[];
 var f,el;
 if((f=this.getForm())!=null){
 for(var i=0;i<f.elements.length;i++){
@@ -2235,14 +2236,14 @@ var cn=(el.className||"");
 var name=(el.name||"");
 var type=(el.type||"");
 var bCN=(cnRE==null||(cnRE!=null&&cn.match(cnRE)));
-var _12b=(_123==null||(_123!=null&&name.match(_123)));
-if((type=="text")&&bCN&&_12b){
-_124.push(el);
+var _12e=(_126==null||(_126!=null&&name.match(_126)));
+if((type=="text")&&bCN&&_12e){
+_127.push(el);
 }
 }
 }
 }
-return _124;
+return _127;
 };
 this.setDisabled=function(el,flag){
 var obj=null;
@@ -2364,15 +2365,15 @@ es.ui.registerButtons(new EsButton(this.BTN_UNDO_ALL,"Undo All","Undo all change
 };
 this.getModuleHtml=function(){
 var s=[];
-var _139="Steps 0/0";
+var _13c="Steps 0/0";
 s.push(this.getModuleStartHtml({x:true}));
 s.push(es.ui.getButtonHtml(this.BTN_UNDO_ALL));
 s.push(es.ui.getButtonHtml(this.BTN_UNDO_ONE));
 s.push(es.ui.getButtonHtml(this.BTN_REDO_ONE));
 s.push(es.ui.getButtonHtml(this.BTN_REDO_ALL));
-s.push("<small><span id=\""+this.STATUS_EXPANDED+"\">"+_139+"</span><small>");
+s.push("<small><span id=\""+this.STATUS_EXPANDED+"\">"+_13c+"</span><small>");
 s.push(this.getModuleEndHtml({x:true}));
-s.push(this.getModuleStartHtml({x:false,dt:_139}));
+s.push(this.getModuleStartHtml({x:false,dt:_13c}));
 s.push(this.getModuleEndHtml({x:false}));
 return s.join("");
 };
@@ -2388,24 +2389,24 @@ return new EsUndoItem(arguments);
 this.createItemList=function(){
 return new EsUndoItemList(arguments);
 };
-this.addUndo=function(_13a){
+this.addUndo=function(_13d){
 mb.log.enter(this.GID,"addUndo");
 this.stack=this.stack.slice(0,this.index);
-this.stack.push(_13a);
+this.stack.push(_13d);
 this.index=this.stack.length;
 var f=null;
 var ff=es.ui.getFocusField();
-if(_13a instanceof EsUndoItemList){
-var _13d=_13a;
-for(_13d.iterate();_13d.hasNext();){
-_13a=_13d.getNext();
-if(_13a.getField()==ff){
-es.ui.setFocusValue(_13a.getNew());
+if(_13d instanceof EsUndoItemList){
+var _140=_13d;
+for(_140.iterate();_140.hasNext();){
+_13d=_140.getNext();
+if(_13d.getField()==ff){
+es.ui.setFocusValue(_13d.getNew());
 }
 }
 }else{
-if(_13a.getField()==ff){
-es.ui.setFocusValue(_13a.getNew());
+if(_13d.getField()==ff){
+es.ui.setFocusValue(_13d.getNew());
 }
 }
 this.updateUI();
@@ -2415,19 +2416,19 @@ this.undoStep=function(){
 mb.log.enter(this.GID,"undoStep");
 if(this.stack.length>0){
 if(this.index>0){
-var _13e=this.stack[--this.index];
+var _141=this.stack[--this.index];
 var f,o;
-if(_13e instanceof EsUndoItemList){
+if(_141 instanceof EsUndoItemList){
 mb.log.info("Undoing combined step...");
-for(_13e.iterate();_13e.hasNext();){
-o=_13e.getNext();
+for(_141.iterate();_141.hasNext();){
+o=_141.getNext();
 f=o.getField();
 f.value=o.getOld();
 mb.log.debug("* op: $, field: $, value: $",o.getOp(),f.name,f.value);
 }
 }else{
 mb.log.info("Undoing single step...");
-o=_13e;
+o=_141;
 f=o.getField();
 f.value=o.getOld();
 mb.log.debug("* op: $, field: $, value: $",o.getOp(),f.name,f.value);
@@ -2438,22 +2439,22 @@ es.ui.resetSelection();
 }
 mb.log.exit();
 };
-this.redoStep=function(_140){
+this.redoStep=function(_143){
 mb.log.enter(this.GID,"redoStep");
 if(this.index<this.stack.length){
-var _141=this.stack[this.index];
+var _144=this.stack[this.index];
 var f,o;
-if(_141 instanceof EsUndoItemList){
+if(_144 instanceof EsUndoItemList){
 mb.log.info("Redoing combined step...");
-for(_141.iterate();_141.hasNext();){
-o=_141.getNext();
+for(_144.iterate();_144.hasNext();){
+o=_144.getNext();
 f=o.getField();
 f.value.value=o.getNew();
 mb.log.debug("* op: $, field: $, value: $",o.getOp(),f.name,f.value);
 }
 }else{
 mb.log.info("Redoing single step...");
-o=_141;
+o=_144;
 f=o.getField();
 f.value=o.getNew();
 mb.log.debug("* op: $, field: $, value: $",o.getOp(),f.name,f.value);
@@ -2506,12 +2507,12 @@ EsUndoModule.prototype=new EsModuleBase;
 catch(e){
 mb.log.error("EsUndoModule: Could not register EsModuleBase prototype");
 }
-function GcFix(name,re,_147){
+function GcFix(name,re,_14a){
 mb.log.enter("GcFix","__constructor");
 this.CN="GcFix";
 this._name=name;
 this._re=re;
-this._replace=_147;
+this._replace=_14a;
 this.getName=function(){
 return this._name;
 };
@@ -2697,14 +2698,14 @@ return f;
 this.getPos=function(){
 return this._wi;
 };
-this.setPos=function(_153){
-if(_153>=0&&_153<this.getLength()){
-this._wi=_153;
+this.setPos=function(_156){
+if(_156>=0&&_156<this.getLength()){
+this._wi=_156;
 }
 };
-this.getWordAtIndex=function(_154){
-if(this._w[_154]){
-return this._w[_154];
+this.getWordAtIndex=function(_157){
+if(this._w[_157]){
+return this._w[_157];
 }else{
 return null;
 }
@@ -2735,19 +2736,19 @@ mb.log.enter(this.GID,"matchCurrentWord");
 var f=(this.matchWordAtIndex(this.getPos(),re));
 return mb.log.exit(f);
 };
-this.matchWordAtIndex=function(_159,re){
+this.matchWordAtIndex=function(_15c,re){
 mb.log.enter(this.GID,"matchWordAtIndex");
-var cw=(this.getWordAtIndex(_159)||"");
+var cw=(this.getWordAtIndex(_15c)||"");
 var f;
 if(mb.utils.isString(re)){
 f=(re==cw);
 if(f){
-mb.log.debug("Matched w: $ at index: $, string: $",cw,_159,re);
+mb.log.debug("Matched w: $ at index: $, string: $",cw,_15c,re);
 }
 }else{
 f=(cw.match(re)!=null);
 if(f){
-mb.log.debug("Matched w: $ at index: $, re: $",cw,_159,re);
+mb.log.debug("Matched w: $ at index: $, re: $",cw,_15c,re);
 }
 }
 return mb.log.exit(f);
@@ -2769,13 +2770,13 @@ this._wi--;
 }
 }
 };
-this.insertWordsAtIndex=function(_15d,w){
+this.insertWordsAtIndex=function(_160,w){
 mb.log.enter(this.GID,"insertWordsAtIndex");
-var _15f=this._w.slice(0,_15d);
-var _160=this._w.slice(_15d,this._w.length);
-this._w=_15f.concat(w).concat(_160);
+var _162=this._w.slice(0,_160);
+var _163=this._w.slice(_160,this._w.length);
+this._w=_162.concat(w).concat(_163);
 this._l=this._w.length;
-mb.log.debug("Inserted $ at index $",w,_15d);
+mb.log.debug("Inserted $ at index $",w,_160);
 mb.log.exit();
 };
 this.capitalizeCurrentWord=function(){
@@ -2815,36 +2816,36 @@ mb.log.enter(this.GID,"splitWordsAndPunctuation");
 is=is.replace(/^\s\s*/,"");
 is=is.replace(/\s\s*$/,"");
 is=is.replace(/\s\s*/g," ");
-var _167=is.split("");
-var _168=[];
+var _16a=is.split("");
+var _16b=[];
 var word=[];
 if(!gc.re.SPLITWORDSANDPUNCTUATION){
 gc.re.SPLITWORDSANDPUNCTUATION=/[^!\"%&'??`()\[\]\{\}\*\+,-\.\/:;<=>\?\s#]/;
 }
-for(var i=0;i<_167.length;i++){
-if(_167[i].match(gc.re.SPLITWORDSANDPUNCTUATION)){
-word.push(_167[i]);
+for(var i=0;i<_16a.length;i++){
+if(_16a[i].match(gc.re.SPLITWORDSANDPUNCTUATION)){
+word.push(_16a[i]);
 }else{
 if(word.length>0){
-_168.push(word.join(""));
+_16b.push(word.join(""));
 }
-_168.push(_167[i]);
+_16b.push(_16a[i]);
 word=[];
 }
 }
 if(word.length>0){
-_168.push(word.join(""));
+_16b.push(word.join(""));
 }
-mb.log.debug("words: $",_168);
-return mb.log.exit(_168);
+mb.log.debug("words: $",_16b);
+return mb.log.exit(_16b);
 };
 mb.log.exit();
 }
-function GcMode(_16b,name,lang,desc,url){
+function GcMode(_16e,name,lang,desc,url){
 mb.log.enter("GcMode","__constructor");
 this.CN="GcMode";
 this.GID="gc.mode";
-this._modes=_16b;
+this._modes=_16e;
 this._name=name;
 this._lang=lang;
 this._desc=(desc||"");
@@ -2922,20 +2923,20 @@ this.ARTIST_MODE=new GcMode(this,"Artist",this.EN);
 }
 return mb.log.exit(this.ARTIST_MODE);
 };
-this.getModeFromID=function(_174,_175){
+this.getModeFromID=function(_177,_178){
 mb.log.enter(this.GID,"getModeFromID");
 var mode=null;
 for(var i=0;i<this.MODES_LIST.length;i++){
 mode=this.MODES_LIST[i];
 if(mode){
-if(mode.getID()!=_174){
+if(mode.getID()!=_177){
 mode=null;
 }else{
 break;
 }
 }
 }
-mb.log.debug("Id: $, mode: $",_174,(mode||"undefined"));
+mb.log.debug("Id: $, mode: $",_177,(mode||"undefined"));
 return mb.log.exit(mode);
 };
 this.onModeChanged=function(el){
@@ -2943,13 +2944,13 @@ mb.log.scopeStart("Handle selection on the Mode Dropdown");
 mb.log.enter(this.GID,"onModeChanged");
 if((el&&el.options)&&(el.id==this.MODES_DROPDOWN)){
 var si=el.selectedIndex;
-var _17a=el.options[si].value;
-if(_17a!=""){
-mb.log.debug("New ModeId: $",_17a);
-if(_17a!=es.gc.getMode().getID()){
-es.gc.setMode(_17a);
-mb.cookie.set(es.gc.COOKIE_MODE,_17a,365);
-mb.log.debug("Changed mode to: $",_17a);
+var _17d=el.options[si].value;
+if(_17d!=""){
+mb.log.debug("New ModeId: $",_17d);
+if(_17d!=es.gc.getMode().getID()){
+es.gc.setMode(_17d);
+mb.cookie.set(es.gc.COOKIE_MODE,_17d,365);
+mb.log.debug("Changed mode to: $",_17d);
 this.updateUI();
 }else{
 mb.log.debug("No mode change required...");
@@ -3005,9 +3006,9 @@ this.useModeFromUI=function(){
 mb.log.enter(this.GID,"useModeFromUI");
 var obj;
 if((obj=mb.ui.get(this.MODES_DROPDOWN))!=null){
-var _185=obj.options[obj.selectedIndex].value;
-if(_185!=""){
-es.gc.setMode(_185);
+var _188=obj.options[obj.selectedIndex].value;
+if(_188!=""){
+es.gc.setMode(_188);
 }
 }else{
 mb.log.error("Unsupported element: $",this.MODES_DROPDOWN);
@@ -3067,16 +3068,16 @@ gc.o.appendSpace();
 }
 mb.log.exit();
 };
-this.getWordAtIndex=function(_189){
-if(this._w[_189]){
-return this._w[_189];
+this.getWordAtIndex=function(_18c){
+if(this._w[_18c]){
+return this._w[_18c];
 }else{
 return null;
 }
 };
-this.setWordAtIndex=function(_18a,word){
-if(this.getWordAtIndex(_18a)){
-this._w[_18a]=word;
+this.setWordAtIndex=function(_18d,word){
+if(this.getWordAtIndex(_18d)){
+this._w[_18d]=word;
 }
 };
 this.getLastWord=function(){
@@ -3092,20 +3093,21 @@ return this._w.pop();
 }
 return null;
 };
-this.capitalizeWordAtIndex=function(_18c){
+this.capitalizeWordAtIndex=function(_18f){
 mb.log.enter(this.GID,"capitalizeWordAtIndex");
-if((!gc.getMode().isSentenceCaps())&&(!this.isEmpty())&&(this.getWordAtIndex(_18c)!=null)){
-var w=this.getWordAtIndex(_18c),o=w;
+gc.f.forceCaps=true;
+if((!gc.getMode().isSentenceCaps())&&(!this.isEmpty())&&(this.getWordAtIndex(_18f)!=null)){
+var w=this.getWordAtIndex(_18f),o=w;
 if(w.match(/^\w\..*/)==null){
-var _18e=gc.u.trim(w.toLowerCase());
-if(gc.f.isInsideBrackets()&&gc.u.isLowerCaseBracketWord(_18e)){
+var _191=gc.u.trim(w.toLowerCase());
+if(gc.f.isInsideBrackets()&&gc.u.isLowerCaseBracketWord(_191)){
 }else{
-if(gc.u.isUpperCaseWord(_18e)){
+if(gc.u.isUpperCaseWord(_191)){
 }else{
 o=gc.u.titleString(w);
 if(w!=o){
-this.setWordAtIndex(_18c,o);
-mb.log.debug("index=$/$, before: $, after: $",_18c,this.getLength()-1,w,o);
+this.setWordAtIndex(_18f,o);
+mb.log.debug("index=$/$, before: $, after: $",_18f,this.getLength()-1,w,o);
 }
 }
 }
@@ -3131,11 +3133,11 @@ return mb.log.exit(os);
 this.closeOpenBrackets=function(){
 mb.log.enter(this.GID,"closeOpenBrackets");
 mb.log.debug("Open brackets stack: $",gc.f.openBrackets);
-var _190=new Array();
+var _193=new Array();
 while(gc.f.isInsideBrackets()){
-_190[_190.length]=gc.f.popBracket();
+_193[_193.length]=gc.f.popBracket();
 }
-this.appendWord(_190.join(""));
+this.appendWord(_193.join(""));
 mb.log.exit();
 };
 this.appendWordPreserveWhiteSpace=function(c){
@@ -3193,9 +3195,9 @@ return this.inArray(this.someWord,w);
 };
 this.getLowerCaseWords=function(lang){
 lang=(lang||"en");
-var _19d=[];
-_19d["en"]=["a","and","n","an","as","at","but","by","for","in","nor","of","o","on","or","the","to","tha"];
-return _19d[lang];
+var _1a0=[];
+_1a0["en"]=["a","and","n","an","as","at","but","by","for","in","nor","of","o","on","or","the","to","tha"];
+return _1a0[lang];
 };
 this.isLowerCaseWord=function(w){
 mb.log.enter(this.GID,"isLowerCaseWord");
@@ -3240,7 +3242,7 @@ mb.log.debug("$=$",w,f);
 return mb.log.exit(f);
 };
 this.getLowerCaseBracketWords=function(){
-return ["acoustic","album","alternate","bonus","clean","dirty","disc","extended","instrumental","live","original","radio","single","take","demo","club","dance","edit","skit","mix","remix","version","reprise","megamix","maxi","feat","interlude","dub","dialogue","cut","karaoke","acappella","vs","vocal","alternative","disco","unplugged","video","outtake","outtakes","rehearsal","intro","outro","acappella","long","short","main","remake","clubmix","composition","reinterpreted","session","rework","reworked","remixed","reedit","airplay"];
+return ["acoustic","album","alternate","bonus","clean","dirty","disc","extended","instrumental","live","original","radio","single","take","demo","club","dance","edit","skit","mix","remix","version","reprise","megamix","maxi","feat","interlude","dub","dialogue","cut","karaoke","vs","vocal","alternative","disco","unplugged","video","outtake","outtakes","rehearsal","intro","outro","long","short","main","remake","clubmix","composition","reinterpreted","session","rework","reworked","remixed","reedit","airplay","a_cappella"];
 };
 this.isLowerCaseBracketWord=function(w){
 mb.log.enter(this.GID,"isLowerCaseBracketWord");
@@ -3286,14 +3288,14 @@ var temp=[];
 try{
 for(var i=0;i<a.length;i++){
 var curr=a[i].toLowerCase();
-var _1b1=curr.split("'");
-var _1b2=_1b1[0];
-var _1b3=_1b1[1];
-if(_1b2&&_1b3){
-if(!temp[_1b2]){
-temp[_1b2]=[];
+var _1b4=curr.split("'");
+var _1b5=_1b4[0];
+var _1b6=_1b4[1];
+if(_1b5&&_1b6){
+if(!temp[_1b5]){
+temp[_1b5]=[];
 }
-temp[_1b2][temp[_1b2].length]=_1b3;
+temp[_1b5][temp[_1b5].length]=_1b6;
 }
 }
 }
@@ -3302,17 +3304,17 @@ mb.log.error("caught exception: $",(e.message||""));
 }
 this.contractionWords=temp;
 }
-var _1b4=false,haystack=this.contractionWords[pw];
+var _1b7=false,haystack=this.contractionWords[pw];
 if(haystack!=null&&nw!=" "){
 for(var cwi=0;cwi<haystack.length;cwi++){
 if(haystack[cwi]==nw){
-_1b4=true;
+_1b7=true;
 break;
 }
 }
 }
-mb.log.debug("Tested $'$ -> $",pw,nw,_1b4);
-return mb.log.exit(_1b4);
+mb.log.debug("Tested $'$ -> $",pw,nw,_1b7);
+return mb.log.exit(_1b7);
 };
 this.getMacTitledWords=function(){
 var nm=["achallies","achounich","adam","adie","aindra","aldonich","alduie","allan","allister","alonie","andeoir","andrew","angus","ara","aree","arthur","askill","aslan","aulay","auselan","ay","baxter","bean","beath","beolain","beth","bheath","bride","brieve","burie","caa","cabe","caig","caishe","call","callum","calman","calmont","camie","cammon","cammond","canish","cansh","cartney","cartair","carter","cash","caskill","casland","caul","cause","caw","cay","ceallaich","chlerich","chlery","choiter","chruiter","cloy","clure","cluskie","clymont","codrum","coll","colman","comas","combe","combich","combie","conacher","conachie","conchy","condy","connach","connechy","connell","conochie","cooish","cook","corkill","corkindale","corkle","cormack","cormick","corquodale","corry","cosram","coull","cowan","crae","crain","craken","craw","creath","crie","crimmon","crimmor","crindle","cririe","crouther","cruithein","cuag","cuaig","cubbin","cuish","culloch","cune","cunn","currach","cutchen","cutcheon","dade","daniell","david","dermid","diarmid","donachie","donald","donleavy","dougall","dowall","drain","duff","duffie","dulothe","eachan","eachern","eachin","eachran","earachar","elfrish","elheran","eoin","eol","erracher","ewen","fadzean","fall","farquhar","farlane","fater","feat","fergus","fie","gaw","geachie","geachin","geoch","ghee","gilbert","gilchrist","gill","gilledon","gillegowie","gillivantic","gillivour","gillivray","gillonie","gilp","gilroy","gilvernock","gilvra","gilvray","glashan","glasrich","gorrie","gorry","goun","gowan","grath","gregor","greusich","grewar","grime","grory","growther","gruder","gruer","gruther","guaran","guffie","gugan","guire","haffie","hardie","hardy","harold","hendrie","hendry","howell","hugh","hutchen","hutcheon","iain","ildowie","ilduy","ilreach","illeriach","ilriach","ilrevie","ilvain","ilvora","ilvrae","ilvride","ilwhom","ilwraith","ilzegowie","immey","inally","indeor","indoe","innes","inroy","instalker","intyre","iock","issac","ivor","james","kail","kames","kaskill","kay","keachan","keamish","kean","kechnie","kee","keggie","keith","kellachie","kellaigh","kellar","kelloch","kelvie","kendrick","kenzie","keochan","kerchar","kerlich","kerracher","kerras","kersey","kessock","kichan","kie","kieson","kiggan","killigan","killop","kim","kimmie","kindlay","kinley","kinnell","kinney","kinning","kinnon","kintosh","kinven","kirdy","kissock","knight","lachlan","lae","lagan","laghlan","laine of lochbuie","laren","lairish","lamond","lardie","laverty","laws","lea","lean","leay","lehose","leish","leister","lellan","lennan","leod","lergain","lerie","leverty","lewis","lintock","lise","liver","lucas","lugash","lulich","lure","lymont","manus","martin","master","math","maurice","menzies","michael","millan","minn","monies","morran","munn","murchie","murchy","murdo","murdoch","murray","murrich","mutrie","nab","nair","namell","naughton","nayer","nee","neilage","neill","neilly","neish","neur","ney","nicol","nider","niter","niven","nuir","nuyer","omie","omish","onie","oran","o","oull","ourlic","owen","owl","patrick","petrie","phadden","phail","phater","phee","phedran","phedron","pheidiran","pherson","phillip","phorich","phun","quarrie","queen","quey","quilkan","quistan","quisten","quoid","ra","rach","rae","raild","raith","rankin","rath","ritchie","rob","robb","robbie","robert","robie","rorie","rory","ruer","rurie","rury","shannachan","shimes","simon","sorley","sporran","swan","sween","swen","symon","taggart","tary","tause","tavish","tear","thomas","tier","tire","ulric","ure","vail","vanish","varish","veagh","vean","vicar","vinish","vurich","vurie","walrick","walter","wattie","whannell","whirr","whirter","william","intosh","intyre"];
@@ -3380,7 +3382,8 @@ if(pos==len){
 gc.i.setPos((pos=len-1));
 }
 mb.log.debug("Titling word: $ (pos: $, length: $)",is,pos,len);
-var _1c2=gc.i.getWordAtIndex(pos-2);
+gc.f.dumpRaisedFlags();
+var _1c5=gc.i.getWordAtIndex(pos-2);
 var os;
 var LC=is.toLowerCase();
 var UC=is.toUpperCase();
@@ -3391,12 +3394,12 @@ os=UC;
 if(LC.length==1&&gc.i.isPreviousWord("'")){
 os=LC;
 }else{
-if(gc.i.isPreviousWord("'")&&LC.match(/^(s|round|em|ve|ll|d|cha)$/i)){
-mb.log.debug("Found contraction: $",_1c2+"'"+LC);
+if(gc.i.isPreviousWord("'")&&LC.match(/^(s|round|em|ve|ll|d|cha|re|til|way|all)$/i)){
+mb.log.debug("Found contraction: $",_1c5+"'"+LC);
 os=LC;
 }else{
-if(gc.i.isPreviousWord("'")&&_1c2=="Ev"){
-mb.log.debug("Found contraction: $",_1c2+"'"+LC);
+if(gc.i.isPreviousWord("'")&&_1c5=="Ev"){
+mb.log.debug("Found contraction: $",_1c5+"'"+LC);
 os=LC;
 }else{
 if(LC.match(/^(o|y)$/i)&&gc.i.isNextWord("'")){
@@ -3438,16 +3441,16 @@ var os=is.toLowerCase();
 if((!gc.f.slurpExtraTitleInformation)&&(gc.getMode().isSentenceCaps())&&(!gc.i.isFirstWord())&&(!gc.u.isSentenceStopChar(gc.o.getLastWord()))&&(!gc.f.openingBracket)){
 mb.log.debug("SentenceCaps, before: $, after: $",is,os);
 }else{
-var _1c8=is.toLowerCase().split("");
-_1c8[0]=_1c8[0].toUpperCase();
+var _1cb=is.toLowerCase().split("");
+_1cb[0]=_1cb[0].toUpperCase();
 if(is.length>2&&is.substring(0,2)=="mc"){
-_1c8[2]=_1c8[2].toUpperCase();
+_1cb[2]=_1cb[2].toUpperCase();
 }else{
 if(gc.u.isMacTitledWord(is)){
-_1c8[3]=_1c8[3].toUpperCase();
+_1cb[3]=_1cb[3].toUpperCase();
 }
 }
-os=_1c8.join("");
+os=_1cb.join("");
 mb.log.debug("Capitalized, before: $, after: $",is,os);
 }
 return mb.log.exit(os);
@@ -3458,6 +3461,18 @@ function GcAlbumHandler(){
 mb.log.enter("GcAlbumHandler","__constructor");
 this.CN="GcAlbumHandler";
 this.GID="gc.album";
+this.checkSpecialCase=function(is){
+mb.log.enter(this.GID,"checkSpecialCase");
+if(is){
+if(!gc.re.ALBUM_UNTITLED){
+gc.re.ALBUM_UNTITLED=/^([\(\[]?\s*untitled\s*[\)\]]?)$/i;
+}
+if(is.match(gc.re.ALBUM_UNTITLED)){
+return mb.log.exit(this.SPECIALCASE_UNTITLED);
+}
+}
+return mb.log.exit(this.NOT_A_SPECIALCASE);
+};
 this.process=function(is){
 mb.log.enter(this.GID,"process");
 is=this.stripInformationToOmit(is);
@@ -3523,11 +3538,9 @@ this.processWord();
 var os=this.getOutput();
 return mb.log.exit(os);
 };
-this.checkSpecialCases=function(is){
-mb.log.enter(this.GID,"checkSpecialCases");
-if(!is){
-return mb.log.exit(is);
-}
+this.checkSpecialCase=function(is){
+mb.log.enter(this.GID,"checkSpecialCase");
+if(is){
 if(!gc.re.ARTIST_EMPTY){
 gc.re.ARTIST_EMPTY=/^\s*$/i;
 gc.re.ARTIST_UNKNOWN=/^[\(\[]?\s*Unknown\s*[\)\]]?$/i;
@@ -3538,29 +3551,30 @@ gc.re.ARTIST_NA=/^[\(\[]?\s*n\s*[\\\/]\s*a\s*[\)\]]?$/i;
 }
 var os=is;
 if(is.match(gc.re.ARTIST_EMPTY)){
-return mb.log.exit(this.UNKNOWN);
+return mb.log.exit(this.SPECIALCASE_UNKNOWN);
 }else{
 if(is.match(gc.re.ARTIST_UNKNOWN)){
-return mb.log.exit(this.UNKNOWN);
+return mb.log.exit(this.SPECIALCASE_UNKNOWN);
 }else{
 if(is.match(gc.re.ARTIST_NONE)){
-return mb.log.exit(this.NOARTIST);
+return mb.log.exit(this.SPECIALCASE_UNKNOWN);
 }else{
 if(is.match(gc.re.ARTIST_NOARTIST)){
-return mb.log.exit(this.NOARTIST);
+return mb.log.exit(this.SPECIALCASE_UNKNOWN);
 }else{
 if(is.match(gc.re.ARTIST_NOTAPPLICABLE)){
-return mb.log.exit(this.NOARTIST);
+return mb.log.exit(this.SPECIALCASE_UNKNOWN);
 }else{
 if(is.match(gc.re.ARTIST_NA)){
-return mb.log.exit(this.NOARTIST);
+return mb.log.exit(this.SPECIALCASE_UNKNOWN);
 }
 }
 }
 }
 }
 }
-return mb.log.exit(os);
+}
+return mb.log.exit(this.NOT_A_SPECIALCASE);
 };
 this.doWord=function(){
 mb.log.enter(this.GID,"doWord");
@@ -3596,104 +3610,104 @@ gc.i.nextIndex();
 this.guessSortName=function(is){
 mb.log.enter(this.GID,"guessSortName");
 is=gc.u.trim(is);
-var _1d3=" and ";
-_1d3=(is.indexOf(" + ")!=-1?" + ":_1d3);
-_1d3=(is.indexOf(" & ")!=-1?" & ":_1d3);
-var as=is.split(_1d3);
-for(var _1d5=0;_1d5<as.length;_1d5++){
-var _1d6=as[_1d5];
-if(!mb.utils.isNullOrEmpty(_1d6)){
-_1d6=gc.u.trim(_1d6);
-var _1d7="";
-mb.log.debug("Handling artist part: $",_1d6);
+var _1d7=" and ";
+_1d7=(is.indexOf(" + ")!=-1?" + ":_1d7);
+_1d7=(is.indexOf(" & ")!=-1?" & ":_1d7);
+var as=is.split(_1d7);
+for(var _1d9=0;_1d9<as.length;_1d9++){
+var _1da=as[_1d9];
+if(!mb.utils.isNullOrEmpty(_1da)){
+_1da=gc.u.trim(_1da);
+var _1db="";
+mb.log.debug("Handling artist part: $",_1da);
 if(!gc.re.SORTNAME_SR){
 gc.re.SORTNAME_SR=/,\s*Sr[\.]?$/i;
 gc.re.SORTNAME_JR=/,\s*Jr[\.]?$/i;
 }
-if(_1d6.match(gc.re.SORTNAME_SR)){
-_1d6=_1d6.replace(gc.re.SORTNAME_SR,"");
-_1d7=", Sr.";
+if(_1da.match(gc.re.SORTNAME_SR)){
+_1da=_1da.replace(gc.re.SORTNAME_SR,"");
+_1db=", Sr.";
 }else{
-if(_1d6.match(gc.re.SORTNAME_JR)){
-_1d6=_1d6.replace(gc.re.SORTNAME_JR,"");
-_1d7=", Jr.";
+if(_1da.match(gc.re.SORTNAME_JR)){
+_1da=_1da.replace(gc.re.SORTNAME_JR,"");
+_1db=", Jr.";
 }
 }
-var _1d8=_1d6.split(" ");
-mb.log.debug("names: $",_1d8);
-var _1d9=false;
+var _1dc=_1da.split(" ");
+mb.log.debug("names: $",_1dc);
+var _1dd=false;
 if(!gc.re.SORTNAME_DJ){
 gc.re.SORTNAME_DJ=/^DJ$/i;
 gc.re.SORTNAME_THE=/^The$/i;
 gc.re.SORTNAME_LOS=/^Los$/i;
 gc.re.SORTNAME_DR=/^Dr\.$/i;
 }
-var _1da=_1d8[0];
-if(_1da.match(gc.re.SORTNAME_DJ)){
-_1d7=(", DJ"+_1d7);
-_1d8[0]=null;
+var _1de=_1dc[0];
+if(_1de.match(gc.re.SORTNAME_DJ)){
+_1db=(", DJ"+_1db);
+_1dc[0]=null;
 }else{
-if(_1da.match(gc.re.SORTNAME_THE)){
-_1d7=(", The"+_1d7);
-_1d8[0]=null;
+if(_1de.match(gc.re.SORTNAME_THE)){
+_1db=(", The"+_1db);
+_1dc[0]=null;
 }else{
-if(_1da.match(gc.re.SORTNAME_LOS)){
-_1d7=(", Los"+_1d7);
-_1d8[0]=null;
+if(_1de.match(gc.re.SORTNAME_LOS)){
+_1db=(", Los"+_1db);
+_1dc[0]=null;
 }else{
-if(_1da.match(gc.re.SORTNAME_DR)){
-_1d7=(", Dr."+_1d7);
-_1d8[0]=null;
-_1d9=true;
+if(_1de.match(gc.re.SORTNAME_DR)){
+_1db=(", Dr."+_1db);
+_1dc[0]=null;
+_1dd=true;
 }else{
-_1d9=true;
+_1dd=true;
 }
 }
 }
 }
 var i=0;
-if(_1d9){
-var _1dc=[];
-if(_1d8.length>1){
-for(i=0;i<_1d8.length-1;i++){
-if(i==_1d8.length-2&&_1d8[i]=="St."){
-_1d8[i+1]=_1d8[i]+" "+_1d8[i+1];
-}else{
-if(!mb.utils.isNullOrEmpty(_1d8[i])){
-_1dc[i+1]=_1d8[i];
-}
-}
-}
-_1dc[0]=_1d8[_1d8.length-1];
+if(_1dd){
+var _1e0=[];
 if(_1dc.length>1){
-_1dc[0]+=",";
+for(i=0;i<_1dc.length-1;i++){
+if(i==_1dc.length-2&&_1dc[i]=="St."){
+_1dc[i+1]=_1dc[i]+" "+_1dc[i+1];
+}else{
+if(!mb.utils.isNullOrEmpty(_1dc[i])){
+_1e0[i+1]=_1dc[i];
 }
-_1d8=_1dc;
 }
 }
-mb.log.debug("Sorted names: $, append: $",_1d8,_1d7);
+_1e0[0]=_1dc[_1dc.length-1];
+if(_1e0.length>1){
+_1e0[0]+=",";
+}
+_1dc=_1e0;
+}
+}
+mb.log.debug("Sorted names: $, append: $",_1dc,_1db);
 var t=[];
-for(i=0;i<_1d8.length;i++){
-var w=_1d8[i];
+for(i=0;i<_1dc.length;i++){
+var w=_1dc[i];
 if(!mb.utils.isNullOrEmpty(w)){
 t.push(w);
 }
-if(i<_1d8.length-1){
+if(i<_1dc.length-1){
 t.push(" ");
 }
 }
-if(!mb.utils.isNullOrEmpty(_1d7)){
-t.push(_1d7);
+if(!mb.utils.isNullOrEmpty(_1db)){
+t.push(_1db);
 }
-_1d6=gc.u.trim(t.join(""));
+_1da=gc.u.trim(t.join(""));
 }
-if(!mb.utils.isNullOrEmpty(_1d6)){
-as[_1d5]=_1d6;
+if(!mb.utils.isNullOrEmpty(_1da)){
+as[_1d9]=_1da;
 }else{
-delete as[_1d5];
+delete as[_1d9];
 }
 }
-var os=gc.u.trim(as.join(_1d3));
+var os=gc.u.trim(as.join(_1d7));
 mb.log.debug("Result: $",os);
 return mb.log.exit(os);
 };
@@ -3704,6 +3718,40 @@ function GcHandler(){
 this.CN="GcHandler";
 this.GID="gc.base";
 mb.log.enter(this.CN,"__constructor");
+this.NOT_A_SPECIALCASE=-1;
+this.SPECIALCASE_UNKNOWN=10;
+this.SPECIALCASE_DATA_TRACK=20;
+this.SPECIALCASE_DATA_TRACK=30;
+this.SPECIALCASE_SILENCE=31;
+this.SPECIALCASE_UNTITLED=32;
+this.SPECIALCASE_CROWD_NOISE=33;
+this.SPECIALCASE_GUITAR_SOLO=34;
+this.SPECIALCASE_DIALOGUE=35;
+this.isSpecialCase=function(num){
+return (num!=this.NOT_A_SPECIALCASE);
+};
+this.getSpecialCaseFormatted=function(is,num){
+mb.log.enter(this.GID,"getSpecialCaseFormatted");
+switch(num){
+case this.SPECIALCASE_DATA_TRACK:
+return mb.log.exit("[data track]");
+case this.SPECIALCASE_SILENCE:
+return mb.log.exit("[silence]");
+case this.SPECIALCASE_UNTITLED:
+return mb.log.exit("[untitled]");
+case this.SPECIALCASE_UNKNOWN:
+return mb.log.exit("[unknown]");
+case this.SPECIALCASE_CROWD_NOISE:
+return mb.log.exit("[crowd noise]");
+case this.SPECIALCASE_GUITAR_SOLO:
+return mb.log.exit("[guitar solo]");
+case this.SPECIALCASE_DIALOGUE:
+return mb.log.exit("[dialogue]");
+case this.NOT_A_SPECIALCASE:
+default:
+return mb.log.exit(is);
+}
+};
 this.getOutput=function(){
 var is=gc.o.getOutput();
 var os=this.runPostProcess(is);
@@ -3798,17 +3846,18 @@ gc.re.COLON=":";
 }
 if(gc.i.matchCurrentWord(gc.re.COLON)){
 mb.log.debug("Handled #cw");
+gc.o.capitalizeLastWord();
 var skip=false;
 var pos=gc.i.getPos();
 var len=gc.i.getLength();
 if(pos<len-2){
-var _1e5=gc.i.getWordAtIndex(pos+1);
-var _1e6=gc.i.getWordAtIndex(pos+2);
-if(_1e5.match(gc.re.OPENBRACKET)){
+var _1ec=gc.i.getWordAtIndex(pos+1);
+var _1ed=gc.i.getWordAtIndex(pos+2);
+if(_1ec.match(gc.re.OPENBRACKET)){
 skip=true;
 gc.f.spaceNextWord=true;
 }
-if(gc.i.isNextWord(" ")&&_1e6.match(gc.re.OPENBRACKET)){
+if(gc.i.isNextWord(" ")&&_1ed.match(gc.re.OPENBRACKET)){
 gc.f.spaceNextWord=true;
 skip=true;
 gc.i.nextIndex();
@@ -3999,7 +4048,7 @@ gc.f.forceCaps=true;
 gc.o.capitalizeLastWord();
 gc.f.pushBracket(gc.i.getCurrentWord());
 var cb=gc.f.getCurrentCloseBracket();
-var _1ea=false;
+var _1f1=false;
 var pos=gc.i.getPos()+1;
 for(var i=pos;i<gc.i.getLength();i++){
 var w=(gc.i.getWordAtIndex(i)||"");
@@ -4007,7 +4056,7 @@ if(w!=" "){
 if((gc.u.isLowerCaseBracketWord(w))||(w.match(/^featuring$|^ft$|^feat$/i)!=null)){
 gc.f.slurpExtraTitleInformation=true;
 if(i==pos){
-_1ea=true;
+_1f1=true;
 }
 }
 if(w==cb){
@@ -4019,7 +4068,7 @@ gc.o.appendSpace();
 gc.f.resetContext();
 gc.f.spaceNextWord=false;
 gc.f.openingBracket=true;
-gc.f.forceCaps=!_1ea;
+gc.f.forceCaps=!_1f1;
 gc.o.appendCurrentWord();
 gc.f.disc=false;
 gc.f.part=false;
@@ -4056,6 +4105,8 @@ gc.re.COMMA=",";
 if(gc.i.matchCurrentWord(gc.re.COMMA)){
 mb.log.debug("Handled #cw");
 if(gc.o.getLastWord()!=","){
+gc.f.forceCaps=true;
+gc.o.capitalizeLastWord();
 gc.f.resetContext();
 gc.f.spaceNextWord=true;
 gc.f.forceCaps=false;
@@ -4102,16 +4153,16 @@ mb.log.enter(this.GID,"doAcronym");
 if(!gc.re.ACRONYM){
 gc.re.ACRONYM=/^\w$/;
 }
-var _1ee,tmp=[];
+var _1f5,tmp=[];
 if(gc.i.matchCurrentWord(gc.re.ACRONYM)){
 var cw=gc.i.getCurrentWord();
 tmp.push(cw.toUpperCase());
 gc.f.expectWord=false;
 gc.f.gotPeriod=false;
 acronymloop:
-for(_1ee=gc.i.getPos()+1;_1ee<gc.i.getLength();){
-cw=gc.i.getWordAtIndex(_1ee);
-mb.log.debug("Word: $, i: $, expectWord: $, gotPeriod: $",cw,_1ee,gc.f.expectWord,gc.f.gotPeriod);
+for(_1f5=gc.i.getPos()+1;_1f5<gc.i.getLength();){
+cw=gc.i.getWordAtIndex(_1f5);
+mb.log.debug("Word: $, i: $, expectWord: $, gotPeriod: $",cw,_1f5,gc.f.expectWord,gc.f.gotPeriod);
 if(gc.f.expectWord&&cw.match(gc.re.ACRONYM)){
 tmp.push(cw.toUpperCase());
 gc.f.expectWord=false;
@@ -4127,13 +4178,13 @@ gc.f.expectWord=true;
 }else{
 if(tmp[tmp.length-1]!="."){
 tmp.pop();
-_1ee--;
+_1f5--;
 }
 break acronymloop;
 }
 }
 }
-_1ee++;
+_1f5++;
 }
 }
 if(tmp.length>2){
@@ -4145,7 +4196,7 @@ gc.o.appendWord(s);
 gc.f.acronym=true;
 gc.f.spaceNextWord=true;
 gc.f.forceCaps=false;
-gc.i.setPos(_1ee-1);
+gc.i.setPos(_1f5-1);
 return mb.log.exit(true);
 }
 return mb.log.exit(false);
@@ -4159,65 +4210,65 @@ gc.re.DIGITS_DUPLE=/^\d\d$/;
 gc.re.DIGITS_TRIPLE=/^\d\d\d$/;
 gc.re.DIGITS_NTUPLE=/^\d\d\d\d+$/;
 }
-var _1f1=null,tmp=[];
+var _1f8=null,tmp=[];
 if(gc.i.matchCurrentWord(gc.re.DIGITS)){
 tmp.push(gc.i.getCurrentWord());
 gc.f.numberSplitExpect=true;
 numberloop:
-for(_1f1=gc.i.getPos()+1;_1f1<gc.i.getLength();){
+for(_1f8=gc.i.getPos()+1;_1f8<gc.i.getLength();){
 if(gc.f.numberSplitExpect){
-if(gc.i.matchWordAtIndex(_1f1,gc.re.DIGITS_NUMBERSPLIT)){
-tmp.push(gc.i.getWordAtIndex(_1f1));
+if(gc.i.matchWordAtIndex(_1f8,gc.re.DIGITS_NUMBERSPLIT)){
+tmp.push(gc.i.getWordAtIndex(_1f8));
 gc.f.numberSplitExpect=false;
 }else{
 break numberloop;
 }
 }else{
-if(gc.i.matchWordAtIndex(_1f1,gc.re.DIGITS_TRIPLE)){
+if(gc.i.matchWordAtIndex(_1f8,gc.re.DIGITS_TRIPLE)){
 if(gc.f.numberSplitChar==null){
 gc.f.numberSplitChar=tmp[tmp.length-1];
 }
-tmp.push(gc.i.getWordAtIndex(_1f1));
+tmp.push(gc.i.getWordAtIndex(_1f8));
 gc.f.numberSplitExpect=true;
 }else{
-if(gc.i.matchWordAtIndex(_1f1,gc.re.DIGITS_DUPLE)){
+if(gc.i.matchWordAtIndex(_1f8,gc.re.DIGITS_DUPLE)){
 if(tmp.length>2&&gc.f.numberSplitChar!=tmp[tmp.length-1]){
-tmp.push(gc.i.getWordAtIndex(_1f1++));
+tmp.push(gc.i.getWordAtIndex(_1f8++));
 }else{
 tmp.pop();
-_1f1--;
+_1f8--;
 }
 }else{
-if(gc.i.matchWordAtIndex(_1f1,gc.re.DIGITS_NTUPLE)){
-tmp.push(gc.i.getWordAtIndex(_1f1++));
+if(gc.i.matchWordAtIndex(_1f8,gc.re.DIGITS_NTUPLE)){
+tmp.push(gc.i.getWordAtIndex(_1f8++));
 }else{
 tmp.pop();
-_1f1--;
+_1f8--;
 }
 }
 break numberloop;
 }
 }
-_1f1++;
+_1f8++;
 }
-gc.i.setPos(_1f1-1);
-var _1f2=tmp.join("");
+gc.i.setPos(_1f8-1);
+var _1f9=tmp.join("");
 if(gc.f.disc||gc.f.part||gc.f.volume){
-_1f2=_1f2.replace(/^0*/,"");
+_1f9=_1f9.replace(/^0*/,"");
 }
 mb.log.debug("Processed number: $",tmp.join(""));
-var _1f3=false;
+var _1fa=false;
 if(gc.f.disc||gc.f.part||gc.f.volume){
 var pos=gc.i.getPos();
 if(pos<gc.i.getLength()-2){
-var _1f5=gc.i.getWordAtIndex(pos+1);
-var _1f6=gc.i.getWordAtIndex(pos+2);
-var _1f7=_1f5.match(/[\):\-&]/);
-var _1f8=_1f6.match(/[\(:\-&]/);
-if(_1f7==null&&_1f8==null){
-_1f3=true;
+var _1fc=gc.i.getWordAtIndex(pos+1);
+var _1fd=gc.i.getWordAtIndex(pos+2);
+var _1fe=_1fc.match(/[\):\-&]/);
+var _1ff=_1fd.match(/[\(:\-&]/);
+if(_1fe==null&&_1ff==null){
+_1fa=true;
 }else{
-if(gc.f.part&&_1f6.match(/&|-/)){
+if(gc.f.part&&_1fd.match(/&|-/)){
 gc.o.setWordAtIndex(gc.o.getLength()-1,"Parts");
 }
 }
@@ -4229,10 +4280,10 @@ gc.f.spaceNextWord=true;
 gc.f.forceCaps=true;
 }
 gc.o.appendSpaceIfNeeded();
-gc.o.appendWord(_1f2);
+gc.o.appendWord(_1f9);
 gc.f.forceCaps=false;
 gc.f.number=true;
-if(_1f3){
+if(_1fa){
 gc.o.appendWord(":");
 gc.f.forceCaps=true;
 gc.f.colon=true;
@@ -4244,20 +4295,24 @@ return mb.log.exit(false);
 this.prepExtraTitleInfo=function(w){
 mb.log.enter(this.GID,"prepExtraTitleInfo");
 var len=w.length-1,wi=len;
-var _1fb=false;
-var _1fc=false;
+var _202=false;
+var _203=false;
 while(((w[wi]==" ")||(w[wi]=="\""&&(w[wi-1]=="7"||w[wi-1]=="12"))||((w[wi+1]||"")=="\""&&(w[wi]=="7"||w[wi]=="12"))||(gc.u.isPrepBracketWord(w[wi])))&&wi>=0){
-_1fb=true;
+_202=true;
 wi--;
 }
-mb.log.debug("Preprocess: $ ($<--$)",_1fb,wi,len);
-var _1fd=(w[wi+1]||"");
-if((wi==len-1)&&(gc.u.isPrepBracketSingleWord(_1fd))){
-mb.log.debug("Word found, but its a <i>singleword</i>: $",_1fd);
-_1fb=false;
-}
-if(_1fb&&wi>0&&wi<w.length-1){
+mb.log.debug("Preprocess: $ ($<--$)",_202,wi,len);
+if(wi<len){
 wi++;
+while(w[wi]==" "&&wi<w.length-1){
+wi++;
+}
+var _204=(w[wi]||"");
+if((wi==len-1)&&(gc.u.isPrepBracketSingleWord(_204))){
+mb.log.debug("Word found, but its a <i>singleword</i>: $",_204);
+_202=false;
+}
+if(_202&&wi>0&&wi<w.length-1){
 var nw=w.slice(0,wi);
 if(nw[wi-1]=="("){
 nw.pop();
@@ -4270,6 +4325,7 @@ nw=nw.concat(w.slice(wi,w.length));
 nw[nw.length]=")";
 w=nw;
 mb.log.debug("Processed ExtraTitleInfo: $",w);
+}
 }
 return mb.log.exit(w);
 };
@@ -4294,7 +4350,7 @@ return mb.log.exit(os);
 this.runPostProcess=function(is){
 mb.log.enter(this.GID,"runPostProcess");
 if(!gc.re.POSTPROCESS_FIXLIST){
-gc.re.POSTPROCESS_FIXLIST=[new GcFix("a_cappella outside brackets",/(\b|^)A_cappella(\b)/,"A Cappella"),new GcFix("a_cappella inside brackets",/(\b|^)a_cappella(\b)/,"a cappella"),new GcFix("oc_remix",/(\b|^)oc_remix(\b)/i,"OC ReMix"),new GcFix("re_edit inside brackets",/(\b|^)Re_edit(\b)/,"re-edit"),new GcFix("whitespace in R&B",/(\b|^)R\s*&\s*B(\b)/i,"R&B"),new GcFix("[live] to (live)",/(\b|^)\[live\](\b)/i,"(live)"),new GcFix("Djs to DJs",/(\b|^)Djs(\b)/i,"DJs"),new GcFix("a.k.a. lowercase",/(\b|^)a.k.a.(\b)/i,"a.k.a.")];
+gc.re.POSTPROCESS_FIXLIST=[new GcFix("a_cappella inside brackets",/(\b|^)a_cappella(\b)/,"a cappella"),new GcFix("a_cappella outside brackets",/(\b|^)A_cappella(\b)/,"A Cappella"),new GcFix("oc_remix",/(\b|^)oc_remix(\b)/i,"OC ReMix"),new GcFix("re_edit inside brackets",/(\b|^)Re_edit(\b)/,"re-edit"),new GcFix("whitespace in R&B",/(\b|^)R\s*&\s*B(\b)/i,"R&B"),new GcFix("[live] to (live)",/(\b|^)\[live\](\b)/i,"(live)"),new GcFix("Djs to DJs",/(\b|^)Djs(\b)/i,"DJs"),new GcFix("a.k.a. lowercase",/(\b|^)a.k.a.(\b)/i,"a.k.a.")];
 }
 var os=this.runFixes(is,gc.re.POSTPROCESS_FIXLIST);
 if(is!=os){
@@ -4309,28 +4365,28 @@ return mb.log.exit(os);
 };
 this.runFixes=function(is,list){
 mb.log.enter(this.GID,"runFixes");
-var _207=null;
+var _20e=null;
 var len=list.length;
 for(var i=0;i<len;i++){
 var f=list[i];
 if(f instanceof GcFix){
-var _20b="Replaced "+f.getName();
+var _212="Replaced "+f.getName();
 var find=f.getRe();
-var _20d=f.getReplace();
+var _214=f.getReplace();
 if(typeof (find)=="string"&&is.indexOf(find)!=-1){
-mb.log.debug("Applying fix: $ (replace: $)",_20b,_20d);
-is=is.replace(find,_20d);
+mb.log.debug("Applying fix: $ (replace: $)",_212,_214);
+is=is.replace(find,_214);
 }else{
-if((_207=is.match(find))!=null){
-var a=_207[1];
+if((_20e=is.match(find))!=null){
+var a=_20e[1];
 a=(mb.utils.isNullOrEmpty(a)?"":a);
-var b=_207[_207.length-1];
+var b=_20e[_20e.length-1];
 b=(mb.utils.isNullOrEmpty(b)?"":b);
-var rs=[a,_20d,b].join("");
+var rs=[a,_214,b].join("");
 is=is.replace(find,rs);
-mb.log.debug("Applying fix: $ ...",_20b);
-mb.log.trace("* matcher[$]: $, replace: $, matcher[$]: $ --> $",1,a,_20d,_207.length-1,b,rs);
-mb.log.trace("* matcher: $",_207);
+mb.log.debug("Applying fix: $ ...",_212);
+mb.log.trace("* matcher[$]: $, replace: $, matcher[$]: $ --> $",1,a,_214,_20e.length-1,b,rs);
+mb.log.trace("* matcher: $",_20e);
 mb.log.trace("After fix: $",is);
 }else{
 }
@@ -4348,14 +4404,14 @@ gc.re.PREPROCESS_STRIPINFOTOOMIT=[new GcFix("Trim 'bonus (track)?'",/[\(\[]?bonu
 }
 var os=is,list=gc.re.PREPROCESS_STRIPINFOTOOMIT;
 for(var i=list.length-1;i>=0;i--){
-var _214=null;
-var _215=list[i];
-var _216="Replaced "+_215.getName();
-var find=_215.getRe();
-var _218=_215.getReplace();
-if((_214=os.match(find))!=null){
-os=os.replace(find,_218);
-mb.log.debug("Done fix: $",_216);
+var _21b=null;
+var _21c=list[i];
+var _21d="Replaced "+_21c.getName();
+var find=_21c.getRe();
+var _21f=_21c.getReplace();
+if((_21b=os.match(find))!=null){
+os=os.replace(find,_21f);
+mb.log.debug("Done fix: $",_21d);
 }
 }
 if(is!=os){
@@ -4368,21 +4424,21 @@ mb.log.enter(this.GID,"runVinylChecks");
 if(!gc.re.VINYL){
 gc.re.VINYL=/(\s+|\()((\d+)[\s|-]?(inch\b|in\b|'+|"))([^s]|$)/i;
 }
-var _21a=null,os=is;
-if((_21a=is.match(gc.re.VINYL))!=null){
-var _21b=_21a.index;
-var _21c=_21a[1].length+_21a[2].length+_21a[5].length;
-var _21d=is.substring(0,_21b);
-var _21e=is.substring(_21b+_21c,is.length);
-var _21f=new Array();
-_21f[_21f.length]=_21d;
-_21f[_21f.length]=_21a[1];
-_21f[_21f.length]=_21a[3];
-_21f[_21f.length]="\"";
-_21f[_21f.length]=(_21a[5]!=" "&&_21a[5]!=")"&&_21a[5]!=","?" ":"");
-_21f[_21f.length]=_21a[5];
-_21f[_21f.length]=_21e;
-os=_21f.join("");
+var _221=null,os=is;
+if((_221=is.match(gc.re.VINYL))!=null){
+var _222=_221.index;
+var _223=_221[1].length+_221[2].length+_221[5].length;
+var _224=is.substring(0,_222);
+var _225=is.substring(_222+_223,is.length);
+var _226=new Array();
+_226[_226.length]=_224;
+_226[_226.length]=_221[1];
+_226[_226.length]=_221[3];
+_226[_226.length]="\"";
+_226[_226.length]=(_221[5]!=" "&&_221[5]!=")"&&_221[5]!=","?" ":"");
+_226[_226.length]=_221[5];
+_226[_226.length]=_225;
+os=_226.join("");
 }
 return mb.log.exit(is);
 };
@@ -4436,7 +4492,7 @@ return mb.log.exit(true);
 }
 return mb.log.exit(false);
 };
-this.doSeriesNumberStyle=function(_220){
+this.doSeriesNumberStyle=function(_227){
 mb.log.enter(this.GID,"doSeriesNumberStyle");
 var pos=gc.i.getPos();
 var len=gc.i.getLength();
@@ -4451,36 +4507,40 @@ var w=(gc.i.getWordAtIndex(wi)||"");
 mb.log.debug("Attempting to match number/roman numeral, $",w);
 if(w.match(gc.re.SERIES_NUMBER)){
 if(gc.i.getPos()>=2&&!gc.u.isPunctuationChar(gc.o.getLastWord())){
+var _22c=false;
 while(gc.o.getLength()>0&&(gc.o.getLastWord()||"").match(/ |-/i)){
 gc.o.dropLastWord();
+_22c=true;
 }
+if(_22c){
 gc.o.capitalizeLastWord();
+}
 gc.o.appendWord(",");
 }else{
 gc.o.capitalizeWordAtIndex(gc.o.getLength()-2);
 }
 gc.o.appendSpaceIfNeeded();
-gc.o.appendWord(_220);
+gc.o.appendWord(_227);
 gc.f.number=true;
 gc.f.spaceNextWord=false;
 gc.f.forceCaps=true;
-var _225=false;
+var _22d=false;
 if(wi<gc.i.getLength()-2){
-var _226=gc.i.getWordAtIndex(wi+1);
-var _227=gc.i.getWordAtIndex(wi+2);
-var _228=_226.match(/[\):\-&\/]/);
-var _229=_227.match(/[\(:\-&\/]/);
-if(_228==null&&_229==null){
-_225=true;
+var _22e=gc.i.getWordAtIndex(wi+1);
+var _22f=gc.i.getWordAtIndex(wi+2);
+var _230=_22e.match(/[\):\-&\/]/);
+var _231=_22f.match(/[\(:\-&\/]/);
+if(_230==null&&_231==null){
+_22d=true;
 }else{
-if(_220=="Part"&&_227.match(/&|-/)){
+if(_227=="Part"&&_22f.match(/&|-/)){
 gc.o.setWordAtIndex(gc.o.getLength()-1,"Parts");
 }
 }
 }
 gc.o.appendSpace();
 gc.o.appendWord(w);
-if(_225){
+if(_22d){
 gc.o.appendWord(":");
 gc.f.forceCaps=true;
 gc.f.spaceNextWord=true;
@@ -4497,15 +4557,15 @@ mb.log.enter(this.GID,"doDiscNumberStyle");
 if(!gc.re.DISCNUMBERSTYLE){
 gc.re.DISCNUMBERSTYLE=/^(Cd|Disk|Discque|Disc)([^\s\d]*)(\s*)(\d*)/i;
 }
-var _22a=null;
+var _232=null;
 var w=gc.i.getCurrentWord();
-if(!(gc.f.isInsideBrackets()&&gc.f.colon)&&!gc.i.isFirstWord()&&gc.i.hasMoreWords()&&(_22a=w.match(gc.re.DISCNUMBERSTYLE))!=null){
-if(_22a[2]!=""){
+if(!(gc.f.isInsideBrackets()&&gc.f.colon)&&!gc.i.isFirstWord()&&gc.i.hasMoreWords()&&(_232=w.match(gc.re.DISCNUMBERSTYLE))!=null){
+if(_232[2]!=""){
 return mb.log.exit(false);
 }
 mb.log.debug("Attempting to correct DiscNumberStyle, #cw");
-if(_22a[4]!=""){
-var np=_22a[4];
+if(_232[4]!=""){
+var np=_232[4];
 np=np.replace("^0","");
 mb.log.debug("Expanding #cw to disc $",np);
 gc.i.insertWordsAtIndex(gc.i.getPos()+1,[" ",np]);
@@ -4559,7 +4619,7 @@ return mb.log.exit(false);
 if(!gc.f.openingBracket){
 mb.log.debug("Matched feat., but previous word is not a closing bracket.");
 if(gc.f.isInsideBrackets()){
-var _231=new Array();
+var _239=new Array();
 while(gc.f.isInsideBrackets()){
 var cb=gc.f.popBracket();
 gc.o.appendWord(cb);
@@ -4602,10 +4662,6 @@ function GcTrackHandler(){
 mb.log.enter("GcTrackHandler","__constructor");
 this.CN="GcTrackHandler";
 this.GID="gc.track";
-this.DATA_TRACK="[data track]";
-this.SILENCE="[silence]";
-this.TRACK_UNTITLED="[untitled]";
-this.UNKNOWN="[unknown]";
 this.process=function(is){
 mb.log.enter(this.GID,"process");
 is=this.stripInformationToOmit(is);
@@ -4622,40 +4678,41 @@ this.processWord();
 var os=this.getOutput();
 return mb.log.exit(os);
 };
-this.checkSpecialCases=function(is){
-mb.log.enter(this.GID,"checkSpecialCases");
+this.checkSpecialCase=function(is){
+mb.log.enter(this.GID,"checkSpecialCase");
+if(is){
 if(!gc.re.TRACK_DATATRACK){
 gc.re.TRACK_DATATRACK=/^([\(\[]?\s*data(\s+track)?\s*[\)\]]?$)/i;
 gc.re.TRACK_SILENCE=/^([\(\[]?\s*silen(t|ce)(\s+track)?\s*[\)\]]?)$/i;
-gc.re.SPECIAL_TRACK3=/^([\(\[]?\s*untitled(\s+track)?\s*[\)\]]?)$/i;
-gc.re.TRACK_UNKNOWN1=/^([\(\[]?\s*(unknown|bonus)(\s+track)?\s*[\)\]]?)$/i;
+gc.re.TRACK_UNTITLED=/^([\(\[]?\s*untitled(\s+track)?\s*[\)\]]?)$/i;
+gc.re.TRACK_UNKNOWN=/^([\(\[]?\s*(unknown|bonus)(\s+track)?\s*[\)\]]?)$/i;
 gc.re.TRACK_MYSTERY=/^\?+$/i;
 }
-var os=is;
 if(is.match(gc.re.TRACK_DATATRACK)){
-return mb.log.exit(this.DATA_TRACK);
+return mb.log.exit(this.SPECIALCASE_DATA_TRACK);
 }else{
 if(is.match(gc.re.TRACK_SILENCE)){
-return mb.log.exit(this.SILENCE);
+return mb.log.exit(this.SPECIALCASE_SILENCE);
 }else{
-if(is.match(gc.re.SPECIAL_TRACK3)){
-return mb.log.exit(this.TRACK_UNTITLED);
+if(is.match(gc.re.TRACK_UNTITLED)){
+return mb.log.exit(this.SPECIALCASE_UNTITLED);
 }else{
-if(is.match(gc.re.TRACK_UNKNOWN1)){
-return mb.log.exit(this.UNKNOWN);
+if(is.match(gc.re.TRACK_UNKNOWN)){
+return mb.log.exit(this.SPECIALCASE_UNKNOWN);
 }else{
 if(is.match(gc.re.TRACK_MYSTERY)){
-return mb.log.exit(this.UNKNOWN);
+return mb.log.exit(this.SPECIALCASE_UNKNOWN);
 }
 }
 }
 }
 }
-return mb.log.exit(os);
+}
+return mb.log.exit(this.NOT_A_SPECIALCASE);
 };
 this.doWord=function(){
 mb.log.enter(this.GID,"doWord");
-var _23b=gc.i.getCurrentWord();
+var _242=gc.i.getCurrentWord();
 if(this.doFeaturingArtistStyle()){
 }else{
 if(this.doVersusStyle()){
@@ -4768,69 +4825,85 @@ this.init=function(){
 this.f.init();
 };
 this.guessArtist=function(is){
-var os;
+var os,handler;
 gc.init();
 mb.log.enter(this.GID,"guessArtist");
 if(!gc.artistHandler){
 gc.artistHandler=new GcArtistHandler();
 }
+handler=gc.artistHandler;
 mb.log.info("Input: $",is);
 gc.useArtistMode();
-if((os=gc.artistHandler.checkSpecialCases(is))!=is){
+var num=handler.checkSpecialCase(is);
+if(handler.isSpecialCase(num)){
+os=handler.getSpecialCaseFormatted(is,num);
 mb.log.info("Result after special case check: $",os);
-return mb.log.exit(os);
-}
-os=gc.artistHandler.process(is);
+}else{
+os=handler.process(is);
 mb.log.info("Result after guess: $",os);
+}
 gc.restoreMode();
 return mb.log.exit(os);
 };
 this.guessSortname=function(is){
-var os;
+var os,handler;
 gc.init();
 mb.log.enter(this.GID,"guessArtistSortame");
 if(!gc.artistHandler){
 gc.artistHandler=new GcArtistHandler();
 }
+handler=gc.artistHandler;
 mb.log.info("Input: $",is);
 gc.useArtistMode();
-if((os=gc.artistHandler.checkSpecialCases(is))!=is){
+var num=handler.checkSpecialCase(is);
+if(handler.isSpecialCase(num)){
+os=handler.getSpecialCaseFormatted(is,num);
 mb.log.info("Result after special case check: $",os);
-return mb.log.exit(os);
-}
-os=gc.artistHandler.guessSortName(is);
+}else{
+os=handler.guessSortName(is);
 mb.log.info("Result after guess: $",os);
+}
 gc.restoreMode();
 return mb.log.exit(os);
 };
 this.guessAlbum=function(is,mode){
-var os;
+var os,handler;
 gc.init();
 mb.log.enter(this.GID,"guessAlbum");
 if(!gc.albumHandler){
 gc.albumHandler=new GcAlbumHandler();
 }
+handler=gc.albumHandler;
 mb.log.info("Input: $",is);
 this.useSelectedMode(mode);
-os=gc.albumHandler.process(is);
+var num=handler.checkSpecialCase(is);
+if(handler.isSpecialCase(num)){
+os=handler.getSpecialCaseFormatted(is,num);
+mb.log.info("Result after special case check: $",os);
+}else{
+os=handler.process(is);
 mb.log.info("Result after guess: $",os);
+}
 return mb.log.exit(os);
 };
 this.guessTrack=function(is,mode){
-var os;
+var os,handler;
 gc.init();
 mb.log.enter(this.GID,"guessTrack");
 if(!gc.trackHandler){
 gc.trackHandler=new GcTrackHandler();
 }
+handler=gc.trackHandler;
 mb.log.info("Input: $",is);
 this.useSelectedMode(mode);
-if((os=gc.trackHandler.checkSpecialCases(is))!=is){
+var num=handler.checkSpecialCase(is);
+if(handler.isSpecialCase(num)){
+os=handler.getSpecialCaseFormatted(is,num);
 mb.log.info("Result after special case check: $",os);
-return mb.log.exit(os);
-}
-os=gc.trackHandler.process(is);
+}else{
+os=handler.process(is);
 mb.log.info("Result after guess: $",os);
+}
 return mb.log.exit(os);
 };
 this.setMode=function(mode){
@@ -4956,11 +5029,11 @@ return m;
 this.getDisplayedModules=function(){
 return this.modules;
 };
-this.guessArtistField=function(_251){
+this.guessArtistField=function(_25c){
 mb.log.enter(this.GID,"guessArtistField");
-_251=(_251||"artist");
+_25c=(_25c||"artist");
 var f;
-if((f=es.ui.getField(_251))!=null){
+if((f=es.ui.getField(_25c))!=null){
 var ov=f.value,nv=ov;
 if(!mb.utils.isNullOrEmpty(ov)){
 mb.log.info("Guessing artist field, input: $",ov);
@@ -4975,15 +5048,15 @@ mb.log.info("Guess yielded same result, nothing to do.");
 mb.log.info("Field value is null or empty, nothing to do.");
 }
 }else{
-mb.log.error("Did not find the field: $",_251);
+mb.log.error("Did not find the field: $",_25c);
 }
 mb.log.exit();
 };
-this.guessAlbumField=function(_254,mode){
+this.guessAlbumField=function(_25f,mode){
 mb.log.enter(this.GID,"guessAlbumField");
-_254=(_254||"album");
+_25f=(_25f||"album");
 var f;
-if((f=es.ui.getField(_254))!=null){
+if((f=es.ui.getField(_25f))!=null){
 var ov=f.value,nv=ov;
 if(!mb.utils.isNullOrEmpty(ov)){
 mb.log.info("Guessing album field, input: $",ov);
@@ -4999,14 +5072,14 @@ mb.log.info("Guess yielded same result, nothing to do.");
 mb.log.info("Field value is null or empty, nothing to do.");
 }
 }else{
-mb.log.error("Did not find the field: $",_254);
+mb.log.error("Did not find the field: $",_25f);
 }
 mb.log.exit();
 };
-this.guessTrackField=function(_258,mode){
+this.guessTrackField=function(_263,mode){
 mb.log.enter(this.GID,"guessTrackField");
 var f;
-if((f=es.ui.getField(_258))!=null){
+if((f=es.ui.getField(_263))!=null){
 var ov=f.value,nv=ov;
 if(!mb.utils.isNullOrEmpty(ov)){
 mb.log.info("Guessing track field, input: $",ov);
@@ -5022,21 +5095,21 @@ mb.log.info("Guess yielded same result, nothing to do.");
 mb.log.info("Field value is null or empty, nothing to do. $",ov);
 }
 }else{
-mb.log.error("Did not find the field: $",_258);
+mb.log.error("Did not find the field: $",_263);
 }
 mb.log.exit();
 };
 this.guessAllFields=function(){
 mb.log.enter(this.GID,"guessAllFields");
 var f,fields=es.ui.getEditTextFields();
-var _25d,name,cn;
+var _268,name,cn;
 for(var j=0;j<fields.length;j++){
 f=fields[j];
-_25d=(f.value||"");
+_268=(f.value||"");
 name=(f.name||"");
 cn=(f.className||"");
 if(!cn.match(/hidden/i)){
-if(!mb.utils.isNullOrEmpty(_25d)){
+if(!mb.utils.isNullOrEmpty(_268)){
 mb.log.scopeStart("Guessing next field: "+name);
 this.guessByFieldName(name);
 }else{
@@ -5058,7 +5131,7 @@ if(name.match(es.ui.re.ARTISTFIELD)){
 this.guessArtistField(name);
 }else{
 if(name.match(es.ui.re.SORTNAMEFIELD)){
-var _261=name.replace("sort","");
+var _26c=name.replace("sort","");
 this.guessSortnameField(artistfield,name);
 }else{
 mb.log.warning("Unhandled name: $",name);
@@ -5068,10 +5141,10 @@ mb.log.warning("Unhandled name: $",name);
 }
 mb.log.exit();
 };
-this.copySortnameField=function(_262,_263){
+this.copySortnameField=function(_26d,_26e){
 mb.log.enter(this.GID,"copySortnameField");
 var fa,fsn;
-if((fa=es.ui.getField(_262))!=null&&(fsn=es.ui.getField(_263))!=null){
+if((fa=es.ui.getField(_26d))!=null&&(fsn=es.ui.getField(_26e))!=null){
 var ov=fsn.value;
 var nv=fa.value;
 if(nv!=ov){
@@ -5082,14 +5155,14 @@ es.ui.resetSelection();
 mb.log.info("Destination is same as source, nothing to do.");
 }
 }else{
-mb.log.error("Did not find the fields: $, $",_262,_263);
+mb.log.error("Did not find the fields: $, $",_26d,_26e);
 }
 mb.log.exit();
 };
-this.guessSortnameField=function(_267,_268){
+this.guessSortnameField=function(_272,_273){
 mb.log.enter(this.GID,"guessSortnameField");
 var fa,fsn;
-if((fa=es.ui.getField(_267))!=null&&(fsn=es.ui.getField(_268))!=null){
+if((fa=es.ui.getField(_272))!=null&&(fsn=es.ui.getField(_273))!=null){
 var av=fa.value,ov=fsn.value,nv=ov;
 if(!mb.utils.isNullOrEmpty(av)){
 mb.log.info("fa: $, fsn: $, value: $",fa.name,fsn.name,fa.value);
@@ -5104,7 +5177,7 @@ mb.log.info("Guess yielded same result, nothing to do.");
 mb.log.info("Artist name is empty, nothing to do.");
 }
 }else{
-mb.log.error("Did not find the fields: $, $",_267,_268);
+mb.log.error("Did not find the fields: $, $",_272,_273);
 }
 mb.log.exit();
 };
@@ -5115,13 +5188,13 @@ var fn1=(arguments[0]||"search");
 var fn2=(arguments[1]||"trackname");
 var fns=(arguments[2]||"swapped");
 if(((f1=es.ui.getField(fn1))!=null)&&((f2=es.ui.getField(fn2))!=null)&&((fs=es.ui.getField(fns))!=null)){
-var _26f=(1-fs.value);
+var _27a=(1-fs.value);
 var f1v=f1.value;
 var f2v=f2.value;
-es.ur.addUndo(es.ur.createItemList(es.ur.createItem(f2,"swap",f2v,f1v),es.ur.createItem(f1,"swap",f1v,f2v),es.ur.createItem(fs,"swap",fs.value,_26f)));
+es.ur.addUndo(es.ur.createItemList(es.ur.createItem(f2,"swap",f2v,f1v),es.ur.createItem(f1,"swap",f1v,f2v),es.ur.createItem(fs,"swap",fs.value,_27a)));
 f1.value=f2v;
 f2.value=f1v;
-fs.value=_26f;
+fs.value=_27a;
 }else{
 mb.log.error("Did not find the fields: $,$,$",fn1,fn2,fns);
 }

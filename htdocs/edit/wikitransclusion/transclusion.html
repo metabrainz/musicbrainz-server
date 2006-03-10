@@ -74,8 +74,8 @@ foreach my $page (keys %$pages)
 {
    </%perl>
    <tr>
-     <td><a href="/doc/<% $page %>"><% $page %></a>&nbsp;</td>
-     <td><img src="/images/icon/extlink.gif"><a href="http://wiki.musicbrainz.org/<% $page %>"><% $page %></a>&nbsp;</td>
+     <td><img src="/images/icon/extlink.gif"><a href="/doc/<% $page %>"><% $page %></a>&nbsp;</td>
+     <td><a href="http://wiki.musicbrainz.org/<% $page %>"><% $page %></a>&nbsp;</td>
      <td align="center">
      <form method="post" action="/edit/wikitransclusion/transclusion.html"
                enctype="application/x-www-form-urlencoded" class="formstyle">

@@ -173,6 +173,7 @@ sub ApprovedAction
 {
   	my $self = shift;
 	my $new = $self->{'new_unpacked'};
+	my $asintypeid = Album->GetAsinLinkTypeId($self->{DBH});
 
 	my $link = MusicBrainz::Server::Link->new($self->{DBH}, [$new->{oldentity0type}, $new->{oldentity1type}]);
 	$link = $link->newFromId($new->{linkid});
@@ -205,14 +206,14 @@ sub ApprovedAction
 	}
 
 	# finally some special ASIN URL handling (update album_amazon_asin table data)
-	if ($new->{oldlinktypeid} == Album->GetAsinLinkTypeId &&
+	if ($new->{oldlinktypeid} == $asintypeid &&
 		$new->{oldentity0type} eq 'album' &&
 		$new->{oldentity1type} eq 'url')
 	{
 		# link type changed, remove asin + coverart from album meta
 		# currently this is the only way of editing a link, other cases (entity changes, etc.)
 		# must be checked as well when implemented
-		if ($new->{newlinktypeid} != Album->GetAsinLinkTypeId)
+		if ($new->{newlinktypeid} != $asintypeid)
 		{
 			my $al = Album->new($self->{DBH});
 			$al->SetId($new->{oldentity0id});
@@ -220,6 +221,18 @@ sub ApprovedAction
 			$al->UpdateAmazonData(-1)
 				if ($al->LoadFromId(1));
 		}
+	} 
+	elsif ($new->{newlinktypeid} == $asintypeid &&
+			 $new->{newentity0type} eq 'album' &&
+			 $new->{newentity1type} eq 'url')
+	{
+		# reverse case, link type changed _to_ Amazon AR
+		my $al = Album->new($self->{DBH});
+		$al->SetId($new->{newentity0id});
+		$al->ParseAmazonURL($new->{newentity1name});
+		
+		# insert the asin data or ignore if already present
+		$al->UpdateAmazonData(0);
 	}
 	
 	return STATUS_APPLIED;

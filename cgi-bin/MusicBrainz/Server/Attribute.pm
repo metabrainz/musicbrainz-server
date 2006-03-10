@@ -177,17 +177,10 @@ sub ReplaceAttributes
 		$rep_name =~ s/\s*?(.*?)\s*/$1/;
 		$rep_name =~ tr/A-Z/a-z/;
 	   
-		if ($phrase =~ /\{$attr\}/)
-		{
-			$phrase =~ s/\{$attr\}/$rep_name/;
-			$rphrase =~ s/\{$attr\}/$rep_name/;
-		}
-		elsif ($phrase =~ /\{$attr:(.*?)\}/)
-		{
-			my $saved = $1;
-			$phrase =~ s/\{$attr:.*?\}/$saved/;
-			$rphrase =~ s/\{$attr:.*?\}/$saved/;
-		}
+		$phrase =~ s/\{$attr\}/$rep_name/
+			or $phrase =~ s/\{$attr:(.*?)\}/$1/;
+		$rphrase =~ s/\{$attr\}/$rep_name/
+			or $rphrase =~ s/\{$attr:(.*?)\}/$1/;
 	}
 
     $phrase =~ s/\{.*?\}\s*?//g;

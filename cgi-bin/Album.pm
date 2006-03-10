@@ -67,7 +67,7 @@ use constant ALBUM_ATTR_SECTION_STATUS_START => ALBUM_ATTR_OFFICIAL;
 use constant ALBUM_ATTR_SECTION_STATUS_END   => ALBUM_ATTR_BOOTLEG;
 
 # make this a package/class variable, it can change 
-our $ASIN_LINK_TYPE_ID = 30;
+our $ASIN_LINK_TYPE_ID = undef;
 
 my %AlbumAttributeNames = (
     0 => [ "Non-Album Track", "Non-Album Tracks", "(Special case)"],
@@ -208,13 +208,16 @@ sub ParseAmazonURL
 sub GetAsinLinkTypeId
 {
 	my $self = shift;
+	return $Album::ASIN_LINK_TYPE_ID if (defined $Album::ASIN_LINK_TYPE_ID);
 	
-	return $ASIN_LINK_TYPE_ID if (defined $ASIN_LINK_TYPE_ID);
-	
-	my $sql = Sql->new( ref $self ? $self->{DBH} : shift );
-	$ASIN_LINK_TYPE_ID = $sql->SelectSingleValue("SELECT id FROM lt_album_url WHERE name = 'amazon asin'");
+	# try to extract the id from the DB
+	my $dbh = (ref $self ? $self->{DBH} : shift);
 
-	return $ASIN_LINK_TYPE_ID;
+	my $sql = Sql->new($dbh);
+	$Album::ASIN_LINK_TYPE_ID = $sql->SelectSingleValue("SELECT id FROM lt_album_url WHERE name = 'amazon asin'")
+		if (defined $sql);
+
+	return $Album::ASIN_LINK_TYPE_ID;
 }
 	
 
@@ -1118,15 +1121,21 @@ sub UpdateAmazonData
 {
 	my ($self, $mode) = @_;
 	my ($coverurl, $asin)  = ($self->{coverarturl}, $self->{asin});
+	my $ret = 0;
 	
-	return 0 unless ($coverurl && $asin && $self->GetId);
+	return $ret unless ($coverurl && $asin && $self->GetId);
 
 	# make sure the album exists and get current asin and cover data	
 	my $sql = Sql->new($self->{DBH});
 	my $old = $sql->SelectSingleRowArray(
 		"SELECT asin, coverarturl FROM album_amazon_asin WHERE album = ?", $self->GetId
 	);
-	my ($oldcoverurl, $oldasin) = (defined $old ? @$old : (undef, undef));
+
+	# old data from automatic update script can be either NULL or a real string or /' '{10}/
+	my $oldasin = (defined $old && defined @$old[0] ? @$old[0] : '');
+	my $oldcoverurl = (defined $old && defined @$old[1] ? @$old[1] : '');
+	$oldasin =~ s/\s//g;
+	$oldcoverurl =~ s/\s//g;
 	
 	# remove mode
 	if ($mode == -1 && $old)
@@ -1134,7 +1143,7 @@ sub UpdateAmazonData
 		# check if there is another ASIN AR and update the asin and cover data
 		# using this AR
 		my @altlinks = MusicBrainz::Server::Link->FindLinkedEntities(
-			$self->{DBH}, $self->GetId, 'album', { 'to_type' => 'url' }
+			$self->{DBH}, $self->GetId, 'album', ( 'to_type' => 'url' )
 		);
 
 		for my $item (@altlinks)
@@ -1152,7 +1161,6 @@ sub UpdateAmazonData
 		# if there was no alternative ASIN AR, do a delete instead of just overwriting
 		if ($mode == -1)
 		{
-			$sql->AutoCommit;
 			$sql->Do(
 				qq|DELETE FROM album_amazon_asin
 				   WHERE album = ?;|,
@@ -1160,48 +1168,39 @@ sub UpdateAmazonData
 			) unless ($oldcoverurl eq "" && $oldasin eq "");
 			$self->{coverarturl} = "";
 			$self->{asin} = "";
-			
-			return 1;
+			$ret =1;
 		}
 	}
-
-	# insert mode
 	if ($mode >= 0 && !defined $old)
 	{
-		$sql->AutoCommit;
+		# insert mode
 		# insert new row, if not present
-		$sql->Do(
+		$ret = $sql->Do(
 			qq|INSERT INTO album_amazon_asin
 			   (album, asin, coverarturl, lastupdate)
 			   VALUES (?, ?, ?, now());|,
 			$self->GetId, $asin, $coverurl,
 		);
 	}
-
-	# update mode
-	# overwrite unconditionally if $mode == 1
-	# overwrite old cover art url or NULL values if $mode == 0
-	if (($mode == 1 && $old && ($oldcoverurl ne $coverurl) && $oldasin && ($oldasin ne $asin))
-		|| ($mode == 0 && (!defined $oldasin || $oldcoverurl =~ m{^/})))
+	elsif (($mode == 1 && defined $old && ($oldcoverurl ne $coverurl || $oldasin ne $asin))
+			|| ($mode == 0 && ($oldasin eq '' || $oldcoverurl =~ m{^(/|\s*$)})))
 	{
-		$sql->AutoCommit;
-		$sql->Do(
+		# update mode
+		# overwrite unconditionally if $mode == 1
+		# overwrite old cover art url or NULL values if $mode == 0
+		$ret = $sql->Do(
 			qq|UPDATE album_amazon_asin
 			   SET asin = ?, coverarturl = ?, lastupdate = now()
 			   WHERE album = ?;|,
 			$asin, $coverurl, $self->GetId,
 		);
 	}
-	else
-	{
-		return 0;
-	}
 
 	# reset $self data, to the new values
 	$self->{coverarturl} = $coverurl;
 	$self->{asin} = $asin;
 
-	return 1;
+	return $ret;
 }
 
 sub UpdateName

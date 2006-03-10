@@ -32,7 +32,7 @@ use 5.008;
 use strict;
 
 use FindBin;
-use lib "$FindBin::Bin/../../cgi-bin";
+use lib "$FindBin::Bin/../../../cgi-bin";
 
 require DBDefs;
 require MusicBrainz;
@@ -59,26 +59,37 @@ print LOG localtime() . " : Updating old amazon data from ASIN advanced relation
 my $rows = $sql->SelectListOfHashes('
 	SELECT link0 AS alid, url 
 	FROM l_album_url JOIN url ON link1 = url.id
-	WHERE link_type = ?',
+	WHERE link_type = ?
+	ORDER BY link0',
 	$amazon_link_type
 );
 
+$sql->Begin;
+
 my ($asin, $coverurl);
 my $i = 0;
+my %done;
 for my $link (@$rows)
 {
 	my $al = Album->new($mb->{DBH});
-	$al->SetId($link->{alid});
+	my $alid = $link->{alid};
+	$al->SetId($alid);
 
-	if ($al->LoadFromId(1))
+	if (!$done{$alid} && $al->LoadFromId(1))
 	{
 		($asin, $coverurl) = $al->ParseAmazonURL($link->{url});
 		if ($asin ne "")
 		{
-			$al->UpdateAmazonData(1) and $i++;
+			if ($al->UpdateAmazonData(1))
+			{ 
+				$i++;
+				$done{$alid} = 1;
+			}
 		}
 	}
 }
+
+$sql->Commit;
 
 print LOG localtime() . " : Done! (Updated " . $i . " row)\n";
 

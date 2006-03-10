@@ -33,6 +33,23 @@ function GcAlbumHandler() {
 	this.GID = "gc.album";
 
 	/**
+	 * Checks special cases of albums
+	 **/
+	this.checkSpecialCase = function(is) {
+		mb.log.enter(this.GID, "checkSpecialCase");
+		if (is) {
+			if (!gc.re.ALBUM_UNTITLED) {
+				// untitled
+				gc.re.ALBUM_UNTITLED = /^([\(\[]?\s*untitled\s*[\)\]]?)$/i;
+			}
+			if (is.match(gc.re.ALBUM_UNTITLED)) {
+				return mb.log.exit(this.SPECIALCASE_UNTITLED);
+			}
+		}
+		return mb.log.exit(this.NOT_A_SPECIALCASE);
+	};
+
+	/**
 	 * Guess the albumname given in string is, and
 	 * returns the guessed name.
 	 *

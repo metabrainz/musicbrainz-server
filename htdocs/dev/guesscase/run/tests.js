@@ -56,9 +56,17 @@ var DEFINED_TESTS = {
 		new TestCase("Caps DJ and MC, but title word",
 					"Dj someDjname & Mc SomeMcName",
 					"DJ Somedjname & MC Somemcname"),
+					
+		// acronyms
 		new TestCase("Proper acronym",
 					"A.B. Artistlastname",
-					"A.B. Artistlastname")
+					"A.B. Artistlastname"),
+
+		// contraction
+		new TestCase("Handle contractions",
+					"we're ev'ry they'll 'round y'all it's they've 'til wat'cha 'em all he'd ev'rybody",
+					"We're Ev'ry They'll 'round Y'all It's They've 'til Wat'cha 'em All He'd Ev'rybody")
+
 	],
 
 	// guessSortName function
@@ -100,7 +108,19 @@ var DEFINED_TESTS = {
 
 	// guessAlbum function
 	"albumname" : [
-		new TestCase("Expect SubTitleStyle",
+		// trim information to omit
+		new TestCase("Handle specialcase",
+					"Untitled",
+					"[untitled]"),
+		new TestCase("TrimInformationToOmit",
+					"Test Bonus",
+					"Test"),
+		new TestCase("Handle bonus disc",
+					"Test Bonus Cd",
+					"Test (bonus disc)"),
+
+		// SubTitleStyle
+		new TestCase("Respect SubTitleStyle",
 					"My title: the subtitle",
 					"My Title: The Subtitle"),
 		new TestCase("Proper caps in parantheses",
@@ -131,6 +151,17 @@ var DEFINED_TESTS = {
 		new TestCase("Incomplete acronym, C does not belong",
 					"Album (A.B.C) Asdf",
 					"Album (A.B. C) Asdf"),
+
+		// capitalization of words before sentence stops {ticket:1099}
+		new TestCase("Titlecase for On before colon",
+					"Early on: Subtitle 85-92 (disc 1)",
+					"Early On: Subtitle 85-92 (disc 1)"),
+		new TestCase("Titlecase for On before comma",
+					"Early on, Volume 1",
+					"Early On, Volume 1"),
+		new TestCase("Titlecase for On before hyphen",
+					"Early on - This Is a Track Title",
+					"Early On - This Is a Track Title"),
 
 		// Hyphens
 		new TestCase("Hyphens: Leave whitespace intact",
@@ -218,10 +249,30 @@ var DEFINED_TESTS = {
 
 	// guessTrack function
 	"trackname" : [
+		// Special cases	
+		new TestCase("Handle specialcase",
+					"silent track",
+					"[silence]"),
+		new TestCase("Handle specialcase",
+					"???",
+					"[unknown]"),
+		new TestCase("Handle specialcase",
+					"Untitled track",
+					"[untitled]"),
+		new TestCase("Handle specialcase",
+					"Bonus track",
+					"[unknown]"),
+		new TestCase("Handle specialcase",
+					"Bonus",
+					"[unknown]"),
+		new TestCase("Handle specialcase",
+					"Data Track",
+					"[data track]"),
+
 		// capitalization
 		new TestCase("Proper caps",
 					"My TRACK the name",
-					"My TRACK the Name"),
+					"My Track the Name"),
 		new TestCase("Proper caps",
 					"der fremde",
 					"Der Fremde"),
@@ -240,33 +291,55 @@ var DEFINED_TESTS = {
 		// remix style
  		new TestCase("RemixStyle",
 					"My TRACK (Name of the RMX)",
-					"My TRACK (Name of the remix)"),
+					"My Track (Name of the remix)"),
  		new TestCase("RemixStyle",
 					"My TRACK (Artist 1 & Artist 2 RMX)",
-					"My TRACK (Artist 1 & Artist 2 remix)"),
- 		new TestCase("RemixStyle",
-					"My TRACK Extended Dub RMX",
-					"My TRACK (extended dub remix)"),
+					"My Track (Artist 1 & Artist 2 remix)"),
 
+		// A Capella
+ 		new TestCase("Correct A Cappella, but do not put into brackets",
+					"My Track Accapela",
+					"My Track A Cappella"),
+ 		new TestCase("Correct A Cappella inside brackets, make LC",
+					"My Track (Accappella)",
+					"My Track (a cappella)"),
+
+		// Extratitleinfo
+ 		new TestCase("Slurp Extratitleinfo",
+					"My TRACK Extended Dub RMX",
+					"My Track (extended dub remix)"),
+ 		new TestCase("Respect words is do not have ETI context",
+					"Test Dance",
+					"Test Dance"),
+ 		new TestCase("Slurp ETI of isPrepBracketSingleWords if context allows it",
+					"Test Dance Mix",
+					"Test (dance mix)"),
+ 		new TestCase("Respect words is do not have ETI context",
+					"Test Live",
+					"Test Live"),					
+ 		new TestCase("Slurp ETI of isPrepBracketSingleWords if context allows it",
+					"Test Live Version",
+					"Test (live version)"),
+					
 		// feat. style
   		new TestCase("FeaturingArtistStyle",
-  				 "My TRACK (feat. Artistname)",
-					"My TRACK (feat. Artistname)"),
+  				 	"My TRACK (feat. Artistname)",
+					"My Track (feat. Artistname)"),
   		new TestCase("FeaturingArtistStyle",
  					"My TRACK	( feat.	Artistname )",
-					"My TRACK (feat. Artistname)"),
+					"My Track (feat. Artistname)"),
   		new TestCase("FeaturingArtistStyle",
  					"My TRACK	Featuring	Artistname",
-					"My TRACK (feat. Artistname)"),
+					"My Track (feat. Artistname)"),
   		new TestCase("FeaturingArtistStyle",
  					"My TRACK	ft.	Artistname",
-					"My TRACK (feat. Artistname)"),
+					"My Track (feat. Artistname)"),
   		new TestCase("FeaturingArtistStyle",
  					"My TRACK	f. Artistname",
-					"My TRACK (feat. Artistname)"),
+					"My Track (feat. Artistname)"),
   		new TestCase("FeaturingArtistStyle",
  					"My TRACK /w Artistname",
-					"My TRACK (feat. Artistname)"),
+					"My Track (feat. Artistname)"),
   		new TestCase("Not convert F if not followed by a dot",
  					"Wonder of Live (F & W Remix)",
 					"Wonder of Live (F & W remix)"),			 
@@ -274,10 +347,10 @@ var DEFINED_TESTS = {
 		// feat. style with remixinfo
   		new TestCase("FeaturingArtistStyle",
  					"My TRACK (house Vocal mix) ft	Artistname",
-					"My TRACK (House vocal mix) (feat. Artistname)"),
+					"My Track (House vocal mix) (feat. Artistname)"),
   		new TestCase("FeaturingArtistStyle",
  					"My TRACK (house Vocal mix ft	Artistname)",
-					"My TRACK (House vocal mix) (feat. Artistname)"),
+					"My Track (House vocal mix) (feat. Artistname)"),
 
 		// PartNumberStyle
   		new TestCase("PartNumberStyle",

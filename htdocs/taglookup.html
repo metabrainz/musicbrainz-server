@@ -132,21 +132,37 @@ if (scalar(@coll_list) > 1)
     these albums and continue with your lookup:</p>
     <%perl>
 }
-elsif ($_artist && $_track)
+elsif ($_artist)
 {
-    my $query = "(artist:$artist) (track:$_track)";
+    my ($query, $type);
     
-    $query .= " (release:$_release)" if $_release;
-    $query .= " tnum:$_tracknum" if $_tracknum;
-    if ($_duration)
+    if ($artist && $track)
     {
-        my $qdur = $_duration / 2000;
-        $query .= " qdur:$qdur qdur:" . ($qdur - 1) . " qdur:" . ($qdur + 1) if ($qdur);
+        $query = "(artist:$artist) (track:$_track)";
+        $type = "track";
+    
+        $query .= " (release:$_release)" if $_release;
+        $query .= " tnum:$_tracknum" if $_tracknum;
+        if ($_duration)
+        {
+            my $qdur = $_duration / 2000;
+            $query .= " qdur:$qdur qdur:" . ($qdur - 1) . " qdur:" . ($qdur + 1) if ($qdur);
+        }
+    }
+    elsif ($artist && $release)
+    {
+        $query = "(artist:$artist) (release:$_release)";
+        $type = "release";
+    }
+    else
+    {
+        $query = "(artist:$artist)";
+        $type = "artist";
     }
 
     use URI::Escape qw( uri_escape );
-    my $docurl = 'http://' . &DBDefs::LUCENE_SERVER . "/ws/1/track/?query=" . 
-                 uri_escape($query) . "&type=track";
+    my $docurl = 'http://' . &DBDefs::LUCENE_SERVER . "/ws/1/$type/?query=" . 
+                 uri_escape($query) . "&type=$type";
     $docurl .= "&tport=$tport" if $tport;
     $docurl .= "&dur=$_duration" if $_duration;
     $docurl .= "&mbt=1" if $mbt;
@@ -198,7 +214,7 @@ elsif ($_artist && $_track)
 else
 {
     </%perl>
-    <p><b>Error</b>: You must provide at least an artist and a track name.
+    <p><b>Error</b>: You must provide an artist.
     </p>
     <%perl>
 }

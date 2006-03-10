@@ -5,7 +5,7 @@ $text => ''
 </%args>
 % $default = lc $default;
 
-<form method="get" action="/newsearch.html" class="formstyle" id="TextSearchForm">
+<form method="get" action="/search/oldsearch.html" class="formstyle" id="TextSearchForm">
 
 <div style="margin: 0.3em">
   <b>Artist/Album/Track Search</b>

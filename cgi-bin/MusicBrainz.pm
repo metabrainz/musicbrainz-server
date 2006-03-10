@@ -205,6 +205,8 @@ sub MakeDisplayDateStr
 
 	my ($year, $month, $day) = split m/-/, $str;
 
+	# disable warning when $day, $month or $year are non-numeric
+	no warnings 'numeric';
 	if (0+$day)
 	{
 		return sprintf('%04d-%02d-%02d', $year, $month, $day);

@@ -32,14 +32,14 @@ use 5.008;
 use strict;
 
 use FindBin;
-use lib "$FindBin::Bin/../../cgi-bin";
+use lib "$FindBin::Bin/../../../cgi-bin";
 
 require DBDefs;
 require MusicBrainz;
 require Sql;
 require Moderation;
 
-use ModDefs qw( STATUS_FAILEDDEP STATUS_ERROR STATUS_FAILEDPREREQ );
+#use ModDefs qw( STATUS_FAILEDDEP STATUS_ERROR STATUS_FAILEDPREREQ );
 
 my $verbose = 1;
 
@@ -66,7 +66,7 @@ CREATE OR REPLACE FUNCTION moderator_fix_failed_count() RETURNS void AS
 		i moderator%ROWTYPE;
 		n integer = 0;
 	BEGIN
-		FOR i IN SELECT * FROM moderator ORDER BY id LOOP
+		FOR i IN SELECT * FROM moderator where modsaccepted > 0 or modsrejected > 0 ORDER BY id LOOP
 			n := n+1;
 			UPDATE moderator
 			  SET modsfailed = (

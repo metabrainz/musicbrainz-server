@@ -158,20 +158,28 @@ function GuessCase() {
 	 * @returns			the processed string
 	 **/
 	this.guessArtist = function(is) {
-		var os;
+		var os, handler;
 		gc.init();
 		mb.log.enter(this.GID, "guessArtist");
 		if (!gc.artistHandler) {
 			gc.artistHandler = new GcArtistHandler();
 		}
+		handler = gc.artistHandler;
 		mb.log.info('Input: $', is);
 		gc.useArtistMode();
-		if ((os = gc.artistHandler.checkSpecialCases(is)) != is) {
+		
+		// we need to query the handler if the input string is
+		// a special case, fetch the correct format, if the
+		// returned case is indeed a special case.
+		var num = handler.checkSpecialCase(is);
+		if (handler.isSpecialCase(num)) {
+			os = handler.getSpecialCaseFormatted(is, num);
 			mb.log.info('Result after special case check: $', os);
-			return mb.log.exit(os);
-		}
-		os = gc.artistHandler.process(is); // process input string
-		mb.log.info('Result after guess: $', os);
+		} else {
+			// if it was not a special case, start Guessing
+			os = handler.process(is); 
+			mb.log.info('Result after guess: $', os);
+		}				
 		gc.restoreMode();
 		return mb.log.exit(os);
 	};
@@ -182,20 +190,28 @@ function GuessCase() {
 	 * @returns			the processed string
 	 **/
 	this.guessSortname = function(is) {
-		var os;
+		var os, handler;
 		gc.init();
 		mb.log.enter(this.GID, "guessArtistSortame");
 		if (!gc.artistHandler) {
 			gc.artistHandler = new GcArtistHandler();
 		}
+		handler = gc.artistHandler;
 		mb.log.info('Input: $', is);
 		gc.useArtistMode();
-		if ((os = gc.artistHandler.checkSpecialCases(is)) != is) {
+
+		// we need to query the handler if the input string is
+		// a special case, fetch the correct format, if the
+		// returned case is indeed a special case.
+		var num = handler.checkSpecialCase(is);
+		if (handler.isSpecialCase(num)) {
+			os = handler.getSpecialCaseFormatted(is, num);
 			mb.log.info('Result after special case check: $', os);
-			return mb.log.exit(os);
-		}
-		os = gc.artistHandler.guessSortName(is);
-		mb.log.info('Result after guess: $', os);
+		} else {
+			// if it was not a special case, start Guessing
+			os = handler.guessSortName(is); 
+			mb.log.info('Result after guess: $', os);
+		}		
 		gc.restoreMode();
 		return mb.log.exit(os);
 	};
@@ -206,16 +222,28 @@ function GuessCase() {
 	 * @returns			the processed string
 	 **/
 	this.guessAlbum = function(is, mode) {
-		var os;
+		var os, handler;
 		gc.init();
 		mb.log.enter(this.GID, "guessAlbum");
 		if (!gc.albumHandler) {
 			gc.albumHandler = new GcAlbumHandler();
 		}
+		handler = gc.albumHandler;
 		mb.log.info('Input: $', is);
 		this.useSelectedMode(mode);
-		os = gc.albumHandler.process(is); // process input string
-		mb.log.info('Result after guess: $', os);
+		
+		// we need to query the handler if the input string is
+		// a special case, fetch the correct format, if the
+		// returned case is indeed a special case.
+		var num = handler.checkSpecialCase(is);
+		if (handler.isSpecialCase(num)) {
+			os = handler.getSpecialCaseFormatted(is, num);
+			mb.log.info('Result after special case check: $', os);
+		} else {
+			// if it was not a special case, start Guessing
+			os = handler.process(is); 
+			mb.log.info('Result after guess: $', os);
+		}				
 		return mb.log.exit(os);
 	};
 
@@ -225,20 +253,28 @@ function GuessCase() {
 	 * @returns			the processed string
 	 **/
 	this.guessTrack = function(is, mode) {
-		var os;
+		var os, handler;
 		gc.init();
 		mb.log.enter(this.GID, "guessTrack");
 		if (!gc.trackHandler) {
 			gc.trackHandler = new GcTrackHandler();
 		}
+		handler = gc.trackHandler;			
 		mb.log.info('Input: $', is);
 		this.useSelectedMode(mode);
-		if ((os = gc.trackHandler.checkSpecialCases(is)) != is) {
+		
+		// we need to query the handler if the input string is
+		// a special case, fetch the correct format, if the
+		// returned case is indeed a special case.
+		var num = handler.checkSpecialCase(is);
+		if (handler.isSpecialCase(num)) {
+			os = handler.getSpecialCaseFormatted(is, num);
 			mb.log.info('Result after special case check: $', os);
-			return mb.log.exit(os);
-		}
-		os = gc.trackHandler.process(is); // process input string
-		mb.log.info('Result after guess: $', os);
+		} else {
+			// if it was not a special case, start Guessing
+			os = handler.process(is); 
+			mb.log.info('Result after guess: $', os);
+		}		
 		return mb.log.exit(os);
 	};
 

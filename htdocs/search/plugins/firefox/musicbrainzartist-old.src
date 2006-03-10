@@ -6,23 +6,23 @@
 #
 # Known issues:
 #  
-# 1. Well, it's my third plugin, and really basic, but I've tested it and it seems to work...
-# 2. Not tested with search sidebar, as using firefox which doesn't support it.
+# 1. Well, it's my first plugin, and really basic, but I've tested it and it seems to work...
+# 2. Not tested with searcg sidebar, as using firefox which doesn't support it.
 #
 # If you like this, do consider getting involved with MusicBrainz - they're a fab organisation who are trying to put right all the damage to open source philosophies made by the Gracenote CDDB debacle...
 #
 <search
  version="7.1"
- name="Musicbrainz: Track"
- description="Musicbrainz - Search Musicbrainz music metadatabase for a track" 
- action="http://musicbrainz.org/search/textsearch.html"
+ name="Musicbrainz: Artist (old)"
+ description="Musicbrainz - Search Musicbrainz music metadatabase for an artist" 
+ action="http://musicbrainz.org/search/oldsearch.html"
  searchForm="http://musicbrainz.org/search.html"
  method="GET" >
 
 <!--<input name="sourceid" value="Mozilla-search">-->
-<input name="type" value="track">
-<input name="limit" value="25">
-<input name="query" user="">
+<input name="table" value="artist">
+<input name="limit" value="0">
+<input name="search" user="">
 
 <interpret 
  resultListStart="<table border="0" cellspacing="0" cellpadding="4" id="SearchResults">"
@@ -33,7 +33,7 @@
 </search>
 
 <browser
- update="http://musicbrainz.org/search/plugins/firefox/musicbrainztrack.src" 
- updateIcon="http://musicbrainz.org/search/plugins/firefox/musicbrainztrack.gif"
+ update="http://musicbrainz.org/search/plugins/firefox/musicbrainzartist.src" 
+ updateIcon="http://musicbrainz.org/search/plugins/firefox/musicbrainzartist.gif"
  updateCheckDays="14"
 >

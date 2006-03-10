@@ -335,25 +335,31 @@ sub CheckModerations
 				my $status;
 
 				$sql->Begin;
-
-				$status = $mod->CheckPrerequisites;
-				if (defined $status)
+				# check that mod is still open and LOCK the row
+				# (could have been "approved" after the start of ModBot)
+				if ($sql->SelectSingleValue('
+						SELECT id FROM moderation_open WHERE id = ? FOR UPDATE', 
+						$mod->GetId))
 				{
-					print localtime() . " : Closing mod #" . $mod->GetId()
-						. " (" . $status_name_from_number{$status} . ")\n";
+					$status = $mod->CheckPrerequisites;
+					if (defined $status)
+					{
+						print localtime() . " : Closing mod #" . $mod->GetId()
+							. " (" . $status_name_from_number{$status} . ")\n";
 
-					$mod->SetStatus($status);
-					$mod->DeniedAction;
-					$status = $mod->GetStatus;
-					$mod->CloseModeration($status);
-					$user->CreditModerator($mode->GetModerator, $status);
-					--$count{STATUS_APPLIED};
-					++$count{$status};
-				} else {
-					$status = $mod->ApprovedAction;
-					$mod->SetStatus($status);
-					$user->CreditModerator($mod->GetModerator, $status);
-					$mod->CloseModeration($status);
+						$mod->SetStatus($status);
+						$mod->DeniedAction;
+						$status = $mod->GetStatus;
+						$mod->CloseModeration($status);
+						$user->CreditModerator($mod->GetModerator, $status);
+						--$count{STATUS_APPLIED};
+						++$count{$status};
+					} else {
+						$status = $mod->ApprovedAction;
+						$mod->SetStatus($status);
+						$user->CreditModerator($mod->GetModerator, $status);
+						$mod->CloseModeration($status);
+					}
 				}
 
 				$sql->Commit;
@@ -431,7 +437,7 @@ sub CheckModerations
 					$mod->DeniedAction;
 					$status = $mod->GetStatus;
 					$mod->CloseModeration($status);
-					$user->CreditModerator($mod-GetModerator, $status);
+					$user->CreditModerator($mod->GetModerator, $status);
 					++$count{$status};
 				}
 

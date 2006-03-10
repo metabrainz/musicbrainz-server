@@ -140,7 +140,7 @@ sub get_type_and_status_from_inc
 {
     my ($inc) = @_;
 
-    my $type = 0;
+    my $type = -1;
     my $va = 0;
     my @bad;
     foreach my $t (split ' ', $inc)
@@ -158,7 +158,7 @@ sub get_type_and_status_from_inc
         }
     }
     my @reallybad;
-    my $status = 0;
+    my $status = -1;
     foreach (@bad)
     {
         if (exists $statusShortcuts{$_})
@@ -228,7 +228,7 @@ sub xml_artist
             foreach my $al (@albums)
             {
                 my ($t, $s) = $al->GetReleaseTypeAndStatus();
-                xml_release($ar, $al, $inc) if ($t == $info->{type} && ($info->{status} == 0 || $info->{status} == $s));
+                xml_release($ar, $al, $inc) if ($t == $info->{type} && ($info->{status} == -1 || $info->{status} == $s));
             }
             print '</release-list>';
         }

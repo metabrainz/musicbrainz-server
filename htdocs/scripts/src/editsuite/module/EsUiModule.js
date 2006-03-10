@@ -551,6 +551,7 @@ function EsUiModule() {
 	 **/
 	this.getArtistFields = function() {
 		mb.log.enter(this.GID, "getArtistFields");
+		var fields = [];
 		if (this.getForm()) {
 			fields = this.getFieldsWalker(this.re.TEXTFIELD, this.re.ARTISTFIELD);
 		}
@@ -575,6 +576,7 @@ function EsUiModule() {
 	 **/
 	this.getTrackNameFields = function() {
 		mb.log.enter(this.GID, "getTrackNameFields");
+		var fields = [];
 		if (this.getForm()) {
 			fields = this.getFieldsWalker(this.re.TEXTFIELD, this.re.TRACKFIELD);
 		}
@@ -587,6 +589,7 @@ function EsUiModule() {
 	 **/
 	this.getTrackTimeFields = function() {
 		mb.log.enter(this.GID, "getTrackTimeFields");
+		var fields = [];
 		if (this.getForm()) {
 			fields = this.getFieldsWalker(this.re.NUMBERFIELD, this.re.TRACKLENGTHFIELD);
 		}

@@ -89,6 +89,7 @@ sub LoadIndexFromDisk
         return undef;
     }
 
+    undef $/;
     my $data = <FH>;
     close FH;
 
@@ -110,7 +111,7 @@ sub GetPageIndex
     my $index;
 
     # Get index from cache, if we have it
-    if (!($index = MusicBrainz::Server::Cache->get(WIKIDOCS_INDEX)))
+    if (1) #!($index = MusicBrainz::Server::Cache->get(WIKIDOCS_INDEX)))
     {
         if (&DBDefs::REPLICATION_TYPE == RT_SLAVE)
         {

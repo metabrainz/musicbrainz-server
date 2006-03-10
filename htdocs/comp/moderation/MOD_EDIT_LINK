@@ -27,13 +27,12 @@
 	<& /comp/ar/ShowEntityLink, id=>$new->{oldentity0id}, type=>$new->{oldentity0type}, 
 	                            name=>$new->{oldentity0name}, linktypeid=>$new->{oldlinktypeid}, simple=>1 &>
 	<i><% $new->{oldlinktypephrase} %></i>
-%   if ($new->{oldlinktypeid} eq Album->GetAsinLinkTypeId) {
-%   	my ($text, $dummy) = Album->ParseAmazonURL($new->{oldentity1name});
-        <% $text %>
-%   } else {
-	<& /comp/ar/ShowEntityLink, id=>$new->{oldentity1id}, type=>$new->{oldentity1type}, 
-	                            name=>$new->{oldentity1name}, url=>$new->{oldentity1name}, simple=>1 &>
+%   my ($url, $name) = ($new->{oldentity1name}, '');
+%   if ($new->{oldlinktypeid} == Album->GetAsinLinkTypeId($self->{DBH})) {
+%     ($name, ) = Album->ParseAmazonURL($new->{oldentity1name});
 %   }
+	<& /comp/ar/ShowEntityLink, id=>$new->{oldentity1id}, type=>$new->{oldentity1type}, 
+	                            name=>$name, url=>$url, simple=>1 &>
 % }
 
 </%method>
@@ -64,13 +63,8 @@ New:
 	<& /comp/ar/ShowEntityLink, id=>$new->{newentity0id}, type=>$new->{newentity0type}, 
 	                            name=>$new->{newentity0name}, linktypeid=>$new->{newlinktypeid}, simple=>1 &>
 	<i><% $new->{newlinktypephrase} %></i>
-%   if ($new->{newlinktypeid} eq Album->GetAsinLinkTypeId) {
-%	my ($text, ) = Album->ParseAmazonURL($new->{newentity1name});
-	<% $text %>
-%   } else {
 	<& /comp/ar/ShowEntityLink, id=>$new->{newentity1id}, type=>$new->{newentity1type}, 
 	                            name=>$new->{newentity1name}, url=>$new->{newentity1name}, simple=>1 &>
-%   }
 % }
 </%method>
 

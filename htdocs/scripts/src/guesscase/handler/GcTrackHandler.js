@@ -32,11 +32,6 @@ function GcTrackHandler() {
 	this.CN = "GcTrackHandler";
 	this.GID = "gc.track";
 
-	this.DATA_TRACK = "[data track]";
-	this.SILENCE = "[silence]";
-	this.TRACK_UNTITLED = "[untitled]";
-	this.UNKNOWN = "[unknown]";
-
 	// ----------------------------------------------------------------------------
 	// member functions
 	// ---------------------------------------------------------------------------
@@ -66,40 +61,48 @@ function GcTrackHandler() {
 	};
 
 	/**
-	 * Replaces SpecialCaseTracks
+	 * Detect if UntitledTrackStyle and DataTrackStyle needs
+	 * to be applied.
+	 *
 	 * » data [track]			-> [data track]
 	 * » silence|silent [track]	-> [silence]
 	 * » untitled [track]		-> [untitled]
 	 * » unknown|bonus [track]	-> [unknown]
 	 **/
-	this.checkSpecialCases = function(is) {
-		mb.log.enter(this.GID, "checkSpecialCases");
-		if (!gc.re.TRACK_DATATRACK) {
-			// data tracks
-			gc.re.TRACK_DATATRACK = /^([\(\[]?\s*data(\s+track)?\s*[\)\]]?$)/i;
-			// silence
-			gc.re.TRACK_SILENCE = /^([\(\[]?\s*silen(t|ce)(\s+track)?\s*[\)\]]?)$/i;
-			// untitled
-			gc.re.SPECIAL_TRACK3 = /^([\(\[]?\s*untitled(\s+track)?\s*[\)\]]?)$/i;
-			// unknown
-			gc.re.TRACK_UNKNOWN1 = /^([\(\[]?\s*(unknown|bonus)(\s+track)?\s*[\)\]]?)$/i;
-			// any number of question marks
-			gc.re.TRACK_MYSTERY = /^\?+$/i;
+	this.checkSpecialCase = function(is) {
+		mb.log.enter(this.GID, "checkSpecialCase");
+		if (is) {
+			if (!gc.re.TRACK_DATATRACK) {
+				// data tracks
+				gc.re.TRACK_DATATRACK = /^([\(\[]?\s*data(\s+track)?\s*[\)\]]?$)/i;
+				// silence
+				gc.re.TRACK_SILENCE = /^([\(\[]?\s*silen(t|ce)(\s+track)?\s*[\)\]]?)$/i;
+				// untitled
+				gc.re.TRACK_UNTITLED = /^([\(\[]?\s*untitled(\s+track)?\s*[\)\]]?)$/i;
+				// unknown
+				gc.re.TRACK_UNKNOWN = /^([\(\[]?\s*(unknown|bonus)(\s+track)?\s*[\)\]]?)$/i;
+				// any number of question marks
+				gc.re.TRACK_MYSTERY = /^\?+$/i;
+			}
+			if (is.match(gc.re.TRACK_DATATRACK)) {
+				return mb.log.exit(this.SPECIALCASE_DATA_TRACK);
+
+			} else if (is.match(gc.re.TRACK_SILENCE)) {
+				return mb.log.exit(this.SPECIALCASE_SILENCE);
+
+			} else if (is.match(gc.re.TRACK_UNTITLED)) {
+				return mb.log.exit(this.SPECIALCASE_UNTITLED);
+
+			} else if (is.match(gc.re.TRACK_UNKNOWN)) {
+				return mb.log.exit(this.SPECIALCASE_UNKNOWN);
+
+			} else if (is.match(gc.re.TRACK_MYSTERY)) {
+				return mb.log.exit(this.SPECIALCASE_UNKNOWN);
+			}
 		}
-		var os = is;
-		if (is.match(gc.re.TRACK_DATATRACK)) {
-			return mb.log.exit(this.DATA_TRACK);
-		} else if (is.match(gc.re.TRACK_SILENCE)) {
-			return mb.log.exit(this.SILENCE);
-		} else if (is.match(gc.re.SPECIAL_TRACK3)) {
-			return mb.log.exit(this.TRACK_UNTITLED);
-		} else if (is.match(gc.re.TRACK_UNKNOWN1)) {
-			return mb.log.exit(this.UNKNOWN);
-		} else if (is.match(gc.re.TRACK_MYSTERY)) {
-			return mb.log.exit(this.UNKNOWN);
-		}
-		return mb.log.exit(os);
+		return mb.log.exit(this.NOT_A_SPECIALCASE);
 	};
+	
 
 	/**
 	 * Delegate function which handles words not handled

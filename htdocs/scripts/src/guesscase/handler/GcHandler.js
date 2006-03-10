@@ -36,10 +36,73 @@ function GcHandler() {
 	this.GID = "gc.base";
 	mb.log.enter(this.CN, "__constructor");
 
+	// ----------------------------------------------------------------------------
+	// member variables
+	// ---------------------------------------------------------------------------
+
+	// Values of the specialcases defined in 
+	this.NOT_A_SPECIALCASE = -1;
+
+	// artist cases
+	this.SPECIALCASE_UNKNOWN = 10;		// [unknown]
+
+	// album cases
+	this.SPECIALCASE_DATA_TRACK = 20; 	// [data track]
+
+	// track cases
+	this.SPECIALCASE_DATA_TRACK = 30; 	// [data track]
+	this.SPECIALCASE_SILENCE = 31;		// [silence]
+	this.SPECIALCASE_UNTITLED = 32;		// [untitled]
+	this.SPECIALCASE_CROWD_NOISE = 33;	// [crowd noise]
+	this.SPECIALCASE_GUITAR_SOLO = 34;	// [guitar solo]
+	this.SPECIALCASE_DIALOGUE= 35;		// [dialogue]
+	
 
 	// ----------------------------------------------------------------------------
 	// member functions
 	// ---------------------------------------------------------------------------
+
+	/**
+	 * Returns true if the number corresponds to a special case.
+	 **/	
+	this.isSpecialCase = function(num) {
+		return (num != this.NOT_A_SPECIALCASE);
+	}
+
+	/**
+	 * Returns the correctly formatted string of the
+	 * special case, or the input string if num
+	 * does not correspond to a special case
+	 **/		
+	this.getSpecialCaseFormatted = function(is, num) {
+		mb.log.enter(this.GID, "getSpecialCaseFormatted");
+		switch (num) {
+			case this.SPECIALCASE_DATA_TRACK:
+				return mb.log.exit("[data track]");
+				
+			case this.SPECIALCASE_SILENCE:
+				return mb.log.exit("[silence]");
+				
+			case this.SPECIALCASE_UNTITLED:
+				return mb.log.exit("[untitled]");
+				
+			case this.SPECIALCASE_UNKNOWN:
+				return mb.log.exit("[unknown]");
+				
+			case this.SPECIALCASE_CROWD_NOISE:
+				return mb.log.exit("[crowd noise]");
+				
+			case this.SPECIALCASE_GUITAR_SOLO:
+				return mb.log.exit("[guitar solo]");
+				
+			case this.SPECIALCASE_DIALOGUE:
+				return mb.log.exit("[dialogue]");
+				
+			case this.NOT_A_SPECIALCASE:
+			default:
+				return mb.log.exit(is);
+		}
+	}	
 
 	/**
 	 * Returns the output string from GuessCaseOutput
@@ -127,6 +190,9 @@ function GcHandler() {
 		}
 		if (gc.i.matchCurrentWord(gc.re.COLON)) {
 			mb.log.debug('Handled #cw');
+			
+			// capitalize the last word before the colon (it's a line stop)
+			gc.o.capitalizeLastWord();
 
 			// from next position on, skip spaces and dots.
 			var skip = false;
@@ -466,6 +532,12 @@ function GcHandler() {
 		if (gc.i.matchCurrentWord(gc.re.COMMA)) {
 			mb.log.debug('Handled #cw');
 			if (gc.o.getLastWord() != ",") {
+			
+				// capitalize the last word before the colon 
+				gc.f.forceCaps = true;
+				gc.o.capitalizeLastWord();
+				
+				// handle comma
 				gc.f.resetContext();
 				gc.f.spaceNextWord = true;
 				gc.f.forceCaps = false;
@@ -722,22 +794,28 @@ function GcHandler() {
 		// Dance,Dance,Dance (lastword = dance) get matched by the preprocessor,
 		// but are a single word which can occur at the end of the string.
 		// therefore, we don't put the single word into parens.
-		var nextWord = (w[wi+1] || "");
-		if ((wi == len-1) &&
-			(gc.u.isPrepBracketSingleWord(nextWord))) {
-			mb.log.debug('Word found, but its a <i>singleword</i>: $', nextWord);
-			handlePreProcess = false;
-		}
-		if (handlePreProcess && wi > 0 && wi < w.length-1) {
-			wi++; // increment to last word that matched.
-			var nw = w.slice(0,wi);
-			if (nw[wi-1] == "(") { nw.pop(); }
-			if (nw[wi-1] == "-") { nw.pop(); }
-			nw[nw.length] = "(";
-			nw = nw.concat(w.slice(wi,w.length));
-			nw[nw.length] = ")";
-			w = nw;
-			mb.log.debug('Processed ExtraTitleInfo: $', w);
+		
+		// trackback the skipped spaces spaces, and then slurp the
+		// next word, so see which word we found.
+		if (wi < len) {
+			wi++; // current word broke out of the loop above,
+			while (w[wi] == " " && wi < w.length-1) wi++;
+			var nextWord = (w[wi] || "");
+			if ((wi == len-1) &&
+				(gc.u.isPrepBracketSingleWord(nextWord))) {
+				mb.log.debug('Word found, but its a <i>singleword</i>: $', nextWord);
+				handlePreProcess = false;
+			}
+			if (handlePreProcess && wi > 0 && wi < w.length-1) {
+				var nw = w.slice(0,wi);
+				if (nw[wi-1] == "(") { nw.pop(); }
+				if (nw[wi-1] == "-") { nw.pop(); }
+				nw[nw.length] = "(";
+				nw = nw.concat(w.slice(wi,w.length));
+				nw[nw.length] = ")";
+				w = nw;
+				mb.log.debug('Processed ExtraTitleInfo: $', w);
+			}
 		}
 		return mb.log.exit(w);
 	};
@@ -853,8 +931,8 @@ function GcHandler() {
 			gc.re.POSTPROCESS_FIXLIST = [
 				
 				// see combined words hack in preProcessTitles
-				new GcFix("a_cappella outside brackets", /(\b|^)A_cappella(\b)/, "A Cappella"),
 				new GcFix("a_cappella inside brackets", /(\b|^)a_cappella(\b)/, "a cappella"),
+				new GcFix("a_cappella outside brackets", /(\b|^)A_cappella(\b)/, "A Cappella"),
 				new GcFix("oc_remix", /(\b|^)oc_remix(\b)/i, "OC ReMix"),
 				new GcFix("re_edit inside brackets", /(\b|^)Re_edit(\b)/, "re-edit"),
 
@@ -922,7 +1000,7 @@ function GcHandler() {
 	};
 
 	/**
-	 * Take care of (bonus],(bonus track)
+	 * Take care of (bonus),(bonus track)
 	 **/
 	this.stripInformationToOmit = function(is) {
 		mb.log.enter(this.GID, "stripInformationToOmit");
@@ -1085,12 +1163,16 @@ function GcHandler() {
 			// by a digit or a roman number
 			if (gc.i.getPos() >= 2 && !gc.u.isPunctuationChar(gc.o.getLastWord())) {
 				// if no other punctuation char present
+				var droppedwords = false;
 				while (gc.o.getLength() > 0 &&
 					  (gc.o.getLastWord() || "").match(/ |-/i)) {
 					// check if there was a hypen (+whitespace) before,and drop it.
 					gc.o.dropLastWord();
+					droppedwords = true;
 				}
-				gc.o.capitalizeLastWord(); // capitalize last word before comma.
+				if (droppedwords) {
+					gc.o.capitalizeLastWord(); // capitalize last word before comma.
+				}
 				gc.o.appendWord(",");
 			} else {
 				// capitalize last word before punctuation char.

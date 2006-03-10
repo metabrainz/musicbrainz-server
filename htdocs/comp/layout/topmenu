@@ -84,6 +84,8 @@ use Scalar::Util qw( reftype weaken );
         { name => "Search Links",           url => "/engine.html" },
         { name => "Search Plugins",         url => "/search/plugins/firefox/install.html" },
         { url => "/newsearch.html" },
+        { url => "/oldsearch.html" },
+        { url => "/search/textsearch.html" },
     ],
     { name => "Edit",                   url => "/mod_intro.html" },
     [

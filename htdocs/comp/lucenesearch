@@ -43,7 +43,7 @@ UserStuff::EnsureSessionOpen(), $session{tport} = $tport
 </div>
 
 <div class="CenterChildren" style="margin: 0.3em">
-   [ <a href="/newsearch.html">old search</a> ]&nbsp;&nbsp;[ <a href="http://wiki.musicbrainz.org/TextSearchSyntax">help</a> ]
+   [ <a href="/search/oldsearch.html">old search</a> ]&nbsp;&nbsp;[ <a href="http://wiki.musicbrainz.org/TextSearchSyntax">help</a> ]
 </div>
 
 </center>

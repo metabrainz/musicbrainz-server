@@ -384,9 +384,9 @@ sub xml_trm
         printf '<artist id="%s"', $row->[10];
         print '><name>';
         print xml_escape($row->[9]);
-        print '</name><sortname>';
+        print '</name><sort-name>';
         print xml_escape($row->[11]);
-        print '</sortname></artist>';
+        print '</sort-name></artist>';
         printf '<release-list><release id="%s"><title>', $row->[5];
         print xml_escape($row->[6]);
         printf '</title><track-list offset="%d"/>', $row->[4];

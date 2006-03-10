@@ -166,6 +166,7 @@ function GcOutput() {
 	 **/
 	this.capitalizeWordAtIndex = function(index) {
 		mb.log.enter(this.GID, "capitalizeWordAtIndex");
+		gc.f.forceCaps = true;		
 		if ((!gc.getMode().isSentenceCaps()) &&
 			(!this.isEmpty()) &&
 			(this.getWordAtIndex(index) != null)) {

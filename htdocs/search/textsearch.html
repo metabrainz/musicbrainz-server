@@ -83,7 +83,15 @@ else
 </%perl>
 
 <div style="margin-top: 3em; padding: 1em; border: 1px solid #565656;">
+<table>
+<tr>
+<td width="50%">
 <& /comp/lucenesearch, type=>$type, limit=>$limit, query=>$query &>
+</td>
+<td width="50%">
+<p><b>Note:</b> Search indexes are currently updated once a day at 1800 GMT (10am PST). If you require up to the minute correct
+search, please use the <a href="/search/oldsearch.html">old search</a>.</p>
+</td></tr></table>
 </div>
 
 <& /comp/footer &>

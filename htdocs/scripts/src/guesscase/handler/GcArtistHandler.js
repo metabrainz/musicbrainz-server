@@ -62,46 +62,52 @@ function GcArtistHandler() {
 		return mb.log.exit(os);
 	};
 
+
 	/**
-	 * Replaces SpecialCaseArtists
+	 * Checks special cases of artists
 	 * » empty, unknown -> [unknown]
  	 * » none, no artist, not applicable, n/a -> [no artist]
 	 **/
-	this.checkSpecialCases = function(is) {
-		mb.log.enter(this.GID, "checkSpecialCases");
-		if (!is) {
-			return mb.log.exit(is);
+	this.checkSpecialCase = function(is) {
+		mb.log.enter(this.GID, "checkSpecialCase");
+		if (is) {
+			if (!gc.re.ARTIST_EMPTY) {
+				// match empty
+				gc.re.ARTIST_EMPTY = /^\s*$/i;
+				// match "unknown" and variants
+				gc.re.ARTIST_UNKNOWN = /^[\(\[]?\s*Unknown\s*[\)\]]?$/i;
+				// match "none" and variants
+				gc.re.ARTIST_NONE = /^[\(\[]?\s*none\s*[\)\]]?$/i;
+				// match "no artist" and variants
+				gc.re.ARTIST_NOARTIST = /^[\(\[]?\s*no[\s-]+artist\s*[\)\]]?$/i;
+				// match "not applicable" and variants
+				gc.re.ARTIST_NOTAPPLICABLE = /^[\(\[]?\s*not[\s-]+applicable\s*[\)\]]?$/i;
+				// match "n/a" and variants
+				gc.re.ARTIST_NA = /^[\(\[]?\s*n\s*[\\\/]\s*a\s*[\)\]]?$/i;
+			}
+			var os = is;
+			if (is.match(gc.re.ARTIST_EMPTY)) {
+				return mb.log.exit(this.SPECIALCASE_UNKNOWN);
+
+			} else if (is.match(gc.re.ARTIST_UNKNOWN)) {
+				return mb.log.exit(this.SPECIALCASE_UNKNOWN);
+
+			} else if (is.match(gc.re.ARTIST_NONE)) {
+				return mb.log.exit(this.SPECIALCASE_UNKNOWN);
+
+			} else if (is.match(gc.re.ARTIST_NOARTIST)) {
+				return mb.log.exit(this.SPECIALCASE_UNKNOWN);
+
+			} else if (is.match(gc.re.ARTIST_NOTAPPLICABLE)) {
+				return mb.log.exit(this.SPECIALCASE_UNKNOWN);
+
+			} else if (is.match(gc.re.ARTIST_NA)) {
+				return mb.log.exit(this.SPECIALCASE_UNKNOWN);
+			}
 		}
-		if (!gc.re.ARTIST_EMPTY) {
-			// match empty
-			gc.re.ARTIST_EMPTY = /^\s*$/i;
-			// match "unknown" and variants
-			gc.re.ARTIST_UNKNOWN = /^[\(\[]?\s*Unknown\s*[\)\]]?$/i;
-			// match "none" and variants
-			gc.re.ARTIST_NONE = /^[\(\[]?\s*none\s*[\)\]]?$/i;
-			// match "no artist" and variants
-			gc.re.ARTIST_NOARTIST = /^[\(\[]?\s*no[\s-]+artist\s*[\)\]]?$/i;
-			// match "not applicable" and variants
-			gc.re.ARTIST_NOTAPPLICABLE = /^[\(\[]?\s*not[\s-]+applicable\s*[\)\]]?$/i;
-			// match "n/a" and variants
-			gc.re.ARTIST_NA = /^[\(\[]?\s*n\s*[\\\/]\s*a\s*[\)\]]?$/i;
-		}
-		var os = is;
-		if (is.match(gc.re.ARTIST_EMPTY)) {
-			return mb.log.exit(this.UNKNOWN);
-		} else if (is.match(gc.re.ARTIST_UNKNOWN)) {
-			return mb.log.exit(this.UNKNOWN);
-		} else if (is.match(gc.re.ARTIST_NONE)) {
-			return mb.log.exit(this.NOARTIST);
-		} else if (is.match(gc.re.ARTIST_NOARTIST)) {
-			return mb.log.exit(this.NOARTIST);
-		} else if (is.match(gc.re.ARTIST_NOTAPPLICABLE)) {
-			return mb.log.exit(this.NOARTIST);
-		} else if (is.match(gc.re.ARTIST_NA)) {
-			return mb.log.exit(this.NOARTIST);
-		}
-		return mb.log.exit(os);
+		return mb.log.exit(this.NOT_A_SPECIALCASE);
 	};
+	
 
 	/**
 	 * Delegate function which handles words not handled

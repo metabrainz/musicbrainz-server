@@ -99,7 +99,7 @@ sub ApprovedAction
 	}
 
 	# finally some special ASIN URL handling 
-	if ($new->{linktypeid} == Album->GetAsinLinkTypeId &&
+	if ($new->{linktypeid} == Album->GetAsinLinkTypeId($self->{DBH}) &&
 		$new->{entity0type} eq 'album' &&
 		$new->{entity1type} eq 'url')
 	{

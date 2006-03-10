@@ -84,9 +84,9 @@ function EsTrackParser() {
 	this.WARNINGTR = "TP_WARNINGTR";
 	this.WARNINGTD = "TP_WARNINGTD";
 
-	this.RE_TrackNumber = /^\s?[0-9\.]+[\.\s]+/g;
-	this.RE_TrackNumberVinyl = /^\s?[0-9a-z]+[\.\s]+/gi;
-	this.RE_TrackTimes = /\(?[0-9]+:[0-9]+\)?/gi;
+	this.RE_TrackNumber = /^[\s\(]*[0-9\.]+(-[0-9]+)?[\.\)\s]+/g;
+	this.RE_TrackNumberVinyl = /^[\s\(]*[0-9a-z]+[\.\)\s]+/gi;
+	this.RE_TrackTimes = /\(?[0-9]+[:,.][0-9]+\)?/gi;
 	this.RE_RemoveParens = /\(|\)/g;
 	this.RE_StripSquareBrackets = /\[.*\]/gi;
 	this.RE_StripTrailingListen = /\s\s*(listen(music)?|\s)+$/gi;
@@ -145,14 +145,14 @@ function EsTrackParser() {
 	 * Parse button clicked, process text in textarea
 	 **/
 	this.onParseClicked = function(timesOnly) {
-		mb.log.scopeStart("Handling click on Parse button");
+		//mb.log.scopeStart("Handling click on Parse button");
 		mb.log.enter(this.GID, "onParseClicked");
 		timesOnly = (timesOnly || false);
 		this.setConfigValue(this.CFG_PARSETIMESONLY, timesOnly);
 		this.parseNow();
 		es.ui.setDisabled(this.BTN_SWAP, false);
 		mb.log.exit();
-		mb.log.scopeEnd();
+		//mb.log.scopeEnd();
 	};
 
 	/**
@@ -185,7 +185,7 @@ function EsTrackParser() {
 		if (this.isUIAvailable()) {
 			this.setVA(es.ui.getField("artistname0", true) != null);
 			if (!this.isConfigTrue(this.CFG_ISVA)) {
-				mb.ui.setDisplay(this.BTN_SWAP, false); // disable the swap button
+				es.ui.setDisabled(this.BTN_SWAP, false); // disable the swap button
 			} else {
 				es.ui.setDisabled(this.BTN_SWAP, true); // disable the swap button
 			}

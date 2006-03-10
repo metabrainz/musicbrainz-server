@@ -187,11 +187,11 @@ function GcUtils() {
 				"extended", "instrumental", "live", "original", "radio", "single",
 				"take", "demo", "club", "dance", "edit", "skit", "mix", "remix",
 				"version", "reprise", "megamix", "maxi", "feat", "interlude", "dub",
-				"dialogue", "cut", "karaoke", "acappella", "vs", "vocal", "alternative",
+				"dialogue", "cut", "karaoke", "vs", "vocal", "alternative",
 				"disco", "unplugged", "video", "outtake", "outtakes", "rehearsal", "intro",
-				"outro", "acappella", "long", "short", "main", "remake", "clubmix",
+				"outro", "long", "short", "main", "remake", "clubmix",
 				"composition", "reinterpreted", "session", "rework", "reworked",
-				"remixed", "reedit", "airplay"];
+				"remixed", "reedit", "airplay", "a_cappella"];
 	};
 	this.isLowerCaseBracketWord = function(w) {
 		mb.log.enter(this.GID, "isLowerCaseBracketWord");
@@ -404,6 +404,9 @@ function GcUtils() {
 		// 	return mb.log.exit(is);
 		// }
 		mb.log.debug('Titling word: $ (pos: $, length: $)', is, pos, len);
+		// let's see what flags we have set
+		gc.f.dumpRaisedFlags();
+		
 		var wordbefore = gc.i.getWordAtIndex(pos-2);
 		
 		var os;
@@ -417,18 +420,24 @@ function GcUtils() {
 		} else if (LC.length == 1 && gc.i.isPreviousWord("'")) {
 			// we got an 'x (apostrophe),keep the text lowercased
 			os = LC;
-		} else if (gc.i.isPreviousWord("'") && LC.match(/^(s|round|em|ve|ll|d|cha)$/i)) {
-			// we got an 's (apostrophed ...'s),keep the text lowercased
-			// we got an 'round (apostrophed Around), lowercased
-			// we got an 'em (shortened Them), lowercase.
-			// we got an 've (shortened have), lowercase.
-			// we got an 'd (shortened had), lowercase.
-			// we got an 'cha (slang you), lowercase.
+		} else if (gc.i.isPreviousWord("'") && LC.match(/^(s|round|em|ve|ll|d|cha|re|til|way|all)$/i)) {
+			// we got an 's (It is = It's), lowercased
+			// we got an 'all (Y'all = You all), lowercased
+			// we got an 'em (Them = 'em), lowercase.
+			// we got an 've (They have = They've), lowercase.
+			// we got an 'd (He had = He'd), lowercase.
+			// we got an 'cha (What you = What'cha), lowercase.
+			// we got an 're (You are = You're), lowercase.
+			// we got an 'til (Until = 'til), lowercase.			
+			// we got an 'way (Away = 'way), lowercase.						
+			// we got an 'round (Around = 'round), lowercased
 			mb.log.debug('Found contraction: $', wordbefore+"'"+LC);
 			os = LC;
 
 		} else if (gc.i.isPreviousWord("'") && wordbefore == "Ev") {
-			// we got an Ev'.. (shortened Every),keep the text lowercased
+			// we got an Ev'..
+			// Every = Ev'ry, lowercase
+			// Everything = Ev'rything, lowercase (more cases?)
 			mb.log.debug('Found contraction: $', wordbefore+"'"+LC);
 			os = LC;
 

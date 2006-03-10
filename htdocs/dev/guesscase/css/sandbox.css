@@ -21,6 +21,7 @@ h1 	{
 	padding: 5px;
 	font-family: Arial;
 	font-size: 11px;
+	height: 200px;
 }
 .debug-messages-inner {
 	margin: 0px;
@@ -28,7 +29,7 @@ h1 	{
 	font-family: monospace;
 	font-size: 11px;
 	width: 100%; height: 100%;
-	overflow-y: none;
+	overflow: none;
 }
 .debug-messages-inner .line {
 	background: url(/images/es/dotted-horiz.gif);
@@ -64,7 +65,7 @@ h1 	{
 	padding: 2px 6px 3px 6px;
 	background: #fff;
 	border: 1px solid #000; border-color: #000;
-	cursor: Default; cursor: hand; cursor: pointer;
+	cursor: hand; 
 	z-index: 1;
 	top: 0px;
 }
@@ -81,7 +82,6 @@ h1 	{
 	color: #000;
 	text-decoration: none;
 	cursor: hand;
-	cursor: pointer;
 }
 .sandbox .tab-row a:hover {
 	color: #000;
