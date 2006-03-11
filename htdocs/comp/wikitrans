@@ -63,20 +63,19 @@ if ( $response->is_success )
 		  my $temp = "";
 		  while(1)
 		  {
-				if ($page =~ s/(.*?)<a(.*?)href="\/(.*?)"(.*?)<\/a>//s)
+            #if ($page =~ s/(.*?)<a(.*?)href="\/(.*?)"(.*?)<\/a>//s)
+				if ($page =~ s/(.*?)<a(.*?)href="\/(.*?)"(.*?)>(.*?)<\/a>//s)
 				{
-					 my ($pre, $href, $rep, $post) = ($1, $2, $3, $4);
+					 my ($pre, $href, $rep, $post, $linktext) = ($1, $2, $3, $4, $5);
 
-					 my $linktext;
+                $linktext =~ s/([a-z])([A-Z])/$1 $2/g;
 					 if (exists($index->{$rep}))
 					 {
-						  #$page =~ s[href="/(.*?)"(.*?)>(.*?)<]["class=\"WikiDocsLink\" title=\"Wiki docs link\" href=\"http://$server/doc/$rep\""$2>###LINK###<];
-						  $temp .= "$pre<a$href class=\"WikiDocsLink\" title=\"Wiki docs link\" href=\"http://$server/doc/$rep\"$post</a>";
+						  $temp .= "$pre<a$href class=\"WikiDocsLink\" title=\"Wiki docs link\" href=\"http://$server/doc/$rep\"$post>$linktext</a>";
 					 }
 					 else
 					 {
-						  #$page =~ s[href="/$rep"(.*?)>(.*?)<]["class=\"WikiLink\" title=\"Wiki link\" href=\"http://$server/doc/$rep\""$1>###LINK###<];
-						  $temp .= "$pre<a$href class=\"WikiLink\" title=\"Wiki link\" href=\"http://$server/doc/$rep\"$post</a>";
+						  $temp .= "$pre<a$href class=\"WikiLink\" title=\"Wiki link\" href=\"http://$server/doc/$rep\"$post>$linktext</a>";
 					 }
 				}
 				else
