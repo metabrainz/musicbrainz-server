@@ -35,7 +35,6 @@
 		  id=>$new->{entity1id}, type=>$new->{entity1type}, name=>$name,
 		  url=>$url, linktypeid=>$new->{linktypeid}, simple=>1 &>
 		  
-%   }
 % }
 
 </%method>
