@@ -176,6 +176,14 @@ sub SaveIndex
         print FH "$k=".$index->{$k}."\n";
     }
     close FH;
+
+    # New remove each page from the cache
+    foreach my $k (keys %$index)
+    {
+        MusicBrainz::Server::Cache->delete("wikidocs-$k");
+    }
+
+	return 1;
 }
 
 1;
