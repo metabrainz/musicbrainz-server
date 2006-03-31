@@ -169,12 +169,14 @@ if ( defined $table && defined $search)
 %   }
     </table>
     <& /comp/tableend &>
-    <& /comp/tablebegin, title=>'Search Again', attrs=>"align=left", gattrs=>"width='100%'" &>
+    
+    
+    <& /comp/tablebegin, title=>'Search Again (Direct Search)', attrs=>"align=left", gattrs=>"width='100%'" &>
 %   $mb->Logout();
 % } else {
+
 <& /comp/sidebar, title=>'Search' &>
-    <& /comp/tablebegin, title=>'Search', attrs=>"align=left", 
-                         attrs=>'width="300"' &>
+    <& /comp/tablebegin, title=>'Search (Direct Search)', attrs=>"align=left", attrs=>'width="300"' &>
 % }
     <br>
     <& /comp/textsearch, default=>$table, text=>$search, limit => $limit &>

@@ -6,36 +6,65 @@ $text => ''
 % $default = lc $default;
 
 <form method="get" action="/search/oldsearch.html" class="formstyle" id="TextSearchForm">
+<table style="margin: 0.3em">	
+	<tr>
+		<td width="150" nowrap align="right">
+			<b>Search for:</b></td>
+		<td>
+			<input type="text" name="search" value="<% $text %>" size="30"></td>
+	</tr>
+	<tr>
+		<td align="right"><b>Type:</b></td>
+		<td>
+			<select name="table">
+				<option value="artist" <% ($default eq 'artist') ? 'selected' : '' %>>Artists</option>
+				<option value="album" <% ($default eq 'album') ? 'selected' : '' %>>Albums</option>
+				<option value="track" <% ($default eq 'track') ? 'selected' : '' %>>Tracks</option>
+			</select>
+		</td>
+	</tr>
+	<tr>
+		<td align="right"><b>Limit to:</b></td>
+		<td>
+			<select name="limit">
+				<option value="25" <% ($limit eq 25) ? 'selected' : '' %>>Up to 25</option>
+				<option value="50" <% ($limit eq 50) ? 'selected' : '' %>>Up to 50</option>
+				<option value="100" <% ($limit eq 100) ? 'selected' : '' %>>Up to 100</option>
+				<option value="0" <% ($limit eq '0') ? 'selected' : '' %>>All</option>
+		  </select>
+		</td>
+	</tr>
+	<tr>
+		<td></td>
+		<td>
+			<table style="margin: 0; padding:0">	
+				<tr>
+					<td>
+						<input type="submit" value="Direct Search">
+						</form>
+					</td>
+					<td>
+					
+%	if ($text ne "") {					
+%	# add a quick redirect to lucenesearch  
+%	my $type = ($default eq 'album' ? 'release' : $default);  
+						<form method="get" action="/search/textsearch.html" class="formstyle" id="TextSearchForm">
+							<input type="hidden" name="limit" value="<% $limit %>">
+							<input type="hidden" name="type" value="<% $type %>">
+							<input type="hidden" name="query" value="<% $text %>">
+							<input type="submit" value="Indexed Search" onmouseover="overlib('Perfom a &laquo;Indexed Search&raquo; using the same parameters used for this &laquo;Direct Search&raquo;. Any changes to the elements of this form will *not* be carried over.')" onmouseout="nd()"><br>
+						</form>
+%	}						
+					</td>
+				</tr>
+			</table>
+		</td>
+	</tr>
+	<tr>
+		<td></td>
+		<td>
+			[ <a href="/search/textsearch.html">Indexed search</a> ]
+		</td>
+	</tr>
+</table>
 
-<div style="margin: 0.3em">
-  <b>Artist/Album/Track Search</b>
-</div>
-
-<center>
-
-  <div class="CenterChildren" style="margin: 0.3em">
-    Find 
-    <select name="limit">
-        <option value="25" <% ($limit eq 25) ? 'selected' : '' %>>up to 25</option>
-        <option value="50" <% ($limit eq 50) ? 'selected' : '' %>>up to 50</option>
-        <option value="100" <% ($limit eq 100) ? 'selected' : '' %>>up to 100</option>
-        <option value="0" <% ($limit eq '0') ? 'selected' : '' %>>all</option>
-    </select>
-    <select name="table">
-        <option value="artist" <% ($default eq 'artist') ? 'selected' : '' %>>artists</option>
-        <option value="album" <% ($default eq 'album') ? 'selected' : '' %>>albums</option>
-        <option value="track" <% ($default eq 'track') ? 'selected' : '' %>>tracks</option>
-    </select>
-  </div>
-
-  <div class="CenterChildren" style="margin: 0.3em">
-    <input type="text" name="search" value="<% $text %>" size="30">
-  </div>
-
-  <div class="CenterChildren" style="margin: 0.3em">
-    <input type="submit" value="Search"><br>
-  </div>
-
-</center>
-
-</form>

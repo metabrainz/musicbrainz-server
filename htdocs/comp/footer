@@ -70,5 +70,6 @@ return $m->comp('/comp/footer_small')
     </table>
 </div>
 </body>
+<script type="text/javascript" src="/scripts/domloaded.js"></script>
 </html>
 %# vi: set ts=4 sw=4 ft=mason :

@@ -48,14 +48,13 @@ $track
 	</tr>
 % }
 
-%# TODO: Remove for launch
-% if (0) { #scalar(@PUID) > 0) {
+% if (scalar(@PUID) > 0) {
 	<tr>
     <td valign="top" align="right">PUID IDs:</td>
     <td>
 			<table>
 		 		<tr>
-		 			<td><img src="/images/puid.png" alt="" align="middle"></td>
+		 			<td><img src="/images/puid.gif" alt="" align="middle"></td>
           <td>&nbsp;</td>
 			 	</tr>
 

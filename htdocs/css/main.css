@@ -199,54 +199,46 @@ kbd.KbdBlock
 
 /* /comp/artisttitle */
 
-.ArtistTitle
+table.artisttitle
 {
-	border-width: 1px;
-	border-style: solid;
+	border-collapse: collapse;
+	border: 1px solid #000;
 	padding: 5px;
 	margin-top: 1em;
+	margin-bottom: 1em;	
 	background-color: #f0efff;
-}
-
-.ArtistTitleNameSortname
-{
-	margin-left: 48px;
-	text-indent: -48px;
-}
-
-.ArtistTitleIcon
-{
-	vertical-align: bottom;
-	margin: 0 12px 0 4px;
-}
-
-.ArtistTitleName
-{
-	/* font : Bold 12pt Verdana, Geneva, Arial, Helvetica, sans-serif; color : #000000; text-decoration : none;} */
-	font-size: 200%;
-	color: black !important;
-}
-
-.ArtistTitleSortname {}
-
-.ArtistTitleSortname:before { content: "(" }
-.ArtistTitleSortname:after { content: ")" }
-
-.ArtistTitleLinks
-{
-	margin-left: 3em;
-	text-indent: -3em;
-}
-
-.ArtistTitleMod
-{
-	padding: 5px;
-	background-color: #ffecd6;
-	border-width: 0 1px 1px 1px;
-	border-style: solid;
-	margin-bottom: 1em;
 	width: 100%;
 }
+table.artisttitle td.icon
+{
+	padding: 3px 8px 0px 4px;
+	width: 32px;
+}
+table.artisttitle td.title 
+{
+	width: 100%;
+}
+table.artisttitle td.title a
+{
+	font-size: 20pt;
+	font-weight: normal;
+	color: #000 !important;
+}
+table.artisttitle td.info
+{
+	padding-bottom: 4px;
+}
+table.artisttitle td.links
+{
+	padding: 2px 4px;
+}
+table.artisttitle td.mods
+{
+	padding: 2px 4px;
+	background-color: #ffecd6;
+	border-top: 1px solid #000;
+}
+
 
 /* /comp/album* */
 
@@ -302,10 +294,9 @@ h2.AlbumType
 	background-image: none;
 	color: #fff;
 	border: 1px solid black;
-	width: 100%;
 	font-weight: bold;
-	padding: 0.3em;
 	margin: 1em 0;
+	padding: 2px 4px;
 }
 
 /* [ A | list | of | links ] */
@@ -374,11 +365,11 @@ td.trk *, td.did *, td.trm *, td.rdate * { vertical-align: middle }
 #Report td.link { text-align: center; white-space: nowrap; }
 
 /* topmods.html */
-table.topmods { border-collapse: collapse }
-table.topmods td { padding: 0.2em; border: 1px solid #999 }
+table.topmods { border-collapse: collapse; width: 100% }
+table.topmods td { padding: 0.2em;  }
 .topmodsname { text-align: left }
 .topmodsnum { text-align: right }
-.topmodseven { background-color: #eee }
+.topmodseven { background-color: #ffe1b7 }
 .topmodsnone { text-align: center }
 
 /* style.html */

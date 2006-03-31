@@ -16,6 +16,7 @@ my $typename = ($type eq "url" ? "URL" : $type);
 my $link = $short ? "Add relationship" : "Use this $typename in a relationship";
 
 my $recent_links = ($session{recent_links} ||= []);
+my $ename = uri_escape($name);
 
 $m->out("[ ");
 if ($session{uid}) 
@@ -25,8 +26,7 @@ if ($session{uid})
         $m->out('<a href="/showrel.html?id='.$id.'&amp;type='.$type.'&amp;addrel=1">'.$link.'</a> ');
 		if (scalar(@$recent_links) == 0 && $name ne '')
 		{
-			$name = uri_escape($name);
-			$m->out(qq! | <a href="/edit/relationship/addurl.html?id=$id&amp;type=$type&amp;name=$name">Relate to URL</a>!);
+			$m->out(qq! | <a href="/edit/relationship/addurl.html?id=$id&amp;type=$type&amp;name=$ename">Relate to URL</a>!);
 		}
 		if ($count)
 		{
@@ -45,8 +45,7 @@ if ($session{uid})
         $m->out('<a href="/show'.$type.'.html?'.$type.'id='.$id.'&amp;addrel=1">'.$link.'</a> ');
 		if (scalar(@$recent_links) == 0 && $name ne '')
 		{
-			$name = uri_escape($name);
-			$m->out(qq! | <a href="/edit/relationship/addurl.html?id=$id&amp;type=$type&amp;name=$name">Relate to URL</a>!);
+			$m->out(qq! | <a href="/edit/relationship/addurl.html?id=$id&amp;type=$type&amp;name=$ename">Relate to URL</a>!);
 		}
 		if ($count)
 		{
@@ -55,6 +54,14 @@ if ($session{uid})
 		}
 	}
 
+	if ($type eq 'album')
+	{
+		$m->out(qq! | <a href="/edit/relationship/addcc.html?id=$id&type=album&name=$ename">Add CC License</a> !);
+	}
+	if ($type eq 'track')
+	{
+		$m->out(qq! | <a href="/edit/relationship/addcc.html?id=$id&type=track&name=$ename">Add CC License</a> !);
+	}
 }
 else
 {
@@ -63,6 +70,7 @@ else
 	    $m->out(qq! <a href="/showrel.html?id=$id&amp;type=$type">View all relationships</a>!);
 	}
 }
+
 if (UserStuff->IsLinkModerator($session{privs}))
 {
 	$m->out(qq! | <a href="/edit/relationships/link_type_roots.html">Edit link types</a> !);

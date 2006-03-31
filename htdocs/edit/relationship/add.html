@@ -224,7 +224,7 @@ my %seen_attrs;
 			<tr>
 				<td>&nbsp;</td>
 				<td>
-					<select name="linktypeid" id="linktypeid" onKeyDown="ar_typeChanged()" onChange="ar_typeChanged()">
+					<select name="linktypeid" id="linktypeid">
 						<option value="||">[select a relationship type]</option>
 						<%perl>
 						my @q = map { [$_,0] } $root;
@@ -253,7 +253,7 @@ my %seen_attrs;
 					<td>
 % if ($links[0]{type} eq $links[1]{type}) {
 						<div id="swap-clientside" style="display: none">
-							<input type="button" class="button" onclick="ar_swapElements(this)" name="swapJS" value="Change direction">
+							<input type="button" class="button" onclick="arfrontend.swapElements(this)" name="swapJS" value="Change direction">
 						</div>
 						<div id="swap-serverside" style="display: block">
 							<input type="submit" class="button" name="swap" value="Change direction">
@@ -375,23 +375,16 @@ my %seen_attrs;
 			<input type="hidden" name="link1" value="<% sprintf("%s=%d", $links[1]->{type}, $links[1]->{id}) %>">
 			<input type="submit" class="button" value="Submit">
 			<input type="hidden" name="submit" value="1">
-			<input type="hidden" name="isurlform" value="0">
+			
+			<!-- internal fields which drive how the javascript function
+				 interacts with the form elements -->
+			<input type="hidden" name="int_isurlform" value="0">
+			<input type="hidden" name="int_typedropdown" value="linktypeid">
+			<input type="hidden" name="int_formsubmitted" value="<% $submit %>">
+			<input type="hidden" name="int_seenattrs" value="<% join(",", keys %seen_attrs)  %>">			
 		</div>
 	</fieldset>
 </form>
-
-<script type="text/javascript">
-<!--
-	var wasFormSubmitted = <% $submit %>;
-	<%perl>
-		print "var attributeDivs = new Array(";
-		foreach my $sec (keys %seen_attrs) {
-			print "'".$sec."',";
-		}
-		print "null);\n";
-	</%perl>
--->
-</script>
 <script language="javascript" src="/scripts/ar-frontend.js"></script>
 
 <& /comp/footer &>

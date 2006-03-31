@@ -11,10 +11,12 @@ $dur => 0
 UserStuff::EnsureSessionOpen(), $session{tport} = $tport
   if $tport;
 
-$m->comp("/comp/sidebar", title=>'Search Results');
+$m->comp("/comp/sidebar", title=>'Indexed Search');
 
-if ($query && $type)
+if ($query ne "" && $type ne "")
 {
+	$m->comp("/comp/tablebegin", title=>"Results", gattrs => "width='100%'");
+
     use URI::Escape qw( uri_escape );
     my $docurl = 'http://' . &DBDefs::LUCENE_SERVER . "/ws/1/$type/?query=" . 
                  uri_escape($query) . "&type=$type";
@@ -73,25 +75,38 @@ if ($query && $type)
     {
         $m->print($response->content);
     }
+	$m->comp("/comp/tableend");
 }
 else
 {
-    $m->print("<p>Error: You must provide query and type arguments to this page.</p>")
-        if ($query || $type)
+	if ($query ne "" || $type ne "") 
+	{
+		$m->comp("/comp/tablebegin", title=>"Results", gattrs => "width='100%'");
+		$m->print('<table style="margin: 0.3em"><tr><td>');
+	    $m->print("Please enter a search phrase including letters and/or numbers.");
+		$m->print('</td></tr></table>');
+		$m->comp("/comp/tableend");
+	}
 }
 
 </%perl>
 
-<div style="margin-top: 3em; padding: 1em; border: 1px solid #565656;">
+
+<div style="margin-top: 20px"></div>
+<& /comp/tablebegin, title=>"Search (Indexed Search)" &>
 <table>
-<tr>
-<td width="50%">
-<& /comp/lucenesearch, type=>$type, limit=>$limit, query=>$query &>
-</td>
-<td width="50%">
-<p><b>Note:</b> Search indexes are currently updated once a day at 1800 GMT (10am PST). If you require up to the minute correct
-search, please use the <a href="/search/oldsearch.html">old search</a>.</p>
-</td></tr></table>
-</div>
+	<tr valign="top">
+		<td>
+			<& /comp/lucenesearch, type=>$type, limit=>$limit, query=>$query &>
+		</td>
+		<td style="padding: 0.3em 4em">
+			<b>Note:</b> Search indexes are currently updated once a day at 
+			1800 GMT (10am PST). If you require up to the minute correct
+			search, please use the <a href="/search/oldsearch.html">old search</a>.
+		</td>
+	</tr>
+</table>
+<& /comp/tableend &>
+
 
 <& /comp/footer &>

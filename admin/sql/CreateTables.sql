@@ -61,10 +61,10 @@ CREATE TABLE albummeta
     tracks              INTEGER DEFAULT 0,
     discids             INTEGER DEFAULT 0,
     trmids              INTEGER DEFAULT 0,
+    puids               INTEGER DEFAULT 0,
     firstreleasedate    CHAR(10),
     asin                CHAR(10),
-    coverarturl         VARCHAR(255),
-    puids               INTEGER DEFAULT 0
+    coverarturl         VARCHAR(255)
 );
 
 CREATE TABLE albumwords
@@ -661,7 +661,6 @@ CREATE TABLE stats
     tracks              INTEGER NOT NULL, 
     discids             INTEGER NOT NULL, 
     trmids              INTEGER NOT NULL, 
-    puids               INTEGER NOT NULL, 
     moderations         INTEGER NOT NULL, 
     votes               INTEGER NOT NULL, 
     moderators          INTEGER NOT NULL, 

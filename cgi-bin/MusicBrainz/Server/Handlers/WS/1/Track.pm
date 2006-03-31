@@ -270,7 +270,7 @@ sub print_xml_post
 
 	require MusicBrainz;
 	my $mb = MusicBrainz->new;
-	$mb->Login;
+	$mb->Login(db => 'READWRITE');
 
     require UserStuff;
     my $us = UserStuff->new($mb->{DBH});

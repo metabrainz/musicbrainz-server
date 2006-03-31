@@ -35,7 +35,7 @@ my $script = $album->GetScript;
 % if ($puids > 0) {
     &nbsp; &nbsp; &nbsp;<% $puids %>
     <img src="/images/puid.gif" align="middle" alt="PUID" 
-               width="30" height="11" style="vertical-align:bottom;border:0;"
+               width="33" height="13" style="vertical-align:bottom;border:0;"
                title="This album has <% $puids %> PUIDs">&nbsp;
 % }
 % if ($trmids > 0) {

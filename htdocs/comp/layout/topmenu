@@ -86,6 +86,7 @@ use Scalar::Util qw( reftype weaken );
         { url => "/newsearch.html" },
         { url => "/oldsearch.html" },
         { url => "/search/textsearch.html" },
+        { url => "/search/oldsearch.html" },
     ],
     { name => "Edit",                   url => "/mod_intro.html" },
     [
@@ -148,6 +149,10 @@ use Scalar::Util qw( reftype weaken );
         [
             { url => "/cdi/malbum.html" },
             { url => "/cdi/menter.html" },
+        ],
+        { name => "Add CC License",         url => "/edit/relationship/addcc.html" },
+        [
+            { url => "/edit/relationship/addcc.html" },
         ],
         { name => "FreeDB Import",          url => "/freedb/freedb.html" },
         [

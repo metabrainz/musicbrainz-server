@@ -277,6 +277,12 @@ function EsUiModule() {
 			cn = (el.className || "");
 			log = [];
 
+			// handle tracktime fields
+			if (el && type == "text" && cn.match(/textfield|numberfield/)) {
+				el.onfocus = function onfocus(event) { es.ui.handleFocus(this); };
+				el.onblur = function onblur(event) { es.ui.handleBlur(this); };
+			}
+
 			// handle input=text fields
 			if (el && type == "text" && cn.match(/textfield/)) {
 				// initialise value, else it is null.
@@ -285,8 +291,6 @@ function EsUiModule() {
 
 				// handle input text fields which show their focus
 				if (isInputField) {
-					el.onfocus = function onfocus(event) { es.ui.handleFocus(this); };
-					el.onblur = function onblur(event) { es.ui.handleBlur(this); };
 					if (isToolboxEnabled) {
 						es.qf.addToolboxIcon(el);
 						log.push("toolbox");

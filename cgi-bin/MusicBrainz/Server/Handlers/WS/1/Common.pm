@@ -36,7 +36,7 @@ our @EXPORT = qw(convert_inc bad_req send_response check_types
                  INC_VARELEASES INC_DURATION INC_ARTISTREL INC_RELEASEREL 
                  INC_DISCS INC_TRACKREL INC_URLREL INC_RELEASEINFO 
                  INC_ARTISTID INC_RELEASEID INC_TRACKID INC_TITLE 
-                 INC_TRACKNUM INC_PUIDS);
+                 INC_TRACKNUM INC_PUIDS INC_ALIASES);
 
 use Apache::Constants qw( );
 use Apache::File ();
@@ -61,6 +61,7 @@ use constant INC_TRACKNUM    => 0x08000;
 use constant INC_TRMIDS      => 0x10000;
 use constant INC_RELEASES    => 0x20000;
 use constant INC_PUIDS       => 0x40000;
+use constant INC_ALIASES     => 0x80000;
 
 # This hash is used to convert the long form of the args into a short form that can 
 # be used easier 
@@ -85,6 +86,7 @@ my %incShortcuts =
     'trmids'             => INC_TRMIDS,
     'releases'           => INC_RELEASES,
     'pumids'             => INC_PUIDS,
+    'aliases'            => INC_ALIASES,
 );
 
 my %typeShortcuts =
@@ -184,6 +186,15 @@ sub bad_req
 	return Apache::Constants::OK();
 }
 
+sub service_unavail
+{
+	my ($r, $error) = @_;
+	$r->status(Apache::Constants::HTTP_SERVICE_UNAVAILABLE());
+	$r->send_http_header("text/plain; charset=utf-8");
+	$r->print($error."\015\012") unless $r->header_only;
+	return Apache::Constants::OK();
+}
+
 sub send_response
 {
 	my ($r, $printer, $fixup) = @_;
@@ -213,6 +224,16 @@ sub xml_artist
 		xml_escape($ar->GetSortName);
     print '<disambiguation>' . xml_escape($ar->GetResolution()) . '</disambiguation>' if ($ar->GetResolution());
 
+	if (($inc & INC_ALIASES) && scalar(@{$info->{aliases}}))
+	{
+		print '<alias-list>';
+		foreach my $alias (@{$info->{aliases}})
+		{
+			printf '<alias>%s</alias>', xml_escape($alias->[1]);
+		}
+		print '</alias-list>';
+	}
+	
     my ($b, $e) = ($ar->GetBeginDate, $ar->GetEndDate);
     if ($b|| $e)
     {
@@ -226,13 +247,22 @@ sub xml_artist
         my @albums = $ar->GetAlbums(!$info->{va}, 1, $info->{va});
         if (scalar(@albums))
         {
-            print '<release-list>';
+            my @filtered;
+
             foreach my $al (@albums)
             {
                 my ($t, $s) = $al->GetReleaseTypeAndStatus();
-                xml_release($ar, $al, $inc) if ($t == $info->{type} && ($info->{status} == -1 || $info->{status} == $s));
+                push @filtered, $al if ($t == $info->{type} && ($info->{status} == -1 || $info->{status} == $s));
             }
-            print '</release-list>';
+            if (scalar(@filtered))
+            {
+                print '<release-list>';
+                foreach my $al (@albums)
+                {
+                    xml_release($ar, $al, $inc);
+                }
+                print '</release-list>';
+            }
         }
     }
     xml_relations($ar, 'artist', $inc) if ($inc & INC_ARTISTREL || $inc & INC_RELEASEREL || $inc & INC_TRACKREL || $inc & INC_URLREL);
@@ -614,6 +644,7 @@ sub xml_relations
                     foreach my $ref (@$attrs)
                     {
                         $ref->{value_text} =~ s/^\s*//;
+                        $ref->{value_text} =~ s/(^|[^A-Za-z0-9])+([A-Za-z0-9]?)/uc $2/eg;
                         push @attrlist, ucfirst($ref->{value_text});
                     }
                 }
@@ -755,8 +786,8 @@ sub xml_search
         }
         else
         {
-            return bad_req($r, "Could not retrieve sub-document page from search server. Error: " .
-                           $url . " -> " . $response->status_line);
+            return service_unavail($r, "Could not retrieve sub-document page from search server. Error: " .
+                                   $url . " -> " . $response->status_line);
         }
     }
    

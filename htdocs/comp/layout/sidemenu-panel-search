@@ -55,6 +55,9 @@
     <div class="morelink">
         <a href="/search.html">more &raquo;</a>
     </div>
+    <div class="morelink">
+        <a href="/search/oldsearch.html">old search &raquo;</a>    
+	</div>
 </div>
 
 %# vi: set ts=2 sw=2 ft=mason :

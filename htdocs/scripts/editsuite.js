@@ -1992,16 +1992,18 @@ name=(el.name||"noname");
 type=(el.type||"notype");
 cn=(el.className||"");
 log=[];
-if(el&&type=="text"&&cn.match(/textfield/)){
-el.style.width=this.TEXTFIELD_SIZE+"px";
-_105=!cn.match(/hidden|header|oldvalue/i);
-if(_105){
+if(el&&type=="text"&&cn.match(/textfield|numberfield/)){
 el.onfocus=function onfocus(_107){
 es.ui.handleFocus(this);
 };
 el.onblur=function onblur(_108){
 es.ui.handleBlur(this);
 };
+}
+if(el&&type=="text"&&cn.match(/textfield/)){
+el.style.width=this.TEXTFIELD_SIZE+"px";
+_105=!cn.match(/hidden|header|oldvalue/i);
+if(_105){
 if(isToolboxEnabled){
 es.qf.addToolboxIcon(el);
 log.push("toolbox");

@@ -135,4 +135,35 @@
 	color: #555;
 }
 
+
+/* adapted wiki-toolbar from trac, for the editing of the annotations */
+.wikitoolbar {
+	border: solid #d7d7d7;
+	border-width: 1px 1px 1px 0;
+	height: 18px;
+	width: 130px;
+}
+.wikitoolbar :link, .wikitoolbar :visited {
+	background: url(/images/wikitoolbar/bg.png) no-repeat;
+	color: #000;
+	border: 1px solid #fff;
+	border-left-color: #d7d7d7;
+	cursor: default;
+	display: block;
+	float: left; 
+	width: 24px;
+	height: 16px;
+}
+.wikitoolbar :link:hover, .wikitoolbar :visited:hover {
+	background-color: transparent;
+	border: 1px solid #FFBA58;
+}
+.wikitoolbar a#em { background-position: 0 0 }
+.wikitoolbar a#strong { background-position: 0 -16px }
+.wikitoolbar a#heading { background-position: 0 -32px }
+.wikitoolbar a#link { background-position: 0 -48px }
+.wikitoolbar a#code { background-position: 0 -64px }
+.wikitoolbar a#hr { background-position: 0 -80px }
+
 /* eof */
+

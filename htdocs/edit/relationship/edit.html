@@ -261,7 +261,7 @@ my %seen_attrs;
 			<tr>
 				<td>&nbsp;</td>
 				<td>
-					<select name="linktypeid" onKeyDown="ar_typeChanged()" onChange="ar_typeChanged()">
+					<select name="linktypeid">
 						<option value="||">[select a relationship type]</option>
 						<%perl>
 						my @q = map { [$_,0] } $root;
@@ -407,25 +407,18 @@ my %seen_attrs;
 			<input type="hidden" name="id" value="<% $id %>">
 			<input type="hidden" name="type" value="<% $type %>">
 			<input type="hidden" name="submit" value="1">
-			<input type="hidden" name="isurlform" value="0">
 			<input type="hidden" name="swapval" value="<% $swapval %>">
 			<input type="submit" class="button" value="Submit">
+
+			<!-- internal fields which drive how the javascript function
+				 interacts with the form elements -->
+			<input type="hidden" name="int_isurlform" value="0">
+			<input type="hidden" name="int_formsubmitted" value="<% $submit %>">
+			<input type="hidden" name="int_seenattrs" value="<% join(",", keys %seen_attrs)  %>">
+			<input type="hidden" name="int_typedropdown" value="linktypeid">			
 		</div>
 	</fieldset>
 </form>
-
-<script type="text/javascript">
-<!--
-	var wasFormSubmitted = <% $submit %>;
-	<%perl>
-		print "var attributeDivs = new Array(";
-		foreach my $sec (keys %seen_attrs) {
-			print "'".$sec."',";
-		}
-		print "null);\n";
-	</%perl>
--->
-</script>
 <script language="javascript" src="/scripts/ar-frontend.js"></script>
 
 <& /comp/footer &>

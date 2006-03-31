@@ -464,27 +464,33 @@ sub _Merge
 								  $oldid, $newid,
 								  $newid, $oldid);
 
-	# And now merge remaining relationships
+	
+	# Preprate list of AR tables
+	my @list;
 	foreach my $item (@entity_list) 
 	{
-		my ($link0, $link1, $link0_type, $link1_type);
-		if ($type le $item)
+		if ($type eq $item)
 		{
-			$link0_type = $type;
-			$link1_type = $item;
-			$link0 = "link0";
-			$link1 = "link1";
+			push @list, [$type, $item, "link0", "link1"];
+			push @list, [$item, $type, "link1", "link0"];
+		}
+		elsif ($type le $item)
+		{
+			push @list, [$type, $item, "link0", "link1"];
 		}
 		else
 		{
-			$link0_type = $item;
-			$link1_type = $type;
-			$link0 = "link1";
-			$link1 = "link0";
+			push @list, [$item, $type, "link1", "link0"];
 		}
-		$table = "l_" . $link0_type . "_" . $link1_type;
-		
+	}
+	
+	# And now merge remaining relationships
+	foreach my $item (@list) 
+	{
 		my @delete;
+		my ($link0_type, $link1_type, $link0, $link1) = @$item;
+		
+		$table = "l_" . $link0_type . "_" . $link1_type;
 	
 		# Select all relationships connected to the source entity
 		my $rows = $sql->SelectListOfHashes(

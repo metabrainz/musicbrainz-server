@@ -117,6 +117,14 @@ sub serve_from_db
     $ar->SetMBId($mbid);
 	return undef unless $ar->LoadFromId(1);
 
+	if ($inc & INC_ALIASES)
+	{
+		require Alias;
+		my $alias = Alias->new($mb->{DBH}, "ArtistAlias");
+		my @list = $alias->GetList($ar->GetId);
+		$info->{aliases} = \@list;  
+	}
+	
 	my $printer = sub {
 		print_xml($mbid, $inc, $ar, $info);
 	};

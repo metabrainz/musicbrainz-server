@@ -99,7 +99,7 @@ sub print_xml
 
 	require MusicBrainz;
 	my $mb = MusicBrainz->new;
-	$mb->Login;
+	$mb->Login(db => 'READWRITE');
 	require Artist;
 
     require UserStuff;

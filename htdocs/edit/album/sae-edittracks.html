@@ -210,7 +210,7 @@ $ar->SetSortName($edit->{"artist"}{"sortname"});
 				</td>
 				<td><input type="text" name="trackseq<% $t->{"id"} %>" class="numberfield"
 						<% $edit->{can_add_remove} ? '' : 'readonly="readonly" disabled' %>
-						value="<% $t->{seq} %>" size="2" maxlength="2"
+						value="<% $t->{seq} %>" size="3"
 						style="text-align: center"></td>
 				<td><input type="text" name="track<% $t->{"id"} %>" class="textfield"
 						size="50" maxlength="255"

@@ -121,7 +121,7 @@ if ($asin)
 <div class="AlbumTitleRelationships">
 <div class="AlbumTitleLinks">
 Relationships:
-<& /comp/ar/ShowARLinks, id=>$albumid, type=>'album' , short=>1 &>
+<& /comp/ar/ShowARLinks, id=>$albumid, type=>'album' , short=>1, name =>$name &>
 </div>
 </div>
 %	}

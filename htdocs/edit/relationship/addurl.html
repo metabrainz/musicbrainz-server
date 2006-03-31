@@ -167,7 +167,7 @@ my $root = $link->Root;
 			</tr>
 			<tr>
 				<td></td>
-				<td><select name="linktype" onchange="ar_typeChangedURL()">
+				<td><select name="linktype">
 						<option value="||">[select a link type]</option>
 %             my @q = map { [$_,0] } $root;
 %             while (my $l = shift @q) {
@@ -211,17 +211,15 @@ my $root = $link->Root;
 			<input type="hidden" name="type" value="<% $type %>">
 			<input type="hidden" name="name" value="<% $name %>">
 			<input type="hidden" name="submit" value="1">
-			<input type="hidden" name="isurlform" value="1">
 			<input type="submit" class="button" value="Submit">
+			
+			<!-- internal fields which drive how the javascript function
+				 interacts with the form elements -->
+			<input type="hidden" name="int_isurlform" value="1">
+			<input type="hidden" name="int_typedropdown" value="linktype">			
 		</div>
 	</fieldset>
 </form>
-
-<script language="javascript">
-<!--
-	var wasFormSubmitted = <% $submit %>;
--->
-</script>
 <script language="javascript" src="/scripts/ar-frontend.js"></script>
 
 <& /comp/footer &>

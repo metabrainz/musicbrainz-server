@@ -161,7 +161,7 @@ if ( defined $annotationtext and not $preview )
 	enctype="application/x-www-form-urlencoded">
 
 	<textarea name="annotationtext" rows="10" cols="60"
-		style="width: 100%"
+		style="width: 100%" class="wikitext"
 		><% $defaulttext %></textarea>
 
 	<p>Enter a description of your changes (optional):</p>
@@ -223,5 +223,6 @@ if ( defined $annotationtext and not $preview )
 
 % }
 
+<script type="text/javascript" src="/edit/annotation/wikitoolbar.js"></script>
 <& /comp/movefocus, "EditAnnotationForm", "annotationtext" &>
 <& /comp/footer &>

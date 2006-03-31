@@ -141,6 +141,9 @@ sub serve_from_db
     {
         require MusicBrainz::Server::AlbumCDTOC;
 
+        $is_coll = 1;
+        $inc = INC_ARTIST | INC_COUNTS | INC_RELEASEINFO;
+
         my $cd = MusicBrainz::Server::AlbumCDTOC->new($mb->{DBH});
         my $albumids = $cd->GetAlbumIDsFromDiscID($cdid);
         if (scalar(@$albumids))
@@ -163,7 +166,7 @@ sub serve_from_db
     }
 
 	my $printer = sub {
-		print_xml($mbid, $ar, \@albums, $inc);
+		print_xml($mbid, $ar, \@albums, $inc, $is_coll);
 	};
 
 	send_response($r, $printer);
@@ -176,9 +179,9 @@ sub print_xml
 
 	print '<?xml version="1.0" encoding="UTF-8"?>';
 	print '<metadata xmlns="http://musicbrainz.org/ns/mmd-1.0#">';
-    print '<release-list>' if (scalar(@$albums) > 1);
+    print '<release-list>' if (scalar(@$albums) > 1 || $is_coll);
     xml_release($ar, $_, $inc) foreach(@$albums);
-    print '</release-list>' if (scalar(@$albums) > 1);
+    print '</release-list>' if (scalar(@$albums) > 1 || $is_coll);
 	print '</metadata>';
 }
 
