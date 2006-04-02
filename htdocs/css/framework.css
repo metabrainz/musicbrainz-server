@@ -1,14 +1,17 @@
-/* Styles for the MB page layout framework */
-
-.LogoBarCell
-{
-	background: #736DAB url(/images/header_BG.gif) repeat-x bottom;
-	position: relative;
-	height: 67px;
-	font-size: 35px;
+/* disable borders for images contained in a <a> element */
+a img {
+	border: 0px;
 }
 
-.LogoBarCell a
+
+/* Styles for the MB page layout framework */
+td.header_logo
+{
+	background: #736DAB url(/images/header_BG.gif) repeat-x bottom;
+	height: 67px;
+}
+
+td.header_logo a
 {
 	color: #FFF;
 	position: absolute;
@@ -16,67 +19,13 @@
 	top: 0;
 }
 
-.LogoBarStagingText
+td.header_logo .servertype
 {
 	position: absolute;
-	top: 20px;
-	right: 0.3em;
-	color: #FFBA58;
+	top: 20px; right: 0.3em;
+	font-size: 35px; color: #FFBA58;
 }
 
-.NavBarCell
-{
-	background: #FFBA58;
-	width: 157px;
-	text-align: left;
-}
-
-.SideBarContentArea
-{
-	width: 130px;
-}
-.SideBarContentArea2
-{
-	margin: 0.5em;
-}
-
-.SideBarMoreLink
-{
-	text-align: right;
-	margin-top: 8pt;
-	margin-bottom: 8pt;
-}
-
-.SideBarStatsBox
-{
-}
-
-.SideBarStatsBoxName
-{
-	width: 50%;
-	font-size: 8pt;
-	color: #000;
-	text-align: right;
-	font-weight: bold;
-}
-
-.SideBarStatsBoxCount
-{
-	width: 50%;
-	font-size: 8pt;
-	color: #000;
-	text-align: left;
-}
-
-.SideBarStatsBox a,
-.SideBarStatsBox a:link,
-.SideBarStatsBox a:visited,
-.SideBarStatsBox a:hover,
-.SideBarStatsBox a:active,
-.SideBarStatsBox a:focus
-{
-	color: #000;
-}
 
 #FooterBar
 {
