@@ -21,23 +21,20 @@ td.modpending {
 /* ********************************************** */
 /* ********************************************** */
 .sidemenu-box {
-	height: 20px; width: 140px;
-	background: #DDDDDD; background-image: url(/images/sidemenu_BG.gif);
+	width: 140px; height: 19px;
+	background: #DDDDDD url(/images/layout/sidemenu_box.gif);
 }
-.sidemenu-box .title {
-	width: 130px; height: 20px; padding-top: 1px; padding-left: 10px;
-	background: #AAAAAA; border-bottom: 1px solid black; 
+.sidemenu-box div.title {
+	padding-top: 2px; padding-left: 6px;
+	font-size: 11px;
 }
-.sidemenu-box .arrow {
-	width: 10px; height: 20px; padding: 0px;
-	background: #DDDDDD url(/images/sidemenu_end.gif);
-}
-.sidemenu-box .title a,
-.sidemenu-box .title a:active,
-.sidemenu-box .title a:visited {
+.sidemenu-box a,
+.sidemenu-box a:active,
+.sidemenu-box a:visited {
 	color: #000;
 }
-.sidemenu-box .title a:hover {
+.sidemenu-box a:hover {
+	color: #000;
 	text-decoration: underline;
 }
 
@@ -48,13 +45,14 @@ td.modpending {
 .sidemenu {
 	width: 130px;
 	background: #ddd;
-	border-right: 1px solid #000; border-bottom: 1px solid #000;
+	border-right: 1px solid #000; 
+	border-bottom: 1px solid #000; 
 	padding: 0px; padding-left: 0px; padding-top: 2px; padding-bottom: 6px;
 }
 .sidemenu a,
 .sidemenu a:visited {
 	display: block;
-	padding-left: 10px;
+	padding-left: 6px;
 	font-weight: normal;
 	border: 0px;
 	color: #555;
@@ -76,7 +74,7 @@ td.modpending {
 /* ********************************************** */
 /* ********************************************** */
 .sidemenusearch {
-	width: 115px; margin-left: 10px; border-collapse: collapse;
+	width: 115px; margin-left: 5px; border-collapse: collapse;
 }
 .sidemenusearch th {
 	margin: 0px;
@@ -93,7 +91,7 @@ td.modpending {
 	color: #000;
 	background-color: #eee;
 	border: 1px inset;
-	width: 65px;
+	width: 75px;
 	font-size: 12px;
 	padding: 1pt;
 }
@@ -140,6 +138,11 @@ td.modpending {
 	width: 100%; text-align: left; padding: 0px;
 	padding-right: 2px; padding-top: 10px;
 }
+
+.sidemenustats .sponsors img {
+	width: 110px; height: 35px; border: none;
+}
+
 /* removed diplay: none, default=open */ 
 #sidebar-td { 
 	width: 140px;
@@ -188,6 +191,7 @@ td.modpending {
 /* define font/wrapping behavior for all child nodes */
 .mainmenu td * {
 	font-weight: bold; white-space: nowrap; 
+	color: #333;
 }
 
 /* general link color darkgray, no decoration */
