@@ -1,338 +1,336 @@
 %# vi: set ts=4 sw=4 ft=mason tw=0 :
 <%args>
-$uri => $r->uri
-$args => $r->args
-$staticref => undef
+	$uri => $r->uri
+	$args => $r->args
 </%args>
-%
-%
-%
+
+
+
 <%once>
-use vars qw( @main %urlmap %urlmap2 );
+	use vars qw( @main %urlmap %urlmap2 );
+	use Scalar::Util qw( reftype weaken );
 
-use Scalar::Util qw( reftype weaken );
+	@main = (
+		{ name => "About",					url => "/wd/AboutMusicBrainz" },
+		[
+			{ name => "About MusicBrainz",		url => "/wd/AboutMusicBrainz" },
+			{ name => "Privacy",				url => "/privacy" },
+			[
+				{ url => "/docs/20040922-1.html" },
+			],
+			{ name => "History",				url => "/wd/MusicBrainzHistory" },
+			{ name => "People",					url => "/wd/MusicBrainzBio" },
+			{ name => "Licenses",				url => "/about/licenses.html" },
+			{ name => "Social Contract",		url => "/contract.html" },
+			{ name => "Software",				url => "/wd/MusicBrainzEnabledApplications" },
+			{ name => "Logos",					url => "/about/logos.html" },
+			{ name => "Statistics",				url => "/about/stats.html" },
+			{ name => "Mirrors",				url => "/about/mirrors.html" },
+			{ name => "Elections",				url => "/user/election/" },
+			[
+				{ url => "/user/election/cancel.html" },
+				{ url => "/user/election/index.html" },
+				{ url => "/user/election/propose.html" },
+				{ url => "/user/election/second.html" },
+				{ url => "/user/election/show.html" },
+				{ url => "/user/election/vote.html" },
+			],
+		],
+		{ name => "News",					url => "/news/index.html" },
+		[
+			{ name => "General News",			url => "/news/index.html" },
+			{ name => "Blog",					url => "http://blog.musicbrainz.org/" },
+			{ name => "Server",					url => "/news/server.html" },
+			{ name => "libmusicbrainz",			url => "/news/client.html" },
+			{ name => "libtunepimp",			url => "/news/tunepimp.html" },
+			{ name => "WindowsTagger",			url => "/news/tagger.html" },
+			{ name => "Picard",					url => "/news/picard.html" },
+			{ name => "In the Press",			url => "/wd/MusicBrainzPress" },
+		],
+		{ name => "Download",				url => "/download.html" },
+		[
+			{ name => "Download",				url => "/download.html" },
+			{ name => "Tagger",					url => "/tagger/index.html" },
+			[
+				{ url => "/tagger/download.html" },
+				{ url => "/tagger/tutorial.html" },
+				{ url => "/tagger/intro.html" },
+			],
+			{ name => "Client / SDK",			url => "/products/client/index.html" },
+			[
+				{ url => "/products/client/download.html" },
+			],
+			{ name => "TunePimp",				url => "/products/tunepimp/index.html" },
+			[
+				{ url => "/products/tunepimp/download.html" },
+			],
+			{ name => "Server / Data",			url => "/products/server/index.html" },
+			[
+				{ url => "/products/server/download.html" },
+				{ url => "/db_structure.html" },
+				{ url => "/products/server/import_howto.html" },
+				{ url => "/products/server/docs/20030820-1/index.html" },
+				{ url => "/products/server/docs/20040215-1.html" },
+			],
+			{ name => "Picard",					url => "/wd/PicardDownload" },
+		],
+		{ name => "Search",					url => "/search.html" },
+		[
+			{ name => "Search",					url => "/search.html" },
+			{ name => "Browse Artists",			url => "/browseartists.html" },
+			{ name => "Browse Releases",		url => "/browsevarious.html" },
+			{ name => "Search Links",			url => "/engine.html" },
+			{ name => "Search Plugins",			url => "/search/plugins/firefox/install.html" },
+			{ url => "/newsearch.html" },
+			{ url => "/oldsearch.html" },
+			{ url => "/search/textsearch.html" },
+			{ url => "/search/oldsearch.html" },
+		],
+		{ name => "Edit",					url => "/mod_intro.html" },
+		[
+			{ name => "About Editing",			url => "/mod_intro.html" },
+			{ name => "Editing Suggestions",	url => "/reports/index.html" },
+			(&DBDefs::REPLICATION_TYPE != RT_SLAVE) ? [
+				{ url => "/reports/generated/SuspectTrackCharacters/index.html" },
+				{ url => "/reports/generated/TooManyCapitals/index.html" },
+				{ url => "/reports/generated/NoUpperCase/index.html" },
+				{ url => "/reports/generated/TracksCalledUnknown/index.html" },
+				{ url => "/reports/generated/WrongCharset/index.html" },
+				{ url => "/reports/generated/DuplicateArtists/index.html" },
+				{ url => "/reports/generated/FeaturingArtists/index.html" },
+				{ url => "/reports/generated/AlbumsToConvert/index.html" },
+				{ url => "/reports/generated/TRMsWithManyTracks/index.html" },
+				{ url => "/reports/generated/TracksWithManyTRMs/index.html" },
+				{ url => "/reports/generated/TracksNamedWithSequence/index.html" },
+				{ url => "/reports/generated/DuplicateTrackNumbers/index.html" },
+				{ url => "/reports/generated/BrokenDiscIDs/index.html" },
+				{ url => "/reports/generated/BadWin32CDTOCs/index.html" },
+				{ url => "/reports/generated/SuperfluousDataTracks/index.html" },
+				{ url => "/reports/generated/DuplicateAlbums/index.html" },
+				{ url => "/reports/generated/DuplicateArtists2/index.html" },
+			] : [],
+			{ name => "Show Edits",				url => "/mod/search/select-filter.html" },
+			[
+				{ url => "/mod/search/pre/new.html" },
+				{ url => "/mod/search/pre/subscriptions.html" },
+				{ url => "/mod/search/pre/freedb.html" },
+				{ url => "/mod/search/pre/annotations.html" },
+				{ url => "/mod/search/pre/moderator.html" },
+				{ url => "/mod/search/pre/since-login.html" },
+				{ url => "/mod/search/pre/moderator-failed.html" },
+				{ url => "/mod/search/pre/voted.html" },
+				{ url => "/mod/search/index.html" },
+				[
+					{ url => "/mod/search/select-artist.html" },
+					{ url => "/mod/search/select-moderator.html" },
+				],
+				{ url => "/jumpmod.html" },
+				[
+					{ url => "/showmod.html" },
+				],
+				{ url => "/mod/search/results.html" },
+			],
 
-@main = (
-    { name => "About",                  url => "/wd/AboutMusicBrainz" },
-    [
-		{ name => "About MusicBrainz",      url => "/wd/AboutMusicBrainz" },
-        { name => "Privacy",                url => "/privacy" },
-        [
-            { url => "/docs/20040922-1.html" },
-        ],
-        { name => "History",                url => "/wd/MusicBrainzHistory" },
-        { name => "People",                 url => "/wd/MusicBrainzBio" },
-        { name => "Licenses",               url => "/about/licenses.html" },
-        { name => "Social Contract",        url => "/contract.html" },
-        { name => "Software",               url => "/wd/MusicBrainzEnabledApplications" },
-        { name => "Logos",                  url => "/about/logos.html" },
-        { name => "Statistics",             url => "/about/stats.html" },
-        { name => "Mirrors",                url => "/about/mirrors.html" },
-        { name => "Elections",              url => "/user/election/" },
-        [
-            { url => "/user/election/cancel.html" },
-            { url => "/user/election/index.html" },
-            { url => "/user/election/propose.html" },
-            { url => "/user/election/second.html" },
-            { url => "/user/election/show.html" },
-            { url => "/user/election/vote.html" },
-        ],
-    ],
-    { name => "News",                   url => "/news/index.html" },
-    [
-		{ name => "General News",           url => "/news/index.html" },
-        { name => "Blog",                   url => "http://blog.musicbrainz.org/" },
-        { name => "Server",                 url => "/news/server.html" },
-        { name => "libmusicbrainz",         url => "/news/client.html" },
-        { name => "libtunepimp",            url => "/news/tunepimp.html" },
-        { name => "WindowsTagger",          url => "/news/tagger.html" },
-        { name => "Picard",                 url => "/news/picard.html" },
-        { name => "In the Press",           url => "/wd/MusicBrainzPress" },
-    ],
-    { name => "Download",               url => "/download.html" },
-    [
-		{ name => "Download",               url => "/download.html" },
-        { name => "Tagger",                 url => "/tagger/index.html" },
-        [
-            { url => "/tagger/download.html" },
-            { url => "/tagger/tutorial.html" },
-            { url => "/tagger/intro.html" },
-        ],
-        { name => "Client / SDK",           url => "/products/client/index.html" },
-        [
-            { url => "/products/client/download.html" },
-        ],
-        { name => "TunePimp",               url => "/products/tunepimp/index.html" },
-        [
-            { url => "/products/tunepimp/download.html" },
-        ],
-        { name => "Server / Data",          url => "/products/server/index.html" },
-        [
-            { url => "/products/server/download.html" },
-            { url => "/db_structure.html" },
-            { url => "/products/server/import_howto.html" },
-            { url => "/products/server/docs/20030820-1/index.html" },
-            { url => "/products/server/docs/20040215-1.html" },
-        ],
-        { name => "Picard",                 url => "/wd/PicardDownload" },
-    ],
-    { name => "Search",                 url => "/search.html" },
-    [
-        { name => "Search",                 url => "/search.html" },
-        { name => "Browse Artists",         url => "/browseartists.html" },
-        { name => "Browse Releases",        url => "/browsevarious.html" },
-        { name => "Search Links",           url => "/engine.html" },
-        { name => "Search Plugins",         url => "/search/plugins/firefox/install.html" },
-        { url => "/newsearch.html" },
-        { url => "/oldsearch.html" },
-        { url => "/search/textsearch.html" },
-        { url => "/search/oldsearch.html" },
-    ],
-    { name => "Edit",                   url => "/mod_intro.html" },
-    [
-        { name => "About Editing",          url => "/mod_intro.html" },
-        { name => "Editing Suggestions",    url => "/reports/index.html" },
-        (&DBDefs::REPLICATION_TYPE != RT_SLAVE) ? [
-            { url => "/reports/generated/SuspectTrackCharacters/index.html" },
-            { url => "/reports/generated/TooManyCapitals/index.html" },
-            { url => "/reports/generated/NoUpperCase/index.html" },
-            { url => "/reports/generated/TracksCalledUnknown/index.html" },
-            { url => "/reports/generated/WrongCharset/index.html" },
-            { url => "/reports/generated/DuplicateArtists/index.html" },
-            { url => "/reports/generated/FeaturingArtists/index.html" },
-            { url => "/reports/generated/AlbumsToConvert/index.html" },
-            { url => "/reports/generated/TRMsWithManyTracks/index.html" },
-            { url => "/reports/generated/TracksWithManyTRMs/index.html" },
-            { url => "/reports/generated/TracksNamedWithSequence/index.html" },
-            { url => "/reports/generated/DuplicateTrackNumbers/index.html" },
-            { url => "/reports/generated/BrokenDiscIDs/index.html" },
-            { url => "/reports/generated/BadWin32CDTOCs/index.html" },
-            { url => "/reports/generated/SuperfluousDataTracks/index.html" },
-            { url => "/reports/generated/DuplicateAlbums/index.html" },
-            { url => "/reports/generated/DuplicateArtists2/index.html" },
-        ] : [],
-        { name => "Show Edits",             url => "/mod/search/select-filter.html" },
-        [
-            { url => "/mod/search/pre/new.html" },
-            { url => "/mod/search/pre/subscriptions.html" },
-            { url => "/mod/search/pre/freedb.html" },
-            { url => "/mod/search/pre/annotations.html" },
-            { url => "/mod/search/pre/moderator.html" },
-            { url => "/mod/search/pre/since-login.html" },
-            { url => "/mod/search/pre/moderator-failed.html" },
-            { url => "/mod/search/pre/voted.html" },
-            { url => "/mod/search/index.html" },
-            [
-                { url => "/mod/search/select-artist.html" },
-                { url => "/mod/search/select-moderator.html" },
-            ],
-            { url => "/jumpmod.html" },
-            [
-                { url => "/showmod.html" },
-            ],
-            { url => "/mod/search/results.html" },
-        ],
+			{ name => "Add Artist",				url => "/edit/artist/add.html" },
+			{ name => "Add Album",				url => "/edit/album/add.html?artistid=0" },
+			[
+				{ url => "/edit/album/add.html" },
+				{ url => "/cdi/album.html" },
+				{ url => "/cdi/artist.html" },
+				{ url => "/cdi/done.html" },
+				{ url => "/cdi/enter.html" },
+				{ url => "/cdi/found.html" },
+				{ url => "/cdi/selectattr.html" },
+				{ url => "/cdi/submit.html" },
+			],
+			{ name => "Add Album (VA)",			url => "/edit/album/add.html?artistid=1" },
+			[
+				{ url => "/cdi/malbum.html" },
+				{ url => "/cdi/menter.html" },
+			],
+			{ name => "Add CC License",			url => "/edit/relationship/addcc.html" },
+			[
+				{ url => "/edit/relationship/addcc.html" },
+			],
+			{ name => "FreeDB Import",			url => "/freedb/freedb.html" },
+			[
+				{ url => "/freedb/final.html" },
+				{ url => "/freedb/import.html" },
+				{ url => "/freedb/mac-check-similar.html" },
+				{ url => "/freedb/mac-confirm.html" },
+				{ url => "/freedb/mac-edittrack.html" },
+				{ url => "/freedb/mac-edittracks.html" },
+				{ url => "/freedb/mac-selecttrackartist.html" },
+				{ url => "/freedb/sac-check-similar.html" },
+				{ url => "/freedb/sac-confirm.html" },
+				{ url => "/freedb/sac-edittracks.html" },
+				{ url => "/freedb/select-artist.html" },
+				{ url => "/freedb/select-macsac.html" },
+			],
 
-        { name => "Add Artist",             url => "/edit/artist/add.html" },
-        { name => "Add Album",              url => "/edit/album/add.html?artistid=0" },
-        [
-            { url => "/edit/album/add.html" },
-            { url => "/cdi/album.html" },
-            { url => "/cdi/artist.html" },
-            { url => "/cdi/done.html" },
-            { url => "/cdi/enter.html" },
-            { url => "/cdi/found.html" },
-            { url => "/cdi/selectattr.html" },
-            { url => "/cdi/submit.html" },
-        ],
-        { name => "Add Album (VA)",         url => "/edit/album/add.html?artistid=1" },
-        [
-            { url => "/cdi/malbum.html" },
-            { url => "/cdi/menter.html" },
-        ],
-        { name => "Add CC License",         url => "/edit/relationship/addcc.html" },
-        [
-            { url => "/edit/relationship/addcc.html" },
-        ],
-        { name => "FreeDB Import",          url => "/freedb/freedb.html" },
-        [
-            { url => "/freedb/final.html" },
-            { url => "/freedb/import.html" },
-            { url => "/freedb/mac-check-similar.html" },
-            { url => "/freedb/mac-confirm.html" },
-            { url => "/freedb/mac-edittrack.html" },
-            { url => "/freedb/mac-edittracks.html" },
-            { url => "/freedb/mac-selecttrackartist.html" },
-            { url => "/freedb/sac-check-similar.html" },
-            { url => "/freedb/sac-confirm.html" },
-            { url => "/freedb/sac-edittracks.html" },
-            { url => "/freedb/select-artist.html" },
-            { url => "/freedb/select-macsac.html" },
-        ],
+			{ url => "/edit/artistalias/add.html" },
+			{ url => "/edit/track/addnonalbum.html" },
+			{ url => "/edit/track/add.html" },
 
-        { url => "/edit/artistalias/add.html" },
-        { url => "/edit/track/addnonalbum.html" },
-        { url => "/edit/track/add.html" },
+			{ url => "/edit/track/change.html" },
+			{ url => "/edit/track/changeartist.html" },
 
-        { url => "/edit/track/change.html" },
-        { url => "/edit/track/changeartist.html" },
+			{ url => "/edit/album/editattributes.html" },
+			{ url => "/edit/album/edit.html" },
+			{ url => "/edit/artist/edit.html" },
+			{ url => "/edit/artistalias/edit.html" },
+			{ url => "/edit/track/edit.html" },
 
-        { url => "/edit/album/editattributes.html" },
-        { url => "/edit/album/edit.html" },
-        { url => "/edit/artist/edit.html" },
-        { url => "/edit/artistalias/edit.html" },
-        { url => "/edit/track/edit.html" },
+			{ url => "/edit/artist/merge.html" },
+			{ url => "/edit/album/move.html" },
+			{ url => "/edit/discid/move.html" },
 
-        { url => "/edit/artist/merge.html" },
-        { url => "/edit/album/move.html" },
-        { url => "/edit/discid/move.html" },
+			{ url => "/edit/album/remove.html" },
+			{ url => "/edit/artistalias/remove.html" },
+			{ url => "/edit/artist/remove.html" },
+			{ url => "/edit/discid/remove.html" },
+			{ url => "/mod/remove.html" },
+			{ url => "/edit/track/remove.html" },
+			{ url => "/edit/trm/remove.html" },
+			{ url => "/edit/puid/remove.html" },
 
-        { url => "/edit/album/remove.html" },
-        { url => "/edit/artistalias/remove.html" },
-        { url => "/edit/artist/remove.html" },
-        { url => "/edit/discid/remove.html" },
-        { url => "/mod/remove.html" },
-        { url => "/edit/track/remove.html" },
-        { url => "/edit/trm/remove.html" },
-        { url => "/edit/puid/remove.html" },
+			{ url => "/albumdetail.html" },
+			{ url => "/showalbum.html" },
+			{ url => "/showartist.html" },
+			{ url => "/showtrack.html" },
+			{ url => "/showtrm.html" },
+			{ url => "/showpuid.html" },
 
-        { url => "/albumdetail.html" },
-        { url => "/showalbum.html" },
-        { url => "/showartist.html" },
-        { url => "/showtrack.html" },
-        { url => "/showtrm.html" },
-        { url => "/showpuid.html" },
+			{ url => "/edit/album/mac.html" },
+			{ url => "/edit/album/sac.html" },
 
-        { url => "/edit/album/mac.html" },
-        { url => "/edit/album/sac.html" },
+			{ url => "/edit/albumbatch/cancel.html" },
+			{ url => "/edit/albumbatch/done.html" },
+			{ url => "/edit/albumbatch/merge.html" },
+			{ url => "/edit/albumbatch/remove.html" },
+		],
+		{ name => "Contribute",				url => "/wd/Contribute" },
+		[
+			{ name => "How to Contribute",		url => "/wd/Contribute" },
+			{ name => "Sponsors",				url => "/wd/CorporateSponsors" },
+			{ name => "Help Wanted",			url => "/about/helpwanted.html" },
+			{ name => "Development",			url => "/development/index.html" },
+			{ name => "Docs",					url => "/documentation.html" },
+			[
+				{ url => "/wd/HowMusicBrainzWorks" },
+				{ url => "/client_howto.html" },
+				{ url => "/docs/mb_client/2.1.0" },
+				{ url => "/docs/tunepimp/index.html" },
+				{ url => "/products/server/docs/index.html" },
+				{ url => "/cd_submission.html" },
+				{ url => "/docs/20031108-2.html" },
+				{ url => "/docs/20031108-1.html" },
+				{ url => "/tagger/id-intro.html" },
+				{ url => "/disc.html" },
+				{ url => "/docs/specs/metadata_tags.html" },
+			],
+			{ name => "Metadata 2.1",			url => "/MM/index.html" },
+			{ name => "CVS Access",				url => "/development/cvs.html" },
+			{ name => "CVS Modules",			url => "/development/cvs-modules.html" },
+			{ name => "CVS Viewer",				url => "http://cvs.musicbrainz.org/" },
+		],
+		{ name => "Help",					url => "/wd/ContactUs" },
+		[
+			{ name => "Contact Us",				url => "/wd/ContactUs" },
+			{ name => "FAQ Index",				url => "/wd/FAQIndex" },
+			[    
+				{ url => "/wd/GeneralFAQ" },
+				{ url => "/wd/AccountFAQ" },
+				{ url => "/wd/WindowsTaggerFAQ" },
+				{ url => "/wd/ClassicalMusicFAQ" },
+				{ url => "/wd/AnnotationFAQ" },
+			],
+			{ name => "Editing FAQ",			url => "/wd/ModerationFAQ" },
+			{ name => "Editing Style",			url => "/style.html" },
+			{ name => "Mailing Lists",			url => "/list.html" },
+			{ name => "Bugs / RFEs",			url => "/wd/ContactUs#report-a-bug" },
+		],
+	);
 
-        { url => "/edit/albumbatch/cancel.html" },
-        { url => "/edit/albumbatch/done.html" },
-        { url => "/edit/albumbatch/merge.html" },
-        { url => "/edit/albumbatch/remove.html" },
-    ],
-    { name => "Contribute",             url => "/wd/Contribute" },
-    [
-		{ name => "How to Contribute",      url => "/wd/Contribute" },
-        { name => "Sponsors",               url => "/wd/CorporateSponsors" },
-        { name => "Help Wanted",            url => "/about/helpwanted.html" },
-        { name => "Development",            url => "/development/index.html" },
-        { name => "Docs",                   url => "/documentation.html" },
-        [
-            { url => "/wd/HowMusicBrainzWorks" },
-            { url => "/client_howto.html" },
-            { url => "/docs/mb_client/2.1.0" },
-            { url => "/docs/tunepimp/index.html" },
-            { url => "/products/server/docs/index.html" },
-            { url => "/cd_submission.html" },
-            { url => "/docs/20031108-2.html" },
-            { url => "/docs/20031108-1.html" },
-            { url => "/tagger/id-intro.html" },
-            { url => "/disc.html" },
-            { url => "/docs/specs/metadata_tags.html" },
-        ],
-        { name => "Metadata 2.1",           url => "/MM/index.html" },
-        { name => "CVS Access",             url => "/development/cvs.html" },
-        { name => "CVS Modules",            url => "/development/cvs-modules.html" },
-        { name => "CVS Viewer",             url => "http://cvs.musicbrainz.org/" },
-    ],
-    { name => "Help",                   url => "/wd/ContactUs" },
-    [
-        { name => "Contact Us",             url => "/wd/ContactUs" },
-        { name => "FAQ Index",              url => "/wd/FAQIndex" },
-        [    
-            { url => "/wd/GeneralFAQ" },     
-            { url => "/wd/AccountFAQ" },     
-            { url => "/wd/WindowsTaggerFAQ" },   
-            { url => "/wd/ClassicalMusicFAQ" },      
-            { url => "/wd/AnnotationFAQ" },      
-        ],
-        { name => "Editing FAQ",            url => "/wd/ModerationFAQ" },
-        { name => "Editing Style",          url => "/style.html" },
-        { name => "Mailing Lists",          url => "/list.html" },
-        { name => "Bugs / RFEs",            url => "/wd/ContactUs#report-a-bug" },
-    ],
-);
+	%urlmap = ();
+	%urlmap2 = ();
 
-%urlmap = ();
-%urlmap2 = ();
+	my $transform;
+	$transform = sub
+	{
+		my ($rarhMenu, $riNextIndex, $rhParentItem) = @_;
 
-my $transform;
-$transform = sub
-{
-    my ($rarhMenu, $riNextIndex, $rhParentItem) = @_;
+		for (my $i = 0; $i < @$rarhMenu; ++$i)
+		{
+			my $rhItem = $rarhMenu->[$i];
 
-    for (my $i = 0; $i < @$rarhMenu; ++$i)
-    {
-        my $rhItem = $rarhMenu->[$i];
+			next if (!defined $rhItem);
 
-        next if (!defined $rhItem);
+			$rhItem->{expand} = 0;
+			$rhItem->{id} = "sitemenu" . (++$$riNextIndex);
+			weaken($rhItem->{parent} = $rhParentItem);
 
-        $rhItem->{expand} = 0;
-        $rhItem->{id} = "sitemenu" . (++$$riNextIndex);
-        weaken($rhItem->{parent} = $rhParentItem);
+			my $u = $rhItem->{url};
+			$urlmap{$u} = $rhItem 
+				unless $urlmap{$u} and $urlmap{$u}{preferred};
+			push @{ $urlmap2{$u} }, $rhItem;
 
-        my $u = $rhItem->{url};
-        $urlmap{$u} = $rhItem 
-            unless $urlmap{$u} and $urlmap{$u}{preferred};
-        push @{ $urlmap2{$u} }, $rhItem;
-
-        my $raNext = $rarhMenu->[$i+1];
-        if ($raNext and reftype($raNext) eq "ARRAY")
-        {
-            $rhItem->{children} = $raNext;
-            splice(@$rarhMenu, $i+1, 1);
-            &$transform($rhItem->{children}, $riNextIndex, $rhItem);
-        }
-    }
-};
-&$transform(\@main, \(my $tmp = 0));
+			my $raNext = $rarhMenu->[$i+1];
+			if ($raNext and reftype($raNext) eq "ARRAY")
+			{
+				$rhItem->{children} = $raNext;
+				splice(@$rarhMenu, $i+1, 1);
+				&$transform($rhItem->{children}, $riNextIndex, $rhItem);
+			}
+		}
+	};
+	&$transform(\@main, \(my $tmp = 0));
 </%once>
-%
-%
-%
+
+
+
 <%def .drawmainmenu>
 <%perl>
-    # draw the main menu buttons.
-    # - javascript support
-    # - static menu for browsers with disabled javascript
-    my ($rarhMenu) = @_;
+	# draw the main menu buttons.
+	# - javascript support
+	# - static menu for browsers with disabled javascript
+	my ($rarhMenu) = @_;
 
-    my $selName = '';
-    my $noscriptmenu = '<tr>';
-    my @mm_items;
+	my $selName = '';
+	my $noscriptmenu = '<tr>';
+	my @mm_items;
 
-    my @named_children = grep { defined $_->{'name'} } @$rarhMenu;
+	my @named_children = grep { defined $_->{'name'} } @$rarhMenu;
 
 	# FIXME dummy JS string encoding
 	my $js_string = sub { return '"' . $_[0] . '"' };
 
-    for my $i (0 .. $#named_children)
-    {
+	for my $i (0 .. $#named_children)
+	{
 		my $rhItem = $named_children[$i];
 		my $is_first = ($i == 0);
 		my $is_last = ($i == $#named_children);
 
-        my $rarhChildren = $rhItem->{children};
-        my $fSel = $rhItem->{expand};
-        $selName = $rhItem->{id} if $fSel;
+		my $rarhChildren = $rhItem->{children};
+		my $fSel = $rhItem->{expand};
+		$selName = $rhItem->{id} if $fSel;
 
-        push @mm_items, [ $rhItem->{id}, $rhItem->{url}, $rhItem->{name} ];
+		push @mm_items, [ $rhItem->{id}, $rhItem->{url}, $rhItem->{name} ];
 
-        # compile css class (none, selected, right)
+		# compile css class (none, selected, right)
 		my $cssClass = "";
-        $cssClass .= 'selected' if $fSel;
+		$cssClass .= 'selected' if $fSel;
 
-  		$noscriptmenu .=
+		$noscriptmenu .=
 			'<td'
- 		 	. ($cssClass ? ' class="' . encode_entities($cssClass) . '"' : "") 
-  			. '>'
- 		 	. '<a href="' . encode_entities($rhItem->{url}) . '"'
- 		 	. '>'
- 		 	. encode_entities($rhItem->{name})
- 		 	. '</a></td>'
- 		 	;
-    }
+			. ($cssClass ? ' class="' . encode_entities($cssClass) . '"' : "") 
+			. '>'
+			. '<a href="' . encode_entities($rhItem->{url}) . '"'
+			. '>'
+			. encode_entities($rhItem->{name})
+			. '</a></td>'
+			;
+	}
 	$noscriptmenu .= '<td class="mainmenuright">&nbsp;</td></tr>';
 
 	@mm_items = map {
@@ -354,7 +352,7 @@ $transform = sub
 	$m->out("mb.topmenu.writeUI('$selName');");
 	$m->out('</script>');
 
-    $m->out(
+	$m->out(
 		'<noscript>'
  		. '<table cellspacing="0" cellpadding="0" border="0">'
 		. $noscriptmenu
@@ -363,37 +361,37 @@ $transform = sub
 	);
 </%perl>
 </%def>
-%
-%
-%
+
+
+
 <%def .drawsubmenus>
 <%perl>
-    my ($rarhMenu) = @_;
+	my ($rarhMenu) = @_;
 
-    for my $rhItem (@$rarhMenu)
-    {
-        defined($rhItem->{name}) or next;
+	for my $rhItem (@$rarhMenu)
+	{
+		defined($rhItem->{name}) or next;
 
-        my $rarhChildren = $rhItem->{children};
-        $rarhChildren = undef
-            if $rarhChildren
-            and not grep { defined $_->{name} } @$rarhChildren;
+		my $rarhChildren = $rhItem->{children};
+		$rarhChildren = undef
+			if $rarhChildren
+			and not grep { defined $_->{name} } @$rarhChildren;
 
-        if ($rarhChildren)
-        {  
-            $m->out('<div id="'.$rhItem->{id}.'|submenu" style="display: none" class="submenu">');
-            $m->out('<table border="0" cellspacing="0" cellpadding="0">');
+		if ($rarhChildren)
+		{  
+			$m->out('<div id="'.$rhItem->{id}.'.submenu" style="display: none" class="submenu">');
+			$m->out('<table border="0" cellspacing="0" cellpadding="0">');
 
-            my @named_children = grep { defined $_->{'name'} } @$rarhChildren;
+			my @named_children = grep { defined $_->{'name'} } @$rarhChildren;
 
-            for my $i (0 .. $#named_children)
-            {
+			for my $i (0 .. $#named_children)
+			{
 				my $rhChild = $named_children[$i];
 				my $is_first = ($i == 0);
 				my $is_last = ($i == $#named_children);
 
 				my $class = ($is_last ? " class='bottom'" : "");
-				
+
 				$m->out(
 					'<tr>'
 					. '<td>'
@@ -406,58 +404,53 @@ $transform = sub
 					. '</td>'
 					. '</tr>'
 				);
-            }
-
-            $m->out('</table>');
-            $m->out('</div>');
-        }                                      
-    }
+			}
+			$m->out('</table>');
+			$m->out('</div>');
+		}
+	}
 </%perl>
 </%def>
-%
-%
-%
-<%def .drawstatic>\
+
+<%def .drawstatic>
 <%perl>
+	(my $top) = grep { $_->{'expand'} } @main;
+	$top or return;
 
-(my $top) = grep { $_->{'expand'} } @main;
-$top or return;
+	my @named_children = grep { defined $_->{'name'} }  @{ $top->{children} };
 
-my @named_children = grep { defined $_->{'name'} }  @{ $top->{children} };
+	for my $i (0 .. $#named_children)
+	{
+		my $c = $named_children[$i];
+		my $is_first = ($i == 0);
+		my $is_last = ($i == $#named_children);
 
-for my $i (0 .. $#named_children)
-{
-	my $c = $named_children[$i];
-	my $is_first = ($i == 0);
-	my $is_last = ($i == $#named_children);
+		my $class = "";
+		$class .= " left" if $is_first;
+		$class .= " right" if $is_last;
+		$class =~ s/^ (.*)$/ class="$1"/;
 
-	my $class = "";
-	$class .= " left" if $is_first;
-	$class .= " right" if $is_last;
-	$class =~ s/^ (.*)$/ class="$1"/;
-
-	$m->out(
-		'<a'
-			. ' href="' . encode_entities($c->{url}) . '"'
-			. $class
-		. '>'
-		. encode_entities($c->{name})
-		. '</a>'
-		. ($is_last ? '' : ' | ')
-	);
-}
-
-</%perl>\
+		$m->out(
+			'<a'
+				. ' href="' . encode_entities($c->{url}) . '"'
+				. $class
+			. '>'
+			. encode_entities($c->{name})
+			. '</a>'
+			. ($is_last ? "" : " | ")
+		);
+	}
+</%perl>
 </%def>
-%
-%
-%
+
+
+
 <%perl>
-    # Work out which items are "selected"
-    my @sel;
-    {
-        my $rhSelItem = $urlmap{$uri . "?" . $args};
-        $rhSelItem ||= $urlmap{$uri};
+	# Work out which items are "selected"
+	my @sel;
+	{
+		my $rhSelItem = $urlmap{$uri . "?" . $args};
+		$rhSelItem ||= $urlmap{$uri};
 
 		if (not $rhSelItem and $uri eq $r->uri)
 		{
@@ -470,29 +463,24 @@ for my $i (0 .. $#named_children)
 			$rhSelItem = $urlmap{$uri . "?" . $args};
 			$rhSelItem ||= $urlmap{$uri};
 		}
+		while ($rhSelItem)
+		{
+			$rhSelItem->{expand} = 1;
+			unshift @sel, $rhSelItem;
+			$rhSelItem = $rhSelItem->{parent};
+		}
+	}
 
-        while ($rhSelItem)
-        {
-            $rhSelItem->{expand} = 1;
-            unshift @sel, $rhSelItem;
-            $rhSelItem = $rhSelItem->{parent};
-        }
-    }
-</%perl>
-%
-%
-%
-<!-- main menu table -->
-<div class="mainmenu">
-            <%perl>
-                $m->comp(".drawmainmenu", \@main);
-				$$staticref = $m->scomp(".drawstatic") if $staticref;
-            </%perl>
-</div>
-%
-% $m->comp(".drawsubmenus", \@main);
-%
-<%perl>
-# De-select selected things
-delete $_->{expand} for @sel;
+	# prepare variables with the main-, static- and submenu html content
+	$mainmenuHTML = $m->scomp(".drawmainmenu", \@main);
+	$staticmenuHTML = $m->scomp(".drawstatic");
+	$popupmenuHTML = $m->scomp(".drawsubmenus", \@main);
+	
+	# trim newlines from the end of the string (appended by the scomp routine)
+	$mainmenuHTML =~ s/\n$//;
+	$staticmenuHTML =~ s/\n$//;
+	$staticmenuHTML =~ s/\n$//;
+	
+	# De-select selected things
+	delete $_->{expand} for @sel;
 </%perl>

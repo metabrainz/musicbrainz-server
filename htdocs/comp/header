@@ -1,81 +1,100 @@
 %# vi: set ts=4 sw=4 ft=mason :
 <%args>
-$title
-$nosidebar => 0
-$notopbar => 0
-$head => undef
+	$title
+	$nosidebar => 0
+	$notopbar => 0
+	$head => undef
 </%args>
 <%perl>
-$r->content_type('text/html; charset=UTF-8');
-my $brainz_css = &DBDefs::HTDOCS_ROOT . "/brainz.css";
-my $mtime = (stat $brainz_css)[9] || 0;
-my $mtime_print = (stat(&DBDefs::HTDOCS_ROOT . "/css/print.css"))[9] || 0;
-my $mtime_musicbrainzjs = (stat(&DBDefs::HTDOCS_ROOT . "/scripts/musicbrainz.js"))[9] || 0;
-my $mtime_overlibjs = (stat(&DBDefs::HTDOCS_ROOT . "/scripts/overlib.js"))[9] || 0;my $staticmenus = "";
+	$r->content_type('text/html; charset=UTF-8');
+	my $brainz_css = &DBDefs::HTDOCS_ROOT . "/brainz.css";
+	my $mtime = (stat $brainz_css)[9] || 0;
+	my $mtime_print = (stat(&DBDefs::HTDOCS_ROOT . "/css/print.css"))[9] || 0;
+	
+	# get timestamps for header links, such that browsers can be
+	# forced (sort of) to reload the document
+	my $mtime_musicbrainzjs = (stat(&DBDefs::HTDOCS_ROOT . "/scripts/musicbrainz.js"))[9] || 0;
+	my $mtime_overlibjs = (stat(&DBDefs::HTDOCS_ROOT . "/scripts/overlib.js"))[9] || 0;
+	
+	use vars qw( $mainmenuHTML $staticmenuHTML $popupmenuHTML );
+	
+	$m->clear_buffer;
 </%perl>
-% $m->clear_buffer;
-<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
-        "http://www.w3.org/TR/html4/loose.dtd">
+<!--<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">-->
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html>
-<head>
-   <title><% $title %> - MusicBrainz</title>
-   <link rel="stylesheet" type="text/css" href="/brainz.css?t=<% $mtime %>">
-   <link rel="stylesheet" type="text/css" href="/css/print.css?t=<% $mtime_print %>" media="print">
-   <link rel="shortcut icon" href="/favicon.ico">
-   <meta http-equiv="expires" content="1">
-   <meta http-equiv="Content-Type" CONTENT="text/html; charset=UTF-8">
+	<head>
+		<title><% $title %> - MusicBrainz</title>
+		<link rel="stylesheet" type="text/css" href="/brainz.css?t=<% $mtime %>" />
+		<link rel="stylesheet" type="text/css" href="/css/print.css?t=<% $mtime_print %>" media="print" />
+		<link rel="shortcut icon" href="/favicon.ico" />
+		<meta http-equiv="expires" content="1" />
+		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 % &$head() if ref($head) eq "CODE";
 % $m->out($head) if defined $head and not ref $head;
-   <script type="text/javascript" src="/scripts/musicbrainz.js?t=<% $mtime_musicbrainzjs %>"></script>
-   <script type="text/javascript" src="/scripts/overlib.js?t=<% $mtime_overlibjs %>"></script>
-</head>
-<body>
-	<div id="overDiv" style="position:absolute; visibility:hidden; z-index:1000;"></div>
+		<script type="text/javascript" src="/scripts/musicbrainz.js?t=<% $mtime_musicbrainzjs %>"></script>
+		<script type="text/javascript" src="/scripts/overlib.js?t=<% $mtime_overlibjs %>"></script>
+	</head>
+	<body>
+		<div id="overDiv" style="position: absolute; visibility: hidden; z-index: 1000"></div>
 
 % unless ($notopbar) {
 
-<div id="HeaderGroup">
-    <table width="100%" cellpadding="0" cellspacing="0" border="0">
-        <tr>
-            <td class="LogoBarCell">
+		<div id="HeaderGroup">
+			<table width="100%" cellpadding="0" cellspacing="0" border="0">
+				<tr>
+					<td class="LogoBarCell">
 % if (&DBDefs::DB_STAGING_SERVER) {
-                <span class="LogoBarStagingText"><% uc(&DBDefs::DB_STAGING_SERVER) %> SERVER</span>
+						<span class="LogoBarStagingText"><% uc(&DBDefs::DB_STAGING_SERVER) %> SERVER</span>
 % }
-	            <a href="/"><img src="/images/header_logo_a.gif"
-                    width="614" height="67" alt="MusicBrainz" border="0"></a></td>
-	</tr>
-    </table>
+						<a href="/"><img src="/images/header_logo_a.gif" width="614" height="67" 
+							alt="MusicBrainz" style="border:none" /></a></td>
+				</tr>
+			</table>
 
-    <p style="display: none"><a href="#maincontent">Skip to main content &gt;&gt;</a></p>
+			<p style="display: none"><a href="#maincontent">Skip to main content &gt;&gt;</a></p>
 
-	<table width="100%" cellpadding="0" cellspacing="0" border="0" id="mainmenu-table">
-		<tr style="height: 21px">
-			<td class="NavBarCell" valign="top">
-				<a href="/"><img src="/images/header_logo_b.gif"
-					width="142" height="20"
-					alt=""
-					border="0"></a></td>
-			<td id="mainmenucell"><& /comp/layout/topmenu, staticref => \$staticmenus &></td>
-		</tr>
-	</table>
-
+			<table width="100%" cellpadding="0" cellspacing="0" border="0" id="mainmenu-table">
+				<tr style="height: 21px">
+					<td class="NavBarCell" valign="top">
+						<a href="/"><img src="/images/header_logo_b.gif" width="142" height="20" 
+							alt="" style="border:none" /></a></td>
+					<td id="mainmenucell">
+						<div class="mainmenu">
+<%perl>	
+	# prepare the menu html fragments, they are written out
+	# in /comp/header, and /comp/footer
+	$m->comp("/comp/layout/topmenu");
+	$m->out($mainmenuHTML);
+</%perl>	
+						</div></td>
+				</tr>
+			</table>
 % }
-</div>
+		</div>
 
-    <table width="" cellpadding="0" cellspacing="0" border="0" id="submenu-table">
-        <tr>
+		<table width="" cellpadding="0" cellspacing="0" border="0" id="submenu-table">
+			<tr>
 % unless ($nosidebar) {
-			<td id="sidebar-togglecell"></td>
-			<td class="submenu-leftspace">&nbsp;</td>
-%           # &nbsp; required for Firefox at least to avoid layout errors
+				<td id="sidebar-togglecell">&nbsp;</td>
+				<td class="submenu-leftspace">&nbsp;</td>
+% # &nbsp; required for Firefox at least to avoid layout errors
 % }
 
-% if ($staticmenus && (UserPreference::get('topmenu_submenu_types') ne "dropdownonly")) {
-			<td class="submenustatic"><% $staticmenus || '&nbsp;' |n %></td>
-% } else {
-			<td>&nbsp;</td>
-% }
-			<td>&nbsp;</td>
-		</tr>
-	</table>
-
+<%perl>
+	if (UserPreference::get('topmenu_submenu_types') ne "dropdownonly") 
+	{
+		if ($staticmenuHTML ne "") 
+		{
+			$m->out(qq!<td class="submenustatic">!);	
+			$m->out($staticmenuHTML); 
+		}
+	} 
+	else 
+	{
+		$m->out(qq!<td>&nbsp;!);
+	}
+</%perl>
+				</td>
+			</tr>
+		</table>

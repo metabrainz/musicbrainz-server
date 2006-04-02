@@ -1,39 +1,38 @@
+%# vi: set ts=8 sw=2 ft=mason :
 <div class="sidemenu">
 	<table class="sidemenustats">
 		<tr> 
 			<td class="sponsors">
 				<a href="http://www.metabrainz.org/donate"><img 
-					src="/images/sponsors/metabrainz.png" width="110" height="35" border=0
-					alt="Donate to MusicBrainz!" title="Donate to MusicBrainz!"></a></td>
+					src="/images/sponsors/metabrainz.png" 
+					alt="Donate to MusicBrainz!" title="Donate to MusicBrainz!" /></a></td>
 		</tr>
 		<tr>
 			<td class="sponsors">
 				<a href="http://musicip.com"><img 
-					src="/images/sponsors/musicip.png" width="110" height="35" border=0
-					alt="MusicIP" title="MusicIP"></a></td>
+					src="/images/sponsors/musicip.png" 
+					alt="MusicIP" title="MusicIP" /></a></td>
 		</tr>
 		<tr>
 			<td class="sponsors">
 				<a href="/edit/relationship/addcc.html"><img 
-					src="/images/sponsors/cc.png" width="110" height="35" border=0
-					alt="CC" title="Creative Commons"></a></td>
+					src="/images/sponsors/cc.png" 
+					alt="CC" title="Creative Commons" /></a></td>
 		</tr>
 		<tr>
 			<td class="sponsors">
 				<a href="http://digitalwest.net"><img 
-					src="/images/sponsors/digitalwest.png" width="110" height="35" border=0
-					alt="DWNI" title="Digital West Networks Inc."></a></td>
+					src="/images/sponsors/digitalwest.png" 
+					alt="DWNI" title="Digital West Networks Inc." /></a></td>
 		</tr>
 		<tr>
 			<td class="sponsors">
 				<a href="http://www.relatable.com"><img 
-					src="/images/sponsors/relatable.png" width="110" height="35" border=0
-					alt="Relatable" title="Relatable"></a></td>
+					src="/images/sponsors/relatable.png" 
+					alt="Relatable" title="Relatable" /></a></td>
 		</tr>
 	</table>
 	<div class="morelink">
 		<a href="/sponsors.html">more &raquo;</a>
 	</div>
 </div>
-
-%# vi: set ts=8 sw=2 ft=mason :
