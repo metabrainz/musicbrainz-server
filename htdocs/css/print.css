@@ -1,8 +1,16 @@
-.LogoBarCell { display: none }
-.NavBarCell { display: none }
+
+/* the page header area with logos, and mainmenu bar */
+#pageheader { display: none }
+
+/* the toggle cell, and static submenu area */
+#submenu-table { display: none }
+
+/* the sidebar, search, login, sponsers etc. boxes */
+#sidebar-td { display: none }
+
 #FooterBar { display: none }
 #CreditsBar { display: none }
-#HeaderGroup { display: none }
+
 
 h2
 {
@@ -11,6 +19,3 @@ h2
 	border-bottom: 1px solid black;
 }
 
-#mainmenu-table { display: none }
-#submenu-table { display: none }
-#sidebar-td { display: none }

@@ -1,3 +1,4 @@
+
 .section { 
 	font: Normal 11px Verdana, Geneva, Arial, Helvetica, sans-serif; 
 	color: #000000; text-decoration : none; font-weight: 600;
@@ -171,9 +172,26 @@ td.modpending {
 /* ********************************************** */
 /* ********************************************** */
 /* ********************************************** */
+
+td.header_logo_b {
+    width: 157px; height: 20px;
+    border-right: 1px solid #000;
+    border-bottom: 1px solid #000;
+    background: url(../images/header_logo_b.gif); 
+}
+/* using the real image as a background, and a smaller
+   spacer image with a height of 17px instead of 
+   20px fixes a display issue in gecko/opera. IE 
+   displayed this well. */
+td.header_logo_b img {
+	width: 157px; height: 17px; border: 0px; margin: 0px;
+}
+td.header_mainmenu {
+}
+
 #mainmenu-table {
 	width: 100%; background: #fb5;
-	border: 0px; border-bottom: 0px solid #000;
+	border: 0px; 
 }
 .mainmenu {
 	background: #fb5;
@@ -184,27 +202,31 @@ td.modpending {
 /* define font/wrapping behavior mainmenu TDs */
 .mainmenu td {
 	font-size: 12px; text-align: center;
-	border-right: 1px solid black; background: #fb5; 
-	border-bottom: 1px solid black;
+	background: #fb5; 
+	border-right: 1px solid #000; 
+	border-bottom: 1px solid #000;
 	padding: 0px 6px; 
+	cursor: hand;
 }
-/* define font/wrapping behavior for all child nodes */
 .mainmenu td * {
 	font-weight: bold; white-space: nowrap; 
 	color: #333;
 }
 
-/* general link color darkgray, no decoration */
 .mainmenu a,
 .mainmenu a:visited {
 	color: #333;
 	text-decoration: none;
 }
-
-/* active and hovering mouse has a white underline */
-.mainmenu a:active,
+/* if the mouse leaves the item after it was clicked, show normal state */
+.mainmenu a:active { 
+	color: #333;
+	text-decoration: underline;
+}
+/* the hovered menu item (given js is enabled) is colored purple, show
+   link in active state */
 .mainmenu a:hover {
-	color: #000;
+	color: #fff;
 	text-decoration: underline;
 }
 
