@@ -1229,14 +1229,23 @@ this.closeFunc="mb.topmenu.hideDisplayedDropDown()";
 this.activateTime=150;
 this.closeMenuTime=350;
 this.closeSubmenuTime=350;
+this.stateChangeTimer=[];
+this.stateChangeTime=40;
 this.clear=function(){
 clearTimeout(this.openTimer);
 clearTimeout(this.closeTimer);
 };
 this.activateMenuItem=function(id,_b4){
-mb.topmenu.mouseOver(id,_b4);
+if(this.stateChangeTimer[id]!=null){
+clearTimeout(this.stateChangeTimer[id]);
+}
 this.clear();
 this.openTimer=setTimeout("mb.topmenu.activateMenuItem('"+id+"', "+_b4+");",this.activateTime);
+this.stateChangeTimer[id]=setTimeout("mb.topmenu.timer.onStateChange('"+id+"', "+_b4+");",this.stateChangeTime);
+};
+this.onStateChange=function(id,_b6){
+this.stateChangeTimer[id]=null;
+mb.topmenu.mouseOver(id,_b6);
 };
 this.hasEnteredSubMenu=function(){
 this.clear();
@@ -1264,12 +1273,12 @@ mb.onDomReadyFlag=false;
 mb.isPageLoading=function(){
 return !mb.onPageLoadedFlag;
 };
-mb.registerPageLoadedAction=function(_b5){
+mb.registerPageLoadedAction=function(_b7){
 mb.log.enter(mb.GID,"registerPageLoadedAction");
-if(_b5 instanceof MbEventAction){
-mb.onPageLoadedActions.push(_b5);
+if(_b7 instanceof MbEventAction){
+mb.onPageLoadedActions.push(_b7);
 }else{
-mb.log.error("Invalid argument, expected MbEventAction: $",_b5);
+mb.log.error("Invalid argument, expected MbEventAction: $",_b7);
 }
 mb.log.exit();
 };
@@ -1289,12 +1298,12 @@ mb.log.exit();
 mb.log.scopeEnd();
 };
 window.onload=mb.onPageLoaded;
-mb.registerDOMReadyAction=function(_b6){
+mb.registerDOMReadyAction=function(_b8){
 mb.log.enter(mb.GID,"registerDOMReadyAction");
-if(_b6 instanceof MbEventAction){
-mb.onDomReadyActions.push(_b6);
+if(_b8 instanceof MbEventAction){
+mb.onDomReadyActions.push(_b8);
 }else{
-mb.log.error("Invalid argument, expected MbEventAction: $",_b6);
+mb.log.error("Invalid argument, expected MbEventAction: $",_b8);
 }
 mb.log.exit();
 };
@@ -1311,23 +1320,23 @@ mb.log.exit();
 }
 mb.log.exit();
 };
-mb.runRegisteredFunctions=function(_b7){
-var i=0,len=_b7.length;
+mb.runRegisteredFunctions=function(_b9){
+var i=0,len=_b9.length;
 if(len>0){
 mb.log.trace("Running $ actions...",len);
 do{
-var _b9=_b7[i];
-if(_b9 instanceof MbEventAction){
-mb.log.info("* $",_b9);
+var _bb=_b9[i];
+if(_bb instanceof MbEventAction){
+mb.log.info("* $",_bb);
 try{
-eval(_b9.getCode());
+eval(_bb.getCode());
 }
 catch(e){
 mb.log.error("Caught exception: ",e);
 mb.log.error(mb.log.getStackTrace());
 }
 }else{
-mb.log.error("Invalid object, expected MbEventAction: $",_b9);
+mb.log.error("Invalid object, expected MbEventAction: $",_bb);
 }
 }while(len>++i);
 }

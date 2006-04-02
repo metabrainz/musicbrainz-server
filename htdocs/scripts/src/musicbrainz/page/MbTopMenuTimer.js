@@ -80,6 +80,25 @@ function MbTopMenuTimer() {
 	 * @type Number
 	 **/
 	this.closeSubmenuTime = 350; // ms
+	
+	/**
+	 * If the mouse leaves the menuitem and enters the click-image,
+	 * MouseLeave and MouseEnter events are fired. This function
+	 * catches this state and disables flickering of the menu.
+	 * @type Array
+	 **/
+	this.stateChangeTimer = [];
+	
+	
+	/**
+	 * The time which is waited after the mouseOver/mouseOut
+	 * events are trapped, until the event is handled.
+	 * @type Array
+	 * @see stateTimers
+	 * @see onStateTimer()
+	 **/	
+	this.stateChangeTime = 40; // ms
+	
 
 	// ----------------------------------------------------------------------------
 	// member functions
@@ -94,11 +113,28 @@ function MbTopMenuTimer() {
 	};
 
 	/**
+	 * Start the timer for the activation/deactivation
+	 * of the menu item.
+	 * The menu-state process is triggered using this
+	 * entry point as well.
 	 */
 	this.activateMenuItem = function(id, flag) {
-		mb.topmenu.mouseOver(id, flag);
+		// if there is pending state change, cancel it
+		// and setup a new state change.
+		if (this.stateChangeTimer[id] != null) {
+			clearTimeout(this.stateChangeTimer[id]);
+		}
 		this.clear();
 		this.openTimer = setTimeout("mb.topmenu.activateMenuItem('"+id+"', "+flag+");", this.activateTime);
+		this.stateChangeTimer[id] = setTimeout("mb.topmenu.timer.onStateChange('"+id+"', "+flag+");", this.stateChangeTime);
+	};
+	
+	/**
+	 * Handle timer event of one menu stateChange.
+	 */	
+	this.onStateChange = function(id, flag) {
+		this.stateChangeTimer[id] = null;
+		mb.topmenu.mouseOver(id, flag);		
 	};
 
 	/**
