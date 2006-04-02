@@ -40,26 +40,25 @@
 
 % unless ($notopbar) {
 
-		<div id="HeaderGroup">
+		<div id="pageheader">
 			<table width="100%" cellpadding="0" cellspacing="0" border="0">
 				<tr>
-					<td class="LogoBarCell">
+					<td class="header_logo">
 % if (&DBDefs::DB_STAGING_SERVER) {
-						<span class="LogoBarStagingText"><% uc(&DBDefs::DB_STAGING_SERVER) %> SERVER</span>
+						<span class="servertype"><% uc(&DBDefs::DB_STAGING_SERVER) %> SERVER</span>
 % }
 						<a href="/"><img src="/images/header_logo_a.gif" width="614" height="67" 
-							alt="MusicBrainz" style="border:none" /></a></td>
+							alt="MusicBrainz" title="MusicBrainz" /></a></td>
 				</tr>
 			</table>
 
 			<p style="display: none"><a href="#maincontent">Skip to main content &gt;&gt;</a></p>
 
 			<table width="100%" cellpadding="0" cellspacing="0" border="0" id="mainmenu-table">
-				<tr style="height: 21px">
-					<td class="NavBarCell" valign="top">
-						<a href="/"><img src="/images/header_logo_b.gif" width="142" height="20" 
-							alt="" style="border:none" /></a></td>
-					<td id="mainmenucell">
+				<tr valign="bottom">
+					<td class="header_logo_b">
+						<a href="/"><img src="/images/spacer.gif" alt="" title="MusicBrainz" /></a></td>
+					<td class="header_mainmenu">
 						<div class="mainmenu">
 <%perl>	
 	# prepare the menu html fragments, they are written out

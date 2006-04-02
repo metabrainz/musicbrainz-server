@@ -59,7 +59,12 @@
 %		$m->out($popupmenuHTML);
 		
 		<script type="text/javascript" src="/scripts/domloaded.js"></script>
+
+%		# only this user gets to see the javascript log
+%		# TODO: make this a user preference
+%		if ($session{uid} == 72801) { 
 		<script type="text/javascript" src="/scripts/debug.js"></script>
+%		}
 	</body>
 </html>
 
