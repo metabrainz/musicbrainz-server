@@ -139,7 +139,7 @@ function MbTopMenu() {
 		if (this.status == "ready") {
 			ev = (ev || "");
 			id = (el.id || "");
-			id = id.split("|")[0];
+			id = id.split(".")[0];
 			if (id != "" && ev != "") {
 				mb.log.debug("id: $, ev: $, allow click: $", id, ev, this.isClickAllowed);
 				if (ev == this.MENUITEM_OVER) {
@@ -295,7 +295,7 @@ function MbTopMenu() {
 			mb.log.debug("Setting up $ items...", len);
 			for (j=len-1; j >=0; j--) {
 				mName = this.items[j][0];
-				oName = mName+"|mouseover";
+				oName = mName+".mouseover";
 				if ((obj = mb.ui.get(oName)) != null) {
 					this.h.m[mName] = obj;
 					mOffsetLeft = obj.offsetLeft;
@@ -334,7 +334,7 @@ function MbTopMenu() {
 					};
 
 					// inititalising icon (click-trigger)
-					oName = mName+"|click";
+					oName = mName+".click";
 					if ((obj = mb.ui.get(oName)) != null) {
 						obj.href = "javascript:; // Click to open submenu";
 
@@ -381,7 +381,7 @@ function MbTopMenu() {
 					}
 
 					// inititalising submenu
-					oName = mName+"|submenu";
+					oName = mName+".submenu";
 					if ((obj = mb.ui.get(oName)) != null) {
 						var mPos = this.OFFSET_LEFT + mOffsetLeft;
 						obj.style.left = ""+mPos+"px";
@@ -449,13 +449,13 @@ function MbTopMenu() {
 			cn = (cn != '' ? 'class="'+cn+'"' : '');
 
 			s.push('<td nowrap ' + cn);
-			s.push('id="'+name+'|mouseover" ');
+			s.push('id="'+name+'.mouseover" ');
 			s.push('><a ');
 			s.push('title="'+title+'" ');
 			s.push('href="'+url+'">'+title+'</a>');
 			if (this.allowClickTrigger()) {
 				s.push('<a ');
-				s.push('id="'+name+'|click" ');
+				s.push('id="'+name+'.click" ');
 				s.push('><img style="padding-left: 3px;" src="/images/dropdown.gif" alt="" border="0"></a>');
 			}
 			s.push('</td>');

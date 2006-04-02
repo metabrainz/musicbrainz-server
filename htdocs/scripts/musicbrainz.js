@@ -924,7 +924,7 @@ this.setupEvents();
 if(this.status=="ready"){
 ev=(ev||"");
 id=(el.id||"");
-id=id.split("|")[0];
+id=id.split(".")[0];
 if(id!=""&&ev!=""){
 mb.log.debug("id: $, ev: $, allow click: $",id,ev,this.isClickAllowed);
 if(ev==this.MENUITEM_OVER){
@@ -1057,7 +1057,7 @@ var len=this.items.length;
 mb.log.debug("Setting up $ items...",len);
 for(j=len-1;j>=0;j--){
 mName=this.items[j][0];
-oName=mName+"|mouseover";
+oName=mName+".mouseover";
 if((obj=mb.ui.get(oName))!=null){
 this.h.m[mName]=obj;
 mOffsetLeft=obj.offsetLeft;
@@ -1100,7 +1100,7 @@ catch(e){
 }
 return true;
 };
-oName=mName+"|click";
+oName=mName+".click";
 if((obj=mb.ui.get(oName))!=null){
 obj.href="javascript:; // Click to open submenu";
 obj.onfocus=function(_a5){
@@ -1148,7 +1148,7 @@ return true;
 }else{
 mb.log.debug("Object $ not found...",oName);
 }
-oName=mName+"|submenu";
+oName=mName+".submenu";
 if((obj=mb.ui.get(oName))!=null){
 var _a9=this.OFFSET_LEFT+mOffsetLeft;
 obj.style.left=""+_a9+"px";
@@ -1202,13 +1202,13 @@ this.h.ml[_af]=url;
 var cn=(_ac==_af?"selected":"");
 cn=(cn!=""?"class=\""+cn+"\"":"");
 s.push("<td nowrap "+cn);
-s.push("id=\""+_af+"|mouseover\" ");
+s.push("id=\""+_af+".mouseover\" ");
 s.push("><a ");
 s.push("title=\""+_b1+"\" ");
 s.push("href=\""+url+"\">"+_b1+"</a>");
 if(this.allowClickTrigger()){
 s.push("<a ");
-s.push("id=\""+_af+"|click\" ");
+s.push("id=\""+_af+".click\" ");
 s.push("><img style=\"padding-left: 3px;\" src=\"/images/dropdown.gif\" alt=\"\" border=\"0\"></a>");
 }
 s.push("</td>");
