@@ -1,86 +1,82 @@
 <%args>
-$ind=>""
-$page=>"/browseartists.html"
-$showspecial=>1
+	$ind => ""
+	$page => "/browseartists.html"
+	$showspecial => 1
 </%args>
+
+<table width="100%" border="0">
+	<tr>
 <%perl>
+	(my $pageq = $page) .= ($page =~ /\?/ ? "&" : "?");
+	my ($i, $p, $t);
 
-(my $pageq = $page) .= ($page =~ /\?/ ? "&" : "?");
+	if (length($ind) > 0)
+	{
+		$t = $ind;
+		$t =~ s/_/?/g;
+		$t =~ s/ /_/g;
+		</%perl>
+		<td align="center">
+			<table cellpadding="0" cellspacing="0" border="0" bgcolor="#000000">
+				<tr>
+					<td bgcolor="#000000">
+						<table width="100%" cellpadding="2" cellspacing="1" border="0">
+							<tr>
+								<td bgcolor="#FFBA58" align="left" valign="middle" width="100%" class="mbtable" NOWRAP>
+									<img src="/images/pixel.gif" width="3" height="1" alt="" border="0">
+									<font size="+2" color="black"><% $t %></font> 
+									<img src="/images/pixel.gif" width="3" height="1" alt="" border="0"></td>
+							</tr>
+						</table>
+					</td>
+				</tr>
+			</table>
+		</td>
+		<%perl>
 
-my ($i, $p, $t);
+		$t = $ind;
+		chop($t);
+	}
 
-$m->out('<table width="100%" border=0><tr>');
-if (length($ind) > 0)
-{
-    $t = $ind;
-    $t =~ s/_/?/g;
-    $t =~ s/ /_/g;
-    </%perl>
-    <td align="center">
-    <table cellpadding="0" cellspacing="0" border="0" bgcolor="#000000">
-     <tr><td bgcolor="#000000">
-      <table width="100%" cellpadding="2" cellspacing="1" border="0">
-      <tr>
-        <td bgcolor="#FFBA58" align="left" valign="middle" 
-            width="100%" class="mbtable" NOWRAP>
-        <img src="/images/pixel.gif" width="3" height="1" alt="" 
-             border="0">
-        <font size="+2" color="black"><% $t %></font> 
-        <img src="/images/pixel.gif" width="3" height="1" alt="" 
-             border="0">
-        </td>
-       </tr>
-       </table>
-       </td></tr>
-    </table>
-    </td>
-    <%perl>
+	if (length($ind) > 0)
+	{
+	</%perl>
 
-    $t = $ind;
-    chop($t);
-}
+	<td align="center" NOWRAP>
+		<a href="<% $pageq %>index=<% $t %>">Back</a><br>
+		<a href="<% $page %>">Start&nbsp;over</a>
+	</td>
+	<td width="3" align="center">
+		<img src="/images/black_pixel.gif" height="20" width="1" border="0" alt="">
+	</td>
+	<%perl>
+	}
+	</%perl>
 
-if (length($ind) > 0)
-{
-    </%perl>
-    <td align="center" NOWRAP>
-      <a href="<% $pageq %>index=<% $t %>">Back</a><br>
-      <a href="<% $page %>">Start&nbsp;over</a>
-    </td>
-    <td width="3" align="center">
-      <img src="/images/black_pixel.gif" height="20" width="1" border="0" alt="">
-    </td>
-    <%perl>
-}
-
-</%perl>
-
-<td width="60%" align="center">
-    <table>
-    <tr>
-%   for($i = 0; $i < 13; $i++) {
-%      if ($i == 0 && $showspecial && $showspecial ne "below") {
-          <td align="center">
-             <a href="<% $pageq %>index=<% $ind %>_">symbol</a>&nbsp;<br>
-             <a href="<% $pageq %>index=<% $ind %>+">space</a>&nbsp;
-          </td>
-%      }
-       <td align="center">
-          <a href="<% $pageq %>index=<% $ind . chr($i + 65) %>"><% chr($i + 65) %></a><br>
-          <a href="<% $pageq %>index=<% $ind . chr($i + 78) %>"><% chr($i + 78) %></a>
-       </td>
-%   }
-    </tr>
-% if (defined $showspecial and $showspecial eq "below") {
-    <tr>
-       <td align="center" colspan="13">
-             <a href="<% $pageq %>index=<% $ind %>_">symbol</a>
-	     <span style="margin: 0 2.5em"></span>
-             <a href="<% $pageq %>index=<% $ind %>+">space</a>
-       </td>
-    </tr>
-% }
-    </table>
-</td>
-</tr>
+		<td width="60%" align="center">
+			<table>
+				<tr>
+%	for($i = 0; $i < 13; $i++) {
+%		if ($i == 0 && $showspecial && $showspecial ne "below") {
+					<td align="center">
+						<a href="<% $pageq %>index=<% $ind %>_">symbol</a>&nbsp;<br />
+						<a href="<% $pageq %>index=<% $ind %>+">space</a>&nbsp;
+					</td>
+%		}
+					<td align="center">
+						<a href="<% $pageq %>index=<% $ind . chr($i + 65) %>"><% chr($i + 65) %></a><br />
+						<a href="<% $pageq %>index=<% $ind . chr($i + 78) %>"><% chr($i + 78) %></a></td>
+%	}
+				</tr>
+%	if (defined $showspecial and $showspecial eq "below") {
+				<tr>
+					<td align="center" colspan="13">
+						<a href="<% $pageq %>index=<% $ind %>_">symbol</a>
+						<span style="margin: 0 2.5em"></span>
+						<a href="<% $pageq %>index=<% $ind %>+">space</a></td>
+				</tr>
+%	}
+			</table>
+		</td>
+	</tr>
 </table>
