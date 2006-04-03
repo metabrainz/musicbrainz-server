@@ -9,7 +9,8 @@ $duration => ''
 
 <form method="post" action="/taglookup.html" id="TagLookupForm"
       enctype="application/x-www-form-urlencoded" class="formstyle">
-     <table>
+     
+     <table style="display: inline; text-align: center">
      <tr>
       <td align="right" NOWRAP>
         Artist:
