@@ -79,7 +79,7 @@
 			{ name => "Search",					url => "/search.html" },
 			{ name => "Browse Artists",			url => "/browseartists.html" },
 			{ name => "Browse Releases",		url => "/browsevarious.html" },
-			{ name => "Search Links",			url => "/engine.html" },
+			{ name => "Search Links",			url => "/search/external.html" },
 			{ name => "Search Plugins",			url => "/search/plugins/firefox/install.html" },
 			{ url => "/newsearch.html" },
 			{ url => "/oldsearch.html" },
