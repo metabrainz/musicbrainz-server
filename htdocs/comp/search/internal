@@ -1,0 +1,150 @@
+%# vi: set ts=4 sw=2 ft=mason :
+
+	<div align="center" style="margin-bottom: 10px">
+		Search MusicBrainz directly from <a href="http://www.mozilla.org/products/firefox/">FireFox</a>
+		with the <a href="/search/plugins/firefox/install.html">Firefox search plugins</a>!
+	</div>
+	
+
+	<table width="100%" cellspacing="0" cellpadding="0">
+		<tr valign="top">
+			<td class="boxeslist" style="width: 50%; padding-right: 20px"> 
+
+				<!-- search options -->
+				<div class="orangeheader">
+					<div class="inner"><b>Search</b></div>
+				</div>
+				<div class="boxcontent">
+					<div class="inner" style="text-align: center">
+						<& /comp/lucenesearch, type=>'artist' &>
+						<hr />
+
+						<& /comp/searchbox, name=>'Disc ID / FreeDB Id Lookup',
+							scripturl=>'/showalbum.html', 
+							searchfield=>'discid', 
+							method=>'get' &>
+						<hr />
+						
+%#						<& /comp/searchbox, name=>'PUID Lookup',
+%#							scripturl=>'/showpuid.html', 
+%#							searchfield=>'puid', 
+%#							method=>'get' &>
+%#						<hr />
+
+						<& /comp/searchbox, name=>'TRM ID Lookup',
+							scripturl=>'/showtrm.html', 
+							searchfield=>'trm', 
+							method=>'get' &>
+						<hr />
+
+						<& /comp/searchbox, name=>'Moderator Lookup',
+							scripturl=>'/user/view.html', 
+							searchfield=>'modname', 
+							method=>'get' &>
+						<hr />
+
+						<div style="text-align: center">
+							<a href="/search/external.html">Search other sites</a>
+						</div>
+					</div>
+				</div>
+
+					
+				<!-- advanced search -->
+				<div class="orangeheader">
+					<div class="inner"><b>Advanced Search</b></div>
+				</div>
+				<div class="boxcontent">
+					<div class="inner" style="text-align: center">
+						<& /comp/lookup &>
+					</div>
+				</div>					
+
+
+				<!-- site search -->
+				<div class="orangeheader">
+					<div class="inner"><b>Site Search</b></div>
+				</div>
+				<div class="boxcontent">
+					<div class="inner" style="text-align: center">
+						<& /comp/google-site-search &>
+					</div>
+				</div>								
+			</td>
+			
+			
+			<td class="boxeslist" style="padding: 0px; margin: 0px">
+
+				<!-- browse artists -->
+				<div class="orangeheader">
+					<div class="inner"><b>Browse Artists</b></div>
+				</div>
+				<div class="boxcontent">
+					<div class="inner" style="text-align: center">		
+						<& /comp/browsebox, 
+							page=>'/browseartists.html', 
+							showspecial=>"below" &>
+					</div>
+				</div>			
+
+				<!-- browse releases -->
+				<div class="orangeheader">
+					<div class="inner"><b>Browse Releases</b></div>
+				</div>
+				<div class="boxcontent">
+					<div class="inner" style="text-align: center">		
+						<& /comp/browsebox, 
+							page=>'/browsevarious.html', 
+							showspecial=>"below"  &>
+					</div>
+				</div>							
+
+%	if (&DBDefs::REPLICATION_TYPE != RT_SLAVE) {
+				<!-- browse releases -->
+				<div class="orangeheader">
+					<div class="inner"><b>Contribute</b></div>
+				</div>
+				<div class="boxcontent">
+					<div class="inner" style="text-align: center">		
+						<a href="/edit/artist/add.html">Add artist</a> | 
+						<a href="/edit/album/add.html?artistid=0">Add  album</a> | 
+						<a href="/edit/album/add.html?artistid=1">Add various artist album</a> | 
+						<a href="/freedb/freedb.html">Freedb Import</a> 
+					</div>
+				</div>							
+
+%		if ($session{user} ne "") {
+				<div class="orangeheader">
+					<div class="inner"><b>Login</b></div>
+				</div>
+				<div class="boxcontent">
+					<div class="inner" style="text-align: center">	
+						You are logged in as <b><% $session{user} %></b>. 
+						<a href="/user/edit.html">View/update your profile</a> or your 
+						<a href="/prefs.html">preferences</a>. <a href="/logout.html">Logout</a> from MusicBrainz.
+					</div>
+				</div>
+
+				<div class="orangeheader">
+					<div class="inner"><b>Moderate</b></div>
+				</div>
+				<div class="boxcontent">
+					<div class="inner" style="text-align: center">	
+						<a href="/mod/search/pre/new.html">Vote/Moderate</a> MusicBrainz.
+					</div>
+				</div>
+%		} else {
+
+				<div class="orangeheader">
+					<div class="inner"><b>Login</b></div>
+				</div>
+				<div class="boxcontent">
+					<div class="inner" style="text-align: center">	
+						<& /comp/loginbox &>
+					</div>
+				</div>
+%		}
+%	}
+			</td>
+		</tr>
+	</table>
