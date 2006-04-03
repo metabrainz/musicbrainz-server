@@ -46,7 +46,7 @@
 
 	if (UserPreference::get("sidebar_panel_search")) 
 	{
-		$m->comp("/comp/layout/sidebar-section", title => " Search", link => "search.html");
+		$m->comp("/comp/layout/sidebar-section", title => " Search", link => "/search.html");
 		$m->comp("/comp/layout/sidemenu-panel-search");
 	}
 
