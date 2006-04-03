@@ -340,7 +340,7 @@ td.header_mainmenu {
 	padding-top: 0px; 
 }
 .newslist {
-	float: right; width: 250px;
+	width: 250px;
 	padding: 0px; padding-right: 5px; padding-left: 30px; 
 }
 .boxeslist h1,
@@ -407,6 +407,12 @@ td.header_mainmenu {
 }
 .boxcontent .inner li {
 	margin: 0px; padding: 0px;
+}
+
+.boxcontent .inner hr {
+	width: 275px; height: 1px;
+	color: #000; background-color: #000;
+	border: none; 
 }
 
 .newsarticle {
