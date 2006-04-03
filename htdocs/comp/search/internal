@@ -19,25 +19,25 @@
 						<& /comp/lucenesearch, type=>'artist' &>
 						<hr />
 
-						<& /comp/searchbox, name=>'Disc ID / FreeDB Id Lookup',
+						<& /comp/search/form, name=>'Disc ID / FreeDB Id Lookup',
 							scripturl=>'/showalbum.html', 
 							searchfield=>'discid', 
 							method=>'get' &>
 						<hr />
 						
-%#						<& /comp/searchbox, name=>'PUID Lookup',
+%#						<& /comp/search/form, name=>'PUID Lookup',
 %#							scripturl=>'/showpuid.html', 
 %#							searchfield=>'puid', 
 %#							method=>'get' &>
 %#						<hr />
 
-						<& /comp/searchbox, name=>'TRM ID Lookup',
+						<& /comp/search/form, name=>'TRM ID Lookup',
 							scripturl=>'/showtrm.html', 
 							searchfield=>'trm', 
 							method=>'get' &>
 						<hr />
 
-						<& /comp/searchbox, name=>'Moderator Lookup',
+						<& /comp/search/form, name=>'Moderator Lookup',
 							scripturl=>'/user/view.html', 
 							searchfield=>'modname', 
 							method=>'get' &>

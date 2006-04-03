@@ -1,0 +1,39 @@
+<%args>
+	$name
+	$nameurl => ""
+	$scripturl
+	$searchfield
+	$method => "post"
+	@hidden => ""
+	$formname => undef
+</%args>
+<%perl>
+	
+	# formname is deprecated in xhtml 1.1
+	my $formid = $formname ? ' id="searchbox_'.$formname.'" ' : ""; 
+	
+	# parameter must be lowercase
+	$method = lc($method); 
+
+	# wrap nameurl into <a> tags, else plain name.
+	$nameurl = $nameurl ne "" ? qq!<img src="/images/icon/extlink.gif" alt="" /> <a href="$nameurl" title="$name">$name</a>! : $name;
+
+
+	$m->out(qq!<form method="$method" action="$scripturl" $formid>!);
+	$m->out(qq!	 <div style="margin-bottom: 10px">!);			
+	$m->out(qq!<b>$nameurl</b><br/>!);
+</%perl>			
+		<input type="text" name="<% $searchfield %>" size="20" />
+		<input type="submit" value="Search" />
+<%perl>
+	my $hide;
+	while ($hide = shift(@hidden)) 
+	{
+		my $value = shift(@hidden); ;
+		$m->out(qq!<input type="hidden" name="$hide" !);
+		$m->out(qq! value="$value" !) if ($value ne "");
+        $m->out(" />");
+	}
+</%perl>
+		</div>
+	</form>

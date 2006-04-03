@@ -47,7 +47,7 @@
 				<div class="boxcontent">
 					<div class="inner" style="text-align: center">			
 					
-						<& /comp/searchbox, name => 'www.amazon.com',
+						<& /comp/search/form, name => 'www.amazon.com',
 							nameurl => 'http://www.amazon.com',
 							scripturl => 'http://www.amazon.com/exec/obidos/external-search',
 							method => 'get',
@@ -55,27 +55,27 @@
 							searchfield => 'keyword',
 							formname => 'AmazonForm',
 						&>
-						<& /comp/searchbox, name => 'www.barnesandnoble.com',
+						<& /comp/search/form, name => 'www.barnesandnoble.com',
 							nameurl => 'http://www.barnesandnoble.com',
 							scripturl => 'http://music.barnesandnoble.com/search/results.asp',
 							method => 'get',
 							hidden => ['qsrch','A'],
 							searchfield => 'WRD' &>
 
-						<& /comp/searchbox, name => 'www.sonymusicstore.com',
+						<& /comp/search/form, name => 'www.sonymusicstore.com',
 							nameurl => 'http://www.sonymusicstore.com',
 							scripturl => 'http://www.sonymusicstore.com/store/catalog/SearchAction.do',
 							hidden => ['searchBy', 'Quick'],
 							method => 'get',
 							searchfield => 'keyword' &>
 
-						<& /comp/searchbox, name => 'www.letitbe.com',
+						<& /comp/search/form, name => 'www.letitbe.com',
 							nameurl => 'http://www.letitbe.com',
 							scripturl => 'http://www.letitbe.com/search/',
 							searchfield => 'search_string' &>
 
 %#	domain registration expired.
-%#						<& /comp/searchbox, name => 'www.combomedia.com',
+%#						<& /comp/search/form, name => 'www.combomedia.com',
 %#							nameurl => 'http://www.combomedia.com',
 %#							scripturl => 'http://www.affiliatebots.com/cgi-bin/search_music.cgi',
 %#							method => 'get',
@@ -90,20 +90,20 @@
 				<div class="boxcontent">
 					<div class="inner" style="text-align: center">		
 					
-						<& /comp/searchbox, name => 'allmusic.com',
+						<& /comp/search/form, name => 'allmusic.com',
 							nameurl => 'http://www.allmusic.com',
 							scripturl => 'http://www.allmusic.com/cg/amg.dll',
 							hidden => ['P', 'amg', 'OPT1','55', 'Submit', 'Go'],
 							searchfield => 'SQL' &>
 
-						<& /comp/searchbox, name => 'www.aria-database.com',
+						<& /comp/search/form, name => 'www.aria-database.com',
 							nameurl => 'http://www.aria-database.com',
 							scripturl => 'http://www.aria-database.com/cgi-bin/aria-search.pl',
 							hidden => \@site_aria,
 							searchfield => 'keyword' &>
 							
 %#	site needs registration.						
-%#	<& /comp/searchbox, name => 'www.musicnet.org',
+%#	<& /comp/search/form, name => 'www.musicnet.org',
 %#		method => 'get',
 %#		nameurl => 'http://www.musicnet.org',
 %#		scripturl => 'http://www.musicanet.org/cgi-musica/musica.cgi',
@@ -111,7 +111,7 @@
 %#		searchfield => 'v0_0' &>
 
 %#	site needs registration.						
-%#	<& /comp/searchbox, name => 'www.gramophone.co.uk',
+%#	<& /comp/search/form, name => 'www.gramophone.co.uk',
 %#						nameurl => 'http://www.gramophone.co.uk',
 %#						scripturl => 'http://www.gramofile.co.uk/folio/om_isapi.dll?&infobase=Gramofile.nfo&softpage=All_Frame_Pg42&record=dochitfirst',
 %#						hidden => ['querytemplate', 'Test'],
@@ -127,7 +127,7 @@
 				<div class="boxcontent">
 					<div class="inner" style="text-align: center">			
 					
-						<& /comp/searchbox, name => 'www.lyricfind.com',
+						<& /comp/search/form, name => 'www.lyricfind.com',
 							nameurl => 'http://www.lyricfind.com',
 							scripturl => 'http://www.lyricfind.com/search.php3',
 							method => 'get',
@@ -135,26 +135,26 @@
 							searchfield => 'search' &>
 							
 %# crappy advertisement page							
-%#						<& /comp/searchbox, name => 'www.lyrichound.com',
+%#						<& /comp/search/form, name => 'www.lyrichound.com',
 %#							nameurl => 'http://www.lyrichound.com',
 %#							scripturl => 'http://www.lyrichound.com/cgiwrap/search.cgi',
 %#							hidden => ['boolean','AND'],
 %#							searchfield => 'terms' &>
 
-						<& /comp/searchbox, name => 'www.lyricspost.com',
+						<& /comp/search/form, name => 'www.lyricspost.com',
 							nameurl => 'http://www.lyricspost.com',
 							scripturl => 'http://www.lyricspost.com/index.php',
 							hidden => ['searchbutton', 'Search'],
 							searchfield => 'search' &>
 							
-						<& /comp/searchbox, name => 'www.lyricsworld.com',
+						<& /comp/search/form, name => 'www.lyricsworld.com',
 							nameurl => 'http://www.lyricsworld.com',
 							scripturl => 'http://www.lyricsworld.com/cgi-bin/search',
 							method => 'get',
 							hidden => ['m', 'bool'],
 							searchfield => 'q' &>
 							
-						<& /comp/searchbox, name => 'lyrics.astraweb.com',
+						<& /comp/search/form, name => 'lyrics.astraweb.com',
 							nameurl => 'http://lyrics.astraweb.com',
 							scripturl => 'http://search.lyrics.astraweb.com/',
 							method => 'get',
@@ -168,27 +168,27 @@
 				<div class="boxcontent">
 					<div class="inner" style="text-align: center">			
 					
-						<& /comp/searchbox, name => 'www.rollingstone.com',
+						<& /comp/search/form, name => 'www.rollingstone.com',
 							nameurl => 'http://www.rollingstone.com',
 							scripturl => 'http://www.rollingstone.com/search',
 							method => 'get',
 							hidden => ['type','artist','search','Search'],
 							searchfield => 'query' &>
 							
-						<& /comp/searchbox, name => 'allmusic.com',
+						<& /comp/search/form, name => 'allmusic.com',
 							nameurl => 'http://www.allmusic.com',
 							scripturl => 'http://www.allmusic.com/cg/amg.dll',
 							hidden => ['P', 'amg', 'OPT1','1', 'Submit', 'Go'],
 							searchfield => 'SQL' &>
 
 %# redirects to real rhapsody
-%#						<& /comp/searchbox, name => 'www.listen.com',
+%#						<& /comp/search/form, name => 'www.listen.com',
 %#							nameurl => 'http://www.listen.com',
 %#							scripturl => 'http://www.listen.com/results.jsp',
 %#							method => 'get',
 %#							searchfield => 'artist' &>
 							
-						<& /comp/searchbox, name => 'www.juno.co.uk',
+						<& /comp/search/form, name => 'www.juno.co.uk',
 							nameurl => 'http://www.juno.co.uk',
 							method => 'get',
 							scripturl => 'http://www.juno.co.uk/search.php',
