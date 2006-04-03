@@ -1,47 +1,44 @@
 %# vi: set ts=8 sw=2 ft=mason :
 <%args>
-$text => ""
-$site => "musicbrainz.org"
+	$text => ""
+	$site => "musicbrainz.org"
 </%args>
 % my $google = UserPreference::get("google_domain");
-    <center id="google-site-search">
+
     <form id="GoogleSearchForm" method="get" action="http://<% $google %>/custom">
+		<div>
+			<a href="http://<% $google %>/search"><img 
+				src="http://<% $google %>/logos/Logo_40wht.gif" 
+				alt="Google" /></a>
+		</div>
 
-    <div>
-    <a href="http://<% $google %>/search"
-	><img src="http://<% $google %>/logos/Logo_40wht.gif" border="0" alt="Google" align="middle"></a>
-    </div>
+		<div style="margin-top: 0.5em; text-align: center">
+			<input type="text" name="q" size="31" maxlength="255" value="<% $text %>" />
+		</div>
 
-    <div style="margin-top: 0.5em; text-align: center">
-	<input type="text" name="q" size="31" maxlength="255" value="<% $text %>">
-    </div>
+		<div style="margin-top: 0.5em; text-align: center">
+			<select name="sitesearch">
+			<& /comp/options,
+				[
+					[ "", "Search the Internet" ],
+					[ "musicbrainz.org", "Search all MusicBrainz web sites" ],
+					[ "wiki.musicbrainz.org", "Search the MusicBrainz Wiki" ],
+					[ "lists.musicbrainz.org", "Search the MusicBrainz mailing lists" ],
+					[ "chatlogs.musicbrainz.org", "Search the MusicBrainz chat logs" ],
+					[ "blog.musicbrainz.org", "Search the MusicBrainz blog" ],
+				],
+				$site,
+			&>
+			</select>
+		</div>
 
-    <div style="margin-top: 0.5em; text-align: center">
-	<select name="sitesearch">
-	<& /comp/options,
-		[
-			[ "", "Search the Internet" ],
-			[ "musicbrainz.org", "Search all MusicBrainz web sites" ],
-			[ "www.musicbrainz.org", "Search just this web site" ],
-			[ "wiki.musicbrainz.org", "Search the MusicBrainz Wiki" ],
-			[ "lists.musicbrainz.org", "Search the MusicBrainz mailing lists" ],
-			[ "chatlogs.musicbrainz.org", "Search the MusicBrainz chat logs" ],
-			[ "blog.musicbrainz.org", "Search the MusicBrainz blog" ],
-		],
-		$site,
-	&>
-	</select>
-    </div>
+		<div style="margin-top: 0.5em; margin-bottom: 0.75em; text-align: center">
+			<input type="submit" name="sa" value="Google Search" />
 
-    <div style="margin-top: 0.5em; margin-bottom: 0.75em; text-align: center">
-	<input type="submit" name="sa" value="Google Search">
-    </div>
-
-%   # See http://www.google.com/services/free.html
-    <input type="hidden" name="cof" value="GIMP:#b78242;T:#000000;LW:604;ALC:#00FFFF;L:http://www.musicbrainz.org/images/google.png;GFNT:#CCCCC;LC:#736DAB;LH:89;BGC:#FFFFFF;AH:center;VLC:#734D8B;GALT:#b78242;AWFID:f7ac0473f1a88aef;">
-    <input type="hidden" name="domains" value="musicbrainz.org;www.musicbrainz.org;wiki.musicbrainz.org;lists.musicbrainz.org;chatlogs.musicbrainz.org;blog.musicbrainz.org">
-    <input type="hidden" name="ie" value="utf-8">
-    <input type="hidden" name="oe" value="utf-8">
-
+%   		# See http://www.google.com/services/free.html
+			<input type="hidden" name="cof" value="GIMP:#b78242;T:#000000;LW:604;ALC:#00FFFF;L:http://www.musicbrainz.org/images/google.png;GFNT:#CCCCC;LC:#736DAB;LH:89;BGC:#FFFFFF;AH:center;VLC:#734D8B;GALT:#b78242;AWFID:f7ac0473f1a88aef;" />
+			<input type="hidden" name="domains" value="musicbrainz.org;www.musicbrainz.org;wiki.musicbrainz.org;lists.musicbrainz.org;chatlogs.musicbrainz.org;blog.musicbrainz.org" />
+			<input type="hidden" name="ie" value="utf-8" />
+			<input type="hidden" name="oe" value="utf-8" />
+		</div>
     </form>
-    </center>
