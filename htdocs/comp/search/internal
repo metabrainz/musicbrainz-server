@@ -81,9 +81,8 @@
 				</div>
 				<div class="boxcontent">
 					<div class="inner" style="text-align: center">		
-						<& /comp/browsebox, 
-							page=>'/browseartists.html', 
-							showspecial=>"below" &>
+						<& /comp/search/browsesimple, 
+							page => "/browseartists.html" &>
 					</div>
 				</div>			
 
@@ -93,9 +92,8 @@
 				</div>
 				<div class="boxcontent">
 					<div class="inner" style="text-align: center">		
-						<& /comp/browsebox, 
-							page=>'/browsevarious.html', 
-							showspecial=>"below"  &>
+						<& /comp/search/browsesimple, 
+							page => "/browsevarious.html" &>
 					</div>
 				</div>							
 

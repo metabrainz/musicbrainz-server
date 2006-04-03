@@ -1,0 +1,22 @@
+<%args>
+	$page 
+</%args>
+%	(my $pageq = $page) .= ($page =~ /\?/ ? "&" : "?");
+
+	<table style="display: inline; text-align: center; margin: 0px; border-collapse: collapse;">
+		<tr>
+%	for(my $i = 0; $i < 13; $i++) {
+			<td style="text-align:center">
+				<a href="<% $pageq %>index=<% chr($i + 65) %>"><% chr($i + 65) %></a><br />
+				<a href="<% $pageq %>index=<% chr($i + 78) %>"><% chr($i + 78) %></a>
+			</td>
+%	}
+		</tr>
+		<tr>
+			<td colspan="13" style="text-align:center">
+				<a href="<% $pageq %>index=_">symbol</a>
+				<span style="margin: 0 2.5em"></span>
+				<a href="<% $pageq %>index=+">space</a>
+			</td>
+		</tr>
+	</table>
