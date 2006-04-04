@@ -1,111 +1,142 @@
 %# vi: set ts=4 sw=4 ft=mason :
 <%args>
-$albumid => ""
-$mbid => ""
-$disciddetail => ""
+	$albumid => ""
+	$mbid => ""
+	$show => ""
 </%args>
 <%perl>
 
-if ($mbid ne "")
-{
-	MusicBrainz::IsGUID($mbid)
-		or return $m->comp("/comp/badargs", 1, 1);
-} else {
-	MusicBrainz::IsNonNegInteger($albumid) && $albumid
-		or return $m->comp("/comp/badargs", 1, 1);
-}
+	if ($mbid ne "")
+	{
+		MusicBrainz::IsGUID($mbid)
+			or return $m->comp("/comp/badargs", 1, 1);
+	}
+	else
+	{
+		MusicBrainz::IsNonNegInteger($albumid) && $albumid
+			or return $m->comp("/comp/badargs", 1, 1);
+	}
 
-my $mb = $m->comp("/comp/dblogin");
+	my $mb = $m->comp("/comp/dblogin");
+	my $al = Album->new($mb->{DBH});
+	if ($mbid ne "")
+	{
+		$al->SetMBId($mbid);
+	}
+	else {
+		$al->SetId($albumid);
+	}
+	$al->LoadFromId
+		or return $m->comp(
+			"/comp/error",
+			"Album #$albumid not found",
+			1, 1,
+		);
 
-my $al = Album->new($mb->{DBH});
-if ($mbid ne "")
-{
-	$al->SetMBId($mbid);
-} else {
-	$al->SetId($albumid);
-}
-$al->LoadFromId
-	or return $m->comp(
-		"/comp/error",
-		"Album #$albumid not found",
-		1, 1,
-	);
-
-my $ar = Artist->new($mb->{DBH});
-$ar->SetId($al->GetArtist);
-$ar->LoadFromId
-	or return $m->comp(
-		"/comp/error",
-		"Artist not found",
-		1, 1,
-	);
-
+	my $ar = Artist->new($mb->{DBH});
+	$ar->SetId($al->GetArtist);
+	$ar->LoadFromId
+		or return $m->comp(
+			"/comp/error",
+			"Artist not found",
+			1, 1,
+		);
 </%perl>
 
 <& /comp/sidebar, title => "Album Details: " . $al->GetName &>
-
-<& /comp/albuminfo, album => $al &>
 <& /comp/artistinfo, artist => $ar &>
+<& /comp/albuminfo, album => $al &>
 
 <%perl>
-$al->GetDiscidCount;
-my @ids = @{ $al->GetDiscIDs };
+	# check if we have any Disc IDs to display.
+	$al->GetDiscidCount;
+	my @ids = @{ $al->GetDiscIDs };
 
-use List::Util qw( max );
-my $maxtracks = max(map { $_->GetCDTOC->GetTrackCount } @ids);
+	if (@ids)
+	{
+		# find out which discid has the most tracks
+		use List::Util qw( max );
+		my $maxtracks = max(map { $_->GetCDTOC->GetTrackCount } @ids);
 
+		my $id = $al->GetId;
+
+		$m->out(qq!<a name="discid"></a>!);
+		$m->comp("/comp/tablebegin", title => "Disc IDs");
+
+		# discid detail selector area
+		$m->out(qq!Show Disc ID detail: [ !);
+		$m->out(qq!<a href="?albumid=$id&amp;show=times#discid" title="Show track times">times</a> | !);
+		$m->out(qq!<a href="?albumid=$id&amp;show=sectors#discid" title="Show sector offsets">sectors</a> | !);
+		$m->out(qq!<a href="?albumid=$id&amp;show=both#discid" title="Show track times and sector offsets">both</a> | !);
+		$m->out(qq!<a href="?albumid=$id" title="Hide Disc ID details">none</a> ]!);
+
+
+		$m->out(qq!<table border="0" style="margin: 8px 0px"><tr>!);
+		$m->out(qq!<td><b>Disc ID</b></td>!);
+		$m->out(qq!<td><b>Tracks</b></td>!);
+
+		# if we are showing the details,
+		# add additional header columns (total length/sectors, and columns for each track)
+		if ($show)
+		{
+			$m->out(qq!<td><b>Total Length</b></td>!);
+			for (1..$maxtracks)
+			{
+				$m->out(qq!<td style="text-align: center; padding: 0px 2px"><b> $_ </b></td>!);
+			}
+		}
+		$m->out(qq!</tr>!);
+
+		my $row = 0;
+		for my $cdtoc (map { $_->GetCDTOC } @ids)
+		{
+			# alternate row background color,
+			# and show discid (and freedb id as a title attribute on the link)
+
+			my $style = (++$row % 2 ? "background-color: #eee" : "");
+			$m->out(qq!<tr style="$style">!);
+			$m->out(qq!<td style="padding: 0px 4px"><a href="/showcdtoc.html?id=!.$cdtoc->GetId);
+			$m->out(qq!" title="FreeDB Id: ! . $cdtoc->GetFreeDBID);
+			$m->out(qq!">! . $cdtoc->GetDiscID . qq!</a></td>!);
+			$m->out(qq!<td style="text-align: center; padding: 0px 4px">! .$cdtoc->GetTrackCount . qq!</td>!);
+
+
+			# if show times, or both is choosen, list
+			# the track length of each track.
+			if ($show =~ /(times|both)/)
+			{
+				my $len = Track::FormatTrackLength($cdtoc->GetLeadoutOffset/75*1000);
+				$m->out(qq!<td style="text-align: center; padding: 0px 4px">$len</td>!);
+				for (@{ $cdtoc->GetTrackLengths })
+				{
+					$len = Track::FormatTrackLength($_/75*1000);
+					$m->out(qq!<td style="text-align: center; padding: 0px 4px">$len</td>!);
+				}
+			}
+
+			if ($show =~ /(both)/)
+			{
+				$m->out("</tr>");
+				$m->out(qq!<tr style="$style">!);
+				$m->out(qq!<td align="right" colspan="2">&nbsp;</td>!);
+			}
+
+			# if show sectors, or both is choosen, list
+			# the sector length of each track.
+			if ($show =~ /(sectors|both)/)
+			{
+				my $offset = $cdtoc->GetLeadoutOffset;
+				$m->out(qq!<td style="text-align: center; padding: 0px 4px">$offset</td>!);
+				for (@{ $cdtoc->GetTrackOffsets })
+				{
+					$m->out(qq!<td style="text-align: center; padding: 0px 4px">$offset</td>!);
+				}
+			}
+			$m->out("</tr>");
+		}
+		$m->out("</table>");
+		$m->comp("/comp/tableend");
+	}
 </%perl>
-
-% if (@ids) {
-<p>
-	Show Disc ID detail:
-	<a href="?albumid=<% $al->GetId %>&amp;disciddetail=times">times</a>
-	| <a href="?albumid=<% $al->GetId %>&amp;disciddetail=sectors">sectors</a>
-	| <a href="?albumid=<% $al->GetId %>&amp;disciddetail=both">both</a>
-</p>
-
-% if ($disciddetail) {
-<table>
-	<tr>
-		<td>DiscID</td>
-		<td>Tracks</td>
-		<td>Total Length</td>
-% for (1..$maxtracks) {
-		<td align="center"><% $_ %></td>
-% }
-	</tr>
-% my $row = 0;
-% for my $cdtoc (map { $_->GetCDTOC } @ids) {
-% my $style = (++$row % 2 ? "background-color: #eee" : "");
-	<tr style="<% $style |n %>">
-		<td><a href="/showcdtoc.html?id=<% $cdtoc->GetId %>" title="FreeDB Id: <% $cdtoc->GetFreeDBID %>"><% $cdtoc->GetDiscID %></a></td>
-		<td><% $cdtoc->GetTrackCount %></td>
-% if ($disciddetail =~ /(times|both)/) {
-		<td><% Track::FormatTrackLength($cdtoc->GetLeadoutOffset/75*1000) %></td>
-% for (@{ $cdtoc->GetTrackLengths }) {
-		<td><% Track::FormatTrackLength($_/75*1000) %></td>
-% }
-% }
-% if ($disciddetail =~ /(both)/) {
-	</tr>
-	<tr style="<% $style |n %>">
-		<td align="right" colspan="2">Sector offsets: &nbsp; </td>
-% }
-% if ($disciddetail =~ /(sectors|both)/) {
-		<td><% $cdtoc->GetLeadoutOffset %></td>
-% for (@{ $cdtoc->GetTrackOffsets }) {
-		<td><% $_ %></td>
-% }
-% }
-	</tr>
-% }
-</table>
-
-<p>
-	(<a href="?albumid=<% $al->GetId %>">Hide Disc ID detail</a>)
-</p>
-% }
-
-% }
 
 <& /comp/footer &>
