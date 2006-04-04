@@ -1,26 +1,15 @@
 <%args>
-$title
-$attrs=>""
-$gattrs=>undef
-$bgcolor=>"#FFFFFF"
+	$title
+	$attrs => ""
+	$gattrs => undef
+	$bgcolor => "#FFFFFF"
 </%args>
 
-<table cellpadding="0" cellspacing="0" border="0" bgcolor="#000000"
-% if (ref($gattrs) eq "HASH") {
-% while (my ($k, $v) = each %$gattrs) {
- <% $k %>="<% $v %>"
-% }
-% } elsif (defined $gattrs) {
- <% $gattrs |n %>
-% }
-  ><tr><td bgcolor="#000000">
-  <table width="100%" cellpadding="2" cellspacing="1" border="0">
-  <tr>
-    <td bgcolor="#FFBA58" align="left" valign="middle" width="100%" class="mbtable" NOWRAP>
-    <img src="/images/pixel.gif" width="3" height="1" alt="" border="0">
-    <% $title %> 
-    <img src="/images/pixel.gif" width="3" height="1" alt="" border="0">
-    </td>
-    </tr>
-    <tr>
-    <td bgcolor="<% $bgcolor %>" <% $attrs |n %> class="body">
+	<!-- /comp/tablebegin -->
+	<div class="orangeheader">
+		<div class="inner"><b><% $title %></b></div>
+	</div>
+	<div class="boxcontent">
+		<div class="inner">
+
+%# style="text-align: center"
