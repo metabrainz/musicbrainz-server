@@ -3,7 +3,7 @@
 $artist
 </%args>
 
-<& /comp/tablebegin, title=>'Artist Information', gattrs => "width='100%'" &> 
+<& /comp/tablebegin, title=>'Artist Information', gattrs => "width='100%'" &>
 	<table>
     <tr>
 			<td valign="top" align="right">Artist:</td>
@@ -29,29 +29,28 @@ $artist
 		<tr>
 			<td valign="top" align="right"><a href="/MM/index.html">MM/RDF</a>:</td>
 			<td valign="top"><a href="<% $artist->RDF_URL %>"><% $artist->RDF_URL %></a></td>
-    </tr>
+	    </tr>
 % if ($session{uid}) {
-    <tr>
+	    <tr>
 			<td valign="top" align="right">Artist RowId:</td>
 			<td valign="top"><% $artist->GetId %></td>
-    </tr>
+	    </tr>
 % }
-    <tr>
+	    <tr>
 			<td valign="top" align="right">Subscribers:</td>
 			<td valign="top">
 				<% scalar $artist->GetSubscribers %>
-				[ <a href="/view/artist/subscriptions.html?artist=<% $artist->GetId %>">List</a> ]
+				&nbsp;
+				[ <a href="/view/artist/subscriptions.html?artist=<% $artist->GetId %>">List</a>
+%	if (exists $session{user}
+%		and $artist->GetId != &ModDefs::VARTIST_ID
+%		and $artist->GetId != &ModDefs::DARTIST_ID)
+%	{
+					| <a href="/user/subscribe.html?artistid=<% $artist->GetId %>">Subscribe to this artist</a>
+					| <a href="/user/subscribe.html?artistid=<% $artist->GetId %>&amp;unsubscribe=1">Unsubscribe from this artist</a>
+% 	}
+				]
 			</td>
-    </tr>
+    	</tr>
 	</table>
-
-% if (exists $session{user} and $artist->GetId != &ModDefs::VARTIST_ID and $artist->GetId != &ModDefs::DARTIST_ID) {
-    <center>
-			<a href="/user/subscribe.html?artistid=<% $artist->GetId %>"
-				>Subscribe to this artist</a> | 
-			<a href="/user/subscribe.html?artistid=<% $artist->GetId %>&unsubscribe=1"
-				>Unsubscribe from this artist</a>
-    </center>
-% }
-
-<& /comp/tableend &> 
+<& /comp/tableend &>
