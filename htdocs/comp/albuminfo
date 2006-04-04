@@ -1,8 +1,9 @@
 %# vi: set ts=2 sw=2 ft=mason :
 <%args>
-$album
-$track => undef
+	$album
+	$track => undef
 </%args>
+
 <& /comp/tablebegin, title => "Album Information",
 	gattrs=>'width="100%"' &>
 
