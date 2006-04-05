@@ -78,13 +78,21 @@
 		[
 			{ name => "Search",					url => "/search.html" },
 			{ name => "Browse Artists",			url => "/browseartists.html" },
-			{ name => "Browse Releases",		url => "/browsevarious.html" },
+			{ name => "Browse Releases",			url => "/browsevarious.html" },
 			{ name => "Search Links",			url => "/search/external.html" },
 			{ name => "Search Plugins",			url => "/search/plugins/firefox/install.html" },
 			{ url => "/newsearch.html" },
 			{ url => "/oldsearch.html" },
 			{ url => "/search/textsearch.html" },
 			{ url => "/search/oldsearch.html" },
+
+			{ url => "/albumdetail.html" },
+			{ url => "/showalbum.html" },
+			{ url => "/showartist.html" },
+			{ url => "/showtrack.html" },
+			{ url => "/showtrm.html" },
+			{ url => "/showpuid.html" },
+
 		],
 		{ name => "Edit",					url => "/mod_intro.html" },
 		[
@@ -194,13 +202,6 @@
 			{ url => "/edit/trm/remove.html" },
 			{ url => "/edit/puid/remove.html" },
 
-			{ url => "/albumdetail.html" },
-			{ url => "/showalbum.html" },
-			{ url => "/showartist.html" },
-			{ url => "/showtrack.html" },
-			{ url => "/showtrm.html" },
-			{ url => "/showpuid.html" },
-
 			{ url => "/edit/album/mac.html" },
 			{ url => "/edit/album/sac.html" },
 
@@ -238,7 +239,7 @@
 		[
 			{ name => "Contact Us",				url => "/wd/ContactUs" },
 			{ name => "FAQ Index",				url => "/wd/FAQIndex" },
-			[    
+			[
 				{ url => "/wd/GeneralFAQ" },
 				{ url => "/wd/AccountFAQ" },
 				{ url => "/wd/WindowsTaggerFAQ" },
@@ -271,7 +272,7 @@
 			weaken($rhItem->{parent} = $rhParentItem);
 
 			my $u = $rhItem->{url};
-			$urlmap{$u} = $rhItem 
+			$urlmap{$u} = $rhItem
 				unless $urlmap{$u} and $urlmap{$u}{preferred};
 			push @{ $urlmap2{$u} }, $rhItem;
 
@@ -323,7 +324,7 @@
 
 		$noscriptmenu .=
 			'<td'
-			. ($cssClass ? ' class="' . encode_entities($cssClass) . '"' : "") 
+			. ($cssClass ? ' class="' . encode_entities($cssClass) . '"' : "")
 			. '>'
 			. '<a href="' . encode_entities($rhItem->{url}) . '"'
 			. '>'
@@ -378,7 +379,7 @@
 			and not grep { defined $_->{name} } @$rarhChildren;
 
 		if ($rarhChildren)
-		{  
+		{
 			$m->out('<div id="'.$rhItem->{id}.'.submenu" style="display: none" class="submenu">');
 			$m->out('<table border="0" cellspacing="0" cellpadding="0">');
 
@@ -475,12 +476,12 @@
 	$mainmenuHTML = $m->scomp(".drawmainmenu", \@main);
 	$staticmenuHTML = $m->scomp(".drawstatic");
 	$popupmenuHTML = $m->scomp(".drawsubmenus", \@main);
-	
+
 	# trim newlines from the end of the string (appended by the scomp routine)
 	$mainmenuHTML =~ s/\n$//;
 	$staticmenuHTML =~ s/\n$//;
 	$staticmenuHTML =~ s/\n$//;
-	
+
 	# De-select selected things
 	delete $_->{expand} for @sel;
 </%perl>
