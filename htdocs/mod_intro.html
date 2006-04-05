@@ -11,11 +11,11 @@ The MusicBrainz moderation system is designed to give MusicBrainz users
 the power to update and maintain the database. Maintaining a comprehensive
 database for popular music is a large task, and MusicBrainz will depend
 on its users to spot mistakes in the database and then to take the
-initiative to correct these errors. 
+initiative to correct these errors.
 
 <p>
 The data in MusicBrainz has been collected from a number of places
-including the EMusic collection, metadata submitted via FreeAmp, 
+including the EMusic collection, metadata submitted via FreeAmp,
 the CD Index database, and freedb.org data. While some of these data
 sources are better than others, there will always be mistakes in the
 data in MusicBrainz.
@@ -27,8 +27,8 @@ are no mistakes in their artists metadata. If MusicBrainz can get up to
 10,000 users, each user would only need to check out and update a
 few artists in order to clean up the entire database.
 
-<p> 
-Moderators should familiarize themselves with the 
+<p>
+Moderators should familiarize themselves with the
 <a href="/style.html">Style Guidelines</a> that define how to organize
 and capitalize the data in MusicBrainz. When other Moderators votes on
 your suggested changes, they will judge your changes against these
@@ -41,7 +41,7 @@ guidelines.
 To moderate (change) the database, follow these steps:
 
 <ol class="body">
-<li><a href="newlogin.html">Create</a> a MusicBrainz account and log in. 
+<li><a href="/user/register.html">Create</a> a MusicBrainz account and log in.
 Anyone can create an account. We don't ask for any private information, so
 there is no chance for us to give this information to anyone!
 
@@ -49,39 +49,39 @@ there is no chance for us to give this information to anyone!
 and view the albums by that artist.
 
 <li>If you spot a mistake, a typo, or a mis-classification click on the
-Edit/Move/Add link next to the incorrect/missing data item. If you are not 
+Edit/Move/Add link next to the incorrect/missing data item. If you are not
 logged into MusicBrainz (see step #1) you will not see these edit links.
 
-<li>The moderation links will take you to pages where you can edit/add the 
-information for that artist. On the edit pages you will find further 
+<li>The moderation links will take you to pages where you can edit/add the
+information for that artist. On the edit pages you will find further
 instructions and links for style guideline popups that will provide a
-guidance for your moderation participation. Please read and follow these 
-guides -- they are important in order for the entire database to have a 
-consistent look and feel. If the edit page has more than one field that can 
-be edited, but not all fields need to be changed, just leave the correct 
+guidance for your moderation participation. Please read and follow these
+guides -- they are important in order for the entire database to have a
+consistent look and feel. If the edit page has more than one field that can
+be edited, but not all fields need to be changed, just leave the correct
 fields alone.
 
 <li>Once you click on submit on the edit/add pages, you will be taken back to
-the album/artist page that you just came from. A moderation request will be 
-entered into the database, and if you click on the 
+the album/artist page that you just came from. A moderation request will be
+entered into the database, and if you click on the
 <a href="/mod/search/pre/new.html">Moderate</a> button at the top of the page you
 will be taken to the moderation page, where you can view/vote on moderations.
 
-<li>The default moderation page lists all the moderations that are currently 
+<li>The default moderation page lists all the moderations that are currently
 pending.  Please vote on other people's suggestions to edit the database.
 Each row
 in the moderation table will contain information about the suggested
 change and it will show how many peope have voted yes and no to the suggestion.
-You may only vote once on a change and you may not vote for your own 
+You may only vote once on a change and you may not vote for your own
 modifications.
 
 <li>For all of the modifications that you have not voted on, you may select
-the Yes, No or Abs radiobutton for Yes, No or Abstain (DUH!). You can go down 
+the Yes, No or Abs radiobutton for Yes, No or Abstain (DUH!). You can go down
 the list
 of moderations and vote for each by selecting the appropriate radio button
 and then clicking on submit at the top of the page. If you are not sure
 about a modification or you have no idea if the suggested modification is
-correct, then simply abstain from the vote. 
+correct, then simply abstain from the vote.
 
 <li>If <% &DBDefs::NUM_UNANIMOUS_VOTES %> people unanimously vote for or against a suggested change, the
 change is immmediately accepted or rejected, respectively. If the votes
@@ -111,7 +111,7 @@ my $mod = Moderation->new($mb->{DBH});
 </%perl>
 
 <p>
-Automoderators are moderators who have made a large number of contributions 
+Automoderators are moderators who have made a large number of contributions
 to MusicBrainz, and some basic moderations made by automoderators are not
 required to be voted on by other moderators. The following moderation types
 are automoderations:
@@ -123,7 +123,7 @@ are automoderations:
 
 % if (&DBDefs::REPLICATION_TYPE == RT_SLAVE) {
 
-	The list of automoderators is available on the <a 
+	The list of automoderators is available on the <a
   href="http://musicbrainz.org/mod_intro.html">main server</a>.
 
 % } else {
@@ -149,9 +149,9 @@ The policy for suggesting more automoderators is as follows:
 </ol>
 
 <p>
-Any moderator who suggests or endorses a moderator cannot vote on the new 
-moderator. The suggesting/endorsing/voting will happen in the mb-users 
-mailing list and should be facilitated by the moderator who suggests the 
+Any moderator who suggests or endorses a moderator cannot vote on the new
+moderator. The suggesting/endorsing/voting will happen in the mb-users
+mailing list and should be facilitated by the moderator who suggests the
 new moderator.
 </p>
 
