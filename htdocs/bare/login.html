@@ -1,59 +1,69 @@
 %# vi: set ts=4 sw=4 ft=mason :
+<%args>
+	$user => undef
+	$password => undef
+	$url => undef
+</%args>
 <%perl>
 
-my $ok = 0;
-my $confirm = 0;
-my $email = "";
+	# url fallback.
+	$url = "/search.html"
+		unless defined $url;
 
-if (&DBDefs::DB_READ_ONLY)
-{
-    $ok = 0;
-}
-elsif (defined $ARGS{User} && $ARGS{User} ne '' &&
-       defined $ARGS{Password} && $ARGS{Password} ne '')
-{
-    my $mb = $m->comp("/comp/dblogin");
-    my $ui = UserStuff->new($mb->{DBH});
-    
-	my $userobj = $ui->Login($ARGS{User}, $ARGS{Password});
+	# The MB Tagger still uses its own made-up encoding mechanism...
+	$url =~ s/\@Q\@/?/g;
+	$url =~ s/\@A\@/&/g;
 
-    if ($userobj)
-    {
-		$userobj->SetSession;
-		$session{'ipmask'} = $r->connection->remote_ip
-			if $ARGS{OnlyThisIP};
-		$userobj->SetPermanentCookie(only_this_ip => $ARGS{OnlyThisIP})
-			if $ARGS{PermanentCookie};
-		$ok = 1;
-    }
-}
+	# Prevent confusing redirect loops
+	$url = "/search.html"
+		if $url =~ m[/(login|logout)\.html];
 
-my $url = $ARGS{url};
-$url = "/search.html"
-	unless defined $url;
 
-# The MB Tagger still uses its own made-up encoding mechanism...
-$url =~ s/\@Q\@/?/g;
-$url =~ s/\@A\@/&/g;
+	my $ok = 0;
+	my $confirm = 0;
+	my $email = "";
 
-# Prevent confusing redirect loops
-$url = "/search.html"
-	if $url =~ m[/(login|logout)\.html];
 
-if (!$ok)
-{
-	$url = "/login.html?badlogin=1"
-		. "&url=" . uri_escape($url)
-		;
-}
-else
-{
-	$url = "/login.html?confirm=1"
-		. "&email=" . uri_escape($email)
-		. "&url=" . uri_escape($url)
-		if $confirm;
-}
+	# if db is in READ_ONLY mode, do not attempt to login.
+	# if user, and password are set, and non-empty.
+	if (!&DBDefs::DB_READ_ONLY &&
+		defined $user && $user ne "" &&
+	    defined $password && $password ne "")
+	{
+		my $mb = $m->comp("/comp/dblogin");
+		my $ui = UserStuff->new($mb->{DBH});
 
-return $m->comp("/comp/redirect", $url);
+		my $userobj = $ui->Login($user, $password);
+		if ($userobj)
+		{
+			$userobj->SetSession;
+
+			$session{'ipmask'} = $r->connection->remote_ip
+				if $ARGS{OnlyThisIP};
+
+			$userobj->SetPermanentCookie(only_this_ip => $ARGS{OnlyThisIP})
+				if $ARGS{PermanentCookie};
+
+			$ok = 1;
+		}
+	}
+
+	if (!$ok)
+	{
+		UserStuff::EnsureSessionOpen();
+		$session{login_user} = $user;
+		$url = "/login.html?badlogin=1&url=" . uri_escape($url);
+	}
+	else
+	{
+		# not used currently.
+		#
+		# $url = "/login.html?confirm=1"
+		# 	. "&email=" . uri_escape($email)
+		# 	. "&url=" . uri_escape($url)
+		# 	if $confirm;
+	}
+	return $m->comp("/comp/redirect", $url);
 
 </%perl>
+
