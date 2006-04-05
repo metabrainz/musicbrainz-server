@@ -1,0 +1,64 @@
+%# vi: set ts=4 sw=4 ft=mason :
+<%args>
+	$mbt => $session{'mbt'}
+	$url => $session{'register_url'}
+	$email => $session{'register_email'}
+	$emailstatus => $session{'register_emailstatus'}
+</%args>
+<%perl>
+	$m->comp("/comp/sidebar", noh1 => 1);
+
+	$m->comp("/comp/tablebegin", title => "MusicBrainz Account created");
+	$m->out("A new account has been created and you are now logged into MusicBrainz! ");
+
+	$m->out(qq!<div style="margin-top: 10px"> !);
+	$m->out(qq!  Please <a href="/user/edit.html">update your profile</a> !);
+	$m->out(qq!  to let the other users know a little bit about you. !);
+	$m->out(qq!</div>!);
+
+	# display tagger information
+	if ($session{mbt})
+	{
+		$m->out(qq!<div style="margin-top: 10px"> !);
+		$m->out(qq!  To use the Tagger, you must now: !);
+		$m->out(qq!  <ol> !);
+		$m->out(qq!  	<li>Open the "Options" window</li> !);
+		$m->out(qq!  	<li>Go to the "Login" tab</li> !);
+		$m->out(qq!  </ol> !);
+		$m->out(qq!  The Tagger will not work until you have done this. !);
+		$m->out(qq!</div>!);
+	}
+
+	# verify e-mail adress?
+	if ($email)
+	{
+		$m->out(qq!<div style="margin-top: 20px"> !);
+		if ($emailstatus)
+		{
+			$m->out(qq!The email verification mail could not be sent: <i>$emailstatus</i> !);
+			$m->out(qq!Your email address <b>$email</b> has not been stored.. !);
+		}
+		else
+		{
+			$m->out(qq!Since you have provided an email address, an email verification mail !);
+			$m->out(qq!has been sent to <b>$email</b>. !);
+			$m->out(qq!Please check your mailbox and click on the link in the email to !);
+			$m->out(qq!verify the new email address. !);
+		}
+		$m->out(qq!</div>!);
+	}
+
+
+	$m->out(qq!<div style="margin-top: 20px"> !);
+	$m->out(qq!  <a href="$url">Click here to continue</a>. !);
+	$m->out(qq!</div>!);
+
+	$m->comp("/comp/tableend");
+	$m->comp("/comp/footer");
+
+	# remove the fields from the session.
+	delete $session{register_url};
+	delete $session{register_email};
+	delete $session{register_emailstatus};
+
+</%perl>

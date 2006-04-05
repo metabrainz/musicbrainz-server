@@ -1,0 +1,211 @@
+%# vi: set ts=4 sw=4 ft=mason :
+<%args>
+	$submit => ""
+	$username => ""
+	$password => ""
+	$confirmpassword => ""
+	$email => ""
+	$emailconfirm => ""
+
+	$sidebar => 1
+	$url => ""
+	$mbt => $session{'mbt'}
+</%args>
+<%perl>
+
+	my ($createlogin, $emailstatus, $userobj);
+	@$createlogin = ();
+
+	if ($submit eq "")
+	{
+		# prepare url for the "continue" link.
+		$url = $r->headers_in->{'Referer'} if ($url eq "");
+		$url = "/search.html" if ($url eq "");
+		$session{register_url} = $url;
+	}
+	else
+	{
+		if ($email eq "" && $emailconfirm eq "")
+		{
+			push @$createlogin, "Please enter an e-mail address or activate the 'No e-mail' checkbox ";
+		}
+		else
+		{
+			my $mb = $m->comp("/comp/dblogin");
+			my $ui = UserStuff->new($mb->{DBH});
+
+			($userobj, $createlogin) = $ui->CreateLogin(
+				$username, $password, $confirmpassword,
+			);
+
+			# if createlogin list is empty, the user was created.
+			if (@$createlogin == 0)
+			{
+				$userobj->SetSession;
+				$session{register_email} = $email;
+				$session{register_emailstatus} = $userobj->SendVerificationEmail($email);
+				return $m->comp("/comp/redirect", "/user/register-done.html");
+			}
+		}
+	}
+
+	$m->comp("/comp/sidebar", noh1 => 1);
+	$m->comp("/comp/tablebegin", title => "Create a MusicBrainz Account");
+
+
+	if (&DBDefs::REPLICATION_TYPE == RT_SLAVE)
+	{
+		$m->out(qq!<div style="margin: 1em">!);
+		$m->out(qq!  This is a mirror server -- you cannot create a login on this server. !);
+		$m->out(qq!</div>!);
+		$m->out(qq!<div style="margin: 1em">!);
+		$m->out(qq!  If you would like to create your own login, please go to the!);
+		$m->out(qq!  <img src="/images/icon/extlink.gif" alt="" /> !);
+		$m->out(qq!  <a href="http://musicbrainz.org/user/register.html">main server</a>.!);
+		$m->out(qq!</div>!);
+	}
+	else
+	{
+</%perl>
+	<form method="post" action="/user/register.html" id="registerform">
+
+	<table class="loginform">
+			<tr>
+				<td colspan="2" class="fillfields">
+					<ul>
+						<li>Please fill out the fields below to create a new MusicBrainz account:</li>
+					</ul>
+				</td>
+			</tr>
+
+
+%			if (@$createlogin > 0) {
+			<tr>
+				<td>&nbsp;</td>
+				<td class="err"><ul><li><%perl> $m->out(join("</li><li>", @$createlogin)); </%perl></li></ul></td>
+			</tr>
+%			}
+
+			<tr>
+				<td class="label" width="150">
+					User Name:</td>
+				<td>
+					<input class="textfield" type="text" name="username" size="30" value="<% $username %>" /></td>
+			</tr>
+			<tr>
+				<td class="label">
+					Password:</td>
+				<td>
+					<input class="textfield" type="password" name="password" size="30" value="<% $password %>" /></td>
+			</tr>
+			<tr>
+				<td class="label">
+					Confirm Password:</td>
+				<td>
+					<input class="textfield" type="password" name="confirmpassword" size="30" value="<% $confirmpassword %>" /></td>
+			</tr>
+			<tr>
+				<td>&nbsp;</td>
+				<td class="formsection">
+					Filling in your e-mail address is completely optional.
+					However if you don't fill it in, the editing features [<b><a href="#noemail">1</a></b>]
+					of the MusicBrainz service will not be available to you.
+				</td>
+			</tr>
+			<tr>
+			   <td class="label">
+					E-mail address:</td>
+				<td>
+					<input class="textfield" type="text" name="email" size="30"  value="<% $email %>" />
+
+					<br />
+					<input type="checkbox" name="emailconfirm" value="checked"
+						<%perl>
+							$m->out($emailconfirm ne "" ? qq! checked="checked" ! : "");
+						</%perl> />
+						Yes, I do not want to enter an e-mail address.</td>
+			</tr>
+			<tr>
+			   <td class="label">
+					</td>
+				<td>
+
+			</tr>
+
+			<tr>
+				<td>&nbsp;</td>
+				<td>
+					<input type="submit" name="submit" value="Submit" />
+					<input type="hidden" name="mbt" value="<% $mbt %>" /></td>
+			</tr>
+
+			<tr>
+				<td colspan="2" style="padding-top: 30px">&nbsp;</td>
+			</tr>
+
+			<tr valign="top">
+				<td></td>
+				<td>
+					<b>We respect Your Privacy:</b>
+					Rest assured that we will not pass your e-mail address on to
+					<i>anyone</i>, including other MusicBrainz users, without your
+					most explicit consent. At any time you can fill in your e-mail
+					address if it's currently blank, blank it if it's currently
+					filled in, or change from one address to another.
+					<a href="/privacy"><b>Read on for the full MusicBrainz
+					Privacy Policy</b></a>.</td>
+			</tr>
+			<tr valign="top">
+				<td></td>
+				<td>
+					<b>We will <u>not</u> use your e-mail address for:</b>
+					We won't send you any newsletters, promotional mailings,
+					etc. If you're interested to receive information from the
+					MusicBrainz staff and communicate with other users,
+					please <a href="/list.html">subscribe to our mailing
+					lists</a>.</td>
+			</tr>
+			<tr valign="top">
+				<td></td>
+				<td>
+					<a name="noemail"></a>
+					<b>What your e-mail address <u>will</u> be used for:</b>
+
+					Since some users unfortunately entered lots of wrong moderations
+					into the system, and could not be contacted to fix their
+					mistakes, we now require a confirmed (=working) e-mail address for all
+					moderations into the system.</li>
+
+					<ul>
+						<li>
+							When you enter your e-mail address, other moderators
+							will be able to send messages to you (likewise, you
+							will be able to send messages to them).
+						</li>
+						<li>
+							Any notes attached to your moderations will
+							be e-mailed to you. This enables you to remove,
+							and correct moderations which else will be rejected
+							due to votes.
+						</li>
+						<li>
+							You may choose to "subscribe" (for free) to your
+							favourite artists, in which case MusicBrainz will send you a daily list of
+							moderations made against those.
+						</li>
+						<li>
+							In all cases your e-mail address will not be
+							revealed to other MusicBrainz users - they'll
+							only see your user name.
+						</li>
+					</ul>
+				</td>
+			</tr>
+		</table>
+	</form>
+	<& /comp/movefocus, "registerform", "username" &>
+
+%	}
+
+<& /comp/tableend &>
+<& /comp/footer &>
