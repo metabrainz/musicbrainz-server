@@ -114,5 +114,56 @@ td.header_logo .servertype
 .wikitoolbar a#code { background-position: 0 -64px }
 .wikitoolbar a#hr { background-position: 0 -80px }
 
+
+
+/** 
+ * listing tables, used in: 
+ *  ~ artistrel.html
+ **/   
+table.listing {
+}
+table.listing td {
+	padding: 2px 4px;
+	text-align: center; /* default: centered */
+}
+
+/* header rows are bold, and have some padding at the bottom */
+table.listing tr.header td {
+	font-weight: bold;
+	padding-bottom: 2px;
+}
+
+/* explicit left alignment */
+table.listing tr.header td.left {
+	text-align: left;
+}
+
+/* explicit left alignment */
+table.listing td.left {
+	text-align: left; 
+}
+
+/* spacer row, because table is defined using cellspacing=0, cellpadding=0 */
+table.listing tr.spacer td {
+	height: 1px;
+	padding: 0px;
+}
+
+tr.artistrel0 { background-color: #FFFFFF; }
+tr.artistrel1 { background-color: #FFFdFC; }
+tr.artistrel2 { background-color: #FFFaE4; }
+tr.artistrel3 { background-color: #FFF6DE; }
+tr.artistrel4 { background-color: #FFF2D7; }
+
+tr.artistrel5 { background-color: #FFEfD1; }
+tr.artistrel6 { background-color: #FFEbCa; }
+tr.artistrel7 { background-color: #FFE8C4; }
+tr.artistrel8 { background-color: #FFE4BE; }
+tr.artistrel9 { background-color: #FFE1B7; }
+
+
 /* eof */
+
+
+
 
