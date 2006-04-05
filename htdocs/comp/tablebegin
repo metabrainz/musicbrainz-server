@@ -4,6 +4,7 @@
 	$gattrs => undef
 	$bgcolor => "#FFFFFF"
 
+	$align => "left"
 	$showmodnotice => 0
 </%args>
 
@@ -19,7 +20,7 @@
 	</div>
 %	}
 	<div class="boxcontent">
-		<div class="inner">
+		<div class="inner" style="text-align: <% $align %>">
 
 %# style="text-align: center"
 
