@@ -1,83 +1,84 @@
 %# vi: set ts=4 sw=4 ft=mason :
 <%args>
-$artistid=>0
+	$artistid=>0
 </%args>
 <%perl>
 
-my @colors = ( "#FFFFFF", "#FFFdFC", "#FFFaE4", "#FFF6DE", "#FFF2D7", 
-               "#FFEfD1", "#FFEbCa", "#FFE8C4", "#FFE4BE", "#FFE1B7"); 
 
-if (!exists $ARGS{artistid} || $ARGS{artistid} eq '')
-{
-    $m->comp("/comp/badargs");
-    return undef;
-}
-
-my $mb = $m->comp("/comp/dblogin");
-my $artist = Artist->new($mb->{DBH});
-$artist->SetId($artistid);
-
-if (! $artist->LoadFromId())
-{
-    $m->comp("/comp/sidebar", title=>"Error");
-    $m->out("This artist (id=$artistid) was not found in the database.");
-}
-else
-{
-	$m->comp("/comp/sidebar", title=>("Artists related to " . $artist->GetName));
-
-	$m->comp("/comp/artisttitle", artist=>$artist);
-
-    </%perl>
-    <p>This data has been provided by <a href="http://agentarts.com/">Agent Arts</a>.</p>
-    <%perl>
-
-    my $relations = $artist->GetRelations();
-	if (@$relations)
+	if (!exists $ARGS{artistid} || $ARGS{artistid} eq '')
 	{
-		$m->comp("/comp/tablebegin", title=>"Related Artists");
-		</%perl>
-		
-		<table cellspacing="0">
-			<tr>
-				<td align="center">Artist</td>
-				<td align="center">Strength&nbsp;&nbsp;&nbsp;</td>
-				<td align="center">Albums</td>
-			</tr>
-
-%		for my $rel (@{$relations}) {
-
-			<tr bgcolor="<% $colors[$rel->{weight} - 1] %>">
-				<td><a href="/artistrel.html?artistid=<% $rel->{id} %>"
-					><% $rel->{name} %></a>
-					&nbsp;&nbsp;
-				</td>
-				<td align="center" nowrap><% $rel->{weight} %></td>
-				<td align="center"
-					><a href="/showartist.html?artistid=<% $rel->{id} %>"
-						><img src="/images/cd.png"
-							alt="albums"
-							title="View albums for <% $rel->{name} %>"
-						></a></td>
-			</tr>
-			<tr height="1"><td colspan="3" bgcolor="white"></td></tr>
-%		}
-
-		</table>
-
-		<%perl>
-		$m->comp("/comp/tableend"); 
-
-	} else {
-		</%perl>
-		<p>
-			Sorry, no relationship data available for this artist.
-		</p>
-		<%perl>
+		$m->comp("/comp/badargs");
+		return undef;
 	}
-}
 
-$mb->Logout();
+	my $mb = $m->comp("/comp/dblogin");
+	my $artist = Artist->new($mb->{DBH});
+	$artist->SetId($artistid);
+	if (! $artist->LoadFromId())
+	{
+		$m->comp("/comp/sidebar", title=>"Error");
+		$m->out("This artist (id=$artistid) was not found in the database.");
+	}
+	else
+	{
+		$m->comp("/comp/sidebar", title=>("Related Artists: " . $artist->GetName));
+		$m->comp("/comp/artisttitle", artist=>$artist);
+		$m->comp("/comp/tablebegin", title=>"Related Artists");
+
+		my $relations = $artist->GetRelations();
+		if (@$relations)
+		{
 
 </%perl>
+
+		<table cellspacing="0" cellpadding="0" class="listing">
+			<tr class="header">
+				<td class="left">Artist</td>
+				<td>Strength</td>
+				<td>Albums</td>
+			</tr>
+
+
+<%perl>
+			for my $rel (@{$relations})
+			{
+				my $weight = $rel->{weight};
+				my $id = $rel->{id};
+				my $name = $rel->{name};
+
+				# calculate index in weight bg colors table.
+				my $bgweight = $weight-1;
+				$bgweight = 9 if ($bgweight > 9);
+				$bgweight = 0 if ($bgweight < 0);
+</%perl>
+			<tr class="artistrel<% $bgweight %>">
+				<td class="left">
+					<a href="/artistrel.html?artistid=<% $id %>"><% $name %></a></td>
+				<td>
+					<% $weight %></td>
+				<td>
+					<a href="/showartist.html?artistid=<% $id %>">
+						<img src="/images/cd.png" alt="albums" title="View albums for <% $name %>" />
+					</a></td>
+			</tr>
+			<tr class="spacer">
+				<td colspan="3"><img src="/images/spacer.gif" height="1" alt="" /></td></tr>
+
+%			}
+		</table>
+
+<%perl>
+		}
+		else
+		{
+			$m->out(qq!Sorry, no relationship data available for this artist.!);
+		}
+
+		# data source notice.
+		$m->out(qq!<div style="margin: 0px; margin-top: 10px; font-size: 11px">This data has been provided by <a href="http://agentarts.com/">Agent Arts</a></div>!);
+		$m->comp("/comp/tableend");
+	}
+	$mb->Logout();
+</%perl>
+
 <& /comp/footer &>
