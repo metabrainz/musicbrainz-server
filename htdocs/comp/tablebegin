@@ -3,13 +3,23 @@
 	$attrs => ""
 	$gattrs => undef
 	$bgcolor => "#FFFFFF"
+
+	$showmodnotice => 0
 </%args>
 
 	<!-- /comp/tablebegin -->
 	<div class="orangeheader">
 		<div class="inner"><b><% $title %></b></div>
 	</div>
+% 	if ($showmodnotice) {
+	<div class="boxcontent" style="margin-bottom: 0px; border-bottom: 0px">
+		<div style="float: right; clear: both; width: 270px; text-align: right; padding: 3px 5px; background: #ffffcc; font-size: 11px; font-weight: normal; border-left: 1px solid #ccc; border-bottom: 1px solid #ccc; margin-bottom: 0px">
+			Yellow highlights indicate pending changes.
+		</div>
+	</div>
+%	}
 	<div class="boxcontent">
 		<div class="inner">
 
 %# style="text-align: center"
+
