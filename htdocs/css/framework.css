@@ -143,6 +143,15 @@ table.listing td.left {
 	text-align: left; 
 }
 
+table.listing span.selected {
+	font-weight: bold;
+}
+table.listing span.selected a {
+	color: #000;
+	text-decoration: underline;
+}
+
+
 /* spacer row, because table is defined using cellspacing=0, cellpadding=0 */
 table.listing tr.spacer td {
 	height: 1px;
@@ -162,8 +171,101 @@ tr.artistrel8 { background-color: #FFE4BE; }
 tr.artistrel9 { background-color: #FFE1B7; }
 
 
+
+
+
+table.browsebox {
+	width: 90%;
+}
+table.browsebox tr {
+	vertical-align: top;
+}
+table.browsebox td {
+	width: 33%;
+	text-align: center;
+}
+table.browsebox td.sep {
+	width: 20px;
+}
+
+table.browsebox td.index {
+	padding-right: 40px;
+}
+
+table.browsebox input.index {
+	padding: 0px 10px;
+	border: 1px solid #000;
+	background-color: #FFBA58;
+	text-transform: uppercase;
+	color: #000;
+	font-size: 22px;
+	font-weight: bold;
+	font-family: Verdana, Geneva, Arial, Helvetica, sans-serif; 
+	text-align: center;
+	vertical-align: middle;
+}
+table.browsebox input.indexbutton {
+	padding: 0px; margin: 0px;
+	font-size: 11px;
+	border: 0px;
+	color: #534D8B;
+	background-color: #fff;
+}
+
+table.browsebox table.symbols {
+	width: 10px; border-collapse: collapse; border: 0px; padding: 0px; margin: 0px;
+}
+table.browsebox table.symbols td {
+	padding: 1px 2px; text-align: center;
+}
+table.browsebox table.symbols td.special {
+	padding-right: 8px;
+}
+
+
+/* explicit left alignment */
+table.listing td.browsenr {
+	font-size: 10px;
+	text-align: left; 
+	padding-right: 10px;
+}
+table.listing td.browsename{
+	text-align: left; 
+	padding-right: 50px;
+	white-space: nowrap;
+}
+
+
+table.pageselector {
+	padding: 0px;
+}
+
+table.pageselector td.jump {
+	white-space: nowrap;
+	padding-right: 40px;
+}
+table.pageselector td.list {
+	white-space: nowrap;
+	padding-left: 40px;
+}
+
+table.pageselector input.jumpfield {
+	padding: 0px;
+	border: 1px solid #534D8B;
+	background: #fff;
+	color: #534D8B;
+	font-size: 11px;
+	text-align: center;
+	vertical-align: middle;
+}
+table.pageselector input.jumpbutton {
+	padding: 0px; margin: 0px;
+	font-size: 11px;
+	border: 0px;
+	color: #534D8B;
+	background-color: #fff;
+}
+
+
+
 /* eof */
-
-
-
-
