@@ -1,5 +1,7 @@
-%# vi: set ts=2 sw=2 ft=mason :
-<& /comp/sidebar, title => "Forgotten Password" &>
+%# vi: set ts=4 sw=2 ft=mason :
+
+<& /comp/sidebar, noh1 => 1 &>
+<& /comp/tablebegin, title => "Forgotten Password" &>
 
 <p>
 	You're already logged in!&nbsp;
@@ -8,4 +10,5 @@
 	and update your details.
 </p>
 
+<& /comp/tableend &>
 <& /comp/footer &>

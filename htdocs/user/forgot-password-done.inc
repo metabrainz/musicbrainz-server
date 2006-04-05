@@ -1,18 +1,14 @@
-%# vi: set ts=2 sw=2 ft=mason :
-% my $user = shift;
-<& /comp/sidebar, title => "Password Sent!" &>
+%# vi: set ts=4 sw=2 ft=mason :
+% 	my $user = shift;
 
-<center>
+<& /comp/sidebar, noh1 => 1 &>
 
-	<p class="notice">
-		Password sent to the e-mail address registered for this account.
-	</p>
+<& /comp/tablebegin, title => "Forgotten Password - Password Sent!" &>
+	Password sent to the e-mail address registered for this account.
+<& /comp/tableend &>
 
-	<div class="TitledBox" style="width: 20em">
-		<div class="TitledBoxTitle">Login</div>
-		<& /comp/loginbox &>
-	</div>
-
-</center>
+<& /comp/tablebegin, title => "Login", align => "center" &>
+	<& /comp/loginbox &>
+<& /comp/tableend &>
 
 <& /comp/footer &>
