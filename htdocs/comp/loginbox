@@ -69,7 +69,7 @@
 			<tr>
 				<td>&nbsp;</td>
 				<td>
-					<input type="submit" name="Login" value="Log In"></td>
+					<input type="submit" name="Login" value="Log In" /></td>
 			</tr>
 			<tr>
 				<td>&nbsp;</td>
@@ -80,7 +80,7 @@
 			<tr>
 				<td>&nbsp;</td>
 				<td>
-					<input type="checkbox" name="PermanentCookie">
+					<input type="checkbox" name="PermanentCookie" />
 					Log in permanently
 					[&nbsp;<a <& /comp/auto-popup-link,
 								url => "/products/server/docs/20031210-1.html",
@@ -89,7 +89,7 @@
 			<tr>
 				<td>&nbsp;</td>
 				<td>
-					<input type="checkbox" name="OnlyThisIP">
+					<input type="checkbox" name="OnlyThisIP" />
 					Only from this IP address
 					[&nbsp;<a <& /comp/auto-popup-link,
 						url => "/products/server/docs/20031213-1.html",
@@ -104,7 +104,9 @@
 					</ul></td>
 			</tr>
 		</table>
-		<input type="hidden" name="url" value="<% $url %>">
+		<div>
+			<input type="hidden" name="url" value="<% $url %>" />
+		</div>
 	</form>
 
 <& /comp/movefocus, "LoginForm", "User" &>
