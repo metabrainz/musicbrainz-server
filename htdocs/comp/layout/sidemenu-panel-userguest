@@ -2,6 +2,6 @@
 
 <div class="sidemenu">
 	<a title="Login to your account" href="/login.html">Login</a>
-	<a title="Register a new account" href="/newlogin.html">Create account</a>
+	<a title="Register a new account" href="/user/register.html">Create account</a>
 	<a title="Retrieve a lost password" href="/user/forgot-password.html">Forgot Password</a>
 </div>
