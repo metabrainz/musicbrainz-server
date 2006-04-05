@@ -73,16 +73,18 @@
 	);
 	$m->comp("/comp/tableend");
 
-	return if (!$reltype and !$relstatus and !$index eq "" and !$artists);
+	return if ($index eq "");
 
 	# load album list from the database.
 	my $mb = $m->comp("/comp/dblogin");
 	my $al = Album->new($mb->{DBH});
 	$al->SetId(&ModDefs::VARTIST_ID);
 	my ($num_albums, $albums) = $al->GetVariousDisplayList(
-									$index, $offset,
+									$index,
+									$offset,
 									$max_items,
-									$reltype, $relstatus, $artists
+									$reltype,
+									$relstatus, $artists
 								);
 
 	# render results-box
@@ -132,6 +134,7 @@
 		my $rows = $max_items / 2;
 		for (my $i = 0; $i < $rows; $i++)
 		{
+			last if (not defined $albums->[$i]); # exit condition
 
 			# add header, if this is the first iteration
 			if ($i == 0)

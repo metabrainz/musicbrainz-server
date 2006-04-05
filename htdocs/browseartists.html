@@ -67,6 +67,8 @@
 		my $rows = $max_items / 2;
 		for(my $i = 0; $i < $rows; $i++)
 		{
+			last if (not defined $info[$i]); #exit condition
+
 			# add header, if this is the first iteration
 			if ($i == 0)
 			{
