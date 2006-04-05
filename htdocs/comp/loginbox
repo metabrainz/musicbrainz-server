@@ -1,81 +1,110 @@
 %# vi: set ts=4 sw=4 ft=mason :
 <%args>
-$url => (join "?", grep { $_ } ($r->uri, scalar $r->args))
+	$url => (join "?", grep { $_ } ($r->uri, scalar $r->args))
+	$password => ""
+	$badlogin => 0
 </%args>
 <%perl>
-return if $m->comp("/comp/dbreadonly", 0, 0);
+	return if $m->comp("/comp/dbreadonly", 0, 0);
 
-if (&DBDefs::REPLICATION_TYPE == RT_SLAVE)
-{
-	</%perl>
-	<p style="margin: 1em">
-    This is a mirror server -- you cannot log in to this server.
-	</p>
-	<p style="margin: 1em">
-	If you would like to make changes to the database or your personal profile, please go to the 
-	<a href="http://musicbrainz.org/login.html">main server</a>.
-	</p>
-	<%perl>
-	return
-}
+	if (&DBDefs::REPLICATION_TYPE == RT_SLAVE)
+	{
+		$m->out(qq!<div style="margin: 1em">!);
+		$m->out(qq!  This is a mirror server -- you cannot log in to this server. !);
+		$m->out(qq!</div>!);
+		$m->out(qq!<div style="margin: 1em">!);
+		$m->out(qq!  If you would like to make changes to the database or your profile, please go to the !);
+		$m->out(qq!  <img src="/images/icon/extlink.gif" alt="" /> !);
+		$m->out(qq!  <a href="http://musicbrainz.org/login.html">main server</a>.!);
+		$m->out(qq!</div>!);
+
+		return;
+	}
+
+	# redisplay user
+	my $user = $session{login_user} || "";
+	delete $session{login_user};
+
 </%perl>
 
-<form METHOD="POST" ACTION="/bare/login.html" ID="LoginForm"
-      ENCTYPE="application/x-www-form-urlencoded" class="formstyle"
-      style="padding: 0 0.5em; max-width: 20em"
-      >
+	<form method="post" action="/bare/login.html" id="LoginForm">
+		<table class="loginform">
+			<tr>
+				<td class="label"></td>
+				<td class="fillfields">
+					<ul>
+						<li>Please note that both the user name and password are case sensitive.</li>
+%	if (&DBDefs::DB_STAGING_SERVER) {
+						<li>If you have trouble logging in, please note that since this
+							is a <% &DBDefs::DB_STAGING_SERVER %> server, the passwords
+							may have been reset to "mb".</li>
+% 	}
+					</ul>
+				</td>
+			</tr>
+		</table>
 
-	<p style="margin: 1em 0">
-		<em>Please note that both the user name
-		and password are case sensitive.</em>
-% if (&DBDefs::DB_STAGING_SERVER) {
-		<br><br>
-		<em>If you have trouble logging in, please note that since this
-		is a <% &DBDefs::DB_STAGING_SERVER %> server, the passwords
-		may have been reset to "mb".</em>
-% }
-	</p>
-
-	<p style="margin: 0.5em; text-align: center">
-		User Name:<br>
-		<INPUT TYPE="text" NAME="User" SIZE=20 style="width: 10em">
-	</p>
-
-	<p style="margin: 0.5em; text-align: center">
-		Password:<br>
-		<INPUT TYPE="password" NAME="Password" SIZE=20 style="width: 10em">
-	</p>
-
-	<p class="CenterChildren" style="margin: 1em 0; text-align: center">
-		<input type="checkbox" name="PermanentCookie">
-		Log in permanently
-		[&nbsp;<a <& /comp/auto-popup-link,
-			url => "/products/server/docs/20031210-1.html",
-			&>>help</a>&nbsp;]
-	</p>
-
-	<p class="CenterChildren" style="margin: 1em 0; text-align: center">
-		<input type="checkbox" name="OnlyThisIP">
-		Only from this IP address
-		[&nbsp;<a <& /comp/auto-popup-link,
-			url => "/products/server/docs/20031213-1.html",
-			&>>help</a>&nbsp;]
-	</p>
-
-	<p style="text-align: center">
-		<INPUT TYPE="submit" NAME="Login" VALUE="Log In">
-	</p>
-	
-	<p style="text-align: center">
-		<a href="/newlogin.html?url=<% uri_escape($url) %>">Create a new account</a>
-	</p>
-
-	<p style="text-align: center">
-		<a href="/user/forgot-password.html">Forgot your password?</a>
-	</p>
-
-	<input type="hidden" name="url" value="<% $url %>">
-
-</form>
+		<table class="loginform">
+%	if ($badlogin) {
+			<tr>
+				<td></td>
+				<td class="err">
+					<ul>
+						<li>Invalid Login. Please try again</li>
+					</ul></td>
+			</tr>
+%	}
+			<tr>
+				<td class="label">
+					User Name:</td>
+				<td>
+					<input class="textfield" type="text" name="user" size="20" value="<% $user %>" /></td>
+			</tr>
+			<tr>
+				<td class="label">
+					Password:</td>
+				<td>
+					<input class="textfield" type="password" name="password" size="20" value="<% $password %>" /></td>
+			</tr>
+			<tr>
+				<td>&nbsp;</td>
+				<td>
+					<input type="submit" name="Login" value="Log In"></td>
+			</tr>
+			<tr>
+				<td>&nbsp;</td>
+				<td class="formsection">
+					Advanced Settings:
+				</td>
+			</tr>
+			<tr>
+				<td>&nbsp;</td>
+				<td>
+					<input type="checkbox" name="PermanentCookie">
+					Log in permanently
+					[&nbsp;<a <& /comp/auto-popup-link,
+								url => "/products/server/docs/20031210-1.html",
+								&>>help</a>&nbsp;]</td>
+			</tr>
+			<tr>
+				<td>&nbsp;</td>
+				<td>
+					<input type="checkbox" name="OnlyThisIP">
+					Only from this IP address
+					[&nbsp;<a <& /comp/auto-popup-link,
+						url => "/products/server/docs/20031213-1.html",
+						&>>help</a>&nbsp;]</td>
+			</tr>
+			<tr>
+				<td>&nbsp;</td>
+				<td>
+					<ul>
+						<li><a href="/user/register.html?url=<% uri_escape($url) %>">Create a new account</a></li>
+						<li><a href="/user/forgot-password.html">Forgot your password?</a></li>
+					</ul></td>
+			</tr>
+		</table>
+		<input type="hidden" name="url" value="<% $url %>">
+	</form>
 
 <& /comp/movefocus, "LoginForm", "User" &>
