@@ -17,7 +17,6 @@ Disallow: /cdi/
 Disallow: /edit/track/changeartist.html
 Disallow: /edit/track/change.html
 Disallow: /comp/
-Disallow: /createlogin.html
 Disallow: /dhandler
 Disallow: /edit/album/editattributes.html
 Disallow: /edit/album/edit.html
@@ -35,7 +34,6 @@ Disallow: /moderator.html
 Disallow: /edit/album/move.html
 Disallow: /edit/discid/move.html
 Disallow: /mrtg/
-Disallow: /newlogin.html
 Disallow: /newsearch.html
 Disallow: /prefs.html
 Disallow: /edit/album/remove.html
