@@ -1072,17 +1072,19 @@ sub GetVariousDisplayList
 	# Build a query to fetch the things we need
 	my ($page_min, $page_max) = $this->CalculatePageIndex($ind);
 	my $query = "
-		SELECT	a.id, name, gid, modpending, artist,
+		SELECT	a.id, a.name as albumname, a.gid, a.modpending, 
+				artist as artistid, ar.name as artistname,
                 attributes, language, script, modpending_lang,
 				tracks, discids, trmids, firstreleasedate, coverarturl, asin, puids
-   		FROM	album a, albummeta m
+   		FROM	album a, albummeta m, artist ar
 	  	WHERE	a.page BETWEEN $page_min AND $page_max
 		AND		m.id = a.id
+		AND		a.artist = ar.id
 	";
-
+ 
 	$artists ||= "";
-	$query .= " AND artist = " . VARTIST_ID if $artists eq "";
-	$query .= " AND artist != " . VARTIST_ID if $artists eq "single";
+	$query .= " AND artistid = " . VARTIST_ID if $artists eq "";
+	$query .= " AND artistid != " . VARTIST_ID if $artists eq "single";
 	# the other recognised value is "all".
 
 	$query .= " AND (attributes[2] = $reltype   OR attributes[3] = $reltype  )" if $reltype;
@@ -1134,19 +1136,20 @@ sub GetVariousDisplayList
 		$al->{name}				= $row->[1];
 		$al->{mbid}				= $row->[2];
 		$al->{modpending}		= $row->[3];
-		$al->{artist}			= $row->[4]; 
-		$al->{attrs}			= [ $row->[5] =~ /(\d+)/g ];
-		$al->{language}			= $row->[6];
-		$al->{script}			= $row->[7];
-		$al->{modpending_lang}	= $row->[8];
+		$al->{artistid}			= $row->[4]; 
+		$al->{artistname}		= $row->[5]; 
+		$al->{attrs}			= [ $row->[6] =~ /(\d+)/g ];
+		$al->{language}			= $row->[7];
+		$al->{script}			= $row->[8];
+		$al->{modpending_lang}	= $row->[9];
 
-		$al->{trackcount}		= $row->[9];
-		$al->{discidcount}		= $row->[10];
-		$al->{trmidcount}		= $row->[11];
-		$al->{firstreleasedate}	= $row->[12] || "";
-		$al->{coverarturl}		= $row->[13] || "";
-		$al->{asin}				= $row->[14] || "";
-		$al->{puidcount}		= $row->[15] || 0;
+		$al->{trackcount}		= $row->[10];
+		$al->{discidcount}		= $row->[11];
+		$al->{trmidcount}		= $row->[12];
+		$al->{firstreleasedate}	= $row->[13] || "";
+		$al->{coverarturl}		= $row->[14] || "";
+		$al->{asin}				= $row->[15] || "";
+		$al->{puidcount}		= $row->[16] || 0;
 
 		$al;
 	} @$rows;
