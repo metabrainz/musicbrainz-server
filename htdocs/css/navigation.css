@@ -379,7 +379,7 @@ td.header_mainmenu {
 	font-weight: bold;
 }
 .blueheaderwide {
-	background-color: #736DAB; /* fallback if image is not available */
+	background-color: #fff; /* fallback if image is not available */
 	background-image: url(/images/header-bg-lightpurplefade.gif);
 	background-position: left;
 	background-repeat: repeat-y;
