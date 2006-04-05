@@ -1,82 +1,89 @@
 <%args>
-	$ind => ""
+	$index => ""
 	$page => "/browseartists.html"
-	$showspecial => 1
-</%args>
 
-<table width="100%" border="0">
-	<tr>
+	# for the browsereleases page, we need additional parameters.
+	$artists => ""
+	$relstatus => ""
+	$reltype => ""
+</%args>
 <%perl>
 	(my $pageq = $page) .= ($page =~ /\?/ ? "&" : "?");
 	my ($i, $p, $t);
 
-	if (length($ind) > 0)
-	{
-		$t = $ind;
-		$t =~ s/_/?/g;
-		$t =~ s/ /_/g;
-		</%perl>
-		<td align="center">
-			<table cellpadding="0" cellspacing="0" border="0" bgcolor="#000000">
-				<tr>
-					<td bgcolor="#000000">
-						<table width="100%" cellpadding="2" cellspacing="1" border="0">
-							<tr>
-								<td bgcolor="#FFBA58" align="left" valign="middle" width="100%" class="mbtable" NOWRAP>
-									<img src="/images/pixel.gif" width="3" height="1" alt="" border="0">
-									<font size="+2" color="black"><% $t %></font> 
-									<img src="/images/pixel.gif" width="3" height="1" alt="" border="0"></td>
-							</tr>
-						</table>
-					</td>
-				</tr>
-			</table>
-		</td>
-		<%perl>
 
-		$t = $ind;
-		chop($t);
+	$m->out(qq!<table class="browsebox">!);
+	$m->out(qq!<tr>!);
+
+	# render the current index.
+	$index = uc($index);
+	$m->out(qq!<td class="index">!);
+	$t = $index;
+	$t =~ s/_/?/g;
+	$t =~ s/ /_/g;
+
+</%perl>
+	<form method="get" action="<% $pageq %>">
+		<div>
+%			$m->out(sprintf qq!<input type="hidden" name="%s" value="%s" />!, "artists", $artists) if ($artists ne "");
+%			$m->out(sprintf qq!<input type="hidden" name="%s" value="%s" />!, "relstatus", $relstatus) if ($relstatus ne 0);
+%			$m->out(sprintf qq!<input type="hidden" name="%s" value="%s" />!, "reltype", $reltype) if ($reltype ne 0);
+			<input type="text" name="index" value="<% $t %>"
+				size="<% length($index)+1 %>"
+				title="Enter a value here, and press [Enter] to list items starting with it."
+				class="index" />
+			<input type="submit" value="&raquo;" class="indexbutton" />
+		</div>
+	</form>
+<%perl>
+	$m->out(qq!</td>!);
+
+
+	# render the list of character (+symbol, space placeholders)
+	$m->out(qq!<td class="symbols">!);
+	$m->out(qq!<table class="symbols"><tr>!);
+
+	for($i = 0; $i < 13; $i++)
+	{
+		my $addsymbol = $pageq . "index=" . $index;
+		if ($i == 0)
+		{
+			$m->out(qq!<td class="special">!);
+			$m->out(sprintf qq!<a href="$addsymbol%s">symbol</a><br />!, "_");
+			$m->out(sprintf qq!<a href="$addsymbol%s">space</a> !, "+");
+			$m->out(qq!</td>!);
+		}
+
+
+		$m->out(qq!<td>!);
+		$m->out(sprintf qq!<a href="$addsymbol%s">%s</a><br />!, chr($i + 65), chr($i + 65));
+		$m->out(sprintf qq!<a href="$addsymbol%s">%s</a> !, chr($i + 78), chr($i + 78));
+		$m->out(qq!</td>!);
+	}
+	$m->out(qq!</tr></table></td>!);
+
+
+	# if an index is set, provide back link (remove last char added)
+	# and a restart link.
+	if (length($index) > 0)
+	{
+
+		# chop last character for Back link.
+		chop($t = $index);
+		my $backlink = $pageq . "index=" . $t;
+
+		$m->out(qq!<td class="links">[ !);
+		$m->out(qq!<a href="$backlink">Back</a> | !);
+		$m->out(qq!<a href="$page">Start&nbsp;over</a> !);
+		$m->out(qq! ]</td> !);
+
+	} else {
+		$m->out(qq!<td>!);
+		$m->out(qq!  Pick a letter to start browsing!);
+		$m->out(qq!</td>!);
 	}
 
-	if (length($ind) > 0)
-	{
-	</%perl>
+	$m->out(qq!</tr>!);
+	$m->out(qq!</table>!);
 
-	<td align="center" NOWRAP>
-		<a href="<% $pageq %>index=<% $t %>">Back</a><br>
-		<a href="<% $page %>">Start&nbsp;over</a>
-	</td>
-	<td width="3" align="center">
-		<img src="/images/black_pixel.gif" height="20" width="1" border="0" alt="">
-	</td>
-	<%perl>
-	}
-	</%perl>
-
-		<td width="60%" align="center">
-			<table>
-				<tr>
-%	for($i = 0; $i < 13; $i++) {
-%		if ($i == 0 && $showspecial && $showspecial ne "below") {
-					<td align="center">
-						<a href="<% $pageq %>index=<% $ind %>_">symbol</a>&nbsp;<br />
-						<a href="<% $pageq %>index=<% $ind %>+">space</a>&nbsp;
-					</td>
-%		}
-					<td align="center">
-						<a href="<% $pageq %>index=<% $ind . chr($i + 65) %>"><% chr($i + 65) %></a><br />
-						<a href="<% $pageq %>index=<% $ind . chr($i + 78) %>"><% chr($i + 78) %></a></td>
-%	}
-				</tr>
-%	if (defined $showspecial and $showspecial eq "below") {
-				<tr>
-					<td align="center" colspan="13">
-						<a href="<% $pageq %>index=<% $ind %>_">symbol</a>
-						<span style="margin: 0 2.5em"></span>
-						<a href="<% $pageq %>index=<% $ind %>+">space</a></td>
-				</tr>
-%	}
-			</table>
-		</td>
-	</tr>
-</table>
+</%perl>
