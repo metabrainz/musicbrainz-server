@@ -1,189 +1,189 @@
 %# vi: set ts=4 sw=4 ft=mason :
 <%args>
-$reltype => undef
-$relstatus => undef
-$artists => ""
+	$reltype => undef
+	$relstatus => undef
+	$artists => ""
+
+	$index => ""
+	$offset => undef
+	$page => undef
 </%args>
-<%perl>
 
-MusicBrainz::IsNonNegInteger($reltype) or $reltype = 0;
-$reltype >= Album::ALBUM_ATTR_SECTION_TYPE_START or $reltype = 0;
-$reltype <= Album::ALBUM_ATTR_SECTION_TYPE_END or $reltype = 0;
 
-MusicBrainz::IsNonNegInteger($relstatus) or $relstatus = 0;
-$relstatus >= Album::ALBUM_ATTR_SECTION_STATUS_START or $relstatus = 0;
-$relstatus <= Album::ALBUM_ATTR_SECTION_STATUS_END or $relstatus = 0;
-
-$artists = ""
-	unless $artists eq "single" or $artists eq "all";
-
-my ($mb, $row, $ind, $i, $offset, $page, $al, $rows);
-my $max_items = 50;
-
-$m->comp("/comp/sidebar", title=>'Browse Releases');
-
-$ind = $ARGS{index};
-$offset = $ARGS{offset};
-$page = $ARGS{page};
-$offset = ($page-1) * $max_items if not defined $offset and defined $page;
-$offset = 0 if not defined $offset;
-$offset = 0 if $offset < 0;
-
-$m->comp("/comp/framedboxbegin", width=>"100%");
-$m->comp("/comp/browsebox", ind=>$ind, page=>"/browsevarious.html?reltype=$reltype&relstatus=$relstatus&artists=$artists");
-$m->comp("/comp/framedboxend");
-
-$m->out("<p style='text-align: center'>");
-for my $rt (0, Album::ALBUM_ATTR_SECTION_TYPE_START ..  Album::ALBUM_ATTR_SECTION_TYPE_END)
-{
-	my $name = ($rt ? Album->GetAttributeName($rt) : "All");
-	$m->out(" | ") if $rt;
-	$m->out("<b>") if $rt == $reltype;
-	$m->out("<a href='/browsevarious.html?reltype=$rt&amp;relstatus=$relstatus&amp;artists=$artists&amp;index=$ind'>$name</a>");
-	$m->out("</b>") if $rt == $reltype;
-}
-$m->out("</p>");
-
-$m->out("<p style='text-align: center'>");
-for my $rt (0, Album::ALBUM_ATTR_SECTION_STATUS_START ..  Album::ALBUM_ATTR_SECTION_STATUS_END)
-{
-	my $name = ($rt ? Album->GetAttributeName($rt) : "All");
-	$m->out(" | ") if $rt;
-	$m->out("<b>") if $rt == $relstatus;
-	$m->out("<a href='/browsevarious.html?reltype=$reltype&amp;relstatus=$rt&amp;artists=$artists&amp;index=$ind'>$name</a>");
-	$m->out("</b>") if $rt == $relstatus;
-}
-$m->out("</p>");
-
-$m->out("<p style='text-align: center'>");
-for ("all=All Artists", "=Various Artists", "single=Single Artist")
-{
-	my ($v, $name) = split /=/, $_;
-	my $on = ($artists eq $v);
-	$m->out(" | ") if $v ne "all";
-	$m->out("<b>") if $on;
-	$m->out("<a href='/browsevarious.html?reltype=$reltype&amp;relstatus=$relstatus&amp;artists=$v&amp;index=$ind'>$name</a>");
-	$m->out("</b>") if $on;
-}
-$m->out("</p>");
-
-if ($reltype or $relstatus or $ind ne "" or not $artists)
-{
-
-$mb = $m->comp("/comp/dblogin");
-$al = Album->new($mb->{DBH});
-$al->SetId(&ModDefs::VARTIST_ID);
-
-my ($num_albums, $albums) = $al->GetVariousDisplayList($ind, $offset, $max_items, $reltype, $relstatus, $artists);
-
-$m->comp("/comp/framedboxbegin", width=>"100%");
-if ($num_albums > 0)
-{
-    </%perl>
-    <& /comp/pageselector, numitems=>$num_albums,
-                           numlinks=>6,
-                           snaptoend=>2,
-                           offset=>$offset,
-                           pagesize=>$max_items,
-						   url=>"/browsevarious.html",
-						   args=>{
-							   index	=>$ind,
-							   reltype	=>$reltype,
-							   relstatus=>$relstatus,
-							   artists	=>$artists,
-						   },
-						   &>
-    <& /comp/modnotice &>
 
 <%def .DescribeAlbumMeta>
 <%perl>
-my $al = shift;
-my $msg = sprintf "%d track%s; %d discid%s; %d PUID%s TRM%s",
-	$al->GetTrackCount, ($al->GetTrackCount==1 ? "" : "s"),
-	$al->GetDiscidCount, ($al->GetDiscidCount==1 ? "" : "s"),
-	$al->GetTrmidCount, ($al->GetTrmidCount==1 ? "" : "s"),
-	$al->GetPuidCount, ($al->GetPuidCount==1 ? "" : "s"),
-	;
-$m->out($msg);
+	my $al = shift;
+	my $msg = sprintf "Artist: %s - %d track%s - %d discid%s - %d PUID%s - %d TRM%s",
+		$al->{artistname},
+		$al->GetTrackCount, ($al->GetTrackCount == 1 ? "" : "s"),
+		$al->GetDiscidCount, ($al->GetDiscidCount == 1 ? "" : "s"),
+		$al->GetPuidCount, ($al->GetPuidCount == 1 ? "" : "s"),
+		$al->GetTrmidCount, ($al->GetTrmidCount == 1 ? "" : "s");
+	$m->out($msg);
 </%perl>
 </%def>
 
-%   $rows = $max_items / 2;
-    <p><table align="center" width="100%" bgcolor="#f0efff">
-%   for($i = 0; $i < $rows; $i++) {
-%      $row = $albums->[$i];  
-%      last if (!defined $row);
-       <tr>
-          <td width="1%" valign="top">
-             <% ($i + 1 + $offset) %>.
-          </td>
-%         if ($row->GetModPending) {
-             <td valign=top width="50%" bgcolor="#FFFFCC">
-%         } else {
-             <td valign=top width="50%">
-%         }
-            <a href="/showalbum.html?albumid=<% $row->GetId %>"
-				title="<& .DescribeAlbumMeta, $row &>"
-				><% $row->GetName %></a>
-          </td>
-          <td width="1%" valign="top">
-%           $row = $albums->[$i + $rows];  
-%           if (defined $row) {
-                <% ($i + 1 + $rows + $offset) %>.
-                </td>
-%               if ($row->GetModPending) {
-                   <td valign=top width="50%" bgcolor="#FFFFCC">
-%               } else {
-                   <td valign=top width="50%">
-%               }
-                <a href="/showalbum.html?albumid=<% $row->GetId %>"
-					title="<& .DescribeAlbumMeta, $row &>"
-					><% $row->GetName %></a>
-%           } else {
-                &nbsp;</td><td>&nbsp;
-%           }
-         </td>
-      </tr>
-%    }
-    </table>
-    <& /comp/pageselector, numitems=>$num_albums,
-                           numlinks=>6,
-                           snaptoend=>2,
-                           offset=>$offset,
-                           pagesize=>$max_items,
-						   url=>"/browsevarious.html",
-						   args=>{
-							   index	=>$ind,
-							   reltype	=>$reltype,
-							   relstatus=>$relstatus,
-							   artists	=>$artists,
-						   },
-						   &>
-%} else {
-%   $ind =~ s/_/?/g;
-%   $ind =~ s/ /_/g;
-    <p><table align="center" width="100%" bgcolor="#f0efff">
-    <tr><td align="center">
-		No
-		<% ($reltype || $relstatus) ? "matching" : "" %>
-		<% $artists eq "all" ? ""
-			: $artists eq "single" ? "single artist"
-			: "various artist" %>
-		albums
-		<% length($ind) ? "start with <b>$ind</b>" : "" |n %>
-    </td></tr>
-    </table>
-%   }
-<& /comp/framedboxend &>
 
-% } else {
 
-	<p style="text-align: center">
-		Please choose some filter criteria.
-	</p>
+<%perl>
+	$m->comp("/comp/sidebar", title => 'Browse Various Artists Releases');
 
-% }
+	# always use the uppercase index
+	$index = uc($index);
 
-<div class='LinksRow'>[ <a href="/edit/album/add.html?artistid=1">Add New Album</a> ]</div>
+	# handle release type argument
+	MusicBrainz::IsNonNegInteger($reltype) or $reltype = 0;
+	$reltype >= Album::ALBUM_ATTR_SECTION_TYPE_START or $reltype = 0;
+	$reltype <= Album::ALBUM_ATTR_SECTION_TYPE_END or $reltype = 0;
 
+	# handle release status argument
+	MusicBrainz::IsNonNegInteger($relstatus) or $relstatus = 0;
+	$relstatus >= Album::ALBUM_ATTR_SECTION_STATUS_START or $relstatus = 0;
+	$relstatus <= Album::ALBUM_ATTR_SECTION_STATUS_END or $relstatus = 0;
+
+	# handle artists argument
+	$artists = ""
+		unless $artists eq "single" or $artists eq "all";
+
+	# handle offset argument
+	my $max_items = 50;
+	$offset = ($page-1) * $max_items if (not defined $offset and defined $page);
+	$offset = 0 if not defined $offset;
+	$offset = 0 if $offset < 0;
+
+	# browse UI, wrapped in a box.
+	$m->comp("/comp/tablebegin", title => "Browse Releases");
+	$m->comp("/comp/browsebox",
+		index => $index,
+		page => "/browsevarious.html",
+		reltype => $reltype,
+		relstatus => $relstatus,
+		artists => $artists
+	);
+	$m->comp("/comp/tableend");
+
+	# filters UI, wrapped in a box.
+	$m->comp("/comp/tablebegin", title => "Filter Criteria");
+	$m->comp("/comp/browse/filtersbox",
+		index => $index,
+		reltype => $reltype,
+		relstatus => $relstatus,
+		artists => $artists
+	);
+	$m->comp("/comp/tableend");
+
+	return if (!$reltype and !$relstatus and !$index eq "" and !$artists);
+
+	# load album list from the database.
+	my $mb = $m->comp("/comp/dblogin");
+	my $al = Album->new($mb->{DBH});
+	$al->SetId(&ModDefs::VARTIST_ID);
+	my ($num_albums, $albums) = $al->GetVariousDisplayList(
+									$index, $offset,
+									$max_items,
+									$reltype, $relstatus, $artists
+								);
+
+	# render results-box
+	my $boxtitle = sprintf "Found %d %s%s Releases starting with \"%s\"",
+		$num_albums,
+		($reltype || $relstatus) ? "matching " : " ",
+		($artists eq "all"
+			? " "
+			: ($artists eq "single" ? "Single artist " : "Various artist ")
+		),
+		$index;
+
+	$m->out(qq!<a name="results"></a> !);
+	$m->comp("/comp/tablebegin",
+		title => $boxtitle, showmodnotice => 1
+	);
+
+	# if no artists are found, suggest entering a new one.
+	if ($num_albums == 0)
+	{
+		$index =~ s/_/?/g;
+		$index =~ s/ /_/g;
+
+		$m->out(qq!<div style="margin-bottom: 10px">
+			If you have not found the release you were are looking for,
+			maybe your filter criteria are too strict. If you are sure
+			the release does not exist yet, please add it to the database.</div>!);
+		$m->out(qq![ <a href="/edit/release/add.html">Add New Release</a> ]!);
+	}
+	else
+	{
+		$m->comp("/comp/browse/pageselector",
+			numitems => $num_albums,
+			numlinks => 6,
+			snaptoend => 2,
+			offset => $offset,
+			pagesize => $max_items,
+			url => "/browsevarious.html",
+			args => {
+				index => $index, reltype => $reltype, relstatus => $relstatus, artists => $artists,
+			},
+		);
+
+		$m->out(qq!<table class="listing" style="margin: 10px 0px">!);
+
+		# render results in two columns
+		my $rows = $max_items / 2;
+		for (my $i = 0; $i < $rows; $i++)
+		{
+
+			# add header, if this is the first iteration
+			if ($i == 0)
+			{
+				$m->out(qq!<tr class="header">!);
+				$m->out(qq!<td class="left">#:</td>!);
+				$m->out(qq!<td class="left">Name:</td>!);
+				$m->out(qq!<td class="left">#:</td>!);
+				$m->out(qq!<td class="left">Name:</td>!);
+				$m->out(qq!</tr>!);
+			}
+
+			my $row = 0;
+			$m->out(qq!<tr>!);
+			for ($albums->[$i], $albums->[$i + $rows])
+			{
+				if (not defined $_)
+				{
+					$m->out(qq!<td colspan="2">&nbsp;</td>!);
+					last;
+				}
+				else
+				{
+					my $albummeta = $m->scomp(".DescribeAlbumMeta", $_);
+					$albummeta =~ s/\n//;
+
+					$m->out(sprintf qq!<td class="browsenr">%d.</td>!, $i + 1 + ($row++*$rows) + $offset);
+					$m->out(sprintf qq!<td class="browsename%s">!, ($_->GetModPending ? " modpending" : ""));
+					$m->out(sprintf qq!<a href="/showalbum.html?albumid=%d" title="%s">%s</a></td>!,
+						$_->GetId,
+						$albummeta,
+						encode_entities($_->GetName));
+				}
+			}
+			$m->out(qq!</tr>!);
+		}
+		$m->out(qq!</table>!);
+
+		$m->comp("/comp/browse/pageselector",
+			numitems => $num_albums,
+			numlinks => 6,
+			snaptoend => 2,
+			offset => $offset,
+			pagesize => $max_items,
+			url => "/browsevarious.html",
+			args => {
+				index => $index, reltype => $reltype, relstatus => $relstatus, artists => $artists,
+			},
+		);
+	}
+	$m->comp("/comp/tableend");
+	$mb->Logout;
+
+</%perl>
 <& /comp/footer &>

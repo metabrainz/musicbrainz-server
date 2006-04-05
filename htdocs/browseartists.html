@@ -1,108 +1,118 @@
-%# vi: set ts=2 sw=2 ft=mason :
+%# vi: set ts=4 sw=2 ft=mason :
+<%args>
+	$index => ""
+	$offset => undef
+	$page => undef
+</%args>
 <%perl>
+	$m->comp("/comp/sidebar", title=>'Browse Artists');
 
-my ($mb, @info, $row, $ind, $i, $offset, $page, $ar, $rows, $num_artists);
-my $max_items = 50;
 
-$m->comp("/comp/sidebar", title=>'Browse Artists');
+	# always use the uppercase index
+	$index = uc($index);
 
-$m->out("<p>[ <a href=\"/edit/artist/add.html\">Add New Artist</a> ]<p>");
+	# handle offset argument
+	my $max_items = 50;
+	$offset = ($page-1) * $max_items if not defined $offset and defined $page;
+	$offset = 0 if not defined $offset;
+	$offset = 0 if $offset < 0;
 
-$ind = $ARGS{index};
-if (!defined $ind || $ind eq '')
-{
-    $m->out(qq/Pick a letter to start browsing:<p>/);
-}
-$offset = $ARGS{offset};
-$page = $ARGS{page};
-$offset = ($page-1) * $max_items if not defined $offset and defined $page;
-$offset = 0 if not defined $offset;
-$offset = 0 if $offset < 0;
+	# browse UI, wrapped in a box.
+	$m->comp("/comp/tablebegin", title => "Browse Artists");
+	$m->comp("/comp/browsebox", index => $index);
+	$m->comp("/comp/tableend");
 
-$m->comp("/comp/framedboxbegin", width=>"100%");
-$m->comp("/comp/browsebox", ind=>$ind);
-$m->comp("/comp/framedboxend");
-$m->out("<p>");
+	# stop here, if we have nothing to search for.
+	return if ($index eq "");
 
-if (!defined $ind || $ind eq '')
-{
-    exit(0);
-}
+	# load album list from the database.
+	my $mb = $m->comp("/comp/dblogin");
+	my $num_artists = 0;
+	my @info;
+	my $ar = Artist->new($mb->{DBH});
+	($num_artists, @info) = $ar->GetArtistDisplayList($index, $offset);
 
-$mb = $m->comp("/comp/dblogin");
-$ar = Artist->new($mb->{DBH});
+	# render results-box
+	my $boxtitle = sprintf "Found %d Artists starting with \"%s\"", $num_artists, $index;
+	$m->out(qq!<a name="results"></a> !);
+	$m->comp("/comp/tablebegin",
+		title => $boxtitle, showmodnotice => 1
+	);
 
-($num_artists, @info) = $ar->GetArtistDisplayList($ind, $offset);
+	# if no artists are found, suggest entering a new one.
+	if ($num_artists == 0)
+	{
+		$index =~ s/_/?/g;
+		$index =~ s/ /_/g;
 
-$m->comp("/comp/framedboxbegin", width=>"100%");
+		$m->out(qq!<div style="margin-bottom: 10px">If you have not found the artist you were are looking for, please add it to the database.</div>!);
+		$m->out(qq![ <a href="/edit/artist/add.html">Add New Artist</a> ]!);
+	}
+	else
+	{
+		# page-navigation
+    	$m->comp("/comp/browse/pageselector",
+			numitems => $num_artists,
+			numlinks => 6,
+			snaptoend => 2,
+			pagesize => $max_items,
+			offset => $offset,
+			url => "/browseartists.html",
+			args => { index => $index }
+		);
 
-if ($num_artists > 0)
-{
-    </%perl>
-    <& /comp/pageselector, numitems=>$num_artists, 
-                           numlinks=>6,
-                           snaptoend=>2,
-                           pagesize=>$max_items,
-                           offset=>$offset,
-													 url=>"/browseartists.html",
-													 args=>{ index=>$ind },
-													 &>
-    <& /comp/modnotice &>
+		$m->out(qq!<table class="listing" style="margin: 10px 0px">!);
 
-%   $rows = $max_items / 2;
-    <p><table align="center" width="100%" bgcolor="#f0efff">
-%   for($i = 0; $i < $rows; $i++) {
-%      $row = $info[$i];  
-%      last if (!defined $row);
-       <tr>
-          <td width="1%" valign="top">
-             <% ($i + 1 + $offset) %>.
-          </td>
-%           if ($$row[2]) {
-                <td valign=top width="50%" bgcolor="#FFFFCC">
-%           } else {
-                <td valign=top width="50%">
-%           }
-            <a href="/showartist.html?artistid=<% $$row[0] %>"><% $$row[1] %></a>
-          </td>
-          <td width="1%" valign="top">
-%         $row = $info[$i + $rows];  
-%         if (defined $row) {
-             <% ($i + 1 + $rows + $offset) %>.
-             </td>
-%            if ($$row[2]) {
-                <td valign=top width="50%" bgcolor="#FFFFCC">
-%            } else {
-                <td valign=top width="50%">
-%            }
-             <a href="/showartist.html?artistid=<% $$row[0] %>"><% $$row[1]  %></a>
-%         } else {
-             &nbsp;</td><td>&nbsp;
-%         }
-          </td>
-      </tr>
-%    }
-    </table>
-    <& /comp/pageselector, numitems=>$num_artists, 
-                           numlinks=>6,
-                           snaptoend=>2,
-                           pagesize=>$max_items,
-                           offset=>$offset,
-													 url=>"/browseartists.html",
-													 args=>{ index=>$ind },
-													 &>
-%} else {
-%   $ind =~ s/_/?/g;
-%   $ind =~ s/ /_/g;
-    <p><table align="center" width="100%" bgcolor="#f0efff">
-        <tr><td align="center">
-        No artists
-				<% length($ind) ? "start with <b>$ind</b>" : "" |n %>
-        </td></tr>
-        </table>
+		# render results in two columns
+		my $rows = $max_items / 2;
+		for(my $i = 0; $i < $rows; $i++)
+		{
+			# add header, if this is the first iteration
+			if ($i == 0)
+			{
+				$m->out(qq!<tr class="header">!);
+				$m->out(qq!<td class="left">#:</td>!);
+				$m->out(qq!<td class="left">Name:</td>!);
+				$m->out(qq!<td class="left">#:</td>!);
+				$m->out(qq!<td class="left">Name:</td>!);
+				$m->out(qq!</tr>!);
+			}
 
-%  }
-<& /comp/framedboxend &>
+			my $row = 0;
+			$m->out(qq!<tr>!);
+			for ($info[$i], $info[$i + $rows])
+			{
+				if (not defined $_)
+				{
+					$m->out(qq!<td colspan="2">&nbsp;</td>!);
+					last;
+				}
+				else
+				{
+					$m->out(sprintf qq!<td class="browsenr">%d.</td>!, $i + 1 + ($row++*$rows) + $offset);
+					$m->out(sprintf qq!<td class="browsename%s">!, ($$_[2] ? " modpending" : ""));
+					$m->out(sprintf qq!<a href="/showartist.html?artistid=%d">%s</a></td>!,
+						$$_[0],
+						encode_entities($$_[1]));
+				}
+			}
+			$m->out(qq!</tr>!);
+		}
+		$m->out(qq!</table>!);
 
-% $mb->Logout;
+
+    	$m->comp("/comp/browse/pageselector",
+			numitems => $num_artists,
+			numlinks => 6,
+			snaptoend => 2,
+			pagesize => $max_items,
+			offset => $offset,
+			url => "/browseartists.html",
+			args => { index => $index }
+		);
+	}
+	$m->comp("/comp/tableend");
+	$mb->Logout;
+
+</%perl>
 <& /comp/footer &>
