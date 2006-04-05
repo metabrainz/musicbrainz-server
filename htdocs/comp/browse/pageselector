@@ -1,0 +1,98 @@
+%# vi: set ts=2 sw=2 ft=mason :
+<%perl>
+
+	# I used to have an %args block here but Mason kept crashing on it
+	my $offset = $ARGS{offset};
+	my $pagesize = $ARGS{pagesize};
+	my $url = $ARGS{url};
+	my $args = $ARGS{args};
+	my $numitems = $ARGS{numitems};
+	my $numlinks = $ARGS{numlinks} || 6;
+	my $snaptoend = $ARGS{snaptoend} || 2;
+
+	my $index = int($offset / $pagesize);
+	my $pagecount = int(($numitems+$pagesize-1) / $pagesize);
+	return undef if ($pagecount <= 1);
+
+	my $start = $index - $numlinks;
+	if ($start < $snaptoend) { $start = 0 }
+
+	my $end = $index + $numlinks;
+	if ($end > $pagecount-1-$snaptoend) { $end = $pagecount-1 }
+
+	my $qsargs = $m->comp(
+		"/comp/args-to-querystring.inc",
+		%$args,
+		offset => undef,
+		page => undef,
+	);
+
+	my $urlqs = $url . "?";
+	$urlqs .= $qsargs . "&"
+		unless $qsargs eq "";
+
+</%perl>
+
+	<table class="pageselector">
+		<tr>
+			<td class="jump">
+				<form method="get" action="<% $url %>">
+					<& /comp/args-to-hidden-fields.inc, %$args &>
+					Current Page:
+					<input type="text" name="page" value="<% $index+1 %>"
+						size="1"
+						title="Enter the requested page number here, and press [Enter] to navigate to this page."
+						class="jumpfield" />
+					<input type="submit" value="&raquo;" class="jumpbutton" />
+					of <% $pagecount %>
+				</form></td>
+
+			<td class="list">
+<%perl>
+	if ($index > 0)
+	{
+		$m->out(sprintf qq!<a href="%soffset=0" title="First page">&lt;&lt;</a>&nbsp;!, $urlqs);
+		$m->out(sprintf qq!<a href="%soffset=%d" title="Previous page">&lt;</a>&nbsp;!, $urlqs, ($index - 1) * $pagesize);
+	}
+	else
+	{
+		$m->out("&lt;&lt;&nbsp;");
+		$m->out("&lt;&nbsp;");
+	}
+	$m->out("&nbsp;");
+
+	$m->out("...&nbsp;") if $start > 0;
+
+	for my $i ($start .. $end)
+	{
+		if ($i != $index)
+		{
+			$m->out("<a href='"
+				. encode_entities($urlqs)
+				. "offset=" . ($i * $pagesize)
+				. "'>" . ($i + 1) . "</a>&nbsp;");
+		}
+		else
+		{
+			$m->out("<b>" . ($i + 1) . "</b>&nbsp;");
+		}
+	}
+
+$m->out("...") if $end < $pagecount - 1;
+
+</%perl>
+
+% if ($index < $pagecount - 1) {
+    <a href="<% $urlqs %>offset=<% ($index + 1) * $pagesize %>"
+    	title="next page"
+    	>&gt;</a>&nbsp;
+    <a href="<% $urlqs %>offset=<% ($pagecount - 1) * $pagesize %>"
+    	title="last page"
+    	>&gt;&gt;</a>&nbsp;
+% } else {
+    &gt;
+    &gt;&gt;
+% }
+
+</td></tr></table>
+

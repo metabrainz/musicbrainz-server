@@ -1,0 +1,50 @@
+<%args>
+	$index
+	$reltype
+	$relstatus
+	$artists
+</%args>
+<%perl>
+
+	$m->out(qq!<table class="listing">!);
+
+	$m->out(qq!<tr><td class="left"><b>Release Type:</b></td><td class="left">!);
+	for my $rt (0, Album::ALBUM_ATTR_SECTION_TYPE_START ..  Album::ALBUM_ATTR_SECTION_TYPE_END)
+	{
+		my $name = ($rt ? Album->GetAttributeName($rt) : "All");
+		$m->out(" | ") if $rt;
+		$m->out(qq!<span class="selected">!)if $rt == $reltype;
+		$m->out(qq!<a href="/browsevarious.html?reltype=$rt&amp;relstatus=$relstatus&amp;artists=$artists&amp;index=$index">$name</a>!);
+		$m->out(qq!</span>!) if $rt == $reltype;
+	}
+	$m->out(qq!</td></tr>!);
+
+
+
+	$m->out(qq!<tr><td class="left"><b>Release Status:</b></td><td class="left">!);
+	for my $rt (0, Album::ALBUM_ATTR_SECTION_STATUS_START ..  Album::ALBUM_ATTR_SECTION_STATUS_END)
+	{
+		my $name = ($rt ? Album->GetAttributeName($rt) : "All");
+		$m->out(" | ") if $rt;
+		$m->out(qq!<span class="selected">!) if $rt == $relstatus;
+		$m->out(qq!<a href="/browsevarious.html?reltype=$reltype&amp;relstatus=$rt&amp;artists=$artists&amp;index=$index">$name</a>!);
+		$m->out(qq!</span>!) if $rt == $relstatus;
+	}
+	$m->out(qq!</td></tr>!);
+
+
+
+	$m->out(qq!<tr><td class="left"><b>Artist:</b></td><td class="left">!);
+	for ("all=All Artists", "=Various Artists", "single=Single Artist")
+	{
+		my ($v, $name) = split /=/, $_;
+		my $on = ($artists eq $v);
+		$m->out(" | ") if $v ne "all";
+		$m->out(qq!<span class="selected">!) if $on;
+		$m->out(qq!<a href="/browsevarious.html?reltype=$reltype&amp;relstatus=$relstatus&amp;artists=$v&amp;index=$index">$name</a>!);
+		$m->out(qq!</span>!) if $on;
+	}
+	$m->out(qq!</td></tr>!);
+	$m->out(qq!</table>!);
+
+</%perl>
