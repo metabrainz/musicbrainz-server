@@ -269,3 +269,78 @@ table.pageselector input.jumpbutton {
 
 
 /* eof */
+
+
+
+
+
+/** 
+ * listing tables, used in: 
+ *  ~ artistrel.html
+ **/   
+table.loginform {
+}
+
+/* header rows are bold, and have some padding at the bottom */
+table.loginform tr {
+	vertical-align: top;
+}
+
+table.loginform td {
+	padding: 2px 4px;
+	text-align: left;
+}
+
+/* header rows are bold, and have some padding at the bottom */
+table.loginform tr.header td {
+	font-weight: bold;
+	padding-bottom: 2px;
+}
+
+/* explicit left alignment */
+table.loginform tr.header td {
+	text-align: left;
+}
+
+/* explicit center alignment */
+table.loginform td.center {
+	text-align: center; 
+}
+
+table.loginform td.label {
+	font-weight: bold;
+	padding-right: 20px;
+}
+
+table.loginform td.fillfields {
+	padding-bottom: 10px;
+}
+
+table.loginform td.formsection {
+	padding-top: 20px;
+	font-size: 11px;
+}
+
+
+table.loginform td.err {
+	color: red;
+}
+table.loginform td.err ul {
+	margin-left: 15px;
+	margin-bottom: 5px;
+}
+table.loginform td.err ul li {
+	padding-left: 0px;
+}
+
+table.loginform input.textfield {
+	width: 200px;
+}
+
+/* spacer row, because table is defined using cellspacing=0, cellpadding=0 */
+table.loginform tr.spacer td {
+	height: 1px;
+	padding: 0px;
+}
+
+ 
