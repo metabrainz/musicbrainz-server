@@ -1,35 +1,36 @@
 %# vi: set ts=4 sw=4 ft=mason :
 <%args>
-$badlogin=>0
-$confirm=>0
-$confirmed=>0
-$email=>""
-$url=>""
+	$badlogin => 0
+	$confirm => 0
+	$confirmed => 0
+	$email => ""
+	$url => ""
 </%args>
-
 <%perl>
 
-return $m->comp("/comp/redirect", "/search.html")
-	if $session{uid};
+	return $m->comp("/comp/redirect", "/search.html")
+		if $session{uid};
 
-if ($url eq '')
-{
-   if (defined $r->headers_in->{'Referer'} &&
-       $r->headers_in->{'Referer'} ne '')
-   {
-       $url = $r->headers_in->{'Referer'};
-       $url="/search.html" if ($url eq '/logout.html');
-   }
-   else
-   {
-       $url="/search.html"
-   }
-}
+	if ($url eq "")
+	{
+	   if (defined $r->headers_in->{"Referer"} &&
+		   $r->headers_in->{"Referer"} ne "")
+	   {
+		   $url = $r->headers_in->{"Referer"};
+		   $url = "/search.html" if ($url eq "/logout.html");
+	   }
+	   else
+	   {
+		   $url = "/search.html";
+	   }
+	}
+	$m->comp("/comp/sidebar", noh1 => 1);
+
+
+	if ($confirm)
+	{
+
 </%perl>
-
-<& /comp/sidebar, title=>'MusicBrainz Login' &>
-
-%  if ($confirm) {
 
    <p><b>You have been logged in.</b></p>
 
@@ -46,13 +47,13 @@ if ($url eq '')
    your email address:
    </p>
 
-   <& /comp/confirmemailbox, url=>$url, email=>$email  &>
+   <& /comp/confirmemailbox, url => $url, email => $email  &>
 
 %  } elsif ($confirmed) {
 
    <h2>EMail address confirmation</h2>
 
-       <%perl> 
+       <%perl>
        my ($ui, $mb, $info);
        $mb = $m->comp("/comp/dblogin");
        my $user = UserStuff->new($mb->{DBH});
@@ -78,14 +79,14 @@ if ($url eq '')
            return undef;
        }
 
-       if ($email eq '') 
+       if ($email eq '')
        {
            $me->SetUserInfo(email => "");
            </%perl>
            <p>Your email address has been removed.</p>
            <%perl>
-       } 
-       else 
+       }
+       else
        {
            my $ret = $me->SendVerificationEmail($email);
            if ($ret)
@@ -109,19 +110,14 @@ if ($url eq '')
            }
        }
 
-       </%perl> 
+       </%perl>
 
        <p>[ <a href="<% $url %>">Continue</a> ]</p>
 
 %  } else {
-        <center>
-%       if ($badlogin) {
-          <b>Invalid Login. Please try again:</b><p>
-%       }
-		<div class="TitledBox" style="width: 20em">
-			<div class="TitledBoxTitle">Login</div>
-			<& /comp/loginbox, url=> $url &>
-		</div>
-        </center>
+
+		<& /comp/tablebegin, title => "Login", align => "center" &>
+			<& /comp/loginbox, url => $url, badlogin => $badlogin &>
+		<& /comp/tableend &>
 %  }
 <& /comp/footer &>

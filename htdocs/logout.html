@@ -1,19 +1,23 @@
-%# vi: set ts=2 sw=2 ft=mason :
-% UserStuff->Logout;
-<& /comp/sidebar, title => "You have logged out of MusicBrainz" &>
+%# vi: set ts=4 sw=2 ft=mason :
+<%perl>
 
-<center>
+	# logout the user from the backend.
+	UserStuff->Logout;
 
-	<p style="font-weight: bold">
-		You have now logged out.&nbsp;
-		Thank you for moderating MusicBrainz!
-	</p>
+</%perl>
 
-	<div class="TitledBox" style="width: 20em">
-		<div class="TitledBoxTitle">Login</div>
+	<& /comp/sidebar, noh1 => 1 &>
+
+
+	<& /comp/tablebegin, title => "You have logged out of MusicBrainz", align => "center" &>
+		<div style="style-margin-bottom: 20px">
+			<b>You have now logged out.&nbsp;
+			Thank you for moderating MusicBrainz!</b>
+		</div>
+	<& /comp/tableend &>
+
+	<& /comp/tablebegin, title => "Login Again", align => "center" &>
 		<& /comp/loginbox, url=>"/search.html" &>
-	</div>
-
-</center>
+	<& /comp/tableend &>
 
 <& /comp/footer &>
