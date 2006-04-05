@@ -50,7 +50,7 @@
 	}
 
 	$m->comp("/comp/sidebar", noh1 => 1);
-	$m->comp("/comp/tablebegin", title => "Create a MusicBrainz Account");
+	$m->comp("/comp/tablebegin", title => "Create a MusicBrainz Account", align => "center");
 
 
 	if (&DBDefs::REPLICATION_TYPE == RT_SLAVE)
@@ -69,7 +69,7 @@
 </%perl>
 	<form method="post" action="/user/register.html" id="registerform">
 
-	<table class="loginform">
+		<table class="loginform">
 			<tr>
 				<td colspan="2" class="fillfields">
 					<ul>
@@ -106,7 +106,7 @@
 			</tr>
 			<tr>
 				<td>&nbsp;</td>
-				<td class="formsection">
+				<td class="formsection" style="width: 250px">
 					Filling in your e-mail address is completely optional.
 					However if you don't fill it in, the editing features [<b><a href="#noemail">1</a></b>]
 					of the MusicBrainz service will not be available to you.
@@ -131,13 +131,15 @@
 					<input type="submit" name="submit" value="Submit" />
 					<input type="hidden" name="mbt" value="<% $mbt %>" /></td>
 			</tr>
+		</table>
 
+
+		<table class="loginform">
 			<tr>
-				<td colspan="2" style="padding-top: 30px">&nbsp;</td>
+				<td style="padding-top: 30px">&nbsp;</td>
 			</tr>
 
 			<tr valign="top">
-				<td></td>
 				<td>
 					<b>We respect Your Privacy:</b>
 					Rest assured that we will not pass your e-mail address on to
@@ -149,7 +151,6 @@
 					Privacy Policy</b></a>.</td>
 			</tr>
 			<tr valign="top">
-				<td></td>
 				<td>
 					<b>We will <i>not</i> use your e-mail address for:</b>
 					We won't send you any newsletters, promotional mailings,
@@ -159,9 +160,8 @@
 					lists</a>.</td>
 			</tr>
 			<tr valign="top">
-				<td></td>
 				<td>
-					<a name="noemail"></a>
+					<a id="noemail"></a>
 					<b>What your e-mail address <i>will</i> be used for:</b>
 
 					Since some users unfortunately entered lots of wrong moderations
