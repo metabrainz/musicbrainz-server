@@ -10,19 +10,21 @@
 	my $brainz_css = &DBDefs::HTDOCS_ROOT . "/brainz.css";
 	my $mtime = (stat $brainz_css)[9] || 0;
 	my $mtime_print = (stat(&DBDefs::HTDOCS_ROOT . "/css/print.css"))[9] || 0;
-	
+
 	# get timestamps for header links, such that browsers can be
 	# forced (sort of) to reload the document
 	my $mtime_musicbrainzjs = (stat(&DBDefs::HTDOCS_ROOT . "/scripts/musicbrainz.js"))[9] || 0;
 	my $mtime_overlibjs = (stat(&DBDefs::HTDOCS_ROOT . "/scripts/overlib.js"))[9] || 0;
-	
+
 	use vars qw( $mainmenuHTML $staticmenuHTML $popupmenuHTML );
-	
+
 	$m->clear_buffer;
 </%perl>
 <!--<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">-->
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
-<html>
+<!--<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">-->
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" >
 	<head>
 		<title><% $title %> - MusicBrainz</title>
 		<link rel="stylesheet" type="text/css" href="/brainz.css?t=<% $mtime %>" />
@@ -47,7 +49,7 @@
 % if (&DBDefs::DB_STAGING_SERVER) {
 						<span class="servertype"><% uc(&DBDefs::DB_STAGING_SERVER) %> SERVER</span>
 % }
-						<a href="/"><img src="/images/header_logo_a.gif" width="614" height="67" 
+						<a href="/"><img src="/images/header_logo_a.gif" width="614" height="67"
 							alt="MusicBrainz" title="MusicBrainz" /></a></td>
 				</tr>
 			</table>
@@ -60,12 +62,12 @@
 						<a href="/"><img src="/images/spacer.gif" alt="" title="MusicBrainz" /></a></td>
 					<td class="header_mainmenu">
 						<div class="mainmenu">
-<%perl>	
+<%perl>
 	# prepare the menu html fragments, they are written out
 	# in /comp/header, and /comp/footer
 	$m->comp("/comp/layout/topmenu");
 	$m->out($mainmenuHTML);
-</%perl>	
+</%perl>
 						</div></td>
 				</tr>
 			</table>
@@ -81,12 +83,12 @@
 % }
 
 <%perl>
-	if (UserPreference::get('topmenu_submenu_types') ne "dropdownonly" && $staticmenuHTML ne "") 
+	if (UserPreference::get('topmenu_submenu_types') ne "dropdownonly" && $staticmenuHTML ne "")
 	{
-		$m->out(qq!<td class="submenustatic">!);	
-		$m->out($staticmenuHTML); 
-	} 
-	else 
+		$m->out(qq!<td class="submenustatic">!);
+		$m->out($staticmenuHTML);
+	}
+	else
 	{
 		$m->out(qq!<td>&nbsp;!);
 	}
