@@ -43,58 +43,59 @@
 	# Row 1: the artist name (link) and sortname
 	$m->out(qq!<tr valign="top">!);
 	$m->out(qq!<td class="icon" rowspan="2">!);
-	$m->out(qq!	<a href="/artist/$mbid.html"><img src="/images/aicon_lg.png" alt=""></a></td>!);
+	$m->out(qq! <a href="/artist/$mbid.html" title="Click here to go to the Artist page"><img src="/images/aicon_lg.png" alt="" /></a></td>!);
 	$m->out(sprintf qq!<td class="title%s">!, ($artist->GetModPending ? " mp" : ""));
-	$m->out(qq!	<a href="/artist/$mbid.html">! . $m->interp->apply_escapes($name, 'h') . qq!</a></td>!);
+	$m->out(qq! <a href="/artist/$mbid.html" title="Click here to go to the Artist page">! . $m->interp->apply_escapes($name, 'h') . qq!</a></td>!);
 	$m->out(qq!</tr>!);
-	
+
 	# info box, a) resolution b) start-end date c) artist-type d) sortname
 	$m->out(qq!<tr>!);
 	$m->out(qq!<td class="info">!);
-	$m->out($m->interp->apply_escapes($resolution, 'h') . qq!<br>!) if ($resolution);
-	
+	$m->out($m->interp->apply_escapes($resolution, 'h') . qq!<br />!) if ($resolution);
+
 	$m->out(qq!($date_str)!) if ($date_str ne "");
 	$m->out(qq! Type: $type_name!) if ($type);
-	$m->out(qq!<br>!) if ($type || $date_str ne "");
-	
+	$m->out(qq!<br />!) if ($type || $date_str ne "");
+
 	$m->out($m->interp->apply_escapes($sortname, 'h')) if ($name ne $sortname);
 	$m->out(qq!</td>!);
 	$m->out(qq!</tr>!);
-		
+
 
 	# Row 2: non-editing links
-	if ($link) 
+	if ($link)
 	{
 		$m->out(qq!<tr>!);
-    	$m->out(qq!<td colspan="2" class="links">!);
+		$m->out(qq!<td colspan="2" class="links">!);
 		$m->out(qq!Info: [ !);
-		
-		$m->out(qq!<a href="!);
-		$m->comp("/comp/copyable-link", 
-			id => $mbid, name => $name, 
-			type => "artist", style => "url");
-		$m->out(qq!">Permanent link</a>!);
-		$m->out(sprintf qq! | <a href="/perm_links.html?name=%s&amp;id=$mbid&amp;type=artist">Link to this</a>!, uri_escape($name));
-		$m->out(qq! | <a href="/artistinfo.html?artistid=$id">View&nbsp;info</a>!);
-		$m->out(qq!	| <a href="/showaliases.html?artistid=$id">Aliases</a>!);
-		if ($id != &ModDefs::VARTIST_ID) 
+
+#		$m->out(qq!<a href="!);
+#		$m->comp("/comp/copyable-link",
+#			id => $mbid, name => $name,
+#			type => "artist", style => "url");
+#		$m->out(qq!">Permanent link</a> | !);
+
+		$m->out(sprintf qq!<a href="/perm_links.html?name=%s&amp;id=$mbid&amp;type=artist" title="Click here to get a permanent Link to this Artist">Link to this</a>!, uri_escape($name));
+		$m->out(qq! | <a href="/artistinfo.html?artistid=$id" title="Click here to go to the Artist Information">Info</a>!);
+		$m->out(qq! | <a href="/showaliases.html?artistid=$id" title="Click here to view, and edit Artist Aliases">Aliases</a>!);
+		if ($id != &ModDefs::VARTIST_ID)
 		{
-			$m->out(qq! | <a href="/showartist.html?artistid=$id">View&nbsp;albums</a>!);
+			$m->out(qq! | <a href="/showartist.html?artistid=$id" title="Click here to view the Albums of this Artist">Albums</a>!);
 		}
-		else 
+		else
 		{
 			$m->out(qq! | <a href="/browsevarious.html">Browse&nbsp;albums</a>!);
 		}
-		if ($id != &ModDefs::VARTIST_ID) 
+		if ($id != &ModDefs::VARTIST_ID)
 		{
-			$m->out(qq!	| <a href="/artistrel.html?artistid=$id">Related&nbsp;artists</a> | !);
+			$m->out(qq! | <a href="/artistrel.html?artistid=$id" title="Click here to view Artists related to this Artist">Related&nbsp;artists</a> | !);
 			$m->comp("/comp/googlelink", search => $name, text => "Search&nbsp;Google", raw => 1);
 		}
-		if ($session{uid}) 
+		if ($session{uid})
 		{
-			$m->out(qq!	| <a href="/mod/search/pre/artist.html?artistid=$id">View&nbsp;mods</a>!);
+			$m->out(qq! | <a href="/mod/search/pre/artist.html?artistid=$id" title="Click here to review Moderations made to this Artist">Moderations</a>!);
 		}
-		$m->out(qq!	]</td></tr>!);
+		$m->out(qq! ]</td></tr>!);
 	}
 
 
@@ -102,12 +103,12 @@
 	if ($showmodlinks)
 	{
 		$m->out(qq!<tr>!);
-    	$m->out(qq!<td colspan="2" class="mods">!);
-    	$m->out(qq!Edit: [ !);
-		if ($session{uid}) 
+		$m->out(qq!<td colspan="2" class="mods">!);
+		$m->out(qq!Edit: [ !);
+		if ($session{uid})
 		{
 			if ($id != &ModDefs::VARTIST_ID
-				and $name !~ /^\[(unknown|data track|silence|no artist)\]$/) 
+				and $name !~ /^\[(unknown|data track|silence|no artist)\]$/)
 			{
 				$m->out(qq!<a href="/edit/artist/edit.html?id=$id">Edit artist</a>!);
 				$m->out(qq! | <a href="/edit/artist/merge.html?id=$id">Merge into ...</a>!);
@@ -115,19 +116,29 @@
 			}
 			$m->out(qq!<a href="/edit/album/add.html?artistid=$id">Add album</a> | !);
 			$m->out(sprintf qq!<a href="/freedb/freedb.html?search=%s">Import album</a> !, uri_escape($name));
-       			
-			if ($id != &ModDefs::VARTIST_ID) 
+
+			if ($id != &ModDefs::VARTIST_ID)
 			{
-				$m->out(qq!| <a href="/edit/track/addnonalbum.html?artistid=$id">Add non-album tracks</a>!);
+				require Album;
+				my $mb = $m->comp("/comp/dblogin");
+				my $al = Album->new($mb->{DBH});
+				if (my @non = $al->FindNonAlbum($id))
+				{
+					my $nonid = $non[0]->GetMBId;
+					$m->out(qq!| <a href="/showalbum.html?mbid=$nonid">Non-album tracks</a>!);
+
+				} else {
+					$m->out(qq!| <a href="/edit/track/addnonalbum.html?artistid=$id">Add non-album tracks</a>!);
+				}
 			}
-			
-		} 
-		else 
+
+		}
+		else
 		{
 			$m->out(qq!<a href="/login.html">Log in</a> to edit this!);
 		}
-		$m->out(qq! ]</td>!);
-		
+		$m->out(qq! ]</td></tr>!);
+
 	}
 	$m->out(qq!</table>!);
 
