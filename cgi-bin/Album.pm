@@ -1073,7 +1073,7 @@ sub GetVariousDisplayList
 	my ($page_min, $page_max) = $this->CalculatePageIndex($ind);
 	my $query = "
 		SELECT	a.id, a.name as albumname, a.gid, a.modpending, 
-				artist as artistid, ar.name as artistname,
+				a.artist as artistid, ar.name as artistname,
                 attributes, language, script, modpending_lang,
 				tracks, discids, trmids, firstreleasedate, coverarturl, asin, puids
    		FROM	album a, albummeta m, artist ar
@@ -1083,8 +1083,8 @@ sub GetVariousDisplayList
 	";
  
 	$artists ||= "";
-	$query .= " AND artistid = " . VARTIST_ID if $artists eq "";
-	$query .= " AND artistid != " . VARTIST_ID if $artists eq "single";
+	$query .= " AND a.artist = " . VARTIST_ID if $artists eq "";
+	$query .= " AND a.artist != " . VARTIST_ID if $artists eq "single";
 	# the other recognised value is "all".
 
 	$query .= " AND (attributes[2] = $reltype   OR attributes[3] = $reltype  )" if $reltype;
