@@ -355,14 +355,14 @@ td.header_mainmenu {
 }
 .orangeheader {	    
 	border: 1px solid #fb5;
-	background: #fff url(/images/header-bg-orangefade.gif) repeat-y left;
+	background: #fb5 url(/images/header-bg-orangefade.gif) repeat-y left;
 	margin: 0px; padding: 0px;
 	font-weight: bold;
 }
 .blueheader,
 .blueheaderwide {
 	border: 1px solid #736DAB;
-	background: #fff url(/images/header-bg-lightpurplefade.gif) repeat-y right;
+	background: #736DAB url(/images/header-bg-lightpurplefade.gif) repeat-y right;
 	margin: 0px; padding: 0px;
 	font-weight: bold;
 }
