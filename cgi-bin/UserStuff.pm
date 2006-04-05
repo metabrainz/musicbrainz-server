@@ -231,7 +231,7 @@ sub search
 
 	return (SEARCHRESULT_SUCCESS, [])
 		unless @u;
-	
+
 	$query = lc(decode "utf-8", $query);
 
 	@u = map { $_->[0] }
@@ -308,64 +308,63 @@ sub Logout
 sub CreateLogin
 {
 	my ($this, $user, $pwd, $pwd2) = @_;
-	my ($sql, $uid, $newuser);
+	my ($sql, $uid, $newuser, @messages);
 
 	$sql = Sql->new($this->{DBH});
+	$sql->Begin;
 
-	if ($pwd ne $pwd2)
-	{
-		return "The given passwords do not match. Please try again.";
-	}
-	if ($pwd eq "")
-	{
-		return "You cannot leave the password blank. Please try again.";
-	}
 	if ($user eq "")
 	{
-		return "You cannot leave the user name blank. Please try again."
+		push @messages, "Please enter a user name"
 	}
-
-	my $msg = eval
+	else
 	{
-		$sql->Begin;
-
 		my $id = $sql->SelectSingleValue(
 			"SELECT MIN(id) FROM moderator WHERE LOWER(name) = LOWER(?)",
 			$user,
 		);
-
 		if ($id)
 		{
 			$sql->Rollback;
-			return ("That login already exists. Please choose another login name.");
+			push @messages, "That login already exists. Please choose another login name.";
 		}
+		else
+		{
+			if ($pwd eq "")
+			{
+				push @messages, "Please enter a password";
+			}
+			elsif ($pwd ne $pwd2)
+			{
+				push @messages, "The given passwords do not match. ";
+			}
 
-		$sql->Do(
-			"INSERT INTO moderator (name, password, privs) values (?, ?, 0)",
-			$user, $pwd,
-		);
+			# if user was validated.
+			if (@messages == 0)
+			{
+				$sql->Do(
+					"INSERT INTO moderator (name, password, privs) values (?, ?, 0)",
+					$user, $pwd,
+				);
 
-		my $uid = $sql->GetLastInsertId("Moderator");
-		MusicBrainz::Server::Cache->delete($this->_GetIdCacheKey($uid));
-		# No need to flush the by-name cache: this newFromId call will fill in
-		# the correct value
-		$newuser = $this->newFromId($uid) or die "Failed to retrieve new user record";
+				my $uid = $sql->GetLastInsertId("Moderator");
+				MusicBrainz::Server::Cache->delete($this->_GetIdCacheKey($uid));
 
-		$sql->Commit;
+				# No need to flush the by-name cache: this newFromId call will fill in
+				# the correct value
+				$newuser = $this->newFromId($uid) or die "Failed to retrieve new user record";
 
-		return "";
-	};
+				$sql->Commit;
+				@messages = ();
+			}
+		}
+	}
 	if ($@)
 	{
 		$sql->Rollback;
-		return ("A database error occurred. ($@)", undef, undef, undef);
+		push @messages, "A database error occurred. ($@)";
 	}
-	if ($msg ne '')
-	{
-		return $msg; 
-	}
-
-	return ("", $newuser);
+	return ($newuser, \@messages);
 }
 
 sub GetUserPasswordAndId
@@ -389,7 +388,7 @@ sub GetUserPasswordAndId
 	$row or return (undef, undef);
 
 	@$row;
-} 
+}
 
 sub IsNewbie
 {
@@ -508,7 +507,7 @@ sub CreditModerator
 		"UPDATE moderator SET $column = $column + 1 WHERE id = ?",
 		$uid,
 	);
-	
+
 	$self->InvalidateCache;
 }
 
@@ -682,7 +681,7 @@ sub CheckEMailAddress
 	return 0 if ($email =~ /\@127.0.0.1$/);
 
 	return ($email =~ /^\S+@\S+$/);
-} 
+}
 
 sub GetForwardingAddress
 {
@@ -1045,7 +1044,7 @@ sub SendFormattedEmail
 
 	my $from = $opts{'from'} || 'noreply@musicbrainz.org';
 	my $to = $opts{'to'} || $self->GetEmail;
-	$to or return "No email address available for moderator " . $self->GetName;
+	$to or return "No e-mail address available for user " . $self->GetName;
 
 	require MusicBrainz::Server::Mail;
 	my $mailer = MusicBrainz::Server::Mail->open(
@@ -1217,7 +1216,7 @@ sub TryAutoLogin
 	# Already logged in?
 	my $session = GetSession();
 	return if $session->{uid};
-	
+
 	my $r = Apache->request;
 
 	# Get the permanent cookie
