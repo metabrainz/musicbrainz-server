@@ -281,6 +281,12 @@ table.pageselector input.jumpbutton {
 table.loginform {
 }
 
+div.fillfields {
+	margin-left: 150px;
+	margin-right: 20px;
+	padding-bottom: 10px;
+}
+
 /* header rows are bold, and have some padding at the bottom */
 table.loginform tr {
 	vertical-align: middle;
@@ -312,12 +318,9 @@ table.loginform td.center {
 
 table.loginform td.label {
 	font-weight: bold;
-	padding-right: 20px;
+	width: 150px;
 }
 
-table.loginform td.fillfields {
-	padding-bottom: 10px;
-}
 
 table.loginform td.formsection {
 	padding-top: 20px;
@@ -345,5 +348,32 @@ table.loginform tr.spacer td {
 	height: 1px;
 	padding: 0px;
 }
+
+
+/** 
+ * textlayout tables, used in plain text pages.
+ *  ~ mirrors.html
+ **/   
+div.textlayout {
+}
+
+/* header rows are bold, and have some padding at the bottom */
+div.textlayout div {
+	vertical-align: top;
+}
+
+div.textlayout div.label {
+	float: left;
+	width: 160px;
+	font-size: 11px;
+	font-weight: bold;
+}
+
+div.textlayout div.content {
+	margin-left: 180px;
+	margin-right: 20px;
+	margin-bottom: 20px;
+}
+
 
  
