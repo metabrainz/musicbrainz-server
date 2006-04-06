@@ -1,131 +1,148 @@
 <%args>
-$id => undef
+	$id => undef
 </%args>
 <%perl>
+	MusicBrainz::IsSingleLineString($id) and $id =~ /\A\w+\z/
+		or return $m->comp("/comp/badargs", 1, 1);
 
-MusicBrainz::IsSingleLineString($id) and $id =~ /\A\w+\z/
-	or return $m->comp("/comp/badargs", 1, 1);
+	my $mb = $m->comp("/comp/dblogin");
+	my $wt = MusicBrainz::Server::WikiTransclusion->new($mb->{DBH});
+	my $index = $wt->GetPageIndex();
+	if (!defined $index)
+	{
+		$m->out(qq!<p><b>Error:</b> The documentation index is currently
+				not available. Please try again in a moment.</p>!);
+		return;
+	}
 
-my $mb = $m->comp("/comp/dblogin");
-my $wt = MusicBrainz::Server::WikiTransclusion->new($mb->{DBH});
-my $index = $wt->GetPageIndex();
-if (!defined $index)
-{
-    </%perl>
-    <p><b>Error:</b> The documentation index is currently not avilable. Please try again in a moment.</p>
-    <%perl>
-    return;
-}
+	my $iswd = exists($index->{$id}) ? 1 : 0;
+	my $ok = 0;
 
-my $iswd = exists($index->{$id}) ? 1 : 0;
-my $ok = 0;
+	# Check to see if we have the document in the cache
+	my $key = "wikidocs-$id";
+	my $page;
+	if ($page = MusicBrainz::Server::Cache->get($key))
+	{
+		$m->print($page);
+		return undef;
+	}
 
-# Check to see if we have the document in the cache
-my $key = "wikidocs-$id";
-my $page;
-if ($page = MusicBrainz::Server::Cache->get($key))
-{
-    $m->print($page);
-    return undef;
-}
+	my $docurl = "http://" . &DBDefs::WIKITRANS_SERVER . "/"
+				. $id . "?action="
+				. ($iswd ? ("ContentRev&rev=".$index->{$id}) : "content");
 
-my $docurl = 'http://' . &DBDefs::WIKITRANS_SERVER . '/' . $id . '?action=' . ($iswd ? ('ContentRev&rev='.$index->{$id}) : 'content');
+	# Nope, get it from the wiki, then cache it
+	require LWP::UserAgent;
 
-# Nope, get it from the wiki, then cache it
-require LWP::UserAgent;
+	my $ua = LWP::UserAgent->new;
+	my $response = $ua->get($docurl);
+	if (!$response->is_success)
+	{
+		$m->comp("/comp/error",
+			"Could not retrieve wiki page from wiki server. "
+		   ."( get $docurl -> " . $response->status_line ." )", 0, 0);
+	}
+	else
+	{
+		$page = $response->content;
 
-my $ua = LWP::UserAgent->new;
-my $response = $ua->get($docurl);
-if ( $response->is_success ) 
-{
-    $page = $response->content;
+		if ($page =~ /<a id="top"><\/a>\s+<a id="bottom"><\/a>/s)
+		{
+			$m->comp("/comp/error",
+					 "The wiki page $id does not exist. (404)", 0, 0);
+		}
+		else
+		{
+			# Some pages in the Wiki use URLs of the form: http:/page.html .
+			# This works in some browsers (it's taken as relative to
+			# http://www.musicbrainz.org/ ..., so resolves to
+			# http://www.musicbrainz.org/page.html).  However I can't tell
+			# for certain whether or not the RFCs define this to be correct.
+			# So for now, rewrite those URLs to their canonical form.
+			$page =~ s[href="http:/(\w)]['href="http://' . &DBDefs::WEB_SERVER . "/$1"]eg; # <-- this hack makes vim happy
 
-    if ($page =~ /<a id="top"><\/a>\s+<a id="bottom"><\/a>/s)
-    {
-        $m->comp('/comp/error',
-                "The wiki page $id does not exist. (404)", 0, 0);
-    }
-    else
-    {
-        # Some pages in the Wiki use URLs of the form: http:/page.html .
-        # This works in some browsers (it's taken as relative to
-        # http://www.musicbrainz.org/ ..., so resolves to
-        # http://www.musicbrainz.org/page.html).  However I can't tell
-        # for certain whether or not the RFCs define this to be correct.
-        # So for now, rewrite those URLs to their canonical form.
-        $page =~ s[href="http:/(\w)]['href="http://' . &DBDefs::WEB_SERVER . "/$1"]eg; #' <-- this hack makes vim happy
+			# remove intertwingled links to non-existent pages.
+			$page =~ s[<a class="nonexistent" href=".+?">\?</a>][]g;
 
-        $page =~ s[<a class="nonexistent" href=".+?">\?</a>][]g;
 
-        my $server = &DBDefs::WEB_SERVER;
-        my $wdserver = &DBDefs::WIKITRANS_SERVER;
+			my $server = &DBDefs::WEB_SERVER;
+			my $wdserver = &DBDefs::WIKITRANS_SERVER;
 
-		  my $temp = "";
-		  while(1)
-		  {
-            #if ($page =~ s/(.*?)<a(.*?)href="\/(.*?)"(.*?)<\/a>//s)
+			my $temp = "";
+			while(1)
+			{
 				if ($page =~ s/(.*?)<a(.*?)href="\/(.*?)"(.*?)>(.*?)<\/a>//s)
 				{
-					 my ($pre, $href, $rep, $post, $linktext) = ($1, $2, $3, $4, $5);
+					my ($pre, $href, $rep, $post, $linktext) = ($1, $2, $3, $4, $5);
 
-                $linktext =~ s/([a-z])([A-Z])/$1 $2/g;
-					 if (exists($index->{$rep}))
-					 {
-						  $temp .= "$pre<a$href class=\"WikiDocsLink\" title=\"Wiki docs link\" href=\"http://$server/doc/$rep\"$post>$linktext</a>";
-					 }
-					 else
-					 {
-						  $temp .= "$pre<a$href class=\"WikiLink\" title=\"Wiki link\" href=\"http://$server/doc/$rep\"$post>$linktext</a>";
-					 }
+					$linktext =~ s/([a-z])([A-Z])/$1 $2/g;
+					if (exists($index->{$rep}))
+					{
+						$temp .= "$pre<a$href class=\"offical\" title=\"Wiki docs link\" href=\"http://$server/doc/$rep\"$post>$linktext</a>";
+					}
+					else
+					{
+						$temp .= "$pre<a$href class=\"unofficial\" title=\"Wiki link\" href=\"http://$server/doc/$rep\"$post>$linktext</a>";
+					}
 				}
 				else
 				{
 					 $temp .= $page;
 					 last;
 				}
-		  }
-		  $page = $temp;
+			}
+			$page = $temp;
 
-        # this fixes image links to point to the wiki
-        $page =~ s[src="/-/]['src="http://' . &DBDefs::WIKITRANS_SERVER . "/-/$1"]eg; #' <-- this hack makes vim happy
+			# this fixes image links to point to the wiki
+			$page =~ s[src="/-/]['src="http://' . &DBDefs::WIKITRANS_SERVER . "/-/$1"]eg; #' <-- this hack makes vim happy
 
-        # remove external links icons from links that point to mb.org
-        $page =~ s[(<a href="http:\/\/musicbrainz.org.*?">)<img src="http:\/\/wiki.musicbrainz.org\/-\/musicbrainz\/img\/moin-www\.png".*?>][$1]g;
+			# remove external links icons from links that point to mb.org
+			$page =~ s[(<a href="http:\/\/(www\.)?musicbrainz.org.*?">)<img src="http:\/\/wiki.musicbrainz.org\/-\/musicbrainz\/img\/moin-www\.png".*?>][$1]g;
 
-        # move headers one level up
-        $page =~ s/<(\/?)h2/<$1h1/ig;
-        $page =~ s/<(\/?)h3/<$1h2/ig;
-        $page =~ s/<(\/?)h4/<$1h3/ig;
-        $page =~ s/<(\/?)h5/<$1h4/ig;
+			# move headers one level up
+			$page =~ s/<(\/?)h2/<$1h1/ig;
+			$page =~ s/<(\/?)h3/<$1h2/ig;
+			$page =~ s/<(\/?)h4/<$1h3/ig;
+			$page =~ s/<(\/?)h5/<$1h4/ig;
 
-        # Obfuscate e-mail addresses
-        $page =~ s/(\w+)\@(\w+)/$1&#x0040;$2/g;
-        $page =~ s/mailto:/mailto&#x3a;/g;
+			# Obfuscate e-mail addresses
+			$page =~ s/(\w+)\@(\w+)/$1&#x0040;$2/g;
+			$page =~ s/mailto:/mailto&#x3a;/g;
 
-        if ($iswd)
-        {
-            $page = '<div class="WikiDocsPage">' . $page . '</div>' .
-                                             '<div class="WikiDocsHeader">This <a href="/doc/WikiDocsPage">WikiDocsPage</a>' .
-                                                  ' is based on revision <a href="http://wiki.musicbrainz.org/' .
-                                                  $id . '?action=info">#' . $index->{$id} . '</a> of the WikiPage '.
-                                                  '<a href="http://wiki.musicbrainz.org/' . $id . '">' . $id . '</a></div>';
-        }
-        else
-        {
-            $page = '<div class="WikiDocsHeader">This page has been copied from our Wiki.' .
-                    'The content is <i><b>not official</b></i> but probably correct and ' .
-                    'hopefully informative.</div><div class="WikiDocsReadOnlyPage">' . $page . '</div>';
-        }
-        $m->print($page);
+			# wrap the content of the wiki (official|unofficial) into the
+			# corresponding css classes.
+			my $out = "";
+			if ($iswd)
+			{
+				$out  = 		qq!<div class="official">\n!;
+				$out .= 		$page;
+				$out .= 		qq!</div> \n!;
+				$out .= 		qq!<div class="footer">\n!;
+				$out .= 		qq!  This <a href="/doc/WikiDocsPage">WikiDocsPage</a> \n!;
+				$out .= sprintf qq!  is based on the revision <a href="%s">#%d</a> of the WikiPage !, "http://wiki.musicbrainz.org/$id?action=info", $index->{$id};
+				$out .= sprintf qq!  <a href="http://wiki.musicbrainz.org/%s">%s</a>!, $id, $id;
+				$out .= 		qq!</div>\n!;
+			}
+			else
+			{
+				$out  = qq!<div class="header">\n!;
+				$out .= qq!  This page has been copied from our Wiki. \n!;
+				$out .= qq!  The content is <i><b>not official</b></i> \n!;
+				$out .= qq!  but probably correct and hopefully informative. \n!;
+				$out .= qq!</div> \n!;
+				$out .= qq!<div class="unofficial"> \n!;
+				$out .= $page;
+				$out .= qq!</div> \n!;
+			}
 
-        # Now store page in cache
-        MusicBrainz::Server::Cache->set($key, $page, &MusicBrainz::Server::WikiTransclusion::CACHE_INTERVAL);
-        $ok = 1;
-    }
-}
-else
-{
-        $m->comp('/comp/error',
-                "Could not retrieve wiki page from wiki server. ( get $docurl -> " . $response->status_line ." )", 0, 0);
-}
+			$m->print(qq!<div class="wikidocs">\n!);
+			$m->print($out);
+			$m->print(qq!</div>\n!);
+
+
+			# Now store page in cache
+			MusicBrainz::Server::Cache->set($key, $page, &MusicBrainz::Server::WikiTransclusion::CACHE_INTERVAL);
+			$ok = 1;
+		}
+	}
 </%perl>
