@@ -1,444 +1,470 @@
 %# vi: set ts=4 sw=4 ft=mason :
 <%perl>
 
-$m->comp("/comp/checkloggedin", 1, 1,
-	"You must log in to change your preferences.",
-	)
-	or return;
+	$m->comp("/comp/checkloggedin", 1, 1,
+		"You must log in to change your preferences.",
+		)
+		or return;
 
-$session{orig_privs} = $session{privs}
-	if not exists $session{orig_privs};
+	$session{orig_privs} = $session{privs}
+		if not exists $session{orig_privs};
 
-my $saved = 0;
+	my $saved = 0;
 
-my $countries_menu = $m->comp("/edit/albumreleases/countries-menu.inc");
-my $countries_menu_2 = [ [ 0, "[none]" ], @$countries_menu ];
+	my $countries_menu = $m->comp("/edit/albumreleases/countries-menu.inc");
+	my $countries_menu_2 = [ [ 0, "[none]" ], @$countries_menu ];
 
-my $mb = $m->comp("/comp/dblogin");
-my $ui = UserStuff->new($mb->{DBH});
+	my $mb = $m->comp("/comp/dblogin");
+	my $ui = UserStuff->new($mb->{DBH});
 
-if ($ARGS{"SavePrefs"})
-{
-	# Insert zeroes for checkboxes which weren't submitted
-	for (qw(
-		mod_add_album_inline
-		mod_add_album_link
-		navbar_mod_show_select_page
-		JSMoveFocus
-		reveal_address_when_mailing
-		show_amazon_coverart
-		sidebar_panel_search
-		sidebar_panel_sites
-		sidebar_panel_stats
-		sidebar_panel_topmods
-		sidebar_panel_user
-		nosidebar
-		vote_abs_default
-		vote_show_novote
-		mail_notes_if_i_noted
-		mail_notes_if_i_voted
-		remove_recent_link_on_add
-		show_inline_mods
-		show_inline_mods_random
-		subscriptions_public
-		auto_subscribe
-	)) {
-		$ARGS{$_} = 0 if not defined $ARGS{$_};
-	}
-
-	for my $key (UserPreference::valid_keys())
+	if ($ARGS{"SavePrefs"})
 	{
-		UserPreference::set($key, $ARGS{$key})
-			if defined $ARGS{$key};
-	}
-
-	$saved = eval { UserPreference::SaveForUser($ui->Current) };
-
-	# Volatile debugging preferences
-	if (&DBDefs::DB_STAGING_SERVER) {
+		# Insert zeroes for checkboxes which weren't submitted
 		for (qw(
+			mod_add_album_inline
+			mod_add_album_link
+			navbar_mod_show_select_page
+			JSMoveFocus
+			reveal_address_when_mailing
+			show_amazon_coverart
+			sidebar_panel_search
+			sidebar_panel_sites
+			sidebar_panel_stats
+			sidebar_panel_topmods
+			sidebar_panel_user
+			nosidebar
+			vote_abs_default
+			vote_show_novote
+			mail_notes_if_i_noted
+			mail_notes_if_i_voted
+			remove_recent_link_on_add
+			show_inline_mods
+			show_inline_mods_random
+			subscriptions_public
+			auto_subscribe
 		)) {
-			$session{$_} = $ARGS{$_} ? 1 : 0;
+			$ARGS{$_} = 0 if not defined $ARGS{$_};
+		}
+
+		for my $key (UserPreference::valid_keys())
+		{
+			UserPreference::set($key, $ARGS{$key})
+				if defined $ARGS{$key};
+		}
+
+		$saved = eval { UserPreference::SaveForUser($ui->Current) };
+
+		# Volatile debugging preferences
+		if (&DBDefs::DB_STAGING_SERVER) {
+			for (qw(
+			)) {
+				$session{$_} = $ARGS{$_} ? 1 : 0;
+			}
+		}
+
+		# Other volatile preferences
+		if (UserStuff->IsAutoMod($session{orig_privs}))
+		{
+			my $p = 0 + $session{privs};
+
+			if ($ARGS{enable_automod_privs}) { $p |= UserStuff->AUTOMOD_FLAG }
+			else { $p &= ~(UserStuff->AUTOMOD_FLAG) }
+
+			$session{privs} = $p;
+		}
+
+		if (not $saved)
+		{
+			my $err = $@;
+			</%perl>
+			<& /comp/sidebar, title => "Error Saving Preferences" &>
+			<p>
+				An error occurred while trying to save your preferences.&nbsp;
+				Sorry about that.
+			</p>
+			<& /comp/footer &>
+			<%perl>
 		}
 	}
 
-	# Other volatile preferences
-	if (UserStuff->IsAutoMod($session{orig_privs}))
+	require POSIX;
+	my $time = POSIX::mktime(24,56,13,31,11,101,0,0,0);
+
+	my @format_list = map {
+		[ $_, $m->comp("/comp/datetime", { datetimeformat=> $_, tz=>'UTC' }, $time) ]
+	} UserPreference::allowed_datetime_formats();
+
+	$time = time();
+
+
+
+	# begin page rendering
+	$m->comp("/comp/sidebar", title => "Preferences");
+
+	if ($saved)
 	{
-		my $p = 0 + $session{privs};
-
-		if ($ARGS{enable_automod_privs}) { $p |= UserStuff->AUTOMOD_FLAG }
-		else { $p &= ~(UserStuff->AUTOMOD_FLAG) }
-
-		$session{privs} = $p;
+		$m->comp("/comp/tablebegin", title => "Success");
+		$m->out("Your preferences have been saved.");
+		$m->comp("/comp/tableend");
 	}
-
-	if (not $saved)
-	{
-		my $err = $@;
-		</%perl>
-		<& /comp/sidebar, title => "Error Saving Preferences" &>
-		<p>
-			An error occurred while trying to save your preferences.&nbsp;
-			Sorry about that.
-		</p>
-		<& /comp/footer &>
-		<%perl>
-	}
-}
-
-require POSIX;
-my $time = POSIX::mktime(24,56,13,31,11,101,0,0,0);
-
-my @format_list = map {
-	[ $_, $m->comp("/comp/datetime", { datetimeformat=> $_, tz=>'UTC' }, $time) ]
-} UserPreference::allowed_datetime_formats();
-
-$time = time();
-
 </%perl>
 
-<& /comp/sidebar, title=>'Preferences' &>
+	<form method="post" action="/prefs.html" id="PreferencesForm">
+		<div>
+			<input type="hidden" name="SavePrefs" value="1" />
 
-<p class="LinksRow">
-	[
-	<a href="/user/view.html">Profile &amp; Statistics</a>
-	| <a href="/user/edit.html">Edit</a>
-	| <a href="/user/change-password.html">Change Password</a>
-	| <a href="/user/subscriptions.html">Subscriptions</a>
-	]
-</p>
+			<& /comp/tablebegin, title => "Moderation Pages" &>
 
-% if ($saved) {
-<p class="notice">
-	Your preferences have been saved.
-</p>
-% }
+				<div>
+					<input type="checkbox" name="mod_add_album_inline" id="pref_mod_add_album_inline"
+%						$m->out(UserPreference::get('mod_add_album_inline') ? ' checked="checked" ' : "");
+						onclick="this.form.mod_add_album_link.disabled = !this.checked" />
+					<label for="pref_mod_add_album_inline">
+						For "Add Album" mods, show the whole album</label> ...
 
-<form method="post" action="/prefs.html" id="PreferencesForm">
-	<input type="hidden" name="SavePrefs" value="1">
+					<br /> &nbsp; &nbsp;
+					<input type="checkbox" name="mod_add_album_link" id="pref_mod_add_album_link"
+%						$m->out(UserPreference::get('mod_add_album_link') ? ' checked="checked" ' : "" );
+						/>
+					<label for="pref_mod_add_album_link">
+						and show editing links</label>
+				</div>
 
-	<h2>Moderation Pages</h2>
+				<div>
+					<input type="checkbox" name="navbar_mod_show_select_page" id="pref_navbar_mod_show_select_page"
+%						$m->out(UserPreference::get('navbar_mod_show_select_page') ? ' checked="checked" ' : "");
+						/>
+					<label for="pref_navbar_mod_show_select_page">
+						Make the "Moderate" link in the navigation bar go to
+						<a href="/mod/search/select-filter.html">this page</a>
+						instead of the "New Mods" list
+					</label>
+				</div>
 
-	<p>
-		<label for="pref_mod_add_album_inline"><input type="checkbox" name="mod_add_album_inline" id="pref_mod_add_album_inline"
-			<% UserPreference::get('mod_add_album_inline') ? "checked" : "" %>
-			onclick="this.form.mod_add_album_link.disabled = !this.checked"
-			>
-		For "Add Album" mods, show the whole album</label> ...
-		<br>
-		&nbsp; &nbsp;
-		<label for="pref_mod_add_album_link"><input type="checkbox" name="mod_add_album_link" id="pref_mod_add_album_link"
-			<% UserPreference::get('mod_add_album_link') ? "checked" : "" %>
-			>
-		and show editing links</label>
-	</p>
+				<div>
+					<label for="pref_mods_per_page">Show up to
+					<input type="text" name="mods_per_page" id="pref_mods_per_page" size="3"
+						value="<% UserPreference::get('mods_per_page') %>" />
+					mods per page (max: 25)
+					</label>
+				</div>
 
-	<p>
-		<label for="pref_navbar_mod_show_select_page"><input type="checkbox" name="navbar_mod_show_select_page" id="pref_navbar_mod_show_select_page"
-			<% UserPreference::get('navbar_mod_show_select_page') ? "checked" : "" %>
-			>
-		Make the "Moderate" link in the navigation bar go to
-		<a href="/mod/search/select-filter.html">this page</a>
-		instead of the "New Mods" list</label>
-	</p>
+				<div>
+					<input type="checkbox" name="vote_abs_default" id="pref_vote_abs_default"
+%						$m->out(UserPreference::get('vote_abs_default') ? ' checked="checked" ' : "" );
+						/>
+					<label for="pref_vote_abs_default">
+						Abstain by default</label>
+				</div>
 
-	<p>
-		<label for="pref_mods_per_page">
-		Show up to
-		<input type="text" name="mods_per_page" id="pref_mods_per_page"
-			size=3
-			value="<% UserPreference::get('mods_per_page') %>"
-			>
-		mods per page (max: 25)
-		</label>
-	</p>
+				<div>
+					<input type="checkbox" name="vote_show_novote" id="pref_vote_show_novote"
+%						$m->out(UserPreference::get('vote_show_novote') ? ' checked="checked" ' : "");
+						/>
+					<label for="pref_vote_show_novote">
+						Show the "No Vote" option</label>
+				</div>
 
-	<p>
-		<label for="pref_vote_abs_default"><input type="checkbox" name="vote_abs_default" id="pref_vote_abs_default"
-			<% UserPreference::get('vote_abs_default') ? "checked" : "" %>
-			>
-		Abstain by default</label>
-	</p>
+				<div>
+					<input type="checkbox" name="mail_notes_if_i_noted" id="pref_mail_notes_if_i_noted"
+%						$m->out(UserPreference::get('mail_notes_if_i_noted') ? ' checked="checked" ' : "");
+						/>
+					<label for="pref_mail_notes_if_i_noted">
+						When I add a note to a moderation, mail me all future notes for that moderation</label>
+				</div>
 
-	<p>
-		<label for="pref_vote_show_novote"><input type="checkbox" name="vote_show_novote" id="pref_vote_show_novote"
-			<% UserPreference::get('vote_show_novote') ? "checked" : "" %>
-			>
-		Show the "No Vote" option</label>
-	</p>
+				<div>
+					<input type="checkbox" name="mail_notes_if_i_voted" id="pref_mail_notes_if_i_voted"
+%						$m->out(UserPreference::get('mail_notes_if_i_voted') ? ' checked="checked" ' : "");
+						/>
+					<label for="pref_mail_notes_if_i_voted">
+						When I vote on a moderation, mail me all future notes for that moderation</label>
+						<br />
+						&nbsp; &nbsp;
+						(Note: only takes effect when your most recent vote on a mod is either
+						yes or no - not "abstain")
+				</div>
 
-	<p>
-		<label for="pref_mail_notes_if_i_noted"><input type="checkbox" name="mail_notes_if_i_noted" id="pref_mail_notes_if_i_noted"
-			<% UserPreference::get('mail_notes_if_i_noted') ? "checked" : "" %>
-			>
-		When I add a note to a moderation, mail me all future notes for that moderation</label>
-	</p>
+% 	unless ($ui->Current->IsNewbie) {
+				<div>
+					<input type="checkbox" name="show_inline_mods" id="pref_show_inline_mods"
+%						$m->out(UserPreference::get('show_inline_mods') ? ' checked="checked" ' : "");
+						/>
+					<label for="pref_show_inline_mods">
+						Show <i>inline</i> moderations</label>
 
-	<p>
-		<label for="pref_mail_notes_if_i_voted"><input type="checkbox" name="mail_notes_if_i_voted" id="pref_mail_notes_if_i_voted"
-			<% UserPreference::get('mail_notes_if_i_voted') ? "checked" : "" %>
-			>
-		When I vote on a moderation, mail me all future notes for that moderation</label>
-		<br>
-		&nbsp; &nbsp;
-		(Note: only takes effect when your most recent vote on a mod is either
-		yes or no - not "abstain")
-	</p>
+%		if (UserStuff->IsAutoMod($session{orig_privs})) {
+					<br />&nbsp; &nbsp;
 
-% unless ($ui->Current->IsNewbie) {
-	<p>
-		<label for="pref_show_inline_mods"><input type="checkbox" name="show_inline_mods" id="pref_show_inline_mods"
-			<% UserPreference::get('show_inline_mods') ? "checked" : "" %>
-			>
-		Show 'inline' moderations</label>
-
-%       if (UserStuff->IsAutoMod($session{orig_privs})) {
-     		<br>&nbsp; &nbsp;
-			<label for="pref_show_inline_mods_random"><input type="checkbox" name="show_inline_mods_random" id="pref_show_inline_mods_random"
-				<% UserPreference::get('show_inline_mods_random') ? "checked" : "" %>
-				>
-			Show random 'inline' moderations</label>
+					<input type="checkbox" name="show_inline_mods_random" id="pref_show_inline_mods_random"
+%						$m->out(UserPreference::get('show_inline_mods_random') ? ' checked="checked" ' : "");
+						/>
+					<label for="pref_show_inline_mods_random">
+						Show random <i>inline</i> moderations</label>
 %       }
-	</p>
-% }
+				</div>
+% 	}
 
-	<p>
-		<label for="pref_remove_recent_link_on_add"><input type="checkbox" name="remove_recent_link_on_add" id="pref_remove_recent_link_on_add"
-			<% UserPreference::get('remove_recent_link_on_add') ? "checked" : "" %>
-			>
-		After creating a new relationship, remove the linked items from my
-		"recently used" list</label>
-	</p>
+				<div>
+					<input type="checkbox" name="remove_recent_link_on_add" id="pref_remove_recent_link_on_add"
+%						$m->out(UserPreference::get('remove_recent_link_on_add') ? ' checked="checked" ' : "");
+						/>
+					<label for="pref_remove_recent_link_on_add">
+						After creating a new relationship, remove the linked items
+						from my "recently used" list</label>
+				</div>
 
-	<p>
-		<label for="pref_auto_subscribe"><input type="checkbox" name="auto_subscribe" id="pref_auto_subscribe"
-			<% UserPreference::get('auto_subscribe') ? "checked" : "" %>
-			>
-		Automatically subscribe me to artists that I create</label>
-	</p>
+				<div>
+					<input type="checkbox" name="auto_subscribe" id="pref_auto_subscribe"
+%						$m->out(UserPreference::get('auto_subscribe') ? ' checked="checked" ' : "");
+						/>
+					<label for="pref_auto_subscribe">
+						Automatically subscribe me to artists that I create</label>
+				</div>
 
-	<h2>E-Mailing Other Moderators</h2>
+			<& /comp/tableend &>
 
-	<p>
-		<label for="pref_reveal_address_when_mailing"><input type="checkbox" name="reveal_address_when_mailing" id="pref_reveal_address_when_mailing"
-			<% UserPreference::get('reveal_address_when_mailing') ? "checked" : "" %>
-			>
-		Reveal my e-mail address</label>
-		[&nbsp;<a <& /comp/auto-popup-link,
-			url => "/products/server/docs/20040103-1.html",
-			&>>help</a>&nbsp;]
-	</p>
+			<& /comp/tablebegin, title => "E-Mailing Other Moderators" &>
 
-	<h2>Artist Page (List of Releases)</h2>
+				<p>
+					<label for="pref_reveal_address_when_mailing"><input type="checkbox" name="reveal_address_when_mailing" id="pref_reveal_address_when_mailing"
+%						$m->out(UserPreference::get('reveal_address_when_mailing') ? ' checked="checked" ' : "");
+						/>
+					Reveal my e-mail address</label>
+					[&nbsp;<a <& /comp/auto-popup-link,
+						url => "/products/server/docs/20040103-1.html",
+						&>>help</a>&nbsp;]
+				</p>
 
-	<p>
-		<label for="pref_releases_show_compact">
-		Default to a "compact" listing when there are
-		<input type="text" name="releases_show_compact" id="pref_releases_show_compact"
-			size=3
-			value="<% UserPreference::get('releases_show_compact') %>"
-			>
-		releases or more.&nbsp;
-		(allowed range: 1-100)
-		</label>
-	</p>
+			<& /comp/tableend &>
 
-	<h2>Amazon.com Cover Art</h2>
+			<& /comp/tablebegin, title => "Artist Page (List of Releases)" &>
 
-	<p>
-		<label for="pref_show_amazon_coverart"><input type="checkbox" name="show_amazon_coverart" id="pref_show_amazon_coverart"
-			<% UserPreference::get('show_amazon_coverart') ? "checked" : "" %>
-			>
-		Show Amazon.com cover art and buy links</label>
-	</p>
+				<p>
+					<label for="pref_releases_show_compact">
+					Default to a "compact" listing when there are
+					<input type="text" name="releases_show_compact" id="pref_releases_show_compact"
+						size="3"
+						value="<% UserPreference::get('releases_show_compact') %>"
+						/>
+					releases or more.&nbsp;
+					(allowed range: 1-100)
+					</label>
+				</p>
 
-	<p>
-		Your preferred Amazon Store:
-		<select name="use_amazon_store">
-			<& /comp/options, [ UserPreference::allowed_amazon_stores() ],
-			UserPreference::get('use_amazon_store') &>
-		</select>
-	</p>
+			<& /comp/tableend &>
 
-	<h2>Country</h2>
+			<& /comp/tablebegin, title => "Amazon.com Cover Art" &>
 
-	<p>
-		When adding a new release, pick this country by default:
-			<select name="default_country"
-				><& /comp/options, $countries_menu_2,
-					UserPreference::get('default_country'),
-					&></select>
-	</p>
+				<p>
+					<label for="pref_show_amazon_coverart"><input type="checkbox" name="show_amazon_coverart" id="pref_show_amazon_coverart"
+%						$m->out(UserPreference::get('show_amazon_coverart') ? ' checked="checked" ' : "");
+						/>
+					Show Amazon.com cover art and buy links</label>
+				</p>
 
-	<p>
-		Your preferred Google domain:
-			<select name="google_domain"
-				><& /comp/options,
-					[ UserPreference::allowed_google_domains() ],
-					UserPreference::get('google_domain'),
-					&></select>
-	</p>
+				<p>
+					Your preferred Amazon Store:
+					<select name="use_amazon_store">
+						<& /comp/options, [ UserPreference::allowed_amazon_stores() ],
+						UserPreference::get('use_amazon_store') &>
+					</select>
+				</p>
 
-	<h2>Date/Time Display</h2>
+			<& /comp/tableend &>
 
-	<p>
-		Your preferred date/time format:
-		<select name="datetimeformat">
-			<& /comp/options, \@format_list,
-			UserPreference::get('datetimeformat') &>
-		</select>
-	</p>
-	<p>
-		Your preferred time zone:
-		<select name="timezone">
-			<& /comp/options, [ UserPreference::allowed_timezones() ],
-			UserPreference::get('timezone') &>
-		</select>
-	</p>
+			<& /comp/tablebegin, title => "Country" &>
 
-	<p>
-		The time now (using your preferences) is
-		<b><% $m->comp("/comp/datetime", $time) %></b>
-		and 180 days' time is
-		<b><% $m->comp("/comp/datetime", $time+180*86400) %></b>
-	</p>
+				<p>
+					When adding a new release, pick this country by default:
+					<select name="default_country">
+					<& /comp/options, $countries_menu_2,
+						UserPreference::get('default_country'),
+						&></select>
+				</p>
+
+				<p>
+					Your preferred Google domain:
+						<select name="google_domain">
+						<& /comp/options,
+							[ UserPreference::allowed_google_domains() ],
+							UserPreference::get('google_domain'),
+							&></select>
+				</p>
+
+			<& /comp/tableend &>
+
+			<& /comp/tablebegin, title => "Date/Time Display" &>
+
+				<p>
+					Your preferred date/time format:
+					<select name="datetimeformat">
+						<& /comp/options, \@format_list,
+						UserPreference::get('datetimeformat') &>
+					</select>
+				</p>
+				<p>
+					Your preferred time zone:
+					<select name="timezone">
+						<& /comp/options, [ UserPreference::allowed_timezones() ],
+						UserPreference::get('timezone') &>
+					</select>
+				</p>
+
+				<p>
+					The time now (using your preferences) is
+					<b><% $m->comp("/comp/datetime", $time) %></b>
+					and 180 days' time is
+					<b><% $m->comp("/comp/datetime", $time+180*86400) %></b>
+				</p>
+
+			<& /comp/tableend &>
+
+			<& /comp/tablebegin, title => "Topmenu Configuration" &>
+
+				<p>
+					The menu which is placed on top of the pages features multiple ways of
+					navigating the site. You can choose which menu type (or both) you'd like to
+					see if you are logged in:
+					<select name="topmenu_submenu_types">
+						<& /comp/options,
+							[
+								[ "both", "Both" ],
+								[ "dropdownonly", "Dropdown menus only (vertical)" ],
+								[ "staticonly", "Static submenus only (horizontal)" ],
+							],
+							UserPreference::get('topmenu_submenu_types') &>
+					</select>
+				</p>
+				<p>
+					If you selected an option which includes the <i> Dropdown menus</i>
+					above, you can choose how they get activated:
+					<select name="topmenu_dropdown_trigger">
+						<& /comp/options,
+							[
+								[ "mouseover", "When I move the mouse over the item" ],
+								[ "click", "When I click the open submenu icon" ]
+							],
+							UserPreference::get('topmenu_dropdown_trigger') &>
+					</select>
+				</p>
+
+			<& /comp/tableend &>
+
+			<& /comp/tablebegin, title => "Use of Javascript" &>
+
+				<p>
+					On each page which uses it, the "Guess Case" box should initially be
+					<select name="autofix_open">
+						<& /comp/options,
+							[
+								[ "remember", "how I last left it" ],
+								[ "1", "open" ],
+								[ "0", "closed" ],
+							],
+							UserPreference::get('autofix_open') &>
+					</select>
+				</p>
+
+				<p>
+					<label for="pref_JSMoveFocus">
+					<input type="checkbox" name="JSMoveFocus" id="pref_JSMoveFocus"
+%						$m->out(UserPreference::get('JSMoveFocus') ? ' checked="checked" ' : "");
+						/>
+					Use Javascript to move the input focus when the page loads</label>
+				</p>
+
+			<& /comp/tableend &>
+
+			<& /comp/tablebegin, title => "HTML Features" &>
+
+				<b>Sidebar panels:</b>
+
+				<ul style="list-style: none">
+					<li>
+						<label for="pref_sidebar_panel_sites"><input type="checkbox" name="sidebar_panel_sites" id="pref_sidebar_panel_sites"
+%							$m->out(UserPreference::get('sidebar_panel_sites') ? ' checked="checked" ' : "");
+							/> MusicBrainz Sites</label>
+					</li>
+					<li>
+						<label for="pref_sidebar_panel_user"><input type="checkbox" name="sidebar_panel_user" id="pref_sidebar_panel_user"
+%							$m->out(UserPreference::get('sidebar_panel_user') ? ' checked="checked" ' : "");
+							/> Your Account</label>
+					</li>
+					<li>
+						<label for="pref_sidebar_panel_search"><input type="checkbox" name="sidebar_panel_search" id="pref_sidebar_panel_search"
+%							$m->out(UserPreference::get('sidebar_panel_search') ? ' checked="checked" ' : "");
+							/> Quick Search</label>
+					</li>
+					<li>
+						<label for="pref_sidebar_panel_topmods"><input type="checkbox" name="sidebar_panel_topmods" id="pref_sidebar_panel_topmods"
+%							$m->out(UserPreference::get('sidebar_panel_topmods') ? ' checked="checked" ' : "");
+							/> Top Moderators</label>
+					</li>
+					<li>
+						<label for="pref_sidebar_panel_stats"><input type="checkbox" name="sidebar_panel_stats" id="pref_sidebar_panel_stats"
+%							$m->out(UserPreference::get('sidebar_panel_stats') ? ' checked="checked" ' : "");
+							/> Server Stats</label>
+					</li>
+				</ul>
+
+				<p>
+					<label for="pref_nosidebar"><input type="checkbox" name="nosidebar" id="pref_nosidebar"
+%						$m->out(UserPreference::get('nosidebar') ? ' checked="checked" ' : "");
+						/>
+					Don't show the sidebar at all (even faster, but it makes it
+					rather hard to navigate the site)</label>
+				</p>
+
+			<& /comp/tableend &>
+
+			<& /comp/tablebegin, title => "Privacy Settings" &>
+
+				<p>
+					<label for="pref_subscriptions_public"><input type="checkbox" name="subscriptions_public" id="pref_subscriptions_public"
+%						$m->out(UserPreference::get('subscriptions_public') ? ' checked="checked" ' : "");
+						/>
+					Allow other users to see <a href="/user/subscriptions.html"
+						>my subscribed artists</a></label>
+					(see <a href="/docs/20050108-1.html">notes</a>)
+				</p>
+
+				<p>
+					<input type="submit" value="Update" />
+				</p>
+
+			<& /comp/tableend &>
 
 
-	<h2>Topmenu Configuration</h2>
-	<p>									 
-		The menu which is placed on top of the pages features multiple ways of 
-		navigating the site. You can choose which menu type (or both) you'd like to
-		see if you are logged in:
-		<select name="topmenu_submenu_types">
-			<& /comp/options,
-				[
-					[ "both", "Both" ],
-					[ "dropdownonly", "Dropdown menus only (vertical)" ],
-					[ "staticonly", "Static submenus only (horizontal)" ],
-				],
-				UserPreference::get('topmenu_submenu_types') &>
-		</select>
-	</p>
-	<p>					 
-		If you selected an option which includes the <i> Dropdown menus</i> 
-		above, you can choose how they get activated: 
-		<select name="topmenu_dropdown_trigger">
-			<& /comp/options,
-				[
-					[ "mouseover", "When I move the mouse over the item" ],
-					[ "click", "When I click the open submenu icon" ]
-				],
-				UserPreference::get('topmenu_dropdown_trigger') &>
-		</select>
-	</p>
+% 	if (UserStuff->IsAutoMod($session{orig_privs})) {
 
+			<& /comp/tablebegin, title => "Temporary Preferences" &>
 
-	<h2>Use of Javascript</h2>
+				<p>
+					These preferences are not saved permanently; they are reset every time
+					you log in.
+				</p>
 
-	<p>
-		On each page which uses it, the "Guess Case" box should initially be
-		<select name="autofix_open">
-			<& /comp/options,
-				[
-					[ "remember", "how I last left it" ],
-					[ "1", "open" ],
-					[ "0", "closed" ],
-				],
-				UserPreference::get('autofix_open') &>
-		</select>
-	</p>
+				<p>
+					<label for="pref_enable_automod_privs">
+					<input type="checkbox" name="enable_automod_privs" id="pref_enable_automod_privs"
+%						$m->out(UserStuff->IsAutoMod($session{privs}) ? ' checked="checked" ' : "");
+						/>
+					Enable auto-moderator privileges</label>
+				</p>
 
-	<p>
-		<label for="pref_JSMoveFocus"><input type="checkbox" name="JSMoveFocus" id="pref_JSMoveFocus"
-			<% UserPreference::get('JSMoveFocus') ? "checked" : "" %>
-			>
-		Use Javascript to move the input focus when the page loads</label>
-	</p>
+				<p>
+					<input type="submit" value="Update" />
+				</p>
 
-	<h2>HTML Features</h2>
+			<& /comp/tableend &>
+% 	}
+		</div>
+	</form>
+	<script type="text/javascript">
+		var f=document.forms.PreferencesForm;
+		f.mod_add_album_link.disabled = !(f.mod_add_album_inline.checked);
+	</script>
+	<& /comp/movefocus, "PreferencesForm", "mod_add_album_inline" &>
 
-	<p>
-		Sidebar panels:
-	</p>
-
-	<ul style="list-style: none">
-		<li>
-			<label for="pref_sidebar_panel_sites"><input type="checkbox" name="sidebar_panel_sites" id="pref_sidebar_panel_sites"
-				<% UserPreference::get('sidebar_panel_sites') ? "checked" : "" %>
-				> MusicBrainz Sites</label>
-		</li>
-		<li>
-			<label for="pref_sidebar_panel_user"><input type="checkbox" name="sidebar_panel_user" id="pref_sidebar_panel_user"
-				<% UserPreference::get('sidebar_panel_user') ? "checked" : "" %>
-				> Your Account</label>
-		</li>
-		<li>
-			<label for="pref_sidebar_panel_search"><input type="checkbox" name="sidebar_panel_search" id="pref_sidebar_panel_search"
-				<% UserPreference::get('sidebar_panel_search') ? "checked" : "" %>
-				> Quick Search</label>
-		</li>
-		<li>
-			<label for="pref_sidebar_panel_topmods"><input type="checkbox" name="sidebar_panel_topmods" id="pref_sidebar_panel_topmods"
-				<% UserPreference::get('sidebar_panel_topmods') ? "checked" : "" %>
-				> Top Moderators</label>
-		</li>
-		<li>
-			<label for="pref_sidebar_panel_stats"><input type="checkbox" name="sidebar_panel_stats" id="pref_sidebar_panel_stats"
-				<% UserPreference::get('sidebar_panel_stats') ? "checked" : "" %>
-				> Server Stats</label>
-		</li>
-	</ul>
-
-	<p>
-		<label for="pref_nosidebar"><input type="checkbox" name="nosidebar" id="pref_nosidebar"
-			<% UserPreference::get('nosidebar') ? "checked" : "" %>
-			>
-		Don't show the sidebar at all (even faster, but it makes it
-		rather hard to navigate the site)</label>
-	</p>
-
-	<h2 id="privacy-settings">Privacy Settings</h2>
-
-	<p>
-		<label for="pref_subscriptions_public"><input type="checkbox" name="subscriptions_public" id="pref_subscriptions_public"
-		<% UserPreference::get('subscriptions_public') ? "checked" : "" %>
-			>
-		Allow other users to see <a href="/user/subscriptions.html"
-			>my subscribed artists</a></label>
-		(see <a href="/docs/20050108-1.html">notes</a>)
-	</p>
-
-	<p>
-		<input type="submit" value="Update">
-	</p>
-
-% if (UserStuff->IsAutoMod($session{orig_privs})) {
-	<h1>Temporary Preferences</h1>
-
-	<p>
-		These preferences are not saved permanently; they are reset every time
-		you log in.
-	</p>
-
-	<h2>Automoderator Privileges</h2>
-	<p>
-		<label for="pref_enable_automod_privs"><input type="checkbox" name="enable_automod_privs" id="pref_enable_automod_privs"
-			<% UserStuff->IsAutoMod($session{privs}) ? "checked" : "" %>
-			>
-		Enable auto-moderator privileges</label>
-	</p>
-
-	<p>
-		<input type="submit" value="Update">
-	</p>
-% }
-
-</form>
-
-<script type="text/javascript">
-var f=document.forms.PreferencesForm;
-f.mod_add_album_link.disabled = !(f.mod_add_album_inline.checked);
-</script>
-<& /comp/movefocus, "PreferencesForm", "mod_add_album_inline" &>
 <& /comp/footer &>
