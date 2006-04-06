@@ -1,11 +1,16 @@
 %# vi: set ts=4 sw=4 ft=mason :
 <%args>
-$id => undef
+	$id => undef
 </%args>
-% my $pagetitle = "MusicBrainz" . (( $id ) ? ": $id" : ": Documentation");
+<%perl>
 
-<& /comp/sidebar, pagetitle => $pagetitle, title => '', uri=>"/wd/$id" &>
+	# prepare page title (for document <title></title>)
+	my $pagetitle = ($id ? $id : "Documentation");
 
-<& /comp/wikitrans, id => $id &>
+	$m->comp("/comp/sidebar-notitle", pagetitle => $pagetitle, spacing => 0, uri => "/doc/$id");
 
-<& /comp/footer &>
+	$m->comp("/comp/wikitrans", id => $id);
+
+	$m->comp("/comp/footer");
+
+</%perl>
