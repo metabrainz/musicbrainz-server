@@ -3,6 +3,7 @@
 	$title => "MusicBrainz"
 	$pagetitle => ""
 	$noh1 => 0
+	$isindex => 0
 	$head => undef
 	$uri => ''
 </%args>
@@ -24,33 +25,33 @@
 % unless ($nosidebar) {
 				<td id="sidebar-td" style="width:140px">
 <%perl>
-	if (UserPreference::get("sidebar_panel_sites")) 
+	if (UserPreference::get("sidebar_panel_sites"))
 	{
 		$m->comp("/comp/layout/sidebar-section", title => "MusicBrainz Sites");
 		$m->comp("/comp/layout/sidemenu-panel-main");
 	}
 
-	if (UserPreference::get("sidebar_panel_user")) 
+	if (UserPreference::get("sidebar_panel_user"))
 	{
-		if (!defined $session{user} || $session{user} eq '') 
+		if (!defined $session{user} || $session{user} eq '')
 		{
 			$m->comp("/comp/layout/sidebar-section", title => "Not logged in", link => "/login.html");
 			$m->comp("/comp/layout/sidemenu-panel-userguest");
-		} 
-		else 
+		}
+		else
 		{
 			$m->comp("/comp/layout/sidebar-section", title => $session{user}, link => "/user/view.html");
 			$m->comp("/comp/layout/sidemenu-panel-userloggedin");
 		}
 	}
 
-	if (UserPreference::get("sidebar_panel_search")) 
+	if (UserPreference::get("sidebar_panel_search"))
 	{
 		$m->comp("/comp/layout/sidebar-section", title => " Search", link => "/search.html");
 		$m->comp("/comp/layout/sidemenu-panel-search");
 	}
 
-	if (UserPreference::get("sidebar_panel_topmods") && &DBDefs::REPLICATION_TYPE != RT_SLAVE) 
+	if (UserPreference::get("sidebar_panel_topmods") && &DBDefs::REPLICATION_TYPE != RT_SLAVE)
 	{
 		$m->comp("/comp/layout/sidebar-section", title => "Top Voters", link => "/topmods.html");
 		$m->comp("/comp/layout/sidemenu-panel-topvoters");
@@ -62,7 +63,7 @@
 	}
 
 	# always show sponsors
-	if (1 || UserPreference::get("sidebar_panel_sponsors")) 
+	if (1 || UserPreference::get("sidebar_panel_sponsors"))
 	{
 	    $m->comp("/comp/layout/sidebar-section", title => "Partners", link => "/sponsors.html");
     	$m->comp("/comp/layout/sidemenu-panel-sponsors");
@@ -73,7 +74,7 @@
 %				# this needs to be an inline javascript to reduce flickering
 %				# in the browser, if the sidebar were toggled later during the
 %				# load process.
-				<script type="text/javascript" src="/scripts/sidebar.js"></script> 
+				<script type="text/javascript" src="/scripts/sidebar.js"></script>
 			</td>
 % }
 			<td id="content-td" style="width:100%">
@@ -83,6 +84,12 @@
 % }
 				<a id="maincontent"></a>
 
-% if ($title ne "" and not $noh1) {
+% if ($title ne "" and (!$noh1 && !$isindex)) {
+
 				<h1><% $title %></h1>
+
+% } elsif (!$isindex) {
+
+	<div style="height: 7px"> </div>
+
 % }
