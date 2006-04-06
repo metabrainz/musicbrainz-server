@@ -18,7 +18,7 @@ my $enddate_str = Artist::GetEndDateName($type);
 
 <script type="text/javascript" src="/scripts/artistform.js"></script>
 
-    <form method="POST" action="<% $action %>" name="EditArtist">
+    <form method="post" action="<% $action %>">
     
         <& /comp/autofixmenu &>
 
@@ -36,7 +36,7 @@ my $enddate_str = Artist::GetEndDateName($type);
             <div class="padtop"></div>
             <table border="0" cellspacing="0">
                 <tr>
-                    <td nowrap><label for="editartist_type">Type:</label></td>
+                    <td><label for="editartist_type">Type:</label></td>
                     <td rowspan="50">&nbsp;</td>
                     <td>
                         <select name="type" onchange="artistTypeChanged(this.value);"
@@ -49,17 +49,17 @@ my $enddate_str = Artist::GetEndDateName($type);
 
 % if ( defined $artist ) {
                 <tr>
-                    <td nowrap><label>Current Name:</label></td>
+                    <td><label>Current Name:</label></td>
                     <td>
                         <div class="oldtextfield"><% $artist->GetName() %></div></td>
                 </tr>
 % }
                 <tr>
-                    <td nowrap><label for="editartist_name">Artist Name:</label></td>
+                    <td><label for="editartist_name">Artist Name:</label></td>
                     <td>
                         <input  type="text" name="name" class="textfield" 
 							id="editartist_name"
-							size="50" value="<% $name %>">
+							size="50" value="<% $name %>" />
 						<& /comp/form/jsbutton, id=>"BTN_ARTIST|name" &>
 						</td>
                 </tr>
@@ -67,17 +67,17 @@ my $enddate_str = Artist::GetEndDateName($type);
 
 % if ( defined $artist ) {
                 <tr>
-                    <td nowrap><label>Current Sort Name:</label></td>
+                    <td><label>Current Sort Name:</label></td>
                     <td>
                         <div class="oldtextfield"><% $artist->GetSortName()  %></div></td>
                 </tr>
 % }
                 <tr>
-                    <td nowrap><label for="editartist_sortname">Sort Name:</label></td>
+                    <td><label for="editartist_sortname">Sort Name:</label></td>
                     <td>
                         <input  type="text" name="sortname" class="textfield" 
 							id="editartist_sortname"
-							size="50" value="<% $sortname %>">
+							size="50" value="<% $sortname %>" />
 						<& /comp/form/jsbutton, id=>"BTN_SORTGUESS|name|sortname" &>
 						<& /comp/form/jsbutton, id=>"BTN_SORTCOPY|name|sortname" &>
 						</td>
@@ -96,18 +96,18 @@ my $enddate_str = Artist::GetEndDateName($type);
                 </tr>
 % if ( defined $artist ) {
                 <tr>
-                    <td nowrap><label>Current Comment:</label></td>
+                    <td><label>Current Comment:</label></td>
                     <td>
                         <div class="oldtextfield"><% $artist->GetResolution() || "(none)" %></div></td>
                 </tr>
 % }
                 <tr>
-                    <td nowrap><label for="editartist_resolution">Comment:</label></td>
+                    <td><label for="editartist_resolution">Comment:</label></td>
                     <td>
                         <input  type="text" name="resolution" class="textfield"
 							id="editartist_resolution"
 							size="50" maxlength="64"
-							value="<% $resolution %>"></td>
+							value="<% $resolution %>" /></td>
                 </tr>
 % }
 
@@ -117,12 +117,12 @@ my $enddate_str = Artist::GetEndDateName($type);
                     <td>&nbsp;</td>
                     <td>
                         <div class="helptext">
-                            Dates are in the format <i>YYYY-MM-DD</i>. Partial dates <br/>
-                            <i>YYYY-MM</i> or just <i>YYYY</i> are OK, or you can omit the date entirely.
+                            Dates are in the format <em>YYYY-MM-DD</em>. Partial dates <br/>
+                            <em>YYYY-MM</em> or just <em>YYYY</em> are OK, or you can omit the date entirely.
                         </div></td>
                 </tr>
                 <tr>
-                    <td nowrap>
+                    <td>
                         <label for="editartist_begindate"><span id="begindate_text"><% $begindate_str %></span>:</label></td>
                     <td>
                         <& /comp/dateinput, name_prefix => 'begindate', value => $begindate,
@@ -130,7 +130,7 @@ my $enddate_str = Artist::GetEndDateName($type);
                         Year-Month-Day</td>
                 </tr>
                 <tr>
-                    <td nowrap>
+                    <td>
                         <label for="editartist_enddate"><span id="enddate_text"><% $enddate_str %></span>:</label></td>
                     <td>
                         <& /comp/dateinput, name_prefix => 'enddate', value => $enddate,
@@ -151,9 +151,9 @@ my $enddate_str = Artist::GetEndDateName($type);
                     <td align="right">Confirm:</td>
                     <td>
 % if ($action =~ /edit/) {
-                        <input type="checkbox" name="confirm"> I <b>really</b> do want to edit this artist.
+                        <input type="checkbox" name="confirm"> I <strong>really</strong> do want to edit this artist.
 % } else {
-                        <input type="checkbox" name="confirm"> I <b>really</b> do want to add a duplicate artist.
+                        <input type="checkbox" name="confirm"> I <strong>really</strong> do want to add a duplicate artist.
 % }
                     </td>
                 </tr>
@@ -162,14 +162,14 @@ my $enddate_str = Artist::GetEndDateName($type);
                     <td>&nbsp;</td>
                     <td class="padtop">
 % if ( defined $artist ) {
-                        <input type="hidden" name="id" value="<% $artist->GetId() %>">
+                        <input type="hidden" name="id" value="<% $artist->GetId() %>" />
                         <& /comp/form/jsbutton, id=>"BTN_CANCEL|/showartist.html?artistid=".$artist->GetId &>
 % }
-                        <input type="submit" class="button" value="Submit"></td>
+                        <input type="submit" class="button" value="Submit" /></td>
                     
                 </tr>
             </table>
         </fieldset>
     </form>
 
-<& /comp/movefocus, "EditArtist", "name" &>
+<& /comp/movefocus, id => "editartist_name" &>

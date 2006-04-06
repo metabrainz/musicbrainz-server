@@ -148,7 +148,7 @@ unless (
 	this artist.&nbsp; If the the new artist name already exists in the database,
 	you will be prompted to add a comment to the artist that will allow
 	users to differentiate this artist from the existing artist.
-<p>
+</p>
 
 % if ($dupar->GetId) {
 	<div class="similarartist">
@@ -159,7 +159,7 @@ unless (
 
 % if (!$resolution && lc($dupar->GetName) eq lc($name)) {
 		<ul>
-			<li>You <b>must</b> provide a comment which allows to distinguish 
+			<li>You <strong>must</strong> provide a comment which allows to distinguish 
 				this artist from the other artist <a href="/artist/<% $dupar->GetMBId %>.html"><% $dupar->GetName %></a>.
 			</li>
 		</ul>
