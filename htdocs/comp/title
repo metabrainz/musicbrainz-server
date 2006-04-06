@@ -1,8 +1,0 @@
-<%args>
-$title
-</%args>
-
-<center>
-<font size="+2" class="title"><% $title  %></font>
-</center>
-<p>
