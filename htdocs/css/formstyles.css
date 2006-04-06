@@ -27,6 +27,9 @@ fieldset .datefield {
 	background: #fff;
 	padding-left: 2px;
 }
+fieldset .datefield {
+  text-align: center;
+}
 fieldset .textfieldfocus,
 fieldset .numberfieldfocus,
 fieldset .datefieldfocus {

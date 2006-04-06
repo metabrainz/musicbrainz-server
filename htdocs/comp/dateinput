@@ -8,12 +8,12 @@ $id => undef
 <input type="text" name="<% $name_prefix %>_y" class="datefield" 
 % $m->out('id="' . encode_entities($id) . '"') if defined $id;
 		size="4" maxlength="4"
-		value="<% $value->[0] %>" style="text-align: center;">
+		value="<% $value->[0] %>" />
 
 <input type="text" name="<% $name_prefix %>_m" class="datefield"
 		size="2" maxlength="2"
-		value="<% $value->[1] %>" style="text-align: center;">
+		value="<% $value->[1] %>" />
 
 <input type="text" name="<% $name_prefix %>_d" class="datefield"
 		size="2" maxlength="2"
-		value="<% $value->[2] %>" style="text-align: center;">
+		value="<% $value->[2] %>" />
