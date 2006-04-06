@@ -50,7 +50,7 @@
 	}
 
 	$m->comp("/comp/sidebar", noh1 => 1);
-	$m->comp("/comp/tablebegin", title => "Create a MusicBrainz Account", align => "center");
+	$m->comp("/comp/tablebegin", title => "Create a MusicBrainz Account");
 
 
 	if (&DBDefs::REPLICATION_TYPE == RT_SLAVE)
@@ -116,9 +116,11 @@
 			   <td class="label">
 					E-mail address:</td>
 				<td>
-					<input class="textfield" type="text" name="email" size="30"  value="<% $email %>" />
-
-					<br />
+					<input class="textfield" type="text" name="email" size="30"  value="<% $email %>" /></td>
+			</tr>
+			<tr>
+				<td>&nbsp;</td>
+				<td>
 					<input type="checkbox" name="emailconfirm" value="checked"
 						<%perl>
 							$m->out($emailconfirm ne "" ? qq! checked="checked" ! : "");
