@@ -1,0 +1,21 @@
+%# vi: set ts=4 sw=2 ft=mason :
+<& /comp/sidebar, noh1 => 1 &>
+
+<& /comp/tablebegin, title => "View moderation by ID" &>
+
+% if (&DBDefs::REPLICATION_TYPE == RT_SLAVE) {
+
+	Moderations are not available on this mirror server.&nbsp;
+	To view moderations go to the
+	<img src="/images/icon/extlink.gif" alt="" />
+	<a href="http://musicbrainz.org/jumpmod.html">main server</a>.
+
+% } else {
+
+	 <& /comp/jumpmod &>
+	 <& /comp/movefocus, "JumpMod", "modid" &>
+
+% }
+
+<& /comp/tableend &>
+<& /comp/footer &>
