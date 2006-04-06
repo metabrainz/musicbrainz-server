@@ -85,21 +85,21 @@
 
 			<tr>
 				<td class="label">
-					User Name:</td>
+					<label for="id_username">User Name:</label></td>
 				<td>
-					<input class="textfield" type="text" name="username" size="30" value="<% $username %>" /></td>
+					<input class="textfield" type="text" name="username" id="id_username" size="30" value="<% $username %>" /></td>
 			</tr>
 			<tr>
 				<td class="label">
-					Password:</td>
+					<label for="id_password">Password:</td>
 				<td>
-					<input class="textfield" type="password" name="password" size="30" value="<% $password %>" /></td>
+					<input class="textfield" type="password" name="password" id="id_password" size="30" value="<% $password %>" /></td>
 			</tr>
 			<tr>
 				<td class="label">
-					Confirm Password:</td>
+					<label for="id_confirmpassword">Confirm Password:</label></td>
 				<td>
-					<input class="textfield" type="password" name="confirmpassword" size="30" value="<% $confirmpassword %>" /></td>
+					<input class="textfield" type="password" name="confirmpassword" id="id_confirmpassword" size="30" value="<% $confirmpassword %>" /></td>
 			</tr>
 			<tr>
 				<td>&nbsp;</td>
@@ -111,18 +111,18 @@
 			</tr>
 			<tr>
 			   <td class="label">
-					E-mail address:</td>
+					<label for="id_email">E-mail address:</label></td>
 				<td>
-					<input class="textfield" type="text" name="email" size="30"  value="<% $email %>" /></td>
+					<input class="textfield" type="text" name="email" id="id_email" size="30"  value="<% $email %>" /></td>
 			</tr>
 			<tr>
 				<td>&nbsp;</td>
 				<td>
-					<input type="checkbox" name="emailconfirm" value="checked"
+					<input type="checkbox" name="emailconfirm" id="id_emailconfirm" value="checked"
 						<%perl>
 							$m->out($emailconfirm ne "" ? qq! checked="checked" ! : "");
 						</%perl> />
-						Yes, I do not want to enter an e-mail address.</td>
+						<label for="id_emailconfirm">Yes, I do not want to enter an e-mail address.</label></td>
 			</tr>
 			<tr>
 				<td>&nbsp;</td>
