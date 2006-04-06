@@ -2,6 +2,7 @@
 <%args>
 $artist => ""
 $notetext => ""
+$btnNo => undef
 </%args>
 <%perl>
 
@@ -37,6 +38,11 @@ return $m->comp(
 
 my $url = "/search.html";
 
+if (defined $btnNo)
+{
+	return $m->comp("/comp/redirect", $url); 
+}
+
 if ($ARGS{confirm})
 {
 	$m->comp(
@@ -66,37 +72,25 @@ if ($ARGS{confirm})
 
 <& /comp/sidebar, title => 'Confirm Artist Removal' &>
 
+<form method="post" action="/edit/artist/remove.html">
 <fieldset>
 	<legend>Confirm Artist Removal</legend>
 	<div class="padleft">
 		Are you sure you want to remove artist
-		<span class="bold"><% $ar->GetName %></span>?
+		<strong><% $ar->GetName %></strong>?
 	</div>
 	<div class="padlefttop">
-		<table>
-			<tr>
-				<td>
-					<form 	method="GET" action="<% $url %>"
-							name="ModFormNo" 
-							onsubmit="history.go(-1); return false">
-						<input name="btnNo" type="submit" class="button" value="&laquo; NO">
-					</form></td>
-				<td> &nbsp; </td>
-				<td>
-					<form 	method="POST" action="/edit/artist/remove.html"
-							name="ModFormYes">
-						<input type="hidden" name="artist" value="<% $artist %>">
-						<input type="hidden" name="confirm" value="1">
-						<input name="btnYes" type="submit" class="button" value="YES &raquo;">
-					</td>
-			</tr>
-		</table>
+		<input type="hidden" name="url" value="<% $url %>" />
+		<input type="hidden" name="artist" value="<% $artist %>" />
+		<input type="hidden" name="confirm" value="1" />
+		<input name="btnNo" id="btnNo" type="submit" class="button" value="&laquo; NO" onclick="history.go(-1); return false" />
+		<input name="btnYes" type="submit" class="button" value="YES &raquo;" />
 	</div>
 	<div class="padlefttop">
 		<& /comp/notetext &>
 	</div>
-	</form>
 </fieldset>
+</form>	
 
-<& /comp/movefocus, "ModFormNo", 0 &>
+<& /comp/movefocus, id => "btnNo" &>
 <& /comp/footer &>
