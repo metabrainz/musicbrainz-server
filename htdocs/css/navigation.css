@@ -31,7 +31,11 @@ td.modpending {
 .sidemenu-box div.title {
 	padding-top: 2px; padding-left: 6px;
 	font-size: 11px;
+	font-family: Verdana, Geneva, Arial, Helvetica, sans-serif; 
+	color : #000000; 
+	font: bold; 	
 }
+
 .sidemenu-box a,
 .sidemenu-box a:active,
 .sidemenu-box a:visited {
@@ -71,7 +75,6 @@ td.modpending {
 .sidemenu form, .sidemenu input {
 	margin: 0px; font-size: 11px;
 }
-
 
 
 /* ********************************************** */

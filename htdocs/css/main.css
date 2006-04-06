@@ -1,30 +1,41 @@
 /* styles for common elements and element combinations */
-
 body
 {
-	margin: 0;
-	padding: 0;
 	background: #fff;
 	color: #000;
+	margin: 0px; padding: 0px;	
 }
 
+/* default font for body, paragraph and td's */
+body, p, td	{
+	font-style: normal;
+	font-size: 10pt;
+	font-family: Verdana, Geneva, Arial, Helvetica, sans-serif; 
+	color : #000000; 
+	text-decoration : none;
+}
+
+.bold { font-weight: bold; }
+
+
+/* XHTML change: globally remove borders from images inside <a> blocks */
 a img
 { 
 	border: 0;
 	vertical-align: baseline;
 }
-form { margin: 0 }
 
-label { cursor: pointer; }
+label { cursor: pointer; } /* TODO: that is the default behaviour, isn't it? */
 
+/* default link color */
 a,
 a:link,
-a:visited
-{
+a:visited {
 	color: #534D8B;
 	text-decoration: none;
 }
 
+/* activated, and hovered link color */
 a:hover,
 a:focus,
 a:active
@@ -33,19 +44,28 @@ a:active
 	text-decoration: underline;
 }
 
+/* globallby turn off <p> TODO: why use paragraphs then? */
 p {
-        margin: 0;
+	margin: 0px;
 }
 
-/* This is equivalent to /comp/title, i.e. class "title" in brainz.css */
+
+div.pagetitle {
+	text-align: left;
+	margin-top: 0px;
+	font-size: 22px;
+	font-weight: bold;
+}
+
+
+/* big, chunkish font (page titles only) */
 h1
 {
-	font-size: 150%;
+	font-size: 21px;
 	font-weight: bold;
-	text-align: center;
 }
 
-/* This is equivalent to /comp/section */
+/* black text on orange gradient with orange line at the bottom. */
 h2
 {
 	background: #fff url(/images/header-bg-orangefade.gif) repeat-y left;
@@ -54,16 +74,17 @@ h2
 	font-size: 100%;
 	font-weight: bold;
 	padding: 0.1em 0.3em;
-	margin-top: 2em;
-	margin-bottom: 2em;
+	margin-top: 20px;
+	margin-bottom: 10px;
 }
 
+/* paragraph header */
 h3
 {
 	font-weight: bold;
 	font-size: 100%;
-	text-decoration: underline;
-	margin-top: 1.5em;
+	margin-top: 20px;
+	margin-bottom: 3px;
 }
 
 .notice
@@ -591,22 +612,111 @@ table.Subs tr.r1 td {
   color: red;
 }
 
+
+
+
+
+
+
 /* Links to wikidocs or wiki pages */
-.WikiDocsHeader
-{
-        text-align: right;
+.wikidocs {
 }
-.WikiDocsLink
-{
-        font-weight: bold;
+
+.wikidocs div.official {
 }
-.WikiLink
-{
+
+/* WIKIDOCS: unoffical (copied) pages are visually distinct */
+.wikidocs div.unofficial {
+	border: 2px dotted #ccc;
+	padding: 10px;
+	background-image: url(/images/wikidocs/draft.png);
 }
-.WikiDocsReadOnlyPage
-{
-        border: 2px dotted black;
-        padding: .5em;
+
+/* WIKIDOCS: offical (wikidocs) pages have bold links */
+.wikidocs a.official {
+	font-weight: bold;
 }
+.wikidocs a.unofficial {
+}
+
+/* header section (used for unofficial pages) */
+.wikidocs div.header {
+	text-align: left;
+	padding-bottom: 15px;
+	font-size: 11px;
+}
+
+/* header section (used for official pages) */
+.wikidocs div.footer {
+	border-top: 2px dotted #ccc;
+	margin-top: 5px;
+	padding-top: 5px;
+	font-size: 11px;
+}
+.wikidocs div.footer * {
+	font-weight: bold;
+}
+
+/* global <p> tag removes the margin from paragraphs, re-add it for wiki pages */
+.wikidocs p {
+	margin-bottom: 12px;
+}
+/* copied definition from top of the page */
+.wikidocs h1 {
+}
+/* copied definition from top of the page, adjusted margin */
+.wikidocs h2 {
+	background: #fff url(/images/header-bg-orangefade.gif) repeat-y left;
+	margin-top: 20px;
+	margin-bottom: 10px;
+}
+/* copied definition from top of the page, adjusted margin */
+.wikidocs h3 {
+	margin-top: 20px;
+	margin-bottom: 3px;
+}
+/* copied definition from top of the page, adjusted margin */
+.wikidocs h4 {
+	margin-top: 20px;
+	margin-bottom: 3px;
+}
+
+
+/* horizontal ruler */
+.wikidocs hr {
+	color: #000;
+	background: #000;
+	height: 1px;
+}
+
+/* WIKIDOCS: unordered lists */
+.wikidocs ul {
+	margin-left: 30px;
+}
+.wikidocs ul li p {
+	margin: 0px;
+	padding: 0px;
+}
+
+/* WIKIDOCS: ordered lists */
+.wikidocs ol {
+	margin-left: 30px;
+}
+.wikidocs ol li p {
+	margin: 0px;
+	padding: 0px;
+}
+
+/* WIKIDOCS: ordered lists */
+.wikidocs td {
+	padding: 0px; padding-right: 10px;
+	margin: 0px;
+}
+
+.wikidocs td p {
+	margin: 0px;
+	padding: 0px;
+}
+
 
 /* eof */

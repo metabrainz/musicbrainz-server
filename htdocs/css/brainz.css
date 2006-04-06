@@ -1,20 +1,4 @@
 /* These are the rules which used to be in htdocs/brainz.css */
 
-body, p, td         {font : normal 10pt Verdana, Geneva, Arial, Helvetica, sans-serif; color : #000000; text-decoration : none;}
-
-.title              {font : Bold 12pt Verdana, Geneva, Arial, Helvetica, sans-serif; color : #000000; text-decoration : none;}
-.stats           {font : Normal 8pt Verdana, Geneva, Arial, Helvetica, sans-serif; color : #000000; text-decoration : none;}
-.statsb           {font : Bold 8pt Verdana, Geneva, Arial, Helvetica, sans-serif; color : #000000; text-decoration : none;}
-.stats a:link,
-.stats a:visited,
-.stats a         {font : Normal 8pt Verdana, Geneva, Arial, Helvetica, sans-serif; color : #555555; text-decoration : none;}
-.stats a:active,
-.stats a:focus,
-.stats a:hover   {font : Normal 8pt Verdana, Geneva, Arial, Helvetica, sans-serif; color : #000000; text-decoration : none;}
-
-.mbtable            {font : Bold 10pt Verdana, Geneva, Arial, Helvetica, sans-serif; color : #997035; text-decoration : none;}
-.formstyle input    {font : Normal 10pt Verdana, Geneva, Arial, Helvetica, sans-serif; text-decoration : none;}
-
-.bold               {font : Bold 10pt Verdana, Geneva, Arial, Helvetica, sans-serif; color : #000000; text-decoration : none;}
 
 /* eof */
