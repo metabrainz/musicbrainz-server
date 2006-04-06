@@ -69,15 +69,13 @@
 </%perl>
 	<form method="post" action="/user/register.html" id="registerform">
 
-		<table class="loginform">
-			<tr>
-				<td colspan="2" class="fillfields">
-					<ul>
-						<li>Please fill out the fields below to create a new MusicBrainz account:</li>
-					</ul>
-				</td>
-			</tr>
+		<div class="fillfields">
+			<ul>
+				<li>Please fill out the fields below to create a new MusicBrainz account:</li>
+			</ul>
+		</div>
 
+		<table class="loginform">
 
 %			if (@$createlogin > 0) {
 			<tr>
