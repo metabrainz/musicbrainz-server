@@ -254,7 +254,7 @@
 		{ name => "Help",					url => "/doc/ContactUs" },
 		[
 			{ name => "Contact Us",				url => "/doc/ContactUs" },
-			{ name => "FAQ Index",				url => "/doc/FAQIndex" },
+			{ name => "FAQs",					url => "/doc/FrequentlyAskedQuestions" },
 			[
 				{ url => "/doc/GeneralFAQ" },
 				{ url => "/doc/AccountFAQ" },
