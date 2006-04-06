@@ -76,9 +76,12 @@
 		[
 			{ name => "Search",					url => "/search.html" },
 			{ name => "Browse Artists",			url => "/browseartists.html" },
-			{ name => "Browse Releases",			url => "/browsevarious.html" },
+			{ name => "Browse Releases",		url => "/browsevarious.html" },
 			{ name => "Search Links",			url => "/search/external.html" },
-			{ name => "Search Plugins",			url => "/search/plugins/firefox/install.html" },
+			{ name => "Firefox Plugins",		url => "/search/plugins/firefox/install.html" },
+			[
+				{ url => "/search/plugins/firefox/error.html" },
+			],
 			{ url => "/newsearch.html" },
 			{ url => "/oldsearch.html" },
 			{ url => "/search/textsearch.html" },
@@ -211,11 +214,12 @@
 
 		{ name => "Account",			url => "/user/view.html" },
 		[
-			{ name => "Logout",				url => "/logout.html",						login => 1 },
-			{ name => "Preferences",		url => "/prefs.html",						login => 1 },
+			{ name => "Edit Account",		url => "/user/edit.html",					login => 1 },
 			{ name => "Change Password",	url => "/user/change-password.html",	 	login => 1 },
+			{ name => "Preferences",		url => "/prefs.html",						login => 1 },
 			{ name => "Moderate",			url => "/mod/search/select-filter.html", 	login => 1 },
 			{ name => "Subscriptions",		url => "/user/subscriptions.html", 			login => 1 },
+			{ name => "Logout",				url => "/logout.html",						login => 1 },
 
 			{ name => "Create Account",		url => "/user/register.html", 				login => 0 },
 			{ name => "Login",				url => "/login.html",						login => 0 },
