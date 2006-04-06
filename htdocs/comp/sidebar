@@ -1,95 +1,114 @@
 %# vi: set ts=4 sw=4 ft=mason :
 <%args>
-	$title => "MusicBrainz"
+	$title => ""
 	$pagetitle => ""
-	$noh1 => 0
-	$isindex => 0
-	$head => undef
-	$uri => ''
+
+	$head => undef		# TODO: remove me.
+	$uri => ""			# not used anymore (?)
+
+	# the next parameters are set by /comp/sidebar-notitle
+	$showtitle => 1		# if (0), the page title is _not_ drawn
+	$spacing => 10 		# if not otherwise overriden, add 10px padding after the page title.
 </%args>
 <%perl>
-	return $m->comp("/comp/header_small", title => $pagetitle || $title)
-		if $pnotes{'ispopup'};
 
-	my $nosidebar = UserPreference::get("nosidebar");
-
-	$m->comp("/comp/header",
-		title => $pagetitle || $title,
-		head => $head,
-		nosidebar => $nosidebar,
-	);
-</%perl>
-
-		<table cellspacing="0" cellpadding="0" style="border:0px; width:100%">
-			<tr valign="top">
-% unless ($nosidebar) {
-				<td id="sidebar-td" style="width:140px">
-<%perl>
-	if (UserPreference::get("sidebar_panel_sites"))
+	# process the different permutations of $title and $pagetitle.
+	# and provide fallback if none are set.
+	if ($showtitle)
 	{
-		$m->comp("/comp/layout/sidebar-section", title => "MusicBrainz Sites");
-		$m->comp("/comp/layout/sidemenu-panel-main");
+		$title = $pagetitle if ($title eq "" && $pagetitle ne "");
+		$title = "MusicBrainz" if ($title eq "" && $pagetitle eq "");
 	}
 
-	if (UserPreference::get("sidebar_panel_user"))
+	# TODO move this out of sidebar.
+	return $m->comp("/comp/header_small")
+		if ($pnotes{'ispopup'});
+
+	# render page header
+	my $nosidebar => UserPreference::get("nosidebar");
+	$m->comp("/comp/header", title => ($pagetitle || $title), head => $head, nosidebar => $nosidebar);
+
+	# inline style _width_ is explicitly needed, because javascript toggle
+	# of the sidebar needs the decleration in the DOM (css class does not suffice!)
+	$m->out(qq!<table cellspacing="0" cellpadding="0" style="border: 0px; width: 100%">\n!);
+	$m->out(qq!<tr valign="top">\n!);
+
+	unless ($nosidebar)
 	{
-		if (!defined $session{user} || $session{user} eq '')
+		# inline style _width_ is explicitly needed, because javascript toggle
+		# of the sidebar needs the decleration in the DOM (css class does not suffice!)
+		$m->out(qq!<td id="sidebar-td" style="width: 140px">!);
+
+		if (UserPreference::get("sidebar_panel_sites"))
 		{
-			$m->comp("/comp/layout/sidebar-section", title => "Not logged in", link => "/login.html");
-			$m->comp("/comp/layout/sidemenu-panel-userguest");
+			$m->comp("/comp/layout/sidebar-section", title => "MusicBrainz Sites");
+			$m->comp("/comp/layout/sidemenu-panel-main");
 		}
-		else
+
+		if (UserPreference::get("sidebar_panel_user"))
 		{
-			$m->comp("/comp/layout/sidebar-section", title => $session{user}, link => "/user/view.html");
-			$m->comp("/comp/layout/sidemenu-panel-userloggedin");
+			if (!defined $session{user} || $session{user} eq '')
+			{
+				$m->comp("/comp/layout/sidebar-section", title => "Not logged in", link => "/login.html");
+				$m->comp("/comp/layout/sidemenu-panel-userguest");
+			}
+			else
+			{
+				$m->comp("/comp/layout/sidebar-section", title => $session{user}, link => "/user/view.html");
+				$m->comp("/comp/layout/sidemenu-panel-userloggedin");
+			}
 		}
+
+		if (UserPreference::get("sidebar_panel_search"))
+		{
+			$m->comp("/comp/layout/sidebar-section", title => " Search", link => "/search.html");
+			$m->comp("/comp/layout/sidemenu-panel-search");
+		}
+
+		if (UserPreference::get("sidebar_panel_topmods") && &DBDefs::REPLICATION_TYPE != RT_SLAVE)
+		{
+			$m->comp("/comp/layout/sidebar-section", title => "Top Voters", link => "/topmods.html");
+			$m->comp("/comp/layout/sidemenu-panel-topvoters");
+		}
+
+		if (UserPreference::get("sidebar_panel_stats") && &DBDefs::REPLICATION_TYPE != RT_SLAVE) {
+			$m->comp("/comp/layout/sidebar-section", title => "Server Stats", link => "/stats.html");
+			$m->comp("/comp/layout/sidemenu-panel-stats");
+		}
+
+		# always show sponsors
+		if (1 || UserPreference::get("sidebar_panel_sponsors"))
+		{
+			$m->comp("/comp/layout/sidebar-section", title => "Partners", link => "/sponsors.html");
+			$m->comp("/comp/layout/sidemenu-panel-sponsors");
+		}
+
+		# adjust sidebar according to the user preference (open|closed)
+		# this needs to be an inline javascript to reduce flickering
+		# in the browser, if the sidebar were toggled later during the
+		# load process.
+
+		$m->out(qq!<script type="text/javascript" src="/scripts/sidebar.js"></script>\n!);
+		$m->out(qq!</td>\n!);
 	}
 
-	if (UserPreference::get("sidebar_panel_search"))
+	# inline style _width_ is explicitly needed, because javascript toggle
+	# of the sidebar needs the decleration in the DOM (css class does not suffice!)
+	$m->out(qq!<td id="content-td" style="width: 100%">\n!);
+
+	# tagger applications need the hidden iframe for the link integration
+	# (click on <open in tagger> image)
+	if ($session{tport})
 	{
-		$m->comp("/comp/layout/sidebar-section", title => " Search", link => "/search.html");
-		$m->comp("/comp/layout/sidemenu-panel-search");
+		$m->out(qq!<iframe name="hiddeniframe" height="0" width="0" frameborder="0"></iframe>\n!);
 	}
 
-	if (UserPreference::get("sidebar_panel_topmods") && &DBDefs::REPLICATION_TYPE != RT_SLAVE)
-	{
-		$m->comp("/comp/layout/sidebar-section", title => "Top Voters", link => "/topmods.html");
-		$m->comp("/comp/layout/sidemenu-panel-topvoters");
-	}
 
-	if (UserPreference::get("sidebar_panel_stats") && &DBDefs::REPLICATION_TYPE != RT_SLAVE) {
-		$m->comp("/comp/layout/sidebar-section", title => "Server Stats", link => "/stats.html");
-		$m->comp("/comp/layout/sidemenu-panel-stats");
-	}
+	$m->out(sprintf qq!<div class="pagetitle" style="padding-bottom: %d">%s</div>!,
+					$spacing,
+					$showtitle ? encode_entities($title) : "");
 
-	# always show sponsors
-	if (1 || UserPreference::get("sidebar_panel_sponsors"))
-	{
-	    $m->comp("/comp/layout/sidebar-section", title => "Partners", link => "/sponsors.html");
-    	$m->comp("/comp/layout/sidemenu-panel-sponsors");
-	}
+	# anchor.
+	$m->out(qq!<a id="maincontent"></a>\n!);
+
 </%perl>
-
-% 				# adjust sidebar according to the user preference (open|closed)
-%				# this needs to be an inline javascript to reduce flickering
-%				# in the browser, if the sidebar were toggled later during the
-%				# load process.
-				<script type="text/javascript" src="/scripts/sidebar.js"></script>
-			</td>
-% }
-			<td id="content-td" style="width:100%">
-
-% if ($session{tport}) {
-				<iframe name="hiddeniframe" height="0" width="0" frameborder="0"></iframe>
-% }
-				<a id="maincontent"></a>
-
-% if ($title ne "" and (!$noh1 && !$isindex)) {
-
-				<h1><% $title %></h1>
-
-% } elsif (!$isindex) {
-
-	<div style="height: 7px"> </div>
-
-% }
