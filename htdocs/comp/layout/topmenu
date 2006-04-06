@@ -9,18 +9,18 @@
 	use Scalar::Util qw( reftype weaken );
 
 	@topmenu_tree = (
-		{ name => "About",					url => "/wd/AboutMusicBrainz" },
+		{ name => "About",					url => "/doc/AboutMusicBrainz" },
 		[
-			{ name => "About MusicBrainz",		url => "/wd/AboutMusicBrainz" },
+			{ name => "About MusicBrainz",		url => "/doc/AboutMusicBrainz" },
 			{ name => "Privacy",				url => "/privacy" },
 			[
 				{ url => "/docs/20040922-1.html" },
 			],
-			{ name => "History",				url => "/wd/MusicBrainzHistory" },
-			{ name => "People",					url => "/wd/MusicBrainzBio" },
+			{ name => "History",				url => "/doc/MusicBrainzHistory" },
+			{ name => "People",					url => "/doc/MusicBrainzBio" },
 			{ name => "Licenses",				url => "/about/licenses.html" },
 			{ name => "Social Contract",		url => "/contract.html" },
-			{ name => "Software",				url => "/wd/MusicBrainzEnabledApplications" },
+			{ name => "Software",				url => "/doc/MusicBrainzEnabledApplications" },
 			{ name => "Logos",					url => "/about/logos.html" },
 			{ name => "Statistics",				url => "/about/stats.html" },
 			{ name => "Mirrors",				url => "/about/mirrors.html" },
@@ -43,7 +43,7 @@
 			{ name => "libtunepimp",			url => "/news/tunepimp.html" },
 			{ name => "WindowsTagger",			url => "/news/tagger.html" },
 			{ name => "Picard",					url => "/news/picard.html" },
-			{ name => "In the Press",			url => "/wd/MusicBrainzPress" },
+			{ name => "In the Press",			url => "/doc/MusicBrainzPress" },
 		],
 		{ name => "Download",				url => "/download.html" },
 		[
@@ -70,14 +70,14 @@
 				{ url => "/products/server/docs/20030820-1/index.html" },
 				{ url => "/products/server/docs/20040215-1.html" },
 			],
-			{ name => "Picard",					url => "/wd/PicardDownload" },
+			{ name => "Picard",					url => "/doc/PicardDownload" },
 		],
 		{ name => "Search",					url => "/search.html" },
 		[
 			{ name => "Search",					url => "/search.html" },
+			{ name => "Search Links",			url => "/search/external.html" },
 			{ name => "Browse Artists",			url => "/browseartists.html" },
 			{ name => "Browse Releases",		url => "/browsevarious.html" },
-			{ name => "Search Links",			url => "/search/external.html" },
 			{ name => "Firefox Plugins",		url => "/search/plugins/firefox/install.html" },
 			[
 				{ url => "/search/plugins/firefox/error.html" },
@@ -226,15 +226,15 @@
 			{ name => "Forgot Password",	url => "/user/forgot-password.html",	 	login => 0 },
 		],
 
-		{ name => "Contribute",				url => "/wd/Contribute" },
+		{ name => "Contribute",				url => "/doc/Contribute" },
 		[
-			{ name => "How to Contribute",		url => "/wd/Contribute" },
-			{ name => "Sponsors",				url => "/wd/CorporateSponsors" },
+			{ name => "How to Contribute",		url => "/doc/Contribute" },
+			{ name => "Sponsors",				url => "/doc/CorporateSponsors" },
 			{ name => "Help Wanted",			url => "/about/helpwanted.html" },
 			{ name => "Development",			url => "/development/index.html" },
 			{ name => "Docs",					url => "/documentation.html" },
 			[
-				{ url => "/wd/HowMusicBrainzWorks" },
+				{ url => "/doc/HowMusicBrainzWorks" },
 				{ url => "/client_howto.html" },
 				{ url => "/docs/mb_client/2.1.0" },
 				{ url => "/docs/tunepimp/index.html" },
@@ -251,21 +251,21 @@
 			{ name => "CVS Modules",			url => "/development/cvs-modules.html" },
 			{ name => "CVS Viewer",				url => "http://cvs.musicbrainz.org/" },
 		],
-		{ name => "Help",					url => "/wd/ContactUs" },
+		{ name => "Help",					url => "/doc/ContactUs" },
 		[
-			{ name => "Contact Us",				url => "/wd/ContactUs" },
-			{ name => "FAQ Index",				url => "/wd/FAQIndex" },
+			{ name => "Contact Us",				url => "/doc/ContactUs" },
+			{ name => "FAQ Index",				url => "/doc/FAQIndex" },
 			[
-				{ url => "/wd/GeneralFAQ" },
-				{ url => "/wd/AccountFAQ" },
-				{ url => "/wd/WindowsTaggerFAQ" },
-				{ url => "/wd/ClassicalMusicFAQ" },
-				{ url => "/wd/AnnotationFAQ" },
+				{ url => "/doc/GeneralFAQ" },
+				{ url => "/doc/AccountFAQ" },
+				{ url => "/doc/TaggerFAQ" },
+				{ url => "/doc/ClassicalMusicFAQ" },
+				{ url => "/doc/AnnotationFAQ" },
 			],
-			{ name => "Editing FAQ",			url => "/wd/ModerationFAQ" },
+			{ name => "Editing FAQ",			url => "/doc/ModerationFAQ" },
 			{ name => "Editing Style",			url => "/style.html" },
 			{ name => "Mailing Lists",			url => "/list.html" },
-			{ name => "Bugs / RFEs",			url => "/wd/ContactUs#report-a-bug" },
+			{ name => "Bugs / RFEs",			url => "http://musicbrainz.org/bugs" },
 		],
 	);
 
@@ -500,7 +500,7 @@
 	$staticmenuHTML = $m->scomp(".drawstatic");
 	$popupmenuHTML = $m->scomp(".drawsubmenus", \@topmenu_tree);
 
-	# trim newlines from the end of the string (appended by the scomp routine)
+	# trim newlines from the string (appended by the scomp routine)
 	$mainmenuHTML =~ s/\n$//;
 	$staticmenuHTML =~ s/\n$//;
 	$staticmenuHTML =~ s/\n$//;
