@@ -128,11 +128,11 @@ my $membersince = $m->comp("/comp/datetime", $info->GetMemberSince);
 
 if ($info->GetMemberSince eq "1970-01-01 00:00:00 UTC")
 {
-    $membersince = '<font class="bold">Charter Member</font>';
+    $membersince = '<b>Charter Member</b>';
 } 
 if ($info->GetName eq "rob")
 {
-    $membersince = '<font class="bold">the dawn of this project</font>';
+    $membersince = '<b>the dawn of this project</b>';
 } 
 
 </%perl>
@@ -150,52 +150,38 @@ if ($info->GetName eq "rob")
 
 <table>
 <tr>
-    <td width="15%" align="right">Name:</td>
+    <td>Name:</td>
     <td><% $info->GetName %></td>
 </tr>
 <tr>
-    <td width="15%" align="right">User type:</td>
-    <td><% $info->GetUserType %></td>
-</tr>
-
-<tr>
-    <td colspan="2">&nbsp;</td>
-</tr>
-
-<tr>
-    <td align="right">EMail:</td>
-	<td><input type="text" name="email" size="40" value="<% $info->GetEmail %>"></td>
+    <td>User type:</td>
+    <td><% $info->GetUserType | n %></td>
 </tr>
 <tr>
-	<td></td>
+	<td>E-mail:</td>
+	<td><input type="text" name="email" size="40" value="<% $info->GetEmail %>" /></td>
+</tr>
+<tr>
+	<td>&nbsp;</td>
 	<td>
-		(If you enter a new email address, you will be required to
-		verify the new email address)
+		(If you enter a new e-mail address, you will be required to
+		verify the new e-mail address)
 	</td>
 </tr>
-
 <tr>
-    <td colspan="2">&nbsp;</td>
-</tr>
-
-<tr>
-    <td align="right">Homepage:</td>
-    <td><input type="text" name="weburl" size="40" 
-               value="<% $info->GetWebURL %>">
-    </td>
+	<td>Homepage:</td>
+	<td><input type="text" name="weburl" size="40" value="<% $info->GetWebURL %>" /></td>
 </tr>
 <tr>
-    <td valign="top" align="right">Bio:</td>
-%   (my $t = $info->GetBio) =~ s/<p>/\n/g;
-    <td><textarea name="bio" cols=40 rows=10><% $t %></textarea></td>
-<tr>
-    <td colspan="2">&nbsp;</td>
+	<td>Bio:</td>
+%	(my $t = $info->GetBio) =~ s/<p>/\n/g;
+    <td><textarea name="bio" cols="40" rows="10"><% $t %></textarea></td>
 </tr>
 <tr>
-    <td>&nbsp;</td>
-    <td>
-        <INPUT TYPE="hidden" NAME="update" VALUE="1">
-        <INPUT TYPE="submit" NAME="Submit" VALUE="Save Changes">
+	<td>&nbsp;</td>
+	<td>
+		<input type="hidden" name="update" value="1" />
+		<input type="submit" name="Submit" value="Save Changes" />
     </td>
 </tr>
 
