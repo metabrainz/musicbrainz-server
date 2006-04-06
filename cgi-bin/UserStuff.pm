@@ -390,6 +390,19 @@ sub GetUserPasswordAndId
 	@$row;
 }
 
+sub LookupNameByEmail
+{
+	my ($this, $email) = @_;
+	my $sql = Sql->new($this->{DBH});
+
+	return $sql->SelectSingleValue(
+		"SELECT name
+		FROM	moderator
+		WHERE	email = ?",
+		$email,
+	);
+}
+
 sub IsNewbie
 {
 	my $self = shift;
@@ -746,12 +759,14 @@ sub SendPasswordReminder
 {
 	my $self = shift;
 
+	my $username = $self->GetName;
 	my $pass = $self->GetPassword;
 
 	my $body = <<EOF;
 Hello.  Someone, probably you, asked that your MusicBrainz password be sent
 to you via e-mail.
 
+Your MusicBrainz user name is "$username"
 Your MusicBrainz password is "$pass"
 
 To log in to MusicBrainz, please use this link:
