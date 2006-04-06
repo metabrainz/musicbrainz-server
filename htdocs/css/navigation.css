@@ -357,7 +357,8 @@ td.header_mainmenu {
 .boxeslist h1,
 .newslist h1 {
 	margin-bottom: 20px; margin-top: 0px;
-	border: none;
+	padding: 0px;
+	border-width: 0px;
 }
 .newslist h2 {
 	margin-top: 0; margin-bottom: 10px;
@@ -431,13 +432,11 @@ td.header_mainmenu {
 .boxcontent .inner li {
 	margin: 0px; padding: 0px;
 }
-
 .boxcontent .inner hr {
 	width: 275px; height: 1px;
 	color: #000; background-color: #000;
 	border: none; 
 }
-
 .newsarticle {
 	margin-bottom: 10px;
 }
@@ -447,7 +446,6 @@ td.header_mainmenu {
 .readmore {
 	text-align: right; font-size: 11px; 
 }
-
 .NewsLink,
 .PressReleaseLink,
 .WhitePaperLink {
