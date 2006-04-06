@@ -1,203 +1,203 @@
 %# vi: set ts=4 sw=4 ft=mason :
 <%args>
-$update=>0
-$bio=>""
-$email=>""
-$weburl=>""
+	$update => 0
+	$bio => ""
+	$email => ""
+	$weburl => ""
 </%args>
 <%perl>
 
-$m->comp("/comp/checkloggedin", 1, 1) or return;
-my $uid = $session{uid} or return;
+	$m->comp("/comp/checkloggedin", 1, 1) or return;
+	my $uid = $session{uid} or return;
 
-my $mb = $m->comp("/comp/dblogin");
-my $ui = UserStuff->new($mb->{DBH});
+	my $mb = $m->comp("/comp/dblogin");
+	my $ui = UserStuff->new($mb->{DBH});
 
-my $info = $ui->newFromId($uid)
-	or return;
+	my $info = $ui->newFromId($uid)
+		or return;
 
-$m->comp(
-	"/comp/sidebar",
-	title => 'Edit My Profile',
-);
+	$m->comp("/comp/sidebar-notitle", pagetitle => "Edit Account");
+	$m->comp("/comp/tablebegin", title => "Edit Account");
 
-if ($update)
-{ 
-    if ($email =~ /\S/ and !$ui->CheckEMailAddress($email))
-    {
-		</%perl>
+	my ($messages, $sentmail, $removedmail, %opts);
+	@$messages = ();
+	$sentmail = 0;
+	$removedmail = 0;
 
-		<p class="error">
-			The email address you entered is not a valid email address.&nbsp;
-			Please go back and enter a valid email address.&nbsp;
-			If you would like to remove your address from the system,
-			just enter a blank address.
-		</p>
-
-        <& /comp/footer &>
-
-        <%perl>
-        return undef;
-    }
-
-	my %opts;
-
-	if ($info->GetEmail ne $email)
-    {
-		if ($email =~ /\S/)
+	if ($update)
+	{
+		if ($email =~ /\S/ and !$ui->CheckEMailAddress($email))
 		{
-			my $ret = $info->SendVerificationEmail($email);
-			if ($ret)
-			{
-				</%perl>
-				<p class="error">
-					The email verification mail could not be sent: <b><% $ret %></b>.&nbsp;
-					Your email address has not been updated.
-				</p>
-				<%perl>
-			}
-			else
-			{
-				</%perl>
-				<p class="notice">
-					The email verification mail has been sent to <b><% $email %></b>.&nbsp;
-					Please check your mailbox and click on the link in the email to 
-					verify the new email address.
-				</p>
-				<%perl>
-			}
-
-			# Reset the email address to the old one since this one has
-			# not been verified yet.
-			$email = $info->GetEmail;
-		} else {
-            my ($mod, $count);
-
-            $mod = Moderation->new($mb->{DBH});
-            $count = $mod->OpenModCountByModerator($info->GetId);
-            if ($count)
-            {
-                </%perl>
-                <p class="notice">
-                    You have <% $count %> moderations open. You cannot remove your email address
-                    when you have open moderations. Please wait until all these moderations pass or
-                    delete your moderations before you remove your email address.
-                </p>
-                <%perl>
-            } 
-            else
-            {
-                # The user wants to blank out their email address.
-                $opts{email} = "";
-
-                </%perl>
-                <p class="notice">
-                    Your e-mail address has been removed.&nbsp;
-                    Please note that if you add it in again in the future,
-                    you will be asked to verify it again.
-                </p>
-                <%perl>
-            } 
+			push @$messages, "The email address you entered is not a valid email address.
+							  If you would like to remove your address from the system,
+							  just enter a blank address.";
 		}
-    }
+		else
+		{
+			if ($info->GetEmail ne $email)
+			{
+				if ($email =~ /\S/)
+				{
+					my $ret = $info->SendVerificationEmail($email);
+					if ($ret)
+					{
+						push @$messages, "The email verification mail could not be sent:
+										 <i>$ret</i>. Your email address has not been updated.";
+					}
+					else
+					{
+						$sentmail = 1;
+					}
 
-    $info->SetUserInfo(
-		%opts,
-		weburl => $weburl,
-		bio => $bio,
-	);
+					# Reset the email address to the old one since this one has
+					# not been verified yet.
+					$email = $info->GetEmail;
+				}
+				else
+				{
+					my ($mod, $count);
+					$mod = Moderation->new($mb->{DBH});
+					$count = $mod->OpenModCountByModerator($info->GetId);
+					if ($count)
+					{
+						push @$messages, "You have $count moderations open. You cannot remove
+										  your email address while you have open moderations.
+										  Please wait until all these moderations pass or delete
+										  them before you remove your email address.";
+					}
+					else
+					{
+						# The user wants to blank out their email address.
+						$opts{email} = "";
+						$removedmail = 1;
+					}
+				}
+			}
+		}
 
-	</%perl>
+		if (@$messages == 0)
+		{
+			$info->SetUserInfo(
+				%opts,
+				weburl => $weburl,
+				bio => $bio,
+			);
 
-	<p class="notice">
-		Your information was updated.
-	</p>
+			$m->out(qq!Your Account Settings were updated. !);
 
-	<p>
-		<a href="/user/view.html">Continue</a>
-	</p>
+			if ($sentmail)
+			{
+				$m->out(qq!<div style="margin-top: 20px"> !);
+				$m->out(qq! The email verification mail has been sent to <b>$email</b>.&nbsp;
+							Please check your mailbox and click on the link in the email to
+							verify the new email address.!);
+				$m->out(qq!</div>!);
+			}
 
-	<& /comp/footer &>
+			if ($removedmail)
+			{
+				$m->out(qq!<div style="margin-top: 20px"> !);
+				$m->out(qq! Your e-mail address has been removed.&nbsp;
+							Please note that if you add it in again in the future,
+							you will be asked to verify it again.!);
+				$m->out(qq!</div>!);
+			}
 
-	<%perl>
+			$m->out(qq!<div style="margin-top: 20px"> !);
+			$m->out(qq!  <a href="/user/view.html">Click here to continue</a>. !);
+			$m->out(qq!</div>!);
 
-	return;
-}
+			$m->comp("/comp/tableend");
+			$m->comp("/comp/footer");
+		}
+	}
 
-my $membersince = $m->comp("/comp/datetime", $info->GetMemberSince);
+	my $membersince = $m->comp("/comp/datetime", $info->GetMemberSince);
 
-if ($info->GetMemberSince eq "1970-01-01 00:00:00 UTC")
-{
-    $membersince = '<b>Charter Member</b>';
-} 
-if ($info->GetName eq "rob")
-{
-    $membersince = '<b>the dawn of this project</b>';
-} 
+	if ($info->GetMemberSince eq "1970-01-01 00:00:00 UTC")
+	{
+	    $membersince = '<b>Charter Member</b>';
+	}
+	if ($info->GetName eq "rob")
+	{
+	    $membersince = '<b>The dawn of this project</b>';
+	}
 
 </%perl>
 
-<p class="LinksRow">
-	[
-	<a href="/user/view.html">Profile &amp; Statistics</a>
-	| <a href="/user/change-password.html">Change Password</a>
-	| <a href="/prefs.html">Preferences</a>
-	| <a href="/user/subscriptions.html">Subscriptions</a>
-	]
-</p>
+	<div class="fillfields">
+		<ul>
+			<li>
+				See also <a href="/prefs.html#privacy-settings">your preferences page</a>,
+				which includes your privacy settings.</li>
+			<li>
+				If you would like to delete your account, please see the FAQ entry
+				<a href="/doc/AccountFAQ">How do I delete my account?</a></li>
+		</ul>
+	</div>
 
-<form method="post" action="/user/edit.html" id="EditUser">
+	<form method="post" action="/user/edit.html" id="EditUser">
+		<table class="loginform">
 
-<table>
-<tr>
-    <td>Name:</td>
-    <td><% $info->GetName %></td>
-</tr>
-<tr>
-    <td>User type:</td>
-    <td><% $info->GetUserType | n %></td>
-</tr>
-<tr>
-	<td>E-mail:</td>
-	<td><input type="text" name="email" size="40" value="<% $info->GetEmail %>" /></td>
-</tr>
-<tr>
-	<td>&nbsp;</td>
-	<td>
-		(If you enter a new e-mail address, you will be required to
-		verify the new e-mail address)
-	</td>
-</tr>
-<tr>
-	<td>Homepage:</td>
-	<td><input type="text" name="weburl" size="40" value="<% $info->GetWebURL %>" /></td>
-</tr>
-<tr>
-	<td>Bio:</td>
-%	(my $t = $info->GetBio) =~ s/<p>/\n/g;
-    <td><textarea name="bio" cols="40" rows="10"><% $t %></textarea></td>
-</tr>
-<tr>
-	<td>&nbsp;</td>
-	<td>
-		<input type="hidden" name="update" value="1" />
-		<input type="submit" name="Submit" value="Save Changes" />
-    </td>
-</tr>
+%			if (@$messages > 0) {
+			<tr>
+				<td>&nbsp;</td>
+				<td class="err"><ul><li><%perl> $m->out(join("</li><li>", @$messages)); </%perl></li></ul></td>
+			</tr>
+%			}
 
-</table>
-</form>
+			<tr>
+				<td class="label">
+					<label>Name:</label></td>
+				<td>
+					<% $info->GetName %></td>
+			</tr>
+			<tr>
+				<td class="label">
+					<label>User type:</label></td>
+				<td>
+					<% $info->GetUserType | n %></td>
+			</tr>
+			<tr>
+				<td class="label">&nbsp;</td>
+				<td class="formsection">
+					Please Note: If you enter or modify your e-mail
+					address, you will be required to verify it.
+				</td>
+			</tr>
+			<tr>
+				<td class="label">
+					<label>E-mail address:</label></td>
+				<td>
+					<input type="text" name="email" size="40" value="<% $info->GetEmail %>" /></td>
+			</tr>
 
-<p>
-	See also <a href="/prefs.html#privacy-settings">your preferences page</a>,
-	which includes your privacy settings.
-</p>
+			<tr>
+				<td>&nbsp;</td>
+				<td class="formsection">
+					Additional Information:</td>
+			</tr>
+			<tr>
+				<td class="label">Homepage:</td>
+				<td>
+					<input type="text" name="weburl" size="40" value="<% $info->GetWebURL %>" /></td>
+			</tr>
+			<tr class="top">
+				<td class="label">Bio:</td>
+%					(my $t = $info->GetBio) =~ s/<p>/\n/g;
+				<td>
+					<textarea name="bio" cols="40" rows="10"><% $t %></textarea></td>
+			</tr>
+			<tr>
+				<td>&nbsp;</td>
+				<td>
+					<input type="hidden" name="update" value="1" />
+					<input type="submit" name="Submit" value="Save Changes" /></td>
+			</tr>
+		</table>
+	</form>
 
-<p>
-	If you would like to delete your account, please see
-	<a href="http://wiki.musicbrainz.org/wiki.pl?GeneralFAQ">"How do I delete
-		my account?"</a>
-</p>
+	<& /comp/tableend &>
+	<& /comp/movefocus, "EditUser", "email" &>
 
-<& /comp/movefocus, "EditUser", "email" &>
 <& /comp/footer &>
