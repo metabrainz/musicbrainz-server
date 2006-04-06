@@ -129,6 +129,13 @@ sub DESTROY
 # Validation and sanitisation section
 ################################################################################
 
+sub IsNonemptyString
+{
+	my $t = shift;
+	defined($t) and $t ne "";
+}
+
+
 sub IsNonNegInteger
 {
 	my $t = shift;
