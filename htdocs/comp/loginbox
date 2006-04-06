@@ -28,21 +28,16 @@
 </%perl>
 
 	<form method="post" action="/bare/login.html" id="LoginForm">
-		<table class="loginform">
-			<tr>
-				<td class="label"></td>
-				<td class="fillfields">
-					<ul>
-						<li>Please note that both the user name and password are case sensitive.</li>
+		<div class="fillfields">
+			<ul>
+				<li>Please note that both the user name and password are case sensitive.</li>
 %	if (&DBDefs::DB_STAGING_SERVER) {
-						<li>If you have trouble logging in, please note that since this
-							is a <% &DBDefs::DB_STAGING_SERVER %> server, the passwords
-							may have been reset to "mb".</li>
+				<li>If you have trouble logging in, please note that since this
+					is a <% &DBDefs::DB_STAGING_SERVER %> server, the passwords
+					may have been reset to "mb".</li>
 % 	}
-					</ul>
-				</td>
-			</tr>
-		</table>
+			</ul>
+		</div>
 
 		<table class="loginform">
 %	if ($badlogin) {
