@@ -27,7 +27,7 @@
 
 
 <%perl>
-	$m->comp("/comp/sidebar", title => 'Browse Various Artists Releases');
+	$m->comp("/comp/sidebar", noh1 => 1);
 
 	# always use the uppercase index
 	$index = uc($index);
@@ -112,7 +112,7 @@
 			If you have not found the release you were are looking for,
 			maybe your filter criteria are too strict. If you are sure
 			the release does not exist yet, please add it to the database.</div>!);
-		$m->out(qq![ <a href="/edit/release/add.html">Add New Release</a> ]!);
+		$m->out(qq![ <a href="/edit/album/add.html">Add New Album</a> ]!);
 	}
 	else
 	{
