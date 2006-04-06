@@ -1,11 +1,19 @@
+<%args>
+$id => undef
+$index => undef
+</%args>
 <%perl>
 # vi: set ts=4 sw=4 ft=mason :
+my ($form, $field);
 
 return unless UserPreference::get('JSMoveFocus');
 
-my ($form, $field, $index) = @_;
-
-# TODO ideally we should JS-encode $form and $field here
+if (!defined($id))
+{
+    ($form, $field, $index) = @_;
+    
+    # TODO ideally we should JS-encode $form and $field here
+}
 
 $index = 'null' unless defined $index;
 
@@ -13,8 +21,14 @@ $index = 'null' unless defined $index;
 # called for this page.
 
 </%perl>
-
 <script type="text/javascript" src="/scripts/movefocus.js"></script>
+% if (defined($id)) {
+<script type="text/javascript">
+MoveFocusNew('<% $id %>', <% $index %>);
+</script>
+% } else {
 <script type="text/javascript">
 MoveFocus('<% $form %>', '<% $field %>', <% $index %>);
 </script>
+% }
+
