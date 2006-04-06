@@ -51,15 +51,15 @@
 %	}
 			<tr>
 				<td class="label">
-					User Name:</td>
+					<label for="id_user">User Name:</label></td>
 				<td>
-					<input class="textfield" type="text" name="user" size="20" value="<% $user %>" /></td>
+					<input class="textfield" type="text" name="user" id="id_user" size="20" value="<% $user %>" /></td>
 			</tr>
 			<tr>
 				<td class="label">
-					Password:</td>
+					<label for="id_password">Password:</label></td>
 				<td>
-					<input class="textfield" type="password" name="password" size="20" value="<% $password %>" /></td>
+					<input class="textfield" type="password" name="password" id="id_password" size="20" value="<% $password %>" /></td>
 			</tr>
 			<tr>
 				<td>&nbsp;</td>
@@ -75,8 +75,8 @@
 			<tr>
 				<td>&nbsp;</td>
 				<td>
-					<input type="checkbox" name="PermanentCookie" />
-					Log in permanently
+					<input type="checkbox" name="PermanentCookie" id="id_PermanentCookie" />
+					<label for="id_PermanentCookie">Log in permanently</label>
 					[&nbsp;<a <& /comp/auto-popup-link,
 								url => "/products/server/docs/20031210-1.html",
 								&>>help</a>&nbsp;]</td>
@@ -84,8 +84,8 @@
 			<tr>
 				<td>&nbsp;</td>
 				<td>
-					<input type="checkbox" name="OnlyThisIP" />
-					Only from this IP address
+					<input type="checkbox" name="OnlyThisIP" id="id_OnlyThisIP" />
+					<label for="id_OnlyThisIP">Only from this IP address</label>
 					[&nbsp;<a <& /comp/auto-popup-link,
 						url => "/products/server/docs/20031213-1.html",
 						&>>help</a>&nbsp;]</td>
