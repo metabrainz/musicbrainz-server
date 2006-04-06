@@ -1,16 +1,13 @@
-%# vi: set ts=2 sw=2 ft=mason :
-% my $modid = shift || "";
+%# vi: set ts=4 sw=2 ft=mason :
+% 	my $modid = shift || "";
 
-<form method="get" action="/showmod.html"
-	name="JumpMod"
-	enctype="application/x-www-form-urlencoded"
-	class="formstyle"
-	>
-
-	<p>
-		Jump to moderation
-		#<input type="text" name="modid" size="10" value="<% $modid %>">
-		<input type="submit" value="Jump">
-	</p>
-
-</form>
+	<form method="get" action="/showmod.html" id="JumpMod">
+		<table class="loginform">
+			<tr>
+				<td class="label">Enter moderation id:</td>
+				<td>
+					<input type="text" name="modid" size="10" value="<% $modid %>" />
+					<input type="submit" value="Go" /></td>
+			</tr>
+		</table>
+	</form>

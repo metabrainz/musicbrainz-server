@@ -83,7 +83,9 @@
 % }
 
 <%perl>
-	if (UserPreference::get('topmenu_submenu_types') ne "dropdownonly" && $staticmenuHTML ne "")
+	if ($staticmenuHTML ne "" &&
+		(!$session{uid} ||
+		(UserPreference::get('topmenu_submenu_types') ne "dropdownonly")))
 	{
 		$m->out(qq!<td class="submenustatic">!);
 		$m->out($staticmenuHTML);

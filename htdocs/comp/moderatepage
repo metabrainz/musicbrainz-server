@@ -57,7 +57,7 @@ if (@$mods)
 % }
 [ <a href="/mod/search/select-filter.html">New Search</a> |
 <a href="/mod/search/index.html?<% $m->comp('/comp/args-to-querystring.inc', %$args) %>">Advanced Search</a> |
-<a href="/jumpmod.html">Jump</a> |
+<a href="/mod/jump.html">Jump</a> |
 <a href="/wd/ModerationFAQ">FAQ</a> |
 <a href="/style.html">Style</a> |
 <a href="/mod_intro.html">Help</a>

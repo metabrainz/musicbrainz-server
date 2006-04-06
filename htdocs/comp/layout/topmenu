@@ -130,7 +130,7 @@
 					{ url => "/mod/search/select-artist.html" },
 					{ url => "/mod/search/select-moderator.html" },
 				],
-				{ url => "/jumpmod.html" },
+				{ url => "/mod/jump.html" },
 				[
 					{ url => "/showmod.html" },
 				],

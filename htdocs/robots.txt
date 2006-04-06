@@ -24,7 +24,6 @@ Disallow: /edit/artist/edit.html
 Disallow: /edit/track/edit.html
 Disallow: /freedb/
 Disallow: /google/
-Disallow: /jumpmod.html
 Disallow: /login.html
 Disallow: /logout.html
 Disallow: /edit/artist/merge.html
