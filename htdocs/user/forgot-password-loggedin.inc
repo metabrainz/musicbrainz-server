@@ -1,6 +1,6 @@
 %# vi: set ts=4 sw=2 ft=mason :
 
-<& /comp/sidebar, noh1 => 1 &>
+<& /comp/sidebar-notitle, pagetitle => "Forgotten Password" &>
 <& /comp/tablebegin, title => "Forgotten Password" &>
 
 <p>

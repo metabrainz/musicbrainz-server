@@ -7,7 +7,6 @@
 	$email => ""
 	$emailconfirm => ""
 
-	$sidebar => 1
 	$url => ""
 	$mbt => $session{'mbt'}
 </%args>
@@ -49,8 +48,8 @@
 		}
 	}
 
-	$m->comp("/comp/sidebar", noh1 => 1);
-	$m->comp("/comp/tablebegin", title => "Create a MusicBrainz Account");
+	$m->comp("/comp/sidebar-notitle", pagetitle => "Create an Account");
+	$m->comp("/comp/tablebegin", title => "Create an Account");
 
 
 	if (&DBDefs::REPLICATION_TYPE == RT_SLAVE)

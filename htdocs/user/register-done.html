@@ -6,9 +6,9 @@
 	$emailstatus => $session{'register_emailstatus'}
 </%args>
 <%perl>
-	$m->comp("/comp/sidebar", noh1 => 1);
+	$m->comp("/comp/sidebar-notitle", pagetitle => "Account created");
 
-	$m->comp("/comp/tablebegin", title => "MusicBrainz Account created");
+	$m->comp("/comp/tablebegin", title => "Account created");
 	$m->out("A new account has been created and you are now logged into MusicBrainz! ");
 
 	$m->out(qq!<div style="margin-top: 10px"> !);
