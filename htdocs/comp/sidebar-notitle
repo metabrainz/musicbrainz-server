@@ -1,0 +1,5 @@
+<%args>
+	$pagetitle
+	$spacing => 10
+</%args>
+<& /comp/sidebar, pagetitle => $pagetitle, showtitle => 0, spacing => $spacing &>
