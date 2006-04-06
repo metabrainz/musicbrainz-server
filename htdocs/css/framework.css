@@ -283,6 +283,9 @@ table.loginform {
 
 /* header rows are bold, and have some padding at the bottom */
 table.loginform tr {
+	vertical-align: middle;
+}
+table.loginform tr.top {
 	vertical-align: top;
 }
 
