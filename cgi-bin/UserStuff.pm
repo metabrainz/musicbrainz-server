@@ -518,53 +518,55 @@ sub CreditModerator
 sub ChangePassword
 {
 	my ($self, $oldpassword, $newpass1, $newpass2) = @_;
+	my (@messages);
 
-	if (not defined $oldpassword
-		or not defined $newpass1
-		or not defined $newpass2)
+	if (!MusicBrainz::IsNonemptyString($oldpassword) or
+		!MusicBrainz::IsNonemptyString($newpass1) or
+		!MusicBrainz::IsNonemptyString($newpass2))
+		
 	{
-		$@ = "You must supply your old password, your new password, and confirm your new password.";
-		return;
+		push @messages, "Please fill-in Old password, New password, and Verify Password.";
 	}
-
-	MusicBrainz::TrimInPlace($oldpassword, $newpass1, $newpass2);
-
-	unless ($newpass1 eq $newpass2)
+	else
 	{
-		$@ = "Password change failed - the new passwords do not match.";
-		return;
+		MusicBrainz::TrimInPlace($oldpassword, $newpass1, $newpass2);
+		unless ($newpass1 eq $newpass2)
+		{
+			push @messages, "New Password and Verify Password do not match.";
+		}
 	}
 
 	unless ($self->IsGoodPassword($newpass1))
 	{
-		# IsGoodPassword sets $@; we can just pass it through.
-		return;
+		# IsGoodPassword sets $@
+		push @messages, $@;
 	}
 
-	my $sql = Sql->new($self->{DBH});
-
-	my $ok = $sql->AutoTransaction(
-		sub {
-			$sql->Do(
-				"UPDATE moderator SET password = ?
-					WHERE id = ?
-					AND password = ?",
-				$newpass1,
-				$self->GetId,
-				$oldpassword,
-			);
-		},
-	);
-
-	unless ($ok)
+	if (@messages == 0)
 	{
-		$@ = "Password changed failed - please check the old password and try again.";
-		return;
+		my $sql = Sql->new($self->{DBH});
+		my $ok = $sql->AutoTransaction(
+			sub {
+				$sql->Do(
+					"UPDATE moderator SET password = ?
+						WHERE id = ?
+						AND password = ?",
+					$newpass1,
+					$self->GetId,
+					$oldpassword,
+				);
+			},
+		);
+		if ($ok) 
+		{
+			$self->InvalidateCache;
+		}
+		else 
+		{	
+			push @messages, "old password is wrong.";
+		}
 	}
-
-	$self->InvalidateCache;
-	$@ = "";
-	1;
+	return \@messages;
 }
 
 # Determine if the given password is "good enough".  Returns true or false.
@@ -576,7 +578,7 @@ sub IsGoodPassword
 
 	if (length($password) < 6)
 	{
-		$@ = "New password is too short - it " . $class->DescribePasswordConditions;
+		$@ = "New password is too short";
 		return;
 	}
 
@@ -584,12 +586,12 @@ sub IsGoodPassword
 
 	if ($t =~ /\A\p{IsAlpha}+\z/)
 	{
-		$@ = "New password is all letters - it " . $class->DescribePasswordConditions;
+		$@ = "New password is all letters";
 		return;
 	}
 	if ($t =~ /\A\p{IsDigit}+\z/)
 	{
-		$@ = "New password is all numbers - it " . $class->DescribePasswordConditions;
+		$@ = "New password is all numbers";
 		return;
 	}
 
