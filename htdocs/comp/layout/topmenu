@@ -4,13 +4,11 @@
 	$args => $r->args
 </%args>
 
-
-
 <%once>
-	use vars qw( @main %urlmap %urlmap2 );
+	use vars qw( @topmenu_tree %urlmap %urlmap2 );
 	use Scalar::Util qw( reftype weaken );
 
-	@main = (
+	@topmenu_tree = (
 		{ name => "About",					url => "/wd/AboutMusicBrainz" },
 		[
 			{ name => "About MusicBrainz",		url => "/wd/AboutMusicBrainz" },
@@ -210,6 +208,20 @@
 			{ url => "/edit/albumbatch/merge.html" },
 			{ url => "/edit/albumbatch/remove.html" },
 		],
+
+		{ name => "Account",			url => "/user/view.html" },
+		[
+			{ name => "Logout",				url => "/logout.html",						login => 1 },
+			{ name => "Preferences",		url => "/prefs.html",						login => 1 },
+			{ name => "Change Password",	url => "/user/change-password.html",	 	login => 1 },
+			{ name => "Moderate",			url => "/mod/search/select-filter.html", 	login => 1 },
+			{ name => "Subscriptions",		url => "/user/subscriptions.html", 			login => 1 },
+
+			{ name => "Create Account",		url => "/user/register.html", 				login => 0 },
+			{ name => "Login",				url => "/login.html",						login => 0 },
+			{ name => "Forgot Password",	url => "/user/forgot-password.html",	 	login => 0 },
+		],
+
 		{ name => "Contribute",				url => "/wd/Contribute" },
 		[
 			{ name => "How to Contribute",		url => "/wd/Contribute" },
@@ -285,7 +297,7 @@
 			}
 		}
 	};
-	&$transform(\@main, \(my $tmp = 0));
+	&$transform(\@topmenu_tree, \(my $tmp = 0));
 </%once>
 
 
@@ -319,20 +331,17 @@
 		push @mm_items, [ $rhItem->{id}, $rhItem->{url}, $rhItem->{name} ];
 
 		# compile css class (none, selected, right)
-		my $cssClass = "";
-		$cssClass .= 'selected' if $fSel;
+		my $css = "";
+		$css .= " selected" if $fSel;
+		$css =~ s/^ (.*)$/ class="$1"/;
 
 		$noscriptmenu .=
-			'<td'
-			. ($cssClass ? ' class="' . encode_entities($cssClass) . '"' : "")
-			. '>'
-			. '<a href="' . encode_entities($rhItem->{url}) . '"'
-			. '>'
-			. encode_entities($rhItem->{name})
-			. '</a></td>'
-			;
+			sprintf qq!<td%s><a href="%s">%s</a></td>\n!,
+				$css,
+			 	encode_entities($rhItem->{url}),
+			 	encode_entities($rhItem->{name})
 	}
-	$noscriptmenu .= '<td class="mainmenuright">&nbsp;</td></tr>';
+	$noscriptmenu .= qq!<td class="mainmenuright">&nbsp;</td></tr>\n!;
 
 	@mm_items = map {
 		"["
@@ -345,21 +354,20 @@
 	} @mm_items;
 	my $mm_items = "[" . join(",", @mm_items) . "]";
 
-	$m->out('<script type="text/javascript">');
-	$m->out("mb.topmenu.init('");
-	$m->out(UserPreference::get('topmenu_submenu_types') . "','");
-	$m->out(UserPreference::get('topmenu_dropdown_trigger') . "',");
-	$m->out("$mm_items);");
-	$m->out("mb.topmenu.writeUI('$selName');");
-	$m->out('</script>');
 
-	$m->out(
-		'<noscript>'
- 		. '<table cellspacing="0" cellpadding="0" border="0">'
-		. $noscriptmenu
- 		. '</table>'
-		. '</noscript>'
-	);
+	$m->out(qq!<script type="text/javascript">\n!);
+	$m->out(qq!  mb.topmenu.init(\n!);
+	$m->out(sprintf qq!    '%s', \n!, UserPreference::get('topmenu_submenu_types'));
+	$m->out(sprintf qq!    '%s', \n!, UserPreference::get('topmenu_dropdown_trigger'));
+	$m->out(sprintf qq!    %s); \n!, $mm_items);
+	$m->out(qq!  mb.topmenu.writeUI('$selName');\n!);
+	$m->out(qq!</script>\n!);
+
+	$m->out(qq!<noscript>\n!);
+	$m->out(qq!<table cellspacing="0" cellpadding="0" border="0">\n!);
+	$m->out($noscriptmenu);
+	$m->out(qq!</table>\n!);
+	$m->out(qq!</noscript>\n!);
 </%perl>
 </%def>
 
@@ -380,34 +388,34 @@
 
 		if ($rarhChildren)
 		{
-			$m->out('<div id="'.$rhItem->{id}.'.submenu" style="display: none" class="submenu">');
-			$m->out('<table border="0" cellspacing="0" cellpadding="0">');
+			$m->out(sprintf qq!<div id="%s.submenu" style="display: none" class="submenu">\n!, $rhItem->{id});
+			$m->out(qq!<table border="0" cellspacing="0" cellpadding="0">\n!);
 
-			my @named_children = grep { defined $_->{'name'} } @$rarhChildren;
+			# get all named children, which either are not
+			# user session dependent, or correspond to the
+			# session state.
+			my @display_children = grep {
+				defined $_->{'name'} &&
+				(
+				 	not defined $_->{login} or
+					($_->{login} xor !$session{uid})
+				)
+			} @$rarhChildren;
 
-			for my $i (0 .. $#named_children)
+			for my $i (0 .. $#display_children)
 			{
-				my $rhChild = $named_children[$i];
-				my $is_first = ($i == 0);
-				my $is_last = ($i == $#named_children);
+				my $c = $display_children[$i];
+				my $is_last = ($i == $#display_children);
+				my $css = ($is_last ? qq! class="bottom"! : "");
 
-				my $class = ($is_last ? " class='bottom'" : "");
-
-				$m->out(
-					'<tr>'
-					. '<td>'
-					. '<a'
-						. ' href="' . encode_entities($rhChild->{url}) . '"'
-						. $class
-					. '>'
-					. encode_entities($rhChild->{name})
-					. '</a>'
-					. '</td>'
-					. '</tr>'
+				$m->out(sprintf qq!<tr><td><a href="%s"%s>%s</a></td></tr>\n!,
+					 encode_entities($c->{url}),
+					 $css,
+					 encode_entities($c->{name})
 				);
 			}
-			$m->out('</table>');
-			$m->out('</div>');
+			$m->out("</table>\n");
+			$m->out("</div>\n");
 		}
 	}
 </%perl>
@@ -415,31 +423,42 @@
 
 <%def .drawstatic>
 <%perl>
-	(my $top) = grep { $_->{'expand'} } @main;
+	(my $top) = grep { $_->{'expand'} } @topmenu_tree;
 	$top or return;
 
-	my @named_children = grep { defined $_->{'name'} }  @{ $top->{children} };
+	# get all named children, which either are not
+	# user session dependent, or correspond to the
+	# session state.
+	my @display_children = grep {
+		defined $_->{'name'} &&
+		(
+			not defined $_->{login} or
+			($_->{login} xor !$session{uid})
+		)
+	}  @{ $top->{children} };
 
-	for my $i (0 .. $#named_children)
+	for my $i (0 .. $#display_children)
 	{
-		my $c = $named_children[$i];
+		my $c = $display_children[$i];
 		my $is_first = ($i == 0);
-		my $is_last = ($i == $#named_children);
+		my $is_last = ($i == $#display_children);
 
-		my $class = "";
-		$class .= " left" if $is_first;
-		$class .= " right" if $is_last;
-		$class =~ s/^ (.*)$/ class="$1"/;
+		my $css = "";
+		$css .= " left" if $is_first;
+		$css .= " right" if $is_last;
+		$css =~ s/^ (.*)$/ class="$1"/;
 
-		$m->out(
-			'<a'
-				. ' href="' . encode_entities($c->{url}) . '"'
-				. $class
-			. '>'
-			. encode_entities($c->{name})
-			. '</a>'
-			. ($is_last ? "" : " | ")
-		);
+		if (not defined $c->{login} or
+			!$c->{login} && !$session{uid} or
+			$c->{login} && $session{uid})
+		{
+			$m->out(sprintf qq!<a href="%s"%s>%s</a>%s\n!,
+				 encode_entities($c->{url}),
+				 $css,
+				 encode_entities($c->{name}),
+				 ($is_last ? "" : " | ")
+			);
+		}
 	}
 </%perl>
 </%def>
@@ -473,9 +492,9 @@
 	}
 
 	# prepare variables with the main-, static- and submenu html content
-	$mainmenuHTML = $m->scomp(".drawmainmenu", \@main);
+	$mainmenuHTML = $m->scomp(".drawmainmenu", \@topmenu_tree);
 	$staticmenuHTML = $m->scomp(".drawstatic");
-	$popupmenuHTML = $m->scomp(".drawsubmenus", \@main);
+	$popupmenuHTML = $m->scomp(".drawsubmenus", \@topmenu_tree);
 
 	# trim newlines from the end of the string (appended by the scomp routine)
 	$mainmenuHTML =~ s/\n$//;
