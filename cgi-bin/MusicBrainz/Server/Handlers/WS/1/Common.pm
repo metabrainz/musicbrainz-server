@@ -31,7 +31,7 @@ require Exporter;
 our @ISA = qw(Exporter);
 our @EXPORT = qw(convert_inc bad_req send_response check_types
                  xml_artist xml_release xml_track xml_search xml_escape
-                 get_type_and_status_from_inc
+                 get_type_and_status_from_inc get_release_type
                  INC_ARTIST INC_COUNTS INC_LIMIT INC_TRACKS INC_RELEASES 
                  INC_VARELEASES INC_DURATION INC_ARTISTREL INC_RELEASEREL 
                  INC_DISCS INC_TRACKREL INC_URLREL INC_RELEASEINFO 
@@ -177,6 +177,14 @@ sub get_type_and_status_from_inc
     return ({ type=>$type, status=>$status, va=>$va }, join(' ', @reallybad));
 }
 
+sub get_release_type
+{
+    my ($arg) = @_;
+
+    return $typeShortcuts{$arg} if (exists $typeShortcuts{$arg});
+	return -1;
+}
+
 sub bad_req
 {
 	my ($r, $error) = @_;
@@ -245,19 +253,19 @@ sub xml_artist
     if (defined $info)
     {
         my @albums = $ar->GetAlbums(!$info->{va}, 1, $info->{va});
-        if (scalar(@albums))
+        if (scalar(@albums) && ($info->{type} != -1 || $info->{status} != -1))
         {
             my @filtered;
 
             foreach my $al (@albums)
             {
                 my ($t, $s) = $al->GetReleaseTypeAndStatus();
-                push @filtered, $al if ($t == $info->{type} && ($info->{status} == -1 || $info->{status} == $s));
+                push @filtered, $al if (($t == $info->{type} || $info->{type} == -1) && ($info->{status} == -1 || $info->{status} == $s));
             }
             if (scalar(@filtered))
             {
                 print '<release-list>';
-                foreach my $al (@albums)
+                foreach my $al (@filtered)
                 {
                     xml_release($ar, $al, $inc);
                 }
@@ -273,10 +281,11 @@ sub xml_artist
 
 sub xml_release
 {
-	my ($ar, $al, $inc, $tnum) = @_;
+	my ($ar, $al, $inc, $tnum, $showscore) = @_;
 
     print '<release id="' . $al->GetMBId . '"';
     xml_release_type($al);
+	print ' ext:score="100"' if ($showscore);
     print '><title>' . xml_escape($al->GetName) . '</title>';
 
     my ($lang, $script);
@@ -719,6 +728,10 @@ sub xml_search
                 $query .= " artist:" . $term;
             }
         }
+		if (defined $args->{releasetypes} && $args->{releasetypes} =~ /^\d+$/)
+		{
+			$query .= " type:" . $args->{releasetypes};
+		}
     }
     elsif ($type eq 'track')
     {
@@ -773,7 +786,7 @@ sub xml_search
     if ( $response->is_success )
     {
         $out = '<?xml version="1.0" encoding="UTF-8"?>';
-        $out .= '<metadata xmlns="http://musicbrainz.org/ns/mmd-1.0#">';
+        $out .= '<metadata xmlns="http://musicbrainz.org/ns/mmd-1.0#" xmlns:ext="http://musicbrainz.org/ns/ext-1.0#">';
         $out .= $response->content;
         $out .= '</metadata>';
     }

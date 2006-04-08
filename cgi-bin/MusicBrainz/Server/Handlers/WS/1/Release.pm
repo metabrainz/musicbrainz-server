@@ -75,17 +75,17 @@ sub handler
     if (!$mbid && !$cdid)
     {
         my $title = $args{title} or "";
-		return bad_req($r, "Must specify a title argument for release collections.") if (!$title);
-
         my $artist = $args{artist} or "";
         my $release = $args{release} or "";
+        my $types = get_release_type($args{releasetypes} or "");
+
         my $limit = $args{limit};
         $limit = 25 if ($limit < 1 || $limit > 25);
 
         $artist = "" if ($artistid);
 
         return xml_search($r, {type=>'release', artist=>$artist, release=>$title, 
-                               artistid => $artistid, limit => $limit});
+                               artistid => $artistid, limit => $limit, releasetypes => $types });
     }
 
 	my $status = eval 
@@ -178,9 +178,9 @@ sub print_xml
 	my ($mbid, $ar, $albums, $inc, $is_coll) = @_;
 
 	print '<?xml version="1.0" encoding="UTF-8"?>';
-	print '<metadata xmlns="http://musicbrainz.org/ns/mmd-1.0#">';
+	print '<metadata xmlns="http://musicbrainz.org/ns/mmd-1.0#" xmlns:ext="http://musicbrainz.org/ns/ext-1.0#">';
     print '<release-list>' if (scalar(@$albums) > 1 || $is_coll);
-    xml_release($ar, $_, $inc) foreach(@$albums);
+    xml_release($ar, $_, $inc, undef, $is_coll) foreach(@$albums);
     print '</release-list>' if (scalar(@$albums) > 1 || $is_coll);
 	print '</metadata>';
 }

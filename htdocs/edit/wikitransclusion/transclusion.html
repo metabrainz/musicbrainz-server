@@ -20,7 +20,10 @@ $m->comp("/comp/checkloggedin", 1, 1)
 
 <%perl>
 
+
 my $wt = MusicBrainz::Server::WikiTransclusion->new();
+my $pages = $wt->GetPageIndex();
+my $mb = $m->comp("/comp/dblogin");
 if ($action eq 'remove')
 {
    $m->out('<p class="notice">');
@@ -30,10 +33,25 @@ if ($action eq 'remove')
    }
    else
    {
+       my $prevrev = $pages->{$page};
        $wt->SetPage($page);
        if ($wt->Delete())
        {
            $m->out("Page $page has been deleted from the transclusion list and the cache.");
+           $m->comp( "/comp/entermods",
+                    DBH => $mb->{DBH},
+                    sub => sub {
+                       my @mods = Moderation->InsertModeration(
+                       DBH	=> $mb->{DBH},
+                       uid	=> $session{uid},
+                       privs => $session{privs},
+                       type => &ModDefs::MOD_CHANGE_WIKIDOC,
+                       # --
+                       page => $page,
+                       rev => "",
+                       prevrev => $prevrev
+                       )
+                    });
        }
        else
        {
@@ -52,11 +70,26 @@ if ($action eq 'update')
    }
    else
    {
+       my $prevrev = $pages->{$page};
        $wt->SetPage($page);
        $wt->SetRevision($revision);
        if ($wt->Update())
        {
            $m->out("Page $page has been set to revision $revision and the index has been reloaded.");
+           $m->comp( "/comp/entermods",
+                    DBH => $mb->{DBH},
+                    sub => sub {
+                       my @mods = Moderation->InsertModeration(
+                       DBH	=> $mb->{DBH},
+                       uid	=> $session{uid},
+                       privs => $session{privs},
+                       type => &ModDefs::MOD_CHANGE_WIKIDOC,
+                       # --
+                       page => $page,
+                       rev => $revision,
+                       prevrev => $prevrev,
+                       )
+                    });
        }
        else
        {
@@ -69,8 +102,10 @@ if ($action eq 'update')
 $m->out("<p>Current transcluded wiki pages:</p>");
 $m->out("<table><tr><td><b>Page</b></td><td><b>Wiki Page</b></td>");
 $m->out("<td><b>Revision</b></td><td><b>Action</b></td></tr>");
-my $pages = $wt->GetPageIndex();
-foreach my $page (keys %$pages)
+
+# Re-fetch the index, just in case
+$pages = $wt->GetPageIndex();
+foreach my $page (sort keys %$pages)
 {
    </%perl>
    <tr>

@@ -1,0 +1,16 @@
+%# vi: set ts=4 sw=4 ft=mason :
+
+<%method ShowPreviousValue>
+% my $self = shift;
+% my $prev = $self->{'prev_unpacked'};
+old: <a href="/doc/<% $prev->{Page} %>"><% $prev->{Page} %></a>, <% $prev->{Rev} ? "version " . $prev->{Rev} : "NEW" %>
+</%method>
+
+
+<%method ShowNewValue>
+% my $self = shift;
+% my $new = $self->{'new_unpacked'};
+new: <% $new->{Rev} ? "version " . $new->{Rev} : "DELETED" %>
+</%method>
+
+%# eof

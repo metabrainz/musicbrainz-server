@@ -217,6 +217,27 @@ sub LookupTRMCollisions
    @$data;
 }
 
+sub LookupPUIDCollisions
+{
+   my ($this, $puid) = @_;
+   my $sql = Sql->new($this->{DBH});
+
+   my $data = $sql->SelectListOfHashes(
+   	"SELECT DISTINCT
+		albumjoin.album,
+		puidjoin.track
+	FROM	puid
+		INNER JOIN puidjoin ON puidjoin.puid = puid.id
+		INNER JOIN albumjoin ON albumjoin.track = puidjoin.track
+	WHERE	puid.puid = ?
+	ORDER BY 1, 2",
+	$puid,
+   );
+
+   @$data;
+}
+
+
 sub SetSim
 {
    my ($this, $type, $ref) = @_;

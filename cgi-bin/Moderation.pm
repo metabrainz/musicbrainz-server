@@ -83,6 +83,7 @@ require MusicBrainz::Server::Moderation::MOD_REMOVE_TRACK;
 require MusicBrainz::Server::Moderation::MOD_REMOVE_TRMID;
 require MusicBrainz::Server::Moderation::MOD_SAC_TO_MAC;
 require MusicBrainz::Server::Moderation::MOD_EDIT_TRACKTIME;
+require MusicBrainz::Server::Moderation::MOD_CHANGE_WIKIDOC;
 
 use constant SEARCHRESULT_SUCCESS => 1;
 use constant SEARCHRESULT_NOQUERY => 2;
@@ -388,7 +389,8 @@ sub IsAutoModType
         $type == &ModDefs::MOD_REMOVE_TRMID ||
         $type == &ModDefs::MOD_REMOVE_PUID ||
 	$type == &ModDefs::MOD_REMOVE_LINK_TYPE ||
-	$type == &ModDefs::MOD_REMOVE_LINK_ATTR)
+	$type == &ModDefs::MOD_REMOVE_LINK_ATTR ||
+	$type == &ModDefs::MOD_CHANGE_WIKIDOC)
     {
         return 1;
     }
