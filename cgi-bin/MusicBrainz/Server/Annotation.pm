@@ -237,14 +237,29 @@ sub LoadFromId
 	}
 
 	my $sql = Sql->new($self->{DBH});
+	my $row = undef;
+        use MusicBrainz::Server::Replication 'RT_SLAVE';
+        if (&DBDefs::REPLICATION_TYPE == RT_SLAVE) {
 
-	my $row = $sql->SelectSingleRowArray(
+	$row = $sql->SelectSingleRowArray(
 		  "SELECT	a.id, a.moderator, a.type, a.rowid, a.text, a.created, "
-		. "			a.moderation, a.changelog, m.name "
-		. "FROM		annotation a, moderator m "
-		. "WHERE	$searchby = ? AND a.moderator = m.id ",
+		. "		a.moderation, a.changelog "
+		. "FROM		annotation a "
+		. "WHERE	$searchby = ? ",
 		$id,
 	) or return undef;
+
+	} else { # Not replicated
+
+        $row = $sql->SelectSingleRowArray(
+                  "SELECT       a.id, a.moderator, a.type, a.rowid, a.text, a.cr
+eated, "
+                . "                     a.moderation, a.changelog, m.name "
+                . "FROM         annotation a, moderator m "
+                . "WHERE        $searchby = ? AND a.moderator = m.id ",
+                $id,
+        ) or return undef;
+}
 
 	$self->{id}				= $row->[0];
 	$self->{moderator}		= $row->[1];
@@ -254,7 +269,11 @@ sub LoadFromId
 	$self->{creation_time}	= $row->[5];
 	$self->{moderation}		= $row->[6];
 	$self->{changelog}		= $row->[7];
-	$self->{moderator_name}	= $row->[8];
+        if (&DBDefs::REPLICATION_TYPE == RT_SLAVE) {
+                $self->{moderator_name}         = undef;
+        } else {
+                $self->{moderator_name}         = $row->[8];
+        }
 
 	return 1;
 }
@@ -268,7 +287,6 @@ sub GetLatestAnnotation
 
 	my $sql = Sql->new($self->{DBH});
 	my $row = undef;
-        use MusicBrainz::Server::Replication 'RT_SLAVE';
         if (&DBDefs::REPLICATION_TYPE == RT_SLAVE) {
 
 		$row = $sql->SelectSingleRowArray(
