@@ -1,11 +1,22 @@
 %# vi: set ts=2 sw=2 ft=mason :
 <%args>
-$id
-$name
-$resolution => undef
-$showresolution => 1
+	$artist => undef
+	$id => undef
+	$name => undef
+	$resolution => undef
+	$showresolution => 1
 </%args>
-<a href="/showartist.html?artistid=<% $id %>"><% $name %></a>
-% if ( $showresolution and defined $resolution ) {
-	(<% $resolution %>)
-% }
+<%perl>
+	if (defined $artist)
+	{
+		$id = $artist->GetId;
+		$name = $artist->GetName;
+		$resolution = $artist->GetResolution;
+	}
+	die ("$id and $name are required") if (not defined $id || not defined $name);
+</%perl>
+
+	<a href="/showartist.html?artistid=<% $id %>"><% $name %></a>
+% 	if ( $showresolution and $resolution ne "") {
+		(<% $resolution %>)
+% 	}
