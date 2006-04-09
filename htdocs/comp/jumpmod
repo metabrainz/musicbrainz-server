@@ -2,7 +2,7 @@
 % 	my $modid = shift || "";
 
 	<form method="get" action="/showmod.html" id="JumpMod">
-		<table class="loginform">
+		<table class="formstyle">
 			<tr>
 				<td class="label">Enter moderation id:</td>
 				<td>
