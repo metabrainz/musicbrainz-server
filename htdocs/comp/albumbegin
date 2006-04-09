@@ -139,7 +139,6 @@ Relationships:
 %		if ($nonalbum) {
 	| <a href="/edit/track/addnonalbum.html?artistid=<% $album->GetArtist %>">Add&nbsp;a&nbsp;non-album&nbsp;track</a>&nbsp;]
 %		} else {
-	| <a href="/edit/albumreleases/index.html?album=<% $albumid %>">Edit&nbsp;releases</a>
 %			if ($album->CanAddTrack) {
 	| <a href="/edit/track/add.html?album=<% $albumid %>">Add&nbsp;track</a>
 %			}
