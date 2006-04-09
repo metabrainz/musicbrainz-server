@@ -423,6 +423,9 @@ table.formstyle td.field {
 	white-space: nowrap;
 	width: 150%;
 }
+
+/* suggestions are placed on top of the form fields, 
+   formatted in an unordered list. */
 table.formstyle td.instructions {
 	padding-bottom: 15px;
 	max-width: 500px;
@@ -431,16 +434,18 @@ table.formstyle td.instructions ul {
 	margin: 0px 15px; padding: 0px;
 }
 table.formstyle td.instructions li {
-	margin: 0px; padding: 0px;
+	margin: 0px; padding: 0px; padding-bottom: 4px;
 }
 
-
+/* if different areas are handled in the same form,
+   use this class to separate one from the others. */
 table.formstyle td.formsection {
 	padding-top: 20px;
 	font-size: 11px;
 }
 
-
+/* errors are listed on top of the fields, under
+   the instructions list, in an unordered list. */
 table.formstyle td.error {
 	padding: 0px;
 	color: red;
@@ -453,6 +458,7 @@ table.formstyle td.error ul li {
 	padding-left: 0px;
 }
 
+/* force fields to be the same width */
 table.formstyle input.textfield {
 	width: 200px;
 }
