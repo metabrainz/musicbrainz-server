@@ -161,6 +161,8 @@
 			[
 				{ url => "/edit/relationship/addcc.html" },
 			],
+
+			# freedb import
 			{ name => "FreeDB Import",			url => "/freedb/freedb.html" },
 			[
 				{ url => "/freedb/final.html" },
@@ -177,23 +179,28 @@
 				{ url => "/freedb/select-macsac.html" },
 			],
 
+			# add mods
 			{ url => "/edit/artistalias/add.html" },
 			{ url => "/edit/track/addnonalbum.html" },
 			{ url => "/edit/track/add.html" },
 
+			# change track artist mods
 			{ url => "/edit/track/change.html" },
 			{ url => "/edit/track/changeartist.html" },
 
+			# edit mods
 			{ url => "/edit/album/editattributes.html" },
 			{ url => "/edit/album/edit.html" },
 			{ url => "/edit/artist/edit.html" },
 			{ url => "/edit/artistalias/edit.html" },
 			{ url => "/edit/track/edit.html" },
 
+			# merge mods
 			{ url => "/edit/artist/merge.html" },
 			{ url => "/edit/album/move.html" },
 			{ url => "/edit/discid/move.html" },
 
+			# removal mods
 			{ url => "/edit/album/remove.html" },
 			{ url => "/edit/artistalias/remove.html" },
 			{ url => "/edit/artist/remove.html" },
@@ -203,9 +210,18 @@
 			{ url => "/edit/trm/remove.html" },
 			{ url => "/edit/puid/remove.html" },
 
+			# single- and multiartist conversion
 			{ url => "/edit/album/mac.html" },
 			{ url => "/edit/album/sac.html" },
 
+			# release dates editor.
+			{ url => "/edit/albumreleases/index.html" },
+			{ url => "/edit/albumreleases/editreleases.html" },
+			{ url => "/edit/albumreleases/review.html" },
+			{ url => "/edit/albumreleases/cancel.html" },
+			{ url => "/edit/albumreleases/enter.html" },
+
+			# release batch edits (attributes, language, merge etc.)
 			{ url => "/edit/albumbatch/cancel.html" },
 			{ url => "/edit/albumbatch/done.html" },
 			{ url => "/edit/albumbatch/merge.html" },
