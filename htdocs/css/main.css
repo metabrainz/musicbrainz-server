@@ -87,6 +87,30 @@ h3
 	margin-bottom: 3px;
 }
 
+/* index.html, and news/* pages use this. */
+.boxeslist {
+	padding-top: 0px; 
+}
+.newslist {
+	width: 250px;
+	padding: 0px; padding-right: 5px; padding-left: 30px; 
+}
+.boxeslist h1,
+.newslist h1 {
+	margin-bottom: 20px; margin-top: 0px;
+	padding: 0px;
+	border-width: 0px;
+}
+.newslist h2 {
+	margin-top: 0; margin-bottom: 10px;
+	background-color: #736DAB; /* fallback if image is not available */
+	background-image: url(/images/header-bg-lightpurplefade.gif);
+	background-position: right;
+	background-repeat: repeat-y;
+	border: 1px solid #736DAB;
+}
+
+
 .notice
 {
 	border: 3px outset #f0efff;
@@ -108,6 +132,7 @@ h3
 	color: #000;
 }
 
+/*
 .error
 {
 	border: 3px outset red;
@@ -117,6 +142,7 @@ h3
 	background-color: #fee;
 	color: #000;
 }
+*/
 
 ul, ol
 {

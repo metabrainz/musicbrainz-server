@@ -115,6 +115,106 @@ td.header_logo .servertype
 .wikitoolbar a#hr { background-position: 0 -80px }
 
 
+/* boxes with orange/violet gradient in the header */
+.orangeheader {	    
+	border: 1px solid #fb5;
+	background-color: #fb5; /* fallback if image is not available */
+	background-image: url(/images/header-bg-orangefade.gif);
+	background-position: left;
+	background-repeat: repeat-y;
+	margin: 0px; padding: 0px;
+	font-weight: bold;
+}
+.blueheader,
+.blueheaderwide {
+	border: 1px solid #736DAB;
+	background-color: #736DAB; /* fallback if image is not available */
+	background-image: url(/images/header-bg-lightpurplefade.gif);
+	background-position: right;
+	background-repeat: repeat-y;
+	margin: 0px; padding: 0px;
+	font-weight: bold;
+}
+.blueheaderwide {
+	background-color: #fff; /* fallback if image is not available */
+	background-image: url(/images/header-bg-lightpurplefade.gif);
+	background-position: left;
+	background-repeat: repeat-y;
+}
+.orangeheader .inner,
+.blueheader .inner,
+.blueheaderwide .inner {
+	margin: 0 0 0 0.5em; padding: 2px;
+}
+.boxcontent {
+	border: 1px solid #ddd;
+	border-width: 0px 1px 1px 1px;
+	margin: 0px; padding: 0px;
+	margin-bottom: 20px;
+}
+.boxcontent .inner {
+	margin: 0px; padding: 8px;
+}
+.boxcontent .inner ul {
+	margin-top: 10px; margin-bottom: 0px; margin-left: 20px; padding: 0px;
+}
+.boxcontent .inner li {
+	margin: 0px; padding-bottom: 10px;
+}
+.boxcontent .inner p {
+	margin: 0px; padding: 0px; padding-bottom: 15px;
+}
+.boxcontent .inner p.important {
+	color: #fc0; padding-bottom: 6px;
+}
+.boxcontent .inner p.important a {
+	font-weight: bold; 
+}
+.boxcontent .inner ul,
+.boxcontent .inner ol {
+	margin: 0px;
+	margin-top: 10px; margin-bottom: 10px;
+	margin-right: 10px;
+	margin-left: 35px;
+}
+.boxcontent .inner li {
+	margin: 0px; padding: 0px;
+}
+.boxcontent .inner hr {
+	width: 275px; height: 1px;
+	color: #000; background-color: #000;
+	border: none; 
+}
+
+.boxcontent div.modpending {
+	float: right; 
+	width: 200px; 
+	border: 1px solid #000;
+	padding: 4px;
+	background-color: #ffc;
+	font-size: 11px;
+}
+.boxcontent div.modpending a {
+	font-weight: bold;
+}
+
+.newsarticle {
+	margin-bottom: 10px;
+}
+.datetime {
+	text-align: right; font-size: 11px; color: #999;
+}
+.readmore {
+	text-align: right; font-size: 11px; 
+}
+.NewsLink,
+.PressReleaseLink,
+.WhitePaperLink {
+	display: block;
+	text-align: right;
+}
+
+
 
 /** 
  * listing tables, used in: 
@@ -278,76 +378,95 @@ table.pageselector input.jumpbutton {
  * listing tables, used in: 
  *  ~ artistrel.html
  **/   
-table.loginform {
+table.formstyle {
 }
 
-div.fillfields {
-	margin-left: 150px;
-	margin-right: 20px;
-	padding-bottom: 10px;
-}
 
 /* header rows are bold, and have some padding at the bottom */
-table.loginform tr {
+table.formstyle tr {
 	vertical-align: middle;
 }
-table.loginform tr.top {
+table.formstyle tr.top {
 	vertical-align: top;
 }
 
-table.loginform td {
+table.formstyle td {
 	padding: 2px 4px;
 	text-align: left;
 }
 
 /* header rows are bold, and have some padding at the bottom */
-table.loginform tr.header td {
+table.formstyle tr.header td {
 	font-weight: bold;
 	padding-bottom: 2px;
 }
 
 /* explicit left alignment */
-table.loginform tr.header td {
+table.formstyle tr.header td {
 	text-align: left;
 }
 
 /* explicit center alignment */
-table.loginform td.center {
+table.formstyle td.center {
 	text-align: center; 
 }
 
-table.loginform td.label {
+table.formstyle td {
+}
+table.formstyle td.label {
 	font-weight: bold;
-	width: 150px;
+	white-space: nowrap;
+	min-width: 150px;
+	padding-right: 30px;
+}
+table.formstyle td.field {
+	white-space: nowrap;
+	width: 150%;
+}
+table.formstyle td.instructions {
+	padding-bottom: 15px;
+	max-width: 500px;
+}
+table.formstyle td.instructions ul {
+	margin: 0px 15px; padding: 0px;
+}
+table.formstyle td.instructions li {
+	margin: 0px; padding: 0px;
 }
 
 
-table.loginform td.formsection {
+table.formstyle td.formsection {
 	padding-top: 20px;
 	font-size: 11px;
 }
 
 
-table.loginform td.err {
+table.formstyle td.error {
+	padding: 0px;
 	color: red;
 }
-table.loginform td.err ul {
+table.formstyle td.error ul {
 	margin-left: 15px;
 	margin-bottom: 5px;
 }
-table.loginform td.err ul li {
+table.formstyle td.error ul li {
 	padding-left: 0px;
 }
 
-table.loginform input.textfield {
+table.formstyle input.textfield {
 	width: 200px;
 }
 
 /* spacer row, because table is defined using cellspacing=0, cellpadding=0 */
-table.loginform tr.spacer td {
+table.formstyle tr.spacer td {
 	height: 1px;
 	padding: 0px;
 }
+
+
+
+
+
 
 
 /** 

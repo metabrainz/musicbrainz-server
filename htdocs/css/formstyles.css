@@ -1,71 +1,58 @@
 
-.formstyle input {
-	font-weight: normal; font-size: 10pt; 
-	font-family: Arial, Geneva, Helvetica, Verdana, sans-serif;  
-	text-decoration : none;
-}
-fieldset {
-	border: #ccc solid 1px;
-	padding: 10px;
-	width: 95%; /* some browser do not like 100%, scrollbar appears */
-}
-fieldset legend {
-	padding: 10px 10px;
-	background: #fff;
-	font-weight: bold;
-	color: black;
-} 
-fieldset label {
-	text-align: right;
-	margin-left: 15px;
-	margin-right: 10px;
-}
-fieldset .textfield,
-fieldset .numberfield,
-fieldset .datefield {
+table.formstyle .textfield,
+table.formstyle .numberfield,
+table.formstyle .datefield {
 	color: #000;
 	background: #fff;
 	padding-left: 2px;
 }
-fieldset .datefield {
+table.formstyle .datefield {
   text-align: center;
 }
-fieldset .textfieldfocus,
-fieldset .numberfieldfocus,
-fieldset .datefieldfocus {
+table.formstyle .textfieldfocus,
+table.formstyle .numberfieldfocus,
+table.formstyle .datefieldfocus {
 	color: #000;
 	background: #f0efff;
 	padding-left: 2px;
 }
-fieldset .numberfield,
-fieldset .numberfieldfocus {
+table.formstyle .numberfield,
+table.formstyle .numberfieldfocus {
 	text-align: center;
 }
-fieldset .textarea {
+table.formstyle .textarea {
 	/* width: 100%; handled with js now */
 }
 .backtolisting .button,
-fieldset .button {
+table.formstyle .button {
 	/* font-weight: bold; font-size: 9pt; 
 	font-family: Arial, Geneva, Helvetica, Verdana, sans-serif; 
 	background: #ffba58; color: #000; */ 
 }
-fieldset .oldtextfield {
-	padding-left: 2px; font-size: 9pt;
+table.formstyle .oldtextfield,
+table.formstyle .oldtextfield-modpending {
+	padding: 2px; font-size: 9pt;
 }
+table.formstyle .oldtextfield-modpending {
+	border-bottom: 1px dotted #ccc; background: #ffc;
+}
+
+table.formstyle td.padleft {	
+	padding-left: 20px;
+}
+table.formstyle td.padlefttop {
+	padding-left: 20px;	padding-top: 10px;
+}
+table.formstyle td.padtop {	
+	padding-top: 10px;
+}
+
 .discidmessage {
 	color: red;	font-weight: bold;
 	padding: 10px 0px 0px 10px; 	
 }
-fieldset .padleft {	
-	padding-left: 20px;
-}
-fieldset .padlefttop {
-	padding-left: 20px;	padding-top: 10px;
-}
-fieldset .padtop {	
-	padding-top: 10px;
-}
+
+
 .modnotearea {
 }
 
@@ -165,6 +152,7 @@ fieldset .padtop {
 
 .editsuite {
 	width: 600px;
+	margin-top: 20px;
 	margin-bottom: 20px;
 }
 .editsuite .inner {
