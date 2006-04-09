@@ -1,29 +1,21 @@
 %# vi: set ts=4 sw=4 ft=mason :
 <%perl>
 
-return 1 if $session{uid};
-my ($fHeader, $fFooter, $sMessage) = @_;
-$sMessage ||= "You must be logged in to edit the database.";
+	return 1 if $session{uid};
+	my ($fHeader, $fFooter, $title) = @_;
 
-$m->comp("/comp/sidebar", title => "Login Required")
-	if $fHeader;
+	$title = "You need to login to view this page" if (not $title);
+
+	$m->comp("/comp/sidebar", pagetitle => "Login", title => $title)
+		if $fHeader;
 </%perl>
 
-<center>
-
-	<p><% $sMessage %></p>
-
-	<div class="TitledBox" style="width: 20em">
-		<div class="TitledBoxTitle">Login</div>
+	<& /comp/tablebegin, title => "Login" &>
 		<& /comp/loginbox &>
-	</div>
-
-</center>
+	<& /comp/tableend &>
 
 <%perl>
-$m->comp("/comp/footer")
-	if $fFooter;
-
-return 0;
-
+	$m->comp("/comp/footer")
+		if $fFooter;
+	return 0;
 </%perl>
