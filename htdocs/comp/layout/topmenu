@@ -141,7 +141,7 @@
 			],
 
 			{ name => "Add Artist",				url => "/edit/artist/add.html" },
-			{ name => "Add Album",				url => "/edit/album/add.html?artistid=0" },
+			{ name => "Add Release",			url => "/edit/album/add.html?artistid=0" },
 			[
 				{ url => "/edit/album/add.html" },
 				{ url => "/cdi/album.html" },
@@ -152,7 +152,7 @@
 				{ url => "/cdi/selectattr.html" },
 				{ url => "/cdi/submit.html" },
 			],
-			{ name => "Add Album (VA)",			url => "/edit/album/add.html?artistid=1" },
+			{ name => "Add Release (VA)",		url => "/edit/album/add.html?artistid=1" },
 			[
 				{ url => "/cdi/malbum.html" },
 				{ url => "/cdi/menter.html" },
