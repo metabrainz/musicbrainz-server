@@ -14,6 +14,9 @@ body, p, td	{
 	color : #000000; 
 	text-decoration : none;
 }
+form {
+	margin: 0px;
+}
 
 .bold { font-weight: bold; }
 
