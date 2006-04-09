@@ -125,37 +125,43 @@
 
 </%perl>
 
-	<div class="fillfields">
-		<ul>
-			<li>
-				See also <a href="/prefs.html#privacy-settings">your preferences page</a>,
-				which includes your privacy settings.</li>
-			<li>
-				If you would like to delete your account, please see the FAQ entry
-				<a href="/doc/AccountFAQ">How do I delete my account?</a></li>
-		</ul>
-	</div>
 
 	<form method="post" action="/user/edit.html" id="EditUser">
-		<table class="loginform">
+		<table class="formstyle">
+			<tr>
+				<td colspan="2" class="instructions">
+					<ul>
+						<li>
+							See also <a href="/prefs.html#privacy-settings">your preferences page</a>,
+							which includes your privacy settings.</li>
+						<li>
+							If you would like to delete your account, please see the FAQ entry
+							<a href="/doc/AccountFAQ">How do I delete my account?</a></li>
+					</ul></td>
+			</tr>
+
 
 %			if (@$messages > 0) {
 			<tr>
 				<td>&nbsp;</td>
-				<td class="err"><ul><li><%perl> $m->out(join("</li><li>", @$messages)); </%perl></li></ul></td>
+				<td class="error">
+					<ul>
+						<li><%perl> $m->out(join("</li><li>", @$messages)); </%perl></li>
+					</ul>
+				</td>
 			</tr>
 %			}
 
 			<tr>
 				<td class="label">
 					<label>Name:</label></td>
-				<td>
+				<td class="field">
 					<% $info->GetName %></td>
 			</tr>
 			<tr>
 				<td class="label">
 					<label>User type:</label></td>
-				<td>
+				<td class="field">
 					<% $info->GetUserType | n %></td>
 			</tr>
 			<tr>
@@ -168,7 +174,7 @@
 			<tr>
 				<td class="label">
 					<label>E-mail address:</label></td>
-				<td>
+				<td class="field">
 					<input type="text" name="email" size="40" value="<% $info->GetEmail %>" /></td>
 			</tr>
 
@@ -179,18 +185,18 @@
 			</tr>
 			<tr>
 				<td class="label">Homepage:</td>
-				<td>
+				<td class="field">
 					<input type="text" name="weburl" size="40" value="<% $info->GetWebURL %>" /></td>
 			</tr>
 			<tr class="top">
 				<td class="label">Bio:</td>
 %					(my $t = $info->GetBio) =~ s/<p>/\n/g;
-				<td>
+				<td class="field">
 					<textarea name="bio" cols="40" rows="10"><% $t %></textarea></td>
 			</tr>
 			<tr>
 				<td>&nbsp;</td>
-				<td>
+				<td class="field">
 					<input type="hidden" name="update" value="1" />
 					<input type="submit" name="Submit" value="Save Changes" /></td>
 			</tr>
