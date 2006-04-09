@@ -1,0 +1,17 @@
+<%perl>
+	my ($type, $object, $modpending) = @_;
+
+	my $css = "oldtextfield" . ($modpending ? "-modpending" : "");
+
+	$m->out(qq!<span class="$css">!);
+	$m->out(qq!<img src="/images/edit.gif" alt="" />!);
+	$m->out(sprintf
+				qq!<a href="/show%s.html?%sid=%d">%s</a>!,
+				$type,
+				$type,
+				$object->GetId,
+				$object->GetName
+			);
+	$m->out(qq!</span>!);
+
+</%perl>

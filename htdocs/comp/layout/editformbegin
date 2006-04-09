@@ -1,0 +1,52 @@
+<%args>
+	$title
+	$mp => 0
+	$type => undef
+	$id => undef
+
+	$align => "left"
+	$showmodnotice => 0
+
+</%args>
+<%perl>
+
+	$m->out(qq!<div class="orangeheader"> !);
+	$m->out(qq!  <div class="inner"><b>$title</b></div> !);
+	$m->out(qq!</div> !);
+
+	if ($mp && $type && $id)
+	{
+		my $openmods = sprintf(
+			"/mod/search/results.html?object_type=%s&amp;object_id=%d&amp;mod_status=1",
+			$type,
+			$id);
+		my $typestr = ucfirst($type);
+
+		$m->out(qq!<div class="boxcontent" style="margin-bottom: 0px; border-bottom: 0px"> !);
+		$m->out(qq!	<div style="float: right; clear: both; width: 270px; text-align: left; padding: 3px 5px; background: #ffffcc; font-size: 11px; font-weight: normal; border-left: 1px solid #ccc; border-bottom: 1px solid #ccc; margin-bottom: 0px"> !);
+		$m->out(qq! 	There are pending moderations for !);
+		$m->out(qq! 	this $typestr. Click <img src="/images/edit.gif" alt="" /><a href="$openmods">here</a> !);
+		$m->out(qq! 	to review the changes. !);
+		$m->out(qq!	</div> !);
+		$m->out(qq!</div> !);
+	}
+
+ 	if ($showmodnotice)
+ 	{
+		$m->out(qq!<div class="boxcontent" style="margin-bottom: 0px; border-bottom: 0px"> !);
+		$m->out(qq!	<div style="float: right; clear: both; width: 270px; text-align: right; padding: 3px 5px; background: #ffffcc; font-size: 11px; font-weight: normal; border-left: 1px solid #ccc; border-bottom: 1px solid #ccc; margin-bottom: 0px"> !);
+		$m->out(qq!		Yellow highlights indicate pending changes. !);
+		$m->out(qq!	</div> !);
+		$m->out(qq!</div> !);
+	}
+
+	$m->out(qq!<div class="boxcontent"> !);
+	$m->out(qq!	<div class="inner" style="text-align: $align"> !);
+
+
+
+</%perl>
+
+
+
+
