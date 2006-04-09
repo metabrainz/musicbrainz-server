@@ -1,99 +1,96 @@
 %# vi: set ts=2 sw=2 ft=mason :
 <%args>
-$album => undef
-$newalbumname => ""
-$notetext => ""
+	$album => undef
+	$newalbumname => ""
+	$notetext => ""
 </%args>
 <%perl>
 
-$m->comp("/comp/checkloggedin", 1, 1)
-	or return;
+	$m->comp("/comp/checkloggedin", 1, 1)
+		or return;
 
-MusicBrainz::IsNonNegInteger($album) && $album
-	or return $m->comp("/comp/badargs", 1, 1);
+	MusicBrainz::IsNonNegInteger($album) && $album
+		or return $m->comp("/comp/badargs", 1, 1);
 
-my $mb = $m->comp("/comp/dblogin");
+	my $mb = $m->comp("/comp/dblogin");
 
-my $al = Album->new($mb->{DBH});
-$al->SetId($album);
-$al->LoadFromId
-	or return $m->comp(
-		"/comp/error",
-		"Album #$album does not exist",
-		1, 1,
-	);
+	my $al = Album->new($mb->{DBH});
+	$al->SetId($album);
+	$al->LoadFromId
+		or return $m->comp(
+			"/comp/error",
+			"Album #$album does not exist",
+			1, 1,
+		);
 
-my $ar = Artist->new($mb->{DBH});
-$ar->SetId($al->GetArtist);
-$ar->LoadFromId
-	or return $m->comp(
-		"/comp/error",
-		"Artist does not exist",
-		1, 1,
-	);
+	my $ar = Artist->new($mb->{DBH});
+	$ar->SetId($al->GetArtist);
+	$ar->LoadFromId
+		or return $m->comp(
+			"/comp/error",
+			"Artist does not exist",
+			1, 1,
+		);
 
-my $url = "/showalbum.html?albumid=$album";
+	my $url = "/showalbum.html?albumid=$album";
 
-if (MusicBrainz::IsSingleLineString($newalbumname)
-	and $newalbumname =~ /\S/
-	and $newalbumname ne $al->GetName)
-{
-	$m->comp(
-		"/comp/entermods",
-		DBH => $mb->{DBH},
-		sub => sub {
-			my @mods = Moderation->InsertModeration(
-				DBH	=> $mb->{DBH},
-				uid	=> $session{uid},
-				privs => $session{privs},
-				type => &ModDefs::MOD_EDIT_ALBUMNAME,
-				# --
-				album => $al,
-				newname => $newalbumname,
-			);
+	if (MusicBrainz::IsSingleLineString($newalbumname)
+		and $newalbumname =~ /\S/
+		and $newalbumname ne $al->GetName)
+	{
+		$m->comp(
+			"/comp/entermods",
+			DBH => $mb->{DBH},
+			sub => sub {
+				my @mods = Moderation->InsertModeration(
+					DBH	=> $mb->{DBH},
+					uid	=> $session{uid},
+					privs => $session{privs},
+					type => &ModDefs::MOD_EDIT_ALBUMNAME,
+					# --
+					album => $al,
+					newname => $newalbumname,
+				);
 
-			$mods[0]->InsertNote($session{'uid'}, $notetext)
-				if $mods[0]
-				and $notetext =~ /\S/;
-		},
-		success_url => $url,
-	) or return;
+				$mods[0]->InsertNote($session{'uid'}, $notetext)
+					if $mods[0]
+					and $notetext =~ /\S/;
+			},
+			success_url => $url,
+		) or return;
 
-	die "Shouldn't get here";
-}
+		die "Shouldn't get here";
+	}
 
 </%perl>
 
-<& /comp/sidebar, title => 'Edit Album Name' &>
+<& /comp/sidebar-notitle, pagetitle => "Edit Album Name", spacing => 0 &>
 
-<& /comp/stylemenu &>
+	<form method="post" action="/edit/album/edit.html" id="EditAlbumForm">
 
-% if ($al->GetModPending) {
-	<& /comp/modpending &>
-% }
+		<& /comp/autofixmenu &>
 
+		<& /comp/layout/editformbegin,
+			title => "Edit Album Name",
+			mp => $al->GetModPending,
+			type => "album",
+			id => $al->GetId
+		&>
 
-<form method="post"
-		action="/edit/album/edit.html"
-		name="EditAlbumForm"
-		enctype="application/x-www-form-urlencoded">
-
-	<& /comp/autofixmenu &>
-
-	<fieldset>
-		<legend>Edit Album Name</legend>
-		<table>
+		<table class="formstyle">
 			<tr>
-				<td><label >Current&nbsp;Name:</label></td>
+				<td class="label">
+					<label>Current&nbsp;Name:</label></td>
 				<td>
-					<div class="oldtextfield"><% $al->GetName  %></div></td>
+					<& /comp/form/currentvalue, "album", $al, $al->GetModPending  &></td>
 			</tr>
 			<tr>
-				<td><label for="editalbum_newalbumname">New Name:</label></td>
-				<td>
-					<input type="text" name="newalbumname" class="textfield" id="editalbum_newalbumname"
-						size="50"
-						value="<% $al->GetName %>">
+				<td class="label">
+					<label for="editalbum_newalbumname">New Name:</label></td>
+				<td class="field">
+					<input type="text" class="textfield" size="50"
+						id="editalbum_newalbumname" name="newalbumname"
+						value="<% $al->GetName %>" />
 
 					<& /comp/form/jsbutton, id=>"BTN_ALBUM|newalbumname" &>
 				</td>
@@ -107,12 +104,13 @@ if (MusicBrainz::IsSingleLineString($newalbumname)
 				<td>&nbsp;</td>
 				<td class="padtop">
 					<& /comp/form/jsbutton, id=>"BTN_CANCEL|/showalbum.html?albumid=".$al->GetId &>
-					<input type="submit" class="button" value="Submit"></td>
-					<input type="hidden" name="album" value="<% $al->GetId %>">
+					<input type="submit" class="button" value="Submit" /></td>
+					<input type="hidden" name="album" value="<% $al->GetId %>" />
 			</tr>
 		</table>
-	</fieldset>
-	<& /comp/form/focusfield, "newalbumname" &>
-</form>
+		<& /comp/form/focusfield, "newalbumname" &>
+
+		<& /comp/tableend &>
+	</form>
 
 <& /comp/footer &>
