@@ -658,7 +658,7 @@ table.Subs tr.r1 td {
 .wikidocs div.unofficial {
 	border: 2px dotted #ccc;
 	padding: 10px;
-	background-image: url(/images/wikidocs/draft.png);
+	/* background-image: url(/images/wikidocs/draft.png); */
 }
 
 /* WIKIDOCS: offical (wikidocs) pages have bold links */
