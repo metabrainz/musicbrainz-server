@@ -1,16 +1,11 @@
 %# vi: set ts=4 sw=4 ft=mason :
+<%args>
+	$albumid
+</%args>
 <%perl>
-my $batch = shift;
 
-# Cancel import; delete our session data.
-my $edit = $session{"editreleases"};
-my $id = ($edit ? $edit->{"id"} : undef);
-delete $session{"editreleases"};
-
-return if $batch;
-
-my $url = "/";
-$url = "/showalbum.html?albumid=$id" if $id;
-return $m->comp("/comp/redirect", $url);
+	# Cancel import; delete our session data.
+	delete $session{"editreleases"}{$albumid};
+	return $m->comp("/comp/redirect", "/showalbum.html?albumid=$albumid");
 
 </%perl>

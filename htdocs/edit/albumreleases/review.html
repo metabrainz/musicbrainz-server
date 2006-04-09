@@ -1,149 +1,169 @@
 %# vi: set ts=4 sw=4 ft=mason :
+<%args>
+	$albumid
+</%args>
 <%perl>
+	# let's see if we still got a session, else redirect
+	# to the given albumid.
+	my $albumurl = "/showalbum.html?albumid=" . $albumid;
+	my $edit = $session{"editreleases"}{$albumid}
+		or return $m->comp("/comp/redirect", $albumurl);
 
-my $edit = $session{"editreleases"}
-	or return $m->comp("/comp/redirect", "/search.html");
+	my $mb = $m->comp("/comp/dblogin");
+	my $changes = 0;
 
-my $mb = $m->comp("/comp/dblogin");
-my $changes = 0;
+	my $al = Album->new($mb->{DBH});
+	$al->SetId($edit->{"id"});
+	$al->LoadFromId
+		or return $m->comp(
+			"/comp/error",
+			"Album not found in the database.",
+			1, 1,
+		);
 
+	my $ar = Artist->new($mb->{DBH});
+	$ar->SetId($al->GetArtist);
+	$ar->LoadFromId
+		or return $m->comp(
+			"/comp/error",
+			"Artist not found in the database.",
+			1, 1,
+		);
 
-my $al = Album->new($mb->{DBH});
-$al->SetId($edit->{"id"});
-$al->LoadFromId
-	or return $m->comp(
-		"/comp/error",
-		"Album not found in the database.",
-		1, 1,
-	);
-my $ar = Artist->new($mb->{DBH});
-$ar->SetId($al->GetArtist);
-$ar->LoadFromId
-	or return $m->comp(
-		"/comp/error",
-		"Artist not found in the database.",
-		1, 1,
-	);
-my @releases = $al->Releases;
-my @tracks = $al->LoadTracks;
-
+	my @releases = $al->Releases;
+	my @tracks = $al->LoadTracks;
 </%perl>
-<& /comp/sidebar, title => "Releases Editor: Review Changes" &>
 
-<& /comp/artisttitle, artist => $ar &>
+<& /comp/sidebar-notitle, pagetitle => "Edit Release Events: Review Changes" &>
 
-<fieldset>
-	<legend>Review Changes</legend>
+	<& /comp/artisttitle, artist => $ar &>
+
+	<& /comp/tablebegin, title => "Review Moderations" &>
+
 	<div class="padleft">
 		These are the moderations that will be entered into
 		the system when you click "Enter Moderations":
 	</div>
 	<div class="padlefttop">
-		<table border="0" cellspacing="0">
-			<tr valign="top">
-				<td><b>Moderation</td>
-				<td rowspan="200">&nbsp;&nbsp;</td>
-				<td><b>Old Value</td>
-				<td rowspan="200">&nbsp;&nbsp;</td>
-				<td><b>New Value</td>
+		<table class="listing">
+			<tr class="header">
+				<td class="left">Moderation</td>
+				<td class="left">Old Value</td>
+				<td class="left">New Value</td>
 			</tr>
 
 <%perl>
 
-my $countries_menu = $m->comp("countries-menu.inc");
-my %country_name = map { $_->[0], $_->[1] } @$countries_menu;
+	my $countries_menu = $m->comp("countries-menu.inc");
+	my %country_name = map { $_->[0], $_->[1] } @$countries_menu;
 
-for my $rel (@{ $edit->{releases} })
-{
-	if ($rel->{"new"})
+	for my $rel (@{ $edit->{releases} })
 	{
-		</%perl>
-			<tr>
-				<td>Add Release</td>
-				<td></td>
-				<td>Date: <& /comp/releasedate, @$rel{qw( year month day )} &>
-					&nbsp; Country: <% $country_name{$rel->{country}} || "?" %></td>
-			</tr>
-		<%perl>
-		++$changes;
-		next;
-	}
-		
-	if ($rel->{'delete'})
-	{
-		</%perl>
-			<tr>
-				<td>Remove Release</td>
-				<td>
-					Date: <& /comp/releasedate, @$rel{qw( orig_year orig_month orig_day )} &>
-					&nbsp; Country: <% $country_name{$rel->{orig_country}} || "?" %></td>
-				<td>&nbsp;</td>
-			</tr>
-		<%perl>
-		++$changes;
-		next;
-	}
+		if ($rel->{"new"})
+		{
+			</%perl>
+				<tr valign="top">
+					<td class="left" style="padding-right: 40px">Add Release</td>
+					<td class="left" style="padding-right: 40px">&nbsp;</td>
+					<td class="left">
+						Date: <& /comp/releasedate, @$rel{qw( year month day )} &> <br />
+						Country: <% $country_name{$rel->{country}} || "?" %></td>
+				</tr>
+			<%perl>
+			++$changes;
+			next;
+		}
 
-	next unless grep {
-		$rel->{$_} != $rel->{"orig_".$_}
-	} qw( year month day country );
+		if ($rel->{'delete'})
+		{
+			</%perl>
+				<tr valign="top">
+					<td class="left" style="padding-right: 40px">Remove Release</td>
+					<td class="left" style="padding-right: 40px">
+						Date: <& /comp/releasedate, @$rel{qw( orig_year orig_month orig_day )} &><br />
+						Country: <% $country_name{$rel->{orig_country}} || "?" %></td>
+					<td class="left">&nbsp;</td>
+				</tr>
+			<%perl>
+			++$changes;
+			next;
+		}
 
-	{
-		</%perl>
-			<tr>
-				<td>Edit Release</td>
-				<td>
-					Date: <& /comp/releasedate, @$rel{qw( orig_year orig_month orig_day )} &>
-					&nbsp; Country: <% $country_name{$rel->{orig_country}} || "?" %></td>
-				<td>
-					Date: <& /comp/releasedate, @$rel{qw( year month day )} &>
-					&nbsp; Country: <% $country_name{$rel->{country}} || "?" %></td>
-			</tr>
-		<%perl>
-		++$changes;
+		next unless grep {
+			$rel->{$_} != $rel->{"orig_".$_}
+		} qw( year month day country );
+
+		{
+			</%perl>
+				<tr valign="top">
+					<td class="left" style="padding-right: 40px">Edit Release</td>
+					<td class="left" style="padding-right: 40px">
+						Date: <& /comp/releasedate, @$rel{qw( orig_year orig_month orig_day )} &><br />
+						Country: <% $country_name{$rel->{orig_country}} || "?" %></td>
+					<td class="left">
+						Date: <& /comp/releasedate, @$rel{qw( year month day )} &><br />
+						Country: <% $country_name{$rel->{country}} || "?" %></td>
+				</tr>
+			<%perl>
+			++$changes;
+		}
 	}
-}
 </%perl>
 
-% if (not $changes) {
-			<tr><td colspan="3">You have not made any changes!</td></tr>
-% }
+% 	if (not $changes) {
+			<tr>
+				<td colspan="3" class="left">
+					You have not made any changes!</td>
+			</tr>
+%	}
 		</table>
 	</div>
+
 	<div class="padlefttop">
 		<table>
 			<tr>
 				<td>
-					<form method="GET" action="editreleases.html">
-						<input type="submit" class="button" value="Keep Editing">
+					<form method="get" action="editreleases.html">
+						<div>
+							<input type="submit" class="button" value="Keep Editing" />
+							<input type="hidden" name="albumid" value="<% $albumid %>" />
+						</div>
 					</form></td>
 				<td>
-					<form method="GET" action="index.html">
-						<input type="hidden" name="album" value="<% $edit->{'id'} %>">
-						<input type="submit" class="button" value="Start Over">
+					<form method="get" action="index.html">
+						<div>
+							<input type="hidden" name="album" value="<% $albumid %>" />
+							<input type="submit" class="button" value="Start Over" />
+						</div>
 					</form></td>
 				<td>
-					<form method="GET" action="cancel.html">
-						<input type="submit" class="button" value="Abandon">
+					<form method="get" action="cancel.html">
+						<div>
+							<input type="submit" class="button" value="Abandon" />
+							<input type="hidden" name="albumid" value="<% $albumid %>" />
+						</div>
 					</form></td>
 			</tr>
 		</table>
 	</div>
-</fieldset>
+	<& /comp/tableend &>
 
-% if ($changes) {
-<fieldset>
-	<legend>Preview</legend>
 
-	<form method="post" action="enter.html">
-		<div class="padlefttop">
-			<& /comp/notetext &>
-		</div>
-		<div class="padlefttop">
-			<input type="submit" class="button" value="Enter Moderations">
-		</div>
-	</form>
-</fieldset>
-% }
+% 	if ($changes) {
+
+	<& /comp/tablebegin, title => "Enter Moderations" &>
+
+		<form method="post" action="enter.html">
+			<div class="padlefttop">
+				<& /comp/notetext &>
+			</div>
+			<div class="padlefttop">
+				<input type="submit" class="button" value="Enter Moderations" />
+				<input type="hidden" name="albumid" value="<% $albumid %>" />
+			</div>
+		</form>
+
+	<& /comp/tableend &>
+% 	}
 
 <& /comp/footer &>

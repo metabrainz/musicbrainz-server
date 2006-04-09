@@ -1,87 +1,91 @@
 %# vi: set ts=4 sw=4 ft=mason :
 <%args>
-$notetext => ""
+	$notetext => ""
+	$albumid
 </%args>
 <%perl>
+	# let's see if we still got a session, else redirect
+	# to the given albumid.
+	my $albumurl = "/showalbum.html?albumid=" . $albumid;
+	my $edit = $session{"editreleases"}{$albumid}
+		or return $m->comp("/comp/redirect", $albumurl);
 
-my $edit = $session{"editreleases"}
-	or return $m->comp("/comp/redirect", "/search.html");
 
-my $mb = $m->comp("/comp/dblogin");
-my $url = "/showalbum.html?albumid=" . $edit->{"id"};
+	# load album from database.
+	my $mb = $m->comp("/comp/dblogin");
+	my $al = Album->new($mb->{DBH});
+	$al->SetId($albumid);
+	$al->LoadFromId
+		or die "Error loading album\n";
 
-my $al = Album->new($mb->{DBH});
-$al->SetId($edit->{"id"});
-$al->LoadFromId
-	or die "Error loading album\n";
-
-my (@adds, @edits, @removes);
-
-for my $rel (@{ $edit->{"releases"} })
-{
-	if ($rel->{"new"})
+	# find out what to do with each set of release events
+	my (@adds, @edits, @removes);
+	for my $rel (@{ $edit->{"releases"} })
 	{
-		next unless $rel->{"year"} and $rel->{"country"};
+		if ($rel->{"new"})
+		{
+			next unless $rel->{"year"} and $rel->{"country"};
+			my $obj = MusicBrainz::Server::Release->new($mb->{DBH});
+			$obj->SetAlbum($al->GetId);
+			$obj->SetCountry($rel->{"country"});
+			$obj->SetYMD(@$rel{qw( year month day )});
+			push @adds, $obj;
+			next;
+		}
+
 		my $obj = MusicBrainz::Server::Release->new($mb->{DBH});
-		$obj->SetAlbum($al->GetId);
-		$obj->SetCountry($rel->{"country"});
-		$obj->SetYMD(@$rel{qw( year month day )});
-		push @adds, $obj;
-		next;
+		$obj = $obj->newFromId($rel->{"id"})
+			or next;
+
+		if ($rel->{"delete"})
+		{
+			push @removes, $obj;
+			next;
+		}
+
+		my $changed = 0;
+		for (keys %$rel)
+		{
+			next unless /^orig_(.*)$/;
+			$changed = 1, last
+				if $rel->{$_} != $rel->{$1};
+		}
+		$changed or next;
+
+		push @edits, {
+			object => $obj,
+			country => $rel->{"country"},
+			year => $rel->{"year"},
+			month => $rel->{"month"},
+			day => $rel->{"day"},
+		};
 	}
-	
-	my $obj = MusicBrainz::Server::Release->new($mb->{DBH});
-	$obj = $obj->newFromId($rel->{"id"})
-		or next;
 
-	if ($rel->{"delete"})
-	{
-		push @removes, $obj;
-		next;
-	}
+	$m->comp(
+		"/comp/entermods",
+		DBH => $mb->{DBH},
+		sub => sub {
+			my @mods = Moderation->InsertModeration(
+				DBH	=> $mb->{DBH},
+				uid	=> $session{uid},
+				privs => $session{privs},
+				type => &ModDefs::MOD_EDIT_RELEASES,
+				# --
+				album	=> $al,
+				adds	=> \@adds,
+				edits	=> \@edits,
+				removes	=> \@removes,
+			);
 
-	my $changed = 0;
-	for (keys %$rel)
-	{
-		next unless /^orig_(.*)$/;
-		$changed = 1, last
-			if $rel->{$_} != $rel->{$1};
-	}
-	$changed or next;
+			$mods[0]->InsertNote($session{"uid"}, $notetext)
+				if $mods[0]
+				and $notetext =~ /\S/;
+		},
+		#success_url => $url,
+	) or return;
 
-	push @edits, {
-		object => $obj,
-		country => $rel->{"country"},
-		year => $rel->{"year"},
-		month => $rel->{"month"},
-		day => $rel->{"day"},
-	};
-}
 
-$m->comp(
-	"/comp/entermods",
-	DBH => $mb->{DBH},
-	sub => sub {
-		my @mods = Moderation->InsertModeration(
-			DBH	=> $mb->{DBH},
-			uid	=> $session{uid},
-			privs => $session{privs},
-			type => &ModDefs::MOD_EDIT_RELEASES,
-			# --
-			album	=> $al,
-			adds	=> \@adds,
-			edits	=> \@edits,
-			removes	=> \@removes,
-		);
-
-		$mods[0]->InsertNote($session{'uid'}, $notetext)
-			if $mods[0]
-			and $notetext =~ /\S/;
-	},
-	#success_url => $url,
-) or return;
-
-$m->comp("cancel.html", "true");
-$m->comp("/comp/redirect", $url);
+	# remove current album from the session and show the album again.
+	return $m->comp("/comp/redirect", "/edit/albumreleases/cancel.html?albumid=".$albumid);
 
 </%perl>
