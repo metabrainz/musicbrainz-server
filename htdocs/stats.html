@@ -5,13 +5,12 @@ my $fCallingSelf = ($_[0] and $_[0] eq $sMagicWord);
 
 if (&DBDefs::REPLICATION_TYPE == RT_SLAVE) 
 {
-	  $m->comp("/comp/sidebar", title=>'Database Stats', expand=>'about');
-	  </%perl>
-	  The statistics are available only on the <a 
-    href="http://musicbrainz.org/stats.html">main server</a>.
-	  <%perl>
-	  $m->comp("/comp/footer");
-    return
+	$m->comp("/comp/sidebar", title=>'Database Stats', expand=>'about');
+	</%perl>
+	The statistics are available only on the <a href="http://musicbrainz.org/stats.html">main server</a>.
+	<%perl>
+	$m->comp("/comp/footer");
+	return;
 } 
 
 my $mb = $m->comp("/comp/dblogin", quiet=>1);
@@ -80,13 +79,13 @@ my $pc = sub
 % $gattrs->{"id"} = "AlbumStats";
 <& /comp/tablebegin, title=>'Albums', gattrs=>$gattrs &>
 <table class="StatsTable" style="width: 100%">
-	<col>
-	<col style="width: 6em">
-	<col style="width: 4em">
+	<col />
+	<col style="width: 6em" />
+	<col style="width: 4em" />
 	<tr>
 		<th class="StatName">Albums</th>
 		<td class="NumberCell"><% $stats{"count.album"} %></td>
-		<td></td>
+		<td>&nbsp;</td>
 	</tr>
 	<tr>
 		<th class="StatName">&nbsp; by various artists</th>
@@ -104,9 +103,9 @@ my $pc = sub
 % $gattrs->{"id"} = "DiscIdStats";
 <& /comp/tablebegin, title=>'Disc Identifiers', gattrs=>$gattrs &>
 <table class="StatsTable" style="width: 100%">
-	<col>
-	<col style="width: 6em">
-	<col style="width: 4em">
+	<col />
+	<col style="width: 6em" />
+	<col style="width: 4em" />
 	<tr>
 		<th class="StatName">Disc IDs</th>
 		<td class="NumberCell"><% $stats{"count.discid"} %></td>
@@ -140,9 +139,9 @@ my $pc = sub
 % $gattrs->{"id"} = "PUIDStats";
 <& /comp/tablebegin, title=>'Track Identifiers', gattrs=>$gattrs &>
 <table class="StatsTable" style="width: 100%">
-	<col>
-	<col style="width: 6em">
-	<col style="width: 4em">
+	<col />
+	<col style="width: 6em" />
+	<col style="width: 4em" />
 	<tr>
 		<th class="StatName">Tracks</th>
 		<td class="NumberCell"><% $stats{"count.track"} %></td>
@@ -171,9 +170,9 @@ my $pc = sub
 % $gattrs->{"id"} = "PUIDCollisionStats";
 <& /comp/tablebegin, title=>'PUID Collisions', gattrs=>$gattrs &>
 <table class="StatsTable" style="width: 100%">
-	<col>
-	<col style="width: 6em">
-	<col style="width: 4em">
+	<col />
+	<col style="width: 6em" />
+	<col style="width: 4em" />
 	<tr>
 		<th class="StatName">PUIDs (on tracks)</th>
 		<td class="NumberCell"><% $stats{"count.puid"} %></td>
@@ -202,13 +201,13 @@ my $pc = sub
 % $gattrs->{"id"} = "TRMStats";
 <& /comp/tablebegin, title=>'Track Identifiers', gattrs=>$gattrs &>
 <table class="StatsTable" style="width: 100%">
-	<col>
-	<col style="width: 6em">
-	<col style="width: 4em">
+	<col />
+	<col style="width: 6em" />
+	<col style="width: 4em" />
 	<tr>
 		<th class="StatName">Tracks</th>
 		<td class="NumberCell"><% $stats{"count.track"} %></td>
-		<td></td>
+		<td>&nbsp;</td>
 	</tr>
 	<tr>
 		<th class="StatName">Tracks with no TRMs</th>
@@ -233,18 +232,18 @@ my $pc = sub
 % $gattrs->{"id"} = "TRMCollisionStats";
 <& /comp/tablebegin, title=>'TRM Collisions', gattrs=>$gattrs &>
 <table class="StatsTable" style="width: 100%">
-	<col>
-	<col style="width: 6em">
-	<col style="width: 4em">
+		<col />
+		<col style="width: 6em" />
+		<col style="width: 4em" />
 	<tr>
 		<th class="StatName">TRMs (on tracks)</th>
 		<td class="NumberCell"><% $stats{"count.trm"} %></td>
-		<td></td>
+		<td>&nbsp;</td>
 	</tr>
 	<tr>
 		<th class="StatName">TRMs (distinct IDs)</th>
 		<td class="NumberCell"><% $stats{"count.trm.ids"} %></td>
-		<td></td>
+		<td>&nbsp;</td>
 	</tr>
 	<tr>
 		<th class="StatName">TRM IDs which identify exactly one track</th>
@@ -264,13 +263,13 @@ my $pc = sub
 % $gattrs->{"id"} = "ModeratorStats";
 <& /comp/tablebegin, title=>'Moderators', gattrs=>$gattrs &>
 <table class="StatsTable" style="width: 100%">
-	<col>
-	<col style="width: 6em">
-	<col style="width: 4em">
+	<col />
+	<col style="width: 6em" />
+	<col style="width: 4em" />
 	<tr>
 		<th class="StatName">Moderators</th>
 		<td class="NumberCell"><% $stats{"count.moderator"} %></td>
-		<td></td>
+		<td>&nbsp;</td>
 	</tr>
 	<tr>
 		<th class="StatName">&nbsp; who edited last week</th>
@@ -293,13 +292,13 @@ my $pc = sub
 % $gattrs->{"id"} = "ModerationStats";
 <& /comp/tablebegin, title=>'Moderations', gattrs=>$gattrs &>
 <table class="StatsTable" style="width: 100%">
-	<col>
-	<col style="width: 6em">
-	<col style="width: 4em">
+	<col />
+	<col style="width: 6em" />
+	<col style="width: 4em" />
 	<tr>
 		<th class="StatName">Moderations</th>
 		<td class="NumberCell"><% $stats{"count.moderation"} %></td>
-		<td></td>
+		<td>&nbsp;</td>
 	</tr>
 	<tr>
 		<th class="StatName">&nbsp; Open</th>
@@ -347,13 +346,13 @@ my $pc = sub
 % $gattrs->{"id"} = "VoteStats";
 <& /comp/tablebegin, title=>'Votes', gattrs=>$gattrs &>
 <table class="StatsTable" style="width: 100%">
-	<col>
-	<col style="width: 6em">
-	<col style="width: 4em">
+	<col />
+	<col style="width: 6em" />
+	<col style="width: 4em" />
 	<tr>
 		<th class="StatName">Votes</th>
 		<td class="NumberCell"><% $stats{"count.vote"} %></td>
-		<td></td>
+		<td>&nbsp;</td>
 	</tr>
 	<tr>
 		<th class="StatName">&nbsp; Yes</th>
@@ -382,9 +381,9 @@ my $pc = sub
 % $gattrs->{"id"} = "OpenModerationStats";
 <& /comp/tablebegin, title=>'Open Moderations', gattrs=>$gattrs &>
 <table class="StatsTable" style="width: 100%">
-	<col>
-	<col style="width: 6em">
-	<col style="width: 4em">
+	<col />
+	<col style="width: 6em" />
+	<col style="width: 4em" />
 	<%perl>
 
 	my $mod = Moderation->new($mb->{DBH});
@@ -407,7 +406,7 @@ my $pc = sub
 	<tr>
 		<th class="StatName">Open Moderations</th>
 		<td class="NumberCell"><% $open %></td>
-		<td></td>
+		<td>&nbsp;</td>
 	</tr>
 	<%perl>
 
@@ -432,7 +431,7 @@ my $pc = sub
 </div>
 
 <p>
-	Here are some graphs over a few of the above statistics over time.&nbsp;
+	Here are some graphs over a few of the above statistics over time.
 	Each one is presented as a simple count, followed by a "delta" plot
 	showing how the weekly change rate.
 </p>
@@ -455,10 +454,10 @@ for my $n (qw(
 		<div style="border: 0; width: 80%; border-top: 3px double #999;
 			margin: 1em"></div>
 		<div>
-			<img id="plot.$n" src="generated/plot_$n.png" alt="$n">
+			<img id="plot.$n" src="generated/plot_$n.png" alt="$n" />
 		</div>
 		<div>
-			<img id="plot.$n.delta" src="generated/plot_${n}_delta.png" alt="$n">
+			<img id="plot.$n.delta" src="generated/plot_${n}_delta.png" alt="$n" />
 		</div>
 	});
 }
@@ -470,7 +469,7 @@ for my $n (qw(
 		<div style="border: 0; width: 80%; border-top: 3px double #999;
 			margin: 1em"></div>
 		<div>
-			<img id="plot.$n" src="generated/plot_$n.png" alt="$n">
+			<img id="plot.$n" src="generated/plot_$n.png" alt="$n" />
 		</div>
 	});
 }
@@ -489,7 +488,7 @@ else
 
 	<p>
 		These statistics represent provide aggregate data on various things in the
-	 	MusicBrainz database.&nbsp; They were last refreshed <% $time %>.
+	 	MusicBrainz database. They were last refreshed <% $time %>.
 	</p>
 	<p>
 		See also our <a href="http://musicbrainz.org/usage/">Web Stats</a> pages, and our
