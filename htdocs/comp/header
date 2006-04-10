@@ -74,7 +74,7 @@
 % }
 		</div>
 
-		<table width="" cellpadding="0" cellspacing="0" border="0" id="submenu-table">
+		<table cellpadding="0" cellspacing="0" border="0" id="submenu-table">
 			<tr>
 % unless ($nosidebar) {
 				<td id="sidebar-togglecell">&nbsp;</td>
