@@ -203,7 +203,7 @@ kbd.KbdBlock
 .TopAlignCells td,
 .TopAlignCells th
 {
-	vertical-align: baseline;
+	vertical-align: top;
 }
 
 /* page-specific things */

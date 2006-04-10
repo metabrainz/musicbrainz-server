@@ -11,8 +11,8 @@ $jump => 1
 <form method="get" action="/user/view.html" id="ModeratorForm">
 	<p>
 		Look up a moderator by name:
-		<input type="text" name="modname" size="20">
-		<input type="submit" value="Go">
+		<input type="text" name="modname" size="20" />
+		<input type="submit" value="Go" />
 	</p>
 </form>
 
@@ -71,9 +71,9 @@ if ($user->GetId == &ModDefs::ANON_MODERATOR
 {
     $membersince = 'n/a';
 } elsif ($user->GetName eq "rob") {
-    $membersince = '<font class="bold">the dawn of this project</font>';
+    $membersince = '<b>the dawn of this project</b>';
 } elsif ($user->GetMemberSince =~ /^1970-01-01 /) {
-    $membersince = '<font class="bold">Charter Member</font>';
+    $membersince = '<b>Charter Member</b>';
 } else {
 	$membersince = $m->comp("/comp/datetime", $user->GetMemberSince);
 }
@@ -99,7 +99,7 @@ my $subscriptions_public = UserPreference::get_for_user("subscriptions_public", 
 <p class="LinksRow">
 	[
 % unless ($is_me) {
-	<a href="/user/mod_email.html?uid=<% $uid %>&amp;url=<% uri_escape("/user/view.html?uid=$uid") %>">Send email</a> |
+	<a href="/user/mod_email.html?uid=<% $uid %>&amp;url=<% uri_escape("/user/view.html?uid=$uid") %>">Send e-mail</a> |
 % }
     <a href="/mod/search/pre/voted.html?moderator=<% $uid %>">Votes</a> |
 	<a href="/mod/search/pre/moderator.html?moderator=<% $uid %>">Moderations</a> |
@@ -124,27 +124,27 @@ my $subscriptions_public = UserPreference::get_for_user("subscriptions_public", 
 % if (UserStuff->IsLinkModerator($session{privs})) {
         | <a href="/edit/relationships/link_type_roots.html">Edit Link Types</a>
 % }
-% if (UserStuff->IsLinkModerator($session{privs})) {
+% if (UserStuff->IsWikiTranscluder($session{privs})) {
         | <a href="/edit/wikitransclusion/transclusion.html">Wiki Transclusion</a>
 % }
 	]
 </p>
 % }
 
-<table>
+<table class="TopAlignCells">
 	<tr>
 		<td colspan="2"><b>General information:</b></td>
 	</tr>
 	<tr>
-		<td width="15%" valign="top" align="right">Name:</td>
+		<td align="right">Name:</td>
 		<td><% $user->GetName %></td>
 	</tr>
 	<tr>
-		<td width="15%" valign="top" align="right">User type:</td>
+		<td align="right">User type:</td>
 		<td><%perl> $m->out($user->GetUserType); </%perl></td>
 	</tr>
 	<tr>
-		<td valign="top" align="right">EMail:</td>
+		<td align="right">E-mail:</td>
 % my ($addr, $date) = ($user->GetEmail, $user->GetEmailConfirmDate);
 		<td>
 %	if (defined($addr) and $addr =~ /\S/) {
@@ -152,9 +152,9 @@ my $subscriptions_public = UserPreference::get_for_user("subscriptions_public", 
 			<% $is_me ? $addr : "[hidden]" %>
 %		# Show the "confirmed" date, if there is one
 %		if ($date) {
-			<br>confirmed on <% $m->comp("/comp/datetime", $date) %>.&nbsp;
+			<br />confirmed on <% $m->comp("/comp/datetime", $date) %>.
 %		} else {
-			<br>this e-mail has never been confirmed.&nbsp;
+			<br />this e-mail has never been confirmed.
 %		}
 %		# If you're looking at your own profile, you can send yourself a
 %		# (re-)confirmation link
@@ -170,7 +170,7 @@ my $subscriptions_public = UserPreference::get_for_user("subscriptions_public", 
 	</tr>
 
 	<tr>
-		<td valign="top" align="right">Homepage:</td>
+		<td align="right">Homepage:</td>
 %   if (my $url = $user->GetWebURLComplete) {
 			<td><a href="<% $url %>"><% $url %></a></td>
 %   } else {
@@ -179,7 +179,7 @@ my $subscriptions_public = UserPreference::get_for_user("subscriptions_public", 
 	</tr>
 
 	<tr>
-		<td valign="top" align="right">Bio:</td>
+		<td align="right">Bio:</td>
 		<td><%perl>
 			my $bio = $user->GetBio;
 
@@ -198,7 +198,7 @@ my $subscriptions_public = UserPreference::get_for_user("subscriptions_public", 
 		</%perl></td>
 	</tr>
 	<tr>
-		<td valign="top" align="right">Subscriptions:</td>
+		<td align="right">Subscriptions:</td>
 		<td>
 			<% $is_me ? "Your" : "This user's" %>
 			list of subscribed artists is
@@ -213,24 +213,24 @@ my $subscriptions_public = UserPreference::get_for_user("subscriptions_public", 
 		<td colspan="2"><b>User statistics:</b></td>
 	</tr>
 	<tr>
-		<td valign="top" align="right">Member Since:</td>
-		<td valign="top"><% $membersince |n %></td>
+		<td align="right">Member Since:</td>
+		<td><% $membersince |n %></td>
 	</tr>
 	<tr>
-		<td valign="top" align="right"><% $user->GetModsAccepted %></td>
-		<td valign="top">moderations accepted (excludes automods)</td>
+		<td align="right"><% $user->GetModsAccepted %></td>
+		<td>moderations accepted (excludes automods)</td>
 	</tr>
 	<tr>
-		<td valign="top" align="right"><% $user->GetAutoModsAccepted %></td>
-		<td valign="top">automods entered</td>
+		<td align="right"><% $user->GetAutoModsAccepted %></td>
+		<td>automods entered</td>
 	</tr>
 	<tr>
-		<td valign="top" align="right"><% $user->GetModsRejected %></td>
-		<td valign="top">moderations voted down</td>
+		<td align="right"><% $user->GetModsRejected %></td>
+		<td>moderations voted down</td>
 	</tr>
 	<tr>
-		<td valign="top" align="right"><% $user->GetModsFailed %></td>
-		<td valign="top">moderations failed for other reasons</td>
+		<td align="right"><% $user->GetModsFailed %></td>
+		<td>moderations failed for other reasons</td>
 	</tr>
 
 	<tr>
@@ -255,13 +255,13 @@ for ($allvotes, $recentvotes)
 </%perl>
 
 	<tr>
-		<td valign="top"><b>Votes:</b></td>
-		<td valign="top">
+		<td><b>Votes:</b></td>
+		<td>
 			<table>
 				<tr>
-					<td></td>
-					<td style="font-weight: bold; text-align: center" colspan="2">Last 28 days</td>
-					<td style="font-weight: bold; text-align: center" colspan="2">All time</td>
+					<th>&nbsp;</th>
+					<th style="text-align: center" colspan="2">Last 28 days</th>
+					<th style="text-align: center" colspan="2">All time</th>
 				</tr>
 				<%perl>
 				for (
