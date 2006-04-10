@@ -19,7 +19,7 @@
 						<& /comp/lucenesearch, type=>'artist' &>
 						<hr />
 
-						<& /comp/search/form, name=>'Disc ID / FreeDB Id Lookup',
+						<& /comp/search/form, name=>'Disc ID / FreeDB ID Lookup',
 							scripturl=>'/showalbum.html', 
 							searchfield=>'discid', 
 							method=>'get' &>
@@ -107,7 +107,7 @@
 						<a href="/edit/artist/add.html">Add artist</a> | 
 						<a href="/edit/album/add.html?artistid=0">Add  album</a> | 
 						<a href="/edit/album/add.html?artistid=1">Add various artist album</a> | 
-						<a href="/freedb/freedb.html">Freedb Import</a> 
+						<a href="/freedb/freedb.html">FreeDB Import</a> 
 					</div>
 				</div>							
 

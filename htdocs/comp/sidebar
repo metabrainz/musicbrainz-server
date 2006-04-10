@@ -79,7 +79,7 @@
 		# always show sponsors
 		if (1 || UserPreference::get("sidebar_panel_sponsors"))
 		{
-			$m->comp("/comp/layout/sidebar-section", title => "Partners", link => "/sponsors.html");
+			$m->comp("/comp/layout/sidebar-section", title => "Partners", link => "http://metabrainz.org/donate/sponsors.html");
 			$m->comp("/comp/layout/sidemenu-panel-sponsors");
 		}
 

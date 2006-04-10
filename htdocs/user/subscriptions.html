@@ -54,12 +54,12 @@ $m->comp("/comp/sidebar", title => 'Artist Subscriptions');
 
 % unless ($session{has_confirmed_email}) {
 	<p class="notice">
-		<span class="red">You have not provided an email address!</span>
-		<br>
+		<span class="red">You have not provided an e-mail address!</span>
+		<br />
 		To receive notice of when moderations are added to your
 		subscribed artists, please
 		<a href="/user/edit.html">edit your profile</a>
-		and provide an email address.
+		and provide an e-mail address.
    </p>
 % }
 
@@ -94,9 +94,9 @@ $m->comp("/comp/sidebar", title => 'Artist Subscriptions');
 			<col class="c3" />
 % for my $artist (@$info) {
 <tr class="r<% $row++ % 2 %>">
-<td><input type="checkbox" name="artistid" value="<% $artist->{artist} %>"></td>
+<td><input type="checkbox" name="artistid" value="<% $artist->{artist} %>" /></td>
 <td class="a"><a href="/showartist.html?artistid=<% $artist->{artist} %>"><% $artist->{name} %></a> <% $artist->{resolution} ? "($artist->{resolution})" : "" %></td>
-<td>[ <a href="/mod/search/pre/artist.html?artistid=<% $artist->{artist} %>">Mods</a> ]</td>
+<td>[ <a href="/mod/search/pre/artist.html?artistid=<% $artist->{artist} %>">Edits</a> ]</td>
 </tr>
 % }
 		</table>

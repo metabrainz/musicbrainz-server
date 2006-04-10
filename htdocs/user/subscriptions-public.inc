@@ -17,11 +17,11 @@ $m->comp("/comp/sidebar", title => "Artist Subscriptions for \"$name\"");
 <p class="LinksRow">
 	[
 	<a href="/user/view.html?uid=<% $uid %>">Profile</a> | 
-	<a href="/user/mod_email.html?uid=<% $uid %>&amp;url=<% uri_escape("/user/view.html?uid=$uid") %>">Send email</a> | 
+	<a href="/user/mod_email.html?uid=<% $uid %>&amp;url=<% uri_escape("/user/view.html?uid=$uid") %>">Send E-mail</a> | 
     <a href="/mod/search/pre/voted.html?moderator=<% $uid %>">Votes</a> |
-	<a href="/mod/search/pre/moderator.html?moderator=<% $uid %>">Moderations</a> |
-	<a href="/mod/search/pre/moderator-failed.html?moderator=<% $uid %>">Failed Moderations</a> |
-	<a href="/mod/search/pre/moderator-deleted.html?moderator=<% $uid %>">Deleted Moderations</a>
+	<a href="/mod/search/pre/moderator.html?moderator=<% $uid %>">Edits</a> |
+	<a href="/mod/search/pre/moderator-failed.html?moderator=<% $uid %>">Failed Edits</a> |
+	<a href="/mod/search/pre/moderator-deleted.html?moderator=<% $uid %>">Deleted Edits</a>
 	]
 </p>
 
@@ -31,14 +31,14 @@ $m->comp("/comp/sidebar", title => "Artist Subscriptions for \"$name\"");
 <center>
 	<table class="SpacedColumns" style="width: 30em">
 		<caption>Subscribed Artists</caption>
-		<col>
-		<col style="width: 4em">
+		<col />
+		<col style="width: 4em" />
 % for my $artist (@$info) {
 		<tr style="background-color: <% $colours[++$row % @colours] %>">
-			<td style="padding-right: 2em"><a href="/showartist.html?artistid=<% $artist->{artist} %>"
+			<td><a href="/showartist.html?artistid=<% $artist->{artist} %>"
 				><% $artist->{name} %></a></td>
-			<td style="text-align: center" nowrap>[
-				<a href="/mod/search/pre/artist.html?artistid=<% $artist->{artist} %>">Mods</a>
+			<td nowrap>[
+				<a href="/mod/search/pre/artist.html?artistid=<% $artist->{artist} %>">Edits</a>
 			]</td>
 		</tr>
 % }

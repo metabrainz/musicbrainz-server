@@ -15,7 +15,7 @@
 		<tr>
 			<td colspan="13" style="text-align:center">
 				<a href="<% $pageq %>index=_">symbol</a>
-				<span style="margin: 0 2.5em"></span>
+				<span style="margin: 0 2.5em">&nbsp;</span>
 				<a href="<% $pageq %>index=+">space</a>
 			</td>
 		</tr>
