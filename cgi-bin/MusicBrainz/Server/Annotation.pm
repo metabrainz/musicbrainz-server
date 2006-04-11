@@ -252,8 +252,7 @@ sub LoadFromId
 	} else { # Not replicated
 
         $row = $sql->SelectSingleRowArray(
-                  "SELECT       a.id, a.moderator, a.type, a.rowid, a.text, a.cr
-eated, "
+                  "SELECT       a.id, a.moderator, a.type, a.rowid, a.text, a.created, "
                 . "                     a.moderation, a.changelog, m.name "
                 . "FROM         annotation a, moderator m "
                 . "WHERE        $searchby = ? AND a.moderator = m.id ",
