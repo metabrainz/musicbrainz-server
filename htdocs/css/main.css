@@ -415,12 +415,20 @@ td.trk *, td.did *, td.trm *, td.rdate * { vertical-align: middle }
 #Report td.link { text-align: center; white-space: nowrap; }
 
 /* topmods.html */
-table.topmods { border-collapse: collapse; width: 100% }
-table.topmods td { padding: 0.2em;  }
+table.topmods { border-collapse: collapse }
+table.topmods td { padding: 0.2em; border: 1px solid #999 }
 .topmodsname { text-align: left }
 .topmodsnum { text-align: right }
-.topmodseven { background-color: #ffe1b7 }
+.topmodseven { background-color: #eee }
 .topmodsnone { text-align: center }
+
+/* /search/textsearch.html */
+table.searchresults { border-collapse: collapse; width: 100% }
+table.searchresults td { padding: 0.2em;  }
+tr.searchresultsheader td { font-weight: bold; }
+.searchresultseven { background-color: #ffe1b7 }
+.searchresultsnone { text-align: center }
+
 
 /* style.html */
 ol.StyleGuideList li { margin: 1em 0 }
