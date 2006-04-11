@@ -3,20 +3,31 @@
 	$artist => undef
 	$id => undef
 	$name => undef
+	$sortname => ""
 	$resolution => undef
 	$showresolution => 1
+	$icon => 0
+	$strong => 1
 </%args>
 <%perl>
+
 	if (defined $artist)
 	{
 		$id = $artist->GetId;
 		$name = $artist->GetName;
+		$sortname = $artist->GetSortName;
 		$resolution = $artist->GetResolution;
 	}
 	die ("$id and $name are required") if (not defined $id || not defined $name);
-</%perl>
 
-	<a href="/showartist.html?artistid=<% $id %>"><% $name %></a>
-% 	if ( $showresolution and $resolution ne "") {
-		(<% $resolution %>)
-% 	}
+	$m->out(qq!<strong>!) if ($strong);
+	$m->out(qq!<img src="/images/edit.gif" alt="" />!) if ($icon);
+	$m->out(qq!<a href="/showartist.html?artistid=$id" title="$sortname">$name</a>!);
+	$m->out(qq!</strong>!) if ($strong);
+	if ($showresolution && $resolution ne "")
+	{
+		$m->out(qq! <span class="artistresolution">!);
+		$m->out(qq! ($resolution)!);
+		$m->out(qq! </span>!);
+	}
+</%perl>
