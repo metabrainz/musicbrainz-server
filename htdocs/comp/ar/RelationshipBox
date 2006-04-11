@@ -17,20 +17,33 @@ $expanded=>0
 		if $item->{modpending};
 
     my $text = "";
-	if ($item->{"link_name"} eq 'amazon asin' && $prefix eq 'link1_')
+	if ($item->{$prefix . "type"} eq 'url')
 	{
-		($text, ) = Album->ParseAmazonURL($item->{link1_name});
-		$m->out("<b>");
-	}
-	elsif ($item->{$prefix . "type"} eq 'url')
-	{
-		my $url = $item->{$prefix . "name"};
-		$text = $url;
-		$m->out('<b><a href="'.$url.'" title="'.encode_entities($text).'" rel="nofollow">');
-		# shorten url's that are longer than ~75 chars
-		$text = (length($text) > 75
-				 ? encode_entities(substr($text, 0, 72)) . "&#8230;"
-				 : encode_entities($text));
+		if ($item->{"link_name"} eq 'amazon asin' && $prefix eq 'link1_')
+		{
+			($text, ) = Album->ParseAmazonURL($item->{link1_name});
+			$m->out("<b>");
+		}
+		else 
+		{
+			my $url = $item->{$prefix . "name"};
+			$text = $url;
+			if ($item->{"link_name"} eq 'wikipedia' && $prefix eq 'link1_')
+			{
+				$text =~ s/^http:\/\/(\w{2,})\.wikipedia\.org\/wiki\/(.*)$/$1: $2/;
+				$text =~ s/_/ /g;
+			}
+			# decode the URL
+			my $decoded_text = $text;
+			$decoded_text =~ s/\%([\dA-Fa-f]{2})/pack('C', hex($1))/oeg;
+			$text = $decoded_text
+				if (decode_utf8($decoded_text));
+			$m->out('<b><a href="'.$url.'" title="'.encode_entities($text).'" rel="nofollow">');
+			# shorten url's that are longer than ~75 chars
+			$text = (length($text) > 75
+					 ? encode_entities(substr($text, 0, 72)) . "&#8230;"
+					 : encode_entities($text));
+		}
 	}
 	else
 	{
