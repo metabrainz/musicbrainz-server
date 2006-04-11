@@ -214,6 +214,38 @@ td.header_logo .servertype
 	text-align: right;
 }
 
+/* add some vertical padding before the notetext textarea */
+span.artistresolution {
+	font-size: 11px;
+	padding-bottom: 1px;
+}
+
+/** 
+ * artistfilter tables, used in: 
+ *  ~ /comp/artistfilter
+ **/   
+table.artistfilter-listing {
+	border-collapse: collapse;
+	margin-bottom: 5px;
+}
+table.artistfilter-listing td {
+	padding: 0px;
+	text-align: center; /* default: centered */
+}
+table.artistfilter-listing input {
+	margin: 0px; padding: -2px; /* remove some padding of the radiobutton */
+}
+table.artistfilter-listing td.no {
+	font-size: 11px; text-align: right;
+}
+table.artistfilter-listing td.link {
+	padding-right: 20px;
+}
+table.artistfilter-listing tr.row0 {
+	background-color: #ffe1b7;
+}
+table.artistfilter-listing tr.row1 {
+}
 
 
 /** 
@@ -441,8 +473,20 @@ table.formstyle td.instructions li {
    use this class to separate one from the others. */
 table.formstyle td.formsection {
 	padding-top: 20px;
+	/*font-size: 11px;*/
+}
+
+/* add some vertical padding before the notetext textarea */
+table.formstyle td.notetext {
+	padding-top: 20px;
+}
+
+table.formstyle div.small {
+	padding-top: 4px;
 	font-size: 11px;
 }
+
+
 
 /* errors are listed on top of the fields, under
    the instructions list, in an unordered list. */
