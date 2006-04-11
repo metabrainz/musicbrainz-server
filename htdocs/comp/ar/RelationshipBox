@@ -26,6 +26,7 @@ $expanded=>0
 		}
 		else 
 		{
+			use Encode;
 			my $url = $item->{$prefix . "name"};
 			$text = $url;
 			if ($item->{"link_name"} eq 'wikipedia' && $prefix eq 'link1_')
@@ -37,7 +38,7 @@ $expanded=>0
 			my $decoded_text = $text;
 			$decoded_text =~ s/\%([\dA-Fa-f]{2})/pack('C', hex($1))/oeg;
 			$text = $decoded_text
-				if (decode_utf8($decoded_text));
+				if (Encode::decode_utf8($decoded_text));
 			$m->out('<b><a href="'.$url.'" title="'.encode_entities($text).'" rel="nofollow">');
 			# shorten url's that are longer than ~75 chars
 			$text = (length($text) > 75
