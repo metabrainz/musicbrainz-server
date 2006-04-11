@@ -30,8 +30,8 @@ $expanded=>0
 			$text = $url;
 			if ($item->{"link_name"} eq 'wikipedia' && $prefix eq 'link1_')
 			{
-				$text =~ s/^http:\/\/(\w{2,})\.wikipedia\.org\/wiki\/(.*)$/$1: $2/;
-				$text =~ s/_/ /g;
+				$text =~ s/^http:\/\/(\w{2,})\.wikipedia\.org\/wiki\/(.*)$/$1: $2/o;
+				$text =~ tr/_/ /;
 			}
 			# decode the URL
 			my $decoded_text = $text;
