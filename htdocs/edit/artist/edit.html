@@ -1,183 +1,216 @@
 %# vi: set ts=2 sw=2 ft=mason :
 <%args>
-$id => ""
-$name => ""
-$sortname => ""
-$type => -1
-$resolution => ""
-$begindate_y => ""
-$begindate_m => ""
-$begindate_d => ""
-$enddate_y => ""
-$enddate_m => ""
-$enddate_d => ""
-$notetext => ""
+	$id => ""
+	$name => ""
+	$sortname => ""
+	$type => -1
+
+	$begindate_y => ""
+	$begindate_m => ""
+	$begindate_d => ""
+
+	$enddate_y => ""
+	$enddate_m => ""
+	$enddate_d => ""
+
+	$notetext => ""
+
+	$validate => 0
+	$confirm => 0
+	$resolution => ""
 </%args>
 <%perl>
 
-MusicBrainz::IsNonNegInteger($id) && $id
-	or return $m->comp("/comp/badargs", 1, 1);
+	$m->comp("/comp/checkloggedin", 1, 1)
+		or return;
 
-$id == &ModDefs::VARTIST_ID || $id == &ModDefs::DARTIST_ID
-	and return $m->comp("/comp/error", "You cannot edit this artist.", 1, 1);
+	MusicBrainz::IsNonNegInteger($id) && $id
+		or return $m->comp("/comp/badargs", 1, 1);
 
-MusicBrainz::IsSingleLineString($name)
-	or return $m->comp("/comp/badargs", 1, 1);
+	$id == &ModDefs::VARTIST_ID || $id == &ModDefs::DARTIST_ID
+		and return $m->comp("/comp/error", "You cannot edit this artist.", 1, 1);
 
-MusicBrainz::IsSingleLineString($sortname)
-	or return $m->comp("/comp/badargs", 1, 1);
+	MusicBrainz::IsSingleLineString($name)
+		or return $m->comp("/comp/badargs", 1, 1);
 
-MusicBrainz::IsSingleLineString($resolution)
-	or return $m->comp("/comp/badargs", 1, 1);
+	MusicBrainz::IsSingleLineString($sortname)
+		or return $m->comp("/comp/badargs", 1, 1);
 
-$m->comp("/comp/checkloggedin", 1, 1)
-	or return;
+	MusicBrainz::IsSingleLineString($resolution)
+		or return $m->comp("/comp/badargs", 1, 1);
 
-my $mb = $m->comp("/comp/dblogin");
+	# get database handle
+	my $mb = $m->comp("/comp/dblogin");
 
-my $ar = Artist->new($mb->{DBH});
-$ar->SetId($id);
-$ar->LoadFromId or return $m->comp(
-		"/comp/error",
-		"Artist not found in the database.",
-		1, 1,
-	);
-$name = $ar->GetName() if !$name;
-$sortname = $ar->GetSortName() if !$sortname;
+	# load artist from database
+	my $ar = Artist->new($mb->{DBH});
+	$ar->SetId($id);
+	$ar->LoadFromId or return $m->comp(
+			"/comp/error",
+			"Artist not found in the database.",
+			1, 1,
+		);
 
-# Try to load the named artist by name. If an artist comes up, give the user a stern warning
-# about editing a duplicate artist.
-my ($samecheck, $same) = (1,0);
-my $dupar = Artist->new($mb->{DBH});
+	$name = $ar->GetName() if !$name;
+	$sortname = $ar->GetSortName() if !$sortname;
 
-my $artists = $dupar->GetArtistsFromName($name);
-if (defined $artists && scalar(@$artists))
-{
-	  foreach my $item (@$artists)
+	# Try to load the named artist by name. If an artist comes up,
+	# give the user a stern warning about editing a duplicate artist.
+	my ($samecheck, $samename) = (1, 0);
+	my @dupes;
+	my $dupar = Artist->new($mb->{DBH});
+	my $artists = $dupar->GetArtistsFromName($name);
+	if (defined $artists && scalar(@$artists))
+	{
+		foreach my $item (@$artists)
 		{
-			  next if ($item->GetId == $ar->GetId);
-				$same = lc($item->GetName) eq lc($name);
-				$samecheck = ($same && $resolution ne '') ? 1 : 0 if ($same);
-				if ($same)
-				{
-					 $dupar = $item;
-					 last;
-				}
+			# do not check same entity.
+			next if ($item->GetId == $ar->GetId);
+
+			# if entity has the same name, and the resolution
+			# is set, store this artist as the duplicate.
+			$samename = $item->GetName eq $name;
+			push @dupes, $item if ($samename);
+			if ($samecheck)
+			{
+				$samecheck = ($samename && $resolution ne "") ? 1 : 0 if ($samename);
+				$dupar = $item if ($samename);
+			}
 		}
-}
+	}
 
-# If anything has been filled in, the user has clicked 'submit'.
-# We only accept valid dates or no dates at all.
-if ( $name =~ m/\S/ and $sortname =~ m/\S/ and $samecheck
-	  and MusicBrainz::IsValidDateOrEmpty($begindate_y, $begindate_m, $begindate_d)
-	  and MusicBrainz::IsValidDateOrEmpty($enddate_y, $enddate_m, $enddate_d)
-	  and MusicBrainz::IsDateEarlierThan($begindate_y, $begindate_m, $begindate_d, $enddate_y, $enddate_m, $enddate_d)
-  	and Artist::IsValidType($type) )
-{
-  # If the artist is not deemed to be the same as another artist, don't save the comment
-  $resolution = "" if (!$same);
-	$m->comp(
-		"/comp/entermods",
-		DBH => $mb->{DBH},
-		sub => sub {
-			my @mods = Moderation->InsertModeration(
-				DBH	=> $mb->{DBH},
-				uid	=> $session{uid},
-				privs => $session{privs},
-				type => &ModDefs::MOD_EDIT_ARTIST,
-				# --
-				artist => $ar,
-				name => $name,
-				sortname => $sortname,
-				artist_type => $type,
-				resolution => $resolution,
-				begindate => [ $begindate_y, $begindate_m, $begindate_d ],
-				enddate => [ $enddate_y, $enddate_m, $enddate_d ],
-			);
+	# if we have a value in validate, the form was submitted
+	my @messages = ();
+	if ($validate)
+	{
+		MusicBrainz::TrimInPlace($resolution, $name, $sortname);
 
-			$mods[0]->InsertNote($session{'uid'}, $notetext)
-				if $mods[0] and $notetext =~ /\S/;
-		},
-		success_url => "/showartist.html?artistid=$id",
-	) or return;
+		push @messages, "Please Select a valid type." if (not Artist::IsValidType($type));
+		push @messages, "Please Enter the Name." if ($name eq "");
+		push @messages, "Please Enter the Sort Name." if ($sortname eq "");
+		push @messages, "Begin Date has to be either valid or empty"
+			if (not MusicBrainz::IsValidDateOrEmpty($begindate_y, $begindate_m, $begindate_d));
+		push @messages, "Begin Date has to be either valid or empty"
+			if (not MusicBrainz::IsValidDateOrEmpty($enddate_y, $enddate_m, $enddate_d));
+		push @messages, "Begin Date has to be earlier than End Date"
+			if (not MusicBrainz::IsDateEarlierThan($begindate_y, $begindate_m, $begindate_d,
+												   $enddate_y, $enddate_m, $enddate_d));
+		push @messages, "Please enter a comment and activate the confirm checkbox"
+			if (@dupes and ($resolution eq "" or not $confirm));
 
-	die "Shouldn't get here";
-}
+		push @messages, "You have not made any changes"
+			if ($name eq $ar->GetName and
+				$sortname eq $ar->GetSortName and
+				$resolution eq $ar->GetResolution and
+				$type == $ar->GetType and
+				MusicBrainz::MakeDBDateStr($begindate_y, $begindate_m, $begindate_d) eq $ar->GetBeginDate and
+				MusicBrainz::MakeDBDateStr($enddate_y, $enddate_m, $enddate_d) eq $ar->GetEndDate);
 
-# Set reasonable default values
-#
-$name = $ar->GetName() if $name eq '';
-$sortname = $ar->GetSortName() if $sortname eq '';
-$resolution = $ar->GetResolution() if $resolution eq '';
-$type = $ar->GetType() if $ar->GetType() and $type == -1; # else we default to 0
-($begindate_y, $begindate_m, $begindate_d) = $ar->GetBeginDateYMD()
-	unless grep { $_ } ($begindate_y, $begindate_m, $begindate_d);
-($enddate_y, $enddate_m, $enddate_d) = $ar->GetEndDateYMD()
-	unless grep { $_ } ($enddate_y, $enddate_m, $enddate_d);
+		# no error message was raised, we can go ahead and add
+		# the new artist entry.
+		if (@messages == 0)
+		{
+			# If the artist is not deemed to be the same as another artist, don't save the comment
+			# --> commented out for now.
+			# $resolution = "" if (!$samename);
 
-# Error checking
-#
-my $error_msg;
-unless ( 
-		MusicBrainz::IsValidDateOrEmpty($begindate_y, $begindate_m, $begindate_d)
-	and MusicBrainz::IsValidDateOrEmpty($enddate_y, $enddate_m, $enddate_d)
-	and MusicBrainz::IsDateEarlierThan($begindate_y, $begindate_m, $begindate_d,
-																			$enddate_y, $enddate_m, $enddate_d) )
-{
-	$error_msg = 'Please enter valid dates';
-}
+			$m->comp(
+				"/comp/entermods",
+				DBH => $mb->{DBH},
+				sub => sub {
+					my @mods = Moderation->InsertModeration(
+						DBH	=> $mb->{DBH},
+						uid	=> $session{uid},
+						privs => $session{privs},
+						type => &ModDefs::MOD_EDIT_ARTIST,
+						# --
+						artist => $ar,
+						name => $name,
+						sortname => $sortname,
+						artist_type => $type,
+						resolution => $resolution,
+						begindate => [ $begindate_y, $begindate_m, $begindate_d ],
+						enddate => [ $enddate_y, $enddate_m, $enddate_d ],
+					);
+
+					$mods[0]->InsertNote($session{'uid'}, $notetext)
+						if $mods[0] and $notetext =~ /\S/;
+				},
+				success_url => "/showartist.html?artistid=$id",
+			) or return;
+
+			die "Shouldn't get here";
+		}
+	}
+	else
+	{
+		# Set reasonable default values
+		$name = $ar->GetName() if ($name eq "");
+		$sortname = $ar->GetSortName() if ($sortname eq "");
+		$resolution = $ar->GetResolution() if ($resolution eq "");
+		$type = $ar->GetType() if ($ar->GetType() and $type == -1); # else we default to 0
+		($begindate_y, $begindate_m, $begindate_d) = $ar->GetBeginDateYMD()
+			unless grep { $_ } ($begindate_y, $begindate_m, $begindate_d);
+		($enddate_y, $enddate_m, $enddate_d) = $ar->GetEndDateYMD()
+			unless grep { $_ } ($enddate_y, $enddate_m, $enddate_d);
+	}
 
 </%perl>
 
-<& /comp/sidebar, title => 'Edit Artist' &>
+<& /comp/sidebar-notitle, pagetitle => "Edit Artist" &>
 
-<& /comp/stylemenu &>
+	<script type="text/javascript" src="/scripts/artistform.js"></script>
 
-% if ($ar->GetModPending) {
-    <& /comp/modpending &>
-% }
+	<form method="post" action="/edit/artist/edit.html">
 
-% if (defined $error_msg) {
-	<p style="color: red">
-		<% $error_msg %>
-	</p>
-% }
+		<& /comp/autofixmenu &>
 
-<p>
-	Use the fields below to enter a corrected name and/or sort name for
-	this artist.&nbsp; If the the new artist name already exists in the database,
-	you will be prompted to add a comment to the artist that will allow
-	users to differentiate this artist from the existing artist.
-</p>
+		<& /comp/layout/editformbegin,
+			title => "Edit Artist",
+			mp => $ar->GetModPending,
+			type => 'artist',
+			id => $ar->GetId
+		&>
 
-% if ($dupar->GetId) {
-	<div class="similarartist">
-		<span class="warning">Warning!</span> You are currently editing 
-		the artist "<% $ar->GetName %>" which appears to be very 
-		similar, if not exactly the same as the existing artist 
-		<a href="/artist/<% $dupar->GetMBId %>.html"><% $dupar->GetName %></a>.
+		<& /comp/stylemenu &>
 
-% if (!$resolution && lc($dupar->GetName) eq lc($name)) {
-		<ul>
-			<li>You <strong>must</strong> provide a comment which allows to distinguish 
-				this artist from the other artist <a href="/artist/<% $dupar->GetMBId %>.html"><% $dupar->GetName %></a>.
-			</li>
-		</ul>
-% }
-	</div>
-% }
+		<table class="formstyle">
+			<tr>
+				<td colspan="2" class="instructions">
+					<ul>
+						<li>Use the fields below to enter a corrected name and/or sort name for
+							this artist. </li>
+						<li>If one or more artists with the same name already exist in the
+							database, you will be prompted to add a comment to this artist
+							that will allow users to distinguish this entry from the other
+							artist(s) with the same name.</li>
+						<li>Please note that casing of the artist is taken into account when
+							determining the need for a comment; The two Artists <em>somename</em>
+							and <em>Somename</em> are not the same</li>.
+					</ul>
+				</td>
+			</tr>
 
-<& /edit/artist/main-form,
-		action			=> '/edit/artist/edit.html',
-		artist			=> $ar,
-		name				=> $name,
-		sortname		=> $sortname,
-		type				=> $type,
-		resolution	=> $resolution,
-		begindate		=> [ $begindate_y, $begindate_m, $begindate_d ],
-		enddate			=> [ $enddate_y, $enddate_m, $enddate_d ],
-		notetext		=> $notetext,
-		showres     => $same
-&>
+
+			<& /edit/artist/main-form,
+				action			=> '/edit/artist/edit.html',
+				artist			=> $ar,
+				name			=> $name,
+				sortname		=> $sortname,
+				type			=> $type,
+				resolution		=> $resolution,
+				begindate		=> [ $begindate_y, $begindate_m, $begindate_d ],
+				enddate			=> [ $enddate_y, $enddate_m, $enddate_d ],
+				notetext		=> $notetext,
+
+				dupes			=> \@dupes,
+				messages		=> \@messages,
+				confirm			=> $confirm
+			&>
+
+		</table>
+		<& /comp/layout/editformend &>
+
+	</form>
 
 <& /comp/footer &>
