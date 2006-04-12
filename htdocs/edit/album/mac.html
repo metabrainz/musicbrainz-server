@@ -1,148 +1,174 @@
 %# vi: set ts=2 sw=2 ft=mason :
 <%args>
-$album => undef
-$notetext => ""
-$movetova=>0
+	$album => undef
+	$notetext => ""
+	$movetova => 0
+	$submit => undef
 </%args>
 <%perl>
 
-$m->comp("/comp/checkloggedin", 1, 1)
-	or return;
+	$m->comp("/comp/checkloggedin", 1, 1)
+		or return;
 
-MusicBrainz::IsNonNegInteger($album) && $album
-	or return $m->comp("/comp/badargs", 1, 1);
+	MusicBrainz::IsNonNegInteger($album) && $album
+		or return $m->comp("/comp/badargs", 1, 1);
 
-my $mb = $m->comp("/comp/dblogin");
+	# get database handle.
+	my $mb = $m->comp("/comp/dblogin");
 
-my $al = Album->new($mb->{DBH});
-$al->SetId($album);
-$al->LoadFromId
-	or return $m->comp(
-		"/comp/error",
-		"Album #$album does not exist",
-		1, 1,
-	);
+	# load album from $album parameter
+	my $al = Album->new($mb->{DBH});
+	$al->SetId($album);
+	$al->LoadFromId
+		or return $m->comp(
+			"/comp/error",
+			"Album #$album does not exist",
+			1, 1,
+		);
 
-my $ar = Artist->new($mb->{DBH});
-$ar->SetId($al->GetArtist);
-$ar->LoadFromId
-	or return $m->comp(
-		"/comp/error",
-		"Artist does not exist",
-		1, 1,
-	);
+	# load artist from albumartist id.
+	my $ar = Artist->new($mb->{DBH});
+	$ar->SetId($al->GetArtist);
+	$ar->LoadFromId
+		or return $m->comp(
+			"/comp/error",
+			"Artist does not exist",
+			1, 1,
+		);
 
-my $url = (
-	$ARGS{'movetracks'}
-		? "/edit/track/change.html?album=" . $al->GetId
-		: "/showalbum.html?albumid=" . $al->GetId
-);
+	# next url depending on the move tracks checkbox.
+	if ($submit)
+	{
+		my $cancelurl = "/showalbum.html?albumid=" . $al->GetId;
+		my $url = (
+			$ARGS{"movetracks"}
+				? "/edit/track/change.html?album=" . $al->GetId
+				: $cancelurl
+		);
 
-if ($ARGS{confirm})
-{
-  if (!$ARGS{'movetova'})
-  {
-    $m->comp(
-      "/comp/redirect",
-      $url
-    );
-    return;
-  }
-	$m->comp(
-		"/comp/entermods",
-		DBH => $mb->{DBH},
-		sub => sub {
-			my @mods = Moderation->InsertModeration(
-				DBH	=> $mb->{DBH},
-				uid	=> $session{uid},
-				privs => $session{privs},
-				type => &ModDefs::MOD_SAC_TO_MAC,
-				# --
-				album => $al,
-				artist => $ar,
-				movetova => $movetova,
-			);
+		if ($submit !~ /yes/i)
+		{
+			$m->comp(
+				"/comp/redirect",
+				$cancelurl);
+		}
+		else
+		{
+			if (!$ARGS{"movetova"})
+			{
+				$m->comp(
+				  "/comp/redirect",
+				  $url
+				);
+			return;
+			}
+			$m->comp(
+				"/comp/entermods",
+				DBH => $mb->{DBH},
+				sub => sub {
+					my @mods = Moderation->InsertModeration(
+						DBH	=> $mb->{DBH},
+						uid	=> $session{uid},
+						privs => $session{privs},
+						type => &ModDefs::MOD_SAC_TO_MAC,
+						# --
+						album => $al,
+						artist => $ar,
+						movetova => $movetova,
+					);
 
-			$mods[0]->InsertNote($session{'uid'}, $notetext)
-				if $mods[0]
-				and $notetext =~ /\S/;
-		},
-		success_url => $url,
-	) or return;
+					$mods[0]->InsertNote($session{'uid'}, $notetext)
+						if $mods[0]
+						and $notetext =~ /\S/;
+				},
+				success_url => $url,
+			) or return;
 
-	die "Shouldn't get here";
-}
+			die "Shouldn't get here";
+		}
+	}
 
 </%perl>
 
-<& /comp/sidebar, title => 'Convert Album to Multiple Artists' &>
+<& /comp/sidebar-notitle, pagetitle => "Convert Album to Multiple Artists" &>
 
-<fieldset>
-	<legend>Convert Album <% $al->GetName %> to Multiple Artists</legend>
-	<div class="padleft">
-		Are you sure you want to convert the album
-		<a href="/showalbum.html?albumid=<% $al->GetId %>"><% $al->GetName %></a>,
-		currently by
-		<a href="/showartist.html?artistid=<% $ar->GetId %>"><% $ar->GetName %></a>,
-		to multiple artists?
-	</div>
-	<div class="padlefttop">
-		<table>
+	<& /comp/layout/editformbegin, title => "Convert Album to Multiple Artists" &>
+
+	<script type="text/javascript" src="/scripts/editsuite.js"></script>
+
+	<form method="post" action="/edit/album/mac.html" id="ConfirmForm">
+		<table class="formstyle">
 			<tr>
+				<td colspan="2" class="instructions">
+					<ul>
+						<li>
+							Are you sure you want to convert the album
+							<a href="/showalbum.html?albumid=<% $al->GetId %>"><% $al->GetName %></a>,
+							currently by <& /comp/artist-link, artist => $ar &>, to multiple artists?
+						</li>
+					</ul>
+				</td>
+			</tr>
+			<tr>
+				<td class="label">
+					<label>Confirm:</label></td>
+				<td class="field">
+					<input class="button" type="submit" name="submit" value="&laquo; NO" />
+					<input class="button" type="submit" name="submit" value="YES &raquo;" />
+					<input type="hidden" name="album" value="<% $al->GetId %>" /></td>
+			</tr>
+
+			<tr>
+				<td>&nbsp;</td>
+				<td class="formsection">
+					MusicBrainz allows Albums which may have a number of different Artists as
+					<a href="/doc/TrackArtist">Track Artists</a> to be stored under an
+					<a href="/doc/AlbumArtist">Album Artist</a>. You can choose to use the default
+					Various Artists <a href="/doc/SpecialPurposeArtist">Special Purpose Artist</a>,
+					or you can keep the current artist as the Album Artist.
+				</td>
+			</tr>
+			<tr class="top">
+				<td class="label">
+					<label>Album artist:</label></td>
 				<td>
-					<form 	method="GET" action="<% $url %>"
-							name="ModFormNo" 
-							onsubmit="history.go(-1); return false">
-						<input name="btnNo" type="submit" class="button" value="&laquo; NO">
-					</form></td>
-				<td> &nbsp; </td>
+					<input type="radio" name="movetova" value="1" checked>
+					set <a href="/showartist.html?artistid=1">Various Artists</a> as album artist
+					<br />
+					<input type="radio" name="movetova" value="0">
+					leave <& /comp/artist-link, artist => $ar &> as album artist.
+				</td>
+			</tr>
+
+			<tr>
+				<td>&nbsp;</td>
+				<td class="formsection">
+					If you choose to leave the tracks under the current artist,
+					you'll be returned to the album page. If you choose to <em>move
+					tracks to new artists</em>, this wizard will walk you through
+					a page for each track of the album where you can select the
+					<a href="/doc/TrackArtist">Track Artist</a>.
+				</td>
+			</tr>
+			<tr class="top">
+				<td class="label">
+					<label>Track artists:</label></td>
 				<td>
-					<form 	method="POST" action="/edit/album/mac.html"
-							name="ModFormYes">
-						<input type="hidden" name="album" value="<% $al->GetId %>">
-						<input type="hidden" name="confirm" value="1">
-						<input name="btnYes" type="submit" class="button" value="YES &raquo;">
-					</td>
+					<input type="radio" name="movetracks" value="0" checked="checked" />
+					leave <& /comp/artist-link, artist => $ar &> as track artist for all tracks
+					<br />
+					<input type="radio" name="movetracks" value="1" />
+					move tracks to new artists
+				</td>
+			</tr>
+			<tr>
+				<td>&nbsp;</td>
+				<td class="notetext">
+					<& /comp/notetext &>
+				</td>
 			</tr>
 		</table>
-    <fieldset>
-	    <legend>Album artist</legend>
-      <table>
-        <tr>
-            <td>
-              <input type="radio" name="movetova" value="1" checked>
-              set <a href="/showartist.html?artistid=1">Various Artists</a> as album artist
-              <br/>
-              <input type="radio" name="movetova" value="0">
-              leave <a href="/showartist.html?artistid=<% $ar->GetId %>"><% $ar->GetName %></a> as album artist
-            </td>
-        </tr>
-      </table>
-    </fieldset>
-    <fieldset>
-	    <legend>Track artists</legend>
-      <table>
-        <tr>
-            <td>
-              <input type="radio" name="movetracks" value="0" checked>
-              leave <a href="/showartist.html?artistid=<% $ar->GetId %>"><% $ar->GetName %></a> as track artist for all tracks
-              <br/>
-              <input type="radio" name="movetracks" value="1">
-              move tracks to new artists
-              <br/>
-              <div style="margin-left: 2em">
-              (MusicBrainz will walk you through each track in this album and allow you to move it to a new artist)
-              </div>
-            </td>
-        </tr>
-      </table>
-    </fieldset>
-	</div>
-	<div class="padlefttop">
-		<& /comp/notetext &>
-	</div>
 	</form>
-</fieldset>
+	<& /comp/movefocus, "ConfirmForm", "btnYes" &>
 
-<& /comp/movefocus, "ModFormYes", "btnYes" &>
 <& /comp/footer &>
