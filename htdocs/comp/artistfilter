@@ -1,190 +1,174 @@
 %# vi: set ts=4 sw=4 ft=mason :
 <%args>
-$search => ""
-$defaultquery => ""
-@dontshow => ()
-$allowcreate => 0
-$url
-%arglist => ()
+	$search => ""
+	$defaultquery => ""
+	@dontshow => ()
+	$allowcreate => 0
+	$url
+
+	%arglist => ()
 </%args>
 <%perl>
 
-my $mb = $m->comp("/comp/dblogin");
+	# get database handle.
+	my $mb = $m->comp("/comp/dblogin");
 
-my $engine = SearchEngine->new($mb->{DBH}, "artist");
+	# search for artists.
+	my $engine = SearchEngine->new($mb->{DBH}, "artist");
+	$engine->Search(query => $search, limit => 0);
 
-$engine->Search(
-    query => $search,
-    limit => 0,
-);
+	# default query(?)
+	$search = ($search eq "" ? $defaultquery : $search);
 
-if ($engine->Result == &SearchEngine::SEARCHRESULT_NOQUERY)
-{
-	</%perl>
+	my $searched = $engine->Result != &SearchEngine::SEARCHRESULT_NOQUERY;
+	my $searchlabel = "Search for Artist:";
+	my $searchbtn = "Search";
 
-	<fieldset>
-		<legend>Search</legend>
-		<form 	method="post" action="<% $url %>"
-				name="ArtistFilterSearch">
-			<table>
-				<tr>
-					<td><label for="artistfilter_search">Search for artist:</label></td>
-					<td><input 	type="text" name="search"
-								id="artistfilter_search"
-								value="<% $search ? $search : $defaultquery %>">
-				</tr>
-				<tr>
-					<td>&nbsp;</td>
-					<td><input type="submit" class="button" value="Search"></td>
-				</tr>
-			</table>
-			<& /comp/args-to-hidden-fields.inc, %arglist &>
-		</form>
-	</fieldset>
 
-	<& /comp/movefocus, "ArtistFilterSearch", "search" &>
-
-	<%perl>
-
-	return;
-}
-
-# Retrieve all the results and weed out the "don't show" artists
-my @artistsremoved;
-my @r = do {
-	my %dontshow = map { $_=>1 } @dontshow;
-	my @r;
-	while (my $row = $engine->NextRow)
+	if ($searched)
 	{
-		if ($dontshow{ $row->{'artistid'} })
-        {
-            push @artistsremoved, $row->{'artistname'};
-            next;
-        }
-		push @r, $row;
-	}
-	@r;
-};
+		$searchlabel = "Search Again:";
+		$searchbtn = "Search Again";
+</%perl>
+
+		<tr>
+			<td>&nbsp;</td>
+			<td class="formsection">
+				If you did not find the artist you were looking for,
+				you can try to search with another search term, or if you
+				are sure the artist was not yet added to the database,
+				click on the <strong>Add New Artist</strong> button.
+			</td>
+		</tr>
+		<tr>
+			<td>&nbsp;</td>
+			<td style="padding-bottom: 20px">
+				<form method="post" action="/edit/artist/add.html" id="ArtistFilterAddArtist">
+					<div>
+						<input class="button" type="submit" value="Add New Artist &raquo;" />
+						<input type="hidden" name="name" value="<% $search %>" />
+
+%	my $returnurl = sprintf "$url?%s&selectedartist=", $m->comp("/comp/args-to-querystring.inc", %arglist);
+						<input type="hidden" name="returnurl" value="<% $returnurl %>" />
+					</div>
+				</form>
+			</td>
+		</tr>
+
+%	}
+
+		<tr>
+			<td class="label">
+				<label><% $searchlabel %></label></td>
+			<td class="field">
+				<form method="post" action="<% $url %>" id="ArtistFilterSearch">
+					<div>
+						<input type="text" name="search" id="artistfilter_search"
+							   value="<% $search %>" />
+						<input class="button" type="submit" value="<% $searchbtn %>" />
+						<& /comp/args-to-hidden-fields.inc, %arglist &>
+					</div>
+				</form>
+			</td>
+		</tr>
+
+<%perl>
+
+	if ($searched)
+	{
+		# Retrieve all the results and weed out the "don't show" artists
+		my @artistsremoved;
+		my @r = do {
+			my %dontshow = map { $_=>1 } @dontshow;
+			my @r;
+			while (my $row = $engine->NextRow)
+			{
+				if ($dontshow{ $row->{"artistid"} })
+				{
+					push @artistsremoved, $row->{"artistname"};
+					next;
+				}
+				push @r, $row;
+			}
+			@r;
+		};
+
+		# if we have search results to display.
+		if (@r)
+		{
+</%perl>
+		<tr>
+			<td>&nbsp;</td>
+			<td class="formsection">
+				The following artists matched your query <strong><% $search %></strong>.
+				Please select the artist you require or try another query. (Hint: You can
+				double-click with your mouse on the radio button to submit the form.)</td>
+		</tr>
+		<tr class="top">
+			<td class="label">
+				<label>Search Results:</label></td>
+			<td class="field">
+				<form method="post" action="<% $url %>" id="ArtistFilterSelect">
+					<table border="0" cellspacing="0" cellpadding="0" class="artistfilter-listing">
+<%perl>
+					my $checked = ' checked="checked" ';
+					my $i = 0;
+					for my $row (@r)
+					{
+</%perl>
+					<tr class="row<% $i % 2 %>">
+						<td class="radio">
+							<input type="radio" name="selectedartist" value="<% $row->{artistid} %>" <% $checked %>
+								   ondblclick="this.form.submit()" /></td>
+						<td class="no"><% $i += 1  %>:</td>
+						<td class="link">
+							<& /comp/artist-link,
+								id => $row->{artistid},
+								name => $row->{artistname},
+								sortname => $row->{artistsortname},
+								resolution => $row->{artistresolution},
+								strong => 0 &></td>
+					</tr>
+<%perl>
+					$checked = "";
+				}
+</%perl>
+					</table>
+					<& /comp/args-to-hidden-fields.inc, %arglist &>
+					<input class="button" type="submit" value="Select &raquo;" />
+				</form>
+			</td>
+		</tr>
+<%perl>
+		}
+		else
+		{
+</%perl>
+		<tr class="top">
+			<td>&nbsp;</td>
+			<td class="formsection">
+				No artists found matching your query <strong><% $search %></strong>.
+<%perl>
+			if (scalar @artistsremoved == 1)
+			{
+				$m->out(sprintf qq!(Artist %s was not shown.)!, $artistsremoved[0]);
+			}
+			elsif (scalar @artistsremoved)
+			{
+				$m->out(sprintf qq!(Artists %s were not shown.)!, join(", ", @artistsremoved));
+			}
+</%perl>
+			</td>
+		</tr>
+<%perl>
+
+ 		}
+ 	}
 
 </%perl>
 
-
-<fieldset>
-	<legend>Search Results</legend>
-% if (@r) {
-
-	<form method="post" action="<% $url %>"
-		name="ArtistFilterSelect">
-		<div class="padleft">
-			The following artists matched your query '<% $search %>'.&nbsp;
-			Please select the artist you require or  <a href="#ArtistFilterSearch">search again</a>
-		</div>
-		<div class="padlefttop">
-			<table border="0" cellspacing="0" cellpadding="0">
-%			my $checked = "checked";
-%			for my $row (@r) {
-				<tr>
-					<td style="vertical-align: baseline"><input type="radio" name="selectedartist" value="<% $row->{artistid} %>" <% $checked %>
-						ondblclick="this.form.submit()">&nbsp;</td>
-					<td>
-						<a href="/showartist.html?artistid=<% $row->{artistid} %>"><% $row->{'artistname'} %></a> 
-%                       if ($row->{artistresolution}) {
-	                        (<% $row->{artistresolution} %>)
-%                       }
-					</td>
-				</tr>
-%				$checked = "";
-%			}
-			</table>
-		</div>
-		<div class="padlefttop">
-			<& /comp/args-to-hidden-fields.inc, %arglist &>
-			<input type="submit" class="button" value="Select &raquo;">	
-		</div>
-	</form>
-% } else {
-	<div class="padleft">
-		No artists found matching '<% $search %>'.
-%       if (scalar @artistsremoved == 1) {
-           (Artist <% $artistsremoved[0] %> was not shown.)
-% } elsif (scalar @artistsremoved) {
-           (Artists <% join(", ", @artistsremoved) %> were not shown.)
-%       }
-	</div>
-% }
-</fieldset>
-
-<fieldset>
-	<legend>Search Again</legend>
-	<div class="padleft">
-		If you didn't find the artist you were looking for,
-		try another search:
-	</div>
-	<div class="padlefttop">
-		<form method="post" action="<% $url %>"
-			id="ArtistFilterSearch">
-				<& /comp/args-to-hidden-fields.inc, %arglist &>
-				Search for artist:
-				<input	type="text" name="search"
-						size="40" value="<% $search %>">
-				<input type="submit" class="button" value="Search Again">
-		</form>
-	</div>
-</fieldset>
-
-% if ($allowcreate) {
-
-<& /comp/stylemenu &>
-
-<form method="post" action="<% $url %>"
-	name="ArtistFilterAdd">
-
-	<fieldset>
-		<legend>Create New Artist</legend>
-		<div class="padleft">
-			<& /comp/autofixmenu &>
-		</div>
-		<div class="padlefttop">
-			If you're sure the artist you need isn't already in MusicBrainz,
-			enter the artist name and sortname here.<br/>
-			<font color="red">Please read the style guide, first!</font>
-		</div>
-		<div class="padtop">
-			<table>
-				<tr>
-					<td><label for="artistfilter_newartistname">Artist Name:</label></td>
-					<td><input 	type="text" name="newartistname" class="textfield" 
-								id="artistfilter_newartistname"
-								size="40" value="<% $search %>">
-						<& /comp/form/jsbutton, id=>"BTN_ARTIST|newartistname" &>
-						</td>
-				</tr>
-				<tr>
-					<td><label for="artistfilter_newartistsortname">Sort name:</label></td>
-					<td><input 	type="text" name="newartistsortname" class="textfield" 
-								id="artistfilter_newartistsortname"
-								size="40" value="<% $search %>">
-						<& /comp/form/jsbutton, id=>"BTN_SORTGUESS|newartistname|newartistsortname" &>
-						<& /comp/form/jsbutton, id=>"BTN_SORTCOPY|newartistname|newartistsortname" &>
-						</td>
-				</tr>
-				<tr>
-					<td></td>
-					<td class="padtop">
-						<& /comp/args-to-hidden-fields.inc, %arglist &>
-						<input type="submit" class="button" value="Add Artist &raquo;">
-					</td>
-				</tr>
-			</table>
-		</div>
-	</fieldset>
-</form>
-% }
-
-
-
-% if (@r) {
-<& /comp/movefocus, "ArtistFilterSelect", "selectedartist", 0 &>
-% } else {
-<& /comp/movefocus, "ArtistFilterSearch", "search" &>
-% }
+%#% if (@r) {
+%#<& /comp/movefocus, "ArtistFilterSelect", "selectedartist", 0 &>
+%#% } else {
+%#<& /comp/movefocus, "ArtistFilterSearch", "search" &>
+%#% }
