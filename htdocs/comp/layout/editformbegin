@@ -18,10 +18,18 @@
 	{
 		if ($type && $id)
 		{
+			my $object_type = "";
+			$object_type = "object_type=album" if ($type eq "album");
+			$object_type = "artist_type=3" if ($type eq "artist");
+
+			my $object_id = "";
+			$object_id = "object_id=$id" if ($type eq "album");
+			$object_id = "artist_id=$id" if ($type eq "artist");
+
 			my $openmods = sprintf(
-				"/mod/search/results.html?object_type=%s&amp;object_id=%d&amp;mod_status=1",
-				$type,
-				$id);
+				"/mod/search/results.html?%s&amp;%s&amp;mod_status=1",
+				$object_type,
+				$object_id);
 			my $typestr = ucfirst($type);
 
 			$m->out(qq!<div class="boxcontent" style="margin-bottom: 0px; border-bottom: 0px"> !);
