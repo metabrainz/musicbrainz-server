@@ -533,9 +533,9 @@ sub ChangePassword
 	my ($self, $oldpassword, $newpass1, $newpass2) = @_;
 	my (@messages);
 
-	if (!MusicBrainz::IsNonemptyString($oldpassword) or
-		!MusicBrainz::IsNonemptyString($newpass1) or
-		!MusicBrainz::IsNonemptyString($newpass2))
+	if (!MusicBrainz::IsNonEmptyString($oldpassword) or
+		!MusicBrainz::IsNonEmptyString($newpass1) or
+		!MusicBrainz::IsNonEmptyString($newpass2))
 		
 	{
 		push @messages, "Please fill-in Old password, New password, and Verify Password.";

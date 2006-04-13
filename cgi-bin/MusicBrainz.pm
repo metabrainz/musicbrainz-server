@@ -129,7 +129,7 @@ sub DESTROY
 # Validation and sanitisation section
 ################################################################################
 
-sub IsNonemptyString
+sub IsNonEmptyString
 {
 	my $t = shift;
 	defined($t) and $t ne "";
