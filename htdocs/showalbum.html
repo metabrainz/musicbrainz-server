@@ -13,51 +13,21 @@ $showtrackartists=>0
 </%args>
 <%perl>
 
-UserStuff::EnsureSessionOpen(), $session{mbt} = 1
-	if $mbt;
+	UserStuff::EnsureSessionOpen(), $session{mbt} = 1
+		if $mbt;
 
-UserStuff::EnsureSessionOpen(), $session{tport} = $tport
-   if $tport;
+	UserStuff::EnsureSessionOpen(), $session{tport} = $tport
+	   if $tport;
 
-use URI::Escape qw( uri_escape );
-return $m->comp("/comp/redirect", "/bare/cdlookup.html?id=" . uri_escape($discid))
-	if defined $discid;
+	use URI::Escape qw( uri_escape );
+	return $m->comp("/comp/redirect", "/bare/cdlookup.html?id=" . uri_escape($discid))
+		if defined $discid;
 
-if ($mbid ne "")
-{
-	MusicBrainz::IsGUID($mbid)
-		or return $m->comp("/comp/badargs", 1, 1);
-} else {
-	MusicBrainz::IsNonNegInteger($albumid) && $albumid
-		or return $m->comp("/comp/badargs", 1, 1);
-}
 
-my $mb = $m->comp("/comp/dblogin");
+	my $mb = $m->comp("/comp/dblogin");
 
-my $album = Album->new($mb->{DBH});
-
-if ($mbid ne "")
-{
-	$album->SetMBId($mbid);
-} else {
-	$album->SetId($albumid);
-}
-
-$album->LoadFromId(1)
-	or return $m->comp(
-		"/comp/error",
-		"Album #".$album->GetId." not found in the database.",
-		1, 1,
-	);
-
-my $artist = Artist->new($mb->{DBH});
-$artist->SetId($album->GetArtist);
-$artist->LoadFromId
-	or return $m->comp(
-		"/comp/error",
-		"Artist not found in the database.",
-		1, 1,
-	);
+	my $album = $m->comp("/comp/loadrelease", $mb, $albumid || $mbid);
+	my $artist = $m->comp("/comp/loadartist", $mb, $album->GetArtist);
 
 </%perl>
 
