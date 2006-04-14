@@ -27,62 +27,34 @@ td.header_logo .servertype
 }
 
 
-#FooterBar
-{
-	width: 100%;
-	border: 1px solid black;
-	border-width: 1px 0;
-	background: #FFBA58;
-	padding: 0.2em 0;
-	text-align: center;
-}
-
-#FooterBar td
-{
-	text-align: center;
-	font-size: 8pt;
-}
-
+/* the orange footer bar with the links to related open-source sites */
+#FooterBar { width: 100%; border: 1px solid black; border-width: 1px 0; background: #FFBA58; color: #000; padding: 0.2em 0; }
+#FooterBar table { width: 100%; border-collapse: collapse; }
+#FooterBar td { font-size: 8pt; white-space: nowrap; padding: 0px; padding-right: 10px; }
+#FooterBar td.text { width: 24%; }
+#FooterBar td.icon { width: 2%; padding-top: 2px; }
+#FooterBar td.first { padding-left: 15px; }
+#FooterBar td.last { padding-right: 15px; }
 #FooterBar a,
 #FooterBar a:link,
-#FooterBar a:visited
-{
-	color: #997035;
-	text-decoration: none;
-	display: block;
-	width: 100%;
-}
-
-#FooterBar a:hover,
+#FooterBar a:visited { color: #997035; text-decoration: none; }
+#FooterBar a:hover, 
 #FooterBar a:active,
-#FooterBar a:focus
-{
-	color: #000;
-}
+#FooterBar a:focus { color: #000; }
 
-#CreditsBar td
-{
-	padding: 0.3em;
-	padding-top: 1.5em;
-	color: #bbb;
-	font-size: 8pt;
-}
-
+/* the credits bar below the footerbar */
+#CreditsBar { padding-bottom: 20px; }
+#CreditsBar table { width: 100%; border-collapse: collapse; }
+#CreditsBar td { padding: 2px; padding-top: 5px; color: #bbb; font-size: 8pt; }
+#CreditsBar td.first { padding-left: 15px; }
+#CreditsBar td.last { text-align: right; padding-right: 15px; }
+#CreditsBar td.perlstatus { text-align: center; padding-top: 5px; }
 #CreditsBar a,
 #CreditsBar a:link,
-#CreditsBar a:visited
-{
-	color: #bbb;
-	text-decoration: none;
-	font-weight: bold;
-}
-
+#CreditsBar a:visited { color: #bbb; text-decoration: none; font-weight: bold; }
 #CreditsBar a:hover,
 #CreditsBar a:active,
-#CreditsBar a:focus
-{
-	color: #555;
-}
+#CreditsBar a:focus { color: #555; }
 
 
 /* adapted wiki-toolbar from trac, for the editing of the annotations */

@@ -3,30 +3,45 @@
 	return $m->comp('/comp/footer_small')
 		if $pnotes{'ispopup'};
 </%perl>
+
+%	# only this user gets to see the javascript log
+%	# TODO: make this a user preference
+%	if ($session{uid} == 72801) {
+					<& /comp/tablebegin, title => "Javascript Debug" &>
+						<script type="text/javascript" src="/scripts/debug.js"></script>
+					<& /comp/tableend &>
+%	}
+
 					<div style="margin-top: 1em">&nbsp;</div></td>
 			</tr>
 		</table>
 
-		<div id="FooterBar">
-			<table width="100%" cellpadding="2" cellspacing="0" border="0">
+		<div id="FooterBar" style="margin-top: 10px">
+			<table>
 				<tr>
-					<td style="width: 10%">
-						&nbsp;</td>
-					<td style="width: 15%">
+					<td class="text first">
 						<a href="http://www.creativecommons.org/">Creative Commons</a></td>
-					<td style="width: 15%">
+					<td class="text">
 						<a href="http://www.eff.org/"><abbr title="Electronic Frontier Foundation">EFF</abbr></a></td>
-					<td style="width: 15%">
+					<td class="text">
 						<a href="http://www.gnu.org/copyleft/gpl.html"><abbr title="General Public License">GPL</abbr></a></td>
-					<td style="width: 15%">
+					<td class="text">
 						<a href="http://www.gnu.org/copyleft/lesser.html"><abbr title="Lesser General Public License">LGPL</abbr></a></td>
-					<td style="width: 15%">
-						<a href="http://www.freshmeat.net/">Freshmeat</a></td>
-					<td style="width: 10%">
-						&nbsp;</td>
+
+					<td class="icon">
+%						my $cssurl = "http://$ENV{'HTTP_HOST'}/brainz.css";
+						<a href="http://validator.w3.org/check?uri=referer"><img
+							src="/images/icon/valid-xhtml11-wm.png"
+							alt="Valid XHTML 1.1"  /></a>
+					</td>
+					<td class="icon last">
+						<a href="http://jigsaw.w3.org/css-validator/validator?uri=<% $cssurl %>"><img
+							src="/images/icon/valid-css2-wm.png"
+							alt="Valid CSS 2.0" /></a></td>
 				</tr>
 			</table>
 		</div>
+
 
 % if ($session{'mbt'}) {
 % my $url = "http://" . &DBDefs::WEB_SERVER . $r->uri;
@@ -35,19 +50,19 @@
 % }
 
 		<div id="CreditsBar">
-			<table style="width: 100%" cellpadding="2" cellspacing="0" border="0">
-				<tr>
-					<td style="width: 30%; text-align: left">
-						<a href="/doc/ContactUs">contact details</a></td>
-					<td style="width: 40%; text-align: center">
-						original design|<a href="http://vacubomb.com/">vacubomb.com</a></td>
-					<td style="width: 30%; text-align: right">
-						server version: <% &DBDefs::VERSION %></td>
+			<table>
+				<tr valign="top">
+					<td class="text first">
+						Original Design|<a href="http://vacubomb.com/">vacubomb.com</a></td>
+					<td class="text">
+						<a href="/doc/ContactUs">Contact Details</a></td>
+					<td class="text last">
+						Server Version: <% &DBDefs::VERSION %></td>
 				</tr>
 % if (&DBDefs::DB_STAGING_SERVER) {
 				<tr>
-					<td colspan="3" style="text-align: center; padding: 0.5em">
-						<a href="/perl-status">Served by child pid <% $$ %></a></td>
+					<td class="perlstatus" colspan="3">
+						Served by child pid: <a href="/perl-status"><% $$ %></a></td>
 				</tr>
 % }
 			</table>
@@ -59,12 +74,6 @@
 %		$m->out($popupmenuHTML);
 
 		<script type="text/javascript" src="/scripts/domloaded.js"></script>
-
-%		# only this user gets to see the javascript log
-%		# TODO: make this a user preference
-%		if ($session{uid} == 72801) {
-		<script type="text/javascript" src="/scripts/debug.js"></script>
-%		}
 	</body>
 </html>
 
