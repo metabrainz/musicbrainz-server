@@ -438,15 +438,6 @@ ol.StyleGuideList li li { list-style-type: none }
 ol.StyleGuideList li ul { padding-left: 1em }
 ol.StyleGuideList li blockquote { margin-left: 2em }
 
-#ShowPageURL
-{
-	text-align: center;
-	color: #ddd;
-	font-size: 8pt;
-	margin-top: 8pt;
-	margin-bottom: -8pt;
-}
-
 table.cdtocinfo td { text-align: right; padding: 0 1em }
 table.cdtocinfo tr.ev { background-color: #eee } /* 'even' rows */
 

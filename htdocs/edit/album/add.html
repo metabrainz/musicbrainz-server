@@ -2,6 +2,8 @@
 <%args>
 	$artistid => undef
 	$error => undef
+
+	$tracks => ""
 </%args>
 <%perl>
 
@@ -86,7 +88,7 @@
 						<label for="editalbum_tracks">Number of tracks:</label></td>
 					<td class="field">
 						<input 	type="text" name="tracks" class="textfield" id="editalbum_tracks"
-								size="3" value=""></td>
+								size="3" value="<% $tracks %>" /></td>
 				</tr>
 				<tr>
 					<td class="label">&nbsp;</td>

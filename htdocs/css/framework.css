@@ -56,6 +56,14 @@ td.header_logo .servertype
 #CreditsBar a:active,
 #CreditsBar a:focus { color: #555; }
 
+#ShowPageURL { text-align: center; color: #ddd; font-size: 8pt; padding: 0px; padding-bottom: 20px; }
+#ShowPageURL a,
+#ShowPageURL a:link,
+#ShowPageURL a:visited { color: #ddd; text-decoration: none; font-weight: bold; }
+#ShowPageURL a:hover,
+#ShowPageURL a:active,
+#ShowPageURL a:focus { color: #000; }
+
 
 /* adapted wiki-toolbar from trac, for the editing of the annotations */
 .wikitoolbar {

@@ -2,16 +2,32 @@
 <%perl>
 	return $m->comp('/comp/footer_small')
 		if $pnotes{'ispopup'};
+
+	# only g0llum gets to see the javascript log
+	# TODO: make this a user preference
+	if ($session{uid} == 72801)
+	{
+		$m->comp("/comp/tablebegin", title => "Javascript Debug");
+		$m->out(qq!<script type="text/javascript" src="/scripts/debug.js"></script>!);
+		$m->comp("/comp/tableend");
+	}
+
+	# create link to css URL
+	my $cssurl = "http://" . &DBDefs::WEB_SERVER . "/brainz.css";
+
+	# show page url for mb-tagger users (=no location bar)
+	my $pageurl = "";
+	if ($session{'mbt'})
+	{
+		my $url = "http://" . &DBDefs::WEB_SERVER . $r->uri;
+		$url .= "?$1" if ($r->args =~ /(.+)/s);
+
+		$pageurl  = qq!<div id="ShowPageURL">Location: !;
+		$pageurl .= qq!  <img src="/images/edit.gif" alt="" /><a href="$url">$url</a> !;
+		$pageurl .= qq!</div>!;
+	}
+
 </%perl>
-
-%	# only this user gets to see the javascript log
-%	# TODO: make this a user preference
-%	if ($session{uid} == 72801) {
-					<& /comp/tablebegin, title => "Javascript Debug" &>
-						<script type="text/javascript" src="/scripts/debug.js"></script>
-					<& /comp/tableend &>
-%	}
-
 					<div style="margin-top: 1em">&nbsp;</div></td>
 			</tr>
 		</table>
@@ -27,9 +43,7 @@
 						<a href="http://www.gnu.org/copyleft/gpl.html"><abbr title="General Public License">GPL</abbr></a></td>
 					<td class="text">
 						<a href="http://www.gnu.org/copyleft/lesser.html"><abbr title="Lesser General Public License">LGPL</abbr></a></td>
-
 					<td class="icon">
-%						my $cssurl = "http://$ENV{'HTTP_HOST'}/brainz.css";
 						<a href="http://validator.w3.org/check?uri=referer"><img
 							src="/images/icon/valid-xhtml11-wm.png"
 							alt="Valid XHTML 1.1"  /></a>
@@ -42,37 +56,34 @@
 			</table>
 		</div>
 
-
-% if ($session{'mbt'}) {
-% my $url = "http://" . &DBDefs::WEB_SERVER . $r->uri;
-% $url .= "?$1" if $r->args =~ /(.+)/s;
-		<div id="ShowPageURL">This page is: <% $url %></div>
-% }
-
 		<div id="CreditsBar">
 			<table>
 				<tr valign="top">
 					<td class="text first">
 						Original Design|<a href="http://vacubomb.com/">vacubomb.com</a></td>
 					<td class="text">
-						<a href="/doc/ContactUs">Contact Details</a></td>
+						<img src="/images/edit.gif" alt="" /><a href="/doc/ContactUs">Contact Details</a></td>
 					<td class="text last">
 						Server Version: <% &DBDefs::VERSION %></td>
 				</tr>
 % if (&DBDefs::DB_STAGING_SERVER) {
 				<tr>
 					<td class="perlstatus" colspan="3">
-						Served by child pid: <a href="/perl-status"><% $$ %></a></td>
+						Served by child pid:
+						<img src="/images/edit.gif" alt="" /><a href="/perl-status"><% $$ %></a></td>
 				</tr>
 % }
 			</table>
 		</div>
 
+%		$m->out($pageurl);
 
 %		# variable containing the submenues HTML code is prepared
 %		# in /comp/layout/topmenu.
 %		$m->out($popupmenuHTML);
 
+%		# call the dom manipulation routines before body.OnLoad
+%		# See comments in domloaded.js
 		<script type="text/javascript" src="/scripts/domloaded.js"></script>
 	</body>
 </html>
