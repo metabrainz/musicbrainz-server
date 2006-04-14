@@ -1,185 +1,339 @@
-%# vi: set ts=2 sw=2 ft=mason :
-%# Please note the VERY strong similarity between move.html and sac.html
-%# This handles single as well as batch album moves.
+%# vi: set ts=4 sw=2 ft=mason :
+%# move.html used to be very similar to sac.html,
+%# since SG5DR, this is not the case anymore.
+%# This page handles single as well as batch album moves.
 <%args>
-@album => ()
-$selectedartist => ""
-$newartistname => ""
-$newartistsortname => ""
-$newartistresolution => ""
-$newartistid=>-1
-$movetracks=>0
-$search => ""
-$notetext => undef
+	# the album(s) list. TODO: change to release
+	@releaseid => ()
+	@album => ()
+
+	# fields set by /comp/artistfilter
+	$search => ""
+	$selectedartist => ""
+	$newartistid => ""
+
+	# default for move tracks flag
+	$movetracks => 0
+
+	# confirm, and moderation note
+	$confirm => undef
+	$notetext => ""
 </%args>
 <%perl>
+	# use new terminology, copy over entries from
+	# album list to releaseid list.
+	if (@releaseid < @album)
+	{
+		for (@album)
+		{
+			push @releaseid, $_;
+		}
+	}
 
-$m->comp("/comp/checkloggedin", 1, 1)
-	or return;
+	# only allow logged-in users to see this page.
+	$m->comp("/comp/checkloggedin", 1, 1)
+		or return;
 
-# make sure we have at least one valid album id
-MusicBrainz::IsNonNegInteger($album[0]) && $album[0]
-	or return $m->comp("/comp/badargs", 1, 1);
-
-my $mb = $m->comp("/comp/dblogin");
-
-# flag indicates batch or single album moves
-my $_isbatch = (scalar @album > 1);
-
-# do some artist caching
-my $_getartist = do {
-	my %cache;
-	sub {
-		my ($id) = @_;
-		return $cache{$id} if exists $cache{$id};
-		my $ar = Artist->newFromId($mb->{DBH}, $id);
-		return($cache{$id} = $ar);
-	};
-};
-# and for albums
-my $_getalbum = do {
-	my %cache;
-	sub {
-		my ($id) = @_;
-		return $cache{$id} if exists $cache{$id};
-		my $al = Album->new($mb->{DBH});
-		$al->SetId($id);
-		$al->LoadFromId
-			or warn("Failed to load album #$id"), return undef;
-		return($cache{$id} = $al);
-	};
-};
-
-# if newartist selected, get it's data
-if ($selectedartist ne "")
-{
-	MusicBrainz::IsNonNegInteger($selectedartist) && $selectedartist
+	# make sure we have at least one valid album id
+	MusicBrainz::IsNonNegInteger($releaseid[0]) && $releaseid[0]
 		or return $m->comp("/comp/badargs", 1, 1);
 
-	my $target = &$_getartist($selectedartist)
-		or return $m->comp(
-			"/comp/error",
-			"Artist #$selectedartist not found.",
-			1, 1,
-		);
+	# get database handle
+	my $mb = $m->comp("/comp/dblogin");
 
-	$newartistname = $target->GetName;
-	$newartistsortname = $target->GetSortName;
-	$newartistid = $target->GetId;
-	$newartistresolution = $target->GetResolution;
-}
+	# flag indicates batch or single release moves
+	my $_isbatch = (scalar @releaseid > 1);
+	my $_last = (scalar @releaseid) - 1;
 
-# newartist name not in DB
-# allow creation of new artist only if there is no artist with an identical name in the DB
-# TODO this could be changed in /comp/artistfilter
-if ($newartistname =~ /\S/ and $newartistsortname =~ /\S/ and $newartistid == -1)
-{
-	my $ar = Artist->new($mb->{DBH});
-  my $list = $ar->GetArtistsFromName($newartistname);
-
-  # there's an artist with the same name in the DB
-	if (scalar(@$list) > 0)
+	# Maintain a list of Artists cached by ID.
+	my $GetCachedArtist = do
 	{
-		</%perl>
-		<& /comp/sidebar, title => 'Move Album Error' &>
-		You are attempting to create a new duplicate artist <b><% $newartistname %></b>, which cannot be done 
-		as part of the move album moderation. Please add <a href="/edit/artist/add.html?name=<% $newartistname %>&sortname=<% $newartistsortname %>">the duplicate artist</a> first and then move the album.
-		<& /comp/footer &>
-		<%perl>
-		return
+		my %cache;
+		sub
+		{
+			my ($id) = @_;
+			return $cache{$id} if (exists $cache{$id});
+			my $artist = $m->comp("/comp/loadartist", $mb, $id);
+			return ($cache{$id} = $artist);
+		};
+	};
+
+	# Maintain a list of Releases cached by ID.
+	my $GetCachedRelease = do
+	{
+		my %cache;
+		sub
+		{
+			my ($id) = @_;
+			return $cache{$id} if (exists $cache{$id});
+			my $release = $m->comp("/comp/loadrelease", $mb, $id);
+			return ($cache{$id} = $release);
+		};
+	};
+
+	# get list of artists and releases.
+	my @_releases = map(&$GetCachedRelease($_), @releaseid);
+	my @_artists = map(&$GetCachedArtist($_->GetArtist), @_releases);
+
+	# form step 2/3: load selected artist from the database, and
+	# fill in the required fields
+	my $newartist = undef;
+	$selectedartist ||= $newartistid;
+	if ($selectedartist ne "")
+	{
+		$newartist = &$GetCachedArtist($selectedartist);
+		$newartistid = $newartist->GetId;
 	}
-}
 
-# everything seems ok, prepare & insert the move edits
-if ($newartistname =~ /\S/ and $newartistsortname =~ /\S/ and $newartistid =~ /\d+/)
-{
-	my @_al = map(&$_getalbum($_), @album);
-	my @_ar = map(&$_getartist($_->GetArtist), @_al);
+	# form step 3/3: enter moderation
+	if (defined $newartist && $confirm)
+	{
+		# redirect to this URI after everything is done
+		my $url = $_isbatch ? "/showartist.html?artistid=$newartistid" : "/showalbum.html?albumid=$releaseid[0]";
 
-	# get confirmation from user
-	defined $notetext
-		or return $m->comp(
-			"move-confirm",
-			\@_al,
-			\@_ar, $newartistname, $newartistsortname, $newartistid, $newartistresolution
-		);
+		# if confirm does not contain YES, (=NO was pressed), redirect
+		# back to calling page.
+		if ($confirm !~ /yes/i)
+		{
+			$m->comp(
+				"/comp/redirect",
+				$url);
+		}
+		else
+		{
 
-	# redirect to this URI after everything is done
-	my $url = $_isbatch ? "/showartist.html?artistid=$newartistid" : "/showalbum.html?albumid=$album[0]";
+			# prepare mods for each selected release
+			$m->comp(
+				"/comp/entermods",
+				DBH => $mb->{DBH},
+				sub => sub {
+					my @mods;
 
-	# prepare mods for each selected album
-	$m->comp(
-		"/comp/entermods",
-		DBH => $mb->{DBH},
-		sub => sub {
-			my @mods;
+					for my $al (@_releases)
+					{
+						next if $al->GetArtist == $newartistid;
+						my $oldar = &$GetCachedArtist($al->GetArtist);
 
-			for my $al (@_al)
+						# if in batch mode, always use default
+						# -- MOVE tracks for single artist albums
+						# -- NOT MOVE for multiple track artists albums
+						my $mt = ($_isbatch ? ($al->HasMultipleTrackArtists ? 0 : 1) : $movetracks );
+
+						my @push = Moderation->InsertModeration(
+							DBH	=> $mb->{DBH},
+							uid	=> $session{uid},
+							privs => $session{privs},
+							type => &ModDefs::MOD_MOVE_ALBUM,
+							# --
+							album => $al,
+							oldartist => $oldar,
+
+							artistid => $newartist->GetId,
+							artistname => $newartist->GetName,
+							artistsortname => $newartist->GetSortName,
+
+							movetracks => $mt,
+						);
+
+						$push[0]->InsertNote($session{'uid'}, $notetext)
+							if @push and $notetext =~ /\S/;
+
+						push @mods, @push;
+					}
+
+					return @mods;
+				},
+				success_url => $url,
+			) or return;
+
+			die "Shouldn't get here";
+		}
+
+	}
+
+
+	# RENDERING
+	# -------------------------------------------------------------------------
+
+	# start page header.
+	my $title = sprintf "Move Album%s to another Artist", ($_isbatch ? "s" : "");
+	$m->comp("/comp/sidebar-notitle", pagetitle => $title);
+
+	# if in batch mode, let's see if we have to display
+	# the pending moderations message.
+	my $mp = 0;
+	if ($_isbatch)
+	{
+		for my $alid (@releaseid)
+		{
+			if (&$GetCachedRelease($alid)->GetModPending)
 			{
-				next if $al->GetArtist == $newartistid;
-				my $oldar = &$_getartist($al->GetArtist);
-				# if in batch mode, always use default (move tracks for SA, don't move for MA albums)
-				my $mt = ($_isbatch ? ($al->HasMultipleTrackArtists ? 0 : 1) : $movetracks );
-
-				my @push = Moderation->InsertModeration(
-					DBH	=> $mb->{DBH},
-					uid	=> $session{uid},
-					privs => $session{privs},
-					type => &ModDefs::MOD_MOVE_ALBUM,
-					# --
-					album => $al,
-					oldartist => $oldar,
-					artistname => $newartistname,
-					artistsortname => $newartistsortname,
-					artistid => $newartistid,
-					movetracks => $mt,
-				);
-
-				$push[0]->InsertNote($session{'uid'}, $notetext)
-					if @push and $notetext =~ /\S/;
-
-				push @mods, @push;
+				$mp = 1;
+				last;
 			}
+		}
+	}
+	$m->comp("/comp/layout/editformbegin",
+		title => $title,
+		release => ($_isbatch ? undef : &$GetCachedRelease($releaseid[0])),
+		mp => ($_isbatch ? $mp : undef),
+	);
 
-			return @mods;
-		},
-		success_url => $url,
-	) or return;
-
-	die "Shouldn't get here";
-}
+	# if an artist was selected (or added), show confirm form.
+	if (defined $newartist)
+	{
 
 </%perl>
+		<!-- add editsuite for modnote resizer support -->
+		<script type="text/javascript" src="/scripts/editsuite.js"></script>
 
+		<form method="post" action="/edit/album/move.html" id="ConfirmForm">
+			<table class="formstyle">
+				<tr>
+					<td colspan="2" class="instructions">
+						<ul>
+							<li>
+								Are you sure you want to move the following
+								release<% $_isbatch ? "s" : "" %> to the Artist
+								<& /comp/linkartist, artist => $newartist &>?
 
-%# --- HTML ---
-% my $tit = "Move Album" . ($_isbatch ? "s" : " '". &$_getalbum($album[0])->GetName ."'") . " to another Artist";
-<& /comp/sidebar, title => $tit &>
+								<ul style="margin-top: 5px">
+									<%perl>
+										# show all current artists and releases
+										for (0 .. ($_last))
+										{
+											$m->out("<li>");
+											$m->comp("/comp/linkrelease", release => $_releases[$_]);
+											$m->out(" by ");
+											$m->comp("/comp/linkartist", artist => $_artists[$_]);
+											$m->out("</li>");
+										}
+									</%perl>
+								</ul>
+							</li>
+						</ul>
+					</td>
+				</tr>
+				<tr class="top">
+					<td class="label">
+						<label>Move Tracks:</label></td>
+					<td>
+%					# single release move
+%					if (!$_isbatch) {
+%						my $_isma = $_releases[0]->HasMultipleTrackArtists;
 
-% for my $alid (@album) {
-%		if (&$_getalbum($alid)->GetModPending) {
-			<& /comp/modpending &>
-%			last;
-%		}
-% }
+						<input type="radio" name="movetracks" value="0"
+%							$m->out(qq! checked="checked" !) if ($_isma);
+							/> Do not change track artists <br />
 
-<fieldset>
-	<legend>Select new artist</legend>
-	<div class="padleft">
-		Please search for the artist to which
-		you want to move the album(s).
-	</div>
-</fieldset>
+						<input type="radio" name="movetracks" value="1"
+%							$m->out(qq! checked="checked" !) if (not $_isma);
+							/> Move all tracks to artist <& /comp/linkartist, artist => $newartist &>
+					</td>
+				</tr>
+				<tr class="spaced top">
+%						if ($_isma) {
+					<td class="label">
+						<label style="color: red;">Warning:</label></td>
+					<td>
+						This release contains tracks attributed to different artists.
+						This information will be lost and all tracks will have the
+						<strong>same</strong> artist if you choose the <em>move
+						all tracks to artist</em> option!
 
-%# search for target artist
-% my $qar = &$_getalbum($album[0])->GetArtist;
-<& /comp/artistfilter,
-	search => $ARGS{'search'},
-	defaultquery => $_isbatch ? "" : (&$_getartist($qar)->GetName),
-	dontshow => $_isbatch ? [] : [ $qar ],
-	allowcreate => 1,
-	url => "/edit/album/move.html",
-	arglist => { album => \@album },
-	&>
+%						} else {
+					<td class="label">
+						<label>Note:</label></td>
+					<td>
+						If you do not move the tracks of a single
+						artist release to the new artist, <strong>only</strong> the release artist
+						will be changed! In most cases it is safe to keep the default selection.
+
+%						}
+%					} else {
+						You have chosen to move more than one release to another
+						artist. In this mode the defaults for moving track artist are applied.
+						This means, for all releases with identical track and release artists,
+						the tracks will be moved to the new artist, too. For releases with
+						more than one artist, only the release artist will be changed.
+%					}
+					</td>
+				</tr>
+				<tr class="spaced">
+					<td class="label">
+						<label>Confirm:</label></td>
+					<td class="field">
+						<input class="button" type="submit" name="confirm" value="&laquo; NO" />
+						<input class="button" type="submit" name="confirm" value="YES &raquo;" />
+
+% 					for (@_releases) {
+
+						<input type="hidden" name="releaseid" value="<% $_->GetId %>">
+
+% 					}
+						<input type="hidden" name="newartistid" value="<% $newartistid %>" />
+					</td>
+				</tr>
+				<tr>
+					<td>&nbsp;</td>
+					<td class="notetext">
+						<& /comp/notetext &>
+					</td>
+				</tr>
+			</table>
+
+<%perl>
+	}
+
+	# else show /comp/artistfilter
+	else
+	{
+
+		# search for target artist
+		my $qar = &$GetCachedRelease($releaseid[0])->GetArtist;
+
+</%perl>
+		<table class="formstyle">
+			<tr>
+				<td colspan="2" class="instructions">
+					<ul>
+						<li>
+							Please search for the artist to which you want to move
+							the release<% $_isbatch ? "s" : "" %>:
+							<ul style="margin-top: 5px">
+								<%perl>
+
+									# show all current artists and releases
+									for (0 .. ($_last))
+									{
+										$m->out("<li>");
+										$m->comp("/comp/linkrelease", release => $_releases[$_]);
+										$m->out(" by ");
+										$m->comp("/comp/linkartist", artist => $_artists[$_]);
+										#$m->out($_ < $_last ? ($_ == $_last-1 ? " and " : ", ") : "");
+										$m->out("</li>");
+									}
+
+								</%perl>
+							</ul>
+						</li>
+					</ul>
+				</td>
+			</tr>
+
+			<& /comp/artistfilter,
+				search => $search,
+				defaultquery => $_isbatch ? "" : (&$GetCachedArtist($qar)->GetName),
+				dontshow => $_isbatch ? [] : [ $qar ],
+				allowcreate => 1,
+				url => "/edit/album/move.html",
+				arglist => {
+					album => \@releaseid
+				},
+			&>
+		</table>
+%	}
+
+	<& /comp/layout/editformend &>
 
 <& /comp/footer &>
