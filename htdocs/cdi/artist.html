@@ -8,7 +8,7 @@ $search
 <%perl>
 
 $m->comp("/comp/sidebar", title=>'Submit CD: Artist Search Results');
-  
+
 if ($search eq '')
 {
 	$m->out("Please enter an artist name into the search field. " .
@@ -29,19 +29,19 @@ else
     if ($eng->Rows > 0)
     {
         my ($artistid, $artistname, $artistsortname);
-</%perl>    
+</%perl>
         Click on the artist name to display all the albums by that artist:<p>
 
         <form method="POST" action="/cdi/album.html"
               enctype="application/x-www-form-urlencoded" class="formstyle">
 
-%       while (my $row = $eng->NextRow) 
+%       while (my $row = $eng->NextRow)
 %       {
             <input type="radio" name="artist" value="<% $row->{'artistid'} %>">
-				<& /comp/artist-link,
-						id			=> $row->{'artistid'},
-						name		=> $row->{'artistname'},
-						resolution	=> $row->{'artistresolution'},
+				<& /comp/linkartist,
+					id			=> $row->{'artistid'},
+					name		=> $row->{'artistname'},
+					resolution	=> $row->{'artistresolution'},
 				&>
 				<br>
 %       }
@@ -51,20 +51,20 @@ else
         <input type="hidden" name="tracks" value="<% $tracks %>">
         <input type="submit" value="Select Artist &gt;&gt;">
         </form>
-    
-        <p>If the artist is not listed above 
-        you may either try the search again, 
+
+        <p>If the artist is not listed above
+        you may either try the search again,
         or click on 'New Artist' to enter the information for this
-        CD. Please make sure to search carefully before you go 
+        CD. Please make sure to search carefully before you go
         through the effort to add a new CD.
 %   } else {
-        There were no artists found given the keywords 
-        <b>'<% $search %>'</b>. You may either try again, 
-        or click on 'New Artist' to enter the information for this 
-        CD. Please make sure to search carefully before you go 
+        There were no artists found given the keywords
+        <b>'<% $search %>'</b>. You may either try again,
+        or click on 'New Artist' to enter the information for this
+        CD. Please make sure to search carefully before you go
         through the effort to add a new CD.
 %   }
-    
+
     <form method="POST" action="/cdi/enter.html"
           enctype="application/x-www-form-urlencoded" class="formstyle">
     <input type="hidden" name="id" value="<% $id %>">
@@ -74,7 +74,7 @@ else
     </form>
 
     <hr><b>Start another artist search:</b><p>
-    
+
     <form method="POST" action="/cdi/artist.html"
           enctype="application/x-www-form-urlencoded" class="formstyle">
 
@@ -85,7 +85,7 @@ else
     <input type="hidden" name="tracks" value="<% $tracks %>">
     <input type="submit" value="Search">
     </form>
-    
+
 % }
 
 <& /comp/footer &>
