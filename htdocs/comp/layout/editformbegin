@@ -1,14 +1,28 @@
 <%args>
 	$title
-	$mp => 0
-	$type => undef
-	$id => undef
-
 	$align => "left"
-	$showmodnotice => 0
 
+	$release => undef
+	$artist => undef
+	$mp => undef
 </%args>
 <%perl>
+	my ($type, $id);
+
+	# we got a release parameter, fill in local variables and
+	# figure out if a modpending bubble should be shown.
+	if (defined $release)
+	{
+		$mp = $release->GetModPending;
+		$id = $release->GetId;
+		$type = "release";
+	}
+	elsif ($artist)
+	{
+		$mp = $artist->GetModPending;
+		$id = $artist->GetId;
+		$type = "artist";
+	}
 
 	$m->out(qq!<div class="orangeheader"> !);
 	$m->out(qq!  <div class="inner"><b>$title</b></div> !);
@@ -19,18 +33,20 @@
 		if ($type && $id)
 		{
 			my $object_type = "";
-			$object_type = "object_type=album" if ($type eq "album");
+			$object_type = "object_type=album" if ($type eq "release");
 			$object_type = "artist_type=3" if ($type eq "artist");
 
 			my $object_id = "";
-			$object_id = "object_id=$id" if ($type eq "album");
+			$object_id = "object_id=$id" if ($type eq "release");
 			$object_id = "artist_id=$id" if ($type eq "artist");
 
 			my $openmods = sprintf(
 				"/mod/search/results.html?%s&amp;%s&amp;mod_status=1",
 				$object_type,
 				$object_id);
+
 			my $typestr = ucfirst($type);
+			$typestr = "Release" if ($typestr eq "Album");
 
 			$m->out(qq!<div class="boxcontent" style="margin-bottom: 0px; border-bottom: 0px"> !);
 			$m->out(qq!	<div style="float: right; clear: both; width: 270px; text-align: left; padding: 3px 5px; background: #ffffcc; font-size: 11px; font-weight: normal; border-left: 1px solid #ccc; border-bottom: 1px solid #ccc; margin-bottom: 0px"> !);
