@@ -407,10 +407,15 @@ table.pageselector input.jumpbutton {
 
 
 /** 
- * listing tables, used in: 
- *  ~ artistrel.html
+ * Default format for form fields, inside a hidden table.
+ *
  **/   
-table.formstyle {
+table.formstyle {}
+
+/* general format for TD inside a formstyle table */
+table.formstyle td {
+	padding: 2px 4px;
+	text-align: left;
 }
 
 
@@ -418,16 +423,18 @@ table.formstyle {
 table.formstyle tr {
 	vertical-align: middle;
 }
-table.formstyle tr.top {
+
+/* all TD in a TR.top row have vertical alignment */
+table.formstyle tr.top td {
 	vertical-align: top;
 }
 
-table.formstyle td {
-	padding: 2px 4px;
-	text-align: left;
+/* all TD in a TR.spaced row have 20px padding at the top. */
+table.formstyle tr.spaced td {
+	padding-top: 20px;
 }
 
-/* header rows are bold, and have some padding at the bottom */
+/* all TD in a TR.header row are bold, and have some padding at the bottom */
 table.formstyle tr.header td {
 	font-weight: bold;
 	padding-bottom: 2px;
@@ -443,14 +450,16 @@ table.formstyle td.center {
 	text-align: center; 
 }
 
-table.formstyle td {
-}
+/* label cells use some right padding, to give the input fields some room */
 table.formstyle td.label {
 	font-weight: bold;
 	white-space: nowrap;
 	min-width: 150px;
 	padding-right: 30px;
 }
+
+/* input field cells do not wrap (e.g. for Guess Case buttons), 
+   and use as much room as they can get. */
 table.formstyle td.field {
 	white-space: nowrap;
 	width: 150%;
@@ -472,7 +481,6 @@ table.formstyle td.instructions li {
 /* if different areas are handled in the same form,
    use this class to separate one from the others. */
 table.formstyle td.formsection {
-	padding-top: 20px;
 	/*font-size: 11px;*/
 }
 
@@ -481,6 +489,8 @@ table.formstyle td.notetext {
 	padding-top: 20px;
 }
 
+/* include smaller text into a div, this way this can be 
+   driven globally. */
 table.formstyle div.small {
 	padding-top: 4px;
 	font-size: 11px;
