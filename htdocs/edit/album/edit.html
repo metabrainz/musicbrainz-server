@@ -70,12 +70,7 @@
 
 		<& /comp/autofixmenu &>
 
-		<& /comp/layout/editformbegin,
-			title => "Edit Album Name",
-			mp => $al->GetModPending,
-			type => "album",
-			id => $al->GetId
-		&>
+		<& /comp/layout/editformbegin, title => "Edit Album Name", release => $al &>
 
 		<table class="formstyle">
 			<tr>
