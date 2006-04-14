@@ -67,53 +67,48 @@ if (MusicBrainz::IsSingleLineString($newartistalias)
 % }
 
 <form method="post" action="/edit/artistalias/edit.html"
-	name="EditArtistAliasForm"
 	enctype="application/x-www-form-urlencoded">
 
 	<& /comp/autofixmenu &>
 
-	<fieldset>
+	<fieldset class="formstyle">
 		<legend>Edit Artist Alias</legend>
-		<div class="padleft">
-    		Please enter the corrected alias for this artist.&nbsp;
-    		Please note that duplicate aliases are currently not allowed.&nbsp;
-		</div>
-		<div class="padtop"></div>
-		<table>
+		<p>
+			Please enter the corrected alias for this artist.
+			Please note that duplicate aliases are currently not allowed.
+		</p>
+		<table class="formstyle">
 			<tr>
-				<td><label>Artist Name:</label></td>
-				<td>
-					<a href="/artist/<% $ar->GetMBId %>.html"><% $ar->GetName %></a></td>
+				<td class="label"><label>Artist Name:</label></td>
+				<td><a href="/artist/<% $ar->GetMBId %>.html"><% $ar->GetName %></a></td>
 			</tr>
 			<tr>
-				<td><label>Current Value:</label></td>
-				<td>
-					<div class="oldtextfield"><% $al->GetName  %></div></td>
+				<td class="label"><label>Current Value:</label></td>
+				<td><div class="oldtextfield"><% $al->GetName  %></div></td>
 			</tr>
 			<tr>
-				<td><label for="id_newartistalias">New Value:</label></td>
+				<td class="label"><label for="id_newartistalias">New Value:</label></td>
 				<td>
-					<input type="text" name="newartistalias" class="textfield" id="id_newartistalias"
+					<input type="text" name="newartistalias" id="id_newartistalias"
 						class="textfield" size="40" maxlength="255"
-						value="<% $al->GetName %>">
+						value="<% $al->GetName %>" />
 					<& /comp/form/jsbutton, id=>"BTN_ALIAS::newartistalias" &>
-					</td>
+				</td>
+			</tr>
+			<tr>
+				<td>&nbsp;</td>
+				<td class="padtop"><& /comp/notetext &></td>
 			</tr>
 			<tr>
 				<td>&nbsp;</td>
 				<td class="padtop">
-					<& /comp/notetext &></td>
-			</tr>
-			<tr>
-				<td>&nbsp;</td>
-				<td class="padtop">
-					<input type="hidden" name="id" value="<% $id %>">
-					<input type="submit" class="button" value="Submit">
+					<input type="hidden" name="id" value="<% $id %>" />
+					<input type="submit" class="button" value="Submit" />
 				</td>
 			</tr>
 		</table>
 	</fieldset>
 </form>
 
-<& /comp/movefocus, "EditArtistAliasForm", "newartistalias" &>
+<& /comp/movefocus, id => "id_newartistalias" &>
 <& /comp/footer &>
