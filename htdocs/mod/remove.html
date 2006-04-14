@@ -1,90 +1,123 @@
 %# vi: set ts=2 sw=2 ft=mason :
 <%args>
-$modid=>0
-$confirm=>0
-$url=>""
+	$modid => 0
+	$confirm => ""
+	$url => "/mod/search/pre/moderator.html"
 </%args>
-
-<& /comp/sidebar, title=>'Confirm Moderation Removal', expand=>'moderate' &>
-
 <%perl>
-	if ($modid == 0)
+	# start page output.
+
+	# sanitize modid argument
+	if ($modid < 1)
 	{
 		$m->comp("/comp/badargs");
 		return undef;
 	}
 
+	# get database handle
 	my $mb = $m->comp("/comp/dblogin");
+
+	# load moderation from given $modid argument
 	my $mod = Moderation->new($mb->{DBH});
 	$mod = $mod->CreateFromId($modid);
+	if (not defined $mod)
+	{
+		$m->comp("/comp/error", "The edit #$modid was not found.");
+		return undef;
+	}
+	if ($mod->GetStatus != &ModDefs::STATUS_OPEN)
+	{
+		$m->comp("/comp/error", "The edit #$modid is not in a status that allows removal.");
+		return undef;
+	}
 
-	$mb->Logout();
+
+	# form was submitted, see which button it was.
+	if ($confirm ne "")
+	{
+		if ($confirm =~ m/YES/)
+		{
+		    my $sql = Sql->new($mb->{DBH});
+			eval
+			{
+				$sql->Begin;
+				$mod->RemoveModeration($session{uid});
+				$sql->Commit;
+			};
+			if ($@)
+			{
+				my $err = $@;
+				$sql->Rollback;
+				$m->out("<b>A database error occurred.</b><pre>($err)</pre>");
+				$m->comp("/comp/footer");
+				return undef;
+		    }
+		}
+
+		# forward to $url
+		$r->method("GET");
+		$r->headers_in->unset("Content-length");
+		$r->content_type("text/html; charset=UTF-8");
+		$r->header_out(Location => $url);
+		$r->status(302);
+		return undef;
+	}
+
+
+	$m->comp("/comp/sidebar-notitle", pagetitle => "Confirm Remove Moderation");
+	$m->comp("/comp/tablebegin", title => "Confirm Moderation Removal");
+
 </%perl>
 
-<fieldset>
-	<legend>Confirm Moderation Removal</legend>
-	<div class="padleft">
-		<table>
+	<form method="post" action="/mod/remove.html" id="ConfirmForm">
+
+		<table class="formstyle">
 			<tr>
-				<td colspan="2">Do you want to remove this moderation?</td>
+				<td colspan="2" class="instructions">
+					<ul>
+						<li>Do you want to remove this moderation?</li>
+					</ul>
+				</td>
 			</tr>
-			<tr>
-				<td> &nbsp; </td>
+			<tr class="top">
+				<td class="label">
+					<label>Edit Type:</label>
+				</td>
 				<td>
 					<%perl>
 						$mod->ShowModType($m);
 					</%perl></td>
 			</tr>
-			<tr>
-				<td>&nbsp;</td>			
+			<tr class="top">
+				<td class="label">
+					<label>Previous Value:</label>
+				</td>
 				<td>
 				<%perl>
 					$mod->ShowPreviousValue($m);
 				</%perl></td>
 			</tr>
-			<tr>
-				<td>&nbsp;</td>			
+			<tr class="top">
+				<td class="label">
+					<label>New Value:</label>
+				</td>
 				<td>
 				<%perl>
 					$mod->ShowNewValue($m);
 				</%perl></td>
 			</tr>
-		</table>
-	</div>
-
-	<div class="padlefttop">
-		<table>
 			<tr>
-				<td>
-					<form 	method="POST" action="/bare/remove_mod.html"
-							name="ModFormNo">
-						<%perl>
-						my $arg;
-							for $arg (keys %ARGS)
-							{
-								$m->out("<input type=\"hidden\" name=\"$arg\" value=\"$ARGS{$arg}\">\n");
-							}
-						</%perl>
-						<input type="hidden" name="confirm" value="no">
-						<input name="btnNo" type="submit" class="button" value="&laquo; NO">
-					</form></td>
-				<td> &nbsp; </td>
-				<td>
-					<form 	method="POST" action="/bare/remove_mod.html"
-							name="ModFormYes">
-						<%perl>
-							for $arg (keys %ARGS)
-							{
-								$m->out("<input type=\"hidden\" name=\"$arg\" value=\"$ARGS{$arg}\">\n");
-							}
-						</%perl>
-						<input type="hidden" name="confirm" value="yes">
-						<input name="btnYes" type="submit" class="button" value="YES &raquo;">
-					</form></td>
+				<td class="label">Confirm:</td>
+				<td class="formsection">
+					<input type="submit" class="button" name="confirm" value="&laquo; NO" />
+					<input type="submit" class="button" name="confirm" value="YES &raquo;" />
+					<& /comp/args-to-hidden-fields.inc, %ARGS &>
+				</td>
 			</tr>
 		</table>
-	</div>
-</fieldset>
+		<& /comp/movefocus, id => "ConfirmForm" &>
+	</form>
 
-<& /comp/movefocus, "ModFormNo" &>
+	<& /comp/tableend &>
+
 <& /comp/footer &>
