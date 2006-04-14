@@ -1,48 +1,38 @@
 %# vi: set ts=2 sw=2 ft=mason :
 <%args>
 	$album => undef
+	$releaseid => undef
+
 	$notetext => ""
 	$movetova => 0
 	$submit => undef
 </%args>
 <%perl>
+	# use new terminolgy.
+	$releaseid ||= $album;
 
 	$m->comp("/comp/checkloggedin", 1, 1)
 		or return;
 
-	MusicBrainz::IsNonNegInteger($album) && $album
+	# make sure we got a valid releaseid parameter
+	MusicBrainz::IsNonNegInteger($releaseid) && $releaseid
 		or return $m->comp("/comp/badargs", 1, 1);
 
 	# get database handle.
 	my $mb = $m->comp("/comp/dblogin");
 
-	# load album from $album parameter
-	my $al = Album->new($mb->{DBH});
-	$al->SetId($album);
-	$al->LoadFromId
-		or return $m->comp(
-			"/comp/error",
-			"Album #$album does not exist",
-			1, 1,
-		);
+	# load album and albumartist from $releaseid parameter
+	my $release = $m->comp("/comp/loadrelease", $mb, $releaseid);
+	my $artist = $m->comp("/comp/loadartist", $mb, $release->GetArtist);
 
-	# load artist from albumartist id.
-	my $ar = Artist->new($mb->{DBH});
-	$ar->SetId($al->GetArtist);
-	$ar->LoadFromId
-		or return $m->comp(
-			"/comp/error",
-			"Artist does not exist",
-			1, 1,
-		);
 
 	# next url depending on the move tracks checkbox.
 	if ($submit)
 	{
-		my $cancelurl = "/showalbum.html?albumid=" . $al->GetId;
+		my $cancelurl = "/showalbum.html?albumid=" . $release->GetId;
 		my $url = (
 			$ARGS{"movetracks"}
-				? "/edit/track/change.html?album=" . $al->GetId
+				? "/edit/track/change.html?album=" . $release->GetId
 				: $cancelurl
 		);
 
@@ -72,8 +62,8 @@
 						privs => $session{privs},
 						type => &ModDefs::MOD_SAC_TO_MAC,
 						# --
-						album => $al,
-						artist => $ar,
+						album => $release,
+						artist => $artist,
 						movetova => $movetova,
 					);
 
@@ -88,12 +78,16 @@
 		}
 	}
 
+	# start page header.
+	$m->comp("/comp/sidebar-notitle", pagetitle => "Convert Release to Multiple Artists");
+
+	$m->comp("/comp/layout/editformbegin",
+		title => "Convert Release to Multiple Artists",
+		release => $release);
+
 </%perl>
 
-<& /comp/sidebar-notitle, pagetitle => "Convert Album to Multiple Artists" &>
-
-	<& /comp/layout/editformbegin, title => "Convert Album to Multiple Artists" &>
-
+	<!-- add editsuite for modnote resizer support -->
 	<script type="text/javascript" src="/scripts/editsuite.js"></script>
 
 	<form method="post" action="/edit/album/mac.html" id="ConfirmForm">
@@ -102,41 +96,33 @@
 				<td colspan="2" class="instructions">
 					<ul>
 						<li>
-							Are you sure you want to convert the album
-							<a href="/showalbum.html?albumid=<% $al->GetId %>"><% $al->GetName %></a>,
-							currently by <& /comp/artist-link, artist => $ar &>, to multiple artists?
+							Are you sure you want to convert the release
+							<& /comp/linkrelease, release => $release, icon => 1 &>,
+							currently by <& /comp/linkartist, artist => $artist &>, to multiple artists?
 						</li>
 					</ul>
 				</td>
 			</tr>
-			<tr>
-				<td class="label">
-					<label>Confirm:</label></td>
-				<td class="field">
-					<input class="button" type="submit" name="submit" value="&laquo; NO" />
-					<input class="button" type="submit" name="submit" value="YES &raquo;" />
-					<input type="hidden" name="album" value="<% $al->GetId %>" /></td>
-			</tr>
 
 			<tr>
 				<td>&nbsp;</td>
-				<td class="formsection">
-					MusicBrainz allows Albums which may have a number of different Artists as
+				<td>
+					MusicBrainz allows Releases which may have a number of different Artists as
 					<a href="/doc/TrackArtist">Track Artists</a> to be stored under an
-					<a href="/doc/AlbumArtist">Album Artist</a>. You can choose to use the default
+					<a href="/doc/AlbumArtist">Release Artist</a>. You can choose to use the default
 					Various Artists <a href="/doc/SpecialPurposeArtist">Special Purpose Artist</a>,
-					or you can keep the current artist as the Album Artist.
+					or you can keep the current artist as the Release Artist.
 				</td>
 			</tr>
 			<tr class="top">
 				<td class="label">
-					<label>Album artist:</label></td>
+					<label>Album Artist:</label></td>
 				<td>
 					<input type="radio" name="movetova" value="1" checked>
-					set <a href="/showartist.html?artistid=1">Various Artists</a> as album artist
+					set <a href="/showartist.html?artistid=1">Various Artists</a> as Release Artist
 					<br />
 					<input type="radio" name="movetova" value="0">
-					leave <& /comp/artist-link, artist => $ar &> as album artist.
+					leave <& /comp/linkartist, artist => $artist &> as Release Artist.
 				</td>
 			</tr>
 
@@ -144,22 +130,31 @@
 				<td>&nbsp;</td>
 				<td class="formsection">
 					If you choose to leave the tracks under the current artist,
-					you'll be returned to the album page. If you choose to <em>move
+					you'll be returned to the release page. If you choose to <em>move
 					tracks to new artists</em>, this wizard will walk you through
-					a page for each track of the album where you can select the
+					a page for each track of the release where you can select the
 					<a href="/doc/TrackArtist">Track Artist</a>.
 				</td>
 			</tr>
 			<tr class="top">
 				<td class="label">
-					<label>Track artists:</label></td>
+					<label>Track Artists:</label></td>
 				<td>
 					<input type="radio" name="movetracks" value="0" checked="checked" />
-					leave <& /comp/artist-link, artist => $ar &> as track artist for all tracks
+					leave <& /comp/linkartist, artist => $artist &> as track artist for all tracks
 					<br />
 					<input type="radio" name="movetracks" value="1" />
 					move tracks to new artists
 				</td>
+			</tr>
+
+			<tr class="spaced top">
+				<td class="label">
+					<label>Confirm:</label></td>
+				<td class="field">
+					<input class="button" type="submit" name="submit" value="&laquo; NO" />
+					<input class="button" type="submit" name="submit" value="YES &raquo;" />
+					<input type="hidden" name="releaseid" value="<% $release->GetId %>" /></td>
 			</tr>
 			<tr>
 				<td>&nbsp;</td>
