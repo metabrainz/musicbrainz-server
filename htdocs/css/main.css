@@ -687,6 +687,7 @@ table.Subs tr.r1 td {
 
 /* global <p> tag removes the margin from paragraphs, re-add it for wiki pages */
 .wikidocs p {
+	margin-left: 0px;
 	margin-bottom: 12px;
 }
 /* copied definition from top of the page */
@@ -708,7 +709,6 @@ table.Subs tr.r1 td {
 	margin-top: 20px;
 	margin-bottom: 3px;
 }
-
 
 /* horizontal ruler */
 .wikidocs hr {
