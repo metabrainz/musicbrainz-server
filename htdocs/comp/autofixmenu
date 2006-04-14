@@ -4,14 +4,19 @@
 		<div id="editsuite-content" class="inner">
 			<table cellspacing="0" cellpadding="0" border="0" class="links">
 				<tr>
-					<td width="130"><b>Style guides:</b></td>
-					<td nowrap="nowrap"><a href="/popup/styleguide.html" id="POPUP|StyleGuide|400|450">General Style</a></td>
+					<td class="title">
+						Style guides:</td>
+					<td class="link">
+						<a href="/popup/styleguide.html" id="POPUP::StyleGuide::400::450">General Style</a></td>
 					<td>|&nbsp;</td>
-					<td nowrap="nowrap"><a href="/popup/capguide.html" id="POPUP|CapitalizationGuide|400|500">Capitalization</a></td>
+					<td class="link">
+						<a href="/popup/capguide.html" id="POPUP::CapitalizationGuide::400::500">Capitalization</a></td>
 					<td>|&nbsp;</td>
-					<td nowrap="nowrap"><a href="/popup/sortnameguide.html" id="POPUP|CapitalizationGuide|400|275">Sortname</a></td>
+					<td class="link">
+						<a href="/popup/sortnameguide.html" id="POPUP::SortnameGuide::400::275">Sortname</a></td>
 					<td>|&nbsp;</td>
-					<td nowrap="nowrap"><a href="/popup/attrguide.html" id="POPUP|CapitalizationGuide|400|275">Album Attributes</a></td>
+					<td class="link">
+						<a href="/popup/attrguide.html" id="POPUP::ReleaseAttributesGuide::400::275">Album Attributes</a></td>
 				</tr>
 			</table>
 		</div>

@@ -179,7 +179,7 @@ $ar->SetSortName($edit->{"artist"}{"sortname"});
 					value="<% $edit->{'name'} %>"></td>
 				<td colspan="2"></td>
 				<td>
-					<& /comp/form/jsbutton, id=>"BTN_ALBUM|albumname" &>
+					<& /comp/form/jsbutton, id=>"BTN_ALBUM::albumname" &>
 					</td>
 			</tr>
 
@@ -225,7 +225,7 @@ $ar->SetSortName($edit->{"artist"}{"sortname"});
 						<% $edit->{can_add_remove} ? '' : 'readonly="readonly" disabled' %>
 						title="Remove this track?"></td>
 				<td>
-					<& /comp/form/jsbutton, id=>"BTN_TRACK|track".$t->{'id'} &>
+					<& /comp/form/jsbutton, id=>"BTN_TRACK::track".$t->{'id'} &>
 					</td>
 			</tr>
 % }

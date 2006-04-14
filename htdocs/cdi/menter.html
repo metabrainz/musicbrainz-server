@@ -153,7 +153,7 @@ if ($freedb)
 				<td>&nbsp;</td>
 %    }
 				<td>
-					<& /comp/form/jsbutton, id=>"BTN_ALBUM|albumname" &>
+					<& /comp/form/jsbutton, id=>"BTN_ALBUM::albumname" &>
 					</td>
 			</tr>
 
@@ -199,7 +199,7 @@ for my $i ( 0 .. $tracks-1 )
 % }
 				</td>
 				<td>
-					<& /comp/form/jsbutton, id=>"BTN_TRACK|track".$i &>
+					<& /comp/form/jsbutton, id=>"BTN_TRACK::track".$i &>
 					</td>
 			</tr>
 			<tr>
@@ -211,7 +211,7 @@ for my $i ( 0 .. $tracks-1 )
 				<td>&nbsp;</td>
 % }
 				<td>
-					<& /comp/form/jsbutton, id=>"BTN_ARTIST|artistname".$i &>
+					<& /comp/form/jsbutton, id=>"BTN_ARTIST::artistname".$i &>
 					</td>
 			</tr>
 % }

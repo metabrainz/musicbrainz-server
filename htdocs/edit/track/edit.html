@@ -222,7 +222,7 @@ my $can_add_remove = ($al->CanAddTrack or $al->CanRemoveTrack);
 						value="<% $defaultlength || Track::FormatTrackLength($tr->GetLength) %>" />
 				</td>
 				<td>
-					<& /comp/form/jsbutton, id=>"BTN_TRACK|newtrackname" &>
+					<& /comp/form/jsbutton, id=>"BTN_TRACK::newtrackname" &>
 					</td>
 			</tr>
 % unless ($al->IsNonAlbumTracks) {
