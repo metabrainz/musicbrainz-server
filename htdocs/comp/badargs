@@ -1,15 +1,14 @@
 %# vi: set ts=4 sw=4 ft=mason :
 <%perl>
-my ($fHeader, $fFooter) = @_;
+	my ($fHeader, $fFooter) = @_;
 
-$m->comp("/comp/sidebar", title => "Bad Arguments")
-	if $fHeader;
-</%perl>
+	$m->comp("/comp/sidebar-notitle", pagetitle => "Bad Arguments") if $fHeader;
 
-<p class="bold">The arguments supplied to this page are invalid.</p>
-<p>Please check the arguments and then try loading this page again.</p>
+	$m->comp("/comp/tablebegin", title => "The arguments supplied to this page are invalid");
+	$m->out(qq!Please check the arguments and then try loading this page again.!);
+	$m->comp("/comp/tableend");
 
-<%perl>
-$m->comp("/comp/footer")
-	if $fFooter;
+	$m->comp("/comp/footer")
+		if $fFooter;
+
 </%perl>
