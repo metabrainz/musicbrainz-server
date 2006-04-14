@@ -436,6 +436,7 @@ table.formstyle td.label {
 	white-space: nowrap;
 	min-width: 150px;
 	padding-right: 30px;
+	padding-left: 0px;
 }
 
 /* input field cells do not wrap (e.g. for Guess Case buttons), 

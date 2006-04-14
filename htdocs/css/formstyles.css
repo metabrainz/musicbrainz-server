@@ -1,4 +1,3 @@
-
 table.formstyle .textfield,
 table.formstyle .numberfield,
 table.formstyle .datefield {
@@ -409,4 +408,18 @@ input.hidden {
 a.toolbox img.toolbox {
 	margin-left: 4px;
 	vertical-align: -10%;
+}
+
+fieldset.formstyle p {
+	margin-top: 1em;
+	margin-bottom: 1em;
+}
+
+fieldset.formstyle {
+	border: solid 1px #DDD;
+}
+
+fieldset.formstyle legend {
+	color: #000;
+	font-weight: bold;
 }

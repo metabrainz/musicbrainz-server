@@ -71,43 +71,40 @@ if ($newartistalias =~ /\S/ and MusicBrainz::IsSingleLineString($newartistalias)
 	<& /comp/modpending &>
 % }
 
-<form method="post" action="/edit/artistalias/add.html?id=<% $id %>"
-	name="AddAliasForm"
-	enctype="application/x-www-form-urlencoded">
+<form method="post" action="/edit/artistalias/add.html?id=<% $id %>" enctype="application/x-www-form-urlencoded">
 
 	<& /comp/autofixmenu &>
-
-	<fieldset>
+	
+	<fieldset class="formstyle">
 		<legend>Add Artist Alias</legend>
-		<div class="padleft">
-			You're about to enter a new artist alias for:
-		</div>
-		<div class="padtop"></div>
-		<table>
+		<p>
+		    You're about to enter a new artist alias for:
+		</p>
+		<table class="formstyle" cellspacing="0">
 			<tr>
-				<td><label>Artist:</label></td>
+				<td class="label"><label>Artist:</label></td>
 				<td><a href="/artist/<% $ar->GetMBId %>.html"><% $ar->GetName %></a></td>
+			</tr>
 			<tr>
-				<td><label for="id_newartistalias">New Alias:</label></td>
+				<td class="label"><label for="id_newartistalias">New Alias:</label></td>
 				<td>
 					<input type="text" name="newartistalias" id="id_newartistalias"
 						class="textfield" size="40" maxlength="255"
-						value="<% $artistname %>">
+						value="<% $artistname %>" />
 					<& /comp/form/jsbutton, id=>"BTN_ARTIST::newartistalias" &>
-					</td>
+				</td>
 			</tr>
 			<tr>
 				<td>&nbsp;</td>
-				<td class="padtop">
-					<& /comp/notetext &></td>
+	    			<td class="padtop"><& /comp/notetext &></td>
 			</tr>
 			<tr>
 				<td>&nbsp;</td>
-				<td class="padtop"><input type="submit" class="button" value="Submit"></td>
+				<td class="padtop"><input type="submit" class="button" value="Submit" /></td>
 			</tr>
 		</table>
 	</fieldset>
 </form>
 
-<& /comp/movefocus, "AddAliasForm", "newartistalias" &>
+<& /comp/movefocus, id => "id_newartistalias" &>
 <& /comp/footer &>
