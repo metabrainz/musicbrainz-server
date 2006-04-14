@@ -1,89 +1,117 @@
 %# vi: set ts=2 sw=2 ft=mason :
 <%args>
-$album => undef
-$notetext => ""
+	$album => undef	# TODO: change to $albumid
+
+	$releaseid => undef
+	$notetext => ""
+	$confirm => ""
 </%args>
 <%perl>
+	# use new terminolgy.
+	$releaseid ||= $album;
 
-$m->comp("/comp/checkloggedin", 1, 1)
-	or return;
+	# only logged in users may proceed.
+	$m->comp("/comp/checkloggedin", 1, 1)
+		or return;
 
-MusicBrainz::IsNonNegInteger($album) && $album
-	or return $m->comp("/comp/badargs", 1, 1);
+	# make sure we got a valid releaseid parameter
+	MusicBrainz::IsNonNegInteger($releaseid) && $releaseid
+		or return $m->comp("/comp/badargs", 1, 1);
 
-my $mb = $m->comp("/comp/dblogin");
+	# get database handle
+	my $mb = $m->comp("/comp/dblogin");
 
-my $al = Album->new($mb->{DBH});
-$al->SetId($album);
-$al->LoadFromId
-	or return $m->comp(
-		"/comp/error",
-		"Album #$album does not exist",
-		1, 1,
-	);
+	# load release by $releaseid parameter
+	my $release = $m->comp("/comp/loadrelease", $mb, $releaseid);
 
-my $url = "/showalbum.html?albumid=$album";
+	if ($confirm ne "")
+	{
+		# url after action
+		my $url = "/showalbum.html?albumid=$releaseid";
 
-if ($ARGS{confirm})
-{
-	$m->comp(
-		"/comp/entermods",
-		DBH => $mb->{DBH},
-		sub => sub {
-			my @mods = Moderation->InsertModeration(
-				DBH	=> $mb->{DBH},
-				uid	=> $session{uid},
-				privs => $session{privs},
-				type => &ModDefs::MOD_REMOVE_ALBUM,
-				# --
-				album => $al,
-			);
+		# NO button was pressed, redirect to release page
+		return $m->comp("/comp/redirect", $url) if ($confirm =~ m/NO/);
 
-			$mods[0]->InsertNote($session{'uid'}, $notetext)
-				if $mods[0]
-				and $notetext =~ /\S/;
-		},
-		success_url => $url,
-	) or return;
+		# YES button was pressed, enter edit.
+		$m->comp(
+			"/comp/entermods",
+			DBH => $mb->{DBH},
+			sub => sub {
+				my @mods = Moderation->InsertModeration(
+					DBH	=> $mb->{DBH},
+					uid	=> $session{uid},
+					privs => $session{privs},
+					type => &ModDefs::MOD_REMOVE_ALBUM,
+					# --
+					album => $release,
+				);
 
-	die "Shouldn't get here";
-}
+				$mods[0]->InsertNote($session{'uid'}, $notetext)
+					if $mods[0]
+					and $notetext =~ /\S/;
+			},
+			success_url => $url,
+		) or return;
 
+		die "Shouldn't get here";
+	}
 </%perl>
 
-<& /comp/sidebar, title => 'Confirm Album Removal' &>
 
-<fieldset>
-	<legend>Confirm Album Removal</legend>
-	<div class="padleft">
-		Are you sure you want to remove album
-		<a href="<% $url %>"><% $al->GetName %></a>?
-	</div>
-	<div class="padlefttop">
-		<table>
+<& /comp/sidebar-notitle, pagetitle => "Confirm Release Removal" &>
+
+	<& /comp/layout/editformbegin,
+		title => "Confirm Release Removal",
+		release => $release, &>
+
+	<form method="post" action="/edit/album/remove.html" name="ConfirmForm">
+
+		<table class="formstyle">
 			<tr>
+				<td colspan="2" class="instructions">
+					<ul>
+						<li>
+							Are you sure you want to remove the release
+							<& /comp/linkrelease, release => $release &> from
+							MusicBrainz?
+						</li>
+						<li>
+							If you <strong>added this Release by mistake</strong>, please
+							follow the instructions in <a href="/doc/DeleteTheAccidentalEdit">
+							How to delete an accidental edit</a>, to cancel the addition
+							of this release. Removing pending edits, rather than entering new
+							edits to remove it again helps to save valuable voter time.
+						</li>
+						<li>
+							The removal of pending edits is immediate, while the
+							the <a href="/doc/RemoveAlbum">Remove Release</a> edit
+							type have to be voted on according to the
+							<a href="/doc/ModerationFAQ#head-d9b521e9caacf43d4efefab55e3efb61044dc721">
+							Voting Process</a>.
+						</li>
+					</ul>
+				</td>
+			</tr>
+			<tr>
+				<td class="label">
+					<label for="id_btnyes">Confirm:</label>
+				</td>
 				<td>
-					<form 	method="GET" action="<% $url %>"
-							name="ModFormNo" 
-							onsubmit="history.go(-1); return false">
-						<input name="btnNo" type="submit" class="button" value="&laquo; NO">
-					</form></td>
-				<td> &nbsp; </td>
-				<td>
-					<form 	method="POST" action="/edit/album/remove.html"
-							name="ModFormYes">
-						<input type="hidden" name="album" value="<% $album %>">
-						<input type="hidden" name="confirm" value="1">
-						<input name="btnYes" type="submit" class="button" value="YES &raquo;">
-					</td>
+					<input type="submit" class="button" name="confirm" id="id_btnyes" value="&laquo; NO" />
+					<input type="submit" class="button" name="confirm" value="YES &raquo;" />
+					<input type="hidden" name="releaseid" value="<% $releaseid %>" />
+				</td>
+			</tr>
+			<tr>
+				<td>&nbsp;</td>
+				<td class="notetext">
+					<& /comp/notetext &>
+				</td>
 			</tr>
 		</table>
-	</div>
-	<div class="padlefttop">
-		<& /comp/notetext &>
-	</div>
+		<& /comp/movefocus, "ModFormNo", 0 &>
 	</form>
-</fieldset>
 
-<& /comp/movefocus, "ModFormNo", 0 &>
+	<& /comp/layout/editformend &>
+
 <& /comp/footer &>
