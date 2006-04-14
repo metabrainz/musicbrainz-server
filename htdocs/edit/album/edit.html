@@ -1,42 +1,41 @@
 %# vi: set ts=2 sw=2 ft=mason :
 <%args>
 	$album => undef
+	$releaseid => undef
 	$newalbumname => ""
+
+	$submit => ""
 	$notetext => ""
 </%args>
 <%perl>
 
+	# only a logged in user can see this page.
 	$m->comp("/comp/checkloggedin", 1, 1)
 		or return;
 
-	MusicBrainz::IsNonNegInteger($album) && $album
+	# work internally with new terminology, and check
+	# if the releaseid is valid.
+	$releaseid ||= $album;
+	MusicBrainz::IsNonNegInteger($releaseid) && $releaseid
 		or return $m->comp("/comp/badargs", 1, 1);
 
+	# get database handle
 	my $mb = $m->comp("/comp/dblogin");
 
-	my $al = Album->new($mb->{DBH});
-	$al->SetId($album);
-	$al->LoadFromId
-		or return $m->comp(
-			"/comp/error",
-			"Album #$album does not exist",
-			1, 1,
-		);
+	# load release, and albumartist
+	my $release = $m->comp("/comp/loadrelease", $mb, $releaseid);
+	my $artist = $m->comp("/comp/loadartist", $mb, $release->GetArtist);
 
-	my $ar = Artist->new($mb->{DBH});
-	$ar->SetId($al->GetArtist);
-	$ar->LoadFromId
-		or return $m->comp(
-			"/comp/error",
-			"Artist does not exist",
-			1, 1,
-		);
-
-	my $url = "/showalbum.html?albumid=$album";
-
-	if (MusicBrainz::IsSingleLineString($newalbumname)
-		and $newalbumname =~ /\S/
-		and $newalbumname ne $al->GetName)
+	# if a submit button was pressed, see if we got
+	# a cancel, or submit event to handle.
+	my $url = "/showalbum.html?albumid=$releaseid";
+	if ($submit =~ m/cancel/i)
+	{
+		return $m->comp("/comp/redirect", $url);
+	}
+	elsif (MusicBrainz::IsSingleLineString($newalbumname)
+			and $newalbumname =~ /\S/
+			and $newalbumname ne $release->GetName)
 	{
 		$m->comp(
 			"/comp/entermods",
@@ -48,7 +47,7 @@
 					privs => $session{privs},
 					type => &ModDefs::MOD_EDIT_ALBUMNAME,
 					# --
-					album => $al,
+					album => $release,
 					newname => $newalbumname,
 				);
 
@@ -64,20 +63,20 @@
 
 </%perl>
 
-<& /comp/sidebar-notitle, pagetitle => "Edit Album Name", spacing => 0 &>
+<& /comp/sidebar-notitle, pagetitle => "Edit Release Name", spacing => 0 &>
 
-	<form method="post" action="/edit/album/edit.html" id="EditAlbumForm">
+	<form method="post" action="/edit/album/edit.html" id="EditReleaseNameForm">
 
 		<& /comp/autofixmenu &>
 
-		<& /comp/layout/editformbegin, title => "Edit Album Name", release => $al &>
+		<& /comp/layout/editformbegin, title => "Edit Release Name", release => $release &>
 
 		<table class="formstyle">
 			<tr>
 				<td class="label">
 					<label>Current&nbsp;Name:</label></td>
 				<td>
-					<& /comp/form/currentvalue, "album", $al, $al->GetModPending  &></td>
+					<& /comp/form/currentvalue, release => $release &></td>
 			</tr>
 			<tr>
 				<td class="label">
@@ -85,9 +84,9 @@
 				<td class="field">
 					<input type="text" class="textfield" size="50"
 						id="editalbum_newalbumname" name="newalbumname"
-						value="<% $al->GetName %>" />
+						value="<% $release->GetName %>" />
 
-					<& /comp/form/jsbutton, id=>"BTN_ALBUM|newalbumname" &>
+					<& /comp/form/jsbutton, id=>"BTN_ALBUM::newalbumname" &>
 				</td>
 			</tr>
 			<tr>
@@ -98,9 +97,9 @@
 			<tr>
 				<td>&nbsp;</td>
 				<td class="padtop">
-					<& /comp/form/jsbutton, id=>"BTN_CANCEL|/showalbum.html?albumid=".$al->GetId &>
-					<input type="submit" class="button" value="Submit" /></td>
-					<input type="hidden" name="album" value="<% $al->GetId %>" />
+					<input class="button" type="submit" name="submit" value="Cancel" />
+					<input class="button" type="submit" name="submit" value="Submit" />
+					<input type="hidden" name="releaseid" value="<% $release->GetId %>" /></td>
 			</tr>
 		</table>
 		<& /comp/form/focusfield, "newalbumname" &>
