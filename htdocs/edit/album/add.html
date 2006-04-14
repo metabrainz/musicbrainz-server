@@ -81,6 +81,7 @@
 					<td>&nbsp;</td>
 					<td class="error">
 						<ul><li>Please enter the number of tracks.</li></ul>
+					</td>
 				</tr>
 %	}
 				<tr>
@@ -93,15 +94,20 @@
 				<tr>
 					<td class="label">&nbsp;</td>
 					<td>
-						<input type="submit" class="button" value="Next &raquo;"></td>
+						<input type="submit" class="button" value="Next &raquo;" /></td>
 				</tr>
 			</table>
 
-			<input type="hidden" name="noncd" value="1">
-			<input type="hidden" name="id" value="">
-			<input type="hidden" name="toc" value="">
-			<input type="hidden" name="artist" value="<% $artistid %>">
+			<div>
+				<input type="hidden" name="id" value="" />
+				<input type="hidden" name="toc" value="" />
+				<input type="hidden" name="noncd" value="1" />
+				<input type="hidden" name="artist" value="<% $artistid %>" />
+			</div>
 		</form>
+		<& /comp/movefocus, "AddAlbumForm", "tracks" &>
 
-<& /comp/movefocus, "AddAlbumForm", "tracks" &>
+	<& /comp/layout/editformend &>
+
 <& /comp/footer &>
+
