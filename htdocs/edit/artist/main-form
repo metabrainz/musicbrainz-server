@@ -130,13 +130,13 @@
 			{
 				$m->out(", ") if ($i != 0 && $i < $#dupes);
 				$m->out(" and ") if ($i == $#dupes);
-				$m->comp("/comp/artist-link", artist => $dupes[$i]);
+				$m->comp("/comp/linkartist", artist => $dupes[$i]);
 			}
 		}
 		else
 		{
 			$m->out(qq!  the <span id="AddArtistExistingList">existing artist called !);
-			$m->comp("/comp/artist-link", artist => $dupes[0]);
+			$m->comp("/comp/linkartist", artist => $dupes[0]);
  		}
 
 		$m->out(".</span> ");
@@ -153,7 +153,7 @@
  		else
  		{
 			$m->out(qq!    the other artist called !);
-			$m->comp("/comp/artist-link", artist => $dupes[0]);
+			$m->comp("/comp/linkartist", artist => $dupes[0]);
 		}
 		$m->out(qq!    .</li> !);
 		$m->out(qq!    <li>Confirm by activating the checkbox below that you have read, !);

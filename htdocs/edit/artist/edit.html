@@ -165,12 +165,7 @@
 
 		<& /comp/autofixmenu &>
 
-		<& /comp/layout/editformbegin,
-			title => "Edit Artist",
-			mp => $ar->GetModPending,
-			type => 'artist',
-			id => $ar->GetId
-		&>
+		<& /comp/layout/editformbegin, title => "Edit Artist", artist => $ar &>
 
 		<& /comp/stylemenu &>
 
