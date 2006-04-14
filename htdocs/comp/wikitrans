@@ -64,7 +64,6 @@
 			# remove intertwingled links to non-existent pages.
 			$page =~ s[<a class="nonexistent" href=".+?">\?</a>][]g;
 
-
 			my $server = &DBDefs::WEB_SERVER;
 			my $wdserver = &DBDefs::WIKITRANS_SERVER;
 
@@ -108,6 +107,9 @@
 			# Obfuscate e-mail addresses
 			$page =~ s/(\w+)\@(\w+)/$1&#x0040;$2/g;
 			$page =~ s/mailto:/mailto&#x3a;/g;
+
+			# expand placeholders which point to the current webserver [@WEB_SERVER@/someurl title]
+			$page =~ s/\[\@WEB_SERVER\@([^ ]*) ([^\]]*)\]/<img src="\/images\/edit.gif" alt="" \/><a href="$1">$2<\/a>/g;
 
 			# wrap the content of the wiki (official|unofficial) into the
 			# corresponding css classes.
