@@ -30,7 +30,8 @@ function MbUI() {
 	// ---------------------------------------------------------------------------
 	this.CN = "MbUI";
 	this.GID = "mb.ui";
-
+	this.SPLITSEQ = "::";
+	
 	// ----------------------------------------------------------------------------
 	// member functions
 	// ---------------------------------------------------------------------------
@@ -214,7 +215,7 @@ function MbUI() {
 					a.onfocus = function onfocus(event) { this.blur() };
 					a.onclick = function onclick(event) {
 						var obj;
-						var id = this.id.split("|")[0];
+						var id = this.id.split(mb.ui.SPLITSEQ)[0];
 						if ((obj = mb.ui.get(id)) != null) {
 							var flag = (obj.style.display == "none");
 							this.firstChild.nodeValue = (flag ? "Close" : "Read more");
@@ -247,7 +248,7 @@ function MbUI() {
 			href = (a.href || "");
 			if (id.match(/^POPUP/i) && href != "") {
 				mb.log.debug("id: $, href: $", id, href);
-				a.id = id+"|"+a.href;
+				a.id = id + mb.ui.SPLITSEQ + a.href;
 				a.href = "javascript:; // Open popup";
 				a.onclick = function (event) {
 					return mb.ui.clickPopupLink(this);
@@ -265,12 +266,12 @@ function MbUI() {
 		if (el) {
 			id = (el.id || "");
 			if (id.match(/^POPUP/i)) {
-				id = id.split("|");
+				id = id.split(mb.ui.SPLITSEQ);
 				var t = id[1];
 				var w = id[2];
 				var h = id[3];
 				var href = id[4];
-				var win = window.open(href,t,'toolbar=no,location=no,directories=no,status=no,menubar=no,scrollbars=yes,resizable=yes,width='+w+',height='+h);
+				var win = window.open(href, t, 'toolbar=no,location=no,directories=no,status=no,menubar=no,scrollbars=yes,resizable=yes,width='+w+',height='+h);
 			}
 		}
 		return false;

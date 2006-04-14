@@ -59,7 +59,7 @@ my $t = $session{"freedb_tracks"};
 							size="50"
 							value="<% $session{'freedb_album'} %>"></td>
 				<td>
-					<& /comp/form/jsbutton, id=>"BTN_ALBUM|album" &></td>
+					<& /comp/form/jsbutton, id=>"BTN_ALBUM::album" &></td>
 			</tr>
 % for my $i (0 .. $t-1) {
 			<tr>
@@ -69,7 +69,7 @@ my $t = $session{"freedb_tracks"};
 							size="50"
 							value="<% $session{"freedb_track$i"} %>"></td>
 				<td>
-					<& /comp/form/jsbutton, id=>"BTN_TRACK|track".$i &></td>
+					<& /comp/form/jsbutton, id=>"BTN_TRACK::track".$i &></td>
 			</tr>
 % }
 			<tr>

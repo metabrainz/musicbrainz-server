@@ -124,18 +124,18 @@ if ($did_split
 					<input type="text" name="trackname" class="textfield"
 						size="40" maxlength="255"
 						value="<% $newtrackname %>">
-					<& /comp/form/jsbutton, id=>"BTN_TRACK|trackname" &>
+					<& /comp/form/jsbutton, id=>"BTN_TRACK::trackname" &>
 				</td>
 			</tr>
 			<tr>
 				<td></td>
 				<td>
-					<& /comp/form/jsbutton, id=>"BTN_USESWAP|search|trackname|swapped" &>
+					<& /comp/form/jsbutton, id=>"BTN_USESWAP::search::trackname::swapped" &>
 					<& /comp/form/jsbutton, id=>"BTN_USECURRENT" &>
 % if ($did_split) {
 					<& /comp/form/jsbutton, id=>"BTN_USESPLIT" &>
 % }
-					<& /comp/form/jsbutton, id=>"BTN_GUESSBOTH|search|trackname" &>
+					<& /comp/form/jsbutton, id=>"BTN_GUESSBOTH::search::trackname" &>
 					<noscript>
 						<input type="reset" value="Use Guessed">
 					</noscript>
@@ -146,7 +146,7 @@ if ($did_split
 				<td>
 					<input  type="text" name="search" class="textfield"
 						size="40" value="<% $newartistname %>">
-					<& /comp/form/jsbutton, id=>"BTN_ARTIST|search" &>
+					<& /comp/form/jsbutton, id=>"BTN_ARTIST::search" &>
 				</td>
 			</tr>
 			<tr>

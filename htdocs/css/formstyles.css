@@ -162,9 +162,16 @@ table.formstyle td.padtop {
 	background-color: #f0efff;
 }
 
-.editsuite .inner .links {
+.editsuite .inner table.links {
 	padding-bottom: 2px;
 }
+.editsuite .inner table.links td.title {
+	width: 130px; font-weight: bold;
+}
+.editsuite .inner table.links td.link {
+	white-space: nowrap;
+}
+
 .editsuite div.noscript {
 	border-bottom: 1px solid #000;
 }

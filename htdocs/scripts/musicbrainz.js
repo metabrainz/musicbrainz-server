@@ -509,6 +509,7 @@ mb.log.exit();
 function MbUI(){
 this.CN="MbUI";
 this.GID="mb.ui";
+this.SPLITSEQ="::";
 this.get=function(id,_55){
 mb.log.enter(this.GID,"get");
 var el,nn;
@@ -657,7 +658,7 @@ this.blur();
 };
 a.onclick=function onclick(_6d){
 var obj;
-var id=this.id.split("|")[0];
+var id=this.id.split(mb.ui.SPLITSEQ)[0];
 if((obj=mb.ui.get(id))!=null){
 var _70=(obj.style.display=="none");
 this.firstChild.nodeValue=(_70?"Close":"Read more");
@@ -686,7 +687,7 @@ id=(a.id||"");
 href=(a.href||"");
 if(id.match(/^POPUP/i)&&href!=""){
 mb.log.debug("id: $, href: $",id,href);
-a.id=id+"|"+a.href;
+a.id=id+mb.ui.SPLITSEQ+a.href;
 a.href="javascript:; // Open popup";
 a.onclick=function(_74){
 return mb.ui.clickPopupLink(this);
@@ -700,7 +701,7 @@ var id,href;
 if(el){
 id=(el.id||"");
 if(id.match(/^POPUP/i)){
-id=id.split("|");
+id=id.split(mb.ui.SPLITSEQ);
 var t=id[1];
 var w=id[2];
 var h=id[3];

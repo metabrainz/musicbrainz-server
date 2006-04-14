@@ -23,19 +23,19 @@
 
 
 	<form method="post" action="" id="sandbox" id="EditSandboxForm" enctype="application/x-www-form-urlencoded">
-	
+
 		<div id="editsuite" class="editsuite">
 			<div id="editsuite-content" class="inner">
 				<table cellspacing="0" cellpadding="0" border="0" class="links">
 					<tr>
 						<td width="130"><b>Style guides:</b></td>
-						<td nowrap="nowrap"><a href="/popup/styleguide.html" id="POPUP|StyleGuide|400|450">General Style</a></td>
+						<td nowrap="nowrap"><a href="/popup/styleguide.html" id="POPUP::StyleGuide::400::450">General Style</a></td>
 						<td>|&nbsp;</td>
-						<td nowrap="nowrap"><a href="/popup/capguide.html" id="POPUP|CapitalizationGuide|400|500">Capitalization</a></td>
+						<td nowrap="nowrap"><a href="/popup/capguide.html" id="POPUP::CapitalizationGuide::400::500">Capitalization</a></td>
 						<td>|&nbsp;</td>
-						<td nowrap="nowrap"><a href="/popup/sortnameguide.html" id="POPUP|CapitalizationGuide|400|275">Sortname</a></td>
+						<td nowrap="nowrap"><a href="/popup/sortnameguide.html" id="POPUP::SortNameGuide::400::275">Sortname</a></td>
 						<td>|&nbsp;</td>
-						<td nowrap="nowrap"><a href="/popup/attrguide.html" id="POPUP|CapitalizationGuide|400|275">Album Attributes</a></td>
+						<td nowrap="nowrap"><a href="/popup/attrguide.html" id="POPUP::ReleaseAttributesGuide::400::275">Album Attributes</a></td>
 					</tr>
 				</table>
 			</div>
@@ -112,7 +112,7 @@
 					 size="60" maxlength="255"
 					 value="selected ambient works: subtitle 85-92 cd1"></td>
 				<td></td>
-				<td><input type="button" class="hiddenbutton" id="BTN_ALBUM|name" /></td>
+				<td><input type="button" class="hiddenbutton" id="BTN_ALBUM::name" /></td>
 			</tr>
 			<tr class="field">
 				<td style="font-weight: bold">Track 1: </td>
@@ -122,7 +122,7 @@
 				<td><input type="text" name="tracklength0" class="numberfield"
 									 size="4" maxlength="10"
 					 value="?:??"></td>
-				<td><input type="button" class="hiddenbutton" id="BTN_TRACK|track0" /></td>
+				<td><input type="button" class="hiddenbutton" id="BTN_TRACK::track0" /></td>
 			</tr>
 			<tr class="lastfield">
 				<td colspan="3"></td>
@@ -149,11 +149,11 @@
 					 size="60" maxlength="255"
 					 value=""></td>
 				<td></td>
-				<td><input type="button" class="hiddenbutton" id="BTN_ALBUM|name" /></td>
+				<td><input type="button" class="hiddenbutton" id="BTN_ALBUM::name" /></td>
 			</tr>
 			<tr height="20"><td colspan="5"/></tr>
 
-			<tr class="field"><td 
+			<tr class="field"><td
 				width="50" style="font-weight: bold">1: </td><td
 				>Artist name: </td><td
 				><input type="text" name="artistname0" class="textfield"
@@ -161,8 +161,8 @@
 					 value=""></td><td
 				></td><td
 				><input type="hidden" name="swapped0" value="0">
-					<input type="button" class="hiddenbutton" id="BTN_ARTIST|artistname0" />
-					<input type="button" class="hiddenbutton" id="BTN_GUESSBOTH|artistname0|track0" 
+					<input type="button" class="hiddenbutton" id="BTN_ARTIST::artistname0" />
+					<input type="button" class="hiddenbutton" id="BTN_GUESSBOTH::artistname0::track0"
 				/></td>
 			</tr>
 			<tr class="field"><td
@@ -174,8 +174,8 @@
 				><input type="text" name="tracklength0" class="numberfield"
 					 size="4" maxlength="10"
 					 value="?:??"></td><td
-				><input type="button" class="hiddenbutton" id="BTN_TRACK|track0" />
-					<input type="button" class="hiddenbutton" id="BTN_USESWAP|artistname0|track0|swapped0" 
+				><input type="button" class="hiddenbutton" id="BTN_TRACK::track0" />
+					<input type="button" class="hiddenbutton" id="BTN_USESWAP::artistname0::track0::swapped0"
 				/></td>
 			</tr>
 			<tr class="field" height="20"><td colspan="5"/></tr>
@@ -200,15 +200,15 @@
 				<td><input type="text" name="newartistname" class="textfield"
 					 size="60" maxlength="255"
 					 value="a.f artist"></td>
-				<td><input type="button" class="hiddenbutton" id="BTN_ARTIST|newartistname" /></td>
+				<td><input type="button" class="hiddenbutton" id="BTN_ARTIST::newartistname" /></td>
 			</tr>
 			<tr>
 				<td>Sortname</td>
 				<td><input type="text" name="newartistsortname" class="textfield"
 					 size="60" maxlength="255"
 					 value="a.f artist"></td>
-				<td><input type="button" class="hiddenbutton" id="BTN_SORTGUESS|newartistname|newartistsortname" />
-					<input type="button" class="hiddenbutton" id="BTN_SORTCOPY|newartistname|newartistsortname" /></td>
+				<td><input type="button" class="hiddenbutton" id="BTN_SORTGUESS::newartistname::newartistsortname" />
+					<input type="button" class="hiddenbutton" id="BTN_SORTCOPY::newartistname::newartistsortname" /></td>
 			</tr>
 		</table>
 
@@ -219,7 +219,7 @@
 				<td><input type="text" name="newalbumname" class="textfield"
 					 size="60" maxlength="255"
 					 value="selected ambient works: subtitle 85-92 cd1"></td>
-				<td><input type="button" class="hiddenbutton" id="BTN_ALBUM|newalbumname" /></td>
+				<td><input type="button" class="hiddenbutton" id="BTN_ALBUM::newalbumname" /></td>
 			</tr>
 		</table>
 
@@ -229,7 +229,7 @@
 				<td><input type="text" name="newtrackname" class="textfield"
 					 size="60" maxlength="255"
 					 value="This is my track name ft. erroll flynn RemixNAME RMX"></td>
-				<td><input type="button" class="hiddenbutton" id="BTN_TRACK|newtrackname" /></td>
+				<td><input type="button" class="hiddenbutton" id="BTN_TRACK::newtrackname" /></td>
 			</tr>
 		</table>
 
@@ -239,7 +239,7 @@
 				<td><input type="text" name="search" class="textfield"
 					 size="60" maxlength="255"
 					 value="Maxi Priest Feat. Elisha La'Verne"></td>
-				<td><input type="button" class="hiddenbutton" id="BTN_ARTIST|search" /></td>
+				<td><input type="button" class="hiddenbutton" id="BTN_ARTIST::search" /></td>
 			</tr>
 			<tr><td></td>
 				<td>
@@ -248,16 +248,16 @@
 					<input type="hidden" name="split_artname" value="Maxi Priest Feat. Elisha La'Verne">
 					<input type="hidden" name="split_track" value="Back Together Again RMX">
 					<input type="hidden" name="swapped" value="0">
-					<input type="button" class="hiddenbutton" id="BTN_GUESSBOTH|search|trackname" />
+					<input type="button" class="hiddenbutton" id="BTN_GUESSBOTH::search::trackname" />
 					<input type="button" class="hiddenbutton" id="BTN_USECURRENT" />
 					<input type="button" class="hiddenbutton" id="BTN_USESPLIT" />
-					<input type="button" class="hiddenbutton" id="BTN_USESWAP|search|trackname|swapped" />
+					<input type="button" class="hiddenbutton" id="BTN_USESWAP::search::trackname::swapped" />
 			</tr>
 			<tr><td>Track name</td>
 				<td><input type="text" name="trackname" class="textfield"
 					 size="60" maxlength="255"
 					 value="Back Together Again RMX"></td>
-				<td><input type="button" class="hiddenbutton" id="BTN_TRACK|trackname" /></td>
+				<td><input type="button" class="hiddenbutton" id="BTN_TRACK::trackname" /></td>
 			</tr>
 		</table>
 

@@ -309,7 +309,7 @@ function EsUiModule() {
 
 			// let's see if we have a javascript button
 			if (el && type == "button" && value == "") {
-				var oid = id, btn = null, bid = oid.split("|")[0];
+				var oid = id, btn = null, bid = oid.split(mb.ui.SPLITSEQ)[0];
 				if ((btn = es.ui.buttonRegistry[bid]) != null) {
 					el.value = btn.getValue(); // set display value
 					el.title = btn.getTooltip();
@@ -339,7 +339,7 @@ function EsUiModule() {
 		if (el) {
 			if (el.id) {
 				mb.log.trace("Button $ was clicked", el.id);
-				var id = el.id, args = id.split("|");
+				var id = el.id, args = id.split(mb.ui.SPLITSEQ);
 				var btn, bid = args[0];
 				if ((btn = es.ui.buttonRegistry[bid]) != null) {
 					var f = btn.func;
