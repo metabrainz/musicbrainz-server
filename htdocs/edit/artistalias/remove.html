@@ -2,6 +2,7 @@
 <%args>
 $alias => ""
 $notetext => ""
+$btnNo => undef
 </%args>
 <%perl>
 
@@ -36,6 +37,11 @@ defined($ar->LoadFromId)
 
 my $url = "/showaliases.html?artistid=" . $ar->GetId;
 
+if (defined $btnNo)
+{
+	return $m->comp("/comp/redirect", $url); 
+}
+
 if ($ARGS{confirm})
 {
 	$m->comp(
@@ -66,40 +72,31 @@ if ($ARGS{confirm})
 
 <& /comp/sidebar, title => 'Confirm Artist Alias Removal' &>
 
-<fieldset>
+<form method="post" action="/edit/artistalias/remove.html">
+<fieldset class="formstyle">
 	<legend>Confirm Artist Alias Removal</legend>
-	<div class="padleft">
+	
+	<p>
 		Are you sure you want to remove the alias 
-		<span class="bold"><% $al->GetName %></span>
+		<strong><% $al->GetName %></strong>
 		which points to artist
-		<span class="bold"><% $ar->GetName %></span>?
-	</div>
+		<strong><% $ar->GetName %></strong>?
+	</p>
 
 	<div class="padlefttop">
-		<table>
-			<tr>
-				<td>
-					<form 	method="GET" action="<% $url %>"
-							name="ModFormNo" 
-							onsubmit="history.go(-1); return false">
-						<input name="btnNo" type="submit" class="button" value="&laquo; NO">
-					</form></td>
-				<td> &nbsp; </td>
-				<td>
-					<form 	method="POST" action="/edit/artistalias/remove.html"
-							name="ModFormYes">
-						<input type="hidden" name="alias" value="<% $alias %>">
-						<input type="hidden" name="confirm" value="1">
-						<input name="btnYes" type="submit" class="button" value="YES &raquo;">
-					</td>
-			</tr>
-		</table>
+		<input type="hidden" name="url" value="<% $url %>" />
+		<input type="hidden" name="alias" value="<% $alias %>" />
+		<input type="hidden" name="confirm" value="1" />
+		<input name="btnNo" id="btnNo" type="submit" class="button" value="&laquo; NO" onclick="history.go(-1); return false" />
+		<input name="btnYes" type="submit" class="button" value="YES &raquo;" />
 	</div>
+	
 	<div class="padlefttop">
 		<& /comp/notetext &>
 	</div>
-	</form>
-</fieldset>
 
-<& /comp/movefocus, "ModFormNo", 0 &>
+</fieldset>
+</form>
+
+<& /comp/movefocus, id => "btnNo" &>
 <& /comp/footer &>
