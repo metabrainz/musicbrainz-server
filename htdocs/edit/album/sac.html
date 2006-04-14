@@ -1,85 +1,63 @@
 %# vi: set ts=2 sw=2 ft=mason :
 %# Please note the VERY strong similarity between move.html and sac.html
 <%args>
-
 	# the album id TODO: albumid
 	$album => ""
+	$releaseid => ""
 
 	# fields set by /comp/artistfilter
 	$selectedartist => ""
 	$newartistid => ""
-
 	$search => ""
-	$confirm => undef
+
+	# default for move tracks flag
 	$movetracks => 1
+
+	# confirm, and moderation note
+	$confirm => undef
 	$notetext => ""
 
 </%args>
 <%perl>
+	$releaseid ||= $album;
 
+	# only allow logged-in users to see this page.
 	$m->comp("/comp/checkloggedin", 1, 1)
 		or return;
 
-	MusicBrainz::IsNonNegInteger($album) && $album
+	# make sure we have at valid releaseid
+	MusicBrainz::IsNonNegInteger($releaseid) && $releaseid
 		or return $m->comp("/comp/badargs", 1, 1);
 
 	# get database handle.
 	my $mb = $m->comp("/comp/dblogin");
 
-	# load album from $album parameter
-	my $al = Album->new($mb->{DBH});
-	$al->SetId($album);
-	$al->LoadFromId
-		or return $m->comp(
-			"/comp/error",
-			"Album #$album does not exist",
-			1, 1,
-		);
-
-	# load artist from albumartist id.
-	my $ar = Artist->new($mb->{DBH});
-	$ar->SetId($al->GetArtist);
-	$ar->LoadFromId
-		or return $m->comp(
-			"/comp/error",
-			"Artist does not exist",
-			1, 1,
-		);
-
-
-	# next url after the operation
-	my $url = "/showalbum.html?albumid=$album";
+	# load release from $releaseid parameter
+	my $al = $m->comp("/comp/loadrelease", $mb, $releaseid);
+	my $ar = $m->comp("/comp/loadartist", $mb, $al->GetArtist);
 
 	# form step 2/3: load selected artist from the database, and
 	# fill in the required fields
 	my $newartist = undef;
-	$newartistid = $selectedartist if ($selectedartist ne "");
-	if ($newartistid ne "")
+	$selectedartist ||= $newartistid;
+	if ($selectedartist ne "")
 	{
-		$newartist = Artist->new($mb->{DBH});
-		$newartist->SetId($newartistid);
-
-		MusicBrainz::IsNonNegInteger($newartistid) && $newartistid
-			or return $m->comp("/comp/badargs", 1, 1);
-
-		$newartist->LoadFromId
-			or return $m->comp(
-				"/comp/error",
-				"Artist #$selectedartist not found.",
-				1, 1,
-			);
+		$newartist = $m->comp("/comp/loadartist", $mb, $selectedartist);
 		$newartistid = $newartist->GetId;
 	}
-
 
 	# form step 3/3: enter moderation
 	if (defined $newartist && $confirm)
 	{
+		# next url after the operation
+		my $url = "/showalbum.html?albumid=$releaseid";
+
+		# if confirm does not contain YES, (=NO was pressed), redirect
+		# back to calling page.
 		if ($confirm !~ /yes/i)
 		{
-			$m->comp(
-				"/comp/redirect",
-				$url);
+			$m->comp("/comp/redirect", $url);
+			return;
 		}
 		else
 		{
@@ -112,18 +90,18 @@
 	}
 
 	# start page header.
-	$m->comp("/comp/sidebar-notitle", pagetitle => "Convert Album to Single Artist");
+	$m->comp("/comp/sidebar-notitle", pagetitle => "Convert Release to Single Artist");
 	$m->comp("/comp/layout/editformbegin",
-		title => "Convert Album to Multiple Artists",
-		mp => $al->GetModPending,
-		type => 'album',
-		id => $al->GetId);
+		title => "Convert Release to Single Artist",
+		release => $al
+	);
 
 	# if an artist was selected (or added), show confirm form.
 	if (defined $newartist)
 	{
 </%perl>
 
+		<!-- add editsuite for modnote resizer support -->
 		<script type="text/javascript" src="/scripts/editsuite.js"></script>
 
 		<form method="post" action="/edit/album/sac.html" id="ConfirmForm">
@@ -131,10 +109,10 @@
 				<tr>
 					<td colspan="2" class="instructions">
 						<ul>
-							<li>Are you sure you want to convert the album
-								<& /comp/album-link, album => $al, icon => 1 &>,
-								currently by <& /comp/artist-link, id => 1, name => "Various Artists" &>
-								to artist <& /comp/artist-link, artist => $newartist &>?
+							<li>Are you sure you want to convert the release
+								<& /comp/linkrelease, release => $al, icon => 1 &>,
+								currently by <& /comp/linkartist, id => 1, name => "Various Artists" &>
+								to artist <& /comp/linkartist, artist => $newartist &>?
 							</li>
 						</ul>
 					</td>
@@ -142,25 +120,26 @@
 				<tr>
 					<td>&nbsp;</td>
 					<td class="formsection">
-						<span style="color: red;">Warning:</span> This album contains tracks
+						<span style="color: red;">Warning:</span> This release contains tracks
 						attributed to multiple artists. If you proceed with this edit,
 						all tracks Artists will be replaced with the Artist
-						<& /comp/artist-link, artist => $newartist &>
+						<& /comp/linkartist, artist => $newartist &>.
 
-						If you only want to change the Album Artist, but not the Track Artists,
+						If you only want to change the <a href="/doc/AlbumArtist">Release Artist</a>,
+						but not the <a href="/doc/TrackArtist">Track Artists</a>,
 						use the edit type <strong><img src="/images/edit.gif" alt="" /><a
-%	my $MOVE_ALBUM_URL = "/edit/album/move.html?album=$album&newartistid=$newartistid";
-							href="<% $MOVE_ALBUM_URL %>" title="Move Album">Move Album</a></strong>
+%	my $MOVE_ALBUM_URL = "/edit/album/move.html?album=$releaseid&newartistid=$newartistid";
+						href="<% $MOVE_ALBUM_URL %>" title="Move Release">Move Release</a></strong>
 						instead.
 					</td>
 				</tr>
-				<tr>
+				<tr class="spaced">
 					<td class="label">
 						<label>Confirm:</label></td>
 					<td class="field">
 						<input class="button" type="submit" name="confirm" value="&laquo; NO" />
 						<input class="button" type="submit" name="confirm" value="YES &raquo;" />
-						<input type="hidden" name="album" value="<% $al->GetId %>" />
+						<input type="hidden" name="releaseid" value="<% $al->GetId %>" />
 						<input type="hidden" name="newartistid" value="<% $newartistid %>" />
 					</td>
 				</tr>
@@ -184,8 +163,9 @@
 			<tr>
 				<td colspan="2" class="instructions">
 					<ul>
-						<li>Please search for the artist to which you want to move the album
-							<a href="/showalbum.html?albumid=<% $album %>"><% $al->GetName %></a>.
+						<li>
+							Please search for the artist to which you want to move the release
+							<& /comp/linkrelease, release => $al &>.
 						</li>
 					</ul>
 				</td>
@@ -193,7 +173,7 @@
 			<& /comp/artistfilter,
 				search => $search,
 				url => "/edit/album/sac.html",
-				arglist => { album => $album },
+				arglist => { album => $releaseid },
 				allowcreate => 1,
 			&>
 		</table>
