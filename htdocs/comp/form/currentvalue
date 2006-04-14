@@ -1,7 +1,28 @@
+<%args>
+	$artist => undef
+	$release => undef
+</%args>
 <%perl>
-	my ($type, $object, $modpending) = @_;
+	my ($type, $object, $mp);
 
-	my $css = "oldtextfield" . ($modpending ? "-modpending" : "");
+	if ($artist)
+	{
+		$type = "artist";
+		$object = $artist;
+		$mp = $artist->GetModPending;
+	}
+	elsif ($release)
+	{
+		$type = "album";
+		$object = $release;
+		$mp = $release->GetModPending;
+	}
+	else
+	{
+		die("Did not get required \$artist or \$release argument.");
+	}
+
+	my $css = "oldtextfield" . ($mp ? "-modpending" : "");
 
 	$m->out(qq!<span class="$css">!);
 	$m->out(qq!<img src="/images/edit.gif" alt="" />!);
