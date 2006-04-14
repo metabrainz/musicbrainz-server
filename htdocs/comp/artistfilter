@@ -97,7 +97,7 @@
 		if (@r)
 		{
 </%perl>
-		<tr>
+		<tr class="spaced">
 			<td>&nbsp;</td>
 			<td class="formsection">
 				The following artists matched your query <strong><% $search %></strong>.
@@ -122,7 +122,7 @@
 								   ondblclick="this.form.submit()" /></td>
 						<td class="no"><% $i += 1  %>:</td>
 						<td class="link">
-							<& /comp/artist-link,
+							<& /comp/linkartist,
 								id => $row->{artistid},
 								name => $row->{artistname},
 								sortname => $row->{artistsortname},
@@ -144,7 +144,7 @@
 		else
 		{
 </%perl>
-		<tr class="top">
+		<tr class="spaced">
 			<td>&nbsp;</td>
 			<td class="formsection">
 				No artists found matching your query <strong><% $search %></strong>.
