@@ -68,7 +68,7 @@
 				<td>
 					<input type="submit" name="Login" value="Log In" /></td>
 			</tr>
-			<tr>
+			<tr class="spaced">
 				<td>&nbsp;</td>
 				<td class="formsection">
 					Advanced Settings:
