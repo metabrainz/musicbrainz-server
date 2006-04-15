@@ -4,8 +4,12 @@ $id => undef
 # 'tracks' can be passed too, but we'll ignore it
 # $tracks=>""
 $toc => undef
+$tport => $session{'tport'}
 </%args>
 <%perl>
+
+UserStuff::EnsureSessionOpen(), $session{tport} = $tport
+       if $tport;
 
 # This page handles three types of requests:
 # * /showalbum.html?discid=.... (CDIndexId or FreeDBId only, no TOC)
