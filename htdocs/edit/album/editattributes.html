@@ -2,8 +2,11 @@
 <%args>
 	@id => ()
 	$untag => 0
+
 	$attr_type => 0
 	$attr_status => 0
+
+	$submit => undef
 	$notetext => ""
 </%args>
 <%perl>
@@ -40,41 +43,52 @@
 
 	my $modpending = grep { $_->GetAttributeModPending } @objs;
 
-	my $url =
-		@id == 1
-			? "/showalbum.html?albumid=$id[0]"
-			: keys(%artists) == 1
-				? "/showartist.html?artistid=".$objs[0]->GetArtist
-				: "/search.html";
-
-	if ($ARGS{confirm})
+	if ($submit)
 	{
-		$m->comp(
-			"/comp/entermods",
-			DBH => $mb->{DBH},
-			sub => sub {
-				my @mods = Moderation->InsertModeration(
-					DBH	=> $mb->{DBH},
-					uid	=> $session{uid},
-					privs => $session{privs},
-					type => &ModDefs::MOD_EDIT_ALBUMATTRS,
-					# --
-					albums => \@objs,
-					attr_type => $attr_type,
-					attr_status => $attr_status,
-				);
+		# prepare redirect url after cancel/enter mods event:
+		# * only one release, redirect to the release
+		# * to the artist of release 0, if it was found
+		# * if neither case is satisfied, redirect to /search.html
+		my $url =
+			@id == 1
+				? "/showalbum.html?albumid=$id[0]"
+				: keys(%artists) == 1
+					? "/showartist.html?artistid=".$objs[0]->GetArtist
+					: "/search.html";
 
-				$mods[0]->InsertNote($session{'uid'}, $notetext)
-					if $mods[0]
-					and $notetext =~ /\S/;
+		if ($submit =~ /Cancel/i)
+		{
+			$m->comp("/comp/redirect", $url);
+		}
+		elsif ($submit =~ /Enter Moderations/i)
+		{
+			$m->comp(
+				"/comp/entermods",
+				DBH => $mb->{DBH},
+				sub => sub {
+					my @mods = Moderation->InsertModeration(
+						DBH	=> $mb->{DBH},
+						uid	=> $session{uid},
+						privs => $session{privs},
+						type => &ModDefs::MOD_EDIT_ALBUMATTRS,
+						# --
+						albums => \@objs,
+						attr_type => $attr_type,
+						attr_status => $attr_status,
+					);
 
-				delete $session{'tagged_albums'}
-					if $untag;
-			},
-			success_url => $url,
-		) or return;
+					$mods[0]->InsertNote($session{'uid'}, $notetext)
+						if $mods[0]
+						and $notetext =~ /\S/;
 
-		die "Shouldn't get here";
+					delete $session{'tagged_albums'}
+						if $untag;
+				},
+				success_url => $url,
+			) or return;
+
+			die "Shouldn't get here";
+		}
 	}
 
 	my %attrs;
