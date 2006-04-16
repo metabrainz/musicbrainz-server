@@ -1,74 +1,112 @@
 %# vi: set ts=4 sw=4 ft=mason :
+<%args>
+
+	$language_new => undef
+	$script_new => undef
+
+	$submit => ""
+	$expand_lists => 0
+	$confirm => 0
+
+	$tracks
+</%args>
 <%perl>
 
-# Check we have chosen a language and a script (or that we have chosen
-# "I don't know").
-# If all OK, return true.
+	# remove arguments that only are used on this page
+	# from the add release workflow arguments.
+	my %args = %ARGS;
+	delete $args{"language_new"};
+	delete $args{"expand_lists"};
+	delete $args{"script_new"};
+	delete $args{"submit"};
 
-my $show_full_lists = $ARGS{'show_full_lists'} || 0;
-if ( $ARGS{'button_toggle_lists'} )
-{
-	$show_full_lists = ! $show_full_lists;
-	$ARGS{'show_full_lists'} = $show_full_lists;
-}
+	# Handle the different types of submit buttons
+	if ($submit)
+	{
+		if ($submit =~ /Show (Reduced|Full) Lists/i)
+		{
+			$expand_lists = !$expand_lists;
+		}
+		elsif ($submit =~ /Guess/i)
+		{
+			$script_new = undef;
+			$language_new = undef;
+		}
+		else
+		{
+			# Check we have chosen a language and a script (or that we have chosen
+			# "I don't know"). If all OK, return true.
+			last if (not defined $language_new);
+			last unless ($language_new eq "" or MusicBrainz::IsNonNegInteger($language_new));
 
-my $language = $ARGS{"language"};
-my $script = $ARGS{"script"};
+			last if (not defined $script_new);
+			last unless ($script_new eq "" or MusicBrainz::IsNonNegInteger($script_new));
 
-{
-	last if defined $ARGS{'button_toggle_lists'};
-	last if not defined $language;
-	last unless $language eq "" or MusicBrainz::IsNonNegInteger($language);
-	last if not defined $script;
-	last unless $script eq "" or MusicBrainz::IsNonNegInteger($script);
-	return 1;
-}
+			return 1;
+		}
+	}
 
-my $mb = $m->comp("/comp/dblogin");
-my $dbh = $mb->{DBH};
+	# get database handle
+	my $mb = $m->comp("/comp/dblogin");
 
-my $NumTracks = $ARGS{tracks};
-my @text = map { $ARGS{"track$_"} } (0..$NumTracks-1);
-unshift @text, $ARGS{"albumname"};
+	# compile a flat-text of the release fields.
+	my @text = map { $ARGS{"track$_"} } (0..$tracks);
+	unshift @text, $ARGS{"albumname"};
 
-unless (MusicBrainz::IsNonNegInteger($script))
-{
-	$script = MusicBrainz::Server::Script->GuessFromText($dbh, \@text);
-	$script = ($script ? $script->GetId : "");
-}
+	# let's see if we have to guess language or script from
+	# the title fields of this release.
+	unless (MusicBrainz::IsNonNegInteger($script_new))
+	{
+		$script_new = MusicBrainz::Server::Script->GuessFromText($mb->{DBH}, \@text);
+		$script_new = ($script_new ? $script_new->GetId : "");
+	}
 
-unless (MusicBrainz::IsNonNegInteger($language))
-{
-	$language = MusicBrainz::Server::Language->GuessFromTextAndScript($dbh, \@text, $script);
-	$language = ($language ? $language->GetId : "");
-}
+	unless (MusicBrainz::IsNonNegInteger($language_new))
+	{
+		$language_new = MusicBrainz::Server::Language->GuessFromTextAndScript($mb->{DBH}, \@text, $script_new);
+		$language_new = ($language_new ? $language_new->GetId : "");
+	}
 
 </%perl>
 
-<& /comp/sidebar, title => "Select Album Script and Language" &>
+<& /comp/sidebar-notitle, pagetitle => "Select Release Language/Script" &>
 
-<p>
-	Please choose the <a href="/wd/AlbumLanguage">script and language</a>
-	of the track names.
-</p>
+	<form method="post" action="/cdi/selectattr.html" name="AutoChange">
 
-<form method="post" action="/cdi/selectattr.html" name="AutoChange">
+		<& /comp/layout/editformbegin, title => "Select Release Language/Script" &>
 
-	<fieldset>
-		<legend>Select Album Language</legend>
-		<& /edit/albumlanguage/form,
-			add_language		=> 1,
-			language_value		=> $language,
-			script_value		=> $script,
-			show_full_lists		=> $show_full_lists,
-		&>
-	</fieldset>
-% for (keys %ARGS) {
-% next if $_ eq "language" or $_ eq "script" or $_ eq "button_toggle_lists";
-	<input type="hidden" name="<% $_ %>" value="<% $ARGS{$_} %>">
-% }
-</form>
+		<table class="formstyle">
+			<tr>
+				<td class="instructions" colspan="2">
+					<ul>
+						<li>
+							Please choose the <a href="/doc/AlbumLanguage">script and language</a>
+							of the track titles.</li>
+					</ul>
+				</td>
+			</tr>
 
-<& /comp/movefocus, "AutoChange", 0 &>
+			<& /edit/albumlanguage/form,
+				add_language => 1,
+				language_curr => $language_new,
+				script_curr => $script_new,
+				expand_lists => $expand_lists,
+			&>
+		</table>
+		<%perl>
+
+			$m->comp("/comp/args-to-hidden-fields.inc", %args);
+
+		</%perl>
+
+		<& /comp/movefocus, "AutoChange", 0 &>
+	</form>
+	<& /comp/layout/editformend &>
+
 <& /comp/footer &>
-% return 0;
+
+<%perl>
+	# this tells /cdi/selectattr.html to stop validation
+	# at this form, until values were given.
+	return 0;
+</%perl>
