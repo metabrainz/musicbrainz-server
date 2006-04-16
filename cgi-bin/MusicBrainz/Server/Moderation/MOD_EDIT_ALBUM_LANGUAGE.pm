@@ -79,11 +79,16 @@ sub PreInsert
 		return;
 	}
 
+	# if in single edit mod, file moderation under release object.
+	# If all n releases are stored under artist x use this
+	# artist as the moderation artist, else VA.
+	$self->SetRowId($albums->[0]->GetId) if ($seq == 1);
 	$self->SetArtist(
 		keys(%artists) > 1
 			? &ModDefs::VARTIST_ID
 			: $albums->[0]->GetArtist
 	);
+	
 	$self->SetTable("album");
 	$self->SetColumn("id");
 	$self->SetNew($self->ConvertHashToNew(\%new));
