@@ -518,7 +518,14 @@ table.formstyle tr.spacer td {
 }
 
 
-
+table.formstyle td table.releaselist {
+}
+table.formstyle td table.releaselist tr.header td {	
+	font-weight: bold;
+}
+table.formstyle td table.releaselist td {	
+	padding: 0px 2px; padding-right: 40px;
+}
 
 
 
