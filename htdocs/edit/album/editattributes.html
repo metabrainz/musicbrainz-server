@@ -6,44 +6,38 @@
 	$attr_type => 0
 	$attr_status => 0
 
-	$submit => undef
+	$submit => ""
 	$notetext => ""
 </%args>
 <%perl>
-
+	# only logged in users can see this page
 	$m->comp("/comp/checkloggedin", 1, 1)
 		or return;
 
-	for my $album (@id)
-	{
-		MusicBrainz::IsNonNegInteger($album) && $album
-			or return $m->comp("/comp/badargs", 1, 1);
-	}
+	# there has to be at least one release
+	(@id > 0) or return $m->comp("/comp/badargs", 1, 1);
 
+	# get database handle
 	my $mb = $m->comp("/comp/dblogin");
 
-	my @objs;
-	my %artists;
-
-	for my $album (@id)
+	# load 1..n releases from the database, and track
+	# release artistids in artisthash
+	my @releaseobjs;
+	my %artisthash;
+	for my $releaseid (@id)
 	{
-		my $al = Album->new($mb->{DBH});
-		$al->SetId($album);
+		MusicBrainz::IsNonNegInteger($releaseid) && $releaseid
+			or return $m->comp("/comp/badargs", 1, 1);
 
-		$al->LoadFromId
-			or return $m->comp(
-				"/comp/error",
-				"Album #$album does not exist",
-				1, 1,
-			);
+		my $release = $m->comp("/comp/loadrelease", $mb, $releaseid);
+		push @releaseobjs, $release;
 
-		push @objs, $al;
-		++$artists{$al->GetArtist};
+		# track release artists in artisthash
+		++$artisthash{$release->GetArtist};
 	}
 
-	my $modpending = grep { $_->GetAttributeModPending } @objs;
-
-	if ($submit)
+	# if $submit is not empty, we handle a form submission
+	if ($submit ne "")
 	{
 		# prepare redirect url after cancel/enter mods event:
 		# * only one release, redirect to the release
@@ -52,8 +46,8 @@
 		my $url =
 			@id == 1
 				? "/showalbum.html?albumid=$id[0]"
-				: keys(%artists) == 1
-					? "/showartist.html?artistid=".$objs[0]->GetArtist
+				: keys(%artisthash) == 1
+					? "/showartist.html?artistid=".$releaseobjs[0]->GetArtist
 					: "/search.html";
 
 		if ($submit =~ /Cancel/i)
@@ -72,7 +66,7 @@
 						privs => $session{privs},
 						type => &ModDefs::MOD_EDIT_ALBUMATTRS,
 						# --
-						albums => \@objs,
+						albums => \@releaseobjs,
 						attr_type => $attr_type,
 						attr_status => $attr_status,
 					);
@@ -91,30 +85,50 @@
 		}
 	}
 
+	# get a hash of release attributes, and set the current attributes
+	# to the ones with the highest frequency.
 	my %attrs;
-
-	for my $al (@objs)
+	for my $release (@releaseobjs)
 	{
 		++$attrs{$_}
-			for $al->GetAttributes;
+			for $release->GetAttributes;
 	}
-
 	my @attrs = sort { $a<=>$b } keys %attrs;
 	my ($type, $status) = Album->GetReleaseTypeAndStatus(\@attrs);
+
+
 	my @focus_to;
+
+	# see if one of the releases has a moderation pending flag.
+	my $mp = grep { $_->GetLanguageModPending } @releaseobjs;
 
 </%perl>
 
 <& /comp/sidebar-notitle, pagetitle => "Edit Album Attributes" &>
 
+	<!-- add editsuite for modnote resizer support -->
+	<script type="text/javascript" src="/scripts/editsuite.js"></script>
+
 	<form method="post" action="/edit/album/editattributes.html" id="EditAlbumAttrsForm">
 
-		<& /comp/layout/editformbegin, title => "Edit Release Attributes", mp => $modpending &>
+%	if (@releaseobjs == 1) {
+		<& /comp/layout/editformbegin, title => "Edit Release Attributes",
+			release => $releaseobjs[0],
+			mp_type => &ModDefs::MOD_EDIT_ALBUMATTRS,
+		&>
+%	} else {
+		<& /comp/layout/editformbegin, title => "Edit Release Attributes",
+			mp_type => &ModDefs::MOD_EDIT_ALBUMATTRS,
+			mp => $mp,
+		&>
+%	}
 
 		<& /comp/albumattrform,
 			adding				=> undef,
-			albumname			=> (@objs > 1 ? "" : $objs[0]->GetName),
-			multi_album			=> (@objs > 1),
+			releaseobjs			=> \@releaseobjs,
+			#albumname			=> (@releaseobjs > 1 ? "" : $releaseobjs[0]->GetName),
+			#multi_album			=> (@releaseobjs > 1),
+
 			type_value			=> $type,
 			status_value		=> $status,
 			type_fieldname		=> "attr_type",
@@ -126,9 +140,8 @@
 		<input type="hidden" name="id" value="<% $_ %>">
 % 	}
 		<input type="hidden" name="untag" value="<% $untag %>">
-		<input type="hidden" name="confirm" value="1">
-
 		<& /comp/layout/editformend &>
+
 	</form>
 
 	<& /comp/movefocus, "EditAlbumAttrsForm", $focus_to[0] &>
