@@ -3,20 +3,23 @@
 	my ($data, $selvalue) = @_;
 
 	my %selvalue;
-	
-	@selvalue{@$selvalue} = () 
+
+	@selvalue{@$selvalue} = ()
 		if ref $selvalue;
-		
-	$selvalue{$selvalue} = 1 
+
+	$selvalue{$selvalue} = 1
 		if defined $selvalue and not ref $selvalue;
 
 	for my $t (@$data)
 	{
 		my ($value, $text, $on) = (ref($t) ? @$t : ($t));
-		$on = exists $selvalue{$value}
-			unless defined $on;
-		$text = $value unless defined $text;
-		
-		$m->out(qq!<option value="$value"! . ($on ? 'selected="selected"' : '') . qq!>$text</option>!);
+
+		$on = exists $selvalue{$value} unless (defined $on);
+		$text = $value unless (defined $text);
+
+		$m->out(sprintf qq!<option value="%s" %s>%s</option>!,
+			encode_entities($value),
+			$on ? qq! selected="selected" ! : "",
+			encode_entities($text));
 	}
 </%perl>
