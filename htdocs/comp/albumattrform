@@ -81,13 +81,16 @@
 
 		<tr>
 			<td>&nbsp;</td>
-			<td class="padtop">
+			<td class="notetext">
 				<& /comp/notetext, text => $notetext &></td>
 		</tr>
 		<tr>
 			<td>&nbsp;</td>
-			<td class="padtop">
-				<input 	type="submit" class="button" value="Submit" /></td>
+			<td>
+%	if ($adding == 0) {
+				<input type="submit" class="button" name="submit" value="Cancel" />
+% 	}
+				<input type="submit" class="button" name="submit" value="Enter Moderations" /></td>
 		</tr>
 	</table>
 
@@ -124,8 +127,9 @@
 	$i = 0, $value = "" unless defined $i;
 	push @$pushindex, $i;
 </%perl>
-		<tr valign="top">
-			<td nowrap><label for="albumattr_<% $fieldname %>"><b><% $label %>:</b></label></td>
+		<tr>
+			<td class="label">
+				<label for="albumattr_<% $fieldname %>"><% $label %>:</label></td>
 			<td>
 				<table cellspacing="0" cellpadding="0" border="0">
 					<tr>
