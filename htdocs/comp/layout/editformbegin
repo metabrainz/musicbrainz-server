@@ -4,24 +4,72 @@
 
 	$release => undef
 	$artist => undef
-	$mp => undef
+
+	# manual override of the above parameters:
+	$type => undef # artist or release
+	$id => undef # rowid
+	$mp => undef # optional moderation type argument
+	$mp_type => ""	# optional moderation type argument (e.g. MOD_EDIT_ALBUMATTRS|MOD_EDIT_ALBUM_LANGUAGE...)
 </%args>
 <%perl>
-	my ($type, $id);
 
 	# we got a release parameter, fill in local variables and
 	# figure out if a modpending bubble should be shown.
+	my $mp_type_message = "";
+	my $mp_note = "";
+	my $mp_url = "";
+
+	my $mp_release = "/mod/search/results.html?object_type=album&amp;object_id=%s&amp;mod_status=1",
+	my $mp_artist = "/mod/search/results.html?artist_type=3&amp;artist_id=%s&amp;mod_status=1";
+
 	if (defined $release)
 	{
-		$mp = $release->GetModPending;
 		$id = $release->GetId;
 		$type = "release";
+		$mp_url = sprintf($mp_release, $id);
+
+  		SWITCH: {
+			# default case, general modpending flag.
+			$mp = $release->GetModPending;
+
+			if ($mp_type == &ModDefs::MOD_EDIT_ALBUM_LANGUAGE)
+			{
+				$mp = $release->GetLanguageModPending;
+				$mp_type_message = "edit release language";
+
+				$mp_note = sprintf(
+					qq!On batch edits, the moderations are listed
+					   under the <a href="$mp_artist%s">artist</a>, not the release\! !,
+					$release->GetArtist,
+					"&amp;mod_type=".&ModDefs::MOD_EDIT_ALBUM_LANGUAGE);
+				last SWITCH;
+			}
+			if ($mp_type == &ModDefs::MOD_EDIT_ALBUMATTRS)
+			{
+				$mp = $release->GetAttributeModPending;
+				$mp_type_message = "release attributes";
+				last SWITCH;
+			}
+		}
 	}
 	elsif ($artist)
 	{
-		$mp = $artist->GetModPending;
 		$id = $artist->GetId;
 		$type = "artist";
+		$mp_url = sprintf($mp_artist, $id);
+
+		SWITCH: {
+			# default case, general modpending flag.
+			$mp = $artist->GetModPending;
+
+			 # there are not methods which provide details of
+			 # pending artist moderation types
+			if ($mp_type == &ModDefs::MOD_EDIT_ARTIST) { };
+			if ($mp_type == &ModDefs::MOD_EDIT_ARTISTALIAS) { };
+			if ($mp_type == &ModDefs::MOD_EDIT_ARTISTNAME) { };
+			if ($mp_type == &ModDefs::MOD_EDIT_ARTISTSORTNAME) { };
+		}
+
 	}
 
 	$m->out(qq!<div class="orangeheader"> !);
@@ -32,37 +80,22 @@
 	{
 		if ($type && $id)
 		{
-			my $object_type = "";
-			$object_type = "object_type=album" if ($type eq "release");
-			$object_type = "artist_type=3" if ($type eq "artist");
-
-			my $object_id = "";
-			$object_id = "object_id=$id" if ($type eq "release");
-			$object_id = "artist_id=$id" if ($type eq "artist");
-
-			my $openmods = sprintf(
-				"/mod/search/results.html?%s&amp;%s&amp;mod_status=1",
-				$object_type,
-				$object_id);
 
 			my $typestr = ucfirst($type);
 			$typestr = "Release" if ($typestr eq "Album");
 
-			$m->out(qq!<div class="boxcontent" style="margin-bottom: 0px; border-bottom: 0px"> !);
-			$m->out(qq!	<div style="float: right; clear: both; width: 270px; text-align: left; padding: 3px 5px; background: #ffffcc; font-size: 11px; font-weight: normal; border-left: 1px solid #ccc; border-bottom: 1px solid #ccc; margin-bottom: 0px"> !);
-			$m->out(qq! 	There are pending moderations for !);
-			$m->out(qq! 	this $typestr. Click <img src="/images/edit.gif" alt="" /><a href="$openmods">here</a> !);
+			$m->out(qq!<table class="modpending"><tr><td> !);
+			$m->out(sprintf qq! 	There are pending %smoderations for !, "$mp_type_message ");
+			$m->out(qq! 	this $typestr. Click <img src="/images/edit.gif" alt="" /><a href="$mp_url">here</a> !);
 			$m->out(qq! 	to review the changes. !);
-			$m->out(qq!	</div> !);
-			$m->out(qq!</div> !);
+			$m->out(qq!</td></tr><tr><td class="note">$mp_note</td></tr> !) if ($mp_note ne "");
+			$m->out(qq!</table> !);
 		}
 		else
 		{
-			$m->out(qq!<div class="boxcontent" style="margin-bottom: 0px; border-bottom: 0px"> !);
-			$m->out(qq!	<div style="float: right; clear: both; width: 270px; text-align: right; padding: 3px 5px; background: #ffffcc; font-size: 11px; font-weight: normal; border-left: 1px solid #ccc; border-bottom: 1px solid #ccc; margin-bottom: 0px"> !);
-			$m->out(qq!		Yellow highlights indicate pending changes. !);
-			$m->out(qq!	</div> !);
-			$m->out(qq!</div> !);
+			$m->out(qq!<table class="modpending"><tr><td> !);
+			$m->out(sprintf qq! 	Yellow highlights indicate pending %smoderations. !, "$mp_type_message ");
+			$m->out(qq!</td></tr></table> !);
 		}
 	}
 
