@@ -1,175 +1,235 @@
 %# vi: set ts=2 sw=2 ft=mason :
 <%args>
-@id => ()
-$untag => 0
-$confirm => 0
-$album => undef
-$newlanguage => undef
-$newscript => undef
-$notetext => ""
-$show_full_lists => 0
-$button_toggle_lists => undef
-$button_submit => undef
+	@id => ()
+
+	$language_new => undef
+	$script_new => undef
+
+	$submit => ""
+	$expand_lists => 0
+	$confirm => 0
+	$untag => 0
+	$notetext => ""
 </%args>
 <%perl>
+	# only logged in users can see this page
+	$m->comp("/comp/checkloggedin", 1, 1)
+		or return;
 
-$m->comp("/comp/checkloggedin", 1, 1)
-	or return;
+	# use new terminology interally:
+	# * copy items from id list to releaseid list.
+	my @releaseids = () if (not @id);
+	@releaseids = map { $_ = $_ } @id;
 
-foreach my $album ( @id )
-{
-	MusicBrainz::IsNonNegInteger($album) && $album
-		or return $m->comp("/comp/badargs", 1, 1);
-}
+	# there has to be at least one release
+	(@releaseids > 0) or return $m->comp("/comp/badargs", 1, 1);
 
-my $mb = $m->comp("/comp/dblogin");
+	# get database handle
+	my $mb = $m->comp("/comp/dblogin");
 
-my @objs;
-my %artists;
+	my @releaseobjs = ();
+	my %artisthash;
 
-foreach my $albumid ( @id )
-{
-	my $al = Album->new($mb->{DBH});
-	$al->SetId($albumid);
-	$al->LoadFromId
-		or return $m->comp(
-			"/comp/error",
-			"Album #$albumid does not exist",
-			1, 1,
-		);
+	foreach my $releaseid (@releaseids)
+	{
+		MusicBrainz::IsNonNegInteger($releaseid) && $releaseid
+			or return $m->comp("/comp/badargs", 1, 1);
 
-	push @objs, $al;
-	++$artists{$al->GetArtist};
-}
+		my $release = $m->comp("/comp/loadrelease", $mb, $releaseid);
 
-my $url = 
-	@id == 1
-		? "/showalbum.html?albumid=" . $id[0]
-		: keys(%artists) == 1
-			? "/showartist.html?artistid=" . $objs[0]->GetArtist
-			: "/search.html";
+		push @releaseobjs, $release;
 
-$newscript = 0 if defined $newscript and $newscript eq '';
-$newlanguage = 0 if defined $newlanguage and $newlanguage eq '';
+		# track release artists in
+		++$artisthash{$release->GetArtist};
+	}
 
-my @text;
-if ( @objs )
-{
-	my $al = $objs[0];
-	push @text, $al->GetName();
-	push @text, $_->GetName() foreach $al->LoadTracks();
-}
+	# convert empty values to internal int value (0).
+	$script_new = 0 if (defined $script_new and $script_new eq "");
+	$language_new = 0 if (defined $language_new and $language_new eq "");
 
-if ( not defined $newscript )
-{
-	$newscript = MusicBrainz::Server::Script->GuessFromText($mb->{DBH}, \@text);
-	$newscript = ($newscript ? $newscript->GetId : 0);
-}
+	# if $submit is not empty, we handle a form submission
+	if ($submit ne "")
+	{
+		# prepare redirect url after cancel/enter mods event:
+		# * only one release, redirect to the release
+		# * to the artist of release 0, if it was found
+		# * if neither case is satisfied, redirect to /search.html
+		my $url =
+			@releaseids == 1
+				? "/showalbum.html?albumid=" . $id[0]
+				: keys(%artisthash) == 1
+					? "/showartist.html?artistid=" . $releaseobjs[0]->GetArtist
+					: "/search.html";
 
-if ( not defined $newlanguage )
-{
-	$newlanguage = MusicBrainz::Server::Language->GuessFromTextAndScript(
-												$mb->{DBH}, \@text, $newscript);
-	$newlanguage = ($newlanguage ? $newlanguage->GetId : 0);
-}
+		if ($submit =~ /Show (Reduced|Full) Lists/i)
+		{
+			$expand_lists = !$expand_lists;
+		}
+		elsif ($submit =~ /Guess/i)
+		{
+			$script_new = undef;
+			$language_new = undef;
+		}
+		elsif ($submit =~ /Cancel/i)
+		{
+			$m->comp("/comp/redirect", $url);
+		}
+		elsif ($submit =~ /Enter Moderations/i
+				and MusicBrainz::IsNonNegInteger($language_new)
+				and MusicBrainz::IsNonNegInteger($script_new))
+		{
+			$m->comp(
+				"/comp/entermods",
+				DBH => $mb->{DBH},
+				sub => sub {
+					my @mods = Moderation->InsertModeration(
+						DBH	=> $mb->{DBH},
+						uid	=> $session{uid},
+						privs => $session{privs},
+						type => &ModDefs::MOD_EDIT_ALBUM_LANGUAGE,
+						# --
+						albums => \@releaseobjs,
+						language => $language_new,
+						script => $script_new,
+					);
 
-if ($button_submit and not $button_toggle_lists
-	and MusicBrainz::IsNonNegInteger($newlanguage)
-	and MusicBrainz::IsNonNegInteger($newscript)
-) {
-	$m->comp(
-		"/comp/entermods",
-		DBH => $mb->{DBH},
-		sub => sub {
-			my @mods = Moderation->InsertModeration(
-				DBH	=> $mb->{DBH},
-				uid	=> $session{uid},
-				privs => $session{privs},
-				type => &ModDefs::MOD_EDIT_ALBUM_LANGUAGE,
-				# --
-				albums => \@objs,
-				language => $newlanguage,
-				script => $newscript,
-			);
+					$mods[0]->InsertNote($session{"uid"}, $notetext)
+						if $mods[0]
+						and $notetext =~ /\S/;
 
-			$mods[0]->InsertNote($session{'uid'}, $notetext)
-				if $mods[0]
-				and $notetext =~ /\S/;
+					delete $session{"tagged_albums"}
+						if $untag;
+				},
+				success_url => $url,
+			) or return;
 
-			delete $session{'tagged_albums'}
-				if $untag;
-		},
-		success_url => $url,
-	) or return;
+			die "Shouldn't get here";
+		}
+	}
 
-	die "Shouldn't get here";
-}
+	# let's see if we have to guess language or script from
+	# the title fields of this (or the first) release.
+	# --
+	# TODO: would it possibly make more sense to take all fields
+	# of all releases into account?
+	if (not defined $script_new
+		or not not defined $language_new)
+	{
+		my @text;
+		if (@releaseobjs)
+		{
+			my $release = $releaseobjs[0];
+			push @text, $release->GetName();
+			push @text, $_->GetName() foreach ($release->LoadTracks());
+		}
 
-my $old_language_id = $newlanguage || $objs[0]->GetLanguageId || '';
-my $old_script_id = $newscript || $objs[0]->GetScriptId || '';
+		# if the script is not set, guess it from the text.
+		if (not defined $script_new)
+		{
+			$script_new = MusicBrainz::Server::Script->GuessFromText($mb->{DBH}, \@text);
+			$script_new = ($script_new ? $script_new->GetId : 0);
+		}
 
-$show_full_lists = ! $show_full_lists if $button_toggle_lists; 
+		# if the language is not set, guess it from the text and $script
+		if (not defined $language_new)
+		{
+			$language_new = MusicBrainz::Server::Language->GuessFromTextAndScript(
+								$mb->{DBH}, \@text, $script_new
+							);
+			$language_new = ($language_new ? $language_new->GetId : 0);
+		}
+	}
+
+	# set the current values from the argument, or the first release handed in.
+	my $language_curr = $language_new || (@releaseobjs ? $releaseobjs[0]->GetLanguageId : "") || "";
+	my $script_curr = $script_new || (@releaseobjs ? $releaseobjs[0]->GetScriptId : "") || "";
+
+	# see if one of the releases has a moderation pending flag.
+	my $mp = grep { $_->GetLanguageModPending } @releaseobjs;
 
 </%perl>
 
-<& /comp/sidebar, title => 'Edit Album Language' &>
+<& /comp/sidebar-notitle, pagetitle => "Edit Release Language/Script" &>
 
-<& /comp/stylemenu &>
 
-<form method="post" action="/edit/albumlanguage/edit.html"
-	name="EditAlbumLanguageForm"
-	enctype="application/x-www-form-urlencoded">
+	<form method="post" action="/edit/albumlanguage/edit.html" id="EditAlbumLanguageForm">
+		<script type="text/javascript" src="/scripts/editsuite.js"></script>
 
-	<fieldset>
-		<legend>Selected Albums</legend>
-		<div class="padleft">
-			<table>
-				<tr>
-					<td><b>Album Name:</td>
-					<td rowspan="100">&nbsp;&nbsp;</td> 
-					<td><b>Language:</td>
-					<td rowspan="100">&nbsp;&nbsp;</td>
-					<td><b>Script:</td>
-				</tr>
-% my $n = 0;
-% foreach my $al ( @objs ) {
-				<tr <% ($al->GetLanguageModPending) ? 'class="mp"' : '' |n %>>
-					<td><a href="/showalbum.html?albumid=<% $al->GetId %>"
-								><% $al->GetName %></a></td>
-%	if ( defined $al->GetLanguage ) {
-					<td><% $al->GetLanguage->GetName %></td>
-%	} else {
-					<td><em>Not set</em></td>
-%	}
-%	if ( defined $al->GetScript ) {
-					<td><% $al->GetScript->GetName %></td>
-%	} else {
-					<td><em>Not set</em></td>
-%	}
-				</tr>
-% }
-			</table>
-		</div>
-	</fieldset>
-
-	<fieldset>
-		<legend>Edit Album Language</legend>
-		<& /edit/albumlanguage/form,
-			language_value		=> $old_language_id,
-			script_value		=> $old_script_id,
-			language_fieldname	=> 'newlanguage',
-			script_fieldname	=> 'newscript',
-			show_full_lists		=> $show_full_lists,
-			notetext 			=> $notetext,
+%	if (@releaseobjs == 1) {
+		<& /comp/layout/editformbegin, title => "Edit Release Language/Script",
+			release => $releaseobjs[0],
+			mp_type => &ModDefs::MOD_EDIT_ALBUM_LANGUAGE,
 		&>
-	</fieldset>
+%	} else {
+		<& /comp/layout/editformbegin, title => "Edit Release Language/Script",
+			mp_type => &ModDefs::MOD_EDIT_ALBUM_LANGUAGE,
+			mp => $mp,
+		&>
+%	}
 
-% foreach my $albumid ( @id ) {
-	<input type="hidden" name="id" value="<% $albumid %>">
-% }
-	<input type="hidden" name="untag" value="<% $untag %>">
-	<input type="hidden" name="show_full_lists" value="<% $show_full_lists %>">
-</form>
+		<table class="formstyle">
+			<tr>
+				<td class="instructions" colspan="2">
+					<ul>
+						<li>
+							Please choose the <a href="/doc/AlbumLanguage">script and language</a>
+							of the selected releases.</li>
+					</ul>
+				</td>
+			</tr>
+			<tr class="top">
+				<td class="label">
+					<label>Selected Releases:</label></td>
+				<td class="field">
+					<table cellspacing="0" cellpadding="0" border="0">
+					<%perl>
+						my $n = 0;
+						foreach my $release ( @releaseobjs )
+						{
+							$m->out("<tr>");
 
-<& /comp/movefocus, "EditAlbumLanguageForm", "newlanguage" &>
+# TODO: load artist for this?
+#							$m->out(qq!<td style="padding-right: 40px">!);
+#							$m->comp("/comp/linkartist", artist => $release->GetArtist);
+#							$m->out(qq!</td><td style="padding-right: 40px">!);
+
+							$m->out(qq!<td style="padding-right: 40px">!);
+							$m->comp("/comp/form/currentvalue", release => $release, mp_type => &ModDefs::MOD_EDIT_ALBUM_LANGUAGE);
+							$m->out(qq!</td><td style="padding-right: 40px">!);
+							$m->out(
+								defined $release->GetLanguage
+									? $release->GetLanguage->GetName
+									: "Not Set");
+							$m->out(qq!</td><td style="padding-right: 40px">!);
+							$m->out(
+								defined $release->GetScript
+									? $release->GetScript->GetName
+									: "Not Set");
+							$m->out("</td></tr>");
+						}
+					</%perl>
+					</table>
+				</td>
+			</tr>
+
+			<& /edit/albumlanguage/form,
+				language_curr => $language_curr,
+				script_curr	=> $script_curr,
+				language_fieldname => "language_new",
+				script_fieldname => "script_new",
+				expand_lists => $expand_lists,
+				notetext => $notetext,
+			&>
+		</table>
+
+% 	foreach my $releaseid (@releaseids) {
+		<input type="hidden" name="id" value="<% $releaseid %>" />
+% 	}
+		<input type="hidden" name="untag" value="<% $untag %>" />
+		<input type="hidden" name="expand_lists" value="<% $expand_lists %>" />
+
+		<& /comp/movefocus, "EditAlbumLanguageForm", "language_new" &>
+		<& /comp/layout/editformend &>
+	</form>
+
 <& /comp/footer &>
