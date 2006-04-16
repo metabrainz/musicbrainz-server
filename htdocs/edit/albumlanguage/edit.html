@@ -16,30 +16,24 @@
 	$m->comp("/comp/checkloggedin", 1, 1)
 		or return;
 
-	# use new terminology interally:
-	# * copy items from id list to releaseid list.
-	my @releaseids = () if (not @id);
-	@releaseids = map { $_ = $_ } @id;
-
 	# there has to be at least one release
-	(@releaseids > 0) or return $m->comp("/comp/badargs", 1, 1);
+	(@id > 0) or return $m->comp("/comp/badargs", 1, 1);
 
 	# get database handle
 	my $mb = $m->comp("/comp/dblogin");
 
+	# load 1..n releases from the database, and track
+	# release artistids in artisthash
 	my @releaseobjs = ();
 	my %artisthash;
-
-	foreach my $releaseid (@releaseids)
+	foreach my $releaseid (@id)
 	{
 		MusicBrainz::IsNonNegInteger($releaseid) && $releaseid
 			or return $m->comp("/comp/badargs", 1, 1);
 
 		my $release = $m->comp("/comp/loadrelease", $mb, $releaseid);
-
 		push @releaseobjs, $release;
 
-		# track release artists in
 		++$artisthash{$release->GetArtist};
 	}
 
@@ -55,8 +49,8 @@
 		# * to the artist of release 0, if it was found
 		# * if neither case is satisfied, redirect to /search.html
 		my $url =
-			@releaseids == 1
-				? "/showalbum.html?albumid=" . $id[0]
+			@id == 1
+				? "/album/" . $releaseobjs[0]->GetMBId . ".html"
 				: keys(%artisthash) == 1
 					? "/showartist.html?artistid=" . $releaseobjs[0]->GetArtist
 					: "/search.html";
@@ -151,9 +145,10 @@
 
 <& /comp/sidebar-notitle, pagetitle => "Edit Release Language/Script" &>
 
+	<!-- add editsuite for modnote resizer support -->
+	<script type="text/javascript" src="/scripts/editsuite.js"></script>
 
 	<form method="post" action="/edit/albumlanguage/edit.html" id="EditAlbumLanguageForm">
-		<script type="text/javascript" src="/scripts/editsuite.js"></script>
 
 %	if (@releaseobjs == 1) {
 		<& /comp/layout/editformbegin, title => "Edit Release Language/Script",
@@ -180,8 +175,14 @@
 			<tr class="top">
 				<td class="label">
 					<label>Selected Releases:</label></td>
-				<td class="field">
-					<table cellspacing="0" cellpadding="0" border="0">
+				<td>
+				<table class="releaselist">
+					<tr class="header">
+						<td>Release Name</td>
+						<td>Language</td>
+						<td>Script</td>
+					</tr>
+
 					<%perl>
 						my $n = 0;
 						foreach my $release ( @releaseobjs )
@@ -222,7 +223,7 @@
 			&>
 		</table>
 
-% 	foreach my $releaseid (@releaseids) {
+% 	foreach my $releaseid (@id) {
 		<input type="hidden" name="id" value="<% $releaseid %>" />
 % 	}
 		<input type="hidden" name="untag" value="<% $untag %>" />
