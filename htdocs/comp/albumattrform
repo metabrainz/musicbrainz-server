@@ -1,13 +1,16 @@
 %# vi: set ts=4 sw=4 ft=mason :
 <%args>
 	$adding => 0
-	$albumname => ""
-	$multi_album => 0
+
 	$disclength => 0
+	@releaseobjs => ()
+
 	$type_value
 	$status_value
+
 	$type_fieldname
 	$status_fieldname
+
 	$focus_to => undef
 	$notetext => ""
 </%args>
@@ -26,29 +29,67 @@
 					</li>
 					<li>
 						Release attributes should apply to <b>most</b> of the tracks on the
-						release<% $multi_album ? "s" : "" %>.&nbsp; It's OK to have a couple
-						of tracks that do not fit the release attribute, as long as the
-						attribute applies to the release<%  $multi_album ? "s" : "" %>
-						as a whole.
+						release(s). It is OK to have a couple of tracks that do not fit the
+						release attribute, as long as the attribute applies to the release as a whole.
 					</li>
 					<li>
 						Select the appropriate release attributes below and then
-						click on Submit:
+						click on Enter Moderations:
 					</li>
 				</ul></td>
 		</tr>
 
-		<tr>
+		<tr class="top">
 			<td class="label">
-				<label><b>Release:</b></label></td>
-			<td class="field">
-% if ($albumname eq "") {
-				All selected releases
-% } else {
-				<b><% $albumname %></b>
-% }
+				<label>Selected Releases:</label></td>
+			<td>
+				<table class="releaselist">
+					<tr class="header">
+						<td>Release Name</td>
+						<td>Type</td>
+						<td>Status</td>
+					</tr>
+
+				<%perl>
+					my $n = 0;
+					foreach my $release (@releaseobjs)
+					{
+						$m->out("<tr>");
+
+# TODO: load artist for this?
+#							$m->out(qq!<td style="padding-right: 40px">!);
+#							$m->comp("/comp/linkartist", artist => $release->GetArtist);
+#							$m->out(qq!</td><td style="padding-right: 40px">!);
+
+						my ($type, $status) = $release->GetReleaseTypeAndStatus;
+
+						$m->out(qq!<td style="padding-right: 40px">!);
+						$m->comp("/comp/form/currentvalue", release => $release, mp_type => &ModDefs::MOD_EDIT_ALBUMATTRS);
+						$m->out(qq!</td><td style="padding-right: 40px">!);
+						$m->out(
+							defined $type
+								? Album->GetAttributeName($type)
+								: "Not Set");
+
+						$m->out(qq!</td><td style="padding-right: 40px">!);
+						$m->out(
+							defined $status
+								? Album->GetAttributeName($status)
+								: "Not Set");
+						$m->out("</td></tr>");
+					}
+				</%perl>
+				</table>
 			</td>
 		</tr>
+
+%# since the rest of the form is dynamically created, we'll have a to use a
+%# &nbsp; as spacer (instead of <tr class="spaced">).
+
+		<tr>
+			<td colspan="2">&nbsp;</td>
+		</tr>
+
 % if ($adding != 0) {
 		<tr>
 			<td class="label">
@@ -57,9 +98,6 @@
 				<% $disclength %></td>
 		</tr>
 % }
-		<tr>
-			<td colspan="2" class="padtop"></td>
-		</tr>
 
 		<& .DoAttribute,
 			label => "Release type",
