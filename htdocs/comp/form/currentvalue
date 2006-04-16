@@ -1,6 +1,8 @@
 <%args>
 	$artist => undef
 	$release => undef
+
+	$mp_type => undef
 </%args>
 <%perl>
 	my ($type, $object, $mp);
@@ -9,13 +11,35 @@
 	{
 		$type = "artist";
 		$object = $artist;
-		$mp = $artist->GetModPending;
+
+		SWITCH: {
+			 # there are not methods which provide details of
+			 # pending artist moderation types
+			if ($mp_type == &ModDefs::MOD_EDIT_ARTIST) { };
+			if ($mp_type == &ModDefs::MOD_EDIT_ARTISTALIAS) { };
+			if ($mp_type == &ModDefs::MOD_EDIT_ARTISTNAME) { };
+			if ($mp_type == &ModDefs::MOD_EDIT_ARTISTSORTNAME) { };
+			$mp = $artist->GetModPending;
+		}
 	}
 	elsif ($release)
 	{
 		$type = "album";
 		$object = $release;
-		$mp = $release->GetModPending;
+
+  		SWITCH: {
+			if ($mp_type == &ModDefs::MOD_EDIT_ALBUM_LANGUAGE)
+			{
+				$mp = $release->GetLanguageModPending;
+				last SWITCH;
+			}
+			if ($mp_type == &ModDefs::MOD_EDIT_ALBUMATTRS)
+			{
+				$mp = $release->GetAttributeModPending;
+				last SWITCH;
+			}
+			$mp = $release->GetModPending;
+		}
 	}
 	else
 	{
