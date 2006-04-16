@@ -207,18 +207,19 @@
 				<td>&nbsp;</td>
 				<td>
 					<table style="formstyle" border="0" cellspacing="0" cellpadding="0">
-						<tr>
-							<td class="padtop">Year</td>
-							<td class="padtop">Month</td>
-							<td class="padtop">Day</td>
-							<td class="padtop">Country</td>
-							<td class="padtop" align="center">
+						<tr class="header">
+							<td>Year</td>
+							<td>Month</td>
+							<td>Day</td>
+							<td>Country</td>
+							<td>
 								<img src="/images/remove.gif" title="Activate the checkboxes below to remove release events" alt="" /></td>
 						</tr>
-
-% for my $rel (@$releases) {
-
-						<tr <% $rel->{modpending} ? "class='mp'" : "" %>>
+<%perl>
+ 	for my $rel (@$releases)
+	{
+		$m->out(sprintf "<tr %s>", ($rel->{modpending} ? qq! class="mp"!  : ""));
+</%perl>
 							<td>
 								<input 	type="text" class="numberfield" name="y<% $rel->{"id"} %>"
 										value="<% $rel->{year}||'' %>"
@@ -241,28 +242,28 @@
 							<td align="center">
 								<input 	type="checkbox" name="releasedel<% $rel->{"id"} %>"
 										value="1" <% $rel->{'delete'} ? "checked" : "" %>
-										title="Remove this release?" /></td>
+										title="Remove this release event?" /></td>
 						</tr>
-% }
+% 	}
 
-% if (not @$releases) {
+% 	if (not @$releases) {
 						<tr>
 							<td colspan="5">
 								No release information available.&nbsp;
 								Click "Add a release" and "Continue" to add a release.</td>
 						</tr>
-% }
+% 	}
 						<tr>
 							<td colspan="5" class="padtop">
 								<input type="checkbox" name="AddARelease" value="1" />
-								Add a release ...</td>
+								Add a release event ...</td>
 						</tr>
 					</table>
 				</td>
 			</tr>
-			<tr>
+			<tr class="spaced">
 				<td>&nbsp;</td>
-				<td class="padtop">
+				<td>
 					<input type="submit" name="submit" class="button" value="Cancel" />
 					<input type="submit" name="submit" class="button" value="Continue" />
 					<input type="hidden" name="albumid" value="<% $albumid %>" />
