@@ -1,77 +1,86 @@
 %# vi: set ts=4 sw=4 ft=mason :
 <%args>
-$add_language => 0
-$language_value
-$script_value
-$language_fieldname => 'language'
-$script_fieldname => 'script'
-$show_full_lists => undef
-$notetext => ""
+	$add_language => 0
+
+	$language_curr
+	$script_curr
+
+	$expand_lists => undef
+	$notetext => ""
+
+	$language_fieldname => "language_new"
+	$script_fieldname => "script_new"
 </%args>
 <%perl>
 
-my $mb = $m->comp("/comp/dblogin");
+	# get database handle
+	my $mb = $m->comp("/comp/dblogin");
 
-my @languages_menu = MusicBrainz::Server::Language->Menu($mb->{DBH},
-	minimum_frequency => ( $show_full_lists ? 1 : 2 ),
-	include => $language_value
-);
+	# load the list of languages from the database
+	my @languages_menu = MusicBrainz::Server::Language->Menu($mb->{DBH},
+		minimum_frequency => ($expand_lists ? 1 : 2),
+		include => $language_curr
+	);
 
-my @scripts_menu = MusicBrainz::Server::Script->Menu($mb->{DBH},
-	minimum_frequency => ( $show_full_lists ? 0 : 4 ),
-	include => $script_value
-);
+	# load the list of scripts from the database
+	my @scripts_menu = MusicBrainz::Server::Script->Menu($mb->{DBH},
+		minimum_frequency => ($expand_lists ? 0 : 4),
+		include => $script_curr
+	);
 
 </%perl>
 
-<table>
-	<tr>
-		<td><label for="id_of_<% $language_fieldname %>">Language:</label></td>
-		<td>
-			<select name="<% $language_fieldname %>" style="<% $show_full_lists ? "" : "width: 200px" %>"
-				id="id_of_<% $language_fieldname %>">
-				<& /comp/options, \@languages_menu, $language_value &>
-			</select>
-		</td>
-	</tr>
-	<tr>
-		<td><label for="id_of_<% $script_fieldname %>">Script:</label></td>
-		<td>
-			<select name="<% $script_fieldname %>"style="<% $show_full_lists ? "" : "width: 200px" %>"
-				id="id_of_<% $script_fieldname %>">
-				<& /comp/options, \@scripts_menu, $script_value &>
-			</select>
-		</td>
-	</tr>
-	<tr>
-		<td></td>
-		<td>
-% if ( $show_full_lists ) {
-			<input type="submit" class="button" name="button_toggle_lists" value="Show Reduced Lists">
-% } else {
-			<input type="submit" class="button" name="button_toggle_lists" value="Show Full Lists">
-% }
-	</tr>
+% 	if ($add_language) {
+		<tr>
+% 	}
+		<tr class="spaced">
 
-% if ( $add_language == 1 ) {
-	<tr>
-		<td>&nbsp;</td>
-		<td class="padtop">
-			<input 	type="submit" class="button" 
-					name="button_next" value="Next &raquo;"></td>
-	</tr>
-% } else {
-	<tr>
-		<td>&nbsp;</td>
-		<td class="padtop">
-			<& /comp/notetext, text => $notetext &></td>
-	</tr>
-	<tr>
-		<td>&nbsp;</td>
-		<td class="padtop">
-			<input 	type="submit" class="button" 
-					name="button_submit" value="Submit"></td>
-	</tr>
-% }
-</table>
+			<td class="label">
+				<label for="id_<% $language_fieldname %>">Language:</label></td>
+			<td class="field">
+				<select name="<% $language_fieldname %>" style="<% $expand_lists ? "" : "width: 200px" %>"
+					id="id_<% $language_fieldname %>">
+					<& /comp/options, \@languages_menu, $language_curr &>
+				</select></td>
+		</tr>
+		<tr>
+			<td class="label">
+				<label for="id_<% $script_fieldname %>">Script:</label></td>
+			<td class="field">
+				<select name="<% $script_fieldname %>" style="<% $expand_lists ? "" : "width: 200px" %>"
+					id="id_<% $script_fieldname %>">
+					<& /comp/options, \@scripts_menu, $script_curr &>
+				</select></td>
+		</tr>
+		<tr>
+			<td>&nbsp;</td>
+			<td>
+% 	if ($expand_lists) {
+				<input class="button" type="submit" name="submit" value="Show Reduced Lists" />
+% 	} else {
+				<input class="button" type="submit" name="submit" value="Show Full Lists" />
+% 	}
+				<input class="button" type="submit" name="submit" value="Guess Again" /></td>
+		</tr>
+
+% 	if ($add_language == 1) {
+		<tr>
+			<td>&nbsp;</td>
+			<td class="padtop">
+				<input 	type="submit" class="button" name="submit" value="Next &raquo;" /></td>
+		</tr>
+% 	} else {
+		<tr>
+			<td>&nbsp;</td>
+			<td class="notetext">
+				<& /comp/notetext, text => $notetext &></td>
+		</tr>
+		<tr>
+			<td>&nbsp;</td>
+			<td>
+				<input type="submit" class="button" name="submit" value="Cancel" />
+				<input type="submit" class="button" name="submit" value="Enter Moderations" /></td>
+		</tr>
+% 	}
+
 
