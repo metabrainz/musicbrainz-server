@@ -221,6 +221,9 @@
 			{ url => "/edit/albumreleases/cancel.html" },
 			{ url => "/edit/albumreleases/enter.html" },
 
+			# release language/script editor.
+			{ url => "/edit/albumlanguage/edit.html" },
+
 			# release batch edits (attributes, language, merge etc.)
 			{ url => "/edit/albumbatch/cancel.html" },
 			{ url => "/edit/albumbatch/done.html" },
