@@ -389,7 +389,7 @@ sub xml_puid
         print '</sort-name></artist>';
         printf '<release-list><release id="%s"><title>', $row->[5];
         print xml_escape($row->[6]);
-        printf '</title><track-list offset="%d"/>', $row->[4];
+        printf '</title><track-list offset="%d"/>', ($row->[4]-1);
         print '</release></release-list>';
         print '</track>';
     }
