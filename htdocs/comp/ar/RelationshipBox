@@ -112,7 +112,9 @@ else
 		return $c if ($c);
 		$c = $a->{enddate} cmp $b->{enddate};
 		return $c if ($c);
-		return $a->{begindate} cmp $b->{begindate};
+		$c = $a->{begindate} cmp $b->{begindate};
+		return $c if ($c);
+		return $a->{link1_name} cmp $b->{link1_name};
 	} @links;
 
 	$item = $links[0];
