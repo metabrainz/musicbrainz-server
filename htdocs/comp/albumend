@@ -1,116 +1,120 @@
 <%args>
-$artist
-$album
-$showids=>1
-$showreleases=>0
-$showmodlinks => 1
-$showtrackartists => 0
+	$artist
+	$album
+
+	$showids => 1
+	$showreleases => 0
+	$showmodlinks => 1
+	$showtrackartists => 0
 </%args>
 <%perl>
+	my $release = $album;
+	my $isva = $release->HasMultipleTrackArtists || $showtrackartists;
 
-my $numtracks = $album->GetTrackCount;
-
-my @ids;
-if ($showids)
-{
-   @ids = @{ $album->GetDiscIDs };
-}
-
-if (scalar(@ids) > 0)
-{
-    foreach my $id (@ids)
-    {
-	my $cdtoc = $id->GetCDTOC;
-    	my $duration = Track::FormatTrackLength($cdtoc->GetLeadoutOffset / 75 * 1000);
-	my $id_numtracks = $cdtoc->GetTrackCount;
-	my $discid = $cdtoc->GetDiscID;
-
-       $m->out("<tr>");
-       if ($album->HasMultipleTrackArtists || $showtrackartists)
-       {
-          $m->out('<td colspan="3" ');
-       }
-       else
-       {
-          $m->out('<td colspan="2" ');
-       }
-
-       $m->out($id->GetModPending ? ' bgcolor="#FFFFCC"' : ' bgcolor="#ffecd6"');
-       $m->out('>');
-       $m->out("Disc ID: ");
-
-       if (defined $id_numtracks && $id_numtracks != $numtracks)
-       {
-           $m->out('<font color="red">');
-       }
-       $m->out("<a href='/showcdtoc.html?id=".$cdtoc->GetId."'>$discid</a>");
-       if (defined $id_numtracks && $id_numtracks != $numtracks)
-       {
-           $m->out("</font><br>This id belongs to an album that " .
-                  "has $id_numtracks tracks.");
-       }
-
-       $m->out('</td><td class="discidlength">');
-       $m->out("$duration");
-
-       $m->out("</td>");
-       if ($session{uid} and $showmodlinks)
-       {
-	   my $tocid = $cdtoc->GetId;
-           $m->out("<td nowrap align=\"center\" bgcolor=\"#ffecd6\">");
-           $m->out("<a href=\"/edit/discid/move.html?tocid=$tocid&amp;albumid=");
-           $m->out($album->GetId() . "\">Move</a> | ");
-           $m->out("<a href=\"/edit/discid/remove.html?tocid=$tocid&amp;albumid=");
-           $m->out($album->GetId() . "\">Del</a>");
-           $m->out("</td>");
-       }
-       $m->out("</tr>");
-    }
-}
-
-if ($showreleases and not $album->IsNonAlbumTracks)
-{
-	my @releases;
-	@releases = $album->Releases;
-	my %country_names;
-	my $country_obj = MusicBrainz::Server::Country->new($album->{DBH})
-		if @releases;
-
-	my $span = 3;
-	++$span if ($album->HasMultipleTrackArtists || $showtrackartists);
-	++$span if $showmodlinks;
-
-	$m->out("<tr bgcolor='#ffffff'><td colspan=$span>");
-	$m->out("<p style='float: right; padding: 2px'>"
-		. "<a href='/edit/albumreleases/index.html?album=" . $album->GetId . "'>"
-		. "Edit releases</a></p>");
-	$m->out("<table>");
-
-	for my $rel (@releases)
+	if ($showids)
 	{
-		# Country
-		my $cid = $rel->GetCountry;
-		my $name = (
-			$country_names{$cid} ||= do {
-				my $c = $country_obj->newFromId($cid);
-				$c ? $c->GetName : "?";
+		my @ids = @{ $release->GetDiscIDs };
+
+		if (scalar(@ids) > 0)
+		{
+
+			foreach my $id (@ids)
+			{
+				my $cdtoc = $id->GetCDTOC;
+				my $duration = Track::FormatTrackLength($cdtoc->GetLeadoutOffset / 75 * 1000);
+				my $id_numtracks = $cdtoc->GetTrackCount;
+				my $discid = $cdtoc->GetDiscID;
+				my $mismatch = (defined $id_numtracks and
+							 	$id_numtracks != $release->GetTrackCount);
+
+				# 1. TOC
+				my $colspan = ($isva ? 3 : 2);
+				$m->out(sprintf qq!<tr class="discid %s">!, $id->GetModPending ? " mp" : "");
+				$m->out(qq!<td class="toc" colspan="$colspan">Disc ID: !);
+
+				# print a warning if the toc has different number of tracks
+				# than the release.
+				$m->out(qq!<span class="mismatch">!) if ($mismatch);
+				$m->out("<a href='/showcdtoc.html?id=".$cdtoc->GetId."'>$discid</a>");
+				$m->out(qq!</span><br>This id belongs to a release that has $id_numtracks tracks.!) if ($mismatch);
+				$m->out("</td>");
+
+				# 2. Length
+				$m->out(qq!<td class="length">$duration</td>!);
+
+				# 3. Edit Links
+				if ($session{uid} and $showmodlinks)
+				{
+					$m->out(qq!<td class="links">!);
+					$m->out(sprintf qq!<a href="/edit/discid/move.html?tocid=%s&amp;albumid=%s" title="%s">Edit</a>!,
+									$cdtoc->GetId,
+									$release->GetId(),
+									"Move Disc ID to another release");
+					$m->out(sprintf qq! | <a href="/edit/discid/remove.html?tocid=%s&amp;albumid=%s" title="%s">Rem</a>!,
+									$cdtoc->GetId(),
+									$release->GetId(),
+									"Remove this Disc ID from the Release");
+					$m->out("</td>\n");
+				}
+				$m->out("</tr>");
 			}
-		);
+		}
+	}
+	$m->out("</table>");
 
-		# Date
-		my $date = $m->scomp("/comp/releasedate", $rel);
 
-		my $mp = ($rel->GetModPending ? " class='mp'" : "");
-		$m->out("<tr$mp><td>$date</td><td>-</td><td>".encode_entities($name)."</td></tr>");
+	if ($showreleases and not $release->IsNonAlbumTracks)
+	{
+		my $releaseid = $release->GetId;
+		$m->out(qq!<table id="releaseevents::$releaseid" class="releaseevents">!);
+		$m->out(qq!<tr>!);
+		$m->out(qq!<td class="eventslist">!);
+
+		my @relevents = $release->Releases;
+		if (@relevents == 0)
+		{
+			$m->out("No release events");
+		}
+		else
+		{
+			my %country_names;
+			my $country_obj = MusicBrainz::Server::Country->new($release->{DBH});
+
+			$m->out(qq!<table class="eventslist">!);
+			my $first = 1;
+			for my $rel (@relevents)
+			{
+				# Country
+				my $cid = $rel->GetCountry;
+				my $name = (
+					$country_names{$cid} ||= do {
+						my $c = $country_obj->newFromId($cid);
+						$c ? $c->GetName : "?";
+					}
+				);
+
+				$m->out(sprintf qq!<tr class="%s">!, $rel->GetModPending ? "mp" : "");
+				$m->out(sprintf qq!<td>%s</td>!, $m->scomp("/comp/releasedate", $rel));
+				$m->out(qq!<td>&mdash;</td>!);
+				$m->out(sprintf qq!<td>%s</td>!, encode_entities($name));
+
+				$m->out("</tr>");
+			}
+			$m->out("</table>");
+		}
+		$m->out("</td>");
+
+		if ($showmodlinks)
+		{
+			$m->out(qq!<td class="links">!);
+			$m->out(sprintf qq!<a href="/edit/albumreleases/index.html?releaseid=%s" title="%s">Edit Release Events</a>!,
+							$release->GetId(),
+							"Add, Edit and Remove Release Events of this Release");
+			$m->out("</td>");
+		}
+		$m->out("</tr>");
+		$m->out("</table>");
 	}
 
-	$m->out("<tr><td colspan=2>No release information available</td></tr>")
-		unless @releases;
-
-	$m->out("</table></td></tr>");
-}
-
 </%perl>
-  </table>
-</td></tr>
-</table>
+
