@@ -312,12 +312,22 @@ table.browsebox td {
 table.browsebox td.sep {
 	width: 20px;
 }
-
 table.browsebox td.index {
 	padding-right: 40px;
+	vertical-align: middle;
 }
-
-table.browsebox input.index {
+table.browsebox td.index table {
+	border-collapse: collapse;
+	border: none;
+	width: 10px;
+}
+table.browsebox td.index table tr {
+	vertical-align: middle;
+}
+table.browsebox td.indexfield {
+	padding-right: 5px;
+}
+table.browsebox td.indexfield input {
 	padding: 0px 10px;
 	border: 1px solid #000;
 	background-color: #FFBA58;
@@ -327,15 +337,12 @@ table.browsebox input.index {
 	font-weight: bold;
 	font-family: Verdana, Geneva, Arial, Helvetica, sans-serif; 
 	text-align: center;
-	vertical-align: middle;
 }
-table.browsebox input.indexbutton {
-	padding: 0px; margin: 0px;
-	font-size: 11px;
-	border: 0px;
-	color: #534D8B;
-	background-color: #fff;
+table.browsebox td.indexbutton input {
+	padding: 0px; margin: 0px; font-size: 11px;
 }
+
+
 
 table.browsebox table.symbols {
 	width: 10px; border-collapse: collapse; border: 0px; padding: 0px; margin: 0px;
@@ -369,12 +376,19 @@ table.pageselector td.jump {
 	white-space: nowrap;
 	padding-right: 40px;
 }
+table.pageselector td.jump table {
+	border-collapse: collapse;
+	border: none;
+}
 table.pageselector td.list {
 	white-space: nowrap;
 	padding-left: 40px;
 }
 
-table.pageselector input.jumpfield {
+table.pageselector td.jumpfield {
+	padding-right: 5px; 
+}
+table.pageselector td.jumpfield input {
 	padding: 0px;
 	border: 1px solid #534D8B;
 	background: #fff;
@@ -383,12 +397,12 @@ table.pageselector input.jumpfield {
 	text-align: center;
 	vertical-align: middle;
 }
-table.pageselector input.jumpbutton {
-	padding: 0px; margin: 0px;
+table.pageselector td.jumpbutton input {
+	padding: 0px; margin: 0px; 
 	font-size: 11px;
-	border: 0px;
+	/*border: 0px;
 	color: #534D8B;
-	background-color: #fff;
+	background-color: #fff;*/
 }
 
 

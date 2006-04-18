@@ -38,13 +38,19 @@
 			<td class="jump">
 				<form method="get" action="<% $url %>">
 					<& /comp/args-to-hidden-fields.inc, %$args &>
-					Current Page:
-					<input type="text" name="page" value="<% $index+1 %>"
-						size="1"
-						title="Enter the requested page number here, and press [Enter] to navigate to this page."
-						class="jumpfield" />
-					<input type="submit" value="&raquo;" class="jumpbutton" />
-					of <% $pagecount %>
+					<table>
+						<tr>
+							<td class="jumpfield">
+								Page <input type="text" name="page" value="<% $index+1 %>"
+									size="1"
+									title="Enter the page number you would like to navigation to, and press Enter or the Go! button to jump to this page."
+								/>
+								of <% $pagecount %>
+							</td>
+							<td class="jumpbutton">
+								<input type="submit" value="Go!" title="Go!" /></td>
+						</tr>
+					</table>
 				</form></td>
 
 			<td class="list">

@@ -25,16 +25,20 @@
 
 </%perl>
 	<form method="get" action="<% $pageq %>">
-		<div>
+		<table>
+			<tr>
+				<td class="indexfield">
 %			$m->out(sprintf qq!<input type="hidden" name="%s" value="%s" />!, "artists", $artists) if ($artists ne "");
 %			$m->out(sprintf qq!<input type="hidden" name="%s" value="%s" />!, "relstatus", $relstatus) if ($relstatus ne 0);
 %			$m->out(sprintf qq!<input type="hidden" name="%s" value="%s" />!, "reltype", $reltype) if ($reltype ne 0);
 			<input type="text" name="index" value="<% $t %>"
 				size="<% length($index)+1 %>"
-				title="Enter a value here, and press [Enter] to list items starting with it."
-				class="index" />
-			<input type="submit" value="&raquo;" class="indexbutton" />
-		</div>
+				title="Enter the first few letters of the entries you would like to find, and press Enter or the Go! button to start browsing."
+				/></td>
+				<td class="indexbutton">
+					<input type="submit" value="Go!" title="Go!" /></td>
+			</tr>
+		</table>
 	</form>
 <%perl>
 	$m->out(qq!</td>!);
