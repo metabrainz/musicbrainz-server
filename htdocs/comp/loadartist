@@ -34,11 +34,15 @@
 		if ($mbid ne "")
 		{
 			$artist->SetMBId($mbid);
+
+			# prepare error message if load fails.
 			$error = sprintf "Artist with <strong>MBID</strong> %s not found in the database", $mbid;
 		}
 		else
 		{
 			$artist->SetId($artistid);
+
+			# prepare error message if load fails.
 			$error = sprintf "Artist with <strong>ArtistID</strong> #%s not found in the database", $artistid;
 		}
 		if ($artist->LoadFromId(1))
