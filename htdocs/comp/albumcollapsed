@@ -16,9 +16,9 @@ $link = "/showartist.html?artistid=" . $artist->GetId() . "&ex=";
 $ex .= "," . $album->GetId();
 $ex =~ s/^,//g;
 $link .= $ex . "&compact=0#al" . $album->GetId();
-$m->comp("/comp/albumbegin", 
+$m->comp("/comp/release/release_begin",
             album=>$album, artist=>$artist,
-            linktype=>'expand', 
+            linktype=>'expand',
             link=>$link,
             showlinks=>0,
             showmodlinks=>0,
@@ -27,9 +27,9 @@ $m->comp("/comp/albumbegin",
 </%perl>
 
 <tr bgcolor="#f0efff"><td bgcolor="#f0efff">
-<& /comp/albumsummary, album=>$album, artist=>$artist &>
+<& /comp/release/release_summary, album=>$album, artist=>$artist &>
 </td></tr>
-<& /comp/albumend,
+<& /comp/release/release_end,
 	showids		=> 0,
 	album		=> $album,
 	artist		=> $artist,

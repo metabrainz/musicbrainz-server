@@ -1,118 +1,96 @@
 <%args>
-$album
-$artist
-$highlighttracks=>+{}
-$highlightonly => 0
-$link => 1
-$showmodlinks=>1
-$showcollapsed=>0
-$ex=>""
-$mbtagger=>$session{'mbt'}
-$showids=>0
-$showtag=>0
-$showreleases=>0
-$tagchecked=>0
-$tracks => undef
-$showtrackartists => 0
+	$album
+	$artist
+	$highlighttracks => +{}
+	$highlightonly => 0
+	$link => 1
+	$showmodlinks => 1
+	$showcollapsed => 0
+	$ex => ""
+	$mbtagger => $session{'mbt'}
+	$showids => 0
+	$showtag => 0
+	$showreleases => 0
+	$tagchecked => 0
+	$tracks => undef
+	$showtrackartists => 0
 </%args>
-
 <%perl>
 
-my ($i, $track, @info, $trmcounts, $puidcounts, $tcount, $pcount);
+	# always load multiple artist tracks
+	my @info = ($tracks ? @$tracks : $album->LoadTracks());
 
-# always load multiple artist tracks
-if ($tracks)
-{
-     @info = @$tracks;
-}
-else
-{
-     @info = $album->LoadTracks();
-}
+	if ($showcollapsed)
+	{
+		my ($id, $url);
+
+		$url = "/showartist.html?artistid=" . $artist->GetId();
+		$id = $album->GetId();
+		$ex =~ s/(^|\D)$id(\D|$)/$1$2/g;
+		$ex =~ s/,,/,/g;
+		$ex =~ s/(,$)|(^,)//g;
+		$url .= "&ex=$ex" if ($ex ne '');
+		$url .= "&compact=0";
+		$m->comp("/comp/release/release_begin",
+				artist => $artist,
+				album => $album,
+				showmodlinks => $showmodlinks,
+				linktype => "collapse",
+				link => $url,
+				showtag => $showtag,
+				tagchecked => $tagchecked);
+	}
+	else
+	{
+		$m->comp("/comp/release/release_begin",
+				artist => $artist,
+				album => $album,
+				showmodlinks => $showmodlinks,
+				showtag => $showtag,
+				tagchecked => $tagchecked,
+				showtrackartists => $showtrackartists);
+	}
+
+	my $trmcounts = $album->LoadTRMCount();
+	my $puidcounts = $album->LoadPUIDCount();
+
+	for(my $i = 0;; $i++)
+	{
+		my $track = $info[$i];
+		last if (!defined $track);
+
+		my $tcount = $trmcounts->{$track->GetId()};
+		$tcount = 0 if (not defined $tcount);
+
+		my $pcount = $puidcounts->{$track->GetId()};
+		$pcount = 0 if (not defined $pcount);
 
 
+		if (!$highlightonly || $highlighttracks->{$track->GetId})
+		{
+			$m->comp("/comp/release/release_track",
+				artist => $artist,
+				album => $album,
+				track => $track,
+				tindex => $i,
+				highlight => $highlighttracks->{$track->GetId},
+				showmodlinks => $showmodlinks,
+				trmcount => $tcount,
+				puidcount => $pcount,
+				mbtagger => $mbtagger,
+				showtrackartists => $showtrackartists,
+				highlightonly => $highlightonly);
+		}
+	}
 
-$trmcounts = $album->LoadTRMCount();
-$puidcounts = $album->LoadPUIDCount();
+	$m->comp("/comp/release/release_summary",
+		artist => $artist, album => $album,
+		showmodlinks => $showmodlinks,
+		showtrackartists => $showtrackartists);
 
-if ($showcollapsed)
-{
-    my ($id, $url);
-
-    $url = "/showartist.html?artistid=" . $artist->GetId();
-    $id = $album->GetId();
-    $ex =~ s/(^|\D)$id(\D|$)/$1$2/g;
-    $ex =~ s/,,/,/g;
-    $ex =~ s/(,$)|(^,)//g;
-    $url .= "&ex=$ex" if ($ex ne '');
-    $url .= "&compact=0";
-    $m->comp("/comp/albumbegin",
-            artist=>$artist,
-            album=>$album,
-            showmodlinks=>$showmodlinks,
-            linktype=>"collapse",
-            link=>$url,
-            showtag=>$showtag,
-            tagchecked=>$tagchecked);
-}
-else
-{
-    $m->comp("/comp/albumbegin",
-            artist=>$artist,
-            album=>$album,
-            showmodlinks=>$showmodlinks,
-            showtag=>$showtag,
-            tagchecked=>$tagchecked,
-            showtrackartists=>$showtrackartists);
-}
-for($i = 0;; $i++)
-{
-    $track = $info[$i];
-    last if (!defined $track);
-    if (exists $trmcounts->{$track->GetId()})
-    {
-        $tcount = $trmcounts->{$track->GetId()};
-    }
-    else
-    {
-        $tcount = 0;
-    }
-    if (exists $puidcounts->{$track->GetId()})
-    {
-        $pcount = $puidcounts->{$track->GetId()};
-    }
-    else
-    {
-        $pcount = 0;
-    }
-    if (!$highlightonly || $highlighttracks->{$track->GetId})
-    {
-        $m->comp("/comp/albumtrack", track=>$track, album=>$album,
-            artist=>$artist,
-            tindex=>$i,
-            highlight=>$highlighttracks->{$track->GetId},
-            showmodlinks=>$showmodlinks,
-            trmcount=>$tcount, puidcount=>$pcount, mbtagger=>$mbtagger,
-            showtrackartists=>$showtrackartists,
-	    highlightonly=>$highlightonly);
-    }
-}
-
-my $colspan = 3;
-$colspan++ if ($session{uid} and $showmodlinks);
-$colspan++ if ($album->HasMultipleTrackArtists || $showtrackartists);
-
-$m->out('<tr bgcolor="white"><td bgcolor="#f0efff" colspan="' . $colspan . '">');
-$m->comp("/comp/albumsummary", album=>$album, 
-                               artist=>$artist, 
-                               showmodlinks=>$showmodlinks);
-$m->out('</td></tr>');
-$m->comp("/comp/albumend", album=>$album, artist=>$artist,
-                          showmodlinks=>$showmodlinks,
-			  showids=>$showids,
-			  showreleases=>$showreleases,
-                          showtrackartists=>$showtrackartists,
-	link => $link,
-);
+	$m->comp("/comp/release/release_end",
+		artist => $artist, album => $album, showmodlinks => $showmodlinks,
+		showids => $showids, showreleases => $showreleases,
+		showtrackartists => $showtrackartists, link => $link);
 
 </%perl>
