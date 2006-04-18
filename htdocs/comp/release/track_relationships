@@ -1,0 +1,100 @@
+<%args>
+	$mb
+	$track
+	$showmodlinks
+</%args>
+<%perl>
+	my $id = $track->GetId;
+	my $name => $track->GetName;
+	my $type = "track";
+	my $isrelpage = 0;
+	my $expanded = 0;
+
+	my $relationships = $m->comp("/comp/loadrelationships", $mb, $id, $type);
+	my @links = @{ $relationships };
+
+	# output relationships.
+	if (@links != 0)
+	{
+		my $max = scalar(@links);
+		my ($item, $i, $count, $lines);
+
+		$m->out('<table class="relationships">');
+		for($i = 0, $count = 0, $lines = 0; $i < $max; $i++, $lines++)
+		{
+			my $itemsperline = 0;
+			if ($lines >= 3 && !$isrelpage)
+			{
+				$m->out(qq!<tr><td colspan="3">!);
+				$m->out(($max - $count) . " relationships not shown. ");
+				$m->out(qq!<a href="/showrel.html?id=$id&amp;type=$type">View all relationships ...</a></td></tr>!);
+				last;
+			}
+			$item = $links[$i];
+
+			# remove un-necessary words from phrase
+			my $phrase = $item->{link_phrase};
+			$phrase =~ s/^[ \t]*//;
+			$phrase =~ s/has|was|were|performed//g;
+
+			$m->out('<tr><td class="small">'.$phrase. ' ');
+			$m->comp("/comp/relationship/outputentity", item => $item, index => 1, name => $name);
+			$count++;
+
+			if (!$expanded)
+			{
+				for(my $j = $i + 1; $j < $max; $j++)
+				{
+					my $nextitem = $links[$j];
+					if ($m->comp("/comp/relationship/isequal", $item, $nextitem))
+					{
+						if ($itemsperline <= 4 || $isrelpage)
+						{
+							my $and = 1;
+							if ($j < $max - 1)
+							{
+								my $nextnextitem = $links[$j + 1];
+								$and = 0 if ($m->comp("/comp/relationship/isequal", $nextitem, $nextnextitem));
+							}
+							$and ? $m->out(' and ') : $m->out(', ');
+							$m->comp("/comp/relationship/outputentity", item => $nextitem, index => 1, name => $name);
+							$m->out(" ... ") if ($itemsperline == 4);
+							$itemsperline++;
+						}
+						$i = $j;
+						$count++;
+					}
+				}
+			}
+
+			if ($item->{begindate} =~ /\S/ || $item->{enddate} =~ /\S/)
+			{
+				if ($item->{begindate} =~ /\S/)
+				{
+					$m->out(' from ' . $item->{begindate});
+				}
+				if ($item->{enddate} =~ /\S/)
+				{
+					$m->out(' until ' . $item->{enddate});
+				}
+				else
+				{
+					$m->out(' to present');
+				}
+			}
+			$m->out('</span>')
+				if ($max == 1 && $item->{modpending});
+
+			if ($session{uid} && $showmodlinks && $expanded)
+			{
+				$m->out('</td><td align="right" valign="top">');
+				$m->out('<nobr> [ <a href="/edit/relationship/remove.html?type=' . $item->{link0_type} . '-' .
+						$item->{link1_type} . '&amp;id='.$item->{link_id}.'">Del</a> ');
+				$m->out('| <a href="/edit/relationship/edit.html?type=' . $item->{link0_type} . '-' .
+						$item->{link1_type} . '&amp;id='.$item->{link_id}.'">Edit</a> ] </nobr>');
+			}
+			$m->out('</td></tr>');
+		}
+		$m->out('</table>');
+	}
+</%perl>
