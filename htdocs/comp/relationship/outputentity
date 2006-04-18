@@ -1,0 +1,57 @@
+<%args>
+	$item
+	$index
+	$name
+</%args>
+<%perl>
+
+	my $prefix = "link" . $index . "_";
+	my $mp = $item->{modpending};
+
+	$m->out('<span class="mp">') if ($mp);
+
+    my $text = "";
+	if ($item->{$prefix . "type"} eq 'url')
+	{
+		if ($item->{"link_name"} eq 'amazon asin' && $prefix eq 'link1_')
+		{
+			($text, ) = Album->ParseAmazonURL($item->{link1_name});
+			$m->out("<b>");
+		}
+		else
+		{
+			use Encode;
+			my $url = $item->{$prefix . "name"};
+			$text = $url;
+			if ($item->{"link_name"} eq 'wikipedia' && $prefix eq 'link1_')
+			{
+				$text =~ s/^http:\/\/(\w{2,})\.wikipedia\.org\/wiki\/(.*)$/$1: $2/o;
+				$text =~ tr/_/ /;
+			}
+			# decode the URL
+			my $decoded_text = $text;
+			$decoded_text =~ s/\%([\dA-Fa-f]{2})/pack('C', hex($1))/oeg;
+			$text = $decoded_text
+				if (Encode::decode_utf8($decoded_text));
+			$m->out('<b><a href="'.$url.'" title="'.encode_entities($text).'" rel="nofollow">');
+			# shorten url's that are longer than ~75 chars
+			$text = (length($text) > 75
+					 ? encode_entities(substr($text, 0, 72)) . "&#8230;"
+					 : encode_entities($text));
+		}
+	}
+	else
+	{
+		$m->out('<b><a href="/show'.
+				$item->{$prefix . "type"} . '.html?'.
+				$item->{$prefix . "type"} . 'id=' .
+				$item->{$prefix . "id"}.'">');
+	}
+	$text = encode_entities($item->{$prefix . "name"} eq '' ? $name : $item->{$prefix . "name"}) unless $text;
+
+	$m->out($text);
+	$m->out("</a></b>");
+
+	$m->out('</span>') if ($mp);
+</%perl>
+</%def>

@@ -1,0 +1,6 @@
+<%perl>
+	my ($a, $b) = @_;
+	return ($a->{link_phrase} eq $b->{link_phrase} &&
+			$a->{begindate} eq $b->{begindate} &&
+			$a->{enddate} eq $b->{enddate});
+</%perl>
