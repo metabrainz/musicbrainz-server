@@ -178,8 +178,6 @@ function MusicBrainz() {
 	mb.sidebar = new MbSideBar();
 	mb.topmenu = new MbTopMenu();
 
-	// setup coverart resizer
-	mb.albumart = new MbAlbumArtResizer();
 	mb.registerDOMReadyAction(
 		new MbEventAction(mb.topmenu.GID, 'setupEvents', "Setup dropdown menu events.")
 	);
@@ -192,10 +190,19 @@ function MusicBrainz() {
 	mb.registerDOMReadyAction(
 		new MbEventAction(mb.ui.GID, 'setupFeedbackBoxes', "Decorate feedback boxes")
 	);
+
+	// setup coverart resizer
+	mb.albumart = new MbAlbumArtResizer();
 	mb.registerPageLoadedAction(
 		new MbEventAction(mb.albumart.GID, 'process', "Resize amazon coverart")
 	);
-
+	
+	// setup <abbr> style
+	mb.styleabbr = new MbStyleAbbr();
+	mb.registerPageLoadedAction(
+		new MbEventAction(mb.styleabbr.GID, 'process', "Correct IE handling of <abbr>")
+	);
+	
 	// exit constructor
 	mb.log.exit();
 }
