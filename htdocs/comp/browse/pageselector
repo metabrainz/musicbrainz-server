@@ -43,7 +43,7 @@
 							<td class="jumpfield">
 								Page <input type="text" name="page" value="<% $index+1 %>"
 									size="1"
-									title="Enter the page number you would like to navigation to, and press Enter or the Go! button to jump to this page."
+									title="Enter the page number you would like to jump to, and press Enter or the Go! button to jump."
 								/>
 								of <% $pagecount %>
 							</td>
