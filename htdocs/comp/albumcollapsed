@@ -1,40 +1,34 @@
 <%args>
-$album
-$artist
-$ex=>""
-$showtag=>0
-$showreleases=>0
+	$album
+	$artist
+	$ex => ""
+	$showtag => 0
+	$showreleases => 0
 </%args>
-
 <%perl>
 
-my ($trackcount, $link);
+	my $trackcount = $album->GetTrackCount();
+	my $link = "/showartist.html?artistid=" . $artist->GetId() . "&ex=";
 
-$trackcount = $album->GetTrackCount();
-$link = "/showartist.html?artistid=" . $artist->GetId() . "&ex=";
+	$ex .= "," . $album->GetId();
+	$ex =~ s/^,//g;
+	$link .= $ex . "&compact=0#al" . $album->GetId();
 
-$ex .= "," . $album->GetId();
-$ex =~ s/^,//g;
-$link .= $ex . "&compact=0#al" . $album->GetId();
-$m->comp("/comp/release/release_begin",
-            album=>$album, artist=>$artist,
-            linktype=>'expand',
-            link=>$link,
-            showlinks=>0,
-            showmodlinks=>0,
-            showtag=>$showtag);
+	$m->comp("/comp/release/release_begin",
+		album => $album, artist => $artist,
+		linktype => "expand",
+		showlinks => 0, showmodlinks => 0, link => $link,
+		showtag => $showtag
+	);
+
+	$m->comp("/comp/release/release_summary",
+		artist => $artist, album => $album,
+		showmodlinks => 0
+	);
+
+	$m->comp("/comp/release/release_end",
+		artist => $artist, album => $album,
+		showids => 0, showlinks => 0, showmodlinks => 0, link =>  0,
+		showreleases => $showreleases);
 
 </%perl>
-
-<tr bgcolor="#f0efff"><td bgcolor="#f0efff">
-<& /comp/release/release_summary, album=>$album, artist=>$artist &>
-</td></tr>
-<& /comp/release/release_end,
-	showids		=> 0,
-	album		=> $album,
-	artist		=> $artist,
-	showlinks	=> 0,
-	showmodlinks	=> 0,
-	link		=> 0,
-	showreleases	=> $showreleases,
-	&>

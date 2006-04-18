@@ -116,5 +116,8 @@
 		$m->out("</table>");
 	}
 
+	# add some spacing after the release.
+	$m->out(qq!<div class="release_endspacer">&nbsp;</div>!);
+
 </%perl>
 

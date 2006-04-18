@@ -31,7 +31,7 @@
 		my $_img = ($linktype eq "expand" ? "/images/plus.gif" : "/images/minus.gif");
 		my $_alt = ($linktype eq "expand" ? "Expand" : "Collapse");
 
-		$m->out(qq!<td class="toggleicon">!);
+		$m->out(qq!<td class="icon">!);
 		$m->out(sprintf
 				qq!<a href="%s" title="%s"><img src="%s" align="middle" border="0" alt="%s" /></a></td>!,
 				$link, $_title, $_img, $_alt);

@@ -319,6 +319,7 @@ table.releasebegin td.icon
 {
 	background-color: #FFBA58;
 	width: 10px;
+	padding-left: 4px;
 }
 table.releasebegin td.tagger
 {
