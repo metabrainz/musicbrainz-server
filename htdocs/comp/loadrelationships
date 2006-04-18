@@ -1,0 +1,56 @@
+<%perl>
+	my ($mb, $id, $type) = @_;
+
+	if (not defined $mb or
+		not defined $id or
+		not defined $type)
+	{
+		$m->comp("/comp/badargs");
+		die();
+	}
+
+	my @links = MusicBrainz::Server::Link->FindLinkedEntities($mb->{DBH}, $id, $type);
+
+	# output relationships.
+	if (@links != 0)
+	{
+		my $max = scalar(@links);
+		my ($item, $i, $count, $lines);
+
+		for($i = 0; $i < $max; $i++)
+		{
+			$item = $links[$i];
+			if ($item->{link0_type} ne $type || $item->{link0_id} != $id)
+			{
+				@$item{qw(
+					link0_type		link1_type
+					link0_id		link1_id
+					link0_name		link1_name
+					link_phrase		rlink_phrase
+				)} = @$item{qw(
+					link1_type		link0_type
+					link1_id		link0_id
+					link1_name		link0_name
+					rlink_phrase	link_phrase
+				)};
+			}
+		}
+
+		@links = sort
+		{
+			my $c = $a->{link_phrase} cmp $b->{link_phrase};
+			return $c if ($c);
+
+			$c = $a->{enddate} cmp $b->{enddate};
+			return $c if ($c);
+
+			$c = $a->{begindate} cmp $b->{begindate};
+			return $c if ($c);
+
+			return $a->{link1_name} cmp $b->{link1_name};
+
+		} @links;
+	}
+
+	return \@links;
+</%perl>
