@@ -18,6 +18,11 @@ form {
 	margin: 0px;
 }
 
+abbr, acronym, span.abbr {
+  cursor: help; color: #534D8B;
+}
+
+
 .bold { font-weight: bold; }
 
 
@@ -248,7 +253,6 @@ kbd.KbdBlock
 }
 
 /* /comp/artisttitle */
-
 table.artisttitle
 {
 	border-collapse: collapse;
@@ -289,9 +293,287 @@ table.artisttitle td.mods
 	border-top: 1px solid #000;
 }
 
+/* ------------------------------------------------------------------------- 
+ * /comp/albumbegin
+ * The release header table.
+ * ---------------------------------------------------------------------- */
+table.releasebegin
+{
+	border-collapse: collapse;
+	border: 1px solid #000;
+	padding: 2px;
+	background-color: #fff;
+	width: 100%;
+}
+table.releasebegin td.title 
+{
+	background-color: #FFBA58; 
+	width: 100%; 
+	padding-left: 4px;
+}
+table.releasebegin td.title a
+{
+	font-weight: bold;
+}
+table.releasebegin td.icon
+{
+	background-color: #FFBA58;
+	width: 10px;
+}
+table.releasebegin td.tagger
+{
+	background-color: #FFBA58;
+	width: 10px;
+}
+table.releasebegin td.batchop
+{
+	background-color: #FFBA58;
+	width: 10px;
+	text-align: center;
+	vertical-align: top;
+	white-space: nowrap;
+}
+table.releasebegin td.info
+{
+	padding-bottom: 4px;
+}
+table.releasebegin td.links
+{
+	padding: 2px 4px;
+}
+table.releasebegin td.mods
+{
+	padding: 2px 4px;
+	background-color: #ffecd6;
+	border-top: 1px solid #000;
+}
+
+/* ------------------------------------------------------------------------- 
+ * The release header with the edit links,
+ * and the amazon coverart, if available 
+ * ---------------------------------------------------------------------- */
+table.releaselinks
+{
+	border-collapse: collapse;
+	border: 1px solid #000;
+	border-top: none;
+	background-color: #fff;
+	width: 100%;
+}
+table.releaselinks td
+{
+	padding: 3px;
+}
+
+table.releaselinks a.asin
+{
+	float: right;
+}
+table.releaselinks img.asin 
+{
+	height: 130px;
+	width: 130px;
+	border: 1px solid #000;
+}
+
+/* ------------------------------------------------------------------------- 
+ * Release Tracks table
+ * the list of 1..n track rows
+ * ---------------------------------------------------------------------- */
+table.releasetracks
+{
+	border: 1px solid #000;
+	border-top: none;
+	border-collapse: collapse;
+	background-color: #fff;
+	width: 100%;
+}
+
+/* general formatting: add some horizontal
+   padding, to lighten things up, and add
+   border on the bottom. */
+table.releasetracks td
+{
+	padding: 2px 4px;
+	border-bottom: 1px solid #000;
+	vertical-align: top;
+}
+
+/* track number. align center, and add sufficent
+   padding left+right that it is readable. */
+table.releasetracks td.no
+{
+	width: 1%; text-align: center;
+	border-right: 1px solid #ddd;
+	padding-left: 15px; padding-right: 15px;
+}
+
+/* track title, if given no width it spans as much
+   of the 100% table as it can get. */
+table.releasetracks td.title
+{
+	width: 90%;
+	padding-right: 15px;
+	border-right: 1px solid #ddd;
+}
+
+/* various artists (or multipletrackartists) album, 
+   render track titles and track artists */
+table.releasetracks td.title.va
+{
+	width: 45%;
+}
+table.releasetracks td.artist
+{
+	width: 45%;
+	border-right: 1px solid #ddd;
+	padding-right: 15px;	
+}
+
+/* if not logged in, this is the rightmost TD; no border */
+table.releasetracks td.length
+{
+	width: 75px; text-align: right;
+	padding-left: 15px;  
+}
+
+/* if logged in, add left border to length TD */
+table.releasetracks td.links
+{
+	width: 1%; white-space: nowrap;
+	text-align: right;
+	border-left: 1px solid #ddd; 
+	padding-left: 7px; padding-right: 7px;
+}
+
+/* Highlighting: purple background,
+   render links in bold (but not the edit links) */
+table.releasetracks tr.highlight { background-color: #ffeaff; }
+table.releasetracks tr.highlight td a { font-weight: bold; }
+table.releasetracks tr.highlight td.links a { font-weight: normal; }
+
+
+/* ------------------------------------------------------------------------- 
+ * Release DiscIDs rows
+ * ---------------------------------------------------------------------- */
+table.releasetracks tr.discid {}
+table.releasetracks tr.discid td
+{
+	background-color: #ffecd6;
+	padding: 2px 4px;
+	border-bottom: 1px solid #000;
+}
+
+/* the discid toc, and link to the toc page */
+table.releasetracks tr.discid td.toc
+{
+	width: 99%;
+	border-right: 1px solid #000; 
+}
+
+/* if logged in, add left border to length TD */
+table.releasetracks tr.discid td.links
+{
+	border-left: 1px solid #000; 
+}
+
+/* ------------------------------------------------------------------------- 
+ * Release summary table:
+ * This summary with statistics (tracks/discids/puids/trmids), release
+ * langauge and attributes is nested in the releasetracks table, because 
+ * the discID section which comes after this row needs to align with 
+ * the columns of the tracks.
+ * ---------------------------------------------------------------------- */
+table.releasetracks tr.summary td {
+	padding: 2px;
+	background-color: #f0efff;
+}
+table.releasesummary
+{
+	border-collapse: collapse; border: none;
+	width: 100%;
+}
+table.releasesummary td
+{
+	padding: 1px 3px;
+	border: none;
+}
+table.releasesummary img
+{
+	width: 13px; height: 13px;
+	vertical-align: bottom;
+	margin-bottom: 2px; border: none;
+}
+table.releasesummary span { padding-right: 15px }
+table.releasesummary span.tracks { padding-left: 1px }
+table.releasesummary span.puid img { width: 33px; height: 13px; }
+table.releasesummary span.trmid img { width: 30px; height: 11px; }
+
+table.releasesummary td.statistics
+{
+	width: 90%;
+}
+table.releasesummary td.language
+{
+	width: 5%; white-space: nowrap;
+}
+table.releasesummary td.language span { padding: 0px; }
+table.releasesummary td.attributes span { padding: 0px; }
+{
+	width: 5%; white-space: nowrap;
+}
+
+/* ------------------------------------------------------------------------- 
+ * Release Events table
+ * ---------------------------------------------------------------------- */
+table.releaseevents
+{
+	border: 1px solid #000;
+	border-top: none;
+	border-collapse: collapse;
+	background-color: #fff;
+	width: 100%;
+}
+table.releaseevents td
+{
+	padding: 2px 4px;
+	border-bottom: 1px solid #000;
+}
+table.releaseevents td.eventslist 
+{ 
+	width: 90%; 
+}
+table.releaseevents td.links 
+{ 
+	width: 10%; 
+	border: none; 
+	text-align: right; white-space: nowrap; 
+}
+table.releaseevents table.eventslist 
+{ 
+	border: none; 
+	border-collapse: collapse; 
+}
+table.releaseevents table.eventslist td 
+{ 
+	border: none; 
+	padding: 0px; padding-right: 6px; 
+}
+
+table.relationships {}
+
+table.relationships td 
+{ 
+	border: none; 
+	padding: 0px; 
+	padding-left: 20px;
+	font-size: 11px;
+}
+
+
+
 
 /* /comp/album* */
-
 .AlbumTitle
 {
 	padding: 5px;
