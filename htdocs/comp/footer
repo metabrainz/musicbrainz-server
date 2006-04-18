@@ -5,7 +5,7 @@
 
 	# only g0llum gets to see the javascript log
 	# TODO: make this a user preference
-	if ($session{uid} == 72801)
+	if (UserPreference::get("JSDebug"))
 	{
 		$m->comp("/comp/tablebegin", title => "Javascript Debug");
 		$m->out(qq!<script type="text/javascript" src="/scripts/debug.js"></script>!);

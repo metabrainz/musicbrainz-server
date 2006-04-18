@@ -25,6 +25,7 @@
 			mod_add_album_link
 			navbar_mod_show_select_page
 			JSMoveFocus
+			JSDebug
 			reveal_address_when_mailing
 			show_amazon_coverart
 			sidebar_panel_search
@@ -372,6 +373,14 @@
 %						$m->out(UserPreference::get('JSMoveFocus') ? ' checked="checked" ' : "");
 						/>
 					Use Javascript to move the input focus when the page loads</label>
+				</p>
+
+				<p>
+					<label for="pref_JSDebug">
+					<input type="checkbox" name="JSDebug" id="pref_JSDebug"
+%						$m->out(UserPreference::get('JSDebug') ? ' checked="checked" ' : "");
+						/>
+					Show the Javascript Debug Box on the bottom of the page</label>
 				</p>
 
 			<& /comp/tableend &>

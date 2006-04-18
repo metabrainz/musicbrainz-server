@@ -244,6 +244,7 @@ addpref('datetimeformat', $allowed_datetime_formats[0], \&check_datetimeformat);
 addpref('default_country', 0, sub { check_int(0,undef,@_) });
 addpref('google_domain', "www.google.com", \&check_google_domain);
 addpref('JSMoveFocus', '1', \&check_bool);
+addpref('JSDebug', '0', \&check_bool);
 addpref('mail_notes_if_i_noted', 1, \&check_bool);
 addpref('mail_notes_if_i_voted', 1, \&check_bool);
 addpref('mod_add_album_inline', 0, \&check_bool);
