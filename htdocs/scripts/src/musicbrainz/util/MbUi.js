@@ -248,8 +248,17 @@ function MbUI() {
 			href = (a.href || "");
 			if (id.match(/^POPUP/i) && href != "") {
 				var title = id.split(mb.ui.SPLITSEQ)[1];
-				a.id = id + mb.ui.SPLITSEQ + a.href + mb.ui.SPLITSEQ + i; // add running number to make this unique.
-				a.href = "javascript:; // Open "+title+" in a popup window.";
+				var href = a.href;
+				
+				// add ispopup=1 to url, such that /comp/header_small is used.
+				if (href.match(/ispopup/) == null) {
+					if (href.match(/\&/) != null) {
+						href += "&amp;ispopup=1";
+					} else {
+						href += "?ispopup=1";
+					}
+				}
+				a.id = id + mb.ui.SPLITSEQ + href + mb.ui.SPLITSEQ + i; // add running number to make this unique.
 				a.title = title;
 				a.onclick = function (event) {
 					mb.ui.clickPopupLink(this);
@@ -257,6 +266,7 @@ function MbUI() {
 				};
 				mb.log.debug("id: $, href: $, onclick: $", a.id, a.href, a.onclick);				
 				
+				// a.href = "javascript:; // Open "+title+" in a popup window.";				
 				// a.addEventListener("click", mb.ui.clickPopupLink, false);
 			}
 		}
