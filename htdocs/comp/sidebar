@@ -14,15 +14,13 @@
 
 	# process the different permutations of $title and $pagetitle.
 	# and provide fallback if none are set.
-	if ($showtitle)
-	{
-		$title = $pagetitle if ($title eq "" && $pagetitle ne "");
-		$title = "MusicBrainz" if ($title eq "" && $pagetitle eq "");
-	}
+	$title = $pagetitle if ($title eq "" && $pagetitle ne "");
+	$title = "MusicBrainz" if ($title eq "" && $pagetitle eq "");
+	$ARGS{"title"} = $title;
 
 	# TODO move this out of sidebar.
-	return $m->comp("/comp/header_small")
-		if ($pnotes{'ispopup'});
+	return $m->comp("/comp/header_small", %ARGS)
+		if ($pnotes{"ispopup"});
 
 	# render page header
 	my $nosidebar => UserPreference::get("nosidebar");

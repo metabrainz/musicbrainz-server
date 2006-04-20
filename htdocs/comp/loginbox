@@ -79,18 +79,14 @@
 				<td>
 					<input type="checkbox" name="PermanentCookie" id="id_PermanentCookie" />
 					<label for="id_PermanentCookie">Log in permanently</label>
-					[&nbsp;<a <& /comp/auto-popup-link,
-								url => "/products/server/docs/20031210-1.html",
-								&>>help</a>&nbsp;]</td>
+					[&nbsp;<a href="/products/server/docs/20031210-1.html" id="POPUP::Login_Permanently::400::400">help</a>&nbsp;]</td>
 			</tr>
 			<tr>
 				<td>&nbsp;</td>
 				<td>
 					<input type="checkbox" name="OnlyThisIP" id="id_OnlyThisIP" />
 					<label for="id_OnlyThisIP">Only from this IP address</label>
-					[&nbsp;<a <& /comp/auto-popup-link,
-						url => "/products/server/docs/20031213-1.html",
-						&>>help</a>&nbsp;]</td>
+					[&nbsp;<a href="/products/server/docs/20031210-1.html" id="POPUP::Only_from_this_IP::400::400">help</a>&nbsp;]</td>
 			</tr>
 			<tr>
 				<td>&nbsp;</td>

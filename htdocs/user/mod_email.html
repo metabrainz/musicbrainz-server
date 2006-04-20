@@ -51,11 +51,11 @@ if (not $you->CheckEMailAddress)
 {
 		</%perl>
 		<p>
-			Moderator <% $you->GetName %> has declined to give an email 
+			Moderator <% $you->GetName %> has declined to give an email
 			address, which means you can't mail this moderator. :-(
 		</p>
 		<%perl>
-	 
+
 		if ($url)
 		{
 				</%perl>
@@ -71,7 +71,7 @@ if ($subject and $text)
 {
 	if ($modid)
 	{
-		$text = "Moderation: http://" . &DBDefs::WEB_SERVER . 
+		$text = "Moderation: http://" . &DBDefs::WEB_SERVER .
 			"/showmod.html?modid=$modid\n\n" . $text;
 	}
 
@@ -124,9 +124,8 @@ else
 					? "checked" : ""
 					%>>
 				Reveal my e-mail address
-				[&nbsp;<a <& /comp/auto-popup-link,
-					url => "/products/server/docs/20040103-1.html",
-					&>>help</a>&nbsp;]
+				[&nbsp;<a href="/products/server/docs/20040103-1.html" id="POPUP::Reveal_My_E-mail_Adress::400::400">help</a>&nbsp;]
+
 			</p>
 % }
 
@@ -151,7 +150,7 @@ else
 			<p style="text-align: center">
 				<INPUT TYPE="submit" NAME="Send" VALUE="Send">
 			</p>
-			
+
 		</form>
 
 		<& /comp/movefocus, "EMailForm", $subject ? "text" : "subject" &>

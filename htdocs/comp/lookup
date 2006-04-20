@@ -39,7 +39,7 @@
 		</tr>
 		<tr>
 			<td align="right">
-				 [&nbsp;<a <& /comp/auto-popup-link, url => "/wd/AdvancedSearch", &>>help</a>&nbsp;]</td>
+				 [&nbsp;<a href="/popup/TextSearchSyntax" id="POPUP::TextSearchSyntax::400::400">help</a>&nbsp;]</td>
 			<td align="right">
 				<input type="submit" name="submit" value="Lookup" /></td>
 		</tr>

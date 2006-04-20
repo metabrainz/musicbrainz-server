@@ -87,7 +87,7 @@
  	if (!$nonalbum)
 	{
 		my @attrs = $release->GetAttributes();
-	    $m->out(qq![ <a href="/popup/attrguide.html" id="POPUP::ReleaseAttributeGuide::400::275">!);
+	    $m->out(qq![&nbsp;<a href="/popup/attrguide.html" id="POPUP::ReleaseAttributeGuide::400::275">!);
 	    if (scalar(@attrs) > 0)
 	    {
 			$m->out(sprintf qq!<span class="%s">!,
