@@ -178,6 +178,12 @@ function MusicBrainz() {
 	mb.sidebar = new MbSideBar();
 	mb.topmenu = new MbTopMenu();
 
+	// setup <abbr> style
+	mb.styleabbr = new MbStyleAbbr();
+	mb.registerDOMReadyAction(
+		new MbEventAction(mb.styleabbr.GID, 'process', "Correct IE handling of <abbr>")
+	);
+
 	mb.registerDOMReadyAction(
 		new MbEventAction(mb.topmenu.GID, 'setupEvents', "Setup dropdown menu events.")
 	);
@@ -197,11 +203,6 @@ function MusicBrainz() {
 		new MbEventAction(mb.albumart.GID, 'process', "Resize amazon coverart")
 	);
 	
-	// setup <abbr> style
-	mb.styleabbr = new MbStyleAbbr();
-	mb.registerPageLoadedAction(
-		new MbEventAction(mb.styleabbr.GID, 'process', "Correct IE handling of <abbr>")
-	);
 	
 	// exit constructor
 	mb.log.exit();

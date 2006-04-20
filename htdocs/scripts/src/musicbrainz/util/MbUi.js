@@ -213,7 +213,7 @@ function MbUI() {
 					a.href = "javascript:; // Toggle box";
 					a.className = "readmore";
 					a.onfocus = function onfocus(event) { this.blur() };
-					a.onclick = function onclick(event) {
+					a.onclick = function onclick() {
 						var obj;
 						var id = this.id.split(mb.ui.SPLITSEQ)[0];
 						if ((obj = mb.ui.get(id)) != null) {
@@ -247,12 +247,17 @@ function MbUI() {
 			id = (a.id || "");
 			href = (a.href || "");
 			if (id.match(/^POPUP/i) && href != "") {
-				mb.log.debug("id: $, href: $", id, href);
-				a.id = id + mb.ui.SPLITSEQ + a.href;
-				a.href = "javascript:; // Open popup";
+				var title = id.split(mb.ui.SPLITSEQ)[1];
+				a.id = id + mb.ui.SPLITSEQ + a.href + mb.ui.SPLITSEQ + i; // add running number to make this unique.
+				a.href = "javascript:; // Open "+title+" in a popup window.";
+				a.title = title;
 				a.onclick = function (event) {
-					return mb.ui.clickPopupLink(this);
+					mb.ui.clickPopupLink(this);
+					return false;
 				};
+				mb.log.debug("id: $, href: $, onclick: $", a.id, a.href, a.onclick);				
+				
+				// a.addEventListener("click", mb.ui.clickPopupLink, false);
 			}
 		}
 		return mb.log.exit();
@@ -285,7 +290,7 @@ function MbUI() {
 		var el,list = mb.ui.getByTag("input");
 		var focusname;
 		// lookup hidden field which defines the field to be focussed
-		if ((el = mb.ui.get("ONLOAD|focusfield")) != null) {
+		if ((el = mb.ui.get("ONLOAD::focusfield")) != null) {
 			// if focusfield hidden field was found,
 			// find field and set focussed.
 			if ((focusname = el.value) != null) {
@@ -302,10 +307,10 @@ function MbUI() {
 					}
 				}
 			} else {
-				mb.log.warning("ONLOAD|focusfield has no value!");
+				mb.log.warning("ONLOAD::focusfield has no value!");
 			}
 		} else {
-			mb.log.debug("ONLOAD|focusfield not found.");
+			mb.log.debug("ONLOAD::focusfield not found.");
 		}
 		return mb.log.exit();
 	};

@@ -620,21 +620,21 @@ a.className="readmore";
 a.onfocus=function onfocus(_64){
 this.blur();
 };
-a.onclick=function onclick(_65){
+a.onclick=function onclick(){
 var obj;
 var id=this.id.split(mb.ui.SPLITSEQ)[0];
 if((obj=mb.ui.get(id))!=null){
-var _68=(obj.style.display=="none");
-this.firstChild.nodeValue=(_68?"Close":"Read more");
-mb.ui.setDisplay(obj,_68);
+var _67=(obj.style.display=="none");
+this.firstChild.nodeValue=(_67?"Close":"Read more");
+mb.ui.setDisplay(obj,_67);
 }else{
 mb.log.warning("Did not find: $",this.id);
 }
 return false;
 };
 a.appendChild(document.createTextNode("Read more"));
-var _69=_61.parentNode;
-_69.appendChild(a);
+var _68=_61.parentNode;
+_68.appendChild(a);
 spanText.id=id;
 spanText.style.display="none";
 }
@@ -650,12 +650,15 @@ a=list[i];
 id=(a.id||"");
 href=(a.href||"");
 if(id.match(/^POPUP/i)&&href!=""){
-mb.log.debug("id: $, href: $",id,href);
-a.id=id+mb.ui.SPLITSEQ+a.href;
-a.href="javascript:; // Open popup";
+var _6b=id.split(mb.ui.SPLITSEQ)[1];
+a.id=id+mb.ui.SPLITSEQ+a.href+mb.ui.SPLITSEQ+i;
+a.href="javascript:; // Open "+_6b+" in a popup window.";
+a.title=_6b;
 a.onclick=function(_6c){
-return mb.ui.clickPopupLink(this);
+mb.ui.clickPopupLink(this);
+return false;
 };
+mb.log.debug("id: $, href: $, onclick: $",a.id,a.href,a.onclick);
 }
 }
 return mb.log.exit();
@@ -679,7 +682,7 @@ this.moveFocus=function(){
 mb.log.enter(this.GID,"moveFocus");
 var el,list=mb.ui.getByTag("input");
 var _75;
-if((el=mb.ui.get("ONLOAD|focusfield"))!=null){
+if((el=mb.ui.get("ONLOAD::focusfield"))!=null){
 if((_75=el.value)!=null){
 var _76,form=el.form;
 for(var i=0;i<list.length;i++){
@@ -692,10 +695,10 @@ break;
 }
 }
 }else{
-mb.log.warning("ONLOAD|focusfield has no value!");
+mb.log.warning("ONLOAD::focusfield has no value!");
 }
 }else{
-mb.log.debug("ONLOAD|focusfield not found.");
+mb.log.debug("ONLOAD::focusfield not found.");
 }
 return mb.log.exit();
 };
@@ -1379,14 +1382,14 @@ mb.log.error("Invalid object, expected MbEventAction: $",_bf);
 mb.ua=new MbUserAgent();
 mb.sidebar=new MbSideBar();
 mb.topmenu=new MbTopMenu();
+mb.styleabbr=new MbStyleAbbr();
+mb.registerDOMReadyAction(new MbEventAction(mb.styleabbr.GID,"process","Correct IE handling of <abbr>"));
 mb.registerDOMReadyAction(new MbEventAction(mb.topmenu.GID,"setupEvents","Setup dropdown menu events."));
 mb.registerDOMReadyAction(new MbEventAction(mb.ui.GID,"moveFocus","Find ONLOAD|focusfield and set this field to receive keyboard input."));
 mb.registerDOMReadyAction(new MbEventAction(mb.ui.GID,"setupPopupLinks","Setup javascript popup links"));
 mb.registerDOMReadyAction(new MbEventAction(mb.ui.GID,"setupFeedbackBoxes","Decorate feedback boxes"));
 mb.albumart=new MbAlbumArtResizer();
 mb.registerPageLoadedAction(new MbEventAction(mb.albumart.GID,"process","Resize amazon coverart"));
-mb.styleabbr=new MbStyleAbbr();
-mb.registerPageLoadedAction(new MbEventAction(mb.styleabbr.GID,"process","Correct IE handling of <abbr>"));
 mb.log.exit();
 }
 
