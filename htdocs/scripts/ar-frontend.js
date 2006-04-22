@@ -114,8 +114,10 @@ function ARFrontEnd() {
 				site = "wikipedia";
 			} else if (v.match(/musicmoz\./i)) {
 				site = "musicmoz";
-			} else if (v.match(/\.imdb\./i)) {
+			} else if (v.match(/(\.|\/)imdb\./i)) {
 				site = "internet movie database";
+			} else if (v.match(/(\.|\/)myspace\.com/i)) {
+				site = "myspace";
 			}
 			if (site != "") {
 				var tddo = this.typedropdown.options;
