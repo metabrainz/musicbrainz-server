@@ -179,6 +179,13 @@
 				{ url => "/freedb/select-macsac.html" },
 			],
 
+			# edit relationship
+			{ url => "/edit/relationship/add.html" },
+			{ url => "/edit/relationship/addurl.html" },
+			{ url => "/edit/relationship/edit.html" },
+			{ url => "/edit/relationship/remove.html" },
+			{ url => "/edit/relationship/showelements.html" },
+
 			# add mods
 			{ url => "/edit/artistalias/add.html" },
 			{ url => "/edit/track/addnonalbum.html" },

@@ -1,225 +1,270 @@
 %# vi: set ts=4 sw=4 ft=mason :
 <%args>
-	$id 		=> ''
-	$type 		=> ''
-	$name 		=> ''
-	$url 		=> undef
-	$desc 		=> undef
-	$notetext 	=> undef
-	$linktype 	=> undef
-	$submit 	=> 0
+	$id => ""
+	$type => ""
+	$name => ""
+	$url => undef
+	$desc => undef
+	$notetext => undef
+	$linktype => undef
+	$submit => ""
 </%args>
 <%perl>
 
-$url = undef if ($url eq 'http://' || $url eq '');
+	# only logged in users may see this page
+	$m->comp("/comp/checkloggedin", 1, 1)
+		or return;
 
-$m->comp("/comp/checkloggedin", 1, 1)
-	or return;
+	# get database handle
+	my $mb = $m->comp("/comp/dblogin");
 
-my $mb = $m->comp("/comp/dblogin");
+	# if url has the default value, clear it
+	$url = undef if ($url eq "http://" || $url eq "");
 
-if (!$type || !$id || !$name)
-{
-	</%perl>
-    <& /comp/sidebar, title => 'Error' &>
-    The id, type and name parameters must be provided to this page.
-	<& /comp/footer &>
-	<%perl>
-	return undef;
-}
-
-if (!MusicBrainz::Server::LinkEntity->IsValidType($type))
-{
-	</%perl>
-    <& /comp/sidebar, title => 'Error' &>
-    <% $type %> is not a valid link type.
-	<& /comp/footer &>
-	<%perl>
-	return undef;
-}
-
-my $obj;
-$obj = MusicBrainz::Server::LinkEntity->newFromTypeAndId(
-    $mb->{DBH},
-    $type, $id
-) or $obj = undef;
-if (!defined $obj)
-{
-	</%perl>
-	<& /comp/sidebar, title => 'Error' &>
-	<% $type %> and id <% $id %> does not specify a valid entity.
-	<& /comp/footer &>
-	<%perl>
-	return undef;
-}
-
-my @links;
-push @links, {
-        type => $type,
-        id => $id,
-        obj => $obj,
-        name => $obj->GetName,
-    };
-push @links, {
-        type => 'url',
-        id => undef,
-        obj => undef,
-        name => $url,
-		url => $url,
-		desc => $desc,
-    };
-
-my @types = ($type, 'url');
-
-# Sanity check... this should be fine
-MusicBrainz::Server::LinkEntity->ValidateTypes(\@types)
-	or die;
-
-my ($dummy, $linkdesc);
-($linktype, $dummy, $linkdesc) = split '\|', $linktype if ($linktype);
-
-my $link = MusicBrainz::Server::LinkType->new($mb->{DBH}, \@types);
-
-if ($url 
-	and $linkdesc
-    and ($linktype =~ /^\d+$/)
-	and MusicBrainz::Server::URL->IsLegalURL($url))
-{
-	my $linktype = $link->newFromId($linktype);
-	if ($linktype)
+	# check if all needed external arguments were given
+	if (!$type || !$id || !$name)
 	{
-		my $success_url = "/showrel.html?id=$id&type=$type";
 
-        # Remove the two entities being linked from recent_links
-		my $recent_links = ($session{recent_links} ||= []);
-		@$recent_links = grep {
-                ($_->[0] != $links[0]{type} || $_->[1] != $links[0]{id}) &&
-                ($_->[0] != $links[1]{type} || $_->[1] != $links[1]{id})
-		} @$recent_links;
-		$session{recent_links} = $recent_links;
-
-		$m->comp(
-			"/comp/entermods",
-			DBH => $mb->{DBH},
-			sub => sub {
-				my @mods = Moderation->InsertModeration(
-					DBH		=> $mb->{DBH},
-					uid		=> $session{uid},
-					privs	=> $session{privs},
-					type	=> &ModDefs::MOD_ADD_LINK,
-					# --
-					entities=> \@links,
-					linktype=> $linktype,
-					url     => $url,
-				);
-
-				$mods[0]->InsertNote($session{'uid'}, $notetext)
-					if $mods[0]
-					and $notetext =~ /\S/;
-			},
-			success_url => $success_url,
-		) or return; 
-
-		die "Shouldn't get here";
+		$m->comp("/comp/sidebar-notitle", pagetitle => "Bad Arguments");
+		$m->comp("/comp/badargs", "The id, type and name parameters must be provided to this page.");
+		$m->comp("/comp/footer");
+		return undef;
 	}
-}
-my $root = $link->Root;
 
+	# check the relationship type
+	if (!MusicBrainz::Server::LinkEntity->IsValidType($type))
+	{
+		$m->comp("/comp/sidebar-notitle", pagetitle => "Bad Arguments");
+		$m->comp("/comp/badargs", "Type: $type is not a valid relationship type.");
+		$m->comp("/comp/footer");
+		return undef;
+	}
+
+	my $obj;
+	$obj = MusicBrainz::Server::LinkEntity->newFromTypeAndId(
+		$mb->{DBH},
+		$type, $id
+	) or $obj = undef;
+	if (!defined $obj)
+	{
+		$m->comp("/comp/sidebar-notitle", pagetitle => "Bad Arguments");
+		$m->comp("/comp/badargs", "Type: $type and id: $id do not specify a valid entity.");
+		$m->comp("/comp/footer");
+		return undef;
+	}
+
+	my @links;
+	push @links, {
+			type => $type,
+			id => $id,
+			obj => $obj,
+			name => $obj->GetName,
+		};
+	push @links, {
+			type => "url",
+			id => undef,
+			obj => undef,
+			name => $url,
+			url => $url,
+			desc => $desc,
+		};
+
+	my @types = ($type, "url");
+
+	# Sanity check... this should be fine
+	MusicBrainz::Server::LinkEntity->ValidateTypes(\@types)
+		or die;
+
+	# get description and type from linktype.
+	my ($dummy, $linkdesc);
+	($linktype, $dummy, $linkdesc) = split '\|', $linktype if ($linktype);
+
+	# setup link type
+	my $link = MusicBrainz::Server::LinkType->new($mb->{DBH}, \@types);
+	my $root = $link->Root;
+
+	# prepare validation
+	my @errors = ();
+	if ($submit ne "")
+	{
+		# handle click of Cancel button
+		if ($submit =~ m/cancel/i)
+		{
+			return $m->comp("/comp/redirect",
+				sprintf "/show%s.html?%sid=$id", $type, $type);
+		}
+
+		# handle try to enter the moderation
+		else
+		{
+			push @errors, "Please select a relationship type from the list below."
+				if (!$linktype);
+			push @errors, "Please enter a valid URL."
+				if (!defined $url || !MusicBrainz::Server::URL->IsLegalURL($url));
+			push @errors, "Please select a subtype of the currently selected relationship type.<br/> The selected relationship type is only used for grouping sub-types."
+				if (!$linkdesc && $linktype);
+
+			if (@errors == 0)
+			{
+				my $linktype = $link->newFromId($linktype);
+				if ($linktype)
+				{
+					my $success_url = "/showrel.html?id=$id&type=$type";
+
+					# Remove the two entities being linked from recent_links
+					my $recent_links = ($session{recent_links} ||= []);
+					@$recent_links = grep {
+							($_->[0] != $links[0]{type} || $_->[1] != $links[0]{id}) &&
+							($_->[0] != $links[1]{type} || $_->[1] != $links[1]{id})
+					} @$recent_links;
+					$session{recent_links} = $recent_links;
+
+					$m->comp(
+						"/comp/entermods",
+						DBH => $mb->{DBH},
+						sub => sub {
+							my @mods = Moderation->InsertModeration(
+								DBH		=> $mb->{DBH},
+								uid		=> $session{uid},
+								privs	=> $session{privs},
+								type	=> &ModDefs::MOD_ADD_LINK,
+								# --
+								entities=> \@links,
+								linktype=> $linktype,
+								url     => $url,
+							);
+
+							$mods[0]->InsertNote($session{'uid'}, $notetext)
+								if $mods[0]
+								and $notetext =~ /\S/;
+						},
+						success_url => $success_url,
+					) or return;
+
+					die "Shouldn't get here";
+				}
+			}
+		}
+	}
 </%perl>
-<& /comp/sidebar, title => 'Create Relationship: Relate to URL' &>
 
-% if ($submit) {
-%      if (!$linktype) {
-         <div class="linkerror">Error: You must select a relationship type from the list below.</div>
-%      }
-%      if (!defined $url || !MusicBrainz::Server::URL->IsLegalURL($url)) {
-         <div class="linkerror">Error: You must enter a valid URL below.</div>
-%      }
-%     if (!$linkdesc && $linktype) {
-          <div class="linkerror">Error: Please select a subtype of the currently
-          	selected relationship type. The selected relationship type is only used
-          	for grouping sub-types.</div>
-%     }
-% }
+<& /comp/sidebar-notitle, pagetitle => "Create Relationship: Relate to URL" &>
 
-<p>
-	Select the URL relationship type and enter the URL below. Please note that the URL must be a valid
-	URL, including the http:// or ftp:// protocol portion of the URL.
-</p>
 
-<p>
-	<b>You may not link to digital audio files or sites where unauthorized copies of copyrighted works
-	can be downloaded.</b> If you would like to link directly to a downloadable music
-	track, please ensure that the music is licensed under some free license like the 
-	<a href="http://creativecommons.org">Creative Commons licenses</a>, 
-	<a href="http://www.eff.org/IP/Open_licenses/eff_oal.php">EFF's 
-	Open Audio license</a> or is otherwise legally downloadable for free. 
-</p>
+	<form id="LinkSelectForm" method="post" action="/edit/relationship/addurl.html">
+		<script type="text/javascript" src="/scripts/ar-frontend.js"></script>
 
-<form name="linkselect" method="post" action="/edit/relationship/addurl.html">
-	<fieldset>
-		<legend>Relate <% ucfirst($type) %> to URL</legend>
+		<& /comp/tablebegin, title => sprintf "Relate %s to URL", ucfirst($type) &>
 
-		<table>
-			<tr>
-				<td width="150"><label><% ucfirst($type) %>: </label></td>
-				<td><b><% $name %></b></td>
-			</tr>
-			<tr>
-				<td></td>
-				<td><select name="linktype">
-						<option value="||">[select a link type]</option>
-%             my @q = map { [$_,0] } $root;
-%             while (my $l = shift @q) {
-%                 unshift @q, map { [$_,$l->[1]+1] } $l->[0]->Children;
-%                 next if ($l->[0]->GetName eq 'ROOT');
-						<option value="<% $l->[0]->GetId %>|<% $l->[0]->GetAttributes() %>|<% $l->[0]->GetDescription() %>" <% $l->[0]->GetId eq $linktype ? 'selected=""' : '' %>
-%                my $text = $l->[0]->GetLinkPhrase;
-%                $text =~ s/\{(\w+:)/{/;
-                  		><% ("&nbsp;&nbsp;" x $l->[1]) |n %><% $text %>&nbsp;&nbsp;</option>
-%            }
-					</select></td>
-			</tr>
-			<tr>
-				<td><label>Url: </label></td>
-				<td><input type="text" name="url" size="40" value="<% $url or 'http://' %>"> (<b>required</b>)</td>
-			</tr>
-		</table>
+			<table class="formstyle">
+				<tr>
+					<td colspan="2" class="instructions">
+						<ul>
+							<li>
+								Select the URL relationship type and enter the URL below. Please note
+								that the URL must be a valid URL, including the http:// or ftp://
+								protocol portion of the URL.</li>
+							<li>
+								<strong>You may not link to digital audio files or sites where
+								unauthorized copies of copyrighted works can be downloaded.</strong>
+								If you would like to link directly to a downloadable music
+								track, please ensure that the music is licensed under some
+								free license like the <a href="http://creativecommons.org">Creative
+								Commons licenses</a>, <a href="http://www.eff.org/IP/Open_licenses/eff_oal.php">EFF's
+								Open Audio license</a> or is otherwise legally downloadable for free.</li>
+						</ul>
+					</td>
+				</tr>
 
-		<table>
-			<tr valign="top">
-				<td valign="top" width="150"><label>Description:</label></td>
-				<td>
-					<span id="relationship_desc" class="linkdesc">&nbsp;</span></td>
-			</tr>
-		</table>
+%	if (@errors > 0) {
+				<tr>
+					<td class="label">&nbsp;</td>
+					<td class="error"><ul><li><%perl> $m->out(join("</li><li>", @errors)); </%perl></li></ul></td>
+				</tr>
+%	}
 
-		<div class="padlefttop">
-		</div>
-		
-		<div class="padlefttop">
-			Enter description for this URL (optional): <br/>
-			<textarea name="desc" rows="3" cols="52"><% $desc %></textarea>
-		</div>
+				<tr class="spaced">
+					<td class="label">
+						<label><% ucfirst($type) %>: </label></td>
+					<td class="field">
+%						$m->comp("/comp/link".($type == "album" ? "release" : $type), id => $id, name => $name);
+					</td>
+				</tr>
 
-		<div class="padleft">
-			<p/>
-			<& /comp/notetext, text => $notetext &>
-		</div>
-		<div class="padlefttop">
-			<input type="hidden" name="id" value="<% $id %>">
-			<input type="hidden" name="type" value="<% $type %>">
-			<input type="hidden" name="name" value="<% $name %>">
-			<input type="hidden" name="submit" value="1">
-			<input type="submit" class="button" value="Submit">
-			
-			<!-- internal fields which drive how the javascript function
-				 interacts with the form elements -->
-			<input type="hidden" name="int_isurlform" value="1">
-			<input type="hidden" name="int_typedropdown" value="linktype">			
-		</div>
-	</fieldset>
-</form>
-<script language="javascript" src="/scripts/ar-frontend.js"></script>
+				<tr>
+					<td class="label">
+						<label>Type:</label></td>
+					<td><select name="linktype">
+							<option value="||">[Please select a relationship type]</option>
+<%perl>
+	my @q = map { [$_,0] } $root;
+	while (my $l = shift @q)
+	{
+		unshift @q, map { [$_,$l->[1]+1] } $l->[0]->Children;
+		next if ($l->[0]->GetName eq "ROOT");
+
+		$m->out(sprintf qq!<option value="%s|%s" %s>!,
+						$l->[0]->GetId . "|" . $l->[0]->GetAttributes(),
+						$l->[0]->GetDescription(),
+						$l->[0]->GetId eq $linktype ? qq! selected="selected"! : "");
+
+		my $text = $l->[0]->GetLinkPhrase;
+		$text =~ s/\{(\w+:)/{/;
+
+		# add x times indentation like specified in the relationship type hierarchy
+		$m->out(sprintf qq!%s$text&nbsp;&nbsp;</option>!,
+						"&nbsp;&nbsp;" x $l->[1]);
+	}
+</%perl>
+						</select></td>
+				</tr>
+				<tr class="top">
+					<td>&nbsp;</td>
+					<td>
+						<div id="relationshipTypeDesc" class="relationshipTypeDesc">
+							Please select a relationship type
+						</div></td>
+				</tr>
+				<tr>
+					<td class="label">
+						<label>Url: </label></td>
+					<td class="field">
+						<input type="text" name="url" size="60" value="<% $url or 'http://' %>" /> (<b>required</b>)</td>
+				</tr>
+
+				<tr class="spaced">
+					<td>&nbsp;</td>
+					<td>
+						Enter description for this URL (optional): <br/>
+						<textarea name="desc" rows="3" cols="52"><% $desc %></textarea></td>
+				</tr>
+
+				<tr class="spaced">
+					<td>&nbsp;</td>
+					<td class="notetext">
+						<& /comp/notetext, text => $notetext &></td>
+				</tr>
+				<tr>
+					<td>&nbsp;</td>
+					<td>
+						<input class="button" type="submit" name="submit" value="Cancel" />
+						<input class="button" type="submit" name="submit" value="Enter Moderation" />
+
+						<input type="hidden" name="id" value="<% $id %>" />
+						<input type="hidden" name="type" value="<% $type %>" />
+						<input type="hidden" name="name" value="<% $name %>" />
+
+%# internal fields which drive how the javascript function
+%# interacts with the form elements
+						<input type="hidden" name="int_isurlform" value="1" />
+						<input type="hidden" name="int_typedropdown" value="linktype" />
+						<input type="hidden" name="int_formsubmitted" value="<% $submit ne "" %>" />
+
+					</td>
+				</tr>
+			</table>
+		<& /comp/tableend &>
+	</form>
 
 <& /comp/footer &>
+

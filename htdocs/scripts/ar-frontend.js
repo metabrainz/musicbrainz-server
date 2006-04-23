@@ -1,7 +1,17 @@
 function ARFrontEnd() {
 
+	// ----------------------------------------------------------------------------
+	// register class/global id
+	// ---------------------------------------------------------------------------
+	this.CN = "ARFrontEnd";
+	this.GID = "arfrontend";
+	mb.log.enter(this.CN, "__constructor");
+
 	// member variables
-	this.typedropdown = null;
+	this.form = null;
+	this.typeDropDownName = null;
+	this.typeDropDown = null;
+	
 	this.isurlform = false;
 	this.isready = false;
 	this.formsubmitted = null;
@@ -10,8 +20,9 @@ function ARFrontEnd() {
 	 * Hide all of the divs specified in int_seenattrs.
 	 */
 	this.hideAll = function() {
+		mb.log.enter(this.GID, "hideAll");
 		var seenattrs;
-		if ((seenattrs = document.linkselect["int_seenattrs"]) != null) {
+		if ((seenattrs = this.form.int_seenattrs) != null) {
 			var list = (seenattrs.value || "").split(",");
 			for  (var i=0; i<list.length; i++) {
 				var lr = list[i];
@@ -22,6 +33,7 @@ function ARFrontEnd() {
 			// addcc.html addurl do not specify this.
 			// alert("could not find hidden field int_seenattrs");
 		}
+		mb.log.exit();
 	};
 	
 
@@ -30,14 +42,16 @@ function ARFrontEnd() {
 	 *
 	 */
 	this.isFormSubmitted = function() {
+		mb.log.enter(this.GID, "isFormSubmitted");
 		if (this.formsubmitted == null) {
 			var field;
-			if ((field = document.linkselect["int_formsubmitted"]) != null) {
+			if ((field = this.form.int_formsubmitted) != null) {
 				this.formsubmitted = (field.value || "") == "1";
 			} else {
 				//alert("could not find hidden field int_formsubmitted");
 			}
 		}
+		mb.log.exit();
 		return this.formsubmitted;
 	}
 	
@@ -53,35 +67,41 @@ function ARFrontEnd() {
  	 * client side behavior if it is supported (=javascript available)
 	 **/
 	this.setupForm = function() {	
-		if (document.linkselect != null) {
-			var dropdownhidden;
-			if ((dropdownhidden = document.linkselect["int_typedropdown"]) != null) {
-				dropdownhidden = (dropdownhidden.value || "");
-				if ((this.typedropdown = document.linkselect[dropdownhidden]) != null) {
-					if ((this.isurlform = document.linkselect["int_isurlform"]) != null) {
+		mb.log.enter(this.GID, "setupForm");
+		if ((this.form = mb.ui.get("LinkSelectForm")) != null) {
+			if ((this.typeDropDownName = this.form.int_typedropdown) != null) {
+				this.typeDropDownName = (this.typeDropDownName.value || "");
+				if ((this.typeDropDown = this.form[this.typeDropDownName]) != null) {
+					if ((this.isurlform = this.form.int_isurlform) != null) {
 						this.ready = true;
 
 						// register event handlers			
-						this.typedropdown.onkeydown = function(event) { arfrontend.typeChanged(); }
-						this.typedropdown.onchange = function(event) { arfrontend.typeChanged(); }
-
-						// fire event to setup descriptions etc.
+						this.typeDropDown.onkeydown = function(event) { arfrontend.typeChanged(); }
+						this.typeDropDown.onchange = function(event) { arfrontend.typeChanged(); }
+						
+ 						// fire event to setup descriptions etc.
 						this.typeChanged(); 
+						
+						this.typeDropDown.onkeydown();
 
 					} else {
-						alert("could not find hidden field int_isurlform");
+						mb.log.error("Could not find the hidden field int_isurlform");
 					}
 				} else {
-					alert("could not find the dropdown specified by int_typedropdown");
+					mb.log.error("Could not find the DropDown given by int_typedropdown $", this.typeDropDownName);
 				}
+				
+				//http://www.amazon.com/gp/product/B00006EXLQ/102-6816886-9853762?s=music&v=glance&n=5174
 
 				// add handler which clears the default value upon focus.
 				var urlfield;
-				if ((urlfield = document.linkselect["url"]) != null) {
+				if ((urlfield = this.form.url) != null) {
 					urlfield.onfocus = function(event) { if (this.value == "http://") this.value = ""; }
 					urlfield.onblur = function(event) { if (this.value == "") this.value = "http://"; }
 					urlfield.onchange = function(event) { arfrontend.guessTypeFromURL(this); }
 					urlfield.onkeyup = function(event) { arfrontend.guessTypeFromURL(this); }
+				} else {
+					mb.log.error("Field url not found in form!");
 				}
 				var elcs, elss;
 				if ((elcs = mb.ui.get("swap-clientside")) != null &&
@@ -90,11 +110,12 @@ function ARFrontEnd() {
 					elss.style.display = "none";
 				}
 			} else {
-				alert("could not find the hidden field int_typedropdown");
-			}
+				mb.log.error("Could not find the hidden field int_typedropdown");
+			}		
 		} else {
-			alert("could not find form document.linkselect!");
-		}
+			mb.log.error("could not find the LinkSelectForm");
+		}			
+		mb.log.exit();
 	};
 	
 	/**
@@ -103,11 +124,23 @@ function ARFrontEnd() {
 	 *
 	 */	
 	this.guessTypeFromURL = function(field) {
-		var tdd = this.typedropdown;
+		mb.log.enter(this.GID, "guessTypeFromURL");
+		var tdd = this.typeDropDown;
 		if (tdd.selectedIndex != 1) {
 			var v = (field.value || ""), site = "";
 			if (v.match(/\.amazon\./i)) {
 				site = "amazon asin";	
+				
+				// try to chop off stuff from the end of the url.
+				var reUS = /(.*\/gp\/product\/[a-z0-9]*).*/i; // http://www.amazon.com/gp/product/<ASIN>
+				var reNonUS = /(.*\/exec\/obidos\/ASIN\/[a-z0-9]*).*/i; // http://www.amazon.de/exec/obidos/ASIN/<ASIN>
+				
+				if (v.match(reUS)) { 
+					field.value = v.replace(reUS, "$1");
+				} else if (v.match(reNonUS)) { 
+					field.value = v.replace(reNonUS, "$1");
+				}
+				
 			} else if (v.match(/\.discogs\./i)) {
 				site = "discogs";
 			} else if (v.match(/\.wikipedia\./i)) {
@@ -120,7 +153,7 @@ function ARFrontEnd() {
 				site = "myspace";
 			}
 			if (site != "") {
-				var tddo = this.typedropdown.options;
+				var tddo = this.typeDropDown.options;
 				for (var i=0;i<tddo.length; i++) {
 					var value = tddo[i].value.toLowerCase();
 					var found = value.indexOf(site) != -1;
@@ -132,6 +165,7 @@ function ARFrontEnd() {
 				}
 			}
 		}
+		mb.log.exit();
 	};
 	
 	/**
@@ -140,8 +174,10 @@ function ARFrontEnd() {
 	 *
 	 */
 	this.showDiv = function(id, show) {
+		mb.log.enter(this.GID, "showDiv");
 		var obj = document.getElementById(id);
 		if (obj) obj.style.display = (show == 1 ? "block" : "none");
+		mb.log.exit();
 	};
 	
 	/**
@@ -150,20 +186,20 @@ function ARFrontEnd() {
 	 *
 	 */
 	this.typeChanged = function() {
-		if (this.typedropdown != null) {
-			var selection = this.typedropdown.value;
+		mb.log.enter(this.GID, "typeChanged");
+		if (this.typeDropDown != null) {
+			var selection = this.typeDropDown.value;
 			var sp = selection.split("|");
 			var attrs = (sp[1] || "");
 			var descr = (sp[2] || "");
 
 			if (!this.isurlform != null) {
-				var p;
 				this.hideAll();
 				if (attrs == "") {
-					this.showDiv('attributes', 0);
+					this.showDiv("attributes", 0);
 				} else {
-					this.showDiv('attributes', 1);
-					var pairs = attrs.split(" ");
+					this.showDiv("attributes", 1);
+					var p, pairs = attrs.split(" ");
 					for(p in pairs) {
 						var kv = pairs[p].split('=');
 						if (kv[0] != "") {
@@ -175,27 +211,27 @@ function ARFrontEnd() {
 			} 
 			
 			// update description div
-			var relDesc = mb.ui.get('relationship_desc');
-			if (relDesc) {
+			var el = mb.ui.get("relationshipTypeDesc");
+			if (el) {
 				if (descr != "") {
-					relDesc.innerHTML = "" + descr;
-					relDesc.setAttribute("className", "linkdesc");
+					el.innerHTML = "" + descr; 
+					el.setAttribute("className", "relationshipTypeDesc");
 				} else if (selection == "||") {
-					relDesc.innerHTML = "";
+					el.innerHTML = "Please select a relationship type";
 				} else {
-					var tempStr = (this.isFormSubmitted() ? "Error: " : "") + 
-						"Please select a subtype of the currently selected " +
-						"relationship type. The selected relationship type is " +
-						"only used for grouping sub-types.";
-					relDesc.innerHTML = tempStr;
+					var tempStr = 	"Please select a subtype of the currently selected " +
+									"relationship type. The selected relationship type is " +
+									"only used for grouping sub-types.";
+					el.innerHTML = tempStr;
 					if (this.isFormSubmitted()) {
-						relDesc.setAttribute("className", "linkerrorslim");
+						el.setAttribute("className", "relationshipTypeError");
 					}
 				}
 			}
 		} else {
-			alert("could not find the dropdown "+document.linkselect["int_typedropdown"]+" in form!");
-		}
+			mb.log.error("Cannot find the DropDown $ in the form!", this.typeDropDownName);
+		}				
+		mb.log.exit();
 	}
 
 
@@ -205,6 +241,7 @@ function ARFrontEnd() {
 	 * (saves a server roundtrip)
 	 */
 	this.swapElements = function(theBtn) {
+		mb.log.enter(this.GID, "swapElements");
 		var theForm = theBtn.form;
 		if (theForm == null || theForm.link0 == null || theForm.link1) {
 			var leftTD = document.getElementById("arlinkswap-link0-td");
@@ -221,7 +258,15 @@ function ARFrontEnd() {
 				theForm.link1.value = tmp;
 			}
 		}
+		mb.log.exit();
 	}	
+	
+	// exit constructor
+	mb.log.exit();
 }
+
+// instantiate, and setup the form.
 var arfrontend = new ARFrontEnd();
-arfrontend.setupForm();
+mb.registerDOMReadyAction(
+	new MbEventAction(arfrontend.GID, 'setupForm', "Setup AdvancedRelationship entry form")
+);

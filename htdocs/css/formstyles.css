@@ -74,15 +74,27 @@ table.formstyle td.padtop {
 	margin: 0px; margin-top: 10px;
 }
 
+
+/* AdvancedRelationship editor classes
+ * ------------------------------------------------------------------------- */
 .linkerror {
 	font-weight: bold; color: #f00; padding-top: 4px;
 }
-.linkerrorslim {
-	font-weight: lighter; color: #f00; padding-top: 4px;
+
+.relationshipTypeDesc,
+.relationshipTypeError {
+	font-weight: normal; 
+	width: 500px;
+	padding: 5px;
+	margin-bottom: 5px;
+	border: 1px dotted #666;
+	color: #000; background-color: #fff;
+	font-size: 11px;
 }
-.linkdesc {
-	font-weight: normal; color: #000; padding-top: 4px;
+.relationshipTypeError {
+	border: 1px dotted #f00;
 }
+
 
 .helptext {
 	font-size: 11px;
