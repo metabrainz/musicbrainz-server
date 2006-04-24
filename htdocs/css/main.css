@@ -519,10 +519,7 @@ table.releasesummary td.language
 	width: 5%; white-space: nowrap;
 }
 table.releasesummary td.language span { padding: 0px; }
-table.releasesummary td.attributes span { 
-	padding: 0px; 
-	width: 5%; white-space: nowrap;
-}
+table.releasesummary td.attributes span { padding: 0px; }
 
 /* ------------------------------------------------------------------------- 
  * Release Events table
