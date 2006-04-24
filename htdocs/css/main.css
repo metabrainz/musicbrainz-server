@@ -519,8 +519,8 @@ table.releasesummary td.language
 	width: 5%; white-space: nowrap;
 }
 table.releasesummary td.language span { padding: 0px; }
-table.releasesummary td.attributes span { padding: 0px; }
-{
+table.releasesummary td.attributes span { 
+	padding: 0px; 
 	width: 5%; white-space: nowrap;
 }
 
@@ -998,6 +998,14 @@ table.Subs tr.r1 td {
 	color: #000;
 	background: #000;
 	height: 1px;
+}
+
+/* WIKIDOCS: <code> */
+.wikidocs code {
+	color: #000;
+	background-color: #eee;
+	margin: 1px 2px;
+	padding: 0px 2px;
 }
 
 /* WIKIDOCS: unordered lists */

@@ -1,0 +1,28 @@
+%# vi: set ts=2 sw=2 ft=mason :
+<%args>
+	# preferred way of calling - provide URL object
+	$url => undef
+
+	# you can provide id, and name arguments as well
+	$id => undef
+	$name => undef
+
+	# rendering options
+	$icon => 0
+	$strong => 1
+</%args>
+<%perl>
+	if (defined $url)
+	{
+		$id = $url->GetId;
+		$name = $url->GetName;
+	}
+	die ("$id and $name are required") if (not defined $id || not defined $name);
+
+	# render link.
+	$m->out(qq!<strong>!) if ($strong);
+	$m->out(qq!<img src="/images/edit.gif" alt="" />!) if ($icon);
+	$m->out(qq!<a href="/showurl.html?urlid=$id">$name</a>!);
+	$m->out(qq!</strong>!) if ($strong);
+
+</%perl>

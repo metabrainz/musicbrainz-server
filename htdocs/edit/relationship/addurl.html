@@ -24,19 +24,14 @@
 	# check if all needed external arguments were given
 	if (!$type || !$id || !$name)
 	{
-
-		$m->comp("/comp/sidebar-notitle", pagetitle => "Bad Arguments");
-		$m->comp("/comp/badargs", "The id, type and name parameters must be provided to this page.");
-		$m->comp("/comp/footer");
+		$m->comp("/comp/layout/badarguments", text => "The id, type and name parameters must be provided to this page.");
 		return undef;
 	}
 
 	# check the relationship type
 	if (!MusicBrainz::Server::LinkEntity->IsValidType($type))
 	{
-		$m->comp("/comp/sidebar-notitle", pagetitle => "Bad Arguments");
-		$m->comp("/comp/badargs", "Type: $type is not a valid relationship type.");
-		$m->comp("/comp/footer");
+		$m->comp("/comp/layout/badarguments", text => "Type: $type is not a valid relationship type.");
 		return undef;
 	}
 
@@ -47,9 +42,7 @@
 	) or $obj = undef;
 	if (!defined $obj)
 	{
-		$m->comp("/comp/sidebar-notitle", pagetitle => "Bad Arguments");
-		$m->comp("/comp/badargs", "Type: $type and id: $id do not specify a valid entity.");
-		$m->comp("/comp/footer");
+		$m->comp("/comp/layout/badarguments", text => "Type: $type and id: $id do not specify a valid entity.");
 		return undef;
 	}
 

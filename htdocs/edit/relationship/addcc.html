@@ -34,8 +34,8 @@ if (!$type || !$id || !$name)
 	</%perl>
     <& /comp/sidebar, title => 'Add a Creative Commons License' &>
     <p>
-    To add a <a href="http://creativecommons.org">Creative Commons</a> <a href="http://creativecommons.org/about/licenses/meet-the-licenses">license</a> to an album or a track, first <a href="/search/textsearch.html">find 
-    the album or track</a> in the database and then click on the <i>add CC license</i> link in the 
+    To add a <a href="http://creativecommons.org">Creative Commons</a> <a href="http://creativecommons.org/about/licenses/meet-the-licenses">license</a> to an album or a track, first <a href="/search/textsearch.html">find
+    the album or track</a> in the database and then click on the <i>add CC license</i> link in the
     album header or on the track detail page.
     </p>
 
@@ -108,7 +108,7 @@ if ($license)
 
 
 my $link = MusicBrainz::Server::LinkType->new($mb->{DBH}, \@types);
-if ($url 
+if ($url
 	and $license
 	and MusicBrainz::Server::URL->IsLegalURL($url))
 {
@@ -138,7 +138,7 @@ if ($url
 					and $notetext =~ /\S/;
 			},
 			success_url => $success_url,
-		) or return; 
+		) or return;
 
 		die "Shouldn't get here";
 	}
@@ -172,8 +172,8 @@ foreach my $node (@children)
 <& /comp/sidebar, title => 'Add a Creative Commons License' &>
 
 <p>
-	Select a <a href="http://creativecommons.org">Creative Commons</a> <a href="http://creativecommons.org/about/licenses/meet-the-licenses">license</a> 
-	and enter the URL where this <% $type %> can be downloaded. If possible, please link directly to a media file 
+	Select a <a href="http://creativecommons.org">Creative Commons</a> <a href="http://creativecommons.org/about/licenses/meet-the-licenses">license</a>
+	and enter the URL where this <% $type %> can be downloaded. If possible, please link directly to a media file
 	(e.g. mp3).
 	Please note that the URL must be a valid
 	URL, including the http:// or ftp:// protocol portion of the URL.
@@ -181,7 +181,7 @@ foreach my $node (@children)
 <br/>
 
 <p>
-    Please include a URL in the moderation node that shows where this 
+    Please include a URL in the moderation node that shows where this
     <% $type %> has been licensed under a CC license. If you do not include a URL
     to show this, your license link moderation may not be approved by other moderators.
 </p>
@@ -214,21 +214,21 @@ foreach my $node (@children)
 					<input type="text" name="url" size="40" value="<% $url or 'http://' %>"> (<b>required</b>)
 %					if ($submit && (!defined $url || !MusicBrainz::Server::URL->IsLegalURL($url))) {
          			<div class="linkerror">Please enter a valid URL</div>
-%					}					
+%					}
 				</td>
 			</tr>
 		</table>
-		
+
 		<table>
 			<tr valign="top">
 				<td valign="top" width="150"><label>Description:</label></td>
-				<td><span id="relationship_desc" class="linkdesc">&nbsp;</span></td>
+				<td><span id="relationshipTypeDesc" class="linkdesc">&nbsp;</span></td>
 			</tr>
-		</table>		
+		</table>
 
 		<div class="padlefttop">
 		</div>
-		
+
 		<div class="padleft">
 			<p/>
 			<& /comp/notetext, text => $notetext &>

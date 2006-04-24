@@ -2,8 +2,8 @@
 	$id => undef
 </%args>
 <%perl>
-	MusicBrainz::IsSingleLineString($id) and $id =~ /\A\w+\z/
-		or return $m->comp("/comp/badargs", 1, 1);
+	#MusicBrainz::IsSingleLineString($id) and $id =~ /\A\w+\z/
+	#	or return $m->comp("/comp/badargs", 1, 1);
 
 	my $mb = $m->comp("/comp/dblogin");
 	my $wt = MusicBrainz::Server::WikiTransclusion->new($mb->{DBH});
@@ -104,6 +104,10 @@
 			$page =~ s/<(\/?)h4/<$1h3/ig;
 			$page =~ s/<(\/?)h5/<$1h4/ig;
 
+			$page =~ s/&lt;code&gt;/<code>/ig;
+			$page =~ s/&lt;\/code&gt;/<\/code>/ig;
+
+
 			# Obfuscate e-mail addresses
 			$page =~ s/(\w+)\@(\w+)/$1&#x0040;$2/g;
 			$page =~ s/mailto:/mailto&#x3a;/g;
@@ -137,9 +141,9 @@
 				$out .= qq!</div> \n!;
 			}
 
-			$m->print(qq!<div class="wikidocs">\n!);
-			$m->print($out);
-			$m->print(qq!</div>\n!);
+			$m->out(qq!<div class="wikidocs">\n!);
+			$m->out($out);
+			$m->out(qq!</div>\n!);
 
 
 			# Now store page in cache

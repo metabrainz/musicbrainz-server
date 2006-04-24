@@ -95,18 +95,48 @@ table.formstyle td.padtop {
 	border: 1px dotted #f00;
 }
 
+.relationshipNoScript {
+	font-weight: normal; 
+	width: 500px; 
+	padding: 5px;
+	border: 1px dotted #00f;
+	color: #000; background-color: #fff;
+	font-size: 11px;
+}
+
 
 .helptext {
 	font-size: 11px;
 }
-.ar-attribute {
+.relationshipAttribute {
 }
-.ar-attribute-description {
-	margin-left: 25px;
-	margin-bottom: 5px;
-	width: 450px;
+.relationshipAttributeDesc div {
+	margin: 5px 25px; padding: 5px; 
+	width: 400px;
+	border: 1px dotted #666;
+	color: #000; background-color: #fff;
 	font-size: 11px;
 }
+
+/* add instrument/vocal button */ 
+.relationshipAttributeDesc input {
+	margin-left: 25px; 
+}
+
+/* styles for the dropdown, searchfield, and button */ 
+.relationshipAttributeDropdown {
+	margin-bottom: 1px; margin-right: 5px; /* formats for the <select> dropdown element */ 
+}
+.relationshipAttributeField {}
+.relationshipAttributeButton {
+	padding: 0px; margin-left: 4px; margin-right: 4px;
+}
+.relationshipAttributeItem {
+	margin: 0px; padding: 0px;  /* is used to group multiple instrument/vocal dropdown boxes */
+}
+
+
+
 
 .autofixmenu {
 }
@@ -144,20 +174,7 @@ table.formstyle td.padtop {
 
 
 
-/* styles for the dropdown, searchfield, and button */ 
-.ar-dropdown {
-	margin-bottom: 1px; margin-right: 5px; /* formats for the <select> dropdown element */ 
-}
-.ar-attr-textfield {}
-.ar-attr-button {
-	padding: 0px; margin-left: 4px; margin-right: 4px;
-}
-.ar-attribute-item {
-	margin: 0px; padding: 0px;  /* is used to group multiple instrument/vocal dropdown boxes */
-}
-.ar-attribute-description input {
-	margin: 0px; margin-left: 0px; padding: 0px;  /* add instrument/vocal button */ 
-}
+
 
 
 

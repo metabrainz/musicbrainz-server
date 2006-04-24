@@ -1,0 +1,291 @@
+<%args>
+	$id => undef
+	$type => ""
+	$linktypeid => undef
+
+	$swapval => 0
+	$submit => ""
+	$notetext => undef
+
+</%args>
+<%perl>
+
+	#die (keys %ARGS);
+	my $formurl = $ARGS{"v::formurl"};
+
+	my @errors = @{ $ARGS{"v::errors"} };
+	my @links = @{ $ARGS{"v::links"} };
+
+	# prepare relationship entities
+	my $rev = ($links[0]->{type} eq "album" && $links[1]->{type} eq "artist") ? 1 : 0;
+
+	my $e1 = $links[$rev ? 1 : 0];
+	my $etype1 = ucfirst($e1->{type} eq "album" ? "release" : $e1->{type});
+	my $e2 = $links[$rev ? 0 : 1];
+	my $etype2 = ucfirst($e2->{type} eq "album" ? "release" : $e2->{type});
+
+	# dates
+	my ($begindate_y, $begindate_m, $begindate_d) = @{ $ARGS{"v::begindate"} };
+	my ($enddate_y, $enddate_m, $enddate_d) = @{ $ARGS{"v::enddate"} };
+
+	# relationship types root
+	my $root = $ARGS{"v::root"};
+
+	# attributes root
+	my $attrType = $ARGS{"v::attrType"};
+	my $attrRoot = $attrType->Root;
+	my @children = $attrRoot->Children;
+
+	# start page output.
+	my $title = ($formurl =~ /edit\.html/
+		? "Edit Relationship Details: "
+		: "Create Relationship: ")."$etype1-$etype2";
+</%perl>
+
+<& /comp/sidebar-notitle, pagetitle => $title &>
+	<& /comp/tablebegin, title => $title &>
+
+	<form method="post" id="LinkSelectForm" action="<% $formurl %>">
+		<script type="text/javascript" src="/scripts/ar-attributesearch.js"></script>
+		<script type="text/javascript" src="/scripts/ar-frontend.js"></script>
+
+		<table class="formstyle">
+%	if (@errors > 0) {
+			<tr>
+				<td class="label">&nbsp;</td>
+				<td class="error"><ul><li><%perl> $m->out(join("</li><li>", @errors)); </%perl></li></ul></td>
+			</tr>
+%	}
+			<tr>
+				<td class="label">
+					<label><% $etype1 %>: </label></td>
+				<td id="arEntitiesSwap-TD<% $rev ? 1 : 0 %>">
+%					$m->comp("/comp/link".lc($etype1), id =>  $e1->{id}, name => $e1->{name});
+				</td>
+			</tr>
+			<tr>
+				<td class="label">
+					<label>Type:</label></td>
+				<td class="field">
+					<table border="0" cellspacing="0" cellpadding="0">
+						<tr>
+							<td>
+								<select name="linktypeid">
+									<option value="||">[Select Relationship Type]</option>
+<%perl>
+
+	my %seen_attrs;
+	my @seen_attrs_list;
+	my @q = map { [$_,0] } $root;
+	while (my $l = shift @q)
+	{
+		unshift @q, map { [$_,$l->[1]+1] } $l->[0]->Children;
+		next if ($l->[0]->GetName eq 'ROOT');
+		if ($l->[0]->GetAttributes())
+		{
+			my @at = split ' ', $l->[0]->GetAttributes();
+			foreach my $a (@at)
+			{
+				my ($key, $value) = split '=', $a;
+				my ($mn, $mx) = split '-', $value;
+				$mx = -1 if (!defined $mx or $mx eq "");
+
+				if (!$seen_attrs{$key})
+				{
+					push @seen_attrs_list, $key;
+				}
+				$seen_attrs{$key} = $mx;
+			}
+		}
+
+		my $value = sprintf "%s|%s|%s",
+					$l->[0]->GetId,
+					$l->[0]->GetAttributes(),
+					encode_entities($l->[0]->GetDescription());
+
+		$m->out(sprintf qq!<option value="%s" %s>!,
+						$value,
+						$l->[0]->GetId eq $linktypeid ? qq! selected="selected"! : "");
+
+		my $text = $rev ? $l->[0]->GetReverseLinkPhrase : $l->[0]->GetLinkPhrase;
+		$text =~ s/\{(\w+:)/{/;
+		$text = encode_entities($text);
+
+		# add x times indentation like specified in the relationship type hierarchy
+		$m->out(sprintf qq!%s$text&nbsp;&nbsp;</option>!,
+						"&nbsp;&nbsp;&nbsp;" x $l->[1]);
+
+	}
+
+</%perl>
+
+								</select>
+							</td>
+							<td>
+% 	if ($etype1 eq $etype2) {
+								<span id="arEntitiesSwap-Client" style="display: none">
+									<input type="button" class="button" onclick="arfrontend.swapElements(this)" name="swapJS" value="Change direction" />
+								</span>
+								<span id="arEntitiesSwap-Server" style="display: block">
+									<input type="submit" class="button" name="submit" value="Change direction" />
+								</span>
+
+%	}
+							</td>
+						</tr>
+					</table>
+				</td>
+			</tr>
+			<tr class="top">
+				<td>&nbsp;</td>
+				<td>
+					<div id="relationshipTypeDesc" class="relationshipTypeDesc">
+						Please select a relationship type
+					</div></td>
+			</tr>
+			<tr>
+				<td class="label">
+					<label><% $etype2 %>: </label></td>
+				<td id="arEntitiesSwap-TD<% $rev ? 0 : 1 %>">
+%					$m->comp("/comp/link".lc($etype2), id =>  $e2->{id}, name => $e2->{name});
+				</td>
+			</tr>
+
+			<tr class="spaced top" id="relationshipAttributes">
+				<td class="label">
+					<label>Attributes:</label></td>
+				<td>
+<%perl>
+
+	foreach my $sec (@seen_attrs_list)
+	{
+		my $desc;
+		my $isSimple;
+		my $tree;
+		foreach my $child (@children)
+		{
+			if ($child->GetName eq $sec)
+			{
+				$desc = $child->GetDescription;
+				$isSimple = !$child->HasChildren;
+				$tree = $child;
+			}
+		}
+		$m->out(qq|<div id="$sec" class="relationshipAttribute">|);
+		for(my $index = 0;; $index++)
+		{
+			last if ($index > 0 && !exists $ARGS{"attr_". $sec . "_$index"});
+			if ($isSimple)
+			{
+				$m->out(qq|<input type="checkbox" name="attr_|. $sec . "_" . qq|$index" value="| . $tree->GetId . "\"");
+				$m->out(qq| checked="checked"|) if ($ARGS{"attr_$sec"."_$index"});
+				$m->out(qq|/> $sec|);
+			}
+			else
+			{
+				$m->out(qq|<div id="attr_|. $sec . "_" . $index . qq|_item" class="relationshipAttributeItem">\n|);
+				$m->out(qq|<select name="attr_|. $sec . "_" . qq|$index" id="attr_|. $sec . "_" . qq|$index" class="relationshipAttributeDropdown">\n|);
+				$m->out(qq|<option value="">&nbsp;[select $sec]</option>\n|);
+				my @q = map { [$_,0] } $tree->Children;
+				while (my $l = shift @q)
+				{
+					unshift @q, map { [$_,$l->[1]+1] } $l->[0]->Children;
+					next if ($l->[0]->GetName eq 'ROOT');
+					$m->out("<option value=\"".$l->[0]->GetId.'" ');
+					$m->out($l->[0]->GetId eq $ARGS{"attr_".$sec."_$index"} ? 'selected="selected"' : '');
+					$m->out(">&nbsp;" . ("&nbsp;&nbsp;&nbsp;" x $l->[1]) . $l->[0]->GetName . "</option>\n");
+				}
+				$m->out("</select>");
+				$m->out("</div>");
+			}
+		}
+		$m->out(qq|</div>\n|);
+		$m->out(qq|<div class="relationshipAttributeDesc" id="$sec-desc">\n|);
+		$m->out(qq|  <div class="desc">$desc</div>\n|);
+		$m->out(qq|  <input type="button" onclick="arsearch.addAttribute('$sec')" value="Add another $sec &raquo;" />\n|)  if ($seen_attrs{$sec} < 0 || $seen_attrs{$sec} > 1);
+		$m->out(qq|</div>\n|);
+
+	}
+</%perl>
+				</td>
+			</tr>
+
+%#			this table row is hidden using javascript if support for javascript
+%#			is available. this works better than a noscript tag.
+			<tr class="spaced" id="relationshipNoScript">
+				<td>&nbsp;</td>
+				<td>
+					<div class="relationshipNoScript">
+						<strong>NOTE:</strong> You do not have JavaScript enabled. Not all of the
+						attributes shown above apply to all relationship types, and without
+						JavaScript we cannot selectively display the appropriate attributes.
+						We recommend that you turn on JavaScript in your browser.
+					</div>
+				</td>
+			</tr>
+
+			<tr class="spaced">
+				<td class="label">
+					<label for="rel_begindate">Begin date:</label></td>
+				<td>
+					<& /comp/dateinput, name_prefix => 'begindate', value=> [$begindate_y, $begindate_m, $begindate_d],
+						id => "rel_begindate" &>
+					Year-Month-Day</td>
+			</tr>
+			<tr>
+				<td class="label">
+					<label for="rel_enddate">End date:</label></td>
+				<td>
+					<& /comp/dateinput, name_prefix => 'enddate', value=>[$enddate_y, $enddate_m, $enddate_d],
+						id => "rel_enddate" &>
+					Year-Month-Day</td>
+			</tr>
+			<tr>
+				<td>&nbsp;</td>
+				<td>
+					<div class="relationshipAttributeDesc">
+						If the relationship type you selected indicates a temporal relationship (e.g. <i>was a member of</i>), then enter
+						the begin and/or end dates above. These dates are optional, and leaving the end date blank
+						indicates that this relationship is still active today.
+					</div></td>
+			</tr>
+
+			<tr class="spaced">
+				<td>&nbsp;</td>
+				<td class="notetext">
+					<& /comp/notetext, text => $notetext &></td>
+			</tr>
+			<tr>
+				<td>&nbsp;</td>
+				<td>
+					<input class="button" type="submit" name="submit" value="Cancel" />
+					<input class="button" type="submit" name="submit" value="Enter Moderation" />
+
+<%perl>
+
+	if ($formurl =~ /edit\.html/) {
+		$m->out(qq!<input type="hidden" name="id" value="$id" />!);
+		$m->out(qq!<input type="hidden" name="type" value="$type" />!);
+		$m->out(qq!<input type="hidden" name="swapval" value="$swapval" />!);
+	}
+	else
+	{
+		$m->out(sprintf qq!<input type="hidden" name="link0" value="%s=%d" />!, $links[0]->{type}, $links[0]->{id});
+		$m->out(sprintf qq!<input type="hidden" name="link1" value="%s=%d" />!, $links[1]->{type}, $links[1]->{id});
+	}
+
+</%perl>
+
+
+%#					internal fields which drive how the javascript function
+%#					interacts with the form elements
+					<input type="hidden" name="int_isurlform" value="0" />
+					<input type="hidden" name="int_formsubmitted" value="<% $submit ne "" %>" />
+					<input type="hidden" name="int_seenattrs" value="<% join(",", keys %seen_attrs)  %>" />
+					<input type="hidden" name="int_typedropdown" value="linktypeid" /></td>
+			</tr>
+		</table>
+	</form>
+
+	<& /comp/tableend &>
+<& /comp/footer &>

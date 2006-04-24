@@ -2,7 +2,8 @@
 <%perl>
 	my ($fHeader, $fFooter) = @_;
 
-	$m->comp("/comp/sidebar-notitle", pagetitle => "Bad Arguments") if $fHeader;
+	$m->comp("/comp/sidebar-notitle", pagetitle => "Bad Arguments")
+		if $fHeader;
 
 	$m->comp("/comp/tablebegin", title => "The arguments supplied to this page are invalid");
 	$m->out(qq!Please check the arguments and then try loading this page again.!);

@@ -1,0 +1,53 @@
+<%perl>
+
+	my $attributes = $ARGS{"v::attributes"};
+	my $attrType = $ARGS{"v::attrType"};
+	my (@errors, @new_attr_list);
+
+	for my $kvpair (split " ", $attributes)
+	{
+		my ($name, $limits) = split '=', $kvpair;
+		my ($mn, $mx) = split '-', $limits;
+
+		$mn = 0 if (!defined $mn or $mn eq '');
+		$mx = 10000 if (!defined $mx or $mx eq '');
+
+		my $total = 0;
+		for(my $index = 0; $index < $mx; $index++)
+		{
+			# First, check to see if we have a passed arg
+			last if (!exists $ARGS{"attr_".$name."_".$index});
+			my $value = $ARGS{"attr_".$name."_".$index};
+			if ($value)
+			{
+				if ($value < 0)
+				{
+					my $lookupAttr = $attrType->newFromParentIdAndChildName(0, $name);
+					$value = ($lookupAttr) ?  $lookupAttr->GetId() : 0;
+				}
+				$total++;
+				push @new_attr_list, { value => $value, name => $name }
+			}
+		}
+
+		if ($total > $mx)
+		{
+			# This should never happen
+			push @errors, "Too many selections made for attribute $name";
+		}
+		elsif ($total == 0 && $mn == 1)
+		{
+			push @errors, "No selection made for required attribute $name";
+		}
+		elsif ($total < $mn)
+		{
+			push @errors, "Too few selections for attribute $name";
+		}
+	}
+
+	$ARGS{"v::errors"} = \@errors;
+	$ARGS{"v::new_attr_list"} = \@new_attr_list;
+
+	return %ARGS;
+
+</%perl>

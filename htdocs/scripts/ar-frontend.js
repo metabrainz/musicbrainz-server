@@ -11,7 +11,6 @@ function ARFrontEnd() {
 	this.form = null;
 	this.typeDropDownName = null;
 	this.typeDropDown = null;
-	
 	this.isurlform = false;
 	this.isready = false;
 	this.formsubmitted = null;
@@ -26,12 +25,13 @@ function ARFrontEnd() {
 			var list = (seenattrs.value || "").split(",");
 			for  (var i=0; i<list.length; i++) {
 				var lr = list[i];
-				this.showDiv(lr, 0);
-				this.showDiv(lr+ "-desc", 0);
+				if (lr != "") {
+					mb.ui.setDisplay(lr, false);
+					mb.ui.setDisplay(lr+ "-desc", false);
+				}
 			}	
 		} else {
-			// addcc.html addurl do not specify this.
-			// alert("could not find hidden field int_seenattrs");
+			// addcc.html, addurl.html pages do not specify this.
 		}
 		mb.log.exit();
 	};
@@ -68,6 +68,14 @@ function ARFrontEnd() {
 	 **/
 	this.setupForm = function() {	
 		mb.log.enter(this.GID, "setupForm");
+		
+		// hide the notice, which is displayed for browsers
+		// which have javascript turned off.
+		var obj;
+		if ((obj = mb.ui.get("relationshipNoScript")) != null) {
+			obj.style.display = "none";
+		}
+				
 		if ((this.form = mb.ui.get("LinkSelectForm")) != null) {
 			if ((this.typeDropDownName = this.form.int_typedropdown) != null) {
 				this.typeDropDownName = (this.typeDropDownName.value || "");
@@ -78,34 +86,33 @@ function ARFrontEnd() {
 						// register event handlers			
 						this.typeDropDown.onkeydown = function(event) { arfrontend.typeChanged(); }
 						this.typeDropDown.onchange = function(event) { arfrontend.typeChanged(); }
-						
- 						// fire event to setup descriptions etc.
-						this.typeChanged(); 
-						
-						this.typeDropDown.onkeydown();
 
+						// fire event to setup descriptions etc.
+						this.typeChanged(); 
+						this.typeDropDown.onkeydown();
+						
+						// add handler which clears the default value upon focus.
+						if (this.isurlform.value == 1) {
+							var urlfield;
+							if ((urlfield = this.form.url) != null) {
+								urlfield.onfocus = function(event) { if (this.value == "http://") this.value = ""; }
+								urlfield.onblur = function(event) { if (this.value == "") this.value = "http://"; }
+								urlfield.onchange = function(event) { arfrontend.guessTypeFromURL(this); }
+								urlfield.onkeyup = function(event) { arfrontend.guessTypeFromURL(this); }
+							} else {
+								mb.log.error("Field url not found in form!");
+							}						
+						}
 					} else {
 						mb.log.error("Could not find the hidden field int_isurlform");
 					}
 				} else {
 					mb.log.error("Could not find the DropDown given by int_typedropdown $", this.typeDropDownName);
 				}
-				
-				//http://www.amazon.com/gp/product/B00006EXLQ/102-6816886-9853762?s=music&v=glance&n=5174
 
-				// add handler which clears the default value upon focus.
-				var urlfield;
-				if ((urlfield = this.form.url) != null) {
-					urlfield.onfocus = function(event) { if (this.value == "http://") this.value = ""; }
-					urlfield.onblur = function(event) { if (this.value == "") this.value = "http://"; }
-					urlfield.onchange = function(event) { arfrontend.guessTypeFromURL(this); }
-					urlfield.onkeyup = function(event) { arfrontend.guessTypeFromURL(this); }
-				} else {
-					mb.log.error("Field url not found in form!");
-				}
 				var elcs, elss;
-				if ((elcs = mb.ui.get("swap-clientside")) != null &&
-					(elss = mb.ui.get("swap-serverside")) != null) {
+				if ((elcs = mb.ui.get("arEntitiesSwap-Client")) != null &&
+					(elss = mb.ui.get("arEntitiesSwap-Server")) != null) {
 					elcs.style.display = "block";
 					elss.style.display = "none";
 				}
@@ -167,19 +174,7 @@ function ARFrontEnd() {
 		}
 		mb.log.exit();
 	};
-	
-	/**
-	 * Sets the display attributed of the the div
-	 * with id=id to the show (true|false)
-	 *
-	 */
-	this.showDiv = function(id, show) {
-		mb.log.enter(this.GID, "showDiv");
-		var obj = document.getElementById(id);
-		if (obj) obj.style.display = (show == 1 ? "block" : "none");
-		mb.log.exit();
-	};
-	
+		
 	/**
 	 * Sets the description of the current selected element
 	 * from the dropdown list.
@@ -196,15 +191,15 @@ function ARFrontEnd() {
 			if (!this.isurlform != null) {
 				this.hideAll();
 				if (attrs == "") {
-					this.showDiv("attributes", 0);
+					mb.ui.setDisplay("relationshipAttributes", false);
 				} else {
-					this.showDiv("attributes", 1);
+					mb.ui.setDisplay("relationshipAttributes", true);
 					var p, pairs = attrs.split(" ");
 					for(p in pairs) {
 						var kv = pairs[p].split('=');
 						if (kv[0] != "") {
-							this.showDiv(kv[0], 1);
-							this.showDiv(kv[0] + "-desc", 1);
+							mb.ui.setDisplay(kv[0], true);
+							mb.ui.setDisplay(kv[0] + "-desc", true);
 						}
 					}
 				}
@@ -244,8 +239,8 @@ function ARFrontEnd() {
 		mb.log.enter(this.GID, "swapElements");
 		var theForm = theBtn.form;
 		if (theForm == null || theForm.link0 == null || theForm.link1) {
-			var leftTD = document.getElementById("arlinkswap-link0-td");
-			var rightTD = document.getElementById("arlinkswap-link1-td");
+			var leftTD = document.getElementById("arEntitiesSwap-TD0");
+			var rightTD = document.getElementById("arEntitiesSwap-TD1");
 			var leftVAL = theForm.link0.value;
 			var rightVAL = theForm.link1.value;
 			if (leftTD != null && rightTD != null &&

@@ -1,424 +1,211 @@
 %# vi: set ts=4 sw=4 ft=mason :
 <%args>
-$id => undef
-$type => ''
-$linktypeid => undef
-$notetext => undef
-$begindate_y => ''
-$begindate_m => ''
-$begindate_d => ''
-$enddate_y => ''
-$enddate_m => ''
-$enddate_d => ''
-$submit=>0
-$swap=>''
-$swapval=>0
+	$id => undef
+	$type => ""
+	$linktypeid => undef
+
+	$begindate_y => ""
+	$begindate_m => ""
+	$begindate_d => ""
+	$enddate_y => ""
+	$enddate_m => ""
+	$enddate_d => ""
+
+	$submit => ""
+	$swapval => 0
+	$notetext => undef
 </%args>
 <%perl>
 
-$m->comp("/comp/checkloggedin", 1, 1)
-    or return;
+	# only logged in users may see this page
+	$m->comp("/comp/checkloggedin", 1, 1)
+		or return;
 
-my $mb = $m->comp("/comp/dblogin");
+	# get database handle
+	my $mb = $m->comp("/comp/dblogin");
 
-my @types = sort split '-', $type;
-my $link = MusicBrainz::Server::Link->new($mb->{DBH}, \@types);
-if (!$link)
-{
-    </%perl>
-    <& /comp/sidebar, title => 'Edit Relationship: Error' &>
-    <p>
-    This page was passed invalid arguments. The type and id arguments
-    need to be passed to this page.
-    </p>
-    <& /comp/footer &>
-    <%perl>
-    return;
-}
-
-my $node = $link->newFromId($id);
-if (!$node)
-{
-    </%perl>
-    <& /comp/sidebar, title => 'Edit Relationship: Error' &>
-    <p>
-    The relationship you selected no longer exists.
-    </p>
-    <& /comp/footer &>
-    <%perl>
-    return;
-}
-
-# Load the relationship type and entities
-my $lt = $node->LinkType();
-my @entities = $node->Entities();
-my @links;
-
-# Load the top level relationship attributes
-my $attrType = MusicBrainz::Server::LinkAttr->new($mb->{DBH});
-my $attr_root = $attrType->Root;
-my @children = $attr_root->Children;
-
-# Create the links array that contains all the relevant info for the link entities
-push @links, { type => $types[0], id => $entities[0]->GetId(), obj=>$entities[0], name => $entities[0]->GetName() };
-push @links, { type => $types[1], id => $entities[1]->GetId(), obj=>$entities[1], name => $entities[1]->GetName() };
-
-if ($links[0]->{type} ne $links[1]->{type})
-{
-    # Sort the links in the right order
-    @links = sort { $a->{type} cmp $b->{type} }  @links;
-}
-my @oldlinks = @links;
-
-# swapval indicates if the current entities should be reversed
-# (because the user hit the reverse button)
-$swapval = !$swapval if ($swap);
-if ($swapval)
-{
-    my $temp = $links[0];
-    $links[0] = $links[1];
-    $links[1] = $temp;
-}
-
-# avail_attrs contains the available attributes for the current relationship type.
-# (.e.g. additional=0-1)
-my ($avail_attrs);
-
-# These contain the list of attributes
-my @new_attr_list;
-my @old_attr_list;
-
-my $attr = MusicBrainz::Server::Attribute->new($mb->{DBH}, \@types);
-$attr = $attr->newFromLinkId($node->GetId);
-if ($attr)
-{
-	@old_attr_list = @{$attr->GetAttributes()};
-}
-
-my $desc;
-if ($linktypeid)
-{
-	my $dummy;
-	($linktypeid, $avail_attrs, $desc) = split '\|', $linktypeid;
-}
-else
-{
-	$linktypeid = $node->GetLinkType();
-	$desc = $lt->GetDescription();
-	$avail_attrs = $lt->GetAttributes();
-	foreach my $ref (@old_attr_list)
+	if ($type eq "" or !MusicBrainz::IsNonNegInteger($id))
 	{
-		for(my $index = 0;; $index++)
-		{
-			next if exists $ARGS{"attr_" .$ref->{name} . "_$index"};
-    		$ARGS{"attr_" . $ref->{name} . "_$index"} = $ref->{value};
-			last;
-		}
+		$m->comp("/comp/layout/badarguments", text => "The id, type parameters must be provided to this page.");
+		return undef;
 	}
-}
 
-my $attr_error = "";
-for my $kvpair (split ' ', $avail_attrs)
-{
-	my ($name, $limits) = split '=', $kvpair;
-	my ($mn, $mx) = split '-', $limits;
-
-	$mn = 0 if (!defined $mn or $mn eq '');
-	$mx = 10000 if (!defined $mx or $mx eq '');
-
-	my $total = 0;
-	for(my $index = 0; $index < $mx; $index++)
+	my @types = sort split '-', $type;
+	my $link = MusicBrainz::Server::Link->new($mb->{DBH}, \@types);
+	if (!$link)
 	{
-		# First, check to see if we have a passed arg
-		last if (!exists $ARGS{"attr_".$name."_".$index});
-		my $value = $ARGS{"attr_".$name."_".$index};
-		if ($value)
+		$m->comp("/comp/layout/badarguments", text => "The type argument is invalid.");
+		return undef;
+	}
+
+	# check the relationship type
+	my $node = $link->newFromId($id);
+	if (!$node)
+	{
+		$m->comp("/comp/layout/badarguments", text => "The relationship you selected no longer exists.");
+		return undef;
+	}
+
+	# Load the relationship type and entities
+	my $oldLinkType = $node->LinkType();
+	my @entities = $node->Entities();
+	my @links;
+
+	# Load the top level relationship attributes
+	my $attrType = MusicBrainz::Server::LinkAttr->new($mb->{DBH});
+
+	# Create the links array that contains all the relevant info for the link entities
+	push @links, { type => $types[0], id => $entities[0]->GetId(), obj=>$entities[0], name => $entities[0]->GetName() };
+	push @links, { type => $types[1], id => $entities[1]->GetId(), obj=>$entities[1], name => $entities[1]->GetName() };
+
+	# Sort the links in the right order
+	if ($links[0]->{type} ne $links[1]->{type})
+	{
+		@links = sort { $a->{type} cmp $b->{type} }  @links;
+	}
+	my @oldlinks = @links;
+
+
+	# swapval indicates if the current entities should be reversed
+	# (because the user hit the reverse button)
+	if ($submit =~ m/Change direction/i)
+	{
+		$swapval = !$swapval;
+	}
+	if ($swapval)
+	{
+		my $temp = $links[0];
+		$links[0] = $links[1];
+		$links[1] = $temp;
+	}
+
+	# trim dates
+	($begindate_y, $begindate_m, $begindate_d, $enddate_y, $enddate_m, $enddate_d) = map { s/\s*(.*?)\s*/$1/; $_ }
+	($begindate_y, $begindate_m, $begindate_d, $enddate_y, $enddate_m, $enddate_d);
+
+	# These contain the list of attributes
+	my @old_attr_list;
+
+	my $attr = MusicBrainz::Server::Attribute->new($mb->{DBH}, \@types);
+	$attr = $attr->newFromLinkId($node->GetId);
+	if ($attr)
+	{
+		@old_attr_list = @{$attr->GetAttributes()};
+	}
+
+	# attributes contains the available attributes for the current relationship type.
+	# (.e.g. additional=0-1)
+	my ($desc, $attributes);
+	if ($linktypeid)
+	{
+		($linktypeid, $attributes, $desc) = split '\|', $linktypeid;
+	}
+	else
+	{
+		$linktypeid = $node->GetLinkType();
+		$desc = $oldLinkType->GetDescription();
+		$attributes = $oldLinkType->GetAttributes();
+		foreach my $ref (@old_attr_list)
 		{
-			if ($value < 0)
+			for(my $index = 0;; $index++)
 			{
-				my $lookupAttr = $attrType->newFromParentIdAndChildName(0, $name);
-				$value = ($lookupAttr) ?  $lookupAttr->GetId() : 0;
+				next if exists $ARGS{"attr_" .$ref->{name} . "_$index"};
+				$ARGS{"attr_" . $ref->{name} . "_$index"} = $ref->{value};
+				last;
 			}
-			$total++;
-			push @new_attr_list, { value=>$value, name=>$name }
 		}
 	}
 
-	if ($total > $mx)
+	# prepare validation
+	my (@errors, @new_attr_list);
+	$ARGS{"v::attrType"} = $attrType;
+	$ARGS{"v::attributes"} = $attributes;
+	%ARGS = $m->comp("/comp/relationship/checkattributes", %ARGS);
+	@new_attr_list = @{ $ARGS{"v::new_attr_list"} };
+	@errors = @{ $ARGS{"v::errors"} };
+
+	if ($submit ne "")
 	{
-        # This should never happen
-	    $attr_error .= "Too many selections made for attribute '$name'.<br/>";
-    }
-	elsif ($total == 0 && $mn == 1)
-	{
-		$attr_error .= "No selection made for required attribute '$name'.<br/>";
+		# handle click of Cancel button
+		if ($submit =~ m/cancel/i)
+		{
+			return $m->comp("/comp/redirect",
+				sprintf "/show%s.html?%sid=%s", $links[0]{type}, $links[0]{type}, $links[0]{id});
+		}
+		elsif ($submit =~ m/Enter Moderation/i)
+		{
+			# validate
+			push @errors, "Please select a relationship type"
+				if ($linktypeid !~ /^\d+$/);
+			push @errors, "Please enter an valid start date"
+				if (!MusicBrainz::IsValidDateOrEmpty($begindate_y, $begindate_m, $begindate_d));
+			push @errors, "Please enter an valid end date"
+				if (!MusicBrainz::IsValidDateOrEmpty($enddate_y, $enddate_m, $enddate_d));
+			push @errors, "The end date needs to be later then the begin date"
+				if (!MusicBrainz::IsDateEarlierThan($begindate_y, $begindate_m, $begindate_d, $enddate_y, $enddate_m, $enddate_d));
+			push @errors, "Please select a subtype of the currently selected relationship type"
+				if (!$desc && $linktypeid);
+
+			if (@errors == 0)
+			{
+				my $newLinkType = $oldLinkType->newFromId($linktypeid);
+				if ($newLinkType)
+				{
+					my $url = "/show" . $links[0]{type} . ".html?" . $links[0]{type} . "id=" . $links[0]{id};
+					$m->comp(
+						"/comp/entermods",
+						DBH => $mb->{DBH},
+						sub => sub {
+							my @mods = Moderation->InsertModeration(
+								DBH            => $mb->{DBH},
+								uid            => $session{uid},
+								privs          => $session{privs},
+								type           => &ModDefs::MOD_EDIT_LINK,
+								# --
+								newentities    => \@links,
+								oldentities    => \@oldlinks,
+								newlinktype    => $newLinkType,
+								oldlinktype    => $oldLinkType,
+								node           => $node,
+								begindate      => [ $begindate_y, $begindate_m, $begindate_d ],
+								enddate        => [ $enddate_y, $enddate_m, $enddate_d ],
+								newattributes  => \@new_attr_list,
+								oldattributes  => \@old_attr_list,
+							);
+
+							$mods[0]->InsertNote($session{'uid'}, $notetext)
+								if $mods[0]
+								and $notetext =~ /\S/;
+						},
+						success_url => $url,
+					) or return;
+				}
+			}
+
+		}
 	}
-	elsif ($total < $mn)
+	else
 	{
-		$attr_error .= "Too few selections for attribute '$name'.<br/>";
+		# prepare dates from relationship
+		($begindate_y, $begindate_m, $begindate_d) = $node->GetBeginDateYMD();
+		($enddate_y, $enddate_m, $enddate_d) = $node->GetEndDateYMD();
 	}
-}
 
-($begindate_y, $begindate_m, $begindate_d, $enddate_y, $enddate_m, $enddate_d) = map { s/\s*(.*?)\s*/$1/; $_ }
-($begindate_y, $begindate_m, $begindate_d, $enddate_y, $enddate_m, $enddate_d);
+	# form configuration and parameters.
+	$ARGS{"v::formurl"} = "/edit/relationship/edit.html";
 
-if (!$swap
-    and $submit
-    and !$attr_error
-	and $desc
-    and ($linktypeid =~ /^\d+$/)
-    and MusicBrainz::IsValidDateOrEmpty($begindate_y, $begindate_m, $begindate_d)
-    and MusicBrainz::IsValidDateOrEmpty($enddate_y, $enddate_m, $enddate_d)
-    and MusicBrainz::IsDateEarlierThan($begindate_y, $begindate_m, $begindate_d,
-                                       $enddate_y, $enddate_m, $enddate_d))
-{
-    my $linktype = $lt->newFromId($linktypeid);
-    if ($linktype)
-    {
-        my $url = "/show" . $links[0]{type} . ".html?" . $links[0]{type} . "id=" . $links[0]{id};
-        $m->comp(
-            "/comp/entermods",
-            DBH => $mb->{DBH},
-            sub => sub {
-                my @mods = Moderation->InsertModeration(
-                    DBH            => $mb->{DBH},
-                    uid            => $session{uid},
-                    privs          => $session{privs},
-                    type           => &ModDefs::MOD_EDIT_LINK,
-                    # --
-                    newentities    => \@links,
-                    oldentities    => \@oldlinks,
-                    newlinktype    => $linktype,
-				    oldlinktype    => $lt,
-				    node           => $node,
-                    begindate      => [ $begindate_y, $begindate_m, $begindate_d ],
-                    enddate        => [ $enddate_y, $enddate_m, $enddate_d ],
-					newattributes  => \@new_attr_list,
-					oldattributes  => \@old_attr_list,
-                );
+	$ARGS{"v::errors"} = \@errors;
+	$ARGS{"v::links"} = \@links;
+	$ARGS{"v::begindate"} = [ $begindate_y, $begindate_m, $begindate_d ];
+	$ARGS{"v::enddate"} = [ $enddate_y, $enddate_m, $enddate_d ];
 
-                $mods[0]->InsertNote($session{'uid'}, $notetext)
-                    if $mods[0]
-                    and $notetext =~ /\S/;
-            },
-            success_url => $url,
-        ) or return;
-    }
-}
+	# store root of the relationship tree
+	$ARGS{"v::root"} = $oldLinkType->Root;
 
-my $root = $lt->Root;
+	# store arguments which might have been modified into args hash again
+	$ARGS{"swapval"} = $swapval;
+	$ARGS{"linktypeid"} = $linktypeid;
 
-my $rev = ($links[0]->{type} eq 'album' && $links[1]->{type} eq 'artist') ? 1 : 0;
-
-my %seen_attrs;
+	$m->comp("/comp/relationship/form", %ARGS);
 
 </%perl>
-<& /comp/sidebar, title => 'Edit Relationship' &>
-
-% if (UserStuff->IsLinkModerator($session{privs})) {
-    <div class="LinksRow"> [
-        <a href="/edit/relationships/link_type_roots.html">Edit relationship types</a>
-    ] </div>
-% }
-
-% if ($submit && !$swap) {
-%     if (!$linktypeid) {
-          <div class="linkerror">Error: You must select a relationship type.</div>
-%     }
-%     if (!MusicBrainz::IsValidDateOrEmpty($begindate_y, $begindate_m, $begindate_d)) {
-          <div class="linkerror">Error: You entered an invalid start date.</div>
-%     }
-%     if (!MusicBrainz::IsValidDateOrEmpty($enddate_y, $enddate_m, $enddate_d)) {
-          <div class="linkerror">Error: You entered an invalid end date.</div>
-%     }
-%     if (!MusicBrainz::IsDateEarlierThan($begindate_y, $begindate_m, $begindate_d, $enddate_y, $enddate_m, $enddate_d)) {
-          <div class="linkerror">Error: Your end date is before your begin date.</div>
-%     }
-%     if ($attr_error) {
-          <div class="linkerror">Error: <% $attr_error |n %></div>
-%     }
-%     if (!$desc && $linktypeid) {
-          <div class="linkerror">Error: Please select a subtype of the currently
-          	selected relationship type. The selected relationship type is only used
-          	for grouping sub-types.</div>
-%     }
-% }
-% if (!$submit && !$swap) {
-%     ($begindate_y, $begindate_m, $begindate_d) = $node->GetBeginDateYMD();
-%     ($enddate_y, $enddate_m, $enddate_d) = $node->GetEndDateYMD();
-% }
-
-
-<script language="javascript" src="/scripts/ar-attributesearch.js"></script>
-<form method="post" name="linkselect" action="/edit/relationship/edit.html">
-	<fieldset>
-    	<legend>Select the relationship type for a <% $links[$rev?1:0]->{type} %>-<% $links[$rev?0:1]->{type} %> relationship</legend>
-		<table>
-			<tr>
-				<td width="150"><label><% ucfirst($links[$rev?1:0]{type}) %>: </label></td>
-				<td colspan="2"><a href="/show<% $links[$rev?1:0]{type} %>.html?<% $links[$rev?1:0]{type} %>id=<% $links[$rev?1:0]{id} %>"><b><% $links[$rev?1:0]{name} %></b></a></td>
-			</tr>
-			<tr>
-				<td>&nbsp;</td>
-				<td>
-					<select name="linktypeid">
-						<option value="||">[select a relationship type]</option>
-						<%perl>
-						my @q = map { [$_,0] } $root;
-						while (my $l = shift @q)
-						{
-							unshift @q, map { [$_,$l->[1]+1] } $l->[0]->Children;
-							next if ($l->[0]->GetName eq 'ROOT');
-							if ($l->[0]->GetAttributes())
-							{
-								my @at = split ' ', $l->[0]->GetAttributes();
-								foreach my $a (@at)
-								{
-									my ($key, $value) = split '=', $a;
-									my ($mn, $mx) = split '-', $value;
-									$mx = -1 if (!defined $mx or $mx eq '');
-									$seen_attrs{$key} = $mx;
-								}
-							}
-						</%perl>
-						<option value="<% $l->[0]->GetId %>|<% $l->[0]->GetAttributes() %>|<% $l->[0]->GetDescription() %>" <% $l->[0]->GetId eq $linktypeid ? 'selected=""' : '' %>
-%							my $text = $rev ? $l->[0]->GetReverseLinkPhrase : $l->[0]->GetLinkPhrase;
-%							$text =~ s/\{(\w+:)/{/;
-							><% ("&nbsp;&nbsp;" x $l->[1]) |n %><% $text %>&nbsp;&nbsp;</option>
-%						}
-					</select></td>
-					<td>
-% if ($links[0]{type} eq $links[1]{type}) {
-						<input type="submit" class="button" name="swap" value="Change direction">
-% }
-					</td>
-			</tr>
-			<tr>
-				<td><label><% ucfirst($links[$rev?0:1]{type}) %>: </label></td>
-				<td colspan="2"><a href="/show<% $links[$rev?0:1]{type} %>.html?<% $links[$rev?0:1]{type} %>id=<% $links[$rev?0:1]{id} %>"><b><% $links[$rev?0:1]{name} %></b></a></td>
-			</tr>
-		</table>
-
-		<table>
-			<tr valign="top">
-				<td valign="top" width="150"><label>Description:</label></td>
-				<td><span id="relationship_desc" class="linkdesc">&nbsp;</span></td>
-			</tr>
-		</table>
-
-		<div id="attributes">
-			<div class="padtop"></div>
-			<table>
-				<tr>
-					<td valign="top" width="150">
-					 	<label>Attributes:</label></td>
-					<td>
-						<%perl>
-						foreach my $sec (keys %seen_attrs)
-						{
-							my $desc;
-							my $isSimple;
-							my $tree;
-							foreach my $child (@children)
-							{
-								if ($child->GetName eq $sec)
-								{
-									$desc = $child->GetDescription;
-									$isSimple = !$child->HasChildren;
-									$tree = $child;
-								}
-							}
-							$m->out(qq|<div id="$sec" class="ar-attribute">|);
-							for(my $index = 0;; $index++)
-							{
-								last if ($index > 0 && !exists $ARGS{"attr_". $sec . "_$index"});
-								if ($isSimple)
-								{
-									$m->out(qq|<input type="checkbox" name="attr_|. $sec . "_" . qq|$index" value="| . $tree->GetId . "\"");
-									$m->out(qq| checked=""|) if ($ARGS{"attr_$sec"."_$index"});
-									$m->out(qq|> <i>$sec</i>|);
-								}
-								else
-								{
-									$m->out(qq|<div id="attr_|. $sec . "_" . $index . qq|_item" class="ar-attribute-item">\n|);
-									$m->out(qq|<select name="attr_|. $sec . "_" . qq|$index" id="attr_|. $sec . "_" . qq|$index" class="ar-dropdown" onFocus="dds_onFocus(this)">\n|);
-									$m->out(qq|<option value="">&nbsp;[select $sec]</option>\n|);
-									my @q = map { [$_,0] } $tree->Children;
-									while (my $l = shift @q)
-									{
-										unshift @q, map { [$_,$l->[1]+1] } $l->[0]->Children;
-										next if ($l->[0]->GetName eq 'ROOT');
-										$m->out("<option value=\"".$l->[0]->GetId.'" ');
-										$m->out($l->[0]->GetId eq $ARGS{"attr_".$sec."_$index"} ? 'selected=""' : '');
-										$m->out(">&nbsp;" . ("&nbsp;&nbsp;" x $l->[1]) . $l->[0]->GetName . "</option>\n");
-									}
-									$m->out("</select>");
-									$m->out(qq|<script language="javascript"> dds_writeUI('$sec', '$index') </script>\n|);
-									$m->out("</div>");
-								}
-							}
-							$m->out(qq|</div>\n|);
-							$m->out(qq|<div id="$sec-desc" class="ar-attribute-description">$desc\n|);
-							$m->out(qq|<p style="margin: 0"><input type="button" onClick="dds_addAttribute('$sec')" value="Add another $sec" />\n|)  if ($seen_attrs{$sec} < 0 || $seen_attrs{$sec} > 1);
-							$m->out(qq|</div>\n|);
-						}
-						</%perl>
-						<noscript>
-							NOTE: You do not have JavaScript enabled. Not all of the attributes shown above apply
-							to all relationship types and without JavaScript we cannot selectively display
-							the appropriate attributes. We recommend that you turn on JavaScript in your browser.
-						</noscript>
-					</td>
-				</tr>
-			</table>
-		</div>
-
-		<div class="padtop"></div>
-		<table>
-			<tr>
-				<td width="150"><label for="editrel_begindate">Begin date:</label></td>
-				<td>
-					<& /comp/dateinput, name_prefix => 'begindate', value=> [$begindate_y, $begindate_m, $begindate_d],
-						id => "editrel_begindate" &>
-					Year-Month-Day</td>
-			</tr>
-			<tr>
-				<td><label for="editrel_enddate">End date:</label></td>
-				<td>
-					<& /comp/dateinput, name_prefix => 'enddate', value=>[$enddate_y, $enddate_m, $enddate_d],
-						id => "editrel_enddate" &>
-					Year-Month-Day</td>
-			</tr>
-			<tr>
-				<td></td>
-				<td>
-					<div class="ar-attribute-description">
-					If the relationship type you selected indicates a temporal relationship (e.g. <i>was a member of</i>), then enter
-					the begin and/or end dates above. These dates are optional, and leaving the end date blank
-					indicates that this relationship is still active today:</div></td>
-			</tr>
-		</table>
-
-		<div class="padleft">
-			<p/>
-			<& /comp/notetext, text => $notetext &>
-		</div>
-		<div class="padlefttop">
-			<input type="hidden" name="id" value="<% $id %>">
-			<input type="hidden" name="type" value="<% $type %>">
-			<input type="hidden" name="submit" value="1">
-			<input type="hidden" name="swapval" value="<% $swapval %>">
-			<input type="submit" class="button" value="Submit">
-
-			<!-- internal fields which drive how the javascript function
-				 interacts with the form elements -->
-			<input type="hidden" name="int_isurlform" value="0">
-			<input type="hidden" name="int_formsubmitted" value="<% $submit %>">
-			<input type="hidden" name="int_seenattrs" value="<% join(",", keys %seen_attrs)  %>">
-			<input type="hidden" name="int_typedropdown" value="linktypeid">			
-		</div>
-	</fieldset>
-</form>
-<script language="javascript" src="/scripts/ar-frontend.js"></script>
-
-<& /comp/footer &>

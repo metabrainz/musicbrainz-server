@@ -5,17 +5,17 @@
 	<a href="/logout.html">Logout</a>
 	<a href="/prefs.html">Preferences</a>
 %	if (UserPreference::get('navbar_mod_show_select_page')) {
-	<a href="/mod/search/select-filter.html">Moderate</a> 
+	<a href="/mod/search/select-filter.html">Moderate</a>
 %    } else {
 	<a href="/mod/search/pre/new.html">Moderate</a>
 %	}
 %	if (UserStuff->IsLinkModerator($session{privs})) {
-	<a href="/edit/relationships/link_type_roots.html">Edit Links</a>
+	<a href="/edit/relationships/link_type_roots.html">Edit Rel.Types</a>
 %	}
 %	if (UserStuff->IsWikiTranscluder($session{privs})) {
 	<a href="/edit/wikitransclusion/transclusion.html">Trans. Docs</a>
 %	}
 %	if (&DBDefs::DB_STAGING_SERVER) {
-	<a href="/user/debug.html">Debug</a> 
+	<a href="/user/debug.html">Debug</a>
 %	}
 </div>

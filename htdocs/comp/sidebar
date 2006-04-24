@@ -102,7 +102,7 @@
 	}
 
 
-	$m->out(sprintf qq!<div class="pagetitle" style="padding-bottom: %d">%s</div>!,
+	$m->out(sprintf qq!<div class="pagetitle" style="padding-bottom: %dpx">%s</div>!,
 					$spacing,
 					$showtitle ? encode_entities($title) : "");
 
