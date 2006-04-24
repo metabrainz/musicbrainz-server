@@ -112,6 +112,15 @@ sub CheckModerations
 			next;
 		}
 
+		# Check if this mod wasn't approved
+		if ($mod->GetStatus() == STATUS_APPLIED)
+		{
+			# The mod is already closed. Leave it alone
+			print localtime() . " : Mod #$mod->{id} is already closed\n"
+				if $fDebug;
+			next;
+		}
+
 		# Save the loaded modules for later
 		$mod->{__eval__} = $mod->GetStatus();
 		$mods{$row[0]} = $mod;
@@ -335,6 +344,7 @@ sub CheckModerations
 				my $status;
 
 				$sql->Begin;
+				
 				# check that mod is still open and LOCK the row
 				# (could have been "approved" after the start of ModBot)
 				if ($sql->SelectSingleValue('
@@ -427,18 +437,25 @@ sub CheckModerations
 			{
 				$sql->Begin;
 
-				my $status = $mod->CheckPrerequisites;
-				if (defined $status)
+				# check that mod is still open and LOCK the row
+				# (could have been "approved" after the start of ModBot)
+				if ($sql->SelectSingleValue('
+						SELECT id FROM moderation_open WHERE id = ? FOR UPDATE', 
+						$mod->GetId))
 				{
-					print localtime() . " : Closing mod #" . $mod->GetId()
-						. " (" . $status_name_from_number{$status} . ")\n";
-
-					$mod->SetStatus($status);
-					$mod->DeniedAction;
-					$status = $mod->GetStatus;
-					$mod->CloseModeration($status);
-					$user->CreditModerator($mod->GetModerator, $status);
-					++$count{$status};
+					my $status = $mod->CheckPrerequisites;
+					if (defined $status)
+					{
+						print localtime() . " : Closing mod #" . $mod->GetId()
+							. " (" . $status_name_from_number{$status} . ")\n";
+    
+						$mod->SetStatus($status);
+						$mod->DeniedAction;
+						$status = $mod->GetStatus;
+						$mod->CloseModeration($status);
+						$user->CreditModerator($mod->GetModerator, $status);
+						++$count{$status};
+					}
 				}
 
 				$sql->Commit;
