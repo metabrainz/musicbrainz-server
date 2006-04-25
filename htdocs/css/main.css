@@ -310,16 +310,31 @@ table.releasebegin td.title
 	background-color: #FFBA58; 
 	width: 100%; 
 	padding-left: 4px;
+	vertical-align: middle;
 }
 table.releasebegin td.title a
 {
 	font-weight: bold;
 }
+table.releasebegin td.title a.toggle
+{
+	padding: 0px;
+	margin: 0px;
+	padding-top: 2px;
+	margin-left: 2px; margin-right: 4px;
+	float: left;
+
+}
+table.releasebegin td.title img.toggle
+{
+	padding: 0px; margin: 0px;
+}					
 table.releasebegin td.icon
 {
 	background-color: #FFBA58;
 	width: 10px;
-	padding-left: 4px;
+	padding-left: 2px;
+	padding-top: 2px;
 }
 table.releasebegin td.tagger
 {

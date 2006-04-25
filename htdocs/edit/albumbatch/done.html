@@ -13,8 +13,8 @@
 
 	my $referer = $r->headers_in->{"Referer"} || "";
 
-	my @releases = split / /, $session{"tagged_albums"};
-	@releases = () if $reset;
+	my @releaseids = split / /, $session{"tagged_albums"};
+	@releaseids = () if $reset;
 
 	my $id;
 	foreach (keys %ARGS)
@@ -26,11 +26,11 @@
 		if ($ARGS{$_} eq "off")
 		{
 			my $i = 0;
-			foreach (@releases)
+			foreach (@releaseids)
 			{
 				if ($_ == $id)
 				{
-					splice(@releases, $i, 1);
+					splice(@releaseids, $i, 1);
 					last;
 				}
 				$i++;
@@ -38,217 +38,219 @@
 		}
 		else
 		{
-			push @releases, $id;
+			push @releaseids, $id;
 		}
 	}
 
-# Remove dupes
-my %temp = ();
-@releases = grep { not $temp{$_}++ } @releases;
+	# Remove dupes
+	my %temp = ();
+	@releaseids = grep { not $temp{$_}++ } @releaseids;
+	$session{tagged_albums} = join " ", @releaseids;
 
-$session{tagged_albums} = join " ", @releases;
+	if (not @releaseids)
+	{
+		$m->comp("/comp/layout/badarguments",
+			title => "No selected releases",
+			text =>   "You have not selected any releases. Please go back"
+					. " to the artist page and select some releases by activating"
+					. " the checkbox in the orange release title.");
+		return undef;
+	}
 
-if (not @releases)
-{
-	return $m->comp(
-		"/comp/error",
-		"You have not selected any releases. Please go back"
-		. " to the artist page and select some releases by clicking"
-		. " on the checkbox on the right hand side in the release title.",
-		1, 1,
-	);
-}
-
-	my @objs = map {
+	# load all releases
+	my @releaseObjs = map {
 		my $release = $m->comp("/comp/loadrelease", $mb, $_);
 		$release;
-	} @releases;
+	} @releaseids;
 
-	my %artist_ids;
-	++$artist_ids{$_->GetArtist} for @objs;
-	my $artist_id = ((keys(%artist_ids) == 1) ? $objs[0]->GetArtist : undef);
+	# create hash of artistsids
+	my %artistids;
+	++$artistids{$_->GetArtist} for @releaseObjs;
+	my $artistid = ((keys(%artistids) == 1) ? $releaseObjs[0]->GetArtist : undef);
 
+	# if all releases are by one artist, the "add more" link
+	# points to the artist page, else the general search.
 	my $more_releases_url = "/search.html";
-	$more_releases_url = "/showartist.html?artistid=$artist_id" if $artist_id;
+	$more_releases_url = "/showartist.html?artistid=$artistid" if $artistid;
 
 </%perl>
 
-<& /comp/sidebar, title => 'Batch Operation on Albums' &>
+<& /comp/sidebar-notitle, pagetitle => "Release Batch Operations" &>
 
-<div style="width: 420px">
+	<& /comp/tablebegin, title => "Release Batch Operations" &>
 
-<p>
-	You've selected the releases shown below, and now you can:
-<p>
+%#	[ <a href="<% $referer %>">Go back</a> | <a href="/search.html">Search</a> ]
 
-    <table bgcolor="black" cellpadding="5" cellspacing="1">
-    <tr>
-      <td valign="top" bgcolor="#f0efff">
-      Merge all the selected releases into one release, preserving all
-      TRM IDs and Disc IDs.
-% if (@objs < 2) {
-	  <p>
-		<span style="color: red">
-		Merge releases is not available - you must select
-		multiple releases to merge.</span>&nbsp;
-  		<a href="<% $more_releases_url %>">Select more releases ...</a>
-	  </p>
-% }
-      </td>
-      <td valign="top" bgcolor="#f0efff">
-		<form method="post" action="/edit/albumbatch/merge.html">
-% for (@releases) {
-			<input type="hidden" name="album" value="<% $_ %>">
-% }
-			<input type="hidden" name="mac" value="0">
-			<input type="submit" value="Select" <% (@objs<2) ? "disabled" : "" %>>
-		</form>
-      </td>
-    </tr>
-     <tr>
-      <td valign="top" bgcolor="#f0efff">
-      Merge all the selected releases into one <b>various artist</b> release,
-      preserving all TRM IDs and Disc IDs.
-% if (@objs < 2) {
-	  <p>
-		<span style="color: red">
-		Merge releases is not available - you must select
-		multiple releases to merge.</span>&nbsp;
-  		<a href="<% $more_releases_url %>">Select more releases ...</a>
-	  </p>
-% }
-      </td>
-      <td valign="top" bgcolor="#f0efff">
-		<form method="post" action="/edit/albumbatch/merge.html">
-% for (@releases) {
-			<input type="hidden" name="album" value="<% $_ %>">
-% }
-			<input type="hidden" name="mac" value="1">
-			<input type="submit" value="Select" <% (@objs<2) ? "disabled" : "" %>>
-		</form>
-      </td>
-    </tr>
-     <tr>
-      <td valign="top" bgcolor="#f0efff">
-      Move all the selected releases to a different artist.<br>
-      </td>
-      <td valign="top" bgcolor="#f0efff">
-		<form method="post" action="/edit/album/move.html">
-% for (@releases) {
-			<input type="hidden" name="album" value="<% $_ %>">
-% }
-			<input type="submit" value="Select">
-		</form>
-      </td>
-    </tr>
-     <tr>
-      <td valign="top" bgcolor="#f0efff">
-      Remove all the selected releases.<br>
-      </td>
-      <td valign="top" bgcolor="#f0efff">
-		<form method="post" action="/edit/albumbatch/remove.html">
-% for (@releases) {
-			<input type="hidden" name="album" value="<% $_ %>">
-% }
-			<input type="submit" value="Select">
-		</form>
-      </td>
-    </tr>
-     <tr>
-      <td valign="top" bgcolor="#f0efff">
-      Apply release attributes to all selected releases.<br>
-      </td>
-      <td valign="top" bgcolor="#f0efff">
-		<form method="post" action="/edit/album/editattributes.html">
-% for (@releases) {
-			<input type="hidden" name="id" value="<% $_ %>">
-% }
-			<input type="hidden" name="untag" value="1">
-			<input type="submit" value="Select">
-		</form>
-      </td>
-    </tr>
-    <tr>
-      <td valign="top" bgcolor="#f0efff">
-      Change the language and/or script of all selected releases.<br>
-      </td>
-      <td valign="top" bgcolor="#f0efff">
-         <form method="post" action="/edit/albumlanguage/edit.html">
-% for (@releases) {
-			<input type="hidden" name="id" value="<% $_ %>">
-% }
-			<input type="hidden" name="untag" value="1">
-			<input type="submit" value="Select">
-         </form>
-      </td>
-    </tr>
-    <tr>
-      <td valign="top" bgcolor="#f0efff">
-      Change your mind and deselect all releases.<br>
-      </td>
-      <td valign="top" align="center" bgcolor="#f0efff">
-      <form method="POST" action="/edit/albumbatch/cancel.html" id="AddArtist"
-            enctype="application/x-www-form-urlencoded">
-      <input type="submit" NAME="Submit" VALUE="Select">
-      <input type="hidden" NAME="url" VALUE="<% $referer %>">
 
-      </form>
-      </td>
-    </tr>
+	<table class="formstyle" id="albumbatch">
+		<tr>
+			<td colspan="2" class="instructions">
+				<ul>
+					<li>
+						You have <strong>selected the releases shown below</strong>,
+						and can now apply one of the <a href="/doc/EditType">EditTypes</a>
+						listed in this box.
+					</li>
+					<li>
+						Alternatively, You can <strong><a href="<% $more_releases_url %>">
+						select more releases</a></strong> and then return on this
+						page to perform the action on all the other releases
+						as well.
+					</li>
+					<li>
+					    If you want to <strong>remove one or more releases</strong> from
+					    this list, deactivate the checkbox in the release title
+					    and click on the "Update" button at the bottom of this page.
+					</li>
+				</ul>
+			</td>
+		</tr>
+		<tr class="top">
+			<td class="label">Merge:</td>
+			<td>
+				Merge all the selected releases into one release, preserving all
+				<a href="/doc/PUID">PUIDs</a>, <a href="/doc/TRM">TRM IDs</a>
+				and <a href="/doc/DiscID">Disc IDs</a>. If the target release
+				you want to merge into is a Various Artists album, use the
+				Various Artists Merge button, else the Single Artists button.
+
+				<table border="0" cellspacing="0" cellpadding="0">
+					<tr>
+						<td>
+							<form method="post" action="/edit/albumbatch/merge.html">
+								<div>
+% 	for (@releaseids) {
+									<input type="hidden" name="album" value="<% $_ %>" />
+% 	}
+									<input type="hidden" name="mac" value="0" />
+									<input type="submit" value="Single Artist &raquo;" <% (@releaseObjs < 2) ? ' disabled="disabled"' : "" %> />
+								</div>
+							</form>
+						</td>
+						<td>
+							<form method="post" action="/edit/albumbatch/merge.html">
+								<div>
+% 	for (@releaseids) {
+									<input type="hidden" name="album" value="<% $_ %>" />
+% 	}
+									<input type="hidden" name="mac" value="1" />
+									<input type="submit" value="Various Artists &raquo;" <% (@releaseObjs < 2) ? ' disabled="disabled"' : "" %> />
+								</div>
+							</form>
+						</td>
+					</tr>
+				</table>
+
+% 	if (@releaseObjs < 2) {
+				<div style="margin: 5px 0px; border: 1px dotted red; padding: 5px">
+%		$m->out(sprintf qq!<form method="get" action="%s">!, ($artistid ? "/showartist.html" : "/search.html"));
+						<div>
+%		$m->out(qq!<input type="hidden" name="artistid" value="$artistid" />!) if ($artistid);
+							<input type="submit" value="Select More &raquo;" />
+							You have to select at least two releases for a merge edit.
+						</div>
+					</form>
+				</div>
+%	}
+			</td>
+		</tr>
+
+		<tr class="top">
+			<td class="label">Move:</td>
+			<td>
+				<form method="post" action="/edit/album/move.html">
+					<div>
+% for (@releaseids) {
+						<input type="hidden" name="album" value="<% $_ %>" />
+% }
+						<input type="submit" value="Move &raquo;" />
+					</div>
+				</form>
+			</td>
+		</tr>
+
+		<tr class="top">
+			<td class="label">Remove:</td>
+			<td>
+				<form method="post" action="/edit/album/move.html">
+					<div>
+% for (@releaseids) {
+						<input type="hidden" name="album" value="<% $_ %>" />
+% }
+						<input type="submit" value="Remove &raquo;" />
+					</div>
+				</form>
+			</td>
+		</tr>
+
+		<tr class="top">
+			<td class="label">Edit Attributes:</td>
+			<td>
+				<form method="post" action="/edit/album/editattributes.html">
+					<div>
+% for (@releaseids) {
+						<input type="hidden" name="id" value="<% $_ %>" />
+% }
+						<input type="hidden" name="untag" value="1" />
+						<input type="submit" value="Edit Attributes &raquo;" />
+						Apply release attributes to all selected releases.
+					</div>
+				</form>
+      		</td>
+    	</tr>
+
+		<tr class="top">
+			<td class="label">Edit Language:</td>
+			<td>
+				<form method="post" action="/edit/albumlanguage/edit.html">
+					<div>
+% for (@releaseids) {
+						<input type="hidden" name="id" value="<% $_ %>" />
+% }
+						<input type="hidden" name="untag" value="1" />
+						<input type="submit" value="Edit Language &raquo;" />
+						Change the language and/or script of all selected releases.
+					</div>
+				</form>
+			</td>
+		</tr>
+
+		<tr class="top">
+			<td class="label">Cancel:</td>
+			<td>
+				<form method=releaseObjs action="/edit/albumbatch/cancel.html">
+					<div>
+						<input type="hidden" name="url" value="<% $referer %>" />
+						<input type="submit" name="Submit" value="Cancel &raquo;" />
+						If you have changed your mind, or want to start over, click
+						"Cancel" to stop this batch process.
+					</div>
+				</form>
+			</td>
+		</tr>
     </table>
 
-<p>
-	Alternatively, you don't have to do anything yet.&nbsp; You can
-	<a href="<% $more_releases_url %>">go and tag more releases</a>
-	and then return here to perform
-	one of the operations above on all the selected releases.
-<p>
-
-<center>
-      [ <a href="<% $referer %>">Go back</a> |
-        <a href="/search.html">Search</a> ]
-</center>
-
-<hr>
-
-<p>
-    You selected the releases shown below.&nbsp; To remove one or more releases from
-    this list, deselect the checkbox in the release title and click on
-    the "Update" button at the bottom of this form:
-</p>
+	<& /comp/tableend &>
 
 
-	<%perl>
+<%perl>
 
     # Sort by artist so that all the artists are sequential
-    @objs = sort { $a->GetArtist() <=> $b->GetArtist()} @objs;
+    @releaseObjs = sort { $a->GetArtist() <=> $b->GetArtist()} @releaseObjs;
 
     my $ar = Artist->new($mb->{DBH});
 	$ar->SetId(0);
 
-	for my $al (@objs)
+	for my $release (@releaseObjs)
 	{
-		if ($ar->GetId != $al->GetArtist)
+		if ($ar->GetId != $release->GetArtist)
 		{
-			$ar->SetId($al->GetArtist);
-
-			if (not $ar->LoadFromId)
-			{
-				$m->out("<p>Could not load artist #" . $ar->GetId() . "!</p>");
-			   	next;
-			}
-
-			$m->comp(
-				"/comp/artisttitle",
-				artist => $ar,
-				showmodlinks => 0,
-			);
-			$m->out("<p/>");
+			$ar = $m->comp("/comp/loadartist", $mb, $release->GetArtist);
+			$m->comp("/comp/artisttitle", artist => $ar, showmodlinks => 0);
 		}
 
-	 	$m->comp(
-			"/comp/album",
-			album => $al,
+	 	$m->comp("/comp/album",
+			album => $release,
 			artist => $ar,
 			showids => 1,
 			showtag => 1,
@@ -256,26 +258,21 @@ if (not @releases)
 			showmodlinks => 1,
 		);
     }
+</%perl>
 
-	</%perl>
+	<form method="post" action="/edit/albumbatch/done.html" id="BatchOp">
+		<div>
+			<script type="text/javascript">
+				document.writeln('<input type="submit" name="Submit" value="Update" />');
+			</script>
+			<input type="hidden" name="url" value="<% $referer %>" />
+			<input type="hidden" name="reset" value="1" />
 
-<form method="post" action="/edit/albumbatch/done.html" id="BatchOp"
-      enctype="application/x-www-form-urlencoded">
-
-    <center>
-    <script type="text/javascript">
-		document.writeln('<\input type="submit" NAME="Submit" VALUE="Update"\>');
-    </script>
-    <input type="hidden" NAME="url" VALUE="<% $referer %>">
-	 <input type="hidden" NAME="reset" VALUE="1">
-	</center>
-%  for my $al (@objs) {
-     <input type="hidden" name="AlbumId<% $al->GetId() %>" value="on">
-%  }
-</form>
-
-</div>
-
+%  	for my $release (@releaseObjs) {
+			<input type="hidden" name="AlbumId<% $release->GetId() %>" value="on" />
+%  	}
+		</div>
+	</form>
 	<script type="text/javascript" src="/scripts/collapsereleases.js"></script>
 
 <& /comp/footer &>

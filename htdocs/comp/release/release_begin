@@ -46,22 +46,19 @@
 
 			<td class="tagger">
 				<a href="http://127.0.0.1:<% $session{tport} %>/openalbum?id=<% $release->GetMBId %>&amp;t=<% time %>"
-					target="hiddeniframe" title="Open in Tagger" border="0"><img
+					target="hiddeniframe" title="Open in Tagger"><img
 					align="absmiddle" src="/images/mblookup-tagger.png"
-					border="0" alt="Open in tagger" /></a></td>
+					alt="Open in tagger" /></a></td>
 %	}
 
 %	if ($session{uid} && !$nonalbum && $showtag) {
 
-			<td class="batchop">
+			<td class="batchop" id="batchop::<% $releaseid %>">
 				<form method="post" action="/edit/albumbatch/done.html">
-					<script type="text/javascript">
-						document.writeln('<\input type="checkbox" name="check" onchange="document.forms.BatchOp.AlbumId<% $releaseid %>.value = this.form.check.checked ? \'on\' : \'\';" <% $tagchecked ? " CHECKED" : "" %>\>');
-					</script>
-					<noscript>
-						<input type="hidden" name="AlbumId<% $releaseid %>" value="<% $tagchecked ? "off" : "on" %>">
-						<input type="submit" name="submit" value="<% $tagchecked ? "Remove" : "Select" %>">
-					</noscript>
+					<div>
+						<input type="hidden" name="AlbumId<% $releaseid %>" value="<% $tagchecked ? "off" : "on" %>" />
+						<input type="submit" name="submit" value="<% $tagchecked ? "Remove" : "Select" %>" />
+					</div>
 				</form>
 			</td>
 %	}
@@ -75,7 +72,7 @@
 
 	<table id="releaselinks::<% $releaseid %>" class="releaselinks">
 		<tr>
-			<td bgcolor="#dddddd">
+			<td>
 <%perl>
 		my ($coverart, $store);
 		my $asin = $release->GetAsin();

@@ -63,6 +63,7 @@ function MbStyleAbbr() {
 		} catch (ex) {
 			/* we have tried at least... */
 		}
+		mb.log.exit();
 	}
 
 	// exit constructor

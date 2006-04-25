@@ -19,7 +19,7 @@ my $recent_links = ($session{recent_links} ||= []);
 my $ename = uri_escape($name);
 
 $m->out("[ ");
-if ($session{uid}) 
+if ($session{uid})
 {
 	if ($isrelpage)
 	{
@@ -56,11 +56,11 @@ if ($session{uid})
 
 	if ($type eq 'album')
 	{
-		$m->out(qq! | <a href="/edit/relationship/addcc.html?id=$id&type=album&name=$ename">Add CC License</a> !);
+		$m->out(qq! | <a href="/edit/relationship/addcc.html?id=$id&amp;type=album&amp;name=$ename">Add CC License</a> !);
 	}
 	if ($type eq 'track')
 	{
-		$m->out(qq! | <a href="/edit/relationship/addcc.html?id=$id&type=track&name=$ename">Add CC License</a> !);
+		$m->out(qq! | <a href="/edit/relationship/addcc.html?id=$id&amp;type=track&amp;name=$ename">Add CC License</a> !);
 	}
 }
 else
