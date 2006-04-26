@@ -11,62 +11,43 @@
 	UserStuff::EnsureSessionOpen(), $session{tport} = $tport
 	  if $tport;
 
+	my $oldsearch = '/search/oldsearch.html?limit=' . $limit . '&table=' . ($type eq 'release' ? 'album' : $type) . '&search=' . uri_escape($query);
 </%perl>
 
 <form method="get" action="/search/textsearch.html" class="formstyle" id="TextSearchForm">
-	<table style="margin: 0.3em">
+	<table class="formstyle">
 		<tr>
-			<td style="text-align: right; width: 150px">
-				<b>Search for:</b></td>
+			<td class="labelnopad"><label for="id_query">Search for:</label></td>
 			<td>
-				<input type="text" name="query" value="<% $query %>" size="30" /></td>
+				<input type="text" name="query" id="id_query" value="<% $query %>" size="30" /></td>
 		</tr>
 		<tr>
-			<td style="text-align: right;">
-				<b>Type:</b></td>
+			<td class="labelnopad"><label for="id_type">Type:</label></td>
 			<td>
-				<select name="type">
+				<select name="type" id="id_type">
 %					$m->out(qq!<option value="artist" ! . ($type eq "artist" ? 'selected="selected"' : '') . qq!>Artists</option>!);
 %					$m->out(qq!<option value="release" ! . ($type eq "release" ? 'selected="selected"' : '') . qq!>Albums</option>!);
 %					$m->out(qq!<option value="track" ! . ($type eq "track" ? 'selected="selected"' : '') . qq!>Tracks</option>!);
 				</select></td>
 		</tr>
 		<tr>
-			<td style="text-align: right;">
-				<b>Limit to:</b></td>
+			<td class="labelnopad"><label for="id_limit">Limit to:</label></td>
 			<td>
-				<select name="limit">
+				<select name="limit" id="id_limit">
 %					$m->out(qq!<option value="25" ! . ($limit eq 25 ? 'selected="selected"' : '') . qq!>Up to 25</option>!);
 %					$m->out(qq!<option value="50" ! . ($limit eq 50 ? 'selected="selected"' : '') . qq!>Up to 50</option>!);
 %					$m->out(qq!<option value="100" ! . ($limit eq 100 ? 'selected="selected"' : '') . qq!>Up to 100</option>!);
 			  </select></td>
 		</tr>
 		<tr>
-			<td>&nbsp;</td>
+			<td></td>
 			<td>
 				<input type="submit" value="Indexed Search"	/></td>
 		</tr>
 		<tr>
-			<td>&nbsp;</td>
+			<td></td>
 			<td>
-				[ <a href="/search/oldsearch.html">old search</a> ]&nbsp;&nbsp;[ <a href="/doc/TextSearchSyntax" id="POPUP::TextSearchSyntax::400::400">help</a> ]</td>
+				[ <a href="<% $oldsearch %>">old search</a> ]&nbsp;&nbsp;[ <a href="/doc/TextSearchSyntax" id="POPUP::TextSearchSyntax::400::400">help</a> ]</td>
 		</tr>
 	</table>
 </form>
-
-%# %	if ($query ne "") {
-%# %	# add a quick redirect to oldsearch
-%# %	my $table = ($type eq 'release' ? 'album' : $type);
-%# <form method="get" action="/search/oldsearch.html" class="formstyle" id="TextSearchForm">
-%# 	<table style="margin: 0.3em">
-%# 		<tr>
-%# 			<td style="text-align: right; width: 150px">&nbsp;</td>
-%# 			<td>
-%# 				<input type="hidden" name="limit" value="<% $limit %>" />
-%# 				<input type="hidden" name="table" value="<% $table %>" />
-%# 				<input type="hidden" name="search" value="<% $query %>" />
-%# 				<input type="submit" value="Direct Search" onmouseover="overlib('Perfom a &laquo;Direct Search&raquo; using the same parameters used for this &laquo;Indexed Search&raquo;. Any changes to the elements of this form will *not* be carried over.')" onmouseout="nd()" /></td>
-%# 		</tr>
-%# 	</table>
-%# </form>
-%# %	}

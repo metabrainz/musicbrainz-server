@@ -467,6 +467,16 @@ table.formstyle td.label {
 	width: 150px;
 }
 
+table.formstyle td.labelnopad {
+	font-weight: bold;
+	white-space: nowrap;
+	text-align: right;
+	padding-right: 0px;
+	padding-left: 0px;
+	width: 150px;
+}
+
+
 /* input field cells do not wrap (e.g. for Guess Case buttons), 
    and use as much room as they can get. */
 table.formstyle td.field {
