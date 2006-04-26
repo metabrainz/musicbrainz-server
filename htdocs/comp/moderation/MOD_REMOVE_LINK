@@ -12,11 +12,10 @@
 	<& /comp/ar/ShowEntityLink, id=>$new->{entity1id}, type=>$new->{entity1type}, 
 	                            name=>$new->{entity1name}, linktypeid=>$new->{linktypeid}, simple=>1 &>
 %   if ($new->{begindate} =~ /\S/ || $new->{enddate} =~ /\S/) {
-	   from 
-%      if ($new->{begindate}) {
-           <% $new->{begindate} %>
+%      if ($new->{begindate} =~ /\S/) {
+           from <% $new->{begindate} %>
 %      }
-%      if ($new->{enddate}) {
+%      if ($new->{enddate} =~ /\S/) {
     	   until <% $new->{enddate} %>.
 %      } else {
 	       to present.

@@ -12,11 +12,10 @@
 	<& /comp/ar/ShowEntityLink, id=>$new->{oldentity1id}, type=>$new->{oldentity1type}, 
 	                            name=>$new->{oldentity1name}, linktypeid=>$new->{oldlinktypeid}, simple=>1 &>
 %   if ($new->{oldbegindate} =~ /\S/ || $new->{oldenddate} =~ /\S/) {
-	   from 
-%      if ($new->{oldbegindate}) {
-           <% $new->{oldbegindate} %>
+%      if ($new->{oldbegindate} =~ /\S/) {
+           from <% $new->{oldbegindate} %>
 %      }
-%      if ($new->{oldenddate}) {
+%      if ($new->{oldenddate} =~ /\S/) {
     	   until <% $new->{oldenddate} %>.
 %      } else {
 	       to present.
@@ -48,11 +47,10 @@ New:
 	<& /comp/ar/ShowEntityLink, id=>$new->{newentity1id}, type=>$new->{newentity1type}, 
 	                            name=>$new->{newentity1name}, linktypeid=>$new->{newlinktypeid}, simple=>1 &>
 %   if ($new->{newbegindate} =~ /\S/ || $new->{newenddate} =~ /\S/) {
-	   from 
-%      if ($new->{newbegindate}) {
-           <% $new->{newbegindate} %>
+%      if ($new->{newbegindate} =~ /\S/) {
+           from <% $new->{newbegindate} %>
 %      }
-%      if ($new->{newenddate}) {
+%      if ($new->{newenddate} =~ /\S/) {
     	   until <% $new->{newenddate} %>.
 %      } else {
 	       to present.

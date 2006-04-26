@@ -16,9 +16,9 @@
 	<& /comp/ar/ShowEntityLink, id=>$new->{entity1id}, type=>$new->{entity1type}, 
 	                            name=>$new->{entity1name}, linktypeid=>$new->{linktypeid}, simple=>1 &>
 %   if ($new->{begindate} || $new->{enddate}) {
-	   from 
+	   
 %      if ($new->{begindate}) {
-           <% $new->{begindate} %>
+           from <% $new->{begindate} %>
 %      }
 %      if ($new->{enddate}) {
     	   until <% $new->{enddate} %>.
