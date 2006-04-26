@@ -37,8 +37,8 @@ $expanded=>0
 			# decode the URL
 			my $decoded_text = $text;
 			$decoded_text =~ s/\%([\dA-Fa-f]{2})/pack('C', hex($1))/oeg;
-			$text = $decoded_text
-				if (Encode::decode_utf8($decoded_text));
+			eval { Encode::decode_utf8($decoded_text, Encode::FB_CROAK); };
+			$text = $decoded_text if !$@;
 			$m->out('<b><a href="'.$url.'" title="'.encode_entities($text).'" rel="nofollow">');
 			# shorten url's that are longer than ~75 chars
 			$text = (length($text) > 75
