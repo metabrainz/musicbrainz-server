@@ -10,7 +10,7 @@
 	Old:
 	<a href="/showalbum.html?albumid=<% $this->GetPrev %>"
 		><% $albumname %></a>
-	<br>
+	<br />
 % if (my $cdtocid = $new->{"CDTOCId"}) {
 	<a href="/showcdtoc.html?id=<% $cdtocid %>"><% $discid %></a>
 % } else {

@@ -10,7 +10,7 @@
 			><% $t->{'name'} %></a>
 %			my $value = $this->ConvertToText(split /,/, $t->{'prev'});
 			(<% $value || "None" %>)
-		<br>
+		<br />
 %		}
 
 </%method>

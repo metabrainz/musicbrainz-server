@@ -3,28 +3,28 @@
 <%method ShowPreviousValue>
 % my $self = shift;
 % my $types = $self->{'new_unpacked'}{'types'};
-	Old: <% $types %><br>
-	Parent: <% $self->{'new_unpacked'}{'old_parent'} %> (<% $self->{'new_unpacked'}{'old_childorder'} %>)<br> 
-	Name: <span class="bold"><% $self->{'new_unpacked'}{'old_name'} %></span><br>
-	Link Phrase: <% $self->{'new_unpacked'}{'old_linkphrase'} %><br>
-	Reverse Link Phrase: <% $self->{'new_unpacked'}{'old_rlinkphrase'} %><br>
+	Old: <% $types %><br />
+	Parent: <% $self->{'new_unpacked'}{'old_parent'} %> (<% $self->{'new_unpacked'}{'old_childorder'} %>)<br /> 
+	Name: <strong><% $self->{'new_unpacked'}{'old_name'} %></strong><br />
+	Link Phrase: <% $self->{'new_unpacked'}{'old_linkphrase'} %><br />
+	Reverse Link Phrase: <% $self->{'new_unpacked'}{'old_rlinkphrase'} %><br />
 	Description: <% $self->{'new_unpacked'}{'old_description'} %>
 %   if ($self->{'new_unpacked'}->{'old_attribute'}) {
-    	<br/>Attributes: <% $self->{'new_unpacked'}->{'old_attribute'} %>
+    	<br />Attributes: <% $self->{'new_unpacked'}->{'old_attribute'} %>
 %   }
 </%method>
 
 <%method ShowNewValue>
 % my $self = shift;
 % my $types = $self->{'new_unpacked'}{'types'};
-	New: <% $types %><br>
-	Parent: <% $self->{'new_unpacked'}{'parent'} %> (<% $self->{'new_unpacked'}{'childorder'} %>)<br> 
-	Name: <span class="bold"><% $self->{'new_unpacked'}{'name'} %></span><br>
-	Link Phrase: <% $self->{'new_unpacked'}{'linkphrase'} %><br>
-	Reverse Link Phrase: <% $self->{'new_unpacked'}{'rlinkphrase'} %><br>
+	New: <% $types %><br />
+	Parent: <% $self->{'new_unpacked'}{'parent'} %> (<% $self->{'new_unpacked'}{'childorder'} %>)<br /> 
+	Name: <strong><% $self->{'new_unpacked'}{'name'} %></strong><br />
+	Link Phrase: <% $self->{'new_unpacked'}{'linkphrase'} %><br />
+	Reverse Link Phrase: <% $self->{'new_unpacked'}{'rlinkphrase'} %><br />
 	Description: <% $self->{'new_unpacked'}{'description'} %>
 %   if ($self->{'new_unpacked'}->{'attribute'}) {
-    	<br/>Attributes: <% $self->{'new_unpacked'}->{'attribute'} %>
+    	<br />Attributes: <% $self->{'new_unpacked'}->{'attribute'} %>
 %   }
 </%method>
 

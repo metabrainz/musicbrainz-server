@@ -13,24 +13,24 @@
 % my $this = shift;
 
 	Name:
-	<span class="bold"><% $this->{'new.trackname'} %></span>
+	<strong><% $this->{'new.trackname'} %></strong>
 
 %# Dirty; really we should test the non-album bit of the album attribute.
 %# but that would require another fetch.
 % unless ($this->GetPrev eq &Album::NONALBUMTRACKS_NAME) {
-	<br>
+	<br />
 	Track:
-	<span class="bold"><% $this->{'new.tracknum'} %></span>
+	<strong><% $this->{'new.tracknum'} %></strong>
 % }
 	
 % if ($this->GetArtist == &ModDefs::VARTIST_ID) {
 
-	<br>
+	<br />
 	Artist:
-	<span class="bold"><% $this->{'new.artistname'} %></span>
+	<strong><% $this->{'new.artistname'} %></strong>
 	
 % if (defined $this->{'new.artistsortname'}) {
-		(<span class="bold"><% $this->{'new.artistsortname'} %></span>)
+		(<strong><% $this->{'new.artistsortname'} %></strong>)
 % }
 
 % }

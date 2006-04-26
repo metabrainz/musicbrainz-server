@@ -7,7 +7,7 @@
 	Disc ID:
 % if (my $cdtocid = $new->{"CDTOCId"}) {
 	<a href="/showcdtoc.html?id=<% $cdtocid %>"><% $this->GetPrev %></a>
-	<br>Album:
+	<br />Album:
 	<a href="/showalbum.html?albumid=<% $new->{"AlbumId"} %>"
 		><% $new->{"AlbumName"} %></a>
 % } else {

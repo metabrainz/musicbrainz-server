@@ -21,7 +21,7 @@
 <%method ShowNewValue>
 % my $this = shift;
 
-New track time: <span class="bold"><% Track::FormatTrackLength($this->GetNew) %></span>
+New track time: <strong><% Track::FormatTrackLength($this->GetNew) %></strong>
 </%method>
 
 %# eof

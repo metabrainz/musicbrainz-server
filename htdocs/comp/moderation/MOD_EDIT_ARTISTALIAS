@@ -11,7 +11,7 @@ Old:
 % my $this = shift;
 
 New:
-<span class="bold"><% $this->GetNew %></span>
+<strong><% $this->GetNew %></strong>
 </%method>
 
 %# eof

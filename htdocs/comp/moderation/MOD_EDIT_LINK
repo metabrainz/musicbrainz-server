@@ -8,7 +8,7 @@
 % if ($new->{oldentity1type} ne 'url') {
 	<& /comp/ar/ShowEntityLink, id=>$new->{oldentity0id}, type=>$new->{oldentity0type}, 
 	                            name=>$new->{oldentity0name}, linktypeid=>$new->{oldlinktypeid}, simple=>1 &>
-	<i><% $new->{oldlinktypephrase} %></i>
+	<em><% $new->{oldlinktypephrase} %></em>
 	<& /comp/ar/ShowEntityLink, id=>$new->{oldentity1id}, type=>$new->{oldentity1type}, 
 	                            name=>$new->{oldentity1name}, linktypeid=>$new->{oldlinktypeid}, simple=>1 &>
 %   if ($new->{oldbegindate} =~ /\S/ || $new->{oldenddate} =~ /\S/) {
@@ -26,7 +26,7 @@
 % } else {
 	<& /comp/ar/ShowEntityLink, id=>$new->{oldentity0id}, type=>$new->{oldentity0type}, 
 	                            name=>$new->{oldentity0name}, linktypeid=>$new->{oldlinktypeid}, simple=>1 &>
-	<i><% $new->{oldlinktypephrase} %></i>
+	<em><% $new->{oldlinktypephrase} %></em>
 %   my ($url, $name) = ($new->{oldentity1name}, '');
 %   if ($new->{oldlinktypeid} == Album->GetAsinLinkTypeId($self->{DBH})) {
 %     ($name, ) = Album->ParseAmazonURL($new->{oldentity1name});
@@ -44,7 +44,7 @@ New:
 % if ($new->{newentity1type} ne 'url') {
 	<& /comp/ar/ShowEntityLink, id=>$new->{newentity0id}, type=>$new->{newentity0type}, 
 	                            name=>$new->{newentity0name}, linktypeid=>$new->{newlinktypeid}, simple=>1 &>
-	<i><% $new->{newlinktypephrase} %></i>
+	<en><% $new->{newlinktypephrase} %></em>
 	<& /comp/ar/ShowEntityLink, id=>$new->{newentity1id}, type=>$new->{newentity1type}, 
 	                            name=>$new->{newentity1name}, linktypeid=>$new->{newlinktypeid}, simple=>1 &>
 %   if ($new->{newbegindate} =~ /\S/ || $new->{newenddate} =~ /\S/) {
@@ -62,7 +62,7 @@ New:
 % } else {
 	<& /comp/ar/ShowEntityLink, id=>$new->{newentity0id}, type=>$new->{newentity0type}, 
 	                            name=>$new->{newentity0name}, linktypeid=>$new->{newlinktypeid}, simple=>1 &>
-	<i><% $new->{newlinktypephrase} %></i>
+	<em><% $new->{newlinktypephrase} %></em>
 	<& /comp/ar/ShowEntityLink, id=>$new->{newentity1id}, type=>$new->{newentity1type}, 
 	                            name=>$new->{newentity1name}, url=>$new->{newentity1name}, simple=>1 &>
 % }

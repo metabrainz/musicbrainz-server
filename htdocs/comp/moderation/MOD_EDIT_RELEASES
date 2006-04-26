@@ -15,14 +15,14 @@ for (@$c) { $name = $_->[1], last if $_->[0] == $_[0] }
 % if (@{ $self->{"edits"} }) {
 	<u>Change From</u>
 % for my $t (@{ $self->{"edits"} }) {
-	<br><& /comp/releasedate, $t->{"d"} &> : <& .ShowCountryName, $t->{"c"} &>
+	<br /><& /comp/releasedate, $t->{"d"} &> : <& .ShowCountryName, $t->{"c"} &>
 % }
 % }
 
 % if (@{ $self->{"removes"} }) {
 	<u>Remove</u>
 % for my $t (@{ $self->{"removes"} }) {
-	<br><& /comp/releasedate, $t->{"d"} &> : <& .ShowCountryName, $t->{"c"} &>
+	<br /><& /comp/releasedate, $t->{"d"} &> : <& .ShowCountryName, $t->{"c"} &>
 % }
 % }
 
@@ -34,14 +34,14 @@ for (@$c) { $name = $_->[1], last if $_->[0] == $_[0] }
 % if (@{ $self->{"edits"} }) {
 	<u>Change To</u>
 % for my $t (@{ $self->{"edits"} }) {
-	<br><& /comp/releasedate, $t->{"nd"} &> : <& .ShowCountryName, $t->{"nc"} &>
+	<br /><& /comp/releasedate, $t->{"nd"} &> : <& .ShowCountryName, $t->{"nc"} &>
 % }
 % }
 
 % if (@{ $self->{"adds"} }) {
 	<u>Add</u>
 % for my $t (@{ $self->{"adds"} }) {
-	<br><& /comp/releasedate, $t->{"d"} &> : <& .ShowCountryName, $t->{"c"} &>
+	<br /><& /comp/releasedate, $t->{"d"} &> : <& .ShowCountryName, $t->{"c"} &>
 % }
 % }
    

@@ -11,7 +11,7 @@
 	Album:
 	<a href="/showalbum.html?albumid=<% $new->{"AlbumId"} %>"
 		><% $new->{"AlbumName"} %></a>
-	<br>TOC: <a href="/showcdtoc.html?id=<% $new->{'CDTOCId'} %>"><% $new->{'FullTOC'} %></a>
+	<br />TOC: <a href="/showcdtoc.html?id=<% $new->{'CDTOCId'} %>"><% $new->{'FullTOC'} %></a>
 
 </%method>
 

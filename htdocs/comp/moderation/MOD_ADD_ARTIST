@@ -24,40 +24,40 @@ my $s = $this->GetStatus;
 
 	Artist:
 % if ($s == &ModDefs::STATUS_FAILEDVOTE or $s == &ModDefs::STATUS_FAILEDPREREQ) {
-   	<span class="bold"><% $name %></span>
+   	<strong><% $name %></strong>
 % } else {
 	<a href="/showartist.html?artistid=<% $id %>"
-		><span class="bold"><% $name %></span></a>
+		><strong><% $name %></strong></a>
 % }
 
 % if ($sortname ne $name) {
-	<br>
+	<br />
 	Sortname:
-   	<span class="bold"><% $sortname %></span>
+   	<strong><% $sortname %></strong>
 % }
 
 % if ($type_str) {
-	<br>
+	<br />
 	Type:
-	<span class="bold"><% $type_str %></span>
+	<strong><% $type_str %></strong>
 % }
 
 % if ($resolution) {
-	<br>
+	<br />
 	Resolution:
-   	<span class="bold"><% $resolution %></span>
+   	<strong><% $resolution %></strong>
 % }
 
 % if ($begin) {
-	<br>
+	<br />
 	<% Artist::GetBeginDateName($type) %>:
-   	<span class="bold"><% MusicBrainz::MakeDisplayDateStr($begin) %></span>
+   	<strong><% MusicBrainz::MakeDisplayDateStr($begin) %></strong>
 % }
 
 % if ($end) {
-	<br>
+	<br />
 	<% Artist::GetEndDateName($type) %>:
-   	<span class="bold"><% MusicBrainz::MakeDisplayDateStr($end) %></span>
+   	<strong><% MusicBrainz::MakeDisplayDateStr($end) %></strong>
 % }
 
 </%method>

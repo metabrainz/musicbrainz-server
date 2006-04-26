@@ -6,37 +6,37 @@
 
 % if (defined $prev->{'ArtistName'}) {
 	Name:
-   	<span class="bold"><% $prev->{'ArtistName'} %></span>
+   	<strong><% $prev->{'ArtistName'} %></strong>
 % }
 
 % if (defined $prev->{'SortName'}) {
 	<br />
 	Sortname:
-   	<span class="bold"><% $prev->{'SortName'} %></span>
+   	<strong><% $prev->{'SortName'} %></strong>
 % }
 
 % if (defined $prev->{'Type'}) {
 	<br />
 	Type:
-	<span class="bold"><% Artist::GetTypeName($prev->{'Type'}) %></span>
+	<strong><% Artist::GetTypeName($prev->{'Type'}) %></strong>
 % }
 
 % if (defined $prev->{'Resolution'}) {
 	<br />
 	Resolution:
-   	<span class="bold"><% $prev->{'Resolution'} %></span>
+   	<strong><% $prev->{'Resolution'} %></strong>
 % }
 
 % if (defined $prev->{'BeginDate'}) {
 	<br />
 	Begin Date:
-   	<span class="bold"><% MusicBrainz::MakeDisplayDateStr($prev->{'BeginDate'}) %></span>
+   	<strong><% MusicBrainz::MakeDisplayDateStr($prev->{'BeginDate'}) %></strong>
 % }
 
 % if (defined $prev->{'EndDate'}) {
 	<br />
 	End Date:
-   	<span class="bold"><% MusicBrainz::MakeDisplayDateStr($prev->{'EndDate'}) %></span>
+   	<strong><% MusicBrainz::MakeDisplayDateStr($prev->{'EndDate'}) %></strong>
 % }
 </%method>
 
@@ -47,26 +47,26 @@
 
 % if (defined $new->{'ArtistName'}) {
 	Name:
-   	<span class="bold"><% $new->{'ArtistName'} %></span>
+   	<strong><% $new->{'ArtistName'} %></strong>
 % }
 
 % if (defined $new->{'SortName'}) {
 	<br />
 	Sortname:
-   	<span class="bold"><% $new->{'SortName'} %></span>
+   	<strong><% $new->{'SortName'} %></strong>
 % }
 
 % if (defined $new->{'Type'}) {
 	<br />
 	Type:
-	<span class="bold"><% Artist::GetTypeName($new->{'Type'}) or "(Unset)" %></span>
+	<strong><% Artist::GetTypeName($new->{'Type'}) or "(Unset)" %></strong>
 % }
 
 % if (exists $new->{'Resolution'}) {
 	<br />
 	Resolution:
 %	if (defined $new->{'Resolution'} && $new->{'Resolution'} ne '') {
-		<span class="bold"><% $new->{'Resolution'} %></span>
+		<strong><% $new->{'Resolution'} %></strong>
 %	} else {
 		<em>(Unset)</em>
 %	}
@@ -76,7 +76,7 @@
 	<br />
 	Begin Date:
 %	if ($new->{'BeginDate'}) {
-		<span class="bold"><% MusicBrainz::MakeDisplayDateStr($new->{'BeginDate'}) %></span>
+		<strong><% MusicBrainz::MakeDisplayDateStr($new->{'BeginDate'}) %></strong>
 %	} else {
 		<em>(Unset)</em>
 %	}
@@ -86,7 +86,7 @@
 	<br />
 	End Date:
 %	if ($new->{'EndDate'}) {
-		<span class="bold"><% MusicBrainz::MakeDisplayDateStr($new->{'EndDate'}) %></span>
+		<strong><% MusicBrainz::MakeDisplayDateStr($new->{'EndDate'}) %></strong>
 %	} else {
 		<em>(Unset)</em>
 %	}

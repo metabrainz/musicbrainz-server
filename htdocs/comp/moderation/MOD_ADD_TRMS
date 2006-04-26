@@ -10,12 +10,12 @@
 % my $i = 0;
   
 % for my $t (@$list) {
-%	$m->out("<br>") if $i++;
+%	$m->out("<br />") if $i++;
 	<a href="/showtrack.html?trackid=<% $t->{'trackid'} %>"
  		><% $t->{"trmid"} %></a>
 % }
 
-	<br>
+	<br />
 	Client "<% $this->{'new_unpacked'}{'ClientVersion'} %>"
 
 </%method>

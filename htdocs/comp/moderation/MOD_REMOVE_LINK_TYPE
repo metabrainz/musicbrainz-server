@@ -3,9 +3,9 @@
 <%method ShowPreviousValue>
 % my $self = shift;
 % my $types = $self->{'new_unpacked'}{'types'};
-	Old: <% $types %><br>
-	Name: <span class="bold"><% $self->{'new_unpacked'}{'old_name'} %></span><br>
-	Link Phrase: <% $self->{'new_unpacked'}{'old_linkphrase'} %><br>
+	Old: <% $types %><br />
+	Name: <span class="bold"><% $self->{'new_unpacked'}{'old_name'} %></span><br />
+	Link Phrase: <% $self->{'new_unpacked'}{'old_linkphrase'} %><br />
 	Reverse Link Phrase: <% $self->{'new_unpacked'}{'old_rlinkphrase'} %>
 	Description: <% $self->{'new_unpacked'}{'old_description'} %>
 %   if ($self->{'new_unpacked'}->{'old_attribute'}) {

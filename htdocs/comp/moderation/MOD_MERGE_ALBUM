@@ -8,7 +8,7 @@
 
 	Old:
 % for my $t (@{ $this->{'new_albums'} }) {
-%	$m->out("<br>") if $i++;
+%	$m->out("<br />") if $i++;
 
 % if ($s == &ModDefs::STATUS_OPEN) {
 	<a href="/showalbum.html?albumid=<% $t->{'id'} %>"
@@ -28,8 +28,8 @@
 	Merged into:
 	<a href="/showalbum.html?albumid=<% $into->{'id'} %>"
 		><% $into->{'name'} %></a>
-	<br>Merge attributes: <% $this->{'merge_attributes'} ? "yes" : "no" %>
-	<br>Merge language/script: <% $this->{'merge_langscript'} ? "yes" : "no" %>
+	<br />Merge attributes: <% $this->{'merge_attributes'} ? "yes" : "no" %>
+	<br />Merge language/script: <% $this->{'merge_langscript'} ? "yes" : "no" %>
 
 </%method>
 

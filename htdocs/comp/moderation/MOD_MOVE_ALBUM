@@ -35,7 +35,7 @@ New Artist:
 % }
 % else
 % {
-	<span class="bold"><% $this->{'new.name'} %></span>
+	<strong><% $this->{'new.name'} %></strong>
 % }
 
 % if ($this->{'new.sortname'} ne $this->{'new.name'})

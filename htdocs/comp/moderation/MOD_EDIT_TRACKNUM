@@ -9,7 +9,7 @@
 	<span class="bold"><% $this->GetPrev %></span> - 
 	<a href="/showtrack.html?trackid=<% $this->{'trackid'} %>"
 		><% $this->{'trackname'} %></a>
-	<br>
+	<br />
 	Album:
 	<a href="/showalbum.html?albumid=<% $this->{'albumid'} %>"
 		><% $this->{'albumname'} %></a>
@@ -23,7 +23,7 @@
 <%method ShowNewValue>
 % my $this = shift;
 
-New track number: <b><% $this->GetNew %></b>
+New track number: <strong><% $this->GetNew %></strong>
 </%method>
 
 %# eof

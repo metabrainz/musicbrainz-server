@@ -15,7 +15,7 @@ $al->LoadFromId;
 	Track: <% $this->{'prev.name'} %>
 % } else {
 	Track: <a href="/showtrack.html?trackid=<% $this->GetRowId %>"
-		><% $this->{'prev.name'} %></a><br>
+		><% $this->{'prev.name'} %></a><br />
 	Album: <a href="/showalbum.html?albumid=<% $this->{'prev.albumid'} %>"
 		><% $al->GetName %></a>
 % }

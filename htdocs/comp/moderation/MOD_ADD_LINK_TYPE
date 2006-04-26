@@ -9,8 +9,8 @@
 % my $new = $self->{'new_unpacked'};
 
 	New:
-	<span class="bold"><a href="/edit/relationships/link_types.html?type=<% $new->{'types'} %>&amp;new=<% $self->GetRowId %>"
-		><% $new->{'name'} %></a></span><br />
+	<strong><a href="/edit/relationships/link_types.html?type=<% $new->{'types'} %>&amp;new=<% $self->GetRowId %>"
+		><% $new->{'name'} %></a></strong><br />
 	Link Type: <% $new->{'types'} %><br />
 	Link Phrase: <% $new->{'linkphrase'} %><br />
 	Reverse Link Phrase: <% $new->{'rlinkphrase'} %><br />

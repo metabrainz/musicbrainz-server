@@ -12,7 +12,7 @@ Old:
 <%method ShowNewValue>
 % my $this = shift;
 
-New: <span class="bold"><% $this->GetNew %></span>
+New: <strong><% $this->GetNew %></strong>
 </%method>
 
 %# eof

@@ -29,7 +29,7 @@ New artist:
 % }
 % else
 % {
-	<span class="bold"><% $this->{'new.name'} %></span>
+	<strong><% $this->{'new.name'} %></strong>
 % }
 %
 % # print sort name if different

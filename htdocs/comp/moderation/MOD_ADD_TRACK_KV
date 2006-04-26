@@ -19,23 +19,23 @@
 % my $new = $this->{'new_unpacked'};
 
 	Track:
-	<span class="bold"><% $new->{'TrackName'} %></span>
+	<strong><% $new->{'TrackName'} %></strong>
 %# Dirty; really we should test the non-album bit of the album attribute.
 %# but that would require another fetch.
 % unless ($this->GetPrev eq &Album::NONALBUMTRACKS_NAME) {
-	<br>
+	<br />
 	TrackNum:
-	<span class="bold"><% $new->{'TrackNum'} %></span>
+	<strong><% $new->{'TrackNum'} %></strong>
 % }
 
 % if ($this->GetArtist == &ModDefs::VARTIST_ID and defined $new->{'ArtistName'}) {
-	<br>
+	<br />
 	Artist:
-	<span class="bold"><% $new->{'ArtistName'} %></span>
+	<strong><% $new->{'ArtistName'} %></strong>
 % if (exists $new->{'SortName'}) {
-	<br>
+	<br />
 	Sortname:
-	<span class="bold"><% $new->{'SortName'} %></span>
+	<strong><% $new->{'SortName'} %></strong>
 % }
 % }
 
