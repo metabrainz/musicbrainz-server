@@ -43,8 +43,11 @@ $btnYes=>undef
 	
 	MusicBrainz::TrimInPlace($notetext); 
 	
+	my $vote = $mod->VoteFromUser($session{uid});
+	my $optionalNote = $mod->GetNoVotes == 0 || ($mod->GetNoVotes == 1 && defined $vote && $vote->GetVote == &ModDefs::VOTE_NO);
+	
 	# Approve the moderation
-	if (defined $btnYes and ($mod->GetNoVotes == 0 or $notetext))
+	if (defined $btnYes and ($optionalNote or $notetext))
 	{
 		my $sql = Sql->new($mb->{DBH});
 		
@@ -92,7 +95,7 @@ $btnYes=>undef
 <& /comp/sidebar, title=>'Confirm Moderation Approval', expand=>'moderate' &>
 
 % if (defined $btnYes) {
-%      if ($mod->GetNoVotes > 0 && !$notetext) {
+%      if (!$optionalNote && !$notetext) {
          <p class="error">You must provide a moderation note in order to approve this moderation.</p>
 %      }
 % } 
@@ -109,7 +112,7 @@ $btnYes=>undef
 				<div><%perl>$mod->ShowPreviousValue($m);</%perl></div>
 				<div><%perl>$mod->ShowNewValue($m);</%perl></div>
 			</div>	
-			<p><& /comp/notetext, required => $mod->GetNoVotes > 0 ? 1 : 0 &></p>
+			<p><& /comp/notetext, required => !$optionalNote &></p>
 			<p style="padding-top: 1em;">
 				<input name="btnNo" type="submit" class="button" value="&laquo; NO" />
 				<input name="btnYes" type="submit" class="button" value="YES &raquo;" />
