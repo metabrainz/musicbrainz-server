@@ -1,39 +1,56 @@
-%# vi: set ts=2 sw=2 ft=mason :
+﻿%# /*----------------------------------------------------------------------------\
+%# |                              Musicbrainz.org                                |
+%# |                       Copyright (c) 2001 Robert Kaye                        |
+%# |-----------------------------------------------------------------------------|
+%# | This software is provided "as is", without warranty of any kind, express or |
+%# | implied, including  but not limited  to the warranties of  merchantability, |
+%# | fitness for a particular purpose and noninfringement. In no event shall the |
+%# | authors or  copyright  holders be  liable for any claim,  damages or  other |
+%# | liability, whether  in an  action of  contract, tort  or otherwise, arising |
+%# | from,  out of  or in  connection with  the software or  the  use  or  other |
+%# | dealings in the software.                                                   |
+%# | - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - |
+%# | GPL - The GNU General Public License    http://www.gnu.org/licenses/gpl.txt |
+%# | Permits anyone the right to use and modify the software without limitations |
+%# | as long as proper  credits are given  and the original  and modified source |
+%# | code are included. Requires  that the final product, software derivate from |
+%# | the original  source or any  software  utilizing a GPL  component, such  as |
+%# | this, is also licensed under the GPL license.                               |
+%# /----------------------------------------------------------------------------*/
+%#
+%# ChangeLog:
+%# -------------------------------------------------------------------------------
+%# $Author$
+%# $LastChangedDate$
+%# $LastChangedRevision$
+%# -------------------------------------------------------------------------------
+%#
 <%args>
-$annotation
+	$annotation
 </%args>
 <%perl>
 
-my $mb = $m->comp("/comp/dblogin");
+	# Instantiate MusicBrainz object
+	my $mb = $m->comp("/comp/dblogin");
 
-my $al;
-my $artistid;
-my $type = $annotation->GetType();
+	my ($release, $artistid);
+	my $type = $annotation->GetType();
 
-if ( $type == &MusicBrainz::Server::Annotation::ALBUM_ANNOTATION ) {
-	$al = Album->new($mb->{DBH});
-	$al->SetId($annotation->GetAlbum());
-	$al->LoadFromId
-		or return $m->comp(
-			"/comp/error",
-			"Album #" . $annotation->GetAlbum() . " does not exist",
-			1, 1,
-		);
-	$artistid = $al->GetArtist();
-}
-elsif ( $type == &MusicBrainz::Server::Annotation::ARTIST_ANNOTATION ) {
-	$artistid = $annotation->GetArtist();
-}
+	# load release object, if the needed annotationtype is ALBUM_ANNOTATION
+	if ($type == &MusicBrainz::Server::Annotation::ALBUM_ANNOTATION)
+	{
+		$release = $m>comp("/comp/loadrelease", $mb, $annotation->GetAlbum());
+		$artistid = $al->GetArtist();
+	}
+	elsif ($type == &MusicBrainz::Server::Annotation::ARTIST_ANNOTATION)
+	{
+		$artistid = $annotation->GetArtist();
+	}
 
+	# load the artist from the artistid
+	$release = $m>comp("/comp/loadartist", $mb, $artistid);
 
-my $ar = Artist->new($mb->{DBH});
-$ar->SetId($artistid);
-$ar->LoadFromId
-	or return $m->comp(
-		"/comp/error",
-		"artist #$artistid does not exist",
-		1, 1,
-	);
+	# return the loaded objects
+	return { artist => $ar, album => $al };
 
-return { artist => $ar, album => $al };
 </%perl>
