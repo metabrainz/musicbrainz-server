@@ -1,8 +1,3 @@
-<%args>
-	$url => (join "?", grep { $_ } ($r->uri, scalar $r->args))
-	$password => ""
-	$badlogin => 0
-</%args>
 <%perl>
 	# -----------------------------------------------------------------------------
 	#                               Musicbrainz.org
@@ -34,6 +29,11 @@
 	# $Id$
 	#
 </%perl>
+<%args>
+	$url => (join "?", grep { $_ } ($r->uri, scalar $r->args))
+	$password => ""
+	$badlogin => 0
+</%args>
 <%perl>
 
 	return if $m->comp("/comp/dbreadonly", 0, 0);

@@ -1,15 +1,3 @@
-<%args>
-	# preferred way of calling - provide Album object
-	$release => undef
-
-	# you can provide id, and name arguments as well
-	$id => undef
-	$name => undef
-
-	# rendering options
-	$icon => 0
-	$strong => 1
-</%args>
 <%perl>
 	# -----------------------------------------------------------------------------
 	#                               Musicbrainz.org
@@ -40,6 +28,18 @@
 	# $Id$
 	#
 </%perl>
+<%args>
+	# preferred way of calling - provide Album object
+	$release => undef
+
+	# you can provide id, and name arguments as well
+	$id => undef
+	$name => undef
+
+	# rendering options
+	$icon => 0
+	$strong => 1
+</%args>
 <%perl>
 
 	if (defined $release)
