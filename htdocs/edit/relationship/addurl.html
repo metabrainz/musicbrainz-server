@@ -46,6 +46,10 @@
 		return undef;
 	}
 
+	# trim leading and trailing whitespaces
+	MusicBrainz::TrimInPlace($url)
+		if defined $url;
+
 	my @links;
 	push @links, {
 			type => $type,
