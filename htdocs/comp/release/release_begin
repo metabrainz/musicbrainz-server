@@ -137,24 +137,14 @@
 						| <a href="/perm_links.html?name=<% uri_escape($name) %>&amp;id=<% $mbid %>&amp;type=album">Link to this</a>
 						| <a href="/albumdetail.html?releaseid=<% $releaseid %>">View&nbsp;info</a>
 						| <& /comp/googlelink, search => [ $artist->GetName, $name ], text => "Search Google" &>
-% 			if ($session{uid}) {
+% 			if ($session{uid} and !$nonalbum) {
 						| <a href="/mod/search/pre/album.html?releaseid=<% $releaseid %>">View album mods</a>
 % 			}
 					]</div>
 % 		}
 				</div>
 
-%# Second row: relationship links
-% 		if ($session{uid} and $showmodlinks and !$nonalbum) {
-				<div class="AlbumTitleRelationships">
-					<div class="AlbumTitleLinks">
-					Relationships:
-					<& /comp/ar/ShowARLinks, id=>$releaseid, type=>'album' , short=>1 &>
-					</div>
-				</div>
-%		}
-
-%# Third row: editing links
+%# Second row: editing links
 % 		if ($session{uid} and $showmodlinks) {
 				<div class="AlbumTitleMod">
 					<div class="AlbumTitleLinks">Edit: [
