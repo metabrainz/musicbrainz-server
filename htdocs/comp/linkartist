@@ -53,12 +53,12 @@
 
 	$m->out(qq!<strong>!) if ($strong);
 	$m->out(qq!<img src="/images/edit.gif" alt="" />!) if ($icon);
-	$m->out(qq!<a href="/showartist.html?artistid=$id" title="$sortname">$name</a>!);
+	$m->out(qq!<a href="/showartist.html?artistid=$id" title="! . $m->interp->apply_escapes($sortname, 'h') . qq!">! . $m->interp->apply_escapes($name, 'h') . qq!</a>!);
 	$m->out(qq!</strong>!) if ($strong);
 	if ($showresolution && $resolution ne "")
 	{
 		$m->out(qq! <span class="artistresolution">!);
-		$m->out(qq! ($resolution)!);
+		$m->out(qq! (! . $m->interp->apply_escapes($resolution, 'h') . qq!)!);
 		$m->out(qq! </span>!);
 	}
 </%perl>
