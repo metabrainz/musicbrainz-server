@@ -21,14 +21,14 @@ $annotation->LoadFromId
 my $ref = $m->comp('/edit/annotation/backreference', annotation => $annotation);
 
 my $ar = $ref->{artist};
-my $al = $ref->{album};
-my $title = ( defined $al ) ? $al->GetName() : $ar->GetName();
+my $release = $ref->{release};
+my $title = ( defined $release ) ? $release->GetName() : $ar->GetName();
 
 </%perl>
 
 <& /comp/sidebar, title => 'Annotation Detail' &>
 
-<p>Annotation for <& /edit/annotation/subject, artist => $ar, album => $al &></p>
+<p>Annotation for <& /edit/annotation/subject, artist => $ar, album => $release &></p>
 
 <p>Click <em>Show History</em> to see the history of all annotations
 for this <% $annotation->GetTypeWord %>.</p>

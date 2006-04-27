@@ -20,13 +20,13 @@ $new->LoadFromId
 my $old = $new->GetPrevious;
 
 my $ref = $m->comp('/edit/annotation/backreference', annotation => $new);
-my $ar = $ref->{artist};
-my $al = $ref->{album};
+my $artist = $ref->{artist};
+my $release = $ref->{release};
 
 </%perl>
 <& /comp/sidebar, title => 'Compare Annotations' &>
 
-<p>Comparing annotations for <& /edit/annotation/subject, artist => $ar, album => $al &></p>
+<p>Comparing annotations for <& /edit/annotation/subject, artist => $artist, album => $release &></p>
 
 % if ($old) {
 

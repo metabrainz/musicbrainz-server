@@ -1,13 +1,41 @@
 <%perl>
-	# Usage of this component.
+	# -----------------------------------------------------------------------------
+	#                               Musicbrainz.org
+	#                        Copyright (c) 2001 Robert Kaye
+	# -----------------------------------------------------------------------------
+	#  This software is provided "as is", without warranty of any kind, express or
+	#  implied, including  but not limited  to the warranties of  merchantability,
+	#  fitness for a particular purpose and noninfringement. In no event shall the
+	#  authors or  copyright  holders be  liable for any claim,  damages or  other
+	#  liability, whether  in an  action of  contract, tort  or otherwise, arising
+	#  from,  out of  or in  connection with  the software or  the  use  or  other
+	#  dealings in the software.
+	#
+	#  GPL - The GNU General Public License    http://www.gnu.org/licenses/gpl.txt
+	#  Permits anyone the right to use and modify the software without limitations
+	#  as long as proper  credits are given  and the original  and modified source
+	#  code are included. Requires  that the final product, software derivate from
+	#  the original  source or any  software  utilizing a GPL  component, such  as
+	#  this, is also licensed under the GPL license.
+	# -----------------------------------------------------------------------------
+	#
+	# Summary:
+	# -----------------------------------------------------------------------------
+	# Loads a Release from the database. Accepts either a rowid, or a MBID
+	# as identifier. If the release was loaded successfully, return a reference to
+	# it, else show an error page.
+	#
+	# Usage
+	# -----------------------------------------------------------------------------
 	# my $release = $m->comp("/comp/loadrelease", $mb, $releaseid || $mbid);
 	#
-	# - Automatically detects if a GUID, or a ROWID
-	#   was provided.
-	# - If the release was loaded successfully,
-	#   return a reference to it.
-	# - else show an error page.
+	# $URL$
+	# $Id$
 	#
+</%perl>
+<%perl>
+
+	# get passed in arguments
 	my ($mb, $id) = @_;
 
 	my $error = "";

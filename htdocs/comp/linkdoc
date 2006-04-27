@@ -20,12 +20,12 @@
 	# -----------------------------------------------------------------------------
 	#
 	# Summary:
-	# -------------------------------------------------------------------------------
+	# -----------------------------------------------------------------------------
 	# This component is used to create links to wikidocs, and other pages
 	# transcluded from the official musicbrainz wiki. A help image is displayed to
 	# emphasize the purpose of the link.
 	#
-	# $HeadURL$
+	# $URL$
 	# $Id$
 	#
 </%perl>
