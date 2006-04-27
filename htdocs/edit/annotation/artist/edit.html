@@ -175,7 +175,7 @@
 
 	<& /comp/tablebegin, title => "Preview Annotation" &>
 
-% 		my $tmp = MusicBrainz::Server::Annotation->newPreview($previewtext);
+% 		my $tmp = MusicBrainz::Server::Annotation->newPreview($defaulttext);
 
 		<table class="annotation">
 			<tr class="header">
@@ -232,7 +232,7 @@
 			<table class="formstyle">
 				<tr>
 					<td class="instructions">
-						<& /edit/annotation//wikiformat &>
+						<& /edit/annotation/wikiformat &>
 
 %	if ($locked and $locked ne $sid) {
 

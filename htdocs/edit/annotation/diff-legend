@@ -31,14 +31,14 @@
 	<table class="difflegend" border="0" cellpadding="0" cellspacing="0">
 		<tr>
 			<td>
-				<span class="DiffNoChange"><img src="/images/spacer.gif" width="7" height="7" /></span>Unmodified</td>
+				<span class="DiffNoChange"><img src="/images/spacer.gif" width="7" height="10" alt="" /></span>Unmodified</td>
 			<td>
-				<span class="DiffDel"><img src="/images/spacer.gif" width="7" height="7" /></span>Removed</td>
+				<span class="DiffDel"><img src="/images/spacer.gif" width="7" height="10" alt="" /></span>Removed</td>
 			<td>
-				<span class="DiffAdd"><img src="/images/spacer.gif" width="7" height="7" /></span>Added</td>
+				<span class="DiffAdd"><img src="/images/spacer.gif" width="7" height="10" alt="" /></span>Added</td>
 			<td>
-				<span class="DiffChangeDel">abc<img src="/images/spacer.gif" width="1" height="7" /></span>Changed Text</td>
+				<span class="DiffChangeDel">abc<img src="/images/spacer.gif" width="1" height="10" alt="" /></span>Changed Text</td>
 			<td>
-				<span class="DiffChangeAdd">abc<img src="/images/spacer.gif" width="1" height="7" /></span>Added Text</td>
+				<span class="DiffChangeAdd">abc<img src="/images/spacer.gif" width="1" height="7" alt="" /></span>Added Text</td>
 		</tr>
 	</table>
