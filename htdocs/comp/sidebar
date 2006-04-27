@@ -43,7 +43,7 @@
 			$m->comp("/comp/layout/sidemenu-panel-main");
 		}
 
-		if (UserPreference::get("sidebar_panel_user"))
+		if (UserPreference::get("sidebar_panel_user") && &DBDefs::REPLICATION_TYPE != RT_SLAVE)
 		{
 			if (!defined $session{user} || $session{user} eq '')
 			{
