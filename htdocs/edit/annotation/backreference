@@ -16,11 +16,10 @@
 %# | code are included. Requires  that the final product, software derivate from |
 %# | the original  source or any  software  utilizing a GPL  component, such  as |
 %# | this, is also licensed under the GPL license.                               |
-%# /----------------------------------------------------------------------------*/
+%# \----------------------------------------------------------------------------*/
 %#
-%# ChangeLog:
-%# -------------------------------------------------------------------------------
 %# $Author$
+%# $LastChangedBy : keschte $
 %# $LastChangedDate$
 %# $LastChangedRevision$
 %# -------------------------------------------------------------------------------
