@@ -1,4 +1,4 @@
-%# vi: set ts=4 sw=4 ft=mason :
+﻿%# vi: set ts=4 sw=4 ft=mason :
 <%args>
 	$submit => ""
 	$username => ""
@@ -71,14 +71,22 @@
 			<tr>
 				<td colspan="2" class="instructions">
 					<ul>
-						<li>Please fill out the fields below to create a new MusicBrainz account:</li>
+						<li>Please fill out the fields below to create a new MusicBrainz account.</li>
+						<li>Before doing so, please read the <& /comp/linkdoc, "CodeOfConduct",
+							"MusicBrainz Code of Conduct" &>.</li>
+						<li>If you have any questions, please review the <& /comp/linkdoc, "FrequentlyAskedQuestions",
+							"Frequently Asked Questions (FAQs)" &>, or post it to the appropriate
+							<& /comp/linkdoc, "MailingList",
+							"Mailing List" &></li>
 					</ul></td>
 			</tr>
+		</table>
 
+		<table class="formstyle">
 
 %			if (@$createlogin > 0) {
 			<tr>
-				<td>&nbsp;</td>
+				<td class="label">&nbsp;</td>
 				<td class="error"><ul><li><%perl> $m->out(join("</li><li>", @$createlogin)); </%perl></li></ul></td>
 			</tr>
 %			}

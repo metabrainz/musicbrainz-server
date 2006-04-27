@@ -1,0 +1,8 @@
+﻿<%perl>
+	my ($pagename, $pagetitle) = @_;
+
+	$pagetitle = $pagename if (not defined $pagetitle);
+
+	$m->out(qq!<a href="/doc/$pagename">$pagetitle</a>!);
+
+</%perl>
