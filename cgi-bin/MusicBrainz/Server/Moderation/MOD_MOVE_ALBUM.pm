@@ -102,7 +102,7 @@ sub PreDisplay
 		{
 			require Artist;
 			$nar = Artist->new($this->{DBH});
-			$nar->SetId(defined $this->{'new.artistid'} ? $this->{'new.artistid'} : $al->GetArtist);
+			$nar->SetId($al->GetArtist);
 				
 			# FIXME is the name = new.sortname comparison necessary?
 			if ($nar->LoadFromId 
