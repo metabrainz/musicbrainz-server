@@ -1,31 +1,32 @@
 %# vi: set ts=4 sw=4 ft=mason :
 <%args>
-$url=>""
+	$url => ""
 </%args>
-% delete $session{tagged_albums};
+<%perl>
 
-<& /comp/sidebar, title => 'Deselected Tagged Albums' &>
+	delete $session{tagged_albums};
 
-<center>
-	<p class="notice">
-		All of your selected albums have been deselected.
-	</p>
-%# TODO feeding any old URL back into the page is a security risk
-%   if ($url ne '') {
-	<p>
-		<a href="<% $url %>">Return to last page</a>
-	</p>
-%   }
+	$m->comp("/comp/sidebar-notitle", pagetitle => "Unselected Releases");
 
-	<br>
+	$m->comp("/comp/tablebegin", title => "Unselected Releases");
+	$m->out("All of your selected releases have been deselected.");
 
-	<& /comp/tablebegin, title=>'Search', attrs=>"align=left" &>
-	<br>
-	<& /comp/lucenesearch, type=>'artist' &>
-	<br>
-	<& /comp/tableend &>
+ 	# TODO feeding any old URL back into the page is a security risk
+	if ($url ne "")
+	{
+		$m->out(qq!<br />&nbsp;!);
+		$m->out(qq!<form method="get" action="$url">!);
+		$m->out(qq!<div><input type="submit" value="Return to last page &raquo;" /></div>!);
+		$m->out(qq!</form>!);
+	}
+	$m->comp("/comp/tableend");
 
-</center>
 
-<& /comp/movefocus, "TextSearchForm", "search" &>
-<& /comp/footer &>
+	$m->comp("/comp/tablebegin", title => "Search for an Artist");
+	$m->comp("/comp/lucenesearch", type=>'artist');
+	$m->comp("/comp/movefocus", "TextSearchForm", "search");
+	$m->comp("/comp/tableend");
+
+	$m->comp("/comp/footer");
+
+</%perl>

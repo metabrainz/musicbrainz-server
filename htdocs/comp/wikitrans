@@ -133,8 +133,12 @@
 			{
 				$out  = qq!<div class="header">\n!;
 				$out .= qq!  This page has been copied from our Wiki. \n!;
-				$out .= qq!  The content is <i><b>not official</b></i> \n!;
+				$out .= qq!  The content is <em><strong>not official</strong></em> \n!;
 				$out .= qq!  but probably correct and hopefully informative. \n!;
+				$out .= qq!  If you have spotted a spelling error, or want to help \n!;
+				$out .= qq!  writing the documentation, you'll find the editable version \n!;
+				$out .= qq!  of this page on the wiki at <img src="/images/edit.gif" alt="" /><a\n!;
+				$out .= qq! href="http://wiki.musicbrainz.org/$id">$id</a> \n!;
 				$out .= qq!</div> \n!;
 				$out .= qq!<div class="unofficial"> \n!;
 				$out .= $page;

@@ -56,6 +56,8 @@
 			<td class="batchop" id="batchop::<% $releaseid %>">
 				<form method="post" action="/edit/albumbatch/done.html">
 					<div>
+
+						<input type="hidden" id="tagchecked::<% $releaseid %>" value="<% $tagchecked %>" />
 						<input type="hidden" name="AlbumId<% $releaseid %>" value="<% $tagchecked ? "off" : "on" %>" />
 						<input type="submit" name="submit" value="<% $tagchecked ? "Remove" : "Select" %>" />
 					</div>
