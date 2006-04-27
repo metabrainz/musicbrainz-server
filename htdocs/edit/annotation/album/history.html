@@ -1,89 +1,123 @@
-%# vi: set ts=2 sw=2 ft=mason :
+<%perl>
+	# -----------------------------------------------------------------------------
+	#                               Musicbrainz.org
+	#                        Copyright (c) 2001 Robert Kaye
+	# -----------------------------------------------------------------------------
+	#  This software is provided "as is", without warranty of any kind, express or
+	#  implied, including  but not limited  to the warranties of  merchantability,
+	#  fitness for a particular purpose and noninfringement. In no event shall the
+	#  authors or  copyright  holders be  liable for any claim,  damages or  other
+	#  liability, whether  in an  action of  contract, tort  or otherwise, arising
+	#  from,  out of  or in  connection with  the software or  the  use  or  other
+	#  dealings in the software.
+	#
+	#  GPL - The GNU General Public License    http://www.gnu.org/licenses/gpl.txt
+	#  Permits anyone the right to use and modify the software without limitations
+	#  as long as proper  credits are given  and the original  and modified source
+	#  code are included. Requires  that the final product, software derivate from
+	#  the original  source or any  software  utilizing a GPL  component, such  as
+	#  this, is also licensed under the GPL license.
+	# -----------------------------------------------------------------------------
+	#
+	# Summary:
+	# -----------------------------------------------------------------------------
+	# Review the history of all release annotations of the given artist and
+	# release.
+	#
+	# $URL$
+	# $Id$
+	#
+</%perl>
 <%args>
-$albumid
-$expandids => undef
-$expand_all => undef
-$show_mods => undef
+	$albumid
+	$expandids => undef
+	$expand_all => undef
+	$show_mods => undef
 </%args>
 <%perl>
 
-$m->comp("/comp/checkloggedin", 1, 1)
-	or return;
+	# only logged in users may see this page
+	$m->comp("/comp/checkloggedin", 1, 1)
+		or return;
 
-if ($show_mods)
-{
-	my %filter = (
-		mod_type				=> [ &ModDefs::MOD_ADD_ALBUM_ANNOTATION ],
-		object_type			=> "album",
-		object_id				=> $albumid,
-		orderby					=> "desc",
-	);
+	# redirect to moderations listing of this annotation object.
+	if ($show_mods)
+	{
+		my %filter = (
+			mod_type => [ &ModDefs::MOD_ADD_ALBUM_ANNOTATION ],
+			object_type => "album",
+			object_id => $albumid,
+			orderby => "desc",
+		);
 
-	return $m->comp(
-		"/comp/redirect",
-		"/mod/search/results.html?" . $m->comp("/comp/args-to-querystring.inc", %filter)
-	);
-}
+		return $m->comp(
+			"/comp/redirect",
+			"/mod/search/results.html?" . $m->comp("/comp/args-to-querystring.inc", %filter)
+		);
+	}
 
-MusicBrainz::IsNonNegInteger($albumid) && $albumid
-	or return $m->comp("/comp/badargs", 1, 1);
+	# redirect to moderations listing of this annotation object.
+	MusicBrainz::IsNonNegInteger($albumid) && $albumid
+		or return $m->comp("/comp/layout/badarguments", "The albumid argument is invalid.");
 
-my $mb = $m->comp("/comp/dblogin");
+	# Instantiate MusicBrainz object
+	my $mb = $m->comp("/comp/dblogin");
 
-my $al = Album->new($mb->{DBH});
-$al->SetId($albumid);
-$al->LoadFromId
-	or return $m->comp(
-		"/comp/error",
-		"Album #$albumid does not exist",
-		1, 1,
-	);
+	# load objects from database
+	my $release = $m->comp("/comp/loadrelease", $mb, $albumid);
+	my $artist = $m->comp("/comp/loadartist", $mb, $release->GetArtist());
 
-my $ar = Artist->new($mb->{DBH});
-$ar->SetId($al->GetArtist());
-$ar->LoadFromId
-	or return $m->comp(
-		"/comp/error",
-		"artist #" . $al->GetArtist() . " does not exist",
-		1, 1,
-	);
+	# Load annotations.
+	my %expand = map { $_ => 1 } split(' ', $expandids);
+	my $annotations = MusicBrainz::Server::Annotation->GetAnnotationIDsForAlbum($release);
 
-# Load annotations.
+	# prepare page, and boxtitle
+	my $title = "Release Annotation History";
+	$m->comp("/comp/sidebar-notitle", pagetitle => $title);
+	$m->comp("/comp/tablebegin", title => $title);
 
-my %expand = map { $_ => 1 } split(' ', $expandids);
-my $annotations = MusicBrainz::Server::Annotation->GetAnnotationIDsForAlbum($al);
-#$expand{$annotations->[0]} = 1 unless defined $expandids;
+	# render the annotation subject
+	$m->comp("/edit/annotation/subject", title => "Review Annotation History for", artist => $artist, release => $release);
+
+	# options
+	$m->out("<ul>");
+	$m->out(sprintf qq!<li><a href="/edit/annotation/album/history.html?albumid=$albumid%s">%s</a></li>!,
+					$expand_all ? "" : "&amp;expand_all=1",
+					$expand_all ? "Collapse list" : "Expand list");
+
+	$m->out(qq!<li><a href="/edit/annotation/album/history.html?albumid=$albumid&amp;show_mods=1">Show moderations</a></li>!);
+
+ 	unless (@$annotations)
+ 	{
+		$m->out(qq!<li>No annotations available. <a href="/edit/annotation/album/edit.html?albumid=$albumid">Add an annotation &raquo;</a></li>!);
+ 	}
+	$m->out("</ul>");
+	$m->comp("/comp/tableend");
+
+
+	# render the list of annotations
+	for (my $i=0; $i < @$annotations; $i++)
+	{
+		my $annotationid = @$annotations[$i];
+		my $annotation = MusicBrainz::Server::Annotation->new($mb->{DBH});
+		$annotation->SetId($annotationid);
+		$annotation->LoadFromId()
+			or next;
+
+		# the annotations are sorted top-down, see if there is a previous
+		# annotation (e.g. another item in the list) to diff against.
+		my $previd = $annotations->[$i + 1];
+		$previd = 0 if (not defined $previd);
+
+		$m->comp("/edit/annotation/show",
+			annotation => $annotation,
+			show_log => 1,
+			expand => $expand{$annotationid} || $expand_all,
+			show_diff => $previd);
+
+		$m->out("<br />");
+	}
+
+	$m->comp("/comp/footer");
 
 </%perl>
-
-<& /comp/sidebar, title => 'Annotation History for ' . $al->GetName() &>
-
-<p>Annotations for <& /edit/annotation/subject, artist => $ar, album => $al &></p>
-
-<p> [
-% if ($expand_all) {
-	<a href="/edit/annotation/album/history.html?albumid=<% $albumid %>">Collapse list</a>
-% } else {
-	<a href="/edit/annotation/album/history.html?albumid=<% $albumid %>&amp;expand_all=1">Expand list</a>
-% }
-	| <a href="/edit/annotation/album/history.html?albumid=<% $albumid %>&amp;show_mods=1">Show moderations</a>
-] </p>
-
-% unless ( @$annotations ) {
-	<p>
-		No annotations available.&nbsp;
-		<a href="/edit/annotation/album/edit.html?albumid=<% $albumid
-				%>">Add an annotation.</a>
-	</p>
-% }
-
-% foreach my $annotation ( @$annotations ) {
-%		my $an = MusicBrainz::Server::Annotation->new($mb->{DBH});
-%		$an->SetId($annotation);
-%		$an->LoadFromId();
-	<& /edit/annotation/show, annotation => $an, show_log => 1,
-		expand => $expand{$annotation} || $expand_all &>
-	<br>
-% }
-
-<& /comp/footer &>

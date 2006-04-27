@@ -32,12 +32,13 @@
 	# preferred way of calling - provide Album object
 	$release => undef
 
-	# you can provide id, and name arguments as well
+	# specific arguments can be provided, too
 	$id => undef
+	$mbid => undef
 	$name => undef
 
 	# rendering options
-	$icon => 0
+	$icon => 1
 	$strong => 1
 </%args>
 <%perl>
@@ -45,14 +46,20 @@
 	if (defined $release)
 	{
 		$id = $release->GetId;
+		$mbid = $release->GetMBId;
 		$name = $release->GetName;
 	}
 	die ("$id and $name are required") if (not defined $id || not defined $name);
 
 	# render link.
 	$m->out(qq!<strong>!) if ($strong);
-	$m->out(qq!<img src="/images/edit.gif" alt="" />!) if ($icon);
-	$m->out(qq!<a href="/showalbum.html?albumid=$id">! . $m->interp->apply_escapes($name, 'h') . qq!</a>!);
+	$m->out(qq!<img src="/images/icon/release.gif" alt="" class="entityicon" />!) if ($icon);
+
+	# if the MBID is defined, use the "preferred" way of displaying release links.
+	$m->out(sprintf qq!<a href="%s">%s</a>!,
+					defined $mbid ? "/album/$mbid.html" : "/showalbum.html?albumid=$id",
+					$m->interp->apply_escapes($name, 'h'));
+
 	$m->out(qq!</strong>!) if ($strong);
 
 </%perl>

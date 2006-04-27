@@ -1,72 +1,136 @@
-%# vi: set ts=2 sw=2 ft=mason :
+<%perl>
+	# -----------------------------------------------------------------------------
+	#                               Musicbrainz.org
+	#                        Copyright (c) 2001 Robert Kaye
+	# -----------------------------------------------------------------------------
+	#  This software is provided "as is", without warranty of any kind, express or
+	#  implied, including  but not limited  to the warranties of  merchantability,
+	#  fitness for a particular purpose and noninfringement. In no event shall the
+	#  authors or  copyright  holders be  liable for any claim,  damages or  other
+	#  liability, whether  in an  action of  contract, tort  or otherwise, arising
+	#  from,  out of  or in  connection with  the software or  the  use  or  other
+	#  dealings in the software.
+	#
+	#  GPL - The GNU General Public License    http://www.gnu.org/licenses/gpl.txt
+	#  Permits anyone the right to use and modify the software without limitations
+	#  as long as proper  credits are given  and the original  and modified source
+	#  code are included. Requires  that the final product, software derivate from
+	#  the original  source or any  software  utilizing a GPL  component, such  as
+	#  this, is also licensed under the GPL license.
+	# -----------------------------------------------------------------------------
+	#
+	# Summary:
+	# -----------------------------------------------------------------------------
+	# This component loads the artist and release (if type=ALBUM_ANNOTATION)
+	# object and returns them as list. If type is ARTIST_ANNOTATION, undef is
+	# returned for the release object.
+	#
+	# $URL$
+	# $Id$
+	#
+</%perl>
 <%args>
-$annotation
-$history_link => 0
-$show_log => 0
-$expand => 1
-$explain => 0
-$short => 0
-$show_diff => 0
+	$annotation
+	$history_link => 0
+	$show_log => 0
+	$expand => 1
+	$explain => 0
+	$short => 0
+	$show_diff => 0
 </%args>
+<%perl>
 
-<table class="Annotation">
+	$m->out(qq!<table class="annotation">!);
 
-% if ($expand and not $annotation->IsBlank) {
-	<tr class="AnnotationText">
-% if ($short) {
-% my $url = "/edit/annotation/show.html?annotationid=".$annotation->GetId;
-		<td><% $annotation->GetShortTextAsHTML(
-			qq[(<a href="$url">Read&nbsp;more&hellip;</a>)]
-		) |n %></td>
-% } else {
-		<td><% $annotation->GetTextAsHTML() |n %></td>
-% }
-	</tr>
-% }
+	if ($expand and not $annotation->IsBlank)
+	{
+		$m->out(qq!<tr class="text">!);
 
-% if ($show_log and $session{uid}) {
-% my $log = $annotation->GetChangeLog;
-% $log = "(no change log)" unless $log =~ /\S/;
-	<tr class="AnnotationLog">
-		<td>Summary: <% $log %></td>
-	</tr>
-% }
+		my $text;
+		if ($short)
+		{
+			my $url = "/edit/annotation/show.html?annotationid=".$annotation->GetId;
+			my $readmore = qq!(<a href="$url">Read&nbsp;more&hellip;</a>)!;
+			$text = $annotation->GetShortTextAsHTML($readmore);
+		}
+		else
+		{
+			$text = $annotation->GetTextAsHTML();
+		}
+		$m->out(qq!<td colspan="2">$text</td></tr>!); # no escaping!
+	}
 
-	<tr class="AnnotationInfo">
-		<td>
+	# only show the last summary if the user is logged in.
+	if ($show_log and $session{uid})
+	{
+		my $log = $annotation->GetChangeLog;
+		$log = "(no change log)" unless $log =~ /\S/;
+		$log = $m->interp->apply_escapes($log, 'h');
 
-			<span class="AnnotationInfoText">
-% if ($explain) {
-				Annotation last modified
-% } else {
-				Last modified
-% }
-% if ($session{uid}) {
-				by <a href="/user/view.html?uid=<%
-					$annotation->GetModerator()%>"><% $annotation->GetModeratorName %></a>
-% }
-				on <% $m->comp('/comp/datetime', $annotation->GetCreationTime()) %>
-		</span>
+		$m->out(qq!<tr class="log">!);
+		$m->out(qq!<td colspan="2">Summary: $log</td>!);
+		$m->out(qq!</tr>!);
+	}
 
-% if ($session{uid}) {
-		<span class="AnnotationInfoLinks">
-			[
-% if ($history_link) {
-				<& /edit/annotation/history-link, annotation => $annotation &>
-% }
-% if ($show_diff) {
-				<& /edit/annotation/diff-link, new => $annotation->GetId, old => $show_diff &>
-% }
-% if ($expand) {
-				<& /edit/annotation/edit-link, annotation => $annotation &>
-% } else {
-				<a href="/edit/annotation/show.html?annotationid=<% $annotation->GetId() %>">Show</a>
-% }
-			]
-		</span>
-% }
+	# only show name of last user who changed the annotation
+	# if the user is logged in.
+	$m->out(qq!<tr class="info">!);
+	$m->out(sprintf qq!<td class="text" %s>!, ($session{uid} ? "" : qq! colspan="2"!));
+	$m->out($explain ? "Annotation last modified" : "Last modified");
+	if ($session{uid})
+	{
+		$m->out(sprintf qq! by <a href="/user/view.html?uid=%s">%s</a>!,
+				$annotation->GetModerator(),
+				$m->interp->apply_escapes($annotation->GetModeratorName(), 'h'));
+	}
+	$m->out(" on ");
+	$m->comp("/comp/datetime", $annotation->GetCreationTime());
+	$m->out("</td>");
 
-    </td>
-  </tr>
+	# show editing links only if user is logged in
+	if ($session{uid})
+	{
+		$m->out(qq!<td class="links"> [ !);
 
-</table>
+		if ($history_link)
+		{
+			my $type = $annotation->GetType;
+			my $id = undef;
+			if ($type == &MusicBrainz::Server::Annotation::ARTIST_ANNOTATION)
+			{
+				$type = "artist";
+				$id = $annotation->GetArtist();
+			}
+			elsif ($type == &MusicBrainz::Server::Annotation::ALBUM_ANNOTATION)
+			{
+				$type = "album";
+				$id = $annotation->GetAlbum();
+			}
+			if (defined $id)
+			{
+				$m->out(sprintf qq!<a href="/edit/annotation/%s/history.html?%sid=%d&amp;expand_all=1">Show history</a> | !,
+								$type, $type, $id);
+			}
+		}
+
+		if ($show_diff)
+		{
+			$m->out(sprintf qq!<a href="/edit/annotation/diff.html?old=%d&amp;new=%d">Diff</a> | !,
+							$show_diff, $annotation->GetId);
+		}
+
+		if ($expand)
+		{
+			$m->comp("/edit/annotation/edit-link", annotation => $annotation);
+		}
+		else
+		{
+			$m->out(sprintf qq!<a href="/edit/annotation/show.html?annotationid=%s">Show</a>!,
+							$annotation->GetId());
+		}
+		$m->out(" ] ");
+	}
+
+	$m->out("</td></tr></table>");
+
+</%perl>

@@ -33,6 +33,14 @@ a img
 	vertical-align: baseline;
 }
 
+/* XHTML change: globally remove borders from images inside <a> blocks */
+img.entityicon
+{ 
+	margin-right: 2px;
+	vertical-align: baseline;
+}
+
+
 label { cursor: pointer; } /* TODO: that is the default behaviour, isn't it? */
 
 /* default link color */
@@ -739,48 +747,64 @@ table.cdtocinfo tr.ev { background-color: #eee } /* 'even' rows */
 td.discidlength { background-color: #ffecd6; text-align: right }
 
 /* Annotations */
-
-.Annotation
-{
-	background: #f0efff;
-	border: 1px solid black;
+table.annotation {
+	background: #f0efff; color: #000;
+	border: 1px solid #aaa;
 	border-collapse: collapse;
 	width: 100%;
 }
 
-.Annotation td
-{
-	padding: 0.2em 0.5em;
+table.annotation td {
+	padding: 2px 4px;
 }
 
-.AnnotationText p {
-        margin-bottom: 1em;
-}
-
-
-.AnnotationText td
-{
-	background: #fff;
-}
-
-.AnnotationInfo
-{
+table.annotation tr.header td {
+	font-weight: bold;
+	padding-bottom: 3px;
+	color: #000;
 	background: #f0efff;
+	
+}
+table.annotation tr.header>td {
+	border-bottom: 1px solid #aaa;
+}
+
+table.annotation tr.log {
+	background-color: #ffecd6; color: #000;
+}
+table.annotation tr.log td {
+	border-bottom: 1px solid #aaa;
+}
+
+table.annotation tr.info {
+	background: #f0efff; color: #000;
+}
+table.annotation tr.info td.text {
+	float: left;
+}
+table.annotation tr.info td.links {
 	text-align: right;
 }
 
-.AnnotationInfoText
-{
-	float: left;
+table.annotation tr.text {
+	background: #fff; color: #000;
 }
-
-.AnnotationInfoLinks
-{
+table.annotation tr.text td {
+	border-top: 1px solid #aaa;
+	border-bottom: 1px solid #aaa;
+	margin: 4px;
 }
-
-.AnnotationLog
-{
-	background-color: #ffecd6;
+table.annotation p {
+	margin: 0px; margin-bottom: 5px;
+}
+.boxcontent table.annotation { 
+	margin-left: 20px; margin-top: 20px; width: 90%;
+}
+table.annotation ul {
+	margin: 0px; padding: 0px;
+	margin-left: 20px;
+	padding-bottom: 5px;
+	
 }
 
 /* Related Artists */

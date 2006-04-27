@@ -32,7 +32,7 @@
 	# preferred way of calling - provide URL object
 	$url => undef
 
-	# you can provide id, and name arguments as well
+	# specific arguments can be provided, too
 	$id => undef
 	$name => undef
 

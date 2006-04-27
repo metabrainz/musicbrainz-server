@@ -1,25 +1,37 @@
-.MarkupDiff
-{
+table.difflegend {
 }
 
-.DiffAdd
-{
-	background: #cfc;
+table.difflegend td {
+	padding-right: 40px; 
+	font-size: 9px; font-weight: light;
+}
+table.difflegend td.legend {
+	font-size: 12px; font-style: italic;
 }
 
-.DiffDel
-{
-	background: #fcc;
+table.difflegend span {
+	border: 1px solid #000; 
+	padding: 0px 2px; 
+	margin-right: 3px;
+	background: #fff; color: #000;
 }
 
-.DiffChangeAdd
-{
-	background: #cfc;
-	color: blue;
+.DiffAdd,
+table.difflegend span.DiffAdd {
+	background: #cfc; color: #000;
 }
 
-.DiffChangeDel
-{
-	background: #fcc;
-	color: blue;
+.DiffDel,
+table.difflegend span.DiffDel {
+	background: #fcc; color: #000;
+}
+
+.DiffChangeAdd,
+table.difflegend span.DiffChangeAdd {
+	background: #cfc; color: #008; 
+}
+
+.DiffChangeDel,
+table.difflegend span.DiffChangeDel {
+	background: #fcc; color: #008; 
 }

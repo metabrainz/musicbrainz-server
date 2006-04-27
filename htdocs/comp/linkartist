@@ -31,13 +31,19 @@
 	#
 </%perl>
 <%args>
+	# preferred way of calling - provide Artist object
 	$artist => undef
+
+	# specific arguments can be provided, too
 	$id => undef
+	$mbid => undef
 	$name => undef
 	$sortname => ""
 	$resolution => undef
+
+	# rendering options
 	$showresolution => 1
-	$icon => 0
+	$icon => 1
 	$strong => 1
 </%args>
 <%perl>
@@ -45,20 +51,32 @@
 	if (defined $artist)
 	{
 		$id = $artist->GetId;
+		$mbid = $artist->GetMBId;
 		$name = $artist->GetName;
 		$sortname = $artist->GetSortName;
 		$resolution = $artist->GetResolution;
 	}
 	die ("$id and $name are required") if (not defined $id || not defined $name);
 
+	# fallback to artistname if no sortname is provided.
+	$sortname = $sortname || $name;
+
 	$m->out(qq!<strong>!) if ($strong);
-	$m->out(qq!<img src="/images/edit.gif" alt="" />!) if ($icon);
-	$m->out(qq!<a href="/showartist.html?artistid=$id" title="! . $m->interp->apply_escapes($sortname, 'h') . qq!">! . $m->interp->apply_escapes($name, 'h') . qq!</a>!);
+	$m->out(qq!<img src="/images/icon/artist.gif" alt="" class="entityicon" />!) if ($icon);
+
+	# if the MBID is defined, use the "preferred" way of displaying artist links.
+	$m->out(sprintf qq!<a href="%s" title="%s">%s</a>!,
+					defined $mbid ? "/artist/$mbid.html" : "/showartist.html?artistid=$id",
+					$m->interp->apply_escapes($sortname, 'h'),
+					$m->interp->apply_escapes($name, 'h'));
 	$m->out(qq!</strong>!) if ($strong);
+
+	# render resolution?
 	if ($showresolution && $resolution ne "")
 	{
 		$m->out(qq! <span class="artistresolution">!);
-		$m->out(qq! (! . $m->interp->apply_escapes($resolution, 'h') . qq!)!);
+		$m->out(sprintf qq! (%s) !,
+						$m->interp->apply_escapes($resolution, 'h'));
 		$m->out(qq! </span>!);
 	}
 </%perl>

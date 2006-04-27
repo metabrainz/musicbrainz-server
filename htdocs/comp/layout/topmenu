@@ -87,6 +87,9 @@
 			{ url => "/search/textsearch.html" },
 			{ url => "/search/oldsearch.html" },
 
+			# annotations
+			{ url => "/edit/annotation/show.html" },
+
 			{ url => "/albumdetail.html" },
 			{ url => "/showalbum.html" },
 			{ url => "/showartist.html" },
@@ -185,6 +188,14 @@
 			{ url => "/edit/relationship/edit.html" },
 			{ url => "/edit/relationship/remove.html" },
 			{ url => "/edit/relationship/showelements.html" },
+
+			# edit annotations
+			{ url => "/edit/annotation/artist/edit.html" },
+			{ url => "/edit/annotation/album/edit.html" },
+			{ url => "/edit/annotation/diff.html" },
+			{ url => "/edit/annotation/diff-to-previous.html" },
+			{ url => "/edit/annotation/artist/history.html" },
+			{ url => "/edit/annotation/album/history.html" },
 
 			# add mods
 			{ url => "/edit/artistalias/add.html" },

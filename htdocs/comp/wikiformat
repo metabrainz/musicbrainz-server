@@ -1,26 +1,52 @@
-<p style="float: right; width: 200px; padding: 1em; margin: 1em; border: 2px dotted red;">
-Please use the wiki formatting sparingly!<br/><br/> The wiki formatting is intended to give a some flexibility for
-annotations and should not interfere with the rest of the page layout.
-</p>
-<h4>Wiki Formatting</h4>
-<p style="margin-left: 2em">
-<b>Emphasis</b>
-<br>
-&nbsp;&nbsp;''italics''; '''bold'''; '''''bold italics'''''; ---- horizontal rule 
-<br>
-<b>Headings</b>
-<br>
-&nbsp;&nbsp;=&nbsp;Title&nbsp;1&nbsp;=; ==&nbsp;Title&nbsp;2&nbsp;==; ===&nbsp;Title&nbsp;3&nbsp;===
-<br>
-<b>Lists</b>
-<br>
-&nbsp;&nbsp;tab or 4 spaces and: * bullets; 1., a., A., i., I. numbered items; spaces alone indent 
-<br>
-<b>Links</b>
-<br>
-&nbsp;&nbsp; url; [url]; [url|label]
-<br/>
-<b>Misc</b>
-<br>
-To use brackets [] in a name (e.g. [unknown]) without making interwiki links, use &amp;#91; for [ and &amp;#93; for ]"
-</p>
+	<ul>
+		<li><strong>Do not post any copyrighted texts here!</strong>
+			Please note that any content submitted to MusicBrainz will be
+			made available to the public under <a href="/about/licenses.html">
+			open licenses</a>.
+		</li>
+		<li>
+			<strong>Wiki Format:</strong> Annotations support a limited set of wiki
+			formatting options:
+
+			<table class="formstyle" style="margin-left: 30px;">
+				<tr class="top">
+					<td style="padding-right: 40px">Emphasis:</td>
+					<td>
+						''italics''; '''bold'''; '''''bold italics'''''; ---- horizontal rule</td>
+				</tr>
+				<tr class="top">
+					<td>Headings:</td>
+					<td>
+						=&nbsp;Title&nbsp;1&nbsp;=; ==&nbsp;Title&nbsp;2&nbsp;==; ===&nbsp;Title&nbsp;3&nbsp;===</td>
+				<tr class="top">
+					<td>Lists:</td>
+					<td>
+						tab or 4 spaces and: * bullets; 1., a., A., i., I. numbered items; spaces alone indent</td>
+				</tr>
+				<tr class="top">
+					<td>Links:</td>
+					<td>
+						url; [url]; [url|label]</td>
+				</tr>
+				<tr class="top">
+					<td>Misc:</td>
+					<td>
+						Because square brackets [] are used to create hyperlinks, you have to
+						use the encoded html equivalents (<code>&amp;#91;</code> for [") and (<code>&amp;#93;</code> for ])
+						if you want them not be converted into hyperlinks. Example: If you want
+						to use [unknown] in the annotation, you'll have to write
+						<code>&amp;#91;unknown&amp;#93;</code>
+						that it will appear the way you intended it to show.
+					</td>
+				</tr>
+			</table>
+
+			<div style="padding: 5px; margin-top: 10px; margin-left: 30px; border: 1px dotted red;">
+				<strong>Please use the wiki formatting sparingly!</strong>
+				The wiki formatting is intended to give a some
+				flexibility for annotations and should not interfere
+				with the rest of the page layout.
+			</div>
+		</li>
+	</ul>
+
