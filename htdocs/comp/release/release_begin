@@ -34,6 +34,7 @@
 
 	$showlinks => 1
 	$showmodlinks => 1
+	$showtrackartists => 0
 
 	$link => ""
 	$linktype => ""
@@ -164,6 +165,9 @@
 						| <a href="/edit/track/add.html?album=<% $releaseid %>">Add&nbsp;track</a>
 %				}
 						| <a href="/edit/album/move.html?album=<% $releaseid %>">Move</a>
+%				if (!$showtrackartists and !$nonalbum) {
+						| <a href="/showalbum.html?albumid=<% $releaseid %>&amp;showtrackartists=1">Show&nbsp;artists</a>
+%				}
 %				if (!$release->HasMultipleTrackArtists) {
 						| <a href="/edit/album/mac.html?album=<% $releaseid %>">Convert&nbsp;to&nbsp;multiple&nbsp;artists</a>
 %				} else {
