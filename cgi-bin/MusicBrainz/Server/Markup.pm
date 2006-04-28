@@ -48,7 +48,9 @@ sub parse
 		if ($class->is_marker_para($p))
 		{
 			push @out, TOKEN_SUMMARY_MARKER;
-		} else {
+		} 
+		else 
+		{
 			push @out, @{ $class->parse_para($p) };
 		}
 	}
@@ -103,7 +105,8 @@ sub deparse
 
 sub normalise
 {
-# TODO: We need to check to see if this needs to be normalized at all. Security issues abound, no doubt.
+	# TODO: We need to check to see if this needs to be normalized at all. 
+	# Security issues abound, no doubt.
 	my $class = shift;
     return shift;
     #my $text = $class->deparse($class->parse(@_));
@@ -146,13 +149,15 @@ sub as_html
 				? substr($t, 0, 72) . "..."
 				: $t);
 			
-			$para .= qq[$sp<a href="$t" title="$t">$disp</a>];
-		} else {
+			$para .= qq!$sp<a href="$t" title="$t">$disp</a>!;
+		} 
+		else 
+		{
 			$para .= encode_entities($_);
 		}
 	}
 
-	$html .= "<p>$para</p>" unless $para eq "";
+	$html .= "<p>$para</p>" unless ($para eq "");
 
 	$html;
 }
@@ -170,7 +175,7 @@ sub diff_as_html
 	use Algorithm::Diff qw( compact_diff );
 	my @compact = compact_diff($p1, $p2);
 
-	my $html = "<div class='MarkupDiff'>";
+	my $html = qq!<div class="markupdiff">!;
 
 	my $eq = 1;
 	while (@compact > 2)
@@ -178,33 +183,41 @@ sub diff_as_html
 		my ($p1s, $p2s, $p1e, $p2e) = @compact[0..3];
 
 		# Skip empty matching sequence, e.g. if the first items differ
-		next if $eq and $p1s == $p1e;
+		next if ($eq and $p1s == $p1e);
 
 		if ($eq)
 		{
 			my @tokens = @$p1[$p1s .. $p1e-1];
-			$html .= $class->print_chunk("DiffNoChange", \@tokens);
-		} elsif ($p1s == $p1e) {
+			$html .= $class->print_chunk("diff-nochange", \@tokens);
+		} 
+		elsif ($p1s == $p1e) 
+		{
 			# Addition in seq2
 			my @tokens = @$p2[$p2s .. $p2e-1];
-			$html .= $class->print_chunk("DiffAdd", \@tokens);
-		} elsif ($p2s == $p2e) {
+			$html .= $class->print_chunk("diff-add", \@tokens);
+		} 
+		elsif ($p2s == $p2e) 
+		{
 			# Addition in seq1 (removed in seq2)
 			my @tokens = @$p1[$p1s .. $p1e-1];
-			$html .= $class->print_chunk("DiffDel", \@tokens);
-		} else {
+			$html .= $class->print_chunk("diff-del", \@tokens);
+		} 
+		else 
+		{
 			# Changed items
 			my @tokens1 = @$p1[$p1s .. $p1e-1];
 			my @tokens2 = @$p2[$p2s .. $p2e-1];
-			$html .= $class->print_chunk("DiffChangeDel", \@tokens1);
-			$html .= $class->print_chunk("DiffChangeAdd", \@tokens2);
+			$html .= $class->print_chunk("diff-changedel", \@tokens1);
+			$html .= $class->print_chunk("diff-changeadd", \@tokens2);
 		}
-	} continue {
+	} 
+	continue 
+	{
 		$eq = not $eq;
 		splice(@compact, 0, 2);
 	}
 
-	$html .= "</div>";
+	$html .= qq!</div>!;
 
 	$html;
 }
@@ -212,7 +225,7 @@ sub diff_as_html
 sub print_chunk
 {
 	my ($class, $type, $tokens) = @_;
-	"<span class='$type'>" . $class->output_tokens($tokens) . "</span>";
+	qq!<span class="$type">! . $class->output_tokens($tokens) . qq!</span>!;
 }
 
 sub output_tokens
@@ -225,11 +238,11 @@ sub output_tokens
 	for (@$tokens)
 	{
 		$html .= (
-			$_ eq TOKEN_SUMMARY_MARKER ? "----"
-			:
-			$_ eq TOKEN_NEW_PARA ? "&#xB6;<br><br>"
-			:
-			MusicBrainz::encode_entities($_)
+			$_ eq TOKEN_SUMMARY_MARKER 
+				? "----"
+				: $_ eq TOKEN_NEW_PARA 
+					? "&#xB6;<br /><br />"
+					: MusicBrainz::encode_entities($_)
 		);
 	}
 
