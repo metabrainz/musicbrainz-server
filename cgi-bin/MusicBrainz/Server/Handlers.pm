@@ -60,18 +60,20 @@ sub TransHandler
 
 	# These ones are the "permanent URLs" to HTML pages
 	# /(artist|album|track)/$GUID.html
-	if ($uri =~ m[^/(artist|album|track)/($GUID)\.html\z])
+	if ($uri =~ m[^/(artist|release|album|track)/($GUID)\.html\z])
 	{
-		my $new_uri = "/show$1.html?mbid=$2";
+		my $entity = ($1 eq "album" ? "release" : $1);
+		my $new_uri = "/show/$entity/?mbid=$2";
 		$new_uri .= "&" . $r->args if defined $r->args;
 		return use_new_uri($r, $new_uri);
 	}
 
 	# Obsolete?
 	# /show(artist|album|track)/$GUID
-	if ($uri =~ m[^/show(artist|album|track)/($GUID)\z])
+	if ($uri =~ m[^/show(artist|release|album|track)/($GUID)\z])
 	{
-		return use_new_uri($r, "/show$1.html?mbid=$2");
+		my $entity = ($1 eq "album" ? "release" : $1);
+			return use_new_uri($r, "/show/$entity/?mbid=$2");
 	}
 
 	# /mm-2.1/(artist|album|track|trm|trmid|cdindex)/$GUID [/$depth]
