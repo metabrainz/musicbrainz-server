@@ -31,6 +31,7 @@
 </%perl>
 <%args>
 	$annotation
+	$header => undef
 	$history_link => 0
 	$show_log => 0
 	$expand => 1
@@ -41,6 +42,13 @@
 <%perl>
 
 	$m->out(qq!<table class="annotation">!);
+
+	if (defined $header)
+	{
+		$m->out(qq!<tr class="header">!);
+		$m->out(qq!<td colspan="2">$header</td>!);
+		$m->out(qq!</tr>!);
+	}
 
 	if ($expand and not $annotation->IsBlank)
 	{

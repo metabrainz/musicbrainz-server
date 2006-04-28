@@ -193,7 +193,6 @@
 			{ url => "/edit/annotation/artist/edit.html" },
 			{ url => "/edit/annotation/album/edit.html" },
 			{ url => "/edit/annotation/diff.html" },
-			{ url => "/edit/annotation/diff-to-previous.html" },
 			{ url => "/edit/annotation/artist/history.html" },
 			{ url => "/edit/annotation/album/history.html" },
 

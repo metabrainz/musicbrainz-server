@@ -39,41 +39,85 @@
 	$m->comp("/comp/checkloggedin", 1, 1)
 		or return;
 
+	# parameter new is required.
+	MusicBrainz::IsNonNegInteger($new) && $new
+		or return $m->comp("/comp/layout/badarguments", "parameter new is invalid.");
+
 	# Instantiate MusicBrainz object
 	my $mb = $m->comp("/comp/dblogin");
+	my ($an_new, $an_old);
 
-	# Validate arguments
-	for (\$old, \$new)
+	# load new annotation
+	$an_new = MusicBrainz::Server::Annotation->new($mb->{DBH});
+	$an_new->SetId($new);
+	$an_new->LoadFromId
+		or return $m->comp("/comp/error", "Annotation #$new not found", 1, 1);
+
+	# if the parameter old is not given, use previous (e.g. diff-to-previous.html)
+	if (not defined $old)
 	{
-		my $id = $$_;
-		MusicBrainz::IsNonNegInteger($id) && $id
-			or return $m->comp("/comp/layout/badarguments");
+		$an_old = $an_new->GetPrevious;
+	}
+	else
+	{
+		$an_old = MusicBrainz::Server::Annotation->new($mb->{DBH});
+		$an_old->SetId($old);
+		$an_old->LoadFromId
+			or return $m->comp("/comp/error", "Annotation #$old not found", 1, 1);
 
-		my $obj = MusicBrainz::Server::Annotation->new($mb->{DBH});
-		$obj->SetId($id);
-		$obj->LoadFromId
-			or return $m->comp("/comp/error", "Annotation #$id not found", 1, 1);
-
-		$$_ = $obj;
 	}
 
 	# check if old and new are annotations of the same object.
-	if (not $old->IsForSameObject($new))
+	if (not $an_old->IsForSameObject($an_new))
 	{
 		$m->comp("/comp/layout/badarguments", text => "Annotations are not for the same object");
 		return undef;
 	}
 
-	$m->comp("/comp/sidebar-notitle", pagetitle => "Compare Annotations");
-	$m->comp("/comp/tablebegin", title => "Compare Annotations: Differences");
-	$m->comp("diff-legend");
-	$m->comp("/comp/tableend");
-
-	$m->out(qq!<table class="annotation">!);
-	$m->out(qq!<tr class="text"><td>!);
-	$m->out(MusicBrainz::Server::Markup->diff_as_html($old->GetText, $new->GetText));
-	$m->out(qq!</td></tr></table>!);
-
-	$m->comp("/comp/footer");
+	# get backreference to the given annotation.
+	my $ref = $m->comp("/edit/annotation/backreference", annotation => $an_new);
+	my $artist = $ref->{artist};
+	my $release = $ref->{release};
 
 </%perl>
+
+
+<& /comp/sidebar-notitle, pagetitle => "Compare Annotations" &>
+
+	<& /comp/tablebegin, title => "Compare Annotations" &>
+		<& /edit/annotation/subject, title => "Comparing annotations for", artist => $artist, release => $release &>
+
+% 	if (!$an_old) {
+		Can't show differences; this is the first version.
+% 	}
+
+	<& /comp/tableend &>
+
+
+% 	if ($an_old) {
+		<table class="annotation">
+			<tr class="header">
+				<td>Differences
+					<& diff-legend &>
+				</td>
+			</tr>
+			<tr class="text">
+				<td>
+					<% MusicBrainz::Server::Markup->diff_as_html($an_old->GetText, $an_new->GetText) |n %></td>
+				</td>
+			</tr>
+		</table>
+		<br />
+
+		<& /edit/annotation/show, header => "Old revision", annotation => $an_old, history_link => 1, expand => 1, show_log => 1, &>
+		<br />
+
+		<& /edit/annotation/show, header => "New revision", annotation => $an_new, history_link => 1, expand => 1, show_log => 1, &>
+
+% 	} else {
+
+		<& /edit/annotation/show, annotation => $an_new, history_link => 1, &>
+
+% 	}
+
+<& /comp/footer &>

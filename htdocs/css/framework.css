@@ -117,7 +117,7 @@ td.header_logo .servertype
 }
 .blueheaderwide {
 	background-color: #fff; /* fallback if image is not available */
-	background-image: url(/images/header-bg-lightpurplefade.gif);
+	background-image: url(/images/header-bg-lightorangefade.gif);
 	background-position: left;
 	background-repeat: repeat-y;
 }

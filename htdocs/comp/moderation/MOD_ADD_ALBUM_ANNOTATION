@@ -3,7 +3,7 @@
 <%method ShowPreviousValue>
 % my $this = shift;
 
-% if (defined $this->{'albumname'}) 
+% if (defined $this->{'albumname'})
 % {
 	Album:
 	<a href="/showalbum.html?albumid=<% $this->GetRowId %>"
@@ -23,7 +23,7 @@
 	New:
 	<a href="/edit/annotation/show.html?annotationid=<% $this->{'annotid'} %>"
 		class="bold"><% $this->{'changelog'} %></a>
-	(<a href="/edit/annotation/diff-to-previous.html?id=<% $this->{'annotid'} %>"
+	(<a href="/edit/annotation/diff.html?new=<% $this->{'annotid'} %>"
 		>Diff</a>)
 % }
 </%method>

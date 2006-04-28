@@ -762,8 +762,8 @@ table.annotation tr.header td {
 	font-weight: bold;
 	padding-bottom: 3px;
 	color: #000;
-	background: #f0efff;
-	
+	background: #eee;
+	font-size: 10px;
 }
 table.annotation tr.header>td {
 	border-bottom: 1px solid #aaa;
@@ -780,7 +780,7 @@ table.annotation tr.info {
 	background: #f0efff; color: #000;
 }
 table.annotation tr.info td.text {
-	float: left;
+	text-align: left;
 }
 table.annotation tr.info td.links {
 	text-align: right;
@@ -795,7 +795,7 @@ table.annotation tr.text td {
 	margin: 4px;
 }
 table.annotation p {
-	margin: 0px; margin-bottom: 5px;
+	margin: 0px; margin-bottom: 10px;
 }
 .boxcontent table.annotation { 
 	margin-left: 20px; margin-top: 20px; width: 90%;

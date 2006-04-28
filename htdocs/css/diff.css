@@ -1,37 +1,39 @@
 table.difflegend {
+	margin-top: 5px;
+	font-weight: normal;
 }
 
-table.difflegend td {
+table.difflegend td span.legend {
 	padding-right: 40px; 
-	font-size: 9px; font-weight: light;
-}
-table.difflegend td.legend {
-	font-size: 12px; font-style: italic;
+	font-size: 9px; 
+	font-weight: normal;
 }
 
-table.difflegend span {
+table.difflegend span.box {
 	border: 1px solid #000; 
-	padding: 0px 2px; 
 	margin-right: 3px;
+	padding: 0px 2px;
 	background: #fff; color: #000;
+	font-weight: normal;
+	font-size: 9px;
 }
 
-.DiffAdd,
-table.difflegend span.DiffAdd {
-	background: #cfc; color: #000;
+.diff-add,
+table.difflegend span.diff-add {
+	background: #cfc; color: #000; font-weight: normal;
 }
 
-.DiffDel,
-table.difflegend span.DiffDel {
-	background: #fcc; color: #000;
+.diff-del,
+table.difflegend span.diff-del {
+	background: #fcc; color: #000; font-weight: normal;
 }
 
-.DiffChangeAdd,
-table.difflegend span.DiffChangeAdd {
-	background: #cfc; color: #008; 
+.diff-changeadd,
+table.difflegend span.diff-changeadd {
+	background: #cfc; color: #008; font-weight: normal;
 }
 
-.DiffChangeDel,
-table.difflegend span.DiffChangeDel {
-	background: #fcc; color: #008; 
+.diff-changedel,
+table.difflegend span.diff-changedel {
+	background: #fcc; color: #008;  font-weight: normal;
 }

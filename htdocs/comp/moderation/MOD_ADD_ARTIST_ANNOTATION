@@ -11,7 +11,7 @@
 	New:
 	<a href="/edit/annotation/show.html?annotationid=<% $this->{'annotid'} %>"
 		class="bold"><% $this->{'changelog'} %></a>
-	(<a href="/edit/annotation/diff-to-previous.html?id=<% $this->{'annotid'} %>"
+	(<a href="/edit/annotation/diff.html?new=<% $this->{'annotid'} %>"
 		>Diff</a>)
 % }
 

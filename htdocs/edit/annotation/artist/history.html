@@ -28,7 +28,7 @@
 	#
 </%perl>
 <%args>
-	$artistid
+	$artistid => undef
 	$expandids => undef
 	$expand_all => undef
 	$show_mods => undef
@@ -57,7 +57,7 @@
 
 	# redirect to moderations listing of this annotation object.
 	MusicBrainz::IsNonNegInteger($artistid) && $artistid
-		or return $m->comp("/comp/layout/badarguments", "The artistid argument is invalid.");
+		or return $m->comp("/comp/layout/badarguments", text => "The artistid argument is invalid.");
 
 	# Instantiate MusicBrainz object, and load the artist object
 	my $mb = $m->comp("/comp/dblogin");
