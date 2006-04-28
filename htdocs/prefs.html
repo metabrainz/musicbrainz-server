@@ -1,10 +1,13 @@
 %# vi: set ts=4 sw=4 ft=mason :
 <%perl>
 
+	# overloaded case of the checkloggedin component:
+	# if a user visits this page to edit his preferences
+	# he is allowed even if they does not have a verified
+	# e-mail address set. (they do not change any of the data
+	# that might require other editors to contact them about)
 	$m->comp("/comp/checkloggedin", 1, 1,
-		"You must log in to change your preferences.",
-		)
-		or return;
+		"You need to be logged in to modify your preferences.", 1) or return;
 
 	$session{orig_privs} = $session{privs}
 		if not exists $session{orig_privs};

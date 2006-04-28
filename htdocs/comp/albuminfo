@@ -1,52 +1,97 @@
-%# vi: set ts=2 sw=2 ft=mason :
+<%perl>
+	# -----------------------------------------------------------------------------
+	#                               Musicbrainz.org
+	#                        Copyright (c) 2001 Robert Kaye
+	# -----------------------------------------------------------------------------
+	#  This software is provided "as is", without warranty of any kind, express or
+	#  implied, including  but not limited  to the warranties of  merchantability,
+	#  fitness for a particular purpose and noninfringement. In no event shall the
+	#  authors or  copyright  holders be  liable for any claim,  damages or  other
+	#  liability, whether  in an  action of  contract, tort  or otherwise, arising
+	#  from,  out of  or in  connection with  the software or  the  use  or  other
+	#  dealings in the software.
+	#
+	#  GPL - The GNU General Public License    http://www.gnu.org/licenses/gpl.txt
+	#  Permits anyone the right to use and modify the software without limitations
+	#  as long as proper  credits are given  and the original  and modified source
+	#  code are included. Requires  that the final product, software derivate from
+	#  the original  source or any  software  utilizing a GPL  component, such  as
+	#  this, is also licensed under the GPL license.
+	# -----------------------------------------------------------------------------
+	#
+	# Summary:
+	# -----------------------------------------------------------------------------
+	# Render an database information box about a release
+	#
+	# $URL$
+	# $Id$
+	#
+</%perl>
 <%args>
 	$album
+	$release => undef
 	$track => undef
 </%args>
+<%perl>
 
-<& /comp/tablebegin, title => "Album Information",
-	gattrs=>'width="100%"' &>
+	# use proper terminology.
+	$release = $release || $album;
+</%perl>
 
-	<table>
-		<tr>
-			<td valign="top" align="right">Title:</td>
-			<td valign="top"><a href="/showalbum.html?albumid=<% $album->GetId %>"><% $album->GetName %></a></td>
-		</tr>
-		<tr>
-			<td valign="top" align="right">Album MB Id:</td>
-			<td valign="top"><% $album->GetMBId %></td>
-		</tr>
-		<tr>
-			<td valign="top" align="right">Permanent Link:</td>
-			<td valign="top"><& /comp/copyable-link,
-				id => $album->GetMBId,
-				name => $album->GetName,
-				type => "album",
-				style => "linkedurl",
-			&></td>
-		</tr>
-		<tr>
-			<td valign="top" align="right">Fancy Link:</td>
- 			<td valign="top"><a href="/perm_links.html?name=<% uri_escape($album->GetName) %>&amp;id=<% $album->GetMBId %>&amp;type=album">Click here for a fancy link to this album</a></td>
-		</tr>
-		<tr>
-			<td valign="top" align="right"><a href="/MM/index.html">MM/RDF</a>:</td>
- 			<td valign="top"><a href="<% $album->RDF_URL %>"><% $album->RDF_URL %></a></td>
-		</tr>
+	<& /comp/tablebegin, title => "Release Information" &>
 
-% if ($session{uid}) {
-		<tr>
-			<td valign="top" align="right">Album RowId:</td>
-			<td valign="top"><% $album->GetId %></td>
-		</tr>
-% }
+		<table class="formstyle">
+			<tr>
+				<td class="label">
+					<& /comp/linkdoc, "ReleaseTitle", "Title" &>:</td>
+				<td>
+					<& /comp/linkrelease, release => $release &></td>
+			</tr>
+			<tr>
+				<td class="label">
+					<& /comp/linkdoc, "MusicBrainzIdentifier", "MBID" &>:</td>
+				<td>
+					<% $release->GetMBId %></td>
+			</tr>
+			<tr>
+				<td class="label">
+					Permanent Link:</td>
+				<td>
+					<& /comp/copyable-link,
+						id => $release->GetMBId, name => $release->GetName,
+						type => "release", style => "linkedurl", &></td>
+			</tr>
+			<tr>
+				<td class="label">
+					Fancy Link:</td>
+				<td>
+					<a href="/perm_links.html?name=<% uri_escape($release->GetName) %>&amp;id=<% $release->GetMBId %>&amp;type=release">Click here for a fancy link to this release</a></td>
+			</tr>
+			<tr>
+				<td class="label">
+					<a href="/MM/index.html">MM/RDF</a>:</td>
+				<td>
+					<a href="<% $release->RDF_URL %>"><% $release->RDF_URL %></a></td>
+			</tr>
 
-	</table>
+% 	if ($session{uid}) {
 
-% if ($track and not($album->IsNonAlbumTracks)) {
-	<center>
-		This track appears as track number <% $track %> on this album.
-	</center>
-% }
+			<tr>
+				<td class="label">
+					<& /comp/linkdoc, "ReleaseID" &>:</td>
+				<td>
+					<% $release->GetId %></td>
+			</tr>
+% 	}
+
+		</table>
+
+% 	if ($track and not($release->IsNonAlbumTracks)) {
+
+		<center>
+			This track appears as track number <% $track %> on this release.
+		</center>
+
+%	}
 
 <& /comp/tableend &>

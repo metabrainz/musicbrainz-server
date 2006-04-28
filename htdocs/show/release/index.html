@@ -54,7 +54,7 @@
 	} else {
 		MusicBrainz::IsNonNegInteger($releaseid) && $releaseid
 			or return $m->comp("/comp/layout/badarguments",
-				text => "You need to specify either a MBID or a ReleaseID argument");
+				text => "You need to specify either a valid mbid or a releaseid argument");
 	}
 
 	# check tagger session stuff

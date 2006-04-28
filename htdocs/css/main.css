@@ -741,10 +741,6 @@ ol.StyleGuideList li li { list-style-type: none }
 ol.StyleGuideList li ul { padding-left: 1em }
 ol.StyleGuideList li blockquote { margin-left: 2em }
 
-table.cdtocinfo td { text-align: right; padding: 0 1em }
-table.cdtocinfo tr.ev { background-color: #eee } /* 'even' rows */
-
-td.discidlength { background-color: #ffecd6; text-align: right }
 
 /* Annotations */
 table.annotation {
@@ -762,7 +758,7 @@ table.annotation tr.header td {
 	font-weight: bold;
 	padding-bottom: 3px;
 	color: #000;
-	background: #eee;
+	background: #ffecd6;
 	font-size: 10px;
 }
 table.annotation tr.header>td {

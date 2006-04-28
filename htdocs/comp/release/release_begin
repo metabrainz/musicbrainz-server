@@ -70,7 +70,7 @@
 </%perl>
 
 			<td class="title">
-				<a href="/album/<% $mbid %>.html" id="link::<% $releaseid %>" title="<% $name %>"><% $name %></a></td>
+				<a href="/release/<% $mbid %>.html" id="link::<% $releaseid %>" title="<% $name %>"><% $name %></a></td>
 
 %	if ($session{tport}) {
 
@@ -128,7 +128,7 @@
 				<div class="AlbumTitle">
 %# First row: non-editing links
 % 		if ($showlinks) {
-					<div class="AlbumTitleLinks">Album: [
+					<div class="AlbumTitleLinks">Release: [
 						<a href="<& /comp/copyable-link,
 							id		=> $mbid,
 							name	=> $name,
@@ -136,10 +136,10 @@
 							style	=> "url",
 						&>">Permanent link</a>
 						| <a href="/perm_links.html?name=<% uri_escape($name) %>&amp;id=<% $mbid %>&amp;type=album">Link to this</a>
-						| <a href="/albumdetail.html?releaseid=<% $releaseid %>">View&nbsp;info</a>
+						| <a href="/show/release/details.html?releaseid=<% $releaseid %>">Details</a>
 						| <& /comp/googlelink, search => [ $artist->GetName, $name ], text => "Search Google" &>
 % 			if ($session{uid} and !$nonalbum) {
-						| <a href="/mod/search/pre/album.html?releaseid=<% $releaseid %>">View album mods</a>
+						| <a href="/mod/search/pre/album.html?releaseid=<% $releaseid %>">View Edits</a>
 % 			}
 					]</div>
 % 		}
@@ -160,7 +160,7 @@
 %			if ($nonalbum) {
 						| <a href="/edit/track/addnonalbum.html?artistid=<% $release->GetArtist %>">Add&nbsp;a&nbsp;non-album&nbsp;track</a>&nbsp;]
 %			} else {
-						| <a href="/edit/albumreleases/index.html?album=<% $releaseid %>">Edit&nbsp;releases</a>
+
 %				if ($release->CanAddTrack) {
 						| <a href="/edit/track/add.html?album=<% $releaseid %>">Add&nbsp;track</a>
 %				}

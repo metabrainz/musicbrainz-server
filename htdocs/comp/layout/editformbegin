@@ -19,8 +19,8 @@
 	my $mp_note = "";
 	my $mp_url = "";
 
-	my $mp_release = "/mod/search/results.html?object_type=album&amp;object_id=%s&amp;mod_status=1",
-	my $mp_artist = "/mod/search/results.html?artist_type=3&amp;artist_id=%s&amp;mod_status=1";
+	my $mp_release = "/mod/search/results.html?object_type=album&amp;object_id=%s&amp;mod_status=1&amp;mod_status=8",
+	my $mp_artist = "/mod/search/results.html?artist_type=3&amp;artist_id=%s&amp;mod_status=1&amp;mod_status=8";
 
 	if (defined $release)
 	{
@@ -30,26 +30,33 @@
 
   		SWITCH: {
 			# default case, general modpending flag.
-			$mp = $release->GetModPending;
+			my $editfilter = "";
+
+			if ($mp_type != &ModDefs::MOD_EDIT_ALBUM_LANGUAGE and
+				$mp_type != &ModDefs::MOD_EDIT_ALBUMATTRS)
+			{
+				$mp = $release->GetModPending;
+			}
 
 			if ($mp_type == &ModDefs::MOD_EDIT_ALBUM_LANGUAGE)
 			{
 				$mp = $release->GetLanguageModPending;
 				$mp_type_message = "edit release language";
-
-				$mp_note = sprintf(
-					qq!On batch edits, the moderations are listed
-					   under the <a href="$mp_artist%s">artist</a>, not the release\! !,
-					$release->GetArtist,
-					"&amp;mod_type=".&ModDefs::MOD_EDIT_ALBUM_LANGUAGE);
+				$editfilter = "&amp;mod_type=".&ModDefs::MOD_EDIT_ALBUM_LANGUAGE;
 				last SWITCH;
 			}
 			if ($mp_type == &ModDefs::MOD_EDIT_ALBUMATTRS)
 			{
 				$mp = $release->GetAttributeModPending;
 				$mp_type_message = "release attributes";
+				$editfilter = "&amp;mod_type=".&ModDefs::MOD_EDIT_ALBUMATTRS;
 				last SWITCH;
 			}
+			$mp_note = sprintf(
+				qq!Batch edits for multiple releases are listed under
+				   the <a href="$mp_artist%s%s">artist</a>, not the release. !,
+				$release->GetArtist,
+				$editfilter);
 		}
 	}
 	elsif ($artist)
@@ -76,19 +83,21 @@
 	$m->out(qq!  <div class="inner"><b>$title</b></div> !);
 	$m->out(qq!</div> !);
 
+	$m->out(qq!<div class="boxcontent"> !);
+	$m->out(qq!	<div class="inner" style="text-align: $align"> !);
+
 	if ($mp)
 	{
 		if ($type && $id)
 		{
-
-			my $typestr = ucfirst($type);
-			$typestr = "Release" if ($typestr eq "Album");
+			$type = "release" if ($type eq "album");
 
 			$m->out(qq!<table class="modpending"><tr><td> !);
 			$m->out(sprintf qq! 	There are pending %smoderations for !, "$mp_type_message ");
-			$m->out(qq! 	this $typestr. Click <img src="/images/edit.gif" alt="" /><a href="$mp_url">here</a> !);
-			$m->out(qq! 	to review the changes. !);
-			$m->out(qq!</td></tr><tr><td class="note">$mp_note</td></tr> !) if ($mp_note ne "");
+			$m->out(qq! 	this $type. Please <a href="$mp_url">review the changes</a> !);
+			$m->out(qq! 	before entering a new edit. !);
+			$m->out(qq!</td></tr>!);
+			$m->out(qq!<tr><td class="note">$mp_note</td></tr> !) if ($mp_note ne "");
 			$m->out(qq!</table> !);
 		}
 		else
@@ -98,10 +107,6 @@
 			$m->out(qq!</td></tr></table> !);
 		}
 	}
-
-	$m->out(qq!<div class="boxcontent"> !);
-	$m->out(qq!	<div class="inner" style="text-align: $align"> !);
-
 
 </%perl>
 

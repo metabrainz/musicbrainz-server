@@ -1,112 +1,160 @@
-%# vi: set ts=2 sw=2 ft=mason :
+<%perl>
+	# -----------------------------------------------------------------------------
+	#                               Musicbrainz.org
+	#                        Copyright (c) 2001 Robert Kaye
+	# -----------------------------------------------------------------------------
+	#  This software is provided "as is", without warranty of any kind, express or
+	#  implied, including  but not limited  to the warranties of  merchantability,
+	#  fitness for a particular purpose and noninfringement. In no event shall the
+	#  authors or  copyright  holders be  liable for any claim,  damages or  other
+	#  liability, whether  in an  action of  contract, tort  or otherwise, arising
+	#  from,  out of  or in  connection with  the software or  the  use  or  other
+	#  dealings in the software.
+	#
+	#  GPL - The GNU General Public License    http://www.gnu.org/licenses/gpl.txt
+	#  Permits anyone the right to use and modify the software without limitations
+	#  as long as proper  credits are given  and the original  and modified source
+	#  code are included. Requires  that the final product, software derivate from
+	#  the original  source or any  software  utilizing a GPL  component, such  as
+	#  this, is also licensed under the GPL license.
+	# -----------------------------------------------------------------------------
+	#
+	# Summary:
+	# -----------------------------------------------------------------------------
+	# Render an database information box about a track
+	#
+	# $URL$
+	# $Id$
+	#
+</%perl>
 <%args>
-$track
-@PUID => ()
-@TRM => ()
+	$track
+	@PUID => ()
+	@TRM => ()
 </%args>
 
-<& /comp/tablebegin, title=>'Track Information', gattrs => "width='100%'" &>
+	<& /comp/tablebegin, title => "Track Information" &>
 
-<table>
-	<tr>
-    <td valign="top" align="right">Title:</td>
-    <td valign="top"><% $track->GetName %></td>
-	</tr>
-	<tr>
-		<td valign="top" align="right">Track MB Id:</td>
-    <td valign="top"><% $track->GetMBId %></td>
-	</tr>
-	<tr>
-		<td valign="top" align="right">Permanent Link:</td>
- 		<td valign="top"><& /comp/copyable-link,
-			id => $track->GetMBId,
-			name => $track->GetName,
-			type => "track",
-			style => "linkedurl",
-		&></td>
-	</tr>
-	<tr>
-		<td valign="top" align="right">Fancy Link:</td>
- 		<td valign="top"><a href="/perm_links.html?name=<% uri_escape($track->GetName) %>&amp;id=<% $track->GetMBId %>&amp;type=track">Click here for a fancy link to this track</a></td>
-	</tr>
-	<tr>
-		<td valign="top" align="right"><a href="/MM/index.html">MM/RDF</a>:</td>
-		<td valign="top"><a href="<% $track->RDF_URL %>"><% $track->RDF_URL %></a></td>
-	</tr>
+		<table class="formstyle">
+			<tr>
+				<td class="label">
+					<& /comp/linkdoc, "TrackTitle", "Title" &>:</td>
+				<td>
+					<& /comp/linktrack, track => $track &></td>
+			</tr>
+			<tr>
+				<td class="label">
+					<& /comp/linkdoc, "MusicBrainzIdentifier", "MBID" &>:</td>
+				<td>
+					<% $track->GetMBId %></td>
+			</tr>
+			<tr>
+				<td class="label">
+					Permanent Link:</td>
+				<td>
+					<& /comp/copyable-link,
+						id => $track->GetMBId, name => $track->GetName,
+						type => "track", style => "linkedurl", &></td>
+			</tr>
+			<tr>
+				<td class="label">
+					Fancy Link:</td>
+				<td>
+					<a href="/perm_links.html?name=<% uri_escape($track->GetName) %>&amp;id=<% $track->GetMBId %>&amp;type=track">Click here for a fancy link to this track</a></td>
+			</tr>
+			<tr>
+				<td class="label">
+					<a href="/MM/index.html">MM/RDF</a>:</td>
+				<td>
+					<a href="<% $track->RDF_URL %>"><% $track->RDF_URL %></a></td>
+			</tr>
 
-% if ($track->GetLength) {
-	<tr>
-    <td valign="top" align="right">Length:</td>
-    <td valign="top"><% Track::FormatTrackLength($track->GetLength) %></td>
-	</tr>
-% }
+%	if ($track->GetLength) {
+			<tr>
+				<td class="label">
+					Length:</td>
+				<td>
+					<% Track::FormatTrackLength($track->GetLength) %></td>
+			</tr>
+%	}
 
-% if ($session{uid}) {
-	<tr>
-    <td valign="top" align="right">Track RowId:</td>
-    <td valign="top"><% $track->GetId %></td>
-	</tr>
-% }
+%	if ($session{uid}) {
+			<tr>
+				<td class="label">
+					<& /comp/linkdoc, "TrackID" &></td>
+				<td>
+					<% $track->GetId %></td>
+			</tr>
+%	}
 
-% if (scalar(@PUID) > 0) {
-	<tr>
-    <td valign="top" align="right">PUID IDs:</td>
-    <td>
-			<table>
-		 		<tr>
-		 			<td><img src="/images/puid.gif" alt="" align="middle"></td>
-          <td>&nbsp;</td>
-			 	</tr>
+%	if (scalar(@PUID) > 0) {
+			<tr class="top">
+				<td class="label">
+					<& /comp/linkdoc, "PUID", "PUIDs"  &>:</td>
+				<td>
+					<table class="listing">
+						<tr class="header">
+							<td>
+								PUID: <img src="/images/puid.gif" alt="" align="middle">:</td>
+							<td>
+								&nbsp;</td>
+						</tr>
 
-%				foreach my $id (@PUID) {
-          <tr>
-					 	<td valign="top"><a href="/showpuid.html?puid=<% $id->{PUID} %>"><% $id->{PUID} %></a></td>
-						<td valign="top">
-%							if (exists $session{user}) {
-				 				[ <a href="/edit/puid/remove.html?PUIDjoin=<% $id->{PUIDjoinid} %>&amp;trackid=<% $track->GetId %>&amp;puid=<% $id->{PUID} %>">Delete</a> ]
-%							} else {
+%		foreach my $id (@PUID) {
+				  		<tr>
+							<td>
+								<a href="/showpuid.html?puid=<% $id->{PUID} %>"><% $id->{PUID} %></a></td>
+							<td>
+%			if (exists $session{user}) {
+								[ <a href="/edit/puid/remove.html?PUIDjoin=<% $id->{PUIDjoinid} %>&amp;trackid=<% $track->GetId %>&amp;puid=<% $id->{PUID} %>">Delete</a> ]
+%			} else {
 								&nbsp;
-%							}
-						</td>
-					</tr>
-%				}
+%			}
+							</td>
+						</tr>
+%		}
+					</table>
+				</td>
+			</tr>
+%	}
+%	if (scalar(@TRM) > 0) {
+			<tr class="top">
+				<td class="label">
+					<& /comp/linkdoc, "TRM", "TRM IDs" &>:</td>
+				<td>
+					<table class="listing">
+						<tr class="header">
+							<td>
+								TRM ID: <img src="/images/trm.gif" alt="" align="middle"></td>
+							<td>
+								Lookup count:</td>
+							<td>
+								Use count:</td>
+							<td>
+								&nbsp;</td>
+						</tr>
 
-			</table>
-		</td>
-	</tr>
-% }
-% if (scalar(@TRM) > 0) {
-	<tr>
-    <td valign="top" align="right">TRM IDs:</td>
-    <td>
-			<table>
-		 		<tr>
-		 			<td><img src="/images/trm.gif" alt="" align="middle"></td>
-          <td>Lookup count:</td>
-          <td>Use count:</td>
-          <td>&nbsp;</td>
-			 	</tr>
-
-%				foreach my $id (@TRM) {
-          <tr>
-					 	<td valign="top"><a href="/showtrm.html?trm=<% $id->{TRM} %>"><% $id->{TRM} %></a></td>
-						<td valign="top" align="center"><% $id->{lookupcount} %></td>
-						<td valign="top" align="center"><% $id->{usecount} %></td>
-						<td valign="top">
-%							if (exists $session{user}) {
-				 				[ <a href="/edit/trm/remove.html?TRMjoin=<% $id->{TRMjoinid} %>&amp;trackid=<% $track->GetId %>&amp;trmid=<% $id->{TRM} %>">Delete</a> ]
-%							} else {
+%		foreach my $id (@TRM) {
+				 		 <tr>
+							<td>
+								<a href="/showtrm.html?trm=<% $id->{TRM} %>"><% $id->{TRM} %></a></td>
+							<td class="center">
+								<% $id->{lookupcount} %></td>
+							<td class="center">
+								<% $id->{usecount} %></td>
+							<td>
+%			if (exists $session{user}) {
+								[ <a href="/edit/trm/remove.html?TRMjoin=<% $id->{TRMjoinid} %>&amp;trackid=<% $track->GetId %>&amp;trmid=<% $id->{TRM} %>">Delete</a> ]
+%			} else {
 								&nbsp;
-%							}
-						</td>
-					</tr>
-%				}
+%			}
+							</td>
+						</tr>
+%		}
+					</table>
+				</td>
+			</tr>
+%	}
+		</table>
 
-			</table>
-		</td>
-	</tr>
-% }
-
-</table>
-
-<& /comp/tableend &> 
+	<& /comp/tableend &>

@@ -42,8 +42,8 @@
 					[[0, 'Unknown'], [1, 'Person'], [2, 'Group']], $type &>
 				</select></td>
 		</tr>
-		<tr>
-			<td colspan="2" class="padtop"/>
+		<tr class="spaced">
+			<td colspan="2" />
 		</tr>
 
 % if (defined $artist) {
@@ -51,7 +51,9 @@
 			<td class="label">
 				<label>Current Name:</label></td>
 			<td class="field">
-				<div class="oldtextfield"><% $artist->GetName() %></div></td>
+				<& /comp/form/currentvalue,
+					artist => $artist, display => $artist->GetName(),
+					mp_type => &ModDefs::MOD_EDIT_ARTIST &></td>
 		</tr>
 % }
 		<tr>
@@ -62,15 +64,18 @@
 					id="editartist_name" size="50" value="<% $name %>" />
 				<& /comp/form/jsbutton, id=>"BTN_ARTIST::name" &></td>
 		</tr>
-		<tr>
-			<td colspan="2" class="padtop"/>
+		<tr class="spaced">
+			<td colspan="2" />
 		</tr>
+
 % if (defined $artist) {
 		<tr>
 			<td class="label">
 				<label>Current Sort Name:</label></td>
 			<td class="field">
-				<div class="oldtextfield"><% $artist->GetSortName()  %></div></td>
+				<& /comp/form/currentvalue,
+					artist => $artist, display => $artist->GetSortName(),
+					mp_type => &ModDefs::MOD_EDIT_ARTISTSORTNAME &></td>
 		</tr>
 % }
 		<tr>
@@ -216,13 +221,12 @@
 		</tr>
 		<tr>
 			<td>&nbsp;</td>
-			<td class="padtop">
+			<td>
 % if (defined $artist) {
 				<input type="hidden" name="id" value="<% $artist->GetId() %>" />
-				<& /comp/form/jsbutton, id=>"BTN_CANCEL::/showartist.html?artistid=".$artist->GetId &>
 % }
-				<input type="submit" class="button" value="Submit" />
-				<input type="hidden" name="validate" value="1" />
+				<input class="button" type="submit" name="submit" value="Cancel" />
+				<input class="button" type="submit" name="submit" value="Enter Moderation" />
 				<input type="hidden" name="returnurl" value="<% $returnurl %>" />
 			</td>
 		</tr>

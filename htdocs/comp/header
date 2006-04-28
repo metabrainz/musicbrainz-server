@@ -19,9 +19,8 @@
 	use vars qw( $mainmenuHTML $staticmenuHTML $popupmenuHTML );
 
 	$m->clear_buffer;
+
 </%perl>
-<!--<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">-->
-<!--<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">-->
 
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" >
@@ -40,15 +39,15 @@
 	<body>
 		<div id="overDiv" style="position: absolute; visibility: hidden; z-index: 1000"></div>
 
-% unless ($notopbar) {
+% 	unless ($notopbar) {
 
 		<div id="pageheader">
 			<table width="100%" cellpadding="0" cellspacing="0" border="0">
 				<tr>
 					<td class="header_logo">
-% if (&DBDefs::DB_STAGING_SERVER) {
+% 		if (&DBDefs::DB_STAGING_SERVER) {
 						<span class="servertype"><% uc(&DBDefs::DB_STAGING_SERVER) %> SERVER</span>
-% }
+% 		}
 						<a href="/"><img src="/images/header_logo_a.gif" width="614" height="67"
 							alt="MusicBrainz" title="MusicBrainz" /></a></td>
 				</tr>
@@ -63,37 +62,46 @@
 					<td class="header_mainmenu">
 						<div class="mainmenu">
 <%perl>
+
 	# prepare the menu html fragments, they are written out
 	# in /comp/header, and /comp/footer
 	$m->comp("/comp/layout/topmenu");
 	$m->out($mainmenuHTML);
+
 </%perl>
 						</div></td>
 				</tr>
 			</table>
-% }
 		</div>
 
-		<table cellpadding="0" cellspacing="0" border="0" id="submenu-table">
-			<tr>
-% unless ($nosidebar) {
-				<td id="sidebar-togglecell">&nbsp;</td>
-				<td class="submenu-leftspace">&nbsp;</td>
-% # &nbsp; required for Firefox at least to avoid layout errors
-% }
-
 <%perl>
-	if ($staticmenuHTML ne "" &&
-		(!$session{uid} ||
-		(UserPreference::get('topmenu_submenu_types') ne "dropdownonly")))
+ 	}
+
+	unless ($notopbar and $nosidebar)
 	{
-		$m->out(qq!<td class="submenustatic">!);
-		$m->out($staticmenuHTML);
-	}
-	else
-	{
-		$m->out(qq!<td>&nbsp;!);
-	}
+		$m->out(qq!<table cellpadding="0" cellspacing="0" border="0" id="submenu-table">!);
+		$m->out(qq!<tr>!);
+
+		# &nbsp; is required, else layout errors occur
+		unless ($nosidebar)
+		{
+	 		$m->out(qq!<td id="sidebar-togglecell">&nbsp;</td>!);
+			$m->out(qq!<td class="submenu-leftspace">&nbsp;</td>!);
+		}
+
+		if ($staticmenuHTML ne "" &&
+			not $notopbar &&
+			(!$session{uid} ||
+			(UserPreference::get('topmenu_submenu_types') ne "dropdownonly")))
+		{
+			$m->out(qq!<td class="submenustatic">!);
+			$m->out($staticmenuHTML);
+		}
+		else
+		{
+			$m->out(qq!<td>&nbsp;!);
+		}
+	 }
 </%perl>
 				</td>
 			</tr>

@@ -1,96 +1,44 @@
-%# vi: set ts=4 sw=4 ft=mason :
-<%args>
-$albumid => ""
-$discid => undef
-$mbid => ""
-$mbt=>$session{'mbt'}
-$tport=>$session{'tport'}
-$addrel=>0
-$remrel=>-1
-$remtype=>""
-$arcancel=>0
-$showtrackartists=>0
-</%args>
+<%perl>
+	# -----------------------------------------------------------------------------
+	#                               Musicbrainz.org
+	#                        Copyright (c) 2001 Robert Kaye
+	# -----------------------------------------------------------------------------
+	#  This software is provided "as is", without warranty of any kind, express or
+	#  implied, including  but not limited  to the warranties of  merchantability,
+	#  fitness for a particular purpose and noninfringement. In no event shall the
+	#  authors or  copyright  holders be  liable for any claim,  damages or  other
+	#  liability, whether  in an  action of  contract, tort  or otherwise, arising
+	#  from,  out of  or in  connection with  the software or  the  use  or  other
+	#  dealings in the software.
+	#
+	#  GPL - The GNU General Public License    http://www.gnu.org/licenses/gpl.txt
+	#  Permits anyone the right to use and modify the software without limitations
+	#  as long as proper  credits are given  and the original  and modified source
+	#  code are included. Requires  that the final product, software derivate from
+	#  the original  source or any  software  utilizing a GPL  component, such  as
+	#  this, is also licensed under the GPL license.
+	# -----------------------------------------------------------------------------
+	#
+	# Summary:
+	# -----------------------------------------------------------------------------
+	# All the show<xxx> pages were moved to the /show/ directory. This page
+	# redirects the browser to this page, such that the new url shows up
+	# in the location bar of the browser. It is particularly important for the
+	# terminology change album->release [1] that the location bar of the brower
+	# uses the new terminology too.
+	#
+	# [1] http://musicbrainz.org/doc/TerminologyChangeAlbumRelease
+	#
+	# $URL$
+	# $Id$
+	#
+</%perl>
 <%perl>
 
-	UserStuff::EnsureSessionOpen(), $session{mbt} = 1
-		if $mbt;
+	$ARGS{"releaseid"} = $ARGS{"albumid"} if (defined $ARGS{"albumid"});
+	delete $ARGS{"albumid"};
 
-	UserStuff::EnsureSessionOpen(), $session{tport} = $tport
-	   if $tport;
-
-	use URI::Escape qw( uri_escape );
-	return $m->comp("/comp/redirect", "/bare/cdlookup.html?id=" . uri_escape($discid))
-		if defined $discid;
-
-
-	my $mb = $m->comp("/comp/dblogin");
-
-	my $album = $m->comp("/comp/loadrelease", $mb, $albumid || $mbid);
-	my $artist = $m->comp("/comp/loadartist", $mb, $album->GetArtist);
+	my $url = "/show/release/?" . $m->comp("/comp/args-to-querystring.inc", %ARGS);
+	return $m->comp("/comp/redirect", $url);
 
 </%perl>
-
-<& /comp/sidebar, title => "", pagetitle => "Album: " . $album->GetName &>
-
-%# show any related moderations so people can vote on them
-<& /comp/relmods, artistid=>$album->GetArtist() &>
-
-<& /comp/artisttitle, artist => $artist &>
-
-<%perl>
-if (!$album->IsNonAlbumTracks)
-{
-	$m->comp("/comp/ar/AddRelationship", id=>$album->GetId, type=>'album', name=>$album->GetName)
-		if ($addrel);
-	$m->comp("/comp/ar/ClearRelationships")
-		if ($arcancel);
-	$m->comp("/comp/ar/RemoveRelationship", id=>$remrel, type=>$remtype)
-		if ($remrel >= 0);
-
-	$m->comp("/comp/ar/RelationshipBox", id=>$album->GetId, type=>'album',
-										 name=>$album->GetName);
-}
-
-</%perl>
-
-	<& /comp/framedboxbegin, width=>"100%" &>
-
-		<table width="100%">
-			<tr>
-				<td>
-					<& /comp/modnotice &>
-				</td>
-%		       if ($session{uid}) {
-					<td align="center">
-
-               <form method="post" action="/edit/albumbatch/done.html" id="BatchOp"
-                   	enctype="application/x-www-form-urlencoded">
-
-               <input type="hidden" name="AlbumId<% $album->GetId() %>" value="">
-					<script type="text/javascript">
-					document.writeln('<\input type="image" alt="Batch Operation" title="Moderate a batch of selected albums" src="/images/batch.gif" style="border: 0; height: 13px; width: 13px"\>');
-					document.writeln('<\a href="#" onclick="document.forms.BatchOp.submit(); return false">Batch Operation<\/a>');
-					</script>
-               </form>
-				</td>
-%		       }
-			</tr>
-		</table>
-
-	<& /comp/framedboxend &>
-
-	<br>
-
-	<& /edit/annotation/latest, album => $album, explain => 1 &>
-	<br>
-
-	<& /comp/album, album => $album, artist => $artist,
-		mbtagger => $mbt,
-		showids => 1,
-		showtag => 1,
-		showreleases => 1,
-		showtrackartists => $showtrackartists,
-		&>
-
-<& /comp/footer &>

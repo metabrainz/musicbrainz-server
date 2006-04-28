@@ -41,10 +41,10 @@
 		or return;
 
 	MusicBrainz::IsNonNegInteger($artistid) && $artistid
-		or return $m->comp("/comp/layout/badarguments", "Artistid parameter is invalid");
+		or return $m->comp("/comp/layout/badarguments", text => "Argument artistid is invalid");
 
 	MusicBrainz::IsSingleLineString($changelog)
-		or return $m->comp("/comp/layout/badarguments", "Changelog parameter is invalid");
+		or return $m->comp("/comp/layout/badarguments", text => "Argument changelog is invalid");
 
 	# Instantiate MusicBrainz object, and load the artist object
 	my $mb = $m->comp("/comp/dblogin");
@@ -241,6 +241,9 @@
 %	# editing it for a certain amount of time.
 %	my $disabled = "";
 %	$disabled = qq!disabled="disabled"! if ($locked and $locked ne $sid);
+
+%	print "sid: $sid, locked: $locked";
+
 
 %	if ($disabled ne "") {
 

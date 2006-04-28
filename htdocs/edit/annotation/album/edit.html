@@ -42,10 +42,10 @@
 		or return;
 
 	MusicBrainz::IsNonNegInteger($albumid) && $albumid
-		or return $m->comp("/comp/layout/badarguments", "albumid parameter is invalid");
+		or return $m->comp("/comp/layout/badarguments", text => "Argument albumid is invalid");
 
 	MusicBrainz::IsSingleLineString($changelog)
-		or return $m->comp("/comp/layout/badarguments", "Changelog parameter is invalid");
+		or return $m->comp("/comp/layout/badarguments", text => "Argument changelog is invalid");
 
 	# Instantiate MusicBrainz object, and load the release object
 	my $mb = $m->comp("/comp/dblogin");

@@ -43,7 +43,7 @@
 	{
 		$error = "Parameter <strong>mb</strong> of type MusicBrainz is required";
 	}
-	if (not MusicBrainz::IsNonEmptyString($id))
+	if (not defined $id or not MusicBrainz::IsNonEmptyString($id))
 	{
 		$error = "Parameter <strong>id</strong> of type String (MBID/ReleaseID) is required";
 	}

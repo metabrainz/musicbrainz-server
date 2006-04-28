@@ -1,21 +1,46 @@
 %# vi: set ts=4 sw=4 ft=mason :
 <%perl>
 
-	return 1 if $session{uid};
-	my ($fHeader, $fFooter, $title) = @_;
+	# slurp arguments
+	my ($fHeader, $fFooter, $title, $ignoreemail) = @_;
 
-	$title = "You need to login to view this page" if (not $title);
+	# define default title if it has not been passed in
+	$title = "You need to login to view this page" if (not $title and not $session{uid});
+	$title = "You have not provided an e-mail address" if (not $title and $session{uid});
 
-	$m->comp("/comp/sidebar", pagetitle => "Login", title => $title)
-		if $fHeader;
-</%perl>
+	# some "edit" pages allow logged in users to view them even if
+	# they have not completed the e-mail verification process.
+	# they have to pass in the $ignoremail argument.
+	my $hasConfirmedEmail = (defined $ignoreemail ? $ignoreemail : $session{has_confirmed_email});
 
-	<& /comp/tablebegin, title => "Login" &>
-		<& /comp/loginbox &>
-	<& /comp/tableend &>
+	# if the user is logged in, and has a confirmed e-mail address,
+	# the component returns true.
+	return 1 if ($session{uid} and $hasConfirmedEmail);
 
-<%perl>
-	$m->comp("/comp/footer")
-		if $fFooter;
+	# start page, and box output.
+	$m->comp("/comp/sidebar-notitle", pagetitle => $title) if $fHeader;
+	$m->comp("/comp/tablebegin", title => $title);
+
+	if ($session{uid} and not $hasConfirmedEmail)
+	{
+		$m->out(qq!	 You have to add a working e-mail address to your account !);
+		$m->out(qq!	 and complete the verification process, to be able to submit your own edits. !);
+
+		$m->out(qq!  <form method="get" action="/user/edit.html" style="margin-top: 5px"> !);
+		$m->out(qq!    <input type="submit" value="Add e-mail address &raquo;" /> !);
+		$m->out(qq!  </form> !);
+
+		$m->comp("/comp/user/privacy");
+
+	}
+	else
+	{
+		$m->comp("/comp/loginbox");
+	}
+
+	# finish box, and page.
+	$m->comp("/comp/tableend");
+	$m->comp("/comp/footer") if $fFooter;
 	return 0;
+
 </%perl>

@@ -72,6 +72,9 @@
 					</ul>
 				</td>
 			</tr>
+		</table>
+
+		<table class="formstyle">
 
 %	if ($badlogin) {
 			<tr>

@@ -90,12 +90,25 @@
 			# annotations
 			{ url => "/edit/annotation/show.html" },
 
-			{ url => "/albumdetail.html" },
 			{ url => "/showalbum.html" },
+			{ url => "/show/release/index.html" },
+			{ url => "/show/release/details.html" },
+
 			{ url => "/showartist.html" },
+			{ url => "/show/artist/index.html" },
+			{ url => "/show/artist/details.html" },
+
+			{ url => "/showcdtoc.html" },
+			{ url => "/show/cdtoc/index.html" },
+
 			{ url => "/showtrack.html" },
+			{ url => "/show/track/index.html" },
+
 			{ url => "/showtrm.html" },
+			{ url => "/show/trm/index.html" },
+
 			{ url => "/showpuid.html" },
+			{ url => "/show/puid/index.html" },
 
 		],
 		{ name => "Edit",					url => "/mod_intro.html" },

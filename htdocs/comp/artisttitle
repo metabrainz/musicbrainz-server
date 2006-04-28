@@ -43,9 +43,9 @@
 	# Row 1: the artist name (link) and sortname
 	$m->out(qq!<tr valign="top">!);
 	$m->out(qq!<td class="icon" rowspan="2">!);
-	$m->out(qq! <a href="/artist/$mbid.html" title="Click here to go to the Artist page"><img src="/images/aicon_lg.png" alt="" /></a></td>!);
+	$m->out(qq! <a href="/artist/$mbid.html" title="Go to the Artist page"><img src="/images/aicon_lg.png" alt="" /></a></td>!);
 	$m->out(sprintf qq!<td class="title%s">!, ($artist->GetModPending ? " mp" : ""));
-	$m->out(qq! <a href="/artist/$mbid.html" title="Click here to go to the Artist page">! . $m->interp->apply_escapes($name, 'h') . qq!</a></td>!);
+	$m->out(qq! <a href="/artist/$mbid.html" title="Go to the Artist page">! . $m->interp->apply_escapes($name, 'h') . qq!</a></td>!);
 	$m->out(qq!</tr>!);
 
 	# info box, a) resolution b) start-end date c) artist-type d) sortname
@@ -75,25 +75,25 @@
 #			type => "artist", style => "url");
 #		$m->out(qq!">Permanent link</a> | !);
 
-		$m->out(sprintf qq!<a href="/perm_links.html?name=%s&amp;id=$mbid&amp;type=artist" title="Click here to get a permanent Link to this Artist">Link to this</a>!, uri_escape($name));
-		$m->out(qq! | <a href="/artistinfo.html?artistid=$id" title="Click here to go to the Artist Information">Info</a>!);
-		$m->out(qq! | <a href="/showaliases.html?artistid=$id" title="Click here to view, and edit Artist Aliases">Aliases</a>!);
+		$m->out(sprintf qq!<a href="/perm_links.html?name=%s&amp;id=$mbid&amp;type=artist" title="Get a permanent Link">Link to this</a>!, uri_escape($name));
+		$m->out(qq! | <a href="/show/artist/details.html?artistid=$id" title="Artist Details">Details</a>!);
+		$m->out(qq! | <a href="/showaliases.html?artistid=$id" title="Artist Aliases">Aliases</a>!);
 		if ($id != &ModDefs::VARTIST_ID)
 		{
-			$m->out(qq! | <a href="/showartist.html?artistid=$id" title="Click here to view the Albums of this Artist">Albums</a>!);
+			$m->out(qq! | <a href="/showartist.html?artistid=$id" title="Releases of this Artist">Releases</a>!);
 		}
 		else
 		{
-			$m->out(qq! | <a href="/browsevarious.html">Browse&nbsp;albums</a>!);
+			$m->out(qq! | <a href="/browsevarious.html">Browse&nbsp;releases</a>!);
 		}
 		if ($id != &ModDefs::VARTIST_ID)
 		{
-			$m->out(qq! | <a href="/artistrel.html?artistid=$id" title="Click here to view Artists related to this Artist">Related&nbsp;artists</a> | !);
+			$m->out(qq! | <a href="/artistrel.html?artistid=$id" title="Related Artists">Related&nbsp;artists</a> | !);
 			$m->comp("/comp/googlelink", search => $name, text => "Search&nbsp;Google", raw => 1);
 		}
 		if ($session{uid})
 		{
-			$m->out(qq! | <a href="/mod/search/pre/artist.html?artistid=$id" title="Click here to review Moderations made to this Artist">Moderations</a>!);
+			$m->out(qq! | <a href="/mod/search/pre/artist.html?artistid=$id" title="View edits made against this Artist">View Edits</a>!);
 		}
 		$m->out(qq! ]</td></tr>!);
 	}
@@ -114,8 +114,8 @@
 				$m->out(qq! | <a href="/edit/artist/merge.html?id=$id">Merge into ...</a>!);
 				$m->out(qq! | <a href="/user/subscribe.html?artistid=$id">Subscribe</a> | !);
 			}
-			$m->out(qq!<a href="/edit/album/add.html?artistid=$id">Add album</a> | !);
-			$m->out(sprintf qq!<a href="/freedb/freedb.html?search=%s">Import album</a> !, uri_escape($name));
+			$m->out(qq!<a href="/edit/album/add.html?artistid=$id">Add release</a> | !);
+			$m->out(sprintf qq!<a href="/freedb/freedb.html?search=%s">Import release</a> !, uri_escape($name));
 
 			if ($id != &ModDefs::VARTIST_ID)
 			{

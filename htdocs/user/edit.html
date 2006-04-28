@@ -7,7 +7,11 @@
 </%args>
 <%perl>
 
-	$m->comp("/comp/checkloggedin", 1, 1) or return;
+	# overloaded case of the checkloggedin component:
+	# if the user visits this page to confirm his e-mail
+	# address, he of course can edit his account without
+	# having a confirmed e-mail address set.
+	$m->comp("/comp/checkloggedin", 1, 1, undef, 1) or return;
 	my $uid = $session{uid} or return;
 
 	my $mb = $m->comp("/comp/dblogin");

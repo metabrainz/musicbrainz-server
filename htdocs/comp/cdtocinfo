@@ -1,71 +1,127 @@
-%# vi: set ts=2 sw=2 ft=mason :
+<%perl>
+	# -----------------------------------------------------------------------------
+	#                               Musicbrainz.org
+	#                        Copyright (c) 2001 Robert Kaye
+	# -----------------------------------------------------------------------------
+	#  This software is provided "as is", without warranty of any kind, express or
+	#  implied, including  but not limited  to the warranties of  merchantability,
+	#  fitness for a particular purpose and noninfringement. In no event shall the
+	#  authors or  copyright  holders be  liable for any claim,  damages or  other
+	#  liability, whether  in an  action of  contract, tort  or otherwise, arising
+	#  from,  out of  or in  connection with  the software or  the  use  or  other
+	#  dealings in the software.
+	#
+	#  GPL - The GNU General Public License    http://www.gnu.org/licenses/gpl.txt
+	#  Permits anyone the right to use and modify the software without limitations
+	#  as long as proper  credits are given  and the original  and modified source
+	#  code are included. Requires  that the final product, software derivate from
+	#  the original  source or any  software  utilizing a GPL  component, such  as
+	#  this, is also licensed under the GPL license.
+	# -----------------------------------------------------------------------------
+	#
+	# Summary:
+	# -----------------------------------------------------------------------------
+	# Render an database information box about a cdtoc (Table of Contents)
+	#
+	# $URL$
+	# $Id$
+	#
+</%perl>
 <%args>
-$cdtoc
+	$cdtoc
 </%args>
 
-<& /comp/tablebegin, title=>'CD TOC Information', gattrs => "width='100%'" &> 
-	<table>
-    <tr>
-			<td valign="top" align="right">Full TOC:</td>
-			<td valign="top"><% $cdtoc->GetTOC %></td>
-    </tr>
-		<tr>
-			<td valign="top" align="right">Disc ID:</td>
-			<td valign="top"><% $cdtoc->GetDiscID %></td>
-    </tr>
-		<tr>
-			<td valign="top" align="right">FreeDB ID:</td>
-			<td valign="top"><a href="/bare/cdlookup.html?id=<% $cdtoc->GetFreeDBID %>"><% $cdtoc->GetFreeDBID %></a></td>
-    </tr>
-% if ($session{uid}) {
-    <tr>
-			<td valign="top" align="right">Database row ID:</td>
-			<td valign="top"><% $cdtoc->GetId %></td>
-    </tr>
-% }
-    <tr>
-			<td valign="top" align="right">First Track:</td>
-			<td valign="top"><% $cdtoc->GetFirstTrack %></td>
-    </tr>
-    <tr>
-			<td valign="top" align="right">Last Track:</td>
-			<td valign="top"><% $cdtoc->GetLastTrack %></td>
-    </tr>
-    <tr>
-			<td valign="top" align="right">Total Length:</td>
-			<td valign="top"><% Track::FormatTrackLength($cdtoc->GetLeadoutOffset / 75 * 1000) %></td>
-    </tr>
-		<tr>
-			<td valign="top" align="right">Track Details:</td>
-			<td>
-				<table class="cdtocinfo">
-					<tr>
-						<td></td>
-						<th colspan="2">Start</th>
-						<th colspan="2">Length</th>
-						<th colspan="2">End</th>
-					</tr>
-					<tr>
-						<th>Track</th>
-						<th>Time</th><th>Sectors</th>
-						<th>Time</th><th>Sectors</th>
-						<th>Time</th><th>Sectors</th>
-					</tr>
-% my $off = $cdtoc->GetTrackOffsets;
-% my $len = $cdtoc->GetTrackLengths;
-% my $fmt = sub { Track::FormatTrackLength($_[0]/75*1000) };
-% for my $n ($cdtoc->GetFirstTrack .. $cdtoc->GetLastTrack) {
-%		my $st = $off->[$n-1];
-%		my $ln = $len->[$n-1];
-					<tr class="<% ($n%2) ? 'odd' : 'ev' %>">
-						<td><% $n %></td>
-						<td><% &$fmt($st) %></td><td><% $st %></td>
-						<td><% &$fmt($ln) %></td><td><% $ln %></td>
-						<td><% &$fmt($st+$ln) %></td><td><% $st+$ln %></td>
-					</tr>
-% }
-				</table>
-			</td>
-		</tr>
-	</table>
-<& /comp/tableend &> 
+	<& /comp/tablebegin, title => "CD TOC Information" &>
+
+		<table class="formstyle">
+			<tr>
+				<td class="label">
+					Full TOC:</td>
+				<td>
+					<% $cdtoc->GetTOC %></td>
+			</tr>
+			<tr>
+				<td class="label">
+					<& /comp/linkdoc/, "DiscID", "Disc ID" &></td>
+				<td>
+					<% $cdtoc->GetDiscID %></td>
+			</tr>
+			<tr>
+				<td class="label">
+					FreeDB ID:</td>
+				<td>
+					<a href="/bare/cdlookup.html?id=<% $cdtoc->GetFreeDBID %>"><% $cdtoc->GetFreeDBID %></a></td>
+			</tr>
+% 	if ($session{uid}) {
+			<tr>
+				<td class="label">
+					Database row ID:</td>
+				<td>
+					<% $cdtoc->GetId %></td>
+			</tr>
+% 	}
+			<tr>
+				<td class="label">
+					First Track:</td>
+				<td>
+					<% $cdtoc->GetFirstTrack %></td>
+			</tr>
+			<tr>
+				<td class="label">
+					Last Track:</td>
+				<td>
+					<% $cdtoc->GetLastTrack %></td>
+			</tr>
+			<tr>
+				<td class="label">
+					Total Length:</td>
+				<td>
+					<% Track::FormatTrackLength($cdtoc->GetLeadoutOffset / 75 * 1000) %></td>
+			</tr>
+			<tr class="top">
+				<td class="label">
+					Track Details:</td>
+				<td>
+					<table class="listing">
+						<tr class="header">
+							<td>&nbsp;</td>
+							<td colspan="2">Start</td>
+							<td colspan="2">Length</td>
+							<td colspan="2">End</td>
+						</tr>
+						<tr class="right header">
+							<td class="center">Track</td>
+							<td>Time</td>
+							<td>Sectors</td>
+							<td>Time</td>
+							<td>Sectors</td>
+							<td>Time</td>
+							<td>Sectors</td>
+						</tr>
+<%perl>
+
+	my $off = $cdtoc->GetTrackOffsets;
+	my $len = $cdtoc->GetTrackLengths;
+	my $fmt = sub { Track::FormatTrackLength($_[0]/75*1000) };
+	for my $n ($cdtoc->GetFirstTrack .. $cdtoc->GetLastTrack)
+	{
+		my $st = $off->[$n-1];
+		my $ln = $len->[$n-1];
+
+</%perl>
+						<tr class="right <% ($n%2) ? 'odd' : 'even' %>">
+							<td class="center"><% $n %></td>
+							<td><% &$fmt($st) %></td>
+							<td><% $st %></td>
+							<td><% &$fmt($ln) %></td>
+							<td><% $ln %></td>
+							<td><% &$fmt($st+$ln) %></td>
+							<td><% $st+$ln %></td>
+						</tr>
+% 	}
+					</table>
+				</td>
+			</tr>
+		</table>
+
+	<& /comp/tableend &>

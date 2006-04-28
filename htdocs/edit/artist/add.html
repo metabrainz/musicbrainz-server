@@ -1,44 +1,51 @@
 %# vi: set ts=2 sw=2 ft=mason :
 <%args>
+	$initial_name => ""
+	$returnurl => ""
+
 	$name => ""
 	$sortname => ""
 	$type => 0
-	$resolution => ""
 	$begindate_y => ""
 	$begindate_m => ""
 	$begindate_d => ""
 	$enddate_y => ""
 	$enddate_m => ""
 	$enddate_d => ""
-	$notetext => ""
-	$initial_name => ""
 
-	$validate => 0
+	$resolution => ""
 	$confirm => 0
-	$returnurl => ""
-</%args>
 
+	$submit => ""
+	$notetext => ""
+</%args>
 <%perl>
+
+	# only logged in users can see this page
 	$m->comp("/comp/checkloggedin", 1, 1)
 		or return;
 
 	MusicBrainz::IsSingleLineString($name)
-		or return $m->comp("/comp/badargs", 1, 1);
+		or return $m->comp("/comp/layout/badarguments",
+			text => "Argument name has an invalid format.");
 
 	MusicBrainz::IsSingleLineString($sortname)
-		or return $m->comp("/comp/badargs", 1, 1);
+		or return $m->comp("/comp/layout/badarguments",
+			text => "Argument sortname has an invalid format.");
 
 	MusicBrainz::IsSingleLineString($resolution)
-		or return $m->comp("/comp/badargs", 1, 1);
+		or return $m->comp("/comp/layout/badarguments",
+			text => "Argument resolution has an invalid format.");
 
 	MusicBrainz::IsNonNegInteger($type) && Artist::IsValidType($type)
-		or return $m->comp("/comp/badargs", 1, 1);
+		or return $m->comp("/comp/layout/badarguments",
+			text =>"Argument type is invalid.");
 
 	# get database handle
 	my $mb = $m->comp("/comp/dblogin");
 
-	# Try to load the named artist by name. If an artist comes up, give the user a stern warning
-	# about adding a duplicate artist.
+	# Try to load the named artist by name. If an artist comes up, give
+	# the user a stern warning about adding a duplicate artist.
 	my @dupes;
 	if ($name ne "")
 	{
@@ -51,78 +58,87 @@
 		} @$artists;
 	}
 
-	# if we have a value in validate, the form was submitted
+	# if we have a value in submit, the form was submitted
 	my @messages = ();
-	if ($validate)
+	if ($submit ne "")
 	{
-		MusicBrainz::TrimInPlace($resolution, $name, $sortname);
-
-		push @messages, "Please Select a valid type." if (not Artist::IsValidType($type));
-		push @messages, "Please enter the Name." if ($name eq "");
-		push @messages, "Please enter the Sort Name." if ($sortname eq "");
-
-		push @messages, "Begin Date has to be either valid or empty"
-			if (not MusicBrainz::IsValidDateOrEmpty($begindate_y, $begindate_m, $begindate_d));
-		push @messages, "Begin Date has to be either valid or empty"
-			if (not MusicBrainz::IsValidDateOrEmpty($enddate_y, $enddate_m, $enddate_d));
-		push @messages, "Begin Date has to be earlier than End Date"
-			if (not MusicBrainz::IsDateEarlierThan($begindate_y, $begindate_m, $begindate_d,
-												   $enddate_y, $enddate_m, $enddate_d));
-		push @messages, "Please enter a comment and activate the confirm checkbox"
-			if (@dupes and ($resolution eq "" or not $confirm));
-
-		# no error message was raised, we can go ahead and add
-		# the new artist entry.
-		if (@messages == 0)
+		if ($submit =~ m/Cancel/i)
 		{
-			# If the artist is not deemed to be the same as another artist, don't save the comment
-			# --> commented out for now.
-			# $resolution = "" if not @dupes;
-
-			# enter moderation.
-			my $ret = $m->comp(
-				"/comp/entermods",
-				DBH => $mb->{DBH},
-				sub => sub {
-					my @mods = Moderation->InsertModeration(
-						DBH	=> $mb->{DBH},
-						uid	=> $session{uid},
-						privs => $session{privs},
-						type => &ModDefs::MOD_ADD_ARTIST,
-						# --
-						name => $name,
-						sortname => $sortname,
-						artist_type => $type,
-						artist_resolution => $resolution,
-						artist_begindate => [ $begindate_y, $begindate_m, $begindate_d ],
-						artist_enddate => [ $enddate_y, $enddate_m, $enddate_d ],
-					);
-
-					$mods[0]->InsertNote($session{'uid'}, $notetext)
-						if $mods[0]
-						and $notetext =~ /\S/;
-
-					# Return the mods inserted - see below
-					@mods;
-				},
-			) or return;
-
-			# let's see if that turned out ok.
-			(my $addmod) = grep { $_->Type eq &ModDefs::MOD_ADD_ARTIST } @$ret;
-			if ($addmod)
-			{
-				my $rowid = $addmod->GetRowId;
-
-				# if a return url was given, append new artistid and
-				# return to the other page.
-				return $m->comp("/comp/redirect", $returnurl . $rowid) if ($returnurl ne "");
-
-				# else show artist page of newly created artist.
-				return $m->comp("/comp/redirect", "/showartist.html?artistid=".$rowid);
-			}
+			# if a return url was given, return to this page
+			return $m->comp("/comp/redirect", $returnurl) if ($returnurl ne "");
 			return $m->comp("/comp/redirect", "/search.html");
+		}
+		else
+		{
+			MusicBrainz::TrimInPlace($resolution, $name, $sortname);
 
-			die "Shouldn't get here";
+			push @messages, "Please Select a valid type." if (not Artist::IsValidType($type));
+			push @messages, "Please enter the Name." if ($name eq "");
+			push @messages, "Please enter the Sort Name." if ($sortname eq "");
+
+			push @messages, "Begin Date has to be either valid or empty"
+				if (not MusicBrainz::IsValidDateOrEmpty($begindate_y, $begindate_m, $begindate_d));
+			push @messages, "Begin Date has to be either valid or empty"
+				if (not MusicBrainz::IsValidDateOrEmpty($enddate_y, $enddate_m, $enddate_d));
+			push @messages, "Begin Date has to be earlier than End Date"
+				if (not MusicBrainz::IsDateEarlierThan($begindate_y, $begindate_m, $begindate_d,
+													   $enddate_y, $enddate_m, $enddate_d));
+			push @messages, "Please enter a comment and activate the confirm checkbox"
+				if (@dupes and ($resolution eq "" or not $confirm));
+
+			# no error message was raised, we can go ahead and add
+			# the new artist entry.
+			if (@messages == 0)
+			{
+				# If the artist is not deemed to be the same as another artist, don't save the comment
+				# --> commented out for now.
+				# $resolution = "" if not @dupes;
+
+				# enter moderation.
+				my $ret = $m->comp(
+					"/comp/entermods",
+					DBH => $mb->{DBH},
+					sub => sub {
+						my @mods = Moderation->InsertModeration(
+							DBH	=> $mb->{DBH},
+							uid	=> $session{uid},
+							privs => $session{privs},
+							type => &ModDefs::MOD_ADD_ARTIST,
+							# --
+							name => $name,
+							sortname => $sortname,
+							artist_type => $type,
+							artist_resolution => $resolution,
+							artist_begindate => [ $begindate_y, $begindate_m, $begindate_d ],
+							artist_enddate => [ $enddate_y, $enddate_m, $enddate_d ],
+						);
+
+						$mods[0]->InsertNote($session{'uid'}, $notetext)
+							if $mods[0]
+							and $notetext =~ /\S/;
+
+						# Return the mods inserted - see below
+						@mods;
+					},
+				) or return;
+
+				# let's see if that turned out ok.
+				(my $addmod) = grep { $_->Type eq &ModDefs::MOD_ADD_ARTIST } @$ret;
+				if ($addmod)
+				{
+					my $rowid = $addmod->GetRowId;
+
+					# if a return url was given, append new artistid and
+					# return to the other page.
+					return $m->comp("/comp/redirect", $returnurl . $rowid) if ($returnurl ne "");
+
+					# else show artist page of newly created artist.
+					return $m->comp("/comp/redirect", "/show/artist/?artistid=".$rowid);
+				}
+				return $m->comp("/comp/redirect", "/search.html");
+
+				die "Shouldn't get here";
+			}
 		}
 	}
 
@@ -136,28 +152,34 @@
 
 		<& /comp/autofixmenu &>
 
-		<& /comp/layout/editformbegin, title => "Add New Artist" &>
-
 		<& /comp/stylemenu &>
+
+		<& /comp/layout/editformbegin, title => "Add New Artist" &>
 
 		<table class="formstyle">
 			<tr>
 				<td colspan="2" class="instructions">
 					<ul>
-						<li>You are about to add an artist to MusicBrainz.</li>
-						<li>Please <a href="/style.html">read the Style Guidelines</a>,
-							then provide the necessary information of the New
-							Artist below.</li>
-						<li>If one or more artists with the same name already exist in the
+						<li>
+							You are about to add an artist to MusicBrainz.</li>
+						<li>
+							Please read the <& /comp/linkdoc, "StyleGuideline", "Style Guidelines" &>,
+							then provide the necessary information about the new
+							artist below.</li>
+						<li>
+							If one or more artists with the same name already exist in the
 							database, you will be prompted to add a comment to this artist
 							that will allow users to distinguish this entry from the other
-							artist(s) with the same name.</li>
-						<li>Please note that casing of the artist is taken into account when
+							artist(s) with the same name. (see <& /comp/linkdoc, "ArtistComment", "Artist Comment" &>)</li>
+						<li>
+							Please note that casing of the artist is taken into account when
 							determining the need for a comment; The two Artists <em>somename</em>
 							and <em>Somename</em> are not the same.</li>
 					</ul>
 				</td>
 			</tr>
+		</table>
+		<table class="formstyle">
 
 			<& /edit/artist/main-form,
 				action		=> '/edit/artist/add.html',

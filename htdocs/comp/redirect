@@ -1,14 +1,15 @@
 %# vi: set ts=4 sw=4 ft=mason :
 <%perl>
 
-my ($url) = @_;
+	my ($url) = @_;
+	my $host = $r->header_in("Host") || &DBDefs::WEB_SERVER;
 
-my $host = $r->header_in("Host") || &DBDefs::WEB_SERVER;
+	$url = "http://" . $host . $url
+		unless $url =~ /^\w+:/;
 
-$url = "http://" . $host . $url
-	unless $url =~ /^\w+:/;
-$r->status(303);
-$r->header_out(Location => $url);
-$m->abort;
+	$r->status(303);
+	$r->header_out(Location => $url);
+
+	$m->abort;
 
 </%perl>

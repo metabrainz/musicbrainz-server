@@ -20,20 +20,20 @@ table.difflegend span.box {
 
 .diff-add,
 table.difflegend span.diff-add {
-	background: #cfc; color: #000; font-weight: normal;
+	background: #dfd; color: #000; font-weight: normal;
 }
 
 .diff-del,
 table.difflegend span.diff-del {
-	background: #fcc; color: #000; font-weight: normal;
+	background: #fdd; color: #000; font-weight: normal;
 }
 
 .diff-changeadd,
 table.difflegend span.diff-changeadd {
-	background: #cfc; color: #008; font-weight: normal;
+	background: #dfd; color: #008; font-weight: normal;
 }
 
 .diff-changedel,
 table.difflegend span.diff-changedel {
-	background: #fcc; color: #008;  font-weight: normal;
+	background: #fdd; color: #008;  font-weight: normal;
 }

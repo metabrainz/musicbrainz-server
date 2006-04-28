@@ -1,0 +1,165 @@
+<%perl>
+	# -----------------------------------------------------------------------------
+	#                               Musicbrainz.org
+	#                        Copyright (c) 2001 Robert Kaye
+	# -----------------------------------------------------------------------------
+	#  This software is provided "as is", without warranty of any kind, express or
+	#  implied, including  but not limited  to the warranties of  merchantability,
+	#  fitness for a particular purpose and noninfringement. In no event shall the
+	#  authors or  copyright  holders be  liable for any claim,  damages or  other
+	#  liability, whether  in an  action of  contract, tort  or otherwise, arising
+	#  from,  out of  or in  connection with  the software or  the  use  or  other
+	#  dealings in the software.
+	#
+	#  GPL - The GNU General Public License    http://www.gnu.org/licenses/gpl.txt
+	#  Permits anyone the right to use and modify the software without limitations
+	#  as long as proper  credits are given  and the original  and modified source
+	#  code are included. Requires  that the final product, software derivate from
+	#  the original  source or any  software  utilizing a GPL  component, such  as
+	#  this, is also licensed under the GPL license.
+	# -----------------------------------------------------------------------------
+	#
+	# Summary:
+	# -----------------------------------------------------------------------------
+	# List a release given by the releaseid/mbid argument
+	#
+	# $URL$
+	# $Id$
+	#
+</%perl>
+<%args>
+	$trackid => ""
+	$mbid => ""
+
+	$albumjoinid => ""
+
+	$mbt => $session{'mbt'}
+	$tport => $session{'tport'}
+
+	$addrel => 0
+	$remrel => -1
+	$remtype => ""
+	$arcancel => 0
+</%args>
+<%perl>
+
+	if ($mbid ne "") {
+		MusicBrainz::IsGUID($mbid)
+			or return $m->comp("/comp/layout/badarguments",
+				text => "Argument mbid is not a valid MBID");
+	}
+	elsif ($trackid ne "") {
+		MusicBrainz::IsNonNegInteger($trackid) && $trackid
+			or return $m->comp("/comp/layout/badarguments",
+				text => "You need to specify either a valid mbid or a trackid argument");
+	} else {
+		MusicBrainz::IsNonNegInteger($albumjoinid) && $albumjoinid
+			or return $m->comp("/comp/layout/badarguments",
+				text => "Argument albumjoinid is invalid");
+	}
+
+	# check tagger session stuff
+	UserStuff::EnsureSessionOpen(), $session{mbt} = 1 if $mbt;
+	UserStuff::EnsureSessionOpen(), $session{tport} = $tport if $tport;
+
+	# Instantiate MusicBrainz object, and load release entities
+	my $mb = $m->comp("/comp/dblogin");
+
+	my $track = Track->new($mb->{DBH});
+	if ($trackid) {
+		$track->SetId($trackid);
+		$track->LoadFromId
+			or return $m->comp(
+				"/comp/error",
+				"Track #$trackid not found in the database.",
+				1, 1,
+			);
+	} elsif ($mbid) {
+		$track->SetMBId($mbid);
+		$track->LoadFromId
+			or return $m->comp(
+				"/comp/error",
+				"Track $mbid not found in the database.",
+				1, 1,
+			);
+	} else {
+		$track->LoadFromAlbumJoin($albumjoinid)
+			or return $m->comp(
+				"/comp/error",
+				"Track #$albumjoinid not found in the database.",
+				1, 1,
+			);
+	}
+
+	my @TRM = TRM->new($mb->{DBH})->GetTRMFromTrackId($track->GetId);
+	my @PUID = PUID->new($mb->{DBH})->GetPUIDFromTrackId($track->GetId);
+
+
+	# load artist from trackartist
+	my $artist = $m->comp("/comp/loadartist", $mb, $track->GetArtist);
+
+</%perl>
+
+
+	<& /comp/sidebar-notitle, pagetitle => "Track Details: " . $track->GetName &>
+
+	<div class="LinksRow">
+		[ <& /comp/googlelink, search => [ $artist->GetName, $track->GetName ], text => "Search Google" &>
+			| <a href="/mod/search/pre/track.html?trackid=<% $track->GetId %>&amp;artistid=<% $artist->GetId %>">View track mods under current artist</a>
+			| <a href="/mod/search/pre/track.html?trackid=<% $track->GetId %>">View all track mods</a>
+		]
+	</div>
+
+%	# show any related moderations so people can vote on them
+	<& /comp/relmods, artistid => $artist->GetId &>
+
+%	# Show the relationships for this track
+
+% 	if ($addrel) {
+    	<& /comp/ar/AddRelationship, id=>$track->GetId, type=>'track', name=>$track->GetName &>
+% 	}
+
+% 	if ($arcancel) {
+     	<& /comp/ar/ClearRelationships &>
+% 	}
+
+% 	if ($remrel >= 0) {
+     	<& /comp/ar/RemoveRelationship, id=>$remrel, type=>$remtype &>
+% 	}
+
+	<& /comp/ar/RelationshipBox, id=>$track->GetId, type=>'track', name=>$track->GetName &>
+
+	<& /comp/trackinfo, track => $track, TRM => \@TRM, PUID => \@PUID &>
+
+	<& /comp/artistinfo, artist => $artist &>
+
+<%perl>
+
+	my @info = $track->GetAlbumInfo;
+	if (@info)
+	{
+		for (@info)
+		{
+			my $album = Album->new($mb->{DBH});
+			$album->SetId($_->[0]);
+			$album->SetName($_->[1]);
+			$album->SetMBId($_->[3]);
+
+			# FIXME need API in Album.pm
+			$album->{attrs} = [ $_->[4] =~ /(\d+)/g ];
+
+			$m->comp(
+				"/comp/albuminfo",
+				album => $album,
+				track => $_->[2],
+			);
+		}
+	}
+	else
+	{
+		$m->out("Could not load releases.");
+	}
+
+</%perl>
+
+<& /comp/footer &>

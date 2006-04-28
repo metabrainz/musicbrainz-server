@@ -117,7 +117,7 @@ td.header_logo .servertype
 }
 .blueheaderwide {
 	background-color: #fff; /* fallback if image is not available */
-	background-image: url(/images/header-bg-lightorangefade.gif);
+	background-image: url(/images/header-bg-lightpurplefade.gif);
 	background-position: left;
 	background-repeat: repeat-y;
 }
@@ -129,11 +129,16 @@ td.header_logo .servertype
 .boxcontent {
 	border: 1px solid #aaa;
 	border-width: 0px 1px 1px 1px;
-	margin: 0px; padding: 0px;
+	margin: 0px; padding: 8px;
 	margin-bottom: 20px;
+	
+	/* for /comp/layout/editformbegin which contains floating tables.
+	   http://www.quirksmode.org/css/clearing.html */
+	overflow: hidden;
 }
 .boxcontent .inner {
-	margin: 0px; padding: 8px;
+	margin: 0px; padding: 0px;
+	width: 100%;	
 }
 .boxcontent .inner ul {
 	margin-top: 10px; margin-bottom: 0px; margin-left: 20px; padding: 0px;
@@ -168,15 +173,16 @@ td.header_logo .servertype
 
 table.modpending {
 	margin: 0px; padding: 0px; 
+	margin-left: 5px;
 	margin-bottom: 5px;
-	float: right; clear: both; width: 250px;
+	width: 250px;
 	border-collapse: collapse;
+	float: right;
 }
 table.modpending td {
 	font-size: 11px; font-weight: normal; 
 	background: #ffffcc; color: #000;
 	border: 1px solid #ccc;
-	border-top: none;
 	padding: 3px 5px; 
 	margin-bottom: 5px
 }
@@ -188,6 +194,10 @@ table.modpending td.note {
 	margin-left: 3px; margin-top: 2px;
 	padding-left: 2px; 
 	border-left: 1px solid #999;
+}
+
+table.formstyle {
+	float: left;
 }
 
 
@@ -241,47 +251,33 @@ table.artistfilter-listing tr.row1 {
 }
 
 
-/** 
- * listing tables, used in: 
- *  ~ artistrel.html
- **/   
-table.listing {
-}
-table.listing td {
-	padding: 2px 4px;
-	text-align: center; /* default: centered */
-}
+/* listing table */ 
+table.listing {}
+
+/* listing td are centered by default, and define horizontal padding */
+table.listing td { padding: 2px 4px; text-align: center;  }
 
 /* header rows are bold, and have some padding at the bottom */
-table.listing tr.header td {
-	font-weight: bold;
-	padding-bottom: 2px;
-}
+table.listing tr.header td { font-weight: bold; padding-bottom: 2px; }
 
-/* explicit left alignment */
-table.listing tr.header td.left {
-	text-align: left;
-}
+/* odd/even row coloring */
+table.listing tr.odd {}
+table.listing tr.even { background-color: #eee }
 
-/* explicit left alignment */
-table.listing td.left {
-	text-align: left; 
-}
+/* if a row has the right class, all cells align to right per default */
+table.listing tr.right td { text-align: right; }
 
-table.listing span.selected {
-	font-weight: bold;
-}
-table.listing span.selected a {
-	color: #000;
-	text-decoration: underline;
-}
+/* explicit left/center/right alignment */
+table.listing tr td.left { text-align: left; }
+table.listing tr td.right { text-align: right; }
+table.listing tr td.center { text-align: center; }
 
+/* selected */
+table.listing span.selected { font-weight: bold; }
+table.listing span.selected a { color: #000; text-decoration: underline; }
 
 /* spacer row, because table is defined using cellspacing=0, cellpadding=0 */
-table.listing tr.spacer td {
-	height: 1px;
-	padding: 0px;
-}
+table.listing tr.spacer td { height: 1px; padding: 0px; }
 
 tr.artistrel0 { background-color: #FFFFFF; }
 tr.artistrel1 { background-color: #FFFdFC; }

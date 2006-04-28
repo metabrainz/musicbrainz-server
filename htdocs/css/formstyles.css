@@ -33,7 +33,7 @@ table.formstyle .oldtextfield-modpending {
 	padding: 2px; font-size: 9pt;
 }
 table.formstyle .oldtextfield-modpending {
-	border-bottom: 1px dotted #ccc; background: #ffc;
+	border: 1px solid #ccc; background: #ffc;
 }
 
 table.formstyle td.padleft {	

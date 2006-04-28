@@ -1,7 +1,7 @@
-% unless ($session{has_confirmed_email}) {
-	<p class="notice">
-		<span style="color: red">You have not provided an email address!</span>
-		To edit the database, you MUST provide a verified email address.
-		<a href="/user/edit.html">Edit your profile to provide an email address</a>.
-	</p>
-% }
+% 	unless ($session{has_confirmed_email}) {
+	<div style="margin: 20px 0px; border: 1px dotted red; padding: 5px">
+		<span style="color: red"><strong>You have not provided an e-mail address!</strong></span>
+		You have to add, and verify a working e-mail address to your account
+		to be able to submit your own edits. <a href="/user/edit.html">Add an e-mail address &raquo;</a>.
+	</div >
+% 	}

@@ -36,6 +36,7 @@
 	$artist => undef
 	$release => undef
 
+	$display => undef
 	$mp_type => undef
 </%args>
 <%perl>
@@ -83,14 +84,23 @@
 
 	my $css = "oldtextfield" . ($mp ? "-modpending" : "");
 
+
+	# artistsortname can be passed in using the $display argument.
+	# if display is not set, fall back to name.
+	$display = $display || $object->GetName;
+
+
+	my $typeicon = $type;
+	$typeicon = "release" if ($typeicon eq "album");
+
+	# print the link.
+	$m->out(qq!<img src="/images/icon/$typeicon.gif" alt="" class="entityicon"/>!);
 	$m->out(qq!<span class="$css">!);
-	$m->out(qq!<img src="/images/edit.gif" alt="" />!);
 	$m->out(sprintf
-				qq!<a href="/show%s.html?%sid=%d">%s</a>!,
+				qq!<a href="/%s/%s.html">%s</a>!,
 				$type,
-				$type,
-				$object->GetId,
-				$object->GetName
+				$object->GetMBId,
+				$display
 			);
 	$m->out(qq!</span>!);
 

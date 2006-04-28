@@ -35,7 +35,7 @@ $time = $m->comp("/comp/datetime", $time);
 </%perl>
 % unless ($inline) {
 <tr>
-<td bgcolor="#FFBA58" colspan=3><img src="/images/pixel.gif" width="1" height="1" alt="" border=""></td>
+<td bgcolor="#FFBA58" colspan=3><img src="/images/pixel.gif" width="1" height="1" alt="" border="" /></td>
 </tr>
 % }
 <tr>
