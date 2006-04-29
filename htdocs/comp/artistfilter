@@ -5,6 +5,7 @@
 	@dontshow => ()
 	$allowcreate => 0
 	$url
+	$submit => ""
 
 	%arglist => ()
 </%args>
@@ -21,40 +22,26 @@
 	$search = ($search eq "" ? $defaultquery : $search);
 
 	my $searched = $engine->Result != &SearchEngine::SEARCHRESULT_NOQUERY;
+
 	my $searchlabel = "Search for Artist:";
 	my $searchbtn = "Search";
-
-
-	if ($searched)
+	if ($submit ne "")
 	{
-		$searchlabel = "Search Again:";
-		$searchbtn = "Search Again";
+		$searchlabel = "Search again:";
+		$searchbtn = "Search again";
+	}
 </%perl>
 
+
+% 	if ($submit ne "" and $search eq "") {
 		<tr>
 			<td>&nbsp;</td>
-			<td class="formsection">
-				If you did not find the artist you were looking for,
-				you can try to search with another search term, or if you
-				are sure the artist was not yet added to the database,
-				click on the <strong>Add New Artist</strong> button.
+			<td class="error">
+				<ul>
+					<li>You did not enter a search keyword.</li>
+				</ul>
 			</td>
 		</tr>
-		<tr>
-			<td>&nbsp;</td>
-			<td style="padding-bottom: 20px">
-				<form method="post" action="/edit/artist/add.html" id="ArtistFilterAddArtist">
-					<div>
-						<input class="button" type="submit" value="Add New Artist &raquo;" />
-						<input type="hidden" name="name" value="<% $search %>" />
-
-%	my $returnurl = sprintf "$url?%s&selectedartist=", $m->comp("/comp/args-to-querystring.inc", %arglist);
-						<input type="hidden" name="returnurl" value="<% $returnurl %>" />
-					</div>
-				</form>
-			</td>
-		</tr>
-
 %	}
 
 		<tr>
@@ -63,9 +50,8 @@
 			<td class="field">
 				<form method="post" action="<% $url %>" id="ArtistFilterSearch">
 					<div>
-						<input type="text" name="search" id="artistfilter_search"
-							   value="<% $search %>" />
-						<input class="button" type="submit" value="<% $searchbtn %>" />
+						<input type="text" name="search" id="artistfilter_search" value="<% $search %>" />
+						<input class="button" name="submit" type="submit" value="<% $searchbtn %>" />
 						<& /comp/args-to-hidden-fields.inc, %arglist &>
 					</div>
 				</form>
@@ -106,7 +92,7 @@
 		</tr>
 		<tr class="top">
 			<td class="label">
-				<label>Search Results:</label></td>
+				<label>Found artists:</label></td>
 			<td class="field">
 				<form method="post" action="<% $url %>" id="ArtistFilterSelect">
 					<table border="0" cellspacing="0" cellpadding="0" class="artistfilter-listing">
@@ -144,8 +130,9 @@
 		else
 		{
 </%perl>
-		<tr class="spaced">
-			<td>&nbsp;</td>
+		<tr class="spaced top">
+			<td class="label">
+				No artist found:</td>
 			<td class="formsection">
 				No artists found matching your query <strong><% $search %></strong>.
 <%perl>
@@ -160,12 +147,41 @@
 </%perl>
 			</td>
 		</tr>
-<%perl>
 
- 		}
- 	}
+% 		}
+% 	}
 
-</%perl>
+
+%	if ($submit ne "" && $search ne "")
+%	{
+
+		<tr class="spaced top">
+			<td class="label">
+				Add new artist?</td>
+			<td>
+				If you did not find the artist you were looking for,
+				you can search again with another keyword, or if you
+				are sure the artist was not yet added to the database,
+				click on the <strong>Add New Artist</strong> button.
+			</td>
+		</tr>
+		<tr>
+			<td>&nbsp;</td>
+			<td style="padding-bottom: 20px">
+				<form method="post" action="/edit/artist/add.html" id="ArtistFilterAddArtist">
+					<div>
+						<input class="button" type="submit" value="Add New Artist &raquo;" />
+						<input type="hidden" name="name" value="<% $search %>" />
+
+%		my $returnurl = sprintf "$url?%s&selectedartist=", $m->comp("/comp/args-to-querystring.inc", %arglist);
+						<input type="hidden" name="returnurl" value="<% $returnurl %>" />
+					</div>
+				</form>
+			</td>
+		</tr>
+
+%	}
+
 
 %#% if (@r) {
 %#<& /comp/movefocus, "ArtistFilterSelect", "selectedartist", 0 &>

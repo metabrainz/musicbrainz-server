@@ -13,8 +13,8 @@
 	# default for move tracks flag
 	$movetracks => 1
 
-	# confirm, and moderation note
-	$confirm => undef
+	# submit, and moderation note
+	$submit => undef
 	$notetext => ""
 
 </%args>
@@ -33,8 +33,7 @@
 	my $mb = $m->comp("/comp/dblogin");
 
 	# load release from $releaseid parameter
-	my $al = $m->comp("/comp/loadrelease", $mb, $releaseid);
-	my $ar = $m->comp("/comp/loadartist", $mb, $al->GetArtist);
+	my $release = $m->comp("/comp/loadrelease", $mb, $releaseid);
 
 	# form step 2/3: load selected artist from the database, and
 	# fill in the required fields
@@ -47,14 +46,14 @@
 	}
 
 	# form step 3/3: enter moderation
-	if (defined $newartist && $confirm)
+	if (defined $newartist && $submit)
 	{
 		# next url after the operation
-		my $url = "/showalbum.html?albumid=$releaseid";
+		my $url = "/release/". $release->GetMBId . ".html";
 
-		# if confirm does not contain YES, (=NO was pressed), redirect
+		# if submit does not contain YES, (=NO was pressed), redirect
 		# back to calling page.
-		if ($confirm !~ /yes/i)
+		if ($submit !~ /Enter Moderation/i)
 		{
 			$m->comp("/comp/redirect", $url);
 			return;
@@ -71,7 +70,7 @@
 						privs => $session{privs},
 						type => &ModDefs::MOD_MAC_TO_SAC,
 						# --
-						album => $al,
+						album => $release,
 						artistid => $newartist->GetId,
 						artistname => $newartist->GetName,
 						artistsortname => $newartist->GetSortName,
@@ -93,7 +92,7 @@
 	$m->comp("/comp/sidebar-notitle", pagetitle => "Convert Release to Single Artist");
 	$m->comp("/comp/layout/editformbegin",
 		title => "Convert Release to Single Artist",
-		release => $al
+		release => $release
 	);
 
 	# if an artist was selected (or added), show confirm form.
@@ -110,7 +109,7 @@
 					<td colspan="2" class="instructions">
 						<ul>
 							<li>Are you sure you want to convert the release
-								<& /comp/linkrelease, release => $al, icon => 1 &>,
+								<& /comp/linkrelease, release => $release &>,
 								currently by <& /comp/linkartist, id => 1, name => "Various Artists" &>
 								to artist <& /comp/linkartist, artist => $newartist &>?
 							</li>
@@ -120,26 +119,30 @@
 				<tr>
 					<td>&nbsp;</td>
 					<td class="formsection">
-						<span style="color: red;">Warning:</span> This release contains tracks
+						<span style="color: red; font-weight: bold;">Warning:</span> This release contains tracks
 						attributed to multiple artists. If you proceed with this edit,
-						all tracks Artists will be replaced with the Artist
+						all tracks artists will be replaced with the artist
 						<& /comp/linkartist, artist => $newartist &>.
 
-						If you only want to change the <a href="/doc/AlbumArtist">Release Artist</a>,
-						but not the <a href="/doc/TrackArtist">Track Artists</a>,
-						use the edit type <strong><img src="/images/edit.gif" alt="" /><a
-%	my $MOVE_ALBUM_URL = "/edit/album/move.html?album=$releaseid&newartistid=$newartistid";
-						href="<% $MOVE_ALBUM_URL %>" title="Move Release">Move Release</a></strong>
-						instead.
+						If you only want to change the <& /comp/linkdoc, "ReleaseArtist", "Release Artist" &>,
+						but not the <& /comp/linkdoc, "TrackArtist", "Track Artists" &>,
+						use the <& /comp/linkdoc, "MoveReleaseEdit", "Move Release Edit" &> instead.
+
+
+						<ul>
+							<li><strong>
+								<a href="/edit/album/move.html?album=<% $releaseid %>&newartistid=<% $newartistid %>"
+									title="Move Release">Move Release</a></strong> (to another Artist).</a></li>
+						</ul>
 					</td>
 				</tr>
 				<tr class="spaced">
 					<td class="label">
 						<label>Confirm:</label></td>
 					<td class="field">
-						<input class="button" type="submit" name="confirm" value="&laquo; NO" />
-						<input class="button" type="submit" name="confirm" value="YES &raquo;" />
-						<input type="hidden" name="releaseid" value="<% $al->GetId %>" />
+						<input class="button" type="submit" name="submit" value="Cancel" />
+						<input class="button" type="submit" name="submit" value="Enter Moderation" />
+						<input type="hidden" name="releaseid" value="<% $release->GetId %>" />
 						<input type="hidden" name="newartistid" value="<% $newartistid %>" />
 					</td>
 				</tr>
@@ -164,18 +167,40 @@
 				<td colspan="2" class="instructions">
 					<ul>
 						<li>
-							Please search for the artist to which you want to move the release
-							<& /comp/linkrelease, release => $al &>.
+							This wizard allows you to move the release and the
+							tracks of <& /comp/linkrelease, release => $release &> to a
+							single artist. Please review the <& /comp/linkdoc,
+							"ReleaseArtistStyle", "Release Artist Style" &> and the
+							general <& /comp/linkdoc, "StyleGuideline", "Style Guidelines" &>
+							before entering this edit.
+						</li>
+						<li>
+							Please enter the <& /comp/linkdoc, "ArtistName", "Artist Name" &>
+							of the artist you would like to move this release to, and
+							press <strong>Search</strong> to start the search.
 						</li>
 					</ul>
 				</td>
 			</tr>
+		</table>
+
+		<table class="formstyle">
 			<& /comp/artistfilter,
 				search => $search,
 				url => "/edit/album/sac.html",
+				submit => $submit,
 				arglist => { album => $releaseid },
 				allowcreate => 1,
 			&>
+			<tr>
+				<td class="label">&nbsp;</td>
+				<td class="field">
+					<form method="post" action="/edit/album/sac.html" id="ConfirmForm">
+						<input type="hidden" name="releaseid" value="<% $release->GetId %>" />
+						<input type="hidden" name="newartistid" value="<% $release->GetArtist %>" />
+						<input type="submit" name="submit" value="Cancel" />
+					</form></td>
+			</tr>
 		</table>
 %	}
 

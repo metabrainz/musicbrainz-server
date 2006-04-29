@@ -29,14 +29,14 @@
 	# next url depending on the move tracks checkbox.
 	if ($submit)
 	{
-		my $cancelurl = "/showalbum.html?albumid=" . $release->GetId;
+		my $cancelurl = "/show/release/?releaseid=" . $release->GetId;
 		my $url = (
 			$ARGS{"movetracks"}
 				? "/edit/track/change.html?album=" . $release->GetId
 				: $cancelurl
 		);
 
-		if ($submit !~ /yes/i)
+		if ($submit =~ /Cancel/i)
 		{
 			$m->comp(
 				"/comp/redirect",
@@ -79,11 +79,9 @@
 	}
 
 	# start page header.
-	$m->comp("/comp/sidebar-notitle", pagetitle => "Convert Release to Multiple Artists");
-
-	$m->comp("/comp/layout/editformbegin",
-		title => "Convert Release to Multiple Artists",
-		release => $release);
+	my $title = "Convert Release to Multiple Artists";
+	$m->comp("/comp/sidebar-notitle", pagetitle => $title);
+	$m->comp("/comp/layout/editformbegin", title => $title, release => $release);
 
 </%perl>
 
@@ -96,44 +94,51 @@
 				<td colspan="2" class="instructions">
 					<ul>
 						<li>
-							Are you sure you want to convert the release
-							<& /comp/linkrelease, release => $release, icon => 1 &>,
-							currently by <& /comp/linkartist, artist => $artist &>, to multiple artists?
+							This form allows you to convert <& /comp/linkrelease, release => $release &> to a
+							<& /comp/linkdoc, "VariousArtistsRelease", "Various Artists Release" &>.
+							Please review the <& /comp/linkdoc, "ReleaseArtistStyle", "Release Artist Style" &>
+							and the general <& /comp/linkdoc, "StyleGuideline", "Style Guidelines" &> before
+							entering this edit.
+						</li>
+						<li>
+							Are you sure you want to convert the release <& /comp/linkrelease,
+							release => $release &>, currently by <& /comp/linkartist, artist => $artist &>,
+							to multiple artists?
 						</li>
 					</ul>
 				</td>
 			</tr>
 
-			<tr>
+			<tr class="spaced">
 				<td>&nbsp;</td>
 				<td>
-					MusicBrainz allows Releases which may have a number of different Artists as
-					<a href="/doc/TrackArtist">Track Artists</a> to be stored under an
-					<a href="/doc/AlbumArtist">Release Artist</a>. You can choose to use the default
-					Various Artists <a href="/doc/SpecialPurposeArtist">Special Purpose Artist</a>,
-					or you can keep the current artist as the Release Artist.
+					MusicBrainz allows releases with <& /comp/linkdoc, "TrackArtist", "Track Artists" &>
+					different than the <& /comp/linkdoc, "ReleaseArtist", "Release Artist" &> stored under
+					a release artist. You have to choose if you want to file the release under the
+					default Various Artists <& /comp/linkdoc, "SpecialPurposeArtist", "Special Purpose Artist" &>,
+					or you can keep the release listed under the current artist.
 				</td>
 			</tr>
 			<tr class="top">
 				<td class="label">
-					<label>Album Artist:</label></td>
+					<label>Release Artist:</label></td>
 				<td>
 					<input type="radio" name="movetova" value="1" checked>
-					set <a href="/showartist.html?artistid=1">Various Artists</a> as Release Artist
+					Move release to artist <& /comp/linkartist, id => 1, name => "Various Artists" &>
 					<br />
 					<input type="radio" name="movetova" value="0">
-					leave <& /comp/linkartist, artist => $artist &> as Release Artist.
+					Keep release under <& /comp/linkartist, artist => $artist &>.
 				</td>
 			</tr>
 
-			<tr>
+			<tr class="spaced">
 				<td>&nbsp;</td>
 				<td class="formsection">
 					If you choose to leave the tracks under the current artist,
-					you'll be returned to the release page. If you choose to <em>move
-					tracks to new artists</em>, this wizard will walk you through
-					a page for each track of the release where you can select the
-					<a href="/doc/TrackArtist">Track Artist</a>.
+					you'll be returned to the release page. If you select
+					<strong>Choose track artist for each of the tracks</strong>, this wizard
+					will walk you through a set of pages, on which you'll be able to choose a new
+					<& /comp/linkdoc, "TrackArtist", "Track Artist" &> for each of the tracks.
 				</td>
 			</tr>
 			<tr class="top">
@@ -141,10 +146,10 @@
 					<label>Track Artists:</label></td>
 				<td>
 					<input type="radio" name="movetracks" value="0" checked="checked" />
-					leave <& /comp/linkartist, artist => $artist &> as track artist for all tracks
+					Keep all tracks attributed to the artist <& /comp/linkartist, artist => $artist &>
 					<br />
 					<input type="radio" name="movetracks" value="1" />
-					move tracks to new artists
+					Choose track artist for each of the tracks
 				</td>
 			</tr>
 
@@ -152,8 +157,8 @@
 				<td class="label">
 					<label>Confirm:</label></td>
 				<td class="field">
-					<input class="button" type="submit" name="submit" value="&laquo; NO" />
-					<input class="button" type="submit" name="submit" value="YES &raquo;" />
+					<input class="button" type="submit" name="submit" value="Cancel" />
+					<input class="button" type="submit" name="submit" value="Enter Moderation" />
 					<input type="hidden" name="releaseid" value="<% $release->GetId %>" /></td>
 			</tr>
 			<tr>

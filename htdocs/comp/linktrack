@@ -53,7 +53,7 @@
 
 	# render link.
 	$m->out(qq!<strong>!) if ($strong);
-	$m->out(qq!<img src="/images/icon/track.gif" alt="" class="entityicon" />!) if ($icon);
+	$m->out(qq!<img src="/images/entity/track_small.gif" alt="Track" class="entityicon" />!) if ($icon);
 
 	# if the MBID is defined, use the "preferred" way of displaying release links.
 	$m->out(sprintf qq!<a href="%s">%s</a>!,

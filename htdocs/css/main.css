@@ -36,7 +36,7 @@ a img
 /* XHTML change: globally remove borders from images inside <a> blocks */
 img.entityicon
 { 
-	margin-right: 2px;
+	margin-right: 3px;
 	vertical-align: baseline;
 }
 

@@ -125,9 +125,8 @@
 
        	#$m->comp("/comp/linkartist", id => $track->GetArtist, name => $track->GetArtistName);
 
-
 		my $artist = $m->comp("/comp/loadartist", $mb, $track->GetArtist);
-       	$m->comp("/comp/linkartist", artist => $artist, strong => 0);
+       	$m->comp("/comp/linkartist", artist => $artist, strong => 0, icon => 0);
 
 		if (exists $session{user} and $showmodlinks)
 		{

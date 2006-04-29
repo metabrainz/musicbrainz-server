@@ -36,8 +36,8 @@
 
 	$m->out(qq!<strong>!);
 	$m->out(qq!<a href="/doc/$pagename">!);
-	$m->out(qq!<img src="/images/icon/wikidocs.gif" alt="$linktext" />!);
-	$m->out(qq!&nbsp;$linktext</a>!);
+	$m->out(qq!<img src="/images/icon/wikidocs.gif" alt="$linktext" class="entityicon" />!);
+	$m->out(qq!$linktext</a>!);
 	$m->out(qq!</strong>!);
 
 </%perl>

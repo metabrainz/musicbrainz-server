@@ -62,7 +62,7 @@
 	$sortname = $sortname || $name;
 
 	$m->out(qq!<strong>!) if ($strong);
-	$m->out(qq!<img src="/images/icon/artist.gif" alt="" class="entityicon" />!) if ($icon);
+	$m->out(qq!<img src="/images/entity/artist_small.gif" alt="Artist" class="entityicon" />!) if ($icon);
 
 	# if the MBID is defined, use the "preferred" way of displaying artist links.
 	$m->out(sprintf qq!<a href="%s" title="%s">%s</a>!,

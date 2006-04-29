@@ -69,18 +69,30 @@
 
 		<& /comp/autofixmenu &>
 
-		<& /comp/layout/editformbegin, title => "Edit Release Name", release => $release &>
+		<& /comp/layout/editformbegin, title => "Edit Release Title", release => $release &>
 
 		<table class="formstyle">
 			<tr>
+				<td class="instructions" colspan="2">
+					<ul>
+						<li>
+							This form allows you to edit the <& /comp/linkdoc, "ReleaseTitle",
+							"title of this release" &>. Please read the <& /comp/linkdoc,
+							"StyleGuideline", "style guidelines" &> before entering
+							any edits.
+						</li>
+					</ul>
+				</td>
+			</tr>
+			<tr>
 				<td class="label">
-					<label>Current&nbsp;Name:</label></td>
+					<label>Current&nbsp;Title:</label></td>
 				<td>
 					<& /comp/form/currentvalue, release => $release &></td>
 			</tr>
 			<tr>
 				<td class="label">
-					<label for="editalbum_newalbumname">New Name:</label></td>
+					<label for="editalbum_newalbumname">New Title:</label></td>
 				<td class="field">
 					<input type="text" class="textfield" size="50"
 						id="editalbum_newalbumname" name="newalbumname"
