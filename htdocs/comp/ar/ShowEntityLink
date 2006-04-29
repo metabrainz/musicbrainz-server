@@ -1,25 +1,63 @@
-%# vi: set ts=4 sw=4 ft=mason :
+<%perl>
+	# -----------------------------------------------------------------------------
+	#                               Musicbrainz.org
+	#                        Copyright (c) 2001 Robert Kaye
+	# -----------------------------------------------------------------------------
+	#  This software is provided "as is", without warranty of any kind, express or
+	#  implied, including  but not limited  to the warranties of  merchantability,
+	#  fitness for a particular purpose and noninfringement. In no event shall the
+	#  authors or  copyright  holders be  liable for any claim,  damages or  other
+	#  liability, whether  in an  action of  contract, tort  or otherwise, arising
+	#  from,  out of  or in  connection with  the software or  the  use  or  other
+	#  dealings in the software.
+	#
+	#  GPL - The GNU General Public License    http://www.gnu.org/licenses/gpl.txt
+	#  Permits anyone the right to use and modify the software without limitations
+	#  as long as proper  credits are given  and the original  and modified source
+	#  code are included. Requires  that the final product, software derivate from
+	#  the original  source or any  software  utilizing a GPL  component, such  as
+	#  this, is also licensed under the GPL license.
+	# -----------------------------------------------------------------------------
+	#
+	# Summary:
+	# -----------------------------------------------------------------------------
+	# Render the cancel link for the given target.
+	#
+	# $URL$
+	# $Id$
+	#
+</%perl>
 <%args>
-$id
-$name
-$type
-$simple=>1
-$url=>""
-$linktypeid=>0
+	$id
+	$name
+	$type
+	$simple => 1
+	$url => ""
+	$linktypeid => 0
 </%args>
+<%perl>
 
-% if (!$simple) {
-    <% $type eq "url" ? "URL:" : ucfirst($type) . ":" %>
-% } 
-% if ($type eq 'artist') {
-    <a href="/showartist.html?artistid=<% $id %>"><% $name %></a> 
-% } elsif ($type eq 'album') {
-    <a href="/showalbum.html?albumid=<% $id %>"><% $name %></a>
-% } elsif ($type eq 'track') { 
-	<a href="/showtrack.html?trackid=<% $id %>"><% $name %></a>
-% } elsif ($type eq 'url') {
-%   my ($u, $n) = ( ($url || $name), ($name || $url) );
-	<a href="<% $u %>" rel="nofollow"><% $n %></a>
-% } else { 
-	<% $name %>
-% }
+	my $typeshow = ($type eq "album" ? "release" : $type);
+	my $typename = ($type eq "url" ? "URL" : $typeshow);
+
+	if ($typeshow eq "artist" or
+		$typeshow eq "release" or
+		$typeshow eq "track")
+	{
+		$m->comp("/comp/link$typeshow", id => $id, name => $name);
+		$m->out(" (".ucfirst($typename).")") if (!$simple);
+
+	}
+	elsif ($type eq "url")
+	{
+		my ($u, $n) = ( ($url || $name), ($name || $url) );
+
+		$m->comp("/comp/linkurl", id => $id, name => $name);
+		# <a href="<% $u %>" rel="nofollow"><% $n %></a>
+	}
+	else
+	{
+		$m->out($m->interp->apply_escapes($name, 'h'));
+	}
+
+</%perl>

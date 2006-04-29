@@ -1,79 +1,106 @@
-%# vi: set ts=4 sw=4 ft=mason :
+<%perl>
+	# -----------------------------------------------------------------------------
+	#                               Musicbrainz.org
+	#                        Copyright (c) 2001 Robert Kaye
+	# -----------------------------------------------------------------------------
+	#  This software is provided "as is", without warranty of any kind, express or
+	#  implied, including  but not limited  to the warranties of  merchantability,
+	#  fitness for a particular purpose and noninfringement. In no event shall the
+	#  authors or  copyright  holders be  liable for any claim,  damages or  other
+	#  liability, whether  in an  action of  contract, tort  or otherwise, arising
+	#  from,  out of  or in  connection with  the software or  the  use  or  other
+	#  dealings in the software.
+	#
+	#  GPL - The GNU General Public License    http://www.gnu.org/licenses/gpl.txt
+	#  Permits anyone the right to use and modify the software without limitations
+	#  as long as proper  credits are given  and the original  and modified source
+	#  code are included. Requires  that the final product, software derivate from
+	#  the original  source or any  software  utilizing a GPL  component, such  as
+	#  this, is also licensed under the GPL license.
+	# -----------------------------------------------------------------------------
+	#
+	# Summary:
+	# -----------------------------------------------------------------------------
+	# Renders the available relationship editing links for the current
+	# entity being displayed.
+	#
+	# $URL$
+	# $Id$
+	#
+</%perl>
 <%args>
-$id
-$type
-$name=>''
-$short=>0
-$isrelpage=>0
-$expanded=>0
-$count=>0
+	$id
+	$type
+	$name => ""
+	$short => 0
+	$isrelpage => 0
+	$expanded => 0
+	$count => 0
 </%args>
 <%perl>
 
-return undef if (!$session{uid} && $isrelpage);
+	return undef if (!$session{uid} && $isrelpage);
 
-my $typename = ($type eq "url" ? "URL" : $type);
-my $link = $short ? "Add relationship" : "Use this $typename in a relationship";
+	my $typeshow = ($type eq "album" ? "release" : $type);
+	my $typename = ($type eq "url" ? "URL" : $typeshow);
 
-my $recent_links = ($session{recent_links} ||= []);
-my $ename = uri_escape($name);
+	my $link = $short ? "Add relationship" : "Use this $typename in a relationship";
 
-$m->out("[ ");
-if ($session{uid})
-{
-	if ($isrelpage)
+
+
+	my $recent_links = ($session{recent_links} ||= []);
+	my $ename = uri_escape($name);
+
+	$m->out("[ ");
+	if ($session{uid})
 	{
-        $m->out('<a href="/showrel.html?id='.$id.'&amp;type='.$type.'&amp;addrel=1">'.$link.'</a> ');
-		if (scalar(@$recent_links) == 0 && $name ne '')
+		if ($isrelpage)
 		{
-			$m->out(qq! | <a href="/edit/relationship/addurl.html?id=$id&amp;type=$type&amp;name=$ename">Relate to URL</a>!);
-		}
-		if ($count)
-		{
-			if ($expanded)
+			$m->out(qq!<a href="/showrel.html?id=$id&amp;type=$type&amp;addrel=1">$link</a> !);
+			if (scalar(@$recent_links) == 0 && $name ne "")
 			{
-				$m->out(qq! | <a href="/showrel.html?id=$id&amp;type=$type">Compact listing</a>!);
+				$m->out(qq! | <a href="/edit/relationship/addurl.html?id=$id&amp;type=$type&amp;name=$ename">Relate to URL</a>!);
 			}
-			else
+			if ($count)
 			{
+				$m->out(sprintf qq! | <a href="/showrel.html?id=$id&amp;type=$type%s">%s</a>!,
+						$expanded ? "" : "&amp;expanded=1",
+						$expanded ? "Compact listing" : "Edit relationships");
+			}
+		}
+		else
+		{
+			$m->out(sprintf qq!<a href="/show/%s/?%sid=%s&amp;addrel=1">%s</a> !, $typeshow, $typeshow, $id, $link);
+
+			if (scalar(@$recent_links) == 0 && $name ne "")
+			{
+				$m->out(qq! | <a href="/edit/relationship/addurl.html?id=$id&amp;type=$type&amp;name=$ename">Relate to URL</a>!);
+			}
+			if ($count)
+			{
+				$m->out(qq! | <a href="/showrel.html?id=$id&amp;type=$type">View all relationships</a>!);
 				$m->out(qq! | <a href="/showrel.html?id=$id&amp;type=$type&amp;expanded=1">Edit relationships</a>!);
 			}
-     	}
+		}
+
+		# show add CC link for releases/tracks
+		$m->out(qq! | <a href="/edit/relationship/addcc.html?id=$id&amp;type=$type&amp;name=$ename">Add CC License</a> !)
+			if ($type eq "album" or $type eq "track");
 	}
 	else
 	{
-        $m->out('<a href="/show'.$type.'.html?'.$type.'id='.$id.'&amp;addrel=1">'.$link.'</a> ');
-		if (scalar(@$recent_links) == 0 && $name ne '')
+		if (!$isrelpage)
 		{
-			$m->out(qq! | <a href="/edit/relationship/addurl.html?id=$id&amp;type=$type&amp;name=$ename">Relate to URL</a>!);
-		}
-		if ($count)
-		{
-			$m->out(qq! | <a href="/showrel.html?id=$id&amp;type=$type">View all relationships</a>!);
-			$m->out(qq! | <a href="/showrel.html?id=$id&amp;type=$type&amp;expanded=1">Edit relationships</a>!);
+			$m->out(qq! <a href="/showrel.html?id=$id&amp;type=$type">View all relationships</a>!);
 		}
 	}
 
-	if ($type eq 'album')
+	# show the edit relationship types link if the user
+	# has the permissions
+	if (UserStuff->IsLinkModerator($session{privs}))
 	{
-		$m->out(qq! | <a href="/edit/relationship/addcc.html?id=$id&amp;type=album&amp;name=$ename">Add CC License</a> !);
+		$m->out(qq! | <a href="/edit/relationships/link_type_roots.html">Edit link types</a> !);
 	}
-	if ($type eq 'track')
-	{
-		$m->out(qq! | <a href="/edit/relationship/addcc.html?id=$id&amp;type=track&amp;name=$ename">Add CC License</a> !);
-	}
-}
-else
-{
-	if (!$isrelpage)
-	{
-	    $m->out(qq! <a href="/showrel.html?id=$id&amp;type=$type">View all relationships</a>!);
-	}
-}
+	$m->out(" ]");
 
-if (UserStuff->IsLinkModerator($session{privs}))
-{
-	$m->out(qq! | <a href="/edit/relationships/link_type_roots.html">Edit link types</a> !);
-}
-$m->out(" ]");
 </%perl>
