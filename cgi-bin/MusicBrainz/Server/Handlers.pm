@@ -58,12 +58,24 @@ sub TransHandler
 	# Temporary hack: keep track of which IPs are running MB Taggers
 	track_mb_taggers($r);
 
-	# These ones are the "permanent URLs" to HTML pages
+	# These ones are the "permanent URLs" using the MBID
+	# as the query parameter to redirect to the /show/entity/ HTML page
 	# /(artist|album|track)/$GUID.html
 	if ($uri =~ m[^/(artist|release|album|track)/($GUID)\.html\z])
 	{
 		my $entity = ($1 eq "album" ? "release" : $1);
-		my $new_uri = "/show/$entity/?mbid=$2";
+		my $new_uri = "/show/".$entity."/?mbid=$2";
+		$new_uri .= "&" . $r->args if defined $r->args;
+		return use_new_uri($r, $new_uri);
+	}
+
+	# These ones are the "inpermantent URLs" using the ROWID
+	# as the query parameter to redirect to the /show/entity/ HTML page
+	# /(artist|album|track)/\d+.html
+	if ($uri =~ m[^/(artist|release|album|track)/(\d+)\.html\z])
+	{
+		my $entity = ($1 eq "album" ? "release" : $1);
+		my $new_uri = "/show/".$entity."/?".$entity."id=$2";
 		$new_uri .= "&" . $r->args if defined $r->args;
 		return use_new_uri($r, $new_uri);
 	}
@@ -96,16 +108,31 @@ sub TransHandler
 	# Includes mm-2.0 (RDF) and also can negotiate to HTML.
 	return negotiate_artist($r, $1, $2, $3)
 		if $uri =~ m[^/artist/($GUID)(?:/(.*?))?(?:\?(.*))?\z];
+
 	return negotiate_album($r, $1, $2, $3)
 		if $uri =~ m[^/album/($GUID)(?:/(.*?))?(?:\?(.*))?\z];
+
 	return negotiate_track($r, $1, $2, $3)
 		if $uri =~ m[^/track/($GUID)(?:/(.*?))?(?:\?(.*))?\z];
+
 	# /(trm|trmid)/$GUID [/path...] [?query...]
 	return negotiate_trm($r, $1, $2, $3)
 		if $uri =~ m[^/(?:trm|trmid)/($GUID)(?:/(.*?))?(?:\?(.*))?\z];
+
 	# /(cdindex|discid)/$GUID [/path...] [?query...]
 	return negotiate_discid($r, $1, $2, $3)
 		if $uri =~ m[^/(?:cdindex|discid)/($discid)(?:/(.*?))?(?:\?(.*))?\z];
+
+	# Since we have not handled any other case, let's just perform a 
+	# lucene search lookup with the given text.
+	# this allows to call the artist|release/track namespace with an
+	# arbitrary string, like /artist/Frou+Frou, with or without html
+	if ($uri =~ m[^/(artist|release|track)/(.+)(\.html)?\z])
+	{
+		my $entity = ($1 eq "album" ? "release" : $1);
+		my $new_uri = "/search/textsearch.html?type=".$entity."&query=$2";
+		return use_new_uri($r, $new_uri);
+	}
 
 	DECLINED;
 }
