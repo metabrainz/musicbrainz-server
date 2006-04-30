@@ -12,3 +12,4 @@ $m->comp("/comp/sidebar", title => "Error")
 $m->comp("/comp/footer")
 	if $fFooter;
 </%perl>
+z

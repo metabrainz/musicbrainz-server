@@ -1,96 +1,146 @@
-%# vi: set ts=4 sw=4 ft=mason :
+<%perl>
+	# -----------------------------------------------------------------------------
+	#                               Musicbrainz.org
+	#                        Copyright (c) 2001 Robert Kaye
+	# -----------------------------------------------------------------------------
+	#  This software is provided "as is", without warranty of any kind, express or
+	#  implied, including  but not limited  to the warranties of  merchantability,
+	#  fitness for a particular purpose and noninfringement. In no event shall the
+	#  authors or  copyright  holders be  liable for any claim,  damages or  other
+	#  liability, whether  in an  action of  contract, tort  or otherwise, arising
+	#  from,  out of  or in  connection with  the software or  the  use  or  other
+	#  dealings in the software.
+	#
+	#  GPL - The GNU General Public License    http://www.gnu.org/licenses/gpl.txt
+	#  Permits anyone the right to use and modify the software without limitations
+	#  as long as proper  credits are given  and the original  and modified source
+	#  code are included. Requires  that the final product, software derivate from
+	#  the original  source or any  software  utilizing a GPL  component, such  as
+	#  this, is also licensed under the GPL license.
+	# -----------------------------------------------------------------------------
+	#
+	# Summary:
+	# -----------------------------------------------------------------------------
+	# Remove an artist
+	#
+	# $URL$
+	# $Id$
+	#
+</%perl>
 <%args>
-$artist => ""
-$notetext => ""
-$btnNo => undef
+	$artistid => ""
+	$artist => ""
+
+	$submit => ""
+	$notetext => ""
+	$btnNo => undef
 </%args>
 <%perl>
 
-$m->comp("/comp/checkloggedin", 1, 1)
-	or return;
+	# backwards compability, we'll use "artistid" internally.
+	$artistid ||= $artist;
 
-MusicBrainz::IsNonNegInteger($artist) && $artist
-	or return $m->comp("/comp/badargs", 1, 1);
+	# only logged in users can see this page
+	$m->comp("/comp/checkloggedin", 1, 1)
+		or return;
 
-$artist != &ModDefs::VARTIST_ID && $artist != &ModDefs::DARTIST_ID
-	or return $m->comp(
-		"/comp/error",
-		"This artist cannot be deleted.",
-		1, 1,
-	);
+	MusicBrainz::IsNonNegInteger($artistid) && $artistid
+		or return $m->comp("/comp/layout/badarguments",
+			text => "Required Argument <strong>artistid</strong> is missing "
+				   ."or has  an invalid format.");
 
-my $mb = $m->comp("/comp/dblogin");
+	$artistid != &ModDefs::VARTIST_ID and $artistid != &ModDefs::DARTIST_ID
+		or return $m->comp("/comp/layout/badarguments",
+			text => "Removing the <strong>DELETED_ARTIST</strong> or "
+				   ."<strong>VARIOUS_ARTISTS</strong> is not allowed.");
 
-my $ar = Artist->new($mb->{DBH});
-$ar->SetId($artist);
-$ar->LoadFromId
-	or return $m->comp(
-		"/comp/error",
-		"Artist #$artist does not exist",
-		1, 1,
-	);
+	# Instantiate MusicBrainz object, load artist from database
+	my $mb = $m->comp("/comp/dblogin");
+	$artist = $m->comp("/comp/loadartist", $mb, $artistid);
 
-return $m->comp(
-	"/comp/error",
-	"This artist cannot be deleted - it is in use",
-	1, 1,
-) if $ar->InUse;
+	# Disallow removal of used artists
+	if ($artist->InUse)
+	{
+		return $m->comp("/comp/layout/error",
+			backurl => "/artist/".$artist->GetMBId.".html",
+			title => "Artist is still in use!",
+			text => "This artist cannot be deleted, because there are still releases, "
+				   ."tracks and/or relationships attributed to it.");
+	}
 
-my $url = "/search.html";
+	# If submit is non-empty, we got a form submission to handle
+	if ($submit ne "")
+	{
 
-if (defined $btnNo)
-{
-	return $m->comp("/comp/redirect", $url); 
-}
+		if ($submit =~ m/Cancel/i)
+		{
+			return $m->comp("/comp/redirect", "/artist/".$artist->GetMBId.".html");
+		}
+		elsif ($submit =~ m/Remove Artist/i)
+		{
+			$m->comp(
+				"/comp/entermods",
+				DBH => $mb->{DBH},
+				sub => sub {
+					my @mods = Moderation->InsertModeration(
+						DBH	=> $mb->{DBH},
+						uid	=> $session{uid},
+						privs => $session{privs},
+						type => &ModDefs::MOD_REMOVE_ARTIST,
+						# --
+						artist => $artist,
+					);
 
-if ($ARGS{confirm})
-{
-	$m->comp(
-		"/comp/entermods",
-		DBH => $mb->{DBH},
-		sub => sub {
-			my @mods = Moderation->InsertModeration(
-				DBH	=> $mb->{DBH},
-				uid	=> $session{uid},
-				privs => $session{privs},
-				type => &ModDefs::MOD_REMOVE_ARTIST,
-				# --
-				artist => $ar,
-			);
+					$mods[0]->InsertNote($session{'uid'}, $notetext)
+						if $mods[0]
+						and $notetext =~ /\S/;
+				},
+				success_url => "/search.html",
+			) or return;
 
-			$mods[0]->InsertNote($session{'uid'}, $notetext)
-				if $mods[0]
-				and $notetext =~ /\S/;
-		},
-		success_url => $url,
-	) or return;
-
-	die "Shouldn't get here";
-}
-
+			die "Shouldn't get here";
+		}
+	}
 </%perl>
 
-<& /comp/sidebar, title => 'Confirm Artist Removal' &>
+<& /comp/sidebar-notitle, pagetitle => "Confirm Artist Removal" &>
+	<& /comp/tablebegin, title => "Confirm Artist Removal" &>
 
-<form method="post" action="/edit/artist/remove.html">
-<fieldset>
-	<legend>Confirm Artist Removal</legend>
-	<div class="padleft">
-		Are you sure you want to remove artist
-		<strong><% $ar->GetName %></strong>?
-	</div>
-	<div class="padlefttop">
-		<input type="hidden" name="url" value="<% $url %>" />
-		<input type="hidden" name="artist" value="<% $artist %>" />
-		<input type="hidden" name="confirm" value="1" />
-		<input name="btnNo" id="btnNo" type="submit" class="button" value="&laquo; NO" onclick="history.go(-1); return false" />
-		<input name="btnYes" type="submit" class="button" value="YES &raquo;" />
-	</div>
-	<div class="padlefttop">
-		<& /comp/notetext &>
-	</div>
-</fieldset>
-</form>	
+	<!-- add editsuite for modnote resizer support -->
+	<script type="text/javascript" src="/scripts/editsuite.js"></script>
+
+	<form method="post" action="/edit/artist/remove.html">
+		<table class="formstyle">
+			<tr>
+				<td class="instructions">
+					<ul>
+						<li>
+							Please review the documentation about
+							<& /comp/linkdoc, "RemoveArtistEdit", "Removing Artists" &>,
+							before entering this edit.</li>
+						<li>
+							Are you sure you want to remove artist
+							<& /comp/linkartist, artist => $artist &>
+							from MusicBrainz?</li>
+					</ul>
+				</td>
+			</tr>
+			<tr class="spaced">
+				<td class="notetext">
+					<& /comp/notetext &></td>
+			</tr>
+			<tr>
+				<td>
+					<input type="hidden" name="artistid" value="<% $artistid %>" />
+					<input type="hidden" name="confirm" value="1" />
+					<input class="button" name="submit" type="submit" id="btnNo" value="Cancel" />
+					<input class="button" name="submit" type="submit" value="Remove Artist" />
+				</td>
+			</tr>
+		</table>
+	</form>
+
+	<& /comp/tableend &>
 
 <& /comp/movefocus, id => "btnNo" &>
 <& /comp/footer &>

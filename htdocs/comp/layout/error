@@ -1,0 +1,46 @@
+%# vi: set ts=4 sw=4 ft=mason :
+<%args>
+	$pagetitle => "Error"
+	$title => "Unspecified error"
+	$text
+	$backurl => undef
+
+	$header => 1
+	$footer => 1
+</%args>
+<%perl>
+
+	$m->comp("/comp/sidebar-notitle", pagetitle => "Error")
+		if $header;
+
+	$m->comp("/comp/tablebegin", title => $title);
+	$m->out($text);
+
+	if (defined $backurl)
+	{
+		$m->out(qq!<form method="get" action="$backurl">!);
+		$m->out(qq!  <div><input type="submit" value="Back" /></div>!);
+		$m->out(qq!</form>!);
+	}
+
+	$m->comp("/comp/tableend");
+
+	# add this error to our bug tracker?
+	my $mb = $m->comp("/comp/dblogin");
+
+	my $component = "MusicBrainz Server";
+	my $summary = "Error";
+	my $user = UserStuff->newFromId($mb->{DBH}, $session{"uid"}) or die("fatal");
+	my $reporter = $user->GetName;
+	my $description = uri_escape("Error was: $text");
+	my $ticketURL = "http://bugs.musicbrainz.org/newticket?component=$component&amp;summary=$summary&amp;reporter=$reporter&amp;description=$description";
+
+	$m->comp("/comp/tablebegin", title => "Found a bug?");
+	$m->out(qq!If you think this is not a feature, but a bug - Please let us know, and enter !);
+	$m->out(qq!it on <a href="$ticketURL" title="MusicBrainz Bug Tracker">our bug tracker</a>. Thanks !);
+	$m->comp("/comp/tableend");
+
+	$m->comp("/comp/footer")
+		if $footer;
+
+</%perl>

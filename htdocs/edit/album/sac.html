@@ -53,7 +53,7 @@
 
 		# if submit does not contain YES, (=NO was pressed), redirect
 		# back to calling page.
-		if ($submit !~ /Enter Moderation/i)
+		if ($submit =~ m/Cancel/i)
 		{
 			$m->comp("/comp/redirect", $url);
 			return;

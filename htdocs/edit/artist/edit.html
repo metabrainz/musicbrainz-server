@@ -1,4 +1,32 @@
-%# vi: set ts=2 sw=2 ft=mason :
+<%perl>
+	# -----------------------------------------------------------------------------
+	#                               Musicbrainz.org
+	#                        Copyright (c) 2001 Robert Kaye
+	# -----------------------------------------------------------------------------
+	#  This software is provided "as is", without warranty of any kind, express or
+	#  implied, including  but not limited  to the warranties of  merchantability,
+	#  fitness for a particular purpose and noninfringement. In no event shall the
+	#  authors or  copyright  holders be  liable for any claim,  damages or  other
+	#  liability, whether  in an  action of  contract, tort  or otherwise, arising
+	#  from,  out of  or in  connection with  the software or  the  use  or  other
+	#  dealings in the software.
+	#
+	#  GPL - The GNU General Public License    http://www.gnu.org/licenses/gpl.txt
+	#  Permits anyone the right to use and modify the software without limitations
+	#  as long as proper  credits are given  and the original  and modified source
+	#  code are included. Requires  that the final product, software derivate from
+	#  the original  source or any  software  utilizing a GPL  component, such  as
+	#  this, is also licensed under the GPL license.
+	# -----------------------------------------------------------------------------
+	#
+	# Summary:
+	# -----------------------------------------------------------------------------
+	# Edit an existing artist
+	#
+	# $URL$
+	# $Id$
+	#
+</%perl>
 <%args>
 	$id => ""
 	$name => ""
@@ -44,21 +72,12 @@
 		or return $m->comp("/comp/layout/badarguments",
 			text => "Argument resolution has an invalid format.");
 
-
-	# get database handle
+	# Instantiate MusicBrainz object, load artist from database
 	my $mb = $m->comp("/comp/dblogin");
+	my $artist = $m->comp("/comp/loadartist", $mb, $id);
 
-	# load artist from database
-	my $ar = Artist->new($mb->{DBH});
-	$ar->SetId($id);
-	$ar->LoadFromId or return $m->comp(
-			"/comp/error",
-			"Artist not found in the database.",
-			1, 1,
-		);
-
-	$name = $ar->GetName() if !$name;
-	$sortname = $ar->GetSortName() if !$sortname;
+	$name = $artist->GetName() if !$name;
+	$sortname = $artist->GetSortName() if !$sortname;
 
 	# Try to load the named artist by name. If an artist comes up,
 	# give the user a stern warning about editing a duplicate artist.
@@ -71,7 +90,7 @@
 		foreach my $item (@$artists)
 		{
 			# do not check same entity.
-			next if ($item->GetId == $ar->GetId);
+			next if ($item->GetId == $artist->GetId);
 
 			# if entity has the same name, and the resolution
 			# is set, store this artist as the duplicate.
@@ -89,9 +108,11 @@
 	my @messages = ();
 	if ($submit ne "")
 	{
+		my $url = "/artist/".$artist->GetMBId.".html";
+
 		if ($submit =~ m/Cancel/i)
 		{
-			return $m->comp("/comp/redirect", "/show/artist/?artistid=$id");
+			return $m->comp("/comp/redirect", $url);
 		}
 		else
 		{
@@ -112,12 +133,12 @@
 				if (@dupes and ($resolution eq "" or not $confirm));
 
 			push @messages, "You have not made any changes"
-				if ($name eq $ar->GetName and
-					$sortname eq $ar->GetSortName and
-					$resolution eq $ar->GetResolution and
-					$type == $ar->GetType and
-					MusicBrainz::MakeDBDateStr($begindate_y, $begindate_m, $begindate_d) eq $ar->GetBeginDate and
-					MusicBrainz::MakeDBDateStr($enddate_y, $enddate_m, $enddate_d) eq $ar->GetEndDate);
+				if ($name eq $artist->GetName and
+					$sortname eq $artist->GetSortName and
+					$resolution eq $artist->GetResolution and
+					$type == $artist->GetType and
+					MusicBrainz::MakeDBDateStr($begindate_y, $begindate_m, $begindate_d) eq $artist->GetBeginDate and
+					MusicBrainz::MakeDBDateStr($enddate_y, $enddate_m, $enddate_d) eq $artist->GetEndDate);
 
 			# no error message was raised, we can go ahead and add
 			# the new artist entry.
@@ -137,7 +158,7 @@
 							privs => $session{privs},
 							type => &ModDefs::MOD_EDIT_ARTIST,
 							# --
-							artist => $ar,
+							artist => $artist,
 							name => $name,
 							sortname => $sortname,
 							artist_type => $type,
@@ -149,7 +170,7 @@
 						$mods[0]->InsertNote($session{'uid'}, $notetext)
 							if $mods[0] and $notetext =~ /\S/;
 					},
-					success_url => "/show/artist/?artistid=$id",
+					success_url => $url,
 				) or return;
 
 				die "Shouldn't get here";
@@ -159,13 +180,13 @@
 	else
 	{
 		# Set reasonable default values
-		$name = $ar->GetName() if ($name eq "");
-		$sortname = $ar->GetSortName() if ($sortname eq "");
-		$resolution = $ar->GetResolution() if ($resolution eq "");
-		$type = $ar->GetType() if ($ar->GetType() and $type == -1); # else we default to 0
-		($begindate_y, $begindate_m, $begindate_d) = $ar->GetBeginDateYMD()
+		$name = $artist->GetName() if ($name eq "");
+		$sortname = $artist->GetSortName() if ($sortname eq "");
+		$resolution = $artist->GetResolution() if ($resolution eq "");
+		$type = $artist->GetType() if ($artist->GetType() and $type == -1); # else we default to 0
+		($begindate_y, $begindate_m, $begindate_d) = $artist->GetBeginDateYMD()
 			unless grep { $_ } ($begindate_y, $begindate_m, $begindate_d);
-		($enddate_y, $enddate_m, $enddate_d) = $ar->GetEndDateYMD()
+		($enddate_y, $enddate_m, $enddate_d) = $artist->GetEndDateYMD()
 			unless grep { $_ } ($enddate_y, $enddate_m, $enddate_d);
 	}
 
@@ -179,7 +200,7 @@
 
 		<& /comp/autofixmenu &>
 
-		<& /comp/layout/editformbegin, title => "Edit Artist", artist => $ar &>
+		<& /comp/layout/editformbegin, title => "Edit Artist", artist => $artist &>
 
 		<table class="formstyle">
 			<tr>
@@ -208,7 +229,7 @@
 
 			<& /edit/artist/main-form,
 				action			=> '/edit/artist/edit.html',
-				artist			=> $ar,
+				artist			=> $artist,
 				name			=> $name,
 				sortname		=> $sortname,
 				type			=> $type,

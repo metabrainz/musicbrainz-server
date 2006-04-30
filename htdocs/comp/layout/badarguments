@@ -13,7 +13,7 @@
 		if $header;
 
 	$m->comp("/comp/tablebegin", title => $title);
-	$m->out(encode_entities($text));
+	$m->out($text);
 	$m->comp("/comp/tableend");
 
 	$m->comp("/comp/footer")

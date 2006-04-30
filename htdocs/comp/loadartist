@@ -93,7 +93,6 @@
 	my $user = UserStuff->newFromId($mb->{DBH}, $session{"uid"}) or die("fatal");
 	my $reporter = $user->GetName;
 	my $description = uri_escape("Error was: $error");
-
 	my $ticketURL = "http://bugs.musicbrainz.org/newticket?component=$component&summary=$summary&reporter=$reporter&description=$description";
 
 	$m->comp("/comp/tablebegin", title => "Found a bug?");

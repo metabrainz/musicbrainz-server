@@ -27,7 +27,6 @@
 	my $searchbtn = "Search";
 	if ($submit ne "")
 	{
-		$searchlabel = "Search again:";
 		$searchbtn = "Search again";
 	}
 </%perl>
@@ -152,7 +151,7 @@
 % 	}
 
 
-%	if ($submit ne "" && $search ne "")
+%	if ($search ne "")
 %	{
 
 		<tr class="spaced top">

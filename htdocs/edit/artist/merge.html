@@ -1,104 +1,211 @@
-%# vi: set ts=2 sw=2 ft=mason :
+<%perl>
+ 	# -----------------------------------------------------------------------------
+ 	#                               Musicbrainz.org
+ 	#                        Copyright (c) 2001 Robert Kaye
+ 	# -----------------------------------------------------------------------------
+ 	#  This software is provided "as is", without warranty of any kind, express or
+ 	#  implied, including  but not limited  to the warranties of  merchantability,
+ 	#  fitness for a particular purpose and noninfringement. In no event shall the
+ 	#  authors or  copyright  holders be  liable for any claim,  damages or  other
+ 	#  liability, whether  in an  action of  contract, tort  or otherwise, arising
+ 	#  from,  out of  or in  connection with  the software or  the  use  or  other
+ 	#  dealings in the software.
+ 	#
+ 	#  GPL - The GNU General Public License    http://www.gnu.org/licenses/gpl.txt
+ 	#  Permits anyone the right to use and modify the software without limitations
+ 	#  as long as proper  credits are given  and the original  and modified source
+ 	#  code are included. Requires  that the final product, software derivate from
+ 	#  the original  source or any  software  utilizing a GPL  component, such  as
+ 	#  this, is also licensed under the GPL license.
+ 	# -----------------------------------------------------------------------------
+ 	#
+ 	# Summary:
+ 	# -----------------------------------------------------------------------------
+ 	# Merge an artist into another
+ 	#
+ 	# $URL$
+ 	# $Id$
+ 	#
+</%perl>
 <%args>
-$id => ""
-$selectedartist => ""
-$search => ""
-$notetext => undef
+	$id => ""
+
+	# fields set by /comp/artistfilter
+	$selectedartist => ""
+	$newartistid => ""
+	$search => ""
+
+	# submit, and moderation note
+	$submit => ""
+	$notetext => undef
 </%args>
 <%perl>
 
-$m->comp("/comp/checkloggedin", 1, 1)
-	or return;
+	# only logged in users can see this page
+	$m->comp("/comp/checkloggedin", 1, 1)
+		or return;
 
-MusicBrainz::IsNonNegInteger($id) && $id
-	or return $m->comp("/comp/badargs", 1, 1);
+	MusicBrainz::IsNonNegInteger($id) && $id
+		or return $m->comp("/comp/layout/badarguments",
+			text => "Argument id has an invalid format.");
 
-$id == &ModDefs::VARTIST_ID || $id == &ModDefs::DARTIST_ID
-	and return $m->comp("/comp/badargs", 1, 1);
+	$id != &ModDefs::VARTIST_ID and $id != &ModDefs::DARTIST_ID
+		or return $m->comp("/comp/layout/badarguments",
+			text => "Merging the DELETED_ARTIST or VARIOUS_ARTISTS is not allowed.");
 
-my $mb = $m->comp("/comp/dblogin");
 
-my $ar = Artist->new($mb->{DBH});
-$ar->SetId($id);
-$ar->LoadFromId
-	or return $m->comp(
-		"/comp/error",
-		"Artist #$id not found.",
-		1, 1,
-	);
+	# Instantiate MusicBrainz object, load artist from database
+	my $mb = $m->comp("/comp/dblogin");
+	$artist = $m->comp("/comp/loadartist", $mb, $id);
 
-my $url = "/showartist.html?artistid=$id";
 
-if ($selectedartist ne "")
-{
-	MusicBrainz::IsNonNegInteger($selectedartist) && $selectedartist
-		or return $m->comp("/comp/badargs", 1, 1);
+	# form step 2/3: load selected artist from the database, and
+	# fill in the required fields
+	my $newartist = undef;
+	$selectedartist ||= $newartistid;
+	if ($selectedartist ne "")
+	{
+		$newartist = $m->comp("/comp/loadartist", $mb, $selectedartist);
+		$newartistid = $newartist->GetId;
+	}
 
-	my $target = Artist->new($mb->{DBH});
-	$target->SetId($selectedartist);
-	$target->LoadFromId
-		or return $m->comp(
-			"/comp/error",
-			"Artist #$selectedartist not found.",
-			1, 1,
-		);
+	# form step 3/3: enter moderation
+	if ($submit ne "")
+	{
+		# next url after the operation
+		my $url = "/artist/". $artist->GetMBId . ".html";
 
-	defined $notetext
-		or return $m->comp(
-			"/edit/artist/merge-confirm",
-			$ar, $target,
-		);
+		# if Cancel was pressed, redirect to calling page.
+		if ($submit =~ m/Cancel/i)
+		{
+			$m->comp("/comp/redirect", $url);
+			return;
+		}
 
-	$m->comp(
-		"/comp/entermods",
-		DBH => $mb->{DBH},
-		sub => sub {
-			my @mods = Moderation->InsertModeration(
-				DBH	=> $mb->{DBH},
-				uid	=> $session{uid},
-				privs => $session{privs},
-				type => &ModDefs::MOD_MERGE_ARTIST,
-				# --
-				source => $ar,
-				target => $target,
-			);
+		elsif (defined $newartist and
+			   defined $notetext)
+		{
+			$m->comp(
+				"/comp/entermods",
+				DBH => $mb->{DBH},
+				sub => sub {
+					my @mods = Moderation->InsertModeration(
+						DBH	=> $mb->{DBH},
+						uid	=> $session{uid},
+						privs => $session{privs},
+						type => &ModDefs::MOD_MERGE_ARTIST,
+						# --
+						source => $artist,
+						target => $newartist,
+					);
 
-			$mods[0]->InsertNote($session{'uid'}, $notetext)
-				if $mods[0]
-				and $notetext =~ /\S/;
-		},
-		success_url => $url,
-	) or return;
+					$mods[0]->InsertNote($session{'uid'}, $notetext)
+						if $mods[0]
+						and $notetext =~ /\S/;
+				},
+				success_url => $url,
+			) or return;
 
-	die "Shouldn't get here";
-}
+			die "Shouldn't get here";
+		}
+	}
 
-$search = $ar->GetName
-	unless defined $search and $search =~ /\S/;
+	# preset a meaningful search value. this triggers
+	# comp/artistfilter to perform a search.
+	$search = $artist->GetName
+		unless defined $search and $search =~ /\S/;
+
+	my $title = "Merge artist ${\ $artist->GetName } into another artist";
 
 </%perl>
 
-<& /comp/sidebar, title => "Merge artist '${\ $ar->GetName }' into another artist" &>
-
-% if ($ar->GetModPending) {
-    <& /comp/modpending &>
-% }
+<& /comp/sidebar-notitle, pagetitle =>  $title &>
+	<& /comp/layout/editformbegin, title => $title, artist => $artist &>
 
 
-<fieldset>
-	<legend>Select other artist </legend>
-	<div class="padleft">
-		Please search for the artist into which you want to merge 
-		<b><% $ar->GetName %></b> into.
-	</div>
-</fieldset>
+%	# if an artist was selected (or added), show confirm form.
+%	if (defined $newartist)
+%	{
 
-<& /comp/artistfilter,
-	search => $search,
-	dontshow => [$id],
-	allowcreate => 0,
-	url => "/edit/artist/merge.html",
-	arglist => { id => $id },
-	&>
+		<!-- add editsuite for modnote resizer support -->
+		<script type="text/javascript" src="/scripts/editsuite.js"></script>
 
+		<form method="post" action="/edit/artist/merge.html" id="ConfirmForm">
+			<table class="formstyle">
+				<tr>
+					<td colspan="2" class="instructions">
+						<ul>
+							<li>Are you sure you want to merge the artist
+								<& /comp/linkartist, artist => $artist &> into the
+								artist <& /comp/linkartist, artist => $newartist &>?
+							</li>
+						</ul>
+					</td>
+				</tr>
+				<tr class="spaced">
+					<td class="label">
+						<label>Confirm:</label></td>
+					<td class="field">
+						<input class="button" type="submit" name="submit" value="Cancel" />
+						<input class="button" type="submit" name="submit" value="Enter Moderation" />
+						<input type="hidden" name="id" value="<% $artist->GetId %>" />
+						<input type="hidden" name="newartistid" value="<% $newartist->GetId %>" />
+					</td>
+				</tr>
+				<tr>
+					<td>&nbsp;</td>
+					<td class="notetext">
+						<& /comp/notetext &>
+					</td>
+				</tr>
+			</table>
+		</form>
+		<& /comp/movefocus, "ModFormYes", "btnYes" &>
+
+%	} else {
+
+		<table class="formstyle">
+			<tr>
+				<td colspan="2" class="instructions">
+					<ul>
+						<li>
+							This wizard allows you to merge the artist <& /comp/linkartist,
+							artist => $artist &> into another artist. Please read the guideline on
+							<& /comp/linkdoc, "HowToMergeArtists", "How to Merge Artists" &> and the
+							general <& /comp/linkdoc, "StyleGuideline", "Style Guidelines" &>
+							before entering this edit.
+						</li>
+						<li>
+							Please enter the <& /comp/linkdoc, "ArtistName", "Artist Name" &>
+							of the artist you would like to merge this artist into, and
+							press <strong>Search</strong> to start the search.
+						</li>
+					</ul>
+				</td>
+			</tr>
+		</table>
+
+		<table class="formstyle">
+			<& /comp/artistfilter,
+				url => "/edit/artist/merge.html",
+				search => $search,
+				submit => $submit,
+
+				dontshow => [$id],
+				allowcreate => 0,
+				arglist => { id => $id },
+			&>
+			<tr>
+				<td class="label">&nbsp;</td>
+				<td class="field">
+					<form method="post" action="/edit/artist/merge.html" id="ConfirmForm">
+						<input type="hidden" name="id" value="<% $id %>" />
+						<input type="submit" name="submit" value="Cancel" />
+					</form></td>
+			</tr>
+		</table>
+
+%	}
+
+	<& /comp/layout/editformend &>
 <& /comp/footer &>
