@@ -81,7 +81,7 @@
 				<td>
 					<% scalar $artist->GetSubscribers %>
 					&nbsp;
-					[ <a href="/view/artist/subscriptions.html?artist=<% $artist->GetId %>">List</a>
+					[ <a href="/show/artist/subscriptions.html?artist=<% $artist->GetId %>">List</a>
 %	if (exists $session{user}
 %		and $artist->GetId != &ModDefs::VARTIST_ID
 %		and $artist->GetId != &ModDefs::DARTIST_ID)

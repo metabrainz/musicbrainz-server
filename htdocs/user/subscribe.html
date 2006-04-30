@@ -50,11 +50,11 @@ $subs->$method(@artists)
 
 # redirect user to subscribed users instead of the list of subscriptions
 # if we came from the artist page.
-if (@artistid == 1) 
+if (@artistid == 1)
 {
 	return $m->comp(
 		"/comp/redirect",
-		"/view/artist/subscriptions.html?artist=".$artistid[0],
+		"/show/artist/subscriptions.html?artist=".$artistid[0],
 	);
 
 } else
