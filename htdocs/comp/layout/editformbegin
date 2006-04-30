@@ -93,7 +93,7 @@
 			$type = "release" if ($type eq "album");
 
 			$m->out(qq!<table class="modpending"><tr><td> !);
-			$m->out(sprintf qq! 	There are pending %smoderations for !, "$mp_type_message ");
+			$m->out(sprintf qq! 	There are pending %sedits for !, "$mp_type_message ");
 			$m->out(qq! 	this $type. Please <a href="$mp_url">review the changes</a> !);
 			$m->out(qq! 	before entering a new edit. !);
 			$m->out(qq!</td></tr>!);
@@ -103,7 +103,7 @@
 		else
 		{
 			$m->out(qq!<table class="modpending"><tr><td> !);
-			$m->out(sprintf qq! 	Yellow highlights indicate pending %smoderations. !, "$mp_type_message ");
+			$m->out(sprintf qq! 	Yellow highlights indicate pending %sedits. !, "$mp_type_message ");
 			$m->out(qq!</td></tr></table> !);
 		}
 	}

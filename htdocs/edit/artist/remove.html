@@ -44,11 +44,13 @@
 	$m->comp("/comp/checkloggedin", 1, 1)
 		or return;
 
+	# check id argument
 	MusicBrainz::IsNonNegInteger($artistid) && $artistid
 		or return $m->comp("/comp/layout/badarguments",
 			text => "Required Argument <strong>artistid</strong> is missing "
 				   ."or has  an invalid format.");
 
+	# disallow removing special purpose artists
 	$artistid != &ModDefs::VARTIST_ID and $artistid != &ModDefs::DARTIST_ID
 		or return $m->comp("/comp/layout/badarguments",
 			text => "Removing the <strong>DELETED_ARTIST</strong> or "
@@ -76,7 +78,7 @@
 		{
 			return $m->comp("/comp/redirect", "/artist/".$artist->GetMBId.".html");
 		}
-		elsif ($submit =~ m/Remove Artist/i)
+		else
 		{
 			$m->comp(
 				"/comp/entermods",
@@ -104,6 +106,7 @@
 </%perl>
 
 <& /comp/sidebar-notitle, pagetitle => "Confirm Artist Removal" &>
+
 	<& /comp/tablebegin, title => "Confirm Artist Removal" &>
 
 	<!-- add editsuite for modnote resizer support -->
@@ -133,14 +136,14 @@
 				<td>
 					<input type="hidden" name="artistid" value="<% $artistid %>" />
 					<input type="hidden" name="confirm" value="1" />
-					<input class="button" name="submit" type="submit" id="btnNo" value="Cancel" />
-					<input class="button" name="submit" type="submit" value="Remove Artist" />
+					<input class="button" name="submit" type="submit" id="btnCancel" value="Cancel" />
+					<input class="button" name="submit" type="submit" value="Enter Moderation" />
 				</td>
 			</tr>
 		</table>
+		<& /comp/movefocus, id => "btnCancel" &>
 	</form>
 
 	<& /comp/tableend &>
 
-<& /comp/movefocus, id => "btnNo" &>
 <& /comp/footer &>

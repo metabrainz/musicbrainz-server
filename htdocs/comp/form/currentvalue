@@ -34,6 +34,7 @@
 </%perl>
 <%args>
 	$artist => undef
+	$alias => undef
 	$release => undef
 
 	$display => undef
@@ -41,28 +42,36 @@
 </%args>
 <%perl>
 
-	my ($type, $object, $mp);
+	my ($typestr, $typeicon, $object, $mp, $url);
 
 	if ($artist)
 	{
-		$type = "artist";
-		$object = $artist;
+		# Artist.pm does not expose methods to query for special
+		# modpending flags like Album.pm does.
+		# SWITCH: {
+		# 	if ($mp_type == &ModDefs::MOD_EDIT_ARTIST) { };
+		# 	if ($mp_type == &ModDefs::MOD_EDIT_ARTISTALIAS) { };
+		# 	if ($mp_type == &ModDefs::MOD_EDIT_ARTISTNAME) { };
+		# 	if ($mp_type == &ModDefs::MOD_EDIT_ARTISTSORTNAME) { };
+		# }
 
-		SWITCH: {
-			 # there are not methods which provide details of
-			 # pending artist moderation types
-			if ($mp_type == &ModDefs::MOD_EDIT_ARTIST) { };
-			if ($mp_type == &ModDefs::MOD_EDIT_ARTISTALIAS) { };
-			if ($mp_type == &ModDefs::MOD_EDIT_ARTISTNAME) { };
-			if ($mp_type == &ModDefs::MOD_EDIT_ARTISTSORTNAME) { };
-			$mp = $artist->GetModPending;
-		}
+		$typeicon = "artist";
+		$typestr = "Artist";
+		$object = $artist;
+		$mp = $artist->GetModPending;
+		$url = "/artist/".$artist->GetMBId.".html";
+	}
+	elsif ($alias)
+	{
+		$typeicon = "artist";
+		$typestr = "Artist Alias";
+		$object = $alias;
+		$mp = $alias->GetModPending;
+		$url = "/show/artist/aliases.html?artistid=".$alias->Parent->GetId;
+
 	}
 	elsif ($release)
 	{
-		$type = "album";
-		$object = $release;
-
   		SWITCH: {
 			if ($mp_type == &ModDefs::MOD_EDIT_ALBUM_LANGUAGE)
 			{
@@ -76,32 +85,28 @@
 			}
 			$mp = $release->GetModPending;
 		}
+		$typeicon = "release";
+		$typestr = "Release";
+		$object = $release;
+		$url = "/release/".$release->GetMBId.".html";
 	}
 	else
 	{
-		die("Did not get required \$artist or \$release argument.");
+		die("One of the entities must be provided.");
 	}
 
 	my $css = "oldtextfield" . ($mp ? "-modpending" : "");
-
 
 	# artistsortname can be passed in using the $display argument.
 	# if display is not set, fall back to name.
 	$display = $display || $object->GetName;
 
-
-	my $typeicon = $type;
-	$typeicon = "release" if ($typeicon eq "album");
-
 	# print the link.
-	$m->out(qq!<img src="/images/entity/! . $typeicon . qq!_small.gif" alt="" class="entityicon"/>!);
+	$m->out(qq!<img src="/images/entity/! . $typeicon . qq!_small.gif" alt="$typestr" class="entityicon"/>!);
 	$m->out(qq!<span class="$css">!);
-	$m->out(sprintf
-				qq!<a href="/%s/%s.html">%s</a>!,
-				$type,
-				$object->GetMBId,
-				$display
-			);
+	$m->out(sprintf	qq!<a href="%s">%s</a>!,
+					$url,
+					$display);
 	$m->out(qq!</span>!);
 
 </%perl>

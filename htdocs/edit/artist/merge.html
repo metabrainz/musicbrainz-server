@@ -29,6 +29,7 @@
 </%perl>
 <%args>
 	$id => ""
+	$artistid => undef
 
 	# fields set by /comp/artistfilter
 	$selectedartist => ""
@@ -40,23 +41,26 @@
 	$notetext => undef
 </%args>
 <%perl>
+	$artistid ||= $id;
 
 	# only logged in users can see this page
 	$m->comp("/comp/checkloggedin", 1, 1)
 		or return;
 
-	MusicBrainz::IsNonNegInteger($id) && $id
+	# check artistid argument
+	MusicBrainz::IsNonNegInteger($artistid) && $artistid
 		or return $m->comp("/comp/layout/badarguments",
-			text => "Argument id has an invalid format.");
+			text => "Argument artistid has an invalid format.");
 
-	$id != &ModDefs::VARTIST_ID and $id != &ModDefs::DARTIST_ID
+	# disallow merging special purpose artists
+	$artistid != &ModDefs::VARTIST_ID and $artistid != &ModDefs::DARTIST_ID
 		or return $m->comp("/comp/layout/badarguments",
 			text => "Merging the DELETED_ARTIST or VARIOUS_ARTISTS is not allowed.");
 
 
 	# Instantiate MusicBrainz object, load artist from database
 	my $mb = $m->comp("/comp/dblogin");
-	$artist = $m->comp("/comp/loadartist", $mb, $id);
+	my $artist = $m->comp("/comp/loadartist", $mb, $artistid);
 
 
 	# form step 2/3: load selected artist from the database, and
@@ -139,24 +143,18 @@
 								<& /comp/linkartist, artist => $artist &> into the
 								artist <& /comp/linkartist, artist => $newartist &>?
 							</li>
-						</ul>
-					</td>
+						</ul></td>
 				</tr>
 				<tr class="spaced">
-					<td class="label">
-						<label>Confirm:</label></td>
-					<td class="field">
-						<input class="button" type="submit" name="submit" value="Cancel" />
-						<input class="button" type="submit" name="submit" value="Enter Moderation" />
-						<input type="hidden" name="id" value="<% $artist->GetId %>" />
-						<input type="hidden" name="newartistid" value="<% $newartist->GetId %>" />
-					</td>
+					<td class="notetext">
+						<& /comp/notetext &></td>
 				</tr>
 				<tr>
-					<td>&nbsp;</td>
-					<td class="notetext">
-						<& /comp/notetext &>
-					</td>
+					<td>
+						<input class="button" type="submit" name="submit" value="Cancel" />
+						<input class="button" type="submit" name="submit" value="Enter Moderation" />
+						<input type="hidden" name="artistid" value="<% $artist->GetId %>" />
+						<input type="hidden" name="newartistid" value="<% $newartist->GetId %>" /></td>
 				</tr>
 			</table>
 		</form>
@@ -173,15 +171,12 @@
 							artist => $artist &> into another artist. Please read the guideline on
 							<& /comp/linkdoc, "HowToMergeArtists", "How to Merge Artists" &> and the
 							general <& /comp/linkdoc, "StyleGuideline", "Style Guidelines" &>
-							before entering this edit.
-						</li>
+							before entering this edit.</li>
 						<li>
 							Please enter the <& /comp/linkdoc, "ArtistName", "Artist Name" &>
 							of the artist you would like to merge this artist into, and
-							press <strong>Search</strong> to start the search.
-						</li>
-					</ul>
-				</td>
+							press <strong>Search</strong> to start the search.</li>
+					</ul></td>
 			</tr>
 		</table>
 
@@ -191,15 +186,15 @@
 				search => $search,
 				submit => $submit,
 
-				dontshow => [$id],
+				dontshow => [$artistid],
 				allowcreate => 0,
-				arglist => { id => $id },
+				arglist => { artistid => $artistid },
 			&>
 			<tr>
 				<td class="label">&nbsp;</td>
 				<td class="field">
 					<form method="post" action="/edit/artist/merge.html" id="ConfirmForm">
-						<input type="hidden" name="id" value="<% $id %>" />
+						<input type="hidden" name="artistid" value="<% $artistid %>" />
 						<input type="submit" name="submit" value="Cancel" />
 					</form></td>
 			</tr>

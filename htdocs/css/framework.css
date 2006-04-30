@@ -252,7 +252,7 @@ table.artistfilter-listing tr.row1 {
 
 
 /* listing table */ 
-table.listing {}
+table.listing { }
 
 /* listing td are centered by default, and define horizontal padding */
 table.listing td { padding: 2px 4px; text-align: center;  }
@@ -268,6 +268,8 @@ table.listing tr.even { background-color: #eee }
 table.listing tr.right td { text-align: right; }
 
 /* explicit left/center/right alignment */
+table.listing tr.left td { text-align: left; }
+table.listing tr.right td { text-align: right; }
 table.listing tr td.left { text-align: left; }
 table.listing tr td.right { text-align: right; }
 table.listing tr td.center { text-align: center; }

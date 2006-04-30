@@ -97,6 +97,7 @@
 			{ url => "/showartist.html" },
 			{ url => "/show/artist/index.html" },
 			{ url => "/show/artist/details.html" },
+			{ url => "/show/artist/aliases.html" },
 
 			{ url => "/showcdtoc.html" },
 			{ url => "/show/cdtoc/index.html" },

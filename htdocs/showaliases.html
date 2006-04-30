@@ -1,85 +1,40 @@
-%# vi: set ts=4 sw=4 ft=mason :
+<%perl>
+	# -----------------------------------------------------------------------------
+	#                               Musicbrainz.org
+	#                        Copyright (c) 2001 Robert Kaye
+	# -----------------------------------------------------------------------------
+	#  This software is provided "as is", without warranty of any kind, express or
+	#  implied, including  but not limited  to the warranties of  merchantability,
+	#  fitness for a particular purpose and noninfringement. In no event shall the
+	#  authors or  copyright  holders be  liable for any claim,  damages or  other
+	#  liability, whether  in an  action of  contract, tort  or otherwise, arising
+	#  from,  out of  or in  connection with  the software or  the  use  or  other
+	#  dealings in the software.
+	#
+	#  GPL - The GNU General Public License    http://www.gnu.org/licenses/gpl.txt
+	#  Permits anyone the right to use and modify the software without limitations
+	#  as long as proper  credits are given  and the original  and modified source
+	#  code are included. Requires  that the final product, software derivate from
+	#  the original  source or any  software  utilizing a GPL  component, such  as
+	#  this, is also licensed under the GPL license.
+	# -----------------------------------------------------------------------------
+	#
+	# Summary:
+	# -----------------------------------------------------------------------------
+	# All the show<xxx> pages were moved to the /show/ directory. This page
+	# redirects the browser to this page, such that the new url shows up
+	# in the location bar of the browser.
+	#
+	# $URL$
+	# $Id$
+	#
+</%perl>
 <%args>
-$artistid => ""
+	$artistid => ""
 </%args>
 <%perl>
 
-MusicBrainz::IsNonNegInteger($artistid) && $artistid
-	or return $m->comp("/comp/badargs", 1, 1);
-
-my $mb = $m->comp("/comp/dblogin");
-
-my $artist = Artist->new($mb->{DBH});
-$artist->SetId($artistid);
-$artist->LoadFromId
-	or return $m->comp(
-		"/comp/error",
-		"Artist #$artistid not found",
-		1, 1,
-	);
-
-$m->comp("/comp/sidebar", title => "Artist Aliases");
-
-$m->comp("/comp/artisttitle", artist=>$artist);
-
-my $alias = Alias->new($mb->{DBH}, "ArtistAlias");
-my @list = $alias->GetList($artist->GetId);
-
-if (!defined $list[0])
-{
-	$m->out("<p>There are no aliases for this artist.</p>");
-} else {
+	my $url = "/show/artist/aliases.html?" . $m->comp("/comp/args-to-querystring.inc", %ARGS);
+	return $m->comp("/comp/redirect", $url);
 
 </%perl>
-
-<h2>Aliases for '<% $artist->GetName %>'</h2>
-
-<& /comp/modnotice &>
-
-<table class="SpacedColumns">
-	<tr>
-		<th>Alias</th>
-		<th style="text-align: right">Times Used</th>
-		<th>Last Used</th>
-% if (exists $session{user}) {
-		<th></th>
-% }
-	</tr>
-
-	<%perl>
-    for my $item (@list)
-    {
-		my $time = "never";
-		$time = $m->comp("/comp/datetime", $item->[3])
-			unless $item->[3] =~ /^1970-01-01/;
-
-		</%perl>
-		<tr>
-			<td <% $item->[4] ? "class='mp'" : "" |n %>><% $item->[1] %></td>
-			<td style="text-align: right"><% $item->[2] %></td>
-			<td><% $time %></td>
-% if (exists $session{user}) {
-			<td>
-				[
-				<a href="/edit/artistalias/edit.html?id=<% $item->[0] %>">Edit</a>
-				|
-				<a href="/edit/artistalias/remove.html?alias=<% $item->[0] %>">Del</a>
-				]
-			</td>
-% }
-		</tr>
-		<%perl>
-    }
-	</%perl>
-
-</table>
-
-% }
-
-% if ($session{uid}) {
-<p style="margin-top: 2em">
-	[ <a href="/edit/artistalias/add.html?id=<% $artist->GetId %>">Add alias</a> ]
-</p>
-% }
-
-<& /comp/footer &>

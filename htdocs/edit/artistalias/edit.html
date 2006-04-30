@@ -1,114 +1,155 @@
-%# vi: set ts=2 sw=2 ft=mason :
+<%perl>
+	# -----------------------------------------------------------------------------
+	#                               Musicbrainz.org
+	#                        Copyright (c) 2001 Robert Kaye
+	# -----------------------------------------------------------------------------
+	#  This software is provided "as is", without warranty of any kind, express or
+	#  implied, including  but not limited  to the warranties of  merchantability,
+	#  fitness for a particular purpose and noninfringement. In no event shall the
+	#  authors or  copyright  holders be  liable for any claim,  damages or  other
+	#  liability, whether  in an  action of  contract, tort  or otherwise, arising
+	#  from,  out of  or in  connection with  the software or  the  use  or  other
+	#  dealings in the software.
+	#
+	#  GPL - The GNU General Public License    http://www.gnu.org/licenses/gpl.txt
+	#  Permits anyone the right to use and modify the software without limitations
+	#  as long as proper  credits are given  and the original  and modified source
+	#  code are included. Requires  that the final product, software derivate from
+	#  the original  source or any  software  utilizing a GPL  component, such  as
+	#  this, is also licensed under the GPL license.
+	# -----------------------------------------------------------------------------
+	#
+	# Summary:
+	# -----------------------------------------------------------------------------
+	# This page allows to edit an artist alias'
+	#
+	# $URL$
+	# $Id$
+	#
+</%perl>
 <%args>
-$id => ""
-$newartistalias => ""
-$notetext => ""
+	$id => ""
+	$newartistalias => ""
+
+	$submit => ""
+	$notetext => ""
 </%args>
 <%perl>
+	# only logged in users can see this page
+	$m->comp("/comp/checkloggedin", 1, 1)
+		or return;
 
-$m->comp("/comp/checkloggedin", 1, 1)
-	or return;
+	# check id argument
+	MusicBrainz::IsNonNegInteger($id) && $id
+		or return $m->comp("/comp/layout/badarguments",
+			text => "Required Argument <strong>id</strong> is missing "
+				   ."or has  an invalid format.");
 
-MusicBrainz::IsNonNegInteger($id) && $id
-	or return $m->comp("/comp/badargs", 1, 1);
+	# Instantiate MusicBrainz object, and load artistalias
+	my $mb = $m->comp("/comp/dblogin");
+	my $alias = $m->comp("/comp/loadartistalias", $mb, $id);
+	my $artist = $alias->Parent;
 
-my $mb = $m->comp("/comp/dblogin");
+	# we got a form submission to handle
+	if ($submit ne "")
+	{
+		my $url = "/show/artist/aliases.html?artistid=" . $artist->GetId;
 
-my $al = Alias->new($mb->{DBH}, 'artistalias');
-$al->SetId($id);
-$al->LoadFromId
-	or return $m->comp(
-		"/comp/error",
-		"Alias not found in the database.",
-		1, 1,
-	);
+		if ($submit =~ m/Cancel/i or
+			$newartistalias eq $alias->GetName)
+		{
+			return $m->comp("/comp/redirect", $url);
+		}
 
-my $ar = $al->Parent;
-my $url = "/showaliases.html?artistid=" . $ar->GetId;
+		if (MusicBrainz::IsSingleLineString($newartistalias)
+			and $newartistalias =~ /\S/)
+		{
+			$m->comp(
+				"/comp/entermods",
+				DBH => $mb->{DBH},
+				sub => sub {
+					my @mods = Moderation->InsertModeration(
+						DBH	=> $mb->{DBH},
+						uid	=> $session{uid},
+						privs => $session{privs},
+						type => &ModDefs::MOD_EDIT_ARTISTALIAS,
+						# --
+						alias => $alias,
+						newname => $newartistalias,
+					);
 
-if (MusicBrainz::IsSingleLineString($newartistalias)
-	and $newartistalias =~ /\S/)
-{
-	return $m->comp("/comp/redirect", $url)
-		if $newartistalias eq $al->GetName;
+					$mods[0]->InsertNote($session{'uid'}, $notetext)
+						if $mods[0]
+						and $notetext =~ /\S/;
+				},
+				success_url => $url,
+			) or return;
 
-	$m->comp(
-		"/comp/entermods",
-		DBH => $mb->{DBH},
-		sub => sub {
-			my @mods = Moderation->InsertModeration(
-				DBH	=> $mb->{DBH},
-				uid	=> $session{uid},
-				privs => $session{privs},
-				type => &ModDefs::MOD_EDIT_ARTISTALIAS,
-				# --
-				alias => $al,
-				newname => $newartistalias,
-			);
-
-			$mods[0]->InsertNote($session{'uid'}, $notetext)
-				if $mods[0]
-				and $notetext =~ /\S/;
-		},
-		success_url => $url,
-	) or return;
-
-	die "Shouldn't get here";
-}
+			die "Shouldn't get here";
+		}
+	}
 
 </%perl>
 
-<& /comp/sidebar, title => 'Edit Artist Alias' &>
-
-<& /comp/stylemenu &>
-
-% if ($al->GetModPending) {
-    <& /comp/modpending &>
-% }
-
-<form method="post" action="/edit/artistalias/edit.html"
-	enctype="application/x-www-form-urlencoded">
+<& /comp/sidebar-notitle, pagetitle => "Edit Artist Alias" &>
 
 	<& /comp/autofixmenu &>
 
-	<fieldset class="formstyle">
-		<legend>Edit Artist Alias</legend>
-		<p>
-			Please enter the corrected alias for this artist.
-			Please note that duplicate aliases are currently not allowed.
-		</p>
+	<& /comp/layout/editformbegin, title => "Edit Artist Alias", mp => $alias->GetModPending &>
+
+	<form method="post" action="/edit/artistalias/edit.html">
+		<table class="formstyle">
+			<tr>
+				<td class="instructions">
+					<ul>
+						<li>MusicBrainz uses Artist Aliases mainly as variant names or search hints,
+							If you see a misspelled <& /comp/linkdoc, "ArtistAlias", "Artist Alias" &> here,
+							its probably listed on purpose and should not be renamed. See the documentation
+							about <& /comp/linkdoc, "ArtistAlias", "Artist Aliases" &> for details.</li>
+
+						<li>Please note that Artist Aliases are currently <strong>required to be unique
+							for all artists</strong>. You can circumvent this limitation by adding
+							a comment to the Artist Alias, preferrably in parantheses.</li>
+					</ul>
+				</td>
+			</tr>
+		</table>
+
 		<table class="formstyle">
 			<tr>
 				<td class="label"><label>Artist Name:</label></td>
-				<td><a href="/artist/<% $ar->GetMBId %>.html"><% $ar->GetName %></a></td>
+				<td><& /comp/linkartist, artist => $artist &></td>
 			</tr>
 			<tr>
-				<td class="label"><label>Current Value:</label></td>
-				<td><div class="oldtextfield"><% $al->GetName  %></div></td>
+				<td class="label"><label>Artist Alias:</label></td>
+				<td><& /comp/form/currentvalue, alias => $alias &></td>
 			</tr>
 			<tr>
-				<td class="label"><label for="id_newartistalias">New Value:</label></td>
+				<td class="label"><label for="id_newartistalias">Edit Alias:</label></td>
 				<td>
 					<input type="text" name="newartistalias" id="id_newartistalias"
 						class="textfield" size="40" maxlength="255"
-						value="<% $al->GetName %>" />
+						value="<% $alias->GetName %>" />
 					<& /comp/form/jsbutton, id=>"BTN_ALIAS::newartistalias" &>
 				</td>
 			</tr>
 			<tr>
 				<td>&nbsp;</td>
-				<td class="padtop"><& /comp/notetext &></td>
+				<td class="notetext"><& /comp/notetext &></td>
 			</tr>
 			<tr>
 				<td>&nbsp;</td>
 				<td class="padtop">
 					<input type="hidden" name="id" value="<% $id %>" />
-					<input type="submit" class="button" value="Submit" />
+					<input class="button" type="submit" name="submit" value="Cancel" />
+					<input class="button" type="submit" name="submit" value="Enter Moderation" />
 				</td>
 			</tr>
 		</table>
-	</fieldset>
-</form>
+		<& /comp/movefocus, id => "id_newartistalias" &>
 
-<& /comp/movefocus, id => "id_newartistalias" &>
+	</form>
+
+	<& /comp/layout/editformend &>
+
 <& /comp/footer &>
