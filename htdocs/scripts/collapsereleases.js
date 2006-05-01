@@ -209,7 +209,7 @@ function CollapseReleases() {
 		// get BatchOp form, then container element (div)
 		// inside it, to add the Update button
 		if ((obj = mb.ui.get("BatchOp")) != null) {
-			if ((obj = obj.firstChild) != null) {
+			if ((obj = mb.ui.getByTag("div", obj)[0]) != null) {
 				var input = document.createElement("input");
 				input.type = "submit";
 				input.name = "submit";
@@ -233,8 +233,7 @@ mb.registerDOMReadyAction(
 mb.registerDOMReadyAction(
 	new MbEventAction(collapsereleases.GID, "setupReleaseBatch", "Initialising CollapseReleases")
 );
-
-
+ 
 //toggleRelease(mb.ui.get("expand::82274"));
 
 

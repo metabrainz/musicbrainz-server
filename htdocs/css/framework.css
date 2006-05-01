@@ -252,10 +252,7 @@ table.artistfilter-listing tr.row1 {
 
 
 /* listing table */ 
-table.listing { }
-
-/* listing td are centered by default, and define horizontal padding */
-table.listing td { padding: 2px 4px; text-align: center;  }
+table.listing { margin: 0; padding: 0; border: none; border-collapse: collapse; }
 
 /* header rows are bold, and have some padding at the bottom */
 table.listing tr.header td { font-weight: bold; padding-bottom: 2px; }
@@ -280,6 +277,26 @@ table.listing span.selected a { color: #000; text-decoration: underline; }
 
 /* spacer row, because table is defined using cellspacing=0, cellpadding=0 */
 table.listing tr.spacer td { height: 1px; padding: 0px; }
+
+/* listing td are centered by default, and define horizontal padding */
+table.listing td { 
+	padding: 2px 4px; text-align: center; 
+}
+/* table.listing td, padding-right did not work for listings inside 
+   the tables with class formstyle. then we'll add a margin to the content 
+   of the TDs, but not the image (e.g. icons) */
+table.listing td a {  
+	margin-right: 20px;
+}
+
+table.listing td.browsenr {
+	font-size: 10px; text-align: left;  padding-right: 10px;
+}
+table.listing td.browsename {
+	text-align: left; padding-right: 50px; white-space: nowrap;
+}
+
+
 
 tr.artistrel0 { background-color: #FFFFFF; }
 tr.artistrel1 { background-color: #FFFdFC; }
@@ -350,19 +367,6 @@ table.browsebox table.symbols td {
 }
 table.browsebox table.symbols td.special {
 	padding-right: 8px;
-}
-
-
-/* explicit left alignment */
-table.listing td.browsenr {
-	font-size: 10px;
-	text-align: left; 
-	padding-right: 10px;
-}
-table.listing td.browsename{
-	text-align: left; 
-	padding-right: 50px;
-	white-space: nowrap;
 }
 
 

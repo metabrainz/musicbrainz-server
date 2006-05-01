@@ -1,4 +1,33 @@
-%# vi: set ts=4 sw=4 ft=mason :
+<%perl>
+	# -----------------------------------------------------------------------------
+	#                               Musicbrainz.org
+	#                        Copyright (c) 2001 Robert Kaye
+	# -----------------------------------------------------------------------------
+	#  This software is provided "as is", without warranty of any kind, express or
+	#  implied, including  but not limited  to the warranties of  merchantability,
+	#  fitness for a particular purpose and noninfringement. In no event shall the
+	#  authors or  copyright  holders be  liable for any claim,  damages or  other
+	#  liability, whether  in an  action of  contract, tort  or otherwise, arising
+	#  from,  out of  or in  connection with  the software or  the  use  or  other
+	#  dealings in the software.
+	#
+	#  GPL - The GNU General Public License    http://www.gnu.org/licenses/gpl.txt
+	#  Permits anyone the right to use and modify the software without limitations
+	#  as long as proper  credits are given  and the original  and modified source
+	#  code are included. Requires  that the final product, software derivate from
+	#  the original  source or any  software  utilizing a GPL  component, such  as
+	#  this, is also licensed under the GPL license.
+	# -----------------------------------------------------------------------------
+	#
+	# Summary:
+	# -----------------------------------------------------------------------------
+	# This page shows the list of tagged_albums and allows to branch to
+	# the available workflows.
+	#
+	# $URL$
+	# $Id$
+	#
+</%perl>
 <%args>
 	$reset => 0
 </%args>
@@ -170,10 +199,10 @@
 			<tr class="top">
 				<td class="label">Remove:</td>
 				<td>
-					<form method="post" action="/edit/album/move.html">
+					<form method="post" action="/edit/albumbatch/remove.html">
 						<div>
 % 	for (@releaseids) {
-							<input type="hidden" name="album" value="<% $_ %>" />
+							<input type="hidden" name="releaseid" value="<% $_ %>" />
 % 	}
 							<input type="submit" value="Remove &raquo;" />
 						</div>
@@ -229,7 +258,7 @@
 		</table>
 	<& /comp/tableend &>
 
-	<& /comp/tablebegin, title => "With selected Releases, do..." &>
+	<& /comp/layout/editformbegin, title => "With selected Releases, do...", mp => 1 &>
 		<table>
 			<tr>
 				<td style="padding-right: 40px; white-space: nowrap">
@@ -238,7 +267,7 @@
 				<td style="padding-right: 40px; white-space: nowrap">
 					<img src="/images/es/maximize.gif" alt="Minimize all releases" />
 					<a href="javascript:; //" onclick="collapsereleases.toggleAll(false); return false;">Minimize all</a></td>
-				<td style="text-align: right; width: 100%">
+				<td style="padding-right: 40px; ">
 					<form method="post" action="/edit/albumbatch/done.html" id="BatchOp">
 						<div>
 							<input type="hidden" name="url" value="<% $referer %>" />
@@ -253,7 +282,7 @@
 			</tr>
 		</table>
 		<script type="text/javascript" src="/scripts/collapsereleases.js"></script>
-	<& /comp/tableend &>
+	<& /comp/layout/editformend &>
 
 <%perl>
 
@@ -268,7 +297,7 @@
 		if ($ar->GetId != $release->GetArtist)
 		{
 			$ar = $m->comp("/comp/loadartist", $mb, $release->GetArtist);
-			$m->comp("/comp/artisttitle", artist => $ar, showmodlinks => 0);
+			$m->comp("/comp/artisttitle", artist => $ar, link => 0, showmodlinks => 0);
 		}
 
 	 	$m->comp("/comp/album",

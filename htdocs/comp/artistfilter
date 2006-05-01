@@ -1,29 +1,54 @@
-%# vi: set ts=4 sw=4 ft=mason :
+<%perl>
+ 	# -----------------------------------------------------------------------------
+ 	#                               Musicbrainz.org
+ 	#                        Copyright (c) 2001 Robert Kaye
+ 	# -----------------------------------------------------------------------------
+ 	#  This software is provided "as is", without warranty of any kind, express or
+ 	#  implied, including  but not limited  to the warranties of  merchantability,
+ 	#  fitness for a particular purpose and noninfringement. In no event shall the
+ 	#  authors or  copyright  holders be  liable for any claim,  damages or  other
+ 	#  liability, whether  in an  action of  contract, tort  or otherwise, arising
+ 	#  from,  out of  or in  connection with  the software or  the  use  or  other
+ 	#  dealings in the software.
+ 	#
+ 	#  GPL - The GNU General Public License    http://www.gnu.org/licenses/gpl.txt
+ 	#  Permits anyone the right to use and modify the software without limitations
+ 	#  as long as proper  credits are given  and the original  and modified source
+ 	#  code are included. Requires  that the final product, software derivate from
+ 	#  the original  source or any  software  utilizing a GPL  component, such  as
+ 	#  this, is also licensed under the GPL license.
+ 	# -----------------------------------------------------------------------------
+ 	#
+ 	# Summary:
+ 	# -----------------------------------------------------------------------------
+ 	# This component allows to search for, and pick an artist in a workflow.
+ 	#
+ 	# $URL$
+ 	# $Id$
+ 	#
+</%perl>
 <%args>
 	$search => ""
 	$defaultquery => ""
-	@dontshow => ()
-	$allowcreate => 0
-	$url
 	$submit => ""
 
+	@dontshow => ()
 	%arglist => ()
+#	$allowcreate => 0 adding artists in workflows is deprecated, redirect to add artist form instead.
+	$url
+
 </%args>
 <%perl>
 
 	# get database handle.
 	my $mb = $m->comp("/comp/dblogin");
 
-	# search for artists.
+	# use query, or the defaultquery and perform the search.
+	$search = $defaultquery if ($search eq "");
 	my $engine = SearchEngine->new($mb->{DBH}, "artist");
 	$engine->Search(query => $search, limit => 0);
 
-	# default query(?)
-	$search = ($search eq "" ? $defaultquery : $search);
-
-	my $searched = $engine->Result != &SearchEngine::SEARCHRESULT_NOQUERY;
-
-	my $searchlabel = "Search for Artist:";
+	my $searchlabel = "Search for artist:";
 	my $searchbtn = "Search";
 	if ($submit ne "")
 	{
@@ -45,12 +70,14 @@
 
 		<tr>
 			<td class="label">
-				<label><% $searchlabel %></label></td>
+				<label for="id_artistfiltersearch"><% $searchlabel %></label></td>
 			<td class="field">
 				<form method="post" action="<% $url %>" id="ArtistFilterSearch">
 					<div>
-						<input type="text" name="search" id="artistfilter_search" value="<% $search %>" />
-						<input class="button" name="submit" type="submit" value="<% $searchbtn %>" />
+						<input type="text" name="search" id="id_artistfiltersearch" value="<% $search %>" size="40"
+							title="Enter a search keyword here" />
+						<input class="button" name="submit" type="submit" value="<% $searchbtn %>"
+							title="Seach for an artist" />
 						<& /comp/args-to-hidden-fields.inc, %arglist &>
 					</div>
 				</form>
@@ -59,7 +86,8 @@
 
 <%perl>
 
-	if ($searched)
+	my $searchperformed = $engine->Result != &SearchEngine::SEARCHRESULT_NOQUERY;
+	if ($searchperformed)
 	{
 		# Retrieve all the results and weed out the "don't show" artists
 		my @artistsremoved;
@@ -103,8 +131,11 @@
 </%perl>
 					<tr class="row<% $i % 2 %>">
 						<td class="radio">
-							<input type="radio" name="selectedartist" value="<% $row->{artistid} %>" <% $checked %>
-								   ondblclick="this.form.submit()" /></td>
+							<input type="radio" name="selectedartist" id="selectedartist"
+								value="<% $row->{artistid} %>" <% $checked %>
+								  ondblclick="this.form.submit()"
+								  title="Select this artist"
+							/></td>
 						<td class="no"><% $i += 1  %>:</td>
 						<td class="link">
 							<& /comp/linkartist,
@@ -115,12 +146,14 @@
 								strong => 0 &></td>
 					</tr>
 <%perl>
-					$checked = "";
-				}
+						$checked = "";
+					}
+					$m->comp("/comp/movefocus", id => "selectedartist");
 </%perl>
 					</table>
 					<& /comp/args-to-hidden-fields.inc, %arglist &>
-					<input class="button" type="submit" value="Select &raquo;" />
+					<input class="button" type="submit" value="Select &raquo;"
+						title="Choose the selected artist"/>
 				</form>
 			</td>
 		</tr>
@@ -131,7 +164,7 @@
 </%perl>
 		<tr class="spaced top">
 			<td class="label">
-				No artist found:</td>
+				No artists found:</td>
 			<td class="formsection">
 				No artists found matching your query <strong><% $search %></strong>.
 <%perl>
@@ -146,13 +179,19 @@
 </%perl>
 			</td>
 		</tr>
+<%perl>
 
-% 		}
-% 	}
+ 		}
+ 	}
 
+	# move the keyboard focus to the search field, or the
+	# first artist result item.
+	$m->comp("/comp/movefocus", id => "id_artistfiltersearch") if (not $searchperformed);
 
-%	if ($search ne "")
-%	{
+	if ($searchperformed)
+	{
+
+</%perl>
 
 		<tr class="spaced top">
 			<td class="label">
@@ -161,7 +200,7 @@
 				If you did not find the artist you were looking for,
 				you can search again with another keyword, or if you
 				are sure the artist was not yet added to the database,
-				click on the <strong>Add New Artist</strong> button.
+				click on the <strong>Add New Artist &raquo;</strong> button.
 			</td>
 		</tr>
 		<tr>
@@ -169,7 +208,8 @@
 			<td style="padding-bottom: 20px">
 				<form method="post" action="/edit/artist/add.html" id="ArtistFilterAddArtist">
 					<div>
-						<input class="button" type="submit" value="Add New Artist &raquo;" />
+						<input class="button" type="submit" value="Add New Artist &raquo;"
+							title="Add a new artist to MusicBrainz" />
 						<input type="hidden" name="name" value="<% $search %>" />
 
 %		my $returnurl = sprintf "$url?%s&selectedartist=", $m->comp("/comp/args-to-querystring.inc", %arglist);
@@ -182,8 +222,3 @@
 %	}
 
 
-%#% if (@r) {
-%#<& /comp/movefocus, "ArtistFilterSelect", "selectedartist", 0 &>
-%#% } else {
-%#<& /comp/movefocus, "ArtistFilterSearch", "search" &>
-%#% }

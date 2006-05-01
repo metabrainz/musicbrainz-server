@@ -1,3 +1,10 @@
+input.button {
+	/*font-weight: bold; font-size: 12px; 
+	font-family: Arial, Geneva, Helvetica, Verdana, sans-serif; 
+	/*background: #ffba58; color: #000; */
+}
+
+
 table.formstyle .textfield,
 table.formstyle .numberfield,
 table.formstyle .datefield {
@@ -21,12 +28,6 @@ table.formstyle .numberfieldfocus {
 }
 table.formstyle .textarea {
 	/* width: 100%; handled with js now */
-}
-.backtolisting .button,
-table.formstyle .button {
-	/* font-weight: bold; font-size: 9pt; 
-	font-family: Arial, Geneva, Helvetica, Verdana, sans-serif; 
-	background: #ffba58; color: #000; */ 
 }
 table.formstyle .oldtextfield,
 table.formstyle .oldtextfield-modpending {

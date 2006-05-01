@@ -313,6 +313,10 @@ table.releasebegin
 	background-color: #fff;
 	width: 100%;
 }
+table.releasebegin tr.mp td
+{
+	background-color: #ffc;
+}	
 table.releasebegin td.title 
 {
 	background-color: #FFBA58; 
@@ -336,7 +340,7 @@ table.releasebegin td.title a.toggle
 table.releasebegin td.title img.toggle
 {
 	padding: 0px; margin: 0px;
-}					
+}	
 table.releasebegin td.icon
 {
 	background-color: #FFBA58;
@@ -381,7 +385,7 @@ table.releaselinks
 	border-collapse: collapse;
 	border: 1px solid #000;
 	border-top: none;
-	background-color: #fff;
+	background-color: #eee;
 	width: 100%;
 }
 table.releaselinks td

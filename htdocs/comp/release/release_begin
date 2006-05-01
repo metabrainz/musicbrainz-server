@@ -31,6 +31,7 @@
 <%args>
 	$artist
 	$album
+	$release => undef
 
 	$showlinks => 1
 	$showmodlinks => 1
@@ -43,7 +44,8 @@
 	$tagchecked => 0
 </%args>
 <%perl>
-	my $release = $album;
+	$release ||= $album;
+
 	my $releaseid = $release->GetId;
 	my $mbid = $release->GetMBId;
 	my $name = $release->GetName;
@@ -52,7 +54,7 @@
 </%perl>
 
 	<table id="release::<% $releaseid %>" class="releasebegin">
-		<tr class="title <% $release->GetModPending ? "mp" : "" %>">
+		<tr class="title<% $release->GetModPending ? " mp" : "" %>">
 
 <%perl>
 	if ($link)
@@ -150,13 +152,13 @@
 				<div class="AlbumTitleMod">
 					<div class="AlbumTitleLinks">Edit: [
 %			if (!$nonalbum) {
-						<a href="/edit/album/edit.html?album=<% $releaseid %>">Edit name</a> |
+						<a href="/edit/album/edit.html?album=<% $releaseid %>">Edit</a> |
 						<a href="/edit/album/editall.html?releaseid=<% $releaseid %>">Edit all</a> |
 %				unless ($release->HasMultipleTrackArtists) {
 						<a href="/edit/relationship/showelements.html?type=album&amp;id=<% $releaseid %>&amp;name=<% uri_escape($name) %>">Link</a> |
 %				}
 %			}
-						<a href="/edit/album/remove.html?album=<% $releaseid %>&amp;artist=<% $artist->GetId %>">Delete</a>
+						<a href="/edit/album/remove.html?album=<% $releaseid %>&amp;artist=<% $artist->GetId %>">Remove</a>
 %			if ($nonalbum) {
 						| <a href="/edit/track/addnonalbum.html?artistid=<% $release->GetArtist %>">Add&nbsp;a&nbsp;non-album&nbsp;track</a>&nbsp;]
 %			} else {

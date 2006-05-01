@@ -43,10 +43,13 @@
 	# Row 1: the artist name (link) and sortname
 	$m->out(qq!<tr valign="top">!);
 	$m->out(qq!<td class="icon" rowspan="2">!);
-	$m->out(qq! <a href="/artist/$mbid.html" title="Go to the Artist page"><img src="/images/aicon_lg.png" alt="" /></a></td>!);
-	$m->out(sprintf qq!<td class="title%s">!, ($artist->GetModPending ? " mp" : ""));
-	$m->out(qq! <a href="/artist/$mbid.html" title="Go to the Artist page">! . $m->interp->apply_escapes($name, 'h') . qq!</a></td>!);
-	$m->out(qq!</tr>!);
+	$m->out(qq!  <a href="/artist/$mbid.html" title="Go to the Artist page"><img src="/images/aicon_lg.png" alt="" /></a></td>!);
+	$m->out(qq!<td class="title">!);
+	$m->out(qq!  <a href="/artist/$mbid.html" title="Go to the Artist page">!);
+	$m->out(qq!  <span class="mp">!) if ($artist->GetModPending);
+	$m->out($m->interp->apply_escapes($name, 'h'));
+	$m->out(qq!  </span>!) if ($artist->GetModPending);
+	$m->out(qq!</a></td></tr>!);
 
 	# info box, a) resolution b) start-end date c) artist-type d) sortname
 	$m->out(qq!<tr>!);

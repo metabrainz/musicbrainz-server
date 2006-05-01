@@ -1,166 +1,199 @@
-%# vi: set ts=4 sw=4 ft=mason :
+<%perl>
+	# -----------------------------------------------------------------------------
+	#                               Musicbrainz.org
+	#                        Copyright (c) 2001 Robert Kaye
+	# -----------------------------------------------------------------------------
+	#  This software is provided "as is", without warranty of any kind, express or
+	#  implied, including  but not limited  to the warranties of  merchantability,
+	#  fitness for a particular purpose and noninfringement. In no event shall the
+	#  authors or  copyright  holders be  liable for any claim,  damages or  other
+	#  liability, whether  in an  action of  contract, tort  or otherwise, arising
+	#  from,  out of  or in  connection with  the software or  the  use  or  other
+	#  dealings in the software.
+	#
+	#  GPL - The GNU General Public License    http://www.gnu.org/licenses/gpl.txt
+	#  Permits anyone the right to use and modify the software without limitations
+	#  as long as proper  credits are given  and the original  and modified source
+	#  code are included. Requires  that the final product, software derivate from
+	#  the original  source or any  software  utilizing a GPL  component, such  as
+	#  this, is also licensed under the GPL license.
+	# -----------------------------------------------------------------------------
+	#
+	# Summary:
+	# -----------------------------------------------------------------------------
+	# This page allows to remove one...many releases.
+	#
+	# $URL$
+	# $Id$
+	#
+</%perl>
 <%args>
-@album => ()
-$notetext => ""
+	@releaseid => ()
+
+	$submit => ""
+	$notetext => ""
 </%args>
 <%perl>
 
-$m->comp("/comp/checkloggedin", 1, 1)
-	or return;
+	# only logged in users can see this page
+	$m->comp("/comp/checkloggedin", 1, 1)
+		or return;
 
-for my $album (@album)
-{
-	MusicBrainz::IsNonNegInteger($album) && $album
-		or return $m->comp("/comp/badargs", 1, 1);
-}
-
-my $mb = $m->comp("/comp/dblogin");
-
-my @objs;
-my %artists;
-
-for my $album (@album)
-{
-	my $al = Album->new($mb->{DBH});
-	$al->SetId($album);
-
-	$al->LoadFromId
-		or return $m->comp(
-			"/comp/error",
-			"Album #$album does not exist",
-			1, 1,
-		);
-
-	push @objs, $al;
-
-	# TODO move this method to somewhere more suitable
-	$al->{_name_} = Moderation->_normalise_strings($al->GetName);
-
-	my $artist = $al->GetArtist;
-
-	unless ($artists{$artist})
+	# check the provided releaseids
+	if (not @releaseid)
 	{
-		my $ar = Artist->new($mb->{DBH});
-		$ar->SetId($artist);
-
-		$ar->LoadFromId
-			or return $m->comp(
-				"/comp/error",
-				"Artist #$artist does not exist",
-				1, 1,
-			);
-
-		$artists{$artist} = $ar;
-		$ar->{_sortname_} = Moderation->_normalise_strings($ar->GetSortName);
+		$m->comp("/comp/layout/badarguments",
+			title => "No selected releases",
+			text =>   "You have not selected any releases. Please go back"
+					. " to the artist page and select some releases by activating"
+					. " the checkbox in the orange release title.");
+		return undef;
+	}
+	for my $releaseid (@releaseid)
+	{
+		MusicBrainz::IsNonNegInteger($releaseid) && $releaseid
+			or return $m->comp("/comp/layout/badarguments",
+				text => "One of the provided releaseids is invalid.");
 	}
 
-	push @{ $artists{$artist}{_albums_} }, $al;
-}
+	# Instantiate MusicBrainz object, and load the list of releases
+	# and their respective artists, prepare to sort them.
+	my $mb = $m->comp("/comp/dblogin");
 
-my $url = "/search.html";
-$url = "/showartist.html?artistid=" . (keys %artists)[0]
-	if keys(%artists) == 1;
+	my @objs;
+	my %artists;
+	for my $releaseid (@releaseid)
+	{
+		my $release = $m->comp("/comp/loadrelease", $mb, $releaseid);
+		push @objs, $release;
 
-if ($ARGS{confirm})
-{
-	$m->comp(
-		"/comp/entermods",
-		DBH => $mb->{DBH},
-		sub => sub {
-			my @mods = Moderation->InsertModeration(
-				DBH	=> $mb->{DBH},
-				uid	=> $session{uid},
-				privs => $session{privs},
-				type => &ModDefs::MOD_REMOVE_ALBUMS,
-				# --
-				albums => \@objs,
-			);
+		# TODO move this method to somewhere more suitable
+		$release->{_name_} = Moderation->_normalise_strings($release->GetName);
 
-			$mods[0]->InsertNote($session{'uid'}, $notetext)
-				if $mods[0]
-				and $notetext =~ /\S/;
+		my $artistid = $release->GetArtist;
+		unless ($artists{$artistid})
+		{
+			my $artist = $m->comp("/comp/loadartist", $mb, $artistid);
+			$artists{$artistid} = $artist;
+			$artist->{_sortname_} = Moderation->_normalise_strings($artist->GetSortName);
+		}
 
-			delete $session{'tagged_albums'};
-		},
-		success_url => $url,
-	) or return;
+		push @{ $artists{$artistid}{_releases_} }, $release;
+	}
 
-	die "Shouldn't get here";
-}
+	# we got a form submission to handle
+	if ($submit ne "")
+	{
+		my $url = "/edit/albumbatch/done.html";
+
+		if ($submit =~ m/Cancel/i)
+		{
+			return $m->comp("/comp/redirect", $url);
+		}
+		else
+		{
+			# redirect to artist page instead of search.html if there
+			# is only one artist.
+			$url = "/search.html";
+			if (keys(%artists) == 1)
+			{
+				my $artistid = (keys %artists)[0];
+				$url = "/artist/".$artists{$artistid}->GetMBId.".html"
+			}
+
+			$m->comp(
+				"/comp/entermods",
+				DBH => $mb->{DBH},
+				sub => sub {
+					my @mods = Moderation->InsertModeration(
+						DBH	=> $mb->{DBH},
+						uid	=> $session{uid},
+						privs => $session{privs},
+						type => &ModDefs::MOD_REMOVE_ALBUMS,
+						# --
+						albums => \@objs,
+					);
+
+					$mods[0]->InsertNote($session{'uid'}, $notetext)
+						if $mods[0]
+						and $notetext =~ /\S/;
+
+					delete $session{'tagged_albums'};
+				},
+				success_url => $url,
+			) or return;
+
+			die "Shouldn't get here";
+		}
+	}
 
 </%perl>
 
-<& /comp/sidebar, title => 'Confirm Remove Albums' &>
+<& /comp/sidebar-notitle, pagetitle => 'Confirm Releases Removal' &>
 
-<h2>Confirm Remove Albums</h2>
+	<& /comp/tablebegin, title => "Confirm Releases Removal" &>
 
-<p>
-    Please review the list of albums to be deleted, and then
-	confirm this moderation at the bottom of this page.
-</p>
+		<form method="post" action="/edit/albumbatch/remove.html" id="ConfirmForm">
 
-<p>
-	All of these albums will be removed:
-</p>
+			<script type="text/javascript" src="/scripts/collapsereleases.js"></script>
+			<script type="text/javascript" src="/scripts/editsuite.js"></script>
+
+			<table class="formstyle">
+				<tr>
+					<td class="instructions">
+						<ul>
+							<li>
+								Please review the documentation about the <& /comp/linkdoc,
+								"RemoveReleasesEdit", "Remove Releases Edit" &> before
+								entering this edit.</li>
+							<li>
+								If you have added the releases by mistake, please note that
+								is better to delete the pending edits, rather than entering even
+								more edits to remove them again. (See <& /comp/linkdoc, "HowToCancelEdits",
+								"How to cancel edits" &> for details)</li>
+							<li>
+								Please note that if two releases have the same track
+								listing and track times, you should do a <& /comp/linkdoc,
+								"MergeReleasesEdit", "Merge Releases Edit" &> instead of a
+								Remove Release Edit, following the general rule of <& /comp/linkdoc, "MergeRatherThanDelete",
+								"merge rather than delete" &>.</li>
+							<li>
+								Are you <strong>sure you want to remove</strong> the releases below?</li>
+						</ul></td>
+				</tr>
+			</table>
+
+			<table class="formstyle">
+				<tr>
+					<td><& /comp/notetext &></td>
+				</tr>
+				<tr>
+					<td>
+						<input class="button" type="submit" name="submit" id="btnCancel" value="Cancel" />
+						<input class="button" type="submit" name="submit" value="Enter Moderation" />
+
+% 	for my $releaseid (@releaseid) {
+						<input type="hidden" name="releaseid" value="<% $releaseid %>" />
+% 	}
+					</td>
+				</tr>
+			</table>
+			<& /comp/movefocus, "ConfirmForm", "btnCancel" &>
+
+		</form>
+
+	<& /comp/tableend &>
 
 <%perl>
-for my $ar (sort { $a->{_name_} cmp $b->{_name_} } values %artists)
-{
-	$m->comp(
-		"/comp/artisttitle",
-		artist => $ar,
-		showmodlinks => 0,
-	);
-
-	for my $al (sort { $a->{_name_} cmp $b->{_name_} } @{ $ar->{_albums_} })
-    {
-		$m->comp(
-			"/comp/album",
-			album => $al,
-			artist => $ar,
-			showmodlinks => 0,
-		);
-    }
-}
+	for my $ar (sort { $a->{_name_} cmp $b->{_name_} } values %artists)
+	{
+		$m->comp("/comp/artisttitle", artist => $ar, link => 0, showmodlinks => 0);
+		for my $al (sort { $a->{_name_} cmp $b->{_name_} } @{ $ar->{_releases_} })
+		{
+			$m->comp( "/comp/album", album => $al, artist => $ar, showmodlinks => 0);
+		}
+	}
 </%perl>
 
-<h2>Confirm Album Removal</h2>
 
-<p>
-	Are you sure you want to remove the above albums?
-</p>
-
-<form method="get" action="<% $url %>"
-	name="ModFormNo"
-	onsubmit="history.go(-1); return false"
-	style="float: left; margin-right: 2em; margin-top: 0"
-	>
-	<div>
-		<input type="submit" value="&lt;&lt; NO">
-	</div>
-</form>
-
-<form method="post" action="/edit/albumbatch/remove.html"
-	name="ModFormYes"
-	style="margin: 0"
-	>
-	<div>
-% for my $album (@album) {
-		<input type="hidden" name="album" value="<% $album %>">
-% }
-		<input type="hidden" name="confirm" value="1">
-		<input type="submit" value="YES &gt;&gt;">
-	</div>
-
-	<p>
-		If YES, enter moderation note (optional):
-	</p>
-
-	<p>
-		<textarea name="notetext" rows="3" cols="60"></textarea>
-	</p>
-
-</form>
-
-<& /comp/movefocus, "ModFormNo", 0 &>
 <& /comp/footer &>

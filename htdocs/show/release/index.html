@@ -111,11 +111,11 @@
 				<td align="center">
 				   <form method="post" action="/edit/albumbatch/done.html" id="BatchOp">
 
-					   <input type="hidden" name="AlbumId<% $release->GetId() %>" value="">
-							<script type="text/javascript">
+					   <input type="hidden" name="AlbumId<% $release->GetId() %>" value="off">
+						<script type="text/javascript">
 							document.writeln('<\input type="image" alt="Batch Operation" title="Moderate a batch of selected albums" src="/images/batch.gif" style="border: 0; height: 13px; width: 13px"\>');
 							document.writeln('<\a href="#" onclick="document.forms.BatchOp.submit(); return false">Batch Operation<\/a>');
-							</script>
+						</script>
 					</form>
 				</td>
 %	}

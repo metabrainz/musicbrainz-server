@@ -1,282 +1,362 @@
-%# vi: set ts=4 sw=4 ft=mason :
+<%perl>
+	# -----------------------------------------------------------------------------
+	#                               Musicbrainz.org
+	#                        Copyright (c) 2001 Robert Kaye
+	# -----------------------------------------------------------------------------
+	#  This software is provided "as is", without warranty of any kind, express or
+	#  implied, including  but not limited  to the warranties of  merchantability,
+	#  fitness for a particular purpose and noninfringement. In no event shall the
+	#  authors or  copyright  holders be  liable for any claim,  damages or  other
+	#  liability, whether  in an  action of  contract, tort  or otherwise, arising
+	#  from,  out of  or in  connection with  the software or  the  use  or  other
+	#  dealings in the software.
+	#
+	#  GPL - The GNU General Public License    http://www.gnu.org/licenses/gpl.txt
+	#  Permits anyone the right to use and modify the software without limitations
+	#  as long as proper  credits are given  and the original  and modified source
+	#  code are included. Requires  that the final product, software derivate from
+	#  the original  source or any  software  utilizing a GPL  component, such  as
+	#  this, is also licensed under the GPL license.
+	# -----------------------------------------------------------------------------
+	#
+	# Summary:
+	# -----------------------------------------------------------------------------
+	# This page allows to merge one...many releases into one.
+	#
+	# $URL$
+	# $Id$
+	#
+</%perl>
 <%args>
-$mac
-@album => ()
-$confirm => 0
-$notetext => ""
-$merge_attributes => ""
-$merge_langscript => ""
+	@releaseid => ()
+	@album => ()
+	$mac => undef
+
+	$merge_attributes => ""
+	$merge_langscript => ""
+
+	$submit => ""
+	$notetext => ""
 </%args>
+
 <%perl>
 
-$m->comp("/comp/checkloggedin", 1, 1)
-	or return;
+	# only logged in users can see this page
+	$m->comp("/comp/checkloggedin", 1, 1)
+		or return;
 
-my $mb = $m->comp("/comp/dblogin");
+	# use new terminology, copy over entries from
+	# album list to releaseid list.
+	if (@releaseid < @album) { for (@album) { push @releaseid, $_; } }
 
-if (@album < 2)
-{
-	return $m->comp(
-		"/comp/error",
-		"You have not selected any albums. Please go back"
-		. " to the artist page and select some albums by clicking"
-		. " on the checkbox on the right hand side in the album title.",
-		1, 1,
-	);
-}
 
-my %artists;
-my @objs = map {
-	my $albumid = $_;
-	my $al = Album->new($mb->{DBH});
- 	$al->SetId($albumid);
+	my $mb = $m->comp("/comp/dblogin");
 
-	$al->LoadFromId
-		or return $m->comp(
-			"/comp/error",
-			"Album #$albumid not found.",
-			1, 1,
-		);
+	if (@releaseid < 2)
+	{
+		return $m->comp("/comp/layout/error",
+			title => "No releases selected",
+			text => "You have not selected any releases. Please go back"
+				  . " to the artist page and select the releases you'd like to "
+				  . " merge by clicking on the checkbox on the right hand side "
+				  . " of the album title.");
+	}
+	for my $releaseid (@releaseid)
+	{
+		MusicBrainz::IsNonNegInteger($releaseid) && $releaseid
+			or return $m->comp("/comp/layout/badarguments",
+				text => "One of the provided releaseids is invalid.");
+	}
 
-	++$artists{$al->GetArtist};
-	$al;
-} @album;
+	my %artists;
+	my @objs = map {
+		my $release = $m->comp("/comp/loadrelease", $mb, $_);
+		++$artists{$release->GetArtist()};
+		$release;
+	} @releaseid;
 
-my $url =
-	(keys(%artists) == 1 and not $artists{&ModDefs::VARTIST_ID})
-		? "/showartist.html?artistid=".$objs[0]->GetArtist
-		: "/search.html";
 
-$merge_attributes = "", $confirm = 0 unless $merge_attributes =~ /\A[01]\z/;
-$merge_langscript = "", $confirm = 0 unless $merge_langscript =~ /\A[01]\z/;
+	my @errors = ();
+	if ($submit ne "")
+	{
+		push @errors, "Select how release attributes should be merged." if ($merge_attributes !~ /\A[01]\z/);
+		push @errors, "Select how release script/language should be merged." if ($merge_langscript !~ /\A[01]\z/);
 
-if ($confirm)
-{
-	delete $session{tagged_albums};
-	my $into = shift @objs;
+		my $url =
+			(keys(%artists) == 1 and not $artists{&ModDefs::VARTIST_ID})
+				? "/show/artist/?artistid=".(keys(%artists))[0]
+				: "/search.html";
 
-	$m->comp(
-		"/comp/entermods",
-		DBH => $mb->{DBH},
-		sub => sub {
-			my @mods = Moderation->InsertModeration(
-				DBH	=> $mb->{DBH},
-				uid	=> $session{uid},
-				privs => $session{privs},
-				type => (
-					$mac
-					? &ModDefs::MOD_MERGE_ALBUM_MAC
-					: &ModDefs::MOD_MERGE_ALBUM
-				),
-				# --
-				albums => \@objs,
-				into => $into,
-				merge_attributes => $merge_attributes,
-				merge_langscript => $merge_langscript,
-			);
+		if ($submit =~ m/Cancel/i)
+		{
+			return $m->comp("/comp/redirect", "/edit/albumbatch/done.html");
+		}
+		elsif ($submit =~ m/Top|Up|Down|Bottom/i)
+		{
+			# re-order releases
+		}
+		elsif (not @errors)
+		{
+			delete $session{tagged_albums};
+			my $into = shift @objs;
 
-			$mods[0]->InsertNote($session{'uid'}, $notetext)
-				if $mods[0]
-				and $notetext =~ /\S/;
-		},
-		success_url => $url,
-	) or return;
+			$m->comp(
+				"/comp/entermods",
+				DBH => $mb->{DBH},
+				sub => sub {
+					my @mods = Moderation->InsertModeration(
+						DBH	=> $mb->{DBH},
+						uid	=> $session{uid},
+						privs => $session{privs},
+						type => (
+							$mac
+							? &ModDefs::MOD_MERGE_ALBUM_MAC
+							: &ModDefs::MOD_MERGE_ALBUM
+						),
+						# --
+						albums => \@objs,
+						into => $into,
+						merge_attributes => $merge_attributes,
+						merge_langscript => $merge_langscript,
+					);
 
-	die "Shouldn't get here";
-}
+					$mods[0]->InsertNote($session{'uid'}, $notetext)
+						if $mods[0]
+						and $notetext =~ /\S/;
+				},
+				success_url => $url,
+			) or return;
+
+			die "Shouldn't get here";
+		}
+	}
+
+	my $title = $mac
+		? "Merge releases into various artists release"
+		: "Merge releases";
 
 </%perl>
 
-% if (not $mac) {
-    <& /comp/sidebar, title=>'Confirm Merging Albums', expand=>'moderate' &>
-% } else {
-    <& /comp/sidebar, title=>'Confirm Merging Albums into Various Artist Album', expand=>'moderate' &>
-% }
 
-<%def drawform>
-<%perl>
-	my ($mac, $objs, $text, $thisalbum) = @_;
-	</%perl>
-	<form method="post" action="/edit/albumbatch/merge.html#albumrow<% $thisalbum->GetId %>"
-		style="margin-bottom: 1em">
-% for (@$objs) {
-		<input type="hidden" name="album" value="<% $_->GetId %>">
-% }
-		<input type="hidden" name="mac" value="<% $mac %>">
-		<input type="submit" value="<% $text %>">
-	</form>
+
+<%def reOrderForm>
 	<%perl>
-</%perl>
+		my ($mac, $objs, $text, $title, $thisrelease) = @_;
+
+		$m->out(qq!<td>!);
+		$m->out(qq!<form method="post" action="/edit/albumbatch/merge.html#albumrow!. $thisrelease->GetId .qq!">!);
+		$m->out(qq!<div>!);
+		for (@$objs)
+		{
+			$m->out(qq!<input type="hidden" name="releaseid" value="!.$_->GetId.qq!" />!);
+		}
+		$m->out(qq!<input type="hidden" name="mac" value="$mac" />!);
+		$m->out(qq!<input class="button" type="submit" value="$text" title="$title" style="font-size: 11px; padding: 0px 5px" />!);
+		$m->out(qq!</div>!);
+		$m->out(qq!</form>!);
+		$m->out(qq!</td>!);
+	</%perl>
 </%def>
 
+
+
+<& /comp/sidebar-notitle, pagetitle =>  $title &>
+
+	<& /comp/tablebegin, title => $title &>
+
 <%perl>
 
-my ($id, $ar, $artist); 
-my (%merged, @id_numtracks);
-my ($i, $al, @tracks, $tr, @ids);
+	my (%merged, @id_numtracks);
+	my ($id, $i, $release, @tracks, $track, @ids);
 
-    $ar = Artist->new($mb->{DBH});
-    $i = 0;
-    foreach $al (@objs)
-    {
-       @tracks = $al->LoadTracks();
-       foreach $tr (@tracks)
-       {
-           $merged{$tr->GetSequence()}++;
-       }
+	my $artist = Artist->new($mb->{DBH});
 
-		for (@{ $al->GetDiscIDs })
+	foreach $release (@objs)
+	{
+		@tracks = $release->LoadTracks();
+		foreach $track (@tracks)
+		{
+			$merged{$track->GetSequence()}++;
+		}
+
+		for (@{ $release->GetDiscIDs })
 		{
 			my $num = $_->GetCDTOC->GetTrackCount;
 	  		push @id_numtracks, $num;
 		}
+	}
 
-       if ($i == 0)
-       {
-           </%perl>
-           Please review the proposed album merge moderation and then
-           confirm this moderation at the bottom of this page.<p>
-           All of the albums below this one will be merged into this album:<p>
-           <%perl>
-       }
-       if ($i == 1)
-       {
-           </%perl>
-           All of the albums below will be merged into the above album:<p>
-           <%perl>
-       }
-       if ($ar->GetId() != $al->GetArtist())
-       {
-           $ar->SetId($al->GetArtist());
-           if (not defined $ar->LoadFromId())
-           {
-              $m->out("Could not load artist " . $ar->GetId() . ".");
-              next;
-           }
-		   $m->comp("/comp/artisttitle", artist=>$ar, showmodlinks=>0);
-       }
+	my $final = scalar(keys %merged);
+	my $merge_ok = 1;
 
-       </%perl>
-       <table>
-		<tr id="albumrow<% $al->GetId %>">
-		<td width="420" style="padding-bottom: 2em">
-			<& /comp/album, album=>$al, artist=>$ar, showmodlinks=>0 &>
-		</td>
-         <td valign="top" align="left" style="padding-left: 1em">
-			<%perl>
-			$m->comp(
-				"drawform",
-				$mac,
-				[ @objs[$i, 0..$i-1, $i+1..$#objs ] ],
-				"Move to Top",
-				$al,
-			) if $i > 0;
-			$m->comp(
-				"drawform",
-				$mac,
-				[ @objs[0..$i-2, $i, $i-1, $i+1..$#objs ] ],
-				"Move Up",
-				$al,
-			) if $i > 0;
-			$m->comp(
-				"drawform",
-				$mac,
-				[ @objs[0..$i-1, $i+1, $i, $i+2..$#objs ] ],
-				"Move Down",
-				$al,
-			) if $i < $#objs;
-			$m->comp(
-				"drawform",
-				$mac,
-				[ @objs[0..$i-1, $i+1..$#objs, $i ] ],
-				"Move to Bottom",
-				$al,
-			) if $i < $#objs;
-			</%perl>
-          </td>
-       </tr>
-       </table>
-       <%perl>
+	foreach (@id_numtracks)
+	{
+	   if ($_ != $final)
+	   {
+		  $merge_ok = 0;
+		  last;
+	   }
+	}
 
-       $i++;
-    }
-
-my $final = scalar(keys %merged);
-my $merge_ok = 1;
-
-foreach (@id_numtracks)
-{
-   if ($_ != $final)
-   {   
-      $merge_ok = 0;
-      last;
-   }
-}
 </%perl>
 
-<br>
-<p>
-% if (!$merge_ok) {
-      <font size="+1" color="red">Error:</font> these albums cannot be merged together, 
-      since they have disc IDs that belong to albums that have more or fewer than
-      the <% $final %> tracks that the merged album would have.
-%     $mb->Logout();
-      <& /comp/footer &>
-%     return undef;
-% }
+		<form method="post" action="/edit/albumbatch/merge.html" id="MergeConfirm">
+			<script type="text/javascript" src="/scripts/editsuite.js"></script>
 
-<h2>Confirm Merge</h2>
+			<table class="formstyle">
+				<tr>
+					<td colspan="2" class="instructions">
+						<ul>
+							<li>
+								Please review the document on <& /comp/linkdoc, "HowToMergeReleases",
+								"how to merge releases" &> before entering this edit.</li>
+							<li>
+								Please make sure that the release you'd like to merge
+								the others into is the topmost of the list. You can
+								use the buttons to reorder the releases until they are in the
+								required order. To complete the merge of the releases
+								into one <% $mac ? "Various Artists" : "" %> release,
+								click the "Enter Moderation" button below.</li>
+						</ul></td>
+				</tr>
 
-<p>
-	To complete the merge of the above albums into one
-	<% $mac ? "'Various Artists'" : "" %>
-	album, click the "Merge" button below.
-</p>
+% 	if (not $merge_ok) {
 
-<script type="text/javascript" src="/scripts/formutil.js"></script>
-<script type="text/javascript" src="/scripts/mod-tag-merge.js"></script>
+				<tr>
+					<td colspan="2">
+						<div style="border: 1px dotted red; padding: 5px; margin-bottom: 15px">
+							<span style="font-weight: bold; color: red">Warning:</span>
+							These releases cannot be merged, since some of the releases
+							you have selected have a different number of tracks and
+							attached Disc IDs. The merge operation adds the additional tracks of
+							the other releases to the end of the target release, resulting
+							for these releases in a target release length of <% $final %> tracks.
+							This which conflicts with the length of the Disc IDs.</li>
+						</div></td>
+				</tr>
+% 	}
 
-<form method="post" action="/edit/albumbatch/merge.html" name="MergeConfirm"
-	onsubmit="return check_merge_form(this)">
-	<p>
-		How should the album attributes be handled? (<b>required</b>)
-		<br>
-		<input type="radio" name="merge_attributes" value="1" <% $merge_attributes eq "1" ? "checked" : "" %>>
-		Merge album attributes
-		<br>
-		<input type="radio" name="merge_attributes" value="0" <% $merge_attributes eq "0" ? "checked" : "" %>>
-		Leave attributes unchanged; the attributes of all but
-		the top album will be discarded
-	</p>
+			</table>
 
-	<p>
-		How should the album language / script be handled? (<b>required</b>)
-		<br>
-		<input type="radio" name="merge_langscript" value="1" <% $merge_langscript eq "1" ? "checked" : "" %>>
-		Merge language and script
-		<br>
-		<input type="radio" name="merge_langscript" value="0" <% $merge_langscript eq "0" ? "checked" : "" %>>
-		Leave language and script unchanged; the language / script of all but
-		the top album will be discarded
-	</p>
+			<table class="formstyle">
 
-	<p>
-		Enter moderation note (optional):
-	</p>
+% 	if ($merge_ok) {
 
-	<p>
-		<textarea name="notetext" rows="3" cols="60"></textarea>
-	</p>
+%			if (@errors > 0) {
+				<tr>
+					<td class="label">&nbsp;</td>
+					<td class="error"><ul><li><%perl> $m->out(join("</li><li>", @errors)); </%perl></li></ul></td>
+				</tr>
+%			}
 
-	<p>
-		<input type="submit" value="Merge!">
-% for (@objs) {
-		<input type="hidden" name="album" value="<% $_->GetId %>">
-% }
-		<input type="hidden" name="mac" value="<% $mac %>">
-		<input type="hidden" name="confirm" value="1">
-	</p>
-</form>
+				<tr>
+					<td class="label">Attributes:</td>
+					<td>
+						Please specify how the <& /comp/linkdoc, "ReleaseAttributes", "release attributes" &>
+						should be merged (<b>required</b>)</td>
+				</tr>
+				<tr>
+					<td></td>
+					<td>
+						<input type="radio" name="merge_attributes" value="1" <% $merge_attributes eq "1" ? "checked" : "" %> />
+						Merge release attributes.<br/>
+						<input type="radio" name="merge_attributes" value="0" <% $merge_attributes eq "0" ? "checked" : "" %> />
+						Keep release attributes of the target release.</td>
+				</tr>
 
-<& /comp/movefocus, "MergeConfirm", 0 &>
+				<tr class="spaced">
+					<td class="label">Language/Script:</td>
+					<td>
+						Please specify how the <& /comp/linkdoc, "ReleaseLanguage", "release language/script" &>
+						should be merged (<b>required</b>)</td>
+				</tr>
+				<tr>
+					<td></td>
+					<td>
+						<input type="radio" name="merge_langscript" value="1" <% $merge_langscript eq "1" ? "checked" : "" %> />
+						Merge languages/scripts.<br/>
+						<input type="radio" name="merge_langscript" value="0" <% $merge_langscript eq "0" ? "checked" : "" %> />
+						Keep language/script of the target release.</td>
+				</tr>
+
+				<tr class="spaced">
+					<td>&nbsp;</td>
+					<td class="notetext">
+						<& /comp/notetext &></td>
+				</tr>
+
+%	}
+				<tr>
+					<td class="label">&nbsp;</td>
+					<td>
+						<input class="button" type="submit" name="submit" value="Cancel" />
+						<input class="button" type="submit" name="submit" value="Enter Moderation" <% !$merge_ok ? qq!disabled="disabled"! : "" %>/>
+% 	for (@releaseid) {
+						<input type="hidden" name="releaseid" value="<% $_ %>" />
+% 	}
+						<input type="hidden" name="mac" value="<% $mac %>" /></td>
+				</tr>
+			</table>
+
+		</form>
+
+	<& /comp/tableend &>
+
+<%perl>
+	$i = 0;
+	foreach $release (@objs)
+	{
+		if ($i == 1)
+		{
+			$m->out(qq!<div style="border: 1px dotted #000; padding: 5px; margin-bottom: 15px">!);
+			$m->out(qq!  All of the releases below will be merged into the one above!);
+			$m->out(qq!</div>!);
+		}
+		if ($artist->GetId() != $release->GetArtist())
+		{
+			$artist = $m->comp("/comp/loadartist", $mb, $release->GetArtist());
+			$m->comp("/comp/artisttitle", artist => $artist, link => 0, showmodlinks => 0);
+		}
+
+</%perl>
+		<table>
+			<tr id="albumrow<% $release->GetId %>" valign="top">
+				<td style="width: 420px">
+					<& /comp/album, album => $release, artist => $artist, showmodlinks => 0 &></td>
+				<td> &nbsp;</td>
+<%perl>
+			$m->comp("reOrderForm", $mac,
+				[ @objs[$i, 0..$i-1, $i+1..$#objs ] ],
+				"Top", "Move this release to the top of the list",
+				$release,
+			) if $i > 0;
+
+			$m->comp("reOrderForm", $mac,
+				[ @objs[0..$i-2, $i, $i-1, $i+1..$#objs ] ],
+				"Up", "Move this release one position to the top",
+				$release,
+			) if $i > 0;
+
+			$m->comp("reOrderForm", $mac,
+				[ @objs[0..$i-1, $i+1, $i, $i+2..$#objs ] ],
+				"Down", "Move this release one position to the bottom",
+				$release,
+			) if $i < $#objs;
+
+			$m->comp("reOrderForm", $mac,
+				[ @objs[0..$i-1, $i+1..$#objs, $i ] ],
+				"Bottom", "Move this release to the bottom of the list",
+				$release,
+			) if $i < $#objs;
+
+</%perl>
+		   </tr>
+       </table>
+
+%	   $i++;
+%	}
+
+
+	<script type="text/javascript" src="/scripts/collapsereleases.js"></script>
+
 <& /comp/footer &>
