@@ -30,7 +30,7 @@ package MusicBrainz::Server::Moderation::MOD_EDIT_ALBUMATTRS;
 use ModDefs;
 use base 'Moderation';
 
-sub Name { "Edit Album Attributes" }
+sub Name { "Edit Release Attributes" }
 (__PACKAGE__)->RegisterHandler;
 
 =pod

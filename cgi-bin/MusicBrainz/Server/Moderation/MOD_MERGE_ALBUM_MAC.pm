@@ -39,7 +39,7 @@ use base qw(
 sub Token() { "MOD_MERGE_ALBUM_MAC" }
 sub Type() { &ModDefs::MOD_MERGE_ALBUM_MAC }
 
-sub Name { "Merge Albums (Various Artists)" }
+sub Name { "Merge Releases (Various Artists)" }
 (__PACKAGE__)->RegisterHandler;
 
 # MOD_MERGE_ALBUM does all the work

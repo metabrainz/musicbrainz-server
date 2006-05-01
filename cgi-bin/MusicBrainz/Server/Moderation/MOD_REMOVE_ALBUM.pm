@@ -30,7 +30,7 @@ package MusicBrainz::Server::Moderation::MOD_REMOVE_ALBUM;
 use ModDefs qw( :modstatus MODBOT_MODERATOR );
 use base 'Moderation';
 
-sub Name { "Remove Album" }
+sub Name { "Remove Release" }
 (__PACKAGE__)->RegisterHandler;
 
 sub PreInsert

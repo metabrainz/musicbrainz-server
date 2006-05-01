@@ -30,7 +30,7 @@ package MusicBrainz::Server::Moderation::MOD_ADD_ALBUM;
 use ModDefs;
 use base 'Moderation';
 
-sub Name { "Add Album" }
+sub Name { "Add Release" }
 (__PACKAGE__)->RegisterHandler;
 
 sub PreInsert

@@ -30,7 +30,7 @@ package MusicBrainz::Server::Moderation::MOD_EDIT_ALBUMNAME;
 use ModDefs qw( :modstatus MODBOT_MODERATOR );
 use base 'Moderation';
 
-sub Name { "Edit Album Name" }
+sub Name { "Edit Release Name" }
 (__PACKAGE__)->RegisterHandler;
 
 sub PreInsert

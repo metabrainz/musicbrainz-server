@@ -32,7 +32,7 @@ package MusicBrainz::Server::Moderation::MOD_MERGE_ALBUM;
 use ModDefs qw( :modstatus MODBOT_MODERATOR MOD_MERGE_ALBUM_MAC );
 use base 'Moderation';
 
-sub Name { "Merge Albums" }
+sub Name { "Merge Releases" }
 (__PACKAGE__)->RegisterHandler;
 
 sub PreInsert

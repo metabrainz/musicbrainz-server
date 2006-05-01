@@ -31,7 +31,7 @@ use ModDefs;
 use MusicBrainz::Server::Annotation ':type';
 use base 'Moderation';
 
-sub Name { "Add Album Annotation" }
+sub Name { "Add Release Annotation" }
 (__PACKAGE__)->RegisterHandler;
 
 sub PreInsert

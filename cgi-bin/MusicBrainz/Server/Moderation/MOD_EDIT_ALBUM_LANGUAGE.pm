@@ -30,7 +30,7 @@ package MusicBrainz::Server::Moderation::MOD_EDIT_ALBUM_LANGUAGE;
 use ModDefs qw( :modstatus MODBOT_MODERATOR );
 use base 'Moderation';
 
-sub Name { "Edit Album Language" }
+sub Name { "Edit Release Language" }
 (__PACKAGE__)->RegisterHandler;
 
 sub PreInsert

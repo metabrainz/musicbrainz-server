@@ -31,7 +31,7 @@ use ModDefs qw( :modstatus MODBOT_MODERATOR VARTIST_ID );
 use base 'Moderation';
 use Carp;
 
-sub Name { "Convert Album to Single Artist" }
+sub Name { "Convert Release to Single Artist" }
 (__PACKAGE__)->RegisterHandler;
 
 # PLEASE NOTE that MOD_MOVE_ALBUM is almost exactly the same as MOD_MAC_TO_SAC

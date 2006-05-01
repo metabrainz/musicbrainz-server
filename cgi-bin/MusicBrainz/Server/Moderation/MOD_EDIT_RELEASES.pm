@@ -30,7 +30,7 @@ package MusicBrainz::Server::Moderation::MOD_EDIT_RELEASES;
 use ModDefs qw( :modstatus MODBOT_MODERATOR );
 use base 'Moderation';
 
-sub Name { "Edit Album Releases" }
+sub Name { "Edit Release Events" }
 (__PACKAGE__)->RegisterHandler;
 
 sub PreInsert
