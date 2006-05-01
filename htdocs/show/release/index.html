@@ -129,11 +129,11 @@
 	<br />
 
 	<& /comp/album, album => $release, artist => $artist,
-		mbtagger => $mbt,
-		showids => 1,
-		showtag => 1,
-		showreleases => 1,
+		mbtagger => $mbt, showids => 1, showtag => 1, showreleases => 1,
 		showtrackartists => $showtrackartists,
 	&>
+
+	<script type="text/javascript" src="/scripts/collapsereleases.js"></script>
+	<input type="hidden" id="collapsereleases::defaultcollapse" value="0" />
 
 <& /comp/footer &>

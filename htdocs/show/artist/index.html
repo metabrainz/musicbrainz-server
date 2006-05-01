@@ -208,11 +208,11 @@
 				<p>This artist has no releases.</p>
 				<p>
 					[
-% unless ($artist->InUse) {
+%	unless ($artist->InUse) {
 					<a href="/edit/artist/remove.html?artist=<% $artist->GetId %>"
 						>Remove this artist</a>
 					|
-% }
+%	}
 					<a href="/edit/album/add.html?artistid=<% $artist->GetId() %>"
 						>Add release</a>
 					]
@@ -279,7 +279,7 @@
 
             <table width="100%">
             <tr>
-% unless ($fCompact) {
+%	unless ($fCompact) {
             <td style="padding-right: 1em">
 				<a href="/show/artist/?artistid=<% $artist->GetId() %>&amp;ex=<% $exall %>&amp;compact=0">
 				<img src="/images/plus.gif" align="middle"
@@ -292,7 +292,7 @@
 					 alt="Collapse" title="Collapse All Albums"
 					 height="13" width="13" border="0"> Collapse All</a>
             </td>
-% }
+%	}
             <td style="padding-right: 1em">
 				<a href="/artist/<% $artist->GetMBId %>.html?compact=<%
 					$fCompact ?  0 : 1
@@ -300,15 +300,15 @@
 					>Change to <% $fCompact ? "full" : "compact" %> listing</a>
 			</td>
 
-%           if ($session{uid}) {
+%	          if ($session{uid}) {
     	    <td align="center">
 
             <form method="post" action="/edit/albumbatch/done.html"
                   id="BatchOp"
                   enctype="application/x-www-form-urlencoded">
-%            for my $album (@albums) {
-                 <input type="hidden" name="AlbumId<% $album->GetId() %>" value="">
-%            }
+%	           for my $album (@albums) {
+                 <input type="hidden" name="AlbumId<% $album->GetId() %>" value="off">
+%	           }
 
 	          <script type="text/javascript">
    			  document.writeln('<\input type="image" alt="Batch Operation" title="Moderate a batch of selected albums" src="/images/batch.gif" style="border: 0; height: 13px; width: 13px"\>');
@@ -317,7 +317,7 @@
        </form>
 
 	    </td>
-%           }
+%	          }
 
             </tr></table>
             <& /comp/framedboxend &>
@@ -334,9 +334,9 @@
 					<col style="text-align: center">
 					<col style="text-align: center">
 					<col style="text-align: center">
-% if ($session{uid}) {
+%	if ($session{uid}) {
 					<col style="width: 3em">
-% }
+%	}
 					<col>
 				<%perl>
 			}
@@ -379,26 +379,26 @@
 
 					</%perl>
 					<tr class="<% ('ev', 'od')[$rownum % 2] %>">
-% if ($album->GetTrackCount) {
+%	if ($album->GetTrackCount) {
 						<td class="trk" nowrap><% $album->GetTrackCount %><img src="/images/notes.gif" hspace="3" alt="Tracks"></td>
-% } else {
+%	} else {
 						<td></td>
-% }
-% if ($album->GetDiscidCount) {
+%	}
+%	if ($album->GetDiscidCount) {
 						<td class="did" nowrap><% $album->GetDiscidCount %><img src="/images/cd.gif" hspace="3" alt="disc IDs"></td>
-% } else {
+%	} else {
 						<td></td>
-% }
-% if ($album->GetTrmidCount) {
+%	}
+%	if ($album->GetTrmidCount) {
 						<td class="trm" nowrap><% $album->GetTrmidCount %><img src="/images/trm.gif" hspace="3" alt="TRM IDs"></td>
-% } else {
+%	} else {
 						<td></td>
-% }
-% if ($album->GetPuidCount) {
+%	}
+%	if ($album->GetPuidCount) {
 						<td class="trm" nowrap><% $album->GetPuidCount %><img src="/images/puid.gif" hspace="3" alt="PUIDs"></td>
-% } else {
+%	} else {
 						<td></td>
-% }
+%	}
 						<td class="rst" nowrap><%
 								$amp ? "<span class='mp'>" : "" |n
 							%><% do {
@@ -413,7 +413,7 @@
 						<td class="lang">
 %							$m->comp('/comp/language', $album->GetLanguage, $album->GetScript);
 						</td>
-% if ($session{uid}) {
+%	if ($session{uid}) {
 						<td class="rtag">
 %	if (!$album->IsNonAlbumTracks) {
 						  <form method="post" action="/edit/albumbatch/done.html"
@@ -428,14 +428,14 @@
 						  </form>
 %	}
 						</td>
-% }
+%	}
 						<td class="rname">
-%            if ($session{tport}) {
+%	           if ($session{tport}) {
 						<a href="http://127.0.0.1:<% $session{tport} %>/openalbum?id=<% $album->GetMBId %>&amp;t=<% time %>"
 							style="margin-right: 1ex"
 							target="hiddeniframe" title="Open in Tagger" border="0"><img
 								src="/images/mblookup-tagger.png" border="0" alt="Open in tagger"></a>
-%            }
+%	           }
 						<% $nmp ? "<span class='mp'>" : "" |n
 							%><a href="/release/<% $album->GetMBId %>.html"><% $album->GetName %></a><%
 								$nmp ? "</span>" : "" |n
@@ -446,24 +446,16 @@
                 elsif ($ex =~ /(^|\D)$id(\D|$)/)
                 {
                      $m->comp("/comp/album",
-                             album => $album,
-                             artist => $artist,
-                             ex => $ex,
-                             showcollapsed => 1,
-                             showids => 0,
-                             mbtagger => $mbt,
-                             showtag => 1,
-							 showmodlinks => 0,
-							 showreleases => 1);
+						 album => $album, artist => $artist,
+						 showmodlinks => 0, showreleases => 1,
+						 showcollapsed => 1, showids => 0, showtag => 1,
+						 mbtagger => $mbt, ex => $ex);
                 }
                 else
                 {
                      $m->comp("/comp/albumcollapsed",
-                             album => $album,
-                             artist => $artist,
-                             ex => $ex,
-                             showids => 0,
-                             showtag => 1);
+						 album => $album, artist => $artist,
+						 ex => $ex, showids => 0, showtag => 1);
                 }
             }
 
@@ -475,5 +467,9 @@
     }
 
 </%perl>
+
+	<script type="text/javascript" src="/scripts/collapsereleases.js"></script>
+	<input type="hidden" id="collapsereleases::defaultcollapse" value="0" />
+	<input type="hidden" id="collapsereleases::showtoggleicon" value="0" />
 
 <& /comp/footer &>
