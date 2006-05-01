@@ -1,11 +1,38 @@
-%# vi: set ts=4 sw=2 ft=mason :
-%# move.html used to be very similar to sac.html,
-%# since SG5DR, this is not the case anymore.
-%# This page handles single as well as batch album moves.
+<%perl>
+	# -----------------------------------------------------------------------------
+	#                               Musicbrainz.org
+	#                        Copyright (c) 2001 Robert Kaye
+	# -----------------------------------------------------------------------------
+	#  This software is provided "as is", without warranty of any kind, express or
+	#  implied, including  but not limited  to the warranties of  merchantability,
+	#  fitness for a particular purpose and noninfringement. In no event shall the
+	#  authors or  copyright  holders be  liable for any claim,  damages or  other
+	#  liability, whether  in an  action of  contract, tort  or otherwise, arising
+	#  from,  out of  or in  connection with  the software or  the  use  or  other
+	#  dealings in the software.
+	#
+	#  GPL - The GNU General Public License    http://www.gnu.org/licenses/gpl.txt
+	#  Permits anyone the right to use and modify the software without limitations
+	#  as long as proper  credits are given  and the original  and modified source
+	#  code are included. Requires  that the final product, software derivate from
+	#  the original  source or any  software  utilizing a GPL  component, such  as
+	#  this, is also licensed under the GPL license.
+	# -----------------------------------------------------------------------------
+	#
+	# Summary:
+	# -----------------------------------------------------------------------------
+	# This page allows to move a release to another artist. It used to be
+	# very similar to sac.html, but since SG5DR, this is not the case anymore.
+	# This page handles single as well as batch album moves.
+	#
+	# $URL$
+	# $Id$
+	#
+</%perl>
 <%args>
 	# the album(s) list. TODO: change to release
-	@releaseid => ()
 	@album => ()
+	@releaseid => ()
 
 	# fields set by /comp/artistfilter
 	$search => ""
@@ -16,19 +43,13 @@
 	$movetracks => 0
 
 	# confirm, and moderation note
-	$confirm => undef
+	$submit => ""
 	$notetext => ""
 </%args>
 <%perl>
 	# use new terminology, copy over entries from
 	# album list to releaseid list.
-	if (@releaseid < @album)
-	{
-		for (@album)
-		{
-			push @releaseid, $_;
-		}
-	}
+	if (@releaseid < @album) { for (@album) { push @releaseid, $_; } }
 
 	# only allow logged-in users to see this page.
 	$m->comp("/comp/checkloggedin", 1, 1)
@@ -86,21 +107,24 @@
 	}
 
 	# form step 3/3: enter moderation
-	if (defined $newartist && $confirm)
+	if (defined $newartist && $submit ne "")
 	{
-		# redirect to this URI after everything is done
-		my $url = $_isbatch ? "/showartist.html?artistid=$newartistid" : "/showalbum.html?albumid=$releaseid[0]";
-
-		# if confirm does not contain YES, (=NO was pressed), redirect
-		# back to calling page.
-		if ($confirm !~ /yes/i)
+		if ($submit =~ m/Cancel/i)
 		{
-			$m->comp(
-				"/comp/redirect",
-				$url);
+			# redirect to this URI after everything is done
+			my $url = $_isbatch ?
+				"/edit/albumbatch/done.html" :
+				"/release/".$_releases[0]->GetMBId.".html";
+
+			$m->comp("/comp/redirect", $url);
 		}
 		else
 		{
+			# redirect to this URI after everything is done
+			my $url = $_isbatch ?
+				"/show/artist/?artistid=$newartistid" :
+				"/release/".$_releases[0]->GetMBId.".html";
+
 
 			# prepare mods for each selected release
 			$m->comp(
@@ -148,7 +172,6 @@
 
 			die "Shouldn't get here";
 		}
-
 	}
 
 
@@ -194,24 +217,32 @@
 						<ul>
 							<li>
 								Are you sure you want to move the following
-								release<% $_isbatch ? "s" : "" %> to the Artist
-								<& /comp/linkartist, artist => $newartist &>?
-
-								<ul style="margin-top: 5px">
-									<%perl>
-										# show all current artists and releases
-										for (0 .. ($_last))
-										{
-											$m->out("<li>");
-											$m->comp("/comp/linkrelease", release => $_releases[$_]);
-											$m->out(" by ");
-											$m->comp("/comp/linkartist", artist => $_artists[$_]);
-											$m->out("</li>");
-										}
-									</%perl>
-								</ul>
-							</li>
+								release<% $_isbatch ? "s" : "" %> to the artist
+								<& /comp/linkartist, artist => $newartist &>?</li>
 						</ul>
+					</td>
+				</tr>
+				<tr class="top">
+					<td class="label">
+						<label>Selected Releases:</label></td>
+					<td>
+						<table class="listingwide">
+							<tr class="header">
+								<td>Release Title</td>
+								<td>Artist</td>
+							</tr>
+	<%perl>
+		# show all current artists and releases
+		for (0 .. ($_last))
+		{
+			$m->out("<tr><td>");
+			$m->comp("/comp/linkrelease", release => $_releases[$_]);
+			$m->out("</td><td>");
+			$m->comp("/comp/linkartist", artist => $_artists[$_]);
+			$m->out("</td></tr>");
+		}
+</%perl>
+						</table>
 					</td>
 				</tr>
 				<tr class="top">
@@ -245,26 +276,34 @@
 					<td class="label">
 						<label>Note:</label></td>
 					<td>
-						If you do not move the tracks of a single
-						artist release to the new artist, <strong>only</strong> the release artist
-						will be changed! In most cases it is safe to keep the default selection.
+						If you do not move the tracks of a single artist release to the
+						new artist, <strong>only</strong> the <& /comp/linkdoc, "ReleaseArtist",
+						"release artist" &> will be changed! In most cases it is safe to
+						keep the default selection.
 
 %						}
 %					} else {
 						You have chosen to move more than one release to another
-						artist. In this mode the defaults for moving track artist are applied.
-						This means, for all releases with identical track and release artists,
-						the tracks will be moved to the new artist, too. For releases with
-						more than one artist, only the release artist will be changed.
+						artist. In this mode the defaults for moving <& /comp/linkdoc, "TrackArtist",
+						"track artists" &> are applied. This means, for all releases
+						with identical track and release artists, the tracks will be moved
+						to the new artist, too. For releases with more than one artist,
+						only the <& /comp/linkdoc, "ReleaseArtist", "release artist" &>
+						will be changed.
 %					}
 					</td>
 				</tr>
 				<tr class="spaced">
-					<td class="label">
-						<label>Confirm:</label></td>
+					<td>&nbsp;</td>
+					<td class="notetext">
+						<& /comp/notetext &>
+					</td>
+				</tr>
+				<tr>
+					<td>&nbsp;</td>
 					<td class="field">
-						<input class="button" type="submit" name="confirm" value="&laquo; NO" />
-						<input class="button" type="submit" name="confirm" value="YES &raquo;" />
+						<input class="button" type="submit" name="submit" value="Cancel" />
+						<input class="button" type="submit" name="submit" id="btnYes" value="Enter Moderation" />
 
 % 					for (@_releases) {
 
@@ -272,12 +311,6 @@
 
 % 					}
 						<input type="hidden" name="newartistid" value="<% $newartistid %>" />
-					</td>
-				</tr>
-				<tr>
-					<td>&nbsp;</td>
-					<td class="notetext">
-						<& /comp/notetext &>
 					</td>
 				</tr>
 			</table>
@@ -298,39 +331,66 @@
 				<td colspan="2" class="instructions">
 					<ul>
 						<li>
-							Please search for the artist to which you want to move
-							the release<% $_isbatch ? "s" : "" %>:
-							<ul style="margin-top: 5px">
-								<%perl>
-
-									# show all current artists and releases
-									for (0 .. ($_last))
-									{
-										$m->out("<li>");
-										$m->comp("/comp/linkrelease", release => $_releases[$_]);
-										$m->out(" by ");
-										$m->comp("/comp/linkartist", artist => $_artists[$_]);
-										#$m->out($_ < $_last ? ($_ == $_last-1 ? " and " : ", ") : "");
-										$m->out("</li>");
-									}
-
-								</%perl>
-							</ul>
-						</li>
+							Please review the documentation about <& /comp/linkdoc, "MoveReleaseEdit",
+							"moving releases" &>, before entering this edit.
+						<li>
+							When you're ready, search for the artist to which you want to move
+							the selected release<% $_isbatch ? "s" : "" %> below</li>
 					</ul>
 				</td>
 			</tr>
+		</table>
+
+		<table class="formstyle">
+			<tr class="top">
+				<td class="label">
+					<label>Selected Releases:</label></td>
+				<td>
+					<table class="listing">
+						<tr class="header">
+							<td>Release Title</td>
+							<td>Artist</td>
+						</tr>
+<%perl>
+		# show all current artists and releases
+		for (0 .. ($_last))
+		{
+			$m->out("<tr><td>");
+			$m->comp("/comp/linkrelease", release => $_releases[$_]);
+			$m->out("</td><td>");
+			$m->comp("/comp/linkartist", artist => $_artists[$_]);
+			$m->out("</td></tr>");
+		}
+</%perl>
+					</table>
+				</td>
+			</tr>
+			<tr>
+				<td class="label">
+					<label>Rather not?</label></td>
+				<td>
+					<form method="post" action="/edit/album/move.html">
+						<input class="button" type="submit" name="submit" value="Cancel"
+							title="If you have changed your mind, click Cancel to return to the last page" />
+% 					for (@releaseid) {
+						<input type="hidden" name="releaseid" value="<% $_ %>">
+% 					}
+						<input type="hidden" name="newartistid" value="<% $_releases[0]->GetArtist %>" />
+					</form></td>
+			</tr>
+
 
 			<& /comp/artistfilter,
 				search => $search,
+				submit => $submit,
+
 				defaultquery => $_isbatch ? "" : (&$GetCachedArtist($qar)->GetName),
 				dontshow => $_isbatch ? [] : [ $qar ],
-				allowcreate => 1,
+
 				url => "/edit/album/move.html",
-				arglist => {
-					album => \@releaseid
-				},
+				arglist => { releaseid => \@releaseid },
 			&>
+
 		</table>
 %	}
 

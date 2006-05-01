@@ -2,18 +2,23 @@
 <%args>
 	$mbid => ""
 	$albumid => ""
+
+	$releaseid => undef
 </%args>
 <%perl>
+
+	$releaseid ||= $albumid;
+
 # needs to be logged in for this
 $m->comp("/comp/checkloggedin", 1, 1)
 	or return;
 
-# check if a valid mbid/albumid was given.
+# check if a valid mbid/releaseid was given.
 if ($mbid ne "") {
 	MusicBrainz::IsGUID($mbid)
 		or return $m->comp("/comp/badargs", 1, 1);
 } else {
-	MusicBrainz::IsNonNegInteger($albumid) && $albumid
+	MusicBrainz::IsNonNegInteger($releaseid) && $releaseid
 		or return $m->comp("/comp/badargs", 1, 1);
 }
 
@@ -23,7 +28,7 @@ my $album = Album->new($mb->{DBH});
 if ($mbid ne "") {
 	$album->SetMBId($mbid);
 } else {
-	$album->SetId($albumid);
+	$album->SetId($releaseid);
 }
 $album->LoadFromId(1)
 	or return $m->comp(
@@ -93,7 +98,7 @@ $session{editalbum} = \%edit;
 # forward to form
 return $m->comp(
 	"/comp/redirect",
-	"/edit/album/sae-edittracks.html?albumid=" . $album->GetId
+	"/edit/album/sae-edittracks.html?releaseid=" . $album->GetId
 );
 
 </%perl>
