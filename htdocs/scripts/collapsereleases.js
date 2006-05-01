@@ -40,49 +40,66 @@ function CollapseReleases() {
 	this.setupReleases = function() {
 		mb.log.enter(this.CN, "setupReleases");
 		var obj,list = mb.ui.getByTag("table");
+		
+		var defaultcollapse = true;
+		if ((obj = mb.ui.get("collapsereleases::defaultcollapse")) != null) {
+			defaultcollapse = !(obj.value == 0);
+		}			
+		var showtoggleicon = true;
+		if ((obj = mb.ui.get("collapsereleases::showtoggleicon")) != null) {
+			showtoggleicon = !(obj.value == 0);
+		}	
+		
 		for (var i=0;i<list.length; i++) {
 			var t = list[i];
 			var id = (t.id || "");
 			if (id.match(/tracks::\d+/i)) {
 				
 				// go through all the TR's of the table
+				var defaultdisplay = (defaultcollapse ? "none" : "");
+				var defaultimage =  (defaultcollapse ? "maximize" : "minimize");
+				
 				var rows = mb.ui.getByTag("tr", t);
 				for (var j=0;j<rows.length; j++) {
 					if (rows[j].className.match(/track|discid/i)) {
-						rows[j].style.display = "none";
+						rows[j].style.display = defaultdisplay;
 					}
 				}
 				if ((obj = mb.ui.get(id.replace("tracks", "releaselinks"))) != null) {
-					obj.style.display = "none";
+					obj.style.display = defaultdisplay;
 				}
 				if ((obj = mb.ui.get(id.replace("tracks", "releaseevents"))) != null) {
-					obj.style.display = "none";
+					obj.style.display = defaultdisplay;
 				}		
+				
+				if (showtoggleicon)
+				{
+					var elid = id.replace("tracks", "link");
+					var el;
+					if ((el = mb.ui.get(elid)) != null) {
+						var parent = el.parentNode;
+						var a = document.createElement("a");
+						a.href = "javascript:; // Toggle release";
+						a.id = id.replace("tracks", "expand");
+						a.className = "toggle";
+						a.onfocus = function onfocus(event) { this.blur(); };
+						a.onclick = function onclick(event) { 
+							var id = this.id.replace("expand", "tracks");
+							collapsereleases.showRelease(id); 
+						};
+						var img = document.createElement("img");
 
-				var elid = id.replace("tracks", "link");
-				var el;
-				if ((el = mb.ui.get(elid)) != null) {
-					var parent = el.parentNode;
-					var a = document.createElement("a");
-					a.href = "javascript:; // Toggle release";
-					a.id = id.replace("tracks", "expand");
-					a.className = "toggle";
-					a.onfocus = function onfocus(event) { this.blur(); };
-					a.onclick = function onclick(event) { 
-						var id = this.id.replace("expand", "tracks");
-						collapsereleases.showRelease(id); 
-					};
-					var img = document.createElement("img");
-					img.src = "/images/es/maximize.gif";
-					img.className = "toggle";
-					img.alt = "Toggle release";
-					img.border = 0;
-					a.appendChild(img);
-					parent.insertBefore(a, el);
+						img.src = "/images/es/"+defaultimage+".gif";
+						img.className = "toggle";
+						img.alt = "Toggle release";
+						img.border = 0;
+						a.appendChild(img);
+						parent.insertBefore(a, el);
 
-				} else {
-					mb.log.debug("Element $ not found", elid);
-				}
+					} else {
+						mb.log.debug("Element $ not found", elid);
+					}
+					}
 			}
 		}
 		mb.log.exit();
@@ -151,7 +168,7 @@ function CollapseReleases() {
 	 *
 	 */
 	this.setupReleaseBatch = function() {
-		mb.log.enter(this.CN, "showRelease");
+		mb.log.enter(this.CN, "setupReleaseBatch");
 		var obj,list = mb.ui.getByTag("table");
 		for (var i=0;i<list.length; i++) {
 			var t = list[i];
@@ -160,7 +177,7 @@ function CollapseReleases() {
 				
 				var tagchecked = false;
 				if ((obj = mb.ui.get(id.replace("tracks", "tagchecked"))) != null) {
-					tagchecked = obj.value;
+					tagchecked = (obj.value == 1);
 				}
 				if ((obj = mb.ui.get(id.replace("tracks", "batchop"))) != null) {
 					var releaseid = id.replace("tracks::", "");
@@ -168,13 +185,15 @@ function CollapseReleases() {
 					var input = document.createElement("input");
 					input.id = id.replace("tracks", "batchcheckbox");
 					input.type = "checkbox";
-					input.onchange = function onclick(event) { 
-						var batchOpForm = document.forms.BatchOp;
+					input.onclick = function onclick(event) { 
 						var releaseid = this.id.replace("batchcheckbox::", "");
 						var fieldName = "AlbumId"+releaseid;
-						if (batchOpForm) {
-							var value = batchOpForm[fieldName].value;
-							batchOpForm[fieldName].value = (value == "off" ? "on" : "off");
+						var batchOpForm, obj;
+						if ((batchOpForm = mb.ui.get("BatchOp")) != null)  {
+							if (batchOpForm[fieldName] != null)  {
+								var value = batchOpForm[fieldName].value;
+								batchOpForm[fieldName].value = (value == "off" ? "on" : "off");
+							}
 						}
 					};			
 					obj.innerHTML = "";
