@@ -35,20 +35,20 @@ if (defined $table && defined $search)
 		limit => $limit,
 	);
 
-	if ($engine->Rows == 1) 
+	if ($engine->Rows == 1)
         {
     		my ($row, $url);
-        
+
 	        $row = $engine->NextRow;
-	        if ($engine->Table eq 'album') 
+	        if ($engine->Table eq 'album')
 	        {
     			$url = "/showalbum.html?albumid=$row->{'albumid'}";
 	        }
-	        elsif ($engine->Table eq 'artist') 
+	        elsif ($engine->Table eq 'artist')
 	        {
 			$url = "/showartist.html?artistid=$row->{'artistid'}";
 	        }
-	        elsif ($engine->Table eq 'track') 
+	        elsif ($engine->Table eq 'track')
     		{
 			$url = "/showtrack.html?trackid=$row->{'trackid'}";
 	        }
@@ -65,7 +65,7 @@ if (defined $table && defined $search)
 	}
 </%perl>
 
-<& /comp/sidebar, title => ucfirst($table) . ' Search Results: '.$search &>
+<& /comp/sidebar-notitle, pagetitle => ucfirst($table) . ' Search Results: '.$search &>
 
 %	if ($engine->Result == SEARCHRESULT_NOQUERY) {
 
@@ -90,9 +90,9 @@ if (defined $table && defined $search)
 
 		<& /comp/tablebegin, title=>"No matching ${table}s found." &>
 	        <p>
-			Please consider 
-    			<a href="/freedb/freedb.html?search=<% uri_escape($search) %>">importing</a> 
-	    		the artist/album/track(s) 
+			Please consider
+    			<a href="/freedb/freedb.html?search=<% uri_escape($search) %>">importing</a>
+	    		the artist/album/track(s)
 	    		you are looking for from freedb for insertion into MusicBrainz.
 %			if ($table eq 'artist') {
 				Alternatively, <a href="/edit/artist/add.html?initial_name=<% uri_escape($search) %>">add a new artist</a>.
@@ -100,9 +100,9 @@ if (defined $table && defined $search)
 				Alternatively, <a href="/edit/album/add.html?artistid=0">add a new album</a>.
 %			}
 	        </p>
-		
+
 %	} else {
-    
+
 		<& /comp/tablebegin, title=>"Found" &>
 
 		<table border="0" cellspacing="0" cellpadding="4" id="SearchResults">
@@ -145,37 +145,37 @@ if (defined $table && defined $search)
 % } else {
 			<td></td>
 % }
-            <td><a href="/showalbum.html?albumid=<% $row->{'albumid'} %>"><% $row->{'albumname'} %></a></td> 
+            <td><a href="/showalbum.html?albumid=<% $row->{'albumid'} %>"><% $row->{'albumname'} %></a></td>
             <td><a href="/showartist.html?artistid=<% $row->{'artistid'} %>"><% $row->{'artistname'} %></a>
 % if ($row->{artistresolution}) {
 				(<% $row->{artistresolution} %>)
 % }
-			</td> 
+			</td>
 %       } elsif ($engine->Table eq 'artist') {
             <td><a href="/showartist.html?artistid=<% $row->{'artistid'} %>"><% $row->{'artistname'} %></a>
 % if ($row->{artistresolution}) {
 				(<% $row->{artistresolution} %>)
 % }
-			</td> 
+			</td>
 %       } elsif ($engine->Table eq 'track') {
-            <td><a href="/showtrack.html?trackid=<% $row->{'trackid'} %>"><% $row->{'trackname'} %></a></td> 
+            <td><a href="/showtrack.html?trackid=<% $row->{'trackid'} %>"><% $row->{'trackname'} %></a></td>
             <td><a href="/showartist.html?artistid=<% $row->{'artistid'} %>"><% $row->{'artistname'} %></a>
 % if ($row->{artistresolution}) {
 				(<% $row->{artistresolution} %>)
 % }
-			</td> 
-            <td><a href="/showalbum.html?albumid=<% $row->{'albumid'} %>"><% $row->{'albumname'} %></a></td> 
+			</td>
+            <td><a href="/showalbum.html?albumid=<% $row->{'albumid'} %>"><% $row->{'albumname'} %></a></td>
 %       }
         </tr>
 %   }
     </table>
-    
-%	} 
-    
-    
+
+%	}
+
+
     <& /comp/tableend &>
-    
-    
+
+
     <& /comp/tablebegin, title=>'Search Again (Direct Search)', attrs=>"align=left", gattrs=>"width='100%'" &>
 %   $mb->Logout();
 % } else {
