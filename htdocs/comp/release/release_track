@@ -109,7 +109,7 @@
 	}
 	if ($trmcount > 0)
 	{
-       $m->out(qq!&nbsp;<img src="/images/trm.gif" alt="TRM" width="30" height="11" title="$trmcount TRM IDs">&nbsp;!);
+       $m->out(qq!&nbsp;<img src="/images/trm.gif" alt="TRM" width="30" height="11" title="$trmcount TRM IDs" />&nbsp;!);
 	}
 
 	my $mb = $m->comp("/comp/dblogin");

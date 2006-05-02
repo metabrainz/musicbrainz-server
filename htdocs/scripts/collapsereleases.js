@@ -35,6 +35,13 @@ function CollapseReleases() {
 
 
 	/**
+	 * Go through all the releases of the current page
+	 * and add the toggle icons. This functionality can
+	 * be defined in the page tree using the two
+	 * hidden fields:
+	 *
+	 * ~collapsereleases::defaultcollapse (0|1)
+	 * ~collapsereleases::showtoggleicon	(0|1)
 	 *
 	 */
 	this.setupReleases = function() {
@@ -49,7 +56,6 @@ function CollapseReleases() {
 		if ((obj = mb.ui.get("collapsereleases::showtoggleicon")) != null) {
 			showtoggleicon = !(obj.value == 0);
 		}	
-		
 		for (var i=0;i<list.length; i++) {
 			var t = list[i];
 			var id = (t.id || "");
@@ -107,10 +113,13 @@ function CollapseReleases() {
 	
 	
 	/**
+	 * Go through all the releases of the current page
+	 * and set their toggle status to the flag.
 	 *
+	 * @param flag	the new state (true|false)
 	 */
 	this.toggleAll = function(flag) {
-		mb.log.enter(this.CN, "setupReleases");
+		mb.log.enter(this.CN, "toggleAll");
 		var list = mb.ui.getByTag("table");
 		for (var i=0;i<list.length; i++) {
 			var t = list[i];
@@ -123,7 +132,10 @@ function CollapseReleases() {
 	
 	
 	/** 
+	 * Set the new toggle status of the release with id
 	 *
+	 * @param id	the release id
+	 * @param flag	the new state (true|false)
 	 */
 	this.showRelease = function(id, flag) {
 		mb.log.enter(this.CN, "showRelease");
@@ -163,9 +175,10 @@ function CollapseReleases() {
 	
 	
 	/**
-	 * This function replaces the "remove" in the release title
-	 * with a checkbox for the BatchOp form.
-	 *
+	 * This function replaces the non-javascript variant of the
+	 * batchop selection with the checkboxes for the BatchOp form.
+	 * The visible fields of the batchop form are added during
+	 * this function as well.
 	 */
 	this.setupReleaseBatch = function() {
 		mb.log.enter(this.CN, "setupReleaseBatch");
@@ -187,7 +200,7 @@ function CollapseReleases() {
 					input.type = "checkbox";
 					input.onclick = function onclick(event) { 
 						var releaseid = this.id.replace("batchcheckbox::", "");
-						var fieldName = "AlbumId"+releaseid;
+						var fieldName = "releaseid"+releaseid;
 						var batchOpForm, obj;
 						if ((batchOpForm = mb.ui.get("BatchOp")) != null)  {
 							if (batchOpForm[fieldName] != null)  {
@@ -207,14 +220,42 @@ function CollapseReleases() {
 		}
 
 		// get BatchOp form, then container element (div)
-		// inside it, to add the Update button
+		// inside it, to add user interface.
 		if ((obj = mb.ui.get("BatchOp")) != null) {
 			if ((obj = mb.ui.getByTag("div", obj)[0]) != null) {
-				var input = document.createElement("input");
-				input.type = "submit";
-				input.name = "submit";
-				input.value = "Update";
-				obj.appendChild(input);
+			
+				// used in /edit/albumbatch/done.html
+				if (obj.id == "batchop::removereleases") {
+					var el = document.createElement("input");
+					el.type = "submit";
+					el.name = "submit";
+					el.value = "Update";
+					obj.appendChild(el);
+				
+				// used in /show/artist/ and /show/release/?
+				} else if (obj.id == "batchop::selectreleases") {
+				
+					var el = document.createElement("input");
+					el.type = "image";
+					el.alt = "Batch Edit";
+					el.title = "Edit selected release(s) in a batch edit";
+					el.src = "/images/batch.gif";
+					obj.appendChild(el);
+					el.style.border = "0";
+					el.style.height = "13px";
+					el.style.width = "13px";
+									
+					el = document.createElement("a");
+					el.href = "#";
+					el.title = "Edit selected release(s) in a batch edit";
+					el.onclick = function onclick(event) { 
+						document.forms.BatchOp.submit(); 
+						return false;
+					};
+					obj.appendChild(el);
+					el.innerText = "Batch Operation"; 
+					el.style.marginLeft = "5px";				
+				}
 			}
 		}
 	};
@@ -227,17 +268,9 @@ function CollapseReleases() {
 // register class...
 var collapsereleases = new CollapseReleases();
 mb.registerDOMReadyAction(
-	new MbEventAction(collapsereleases.GID, "setupReleases", "Initialising CollapseReleases")
+	new MbEventAction(collapsereleases.GID, "setupReleases", "Setting up release toggle functions")
 );
-
 mb.registerDOMReadyAction(
-	new MbEventAction(collapsereleases.GID, "setupReleaseBatch", "Initialising CollapseReleases")
+	new MbEventAction(collapsereleases.GID, "setupReleaseBatch", "Setup release batch operations")
 );
  
-//toggleRelease(mb.ui.get("expand::82274"));
-
-
-//	<script type="text/javascript">
-//		document.writeln('<input type="checkbox" name="check" onchange="document.forms.BatchOp.AlbumId<% $releaseid %>.value = this.form.check.checked ? \'on\' : \'\';" <% $tagchecked ? " CHECKED" : "" %>>');
-//	</script>
-//	<noscript>

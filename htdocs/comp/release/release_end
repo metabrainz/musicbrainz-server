@@ -122,7 +122,7 @@
 					}
 				);
 
-				$m->out(sprintf qq!<tr class="%s">!, $rel->GetModPending ? "mp" : "");
+				$m->out(sprintf qq!<tr%s>!, $rel->GetModPending ? qq! class="mp"! : "");
 				$m->out(sprintf qq!<td>%s</td>!, $m->scomp("/comp/releasedate", $rel));
 				$m->out(qq!<td>&mdash;</td>!);
 				$m->out(sprintf qq!<td>%s</td>!, encode_entities($name));

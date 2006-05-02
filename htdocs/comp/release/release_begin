@@ -46,6 +46,7 @@
 <%perl>
 	$release ||= $album;
 
+	my $artistid = $release->GetArtist;
 	my $releaseid = $release->GetId;
 	my $mbid = $release->GetMBId;
 	my $name = $release->GetName;
@@ -88,9 +89,8 @@
 			<td class="batchop" id="batchop::<% $releaseid %>">
 				<form method="post" action="/edit/albumbatch/done.html">
 					<div>
-
 						<input type="hidden" id="tagchecked::<% $releaseid %>" value="<% $tagchecked %>" />
-						<input type="hidden" name="AlbumId<% $releaseid %>" value="<% $tagchecked ? "off" : "on" %>" />
+						<input type="hidden" name="releaseid<% $releaseid %>" value="<% $tagchecked ? "off" : "on" %>" />
 						<input type="submit" name="submit" value="<% $tagchecked ? "Remove" : "Select" %>" />
 					</div>
 				</form>
@@ -99,15 +99,87 @@
 		</tr>
 	</table>
 
-
-% 	# album link rows.
-% 	if ($showlinks or $showmodlinks)
-%	{
-
-	<table id="releaselinks::<% $releaseid %>" class="releaselinks">
-		<tr>
-			<td>
 <%perl>
+
+
+
+
+ 	# album link rows.
+ 	if ($showlinks or $showmodlinks)
+	{
+		$m->out(qq!<table id="releaselinks::$releaseid" class="releaselinks"><tr>!);
+		$m->out(qq!<td class="links">!);
+		$m->out(qq!<table class="inner">!);
+
+		# First row: non-editing links
+ 		if ($showlinks)
+		{
+			$m->out(qq!<tr><td class="info">!);
+			$m->out(qq!Release: [ !);
+			$m->out(qq!   <a href="/show/permlink.html?id=$mbid&amp;type=release" title="Link to this release">Copy link</a>!);
+			$m->out(qq!	| <a href="/show/release/details.html?releaseid=$releaseid">Details</a>!);
+			$m->out(qq! | !);
+			$m->comp("/comp/googlelink", search => [ $artist->GetName, $name ], text => "Search Google");
+ 			if ($session{uid} and !$nonalbum)
+ 			{
+				$m->out(qq! | <a href="/mod/search/pre/album.html?releaseid=$releaseid">View Edits</a>!);
+ 			}
+			$m->out(qq! ] </td></tr>!);
+ 		}
+
+		# Second row: editing links
+ 		if ($showmodlinks)
+		{
+			$m->out(qq!<tr><td class="edit"> Edit: [ !);
+			if ($session{uid})
+			{
+				if (!$nonalbum)
+				{
+					$m->out(qq!<a href="/edit/album/edit.html?releaseid=$releaseid">Edit</a> | !);
+					$m->out(qq!<a href="/edit/album/editall.html?releaseid=$releaseid">Edit all</a> | !);
+
+					unless ($release->HasMultipleTrackArtists)
+					{
+						$m->out(qq!<a href="/edit/relationship/showelements.html?type=album&amp;id=$releaseid&amp;name=!.uri_escape($name).qq!">Link</a> | !);
+					}
+				}
+
+				$m->out(qq!<a href="/edit/album/remove.html?releaseid=$releaseid">Remove</a>!);
+				if ($nonalbum)
+				{
+					$m->out(qq! | <a href="/edit/track/addnonalbum.html?artistid=$artistid">Add&nbsp;a&nbsp;non-album&nbsp;track</a>&nbsp;]!);
+				}
+				else
+				{
+					if ($release->CanAddTrack)
+					{
+						$m->out(qq! | <a href="/edit/track/add.html?releaseid=$releaseid">Add&nbsp;track</a>!);
+					}
+					$m->out(qq! | <a href="/edit/album/move.html?releaseid=$releaseid">Move</a>!);
+					if (!$showtrackartists and !$nonalbum)
+					{
+						$m->out(qq! | <a href="/show/release/?releaseid=$releaseid&amp;showtrackartists=1">Show&nbsp;artists</a>!);
+					}
+					if (!$release->HasMultipleTrackArtists)
+					{
+						$m->out(qq! | <a href="/edit/album/mac.html?releaseid=$releaseid">Convert&nbsp;to&nbsp;multiple&nbsp;artists</a>!);
+					}
+					else
+					{
+						$m->out(qq! | <a href="/edit/album/sac.html?releaseid=$releaseid">Convert&nbsp;to&nbsp;single&nbsp;artist</a>!);
+					}
+					$m->out(qq! | <a href="/edit/albumbatch/done.html?releaseid$releaseid=on">Merge&nbsp;with&nbsp;...</a>&nbsp;]!);
+				}
+			}
+			else
+			{
+				$m->out(qq!<a href="/login.html">Log in</a> to edit this!);
+ 			}
+			$m->out(qq!</td></tr>!);
+		}
+		$m->out(qq!</table>!);
+		$m->out(qq!</td>!);
+
 		my ($coverart, $store);
 		my $asin = $release->GetAsin();
 		if ($asin)
@@ -117,88 +189,31 @@
 		}
 		if ($coverart && $showlinks && UserPreference::get("show_amazon_coverart"))
 		{
-			$m->out(qq!<a class="asin" href="/misc/redirects/amazon-album-info.html?!);
+			$m->out(qq!<td class="cover"><a href="/misc/redirects/amazon-album-info.html?!);
 			$m->out(sprintf qq!%s&amp;store=%s&amp;asin=%s">!,
 				$release->GetMBId,
 				$store,
 				$asin);
-			$m->out(sprintf qq!<img class="asin" src="%s" border="0" alt="cover art" /></a>!,
+			$m->out(sprintf qq!<img class="asin" src="%s" alt="Show release at amazon" /></a>!,
 				$coverart);
+
+			$m->out(qq!<div class="partnerlinks">!);
+			$m->out(qq!Amazon: <a href="/misc/redirects/amazon-album-info.html?!);
+			$m->out(sprintf qq!%s&amp;store=%s&amp;asin=%s">info</a>!,
+				$release->GetMBId,
+				$store,
+				$asin);
+			$m->out(" | ");
+			$m->out(qq!<a href="/misc/redirects/amazon-album-buy.html?!);
+			$m->out(sprintf qq!%s&amp;store=%s&amp;asin=%s">buy</a>!,
+				$release->GetMBId,
+				$store,
+				$asin);
+			$m->out(qq!</div></td>!);
 		}
+		$m->out(qq!</tr></table>!);
+	}
+
 </%perl>
-			<div class="AlbumInfo">
-				<div class="AlbumTitle">
-%# First row: non-editing links
-% 		if ($showlinks) {
-					<div class="AlbumTitleLinks">Release: [
-						<a href="<& /comp/copyable-link,
-							id		=> $mbid,
-							name	=> $name,
-							type	=> "album",
-							style	=> "url",
-						&>">Permanent link</a>
-						| <a href="/perm_links.html?name=<% uri_escape($name) %>&amp;id=<% $mbid %>&amp;type=album">Link to this</a>
-						| <a href="/show/release/details.html?releaseid=<% $releaseid %>">Details</a>
-						| <& /comp/googlelink, search => [ $artist->GetName, $name ], text => "Search Google" &>
-% 			if ($session{uid} and !$nonalbum) {
-						| <a href="/mod/search/pre/album.html?releaseid=<% $releaseid %>">View Edits</a>
-% 			}
-					]</div>
-% 		}
-				</div>
-
-%# Second row: editing links
-% 		if ($session{uid} and $showmodlinks) {
-				<div class="AlbumTitleMod">
-					<div class="AlbumTitleLinks">Edit: [
-%			if (!$nonalbum) {
-						<a href="/edit/album/edit.html?album=<% $releaseid %>">Edit</a> |
-						<a href="/edit/album/editall.html?releaseid=<% $releaseid %>">Edit all</a> |
-%				unless ($release->HasMultipleTrackArtists) {
-						<a href="/edit/relationship/showelements.html?type=album&amp;id=<% $releaseid %>&amp;name=<% uri_escape($name) %>">Link</a> |
-%				}
-%			}
-						<a href="/edit/album/remove.html?album=<% $releaseid %>&amp;artist=<% $artist->GetId %>">Remove</a>
-%			if ($nonalbum) {
-						| <a href="/edit/track/addnonalbum.html?artistid=<% $release->GetArtist %>">Add&nbsp;a&nbsp;non-album&nbsp;track</a>&nbsp;]
-%			} else {
-
-%				if ($release->CanAddTrack) {
-						| <a href="/edit/track/add.html?album=<% $releaseid %>">Add&nbsp;track</a>
-%				}
-						| <a href="/edit/album/move.html?album=<% $releaseid %>">Move</a>
-%				if (!$showtrackartists and !$nonalbum) {
-						| <a href="/showalbum.html?albumid=<% $releaseid %>&amp;showtrackartists=1">Show&nbsp;artists</a>
-%				}
-%				if (!$release->HasMultipleTrackArtists) {
-						| <a href="/edit/album/mac.html?album=<% $releaseid %>">Convert&nbsp;to&nbsp;multiple&nbsp;artists</a>
-%				} else {
-						| <a href="/edit/album/sac.html?album=<% $releaseid %>">Convert&nbsp;to&nbsp;single&nbsp;artist</a>
-%				}
-						| <a href="/edit/albumbatch/done.html?AlbumId<% $releaseid %>=on">Merge&nbsp;with&nbsp;...</a>&nbsp;]
-%			}
-				</div>
-			</div>
-%		} elsif ($showmodlinks) {
-				<div class="AlbumTitleMod">
-					<div>Edit: [
-						<a href="/login.html">Log in</a> to edit this
-					]</div>
-				</div>
-% 		}
-
-% 		if ($coverart && $showlinks && UserPreference::get('show_amazon_coverart')) {
-				<div class="AlbumTitleAmazon">
-					Amazon: [
-					<a href="/misc/redirects/amazon-album-buy.html?album=<% $release->GetMBId %>&amp;store=<% $store %>&amp;asin=<% $asin %>">Buy</a>
-					| <a href="/misc/redirects/amazon-album-info.html?album=<% $release->GetMBId %>&amp;store=<% $store %>&amp;asin=<% $asin %>">Info</a>
-					]
-				</div>
-% 		}
-			</div>
-			</td>
-		</tr>
-	</table>
-% 	}
 
 	<table id="tracks::<% $releaseid %>" class="releasetracks">

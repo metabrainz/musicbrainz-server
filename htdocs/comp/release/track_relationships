@@ -63,8 +63,8 @@
 
 			# remove un-necessary words from phrase
 			my $phrase = $item->{link_phrase};
-			$phrase =~ s/^[ \t]*//;
-			$phrase =~ s/has|was|were|performed//g;
+			#$phrase =~ s/^[ \t]*//;
+			$phrase =~ s/^has|^was|^were//g;
 
 			$m->out('<tr><td class="small">'.$phrase. ' ');
 			$m->comp("/comp/relationship/outputentity", item => $item, index => 1, name => $name);
