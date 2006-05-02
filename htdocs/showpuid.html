@@ -1,114 +1,36 @@
-%# vi: set ts=4 sw=4 ft=mason :
-<%args>
-$puid => undef
-$matchesonly => 1
-</%args>
-<& /comp/sidebar, title=>'Show PUID Id' &>
+<%perl>
+	# -----------------------------------------------------------------------------
+	#                               Musicbrainz.org
+	#                        Copyright (c) 2001 Robert Kaye
+	# -----------------------------------------------------------------------------
+	#  This software is provided "as is", without warranty of any kind, express or
+	#  implied, including  but not limited  to the warranties of  merchantability,
+	#  fitness for a particular purpose and noninfringement. In no event shall the
+	#  authors or  copyright  holders be  liable for any claim,  damages or  other
+	#  liability, whether  in an  action of  contract, tort  or otherwise, arising
+	#  from,  out of  or in  connection with  the software or  the  use  or  other
+	#  dealings in the software.
+	#
+	#  GPL - The GNU General Public License    http://www.gnu.org/licenses/gpl.txt
+	#  Permits anyone the right to use and modify the software without limitations
+	#  as long as proper  credits are given  and the original  and modified source
+	#  code are included. Requires  that the final product, software derivate from
+	#  the original  source or any  software  utilizing a GPL  component, such  as
+	#  this, is also licensed under the GPL license.
+	# -----------------------------------------------------------------------------
+	#
+	# Summary:
+	# -----------------------------------------------------------------------------
+	# The showpuid.html?puid=UUID page was moved to /show/puid/?puid=UUID.
+	# Redirect requests such that the new url shows up in the browser location bar.
+	#
+	# $URL$
+	# $Id$
+	#
+</%perl>
 <%perl>
 
-unless (MusicBrainz::IsGUID($puid))
-{
-    $m->out("This page needs a valid puid argument.");
-}
-else
-{
-	$puid = lc $puid;
-
-	</%perl>
-	<h2><b>PUID Id: <% $puid %></b></h2>
-	<%perl>
-	if ($matchesonly)
-	{
-		$m->out("<p>Note, that only tracks with the specified PUID are shown below. ".
-			'<a href="/showpuid.html?puid=' . $puid . '&matchesonly=0">Click here</a> to ' .
-			"get the complete track listings</p>");
-	}
-
-    my $mb = $m->comp("/comp/dblogin");
-    my $artist = Artist->new($mb->{DBH});
-    my $album = Album->new($mb->{DBH});
-    my $gu = PUID->new($mb->{DBH});
-    
-    my $ids = $gu->GetTrackIdsFromPUID($puid);
-    if (scalar(@$ids) == 0)
-    {
-        $m->out("<p>This PUID Id was not found in the database.<p>");
-    }
-    else
-    {
-	 	my %artists;
-	 	my %albums;
-
-	 	for my $trackid (@$ids)
-	 	{
-	 		my @albums = $album->GetAlbumIdsFromTrackId($trackid);
-	 		for my $albumid (@albums)
-	 		{
-	 			$albums{$albumid} ||= do {
-	 				my $al = Album->new($mb->{DBH});
-	 				$al->SetId($albumid);
-	 				$al->LoadFromId
-	 					or $al = "0 but true"; # load failed
-	 				$al;
-	 			};
-	 			ref(my $al = $albums{$albumid})
-	 				or next;
-
-	 			$artists{$al->GetArtist} ||= do {
-	 				my $ar = Artist->new($mb->{DBH});
-	 				$ar->SetId($al->GetArtist);
-	 				$ar->LoadFromId
-	 					or $ar = "0 but true"; # load failed
-	 				$ar;
-	 			};
-	 			ref(my $ar = $artists{$al->GetArtist})
-	 				or next;
-
-	 			$ar->{_my_albums_}{$albumid} ||= $al;
-	 			$al->{_my_tracks_}{$trackid} = 1;
-	 		}
-	 	}
-
-	 	# For each artist in sortname order...
-	 	my @ar = values %artists;
-	 	@ar = map {
-	 			$_->[0]
-	 		} sort {
-	 			$a->[1] cmp $b->[1]
-	 		} map {
-	 			my $n = MusicBrainz::NormaliseSortText($_->GetSortName);
-	 			[ $_, $n ];
-	 		} @ar;
-
-	 	for my $ar (@ar)
-	 	{
-	 		$m->comp("/comp/artisttitle", artist => $ar);
-
-	 		# For albums in name order...
-	 		my @al = values %{ $ar->{_my_albums_} };
-	 		@al = map {
-	 				$_->[0]
-	 			} sort {
-	 				$a->[1] cmp $b->[1]
-	 			} map {
-	 				my $n = MusicBrainz::NormaliseSortText($_->GetName);
-	 				[ $_, $n ];
-	 			} @al;
-
-	 		for my $al (@al)
-	 		{
-	 			$m->comp(
-	 				"/comp/album", 
-	 				album		=> $al, 
-	 				artist		=> $ar,
-	 				highlighttracks	=> $al->{_my_tracks_},
-	 				highlightonly => $matchesonly,
-	 			);
-	 		}
-	 	}
-       $mb->Logout;
-   }
-}
+	my $url = "/show/puid/?" . $m->comp("/comp/args-to-querystring.inc", %ARGS);
+	return $m->comp("/comp/redirect", $url);
 
 </%perl>
-<& /comp/footer &>

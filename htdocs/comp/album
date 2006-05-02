@@ -3,9 +3,13 @@
 	$artist
 	$highlighttracks => +{}
 	$highlightonly => 0
+
 	$link => 1
+	$showlinks => 1 # TODO: link|showlinks make consistent.
+
 	$showmodlinks => 1
 	$showcollapsed => 0
+
 	$ex => ""
 	$mbtagger => $session{'mbt'}
 	$showids => 0
@@ -34,6 +38,7 @@
 		$m->comp("/comp/release/release_begin",
 				artist => $artist,
 				album => $album,
+				showlinks => $showlinks,
 				showmodlinks => $showmodlinks,
 				linktype => "collapse",
 				link => $url,
@@ -45,6 +50,7 @@
 		$m->comp("/comp/release/release_begin",
 				artist => $artist,
 				album => $album,
+				showlinks => $showlinks,
 				showmodlinks => $showmodlinks,
 				showtag => $showtag,
 				tagchecked => $tagchecked,
