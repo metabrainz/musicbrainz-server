@@ -1,18 +1,46 @@
-%# vi: set ts=4 sw=4 ft=mason :
+<%perl>
+	# -----------------------------------------------------------------------------
+	#                               Musicbrainz.org
+	#                        Copyright (c) 2001 Robert Kaye
+	# -----------------------------------------------------------------------------
+	#  This software is provided "as is", without warranty of any kind, express or
+	#  implied, including  but not limited  to the warranties of  merchantability,
+	#  fitness for a particular purpose and noninfringement. In no event shall the
+	#  authors or  copyright  holders be  liable for any claim,  damages or  other
+	#  liability, whether  in an  action of  contract, tort  or otherwise, arising
+	#  from,  out of  or in  connection with  the software or  the  use  or  other
+	#  dealings in the software.
+	#
+	#  GPL - The GNU General Public License    http://www.gnu.org/licenses/gpl.txt
+	#  Permits anyone the right to use and modify the software without limitations
+	#  as long as proper  credits are given  and the original  and modified source
+	#  code are included. Requires  that the final product, software derivate from
+	#  the original  source or any  software  utilizing a GPL  component, such  as
+	#  this, is also licensed under the GPL license.
+	# -----------------------------------------------------------------------------
+	#
+	# Summary:
+	# -----------------------------------------------------------------------------
+	# Add, Remove and Change the release events of this release
+	#
+	# $URL$
+	# $Id$
+	#
+</%perl>
 <%args>
-	$albumid
+	$releaseid
 	$submit => ""
 </%args>
 <%perl>
 	# let's see if we still got a session, else redirect
-	# to the given albumid.
-	my $albumurl = "/showalbum.html?albumid=" . $albumid;
-	my $edit = $session{"editreleases"}{$albumid}
-		or return $m->comp("/comp/redirect", $albumurl);
+	# to the given releaseid.
+	my $url = "/show/release/?releaseid=" . $releaseid;
+	my $edit = $session{"editreleases"}{$releaseid}
+		or return $m->comp("/comp/redirect", $url);
 
 	# the user clicked on the cancel button, remove current
-	# album from the session and show the album again.
-	return $m->comp("/comp/redirect", "/edit/albumreleases/cancel.html?albumid=".$albumid)
+	# release from the session and show the release again.
+	return $m->comp("/comp/redirect", "/edit/albumreleases/cancel.html?releaseid=".$releaseid)
 		if ($submit eq "Cancel");
 
 	my $countries_menu = $m->comp("countries-menu.inc");
@@ -25,7 +53,7 @@
 	{
 		delete $ARGS{$k}, next
 			unless MusicBrainz::IsNonNegInteger($v)
-			and not $k eq "albumid"; # ignore albumid argument
+			and not $k eq "releaseid"; # ignore releaseid argument
 	}
 
 	# Update releases
@@ -131,9 +159,9 @@
 	$focusfield ||= "y".$releases->[0]{id} if @$releases;
 	$focusfield ||= "AddARelease";
 
-	$session{"editreleases"}{$albumid} = $edit; # write
+	$session{"editreleases"}{$releaseid} = $edit; # write
 
-	return $m->comp("/comp/redirect", "/edit/albumreleases/review.html?albumid=".$albumid)
+	return $m->comp("/comp/redirect", "/edit/albumreleases/review.html?releaseid=".$releaseid)
 		if $ARGS{"continue"};
 
 	my $ar = Artist->new(undef);
@@ -199,9 +227,9 @@
 					<a href="/showartist.html?artistid=<% $ar->GetId %>" title="Show artist"><% $ar->GetName %></a></td>
 			</tr>
 			<tr>
-				<td class="label"><label>Album:</label></td>
+				<td class="label"><label>Release:</label></td>
 				<td class="field">
-					<a href="/showalbum.html?albumid=<% $edit->{'id'} %>" title="Show album"><% $edit->{'name'} %></a></td>
+					<& /comp/linkrelease, id => $edit->{'id'}, name => $edit->{'name'} &></td>
 			</tr>
 			<tr>
 				<td>&nbsp;</td>
@@ -266,7 +294,7 @@
 				<td>
 					<input type="submit" name="submit" class="button" value="Cancel" />
 					<input type="submit" name="submit" class="button" value="Continue" />
-					<input type="hidden" name="albumid" value="<% $albumid %>" />
+					<input type="hidden" name="releaseid" value="<% $releaseid %>" />
 					<input type="hidden" name="continue" value="1" />
 				</td>
 			</tr>

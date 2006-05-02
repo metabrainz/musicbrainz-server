@@ -1,42 +1,55 @@
-%# vi: set ts=4 sw=4 ft=mason :
+<%perl>
+	# -----------------------------------------------------------------------------
+	#                               Musicbrainz.org
+	#                        Copyright (c) 2001 Robert Kaye
+	# -----------------------------------------------------------------------------
+	#  This software is provided "as is", without warranty of any kind, express or
+	#  implied, including  but not limited  to the warranties of  merchantability,
+	#  fitness for a particular purpose and noninfringement. In no event shall the
+	#  authors or  copyright  holders be  liable for any claim,  damages or  other
+	#  liability, whether  in an  action of  contract, tort  or otherwise, arising
+	#  from,  out of  or in  connection with  the software or  the  use  or  other
+	#  dealings in the software.
+	#
+	#  GPL - The GNU General Public License    http://www.gnu.org/licenses/gpl.txt
+	#  Permits anyone the right to use and modify the software without limitations
+	#  as long as proper  credits are given  and the original  and modified source
+	#  code are included. Requires  that the final product, software derivate from
+	#  the original  source or any  software  utilizing a GPL  component, such  as
+	#  this, is also licensed under the GPL license.
+	# -----------------------------------------------------------------------------
+	#
+	# Summary:
+	# -----------------------------------------------------------------------------
+	# Review the changes made to the release events
+	#
+	# $URL$
+	# $Id$
+	#
+</%perl>
 <%args>
-	$albumid
+	$releaseid
 </%args>
 <%perl>
-	# let's see if we still got a session, else redirect
-	# to the given albumid.
-	my $albumurl = "/showalbum.html?albumid=" . $albumid;
-	my $edit = $session{"editreleases"}{$albumid}
-		or return $m->comp("/comp/redirect", $albumurl);
+	# let's see if we still got the required data in
+	# the session, else redirect to the given releaseid.
+	my $url = "/show/release/?releaseid=" . $releaseid;
+	my $edit = $session{"editreleases"}{$releaseid}
+		or return $m->comp("/comp/redirect", $url);
 
 	my $mb = $m->comp("/comp/dblogin");
 	my $changes = 0;
 
-	my $al = Album->new($mb->{DBH});
-	$al->SetId($edit->{"id"});
-	$al->LoadFromId
-		or return $m->comp(
-			"/comp/error",
-			"Album not found in the database.",
-			1, 1,
-		);
+	my $release = $m->comp("/comp/loadrelease", $mb, $edit->{"id"});
+	my $artist = $m->comp("/comp/loadartist", $mb, $release->GetArtist);
 
-	my $ar = Artist->new($mb->{DBH});
-	$ar->SetId($al->GetArtist);
-	$ar->LoadFromId
-		or return $m->comp(
-			"/comp/error",
-			"Artist not found in the database.",
-			1, 1,
-		);
-
-	my @releases = $al->Releases;
-	my @tracks = $al->LoadTracks;
+	my @releases = $release->Releases;
+	my @tracks = $release->LoadTracks;
 </%perl>
 
 <& /comp/sidebar-notitle, pagetitle => "Edit Release Events: Review Changes" &>
 
-	<& /comp/artisttitle, artist => $ar &>
+	<& /comp/artisttitle, artist => $artist &>
 
 	<& /comp/tablebegin, title => "Review Moderations" &>
 
@@ -126,21 +139,21 @@
 					<form method="get" action="editreleases.html">
 						<div>
 							<input type="submit" class="button" value="Keep Editing" />
-							<input type="hidden" name="albumid" value="<% $albumid %>" />
+							<input type="hidden" name="releaseid" value="<% $releaseid %>" />
 						</div>
 					</form></td>
 				<td>
 					<form method="get" action="index.html">
 						<div>
-							<input type="hidden" name="album" value="<% $albumid %>" />
-							<input type="submit" class="button" value="Start Over" />
+							<input type="hidden" name="releaseid" value="<% $releaseid %>" />
+							<input class="button" type="submit" value="Start Over" />
 						</div>
 					</form></td>
 				<td>
 					<form method="get" action="cancel.html">
 						<div>
-							<input type="submit" class="button" value="Abandon" />
-							<input type="hidden" name="albumid" value="<% $albumid %>" />
+							<input class="button" type="submit" value="Abandon" />
+							<input type="hidden" name="releaseid" value="<% $releaseid %>" />
 						</div>
 					</form></td>
 			</tr>
@@ -159,7 +172,7 @@
 			</div>
 			<div class="padlefttop">
 				<input type="submit" class="button" value="Enter Moderations" />
-				<input type="hidden" name="albumid" value="<% $albumid %>" />
+				<input type="hidden" name="releaseid" value="<% $releaseid %>" />
 			</div>
 		</form>
 

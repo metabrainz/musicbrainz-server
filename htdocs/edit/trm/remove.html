@@ -1,103 +1,114 @@
 %# vi: set ts=4 sw=4 ft=mason :
 <%args>
-$TRMjoin => ""
-$trackid => ""
-$trmid => ""
-$notetext => ""
+	$trackid => ""
+	$trmid => ""
+	$TRMjoin => ""
+
+	$submit => ""
+	$notetext => ""
 </%args>
 <%perl>
 
-MusicBrainz::IsSingleLineString($trmid)
-	or return $m->comp("/comp/badargs", 1, 1);
+	# only logged in users may see this page
+	$m->comp("/comp/checkloggedin", 1, 1)
+		or return;
 
-MusicBrainz::IsNonNegInteger($trackid) && $trackid
-	or return $m->comp("/comp/badargs", 1, 1);
+	# make sure we got a valid trackid parameter
+	MusicBrainz::IsNonNegInteger($trackid) and $trackid
+		or return $m->comp("/comp/layout/badarguments",
+			text => "The argument <strong>trackid</strong> is missing or has a wrong format.");
 
-MusicBrainz::IsNonNegInteger($TRMjoin) && $TRMjoin
-	or return $m->comp("/comp/badargs", 1, 1);
+	# make sure we got a valid trmid parameter
+	MusicBrainz::IsSingleLineString($trmid) and $trmid
+		or return $m->comp("/comp/layout/badarguments",
+			text => "The argument <strong>trmid</strong> is missing or has a wrong format.");
 
-$m->comp("/comp/checkloggedin", 1, 1)
-	or return;
+	# make sure we got a valid TRMjoin parameter
+	MusicBrainz::IsNonNegInteger($TRMjoin) and $trmid
+		or return $m->comp("/comp/layout/badarguments",
+			text => "The argument <strong>TRMjoin</strong> is missing or has a wrong format.");
 
-my $mb = $m->comp("/comp/dblogin");
+	# Instantiate MusicBrainz object and load track object.
+	my $mb = $m->comp("/comp/dblogin");
+	my $track = $m->comp("/comp/loadtrack", $mb, $trackid);
+	my $artist = $m->comp("/comp/loadartist", $mb, $track->GetArtist);
 
-my $tr = Track->new($mb->{DBH});
-$tr->SetId($trackid);
+	# we got a form submission to handle
+	if ($submit ne "")
+	{
+		my $url = "/showtrack.html?trackid=$trackid";
 
-$tr->LoadFromId
-	or return $m->comp(
-		"/comp/error",
-		"Track #$trackid not found",
-		1, 1,
-	);
+		if ($submit =~ m/Cancel/i)
+		{
+			$m->comp("/comp/redirect", $url);
+		}
+		else
+		{
+			$m->comp(
+				"/comp/entermods",
+				DBH => $mb->{DBH},
+				sub => sub {
+					my @mods = Moderation->InsertModeration(
+						DBH	=> $mb->{DBH},
+						uid	=> $session{uid},
+						privs => $session{privs},
+						type => &ModDefs::MOD_REMOVE_TRMID,
+						# --
+						track => $track,
+						trm => $trmid,
+						trmjoinid => $TRMjoin,
+					);
 
-my $url = "/showtrack.html?trackid=$trackid";
+					$mods[0]->InsertNote($session{'uid'}, $notetext)
+						if $mods[0]
+						and $notetext =~ /\S/;
+				},
+				success_url => $url,
+			) or return;
 
-if ($ARGS{confirm})
-{
-	$m->comp(
-		"/comp/entermods",
-		DBH => $mb->{DBH},
-		sub => sub {
-			my @mods = Moderation->InsertModeration(
-				DBH	=> $mb->{DBH},
-				uid	=> $session{uid},
-				privs => $session{privs},
-				type => &ModDefs::MOD_REMOVE_TRMID,
-				# --
-				track => $tr,
-				trm => $trmid,
-				trmjoinid => $TRMjoin,
-			);
-
-			$mods[0]->InsertNote($session{'uid'}, $notetext)
-				if $mods[0]
-				and $notetext =~ /\S/;
-		},
-		success_url => $url,
-	) or return;
-
-	die "Shouldn't get here";
-}
+			die "Shouldn't get here";
+		}
+	}
 
 </%perl>
 
-<& /comp/sidebar, title => 'Confirm TRM ID Removal' &>
+<& /comp/sidebar-notitle, pagetitle => 'Confirm TRM ID Removal' &>
 
-<fieldset>
-	<legend>Confirm TRM ID Removal</legend>
-	<div class="padleft">
-		Are you sure you want to remove TRM ID <% $trmid %>
-		from track
-		<span class="bold"><% $tr->GetName %></span>?
-	</div>
-	<div class="padlefttop">
-		<table>
-			<tr>
-				<td>
-					<form 	method="GET" action="<% $url %>"
-							name="ModFormNo" 
-							onsubmit="history.go(-1); return false">
-						<input name="btnNo" type="submit" class="button" value="&laquo; NO">
-					</form></td>
-				<td> &nbsp; </td>
-				<td>
-					<form 	method="POST" action="/edit/trm/remove.html"
-							name="ModFormYes">
-						<input type="hidden" name="trackid" value="<% $trackid %>">
-						<input type="hidden" name="trmid" value="<% $trmid %>">
-						<input type="hidden" name="TRMjoin" value="<% $TRMjoin %>">
-						<input type="hidden" name="confirm" value="1">
-						<input name="btnYes" type="submit" class="button" value="YES &raquo;">
-					</td>
-			</tr>
-		</table>
-	</div>
-	<div class="padlefttop">
-		<& /comp/notetext &>
-	</div>
-	</form>
-</fieldset>
+	<& /comp/tablebegin, title => 'Confirm TRM ID Removal' &>
 
-<& /comp/movefocus, "ModFormYes", "btnYes" &>
+		<form method="post" action="/edit/trm/remove.html" id="ConfirmForm">
+
+			<script type="text/javascript" src="/scripts/editsuite.js"></script>
+
+			<table class="formstyle">
+				<tr>
+					<td class="instructions">
+						<ul>
+							<li>Are you sure you want to remove TRM ID <strong>
+								<% $trmid %></strong> from track <& /comp/linktrack,
+								track => $track &> by artist <& /comp/linkartist,
+								artist => $artist &>?</li>
+						</ul></td>
+				</tr>
+				<tr>
+					<td class="notetext">
+						<& /comp/notetext &></td>
+				</tr>
+				<tr>
+					<td>
+						<input class="button" type="submit" name="submit" value="Cancel" />
+						<input class="button" type="submit" name="submit" id="btnYes" value="Enter Moderation" />
+
+						<input type="hidden" name="trackid" value="<% $trackid %>" />
+						<input type="hidden" name="trmid" value="<% $trmid %>" />
+						<input type="hidden" name="TRMjoin" value="<% $TRMjoin %>" /></td>
+				</tr>
+			</table>
+			<& /comp/movefocus, id => "btnYes" &>
+
+		</form>
+
+	<& /comp/tableend &>
+
 <& /comp/footer &>
+

@@ -1,22 +1,19 @@
 %# vi: set ts=4 sw=4 ft=mason :
 <%args>
 	$notetext => ""
-	$albumid
+	$releaseid
 </%args>
 <%perl>
 	# let's see if we still got a session, else redirect
-	# to the given albumid.
-	my $albumurl = "/showalbum.html?albumid=" . $albumid;
-	my $edit = $session{"editreleases"}{$albumid}
-		or return $m->comp("/comp/redirect", $albumurl);
+	# to the given releaseid.
+	my $url = "/show/release/?releaseid=" . $releaseid;
+	my $edit = $session{"editreleases"}{$releaseid}
+		or return $m->comp("/comp/redirect", $url);
 
 
-	# load album from database.
+	# load release from database.
 	my $mb = $m->comp("/comp/dblogin");
-	my $al = Album->new($mb->{DBH});
-	$al->SetId($albumid);
-	$al->LoadFromId
-		or die "Error loading album\n";
+	my $release = $m->comp("/comp/loadrelease", $mb, $releaseid);
 
 	# find out what to do with each set of release events
 	my (@adds, @edits, @removes);
@@ -26,7 +23,7 @@
 		{
 			next unless $rel->{"year"} and $rel->{"country"};
 			my $obj = MusicBrainz::Server::Release->new($mb->{DBH});
-			$obj->SetAlbum($al->GetId);
+			$obj->SetAlbum($release->GetId);
 			$obj->SetCountry($rel->{"country"});
 			$obj->SetYMD(@$rel{qw( year month day )});
 			push @adds, $obj;
@@ -71,7 +68,7 @@
 				privs => $session{privs},
 				type => &ModDefs::MOD_EDIT_RELEASES,
 				# --
-				album	=> $al,
+				album	=> $release,
 				adds	=> \@adds,
 				edits	=> \@edits,
 				removes	=> \@removes,
@@ -85,7 +82,7 @@
 	) or return;
 
 
-	# remove current album from the session and show the album again.
-	return $m->comp("/comp/redirect", "/edit/albumreleases/cancel.html?albumid=".$albumid);
+	# remove current release from the session and show the release again.
+	return $m->comp("/comp/redirect", "/edit/albumreleases/cancel.html?releaseid=".$releaseid);
 
 </%perl>

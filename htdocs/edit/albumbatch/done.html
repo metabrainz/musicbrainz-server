@@ -49,7 +49,7 @@
 	foreach (keys %ARGS)
 	{
 		undef $id;
-		$id = $1 if (/AlbumId(\d+)/);
+		$id = $1 if (/releaseid(\d+)/);
 		next if (!defined $id || $ARGS{$_} eq "");
 
 		if ($ARGS{$_} eq "off")
@@ -269,12 +269,12 @@
 					<a href="javascript:; //" onclick="collapsereleases.toggleAll(false); return false;">Minimize all</a></td>
 				<td style="padding-right: 40px; ">
 					<form method="post" action="/edit/albumbatch/done.html" id="BatchOp">
-						<div>
+						<div id="batchop::removereleases">
 							<input type="hidden" name="url" value="<% $referer %>" />
 							<input type="hidden" name="reset" value="1" />
 
 %  	for my $release (@releaseObjs) {
-							<input type="hidden" name="AlbumId<% $release->GetId() %>" value="on" />
+							<input type="hidden" name="releaseid<% $release->GetId() %>" value="on" />
 %  	}
 						</div>
 					</form>
