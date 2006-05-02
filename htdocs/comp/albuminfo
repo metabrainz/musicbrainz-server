@@ -57,15 +57,13 @@
 				<td class="label">
 					Permanent Link:</td>
 				<td>
-					<& /comp/copyable-link,
-						id => $release->GetMBId, name => $release->GetName,
-						type => "release", style => "linkedurl", &></td>
+					<& /comp/copyable-link, "release", $release, "linkedurl" &></td>
 			</tr>
 			<tr>
 				<td class="label">
 					Fancy Link:</td>
 				<td>
-					<a href="/perm_links.html?name=<% uri_escape($release->GetName) %>&amp;id=<% $release->GetMBId %>&amp;type=release">Click here for a fancy link to this release</a></td>
+					<a href="/show/permlink.html?id=<% $release->GetMBId %>&amp;type=release">Click here for a fancy link to this release</a></td>
 			</tr>
 			<tr>
 				<td class="label">
@@ -84,14 +82,18 @@
 			</tr>
 % 	}
 
-		</table>
 
 % 	if ($track and not($release->IsNonAlbumTracks)) {
 
-		<center>
-			This track appears as track number <% $track %> on this release.
-		</center>
+			<tr>
+				<td class="label">&nbsp;</td>
+				<td>
+					This track appears as track number <% $track %> on this release.</td>
+			</tr>
 
 %	}
+
+		</table>
+
 
 <& /comp/tableend &>

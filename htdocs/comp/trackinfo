@@ -52,15 +52,13 @@
 				<td class="label">
 					Permanent Link:</td>
 				<td>
-					<& /comp/copyable-link,
-						id => $track->GetMBId, name => $track->GetName,
-						type => "track", style => "linkedurl", &></td>
+					<& /comp/copyable-link, "track", $track, "linkedurl" &></td>
 			</tr>
 			<tr>
 				<td class="label">
 					Fancy Link:</td>
 				<td>
-					<a href="/perm_links.html?name=<% uri_escape($track->GetName) %>&amp;id=<% $track->GetMBId %>&amp;type=track">Click here for a fancy link to this track</a></td>
+					<a href="/show/permlink.html?id=<% $track->GetMBId %>&amp;type=track">Click here for a fancy link to this track</a></td>
 			</tr>
 			<tr>
 				<td class="label">
@@ -103,10 +101,15 @@
 %		foreach my $id (@PUID) {
 				  		<tr>
 							<td>
-								<a href="/showpuid.html?puid=<% $id->{PUID} %>"><% $id->{PUID} %></a></td>
+								<a href="/show/puid/?puid=<% $id->{PUID} %>"><% $id->{PUID} %></a></td>
 							<td>
 %			if (exists $session{user}) {
-								[ <a href="/edit/puid/remove.html?PUIDjoin=<% $id->{PUIDjoinid} %>&amp;trackid=<% $track->GetId %>&amp;puid=<% $id->{PUID} %>">Delete</a> ]
+								<form method="get" action="/edit/puid/remove.html">
+									<input type="hidden" name="trackid" value="<% $track->GetId %>" />
+									<input type="hidden" name="puid" value="<% $id->{PUID} %>" />
+									<input type="hidden" name="PUIDjoin" value="<% $id->{PUIDjoinid} %>" />
+									<input type="submit" value="Delete" />
+								</form>
 %			} else {
 								&nbsp;
 %			}
@@ -137,14 +140,19 @@
 %		foreach my $id (@TRM) {
 				 		 <tr>
 							<td>
-								<a href="/showtrm.html?trm=<% $id->{TRM} %>"><% $id->{TRM} %></a></td>
+								<a href="/show/trm/?trm=<% $id->{TRM} %>"><% $id->{TRM} %></a></td>
 							<td class="center">
 								<% $id->{lookupcount} %></td>
 							<td class="center">
 								<% $id->{usecount} %></td>
 							<td>
 %			if (exists $session{user}) {
-								[ <a href="/edit/trm/remove.html?TRMjoin=<% $id->{TRMjoinid} %>&amp;trackid=<% $track->GetId %>&amp;trmid=<% $id->{TRM} %>">Delete</a> ]
+								<form method="get" action="/edit/trm/remove.html">
+									<input type="hidden" name="trackid" value="<% $track->GetId %>" />
+									<input type="hidden" name="trmid" value="<% $id->{TRM} %>" />
+									<input type="hidden" name="TRMjoin" value="<% $id->{TRMjoinid} %>" />
+									<input type="submit" value="Delete" />
+								</form>
 %			} else {
 								&nbsp;
 %			}

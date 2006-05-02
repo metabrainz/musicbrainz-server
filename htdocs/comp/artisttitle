@@ -78,7 +78,7 @@
 #			type => "artist", style => "url");
 #		$m->out(qq!">Permanent link</a> | !);
 
-		$m->out(sprintf qq!<a href="/perm_links.html?name=%s&amp;id=$mbid&amp;type=artist" title="Get a permanent Link">Link to this</a>!, uri_escape($name));
+		$m->out(sprintf qq!<a href="/show/permlink.html?id=$mbid&amp;type=artist" title="Link to this artist">Copy link</a>!, uri_escape($name));
 		$m->out(qq! | <a href="/show/artist/details.html?artistid=$id" title="Artist Details">Details</a>!);
 		$m->out(qq! | <a href="/showaliases.html?artistid=$id" title="Artist Aliases">Aliases</a>!);
 		if ($id != &ModDefs::VARTIST_ID)
@@ -113,7 +113,7 @@
 			if ($id != &ModDefs::VARTIST_ID
 				and $name !~ /^\[(unknown|data track|silence|no artist)\]$/)
 			{
-				$m->out(qq!<a href="/edit/artist/edit.html?id=$id">Edit artist</a>!);
+				$m->out(qq!<a href="/edit/artist/edit.html?id=$id">Edit</a>!);
 				$m->out(qq! | <a href="/edit/artist/merge.html?id=$id">Merge into ...</a>!);
 				$m->out(qq! | <a href="/user/subscribe.html?artistid=$id">Subscribe</a> | !);
 			}

@@ -1,46 +1,43 @@
 %# vi: set ts=4 sw=4 ft=mason :
-<%args>
-$id
-$name
-$type
-$style => "icon"
-$local => 0
-</%args>
 <%perl>
 
-my $icon;
-$icon = "aicon.png" if ($type eq 'artist');
-$icon = "licon.png" if ($type eq 'album');
-$icon = "ticon.png" if ($type eq 'track');
+	my ($type, $entity, $style, $local) = @_;
 
-my $url = "/$type/$id.html";
-$url = "http://musicbrainz.org$url" unless $local;
+	die("\$type must be provided!") if (not defined $type);
+	die("\$entity must be provided!") if (not defined $entity);
 
-my $title = (
-	$local
-	? "Go to this $type"
-	: "Find this $type at MusicBrainz"
-);
+	$style ||= "linkedurl";
+	$local ||= 0;
 
-my $imghost = ($local ? "" : "http://musicbrainz.org");
+	my $id = $entity->GetMBId;
+	my $name = $entity->GetName;
 
-if ($style eq "text")
-{
-	</%perl><a href="<% $url %>" title="<% $title %>"><% $name %></a><%perl>
-}
-elsif ($style eq "icon")
-{
-	</%perl><a href="<% $url %>" title="<% $title %>"><img src="<% $imghost %>/images/<% $icon %>" alt="" style="vertical-align:bottom;border:0;margin-right:2px;"><b><% $name %></b></a><%perl>
-}
-elsif ($style eq "linkedurl")
-{
-	$m->out("<a href='$url'>$url</a>");
-}
-elsif ($style eq "url")
-{
-	$m->out($url);
-}
 
-return;
+	my $url = "/$type/$id.html";
+	$url = "http://musicbrainz.org$url" unless $local;
+
+	my $title = ($local ? "Go to $type" : "Show $type at MusicBrainz"
+	);
+
+	my $imghost = ($local ? "" : "http://musicbrainz.org");
+
+	if ($style eq "text")
+	{
+		</%perl><a href="<% $url %>" title="<% $title %>"><% $name %></a><%perl>
+	}
+	elsif ($style eq "icon")
+	{
+		</%perl><a href="<% $url %>" title="<% $title %>"><img src="<% $imghost %>/images/entity/<% $type %>.gif" alt="<% $type %>" style="vertical-align:bottom;border:0;margin-right:2px;"><b><% $name %></b></a><%perl>
+	}
+	elsif ($style eq "linkedurl")
+	{
+		$m->out("<a href='$url'>$url</a>");
+	}
+	elsif ($style eq "url")
+	{
+		$m->out($url);
+	}
+
+	return;
 
 </%perl>

@@ -50,15 +50,13 @@
 				<td class="label">
 					Permanent Link:</td>
 				<td>
-					<& /comp/copyable-link,
-						id => $artist->GetMBId, name => $artist->GetName,
-						type => "artist", style => "linkedurl", &></td>
+					<& /comp/copyable-link, "artist", $artist, "linkedurl", &></td>
 			</tr>
 			<tr>
 				<td class="label">
 					Fancy Link:</td>
 				<td>
-					<a href="/perm_links.html?name=<% uri_escape($artist->GetName) %>&amp;id=<% $artist->GetMBId %>&amp;type=artist"
+					<a href="/show/permlink.html?id=<% $artist->GetMBId %>&amp;type=artist"
 						>Click here for a fancy link to this artist</a></td>
 			</tr>
 			<tr>
