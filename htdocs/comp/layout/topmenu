@@ -111,6 +111,9 @@
 			{ url => "/showpuid.html" },
 			{ url => "/show/puid/index.html" },
 
+			{ url => "/show/permlink.html" }, # permanent links rendering page
+
+
 		],
 		{ name => "Edit",					url => "/mod_intro.html" },
 		[

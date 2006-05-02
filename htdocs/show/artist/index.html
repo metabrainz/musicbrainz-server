@@ -303,20 +303,14 @@
 %	          if ($session{uid}) {
     	    <td align="center">
 
-            <form method="post" action="/edit/albumbatch/done.html"
-                  id="BatchOp"
-                  enctype="application/x-www-form-urlencoded">
+	            <form method="post" action="/edit/albumbatch/done.html" id="BatchOp">
+	            	<div id="batchop::selectreleases">
 %	           for my $album (@albums) {
-                 <input type="hidden" name="AlbumId<% $album->GetId() %>" value="off">
+						<input type="hidden" name="releaseid<% $album->GetId() %>" value="off" />
 %	           }
-
-	          <script type="text/javascript">
-   			  document.writeln('<\input type="image" alt="Batch Operation" title="Moderate a batch of selected albums" src="/images/batch.gif" style="border: 0; height: 13px; width: 13px"\>');
-	          document.writeln('<\a href="#" onclick="document.forms.BatchOp.submit(); return false">Batch Operation<\/a>');
-      	    </script>
-       </form>
-
-	    </td>
+					</div>
+				</form>
+		    </td>
 %	          }
 
             </tr></table>
@@ -419,10 +413,10 @@
 						  <form method="post" action="/edit/albumbatch/done.html"
 								enctype="application/x-www-form-urlencoded">
 							  <script type="text/javascript">
-								  document.writeln('<\input type="checkbox" name="check" onchange="document.forms.BatchOp.AlbumId<% $album->GetId %>.value = this.form.check.checked ? \'on\' : \'\';">');
+								  document.writeln('<\input type="checkbox" name="check" onchange="document.forms.BatchOp.releaseid<% $album->GetId %>.value = this.form.check.checked ? \'on\' : \'\';">');
 							  </script>
 							  <noscript>
-								  <input type="hidden" name="AlbumId<% $album->GetId %>" value="1">
+								  <input type="hidden" name="releaseid<% $album->GetId %>" value="on">
 								  <input type="submit" name="submit" value="Select">
 							  </noscript>
 						  </form>
