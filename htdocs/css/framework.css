@@ -171,30 +171,6 @@ td.header_logo .servertype
 	border: none; 
 }
 
-table.modpending {
-	margin: 0px; padding: 0px; 
-	margin-left: 5px;
-	margin-bottom: 5px;
-	width: 250px;
-	border-collapse: collapse;
-	float: right;
-}
-table.modpending td {
-	font-size: 11px; font-weight: normal; 
-	background: #ffffcc; color: #000;
-	border: 1px solid #ccc;
-	padding: 3px 5px; 
-	margin-bottom: 5px
-}
-table.modpending td a {
-	font-weight: bold;
-}
-table.modpending td.note {
-	font-size: 11px; 
-	margin-left: 3px; margin-top: 2px;
-	padding-left: 2px; 
-	border-left: 1px solid #999;
-}
 
 table.formstyle {
 	float: left;
@@ -553,7 +529,29 @@ table.formstyle td table.releaselist td {
 	padding: 0px 2px; padding-right: 40px;
 }
 
-
+/* the moderation pending table which is shown on top of the comp/layout/editformbegin
+   component. Shows a list of notes about pending edits */
+table.modpending {
+	margin: 0px; padding: 0px; 
+	margin-bottom: 25px;
+}
+table.modpending td {
+	font-size: 11px; font-weight: normal; 
+	background: #ffffcc; color: #000;
+	border: 1px dotted #000;
+	padding: 4px;
+}
+table.modpending td a {
+	font-weight: bold;
+}
+table.modpending ul.modpending {
+	margin: 0px; margin-left: 20px;
+	padding: 0px;
+	list-style-type: square;
+}
+table.modpending ul.modpending li {
+	margin: 0px; padding: 0px;
+}
 
 
 /** 
