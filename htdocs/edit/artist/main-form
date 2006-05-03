@@ -246,17 +246,11 @@
 		<tr>
 			<td>&nbsp;</td>
 			<td class="notetext">
-				<& /comp/notetext, text => $notetext &></td>
-		</tr>
-		<tr>
-			<td>&nbsp;</td>
-			<td>
+				<& /comp/notetext,
+					notetext => $notetext,
+					buttons => [["Cancel",""], ["Enter Moderation", "btnYes"]] &>
 % if (defined $artist) {
 				<input type="hidden" name="id" value="<% $artist->GetId() %>" />
 % }
-				<input class="button" type="submit" name="submit" value="Cancel" />
-				<input class="button" type="submit" name="submit" value="Enter Moderation" />
-				<input type="hidden" name="returnurl" value="<% $returnurl %>" />
-			</td>
+				<input type="hidden" name="returnurl" value="<% $returnurl %>" /></td>
 		</tr>
-

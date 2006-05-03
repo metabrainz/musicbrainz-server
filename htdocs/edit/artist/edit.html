@@ -72,6 +72,10 @@
 		or return $m->comp("/comp/layout/badarguments",
 			text => "Argument resolution has an invalid format.");
 
+	# check volatile preferences (like autoeditor flag)
+	$m->comp("/comp/user/check-volatile-preferences", %ARGS);
+
+
 	# Instantiate MusicBrainz object, load artist from database
 	my $mb = $m->comp("/comp/dblogin");
 	my $artist = $m->comp("/comp/loadartist", $mb, $id);

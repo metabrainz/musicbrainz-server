@@ -57,6 +57,9 @@
 		or return $m->comp("/comp/layout/badarguments",
 			text => "Merging the <strong>DELETED_ARTIST</strong> or <strong>VARIOUS_ARTISTS</strong> is not allowed.");
 
+	# check volatile preferences (like autoeditor flag)
+	$m->comp("/comp/user/check-volatile-preferences", %ARGS);
+
 
 	# Instantiate MusicBrainz object, load artist from database
 	my $mb = $m->comp("/comp/dblogin");
@@ -145,20 +148,20 @@
 							</li>
 						</ul></td>
 				</tr>
-				<tr class="spaced">
-					<td class="notetext">
-						<& /comp/notetext &></td>
-				</tr>
 				<tr>
-					<td>
-						<input class="button" type="submit" name="submit" value="Cancel" />
-						<input class="button" type="submit" name="submit" value="Enter Moderation" />
+					<td>&nbsp;</td>
+					<td class="notetext">
+						<& /comp/notetext,
+							notetext => $notetext,
+							buttons => [["Cancel",""], ["Enter Moderation", "btnYes"]] &>
+
 						<input type="hidden" name="artistid" value="<% $artist->GetId %>" />
 						<input type="hidden" name="newartistid" value="<% $newartist->GetId %>" /></td>
 				</tr>
 			</table>
+
+			<& /comp/movefocus, id => "btnYes" &>
 		</form>
-		<& /comp/movefocus, "ModFormYes", "btnYes" &>
 
 %	} else {
 

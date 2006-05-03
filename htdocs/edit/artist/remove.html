@@ -56,6 +56,10 @@
 			text => "Removing the <strong>DELETED_ARTIST</strong> or "
 				   ."<strong>VARIOUS_ARTISTS</strong> is not allowed.");
 
+
+	# check volatile preferences (like autoeditor flag)
+	$m->comp("/comp/user/check-volatile-preferences", %ARGS);
+
 	# Instantiate MusicBrainz object, load artist from database
 	my $mb = $m->comp("/comp/dblogin");
 	$artist = $m->comp("/comp/loadartist", $mb, $artistid);
@@ -128,19 +132,18 @@
 					</ul>
 				</td>
 			</tr>
-			<tr class="spaced">
-				<td class="notetext">
-					<& /comp/notetext &></td>
-			</tr>
 			<tr>
-				<td>
+				<td>&nbsp;</td>
+				<td class="notetext">
+					<& /comp/notetext,
+						notetext => $notetext,
+						buttons => [["Cancel", "btnCancel"], ["Enter Moderation"]] &>
+
 					<input type="hidden" name="artistid" value="<% $artistid %>" />
-					<input type="hidden" name="confirm" value="1" />
-					<input class="button" name="submit" type="submit" id="btnCancel" value="Cancel" />
-					<input class="button" name="submit" type="submit" value="Enter Moderation" />
-				</td>
+					<input type="hidden" name="confirm" value="1" /></td>
 			</tr>
 		</table>
+
 		<& /comp/movefocus, id => "btnCancel" &>
 	</form>
 
