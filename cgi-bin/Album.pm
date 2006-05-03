@@ -1433,7 +1433,7 @@ sub CanAddTrack
 			if $tracknum < 1 or $tracknum > 99;
 
 		# Can't add a track if we've already got a track with that number
-		$@ = "This album already has a track $tracknum", return 0
+		$@ = "This release already has a track $tracknum", return 0
 			if $havetracks->{$tracknum};
 	}
 
@@ -1451,7 +1451,7 @@ sub CanAddTrack
 	if (defined $tracknum)
 	{
 		my $t = (($fixtracks == 1) ? "one track" : "$fixtracks tracks");
-		$@ = "You can't add track $tracknum - this album is meant to have exactly $t",
+		$@ = "You can't add track $tracknum - this release is meant to have exactly $t",
 			return 0
 			if $tracknum > $fixtracks;
 		
@@ -1462,7 +1462,7 @@ sub CanAddTrack
 	# gap in the track sequence.
 	my $gap = grep { not $havetracks->{$_} } 1 .. $fixtracks;
 
-	$@ = "This album already has all of its tracks", return 0
+	$@ = "This release already has all of its tracks", return 0
 		if not $gap;
 
 	$@ = "", return 1;
