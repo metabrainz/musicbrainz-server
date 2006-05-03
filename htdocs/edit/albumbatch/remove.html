@@ -56,6 +56,9 @@
 				text => "One of the provided releaseids is invalid.");
 	}
 
+	# check volatile preferences (like autoeditor flag)
+	$m->comp("/comp/user/check-volatile-preferences", %ARGS);
+
 	# Instantiate MusicBrainz object, and load the list of releases
 	# and their respective artists, prepare to sort them.
 	my $mb = $m->comp("/comp/dblogin");
@@ -165,12 +168,10 @@
 
 			<table class="formstyle">
 				<tr>
-					<td><& /comp/notetext &></td>
-				</tr>
-				<tr>
-					<td>
-						<input class="button" type="submit" name="submit" id="btnCancel" value="Cancel" />
-						<input class="button" type="submit" name="submit" value="Enter Moderation" />
+					<td class="notetext">
+						<& /comp/notetext,
+							notetext => $notetext,
+							buttons => [["Cancel", "btnCancel"], ["Enter Moderation"]] &>
 
 % 	for my $releaseid (@releaseid) {
 						<input type="hidden" name="releaseid" value="<% $releaseid %>" />
@@ -178,19 +179,23 @@
 					</td>
 				</tr>
 			</table>
-			<& /comp/movefocus, "ConfirmForm", "btnCancel" &>
 
+			<& /comp/movefocus, "ConfirmForm", "btnCancel" &>
 		</form>
 
 	<& /comp/tableend &>
 
 <%perl>
-	for my $ar (sort { $a->{_name_} cmp $b->{_name_} } values %artists)
+	for my $artist (sort { $a->{_name_} cmp $b->{_name_} } values %artists)
 	{
-		$m->comp("/comp/artisttitle", artist => $ar, link => 0, showmodlinks => 0);
+		# render artist link only, instead of comp/artisttitle
+		$m->out(qq!<div style="margin-bottom: 3px">Artist: !);
+		$m->comp("/comp/linkartist", artist => $artist);
+		$m->out(qq!</div>!);
+
 		for my $al (sort { $a->{_name_} cmp $b->{_name_} } @{ $ar->{_releases_} })
 		{
-			$m->comp( "/comp/album", album => $al, artist => $ar, showmodlinks => 0);
+			$m->comp( "/comp/album", album => $al, artist => $artist, showmodlinks => 0);
 		}
 	}
 </%perl>

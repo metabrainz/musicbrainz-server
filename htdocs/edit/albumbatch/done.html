@@ -37,7 +37,7 @@
 	$m->comp("/comp/checkloggedin", 1, 1)
 		or return;
 
-	# get database handle
+	# Instantiate MusicBrainz object
 	my $mb = $m->comp("/comp/dblogin");
 
 	my $referer = $r->headers_in->{"Referer"} || "";
@@ -297,7 +297,10 @@
 		if ($ar->GetId != $release->GetArtist)
 		{
 			$ar = $m->comp("/comp/loadartist", $mb, $release->GetArtist);
-			$m->comp("/comp/artisttitle", artist => $ar, link => 0, showmodlinks => 0);
+
+			$m->out("<div>Artist: ");
+			$m->comp("/comp/linkartist", artist => $ar);
+			$m->out("</div>");
 		}
 
 	 	$m->comp("/comp/album",
