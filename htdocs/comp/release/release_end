@@ -38,6 +38,8 @@
 </%args>
 <%perl>
 	my $release = $album;
+
+	my $releaseid = $release->GetId;
 	my $isva = $release->HasMultipleTrackArtists || $showtrackartists;
 
 	if ($showids)
@@ -58,95 +60,98 @@
 
 				# 1. TOC
 				my $colspan = ($isva ? 3 : 2);
-				$m->out(sprintf qq!<tr class="discid %s">!, $id->GetModPending ? " mp" : "");
-				$m->out(qq!<td class="toc" colspan="$colspan">Disc ID: !);
-
-				# print a warning if the toc has different number of tracks
-				# than the release.
-				$m->out(qq!<span class="mismatch">!) if ($mismatch);
-				$m->out("<a href='/showcdtoc.html?id=".$cdtoc->GetId."'>$discid</a>");
-				$m->out(qq!</span><br>This id belongs to a release that has $id_numtracks tracks.!) if ($mismatch);
-				$m->out("</td>");
-
-				# 2. Length
-				$m->out(qq!<td class="length">$duration</td>!);
-
-				# 3. Edit Links
-				if ($session{uid} and $showmodlinks)
-				{
-					$m->out(qq!<td class="links">!);
-					$m->out(sprintf qq!<a href="/edit/discid/move.html?tocid=%s&amp;albumid=%s" title="%s">Edit</a>!,
-									$cdtoc->GetId,
-									$release->GetId(),
-									"Move Disc ID to another release");
-					$m->out(sprintf qq! | <a href="/edit/discid/remove.html?tocid=%s&amp;albumid=%s" title="%s">Rem</a>!,
-									$cdtoc->GetId(),
-									$release->GetId(),
-									"Remove this Disc ID from the Release");
-					$m->out("</td>\n");
-				}
-				$m->out("</tr>");
-			}
-		}
-	}
-	$m->out("</table>");
-
-
-	if ($showreleases and not $release->IsNonAlbumTracks)
-	{
-		my $releaseid = $release->GetId;
-		$m->out(qq!<table id="releaseevents::$releaseid" class="releaseevents">!);
-		$m->out(qq!<tr>!);
-		$m->out(qq!<td class="eventslist">!);
-
-		my @relevents = $release->Releases;
-		if (@relevents == 0)
-		{
-			$m->out("No release events");
-		}
-		else
-		{
-			my %country_names;
-			my $country_obj = MusicBrainz::Server::Country->new($release->{DBH});
-
-			$m->out(qq!<table class="eventslist">!);
-			my $first = 1;
-			for my $rel (@relevents)
-			{
-				# Country
-				my $cid = $rel->GetCountry;
-				my $name = (
-					$country_names{$cid} ||= do {
-						my $c = $country_obj->newFromId($cid);
-						$c ? $c->GetName : "?";
-					}
-				);
-
-				$m->out(sprintf qq!<tr%s>!, $rel->GetModPending ? qq! class="mp"! : "");
-				$m->out(sprintf qq!<td>%s</td>!, $m->scomp("/comp/releasedate", $rel));
-				$m->out(qq!<td>&mdash;</td>!);
-				$m->out(sprintf qq!<td>%s</td>!, encode_entities($name));
-
-				$m->out("</tr>");
-			}
-			$m->out("</table>");
-		}
-		$m->out("</td>");
-
-		if ($showmodlinks)
-		{
-			$m->out(qq!<td class="links">!);
-			$m->out(sprintf qq!<a href="/edit/albumreleases/index.html?releaseid=%s" title="%s">Edit Release Events</a>!,
-							$release->GetId(),
-							"Add, Edit and Remove Release Events of this Release");
-			$m->out("</td>");
-		}
-		$m->out("</tr>");
-		$m->out("</table>");
-	}
-
-	# add some spacing after the release.
-	$m->out(qq!<div class="release_endspacer">&nbsp;</div>!);
-
 </%perl>
+				<tr class="discid">
+					<td class="toc" colspan="<% $colspan %>">Disc ID:
+
+%				$m->out(qq!<span class="mp">!) if ($id->GetModPending);
+
+						<a href="/showcdtoc.html?id=<% $cdtoc->GetId %>"><% $discid %></a>
+
+%				# print a warning if the toc has different number of tracks
+%				# than the release.
+%				if ($mismatch) {
+						<span class="mismatch">
+							<br />This id belongs to a release that has <% $id_numtracks %> tracks.
+						</span>
+%				}
+%				$m->out(qq!</span>!) if ($id->GetModPending);
+
+					</td>
+
+					<td class="length"><% $duration %></td>
+
+%				# 3. Edit Links
+%				if ($session{uid} and $showmodlinks)
+%				{
+%					my $tocid = $cdtoc->GetId();
+
+					<td class="links">
+						<a href="/edit/discid/move.html?tocid=<% $tocid %>&amp;releaseid=<% $releaseid %>"
+							title="Move Disc ID to another release">Move</a> |
+
+						<a href="/edit/discid/remove.html?tocid=<% $tocid %>&amp;releaseid=<% $releaseid %>"
+							title="Remove this Disc ID from the Release">Rem</a>
+					</td>
+%				}
+				</tr>
+%			}
+%		}
+%	}
+	</table>
+
+
+%	if ($showreleases and not $release->IsNonAlbumTracks)
+%	{
+
+	<table id="releaseevents::<% $releaseid %>" class="releaseevents">
+		<tr valign="top">
+			<td class="eventslist">
+
+%		my @relevents = $release->Releases;
+%		if (@relevents == 0)
+%		{
+			No release events
+%		}
+%		else
+%		{
+%			my %country_names;
+%			my $country_obj = MusicBrainz::Server::Country->new($release->{DBH});
+
+				<table class="eventslist">
+%			my $first = 1;
+%			for my $rel (@relevents)
+%			{
+%				# Country
+%				my $cid = $rel->GetCountry;
+%				my $name = (
+%					$country_names{$cid} ||= do {
+%						my $c = $country_obj->newFromId($cid);
+%						$c ? $c->GetName : "?";
+%					}
+%				);
+
+					<tr <% $rel->GetModPending ? qq! class="mp"! : "" |n %>>
+						<td><& /comp/releasedate, $rel &></td>
+						<td>&mdash;</td>
+						<td><% $name %></td>
+					</tr>
+%			}
+				</table>
+%		}
+			</td>
+
+%		if ($showmodlinks)
+%		{
+			<td class="links">
+				<a href="/edit/albumreleases/index.html?releaseid=<% $releaseid %>"
+					title="Add, Edit and Remove Release Events of this Release">Edit Release Events</a></td>
+%		}
+		</tr>
+	</table>
+%	}
+
+%	# add some spacing after the release.
+	<div class="release_endspacer">&nbsp;</div>
+
 

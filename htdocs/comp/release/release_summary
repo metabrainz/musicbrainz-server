@@ -97,7 +97,7 @@
 		if ($language or $script)
 		{
 			$m->out(sprintf qq![ <span%s>%s, %s </span> ]!,
-					$release->GetLanguageModPending() ? 'class="mp"' : "",
+					$release->GetLanguageModPending() ? ' class="mp"' : "",
 					$language ? $language->GetName() : "?",
 					$script ?  $script->GetName() : "?");
 			$editwhat = "";
@@ -121,7 +121,7 @@
 	    $m->out(qq![&nbsp;<a href="/popup/attrguide.html" id="POPUP::ReleaseAttributeGuide::400::275">!);
 	    if (scalar(@attrs) > 0)
 	    {
-			$m->out(sprintf qq!<span%s>!, $release->GetAttributeModPending() ? 'class="mp"' : "");
+			$m->out(sprintf qq!<span%s>!, $release->GetAttributeModPending() ? ' class="mp"' : "");
 
 			my $count = 0;
 			for my $attr (@attrs)
