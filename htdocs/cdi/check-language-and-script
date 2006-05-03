@@ -46,7 +46,7 @@
 		}
 	}
 
-	# get database handle
+	# Instantiate MusicBrainz object
 	my $mb = $m->comp("/comp/dblogin");
 
 	# compile a flat-text of the release fields.
