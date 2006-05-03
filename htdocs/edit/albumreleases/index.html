@@ -29,8 +29,8 @@
 	#
 </%perl>
 <%args>
-	$album => undef
-	$releaseid => undef
+	$album => ""
+	$releaseid => ""
 </%args>
 <%perl>
 
@@ -39,11 +39,12 @@
 		or return;
 
 	# backward compability
-	$releaseid || = $album;
+	$releaseid ||= $album;
 
-	# check arguments
+	# make sure we got a valid releaseid parameter
 	MusicBrainz::IsNonNegInteger($releaseid) && $releaseid
-		or return $m->comp("/comp/badargs", 1, 1);
+		or return $m->comp("/comp/layout/badarguments",
+			text => "The argument <strong>releaseid</strong> is missing or has a wrong format.");
 
 	my $mb = $m->comp("/comp/dblogin");
 	my $release = $m->comp("/comp/loadrelease", $mb, $releaseid);

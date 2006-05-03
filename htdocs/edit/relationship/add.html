@@ -28,10 +28,12 @@
 		return undef;
 	}
 
-	# get database handle
+	# check volatile preferences (like autoeditor flag)
+	$m->comp("/comp/user/check-volatile-preferences", %ARGS);
+
+	# Instantiate MusicBrainz object
 	my $mb = $m->comp("/comp/dblogin");
 
-	# get database handle
 	my @links = @ARGS{qw( link0 link1 )};
 	for my $ref (\(@links))
 	{

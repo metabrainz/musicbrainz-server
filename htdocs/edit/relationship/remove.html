@@ -12,6 +12,10 @@ $m->comp("/comp/checkloggedin", 1, 1)
 
 my @types = sort split '-', $type;
 
+	# check volatile preferences (like autoeditor flag)
+	$m->comp("/comp/user/check-volatile-preferences", %ARGS);
+
+
 my $mb = $m->comp("/comp/dblogin");
 my $link = MusicBrainz::Server::Link->new($mb->{DBH}, \@types);
 if (!$link)
@@ -19,7 +23,7 @@ if (!$link)
 	</%perl>
     <& /comp/sidebar, title => 'Remove Relationship: error' &>
 	<p>
-	This page was passed invalid arguments. The type and id arguments 
+	This page was passed invalid arguments. The type and id arguments
 	need to be passed to this page.
 	</p>
     <& /comp/footer &>
@@ -62,7 +66,7 @@ if ($confirm)
                 if $mods[0] and $notetext =~ /\S/;
 		},
 	) or return;
-	
+
 	$m->comp(
 		"/comp/redirect",
 		"/showrel.html?id=".$ents[0]->GetId ."&type=". $types[0]
@@ -76,7 +80,7 @@ if ($confirm)
 <fieldset>
 	<legend>Confirm Relationship Removal</legend>
 	<div class="padleft">
-		Are you sure you want to remove the <% $type %> relationship from 
+		Are you sure you want to remove the <% $type %> relationship from
 		<a href="/show<% $types[0] %>.html?<% $types[0] %>id=<% $ents[0]->GetId %>"><% $ents[0]->GetName() %></a>
 		to
 		<a href="/show<% $types[1] %>.html?<% $types[1] %>id=<% $ents[1]->GetId %>"><% $ents[1]->GetName() %></a>?
@@ -86,7 +90,7 @@ if ($confirm)
 			<tr>
 				<td>
 					<form 	method="GET" action="/show<% $types[0] %>.html"
-							name="ModFormNo" 
+							name="ModFormNo"
 							onsubmit="history.go(-1); return false">
 						<input type="hidden" name="<% $types[0] %>id" value="<% $ents[0]->GetId %>">
 						<input name="btnNo" type="submit" class="button" value="&laquo; NO">

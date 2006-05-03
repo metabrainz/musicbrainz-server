@@ -164,11 +164,10 @@
 	return $m->comp("/comp/redirect", "/edit/albumreleases/review.html?releaseid=".$releaseid)
 		if $ARGS{"continue"};
 
-	my $ar = Artist->new(undef);
-
-	$ar->SetId($edit->{"artist"}{"id"});
-	$ar->SetName($edit->{"artist"}{"name"});
-	$ar->SetSortName($edit->{"artist"}{"sortname"});
+	my $artist = Artist->new(undef);
+	$artist->SetId($edit->{"artist"}{"id"});
+	$artist->SetName($edit->{"artist"}{"name"});
+	$artist->SetSortName($edit->{"artist"}{"sortname"});
 
 </%perl>
 
@@ -224,7 +223,7 @@
 				<td class="label">
 					<label>Artist:</label></td>
 				<td class="field">
-					<a href="/showartist.html?artistid=<% $ar->GetId %>" title="Show artist"><% $ar->GetName %></a></td>
+					<& /comp/linkartist, artist => $artist &></td>
 			</tr>
 			<tr>
 				<td class="label"><label>Release:</label></td>

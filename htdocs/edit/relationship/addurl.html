@@ -15,7 +15,10 @@
 	$m->comp("/comp/checkloggedin", 1, 1)
 		or return;
 
-	# get database handle
+	# check volatile preferences (like autoeditor flag)
+	$m->comp("/comp/user/check-volatile-preferences", %ARGS);
+
+	# Instantiate MusicBrainz object
 	my $mb = $m->comp("/comp/dblogin");
 
 	# if url has the default value, clear it
@@ -239,13 +242,7 @@
 				<tr class="spaced">
 					<td>&nbsp;</td>
 					<td class="notetext">
-						<& /comp/notetext, text => $notetext &></td>
-				</tr>
-				<tr>
-					<td>&nbsp;</td>
-					<td>
-						<input class="button" type="submit" name="submit" value="Cancel" />
-						<input class="button" type="submit" name="submit" value="Enter Moderation" />
+						<& /comp/notetext, buttons => [["Cancel",""], ["Enter Moderation", "btnYes"]] &>
 
 						<input type="hidden" name="id" value="<% $id %>" />
 						<input type="hidden" name="type" value="<% $type %>" />
@@ -255,12 +252,11 @@
 %# interacts with the form elements
 						<input type="hidden" name="int_isurlform" value="1" />
 						<input type="hidden" name="int_typedropdown" value="linktype" />
-						<input type="hidden" name="int_formsubmitted" value="<% $submit ne "" %>" />
-
-					</td>
+						<input type="hidden" name="int_formsubmitted" value="<% $submit ne "" %>" /></td>
 				</tr>
 			</table>
 		<& /comp/tableend &>
+
 	</form>
 
 <& /comp/footer &>
