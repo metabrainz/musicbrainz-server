@@ -45,6 +45,10 @@
 			text => "Required Argument <strong>id</strong> is missing "
 				   ."or has  an invalid format.");
 
+	# check volatile preferences (like autoeditor flag)
+	$m->comp("/comp/user/check-volatile-preferences", %ARGS);
+
+
 	# Instantiate MusicBrainz object, and load artistalias
 	my $mb = $m->comp("/comp/dblogin");
 	my $alias = $m->comp("/comp/loadartistalias", $mb, $id);
@@ -109,19 +113,17 @@
 					</ul>
 				</td>
 			</tr>
-			<tr class="spaced">
-				<td class="notetext">
-					<& /comp/notetext &></td>
-			</tr>
-
 			<tr>
-				<td>
-					<input type="hidden" name="id" value="<% $id %>" />
-					<input class="button" name="submit" type="submit" id="btnCancel" value="Cancel" />
-					<input class="button" name="submit" type="submit" value="Enter Moderation" />
-				</td>
+				<td>&nbsp;</td>
+				<td class="notetext">
+					<& /comp/notetext,
+						notetext => $notetext,
+						buttons => [["Cancel", "btnCancel"], ["Enter Moderation", "btnYes"]] &>
+
+					<input type="hidden" name="id" value="<% $id %>" /></td>
 			</tr>
 		</table>
+
 		<& /comp/movefocus, id => "btnCancel" &>
 	</form>
 

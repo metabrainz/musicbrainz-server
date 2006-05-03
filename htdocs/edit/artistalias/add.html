@@ -52,6 +52,9 @@
 			text => "Adding an Artist Alias to <strong>DELETED_ARTIST</strong> or "
 				   ."<strong>VARIOUS_ARTISTS</strong> is not allowed.");
 
+	# check volatile preferences (like autoeditor flag)
+	$m->comp("/comp/user/check-volatile-preferences", %ARGS);
+
 	# Instantiate MusicBrainz object, and load artist
 	my $mb = $m->comp("/comp/dblogin");
 	my $artist = $m->comp("/comp/loadartist", $mb, $id);
@@ -132,18 +135,17 @@
 					<& /comp/form/jsbutton, id=>"BTN_ARTIST::newartistalias" &>
 				</td>
 			</tr>
-			<tr class="spaced">
-				<td>&nbsp;</td>
-				<td class="notetext"><& /comp/notetext &></td>
-			</tr>
 			<tr>
 				<td>&nbsp;</td>
-				<td>
-					<input type="hidden" name="id" value="<% $id %>" />
-					<input class="button" type="submit" name="submit" value="Cancel" />
-					<input class="button" type="submit" name="submit" value="Enter Moderation" /></td>
+				<td class="notetext">
+					<& /comp/notetext,
+						notetext => $notetext,
+						buttons => [["Cancel", "btnCancel"], ["Enter Moderation", "btnYes"]] &>
+
+					<input type="hidden" name="id" value="<% $id %>" /></td>
 			</tr>
 		</table>
+
 		<& /comp/movefocus, id => "id_newartistalias" &>
 	</form>
 
