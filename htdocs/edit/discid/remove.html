@@ -1,113 +1,136 @@
 %# vi: set ts=4 sw=4 ft=mason :
 <%args>
-$tocid => ""
-$albumid => ""
-$confirm => 0
-$notetext => ""
+	$albumid => ""
+	$releaseid => undef;
+	$tocid => ""
+
+	$submit => ""
+	$notetext => ""
 </%args>
 <%perl>
 
-MusicBrainz::IsNonNegInteger($tocid) && $tocid
-	or return $m->comp("/comp/badargs", 1, 1);
+	# only logged in users can see this page
+	$m->comp("/comp/checkloggedin", 1, 1)
+		or return;
 
-MusicBrainz::IsNonNegInteger($albumid) && $albumid
-	or return $m->comp("/comp/badargs", 1, 1);
+	$releaseid ||= $albumid;
 
-$m->comp("/comp/checkloggedin", 1, 1)
-	or return;
+	# check releaseid
+	MusicBrainz::IsNonNegInteger($releaseid) && $releaseid
+		or return $m->comp("/comp/layout/badarguments",
+			text => "Required Argument <strong>releaseid</strong> is missing "
+				   ."or has  an invalid format.");
 
-my $mb = $m->comp("/comp/dblogin");
+	# check tocid
+	MusicBrainz::IsNonNegInteger($tocid) && $tocid
+		or return $m->comp("/comp/layout/badarguments",
+			text => "Required Argument <strong>tocid</strong> is missing "
+				   ."or has  an invalid format.");
 
-my $al = Album->new($mb->{DBH});
-$al->SetId($albumid);
-$al->LoadFromId
-	or return $m->comp(
-		"/comp/error",
-		"Album not found in the database.",
-		1, 1,
-	);
+	# check volatile preferences (like autoeditor flag)
+	$m->comp("/comp/user/check-volatile-preferences", %ARGS);
 
-# Get the cdtoc / album_cdtoc
+	# Instantiate MusicBrainz object, and load release
+	my $mb = $m->comp("/comp/dblogin");
+	my $release = $m->comp("/comp/loadrelease", $mb, $releaseid);
 
-my $alcdtoc = MusicBrainz::Server::AlbumCDTOC->newFromAlbumAndCDTOC($mb->{DBH}, $al, $tocid)
-	or return $m->comp(
-		"/comp/error",
-		"No such CDTOC #$tocid, or it is not linked to album #$albumid",
-		1, 1,
-	);
 
-my $cdtoc = $alcdtoc->GetCDTOC;
-my $url = "/showalbum.html?albumid=$albumid";
+	# Get the cdtoc / album_cdtoc
+	my $alcdtoc = MusicBrainz::Server::AlbumCDTOC->newFromAlbumAndCDTOC($mb->{DBH}, $release, $tocid)
+		or return $m->comp(
+			"/comp/error",
+			"No such CDTOC #$tocid, or it is not linked to album #$releaseid",
+			1, 1,
+		);
 
-if ($confirm)
-{
-	$m->comp(
-		"/comp/entermods",
-		DBH => $mb->{DBH},
-		sub => sub {
-			my @mods = Moderation->InsertModeration(
-				DBH	=> $mb->{DBH},
-				uid	=> $session{uid},
-				privs => $session{privs},
-				type => &ModDefs::MOD_REMOVE_DISCID,
-				# --
-				cdtoc => $cdtoc,
-				album => $al,
-			);
+	my $cdtoc = $alcdtoc->GetCDTOC;
 
-			$mods[0]->InsertNote($session{'uid'}, $notetext)
-				if $mods[0]
-				and $notetext =~ /\S/;
-		},
-		success_url => $url,
-	) or return;
+	# we got a form submission to handle
+	if ($submit ne "")
+	{
+		my $url = "/show/release/?releaseid=$releaseid";
 
-	die "Shouldn't get here";
-}
+		if ($submit =~ m/Cancel/i)
+		{
+			return $m->comp("/comp/redirect", $url);
+		}
+		else {
+
+			$m->comp(
+				"/comp/entermods",
+				DBH => $mb->{DBH},
+				sub => sub {
+					my @mods = Moderation->InsertModeration(
+						DBH	=> $mb->{DBH},
+						uid	=> $session{uid},
+						privs => $session{privs},
+						type => &ModDefs::MOD_REMOVE_DISCID,
+						# --
+						cdtoc => $cdtoc,
+						album => $release,
+					);
+
+					$mods[0]->InsertNote($session{'uid'}, $notetext)
+						if $mods[0]
+						and $notetext =~ /\S/;
+				},
+				success_url => $url,
+			) or return;
+
+			die "Shouldn't get here";
+		}
+	}
 
 </%perl>
 
-<& /comp/sidebar, title => 'Confirm Disc ID Removal' &>
+<& /comp/sidebar-notitle, pagetitle => "Confirm Disc ID Removal" &>
 
-<fieldset>
-	<legend>Confirm Disc ID Removal</legend>
-	<div class="padleft">
-		Are you sure you want to remove	Disc ID 
-		<a href="/showcdtoc.html?id=<% $cdtoc->GetId %>"><% $cdtoc->GetDiscID %></a>
-		from album <a href="/showalbum.html?albumid=<% $albumid %>"><% $al->GetName %></a>?
-	</div>
-	<div class="padlefttop">
-		Please be sure you are certain that this Disc ID is an error,
-		since an album can have multiple valid Disc IDs, and each Disc ID
-		can belong to more than one album.&nbsp; For more in-depth information about
-		this topic, please see our <a href="/cd_submission.html">CD Submission</a> document.
-	</div>
-	<div class="padlefttop">
-		<table>
-			<tr>
-				<td>
-					<form 	method="GET" action="<% $url %>"
-							name="ModFormNo" 
-							onsubmit="history.go(-1); return false">
-						<input name="btnNo" type="submit" class="button" value="&laquo; NO">
-					</form></td>
-				<td> &nbsp; </td>
-				<td>
-					<form 	method="POST" action="/edit/discid/remove.html"
-							name="ModFormYes">
-						<input type="hidden" name="tocid" value="<% $tocid %>">
-						<input type="hidden" name="albumid" value="<% $albumid %>">
-						<input type="hidden" name="confirm" value="1">
-						<input name="btnYes" type="submit" class="button" value="YES &raquo;">
+	<& /comp/layout/editformbegin,
+		title => "Confirm Disc ID Removal",
+		mp => $alcdtoc->GetModPending,
+		mp_type => &ModDefs::MOD_REMOVE_DISCID &>
+
+		<form method="POST" action="/edit/discid/remove.html" name="ConfirmForm">
+
+			<script type="text/javascript" src="/scripts/editsuite.js"></script>
+
+			<table class="formstyle">
+				<tr>
+					<td class="instructions">
+						<ul>
+							<li>
+								Are you sure you want to remove	the Disc ID
+								<& /comp/form/currentvalue,
+									cdtoc => $alcdtoc, display => $cdtoc->GetDiscID &>
+
+								from the release <& /comp/linkrelease, release => $release &>?</li>
+							<li>
+								You need to be certain that this <& /comp/linkdoc, "DiscID", "Disc ID" &>
+								was added to this release erraneously, since a release can have
+								multiple valid Disc IDs, and each Disc ID can belong to more
+								than one release. For more in-depth information about this
+								topic, please see our <& /comp/linkdoc, "DiscSubmission",
+								"CD Submission document" &>.
+						</ul>
 					</td>
-			</tr>
-		</table>
-	</div>
-	<div class="padlefttop">
-		<& /comp/notetext &>
-	</div>
-	</form>
-</fieldset>
+				</tr>
+			</table>
 
-<& /comp/movefocus, "ModFormYes", "btnYes" &>
+			<table class="formstyle">
+				<tr>
+					<td class="notetext">
+						<& /comp/notetext,
+							notetext => $notetext,
+							buttons => [["Cancel", "btnCancel"], ["Enter Moderation", "btnYes"]] &>
+
+						<input type="hidden" name="tocid" value="<% $tocid %>">
+						<input type="hidden" name="releaseid" value="<% $releaseid %>"></td>
+				</tr>
+			</table>
+
+			<& /comp/movefocus, id => "btnYes" &>
+		</form>
+
+	<& /comp/layout/editformend &>
+
 <& /comp/footer &>

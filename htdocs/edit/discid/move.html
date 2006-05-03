@@ -1,256 +1,353 @@
-%# vi: set ts=4 sw=4 ft=mason :
-<%args>
-$tocid => ""
-$albumid => ""
-$newalbumid => ""
-$confirm => 0
-$notetext => ""
-$search => ""
-</%args>
-
 <%perl>
+	# -----------------------------------------------------------------------------
+	#                               Musicbrainz.org
+	#                        Copyright (c) 2001 Robert Kaye
+	# -----------------------------------------------------------------------------
+	#  This software is provided "as is", without warranty of any kind, express or
+	#  implied, including  but not limited  to the warranties of  merchantability,
+	#  fitness for a particular purpose and noninfringement. In no event shall the
+	#  authors or  copyright  holders be  liable for any claim,  damages or  other
+	#  liability, whether  in an  action of  contract, tort  or otherwise, arising
+	#  from,  out of  or in  connection with  the software or  the  use  or  other
+	#  dealings in the software.
+	#
+	#  GPL - The GNU General Public License    http://www.gnu.org/licenses/gpl.txt
+	#  Permits anyone the right to use and modify the software without limitations
+	#  as long as proper  credits are given  and the original  and modified source
+	#  code are included. Requires  that the final product, software derivate from
+	#  the original  source or any  software  utilizing a GPL  component, such  as
+	#  this, is also licensed under the GPL license.
+	# -----------------------------------------------------------------------------
+	#
+	# Summary:
+	# -----------------------------------------------------------------------------
+	# This page allows to add a new artist alias'
+	#
+	# $URL$
+	# $Id$
+	#
+</%perl>
+<%args>
+	$albumid => ""
+	$newalbumid => ""
 
-MusicBrainz::IsNonNegInteger($tocid) && $tocid
-	or return $m->comp("/comp/badargs", 1, 1);
+	$releaseid => undef
+	$newreleaseid => undef
 
-MusicBrainz::IsNonNegInteger($albumid) && $albumid
-	or return $m->comp("/comp/badargs", 1, 1);
+	$tocid => ""
 
-$m->comp("/comp/checkloggedin", 1, 1)
-	or return;
+	$search => ""
 
-my $mb = $m->comp("/comp/dblogin");
+	$confirm => 0
+	$submit => ""
+	$notetext => ""
+</%args>
+<%perl>
+	$releaseid ||= $albumid;
+	$newreleaseid ||= $newalbumid;
 
-my $al = Album->new($mb->{DBH});
-$al->SetId($albumid);
-$al->LoadFromId
-	or return $m->comp(
-		"/comp/error",
-		"Album not found in the database.",
-		1, 1,
-	);
+	# only logged in users may see this page
+	$m->comp("/comp/checkloggedin", 1, 1)
+		or return;
 
-# Get the cdtoc / album_cdtoc
+	# check tocid argument
+	MusicBrainz::IsNonNegInteger($tocid) && $tocid
+		or return $m->comp("/comp/layout/badarguments",
+			text => "Required Argument <strong>tocid</strong> is missing "
+				  . "or has  an invalid format.");
 
-my $alcdtoc = MusicBrainz::Server::AlbumCDTOC->newFromAlbumAndCDTOC($mb->{DBH}, $al, $tocid)
-	or return $m->comp(
-		"/comp/error",
-		"No such CDTOC #$tocid, or it is not linked to album #$albumid",
-		1, 1,
-	);
+	# check tocid argument
+	MusicBrainz::IsNonNegInteger($releaseid) && $releaseid
+		or return $m->comp("/comp/layout/badarguments",
+			text => "Required Argument <strong>releaseid</strong> is missing "
+				  . "or has  an invalid format.");
 
-my $cdtoc = $alcdtoc->GetCDTOC;
-my $numtracks = $cdtoc->GetTrackCount;
+	# check volatile preferences (like autoeditor flag)
+	$m->comp("/comp/user/check-volatile-preferences", %ARGS);
 
-if ($newalbumid ne "")
-{
-	MusicBrainz::IsNonNegInteger($newalbumid) && $newalbumid
-		or return $m->comp("/comp/badargs", 1, 1);
-	
-	my $newal = Album->new($mb->{DBH});
-	$newal->SetId($newalbumid);
-	$newal->LoadFromId
+	# Instantiate MusicBrainz object, and load release
+	my $mb = $m->comp("/comp/dblogin");
+	my $release = $m->comp("/comp/loadrelease", $mb, $releaseid);
+
+	# Get the cdtoc / release_cdtoc
+	my $alcdtoc = MusicBrainz::Server::AlbumCDTOC->newFromAlbumAndCDTOC($mb->{DBH}, $release, $tocid)
 		or return $m->comp(
 			"/comp/error",
-			"Album not found in the database.",
+			"No such CDTOC #$tocid, or it is not linked to release #$releaseid",
 			1, 1,
 		);
 
-	# TODO verify same artist
-	# TODO verify same number of tracks
+	# store references for later use
+	my $cdtoc = $alcdtoc->GetCDTOC;
+	my $numtracks = $cdtoc->GetTrackCount;
 
-	my $url = "/showalbum.html?albumid=$albumid";
-
-	return $m->comp("move-confirm", $cdtoc, $al, $newal)
-		if not $confirm;
-
-	$m->comp(
-		"/comp/entermods",
-		DBH => $mb->{DBH},
-		sub => sub {
-			my @mods = Moderation->InsertModeration(
-				DBH	=> $mb->{DBH},
-				uid	=> $session{uid},
-				privs => $session{privs},
-				type => &ModDefs::MOD_MOVE_DISCID,
-				# --
-				cdtoc => $cdtoc,
-				oldalbum => $al,
-				newalbum => $newal,
-			);
-
-			$mods[0]->InsertNote($session{'uid'}, $notetext)
-				if $mods[0]
-				and $notetext =~ /\S/;
-		},
-		success_url => $url,
-	) or return;
-
-	die "Shouldn't get here";
-}
-
-# Prepare a string to describe "n tracks"
-my $trackdesc = (
-	$numtracks == 1
-		? "1 track"
-		: "$numtracks tracks"
-);
-
-# Load the artist of the old album
-my $ar = Artist->new($mb->{DBH});
-$ar->SetId($al->GetArtist);
-$ar->LoadFromId
-	or return $m->comp(
-		"/comp/error",
-		"Atist not found in the database.",
-		1, 1,
-	);
-
-# Collect the list of albums the user can select the target from
-my @albums;
-
-if ($search ne '')
-{	
-	# Do the search, limit to 100 results, user should refine query if to many
-	my $eng = SearchEngine->new($mb->{DBH}, "album");
-	$eng->Search(
-		query => $search,
-		limit => 100,
-	);
-
-	# Build the candidate list from search results
-	if ($eng->Rows > 0)
+	# we got a form submission to handle
+	if ($submit ne "")
 	{
-		my @row;
-		my $num;
+		# TODO verify same artist
+		# TODO verify same number of tracks
+		my $url = "/show/release/?releaseid=$releaseid";
 
-		while (my $row = $eng->NextRow)
+		if ($submit =~ m/Cancel/i)
 		{
-			my $newal = Album->new($mb->{DBH});
-			$newal->SetId($row->{'albumid'});
-
-			# Get data for the current candidate
-			next if (!defined $newal->LoadFromId());
-			$num = $newal->GetTrackCount();
-
-			# put albums that match the track count into result list
-			if ($num == $numtracks)
-			{
-				push @albums, $newal;
-			}
+			return $m->comp("/comp/redirect", $url);
 		}
-	} # END Build candidate list
-}
-else # No search performed, show albums from artist the DiscID belonged to
-{
-	if ($al->GetArtist != &ModDefs::VARTIST_ID)
+		elsif ($submit =~ m/Enter Moderation/i)
+		{
+			# check newreleaseid argument
+			MusicBrainz::IsNonNegInteger($newreleaseid) && $newreleaseid
+				or return $m->comp("/comp/layout/badarguments",
+					text => "Required Argument <strong>newreleaseid</strong> is missing "
+						  . "or has  an invalid format.");
+
+			my $newrelease = $m->comp("/comp/loadrelease", $mb, $newreleaseid);
+
+			$m->comp(
+				"/comp/entermods",
+				DBH => $mb->{DBH},
+				sub => sub {
+					my @mods = Moderation->InsertModeration(
+						DBH	=> $mb->{DBH},
+						uid	=> $session{uid},
+						privs => $session{privs},
+						type => &ModDefs::MOD_MOVE_DISCID,
+						# --
+						cdtoc => $cdtoc,
+						oldalbum => $release,
+						newalbum => $newrelease,
+					);
+
+					$mods[0]->InsertNote($session{'uid'}, $notetext)
+						if $mods[0]
+						and $notetext =~ /\S/;
+				},
+				success_url => $url,
+			) or return;
+
+			die "Shouldn't get here";
+		}
+	}
+
+	# Prepare a string to describe "n tracks"
+	my $trackdesc = (
+		$numtracks == 1
+			? "1 track"
+			: "$numtracks tracks"
+	);
+
+	# Load the artist of the old release
+	my $artist = $m->comp("/comp/loadartist", $mb, $release->GetArtist);
+
+	# Collect the list of releases the user can select the target from
+	my @releases;
+
+	if ($search ne "")
 	{
-		my @talbums = $ar->GetAlbums(1, 0);
-		my $newal;
-		while ($newal = shift @talbums)
-		{ 
-			if ($newal->{id} != $albumid && $newal->GetTrackCount() == $numtracks)
+		# Do the search, limit to 100 results, user should refine query if
+		# there are too many hits.
+		my $eng = SearchEngine->new($mb->{DBH}, "album");
+		$eng->Search(
+			query => $search,
+			limit => 100,
+		);
+
+		# Build the candidate list from search results
+		if ($eng->Rows > 0)
+		{
+			my @row;
+			my $num;
+
+			while (my $row = $eng->NextRow)
 			{
-				push @albums, $newal;
+				my $newrelease = Album->new($mb->{DBH});
+				$newrelease->SetId($row->{'albumid'});
+
+				# Get data for the current candidate
+				next if (!defined $newrelease->LoadFromId());
+				$num = $newrelease->GetTrackCount();
+
+				# put releases that match the track count into result list
+				if ($num == $numtracks)
+				{
+					push @releases, $newrelease;
+				}
 			}
 		}
 	}
-}
 
-# Sort albums by name
-@albums = map { $_->[0] }
-	sort { $a->[1] cmp $b->[1] }
-	map {
-		my $t = $_;
-		use Encode qw( decode );
-		use Text::Unaccent qw( unac_string );
-		my $n = lc decode "utf-8", unac_string('UTF-8', $t->GetName);
-		[ $t, $n ];
-	} @albums;
+	# No search performed, show releases from artist the DiscID belonged to
+	else
+	{
+		if ($release->GetArtist != &ModDefs::VARTIST_ID)
+		{
+			my @treleases = $artist->GetAlbums(1, 0);
+			my $newrelease;
+			while ($newrelease = shift @treleases)
+			{
+				if ($newrelease->{id} != $releaseid && $newrelease->GetTrackCount() == $numtracks)
+				{
+					push @releases, $newrelease;
+				}
+			}
+		}
+	}
+
+	# Sort releases by name
+	@releases = map { $_->[0] }
+		sort { $a->[1] cmp $b->[1] }
+		map {
+			my $t = $_;
+			use Encode qw( decode );
+			use Text::Unaccent qw( unac_string );
+			my $n = lc decode "utf-8", unac_string('UTF-8', $t->GetName);
+			[ $t, $n ];
+		} @releases;
 </%perl>
 
 
-%############### Page Layout below ###############
+<& /comp/sidebar-notitle, pagetitle => "Move Disc ID" &>
 
-<& /comp/sidebar, title => 'Move Disc ID' &>
+	<& /comp/layout/editformbegin,
+		title => "Move Disc ID to another release",
+		mp => $alcdtoc->GetModPending,
+		mp_type => &ModDefs::MOD_MOVE_DISCID &>
 
-%# Build a list of possible target albums
+%	if ($newreleaseid ne "") {
+%
+%		# Load the new release and its artist
+%		my $newrelease = $m->comp("/comp/loadrelease", $mb, $newreleaseid);
+%		my $newartist = $m->comp("/comp/loadartist", $mb, $newrelease->GetArtist);
 
-<fieldset>
-	<legend>Move Disc ID to another Album</legend>
-	<div class="padleft" style="margin-bottom: 0.5em;">
-		Select an album to which disc ID
-		<a href="/showcdtoc.html?id=<% $cdtoc->GetId %>"><% $cdtoc->GetDiscID %></a> 
-		should be moved.<br/>
-		NOTE: Only albums with <% $trackdesc %> are shown.
-	</div>
+		<form method="POST" action="/edit/discid/move.html" id="ConfirmForm">
+			<table class="formstyle">
+				<tr>
+					<td class="instructions">
+						<ul>
+							<li>
+								Are you sure you want to move Disc ID
+								<& /comp/form/currentvalue,
+									cdtoc => $alcdtoc, display => $cdtoc->GetDiscID &>
 
-%# we found some albums
-%if ( scalar(@albums) > 0 )
-%{
-%	my $newal;
-%	while ($newal = shift @albums)
-%	{
-%		my $newar = Artist->new($mb->{DBH});
-%		$newar->SetId($newal->GetArtist);
-%		$newar->LoadFromId();
-		<div class="padleft">
-		<form method="POST" action="move.html"
-			enctype="application/x-www-form-urlencoded">
-			<table width="100%">
-			<tr><td>Artist: 
-			<a href="/showartist.html?id=<% $newal->GetArtist %>">
-			<% $newar->GetName %></a></td><td></td></tr>
-			<tr><td width="100%">
-				<& /comp/album, artist=>$newar, album=>$newal, showmodlinks=>0 &>
-			</td>
-			<td align="right" valign="top">
-				<input type="submit" value="Select CD &gt;&gt;">
-				<input type="hidden" name="albumid" value="<% $albumid %>">
-				<input type="hidden" name="newalbumid" 
-					value="<% $newal->GetId() %>">
-				<input type="hidden" name="tocid" value="<% $tocid %>">
-			</td>
+								from release <& /comp/linkrelease, release => $release &> by
+								artist <& /comp/linkartist, artist => $artist &>
+								to release <& /comp/linkrelease, release => $newrelease &> by
+								artist <& /comp/linkartist, artist => $newartist &>?</li>
+						</ul></td>
+				</tr>
+				<tr class="spaced">
+					<td class="notetext">
+						<& /comp/notetext, buttons => [["Cancel",""], ["Enter Moderation", "btnYes"]] &>
+						<input type="hidden" name="tocid" value="<% $cdtoc->GetId %>" />
+						<input type="hidden" name="releaseid" value="<% $release->GetId %>" />
+						<input type="hidden" name="newreleaseid" value="<% $newrelease->GetId %>" /></td>
+				</tr>
+			</table>
+
+			<& /comp/movefocus, id => "btnYes" &>
+		</form>
+
+%	} else {
+
+		<table class="formstyle">
+			<tr>
+				<td class="instructions">
+					<ul>
+						<li>
+							Select a release to which the Disc ID
+							<& /comp/form/currentvalue,
+									cdtoc => $alcdtoc, display => $cdtoc->GetDiscID &>
+
+							should be moved to.</li>
+						<li>
+							Only releases with the <strong>same amount of
+							tracks (<% $numtracks %>)</strong> than the
+							release the Disc ID is currently attached to
+							are shown.</li>
+					</ul></td>
 			</tr>
+		</table>
+
+		<table class="formstyle">
+			<tr>
+				<td>&nbsp;</td>
+				<td>
+					If the release you were looking for is not listed below, you can
+					try to search for <strong>other releases with <% $trackdesc %></strong>.
+					Please note, that the length of the search results is limited to
+					the first 100 results. Please provide more detailed search criteria
+					until you've found the release you're looking for.</td>
+			</tr>
+			<tr>
+				<td class="label">Search:</td>
+				<td class="field">
+					<form method="post" action="/edit/discid/move.html">
+						<input type="text" name="search" size="25" />
+						<input type="submit" value="Search &raquo;" />
+						<input type="hidden" name="tocid" value="<% $tocid %>" />
+						<input type="hidden" name="releaseid" value="<% $releaseid %>" />
+					</form></td>
+			</tr>
+			<tr>
+				<td>&nbsp;</td>
+				<td>
+					<form method="get" action="/show/release/">
+						<input type="hidden" name="releaseid" value="<% $releaseid %>" />
+						<input type="submit" value="Cancel" />
+					</form></td>
+			</tr>
+		</table>
+
+	<& /comp/layout/editformend &>
+
+%	# we found some releases
+%	if (scalar(@releases) > 0)
+%	{
+%		my $newrelease;
+%		while ($newrelease = shift @releases)
+%		{
+%			my $newar = Artist->new($mb->{DBH});
+%			$newar->SetId($newrelease->GetArtist);
+%			$newar->LoadFromId();
+
+		<form method="post" action="/edit/discid/move.html">
+			<table width="100%">
+				<tr>
+					<td>
+						Artist: <& /comp/linkartist, artist => $newar &></td>
+					<td></td>
+				</tr>
+				<tr valign="top">
+					<td style="width: 420px">
+						<& /comp/album,
+							artist => $newar, album => $newrelease,
+							showlinks => 0, showmodlinks => 0
+						&></td>
+					<td>
+						<input type="submit" name="submit" value="Select &raquo;" />
+						<input type="hidden" name="releaseid" value="<% $releaseid %>" />
+						<input type="hidden" name="newreleaseid" value="<% $newrelease->GetId() %>" />
+						<input type="hidden" name="tocid" value="<% $tocid %>" />
+					</td>
+				</tr>
 			</table>
 		</form>
-		</div>
+%		}
 %	}
-%}
-%else
-%{
-	<div class="padleft">
-%	if ($search eq '' && $al->GetArtist != &ModDefs::VARTIST_ID)
+%	else
 %	{
-		There were no albums by 
-		<a href="/showartist.html?id=<% $ar->GetId %>"><% $ar->{name} %></a> found
-		this DiscId can be applied to. You may search for albums by different
-		artists below.
-%	} else {
-		There were no albums found. You may refine your search below.
+%		if ($search eq "" && $release->GetArtist != &ModDefs::VARTIST_ID)
+%		{
+			There were no releases by <& /comp/linkartist, artist => $artist &>
+			found to which this Disc ID can be applied to. Please search for releases by different
+			artists below.
+%		} else {
+			There were no releases found. You may refine your search below.
+%		}
 %	}
-%}
-	</div>
 
-%# Search for possible album candidates
-	<hr>
-	<div class="padleft"><h3>Start another CD search:</h3></div>
-	<div class="padleft">
-		If the album you were looking for is not in the list above, you can 
-		try to search for album titles with this search form.</div>
-	<div class="padleft">
-		NOTE: Only the first 100 results will be shown in the list of results.
-	</div>
-	
-	<div class="padleft" style="margin-top: 0.5em;">
-	<form method="POST" action="move.html" 
-		enctype="application/x-www-form-urlencoded">
-    	<input type="text" name="search" size="25">
-    	<input type="submit" value="Search &gt;&gt;">
-    	<input type="hidden" name="tocid" value="<% $tocid %>">
-    	<input type="hidden" name="albumid" value="<% $albumid %>">
-	</form>
-	</div>
-</fieldset>
+	<script type="text/javascript" src="/scripts/collapsereleases.js"></script>
+
+%	}
+
 
 <& /comp/footer &>
