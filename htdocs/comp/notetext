@@ -1,15 +1,90 @@
-%# vi: set ts=2 sw=2 ft=mason :
+<%perl>
+	# -----------------------------------------------------------------------------
+	#                               Musicbrainz.org
+	#                        Copyright (c) 2001 Robert Kaye
+	# -----------------------------------------------------------------------------
+	#  This software is provided "as is", without warranty of any kind, express or
+	#  implied, including  but not limited  to the warranties of  merchantability,
+	#  fitness for a particular purpose and noninfringement. In no event shall the
+	#  authors or  copyright  holders be  liable for any claim,  damages or  other
+	#  liability, whether  in an  action of  contract, tort  or otherwise, arising
+	#  from,  out of  or in  connection with  the software or  the  use  or  other
+	#  dealings in the software.
+	#
+	#  GPL - The GNU General Public License    http://www.gnu.org/licenses/gpl.txt
+	#  Permits anyone the right to use and modify the software without limitations
+	#  as long as proper  credits are given  and the original  and modified source
+	#  code are included. Requires  that the final product, software derivate from
+	#  the original  source or any  software  utilizing a GPL  component, such  as
+	#  this, is also licensed under the GPL license.
+	# -----------------------------------------------------------------------------
+	#
+	# Summary:
+	# -----------------------------------------------------------------------------
+	# Renders the moderation note textarea, which is always the same
+	# on all pages.
+	#
+	# $URL$
+	# $Id$
+	#
+</%perl>
 <%args>
-$required => 0
-$text => ''
+	$required => 0
+	$text => ""
+	$notetext => undef
+	@buttons => ()
 </%args>
-Enter moderation note 
-% if ( $required ) {
-	(<strong>required</strong>):
-% } else {
-	(optional):
-% }
-<br/>
-<textarea name="notetext" id="notetext" class="textarea" rows="3" cols="52"><%
-	$text %></textarea>
+%	$notetext ||= $text;
+
+	Enter moderation note
+% 	if ($required) {
+		(<strong>required</strong>):
+% 	} else {
+		(optional):
+% 	}
+	<br />
+	<textarea name="notetext" id="notetext" class="textarea" rows="3" cols="52"><%
+		$text %></textarea>
+
+	<div style="margin: 5px 0px">
+%	for my $button (@buttons) {
+%		my ($value, $id) = @$button;
+%		$id = qq!id="$id"! if (defined $id);
+		<input class="button" type="submit" name="submit" value="<% $value %>" <% $id %>/>
+%	}
+	</div>
+
+	<div style="border: 1px dotted #000; padding: 5px; margin: 5px 0px; margin-left: 50px; margin-top: 10px; font-size: 10px; width: 500px">
+		<strong>About Moderation Notes:</strong>
+		Please note that it is highly recommended to enter a
+		<& /comp/linkdoc, "ModerationNote", "moderation note" &>. If you do
+		so, your edit is more likely to be <& /comp/linkdoc,
+		"ModerationFAQ#head-d9b521e9caacf43d4efefab55e3efb61044dc721",
+		"voted on, and unanimously accepted" &> by the other MusicBrainz
+		editors. If your edit receives 3 unanimous yes votes, it will be applied
+		instantly, even before the one week period elapses in which edits
+		usually are kept open.
+	</div>
+
+%	$session{"orig_privs"} = $session{"privs"}
+%		if (not exists $session{"orig_privs"});
+%
+% 	if (UserStuff->IsAutoMod($session{"orig_privs"})) {
+
+	<div style="border: 1px dotted #000; padding: 5px; margin: 5px 0px; margin-left: 50px; font-size: 10px; width: 500px">
+		<strong>Autoeditor priviledges:</strong> If you untick this checkbox, this edit
+		will be entered as if you would not have <& /comp/linkdoc, "AutoModerator", "autoeditor" &>
+		priviledges. You can enable your autoeditor priviledges any time again.
+		<br/>
+
+%	my $ischecked = UserStuff->IsAutoMod($session{"privs"});
+
+		<input type="hidden" name="autoeditorpriv_enabled_old" value="<% $ischecked ? "on" : "" %>" />
+		<input type="checkbox" name="autoeditorpriv_enabled_new" value="on"
+%			$m->out($ischecked ? ' checked="checked" ' : "");
+			/> Enable autoeditor privileges
+	</div>
+
+% 	}
+
 
