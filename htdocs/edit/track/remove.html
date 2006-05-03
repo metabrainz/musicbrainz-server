@@ -15,6 +15,9 @@ MusicBrainz::IsNonNegInteger($album) && $album
 $m->comp("/comp/checkloggedin", 1, 1)
 	or return;
 
+	# check volatile preferences (like autoeditor flag)
+	$m->comp("/comp/user/check-volatile-preferences", %ARGS);
+
 my $mb = $m->comp("/comp/dblogin");
 my $tr = Track->new($mb->{DBH});
 my $al = Album->new($mb->{DBH});
@@ -82,7 +85,7 @@ if ($ARGS{confirm})
 			<tr>
 				<td>
 					<form 	method="GET" action="<% $url %>"
-							name="ModFormNo" 
+							name="ModFormNo"
 							onsubmit="history.go(-1); return false">
 						<input name="btnNo" type="submit" class="button" value="&laquo; NO">
 					</form></td>

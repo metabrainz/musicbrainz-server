@@ -21,6 +21,10 @@ MusicBrainz::IsNonNegInteger($tindex)
 MusicBrainz::IsNonNegInteger($modid)
 	or return $m->comp("/comp/badargs", 1, 1);
 
+	# check volatile preferences (like autoeditor flag)
+	$m->comp("/comp/user/check-volatile-preferences", %ARGS);
+
+
 my $mb = $m->comp("/comp/dblogin");
 
 my $al = Album->new($mb->{DBH});

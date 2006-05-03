@@ -1,209 +1,288 @@
-%# vi: set ts=2 sw=2 ft=mason :
+<%perl>
+	# -----------------------------------------------------------------------------
+	#                               Musicbrainz.org
+	#                        Copyright (c) 2001 Robert Kaye
+	# -----------------------------------------------------------------------------
+	#  This software is provided "as is", without warranty of any kind, express or
+	#  implied, including  but not limited  to the warranties of  merchantability,
+	#  fitness for a particular purpose and noninfringement. In no event shall the
+	#  authors or  copyright  holders be  liable for any claim,  damages or  other
+	#  liability, whether  in an  action of  contract, tort  or otherwise, arising
+	#  from,  out of  or in  connection with  the software or  the  use  or  other
+	#  dealings in the software.
+	#
+	#  GPL - The GNU General Public License    http://www.gnu.org/licenses/gpl.txt
+	#  Permits anyone the right to use and modify the software without limitations
+	#  as long as proper  credits are given  and the original  and modified source
+	#  code are included. Requires  that the final product, software derivate from
+	#  the original  source or any  software  utilizing a GPL  component, such  as
+	#  this, is also licensed under the GPL license.
+	# -----------------------------------------------------------------------------
+	#
+	# Summary:
+	# -----------------------------------------------------------------------------
+	# This page allows to add a track to a single/various artists release.
+	#
+	# $URL$
+	# $Id$
+	#
+</%perl>
 <%args>
-$album => undef
-$trackname => ""
-$tracknum => ""
-$search => ""
-$selectedartist => ""
-$newartistname => ""
-$newartistsortname => ""
-$notetext => ""
+	$album => undef
+	$releaseid => undef
+
+	$tracknum => ""
+	$trackname => ""
+	$tracklength => 0
+
+	# fields set by /comp/artistfilter
+	$selectedartist => ""
+	$newartistid => ""
+	$search => ""
+
+	$submit => ""
+	$notetext => ""
+
 </%args>
 <%perl>
+	# backwards compability
+	$releaseid ||= $album;
 
-$m->comp("/comp/checkloggedin", 1, 1)
-	or return;
+	$releaseid ||= $ARGS{"af_releaseid"};
+	$trackname ||= $ARGS{"af_trackname"};
+	$tracknum ||= $ARGS{"af_tracknum"};
+	$tracklength ||= $ARGS{"af_tracklength"};
 
-MusicBrainz::IsNonNegInteger($album) && $album
-	or return $m->comp("/comp/badargs", 1, 1);
+	# only logged in users may see this page
+	$m->comp("/comp/checkloggedin", 1, 1)
+		or return;
 
-my $mb = $m->comp("/comp/dblogin");
+	# check volatile preferences (like autoeditor flag)
+	$m->comp("/comp/user/check-volatile-preferences", %ARGS);
 
-my $al = Album->new($mb->{DBH});
-$al->SetId($album);
-$al->LoadFromId
-	or return $m->comp(
-		"/comp/error",
-		"Album #$album does not exist",
-		1, 1,
-	);
+	# make sure we got a valid releaseid parameter
+	MusicBrainz::IsNonNegInteger($releaseid) && $releaseid
+		or return $m->comp("/comp/layout/badarguments",
+			text => "The argument <strong>releaseid</strong> is missing or has a wrong format.");
 
-$m->comp("/comp/redirect", "/edit/track/addnonalbum.html?artist=" . $al->GetArtist)
-	if $al->IsNonAlbumTracks;
+	# Instantiate MusicBrainz object
+	my $mb = $m->comp("/comp/dblogin");
 
-my $ar = Artist->new($mb->{DBH});
-$ar->SetId($al->GetArtist);
-$ar->LoadFromId
-	or return $m->comp(
-		"/comp/error",
-		"Artist does not exist",
-		1, 1,
-	);
+	# load release, and albumartist
+	my $release = $m->comp("/comp/loadrelease", $mb, $releaseid);
+	my $artist = $m->comp("/comp/loadartist", $mb, $release->GetArtist);
 
-my $url = "/showalbum.html?albumid=$album";
+	# redirect to the non-album track editor if the current
+	# release is this special case release.
+	$m->comp("/comp/redirect", "/edit/track/addnonalbum.html?artist=" . $release->GetArtist)
+		if $release->IsNonAlbumTracks;
 
-if ($selectedartist)
-{
-	my $selar = Artist->new($mb->{DBH});
-	$selar->SetId($selectedartist);
-	$selar->LoadFromId
-		or return $m->comp(
-			"/comp/error",
-			"Artist does not exist",
-			1, 1,
-		);
-	$newartistname = $selar->GetName;
-	$newartistsortname = $selar->GetSortName;
-}
 
-if ($ar->GetId != &ModDefs::VARTIST_ID)
-{
-	$newartistname = $ar->GetName;
-	$newartistsortname = $ar->GetSortName;
-}
+	# form step 2/3: load selected artist from the database, and
+	# fill in the required fields
+	my $newartist = undef;
+	$selectedartist ||= $newartistid;
+	if ($selectedartist ne "")
+	{
+		$newartist = $m->comp("/comp/loadartist", $mb, $selectedartist);
+		$newartistid = $newartist->GetId;
+	}
 
-if ($newartistname =~ /\S/ and $newartistsortname =~ /\S/
-	and $trackname =~ /\S/ and $tracknum =~ /\S/
-)
-{
-	MusicBrainz::IsNonNegInteger($tracknum) && $tracknum >= 1
-		or return $m->comp("/comp/badargs", 1, 1);
+	# prepare validation errors
+	my @errors = ();
 
-	$al->CanAddTrack($tracknum)
-		or return $m->comp("/comp/error", "$@", 1, 1); # take safe copy of $@
+	# we got a form submission to handle
+	if ($submit ne "")
+	{
+		# check track number
+		if (not (MusicBrainz::IsNonNegInteger($tracknum) && $tracknum >= 1))
+		{
+			push @errors, "Please enter a non-negative track number";
+		}
+		else
+		{
+			push @errors, "$@" # take safe copy of $@
+				if (not $release->CanAddTrack($tracknum));
+		}
 
-	$m->comp(
-		"/comp/entermods",
-		DBH => $mb->{DBH},
-		sub => sub {
-			my @mods = Moderation->InsertModeration(
-				DBH	=> $mb->{DBH},
-				uid	=> $session{uid},
-				privs => $session{privs},
-				type => &ModDefs::MOD_ADD_TRACK_KV,
-				# --
-				album => $al,
-				trackname => $trackname,
-				tracknum => $tracknum,
-				artistname => $newartistname,
-				artistsortname => $newartistsortname,
-			);
+		# check track name
+		push @errors, "Please enter a non-empty track name"
+			if (not MusicBrainz::IsSingleLineString($trackname));
 
-			$mods[0]->InsertNote($session{'uid'}, $notetext)
-				if $mods[0]
-				and $notetext =~ /\S/;
-		},
-		success_url => $url,
-	) or return;
+		# check track length
+		$tracklength = Track::UnformatTrackLength($tracklength);
+		push @errors, "Please enter a valid track length"
+			if (not (MusicBrainz::IsNonNegInteger($tracklength) && $tracklength >= 0));
 
-	die "Shouldn't get here";
-}
+
+		my $url = "/release/".$release->GetMBId.".html";
+
+		if ($submit =~ m/Cancel/i)
+		{
+			return $m->comp("/comp/redirect", $url);
+		}
+		elsif ($submit =~ m/Enter Moderation/i and
+			   not @errors)
+		{
+			$m->comp(
+				"/comp/entermods",
+				DBH => $mb->{DBH},
+				sub => sub {
+					my @mods = Moderation->InsertModeration(
+						DBH	=> $mb->{DBH},
+						uid	=> $session{uid},
+						privs => $session{privs},
+						type => &ModDefs::MOD_ADD_TRACK_KV,
+						# --
+						album => $release,
+						trackname => $trackname,
+						tracknum => $tracknum,
+						tracklength => $tracklength,
+
+						# TODO: change to artistid (only!)
+						artistname => $newartist->GetName,
+						artistsortname => $newartist->GetSortName,
+					);
+
+					$mods[0]->InsertNote($session{'uid'}, $notetext)
+						if $mods[0]
+						and $notetext =~ /\S/;
+				},
+				success_url => $url,
+			) or return;
+
+			die "Shouldn't get here";
+		}
+	}
 
 </%perl>
 
-<& /comp/sidebar, title => 'Add Track' &>
+<& /comp/sidebar-notitle, pagetitle => "Add Track to Release" &>
 
-<& /comp/stylemenu &>
+	<form method="post" action="/edit/track/add.html" id="AddTrackForm">
 
-% unless ($search =~ /\S/) {
+		<& /comp/autofixmenu &>
 
-<script type="text/javascript" src="/scripts/entervalidate.js"></script>
-<form method="post" action="/edit/track/add.html"
-	name="AddTrackForm"
-	onsubmit="return validate(this);">
+		<& /comp/layout/editformbegin, title => "Add Track to Release" &>
 
-	<& /comp/autofixmenu &>
-
-	<fieldset>
-		<legend>Add Track</legend>
-
-		<table>
-			<tr>
-				<td nowrap><label>Album:</label></td>
-				<td rowspan="100"> &nbsp; </td>
-				<td colspan="3"><a href="/showalbum.html?albumid=<% $album %>"><% $al->GetName %></a></td>
-			</tr>
-			<tr>
-				<td>&nbsp;</td>
-				<td><b>#:</b></td>
-				<td colspan="3"><b>Name:</b></td>
-			</tr>
-
-			<tr>
-				<td nowrap>
-					<label for="edittrack_trackname">New Track Name:</label></td>
-				<td>
-					<input 	type="text" name="tracknum" class="numberfield"
-							size="2" value=""></td>
-				<td>
-					<input 	type="text" name="trackname" class="textfield"
-							id="edittrack_trackname"
-						 	size="41" maxlength="255"
-						 	value=""></td>
-				<td>
-					<& /comp/form/jsbutton, id=>"BTN_TRACK::trackname" &>
+			<table class="formstyle">
+				<tr>
+					<td class="instructions" colspan="2">
+						<ul>
+							<li>
+								This form allows you to add a new track to
+								this release. Please read the <& /comp/linkdoc, "StyleGuideline",
+								"style guidelines" &> before entering any edits.</li>
+							<li>
+								Please note that it is disencouraged to add tracks
+								to existing releases, since a release with this
+								track listing might very well exist. If you are
+								sure <strong>that a track needs to be added
+								to this release</strong>, please proceed.
+						</ul>
 					</td>
-			</tr>
-			<tr>
-				<td>&nbsp;</td>
-				<td colspan="3"><small>Valid Track Numbers: 1 or bigger</small></td>
-			</tr>
+				</tr>
+			<table>
 
-% if ($al->HasMultipleTrackArtists) {
+			<table class="formstyle">
+% 	if (@errors and $submit =~ m/Enter Moderation/i) {
+				<tr>
+					<td>&nbsp;</td>
+					<td class="error">
+						<ul>
+							<li>
+								<%perl> $m->out(join "</li><li>", @errors), </%perl></li>
+						</ul></td>
+				</tr>
+% 	}
+				<tr>
+					<td class="label">
+						<label>Artist:</label></td>
+					<td>
+						<& /comp/linkartist, artist => $artist &></td>
+				</tr>
+				<tr>
+					<td class="label">
+						<label>Release:</label></td>
+					<td>
+						<& /comp/linkrelease, release => $release &></td>
+				</tr>
 
-			<tr>
-				<td nowrap>
-					<label for="edittrack_search">Search for Artist:</label></td>
-				<td colspan="2">
-					<input  type="text" name="search" class="textfield"
-							id="edittrack_search"
-							size="50"></td>
-				<td>
-					<& /comp/form/jsbutton, id=>"BTN_ARTIST::search" &>
-					</td>
-			</tr>
-% }
+				<tr class="spaced">
+					<td class="label">
+						<label>Track #:</label></td>
+					<td>
+						<input type="text" name="tracknum" class="numberfield"
+							size="2" value="<% $tracknum %>" /> <small>Valid Track Numbers: 1 or bigger (Release has <% $release->GetTrackCount %> tracks)</small></td>
+				</tr>
+				<tr>
+					<td class="label">
+						<label for="id_trackname">Track Name:</label></td>
+					<td class="field">
+						<input type="text" name="trackname" class="textfield"
+							id="id_trackname" size="41" maxlength="255"
+							value="<% $trackname %>" />
+						<& /comp/form/jsbutton, id=>"BTN_TRACK::trackname" &></td>
+				</tr>
+				<tr>
+					<td class="label">
+						<label>Track Length:</label></td>
+					<td>
+						<input type="text" name="tracklength" class="numberfield"
+							size="2" value="<% Track::FormatTrackLength($tracklength) %>" /></td>
+				</tr>
 
-			<tr>
-				<td>&nbsp;</td>
-				<td class="padtop" colspan="3">
-					<& /comp/notetext &></td>
-			</tr>
-			<tr>
-				<td>&nbsp;</td>
-				<td class="padtop" colspan="3">
-					<input type="hidden" name="album" value="<% $album %>">
-					<input type="submit" class="button" value="Submit">
-				</td>
-			</tr>
-		</table>
-	</fieldset>
-</form>
 
-<& /comp/movefocus, "AddTrackForm", "trackname" &>
+% 	if ($release->HasMultipleTrackArtists and not defined $newartist) {
 
-% } else {
+				<tr class="spaced">
+					<td>&nbsp;</td>
+					<td>
+						Since you are adding a new track to a <& /comp/linkdoc,
+						"VariousArtistsRelease", "various artists release" &>,
+						you have to specify a <& /comp/linkdoc, "TrackArtist",
+						"track artist" &>.</td>
+				</tr>
 
-	<fieldset>
-		<legend>Select Artist for Add Track Moderation (VA)</legend>
-		<div class="padleft">
-			You have selected to add track
-			#<% $tracknum %> '<% $trackname %>'
-			to album <a href="/showalbum.html?albumid=<% $album %>"><% $al->GetName %></a>.&nbsp;
-			Please search for this track's artist.
-		</div>
-	</fieldset>
+				<& /comp/artistfilter,
+					search => $search,
+					submit => $submit,
+					url => "/edit/track/add.html",
+					arglist => {
+						af_releaseid => $releaseid,
+						af_trackname => $trackname,
+						af_tracknum => $tracknum,
+						af_tracklength => $tracklength,
+					},
+				&>
+% 	}
 
-	<& /comp/artistfilter,
-		search => $ARGS{'search'},
-		allowcreate => 1,
-		url => "/edit/track/add.html",
-		arglist => {
-			album => $album,
-			trackname => $trackname,
-			tracknum => $tracknum,
-		},
-		&>
-% }
+% 	if (not $release->HasMultipleTrackArtists or defined $newartist) {
+
+%		if (defined $newartist) {
+				<tr>
+					<td class="label">Track Artist:</td>
+					<td>
+						<& /comp/linkartist, artist => $newartist &>
+						<input type="hidden" name="newartistid" value="<% $newartist->GetId %>" /></td>
+				</tr>
+%		}
+				<tr>
+					<td>&nbsp;</td>
+					<td class="notetext">
+						<& /comp/notetext,
+							notetext => $notetext,
+							buttons => [ ["Cancel"], ["Enter Moderation"]] &>
+
+						<input type="hidden" name="releaseid" value="<% $releaseid %>"></td>
+				</tr>
+%	}
+			</table>
+
+		<& /comp/layout/editformend &>
+
+
+		<& /comp/movefocus, id => "id_trackname" &>
+	</form>
 
 <& /comp/footer &>

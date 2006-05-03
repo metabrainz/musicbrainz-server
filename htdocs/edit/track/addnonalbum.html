@@ -24,6 +24,10 @@ $artistid == &ModDefs::VARTIST_ID
 $artistid == &ModDefs::DARTIST_ID
 	and return $m->comp("/comp/badargs", 1, 1);
 
+	# check volatile preferences (like autoeditor flag)
+	$m->comp("/comp/user/check-volatile-preferences", %ARGS);
+
+
 my $mb = $m->comp("/comp/dblogin");
 
 my $artist = Artist->new($mb->{DBH});

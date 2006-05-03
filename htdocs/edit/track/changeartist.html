@@ -24,6 +24,10 @@ MusicBrainz::IsNonNegInteger($tindex)
 MusicBrainz::IsNonNegInteger($modid)
 	or return $m->comp("/comp/badargs", 1, 1);
 
+	# check volatile preferences (like autoeditor flag)
+	$m->comp("/comp/user/check-volatile-preferences", %ARGS);
+
+
 my $mb = $m->comp("/comp/dblogin");
 
 my $al = Album->new($mb->{DBH});
@@ -49,7 +53,7 @@ if ($selectedartist ne "")
 {
 	MusicBrainz::IsNonNegInteger($selectedartist) && $selectedartist
 		or return $m->comp("/comp/badargs", 1, 1);
-	
+
 	my $target = Artist->new($mb->{DBH});
 	$target->SetId($selectedartist);
 	$target->LoadFromId
@@ -73,8 +77,8 @@ if ($newartistname =~ /\S/ and $newartistsortname =~ /\S/ and $newartistid < 0)
     {
         </%perl>
         <& /comp/sidebar, title => 'Change Track Artist Error' &>
-		You are attempting to create a new duplicate artist <b><% $newartistname %></b>, which cannot be done 
-        as part of the change track artist moderation. Please add <a href="/edit/artist/add.html?name=<% $newartistname %>&sortname=<% $newartistsortname %>">the 
+		You are attempting to create a new duplicate artist <b><% $newartistname %></b>, which cannot be done
+        as part of the change track artist moderation. Please add <a href="/edit/artist/add.html?name=<% $newartistname %>&sortname=<% $newartistsortname %>">the
         duplicate artist</a> first and then change the track artists.
         <& /comp/footer &>
         <%perl>
@@ -136,10 +140,10 @@ if ($newartistname =~ /\S/ and $newartistsortname =~ /\S/)
 % }
 
 <& /comp/stylemenu &>
-  
+
 %  if ($track->GetModPending) {
 <& /comp/modpending &>
-%  } 
+%  }
 
 <fieldset>
 	<legend>Change Artist for current track</legend>
