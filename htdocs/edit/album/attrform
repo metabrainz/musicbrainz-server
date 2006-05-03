@@ -53,18 +53,13 @@
 			<td colspan="2" class="instructions">
 				<ul>
 					<li>
-						These attributes define the type and status of the release and
-						provide information about its contents.
-					</li>
+						These <& /comp/linkdoc, "ReleaseAttribute", "release attributes" &>
+						define the type and status of the release and provide information
+						about its contents.</li>
 					<li>
 						Release attributes should apply to <b>most</b> of the tracks on the
 						release(s). It is OK to have a couple of tracks that do not fit the
-						release attribute, as long as the attribute applies to the release as a whole.
-					</li>
-					<li>
-						Select the appropriate release attributes below and then
-						click on Enter Moderations:
-					</li>
+						release attribute, as long as it applies to the release as a whole.</li>
 				</ul></td>
 		</tr>
 
@@ -75,25 +70,28 @@
 				<table class="releaselist">
 					<tr class="header">
 						<td>Release Title</td>
+						<td>Artist</td>
 						<td>Type</td>
 						<td>Status</td>
 					</tr>
 
 				<%perl>
+					my $mb = $m->comp("/comp/dblogin");
+
 					my $n = 0;
 					foreach my $release (@releaseobjs)
 					{
 						$m->out("<tr>");
 
-# TODO: load artist for this?
-#							$m->out(qq!<td style="padding-right: 40px">!);
-#							$m->comp("/comp/linkartist", artist => $release->GetArtist);
-#							$m->out(qq!</td><td style="padding-right: 40px">!);
-
 						my ($type, $status) = $release->GetReleaseTypeAndStatus;
 
 						$m->out(qq!<td style="padding-right: 40px">!);
 						$m->comp("/comp/form/currentvalue", release => $release, mp_type => &ModDefs::MOD_EDIT_ALBUMATTRS);
+
+						my $artist = $m->comp("/comp/loadartist", $mb, $release->GetArtist);
+						$m->out(qq!</td><td style="padding-right: 40px">!);
+						$m->comp("/comp/linkartist", artist => $artist);
+
 						$m->out(qq!</td><td style="padding-right: 40px">!);
 						$m->out(
 							defined $type
@@ -149,15 +147,17 @@
 		<tr>
 			<td>&nbsp;</td>
 			<td class="notetext">
-				<& /comp/notetext, text => $notetext &></td>
+%	my @buttons = ();
+%	push @buttons, ["Cancel"] if ($adding == 0);
+%	push @buttons, ["Enter Moderations"];
+
+				<& /comp/notetext,
+					notetext => $notetext,
+					buttons => \@buttons &></td>
 		</tr>
 		<tr>
 			<td>&nbsp;</td>
 			<td>
-%	if ($adding == 0) {
-				<input type="submit" class="button" name="submit" value="Cancel" />
-% 	}
-				<input type="submit" class="button" name="submit" value="Enter Moderations" /></td>
 		</tr>
 	</table>
 

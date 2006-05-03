@@ -36,57 +36,64 @@
 	$notetext => ""
 </%args>
 <%perl>
+	# backwards compability
+	$releaseid ||= $album;
 
 	# only a logged in user can see this page.
 	$m->comp("/comp/checkloggedin", 1, 1)
 		or return;
 
-	# work internally with new terminology, and check
-	# if the releaseid is valid.
-	$releaseid ||= $album;
-	MusicBrainz::IsNonNegInteger($releaseid) && $releaseid
-		or return $m->comp("/comp/badargs", 1, 1);
+	# check volatile preferences (like autoeditor flag)
+	$m->comp("/comp/user/check-volatile-preferences", %ARGS);
 
-	# get database handle
+	# make sure we got a valid releaseid parameter
+	MusicBrainz::IsNonNegInteger($releaseid) && $releaseid
+		or return $m->comp("/comp/layout/badarguments",
+			text => "The argument <strong>releaseid</strong> is missing or has a wrong format.");
+
+	# Instantiate MusicBrainz object
 	my $mb = $m->comp("/comp/dblogin");
 
 	# load release, and albumartist
 	my $release = $m->comp("/comp/loadrelease", $mb, $releaseid);
 	my $artist = $m->comp("/comp/loadartist", $mb, $release->GetArtist);
 
-	# if a submit button was pressed, see if we got
-	# a cancel, or submit event to handle.
-	my $url = "/showalbum.html?albumid=$releaseid";
-	if ($submit =~ m/cancel/i)
+	# we got a form submission to handle
+	if ($submit ne "")
 	{
-		return $m->comp("/comp/redirect", $url);
-	}
-	elsif (MusicBrainz::IsSingleLineString($newalbumname)
-			and $newalbumname =~ /\S/
-			and $newalbumname ne $release->GetName)
-	{
-		$m->comp(
-			"/comp/entermods",
-			DBH => $mb->{DBH},
-			sub => sub {
-				my @mods = Moderation->InsertModeration(
-					DBH	=> $mb->{DBH},
-					uid	=> $session{uid},
-					privs => $session{privs},
-					type => &ModDefs::MOD_EDIT_ALBUMNAME,
-					# --
-					album => $release,
-					newname => $newalbumname,
-				);
+		my $url = "/release/".$release->GetMBId.".html";
 
-				$mods[0]->InsertNote($session{'uid'}, $notetext)
-					if $mods[0]
-					and $notetext =~ /\S/;
-			},
-			success_url => $url,
-		) or return;
+		if ($submit =~ m/cancel/i)
+		{
+			return $m->comp("/comp/redirect", $url);
+		}
+		elsif (MusicBrainz::IsSingleLineString($newalbumname)
+				and $newalbumname =~ /\S/
+				and $newalbumname ne $release->GetName)
+		{
+			$m->comp(
+				"/comp/entermods",
+				DBH => $mb->{DBH},
+				sub => sub {
+					my @mods = Moderation->InsertModeration(
+						DBH	=> $mb->{DBH},
+						uid	=> $session{uid},
+						privs => $session{privs},
+						type => &ModDefs::MOD_EDIT_ALBUMNAME,
+						# --
+						album => $release,
+						newname => $newalbumname,
+					);
 
-		die "Shouldn't get here";
+					$mods[0]->InsertNote($session{'uid'}, $notetext)
+						if $mods[0]
+						and $notetext =~ /\S/;
+				},
+				success_url => $url,
+			) or return;
+
+			die "Shouldn't get here";
+		}
 	}
 
 </%perl>
@@ -99,52 +106,50 @@
 
 		<& /comp/layout/editformbegin, title => "Edit Release Title", release => $release &>
 
-		<table class="formstyle">
-			<tr>
-				<td class="instructions" colspan="2">
-					<ul>
-						<li>
-							This form allows you to edit the <& /comp/linkdoc, "ReleaseTitle",
-							"title of this release" &>. Please read the <& /comp/linkdoc,
-							"StyleGuideline", "style guidelines" &> before entering
-							any edits.
-						</li>
-					</ul>
-				</td>
-			</tr>
-			<tr>
-				<td class="label">
-					<label>Current&nbsp;Title:</label></td>
-				<td>
-					<& /comp/form/currentvalue, release => $release &></td>
-			</tr>
-			<tr>
-				<td class="label">
-					<label for="editalbum_newalbumname">New Title:</label></td>
-				<td class="field">
-					<input type="text" class="textfield" size="50"
-						id="editalbum_newalbumname" name="newalbumname"
-						value="<% $release->GetName %>" />
+			<table class="formstyle">
+				<tr>
+					<td class="instructions" colspan="2">
+						<ul>
+							<li>
+								This form allows you to edit the <& /comp/linkdoc, "ReleaseTitle",
+								"title of this release" &>. Please read the <& /comp/linkdoc,
+								"StyleGuideline", "style guidelines" &> before entering
+								any edits.
+							</li>
+						</ul>
+					</td>
+				</tr>
+				<tr>
+					<td class="label">
+						<label>Current&nbsp;Title:</label></td>
+					<td>
+						<& /comp/form/currentvalue, release => $release &></td>
+				</tr>
+				<tr>
+					<td class="label">
+						<label for="editalbum_newalbumname">New Title:</label></td>
+					<td class="field">
+						<input type="text" class="textfield" size="50"
+							id="editalbum_newalbumname" name="newalbumname"
+							value="<% $release->GetName %>" />
 
-					<& /comp/form/jsbutton, id=>"BTN_ALBUM::newalbumname" &>
-				</td>
-			</tr>
-			<tr>
-				<td>&nbsp;</td>
-				<td class="padtop">
-					<& /comp/notetext &></td>
-			</tr>
-			<tr>
-				<td>&nbsp;</td>
-				<td class="padtop">
-					<input class="button" type="submit" name="submit" value="Cancel" />
-					<input class="button" type="submit" name="submit" value="Submit" />
-					<input type="hidden" name="releaseid" value="<% $release->GetId %>" /></td>
-			</tr>
-		</table>
+						<& /comp/form/jsbutton, id=>"BTN_ALBUM::newalbumname" &>
+					</td>
+				</tr>
+				<tr>
+					<td>&nbsp;</td>
+					<td class="notetext">
+						<& /comp/notetext,
+							notetext => $notetext,
+							buttons => [["Cancel",""], ["Enter Moderation", "btnYes"]] &>
+
+						<input type="hidden" name="releaseid" value="<% $release->GetId %>" /></td>
+				</tr>
+			</table>
+
+		<& /comp/layout/editformend &>
+
 		<& /comp/form/focusfield, "newalbumname" &>
-
-		<& /comp/tableend &>
 	</form>
 
 <& /comp/footer &>

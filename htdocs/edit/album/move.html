@@ -59,7 +59,10 @@
 	MusicBrainz::IsNonNegInteger($releaseid[0]) && $releaseid[0]
 		or return $m->comp("/comp/badargs", 1, 1);
 
-	# get database handle
+	# check volatile preferences (like autoeditor flag)
+	$m->comp("/comp/user/check-volatile-preferences", %ARGS);
+
+	# Instantiate MusicBrainz object
 	my $mb = $m->comp("/comp/dblogin");
 
 	# flag indicates batch or single release moves
@@ -107,7 +110,7 @@
 	}
 
 	# form step 3/3: enter moderation
-	if (defined $newartist && $submit ne "")
+	if ($submit ne "")
 	{
 		if ($submit =~ m/Cancel/i)
 		{
@@ -118,7 +121,8 @@
 
 			$m->comp("/comp/redirect", $url);
 		}
-		else
+		elsif ($submit =~ m/Enter Moderation/i and
+			   defined $newartist)
 		{
 			# redirect to this URI after everything is done
 			my $url = $_isbatch ?
@@ -200,6 +204,7 @@
 		title => $title,
 		release => ($_isbatch ? undef : &$GetCachedRelease($releaseid[0])),
 		mp => ($_isbatch ? $mp : undef),
+		mp_type => &ModDefs::MOD_MOVE_ALBUM,
 	);
 
 	# if an artist was selected (or added), show confirm form.
@@ -293,25 +298,18 @@
 %					}
 					</td>
 				</tr>
-				<tr class="spaced">
-					<td>&nbsp;</td>
-					<td class="notetext">
-						<& /comp/notetext &>
-					</td>
-				</tr>
+
 				<tr>
 					<td>&nbsp;</td>
-					<td class="field">
-						<input class="button" type="submit" name="submit" value="Cancel" />
-						<input class="button" type="submit" name="submit" id="btnYes" value="Enter Moderation" />
+					<td class="notetext">
+						<& /comp/notetext,
+							notetext => $notetext,
+							buttons => [["Cancel",""], ["Enter Moderation", "btnYes"]] &>
 
 % 					for (@_releases) {
-
 						<input type="hidden" name="releaseid" value="<% $_->GetId %>">
-
 % 					}
-						<input type="hidden" name="newartistid" value="<% $newartistid %>" />
-					</td>
+						<input type="hidden" name="newartistid" value="<% $newartistid %>" /></td>
 				</tr>
 			</table>
 
@@ -335,7 +333,7 @@
 							"moving releases" &>, before entering this edit.
 						<li>
 							When you're ready, search for the artist to which you want to move
-							the selected release<% $_isbatch ? "s" : "" %> below</li>
+							the selected release<% $_isbatch ? "s" : "" %> below.</li>
 					</ul>
 				</td>
 			</tr>
@@ -363,22 +361,9 @@
 		}
 </%perl>
 					</table>
+					&nbsp;
 				</td>
 			</tr>
-			<tr>
-				<td class="label">
-					<label>Rather not?</label></td>
-				<td>
-					<form method="post" action="/edit/album/move.html">
-						<input class="button" type="submit" name="submit" value="Cancel"
-							title="If you have changed your mind, click Cancel to return to the last page" />
-% 					for (@releaseid) {
-						<input type="hidden" name="releaseid" value="<% $_ %>">
-% 					}
-						<input type="hidden" name="newartistid" value="<% $_releases[0]->GetArtist %>" />
-					</form></td>
-			</tr>
-
 
 			<& /comp/artistfilter,
 				search => $search,

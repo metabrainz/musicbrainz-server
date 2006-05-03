@@ -7,6 +7,10 @@ $notetext => ""
 my $edit = $session{"editalbum"}
 	or return $m->comp("/comp/redirect", "/search.html");
 
+	# check volatile preferences (like autoeditor flag)
+	$m->comp("/comp/user/check-volatile-preferences", %ARGS);
+
+
 my $mb = $m->comp("/comp/dblogin");
 my $url = "/showalbum.html?albumid=" . $edit->{"id"};
 
@@ -69,7 +73,7 @@ $m->comp(
 				);
 				next;
 			}
-			
+
 			my $tr = Track->new($mb->{DBH});
 			$tr->SetId($t->{"id"});
 			$tr->SetAlbum($edit->{"id"});
@@ -115,7 +119,7 @@ $m->comp(
 					newseq => $t->{"seq"},
 				);
 			}
-			
+
 			my $length = Track::FormatTrackLength($t->{"length"});
 			my $orig_length = Track::FormatTrackLength($tr->GetLength);
 			if ($length ne $orig_length)

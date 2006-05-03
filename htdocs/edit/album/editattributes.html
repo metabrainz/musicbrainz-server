@@ -17,7 +17,10 @@
 	# there has to be at least one release
 	(@id > 0) or return $m->comp("/comp/badargs", 1, 1);
 
-	# get database handle
+	# check volatile preferences (like autoeditor flag)
+	$m->comp("/comp/user/check-volatile-preferences", %ARGS);
+
+	# Instantiate MusicBrainz object
 	my $mb = $m->comp("/comp/dblogin");
 
 	# load 1..n releases from the database, and track
@@ -39,23 +42,31 @@
 	# if $submit is not empty, we handle a form submission
 	if ($submit ne "")
 	{
-		# prepare redirect url after cancel/enter mods event:
-		# * only one release, redirect to the release
-		# * to the artist of release 0, if it was found
-		# * if neither case is satisfied, redirect to /search.html
-		my $url =
-			@id == 1
-				? "/showalbum.html?albumid=$id[0]"
-				: keys(%artisthash) == 1
-					? "/showartist.html?artistid=".$releaseobjs[0]->GetArtist
-					: "/search.html";
-
 		if ($submit =~ /Cancel/i)
 		{
+			# prepare url for cancel redirct:
+			# * only one release, redirect to the release
+			# * multiple releases, redirect to the batchop page
+			my $url =
+				@id == 1
+					? "/release/" . $releaseobjs[0]->GetMBId . ".html"
+					: "/edit/albumbatch/done.html";
+
 			$m->comp("/comp/redirect", $url);
 		}
 		elsif ($submit =~ /Enter Moderations/i)
 		{
+			# prepare url for enter mods redirct:
+			# * only one release, redirect to the release
+			# * to the artist of release 0, if it was found
+			# * if neither case is satisfied, redirect to /search.html
+			my $url =
+				@id == 1
+					? "/release/" . $releaseobjs[0]->GetMBId . ".html"
+					: keys(%artisthash) == 1
+						? "/showartist.html?artistid=".$releaseobjs[0]->GetArtist
+						: "/search.html";
+
 			$m->comp(
 				"/comp/entermods",
 				DBH => $mb->{DBH},

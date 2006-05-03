@@ -47,7 +47,10 @@
 		or return $m->comp("/comp/layout/badarguments",
 			text => "The argument <strong>releaseid</strong> is missing or has a wrong format.");
 
-	# get database handle
+	# check volatile preferences (like autoeditor flag)
+	$m->comp("/comp/user/check-volatile-preferences", %ARGS);
+
+	# Instantiate MusicBrainz object
 	my $mb = $m->comp("/comp/dblogin");
 
 	# load release by $releaseid parameter
@@ -98,6 +101,8 @@
 
 	<form method="post" action="/edit/album/remove.html" name="ConfirmForm">
 
+		<script type="text/javascript" src="/scripts/editsuite.js"></script>
+
 		<table class="formstyle">
 			<tr>
 				<td class="instructions">
@@ -127,18 +132,15 @@
 			</tr>
 			<tr>
 				<td class="notetext">
-					<& /comp/notetext &>
-				</td>
-			</tr>
-			<tr>
-				<td>
-					<input type="submit" class="button" name="submit" value="Cancel" />
-					<input type="submit" class="button" name="submit" id="id_btnyes" value="Enter Moderation" />
-					<input type="hidden" name="releaseid" value="<% $releaseid %>" />
-				</td>
+					<& /comp/notetext,
+						notetext => $notetext,
+						buttons => [["Cancel",""], ["Enter Moderation", "btnYes"]] &>
+
+ 					<input type="hidden" name="releaseid" value="<% $releaseid %>" />
 			</tr>
 		</table>
-		<& /comp/movefocus, "ConfirmForm", "id_btnyes" &>
+
+		<& /comp/movefocus, "ConfirmForm", "btnYes" &>
 	</form>
 
 	<& /comp/layout/editformend &>
