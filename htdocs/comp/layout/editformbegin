@@ -13,25 +13,42 @@
 </%args>
 <%perl>
 
+	$type = "release" if ($type eq "album");
+
 	# we got a release parameter, fill in local variables and
 	# figure out if a modpending bubble should be shown.
-	my $mp_type_message = "";
+	my $mp_type_message = "edits";
 	my $mp_note = "";
 	my $mp_url = "";
 
-	my $mp_release = "/mod/search/results.html?object_type=album&amp;object_id=%s&amp;mod_status=1&amp;mod_status=8",
-	my $mp_artist = "/mod/search/results.html?artist_type=3&amp;artist_id=%s&amp;mod_status=1&amp;mod_status=8";
+	my $mp_urlrelease = "/mod/search/results.html?object_type=album&amp;object_id=%s&amp;mod_status=1&amp;mod_status=8",
+	my $mp_urlartist = "/mod/search/results.html?artist_type=3&amp;artist_id=%s&amp;mod_status=1&amp;mod_status=8";
+	my $mp_typefilter = "";
 
+	# Instantiate MusicBrainz object, and load
+	# the artist/release object from id/type if these are given.
+	if (not defined $release and
+		$type eq "release" and defined $id)
+	{
+		my $mb = $m->comp("/comp/dblogin");
+		$release = $m->comp("/comp/loadrelease", $mb, $id);
+	}
+	if (not defined $artist and
+		$type eq "artist" and defined $id)
+	{
+		my $mb = $m->comp("/comp/dblogin");
+		$artist = $m->comp("/comp/loadartist", $mb, $id);
+	}
+
+	# handle release
 	if (defined $release)
 	{
 		$id = $release->GetId;
 		$type = "release";
-		$mp_url = sprintf($mp_release, $id);
+		$mp_url = sprintf($mp_urlrelease, $id);
 
   		SWITCH: {
 			# default case, general modpending flag.
-			my $editfilter = "";
-
 			if ($mp_type != &ModDefs::MOD_EDIT_ALBUM_LANGUAGE and
 				$mp_type != &ModDefs::MOD_EDIT_ALBUMATTRS)
 			{
@@ -41,29 +58,23 @@
 			if ($mp_type == &ModDefs::MOD_EDIT_ALBUM_LANGUAGE)
 			{
 				$mp = $release->GetLanguageModPending;
-				$mp_type_message = "edit release language";
-				$editfilter = "&amp;mod_type=".&ModDefs::MOD_EDIT_ALBUM_LANGUAGE;
 				last SWITCH;
 			}
 			if ($mp_type == &ModDefs::MOD_EDIT_ALBUMATTRS)
 			{
 				$mp = $release->GetAttributeModPending;
-				$mp_type_message = "release attributes";
-				$editfilter = "&amp;mod_type=".&ModDefs::MOD_EDIT_ALBUMATTRS;
+				$mp_typefilter = "&amp;mod_type=".&ModDefs::MOD_EDIT_ALBUMATTRS;
 				last SWITCH;
 			}
-			$mp_note = sprintf(
-				qq!Batch edits for multiple releases are listed under
-				   the <a href="$mp_artist%s%s">artist</a>, not the release. !,
-				$release->GetArtist,
-				$editfilter);
 		}
 	}
+
+	# handle artist
 	elsif ($artist)
 	{
 		$id = $artist->GetId;
 		$type = "artist";
-		$mp_url = sprintf($mp_artist, $id);
+		$mp_url = sprintf($mp_urlartist, $id);
 
 		SWITCH: {
 			# default case, general modpending flag.
@@ -79,6 +90,59 @@
 
 	}
 
+	if ($mp_type ne "")
+	{
+  		SWITCH: {
+			if ($mp_type == &ModDefs::MOD_EDIT_ALBUM_LANGUAGE)
+			{
+				$mp_type_message = $m->scomp("/comp/linkdoc", "EditReleaseLanguageEdit", "Edit Release Language edits");
+				last SWITCH;
+			}
+			if ($mp_type == &ModDefs::MOD_EDIT_ALBUMATTRS)
+			{
+				$mp_type_message = $m->scomp("/comp/linkdoc", "EditReleaseAttributesEdit", "Edit Release Attribute edits");
+				last SWITCH;
+			}
+			if ($mp_type == &ModDefs::MOD_EDIT_ARTIST)
+			{
+				$mp_type_message = $m->scomp("/comp/linkdoc", "EditArtistEdit", "Edit Artist edits");
+				last SWITCH;
+			}
+			if ($mp_type == &ModDefs::MOD_EDIT_ARTISTALIAS)
+			{
+				$mp_type_message = $m->scomp("/comp/linkdoc", "EditArtistAliasEdit", "Edit Artist Alias edits");
+				last SWITCH;
+			}
+			if ($mp_type == &ModDefs::MOD_EDIT_ARTISTNAME)
+			{
+				$mp_type_message = $m->scomp("/comp/linkdoc", "EditArtistNameEdit", "Edit Artist Name edits");
+				last SWITCH;
+			}
+			if ($mp_type == &ModDefs::MOD_EDIT_ARTISTSORTNAME)
+			{
+				$mp_type_message = $m->scomp("/comp/linkdoc", "EditArtistSortnameEdit", "Edit Artist Sortname edits");
+				last SWITCH;
+			}
+			if ($mp_type == &ModDefs::MOD_MOVE_DISCID or
+				$mp_type == &ModDefs::MOD_REMOVE_DISCID)
+			{
+				$mp_type_message = $m->scomp("/comp/linkdoc", "MoveDiscIDEdit", "Move Disc ID edits")." or ".
+								   $m->scomp("/comp/linkdoc", "RemoveDiscIDEdit", "Remove Disc ID edits");
+				last SWITCH;
+			}
+			if ($mp_type == &ModDefs::MOD_MOVE_ALBUM)
+			{
+				$mp_type_message = $m->scomp("/comp/linkdoc", "MoveReleaseEdit", "Move Release edits");
+				last SWITCH;
+			}
+
+
+
+
+		}
+	}
+
+
 	$m->out(qq!<div class="orangeheader"> !);
 	$m->out(qq!  <div class="inner"><b>$title</b></div> !);
 	$m->out(qq!</div> !);
@@ -90,26 +154,46 @@
 	{
 		if ($type && $id)
 		{
-			$type = "release" if ($type eq "album");
+			if ($type eq "release")
+			{
+				my $mp_urlreleaseartist = sprintf("$mp_urlartist$mp_typefilter", $release->GetArtist);
 
-			$m->out(qq!<table class="modpending"><tr><td> !);
-			$m->out(sprintf qq! 	There are pending %sedits for !, "$mp_type_message ");
-			$m->out(qq! 	this $type. Please <a href="$mp_url">review the changes</a> !);
-			$m->out(qq! 	before entering a new edit. !);
-			$m->out(qq!</td></tr>!);
-			$m->out(qq!<tr><td class="note">$mp_note</td></tr> !) if ($mp_note ne "");
-			$m->out(qq!</table> !);
+				$mp_note = "<li>Due to technical limitations, the edits for ";
+				$mp_note .= $m->scomp("/comp/linkdoc", "EditTypeBatch", "Batch Edit Types");
+				$mp_note .= " on multiple releases are listed under the ";
+				$mp_note .= $m->scomp("/comp/linkdoc", "ReleaseArtist", "release artist");
+				$mp_note .= " (if the release is not attributed to Various Artists), ";
+				$mp_note .= "not under the individual release. ";
+				$mp_note .= qq!<a href="$mp_urlreleaseartist">Review the changes</a>!;
+				$mp_note .= " under the release artist</li>";
+			}
 		}
-		else
-		{
-			$m->out(qq!<table class="modpending"><tr><td> !);
-			$m->out(sprintf qq! 	Yellow highlights indicate pending %sedits. !, "$mp_type_message ");
-			$m->out(qq!</td></tr></table> !);
-		}
-	}
 
 </%perl>
 
+			<table class="modpending">
+				<tr>
+					<td>
+						<ul class="modpending">
+%		if ($type && $id) {
+							<li>
+								There are pending <% $mp_type_message |n %> entered against
+								this <% $type %>. Please <a href="<% $mp_url %>">review the
+								changes</a> before entering your edit.</li>
+%		} else {
+							<li>
+								Yellow highlights indicate pending <% $mp_type_message |n %>.</li>
+%		}
+							<li>
+								Entering edits which might fail existing pending edits is
+								considered rude according to the <& /comp/linkdoc, "CodeOfConduct",
+								"code of conduct" &>.</li>
+							<% $mp_note |n %>
+						</ul></td>
+				</tr>
+			</table>
+
+%	}
 
 
 
