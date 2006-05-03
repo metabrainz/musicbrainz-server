@@ -284,14 +284,9 @@
 			<tr class="spaced">
 				<td>&nbsp;</td>
 				<td class="notetext">
-					<& /comp/notetext, text => $notetext &></td>
-			</tr>
-			<tr>
-				<td>&nbsp;</td>
-				<td>
-					<input class="button" type="submit" name="submit" value="Cancel" />
-					<input class="button" type="submit" name="submit" value="Enter Moderation" />
-
+					<& /comp/notetext,
+						notetext => $notetext,
+						buttons => [["Cancel", "btnCancel"], ["Enter Moderation", "btnYes"]] &>
 <%perl>
 
 	if ($formurl =~ /edit\.html/) {
@@ -316,6 +311,7 @@
 					<input type="hidden" name="int_typedropdown" value="linktypeid" /></td>
 			</tr>
 		</table>
+
 	</form>
 
 	<& /comp/tableend &>

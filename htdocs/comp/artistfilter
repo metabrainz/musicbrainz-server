@@ -40,7 +40,7 @@
 </%args>
 <%perl>
 
-	# get database handle.
+	# Instantiate MusicBrainz object
 	my $mb = $m->comp("/comp/dblogin");
 
 	# use query, or the defaultquery and perform the search.
@@ -49,10 +49,10 @@
 	$engine->Search(query => $search, limit => 0);
 
 	my $searchlabel = "Search for artist:";
-	my $searchbtn = "Search";
+	my $searchbtn = "Search &raquo;";
 	if ($submit ne "")
 	{
-		$searchbtn = "Search again";
+		$searchbtn = "Search again &raquo;";
 	}
 </%perl>
 
@@ -68,7 +68,7 @@
 		</tr>
 %	}
 
-		<tr>
+		<tr class="top">
 			<td class="label">
 				<label for="id_artistfiltersearch"><% $searchlabel %></label></td>
 			<td class="field">
@@ -76,7 +76,11 @@
 					<div>
 						<input type="text" name="search" id="id_artistfiltersearch" value="<% $search %>" size="40"
 							title="Enter a search keyword here" />
-						<input class="button" name="submit" type="submit" value="<% $searchbtn %>"
+
+					</div>
+					<div style="margin-top: 2px">
+						<input class="button" name="submit" type="submit" value="Cancel" />
+						<input class="button" name="submit" type="submit" value="<% $searchbtn |n %>"
 							title="Seach for an artist" />
 						<& /comp/args-to-hidden-fields.inc, %arglist &>
 					</div>
