@@ -38,11 +38,11 @@
 					<td class="text first">
 						<a href="http://www.creativecommons.org/">Creative Commons</a></td>
 					<td class="text">
-						<a href="http://www.eff.org/"><abbr title="Electronic Frontier Foundation">EFF</abbr></a></td>
+						<a href="http://www.eff.org/"><acronym title="Electronic Frontier Foundation">EFF</acronym></a></td>
 					<td class="text">
-						<a href="http://www.gnu.org/copyleft/gpl.html"><abbr title="General Public License">GPL</abbr></a></td>
+						<a href="http://www.gnu.org/copyleft/gpl.html"><acronym title="General Public License">GPL</acronym></a></td>
 					<td class="text">
-						<a href="http://www.gnu.org/copyleft/lesser.html"><abbr title="Lesser General Public License">LGPL</abbr></a></td>
+						<a href="http://www.gnu.org/copyleft/lesser.html"><acronym title="Lesser General Public License">LGPL</acronym></a></td>
 					<td class="icon">
 						<a href="http://validator.w3.org/check?uri=referer"><img
 							src="/images/icon/valid-xhtml11-wm.png"
