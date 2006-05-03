@@ -21,19 +21,51 @@
 	#
 	# Summary:
 	# -----------------------------------------------------------------------------
-	# The showcdtoc.html?id=ROWID page was moved to /show/cdtoc/?cdtocid=ROWID.
-	# Redirect requests such that the new url shows up in the browser location bar.
+	# Show database details of a cd toc (Table of Content).
 	#
 	# $URL$
 	# $Id$
 	#
 </%perl>
+<%args>
+	$cdtocid => ""
+</%args>
 <%perl>
 
-	$ARGS{"cdtocid"} = $ARGS{"id"} if (defined $ARGS{"id"});
-	delete $ARGS{"id"};
+	# Instantiate MusicBrainz object, and load CDTOC from cdtocid.
 
-	my $url = "/show/cdtoc/?" . $m->comp("/comp/args-to-querystring.inc", %ARGS);
-	return $m->comp("/comp/redirect", $url);
+	my $mb = $m->comp("/comp/dblogin");
+	my $cdtoc = MusicBrainz::Server::CDTOC->newFromId($mb->{DBH}, $cdtocid)
+		or return $m->comp(
+			"/comp/error",
+			"No such CDTOC #$cdtocid",
+			1, 1,
+		);
+</%perl>
+
+<& /comp/sidebar-notitle, pagetitle => "CD TOC Details" &>
+
+	<& /comp/cdtocinfo, cdtoc => $cdtoc &>
+
+<%perl>
+
+	my $alcdtocs = $cdtoc->GetAlbumCDTOCs;
+	if (@$alcdtocs)
+	{
+		# TODO sort albums
+		for my $alcdtoc (@$alcdtocs)
+		{
+			my $album = $alcdtoc->GetAlbum;
+			$m->comp(
+				"/comp/albuminfo",
+				album => $album,
+			);
+		}
+
+	} else {
+		$m->out("<p>This CD TOC is not linked to any releases.</p>");
+	}
 
 </%perl>
+
+<& /comp/footer &>
