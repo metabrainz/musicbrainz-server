@@ -6,7 +6,7 @@ $title .= ' / ' if defined $lang and defined $script;
 $title .= $script->GetName() if defined $script;
 </%perl>
 % if ( $title ne '' and defined $lang ) {
-	<abbr title="<% $title %>"><% $lang->GetISOCode3T() %></abbr>
+	<acronym title="<% $title %>"><% $lang->GetISOCode3T() %></acronym>
 % } else {
 	-
 % }

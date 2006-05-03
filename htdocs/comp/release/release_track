@@ -162,7 +162,7 @@
 		}
 		else
 		{
-			$m->out(sprintf qq! | <abbr title="%s">Rem</abbr>!,
+			$m->out(sprintf qq! | <acronym title="%s">Rem</acronym>!,
 							"Tracks cannot be removed from this Release because of attached Disc IDs");
 		}
 		$m->out("</td>\n");
