@@ -42,6 +42,7 @@ sub PreInsert
 	my $ar = $opts{'artist'};
 	my $trackname = $opts{'trackname'};
 	my $tracknum = $opts{'tracknum'};
+	my $tracklength = $opts{'tracklength'};
 	my $artistname = $opts{'artistname'};
 	my $artistsortname = $opts{'artistsortname'};
 
@@ -64,7 +65,10 @@ sub PreInsert
 	$tracknum = $al->GetNextFreeTrackId
 		if $nonalbum;
 	$tracknum or die;
-
+	
+	# sanitize track length
+	$tracklength = 0+$tracklength;
+	
 	if ($al->GetArtist == &ModDefs::VARTIST_ID
 		or $al->HasMultipleTrackArtists)
 	{
@@ -73,8 +77,9 @@ sub PreInsert
 	}
 
 	my %new = (
-		TrackName	=> $trackname,
-		TrackNum	=> $tracknum,
+		TrackName => $trackname,
+		TrackNum => $tracknum,
+		TrackLength	=> $tracklength,
 	);
 
 	unless ($nonalbum)
@@ -95,8 +100,9 @@ sub PreInsert
 	# Insert the track and maybe an artist
 
 	my %trackinfo = (
-		track	=> $trackname,
-		tracknum=> $tracknum,
+		track => $trackname,
+		tracknum => $tracknum,
+		duration => $tracklength
 	);
 
 	if ($al->GetArtist == &ModDefs::VARTIST_ID
@@ -109,7 +115,7 @@ sub PreInsert
 	my %info = (
 		artistid=> $al->GetArtist,
 		albumid	=> $al->GetId,
-		tracks	=> [ \%trackinfo ],
+		tracks => [ \%trackinfo ],
 	);
 
 	require Insert;
