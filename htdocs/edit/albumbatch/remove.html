@@ -30,7 +30,7 @@
 <%args>
 	@releaseid => ()
 
-	$submit => ""
+	$submitvalue => ""
 	$notetext => ""
 </%args>
 <%perl>
@@ -85,11 +85,11 @@
 	}
 
 	# we got a form submission to handle
-	if ($submit ne "")
+	if ($submitvalue ne "")
 	{
 		my $url = "/edit/albumbatch/done.html";
 
-		if ($submit =~ m/Cancel/i)
+		if ($submitvalue =~ m/Cancel/i)
 		{
 			return $m->comp("/comp/redirect", $url);
 		}

@@ -31,8 +31,8 @@
 	$album => undef	# TODO: change to $releaseid
 	$releaseid => undef
 
+	$submitvalue => ""
 	$notetext => ""
-	$submit => ""
 </%args>
 <%perl>
 	# use new terminolgy.
@@ -56,12 +56,12 @@
 	# load release by $releaseid parameter
 	my $release = $m->comp("/comp/loadrelease", $mb, $releaseid);
 
-	if ($submit ne "")
+	if ($submitvalue ne "")
 	{
 		my $url = "/release/".$release->GetMBId.".html";
 
 		# NO button was pressed, redirect to release page
-		if ($submit =~ m/Cancel/)
+		if ($submitvalue =~ m/Cancel/)
 		{
 			return $m->comp("/comp/redirect", $url)
 		}
@@ -95,9 +95,7 @@
 
 <& /comp/sidebar-notitle, pagetitle => "Confirm Release Removal" &>
 
-	<& /comp/layout/editformbegin,
-		title => "Confirm Release Removal",
-		release => $release, &>
+	<& /comp/layout/editformbegin, title => "Confirm Release Removal", release => $release, &>
 
 	<form method="post" action="/edit/album/remove.html" name="ConfirmForm">
 

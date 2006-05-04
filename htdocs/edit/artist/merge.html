@@ -36,8 +36,7 @@
 	$newartistid => ""
 	$search => ""
 
-	# submit, and moderation note
-	$submit => ""
+	$submitvalue => ""
 	$notetext => undef
 </%args>
 <%perl>
@@ -77,13 +76,13 @@
 	}
 
 	# form step 3/3: enter moderation
-	if ($submit ne "")
+	if ($submitvalue ne "")
 	{
 		# next url after the operation
 		my $url = "/artist/". $artist->GetMBId . ".html";
 
 		# if Cancel was pressed, redirect to calling page.
-		if ($submit =~ m/Cancel/i)
+		if ($submitvalue =~ m/Cancel/i)
 		{
 			$m->comp("/comp/redirect", $url);
 			return;
@@ -185,20 +184,16 @@
 
 		<table class="formstyle">
 			<& /comp/artistfilter,
-				url => "/edit/artist/merge.html",
 				search => $search,
-				submit => $submit,
-
+				submitvalue => $submitvalue,
 				dontshow => [$artistid],
-				allowcreate => 0,
-				arglist => { artistid => $artistid },
 			&>
 			<tr>
 				<td class="label">&nbsp;</td>
 				<td class="field">
 					<form method="post" action="/edit/artist/merge.html" id="ConfirmForm">
 						<input type="hidden" name="artistid" value="<% $artistid %>" />
-						<input type="submit" name="submit" value="Cancel" />
+						<input type="submit" name="submitvalue" value="Cancel" />
 					</form></td>
 			</tr>
 		</table>

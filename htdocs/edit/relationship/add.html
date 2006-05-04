@@ -11,7 +11,7 @@
 	$enddate_m => ""
 	$enddate_d => ""
 
-	$submit => ""
+	$submitvalue => ""
 	$notetext => undef
 	$swap => ""
 </%args>
@@ -60,7 +60,7 @@
 	{
 		@links = sort { $a->{type} cmp $b->{type} }  @links;
 	}
-	elsif ($submit =~ m/Change direction/i)
+	elsif ($submitvalue =~ m/Change direction/i)
 	{
 		my $temp = $links[0];
 		$links[0] = $links[1];
@@ -92,17 +92,17 @@
 	@new_attr_list = @{ $ARGS{"v::new_attr_list"} };
 	@errors = @{ $ARGS{"v::errors"} };
 
-	# if we got a submit button to handle
-	if ($submit ne "")
+	# if we got a form submission to handle
+	if ($submitvalue ne "")
 	{
 		# handle click of Cancel button
-		if ($submit =~ m/cancel/i)
+		if ($submitvalue =~ m/cancel/i)
 		{
 			return $m->comp("/comp/redirect",
 				sprintf "/show%s.html?%sid=%s", $links[0]{type}, $links[0]{type}, $links[0]{id});
 		}
 
-		elsif ($submit =~ m/Enter Moderation/i)
+		elsif ($submitvalue =~ m/Enter Moderation/i)
 		{
 			# validate
 			push @errors, "Please select a relationship type"

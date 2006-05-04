@@ -31,7 +31,7 @@
 	$artistid => ""
 	$artist => ""
 
-	$submit => ""
+	$submitvalue => ""
 	$notetext => ""
 	$btnNo => undef
 </%args>
@@ -74,13 +74,15 @@
 				   ."tracks and/or relationships attributed to it.");
 	}
 
-	# If submit is non-empty, we got a form submission to handle
-	if ($submit ne "")
+	# we got a form submission
+	if ($submitvalue ne "")
 	{
+		# prepare url for cancel redirect
+		my $cancelurl = "/artist/".$artist->GetMBId.".html";
 
-		if ($submit =~ m/Cancel/i)
+		if ($submitvalue =~ m/Cancel/i)
 		{
-			return $m->comp("/comp/redirect", "/artist/".$artist->GetMBId.".html");
+			return $m->comp("/comp/redirect", $cancelurl);
 		}
 		else
 		{

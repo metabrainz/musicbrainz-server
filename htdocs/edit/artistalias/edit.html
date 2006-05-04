@@ -31,7 +31,7 @@
 	$id => ""
 	$newartistalias => ""
 
-	$submit => ""
+	$submitvalue => ""
 	$notetext => ""
 </%args>
 <%perl>
@@ -54,11 +54,11 @@
 	my $artist = $alias->Parent;
 
 	# we got a form submission to handle
-	if ($submit ne "")
+	if ($submitvalue ne "")
 	{
 		my $url = "/show/artist/aliases.html?artistid=" . $artist->GetId;
 
-		if ($submit =~ m/Cancel/i or
+		if ($submitvalue =~ m/Cancel/i or
 			$newartistalias eq $alias->GetName)
 		{
 			return $m->comp("/comp/redirect", $url);

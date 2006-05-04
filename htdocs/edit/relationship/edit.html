@@ -11,7 +11,7 @@
 	$enddate_m => ""
 	$enddate_d => ""
 
-	$submit => ""
+	$submitvalue => ""
 	$swapval => 0
 	$notetext => undef
 </%args>
@@ -71,7 +71,7 @@
 
 	# swapval indicates if the current entities should be reversed
 	# (because the user hit the reverse button)
-	if ($submit =~ m/Change direction/i)
+	if ($submitvalue =~ m/Change direction/i)
 	{
 		$swapval = !$swapval;
 	}
@@ -127,15 +127,15 @@
 	@new_attr_list = @{ $ARGS{"v::new_attr_list"} };
 	@errors = @{ $ARGS{"v::errors"} };
 
-	if ($submit ne "")
+	if ($submitvalue ne "")
 	{
 		# handle click of Cancel button
-		if ($submit =~ m/cancel/i)
+		if ($submitvalue =~ m/cancel/i)
 		{
 			return $m->comp("/comp/redirect",
 				sprintf "/show%s.html?%sid=%s", $links[0]{type}, $links[0]{type}, $links[0]{id});
 		}
-		elsif ($submit =~ m/Enter Moderation/i)
+		elsif ($submitvalue =~ m/Enter Moderation/i)
 		{
 			# validate
 			push @errors, "Please select a relationship type"

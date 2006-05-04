@@ -32,7 +32,7 @@
 	$releaseid => undef
 	$newalbumname => ""
 
-	$submit => ""
+	$submitvalue => ""
 	$notetext => ""
 </%args>
 <%perl>
@@ -59,11 +59,11 @@
 	my $artist = $m->comp("/comp/loadartist", $mb, $release->GetArtist);
 
 	# we got a form submission to handle
-	if ($submit ne "")
+	if ($submitvalue ne "")
 	{
 		my $url = "/release/".$release->GetMBId.".html";
 
-		if ($submit =~ m/cancel/i)
+		if ($submitvalue =~ m/cancel/i)
 		{
 			return $m->comp("/comp/redirect", $url);
 		}

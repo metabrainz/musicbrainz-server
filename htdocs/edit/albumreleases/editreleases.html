@@ -29,7 +29,7 @@
 </%perl>
 <%args>
 	$releaseid
-	$submit => ""
+	$submitvalue => ""
 </%args>
 <%perl>
 	# let's see if we still got a session, else redirect
@@ -41,7 +41,7 @@
 	# the user clicked on the cancel button, remove current
 	# release from the session and show the release again.
 	return $m->comp("/comp/redirect", "/edit/albumreleases/cancel.html?releaseid=".$releaseid)
-		if ($submit eq "Cancel");
+		if ($submitvalue eq "Cancel");
 
 	my $countries_menu = $m->comp("countries-menu.inc");
 	my $countries_menu_2 = [ [ "", "[select a country]" ], @$countries_menu ];
@@ -291,8 +291,8 @@
 			<tr class="spaced">
 				<td>&nbsp;</td>
 				<td>
-					<input type="submit" name="submit" class="button" value="Cancel" />
-					<input type="submit" name="submit" class="button" value="Continue" />
+					<input type="submit" name="submitvalue" class="button" value="Cancel" />
+					<input type="submit" name="submitvalue" class="button" value="Continue &raquo;" />
 					<input type="hidden" name="releaseid" value="<% $releaseid %>" />
 					<input type="hidden" name="continue" value="1" />
 				</td>

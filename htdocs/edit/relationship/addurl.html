@@ -5,9 +5,10 @@
 	$name => ""
 	$url => undef
 	$desc => undef
-	$notetext => undef
 	$linktype => undef
-	$submit => ""
+
+	$submitvalue => ""
+	$notetext => undef
 </%args>
 <%perl>
 
@@ -85,10 +86,10 @@
 
 	# prepare validation
 	my @errors = ();
-	if ($submit ne "")
+	if ($submitvalue ne "")
 	{
 		# handle click of Cancel button
-		if ($submit =~ m/cancel/i)
+		if ($submitvalue =~ m/cancel/i)
 		{
 			return $m->comp("/comp/redirect",
 				sprintf "/show%s.html?%sid=$id", $type, $type);

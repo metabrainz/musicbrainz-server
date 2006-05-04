@@ -85,18 +85,18 @@
 			<td>&nbsp;</td>
 			<td>
 % 	if ($expand_lists) {
-				<input class="button" type="submit" name="submit" value="Show Reduced Lists" />
+				<input class="button" type="submit" name="submitvalue" value="Show Reduced Lists" />
 % 	} else {
-				<input class="button" type="submit" name="submit" value="Show Full Lists" />
+				<input class="button" type="submit" name="submitvalue" value="Show Full Lists" />
 % 	}
-				<input class="button" type="submit" name="submit" value="Guess Again" /></td>
+				<input class="button" type="submit" name="submitvalue" value="Guess Again" /></td>
 		</tr>
 
 % 	if ($add_language == 1) {
 		<tr>
 			<td>&nbsp;</td>
 			<td class="padtop">
-				<input 	type="submit" class="button" name="submit" value="Next &raquo;" /></td>
+				<input 	type="submit" class="button" name="submitvalue" value="Next &raquo;" /></td>
 		</tr>
 % 	} else {
 

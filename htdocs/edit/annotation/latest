@@ -31,7 +31,12 @@
 <%args>
 	$album => undef
 	$artist => undef
+
 	$explain => undef
+
+	$header =>  undef
+	$show_info => 1
+	$history_link => 1
 </%args>
 <%perl>
 
@@ -58,10 +63,11 @@
 	if ($annotation)
 	{
   		$m->comp("/edit/annotation/show",
-  			annotation => $annotation, history_link => 1,
-			short => 1, explain => $explain);
+  			annotation => $annotation, history_link => $history_link,
+			short => 1, explain => $explain,
+			header => $header, show_info => $show_info);
 	}
-	else
+	elsif ($show_info)
 	{
 		if ($session{uid})
 		{

@@ -31,7 +31,7 @@
 	$id => ""
 	$newartistalias => undef
 
-	$submit => ""
+	$submitvalue => ""
 	$notetext => ""
 </%args>
 <%perl>
@@ -60,11 +60,11 @@
 	my $artist = $m->comp("/comp/loadartist", $mb, $id);
 
 	# we got a form submission to handle
-	if ($submit ne "")
+	if ($submitvalue ne "")
 	{
 		my $url = "/show/artist/aliases.html?artistid=$id";
 
-		if ($submit =~ m/Cancel/i)
+		if ($submitvalue =~ m/Cancel/i)
 		{
 			return $m->comp("/comp/redirect", $url);
 		}

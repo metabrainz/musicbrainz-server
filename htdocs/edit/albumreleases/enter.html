@@ -31,7 +31,7 @@
 <%args>
 	$releaseid
 
-	$submit => ""
+	$submitvalue => ""
 	$notetext => ""
 </%args>
 <%perl>
@@ -46,7 +46,7 @@
 		or return $m->comp("/comp/redirect", $url);
 
 	# remove current release from the session and show the release again.
-	if ($submit =~ m/Cancel/i)
+	if ($submitvalue =~ m/Cancel/i)
 	{
 		return $m->comp("/comp/redirect", $cancelurl);
 	}

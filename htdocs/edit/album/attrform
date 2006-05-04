@@ -85,20 +85,20 @@
 
 						my ($type, $status) = $release->GetReleaseTypeAndStatus;
 
-						$m->out(qq!<td style="padding-right: 40px">!);
+						$m->out(qq!<td style="padding-right: 20px">!);
 						$m->comp("/comp/form/currentvalue", release => $release, mp_type => &ModDefs::MOD_EDIT_ALBUMATTRS);
 
 						my $artist = $m->comp("/comp/loadartist", $mb, $release->GetArtist);
-						$m->out(qq!</td><td style="padding-right: 40px">!);
+						$m->out(qq!</td><td style="padding-right: 20px">!);
 						$m->comp("/comp/linkartist", artist => $artist);
 
-						$m->out(qq!</td><td style="padding-right: 40px">!);
+						$m->out(qq!</td><td style="padding-right: 20px">!);
 						$m->out(
 							defined $type
 								? Album->GetAttributeName($type)
 								: "Not Set");
 
-						$m->out(qq!</td><td style="padding-right: 40px">!);
+						$m->out(qq!</td><td>!);
 						$m->out(
 							defined $status
 								? Album->GetAttributeName($status)

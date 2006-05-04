@@ -1,220 +1,270 @@
-%# vi: set ts=2 sw=2 ft=mason :
+<%perl>
+	# -----------------------------------------------------------------------------
+	#                               Musicbrainz.org
+	#                        Copyright (c) 2001 Robert Kaye
+	# -----------------------------------------------------------------------------
+	#  This software is provided "as is", without warranty of any kind, express or
+	#  implied, including  but not limited  to the warranties of  merchantability,
+	#  fitness for a particular purpose and noninfringement. In no event shall the
+	#  authors or  copyright  holders be  liable for any claim,  damages or  other
+	#  liability, whether  in an  action of  contract, tort  or otherwise, arising
+	#  from,  out of  or in  connection with  the software or  the  use  or  other
+	#  dealings in the software.
+	#
+	#  GPL - The GNU General Public License    http://www.gnu.org/licenses/gpl.txt
+	#  Permits anyone the right to use and modify the software without limitations
+	#  as long as proper  credits are given  and the original  and modified source
+	#  code are included. Requires  that the final product, software derivate from
+	#  the original  source or any  software  utilizing a GPL  component, such  as
+	#  this, is also licensed under the GPL license.
+	# -----------------------------------------------------------------------------
+	#
+	# Summary:
+	# -----------------------------------------------------------------------------
+	# This page allows to add a track to special release "non-album tracks"
+	#
+	# $URL$
+	# $Id$
+	#
+</%perl>
 <%args>
-$artistid => undef
-$numtracks => 1
-@trackname => ()
-$confirm => 0
-$notetext => ""
+	$artistid => undef
+	$numtracks => 1
+	@trackname => ()
+
+	$submitvalue => ""
+	$notetext => ""
 </%args>
 <%perl>
 
-$m->comp("/comp/checkloggedin", 1, 1)
-	or return;
+	# only logged in users may see this page
+	$m->comp("/comp/checkloggedin", 1, 1)
+		or return;
 
-MusicBrainz::IsNonNegInteger($numtracks)
-	&& $numtracks >= 1
-	&& $numtracks <= 100
-	or return $m->comp("/comp/badargs", 1, 1);
+	# make sure we got a valid artistid parameter
+	MusicBrainz::IsNonNegInteger($artistid) && $artistid
+		or return $m->comp("/comp/layout/badarguments",
+			text => "The argument <strong>artistid</strong> is missing or has a wrong format.");
 
-MusicBrainz::IsNonNegInteger($artistid) && $artistid
-	or return $m->comp("/comp/badargs", 1, 1);
+	# do not allow if artist is various artists
+	$artistid == &ModDefs::VARTIST_ID
+		and return $m->comp("/comp/layout/badarguments",
+			text => "You cannot add non-album tracks to the VARIOUS_ARTIST artist.");
 
-$artistid == &ModDefs::VARTIST_ID
-	and return $m->comp("/comp/badargs", 1, 1);
-$artistid == &ModDefs::DARTIST_ID
-	and return $m->comp("/comp/badargs", 1, 1);
+	# do not allow if artist is deleted artist
+	$artistid == &ModDefs::DARTIST_ID
+		and return $m->comp("/comp/layout/badarguments",
+			text => "You cannot add non-album tracks to the DELETED_ARTIST artist.");
+
+	# Instantiate MusicBrainz object
+	my $mb = $m->comp("/comp/dblogin");
+
+	# do not allow new or untrusted users to add non-album tracks
+	my $us = UserStuff->newFromId($mb->{DBH}, $session{uid});
+	if (($us && $us->IsNewbie()) || UserStuff->IsUntrusted($session{privs}))
+	{
+		return $m->comp("/comp/layout/error",
+			text => "You are not allowed to enter non-album tracks.");
+	}
+
+	# make sure we got a valid numtracks parameter
+	MusicBrainz::IsNonNegInteger($numtracks)
+		&& $numtracks >= 1
+		&& $numtracks <= 100
+		or return $m->comp("/comp/layout/badarguments",
+			text => "The argument <strong>numtracks</strong> is missing or has a wrong format.");
 
 	# check volatile preferences (like autoeditor flag)
 	$m->comp("/comp/user/check-volatile-preferences", %ARGS);
 
+	# load artist from database
+	my $artist = $m->comp("/comp/loadartist", $mb, $artistid);
 
-my $mb = $m->comp("/comp/dblogin");
-
-my $artist = Artist->new($mb->{DBH});
-$artist->SetId($artistid);
-$artist->LoadFromId()
-	or return $m->comp(
-		"/comp/error",
-		"Artist not found in the database.",
-		1, 1,
-	);
-
-if (@trackname == 0)
-{
-	for (my $i = 1; ; ++$i)
+	# fetch array of trackname from arguments
+	if (@trackname == 0)
 	{
-		defined(my $n = $ARGS{"trackname$i"})
-			or last;
-		push @trackname, $n;
-	}
-}
-
-my @names = grep /\S/, @trackname;
-$numtracks = @names if $numtracks < @names;
-
-if (@names and $confirm)
-{
-
-	unless ($notetext =~ /\S/)
-  {
-      </%perl>
-      <& /comp/sidebar, title => "Add Non-Album Tracks - Error" &>
-
-			<p class="error">
-				You must provide a moderation note in order to add a non-album
-				track!&nbsp; Please go back and enter a moderation note.
-			</p>
-
-      <& /comp/footer &>
-      <%perl>
-
-      return;
-  }
-  my $us = UserStuff->newFromId($mb->{DBH}, $session{uid});
-  if (($us && $us->IsNewbie()) || UserStuff->IsUntrusted($session{privs}))
-  {
-      </%perl>
-      <& /comp/sidebar, title => "Add Non-Album Tracks - Error" &>
-
-      <p class="error">
-      You are not allowed to enter non-album tracks.
-      </p>
-
-      <& /comp/footer &>
-      <%perl>
-
-      return;
-  }
-
-	$m->comp(
-		"/comp/entermods",
-		DBH => $mb->{DBH},
-		sub => sub {
-			for my $name (@names)
-			{
-				my @mods = Moderation->InsertModeration(
-					DBH	=> $mb->{DBH},
-					uid	=> $session{uid},
-					privs => $session{privs},
-					type => &ModDefs::MOD_ADD_TRACK_KV,
-					# --
-					artist => $artist,
-					trackname => $name,
-				);
-
-				$mods[0]->InsertNote($session{'uid'}, $notetext)
-					if $mods[0]
-					and $notetext =~ /\S/;
-			}
-		},
-	) or return;
-
-	my $al = Album->new($mb->{DBH});
-
-	if (my @non = $al->FindNonAlbum($artistid))
-	{
-		$m->comp("/comp/redirect", "/showalbum.html?albumid=" . $non[0]->GetId);
-	} else {
-		$m->comp("/comp/redirect", "/showartist.html?artistid=$artistid");
+		for (my $i = 1; ; ++$i)
+		{
+			defined(my $n = $ARGS{"trackname$i"})
+				or last;
+			push @trackname, $n;
+		}
 	}
 
-	die "Shouldn't get here";
-}
+	# clear all empty tracks from the trackname list
+	my @names = grep /\S/, @trackname;
+	$numtracks = @names if $numtracks < @names;
 
-for (@names[0..$numtracks-1])
-{
-	$_ = "" unless defined;
-}
+	my @errors = ();
+
+	# we got a form submission to handle
+	if ($submitvalue ne "")
+	{
+		# verify form fields
+		push @errors, "You must provide a moderation note in order to add a non-album track!"
+			if ($notetext !~ /\S/);
+
+		# find non-album tracks release, else
+		# redirect to artist page after the required
+		# action given by submitvalue was performed.
+		my $release = Album->new($mb->{DBH});
+		my $url = "/artist/".$artist->GetMBId.".html";
+		if (my @non = $release->FindNonAlbum($artistid))
+		{
+			$url = "/release/".$non[0]->GetMBId.".html";
+		}
+
+		if ($submitvalue =~ m/Cancel/i)
+		{
+			$m->comp("/comp/redirect", $url);
+		}
+		elsif ($submitvalue =~ m/Add more tracks/i)
+		{
+			$numtracks = 5 * int( ($numtracks + 5) / 5);
+		}
+		elsif (@errors < 1)
+		{
+			$m->comp(
+				"/comp/entermods",
+				DBH => $mb->{DBH},
+				sub => sub {
+					for my $name (@names)
+					{
+						my @mods = Moderation->InsertModeration(
+							DBH	=> $mb->{DBH},
+							uid	=> $session{uid},
+							privs => $session{privs},
+							type => &ModDefs::MOD_ADD_TRACK_KV,
+							# --
+							artist => $artist,
+							trackname => $name,
+						);
+
+						$mods[0]->InsertNote($session{'uid'}, $notetext)
+							if $mods[0]
+							and $notetext =~ /\S/;
+					}
+				},
+			) or return;
+
+			$m->comp("/comp/redirect", $url);
+
+			die "Shouldn't get here";
+		}
+	}
+
+	# replace undefined tracks with empty string "".
+	for (@names[0..$numtracks-1])
+	{
+		$_ = "" unless defined;
+	}
 
 </%perl>
 
-<& /comp/sidebar, title => "Add Non-Album Tracks" &>
+<& /comp/sidebar-notitle, pagetitle => "Add Non-Album Tracks" &>
 
-<p>
-	Please enter the name(s) of the track(s) you wish to
-	add as non-album tracks of
-	<b><% $artist->GetName %></b>.&nbsp;
-	Just leave a track name blank if you don't want to
-	add it.
-</p>
+	<form method="post" action="/edit/track/addnonalbum.html" id="AddAlbumTracks">
 
-<p>
-   <span style="color: red;">Important!</span> Non-album tracks are designed for
-   <b>tracks that have not been released on ANY album</b>. Demo tracks and
-   promotional tracks that have never been released on an album are good
-   candidates for non-album tracks. Most live versions or singles are released
-   on <i>single CDs</i> -- to enter those tracks into MusicBrainz, <a
-   href="/freedb/freedb.html?search=<% uri_escape($artist->GetName()) %>">import
-	 the album from FreeDB</a> instead.
-</p>
+		<& /comp/autofixmenu &>
 
-<p>
-	To enter a non-album track you <b>must</b> provide a moderation note that
-	lets the voters know why you think this is a non-album track. You're
-	strongly encouraged to include a URL that will allow the voters to
-	evaluate the correctness of this moderation.
-</p>
+		<& /comp/layout/editformbegin, title => "Add Non-Album Tracks" &>
 
+			<table class="formstyle">
+				<tr>
+					<td class="instructions" colspan="2">
+						<ul>
+							<li>
+								Please enter the name(s) of the track(s) you wish to
+								add as non-album tracks of <& /comp/linkartist,
+								artist => $artist &>. Blank tracks will be ignored,
+								just do not fill anything into the fields you do not
+								want to add.</li>
+							<li>
+								<span style="color: red; font-weight: bold">Important!</span>
+								Non-album tracks are designed for <strong>tracks that have
+								not been released on ANY release</strong>. Demo tracks and
+								promotional tracks that have never been released on
+								a release are good candidates for non-album tracks. Most
+								live versions or singles are released on <em>single CDs</em>.
+								If you want to enter those tracks into MusicBrainz, please
+								<a href="/freedb/freedb.html?search=<% uri_escape($artist->GetName()) %>">import
+								them from FreeDB</a> instead.</li>
+							<li>
+								To enter a non-album track you <strong>must</strong> provide
+								a moderation note that lets the voters know why you think
+								this is a non-album track. You're strongly encouraged to
+								include a URL that will allow the voters to evaluate the
+								correctness of this edit.</li>
+						</ul></td>
+				</tr>
+			<table>
 
+			<table class="formstyle">
+% 	if (@errors and $submitvalue =~ m/Enter Moderation/i) {
+				<tr>
+					<td>&nbsp;</td>
+					<td class="error" colspan="2">
+						<ul>
+							<li>
+								<%perl> $m->out(join "</li><li>", @errors), </%perl></li>
+						</ul></td>
+				</tr>
+% 	}
+				<tr>
+					<td class="label">
+						<label>Artist:</label></td>
+					<td class="field" colspan="2">
+						<& /comp/linkartist, artist => $artist &></td>
+				</tr>
 
-<& /comp/stylemenu &>
+% 	for (1 .. $numtracks) {
 
-<form 	method="post" action="/edit/track/addnonalbum.html"
-		name="AddAlbumTracks">
+				<tr>
+					<td class="label">
+						<label for="id_trackname<% $_ %>">Track Name:</label></td>
+					<td class="field">
+						<input type="text" name="trackname<% $_ %>" id="id_trackname<% $_ %>"
+							class="textfield" size="50" value="<% $names[$_-1] %>" /></td>
+					<td>
+						<& /comp/form/jsbutton, id=>"BTN_TRACK::trackname".$_ &></td>
+				</tr>
 
-	<& /comp/autofixmenu &>
+% 	}
 
-	<fieldset>
-		<legend>Add Non-Album Tracks</legend>
-		<table>
-			<tr>
-				<td>
-					<label>Artist:</label></td>
-				<td colspan="2">
-					<a href="/showartist.html?artistid=<% $artistid %>"><% $artist->GetName() %></a></td>
-			</tr>
-% for (1 .. $numtracks) {
-		<tr>
-			<td>
-				<label for="addnat_trackname<% $_ %>">Track Name:</label></td>
-			<td>
-				<input type="text" name="trackname<% $_ %>" class="textfield"
-					id="addnat_trackname"
-					size="50"
-					value="<% $names[$_-1] %>">
-			</td>
-			<td>
-				<& /comp/form/jsbutton, id=>"BTN_TRACK::trackname".$_ &>
-				</td>
-		</tr>
+				<tr>
+					<td>&nbsp;</td>
+					<td>
+						<input type="hidden" name="numtracks" value="<% $numtracks %>" />
+						<input class="button" type="submit" name="submitvalue" value="Add more tracks &raquo;" /></td>
+					<td>
 
-% }
-		<tr>
-			<td>&nbsp;</td>
-			<td>
-% my $nextnum = 5 * int( ($numtracks + 5) / 5);
-				<a href="/edit/track/addnonalbum.html?artistid=<% $artistid %>&amp;numtracks=<% $nextnum %>">Add more fields to this form</a>
-			</td>
-			<td>
-% if ($numtracks != 1) {
-				<& /comp/form/jsbutton, id=>"BTN_ALL" &>
-% }
-			</td>
-		</tr>
-		<tr>
-			<td>&nbsp;</td>
-			<td class="padtop" colspan="2">
-				<& /comp/notetext, required => 1 &></td>
-		</tr>
-		<tr>
-			<td>&nbsp;</td>
-			<td class="padtop" colspan="2">
-				<input type="hidden" name="artistid" value="<% $artistid %>">
-				<input type="hidden" name="confirm" value="1">
-				<input type="submit" class="button" value="Submit"></td>
-		</tr>
-	</table>
-</form>
+% 	if ($numtracks > 1) {
 
-<& /comp/movefocus, "AddAlbumTracks", "trackname1" &>
+						<& /comp/form/jsbutton, id=>"BTN_ALL" &>
+
+% 	}
+
+					</td>
+				</tr>
+			<table>
+
+			<table class="formstyle">
+				<tr>
+					<td class="label">&nbsp;</td>
+					<td class="notetext">
+						<& /comp/notetext,
+							notetext => $notetext,
+							required => 1,
+							buttons => [ ["Cancel"], ["Enter Moderation"]] &>
+
+						<input type="hidden" name="artistid" value="<% $artistid %>" /></td>
+				</tr>
+			</table>
+
+			<& /comp/movefocus, id => "id_trackname1" &>
+
+		<& /comp/layout/editformend &>
+
+	</form>
+
 <& /comp/footer &>

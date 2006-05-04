@@ -33,10 +33,11 @@
 	$language_new => undef
 	$script_new => undef
 
-	$submit => ""
 	$expand_lists => 0
 	$confirm => 0
 	$untag => 0
+
+	$submitvalue => ""
 	$notetext => ""
 </%args>
 <%perl>
@@ -73,19 +74,19 @@
 	$script_new = 0 if (defined $script_new and $script_new eq "");
 	$language_new = 0 if (defined $language_new and $language_new eq "");
 
-	# if $submit is not empty, we handle a form submission
-	if ($submit ne "")
+	# we got a a form submission
+	if ($submitvalue ne "")
 	{
-		if ($submit =~ /Show (Reduced|Full) Lists/i)
+		if ($submitvalue =~ /Show (Reduced|Full) Lists/i)
 		{
 			$expand_lists = !$expand_lists;
 		}
-		elsif ($submit =~ /Guess/i)
+		elsif ($submitvalue =~ /Guess/i)
 		{
 			$script_new = undef;
 			$language_new = undef;
 		}
-		elsif ($submit =~ /Cancel/i)
+		elsif ($submitvalue =~ /Cancel/i)
 		{
 			# prepare url for cancel redirct:
 			# * only one release, redirect to the release
@@ -97,7 +98,7 @@
 
 			$m->comp("/comp/redirect", $url);
 		}
-		elsif ($submit =~ /Enter Moderation/i
+		elsif ($submitvalue =~ /Enter Moderation/i
 				and MusicBrainz::IsNonNegInteger($language_new)
 				and MusicBrainz::IsNonNegInteger($script_new))
 		{

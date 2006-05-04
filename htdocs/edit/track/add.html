@@ -40,7 +40,7 @@
 	$newartistid => ""
 	$search => ""
 
-	$submit => ""
+	$submitvalue => ""
 	$notetext => ""
 
 </%args>
@@ -92,7 +92,7 @@
 	my @errors = ();
 
 	# we got a form submission to handle
-	if ($submit ne "")
+	if ($submitvalue ne "")
 	{
 		# check track number
 		if (not (MusicBrainz::IsNonNegInteger($tracknum) && $tracknum >= 1))
@@ -117,11 +117,11 @@
 
 		my $url = "/release/".$release->GetMBId.".html";
 
-		if ($submit =~ m/Cancel/i)
+		if ($submitvalue =~ m/Cancel/i)
 		{
 			return $m->comp("/comp/redirect", $url);
 		}
-		elsif ($submit =~ m/Enter Moderation/i and
+		elsif ($submitvalue =~ m/Enter Moderation/i and
 			   not @errors)
 		{
 			$m->comp(
@@ -178,14 +178,13 @@
 								to existing releases, since a release with this
 								track listing might very well exist. If you are
 								sure <strong>that a track needs to be added
-								to this release</strong>, please proceed.
-						</ul>
-					</td>
+								to this release</strong>, please proceed.</li>
+						</ul></td>
 				</tr>
 			<table>
 
 			<table class="formstyle">
-% 	if (@errors and $submit =~ m/Enter Moderation/i) {
+% 	if (@errors and $submitvalue =~ m/Enter Moderation/i) {
 				<tr>
 					<td>&nbsp;</td>
 					<td class="error">
@@ -246,7 +245,7 @@
 
 				<& /comp/artistfilter,
 					search => $search,
-					submit => $submit,
+					submitvalue => $submitvalue,
 					url => "/edit/track/add.html",
 					arglist => {
 						af_releaseid => $releaseid,

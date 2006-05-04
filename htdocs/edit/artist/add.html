@@ -44,7 +44,7 @@
 	$resolution => ""
 	$confirm => 0
 
-	$submit => ""
+	$submitvalue => ""
 	$notetext => ""
 </%args>
 <%perl>
@@ -89,11 +89,11 @@
 		} @$artists;
 	}
 
-	# if we have a value in submit, the form was submitted
+	# if we have a value in submitvalue, the form was submitted
 	my @messages = ();
-	if ($submit ne "")
+	if ($submitvalue ne "")
 	{
-		if ($submit =~ m/Cancel/i)
+		if ($submitvalue =~ m/Cancel/i)
 		{
 			# if a return url was given, return to this page
 			return $m->comp("/comp/redirect", $returnurl) if ($returnurl ne "");

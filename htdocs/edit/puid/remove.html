@@ -32,7 +32,7 @@
 	$puid => ""
 	$PUIDjoin => ""
 
-	$submit => ""
+	$submitvalue => ""
 	$notetext => ""
 </%args>
 <%perl>
@@ -66,11 +66,11 @@
 	my $artist = $m->comp("/comp/loadartist", $mb, $track->GetArtist);
 
 	# we got a form submission to handle
-	if ($submit ne "")
+	if ($submitvalue ne "")
 	{
 		my $url = "/show/track/?trackid=$trackid";
 
-		if ($submit =~ m/Cancel/i)
+		if ($submitvalue =~ m/Cancel/i)
 		{
 			$m->comp("/comp/redirect", $url);
 		}

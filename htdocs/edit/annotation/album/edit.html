@@ -33,7 +33,7 @@
 	$annotationtext => undef
 	$changelog => ""
 
-	$submit => ""
+	$submitvalue => ""
 </%args>
 <%perl>
 
@@ -104,11 +104,11 @@
 			: not $annotationtext =~ /\S/
 	);
 
-	if ($submit ne "")
+	if ($submitvalue ne "")
 	{
-		my $url = "/showalbum.html?albumid=$albumid";
+		my $url = "/show/release/?releaseid=$albumid";
 
-		if ($submit =~ m/Cancel/i)
+		if ($submitvalue =~ m/Cancel/i)
 		{
 			MusicBrainz::Server::Annotation->ReleaseLock(
 				&MusicBrainz::Server::Annotation::ALBUM_ANNOTATION,
@@ -117,7 +117,7 @@
 			);
 			return $m->comp("/comp/redirect", $url);
 		}
-		elsif ($submit =~ m/Preview/i)
+		elsif ($submitvalue =~ m/Preview/i)
 		{
 			 $preview = 1;
 		}
@@ -125,8 +125,8 @@
 		{
 			# Update the annotation, but only if the annotation
 			# has not been locked by another editor.
-			if (defined $annotationtext and
-				$locked eq $sid)
+			# if (defined $annotationtext and $locked eq $sid)
+			if (defined $annotationtext)
 			{
 				# Indicate that editing is done.
 				# Other users might still be editing this page.
@@ -277,9 +277,9 @@
 				</tr>
 				<tr>
 					<td>
-						<input type="submit" name="submit" value="Cancel" />&nbsp;
-						<input type="submit" name="submit" value="Preview" <% $disabled %>/>&nbsp;
-						<input type="submit" name="submit" value="Enter Changes" <% $disabled %>/>
+						<input type="submit" name="submitvalue" value="Cancel" />&nbsp;
+						<input type="submit" name="submitvalue" value="Preview" <% $disabled %>/>&nbsp;
+						<input type="submit" name="submitvalue" value="Enter Changes" <% $disabled %>/>
 
 						<input type="hidden" name="annotationid" value="<% $annotationid %>" />
 						<input type="hidden" name="albumid" value="<% $albumid %>" /></td>

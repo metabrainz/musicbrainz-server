@@ -6,7 +6,7 @@
 	$attr_type => 0
 	$attr_status => 0
 
-	$submit => ""
+	$submitvalue => ""
 	$notetext => ""
 </%args>
 <%perl>
@@ -39,10 +39,10 @@
 		++$artisthash{$release->GetArtist};
 	}
 
-	# if $submit is not empty, we handle a form submission
-	if ($submit ne "")
+	# we got a form submission
+	if ($submitvalue ne "")
 	{
-		if ($submit =~ /Cancel/i)
+		if ($submitvalue =~ /Cancel/i)
 		{
 			# prepare url for cancel redirct:
 			# * only one release, redirect to the release
@@ -54,7 +54,7 @@
 
 			$m->comp("/comp/redirect", $url);
 		}
-		elsif ($submit =~ /Enter Moderations/i)
+		elsif ($submitvalue =~ /Enter Moderations/i)
 		{
 			# prepare url for enter mods redirct:
 			# * only one release, redirect to the release

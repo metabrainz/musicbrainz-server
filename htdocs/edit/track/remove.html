@@ -1,111 +1,141 @@
-%# vi: set ts=4 sw=4 ft=mason :
+<%perl>
+	# -----------------------------------------------------------------------------
+	#                               Musicbrainz.org
+	#                        Copyright (c) 2001 Robert Kaye
+	# -----------------------------------------------------------------------------
+	#  This software is provided "as is", without warranty of any kind, express or
+	#  implied, including  but not limited  to the warranties of  merchantability,
+	#  fitness for a particular purpose and noninfringement. In no event shall the
+	#  authors or  copyright  holders be  liable for any claim,  damages or  other
+	#  liability, whether  in an  action of  contract, tort  or otherwise, arising
+	#  from,  out of  or in  connection with  the software or  the  use  or  other
+	#  dealings in the software.
+	#
+	#  GPL - The GNU General Public License    http://www.gnu.org/licenses/gpl.txt
+	#  Permits anyone the right to use and modify the software without limitations
+	#  as long as proper  credits are given  and the original  and modified source
+	#  code are included. Requires  that the final product, software derivate from
+	#  the original  source or any  software  utilizing a GPL  component, such  as
+	#  this, is also licensed under the GPL license.
+	# -----------------------------------------------------------------------------
+	#
+	# Summary:
+	# -----------------------------------------------------------------------------
+	# This page allows to remove a track from a release.
+	#
+	# $URL$
+	# $Id$
+	#
+</%perl>
 <%args>
-$id => ""
-$album => ""
-$notetext => ""
+	$track => ""
+	$trackid => undef
+
+	$album => ""
+	$releaseid => undef
+
+	$submitvalue => ""
+	$notetext => ""
 </%args>
 <%perl>
 
-MusicBrainz::IsNonNegInteger($id) && $id
-	or return $m->comp("/comp/badargs", 1, 1);
+	# only logged in users can see this page
+	$m->comp("/comp/checkloggedin", 1, 1)
+		or return;
 
-MusicBrainz::IsNonNegInteger($album) && $album
-	or return $m->comp("/comp/badargs", 1, 1);
+	# backwards compability
+	$releaseid ||= $album;
+	$trackid ||= $track;
 
-$m->comp("/comp/checkloggedin", 1, 1)
-	or return;
+	# make sure we got a valid releaseid parameter
+	MusicBrainz::IsNonNegInteger($releaseid) && $releaseid
+		or return $m->comp("/comp/layout/badarguments",
+			text => "The argument <strong>releaseid</strong> is missing or has a wrong format.");
+
+	# make sure we got a valid trackid parameter
+	MusicBrainz::IsNonNegInteger($trackid) && $trackid
+		or return $m->comp("/comp/layout/badarguments",
+			text => "The argument <strong>trackid</strong> is missing or has a wrong format.");
 
 	# check volatile preferences (like autoeditor flag)
 	$m->comp("/comp/user/check-volatile-preferences", %ARGS);
 
-my $mb = $m->comp("/comp/dblogin");
-my $tr = Track->new($mb->{DBH});
-my $al = Album->new($mb->{DBH});
+	# Instantiate MusicBrainz object, and load entities
+	my $mb = $m->comp("/comp/dblogin");
+	$track = $m->comp("/comp/loadtrack", $mb, $trackid);
+	my $release = $m->comp("/comp/loadrelease", $mb, $releaseid);
 
-$tr->SetId($id);
-$tr->SetAlbum($album);
-$tr->LoadFromId
-	or return $m->comp(
-		"/comp/error",
-		"Track #$id not found",
-		1, 1,
-	);
+	# we got a form submission to handle
+	if ($submitvalue ne "")
+	{
+		my $url = "/release/".$release->GetMBId.".html";
 
-$al->SetId($album);
-$al->LoadFromId
-	or return $m->comp(
-		"/comp/error",
-		"Album #$album not found",
-		1, 1,
-	);
+		if ($submitvalue =~ m/Cancel/i)
+		{
+			$m->comp("/comp/redirect", $url);
+		}
+		else
+		{
+			$m->comp(
+				"/comp/entermods",
+				DBH => $mb->{DBH},
+				sub => sub {
+					my @mods = Moderation->InsertModeration(
+						DBH	=> $mb->{DBH},
+						uid	=> $session{uid},
+						privs => $session{privs},
+						type => &ModDefs::MOD_REMOVE_TRACK,
+						# --
+						track => $track,
+						album => $release,
+					);
 
-my $url = "/showalbum.html?albumid=$album";
+					$mods[0]->InsertNote($session{'uid'}, $notetext)
+						if $mods[0]
+						and $notetext =~ /\S/;
+				},
+				success_url => $url,
+			) or return;
 
-if ($ARGS{confirm})
-{
-	$m->comp(
-		"/comp/entermods",
-		DBH => $mb->{DBH},
-		sub => sub {
-			my @mods = Moderation->InsertModeration(
-				DBH	=> $mb->{DBH},
-				uid	=> $session{uid},
-				privs => $session{privs},
-				type => &ModDefs::MOD_REMOVE_TRACK,
-				# --
-				track => $tr,
-				album => $al,
-			);
-
-			$mods[0]->InsertNote($session{'uid'}, $notetext)
-				if $mods[0]
-				and $notetext =~ /\S/;
-		},
-		success_url => $url,
-	) or return;
-
-	die "Shouldn't get here";
-}
+			die "Shouldn't get here";
+		}
+	}
 
 </%perl>
 
-<& /comp/sidebar, title => 'Confirm Track Removal' &>
+<& /comp/sidebar-notitle, pagetitle => "Confirm Track Removal" &>
 
-<fieldset>
-	<legend>Confirm Track Removal</legend>
-	<div class="padleft">
-		Are you sure you want to remove track
-		#<% $tr->GetSequence %>
-		<span class="bold"><% $tr->GetName %></span>
-		from album
-		<a href="<% $url %>"><% $al->GetName %></a>?
-	</div>
-	<div class="padlefttop">
-		<table>
+	<& /comp/layout/editformbegin, title => "Confirm Track Removal", track => $track &>
+
+	<form method="post" action="/edit/track/remove.html" id="ConfirmForm">
+
+		<script type="text/javascript" src="/scripts/editsuite.js"></script>
+
+		<table class="formstyle">
 			<tr>
-				<td>
-					<form 	method="GET" action="<% $url %>"
-							name="ModFormNo"
-							onsubmit="history.go(-1); return false">
-						<input name="btnNo" type="submit" class="button" value="&laquo; NO">
-					</form></td>
-				<td> &nbsp; </td>
-				<td>
-					<form 	method="POST" action="/edit/track/remove.html"
-							name="ModFormYes">
-						<input type="hidden" name="id" value="<% $id %>">
-						<input type="hidden" name="album" value="<% $album %>">
-						<input type="hidden" name="confirm" value="1">
-						<input name="btnYes" type="submit" class="button" value="YES &raquo;">
-					</td>
+				<td class="instructions">
+					<ul>
+						<li>
+							Are you sure you want to remove the track
+							<& /comp/linktrack, track => $track &>, which
+							appears as <strong>track number <% $track->GetSequence %></strong>
+							from  the release <& /comp/linkrelease, release => $release &>?</li>
+					</ul></td>
+			</tr>
+			<tr>
+				<td class="notetext">
+					<& /comp/notetext,
+						notetext => $notetext,
+						buttons => [ ["Cancel"], ["Enter Moderation", "btnYes"]] &>
+
+					<input type="hidden" name="trackid" value="<% $trackid %>" />
+					<input type="hidden" name="releaseid" value="<% $releaseid %>" /></td>
 			</tr>
 		</table>
-	</div>
-	<div class="padlefttop">
-		<& /comp/notetext &>
-	</div>
-	</form>
-</fieldset>
 
-<& /comp/movefocus, "ModFormYes", "btnYes" &>
+		<& /comp/movefocus, id => "btnYes" &>
+	</form>
+
+	<& /comp/layout/editformend &>
+
 <& /comp/footer &>

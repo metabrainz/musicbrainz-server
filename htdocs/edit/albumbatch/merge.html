@@ -35,7 +35,7 @@
 	$merge_attributes => ""
 	$merge_langscript => ""
 
-	$submit => ""
+	$submitvalue => ""
 	$notetext => ""
 </%args>
 
@@ -80,7 +80,7 @@
 
 
 	my @errors = ();
-	if ($submit ne "")
+	if ($submitvalue ne "")
 	{
 		push @errors, "Select how release attributes should be merged." if ($merge_attributes !~ /\A[01]\z/);
 		push @errors, "Select how release script/language should be merged." if ($merge_langscript !~ /\A[01]\z/);
@@ -90,11 +90,11 @@
 				? "/show/artist/?artistid=".(keys(%artists))[0]
 				: "/search.html";
 
-		if ($submit =~ m/Cancel/i)
+		if ($submitvalue =~ m/Cancel/i)
 		{
 			return $m->comp("/comp/redirect", "/edit/albumbatch/done.html");
 		}
-		elsif ($submit =~ m/Top|Up|Down|Bottom/i)
+		elsif ($submitvalue =~ m/Top|Up|Down|Bottom/i)
 		{
 			# re-order releases
 		}
@@ -299,7 +299,7 @@
 				<tr>
 					<td class="label">&nbsp;</td>
 					<td>
-						<input type="submit" name="submit" value="Cancel" /></td>
+						<input type="submit" name="submitvalue" value="Cancel" /></td>
 				</tr>
 %	}
 			</table>

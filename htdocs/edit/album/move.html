@@ -43,7 +43,7 @@
 	$movetracks => 0
 
 	# confirm, and moderation note
-	$submit => ""
+	$submitvalue => ""
 	$notetext => ""
 </%args>
 <%perl>
@@ -110,9 +110,9 @@
 	}
 
 	# form step 3/3: enter moderation
-	if ($submit ne "")
+	if ($submitvalue ne "")
 	{
-		if ($submit =~ m/Cancel/i)
+		if ($submitvalue =~ m/Cancel/i)
 		{
 			# redirect to this URI after everything is done
 			my $url = $_isbatch ?
@@ -121,7 +121,7 @@
 
 			$m->comp("/comp/redirect", $url);
 		}
-		elsif ($submit =~ m/Enter Moderation/i and
+		elsif ($submitvalue =~ m/Enter Moderation/i and
 			   defined $newartist)
 		{
 			# redirect to this URI after everything is done
@@ -236,17 +236,16 @@
 								<td>Release Title</td>
 								<td>Artist</td>
 							</tr>
-	<%perl>
-		# show all current artists and releases
-		for (0 .. ($_last))
-		{
-			$m->out("<tr><td>");
-			$m->comp("/comp/linkrelease", release => $_releases[$_]);
-			$m->out("</td><td>");
-			$m->comp("/comp/linkartist", artist => $_artists[$_]);
-			$m->out("</td></tr>");
-		}
-</%perl>
+%		# show all current artists and releases
+%		for (0 .. ($_last))
+%		{
+							<tr>
+								<td style="padding-right: 20px">
+									<& /comp/linkrelease, release => $_releases[$_] &></td>
+								<td>
+									<& /comp/linkartist, artist => $_artists[$_] &></td>
+							</tr>
+%		}
 						</table>
 					</td>
 				</tr>
@@ -349,25 +348,26 @@
 							<td>Release Title</td>
 							<td>Artist</td>
 						</tr>
-<%perl>
-		# show all current artists and releases
-		for (0 .. ($_last))
-		{
-			$m->out("<tr><td>");
-			$m->comp("/comp/linkrelease", release => $_releases[$_]);
-			$m->out("</td><td>");
-			$m->comp("/comp/linkartist", artist => $_artists[$_]);
-			$m->out("</td></tr>");
-		}
-</%perl>
+%		# show all current artists and releases
+%		for (0 .. ($_last))
+%		{
+						<tr>
+							<td style="padding-right: 20px">
+								<& /comp/linkrelease, release => $_releases[$_] &></td>
+							<td>
+								<& /comp/linkartist, artist => $_artists[$_] &></td>
+						</tr>
+%		}
 					</table>
+
+% # included &nbsp; for some vertical margin after the list of selected entities
 					&nbsp;
 				</td>
 			</tr>
 
 			<& /comp/artistfilter,
 				search => $search,
-				submit => $submit,
+				submitvalue => $submitvalue,
 
 				defaultquery => $_isbatch ? "" : (&$GetCachedArtist($qar)->GetName),
 				dontshow => $_isbatch ? [] : [ $qar ],

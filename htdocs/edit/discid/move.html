@@ -39,7 +39,7 @@
 	$search => ""
 
 	$confirm => 0
-	$submit => ""
+	$submitvalue => ""
 	$notetext => ""
 </%args>
 <%perl>
@@ -82,17 +82,17 @@
 	my $numtracks = $cdtoc->GetTrackCount;
 
 	# we got a form submission to handle
-	if ($submit ne "")
+	if ($submitvalue ne "")
 	{
 		# TODO verify same artist
 		# TODO verify same number of tracks
 		my $url = "/show/release/?releaseid=$releaseid";
 
-		if ($submit =~ m/Cancel/i)
+		if ($submitvalue =~ m/Cancel/i)
 		{
 			return $m->comp("/comp/redirect", $url);
 		}
-		elsif ($submit =~ m/Enter Moderation/i)
+		elsif ($submitvalue =~ m/Enter Moderation/i)
 		{
 			# check newreleaseid argument
 			MusicBrainz::IsNonNegInteger($newreleaseid) && $newreleaseid
@@ -323,7 +323,7 @@
 							showlinks => 0, showmodlinks => 0
 						&></td>
 					<td>
-						<input type="submit" name="submit" value="Select &raquo;" />
+						<input type="submit" name="submitvalue" value="Select &raquo;" />
 						<input type="hidden" name="releaseid" value="<% $releaseid %>" />
 						<input type="hidden" name="newreleaseid" value="<% $newrelease->GetId() %>" />
 						<input type="hidden" name="tocid" value="<% $tocid %>" />

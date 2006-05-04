@@ -4,7 +4,7 @@
 	$releaseid => undef;
 	$tocid => ""
 
-	$submit => ""
+	$submitvalue => ""
 	$notetext => ""
 </%args>
 <%perl>
@@ -46,11 +46,11 @@
 	my $cdtoc = $alcdtoc->GetCDTOC;
 
 	# we got a form submission to handle
-	if ($submit ne "")
+	if ($submitvalue ne "")
 	{
 		my $url = "/show/release/?releaseid=$releaseid";
 
-		if ($submit =~ m/Cancel/i)
+		if ($submitvalue =~ m/Cancel/i)
 		{
 			return $m->comp("/comp/redirect", $url);
 		}

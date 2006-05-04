@@ -30,10 +30,10 @@
 <%args>
 	$album => undef
 	$releaseid => undef
-
-	$notetext => ""
 	$movetova => 0
-	$submit => undef
+
+	$submitvalue => undef
+	$notetext => ""
 </%args>
 <%perl>
 	# use new terminolgy.
@@ -59,7 +59,7 @@
 
 
 	# next url depending on the move tracks checkbox.
-	if ($submit)
+	if ($submitvalue)
 	{
 		my $cancelurl = "/show/release/?releaseid=" . $release->GetId;
 		my $url = (
@@ -68,7 +68,7 @@
 				: $cancelurl
 		);
 
-		if ($submit =~ /Cancel/i)
+		if ($submitvalue =~ /Cancel/i)
 		{
 			$m->comp(
 				"/comp/redirect",
@@ -78,11 +78,7 @@
 		{
 			if (!$ARGS{"movetova"})
 			{
-				$m->comp(
-				  "/comp/redirect",
-				  $url
-				);
-			return;
+				return $m->comp("/comp/redirect", $url);
 			}
 			$m->comp(
 				"/comp/entermods",
@@ -126,12 +122,13 @@
 				<td colspan="2" class="instructions">
 					<ul>
 						<li>
-							This form allows you to convert <& /comp/linkrelease, release => $release &> to a
-							<& /comp/linkdoc, "VariousArtistsRelease", "Various Artists Release" &>.
-							Please review the <& /comp/linkdoc, "ReleaseArtistStyle", "Release Artist Style" &>
-							and the general <& /comp/linkdoc, "StyleGuideline", "Style Guidelines" &> before
-							entering this edit.
-						</li>
+							This wizard allows you to convert the <strong>release and
+							its tracks</strong> to multiple artists. Please review the documentation
+							about the <& /comp/linkdoc, "ConvertReleaseToMultipleArtistsEdit",
+							"convert release to multiple artist edit" &>, the <& /comp/linkdoc,
+							"ReleaseArtistStyle", "release artist style" &> and the
+							general <& /comp/linkdoc, "StyleGuideline", "style guidelines" &>
+							before entering this edit.</li>
 						<li>
 							Are you sure you want to convert the release <& /comp/linkrelease,
 							release => $release &>, currently by <& /comp/linkartist, artist => $artist &>,
@@ -144,10 +141,10 @@
 			<tr class="spaced">
 				<td>&nbsp;</td>
 				<td>
-					MusicBrainz allows releases with <& /comp/linkdoc, "TrackArtist", "Track Artists" &>
-					different than the <& /comp/linkdoc, "ReleaseArtist", "Release Artist" &> stored under
+					MusicBrainz allows releases with <& /comp/linkdoc, "TrackArtist", "track artists" &>
+					different than the <& /comp/linkdoc, "ReleaseArtist", "release artist" &> stored under
 					a release artist. You have to choose if you want to file the release under the
-					default Various Artists <& /comp/linkdoc, "SpecialPurposeArtist", "Special Purpose Artist" &>,
+					default Various Artists <& /comp/linkdoc, "SpecialPurposeArtist", "special purpose artist" &>,
 					or you can keep the release listed under the current artist.
 				</td>
 			</tr>
@@ -170,7 +167,7 @@
 					you'll be returned to the release page. If you select
 					<strong>Choose track artist for each of the tracks</strong>, this wizard
 					will walk you through a set of pages, on which you'll be able to choose a new
-					<& /comp/linkdoc, "TrackArtist", "Track Artist" &> for each of the tracks.
+					<& /comp/linkdoc, "TrackArtist", "track artist" &> for each of the tracks.
 				</td>
 			</tr>
 			<tr class="top">
