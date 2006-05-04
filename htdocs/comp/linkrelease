@@ -55,11 +55,21 @@
 	$m->out(qq!<strong>!) if ($strong);
 	$m->out(qq!<img src="/images/entity/release_small.gif" alt="Release" class="entityicon" />!) if ($icon);
 
-	# if the MBID is defined, use the "preferred" way of displaying release links.
-	$m->out(sprintf qq!<a href="%s">%s</a>!,
-					defined $mbid ? "/album/$mbid.html" : "/showalbum.html?albumid=$id",
-					$m->interp->apply_escapes($name, 'h'));
-
+	# if the id not negative, show a link, else show the name only
+	if (MusicBrainz::IsNonNegInteger($id))
+	{
+		# if the MBID is defined, use the "preferred" way of displaying release links.
+		$m->out(sprintf qq!<a href="%s">%s</a>!,
+						defined $mbid ? "/album/$mbid.html" : "/show/release/?releaseid=$id",
+						$m->interp->apply_escapes($name, 'h'));
+	}
+	else
+	{
+		# use the acronym element to show a release
+		# for which we have a negative releaseid
+		$m->out(sprintf qq!<acronym>%s</acronym>!,
+						$m->interp->apply_escapes($name, 'h'));
+	}
 	$m->out(qq!</strong>!) if ($strong);
 
 </%perl>

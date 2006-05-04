@@ -129,9 +129,7 @@
 
 	<& /comp/ar/RelationshipBox, id=>$track->GetId, type=>'track', name=>$track->GetName &>
 
-	<& /comp/trackinfo, track => $track, TRM => \@TRM, PUID => \@PUID &>
-
-	<& /comp/artistinfo, artist => $artist &>
+	<& /comp/artistinfo, artist => $artist, short => 1, &>
 
 <%perl>
 
@@ -150,6 +148,7 @@
 
 			$m->comp(
 				"/comp/albuminfo",
+				short => 1,
 				album => $album,
 				track => $_->[2],
 			);
@@ -161,5 +160,7 @@
 	}
 
 </%perl>
+
+	<& /comp/trackinfo, track => $track, TRM => \@TRM, PUID => \@PUID &>
 
 <& /comp/footer &>

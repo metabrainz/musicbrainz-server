@@ -56,7 +56,7 @@
 
 <& /comp/sidebar-notitle, pagetitle => "Release Details: " . $release->GetName &>
 
-	<& /comp/artistinfo, artist => $artist &>
+	<& /comp/artistinfo, artist => $artist, short => 1 &>
 
 	<& /comp/albuminfo, album => $release &>
 

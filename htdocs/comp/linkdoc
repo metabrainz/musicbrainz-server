@@ -30,13 +30,14 @@
 	#
 </%perl>
 <%perl>
-	my ($pagename, $linktext) = @_;
+	my ($pagename, $linktext, $icon) = @_;
 
+	$icon = 1 if (not defined $icon);
 	$linktext = $pagename if (not defined $linktext);
 
 	$m->out(qq!<strong>!);
 	$m->out(qq!<a href="/doc/$pagename" title="Wiki page: $pagename" >!);
-	$m->out(qq!<img src="/images/icon/wikidocs.gif" class="entityicon" />!);
+	$m->out(qq!<img src="/images/icon/wikidocs.gif" class="entityicon" alt="" />!) if ($icon);
 	$m->out(qq!$linktext</a>!);
 	$m->out(qq!</strong>!);
 

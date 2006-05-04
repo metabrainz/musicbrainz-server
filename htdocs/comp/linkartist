@@ -64,11 +64,27 @@
 	$m->out(qq!<strong>!) if ($strong);
 	$m->out(qq!<img src="/images/entity/artist_small.gif" alt="Artist" class="entityicon" />!) if ($icon);
 
-	# if the MBID is defined, use the "preferred" way of displaying artist links.
-	$m->out(sprintf qq!<a href="%s" title="%s">%s</a>!,
-					defined $mbid ? "/artist/$mbid.html" : "/showartist.html?artistid=$id",
-					$m->interp->apply_escapes($sortname, 'h'),
-					$m->interp->apply_escapes($name, 'h'));
+	# if the id not negative, show a link,
+	# else show the name only
+	if (MusicBrainz::IsNonNegInteger($id))
+	{
+		# if the MBID is defined, use the "preferred" way of displaying artist links.
+		$m->out(sprintf qq!<a href="%s" title="%s">%s</a>!,
+						defined $mbid ? "/artist/$mbid.html" : "/show/artist/?artistid=$id",
+						$m->interp->apply_escapes($sortname, 'h'),
+						$m->interp->apply_escapes($name, 'h'));
+	}
+	else
+	{
+		# use the acronym element to show the sortname of the
+		# artist if the id is negative (e.g. not given, or
+		# called from a moderation in which the ArtistId field
+		# was not given.
+		$m->out(sprintf qq!<acronym title="%s">%s</acronym>!,
+						$m->interp->apply_escapes($sortname, 'h'),
+						$m->interp->apply_escapes($name, 'h'));
+	}
+
 	$m->out(qq!</strong>!) if ($strong);
 
 	# render resolution?

@@ -130,7 +130,7 @@
 
 		if (exists $session{user} and $showmodlinks)
 		{
-			$m->out(sprintf qq! (<a href="/edit/track/change.html?album=%s&amp;tindex=%s&amp;solo=1">Change</a>)!,
+			$m->out(sprintf qq! (<a href="/edit/track/change.html?releaseid=%s&amp;tindex=%s&amp;solo=1">Change</a>)!,
 				 			$album->GetId(),
 				 			$tindex);
 		}
@@ -148,16 +148,15 @@
 	if ($session{uid} and $showmodlinks)
 	{
 		$m->out(qq!<td class="links">!);
-       	$m->out(sprintf qq!<a href="/edit/track/edit.html?track=%s&amp;album=%s" title="%s">Edit</a>!,
-				       	$track->GetId(),
+       	$m->out(sprintf qq!<a href="/edit/track/edit.html?releaseid=%s&amp;trackid=%s" title="%s">Edit</a>!,
 				       	$album->GetId(),
+				       	$track->GetId(),
 				       	"Edit Track Name, Number and Length");
 		if ($album->CanRemoveTrack($track->GetSequence))
 		{
-			$m->out(sprintf qq! | <a href="/edit/track/remove.html?track=%s&amp;album=%s&amp;artist=%s" title="%s">Rem</a>!,
-							$track->GetId(),
+			$m->out(sprintf qq! | <a href="/edit/track/remove.html?releaseid=%s&amp;trackid=%s" title="%s">Rem</a>!,
 							$album->GetId(),
-							$artist->GetId(),
+							$track->GetId(),
 							"Remove this Track from the Release");
 		}
 		else

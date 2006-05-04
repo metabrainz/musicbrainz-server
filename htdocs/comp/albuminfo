@@ -31,6 +31,7 @@
 	$album
 	$release => undef
 	$track => undef
+	$short => 0
 </%args>
 <%perl>
 
@@ -53,6 +54,8 @@
 				<td>
 					<% $release->GetMBId %></td>
 			</tr>
+
+%	if (not $short) {
 			<tr>
 				<td class="label">
 					Permanent Link:</td>
@@ -72,7 +75,7 @@
 					<a href="<% $release->RDF_URL %>"><% $release->RDF_URL %></a></td>
 			</tr>
 
-% 	if ($session{uid}) {
+% 		if ($session{uid}) {
 
 			<tr>
 				<td class="label">
@@ -80,15 +83,16 @@
 				<td>
 					<% $release->GetId %></td>
 			</tr>
-% 	}
+% 		}
 
+%	}
 
 % 	if ($track and not($release->IsNonAlbumTracks)) {
 
 			<tr>
 				<td class="label">&nbsp;</td>
 				<td>
-					This track appears as track number <% $track %> on this release.</td>
+					This track appears as <strong>track number <% $track %></strong> on this release.</td>
 			</tr>
 
 %	}

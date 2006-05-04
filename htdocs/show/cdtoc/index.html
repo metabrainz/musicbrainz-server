@@ -45,8 +45,6 @@
 
 <& /comp/sidebar-notitle, pagetitle => "CD TOC Details" &>
 
-	<& /comp/cdtocinfo, cdtoc => $cdtoc &>
-
 <%perl>
 
 	my $alcdtocs = $cdtoc->GetAlbumCDTOCs;
@@ -59,6 +57,7 @@
 			$m->comp(
 				"/comp/albuminfo",
 				album => $album,
+				short => 1
 			);
 		}
 
@@ -67,5 +66,8 @@
 	}
 
 </%perl>
+
+	<& /comp/cdtocinfo, cdtoc => $cdtoc &>
+
 
 <& /comp/footer &>

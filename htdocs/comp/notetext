@@ -50,17 +50,17 @@
 %	for my $button (@buttons) {
 %		my ($value, $id) = @$button;
 %		$id = qq!id="$id"! if (defined $id);
-		<input class="button" type="submit" name="submit" value="<% $value %>" <% $id %>/>
+		<input class="button" type="submit" name="submitvalue" value="<% $value %>" <% $id |n%>/>
 %	}
 	</div>
 
 	<div style="border: 1px dotted #000; padding: 5px; margin: 5px 0px; margin-left: 50px; margin-top: 10px; font-size: 10px; width: 500px">
 		<strong>About Moderation Notes:</strong>
 		Please note that it is highly recommended to enter a
-		<& /comp/linkdoc, "ModerationNote", "moderation note" &>. If you do
+		<& /comp/linkdoc, "ModerationNote", "moderation note", 0 &>. If you do
 		so, your edit is more likely to be <& /comp/linkdoc,
 		"ModerationFAQ#head-d9b521e9caacf43d4efefab55e3efb61044dc721",
-		"voted on, and unanimously accepted" &> by the other MusicBrainz
+		"voted on, and unanimously accepted", 0 &> by the other MusicBrainz
 		editors. If your edit receives 3 unanimous yes votes, it will be applied
 		instantly, even before the one week period elapses in which edits
 		usually are kept open.
@@ -71,9 +71,9 @@
 %
 % 	if (UserStuff->IsAutoMod($session{"orig_privs"})) {
 
-	<div style="border: 1px dotted #000; padding: 5px; margin: 5px 0px; margin-left: 50px; font-size: 10px; width: 500px">
+	<div style="border: 1px dotted #000; padding: 5px; margin: 5px 0px; margin-left: 50px; font-size: 11px; width: 500px">
 		<strong>Autoeditor priviledges:</strong> If you untick this checkbox, this edit
-		will be entered as if you would not have <& /comp/linkdoc, "AutoModerator", "autoeditor" &>
+		will be entered as if you would not have <& /comp/linkdoc, "AutoModerator", "autoeditor", 0 &>
 		priviledges. You can enable your autoeditor priviledges any time again.
 		<br/>
 

@@ -21,7 +21,7 @@
 	#
 	# Summary:
 	# -----------------------------------------------------------------------------
-	# Loads a Track from the database. Accepts either a rowid, or a MBID
+	# Loads a Track from the database. Accepts either a rowid, or a mbid
 	# as identifier. If the track was loaded successfully, return a reference to
 	# it, else show an error page.
 	#
@@ -36,7 +36,7 @@
 <%perl>
 
 	# get passed in arguments
-	my ($mb, $id) = @_;
+	my ($mb, $id, $releaseid) = @_;
 
 	my $error = "";
 	if (not defined $mb)
@@ -45,7 +45,7 @@
 	}
 	if (not defined $id or not MusicBrainz::IsNonEmptyString($id))
 	{
-		$error = "Parameter <strong>id</strong> of type String (MBID/TrackID) is required";
+		$error = "Parameter <strong>id</strong> of type String (mbid/TrackID) is required";
 	}
 
 	# if paramters are ok.
@@ -62,12 +62,18 @@
 		if ($mbid ne "")
 		{
 			$track->SetMBId($mbid);
-			$error = sprintf "Track with <strong>MBID</strong> %s not found in the database", $mbid;
+			$error = sprintf "Track with <strong>mbid</strong> %s not found in the database", $mbid;
 		}
 		else
 		{
 			$track->SetId($trackid);
 			$error = sprintf "Track with <strong>trackID</strong> #%s not found in the database", $trackid;
+		}
+		# if the releaseid was given, restrict to tracks from this release.
+		if (defined $releaseid)
+		{
+			$track->SetAlbum($releaseid);
+			$error = sprintf "Track with <strong>id</strong> #%s not found on the release with <strong>releaseid</strong> %s", $trackid, $releaseid;
 		}
 		if ($track->LoadFromId(1))
 		{

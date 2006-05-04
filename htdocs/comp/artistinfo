@@ -29,6 +29,7 @@
 </%perl>
 <%args>
 	$artist
+	$short => 0
 </%args>
 
 	<& /comp/tablebegin, title => "Artist Information" &>
@@ -46,6 +47,9 @@
 				<td>
 					<% $artist->GetMBId %></td>
 			</tr>
+
+%	if (not $short) {
+
 			<tr>
 				<td class="label">
 					Permanent Link:</td>
@@ -65,14 +69,14 @@
 				<td>
 					<a href="<% $artist->RDF_URL %>"><% $artist->RDF_URL %></a></td>
 			</tr>
-% 	if ($session{uid}) {
+% 		if ($session{uid}) {
 			<tr>
 				<td class="label">
 					<& /comp/linkdoc, "ArtistID" &>:</td>
 				<td>
 					<% $artist->GetId %></td>
 			</tr>
-% 	}
+% 		}
 			<tr>
 				<td class="label">
 					Subscribers:</td>
@@ -80,16 +84,18 @@
 					<% scalar $artist->GetSubscribers %>
 					&nbsp;
 					[ <a href="/show/artist/subscriptions.html?artist=<% $artist->GetId %>">List</a>
-%	if (exists $session{user}
-%		and $artist->GetId != &ModDefs::VARTIST_ID
-%		and $artist->GetId != &ModDefs::DARTIST_ID)
-%	{
+%		if (exists $session{user}
+%			and $artist->GetId != &ModDefs::VARTIST_ID
+%			and $artist->GetId != &ModDefs::DARTIST_ID)
+%		{
 						| <a href="/user/subscribe.html?artistid=<% $artist->GetId %>">Subscribe to this artist</a>
 						| <a href="/user/subscribe.html?artistid=<% $artist->GetId %>&amp;unsubscribe=1">Unsubscribe from this artist</a>
-% 	}
+% 		}
 					]
 				</td>
 			</tr>
+%	}
+
 		</table>
 
 	<& /comp/tableend &>
