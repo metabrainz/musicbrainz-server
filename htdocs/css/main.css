@@ -632,7 +632,7 @@ ol.StyleGuideList li blockquote { margin-left: 2em }
 /* Annotations */
 table.annotation {
 	background: #f0efff; color: #000;
-	border: 1px solid #aaa;
+	border: 1px solid #000;
 	border-collapse: collapse;
 	width: 100%;
 }
@@ -649,14 +649,14 @@ table.annotation tr.header td {
 	font-size: 10px;
 }
 table.annotation tr.header>td {
-	border-bottom: 1px solid #aaa;
+	border-bottom: 1px solid #000;
 }
 
 table.annotation tr.log {
 	background-color: #ffecd6; color: #000;
 }
 table.annotation tr.log td {
-	border-bottom: 1px solid #aaa;
+	border-bottom: 1px solid #000;
 }
 
 table.annotation tr.info {
@@ -673,8 +673,8 @@ table.annotation tr.text {
 	background: #fff; color: #000;
 }
 table.annotation tr.text td {
-	border-top: 1px solid #aaa;
-	border-bottom: 1px solid #aaa;
+	border-top: 1px solid #000;
+	border-bottom: 1px solid #000;
 	margin: 4px;
 }
 table.annotation p {
@@ -737,45 +737,89 @@ table.annotation ul {
 	width: 50%;
 	vertical-align: top;
 }
+
+table.editfields {
+	border-collapse: collapse;
+}
+table.editfields tr {
+	vertical-align: top;
+}
+table.editfields tr td {
+	padding: 0px; 
+}
+table.editfields tr td.lbl {
+	padding-right: 4px;
+	width: 65px;
+	white-space: nowrap;
+	word-wrap: none;
+}
+table.editfields tr td.bold {
+	font-weight: bold;
+}
+div.attrlist {
+	margin-left: 16px; font-size: 11px;
+}
+
+.ShowModNew table.annotation {
+	margin-top: 3px;
+}
+.ShowModNew table.annotation tr.header td {
+	background-color: #fb5;
+}
+.ShowModNew div.release_endspacer {
+	display: none;
+}
+
+
+
 .ShowModVote {
 	background: white;
 	text-align: center;
 	vertical-align: top;
 }
-/* Voting buttons */
 
+/* Voting buttons */
 table.votechoice {
 	border: 0px;
-	width: 100%;
 	border-collapse: collapse;
 	padding: 0px;
 }
 
 table.votechoice3 td {
 	width: 33%;
-	text-align: center;
+	text-align: left;
 }
 
 table.votechoice4 td {
 	width: 25%;
-	text-align: center;
+	text-align: left;
 }
-
+table.votechoice input {
+	margin-right: 5px;
+}
 table.votechoice label {
-	text-align: center;
 	display: block;
 	padding: 3px;
+	margin-left: 5px;
 	border: 1px solid #fff;
+	text-align: center;
+	font-size: 10px;
 }
 
 table.votechoice label:hover {
 	border: thin dotted #999;
 }
 
+.moddetail table {
+	border: none;
+	border-collapse: collapse;
+}
+
 #RelatedModsBox {
 	margin: 1em 0;
 	width: 100%;
 }
+
 
 form.Subs {
   text-align: center;
