@@ -30,12 +30,10 @@
 <%args>
 	$search => ""
 	$defaultquery => ""
-	$submit => ""
+	$performsearch => 1
 
+	$submitvalue => ""
 	@dontshow => ()
-	%arglist => ()
-#	$allowcreate => 0 adding artists in workflows is deprecated, redirect to add artist form instead.
-	$url
 
 </%args>
 <%perl>
@@ -45,19 +43,23 @@
 
 	# use query, or the defaultquery and perform the search.
 	$search = $defaultquery if ($search eq "");
-	my $engine = SearchEngine->new($mb->{DBH}, "artist");
-	$engine->Search(query => $search, limit => 0);
 
-	my $searchlabel = "Search for artist:";
+	# perform search, unless advised not to.
+	my $engine = SearchEngine->new($mb->{DBH}, "artist");
+	$engine->Search(query => $search, limit => 0)
+		if ($performsearch);
+
+	# label reflects if the search has been performed before.
+	my $searchlabel = "Search for Artist:";
 	my $searchbtn = "Search &raquo;";
-	if ($submit ne "")
+	if ($submitvalue ne "")
 	{
 		$searchbtn = "Search again &raquo;";
 	}
 </%perl>
 
 
-% 	if ($submit ne "" and $search eq "") {
+% 	if ($submitvalue ne "" and $search eq "") {
 		<tr>
 			<td>&nbsp;</td>
 			<td class="error">
@@ -72,20 +74,14 @@
 			<td class="label">
 				<label for="id_artistfiltersearch"><% $searchlabel %></label></td>
 			<td class="field">
-				<form method="post" action="<% $url %>" id="ArtistFilterSearch">
-					<div>
-						<input type="text" name="search" id="id_artistfiltersearch" value="<% $search %>" size="40"
-							title="Enter a search keyword here" />
+					<input type="text" name="search" id="id_artistfiltersearch" value="<% $search %>" size="40"
+						title="Enter a search keyword here" />
 
-					</div>
 					<div style="margin-top: 2px">
-						<input class="button" name="submit" type="submit" value="Cancel" />
-						<input class="button" name="submit" type="submit" value="<% $searchbtn |n %>"
-							title="Seach for an artist" />
-						<& /comp/args-to-hidden-fields.inc, %arglist &>
-					</div>
-				</form>
-			</td>
+						<input class="button" type="submit" name="submitvalue" value="Cancel" />
+						<input class="button" type="submit" name="submitvalue" value="<% $searchbtn |n %>"
+							title="Search for an artist" />
+					</div></td>
 		</tr>
 
 <%perl>
@@ -117,48 +113,46 @@
 		<tr class="spaced">
 			<td>&nbsp;</td>
 			<td class="formsection">
-				The following artists matched your query <strong><% $search %></strong>.
+				The following artists matched your keyword <strong><% $search %></strong>.
 				Please select the artist you require or try another query. (Hint: You can
-				double-click with your mouse on the radio button to submit the form.)</td>
+				double-click on the radio button to submit the form.)</td>
 		</tr>
 		<tr class="top">
 			<td class="label">
-				<label>Found artists:</label></td>
+				<label>Found Artists:</label></td>
 			<td class="field">
-				<form method="post" action="<% $url %>" id="ArtistFilterSelect">
-					<table border="0" cellspacing="0" cellpadding="0" class="artistfilter-listing">
+				<table border="0" cellspacing="0" cellpadding="0" class="artistfilter-listing">
 <%perl>
-					my $checked = ' checked="checked" ';
-					my $i = 0;
-					for my $row (@r)
-					{
+				my $checked = ' checked="checked" ';
+				my $i = 0;
+				for my $row (@r)
+				{
 </%perl>
-					<tr class="row<% $i % 2 %>">
-						<td class="radio">
-							<input type="radio" name="selectedartist" id="selectedartist"
-								value="<% $row->{artistid} %>" <% $checked %>
-								  ondblclick="this.form.submit()"
-								  title="Select this artist"
-							/></td>
-						<td class="no"><% $i += 1  %>:</td>
-						<td class="link">
-							<& /comp/linkartist,
-								id => $row->{artistid},
-								name => $row->{artistname},
-								sortname => $row->{artistsortname},
-								resolution => $row->{artistresolution},
-								strong => 0 &></td>
-					</tr>
+				<tr class="row<% $i % 2 %>">
+					<td class="radio">
+						<input type="radio" name="selectedartist"
+%								$m->out(qq!id="selectedartist$i"!) if ($i == 0);
+							value="<% $row->{artistid} %>" <% $checked |n %>
+							  ondblclick="this.form.submit()"
+							  title="Select this artist"
+						/></td>
+					<td class="no"><% $i += 1  %>:</td>
+					<td class="link">
+						<& /comp/linkartist,
+							id => $row->{artistid},
+							name => $row->{artistname},
+							sortname => $row->{artistsortname},
+							resolution => $row->{artistresolution},
+							strong => 0 &></td>
+				</tr>
 <%perl>
-						$checked = "";
-					}
-					$m->comp("/comp/movefocus", id => "selectedartist");
+					$checked = "";
+				}
+				$m->comp("/comp/movefocus", id => "selectedartist0");
 </%perl>
-					</table>
-					<& /comp/args-to-hidden-fields.inc, %arglist &>
-					<input class="button" type="submit" value="Select &raquo;"
-						title="Choose the selected artist"/>
-				</form>
+				</table>
+				<input class="button" name="submitvalue" type="submit" value="Select &raquo;"
+					title="Choose the selected artist"/>
 			</td>
 		</tr>
 <%perl>
@@ -168,9 +162,9 @@
 </%perl>
 		<tr class="spaced top">
 			<td class="label">
-				No artists found:</td>
+				No Artists found:</td>
 			<td class="formsection">
-				No artists found matching your query <strong><% $search %></strong>.
+				No artist found matching your keyword <strong><% $search %></strong>.
 <%perl>
 			if (scalar @artistsremoved == 1)
 			{
@@ -199,7 +193,7 @@
 
 		<tr class="spaced top">
 			<td class="label">
-				Add new artist?</td>
+				Add new Artist?</td>
 			<td>
 				If you did not find the artist you were looking for,
 				you can search again with another keyword, or if you
@@ -210,16 +204,8 @@
 		<tr>
 			<td>&nbsp;</td>
 			<td style="padding-bottom: 20px">
-				<form method="post" action="/edit/artist/add.html" id="ArtistFilterAddArtist">
-					<div>
-						<input class="button" type="submit" value="Add New Artist &raquo;"
-							title="Add a new artist to MusicBrainz" />
-						<input type="hidden" name="name" value="<% $search %>" />
-
-%		my $returnurl = sprintf "$url?%s&selectedartist=", $m->comp("/comp/args-to-querystring.inc", %arglist);
-						<input type="hidden" name="returnurl" value="<% $returnurl %>" />
-					</div>
-				</form>
+				<input class="button" name="submitvalue" type="submit" value="Add New Artist &raquo;"
+						title="Add a new artist to MusicBrainz" />
 			</td>
 		</tr>
 

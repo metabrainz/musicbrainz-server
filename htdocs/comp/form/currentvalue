@@ -36,6 +36,7 @@
 	$artist => undef
 	$alias => undef
 	$release => undef
+	$track => undef
 	$cdtoc =>  undef
 
 	$display => undef
@@ -80,6 +81,15 @@
 		$url = "/show/artist/aliases.html?artistid=".$alias->Parent->GetId;
 
 	}
+	elsif ($track)
+	{
+		$typeicon = "track";
+		$typestr = "Track";
+		$object = $track;
+		$mp = $track->GetModPending;
+		$url = "/track/".$track->GetMBId.".html";
+
+	}
 	elsif ($release)
 	{
   		SWITCH: {
@@ -118,5 +128,12 @@
 					$url,
 					$display);
 	$m->out(qq!</span>!);
+
+	if ($artist and $artist->GetResolution ne "")
+	{
+		$m->out(qq!<span class="artistresolution">!);
+		$m->out(" (".$artist->GetResolution.")");
+		$m->out(qq!</span>!);
+	}
 
 </%perl>

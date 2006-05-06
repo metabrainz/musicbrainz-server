@@ -33,7 +33,6 @@
 <%perl>
 
 	# Instantiate MusicBrainz object, and load CDTOC from cdtocid.
-
 	my $mb = $m->comp("/comp/dblogin");
 	my $cdtoc = MusicBrainz::Server::CDTOC->newFromId($mb->{DBH}, $cdtocid)
 		or return $m->comp(

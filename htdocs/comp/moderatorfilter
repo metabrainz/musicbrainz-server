@@ -1,135 +1,179 @@
-%# vi: set ts=4 sw=4 ft=mason :
+<%perl>
+ 	# -----------------------------------------------------------------------------
+ 	#                               Musicbrainz.org
+ 	#                        Copyright (c) 2001 Robert Kaye
+ 	# -----------------------------------------------------------------------------
+ 	#  This software is provided "as is", without warranty of any kind, express or
+ 	#  implied, including  but not limited  to the warranties of  merchantability,
+ 	#  fitness for a particular purpose and noninfringement. In no event shall the
+ 	#  authors or  copyright  holders be  liable for any claim,  damages or  other
+ 	#  liability, whether  in an  action of  contract, tort  or otherwise, arising
+ 	#  from,  out of  or in  connection with  the software or  the  use  or  other
+ 	#  dealings in the software.
+ 	#
+ 	#  GPL - The GNU General Public License    http://www.gnu.org/licenses/gpl.txt
+ 	#  Permits anyone the right to use and modify the software without limitations
+ 	#  as long as proper  credits are given  and the original  and modified source
+ 	#  code are included. Requires  that the final product, software derivate from
+ 	#  the original  source or any  software  utilizing a GPL  component, such  as
+ 	#  this, is also licensed under the GPL license.
+ 	# -----------------------------------------------------------------------------
+ 	#
+ 	# Summary:
+ 	# -----------------------------------------------------------------------------
+ 	# This component allows to search for, and pick an editor in a workflow.
+ 	#
+ 	# $URL$
+ 	# $Id$
+ 	#
+</%perl>
 <%args>
-$search => ""
-@dontshow => ()
-$url
-%arglist => ()
+	$search => ""
+	$submitvalue => ""
+
+	@dontshow => ()
+	%arglist => ()
+
 </%args>
 <%perl>
 
-my $mb = $m->comp("/comp/dblogin");
+	# Instantiate MusicBrainz object
+	my $mb = $m->comp("/comp/dblogin");
 
-my $users = UserStuff->new($mb->{DBH});
+	# perform search
+	my $users = UserStuff->new($mb->{DBH});
+	my ($result, $userlist) = $users->search(
+		query => $search,
+		limit => 0,
+	);
 
-my ($result, $userlist) = $users->search(
-    query => $search,
-    limit => 0,
-);
-
-if ($result == &UserStuff::SEARCHRESULT_NOQUERY)
-{
-	</%perl>
-
-	<div class="h2section">
-
-	<h2>Search</h2>
-
-	<form method="post" action="<% $url %>"
-		name="ModeratorFilterSearch"
-		>
-
-		<p>
-			<& /comp/args-to-hidden-fields.inc, %arglist &>
-			Search for moderator:
-			<input type="text" name="search" value="<% $search %>">
-			<input type="submit" value="Search">
-		</p>
-
-	</form>
-
-	</div>
-
-	<& /comp/movefocus, "ModeratorFilterSearch", "search" &>
-
-	<%perl>
-
-	return;
-}
-
-# Retrieve all the results and weed out the "don't show" moderators
-my @r = @$userlist;
-my %dontshow = map { $_=>1 } @dontshow;
-@r = grep { not exists $dontshow{$_->GetId} } @r
-	if %dontshow;
+	# label reflects if the search has been performed before.
+	my $searchlabel = "Search for Editor:";
+	my $searchbtn = "Search &raquo;";
+	if ($submitvalue ne "")
+	{
+		$searchbtn = "Search again &raquo;";
+	}
 
 </%perl>
 
-<div class="h2section">
+% 	if ($submitvalue ne "" and $search eq "") {
+		<tr>
+			<td>&nbsp;</td>
+			<td class="error">
+				<ul>
+					<li>You did not enter a search keyword.</li>
+				</ul>
+			</td>
+		</tr>
+%	}
 
-<h2>Search Results</h2>
+		<tr class="top">
+			<td class="label">
+				<label for="id_editorfiltersearch"><% $searchlabel %></label></td>
+			<td class="field">
+					<input type="text" name="search" id="id_editorfiltersearch" value="<% $search %>" size="40"
+						title="Enter a search keyword here" />
 
-% if (@r) {
+					<div style="margin-top: 2px">
+						<input class="button" type="submit" name="submitvalue" value="Cancel" />
+						<input class="button" type="submit" name="submitvalue" value="<% $searchbtn |n %>"
+							title="Search for an editor" />
+					</div></td>
+		</tr>
 
-	<p>
-		The following moderators matched your search query.&nbsp;
-		Please select the moderator you require or
-		<a href="#ModeratorFilterSearch">search again</a>.
-	</p>
+<%perl>
 
-	<form method="post" action="<% $url %>"
-		name="ModeratorFilterSelect"
-		>
+	my $searchperformed = $result != &UserStuff::SEARCHRESULT_NOQUERY;
+	if ($searchperformed)
+	{
 
-		<table>
-%			my $checked = "checked";
-%			for my $row (@r) {
-				<tr>
-					<td style="vertical-align: baseline"><input type="radio" name="selectedmoderator" value="<% $row->GetId %>" <% $checked %>
-						ondblclick="this.form.submit()"
-						></td>
-					<td>
-						<a href="/user/view.html?uid=<% $row->GetId %>"><% $row->GetName %></a>
-					</td>
+		# Retrieve all the results and weed out the "don't show" editors
+		my @editorsremoved;
+		my @r = do {
+			my %dontshow = map { $_=>1 } @dontshow;
+			my @r;
+			for my $row (@$userlist)
+			{
+				if (exists $dontshow{ $row->GetId })
+				{
+					push @editorsremoved, $row->GetName;
+					next;
+				}
+				push @r, $row;
+			}
+			@r;
+		};
+
+		# if we have search results to display.
+		if (@r)
+		{
+</%perl>
+		<tr class="spaced">
+			<td>&nbsp;</td>
+			<td class="formsection">
+				The following editors matched your keyword <strong><% $search %></strong>.
+				Please select the editors you require or try another keyword. (Hint: You can
+				double-click on the radio button to submit the form.)</td>
+		</tr>
+		<tr class="top">
+			<td class="label">
+				<label>Found editors:</label></td>
+			<td class="field">
+				<table border="0" cellspacing="0" cellpadding="0" class="artistfilter-listing">
+<%perl>
+				my $checked = ' checked="checked" ';
+				my $i = 0;
+				for my $row (@r)
+				{
+</%perl>
+				<tr class="row<% $i % 2 %>">
+					<td class="radio">
+						<input type="radio" name="selectededitor"
+%								$m->out(qq!id="selectededitor$i"!) if ($i == 0);
+							value="<% $row->GetId %>" <% $checked |n %>
+							  ondblclick="this.form.submit()"
+							  title="Select this editor"
+						/></td>
+					<td class="no"><% $i += 1  %>:</td>
+					<td class="link">
+						<a href="/user/view.html?uid=<% $row->GetId %>"><% $row->GetName %></a></td>
 				</tr>
-%				$checked = "";
-%			}
-		</table>
+<%perl>
+					$checked = "";
+				}
+				$m->comp("/comp/movefocus", id => "selectededitor0");
+</%perl>
+				</table>
+				<input class="button" name="submitvalue" type="submit" value="Select &raquo;"
+					title="Choose the selected editor"/>
+			</td>
+		</tr>
+<%perl>
+		}
+		else
+		{
+</%perl>
+		<tr class="spaced top">
+			<td class="label">
+				No Editors found:</td>
+			<td class="formsection">
+				No editor found matching your keyword <strong><% $search %></strong>.
+<%perl>
+			if (scalar @editorsremoved == 1)
+			{
+				$m->out(sprintf qq!(Editor %s was not shown.)!, $editorsremoved[0]);
+			}
+			elsif (scalar @editorsremoved)
+			{
+				$m->out(sprintf qq!(Editors %s were not shown.)!, join(", ", @editorsremoved));
+			}
+</%perl>
+			</td>
+		</tr>
+<%perl>
 
-		<p>
-			<& /comp/args-to-hidden-fields.inc, %arglist &>
-			<input type="submit" value="Select &gt;&gt;">
-		</p>
+ 		}
+ 	}
 
-	</form>
-
-% } else {
-
-	<p>
-		No moderators found matching '<% $search %>'.
-	</p>
-
-% }
-
-</div>
-
-<div class="h2section">
-
-<h2>Search Again</h2>
-
-<p>
-	If you didn't find the moderator you were looking for,
-	try another search:
-</p>
-
-<form method="post" action="<% $url %>"
-	id="ModeratorFilterSearch"
-	>
-
-	<p>
-		<& /comp/args-to-hidden-fields.inc, %arglist &>
-		Search for moderator:
-		<input type="text" name="search" size="40" value="<% $search %>">
-		<input type="submit" value="Search Again">
-	</p>
-
-</form>
-
-</div>
-
-</div>
-
-% if (@r) {
-<& /comp/movefocus, "ModeratorFilterSelect", "selectedmoderator", 0 &>
-% } else {
-<& /comp/movefocus, "ModeratorFilterSearch", "search" &>
-% }
+</%perl>
