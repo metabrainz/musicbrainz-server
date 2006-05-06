@@ -30,7 +30,7 @@ package MusicBrainz::Server::Moderation::MOD_SAC_TO_MAC;
 use ModDefs qw( :artistid :modstatus MODBOT_MODERATOR );
 use base 'Moderation';
 
-sub Name { "Convert Album to Multiple Artists" }
+sub Name { "Convert Release to Multiple Artists" }
 (__PACKAGE__)->RegisterHandler;
 
 sub PreInsert

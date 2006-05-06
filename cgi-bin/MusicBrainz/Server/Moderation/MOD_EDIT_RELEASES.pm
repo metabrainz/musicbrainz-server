@@ -245,21 +245,5 @@ sub DeniedAction
 	}
 }
 
-# An unusual trick - so far this is the only handler to override this method
-sub ShowModType
-{
-	my ($this, $mason) = (shift, shift);
-	$this->SUPER::ShowModType($mason, @_);
-
-	use MusicBrainz qw( encode_entities );
-
-	$mason->out("
-		<br>
-		Album:
-		<a href='/showalbum.html?albumid=${\ $this->{albumid} }'
-			>${\ encode_entities($this->{albumname}) }</a>
-	");
-}
-
 1;
 # eof MOD_EDIT_RELEASES.pm

@@ -319,6 +319,16 @@ sub SetArtistName
    $_[0]->{artistname} = $_[1];
 }
 
+sub GetArtistResolution
+{
+   return $_[0]->{artistresolution};
+}
+
+sub SetArtistResolution
+{
+   $_[0]->{artistresolution} = $_[1];
+}
+
 sub GetModeratorName
 {
    return $_[0]->{moderatorname};
@@ -443,7 +453,7 @@ sub CreateFromId
    $query = qq/select m.id, tab, col, m.rowid, 
                       m.artist, m.type, prevvalue, newvalue, 
                       ExpireTime, Moderator.name, 
-                      yesvotes, novotes, Artist.name, status, 0, depmod,
+                      yesvotes, novotes, Artist.name, Artist.resolution, status, 0, depmod,
                       Moderator.id, m.automod, m.language,
                       opentime, closetime,
                       ExpireTime < now(), ExpireTime + INTERVAL ? < now()
@@ -458,29 +468,30 @@ sub CreateFromId
         $mod = $this->CreateModerationObject($row[5]);
         if (defined $mod)
         {
-           $mod->SetId($row[0]);
-           $mod->SetTable($row[1]);
-           $mod->SetColumn($row[2]);
-           $mod->SetRowId($row[3]);
-           $mod->SetArtist($row[4]);
-           $mod->SetType($row[5]);
-           $mod->SetPrev($row[6]);
-           $mod->SetNew($row[7]);
-           $mod->SetExpireTime($row[8]);
-           $mod->SetModeratorName($row[9]);
-           $mod->SetYesVotes($row[10]);
-           $mod->SetNoVotes($row[11]);
-           $mod->SetArtistName($row[12]);
-           $mod->SetStatus($row[13]);
-           $mod->SetVote(&ModDefs::VOTE_UNKNOWN);
-           $mod->SetDepMod($row[15]);
-           $mod->SetModerator($row[16]);
-           $mod->SetAutomod($row[17]);
-           $mod->SetLanguageId($row[18]);
-           $mod->SetOpenTime($row[19]);
-           $mod->SetCloseTime($row[20]);
-           $mod->SetExpired($row[21]);
-           $mod->SetGracePeriodExpired($row[22]);
+			$mod->SetId($row[0]);
+			$mod->SetTable($row[1]);
+			$mod->SetColumn($row[2]);
+			$mod->SetRowId($row[3]);
+			$mod->SetArtist($row[4]);
+			$mod->SetType($row[5]);
+			$mod->SetPrev($row[6]);
+			$mod->SetNew($row[7]);
+			$mod->SetExpireTime($row[8]);
+			$mod->SetModeratorName($row[9]);
+			$mod->SetYesVotes($row[10]);
+			$mod->SetNoVotes($row[11]);
+			$mod->SetArtistName($row[12]);
+			$mod->SetArtistResolution($row[13]);
+			$mod->SetStatus($row[14]);
+			$mod->SetVote(&ModDefs::VOTE_UNKNOWN);
+			$mod->SetDepMod($row[16]);
+			$mod->SetModerator($row[17]);
+			$mod->SetAutomod($row[18]);
+			$mod->SetLanguageId($row[19]);
+			$mod->SetOpenTime($row[20]);
+			$mod->SetCloseTime($row[21]);
+			$mod->SetExpired($row[22]);
+			$mod->SetGracePeriodExpired($row[23]);
 			$mod->PostLoad;
        }
    }
@@ -877,7 +888,9 @@ sub GetModerationList
 
 	# Fetch mod name and artist name for each mod
 	my %moderator_cache;
-	my %artist_cache;
+	my %artistname_cache;
+	my %artistresolution_cache;
+	
 	require UserStuff;
 	my $user = UserStuff->new($this->{DBH});
 	require Artist;
@@ -886,7 +899,7 @@ sub GetModerationList
 	my $vote = MusicBrainz::Server::Vote->new($this->{DBH});
 	for my $mod (@mods)
 	{
-		# Fetch moderator name
+		# Fetch editor into cache if not loaded before.
 		my $uid = $mod->GetModerator;
 		$moderator_cache{$uid} = do {
 			my $u = $user->newFromId($uid);
@@ -894,14 +907,20 @@ sub GetModerationList
 		} unless defined $moderator_cache{$uid};
 		$mod->SetModeratorName($moderator_cache{$uid});
 
-		# Fetch artist name
+		# Fetch artist into cache if not loaded before.
 		my $artistid = $mod->GetArtist;
-		$artist_cache{$artistid} = do {
+		if (not defined $artistname_cache{$artistid})
+		{
+			$artistname_cache{$artistid} = "?";
 			$artist->SetId($artistid);
-			$artist->LoadFromId()
-				? $artist->GetName : "?";
-		} unless defined $artist_cache{$artistid};
-		$mod->SetArtistName($artist_cache{$artistid});
+			if ($artist->LoadFromId())
+			{
+				$artistname_cache{$artistid} = $artist->GetName;
+				$artistresolution_cache{$artistid} = $artist->GetResolution;
+			} 
+		}
+		$mod->SetArtistName($artistname_cache{$artistid});
+		$mod->SetArtistResolution($artistresolution_cache{$artistid});
 
 		# Find vote
 		if ($mod->GetVote == VOTE_UNKNOWN and $voter)
@@ -1143,21 +1162,108 @@ sub GetComponent
 }
 
 # This function will get called from the html pages to output the
-# contents of the moderation type field
+# contents of the moderation type field.
 sub ShowModType
 {
 	my ($this, $mason) = splice(@_, 0, 2);
 
 	use MusicBrainz qw( encode_entities );
 
-	$mason->out("
-		Type:
-		<span class='bold'>${\ encode_entities($this->Name) }</span>
-		<br>
-		Artist:
-		<a href='/showartist.html?artistid=${\ $this->GetArtist }'
-			>${\ encode_entities($this->GetArtistName) }</a>
-	");
+	$mason->out(qq!<table class="editfields">!);
+
+	# output edittype as wikidoc link
+	$mason->out(qq!<tr><td class="lbl">Type:</td><td>!);
+	my $docname = $this->Name."Edit";
+	$docname =~ s/\s//g;
+	$mason->comp("/comp/linkdoc", $docname, $this->Name);
+	$mason->out(qq!</td></tr>!);
+	
+	# output the artist this edit is listed under.
+	$mason->out(qq!<tr><td class="lbl">Artist:</td><td>!);
+	$mason->comp("/comp/linkartist", 
+		id => $this->GetArtist, 
+		name => $this->GetArtistName, 
+		resolution => $this->GetArtistResolution
+	);
+	$mason->out(qq!</td></tr>!);
+
+
+
+	# special case, retrieve albumid from new_unpacked values, if edittype
+	# is add release.
+	if ($this->GetType ==  &ModDefs::MOD_ADD_ALBUM)
+	{
+		my $new = $this->{'new_unpacked'};
+		(my $releaseid) = grep { defined } (@$new{'AlbumId', '_albumid'}, 0);
+
+		my $release = Album->new($this->{DBH});
+		   $release->SetId($releaseid);
+		if ($release->LoadFromId) 
+		{
+			$this->{albumid} = $release->GetId;
+			$this->{albumname} = $release->GetName;
+		}
+	}
+	else
+	{
+		$this->{albumid} = $this->GetRowId if ($this->GetTable eq "album");
+	}
+	
+	
+	
+	# special case, retrieve trackid from new_unpacked values, if edittype
+	# is add track.
+	$this->{trackid} = $this->GetRowId if ($this->GetTable eq "track");
+	
+	# output the release this edit is listed under.
+	if (defined $this->{albumid})
+	{
+		my ($id, $name, $title) = ($this->{albumid}, $this->{albumname}, undef);
+		if (not defined $name)
+		{
+			$name = "This release has been deleted";
+			$title = "ReleaseId: $id";
+			$id = -1;			
+		}
+		
+		$mason->out(qq!<tr><td class="lbl">Release:</td><td>!);	
+		$mason->comp("/comp/linkrelease", id => $id, name => $name, title => $title);
+		$mason->out(qq!</td></tr>!);	
+		$mason->out(qq!</tr>!);	
+	}
+	
+	# output the track this edit is listed under.
+	if (defined $this->{trackid})
+	{
+		my ($id, $name, $title) = ($this->{trackid}, $this->{trackname}, undef);
+		if (not defined $name)
+		{
+			$name = "This track has been deleted";
+			$title = "TrackId: $id";
+			$id = -1;
+		}
+		
+		$mason->out(qq!<tr><td class="lbl">Track:</td><td>!);	
+		$mason->comp("/comp/linktrack", id => $id, name => $name, title => $title);
+		$mason->out(qq!</td></tr>!);	
+		$mason->out(qq!</tr>!);	
+	}	
+	
+	# call delegate method that can be overriden by the edit types
+	# to provide additional links to entities.
+	$this->ShowModTypeDelegate($mason);
+	
+	# close the table.
+	$mason->out(qq!</table>!);
+}
+
+# This method can be overridden by subclasses to display additional rows
+# in the table rendered by ShowModType.
+sub ShowModTypeDelegate
+{
+	my ($this, $mason) = (shift, shift);
+	
+	# do something, or not.
 }
 
 sub ShowPreviousValue
