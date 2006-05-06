@@ -1,298 +1,42 @@
-%# vi: set ts=4 sw=4 ft=mason :
-<%args>
-$uid => ($session{uid} || undef)
-$modname => undef
-</%args>
-<%def .JumpForm>
-<%args>
-$jump => 1
-</%args>
-
-<form method="get" action="/user/view.html" id="ModeratorForm">
-	<p>
-		Look up a moderator by name:
-		<input type="text" name="modname" size="20" />
-		<input type="submit" value="Go" />
-	</p>
-</form>
-
-% if ($jump) {
-<& /comp/movefocus, "ModeratorForm", "modname" &>
-% }
-
-</%def>
-<%def .ShowError>
-% my $error = shift;
-
-		<& /comp/sidebar, title => 'Enter name of moderator to view' &>
-
-% if ($error) {
-		<p class="notice"><% $error %></p>
-% }
-
-		<& .JumpForm, jump => 1 &>
-		<& /comp/footer &>
-
-</%def>
+<%perl>
+	# -----------------------------------------------------------------------------
+	#                               Musicbrainz.org
+	#                        Copyright (c) 2001 Robert Kaye
+	# -----------------------------------------------------------------------------
+	#  This software is provided "as is", without warranty of any kind, express or
+	#  implied, including  but not limited  to the warranties of  merchantability,
+	#  fitness for a particular purpose and noninfringement. In no event shall the
+	#  authors or  copyright  holders be  liable for any claim,  damages or  other
+	#  liability, whether  in an  action of  contract, tort  or otherwise, arising
+	#  from,  out of  or in  connection with  the software or  the  use  or  other
+	#  dealings in the software.
+	#
+	#  GPL - The GNU General Public License    http://www.gnu.org/licenses/gpl.txt
+	#  Permits anyone the right to use and modify the software without limitations
+	#  as long as proper  credits are given  and the original  and modified source
+	#  code are included. Requires  that the final product, software derivate from
+	#  the original  source or any  software  utilizing a GPL  component, such  as
+	#  this, is also licensed under the GPL license.
+	# -----------------------------------------------------------------------------
+	#
+	# Summary:
+	# -----------------------------------------------------------------------------
+	# The user/view.html?uid=id page was moved to /show/user/?userid=id.
+	# Redirect requests such that the new url shows up in the browser location bar.
+	#
+	# $URL$
+	# $Id$
+	#
+</%perl>
 <%perl>
 
-# /moderator.html used to do about three different things:
-# - view a user
-# - show a user-edit form
-# - process that form and show responses
-# This page now just does the "view" bit.
+	$ARGS{"username"} = $ARGS{"modname"} if (defined $ARGS{"modname"});
+	delete $ARGS{"modname"};
 
-my $user;
+	$ARGS{"userid"} = $ARGS{"uid"} if (defined $ARGS{"uid"});
+	delete $ARGS{"uid"};
 
-if (MusicBrainz::IsSingleLineString($modname) and $modname ne "")
-{
-	my $mb = $m->comp("/comp/dblogin");
-	my $ui = UserStuff->new($mb->{DBH});
-
-	$user = $ui->newFromName($modname)
-		or return $m->comp(".ShowError", "Moderator '$modname' not found");
-}
-elsif (MusicBrainz::IsNonNegInteger($uid) and $uid)
-{
-	my $mb = $m->comp("/comp/dblogin");
-	my $ui = UserStuff->new($mb->{DBH});
-
-	$user = $ui->newFromId($uid)
-		or return $m->comp(".ShowError", "Moderator #$uid not found");
-}
-
-$user or return $m->comp(".ShowError", undef);
-
-my $membersince;
-
-if ($user->GetId == &ModDefs::ANON_MODERATOR
-	or $user->GetId == &ModDefs::FREEDB_MODERATOR
-	or $user->GetId == &ModDefs::MODBOT_MODERATOR)
-{
-    $membersince = 'n/a';
-} elsif ($user->GetName eq "rob") {
-    $membersince = '<b>the dawn of this project</b>';
-} elsif ($user->GetMemberSince =~ /^1970-01-01 /) {
-    $membersince = '<b>Charter Member</b>';
-} else {
-	$membersince = $m->comp("/comp/datetime", $user->GetMemberSince);
-}
-
-$uid = $user->GetId;
-
-my $my_uid = $session{uid} || 0;
-my $is_me = ($uid == $my_uid);
-
-my $can_nominate = (
-	not $is_me
-	and UserStuff->IsAutoMod($session{privs})
-	and not UserStuff->IsAutoMod($user->GetPrivs)
-	and not MusicBrainz::Server::AutomodElection->is_user_ineligible($user)
-);
-
-my $subscriptions_public = UserPreference::get_for_user("subscriptions_public", $user);
+	my $url = "/show/user/?" . $m->comp("/comp/args-to-querystring.inc", %ARGS);
+	return $m->comp("/comp/redirect", $url);
 
 </%perl>
-
-<& /comp/sidebar, title => 'Moderator "' . $user->GetName . '"' &>
-
-<p class="LinksRow">
-	[
-% unless ($is_me) {
-	<a href="/user/mod_email.html?uid=<% $uid %>&amp;url=<% uri_escape("/user/view.html?uid=$uid") %>">Send e-mail</a> |
-% }
-    <a href="/mod/search/pre/voted.html?moderator=<% $uid %>">Votes</a> |
-	<a href="/mod/search/pre/moderator.html?moderator=<% $uid %>">Moderations</a> |
-	<a href="/mod/search/pre/moderator-open.html?moderator=<% $uid %>">Open Moderations</a> |
-	<a href="/mod/search/pre/moderator-failed.html?moderator=<% $uid %>">Failed Moderations</a> |
-	<a href="/mod/search/pre/moderator-deleted.html?moderator=<% $uid %>">Deleted Moderations</a>
-% if ($can_nominate) {
-	| <a href="/user/election/propose.html?modname=<% uri_escape($user->GetName) %>">Nominate for Auto-Mod</a>
-% }
-% if ($subscriptions_public or $is_me) {
-	| <a href="/user/subscriptions.html?user=<% $uid %>">Subscriptions</a>
-% }
-	]
-</p>
-
-% if ($is_me) {
-<p class="LinksRow">
-	[
-	<a href="/user/edit.html">Edit</a>
-	| <a href="/user/change-password.html">Change Password</a>
-	| <a href="/prefs.html">Preferences</a>
-% if (UserStuff->IsLinkModerator($session{privs})) {
-        | <a href="/edit/relationships/link_type_roots.html">Edit Link Types</a>
-% }
-% if (UserStuff->IsWikiTranscluder($session{privs})) {
-        | <a href="/edit/wikitransclusion/transclusion.html">Wiki Transclusion</a>
-% }
-	]
-</p>
-% }
-
-<table class="TopAlignCells">
-	<tr>
-		<td colspan="2"><b>General information:</b></td>
-	</tr>
-	<tr>
-		<td align="right">Name:</td>
-		<td><% $user->GetName %></td>
-	</tr>
-	<tr>
-		<td align="right">User type:</td>
-		<td><%perl> $m->out($user->GetUserType); </%perl></td>
-	</tr>
-	<tr>
-		<td align="right">E-mail:</td>
-% my ($addr, $date) = ($user->GetEmail, $user->GetEmailConfirmDate);
-		<td>
-%	if (defined($addr) and $addr =~ /\S/) {
-%		# Show the e-mail address (for yourself), or "[hidden]" (for others)
-			<% $is_me ? $addr : "[hidden]" %>
-%		# Show the "confirmed" date, if there is one
-%		if ($date) {
-			<br />confirmed on <% $m->comp("/comp/datetime", $date) %>.
-%		} else {
-			<br />this e-mail has never been confirmed.
-%		}
-%		# If you're looking at your own profile, you can send yourself a
-%		# (re-)confirmation link
-%		if ($is_me) {
-			<a href="/user/send-email-confirmation.html?email=<% uri_escape($addr) %>"
-				><% $date ? "Re-confirm" : "Confirm" %> it now!</a>
-%		}
-%	} else {
-%		# There is no e-mail address at all
-			[none]
-%	}
-		</td>
-	</tr>
-
-	<tr>
-		<td align="right">Homepage:</td>
-%   if (my $url = $user->GetWebURLComplete) {
-			<td><a href="<% $url %>"><% $url %></a></td>
-%   } else {
-			<td>[none]</td>
-%   }
-	</tr>
-
-	<tr>
-		<td align="right">Bio:</td>
-		<td><%perl>
-			my $bio = $user->GetBio;
-
-			if ($bio)
-			{
-				$bio =~ s/<p>/\n/g;
-				$bio = encode_entities($bio);
-				$bio = join "",
-					map { "<p>$_</p>" }
-					split /\n/, $bio;
-			} else {
-				$bio = "[none]";
-			}
-
-			$m->out($bio);
-		</%perl></td>
-	</tr>
-	<tr>
-		<td align="right">Subscriptions:</td>
-		<td>
-			<% $is_me ? "Your" : "This user's" %>
-			list of subscribed artists is
-			<% $subscriptions_public ? "public" : "private" %>
-		</td>
-	</tr>
-
-	<tr>
-		<td colspan="2">&nbsp;</td>
-	</tr>
-	<tr>
-		<td colspan="2"><b>User statistics:</b></td>
-	</tr>
-	<tr>
-		<td align="right">Member Since:</td>
-		<td><% $membersince |n %></td>
-	</tr>
-	<tr>
-		<td align="right"><% $user->GetModsAccepted %></td>
-		<td>moderations accepted (excludes automods)</td>
-	</tr>
-	<tr>
-		<td align="right"><% $user->GetAutoModsAccepted %></td>
-		<td>automods entered</td>
-	</tr>
-	<tr>
-		<td align="right"><% $user->GetModsRejected %></td>
-		<td>moderations voted down</td>
-	</tr>
-	<tr>
-		<td align="right"><% $user->GetModsFailed %></td>
-		<td>moderations failed for other reasons</td>
-	</tr>
-
-	<tr>
-		<td colspan="2">&nbsp;</td>
-	</tr>
-
-<%perl>
-
-# Retrieve vote statistics
-my $votes = MusicBrainz::Server::Vote->new($user->{DBH});
-
-my $allvotes = $votes->AllVotesForUser_as_hashref($uid);
-my $recentvotes = $votes->RecentVotesForUser_as_hashref($uid);
-
-for ($allvotes, $recentvotes)
-{
-	my $t = 0;
-	$t += $_ for values %$_;
-	$_->{"TOTAL"} = $t;
-}
-
-</%perl>
-
-	<tr>
-		<td><b>Votes:</b></td>
-		<td>
-			<table>
-				<tr>
-					<th>&nbsp;</th>
-					<th style="text-align: center" colspan="2">Last 28 days</th>
-					<th style="text-align: center" colspan="2">All time</th>
-				</tr>
-				<%perl>
-				for (
-					[ "Yes", &ModDefs::VOTE_YES ],
-					[ "No", &ModDefs::VOTE_NO ],
-					[ "Abstain", &ModDefs::VOTE_ABS ],
-					[ "Total", "TOTAL" ],
-				) {
-					my ($name, $vote) = @$_;
-
-					$m->out("<tr><td>$name</td>");
-
-					for my $h ($recentvotes, $allvotes)
-					{
-						my $c = $h->{$vote} || 0;
-						my $pc = 100 * $c / ($h->{"TOTAL"}||1);
-						$pc = int($pc + 0.5);
-						$m->out("<td align='right'>&nbsp; $c</td><td align='right'>&nbsp; ($pc\%)</td>");
-					}
-
-					$m->out("</tr>");
-				}
-
-				</%perl>
-			</table>
-		</td>
-	</tr>
-
-</table>
-
-<h2>Find Moderator by Name</h2>
-<& .JumpForm, jump => 0 &>
-
-<& /comp/footer &>
