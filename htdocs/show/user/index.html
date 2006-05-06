@@ -1,0 +1,407 @@
+%# vi: set ts=4 sw=4 ft=mason :
+<%args>
+	$userid => ($session{uid} || undef)
+	$username => undef
+</%args>
+<%perl>
+
+	# /moderator.html used to do about three different things:
+	# - view a user
+	# - show a user-edit form
+	# - process that form and show responses
+	# This page now just does the "view" bit.
+
+	my $user;
+	if (MusicBrainz::IsSingleLineString($username) and $username ne "")
+	{
+		my $mb = $m->comp("/comp/dblogin");
+		my $ui = UserStuff->new($mb->{DBH});
+
+		$user = $ui->newFromName($username)
+			or return $m->comp(".ShowError", qq!Editor with <strong>username</strong> "$username" not found!);
+	}
+	elsif (MusicBrainz::IsNonNegInteger($userid) and $userid)
+	{
+		my $mb = $m->comp("/comp/dblogin");
+		my $ui = UserStuff->new($mb->{DBH});
+
+		$user = $ui->newFromId($userid)
+			or return $m->comp(".ShowError", qq!Editor with <strong>userid</strong> #$userid not found!);
+	}
+
+	$user or return $m->comp(".ShowError", undef);
+
+	my $membersince;
+
+	if ($user->GetId == &ModDefs::ANON_MODERATOR
+		or $user->GetId == &ModDefs::FREEDB_MODERATOR
+		or $user->GetId == &ModDefs::MODBOT_MODERATOR)
+	{
+		$membersince = 'n/a';
+	}
+	elsif ($user->GetName eq "rob")
+	{
+		$membersince = '<strong>the dawn of this project</strong>';
+	}
+	elsif ($user->GetMemberSince =~ /^1970-01-01 /)
+	{
+		$membersince = '<strong>Charter Member</strong>';
+	}
+	else
+	{
+		$membersince = $m->comp("/comp/datetime", $user->GetMemberSince);
+	}
+
+	$userid = $user->GetId;
+
+	my $my_userid = $session{uid} || 0;
+	my $is_me = ($userid == $my_userid);
+
+	my $can_nominate = (
+		not $is_me
+		and UserStuff->IsAutoMod($session{privs})
+		and not UserStuff->IsAutoMod($user->GetPrivs)
+		and not MusicBrainz::Server::AutomodElection->is_user_ineligible($user)
+	);
+
+	my $subscriptions_public = UserPreference::get_for_user("subscriptions_public", $user);
+
+</%perl>
+
+<& /comp/sidebar-notitle, pagetitle => 'Editor "'.$user->GetName.'"' &>
+
+	<& /comp/tablebegin, title => 'Editor "'.$user->GetName.'"' &>
+
+
+
+		<table class="formstyle" width="95%">
+			<tr class="top">
+				<td colspan="2">
+					<div style="border-bottom: 1px dotted #ccc; padding: 5px; margin-bottom: 5px; font-weight: bold">
+						General information:
+					</div></td>
+			</tr>
+
+% 	if ($is_me)
+%	{
+
+			<tr class="top">
+				<td class="label">
+					Edit my account:</td>
+				<td>
+					  <a href="/user/edit.html">Edit</a>
+					| <a href="/user/change-password.html">Change Password</a>
+					| <a href="/prefs.html">Preferences</a>
+
+% 		if (UserStuff->IsLinkModerator($session{privs}))
+%		{
+
+					| <a href="/edit/relationships/link_type_roots.html">Edit Link Types</a>
+
+% 		}
+
+% 		if (UserStuff->IsWikiTranscluder($session{privs}))
+%		{
+
+					| <a href="/edit/wikitransclusion/transclusion.html">Wiki Transclusion</a>
+
+% 		}
+				</td>
+			</tr>
+
+% 	}
+
+			<tr class="top">
+				<td class="label">
+					Name:</td>
+				<td>
+					<% $user->GetName %></td>
+			</tr>
+
+			<tr class="top">
+				<td class="label">
+					User type:</td>
+				<td>
+					<% $user->GetUserType |n %></td>
+			</tr>
+
+			<tr class="top">
+				<td class="label">
+					E-mail:</td>
+				<td>
+
+% 	my ($addr, $date) = ($user->GetEmail, $user->GetEmailConfirmDate);
+%	if (defined($addr) and $addr =~ /\S/)
+%	{
+%		# Show the e-mail address (for yourself), or "[hidden]" (for others)
+					<% $is_me ? $addr : "[hidden]" %>
+%		# Show the "confirmed" date, if there is one
+%		if ($date)
+%		{
+					<br />confirmed on <% $m->comp("/comp/datetime", $date) %>.
+%		}
+%		else
+%		{
+					<br />this e-mail has never been confirmed.
+%		}
+
+%		# If you're looking at your own profile, you can send yourself a
+%		# (re-)confirmation link
+%		if ($is_me) {
+					<a href="/user/send-email-confirmation.html?email=<% uri_escape($addr) %>"
+						><% $date ? "Re-confirm" : "Confirm" %> it now!</a>
+%		}
+%	}
+%
+%	# There is no e-mail address at all
+%	else
+%	{
+					[none]
+%	}
+				</td>
+			</tr>
+
+			<tr class="top">
+				<td class="label">
+					Homepage:</td>
+%   if (my $url = $user->GetWebURLComplete)
+%	{
+				<td><a href="<% $url %>"><% $url %></a></td>
+%   } else {
+				<td>[none]</td>
+%   }
+			</tr>
+
+			<tr class="top">
+				<td class="label">
+					Bio:</td>
+				<td>
+					<div style="border: 1px dotted #ccc; padding: 5px;">
+<%perl>
+	my $bio = $user->GetBio;
+
+	if ($bio)
+	{
+		$bio =~ s/<p>/\n/g;
+		$bio = encode_entities($bio);
+		$bio = join "",
+			map { "<p>$_</p>" }
+			split /\n/, $bio;
+	}
+	else
+	{
+		$bio = "[none]";
+	}
+
+	$m->out($bio);
+</%perl>
+					</div></td>
+			</tr>
+
+			<tr class="top">
+				<td class="label">
+					Subscriptions:</td>
+				<td>
+					<% $is_me ? "Your" : "This user's" %>
+					list of subscribed artists is
+					<% $subscriptions_public ? "public" : "private" %>.</td>
+			</tr>
+
+			<tr class="top">
+				<td colspan="2">
+					<div style="border-bottom: 1px dotted #ccc; padding: 5px; margin-top: 25px; margin-bottom: 5px; font-weight: bold">
+						User statistics:
+					</div></td>
+			</tr>
+
+			<tr class="top">
+% 	if (not $is_me or $can_nominate)
+%	{
+				<td class="label">
+					Contact:</td>
+				<td>
+% 		unless ($is_me)
+%		{
+					<a href="/user/mod_email.html?uid=<% $userid
+						%>&amp;url=<% uri_escape("/show/user/?userid=$userid") %>">Send e-mail</a>
+% 		}
+% 		if ($can_nominate)
+%		{
+					| <a href="/user/election/propose.html?modname=<% uri_escape($user->GetName)
+						%>">Nominate for auto-editor</a> (What is an <& /comp/linkdoc, "AutoEditor", "auto-editor" &>?)
+% 		}
+			</tr>
+% 	}
+
+			<tr class="top">
+				<td class="label">
+					Review:</td>
+				<td>
+					<a href="/mod/search/pre/voted.html?moderator=<% $userid %>">Votes</a> |
+					<a href="/mod/search/pre/moderator.html?moderator=<% $userid %>">Edits</a> |
+					<a href="/mod/search/pre/moderator-open.html?moderator=<% $userid %>">Open edits</a> |
+					<a href="/mod/search/pre/moderator-failed.html?moderator=<% $userid %>">Failed edits</a> |
+					<a href="/mod/search/pre/moderator-deleted.html?moderator=<% $userid %>">Deleted edits</a>
+% 	if ($subscriptions_public or $is_me)
+%	{
+					| <a href="/user/subscriptions.html?user=<% $userid %>">Subscriptions</a>
+% 	}
+				</td>
+			</tr>
+
+			<tr class="top">
+				<td class="label">
+					Member Since:</td>
+				<td>
+					<% $membersince |n %></td>
+			</tr>
+
+			<tr class="top">
+				<td class="label">
+					<% $user->GetModsAccepted %></td>
+				<td>
+					edits accepted (excludes autoedits)</td>
+			</tr>
+
+			<tr class="top">
+				<td class="label">
+					<% $user->GetAutoModsAccepted %></td>
+				<td>
+					autoedits entered</td>
+			</tr>
+
+			<tr class="top">
+				<td class="label">
+					<% $user->GetModsRejected %></td>
+				<td>
+					edits voted down</td>
+			</tr>
+
+			<tr class="top">
+				<td class="label">
+					<% $user->GetModsFailed %></td>
+				<td>
+					edits failed for other reasons</td>
+			</tr>
+
+			<tr>
+				<td colspan="2">&nbsp;</td>
+			</tr>
+
+
+<%perl>
+
+	# Retrieve vote statistics
+	my $votes = MusicBrainz::Server::Vote->new($user->{DBH});
+
+	my $allvotes = $votes->AllVotesForUser_as_hashref($userid);
+	my $recentvotes = $votes->RecentVotesForUser_as_hashref($userid);
+
+
+	for ($allvotes, $recentvotes)
+	{
+		my $t = 0;
+		$t += $_ for values %$_;
+		$_->{"TOTAL"} = $t;
+	}
+
+</%perl>
+
+			<tr class="top">
+				<td class="label">
+					Votes:</td>
+				<td>
+					<table class="listing">
+						<tr class="header">
+							<td>&nbsp;</td>
+							<td width="150" colspan="2">Last 28 days</td>
+							<td width="150" colspan="2">All time</td>
+						</tr>
+<%perl>
+	for (
+		[ "Yes", &ModDefs::VOTE_YES ],
+		[ "No", &ModDefs::VOTE_NO ],
+		[ "Abstain", &ModDefs::VOTE_ABS ],
+		[ "Total", "TOTAL" ],
+	) {
+		my ($name, $vote) = @$_;
+
+		$m->out(qq!<tr><td class="right" style="padding-left: 20px;padding-right: 20px;">$name:</td>!);
+
+		for my $h ($recentvotes, $allvotes)
+		{
+			my $c = $h->{$vote} || 0;
+			my $pc = 100 * $c / ($h->{"TOTAL"}||1);
+			$pc = int($pc + 0.5);
+			$m->out(qq!<td>$c</td>!);
+			$m->out(qq!<td class="right">($pc\%)</td>!);
+		}
+
+		$m->out("</tr>");
+	}
+
+</%perl>
+					</table></td>
+			</tr>
+		</table>
+
+	<& /comp/tableend &>
+
+	<& .JumpForm, jump => 0 &>
+
+
+<& /comp/footer &>
+
+
+<%def .JumpForm>
+<%args>
+	$jump => 1
+	$error => undef
+</%args>
+
+	<& /comp/tablebegin, title => "Search for an".($jump?"":"other")." Editor" &>
+
+		<form method="get" action="/show/user/" id="EditorSearchForm">
+
+			<table class="formstyle">
+%	if ($error)
+%	{
+				<tr>
+					<td></td>
+					<td class="error">
+						<ul><li><% $error |n %></li></ul></td>
+				</tr>
+%	}
+				<tr>
+					<td class="label">
+						Name:</td>
+					<td>
+						<input type="text" name="username" size="20" />
+						<input type="submit" value="Search for Editor" /></td>
+				</tr>
+			</table>
+
+% 	if ($jump)
+%	{
+
+			<& /comp/movefocus, "EditorSearchForm", "username" &>
+
+% 	}
+		</form>
+
+	<& /comp/tableend &>
+
+</%def>
+
+
+
+<%def .ShowError>
+% 	my $error = shift;
+
+	<& /comp/sidebar-notitle, pagetitle => 'Show Editor' &>
+
+		<& .JumpForm, jump => 1, error => $error &>
+
+	<& /comp/footer &>
+
+</%def>
