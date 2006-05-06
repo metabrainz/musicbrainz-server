@@ -156,6 +156,7 @@
 				{ url => "/mod/jump.html" },
 				[
 					{ url => "/showmod.html" },
+					{ url => "/show/edit/index.html" },
 				],
 				{ url => "/mod/search/results.html" },
 			],
@@ -265,7 +266,7 @@
 			{ url => "/edit/albumbatch/remove.html" },
 		],
 
-		{ name => "Account",			url => "/user/view.html" },
+		{ name => "Account",			url => "/show/user/index.html" },
 		[
 			{ name => "Edit Account",		url => "/user/edit.html",					login => 1 },
 			{ name => "Change Password",	url => "/user/change-password.html",	 	login => 1 },
