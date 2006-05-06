@@ -46,13 +46,13 @@ $orderby => "asc"
 	# If all or none selected, do nothing
 	return () unless @$selected_values;
 	return () unless @$discard_values;
-	
+
 	# If only one selected/discarded, use "=" or "!="
 	return "$expr = $selected_values->[0]"
 		if @$selected_values == 1;
 	return "$expr != $discard_values->[0]"
 		if @$discard_values == 1;
-	
+
 	# If the selected values are all above or below some threshold, then
 	# use "<" or ">"
 	require List::Util;
@@ -350,6 +350,9 @@ if (MusicBrainz::IsNonNegInteger($artist_id) and $artist_id)
 	{
 		$artist_id = $ar->GetId;
 		$filter{"artist_name"} = $ar->GetName;
+		$filter{"artist_sortname"} = $ar->GetSortName;
+		$filter{"artist_resolution"} = $ar->GetResolution;
+
 	} else {
 		$artist_type = 0
 			if $artist_type == 3

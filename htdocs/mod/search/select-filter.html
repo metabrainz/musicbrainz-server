@@ -1,72 +1,135 @@
-%# vi: set ts=2 sw=2 ft=mason :
-<& /comp/sidebar, title => 'Moderate - Select Moderations' &>
+<%perl>
+	# -----------------------------------------------------------------------------
+	#                               Musicbrainz.org
+	#                        Copyright (c) 2001 Robert Kaye
+	# -----------------------------------------------------------------------------
+	#  This software is provided "as is", without warranty of any kind, express or
+	#  implied, including  but not limited  to the warranties of  merchantability,
+	#  fitness for a particular purpose and noninfringement. In no event shall the
+	#  authors or  copyright  holders be  liable for any claim,  damages or  other
+	#  liability, whether  in an  action of  contract, tort  or otherwise, arising
+	#  from,  out of  or in  connection with  the software or  the  use  or  other
+	#  dealings in the software.
+	#
+	#  GPL - The GNU General Public License    http://www.gnu.org/licenses/gpl.txt
+	#  Permits anyone the right to use and modify the software without limitations
+	#  as long as proper  credits are given  and the original  and modified source
+	#  code are included. Requires  that the final product, software derivate from
+	#  the original  source or any  software  utilizing a GPL  component, such  as
+	#  this, is also licensed under the GPL license.
+	# -----------------------------------------------------------------------------
+	#
+	# Summary:
+	# -----------------------------------------------------------------------------
+	# This page provides pre-defined voting queries.
+	#
+	# $URL$
+	# $Id$
+	#
+</%perl>
+<& /comp/sidebar-notitle, pagetitle => "Review and Vote on Edits" &>
 
-% if (&DBDefs::REPLICATION_TYPE == RT_SLAVE) {
+	<& /comp/tablebegin, title => "Review and Vote on Edits" &>
 
-<p>
-	Data editing (moderating) is only available on the <a
-  href="http://musicbrainz.org/mod_intro.html">main server</a>.
-</p>
+		<table class="formstyle">
+			<tr>
+				<td class="instructions">
+					<ul>
+% 	if (&DBDefs::REPLICATION_TYPE == RT_SLAVE) {
+
+						<li>
+							Data editing (moderating) is only available on the
+							<img src="/images/extlink.gif" alt="" /><a
+							href="http://musicbrainz.org/mod_intro.html">main server</a>.</li>
+					</ul></td>
+			</tr>
+		</table>
 
 % } else {
-	<p>
-		What type of moderations do you want to view?
-	</p>
-	<p>
-		If you don't know, go for <a href="/mod/search/pre/new.html"
-			>Vote on new moderations</a>.&nbsp;
-		Please read the <a href="/style.html">Style Guide</a>,
-		the <a href="/mod_intro.html">Moderation Introduction</a>
-		and the <a href="/wd/ModerationFAQ">Moderation FAQ</a> before you start.
-	</p>
+						<li>What type of edits do you want to view?</li>
+						<li>
+							If you do not know where to start, please <a href="/mod/search/pre/new.html"
+								>Vote on new edits</a>. We appreciate you voting on pending edits,
+							but bring yourself up to speed. The <& /comp/linkdoc, "StyleGuidelines",
+							"style guidelines" &>, the <& /comp/linkdoc, "HowEditingWorks",
+							"editing introduction" &> and the <& /comp/linkdoc, "EditingFAQ",
+							"Editing FAQ" &> cover the most important topics you need to know
+							before you can start voting.</li>
+					</ul></td>
+			</tr>
+		</table>
 
-	<ul class="SpacedList">
-		<li>
-			<a href="/mod/search/pre/new.html"><b>Vote on new moderations</b></a>
-			- lists open moderations which you haven't yet voted on, so you
-			can vote on them.&nbsp; <b>If you don't know which one to choose,
-				choose this one.</b>
-		</li>
-		<li>
-			<a href="/mod/search/pre/subscriptions.html">New moderations for your subscribed artists</a>
-			- as above, but for your subscribed artists only.
-		</li>
-		<li>
-			<a href="/mod/search/pre/freedb.html">Vote on new imports from FreeDB</a>
-			- lists open "import from FreeDB" moderations which you haven't yet voted
-			on, so you can vote on them.
-		</li>
-		<li>
-			<a href="/mod/search/pre/annotations.html">Check new annotations</a>
-			for spam or other forms of vandalism
-		</li>
-		<li>
-			<a href="/mod/search/pre/moderator.html">Review your own moderations</a>
-			- lists moderations you entered into the system
-		</li>
-		<li>
-			<a href="/mod/search/pre/since-login.html">Your moderations this session</a>
-			- lists moderations you've entered since logging in this time
-		</li>
-		<li>
-			<a href="/mod/search/pre/moderator-failed.html">Review your failed
-					moderations</a>
-			- lists moderations you entered into the system, but which were not
-			accepted into the database
-		</li>
-		<li>
-			<a href="/mod/search/pre/voted.html">Review your votes</a>
-			- lists moderations on which you've already voted
-		</li>
-		<li>
-			<a href="/mod/search/index.html"><b>Advanced Moderation Search</b></a>
-			- lets you do all of the above, and more
-		</li>
-		<li>
-			<a href="/mod/jump.html">Jump to a known moderation ID</a>
-			- only if you've got a particular mod ID to look up
-		</li>
-	</ul>
-% }
+
+		<table class="formstyle">
+			<tr class="top">
+				<td class="label">Vote on Edits:</td>
+				<td class="instructions">
+					<ul>
+						<li>
+							<a href="/mod/search/pre/new.html"><strong>New edits</strong></a><br/>
+							View open edits on which you have not voted yet.</li>
+						<li>
+							<a href="/mod/search/pre/subscriptions.html">For my subscribed artists</a><br/>
+							As above, but for your subscribed artists only.</li>
+						<li>
+							<a href="/mod/search/pre/freedb.html">New imports from FreeDB</a><br/>
+							View open "import from FreeDB" edits on which
+							you have not voted yet.</li>
+					</ul></td>
+			</tr>
+			<tr class="top">
+				<td class="label">Review Edits:</td>
+				<td class="instructions">
+					<ul>
+						<li>
+							<a href="/mod/search/pre/annotations.html">New annotations</a><br/>
+							Check new <& /comp/linkdoc, "ArtistAnnotation", "artist annotations" &> and
+							<& /comp/linkdoc, "ReleaseAnnotation", "release annotations" &> for spam
+							or other forms of vandalism.</li>
+						<li>
+							<a href="/mod/search/pre/moderator.html">My edits</a><br/>
+							Review edits you have entered.</li>
+						<li>
+							<a href="/mod/search/pre/since-login.html">My edits (today)</a><br/>
+							Review edits you have entered since the last login.</li>
+						<li>
+							<a href="/mod/search/pre/moderator-failed.html">My failed edits</a><br/>
+							Review edits you have entered, but which were not
+							accepted into the database. (due to negative votes,
+							failed depencies or errors).</li>
+					</ul></td>
+			</tr>
+
+			</tr>
+			<tr class="top">
+				<td class="label">Review Votes:</td>
+				<td class="instructions">
+					<ul>
+						<li>
+							<a href="/mod/search/pre/voted.html">My votes</a><br/>
+							Review edits on which you have voted. If the edit is
+							still open, you can change your vote.</li>
+						<li>
+							<a href="/mod/search/index.html">Other editors votes</a><br/>
+							Please use the advanced edit search to search for
+							other editors votes.</li>
+					</ul></td>
+			</tr>
+			<tr class="top">
+				<td class="label">Find Edits:</td>
+				<td class="instructions">
+					<ul>
+						<li>
+							<a href="/mod/search/index.html"><strong>Advanced Edit Search</strong></a><br/>
+							Lets you do all of the above, and more</li>
+						<li>
+							<a href="/mod/jump.html">Jump to a known moderation ID</a><br/>
+							Only if you've got a particular mod ID to look up</li>
+					</ul></td>
+			</tr>
+		</table>
+% 	}
+
+	<& /comp/tableend &>
 
 <& /comp/footer &>

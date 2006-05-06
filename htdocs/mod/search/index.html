@@ -1,264 +1,450 @@
-%# vi: set ts=2 sw=2 ft=mason :
+<%perl>
+	# -----------------------------------------------------------------------------
+	#                               Musicbrainz.org
+	#                        Copyright (c) 2001 Robert Kaye
+	# -----------------------------------------------------------------------------
+	#  This software is provided "as is", without warranty of any kind, express or
+	#  implied, including  but not limited  to the warranties of  merchantability,
+	#  fitness for a particular purpose and noninfringement. In no event shall the
+	#  authors or  copyright  holders be  liable for any claim,  damages or  other
+	#  liability, whether  in an  action of  contract, tort  or otherwise, arising
+	#  from,  out of  or in  connection with  the software or  the  use  or  other
+	#  dealings in the software.
+	#
+	#  GPL - The GNU General Public License    http://www.gnu.org/licenses/gpl.txt
+	#  Permits anyone the right to use and modify the software without limitations
+	#  as long as proper  credits are given  and the original  and modified source
+	#  code are included. Requires  that the final product, software derivate from
+	#  the original  source or any  software  utilizing a GPL  component, such  as
+	#  this, is also licensed under the GPL license.
+	# -----------------------------------------------------------------------------
+	#
+	# Summary:
+	# -----------------------------------------------------------------------------
+	# The Advanced Edit Search.
+	#
+	# $URL$
+	# $Id$
+	#
+</%perl>
+<%args>
+	$clearform => 0
+</%args>
 <%perl>
 
-$m->comp("/comp/checkloggedin", 1, 1)
-	or return;
+	# only logged in users can see this page.
+	$m->comp("/comp/checkloggedin", 1, 1)
+		or return;
 
-my $mb = $m->comp("/comp/dblogin");
+	# Instantiate MusicBrainz object
+	my $mb = $m->comp("/comp/dblogin");
 
-my (undef, undef, $filter) = $m->comp("setquery.inc", %ARGS);
+	# Prepare query
+	my (undef, undef, $filter) = $m->comp("setquery.inc", %ARGS);
 
-my %all_status = reverse %{ ModDefs->status_as_hashref };
+	my %all_status = reverse %{ ModDefs->status_as_hashref };
 
-my %all_votes = reverse %{ ModDefs->vote_as_hashref };
-delete $all_votes{&ModDefs::VOTE_UNKNOWN};
+	my %all_votes = reverse %{ ModDefs->vote_as_hashref };
+	delete $all_votes{&ModDefs::VOTE_UNKNOWN};
 
-my %all_types = reverse %{ ModDefs->type_as_hashref };
+	my %all_types = reverse %{ ModDefs->type_as_hashref };
 
-my @all_languages = MusicBrainz::Server::Language->Menu(
-	$mb->{DBH}, minimum_frequency => 1);
-# replace the "Unknown language"
-$all_languages[0] = [0, '[unset language]'] if @all_languages;
+	my @all_languages = MusicBrainz::Server::Language->Menu(
+		$mb->{DBH}, minimum_frequency => 1);
+
+	# replace the "Unknown language"
+	$all_languages[0] = [0, '[unset language]'] if @all_languages;
 
 </%perl>
-<& /comp/sidebar, title => "Search Moderations" &>
 
-<div class="LinksRow">
-	[ <a href="?">Clear this form</a> ]
-</div>
+<& /comp/sidebar-notitle, pagetitle => "Search for Edits" &>
 
-<p>
-	You can use these filters to control which moderations are shown.&nbsp;
-	When you're done, click "Query" to show the matching moderations.
-</p>
+	<& /comp/tablebegin, title => "Search for Edits" &>
 
-<p>
-	The "select" lists accept multiple selections (e.g. you can search for
-	"Failed dependency or Failed prerequisite") - in most modern browsers
-	you can select more than one entry by holding down the "control" key.
-</p>
+		<table class="formstyle">
+			<tr>
+				<td class="instructions">
+					<ul>
+						<li>
+							You can use these filters to select which
+							<& /comp/linkdoc, "EditType", "edit types" &>
+							are shown. </li>
+						<li>
+							The <strong>language filter</strong> works for add release edits
+							for which the language has been set, edit release
+							language edits.
+						<li>
+							You can <strong>limit your search to a range of Edit
+							IDs</strong>. This can be useful if the query is
+							cancelled by the server because it is taking too long.
+							This filter also accept dates / times as input,
+							in which case the date and time you enter will
+							be <strong>converted to the nearest matching edit
+							</strong> that was entered at the given date / time.</li>
+						<li>
+							Some of the filters accept multiple selections. Multiple
+							selections are handled as logical <em><strong>or</strong></em>
+							(e.g. you can search for edits with the status "Failed dependency"
+							<em><strong>or</strong></em> "Failed prerequisite"). Just hold
+							the "control" key and click on the list items to
+							<strong>select more than one item</strong>.</li>
+					</ul></td>
+			</tr>
+		</table>
 
-<form method="get" action="/mod/search/results.html" name="SearchMods">
+		<table class="formstyle">
+			<tr>
+				<td class="label"></td>
+				<td>
+					<form method="post" action="/mod/search/">
+						<input type="hidden" name="clearform" value="1" />
+						<input type="submit" value="Clear this form &raquo;" />
+					</form>
+				</td>
+				<td>
+					<a href="select-filter.html">Review and Vote on edits</a>
+				</td>
+			</tr>
+		</table>
 
-	<table class="TopAlignCells SpacedColumns">
-		<tr>
-			<td>
+		<form method="get" action="/mod/search/results.html" id="AdvancedEditSearch">
 
-				<h2>Status</h2>
-				<select name="mod_status" multiple>
-					<%perl>
-					$m->comp(
-						"/comp/options",
-						[
-							map { [ $_, Moderation::GetChangeName({ status => $_}) ] }
-								sort { $a<=>$b }
-								keys %all_status
-						],
-						$filter->{"mod_status"},
-					);
-					</%perl>
-				</select>
+			<script type="text/javascript" src="index.js"></script>
 
-				<h2>Automoderations</h2>
-				<p>
-% my $am = $filter->{"automod"};
-					<input type="radio" name="automod" value="" <% ($am eq "") ? "checked" : "" %>> Any<br>
-					<input type="radio" name="automod" value="1" <% ($am eq "1") ? "checked" : "" %>> Automoderations<br>
-					<input type="radio" name="automod" value="0" <% ($am eq "0") ? "checked" : "" %>> Non-automoderations<br>
-				</p>
+			<table class="formstyle">
+				<tr class="top">
+					<td class="label">Status:</td>
+					<td>
+						<div id="id_mod_status">
+							<select name="mod_status" multiple="multiple" size="5">
+							<& /comp/options,
+								[
+									map { [ $_, Moderation::GetChangeName({ status => $_}) ] }
+										sort { $a<=>$b }
+										keys %all_status
+								],
+								$filter->{"mod_status"}, &>
+							</select>
+						</div></td>
+				</tr>
 
-			</td><td>
+				<tr class="top">
+					<td class="label"><& /comp/linkdoc, "AutoEdit", "Autoedits" &>:</td>
+					<td>
 
-				<h2>Moderation Type</h2>
-				<select name="mod_type" multiple size="18">
-					<%perl>
-					$m->comp(
-						"/comp/options",
-						[
-							sort { $a->[1] cmp $b->[1] }
-								map {
-									my $class = Moderation->ClassFromType($_);
-									[ $_, $class ? $class->Name : "? #$_" ]
-								}
-								keys %all_types
-						],
-						$filter->{"mod_type"},
-					);
-					</%perl>
-				</select>
+%	my $autoedit = $filter->{"automod"};
 
-			</td>
-		</tr>
-		<tr>
-			<td>
-	<h2>Moderator</h2>
+						<div id="id_automod">
+							<input type="radio" name="automod" value="" id="automod0"
+								<% ($autoedit eq "") ? 'checked="checked"' : "" %>
+							/><label for="id_automod0">Any</label><br/>
 
-	<p>
-% my $mt = $filter->{"moderator_type"};
-		<input type="radio" name="moderator_type" value="0" <% ($mt eq "0") ? "checked" : "" %>> Any moderator<br>
-		<input type="radio" name="moderator_type" value="1" <% ($mt eq "1") ? "checked" : "" %>> FreeDB only<br>
-		<input type="radio" name="moderator_type" value="2" <% ($mt eq "2") ? "checked" : "" %>> Any except FreeDB<br>
-% if (my $id = $filter->{"moderator_id"}) {
-		<input type="hidden" name="moderator_id" value="<% $id %>">
-		<input type="radio" name="moderator_type" value="3" <% ($mt eq "3") ? "checked" : "" %>> Only
-			<a href="/user/view.html?uid=<% $id %>"><% $filter->{"moderator_name"} %></a>
-% } else {
-		<input type="radio" name="moderator_type" disabled> Only
-			<i>(no moderator selected)</i>
-% }
-			&nbsp; [ <a href="/mod/search/select-moderator.html?<% scalar $r->args %>">Change ...</a> ]<br>
-		<input type="radio" name="moderator_type" value="4" <% ($mt eq "4") ? "checked" : "" %>> Me<br>
-		<input type="radio" name="moderator_type" value="5" <% ($mt eq "5") ? "checked" : "" %>> Not me<br>
-		<input type="radio" name="moderator_type" value="6" <% ($mt eq "6") ? "checked" : "" %>> Not me and not FreeDB<br>
-	</p>
-			</td>
-			<td>
-				<h2>Vote Cast</h2>
+							<input type="radio" name="automod" value="1" id="automod1"
+								<% ($autoedit eq "1") ? 'checked="checked"' : "" %>
+							/><label for="id_automod1">Autoedits</label><br/>
 
-% my $vt = $filter->{"voter_type"};
-		<input type="radio" name="voter_type" value="0" <% ($vt eq "0") ? "checked" : "" %>> My vote<br>
-% if (my $id = $filter->{"voter_id"}) {
-		<input type="hidden" name="voter_id" value="<% $id %>">
-		<input type="radio" name="voter_type" value="1" <% ($vt eq "1") ? "checked" : "" %>>
-			<a href="/user/view.html?uid=<% $id %>"><% $filter->{"voter_name"} %></a>'s vote
-% } else {
-		<input type="radio" name="voter_type" disabled>
-			<i>(no moderator selected)</i>
-% }
-			&nbsp; [ <a href="/mod/search/select-moderator.html?is_voter=1&<% scalar $r->args %>">Change ...</a> ]<br>
+							<input type="radio" name="automod" value="0" id="automod2"
+								<% ($autoedit eq "0") ? 'checked="checked"' : "" %>
+							/><label for="id_automod2">Non-autoedits</label>
 
-				<br><select name="vote_cast" multiple>
-					<%perl>
-					$m->comp(
-						"/comp/options",
-						[
-							map { [ $_, MusicBrainz::Server::Vote->GetVoteName($_) ] }
-								sort { $a<=>$b }
-								keys %all_votes
-						],
-						$filter->{"vote_cast"},
-					);
-					</%perl>
-				</select>
-			</td>
-		</tr>
-		<tr>
-			<td>
-	<h2>Artist</h2>
+						</div></td>
+				</tr>
 
-	<p>
-% my $at = $filter->{"artist_type"};
-		<input type="radio" name="artist_type" value="0" <% ($at eq "0") ? "checked" : "" %>> Any artist<br>
-		<input type="radio" name="artist_type" value="1" <% ($at eq "1") ? "checked" : "" %>> "Various Artists" only<br>
-		<input type="radio" name="artist_type" value="2" <% ($at eq "2") ? "checked" : "" %>> Any except "Various Artists"<br>
-% if (my $id = $filter->{"artist_id"}) {
-		<input type="hidden" name="artist_id" value="<% $id %>">
-		<input type="radio" name="artist_type" value="3" <% ($at eq "3") ? "checked" : "" %>> Only
-			<a href="/showartist.html?artistid=<% $id %>"><% $filter->{"artist_name"} %></a>
-% } else {
-		<input type="radio" name="artist_type" disabled> Only
-			<i>(no artist selected)</i>
-% }
-			&nbsp; [ <a href="/mod/search/select-artist.html?<% scalar $r->args %>">Change ...</a> ]<br>
-% if (my $id = $filter->{"artist_id"}) {
-		<input type="radio" name="artist_type" value="5" <% ($at eq "5") ? "checked" : "" %>> Artists related to
-			<a href="/showartist.html?artistid=<% $id %>"><% $filter->{"artist_name"} %></a>
-% } else {
-		<input type="radio" name="artist_type" disabled> Artists related to
-			<i>(no artist selected)</i>
-% }
-			&nbsp; [ <a href="/mod/search/select-artist.html?<% scalar $r->args %>">Change ...</a> ]<br>
-		<input type="radio" name="artist_type" value="4" <% ($at eq "4") ? "checked" : "" %>> My subscribed artists<br>
-	</p>
-			</td>
-			<td>
-	<h2>Sorting Order</h2>
-	<p>
-% my $o = $filter->{"orderby"};
-		<input type="radio" name="orderby" value="asc" <% ($o eq "asc") ? "checked" : "" %>> Oldest first<br>
-		<input type="radio" name="orderby" value="desc" <% ($o eq "desc") ? "checked" : "" %>> Newest first<br>
-	</p>
+				<tr class="top">
+					<td class="label"><& /comp/linkdoc, "EditType", "Edit type" &>:</td>
+					<td>
+						<div id="id_mod_type">
+							<select name="mod_type" multiple="multiple" size="18">
+								<%perl>
+								$m->comp(
+									"/comp/options",
+									[
+										sort { $a->[1] cmp $b->[1] }
+											map {
+												my $class = Moderation->ClassFromType($_);
+												[ $_, $class ? $class->Name : "? #$_" ]
+											}
+											keys %all_types
+									],
+									$filter->{"mod_type"},
+								);
+								</%perl>
+							</select>
+						</div></td>
+				</tr>
 
-			</td>
-		</tr>
+				<tr class="top">
+					<td class="label"><& /comp/linkdoc, "Editor", "Editor" &>:</td>
+					<td>
+						<div id="id_moderator_type">
 
-% my $object_type = $filter->{"object_type"};
-% my $object_id = $filter->{"object_id"};
-% if ($object_type and $object_id) {
-		<tr>
-			<td colspan="2">
-				<h2>Specific Object</h2>
-				<p>
-					<input type="hidden" name="object_type" value="<% $object_type %>">
-					<input type="radio" name="object_id" value="<% $object_id %>" checked> Only
-					<%perl>
-					if ($object_type eq "album") {
-						$m->out("<a href='/showalbum.html?albumid=$object_id'>this album</a>");
-					} elsif ($object_type eq "track") {
-						$m->out("<a href='/showtrack.html?trackid=$object_id'>this track</a>");
-					} else {
-						$m->out("$object_type #$object_id");
-					}
-					</%perl><br>
-					<input type="radio" name="object_id" value="0"> Anything<br>
-				</p>
-			</td>
-		</tr>
-% }
+%	my $moderator_id = $filter->{"moderator_id"};
+%	my $moderator_type = $filter->{"moderator_type"};
 
-		<tr>
-			<td colspan="2">
-				<h2>Limit by Language</h2>
-				<p>
-					Limit your search by language. This only works for add album
-					moderations with a set language field and edit language moderations.
-				</p>
-				<p>
-					<select name="mod_language" size="10" multiple>
-						<& /comp/options, \@all_languages, $filter->{"mod_language"} &>
-					</select>
-				</p>
-			</td>
-		</tr>
-		<tr>
-			<td colspan="2">
-				<h2>Limit by Moderation ID</h2>
-				<p>
-					You can limit your search to a range of moderation IDs.&nbsp;
-					This can be useful if your moderation query
-					keeps getting cancelled because it's taking too long -
-					you can make the range smaller.
-				</p>
-				<p>
-					You can also enter dates / times here, in which case the date and
-					time you select will be converted to the nearest matching moderation ID.&nbsp;
-					(The date / time applies to the time the moderation was entered,
-					not when it was applied or rejected).
-				</p>
-				<p>
-					Not before
-					<input type="text" name="minid" size="20" maxlength="30"
-						value="<% $filter->{'minid'}||'' %>">
-					and not after
-					<input type="text" name="maxid" size="20" maxlength="30"
-						value="<% $filter->{'maxid'}||'' %>">
-				</p>
-				<p style="font-color: #666; font-size: 75%">
-					Examples of valid dates / times include: yesterday;
-					monday 5pm; 17:22 PST wednesday; 3 Nov; April 7; 3/11 (which can be
-					either March 11th or 3rd November, depending on your preferred
-					date/time format); 7pm CET jan 2 2005.
-				</p>
-			</td>
-		</tr>
-		<tr>
-			<td colspan="2" align="center">
-				<br><br>
-				<input type="submit" value="Query" style="padding: 0 3em">
-			</td>
-		</tr>
-	</table>
+							<input type="radio" name="moderator_type" id="moderator_type0" value="0"
+								<% ($moderator_type eq "0") ? 'checked="checked"' : "" %>
+							/><label for="moderator_type0">Any</label><br />
 
-</form>
+							<input type="radio" name="moderator_type" id="moderator_type1" value="1"
+								<% ($moderator_type eq "1") ? 'checked="checked"' : "" %>
+							/><label for="moderator_type1">FreeDB only</label><br />
+
+							<input type="radio" name="moderator_type" id="moderator_type2" value="2"
+								<% ($moderator_type eq "2") ? 'checked="checked"' : "" %>
+							/><label for="moderator_type2">Any except FreeDB</label><br />
+
+							<input type="radio" name="moderator_type" id="moderator_type3" value="3"
+								<% ($moderator_id) ? "" : 'disabled="disabled"' %>
+								<% ($moderator_type eq "3") ? 'checked="checked"' : "" %>
+
+							/><label for="moderator_type3">
+%	if ($moderator_id)
+%	{
+							Only <a href="/user/view.html?uid=<% $moderator_id %>"><% $filter->{"moderator_name"} %></a></label>
+							<input type="hidden" name="moderator_id" value="<% $moderator_id %>" />
+%	} else {
+							(no editor selected)</label>
+%	}
+							&nbsp; [ <a href="/mod/search/select-moderator.html?<% scalar $r->args %>">Change ...</a> ] <br />
+
+							<input type="radio" name="moderator_type" id="moderator_type4" value="4"
+								<% ($moderator_type eq "4") ? 'checked="checked"' : "" %>
+							/><label for="moderator_type4">Me</label><br />
+
+							<input type="radio" name="moderator_type" id="moderator_type5" value="5"
+								<% ($moderator_type eq "5") ? 'checked="checked"' : "" %>
+							/><label for="moderator_type5">Not me</label><br />
+
+
+							<input type="radio" name="moderator_type" id="moderator_type6" value="6"
+								<% ($moderator_type eq "6") ? 'checked="checked"' : "" %>
+							/><label for="moderator_type6">Not me and not FreeDB</label>
+
+						</div></td>
+				</tr>
+				<tr class="top">
+					<td class="label">Voter:</td>
+					<td>
+						<div id="id_voter_type">
+
+%	my $voter_name = $filter->{"voter_name"};
+%	my $voter_type = $filter->{"voter_type"};
+%	my $voter_id = $filter->{"voter_id"};
+
+							<input type="radio" name="voter_type" id="voter_type0" value="0"
+								<% ($voter_type eq "0") ? 'checked="checked"' : "" %>
+							/><label for="voter_type0">Any</label><br />
+
+
+							<input type="radio" name="voter_type" id="voter_type1" value="1"
+								<% ($voter_id) ? "" : 'disabled="disabled"' %>
+								<% ($voter_type eq "1") ? 'checked="checked"' : "" %>
+
+							/><label for="voter_type1"
+%	if ($voter_id) {
+							>
+							<& /comp/linkuser, id => $voter_id, name => $voter_name, title => "voter" &>'s vote</label>
+							<input type="hidden" name="voter_id" value="<% $voter_id %>" />
+%	} else {
+							No voter selected</label>
+%	}
+							&nbsp; [ <a href="/mod/search/select-moderator.html?is_voter=1&<% scalar $r->args %>">Change ...</a> ] <br />
+
+						</div></td>
+				</tr>
+				<tr class="top">
+					<td class="label">Vote Cast:</td>
+					<td>
+						<div id="id_vote_cast">
+							<select name="vote_cast" multiple="multiple" style="margin-top: 3px">
+								<%perl>
+								$m->comp(
+									"/comp/options",
+									[
+										map { [ $_, MusicBrainz::Server::Vote->GetVoteName($_) ] }
+											sort { $a<=>$b }
+											keys %all_votes
+									],
+									$filter->{"vote_cast"},
+								);
+								</%perl>
+							</select>
+						</div></td>
+				</tr>
+				<tr class="top">
+					<td class="label"><& /comp/linkdoc, "Artist", "Artist" &>:</td>
+					<td>
+						<div id="id_artist_type">
+
+%	my $artist_id = $filter->{"artist_id"};
+%	my $artist_name = $filter->{"artist_name"};
+%	my $artist_sortname = $filter->{"artist_sortname"};
+%	my $artist_resolution = $filter->{"artist_resolution"};
+%	my $at = $filter->{"artist_type"};
+
+							<input type="radio" name="artist_type" id="artist_type0" value="0"
+								<% ($at eq "0") ? 'checked="checked"' : "" %>
+							/><label for="artist_type0">Any</label><br />
+
+							<input type="radio" name="artist_type" value="1"id="artist_type1"
+								<% ($at eq "1") ? 'checked="checked"' : "" %>
+							/><label for="artist_type1">"Various Artists" only</label><br />
+
+							<input type="radio" name="artist_type" value="2" id="artist_type2"
+								<% ($at eq "2") ? 'checked="checked"' : "" %>
+							/><label for="artist_type2">Any except "Various Artists"</label><br/>
+
+							<input type="radio" name="artist_type" value="3" id="artist_type3"
+								<% ($artist_id) ? "" : 'disabled="disabled"' %>
+								<% ($at eq "3") ? 'checked="checked"' : "" %>
+							/><label for="artist_type3">Only
+%	if ($artist_id)
+%	{
+							<& /comp/linkartist,
+								id => $artist_id,
+								name => $artist_name ,
+								sortname => $artist_sortname ,
+								resolution => $artist_resolution
+							&></label>
+							<input type="hidden" name="artist_id" value="<% $artist_id %>" />
+%	} else {
+							(no artist selected)</label>
+%	}
+
+								&nbsp; [ <a href="/mod/search/select-artist.html?<% scalar $r->args %>">Change ...</a> ] <br />
+
+							<input type="radio" name="artist_type" value="5" id="artist_type4"
+								<% ($artist_id) ? "" : 'disabled="disabled"' %>
+								<% ($at eq "5") ? 'checked="checked"' : "" %>
+							/><label for="artist_type4">Artists related to:
+%	if ($artist_id) {
+							<& /comp/linkartist,
+								id => $artist_id,
+								name => $artist_name ,
+								sortname => $artist_sortname ,
+								resolution => $artist_resolution
+							&></label>
+%	} else {
+							(no artist selected)</label>
+%	}
+								&nbsp; [ <a href="/mod/search/select-artist.html?<% scalar $r->args %>">Change ...</a> ] <br />
+
+							<input type="radio" name="artist_type" value="4" id="artist_type5"
+								<% ($at eq "4") ? 'checked="checked"' : "" %>
+							/><label for="artist_type5">My subscribed artists</label>
+
+						</div></td>
+				</tr>
+				<tr class="top">
+					<td class="label">Sorting Order:</td>
+					<td>
+						<div id="id_orderby">
+
+%	my $o = $filter->{"orderby"};
+
+							<input type="radio" name="orderby" id="id_orderby0" value="asc"
+								<% ($o eq "asc") ? 'checked="checked"' : "" %>
+							/><label for="id_orderby0">Oldest first</label><br />
+
+							<input type="radio" name="orderby" id="id_orderby1" value="desc"
+								<% ($o eq "desc") ? 'checked="checked"' : "" %>
+							/><label for="id_orderby1">Newest first</label>
+
+						</div></td>
+				</tr>
+
+
+%	my $object_type = $filter->{"object_type"};
+%	my $object_id = $filter->{"object_id"};
+%
+%	if ($object_type and $object_id)
+%	{
+
+				<tr class="top">
+					<td class="label">Specific Object:</td>
+					<td>
+						<div id="id_object_id">
+							<input type="hidden" name="object_type" value="<% $object_type %>" />
+							<input type="radio" name="object_id" id="id_object_id0"
+								value="<% $object_id %>" checked="checked"
+							/><label for="id_object_id0">Only
+
+%							if ($object_type eq "album")
+%							{
+%								my $release = $m->comp("/comp/loadrelease", $mb, $object_id);
+								<& /comp/linkrelease, release => $release &>
+
+%							}
+%							elsif ($object_type eq "track")
+%							{
+%								my $track = $m->comp("/comp/loadtrack", $mb, $object_id);
+								<& /comp/linktrack, track => $track &>
+
+%							}
+%							else
+%							{
+
+								<% $object_type %> #<% $object_id %>
+%							}
+
+							</label><br/>
+
+							<input type="radio" name="object_id" id="id_object_id1" value="0"
+							/><label for="id_object_id1">Any</label><br />
+						</div></td>
+				</tr>
+%	}
+
+				<tr class="top">
+					<td class="label"><& /comp/linkdoc, "ReleaseLanguage", "Language" &>:</td>
+					<td>
+						<div id="id_mod_language">
+							<select name="mod_language" size="10" multiple>
+								<& /comp/options, \@all_languages, $filter->{"mod_language"} &>
+							</select>
+						</div></td>
+				</tr>
+
+				<tr class="top">
+					<td class="label">EditID Range:</td>
+					<td>
+						<div id="id_minid">
+
+							<label for="id_minid0">Not before</label>
+							<input type="text" name="minid" id="id_minid0" size="10" maxlength="30"
+								value="<% $filter->{'minid'}||'' %>" />
+
+							<label for="id_maxid0">and not after</label>
+
+							<input type="text" name="maxid" id="id_maxid0" size="10" maxlength="30"
+								value="<% $filter->{'maxid'}||'' %>" />
+
+							<div style="color: #666; font-size: 9px">
+								Examples of valid dates / times include:<br/>
+								<img src="/images/misc/bullet.gif" alt="" /> yesterday<br/>
+								<img src="/images/misc/bullet.gif" alt="" /> monday 5pm<br/>
+								<img src="/images/misc/bullet.gif" alt="" /> 17:22 PST wednesday<br/>
+								<img src="/images/misc/bullet.gif" alt="" /> 3 Nov<br/>
+								<img src="/images/misc/bullet.gif" alt="" /> April 7<br/>
+								<img src="/images/misc/bullet.gif" alt="" /> 3/11 (which can be either March 11th or 3rd November,
+									depending on your preferred date/time format)<br/>
+								<img src="/images/misc/bullet.gif" alt="" /> 7pm CET jan 2 2005<br/>
+							</div>
+						</div></td>
+				</tr>
+			</table>
+
+			<table class="formstyle">
+				<tr>
+					<td class="label">&nbsp;</td>
+					<td>
+						<input type="submit" value="Search for Edits &raquo;" /></td>
+				</tr>
+			</table>
+
+			<input type="hidden" name="isreset" value="<% $clearform ? 1 : 0 %>" />
+		</form>
+
+	<& /comp/tableend &>
 
 <& /comp/footer &>
