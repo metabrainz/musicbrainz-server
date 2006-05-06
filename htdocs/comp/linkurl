@@ -51,7 +51,7 @@
 
 	# render link.
 	$m->out(qq!<strong>!) if ($strong);
-	$m->out(qq!<img src="/images/entity/url_small.gif" alt="URL" />!) if ($icon);
+	$m->out(qq!<img src="/images/entity/url_small.gif" alt="URL" class="entityicon" />!) if ($icon);
 	$m->out(qq!<a href="/showurl.html?urlid=$id">! . $m->interp->apply_escapes($name, 'h') . qq!</a>!);
 	$m->out(qq!</strong>!) if ($strong);
 

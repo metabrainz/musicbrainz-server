@@ -37,6 +37,10 @@
 	$mbid => undef
 	$name => undef
 
+	# this is used from Moderation.pm, to be able to display the rowid of deleted
+	# releases as a tooltip.
+	$title => undef
+
 	# rendering options
 	$icon => 1
 	$strong => 1
@@ -55,19 +59,27 @@
 	$m->out(qq!<strong>!) if ($strong);
 	$m->out(qq!<img src="/images/entity/release_small.gif" alt="Release" class="entityicon" />!) if ($icon);
 
+	# enclose the value in title in proper attribute tag,
+	# if it was set.
+	$title = defined $title
+		? ' title="' . $m->interp->apply_escapes($title, 'h').'"'
+		: "";
+
 	# if the id not negative, show a link, else show the name only
 	if (MusicBrainz::IsNonNegInteger($id))
 	{
 		# if the MBID is defined, use the "preferred" way of displaying release links.
-		$m->out(sprintf qq!<a href="%s">%s</a>!,
+		$m->out(sprintf qq!<a href="%s"%s>%s</a>!,
 						defined $mbid ? "/album/$mbid.html" : "/show/release/?releaseid=$id",
+						$title,
 						$m->interp->apply_escapes($name, 'h'));
 	}
 	else
 	{
 		# use the acronym element to show a release
 		# for which we have a negative releaseid
-		$m->out(sprintf qq!<acronym>%s</acronym>!,
+		$m->out(sprintf qq!<acronym%s>%s</acronym>!,
+						$title,
 						$m->interp->apply_escapes($name, 'h'));
 	}
 	$m->out(qq!</strong>!) if ($strong);
