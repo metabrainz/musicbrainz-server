@@ -102,8 +102,12 @@
 
 <& /comp/sidebar-notitle, pagetitle => $edit ? "Edit #$editid" : "Show Edit" &>
 
-% 	if ($edit) {
+% 	if ($edit)
+%	{
+
 	<& /comp/showmoddetail, $edit &>
+	<script type="text/javascript" src="/scripts/jsdiff.js"></script>
+
 % 	}
 
 	<& /comp/tablebegin, title => "Show another edit" &>
