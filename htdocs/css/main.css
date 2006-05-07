@@ -31,8 +31,8 @@ a img {
 
 /* XHTML change: globally remove borders from images inside <a> blocks */
 img.entityicon { 
-	margin-right: 3px;
-	vertical-align: baseline;
+	margin: 0px; margin-right: 3px; padding: 0px;
+	vertical-align: middle;
 }
 
 label { cursor: pointer; } /* TODO: that is the default behaviour, isn't it? */
@@ -723,41 +723,47 @@ table.annotation ul {
 	vertical-align: top;
 	white-space: nowrap;
 }
+.ShowModInfo {
+	padding-right: 50px;
+}
+
 
 .ShowModVoteHead {
 	text-align: center;
-	vertical-align: middle;
 }
+
 .ShowModOld {
 	background: #ffecd6;
 	vertical-align: top;
 }
-.ShowModNew {
-	background: #f0efff;
-	width: 50%;
-	vertical-align: top;
+.ShowModOld table.editdiff {
+	border-color: #ffecd6;
+}
+.ShowModOld table.editdiff tr {
+	border-color: #ffecd6;
+}
+.ShowModOld table.editdiff tr td {
+	border-color: #ffecd6;
 }
 
-table.editfields {
-	border-collapse: collapse;
-}
-table.editfields tr {
+.ShowModNew {
+	background: #f0efff;
 	vertical-align: top;
+	width: 100%;
 }
-table.editfields tr td {
-	padding: 0px; 
+.ShowModNew table.editdiff {
+	border-color: #f0efff;
 }
-table.editfields tr td.lbl {
-	padding-right: 4px;
-	width: 65px;
-	white-space: nowrap;
-	word-wrap: none;
+.ShowModNew table.editdiff tr {
+	border-color: #f0efff;
 }
-table.editfields tr td.bold {
-	font-weight: bold;
+.ShowModNew table.editdiff tr td {
+	border-color: #f0efff;
 }
-div.attrlist {
-	margin-left: 16px; font-size: 11px;
+
+
+.ShowModInfo table.editfields tr td {
+	padding: 0px;
 }
 
 .ShowModNew table.annotation {
@@ -771,11 +777,41 @@ div.attrlist {
 }
 
 
-
 .ShowModVote {
 	background: white;
 	text-align: center;
 	vertical-align: top;
+	white-space: nowrap;
+	padding: 0px 10px;
+}
+
+
+table.noteslist {
+	border: 0px;
+	border-collapse: collapse;
+	padding: 0px;
+	margin-left: 30px;
+}
+table.noteslist tr {
+	vertical-align: top;
+}
+table.noteslist tr td.noter {
+	padding: 0px; 
+	padding-right: 10px;
+	text-align: right;
+	font-size: 11px;
+}
+table.noteslist tr td.text {
+	padding: 0px;
+	padding-bottom: 2px;
+	line-height: 97%;
+}
+table.noteslist span.modbot {
+	padding-left: 8px;
+	background-image: url(../images/edit.gif);
+	background-position: left 60%;
+	background-repeat: no-repeat;
+	color: #999;
 }
 
 /* Voting buttons */

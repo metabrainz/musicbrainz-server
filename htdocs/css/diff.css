@@ -37,3 +37,87 @@ table.difflegend span.diff-changeadd {
 table.difflegend span.diff-changedel {
 	background: #fdd; color: #008;  font-weight: normal;
 }
+
+
+
+
+
+/* edits review/voting diff functionality */
+table.editdiff {
+	border-collapse: collapse; 
+	margin: 0px; padding: 0px;
+	border-top: 1px solid #fff;
+}
+table.editdiff tr {
+	border: 1px solid #ff;
+}
+table.editdiff tr td {
+	padding: 0px; margin: 0px;
+	border: 1px solid #fff;
+}
+table.editdiff tr td.lbl {
+	font-size: 12px;
+	padding-top: 2px;
+}
+table.editdiff tr td.diff * {
+	font-size: 12px;
+}
+table.editdiff tr td.lbl {
+	border: 0px; margin: 0px; padding: 0px; padding-right: 4px;
+	width: 65px; 
+	white-space: nowrap;word-wrap: none;
+}
+
+table.editdiff tr td.diff .ins {
+	border: 1px solid #8f8;
+	background: #efe;
+	padding: 0px 1px;
+}
+table.editdiff tr td.diff .del {
+	border: 1px solid #f88;
+	background: #fee;
+	padding: 0px 1px;
+}
+
+
+/* the blind tables which help to align values in the edit displays */
+table.editfields {
+	border-collapse: collapse;
+	border: 0px; margin: 0px; padding: 0px;
+}
+table.editfields tr {
+	vertical-align: top;
+}
+table.editfields tr td {
+	border: 0px; margin: 0px; padding: 0px;
+}
+table.editfields tr td.lbl {
+	border: 0px; margin: 0px; padding: 0px; padding-right: 4px;
+	width: 65px; 
+	white-space: nowrap;word-wrap: none;
+}
+table.editfields tr td.bold {
+	font-weight: bold;
+}
+div.attrlist {
+	margin-left: 16px; font-size: 11px;
+}
+
+
+/* the blind tables which help to align values in the edit displays */
+table.edittype {
+	border-collapse: collapse;
+	border: 0px; margin: 0px; padding: 0px;
+}
+table.edittype tr {
+	vertical-align: top;
+	border: 0px; margin: 0px; padding: 0px;
+}
+table.edittype tr td {
+	border: 0px; margin: 0px; padding: 0px;
+}
+table.edittype tr td.lbl {
+	border: 0px; margin: 0px; padding: 0px; padding-right: 4px;
+	white-space: nowrap; word-wrap: none;
+	width: 65px; 
+}
