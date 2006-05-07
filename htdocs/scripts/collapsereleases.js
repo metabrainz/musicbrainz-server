@@ -92,6 +92,7 @@ function CollapseReleases() {
 						a.onclick = function onclick(event) { 
 							var id = this.id.replace("expand", "tracks");
 							collapsereleases.showRelease(id); 
+							return false;
 						};
 						var img = document.createElement("img");
 
@@ -102,6 +103,24 @@ function CollapseReleases() {
 						a.appendChild(img);
 						parent.insertBefore(a, el);
 
+						parent.style.cursor = "pointer";
+						parent.title = "Toggle release... If you hover the mouse cursor here, it opens automatically.";
+						parent.id = id.replace("tracks", "title");					
+						parent.onclick = function onclick(event) { 
+							var id = this.id.replace("title", "tracks");
+							collapsereleases.clearHoverTimeout(id);
+							collapsereleases.showRelease(id);
+							return true;
+						};						
+						parent.onmouseover = function onmouseover(event) { 
+							var id = this.id.replace("title", "tracks");
+							collapsereleases.setHoverTimeout(id);
+						};							
+						parent.onmouseout = function onmouseout(event) { 
+							var id = this.id.replace("title", "tracks");
+							collapsereleases.clearHoverTimeout(id);
+						};							
+
 					} else {
 						mb.log.debug("Element $ not found", elid);
 					}
@@ -111,6 +130,19 @@ function CollapseReleases() {
 		mb.log.exit();
 	};
 	
+	this.setHoverTimeout = function(id) {
+		if (this.timeouts == null) {
+			this.timeouts = [];
+		}
+		var func = "collapsereleases.showRelease('"+id+"', true)";
+		this.timeouts[id] = setTimeout(func, 800);
+	};
+	
+	this.clearHoverTimeout = function(id) {
+		var ref = this.timeouts[id];
+		clearTimeout(ref);
+		this.timeouts[id] = null;
+	};
 	
 	/**
 	 * Go through all the releases of the current page
