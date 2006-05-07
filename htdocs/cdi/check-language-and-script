@@ -4,7 +4,7 @@
 	$language_new => undef
 	$script_new => undef
 
-	$submit => ""
+	$submitvalue => ""
 	$expand_lists => 0
 	$confirm => 0
 
@@ -18,16 +18,16 @@
 	delete $args{"language_new"};
 	delete $args{"expand_lists"};
 	delete $args{"script_new"};
-	delete $args{"submit"};
+	delete $args{"submitvalue"};
 
 	# Handle the different types of submit buttons
-	if ($submit)
+	if ($submitvalue ne "")
 	{
-		if ($submit =~ /Show (Reduced|Full) Lists/i)
+		if ($submitvalue =~ /Show (Reduced|Full) Lists/i)
 		{
 			$expand_lists = !$expand_lists;
 		}
-		elsif ($submit =~ /Guess/i)
+		elsif ($submitvalue =~ /Guess/i)
 		{
 			$script_new = undef;
 			$language_new = undef;
