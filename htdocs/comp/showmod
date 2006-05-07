@@ -1,128 +1,192 @@
 %# vi: set ts=2 sw=2 ft=mason :
 <%args>
-$mod
-$voter => $session{uid}
-$notes => []
-$voteflag=> undef
-$inline=>0
+	$mod
+	$voter => $session{uid}
+	$notes => []
+	$voteflag => undef
+	$inline => 0
 </%args>
 <%perl>
 
-my $voted = $mod->GetVote;
-$voted = &ModDefs::VOTE_NOTVOTED
-	unless defined $voted;
+	my $voted = $mod->GetVote;
+	$voted = &ModDefs::VOTE_NOTVOTED
+		unless defined $voted;
 
-my $is_open = ($mod->GetStatus == &ModDefs::STATUS_OPEN);
-my $is_mine = ($mod->GetModerator == $session{uid});
+	my $is_open = ($mod->GetStatus == &ModDefs::STATUS_OPEN);
+	my $is_mine = ($mod->GetModerator == $session{uid});
 
-my $time = ($is_open ? $mod->GetExpireTime : $mod->GetCloseTime);
-$time = $m->comp("/comp/datetime", $time);
+	my $time = ($is_open ? $mod->GetExpireTime : $mod->GetCloseTime);
+	$time = $m->comp("/comp/datetime", $time);
+	$time =~ s/ /&nbsp;/gi;
 
-# Rough sketch of the layout of a moderation row:
+	# Rough sketch of the layout of a moderation row:
 
-# ======orange===bar============================================================================+
-# By: modname   ID: ##### (am)| Type: mod type...     |        1 yes, 1 no                      |
-# Expire[sd]: yyyymmdd.....   | Artist: name...       | [ Add note | Send email | Delete mod ]  |
-# ----------------------------+-----------------------+-----------------------------------------+
-# previous value shown here   | New value shown here  |  [X] Yes [X] No [X] Abstain             |
-# ======orange===bar============================================================================+
+	# ======orange===bar============================================================================+
+	# By: modname   ID: ##### (am)| Type: mod type...	 |		1 yes, 1 no					  |
+	# Expire[sd]: yyyymmdd.....   | Artist: name...	   | [ Add note | Send email | Delete mod ]  |
+	# ----------------------------+-----------------------+-----------------------------------------+
+	# previous value shown here   | New value shown here  |  [X] Yes [X] No [X] Abstain			 |
+	# ======orange===bar============================================================================+
 
-# The bottom right cell may contain:
-#	Your vote: Yes
-# [] voting buttons... []
-# Open
+	# The bottom right cell may contain:
+	#	Your vote: Yes
+	# [] voting buttons... []
+	# Open
 
 </%perl>
-% unless ($inline) {
-<tr>
-<td bgcolor="#FFBA58" colspan=3><img src="/images/pixel.gif" width="1" height="1" alt="" border="" /></td>
-</tr>
-% }
-<tr>
-   <td class="ShowModInfo">
-     By: <a href="/user/view.html?uid=<% $mod->GetModerator %>"><% $mod->GetModeratorName %></a>
-     &nbsp;&nbsp;&nbsp;
-     ID: <a href="/showmod.html?modid=<% $mod->GetId %>"
-        title="View moderation detail"><% $mod->GetId %></a>
-% if ($mod->GetAutomod) {
-	   &nbsp; &nbsp;
-	   <span style="font-size: x-small">(<a href="/mod_intro.html#automod">automod</a>)</span>
-% }
-  <br>
-% if ( $mod->GetLanguageId ) {
-     Language: <% $mod->GetLanguage->GetName %>
-  <br>
-% }
-% if ($is_open) {
-     <% $mod->GetExpired ? "Expired" : "Expires" %>: <% $time %>
-% } else {
-     Closed: <% $time %>
-% }
-   </td>
-   <td class="ShowModType">
-%			# This shows the moderation type and artist
-%			$mod->ShowModType($m);
-   </td>
-   <td class="ShowModVoteHead">
-%    if ($is_mine or not $is_open or $voted != &ModDefs::VOTE_NOTVOTED) {
-		<% $mod->GetYesVotes %> yes, <% $mod->GetNoVotes %> no
-		<br />
-%    }
-     [ <a href="/mod/addnote.html?modid=<% $mod->GetId %>" onclick="MyWindow=window.open('/mod/addnote.html?modid=<% $mod->GetId %>','AddNote','toolbar=no,location=no,directories=no,status=no,menubar=no,scrollbars=yes,resizable=yes,width=400,height=150'); return false;">Add note</a>
-% my $url = uri_escape($r->uri.'?'.$r->args);
-% if (!$is_mine and $is_open and
-%	  UserStuff->IsAutoMod($session{privs}) and
-%	  $mod->IsAutoModType($mod->GetType)) {
-		   | <a href="/mod/approve.html?modid=<% $mod->GetId %>&amp;url=<% $url %>">Approve</a>
-% }
-% if ($is_mine and $is_open) {
-			| <a href="/mod/remove.html?modid=<% $mod->GetId %>&amp;url=<% $url %>">Delete mod</a>
-% }
-			]
-   </td>
-</tr>
-<tr>
 
-   <td class="ShowModOld">
-%			$mod->ShowPreviousValue($m, $inline);
-   </td>
+%	unless ($inline)
+%	{
 
-   <td class="ShowModNew">
-%			$mod->ShowNewValue($m, $inline);
-   </td>
+	<tr>
+		<td bgcolor="#FFBA58" colspan="3"><img src="/images/pixel.gif" width="1" height="1" alt="" border="" /></td>
+	</tr>
 
-   <td class="ShowModVote">
+% 	}
 
-% unless ($voted == &ModDefs::VOTE_NOTVOTED) {
+	<tr>
+	   <td class="ShowModInfo">
+	   		<table class="editfields">
+	   			<tr>
+	   				<td>
+	   					<& /comp/linkuser,
+							id => $mod->GetModerator,
+							name => $mod->GetModeratorName,
+							title => "Editor", strong => 0 &></td>
+				</tr>
+			</table>
+
+			<div class="attrlist">
+	   			Edit ID: <a href="/show/edit/?editid=<% $mod->GetId %>"
+						title="View details of this edit"><% $mod->GetId %></a><br/>
+
+% 	if ($mod->GetLanguageId)
+%	{
+	   			Language: <% $mod->GetLanguage->GetName %><br/>
+%	}
+
+%	my $timelbl = ($is_open
+%		? $mod->GetExpired ? "Expired" : "Expires"
+%		: "Closed");
+
+				<% $timelbl %>: <% $time |n %><br/>
+
+% 	if ($mod->GetAutomod)
+%	{
+				<a href="/mod_intro.html#automod">Autoedit</a>
+% 	}
+		 	</div>
+		</td>
+
+		<td class="ShowModType">
+			<%perl> $mod->ShowModType($m); </%perl></td>
+
+		<td class="ShowModVoteHead">
+
+%#	if ($is_mine or
+%#		not $is_open or
+%#		$voted != &ModDefs::VOTE_NOTVOTED)
+%#	{
+			<% $mod->GetYesVotes %> yes, <% $mod->GetNoVotes %> no
+			<br />
+%#	}
+
+		[ <a href="/mod/addnote.html?modid=<% $mod->GetId %>" onclick="MyWindow=window.open('/mod/addnote.html?modid=<% $mod->GetId %>','AddNote','toolbar=no,location=no,directories=no,status=no,menubar=no,scrollbars=yes,resizable=yes,width=400,height=150'); return false;">Add note</a>
+
+% 	my $url = uri_escape($r->uri.'?'.$r->args);
+% 	if (!$is_mine and
+%		$is_open and
+%		UserStuff->IsAutoMod($session{privs}) and
+%		$mod->IsAutoModType($mod->GetType))
+%	{
+			   | <a href="/mod/approve.html?modid=<% $mod->GetId %>&amp;url=<% $url %>">Approve</a>
+%	}
+
+%	if ($is_mine and $is_open)
+%	{
+				| <a href="/mod/remove.html?modid=<% $mod->GetId %>&amp;url=<% $url %>">Delete mod</a>
+% 	}
+				]
+	   </td>
+	</tr>
+	<tr>
+		<td class="ShowModOld">
+			<%perl>$mod->ShowPreviousValue($m, $inline);</%perl></td>
+
+		<td class="ShowModNew">
+			<%perl>$mod->ShowNewValue($m, $inline);</%perl></td>
+
+		<td class="ShowModVote">
+
+% 	unless ($voted == &ModDefs::VOTE_NOTVOTED)
+%	{
 			<% ($voter == $session{uid}) ? "Your" : "Their" %> vote:
-			<% MusicBrainz::Server::Vote->GetVoteName($voted) %><br>
-% }
+			<% MusicBrainz::Server::Vote->GetVoteName($voted) %><br />
+%	}
 
-% if (not $is_mine and $is_open and $session{has_confirmed_email}) {
+%	if (not $is_mine and
+%		$is_open and
+%		$session{has_confirmed_email})
+%	{
 %		$$voteflag = 1 if $voteflag;
-     <& /mod/voting-buttons.inc, mod => $mod, vote => $voted, inline => $inline &>
-% } else {
-     <% $mod->GetChangeName %>
-%    unless ($session{has_confirmed_email}) {
-	   <span style="font-size: 8pt;"><br>(No email provided<br> -- you can't vote)</span>
-%    }
-% }
 
-   </td>
+			<& /mod/voting-buttons.inc, mod => $mod, vote => $voted, inline => $inline &>
+%	}
+%	else
+%	{
 
-</tr>
+			<% $mod->GetChangeName %>
 
-% if (@$notes) {
-<tr>
-   <td colspan="3" valign=top bgcolor=white class="edit_notes">
-     Notes:<br>
-%    for my $note (@$notes) {
-        &nbsp;&nbsp;&nbsp;&nbsp;
-%       my $bold = ($note->GetUserId == $mod->GetModerator) ? 'bold' : 'body';
-        <a href="/user/view.html?uid=<% $note->GetUserId %>"
-	    ><font class="<% $bold %>"><% $note->GetUserName %></font></a>:
-        <% $note->GetTextAsHTML |n %><br>
-%    }
-   </td>
-</tr>
-% }
+%		unless ($session{has_confirmed_email})
+%		{
+
+			<span style="font-size: 8pt;">
+				<br />(No email provided
+				<br /> -- you cannot vote)
+			</span>
+%		}
+%	}
+
+		</td>
+	</tr>
+
+%	if (@$notes)
+%	{
+
+	<tr>
+		<td colspan="3" valign="top" bgcolor="white" class="edit_notes">
+
+			 Notes:<br />
+
+			 <table class="noteslist">
+
+
+%		for my $note (@$notes)
+%		{
+%			my ($strong, $title) = (0, "Voter");
+%			($strong, $title) = (1, "Editor") if ($note->GetUserId == $mod->GetModerator);
+
+				<tr>
+					<td class="noter">
+						<& /comp/linkuser,
+							id => $note->GetUserId,
+							name => $note->GetUserName,
+							strong => $strong,
+							icon => 0,
+							title => $title &>:</td>
+					<td class="text">
+
+%			$m->out(qq!<span class="modbot">!) if ($note->GetUserId	== &ModDefs::MODBOT_MODERATOR);
+
+						<% $note->GetTextAsHTML |n %>
+
+%			$m->out(qq!</span>!) if ($note->GetUserId == &ModDefs::MODBOT_MODERATOR);
+
+					</td>
+				</tr>
+%		}
+			</table>
+		</td>
+	</tr>
+
+%	}

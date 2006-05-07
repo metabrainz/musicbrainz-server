@@ -4,10 +4,10 @@
 	<form method="get" action="/showmod.html" id="JumpMod">
 		<table class="formstyle">
 			<tr>
-				<td class="label">Enter moderation id:</td>
+				<td class="label">Jump to an Edit ID:</td>
 				<td>
 					<input type="text" name="modid" size="10" value="<% $modid %>" />
-					<input type="submit" value="Go" /></td>
+					<input type="submit" value="Go!" /></td>
 			</tr>
 		</table>
 	</form>

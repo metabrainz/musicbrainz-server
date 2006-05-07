@@ -1,111 +1,160 @@
-%# vi: set ts=4 sw=4 ft=mason :
+<%perl>
+	# -----------------------------------------------------------------------------
+	#                               Musicbrainz.org
+	#                        Copyright (c) 2001 Robert Kaye
+	# -----------------------------------------------------------------------------
+	#  This software is provided "as is", without warranty of any kind, express or
+	#  implied, including  but not limited  to the warranties of  merchantability,
+	#  fitness for a particular purpose and noninfringement. In no event shall the
+	#  authors or  copyright  holders be  liable for any claim,  damages or  other
+	#  liability, whether  in an  action of  contract, tort  or otherwise, arising
+	#  from,  out of  or in  connection with  the software or  the  use  or  other
+	#  dealings in the software.
+	#
+	#  GPL - The GNU General Public License    http://www.gnu.org/licenses/gpl.txt
+	#  Permits anyone the right to use and modify the software without limitations
+	#  as long as proper  credits are given  and the original  and modified source
+	#  code are included. Requires  that the final product, software derivate from
+	#  the original  source or any  software  utilizing a GPL  component, such  as
+	#  this, is also licensed under the GPL license.
+	# -----------------------------------------------------------------------------
+	#
+	# Summary:
+	# -----------------------------------------------------------------------------
+	# This component lists the edits which match the given query. Open edits
+	# can be vored on, and own edits can be deleted.
+	#
+	# $URL$
+	# $Id$
+	#
+</%perl>
 <%args>
-$query
-$voter_id
-$page => undef
-$offset => undef
-$args
+	$query
+	$voter_id
+	$page => undef
+	$offset => undef
+	$args
 </%args>
 <%perl>
 
-my $max_items = UserPreference::get('mods_per_page');
-$offset = ($page-1) * $max_items if not defined $offset and defined $page;
-$offset = 0 if not defined $offset;
-$offset = 0 if $offset < 0;
+	my $max_items = UserPreference::get('mods_per_page');
+	$offset = ($page-1) * $max_items if (not defined $offset and defined $page);
+	$offset = 0 if (not defined $offset);
+	$offset = 0 if ($offset < 0);
 
-my $mb = $m->comp("/comp/dblogin");
-my $mod = Moderation->new($mb->{DBH});
-
-my ($result, $mods, $total_mods) = $mod->GetModerationList(
-	$query, $voter_id,
-	$offset, $max_items,
-);
-
-# If timed out, make an empty list
-$mods ||= [];
-
-$m->comp("/comp/redirect", "/mod/search/index.html")
-	if $result == &Moderation::SEARCHRESULT_NOQUERY;
-
-$m->comp("/comp/sidebar", title=>'Moderation Search');
-
-# Do we show the "vote" button?
-# XXX this is based upon $mod->GetVote, but that might be showing someone
-# else's votes, not ours!
-my $show_button = 0;
-
-my %notes;
-if (@$mods)
-{
-	my $notes = MusicBrainz::Server::ModerationNote->new($mb->{DBH});
-	my @notes = $notes->newFromModerationIds(
-		map { $_->GetId } @$mods
+	# Instantiate MusicBrainz object, and fetch list of
+	# matching edit objects
+	my $mb = $m->comp("/comp/dblogin");
+	my $mod = Moderation->new($mb->{DBH});
+	my ($result, $mods, $total_mods) = $mod->GetModerationList(
+		$query, $voter_id,
+		$offset, $max_items,
 	);
-	push @{ $notes{ $_->GetModerationId } }, $_
-		for @notes;
-}
+
+	# If timed out, make an empty list
+	$mods ||= [];
+
+	$m->comp("/comp/redirect", "/mod/search/index.html")
+		if ($result == &Moderation::SEARCHRESULT_NOQUERY);
+
+	# Do we show the "vote" button?
+	# XXX this is based upon $mod->GetVote, but that might be showing someone
+	# else's votes, not ours!
+	my $show_button = 0;
+
+	my %notes;
+	if (@$mods)
+	{
+		my $notes = MusicBrainz::Server::ModerationNote->new($mb->{DBH});
+		my @notes = $notes->newFromModerationIds(
+			map { $_->GetId } @$mods
+		);
+		push @{ $notes{ $_->GetModerationId } }, $_
+			for @notes;
+	}
 
 </%perl>
 
-<table width="100%">
-<tr>
-<td colspan="2" align="center" NOWRAP>
+<& /comp/sidebar-notitle, pagetitle => "Search for and browse edits" &>
+	<& /comp/tablebegin, title => "Search for and browse edits" &>
 
-	<div class="LinksRow">
-% if (defined $total_mods) {
-<% $total_mods %> matching mod<% (($total_mods==1) ? "" : "s") %> &nbsp;
-% }
-[ <a href="/mod/search/select-filter.html">New Search</a> |
-<a href="/mod/search/index.html?<% $m->comp('/comp/args-to-querystring.inc', %$args) %>">Advanced Search</a> |
-<a href="/mod/jump.html">Jump</a> |
-<a href="/wd/ModerationFAQ">FAQ</a> |
-<a href="/style.html">Style</a> |
-<a href="/mod_intro.html">Help</a>
-	]</div>
+		<table class="formstyle">
+			<tr>
+				<td class="label">
+					Quick links:</td>
+				<td>
+					<a href="/mod/search/select-filter.html">Predefined Edit Search</a> |
+					<a href="/mod/search/index.html?<% $m->comp('/comp/args-to-querystring.inc', %$args) %>">Advanced Edit Search</a> |
+					<a href="/mod/search/pre/new.html">New edits</a> |
+					<a href="/mod/jump.html">Jump</a>
+			</tr>
+			<tr>
+				<td class="label">
+					Help:</td>
+				<td>
+					<& /comp/linkdoc, "ModerationFAQ", "Editing FAQ" &> |
+					<& /comp/linkdoc, "StyleGuideline", "Style guidelines" &> |
+					<& /comp/linkdoc, "HowEditingWorks", "How editing works" &>
+				</td>
+			</tr>
+			<tr class="top">
+				<td class="label">
+					Results:</td>
+				<td>
 
-	<div class="LinksRow">[
-<a href="/mod/search/pre/new.html">New</a> |
-<a href="/mod/search/pre/subscriptions.html">Subscribed</a>
-] &nbsp; [
-<a href="/mod/search/pre/moderator.html">My Mods</a> |
-<a href="/mod/search/pre/since-login.html">Since Login</a> |
-<a href="/mod/search/pre/moderator-failed.html">My Failed Mods</a> |
-<a href="/mod/search/pre/voted.html">My Votes</a>
-	]</div>
+%	if ($result == &Moderation::SEARCHRESULT_TIMEOUT)
+%	{
 
-</td>
-</tr>
-</table>
+					<strong>Your query was cancelled, because it was taking too
+					long.</strong> Please try to <a href="/mod/search/index.html?<%
+					$m->comp('/comp/args-to-querystring.inc', %$args) %>">narrow
+					down your search</a>, or try again later.
 
-% if ($result == &Moderation::SEARCHRESULT_TIMEOUT) {
-	<center>
-	Your moderation query was cancelled, because it was taking too
-	long.&nbsp; Please try to
-	<a href="/mod/search/index.html?<% $m->comp('/comp/args-to-querystring.inc', %$args) %>">narrow down your search</a>,
-	or try again later.
-	</center>
-% } elsif (not @$mods) {
-   <center>
-   <br><br>
-   No moderations found.
-   </center>
-%}
 
-% if ($total_mods-$offset > $max_items || $offset > 0) {
-<& /comp/framedboxbegin, width=>"100%", style=>"margin: 1em 0" &>
-<& /comp/pageselector,
-   url=>"/mod/search/results.html",
-   args=>$args,
-   offset=>$offset,
-   pagesize=>$max_items,
-   numitems=>$total_mods,
-&>
-<& /comp/framedboxend &>
-% }
+%	}
+%	elsif (not @$mods)
+%	{
 
-% if (@$mods) {
-<form method="POST" action="/bare/vote.html"
-      enctype="application/x-www-form-urlencoded" class="formstyle">
+					<strong>No edits found matching the current selection.</strong>
+					Use the <a href="/mod/search/index.html?<%
+					$m->comp('/comp/args-to-querystring.inc', %$args) %>">advanced
+					edit search</a> to find the edits you are looking for.
+
+%	}
+%	elsif (defined $total_mods)
+%	{
+
+					Found <% $total_mods %> edit<% ($total_mods == 1) ? "" : "s" %>
+					matching the current selection.
+
+% 	}
+
+				</td>
+			</tr>
+		</table>
+
+%	if (defined $total_mods and
+%		$total_mods-$offset > $max_items || $offset > 0)
+%	{
+
+		<div style="margin-left: 168px">
+			<& /comp/browse/pageselector,
+			   url => "/mod/search/results.html",
+			   args => $args,
+			   offset => $offset,
+			   pagesize => $max_items,
+			   numitems => $total_mods,
+			&>
+		</div>
+
+%	}
+
+	<& /comp/tableend &>
+
+% 	if (@$mods)
+%	{
+
+	<form method="post" action="/bare/vote.html">
 
 <table border="0" cellpadding="0" cellspacing="0"
        bgcolor="#000000" width="100%">
@@ -146,6 +195,8 @@ for my $obj (@$mods)
 </table>
 %}
 
+	<script type="text/javascript" src="/scripts/jsdiff.js"></script>
+	<script type="text/javascript" src="/scripts/collapsereleases.js"></script>
 </form>
 % }
 
