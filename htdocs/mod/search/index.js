@@ -140,7 +140,11 @@ function AdvancedEditSearch() {
 				field.selectedIndex = -1;
 			} else if (field.length) {
 				for (var j=0; j<field.length; j++) {
-					field.checked = false;
+					var fieldj = field[j];
+					var label = fieldj.nextSibling;
+					var text = (label.innerHTML || "Any");
+					fieldj.checked = (text == "Any" ||	
+									  text == "Oldest first");
 				}
 			}
 			this.updateFilterDesc(field);
@@ -170,9 +174,9 @@ function AdvancedEditSearch() {
 				for (var j=0; j<field.length; j++) {
 					var fieldj = field[j];
 					var label = fieldj.nextSibling;
-					fieldj.style.marginRight = "5px";
-
 					var text = (label.innerHTML || "Any");
+
+					fieldj.style.marginRight = "5px";
 					if (text != "Any") {
 						if (fieldj.checked) {
 							s.push(text);	 
