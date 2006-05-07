@@ -365,46 +365,46 @@ sub IsAutoModType
     my ($this, $type) = @_;
 
     if ($type == &ModDefs::MOD_ADD_ALBUM ||
-        $type == &ModDefs::MOD_ADD_ALBUM_ANNOTATION ||
-        $type == &ModDefs::MOD_ADD_ARTIST ||
-        $type == &ModDefs::MOD_ADD_ARTIST_ANNOTATION ||
-        $type == &ModDefs::MOD_ADD_ARTISTALIAS ||
-	$type == &ModDefs::MOD_ADD_LINK ||
-	$type == &ModDefs::MOD_ADD_LINK_ATTR ||
-	$type == &ModDefs::MOD_ADD_LINK_TYPE ||
-        $type == &ModDefs::MOD_ADD_PUIDS ||
-        $type == &ModDefs::MOD_ADD_TRACK ||
-        $type == &ModDefs::MOD_ADD_TRACK_KV ||
-        $type == &ModDefs::MOD_ADD_TRMS ||
-        $type == &ModDefs::MOD_EDIT_ALBUM_LANGUAGE ||
-        $type == &ModDefs::MOD_EDIT_ALBUMATTRS ||
-        $type == &ModDefs::MOD_EDIT_ALBUMNAME ||
-        $type == &ModDefs::MOD_EDIT_ARTIST ||
-        $type == &ModDefs::MOD_EDIT_ARTISTALIAS ||
-        $type == &ModDefs::MOD_EDIT_ARTISTNAME ||
-        $type == &ModDefs::MOD_EDIT_ARTISTSORTNAME ||
-	$type == &ModDefs::MOD_EDIT_LINK ||
-	$type == &ModDefs::MOD_EDIT_LINK_TYPE ||
-	$type == &ModDefs::MOD_EDIT_LINK_ATTR ||
-        $type == &ModDefs::MOD_EDIT_RELEASES ||
-        $type == &ModDefs::MOD_EDIT_TRACKNAME ||
-        $type == &ModDefs::MOD_EDIT_TRACKNUM ||
-        $type == &ModDefs::MOD_EDIT_TRACKTIME ||
-        $type == &ModDefs::MOD_CHANGE_TRACK_ARTIST ||
-        $type == &ModDefs::MOD_MAC_TO_SAC ||
-        $type == &ModDefs::MOD_MOVE_ALBUM ||
-        $type == &ModDefs::MOD_MOVE_DISCID ||
-        $type == &ModDefs::MOD_SAC_TO_MAC ||
-        $type == &ModDefs::MOD_REMOVE_ARTIST ||
-        $type == &ModDefs::MOD_REMOVE_TRMID ||
-        $type == &ModDefs::MOD_REMOVE_PUID ||
-	$type == &ModDefs::MOD_REMOVE_LINK_TYPE ||
-	$type == &ModDefs::MOD_REMOVE_LINK_ATTR ||
-	$type == &ModDefs::MOD_CHANGE_WIKIDOC)
-    {
-        return 1;
-    }
-    return 0;
+		$type == &ModDefs::MOD_ADD_ALBUM_ANNOTATION ||
+		$type == &ModDefs::MOD_ADD_ARTIST ||
+		$type == &ModDefs::MOD_ADD_ARTIST_ANNOTATION ||
+		$type == &ModDefs::MOD_ADD_ARTISTALIAS ||
+		$type == &ModDefs::MOD_ADD_LINK ||
+		$type == &ModDefs::MOD_ADD_LINK_ATTR ||
+		$type == &ModDefs::MOD_ADD_LINK_TYPE ||
+		$type == &ModDefs::MOD_ADD_PUIDS ||
+		$type == &ModDefs::MOD_ADD_TRACK ||
+		$type == &ModDefs::MOD_ADD_TRACK_KV ||
+		$type == &ModDefs::MOD_ADD_TRMS ||
+		$type == &ModDefs::MOD_EDIT_ALBUM_LANGUAGE ||
+		$type == &ModDefs::MOD_EDIT_ALBUMATTRS ||
+		$type == &ModDefs::MOD_EDIT_ALBUMNAME ||
+		$type == &ModDefs::MOD_EDIT_ARTIST ||
+		$type == &ModDefs::MOD_EDIT_ARTISTALIAS ||
+		$type == &ModDefs::MOD_EDIT_ARTISTNAME ||
+		$type == &ModDefs::MOD_EDIT_ARTISTSORTNAME ||
+		$type == &ModDefs::MOD_EDIT_LINK ||
+		$type == &ModDefs::MOD_EDIT_LINK_TYPE ||
+		$type == &ModDefs::MOD_EDIT_LINK_ATTR ||
+		$type == &ModDefs::MOD_EDIT_RELEASES ||
+		$type == &ModDefs::MOD_EDIT_TRACKNAME ||
+		$type == &ModDefs::MOD_EDIT_TRACKNUM ||
+		$type == &ModDefs::MOD_EDIT_TRACKTIME ||
+		$type == &ModDefs::MOD_CHANGE_TRACK_ARTIST ||
+		$type == &ModDefs::MOD_MAC_TO_SAC ||
+		$type == &ModDefs::MOD_MOVE_ALBUM ||
+		$type == &ModDefs::MOD_MOVE_DISCID ||
+		$type == &ModDefs::MOD_SAC_TO_MAC ||
+		$type == &ModDefs::MOD_REMOVE_ARTIST ||
+		$type == &ModDefs::MOD_REMOVE_TRMID ||
+		$type == &ModDefs::MOD_REMOVE_PUID ||
+		$type == &ModDefs::MOD_REMOVE_LINK_TYPE ||
+		$type == &ModDefs::MOD_REMOVE_LINK_ATTR ||
+		$type == &ModDefs::MOD_CHANGE_WIKIDOC)
+	{
+		return 1;
+	}
+	return 0;
 }
 
 sub GetChangeName
@@ -1169,7 +1169,7 @@ sub ShowModType
 
 	use MusicBrainz qw( encode_entities );
 
-	$mason->out(qq!<table class="editfields">!);
+	$mason->out(qq!<table class="edittype">!);
 
 	# output edittype as wikidoc link
 	$mason->out(qq!<tr><td class="lbl">Type:</td><td>!);
@@ -1187,64 +1187,95 @@ sub ShowModType
 	);
 	$mason->out(qq!</td></tr>!);
 
+	# default exists is to check if the given name is set
+	# in the values hash.
+	($this->{'exists-album'}, $this->{'exists-track'}) =  ($this->{"albumname"}, $this->{"trackname"});
 
-
-	# special case, retrieve albumid from new_unpacked values, if edittype
-	# is add release.
-	if ($this->GetType ==  &ModDefs::MOD_ADD_ALBUM)
+	# attempt to load track entity, and see if it still exists.
+	# --- this flag was set in the individual PostLoad
+	#     implementations of the edit types
+	if ($this->{"checkexists-track"})
 	{
-		my $new = $this->{'new_unpacked'};
-		(my $releaseid) = grep { defined } (@$new{'AlbumId', '_albumid'}, 0);
-
-		my $release = Album->new($this->{DBH});
-		   $release->SetId($releaseid);
-		if ($release->LoadFromId) 
+		require Track;
+		my $track = Track->new($this->{DBH});
+		$track->SetId($this->{'trackid'});
+		if ($this->{'exists-track'} = $track->LoadFromId)
 		{
-			$this->{albumid} = $release->GetId;
-			$this->{albumname} = $release->GetName;
+			$this->{'trackid'} = $track->GetId;
+			$this->{'trackname'} = $track->GetName;
+			
+			# assume that the release needs to be loaded from
+			# the album-track core relationship, if it not
+			# has been set explicitly.
+			$this->{'albumid'} = $track->GetAlbum if (not defined $this->{'albumid'});
 		}
 	}
-	else
+	
+	# attempt to load release entity, and see if it still exists
+	# --- this flag was set in the individual PostLoad
+	#     implementations of the edit types	
+	if ($this->{"checkexists-album"})
 	{
-		$this->{albumid} = $this->GetRowId if ($this->GetTable eq "album");
+		require Album;
+		my $release = Album->new($this->{DBH});
+		$release->SetId($this->{'albumid'});
+		if ($this->{'exists-album'} = $release->LoadFromId)
+		{
+			$this->{'albumid'} = $release->GetId;
+			$this->{'albumname'} = $release->GetName;
+		}	
 	}
 	
+	# do not display release if we have a batch edit type
+	$this->{albumid} = undef 
+		if ($this->GetType == &ModDefs::MOD_EDIT_RELEASES or
+			$this->GetType == &ModDefs::MOD_REMOVE_ALBUMS or
+			$this->GetType == &ModDefs::MOD_MERGE_ALBUM or
+			$this->GetType == &ModDefs::MOD_MERGE_ALBUM_MAC or
+			$this->GetType == &ModDefs::MOD_EDIT_ALBUM_LANGUAGE or
+			$this->GetType == &ModDefs::MOD_EDIT_ALBUMATTRS);
 	
-	
-	# special case, retrieve trackid from new_unpacked values, if edittype
-	# is add track.
-	$this->{trackid} = $this->GetRowId if ($this->GetTable eq "track");
 	
 	# output the release this edit is listed under.
 	if (defined $this->{albumid})
 	{
-		my ($id, $name, $title) = ($this->{albumid}, $this->{albumname}, undef);
-		if (not defined $name)
+		my ($id, $name, $title, $strong) = ($this->{albumid}, $this->{albumname}, undef, 1);
+		if (not $this->{'exists-album'})
 		{
-			$name = "This release has been deleted";
-			$title = "ReleaseId: $id";
-			$id = -1;			
+			$name = "This release has been removed" if (not defined $name);
+			$title = "This release has been removed, Id: $id";
+			$id = -1;	
+			$strong = 0;
 		}
 		
 		$mason->out(qq!<tr><td class="lbl">Release:</td><td>!);	
-		$mason->comp("/comp/linkrelease", id => $id, name => $name, title => $title);
+		$mason->comp("/comp/linkrelease", id => $id, name => $name, title => $title, strong => $strong);
 		$mason->out(qq!</td></tr>!);	
 		$mason->out(qq!</tr>!);	
 	}
+
+	# set trackid from rowid if the edit is targeting the track table	
+	$this->{trackid} = $this->GetRowId if ($this->GetTable eq "track");
+
+	# fetch trackname from previous value if it is the value
+	# begin edited.
+	$this->{trackname} = $this->GetPrev
+		if ($this->GetType == &ModDefs::MOD_EDIT_TRACKNAME);	
 	
 	# output the track this edit is listed under.
 	if (defined $this->{trackid})
 	{
-		my ($id, $name, $title) = ($this->{trackid}, $this->{trackname}, undef);
-		if (not defined $name)
+		my ($id, $name, $title, $strong) = ($this->{trackid}, $this->{trackname}, undef, 1);
+		if (not $this->{'exists-track'})
 		{
-			$name = "This track has been deleted";
-			$title = "TrackId: $id";
+			$name = "This track has been removed" if (not defined $name);
+			$title = "This track has been removed, Id: $id";
 			$id = -1;
+			$strong = 0;
 		}
 		
 		$mason->out(qq!<tr><td class="lbl">Track:</td><td>!);	
-		$mason->comp("/comp/linktrack", id => $id, name => $name, title => $title);
+		$mason->comp("/comp/linktrack", id => $id, name => $name, title => $title, strong => $strong);
 		$mason->out(qq!</td></tr>!);	
 		$mason->out(qq!</tr>!);	
 	}	
