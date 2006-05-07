@@ -606,16 +606,47 @@ sub GetShortText
 	my $self = shift;
 	my $text = $self->{text};
 
-	$text = decode "utf-8", $text;
+	use MusicBrainz qw( encode_entities );
 
+	$text = decode "utf-8", $text;
 	$text =~ s/(\015\012|\012\015|\012|\015)\1+/\n\n/g;
 	$text =~ s/\s+\z//;
+
+	# shorten url's that are longer than ~50 chars.
+	my $is_url = 1;	
+	$text = join "", map {
+
+		my $disp = (length($_) > 50
+					? substr($_, 0, 47) . "..."
+					: $_);
+	
+		my $enc = encode_entities($_);
+		($is_url = not $is_url)
+			? qq[<a href="$enc" title="$enc">$disp</a>]
+			: $enc;
+	} split /
+		(
+			# Something that looks like the start of a URL
+			\b
+			(?:https?|ftp)
+			:\/\/
+			.*?
+			# Stop at one of these sequences:
+			(?=
+				\z # end of string
+				| \s # any space
+				| [,\.!\?](?:\s|\z) # punctuation then space or end
+				| [\x29"'>] # any of these characters
+			)
+		)
+		/six, $text, -1;
 
 	# Is there a summary marker? (specifically, a paragraph consisting entirely
 	# of hyphens).
 	if (my ($summary, $rest) = $text =~ /\A(.*)\n\n+-+\n\n(.*)\z/s)
 	{
 		my ($sc, $sw, $sl, $sp) = $self->_count_text($summary);
+
 		# Is the marker in a sensible place?  If so, return the summary text
 		return (TRUNC_PARA, encode("utf-8", $summary))
 			if $sw >= 20 and $sl <= 10;
