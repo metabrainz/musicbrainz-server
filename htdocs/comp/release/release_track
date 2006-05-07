@@ -154,14 +154,14 @@
 				       	"Edit Track Name, Number and Length");
 		if ($album->CanRemoveTrack($track->GetSequence))
 		{
-			$m->out(sprintf qq! | <a href="/edit/track/remove.html?releaseid=%s&amp;trackid=%s" title="%s">Rem</a>!,
+			$m->out(sprintf qq! | <a href="/edit/track/remove.html?releaseid=%s&amp;trackid=%s" title="%s">Remove</a>!,
 							$album->GetId(),
 							$track->GetId(),
 							"Remove this Track from the Release");
 		}
 		else
 		{
-			$m->out(sprintf qq! | <acronym title="%s">Rem</acronym>!,
+			$m->out(sprintf qq! | <acronym title="%s">Remove</acronym>!,
 							"Tracks cannot be removed from this Release because of attached Disc IDs");
 		}
 		$m->out("</td>\n");

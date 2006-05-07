@@ -91,7 +91,7 @@
 							title="Move Disc ID to another release">Move</a> |
 
 						<a href="/edit/discid/remove.html?tocid=<% $tocid %>&amp;releaseid=<% $releaseid %>"
-							title="Remove this Disc ID from the Release">Rem</a>
+							title="Remove this Disc ID from the Release">Remove</a>
 					</td>
 %				}
 				</tr>
