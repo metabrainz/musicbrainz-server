@@ -56,7 +56,6 @@
 	die ("$id and $name are required") if (not defined $id || not defined $name);
 
 	# render link.
-	$m->out(qq!<strong>!) if ($strong);
 	$m->out(qq!<img src="/images/entity/track_small.gif" alt="Track" class="entityicon" />!) if ($icon);
 
 	# enclose the value in title in proper attribute tag,
@@ -68,11 +67,15 @@
 	# if the id not negative, show a link, else show the name only
 	if (MusicBrainz::IsNonNegInteger($id))
 	{
+		$m->out(qq!<strong>!) if ($strong);
+
 		# if the MBID is defined, use the "preferred" way of displaying release links.
 		$m->out(sprintf qq!<a href="%s"%s>%s</a>!,
 						defined $mbid ? "/track/$mbid.html" : "/show/track/?trackid=$id",
 						$title,
 						$m->interp->apply_escapes($name, 'h'));
+
+		$m->out(qq!</strong>!) if ($strong);
 	}
 	else
 	{
@@ -83,6 +86,5 @@
 						$m->interp->apply_escapes($name, 'h'));
 	}
 
-	$m->out(qq!</strong>!) if ($strong);
 
 </%perl>

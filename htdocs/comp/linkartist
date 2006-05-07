@@ -45,9 +45,9 @@
 	$showresolution => 1
 	$icon => 1
 	$strong => 1
+	$title => ""
 </%args>
 <%perl>
-
 	if (defined $artist)
 	{
 		$id = $artist->GetId;
@@ -61,18 +61,26 @@
 	# fallback to artistname if no sortname is provided.
 	$sortname = $sortname || $name;
 
-	$m->out(qq!<strong>!) if ($strong);
+	# use given title, or use sortname
+	$title ||= $sortname;
+	$id = -1 if ($id == &ModDefs::DARTIST_ID);
+
 	$m->out(qq!<img src="/images/entity/artist_small.gif" alt="Artist" class="entityicon" />!) if ($icon);
 
 	# if the id not negative, show a link,
 	# else show the name only
 	if (MusicBrainz::IsNonNegInteger($id))
 	{
+		$m->out(qq!<strong>!) if ($strong);
+
 		# if the MBID is defined, use the "preferred" way of displaying artist links.
 		$m->out(sprintf qq!<a href="%s" title="%s">%s</a>!,
 						defined $mbid ? "/artist/$mbid.html" : "/show/artist/?artistid=$id",
-						$m->interp->apply_escapes($sortname, 'h'),
+						$m->interp->apply_escapes($title, 'h'),
 						$m->interp->apply_escapes($name, 'h'));
+
+		$m->out(qq!</strong>!) if ($strong);
+
 	}
 	else
 	{
@@ -81,11 +89,9 @@
 		# called from a moderation in which the ArtistId field
 		# was not given.
 		$m->out(sprintf qq!<acronym title="%s">%s</acronym>!,
-						$m->interp->apply_escapes($sortname, 'h'),
+						$m->interp->apply_escapes($title, 'h'),
 						$m->interp->apply_escapes($name, 'h'));
 	}
-
-	$m->out(qq!</strong>!) if ($strong);
 
 	# render resolution?
 	if ($showresolution && $resolution ne "")
