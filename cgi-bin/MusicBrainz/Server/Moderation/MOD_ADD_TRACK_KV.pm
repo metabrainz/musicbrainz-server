@@ -161,7 +161,14 @@ sub PostLoad
 	my $self = shift;
 	$self->{'new_unpacked'} = $self->ConvertNewToHash($self->GetNew)
 		or die;
+		
+	# extract trackid, albumid from new_unpacked hash
+	my $new = $self->{'new_unpacked'};
+
+	($self->{"trackid"}, $self->{"checkexists-track"}) = ($new->{'TrackId'}, 1);
+	($self->{"albumid"}, $self->{"checkexists-album"}) = ($new->{'AlbumId'}, 1);
 }
+
 
 sub ApprovedAction
 {

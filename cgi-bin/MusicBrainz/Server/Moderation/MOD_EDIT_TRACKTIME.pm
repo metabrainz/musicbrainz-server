@@ -37,27 +37,31 @@ sub PreInsert
 {
 	my ($self, %opts) = @_;
 
-	my $tr = $opts{'track'} or die;
+	my $track = $opts{'track'} or die;
 	my $newlength = $opts{'newlength'};
 
-	$self->SetArtist($tr->GetArtist);
-	$self->SetPrev($tr->GetLength);
+	$self->SetArtist($track->GetArtist);
+	$self->SetPrev($track->GetLength);
 	$self->SetNew(0+$newlength);
 	$self->SetTable("track");
 	$self->SetColumn("length");
-	$self->SetRowId($tr->GetId);
+	$self->SetRowId($track->GetId);
 }
 
-sub PreDisplay
+sub PostLoad
 {
-	my $this = shift;
+	my $self = shift;
 
-	# load track name
-	require Track;
-	my $tr = Track->new($this->{DBH});
-	$tr->SetId($this->GetRowId);
-	$tr->LoadFromId
-		and $this->{'trackname'} = $tr->GetName;
+	# attempt to load the release/track entities from the values
+	# stored in this edit type. (@see Moderation::ShowModType)
+	# -- the album will be loaded from the album-track core
+	#    relationship if the track was loaded successfully.
+	($self->{"trackid"}, $self->{"checkexists-track"}) = ($self->GetRowId, 1);
+	($self->{"albumid"}, $self->{"checkexists-album"}) = (undef, 1);	
+	
+	# TODO: what can we do that the release is loaded from this track object?
+	# Track.LoadFromId without an albumid set, should load the albumid
+	# from the albumjoin table, but it does not.
 }
 
 sub IsAutoMod
@@ -72,22 +76,22 @@ sub ApprovedAction
 	my $self = shift;
 
 	require Track;
-	my $tr = Track->new($self->{DBH});
-	$tr->SetId($self->GetRowId); 
-	unless ($tr->LoadFromId)
+	my $track = Track->new($self->{DBH});
+	$track->SetId($self->GetRowId); 
+	unless ($track->LoadFromId)
 	{
 		$self->InsertNote(MODBOT_MODERATOR, "This track has been deleted");
 		return STATUS_FAILEDPREREQ;
 	}
 
-	unless ($tr->GetLength == $self->GetPrev)
+	unless ($track->GetLength == $self->GetPrev)
 	{
 		$self->InsertNote(MODBOT_MODERATOR, "Track time has already been changed");
 		return STATUS_FAILEDDEP;
 	}
 	
-	$tr->SetLength($self->GetNew);
-	$tr->UpdateLength;
+	$track->SetLength($self->GetNew);
+	$track->UpdateLength;
 
 	STATUS_APPLIED;
 }

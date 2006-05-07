@@ -37,16 +37,16 @@ sub PreInsert
 {
 	my ($self, %opts) = @_;
 
-	my $tr = $opts{'track'} or die;
+	my $track = $opts{'track'} or die;
 	my $newname = $opts{'newname'};
 	$newname =~ /\S/ or die;
 
-	$self->SetArtist($tr->GetArtist);
-	$self->SetPrev($tr->GetName);
+	$self->SetArtist($track->GetArtist);
+	$self->SetPrev($track->GetName);
 	$self->SetNew($newname);
 	$self->SetTable("track");
 	$self->SetColumn("name");
-	$self->SetRowId($tr->GetId);
+	$self->SetRowId($track->GetId);
 }
 
 sub IsAutoMod
@@ -56,24 +56,38 @@ sub IsAutoMod
 	$old eq $new;
 }
 
+sub PostLoad
+{
+	my $self = shift;
+
+	# attempt to load the release/track entities from the values
+	# stored in this edit type. (@see Moderation::ShowModType)
+	# -- the album will be loaded from the album-track core
+	#    relationship if the track was loaded successfully.
+	($self->{"trackid"}, $self->{"checkexists-track"}) = ($self->GetRowId, 1);
+	($self->{"albumid"}, $self->{"checkexists-album"}) = (undef, 1);	
+	
+	# TODO: what can we do that the release is loaded from this track object?
+	# Track.LoadFromId without an albumid set, should load the albumid
+	# from the albumjoin table, but it does not.	
+}
+
 sub CheckPrerequisites
 {
 	my $self = shift;
 
-	my $rowid = $self->GetRowId;
-
 	# Load the track by ID
 	require Track;
-	my $tr = Track->new($self->{DBH});
-	$tr->SetId($rowid);
-	unless ($tr->LoadFromId)
+	my $track = Track->new($self->{DBH});
+	$track->SetId($self->GetRowId);
+	unless ($track->LoadFromId)
 	{
 		$self->InsertNote(MODBOT_MODERATOR, "This track has been deleted");
 		return STATUS_FAILEDDEP;
 	}
 
 	# Check that its name has not changed
-	if ($tr->GetName ne $self->GetPrev)
+	if ($track->GetName ne $self->GetPrev)
 	{
 		$self->InsertNote(MODBOT_MODERATOR, "This track has already been renamed");
 		return STATUS_FAILEDPREREQ;
@@ -87,7 +101,7 @@ sub CheckPrerequisites
 	}
 
 	# Save for ApprovedAction
-	$self->{_track} = $tr;
+	$self->{_track} = $track;
 
 	undef;
 }
@@ -99,11 +113,11 @@ sub ApprovedAction
 	my $status = $this->CheckPrerequisites;
 	return $status if $status;
 
-	my $tr = $this->{_track}
+	my $track = $this->{_track}
 		or die;
 
-	$tr->SetName($this->GetNew);
-	$tr->UpdateName;
+	$track->SetName($this->GetNew);
+	$track->UpdateName;
 
 	STATUS_APPLIED;
 }

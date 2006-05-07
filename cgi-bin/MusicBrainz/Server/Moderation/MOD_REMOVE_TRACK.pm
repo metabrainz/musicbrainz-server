@@ -41,7 +41,7 @@ sub PreInsert
 	my $al = $opts{'album'} or die;
 
 	$self->SetArtist($tr->GetArtist);
-	$self->SetPrev($tr->GetName . "\n" . $al->GetId);
+	$self->SetPrev($tr->GetName . "\n" . $al->GetId . "\n" . $al->IsNonAlbumTracks . "\n" . $tr->GetSequence . "\n" . $tr->GetLength);
 	$self->SetTable("track");
 	$self->SetColumn("name");
 	$self->SetRowId($tr->GetId);
@@ -49,9 +49,22 @@ sub PreInsert
 
 sub PostLoad
 {
-	my $this = shift;
+	my $self = shift;
 	
-	@$this{qw( prev.name prev.albumid )} = split /\n/, $this->GetPrev;
+	@$self{qw( prev.trackname 
+			   prev.albumid 
+			   prev.isnonalbumtracks 
+			   prev.trackseq 
+			   prev.tracklength)} = split /\n/, $self->GetPrev;
+
+	# attempt to load the release/track entities from the values
+	# stored in this edit type. (@see Moderation::ShowModType method)
+	($self->{"trackid"}, $self->{"checkexists-track"}) = ($self->GetRowId, 1);
+	($self->{"albumid"}, $self->{"checkexists-album"}) = ($self->{'prev.albumid'}, 1);
+
+	# store value for the trackname, in case the track can't be loaded from 
+	# the db (e.g. edit was applied)
+	$self->{"trackname"} = $self->{"prev.trackname"};    
 }
 
 sub ApprovedAction
@@ -59,32 +72,31 @@ sub ApprovedAction
 	my $this = shift;
 
 	require Track;
-  	my $tr = Track->new($this->{DBH});
- 	$tr->SetId($this->GetRowId);
-	$tr->SetAlbum($this->{'prev.albumid'});
+	my $track = Track->new($this->{DBH});
+	$track->SetId($this->GetRowId);
+	$track->SetAlbum($this->{'prev.albumid'});
 
 	# Remove the album join for this track
-	$tr->RemoveFromAlbum;
+	$track->RemoveFromAlbum;
 
 	# Now remove the track. The track will only be removed
-   	# if there are no more references to it.
-
-	unless ($tr->Remove)
+	# if there are no more references to it.
+	unless ($track->Remove)
 	{
 		$this->InsertNote(MODBOT_MODERATOR, "This track could not be removed");
 		# TODO should this be "STATUS_ERROR"?  Why would the Remove call fail?
 		return STATUS_FAILEDDEP;
 	}
 
-	# Try to remove the album if it's a "non-album" album
+	# Try to remove the release if it's a "non-album" release
 	require Album;
-	my $al = Album->new($this->{DBH});
-	$al->SetId($this->{'prev.albumid'});
-	if ($al->LoadFromId)
+	my $release = Album->new($this->{DBH});
+	$release->SetId($this->{'prev.albumid'});
+	if ($release->LoadFromId)
 	{
-		$al->Remove
-			if $al->IsNonAlbumTracks
-			and $al->LoadTracks == 0;
+		$release->Remove
+			if $release->IsNonAlbumTracks
+			and $release->LoadTracks == 0;
 	}
 
 	STATUS_APPLIED;

@@ -271,6 +271,14 @@ sub PostLoad
 	my $self = shift;
 	$self->{'new_unpacked'} = $self->ConvertNewToHash($self->GetNew)
 		or die;
+		
+	# extract albumid from new_unpacked hash
+	my $new = $self->{'new_unpacked'};
+	(my $releaseid) = grep { defined } (@$new{'AlbumId', '_albumid'}, 0);
+	
+	# attempt to load the release entitiy from the value
+	# stored in this edit type. (@see Moderation::ShowModType)
+	($self->{"albumid"}, $self->{"checkexists-album"}) = ($releaseid, 1);
 }
 
 sub ApprovedAction

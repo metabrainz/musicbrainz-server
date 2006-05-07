@@ -60,18 +60,22 @@ sub PreInsert
 
 sub PostLoad
 {
-	my $this = shift;
+	my $self = shift;
 
 	# new.name might be undef (in which case, name==sortname)
-  	@$this{qw( new.sortname new.name new.artistid new.movetracks)} = split /\n/, $this->GetNew;
+  	@$self{qw( new.sortname new.name new.artistid new.movetracks)} = split /\n/, $self->GetNew;
 
     # If the name was blank and the new artist id ended up in its slot, swap the two values
-    if ($this->{'new.name'} =~ /\A\d+\z/ && !defined $this->{'new.artistid'})
+    if ($self->{'new.name'} =~ /\A\d+\z/ && !defined $self->{'new.artistid'})
     {
-        $this->{'new.movetracks'} = $this->{'new.artistid'};
-        $this->{'new.artistid'} = $this->{'new.name'};
-        $this->{'new.name'} = undef;
+        $self->{'new.movetracks'} = $self->{'new.artistid'};
+        $self->{'new.artistid'} = $self->{'new.name'};
+        $self->{'new.name'} = undef;
     }
+
+	# attempt to load the release entitiy from the value
+	# stored in this edit type. (@see Moderation::ShowModType)
+	($self->{"albumid"}, $self->{"checkexists-album"}) = ($self->GetRowId, 1);  
 }
 
 sub PreDisplay

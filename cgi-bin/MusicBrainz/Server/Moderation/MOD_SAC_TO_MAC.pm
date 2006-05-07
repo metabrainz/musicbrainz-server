@@ -55,31 +55,38 @@ sub PreInsert
 	$self->SetNew($movetova);
 }
 
+sub PostLoad
+{
+	my $self = shift;
+
+	# attempt to load the release entitiy from the value
+	# stored in this edit type. (@see Moderation::ShowModType)
+	($self->{"albumid"}, $self->{"checkexists-album"}) = ($self->GetRowId, 1);
+}
+
 sub CheckPrerequisites
 {
 	my $self = shift;
 
-	my $rowid = $self->GetRowId;
-
 	# Load the album by ID
 	require Album;
-	my $al = Album->new($self->{DBH});
-	$al->SetId($rowid);
-	unless ($al->LoadFromId)
+	my $release = Album->new($self->{DBH});
+	$release->SetId($self->GetRowId);
+	unless ($release->LoadFromId)
 	{
-		$self->InsertNote(MODBOT_MODERATOR, "This album has been deleted");
+		$self->InsertNote(MODBOT_MODERATOR, "This release has been deleted");
 		return STATUS_FAILEDDEP;
 	}
 
 	# Check that its artist has not changed
-	if ($al->GetArtist == VARTIST_ID)
+	if ($release->GetArtist == VARTIST_ID)
 	{
-		$self->InsertNote(MODBOT_MODERATOR, "This album has already been converted to multiple artists");
+		$self->InsertNote(MODBOT_MODERATOR, "This release has already been converted to multiple artists");
 		return STATUS_FAILEDPREREQ;
 	}
-	if ($al->GetArtist != $self->GetArtist)
+	if ($release->GetArtist != $self->GetArtist)
 	{
-		$self->InsertNote(MODBOT_MODERATOR, "This album is no longer associated with this artist");
+		$self->InsertNote(MODBOT_MODERATOR, "This release is no longer associated with this artist");
 		return STATUS_FAILEDDEP;
 	}
 
@@ -92,13 +99,6 @@ sub PreDisplay
 	
 	# store the current VA artist id
 	$this->{'vaid'} = VARTIST_ID;
-
-	# check if album still exists and get its name
-	require Album;
-	my $al = Album->new($this->{DBH});
-	$al->SetId($this->GetRowId);
-	$this->{'albumname'} = $al->GetName
-		if ($al->LoadFromId);
 }
 
 sub ApprovedAction

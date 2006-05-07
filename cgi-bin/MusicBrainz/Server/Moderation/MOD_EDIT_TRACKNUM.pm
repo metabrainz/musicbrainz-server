@@ -37,36 +37,37 @@ sub PreInsert
 {
 	my ($self, %opts) = @_;
 
-	my $tr = $opts{'track'} or die;
+	my $track = $opts{'track'} or die;
 	my $newseq = $opts{'newseq'} or die;
 
-	$self->SetArtist($tr->GetArtist);
-	$self->SetPrev($tr->GetSequence);
+	$self->SetArtist($track->GetArtist);
+	$self->SetPrev($track->GetSequence);
 	$self->SetNew(0+$newseq);
 	$self->SetTable("albumjoin");
 	$self->SetColumn("sequence");
-	$self->SetRowId($tr->GetSequenceId);
+	$self->SetRowId($track->GetSequenceId);
 }
 
-sub PreDisplay
+sub PostLoad
 {
-	my $this = shift;
+	my $self = shift;
 	
-	# load track and album data
+	# load track and release object
 	require Track;
-	my $tr = Track->new($this->{DBH});
-	if ($tr->LoadFromAlbumJoin($this->GetRowId))
+	my $track = Track->new($self->{DBH});
+	
+	if ($self->{'trackexists'} = $track->LoadFromAlbumJoin($self->GetRowId))
 	{
-		$this->{'trackid'} = $tr->GetId;
-		$this->{'trackname'} = $tr->GetName;
-
+		$self->{'trackid'} = $track->GetId;
+		$self->{'trackname'} = $track->GetName;
+ 
 		require Album;
-		my $al = Album->new($this->{DBH});
-		$al->SetId($tr->GetAlbum);
-		if ($al->LoadFromId)
+		my $release = Album->new($self->{DBH});
+		$release->SetId($track->GetAlbum);
+		if ($self->{'albumexists'} = $release->LoadFromId)
 		{
-			$this->{'albumid'} = $al->GetId;
-			$this->{'albumname'} = $al->GetName;
+			$self->{'albumid'} = $release->GetId;
+			$self->{'albumname'} = $release->GetName;
 		}
 	}
 }
@@ -76,14 +77,14 @@ sub ApprovedAction
 	my $this = shift;
 
 	require Track;
-	my $tr = Track->new($this->{DBH});
-	unless ($tr->LoadFromAlbumJoin($this->GetRowId))
+	my $track = Track->new($this->{DBH});
+	unless ($track->LoadFromAlbumJoin($this->GetRowId))
 	{
 		$this->InsertNote(MODBOT_MODERATOR, "This track has been deleted");
 		return STATUS_FAILEDPREREQ;
 	}
 
-	unless ($tr->GetSequence == $this->GetPrev)
+	unless ($track->GetSequence == $this->GetPrev)
 	{
 		$this->InsertNote(MODBOT_MODERATOR, "This track has already been renumbered");
 		return STATUS_FAILEDDEP;
@@ -93,8 +94,8 @@ sub ApprovedAction
 	# (but if you do that, it makes it very hard to swap/rotate
 	# tracks within an album).
 
-	$tr->SetSequence($this->GetNew);
-	$tr->UpdateSequence;
+	$track->SetSequence($this->GetNew);
+	$track->UpdateSequence;
 
 	STATUS_APPLIED;
 }
