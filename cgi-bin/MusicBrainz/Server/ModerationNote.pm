@@ -70,6 +70,7 @@ sub mark_up_text_as_html
 		($is_url = not $is_url)
 			? qq[<a href="$enc" title="$enc">$disp</a>]
 			: $enc;
+			
 	} split /
 		(
 			# Something that looks like the start of a URL
@@ -77,6 +78,7 @@ sub mark_up_text_as_html
 			(?:https?|ftp)
 			:\/\/
 			.*?
+			
 			# Stop at one of these sequences:
 			(?=
 				\z # end of string
@@ -89,7 +91,7 @@ sub mark_up_text_as_html
 
 	my $server = &DBDefs::WEB_SERVER;
 	$html =~ s[\b(?:mod(?:eration)? #?|edit #|change #)(\d+)\b]
-		[<a href="http://$server/showmod.html?modid=$1">edit #$1</a>]g;
+		[<a href="http://$server/show/edit/?editid=$1">edit #$1</a>]g;
 
 	$html;
 }
