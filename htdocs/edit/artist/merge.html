@@ -129,14 +129,16 @@
 	<& /comp/layout/editformbegin, title => $title, artist => $artist &>
 
 
-%	# if an artist was selected (or added), show confirm form.
-%	if (defined $newartist)
-%	{
-
 		<!-- add editsuite for modnote resizer support -->
 		<script type="text/javascript" src="/scripts/editsuite.js"></script>
 
 		<form method="post" action="/edit/artist/merge.html" id="ConfirmForm">
+
+
+%	# if an artist was selected (or added), show confirm form.
+%	if (defined $newartist)
+%	{
+
 			<table class="formstyle">
 				<tr>
 					<td colspan="2" class="instructions">
@@ -153,14 +155,11 @@
 						<& /comp/notetext,
 							notetext => $notetext,
 							buttons => [["Cancel",""], ["Enter Moderation", "btnYes"]] &>
-
-						<input type="hidden" name="artistid" value="<% $artist->GetId %>" />
 						<input type="hidden" name="newartistid" value="<% $newartist->GetId %>" /></td>
 				</tr>
 			</table>
 
 			<& /comp/movefocus, id => "btnYes" &>
-		</form>
 
 %	} else {
 
@@ -199,6 +198,9 @@
 		</table>
 
 %	}
+			<input type="hidden" name="artistid" value="<% $artist->GetId %>" />
+
+		</form>
 
 	<& /comp/layout/editformend &>
 <& /comp/footer &>

@@ -114,6 +114,9 @@
 		push @errors, "Please enter a valid track length"
 			if (not (MusicBrainz::IsNonNegInteger($tracklength) && $tracklength >= 0));
 
+		push @errors, "Please choose a track artist"
+			if ($release->HasMultipleTrackArtists and
+				not defined $newartist);
 
 		my $url = "/release/".$release->GetMBId.".html";
 
@@ -138,10 +141,8 @@
 						trackname => $trackname,
 						tracknum => $tracknum,
 						tracklength => $tracklength,
-
-						# TODO: change to artistid (only!)
-						artistname => $newartist->GetName,
-						artistsortname => $newartist->GetSortName,
+						artistname => defined $newartist ? $newartist->GetName : "",
+						artistsortname => defined $newartist ? $newartist->GetSortName : "",
 					);
 
 					$mods[0]->InsertNote($session{'uid'}, $notetext)
@@ -271,9 +272,7 @@
 					<td class="notetext">
 						<& /comp/notetext,
 							notetext => $notetext,
-							buttons => [ ["Cancel"], ["Enter Moderation"]] &>
-
-						<input type="hidden" name="releaseid" value="<% $releaseid %>"></td>
+							buttons => [ ["Cancel"], ["Enter Moderation"]] &></td>
 				</tr>
 %	}
 			</table>
@@ -282,6 +281,7 @@
 
 
 		<& /comp/movefocus, id => "id_trackname" &>
+		<input type="hidden" name="releaseid" value="<% $releaseid %>">
 	</form>
 
 <& /comp/footer &>
