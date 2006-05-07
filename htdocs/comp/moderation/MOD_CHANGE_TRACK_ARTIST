@@ -1,48 +1,95 @@
-%# vi: set ts=4 sw=4 ft=mason :
-
+<%perl>
+	# -----------------------------------------------------------------------------
+	#                               Musicbrainz.org
+	#                        Copyright (c) 2001 Robert Kaye
+	# -----------------------------------------------------------------------------
+	#  This software is provided "as is", without warranty of any kind, express or
+	#  implied, including  but not limited  to the warranties of  merchantability,
+	#  fitness for a particular purpose and noninfringement. In no event shall the
+	#  authors or  copyright  holders be  liable for any claim,  damages or  other
+	#  liability, whether  in an  action of  contract, tort  or otherwise, arising
+	#  from,  out of  or in  connection with  the software or  the  use  or  other
+	#  dealings in the software.
+	#
+	#  GPL - The GNU General Public License    http://www.gnu.org/licenses/gpl.txt
+	#  Permits anyone the right to use and modify the software without limitations
+	#  as long as proper  credits are given  and the original  and modified source
+	#  code are included. Requires  that the final product, software derivate from
+	#  the original  source or any  software  utilizing a GPL  component, such  as
+	#  this, is also licensed under the GPL license.
+	# -----------------------------------------------------------------------------
+	#
+	# Summary:
+	# -----------------------------------------------------------------------------
+	# This component provides the display facilities for
+	# the MOD_CHANGE_TRACK_ARTIST edit type.
+	#
+	# $URL$
+	# $Id$
+	#
+</%perl>
 <%method ShowPreviousValue>
-% my $this = shift;
+<%perl>
+ 	my $this = shift;
 
-Old artist:
-<a href="/showartist.html?artistid=<% $this->GetArtist %>"
-	class="bold"><% $this->GetPrev %></a>
-% if (defined $this->{'old.res'})
-% {
-	<br />
-	<span style="visibility: hidden">Old Artist: </span><% $this->{'old.res'} %>
-% }
-<br />
-Track:
-<a href="/showtrack.html?trackid=<% $this->GetRowId %>"><% $this->{'trackname'} %></a>
+	my ($exists, $id, $name, $resolution) = (0, $this->GetArtist, $this->GetPrev, $this->{'old.res'});
+
+	my $artist = Artist->new($this->{DBH});
+	$artist->SetId($id);
+	$exists = $artist->LoadFromId;
+
+</%perl>
+
+	<table class="editfields">
+		<tr>
+			<td class="lbl">Old:</td>
+			<td><& /comp/linkartist,
+				$exists
+				? (artist => $artist)
+				: (
+					id => $id,
+					name => $name,
+					resolution => $resolution
+				  ), &></td>
+		</tr>
+	</table>
+
 </%method>
 
 
 <%method ShowNewValue>
-% my $this = shift;
-%
-New artist:
-% # print (and link to, if existing) the target artist
-% if ($this->{'new.exists'})
-% {
-	<a href="/showartist.html?artistid=<% $this->{'new.id'} %>"
-		class="bold"><% $this->{'new.name'} %></a>
-% }
-% else
-% {
-	<strong><% $this->{'new.name'} %></strong>
-% }
-%
-% # print sort name if different
-% if ($this->{'new.sortname'} ne $this->{'new.name'})
-% {
-	(<% $this->{'new.sortname'} %>)
-% }
-%
-% # print artist resolution if old and new names are equal
-% if (defined $this->{'new.res'})
-% {
-	<br />
-	<span style="visibility: hidden">New Artist: </span><% $this->{'new.res'} %>
-% }
+<%perl>
+ 	my $this = shift;
+
+	my ($exists, $id, $name, $sortname, $resolution) =
+		($this->{'new.exists'},
+		 $this->{'new.exists'} ? $this->{'new.id'} : -1,
+		 $this->{'new.name'},
+		 $this->{'new.sortname'},
+		 $this->{'new.res'});
+
+	my $artist = Artist->new($this->{DBH});
+	if ($exists)
+	{
+		$artist->SetId($id);
+		$exists = $artist->LoadFromId;
+	}
+
+</%perl>
+
+	<table class="editfields">
+		<tr>
+			<td class="lbl">New:</td>
+			<td><& /comp/linkartist,
+				$exists
+				? (artist => $artist)
+				: (
+					id => $id,
+					name => $name,
+					sortname => $sortname,
+					resolution => $resolution
+				  ), &></td>
+		</tr>
+	</table>
+
 </%method>
-%# eof

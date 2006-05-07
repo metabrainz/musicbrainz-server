@@ -1,96 +1,181 @@
-%# vi: set ts=4 sw=4 ft=mason :
-
+<%perl>
+	# -----------------------------------------------------------------------------
+	#                               Musicbrainz.org
+	#                        Copyright (c) 2001 Robert Kaye
+	# -----------------------------------------------------------------------------
+	#  This software is provided "as is", without warranty of any kind, express or
+	#  implied, including  but not limited  to the warranties of  merchantability,
+	#  fitness for a particular purpose and noninfringement. In no event shall the
+	#  authors or  copyright  holders be  liable for any claim,  damages or  other
+	#  liability, whether  in an  action of  contract, tort  or otherwise, arising
+	#  from,  out of  or in  connection with  the software or  the  use  or  other
+	#  dealings in the software.
+	#
+	#  GPL - The GNU General Public License    http://www.gnu.org/licenses/gpl.txt
+	#  Permits anyone the right to use and modify the software without limitations
+	#  as long as proper  credits are given  and the original  and modified source
+	#  code are included. Requires  that the final product, software derivate from
+	#  the original  source or any  software  utilizing a GPL  component, such  as
+	#  this, is also licensed under the GPL license.
+	# -----------------------------------------------------------------------------
+	#
+	# Summary:
+	# -----------------------------------------------------------------------------
+	# This component provides the display facilities for
+	# the MOD_EDIT_ARTIST edit type.
+	#
+	# $URL$
+	# $Id$
+	#
+</%perl>
 <%method ShowPreviousValue>
-% my $self = shift;
-% my $prev = $self->{'prev_unpacked'};
+<%perl>
 
-% if (defined $prev->{'ArtistName'}) {
-	Name:
-   	<strong><% $prev->{'ArtistName'} %></strong>
-% }
+ 	my $self = shift;
+ 	my $prev = $self->{'prev_unpacked'};
 
-% if (defined $prev->{'SortName'}) {
-	<br />
-	Sortname:
-   	<strong><% $prev->{'SortName'} %></strong>
-% }
+	my $name = $prev->{'ArtistName'};
+	my $sortname = $prev->{'SortName'};
+	my $resolution = $prev->{'Resolution'};
+	my $begin = $prev->{'BeginDate'};
+	my $end = $prev->{'EndDate'};
+	my $type = $prev->{'Type'};
 
-% if (defined $prev->{'Type'}) {
-	<br />
-	Type:
-	<strong><% Artist::GetTypeName($prev->{'Type'}) %></strong>
-% }
+	my $id = $self->GetId;
 
-% if (defined $prev->{'Resolution'}) {
-	<br />
-	Resolution:
-   	<strong><% $prev->{'Resolution'} %></strong>
-% }
+	$m->out(qq!<table class="editdiff">!);
 
-% if (defined $prev->{'BeginDate'}) {
-	<br />
-	Begin Date:
-   	<strong><% MusicBrainz::MakeDisplayDateStr($prev->{'BeginDate'}) %></strong>
-% }
+	if (defined $name)
+	{
+		$m->out(qq!<tr><td class="lbl">Name:</td><td class="diff" id="ov::artistname$id">!);
+		$m->out($m->interp->apply_escapes($name, "h"));
+		$m->out(qq!</td></tr>!);
+	}
 
-% if (defined $prev->{'EndDate'}) {
-	<br />
-	End Date:
-   	<strong><% MusicBrainz::MakeDisplayDateStr($prev->{'EndDate'}) %></strong>
-% }
+	if (defined $sortname)
+	{
+		$m->out(qq!<tr><td class="lbl">Sortname:</td><td class="diff" id="ov::artistsortname$id">!);
+		$m->out($m->interp->apply_escapes($sortname, "h"));
+		$m->out(qq!</td></tr>!);
+	}
+
+	if (defined $resolution)
+	{
+		$m->out(qq!<tr><td class="lbl">Comment:</td><td class="diff" id="ov::artistresolution$id">!);
+		$m->out($m->interp->apply_escapes($resolution, "h"));
+		$m->out(qq!</td></tr>!);
+	}
+
+	if (defined $type)
+	{
+		my $type_str = Artist::GetTypeName($type);
+		$m->out(qq!<tr><td class="lbl">Type:</td><td class="diff" id="ov::artisttype$id">!);
+		$m->out($m->interp->apply_escapes($type_str, "h"));
+		$m->out(qq!</td></tr>!);
+	}
+
+	if (defined $begin)
+	{
+		$begin = MusicBrainz::MakeDisplayDateStr($begin);
+		my $datestr = $m->interp->apply_escapes(Artist::GetBeginDateName($type), "h");
+		$datestr =~ s/ /&nbsp;/g;
+
+		$m->out(qq!<tr><td class="lbl">&nbsp;</td><td class="diff" id="ov::artistbegindate$id">$datestr: !);
+		$m->out($m->interp->apply_escapes($begin, "h"));
+		$m->out(qq!</td></tr>!);
+	}
+
+	if (defined $end)
+	{
+		$begin = MusicBrainz::MakeDisplayDateStr($end);
+		my $datestr = $m->interp->apply_escapes(Artist::GetEndDateName($type), "h");
+		$datestr =~ s/ /&nbsp;/g;
+
+		$m->out(qq!<tr><td class="lbl">&nbsp;</td><td id="ov::artistenddate$id">$datestr: !);
+		$m->out($m->interp->apply_escapes($end, "h"));
+		$m->out(qq!</td></tr>!);
+	}
+
+	$m->out(qq!</table>!);
+
+</%perl>
 </%method>
 
 
 <%method ShowNewValue>
-% my $self = shift;
-% my $new = $self->{'new_unpacked'};
+<%perl>
 
-% if (defined $new->{'ArtistName'}) {
-	Name:
-   	<strong><% $new->{'ArtistName'} %></strong>
-% }
+ 	my $self = shift;
+ 	my $new = $self->{'new_unpacked'};
 
-% if (defined $new->{'SortName'}) {
-	<br />
-	Sortname:
-   	<strong><% $new->{'SortName'} %></strong>
-% }
+	my $name = $new->{'ArtistName'};
+	my $sortname = $new->{'SortName'};
+	my $resolution = $new->{'Resolution'};
 
-% if (defined $new->{'Type'}) {
-	<br />
-	Type:
-	<strong><% Artist::GetTypeName($new->{'Type'}) or "(Unset)" %></strong>
-% }
+	my $begin = $new->{'BeginDate'};
+	my $end = $new->{'EndDate'};
+	my $type = $new->{'Type'};
 
-% if (exists $new->{'Resolution'}) {
-	<br />
-	Resolution:
-%	if (defined $new->{'Resolution'} && $new->{'Resolution'} ne '') {
-		<strong><% $new->{'Resolution'} %></strong>
-%	} else {
-		<em>(Unset)</em>
-%	}
-% }
+	my $id = $self->GetId;
 
-% if (exists $new->{'BeginDate'}) {
-	<br />
-	Begin Date:
-%	if ($new->{'BeginDate'}) {
-		<strong><% MusicBrainz::MakeDisplayDateStr($new->{'BeginDate'}) %></strong>
-%	} else {
-		<em>(Unset)</em>
-%	}
-% }
+	$m->out(qq!<table class="editdiff">!);
 
-% if (exists $new->{'EndDate'}) {
-	<br />
-	End Date:
-%	if ($new->{'EndDate'}) {
-		<strong><% MusicBrainz::MakeDisplayDateStr($new->{'EndDate'}) %></strong>
-%	} else {
-		<em>(Unset)</em>
-%	}
-% }
+	if (defined $name)
+	{
+		$m->out(qq!<tr><td class="lbl">Name:</td><td class="diff" id="nv::artistname$id">!);
+		$m->out($m->interp->apply_escapes($name, "h"));
+		$m->out(qq!</td></tr>!);
+	}
+
+	if (defined $sortname)
+	{
+		$m->out(qq!<tr><td class="lbl">Sortname:</td><td class="diff" id="nv::artistsortname$id">!);
+		$m->out($m->interp->apply_escapes($sortname, "h"));
+		$m->out(qq!</td></tr>!);
+	}
+
+	if (exists $new->{'Resolution'})
+	{
+		$resolution = (defined $resolution and $resolution ne "" ? $resolution : "(Unset)");
+		$m->out(qq!<tr><td class="lbl">Comment:</td><td class="diff" id="nv::artistresolution$id">!);
+		$m->out($m->interp->apply_escapes($resolution, "h"));
+		$m->out(qq!</td></tr>!);
+	}
+
+	if (defined $type)
+	{
+		my $type_str = Artist::GetTypeName($type) || "(Unset)";
+
+		$m->out(qq!<tr><td class="lbl">Type:</td><td class="diff" id="nv::artisttype$id">!);
+		$m->out($m->interp->apply_escapes($type_str, "h"));
+		$m->out(qq!</td></tr>!);
+	}
+
+	if (exists $new->{'BeginDate'})
+	{
+		$begin = $begin ? MusicBrainz::MakeDisplayDateStr($begin) : "(Unset)";
+		my $datestr = $m->interp->apply_escapes(Artist::GetBeginDateName($type), "h");
+		$datestr =~ s/ /&nbsp;/g;
+
+		$m->out(qq!<tr><td class="lbl">&nbsp;</td><td class="diff" id="nv::artistbegindate$id">$datestr: !);
+		$m->out($m->interp->apply_escapes($begin, "h"));
+		$m->out(qq!</td></tr>!);
+	}
+
+	if (exists $new->{'EndDate'})
+	{
+		$end = $end ? MusicBrainz::MakeDisplayDateStr($end) : "(Unset)";
+		my $datestr = $m->interp->apply_escapes(Artist::GetEndDateName($type), "h");
+		$datestr =~ s/ /&nbsp;/g;
+
+		$m->out(qq!<tr><td class="lbl">&nbsp;</td><td class="diff" id="nv::artistenddate$id">$datestr: !);
+		$m->out($m->interp->apply_escapes($end, "h"));
+		$m->out(qq!</td></tr>!);
+	}
+
+	$m->out(qq!</table>!);
+
+</%perl>
 </%method>
 
 %# eof

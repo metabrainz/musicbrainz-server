@@ -1,54 +1,102 @@
-%# vi: set ts=4 sw=4 ft=mason :
-
+<%perl>
+	# -----------------------------------------------------------------------------
+	#                               Musicbrainz.org
+	#                        Copyright (c) 2001 Robert Kaye
+	# -----------------------------------------------------------------------------
+	#  This software is provided "as is", without warranty of any kind, express or
+	#  implied, including  but not limited  to the warranties of  merchantability,
+	#  fitness for a particular purpose and noninfringement. In no event shall the
+	#  authors or  copyright  holders be  liable for any claim,  damages or  other
+	#  liability, whether  in an  action of  contract, tort  or otherwise, arising
+	#  from,  out of  or in  connection with  the software or  the  use  or  other
+	#  dealings in the software.
+	#
+	#  GPL - The GNU General Public License    http://www.gnu.org/licenses/gpl.txt
+	#  Permits anyone the right to use and modify the software without limitations
+	#  as long as proper  credits are given  and the original  and modified source
+	#  code are included. Requires  that the final product, software derivate from
+	#  the original  source or any  software  utilizing a GPL  component, such  as
+	#  this, is also licensed under the GPL license.
+	# -----------------------------------------------------------------------------
+	#
+	# Summary:
+	# -----------------------------------------------------------------------------
+	# This component provides the display facilities for
+	# the MOD_EDIT_ALBUM_LANGUAGE edit type.
+	#
+	# $URL$
+	# $Id$
+	#
+</%perl>
 <%method ShowPreviousValue>
 <%perl>
-my $self = shift;
-my $albums = $self->{'_new_albums'};
+	my $self = shift;
+	my $releases = $self->{'_new_albums'};
 
-for my $t (@$albums) {
-</%perl>
-	<a href="/showalbum.html?albumid=<% $t->{'id'} %>"><% $t->{name} %></a>
-<%perl>
+	$m->out(qq!<table class="editfields">!);
+	for my $release (@$releases)
+	{
+		$m->out(qq!<tr><td>!);
+		$m->comp("/comp/linkrelease", id => $release->{'id'}, name => $release->{'name'});
 
-	my $lang = '<em>Not set</em>';
-	if ( $t->{prev_lang} ) {
-		my $l = MusicBrainz::Server::Language->newFromId(
-											$self->{DBH}, $t->{prev_lang});
-		$lang = $l->GetName;
+		my $lang = "Not set";
+		if ($release->{prev_lang})
+		{
+			my $l = MusicBrainz::Server::Language->newFromId(
+						$self->{DBH}, $release->{prev_lang});
+			$lang = $l->GetName;
+		}
+
+		my $script = "Not set";
+		if ($release->{prev_script})
+		{
+			my $s = MusicBrainz::Server::Script->newFromId(
+						$self->{DBH}, $release->{prev_script});
+			$script = $s->GetName;
+		}
+		$m->out(qq!<div class="attrlist">!);
+		$m->out(qq!(<acronym title="Language">$lang</acronym>, !);
+		$m->out(qq!<acronym title="Script">$script</acronym>)</div>!);
+		$m->out(qq!</td></tr>!);
 	}
+	$m->out(qq!</table>!);
 
-	my $script = '<em>Not set</em>';
-	if ( $t->{prev_script} ) {
-		my $s = MusicBrainz::Server::Script->newFromId(
-											$self->{DBH}, $t->{prev_script});
-		$script = $s->GetName;
-	}
 </%perl>
-	(<% $lang |n %> | <% $script |n %>)
-	<br />
-% }
-
 </%method>
 
 <%method ShowNewValue>
-% my $self = shift;
-	New Language:
-% if ( $self->{_languageid} ) {
-%   my $lang = MusicBrainz::Server::Language->newFromId(
-%										$self->{DBH}, $self->{_languageid});
-	<% $lang->GetName %>
-% } else {
-	<em>Not set</em>
-% }
-	<br />
-	New Script:
-% if ( $self->{_scriptid} ) {
-%   my $script = MusicBrainz::Server::Script->newFromId(
-%										$self->{DBH}, $self->{_scriptid});
-	<% $script->GetName %>
-% } else {
-	<em>Not set</em>
-% }
+<%perl>
+ 	my $self = shift;
+
+	my $lang = "Not set";
+ 	if ($self->{_languageid})
+	{
+	   	$lang = MusicBrainz::Server::Language->newFromId(
+					$self->{DBH}, $self->{_languageid});
+		$lang = $lang->GetName;
+	}
+
+	my $script = "Not set";
+ 	if ($self->{_scriptid})
+	{
+	   	$script = MusicBrainz::Server::Script->newFromId(
+					$self->{DBH}, $self->{_scriptid});
+		$script = $script->GetName;
+	}
+
+</%perl>
+
+	<table class="editfields">
+		<tr>
+			<td class="lbl">Language:</td>
+			<td><% $lang %></td>
+		</tr>
+		<tr>
+			<td class="lbl">Script:</td>
+
+			<td><% $script %></td>
+		</tr>
+	</table>
 
 </%method>
 

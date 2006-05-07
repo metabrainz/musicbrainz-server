@@ -1,29 +1,91 @@
-%# vi: set ts=4 sw=4 ft=mason :
-%# TODO show album, track seq etc.
-
-<%method ShowPreviousValue>
-% my $this = shift;
 <%perl>
+	# -----------------------------------------------------------------------------
+	#                               Musicbrainz.org
+	#                        Copyright (c) 2001 Robert Kaye
+	# -----------------------------------------------------------------------------
+	#  This software is provided "as is", without warranty of any kind, express or
+	#  implied, including  but not limited  to the warranties of  merchantability,
+	#  fitness for a particular purpose and noninfringement. In no event shall the
+	#  authors or  copyright  holders be  liable for any claim,  damages or  other
+	#  liability, whether  in an  action of  contract, tort  or otherwise, arising
+	#  from,  out of  or in  connection with  the software or  the  use  or  other
+	#  dealings in the software.
+	#
+	#  GPL - The GNU General Public License    http://www.gnu.org/licenses/gpl.txt
+	#  Permits anyone the right to use and modify the software without limitations
+	#  as long as proper  credits are given  and the original  and modified source
+	#  code are included. Requires  that the final product, software derivate from
+	#  the original  source or any  software  utilizing a GPL  component, such  as
+	#  this, is also licensed under the GPL license.
+	# -----------------------------------------------------------------------------
+	#
+	# Summary:
+	# -----------------------------------------------------------------------------
+	# This component provides the display facilities for
+	# the MOD_CHANGE_TRACK_ARTIST edit type.
+	#
+	# TODO: show album, track seq etc.
+	#
+	# $URL$
+	# $Id$
+	#
+</%perl>
+<%method ShowPreviousValue>
+<%perl>
+	my $this = shift;
 
-my $al = Album->new($this->{DBH});
-$al->SetId($this->{'prev.albumid'});
-$al->LoadFromId;
+	my $release = Album->new($this->{DBH});
+	$release->SetId($this->{'prev.albumid'});
+	my $r_exists = $release->LoadFromId;
+
+	my $track = Album->new($this->{DBH});
+	$track->SetId($this->GetRowId);
+	my $t_exists = $track->LoadFromId;
 
 </%perl>
 
-% if (not defined $al->GetName) {
-	Track: <% $this->{'prev.name'} %>
-% } else {
-	Track: <a href="/showtrack.html?trackid=<% $this->GetRowId %>"
-		><% $this->{'prev.name'} %></a><br />
-	Album: <a href="/showalbum.html?albumid=<% $this->{'prev.albumid'} %>"
-		><% $al->GetName %></a>
-% }
+	<table class="editfields">
+		<tr>
+			<td class="lbl">Track:</td>
+% 	if (defined $this->{'prev.trackname'})
+%	{
+			<td><% $this->{'prev.trackname'} %></td>
+% 	} else {
+			<td>n/a</td>
+%	}
+		</tr>
+	</table>
+
+	<div class="attrlist">
+
+% 	if (defined $release->GetName)
+%	{
+
+		Release: <% $release->GetName %><br/>
+
+% 	}
+
+% 	if (!$this->{'prev.isnonalbumtracks'} and
+%		defined $this->{'prev.trackseq'})
+%	{
+
+		Track #: <% $this->{'prev.trackseq'} %><br/>
+
+% 	}
+
+% 	if (defined $this->{'prev.tracklength'})
+%	{
+
+		Track Length: <% Track::FormatTrackLength($this->{'prev.tracklength'}) %><br/>
+
+% 	}
+
+	</div>
 
 </%method>
 
 <%method ShowNewValue>
-% my $this = shift;
+% 	my $this = shift;
 </%method>
 
 %# eof

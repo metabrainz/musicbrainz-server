@@ -4,12 +4,12 @@
 % my $self = shift;
 % my $new = $self->{'new_unpacked'};
 
-	Old: 
+	Old:
 % if ($new->{entity1type} ne 'url') {
-	<& /comp/ar/ShowEntityLink, id=>$new->{entity0id}, type=>$new->{entity0type}, 
+	<& /comp/ar/ShowEntityLink, id=>$new->{entity0id}, type=>$new->{entity0type},
 	                            name=>$new->{entity0name}, linktypeid=>$new->{linktypeid}, simple=>1 &>
 	<em><% $new->{linktypephrase} %></em>
-	<& /comp/ar/ShowEntityLink, id=>$new->{entity1id}, type=>$new->{entity1type}, 
+	<& /comp/ar/ShowEntityLink, id=>$new->{entity1id}, type=>$new->{entity1type},
 	                            name=>$new->{entity1name}, linktypeid=>$new->{linktypeid}, simple=>1 &>
 %   if ($new->{begindate} =~ /\S/ || $new->{enddate} =~ /\S/) {
 %      if ($new->{begindate} =~ /\S/) {
@@ -22,15 +22,15 @@
 %      }
 %   }
 % } else {
-	<& /comp/ar/ShowEntityLink, 
-		id=>$new->{entity0id}, type=>$new->{entity0type}, 
+	<& /comp/ar/ShowEntityLink,
+		id=>$new->{entity0id}, type=>$new->{entity0type},
 		name=>$new->{entity0name}, linktypeid=>$new->{linktypeid}, simple=>1 &>
 	<em><% $new->{linktypephrase} %></em>
 %   my ($url, $name) = ($new->{entity1name}, '');
 %   if ($new->{linktypeid} == Album->GetAsinLinkTypeId($self->{DBH})) {
 %     ($name, ) = Album->ParseAmazonURL($new->{entity1name});
 %   }
-	<& /comp/ar/ShowEntityLink, 
+	<& /comp/ar/ShowEntityLink,
 		id=>$new->{entity1id}, type=>$new->{entity1type}, name=>$name,
 		url=>$url, linktypeid=>$new->{linktypeid}, simple=>1 &>
 % }
@@ -38,8 +38,7 @@
 </%method>
 
 <%method ShowNewValue>
-% my $self = shift;
-New: (deleted)
+% 	my $self = shift;
 </%method>
 
 %# eof

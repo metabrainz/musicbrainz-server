@@ -1,28 +1,84 @@
-%# vi: set ts=4 sw=4 ft=mason :
-
+<%perl>
+	# -----------------------------------------------------------------------------
+	#                               Musicbrainz.org
+	#                        Copyright (c) 2001 Robert Kaye
+	# -----------------------------------------------------------------------------
+	#  This software is provided "as is", without warranty of any kind, express or
+	#  implied, including  but not limited  to the warranties of  merchantability,
+	#  fitness for a particular purpose and noninfringement. In no event shall the
+	#  authors or  copyright  holders be  liable for any claim,  damages or  other
+	#  liability, whether  in an  action of  contract, tort  or otherwise, arising
+	#  from,  out of  or in  connection with  the software or  the  use  or  other
+	#  dealings in the software.
+	#
+	#  GPL - The GNU General Public License    http://www.gnu.org/licenses/gpl.txt
+	#  Permits anyone the right to use and modify the software without limitations
+	#  as long as proper  credits are given  and the original  and modified source
+	#  code are included. Requires  that the final product, software derivate from
+	#  the original  source or any  software  utilizing a GPL  component, such  as
+	#  this, is also licensed under the GPL license.
+	# -----------------------------------------------------------------------------
+	#
+	# Summary:
+	# -----------------------------------------------------------------------------
+	# This component provides the display facilities for
+	# the MOD_EDIT_ALBUMATTRS edit type.
+	#
+	# $URL$
+	# $Id$
+	#
+</%perl>
 <%method ShowPreviousValue>
-% my $this = shift;
-% my $albums = $this->{'new_albums'};
+<%perl>
+	my $this = shift;
+	my $releases = $this->{'new_albums'};
 
-%  	for my $t (@$albums) {
+	$m->out(qq!<table class="editfields">!);
+	for my $release (@$releases)
+	{
+		$m->out(qq!<tr><td>!);
+		$m->comp("/comp/linkrelease", id => $release->{'id'}, name => $release->{'name'});
 
-		<a href="/showalbum.html?albumid=<% $t->{'id'} %>"
-			><% $t->{'name'} %></a>
-%			my $value = $this->ConvertToText(split /,/, $t->{'prev'});
-			(<% $value || "None" %>)
-		<br />
-%		}
+		my ($type, $status) = map {
+			Album->GetAttributeName($_) || "#$_"
+		} split ',', $release->{prev};
+		$type = "Not set" if not defined($type);
+		$status = "Not set" if not defined($status);
 
+		$m->out(qq!<div class="attrlist">!);
+		$m->out(qq!<acronym title="Type">$type</acronym>, !);
+		$m->out(qq!<acronym title="Status">$status</acronym></div>!);
+		$m->out(qq!</td></tr>!);
+	}
+	$m->out(qq!</table>!);
+
+</%perl>
 </%method>
 
 <%method ShowNewValue>
-% my $this = shift;
-% my $new = $this->{'new_unpacked'};
+<%perl>
+ 	my $this = shift;
+ 	my $new = $this->{'new_unpacked'};
 
-% my $value = $this->ConvertToText(split /,/, $new->{Attributes});
+	my ($type, $status) = map {
+		Album->GetAttributeName($_) || "#$_"
+	} split ',', $new->{Attributes};
 
-	New:
-	<% $value || 'None' %>
+	$type = "Not set" if not defined($type);
+	$status = "Not set" if not defined($status);
+
+</%perl>
+
+	<table class="editfields">
+		<tr>
+			<td class="lbl">Type:</td>
+			<td><% $type %></td>
+		</tr>
+		<tr>
+			<td class="lbl">Status:</td>
+			<td><% $status %></td>
+		</tr>
+	</table>
 
 </%method>
 

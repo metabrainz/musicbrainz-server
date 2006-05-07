@@ -3,14 +3,22 @@
 <%method ShowPreviousValue>
 % my $this = shift;
 
-	Old:
-	<a href="/showaliases.html?artistid=<% $this->GetArtist %>"
-		><% $this->GetPrev %></a>
-
 </%method>
 
 <%method ShowNewValue>
-% my $this = shift;
+% 	my $this = shift;
+
+	<table class="editfields" style="width:100%">
+		<tr>
+			<td class="lbl">Remove:</td>
+			<td><% $this->GetPrev %></td>
+			<td style="text-align: right">
+				<img src="/images/edit.gif" alt=""/><a
+					href="/show/artist/aliases.html?artistid=<% $this->GetArtist %>">View aliases</a>
+			</td>
+		</tr>
+	</table>
+
 </%method>
 
 %# eof

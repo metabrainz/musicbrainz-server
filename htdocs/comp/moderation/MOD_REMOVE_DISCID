@@ -17,7 +17,7 @@
 </%method>
 
 <%method ShowNewValue>
-% my $this = shift;
+% 	my $this = shift;
 </%method>
 
 %# eof
