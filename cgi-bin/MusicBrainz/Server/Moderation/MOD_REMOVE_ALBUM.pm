@@ -46,6 +46,13 @@ sub PreInsert
 	$self->SetRowId($al->GetId);
 }
 
+sub PostLoad
+{
+	my $self = shift;
+
+	($self->{"albumid"}, $self->{"checkexists-album"}) = ($self->GetRowId, 1);
+} 
+
 sub ApprovedAction
 {
 	my $this = shift;
