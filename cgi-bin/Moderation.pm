@@ -1189,7 +1189,7 @@ sub ShowModType
 
 	# default exists is to check if the given name is set
 	# in the values hash.
-	($this->{'exists-album'}, $this->{'exists-track'}) =  ($this->{"albumname"}, $this->{"trackname"});
+	($this->{"exists-album"}, $this->{"exists-track"}) =  ($this->{"albumname"}, $this->{"trackname"});
 
 	# attempt to load track entity, and see if it still exists.
 	# --- this flag was set in the individual PostLoad
@@ -1198,16 +1198,16 @@ sub ShowModType
 	{
 		require Track;
 		my $track = Track->new($this->{DBH});
-		$track->SetId($this->{'trackid'});
-		if ($this->{'exists-track'} = $track->LoadFromId)
+		$track->SetId($this->{"trackid"});
+		if ($this->{"exists-track"} = $track->LoadFromId)
 		{
-			$this->{'trackid'} = $track->GetId;
-			$this->{'trackname'} = $track->GetName;
+			$this->{"trackid"} = $track->GetId;
+			$this->{"trackname"} = $track->GetName;
 			
 			# assume that the release needs to be loaded from
 			# the album-track core relationship, if it not
 			# has been set explicitly.
-			$this->{'albumid'} = $track->GetAlbum if (not defined $this->{'albumid'});
+			$this->{"albumid"} = $track->GetAlbum if (not defined $this->{"albumid"});
 		}
 	}
 	
@@ -1218,29 +1218,27 @@ sub ShowModType
 	{
 		require Album;
 		my $release = Album->new($this->{DBH});
-		$release->SetId($this->{'albumid'});
-		if ($this->{'exists-album'} = $release->LoadFromId)
+		$release->SetId($this->{"albumid"});
+		if ($this->{"exists-album"} = $release->LoadFromId)
 		{
-			$this->{'albumid'} = $release->GetId;
-			$this->{'albumname'} = $release->GetName;
+			$this->{"albumid"} = $release->GetId;
+			$this->{"albumname"} = $release->GetName;
 		}	
 	}
 	
 	# do not display release if we have a batch edit type
-	$this->{albumid} = undef 
-		if ($this->GetType == &ModDefs::MOD_EDIT_RELEASES or
-			$this->GetType == &ModDefs::MOD_REMOVE_ALBUMS or
+	$this->{"albumid"} = undef 
+		if ($this->GetType == &ModDefs::MOD_REMOVE_ALBUMS or
 			$this->GetType == &ModDefs::MOD_MERGE_ALBUM or
 			$this->GetType == &ModDefs::MOD_MERGE_ALBUM_MAC or
 			$this->GetType == &ModDefs::MOD_EDIT_ALBUM_LANGUAGE or
 			$this->GetType == &ModDefs::MOD_EDIT_ALBUMATTRS);
 	
-	
 	# output the release this edit is listed under.
-	if (defined $this->{albumid})
+	if (defined $this->{"albumid"})
 	{
-		my ($id, $name, $title, $strong) = ($this->{albumid}, $this->{albumname}, undef, 1);
-		if (not $this->{'exists-album'})
+		my ($id, $name, $title, $strong) = ($this->{"albumid"}, $this->{"albumname"}, undef, 1);
+		if (not $this->{"exists-album"})
 		{
 			$name = "This release has been removed" if (not defined $name);
 			$title = "This release has been removed, Id: $id";
@@ -1251,22 +1249,13 @@ sub ShowModType
 		$mason->out(qq!<tr><td class="lbl">Release:</td><td>!);	
 		$mason->comp("/comp/linkrelease", id => $id, name => $name, title => $title, strong => $strong);
 		$mason->out(qq!</td></tr>!);	
-		$mason->out(qq!</tr>!);	
 	}
 
-	# set trackid from rowid if the edit is targeting the track table	
-	$this->{trackid} = $this->GetRowId if ($this->GetTable eq "track");
-
-	# fetch trackname from previous value if it is the value
-	# begin edited.
-	$this->{trackname} = $this->GetPrev
-		if ($this->GetType == &ModDefs::MOD_EDIT_TRACKNAME);	
-	
 	# output the track this edit is listed under.
-	if (defined $this->{trackid})
+	if (defined $this->{"trackid"})
 	{
-		my ($id, $name, $title, $strong) = ($this->{trackid}, $this->{trackname}, undef, 1);
-		if (not $this->{'exists-track'})
+		my ($id, $name, $title, $strong) = ($this->{"trackid"}, $this->{"trackname"}, undef, 1);
+		if (not $this->{"exists-track"})
 		{
 			$name = "This track has been removed" if (not defined $name);
 			$title = "This track has been removed, Id: $id";
@@ -1277,7 +1266,6 @@ sub ShowModType
 		$mason->out(qq!<tr><td class="lbl">Track:</td><td>!);	
 		$mason->comp("/comp/linktrack", id => $id, name => $name, title => $title, strong => $strong);
 		$mason->out(qq!</td></tr>!);	
-		$mason->out(qq!</tr>!);	
 	}	
 	
 	# call delegate method that can be overriden by the edit types
