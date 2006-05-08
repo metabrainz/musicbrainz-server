@@ -616,9 +616,9 @@ sub GetShortText
 	my $is_url = 1;	
 	$text = join "", map {
 
-		my $disp = (length($_) > 50
+		my $disp = encode_entities((length($_) > 50
 					? substr($_, 0, 47) . "..."
-					: $_);
+					: $_));
 	
 		my $enc = encode_entities($_);
 		($is_url = not $is_url)
