@@ -38,50 +38,49 @@
 	my $prefix = "link" . $index . "_";
 	my $mp = $item->{modpending};
 
-	$m->out('<span class="mp">') if ($mp);
+	my $type = $item->{$prefix . "type"};
+	my $id = $item->{$prefix . "id"};
+	$name = $item->{$prefix . "name"};
 
-    my $text = "";
-	if ($item->{$prefix . "type"} eq 'url')
+	my $url = $item->{$prefix . "name"};
+	my $asin = undef;
+
+	$m->out(qq!<span class="mp">!) if ($mp);
+
+	my $typeshow = ($type eq "album" ? "release" : $type);
+	if ($typeshow eq "artist" or
+		$typeshow eq "release" or
+		$typeshow eq "track")
 	{
-		if ($item->{"link_name"} eq 'amazon asin' && $prefix eq 'link1_')
-		{
-			($text, ) = Album->ParseAmazonURL($item->{link1_name});
-			$m->out("<b>");
-		}
-		else
-		{
-			use Encode;
-			my $url = $item->{$prefix . "name"};
-			$text = $url;
-			if ($item->{"link_name"} eq 'wikipedia' && $prefix eq 'link1_')
-			{
-				$text =~ s/^http:\/\/(\w{2,})\.wikipedia\.org\/wiki\/(.*)$/$1: $2/o;
-				$text =~ tr/_/ /;
-			}
-			# decode the URL
-			my $decoded_text = $text;
-			$decoded_text =~ s/\%([\dA-Fa-f]{2})/pack('C', hex($1))/oeg;
-			$text = $decoded_text
-				if (Encode::decode_utf8($decoded_text));
-			$m->out('<b><a href="'.$url.'" title="'.encode_entities($text).'" rel="nofollow">');
-			# shorten url's that are longer than ~75 chars
-			$text = (length($text) > 75
-					 ? encode_entities(substr($text, 0, 72)) . "&#8230;"
-					 : encode_entities($text));
-		}
+		$m->comp("/comp/link$typeshow", id => $id, name => $name);
 	}
-	else
+	elsif ($type eq "url")
 	{
-		$m->out('<b><a href="/show'.
-				$item->{$prefix . "type"} . '.html?'.
-				$item->{$prefix . "type"} . 'id=' .
-				$item->{$prefix . "id"}.'">');
+		if ($item->{"link_name"} eq "amazon asin" && $prefix eq "link1_")
+		{
+			($asin, ) = Album->ParseAmazonURL($item->{link1_name});
+		}
+		elsif ($item->{"link_name"} eq "wikipedia" && $prefix eq "link1_")
+		{
+			$url =~ s/^http:\/\/(\w{2,})\.wikipedia\.org\/wiki\/(.*)$/$1: $2/o;
+			$url =~ tr/_/ /;
+		}
+
+		# decode the URL
+		use Encode;
+		my $decoded_url = $url;
+		$decoded_url =~ s/\%([\dA-Fa-f]{2})/pack('C', hex($1))/oeg;
+		$url = $decoded_url
+			if (Encode::decode_utf8($decoded_url));
+
+		# shorten url's that are longer than ~75 chars
+		my $shorturl = $asin ||= (length($url) > 75
+				 ? encode_entities(substr($url, 0, 72)) . "&#8230;"
+				 : encode_entities($url));
+
+		$m->comp("/comp/linkurl", id => $id, name => $shorturl, href => $url);
 	}
-	$text = encode_entities($item->{$prefix . "name"} eq '' ? $name : $item->{$prefix . "name"}) unless $text;
 
-	$m->out($text);
-	$m->out("</a></b>");
-
-	$m->out('</span>') if ($mp);
+	$m->out("</span>") if ($mp);
 
 </%perl>

@@ -31,8 +31,10 @@
 	$id
 	$name
 	$type
-	$simple => 1
+
 	$url => ""
+
+	$simple => 1
 	$linktypeid => 0
 </%args>
 <%perl>
@@ -50,10 +52,10 @@
 	}
 	elsif ($type eq "url")
 	{
-		my ($u, $n) = ( ($url || $name), ($name || $url) );
+		my $href;
+		($href, $name) = (($url || $name), ($name || $url));
 
-		$m->comp("/comp/linkurl", id => $id, name => $name);
-		# <a href="<% $u %>" rel="nofollow"><% $n %></a>
+		$m->comp("/comp/linkurl", id => $id, name => $name, href => $href);
 	}
 	else
 	{
