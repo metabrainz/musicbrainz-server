@@ -29,6 +29,11 @@
 	#
 </%perl>
 <%method ShowPreviousValue>
+% 	my $this = shift;
+
+</%method>
+
+<%method ShowNewValue>
 <%perl>
  	my $this = shift;
 
@@ -54,10 +59,6 @@
 	$m->out(qq!</table>!);
 
 </%perl>
-</%method>
-
-<%method ShowNewValue>
-% 	my $this = shift;
 </%method>
 
 %# eof

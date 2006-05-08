@@ -37,16 +37,49 @@
 % 	my $list = $this->{'new_list'};
 % 	my $i = 0;
 
+	<table class="editfields" style="width: 100%">
+		<tr>
+			<td colspan="2">
+
 % 	for my $t (@$list)
 %	{
-%		$m->out("<br />") if $i++;
+%		if ($i == 5 and $i < @$list)
+%		{
+			</td>
+		</tr>
+		<tr id="more<% $this->GetId %>" style="display: none">
+			<td colspan="2">
 
-		<& /comp/linkfingerprint, type => "puid", id => $t->{'trackid'}, name => $t->{"puid"} &>
+%			$i++;
+%		}
+%		else
+%		{
+%			$m->out("<br />") if $i++;
+%		}
+
+	<& /comp/linktrack, id => $t->{"trackid"}, name => "track", strong => 0 &>
+	<& /comp/linkfingerprint, type => "puid", id => $t->{"puid"}, name => $t->{"puid"} &>
 
 % 	}
 
-	<br />
-	Client "<% $this->{'new_unpacked'}{'ClientVersion'} %>"
+			</td>
+		</tr>
+		<tr>
+			<td>
+				Client "<% $this->{'new_unpacked'}{'ClientVersion'} %>"</td>
+
+%	if (@$list > 5)
+%	{
+
+			<td style="text-align: right; font-size: 11px">
+				+<% @$list-5 %> not shown.
+				(<a href="javascript: // Show all", onclick="mb.ui.setDisplay('more<% $this->GetId %>', true); return false;">Show all</a>)
+			</td>
+%	} else {
+			<td></td>
+%	}
+		</tr>
+	</table>
 
 </%method>
 

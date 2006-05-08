@@ -30,7 +30,17 @@
 </%perl>
 <%method ShowPreviousValue>
 %	my $self = shift;
+
+</%method>
+
+<%method ShowNewValue>
+%	my $self = shift;
 %	my $new = $self->{'new_unpacked'};
+
+	<table class="editfields">
+		<tr>
+			<td>
+
 
 %	if ($new->{oldentity1type} ne 'url')
 %	{
@@ -84,12 +94,12 @@
 			simple => 1 &>
 
 %	}
+			</td>
+		</tr>
+		<tr>
+			<td>
 
-</%method>
 
-<%method ShowNewValue>
-%	my $self = shift;
-%	my $new = $self->{'new_unpacked'};
 
 %	if ($new->{newentity1type} ne "url")
 %	{
@@ -137,6 +147,11 @@
 			simple => 1 &>
 
 %	}
+
+			</td>
+		</tr>
+	</table>
+
 
 </%method>
 

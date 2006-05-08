@@ -31,17 +31,18 @@
 <%method ShowPreviousValue>
 % 	my $this = shift;
 
-	<table class="editfields">
-		<tr>
-			<td class="lbl">Name:</td>
-			<td><% $this->GetPrev %></td>
-		</tr>
-	</table>
-
 </%method>
 
 <%method ShowNewValue>
 % 	my $this = shift;
+
+	<table class="editfields">
+		<tr>
+			<td class="lbl">Remove:</td>
+			<td><% $this->GetPrev %></td>
+		</tr>
+	</table>
+
 </%method>
 
 %# eof

@@ -24,29 +24,21 @@
 	# This component provides the display facilities for
 	# the MOD_CHANGE_TRACK_ARTIST edit type.
 	#
-	# TODO: show album, track seq etc.
-	#
 	# $URL$
 	# $Id$
 	#
 </%perl>
 <%method ShowPreviousValue>
-<%perl>
-	my $this = shift;
+%	my $this = shift;
 
-	my $release = Album->new($this->{DBH});
-	$release->SetId($this->{'prev.albumid'});
-	my $r_exists = $release->LoadFromId;
+</%method>
 
-	my $track = Album->new($this->{DBH});
-	$track->SetId($this->GetRowId);
-	my $t_exists = $track->LoadFromId;
-
-</%perl>
+<%method ShowNewValue>
+% 	my $this = shift;
 
 	<table class="editfields">
 		<tr>
-			<td class="lbl">Track:</td>
+			<td class="lbl">Remove:</td>
 % 	if (defined $this->{'prev.trackname'})
 %	{
 			<td><% $this->{'prev.trackname'} %></td>
@@ -57,13 +49,6 @@
 	</table>
 
 	<div class="attrlist">
-
-% 	if (defined $release->GetName)
-%	{
-
-		Release: <% $release->GetName %><br/>
-
-% 	}
 
 % 	if (!$this->{'prev.isnonalbumtracks'} and
 %		defined $this->{'prev.trackseq'})
@@ -82,10 +67,6 @@
 
 	</div>
 
-</%method>
-
-<%method ShowNewValue>
-% 	my $this = shift;
 </%method>
 
 %# eof

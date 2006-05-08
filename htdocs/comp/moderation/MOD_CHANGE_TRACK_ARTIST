@@ -32,11 +32,10 @@
 <%perl>
  	my $this = shift;
 
-	my ($exists, $id, $name, $resolution) = (0, $this->GetArtist, $this->GetPrev, $this->{'old.res'});
-
-	my $artist = Artist->new($this->{DBH});
-	$artist->SetId($id);
-	$exists = $artist->LoadFromId;
+	my ($exists, $id, $name, $sortname, $resolution) =
+		($this->{"old.exists"}, $this->GetArtist,
+		 $this->GetPrev, $this->{"old.sortname"},
+		 $this->{"old.resolution"});
 
 </%perl>
 
@@ -44,13 +43,11 @@
 		<tr>
 			<td class="lbl">Old:</td>
 			<td><& /comp/linkartist,
-				$exists
-				? (artist => $artist)
-				: (
-					id => $id,
-					name => $name,
-					resolution => $resolution
-				  ), &></td>
+				id => ($exists ? $id : -1),
+				name => $name,
+				sortname => $sortname,
+				title => ($exists ? undef : "Id: $id"),
+				resolution => $resolution &></td>
 		</tr>
 	</table>
 
@@ -64,16 +61,8 @@
 	my ($exists, $id, $name, $sortname, $resolution) =
 		($this->{'new.exists'},
 		 $this->{'new.exists'} ? $this->{'new.id'} : -1,
-		 $this->{'new.name'},
-		 $this->{'new.sortname'},
-		 $this->{'new.res'});
-
-	my $artist = Artist->new($this->{DBH});
-	if ($exists)
-	{
-		$artist->SetId($id);
-		$exists = $artist->LoadFromId;
-	}
+		 $this->{'new.name'}, $this->{'new.sortname'},
+		 $this->{'new.resolution'});
 
 </%perl>
 
@@ -81,14 +70,11 @@
 		<tr>
 			<td class="lbl">New:</td>
 			<td><& /comp/linkartist,
-				$exists
-				? (artist => $artist)
-				: (
-					id => $id,
-					name => $name,
-					sortname => $sortname,
-					resolution => $resolution
-				  ), &></td>
+				id => ($exists ? $id : -1),
+				name => $name,
+				sortname => $sortname,
+				title => ($exists ? undef : "Id: $id"),
+				resolution => $resolution &></td>
 		</tr>
 	</table>
 
