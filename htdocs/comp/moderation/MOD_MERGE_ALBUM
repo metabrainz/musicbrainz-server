@@ -40,14 +40,16 @@
 	$m->out(qq!<table class="editfields">!);
 	for my $release (@$releases)
 	{
+		my $strong = 1;
 		my ($id, $name, $title) = ($release->{'id'}, $release->{'name'}, undef);
 		if ($s == &ModDefs::STATUS_APPLIED)
 		{
 			$title = "This release has been merged, id: $id";
 			$id = -1;
+			$strong = 0;
 		}
 		$m->out(qq!<tr><td>!);
-		$m->comp("/comp/linkrelease", id => $id, name => $name, title => $title);
+		$m->comp("/comp/linkrelease", id => $id, name => $name, title => $title, strong => $strong);
 		$m->out(qq!</td></tr>!);
 	}
 	$m->out(qq!</table>!);
