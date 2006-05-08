@@ -39,13 +39,13 @@
 %	{
 
 	<tr>
-		<td bgcolor="#FFBA58" colspan="3"><img src="/images/pixel.gif" width="1" height="1" alt="" border="" /></td>
+		<td class="spacer" colspan="3"/>
 	</tr>
 
 % 	}
 
-	<tr>
-	   <td class="ShowModInfo">
+	<tr class="showedit">
+	   <td class="info">
 	   		<table class="editfields">
 	   			<tr>
 	   				<td>
@@ -78,10 +78,10 @@
 		 	</div>
 		</td>
 
-		<td class="ShowModType">
+		<td class="type">
 			<%perl> $mod->ShowModType($m); </%perl></td>
 
-		<td class="ShowModVoteHead">
+		<td class="votehead">
 
 %#	if ($is_mine or
 %#		not $is_open or
@@ -109,14 +109,14 @@
 				]
 	   </td>
 	</tr>
-	<tr>
-		<td class="ShowModOld">
+	<tr class="showedit">
+		<td class="oldvalue">
 			<%perl>$mod->ShowPreviousValue($m, $inline);</%perl></td>
 
-		<td class="ShowModNew">
+		<td class="newvalue">
 			<%perl>$mod->ShowNewValue($m, $inline);</%perl></td>
 
-		<td class="ShowModVote">
+		<td class="vote">
 
 % 	unless ($voted == &ModDefs::VOTE_NOTVOTED)
 %	{
@@ -153,8 +153,8 @@
 %	if (@$notes)
 %	{
 
-	<tr>
-		<td colspan="3" valign="top" bgcolor="white" class="edit_notes">
+	<tr class="showedit">
+		<td colspan="3" class="notes">
 
 			 Notes:<br />
 

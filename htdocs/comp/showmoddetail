@@ -25,6 +25,16 @@
 
 	my $language = $edit->GetLanguage;
 
+	my @statuslinks = ();
+	my $id = $edit->GetId;
+	push @statuslinks, qq!<a href="/mod/approve.html?editid=$id">Approve</a>!
+		if ($is_open and
+		    UserStuff->IsAutoMod($session{privs}) and
+		    $edit->IsAutoModType($edit->GetType));
+
+	push @statuslinks, qq!<a href="/mod/remove.html?editid=$id">Delete</a>!
+		if ($my_mod and $is_open);
+
 </%perl>
 
 	<& /comp/tablebegin, title => "Edit Information" &>
@@ -41,7 +51,13 @@
 			</tr>
 			<tr>
 				<td class="label">Status:</td>
-				<td><% $edit->GetChangeName %></td>
+				<td><% $edit->GetChangeName %>
+
+%	if (@statuslinks > 0)
+%	{
+					&nbsp; [ <% join " | ", @statuslinks |n %> ]
+%	}
+				</td>
 			</tr>
 
 % 	if ($language)
@@ -68,10 +84,9 @@
 			</tr>
 
 			<tr>
-				<td>&nbsp;</td>
-				<td><hr></td>
+				<td></td>
+				<td class="separator">&nbsp;</td>
 			</tr>
-
 			<tr class="top">
 				<td class="label">Type:</td>
 				<td><%perl> $edit->ShowModType($m); </%perl></td>
@@ -88,9 +103,12 @@
 % 	if (not $my_mod)
 %	{
 
+
+% 		if (not $edit->IsAutoMod)
+%		{
 			<tr>
-				<td>&nbsp;</td>
-				<td><hr></td>
+				<td></td>
+				<td class="separator">&nbsp;</td>
 			</tr>
 			<tr class="top">
 				<td class="label">My Vote:</td>
@@ -101,6 +119,7 @@
 						: "You did not vote"
 				%></td>
 			</tr>
+%		}
 
 % 		if ($is_open)
 %		{
@@ -132,15 +151,6 @@
 %	if ($see_votes)
 %	{
 
-			<tr class="top">
-				<td class="label">Yes Votes:</td>
-				<td><% $edit->GetYesVotes %></td>
-			</tr>
-			<tr class="top">
-				<td class="label">No Votes:</td>
-				<td><% $edit->GetNoVotes %></td>
-			</tr>
-
 %		if (my @votes = $edit->Votes)
 %		{
 %			# Find the most recent vote by each voter.
@@ -150,21 +160,30 @@
 %				for @votes;
 
 			<tr class="top">
+				<td class="label">Votes Tally:</td>
+				<td><acronym title="Yes"><% $edit->GetYesVotes %></acronym> :
+					<acronym title="No"><% $edit->GetNoVotes %></acronym></td>
+			</tr>
+			<tr class="top">
 				<td class="label">Votes:</td>
 				<td>
-					<table class="listing">
+					<table class="voteslist">
 
 % 			for my $v (@votes)
 %			{
 % 				my $is_latest = ($v->GetId == $mostrecent{ $v->GetUserId });
 
 						<tr class="<% $is_latest ? '' : 'SupersededVote' %>">
-							<td>
-								<a href="/user/view.html?uid=<% $v->GetUserId %>"
-									><% $v->GetUserName %></a></td>
-							<td style="text-align: center">
+							<td class="voter">
+								<& /comp/linkuser,
+									id=>$v->GetUserId,
+									name => $v->GetUserName,
+									icon => 0,
+									strong => 0,
+									title => "Voter" &>:</td>
+							<td class="vote">
 								<% $v->GetVoteName %></td>
-							<td>
+							<td  class="date">
 								<% $m->comp("/comp/datetime", $v->GetVoteTime) %></td>
 						</tr>
 
@@ -181,60 +200,62 @@
 
 %	# Notes
 			<tr>
-				<td>&nbsp;</td>
-				<td><hr></td>
+				<td></td>
+				<td class="separator">&nbsp;</td>
 			</tr>
 
 			<tr class="top">
 				<td class="label">Notes:</td>
-				<td>
-					[ <a href="/mod/addnote.html?modid=<% $edit->GetId %>"
-						onclick="MyWindow=window.open('/mod/addnote.html?modid=<% $edit->GetId %>','AddNote','toolbar=no,location=no,directories=no,status=no,menubar=no,scrollbars=yes,resizable=yes,width=400,height=150'); return false;"
-						>Add note</a>
-
-%	if (!$my_mod and $is_open and
-%		UserStuff->IsAutoMod($session{privs}) and
-%		$edit->IsAutoModType($edit->GetType))
-%	{
-					| <a href="/mod/approve.html?modid=<% $edit->GetId %>">Approve</a>
-%	}
-
-%	if ($my_mod and $is_open)
-%	{
-
-					| <a href="/mod/remove.html?modid=<% $edit->GetId %>">Delete mod</a>
-
-%	}
-
-					]</td>
-			</tr>
 
 %	if (my @notes = $edit->Notes)
 %	{
+				<td>
+					 <table class="noteslist">
 
-%		foreach my $note (@notes)
+%		for my $note (@notes)
 %		{
-			<tr>
-				<td style="padding: 0px; padding-right: 12px; text-align: right;
-%			if ($note->GetUserId == $edit->GetModerator)
-%			{
-					font-weight: bold
-%			}
-					"><a href="/user/view.html?uid=<% $note->GetUserId %>"
-						><% $note->GetUserName %></a>:</td>
-				<td style="padding: 0px;">
-					<% $note->GetTextAsHTML |n %></td>
-			</tr>
+%			my ($strong, $title) = (0, "Voter");
+%			($strong, $title) = (1, "Editor") if ($note->GetUserId == $edit->GetModerator);
+
+						<tr>
+							<td class="noter">
+								<& /comp/linkuser,
+									id => $note->GetUserId,
+									name => $note->GetUserName,
+									strong => $strong,
+									icon => 0,
+									title => $title &>:</td>
+							<td class="text">
+
+%			$m->out(qq!<span class="modbot">!) if ($note->GetUserId	== &ModDefs::MODBOT_MODERATOR);
+
+								<% $note->GetTextAsHTML |n %>
+
+%			$m->out(qq!</span>!) if ($note->GetUserId == &ModDefs::MODBOT_MODERATOR);
+
+							</td>
+						</tr>
 %		}
+						<tr>
+							<td></td>
+							<td colspan="2">
+								<form action="/mod/addnote.html">
+									<input type="hidden" name="editid" value="<% $edit->GetId %>" />
+									<input type="submit" style="font-size: 11px" value="Add note &raquo;" onclick="MyWindow=window.open('/mod/addnote.html?editid=<% $edit->GetId %>','AddNote','toolbar=no,location=no,directories=no,status=no,menubar=no,scrollbars=yes,resizable=yes,width=400,height=150'); return false;" />
+								</form></td>
+						</tr>
+					</table>
+				</td>
+
 %	}
 %	else
 %	{
-			<tr>
-				<td></td>
+
 				<td>(No notes)</td>
-			</tr>
+
 %	}
 
+			</tr>
 		</table>
 
 	<& /comp/tableend &>

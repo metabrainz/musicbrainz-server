@@ -75,8 +75,8 @@
 
 </%perl>
 
-<& /comp/sidebar-notitle, pagetitle => "Search for and browse edits" &>
-	<& /comp/tablebegin, title => "Search for and browse edits" &>
+<& /comp/sidebar-notitle, pagetitle => "Browse edits" &>
+	<& /comp/tablebegin, title => "Browse edits" &>
 
 		<table class="formstyle">
 			<tr>
@@ -86,7 +86,7 @@
 					<a href="/mod/search/select-filter.html">Predefined Edit Search</a> |
 					<a href="/mod/search/index.html?<% $m->comp('/comp/args-to-querystring.inc', %$args) %>">Advanced Edit Search</a> |
 					<a href="/mod/search/pre/new.html">New edits</a> |
-					<a href="/mod/jump.html">Jump</a>
+					<a href="/mod/jump.html">Jump</a></td>
 			</tr>
 			<tr>
 				<td class="label">
@@ -94,8 +94,7 @@
 				<td>
 					<& /comp/linkdoc, "ModerationFAQ", "Editing FAQ" &> |
 					<& /comp/linkdoc, "StyleGuideline", "Style guidelines" &> |
-					<& /comp/linkdoc, "HowEditingWorks", "How editing works" &>
-				</td>
+					<& /comp/linkdoc, "HowEditingWorks", "How editing works" &></td>
 			</tr>
 			<tr class="top">
 				<td class="label">
@@ -137,7 +136,8 @@
 %		$total_mods-$offset > $max_items || $offset > 0)
 %	{
 
-		<div style="margin-left: 168px">
+%		# aligning the browse controls with the rest of the items.
+		<div style="margin-left: 169px">
 			<& /comp/browse/pageselector,
 			   url => "/mod/search/results.html",
 			   args => $args,
@@ -156,58 +156,66 @@
 
 	<form method="post" action="/bare/vote.html">
 
-<table border="0" cellpadding="0" cellspacing="0"
-       bgcolor="#000000" width="100%">
-<tr><td width="100%">
-<table width="100%" border="0" cellspacing="1" cellpadding="3">
+		<table class="editlist">
+			<tr>
+				<td>
+					<table class="showedit" border="0" cellspacing="1" cellpadding="3">
 
 <%perl>
-for my $obj (@$mods)
-{
-	my $n = $notes{ $obj->GetId } || [];
-	$m->comp(
-		"/comp/showmod",
-		mod		=> $obj,
-		notes	=> $n,
-		voter	=> $voter_id,
-		voteflag=> \$show_button,
-	);
-}
+		for my $obj (@$mods)
+		{
+			my $n = $notes{ $obj->GetId } || [];
+			$m->comp("/comp/showmod",
+				mod	=> $obj,
+				notes => $n,
+				voter => $voter_id,
+				voteflag=> \$show_button);
+		}
 </%perl>
+					</table>
+				</td>
+			</tr>
+		</table>
 
-</table>
-</td></tr>
-</table>
+%		my $show_pageselector = (($total_mods - $offset > $max_items or $offset > 0) and @$mods);
+%		if ($show_pageselector or $show_button)
+%		{
 
-% if ($show_button) {
-<table width="100%">
-<tr>
-  <td width="20%">
-     &nbsp;
-  </td>
-  <td align=right>
-     Click here to vote on the items on this page:
-     <INPUT TYPE="hidden" NAME="url"
-            VALUE="<% $r->uri() . "?" . $r->args() %>">
-     <INPUT TYPE="submit" NAME="Submit" VALUE="Submit">
-  </td>
-</tr>
-</table>
-%}
+		<& /comp/tablebegin, title => "Vote on edits" &>
 
-	<script type="text/javascript" src="/scripts/jsdiff.js"></script>
-	<script type="text/javascript" src="/scripts/collapsereleases.js"></script>
-</form>
-% }
+		<table width="100%">
+			<tr>
 
-% if (($total_mods-$offset > $max_items || $offset > 0) and @$mods) {
-<& /comp/framedboxbegin, width=>"100%", style=>"margin: 1em 0" &>
-<& /comp/pageselector,
-   url=>"/mod/search/results.html",
-   args=>$args,
-   offset=>$offset,
-   pagesize=>$max_items,
-   numitems=>$total_mods,
-&>
-<& /comp/framedboxend &>
-% }
+% 			if ($show_pageselector)
+%			{
+
+				<td>
+				<& /comp/browse/pageselector,
+				   url => "/mod/search/results.html",
+				   args => $args,
+				   offset => $offset,
+				   pagesize => $max_items,
+				   numitems => $total_mods,
+				&></td>
+
+% 			}
+% 			if ($show_button)
+%			{
+
+				<td style="text-align: right">
+     				<input type="hidden" name="url" value="<% $r->uri() . "?" . $r->args() %>" />
+     				<input type="submit" name="submit" value="Enter Votes" /></td>
+			</tr>
+		</table>
+
+		<& /comp/tableend &>
+
+
+%			}
+%		}
+
+		<script type="text/javascript" src="/scripts/jsdiff.js"></script>
+		<script type="text/javascript" src="/scripts/collapsereleases.js"></script>
+	</form>
+
+% 	}
