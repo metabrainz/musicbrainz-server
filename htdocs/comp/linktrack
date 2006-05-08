@@ -55,8 +55,6 @@
 	}
 	die ("$id and $name are required") if (not defined $id || not defined $name);
 
-	# render link.
-	$m->out(qq!<img src="/images/entity/track_small.gif" alt="Track" class="entityicon" />!) if ($icon);
 
 	# enclose the value in title in proper attribute tag,
 	# if it was set.
@@ -64,27 +62,28 @@
 		? ' title="' . $m->interp->apply_escapes($title, 'h').'"'
 		: "";
 
+	# render link.
+	# use span with the background image set to render the release icon.
+	$m->out(sprintf qq!<span class="linktrack%s"%s>!,
+					$icon ? "-icon" : "",
+					$title);
+
 	# if the id not negative, show a link, else show the name only
 	if (MusicBrainz::IsNonNegInteger($id))
 	{
-		$m->out(qq!<strong>!) if ($strong);
-
 		# if the MBID is defined, use the "preferred" way of displaying release links.
-		$m->out(sprintf qq!<a href="%s"%s>%s</a>!,
+		$m->out(sprintf qq!<a href="%s" class="linkentity%s">%s</a>!,
 						defined $mbid ? "/track/$mbid.html" : "/show/track/?trackid=$id",
-						$title,
+						$strong ? "-strong" : "",
 						$m->interp->apply_escapes($name, 'h'));
-
-		$m->out(qq!</strong>!) if ($strong);
 	}
 	else
 	{
-		# use the acronym element to show a release
-		# for which we have a negative releaseid
-		$m->out(sprintf qq!<acronym%s>%s</acronym>!,
-						$title,
+		# use the deletedentity span to visualize a deleted entity.
+		$m->out(sprintf qq!<span class="deletedentity">%s</span>!,
 						$m->interp->apply_escapes($name, 'h'));
-	}
 
+	}
+	$m->out("</span>");
 
 </%perl>

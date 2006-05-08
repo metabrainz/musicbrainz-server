@@ -62,36 +62,38 @@
 	$sortname = $sortname || $name;
 
 	# use given title, or use sortname
-	$title ||= $sortname;
+	$title ||= "$sortname";
 	$id = -1 if ($id == &ModDefs::DARTIST_ID);
 
-	$m->out(qq!<img src="/images/entity/artist_small.gif" alt="Artist" class="entityicon" />!) if ($icon);
+	# enclose the value in title in proper attribute tag,
+	# if it was set.
+	$title = defined $title
+		? ' title="' . $m->interp->apply_escapes($title, 'h').'"'
+		: "";
+
+	# use span with the background image set to render the artist icon.
+	$m->out(sprintf qq!<span class="linkartist%s"%s>!,
+					$icon ? "-icon" : "",
+					$title);
 
 	# if the id not negative, show a link,
 	# else show the name only
 	if (MusicBrainz::IsNonNegInteger($id))
 	{
-		$m->out(qq!<strong>!) if ($strong);
-
 		# if the MBID is defined, use the "preferred" way of displaying artist links.
-		$m->out(sprintf qq!<a href="%s" title="%s">%s</a>!,
+		$m->out(sprintf qq!<a href="%s" class="linkentity%s">%s</a>!,
 						defined $mbid ? "/artist/$mbid.html" : "/show/artist/?artistid=$id",
-						$m->interp->apply_escapes($title, 'h'),
+						$strong ? "-strong" : "",
 						$m->interp->apply_escapes($name, 'h'));
-
-		$m->out(qq!</strong>!) if ($strong);
-
 	}
 	else
 	{
-		# use the acronym element to show the sortname of the
-		# artist if the id is negative (e.g. not given, or
-		# called from a moderation in which the ArtistId field
-		# was not given.
-		$m->out(sprintf qq!<acronym title="%s">%s</acronym>!,
-						$m->interp->apply_escapes($title, 'h'),
-						$m->interp->apply_escapes($name, 'h'));
+		# use the deletedentity span to visualize a deleted entity.
+		$m->out(sprintf qq!<span class="deletedentity">%s</span>!,
+		$m->interp->apply_escapes($name, 'h'));
 	}
+
+	$m->out("</span>");
 
 	# render resolution?
 	if ($showresolution && $resolution ne "")

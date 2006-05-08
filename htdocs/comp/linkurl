@@ -35,9 +35,10 @@
 	# specific arguments can be provided, too
 	$id => undef
 	$name => undef
+	$href => undef
 
 	# rendering options
-	$icon => 0
+	$icon => 1
 	$strong => 1
 </%args>
 <%perl>
@@ -49,10 +50,17 @@
 	}
 	die ("$id and $name are required") if (not defined $id || not defined $name);
 
-	# render link.
+	# fall back to stored name if no href is given.
+	$href ||= $name;
+
+	# render link to /show/url page.
 	$m->out(qq!<strong>!) if ($strong);
 	$m->out(qq!<img src="/images/entity/url_small.gif" alt="URL" class="entityicon" />!) if ($icon);
-	$m->out(qq!<a href="/showurl.html?urlid=$id">! . $m->interp->apply_escapes($name, 'h') . qq!</a>!);
+	$m->out(qq!<a href="$href" rel="nofollow">! . $m->interp->apply_escapes($name, 'h') . qq!</a>!);
 	$m->out(qq!</strong>!) if ($strong);
+
+	# show clickable link to open the url target
+	$m->out(qq! <nobr>(<a href="/show/url/?urlid=$id">details</a>)</nobr>!)
+		if (defined $href);
 
 </%perl>

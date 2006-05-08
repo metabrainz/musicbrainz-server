@@ -33,6 +33,7 @@
 	$id => undef
 	$name => undef
 	$type => undef
+	$url => undef
 
 	# rendering options
 	$icon => 1
@@ -44,14 +45,13 @@
 
 	my $typeicon = $type."_small.gif";
 	my $typealt = uc($type);
+	$url ||= "/show/".$type."/?".$type."=$id";
 
 	# render link.
 	$m->out(qq!<strong>!) if ($strong);
 	$m->out(qq!<img src="/images/entity/$typeicon" alt="$typealt" class="entityicon" />!) if ($icon);
-
-	# if the MBID is defined, use the "preferred" way of displaying release links.
 	$m->out(sprintf qq!<a href="%s">%s</a>!,
-					"/show/track/?trackid=$id",
+					$url,
 					$m->interp->apply_escapes($name, 'h'));
 
 	$m->out(qq!</strong>!) if ($strong);
