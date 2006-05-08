@@ -52,13 +52,12 @@
 		return $m->comp("/comp/error", $msg, 1, 1);
 	}
 
-	$m->comp(
-		"/comp/moderatepage",
-		query	=> $query,
-		voter_id=> $voter_id,
-		offset	=> $offset,
-		page	=> $page,
-		args	=> { %ARGS, page => undef, offset => undef },
+	$m->comp("/comp/moderatepage",
+		query => $query,
+		voter_id => $voter_id,
+		offset => $offset,
+		page => $page,
+		args => { %ARGS, page => undef, offset => undef },
 	);
 
 </%perl>

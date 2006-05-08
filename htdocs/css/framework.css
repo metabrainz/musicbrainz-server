@@ -255,16 +255,16 @@ table.listing td {
 }
 /* table.listing td, padding-right did not work for listings inside 
    the tables with class formstyle. then we'll add a margin to the content 
-   of the TDs, but not the image (e.g. icons) */
+   of the TDs, but not the image (e.g. icons) 
 table.listing td a {  
 	margin-right: 20px;
-}
+}*/
 
 table.listing td.browsenr {
 	font-size: 10px; text-align: left;  padding-right: 10px;
 }
 table.listing td.browsename {
-	text-align: left; padding-right: 50px; white-space: nowrap;
+	text-align: left; padding-right: 50px; 
 }
 
 
@@ -356,6 +356,38 @@ table.pageselector td.jump table {
 table.pageselector td.list {
 	white-space: nowrap;
 	padding-left: 40px;
+}
+
+table.pageselector td.list a,
+table.pageselector td.list span {
+	float: left; 
+	display: block; 
+	margin: 0px 2px; 
+	border: 1px solid #333;
+	padding: 0px 2px; 
+	font-size: 9px;
+	color: #333;
+} 
+table.pageselector td.list a,
+table.pageselector td.list a:hover,
+table.pageselector td.list a:visited,
+table.pageselector td.list a:active {
+	text-decoration: none;
+}
+table.pageselector td.list a:hover {
+	background-color: #FFBA58;
+	color: #000;
+	text-decoration: none;
+}
+table.pageselector td.list span.inactive {
+	color: #999;
+	background-color: #eee;
+	border: 1px solid #999;
+}
+table.pageselector td.list span.current {
+	background-color: #FFBA58;
+	color: #000;
+	font-weight: bold;
 }
 
 table.pageselector td.jumpfield {

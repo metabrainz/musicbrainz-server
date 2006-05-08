@@ -39,7 +39,7 @@
 
 	# rendering options
 	$icon => 1
-	$strong => 1
+	$strong => 0
 </%args>
 <%perl>
 
@@ -60,7 +60,7 @@
 	$m->out(qq!</strong>!) if ($strong);
 
 	# show clickable link to open the url target
-	$m->out(qq! <nobr>(<a href="/show/url/?urlid=$id">details</a>)</nobr>!)
+	$m->out(qq! <span class="nobr">(<a href="/show/url/?urlid=$id">details</a>)</span>!)
 		if (defined $href);
 
 </%perl>

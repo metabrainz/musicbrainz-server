@@ -58,7 +58,7 @@
 	if (!$inline)
 	{
 		my $n = ($show_novote ? 4 : 3);
-		$m->out(qq[<table class="votechoice votechoice$n">]);
+		$m->out(qq!<table class="votechoice votechoice$n"><tr>!);
 	}
 
 	for ("Yes=yes", "No=no", "Abs=abs", "No&nbsp;Vote=novote")
@@ -87,7 +87,7 @@
 
 	if (!$inline)
 	{
-		$m->out(qq[</table>]);
+		$m->out(qq!</tr></table>!);
 	}
 
 </%perl>

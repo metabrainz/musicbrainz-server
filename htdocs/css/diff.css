@@ -79,7 +79,6 @@ table.editdiff tr td.diff .del {
 	padding: 0px 1px;
 }
 
-
 /* the blind tables which help to align values in the edit displays */
 table.editfields {
 	border-collapse: collapse;
@@ -104,6 +103,204 @@ div.attrlist {
 }
 
 
+/* List of edits */
+table.editlist {
+	border-collapse: collapse;
+	padding: 0px; margin: 0px;
+	background-color: #000;
+	width: 100%;
+	margin-bottom: 15px;
+}
+table.editlist tr td {
+	padding: 0px; margin: 0px;
+}
+table.editlist td.spacer {
+	height: 5px; width: 100%;
+	background-color: #FFBA58;
+}
+
+/* the header row of the edit */
+table.showedit {
+}
+table.showedit tr {
+	vertical-align: top;
+}
+table.showedit tr td {
+	padding: 1px 3px;
+}
+
+/* the header row of the edit */
+tr.showedit td.info, 
+tr.showedit td.type, 
+tr.showedit td.votehead {
+	white-space: nowrap;
+	background: #fff;
+}
+
+/* show header row, specific settings per column */
+tr.showedit td.info {
+	padding-right: 70px;
+}
+tr.showedit td.type {}
+tr.showedit td.type td {
+	padding: 0px 2px;
+}
+tr.showedit td.votehead {
+	text-align: center;
+}
+
+/* the old value of the edit */
+tr.showedit td.oldvalue {
+	background: #ffecd6;
+	vertical-align: top;
+}
+tr.showedit td.oldvalue table.editdiff {
+	border-color: #ffecd6;
+}
+tr.showedit td.oldvalue table.editdiff tr {
+	border-color: #ffecd6;
+}
+tr.showedit td.oldvalue table.editfields tr td,
+tr.showedit td.oldvalue table.editdiff tr td {
+	border-color: #ffecd6;
+	padding: 0px; padding-right: 4px;
+}
+
+/* the new value of the edit */
+tr.showedit td.newvalue {
+	background: #f0efff;
+	vertical-align: top; 
+	width: 100%;
+}
+tr.showedit td.newvalue table.editdiff {
+	border-color: #f0efff;
+}
+tr.showedit td.newvalue table.editdiff tr {
+	border-color: #f0efff;
+}
+tr.showedit td.newvalue table.editfields tr td,
+tr.showedit td.newvalue table.editdiff tr td {
+	border-color: #f0efff;
+	padding: 0px; padding-right: 4px;
+}
+tr.showedit td.newvalue table.editdiff tr {
+	vertical-align: middle;
+}
+tr.showedit td.newvalue table.annotation {
+	margin-top: 3px;
+}
+tr.showedit td.newvalue table.annotation tr.header td {
+	background-color: #fb5;
+}
+tr.showedit td.newvalue div.release_endspacer {
+	display: none;
+}
+tr.showedit td.vote {
+	background: #fff;
+	text-align: center;
+	vertical-align: top;
+	white-space: nowrap;
+	padding: 0px 10px;
+}
+tr.showedit td.notes {
+	background: #fff;
+	padding: 2px;
+}
+tr.showedit td.oldvalue .lbl {
+	width: 30px;
+}
+
+/* the list of edit votes */
+table.voteslist {
+	border: 0px; border-collapse: collapse;
+	padding: 0px;
+	margin-left: 30px;
+}
+table.voteslist tr {
+	vertical-align: middle;
+}
+table.voteslist tr td.voter {
+	padding: 0px; padding-top: 1px;padding-right: 10px;
+	text-align: right; font-size: 11px;
+	width: 80px;
+}
+table.voteslist tr td.vote {
+	padding: 0px; padding-right: 30px;
+	text-align: left;
+}
+table.voteslist tr td.date {
+	padding: 0px; padding-right: 10px;
+	text-align: left;
+}
+
+/* the list of moderation/edit notes */
+table.noteslist {
+	border: 0px; border-collapse: collapse;
+	padding: 0px;
+	margin-left: 30px;
+}
+table.noteslist tr {
+	vertical-align: top;
+}
+table.noteslist tr td.noter {
+	padding: 0px; padding-top: 2px; padding-right: 10px;
+	text-align: right; font-size: 11px;
+	width: 80px;
+}
+table.noteslist tr td.text {
+	padding: 0px;
+}
+table.noteslist span.modbot {
+	padding-left: 10px;
+	background-image: url(../images/edit.gif);
+	background-position: left 4px;
+	background-repeat: no-repeat;
+	color: #999;
+}
+table.noteslist span.modbot a {
+	color: #999;
+	text-decoration: noene;
+}
+
+/* Voting buttons */
+table.votechoice {
+	border: 0px;
+	border-collapse: collapse;
+	padding: 0px;
+}
+table.votechoice3 td {
+	width: 33%; text-align: left;
+}
+table.votechoice4 td {
+	width: 25%; text-align: left;
+}
+table.votechoice input {
+	margin-right: 5px;
+}
+table.votechoice label {
+	display: block;
+	padding: 3px;
+	margin-left: 5px;
+	border: 1px solid #fff;
+	text-align: center;
+	font-size: 10px;
+}
+table.votechoice label:hover {
+	border: thin dotted #999;
+}
+
+/* /comp/showmodetail */
+.moddetail table {
+	border: none;
+	border-collapse: collapse;
+}
+td.separator { 
+	border-bottom: 1px dotted #999; 
+}
+.SupersededVote * { 
+	background: #eee 
+}
+
 /* the blind tables which help to align values in the edit displays */
 table.edittype {
 	border-collapse: collapse;
@@ -120,4 +317,4 @@ table.edittype tr td.lbl {
 	border: 0px; margin: 0px; padding: 0px; padding-right: 4px;
 	white-space: nowrap; word-wrap: none;
 	width: 65px; 
-}
+} 

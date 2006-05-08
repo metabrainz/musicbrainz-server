@@ -1,75 +1,107 @@
-%# vi: set ts=2 sw=2 ft=mason :
+<%perl>
+	# -----------------------------------------------------------------------------
+	#                               Musicbrainz.org
+	#                        Copyright (c) 2001 Robert Kaye
+	# -----------------------------------------------------------------------------
+	#  This software is provided "as is", without warranty of any kind, express or
+	#  implied, including  but not limited  to the warranties of  merchantability,
+	#  fitness for a particular purpose and noninfringement. In no event shall the
+	#  authors or  copyright  holders be  liable for any claim,  damages or  other
+	#  liability, whether  in an  action of  contract, tort  or otherwise, arising
+	#  from,  out of  or in  connection with  the software or  the  use  or  other
+	#  dealings in the software.
+	#
+	#  GPL - The GNU General Public License    http://www.gnu.org/licenses/gpl.txt
+	#  Permits anyone the right to use and modify the software without limitations
+	#  as long as proper  credits are given  and the original  and modified source
+	#  code are included. Requires  that the final product, software derivate from
+	#  the original  source or any  software  utilizing a GPL  component, such  as
+	#  this, is also licensed under the GPL license.
+	# -----------------------------------------------------------------------------
+	#
+	# Summary:
+	# -----------------------------------------------------------------------------
+	# This page allows an AutoEditor to approve a pending edit
+	#
+	# $URL$
+	# $Id$
+	#
+</%perl>
 <%args>
-$modid=>0
-$notetext=>""
-$url=>""
-$btnNo=>undef
-$btnYes=>undef
+	$modid => 0
+	$editid => undef
+
+	$notetext => ""
+	$url => ""
+	$btnNo => undef
+	$btnYes => undef
 </%args>
-<%perl> 
+<%perl>
+
+	$editid ||= $modid;
 
 	$m->comp("/comp/checkloggedin", 1, 1)
 		or return;
 
-	MusicBrainz::IsNonNegInteger($modid) && $modid
-		or $modid = 0;
- 		
+	MusicBrainz::IsNonNegInteger($editid) && $editid
+		or $editid = 0;
+
 	return $m->comp("/comp/badargs")
-		if ($modid == 0);
+		if ($editid == 0);
 
 	my $mb = $m->comp("/comp/dblogin");
 	my $mod = Moderation->new($mb->{DBH});
-	$mod = $mod->CreateFromId($modid);
+	$mod = $mod->CreateFromId($editid);
 
 	$mod->IsAutoModType($mod->GetType) or return $m->comp(
 		"/comp/error",
-		"Moderation #$modid is not an auto-moderation.",
+		"Moderation #$editid is not an auto-moderation.",
 		1, 1,
 	);
-	
+
 	UserStuff->IsAutoMod($session{privs}) or return $m->comp(
 		"/comp/error",
 		"You must be a auto-moderator to approve this moderation.",
 		1, 1,
 	);
 
-	# Cancel (redirect back to the moderation page)	
+	# Cancel (redirect back to the moderation page)
 	if (defined $btnNo)
 	{
-		$url = "/showmod.html?modid=$modid"
+		$url = "/showmod.html?editid=$editid"
 			if !$url;
-		return $m->comp("/comp/redirect", $url); 
+		return $m->comp("/comp/redirect", $url);
 	}
-	
-	MusicBrainz::TrimInPlace($notetext); 
-	
+
+	MusicBrainz::TrimInPlace($notetext);
+
 	my $vote = $mod->VoteFromUser($session{uid});
 	my $optionalNote = $mod->GetNoVotes == 0 || ($mod->GetNoVotes == 1 && defined $vote && $vote->GetVote == &ModDefs::VOTE_NO);
-	
+
 	# Approve the moderation
 	if (defined $btnYes and ($optionalNote or $notetext))
 	{
 		my $sql = Sql->new($mb->{DBH});
-		
+
 		eval {
 			$sql->Begin;
 
-			# Insert a "yes" vote			
-			my %votes = ($modid => &ModDefs::VOTE_YES);
+			# Insert a "yes" vote
+			my %votes = ($editid => &ModDefs::VOTE_YES);
 			my $v = MusicBrainz::Server::Vote->new($mb->{DBH});
-			$v->InsertVotes(\%votes, $session{uid}); 
-			
+			$v->InsertVotes(\%votes, $session{uid});
+
 			# Approve the moderation
 			my $status = $mod->ApprovedAction;
 			my $user = UserStuff->new($mb->{DBH});
 			$mod->SetStatus($status);
 			$user->CreditModerator($mod->GetModerator, $status);
 			$mod->CloseModeration($status);
-		
+
 			# Insert a note
 			$mod->InsertNote($session{uid}, $notetext)
 				if ($notetext);
-		
+
 			$sql->Commit;
 		} or do {
 			my $err = $@;
@@ -84,8 +116,8 @@ $btnYes=>undef
 			$m->comp("/comp/footer");
 			return undef;
 		};
-		
-		$url = "/showmod.html?modid=$modid"
+
+		$url = "/show/edit/?editid=$editid"
 			if !$url;
 		return $m->comp("/comp/redirect", $url);
 	}
@@ -98,27 +130,27 @@ $btnYes=>undef
 %      if (!$optionalNote && !$notetext) {
          <p class="error">You must provide a moderation note in order to approve this moderation.</p>
 %      }
-% } 
+% }
 
-<form method="POST" action="/mod/approve.html">
-	<input type="hidden" name="modid" value="<% $modid %>" />
-	<input type="hidden" name="url" value="<% $url %>" />
-	<fieldset>
-		<legend>Confirm Moderation Approval</legend>
-		<div class="padleft">
-			<p>Do you want to approve this moderation?</p>
-			<div style="padding: 1em; line-height: 1.5;">
-				<div><%perl>$mod->ShowModType($m);</%perl></div>
-				<div><%perl>$mod->ShowPreviousValue($m);</%perl></div>
-				<div><%perl>$mod->ShowNewValue($m);</%perl></div>
-			</div>	
-			<p><& /comp/notetext, required => !$optionalNote &></p>
-			<p style="padding-top: 1em;">
-				<input name="btnNo" type="submit" class="button" value="&laquo; NO" />
-				<input name="btnYes" type="submit" class="button" value="YES &raquo;" />
-			</p>	
-		</div>
-	</fieldset>
-</form>
+	<form method="POST" action="/mod/approve.html">
+		<input type="hidden" name="editid" value="<% $editid %>" />
+		<input type="hidden" name="url" value="<% $url %>" />
+		<fieldset>
+			<legend>Confirm Moderation Approval</legend>
+			<div class="padleft">
+				<p>Do you want to approve this moderation?</p>
+				<div style="padding: 1em; line-height: 1.5;">
+					<div><%perl>$mod->ShowModType($m);</%perl></div>
+					<div><%perl>$mod->ShowPreviousValue($m);</%perl></div>
+					<div><%perl>$mod->ShowNewValue($m);</%perl></div>
+				</div>
+				<p><& /comp/notetext, required => !$optionalNote &></p>
+				<p style="padding-top: 1em;">
+					<input name="btnNo" type="submit" class="button" value="&laquo; NO" />
+					<input name="btnYes" type="submit" class="button" value="YES &raquo;" />
+				</p>
+			</div>
+		</fieldset>
+	</form>
 
 <& /comp/footer &>

@@ -29,11 +29,47 @@ a img {
 	vertical-align: baseline;
 }
 
-/* XHTML change: globally remove borders from images inside <a> blocks */
+span.nobr { 
+	white-space: nowrap;
+}
+
 img.entityicon { 
 	margin: 0px; margin-right: 3px; padding: 0px;
 	vertical-align: middle;
 }
+
+/* use technique from wikipedia to show entity links (icon as background image
+   with left-padding.) */
+span.linkartist-icon,
+span.linkrelease-icon,
+span.linktrack-icon { 
+	padding-left: 16px;
+	background-position: left 2px;
+	background-repeat: no-repeat;
+}
+span.linkartist-icon { 
+	background-image: url("../images/entity/artist_small.gif");
+}
+span.linkrelease-icon { 
+	background-image: url("../images/entity/release_small.gif");
+}
+span.linktrack-icon { 
+	background-image: url("../images/entity/track_small.gif"); 
+}
+
+/* deleted entities are shown differently */
+span.deletedentity { 
+	color: #999;
+	cursor: help;
+}
+
+/* links to entities are usually rendered bold, can be turned of 
+   when calling the component. */
+a.linkentity-strong { 
+	font-weight: bold;
+}
+
+
 
 label { cursor: pointer; } /* TODO: that is the default behaviour, isn't it? */
 
@@ -517,17 +553,15 @@ table.releaseevents table.eventslist td  {
 }
 
 table.relationships {}
-
 table.relationships td  { 
 	border: none; 
 	padding: 0px; 
 	padding-left: 20px;
 	font-size: 11px;
 }
-
-
-
-
+table.relationships a  { 
+	font-weight: normal;
+}
 
 
 /* /comp/albumtype */
@@ -592,10 +626,6 @@ td.trk *, td.did *, td.trm *, td.rdate * { vertical-align: middle }
 #TagLookupTrackResults td.tlen.good { color: green; font-weight: bold }
 #TagLookupTrackResults td.tlen.ok { color: blue }
 #TagLookupTrackResults td.tlen.bad { color: red }
-
-/* Mod Detail */
-
-.SupersededVote { background: #ccc }
 
 /* Reports */
 
@@ -717,139 +747,7 @@ table.annotation ul {
 	text-decoration: none;
 }
 
-/* List of Moderations */
-.ShowModInfo, .ShowModType, .ShowModVoteHead {
-	background: white;	
-	vertical-align: top;
-	white-space: nowrap;
-}
-.ShowModInfo {
-	padding-right: 50px;
-}
 
-
-.ShowModVoteHead {
-	text-align: center;
-}
-
-.ShowModOld {
-	background: #ffecd6;
-	vertical-align: top;
-}
-.ShowModOld table.editdiff {
-	border-color: #ffecd6;
-}
-.ShowModOld table.editdiff tr {
-	border-color: #ffecd6;
-}
-.ShowModOld table.editdiff tr td {
-	border-color: #ffecd6;
-}
-
-.ShowModNew {
-	background: #f0efff;
-	vertical-align: top;
-	width: 100%;
-}
-.ShowModNew table.editdiff {
-	border-color: #f0efff;
-}
-.ShowModNew table.editdiff tr {
-	border-color: #f0efff;
-}
-.ShowModNew table.editdiff tr td {
-	border-color: #f0efff;
-}
-
-
-.ShowModInfo table.editfields tr td {
-	padding: 0px;
-}
-
-.ShowModNew table.annotation {
-	margin-top: 3px;
-}
-.ShowModNew table.annotation tr.header td {
-	background-color: #fb5;
-}
-.ShowModNew div.release_endspacer {
-	display: none;
-}
-
-
-.ShowModVote {
-	background: white;
-	text-align: center;
-	vertical-align: top;
-	white-space: nowrap;
-	padding: 0px 10px;
-}
-
-
-table.noteslist {
-	border: 0px;
-	border-collapse: collapse;
-	padding: 0px;
-	margin-left: 30px;
-}
-table.noteslist tr {
-	vertical-align: top;
-}
-table.noteslist tr td.noter {
-	padding: 0px; 
-	padding-right: 10px;
-	text-align: right;
-	font-size: 11px;
-}
-table.noteslist tr td.text {
-	padding: 0px;
-	padding-bottom: 2px;
-	line-height: 97%;
-}
-table.noteslist span.modbot {
-	padding-left: 8px;
-	background-image: url(../images/edit.gif);
-	background-position: left 60%;
-	background-repeat: no-repeat;
-	color: #999;
-}
-
-/* Voting buttons */
-table.votechoice {
-	border: 0px;
-	border-collapse: collapse;
-	padding: 0px;
-}
-
-table.votechoice3 td {
-	width: 33%;
-	text-align: left;
-}
-
-table.votechoice4 td {
-	width: 25%;
-	text-align: left;
-}
-table.votechoice input {
-	margin-right: 5px;
-}
-table.votechoice label {
-	display: block;
-	padding: 3px;
-	margin-left: 5px;
-	border: 1px solid #fff;
-	text-align: center;
-	font-size: 10px;
-}
-
-table.votechoice label:hover {
-	border: thin dotted #999;
-}
-
-.moddetail table {
-	border: none;
-	border-collapse: collapse;
-}
 
 #RelatedModsBox {
 	margin: 1em 0;

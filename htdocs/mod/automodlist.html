@@ -1,39 +1,76 @@
-%# vi: set ts=2 sw=2 ft=mason :
-<& /comp/sidebar, title=>'Current Auto Moderators', expand=>'moderate' &>
+<%perl>
+	# -----------------------------------------------------------------------------
+	#                               Musicbrainz.org
+	#                        Copyright (c) 2001 Robert Kaye
+	# -----------------------------------------------------------------------------
+	#  This software is provided "as is", without warranty of any kind, express or
+	#  implied, including  but not limited  to the warranties of  merchantability,
+	#  fitness for a particular purpose and noninfringement. In no event shall the
+	#  authors or  copyright  holders be  liable for any claim,  damages or  other
+	#  liability, whether  in an  action of  contract, tort  or otherwise, arising
+	#  from,  out of  or in  connection with  the software or  the  use  or  other
+	#  dealings in the software.
+	#
+	#  GPL - The GNU General Public License    http://www.gnu.org/licenses/gpl.txt
+	#  Permits anyone the right to use and modify the software without limitations
+	#  as long as proper  credits are given  and the original  and modified source
+	#  code are included. Requires  that the final product, software derivate from
+	#  the original  source or any  software  utilizing a GPL  component, such  as
+	#  this, is also licensed under the GPL license.
+	# -----------------------------------------------------------------------------
+	#
+	# Summary:
+	# -----------------------------------------------------------------------------
+	# Retrieve and display the list of AutoEditors
+	#
+	# $URL$
+	# $Id$
+	#
+</%perl>
+
+<& /comp/sidebar, title=>'Current Auto Editors' &>
 
 <%perl>
 
-my $mb = $m->comp("/comp/dblogin");
-my $mod = Moderation->new($mb->{DBH});
+	my $mb = $m->comp("/comp/dblogin");
+	my $mod = Moderation->new($mb->{DBH});
 
 </%perl>
 
-<p>
-Automoderators are moderators who have made a large number of contributions 
-to MusicBrainz, and some basic moderations made by automoderators are not
-required to be voted on by other moderators. The following moderation types
-are automoderations:
-</p>
+	<p>
+	Automoderators are moderators who have made a large number of contributions
+	to MusicBrainz, and some basic moderations made by automoderators are not
+	required to be voted on by other moderators. The following moderation types
+	are automoderations:
+	</p>
 
-<blockquote>
-	<% join ", ", @{ $mod->GetAutomoderationList } %>
-</blockquote>
+	<blockquote>
+		<% join ", ", @{ $mod->GetAutomoderationList } %>
+	</blockquote>
 
-% if (&DBDefs::REPLICATION_TYPE == RT_SLAVE) {
+%	if (&DBDefs::REPLICATION_TYPE == RT_SLAVE)
+%	{
 
-	The list of automoderators is available on the <a 
-  href="http://musicbrainz.org/mod_intro.html">main server</a>.
+	The list of automoderators is available on the
+	<a href="http://musicbrainz.org/mod_intro.html">main server</a>.
 
-% } else {
+% 	}
+%	else
+%	{
+
 	The following moderators are automoderators:
 
 	<blockquote>
-%   my @users = @{ $mod->GetAutomoderatorList };
-%   $m->out("No-one!") if not @users;
-%   while (defined(my $user = shift @users)) {
-	    	<a href="/user/view.html?modname=<% uri_escape($user) %>"><% $user %></a><% (@users ? ", " : "") %>
-%   }
+
+%		my @users = @{ $mod->GetAutomoderatorList };
+%		$m->out("No-one!") if not @users;
+%		while (defined(my $user = shift @users))
+%		{
+    	<a href="/user/view.html?modname=<% uri_escape($user) %>"><% $user %></a><% (@users ? ", " : "") %>
+%		}
+
 	</blockquote>
-% }
+
+% 	}
 
 <& /comp/footer &>

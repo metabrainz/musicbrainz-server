@@ -47,15 +47,10 @@
 	{
 		$edit = Moderation->new($mb->{DBH});
 		$edit = $edit->CreateFromId($editid);
-		$edit->PreDisplay;
-	}
-
-	# if the edit could not be loaded, show error message.
- 	if ($editid and not $edit)
- 	{
-		return $m->comp("/comp/layout/badarguments",
-			text => "Edit with <strong>editid</strong> $editid was "
-				   ."not found in the database.");
+		if ($edit)
+		{
+			$edit->PreDisplay;
+		}
 	}
 
 	if (&DBDefs::DB_STAGING_SERVER and $edit)
@@ -98,17 +93,11 @@
 		}
 	}
 
+	my $title = $edit ? "Edit #$editid" : "Show Edit";
+
 </%perl>
 
-<& /comp/sidebar-notitle, pagetitle => $edit ? "Edit #$editid" : "Show Edit" &>
-
-% 	if ($edit)
-%	{
-
-	<& /comp/showmoddetail, $edit &>
-	<script type="text/javascript" src="/scripts/jsdiff.js"></script>
-
-% 	}
+<& /comp/sidebar-notitle, pagetitle => $title &>
 
 	<& /comp/tablebegin, title => "Show another edit" &>
 
@@ -144,5 +133,24 @@
 		<& /comp/jumpmod, $editid &>
 
 	<& /comp/tableend &>
+
+
+%	# if the edit could not be loaded, show error message.
+% 	if (not $edit)
+% 	{
+
+	<& /comp/tablebegin, title => $title &>
+		Edit with <strong>Edit ID</strong> #<% $editid %> was not found in the database.
+	<& /comp/tableend &>
+
+%	}
+% 	else
+%	{
+
+	<& /comp/showmoddetail, $edit &>
+	<script type="text/javascript" src="/scripts/jsdiff.js"></script>
+	<script type="text/javascript" src="/scripts/collapsereleases.js"></script>
+
+% 	}
 
 <& /comp/footer &>
