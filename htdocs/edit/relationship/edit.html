@@ -129,13 +129,16 @@
 
 	if ($submitvalue ne "")
 	{
+		# prepare forward url after action.
+		my $type = ($links[0]{type} == "album" ? "release" : $links[0]{type});
+		my $url = "/show/".$type."/?".$type."id=".$links[0]{id});
+
 		# handle click of Cancel button
 		if ($submitvalue =~ m/cancel/i)
 		{
-			return $m->comp("/comp/redirect",
-				sprintf "/show%s.html?%sid=%s", $links[0]{type}, $links[0]{type}, $links[0]{id});
+			return $m->comp("/comp/redirect", $url);
 		}
-		elsif ($submitvalue =~ m/Enter Moderation/i)
+		if ($submitvalue =~ m/Enter Moderation/i)
 		{
 			# validate
 			push @errors, "Please select a relationship type"
@@ -154,7 +157,6 @@
 				my $newLinkType = $oldLinkType->newFromId($linktypeid);
 				if ($newLinkType)
 				{
-					my $url = "/show" . $links[0]{type} . ".html?" . $links[0]{type} . "id=" . $links[0]{id};
 					$m->comp(
 						"/comp/entermods",
 						DBH => $mb->{DBH},
