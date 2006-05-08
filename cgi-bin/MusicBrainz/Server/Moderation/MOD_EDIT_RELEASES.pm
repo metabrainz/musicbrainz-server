@@ -108,36 +108,41 @@ sub PreInsert
 sub PostLoad
 {
 	my $self = shift;
-	my %new = %{ $self->ConvertNewToHash($self->GetNew) };
 	my (@adds, @edits, @removes);
+	
+	$self->{"new_unpacked"} = $self->ConvertNewToHash($self->GetNew)
+		or die;
+
+	# extract albumid and changed release events from new_unpacked hash
+	my $new = $self->{'new_unpacked'};	
 
 	for (my $i=0; ; ++$i)
 	{
-		my $v = $new{"add$i"}
-			or last;
+		my $v = $new->{"add$i"} or last;
 		push @adds, +{ split /[ =]/, $v };
 	}
-
+	
 	for (my $i=0; ; ++$i)
 	{
-		my $v = $new{"edit$i"}
-			or last;
+		my $v = $new->{"edit$i"} or last;
 		push @edits, +{ split /[ =]/, $v };
 	}
-
+	
 	for (my $i=0; ; ++$i)
 	{
-		my $v = $new{"remove$i"}
-			or last;
+		my $v = $new->{"remove$i"} or last;
 		push @removes, +{ split /[ =]/, $v };
 	}
-
-	$self->{"albumid"} = $new{"albumid"};
-	$self->{"albumname"} = $new{"albumname"};
+	
 	$self->{"adds"} = \@adds;
 	$self->{"edits"} = \@edits;
 	$self->{"removes"} = \@removes;
-	$self->{"_new"} = \%new;
+	
+	# check if release still exists.
+	($self->{"albumid"}, $self->{"checkexists-album"}) = ($new->{"albumid"}, 1);
+
+	# fallback to stored name if release cannot be loaded	
+	$self->{"albumname"} = $new->{"albumname"}; 
 }
 
 sub IsAutoMod
@@ -146,7 +151,7 @@ sub IsAutoMod
 	my $edits = 0;
 	for my $t (@{ $self->{"edits"} })
 	{
-    	    my @d = map { 0+$_ } split "-", $t->{"d"};
+		my @d = map { 0+$_ } split "-", $t->{"d"};
 	    my @nd = map { 0+$_ } split "-", $t->{"nd"};
 	    $edits++
 		if $d[0] != $nd[0] or (($d[1] or !$nd[1]) and ($d[1] != $nd[1] or $d[2] or !$nd[2]));

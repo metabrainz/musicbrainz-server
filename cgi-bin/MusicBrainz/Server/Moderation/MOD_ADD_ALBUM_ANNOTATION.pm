@@ -55,15 +55,16 @@ sub PreInsert
 	$self->SetRowId($albumid);
 }
 
+sub PostLoad
+{
+	my $self = shift;
+		
+	($self->{"albumid"}, $self->{"checkexists-album"}) = ($self->GetRowId, 1);
+} 
+
 sub PreDisplay
 {
 	my $this = shift;
-
-	# load album title
-	my $al = Album->new($this->{DBH});
-	$al->SetId($this->GetRowId);
-	$al->LoadFromId
-		and $this->{'albumname'} = $al->GetName;
 
 	# load annotation data
 	my $an = MusicBrainz::Server::Annotation->new($this->{DBH});
