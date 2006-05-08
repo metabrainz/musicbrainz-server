@@ -12,25 +12,25 @@ $attrlist = $al->GetAttributeList();
 <a id="albumattrguide-<% $_[0] %>" href="#albumattrguide-<% $_[0] %>"><b>&lowast;</b></a>
 </%def>
 
-<p><b>Album Attribute Definitions</b></p>
+<p><b>Release Attribute Definitions</b></p>
 
 <p>
 	<blockquote style="text-align: right; font-size:smaller">
-		More details can be found on the <a href="http://wiki.musicbrainz.org/wiki.pl?AlbumAttribute">AlbumAttribute</a> wiki page.
+		More details can be found on the <& /comp/linkdoc, "ReleaseAttribute", "release attributes" &> wiki page.
 	</blockquote>
 </p>
 
 <p>
 	<& .StyleGuideLink, "general" &>
-	Album attributes define the type and status of an audio 
+	Release attributes define the type and status of an audio
 	release and provide information about the contents of the release.
 </p>
 
 <p>
 	<& .StyleGuideLink, "most-tracks" &>
-	Album attributes should apply to most of the tracks on the 
-	album. It's OK to have a couple of tracks that do not fit the 
-	album attribute, as long as the attribute applies to the album overall.
+	Release attributes should apply to most of the tracks on the
+	release. It's OK to have a couple of tracks that do not fit the
+	release attribute, as long as the attribute applies to the release overall.
 </p>
 
 <table width="100%">
@@ -61,4 +61,4 @@ $attrlist = $al->GetAttributeList();
           <td valign="top"><% $attrlist->{$_}->[2] %></td>
      </tr>
 % }
-</table> 
+</table>

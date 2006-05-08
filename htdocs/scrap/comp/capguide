@@ -7,9 +7,9 @@
 
 <p>
 	<& .StyleGuideLink, "general" &>
-	Use the following standard guidelines for capitalizing titles (albums,
+	Use the following standard guidelines for capitalizing titles (releases,
 	songs) in the English language. <b>A more detailed description of these
-	rules and guidelines for other languages can be found on the 
+	rules and guidelines for other languages can be found on the
 	<a href="http://wiki.musicbrainz.org/wiki.pl?CapitalizationStandard">CapitalizationStandard</a> wiki page.</b>
 </p>
 <p>
@@ -33,7 +33,7 @@
     <ol type="a">
 			<li>Articles: <b>a</b>, <b>an</b>, <b>the</b></li>
 			<li>Coordinate conjunctions: <b>and</b>, <b>but</b>, <b>or</b>, <b>nor</b></li>
-			<li>Short (three letters or less) prepositions: <b>as</b>, <b>at</b>, <b>by</b>, 
+			<li>Short (three letters or less) prepositions: <b>as</b>, <b>at</b>, <b>by</b>,
 				<b>for</b>, <b>in</b>, <b>of</b>, <b>on</b>, <b>to</b>
 				&mdash; except when used as adverbs or as an inseparable
 				part of a verb</li>

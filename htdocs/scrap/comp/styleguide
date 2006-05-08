@@ -48,7 +48,7 @@
 		If some copies of a release are accompanied by a
 		"bonus" disc, the bonus disc's name should follow
 		one of the following examples:
-		
+
 		<ul class="StyleExample">
 			<li>Mother Nature Calls (bonus disc)</li>
 			<li>Greatest Hits (bonus disc: Acoustic Hits)</li>
@@ -62,7 +62,7 @@
 		<& .StyleGuideLink, "box-set-name" &>
 		For CD Box sets that contain more than one
 		multiple CD volume, indicate the name of
-		the box set in the title of the release 
+		the box set in the title of the release
 		as follows:
 
 		<blockquote class="StyleExample">
@@ -89,8 +89,8 @@
       <li>file the track/release under the primary artist, and add <a
         href="http://wiki.musicbrainz.org/AdvancedRelationships">AdvancedRelationships</a> of the <a
         href="http://wiki.musicbrainz.org/PerformanceRelationshipClass">PerformanceRelationshipClass</a> to
-        link to the secondary artists, and append the name of the secondary artists to the 
-      TrackTitle/AlbumTitle as follows:
+        link to the secondary artists, and append the name of the secondary artists to the
+      TrackTitle/ReleaseTitle as follows:
     <blockquote class="StyleExample">
     	<b>Put Your Lights On (feat. Everlast)</b>
     </blockquote></li>
@@ -113,11 +113,11 @@
 
 	<li>
 		<& .StyleGuideLink, "remix-versus" &>
-		When work from two artists are remixed in the 
+		When work from two artists are remixed in the
 		popular <b>vs.</b> fashion, file the release/track
 		under the mix artist and title the release/track
 		as follows:
-   
+
 		<blockquote class="StyleExample">
 			<b>ATB vs. Faithless</b>
 		</blockquote>
@@ -166,7 +166,7 @@
 			<a href="http://wiki.musicbrainz.org/wiki.pl?UnknownArtistStyle">More details...</a>
 		</blockquote>
 	</li>
-	
+
 	<li>
 		<& .StyleGuideLink, "information-to-omit" &>
 		It is currently not possible to store all
@@ -193,7 +193,7 @@
 		entered in parentheses after the title. These
 		attributes should be in lower case, except for
 		proper names (including titles given to mixes):
-		
+
 		<ul class="StyleExample">
 			<li>Blue (extended mix)</li>
 			<li>Talking All That Jazz (Torti's Old School Mix of Edits dub)</li>
@@ -209,7 +209,7 @@
 		<& .StyleGuideLink, "unnamed-bootlegs" &>
 		If a live bootleg release has no proper title, you
 		should follow the format used in these examples:
-		
+
 		<ul class="StyleExample">
 			<li>2000-10-22: Las Vegas, NV, USA</li>
 			<li>2000-06-01: Dublin, Ireland (disc 2)</li>
@@ -230,7 +230,7 @@
 			<b>This Is the Modern World / All Mod Cons</b>
 		</blockquote>
 		<blockquote style="text-align: right; font-size:smaller">
-			<a href="http://wiki.musicbrainz.org/wiki.pl?MultipleAlbumsTitleStyle">More details...</a>
+			<a href="http://wiki.musicbrainz.org/wiki.pl?MultipleReleasesTitleStyle">More details...</a>
 		</blockquote>
 	</li>
 
@@ -252,7 +252,7 @@
 			<a href="http://wiki.musicbrainz.org/wiki.pl?SoundtrackTitleStyle">More details...</a>
 		</blockquote>
 	</li>
-	
+
 	<li>
 		<& .StyleGuideLink, "no-artist" &>
 		Tracks or releases without an artist should
