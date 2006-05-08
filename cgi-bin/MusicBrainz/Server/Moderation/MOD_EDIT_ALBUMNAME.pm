@@ -37,17 +37,24 @@ sub PreInsert
 {
 	my ($self, %opts) = @_;
 
-	my $al = $opts{'album'} or die;
+	my $release = $opts{'album'} or die;
 	my $newname = $opts{'newname'};
 	$newname =~ /\S/ or die;
 
-	$self->SetArtist($al->GetArtist);
-	$self->SetPrev($al->GetName);
+	$self->SetArtist($release->GetArtist);
+	$self->SetPrev($release->GetName);
 	$self->SetNew($newname);
 	$self->SetTable("album");
 	$self->SetColumn("name");
-	$self->SetRowId($al->GetId);
+	$self->SetRowId($release->GetId);
 }
+
+sub PostLoad
+{
+	my $self = shift;
+
+	($self->{"albumid"}, $self->{"checkexists-album"}) = ($self->GetRowId, 1);
+} 
 
 sub IsAutoMod
 {
@@ -60,20 +67,18 @@ sub CheckPrerequisites
 {
 	my $self = shift;
 
-	my $rowid = $self->GetRowId;
-
 	# Load the album by ID
 	require Album;
-	my $al = Album->new($self->{DBH});
-	$al->SetId($rowid);
-	unless ($al->LoadFromId)
+	my $release = Album->new($self->{DBH});
+	$release->SetId($self->GetRowId);
+	unless ($release->LoadFromId)
 	{
 		$self->InsertNote(MODBOT_MODERATOR, "This album has been deleted");
 		return STATUS_FAILEDDEP;
 	}
 
 	# Check that its name has not changed
-	if ($al->GetName ne $self->GetPrev)
+	if ($release->GetName ne $self->GetPrev)
 	{
 		$self->InsertNote(MODBOT_MODERATOR, "This album has already been renamed");
 		return STATUS_FAILEDPREREQ;
@@ -87,7 +92,7 @@ sub CheckPrerequisites
 	}
 
 	# Save for ApprovedAction
-	$self->{_album} = $al;
+	$self->{_album} = $release;
 
 	undef;
 }
@@ -99,9 +104,9 @@ sub ApprovedAction
 	my $status = $this->CheckPrerequisites;
 	return $status if $status;
 
-	my $al = $this->{_album};
-	$al->SetName($this->GetNew);
-	$al->UpdateName;
+	my $release = $this->{_album};
+	$release->SetName($this->GetNew);
+	$release->UpdateName;
 
 	STATUS_APPLIED;
 }
