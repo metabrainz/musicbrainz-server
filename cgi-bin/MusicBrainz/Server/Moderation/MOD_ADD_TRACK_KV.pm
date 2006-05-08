@@ -167,8 +167,7 @@ sub PostLoad
 
 	($self->{"trackid"}, $self->{"checkexists-track"}) = ($new->{'TrackId'}, 1);
 	($self->{"albumid"}, $self->{"checkexists-album"}) = ($new->{'AlbumId'}, 1);
-}
-
+} 
 
 sub ApprovedAction
 {
