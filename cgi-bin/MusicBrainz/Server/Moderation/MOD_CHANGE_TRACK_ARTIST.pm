@@ -60,7 +60,6 @@ sub PostLoad
 	$name = $sortname if not defined $name;
 
 	@$this{qw( new.sortname new.name new.id )} = ($sortname, $name, $newid);
-
 }
 
 sub PreDisplay
@@ -74,57 +73,70 @@ sub PreDisplay
 	$this->{'new.name'} = $this->{'new.sortname'}
 		unless (defined $this->{'new.name'});
 
-	my $nar;
-	# load track name
+	# set trackid for ShowModType, checkexists is set to 0,
+	# because we'll check that in the next couple of lines.
+	$this->{"trackid"} = $this->GetRowId;
+	$this->{"exists-track"} = 0;
+	$this->{"checkexists-track"} = 0;
+	
+	# load track name, and try to guess the artist id for old 
+	# edits which only had the name in 'newvalue'
 	require Track;
-	my $tr = Track->new($this->{DBH});
-	$tr->SetId($this->GetRowId);
-	if ($tr->LoadFromId)
+	my $newartist; 
+	my $track = Track->new($this->{DBH});
+	$track->SetId($this->{"trackid"});
+	if ($track->LoadFromId)
 	{
-		$this->{'trackname'} = $tr->GetName;
+		$this->{"trackname"} = $track->GetName;
+		$this->{"exists-track"} = 1;
 
-		# try to guess the artist id for old moderations which only had the
-		# name in 'newvalue'
+		# since the track exists, we can see if can load the 
+		# corresponding release.
+		$this->{"albumid"} = $track->GetAlbum; 
+		$this->{"checkexists-album"} = 1; 
+				
+		# try to guess artist id.
 		if (!$this->{'new.exists'})
 		{
 			require Artist;
-			$nar = Artist->new($this->{DBH});
-			$nar->SetId($tr->GetArtist);
-			if ($nar->LoadFromId 
-				&& $nar->GetName eq $this->{'new.name'})
+			$newartist = Artist->new($this->{DBH});
+			$newartist->SetId($track->GetArtist);
+			if ($newartist->LoadFromId and
+				$newartist->GetName eq $this->{'new.name'})
 			{
-				$this->{'new.id'} = $nar->GetId;
+				$this->{'new.id'} = $newartist->GetId;
+				$this->{'new.sortname'} = $newartist->GetSortName;
+				$this->{'new.resolution'} = $newartist->GetResolution;
 				$this->{'new.exists'} = 1;
-				$this->{'new.sortname'} = $nar->GetSortName;
 			}
 		}
 	}
 
-	
-	# load artist resolutions if new artist name = old artist name
-	my $pat = $this->GetPrev;
-	if ($this->{'new.name'} =~ /^\Q$pat\E$/i)
-	{
-		require Artist;
-		my $oar = Artist->new($this->{DBH});
-		# the old one ...
-		$oar->SetId($this->GetArtist);
-		$oar->LoadFromId
-			and $this->{'old.res'} = $oar->GetResolution;
+	# load artists, to see if we got resolutions to display.
+	require Artist; 
 
-		# ... and the new resolution if artist is in the DB
-		# TODO what if new artist with res is created with this mod?
-		#      (currently not possible, but might be in the future)
+	# the old one ...
+	my $oldartist = Artist->new($this->{DBH});
+	$oldartist->SetId($this->GetArtist);
+	if ($this->{"old.exists"} = $oldartist->LoadFromId)
+	{
+		$this->{"old.resolution"} = $oldartist->GetResolution;
+		$this->{"old.sortname"} = $oldartist->GetSortName;
+	}
+
+	# ... and the new resolution if artist is in the DB
+	if ($this->{'new.exists'})
+	{
+		if (!defined $newartist)
+		{
+			$newartist = Artist->new($this->{DBH});
+			$newartist->SetId($this->{'new.id'});
+			$this->{'new.exists'} = $newartist->LoadFromId;
+		}
 		if ($this->{'new.exists'})
 		{
-			if (!defined $nar)
-			{
-				$nar = Artist->new($this->{DBH});
-				$nar->SetId($this->{'new.id'});
-				$nar->LoadFromId;
-			}
-			my $res = $nar->GetResolution;
-			$this->{'new.res'} = ($res eq '' ? undef : $res);
+			my $res = $newartist->GetResolution;
+			$this->{'new.resolution'} = ($res eq "" ? undef : $res);
 		}
 	}
 }
@@ -137,16 +149,16 @@ sub CheckPrerequisites
 
 	# Load the track by ID
 	require Track;
-	my $tr = Track->new($self->{DBH});
-	$tr->SetId($rowid);
-	unless ($tr->LoadFromId)
+	my $track = Track->new($self->{DBH});
+	$track->SetId($rowid);
+	unless ($track->LoadFromId)
 	{
 		$self->InsertNote(MODBOT_MODERATOR, "This track has been deleted");
 		return STATUS_FAILEDDEP;
 	}
 
 	# Check that its artist has not changed
-	if ($tr->GetArtist != $self->GetArtist)
+	if ($track->GetArtist != $self->GetArtist)
 	{
 		$self->InsertNote(MODBOT_MODERATOR, "This track has already been moved to another artist");
 		return STATUS_FAILEDPREREQ;
@@ -193,10 +205,10 @@ sub ApprovedAction
 	}
 
 	require Track;
-	my $tr = Track->new($this->{DBH});
-	$tr->SetId($this->GetRowId);
-	$tr->SetArtist($artistid);
-	$tr->UpdateArtist
+	my $track = Track->new($this->{DBH});
+	$track->SetId($this->GetRowId);
+	$track->SetArtist($artistid);
+	$track->UpdateArtist
 		or die "Failed to update track in MOD_CHANGE_TRACK_ARTIST";
 
 	&ModDefs::STATUS_APPLIED;
