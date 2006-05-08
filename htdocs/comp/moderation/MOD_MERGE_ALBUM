@@ -45,7 +45,6 @@
 		{
 			$title = "This release has been merged, id: $id";
 			$id = -1;
-			$strong = 0;
 		}
 		$m->out(qq!<tr><td>!);
 		$m->comp("/comp/linkrelease", id => $id, name => $name, title => $title);
