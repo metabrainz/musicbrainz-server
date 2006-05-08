@@ -118,7 +118,7 @@
  	if (!$nonalbum)
 	{
 		my @attrs = $release->GetAttributes();
-	    $m->out(qq![&nbsp;<a href="/popup/attrguide.html" id="POPUP::ReleaseAttributeGuide::400::275">!);
+	    $m->out(qq![&nbsp;<a href="/popup/ReleaseAttribute">!);
 	    if (scalar(@attrs) > 0)
 	    {
 			$m->out(sprintf qq!<span%s>!, $release->GetAttributeModPending() ? ' class="mp"' : "");

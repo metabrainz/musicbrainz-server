@@ -7,16 +7,16 @@
 					<td class="title">
 						Style guides:</td>
 					<td class="link">
-						<a href="/popup/styleguide.html" id="POPUP::StyleGuide::400::450">General Style</a></td>
+						<& /comp/linkdoc, "StyleGuidelines", "General Style" &></td>
 					<td>|&nbsp;</td>
 					<td class="link">
-						<a href="/popup/capguide.html" id="POPUP::CapitalizationGuide::400::500">Capitalization</a></td>
+						<& /comp/linkdoc, "CapitalizationStandard ", "Capialization" &></td>
 					<td>|&nbsp;</td>
 					<td class="link">
-						<a href="/popup/sortnameguide.html" id="POPUP::SortnameGuide::400::275">Sortname</a></td>
+						<& /comp/linkdoc, "SortNameStyle ", "Sortname" &></td>
 					<td>|&nbsp;</td>
 					<td class="link">
-						<a href="/popup/attrguide.html" id="POPUP::ReleaseAttributesGuide::400::275">Album Attributes</a></td>
+						<& /comp/linkdoc, "ReleaseAttribute ", "Release attributes" &></td>
 				</tr>
 			</table>
 		</div>
