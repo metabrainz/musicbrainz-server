@@ -170,7 +170,7 @@ sub LoadFromId
 		{
 			$row = $sql->SelectSingleRowArray(
 				"SELECT t.id, t.name, t.gid, j.sequence, t.length, t.artist, t.modpending,
-						j.modpending, j.id
+						j.modpending, j.id, j.album
 				FROM	track t, albumjoin j
 				WHERE	j.track = t.id
 				AND		j.track = ?
@@ -183,7 +183,7 @@ sub LoadFromId
 		{
 			$row = $sql->SelectSingleRowArray(
 				"SELECT t.id, t.name, t.gid, j.sequence, t.length, t.artist, t.modpending,
-						j.modpending, j.id
+						j.modpending, j.id, j.album
 				FROM	track t, albumjoin j
 				WHERE	j.track = t.id
 				AND		t.gid = ?
@@ -202,7 +202,7 @@ sub LoadFromId
 		{
 			$row = $sql->SelectSingleRowArray(
 				"SELECT t.id, t.name, t.gid, j.sequence, t.length, t.artist, t.modpending,
-						j.modpending, j.id
+						j.modpending, j.id, j.album
 				FROM	track t, albumjoin j
 				WHERE	j.track = t.id
 				AND		j.track = ?",
@@ -213,7 +213,7 @@ sub LoadFromId
 		{
 			$row = $sql->SelectSingleRowArray(
 				"SELECT t.id, t.name, t.gid, j.sequence, t.length, t.artist, t.modpending,
-						j.modpending, j.id
+						j.modpending, j.id, j.album
 				FROM	track t, albumjoin j
 				WHERE	j.track = t.id
 				AND		t.gid = ?",
@@ -228,7 +228,7 @@ sub LoadFromId
 
 	@$this{qw(
 		id name mbid sequence length artist modpending
-		albumjoinmodpending sequenceid
+		albumjoinmodpending sequenceid album
 	)} = @$row;
 
 	1;
