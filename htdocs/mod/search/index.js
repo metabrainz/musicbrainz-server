@@ -29,6 +29,11 @@ function AdvancedEditSearch() {
 	
 	this.formref = null;
 	
+	this.imgplus = new Image(); 
+	this.imgplus.src = "/images/es/maximize.gif";
+	this.imgminus = new Image(); 
+	this.imgminus.src = "/images/es/minimize.gif"; 	
+	
 	/**
 	 * Hide all filter types, where no selection has been made.
 	 * 
@@ -69,12 +74,13 @@ function AdvancedEditSearch() {
 					container.style.marginBottom = "5px";
 
 					s = [];
-					s.push('<input type="checkbox" style="padding:0;margin:0" id="toggle_'+fieldname+'" onclick="');
+					s.push('<a href="#"  id="toggle_'+fieldname+'" onclick="');
 					s.push('advancedEditSearch.toggleField(');
-					s.push("'id_");
+					s.push("'id_"); 
 					s.push(fieldname);
 					s.push("'");
-					s.push(');" title="Show/Hide '+type+' filter" />');
+					s.push('); return false;" title="Show '+type+' filter">');
+					s.push('<img style="margin-left: 4px; margin-top: 4px" src="/images/es/maximize.gif" alt="" /></a>');
 
 					td = document.createElement("td");
 					td.innerHTML = s.join("");
@@ -120,7 +126,7 @@ function AdvancedEditSearch() {
 							container.style.display = ""; 
 							mb.ui.get("toggle_"+fieldname).checked = true;
 						}
-						mb.cookie.set("advsearch::"+fieldname, show ? 1 : 0);
+						this.toggleField("id_"+fieldname, show ? 1 : 0);
 					}
 				}
 			}
@@ -149,9 +155,9 @@ function AdvancedEditSearch() {
 			}
 			this.updateFilterDesc(field);
 			this.toggleField("id_"+fieldName, false);
-			mb.ui.get("toggle_"+fieldName).checked = false;
 		}
-	}
+	};
+	
 	
 	/**
 	 * Lists the selected value(s) of the given input element
@@ -242,11 +248,24 @@ function AdvancedEditSearch() {
 			}
 			obj.style.display = (flag ? "" : "none"); 
 		
-			field = field.replace("id_", "");
-			mb.cookie.set("advsearch::"+field, flag ? 1 : 0);
-			mb.ui.get("toggle_"+field).checked = flag;
+			mb.cookie.set("advsearch::"+field.replace("id_", ""), flag ? 1 : 0);
+			this.updateToggleIcon(field.replace("id_", "toggle_"), flag ? 1 : 0);
 		}
 	}; 
+	
+	/**
+	 * Lists the selected value(s) of the given input element
+	 * 
+	 * @param 	field	the filter type
+	 */
+	this.updateToggleIcon = function(id, flag) {
+		var a, img;	
+		if ((a = mb.ui.get(id)) != null) {
+			a.title = a.title.replace(/$Show|Hide/g, flag ? "Show" : "Hide");
+			img = a.firstChild
+			img.src = (flag ? this.imgminus.src : this.imgplus.src);
+		}
+	};
 
 	// exit constructor
 	mb.log.exit();

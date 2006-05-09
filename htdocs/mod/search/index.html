@@ -98,11 +98,13 @@
 				<td>
 					<form method="post" action="/mod/search/">
 						<input type="hidden" name="clearform" value="1" />
-						<input type="submit" value="Clear this form &raquo;" />
+						<input type="submit" value="Clear all filters &raquo;" title="Clear all these settings and start from scratch" />
 					</form>
 				</td>
 				<td>
-					<a href="select-filter.html">Review and Vote on edits</a>
+					<form method="get" action="select-filter.html">
+						<input type="submit" value="Simple queries &raquo;" title="Go to the page which lists predefined edit searches" />
+					</form>
 				</td>
 			</tr>
 		</table>
@@ -438,7 +440,7 @@
 				<tr>
 					<td class="label">&nbsp;</td>
 					<td>
-						<input type="submit" value="Search for Edits &raquo;" /></td>
+						<input type="submit" value="Search for Edits &raquo;" title="Search for all the edits matching the current filters" /></td>
 				</tr>
 			</table>
 
