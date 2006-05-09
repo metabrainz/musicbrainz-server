@@ -207,7 +207,7 @@ table.artistfilter-listing td {
 	text-align: center; /* default: centered */
 }
 table.artistfilter-listing input {
-	margin: 0px; padding: -2px; /* remove some padding of the radiobutton */
+	margin: 0px; padding: 0px; /* remove some padding of the radiobutton */
 }
 table.artistfilter-listing td.no {
 	font-size: 11px; text-align: right;

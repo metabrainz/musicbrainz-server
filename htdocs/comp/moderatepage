@@ -160,9 +160,6 @@
 	<form method="post" action="/bare/vote.html">
 
 		<table class="editlist">
-			<tr>
-				<td>
-					<table class="showedit" border="0" cellspacing="1" cellpadding="3">
 
 <%perl>
 		for my $obj (@$mods)
@@ -175,10 +172,9 @@
 				voteflag=> \$show_button);
 		}
 </%perl>
-					</table>
-				</td>
-			</tr>
+
 		</table>
+
 
 %		my $show_pageselector = (($total_mods - $offset > $max_items or $offset > 0) and @$mods);
 %		if ($show_pageselector or $show_button)
@@ -186,7 +182,7 @@
 
 		<& /comp/tablebegin, title => "Vote on edits" &>
 
-		<table>
+		<table style="width: 98%">
 			<tr>
 
 % 			if ($show_pageselector)

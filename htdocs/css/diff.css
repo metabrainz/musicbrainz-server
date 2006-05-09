@@ -105,28 +105,16 @@ div.attrlist {
 
 /* List of edits */
 table.editlist {
-	border-collapse: collapse;
 	padding: 0px; margin: 0px;
-	background-color: #000;
+	border-collapse: collapse;
 	width: 100%;
 	margin-bottom: 15px;
 }
-table.editlist tr td {
-	padding: 0px; margin: 0px;
-}
+
 table.editlist td.spacer {
 	height: 5px; width: 100%;
 	background-color: #ffba58;
-}
-
-/* the header row of the edit */
-table.showedit {
-}
-table.showedit tr {
-	vertical-align: top;
-}
-table.showedit tr td {
-	padding: 1px 3px;
+	border: 1px solid #000;
 }
 
 /* the header row of the edit */
@@ -135,6 +123,9 @@ tr.showedit td.type,
 tr.showedit td.votehead {
 	white-space: nowrap;
 	background: #fff;
+	border: 1px solid #000;
+	padding: 2px;
+	vertical-align: top;
 }
 
 /* show header row, specific settings per column */
@@ -153,6 +144,7 @@ tr.showedit td.votehead {
 tr.showedit td.oldvalue {
 	background: #ffecd6;
 	vertical-align: top;
+	border: 1px solid #000;
 }
 tr.showedit td.oldvalue table.editdiff {
 	border-color: #ffecd6;
@@ -171,6 +163,8 @@ tr.showedit td.newvalue {
 	background: #f0efff;
 	vertical-align: top; 
 	width: 100%;
+	border: 1px solid #000;
+	padding: 2px;	
 }
 tr.showedit td.newvalue table.editdiff {
 	border-color: #f0efff;
@@ -192,12 +186,6 @@ tr.showedit td.newvalue table.annotation {
 tr.showedit td.newvalue table.annotation tr.header td {
 	background-color: #fb5;
 }
-tr.showedit td.newvalue table.releasebegin {
-	margin-top: 2px; 
-}
-tr.showedit td.newvalue table.releaseevents {
-	margin-bottom: 2px; 
-}
 tr.showedit td.newvalue div.release_endspacer {
 	display: none;
 }
@@ -206,11 +194,13 @@ tr.showedit td.vote {
 	text-align: center;
 	vertical-align: top;
 	white-space: nowrap;
-	padding: 0px 10px;
+	padding: 2px 10px;
+	border: 1px solid #000;
 }
 tr.showedit td.notes {
 	background: #fff;
 	padding: 2px;
+	border: 1px solid #000;
 }
 tr.showedit td.oldvalue .lbl {
 	width: 30px;
