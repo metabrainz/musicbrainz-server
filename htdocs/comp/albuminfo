@@ -28,15 +28,18 @@
 	#
 </%perl>
 <%args>
-	$album
+	$album => undef
 	$release => undef
+
 	$track => undef
 	$short => 0
 </%args>
 <%perl>
 
+	die ("$album or $release are required") if (not defined $album and not defined $release);
+
 	# use proper terminology.
-	$release = $release || $album;
+	$release ||= $album;
 </%perl>
 
 	<& /comp/tablebegin, title => "Release Information" &>
