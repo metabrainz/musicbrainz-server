@@ -52,10 +52,10 @@ function CollapseReleases() {
 		if ((obj = mb.ui.get("collapsereleases::defaultcollapse")) != null) {
 			defaultcollapse = !(obj.value == 0);
 		}	
-		
+
 		// if we're on the editlist, or editdetail page, there's
 		// an option to turn of the collapsing the releases.
-		if (showedit) {
+		if (window.showedit != undefined) {
 			defaultcollapse = showedit.isCollapseReleasesEnabled();
 		}
 		
@@ -83,20 +83,38 @@ function CollapseReleases() {
 				}
 				if ((obj = mb.ui.get(id.replace("tracks", "releaseevents"))) != null) {
 					obj.style.display = defaultdisplay;
-				}		
-				
-				if (showtoggleicon)
-				{
-					var elid = id.replace("tracks", "link");
-					var el;
-					if ((el = mb.ui.get(elid)) != null) {
-						var parent = el.parentNode;
+				}			
+
+				var elid = id.replace("tracks", "link");
+				var el;
+				if ((el = mb.ui.get(elid)) != null) {
+					var td = el.parentNode;
+					
+					if (showtoggleicon)
+					{
+
+						// create the toggle icon, and the link wrapping
+						// it. If the we register a click on it, we 
+						// have to stop propagation to the TD, else
+						// the release will be toggled to the closed
+						// state again if it was closed before.	
+						//
+						// -- see: http://www.quirksmode.org/js/events_order.html
 						var a = document.createElement("a");
 						a.href = "javascript:; // Toggle release";
 						a.id = id.replace("tracks", "expand");
 						a.className = "toggle";
 						a.onfocus = function onfocus(event) { this.blur(); };
 						a.onclick = function onclick(event) { 
+							try {
+								if (window.event) {
+									window.event.cancelBubble = true;
+								} else if (event.stopPropagation) {
+									event.stopPropagation();
+								}
+							} catch (e) { 
+								mb.log.error("Could not cancel propagation: $", e); 
+							}							
 							var id = this.id.replace("expand", "tracks");
 							collapsereleases.showRelease(id); 
 							return false;
@@ -108,35 +126,67 @@ function CollapseReleases() {
 						img.alt = "Toggle release";
 						img.border = 0;
 						a.appendChild(img);
-						parent.insertBefore(a, el);
-
-						parent.style.cursor = "pointer";
-						parent.title = "Toggle release... If you hover the mouse cursor here, it opens automatically.";
-						parent.id = id.replace("tracks", "title");					
-						parent.onclick = function onclick(event) { 
-							var id = this.id.replace("title", "tracks");
-							collapsereleases.clearHoverTimeout(id);
-							collapsereleases.showRelease(id);
-							return true;
-						};						
-						parent.onmouseover = function onmouseover(event) { 
-							var id = this.id.replace("title", "tracks");
-							collapsereleases.setHoverTimeout(id);
-						};							
-						parent.onmouseout = function onmouseout(event) { 
-							var id = this.id.replace("title", "tracks");
-							collapsereleases.clearHoverTimeout(id);
-						};							
-
-					} else {
-						mb.log.debug("Element $ not found", elid);
+						td.insertBefore(a, el);
 					}
-					}
+
+					// attach method to open the release if the 
+					// mouse is hovered over the orange/yellow bar.
+					td.style.cursor = "pointer";
+					td.title = "Toggle release... If you hover the mouse cursor here, it opens automatically.";
+					td.id = id.replace("tracks", "title");					
+					td.onclick = function onclick(event) { 
+						var id = this.id.replace("title", "tracks");
+						
+						// clear default hovering behaviour 
+						// after first click, else it is possibly
+						// confusing that the release gets opened/closed 
+						// again.
+						collapsereleases.clearHoverTimeout(id);
+						this.onmouseover = null;
+						this.onmouseout = null;
+						this.title = "";
+						
+						collapsereleases.showRelease(id);	
+						return true;
+					};						
+					td.onmouseover = function onmouseover(event) { 
+						var id = this.id.replace("title", "tracks");
+						collapsereleases.setHoverTimeout(id);
+					};							
+					td.onmouseout = function onmouseout(event) { 
+						var id = this.id.replace("title", "tracks");
+						collapsereleases.clearHoverTimeout(id);
+					};							
+
+					// we need to cancel event propagation on the 
+					// ReleaseTitle link, too. just return true, such
+					// that the link click is not cancelled.
+					el.onclick = function onclick(event) { 
+						try {
+							if (window.event) {
+								window.event.cancelBubble = true;
+							} else if (event.stopPropagation) {
+								event.stopPropagation();
+							}
+						} catch (e) { 
+							mb.log.error("Could not cancel propagation: $", e); 
+						}							
+						return true;
+					};
+
+				} else {
+					mb.log.debug("Element $ not found", elid);
+				}				
 			}
 		}
 		mb.log.exit();
 	};
 	
+	/**
+	 * Register a hover timeout for opening a release
+	 *
+	 * @param id	the id of the release
+	 */
 	this.setHoverTimeout = function(id) {
 		if (this.timeouts == null) {
 			this.timeouts = [];
@@ -144,8 +194,16 @@ function CollapseReleases() {
 		var func = "collapsereleases.showRelease('"+id+"', true)";
 		this.timeouts[id] = setTimeout(func, 800);
 	};
-	
+
+	/**
+	 * Un-Register a hover timeout for opening a release
+	 *
+	 * @param id	the id of the release
+	 */	
 	this.clearHoverTimeout = function(id) {
+		if (this.timeouts == null) {
+			this.timeouts = [];
+		}
 		var ref = this.timeouts[id];
 		clearTimeout(ref);
 		this.timeouts[id] = null;
