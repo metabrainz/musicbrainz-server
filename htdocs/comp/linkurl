@@ -53,10 +53,15 @@
 	# fall back to stored name if no href is given.
 	$href ||= $name;
 
+	# shorten url's that are longer than ~75 chars
+	my $shorturl = (length($name) > 50
+			 ? encode_entities(substr($name, 0, 48)) . "&#8230;"
+			 : encode_entities($name));
+
 	# render link to /show/url page.
 	$m->out(qq!<strong>!) if ($strong);
 	$m->out(qq!<img src="/images/entity/url_small.gif" alt="URL" class="entityicon" />!) if ($icon);
-	$m->out(qq!<a href="$href" rel="nofollow">! . $m->interp->apply_escapes($name, 'h') . qq!</a>!);
+	$m->out(qq!<a href="$href" rel="nofollow" title="$href">$shorturl</a>!);
 	$m->out(qq!</strong>!) if ($strong);
 
 	# show clickable link to open the url target

@@ -73,12 +73,7 @@
 		$url = $decoded_url
 			if (Encode::decode_utf8($decoded_url));
 
-		# shorten url's that are longer than ~75 chars
-		my $shorturl = $asin ||= (length($url) > 75
-				 ? encode_entities(substr($url, 0, 72)) . "&#8230;"
-				 : encode_entities($url));
-
-		$m->comp("/comp/linkurl", id => $id, name => $shorturl, href => $url);
+		$m->comp("/comp/linkurl", id => $id, name => $url, href => $url);
 	}
 
 	$m->out("</span>") if ($mp);
