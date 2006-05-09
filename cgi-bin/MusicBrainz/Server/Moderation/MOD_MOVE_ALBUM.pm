@@ -39,8 +39,8 @@ sub PreInsert
 {
 	my ($self, %opts) = @_;
 
-	my $al = $opts{album} or die;
-	my $ar = $opts{oldartist} or die;
+	my $release = $opts{album} or die;
+	my $artist = $opts{oldartist} or die;
 	my $sortname = $opts{artistsortname} or die;
 	my $name = $opts{artistname};
 	my $artistid = $opts{artistid};
@@ -53,9 +53,9 @@ sub PreInsert
 	
 	$self->SetTable("album");
 	$self->SetColumn("artist");
-	$self->SetArtist($al->GetArtist);
-	$self->SetRowId($al->GetId);
-	$self->SetPrev($ar->GetName);
+	$self->SetArtist($release->GetArtist);
+	$self->SetRowId($release->GetId);
+	$self->SetPrev($artist->GetName);
 	$self->SetNew($new);
 }
 
@@ -73,6 +73,9 @@ sub PostLoad
 		$this->{'new.artistid'} = $this->{'new.name'};
 		$this->{'new.name'} = undef;
 	}
+	
+	# verify if release still exists in Moderation.ShowModType method.
+	($this->{"albumid"}, $this->{"checkexists-album"}) = ($this->GetRowId, 1);			
 }
 
 sub PreDisplay
@@ -86,33 +89,32 @@ sub PreDisplay
 	$this->{'new.movetracks'} = 1 
 		unless (defined $this->{'new.movetracks'});
 		
-
-	my $nar;		
+	my $newartist;		
 	# load album name
 	require Album;
-	my $al = Album->new($this->{DBH});
-	$al->SetId($this->GetRowId);
-	if ($al->LoadFromId)
+	my $release = Album->new($this->{DBH});
+	$release->SetId($this->GetRowId);
+	if ($release->LoadFromId)
 	{
-		$this->{'albumname'} = $al->GetName;
+		$this->{'albumname'} = $release->GetName;
 
 		# make sure new artist really doesn't exist; old mods only had 
 		# the artist sortname (or name?) in 'prevvalue'
 		if (!$this->{'new.exists'})
 		{
 			require Artist;
-			$nar = Artist->new($this->{DBH});
-			$nar->SetId($al->GetArtist);
+			$newartist = Artist->new($this->{DBH});
+			$newartist->SetId($release->GetArtist);
 				
 			# FIXME is the name = new.sortname comparison necessary?
-			if ($nar->LoadFromId 
-				&& ($nar->GetName eq $this->{'new.sortname'}
-					|| $nar->GetSortName eq $this->{'new.sortname'}))
+			if ($newartist->LoadFromId 
+				&& ($newartist->GetName eq $this->{'new.sortname'}
+					|| $newartist->GetSortName eq $this->{'new.sortname'}))
 			{
 				# assume we got the right artist, and reset name and sortname
 				# to the correct values
-				$this->{'new.name'} = $nar->GetName;
-				$this->{'new.sortname'} = $nar->GetSortName;
+				$this->{'new.name'} = $newartist->GetName;
+				$this->{'new.sortname'} = $newartist->GetSortName;
 				$this->{'new.exists'} = 1;
 			}
 		}
@@ -134,12 +136,12 @@ sub PreDisplay
 		require Artist;
 		if ($this->{'new.exists'})
 		{
-			if (!defined $nar) {
-				$nar = Artist->new($this->{DBH});
-				$nar->SetId($this->{'new.artistid'});
-				$nar->LoadFromId;
+			if (!defined $newartist) {
+				$newartist = Artist->new($this->{DBH});
+				$newartist->SetId($this->{'new.artistid'});
+				$newartist->LoadFromId;
 			}
-			my $res = $nar->GetResolution;
+			my $res = $newartist->GetResolution;
 			$this->{'new.res'} = ($res eq '' ? undef : $res);
 		}
 	}
@@ -152,9 +154,9 @@ sub CheckPrerequisites
 	if (my $id = $self->{'new.artistid'})
 	{
 		require Artist;
-		my $ar = Artist->new($self->{DBH});
-		$ar->SetId($id);
-		unless ($ar->LoadFromId)
+		my $artist = Artist->new($self->{DBH});
+		$artist->SetId($id);
+		unless ($artist->LoadFromId)
 		{
 			$self->InsertNote(MODBOT_MODERATOR, "This artist has been deleted");
 			return STATUS_FAILEDPREREQ;
@@ -204,10 +206,10 @@ sub ApprovedAction
 	{
 		# No such artist, so create one
 		require Artist;
-		my $ar = Artist->new($this->{DBH});
-		$ar->SetName($name);
-		$ar->SetSortName($this->{'new.sortname'});
-		$newid = $ar->Insert(no_alias => 1);
+		my $artist = Artist->new($this->{DBH});
+		$artist->SetName($name);
+		$artist->SetSortName($this->{'new.sortname'});
+		$newid = $artist->Insert(no_alias => 1);
 	}
 
   	# Move each track on the album, if the user 
