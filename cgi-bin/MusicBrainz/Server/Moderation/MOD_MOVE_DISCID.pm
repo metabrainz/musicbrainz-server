@@ -58,8 +58,8 @@ New method ("cdtoc" and "album_cdtoc" tables):
 		DiscId			= discid string
 		FullTOC			= cdtoc string
 		CDTOCId			= cdtoc.id
-		AlreadyThere	= 1 if the CDTOC was already on newalbum (so the old record was just deleted)
-						  0 otherwise (the old record was moved to the new album)
+		AlreadyThere	= 1 if the CDTOC was already on new release (so the old record was just deleted)
+						  0 otherwise (the old record was moved to the new release)
 
 =cut
 
@@ -73,7 +73,7 @@ sub PreInsert
 
 	if ($oldal->GetId == $newal->GetId)
 	{
-		$self->SetError("Source and destination albums are the same!");
+		$self->SetError("Source and destination releases are the same!");
 		die $self;
 	}
 
@@ -87,7 +87,7 @@ sub PreInsert
 	my $alcdtoc = MusicBrainz::Server::AlbumCDTOC->newFromAlbumAndCDTOC($self->{DBH}, $oldal, $cdtoc->GetId);
 	if (not $alcdtoc)
 	{
-		$self->SetError("Old album / CD TOC not found");
+		$self->SetError("Old release / CD TOC not found");
 		die $self;
 	}
 
@@ -120,11 +120,15 @@ sub PostLoad
 	my $self = shift;
 	$self->{'new_unpacked'} = $self->ConvertNewToHash($self->GetNew)
 		or die;
+		
+	# verify if release still exists in Moderation.ShowModType method.
+	my $new = $self->{'new_unpacked'};
+	($self->{"albumid"}, $self->{"checkexists-album"}) = ($self->GetPrev, 1);			
+	($self->{"albumname"}) = ($new->{"OldAlbumName"});			
 }
 
 # This implementation is required (instead of the default) because old rows
 # will have a "table" value of "discid" instead of "album_cdtoc"
-
 sub AdjustModPending
 {
 	my ($self, $adjust) = @_;
@@ -162,7 +166,7 @@ sub DeniedAction
 	$oldal->SetId($self->GetPrev);
 	unless ($oldal->LoadFromId)
 	{
-		$self->InsertNote(MODBOT_MODERATOR, "The source album has been deleted");
+		$self->InsertNote(MODBOT_MODERATOR, "The source release has been deleted");
 		$self->SetStatus(STATUS_FAILEDDEP);
 		return;
 	}
@@ -173,7 +177,7 @@ sub DeniedAction
 	$al->SetId($new->{NewAlbumId});
 	unless ($al->LoadFromId)
 	{
-		$self->InsertNote(MODBOT_MODERATOR, "The destination album has been deleted");
+		$self->InsertNote(MODBOT_MODERATOR, "The destination release has been deleted");
 		$self->SetStatus(STATUS_FAILEDDEP);
 		return;
 	}

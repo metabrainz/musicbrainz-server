@@ -29,33 +29,31 @@
 	#
 </%perl>
 <%method ShowPreviousValue>
-<%perl>
-	my $this = shift;
-
- 	my $new = $this->{'new_unpacked'};
-	(my $albumname) = grep { defined } ($new->{'OldAlbumName'}, "[unknown]");
-	(my $discid) = grep { defined } ($new->{'DiscId'}, "[unknown]");
-
-</%perl>
-	Old:
-	<a href="/showalbum.html?albumid=<% $this->GetPrev %>"
-		><% $albumname %></a>
-	<br />
-% if (my $cdtocid = $new->{"CDTOCId"}) {
-	<a href="/showcdtoc.html?id=<% $cdtocid %>"><% $discid %></a>
-% } else {
-	<% $discid %>
-% }
-
+%	my $this = shift;
 </%method>
 
 <%method ShowNewValue>
 % 	my $this = shift;
 % 	my $new = $this->{'new_unpacked'};
+%	(my $discid) = grep { defined } ($new->{'DiscId'}, "[unknown]");
 
-	New:
-	<a href="/showalbum.html?albumid=<% $new->{'NewAlbumId'} %>"
-		><% $new->{'NewAlbumName'} %></a>
+	<table class="editfields" style="width:100%">
+		<tr>
+			<td class="lbl">Move:</td>
+
+% 	if (my $cdtocid = $new->{"CDTOCId"})
+%	{
+			<td>DiscID <a href="/show/cdtoc/?cdtocid=<% $cdtocid %>"><% $discid %></a> to</td>
+% 	}
+%	else
+%	{
+			<td><% $discid %></td>
+% 	}
+		<tr>
+			<td class="lbl">Release:</td>
+			<td><& /comp/linkrelease, id => $new->{'NewAlbumId'}, name => $new->{'NewAlbumName'} &></td>
+		</tr>
+	</table>
 
 </%method>
 
