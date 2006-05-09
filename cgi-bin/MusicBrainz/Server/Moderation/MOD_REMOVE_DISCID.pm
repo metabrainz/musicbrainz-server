@@ -61,10 +61,10 @@ sub PreInsert
 	my ($self, %opts) = @_;
 
 	my $cdtoc = $opts{'cdtoc'} or die;
-	my $oldal = $opts{album} or die;
+	my $oldrelease = $opts{album} or die;
 
 	require MusicBrainz::Server::AlbumCDTOC;
-	my $alcdtoc = MusicBrainz::Server::AlbumCDTOC->newFromAlbumAndCDTOC($self->{DBH}, $oldal, $cdtoc->GetId);
+	my $alcdtoc = MusicBrainz::Server::AlbumCDTOC->newFromAlbumAndCDTOC($self->{DBH}, $oldrelease, $cdtoc->GetId);
 	if (not $alcdtoc)
 	{
 		$self->SetError("Old album / CD TOC not found");
@@ -74,16 +74,15 @@ sub PreInsert
 	$self->SetTable("album_cdtoc");
 	$self->SetColumn("album");
 	$self->SetRowId($alcdtoc->GetId);
-	$self->SetArtist($oldal->GetArtist);
+	$self->SetArtist($oldrelease->GetArtist);
 	$self->SetPrev($cdtoc->GetDiscID);
 
 	my %new = (
-		AlbumName		=> $oldal->GetName,
-		AlbumId			=> $oldal->GetId,
-		FullTOC			=> $cdtoc->GetTOC,
-		CDTOCId			=> $cdtoc->GetId,
+		AlbumName => $oldrelease->GetName,
+		AlbumId => $oldrelease->GetId,
+		FullTOC => $cdtoc->GetTOC,
+		CDTOCId => $cdtoc->GetId,
 	);
-
 	$self->SetNew($self->ConvertHashToNew(\%new));
 }
 
@@ -96,6 +95,11 @@ sub PostLoad
 	# 3. a hash of AlbumName,AlbumId,FullTOC,CDTOCId.
 	$self->{'new_unpacked'} = $self->ConvertNewToHash($self->GetNew)
 		|| {};
+		
+	# verify if release still exists in Moderation.ShowModType method.
+	my $new = $self->{'new_unpacked'};
+	($self->{"albumid"}, $self->{"checkexists-album"}) = ($new->{"AlbumId"}, 1);			
+	($self->{"albumname"}) = ($new->{"AlbumName"});			
 }
 
 # This implementation is required (instead of the default) because old rows
