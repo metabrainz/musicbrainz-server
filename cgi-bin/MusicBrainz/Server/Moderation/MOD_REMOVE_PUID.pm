@@ -37,14 +37,14 @@ sub PreInsert
 {
 	my ($self, %opts) = @_;
 
-	my $tr = $opts{'track'} or die;
+	my $track = $opts{'track'} or die;
 	my $puid = $opts{'puid'} or die;
 	my $puidjoinid = $opts{'puidjoinid'} or die;
 
 	$self->SetTable("puidjoin");
 	$self->SetColumn("id");
 	$self->SetRowId($puidjoinid);
-	$self->SetArtist($tr->GetArtist);
+	$self->SetArtist($track->GetArtist);
 	$self->SetPrev($puid);
 
 	# Save the PUID's clientversion in case we need to re-add it
@@ -53,7 +53,7 @@ sub PreInsert
 	my $clientversion = $puidobj->FindPUIDClientVersion($puid);
 
 	my %new = (
-		TrackId => $tr->GetId,
+		TrackId => $track->GetId,
 		ClientVersion => $clientversion,
 	);
 
@@ -71,6 +71,9 @@ sub PostLoad
 	my $self = shift;
 	$self->{'new_unpacked'} = $self->ConvertNewToHash($self->GetNew)
 		or die;
+		
+	my $new = $self->{'new_unpacked'};
+	($self->{"trackid"}, $self->{"checkexists-track"}) = ($new->{'TrackId'}, 1);	
 }
 
 sub AdjustModPending { () }
@@ -83,15 +86,15 @@ sub ApprovedAction
 sub DeniedAction
 {
 	my $self = shift;
-	my $nw = $self->{'new_unpacked'};
+	my $new = $self->{'new_unpacked'};
 
-	my $trackid = $nw->{'TrackId'}
+	my $trackid = $new->{'TrackId'}
 		or return;
 
 	require Track;
-	my $tr = Track->new($self->{DBH});
-	$tr->SetId($trackid);
-	unless ($tr->LoadFromId)
+	my $track = Track->new($self->{DBH});
+	$track->SetId($trackid);
+	unless ($track->LoadFromId)
 	{
 		$self->InsertNote(
 			&ModDefs::MODBOT_MODERATOR,
@@ -102,7 +105,7 @@ sub DeniedAction
 
 	require PUID;
 	my $t = PUID->new($self->{DBH});
-	my $id = $t->Insert($self->GetPrev, $trackid, $nw->{'ClientVersion'});
+	my $id = $t->Insert($self->GetPrev, $trackid, $new->{'ClientVersion'});
 
 	# The above Insert can fail, usually if the row in the "puid" table
 	# needed to be re-inserted but we neglected to save the clientversion

@@ -37,14 +37,14 @@ sub PreInsert
 {
 	my ($self, %opts) = @_;
 
-	my $tr = $opts{'track'} or die;
+	my $track = $opts{'track'} or die;
 	my $trm = $opts{'trm'} or die;
 	my $trmjoinid = $opts{'trmjoinid'} or die;
 
 	$self->SetTable("trmjoin");
 	$self->SetColumn("id");
 	$self->SetRowId($trmjoinid);
-	$self->SetArtist($tr->GetArtist);
+	$self->SetArtist($track->GetArtist);
 	$self->SetPrev($trm);
 
 	# Save the TRM's clientversion in case we need to re-add it
@@ -53,7 +53,7 @@ sub PreInsert
 	my $clientversion = $trmobj->FindTRMClientVersion($trm);
 
 	my %new = (
-		TrackId => $tr->GetId,
+		TrackId => $track->GetId,
 		ClientVersion => $clientversion,
 	);
 
@@ -86,15 +86,15 @@ sub ApprovedAction
 sub DeniedAction
 {
 	my $self = shift;
-	my $nw = $self->{'new_unpacked'};
+	my $new = $self->{'new_unpacked'};
 
-	my $trackid = $nw->{'TrackId'}
+	my $trackid = $new->{'TrackId'}
 		or return;
 
 	require Track;
-	my $tr = Track->new($self->{DBH});
-	$tr->SetId($trackid);
-	unless ($tr->LoadFromId)
+	my $track = Track->new($self->{DBH});
+	$track->SetId($trackid);
+	unless ($track->LoadFromId)
 	{
 		$self->InsertNote(
 			&ModDefs::MODBOT_MODERATOR,
@@ -105,7 +105,7 @@ sub DeniedAction
 
 	require TRM;
 	my $t = TRM->new($self->{DBH});
-	my $id = $t->Insert($self->GetPrev, $trackid, $nw->{'ClientVersion'});
+	my $id = $t->Insert($self->GetPrev, $trackid, $new->{'ClientVersion'});
 
 	# The above Insert can fail, usually if the row in the "trm" table
 	# needed to be re-inserted but we neglected to save the clientversion
