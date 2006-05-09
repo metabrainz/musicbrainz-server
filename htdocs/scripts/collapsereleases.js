@@ -51,7 +51,14 @@ function CollapseReleases() {
 		var defaultcollapse = true;
 		if ((obj = mb.ui.get("collapsereleases::defaultcollapse")) != null) {
 			defaultcollapse = !(obj.value == 0);
-		}			
+		}	
+		
+		// if we're on the editlist, or editdetail page, there's
+		// an option to turn of the collapsing the releases.
+		if (showedit) {
+			defaultcollapse = showedit.isCollapseReleasesEnabled();
+		}
+		
 		var showtoggleicon = true;
 		if ((obj = mb.ui.get("collapsereleases::showtoggleicon")) != null) {
 			showtoggleicon = !(obj.value == 0);

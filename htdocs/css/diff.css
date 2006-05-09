@@ -49,7 +49,7 @@ table.editdiff {
 	border-top: 1px solid #fff;
 }
 table.editdiff tr {
-	border: 1px solid #ff;
+	border: 1px solid #fff;
 }
 table.editdiff tr td {
 	padding: 0px; margin: 0px;
@@ -65,7 +65,7 @@ table.editdiff tr td.diff * {
 table.editdiff tr td.lbl {
 	border: 0px; margin: 0px; padding: 0px; padding-right: 4px;
 	width: 65px; 
-	white-space: nowrap;word-wrap: none;
+	white-space: nowrap;
 }
 
 table.editdiff tr td.diff .ins {
@@ -93,7 +93,7 @@ table.editfields tr td {
 table.editfields tr td.lbl {
 	border: 0px; margin: 0px; padding: 0px; padding-right: 4px;
 	width: 65px; 
-	white-space: nowrap;word-wrap: none;
+	white-space: nowrap; 
 }
 table.editfields tr td.bold {
 	font-weight: bold;
@@ -116,7 +116,7 @@ table.editlist tr td {
 }
 table.editlist td.spacer {
 	height: 5px; width: 100%;
-	background-color: #FFBA58;
+	background-color: #ffba58;
 }
 
 /* the header row of the edit */
@@ -192,6 +192,12 @@ tr.showedit td.newvalue table.annotation {
 tr.showedit td.newvalue table.annotation tr.header td {
 	background-color: #fb5;
 }
+tr.showedit td.newvalue table.releasebegin {
+	margin-top: 2px; 
+}
+tr.showedit td.newvalue table.releaseevents {
+	margin-bottom: 2px; 
+}
 tr.showedit td.newvalue div.release_endspacer {
 	display: none;
 }
@@ -259,7 +265,7 @@ table.noteslist span.modbot {
 }
 table.noteslist span.modbot a {
 	color: #999;
-	text-decoration: noene;
+	text-decoration: none;
 }
 
 /* Voting buttons */
@@ -315,6 +321,6 @@ table.edittype tr td {
 }
 table.edittype tr td.lbl {
 	border: 0px; margin: 0px; padding: 0px; padding-right: 4px;
-	white-space: nowrap; word-wrap: none;
+	white-space: nowrap; 
 	width: 65px; 
 } 

@@ -137,7 +137,7 @@
 %	{
 
 %		# aligning the browse controls with the rest of the items.
-		<div style="margin-left: 169px">
+		<div style="margin-left: 169px;">
 			<& /comp/browse/pageselector,
 			   url => "/mod/search/results.html",
 			   args => $args,
@@ -149,10 +149,13 @@
 
 %	}
 
+		<div id="showedit::insertjs"></div>
+
 	<& /comp/tableend &>
 
 % 	if (@$mods)
 %	{
+
 
 	<form method="post" action="/bare/vote.html">
 
@@ -183,7 +186,7 @@
 
 		<& /comp/tablebegin, title => "Vote on edits" &>
 
-		<table width="100%">
+		<table>
 			<tr>
 
 % 			if ($show_pageselector)
@@ -214,6 +217,7 @@
 %			}
 %		}
 
+		<script type="text/javascript" src="/scripts/showedit.js"></script>
 		<script type="text/javascript" src="/scripts/jsdiff.js"></script>
 		<script type="text/javascript" src="/scripts/collapsereleases.js"></script>
 	</form>
