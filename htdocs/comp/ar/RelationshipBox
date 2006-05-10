@@ -202,7 +202,10 @@ else
 
 			if ($has_begindate && $has_enddate && $begindate eq $enddate)
 			{
-				$m->out(" during/in $begindate");
+				# if we have a full date, including day, use "on", else
+				# use range "during/in"
+				$m->out($begindate =~ /\d+-\d+-\d+/ ? " on " : " during/in ");
+				$m->out($begindate);
 			}
 			else
 			{
