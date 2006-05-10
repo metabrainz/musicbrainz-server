@@ -187,11 +187,11 @@
 			$coverart = $release->GetCoverartURL();
 			$store = UserPreference::get("use_amazon_store");
 
-                        # if there is no store preference, use the same store as given in the coverart url
-                        if (!($store =~ /^amazon/))
-                        {
-                             $store = $album->GetCoverartStore($coverart_url);
-                        }
+         # if there is no store preference, use the same store as given in the coverart url
+         if (!($store =~ /^amazon/))
+         {
+              $store = $album->GetCoverartStore($coverart);
+         }
 		}
 		if ($coverart && $showlinks && UserPreference::get("show_amazon_coverart"))
 		{
