@@ -98,17 +98,17 @@
 
 			if ($item->{begindate} =~ /\S/ || $item->{enddate} =~ /\S/)
 			{
-				if ($item->{begindate} =~ /\S/)
+				my ($begindate, $has_begindate) = ($item->{begindate}, $item->{begindate} =~ /\S/);
+				my ($enddate, $has_enddate) = ($item->{enddate}, $item->{enddate} =~ /\S/);
+
+				if ($has_begindate && $has_enddate && $begindate eq $enddate)
 				{
-					$m->out(' from ' . $item->{begindate});
-				}
-				if ($item->{enddate} =~ /\S/)
-				{
-					$m->out(' until ' . $item->{enddate});
+					$m->out(" during/in $begindate");
 				}
 				else
 				{
-					$m->out(' to present');
+					$m->out(" from $begindate") if ($has_begindate);
+					$m->out($has_enddate ? " until $enddate" : " to present");
 				}
 			}
 			$m->out('</span>')
