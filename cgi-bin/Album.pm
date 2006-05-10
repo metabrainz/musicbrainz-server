@@ -120,6 +120,15 @@ my %CoverArtServer = (
 	},
 );
 
+# This cross reference allows us to take the ServerNumber and get a corresponding store from it
+my %CoverArtStore = (
+    "01" => "amazon.com",
+    "02" => "amazon.co.uk",
+    "03" => "amazon.de",
+    "08" => "amazon.fr",
+    "09" => "amazon.co.jp"
+);
+
 sub LinkEntityName { "album" }
 
 sub new
@@ -173,6 +182,20 @@ sub GetCoverartURL
 	}
 	
  	return $coverurl;
+}
+
+# Given a cover art URL, return the store that should stock this item
+sub GetCoverartStore
+{
+	my $coverurl = $_[1];
+
+    if ($coverurl =~ m{http://.*?/images/P/B[0-9A-Z]{9}.(\d\d).})
+    {
+        my $id = $1;
+        return $CoverArtStore{$id} if (exists $CoverArtStore{$id});
+    }
+
+    return "amazon.com";
 }
 
 # Parse any amazon product URL and set $this->{asin} and $this->{coverarturl}

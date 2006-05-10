@@ -126,7 +126,7 @@ our @allowed_timezones = (
 
 sub allowed_timezones { @allowed_timezones }
 
-sub allowed_amazon_stores { &DBDefs::AWS_ASSOCIATE_ID() }
+sub allowed_amazon_stores { &DBDefs::AWS_ASSOCIATE_ID(), "use the same store as the cover art" }
 
 {
 	# From http://www.google.com/language_tools?hl=en , and google.com added
