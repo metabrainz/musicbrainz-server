@@ -189,13 +189,13 @@ sub GetCoverartStore
 {
 	my $coverurl = $_[1];
 
-    if ($coverurl =~ m{http://.*?/images/P/B[0-9A-Z]{9}.(\d\d).})
-    {
-        my $id = $1;
-        return $CoverArtStore{$id} if (exists $CoverArtStore{$id});
-    }
+	if ($coverurl =~ m{http://.*?/images/P/B[0-9A-Z]{9}.(\d\d).})
+	{
+		my $id = $1;
+		return $CoverArtStore{$id} if (exists $CoverArtStore{$id});
+	}
 
-    return "amazon.com";
+	return "amazon.com";
 }
 
 # Parse any amazon product URL and set $this->{asin} and $this->{coverarturl}
