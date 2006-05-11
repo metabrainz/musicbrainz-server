@@ -93,7 +93,7 @@
 	$attr = $attr->newFromLinkId($node->GetId);
 	if ($attr)
 	{
-		@old_attr_list = @{$attr->GetAttributes()};
+		@old_attr_list = @{ $attr->GetAttributes() };
 	}
 
 	# attributes contains the available attributes for the current relationship type.
@@ -112,7 +112,7 @@
 		{
 			for(my $index = 0;; $index++)
 			{
-				next if exists $ARGS{"attr_" .$ref->{name} . "_$index"};
+				next if (exists $ARGS{"attr_" .$ref->{name} . "_$index"});
 				$ARGS{"attr_" . $ref->{name} . "_$index"} = $ref->{value};
 				last;
 			}
@@ -131,7 +131,7 @@
 	{
 		# prepare forward url after action.
 		my $type = ($links[0]{type} == "album" ? "release" : $links[0]{type});
-		my $url = "/show/".$type."/?".$type."id=".$links[0]{id});
+		my $url = "/show/".$type."/?".$type."id=".$links[0]{id};
 
 		# handle click of Cancel button
 		if ($submitvalue =~ m/cancel/i)
