@@ -109,32 +109,6 @@ function GcUtils() {
 		return mb.log.exit(f);
 	}; // lowercase_words
 
-
-	/**
-	 * Words which are *not* converted if they are matched as a single pre-processor word at the end of the sentence
-	 * -------------------------------------------------------
-	 * g0llum		2005-05-25		first version
-	 * g0llum		2005-07-10		added disco
-	 * g0llum		2005-07-20		added dub
-	 **/
-	this.getPrepBracketSingleWords = function() {
-		return ["acoustic", "album", "alternate", "bonus", "clean", "club", "dance",
-			"dirty", "extended", "instrumental", "live", "original", "radio", "take",
-			"disc", "mix", "version", "feat", "cut", "vocal", "alternative", "megamix",
-			"disco", "video", "dub", "long", "short", "main", "composition", "session",
-			"rework", "reworked", "remixed", "dirty", "airplay"];
-	};
-	this.isPrepBracketSingleWord = function(w) {
-		mb.log.enter(this.GID, "isPrepBracketSingleWord");
-		if (!this.preBracketSingleWords) {
-			this.preBracketSingleWords = this.toAssocArray(this.getPrepBracketSingleWords());
-		}
-		var f = this.inArray(this.preBracketSingleWords,w);
-		mb.log.debug("$=$", w, f);
-		return mb.log.exit(f);
-	}; // preprocessor_bracket_singlewords
-
-
 	/**
 	 * Words which are always written uppercase.
 	 * -------------------------------------------------------
@@ -173,6 +147,30 @@ function GcUtils() {
 	}; // uppercase_words
 
 	/**
+	 * Words which are *not* converted if they are matched as a single pre-processor word at the end of the sentence
+	 * -------------------------------------------------------
+	 * g0llum		2005-05-25		first version
+	 * g0llum		2005-07-10		added disco
+	 * g0llum		2005-07-20		added dub
+	 **/
+	this.getPrepBracketSingleWords = function() {
+		return ["acoustic", "album", "alternate", "bonus", "clean", "club", "dance",
+			"dirty", "extended", "instrumental", "live", "original", "radio", "take",
+			"disc", "mix", "version", "feat", "cut", "vocal", "alternative", "megamix",
+			"disco", "video", "dub", "long", "short", "main", "composition", "session",
+			"rework", "reworked", "remixed", "dirty", "airplay"];
+	};
+	this.isPrepBracketSingleWord = function(w) {
+		mb.log.enter(this.GID, "isPrepBracketSingleWord");
+		if (!this.preBracketSingleWords) {
+			this.preBracketSingleWords = this.toAssocArray(this.getPrepBracketSingleWords());
+		}
+		var f = this.inArray(this.preBracketSingleWords,w);
+		mb.log.debug("$=$", w, f);
+		return mb.log.exit(f);
+	}; // preprocessor_bracket_singlewords
+
+	/**
 	 * Words which are written lowercase if in brackets
 	 * -------------------------------------------------------
 	 * tma			2005-01-29		first version
@@ -191,7 +189,7 @@ function GcUtils() {
 				"disco", "unplugged", "video", "outtake", "outtakes", "rehearsal", "intro",
 				"outro", "long", "short", "main", "remake", "clubmix",
 				"composition", "reinterpreted", "session", "rework", "reworked",
-				"remixed", "reedit", "airplay", "a_cappella"];
+				"remixed", "reedit", "airplay", "a_cappella", "excerpt"];
 	};
 	this.isLowerCaseBracketWord = function(w) {
 		mb.log.enter(this.GID, "isLowerCaseBracketWord");
@@ -230,7 +228,7 @@ function GcUtils() {
 		mb.log.enter(this.GID, "isSentenceStopChar");
 		if (!this.sentenceStopChars) {
 			this.sentenceStopChars = this.toAssocArray([
-				":",".",";","?","!"
+				":",".",";","?","!","/"
 			]);
 		}
 		var f = this.inArray(this.sentenceStopChars,w);
@@ -382,9 +380,6 @@ function GcUtils() {
 			mb.log.warning("Required parameter is was empty!", is);
 			return mb.log.exit("");
 		}
-		if (!gc.re.TITLESTRING) {
-			gc.re.TITLESTRING = /[!\"%&'´`()\[\]\{\}\*\+,-\.\/:;<=>\?\s#]/;
-		}
 
 		// get current pointer in word array
 		var len = gc.i.getLength();
@@ -399,67 +394,70 @@ function GcUtils() {
 		if (pos == len) {
 			gc.i.setPos((pos = len-1));
 		}
-		// if (gc.i.matchCurrentWord(gc.re.TITLESTRING)) {
-		// 	mb.log.debug("Not a word, nothing to do", is);
-		// 	return mb.log.exit(is);
-		// }
+
 		mb.log.debug('Titling word: $ (pos: $, length: $)', is, pos, len);
+
 		// let's see what flags we have set
 		gc.f.dumpRaisedFlags();
-		
+
 		var wordbefore = gc.i.getWordAtIndex(pos-2);
-		
 		var os;
 		var LC = is.toLowerCase(); // prepare all LC word
-		var UC = is.toUpperCase(); // prepare all UC word	
-		if ((is == UC) && 
+		var UC = is.toUpperCase(); // prepare all UC word
+		if ((is == UC) &&
 			(is.length > 1) &&
 			gc.isConfigTrue(gc.CFG_UC_UPPERCASED)) {
 			mb.log.debug('Respect uppercase word: $', is);
 			os = UC;
+
+		// we got an 'x (apostrophe),keep the text lowercased
 		} else if (LC.length == 1 && gc.i.isPreviousWord("'")) {
-			// we got an 'x (apostrophe),keep the text lowercased
 			os = LC;
+
+		// we got an 's (It is = It's), lowercased
+		// we got an 'all (Y'all = You all), lowercased
+		// we got an 'em (Them = 'em), lowercase.
+		// we got an 've (They have = They've), lowercase.
+		// we got an 'd (He had = He'd), lowercase.
+		// we got an 'cha (What you = What'cha), lowercase.
+		// we got an 're (You are = You're), lowercase.
+		// we got an 'til (Until = 'til), lowercase.
+		// we got an 'way (Away = 'way), lowercase.
+		// we got an 'round (Around = 'round), lowercased
 		} else if (gc.i.isPreviousWord("'") && LC.match(/^(s|round|em|ve|ll|d|cha|re|til|way|all)$/i)) {
-			// we got an 's (It is = It's), lowercased
-			// we got an 'all (Y'all = You all), lowercased
-			// we got an 'em (Them = 'em), lowercase.
-			// we got an 've (They have = They've), lowercase.
-			// we got an 'd (He had = He'd), lowercase.
-			// we got an 'cha (What you = What'cha), lowercase.
-			// we got an 're (You are = You're), lowercase.
-			// we got an 'til (Until = 'til), lowercase.			
-			// we got an 'way (Away = 'way), lowercase.						
-			// we got an 'round (Around = 'round), lowercased
 			mb.log.debug('Found contraction: $', wordbefore+"'"+LC);
 			os = LC;
 
+		// we got an Ev'..
+		// Every = Ev'ry, lowercase
+		// Everything = Ev'rything, lowercase (more cases?)
 		} else if (gc.i.isPreviousWord("'") && wordbefore == "Ev") {
-			// we got an Ev'..
-			// Every = Ev'ry, lowercase
-			// Everything = Ev'rything, lowercase (more cases?)
 			mb.log.debug('Found contraction: $', wordbefore+"'"+LC);
 			os = LC;
 
+		// Make it O'Titled, Y'All
 		} else if (LC.match(/^(o|y)$/i) && gc.i.isNextWord("'")) {
-			// Make it O'Titled, Y'All
 			os = UC;
+
 		} else {
 			os = this.titleStringByMode(LC);
 			LC = os.toLowerCase(); // prepare all LC word
-			UC = os.toUpperCase(); // prepare all UC word	
+			UC = os.toUpperCase(); // prepare all UC word
+
+			// Test if it's one of the lcWords but if gc.f.forceCaps is not set
 			if (gc.u.isLowerCaseWord(LC) && !gc.f.forceCaps) {
-				// Test if it's one of the lcWords
-				// but if gc.f.forceCaps is not set
 				os = LC;
+
+			// Test if it's one of the uppercase_words
 			} else if (gc.u.isUpperCaseWord(LC)) {
-				// Test if it's one of the uppercase_words
 				os = UC;
+
 			} else if (gc.f.isInsideBrackets()) {
 				if (gc.u.isLowerCaseBracketWord(LC)) {
+
+					// handle special case: (disc 1: Disc x)
+					// e.g. do not lowercase disc!
 					if (gc.f.colon && LC == "disc") {
-						// handle special case: (disc 1: Disc x)
-						// e.g. do not lowercase disc!
 					} else {
 						os = LC;
 					}
@@ -473,6 +471,10 @@ function GcUtils() {
 	/**
 	 * Capitalize the string, but check if some characters
 	 * Inside the word need to be uppercased as well.
+	 *
+	 * @param is	the input string
+	 * @returns		the capitalized string, if the flags allow
+	 *				GC to capitalize the string.
 	 **/
 	this.titleStringByMode = function(is) {
 		mb.log.enter(this.GID, "titleStringByMode");
@@ -480,22 +482,35 @@ function GcUtils() {
 			return mb.log.exit("");
 		}
 		var os = is.toLowerCase();
+
+		// see if the word before is a sentence stop character.
+		// -- http://bugs.musicbrainz.org/ticket/40
+		var opos = gc.o.getLength();
+		var wordbefore = "";
+		if (opos > 1) {
+			wordbefore = gc.o.getWordAtIndex(opos-2);
+		}
+
+		// if in sentence caps mode, and last char was not
+		// a punctuation or opening bracket -> lowercase.
 		if ((!gc.f.slurpExtraTitleInformation) &&
 			(gc.getMode().isSentenceCaps()) &&
 			(!gc.i.isFirstWord()) &&
-			(!gc.u.isSentenceStopChar(gc.o.getLastWord())) &&
+			(!gc.u.isSentenceStopChar(wordbefore)) &&
 			(!gc.f.openingBracket)) {
-			// if in sentence caps mode,and last char was not
-			// a punctuation or opening bracket -> lowercase
+
 			mb.log.debug('SentenceCaps, before: $, after: $', is, os);
+
 		} else {
 			var chars = is.toLowerCase().split("");
 			chars[0] = chars[0].toUpperCase(); // uppercase first character
+
+			// only look at strings which start with Mc but length > 2
 			if (is.length > 2 && is.substring(0,2) == "mc") {
-				// only look at strings which start with Mc but length > 2
 				chars[2] = chars[2].toUpperCase(); // Make it McTitled
+
+			// only look at strings which start with Mac but length > 3
 			} else if (gc.u.isMacTitledWord(is)) {
-				// only look at strings which start with Mac but length > 3
 				chars[3] = chars[3].toUpperCase(); // Make it MacTitled
 			}
 			os = chars.join("");

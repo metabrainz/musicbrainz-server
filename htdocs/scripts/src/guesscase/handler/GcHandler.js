@@ -40,7 +40,7 @@ function GcHandler() {
 	// member variables
 	// ---------------------------------------------------------------------------
 
-	// Values of the specialcases defined in 
+	// Values of the specialcases defined in
 	this.NOT_A_SPECIALCASE = -1;
 
 	// artist cases
@@ -56,7 +56,7 @@ function GcHandler() {
 	this.SPECIALCASE_CROWD_NOISE = 33;	// [crowd noise]
 	this.SPECIALCASE_GUITAR_SOLO = 34;	// [guitar solo]
 	this.SPECIALCASE_DIALOGUE= 35;		// [dialogue]
-	
+
 
 	// ----------------------------------------------------------------------------
 	// member functions
@@ -64,7 +64,7 @@ function GcHandler() {
 
 	/**
 	 * Returns true if the number corresponds to a special case.
-	 **/	
+	 **/
 	this.isSpecialCase = function(num) {
 		return (num != this.NOT_A_SPECIALCASE);
 	}
@@ -73,36 +73,36 @@ function GcHandler() {
 	 * Returns the correctly formatted string of the
 	 * special case, or the input string if num
 	 * does not correspond to a special case
-	 **/		
+	 **/
 	this.getSpecialCaseFormatted = function(is, num) {
 		mb.log.enter(this.GID, "getSpecialCaseFormatted");
 		switch (num) {
 			case this.SPECIALCASE_DATA_TRACK:
 				return mb.log.exit("[data track]");
-				
+
 			case this.SPECIALCASE_SILENCE:
 				return mb.log.exit("[silence]");
-				
+
 			case this.SPECIALCASE_UNTITLED:
 				return mb.log.exit("[untitled]");
-				
+
 			case this.SPECIALCASE_UNKNOWN:
 				return mb.log.exit("[unknown]");
-				
+
 			case this.SPECIALCASE_CROWD_NOISE:
 				return mb.log.exit("[crowd noise]");
-				
+
 			case this.SPECIALCASE_GUITAR_SOLO:
 				return mb.log.exit("[guitar solo]");
-				
+
 			case this.SPECIALCASE_DIALOGUE:
 				return mb.log.exit("[dialogue]");
-				
+
 			case this.NOT_A_SPECIALCASE:
 			default:
 				return mb.log.exit(is);
 		}
-	}	
+	}
 
 	/**
 	 * Returns the output string from GuessCaseOutput
@@ -127,25 +127,44 @@ function GcHandler() {
 				mb.log.debug("  Index: $/$ Word: #cw", gc.i.getPos(), gc.i.getLength()-1);
 				gc.f.dumpRaisedFlags();
 			}
-			if (this.doColon()) {
-			} else if (this.doAmpersand()) {
-			} else if (this.doLineStop()) {
-			} else if (this.doHyphen()) {
-			} else if (this.doPlus()) {
-			} else if (this.doComma()) {
-			} else if (this.doPeriod()) {
-			} else if (this.doAsterix()) {
-			} else if (this.doDiamond()) {
-			} else if (this.doPercent()) {
-			} else if (this.doSlash()) {
-			} else if (this.doDoubleQuote()) {
-			} else if (this.doSingleQuote()) {
-			} else if (this.doOpeningBracket()) {
-			} else if (this.doClosingBracket()) {
-			} else if (this.doDigits()) {
-			} else if (this.doAcronym()) {
-			} else {
-				this.doWord();
+
+
+			// try to decide if we need to check all the special cases,
+			// or if it's possibly just a plain word. this should improve
+			// performance a bit, since we don't have to go through all
+			// the regex expressions to find that we didn't have to
+			// check them.
+			var handled = false;
+			if (!gc.re.SPECIALCASES) {
+				gc.re.SPECIALCASES = /(&|\?|\!|;|'|"|\-|\+|,|\*|\.|#|%|\/|\(|\)|\{|\}|\[|\])/;
+			}
+			if (gc.i.matchCurrentWord(gc.re.SPECIALCASES)) {
+				handled = true;
+				if (this.doDoubleQuote()) {
+				} else if (this.doSingleQuote()) {
+				} else if (this.doOpeningBracket()) {
+				} else if (this.doClosingBracket()) {
+				} else if (this.doComma()) {
+				} else if (this.doPeriod()) {
+				} else if (this.doLineStop()) {
+				} else if (this.doAmpersand()) {
+				} else if (this.doSlash()) {
+				} else if (this.doColon()) {
+				} else if (this.doHyphen()) {
+				} else if (this.doPlus()) {
+				} else if (this.doAsterix()) {
+				} else if (this.doDiamond()) {
+				} else if (this.doPercent()) {
+				} else {
+					handled = false;
+				}
+			}
+			if (!handled) {
+				if (this.doDigits()) {
+				} else if (this.doAcronym()) {
+				} else {
+					this.doWord();
+				}
 			}
 		}
 		gc.i.nextIndex();
@@ -190,9 +209,20 @@ function GcHandler() {
 		}
 		if (gc.i.matchCurrentWord(gc.re.COLON)) {
 			mb.log.debug('Handled #cw');
-			
+
 			// capitalize the last word before the colon (it's a line stop)
-			gc.o.capitalizeLastWord();
+			// -- handle special case feat. "role" lowercase.
+			var featIndex = gc.o.getLength()-3;
+			var role;
+			if (gc.f.slurpExtraTitleInformation &&
+			    featIndex > 0 &&
+			    gc.o.getWordAtIndex(featIndex) == "feat." &&
+			    (role = gc.o.getLastWord()) != "") {
+
+				gc.o.setWordAtIndex(gc.o.getLength()-1, role.toLowerCase());
+			} else {
+				gc.o.capitalizeLastWord();
+			}
 
 			// from next position on, skip spaces and dots.
 			var skip = false;
@@ -258,7 +288,7 @@ function GcHandler() {
 		}
 		return mb.log.exit(false);
 	};
-	
+
 	/**
 	 * Deal with percent signs (%)
 	 * TODO: lots of methods for special chars look the same, combine?
@@ -275,7 +305,7 @@ function GcHandler() {
 			return mb.log.exit(true);
 		}
 		return mb.log.exit(false);
-	};	
+	};
 
 	/**
 	 * Deal with ampersands (&)
@@ -388,9 +418,12 @@ function GcHandler() {
 			gc.re.DOUBLEQUOTE = "\"";
 		}
 		if (gc.i.matchCurrentWord(gc.re.DOUBLEQUOTE)) {
-			gc.o.appendWordPreserveWhiteSpace({apply: true, capslast: true});
+
+			// changed 05/2006: do not force capitalization before quotes
+			gc.o.appendWordPreserveWhiteSpace({apply: true, capslast: false});
+
+			// changed 05/2006: do not force capitalization after quotes
 			gc.f.resetContext();
-			gc.f.forceCaps = true;
 			return mb.log.exit(true);
 		}
 		return mb.log.exit(false);
@@ -412,16 +445,20 @@ function GcHandler() {
 			gc.f.forceCaps = false;
 			var a = gc.i.isPreviousWord(" ");
 			var b = gc.i.isNextWord(" ");
+			var state = gc.f.openedSingleQuote;
 			mb.log.debug('Consumed #cw, space before: $, after: $', a, b);
+
+			// preserve whitespace before opening singlequote.
+			// -- if it's a "Asdf 'Text in Quotes'"
 			if (a && !b) {
-				// preserve whitespace before, and if it's a "Word 'Text in Quotes'"
-				// set forceCaps=true
 				mb.log.debug('Found opening singlequote.', a, b);
 				gc.o.appendSpace();
-				gc.f.forceCaps = true;
 				gc.f.openedSingleQuote = true;
+				gc.f.forceCaps = true;
+
+			// preserve whitespace after closing singlequote.
 			} else  if (!a && b) {
-				if (gc.f.openedSingleQuote) {
+				if (state) {
 					mb.log.debug('Found closing singlequote.', a, b);
 					gc.f.forceCaps = true;
 					gc.f.openedSingleQuote = false;
@@ -434,8 +471,15 @@ function GcHandler() {
 			gc.o.appendCurrentWord(); // append current word
 
 			// if there is a space after the ' assume its a closing singlequote
-			// do not force capitalization (else Rollin' on,the On gets capitalized.
+			// do not force capitalization per default, else for "Rollin' on",
+			// the "On" will be titled.
 			gc.f.resetContext();
+
+			// default, if singlequote state was not modified, is
+			// not forcing caps.
+			if (state == gc.f.openedSingleQuote) {
+				gc.f.forceCaps = false;
+			}
 			gc.f.singlequote = true;
 			return mb.log.exit(true);
 		}
@@ -454,7 +498,7 @@ function GcHandler() {
 		}
 		if (gc.i.matchCurrentWord(gc.re.OPENBRACKET)) {
 			mb.log.debug('Handled #cw, stack: $', gc.f.openBrackets);
-			
+
 			gc.f.forceCaps = true;
 			gc.o.capitalizeLastWord(); // force caps on last word
 
@@ -521,7 +565,7 @@ function GcHandler() {
 	/**
 	 * Deal with commas.			(,)
 	 * commas can mean two things: a sentence pause,or a number split. We
-	 * need context to guess which one it's meant to be,thus the digit
+	 * need context to guess which one it's meant to be, thus the digit
 	 * triplet checking later on. Multiple commas are removed.
 	 **/
 	this.doComma = function() {
@@ -531,12 +575,16 @@ function GcHandler() {
 		}
 		if (gc.i.matchCurrentWord(gc.re.COMMA)) {
 			mb.log.debug('Handled #cw');
+
+			// skip duplicate commas.
 			if (gc.o.getLastWord() != ",") {
-			
-				// capitalize the last word before the colon 
-				gc.f.forceCaps = true;
-				gc.o.capitalizeLastWord();
-				
+
+				// capitalize the last word before the colon.
+				// -- do words before comma need to be titled?
+				// -- see http://bugs.musicbrainz.org/ticket/1317
+				// gc.f.forceCaps = true;
+				// gc.o.capitalizeLastWord();
+
 				// handle comma
 				gc.f.resetContext();
 				gc.f.spaceNextWord = true;
@@ -648,6 +696,8 @@ function GcHandler() {
 			mb.log.debug("Found acronym: $", s);
 			gc.o.appendSpaceIfNeeded();
 			gc.o.appendWord(s);
+
+			gc.f.resetContext();
 			gc.f.acronym = true;
 			gc.f.spaceNextWord = true;
 			gc.f.forceCaps = false;
@@ -732,30 +782,33 @@ function GcHandler() {
 			// e.g. Albumname cd 4 -> Albumname (disc 4)
 			// but  Albumname cd 4 the name -> Albumname (disc 4: The Name)
 			var addcolon = false;
-			if (gc.f.disc || gc.f.part || gc.f.volume) {
+			if (gc.f.disc || gc.f.volume) {
 				var pos = gc.i.getPos();
 				if (pos < gc.i.getLength()-2) {
 					var nword = gc.i.getWordAtIndex(pos+1);
 					var naword = gc.i.getWordAtIndex(pos+2);
 					var nwordm = nword.match(/[\):\-&]/);
 					var nawordm = naword.match(/[\(:\-&]/);
+
 					// alert(nword+"="+nwordm+"    "+naword+"="+nawordm);
 					// only add a colon,if the next word is not ")",":","-","&"
 					// and the word after the next is not "-","&","("
 					if (nwordm == null && nawordm == null) {
 						addcolon = true;
-					} else if (gc.f.part && naword.match(/&|-/)) {
-						gc.o.setWordAtIndex(gc.o.getLength()-1, "Parts"); // make multiple parts
 					}
 				}
-				gc.f.disc = false;		// clear the flags (for the colon-handling after volume,part
-				gc.f.part = false; 		// and disc,even if no digit followed (and thus no colon was
-				gc.f.volume = false; 	// added (flawed implementation, but it works i guess)
 				gc.f.spaceNextWord = true;
 				gc.f.forceCaps = true;
 			}
+
 			gc.o.appendSpaceIfNeeded();
 			gc.o.appendWord(number);
+
+			// clear the flags (for the colon-handling after volume,part
+			// added (flawed implementation, but it works i guess)
+			// and disc,even if no digit followed (and thus no colon was
+			gc.f.resetSeriesNumberStyleFlags();
+			gc.f.resetContext();
 			gc.f.forceCaps = false;
 			gc.f.number = true;
 			if (addcolon) {
@@ -794,7 +847,7 @@ function GcHandler() {
 		// Dance,Dance,Dance (lastword = dance) get matched by the preprocessor,
 		// but are a single word which can occur at the end of the string.
 		// therefore, we don't put the single word into parens.
-		
+
 		// trackback the skipped spaces spaces, and then slurp the
 		// next word, so see which word we found.
 		if (wi < len) {
@@ -836,17 +889,22 @@ function GcHandler() {
 				// http://unicode.e-workers.de/wgl4.php
 				// http://www.cs.sfu.ca/~ggbaker/reference/characters/
 				// single quotes
-
-				new GcFix("Backtick &#x0060;", "\u0060", "'"),
 				new GcFix("Opening single-quote &#x2018;", "\u2018", "'"),
 				new GcFix("Closing single-quote &#x2019;", "\u2019", "'"),
- 				new GcFix("Prime &#x2023;", "\u2023", "'"),
+
+				// weird single quotes.
 				new GcFix("Acute accent &#x0301;", "\u0301", "'"),
+				new GcFix("Acute accent &#x00B4;", "\u00B4", "'"),
+				new GcFix("Acute accent ´", "´", "'"),
 				new GcFix("Grave accent &#x0300;", "\u0300", "'"),
+				new GcFix("Backtick &#x0060;", "\u0060", "'"),
+				new GcFix("Prime &#x2023;", "\u2023", "'"),
 
 				// double quotes
 				new GcFix("Opening double-quote &#x201C;", "\u201C", "\""),
 				new GcFix("Closing double-quote &#x201D;", "\u201D", "\""),
+				new GcFix("Opening double-quote “", "“", "\""),
+				new GcFix("Closing double-quote ”", "”", "\""),
 
 				// hyphens
 				new GcFix("Soft hyphen &#x00AD;", "\u00AD", "-"),
@@ -876,6 +934,13 @@ function GcHandler() {
 		mb.log.enter(this.GID, "preProcessTitles");
 		if (!gc.re.PREPROCESS_FIXLIST) {
 			gc.re.PREPROCESS_FIXLIST = [
+
+				// trim spaces from brackets.
+				new GcFix("spaces after opening brackets", /(^|\s)([\(\{\[])\s+($|\b)/i, "$2" ),
+				new GcFix("spaces before closing brackets", /(\b|^)\s+([\)\}\]])($|\b)/i, "$2" ),
+
+				// remix variants
+				new GcFix("re-mix -> remix", /(\b|^)re-mix(\b)/i, "remix" ),
 				new GcFix("re-mix -> remix", /(\b|^)re-mix(\b)/i, "remix" ),
 				new GcFix("remx -> remix", /(\b|^)remx(\b)/i, "remix" ),
 				new GcFix("re-mixes -> remixes", /(\b|^)re-mixes(\b)/i, "remixes" ),
@@ -883,6 +948,8 @@ function GcHandler() {
 				new GcFix("re-makes -> remakes", /(\b|^)re-makes(\b)/i, "remakes" ),
  				new GcFix("re-edit variants, prepare for postprocess", /(\b|^)re-?edit(\b)/i, "re_edit" ),
 				new GcFix("RMX -> remix", /(\b|^)RMX(\b)/i, "remix" ),
+
+				// extra title information
 				new GcFix("alt.take -> alternate take", /(\b|^)alt[\.]? take(\b)/i, "alternate take"),
 				new GcFix("instr. -> instrumental", /(\b|^)instr\.?(\b)/i, "instrumental"),
 				new GcFix("altern. -> alternate", /(\b|^)altern\.?(\s|\)|$)/i, "alternate" ),
@@ -890,20 +957,24 @@ function GcHandler() {
 				new GcFix("vers. -> version", /(\b|^)vers\.(\s|\)|$)/i, "version" ),
 				new GcFix("Extendet -> extended", /(\b|^)Extendet(\b)/i, "extended" ),
 				new GcFix("extd. -> extended", /(\b|^)ext[d]?\.?(\s|\)|$)/i, "extended" ),
+
+				// also known as
 				new GcFix("aka -> a.k.a.", /(\b|^)aka(\b)/i, "a.k.a." ),
+
+				// featuring variants
 				new GcFix("/w -> ft. ", /(\s)[\/]w(\s)/i, "ft." ),
 				new GcFix("f. -> ft. ", /(\s)f\.(\s)/i, "ft." ),
-				
+
 				// combined word hacks, e.g. replace spaces with underscores,
 				// (e.g. "a cappella" -> a_capella), such that it can be handled
 				// correctly in post-processing
-				new GcFix("A Capella preprocess", /(\b|^)a\s?c+ap+el+a(\b)/i, "a_cappella" ), 
-				new GcFix("OC ReMix preprocess", /(\b|^)oc\sremix(\b)/i, "oc_remix" ), 
-				
+				new GcFix("A Capella preprocess", /(\b|^)a\s?c+ap+el+a(\b)/i, "a_cappella" ),
+				new GcFix("OC ReMix preprocess", /(\b|^)oc\sremix(\b)/i, "oc_remix" ),
+
 				// Handle Part/Volume abbreviations
-				new GcFix("Pt. -> Part", /(\b|^)Pt\.?()/i, "Part" ),
-				new GcFix("Pts. -> Parts", /(\b|^)Pts\.()/i, "Parts" ),
-				new GcFix("Vol. -> Volume", /(\b|^)Vol\.()/i, "Volume" ),
+				new GcFix("Standalone Pt. -> Part", /(^|\s)Pt\.?(\s|$)/i, "Part" ),
+				new GcFix("Standalone Pts. -> Parts", /(^|\s)Pts\.(\s|$)/i, "Parts" ),
+				new GcFix("Standalone Vol. -> Volume", /(^|\s)Vol\.(\s|$)/i, "Volume" ),
 
 				// Get parts out of brackets
 				// Name [Part 1] -> Name, Part 1
@@ -911,9 +982,9 @@ function GcHandler() {
 				// Name [Parts 1] -> Name, Parts 1
 				// Name (Parts 1-2) -> Name, Parts 1-2
 				// Name (Parts x & y) -> Name, Parts x & y
-				new GcFix("(Pt) -> , Part", /((,|\s|:|!)+)([\(\[])?\s*(Part|Pt)[\.\s#]*((\d|[ivx]|[\-&\s])+)([\)\]])?(\s|$)/i, "Part $5" ),
-				new GcFix("(Pts) -> , Parts", /((,|\s|:|!)+)([\(\[])?\s*(Parts|Pts)[\.\s#]*((\d|[ivx]|[\-&\s])+)([\)\]])?(\s|$)/i, "Parts $5" ),
-				new GcFix("(Vol) -> , Volume", /((,|\s|:|!)+)([\(\[])?\s*(Volume|Vol)[\.\s#]*((\d|[ivx]|[\-&\s])+)([\)\]])?(\s|$)/i, "Volume $5" )
+				new GcFix("(Pt) -> , Part", /((,|\s|:|!)+)([\(\[])?\s*(Part|Pt)[\.\s#]*((\d|[ivx]|[\-,&\s])+)([\)\]])?(\s|$)/i, "Part $5" ),
+				new GcFix("(Pts) -> , Parts", /((,|\s|:|!)+)([\(\[])?\s*(Parts|Pts)[\.\s#]*((\d|[ivx]|[\-&,\s])+)([\)\]])?(\s|$)/i, "Parts $5" ),
+				new GcFix("(Vol) -> , Volume", /((,|\s|:|!)+)([\(\[])?\s*(Volume|Vol)[\.\s#]*((\d|[ivx]|[\-&,\s])+)([\)\]])?(\s|$)/i, "Volume $5" )
 			];
 		}
 		var os = this.runFixes(is, gc.re.PREPROCESS_FIXLIST);
@@ -929,18 +1000,18 @@ function GcHandler() {
 		mb.log.enter(this.GID, "runPostProcess");
 		if (!gc.re.POSTPROCESS_FIXLIST) {
 			gc.re.POSTPROCESS_FIXLIST = [
-				
+
 				// see combined words hack in preProcessTitles
 				new GcFix("a_cappella inside brackets", /(\b|^)a_cappella(\b)/, "a cappella"),
 				new GcFix("a_cappella outside brackets", /(\b|^)A_cappella(\b)/, "A Cappella"),
 				new GcFix("oc_remix", /(\b|^)oc_remix(\b)/i, "OC ReMix"),
 				new GcFix("re_edit inside brackets", /(\b|^)Re_edit(\b)/, "re-edit"),
 
-				// TODO: check if needed?				
+				// TODO: check if needed?
 				new GcFix("whitespace in R&B", /(\b|^)R\s*&\s*B(\b)/i, "R&B"),
 				new GcFix("[live] to (live)", /(\b|^)\[live\](\b)/i, "(live)"),
 				new GcFix("Djs to DJs", /(\b|^)Djs(\b)/i, "DJs"),
-				new GcFix("a.k.a. lowercase", /(\b|^)a.k.a.(\b)/i, "a.k.a.")
+				new GcFix("a.k.a. lowercase", /(\s|^)A\.K\.A\.(\s|$)/i, "a.k.a.")
 			];
 		}
 		var os = this.runFixes(is, gc.re.POSTPROCESS_FIXLIST);
@@ -973,11 +1044,11 @@ function GcHandler() {
 					is = is.replace(find, replace);
 				} else if ((matcher = is.match(find)) != null) {
 					// get reference to first set of parentheses
-					var a = matcher[1]; 
+					var a = matcher[1];
 					a = (mb.utils.isNullOrEmpty(a) ? "" : a);
 
 					// get reference to last set of parentheses
-					var b = matcher[matcher.length-1];  
+					var b = matcher[matcher.length-1];
 					b = (mb.utils.isNullOrEmpty(b) ? "" : b);
 
 					//compile replace string
@@ -1061,26 +1132,26 @@ function GcHandler() {
 		if ((matcher = is.match(gc.re.VINYL)) != null) {
 			var mindex = matcher.index;
 			var mlenght  = matcher[1].length + matcher[2].length + matcher[5].length; // calculate the length of the expression
-			var firstPart = is.substring(0,mindex);
-			var lastPart = is.substring(mindex+mlenght,is.length); // add number
-			var parts = new Array(); // compile the vinyl designation.
-			parts[parts.length] = firstPart;
-			parts[parts.length] = matcher[1]; // add matched first expression (either ' ' or '('
-			parts[parts.length] = matcher[3]; // add matched number,but skip the in,inch,'' part
-			parts[parts.length] = '"'; // add vinyl doubleqoute
-			parts[parts.length] = (matcher[5] != " " && matcher[5] != ")" && matcher[5] != "," ? " " : ""); // add space after ",if none is present and next character is not ")" or ","
-			parts[parts.length] = matcher[5]; // add first character of next word / space.
-			parts[parts.length] = lastPart; // add rest of string
+			var firstPart = is.substring(0, mindex);
+			var lastPart = is.substring(mindex + mlenght, is.length); // add number
+			var parts = []; // compile the vinyl designation.
+			parts.push(firstPart);
+			parts.push(matcher[1]); // add matched first expression (either ' ' or '('
+			parts.push(matcher[3]); // add matched number, but skip the in, inch, '' part
+			parts.push('"'); // add vinyl doubleqoute
+			parts.push((matcher[5]) != " " && matcher[5] != ")" && matcher[5] != "," ? " " : ""); // add space after ",if none is present and next character is not ")" or ","
+			parts.push(matcher[5]); // add first character of next word / space.
+			parts.push(lastPart); // add rest of string
 			os = parts.join("");
 		}
-		return mb.log.exit(is);
+		return mb.log.exit(os);
 	};
 
 	/**
 	 * Correct vs.
 	 **/
 	this.doVersusStyle = function() {
-		mb.log.enter(this.GID, "handleVersus");
+		mb.log.enter(this.GID, "doVersusStyle");
 		if (!gc.re.VERSUSSTYLE) {
 			gc.re.VERSUSSTYLE = "vs";
 		}
@@ -1095,6 +1166,7 @@ function GcHandler() {
 			if (gc.i.isNextWord(".")) {
 				gc.i.nextIndex(); // skip trailing (.)
 			}
+			gc.f.resetContext();
 			gc.f.forceCaps = true;
 			gc.f.spaceNextWord = true;
 			return mb.log.exit(true);
@@ -1179,28 +1251,34 @@ function GcHandler() {
 				gc.o.capitalizeWordAtIndex(gc.o.getLength()-2);
 			}
 
-			gc.o.appendSpaceIfNeeded();
-			gc.o.appendWord(seriesType);
-			gc.f.number = true;
-			gc.f.spaceNextWord = false;
-			gc.f.forceCaps = true;
-
 			// check if we have to add a colon (SubTitleStyle)
 			var addcolon = false;
 			if (wi < gc.i.getLength()-2) {
 				var nword = gc.i.getWordAtIndex(wi+1);
 				var naword = gc.i.getWordAtIndex(wi+2);
-				var nwordm = nword.match(/[\):\-&\/]/);
-				var nawordm = naword.match(/[\(:\-&\/]/);
+				var nwordm = nword.match(/[\):\-&,\/]/);
+				var nawordm = naword.match(/[\(:\-&,\/]/);
+
 				// alert(nword+"="+nwordm+"    "+naword+"="+nawordm);
-				// only add a colon,if the next word is not ")",":","-","&","/"
-				// and the word after the next is not "-","&","(","/"
+				// only add a colon,if the next word is not [ ) : - & / , ]
+				// and the word after the next is not [ ) : - & / , ]
 				if (nwordm == null && nawordm == null) {
 					addcolon = true;
-				} else if (seriesType == "Part" && naword.match(/&|-/)) {
-					gc.o.setWordAtIndex(gc.o.getLength()-1, "Parts"); // make multiple parts
+				} else if (seriesType.match(/part|parts/i) &&
+						   (nword.match(/,/) || naword.match(/&|-|,|\d+/))) {
+					seriesType = "Parts"; // make multiple parts
 				}
 			}
+
+			// append the current seriestype to output.
+			gc.o.appendSpaceIfNeeded();
+			gc.o.appendWord(seriesType);
+
+			gc.f.resetContext();
+			gc.f.number = true;
+			gc.f.spaceNextWord = false;
+			gc.f.forceCaps = true;
+
 			// add space, and number
 			gc.o.appendSpace();
 			gc.o.appendWord(w);
@@ -1283,6 +1361,8 @@ function GcHandler() {
 					this.doOpeningBracket();
 				}
 				gc.o.appendWord("disc");
+
+				gc.f.resetContext();
 				gc.f.openingBracket = false; // reset bracket flag set by handler
 				gc.f.spaceNextWord = false;
 				gc.f.forceCaps = false;
@@ -1313,58 +1393,70 @@ function GcHandler() {
 				mb.log.debug('Matched f, but next character is not a "."...');
 				return mb.log.exit(false);
 			}
-			if (!gc.f.openingBracket) {
-				mb.log.debug('Matched feat., but previous word is not a closing bracket.');
-				if (gc.f.isInsideBrackets()) {
-					// close open parentheses before the feat. part.
-					var closebrackets = new Array();
-					while (gc.f.isInsideBrackets()) {
-						// close brackets that were opened before
-						var cb = gc.f.popBracket();
-						gc.o.appendWord(cb);
-						if (gc.i.getWordAtIndex(gc.i.getLength()-1) == cb) {
-							gc.i.dropLastWord();
-							// get rid of duplicate bracket at the end (will be
-							// added again by closeOpenBrackets if they wern't
-							// closed before (e.g. using feat.)
+
+			// only try to convert to feat. if there are
+			// enough words after the keyword
+			if (gc.i.getPos() < gc.i.getLength()-2) {
+
+				if (!gc.f.openingBracket && !gc.f.isInsideBrackets()) {
+					mb.log.debug('Matched feat., but previous word is not a closing bracket.');
+
+					if (gc.f.isInsideBrackets()) {
+						// close open parentheses before the feat. part.
+						var closebrackets = new Array();
+						while (gc.f.isInsideBrackets()) {
+							// close brackets that were opened before
+							var cb = gc.f.popBracket();
+							gc.o.appendWord(cb);
+							if (gc.i.getWordAtIndex(gc.i.getLength()-1) == cb) {
+								gc.i.dropLastWord();
+								// get rid of duplicate bracket at the end (will be
+								// added again by closeOpenBrackets if they wern't
+								// closed before (e.g. using feat.)
+							}
 						}
 					}
-				}
-				// handle case:
-				// Blah ft. Erroll Flynn Some Remixname remix
-				// -> pre-processor added parentheses such that the string is:
-				// Blah ft. erroll flynn Some Remixname (remix)
-				// -> now there are parentheses needed before remix, we can't
-				//    guess where the artist name ends, and the remixname starts
-				//    though :]
-				// Blah (feat. Erroll Flynn Some Remixname) (remix)
-				var pos = gc.i.getPos();
-				var len = gc.i.getLength();
-				for (var i = pos; i < len; i++) {
-					if (gc.i.getWordAtIndex(i) == "(") {
-						break;
+
+					// handle case:
+					// Blah ft. Erroll Flynn Some Remixname remix
+					// -> pre-processor added parentheses such that the string is:
+					// Blah ft. erroll flynn Some Remixname (remix)
+					// -> now there are parentheses needed before remix, we can't
+					//    guess where the artist name ends, and the remixname starts
+					//    though :]
+					// Blah (feat. Erroll Flynn Some Remixname) (remix)
+					var pos = gc.i.getPos();
+					var len = gc.i.getLength();
+					for (var i = pos; i < len; i++) {
+						if (gc.i.getWordAtIndex(i) == "(") {
+							break;
+						}
 					}
+
+					// we got a part, but not until the end of the string
+					// close feat. part, and add space to next set of brackets
+					if (i != pos && i < len-1) {
+						mb.log.debug('Found another opening bracket, closing feat. part');
+						gc.i.insertWordsAtIndex(i, [")", " "]);
+					}
+					gc.i.updateCurrentWord("(");
+					this.doOpeningBracket();
 				}
 
-				// we got a part, but not until the end of the string
-				// close feat. part, and add space to next set of brackets
-				if (i != pos && i < len-1) {
-					mb.log.debug('Found another opening bracket, closing feat. part');
-					gc.i.insertWordsAtIndex(i, [")", " "]);
+				// gc.o.appendSpaceIfNeeded();
+				gc.o.appendWord("feat.");
+
+				gc.f.resetContext();
+				gc.f.forceCaps = true;
+				gc.f.openingBracket = false;
+				gc.f.spaceNextWord = true;
+				gc.f.slurpExtraTitleInformation = true;
+				gc.f.feat = true;
+				if (gc.i.isNextWord(".")) {
+					gc.i.nextIndex();  // skip trailing (.)
 				}
-				gc.i.updateCurrentWord("(");
-				this.doOpeningBracket();
+				return mb.log.exit(true);
 			}
-			gc.o.appendWord("feat.");
-			gc.f.forceCaps = true;
-			gc.f.openingBracket = false;
-			gc.f.spaceNextWord = true;
-			gc.f.slurpExtraTitleInformation = true;
-			gc.f.feat = true;
-			if (gc.i.isNextWord(".")) {
-				gc.i.nextIndex();  // skip trailing (.)
-			}
-			return mb.log.exit(true);
 		}
 		return mb.log.exit(false);
 	};

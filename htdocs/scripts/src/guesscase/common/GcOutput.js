@@ -166,24 +166,29 @@ function GcOutput() {
 	 **/
 	this.capitalizeWordAtIndex = function(index) {
 		mb.log.enter(this.GID, "capitalizeWordAtIndex");
-		gc.f.forceCaps = true;		
-		if ((!gc.getMode().isSentenceCaps()) &&
+		if ((!gc.getMode().isSentenceCaps() || gc.f.forceCaps) &&
 			(!this.isEmpty()) &&
 			(this.getWordAtIndex(index) != null)) {
+
 			// don't capitalize last word before puncuation/end of string in sentence mode.
 			var w = this.getWordAtIndex(index), o = w;
 
 			// check that last word is NOT an acronym.
 			if (w.match(/^\w\..*/) == null) {
+
 				// some words that were manipulated might have space padding
 				var probe = gc.u.trim(w.toLowerCase());
+
+				// If inside brackets, do nothing.
 				if (gc.f.isInsideBrackets() &&
 					gc.u.isLowerCaseBracketWord(probe)) {
-					// If inside brackets, do nothing.
+
+				// If it is an UPPERCASE word,do nothing.
 				} else if (gc.u.isUpperCaseWord(probe)) {
-					// If it is an UPPERCASE word,do nothing.
+
+				// else capitalize the current word.
 				} else {
-					o = gc.u.titleString(w); // feed current word.
+					o = gc.u.titleString(w);
 					if (w != o) {
 						this.setWordAtIndex(index, o);
 						mb.log.debug('index=$/$, before: $, after: $', index, this.getLength()-1, w, o);
@@ -201,6 +206,8 @@ function GcOutput() {
 	this.capitalizeLastWord = function() {
 		mb.log.enter(this.GID, "capitalizeLastWord");
 		mb.log.debug('Capitalizing last word... index: $', this.getLength()-1);
+
+		gc.f.forceCaps = !gc.getMode().isSentenceCaps();
 		this.capitalizeWordAtIndex(this.getLength()-1);
 		mb.log.exit();
 	};

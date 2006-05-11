@@ -95,11 +95,7 @@ function GcInput() {
 	 * Accessors for strings at certain positions.
 	 **/
 	this.getWordAtIndex = function(index) {
-		if (this._w[index]) {
-			return this._w[index];
-		} else {
-			return null;
-		}
+		return (this._w[index] || null);
 	};
 	this.getNextWord = function() {
 		return this.getWordAtIndex(this._wi+1);

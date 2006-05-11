@@ -55,6 +55,7 @@ function GcTrackHandler() {
 		gc.i.init(is, w);
 		while (!gc.i.isIndexAtEnd()) {
 			this.processWord();
+			mb.log.debug("Output: $", gc.o._w);
 		}
 		var os = this.getOutput();
 		return mb.log.exit(os);
@@ -80,7 +81,7 @@ function GcTrackHandler() {
 				// untitled
 				gc.re.TRACK_UNTITLED = /^([\(\[]?\s*untitled(\s+track)?\s*[\)\]]?)$/i;
 				// unknown
-				gc.re.TRACK_UNKNOWN = /^([\(\[]?\s*(unknown|bonus)(\s+track)?\s*[\)\]]?)$/i;
+				gc.re.TRACK_UNKNOWN = /^([\(\[]?\s*(unknown|bonus|hidden)(\s+track)?\s*[\)\]]?)$/i;
 				// any number of question marks
 				gc.re.TRACK_MYSTERY = /^\?+$/i;
 			}
@@ -102,7 +103,7 @@ function GcTrackHandler() {
 		}
 		return mb.log.exit(this.NOT_A_SPECIALCASE);
 	};
-	
+
 
 	/**
 	 * Delegate function which handles words not handled
