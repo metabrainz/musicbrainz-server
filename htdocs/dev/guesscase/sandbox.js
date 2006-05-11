@@ -1,90 +1,132 @@
+/*----------------------------------------------------------------------------\
+|                              Musicbrainz.org                                |
+|                 Copyright (c) 2005 Stefan Kestenholz (g0llum)               |
+|-----------------------------------------------------------------------------|
+| This software is provided "as is", without warranty of any kind, express or |
+| implied, including  but not limited  to the warranties of  merchantability, |
+| fitness for a particular purpose and noninfringement. In no event shall the |
+| authors or  copyright  holders be  liable for any claim,  damages or  other |
+| liability, whether  in an  action of  contract, tort  or otherwise, arising |
+| from,  out of  or in  connection with  the software or  the  use  or  other |
+| dealings in the software.                                                   |
+| - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - |
+| GPL - The GNU General Public License    http://www.gnu.org/licenses/gpl.txt |
+| Permits anyone the right to use and modify the software without limitations |
+| as long as proper  credits are given  and the original  and modified source |
+| code are included. Requires  that the final product, software derivate from |
+| the original  source or any  software  utilizing a GPL  component, such  as |
+| this, is also licensed under the GPL license.                               |
+\----------------------------------------------------------------------------*/
+
+/**
+ * SandBoxPage class
+ */
 function SandBoxPage(id, name, content, table) {
+
+	// ----------------------------------------------------------------------------
+	// member variables
+	// ---------------------------------------------------------------------------
 	this.id = id;
 	this.name = name;
 	this.content = content;
 	this.table = table;
 }
 
-// ****************************************************************************
-// SandBox class
-// ****************************************************************************
+/**
+ * SandBox class
+ **/
 function SandBox() {
-	this.CN = "sb";
 
+	// ----------------------------------------------------------------------------
+	// register class/global id
+	// ---------------------------------------------------------------------------
+	this.CN = "SandBox";
+	this.GID = "sandBox";
+	mb.log.enter(this.CN, "__constructor");
+
+	// ----------------------------------------------------------------------------
+	// member variables
+	// ---------------------------------------------------------------------------
 	this.COOKIE_TAB = "SANDBOX_TAB";
 	this.pages = [];
-
 	this.tp = new TrackParserTest();
 
-	// Tests the split splitWordsAndPunctuation function.
 	// ----------------------------------------------------------------------------
+	// member functions
+	// ---------------------------------------------------------------------------
+
+	/**
+	 * Tests the split splitWordsAndPunctuation function.
+	 */
 	this.testSplit = function() {
 		mb.log.setLevel(mb.log.DEBUG);
 		mb.log.scopeStart("Handling click on 'Test Split' function.");
-		var ov = document.getElementById("splittesttext").value;
+		var ov = mb.ui.get("splittesttext").value;
 		mb.log.info("Attempting to split: $", ov);
-		var nv = gc.io.splitWordsAndPunctuation(ov);
+		var nv = gc.i.splitWordsAndPunctuation(ov);
 		mb.log.info("Split value: $", nv);
 		mb.log.scopeEnd();
 	};
 
-	// Writes the sandbox UI to the document
-	// ----------------------------------------------------------------------------
+	/**
+	 * Handles a click on the Set Fields Count button
+	 */
 	this.onSetFieldCountClicked = function() {
 		mb.log.scopeStart("Handling click on 'setFieldCount' function.");
-		this.setFieldCount(true);	
+		this.setFieldCount(true);
 		mb.log.scopeEnd();
 	};
 
-	// Writes the sandbox UI to the document
-	// ----------------------------------------------------------------------------
+	/**
+	 * Adjusts the number of displayed fields on the add release forms.
+	 *
+	 * @param interactive	in interactive mode, the form fields
+	 *						are initialised, else not.
+	 */
 	this.setFieldCount = function(interactive) {
-		var obj, tr, cn, last, parent;
-		if ((obj = document.getElementById("numberOfFieldsSize")) != null) {
-			var count = obj.value;
+		var obj, tr, cn, lastRow, parentNode;
+		if ((obj = mb.ui.get("numberOfFieldsSize")) != null) {
+
+			var numberOfFields = obj.value;
 			var id, trs = document.getElementsByTagName("tr");
 			var template = [], removefields = [];
 			for (i=0; i<trs.length; i++) {
 				tr = trs[i], cn = (tr.className || "");
-				if (tr == null) continue;
-				if (cn == "field") {
-					template.push(tr);
-				} else if (cn == "fieldclone") {
-					removefields.push(tr);
-				} else if (cn == "lastfield") {
-					last = tr;
+				if (tr != null) {
+					if (cn == "field") {
+						template.push(tr);
+					} else if (cn == "fieldclone") {
+						removefields.push(tr);
+					} else if (cn == "lastfield") {
+						lastRow = tr;
+					}
 				}
 			}
 			for (i=0; i<removefields.length; i++) {
 				tr = removefields[i];
-				parent = tr.parentNode;
-				parent.removeChild(tr);
+				parentNode = tr.parentNode;
+				parentNode.removeChild(tr);
 			}
 
 			if (template.length > 0) {
-				parent = last.parentNode;
-				for (i=1; i<count; i++) {
+				parentNode = lastRow.parentNode;
+				for (i=1; i<numberOfFields; i++) {
 					for (var j=0; j<template.length; j++) {
-						var n,f,k;
+						var n,k;
+						var f = f = es.ui.getForm();
 						var node = template[j].cloneNode(true);
 						node.className = "fieldclone";
 						var nid = i;
 
-						var tnprefix = "Track ";
-						var track = 1;
-						var tracklength = 2;
-						var buttons = 3;
+						var isva = f["artistname0"] != null;
+						var vaoffset = isva ? 1 : 0;
+						var tnprefix = isva ? "" : "Track ";
 
-						if ((f = es.ui.getForm()) != null) {
-							if (f["artistname0"] != null) {
-								tnprefix = "";
-								track = 2;
-								tracklength = 3;
-								buttons = 4;
-							}
-						}
+						var trackindex = 1 + vaoffset;
+						var tracklengthindex = 2 + vaoffset;
+						var buttonsindex = 3 + vaoffset;
 
-						// handle number
+							// handle number
 						if ((n = node.childNodes[0])) {
 							f = n.firstChild;
 							if (f && f.nodeValue) {
@@ -94,11 +136,16 @@ function SandBox() {
 						}
 
 						// handle track/artist fields
-						if ((n = node.childNodes[track])) {
+						if ((n = node.childNodes[trackindex])) {
+
+							// remove toolbox icon, will be re-inserted when the
+							// form is setup.
+							n.removeChild(n.childNodes[1]);
+
 							f = n.firstChild;
 							if (f.name) {
 								f.value = "";
-								f.name = f.name.replace(/\d+$/, nid);		
+								f.name = f.name.replace(/\d+$/, nid);
 								es.ui.getForm()[f.name] = f; // register field in form
 							} else {
 								mb.log.warning("Track field $ does not define name", f);
@@ -106,12 +153,12 @@ function SandBox() {
 						}
 
 						// handle tracklength fields
-						if ((n = node.childNodes[tracklength])) {
+						if ((n = node.childNodes[tracklengthindex])) {
 							f = n.firstChild;
 							if (f) {
 								if (f.name) {
 								f.value = "?:??";
-								f.name = f.name.replace(/\d+$/, nid);		
+								f.name = f.name.replace(/\d+$/, nid);
 								es.ui.getForm()[f.name] = f; // register field in form
 								} else {
 									mb.log.warning("Tracklength field $ does not define name", f);
@@ -120,7 +167,7 @@ function SandBox() {
 						}
 
 						// handle buttons, and hidden fields
-						if ((n = node.childNodes[buttons])) {
+						if ((n = node.childNodes[buttonsindex])) {
 							for (k=0; k<n.childNodes.length; k++) {
 								f = n.childNodes[k];
 								if (f.nodeName == "INPUT") {
@@ -134,10 +181,10 @@ function SandBox() {
 										f.name = f.name.replace(/\d+$/, nid);
 										es.ui.getForm()[f.name] = f; // register field in form
 									}
-								}	
+								}
 							}
 						}
-						parent.insertBefore(node, last);
+						parentNode.insertBefore(node, lastRow);
 					}
 				}
 				if (interactive) es.ui.setupFormFields();
@@ -145,37 +192,81 @@ function SandBox() {
 		}
 	};
 
-	// Writes the sandbox UI to the document
-	// ----------------------------------------------------------------------------
+
+	/**
+	 * Writes the sandbox UI to the document
+	 *
+	 **/
 	this.writeUI = function() {
-		mb.log.scopeStart("Writing Sandbox UI");
 		mb.log.enter(this.CN, "writeUI");
-		var obj,i,page,s = [];
+		mb.log.scopeStart("Writing Sandbox UI");
 		this.pages = [];
+		var obj, i, page, s = [];
+
+		// insert jsunit test launchers
+		if ((obj = mb.ui.get("insert::jsunittests")) != null) {
+
+			var loc = document.location.href;
+			loc = loc.split("sandbox\.html")[0];
+			var tests = [
+				["run/all.html", "Run All tests"],
+				["run/artistname.html", "Run Tests for the <b>Artist Name</b> routines"],
+				["run/sortname.html", "Run Tests for the <b>Artist Sortname</b> routines"],
+				["run/albumname.html", "Run Tests for the <b>Release Title</b> routines"],
+				["run/trackname.html", "Run Tests for the <b>Track Name</b> routines"],
+				["run/titlestring.html", "Run Tests for the <b>Word Capitalization</b> routines"]
+			];
+
+			s.push("<em>You need to disable the pop-up blocker to run the tests!</em>");
+			s.push('<ul style="padding-left: 10px">');
+			for (var i=0; i<tests.length; i++) {
+				var t = tests[i];
+				s.push('<li>');
+				s.push('<a href="javascript:; //" ');
+				s.push('onClick="window.open(\'run.html?testpage='+loc+t[0]+'&autorun=true\',\'\',\'width=800,height=350,status=no,resizable=yes,scrollbars=yes\'); return false;');
+				s.push('">'+t[1]+'</a>');
+				s.push(' &nbsp; ')
+				s.push('[ <a target="_blank" href="'+t[0]+'">View tests</a> ]');
+				s.push('</li>');
+			}
+			s.push('</ul>');
+			obj.innerHTML = s.join("");
+		}
+
+		// insert single artist release trackparser tests
+		if ((obj = mb.ui.get("insert::insert_tp_sa")) != null) {
+			obj.innerHTML = this.tp.getUI(false);
+		} else {
+			mb.log.error("insert::insert_tp_sa not found!");
+		}
+
+		// insert various artist release trackparser tests
+		if ((obj = mb.ui.get("insert::insert_tp_va")) != null) {
+			obj.innerHTML = this.tp.getUI(true);
+		} else {
+			mb.log.error("insert::insert_tp_va not found!");
+		}
 
 		// get sandboxpage tables from document
 		var pagecounter = 0, id, tables = document.getElementsByTagName("table");
-		var pageRE = /sandboxpage\|/;
+		var pageRE = /sandboxpage::/;
 		for (i=0; i<tables.length; i++) {
 			obj = tables[i];
 			id = (obj.id || "");
 			if (id.match(pageRE)) {
 				id = id.replace(pageRE, "");
 				s = [];
-				s.push('<fieldset class="fieldset">');
-				s.push('  <legend>'+id+'</legend>');
-				s.push('  <table border="0">');
+				s.push('<table class="formstyle" style="margin-top: 20px">');
 				s.push(obj.innerHTML);
-				s.push('  </table>');
-				s.push('</fieldset>');
+				s.push('</table>');
 				var p = new SandBoxPage("t"+(pagecounter++), id, s.join(""), obj);
 				this.pages.push(p);
 				mb.log.info("Added sandbox page: $, name: $", p.id, p.name);
 			}
 		}
-		s = [];
 
 		// write sandbox menu-tabs
+		s = [];
 		s.push('<div class="sandbox">');
 		s.push('  <div class="tab-row">');
 		for (i=0; i<this.pages.length; i++) {
@@ -192,33 +283,43 @@ function SandBox() {
 		s.push('  <div id="writeroot" />');
 		s.push('</div>');
 		s.push('</div>');
-		document.write(s.join(""));
 
-		// attach event handlers to the menu
-		for (i=0; i<this.pages.length; i++) {
-			page = this.pages[i];
-			if ((obj = document.getElementById(this.getTabId(page.id))) != null) {
-				obj.firstChild.id = page.id;
-				obj.firstChild.onclick= function onclick(event) { sandBox.selectTab(this.id); };
+		// insert sandbox UI into the dom.
+		if ((obj = mb.ui.get("insert::sandboxui")) != null) {
+			obj.innerHTML = s.join("");
+
+			// attach event handlers to the menu
+			for (i=0; i<this.pages.length; i++) {
+				page = this.pages[i];
+				var tabid = this.getTabId(page.id);
+				if ((obj = mb.ui.get(tabid)) != null) {
+					obj.firstChild.id = page.id;
+					obj.firstChild.onclick= function onclick(event) { sandBox.selectTab(this.id); };
+				} else {
+					mb.log.error("Tabid: $ not found!", tabid);
+				}
+				page.table.parentNode.removeChild(page.table); // remove stub table from document
 			}
-			page.table.parentNode.removeChild(page.table); // remove stub table from document
+
+			// get currently selected tab from cookie
+			var st = mb.cookie.get(this.COOKIE_TAB);
+			this.selectedTab = ((st || "").match(/t\d/) ? st : "t0");
+			this.selectTab(this.selectedTab, true);
+
+		} else {
+			mb.log.error("insert::sandboxui not found!");
 		}
 
-		// get currently selected tab from cookie
-		var st = mb.cookie.get(this.COOKIE_TAB);
-		this.selectedTab = ((st || "").match(/t\d/) ? st : "t0");
-		this.selectTab(this.selectedTab, true);
-
 		// write debug UI
-		mb.log.writeUI();
 		mb.log.exit();
 	};
-	// mb.registerDOMLoadedAction(new EventAction("sandBox", "setFieldCount"));
 
-
-
-	// Writes the sandbox UI to the document
-	// ----------------------------------------------------------------------------
+	/**
+	 * Handles a click on one of the tabs
+	 *
+	 * @param tid 	the tab id.
+	 * @param init	true if the form fields should be setup, else not.
+	 */
 	this.selectTab = function(tid, init) {
 		if (!init) {
 			mb.log.scopeStart("Handling Click on tab...");
@@ -229,7 +330,7 @@ function SandBox() {
 		// hiding current tab
 		if (this.currentTab) {
 			id = this.getTabId(this.currentTab);
-			if ((obj = document.getElementById(id)) != null) {
+			if ((obj = mb.ui.get(id)) != null) {
 				obj.className = "tab";
 				mb.log.info("Hidden current tab: $", id);
 			} else {
@@ -239,7 +340,7 @@ function SandBox() {
 
 		// looking for selected tab, and showing it
 		id = this.getTabId(tid);
-		if ((obj = document.getElementById(id)) != null) {
+		if ((obj = mb.ui.get(id)) != null) {
 			obj.className = "tab selected";
 		} else {
 			mb.log.error("Did not find tab: $", id);
@@ -250,7 +351,7 @@ function SandBox() {
 		for (i=0; i<this.pages.length; i++) {
 			page = this.pages[i];
 			if (tid == page.id) {
-				if ((obj = document.getElementById("writeroot")) != null) {
+				if ((obj = mb.ui.get("writeroot")) != null) {
 					obj.innerHTML = page.content;
 					if (!init) {
 						es.ui.setupFormFields();
@@ -267,11 +368,21 @@ function SandBox() {
 		}
 	}
 
-	// Returns the full id of a given sandbox element
-	// ----------------------------------------------------------------------------
+	/**
+	 * Returns the full id of a given tab
+	 *
+	 * @param id 	the changeable part of the tab id.
+	 * @return		the fully qualified tab id.
+	 */
 	this.getTabId = function(id) {
-		return "sandbox-tab-"+id;
+		return "sandbox::tab::"+id;
 	};
 
 }
+
+// register class...
+var toolBoxId = null;
 var sandBox = new SandBox();
+mb.registerDOMReadyAction(
+	new MbEventAction(sandBox.GID, "writeUI", "Setting up sandbox")
+);

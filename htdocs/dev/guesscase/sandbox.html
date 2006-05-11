@@ -1,285 +1,255 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
-	"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1 Strict//EN"
+	"http://www.w3.org/TR/xhtml1/DTD/xhtml11-strict.dtd">
 
 <html>
-<head>
-	<meta http-equiv="expires" content="1" />
-	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-	<link type="text/css" rel="stylesheet" href="css/sandbox.css" />
-	<link type="text/css" rel="stylesheet" href="/brainz.css" />
-	<script type="text/javascript" src="/scripts/musicbrainz.js"></script>
-	<script type="text/javascript" src="/scripts/overlib.js"></script>
-	<script type="text/javascript" src="sandbox_tp.js"></script>
-	<script type="text/javascript" src="sandbox.js"></script>
-	<script type="text/javascript" src="run/tests.js"></script>
-	<link rel="shortcut icon" href="/favicon.ico" />
-</head>
-<body style="margin: 15px">
+	<head>
+		<meta http-equiv="expires" content="1" />
+		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+		<link type="text/css" rel="stylesheet" href="css/sandbox.css" />
+		<link type="text/css" rel="stylesheet" href="/brainz.css" />
 
-	<!-- *** overlib *** -->
-	<div id="overDiv" style="position:absolute; visibility:hidden; z-index:1000;"></div>
+		<script type="text/javascript" src="/scripts/musicbrainz.js"></script>
+		<script type="text/javascript" src="/scripts/overlib.js"></script>
+		<script type="text/javascript" src="sandbox_tp.js"></script>
+		<script type="text/javascript" src="sandbox.js"></script>
+		<script type="text/javascript" src="run/tests.js"></script>
 
-	<div id="backlink"><a href="index.html">&laquo; Back</a></div>
+		<link rel="shortcut icon" href="/favicon.ico" />
+	</head>
+
+	<body style="margin: 15px">
+
+		<!-- *** overlib *** -->
+		<div id="overDiv" style="position:absolute; visibility:hidden; z-index:1000;"></div>
+		<div id="backlink"><a href="index.html">&laquo; Back</a></div>
 
 
-	<form method="post" action="" id="sandbox" id="EditSandboxForm" enctype="application/x-www-form-urlencoded">
+		<form method="post" action="sandbox.html" id="EditSandboxForm">
 
-		<div id="editsuite" class="editsuite">
-			<div id="editsuite-content" class="inner">
-				<table cellspacing="0" cellpadding="0" border="0" class="links">
-					<tr>
-						<td width="130"><b>Style guides:</b></td>
-						<td nowrap="nowrap"><a href="/popup/styleguide.html" id="POPUP::StyleGuide::400::450">General Style</a></td>
-						<td>|&nbsp;</td>
-						<td nowrap="nowrap"><a href="/popup/capguide.html" id="POPUP::CapitalizationGuide::400::500">Capitalization</a></td>
-						<td>|&nbsp;</td>
-						<td nowrap="nowrap"><a href="/popup/sortnameguide.html" id="POPUP::SortNameGuide::400::275">Sortname</a></td>
-						<td>|&nbsp;</td>
-						<td nowrap="nowrap"><a href="/popup/attrguide.html" id="POPUP::ReleaseAttributesGuide::400::275">Album Attributes</a></td>
-					</tr>
-				</table>
+			<div id="editsuite" class="editsuite">
+				<div id="editsuite-content" class="inner">
+					<table cellspacing="0" cellpadding="0" border="0" class="links">
+						<tr>
+							<td width="130"><strong>Style guides:</strong></td>
+							<td nowrap="nowrap"><a href="/popup/styleguide.html" id="POPUP::StyleGuide::400::450">General Style</a></td>
+							<td>|&nbsp;</td>
+							<td nowrap="nowrap"><a href="/popup/capguide.html" id="POPUP::CapitalizationGuide::400::500">Capitalization</a></td>
+							<td>|&nbsp;</td>
+							<td nowrap="nowrap"><a href="/popup/sortnameguide.html" id="POPUP::SortNameGuide::400::275">Sortname</a></td>
+							<td>|&nbsp;</td>
+							<td nowrap="nowrap"><a href="/popup/attrguide.html" id="POPUP::ReleaseAttributesGuide::400::275">Release Attributes</a></td>
+						</tr>
+					</table>
+				</div>
+				<div id="editsuite-noscript" class="noscript"></div>
 			</div>
-			<div id="editsuite-noscript" class="noscript"></div>
-		</div>
-		<script type="text/javascript" src="/scripts/editsuite.js"></script>
+			<script type="text/javascript" src="/scripts/editsuite.js"></script>
 
-		<!-- bug the user about enabling javascript (for sandbox only) -->
-		<noscript>
-			<div style="color: #fb5; font-weight: bold; padding-top: 4px">
-				This page might look more useful if you had JavaScript enabled. ;-)
-			</div>
-		</noscript>
+			<!-- bug the user about enabling javascript (for sandbox only) -->
+			<noscript>
+				<div style="color: #fb5; font-weight: bold; padding-top: 4px">
+					This page might look more useful if you had JavaScript enabled. ;-)
+				</div>
+			</noscript>
 
 
+			<!-- ****************************************************************** -->
+			<!-- J S   U N I T   T E S T S                                          -->
+			<!-- ****************************************************************** -->
+			<table border="0" id="sandboxpage::JSUnit Tests" class="hiddentable">
+				<tr>
+					<td id="insert::jsunittests"></td>
+				</tr>
+			</table>
 
-		<!-- ****************************************************************** -->
-		<!-- J S   U N I T   T E S T S                                          -->
-		<!-- ****************************************************************** -->
-		<table border="0" id="sandboxpage|JSUnit Tests" class="hiddentable">
- 			<tr>
- 				<td>
-					<i>You need to disable the pop-up blocker to run the tests!</i>
-					<script type="text/javascript">
-						var loc = document.location.href;
-						loc = loc.split("sandbox\.html")[0];
+			<!-- ****************************************************************** -->
+			<table border="0" id="sandboxpage::Add Release" class="hiddentable">
+				<tr>
+					<td colspan="4" id="insert::insert_tp_sa"></td>
+				</tr>
+				<tr>
+					<td class="label">Release name: </td>
+					<td><input type="text" name="name" class="textfield"
+						 size="60" maxlength="255"
+						 value="selected ambient works: subtitle 85-92 cd1"></td>
+					<td></td>
+					<td><input type="button" class="hiddenbutton" id="BTN_ALBUM::name" /></td>
+				</tr>
+				<tr class="field">
+					<td class="label">Track 1: </td>
+					<td><input type="text" name="track0" class="textfield"
+						 size="60" maxlength="255"
+						 value="Track name 1"></td>
+					<td><input type="text" name="tracklength0" class="numberfield"
+										 size="4" maxlength="10"
+						 value="?:??"></td>
+					<td><input type="button" class="hiddenbutton" id="BTN_TRACK::track0" /></td>
+				</tr>
+				<tr class="lastfield">
+					<td colspan="3"></td>
+					<td><input type="button" class="hiddenbutton" id="BTN_ALL" /></td>
+				</tr>
+				<tr>
+					<td colspan="5" style="font-size: 11px">
+						<div style="padding-bottom: 4px">Enter how many fields you want, then click apply.</div>
+						<input type="text" id="numberOfFieldsSize" size="4" value="10" style="font-size: 11px">
+						<input type="button" onClick="sandBox.onSetFieldCountClicked()" value="Apply" style="font-size: 11px"/>
+					</td>
+				</tr>
+			</table>
 
-						var tests = [
-							["run/all.html", "Run All tests"],
-							["run/artistname.html", "Run Tests for the <b>Artist Name</b> routines"],
-							["run/sortname.html", "Run Tests for the <b>Artist Sortname</b> routines"],
-							["run/albumname.html", "Run Tests for the <b>Album Name</b> routines"],
-							["run/trackname.html", "Run Tests for the <b>Track Name</b> routines"],
-							["run/titlestring.html", "Run Tests for the <b>Word Capitalization</b> routines"]
-						];
+			<!-- ****************************************************************** -->
+			<table border="0" id="sandboxpage::Add Release (VA)" class="hiddentable">
+				<tr>
+					<td colspan="5" id="insert::insert_tp_va"></td>
+				</tr>
+				<tr>
+					<td colspan="2" class="label">Release name:</td>
+					<td><input type="text" name="name" class="textfield"
+						 size="60" maxlength="255"
+						 value=""></td>
+					<td></td>
+					<td><input type="button" class="hiddenbutton" id="BTN_ALBUM::name" /></td>
+				</tr>
+				<tr height="20"><td colspan="5"/></tr>
 
-						var s = [];
-						s.push('<ul style="padding-left: 10px">');
-						for (var i=0; i<tests.length; i++) {
-							var t = tests[i];
-							s.push('<li>');
-							s.push('<a href="javascript:; //" ');
-							s.push('onClick="window.open(\'run.html?testpage='+loc+t[0]+'&autorun=true\',\'\',\'width=800,height=350,status=no,resizable=yes,scrollbars=yes\'); return false;');
-							s.push('">'+t[1]+'</a>');
-							s.push(' &nbsp; ')
-							s.push('[ <a target="_blank" href="'+t[0]+'">View tests</a> ]');
-							s.push('</li>');
-						}
-						s.push('</ul>');
-						document.write(s.join(""));
-					</script>
- 				</td>
- 			</tr>
-		</table>
+				<tr class="field"><td
+					width="50" class="label">1: </td><td
+					>Artist name: </td><td
+					><input type="text" name="artistname0" class="textfield"
+						 size="60" maxlength="255"
+						 value=""></td><td
+					></td><td
+					><input type="hidden" name="swapped0" value="0">
+						<input type="button" class="hiddenbutton" id="BTN_ARTIST::artistname0" />
+						<input type="button" class="hiddenbutton" id="BTN_GUESSBOTH::artistname0::track0"
+					/></td>
+				</tr>
+				<tr class="field"><td
+					></td><td
+					>Track name: </td><td
+					><input type="text" name="track0" class="textfield"
+						 size="60" maxlength="255"
+						 value=""></td><td
+					><input type="text" name="tracklength0" class="numberfield"
+						 size="4" maxlength="10"
+						 value="?:??"></td><td
+					><input type="button" class="hiddenbutton" id="BTN_TRACK::track0" />
+						<input type="button" class="hiddenbutton" id="BTN_USESWAP::artistname0::track0::swapped0"
+					/></td>
+				</tr>
+				<tr class="field" height="20"><td colspan="5"/></tr>
 
+				<tr class="lastfield">
+					<td colspan="4"></td>
+					<td><input type="button" class="hiddenbutton" id="BTN_ALL" /></td>
+				</tr>
+				<tr>
+					<td colspan="5" style="font-size: 11px">
+						<div style="padding-bottom: 4px">Enter how many fields you want, then click apply.</div>
+						<input type="text" id="numberOfFieldsSize" size="4" value="10" style="font-size: 11px">
+						<input type="button" onClick="sandBox.onSetFieldCountClicked()" value="Apply" style="font-size: 11px"/>
+					</td>
+				</tr>
+			</table>
 
-		<script>
+			<!-- ****************************************************************** -->
+			<table border="0" id="sandboxpage::Edit Artist" class="hiddentable">
+				<tr>
+					<td class="label">Artist name:</td>
+					<td><input type="text" name="newartistname" class="textfield"
+						 size="60" maxlength="255"
+						 value="a.f artist"></td>
+					<td><input type="button" class="hiddenbutton" id="BTN_ARTIST::newartistname" /></td>
+				</tr>
+				<tr>
+					<td class="label">Sortname:</td>
+					<td><input type="text" name="newartistsortname" class="textfield"
+						 size="60" maxlength="255"
+						 value="a.f artist"></td>
+					<td><input type="button" class="hiddenbutton" id="BTN_SORTGUESS::newartistname::newartistsortname" />
+						<input type="button" class="hiddenbutton" id="BTN_SORTCOPY::newartistname::newartistsortname" /></td>
+				</tr>
+			</table>
 
-			var toolBoxId = null;
+			<!-- ****************************************************************** -->
+			<table border="0" id="sandboxpage::Edit Release" class="hiddentable">
+				<tr>
+					<td class="label">Release name:</td>
+					<td><input type="text" name="newalbumname" class="textfield"
+						 size="60" maxlength="255"
+						 value="selected ambient works: subtitle 85-92 cd1"></td>
+					<td><input type="button" class="hiddenbutton" id="BTN_ALBUM::newalbumname" /></td>
+				</tr>
+			</table>
 
+			<!-- ****************************************************************** -->
+			<table border="0" id="sandboxpage::Edit Track" class="hiddentable">
+				<tr><td class="label">Track name:</td>
+					<td><input type="text" name="newtrackname" class="textfield"
+						 size="60" maxlength="255"
+						 value="This is my track name ft. erroll flynn RemixNAME RMX"></td>
+					<td><input type="button" class="hiddenbutton" id="BTN_TRACK::newtrackname" /></td>
+				</tr>
+			</table>
 
+			<!-- ****************************************************************** -->
+			<table border="0" id="sandboxpage::Change Artist" class="hiddentable">
+				<tr><td class="label">Artist name:</td>
+					<td><input type="text" name="search" class="textfield"
+						 size="60" maxlength="255"
+						 value="Maxi Priest Feat. Elisha La'Verne"></td>
+					<td><input type="button" class="hiddenbutton" id="BTN_ARTIST::search" /></td>
+				</tr>
+				<tr><td></td>
+					<td>
+						<input type="hidden" name="orig_artname" value="Maxi Priest Feat. Elisha La'Verne - Back Together Again RMX">
+						<input type="hidden" name="orig_track" value="">
+						<input type="hidden" name="split_artname" value="Maxi Priest Feat. Elisha La'Verne">
+						<input type="hidden" name="split_track" value="Back Together Again RMX">
+						<input type="hidden" name="swapped" value="0">
+						<input type="button" class="hiddenbutton" id="BTN_GUESSBOTH::search::trackname" />
+						<input type="button" class="hiddenbutton" id="BTN_USECURRENT" />
+						<input type="button" class="hiddenbutton" id="BTN_USESPLIT" />
+						<input type="button" class="hiddenbutton" id="BTN_USESWAP::search::trackname::swapped" />
+				</tr>
+				<tr><td class="label">Track name:</td>
+					<td><input type="text" name="trackname" class="textfield"
+						 size="60" maxlength="255"
+						 value="Back Together Again RMX"></td>
+					<td><input type="button" class="hiddenbutton" id="BTN_TRACK::trackname" /></td>
+				</tr>
+			</table>
 
-		</script>
+			<!-- ****************************************************************** -->
+			<table border="0" id="sandboxpage::Test Split" class="hiddentable">
+				<tr>
+					<td><input type="text" id="splittesttext" size="60" value="Selected Ambient Works 85-92"></td>
+					<td><input type="button" value="Split" onClick="sandBox.testSplit()"></td>
+				</tr>
+			</table>
 
-		<!-- ****************************************************************** -->
-		<table border="0" id="sandboxpage|Add Album" class="hiddentable">
+			<div id="insert::sandboxui"></div>
+
+			<!-- test ondomloaded routine -->
 			<script type="text/javascript">
-				sandBox.tp.writeUI(false);
+
+				// This is a test to see if the domloaded routine work. Insert
+				// a large image such that the body.onLoad event is held off.
+				//
+				// create a unique image source so that this page works with continued testing
+				// var src = "http://www.nasa.gov/images/content/84857main_EC04-0325-23_lg.jpg?" + Number(new Date);
+				// document.write('<img src="' + src + '" height="240" width="300" style="display:none" />');
 			</script>
+		</form>
 
-			<tr>
-				<td width="100" style="font-weight: bold">Album name: </td>
-				<td><input type="text" name="name" class="textfield"
-					 size="60" maxlength="255"
-					 value="selected ambient works: subtitle 85-92 cd1"></td>
-				<td></td>
-				<td><input type="button" class="hiddenbutton" id="BTN_ALBUM::name" /></td>
-			</tr>
-			<tr class="field">
-				<td style="font-weight: bold">Track 1: </td>
-				<td><input type="text" name="track0" class="textfield"
-					 size="60" maxlength="255"
-					 value="Track name 1"></td>
-				<td><input type="text" name="tracklength0" class="numberfield"
-									 size="4" maxlength="10"
-					 value="?:??"></td>
-				<td><input type="button" class="hiddenbutton" id="BTN_TRACK::track0" /></td>
-			</tr>
-			<tr class="lastfield">
-				<td colspan="3"></td>
-				<td><input type="button" class="hiddenbutton" id="BTN_ALL" /></td>
-			</tr>
-			<tr>
-				<td colspan="5" style="font-size: 11px">
-					<div style="padding-bottom: 4px">Enter how many fields you want, then click apply.</div>
-					<input type="text" id="numberOfFieldsSize" size="4" value="10" style="font-size: 11px">
-					<input type="button" onClick="sandBox.onSetFieldCountClicked()" value="Apply" style="font-size: 11px"/>
-				</td>
-			</tr>
-		</table>
 
-		<!-- ****************************************************************** -->
-		<table border="0" id="sandboxpage|Add Album (VA)" class="hiddentable">
-			<script type="text/javascript">
-				sandBox.tp.writeUI(true);
-			</script>
+		<!-- insert javascript debugging UI -->
+		<script type="text/javascript" src="/scripts/debug.js"></script>
 
-			<tr>
-				<td colspan="2" style="font-weight: bold">Album name:</td>
-				<td><input type="text" name="name" class="textfield"
-					 size="60" maxlength="255"
-					 value=""></td>
-				<td></td>
-				<td><input type="button" class="hiddenbutton" id="BTN_ALBUM::name" /></td>
-			</tr>
-			<tr height="20"><td colspan="5"/></tr>
+	</body>
 
-			<tr class="field"><td
-				width="50" style="font-weight: bold">1: </td><td
-				>Artist name: </td><td
-				><input type="text" name="artistname0" class="textfield"
-					 size="60" maxlength="255"
-					 value=""></td><td
-				></td><td
-				><input type="hidden" name="swapped0" value="0">
-					<input type="button" class="hiddenbutton" id="BTN_ARTIST::artistname0" />
-					<input type="button" class="hiddenbutton" id="BTN_GUESSBOTH::artistname0::track0"
-				/></td>
-			</tr>
-			<tr class="field"><td
-				></td><td
-				>Track name: </td><td
-				><input type="text" name="track0" class="textfield"
-					 size="60" maxlength="255"
-					 value=""></td><td
-				><input type="text" name="tracklength0" class="numberfield"
-					 size="4" maxlength="10"
-					 value="?:??"></td><td
-				><input type="button" class="hiddenbutton" id="BTN_TRACK::track0" />
-					<input type="button" class="hiddenbutton" id="BTN_USESWAP::artistname0::track0::swapped0"
-				/></td>
-			</tr>
-			<tr class="field" height="20"><td colspan="5"/></tr>
-
-			<tr class="lastfield">
-				<td colspan="4"></td>
-				<td><input type="button" class="hiddenbutton" id="BTN_ALL" /></td>
-			</tr>
-			<tr>
-				<td colspan="5" style="font-size: 11px">
-					<div style="padding-bottom: 4px">Enter how many fields you want, then click apply.</div>
-					<input type="text" id="numberOfFieldsSize" size="4" value="10" style="font-size: 11px">
-					<input type="button" onClick="sandBox.onSetFieldCountClicked()" value="Apply" style="font-size: 11px"/>
-				</td>
-			</tr>
-		</table>
-
-		<!-- ****************************************************************** -->
-		<table border="0" id="sandboxpage|Edit Artist" class="hiddentable">
-			<tr>
-				<td>Artist name</td>
-				<td><input type="text" name="newartistname" class="textfield"
-					 size="60" maxlength="255"
-					 value="a.f artist"></td>
-				<td><input type="button" class="hiddenbutton" id="BTN_ARTIST::newartistname" /></td>
-			</tr>
-			<tr>
-				<td>Sortname</td>
-				<td><input type="text" name="newartistsortname" class="textfield"
-					 size="60" maxlength="255"
-					 value="a.f artist"></td>
-				<td><input type="button" class="hiddenbutton" id="BTN_SORTGUESS::newartistname::newartistsortname" />
-					<input type="button" class="hiddenbutton" id="BTN_SORTCOPY::newartistname::newartistsortname" /></td>
-			</tr>
-		</table>
-
-		<!-- ****************************************************************** -->
-		<table border="0" id="sandboxpage|Edit Album" class="hiddentable">
-			<tr>
-				<td>Album name</td>
-				<td><input type="text" name="newalbumname" class="textfield"
-					 size="60" maxlength="255"
-					 value="selected ambient works: subtitle 85-92 cd1"></td>
-				<td><input type="button" class="hiddenbutton" id="BTN_ALBUM::newalbumname" /></td>
-			</tr>
-		</table>
-
-		<!-- ****************************************************************** -->
-		<table border="0" id="sandboxpage|Edit Track" class="hiddentable">
-			<tr><td>Track name</td>
-				<td><input type="text" name="newtrackname" class="textfield"
-					 size="60" maxlength="255"
-					 value="This is my track name ft. erroll flynn RemixNAME RMX"></td>
-				<td><input type="button" class="hiddenbutton" id="BTN_TRACK::newtrackname" /></td>
-			</tr>
-		</table>
-
-		<!-- ****************************************************************** -->
-		<table border="0" id="sandboxpage|Change Artist" class="hiddentable">
-			<tr><td>Artist name</td>
-				<td><input type="text" name="search" class="textfield"
-					 size="60" maxlength="255"
-					 value="Maxi Priest Feat. Elisha La'Verne"></td>
-				<td><input type="button" class="hiddenbutton" id="BTN_ARTIST::search" /></td>
-			</tr>
-			<tr><td></td>
-				<td>
-					<input type="hidden" name="orig_artname" value="Maxi Priest Feat. Elisha La'Verne - Back Together Again RMX">
-					<input type="hidden" name="orig_track" value="">
-					<input type="hidden" name="split_artname" value="Maxi Priest Feat. Elisha La'Verne">
-					<input type="hidden" name="split_track" value="Back Together Again RMX">
-					<input type="hidden" name="swapped" value="0">
-					<input type="button" class="hiddenbutton" id="BTN_GUESSBOTH::search::trackname" />
-					<input type="button" class="hiddenbutton" id="BTN_USECURRENT" />
-					<input type="button" class="hiddenbutton" id="BTN_USESPLIT" />
-					<input type="button" class="hiddenbutton" id="BTN_USESWAP::search::trackname::swapped" />
-			</tr>
-			<tr><td>Track name</td>
-				<td><input type="text" name="trackname" class="textfield"
-					 size="60" maxlength="255"
-					 value="Back Together Again RMX"></td>
-				<td><input type="button" class="hiddenbutton" id="BTN_TRACK::trackname" /></td>
-			</tr>
-		</table>
-
-		<!-- ****************************************************************** -->
-		<table border="0" id="sandboxpage|Test Split" class="hiddentable">
-			<tr>
-				<td><input type="text" id="splittesttext" size="60" value="Selected Ambient Works 85-92"></td>
-				<td><input type="button" value="Split" onClick="sandBox.testSplit()"></td>
-			</tr>
-		</table>
-
-		<!-- write the sandbox UI -->
-		<script type="text/javascript" src="sandbox_ui.js">
-
-  		<p id="message"></p>
-  		<script type="text/javascript">
-  			 // create a unique image source so that this page works with continued testing
-   			var src = "http://www.nasa.gov/images/content/84857main_EC04-0325-23_lg.jpg?" + Number(new Date);
-   			document.write("<img src=" + src + " height=240 width=300>");
-  		</script>
-	</form>
-</body>
-<script type="text/javascript" src="/scripts/domloaded.js"></script>
+	<!-- trigger onDomLoaded functions -->
+	<script type="text/javascript" src="/scripts/domloaded.js"></script>
 </html>
 
