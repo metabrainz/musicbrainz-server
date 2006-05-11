@@ -2689,11 +2689,7 @@ this._wi=_153;
 }
 };
 this.getWordAtIndex=function(_154){
-if(this._w[_154]){
-return this._w[_154];
-}else{
-return null;
-}
+return (this._w[_154]||null);
 };
 this.getNextWord=function(){
 return this.getWordAtIndex(this._wi+1);
@@ -2904,8 +2900,7 @@ return null;
 };
 this.capitalizeWordAtIndex=function(_171){
 mb.log.enter(this.GID,"capitalizeWordAtIndex");
-gc.f.forceCaps=true;
-if((!gc.getMode().isSentenceCaps())&&(!this.isEmpty())&&(this.getWordAtIndex(_171)!=null)){
+if((!gc.getMode().isSentenceCaps()||gc.f.forceCaps)&&(!this.isEmpty())&&(this.getWordAtIndex(_171)!=null)){
 var w=this.getWordAtIndex(_171),o=w;
 if(w.match(/^\w\..*/)==null){
 var _173=gc.u.trim(w.toLowerCase());
@@ -2927,6 +2922,7 @@ mb.log.exit();
 this.capitalizeLastWord=function(){
 mb.log.enter(this.GID,"capitalizeLastWord");
 mb.log.debug("Capitalizing last word... index: $",this.getLength()-1);
+gc.f.forceCaps=!gc.getMode().isSentenceCaps();
 this.capitalizeWordAtIndex(this.getLength()-1);
 mb.log.exit();
 };
@@ -3017,18 +3013,6 @@ var f=this.inArray(this.lowerCaseWords,w);
 mb.log.debug("$=$",w,f);
 return mb.log.exit(f);
 };
-this.getPrepBracketSingleWords=function(){
-return ["acoustic","album","alternate","bonus","clean","club","dance","dirty","extended","instrumental","live","original","radio","take","disc","mix","version","feat","cut","vocal","alternative","megamix","disco","video","dub","long","short","main","composition","session","rework","reworked","remixed","dirty","airplay"];
-};
-this.isPrepBracketSingleWord=function(w){
-mb.log.enter(this.GID,"isPrepBracketSingleWord");
-if(!this.preBracketSingleWords){
-this.preBracketSingleWords=this.toAssocArray(this.getPrepBracketSingleWords());
-}
-var f=this.inArray(this.preBracketSingleWords,w);
-mb.log.debug("$=$",w,f);
-return mb.log.exit(f);
-};
 this.getUpperCaseWords=function(){
 return ["dj","mc","tv","mtv","ep","lp","ymca","nyc","ny","ussr","usa","r&b","bbc","fm","bc","ac","dc","uk","bpm","ok","nba","rv","kv","bwv","rza","gza","odb","dmx","2xlc"];
 };
@@ -3050,8 +3034,20 @@ f=this.inArray(this.romanNumerals,w);
 mb.log.debug("$=$",w,f);
 return mb.log.exit(f);
 };
+this.getPrepBracketSingleWords=function(){
+return ["acoustic","album","alternate","bonus","clean","club","dance","dirty","extended","instrumental","live","original","radio","take","disc","mix","version","feat","cut","vocal","alternative","megamix","disco","video","dub","long","short","main","composition","session","rework","reworked","remixed","dirty","airplay"];
+};
+this.isPrepBracketSingleWord=function(w){
+mb.log.enter(this.GID,"isPrepBracketSingleWord");
+if(!this.preBracketSingleWords){
+this.preBracketSingleWords=this.toAssocArray(this.getPrepBracketSingleWords());
+}
+var f=this.inArray(this.preBracketSingleWords,w);
+mb.log.debug("$=$",w,f);
+return mb.log.exit(f);
+};
 this.getLowerCaseBracketWords=function(){
-return ["acoustic","album","alternate","bonus","clean","dirty","disc","extended","instrumental","live","original","radio","single","take","demo","club","dance","edit","skit","mix","remix","version","reprise","megamix","maxi","feat","interlude","dub","dialogue","cut","karaoke","vs","vocal","alternative","disco","unplugged","video","outtake","outtakes","rehearsal","intro","outro","long","short","main","remake","clubmix","composition","reinterpreted","session","rework","reworked","remixed","reedit","airplay","a_cappella"];
+return ["acoustic","album","alternate","bonus","clean","dirty","disc","extended","instrumental","live","original","radio","single","take","demo","club","dance","edit","skit","mix","remix","version","reprise","megamix","maxi","feat","interlude","dub","dialogue","cut","karaoke","vs","vocal","alternative","disco","unplugged","video","outtake","outtakes","rehearsal","intro","outro","long","short","main","remake","clubmix","composition","reinterpreted","session","rework","reworked","remixed","reedit","airplay","a_cappella","excerpt"];
 };
 this.isLowerCaseBracketWord=function(w){
 mb.log.enter(this.GID,"isLowerCaseBracketWord");
@@ -3074,7 +3070,7 @@ return mb.log.exit(f);
 this.isSentenceStopChar=function(w){
 mb.log.enter(this.GID,"isSentenceStopChar");
 if(!this.sentenceStopChars){
-this.sentenceStopChars=this.toAssocArray([":",".",";","?","!"]);
+this.sentenceStopChars=this.toAssocArray([":",".",";","?","!","/"]);
 }
 var f=this.inArray(this.sentenceStopChars,w);
 mb.log.debug("$=$",w,f);
@@ -3182,9 +3178,6 @@ if(mb.utils.isNullOrEmpty(is)){
 mb.log.warning("Required parameter is was empty!",is);
 return mb.log.exit("");
 }
-if(!gc.re.TITLESTRING){
-gc.re.TITLESTRING=/[!\"%&'?`()\[\]\{\}\*\+,-\.\/:;<=>\?\s#]/;
-}
 var len=gc.i.getLength();
 var pos=gc.i.getPos();
 if(pos==len){
@@ -3247,30 +3240,35 @@ if(is==null||is==""){
 return mb.log.exit("");
 }
 var os=is.toLowerCase();
-if((!gc.f.slurpExtraTitleInformation)&&(gc.getMode().isSentenceCaps())&&(!gc.i.isFirstWord())&&(!gc.u.isSentenceStopChar(gc.o.getLastWord()))&&(!gc.f.openingBracket)){
+var opos=gc.o.getLength();
+var _1ae="";
+if(opos>1){
+_1ae=gc.o.getWordAtIndex(opos-2);
+}
+if((!gc.f.slurpExtraTitleInformation)&&(gc.getMode().isSentenceCaps())&&(!gc.i.isFirstWord())&&(!gc.u.isSentenceStopChar(_1ae))&&(!gc.f.openingBracket)){
 mb.log.debug("SentenceCaps, before: $, after: $",is,os);
 }else{
-var _1ad=is.toLowerCase().split("");
-_1ad[0]=_1ad[0].toUpperCase();
+var _1af=is.toLowerCase().split("");
+_1af[0]=_1af[0].toUpperCase();
 if(is.length>2&&is.substring(0,2)=="mc"){
-_1ad[2]=_1ad[2].toUpperCase();
+_1af[2]=_1af[2].toUpperCase();
 }else{
 if(gc.u.isMacTitledWord(is)){
-_1ad[3]=_1ad[3].toUpperCase();
+_1af[3]=_1af[3].toUpperCase();
 }
 }
-os=_1ad.join("");
+os=_1af.join("");
 mb.log.debug("Capitalized, before: $, after: $",is,os);
 }
 return mb.log.exit(os);
 };
 mb.log.exit();
 }
-function GcMode(_1ae,name,lang,desc,url){
+function GcMode(_1b0,name,lang,desc,url){
 mb.log.enter("GcMode","__constructor");
 this.CN="GcMode";
 this.GID="gc.mode";
-this._modes=_1ae;
+this._modes=_1b0;
 this._name=name;
 this._lang=lang;
 this._desc=(desc||"");
@@ -3318,12 +3316,12 @@ return s.join("");
 };
 mb.log.exit();
 }
-function GcFix(name,re,_1b9){
+function GcFix(name,re,_1bb){
 mb.log.enter("GcFix","__constructor");
 this.CN="GcFix";
 this._name=name;
 this._re=re;
-this._replace=_1b9;
+this._replace=_1bb;
 this.getName=function(){
 return this._name;
 };
@@ -3365,20 +3363,20 @@ this.ARTIST_MODE=new GcMode(this,"Artist",this.EN);
 }
 return mb.log.exit(this.ARTIST_MODE);
 };
-this.getModeFromID=function(_1ba,_1bb){
+this.getModeFromID=function(_1bc,_1bd){
 mb.log.enter(this.GID,"getModeFromID");
 var mode=null;
 for(var i=0;i<this.MODES_LIST.length;i++){
 mode=this.MODES_LIST[i];
 if(mode){
-if(mode.getID()!=_1ba){
+if(mode.getID()!=_1bc){
 mode=null;
 }else{
 break;
 }
 }
 }
-mb.log.debug("Id: $, mode: $",_1ba,(mode||"undefined"));
+mb.log.debug("Id: $, mode: $",_1bc,(mode||"undefined"));
 return mb.log.exit(mode);
 };
 this.onModeChanged=function(el){
@@ -3386,13 +3384,13 @@ mb.log.scopeStart("Handle selection on the Mode Dropdown");
 mb.log.enter(this.GID,"onModeChanged");
 if((el&&el.options)&&(el.id==this.MODES_DROPDOWN)){
 var si=el.selectedIndex;
-var _1c0=el.options[si].value;
-if(_1c0!=""){
-mb.log.debug("New ModeId: $",_1c0);
-if(_1c0!=es.gc.getMode().getID()){
-es.gc.setMode(_1c0);
-mb.cookie.set(es.gc.COOKIE_MODE,_1c0,365);
-mb.log.debug("Changed mode to: $",_1c0);
+var _1c2=el.options[si].value;
+if(_1c2!=""){
+mb.log.debug("New ModeId: $",_1c2);
+if(_1c2!=es.gc.getMode().getID()){
+es.gc.setMode(_1c2);
+mb.cookie.set(es.gc.COOKIE_MODE,_1c2,365);
+mb.log.debug("Changed mode to: $",_1c2);
 this.updateUI();
 }else{
 mb.log.debug("No mode change required...");
@@ -3448,9 +3446,9 @@ this.useModeFromUI=function(){
 mb.log.enter(this.GID,"useModeFromUI");
 var obj;
 if((obj=mb.ui.get(this.MODES_DROPDOWN))!=null){
-var _1cb=obj.options[obj.selectedIndex].value;
-if(_1cb!=""){
-es.gc.setMode(_1cb);
+var _1cd=obj.options[obj.selectedIndex].value;
+if(_1cd!=""){
+es.gc.setMode(_1cd);
 }
 }else{
 mb.log.error("Unsupported element: $",this.MODES_DROPDOWN);
@@ -3511,28 +3509,12 @@ mb.log.scopeStart("Handle next word: "+gc.i.getCurrentWord()+"");
 mb.log.debug("  Index: $/$ Word: #cw",gc.i.getPos(),gc.i.getLength()-1);
 gc.f.dumpRaisedFlags();
 }
-if(this.doColon()){
-}else{
-if(this.doAmpersand()){
-}else{
-if(this.doLineStop()){
-}else{
-if(this.doHyphen()){
-}else{
-if(this.doPlus()){
-}else{
-if(this.doComma()){
-}else{
-if(this.doPeriod()){
-}else{
-if(this.doAsterix()){
-}else{
-if(this.doDiamond()){
-}else{
-if(this.doPercent()){
-}else{
-if(this.doSlash()){
-}else{
+var _1d3=false;
+if(!gc.re.SPECIALCASES){
+gc.re.SPECIALCASES=/(&|\?|\!|;|'|"|\-|\+|,|\*|\.|#|%|\/|\(|\)|\{|\}|\[|\])/;
+}
+if(gc.i.matchCurrentWord(gc.re.SPECIALCASES)){
+_1d3=true;
 if(this.doDoubleQuote()){
 }else{
 if(this.doSingleQuote()){
@@ -3541,25 +3523,51 @@ if(this.doOpeningBracket()){
 }else{
 if(this.doClosingBracket()){
 }else{
+if(this.doComma()){
+}else{
+if(this.doPeriod()){
+}else{
+if(this.doLineStop()){
+}else{
+if(this.doAmpersand()){
+}else{
+if(this.doSlash()){
+}else{
+if(this.doColon()){
+}else{
+if(this.doHyphen()){
+}else{
+if(this.doPlus()){
+}else{
+if(this.doAsterix()){
+}else{
+if(this.doDiamond()){
+}else{
+if(this.doPercent()){
+}else{
+_1d3=false;
+}
+}
+}
+}
+}
+}
+}
+}
+}
+}
+}
+}
+}
+}
+}
+}
+if(!_1d3){
 if(this.doDigits()){
 }else{
 if(this.doAcronym()){
 }else{
 this.doWord();
-}
-}
-}
-}
-}
-}
-}
-}
-}
-}
-}
-}
-}
-}
 }
 }
 }
@@ -3591,18 +3599,24 @@ gc.re.COLON=":";
 }
 if(gc.i.matchCurrentWord(gc.re.COLON)){
 mb.log.debug("Handled #cw");
+var _1d4=gc.o.getLength()-3;
+var role;
+if(gc.f.slurpExtraTitleInformation&&_1d4>0&&gc.o.getWordAtIndex(_1d4)=="feat."&&(role=gc.o.getLastWord())!=""){
+gc.o.setWordAtIndex(gc.o.getLength()-1,role.toLowerCase());
+}else{
 gc.o.capitalizeLastWord();
+}
 var skip=false;
 var pos=gc.i.getPos();
 var len=gc.i.getLength();
 if(pos<len-2){
-var _1d4=gc.i.getWordAtIndex(pos+1);
-var _1d5=gc.i.getWordAtIndex(pos+2);
-if(_1d4.match(gc.re.OPENBRACKET)){
+var _1d9=gc.i.getWordAtIndex(pos+1);
+var _1da=gc.i.getWordAtIndex(pos+2);
+if(_1d9.match(gc.re.OPENBRACKET)){
 skip=true;
 gc.f.spaceNextWord=true;
 }
-if(gc.i.isNextWord(" ")&&_1d5.match(gc.re.OPENBRACKET)){
+if(gc.i.isNextWord(" ")&&_1da.match(gc.re.OPENBRACKET)){
 gc.f.spaceNextWord=true;
 skip=true;
 gc.i.nextIndex();
@@ -3740,9 +3754,8 @@ if(!gc.re.DOUBLEQUOTE){
 gc.re.DOUBLEQUOTE="\"";
 }
 if(gc.i.matchCurrentWord(gc.re.DOUBLEQUOTE)){
-gc.o.appendWordPreserveWhiteSpace({apply:true,capslast:true});
+gc.o.appendWordPreserveWhiteSpace({apply:true,capslast:false});
 gc.f.resetContext();
-gc.f.forceCaps=true;
 return mb.log.exit(true);
 }
 return mb.log.exit(false);
@@ -3756,15 +3769,16 @@ if(gc.i.matchCurrentWord(gc.re.SINGLEQUOTE)){
 gc.f.forceCaps=false;
 var a=gc.i.isPreviousWord(" ");
 var b=gc.i.isNextWord(" ");
+var _1dd=gc.f.openedSingleQuote;
 mb.log.debug("Consumed #cw, space before: $, after: $",a,b);
 if(a&&!b){
 mb.log.debug("Found opening singlequote.",a,b);
 gc.o.appendSpace();
-gc.f.forceCaps=true;
 gc.f.openedSingleQuote=true;
+gc.f.forceCaps=true;
 }else{
 if(!a&&b){
-if(gc.f.openedSingleQuote){
+if(_1dd){
 mb.log.debug("Found closing singlequote.",a,b);
 gc.f.forceCaps=true;
 gc.f.openedSingleQuote=false;
@@ -3777,6 +3791,9 @@ gc.o.capitalizeLastWord();
 gc.f.spaceNextWord=b;
 gc.o.appendCurrentWord();
 gc.f.resetContext();
+if(_1dd==gc.f.openedSingleQuote){
+gc.f.forceCaps=false;
+}
 gc.f.singlequote=true;
 return mb.log.exit(true);
 }
@@ -3793,7 +3810,7 @@ gc.f.forceCaps=true;
 gc.o.capitalizeLastWord();
 gc.f.pushBracket(gc.i.getCurrentWord());
 var cb=gc.f.getCurrentCloseBracket();
-var _1d9=false;
+var _1df=false;
 var pos=gc.i.getPos()+1;
 for(var i=pos;i<gc.i.getLength();i++){
 var w=(gc.i.getWordAtIndex(i)||"");
@@ -3801,7 +3818,7 @@ if(w!=" "){
 if((gc.u.isLowerCaseBracketWord(w))||(w.match(/^featuring$|^ft$|^feat$/i)!=null)){
 gc.f.slurpExtraTitleInformation=true;
 if(i==pos){
-_1d9=true;
+_1df=true;
 }
 }
 if(w==cb){
@@ -3813,7 +3830,7 @@ gc.o.appendSpace();
 gc.f.resetContext();
 gc.f.spaceNextWord=false;
 gc.f.openingBracket=true;
-gc.f.forceCaps=!_1d9;
+gc.f.forceCaps=!_1df;
 gc.o.appendCurrentWord();
 gc.f.disc=false;
 gc.f.part=false;
@@ -3850,8 +3867,6 @@ gc.re.COMMA=",";
 if(gc.i.matchCurrentWord(gc.re.COMMA)){
 mb.log.debug("Handled #cw");
 if(gc.o.getLastWord()!=","){
-gc.f.forceCaps=true;
-gc.o.capitalizeLastWord();
 gc.f.resetContext();
 gc.f.spaceNextWord=true;
 gc.f.forceCaps=false;
@@ -3898,16 +3913,16 @@ mb.log.enter(this.GID,"doAcronym");
 if(!gc.re.ACRONYM){
 gc.re.ACRONYM=/^\w$/;
 }
-var _1dd,tmp=[];
+var _1e3,tmp=[];
 if(gc.i.matchCurrentWord(gc.re.ACRONYM)){
 var cw=gc.i.getCurrentWord();
 tmp.push(cw.toUpperCase());
 gc.f.expectWord=false;
 gc.f.gotPeriod=false;
 acronymloop:
-for(_1dd=gc.i.getPos()+1;_1dd<gc.i.getLength();){
-cw=gc.i.getWordAtIndex(_1dd);
-mb.log.debug("Word: $, i: $, expectWord: $, gotPeriod: $",cw,_1dd,gc.f.expectWord,gc.f.gotPeriod);
+for(_1e3=gc.i.getPos()+1;_1e3<gc.i.getLength();){
+cw=gc.i.getWordAtIndex(_1e3);
+mb.log.debug("Word: $, i: $, expectWord: $, gotPeriod: $",cw,_1e3,gc.f.expectWord,gc.f.gotPeriod);
 if(gc.f.expectWord&&cw.match(gc.re.ACRONYM)){
 tmp.push(cw.toUpperCase());
 gc.f.expectWord=false;
@@ -3923,13 +3938,13 @@ gc.f.expectWord=true;
 }else{
 if(tmp[tmp.length-1]!="."){
 tmp.pop();
-_1dd--;
+_1e3--;
 }
 break acronymloop;
 }
 }
 }
-_1dd++;
+_1e3++;
 }
 }
 if(tmp.length>2){
@@ -3938,10 +3953,11 @@ s=s.replace(/(\.)*$/,".");
 mb.log.debug("Found acronym: $",s);
 gc.o.appendSpaceIfNeeded();
 gc.o.appendWord(s);
+gc.f.resetContext();
 gc.f.acronym=true;
 gc.f.spaceNextWord=true;
 gc.f.forceCaps=false;
-gc.i.setPos(_1dd-1);
+gc.i.setPos(_1e3-1);
 return mb.log.exit(true);
 }
 return mb.log.exit(false);
@@ -3955,80 +3971,75 @@ gc.re.DIGITS_DUPLE=/^\d\d$/;
 gc.re.DIGITS_TRIPLE=/^\d\d\d$/;
 gc.re.DIGITS_NTUPLE=/^\d\d\d\d+$/;
 }
-var _1e0=null,tmp=[];
+var _1e6=null,tmp=[];
 if(gc.i.matchCurrentWord(gc.re.DIGITS)){
 tmp.push(gc.i.getCurrentWord());
 gc.f.numberSplitExpect=true;
 numberloop:
-for(_1e0=gc.i.getPos()+1;_1e0<gc.i.getLength();){
+for(_1e6=gc.i.getPos()+1;_1e6<gc.i.getLength();){
 if(gc.f.numberSplitExpect){
-if(gc.i.matchWordAtIndex(_1e0,gc.re.DIGITS_NUMBERSPLIT)){
-tmp.push(gc.i.getWordAtIndex(_1e0));
+if(gc.i.matchWordAtIndex(_1e6,gc.re.DIGITS_NUMBERSPLIT)){
+tmp.push(gc.i.getWordAtIndex(_1e6));
 gc.f.numberSplitExpect=false;
 }else{
 break numberloop;
 }
 }else{
-if(gc.i.matchWordAtIndex(_1e0,gc.re.DIGITS_TRIPLE)){
+if(gc.i.matchWordAtIndex(_1e6,gc.re.DIGITS_TRIPLE)){
 if(gc.f.numberSplitChar==null){
 gc.f.numberSplitChar=tmp[tmp.length-1];
 }
-tmp.push(gc.i.getWordAtIndex(_1e0));
+tmp.push(gc.i.getWordAtIndex(_1e6));
 gc.f.numberSplitExpect=true;
 }else{
-if(gc.i.matchWordAtIndex(_1e0,gc.re.DIGITS_DUPLE)){
+if(gc.i.matchWordAtIndex(_1e6,gc.re.DIGITS_DUPLE)){
 if(tmp.length>2&&gc.f.numberSplitChar!=tmp[tmp.length-1]){
-tmp.push(gc.i.getWordAtIndex(_1e0++));
+tmp.push(gc.i.getWordAtIndex(_1e6++));
 }else{
 tmp.pop();
-_1e0--;
+_1e6--;
 }
 }else{
-if(gc.i.matchWordAtIndex(_1e0,gc.re.DIGITS_NTUPLE)){
-tmp.push(gc.i.getWordAtIndex(_1e0++));
+if(gc.i.matchWordAtIndex(_1e6,gc.re.DIGITS_NTUPLE)){
+tmp.push(gc.i.getWordAtIndex(_1e6++));
 }else{
 tmp.pop();
-_1e0--;
+_1e6--;
 }
 }
 break numberloop;
 }
 }
-_1e0++;
+_1e6++;
 }
-gc.i.setPos(_1e0-1);
-var _1e1=tmp.join("");
+gc.i.setPos(_1e6-1);
+var _1e7=tmp.join("");
 if(gc.f.disc||gc.f.part||gc.f.volume){
-_1e1=_1e1.replace(/^0*/,"");
+_1e7=_1e7.replace(/^0*/,"");
 }
 mb.log.debug("Processed number: $",tmp.join(""));
-var _1e2=false;
-if(gc.f.disc||gc.f.part||gc.f.volume){
+var _1e8=false;
+if(gc.f.disc||gc.f.volume){
 var pos=gc.i.getPos();
 if(pos<gc.i.getLength()-2){
-var _1e4=gc.i.getWordAtIndex(pos+1);
-var _1e5=gc.i.getWordAtIndex(pos+2);
-var _1e6=_1e4.match(/[\):\-&]/);
-var _1e7=_1e5.match(/[\(:\-&]/);
-if(_1e6==null&&_1e7==null){
-_1e2=true;
-}else{
-if(gc.f.part&&_1e5.match(/&|-/)){
-gc.o.setWordAtIndex(gc.o.getLength()-1,"Parts");
+var _1ea=gc.i.getWordAtIndex(pos+1);
+var _1eb=gc.i.getWordAtIndex(pos+2);
+var _1ec=_1ea.match(/[\):\-&]/);
+var _1ed=_1eb.match(/[\(:\-&]/);
+if(_1ec==null&&_1ed==null){
+_1e8=true;
 }
 }
-}
-gc.f.disc=false;
-gc.f.part=false;
-gc.f.volume=false;
 gc.f.spaceNextWord=true;
 gc.f.forceCaps=true;
 }
 gc.o.appendSpaceIfNeeded();
-gc.o.appendWord(_1e1);
+gc.o.appendWord(_1e7);
+gc.f.resetSeriesNumberStyleFlags();
+gc.f.resetContext();
 gc.f.forceCaps=false;
 gc.f.number=true;
-if(_1e2){
+if(_1e8){
 gc.o.appendWord(":");
 gc.f.forceCaps=true;
 gc.f.colon=true;
@@ -4040,24 +4051,24 @@ return mb.log.exit(false);
 this.prepExtraTitleInfo=function(w){
 mb.log.enter(this.GID,"prepExtraTitleInfo");
 var len=w.length-1,wi=len;
-var _1ea=false;
-var _1eb=false;
+var _1f0=false;
+var _1f1=false;
 while(((w[wi]==" ")||(w[wi]=="\""&&(w[wi-1]=="7"||w[wi-1]=="12"))||((w[wi+1]||"")=="\""&&(w[wi]=="7"||w[wi]=="12"))||(gc.u.isPrepBracketWord(w[wi])))&&wi>=0){
-_1ea=true;
+_1f0=true;
 wi--;
 }
-mb.log.debug("Preprocess: $ ($<--$)",_1ea,wi,len);
+mb.log.debug("Preprocess: $ ($<--$)",_1f0,wi,len);
 if(wi<len){
 wi++;
 while(w[wi]==" "&&wi<w.length-1){
 wi++;
 }
-var _1ec=(w[wi]||"");
-if((wi==len-1)&&(gc.u.isPrepBracketSingleWord(_1ec))){
-mb.log.debug("Word found, but its a <i>singleword</i>: $",_1ec);
-_1ea=false;
+var _1f2=(w[wi]||"");
+if((wi==len-1)&&(gc.u.isPrepBracketSingleWord(_1f2))){
+mb.log.debug("Word found, but its a <i>singleword</i>: $",_1f2);
+_1f0=false;
 }
-if(_1ea&&wi>0&&wi<w.length-1){
+if(_1f0&&wi>0&&wi<w.length-1){
 var nw=w.slice(0,wi);
 if(nw[wi-1]=="("){
 nw.pop();
@@ -4077,7 +4088,7 @@ return mb.log.exit(w);
 this.preProcessCommons=function(is){
 mb.log.enter(this.GID,"preProcessCommons");
 if(!gc.re.PREPROCESS_COMMONS){
-gc.re.PREPROCESS_COMMONS=[new GcFix("D.J. -> DJ",/(\b|^)D\.?J\.?(\s|\)|$)/i,"DJ"),new GcFix("M.C. -> MC",/(\b|^)M\.?C\.?(\s|\)|$)/i,"MC"),new GcFix("Backtick &#x0060;","`","'"),new GcFix("Opening single-quote &#x2018;","\u2018","'"),new GcFix("Closing single-quote &#x2019;","\u2019","'"),new GcFix("Prime &#x2023;","\u2023","'"),new GcFix("Acute accent &#x0301;","\u0301","'"),new GcFix("Grave accent &#x0300;","\u0300","'"),new GcFix("Opening double-quote &#x201C;","\u201c","\""),new GcFix("Closing double-quote &#x201D;","\u201d","\""),new GcFix("Soft hyphen &#x00AD;","\xad","-"),new GcFix("Closing Hyphen &#x2010;","\u2010","-"),new GcFix("Non-breaking hyphen &#x2011;","\u2011","-"),new GcFix("En-dash &#x2013;","\u2013","-"),new GcFix("Em-dash &#x2014;","\u2014","-"),new GcFix("hyphen bullet &#x2043;","\u2043","-"),new GcFix("Minus sign &#x2212;","\u2212","-"),new GcFix("Ellipsis &#x2026;","\u2026","...")];
+gc.re.PREPROCESS_COMMONS=[new GcFix("D.J. -> DJ",/(\b|^)D\.?J\.?(\s|\)|$)/i,"DJ"),new GcFix("M.C. -> MC",/(\b|^)M\.?C\.?(\s|\)|$)/i,"MC"),new GcFix("Opening single-quote &#x2018;","\u2018","'"),new GcFix("Closing single-quote &#x2019;","\u2019","'"),new GcFix("Acute accent &#x0301;","\u0301","'"),new GcFix("Acute accent &#x00B4;","\xb4","'"),new GcFix("Acute accent ??","??","'"),new GcFix("Grave accent &#x0300;","\u0300","'"),new GcFix("Backtick &#x0060;","`","'"),new GcFix("Prime &#x2023;","\u2023","'"),new GcFix("Opening double-quote &#x201C;","\u201c","\""),new GcFix("Closing double-quote &#x201D;","\u201d","\""),new GcFix("Opening double-quote ???","???","\""),new GcFix("Closing double-quote ???","???","\""),new GcFix("Soft hyphen &#x00AD;","\xad","-"),new GcFix("Closing Hyphen &#x2010;","\u2010","-"),new GcFix("Non-breaking hyphen &#x2011;","\u2011","-"),new GcFix("En-dash &#x2013;","\u2013","-"),new GcFix("Em-dash &#x2014;","\u2014","-"),new GcFix("hyphen bullet &#x2043;","\u2043","-"),new GcFix("Minus sign &#x2212;","\u2212","-"),new GcFix("Ellipsis &#x2026;","\u2026","...")];
 }
 var os=this.runFixes(is,gc.re.PREPROCESS_COMMONS);
 mb.log.debug("After: $",os);
@@ -4086,7 +4097,7 @@ return mb.log.exit(os);
 this.preProcessTitles=function(is){
 mb.log.enter(this.GID,"preProcessTitles");
 if(!gc.re.PREPROCESS_FIXLIST){
-gc.re.PREPROCESS_FIXLIST=[new GcFix("re-mix -> remix",/(\b|^)re-mix(\b)/i,"remix"),new GcFix("remx -> remix",/(\b|^)remx(\b)/i,"remix"),new GcFix("re-mixes -> remixes",/(\b|^)re-mixes(\b)/i,"remixes"),new GcFix("re-make -> remake",/(\b|^)re-make(\b)/i,"remake"),new GcFix("re-makes -> remakes",/(\b|^)re-makes(\b)/i,"remakes"),new GcFix("re-edit variants, prepare for postprocess",/(\b|^)re-?edit(\b)/i,"re_edit"),new GcFix("RMX -> remix",/(\b|^)RMX(\b)/i,"remix"),new GcFix("alt.take -> alternate take",/(\b|^)alt[\.]? take(\b)/i,"alternate take"),new GcFix("instr. -> instrumental",/(\b|^)instr\.?(\b)/i,"instrumental"),new GcFix("altern. -> alternate",/(\b|^)altern\.?(\s|\)|$)/i,"alternate"),new GcFix("orig. -> original",/(\b|^)orig\.?(\s|\)|$)/i,"original"),new GcFix("vers. -> version",/(\b|^)vers\.(\s|\)|$)/i,"version"),new GcFix("Extendet -> extended",/(\b|^)Extendet(\b)/i,"extended"),new GcFix("extd. -> extended",/(\b|^)ext[d]?\.?(\s|\)|$)/i,"extended"),new GcFix("aka -> a.k.a.",/(\b|^)aka(\b)/i,"a.k.a."),new GcFix("/w -> ft. ",/(\s)[\/]w(\s)/i,"ft."),new GcFix("f. -> ft. ",/(\s)f\.(\s)/i,"ft."),new GcFix("A Capella preprocess",/(\b|^)a\s?c+ap+el+a(\b)/i,"a_cappella"),new GcFix("OC ReMix preprocess",/(\b|^)oc\sremix(\b)/i,"oc_remix"),new GcFix("Pt. -> Part",/(\b|^)Pt\.?()/i,"Part"),new GcFix("Pts. -> Parts",/(\b|^)Pts\.()/i,"Parts"),new GcFix("Vol. -> Volume",/(\b|^)Vol\.()/i,"Volume"),new GcFix("(Pt) -> , Part",/((,|\s|:|!)+)([\(\[])?\s*(Part|Pt)[\.\s#]*((\d|[ivx]|[\-&\s])+)([\)\]])?(\s|$)/i,"Part $5"),new GcFix("(Pts) -> , Parts",/((,|\s|:|!)+)([\(\[])?\s*(Parts|Pts)[\.\s#]*((\d|[ivx]|[\-&\s])+)([\)\]])?(\s|$)/i,"Parts $5"),new GcFix("(Vol) -> , Volume",/((,|\s|:|!)+)([\(\[])?\s*(Volume|Vol)[\.\s#]*((\d|[ivx]|[\-&\s])+)([\)\]])?(\s|$)/i,"Volume $5")];
+gc.re.PREPROCESS_FIXLIST=[new GcFix("spaces after opening brackets",/(^|\s)([\(\{\[])\s+($|\b)/i,"$2"),new GcFix("spaces before closing brackets",/(\b|^)\s+([\)\}\]])($|\b)/i,"$2"),new GcFix("re-mix -> remix",/(\b|^)re-mix(\b)/i,"remix"),new GcFix("re-mix -> remix",/(\b|^)re-mix(\b)/i,"remix"),new GcFix("remx -> remix",/(\b|^)remx(\b)/i,"remix"),new GcFix("re-mixes -> remixes",/(\b|^)re-mixes(\b)/i,"remixes"),new GcFix("re-make -> remake",/(\b|^)re-make(\b)/i,"remake"),new GcFix("re-makes -> remakes",/(\b|^)re-makes(\b)/i,"remakes"),new GcFix("re-edit variants, prepare for postprocess",/(\b|^)re-?edit(\b)/i,"re_edit"),new GcFix("RMX -> remix",/(\b|^)RMX(\b)/i,"remix"),new GcFix("alt.take -> alternate take",/(\b|^)alt[\.]? take(\b)/i,"alternate take"),new GcFix("instr. -> instrumental",/(\b|^)instr\.?(\b)/i,"instrumental"),new GcFix("altern. -> alternate",/(\b|^)altern\.?(\s|\)|$)/i,"alternate"),new GcFix("orig. -> original",/(\b|^)orig\.?(\s|\)|$)/i,"original"),new GcFix("vers. -> version",/(\b|^)vers\.(\s|\)|$)/i,"version"),new GcFix("Extendet -> extended",/(\b|^)Extendet(\b)/i,"extended"),new GcFix("extd. -> extended",/(\b|^)ext[d]?\.?(\s|\)|$)/i,"extended"),new GcFix("aka -> a.k.a.",/(\b|^)aka(\b)/i,"a.k.a."),new GcFix("/w -> ft. ",/(\s)[\/]w(\s)/i,"ft."),new GcFix("f. -> ft. ",/(\s)f\.(\s)/i,"ft."),new GcFix("A Capella preprocess",/(\b|^)a\s?c+ap+el+a(\b)/i,"a_cappella"),new GcFix("OC ReMix preprocess",/(\b|^)oc\sremix(\b)/i,"oc_remix"),new GcFix("Standalone Pt. -> Part",/(^|\s)Pt\.?(\s|$)/i,"Part"),new GcFix("Standalone Pts. -> Parts",/(^|\s)Pts\.(\s|$)/i,"Parts"),new GcFix("Standalone Vol. -> Volume",/(^|\s)Vol\.(\s|$)/i,"Volume"),new GcFix("(Pt) -> , Part",/((,|\s|:|!)+)([\(\[])?\s*(Part|Pt)[\.\s#]*((\d|[ivx]|[\-,&\s])+)([\)\]])?(\s|$)/i,"Part $5"),new GcFix("(Pts) -> , Parts",/((,|\s|:|!)+)([\(\[])?\s*(Parts|Pts)[\.\s#]*((\d|[ivx]|[\-&,\s])+)([\)\]])?(\s|$)/i,"Parts $5"),new GcFix("(Vol) -> , Volume",/((,|\s|:|!)+)([\(\[])?\s*(Volume|Vol)[\.\s#]*((\d|[ivx]|[\-&,\s])+)([\)\]])?(\s|$)/i,"Volume $5")];
 }
 var os=this.runFixes(is,gc.re.PREPROCESS_FIXLIST);
 mb.log.debug("After pre: $",os);
@@ -4095,7 +4106,7 @@ return mb.log.exit(os);
 this.runPostProcess=function(is){
 mb.log.enter(this.GID,"runPostProcess");
 if(!gc.re.POSTPROCESS_FIXLIST){
-gc.re.POSTPROCESS_FIXLIST=[new GcFix("a_cappella inside brackets",/(\b|^)a_cappella(\b)/,"a cappella"),new GcFix("a_cappella outside brackets",/(\b|^)A_cappella(\b)/,"A Cappella"),new GcFix("oc_remix",/(\b|^)oc_remix(\b)/i,"OC ReMix"),new GcFix("re_edit inside brackets",/(\b|^)Re_edit(\b)/,"re-edit"),new GcFix("whitespace in R&B",/(\b|^)R\s*&\s*B(\b)/i,"R&B"),new GcFix("[live] to (live)",/(\b|^)\[live\](\b)/i,"(live)"),new GcFix("Djs to DJs",/(\b|^)Djs(\b)/i,"DJs"),new GcFix("a.k.a. lowercase",/(\b|^)a.k.a.(\b)/i,"a.k.a.")];
+gc.re.POSTPROCESS_FIXLIST=[new GcFix("a_cappella inside brackets",/(\b|^)a_cappella(\b)/,"a cappella"),new GcFix("a_cappella outside brackets",/(\b|^)A_cappella(\b)/,"A Cappella"),new GcFix("oc_remix",/(\b|^)oc_remix(\b)/i,"OC ReMix"),new GcFix("re_edit inside brackets",/(\b|^)Re_edit(\b)/,"re-edit"),new GcFix("whitespace in R&B",/(\b|^)R\s*&\s*B(\b)/i,"R&B"),new GcFix("[live] to (live)",/(\b|^)\[live\](\b)/i,"(live)"),new GcFix("Djs to DJs",/(\b|^)Djs(\b)/i,"DJs"),new GcFix("a.k.a. lowercase",/(\s|^)A\.K\.A\.(\s|$)/i,"a.k.a.")];
 }
 var os=this.runFixes(is,gc.re.POSTPROCESS_FIXLIST);
 if(is!=os){
@@ -4110,28 +4121,28 @@ return mb.log.exit(os);
 };
 this.runFixes=function(is,list){
 mb.log.enter(this.GID,"runFixes");
-var _1f6=null;
+var _1fc=null;
 var len=list.length;
 for(var i=0;i<len;i++){
 var f=list[i];
 if(f instanceof GcFix){
-var _1fa="Replaced "+f.getName();
+var _200="Replaced "+f.getName();
 var find=f.getRe();
-var _1fc=f.getReplace();
+var _202=f.getReplace();
 if(typeof (find)=="string"&&is.indexOf(find)!=-1){
-mb.log.debug("Applying fix: $ (replace: $)",_1fa,_1fc);
-is=is.replace(find,_1fc);
+mb.log.debug("Applying fix: $ (replace: $)",_200,_202);
+is=is.replace(find,_202);
 }else{
-if((_1f6=is.match(find))!=null){
-var a=_1f6[1];
+if((_1fc=is.match(find))!=null){
+var a=_1fc[1];
 a=(mb.utils.isNullOrEmpty(a)?"":a);
-var b=_1f6[_1f6.length-1];
+var b=_1fc[_1fc.length-1];
 b=(mb.utils.isNullOrEmpty(b)?"":b);
-var rs=[a,_1fc,b].join("");
+var rs=[a,_202,b].join("");
 is=is.replace(find,rs);
-mb.log.debug("Applying fix: $ ...",_1fa);
-mb.log.trace("* matcher[$]: $, replace: $, matcher[$]: $ --> $",1,a,_1fc,_1f6.length-1,b,rs);
-mb.log.trace("* matcher: $",_1f6);
+mb.log.debug("Applying fix: $ ...",_200);
+mb.log.trace("* matcher[$]: $, replace: $, matcher[$]: $ --> $",1,a,_202,_1fc.length-1,b,rs);
+mb.log.trace("* matcher: $",_1fc);
 mb.log.trace("After fix: $",is);
 }else{
 }
@@ -4149,14 +4160,14 @@ gc.re.PREPROCESS_STRIPINFOTOOMIT=[new GcFix("Trim 'bonus (track)?'",/[\(\[]?bonu
 }
 var os=is,list=gc.re.PREPROCESS_STRIPINFOTOOMIT;
 for(var i=list.length-1;i>=0;i--){
-var _203=null;
-var _204=list[i];
-var _205="Replaced "+_204.getName();
-var find=_204.getRe();
-var _207=_204.getReplace();
-if((_203=os.match(find))!=null){
-os=os.replace(find,_207);
-mb.log.debug("Done fix: $",_205);
+var _209=null;
+var _20a=list[i];
+var _20b="Replaced "+_20a.getName();
+var find=_20a.getRe();
+var _20d=_20a.getReplace();
+if((_209=os.match(find))!=null){
+os=os.replace(find,_20d);
+mb.log.debug("Done fix: $",_20b);
 }
 }
 if(is!=os){
@@ -4169,26 +4180,26 @@ mb.log.enter(this.GID,"runVinylChecks");
 if(!gc.re.VINYL){
 gc.re.VINYL=/(\s+|\()((\d+)[\s|-]?(inch\b|in\b|'+|"))([^s]|$)/i;
 }
-var _209=null,os=is;
-if((_209=is.match(gc.re.VINYL))!=null){
-var _20a=_209.index;
-var _20b=_209[1].length+_209[2].length+_209[5].length;
-var _20c=is.substring(0,_20a);
-var _20d=is.substring(_20a+_20b,is.length);
-var _20e=new Array();
-_20e[_20e.length]=_20c;
-_20e[_20e.length]=_209[1];
-_20e[_20e.length]=_209[3];
-_20e[_20e.length]="\"";
-_20e[_20e.length]=(_209[5]!=" "&&_209[5]!=")"&&_209[5]!=","?" ":"");
-_20e[_20e.length]=_209[5];
-_20e[_20e.length]=_20d;
-os=_20e.join("");
+var _20f=null,os=is;
+if((_20f=is.match(gc.re.VINYL))!=null){
+var _210=_20f.index;
+var _211=_20f[1].length+_20f[2].length+_20f[5].length;
+var _212=is.substring(0,_210);
+var _213=is.substring(_210+_211,is.length);
+var _214=[];
+_214.push(_212);
+_214.push(_20f[1]);
+_214.push(_20f[3]);
+_214.push("\"");
+_214.push((_20f[5])!=" "&&_20f[5]!=")"&&_20f[5]!=","?" ":"");
+_214.push(_20f[5]);
+_214.push(_213);
+os=_214.join("");
 }
-return mb.log.exit(is);
+return mb.log.exit(os);
 };
 this.doVersusStyle=function(){
-mb.log.enter(this.GID,"handleVersus");
+mb.log.enter(this.GID,"doVersusStyle");
 if(!gc.re.VERSUSSTYLE){
 gc.re.VERSUSSTYLE="vs";
 }
@@ -4203,6 +4214,7 @@ gc.o.appendWord(".");
 if(gc.i.isNextWord(".")){
 gc.i.nextIndex();
 }
+gc.f.resetContext();
 gc.f.forceCaps=true;
 gc.f.spaceNextWord=true;
 return mb.log.exit(true);
@@ -4237,7 +4249,7 @@ return mb.log.exit(true);
 }
 return mb.log.exit(false);
 };
-this.doSeriesNumberStyle=function(_20f){
+this.doSeriesNumberStyle=function(_215){
 mb.log.enter(this.GID,"doSeriesNumberStyle");
 var pos=gc.i.getPos();
 var len=gc.i.getLength();
@@ -4252,40 +4264,41 @@ var w=(gc.i.getWordAtIndex(wi)||"");
 mb.log.debug("Attempting to match number/roman numeral, $",w);
 if(w.match(gc.re.SERIES_NUMBER)){
 if(gc.i.getPos()>=2&&!gc.u.isPunctuationChar(gc.o.getLastWord())){
-var _214=false;
+var _21a=false;
 while(gc.o.getLength()>0&&(gc.o.getLastWord()||"").match(/ |-/i)){
 gc.o.dropLastWord();
-_214=true;
+_21a=true;
 }
-if(_214){
+if(_21a){
 gc.o.capitalizeLastWord();
 }
 gc.o.appendWord(",");
 }else{
 gc.o.capitalizeWordAtIndex(gc.o.getLength()-2);
 }
+var _21b=false;
+if(wi<gc.i.getLength()-2){
+var _21c=gc.i.getWordAtIndex(wi+1);
+var _21d=gc.i.getWordAtIndex(wi+2);
+var _21e=_21c.match(/[\):\-&,\/]/);
+var _21f=_21d.match(/[\(:\-&,\/]/);
+if(_21e==null&&_21f==null){
+_21b=true;
+}else{
+if(_215.match(/part|parts/i)&&(_21c.match(/,/)||_21d.match(/&|-|,|\d+/))){
+_215="Parts";
+}
+}
+}
 gc.o.appendSpaceIfNeeded();
-gc.o.appendWord(_20f);
+gc.o.appendWord(_215);
+gc.f.resetContext();
 gc.f.number=true;
 gc.f.spaceNextWord=false;
 gc.f.forceCaps=true;
-var _215=false;
-if(wi<gc.i.getLength()-2){
-var _216=gc.i.getWordAtIndex(wi+1);
-var _217=gc.i.getWordAtIndex(wi+2);
-var _218=_216.match(/[\):\-&\/]/);
-var _219=_217.match(/[\(:\-&\/]/);
-if(_218==null&&_219==null){
-_215=true;
-}else{
-if(_20f=="Part"&&_217.match(/&|-/)){
-gc.o.setWordAtIndex(gc.o.getLength()-1,"Parts");
-}
-}
-}
 gc.o.appendSpace();
 gc.o.appendWord(w);
-if(_215){
+if(_21b){
 gc.o.appendWord(":");
 gc.f.forceCaps=true;
 gc.f.spaceNextWord=true;
@@ -4302,15 +4315,15 @@ mb.log.enter(this.GID,"doDiscNumberStyle");
 if(!gc.re.DISCNUMBERSTYLE){
 gc.re.DISCNUMBERSTYLE=/^(Cd|Disk|Discque|Disc)([^\s\d]*)(\s*)(\d*)/i;
 }
-var _21a=null;
+var _220=null;
 var w=gc.i.getCurrentWord();
-if(!(gc.f.isInsideBrackets()&&gc.f.colon)&&!gc.i.isFirstWord()&&gc.i.hasMoreWords()&&(_21a=w.match(gc.re.DISCNUMBERSTYLE))!=null){
-if(_21a[2]!=""){
+if(!(gc.f.isInsideBrackets()&&gc.f.colon)&&!gc.i.isFirstWord()&&gc.i.hasMoreWords()&&(_220=w.match(gc.re.DISCNUMBERSTYLE))!=null){
+if(_220[2]!=""){
 return mb.log.exit(false);
 }
 mb.log.debug("Attempting to correct DiscNumberStyle, #cw");
-if(_21a[4]!=""){
-var np=_21a[4];
+if(_220[4]!=""){
+var np=_220[4];
 np=np.replace("^0","");
 mb.log.debug("Expanding #cw to disc $",np);
 gc.i.insertWordsAtIndex(gc.i.getPos()+1,[" ",np]);
@@ -4340,6 +4353,7 @@ gc.i.updateCurrentWord("(");
 this.doOpeningBracket();
 }
 gc.o.appendWord("disc");
+gc.f.resetContext();
 gc.f.openingBracket=false;
 gc.f.spaceNextWord=false;
 gc.f.forceCaps=false;
@@ -4361,10 +4375,11 @@ if((gc.i.getCurrentWord().match(gc.re.FEAT_F))&&!gc.i.isNextWord(".")){
 mb.log.debug("Matched f, but next character is not a \".\"...");
 return mb.log.exit(false);
 }
-if(!gc.f.openingBracket){
+if(gc.i.getPos()<gc.i.getLength()-2){
+if(!gc.f.openingBracket&&!gc.f.isInsideBrackets()){
 mb.log.debug("Matched feat., but previous word is not a closing bracket.");
 if(gc.f.isInsideBrackets()){
-var _221=new Array();
+var _227=new Array();
 while(gc.f.isInsideBrackets()){
 var cb=gc.f.popBracket();
 gc.o.appendWord(cb);
@@ -4388,6 +4403,7 @@ gc.i.updateCurrentWord("(");
 this.doOpeningBracket();
 }
 gc.o.appendWord("feat.");
+gc.f.resetContext();
 gc.f.forceCaps=true;
 gc.f.openingBracket=false;
 gc.f.spaceNextWord=true;
@@ -4397,6 +4413,7 @@ if(gc.i.isNextWord(".")){
 gc.i.nextIndex();
 }
 return mb.log.exit(true);
+}
 }
 return mb.log.exit(false);
 };
@@ -4482,6 +4499,7 @@ gc.o.init();
 gc.i.init(is,w);
 while(!gc.i.isIndexAtEnd()){
 this.processWord();
+mb.log.debug("Output: $",gc.o._w);
 }
 var os=this.getOutput();
 return mb.log.exit(os);
@@ -4493,7 +4511,7 @@ if(!gc.re.TRACK_DATATRACK){
 gc.re.TRACK_DATATRACK=/^([\(\[]?\s*data(\s+track)?\s*[\)\]]?$)/i;
 gc.re.TRACK_SILENCE=/^([\(\[]?\s*silen(t|ce)(\s+track)?\s*[\)\]]?)$/i;
 gc.re.TRACK_UNTITLED=/^([\(\[]?\s*untitled(\s+track)?\s*[\)\]]?)$/i;
-gc.re.TRACK_UNKNOWN=/^([\(\[]?\s*(unknown|bonus)(\s+track)?\s*[\)\]]?)$/i;
+gc.re.TRACK_UNKNOWN=/^([\(\[]?\s*(unknown|bonus|hidden)(\s+track)?\s*[\)\]]?)$/i;
 gc.re.TRACK_MYSTERY=/^\?+$/i;
 }
 if(is.match(gc.re.TRACK_DATATRACK)){
@@ -4520,7 +4538,7 @@ return mb.log.exit(this.NOT_A_SPECIALCASE);
 };
 this.doWord=function(){
 mb.log.enter(this.GID,"doWord");
-var _22f=gc.i.getCurrentWord();
+var _235=gc.i.getCurrentWord();
 if(this.doFeaturingArtistStyle()){
 }else{
 if(this.doVersusStyle()){
@@ -4652,104 +4670,104 @@ gc.i.nextIndex();
 this.guessSortName=function(is){
 mb.log.enter(this.GID,"guessSortName");
 is=gc.u.trim(is);
-var _236=" and ";
-_236=(is.indexOf(" + ")!=-1?" + ":_236);
-_236=(is.indexOf(" & ")!=-1?" & ":_236);
-var as=is.split(_236);
-for(var _238=0;_238<as.length;_238++){
-var _239=as[_238];
-if(!mb.utils.isNullOrEmpty(_239)){
-_239=gc.u.trim(_239);
-var _23a="";
-mb.log.debug("Handling artist part: $",_239);
+var _23c=" and ";
+_23c=(is.indexOf(" + ")!=-1?" + ":_23c);
+_23c=(is.indexOf(" & ")!=-1?" & ":_23c);
+var as=is.split(_23c);
+for(var _23e=0;_23e<as.length;_23e++){
+var _23f=as[_23e];
+if(!mb.utils.isNullOrEmpty(_23f)){
+_23f=gc.u.trim(_23f);
+var _240="";
+mb.log.debug("Handling artist part: $",_23f);
 if(!gc.re.SORTNAME_SR){
 gc.re.SORTNAME_SR=/,\s*Sr[\.]?$/i;
 gc.re.SORTNAME_JR=/,\s*Jr[\.]?$/i;
 }
-if(_239.match(gc.re.SORTNAME_SR)){
-_239=_239.replace(gc.re.SORTNAME_SR,"");
-_23a=", Sr.";
+if(_23f.match(gc.re.SORTNAME_SR)){
+_23f=_23f.replace(gc.re.SORTNAME_SR,"");
+_240=", Sr.";
 }else{
-if(_239.match(gc.re.SORTNAME_JR)){
-_239=_239.replace(gc.re.SORTNAME_JR,"");
-_23a=", Jr.";
+if(_23f.match(gc.re.SORTNAME_JR)){
+_23f=_23f.replace(gc.re.SORTNAME_JR,"");
+_240=", Jr.";
 }
 }
-var _23b=_239.split(" ");
-mb.log.debug("names: $",_23b);
-var _23c=false;
+var _241=_23f.split(" ");
+mb.log.debug("names: $",_241);
+var _242=false;
 if(!gc.re.SORTNAME_DJ){
 gc.re.SORTNAME_DJ=/^DJ$/i;
 gc.re.SORTNAME_THE=/^The$/i;
 gc.re.SORTNAME_LOS=/^Los$/i;
 gc.re.SORTNAME_DR=/^Dr\.$/i;
 }
-var _23d=_23b[0];
-if(_23d.match(gc.re.SORTNAME_DJ)){
-_23a=(", DJ"+_23a);
-_23b[0]=null;
+var _243=_241[0];
+if(_243.match(gc.re.SORTNAME_DJ)){
+_240=(", DJ"+_240);
+_241[0]=null;
 }else{
-if(_23d.match(gc.re.SORTNAME_THE)){
-_23a=(", The"+_23a);
-_23b[0]=null;
+if(_243.match(gc.re.SORTNAME_THE)){
+_240=(", The"+_240);
+_241[0]=null;
 }else{
-if(_23d.match(gc.re.SORTNAME_LOS)){
-_23a=(", Los"+_23a);
-_23b[0]=null;
+if(_243.match(gc.re.SORTNAME_LOS)){
+_240=(", Los"+_240);
+_241[0]=null;
 }else{
-if(_23d.match(gc.re.SORTNAME_DR)){
-_23a=(", Dr."+_23a);
-_23b[0]=null;
-_23c=true;
+if(_243.match(gc.re.SORTNAME_DR)){
+_240=(", Dr."+_240);
+_241[0]=null;
+_242=true;
 }else{
-_23c=true;
+_242=true;
 }
 }
 }
 }
 var i=0;
-if(_23c){
-var _23f=[];
-if(_23b.length>1){
-for(i=0;i<_23b.length-1;i++){
-if(i==_23b.length-2&&_23b[i]=="St."){
-_23b[i+1]=_23b[i]+" "+_23b[i+1];
+if(_242){
+var _245=[];
+if(_241.length>1){
+for(i=0;i<_241.length-1;i++){
+if(i==_241.length-2&&_241[i]=="St."){
+_241[i+1]=_241[i]+" "+_241[i+1];
 }else{
-if(!mb.utils.isNullOrEmpty(_23b[i])){
-_23f[i+1]=_23b[i];
+if(!mb.utils.isNullOrEmpty(_241[i])){
+_245[i+1]=_241[i];
 }
 }
 }
-_23f[0]=_23b[_23b.length-1];
-if(_23f.length>1){
-_23f[0]+=",";
+_245[0]=_241[_241.length-1];
+if(_245.length>1){
+_245[0]+=",";
 }
-_23b=_23f;
+_241=_245;
 }
 }
-mb.log.debug("Sorted names: $, append: $",_23b,_23a);
+mb.log.debug("Sorted names: $, append: $",_241,_240);
 var t=[];
-for(i=0;i<_23b.length;i++){
-var w=_23b[i];
+for(i=0;i<_241.length;i++){
+var w=_241[i];
 if(!mb.utils.isNullOrEmpty(w)){
 t.push(w);
 }
-if(i<_23b.length-1){
+if(i<_241.length-1){
 t.push(" ");
 }
 }
-if(!mb.utils.isNullOrEmpty(_23a)){
-t.push(_23a);
+if(!mb.utils.isNullOrEmpty(_240)){
+t.push(_240);
 }
-_239=gc.u.trim(t.join(""));
+_23f=gc.u.trim(t.join(""));
 }
-if(!mb.utils.isNullOrEmpty(_239)){
-as[_238]=_239;
+if(!mb.utils.isNullOrEmpty(_23f)){
+as[_23e]=_23f;
 }else{
-delete as[_238];
+delete as[_23e];
 }
 }
-var os=gc.u.trim(as.join(_236));
+var os=gc.u.trim(as.join(_23c));
 mb.log.debug("Result: $",os);
 return mb.log.exit(os);
 };
@@ -5051,11 +5069,11 @@ return m;
 this.getDisplayedModules=function(){
 return this.modules;
 };
-this.guessArtistField=function(_25c){
+this.guessArtistField=function(_262){
 mb.log.enter(this.GID,"guessArtistField");
-_25c=(_25c||"artist");
+_262=(_262||"artist");
 var f;
-if((f=es.ui.getField(_25c))!=null){
+if((f=es.ui.getField(_262))!=null){
 var ov=f.value,nv=ov;
 if(!mb.utils.isNullOrEmpty(ov)){
 mb.log.info("Guessing artist field, input: $",ov);
@@ -5070,15 +5088,15 @@ mb.log.info("Guess yielded same result, nothing to do.");
 mb.log.info("Field value is null or empty, nothing to do.");
 }
 }else{
-mb.log.error("Did not find the field: $",_25c);
+mb.log.error("Did not find the field: $",_262);
 }
 mb.log.exit();
 };
-this.guessAlbumField=function(_25f,mode){
+this.guessAlbumField=function(_265,mode){
 mb.log.enter(this.GID,"guessAlbumField");
-_25f=(_25f||"album");
+_265=(_265||"album");
 var f;
-if((f=es.ui.getField(_25f))!=null){
+if((f=es.ui.getField(_265))!=null){
 var ov=f.value,nv=ov;
 if(!mb.utils.isNullOrEmpty(ov)){
 mb.log.info("Guessing album field, input: $",ov);
@@ -5094,14 +5112,14 @@ mb.log.info("Guess yielded same result, nothing to do.");
 mb.log.info("Field value is null or empty, nothing to do.");
 }
 }else{
-mb.log.error("Did not find the field: $",_25f);
+mb.log.error("Did not find the field: $",_265);
 }
 mb.log.exit();
 };
-this.guessTrackField=function(_263,mode){
+this.guessTrackField=function(_269,mode){
 mb.log.enter(this.GID,"guessTrackField");
 var f;
-if((f=es.ui.getField(_263))!=null){
+if((f=es.ui.getField(_269))!=null){
 var ov=f.value,nv=ov;
 if(!mb.utils.isNullOrEmpty(ov)){
 mb.log.info("Guessing track field, input: $",ov);
@@ -5117,21 +5135,21 @@ mb.log.info("Guess yielded same result, nothing to do.");
 mb.log.info("Field value is null or empty, nothing to do. $",ov);
 }
 }else{
-mb.log.error("Did not find the field: $",_263);
+mb.log.error("Did not find the field: $",_269);
 }
 mb.log.exit();
 };
 this.guessAllFields=function(){
 mb.log.enter(this.GID,"guessAllFields");
 var f,fields=es.ui.getEditTextFields();
-var _268,name,cn;
+var _26e,name,cn;
 for(var j=0;j<fields.length;j++){
 f=fields[j];
-_268=(f.value||"");
+_26e=(f.value||"");
 name=(f.name||"");
 cn=(f.className||"");
 if(!cn.match(/hidden/i)){
-if(!mb.utils.isNullOrEmpty(_268)){
+if(!mb.utils.isNullOrEmpty(_26e)){
 mb.log.scopeStart("Guessing next field: "+name);
 this.guessByFieldName(name);
 }else{
@@ -5153,7 +5171,7 @@ if(name.match(es.ui.re.ARTISTFIELD)){
 this.guessArtistField(name);
 }else{
 if(name.match(es.ui.re.SORTNAMEFIELD)){
-var _26c=name.replace("sort","");
+var _272=name.replace("sort","");
 this.guessSortnameField(artistfield,name);
 }else{
 mb.log.warning("Unhandled name: $",name);
@@ -5163,10 +5181,10 @@ mb.log.warning("Unhandled name: $",name);
 }
 mb.log.exit();
 };
-this.copySortnameField=function(_26d,_26e){
+this.copySortnameField=function(_273,_274){
 mb.log.enter(this.GID,"copySortnameField");
 var fa,fsn;
-if((fa=es.ui.getField(_26d))!=null&&(fsn=es.ui.getField(_26e))!=null){
+if((fa=es.ui.getField(_273))!=null&&(fsn=es.ui.getField(_274))!=null){
 var ov=fsn.value;
 var nv=fa.value;
 if(nv!=ov){
@@ -5177,14 +5195,14 @@ es.ui.resetSelection();
 mb.log.info("Destination is same as source, nothing to do.");
 }
 }else{
-mb.log.error("Did not find the fields: $, $",_26d,_26e);
+mb.log.error("Did not find the fields: $, $",_273,_274);
 }
 mb.log.exit();
 };
-this.guessSortnameField=function(_272,_273){
+this.guessSortnameField=function(_278,_279){
 mb.log.enter(this.GID,"guessSortnameField");
 var fa,fsn;
-if((fa=es.ui.getField(_272))!=null&&(fsn=es.ui.getField(_273))!=null){
+if((fa=es.ui.getField(_278))!=null&&(fsn=es.ui.getField(_279))!=null){
 var av=fa.value,ov=fsn.value,nv=ov;
 if(!mb.utils.isNullOrEmpty(av)){
 mb.log.info("fa: $, fsn: $, value: $",fa.name,fsn.name,fa.value);
@@ -5199,7 +5217,7 @@ mb.log.info("Guess yielded same result, nothing to do.");
 mb.log.info("Artist name is empty, nothing to do.");
 }
 }else{
-mb.log.error("Did not find the fields: $, $",_272,_273);
+mb.log.error("Did not find the fields: $, $",_278,_279);
 }
 mb.log.exit();
 };
@@ -5210,13 +5228,13 @@ var fn1=(arguments[0]||"search");
 var fn2=(arguments[1]||"trackname");
 var fns=(arguments[2]||"swapped");
 if(((f1=es.ui.getField(fn1))!=null)&&((f2=es.ui.getField(fn2))!=null)&&((fs=es.ui.getField(fns))!=null)){
-var _27a=(1-fs.value);
+var _280=(1-fs.value);
 var f1v=f1.value;
 var f2v=f2.value;
-es.ur.addUndo(es.ur.createItemList(es.ur.createItem(f2,"swap",f2v,f1v),es.ur.createItem(f1,"swap",f1v,f2v),es.ur.createItem(fs,"swap",fs.value,_27a)));
+es.ur.addUndo(es.ur.createItemList(es.ur.createItem(f2,"swap",f2v,f1v),es.ur.createItem(f1,"swap",f1v,f2v),es.ur.createItem(fs,"swap",fs.value,_280)));
 f1.value=f2v;
 f2.value=f1v;
-fs.value=_27a;
+fs.value=_280;
 }else{
 mb.log.error("Did not find the fields: $,$,$",fn1,fn2,fns);
 }
