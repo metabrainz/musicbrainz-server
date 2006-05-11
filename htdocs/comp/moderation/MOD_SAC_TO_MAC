@@ -62,7 +62,7 @@
 	<table class="editfields">
 		<tr>
 			<td class="lbl">New:</td>
-			<td><& /comp/linkartist, id => $this->{'vaid'}, name => "Various Artists" &></td>
+			<td><& /comp/linkartist, id => &ModDefs::VARTIST_ID, name => "Various Artists" &></td>
 		</tr>
 	</table>
 

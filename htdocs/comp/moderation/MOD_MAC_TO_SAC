@@ -1,40 +1,40 @@
 %# vi: set ts=4 sw=4 ft=mason :
 
 <%method ShowPreviousValue>
-% my $this = shift;
-
-% if (defined $this->{'albumname'})
-% {
-	Album:
-	<a href="/showalbum.html?albumid=<% $this->GetRowId %>"
-		><% $this->{'albumname'} %></a>
-% }
-% else
-% {
-	This album has been deleted
-% }
-
+% 	my $this = shift;
 </%method>
 
 <%method ShowNewValue>
-% my $this = shift;
-New Artist:
-% # link to new artist if all info is known
-% if ($this->{'new.exists'})
-% {
-	<a href="/showartist.html?artistid=<% $this->{'new.artistid'} %>"
-		class="bold"><% $this->{'new.name'} %></a>
-% }
-% # just print the new artist name, otherwise
-% else
-% {
-	<strong><% $this->{'new.name'} %></strong>
-% }
+% 	my $this = shift;
 
-% if ($this->{'new.sortname'} ne $this->{'new.name'})
-% {
-	(<% $this->{'new.sortname'} %>)
-% }
+	<table class="editfields">
+		<tr>
+			<td class="lbl">New:</td>
+
+% 	# link to new artist if all info is known
+% 	if ($this->{'new.exists'})
+% 	{
+%		my $artist = Artist->new($this->{DBH});
+%		$artist->SetId($this->{'new.artistid'} );
+%		my $exists = $artist->LoadFromId;
+
+			<td><& /comp/linkartist,
+				$exists
+				? (artist => $artist)
+				: (
+					id => -1,
+					name => $this->{'new.name'},
+					sortname => $this->{'new.sortname'}
+				  ), &></td>
+%	}
+%	else
+%	{
+			<td><strong><% $this->{'new.name'} %></strong></td>
+%	}
+
+		</tr>
+	</table>
+
 </%method>
 
 %# eof
