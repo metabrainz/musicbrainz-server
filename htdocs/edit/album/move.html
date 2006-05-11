@@ -207,15 +207,15 @@
 		mp_type => &ModDefs::MOD_MOVE_ALBUM,
 	);
 
-	# if an artist was selected (or added), show confirm form.
-	if (defined $newartist)
-	{
-
 </%perl>
-		<!-- add editsuite for modnote resizer support -->
-		<script type="text/javascript" src="/scripts/editsuite.js"></script>
 
 		<form method="post" action="/edit/album/move.html" id="ConfirmForm">
+			<script type="text/javascript" src="/scripts/editsuite.js"></script>
+
+%	# if an artist was selected (or added), show confirm form.
+%	if (defined $newartist)
+%	{
+
 			<table class="formstyle">
 				<tr>
 					<td colspan="2" class="instructions">
@@ -303,12 +303,7 @@
 					<td class="notetext">
 						<& /comp/notetext,
 							notetext => $notetext,
-							buttons => [["Cancel",""], ["Enter Moderation", "btnYes"]] &>
-
-% 					for (@_releases) {
-						<input type="hidden" name="releaseid" value="<% $_->GetId %>">
-% 					}
-						<input type="hidden" name="newartistid" value="<% $newartistid %>" /></td>
+							buttons => [["Cancel",""], ["Enter Moderation", "btnYes"]] &></td>
 				</tr>
 			</table>
 
@@ -329,7 +324,7 @@
 					<ul>
 						<li>
 							Please review the documentation about <& /comp/linkdoc, "MoveReleaseEdit",
-							"moving releases" &>, before entering this edit.
+							"moving releases" &>, before entering this edit.</li>
 						<li>
 							When you're ready, search for the artist to which you want to move
 							the selected release<% $_isbatch ? "s" : "" %> below.</li>
@@ -378,6 +373,14 @@
 
 		</table>
 %	}
+
+% 	for (@_releases) {
+			<input type="hidden" name="releaseid" value="<% $_->GetId %>">
+% 	}
+			<input type="hidden" name="newartistid" value="<% $newartistid %>" />
+
+
+		</form>
 
 	<& /comp/layout/editformend &>
 
