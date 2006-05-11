@@ -53,7 +53,7 @@
 		$mbid = $release->GetMBId;
 		$name = $release->GetName;
 	}
-	die ("$id and $name are required") if (not defined $id || not defined $name);
+	die ("\$id and \$name are required") if (not defined $id || not defined $name);
 
 	# enclose the value in title in proper attribute tag,
 	# if it was set.

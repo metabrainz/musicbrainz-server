@@ -18,7 +18,7 @@
 
 	# we got a release parameter, fill in local variables and
 	# figure out if a modpending bubble should be shown.
-	my $mp_type_message = "edits";
+	my $mp_type_message = $m->scomp("/comp/linkdoc", "EditType", "edits");
 	my $mp_note = "";
 	my $mp_url = "";
 
@@ -190,7 +190,9 @@
 		# move release
 		elsif ($mp_type == &ModDefs::MOD_MOVE_ALBUM)
 		{
-			$mp_type_message = $m->scomp("/comp/linkdoc", "MoveReleaseEdit", "Move Release edits");
+			# since we cannot say which type of edit we have (the modpending flag
+			# doesn't tell), link to the general EditType document.
+			$mp_type_message = $m->scomp("/comp/linkdoc", "EditType", "release edits");
 		}
 
 		# move/remove discid
@@ -204,17 +206,9 @@
 			   $mp_type == &ModDefs::MOD_EDIT_TRACKNUM or
 			   $mp_type == &ModDefs::MOD_EDIT_TRACKTIME)
 		{
-			$mp_type_message = $m->scomp("/comp/linkdoc", "EditTrackNameEdit", "Edit Track edits");
-							   #.", ".$m->scomp("/comp/linkdoc", "EditTrackNumberEdit", "Edit Track Number")
-							   #." or ".$m->scomp("/comp/linkdoc", "EditTrackTimeEdit", "Edit Track Time edits");
-		}
-		elsif ($mp_type == &ModDefs::MOD_EDIT_TRACKNAME or
-			   $mp_type == &ModDefs::MOD_EDIT_TRACKNUM or
-			   $mp_type == &ModDefs::MOD_EDIT_TRACKTIME)
-		{
-			$mp_type_message = $m->scomp("/comp/linkdoc", "EditTrackNameEdit", "Edit Track Name").", ".
-							   $m->scomp("/comp/linkdoc", "EditTrackNumberEdit", "Edit Track Number")." or ".
-							   $m->scomp("/comp/linkdoc", "EditTrackTimeEdit", "Edit Track Time edits");
+			# since we cannot say which type of edit we have (the modpending flag
+			# doesn't tell), link to the general EditType document.
+			$mp_type_message = $m->scomp("/comp/linkdoc", "EditType", "track edits");
 		}
 	}
 

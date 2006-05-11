@@ -56,7 +56,7 @@
 		$sortname = $artist->GetSortName;
 		$resolution = $artist->GetResolution;
 	}
-	die ("$id and $name are required") if (not defined $id || not defined $name);
+	die ("\$id and $name are required") if (not defined $id || not defined $name);
 
 	# fallback to artistname if no sortname is provided.
 	$sortname = $sortname || $name;
