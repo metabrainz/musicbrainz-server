@@ -252,7 +252,6 @@ function GcMode(modes, name, lang, desc, url) {
 				// weird single quotes.
 				, new GcFix("Acute accent &#x0301;", "\u0301", "'")
 				, new GcFix("Acute accent &#x00B4;", "\u00B4", "'")
-				, new GcFix("Acute accent ´", "´", "'")
 				, new GcFix("Grave accent &#x0300;", "\u0300", "'")
 				, new GcFix("Backtick &#x0060;", "\u0060", "'")
 				, new GcFix("Prime &#x2023;", "\u2023", "'")
@@ -260,8 +259,6 @@ function GcMode(modes, name, lang, desc, url) {
 				// double quotes
 				, new GcFix("Opening double-quote &#x201C;", "\u201C", "\"")
 				, new GcFix("Closing double-quote &#x201D;", "\u201D", "\"")
-				, new GcFix("Opening double-quote “", "“", "\"")
-				, new GcFix("Closing double-quote ”", "”", "\"")
 
 				// hyphens
 				, new GcFix("Soft hyphen &#x00AD;", "\u00AD", "-")
