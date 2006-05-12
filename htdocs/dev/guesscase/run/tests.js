@@ -239,7 +239,7 @@ var DEFINED_TESTS = {
 		, new TestCase("RemixStyle", "My TRACK (Artist 1 & Artist 2 RMX)", "My Track (Artist 1 & Artist 2 remix)")
 
 		// A Capella
-		, new TestCase("Correct A Cappella, but do not put into brackets", "My Track Accapela", "My Track A Cappella")
+		, new TestCase("Correct A Cappella, put into brackets", "My Track Accapela", "My Track (a cappella)")
 		, new TestCase("Correct A Cappella inside brackets, make LC", "My Track (Accappella)", "My Track (a cappella)")
 
 		// Extratitleinfo
@@ -260,7 +260,7 @@ var DEFINED_TESTS = {
 
 		// feat. style with remixinfo
 		, new TestCase("FeaturingArtistStyle", "My TRACK (house Vocal mix) ft	Artistname", "My Track (House vocal mix) (feat. Artistname)")
-		, new TestCase("FeaturingArtistStyle", "My TRACK (house Vocal mix ft	Artistname)", "My Track (House vocal mix) (feat. Artistname)")
+		, new TestCase("FeaturingArtistStyle", "My TRACK (house Vocal mix ft	Artistname)", "My Track (House vocal mix feat. Artistname)")
 
 		// PartNumberStyle
 		, new TestCase("PartNumberStyle", "Name, Part 1", "Name, Part 1")
