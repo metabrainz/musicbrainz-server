@@ -1,6 +1,6 @@
 /*----------------------------------------------------------------------------\
 |                              Musicbrainz.org                                |
-|                 Copyright (c) 2005 Stefan Kestenholz (g0llum)               |
+|                 Copyright (c) 2005 Stefan Kestenholz (keschte)              |
 |-----------------------------------------------------------------------------|
 | This software is provided "as is", without warranty of any kind, express or |
 | implied, including  but not limited  to the warranties of  merchantability, |
@@ -16,8 +16,8 @@
 | code are included. Requires  that the final product, software derivate from |
 | the original  source or any  software  utilizing a GPL  component, such  as |
 | this, is also licensed under the GPL license.                               |
-|-----------------------------------------------------------------------------|
-| 2005-11-10 | First version                                                  |
+|                                                                             |
+| $Id$
 \----------------------------------------------------------------------------*/
 
 /**
@@ -51,22 +51,24 @@ function GcArtistHandler() {
 	 **/
 	this.process = function(is) {
 		mb.log.enter(this.GID, "process");
-		is = this.preProcessCommons(is);
+		is = gc.artistmode.preProcessCommons(is);
 		var w = gc.i.splitWordsAndPunctuation(is);
 		gc.o.init();
 		gc.i.init(is, w);
 		while (!gc.i.isIndexAtEnd()) {
 			this.processWord();
+			mb.log.debug("Output: $", gc.o._w);			
 		}
-		var os = this.getOutput();
+		var os = gc.o.getOutput();
+		os = gc.artistmode.runPostProcess(os);
 		return mb.log.exit(os);
 	};
 
 
 	/**
 	 * Checks special cases of artists
-	 * » empty, unknown -> [unknown]
- 	 * » none, no artist, not applicable, n/a -> [no artist]
+	 * - empty, unknown -> [unknown]
+ 	 * - none, no artist, not applicable, n/a -> [no artist]
 	 **/
 	this.checkSpecialCase = function(is) {
 		mb.log.enter(this.GID, "checkSpecialCase");
@@ -107,13 +109,13 @@ function GcArtistHandler() {
 		}
 		return mb.log.exit(this.NOT_A_SPECIALCASE);
 	};
-	
+
 
 	/**
 	 * Delegate function which handles words not handled
 	 * in the common word handlers.
 	 *
-	 * » Handles VersusStyle
+	 * - Handles VersusStyle
 	 *
 	 **/
 	this.doWord = function() {
@@ -138,11 +140,11 @@ function GcArtistHandler() {
 	/**
 	 * Reformat pres/presents -> presents
 	 *
-	 * » Handles DiscNumberStyle (DiscNumberWithNameStyle)
-	 * » Handles FeaturingArtistStyle
-	 * » Handles VersusStyle
-	 * » Handles VolumeNumberStyle
-	 * » Handles PartNumberStyle
+	 * - Handles DiscNumberStyle (DiscNumberWithNameStyle)
+	 * - Handles FeaturingArtistStyle
+	 * - Handles VersusStyle
+	 * - Handles VolumeNumberStyle
+	 * - Handles PartNumberStyle
 	 *
 	 **/
 	this.doPresentsStyle = function() {

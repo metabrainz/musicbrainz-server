@@ -1,6 +1,6 @@
 /*----------------------------------------------------------------------------\
 |                              Musicbrainz.org                                |
-|                     Copyright (c) 2005 Stefan Kestenholz                    |
+|                 Copyright (c) 2005 Stefan Kestenholz (keschte)              |
 |-----------------------------------------------------------------------------|
 | This software is provided "as is", without warranty of any kind, express or |
 | implied, including  but not limited  to the warranties of  merchantability, |
@@ -16,18 +16,22 @@
 | code are included. Requires  that the final product, software derivate from |
 | the original  source or any  software  utilizing a GPL  component, such  as |
 | this, is also licensed under the GPL license.                               |
+|                                                                             |
+| $Id$
 \----------------------------------------------------------------------------*/
 
 function ARSearch() {
-
+ 
 	// ----------------------------------------------------------------------------
 	// register class/global id
-	// ---------------------------------------------------------------------------
+	// ----------------------------------------------------------------------------
 	this.CN = "ARSearch";
 	this.GID = "arsearch";
 	mb.log.enter(this.CN, "__constructor");
 
-
+	// ----------------------------------------------------------------------------
+	// member variables
+	// ----------------------------------------------------------------------------
 	this.eventMode = "";
 	this.busy = false;
 	this.theDropdown = null;
@@ -42,6 +46,9 @@ function ARSearch() {
 	this.searchFindNext = false;
 	this.searchFindNextAsc = true;
 
+	// ----------------------------------------------------------------------------
+	// member functions
+	// ----------------------------------------------------------------------------
 	
 	/**
 	 * Document Me!
@@ -683,7 +690,7 @@ function ARSearch() {
 				el.className = "relationshipAttributeButton";
 				el.name = "attr_"+type+"_"+index+"_findprev";
 				el.id = "attr_"+type+"_"+index+"_findprev";
-				el.value = "«";
+				el.value = "Â«";
 				el.title = "Find previous "+type+" matching the search string";
 				parent.appendChild(el);
 				el.onclick = function(e) { arsearch.findPrev(this); };
@@ -703,7 +710,7 @@ function ARSearch() {
 				el.className = "relationshipAttributeButton";
 				el.name = "attr_"+type+"_"+index+"_findnext";
 				el.id = "attr_"+type+"_"+index+"_findnext";
-				el.value = "»";
+				el.value = "Â»";
 				el.title = "Find next "+type+" matching the search string";
 				parent.appendChild(el);
 				el.onclick = function(e) { arsearch.findNext(this); };

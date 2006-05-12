@@ -1,6 +1,6 @@
 /*----------------------------------------------------------------------------\
 |                              Musicbrainz.org                                |
-|                 Copyright (c) 2005 Stefan Kestenholz (g0llum)               |
+|                 Copyright (c) 2005 Stefan Kestenholz (keschte)              |
 |-----------------------------------------------------------------------------|
 | This software is provided "as is", without warranty of any kind, express or |
 | implied, including  but not limited  to the warranties of  merchantability, |
@@ -16,8 +16,8 @@
 | code are included. Requires  that the final product, software derivate from |
 | the original  source or any  software  utilizing a GPL  component, such  as |
 | this, is also licensed under the GPL license.                               |
-|-----------------------------------------------------------------------------|
-| 2005-11-10 | First version                                                  |
+|                                                                             |
+| $Id$
 \----------------------------------------------------------------------------*/
 
 /**
@@ -46,7 +46,7 @@ function GcFix(name, re, replace) {
 	};
 	this.getRe = function() {
 		return this._re;
-	};	
+	};
 	this.getReplace = function() {
 		return this._replace;
 	};

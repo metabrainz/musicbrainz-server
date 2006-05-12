@@ -1,6 +1,6 @@
 /*----------------------------------------------------------------------------\
 |                              Musicbrainz.org                                |
-|                 Copyright (c) 2005 Stefan Kestenholz (g0llum)               |
+|                 Copyright (c) 2005 Stefan Kestenholz (keschte)              |
 |-----------------------------------------------------------------------------|
 | This software is provided "as is", without warranty of any kind, express or |
 | implied, including  but not limited  to the warranties of  merchantability, |
@@ -16,8 +16,8 @@
 | code are included. Requires  that the final product, software derivate from |
 | the original  source or any  software  utilizing a GPL  component, such  as |
 | this, is also licensed under the GPL license.                               |
-|-----------------------------------------------------------------------------|
-| 2005-11-10 | First version                                                  |
+|                                                                             |
+| $Id$
 \----------------------------------------------------------------------------*/
 
 /**
@@ -52,7 +52,8 @@ function GcUtils() {
 
 	/**
 	 * Checks if the variable k is in the given array a
-	 * returns true,if k is in a,and a[k]=k,and k is no function of the array (e.g. join,pop etc.)
+	 * returns true,if k is in a,and a[k]=k,and k is no function 
+	 * of the array (e.g. join,pop etc.)
 	 **/
 	this.inArray = function(a,k) {
 		mb.log.enter(this.GID, "inArray");
@@ -74,7 +75,7 @@ function GcUtils() {
 	/**
 	 * template function for wordlists
 	 * -------------------------------------------------------
-	 * g0llum		2005-10-24		template for a wordlist
+	 * keschte		2005-10-24		template for a wordlist
 	 **/
 	this.isSomeWord = function(w) {
 		if (!this.someWord) {
@@ -83,82 +84,21 @@ function GcUtils() {
 		return this.inArray(this.someWord,w);
 	};
 
-	/**
-	 * Words which are always written lowercase.
-	 * -------------------------------------------------------
-	 * tma			2005-01-29		first version
-	 * g0llum		2005-04-17		added french lowercase characters
-	 * g0llum		2005-06-14		added "tha" to be handled like "the"
-	 **/
-	this.getLowerCaseWords = function(lang) {
-		lang = (lang || "en");
-		var words = [];
-		words["en"] = ["a","and","n","an","as","at","but","by","for","in","nor","of","o","on","or","the","to","tha"];
-		// words["de"] = ["der","und","de"];
-		// words["fr"] = ["du","et","la","le","les","un","une","à","â","ç","è","é","ê","ô","ù","û","aux"];
-		// words["sp"] = ["y","con","i","da","del"];
-		return words[lang];
-	};
-	this.isLowerCaseWord = function(w) {
-		mb.log.enter(this.GID, "isLowerCaseWord");
-		if (!this.lowerCaseWords) {
-			this.lowerCaseWords = this.toAssocArray(this.getLowerCaseWords());
-		}
-		var f = this.inArray(this.lowerCaseWords,w);
-		mb.log.debug("$=$", w, f);
-		return mb.log.exit(f);
-	}; // lowercase_words
 
 	/**
-	 * Words which are always written uppercase.
+	 * Words which are *not* converted if they are matched as 
+	 * a single pre-processor word at the end of the sentence.
 	 * -------------------------------------------------------
-	 * g0llum		2005-01-31		first version
-	 * various		2005-05-05		added "FM...PM"
-	 * g0llum		2005-05-24		removed AM,PM because it yielded false positives e.g. "I AM stupid"
-	 * g0llum		2005-07-10		added uk,bpm
-	 * g0llum		2005-07-20		added ussr,usa,ok,nba,rip,ny,classical words,hip-hop artists
-	 * g0llum		2005-10-24		removed AD
-	 * g0llum		2005-11-15		removed RIP (Let Rip) is not R.I.P.
-	 **/
-	this.getUpperCaseWords = function() {
-		return ["dj","mc","tv","mtv","ep","lp",
-		"ymca","nyc","ny","ussr","usa","r&b","bbc","fm","bc","ac","dc","uk","bpm","ok","nba",
-		"rv","kv","bwv",// classical works indication (kv=mozart,bwv=bach)
-		"rza","gza","odb","dmx","2xlc" // artists
-		];
-	};
-	this.getRomanNumberals = function() {
-		return ["i","ii","iii","iv","v","vi","vii","viii","ix","x"];
-	};
-	this.isUpperCaseWord = function(w) {
-		mb.log.enter(this.GID, "isUpperCaseWord");
-		if (!this.upperCaseWords) {
-			this.upperCaseWords = this.toAssocArray(this.getUpperCaseWords());
-		}
-		if (!this.romanNumerals) {
-			this.romanNumerals = this.toAssocArray(this.getRomanNumberals());
-		}
-		var f = this.inArray(this.upperCaseWords,w);
-		if (!f && gc.isConfigTrue(gc.CFG_UC_ROMANNUMERALS)) {
-			f = this.inArray(this.romanNumerals,w);
-		}
-		mb.log.debug("$=$", w, f);
-		return mb.log.exit(f);
-	}; // uppercase_words
-
-	/**
-	 * Words which are *not* converted if they are matched as a single pre-processor word at the end of the sentence
-	 * -------------------------------------------------------
-	 * g0llum		2005-05-25		first version
-	 * g0llum		2005-07-10		added disco
-	 * g0llum		2005-07-20		added dub
+	 * keschte		2005-05-25		first version
+	 * keschte		2005-07-10		added disco
+	 * keschte		2005-07-20		added dub
 	 **/
 	this.getPrepBracketSingleWords = function() {
 		return ["acoustic", "album", "alternate", "bonus", "clean", "club", "dance",
-			"dirty", "extended", "instrumental", "live", "original", "radio", "take",
-			"disc", "mix", "version", "feat", "cut", "vocal", "alternative", "megamix",
-			"disco", "video", "dub", "long", "short", "main", "composition", "session",
-			"rework", "reworked", "remixed", "dirty", "airplay"];
+				"dirty", "extended", "instrumental", "live", "original", "radio", "take",
+				"disc", "mix", "version", "feat", "cut", "vocal", "alternative", "megamix",
+				"disco", "video", "dub", "long", "short", "main", "composition", "session",
+				"rework", "reworked", "remixed", "dirty", "airplay"];
 	};
 	this.isPrepBracketSingleWord = function(w) {
 		mb.log.enter(this.GID, "isPrepBracketSingleWord");
@@ -174,11 +114,13 @@ function GcUtils() {
 	 * Words which are written lowercase if in brackets
 	 * -------------------------------------------------------
 	 * tma			2005-01-29		first version
-	 * g0llum		2005-01-29		added dub,megamix,maxi
+	 * keschte		2005-01-29		added dub,megamix,maxi
 	 * .various		2005-05-09		karaoke
-	 * g0llum		2005-07-10		added disco,unplugged
-	 * g0llum		2005-07-10		changed acappella,has its own handling now. is handled as 1 word, but is expanded to "a cappella" in post-processing
-	 * g0llum		2005-07-21		added outtake(s),rehearsal,intro,outro
+	 * keschte		2005-07-10		added disco,unplugged
+	 * keschte		2005-07-10		changed acappella,has its own handling now. 
+	 *								is handled as 1 word, but is expanded to "a cappella" 
+	 *								in post-processing
+	 * keschte		2005-07-21		added outtake(s),rehearsal,intro,outro
 	 **/
 	this.getLowerCaseBracketWords = function() {
 		return ["acoustic", "album", "alternate", "bonus", "clean", "dirty", "disc",
@@ -205,13 +147,14 @@ function GcUtils() {
 	 * Words which the pre-processor looks for and puts them
 	 * into brackets if they arent yet.
 	 * -------------------------------------------------------
-	 * g0llum		2005-05-25		first version
+	 * keschte		2005-05-25		first version
 	 **/
 	this.isPrepBracketWord = function(w) {
 		mb.log.enter(this.GID, "isPrepBracketWord");
 		if (!this.prepBracketWords) {
 			this.prepBracketWords = this.toAssocArray(
-				new Array("cd","disk",'12"','7"', "a_cappella", "re_edit").concat(this.getLowerCaseBracketWords()));
+				["cd","disk",'12"','7"', "a_cappella", "re_edit"]
+				.concat(this.getLowerCaseBracketWords()));
 		}
 		var f = this.inArray(this.prepBracketWords,w);
 		mb.log.debug("$=$", w, f);
@@ -222,7 +165,7 @@ function GcUtils() {
 	/**
 	 * Sequence stop characters
 	 * -------------------------------------------------------
-	 * g0llum		2005-05-24		first version
+	 * keschte		2005-05-24		first version
 	 **/
 	this.isSentenceStopChar = function(w) {
 		mb.log.enter(this.GID, "isSentenceStopChar");
@@ -239,7 +182,7 @@ function GcUtils() {
 	/**
 	 * Punctuation characters
 	 * -------------------------------------------------------
-	 * g0llum		2005-05-24		first version
+	 * keschte		2005-05-24		first version
 	 **/
 	this.isPunctuationChar = function(w) {
 		if (!this.punctuationChars) {
@@ -249,54 +192,6 @@ function GcUtils() {
 		}
 		return this.inArray(this.punctuationChars,w);
 	}; // punctuation_chars
-
-	/**
-	 * Contractions http://englishplus.com/grammar/00000136.htm
-	 * Renders the contraction words into an array which supports lookup with the left part of the contraction like Isn't = array['Isn'] = 't';
-	 * -------------------------------------------------------
-	 * g0llum		2005-04-19		first version
-	 * g0llum		2005-05-25		added that'll,ain't
-	 * g0llum		2005-06-14		added we'll
-	 * g0llum		2005-07-20		added what'll
-	 **/
-	this.getContractionWords = function() {
-		return []; // "aren't", "can't", "couldn't", "doesn't", "don't", "hadn't", "hasn't", "haven't", "he'd", "he'll", "here's", "he's", "i'd", "i'll", "i'm", "isn't", "it'd", "it'll", "it's", "i've", "let's", "mustn't", "she'd", "she'll", "she's", "shouldn't", "that'd", "that's", "there'd", "there'll", "there's", "they'd", "they'll", "they're", "they've", "wasn't", "we'd", "weren't", "we've", "what's", "who'd", "who's", "won't", "wouldn't", "you'd", "you'll", "you're", "you've", "ain't", "that'll", "we'll", "what'll", "who'll", "what'cha", "ev'ry", "10's", "20's", "30's", "40's", "50's", "60's", "70's", "80's", "90's", "00's"];
-	};
-	this.isContractionWord = function(pw, nw) {
-		mb.log.enter(this.GID, "isContractionWord");
-		if (!this.contractionWords) {
-			var a = this.getContractionWords();
-			var temp = [];
-			try {
-				for (var i=0; i<a.length; i++) {
-					var curr = a[i].toLowerCase();
-					var parts = curr.split("'");
-					var previousWord = parts[0]; // previous word
-					var nextWord = parts[1]; // next word
-					if (previousWord && nextWord) {
-						if (!temp[previousWord]) {
-							temp[previousWord] = [];
-						}
-						temp[previousWord][temp[previousWord].length] = nextWord;
-					}
-				}
-			} catch (e) {
-				mb.log.error("caught exception: $", (e.message || ""));
-			}
-			this.contractionWords = temp;
-		}
-		var found = false, haystack = this.contractionWords[pw];
-		if (haystack != null && nw != " ") {
-			for (var cwi=0; cwi<haystack.length; cwi++) {
-				if (haystack[cwi] == nw) {
-					found = true;
-					break;
-				}
-			}
-		}
-		mb.log.debug("Tested $'$ -> $", pw, nw, found);
-		return mb.log.exit(found);
-	}; // contraction_words
 
 	/**
 	 * Check if a word w has to be MacTitled http://www.daire.org/names/scotsurs2.html
@@ -311,7 +206,7 @@ function GcUtils() {
 	/**
 	 * Check if a word w has to be MacTitled http://www.daire.org/names/scotsurs2.html
 	 * -------------------------------------------------------
-	 * g0llum		2005-05-31		first version
+	 * keschte		2005-05-31		first version
 	 **/
 	this.isMacTitledWord = function(w) {
 		mb.log.enter(this.GID, "isMacTitledWord");
@@ -327,7 +222,7 @@ function GcUtils() {
 	 * Returns the corresponding bracket to a given
 	 * one, or null.
 	 * -------------------------------------------------------
-	 * g0llum		2005-05-31		first version
+	 * keschte		2005-05-31		first version
 	 **/
 	this.getCorrespondingBracket = function(w) {
 		mb.log.enter(this.GID, "getCorrespondingBracket");
@@ -371,11 +266,13 @@ function GcUtils() {
 	 * change log (who,when,what)
 	 * -------------------------------------------------------
 	 * tma			2005-01-29		first version
-	 * g0llum		2005-01-30		added cases for McTitled,MacTitled,O'Titled
-	 * g0llum		2005-01-31		converted loops to associative arrays.
+	 * keschte		2005-01-30		added cases for McTitled,MacTitled,O'Titled
+	 * keschte		2005-01-31		converted loops to associative arrays.
 	 **/
-	this.titleString = function(is) {
+	this.titleString = function(is, forceCaps) {
 		mb.log.enter(this.GID, "titleString");
+		forceCaps = (forceCaps != null ? forceCaps : gc.f.forceCaps);
+		
 		if (mb.utils.isNullOrEmpty(is)) {
 			mb.log.warning("Required parameter is was empty!", is);
 			return mb.log.exit("");
@@ -395,9 +292,8 @@ function GcUtils() {
 			gc.i.setPos((pos = len-1));
 		}
 
-		mb.log.debug('Titling word: $ (pos: $, length: $)', is, pos, len);
-
 		// let's see what flags we have set
+		mb.log.debug('Titling word: $ (pos: $, length: $)', is, pos, len);
 		gc.f.dumpRaisedFlags();
 
 		var wordbefore = gc.i.getWordAtIndex(pos-2);
@@ -440,16 +336,16 @@ function GcUtils() {
 			os = UC;
 
 		} else {
-			os = this.titleStringByMode(LC);
+			os = this.titleStringByMode(LC, forceCaps);
 			LC = os.toLowerCase(); // prepare all LC word
 			UC = os.toUpperCase(); // prepare all UC word
 
 			// Test if it's one of the lcWords but if gc.f.forceCaps is not set
-			if (gc.u.isLowerCaseWord(LC) && !gc.f.forceCaps) {
+			if (gc.mode.isLowerCaseWord(LC) && !forceCaps) {
 				os = LC;
 
 			// Test if it's one of the uppercase_words
-			} else if (gc.u.isUpperCaseWord(LC)) {
+			} else if (gc.mode.isUpperCaseWord(LC)) {
 				os = UC;
 
 			} else if (gc.f.isInsideBrackets()) {
@@ -464,7 +360,7 @@ function GcUtils() {
 				}
 			}
 		}
-		mb.log.debug('forceCaps: $, in: $, out: $', gc.f.forceCaps, is, os);
+		mb.log.debug('forceCaps: $, in: $, out: $', forceCaps, is, os);
 		return mb.log.exit(os);
 	};
 
@@ -476,7 +372,7 @@ function GcUtils() {
 	 * @returns		the capitalized string, if the flags allow
 	 *				GC to capitalize the string.
 	 **/
-	this.titleStringByMode = function(is) {
+	this.titleStringByMode = function(is, forceCaps) {
 		mb.log.enter(this.GID, "titleStringByMode");
 		if (is == null || is == "") {
 			return mb.log.exit("");
@@ -494,7 +390,7 @@ function GcUtils() {
 		// if in sentence caps mode, and last char was not
 		// a punctuation or opening bracket -> lowercase.
 		if ((!gc.f.slurpExtraTitleInformation) &&
-			(gc.getMode().isSentenceCaps()) &&
+			(gc.getMode().isSentenceCaps() && !forceCaps) &&
 			(!gc.i.isFirstWord()) &&
 			(!gc.u.isSentenceStopChar(wordbefore)) &&
 			(!gc.f.openingBracket)) {
@@ -518,6 +414,33 @@ function GcUtils() {
 		}
 		return mb.log.exit(os);
 	};
+	
+	
+	/**
+	 * Convert a given number to roman notation.
+	 */
+	this.convertToRomanNumeral = function(is) {
+		var i = parseInt(is);
+		var s = [];
+		if ((i > 3999) || (i < 1)) {
+			s = ["N/A"];
+		} else {
+			while (i>999) { s.push("M"); i -= 1000; }
+			if (i>899) { s.push("CM"); i -= 900; }
+			if (i>499) { s.push("D"); i -= 500; }		
+			if (i>399) { s.push("CD"); i -= 400; }		
+			while (i>99) { s.push("C"); i -= 100; }
+			if (i>89) { s.push("XC"); i -= 90; }		
+			if (i>49) { s.push("L"); i -= 50; }		
+			if (i>39) { s.push("XL"); i -= 40; }		
+			while (i>9) { s.push("X"); i -= 10; }
+			if (i>8) { s.push("IX"); i -= 9; }		
+			if (i>4) { s.push("V"); i -= 5; }		
+			if (i>3) { s.push("IV"); i -= 4; }		
+			while (i>0) { s.push("I"); i -= 1; }
+		}
+		return mb.log.exit(s.join(""));
+	}
 
 	// exit constructor
 	mb.log.exit();

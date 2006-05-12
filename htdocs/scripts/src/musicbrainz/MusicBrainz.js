@@ -1,6 +1,6 @@
 /*----------------------------------------------------------------------------\
 |                              Musicbrainz.org                                |
-|                 Copyright (c) 2005 Stefan Kestenholz (g0llum)               |
+|                 Copyright (c) 2005 Stefan Kestenholz (keschte)              |
 |-----------------------------------------------------------------------------|
 | This software is provided "as is", without warranty of any kind, express or |
 | implied, including  but not limited  to the warranties of  merchantability, |
@@ -16,8 +16,8 @@
 | code are included. Requires  that the final product, software derivate from |
 | the original  source or any  software  utilizing a GPL  component, such  as |
 | this, is also licensed under the GPL license.                               |
-|-----------------------------------------------------------------------------|
-| 2005-11-10 | First version                                                  |
+|                                                                             |
+| $Id$
 \----------------------------------------------------------------------------*/
 
  /**
@@ -36,9 +36,9 @@ function MusicBrainz() {
 	// ----------------------------------------------------------------------------
 	// global variables
 	// ---------------------------------------------------------------------------
-	mb.utils = new MbUtils(); 
+	mb.utils = new MbUtils();
 	mb.cookie = new MbCookie();
-	mb.log = new MbLog(); // order of the objects is important! 
+	mb.log = new MbLog(); // order of the objects is important!
 	mb.ui = new MbUI();
 
 	// hello world!
@@ -149,8 +149,8 @@ function MusicBrainz() {
 	  * Iterates through the functions array <code>actions</code>, and
 	  * executes the defined functions.
 	  *
-	  * @param actions		the list of registered ActionEvent objects
-	  *						to handle.
+	  * @param actions	the list of registered ActionEvent objects
+	  *					to handle.
 	 **/
 	mb.runRegisteredFunctions = function(actions) {
 		var i=0, len=actions.length;
@@ -173,31 +173,30 @@ function MusicBrainz() {
 		}
 	};
 
-	// common classes
+	// prepare global objects...
 	mb.ua = new MbUserAgent();
 	mb.sidebar = new MbSideBar();
 	mb.topmenu = new MbTopMenu();
-
-	mb.registerDOMReadyAction(
-		new MbEventAction(mb.topmenu.GID, 'setupEvents', "Setup dropdown menu events.")
-	);
-	mb.registerDOMReadyAction(
-		new MbEventAction(mb.ui.GID, 'moveFocus', "Find ONLOAD|focusfield and set this field to receive keyboard input.")
-	);
-	mb.registerDOMReadyAction(
-		new MbEventAction(mb.ui.GID, 'setupPopupLinks', "Setup javascript popup links")
-	);
-	mb.registerDOMReadyAction(
-		new MbEventAction(mb.ui.GID, 'setupFeedbackBoxes', "Decorate feedback boxes")
-	);
-
-	// setup coverart resizer
 	mb.albumart = new MbAlbumArtResizer();
-	mb.registerPageLoadedAction(
-		new MbEventAction(mb.albumart.GID, 'process', "Resize amazon coverart")
+	mb.diff = new MbDiff();
+	
+	// register DOMReady actions...
+	mb.registerDOMReadyAction(
+		new MbEventAction(mb.topmenu.GID, 'setupTopMenu', "Setting up topmenu events.")
 	);
-	
-	
+	mb.registerDOMReadyAction(
+		new MbEventAction(mb.ui.GID, 'setupKeyboardFocus', "Setting up focussed field for keyboard input.")
+	);
+	mb.registerDOMReadyAction(
+		new MbEventAction(mb.ui.GID, 'setupPopupLinks', "Setting up popup links")
+	);
+	mb.registerDOMReadyAction(
+		new MbEventAction(mb.ui.GID, 'setupFeedbackBoxes', "Setting up feedback boxes")
+	);
+	mb.registerPageLoadedAction(
+		new MbEventAction(mb.albumart.GID, 'setupAmazonCoverart', "Resize amazon coverart")
+	);
+
 	// exit constructor
 	mb.log.exit();
 }

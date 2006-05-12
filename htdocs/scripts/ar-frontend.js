@@ -1,6 +1,6 @@
 /*----------------------------------------------------------------------------\
 |                              Musicbrainz.org                                |
-|                     Copyright (c) 2005 Stefan Kestenholz                    |
+|                 Copyright (c) 2005 Stefan Kestenholz (keschte)              |
 |-----------------------------------------------------------------------------|
 | This software is provided "as is", without warranty of any kind, express or |
 | implied, including  but not limited  to the warranties of  merchantability, |
@@ -16,24 +16,32 @@
 | code are included. Requires  that the final product, software derivate from |
 | the original  source or any  software  utilizing a GPL  component, such  as |
 | this, is also licensed under the GPL license.                               |
+|                                                                             |
+| $Id$
 \----------------------------------------------------------------------------*/
 
 function ARFrontEnd() {
 
 	// ----------------------------------------------------------------------------
 	// register class/global id
-	// ---------------------------------------------------------------------------
+	// ----------------------------------------------------------------------------
 	this.CN = "ARFrontEnd";
 	this.GID = "arfrontend";
 	mb.log.enter(this.CN, "__constructor");
 
+	// ----------------------------------------------------------------------------
 	// member variables
+	// ----------------------------------------------------------------------------
 	this.form = null;
 	this.typeDropDownName = null;
 	this.typeDropDown = null;
 	this.isurlform = false;
 	this.isready = false;
 	this.formsubmitted = null;
+
+	// ----------------------------------------------------------------------------
+	// member functions
+	// ----------------------------------------------------------------------------
 
 	/**
 	 * Hide all of the divs specified in int_seenattrs.

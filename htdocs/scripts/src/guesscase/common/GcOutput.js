@@ -1,6 +1,6 @@
 /*----------------------------------------------------------------------------\
 |                              Musicbrainz.org                                |
-|                 Copyright (c) 2005 Stefan Kestenholz (g0llum)               |
+|                 Copyright (c) 2005 Stefan Kestenholz (keschte)              |
 |-----------------------------------------------------------------------------|
 | This software is provided "as is", without warranty of any kind, express or |
 | implied, including  but not limited  to the warranties of  merchantability, |
@@ -16,8 +16,8 @@
 | code are included. Requires  that the final product, software derivate from |
 | the original  source or any  software  utilizing a GPL  component, such  as |
 | this, is also licensed under the GPL license.                               |
-|-----------------------------------------------------------------------------|
-| 2005-11-10 | First version                                                  |
+|                                                                             |
+| $Id$
 \----------------------------------------------------------------------------*/
 
 /**
@@ -164,9 +164,10 @@ function GcOutput() {
 	/**
 	 * Capitalize the word at the current cursor position.
 	 **/
-	this.capitalizeWordAtIndex = function(index) {
+	this.capitalizeWordAtIndex = function(index, overrideCaps) {
+		overrideCaps = (overrideCaps != null ? overrideCaps : gc.f.forceCaps);
 		mb.log.enter(this.GID, "capitalizeWordAtIndex");
-		if ((!gc.getMode().isSentenceCaps() || gc.f.forceCaps) &&
+		if ((!gc.getMode().isSentenceCaps() || overrideCaps) &&
 			(!this.isEmpty()) &&
 			(this.getWordAtIndex(index) != null)) {
 
@@ -180,15 +181,17 @@ function GcOutput() {
 				var probe = gc.u.trim(w.toLowerCase());
 
 				// If inside brackets, do nothing.
-				if (gc.f.isInsideBrackets() &&
+				if (!overrideCaps &&
+					gc.f.isInsideBrackets() &&
 					gc.u.isLowerCaseBracketWord(probe)) {
 
 				// If it is an UPPERCASE word,do nothing.
-				} else if (gc.u.isUpperCaseWord(probe)) {
+				} else if (!overrideCaps &&
+						    gc.mode.isUpperCaseWord(probe)) {
 
 				// else capitalize the current word.
 				} else {
-					o = gc.u.titleString(w);
+					o = gc.u.titleString(w, overrideCaps);
 					if (w != o) {
 						this.setWordAtIndex(index, o);
 						mb.log.debug('index=$/$, before: $, after: $', index, this.getLength()-1, w, o);
@@ -202,13 +205,17 @@ function GcOutput() {
 	/**
 	 * Capitalize the word at the current cursor position.
 	 * Modifies the last element of the processed wordlist
+	 *
+	 * @param	overrideCaps	can be used to override
+	 *							the gc.f.forceCaps parameter.
 	 **/
-	this.capitalizeLastWord = function() {
+	this.capitalizeLastWord = function(overrideCaps) {
 		mb.log.enter(this.GID, "capitalizeLastWord");
-		mb.log.debug('Capitalizing last word... index: $', this.getLength()-1);
-
-		gc.f.forceCaps = !gc.getMode().isSentenceCaps();
-		this.capitalizeWordAtIndex(this.getLength()-1);
+		
+		overrideCaps = (overrideCaps != null ? overrideCaps : null);
+		mb.log.debug('Capitalizing last word... index: $: overrideCaps: $', this.getLength()-1, overrideCaps);
+		this.capitalizeWordAtIndex(this.getLength()-1, overrideCaps);
+		
 		mb.log.exit();
 	};
 
@@ -218,8 +225,11 @@ function GcOutput() {
 	this.getOutput = function() {
 		mb.log.enter(this.GID, "getOutput");
 		mb.log.debug('Collecting words...');
-		gc.f.forceCaps = true; // force caps on last word.
+		
+		// if *not* sentence mode, force caps on last word.
+		gc.f.forceCaps = !gc.getMode().isSentenceCaps(); 
 		this.capitalizeLastWord();
+		
 		this.closeOpenBrackets();
 		var os = gc.u.trim(this._w.join(""));
 		return mb.log.exit(os);
@@ -257,7 +267,7 @@ function GcOutput() {
 				// it were sent from the calling method.
 				mb.log.debug('Consumed #cw, space before: $, after: $', ws.before, ws.after);
 				if (c.capslast) {
-					this.capitalizeLastWord(); // capitalize last word before current
+					this.capitalizeLastWord(true); // capitalize last word before current
 				}
 				if (ws.before) {
 					this.appendSpace();  // preserve whitespace before,

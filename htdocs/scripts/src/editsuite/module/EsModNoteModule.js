@@ -1,6 +1,6 @@
 /*----------------------------------------------------------------------------\
 |                              Musicbrainz.org                                |
-|                 Copyright (c) 2005 Stefan Kestenholz (g0llum)               |
+|                 Copyright (c) 2005 Stefan Kestenholz (keschte)              |
 |-----------------------------------------------------------------------------|
 | This software is provided "as is", without warranty of any kind, express or |
 | implied, including  but not limited  to the warranties of  merchantability, |
@@ -16,8 +16,8 @@
 | code are included. Requires  that the final product, software derivate from |
 | the original  source or any  software  utilizing a GPL  component, such  as |
 | this, is also licensed under the GPL license.                               |
-|-----------------------------------------------------------------------------|
-| 2005-11-10 | First version                                                  |
+|                                                                             |
+| $Id$
 \----------------------------------------------------------------------------*/
 
 /**
@@ -41,7 +41,6 @@ function EsModNoteModule() {
 	this.getModID = function() { return "es.modnote"; };
 	this.getModName = function() { return "Mod Note Resizer"; };
 
-
 	/** reference of the notetext obj **/
 	this.el = null;
 	this.busy = false;
@@ -51,14 +50,10 @@ function EsModNoteModule() {
 
 	/** RegExp to split the text into lines **/
 	this.splitRE = /\r\n|\r|\n/g; // compile only once
-
-
 	this.whitespaceRE = /\s/g;
 	this.defaultText = "Please enter a moderation note here. Thank you";
 	this.title = "We'd like to know where you got the information from, and why you are attempting to moderate this data...\nThank you";
 	this.checkedText = "";
-
-	/** Text which was already checked **/
 
 	/**
 	 * Anonymous handler function which gets

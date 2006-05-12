@@ -1,6 +1,6 @@
 /*----------------------------------------------------------------------------\
 |                              Musicbrainz.org                                |
-|                 Copyright (c) 2005 Stefan Kestenholz (g0llum)               |
+|                 Copyright (c) 2005 Stefan Kestenholz (keschte)              |
 |-----------------------------------------------------------------------------|
 | This software is provided "as is", without warranty of any kind, express or |
 | implied, including  but not limited  to the warranties of  merchantability, |
@@ -16,8 +16,8 @@
 | code are included. Requires  that the final product, software derivate from |
 | the original  source or any  software  utilizing a GPL  component, such  as |
 | this, is also licensed under the GPL license.                               |
-|-----------------------------------------------------------------------------|
-| 2005-11-10 | First version                                                  |
+|                                                                             |
+| $Id$
 \----------------------------------------------------------------------------*/
 
 /**
@@ -45,19 +45,20 @@ function GcTrackHandler() {
 	 **/
 	this.process = function(is) {
 		mb.log.enter(this.GID, "process");
-		is = this.stripInformationToOmit(is);
-		is = this.preProcessCommons(is);
-		is = this.preProcessTitles(is);
-		is = this.runVinylChecks(is);
-		var w = gc.i.splitWordsAndPunctuation(is);
-		w = this.prepExtraTitleInfo(w);
+		is = gc.mode.stripInformationToOmit(is);
+		is = gc.mode.preProcessCommons(is);
+		is = gc.mode.preProcessTitles(is);
+		var words = gc.i.splitWordsAndPunctuation(is);
+		words = gc.mode.prepExtraTitleInfo(words);
 		gc.o.init();
-		gc.i.init(is, w);
+		gc.i.init(is, words);
 		while (!gc.i.isIndexAtEnd()) {
 			this.processWord();
 			mb.log.debug("Output: $", gc.o._w);
 		}
-		var os = this.getOutput();
+		var os = gc.o.getOutput();
+		os = gc.mode.runPostProcess(os);
+		os = gc.mode.runFinalChecks(os);
 		return mb.log.exit(os);
 	};
 
@@ -65,10 +66,10 @@ function GcTrackHandler() {
 	 * Detect if UntitledTrackStyle and DataTrackStyle needs
 	 * to be applied.
 	 *
-	 * » data [track]			-> [data track]
-	 * » silence|silent [track]	-> [silence]
-	 * » untitled [track]		-> [untitled]
-	 * » unknown|bonus [track]	-> [unknown]
+	 * - data [track]			-> [data track]
+	 * - silence|silent [track]	-> [silence]
+	 * - untitled [track]		-> [untitled]
+	 * - unknown|bonus [track]	-> [unknown]
 	 **/
 	this.checkSpecialCase = function(is) {
 		mb.log.enter(this.GID, "checkSpecialCase");
@@ -109,20 +110,20 @@ function GcTrackHandler() {
 	 * Delegate function which handles words not handled
 	 * in the common word handlers.
 	 *
-	 * » Handles FeaturingArtistStyle
-	 * » Handles VersusStyle
-	 * » Handles VolumeNumberStyle
-	 * » Handles PartNumberStyle
+	 * - Handles FeaturingArtistStyle
+	 * - Handles VersusStyle
+	 * - Handles VolumeNumberStyle
+	 * - Handles PartNumberStyle
 	 *
 	 **/
 	this.doWord = function() {
 		mb.log.enter(this.GID, "doWord");
-		var probe = gc.i.getCurrentWord();
 
 		if (this.doFeaturingArtistStyle()) {
 		} else if (this.doVersusStyle()) {
 		} else if (this.doVolumeNumberStyle()) {
 		} else if (this.doPartNumberStyle()) {
+		} else if (gc.mode.doWord()) {
 		} else {
 			if (gc.i.matchCurrentWord(/7in/i)) {
 				gc.o.appendSpaceIfNeeded();

@@ -1,6 +1,6 @@
 /*----------------------------------------------------------------------------\
 |                              Musicbrainz.org                                |
-|                     Copyright (c) 2005 Stefan Kestenholz                    |
+|                 Copyright (c) 2005 Stefan Kestenholz (keschte)              |
 |-----------------------------------------------------------------------------|
 | This software is provided "as is", without warranty of any kind, express or |
 | implied, including  but not limited  to the warranties of  merchantability, |
@@ -16,6 +16,8 @@
 | code are included. Requires  that the final product, software derivate from |
 | the original  source or any  software  utilizing a GPL  component, such  as |
 | this, is also licensed under the GPL license.                               |
+|                                                                             |
+| $Id$
 \----------------------------------------------------------------------------*/
 
 function ShowEdit() {
@@ -28,10 +30,14 @@ function ShowEdit() {
 	mb.log.enter(this.CN, "__constructor");
 	
 	// ----------------------------------------------------------------------------
-	// instance variables
+	// member variables
 	// ----------------------------------------------------------------------------
 	this.collapseReleasesEnabled = false;
 	this.diffEnabled = false;
+
+	// ----------------------------------------------------------------------------
+	// member functions
+	// ----------------------------------------------------------------------------
 	
 	/**
 	 * Returns true if the releases should be collapsed.

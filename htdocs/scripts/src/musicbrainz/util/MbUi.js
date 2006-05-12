@@ -1,6 +1,6 @@
 /*----------------------------------------------------------------------------\
 |                              Musicbrainz.org                                |
-|                 Copyright (c) 2005 Stefan Kestenholz (g0llum)               |
+|                 Copyright (c) 2005 Stefan Kestenholz (keschte)              |
 |-----------------------------------------------------------------------------|
 | This software is provided "as is", without warranty of any kind, express or |
 | implied, including  but not limited  to the warranties of  merchantability, |
@@ -16,8 +16,8 @@
 | code are included. Requires  that the final product, software derivate from |
 | the original  source or any  software  utilizing a GPL  component, such  as |
 | this, is also licensed under the GPL license.                               |
-|-----------------------------------------------------------------------------|
-| 2005-11-10 | First version                                                  |
+|                                                                             |
+| $Id$
 \----------------------------------------------------------------------------*/
 
 /**
@@ -31,7 +31,7 @@ function MbUI() {
 	this.CN = "MbUI";
 	this.GID = "mb.ui";
 	this.SPLITSEQ = "::";
-	
+
 	// ----------------------------------------------------------------------------
 	// member functions
 	// ---------------------------------------------------------------------------
@@ -47,7 +47,7 @@ function MbUI() {
 		if (id) {
 			parent = (parent || document);
 			if (parent.getElementById) {
-				el = parent.getElementById(id);	
+				el = parent.getElementById(id);
 				nn = (el && el.nodeName ? el.nodeName : "?");
 				mb.log.trace("Querying element id: $, el: $", id, nn);
 			} else {
@@ -249,7 +249,7 @@ function MbUI() {
 			if (id.match(/^POPUP/i) && href != "") {
 				var title = id.split(mb.ui.SPLITSEQ)[1];
 				var href = a.href;
-				
+
 				// add ispopup=1 to url, such that /comp/header_small is used.
 				if (href.match(/ispopup/) == null) {
 					if (href.match(/\&/) != null) {
@@ -264,9 +264,9 @@ function MbUI() {
 					mb.ui.clickPopupLink(this);
 					return false;
 				};
-				mb.log.debug("id: $, href: $, onclick: $", a.id, a.href, a.onclick);				
-				
-				// a.href = "javascript:; // Open "+title+" in a popup window.";				
+				mb.log.debug("id: $, href: $, onclick: $", a.id, a.href, a.onclick);
+
+				// a.href = "javascript:; // Open "+title+" in a popup window.";
 				// a.addEventListener("click", mb.ui.clickPopupLink, false);
 			}
 		}
@@ -295,8 +295,8 @@ function MbUI() {
 	/**
 	 * Returns the offset from the left edge of the screen
 	 **/
-	this.moveFocus = function() {
-		mb.log.enter(this.GID, "moveFocus");
+	this.setupKeyboardFocus = function() {
+		mb.log.enter(this.GID, "setupKeyboardFocus");
 		var el,list = mb.ui.getByTag("input");
 		var focusname;
 		// lookup hidden field which defines the field to be focussed
@@ -309,8 +309,8 @@ function MbUI() {
 					el = list[i];
 					name = (el.name || "");
 					elform = el.form;
-					if ((elform == form) && 
-						(name == focusname) && 
+					if ((elform == form) &&
+						(name == focusname) &&
 						(el.focus)) {
 						el.focus();
 						break;

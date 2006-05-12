@@ -1,6 +1,6 @@
 /*----------------------------------------------------------------------------\
 |                              Musicbrainz.org                                |
-|                 Copyright (c) 2005 Stefan Kestenholz (g0llum)               |
+|                 Copyright (c) 2005 Stefan Kestenholz (keschte)              |
 |-----------------------------------------------------------------------------|
 | This software is provided "as is", without warranty of any kind, express or |
 | implied, including  but not limited  to the warranties of  merchantability, |
@@ -16,8 +16,8 @@
 | code are included. Requires  that the final product, software derivate from |
 | the original  source or any  software  utilizing a GPL  component, such  as |
 | this, is also licensed under the GPL license.                               |
-|-----------------------------------------------------------------------------|
-| 2005-11-10 | First version                                                  |
+|                                                                             |
+| $Id$
 \----------------------------------------------------------------------------*/
 
 
@@ -98,14 +98,14 @@ function EsSearchReplace() {
 		s.push('<table cellspacing="0" cellpadding="0" border="0" class="moduletable">');
 		s.push('<tr>');
 		s.push('<td>Search: &nbsp;</td>');
-		s.push('<td><input type="input" class="srfield" size="30" value="" name="'+this.FIELD_SEARCH+'">&nbsp;');
+		s.push('<td><input type="input" class="srfield" size="30" tabindex="500" value="" name="'+this.FIELD_SEARCH+'">&nbsp;');
 		s.push(es.ui.getButtonHtml(this.BTN_SWAP));
 		s.push(es.ui.getButtonHtml(this.BTN_RESET));
 		s.push('</td>');
 		s.push('</tr>');
 		s.push('<tr>');
 		s.push('<td>Replace: &nbsp;</td>');
-		s.push('<td><input type="input" class="srfield" size="30" value="" name="'+this.FIELD_REPLACE+'"></td>');
+		s.push('<td><input type="input" class="srfield" size="30" tabindex="501" value="" name="'+this.FIELD_REPLACE+'"></td>');
 		s.push('</tr>');
 		s.push('<tr>');
 		s.push('<td></td>');
@@ -226,16 +226,6 @@ function EsSearchReplace() {
 	};
 
 	/**
- 	 * Checks if the user wants to work on all fields
-	 * or the currently focussed. Respects the configuration flags
-	 **/
-	this.onSearchClicked = function() {
-		mb.log.enter(this.GID, "onSearchClicked");
-		mb.log.warning('Not implemented yet.');
-		mb.log.exit();
-	};
-
-	/**
 	 * Is called from the "Use" links. The index refers to the offset in
 	 * the srPresets array which was selected. If the srApplyPreset
 	 * checkbox is checked, the function is executed immediately.
@@ -291,12 +281,29 @@ function EsSearchReplace() {
 	};
 
 	/**
-	 * Checks if the user wants to work on all fields
-	 * or the currently focussed. Respects the configuration flags
+	 * Handle a click on the "search" button.
+	 **/
+	this.onSearchClicked = function() {
+		mb.log.enter(this.GID, "onSearchClicked");
+		this.handleSearch("search");		
+		mb.log.exit();
+	};
+
+	/**
+	 * Handle a click on the "replace" button.
 	 **/
 	this.onReplaceClicked = function() {
 		mb.log.enter(this.GID, "onReplaceClicked");
-
+		this.handleSearch("replace");
+		mb.log.exit();		
+	}
+	
+	/**
+	 * Checks if the user wants to work on all fields
+	 * or the currently focussed. Respects the configuration flags
+	 **/
+	this.handleSearch = function(op) {
+		mb.log.enter(this.GID, "handleSearch");
 		var fs,fr,freg,fmc,faf;
 		if ((fs = es.ui.getField(this.FIELD_SEARCH)) != null &&
 			(fr = es.ui.getField(this.FIELD_REPLACE)) != null &&
@@ -316,11 +323,11 @@ function EsSearchReplace() {
 				var fields = es.ui.getEditTextFields();
 				for (var i=0; i<fields.length; i++) {
 					f = fields[i];
-					this.replaceField(f, sv, rv, fmc.checked, freg.checked);
+					this.handleField(f, sv, rv, fmc.checked, freg.checked, op);
 				}
 			} else if ((f = es.ui.getFocusField()) != null) {
 				// if work on focussed field
-				this.replaceField(f, sv, rv, fmc.checked, freg.checked);
+				this.handleField(f, sv, rv, fmc.checked, freg.checked, op);
 			}
 		} else {
 			mb.log.error('One of the fields not found!');
@@ -329,43 +336,104 @@ function EsSearchReplace() {
 	};
 
 	/**
-	 * Creates a regular expression from the contents of the srSearch field, and
-	 * replaces the occurences in the field f.
+	 * Creates a regular expression from the contents of the srSearch field, 
+	 * and, depending of the given "op", search/replace the occurences
+	 * in the current field.
 	 **/
-	this.replaceField = function(f, sv, rv, useCase, useRegex) {
+	this.handleField = function(f, searchValue, replaceValue, useCase, useRegex, op) {
+		mb.log.enter(this.GID, "handleField");
 		if (f) {
-			var cv = f.value;
-			var nv = cv;
-			mb.log.debug('Current: $', cv);
-			mb.log.debug('Search: $, Replace: $', sv, rv);
+
+			// remove old search result.		
+			var obj, resultElemID = f.name+"::result";					
+			try {
+				if ((obj = mb.ui.get(resultElemID)) != null) {
+					obj.parentNode.removeChild(obj);
+				}
+			} catch (e) { /* steam ahead ;) */ }
+				
+			var currentValue = f.value;
+			var newValue = currentValue;
+			var newList = [];
+			mb.log.debug('Current: $', currentValue);
+			mb.log.debug('Search: $, Replace: $', searchValue, replaceValue);
 			mb.log.debug('Flags: Case Sensitive: $, Regex: $', useCase, useRegex);
 			if (useRegex) {
 				try {
-					var re = new RegExp(sv, "g"+(useCase ? "":"i"));
-					nv = cv.replace(re, rv);
+					var re = new RegExp(searchValue, "g"+(useCase ? "":"i"));
+					newValue = currentValue.replace(re, replaceValue);
 				} catch (e) {
 					mb.log.error('Caught error while trying to Match re: $, e: $', re, e);
 				}
 			} else {
-				var vi = -1;
+				// use indexOf(needle, lastPos) to prevent endless loops.
+				var pos = -1, lastpos = 0;
 				var replaced = new Array();
-				var needle = (useCase ? sv : sv.toLowerCase());
-				while ((vi = (useCase ? nv : nv.toLowerCase()).indexOf(needle)) != -1) {
-					nv = nv.substring(0, vi) +
-						 rv +
-						 nv.substring(vi + sv.length, nv.length);
-					replaced.push(vi);
+				var needle = (useCase ? searchValue : searchValue.toLowerCase());
+				var before = "", after = "", inbetween = "";
+				while ((pos = (useCase ? newValue : newValue.toLowerCase()).indexOf(needle, lastpos)) != -1) {
+					
+					// replace searchValue with replaceValue.
+					before = newValue.substring(0, pos);
+					after = newValue.substring(pos + searchValue.length, newValue.length);
+					inbetween = newValue.substring(lastpos, pos);
+					
+					// replace substring in newValue.
+					var s = [];
+					s.push(before);
+					s.push(replaceValue);
+					s.push(after);
+					newValue = s.join("");
+						
+					// save position that matched.
+					replaced.push(pos);
+					newList.push(inbetween);
+					newList.push(searchValue);
+					
+					// prevent possible case like:
+					// S: "Test ."
+					// R: ".." will append replace a stop character
+					// at position 7, but since at 8 there will be another
+					// one this will result in an endless loop. 
+					// Skip to the end of the replaced string to search for further 
+					// occurences to replace.
+					lastpos = pos + replaceValue.length;
 				}
+			
 				if (replaced.length < 1) {
-					mb.log.debug('Search value $ was not found', sv);
+					mb.log.debug('Search value $ was not found', searchValue);
 				} else {
-					mb.log.debug('Search value $ replaced with $ at index [$]', sv, rv, replaced.join(","));
+					mb.log.debug('Search value $ replaced with $ at index [$]', 
+						searchValue, replaceValue, replaced.join(","));
+					newList.push(after);						
 				}
 			}
-			if (nv != cv) {
-				mb.log.debug('New value $', nv);
-				es.ur.addUndo(es.ur.createItem(f, 'searchreplace', cv, nv));
-				f.value = nv;
+			if (newValue != currentValue) {
+				mb.log.debug('New value $', newValue);
+				if (op == "replace") {
+					es.ur.addUndo(es.ur.createItem(f, 'searchreplace', currentValue, newValue));
+					f.value = newValue;	
+				} else {
+					var parentNode = f.parentNode;
+					var result = document.createElement("div");
+					result.id = resultElemID;
+					result.style.border = "1px dotted #999";
+					result.style.borderTop = "none";					
+					result.style.padding = "2px";					
+					result.style.marginBottom = "5px";										
+					result.style.marginRight = "18px";										
+					result.style.fontSize = "10px";										
+					var s = [];
+					for (var i=0; i<newList.length; i++) {
+						var w = newList[i];
+						s.push(w == searchValue ? '<span style="background-color: #fc5">'+w+'</span>': w);
+					}
+					result.innerHTML = s.join("");
+					parentNode.appendChild(result);
+					
+					// make sure the TR aligns to top.
+					parentNode.parentNode.style.verticalAlign = "top";
+				}
 				return mb.log.exit(true);
 			}
 		}

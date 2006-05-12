@@ -1,6 +1,6 @@
 /*----------------------------------------------------------------------------\
 |                              Musicbrainz.org                                |
-|                 Copyright (c) 2005 Stefan Kestenholz (g0llum)               |
+|                 Copyright (c) 2005 Stefan Kestenholz (keschte)              |
 |-----------------------------------------------------------------------------|
 | This software is provided "as is", without warranty of any kind, express or |
 | implied, including  but not limited  to the warranties of  merchantability, |
@@ -16,8 +16,8 @@
 | code are included. Requires  that the final product, software derivate from |
 | the original  source or any  software  utilizing a GPL  component, such  as |
 | this, is also licensed under the GPL license.                               |
-|-----------------------------------------------------------------------------|
-| 2005-11-10 | First version                                                  |
+|                                                                             |
+| $Id$
 \----------------------------------------------------------------------------*/
 
 /**
@@ -88,8 +88,8 @@ function MbAlbumArtResizer() {
 	  * possible, it isn't scaled (it's displayed at its "natural" size).
 	  *
 	 **/
-	this.process = function() {
-		mb.log.enter(this.GID, "process");
+	this.setupAmazonCoverart = function() {
+		mb.log.enter(this.GID, "setupAmazonCoverart");
 		var imgs = document.images;
 		var cnt = 0;
 		for (var i=imgs.length-1; i>=0; i--) {

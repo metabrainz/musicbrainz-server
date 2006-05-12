@@ -1,6 +1,6 @@
 /*----------------------------------------------------------------------------\
 |                              Musicbrainz.org                                |
-|                 Copyright (c) 2005 Stefan Kestenholz (g0llum)               |
+|                 Copyright (c) 2005 Stefan Kestenholz (keschte)              |
 |-----------------------------------------------------------------------------|
 | This software is provided "as is", without warranty of any kind, express or |
 | implied, including  but not limited  to the warranties of  merchantability, |
@@ -16,8 +16,8 @@
 | code are included. Requires  that the final product, software derivate from |
 | the original  source or any  software  utilizing a GPL  component, such  as |
 | this, is also licensed under the GPL license.                               |
-|-----------------------------------------------------------------------------|
-| 2005-11-10 | First version                                                  |
+|                                                                             |
+| $Id$
 \----------------------------------------------------------------------------*/
 
 /**
@@ -134,8 +134,8 @@ function MbTopMenu() {
 		var id, returncode = true;
 		if (this.status == "load") {
 			// lazy initialise
-			this.setupEvents(); 
-		} 
+			this.setupEvents();
+		}
 		if (this.status == "ready") {
 			ev = (ev || "");
 			id = (el.id || "");
@@ -243,7 +243,7 @@ function MbTopMenu() {
 			}
 		}
 		this.hideRelatedModsIframe(false);
-		this.displayedDropDown = null; 
+		this.displayedDropDown = null;
 		mb.log.exit();
 	};
 
@@ -280,10 +280,10 @@ function MbTopMenu() {
 	};
 
 	/**
-	 * Clicking on the dropdown icon opens the dropdown menu.
+	 * Setup all the events, and the dropdown menues.
 	 */
-	this.setupEvents = function() {
-		mb.log.enter(this.GID, "setupEvents");
+	this.setupTopMenu = function() {
+		mb.log.enter(this.GID, "setupTopMenu");
 		mb.log.debug("Status: $", this.status);
 		if (this.status == "load") {
 			this.status = "init";
@@ -304,33 +304,33 @@ function MbTopMenu() {
 					obj.onmouseover = function(event) {
 						try {
 							return mb.topmenu.handleEvent(this, mb.topmenu.MENUITEM_OVER);
-						} catch (e) { 
-							try { 
-								mb.log.error("Caught error, e: $", e); 
-							} catch (e) { /* give up */ } 
+						} catch (e) {
+							try {
+								mb.log.error("Caught error, e: $", e);
+							} catch (e) { /* give up */ }
 						}
-						return true; 
+						return true;
 
 					};
 					obj.onmouseout = function(event) {
 						try {
 							return mb.topmenu.handleEvent(this, mb.topmenu.MENUITEM_OUT);
-						} catch (e) { 
-							try { 
-								mb.log.error("Caught error, e: $", e); 
-							} catch (e) { /* give up */ } 
+						} catch (e) {
+							try {
+								mb.log.error("Caught error, e: $", e);
+							} catch (e) { /* give up */ }
 						}
-						return true; 
+						return true;
 					};
 					obj.onclick = function(event) {
 						try {
 							return mb.topmenu.handleEvent(this, mb.topmenu.MENUITEM_CLICKED);
-						} catch (e) { 
-							try { 
-								mb.log.error("Caught error, e: $", e); 
-							} catch (e) { /* give up */ } 
+						} catch (e) {
+							try {
+								mb.log.error("Caught error, e: $", e);
+							} catch (e) { /* give up */ }
 						}
-						return true; 
+						return true;
 					};
 
 					// inititalising icon (click-trigger)
@@ -341,40 +341,40 @@ function MbTopMenu() {
 						// loose focus-border on IE
 						obj.onfocus = function(event) { this.blur(); };
 
-						// mouseover event 
+						// mouseover event
 						obj.onmouseover = function(event) {
 							try {
 								return mb.topmenu.handleEvent(this, mb.topmenu.CLICK_OVER);
-							} catch (e) { 
-								try { 
-									mb.log.error("Caught error, e: $", e); 
-								} catch (e) { /* give up */ } 
+							} catch (e) {
+								try {
+									mb.log.error("Caught error, e: $", e);
+								} catch (e) { /* give up */ }
 							}
-							return true; 
+							return true;
 						};
 
-						// mouseout event 
+						// mouseout event
 						obj.onmouseout = function(event) {
 							try {
 								return mb.topmenu.handleEvent(this, mb.topmenu.CLICK_OUT);
-							} catch (e) { 
-								try { 
-									mb.log.error("Caught error, e: $", e); 
-								} catch (e) { /* give up */ } 
+							} catch (e) {
+								try {
+									mb.log.error("Caught error, e: $", e);
+								} catch (e) { /* give up */ }
 							}
-							return true; 
+							return true;
 						};
 
-						// onclick event 
+						// onclick event
 						obj.onclick = function(event) {
 							try {
 								return mb.topmenu.handleEvent(this, mb.topmenu.CLICK_CLICKED);
-							} catch (e) { 
-								try { 
-									mb.log.error("Caught error, e: $", e); 
-								} catch (e) { /* give up */ } 
+							} catch (e) {
+								try {
+									mb.log.error("Caught error, e: $", e);
+								} catch (e) { /* give up */ }
 							}
-							return true; 
+							return true;
 						};
 					} else {
 						mb.log.debug("Object $ not found...", oName);
@@ -389,22 +389,22 @@ function MbTopMenu() {
 						obj.onmouseover = function(event) {
 							try {
 								mb.topmenu.handleEvent(this, mb.topmenu.DROPDOWN_OVER)
-							} catch (e) { 
-								try { 
-									mb.log.error("Caught error, e: $", e); 
-								} catch (e) { /* give up */ } 
+							} catch (e) {
+								try {
+									mb.log.error("Caught error, e: $", e);
+								} catch (e) { /* give up */ }
 							}
-							return true; 
+							return true;
 						}
 						obj.onmouseout = function(event) {
 							try {
 								return mb.topmenu.handleEvent(this, mb.topmenu.DROPDOWN_OUT)
-							} catch (e) { 
-								try { 
-									mb.log.error("Caught error, e: $", e); 
-								} catch (e) { /* give up */ } 
+							} catch (e) {
+								try {
+									mb.log.error("Caught error, e: $", e);
+								} catch (e) { /* give up */ }
 							}
-							return true; 
+							return true;
 						}
 					} else {
 						mb.log.debug("Object $ not found...", oName);

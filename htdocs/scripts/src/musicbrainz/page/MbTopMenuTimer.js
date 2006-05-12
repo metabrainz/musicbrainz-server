@@ -1,6 +1,6 @@
 /*----------------------------------------------------------------------------\
 |                              Musicbrainz.org                                |
-|                 Copyright (c) 2005 Stefan Kestenholz (g0llum)               |
+|                 Copyright (c) 2005 Stefan Kestenholz (keschte)              |
 |-----------------------------------------------------------------------------|
 | This software is provided "as is", without warranty of any kind, express or |
 | implied, including  but not limited  to the warranties of  merchantability, |
@@ -16,9 +16,11 @@
 | code are included. Requires  that the final product, software derivate from |
 | the original  source or any  software  utilizing a GPL  component, such  as |
 | this, is also licensed under the GPL license.                               |
-|-----------------------------------------------------------------------------|
-| 2005-11-10 | First version                                                  |
+|                                                                             |
+| $Id$
 \----------------------------------------------------------------------------*/
+
+
 
 
 /**
@@ -80,7 +82,7 @@ function MbTopMenuTimer() {
 	 * @type Number
 	 **/
 	this.closeSubmenuTime = 350; // ms
-	
+
 	/**
 	 * If the mouse leaves the menuitem and enters the click-image,
 	 * MouseLeave and MouseEnter events are fired. This function
@@ -88,17 +90,17 @@ function MbTopMenuTimer() {
 	 * @type Array
 	 **/
 	this.stateChangeTimer = [];
-	
-	
+
+
 	/**
 	 * The time which is waited after the mouseOver/mouseOut
 	 * events are trapped, until the event is handled.
 	 * @type Array
 	 * @see stateTimers
 	 * @see onStateTimer()
-	 **/	
+	 **/
 	this.stateChangeTime = 40; // ms
-	
+
 
 	// ----------------------------------------------------------------------------
 	// member functions
@@ -128,13 +130,13 @@ function MbTopMenuTimer() {
 		this.openTimer = setTimeout("mb.topmenu.activateMenuItem('"+id+"', "+flag+");", this.activateTime);
 		this.stateChangeTimer[id] = setTimeout("mb.topmenu.timer.onStateChange('"+id+"', "+flag+");", this.stateChangeTime);
 	};
-	
+
 	/**
 	 * Handle timer event of one menu stateChange.
-	 */	
+	 */
 	this.onStateChange = function(id, flag) {
 		this.stateChangeTimer[id] = null;
-		mb.topmenu.mouseOver(id, flag);		
+		mb.topmenu.mouseOver(id, flag);
 	};
 
 	/**

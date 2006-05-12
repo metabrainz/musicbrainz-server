@@ -1,6 +1,6 @@
 /*----------------------------------------------------------------------------\
 |                              Musicbrainz.org                                |
-|                     Copyright (c) 2005 Stefan Kestenholz                    |
+|                 Copyright (c) 2005 Stefan Kestenholz (keschte)              |
 |-----------------------------------------------------------------------------|
 | This software is provided "as is", without warranty of any kind, express or |
 | implied, including  but not limited  to the warranties of  merchantability, |
@@ -16,23 +16,30 @@
 | code are included. Requires  that the final product, software derivate from |
 | the original  source or any  software  utilizing a GPL  component, such  as |
 | this, is also licensed under the GPL license.                               |
+|                                                                             |
+| $Id$
 \----------------------------------------------------------------------------*/
 
 function CollapseReleases() {
 	
 	// ----------------------------------------------------------------------------
 	// register class/global id
-	// ---------------------------------------------------------------------------
+	// ----------------------------------------------------------------------------
 	this.CN = "CollapseReleases";
 	this.GID = "collapsereleases";
 	mb.log.enter(this.CN, "__constructor");
 
-
+	// ----------------------------------------------------------------------------
+	// member variables
+	// ----------------------------------------------------------------------------
 	this.imgplus = new Image(); 
 	this.imgplus.src = "/images/es/maximize.gif";
 	this.imgminus = new Image(); 
 	this.imgminus.src = "/images/es/minimize.gif"; 
 
+	// ----------------------------------------------------------------------------
+	// member functions
+	// ----------------------------------------------------------------------------
 
 	/**
 	 * Go through all the releases of the current page

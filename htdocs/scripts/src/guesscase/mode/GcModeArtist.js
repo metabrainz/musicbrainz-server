@@ -21,66 +21,34 @@
 \----------------------------------------------------------------------------*/
 
 /**
- * Models one item of the Undo/Redo stack
+ * Models the "ArtistMode" GuessCase mode.
  **/
-function EsUndoItem() {
-	mb.log.enter("EsUndoItem", "__constructor");
+function GcModeArtist(modes, name, lang, desc, url) {
+	mb.log.enter("GcModeArtist", "__constructor");
 
 	// ----------------------------------------------------------------------------
 	// register class/global id
 	// ---------------------------------------------------------------------------
-	this.CN = "EsUndoItem";
-
+	this.CN = "GcModeArtist";
+	this.GID = "gc.mode_artist";
+	this.setConfig(
+		modes, 'Artist Mode', modes.EN,
+		'', '');	
+	
 	// ----------------------------------------------------------------------------
 	// member variables
 	// ---------------------------------------------------------------------------
-	var args = arguments[0];
-	this._field = args[0];
-	this._op = args[1];
-	this._old = args[2];
-	this._new = args[3];
 
 	// ----------------------------------------------------------------------------
 	// member functions
 	// ---------------------------------------------------------------------------
-	this.getField = function() {
-		return this._field;
-	};
-	this.getOp = function() {
-		return this._op;
-	};
-	this.getOld = function() {
-		return this._old;
-	};
-	this.getNew = function() {
-		return this._new;
-	};
-	this.setField = function(v) {
-		this._field = v;
-	};
-	this.setOp = function(v) {
-		this._op = v;
-	};
-	this.setOld = function(v) {
-		this._old = v;
-	};
-	this.setNew = function(v) {
-		this._new = v;
-	};
-	this.toString = function() {
-		var s = [this.CN];
-		s.push(" [field=");
-		s.push(this.getField().name);
-		s.push(", op=");
-		s.push(this.getOp());
-		s.push(", old=");
-		s.push(this.getOld());
-		s.push(", new=");
-		s.push(this.getNew());
-		s.push("]");
-		return s.join("");
-	};
 
 	// exit constructor
 	mb.log.exit();
+}
+
+try {
+	GcModeArtist.prototype = new GcMode;
+} catch (e) {
+	mb.log.error("GcModeArtist: Could not register GcMode prototype");
 }

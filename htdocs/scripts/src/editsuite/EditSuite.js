@@ -1,10 +1,6 @@
 /**
- * Class which provides Guess Case handler functions for all the
- * different fields and their permutations
- *   * artist
- *   * album
- *   * artist, track
- *   * artist, sortname
+ * Base class for the funcationality used on the editing
+ * pages of the MusicBrainz project.
  **/
 function EditSuite() {
 

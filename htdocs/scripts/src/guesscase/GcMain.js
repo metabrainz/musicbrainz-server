@@ -1,6 +1,6 @@
 /*----------------------------------------------------------------------------\
 |                              Musicbrainz.org                                |
-|                 Copyright (c) 2005 Stefan Kestenholz (g0llum)               |
+|                 Copyright (c) 2005 Stefan Kestenholz (keschte)              |
 |-----------------------------------------------------------------------------|
 | This software is provided "as is", without warranty of any kind, express or |
 | implied, including  but not limited  to the warranties of  merchantability, |
@@ -16,8 +16,8 @@
 | code are included. Requires  that the final product, software derivate from |
 | the original  source or any  software  utilizing a GPL  component, such  as |
 | this, is also licensed under the GPL license.                               |
-|-----------------------------------------------------------------------------|
-| 2005-11-10 | First version                                                  |
+|                                                                             |
+| $Id$
 \----------------------------------------------------------------------------*/
 
 /**
@@ -54,12 +54,13 @@ function GuessCase() {
 	this.re = {
 		// define commonly used RE's
 		SPACES_DOTS 	: /\s|\./i,
-		SERIES_NUMBER 	: /(\d|[ivx]+)/i
+		SERIES_NUMBER 	: /^(\d+|[ivx]+)$/i
 	}; // holder for the regular expressions
 
 	// list of possible modes, mode is initialised to English.
 	this.modes = new GcModes();
 	this.mode = this.modes.getDefaultMode(); // setup default mode.
+	this.artistmode = this.modes.getArtistMode(); // setup artist mode.	
 
 	// cookie keys
 	this.COOKIE_MODE = this.getModID()+".mode";
@@ -70,18 +71,20 @@ function GuessCase() {
 	this.CFG_UC_UPPERCASED = this.getModID()+".uc_uppercased";
 
 	this.CONFIG_LIST = [
-		new EsModuleConfig(this.CFG_AUTOFIX,
-						 false,
+
+		new EsModuleConfig(this.CFG_AUTOFIX, false,
 			 			 "Apply Guess Case after page loads",
-			 			 "The Guess Case function is automatically applied for all the fields in the form. You can press Undo All if you want to reverse the changes"),
-		new EsModuleConfig(this.CFG_UC_ROMANNUMERALS,
-						 true,
+			 			 "The Guess Case function is automatically applied for all the fields "
+			 			 + "in the form. You can press Undo All if you want to reverse the changes.")
+
+		, new EsModuleConfig(this.CFG_UC_ROMANNUMERALS, true,
 			 			 "Uppercase roman numerals",
-		 				 "Convert roman numerals i, ii, iii, iv etc. to uppercase."),
-		new EsModuleConfig(this.CFG_UC_UPPERCASED,
-						 true,
+		 				 "Convert roman numerals i, ii, iii, iv etc. to uppercase.")
+
+		, new EsModuleConfig(this.CFG_UC_UPPERCASED, true,
 			 			 "Keep uppercase words uppercased",
-		 				 "If a word is all uppercase characters, it is kept that way (Overrides normal behaviour)")
+		 				 "If a word is all uppercase characters, it is kept that way "
+		 				 +"(Overrides normal behaviour).")
 	];
 
 	// ----------------------------------------------------------------------------
@@ -166,8 +169,7 @@ function GuessCase() {
 		}
 		handler = gc.artistHandler;
 		mb.log.info('Input: $', is);
-		gc.useArtistMode();
-		
+
 		// we need to query the handler if the input string is
 		// a special case, fetch the correct format, if the
 		// returned case is indeed a special case.
@@ -177,9 +179,9 @@ function GuessCase() {
 			mb.log.info('Result after special case check: $', os);
 		} else {
 			// if it was not a special case, start Guessing
-			os = handler.process(is); 
+			os = handler.process(is);
 			mb.log.info('Result after guess: $', os);
-		}				
+		}
 		gc.restoreMode();
 		return mb.log.exit(os);
 	};
@@ -198,7 +200,6 @@ function GuessCase() {
 		}
 		handler = gc.artistHandler;
 		mb.log.info('Input: $', is);
-		gc.useArtistMode();
 
 		// we need to query the handler if the input string is
 		// a special case, fetch the correct format, if the
@@ -209,9 +210,9 @@ function GuessCase() {
 			mb.log.info('Result after special case check: $', os);
 		} else {
 			// if it was not a special case, start Guessing
-			os = handler.guessSortName(is); 
+			os = handler.guessSortName(is);
 			mb.log.info('Result after guess: $', os);
-		}		
+		}
 		gc.restoreMode();
 		return mb.log.exit(os);
 	};
@@ -231,7 +232,7 @@ function GuessCase() {
 		handler = gc.albumHandler;
 		mb.log.info('Input: $', is);
 		this.useSelectedMode(mode);
-		
+
 		// we need to query the handler if the input string is
 		// a special case, fetch the correct format, if the
 		// returned case is indeed a special case.
@@ -241,9 +242,9 @@ function GuessCase() {
 			mb.log.info('Result after special case check: $', os);
 		} else {
 			// if it was not a special case, start Guessing
-			os = handler.process(is); 
+			os = handler.process(is);
 			mb.log.info('Result after guess: $', os);
-		}				
+		}
 		return mb.log.exit(os);
 	};
 
@@ -259,10 +260,10 @@ function GuessCase() {
 		if (!gc.trackHandler) {
 			gc.trackHandler = new GcTrackHandler();
 		}
-		handler = gc.trackHandler;			
+		handler = gc.trackHandler;
 		mb.log.info('Input: $', is);
 		this.useSelectedMode(mode);
-		
+
 		// we need to query the handler if the input string is
 		// a special case, fetch the correct format, if the
 		// returned case is indeed a special case.
@@ -272,9 +273,9 @@ function GuessCase() {
 			mb.log.info('Result after special case check: $', os);
 		} else {
 			// if it was not a special case, start Guessing
-			os = handler.process(is); 
+			os = handler.process(is);
 			mb.log.info('Result after guess: $', os);
-		}		
+		}
 		return mb.log.exit(os);
 	};
 
@@ -299,15 +300,6 @@ function GuessCase() {
 	};
 
 	/**
-	 * Sets the temporary ArtistMode.
-	 **/
-	this.useArtistMode = function() {
-		mb.log.enter(this.GID, "useArtistMode");
-		this.setTemporaryMode(gc.modes.getArtistMode());
-		mb.log.exit();
-	};
-
-	/**
 	 * Handles the given parameter, or selects
 	// the current value from the DropDown.
 	 **/
@@ -318,19 +310,6 @@ function GuessCase() {
 				gc.modes.useModeFromUI(); // Get mode from dropdown
 			}
 		}
-	};
-
-	/**
-	 * Stores the current mode into the member variable
-	 **/
-	this.setTemporaryMode = function(mode) {
-		mb.log.enter(this.GID, "setTemporaryMode");
-		if (mode instanceof GcMode) {
-			this.oldmode = this.mode;
-			this.mode = mode;
-			mb.log.debug("Stored mode: $, new: $", this.oldmode.getID(), this.mode.getID());
-		}
-		mb.log.exit();
 	};
 
 	/**
