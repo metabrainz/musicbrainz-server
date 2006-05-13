@@ -1,7 +1,9 @@
 %# vi: set ts=4 sw=4 ft=mason tw=0 :
 
 <div class="sidemenu">
-	<a title="Login to your account" href="/login.html">Login</a>
-	<a title="Register a new account" href="/user/register.html">Create account</a>
-	<a title="Retrieve a lost password" href="/user/forgot-password.html">Forgot Password</a>
+<ul>
+	<li><a title="Login to your account" href="/login.html">Login</a></li>
+	<li><a title="Register a new account" href="/user/register.html">Create account</a></li>
+	<li><a title="Retrieve a lost password" href="/user/forgot-password.html">Forgot Password</a></li>
+</ul>
 </div>

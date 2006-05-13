@@ -1,21 +1,23 @@
 %# vi: set ts=4 sw=4 ft=mason tw=0 :
 
 <div class="sidemenu">
-	<a href="/user/view.html">Profile</a>
-	<a href="/logout.html">Logout</a>
-	<a href="/prefs.html">Preferences</a>
+<ul>
+	<li><a href="/user/view.html">Profile</a></li>
+	<li><a href="/logout.html">Logout</a></li>
+	<li><a href="/prefs.html">Preferences</a></li>
 %	if (UserPreference::get('navbar_mod_show_select_page')) {
-	<a href="/mod/search/select-filter.html">Moderate/Vote</a>
-%    } else {
-	<a href="/mod/search/pre/new.html">Moderate/Vote</a>
+	<a href="/mod/search/select-filter.html">Vote on Edits</a>
+%	} else {
+	<li><a href="/mod/search/pre/new.html">Vote on Edits</a></li>
 %	}
 %	if (UserStuff->IsLinkModerator($session{privs})) {
-	<a href="/edit/relationships/link_type_roots.html">Edit Rel. Types</a>
+	<li><a href="/edit/relationships/link_type_roots.html">Edit Rel. Types</a></li>
 %	}
 %	if (UserStuff->IsWikiTranscluder($session{privs})) {
-	<a href="/edit/wikitransclusion/transclusion.html">Transclude Docs</a>
+	<li><a href="/edit/wikitransclusion/transclusion.html">Transclude Docs</a></li>
 %	}
 %	if (&DBDefs::DB_STAGING_SERVER) {
-	<a href="/user/debug.html">Debug</a>
+	<li><a href="/user/debug.html">Debug</a></li>
 %	}
+</ul>
 </div>

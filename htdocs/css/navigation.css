@@ -56,7 +56,7 @@ td.modpending {
 }
 .sidemenu a,
 .sidemenu a:visited {
-	display: block;
+/*	display: block; this needs to be removed so that IE displays it properly */
 	padding-left: 6px;
 	font-weight: normal;
 	border: 0px;
@@ -73,6 +73,11 @@ td.modpending {
 	margin: 0px; font-size: 11px;
 }
 
+.sidemenu ul {
+	list-style-type: none;
+	margin: 0;
+	padding: 0;
+}
 
 /* ********************************************** */
 /* ********************************************** */

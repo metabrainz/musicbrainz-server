@@ -1,4 +1,4 @@
-%# vi: set ts=2 sw=2 ft=mason :
+%# vi: set ts=4 sw=4 ft=mason :
 <%init>
 	return if $m->cache_self(
 		busy_lock		=> "1min",
@@ -10,19 +10,20 @@
 	<table class="sidemenustats">
 
 <%perl>
-    my $mb = $m->comp("/comp/dblogin", quiet => 1);
+	my $mb = $m->comp("/comp/dblogin", quiet => 1);
 	my $stat = Statistic->new($mb->{DBH});
 	my %stats = %{ $stat->FetchAllAsHashRef };
 
 	for (
 		[ "Artists", $stats{'count.artist'} ],
-		[ "Albums", $stats{'count.album'} ],
+		[ "Releases", $stats{'count.album'} ],
 		[ "Tracks", $stats{'count.track'} ],
 		[ "Links", $stats{'count.ar.links'} ],
 		[ "Disc IDs", $stats{'count.discid'} ],
+		[ "PUID IDs", $stats{'count.puid'} ],
 		[ "TRM IDs", $stats{'count.trm'} ],
-		[ "Mods", $stats{'count.moderation'} ],
-		[ "Users", $stats{'count.moderator'} ],
+		[ "Edits", $stats{'count.moderation'} ],
+		[ "Editors", $stats{'count.moderator'} ],
 	) {
 		my ($title, $count) = @$_;
 </%perl>
@@ -40,4 +41,3 @@
 	</div>
 </div>
 
-%# vi: set ts=2 sw=2 ft=mason :
