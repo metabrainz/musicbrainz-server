@@ -1,20 +1,53 @@
-%# vi: set ts=4 sw=4 ft=mason :
+<%perl>
+	# -----------------------------------------------------------------------------
+	#                               Musicbrainz.org
+	#                        Copyright (c) 2001 Robert Kaye
+	# -----------------------------------------------------------------------------
+	#  This software is provided "as is", without warranty of any kind, express or
+	#  implied, including  but not limited  to the warranties of  merchantability,
+	#  fitness for a particular purpose and noninfringement. In no event shall the
+	#  authors or  copyright  holders be  liable for any claim,  damages or  other
+	#  liability, whether  in an  action of  contract, tort  or otherwise, arising
+	#  from,  out of  or in  connection with  the software or  the  use  or  other
+	#  dealings in the software.
+	#
+	#  GPL - The GNU General Public License    http://www.gnu.org/licenses/gpl.txt
+	#  Permits anyone the right to use and modify the software without limitations
+	#  as long as proper  credits are given  and the original  and modified source
+	#  code are included. Requires  that the final product, software derivate from
+	#  the original  source or any  software  utilizing a GPL  component, such  as
+	#  this, is also licensed under the GPL license.
+	# -----------------------------------------------------------------------------
+	#
+	# Summary:
+	# -----------------------------------------------------------------------------
+	# This component renders the sidebar element with the search boxes.
+	#
+	# $Id$
+	#
+</%perl>
+
 	<div class="sidemenu">
 		<table class="sidemenusearch">
 			<tr>
-				<td style="width:40px">
-					<label for="qsArtist_text" title="Search for an artist">Artist</label></td>
+				<td style="width: 40px">
+					<label for="id_qs_artist" title="Search for an artist">Artist</label></td>
 				<td>
 					<form method="get" action="/search/textsearch.html">
-% # in xhtml-strict, <input> elements need to be contained in a block-level
-% # element, thus the <div> is needed inside the <form>
+
+% 	# in xhtml-strict, <input> elements need to be contained in a block-level
+% 	# element, thus the <div> is needed inside the <form>
 						<div>
-							<input class="searchfield" type="text" name="query" id="qsArtist_text" value=""
-% # What is the official position on forms with no submit button?
-% # Normally they're OK, and you can press "return" and the form is submitted.
-% # Can we rely on this, always?
-% # Anyway within the Tagger this fails, so we detect "return" ourselves.
-% if ($session{mbt}) { $m->out(qq!onKeyDown="if (event.keyCode==13) this.form.submit()"!); }
+							<input class="searchfield" type="text" name="query" id="id_qs_artist" value=""
+
+% 	# What is the official position on forms with no submit button?
+% 	# Normally they're OK, and you can press "return" and the form is submitted.
+% 	# Can we rely on this, always?
+% 	# Anyway within the Tagger this fails, so we detect "return" ourselves.
+% 	if ($session{mbt})
+%	{
+%		$m->out(qq!onkeydown="if (event.keyCode==13) this.form.submit()"!);
+%	}
 							/>
 							<input type="hidden" name="type" value="artist" />
 						</div>
@@ -22,12 +55,15 @@
 			</tr>
 			<tr>
 				<td>
-					<label for="qsAlbum_text" title="Search for an album">Album</label></td>
+					<label for="id_qs_release" title="Search for a release">Release</label></td>
 				<td>
 					<form method="get" action="/search/textsearch.html">
 						<div>
-							<input class="searchfield" type="text" name="query" id="qsAlbum_text" value=""
-% if ($session{mbt}) { $m->out(qq!onKeyDown="if (event.keyCode==13) this.form.submit()"!); }
+							<input class="searchfield" type="text" name="query" id="id_qs_release" value=""
+% 	if ($session{mbt})
+%	{
+%		$m->out(qq!onkeydown="if (event.keyCode==13) this.form.submit()"!);
+%	}
 							/>
 							<input type="hidden" name="type" value="release" />
 						</div>
@@ -35,36 +71,43 @@
 			</tr>
 			<tr>
 				<td>
-					<label for="qsTrack_text" title="Search for a track">Track</label></td>
+					<label for="id_qs_track" title="Search for a track">Track</label></td>
 				<td>
 					<form method="get" action="/search/textsearch.html">
 						<div>
-							<input class="searchfield" type="text" name="query" id="qsTrack_text" value=""
-% if ($session{mbt}) { $m->out(qq!onKeyDown="if (event.keyCode==13) this.form.submit()"!); }
-						/>
+							<input class="searchfield" type="text" name="query" id="id_qs_track" value=""
+% 	if ($session{mbt})
+%	{
+%		$m->out(qq!onkeydown="if (event.keyCode==13) this.form.submit()"!);
+%	}
+							/>
 							<input type="hidden" name="type" value="track" />
 						</div>
 					</form></td>
 			</tr>
 			<tr>
 				<td>
-					<label for="qsEditor_text" title="Search for an MusicBrainz editor">Editor</label></td>
+					<label for="id_qs_editor" title="Search for an MusicBrainz editor">Editor</label></td>
 				<td>
-					<form method="get" action="/user/view.html">
+					<form method="get" action="/show/user/">
 						<div>
-							<input class="searchfield" type="text" name="modname" id="qsEditor_text" value=""
-% if ($session{mbt}) { $m->out(qq!onKeyDown="if (event.keyCode==13) this.form.submit()"!); }
+							<input class="searchfield" type="text" name="username" id="id_qs_editor" value=""
+% 	if ($session{mbt})
+%	{
+%		$m->out(qq!onkeydown="if (event.keyCode==13) this.form.submit()"!);
+%	}
 							/>
 						</div>
 					</form></td>
 			</tr>
 		</table>
-		
+
 		<div class="morelink">
 			<a href="/search.html">more &raquo;</a>
 		</div>
 		<div class="morelink">
-			<a href="/search/oldsearch.html">old search &raquo;</a>    
+			<a href="/search/oldsearch.html">old search &raquo;</a>
 		</div>
 	</div>
-	
+
+%# vi: set ts=4 sw=4 ft=mason :

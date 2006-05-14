@@ -1,10 +1,39 @@
-%# vi: set ts=4 sw=4 ft=mason tw=0 :
+<%perl>
+	# -----------------------------------------------------------------------------
+	#                               Musicbrainz.org
+	#                        Copyright (c) 2001 Robert Kaye
+	# -----------------------------------------------------------------------------
+	#  This software is provided "as is", without warranty of any kind, express or
+	#  implied, including  but not limited  to the warranties of  merchantability,
+	#  fitness for a particular purpose and noninfringement. In no event shall the
+	#  authors or  copyright  holders be  liable for any claim,  damages or  other
+	#  liability, whether  in an  action of  contract, tort  or otherwise, arising
+	#  from,  out of  or in  connection with  the software or  the  use  or  other
+	#  dealings in the software.
+	#
+	#  GPL - The GNU General Public License    http://www.gnu.org/licenses/gpl.txt
+	#  Permits anyone the right to use and modify the software without limitations
+	#  as long as proper  credits are given  and the original  and modified source
+	#  code are included. Requires  that the final product, software derivate from
+	#  the original  source or any  software  utilizing a GPL  component, such  as
+	#  this, is also licensed under the GPL license.
+	# -----------------------------------------------------------------------------
+	#
+	# Summary:
+	# -----------------------------------------------------------------------------
+	# Prepare the menu structure for the MusicBrainz site.
+	#
+	# $Id$
+	#
+</%perl>
 <%args>
+
 	$uri => $r->uri
 	$args => $r->args
-</%args>
 
+</%args>
 <%once>
+
 	use vars qw( @topmenu_tree %urlmap %urlmap2 );
 	use Scalar::Util qw( reftype weaken );
 
@@ -226,6 +255,7 @@
 			# edit mods
 			{ url => "/edit/album/editattributes.html" },
 			{ url => "/edit/album/edit.html" },
+			{ url => "/edit/album/editall.html" },
 			{ url => "/edit/artist/edit.html" },
 			{ url => "/edit/artistalias/edit.html" },
 			{ url => "/edit/track/edit.html" },
@@ -356,12 +386,14 @@
 		}
 	};
 	&$transform(\@topmenu_tree, \(my $tmp = 0));
+
 </%once>
 
 
 
 <%def .drawmainmenu>
 <%perl>
+
 	# draw the main menu buttons.
 	# - javascript support
 	# - static menu for browsers with disabled javascript
@@ -426,6 +458,7 @@
 	$m->out($noscriptmenu);
 	$m->out(qq!</table>\n!);
 	$m->out(qq!</noscript>\n!);
+
 </%perl>
 </%def>
 
@@ -433,6 +466,7 @@
 
 <%def .drawsubmenus>
 <%perl>
+
 	my ($rarhMenu) = @_;
 
 	for my $rhItem (@$rarhMenu)
@@ -476,11 +510,13 @@
 			$m->out("</div>\n");
 		}
 	}
+
 </%perl>
 </%def>
 
 <%def .drawstatic>
 <%perl>
+
 	(my $top) = grep { $_->{'expand'} } @topmenu_tree;
 	$top or return;
 
@@ -518,12 +554,14 @@
 			);
 		}
 	}
+
 </%perl>
 </%def>
 
 
 
 <%perl>
+
 	# Work out which items are "selected"
 	my @sel;
 	{
@@ -561,4 +599,7 @@
 
 	# De-select selected things
 	delete $_->{expand} for @sel;
+
 </%perl>
+
+%# vi: set ts=4 sw=4 ft=mason :

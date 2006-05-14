@@ -100,20 +100,24 @@ td.modpending {
 	color: #000;
 	background-color: #eee;
 	border: 1px inset;
-	width: 75px;
+	width: 63px;
 	font-size: 12px;
 	padding: 1pt;
 }
 
-.morelink a,
-.morelink a:visited,
-.morelink a:active
+div.morelink {
+	text-align: right;
+	padding-right: 3px;
+}
+div.morelink a,
+div.morelink a:visited,
+div.morelink a:active
 {
 	font-size: 10px; color: #000; 
-	text-align: right; padding-right: 2px;
+	padding-right: 2px;
 	white-space: nowrap;
 }
-.morelink a:hover {
+div.morelink a:hover {
 	text-decoration: underline;
 }
 
