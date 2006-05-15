@@ -1,104 +1,231 @@
-%# vi: set ts=2 sw=2 ft=mason :
+<%perl>
+	# -----------------------------------------------------------------------------
+	#                               Musicbrainz.org
+	#                        Copyright (c) 2001 Robert Kaye
+	# -----------------------------------------------------------------------------
+	#  This software is provided "as is", without warranty of any kind, express or
+	#  implied, including  but not limited  to the warranties of  merchantability,
+	#  fitness for a particular purpose and noninfringement. In no event shall the
+	#  authors or  copyright  holders be  liable for any claim,  damages or  other
+	#  liability, whether  in an  action of  contract, tort  or otherwise, arising
+	#  from,  out of  or in  connection with  the software or  the  use  or  other
+	#  dealings in the software.
+	#
+	#  GPL - The GNU General Public License    http://www.gnu.org/licenses/gpl.txt
+	#  Permits anyone the right to use and modify the software without limitations
+	#  as long as proper  credits are given  and the original  and modified source
+	#  code are included. Requires  that the final product, software derivate from
+	#  the original  source or any  software  utilizing a GPL  component, such  as
+	#  this, is also licensed under the GPL license.
+	# -----------------------------------------------------------------------------
+	#
+	# Summary:
+	# -----------------------------------------------------------------------------
+	# The editor to rule them all.
+	#
+	# $Id$
+	#
+</%perl>
 <%args>
-	$mbid => ""
-	$albumid => ""
 
-	$releaseid => undef
+	$mbid => ""
+	$releaseid => ""
+
 </%args>
 <%perl>
 
-	$releaseid ||= $albumid;
+	# only loggen in users can see this page
+	$m->comp("/comp/checkloggedin", 1, 1)
+		or return;
 
-# needs to be logged in for this
-$m->comp("/comp/checkloggedin", 1, 1)
-	or return;
+	# check if a valid mbid/releaseid was given.
+	if ($mbid ne "") {
+		MusicBrainz::IsGUID($mbid)
+			or return $m->comp("/comp/badargs", 1, 1);
+	} else {
+		MusicBrainz::IsNonNegInteger($releaseid) && $releaseid
+			or return $m->comp("/comp/badargs", 1, 1);
+	}
 
-# check if a valid mbid/releaseid was given.
-if ($mbid ne "") {
-	MusicBrainz::IsGUID($mbid)
-		or return $m->comp("/comp/badargs", 1, 1);
-} else {
-	MusicBrainz::IsNonNegInteger($releaseid) && $releaseid
-		or return $m->comp("/comp/badargs", 1, 1);
-}
+	# load musicbrainz object, and make it available in the ARGS hash.
+	my $mb = $m->comp("/comp/dblogin");
+	$ARGS{"mb"} = $mb;
 
-# load album from database
-my $mb = $m->comp("/comp/dblogin");
-my $album = Album->new($mb->{DBH});
-if ($mbid ne "") {
-	$album->SetMBId($mbid);
-} else {
-	$album->SetId($releaseid);
-}
-$album->LoadFromId(1)
-	or return $m->comp(
-		"/comp/error",
-		"Album #".$album->GetId." not found in the database.",
-		1, 1,
-	);
+	# initialise the submit buttons, and un-muddle the "submitvalue"
+	# argument if there are more than one.
+	%ARGS = $m->comp("/comp/release_editor/init-formstate", %ARGS);
+	$ARGS{"v::action"} = "/edit/album/editall.html";
+	$ARGS{"v::checkedsimilar"} = 1; # no need to check for duplicates, we're editing a release.
+	$ARGS{"v::checkedartists"} = 1; # true by default.
+	$ARGS{"v::isva"} = ($ARGS{"artistid"} == &ModDefs::VARTIST_ID ? 1 : 0);
 
-# disallow editing the NAT-album
-$album->IsNonAlbumTracks
-	and return $m->comp(
-		"/comp/error",
-		"The 'Edit Album' feature cannot edit '".&Album::NONALBUMTRACKS_NAME."'",
-		1, 1,
-	);
+	# LOAD ORIGINAL VALUES
+	# ---------------------------------------------------------------
+	# load all values from the database and store them into the
+	# ARGS hash.
+	%ARGS = $m->comp("/comp/release_editor/init-editall", %ARGS);
+	$m->comp("/comp/error", $ARGS{"init-editall-error"}, 1,1)
+		if ($ARGS{"init-editall-error"});
 
-# load album artist from database
-my $artist = Artist->new($mb->{DBH});
-$artist->SetId($album->GetArtist);
-$artist->LoadFromId
-	or return $m->comp(
-		"/comp/error",
-		"Artist does not exist",
-		1, 1,
-	);
+	# Handle CANCEL button
+	# ---------------------------------------------------------------
+	# the user has pressed "Cancel". if we have an releaseid, redirect
+	# to the release page, else to the homepage.
+	if ($ARGS{"submitvalue"} eq $ARGS{"SUBMIT_CANCEL"})
+	{
+		my $url = ($releaseid ne ""
+			? "/show/release/?releaseid=".$releaseid
+			: "/index.html"
+		);
+		return $m->comp("/comp/redirect", $url);
+	}
 
-# load tracks, and add into @t list.
-my @t = $album->LoadTracks;
-@t = map {
-	+{
-		id					=> $_->GetId,
-		name				=> $_->GetName,
-		artist			=> $_->GetArtist,
-		artist_name	=> $_->GetArtistName,
-		seq					=> $_->GetSequence,
-		length			=> $_->GetLength,
-		orig_name		=> $_->GetName,
-		orig_seq		=> $_->GetSequence,
-		orig_length	=> $_->GetLength,
-	},
-} @t;
+	# Handle START OVER button
+	# ---------------------------------------------------------------
+	# the user has pressed "Cancel". if we have an releaseid, redirect
+	# to the release page, else to the homepage.
+	if ($ARGS{"submitvalue"} eq $ARGS{"SUBMIT_STARTOVER"})
+	{
+		return $m->comp("/comp/redirect", "/edit/album/editall.html?releaseid=".$releaseid);
+	}
 
-# load releasetype, status
-my ($type, $status) = $album->GetReleaseTypeAndStatus;
+	# START PAGE CONTENT
+	# ---------------------------------------------------------------
+	my $title = "Edit Release".($ARGS{"v::isva"} ? " (Various Artists)" : "");
+	$m->comp("/comp/sidebar-notitle", pagetitle => $title);
 
-# compile information into session variable.
-my %edit = (
-	id					=> $album->GetId,
-	name				=> $album->GetName,
-	type				=> $type,
-	status			=> $status,
-	orig_name		=> $album->GetName,
-	orig_type		=> $type,
-	orig_status	=> $status,
-	artist			=> {
-		id				=> $artist->GetId,
-		name			=> $artist->GetName,
-		sortname	=> $artist->GetName,
-	},
-	tracks			=> \@t,
-	can_add_remove 	=> ($album->CanAddTrack or $album->CanRemoveTrack),
-	is_various		=> ($album->HasMultipleTrackArtists),
-);
 
-$session{editalbum} = \%edit;
+	# HANDLE SUBMIT
+	# ---------------------------------------------------------------
+	if ($ARGS{"v::formsubmitted"})
+	{
+		MusicBrainz::IsNonNegInteger($ARGS{"hasmultipletrackartists"})
+			or die("missing or wrong parameter: \$hasmultipletrackartists=$ARGS{'hasmultipletrackartists'}\n");
+		MusicBrainz::IsNonNegInteger($ARGS{"tracks"})
+			or die("missing or wrong parameter: \$tracks=$ARGS{'tracks'}\n");
 
-# forward to form
-return $m->comp(
-	"/comp/redirect",
-	"/edit/album/sae-edittracks.html?releaseid=" . $album->GetId
-);
+		# we always need to check the releases, because else we don't know how
+		# many releases we need to display
+		%ARGS = $m->comp("/comp/release_editor/check-releases", %ARGS);
+
+		# check if the user clicked on Enable/Disable track artists button
+		%ARGS = $m->comp("/comp/release_editor/convert-toggle-trackartists", %ARGS);
+
+		# if the user has chosen to add a new artist, show
+		# the "Add Artist" form.
+		if ($ARGS{"v::showform"}
+			and $ARGS{"v::validate"}
+			and $ARGS{"submitvalue"} eq $ARGS{"SUBMIT_ADDARTIST"})
+		{
+	 		%ARGS = $m->comp("/comp/release_editor/form-addartist", %ARGS);
+		}
+
+		# if the user has checked the release artist checkbox, present
+		# the interface for the "move release" operation.
+		if ($ARGS{"v::showform"}
+			and $ARGS{"v::validate"}
+			and $ARGS{"artist_edit"})
+		{
+			%ARGS = $m->comp("/comp/release_editor/convert-moverelease", %ARGS);
+		}
+
+		# convert the current listing to various artists
+		if ($ARGS{"v::showform"}
+			and $ARGS{"v::validate"}
+			and $ARGS{"submitvalue"} eq $ARGS{"SUBMIT_TOMAC"})
+		{
+			%ARGS = $m->comp("/comp/release_editor/convert-tomac", %ARGS);
+		}
+		if ($ARGS{"v::showform"}
+			and $ARGS{"v::validate"})
+		{
+			# convert the current listing to single artist
+			if (($ARGS{"artistid"} == 0 and defined $ARGS{"sacartist"}) or
+				($ARGS{"submitvalue"} eq $ARGS{"SUBMIT_TOSAC"}) or
+				($ARGS{"submitvalue"} eq $ARGS{"SUBMIT_SACSEARCH"}))
+			{
+				my $prev = $ARGS{"artistid"};
+				%ARGS = $m->comp("/comp/release_editor/convert-tosac", %ARGS);
+				if ($ARGS{"artistid"} != $prev)
+				{
+					$ARGS{"v::isva"} = ($ARGS{"artistid"} == &ModDefs::VARTIST_ID ? 1 : 0);
+					my $title = "Add Release".($ARGS{"v::isva"} ? " (Various Artists)" : "");
+					$m->comp("/comp/sidebar", title => $title);
+				}
+			}
+		}
+
+		# if the above operations did not unset the validation
+		# flag, do the validation.
+		if ($ARGS{"v::validate"})
+		{
+			# check if all the fields have a value set.
+			%ARGS = $m->comp("/comp/release_editor/check-fields", %ARGS);
+
+			# check if all the release language has been set
+			%ARGS = $m->comp("/comp/release_editor/check-language-and-script", %ARGS);
+
+			# check if all the release attributes have been set
+			%ARGS = $m->comp("/comp/release_editor/check-attributes", %ARGS);
+
+			# if no fields are missing
+			if (not keys %{$ARGS{"v::fields"}} and
+				$ARGS{"hasmultipletrackartists"} and
+				(($ARGS{"submitvalue"} eq $ARGS{"SUBMIT_NEXT"}) or
+				 ($ARGS{"submitvalue"} eq $ARGS{"SUBMIT_ARTISTSEARCH"}) or
+				 ($ARGS{"submitvalue"} eq $ARGS{"SUBMIT_ARTISTSELECT"})))
+			{
+				%ARGS = $m->comp("/comp/release_editor/check-artists", %ARGS);
+			}
+
+			#$m->comp("/comp/release_editor/dump-arguments", %ARGS);
+			#return;
+
+
+			# checks if the user tries to enter a multiple artists as
+			# a single artist release, and vice-versa.
+			# this check is ignored if the force_macsac flag has been set.
+			%ARGS = $m->comp("/comp/release_editor/check-macsac", %ARGS);
+
+			# show page depending on editor state.
+			# -- v::fields == 0 => all field not empty
+			# -- v::attributes == 0 => all attributes not empty
+			# -- v::releases == 1 => no invalid date/country found.
+			if (keys %{$ARGS{"v::fields"}} == 0 and
+				keys %{$ARGS{"v::attributes"}} == 0 and
+				keys %{$ARGS{"v::language"}} == 0 and
+				keys %{$ARGS{"v::releases"}} == 1)
+			{
+
+				if ($ARGS{"submitvalue"} eq $ARGS{"SUBMIT_NEXT"} and
+					$ARGS{"v::checkedmacsac"} &&
+					$ARGS{"v::checkedsimilar"} &&
+					$ARGS{"v::checkedartists"})
+				{
+					$m->comp("/comp/release_editor/review", %ARGS);
+					$ARGS{"v::showform"} = 0;
+				}
+
+				if ($ARGS{"submitvalue"} eq $ARGS{"SUBMIT_ENTERMODERATIONS"})
+				{
+					$m->comp("/comp/release_editor/entermoderations-edit", %ARGS);
+					$ARGS{"v::showform"} = 0;
+				}
+			}
+		}
+	}
+
+	# show the editing form
+	if ($ARGS{"v::showform"}) {
+		$m->comp("/comp/release_editor/form", %ARGS);
+	}
+
+	# dump the page arguments
+	$m->comp("/comp/release_editor/dump-arguments", %ARGS);
+
+	# end page.
+	$m->comp("/comp/footer");
 
 </%perl>
+
+%# vi: set ts=4 sw=4 ft=mason :
